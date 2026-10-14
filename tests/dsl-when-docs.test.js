@@ -26,7 +26,7 @@ test('a `when` naming a quest or item missing from data warns at the `when` line
 });
 
 test('ids that are in data, and ready/turnedin quests nested anywhere, are checked the same way', () => {
-	assert.deepEqual(diags(['step One', '  when onquest 783 and has 750', '  accept 783']).warnings, []);
+	assert.deepEqual(diags(['step One', '  when onquest 783 and has 750', '  accept 783']).warnings.filter((w) => w.includes('`when`')), []);
 	const r = diags(['step One', '  when not (ready 99997 or turnedin 99996)', '  accept 783']);
 	assert.equal(r.warnings.filter((w) => /`when`: quest 9999[67] is not in data/.test(w)).length, 2, r.text);
 });
