@@ -23,7 +23,7 @@ const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'cla
 const STEP_KEYS = ['zone', 'only', 'tip'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
-const COMMON = ['text', 'optional', 'only', 'group'];
+const COMMON = ['text', 'optional', 'only', 'group', 'doneitem'];
 // `frame` = the `era` / `live` modifiers: which map frame explicit coordinates are in.
 const COORDS = ['at', 'map', 'r', 'frame'];
 const MODS = {
@@ -55,7 +55,7 @@ const MODS = {
 };
 const VERBS = Object.keys(MODS);
 const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]' };
-const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'reward', 'choose', 'xp', 'money', 'group'];
+const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'reward', 'choose', 'xp', 'money', 'group', 'doneitem'];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN = 2;
 const GROUP_MAX = 40;
@@ -708,6 +708,14 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 				const v = intArg(i + 1, 'map id');
 				if (v === null) return null;
 				goal.coordMap = v;
+				i += 2;
+				continue;
+			}
+			case 'doneitem': {
+				if (!use(word)) return null;
+				const v = intArg(i + 1, 'item id');
+				if (v === null) return null;
+				goal.doneItem = v;
 				i += 2;
 				continue;
 			}

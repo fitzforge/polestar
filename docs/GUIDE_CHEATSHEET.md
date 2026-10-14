@@ -143,6 +143,7 @@ is a Dwarf who is a Warrior or a Paladin.
 |---|---|---|
 | `optional` | After a goal: the step can be finished without it | `kill 299 optional` |
 | `group [N]` | After a goal: it needs a group (of N players, 2-40); the guide window says so. Elites, dungeon and raid quests are found from the data without it | `kill 299 group 3` |
+| `doneitem <itemId>` | Goal is satisfied by owning this explicit end reward in bags or the personal bank | `accept 7 doneitem 5175` |
 
 ## Handing over with `next`
 

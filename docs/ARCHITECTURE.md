@@ -379,6 +379,8 @@ Polestar.RegisterGuide({
 
 Goal fields. Common: `t` (verb), `text` (display override), `note`,
 `optional` (true = never blocks the step), `only` (same shape as step `only`),
+`doneItem` (positive item ID: owning this authored end reward in bags or the
+personal bank also satisfies the goal, without adding a completed quest flag),
 `map`, `x`, `y` (0–100), `f` (`"e"` = Era frame, absent = live), `r` (arrival
 radius in yards), `group` (group content, below). A goal placed at an NPC or
 object that spawns at several

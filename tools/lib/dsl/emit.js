@@ -14,7 +14,7 @@ const GOAL_KEYS = [
 	't', 'class', 'spell', 'spellName', 'faction', 'factionName', 'standing', 'achievement', 'achievementName', 'criteria',
 	'quest', 'title', 'target', 'npc', 'npcName', 'object', 'objName', 'item', 'itemName', 'count', 'oi', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'untilSkill',
 	'reagents', 'location', 'minLevel', 'qlvl', 'pre', 'preAll', 'closedBy', 'preTitles', 'text', 'map', 'x', 'y', 'f', 'r', 'spots', 'spread', 'optional', 'only', 'note',
-	'from', 'fromKind', 'fromRank', 'fromFaction', 'candidates', 'rewards', 'group',
+	'from', 'fromKind', 'fromRank', 'fromFaction', 'candidates', 'rewards', 'group', 'doneItem',
 ];
 const REAGENT_KEYS = ['item', 'itemName', 'count'];
 const CANDIDATE_KEYS = ['npc', 'npcName', 'map', 'x', 'y', 'f', 'faction', 'races', 'classes', 'lvl', 'rate', 'spawns'];
