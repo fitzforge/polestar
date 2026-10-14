@@ -328,6 +328,40 @@ function onlyOf(c) {
 	return Object.keys(o).length ? o : undefined;
 }
 
+// A parsed `when` predicate with its profession/faction names resolved to ids
+// (a new AST; the parsed one is not mutated). Returns null when a name is
+// unknown; every unknown name is reported through `report`.
+function resolvePredicate(node, data, report) {
+	if (Array.isArray(node) && (node[0] === 'skill' || node[0] === 'rep') && typeof node[1] === 'string') {
+		if (node[0] === 'skill') {
+			const p = data.professionNamed(node[1]);
+			if (!p) {
+				report(`unknown profession "${node[1]}"`);
+				return null;
+			}
+			return ['skill', p.id, node[2], node[3]];
+		}
+		const f = data.factionNamed(node[1]);
+		if (!f) {
+			report(`unknown faction "${node[1]}"`);
+			return null;
+		}
+		return ['rep', f.faction.id, node[2], node[3]];
+	}
+	if (Array.isArray(node) && (node[0] === 'all' || node[0] === 'any' || node[0] === 'not')) {
+		const out = [node[0]];
+		let failed = false;
+		for (let i = 1; i < node.length; i++) {
+			const child = resolvePredicate(node[i], data, report);
+			if (child === null) failed = true;
+			else out.push(child);
+		}
+		return failed ? null : out;
+	}
+	if (Array.isArray(node)) return node.map((x) => (Array.isArray(x) ? x.slice() : x));
+	return node;
+}
+
 function resolveGuide(ast, data, diag, opts = {}) {
 	const file = ast.file;
 	const err = (ln, msg, hint) => diag.error(file, ln, msg, hint);
@@ -450,6 +484,10 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		setIf(step, 'title', s.title);
 		setIf(step, 'note', s.tip);
 		setIf(step, 'only', onlyOf(s.only));
+		if (s.when) {
+			const w = resolvePredicate(s.when, data, (msg) => err(s.whenLine, msg));
+			if (w) step.when = w;
+		}
 		step.goals = [];
 		hidden(step, '_line', s.line);
 		hidden(step, '_only', s.only);

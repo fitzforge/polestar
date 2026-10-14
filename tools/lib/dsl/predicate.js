@@ -98,6 +98,7 @@ function parseAtom(s) {
 	if (!tok) fail('expected a condition');
 	if (tok.quoted) fail(`expected a condition, got the quoted "${tok.text}"`);
 	const w = word(tok);
+	if (tok.text === ')') fail('expected a condition before ")"');
 	if (!ATOM_KEYWORDS.has(w)) return parseCharacterList(s); // not a keyword: a Warrior/Dwarf/Alliance list
 	s.i++;
 	switch (w) {
