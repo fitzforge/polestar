@@ -134,13 +134,13 @@ test('a pack of a format the core does not read is refused whole with the versio
 		local g2 = guide("joe/b", "joe")
 		local r = G.Pack("joe")
 		emit({ p = p[1], g = g1[1] or g2[1], status = r.status, needs = r.needs, problems = messages(r), got = G.Get("joe/a") ~= nil })
-	`, 'stub.addonMeta.JoeAddon = { ["X-Polestar-Needs"] = "0.3.0" }');
+	`, 'stub.addonMeta.JoeAddon = { ["X-Polestar-Needs"] = "0.4.0" }');
 	assert.equal(out.p, false);
 	assert.equal(out.g, false);
 	assert.equal(out.status, 'too-new');
-	assert.equal(out.needs, '0.3.0');
+	assert.equal(out.needs, '0.4.0');
 	assert.equal(out.problems.length, 1);
-	assert.match(out.problems[0], /0\.3\.0/);
+	assert.match(out.problems[0], /0\.4\.0/);
 	assert.equal(out.got, false);
 });
 
