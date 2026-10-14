@@ -362,6 +362,38 @@ function resolvePredicate(node, data, report) {
 	return node;
 }
 
+// Warn for quest and item ids a `when` names that are not in the reference
+// data, like goal ids are (docs/GUIDE_FORMAT.md, "Validation"). Each distinct
+// id is warned once per `when` line.
+function checkPredicateIds(node, data, report) {
+	const haveItems = Object.keys(data.items || {}).length > 0;
+	const seen = new Set();
+	const walk = (n) => {
+		if (!Array.isArray(n)) return;
+		const kind = n[0];
+		if (kind === 'onquest' || kind === 'ready' || kind === 'turnedin') {
+			const q = n[1];
+			if (!seen.has(`quest ${q}`)) {
+				seen.add(`quest ${q}`);
+				if (!data.quest(q)) report(`\`when\`: quest ${q} is not in data (new Forever content?)`);
+			}
+			return;
+		}
+		if (kind === 'item') {
+			const i = n[1];
+			if (haveItems && !seen.has(`item ${i}`)) {
+				seen.add(`item ${i}`);
+				if (!data.item(i)) report(`\`when\`: item ${i} is not in data (new Forever content?)`);
+			}
+			return;
+		}
+		if (kind === 'all' || kind === 'any' || kind === 'not') {
+			for (let i = 1; i < n.length; i++) walk(n[i]);
+		}
+	};
+	walk(node);
+}
+
 function resolveGuide(ast, data, diag, opts = {}) {
 	const file = ast.file;
 	const err = (ln, msg, hint) => diag.error(file, ln, msg, hint);
@@ -486,7 +518,10 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		setIf(step, 'only', onlyOf(s.only));
 		if (s.when) {
 			const w = resolvePredicate(s.when, data, (msg) => err(s.whenLine, msg));
-			if (w) step.when = w;
+			if (w) {
+				step.when = w;
+				checkPredicateIds(w, data, (msg) => warn(s.whenLine, msg));
+			}
 		}
 		step.goals = [];
 		hidden(step, '_line', s.line);

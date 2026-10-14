@@ -337,6 +337,24 @@ candidate on, where the reference data has them: `c` the continent,
 covers, Polestar's bounds win (rule 4). Call it after `RegisterPack`: the
 frames of a pack that is not registered are dropped.
 
+## Format 2
+
+Format 2 is format 1 plus an optional step key `when`: a predicate table (a
+closed list of node kinds, no code). Predicates are validated on registration;
+a bad one refuses the guide ("step N: bad when"). The node shapes:
+
+```
+{ "all", p... } { "any", p... } { "not", p } { "onquest", q } { "ready", q } { "turnedin", q }
+{ "item", id, op, n } { "level", op, n } { "class", { "WARRIOR", ... } } { "race", { "Human", ... } }
+{ "faction", "Alliance"|"Horde" } { "zone", "Name" } { "skill", skillLine, op, n } { "rep", factionID, op, standing }
+```
+
+`op` is one of `">="`, `">"`, `"<="`, `"<"`, `"=="`, `"~="`. Nesting is
+limited to 16 levels.
+
+The compiler writes format 2 only when a guide uses `when`; every other pack
+stays format 1.
+
 ## Versioning
 
 - The format number changes when a verb, a field or a field's meaning is

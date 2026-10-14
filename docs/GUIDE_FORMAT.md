@@ -109,6 +109,7 @@ Step directives:
 |---|---|
 | `zone <Name>` / `zone map <uiMapID>` | Current zone for coordinates from here on (sticky across later steps). |
 | `only <cond>[,<cond>...]` | The step applies only to matching characters. |
+| `when <expr>` | The step applies only while the expression holds, re-checked live (format 2; see "`when` expressions"). |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 
 A step must contain at least one goal.
@@ -200,6 +201,37 @@ Comma-separated names, case-insensitive:
 
 Classes OR together, races OR together, factions OR together; the three groups
 AND. `only Warrior,Paladin,Dwarf` = (Warrior or Paladin) and Dwarf.
+
+### `when` expressions
+
+A step with a `when` applies only while the expression holds, re-checked live.
+A step whose expression is false is passed over like a step for another class;
+it comes back if the expression becomes true. Answers are re-checked on quest,
+bag, level, xp, skill, reputation and zone events.
+
+Atoms, one example each:
+
+| Atom | Example | Meaning |
+|---|---|---|
+| `onquest <quest>` | `when onquest 783` | The quest is in the log. |
+| `ready <quest>` | `when ready 783` | All of the quest's objectives are done. |
+| `turnedin <quest>` | `when turnedin 783` | The quest is turned in. |
+| `has <item> [xN]` | `when has 750 x8` | The bag holds N of the item (1 without a count). |
+| `level <op> <N>` | `when level >= 10` | The character's level. |
+| `skill <Profession> <op> <N>` | `when skill Mining >= 50` | A profession's skill rank. |
+| `rep <Faction> <op> <Standing>` | `when rep Stormwind >= Friendly` | A faction standing. |
+| `zone "<Zone>"` | `when zone "Elwynn Forest"` | The zone the game reports. |
+| class/race/faction names | `when Warrior or Paladin` | As in `only`. |
+
+Operators: `>=` `>` `<=` `<` `==` `!=`. Combining: `not`, `and`, `or`,
+parentheses; precedence not > and > or.
+
+    when onquest 7 and not has 750 x8
+    when (Warrior or Paladin) and level >= 10
+    when rep Stormwind >= Friendly
+
+A pack using `when` is compiled as format 2, which older Polestar refuses
+rather than misreads (docs/PACK_FORMAT.md, "Format 2").
 
 ## What the compiler fills in
 
@@ -316,6 +348,7 @@ Errors:
 - profession, faction or spell unknown in data **and** no quoted name; a faction
   not in `factions.json` also needs its id (`rep <factionId> "Name" <Standing>`);
   `achieve` always needs its quoted name
+- a malformed `when` expression, or a `when` naming an unknown profession or faction
 - `rep` standing outside 1–8 / Hated–Exalted; `craft` with both `xN` and `until`
 - empty quoted strings (names, titles, labels, notes)
 - `era`/`live` on a goal without typed coordinates
@@ -359,6 +392,7 @@ Warnings:
 - a coordinate on a map other than the step's zone that the guide never sets as
   a zone (catches a target resolved onto another continent)
 - profession, faction or spell missing from data but given a quoted name
+- a `when` naming a quest or item missing from data
 - a `goto` right before a goal that already leads to the same place: the next
   goal (notes skipped) is located within 200 yards of the goto point, measured to
   the edge of its nearest spawn area (see `goto` under "Places")
