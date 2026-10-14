@@ -55,13 +55,16 @@ function along()
 end
 `;
 
+// The Lua stub encodes an empty table as {}; read it as an empty list.
+const norm = (v) => (v && typeof v === 'object' && !Array.isArray(v) && Object.keys(v).length === 0 ? [] : v);
+
 function run(script, guides = GUIDE) {
 	return runAddon({
 		stubs: ['stub_world.lua'],
 		before: WORLD,
 		addons: [CORE],
 		script: `${PACK2}\n${TEST_SOURCE}\n${guides}\n${HELPERS}\nstub.login()\n${script}`,
-	}).emitted;
+	}).emitted.map(norm);
 }
 
 test('along steps never become the current step; their goals are listed until done or until the label', () => {
