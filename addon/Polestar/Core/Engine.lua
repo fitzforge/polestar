@@ -451,6 +451,21 @@ function Own.findGate(g, level)
 		end
 	end
 	return nil
+-- Step index of the step of `guide` carrying `label` (format-2 `along`
+-- stops at it). Cached per guide table in a private field.
+function Own.labelIndex(name)
+	if not guide then return nil end
+	local map = guide._psLabels
+	if not map then
+		map = {}
+		for s, step in ipairs(guide.steps) do
+			if type(step) == "table" and type(step.label) == "string" and step.label ~= "" then
+				map[step.label] = s
+			end
+		end
+		guide._psLabels = map
+	end
+	return map[name]
 end
 
 local MANUAL = { talk = true, hearth = true, getfp = true, fly = true, train = true, vendor = true }
@@ -1005,6 +1020,7 @@ local function blocks(goal)
 end
 
 local function stepDone(s)
+	if guide.steps[s].along then return true end -- along: the route passes over it
 	local goals = guide.steps[s].goals
 	for g = 1, #goals do
 		local goal = goals[g]
@@ -2937,10 +2953,45 @@ function Engine.GetStepView(i)
 	-- current step only); `skipped`: the player skipped this step (Unskip).
 	return {
 		index = i, title = step.title, note = step.note, status = status, goals = goals,
+		along = step.along, label = step.label,
 		groups = outGroups, focus = focus,
 		current = status == "current" and (Own.currentGoal(i, groups, focus)) or nil,
 		skipped = isSkipped(i), live = computed,
 	}
+end
+
+-- Format-2 `along` steps: the route passes over them, so they are never the
+-- current step. While the route is past one, its open goals are listed here,
+-- in step order: until all its goals are done, or (with `along = "<label>"`)
+-- until the route reaches the step labelled with that name.
+function Engine.GetAlong()
+	if not guide then return {} end
+	if not player then refreshPlayer() end
+	local out = {}
+	if not current then return out end
+	local steps = guide.steps
+	for s = 1, current - 1 do
+		local step = steps[s]
+		if step.along and stepApplies(step) and not isSkipped(s) then
+			local stop = type(step.along) == "string" and Own.labelIndex(step.along) or nil
+			if not (stop and current >= stop) then
+				local goals = {}
+				for g, goal in ipairs(step.goals) do
+					if goal.t ~= "note" then
+						local view = goalView(s, g, goal, "current", nil)
+						if view.status == "active" then
+							view.index = g
+							goals[#goals + 1] = view
+						end
+					end
+				end
+				if #goals > 0 then
+					out[#out + 1] = { index = s, title = step.title, goals = goals }
+				end
+			end
+		end
+	end
+	return out
 end
 
 function Engine.GetWaypoint() return waypoint or nil end
