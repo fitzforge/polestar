@@ -8,7 +8,7 @@ const { header } = require('../generated');
 const { toLua } = require('./predicate');
 
 const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'steps'];
-const STEP_KEYS = ['title', 'note', 'only', 'when', 'goals'];
+const STEP_KEYS = ['title', 'note', 'label', 'only', 'when', 'along', 'goals'];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 const GOAL_KEYS = [

@@ -18,10 +18,11 @@ const ID_RE = /^[a-z0-9_-]+(?:\/[a-z0-9_-]+)*$/;
 const INT_RE = /^\d+$/;
 const NUM_RE = /^-?\d+(?:\.\d+)?$/;
 const COORD_RE = /^(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)$/;
+const LABEL_RE = /^[A-Za-z0-9_-]+$/;
 
 const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'class', 'next', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'author', 'version', 'coords', 'pitch', 'pro', 'con'];
 // Lines inside a step that are not goals.
-const STEP_KEYS = ['zone', 'only', 'tip', 'when'];
+const STEP_KEYS = ['zone', 'only', 'tip', 'when', 'label', 'along'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
 const COMMON = ['text', 'optional', 'only', 'group'];
@@ -264,6 +265,35 @@ function parseGuide(text, file, diag) {
 					step.when = r.value;
 					step.whenLine = ln;
 				}
+			} else if (kw === 'label') {
+				if (step.label) {
+					err(ln, 'duplicate `label` in step');
+					continue;
+				}
+				if (toks.length !== 2 || toks[1].quoted) {
+					err(ln, '`label` needs a name: label <name>');
+					continue;
+				}
+				if (!LABEL_RE.test(toks[1].text)) {
+					err(ln, `malformed label "${toks[1].text}" (letters, digits, - and _)`);
+					continue;
+				}
+				step.label = toks[1].text;
+				step.labelLine = ln;
+			} else if (kw === 'along') {
+				if (step.along !== undefined) {
+					err(ln, 'duplicate `along` in step');
+					continue;
+				}
+				if (toks.length === 1) {
+					step.along = true;
+				} else if (toks.length === 3 && !toks[1].quoted && toks[1].text.toLowerCase() === 'until' && !toks[2].quoted && LABEL_RE.test(toks[2].text)) {
+					step.along = toks[2].text;
+				} else {
+					err(ln, '`along` takes nothing or `until <label>`');
+					continue;
+				}
+				step.alongLine = ln;
 			} else {
 				const tip = unquoteRest(line, lex, 1);
 				if (!tip) {
