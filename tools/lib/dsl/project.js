@@ -152,9 +152,6 @@ function referencedFrames(guides, data) {
 	return frames;
 }
 
-// A pack's addon folder as { name: content }, deterministic: exactly
-// <folder>.toc, Pack.lua, MapFrames.lua, Guides.lua and LICENSE-DATA.txt,
-// plus LICENSE.txt holding `license` (the pack's LICENSE file) when given.
 // The pack format: 2 when any guide uses a format-2 step key (`when`),
 // else 1 (the default, readable by older Polestar — see pack/format.js).
 function packFormat(guides) {
@@ -166,6 +163,9 @@ function packFormat(guides) {
 	return 1;
 }
 
+// A pack's addon folder as { name: content }, deterministic: exactly
+// <folder>.toc, Pack.lua, MapFrames.lua, Guides.lua and LICENSE-DATA.txt,
+// plus LICENSE.txt holding `license` (the pack's LICENSE file) when given.
 function buildPackFiles({ guides, manifest, data, license = null }) {
 	const m = { ...manifest, format: packFormat(guides) };
 	const files = {
