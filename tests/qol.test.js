@@ -7,6 +7,8 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 const { runAddon } = require('./helpers/lua');
 
 const FILES = { name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Theme/Theme.xml', 'QoL/QoL.xml'] };
@@ -47,7 +49,7 @@ test('options: every qol setting is registered, on Questing or Quality of Life, 
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 			if spec.page == "Quality of Life" or spec.page == "Questing" then
 				for _, c in ipairs(spec.controls) do
-					out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help, page = spec.page, tab = spec.tab, section = spec.section }
+					out[#out + 1] = { key = c.key, kind = c.kind, command = c.command, label = c.label, help = c.help, page = spec.page, tab = spec.tab, section = spec.section }
 				end
 			end
 		end
@@ -66,6 +68,11 @@ test('options: every qol setting is registered, on Questing or Quality of Life, 
 		assert.ok(c.page === 'Questing' || c.page === 'Quality of Life');
 		assert.ok(c.tab && c.section);
 	}
+	// The key binding rows set the buttons' own bindings (Bindings.xml).
+	const xml = fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar', 'Bindings.xml'), 'utf8');
+	const binds = specs.filter((c) => c.kind === 'keybind');
+	assert.equal(binds.length, 3);
+	for (const c of binds) assert.ok(xml.includes(`<Binding name="${c.command}"`), `${c.command} is in Bindings.xml`);
 	assert.equal(defaults.rewardAutoPick, false, 'auto-pick is off by default');
 	assert.equal(defaults.sellJunk, true);
 });

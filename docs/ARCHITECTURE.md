@@ -1411,12 +1411,16 @@ Polestar.RegisterOptions({
       -- shown: the colour in effect while the key holds none; source: where it comes from;
       -- linked: paths a cancelled pick restores too. Right-click resets (sliders too).
     { kind = "button",   label = "Reset lockouts", help = "One line.", onClick = function() end },
+    { kind = "keybind",  command = "CLICK PolestarTargetButton:LeftButton", label = "Target quest mob", help = "One line." },
+      -- the key bound to a binding command: click, then press a key; right-click clears it
   },
 })
 ```
 
-Controls read and write `Polestar.Get/Set`; `disabled = function() return bool end` is optional;
-registered labels and help are searchable. Pages sort by `order`; Recorder and
+Controls read and write `Polestar.Get/Set` (a keybind row sets the game's key
+binding for its command instead, and saves the binding set);
+`disabled = function() return bool end` is optional; registered labels and
+help are searchable. Pages sort by `order`; Recorder and
 About always close the list. A page or tab with no available control is left
 out of the sidebar and tab row. Every row resets to its default on right-click.
 

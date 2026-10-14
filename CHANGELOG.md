@@ -4,6 +4,10 @@
 
 ### For players
 
+- The target, quest item and Hearthstone buttons take their keys in the
+  options: Questing, Buttons, Key bindings. Click a row, press a key (with
+  Alt, Ctrl or Shift if you like, or a side mouse button); right-click
+  clears it. These are the same bindings as Key Bindings > AddOns.
 - Quests Forever renamed carry their Forever names in the guides: Chastise
   (once A Lack of Fear), Dark Sacrifice (once Devouring Plague), Look to the
   Stars, Onu is Meditating and the others Wowhead Forever lists as renamed.

@@ -121,6 +121,68 @@ test('old page keys open the page and tab that hold their settings now', () => {
 	});
 });
 
+test('keybind rows: click then a key binds it with its modifiers, saved; Escape cancels; right-click clears; not in combat', () => {
+	const [out] = run(`
+		local CMD = "CLICK FakeButton:LeftButton"
+		local off = false
+		Polestar.RegisterOptions({ page = "Quests", tab = "Map", section = "Markers", controls = {
+			{ kind = "keybind", command = CMD, label = "Fake key", help = "Presses the fake button.", disabled = function() return off end },
+		} })
+		stub.bindings["SHIFT-F"] = "TOGGLEAUTORUN"
+		stub.bindings["G"] = CMD
+		UI.ShowOptions("quests")
+		local row = O.Controls("quests")["Fake key"]
+		local label = function() return row.Button.Label:GetText() end
+		local keys = function() return table.concat({ GetBindingKey(CMD) }, ",") end
+		local r = { start = label() }
+		row:Click()
+		r.capturing = label()
+		stub.RunScript(row, "OnKeyDown", "LSHIFT")
+		r.afterModifier = label()
+		stub.keys.shift = true
+		stub.RunScript(row, "OnKeyDown", "F")
+		stub.keys.shift = false
+		r.bound = keys()
+		r.oldGone = stub.bindings["G"] == nil
+		r.label = label()
+		r.saves = stub.bindingSaves
+		r.said = stub.messages[#stub.messages]
+		row:Click()
+		stub.RunScript(row, "OnKeyDown", "ESCAPE")
+		r.cancelled = keys()
+		row:Click("RightButton")
+		r.cleared = keys()
+		r.clearedLabel = label()
+		stub.inCombat = true
+		row:Click()
+		r.combatLabel = label()
+		stub.inCombat = false
+		row:Click()
+		stub.RunScript(row, "OnClick", "Button4", false)
+		r.mouse = keys()
+		off = true
+		Polestar.Set("ui.compact", true)
+		row:Click()
+		r.offLabel = label()
+		r.enabled = row:IsEnabled()
+		emit(r)`, { between: FAKE_PAGE });
+	assert.equal(out.start, 'G');
+	assert.equal(out.capturing, 'Press a key');
+	assert.equal(out.afterModifier, 'Press a key', 'a bare modifier waits for the key');
+	assert.equal(out.bound, 'SHIFT-F');
+	assert.ok(out.oldGone, 'the old key is unbound');
+	assert.equal(out.label, 'SHIFT-F');
+	assert.equal(out.saves, 1);
+	assert.match(out.said, /SHIFT-F now does Fake key instead of TOGGLEAUTORUN/);
+	assert.equal(out.cancelled, 'SHIFT-F', 'Escape binds nothing');
+	assert.equal(out.cleared, '');
+	assert.equal(out.clearedLabel, 'Not bound');
+	assert.equal(out.combatLabel, 'Not bound', 'no capture in combat');
+	assert.equal(out.mouse, 'BUTTON4');
+	assert.equal(out.offLabel, 'BUTTON4', 'a disabled row does not capture');
+	assert.equal(out.enabled, false);
+});
+
 test('registered controls read and write settings; disabled functions follow other settings', () => {
 	const [out] = run(`
 		UI.ShowOptions("quests")

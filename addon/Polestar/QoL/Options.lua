@@ -26,15 +26,29 @@ local function repairOff() return not QoL.On("autoRepair") end
 
 register(QUESTING, L["Buttons"], L["Action buttons"], {
 	{ kind = "toggle", key = "qol.itemButton", label = L["Quest item button"],
-		help = L["A button for the current step's quest item, with count, cooldown and range. Bind it under Key Bindings > AddOns."] },
+		help = L["A button for the current step's quest item, with count, cooldown and range. Bind a key to it below."] },
 	{ kind = "toggle", key = "qol.targetButton", label = L["Target button"],
-		help = L["Targets the current step's mobs by name; each click moves to the next name. Bindable."] },
+		help = L["Targets the current step's mobs by name; each click moves to the next name. Bind a key to it below."] },
 	{ kind = "toggle", key = "qol.hearthButton", label = L["Hearthstone button"],
-		help = L["Shows your Hearthstone while the guide says to hearth. Bindable."] },
+		help = L["Shows your Hearthstone while the guide says to hearth. Bind a key to it below."] },
 	{ kind = "slider", key = "qol.buttonScale", label = L["Button size"], min = 0.6, max = 1.6, step = 0.05, format = function(v) return math.floor(v * 100 + 0.5) .. "%" end,
 		help = L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] },
 	{ kind = "button", label = L["Reset button positions"], help = L["Put the buttons back in their default spot."],
 		onClick = function() if QoL.Buttons then QoL.Buttons.ResetPositions() end end },
+})
+
+-- The same bindings as the game's Key Bindings > AddOns (Bindings.xml); a
+-- key does nothing while its button is turned off.
+register(QUESTING, L["Buttons"], L["Key bindings"], {
+	{ kind = "keybind", command = "CLICK PolestarTargetButton:LeftButton", label = L["Target quest mob"],
+		help = L["Targets the current step's mobs, the next name on each press."],
+		disabled = function() return not QoL.On("targetButton") end },
+	{ kind = "keybind", command = "CLICK PolestarQuestItemButton:LeftButton", label = L["Use quest item"],
+		help = L["Uses the quest item button's item."],
+		disabled = function() return not QoL.On("itemButton") end },
+	{ kind = "keybind", command = "CLICK PolestarHearthButton:LeftButton", label = L["Use Hearthstone"],
+		help = L["Uses your Hearthstone while the guide says to hearth."],
+		disabled = function() return not QoL.On("hearthButton") end },
 })
 
 register(QUESTING, L["Rewards & gear"], L["Quest rewards"], {

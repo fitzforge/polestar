@@ -1037,6 +1037,147 @@ function W.Swatch(parent, label, path, desc, opts)
 end
 
 ---------------------------------------------------------------------------
+-- Key binding: the key bound to a binding command (Bindings.xml's, or
+-- `CLICK <button>:LeftButton`), set without the game's Key Bindings window.
+-- Click, then press a key (with Alt, Ctrl or Shift) or a mouse button 3-5;
+-- Escape or a left or right click cancels. The new key replaces the
+-- command's old ones and is taken from whatever held it. Right-click clears
+-- it. Not in combat: the game refuses binding changes there.
+---------------------------------------------------------------------------
+
+local MODIFIER_KEYS = { LSHIFT = true, RSHIFT = true, LCTRL = true, RCTRL = true, LALT = true, RALT = true, LMETA = true, RMETA = true, UNKNOWN = true }
+local MOUSE_KEYS = { MiddleButton = "BUTTON3", Button4 = "BUTTON4", Button5 = "BUTTON5" }
+
+local keybindRows = setmetatable({}, { __mode = "k" })
+
+local function keybindKeys(cmd)
+	if not GetBindingKey then return nil end
+	return GetBindingKey(cmd)
+end
+
+local function keyText(key)
+	if GetBindingText then return GetBindingText(key, true) end
+	return key
+end
+
+local function keybindRefresh(self)
+	local b = self.Button
+	if self.psCapturing then
+		b.Label:SetText(L["Press a key"])
+		W.Color(b.Label, "accent")
+	else
+		local key = keybindKeys(self.psCommand)
+		b.Label:SetText(key and keyText(key) or L["Not bound"])
+		W.Color(b.Label, key and "text" or "textDim")
+	end
+	dimRow(self, W.Enabled(self))
+end
+
+local function stopCapture(row)
+	if not row.psCapturing then return end
+	row.psCapturing = nil
+	row:EnableKeyboard(false)
+	row:Refresh()
+end
+
+local function saveBindings()
+	if SaveBindings then SaveBindings(GetCurrentBindingSet and GetCurrentBindingSet() or 1) end
+end
+
+local function clearKeys(cmd)
+	local keys = { keybindKeys(cmd) }
+	for i = 1, #keys do SetBinding(keys[i]) end
+end
+
+local function bindKey(row, key)
+	stopCapture(row)
+	if not SetBinding or InCombatLockdown() then return end
+	local cmd = row.psCommand
+	local was = GetBindingAction and GetBindingAction(key) or ""
+	clearKeys(cmd)
+	if SetBinding(key, cmd) == false then
+		ns.Print(string.format(L["Could not bind %s."], keyText(key)))
+	else
+		saveBindings()
+		if was ~= "" and was ~= cmd then
+			ns.Print(string.format(L["%s now does %s instead of %s."], keyText(key), row.psLabel, _G["BINDING_NAME_" .. was] or was))
+		end
+	end
+	row:Refresh()
+end
+
+local function chord(key)
+	return (IsAltKeyDown() and "ALT-" or "") .. (IsControlKeyDown() and "CTRL-" or "") .. (IsShiftKeyDown() and "SHIFT-" or "") .. key
+end
+
+local function keybindKeyDown(self, key)
+	if MODIFIER_KEYS[key] then return end
+	if key == "ESCAPE" then return stopCapture(self) end
+	bindKey(self, chord(key))
+end
+
+local function keybindClick(self, button)
+	if self.psCapturing then
+		if MOUSE_KEYS[button] then return bindKey(self, chord(MOUSE_KEYS[button])) end
+		return stopCapture(self)
+	end
+	if not W.Enabled(self) or not SetBinding then return end
+	if InCombatLockdown() then
+		ns.Print(L["Key bindings can't change in combat."])
+		return
+	end
+	if button == "RightButton" then
+		clearKeys(self.psCommand)
+		saveBindings()
+		self:Refresh()
+	elseif button == "LeftButton" then
+		-- A focused edit box (the options search) would take the key.
+		local focus = GetCurrentKeyBoardFocus and GetCurrentKeyBoardFocus()
+		if focus and focus.ClearFocus then focus:ClearFocus() end
+		self.psCapturing = true
+		self:EnableKeyboard(true)
+		if self.SetPropagateKeyboardInput then self:SetPropagateKeyboardInput(false) end
+		self:Refresh()
+	end
+end
+
+function W.Keybind(parent, label, command, desc)
+	local row = settingRow(parent, label, desc)
+	row.psCommand = command
+	row.psTipLines = { L["Click, then press a key. Right-click clears it."] }
+	if desc then table.insert(row.psTipLines, 1, desc) end
+	local b = CreateFrame("Button", nil, row)
+	b:SetSize(DROPDOWN_W, 28)
+	b:SetPoint("RIGHT", row, "RIGHT", -12, 0)
+	b.Label = W.Text(b, "label", "text")
+	b.Label:SetPoint("LEFT", b, "LEFT", 10, 0)
+	b.Label:SetPoint("RIGHT", b, "RIGHT", -10, 0)
+	Theme.Skin(b, "dropdown")
+	b:RegisterForClicks("AnyUp")
+	b:SetScript("OnClick", function(_, button) keybindClick(row, button) end)
+	row.Button = b
+	fitLabel(row, b)
+	row:RegisterForClicks("AnyUp")
+	row:SetScript("OnClick", keybindClick)
+	row:SetScript("OnKeyDown", keybindKeyDown)
+	row:SetScript("OnHide", stopCapture)
+	row:SetScript("OnEnter", rowEnter)
+	row:SetScript("OnLeave", hideTip)
+	row.Refresh = keybindRefresh
+	keybindRows[row] = true
+	row:Refresh()
+	return row
+end
+
+ns.RegisterEvent("UPDATE_BINDINGS", function()
+	for row in pairs(keybindRows) do row:Refresh() end
+end)
+-- Combat ends a capture: the key could not be bound.
+ns.RegisterEvent("PLAYER_REGEN_DISABLED", function()
+	for row in pairs(keybindRows) do stopCapture(row) end
+end)
+
+---------------------------------------------------------------------------
 -- A read-only value row (status pages): label left, value right.
 ---------------------------------------------------------------------------
 
@@ -1922,7 +2063,7 @@ local registry = {} -- { spec, ... } in registration order
 local registryListeners = {}
 W.OptionsRegistry = registry
 
-local CONTROL_KINDS = { toggle = true, slider = true, dropdown = true, color = true, button = true }
+local CONTROL_KINDS = { toggle = true, slider = true, dropdown = true, color = true, button = true, keybind = true }
 
 -- spec = { page, icon, order, tab, section, controls = { { kind, key, label, help, ... } } }
 -- -> true | false, err
@@ -1934,7 +2075,11 @@ function ns.RegisterOptions(spec)
 		if type(c) ~= "table" or not CONTROL_KINDS[c.kind] then
 			return false, ("RegisterOptions(%s): control %d has unknown kind %s"):format(spec.page, i, tostring(c and c.kind))
 		end
-		if c.kind ~= "button" and type(c.key) ~= "string" then
+		if c.kind == "keybind" then
+			if type(c.command) ~= "string" or c.command == "" then
+				return false, ("RegisterOptions(%s): key binding %d needs a command"):format(spec.page, i)
+			end
+		elseif c.kind ~= "button" and type(c.key) ~= "string" then
 			return false, ("RegisterOptions(%s): control %d needs a settings key"):format(spec.page, i)
 		end
 		if c.kind == "button" and type(c.onClick) ~= "function" then

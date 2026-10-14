@@ -330,7 +330,7 @@ for _, list in ipairs({
 	declare(QUESTING, "icon-accept", 40, L["Quest information, rewards and gear advice, and the quest buttons."], {
 		{ L["Quests"], { L["Quest database"], L["Tooltips and quest log"], L["Faster questing"] } },
 		{ L["Rewards & gear"], { L["Quest rewards"], L["Gear advice"], L["Comparison"] } },
-		{ L["Buttons"], { L["Action buttons"] } },
+		{ L["Buttons"], { L["Action buttons"], L["Key bindings"] } },
 	}),
 	declare(DISCOVERY, "search", 50, L["Lookup, the dungeon journal and rares: finding things in the world."], {
 		{ L["Lookup"], { L["How to get anything"] } },
@@ -611,6 +611,7 @@ local ALIASES = {
 local function available(c)
 	if c.needs and not c.needs() then return false end
 	if c.kind == "button" then return true end
+	if c.kind == "keybind" then return SetBinding ~= nil end
 	return ns.GetDefault and ns.GetDefault(c.key) ~= nil
 end
 
@@ -633,6 +634,8 @@ local function makeControl(parent, c)
 		w = W.Dropdown(parent, c.label, c.key, choices, c.help, nil, (c.get or c.set) and { get = c.get, set = c.set } or nil)
 	elseif c.kind == "color" then
 		w = W.Swatch(parent, c.label, c.key, c.help, { shown = c.shown, source = c.source, linked = c.linked })
+	elseif c.kind == "keybind" then
+		w = W.Keybind(parent, c.label, c.command, c.help)
 	elseif c.kind == "button" then
 		w = W.ActionTile(parent, c.icon or "bolt", c.label, c.help, c.onClick, { confirm = c.confirm, danger = c.danger })
 		w.psTile = true

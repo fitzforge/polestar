@@ -30,6 +30,8 @@ stub = {
 	messages = {},
 	cvars = {},
 	keys = { shift = false, ctrl = false, alt = false },
+	bindings = {}, -- key -> command (SetBinding)
+	bindingSaves = 0, -- SaveBindings calls
 	sounds = {},
 	popups = {},
 	addonsLoaded = {},
@@ -721,6 +723,21 @@ function IsShiftKeyDown() return stub.keys.shift end
 function IsControlKeyDown() return stub.keys.ctrl end
 function IsAltKeyDown() return stub.keys.alt end
 function IsModifierKeyDown() return stub.keys.shift or stub.keys.ctrl or stub.keys.alt end
+-- Key bindings: a key holds one command; a command's keys come back sorted.
+function SetBinding(key, command)
+	stub.bindings[key] = command
+	return true
+end
+function GetBindingAction(key) return stub.bindings[key] or "" end
+function GetBindingKey(command)
+	local keys = {}
+	for k, c in pairs(stub.bindings) do if c == command then keys[#keys + 1] = k end end
+	table.sort(keys)
+	return unpack(keys)
+end
+function GetBindingText(key) return key end
+function GetCurrentBindingSet() return 2 end
+function SaveBindings() stub.bindingSaves = stub.bindingSaves + 1 end
 function GetTime() return stub.now end
 function GetServerTime() return stub.epoch + math.floor(stub.now) end
 function time() return stub.epoch + math.floor(stub.now) end
