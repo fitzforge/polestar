@@ -122,6 +122,12 @@ function P.NewEnv()
 	return {}
 end
 
+-- One env per Engine evaluation pass: every `when` asked during a pass
+-- sees the same answers, and the client is asked once per question.
+local passEnv = nil
+function P.NewPass() passEnv = P.NewEnv() return passEnv end
+function P.PassEnv() if not passEnv then passEnv = P.NewEnv() end return passEnv end
+
 local function lookup(env, key, fn)
 	local hit = env[key]
 	if hit ~= nil then return hit.v end
