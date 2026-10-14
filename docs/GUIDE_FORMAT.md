@@ -177,6 +177,7 @@ Modifiers, in any order after the positional arguments:
 | `optional` | Never blocks the step. |
 | `group [N]` | Needs a group, of `N` players (2–40) when given (`kill 1234 group 3`, `accept 7583 group 5`). The guide window says "Group of 3 advised" (or "Group advised") under the goal. Overrides what the compiler derives: see "Group content". |
 | `only <cond>[,<cond>...]` | Goal applies only to matching characters. |
+| `doneitem <itemId>` | The goal is also done while this character owns the named end reward in bags or the personal bank. Use only an explicit, character-bound reward that makes this work unnecessary, such as Earth Totem 5175 for its acquisition chain. Does not change quest history, read another character's items, or infer completion from ordinary quest loot. |
 | `era` / `live` | Map frame of this goal's typed coordinates, overriding `coords`. |
 | `choose <item> ["Name"] [quality] ...` | `turnin` only: the reward choices, shown under the turn-in and in its tooltip. Each entry is an item id, optionally its quoted name and a quality word (`poor` `common` `uncommon` `rare` `epic` `legendary` `artifact` `heirloom`); entries follow one another (`choose 6480 918 "Deviate Hide Pack" common`). Names and qualities default to `items.json`; an id missing there needs its name. Display only: a named unknown id is not a warning. |
 | `reward <item> ["Name"] [quality] ...` | `turnin` only: items given outright, same entries as `choose`. |

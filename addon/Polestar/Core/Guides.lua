@@ -199,6 +199,7 @@ local function checkGoal(goal)
 	if goal.r ~= nil and not (isNum(goal.r) and goal.r > 0) then return "bad radius" end
 	if goal.oi ~= nil and not (isNum(goal.oi) and goal.oi >= 1) then return "bad objective index" end
 	if goal.count ~= nil and not isNum(goal.count) then return "bad count" end
+	if goal.doneItem ~= nil and not (isNum(goal.doneItem) and goal.doneItem > 0 and goal.doneItem % 1 == 0) then return "bad completion item" end
 	if goal.text ~= nil and type(goal.text) ~= "string" then return "bad text" end
 	if goal.t == "rep" and (goal.standing < 1 or goal.standing > 8) then return "standing outside 1-8" end
 	for _, key in ipairs({ "skillLine", "untilSkill", "criteria", "level" }) do

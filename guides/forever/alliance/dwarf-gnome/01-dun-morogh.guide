@@ -60,6 +60,9 @@ next forever/alliance/02-westfall
 # - Shaman (Dwarf): Call of Earth (94373-94375) in Coldridge Valley; Call of
 #   Fire (94449, 94465-94468) from Kharanos through Bruegs Kindleborn's cave
 #   by the South Gate and Braldir Ashmantle in Loch Modan, at about 11-12.
+#   Earth Totem (5175) also satisfies every Call of Earth goal: beta characters
+#   can own the reward without the current chain's quest flags. Never apply
+#   this proof to unrelated quests or infer flags from the item.
 # - Hunter (Dwarf): Etched Rune (3108) to Thorgas Grimson at Anvilmar;
 #   Grif Wildheart's taming quests (6064, 6084, 6085: Tame Beast) at
 #   Kharanos after the hearth; Training the Beast (6086) in Ironforge.
@@ -190,21 +193,21 @@ step Anvilmar
   turnin 3364                                 -- Durnan Furcutter, inside Anvilmar
   accept 3365
   turnin 1599 only Warlock                    -- Alamar Grimm: Summon Imp
-  accept 94373 only Shaman                    -- Teo Hammerstorm, inside Anvilmar
+  accept 94373 only Shaman doneitem 5175      -- Teo Hammerstorm, inside Anvilmar
 
 step Nori Pridedrift
   turnin 3365                                 -- Back at Grelin's camp
-  collect 264356 quest 94373.1 only Shaman    -- Iceclaw Bear Pendants, from the Frostmane Troll Whelps on the slopes above the camp
+  collect 264356 quest 94373.1 only Shaman doneitem 5175 -- Iceclaw Bear Pendants, from the Frostmane Troll Whelps on the slopes above the camp
 
 step Call of Earth
   only Shaman
   tip Back to Teo Hammerstorm in Anvilmar. He gives you the Earth Sapta: take the rubble-marked path that climbs west from the south of the valley to the Spirit Stone on the ridge, drink the Sapta beside it and speak to the Minor Manifestation of Earth, then bring its Rough Quartz back to Teo.
-  turnin 94373                                -- Teo Hammerstorm
-  accept 94374
-  use 6635 @25.0,62.4                         -- Earth Sapta, beside the Spirit Stone
-  turnin 94374                                -- Minor Manifestation of Earth
-  accept 94375
-  turnin 94375                                -- Teo Hammerstorm: Stoneskin Totem and your Earth Totem
+  turnin 94373 doneitem 5175                   -- Teo Hammerstorm
+  accept 94374 doneitem 5175
+  use 6635 @25.0,62.4 doneitem 5175            -- Earth Sapta, beside the Spirit Stone
+  turnin 94374 doneitem 5175                   -- Minor Manifestation of Earth
+  accept 94375 doneitem 5175
+  turnin 94375 doneitem 5175                   -- Teo Hammerstorm: Stoneskin Totem and your Earth Totem
 
 step The tunnel
   tip Mountaineer Thalos guards the tunnel out of the valley, east of Anvilmar.

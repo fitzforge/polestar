@@ -1103,6 +1103,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	if (g.optional) goal.optional = true;
 	// Group content (group.js): the author's `group [N]`, else derived.
 	setIf(goal, 'group', groupOf(goal, g.group, ctx.sides, data));
+	setIf(goal, 'doneItem', g.doneItem);
 	setIf(goal, 'only', onlyOf(g.only));
 	setIf(goal, 'note', g.note);
 

@@ -788,6 +788,10 @@ goalDone = function(s, g, goal)
 	local t = goal.t
 	local C = Compat()
 	if checked(s, g) then return true end
+	-- An authored end reward can satisfy a goal even when a beta character's
+	-- old quest flags are absent. This is guide progress, not quest history;
+	-- never infer completion from arbitrary rewards or another character's bank.
+	if goal.doneItem and C.GetItemCount(goal.doneItem, true) > 0 then return true end
 	if t == "accept" then
 		return C.IsOnQuest(goal.quest) or questDone(goal.quest)
 	elseif t == "turnin" then

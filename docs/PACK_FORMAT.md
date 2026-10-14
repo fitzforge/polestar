@@ -254,6 +254,8 @@ the compiler writes positive lists only) and `goals` (at least one).
 
 Goal keys common to every verb: `t` (the verb), `text` (display text),
 `note`, `optional` (`true`: never blocks the step), `only` (as on a step),
+`doneItem` (positive item ID: this character's owned end reward also satisfies
+the goal; bags and personal bank, without changing quest history),
 `map`, `x`, `y` (0 to 100, together), `f` (`"e"`: the Era map frame; absent:
 the live frame), `r` (arrival radius in yards), `spots` (every place the
 goal's target spawns, below; with `map`), `group` (format 2: the goal needs a
