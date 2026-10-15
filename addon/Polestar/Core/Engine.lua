@@ -993,7 +993,12 @@ goalDone = function(s, g, goal)
 	elseif t == "getfp" then
 		return fpKnown(goal.location)
 	elseif t == "level" then
-		return (player.level or 1) >= goal.level
+		local lvl = player.level or 1
+		if lvl > goal.level then return true end
+		if lvl < goal.level then return false end
+		if not goal.frac then return true end
+		local max = player.xpMax or 0
+		return max > 0 and (player.xp or 0) / max >= goal.frac
 	elseif t == "skill" then
 		if isManual(goal) then return false end
 		return skillState(goal, goal.level)
@@ -1460,7 +1465,8 @@ local function describe(goal)
 		if npcName then return L["Sell and repair at"], npcName, "npc", nil end
 		return L["Sell and repair at"], L["a vendor"], "text", nil
 	elseif t == "level" then
-		return L["Reach level"], tostring(goal.level), "level", nil
+		local subject = goal.frac and ("%d (%d%%)"):format(goal.level, math.floor(goal.frac * 100 + 0.5)) or tostring(goal.level)
+		return L["Reach level"], subject, "level", nil
 	elseif t == "skill" then
 		return L["Raise"], goal.skill, "skill", fmt(L["to %d"], goal.level)
 	elseif t == "learn" then

@@ -280,7 +280,7 @@ group, below).
 | `train` | — | `npc`, `npcName`, `class`, `skill`, `skillLine`, `rank`, `rankMax`, `candidates` |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName`, `candidates` |
 | `vendor` | — | `npc`, `npcName`, `candidates` |
-| `level` | `level` | — |
+| `level` | `level` | `frac` |
 | `note` | `text` | — |
 | `skill` | `skill`, `level` | `skillLine` |
 | `learn` | `spell`, `spellName` | `skillLine`, `npc`/`npcName`, `item`/`itemName`, `candidates` |
@@ -307,6 +307,7 @@ The fields:
 | `skill` | a profession name; `skillLine` its skill line id |
 | `rank`, `rankMax` | on `train`: the profession rank (1 Apprentice to 4 Artisan; Polestar also reads a rank name or a skill cap) and its skill cap (written by the compiler, not read by Polestar) |
 | `level` | on `level`: the level to reach; on `skill`: the skill to reach |
+| `frac` | on `level`: the fraction (0 < frac < 1) of the level's XP at which the goal counts; a goal using `frac` makes the pack format 2 |
 | `untilSkill` | on `craft`: craft until the profession reaches this skill |
 | `reagents` | `{ { item, itemName, count } }` |
 | `standing` | 1 Hated to 8 Exalted |

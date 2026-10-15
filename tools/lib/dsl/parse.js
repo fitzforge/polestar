@@ -12,6 +12,7 @@
 const { lexLine } = require('./lexer');
 const { parseConditions, FACTIONS } = require('./conditions');
 const { parsePredicate } = require('./predicate');
+const { LEVEL_XP, MAX_LEVEL } = require('../game/xp');
 
 // Slash-separated segments, none empty (an empty one would make a hidden `.lua` file).
 const ID_RE = /^[a-z0-9_-]+(?:\/[a-z0-9_-]+)*$/;
@@ -664,9 +665,31 @@ function parsePositional(verb, goal, toks, line, lex, ln, err) {
 			return i + 1;
 		}
 		case 'level': {
-			if (!t || t.quoted || !INT_RE.test(t.text) || Number(t.text) < 1) return err(ln, `malformed level "${t ? t.text : ''}"`), -1;
-			goal.level = Number(t.text);
-			return i + 1;
+			if (!t || t.quoted) return err(ln, `malformed level "${t ? t.text : ''}"`), -1;
+			if (INT_RE.test(t.text)) {
+				const n = Number(t.text);
+				if (n < 1) return err(ln, `malformed level "${t.text}"`), -1;
+				goal.level = n;
+				return i + 1;
+			}
+			const m = t.text.match(/^(\d+)\.(\d+)$/);
+			if (m) {
+				const L = Number(m[1]), frac = Number('0.' + m[2]);
+				if (L < 1 || L >= MAX_LEVEL || frac <= 0) return err(ln, `malformed level "${t.text}"`), -1;
+				goal.level = L;
+				goal.frac = frac;
+				return i + 1;
+			}
+			const p = t.text.match(/^(\d+)\+(\d+)$/);
+			if (p) {
+				const L = Number(p[1]), n = Number(p[2]);
+				if (L < 1 || L >= MAX_LEVEL) return err(ln, `malformed level "${t.text}"`), -1;
+				if (n >= LEVEL_XP[L]) return err(ln, `level ${t.text}: more XP than level ${L} needs (${LEVEL_XP[L]})`), -1;
+				goal.level = L;
+				goal.frac = Math.round((n / LEVEL_XP[L]) * 10000) / 10000;
+				return i + 1;
+			}
+			return err(ln, `malformed level "${t.text}"`), -1;
 		}
 		case 'note': {
 			if (!t) return err(ln, '`note` needs text'), -1;

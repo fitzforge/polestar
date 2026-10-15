@@ -1048,6 +1048,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		}
 		case 'level':
 			goal.level = g.level;
+			if (g.frac) goal.frac = g.frac;
 			break;
 		case 'note':
 			break;

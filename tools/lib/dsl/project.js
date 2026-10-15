@@ -159,6 +159,9 @@ function packFormat(guides) {
 		if (g.nextWhen) return 3;
 		for (const s of g.steps || []) {
 			if (s.when || s.label || s.along || s.skips) return 3;
+			for (const goal of s.goals || []) {
+				if (goal.frac) return 3;
+			}
 		}
 	}
 	return FORMAT;

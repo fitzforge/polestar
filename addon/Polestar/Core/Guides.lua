@@ -205,6 +205,7 @@ local function checkGoal(goal)
 		if goal[key] ~= nil and not isNum(goal[key]) then return "bad " .. key end
 	end
 	if goal.profName ~= nil and not isStr(goal.profName) then return "bad profName" end
+	if goal.t == "level" and goal.frac ~= nil and not (isNum(goal.frac) and goal.frac > 0 and goal.frac < 1) then return "bad frac" end
 	if goal.reagents ~= nil then
 		if type(goal.reagents) ~= "table" then return "bad reagents" end
 		for i = 1, #goal.reagents do

@@ -13,7 +13,7 @@ const STEP_KEYS = ['title', 'note', 'label', 'only', 'when', 'along', 'skips', '
 // where no other goal has a value, so adding them left older output unchanged.
 const GOAL_KEYS = [
 	't', 'class', 'spell', 'spellName', 'faction', 'factionName', 'standing', 'achievement', 'achievementName', 'criteria',
-	'quest', 'title', 'target', 'npc', 'npcName', 'object', 'objName', 'item', 'itemName', 'count', 'oi', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'untilSkill',
+	'quest', 'title', 'target', 'npc', 'npcName', 'object', 'objName', 'item', 'itemName', 'count', 'oi', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'frac', 'untilSkill',
 	'reagents', 'location', 'minLevel', 'qlvl', 'pre', 'preAll', 'closedBy', 'preTitles', 'text', 'map', 'x', 'y', 'f', 'r', 'spots', 'spread', 'optional', 'only', 'profLine', 'profName', 'profRank', 'note',
 	'from', 'fromKind', 'fromRank', 'fromFaction', 'fromAlso', 'candidates', 'rewards', 'group',
 ];
