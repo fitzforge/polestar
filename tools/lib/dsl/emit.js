@@ -122,8 +122,8 @@ function emitGuide(guide, sourceRel) {
 						for (const goal of sv) out.push(`\t\t\t\t\t\t${inline(goal, GOAL_KEYS)},`);
 						out.push('\t\t\t\t\t},');
 					} else if (sk === 'only') out.push(`\t\t\t\t\tonly = ${inline(sv, ONLY_KEYS)},`);
-					else if (sk === 'when') out.push(`					when = ${toLua(sv)},`);
-					else if (sk === 'skips') out.push(`					skips = { ${sv.map((k) => `{ to = ${luaString(k.to)}, when = ${toLua(k.when)} }`).join(', ')} },`);
+					else if (sk === 'when') out.push(`\t\t\t\t\twhen = ${toLua(sv)},`);
+					else if (sk === 'skips') out.push(`\t\t\t\t\tskips = { ${sv.map((k) => `{ to = ${luaString(k.to)}, when = ${toLua(k.when)} }`).join(', ')} },`);
 					else out.push(`\t\t\t\t\t${sk} = ${scalar(sv)},`);
 				}
 				out.push('\t\t\t\t},');
