@@ -129,18 +129,18 @@ test('a guide registered before its pack is refused and the pack records it', ()
 
 test('a pack of a format the core does not read is refused whole with the version it needs', () => {
 	const [out] = run(`
-		local p = pack("joe", "JoeAddon", { format = 3 })
+		local p = pack("joe", "JoeAddon", { format = 4 })
 		local g1 = guide("joe/a", "joe")
 		local g2 = guide("joe/b", "joe")
 		local r = G.Pack("joe")
 		emit({ p = p[1], g = g1[1] or g2[1], status = r.status, needs = r.needs, problems = messages(r), got = G.Get("joe/a") ~= nil })
-	`, 'stub.addonMeta.JoeAddon = { ["X-Polestar-Needs"] = "0.3.0" }');
+	`, 'stub.addonMeta.JoeAddon = { ["X-Polestar-Needs"] = "0.4.0" }');
 	assert.equal(out.p, false);
 	assert.equal(out.g, false);
 	assert.equal(out.status, 'too-new');
-	assert.equal(out.needs, '0.3.0');
+	assert.equal(out.needs, '0.4.0');
 	assert.equal(out.problems.length, 1);
-	assert.match(out.problems[0], /0\.3\.0/);
+	assert.match(out.problems[0], /0\.4\.0/);
 	assert.equal(out.got, false);
 });
 

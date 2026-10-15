@@ -11,16 +11,18 @@
 
 const { lexLine } = require('./lexer');
 const { parseConditions, FACTIONS } = require('./conditions');
+const { parsePredicate } = require('./predicate');
 
 // Slash-separated segments, none empty (an empty one would make a hidden `.lua` file).
 const ID_RE = /^[a-z0-9_-]+(?:\/[a-z0-9_-]+)*$/;
 const INT_RE = /^\d+$/;
 const NUM_RE = /^-?\d+(?:\.\d+)?$/;
 const COORD_RE = /^(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)$/;
+const LABEL_RE = /^[A-Za-z0-9_-]+$/;
 
 const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'class', 'next', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'author', 'version', 'coords', 'pitch', 'pro', 'con'];
 // Lines inside a step that are not goals.
-const STEP_KEYS = ['zone', 'only', 'tip'];
+const STEP_KEYS = ['zone', 'only', 'tip', 'when', 'label', 'along', 'skipto'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
 const COMMON = ['text', 'optional', 'only', 'group'];
@@ -217,7 +219,7 @@ function parseGuide(text, file, diag) {
 				err(ln, `unknown header key "${toks[0].text}"`, `header keys: ${HEADER_KEYS.join(', ')}`);
 				continue;
 			}
-			const repeatable = kw === 'pro' || kw === 'con' || kw === 'reward';
+			const repeatable = kw === 'pro' || kw === 'con' || kw === 'reward' || kw === 'next';
 			if (guide.lines[kw] && !repeatable) {
 				err(ln, `duplicate header key \`${kw}\` (first on line ${guide.lines[kw]})`);
 				continue;
@@ -252,6 +254,55 @@ function parseGuide(text, file, diag) {
 				c.errors.forEach((e) => err(ln, e));
 				c.warnings.forEach((w) => warn(ln, w));
 				if (!c.errors.length) step.only = c.value;
+			} else if (kw === 'when') {
+				if (step.when) {
+					err(ln, 'duplicate `when` in step');
+					continue;
+				}
+				const r = parsePredicate(toks.slice(1));
+				r.errors.forEach((e) => err(ln, `\`when\`: ${e}`));
+				if (!r.errors.length) {
+					step.when = r.value;
+					step.whenLine = ln;
+				}
+			} else if (kw === 'label') {
+				if (step.label) {
+					err(ln, 'duplicate `label` in step');
+					continue;
+				}
+				if (toks.length !== 2 || toks[1].quoted) {
+					err(ln, '`label` needs a name: label <name>');
+					continue;
+				}
+				if (!LABEL_RE.test(toks[1].text)) {
+					err(ln, `malformed label "${toks[1].text}" (letters, digits, - and _)`);
+					continue;
+				}
+				step.label = toks[1].text;
+				step.labelLine = ln;
+			} else if (kw === 'along') {
+				if (step.along !== undefined) {
+					err(ln, 'duplicate `along` in step');
+					continue;
+				}
+				if (toks.length === 1) {
+					step.along = true;
+				} else if (toks.length === 3 && !toks[1].quoted && toks[1].text.toLowerCase() === 'until' && !toks[2].quoted && LABEL_RE.test(toks[2].text)) {
+					step.along = toks[2].text;
+				} else {
+					err(ln, '`along` takes nothing or `until <label>`');
+					continue;
+				}
+				step.alongLine = ln;
+			} else if (kw === 'skipto') {
+				if (toks.length < 3 || toks[1].quoted || !LABEL_RE.test(toks[1].text) || toks[2].quoted || toks[2].text.toLowerCase() !== 'when') {
+					err(ln, '`skipto` needs a label and a condition: skipto <label> when <condition>');
+					continue;
+				}
+				const r = parsePredicate(toks.slice(3));
+				r.errors.forEach((e) => err(ln, `\`skipto\`: ${e}`));
+				if (r.errors.length) continue;
+				(step.skips ||= []).push({ to: toks[1].text, when: r.value, line: ln });
 			} else {
 				const tip = unquoteRest(line, lex, 1);
 				if (!tip) {
@@ -429,18 +480,48 @@ function parseHeader(guide, kw, line, lex, ln, err, warn) {
 		}
 		case 'next': {
 			// `next <id>[, <id>...]`: more than one guide is a choice of route,
-			// the first being the author's default.
-			const ids = rest.split(/[\s,]+/).filter(Boolean);
-			const bad = toks.slice(1).some((t) => t.quoted) ? rest : ids.find((id) => !ID_RE.test(id));
-			if (bad !== undefined || !ids.length) {
-				err(ln, `malformed guide id "${bad !== undefined ? bad : rest}" in \`next\``);
+			// the first being the author's default. `next <id> when <expr>`
+			// names one guide and makes that option conditional.
+			let w = -1;
+			for (let k = 1; k < toks.length; k++) {
+				if (!toks[k].quoted && toks[k].text.toLowerCase() === 'when') { w = k; break; }
+			}
+			if (w === -1) {
+				const ids = rest.split(/[\s,]+/).filter(Boolean);
+				const bad = toks.slice(1).some((t) => t.quoted) ? rest : ids.find((id) => !ID_RE.test(id));
+				if (bad !== undefined || !ids.length) {
+					err(ln, `malformed guide id "${bad !== undefined ? bad : rest}" in \`next\``);
+					return;
+				}
+				for (const id of ids) {
+					if ((h.next || []).includes(id)) {
+						err(ln, '`next` names the same guide twice');
+						return;
+					}
+					(h.next ||= []).push(id);
+				}
 				return;
 			}
-			if (new Set(ids).size !== ids.length) {
+			const idtoks = toks.slice(1, w);
+			const ids = idtoks.map((t) => t.text).join(' ').split(/[\s,]+/).filter(Boolean);
+			if (ids.length !== 1) {
+				err(ln, '`next ... when` names one guide: next <id> when <condition>');
+				return;
+			}
+			const id = ids[0];
+			if (idtoks.some((t) => t.quoted) || !ID_RE.test(id)) {
+				err(ln, `malformed guide id "${id}" in \`next\``);
+				return;
+			}
+			const r = parsePredicate(toks.slice(w + 1));
+			r.errors.forEach((e) => err(ln, `\`next\`: ${e}`));
+			if (r.errors.length) return;
+			if ((h.next || []).includes(id)) {
 				err(ln, '`next` names the same guide twice');
 				return;
 			}
-			h.next = ids;
+			(h.next ||= []).push(id);
+			(h.nextWhen ||= {})[id] = { when: r.value, line: ln };
 			return;
 		}
 		case 'version':

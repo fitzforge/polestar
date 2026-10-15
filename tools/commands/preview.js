@@ -355,7 +355,7 @@ stub.addonMeta.Polestar = { ["X-Website"] = "https://github.com/polestar-wow/pol
 stub.addonMeta.Polestar_Guides = { ["X-Polestar-Pack"] = "guides", ["X-Polestar-Format"] = "1" }
 stub.addonMeta.JoeRoutes = { ["X-Polestar-Pack"] = "joe", ["X-Polestar-Format"] = "1" }
 stub.addonMeta.AnnDungeons = { ["X-Polestar-Pack"] = "ann", ["X-Polestar-Format"] = "1" }
-stub.addonMeta.SamProfessions = { ["X-Polestar-Pack"] = "sam", ["X-Polestar-Format"] = "3", ["X-Polestar-Needs"] = "0.3.0", Title = "Sam's Professions", Author = "Sam", Version = "0.9.0", ["X-License"] = "MIT" }
+stub.addonMeta.SamProfessions = { ["X-Polestar-Pack"] = "sam", ["X-Polestar-Format"] = "4", ["X-Polestar-Needs"] = "0.4.0", Title = "Sam's Professions", Author = "Sam", Version = "0.9.0", ["X-License"] = "MIT" }
 stub.addonMeta.KimQuests = { ["X-Polestar-Pack"] = "kim", ["X-Polestar-Format"] = "1", Title = "Kim's Quests", Author = "Kim", Version = "2.1.0", ["X-License"] = "CC0-1.0", ["X-Website"] = "https://github.com/kim/quests" }`;
 const PACKS_SCENE = `local realGuides = uistub.realGuides
 Polestar.Guides = realGuides

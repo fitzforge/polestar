@@ -83,10 +83,13 @@ local function Compat() return ns.Compat end
 local function refreshPlayer()
 	player = Compat().GetPlayerInfo()
 	if levelSeen > (player.level or 0) then player.level = levelSeen end
+	ns.Predicate.NewPass() -- fresh answers for `when` predicates this pass
 end
 
 local function stepApplies(step)
-	return Guides.Matches(step.only, player)
+	if not Guides.Matches(step.only, player) then return false end
+	if step.when == nil then return true end
+	return ns.Predicate.Eval(step.when, ns.Predicate.PassEnv())
 end
 
 local function questDone(q)
@@ -448,6 +451,23 @@ function Own.findGate(g, level)
 		end
 	end
 	return nil
+end
+
+-- Step index of the step of `guide` carrying `label` (format-2 `along`
+-- stops at it). Cached per guide table in a private field.
+function Own.labelIndex(name)
+	if not guide then return nil end
+	local map = guide._psLabels
+	if not map then
+		map = {}
+		for s, step in ipairs(guide.steps) do
+			if type(step) == "table" and type(step.label) == "string" and step.label ~= "" then
+				map[step.label] = s
+			end
+		end
+		guide._psLabels = map
+	end
+	return map[name]
 end
 
 local MANUAL = { talk = true, hearth = true, getfp = true, fly = true, train = true, vendor = true }
@@ -1002,6 +1022,7 @@ local function blocks(goal)
 end
 
 local function stepDone(s)
+	if guide.steps[s].along then return true end -- along: the route passes over it
 	local goals = guide.steps[s].goals
 	for g = 1, #goals do
 		local goal = goals[g]
@@ -1142,6 +1163,22 @@ local function place()
 	end
 end
 
+-- skipto: when a skip holds at its step, mark steps s..to-1 as "jump" for
+-- the character (saved, so the jump does not undo itself later).
+function Own.jump(s)
+	local step = guide.steps[s]
+	if not step.skips then return false end
+	for _, k in ipairs(step.skips) do
+		local to = Own.labelIndex(k.to)
+		if to and to > s and ns.Predicate.Eval(k.when, ns.Predicate.PassEnv()) then
+			local sk = skippedFor(guide.id, true)
+			for t = s, to - 1 do if not sk[t] then sk[t] = "jump" end end
+			return true
+		end
+	end
+	return false
+end
+
 -- First applicable, not skipped, not done step, after placing the tab when
 -- it was just loaded (place). During play soft steps hold as usual, so a
 -- quest taken out of order never jumps a training stop.
@@ -1149,8 +1186,18 @@ local function computeCurrent()
 	if placing then place() end
 	local steps = guide.steps
 	local sk = skippedFor(guide.id)
-	for s = 1, #steps do
-		if stepApplies(steps[s]) and not (sk and sk[s]) and not stepDone(s) then return s end
+	local s = 1
+	while s <= #steps do
+		if stepApplies(steps[s]) and not (sk and sk[s]) and not stepDone(s) then
+			if Own.jump(s) then
+				sk = skippedFor(guide.id, true)
+				s = s + 1
+			else
+				return s
+			end
+		else
+			s = s + 1
+		end
 	end
 	return nil
 end
@@ -1579,16 +1626,17 @@ end
 -- counts the whole area as reached); `r` stays the arrival margin. An area
 -- objective's waypoint also carries `search` (Nav never says arrived),
 -- `spots` (the goal's list, for the map marks) and `spot` (its index).
-local function waypointOf(g, goal)
+local function waypointOf(g, goal, s)
+	s = s or current
 	local map, x, y, f, area = posOf(goal)
-	if not (map and x and y) or not goalApplies(goal) or unavailableFor(goal) or Own.goalSkipped(current, g)
-		or goalDone(current, g, goal) then return nil end
+	if not (map and x and y) or not goalApplies(goal) or unavailableFor(goal) or Own.goalSkipped(s, g)
+		or goalDone(s, g, goal) then return nil end
 	local verb, subject, _, detail = describe(goal)
 	local many = area and #goal.spots > 1
 	return {
 		map = map, x = x, y = y, f = f,
 		label = (goalText(goal, verb, subject, detail)),
-		stepIndex = current, goalIndex = g, kind = goal.t,
+		stepIndex = s, goalIndex = g, kind = goal.t,
 		r = goal.r or DEFAULT_RADIUS, area = area,
 		search = area and goal.spread or nil,
 		spots = many and goal.spots or nil, spot = many and Spots.index(goal) or nil,
@@ -1658,6 +1706,11 @@ local function findWaypoint()
 				local wp = waypointOf(g, goal)
 				if wp then return wp end
 			end
+		end
+		local as, ag = Own.alongOf(aim)
+		if as then
+			local wp = waypointOf(ag, aim, as)
+			if wp then return wp end
 		end
 	end
 	local groups, focus = stepGroups(current)
@@ -2132,6 +2185,16 @@ local function signature()
 		local _, focus = stepGroups(current)
 		n = n + 1
 		sigParts[n] = "focus" .. tostring(focus)
+		for s = 1, current - 1 do
+			local step = guide.steps[s]
+			if step.along and stepApplies(step) then
+				for g, goal in ipairs(step.goals) do
+					local status, cur, max = goalStatus(s, g, goal, false)
+					n = n + 1
+					sigParts[n] = "a" .. s .. ":" .. g .. ":" .. status .. ":" .. (cur and (cur .. "/" .. (max or "")) or "-")
+				end
+			end
+		end
 	end
 	for i = #sigParts, n + 1, -1 do sigParts[i] = nil end
 	return table.concat(sigParts, ",")
@@ -2218,7 +2281,8 @@ local function routeOptions(from)
 	local level = player.level or 1
 	for _, id in ipairs(from.nextChoices) do
 		local g = Guides.Get(id)
-		if g and Guides.GuideMatches(g, player) then
+		local cond = from.nextWhen and from.nextWhen[id]
+		if g and Guides.GuideMatches(g, player) and (cond == nil or ns.Predicate.Eval(cond)) then
 			list[#list + 1] = { guide = g, outleveled = (g.maxLevel ~= nil and level >= g.maxLevel) }
 		end
 	end
@@ -2444,7 +2508,7 @@ local function evaluateLoaded(active)
 			if #skips > 0 then ns.Fire("STEP_SKIPPED", old, newCurrent, skips) end
 		end
 		current = newCurrent
-		aim = nil -- the arrow's choice was for the old step
+		if not (aim and Own.alongOf(aim)) then aim = nil end -- a choice of an along goal outlives the step
 		-- Step start: pick candidates and spawn spots afresh from where the
 		-- player stands. A spot picked earlier (the step shown as "Then:" or
 		-- looked at ahead, from elsewhere) would otherwise only move at the
@@ -2934,10 +2998,66 @@ function Engine.GetStepView(i)
 	-- current step only); `skipped`: the player skipped this step (Unskip).
 	return {
 		index = i, title = step.title, note = step.note, status = status, goals = goals,
+		along = step.along, label = step.label,
 		groups = outGroups, focus = focus,
 		current = status == "current" and (Own.currentGoal(i, groups, focus)) or nil,
 		skipped = isSkipped(i), live = computed,
 	}
+end
+
+-- True when step s of `guide` is listed by GetAlong: a past along step whose
+-- goals are still being shown (not skipped, not ended at its label).
+function Own.alongListed(s)
+	if not (guide and current) or type(s) ~= "number" or not (s < current) then return false end
+	local step = guide.steps[s]
+	if not (step.along and stepApplies(step) and not isSkipped(s)) then return false end
+	if type(step.along) == "string" and Own.labelIndex(step.along) and current >= Own.labelIndex(step.along) then return false end
+	return true
+end
+
+-- The goal belongs to a listed along step: return its index and the goal's
+-- index within that step, or nil.
+function Own.alongOf(goal)
+	if not (guide and current) then return nil end
+	for s = 1, current - 1 do
+		if Own.alongListed(s) then
+			for g, goal2 in ipairs(guide.steps[s].goals) do
+				if goal2 == goal then return s, g end
+			end
+		end
+	end
+	return nil
+end
+
+-- Format-2 `along` steps: the route passes over them, so they are never the
+-- current step. While the route is past one, its open goals are listed here,
+-- in step order: until all its goals are done, or (with `along = "<label>"`)
+-- until the route reaches the step labelled with that name.
+function Engine.GetAlong()
+	if not guide then return {} end
+	if not player then refreshPlayer() end
+	local out = {}
+	if not current then return out end
+	local steps = guide.steps
+	for s = 1, current - 1 do
+		if Own.alongListed(s) then
+			local step = steps[s]
+			local goals = {}
+			for g, goal in ipairs(step.goals) do
+				if goal.t ~= "note" then
+					local view = goalView(s, g, goal, "current", nil)
+					if view.status == "active" then
+						view.index = g
+						goals[#goals + 1] = view
+					end
+				end
+			end
+			if #goals > 0 then
+				out[#out + 1] = { index = s, title = step.title, goals = goals }
+			end
+		end
+	end
+	return out
 end
 
 function Engine.GetWaypoint() return waypoint or nil end
@@ -3127,6 +3247,18 @@ function Engine.AimGoal(stepIndex, goalIndex)
 	return true
 end
 
+-- Point the arrow at an open, located goal of a listed along step (a row
+-- click in the window). The choice survives the route moving on while the
+-- goal is still listed. True if the arrow can lead there.
+function Engine.AimAlong(stepIndex, goalIndex)
+	if not (guide and current) or not Own.alongListed(stepIndex) then return false end
+	local goal = guide.steps[stepIndex].goals[goalIndex]
+	if not goal or goal.t == "note" or not waypointOf(goalIndex, goal, stepIndex) then return false end
+	aim = goal
+	evaluate()
+	return true
+end
+
 -- Move a candidate goal to its next-best candidate (wrapping); in the current
 -- step the arrow follows it there. Returns the new candidate's position in
 -- the ranking, or nil.
@@ -3179,6 +3311,14 @@ function Engine.ResetProgress()
 	evaluate()
 end
 
+-- `done <label>` predicates: the labelled step of the guide being evaluated
+-- is done and was not skipped.
+ns.Predicate.SetDoneResolver(function(label)
+	if not guide then return false end
+	local i = Own.labelIndex(label)
+	return i and not isSkipped(i) and stepDone(i) or false
+end)
+
 ---------------------------------------------------------------------------
 -- Events
 ---------------------------------------------------------------------------
@@ -3189,7 +3329,7 @@ local function onUpdateEvent() requestUpdate() end
 -- skips any a client build does not know.
 for _, event in ipairs({
 	"QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_LOG_UPDATE", "QUEST_WATCH_UPDATE",
-	"BAG_UPDATE_DELAYED", "PLAYER_ENTERING_WORLD",
+	"BAG_UPDATE_DELAYED", "PLAYER_ENTERING_WORLD", "PLAYER_XP_UPDATE",
 	-- skill / craft
 	"SKILL_LINES_CHANGED", "CHAT_MSG_SKILL", "TRADE_SKILL_SHOW", "TRADE_SKILL_LIST_UPDATE",
 	-- learn
