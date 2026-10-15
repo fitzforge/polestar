@@ -303,13 +303,36 @@ local function validate(def)
 			end
 		end
 	end
+	local labelAt = {}
 	for s, step in ipairs(def.steps) do
 		if type(step) ~= "table" then return ("step %d is not a table"):format(s) end
 		if type(step.goals) ~= "table" or #step.goals == 0 then return ("step %d has no goals"):format(s) end
 		if not checkOnly(step.only) then return ("step %d: bad only"):format(s) end
+		if step.when ~= nil then
+			local ok, err = ns.Predicate.Validate(step.when)
+			if not ok then return ("step %d: bad when: %s"):format(s, err) end
+		end
+		if step.label ~= nil then
+			if not isStr(step.label) then return ("step %d: bad label"):format(s) end
+			if labelAt[step.label] then return ("step %d: duplicate label %s"):format(s, step.label) end
+			labelAt[step.label] = s
+		end
 		for g, goal in ipairs(step.goals) do
 			local err = checkGoal(goal)
 			if err then return ("step %d goal %d: %s"):format(s, g, err) end
+		end
+	end
+	-- `along` names the step it stops at: a label of a later step.
+	for s, step in ipairs(def.steps) do
+		if step.along ~= nil then
+			if step.along == true then
+				-- Open until its goals are done.
+			elseif isStr(step.along) then
+				local at = labelAt[step.along]
+				if not at or at <= s then return ("step %d: bad along"):format(s) end
+			else
+				return ("step %d: bad along"):format(s)
+			end
 		end
 	end
 	return nil
@@ -324,7 +347,7 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true }
 Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }

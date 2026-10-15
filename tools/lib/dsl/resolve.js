@@ -328,6 +328,72 @@ function onlyOf(c) {
 	return Object.keys(o).length ? o : undefined;
 }
 
+// A parsed `when` predicate with its profession/faction names resolved to ids
+// (a new AST; the parsed one is not mutated). Returns null when a name is
+// unknown; every unknown name is reported through `report`.
+function resolvePredicate(node, data, report) {
+	if (Array.isArray(node) && (node[0] === 'skill' || node[0] === 'rep') && typeof node[1] === 'string') {
+		if (node[0] === 'skill') {
+			const p = data.professionNamed(node[1]);
+			if (!p) {
+				report(`unknown profession "${node[1]}"`);
+				return null;
+			}
+			return ['skill', p.id, node[2], node[3]];
+		}
+		const f = data.factionNamed(node[1]);
+		if (!f) {
+			report(`unknown faction "${node[1]}"`);
+			return null;
+		}
+		return ['rep', f.faction.id, node[2], node[3]];
+	}
+	if (Array.isArray(node) && (node[0] === 'all' || node[0] === 'any' || node[0] === 'not')) {
+		const out = [node[0]];
+		let failed = false;
+		for (let i = 1; i < node.length; i++) {
+			const child = resolvePredicate(node[i], data, report);
+			if (child === null) failed = true;
+			else out.push(child);
+		}
+		return failed ? null : out;
+	}
+	if (Array.isArray(node)) return node.map((x) => (Array.isArray(x) ? x.slice() : x));
+	return node;
+}
+
+// Warn for quest and item ids a `when` names that are not in the reference
+// data, like goal ids are (docs/GUIDE_FORMAT.md, "Validation"). Each distinct
+// id is warned once per `when` line.
+function checkPredicateIds(node, data, report) {
+	const haveItems = Object.keys(data.items || {}).length > 0;
+	const seen = new Set();
+	const walk = (n) => {
+		if (!Array.isArray(n)) return;
+		const kind = n[0];
+		if (kind === 'onquest' || kind === 'ready' || kind === 'turnedin') {
+			const q = n[1];
+			if (!seen.has(`quest ${q}`)) {
+				seen.add(`quest ${q}`);
+				if (!data.quest(q)) report(`\`when\`: quest ${q} is not in data (new Forever content?)`);
+			}
+			return;
+		}
+		if (kind === 'item') {
+			const i = n[1];
+			if (haveItems && !seen.has(`item ${i}`)) {
+				seen.add(`item ${i}`);
+				if (!data.item(i)) report(`\`when\`: item ${i} is not in data (new Forever content?)`);
+			}
+			return;
+		}
+		if (kind === 'all' || kind === 'any' || kind === 'not') {
+			for (let i = 1; i < n.length; i++) walk(n[i]);
+		}
+	};
+	walk(node);
+}
+
 function resolveGuide(ast, data, diag, opts = {}) {
 	const file = ast.file;
 	const err = (ln, msg, hint) => diag.error(file, ln, msg, hint);
@@ -450,6 +516,15 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		setIf(step, 'title', s.title);
 		setIf(step, 'note', s.tip);
 		setIf(step, 'only', onlyOf(s.only));
+		if (s.when) {
+			const w = resolvePredicate(s.when, data, (msg) => err(s.whenLine, msg));
+			if (w) {
+				step.when = w;
+				checkPredicateIds(w, data, (msg) => warn(s.whenLine, msg));
+			}
+		}
+		setIf(step, 'label', s.label);
+		if (s.along !== undefined) step.along = s.along;
 		step.goals = [];
 		hidden(step, '_line', s.line);
 		hidden(step, '_only', s.only);
@@ -502,6 +577,23 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	}
 	// The guide menu's "Group" chip: some goal of the route needs a group.
 	if (guide.steps.some((s) => s.goals.some((goal) => goal.group && !goal.optional))) guide.group = true;
+	// Labels are guide-wide: names must be unique, and an `along until` must
+	// point at a step later than the one using it (indexes match ast.steps —
+	// every step is pushed as it is built).
+	const labels = new Map(); // name -> { index, line }
+	for (let i = 0; i < ast.steps.length; i++) {
+		const s = ast.steps[i];
+		if (!s.label) continue;
+		if (labels.has(s.label)) err(s.labelLine, `duplicate label "${s.label}" (first at line ${labels.get(s.label).line})`);
+		else labels.set(s.label, { index: i, line: s.labelLine });
+	}
+	for (let i = 0; i < ast.steps.length; i++) {
+		const s = ast.steps[i];
+		if (typeof s.along !== 'string') continue;
+		const t = labels.get(s.along);
+		if (!t) err(s.alongLine, `unknown label "${s.along}"`);
+		else if (t.index <= i) err(s.alongLine, `\`along until ${s.along}\` must name a later step`);
+	}
 	return guide;
 }
 

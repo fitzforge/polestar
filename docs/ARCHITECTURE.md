@@ -557,6 +557,27 @@ Only guides of shown packs (`on`, plus the internal `lookup`) are visible to
 `Lookup.CuratedGuide`. `PACKS_CHANGED` refreshes the picker, search, the guide
 window, Lookup and the Engine's tabs ("Tabs", absent guides).
 
+### Predicate — format-3 `when` conditions (`Core/Predicate.lua`)
+
+```lua
+Predicate.Validate(node) -> true | false, msg   -- the closed whitelist; nesting capped at 16 levels
+Predicate.Eval(node, env) -> boolean, total     -- never raises; a malformed node answers false
+Predicate.NewEnv()                              -- memoises client lookups for one pass
+Predicate.NewPass() / Predicate.PassEnv()       -- the Engine's per-pass env
+```
+
+Predicates are closed prefix-form tables (never code); the node kinds are
+listed in docs/PACK_FORMAT.md, "Format 3". Validate answers true or false
+with a message; Eval never raises and answers false for anything malformed.
+NewEnv memoises each distinct client lookup for one pass, so a guide that
+asks the same question in several `when` lines asks the client once.
+NewPass is called from refreshPlayer at the start of each evaluation and
+holds the Engine's per-pass env; stepApplies evaluates through PassEnv, so
+every `when` in one pass sees the same answers. All reads go through Compat.
+
+Engine.lua adds no locals for this (the main chunk is near Lua 5.1's
+200-local limit).
+
 ### Engine
 
 ```lua
@@ -578,6 +599,8 @@ Polestar.Engine.StartGate(id) -> gate | nil -- a Class guide this character cann
 Polestar.Engine.ToggleGoal(stepIndex, goalIndex) -> bool   -- tick any goal but a note done, or clear its check-off
 Polestar.Engine.SkipGoal(stepIndex, goalIndex) -> bool     -- skip an optional goal, or bring it back
 Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool      -- lead the arrow to a goal of the current step (row click)
+Polestar.Engine.GetAlong() -> { { index, title, goals }, ... }  -- open goals of along steps the route is past (format 3)
+Polestar.Engine.AimAlong(stepIndex, goalIndex) -> bool        -- point the arrow at one of them; holds while it is listed
 Polestar.Engine.GetWaypoint() -> waypoint | nil
 Polestar.Engine.GetProgress() -> doneSteps, totalSteps
 ```

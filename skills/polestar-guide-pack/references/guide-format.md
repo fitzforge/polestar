@@ -51,6 +51,9 @@ every goal in it that is not `optional` is; its goals are open together.
 | `tip <text>` | A note for the whole step |
 | `zone <Name>` / `zone map <uiMapID>` | The zone for coordinates from here on, in later steps too |
 | `only <condition>, ...` | The step is only for matching characters |
+| `when <condition>` | Inside a step: the step only applies while the condition holds (format 3) |
+| `along [until <label>]` | Inside a step: its goals never hold up the route; shown "along the way" until the labelled step (format 3) |
+| `label <name>` | Inside a step: names the step for `along until` (format 3) |
 
 ## Goals
 

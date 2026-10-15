@@ -5,9 +5,10 @@
 
 const { FORMAT, NEEDS, TOC_MARKER, TOC_TITLE_PREFIX } = require('../pack/format');
 const { header } = require('../generated');
+const { toLua } = require('./predicate');
 
 const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'steps'];
-const STEP_KEYS = ['title', 'note', 'only', 'goals'];
+const STEP_KEYS = ['title', 'note', 'label', 'only', 'when', 'along', 'goals'];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 const GOAL_KEYS = [
@@ -121,6 +122,7 @@ function emitGuide(guide, sourceRel) {
 						for (const goal of sv) out.push(`\t\t\t\t\t\t${inline(goal, GOAL_KEYS)},`);
 						out.push('\t\t\t\t\t},');
 					} else if (sk === 'only') out.push(`\t\t\t\t\tonly = ${inline(sv, ONLY_KEYS)},`);
+					else if (sk === 'when') out.push(`\t\t\t\t\twhen = ${toLua(sv)},`);
 					else out.push(`\t\t\t\t\t${sk} = ${scalar(sv)},`);
 				}
 				out.push('\t\t\t\t},');
@@ -141,7 +143,8 @@ function emitGuides(entries) {
 
 // Pack.lua: the pack's registration with its credits (manifest: pack.json, read by tools/lib/pack/manifest.js).
 function emitPack(manifest) {
-	const parts = ['addon = ADDON', `id = ${luaString(manifest.id)}`, `format = ${FORMAT}`];
+	const format = manifest.format || FORMAT;
+	const parts = ['addon = ADDON', `id = ${luaString(manifest.id)}`, `format = ${format}`];
 	for (const k of PACK_KEYS.slice(1)) if (manifest[k] !== undefined && manifest[k] !== null) parts.push(`${k} = ${luaString(manifest[k])}`);
 	return `${header('lua', 'compile', 'pack.json')}\nlocal ADDON = ...\n\nPolestar.RegisterPack({ ${parts.join(', ')} })\n`;
 }
@@ -152,6 +155,7 @@ function emitPack(manifest) {
 // sits in Polestar's group there, under Polestar's own entry, like
 // Polestar_Guides; Polestar's menus show the plain title (Pack.lua).
 function emitToc(manifest, iface) {
+	const format = manifest.format || FORMAT;
 	const ours = manifest.id === 'guides';
 	const title = ours || manifest.title.startsWith(TOC_TITLE_PREFIX) ? manifest.title : `${TOC_TITLE_PREFIX}${manifest.title}`;
 	const lines = [
@@ -166,8 +170,8 @@ function emitToc(manifest, iface) {
 	lines.push(
 		'## Dependencies: Polestar',
 		`## X-Polestar-Pack: ${manifest.id}`,
-		`## X-Polestar-Format: ${FORMAT}`,
-		`## X-Polestar-Needs: ${NEEDS[FORMAT]}`,
+		`## X-Polestar-Format: ${format}`,
+		`## X-Polestar-Needs: ${NEEDS[format]}`,
 		`## X-License: ${manifest.license}`,
 	);
 	if (manifest.website) lines.push(`## X-Website: ${manifest.website}`);
