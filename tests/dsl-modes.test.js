@@ -46,7 +46,7 @@ test('xp: a level, a level with a fraction, or a level plus XP', () => {
 	assert.match(parse('xp 12').errors[0], /operator/);
 });
 
-test('the atoms compile in a step `when` and make the pack format 2', () => {
+test('the atoms compile in a step `when` and make the pack format 3', () => {
 	const r = compile(guideText(['step One', '  when mode hardcore and xp >= 3.5 and xprate < 2', '  accept 783']));
 	assert.deepEqual(r.errors, [], r.text);
 	assert.deepEqual(plain(r.guides[0].steps[0].when), ['all', ['mode', 'hardcore'], ['xp', '>=', 3.5], ['xprate', '<', 2]]);

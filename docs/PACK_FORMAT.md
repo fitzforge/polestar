@@ -307,7 +307,7 @@ The fields:
 | `skill` | a profession name; `skillLine` its skill line id |
 | `rank`, `rankMax` | on `train`: the profession rank (1 Apprentice to 4 Artisan; Polestar also reads a rank name or a skill cap) and its skill cap (written by the compiler, not read by Polestar) |
 | `level` | on `level`: the level to reach; on `skill`: the skill to reach |
-| `frac` | on `level`: the fraction (0 < frac < 1) of the level's XP at which the goal counts; a goal using `frac` makes the pack format 2 |
+| `frac` | on `level`: the fraction (0 < frac < 1) of the level's XP at which the goal counts; a goal using `frac` makes the pack format 3 |
 | `untilSkill` | on `craft`: craft until the profession reaches this skill |
 | `reagents` | `{ { item, itemName, count } }` |
 | `standing` | 1 Hated to 8 Exalted |
@@ -359,7 +359,7 @@ limited to 16 levels.
 `{ "xprate", op, n }` checks the XP-rate setting; `{ "xp", op, v }` checks the level, where `v` is
 the level plus the fraction of it done.
 
-Format 2 also adds two step keys. `label` is a string: the step's name.
+Format 3 also adds two step keys. `label` is a string: the step's name.
 `along` is `true`, or the label string of a LATER step. Registration refuses a
 guide with "step N: bad label", "step N: duplicate label <name>" or
 "step N: bad along".
@@ -372,10 +372,10 @@ predicate holds, the steps up to the labelled step are skipped for the
 character. A saved jump is the value "jump" in the skipped table, next to the
 player's own skips and carried over pack updates like them.
 
-Format 2 adds a goal key `frac` on `level` goals: a number with 0 < frac < 1,
+Format 3 adds a goal key `frac` on `level` goals: a number with 0 < frac < 1,
 the point inside the level the goal asks for.
 
-Format 2 adds a guide key `nextWhen`: a table of guide id to condition, the
+Format 3 adds a guide key `nextWhen`: a table of guide id to condition, the
 route options offered only while their condition holds.
 
 The compiler writes format 3 only when a guide uses `when`, `label`, `along`,

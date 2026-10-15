@@ -25,9 +25,9 @@ test('GUIDE_CHEATSHEET.md: one row each for next … when and fractional level',
 	assert.match(doc, /^\| `level <N>\.<fraction>` \/ `level <N>\+<XP>` \|/m);
 });
 
-test('PACK_FORMAT.md: the new nodes and the frac goal key under Format 2', () => {
+test('PACK_FORMAT.md: the new nodes and the frac goal key under Format 3', () => {
 	const doc = read('PACK_FORMAT.md');
-	const f2 = doc.slice(doc.indexOf('## Format 2'), doc.indexOf('## Versioning'));
+	const f2 = doc.slice(doc.indexOf('## Format 3'), doc.indexOf('## Versioning'));
 	for (const node of ['{ "mode", key }', '{ "xprate", op, n }', '{ "xp", op, v }']) assert.ok(f2.includes(node), node);
 	assert.match(f2, /`frac`/);
 	assert.match(f2, /`nextWhen`/);

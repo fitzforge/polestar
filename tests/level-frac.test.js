@@ -23,8 +23,8 @@ test('level with a fraction or with +XP compiles to level + frac; plain level is
 	assert.deepEqual(goals[0], { t: 'level', level: 3, frac: 0.5 });
 	assert.deepEqual(goals[1], { t: 'level', level: 12, frac: 0.5 });
 	assert.deepEqual(goals[2], { t: 'level', level: 13 });
-	assert.equal(packFormat(guides), 2);
-	assert.equal(packFormat(goalsOf(['step One', '  level 13']).guides), 1);
+	assert.equal(packFormat(guides), 3);
+	assert.equal(packFormat(goalsOf(['step One', '  level 13']).guides), 2);
 });
 
 test('level fraction errors', () => {
