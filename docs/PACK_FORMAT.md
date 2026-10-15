@@ -339,7 +339,7 @@ frames of a pack that is not registered are dropped.
 
 ## Format 3
 
-Format 3 is format 2 plus an optional step key `when`: a predicate table (a
+Format 3 is format 3 plus an optional step key `when`: a predicate table (a
 closed list of node kinds, no code). Predicates are validated on registration;
 a bad one refuses the guide ("step N: bad when"). The node shapes:
 
@@ -358,7 +358,7 @@ Format 3 also adds two step keys. `label` is a string: the step's name.
 guide with "step N: bad label", "step N: duplicate label <name>" or
 "step N: bad along".
 
-Format 2 adds a third step key, `skips`: a list of jumps,
+Format 3 adds a third step key, `skips`: a list of jumps,
 `{ { to = "<label>", when = <predicate> }, ... }`. Every `to` must be the label
 of a LATER step and every `when` a valid predicate, else registration refuses
 the guide with "step N: bad skipto". When the route arrives at the step and the

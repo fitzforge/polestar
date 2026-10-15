@@ -16,9 +16,9 @@ test('GUIDE_FORMAT.md documents skipto and done', () => {
 	assert.match(doc, /^\| `done <label>` \|/m, '`when` atoms table row');
 });
 
-test('PACK_FORMAT.md lists skips and the done node under Format 2', () => {
+test('PACK_FORMAT.md lists skips and the done node under Format 3', () => {
 	const doc = read('PACK_FORMAT.md');
-	const f2 = doc.slice(doc.indexOf('## Format 2'), doc.indexOf('## Versioning'));
+	const f2 = doc.slice(doc.indexOf('## Format 3'), doc.indexOf('## Versioning'));
 	assert.match(f2, /\{ "done", label \}/);
 	assert.match(f2, /`skips`/);
 	assert.match(f2, /bad skipto/);

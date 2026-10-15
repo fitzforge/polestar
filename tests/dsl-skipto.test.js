@@ -60,12 +60,12 @@ test('skipto errors', () => {
 	assert.match(errorsOf(['step A', '  skipto end when skill Basketweaving > 1', '  accept 783', 'step B', '  label end', '  kill 6']), /unknown profession "Basketweaving"/);
 });
 
-test('Guides.lua carries skips after along; a pack with skips is format 2', () => {
+test('Guides.lua carries skips after along; a pack with skips is format 3', () => {
 	const { manifest } = readManifest(MINI);
 	const r = compile(guideText(['guide mini/s', 'title S', 'faction Alliance', 'levels 1-10', 'zone Elwynn Forest', '',
 		'step A', '  accept 783', '  skipto end when turnedin 783', 'step B', '  label end', '  kill 6']), fixtureData(), { pack: 'mini' });
 	assert.deepEqual(r.errors, [], r.text);
 	const files = buildPackFiles({ guides: r.guides, manifest, data: fixtureData() });
 	assert.match(files['Guides.lua'], /skips = \{ \{ to = "end", when = \{ "turnedin", 783 \} \} \},\n\t*goals = \{/);
-	assert.equal(packFormat(r.guides), 2);
+	assert.equal(packFormat(r.guides), 3);
 });
