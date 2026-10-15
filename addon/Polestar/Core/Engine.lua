@@ -451,6 +451,8 @@ function Own.findGate(g, level)
 		end
 	end
 	return nil
+end
+
 -- Step index of the step of `guide` carrying `label` (format-2 `along`
 -- stops at it). Cached per guide table in a private field.
 function Own.labelIndex(name)
@@ -1608,8 +1610,6 @@ local function waypointOf(g, goal, s)
 	return {
 		map = map, x = x, y = y, f = f,
 		label = (goalText(goal, verb, subject, detail)),
-		stepIndex = current, goalIndex = g, kind = goal.t,
-		label = goalText(goal, verb, subject, detail),
 		stepIndex = s, goalIndex = g, kind = goal.t,
 		r = goal.r or DEFAULT_RADIUS, area = area,
 		search = area and goal.spread or nil,

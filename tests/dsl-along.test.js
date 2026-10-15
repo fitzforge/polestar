@@ -1,5 +1,5 @@
 'use strict';
-// Format-2 `label` and `along [until <label>]` step lines: parsed, checked across the guide, emitted into
+// Format-3 `label` and `along [until <label>]` step lines: parsed, checked across the guide, emitted into
 // Guides.lua, and a pack using either is format 2.
 
 const { test } = require('node:test');
@@ -84,9 +84,9 @@ test('Guides.lua carries label and along in a fixed order: title, note, label, o
 	assert.match(bare, /along = true,\n/);
 });
 
-test('a pack using `label` or `along` is format 2', () => {
-	assert.equal(packFormat(pack([...HDR, 'step One', '  label a', '  accept 783']).guides), 2);
-	assert.equal(packFormat(pack([...HDR, 'step One', '  along', '  kill 6', 'step Two', '  accept 783']).guides), 2);
-	assert.equal(packFormat(pack([...HDR, 'step One', '  accept 783']).guides), 1);
-	assert.match(pack([...HDR, 'step One', '  label a', '  accept 783']).files['Pack.lua'], /format = 2,/);
+test('a pack using `label` or `along` is format 3', () => {
+	assert.equal(packFormat(pack([...HDR, 'step One', '  label a', '  accept 783']).guides), 3);
+	assert.equal(packFormat(pack([...HDR, 'step One', '  along', '  kill 6', 'step Two', '  accept 783']).guides), 3);
+	assert.equal(packFormat(pack([...HDR, 'step One', '  accept 783']).guides), 2);
+	assert.match(pack([...HDR, 'step One', '  label a', '  accept 783']).files['Pack.lua'], /format = 3,/);
 });

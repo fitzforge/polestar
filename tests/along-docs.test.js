@@ -1,5 +1,5 @@
 'use strict';
-// Documentation of format-2 `label` and `along`: authors find them in GUIDE_FORMAT.md, pack authors in
+// Documentation of format-3 `label` and `along`: authors find them in GUIDE_FORMAT.md, pack authors in
 // PACK_FORMAT.md, maintainers in ARCHITECTURE.md.
 
 const { test } = require('node:test');
@@ -15,13 +15,13 @@ test('GUIDE_FORMAT.md documents label and along', () => {
 	assert.match(doc, /^\| `label <name>` \|/m, 'Steps directive table row for label');
 	assert.match(doc, /^\| `along( \[until <label>\])?` \|/m, 'Steps directive table row for along');
 	assert.match(doc, /^### Along the way: `along` and `label`$/m);
-	for (const phrase of ['never hold', 'Along the way', 'until', 'later step', 'format 2']) assert.ok(doc.includes(phrase), phrase);
+	for (const phrase of ['never hold', 'Along the way', 'until', 'later step', 'format 3']) assert.ok(doc.includes(phrase), phrase);
 	assert.match(doc, /duplicate label|unknown label/);
 });
 
-test('PACK_FORMAT.md lists label and along under Format 2', () => {
+test('PACK_FORMAT.md lists label and along under Format 3', () => {
 	const doc = read('PACK_FORMAT.md');
-	const f2 = doc.slice(doc.indexOf('## Format 2'), doc.indexOf('## Versioning'));
+	const f2 = doc.slice(doc.indexOf('## Format 3'), doc.indexOf('## Versioning'));
 	assert.ok(f2.length > 0);
 	assert.match(f2, /`label`/);
 	assert.match(f2, /`along`/);

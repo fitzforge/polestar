@@ -233,7 +233,7 @@ parentheses; precedence not > and > or.
     when rep Stormwind >= Friendly
 
 A pack using `when`, `label` or `along` is compiled as format 3, which older Polestar refuses
-rather than misreads (docs/PACK_FORMAT.md, "Format 2").
+rather than misreads (docs/PACK_FORMAT.md, "Format 3").
 
 ### Along the way: `along` and `label`
 
