@@ -155,10 +155,46 @@ local function newEntry(q)
 end
 
 -- Match database objectives to the client's by name (the client text reads
--- "Kobold Vermin slain: 3/10"), else by position. Returns two booleans: what
--- markers show changed (title, ready, an objective done or undone), and a
--- progress count changed.
+-- "Kobold Vermin slain: 3/10"), else by position, each client line going to
+-- one objective: longer names claim first, so "Kobold" does not take
+-- "Kobold Vermin slain" from "Kobold Vermin", and two objectives of one name
+-- take its lines in order. A line claimed by name is not given by position.
 local find = string.find
+local claimed, order = {}, {}
+local function matchLines(objs, client, n)
+	for k = 1, n do claimed[k] = false end
+	local m = 0
+	for i = 1, #objs do
+		local o = objs[i]
+		o.ci = nil
+		if o.name then
+			local j = m
+			while j > 0 and #objs[order[j]].name < #o.name do
+				order[j + 1] = order[j]
+				j = j - 1
+			end
+			order[j + 1] = i
+			m = m + 1
+		end
+	end
+	for j = 1, m do
+		local o = objs[order[j]]
+		for k = 1, n do
+			local text = client[k].text
+			if not claimed[k] and type(text) == "string" and find(text, o.name, 1, true) then
+				o.ci, claimed[k] = k, true
+				break
+			end
+		end
+	end
+	for i = 1, #objs do
+		local o = objs[i]
+		if not o.ci and i <= n and not claimed[i] then o.ci, claimed[i] = i, true end
+	end
+end
+
+-- Returns two booleans: what markers show changed (title, ready, an
+-- objective done or undone), and a progress count changed.
 local function readProgress(e)
 	local shape, progress = false, false
 	local title = ns.Compat.GetQuestTitle(e.q) or (e.rec and e.rec[F.TITLE]) or ("Quest " .. e.q)
@@ -176,22 +212,15 @@ local function readProgress(e)
 	local client = ns.Compat.GetQuestObjectives(e.q)
 	local n = client and #client or 0
 	for i = 1, #objs do
+		local ci = objs[i].ci
+		if not ci or ci > n then
+			matchLines(objs, client, n)
+			break
+		end
+	end
+	for i = 1, #objs do
 		local o = objs[i]
 		local ci = o.ci
-		if not ci or ci > n then
-			ci = nil
-			if o.name and n > 0 then
-				for k = 1, n do
-					local text = client[k].text
-					if type(text) == "string" and find(text, o.name, 1, true) then
-						ci = k
-						break
-					end
-				end
-			end
-			if not ci and i <= n then ci = i end
-			o.ci = ci
-		end
 		local cur, max, done
 		if ci then
 			local c = client[ci]

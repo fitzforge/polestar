@@ -415,6 +415,49 @@ emit(snap())
 	assert.equal(done.pins, 0, 'its kill markers are gone');
 });
 
+// Each client line goes to one database objective. "Kobold" is found in
+// "Kobold Vermin slain" too, so before it a shorter name listed first took
+// the longer one's line and both objectives read it; two objectives of one
+// name each read their own line; a nameless one keeps its position unless a
+// name claimed that line.
+test('objectives never share a client line: overlapping names, one name twice, position', () => {
+	const [overlap, twins, positional] = run(`
+local d = Q._data
+local function npc(id, name) local r = {}; for i, v in pairs(d.npcs[id]) do r[i] = v end; r[1] = name; d.npcs[id] = r end
+local function lines()
+	local out = {}
+	for _, id in ipairs({ 6, 40 }) do
+		for _, o in ipairs(Q.ObjectivesForNpc(id) or {}) do
+			if o.q == 7 then out[#out + 1] = o.id .. "=" .. tostring(o.ci) .. ":" .. o.cur .. "/" .. o.max end
+		end
+	end
+	return out
+end
+npc(40, "Kobold")
+d.quests[7][12] = { 1, 40, 5, 1, 6, 10 }      -- "Kobold" listed before "Kobold Vermin"
+w.accept(7, { { text = "Kobold Vermin slain: 0/10", required = 10 }, { text = "Kobold slain: 0/5", required = 5 } })
+w.progress(7, 1, 3); w.progress(7, 2, 2)
+stub.advance(0.3)
+emit(lines())
+w.abandon(7); stub.advance(0.3)
+npc(40, "Kobold Vermin")
+d.quests[7][12] = { 1, 6, 10, 1, 40, 5 }
+w.accept(7, { { text = "Kobold Vermin slain: 0/10", required = 10 }, { text = "Kobold Vermin slain: 0/5", required = 5 } })
+w.progress(7, 2, 4)
+stub.advance(0.3)
+emit(lines())
+w.abandon(7)
+d.quests[18][12] = { 4, 1, 1, 3, 55, 1 }      -- the event first in the database, last in the log
+w.accept(18, { { text = "Bundle of Wood: 0/1", type = "object", required = 1 }, { text = "Scout the farm", type = "event", required = 1 } })
+w.progress(18, 1, 1)                        -- the wood is done, the scouting is not
+stub.advance(0.3)
+emit(kinds("quests.objectives"))
+`, { setup: 'w.complete({ 783 })' });
+	assert.deepEqual(overlap, ['6=1:3/10', '40=2:2/5'], 'each reads its own line, not both "Kobold Vermin slain"');
+	assert.deepEqual(twins, ['6=1:0/10', '40=2:4/5'], 'one name twice: its lines in order');
+	assert.deepEqual(positional, ['Gathering Wood@40.5,70.3:icon-explore'], 'the event does not read the wood\'s line by position');
+});
+
 test('quest log events are coalesced into one update per throttle window', () => {
 	const [scans] = run(`
 local before = Q.stats.scans
