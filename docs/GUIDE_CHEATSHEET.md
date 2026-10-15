@@ -49,6 +49,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `label <name>` | Inside a step: names the step for `along until` (format 3) | `label camp` |
 | `note <text>` | A line of information; never holds the player up | `note The camp is busy at night.` |
 | `level <N>` | Reach level N, grinding if need be | `level 2` |
+| `level <N>.<fraction>` / `level <N>+<XP>` | Reach a point inside level N: 12.5 is halfway through 12 (format 2) | `level 12.5` |
 | `# <text>` | A note for you and other authors; players never see it | `# check the patrol route` |
 | `<goal> -- <text>` | Shows the text under that goal | `accept 783 -- He stands at the abbey gate` |
 
@@ -144,6 +145,7 @@ is a Dwarf who is a Warrior or a Paladin.
 | Header line | What it does | Example |
 |---|---|---|
 | `next <id>, <id>, ...` | Several guides after this one: the player picks one, the first is your suggestion | `next joe-routes/westfall, joe-routes/redridge` |
+| `next <id> when <condition>` | A route option offered only while the condition holds (format 2) | `next joe-routes/westfall when level >= 10` |
 | `pitch <text>` | On a guide offered as a choice: one line on its card | `pitch Short walks between quests.` |
 | `pro <text>` / `con <text>` | One advantage or drawback per line, under the pitch | `pro Ends at a flight point` |
 

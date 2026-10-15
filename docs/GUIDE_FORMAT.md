@@ -66,7 +66,8 @@ Every line before the first `step`.
 | `race` | no | comma list (see Conditions) |
 | `class` | no | comma list |
 | `next` | no | id of the guide that follows, or several ids separated by commas: a **route choice**. The player picks where to level next in the "Choose your path" window; the first id is the author's default. Every option must be the guide's own faction. |
-| `category` | no | default `Leveling`; others: `Class` (class quest chains, mounts and weapons; pair with a `class` header), `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Dungeons` |
+| `next <id> when <condition>` | no | repeatable: every `next` line adds a route option, in order. A line with `when` names one guide, offered only while the condition holds (see "`when` expressions"). Options that do not apply are hidden; with one left, Polestar continues to it without asking; with none, the guide ends without a hand-off (format 3). |
+| `category` | no | default `Leveling`; others: `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Dungeons` |
 | `folder` | no | the guide menu folder this guide is listed under, any category (e.g. `Mounts · Level 40`, `Companion pets · Vendors`). Guides sharing a folder sort by faction (yours first), then level. Without it: the category's folder (Leveling: by faction and level band). |
 | `keywords` | no | comma list of extra words the guide menu search matches (e.g. the colours a mount guide covers); an empty entry is an error, a repeated one a warning |
 | `collects` | no | comma list of item ids this guide obtains (a mount guide: every colour it sells). Compiled as `collects = { ... }`; the Lookup module opens this guide for those items instead of building one. Malformed or repeated ids are errors; an id missing from `items.json` is a warning. |
@@ -141,7 +142,7 @@ A step must contain at least one goal.
 | `train` | `[npcId]`, `<Profession> [Rank]`, or `class` | `train First Aid` / `train Mining Expert`: the nearest own-faction trainer of that profession and rank (`Apprentice`, `Journeyman`, `Expert`, `Artisan`; ranks taught by a book or quest point at its vendor or quest giver). Without a rank: the highest rank whose minimum skill (0/50/125/225) the last earlier `skill` (or `craft … until`) target for that profession in the guide reaches, Apprentice when there is none, and always above a rank the guide already trained. `train class`: the nearest trainer of the player's class. Resolved at runtime from the player's faction and position. |
 | `buy` | `<itemId> ["Item name"]` | Use `xN` for quantity. Add `nearest` to send the player to the closest own-faction vendor selling it. |
 | `vendor` | `[npcId]` or `nearest` | Sell junk / repair; `nearest` picks the closest own-faction vendor. |
-| `level` | `<N>` | Reach level N (grind if needed). |
+| `level` | `<N>`, `<L>.<frac>`, or `<L>+<XP>` | Reach level N (grind if needed). `level <L>.<frac>` and `level <L>+<XP>` reach a point inside level L: 12.5 is halfway through 12, 12+2500 is 2500 XP into 12 (turned into a fraction with the XP table); the window shows "12 (50%)". Compiled to `level` plus `frac` (format 2). |
 | `note` | `<text...>` | Informational line; never blocks. Quotes optional. |
 | `skill` | `<Profession> <N>` | Reach skill rank N (`Alchemy`, `Blacksmithing`, `Enchanting`, `Engineering`, `Herbalism`, `Leatherworking`, `Mining`, `Skinning`, `Tailoring`, `Cooking`, `Fishing`, `First Aid`, quoted when multi-word). |
 | `learn` | `<spellId> ["Name"]` | Learn a recipe or spell (trainer or recipe item); name from `professions.json`. A trainer-taught spell points at every trainer of its rank (a smart target; `npc <id>` fixes one); `learn <spellId> nearest` for a recipe sold by vendors sends the player to the closest own-faction vendor of the recipe item. |
@@ -225,6 +226,9 @@ Atoms, one example each:
 | `rep <Faction> <op> <Standing>` | `when rep Stormwind >= Friendly` | A faction standing. |
 | `zone "<Zone>"` | `when zone "Elwynn Forest"` | The zone the game reports. |
 | `done <label>` | `when done camp` | The labelled step is done and was not skipped. |
+| `mode <key>` | `when mode ssf` | The player's setting on the options page, Guide › Play style. Keys: `hardcore`, `ssf` (self-found), `ah` (uses the auction house), `group` (group content). Defaults: hardcore, ssf, group off; ah on. |
+| `xprate <op> <number>` | `when xprate >= 2` | The XP-rate setting on the same page (1x to 5x, default 1). |
+| `xp <op> <level>` | `when xp >= 12.5` | The character's level as a fraction. Three forms: `xp <op> <L>`, `xp <op> <L>.<fraction>` (12.5 = halfway through level 12), `xp <op> <L>+<XP>` (XP into level L, turned into a fraction with the XP table). |
 | class/race/faction names | `when Warrior or Paladin` | As in `only`. |
 
 Operators: `>=` `>` `<=` `<` `==` `!=`. Combining: `not`, `and`, `or`,
