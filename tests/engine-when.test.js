@@ -74,7 +74,7 @@ test('Guides.Validate checks `when` with Predicate.Validate', () => {
 	assert.match(out[2], /^step 1: bad when/);
 });
 
-test('a step whose `when` is false is passed over; it comes back when the condition turns true', () => {
+test('a step whose `when` is false is passed over and stays passed (Task 7.5)', () => {
 	const out = run(`
 		local w = stub.world
 		flush()
@@ -84,11 +84,11 @@ test('a step whose `when` is false is passed over; it comes back when the condit
 		w.turnIn(783); flush()
 		emit(E.GetStepIndex())              -- 5: no item 750, level 1 < 3
 		w.addItem(750, 1); flush()
-		emit(E.GetStepIndex())              -- 4: holding the item now
+		emit(E.GetStepIndex())              -- 5: step 4 was passed while false; it stays passed
 		w.setLevel(5); flush()
-		emit(E.GetStepIndex())              -- 6: step 4 done (level 5), step 5 no longer applies
+		emit(E.GetStepIndex())              -- 6: step 5 no longer applies
 	`);
-	assert.deepEqual(out, [1, 3, 5, 4, 6]);
+	assert.deepEqual(out, [1, 3, 5, 5, 6]);
 });
 
 test('a step without `when` behaves exactly as before', () => {

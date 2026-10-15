@@ -1219,6 +1219,9 @@ local function latchPassed(from, to)
 					manualFor(guide.id, true)[s .. ":" .. g] = true
 				end
 			end
+		elseif step.when ~= nil and logReady and Guides.Matches(step.only, player) then
+			-- Passed while its `when` was false: it stays passed for this character.
+			skippedFor(guide.id, true)[s] = true
 		end
 	end
 end

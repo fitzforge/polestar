@@ -209,8 +209,10 @@ AND. `only Warrior,Paladin,Dwarf` = (Warrior or Paladin) and Dwarf.
 ### `when` expressions
 
 A step with a `when` applies only while the expression holds, re-checked live.
-A step whose expression is false is passed over like a step for another class;
-it comes back if the expression becomes true. Answers are re-checked on quest,
+A step whose expression is false is passed over like a step for another class.
+Once the route has moved past it, it stays passed for that character, even if
+the expression becomes true later; steps not reached yet are re-checked as the
+route comes to them. Answers are re-checked on quest,
 bag, level, xp, skill, reputation and zone events.
 
 Atoms, one example each:
