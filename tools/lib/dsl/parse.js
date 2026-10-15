@@ -23,7 +23,7 @@ const LABEL_RE = /^[A-Za-z0-9_-]+$/;
 
 const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'class', 'next', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'author', 'version', 'coords', 'pitch', 'pro', 'con'];
 // Lines inside a step that are not goals.
-const STEP_KEYS = ['zone', 'only', 'tip', 'when', 'label', 'along', 'skipto'];
+const STEP_KEYS = ['zone', 'only', 'tip', 'when', 'label', 'along', 'skipto', 'loop'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
 const COMMON = ['text', 'optional', 'only', 'group'];
@@ -304,6 +304,17 @@ function parseGuide(text, file, diag) {
 				r.errors.forEach((e) => err(ln, `\`skipto\`: ${e}`));
 				if (r.errors.length) continue;
 				(step.skips ||= []).push({ to: toks[1].text, when: r.value, line: ln });
+			} else if (kw === 'loop') {
+				if (toks.length > 1) {
+					err(ln, '`loop` takes nothing');
+					continue;
+				}
+				if (step.loop) {
+					err(ln, 'duplicate `loop` in step');
+					continue;
+				}
+				step.loop = true;
+				step.loopLine = ln;
 			} else {
 				const tip = unquoteRest(line, lex, 1);
 				if (!tip) {

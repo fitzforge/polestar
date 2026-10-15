@@ -319,6 +319,29 @@ function handSpots(data, sources, map, f, x, y, near) {
 	return [own, ...alts.map(({ d, ...s }) => s)];
 }
 
+// A `loop` step: its goto points (in order) are the circuit to search. Each
+// kill, collect or interact goal without its own @ coordinates gets them as its
+// spawn areas (searched one after another: `spread`), placed at the first
+// point; the gotos themselves are no longer goals.
+function applyLoop(step, report) {
+	const gotos = step.goals.filter((g) => g.t === 'goto' && g.x !== undefined);
+	if (gotos.length < 2) return report('`loop` needs at least two `goto` points');
+	if (gotos.some((g) => g.map !== gotos[0].map)) return report('`loop` points must all be on one map');
+	const targets = step.goals.filter((g) => (g.t === 'kill' || g.t === 'collect' || g.t === 'interact') && !g._explicit);
+	if (!targets.length) return report('`loop` needs a kill, collect or interact goal');
+	const spots = gotos.map((g) => ({ x: g.x, y: g.y, r: g.r || 30, n: 0 }));
+	for (const g of targets) {
+		g.map = gotos[0].map;
+		g.x = gotos[0].x;
+		g.y = gotos[0].y;
+		if (gotos[0].f) g.f = gotos[0].f;
+		else delete g.f;
+		g.spots = spots.map((p) => ({ ...p }));
+		g.spread = true;
+	}
+	step.goals = step.goals.filter((g) => g.t !== 'goto' || g.x === undefined);
+}
+
 function onlyOf(c) {
 	if (!c) return undefined;
 	const o = {};
@@ -566,6 +589,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			const goal = resolveGoal(g, zoneId, prev, data, err, warn, ctx);
 			hidden(goal, '_line', g.line);
 			hidden(goal, '_only', g.only || null);
+			hidden(goal, '_explicit', g.explicitCoords);
 			step.goals.push(goal);
 			// Leveling guides are for every character: a goal only those with a
 			// profession see should be optional, unless the guide trains it first
@@ -597,6 +621,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 				use(goal.map);
 			}
 		}
+		if (s.loop) applyLoop(step, (msg) => err(s.loopLine, msg));
 		guide.steps.push(step);
 	}
 	// The guide menu's "Group" chip: some goal of the route needs a group.
