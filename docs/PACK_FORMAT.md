@@ -337,6 +337,24 @@ candidate on, where the reference data has them: `c` the continent,
 covers, Polestar's bounds win (rule 4). Call it after `RegisterPack`: the
 frames of a pack that is not registered are dropped.
 
+## Format 3
+
+Format 3 is format 2 plus an optional step key `when`: a predicate table (a
+closed list of node kinds, no code). Predicates are validated on registration;
+a bad one refuses the guide ("step N: bad when"). The node shapes:
+
+```
+{ "all", p... } { "any", p... } { "not", p } { "onquest", q } { "ready", q } { "turnedin", q }
+{ "item", id, op, n } { "level", op, n } { "class", { "WARRIOR", ... } } { "race", { "Human", ... } }
+{ "faction", "Alliance"|"Horde" } { "zone", "Name" } { "skill", skillLine, op, n } { "rep", factionID, op, standing }
+```
+
+`op` is one of `">="`, `">"`, `"<="`, `"<"`, `"=="`, `"~="`. Nesting is
+limited to 16 levels.
+
+The compiler writes format 3 only when a guide uses `when`; every other pack
+stays format 2.
+
 ## Versioning
 
 - The format number changes when a verb, a field or a field's meaning is
@@ -347,6 +365,7 @@ frames of a pack that is not registered are dropped.
 - The compiler writes the first Polestar version that reads the pack's format
   into the TOC as `X-Polestar-Needs`. Format 1 is read by Polestar 0.1.0 and
   later, format 2 (the `group`, `reward` and `why` keys) by 0.2.4 and later.
+  Format 3 is read by Polestar 0.3.0 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Guide packs page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

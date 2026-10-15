@@ -11,6 +11,7 @@
 
 const { lexLine } = require('./lexer');
 const { parseConditions, FACTIONS } = require('./conditions');
+const { parsePredicate } = require('./predicate');
 
 // Slash-separated segments, none empty (an empty one would make a hidden `.lua` file).
 const ID_RE = /^[a-z0-9_-]+(?:\/[a-z0-9_-]+)*$/;
@@ -20,7 +21,7 @@ const COORD_RE = /^(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)$/;
 
 const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'class', 'next', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'author', 'version', 'coords', 'pitch', 'pro', 'con'];
 // Lines inside a step that are not goals.
-const STEP_KEYS = ['zone', 'only', 'tip'];
+const STEP_KEYS = ['zone', 'only', 'tip', 'when'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
 const COMMON = ['text', 'optional', 'only', 'group'];
@@ -252,6 +253,17 @@ function parseGuide(text, file, diag) {
 				c.errors.forEach((e) => err(ln, e));
 				c.warnings.forEach((w) => warn(ln, w));
 				if (!c.errors.length) step.only = c.value;
+			} else if (kw === 'when') {
+				if (step.when) {
+					err(ln, 'duplicate `when` in step');
+					continue;
+				}
+				const r = parsePredicate(toks.slice(1));
+				r.errors.forEach((e) => err(ln, `\`when\`: ${e}`));
+				if (!r.errors.length) {
+					step.when = r.value;
+					step.whenLine = ln;
+				}
 			} else {
 				const tip = unquoteRest(line, lex, 1);
 				if (!tip) {

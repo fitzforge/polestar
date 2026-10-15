@@ -83,10 +83,13 @@ local function Compat() return ns.Compat end
 local function refreshPlayer()
 	player = Compat().GetPlayerInfo()
 	if levelSeen > (player.level or 0) then player.level = levelSeen end
+	ns.Predicate.NewPass() -- fresh answers for `when` predicates this pass
 end
 
 local function stepApplies(step)
-	return Guides.Matches(step.only, player)
+	if not Guides.Matches(step.only, player) then return false end
+	if step.when == nil then return true end
+	return ns.Predicate.Eval(step.when, ns.Predicate.PassEnv())
 end
 
 local function questDone(q)
@@ -3189,7 +3192,7 @@ local function onUpdateEvent() requestUpdate() end
 -- skips any a client build does not know.
 for _, event in ipairs({
 	"QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_LOG_UPDATE", "QUEST_WATCH_UPDATE",
-	"BAG_UPDATE_DELAYED", "PLAYER_ENTERING_WORLD",
+	"BAG_UPDATE_DELAYED", "PLAYER_ENTERING_WORLD", "PLAYER_XP_UPDATE",
 	-- skill / craft
 	"SKILL_LINES_CHANGED", "CHAT_MSG_SKILL", "TRADE_SKILL_SHOW", "TRADE_SKILL_LIST_UPDATE",
 	-- learn
