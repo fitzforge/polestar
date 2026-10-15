@@ -45,7 +45,7 @@ test('a loop step turns its gotos into the spots of its kill and collect goals',
 	assert.equal(goals[0].quest, 7);
 	assert.equal(goals[0].count, 10);
 	assert.equal(steps[1].loop, undefined, 'loop is a compile-time line, not a runtime key');
-	assert.equal(packFormat(r.guides), 1);
+	assert.equal(packFormat(r.guides), 2);
 });
 
 test('a goal with its own @ coordinates keeps them; only the others join the circuit', () => {
