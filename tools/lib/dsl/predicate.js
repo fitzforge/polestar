@@ -8,8 +8,8 @@
 const { parseConditions } = require('./conditions');
 
 // Grammar keywords, matched case-insensitively on the token text.
-const KEYWORDS = new Set(['onquest', 'ready', 'turnedin', 'has', 'level', 'skill', 'rep', 'zone', 'not', 'and', 'or']);
-const ATOM_KEYWORDS = new Set(['onquest', 'ready', 'turnedin', 'has', 'level', 'skill', 'rep', 'zone']);
+const KEYWORDS = new Set(['onquest', 'ready', 'turnedin', 'has', 'level', 'skill', 'rep', 'zone', 'done', 'not', 'and', 'or']);
+const ATOM_KEYWORDS = new Set(['onquest', 'ready', 'turnedin', 'has', 'level', 'skill', 'rep', 'zone', 'done']);
 const OPERATORS = new Set(['>=', '>', '<=', '<', '==', '!=']);
 // Reputation standings as the client numbers them (1 Hated .. 8 Exalted).
 const STANDINGS = { hated: 1, hostile: 2, unfriendly: 3, neutral: 4, friendly: 5, honored: 6, revered: 7, exalted: 8 };
@@ -123,6 +123,12 @@ function parseAtom(s) {
 			return ['skill', readName(s, 'profession'), readOperator(s, 'skill'), readNumber(s, 'skill')];
 		case 'rep':
 			return ['rep', readName(s, 'faction'), readOperator(s, 'rep'), readStanding(s)];
+		case 'done': {
+			const tok2 = peek(s);
+			if (!tok2 || tok2.quoted || !/^[A-Za-z0-9_-]+$/.test(tok2.text)) fail(`done needs a step label ("${tok2 ? tok2.text : ''}")`);
+			s.i++;
+			return ['done', tok2.text];
+		}
 		default: {
 			const tok2 = peek(s);
 			if (!tok2) fail('expected a zone name');

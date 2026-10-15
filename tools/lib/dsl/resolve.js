@@ -525,6 +525,17 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		}
 		setIf(step, 'label', s.label);
 		if (s.along !== undefined) step.along = s.along;
+		if (s.skips) {
+			const out = [];
+			for (const sk of s.skips) {
+				const w = resolvePredicate(sk.when, data, (msg) => err(sk.line, msg));
+				if (w) {
+					checkPredicateIds(w, data, (msg) => warn(sk.line, msg));
+					out.push({ to: sk.to, when: w });
+				}
+			}
+			if (out.length) step.skips = out;
+		}
 		step.goals = [];
 		hidden(step, '_line', s.line);
 		hidden(step, '_only', s.only);
@@ -594,7 +605,34 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		if (!t) err(s.alongLine, `unknown label "${s.along}"`);
 		else if (t.index <= i) err(s.alongLine, `\`along until ${s.along}\` must name a later step`);
 	}
+	// `skipto <label>` must name a later step; a `done <label>` in a condition
+	// must name a labelled step anywhere in the guide.
+	for (let i = 0; i < ast.steps.length; i++) {
+		const s = ast.steps[i];
+		for (const sk of s.skips || []) {
+			const t = labels.get(sk.to);
+			if (!t) err(sk.line, `unknown label "${sk.to}"`);
+			else if (t.index <= i) err(sk.line, `\`skipto ${sk.to}\` must name a later step`);
+		}
+		for (const l of doneLabels(s.when)) {
+			if (!labels.has(l)) err(s.whenLine, `\`when\`: unknown label "${l}"`);
+		}
+		for (const sk of s.skips || []) {
+			for (const l of doneLabels(sk.when)) {
+				if (!labels.has(l)) err(sk.line, `\`skipto\`: unknown label "${l}"`);
+			}
+		}
+	}
 	return guide;
+}
+
+// The labels a predicate AST names through `done <label>` atoms.
+function doneLabels(node) {
+	if (!Array.isArray(node)) return [];
+	if (node[0] === 'done') return [node[1]];
+	if (node[0] === 'all' || node[0] === 'any') return node.slice(1).flatMap(doneLabels);
+	if (node[0] === 'not') return doneLabels(node[1]);
+	return [];
 }
 
 function objectiveFor(q, kind, id) {

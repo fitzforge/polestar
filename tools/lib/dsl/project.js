@@ -153,11 +153,11 @@ function referencedFrames(guides, data) {
 }
 
 // The pack format: 3 when any guide uses a format-3 step key (`when`, `label`,
-// `along`), else FORMAT (the default, readable by older Polestar — see pack/format.js).
+// `along`, `skips`), else FORMAT (the default, readable by older Polestar — see pack/format.js).
 function packFormat(guides) {
 	for (const g of guides) {
 		for (const s of g.steps || []) {
-			if (s.when || s.label || s.along) return 3;
+			if (s.when || s.label || s.along || s.skips) return 3;
 		}
 	}
 	return FORMAT;
