@@ -353,7 +353,7 @@ a bad one refuses the guide ("step N: bad when"). The node shapes:
 limited to 16 levels.
 
 The compiler writes format 3 only when a guide uses `when`; every other pack
-stays format 1.
+stays format 2.
 
 ## Versioning
 
