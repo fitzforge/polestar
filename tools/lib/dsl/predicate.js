@@ -6,10 +6,15 @@
 // resolver turns them into ids later.
 
 const { parseConditions } = require('./conditions');
+const { LEVEL_XP, MAX_LEVEL } = require('../game/xp');
+
+const MODES = ['hardcore', 'ssf', 'ah', 'group'];
+const DEC_RE = /^\d+(?:\.\d+)?$/;
+const XP_PLUS_RE = /^(\d+)\+(\d+)$/;
 
 // Grammar keywords, matched case-insensitively on the token text.
-const KEYWORDS = new Set(['onquest', 'ready', 'turnedin', 'has', 'level', 'skill', 'rep', 'zone', 'done', 'not', 'and', 'or']);
-const ATOM_KEYWORDS = new Set(['onquest', 'ready', 'turnedin', 'has', 'level', 'skill', 'rep', 'zone', 'done']);
+const KEYWORDS = new Set(['onquest', 'ready', 'turnedin', 'has', 'level', 'skill', 'rep', 'zone', 'done', 'not', 'and', 'or', 'mode', 'xprate', 'xp']);
+const ATOM_KEYWORDS = new Set(['onquest', 'ready', 'turnedin', 'has', 'level', 'skill', 'rep', 'zone', 'done', 'mode', 'xprate', 'xp']);
 const OPERATORS = new Set(['>=', '>', '<=', '<', '==', '!=']);
 // Reputation standings as the client numbers them (1 Hated .. 8 Exalted).
 const STANDINGS = { hated: 1, hostile: 2, unfriendly: 3, neutral: 4, friendly: 5, honored: 6, revered: 7, exalted: 8 };
@@ -128,6 +133,41 @@ function parseAtom(s) {
 			if (!tok2 || tok2.quoted || !/^[A-Za-z0-9_-]+$/.test(tok2.text)) fail(`done needs a step label ("${tok2 ? tok2.text : ''}")`);
 			s.i++;
 			return ['done', tok2.text];
+		}
+		case 'mode': {
+			const t = peek(s);
+			if (!t || t.quoted) fail('mode needs a mode: hardcore, ssf, ah or group');
+			const k = t.text.toLowerCase();
+			if (!MODES.includes(k)) fail(`mode must be one of hardcore, ssf, ah, group (got "${t.text}")`);
+			s.i++;
+			return ['mode', k];
+		}
+		case 'xprate': {
+			const op = readOperator(s, 'xprate');
+			const t = peek(s);
+			if (!t || t.quoted || !DEC_RE.test(t.text)) fail(`xprate needs a number${t ? `, got "${t.text}"` : ''}`);
+			s.i++;
+			return ['xprate', op, Number(t.text)];
+		}
+		case 'xp': {
+			const op = readOperator(s, 'xp');
+			const t = peek(s);
+			if (!t || t.quoted) fail('xp needs a level: <L>, <L>.<fraction> or <L>+<XP>');
+			let v;
+			const m = XP_PLUS_RE.exec(t.text);
+			if (m) {
+				const L = Number(m[1]), n = Number(m[2]);
+				if (L < 1 || L >= MAX_LEVEL) fail(`xp level must be 1-${MAX_LEVEL - 1} with +XP, got ${L}`);
+				if (n >= LEVEL_XP[L]) fail(`xp ${t.text}: more XP than level ${L} needs (${LEVEL_XP[L]})`);
+				v = L + Math.round((n / LEVEL_XP[L]) * 10000) / 10000;
+			} else if (DEC_RE.test(t.text)) {
+				v = Number(t.text);
+				if (v < 1 || v > MAX_LEVEL) fail(`xp level must be 1-${MAX_LEVEL}, got ${t.text}`);
+			} else {
+				fail(`xp needs a level number, got "${t.text}"`);
+			}
+			s.i++;
+			return ['xp', op, v];
 		}
 		default: {
 			const tok2 = peek(s);
