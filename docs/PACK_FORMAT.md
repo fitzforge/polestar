@@ -358,7 +358,7 @@ guide with "step N: bad label", "step N: duplicate label <name>" or
 "step N: bad along".
 
 The compiler writes format 3 only when a guide uses `when`, `label` or `along`; every other pack
-stays format 1.
+stays format 2.
 
 ## Versioning
 
