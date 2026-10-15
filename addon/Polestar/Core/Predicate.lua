@@ -28,6 +28,7 @@ local ARITY = {
 	onquest = 2, ready = 2, turnedin = 2,
 	item = 4, level = 3, skill = 4, rep = 4,
 	class = 2, race = 2, faction = 2, zone = 2,
+	done = 2,
 	["not"] = 2,
 }
 
@@ -107,6 +108,8 @@ function P.Validate(node, depth)
 		if node[2] ~= "Alliance" and node[2] ~= "Horde" then return false, "faction must be 'Alliance' or 'Horde'" end
 	elseif kind == "zone" then
 		if type(node[2]) ~= "string" or node[2] == "" then return false, "zone must be a non-empty string" end
+	elseif kind == "done" then
+		if type(node[2]) ~= "string" or node[2] == "" then return false, "done needs a step label" end
 	end
 	return true
 end
@@ -135,6 +138,10 @@ local function lookup(env, key, fn)
 	env[key] = { v = v }
 	return v
 end
+
+local doneResolver = nil
+-- The Engine answers "is the step labelled X done?" for `done` atoms.
+function P.SetDoneResolver(fn) doneResolver = fn end
 
 local function player(env)
 	return lookup(env, "player", function() return Compat().GetPlayerInfo() end)
@@ -196,6 +203,13 @@ local function evalNode(node, env)
 		local id = node[2]
 		local rank = lookup(env, "skill:" .. id, function() return Compat().GetSkillRank(id) or 0 end) or 0
 		return compare(node[3], rank, node[4])
+	elseif kind == "done" then
+		local label = node[2]
+		if not doneResolver then return false end
+		return lookup(env, "done:" .. label, function()
+			local ok, v = pcall(doneResolver, label)
+			return ok and v and true or false
+		end)
 	elseif kind == "rep" then
 		local id = node[2]
 		local standing = lookup(env, "rep:" .. id, function() return Compat().GetFactionStanding(id) end)
