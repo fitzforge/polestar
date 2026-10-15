@@ -1,5 +1,5 @@
 'use strict';
-// Phase 5, Task 5.1: play-mode and XP atoms in Core/Predicate.lua.
+// play-mode and XP atoms in Core/Predicate.lua.
 //   { "mode", key }        a player setting (modes.<key>) is on; key is one of
 //                          hardcore, ssf, ah, group
 //   { "xprate", op, n }    the player's XP-rate setting (modes.xprate, default 1)

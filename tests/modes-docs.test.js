@@ -1,5 +1,5 @@
 'use strict';
-// Phase 5, Task 5.5: documentation of conditional `next`, the mode/xprate/xp
+// documentation of conditional `next`, the mode/xprate/xp
 // atoms, fractional level goals and the Play style settings.
 
 const { test } = require('node:test');

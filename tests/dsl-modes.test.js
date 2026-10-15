@@ -1,5 +1,5 @@
 'use strict';
-// Phase 5, Task 5.2: compiler side of the play-mode and XP atoms in `when`
+// compiler side of the play-mode and XP atoms in `when`
 // expressions: `mode <key>`, `xprate <op> <number>`, `xp <op> <L>[.<frac>]`
 // and `xp <op> <L>+<N>` (N XP into level L, turned into a fraction of the
 // level with the XP table in tools/lib/game/xp.js).

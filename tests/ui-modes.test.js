@@ -1,5 +1,5 @@
 'use strict';
-// Phase 5, Task 5.4: the play-mode settings the `mode` and `xprate`
+// the play-mode settings the `mode` and `xprate`
 // predicates read are on the options page: Guide › Play style › Modes.
 
 const { test } = require('node:test');
