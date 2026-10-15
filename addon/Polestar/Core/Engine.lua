@@ -1598,16 +1598,19 @@ end
 -- counts the whole area as reached); `r` stays the arrival margin. An area
 -- objective's waypoint also carries `search` (Nav never says arrived),
 -- `spots` (the goal's list, for the map marks) and `spot` (its index).
-local function waypointOf(g, goal)
+local function waypointOf(g, goal, s)
+	s = s or current
 	local map, x, y, f, area = posOf(goal)
-	if not (map and x and y) or not goalApplies(goal) or unavailableFor(goal) or Own.goalSkipped(current, g)
-		or goalDone(current, g, goal) then return nil end
+	if not (map and x and y) or not goalApplies(goal) or unavailableFor(goal) or Own.goalSkipped(s, g)
+		or goalDone(s, g, goal) then return nil end
 	local verb, subject, _, detail = describe(goal)
 	local many = area and #goal.spots > 1
 	return {
 		map = map, x = x, y = y, f = f,
 		label = (goalText(goal, verb, subject, detail)),
 		stepIndex = current, goalIndex = g, kind = goal.t,
+		label = goalText(goal, verb, subject, detail),
+		stepIndex = s, goalIndex = g, kind = goal.t,
 		r = goal.r or DEFAULT_RADIUS, area = area,
 		search = area and goal.spread or nil,
 		spots = many and goal.spots or nil, spot = many and Spots.index(goal) or nil,
@@ -1677,6 +1680,11 @@ local function findWaypoint()
 				local wp = waypointOf(g, goal)
 				if wp then return wp end
 			end
+		end
+		local as, ag = Own.alongOf(aim)
+		if as then
+			local wp = waypointOf(ag, aim, as)
+			if wp then return wp end
 		end
 	end
 	local groups, focus = stepGroups(current)
@@ -2473,7 +2481,7 @@ local function evaluateLoaded(active)
 			if #skips > 0 then ns.Fire("STEP_SKIPPED", old, newCurrent, skips) end
 		end
 		current = newCurrent
-		aim = nil -- the arrow's choice was for the old step
+		if not (aim and Own.alongOf(aim)) then aim = nil end -- a choice of an along goal outlives the step
 		-- Step start: pick candidates and spawn spots afresh from where the
 		-- player stands. A spot picked earlier (the step shown as "Then:" or
 		-- looked at ahead, from elsewhere) would otherwise only move at the
@@ -2970,6 +2978,30 @@ function Engine.GetStepView(i)
 	}
 end
 
+-- True when step s of `guide` is listed by GetAlong: a past along step whose
+-- goals are still being shown (not skipped, not ended at its label).
+function Own.alongListed(s)
+	if not (guide and current) or not (s < current) then return false end
+	local step = guide.steps[s]
+	if not (step.along and stepApplies(step) and not isSkipped(s)) then return false end
+	if type(step.along) == "string" and Own.labelIndex(step.along) and current >= Own.labelIndex(step.along) then return false end
+	return true
+end
+
+-- The goal belongs to a listed along step: return its index and the goal's
+-- index within that step, or nil.
+function Own.alongOf(goal)
+	if not (guide and current) then return nil end
+	for s = 1, current - 1 do
+		if Own.alongListed(s) then
+			for g, goal2 in ipairs(guide.steps[s].goals) do
+				if goal2 == goal then return s, g end
+			end
+		end
+	end
+	return nil
+end
+
 -- Format-2 `along` steps: the route passes over them, so they are never the
 -- current step. While the route is past one, its open goals are listed here,
 -- in step order: until all its goals are done, or (with `along = "<label>"`)
@@ -2981,23 +3013,20 @@ function Engine.GetAlong()
 	if not current then return out end
 	local steps = guide.steps
 	for s = 1, current - 1 do
-		local step = steps[s]
-		if step.along and stepApplies(step) and not isSkipped(s) then
-			local stop = type(step.along) == "string" and Own.labelIndex(step.along) or nil
-			if not (stop and current >= stop) then
-				local goals = {}
-				for g, goal in ipairs(step.goals) do
-					if goal.t ~= "note" then
-						local view = goalView(s, g, goal, "current", nil)
-						if view.status == "active" then
-							view.index = g
-							goals[#goals + 1] = view
-						end
+		if Own.alongListed(s) then
+			local step = steps[s]
+			local goals = {}
+			for g, goal in ipairs(step.goals) do
+				if goal.t ~= "note" then
+					local view = goalView(s, g, goal, "current", nil)
+					if view.status == "active" then
+						view.index = g
+						goals[#goals + 1] = view
 					end
 				end
-				if #goals > 0 then
-					out[#out + 1] = { index = s, title = step.title, goals = goals }
-				end
+			end
+			if #goals > 0 then
+				out[#out + 1] = { index = s, title = step.title, goals = goals }
 			end
 		end
 	end
@@ -3186,6 +3215,18 @@ function Engine.AimGoal(stepIndex, goalIndex)
 	if not (guide and current) or stepIndex ~= current then return false end
 	local goal = guide.steps[current].goals[goalIndex]
 	if not (goal and waypointOf(goalIndex, goal)) then return false end
+	aim = goal
+	evaluate()
+	return true
+end
+
+-- Point the arrow at an open, located goal of a listed along step (a row
+-- click in the window). The choice survives the route moving on while the
+-- goal is still listed. True if the arrow can lead there.
+function Engine.AimAlong(stepIndex, goalIndex)
+	if not (guide and current) or not Own.alongListed(stepIndex) then return false end
+	local goal = guide.steps[stepIndex].goals[goalIndex]
+	if not goal or goal.t == "note" or not waypointOf(goalIndex, goal, stepIndex) then return false end
 	aim = goal
 	evaluate()
 	return true
