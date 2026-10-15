@@ -51,7 +51,7 @@ every goal in it that is not `optional` is; its goals are open together.
 | `tip <text>` | A note for the whole step |
 | `zone <Name>` / `zone map <uiMapID>` | The zone for coordinates from here on, in later steps too |
 | `only <condition>, ...` | The step is only for matching characters |
-| `when <condition>` | Inside a step: the step only applies while the condition holds (format 2) |
+| `when <condition>` | Inside a step: the step only applies while the condition holds (format 3) |
 
 ## Goals
 
