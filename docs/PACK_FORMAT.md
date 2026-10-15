@@ -347,6 +347,7 @@ a bad one refuses the guide ("step N: bad when"). The node shapes:
 { "all", p... } { "any", p... } { "not", p } { "onquest", q } { "ready", q } { "turnedin", q }
 { "item", id, op, n } { "level", op, n } { "class", { "WARRIOR", ... } } { "race", { "Human", ... } }
 { "faction", "Alliance"|"Horde" } { "zone", "Name" } { "skill", skillLine, op, n } { "rep", factionID, op, standing }
+{ "done", label }
 ```
 
 `op` is one of `">="`, `">"`, `"<="`, `"<"`, `"=="`, `"~="`. Nesting is
@@ -357,8 +358,16 @@ Format 3 also adds two step keys. `label` is a string: the step's name.
 guide with "step N: bad label", "step N: duplicate label <name>" or
 "step N: bad along".
 
-The compiler writes format 3 only when a guide uses `when`, `label` or `along`; every other pack
-stays format 2.
+Format 2 adds a third step key, `skips`: a list of jumps,
+`{ { to = "<label>", when = <predicate> }, ... }`. Every `to` must be the label
+of a LATER step and every `when` a valid predicate, else registration refuses
+the guide with "step N: bad skipto". When the route arrives at the step and the
+predicate holds, the steps up to the labelled step are skipped for the
+character. A saved jump is the value "jump" in the skipped table, next to the
+player's own skips and carried over pack updates like them.
+
+The compiler writes format 3 only when a guide uses `when`, `label`, `along` or
+`skipto`; every other pack stays format 1.
 
 ## Versioning
 

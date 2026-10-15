@@ -575,6 +575,10 @@ NewPass is called from refreshPlayer at the start of each evaluation and
 holds the Engine's per-pass env; stepApplies evaluates through PassEnv, so
 every `when` in one pass sees the same answers. All reads go through Compat.
 
+`Predicate.SetDoneResolver(fn)` installs `fn(label) -> boolean` at load, so the
+Engine answers `done` atoms for the guide being evaluated; without a resolver
+`done` is false.
+
 Engine.lua adds no locals for this (the main chunk is near Lua 5.1's
 200-local limit).
 

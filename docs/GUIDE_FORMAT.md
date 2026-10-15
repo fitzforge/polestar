@@ -112,6 +112,7 @@ Step directives:
 | `when <expr>` | The step applies only while the expression holds, re-checked live (format 3; see "`when` expressions"). |
 | `label <name>` | Names the step for `along until` (format 3). |
 | `along [until <label>]` | The step's goals never hold up the route; they are listed "Along the way" (format 3; see "Along the way"). |
+| `skipto <label> when <expr>` | When the route arrives at this step and the expression holds, jump ahead to the labelled step (format 3; see "Jumps"). |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 
 A step must contain at least one goal.
@@ -223,6 +224,7 @@ Atoms, one example each:
 | `skill <Profession> <op> <N>` | `when skill Mining >= 50` | A profession's skill rank. |
 | `rep <Faction> <op> <Standing>` | `when rep Stormwind >= Friendly` | A faction standing. |
 | `zone "<Zone>"` | `when zone "Elwynn Forest"` | The zone the game reports. |
+| `done <label>` | `when done camp` | The labelled step is done and was not skipped. |
 | class/race/faction names | `when Warrior or Paladin` | As in `only`. |
 
 Operators: `>=` `>` `<=` `<` `==` `!=`. Combining: `not`, `and`, `or`,
@@ -260,6 +262,34 @@ step Travel
 step Back at the camp
   label camp
   turnin 33
+```
+
+### Jumps: `skipto` and `done`
+
+`skipto <label> when <expr>` sits inside a step and may repeat; the first one
+that holds wins. When the route arrives at this step and the expression holds,
+the steps from this one up to (not including) the labelled step are skipped for
+the character. The label must name a later step (errors: `unknown label`,
+`must name a later step`).
+
+The jump is saved as `"jump"` in the skipped table, next to the player's own
+skips, and carried over pack updates like them, so it does not undo itself when
+the expression later turns false. The player can bring a jumped step back with
+Unskip like any skipped step.
+
+`done <label>` is a `when` atom: true when the labelled step is done and was
+not skipped (a step the route jumped over is not done). The label must exist in
+the guide, at any position.
+
+```
+step Ask about the letter
+  accept 1234
+  skipto camp when turnedin 1235
+step Fetch the letter
+  collect 5678 quest 1234.1
+step The camp
+  label camp
+  turnin 1234
 ```
 
 ## What the compiler fills in
@@ -380,6 +410,7 @@ Errors:
 - a malformed `when` expression, or a `when` naming an unknown profession or faction
 - a duplicate label, an unknown label in `along until`, or an `along until`
   naming an earlier step
+- a `skipto` with an unknown or earlier label, or a `done` naming an unknown label
 - `rep` standing outside 1–8 / Hated–Exalted; `craft` with both `xN` and `until`
 - empty quoted strings (names, titles, labels, notes)
 - `era`/`live` on a goal without typed coordinates
