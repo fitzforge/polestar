@@ -205,6 +205,7 @@ local function checkGoal(goal)
 		if goal[key] ~= nil and not isNum(goal[key]) then return "bad " .. key end
 	end
 	if goal.profName ~= nil and not isStr(goal.profName) then return "bad profName" end
+	if goal.t == "level" and goal.frac ~= nil and not (isNum(goal.frac) and goal.frac > 0 and goal.frac < 1) then return "bad frac" end
 	if goal.reagents ~= nil then
 		if type(goal.reagents) ~= "table" then return "bad reagents" end
 		for i = 1, #goal.reagents do
@@ -303,13 +304,58 @@ local function validate(def)
 			end
 		end
 	end
+	if def.nextWhen ~= nil then
+		if type(def.nextWhen) ~= "table" then return "bad nextWhen" end
+		if type(def.nextChoices) ~= "table" then return "bad nextWhen" end
+		for k, v in pairs(def.nextWhen) do
+			if not isStr(k) then return "bad nextWhen" end
+			local listed = false
+			for i = 1, #def.nextChoices do
+				if def.nextChoices[i] == k then listed = true break end
+			end
+			if not listed then return "bad nextWhen" end
+			if not ns.Predicate.Validate(v) then return "bad nextWhen" end
+		end
+	end
+	local labelAt = {}
 	for s, step in ipairs(def.steps) do
 		if type(step) ~= "table" then return ("step %d is not a table"):format(s) end
 		if type(step.goals) ~= "table" or #step.goals == 0 then return ("step %d has no goals"):format(s) end
 		if not checkOnly(step.only) then return ("step %d: bad only"):format(s) end
+		if step.when ~= nil then
+			local ok, err = ns.Predicate.Validate(step.when)
+			if not ok then return ("step %d: bad when: %s"):format(s, err) end
+		end
+		if step.label ~= nil then
+			if not isStr(step.label) then return ("step %d: bad label"):format(s) end
+			if labelAt[step.label] then return ("step %d: duplicate label %s"):format(s, step.label) end
+			labelAt[step.label] = s
+		end
 		for g, goal in ipairs(step.goals) do
 			local err = checkGoal(goal)
 			if err then return ("step %d goal %d: %s"):format(s, g, err) end
+		end
+	end
+	-- `along` names the step it stops at: a label of a later step.
+	for s, step in ipairs(def.steps) do
+		if step.along ~= nil then
+			if step.along == true then
+				-- Open until its goals are done.
+			elseif isStr(step.along) then
+				local at = labelAt[step.along]
+				if not at or at <= s then return ("step %d: bad along"):format(s) end
+			else
+				return ("step %d: bad along"):format(s)
+			end
+		end
+		if step.skips ~= nil then
+			if type(step.skips) ~= "table" then return ("step %d: bad skipto"):format(s) end
+			for _, k in ipairs(step.skips) do
+				if type(k) ~= "table" or not isStr(k.to) or not labelAt[k.to] or labelAt[k.to] <= s then
+					return ("step %d: bad skipto"):format(s)
+				end
+				if not ns.Predicate.Validate(k.when) then return ("step %d: bad skipto"):format(s) end
+			end
 		end
 	end
 	return nil
@@ -324,7 +370,7 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true }
 Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }

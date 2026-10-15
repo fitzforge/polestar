@@ -319,6 +319,29 @@ function handSpots(data, sources, map, f, x, y, near) {
 	return [own, ...alts.map(({ d, ...s }) => s)];
 }
 
+// A `loop` step: its goto points (in order) are the circuit to search. Each
+// kill, collect or interact goal without its own @ coordinates gets them as its
+// spawn areas (searched one after another: `spread`), placed at the first
+// point; the gotos themselves are no longer goals.
+function applyLoop(step, report) {
+	const gotos = step.goals.filter((g) => g.t === 'goto' && g.x !== undefined);
+	if (gotos.length < 2) return report('`loop` needs at least two `goto` points');
+	if (gotos.some((g) => g.map !== gotos[0].map)) return report('`loop` points must all be on one map');
+	const targets = step.goals.filter((g) => (g.t === 'kill' || g.t === 'collect' || g.t === 'interact') && !g._explicit);
+	if (!targets.length) return report('`loop` needs a kill, collect or interact goal');
+	const spots = gotos.map((g) => ({ x: g.x, y: g.y, r: g.r || 30, n: 0 }));
+	for (const g of targets) {
+		g.map = gotos[0].map;
+		g.x = gotos[0].x;
+		g.y = gotos[0].y;
+		if (gotos[0].f) g.f = gotos[0].f;
+		else delete g.f;
+		g.spots = spots.map((p) => ({ ...p }));
+		g.spread = true;
+	}
+	step.goals = step.goals.filter((g) => g.t !== 'goto' || g.x === undefined);
+}
+
 function onlyOf(c) {
 	if (!c) return undefined;
 	const o = {};
@@ -326,6 +349,72 @@ function onlyOf(c) {
 	setIf(o, 'races', c.races);
 	setIf(o, 'factions', c.factions);
 	return Object.keys(o).length ? o : undefined;
+}
+
+// A parsed `when` predicate with its profession/faction names resolved to ids
+// (a new AST; the parsed one is not mutated). Returns null when a name is
+// unknown; every unknown name is reported through `report`.
+function resolvePredicate(node, data, report) {
+	if (Array.isArray(node) && (node[0] === 'skill' || node[0] === 'rep') && typeof node[1] === 'string') {
+		if (node[0] === 'skill') {
+			const p = data.professionNamed(node[1]);
+			if (!p) {
+				report(`unknown profession "${node[1]}"`);
+				return null;
+			}
+			return ['skill', p.id, node[2], node[3]];
+		}
+		const f = data.factionNamed(node[1]);
+		if (!f) {
+			report(`unknown faction "${node[1]}"`);
+			return null;
+		}
+		return ['rep', f.faction.id, node[2], node[3]];
+	}
+	if (Array.isArray(node) && (node[0] === 'all' || node[0] === 'any' || node[0] === 'not')) {
+		const out = [node[0]];
+		let failed = false;
+		for (let i = 1; i < node.length; i++) {
+			const child = resolvePredicate(node[i], data, report);
+			if (child === null) failed = true;
+			else out.push(child);
+		}
+		return failed ? null : out;
+	}
+	if (Array.isArray(node)) return node.map((x) => (Array.isArray(x) ? x.slice() : x));
+	return node;
+}
+
+// Warn for quest and item ids a `when` names that are not in the reference
+// data, like goal ids are (docs/GUIDE_FORMAT.md, "Validation"). Each distinct
+// id is warned once per `when` line.
+function checkPredicateIds(node, data, report) {
+	const haveItems = Object.keys(data.items || {}).length > 0;
+	const seen = new Set();
+	const walk = (n) => {
+		if (!Array.isArray(n)) return;
+		const kind = n[0];
+		if (kind === 'onquest' || kind === 'ready' || kind === 'turnedin') {
+			const q = n[1];
+			if (!seen.has(`quest ${q}`)) {
+				seen.add(`quest ${q}`);
+				if (!data.quest(q)) report(`\`when\`: quest ${q} is not in data (new Forever content?)`);
+			}
+			return;
+		}
+		if (kind === 'item') {
+			const i = n[1];
+			if (haveItems && !seen.has(`item ${i}`)) {
+				seen.add(`item ${i}`);
+				if (!data.item(i)) report(`\`when\`: item ${i} is not in data (new Forever content?)`);
+			}
+			return;
+		}
+		if (kind === 'all' || kind === 'any' || kind === 'not') {
+			for (let i = 1; i < n.length; i++) walk(n[i]);
+		}
+	};
+	walk(node);
 }
 
 function resolveGuide(ast, data, diag, opts = {}) {
@@ -413,7 +502,20 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	// option in the author's order (the default first) for the route choice.
 	if (h.next && h.next.length) {
 		guide.next = h.next[0];
-		if (h.next.length > 1) guide.nextChoices = h.next.slice();
+		if (h.next.length > 1 || h.nextWhen) guide.nextChoices = h.next.slice();
+	}
+	if (h.nextWhen) {
+		const nw = {};
+		for (const id of h.next) {
+			const e = h.nextWhen[id];
+			if (!e) continue;
+			const w = resolvePredicate(e.when, data, (msg) => err(e.line, msg));
+			if (w) {
+				checkPredicateIds(w, data, (msg) => warn(e.line, msg));
+				nw[id] = w;
+			}
+		}
+		if (Object.keys(nw).length) guide.nextWhen = nw;
 	}
 	setIf(guide, 'pitch', h.pitch);
 	setIf(guide, 'pros', h.pros);
@@ -450,6 +552,26 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		setIf(step, 'title', s.title);
 		setIf(step, 'note', s.tip);
 		setIf(step, 'only', onlyOf(s.only));
+		if (s.when) {
+			const w = resolvePredicate(s.when, data, (msg) => err(s.whenLine, msg));
+			if (w) {
+				step.when = w;
+				checkPredicateIds(w, data, (msg) => warn(s.whenLine, msg));
+			}
+		}
+		setIf(step, 'label', s.label);
+		if (s.along !== undefined) step.along = s.along;
+		if (s.skips) {
+			const out = [];
+			for (const sk of s.skips) {
+				const w = resolvePredicate(sk.when, data, (msg) => err(sk.line, msg));
+				if (w) {
+					checkPredicateIds(w, data, (msg) => warn(sk.line, msg));
+					out.push({ to: sk.to, when: w });
+				}
+			}
+			if (out.length) step.skips = out;
+		}
 		step.goals = [];
 		hidden(step, '_line', s.line);
 		hidden(step, '_only', s.only);
@@ -467,6 +589,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			const goal = resolveGoal(g, zoneId, prev, data, err, warn, ctx);
 			hidden(goal, '_line', g.line);
 			hidden(goal, '_only', g.only || null);
+			hidden(goal, '_explicit', g.explicitCoords);
 			step.goals.push(goal);
 			// Leveling guides are for every character: a goal only those with a
 			// profession see should be optional, unless the guide trains it first
@@ -498,11 +621,56 @@ function resolveGuide(ast, data, diag, opts = {}) {
 				use(goal.map);
 			}
 		}
+		if (s.loop) applyLoop(step, (msg) => err(s.loopLine, msg));
 		guide.steps.push(step);
 	}
 	// The guide menu's "Group" chip: some goal of the route needs a group.
 	if (guide.steps.some((s) => s.goals.some((goal) => goal.group && !goal.optional))) guide.group = true;
+	// Labels are guide-wide: names must be unique, and an `along until` must
+	// point at a step later than the one using it (indexes match ast.steps —
+	// every step is pushed as it is built).
+	const labels = new Map(); // name -> { index, line }
+	for (let i = 0; i < ast.steps.length; i++) {
+		const s = ast.steps[i];
+		if (!s.label) continue;
+		if (labels.has(s.label)) err(s.labelLine, `duplicate label "${s.label}" (first at line ${labels.get(s.label).line})`);
+		else labels.set(s.label, { index: i, line: s.labelLine });
+	}
+	for (let i = 0; i < ast.steps.length; i++) {
+		const s = ast.steps[i];
+		if (typeof s.along !== 'string') continue;
+		const t = labels.get(s.along);
+		if (!t) err(s.alongLine, `unknown label "${s.along}"`);
+		else if (t.index <= i) err(s.alongLine, `\`along until ${s.along}\` must name a later step`);
+	}
+	// `skipto <label>` must name a later step; a `done <label>` in a condition
+	// must name a labelled step anywhere in the guide.
+	for (let i = 0; i < ast.steps.length; i++) {
+		const s = ast.steps[i];
+		for (const sk of s.skips || []) {
+			const t = labels.get(sk.to);
+			if (!t) err(sk.line, `unknown label "${sk.to}"`);
+			else if (t.index <= i) err(sk.line, `\`skipto ${sk.to}\` must name a later step`);
+		}
+		for (const l of doneLabels(s.when)) {
+			if (!labels.has(l)) err(s.whenLine, `\`when\`: unknown label "${l}"`);
+		}
+		for (const sk of s.skips || []) {
+			for (const l of doneLabels(sk.when)) {
+				if (!labels.has(l)) err(sk.line, `\`skipto\`: unknown label "${l}"`);
+			}
+		}
+	}
 	return guide;
+}
+
+// The labels a predicate AST names through `done <label>` atoms.
+function doneLabels(node) {
+	if (!Array.isArray(node)) return [];
+	if (node[0] === 'done') return [node[1]];
+	if (node[0] === 'all' || node[0] === 'any') return node.slice(1).flatMap(doneLabels);
+	if (node[0] === 'not') return doneLabels(node[1]);
+	return [];
 }
 
 function objectiveFor(q, kind, id) {
@@ -905,6 +1073,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		}
 		case 'level':
 			goal.level = g.level;
+			if (g.frac) goal.frac = g.frac;
 			break;
 		case 'note':
 			break;

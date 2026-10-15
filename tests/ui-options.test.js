@@ -69,7 +69,7 @@ test('pages: by order, a page with nothing to set left out, Recorder and About l
 	// (a custom page) is always there.
 	assert.deepEqual(out.nav, ['Guide', 'Appearance', 'Map', 'Quests', 'Guide packs', 'Recorder', 'About']);
 	assert.equal(out.title, 'Guide');
-	assert.deepEqual(out.tabs, ['Window', 'Arrow & routes', 'Automation']);
+	assert.deepEqual(out.tabs, ['Window', 'Arrow & routes', 'Automation', 'Play style']);
 	assert.deepEqual(out.pages.find((p) => p.name === 'Quests'), { name: 'Quests', key: 'quests', builtin: false, tabs: ['Map'] });
 	assert.deepEqual(out.footer, ['Reset page', 'Reload UI', 'Close']);
 });
@@ -315,7 +315,7 @@ test('a tab whose module is not loaded is left out; a page with nothing at all s
 		UI.ShowOptions("discovery")
 		emit({ tabs = tabs, landed = landed, empty = O.view.empty, controls = (function() local n = 0 for _ in pairs(O.Controls("discovery")) do n = n + 1 end return n end)() })`, { install: '{ noNav = true }' });
 	assert.equal(out.landed, 'Guide');
-	assert.deepEqual(out.tabs, ['Window', 'Automation'], 'no dead Arrow & routes tab without Nav');
+	assert.deepEqual(out.tabs, ['Window', 'Automation', 'Play style'], 'no dead Arrow & routes tab without Nav');
 	assert.equal(out.empty, true);
 	assert.equal(out.controls, 0);
 });

@@ -242,6 +242,7 @@ Guide keys (the compiler writes them in this order):
 | `zone`, `zoneName` | no | the default zone's uiMapID and name |
 | `next` | no | the id of the guide that follows: one of the pack's or one of Polestar's |
 | `nextChoices` | no | list of guide ids offered as a route choice (the first is the default) |
+| `nextWhen` | no | table of guide id → condition (`next <id> when <expr>`): the condition under which that route option is offered (format 3) |
 | `pitch` | no | one line for the route choice card |
 | `pros`, `cons` | no | lists of short lines under the pitch |
 | `author` | no | string; the compiler writes the pack's author when the guide names none |
@@ -279,7 +280,7 @@ group, below).
 | `train` | — | `npc`, `npcName`, `class`, `skill`, `skillLine`, `rank`, `rankMax`, `candidates` |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName`, `candidates` |
 | `vendor` | — | `npc`, `npcName`, `candidates` |
-| `level` | `level` | — |
+| `level` | `level` | `frac` |
 | `note` | `text` | — |
 | `skill` | `skill`, `level` | `skillLine` |
 | `learn` | `spell`, `spellName` | `skillLine`, `npc`/`npcName`, `item`/`itemName`, `candidates` |
@@ -306,6 +307,7 @@ The fields:
 | `skill` | a profession name; `skillLine` its skill line id |
 | `rank`, `rankMax` | on `train`: the profession rank (1 Apprentice to 4 Artisan; Polestar also reads a rank name or a skill cap) and its skill cap (written by the compiler, not read by Polestar) |
 | `level` | on `level`: the level to reach; on `skill`: the skill to reach |
+| `frac` | on `level`: the fraction (0 < frac < 1) of the level's XP at which the goal counts; a goal using `frac` makes the pack format 3 |
 | `untilSkill` | on `craft`: craft until the profession reaches this skill |
 | `reagents` | `{ { item, itemName, count } }` |
 | `standing` | 1 Hated to 8 Exalted |
@@ -337,6 +339,48 @@ candidate on, where the reference data has them: `c` the continent,
 covers, Polestar's bounds win (rule 4). Call it after `RegisterPack`: the
 frames of a pack that is not registered are dropped.
 
+## Format 3
+
+Format 3 is format 2 plus an optional step key `when`: a predicate table (a
+closed list of node kinds, no code). Predicates are validated on registration;
+a bad one refuses the guide ("step N: bad when"). The node shapes:
+
+```
+{ "all", p... } { "any", p... } { "not", p } { "onquest", q } { "ready", q } { "turnedin", q }
+{ "item", id, op, n } { "level", op, n } { "class", { "WARRIOR", ... } } { "race", { "Human", ... } }
+{ "faction", "Alliance"|"Horde" } { "zone", "Name" } { "skill", skillLine, op, n } { "rep", factionID, op, standing }
+{ "done", label } { "mode", key } { "xprate", op, n } { "xp", op, v }
+```
+
+`op` is one of `">="`, `">"`, `"<="`, `"<"`, `"=="`, `"~="`. Nesting is
+limited to 16 levels.
+
+`{ "mode", key }` checks a play-mode setting (`key` is `"hardcore"`, `"ssf"`, `"ah"` or `"group"`);
+`{ "xprate", op, n }` checks the XP-rate setting; `{ "xp", op, v }` checks the level, where `v` is
+the level plus the fraction of it done.
+
+Format 3 also adds two step keys. `label` is a string: the step's name.
+`along` is `true`, or the label string of a LATER step. Registration refuses a
+guide with "step N: bad label", "step N: duplicate label <name>" or
+"step N: bad along".
+
+Format 3 adds a third step key, `skips`: a list of jumps,
+`{ { to = "<label>", when = <predicate> }, ... }`. Every `to` must be the label
+of a LATER step and every `when` a valid predicate, else registration refuses
+the guide with "step N: bad skipto". When the route arrives at the step and the
+predicate holds, the steps up to the labelled step are skipped for the
+character. A saved jump is the value "jump" in the skipped table, next to the
+player's own skips and carried over pack updates like them.
+
+Format 3 adds a goal key `frac` on `level` goals: a number with 0 < frac < 1,
+the point inside the level the goal asks for.
+
+Format 3 adds a guide key `nextWhen`: a table of guide id to condition, the
+route options offered only while their condition holds.
+
+The compiler writes format 3 only when a guide uses `when`, `label`, `along`,
+`skips`, `nextWhen` or `frac`; every other pack stays format 2.
+
 ## Versioning
 
 - The format number changes when a verb, a field or a field's meaning is
@@ -347,6 +391,7 @@ frames of a pack that is not registered are dropped.
 - The compiler writes the first Polestar version that reads the pack's format
   into the TOC as `X-Polestar-Needs`. Format 1 is read by Polestar 0.1.0 and
   later, format 2 (the `group`, `reward` and `why` keys) by 0.2.4 and later.
+  Format 3 is read by Polestar 0.3.0 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Guide packs page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).
