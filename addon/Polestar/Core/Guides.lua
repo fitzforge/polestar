@@ -303,6 +303,19 @@ local function validate(def)
 			end
 		end
 	end
+	if def.nextWhen ~= nil then
+		if type(def.nextWhen) ~= "table" then return "bad nextWhen" end
+		if type(def.nextChoices) ~= "table" then return "bad nextWhen" end
+		for k, v in pairs(def.nextWhen) do
+			if not isStr(k) then return "bad nextWhen" end
+			local listed = false
+			for i = 1, #def.nextChoices do
+				if def.nextChoices[i] == k then listed = true break end
+			end
+			if not listed then return "bad nextWhen" end
+			if not ns.Predicate.Validate(v) then return "bad nextWhen" end
+		end
+	end
 	local labelAt = {}
 	for s, step in ipairs(def.steps) do
 		if type(step) ~= "table" then return ("step %d is not a table"):format(s) end

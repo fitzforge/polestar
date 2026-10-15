@@ -2281,7 +2281,8 @@ local function routeOptions(from)
 	local level = player.level or 1
 	for _, id in ipairs(from.nextChoices) do
 		local g = Guides.Get(id)
-		if g and Guides.GuideMatches(g, player) then
+		local cond = from.nextWhen and from.nextWhen[id]
+		if g and Guides.GuideMatches(g, player) and (cond == nil or ns.Predicate.Eval(cond)) then
 			list[#list + 1] = { guide = g, outleveled = (g.maxLevel ~= nil and level >= g.maxLevel) }
 		end
 	end
