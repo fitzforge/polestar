@@ -2981,7 +2981,7 @@ end
 -- True when step s of `guide` is listed by GetAlong: a past along step whose
 -- goals are still being shown (not skipped, not ended at its label).
 function Own.alongListed(s)
-	if not (guide and current) or not (s < current) then return false end
+	if not (guide and current) or type(s) ~= "number" or not (s < current) then return false end
 	local step = guide.steps[s]
 	if not (step.along and stepApplies(step) and not isSkipped(s)) then return false end
 	if type(step.along) == "string" and Own.labelIndex(step.along) and current >= Own.labelIndex(step.along) then return false end
