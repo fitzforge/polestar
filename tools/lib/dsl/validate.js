@@ -42,6 +42,21 @@ function levelAt(xp) {
 	return l;
 }
 
+// Quests a step's `when` guarantees are in the log: `onquest Q` / `ready Q`,
+// through `all` (every child counts) and `any` (only quests every child guarantees).
+function whenHolds(node) {
+	const out = new Set();
+	if (!Array.isArray(node)) return out;
+	const [kind, ...rest] = node;
+	if (kind === 'onquest' || kind === 'ready') out.add(rest[0]);
+	else if (kind === 'all') for (const c of rest) for (const q of whenHolds(c)) out.add(q);
+	else if (kind === 'any' && rest.length) {
+		const sets = rest.map(whenHolds);
+		for (const q of sets[0]) if (sets.every((s) => s.has(q))) out.add(q);
+	}
+	return out;
+}
+
 const OBJECTIVE_VERBS = new Set(['kill', 'collect', 'interact', 'use']);
 
 function guideLayer(g) {
@@ -485,7 +500,7 @@ function validateGuides(guides, data, diag) {
 				accepted.add(goal.quest);
 				take(own.get(goal));
 			} else if (goal.t === 'turnin' || goal.t === 'complete' || (OBJECTIVE_VERBS.has(goal.t) && goal.quest !== undefined)) {
-				if (!accepted.has(goal.quest)) {
+				if (!accepted.has(goal.quest) && !whenHolds(step.when).has(goal.quest)) {
 					diag.error(file, ln, `\`${goal.t}\` for quest ${goal.quest} that is never accepted earlier in this guide or a guide chaining into it`);
 				}
 				if (goal.t === 'turnin') {
@@ -597,4 +612,4 @@ function validateSoloPolicy(guides, excluded, diag) {
 	}
 }
 
-module.exports = { validateGuides, validateSoloPolicy, validatePackFrames, forEachGoalMap, xpAt, levelAt };
+module.exports = { validateGuides, validateSoloPolicy, validatePackFrames, forEachGoalMap, xpAt, levelAt, whenHolds };
