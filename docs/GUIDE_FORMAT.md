@@ -109,6 +109,10 @@ Step directives:
 |---|---|
 | `zone <Name>` / `zone map <uiMapID>` | Current zone for coordinates from here on (sticky across later steps). |
 | `only <cond>[,<cond>...]` | The step applies only to matching characters. |
+| `when <expr>` | The step applies only while the expression holds, re-checked live (format 3; see "`when` expressions"). |
+| `label <name>` | Names the step for `along until` (format 3). |
+| `along [until <label>]` | The step's goals never hold up the route; they are listed "Along the way" (format 3; see "Along the way"). |
+| `skipto <label> when <expr>` | When the route arrives at this step and the expression holds, jump ahead to the labelled step (format 3; see "Jumps"). |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 
 A step must contain at least one goal.
@@ -200,6 +204,93 @@ Comma-separated names, case-insensitive:
 
 Classes OR together, races OR together, factions OR together; the three groups
 AND. `only Warrior,Paladin,Dwarf` = (Warrior or Paladin) and Dwarf.
+
+### `when` expressions
+
+A step with a `when` applies only while the expression holds, re-checked live.
+A step whose expression is false is passed over like a step for another class;
+it comes back if the expression becomes true. Answers are re-checked on quest,
+bag, level, xp, skill, reputation and zone events.
+
+Atoms, one example each:
+
+| Atom | Example | Meaning |
+|---|---|---|
+| `onquest <quest>` | `when onquest 783` | The quest is in the log. |
+| `ready <quest>` | `when ready 783` | All of the quest's objectives are done. |
+| `turnedin <quest>` | `when turnedin 783` | The quest is turned in. |
+| `has <item> [xN]` | `when has 750 x8` | The bag holds N of the item (1 without a count). |
+| `level <op> <N>` | `when level >= 10` | The character's level. |
+| `skill <Profession> <op> <N>` | `when skill Mining >= 50` | A profession's skill rank. |
+| `rep <Faction> <op> <Standing>` | `when rep Stormwind >= Friendly` | A faction standing. |
+| `zone "<Zone>"` | `when zone "Elwynn Forest"` | The zone the game reports. |
+| `done <label>` | `when done camp` | The labelled step is done and was not skipped. |
+| class/race/faction names | `when Warrior or Paladin` | As in `only`. |
+
+Operators: `>=` `>` `<=` `<` `==` `!=`. Combining: `not`, `and`, `or`,
+parentheses; precedence not > and > or.
+
+    when onquest 7 and not has 750 x8
+    when (Warrior or Paladin) and level >= 10
+    when rep Stormwind >= Friendly
+
+A pack using `when`, `label` or `along` is compiled as format 3, which older Polestar refuses
+rather than misreads (docs/PACK_FORMAT.md, "Format 3").
+
+### Along the way: `along` and `label`
+
+`label <name>` names a step. Names use letters, digits, `-` and `_`, are
+case-sensitive, and must be unique in the guide (error: `duplicate label`).
+
+`along` marks a step as along the way. Its goals never hold up the route: the
+route passes over the step at once. While the route is past it, its open goals
+are listed in the guide window's "Along the way" section under the current step
+(up to 6), with live progress. Clicking one points the arrow at it (if it has a
+place); that choice holds while the goal is listed. Without `until` the goals
+are listed until done; with `along until <label>` the listing ends when the
+route reaches the labelled step, which must be a later step (errors:
+`unknown label`, `must name a later step`). The section is hidden in compact
+mode. "Then:" and Up next skip along steps. A guide that needs a goal finished
+before going on repeats it as a normal goal at the labelled step.
+
+```
+step Boars on the way
+  along until camp
+  kill 113 x8 quest 33.1
+step Travel
+  goto 42.1,65.9 "Goldshire"
+step Back at the camp
+  label camp
+  turnin 33
+```
+
+### Jumps: `skipto` and `done`
+
+`skipto <label> when <expr>` sits inside a step and may repeat; the first one
+that holds wins. When the route arrives at this step and the expression holds,
+the steps from this one up to (not including) the labelled step are skipped for
+the character. The label must name a later step (errors: `unknown label`,
+`must name a later step`).
+
+The jump is saved as `"jump"` in the skipped table, next to the player's own
+skips, and carried over pack updates like them, so it does not undo itself when
+the expression later turns false. The player can bring a jumped step back with
+Unskip like any skipped step.
+
+`done <label>` is a `when` atom: true when the labelled step is done and was
+not skipped (a step the route jumped over is not done). The label must exist in
+the guide, at any position.
+
+```
+step Ask about the letter
+  accept 1234
+  skipto camp when turnedin 1235
+step Fetch the letter
+  collect 5678 quest 1234.1
+step The camp
+  label camp
+  turnin 1234
+```
 
 ## What the compiler fills in
 
@@ -316,6 +407,10 @@ Errors:
 - profession, faction or spell unknown in data **and** no quoted name; a faction
   not in `factions.json` also needs its id (`rep <factionId> "Name" <Standing>`);
   `achieve` always needs its quoted name
+- a malformed `when` expression, or a `when` naming an unknown profession or faction
+- a duplicate label, an unknown label in `along until`, or an `along until`
+  naming an earlier step
+- a `skipto` with an unknown or earlier label, or a `done` naming an unknown label
 - `rep` standing outside 1–8 / Hated–Exalted; `craft` with both `xN` and `until`
 - empty quoted strings (names, titles, labels, notes)
 - `era`/`live` on a goal without typed coordinates
@@ -359,6 +454,7 @@ Warnings:
 - a coordinate on a map other than the step's zone that the guide never sets as
   a zone (catches a target resolved onto another continent)
 - profession, faction or spell missing from data but given a quoted name
+- a `when` naming a quest or item missing from data
 - a `goto` right before a goal that already leads to the same place: the next
   goal (notes skipped) is located within 200 yards of the goto point, measured to
   the edge of its nearest spawn area (see `goto` under "Places")

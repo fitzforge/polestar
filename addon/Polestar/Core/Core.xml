@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Init.lua"/>
 	<Script file="Compat.lua"/>
+	<Script file="Predicate.lua"/>
 	<Script file="Data.lua"/>
 	<Script file="Hooks.lua"/>
 	<Script file="Guides.lua"/>

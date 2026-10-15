@@ -11,7 +11,7 @@ const { resolveGuide } = require('./resolve');
 const { validateGuides, validatePackFrames, forEachGoalMap } = require('./validate');
 const { loadData } = require('./data');
 const { emitGuides, emitPack, emitToc, emitMapFrames, emitLicense } = require('./emit');
-const { ownsGuideId, GENERATED_MARKER } = require('../pack/format');
+const { ownsGuideId, GENERATED_MARKER, FORMAT } = require('../pack/format');
 
 const { ROOT, DATA } = require('../paths');
 // Our own pack: guides/pack.json and the guides beside it.
@@ -152,13 +152,25 @@ function referencedFrames(guides, data) {
 	return frames;
 }
 
+// The pack format: 3 when any guide uses a format-3 step key (`when`, `label`,
+// `along`, `skips`), else FORMAT (the default, readable by older Polestar — see pack/format.js).
+function packFormat(guides) {
+	for (const g of guides) {
+		for (const s of g.steps || []) {
+			if (s.when || s.label || s.along || s.skips) return 3;
+		}
+	}
+	return FORMAT;
+}
+
 // A pack's addon folder as { name: content }, deterministic: exactly
 // <folder>.toc, Pack.lua, MapFrames.lua, Guides.lua and LICENSE-DATA.txt,
 // plus LICENSE.txt holding `license` (the pack's LICENSE file) when given.
 function buildPackFiles({ guides, manifest, data, license = null }) {
+	const m = { ...manifest, format: packFormat(guides) };
 	const files = {
-		[`${manifest.folder}.toc`]: emitToc(manifest, coreInterface()),
-		'Pack.lua': emitPack(manifest),
+		[`${m.folder}.toc`]: emitToc(m, coreInterface()),
+		'Pack.lua': emitPack(m),
 		'MapFrames.lua': emitMapFrames(referencedFrames(guides, data), manifest.id),
 		'Guides.lua': emitGuides(guides.map((g) => ({ guide: g, source: g._ast && g._ast.source ? g._ast.source : null }))),
 		'LICENSE-DATA.txt': emitLicense(data.meta),
@@ -258,6 +270,7 @@ module.exports = {
 	compileProject,
 	compileSources,
 	buildPackFiles,
+	packFormat,
 	packDirRefusal,
 	writePackDir,
 	referencedFrames,

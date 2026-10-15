@@ -43,6 +43,10 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `tip <text>` | A note for the whole step, shown in the guide window | `tip Pull one kobold at a time.` |
 | `zone <Name>` / `zone map <uiMapID>` | Inside a step: the zone for coordinates from here on | `zone Elwynn Forest` |
 | `only <condition>, ...` | Inside a step: the step is only for matching characters | `only Hunter` |
+| `when <condition>` | Inside a step: the step only applies while the condition holds (format 3) | `when onquest 7 and not has 750` |
+| `along [until <label>]` | Inside a step: its goals never hold up the route; shown "along the way" until the labelled step (format 3) | `along until camp` |
+| `skipto <label> when <condition>` | Inside a step: when the condition holds while the route is at this step, jump ahead to the labelled step (format 3) | `skipto camp when turnedin 33` |
+| `label <name>` | Inside a step: names the step for `along until` (format 3) | `label camp` |
 | `note <text>` | A line of information; never holds the player up | `note The camp is busy at night.` |
 | `level <N>` | Reach level N, grinding if need be | `level 2` |
 | `# <text>` | A note for you and other authors; players never see it | `# check the patrol route` |
