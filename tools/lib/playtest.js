@@ -529,7 +529,9 @@ local function act(i, g, r)
 	elseif t == "hearth" or t == "fly" then
 		w.setZone(g.subject, g.subject)
 	elseif t == "level" then
-		w.setLevel(math.max(w.level, tonumber((g.subject or ""):match("%d+")) or (w.level + 1)))
+		local L = r.level or tonumber((g.subject or ""):match("%d+")) or (w.level + 1)
+		w.setLevel(math.max(w.level, L))
+		if r.frac and w.level == L then w.xp = math.ceil(r.frac * w.xpMax); stub.fire("PLAYER_XP_UPDATE", "player") end
 	elseif t == "skill" then
 		local line = r.skillLine or r.skill
 		ensureSkill(r, line)
