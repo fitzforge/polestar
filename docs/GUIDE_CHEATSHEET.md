@@ -43,8 +43,14 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `tip <text>` | A note for the whole step, shown in the guide window | `tip Pull one kobold at a time.` |
 | `zone <Name>` / `zone map <uiMapID>` | Inside a step: the zone for coordinates from here on | `zone Elwynn Forest` |
 | `only <condition>, ...` | Inside a step: the step is only for matching characters | `only Hunter` |
+| `when <condition>` | Inside a step: the step only applies while the condition holds (format 3) | `when onquest 7 and not has 750` |
+| `along [until <label>]` | Inside a step: its goals never hold up the route; shown "along the way" until the labelled step (format 3) | `along until camp` |
+| `skipto <label> when <condition>` | Inside a step: when the condition holds while the route is at this step, jump ahead to the labelled step (format 3) | `skipto camp when turnedin 33` |
+| `loop` | Inside a step: its `goto` points are a circuit to search for the step's kills and items | `loop` |
+| `label <name>` | Inside a step: names the step for `along until` (format 3) | `label camp` |
 | `note <text>` | A line of information; never holds the player up | `note The camp is busy at night.` |
 | `level <N>` | Reach level N, grinding if need be | `level 2` |
+| `level <N>.<fraction>` / `level <N>+<XP>` | Reach a point inside level N: 12.5 is halfway through 12 (format 3) | `level 12.5` |
 | `# <text>` | A note for you and other authors; players never see it | `# check the patrol route` |
 | `<goal> -- <text>` | Shows the text under that goal | `accept 783 -- He stands at the abbey gate` |
 
@@ -140,6 +146,7 @@ is a Dwarf who is a Warrior or a Paladin.
 | Header line | What it does | Example |
 |---|---|---|
 | `next <id>, <id>, ...` | Several guides after this one: the player picks one, the first is your suggestion | `next joe-routes/westfall, joe-routes/redridge` |
+| `next <id> when <condition>` | A route option offered only while the condition holds (format 3) | `next joe-routes/westfall when level >= 10` |
 | `pitch <text>` | On a guide offered as a choice: one line on its card | `pitch Short walks between quests.` |
 | `pro <text>` / `con <text>` | One advantage or drawback per line, under the pitch | `pro Ends at a flight point` |
 

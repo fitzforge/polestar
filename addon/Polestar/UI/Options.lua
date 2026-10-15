@@ -215,6 +215,15 @@ local BUILTIN = {
 			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
 			needs = function() return ns.Engine and ns.Engine.ResetProgress end },
 	} },
+	-- Play modes: guides show or skip steps by them (`when mode hardcore`, `when xprate >= 2`).
+	{ page = GUIDE, tab = L["Play style"], section = L["Modes"], controls = {
+		{ kind = "toggle", key = "modes.hardcore", label = L["Hardcore"], help = L["Guides leave out risky steps and show safer ones."] },
+		{ kind = "toggle", key = "modes.ssf", label = L["Self-found"], help = L["No trading: guides leave out steps that need it."] },
+		{ kind = "toggle", key = "modes.ah", label = L["Auction house"], help = L["You use the auction house: guides may send you there."] },
+		{ kind = "toggle", key = "modes.group", label = L["Group content"], help = L["Include group quests and dungeons the guides offer."] },
+		{ kind = "slider", key = "modes.xprate", label = L["XP rate"], min = 1, max = 5, step = 0.25, format = "%.2fx",
+			help = L["Your realm's experience rate; guides with fewer quests for faster rates use it."] },
+	} },
 
 	-- How everything looks: colour and type, the windows' frames and the
 	-- guide window's own look, the arrow. Every change repaints live. The

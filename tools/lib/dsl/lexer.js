@@ -61,11 +61,15 @@ function lexLine(text) {
 				j++;
 			}
 			if (!closed) return { tokens, note, end, error: 'unterminated string' };
-			if (j + 1 < n && !isSpace(text[j + 1])) {
-				return { tokens, note, end, error: `unexpected "${text[j + 1]}" after closing quote` };
+			// Closing parentheses may follow a quote directly: `(zone "Duskwood")`.
+			let k = j + 1;
+			while (k < n && text[k] === ')') k++;
+			if (k < n && !isSpace(text[k])) {
+				return { tokens, note, end, error: `unexpected "${text[k]}" after closing quote` };
 			}
 			tokens.push({ text: value, quoted: true, start: i, end: j + 1 });
-			i = j + 1;
+			if (k > j + 1) tokens.push({ text: text.slice(j + 1, k), quoted: false, start: j + 1, end: k });
+			i = k;
 			continue;
 		}
 		let j = i;

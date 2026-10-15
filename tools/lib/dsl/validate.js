@@ -25,7 +25,7 @@ const { blockingPrereqs } = require('../data/prereqs');
 const SOLO = require('../sim/solo');
 const { eliteWork } = require('./group');
 const { PIPE_HINT } = require('../pack/manifest');
-const { MAX_LEVEL, CUM_XP } = require('../game/xp');
+const { MAX_LEVEL, CUM_XP, LEVEL_XP } = require('../game/xp');
 const { checkTimedItems } = require('./timed');
 
 // Quest XP is only part of what a questing route earns; mob kills on the way
@@ -40,6 +40,21 @@ function levelAt(xp) {
 	let l = 1;
 	while (l < MAX_LEVEL && CUM_XP[l + 1] <= xp) l++;
 	return l;
+}
+
+// Quests a step's `when` guarantees are in the log: `onquest Q` / `ready Q`,
+// through `all` (every child counts) and `any` (only quests every child guarantees).
+function whenHolds(node) {
+	const out = new Set();
+	if (!Array.isArray(node)) return out;
+	const [kind, ...rest] = node;
+	if (kind === 'onquest' || kind === 'ready') out.add(rest[0]);
+	else if (kind === 'all') for (const c of rest) for (const q of whenHolds(c)) out.add(q);
+	else if (kind === 'any' && rest.length) {
+		const sets = rest.map(whenHolds);
+		for (const q of sets[0]) if (sets.every((s) => s.has(q))) out.add(q);
+	}
+	return out;
 }
 
 const OBJECTIVE_VERBS = new Set(['kill', 'collect', 'interact', 'use']);
@@ -357,7 +372,7 @@ function validateGuides(guides, data, diag) {
 				// Data XP, else the XP the turn-in line states (`xp <N>`).
 				const qxp = q && q.xp > 0 ? q.xp : goal.rewards && goal.rewards.xp > 0 ? goal.rewards.xp : 0;
 				if (qxp > 0) xp += qxp * ROUTE_XP_FACTOR;
-			} else if (goal.t === 'level') xp = Math.max(xp, xpAt(goal.level));
+			} else if (goal.t === 'level') xp = Math.max(xp, xpAt(goal.level) + (goal.frac ? goal.frac * LEVEL_XP[goal.level] : 0));
 		}
 		return xp;
 	};
@@ -485,7 +500,7 @@ function validateGuides(guides, data, diag) {
 				accepted.add(goal.quest);
 				take(own.get(goal));
 			} else if (goal.t === 'turnin' || goal.t === 'complete' || (OBJECTIVE_VERBS.has(goal.t) && goal.quest !== undefined)) {
-				if (!accepted.has(goal.quest)) {
+				if (!accepted.has(goal.quest) && !whenHolds(step.when).has(goal.quest)) {
 					diag.error(file, ln, `\`${goal.t}\` for quest ${goal.quest} that is never accepted earlier in this guide or a guide chaining into it`);
 				}
 				if (goal.t === 'turnin') {
@@ -597,4 +612,4 @@ function validateSoloPolicy(guides, excluded, diag) {
 	}
 }
 
-module.exports = { validateGuides, validateSoloPolicy, validatePackFrames, forEachGoalMap, xpAt, levelAt };
+module.exports = { validateGuides, validateSoloPolicy, validatePackFrames, forEachGoalMap, xpAt, levelAt, whenHolds };
