@@ -110,6 +110,8 @@ Step directives:
 | `zone <Name>` / `zone map <uiMapID>` | Current zone for coordinates from here on (sticky across later steps). |
 | `only <cond>[,<cond>...]` | The step applies only to matching characters. |
 | `when <expr>` | The step applies only while the expression holds, re-checked live (format 3; see "`when` expressions"). |
+| `label <name>` | Names the step for `along until` (format 3). |
+| `along [until <label>]` | The step's goals never hold up the route; they are listed "Along the way" (format 3; see "Along the way"). |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 
 A step must contain at least one goal.
@@ -230,8 +232,35 @@ parentheses; precedence not > and > or.
     when (Warrior or Paladin) and level >= 10
     when rep Stormwind >= Friendly
 
-A pack using `when` is compiled as format 3, which older Polestar refuses
-rather than misreads (docs/PACK_FORMAT.md, "Format 3").
+A pack using `when`, `label` or `along` is compiled as format 3, which older Polestar refuses
+rather than misreads (docs/PACK_FORMAT.md, "Format 2").
+
+### Along the way: `along` and `label`
+
+`label <name>` names a step. Names use letters, digits, `-` and `_`, are
+case-sensitive, and must be unique in the guide (error: `duplicate label`).
+
+`along` marks a step as along the way. Its goals never hold up the route: the
+route passes over the step at once. While the route is past it, its open goals
+are listed in the guide window's "Along the way" section under the current step
+(up to 6), with live progress. Clicking one points the arrow at it (if it has a
+place); that choice holds while the goal is listed. Without `until` the goals
+are listed until done; with `along until <label>` the listing ends when the
+route reaches the labelled step, which must be a later step (errors:
+`unknown label`, `must name a later step`). The section is hidden in compact
+mode. "Then:" and Up next skip along steps. A guide that needs a goal finished
+before going on repeats it as a normal goal at the labelled step.
+
+```
+step Boars on the way
+  along until camp
+  kill 113 x8 quest 33.1
+step Travel
+  goto 42.1,65.9 "Goldshire"
+step Back at the camp
+  label camp
+  turnin 33
+```
 
 ## What the compiler fills in
 
@@ -349,6 +378,8 @@ Errors:
   not in `factions.json` also needs its id (`rep <factionId> "Name" <Standing>`);
   `achieve` always needs its quoted name
 - a malformed `when` expression, or a `when` naming an unknown profession or faction
+- a duplicate label, an unknown label in `along until`, or an `along until`
+  naming an earlier step
 - `rep` standing outside 1–8 / Hated–Exalted; `craft` with both `xN` and `until`
 - empty quoted strings (names, titles, labels, notes)
 - `era`/`live` on a goal without typed coordinates

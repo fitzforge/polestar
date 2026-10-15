@@ -352,8 +352,13 @@ a bad one refuses the guide ("step N: bad when"). The node shapes:
 `op` is one of `">="`, `">"`, `"<="`, `"<"`, `"=="`, `"~="`. Nesting is
 limited to 16 levels.
 
-The compiler writes format 3 only when a guide uses `when`; every other pack
-stays format 2.
+Format 2 also adds two step keys. `label` is a string: the step's name.
+`along` is `true`, or the label string of a LATER step. Registration refuses a
+guide with "step N: bad label", "step N: duplicate label <name>" or
+"step N: bad along".
+
+The compiler writes format 3 only when a guide uses `when`, `label` or `along`; every other pack
+stays format 1.
 
 ## Versioning
 
