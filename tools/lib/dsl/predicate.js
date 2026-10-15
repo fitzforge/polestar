@@ -1,7 +1,7 @@
 'use strict';
 // tools/lib/dsl/predicate.js: the `when` expression language of format-2
 // guides, parsed from lexer tokens into the closed predicate AST that
-// addon/Polestar/Core/Predicate.lua evaluates (docs/parity plan, Task 1.2).
+// addon/Polestar/Core/Predicate.lua evaluates.
 // Names that need data (professions, factions) stay as strings here; the
 // resolver turns them into ids later.
 

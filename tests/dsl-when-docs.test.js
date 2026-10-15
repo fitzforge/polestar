@@ -1,5 +1,5 @@
 'use strict';
-// `when` checks and documentation (docs/parity plan, Task 1.6): ids a `when`
+// `when` checks and documentation: ids a `when`
 // names are checked against reference data like goal ids are, and the
 // format-2 language is documented where authors and maintainers look.
 

@@ -2,7 +2,7 @@
 // Format-2 `when` predicates at runtime: Core/Guides.lua accepts format-2
 // packs and validates each step's `when`; Core/Engine.lua treats a step whose
 // `when` is false as not applicable, re-checking on quest, bag, level and
-// zone events (docs/parity plan, Tasks 1.4-1.5).
+// zone events.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

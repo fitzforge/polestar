@@ -1,7 +1,7 @@
 'use strict';
 // Format-2 `when` lines on steps: parsed by parse.js, names resolved by
 // resolve.js, emitted into Guides.lua by emit.js, and a pack using one is
-// written as format 2 (docs/parity plan, Task 1.3).
+// written as format 2.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
