@@ -129,7 +129,7 @@ test('a guide registered before its pack is refused and the pack records it', ()
 
 test('a pack of a format the core does not read is refused whole with the version it needs', () => {
 	const [out] = run(`
-		local p = pack("joe", "JoeAddon", { format = 3 })
+		local p = pack("joe", "JoeAddon", { format = 4 })
 		local g1 = guide("joe/a", "joe")
 		local g2 = guide("joe/b", "joe")
 		local r = G.Pack("joe")

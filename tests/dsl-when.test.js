@@ -73,18 +73,18 @@ test('Guides.lua carries `when` as a Lua table after `only`', () => {
 	assert.match(lua, /only = \{ classes = \{ "WARRIOR" \} \},\n\t*when = \{ "all", \{ "onquest", 7 \}, \{ "item", 750, ">=", 2 \} \},\n/);
 });
 
-test('a pack using `when` is format 2; one without stays format 1', () => {
-	assert.equal(NEEDS[2], '0.3.0');
+test('a pack using `when` is format 3; one without stays format 2', () => {
+	assert.equal(NEEDS[3], '0.3.0');
 	const two = pack(['guide mini/w', 'title W', 'faction Alliance', 'levels 1-10', 'zone Elwynn Forest', '', 'step One', '  when onquest 7', '  accept 783']);
 	const toc2 = two.files[`${two.manifest.folder}.toc`];
-	assert.match(toc2, /## X-Polestar-Format: 2\n/);
+	assert.match(toc2, /## X-Polestar-Format: 3\n/);
 	assert.match(toc2, /## X-Polestar-Needs: 0\.3\.0\n/);
-	assert.match(two.files['Pack.lua'], /format = 2,/);
+	assert.match(two.files['Pack.lua'], /format = 3,/);
 
 	const one = pack(['guide mini/w', 'title W', 'faction Alliance', 'levels 1-10', 'zone Elwynn Forest', '', 'step One', '  accept 783']);
 	const toc1 = one.files[`${one.manifest.folder}.toc`];
-	assert.match(toc1, /## X-Polestar-Format: 1\n/);
-	assert.match(toc1, /## X-Polestar-Needs: 0\.1\.0\n/);
-	assert.match(one.files['Pack.lua'], /format = 1,/);
+	assert.match(toc1, /## X-Polestar-Format: 2\n/);
+	assert.match(toc1, /## X-Polestar-Needs: 0\.2\.4\n/);
+	assert.match(one.files['Pack.lua'], /format = 2,/);
 	assert.doesNotMatch(one.files['Guides.lua'], /when =/);
 });

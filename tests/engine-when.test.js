@@ -51,11 +51,13 @@ function run(script, { pack = PACK2, guides = GUIDE } = {}) {
 	}).emitted;
 }
 
-test('a format-2 pack is accepted; format 3 is still too new', () => {
+test('format-2 and format-3 packs are accepted; format 4 is still too new', () => {
 	const [two] = run('emit(Polestar.Guides.Pack("test").status)');
 	assert.equal(two, 'on');
 	const [three] = run('emit(Polestar.Guides.Pack("test").status)', { pack: PACK2.replace('format = 2', 'format = 3') });
-	assert.equal(three, 'too-new');
+	assert.equal(three, 'on');
+	const [four] = run('emit(Polestar.Guides.Pack("test").status)', { pack: PACK2.replace('format = 2', 'format = 4') });
+	assert.equal(four, 'too-new');
 });
 
 test('Guides.Validate checks `when` with Predicate.Validate', () => {

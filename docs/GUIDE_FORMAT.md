@@ -109,7 +109,7 @@ Step directives:
 |---|---|
 | `zone <Name>` / `zone map <uiMapID>` | Current zone for coordinates from here on (sticky across later steps). |
 | `only <cond>[,<cond>...]` | The step applies only to matching characters. |
-| `when <expr>` | The step applies only while the expression holds, re-checked live (format 2; see "`when` expressions"). |
+| `when <expr>` | The step applies only while the expression holds, re-checked live (format 3; see "`when` expressions"). |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 
 A step must contain at least one goal.
@@ -230,8 +230,8 @@ parentheses; precedence not > and > or.
     when (Warrior or Paladin) and level >= 10
     when rep Stormwind >= Friendly
 
-A pack using `when` is compiled as format 2, which older Polestar refuses
-rather than misreads (docs/PACK_FORMAT.md, "Format 2").
+A pack using `when` is compiled as format 3, which older Polestar refuses
+rather than misreads (docs/PACK_FORMAT.md, "Format 3").
 
 ## What the compiler fills in
 

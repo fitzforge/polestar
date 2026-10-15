@@ -328,7 +328,7 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true }
 Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }

@@ -11,7 +11,7 @@ const { resolveGuide } = require('./resolve');
 const { validateGuides, validatePackFrames, forEachGoalMap } = require('./validate');
 const { loadData } = require('./data');
 const { emitGuides, emitPack, emitToc, emitMapFrames, emitLicense } = require('./emit');
-const { ownsGuideId, GENERATED_MARKER } = require('../pack/format');
+const { ownsGuideId, GENERATED_MARKER, FORMAT } = require('../pack/format');
 
 const { ROOT, DATA } = require('../paths');
 // Our own pack: guides/pack.json and the guides beside it.
@@ -152,15 +152,15 @@ function referencedFrames(guides, data) {
 	return frames;
 }
 
-// The pack format: 2 when any guide uses a format-2 step key (`when`),
-// else 1 (the default, readable by older Polestar — see pack/format.js).
+// The pack format: 3 when any guide uses a format-3 step key (`when`),
+// else FORMAT (readable by older Polestar — see pack/format.js).
 function packFormat(guides) {
 	for (const g of guides) {
 		for (const s of g.steps || []) {
-			if (s.when) return 2;
+			if (s.when) return 3;
 		}
 	}
-	return 1;
+	return FORMAT;
 }
 
 // A pack's addon folder as { name: content }, deterministic: exactly

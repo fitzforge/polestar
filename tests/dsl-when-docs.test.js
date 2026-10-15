@@ -41,8 +41,8 @@ test('GUIDE_FORMAT.md documents `when` and every keyword of its language', () =>
 
 test('PACK_FORMAT.md documents format 2 and what reads it', () => {
 	const doc = read('PACK_FORMAT.md');
-	assert.match(doc, /^## Format 2/m);
-	assert.match(doc, /Format 2 is read by Polestar 0\.3\.0 and\s+later/);
+	assert.match(doc, /^## Format 3/m);
+	assert.match(doc, /Format 3 is read by Polestar 0\.3\.0 and\s+later/);
 	assert.match(doc, /`when`/);
 });
 

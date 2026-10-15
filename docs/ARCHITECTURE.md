@@ -557,7 +557,7 @@ Only guides of shown packs (`on`, plus the internal `lookup`) are visible to
 `Lookup.CuratedGuide`. `PACKS_CHANGED` refreshes the picker, search, the guide
 window, Lookup and the Engine's tabs ("Tabs", absent guides).
 
-### Predicate — format-2 `when` conditions (`Core/Predicate.lua`)
+### Predicate — format-3 `when` conditions (`Core/Predicate.lua`)
 
 ```lua
 Predicate.Validate(node) -> true | false, msg   -- the closed whitelist; nesting capped at 16 levels
@@ -567,7 +567,7 @@ Predicate.NewPass() / Predicate.PassEnv()       -- the Engine's per-pass env
 ```
 
 Predicates are closed prefix-form tables (never code); the node kinds are
-listed in docs/PACK_FORMAT.md, "Format 2". Validate answers true or false
+listed in docs/PACK_FORMAT.md, "Format 3". Validate answers true or false
 with a message; Eval never raises and answers false for anything malformed.
 NewEnv memoises each distinct client lookup for one pass, so a guide that
 asks the same question in several `when` lines asks the client once.
