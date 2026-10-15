@@ -1,5 +1,5 @@
 'use strict';
-// Phase 6, Task 6.1: `loop` steps. In a step with a `loop` line, the `goto`
+// `loop` steps. In a step with a `loop` line, the `goto`
 // points (in order) are the circuit to search: each kill, collect or interact
 // goal of the step that has no `@` coordinates of its own gets them as its
 // spawn areas (`spots`, searched one after another: `spread`), placed at the
