@@ -1,5 +1,5 @@
 'use strict';
-// Phase 3, Task 3.4: documentation of `skipto` and `done <label>`.
+// documentation of `skipto` and `done <label>`.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

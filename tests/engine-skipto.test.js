@@ -1,5 +1,5 @@
 'use strict';
-// Phase 3, Task 3.3: `skipto` jumps and the `done` atom at runtime. When the
+// `skipto` jumps and the `done` atom at runtime. When the
 // route arrives at a step whose `skips` entry holds, the steps from it up to
 // (not including) the labelled step are skipped for the character, saved as
 // "jump" in CharState().skipped, so the jump does not undo itself when the

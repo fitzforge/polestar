@@ -1,5 +1,5 @@
 'use strict';
-// Phase 3, Task 3.2: compiler support for the `done <label>` atom in
+// compiler support for the `done <label>` atom in
 // expressions and the `skipto <label> when <expr>` step line.
 
 const { test } = require('node:test');

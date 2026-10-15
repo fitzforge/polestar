@@ -1,5 +1,5 @@
 'use strict';
-// Phase 3, Task 3.1: the predicate atom { "done", label } — true when the
+// the predicate atom { "done", label } — true when the
 // guide step carrying that label is done. Predicate.lua does not know guides;
 // the Engine installs a resolver with Predicate.SetDoneResolver(fn).
 
