@@ -1,5 +1,5 @@
 'use strict';
-// Format-2 `along` steps at runtime (docs/parity plan, Phase 2, Task 2.2):
+// Format-2 `along` steps at runtime:
 // an along step never holds up the route; its open goals are listed by
 // Engine.GetAlong() while the route is past it and, with `until`, before the
 // labelled step. Core/Guides.lua validates `label` and `along`.

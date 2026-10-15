@@ -1,6 +1,5 @@
 'use strict';
-// Documentation of format-2 `label` and `along` (docs/parity plan, Phase 2,
-// Task 2.5): authors find them in GUIDE_FORMAT.md, pack authors in
+// Documentation of format-2 `label` and `along`: authors find them in GUIDE_FORMAT.md, pack authors in
 // PACK_FORMAT.md, maintainers in ARCHITECTURE.md.
 
 const { test } = require('node:test');

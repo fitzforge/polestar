@@ -1,6 +1,5 @@
 'use strict';
-// The guide window's "Along the way" section (docs/parity plan, Phase 2,
-// Task 2.3), end to end: a guide compiled from DSL with an `along` step,
+// The guide window's "Along the way" section, end to end: a guide compiled from DSL with an `along` step,
 // loaded by the real addon (Core, Theme, Nav, UI), driven in the stub world.
 // Along steps are listed under the card while the route is past them, and
 // never named by "Then:" or the Up next list.

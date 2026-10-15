@@ -1,5 +1,5 @@
 'use strict';
-// Pointing the arrow at an along goal (docs/parity plan, Phase 2, Task 2.4):
+// Pointing the arrow at an along goal:
 // Engine.AimAlong(step, goal) makes an open, located goal of a listed along
 // step the waypoint; the choice survives the route moving on while the goal
 // is still listed, and lapses when the goal is done or no longer listed.

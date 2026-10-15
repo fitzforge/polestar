@@ -1,6 +1,5 @@
 'use strict';
-// Format-2 `label` and `along [until <label>]` step lines (docs/parity plan,
-// Phase 2, Task 2.1): parsed, checked across the guide, emitted into
+// Format-2 `label` and `along [until <label>]` step lines: parsed, checked across the guide, emitted into
 // Guides.lua, and a pack using either is format 2.
 
 const { test } = require('node:test');
