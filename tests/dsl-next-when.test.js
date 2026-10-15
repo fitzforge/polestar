@@ -59,12 +59,12 @@ test('errors', () => {
 	assert.match(build(['next t/nowhere when Mage']).errors.join('\n'), /t\/nowhere/);
 });
 
-test('Guides.lua carries nextWhen; a pack with it is format 2', () => {
+test('Guides.lua carries nextWhen; a pack with it is format 3', () => {
 	const { manifest } = readManifest(MINI);
 	const src = (id, extra, levels = '1-10') => [`guide ${id}`, `title ${id}`, 'faction Alliance', `levels ${levels}`, 'zone Elwynn Forest', ...extra, '', 'step One', '  accept 783', ''].join('\n');
 	const r = compile({ 'a.guide': src('mini/a', ['next mini/b when Mage', 'next mini/c']), 'b.guide': src('mini/b', [], '10-20'), 'c.guide': src('mini/c', [], '10-20') }, fixtureData(), { pack: 'mini' });
 	assert.deepEqual(r.errors, [], r.text);
 	const files = buildPackFiles({ guides: r.guides, manifest, data: fixtureData() });
 	assert.match(files['Guides.lua'], /nextChoices = \{ "mini\/b", "mini\/c" \},\n\t*nextWhen = \{ \["mini\/b"\] = \{ "class", \{ "MAGE" \} \} \},\n/);
-	assert.equal(packFormat(r.guides), 2);
+	assert.equal(packFormat(r.guides), 3);
 });

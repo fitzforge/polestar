@@ -1,7 +1,7 @@
 'use strict';
 // Guides.lua indentation is exact: guide keys sit three tabs deep inside
 // RegisterGuide({ ... }), every kind of value alike. Format-1 output must not
-// change when format-2 keys are added (the other emit tests match with \t*,
+// change when format-3 keys are added (the other emit tests match with \t*,
 // so they cannot catch a shifted line).
 
 const { test } = require('node:test');
