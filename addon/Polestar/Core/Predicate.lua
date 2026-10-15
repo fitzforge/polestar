@@ -9,7 +9,11 @@ local ADDON, ns = ...
 local P = {}
 ns.Predicate = P
 
-local type, pcall, tostring, math = type, pcall, tostring, math
+-- The player's play modes, read by the `mode` and `xprate` predicates
+-- (set on the options page).
+ns.RegisterDefaults("modes", { hardcore = false, ssf = false, ah = true, group = false, xprate = 1 })
+
+local type, pcall, tostring, tonumber, math = type, pcall, tostring, tonumber, math
 
 local function Compat() return ns.Compat end
 
@@ -23,12 +27,15 @@ local OPS = { [">="] = true, [">"] = true, ["<="] = true, ["<"] = true, ["=="] =
 -- Combinators take any number of children (zero is fine), so they carry no
 -- fixed length; everything else is fixed-length. Nesting is capped so a guide
 -- cannot build a runaway tree.
+local MODES = { hardcore = true, ssf = true, ah = true, group = true }
+
 local ARITY = {
 	["all"] = 0, ["any"] = 0,
 	onquest = 2, ready = 2, turnedin = 2,
 	item = 4, level = 3, skill = 4, rep = 4,
 	class = 2, race = 2, faction = 2, zone = 2,
 	done = 2,
+	mode = 2, xprate = 3, xp = 3,
 	["not"] = 2,
 }
 
@@ -40,6 +47,10 @@ end
 
 local function nonNegativeInt(v)
 	return type(v) == "number" and math.floor(v) == v and v >= 0
+end
+
+local function nonNegativeNumber(v)
+	return type(v) == "number" and v >= 0
 end
 
 local function isOp(op)
@@ -110,6 +121,16 @@ function P.Validate(node, depth)
 		if type(node[2]) ~= "string" or node[2] == "" then return false, "zone must be a non-empty string" end
 	elseif kind == "done" then
 		if type(node[2]) ~= "string" or node[2] == "" then return false, "done needs a step label" end
+	elseif kind == "mode" then
+		if type(node[2]) ~= "string" or MODES[node[2]] == nil then
+			return false, "mode must be one of hardcore, ssf, ah, group"
+		end
+	elseif kind == "xprate" then
+		if not isOp(node[2]) then return false, "xprate needs a comparison operator" end
+		if not nonNegativeNumber(node[3]) then return false, "xprate must be a non-negative number" end
+	elseif kind == "xp" then
+		if not isOp(node[2]) then return false, "xp needs a comparison operator" end
+		if not nonNegativeNumber(node[3]) then return false, "xp must be a non-negative number" end
 	end
 	return true
 end
@@ -215,6 +236,16 @@ local function evalNode(node, env)
 		local standing = lookup(env, "rep:" .. id, function() return Compat().GetFactionStanding(id) end)
 		if not standing then return false end
 		return compare(node[3], standing, node[4])
+	elseif kind == "mode" then
+		return ns.Get("modes." .. node[2]) and true or false
+	elseif kind == "xprate" then
+		return compare(node[2], tonumber(ns.Get("modes.xprate")) or 1, node[3])
+	elseif kind == "xp" then
+		local info = player(env)
+		local lvl = (info and info.level) or 0
+		local frac = 0
+		if info and (info.xpMax or 0) > 0 then frac = (info.xp or 0) / info.xpMax end
+		return compare(node[2], lvl + frac, node[3])
 	end
 	return false
 end
