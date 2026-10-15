@@ -334,6 +334,15 @@ local function validate(def)
 				return ("step %d: bad along"):format(s)
 			end
 		end
+		if step.skips ~= nil then
+			if type(step.skips) ~= "table" then return ("step %d: bad skipto"):format(s) end
+			for _, k in ipairs(step.skips) do
+				if type(k) ~= "table" or not isStr(k.to) or not labelAt[k.to] or labelAt[k.to] <= s then
+					return ("step %d: bad skipto"):format(s)
+				end
+				if not ns.Predicate.Validate(k.when) then return ("step %d: bad skipto"):format(s) end
+			end
+		end
 	end
 	return nil
 end

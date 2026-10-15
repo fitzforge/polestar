@@ -22,7 +22,7 @@ w.titles[783] = "A Threat Within"; w.titles[7] = "Kobold Camp Cleanup"
 `;
 
 // 1 accept 7, jump to "end" while holding a candle · 2 kill vermin · 3 "mid":
-// accept 783 · 4 "end": turn in 7 · 5 only when "mid" is done: level 5 · 6 level 6
+// accept 783 · 4 "end": level 4 (a turn-in of a quest never taken would be passed over) · 5 only when "mid" is done: level 5 · 6 level 6
 const GUIDE = `
 Polestar.RegisterGuide({
 	id = "test/01-jump", pack = "test", title = "Jump",
@@ -32,7 +32,7 @@ Polestar.RegisterGuide({
 			goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 } } },
 		{ title = "Kobolds", goals = { { t = "kill", target = "Kobold Vermin", npc = 6, count = 10, quest = 7, oi = 1, map = 1429, x = 47.6, y = 35.1 } } },
 		{ title = "Willem", label = "mid", goals = { { t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 } } },
-		{ title = "Back", label = "end", goals = { { t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 } } },
+		{ title = "Level 4", label = "end", goals = { { t = "level", level = 4 } } },
 		{ title = "If Willem", when = { "done", "mid" }, goals = { { t = "level", level = 5 } } },
 		{ title = "End", goals = { { t = "level", level = 6 } } },
 	},
@@ -66,7 +66,7 @@ test('no jump: the route runs in order, and `done mid` makes step 5 apply', () =
 		w.accept(7, { 10 }); flush(); emit(E.GetStepIndex())
 		w.progress(7, 1, 10); flush(); emit(E.GetStepIndex())
 		w.accept(783, {}); flush(); emit(E.GetStepIndex())
-		w.turnIn(7); flush(); emit(E.GetStepIndex())
+		w.setLevel(4); flush(); emit(E.GetStepIndex())
 		emit(jumps())
 	`);
 	assert.deepEqual(out, [1, 2, 3, 4, 5, ['nil', 'nil', 'nil', 'nil', 'nil', 'nil']]);
@@ -78,7 +78,7 @@ test('a jump that holds on arrival skips up to the label, saved as "jump"; a jum
 		flush(); emit(E.GetStepIndex())
 		emit(jumps())
 		emit(E.GetStepView(2).skipped)
-		w.accept(7, { 10 }); w.turnIn(7); flush(); emit(E.GetStepIndex())
+		w.setLevel(4); flush(); emit(E.GetStepIndex())
 	`, 'stub.world.addItem(750, 1)');
 	assert.deepEqual(out, [4, ['jump', 'jump', 'jump', 'nil', 'nil', 'nil'], true, 6]);
 });

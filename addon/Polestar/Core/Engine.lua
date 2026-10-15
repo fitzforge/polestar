@@ -1163,6 +1163,22 @@ local function place()
 	end
 end
 
+-- skipto: when a skip holds at its step, mark steps s..to-1 as "jump" for
+-- the character (saved, so the jump does not undo itself later).
+function Own.jump(s)
+	local step = guide.steps[s]
+	if not step.skips then return false end
+	for _, k in ipairs(step.skips) do
+		local to = Own.labelIndex(k.to)
+		if to and to > s and ns.Predicate.Eval(k.when, ns.Predicate.PassEnv()) then
+			local sk = skippedFor(guide.id, true)
+			for t = s, to - 1 do if not sk[t] then sk[t] = "jump" end end
+			return true
+		end
+	end
+	return false
+end
+
 -- First applicable, not skipped, not done step, after placing the tab when
 -- it was just loaded (place). During play soft steps hold as usual, so a
 -- quest taken out of order never jumps a training stop.
@@ -1170,8 +1186,18 @@ local function computeCurrent()
 	if placing then place() end
 	local steps = guide.steps
 	local sk = skippedFor(guide.id)
-	for s = 1, #steps do
-		if stepApplies(steps[s]) and not (sk and sk[s]) and not stepDone(s) then return s end
+	local s = 1
+	while s <= #steps do
+		if stepApplies(steps[s]) and not (sk and sk[s]) and not stepDone(s) then
+			if Own.jump(s) then
+				sk = skippedFor(guide.id, true)
+				s = s + 1
+			else
+				return s
+			end
+		else
+			s = s + 1
+		end
 	end
 	return nil
 end
@@ -3283,6 +3309,14 @@ function Engine.ResetProgress()
 	pin, pinDone, aim, passedUpTo, placing = nil, nil, nil, 0, GetTime() + PLACE_SECONDS
 	evaluate()
 end
+
+-- `done <label>` predicates: the labelled step of the guide being evaluated
+-- is done and was not skipped.
+ns.Predicate.SetDoneResolver(function(label)
+	if not guide then return false end
+	local i = Own.labelIndex(label)
+	return i and not isSkipped(i) and stepDone(i) or false
+end)
 
 ---------------------------------------------------------------------------
 -- Events
