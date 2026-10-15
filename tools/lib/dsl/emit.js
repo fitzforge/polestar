@@ -7,7 +7,7 @@ const { FORMAT, NEEDS, TOC_MARKER, TOC_TITLE_PREFIX } = require('../pack/format'
 const { header } = require('../generated');
 const { toLua } = require('./predicate');
 
-const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'steps'];
+const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'nextWhen', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'steps'];
 const STEP_KEYS = ['title', 'note', 'label', 'only', 'when', 'along', 'skips', 'goals'];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
@@ -129,7 +129,8 @@ function emitGuide(guide, sourceRel) {
 				out.push('\t\t\t\t},');
 			}
 			out.push('\t\t\t},');
-		} else if (Array.isArray(v)) out.push(`\t\t\t${k} = ${list(v, LIST_KEYS[k] || null)},`);
+		} else if (k === 'nextWhen') out.push(`\t\t\tnextWhen = { ${Object.keys(v).map((id) => `[${luaString(id)}] = ${toLua(v[id])}`).join(', ')} },`);
+		else if (Array.isArray(v)) out.push(`\t\t\t${k} = ${list(v, LIST_KEYS[k] || null)},`);
 		else out.push(`\t\t\t${k} = ${scalar(v)},`);
 	}
 	out.push('\t\t})', '\tend', '\tregister()', 'end');

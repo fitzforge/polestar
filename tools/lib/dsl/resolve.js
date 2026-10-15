@@ -479,7 +479,20 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	// option in the author's order (the default first) for the route choice.
 	if (h.next && h.next.length) {
 		guide.next = h.next[0];
-		if (h.next.length > 1) guide.nextChoices = h.next.slice();
+		if (h.next.length > 1 || h.nextWhen) guide.nextChoices = h.next.slice();
+	}
+	if (h.nextWhen) {
+		const nw = {};
+		for (const id of h.next) {
+			const e = h.nextWhen[id];
+			if (!e) continue;
+			const w = resolvePredicate(e.when, data, (msg) => err(e.line, msg));
+			if (w) {
+				checkPredicateIds(w, data, (msg) => warn(e.line, msg));
+				nw[id] = w;
+			}
+		}
+		if (Object.keys(nw).length) guide.nextWhen = nw;
 	}
 	setIf(guide, 'pitch', h.pitch);
 	setIf(guide, 'pros', h.pros);

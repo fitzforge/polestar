@@ -219,7 +219,7 @@ function parseGuide(text, file, diag) {
 				err(ln, `unknown header key "${toks[0].text}"`, `header keys: ${HEADER_KEYS.join(', ')}`);
 				continue;
 			}
-			const repeatable = kw === 'pro' || kw === 'con' || kw === 'reward';
+			const repeatable = kw === 'pro' || kw === 'con' || kw === 'reward' || kw === 'next';
 			if (guide.lines[kw] && !repeatable) {
 				err(ln, `duplicate header key \`${kw}\` (first on line ${guide.lines[kw]})`);
 				continue;
@@ -480,18 +480,48 @@ function parseHeader(guide, kw, line, lex, ln, err, warn) {
 		}
 		case 'next': {
 			// `next <id>[, <id>...]`: more than one guide is a choice of route,
-			// the first being the author's default.
-			const ids = rest.split(/[\s,]+/).filter(Boolean);
-			const bad = toks.slice(1).some((t) => t.quoted) ? rest : ids.find((id) => !ID_RE.test(id));
-			if (bad !== undefined || !ids.length) {
-				err(ln, `malformed guide id "${bad !== undefined ? bad : rest}" in \`next\``);
+			// the first being the author's default. `next <id> when <expr>`
+			// names one guide and makes that option conditional.
+			let w = -1;
+			for (let k = 1; k < toks.length; k++) {
+				if (!toks[k].quoted && toks[k].text.toLowerCase() === 'when') { w = k; break; }
+			}
+			if (w === -1) {
+				const ids = rest.split(/[\s,]+/).filter(Boolean);
+				const bad = toks.slice(1).some((t) => t.quoted) ? rest : ids.find((id) => !ID_RE.test(id));
+				if (bad !== undefined || !ids.length) {
+					err(ln, `malformed guide id "${bad !== undefined ? bad : rest}" in \`next\``);
+					return;
+				}
+				for (const id of ids) {
+					if ((h.next || []).includes(id)) {
+						err(ln, '`next` names the same guide twice');
+						return;
+					}
+					(h.next ||= []).push(id);
+				}
 				return;
 			}
-			if (new Set(ids).size !== ids.length) {
+			const idtoks = toks.slice(1, w);
+			const ids = idtoks.map((t) => t.text).join(' ').split(/[\s,]+/).filter(Boolean);
+			if (ids.length !== 1) {
+				err(ln, '`next ... when` names one guide: next <id> when <condition>');
+				return;
+			}
+			const id = ids[0];
+			if (idtoks.some((t) => t.quoted) || !ID_RE.test(id)) {
+				err(ln, `malformed guide id "${id}" in \`next\``);
+				return;
+			}
+			const r = parsePredicate(toks.slice(w + 1));
+			r.errors.forEach((e) => err(ln, `\`next\`: ${e}`));
+			if (r.errors.length) return;
+			if ((h.next || []).includes(id)) {
 				err(ln, '`next` names the same guide twice');
 				return;
 			}
-			h.next = ids;
+			(h.next ||= []).push(id);
+			(h.nextWhen ||= {})[id] = { when: r.value, line: ln };
 			return;
 		}
 		case 'version':

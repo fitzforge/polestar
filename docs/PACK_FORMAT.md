@@ -242,6 +242,7 @@ Guide keys (the compiler writes them in this order):
 | `zone`, `zoneName` | no | the default zone's uiMapID and name |
 | `next` | no | the id of the guide that follows: one of the pack's or one of Polestar's |
 | `nextChoices` | no | list of guide ids offered as a route choice (the first is the default) |
+| `nextWhen` | no | table of guide id → condition (`next <id> when <expr>`): the condition under which that route option is offered (format 2) |
 | `pitch` | no | one line for the route choice card |
 | `pros`, `cons` | no | lists of short lines under the pitch |
 | `author` | no | string; the compiler writes the pack's author when the guide names none |

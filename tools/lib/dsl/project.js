@@ -156,6 +156,7 @@ function referencedFrames(guides, data) {
 // `along`, `skips`), else FORMAT (the default, readable by older Polestar — see pack/format.js).
 function packFormat(guides) {
 	for (const g of guides) {
+		if (g.nextWhen) return 2;
 		for (const s of g.steps || []) {
 			if (s.when || s.label || s.along || s.skips) return 3;
 		}
