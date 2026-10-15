@@ -24,15 +24,19 @@ race Human
 levels 1-6
 zone Elwynn Forest
 
+step Deputy Willem
+  accept 783
+
 step Marshal McBride
+  turnin 783
   accept 7
 
 step Kobolds on the way
   along until back
   kill 6 x10 quest 7.1
 
-step Deputy Willem
-  accept 783
+step Kobold camp
+  goto 47.6,35.1 "Kobold camp"
 
 step Back to the abbey
   label back
@@ -84,6 +88,9 @@ test('along goals show under the card while the route is past them; Then and Up 
 					})
 				end
 				snap("login")
+				w.accept(783, {}, "A Threat Within")
+				stub.advance(0.5)
+				w.turnIn(783)
 				w.accept(7, { { text = "Kobold Vermin slain: 0/10", required = 10 } }, "Kobold Camp Cleanup")
 				stub.advance(0.5)
 				snap("on 7")
@@ -94,38 +101,38 @@ test('along goals show under the card while the route is past them; Then and Up 
 				stub.advance(0.1)
 				snap("compact")
 				Polestar.Set("ui.compact", false)
-				w.accept(783, {}, "A Threat Within")
-				stub.advance(0.5)
+				w.moveTo(1429, 47.6, 35.1)
+				stub.advance(1)
 				snap("at back")`,
 		});
 		const [login, onSeven, kills, compact, atBack] = emitted;
 
-		// Step 1: nothing is along yet; "Then:" and Up next skip the along step 2.
+		// Step 1: nothing is along yet; Up next skips the along step 3.
 		assert.equal(login.step, 1);
 		assert.equal(login.shown, false);
-		assert.equal(login.after, 'Then: Deputy Willem');
-		assert.deepEqual(login.upnext, [3, 4]);
+		assert.equal(login.after, 'Then: Marshal McBride');
+		assert.deepEqual(login.upnext, [2, 4, 5]);
 
-		// Accepting 7 passes over the along step: step 3, with the kobolds along the way.
-		assert.equal(onSeven.step, 3);
+		// Accepting 7 passes over the along step: step 4, with the kobolds along the way.
+		assert.equal(onSeven.step, 4);
 		assert.equal(onSeven.shown, true);
 		assert.equal(onSeven.header, 'Along the way');
 		assert.equal(onSeven.rows.length, 1);
 		assert.match(onSeven.rows[0].text, /Kobold Vermin/);
 		assert.match(onSeven.rows[0].text, /0\/10$/);
-		assert.deepEqual([onSeven.rows[0].step, onSeven.rows[0].goal], [2, 1]);
+		assert.deepEqual([onSeven.rows[0].step, onSeven.rows[0].goal], [3, 1]);
 
-		// Progress updates in place.
-		assert.equal(kills.step, 3);
+		// Progress updates in place (an along goal's progress must refresh the window).
+		assert.equal(kills.step, 4);
 		assert.match(kills.rows[0].text, /4\/10$/);
 
 		// Compact mode hides the section.
 		assert.equal(compact.shown, false);
 
-		// Reaching the labelled step ends it.
-		assert.equal(atBack.step, 4);
+		// Arriving at the camp reaches the labelled step, which ends it.
+		assert.equal(atBack.step, 5);
 		assert.equal(atBack.shown, false);
-		assert.deepEqual(atBack.rows, []);
+		assert.equal(Object.keys(atBack.rows).length, 0); // the Lua stub encodes an empty list as {}
 	} finally {
 		fs.rmSync(dir, { recursive: true, force: true });
 	}

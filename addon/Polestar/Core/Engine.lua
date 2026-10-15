@@ -2151,6 +2151,16 @@ local function signature()
 		local _, focus = stepGroups(current)
 		n = n + 1
 		sigParts[n] = "focus" .. tostring(focus)
+		for s = 1, current - 1 do
+			local step = guide.steps[s]
+			if step.along and stepApplies(step) then
+				for g, goal in ipairs(step.goals) do
+					local status, cur, max = goalStatus(s, g, goal, false)
+					n = n + 1
+					sigParts[n] = "a" .. s .. ":" .. g .. ":" .. status .. ":" .. (cur and (cur .. "/" .. (max or "")) or "-")
+				end
+			end
+		end
 	end
 	for i = #sigParts, n + 1, -1 do sigParts[i] = nil end
 	return table.concat(sigParts, ",")
