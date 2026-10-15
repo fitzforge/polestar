@@ -74,7 +74,7 @@ test('Guides.Validate checks `when` with Predicate.Validate', () => {
 	assert.match(out[2], /^step 1: bad when/);
 });
 
-test('a step whose `when` is false is passed over and stays passed (Task 7.5)', () => {
+test('a step whose `when` is false is passed over and stays passed', () => {
 	const out = run(`
 		local w = stub.world
 		flush()

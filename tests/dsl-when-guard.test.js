@@ -1,5 +1,5 @@
 'use strict';
-// Task 7.4: a quest action in a step that only applies while the quest is in
+// a quest action in a step that only applies while the quest is in
 // the log (its `when` requires `onquest Q` or `ready Q`) does not need an
 // earlier `accept Q`: the guard proves the quest is held. Guides that pick
 // up a route midway (quests from another addon or an earlier session) rely

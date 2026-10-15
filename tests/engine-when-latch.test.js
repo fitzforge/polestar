@@ -1,5 +1,5 @@
 'use strict';
-// Task 7.5: a step the route moves past while its `when` is false stays
+// a step the route moves past while its `when` is false stays
 // passed: it is remembered as skipped for the character,
 // so the route does not return to it when the condition turns true later.
 // Steps not yet reached are re-checked as before.

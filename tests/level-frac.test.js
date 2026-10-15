@@ -1,5 +1,5 @@
 'use strict';
-// Phase 5, Task 5.3: `level <L>.<frac>` and `level <L>+<XP>` goals:
+// `level <L>.<frac>` and `level <L>+<XP>` goals:
 // reach a point inside a level. Compiled to { t = "level", level = L,
 // frac = f }; a pack using `frac` is format 2. The Engine counts the goal done
 // at level L with XP/XPMax >= f, or any higher level.
