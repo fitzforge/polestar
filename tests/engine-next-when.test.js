@@ -1,5 +1,5 @@
 'use strict';
-// Phase 4, Task 4.2: conditional hand-offs at runtime. A route option whose
+// conditional hand-offs at runtime. A route option whose
 // `nextWhen` predicate is false is not offered; with one option left the
 // guide continues there without asking; Guides.Validate checks nextWhen.
 

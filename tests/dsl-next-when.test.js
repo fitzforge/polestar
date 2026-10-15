@@ -1,5 +1,5 @@
 'use strict';
-// Phase 4, Task 4.1: `next <id> when <expr>` header lines. Every `next` line
+// `next <id> when <expr>` header lines. Every `next` line
 // adds to the guide's route options in order; a line with `when` names one
 // guide and makes that option conditional (format 2).
 
