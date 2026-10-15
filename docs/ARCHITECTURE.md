@@ -599,7 +599,7 @@ Polestar.Engine.StartGate(id) -> gate | nil -- a Class guide this character cann
 Polestar.Engine.ToggleGoal(stepIndex, goalIndex) -> bool   -- tick any goal but a note done, or clear its check-off
 Polestar.Engine.SkipGoal(stepIndex, goalIndex) -> bool     -- skip an optional goal, or bring it back
 Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool      -- lead the arrow to a goal of the current step (row click)
-Polestar.Engine.GetAlong() -> { { index, title, goals }, ... }  -- open goals of along steps the route is past (format 2)
+Polestar.Engine.GetAlong() -> { { index, title, goals }, ... }  -- open goals of along steps the route is past (format 3)
 Polestar.Engine.AimAlong(stepIndex, goalIndex) -> bool        -- point the arrow at one of them; holds while it is listed
 Polestar.Engine.GetWaypoint() -> waypoint | nil
 Polestar.Engine.GetProgress() -> doneSteps, totalSteps
