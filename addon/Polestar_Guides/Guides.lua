@@ -22329,10 +22329,10 @@ do
 				{
 					title = "The Sepulcher",
 					note = "Swim back and follow the road west to the Sepulcher.",
-						{ t = "turnin", quest = 91920, title = "Wild Eyes", npc = 1937, npcName = "Apothecary Renferrel", map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e" },
-						{ t = "accept", quest = 91921, title = "Return to Quinn (Again)", npc = 1937, npcName = "Apothecary Renferrel", minLevel = 10, qlvl = 11, pre = { 91920 }, preTitles = { [91920] = "Wild Eyes" }, map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e", note = "Apothecary Renferrel: for Quinn, on the road north at the end" },
 					goals = {
 						{ t = "turnin", quest = 443, title = "Rot Hide Ichor", npc = 1937, npcName = "Apothecary Renferrel", map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e", note = "Apothecary Renferrel" },
+						{ t = "turnin", quest = 91920, title = "Wild Eyes", npc = 1937, npcName = "Apothecary Renferrel", map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e" },
+						{ t = "accept", quest = 91921, title = "Return to Quinn (Again)", npc = 1937, npcName = "Apothecary Renferrel", minLevel = 10, qlvl = 11, pre = { 91920 }, preTitles = { [91920] = "Wild Eyes" }, map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e", note = "Apothecary Renferrel: for Quinn, on the road north at the end" },
 						{ t = "accept", quest = 95981, title = "Watching the Roads", npc = 2121, npcName = "Shadow Priest Allister", minLevel = 10, qlvl = 20, map = 1421, x = 43.98, y = 40.93, z = 126.5, f = "e", note = "Shadow Priest Allister" },
 						{ t = "accept", quest = 516, title = "Beren's Peril", npc = 2121, npcName = "Shadow Priest Allister", minLevel = 16, qlvl = 21, map = 1421, x = 43.98, y = 40.93, z = 126.5, f = "e", note = "Shadow Priest Allister: Beren's Peril, on the south loop" },
 						{ t = "accept", quest = 98299, title = "Stop the Spread", npc = 1938, npcName = "Dalar Dawnweaver", minLevel = 9, qlvl = 20, map = 1421, x = 44.2, y = 39.81, z = 130.1, f = "e" },
@@ -22385,6 +22385,8 @@ do
 					title = "Apothecary Renferrel",
 					goals = {
 						{ t = "accept", quest = 493, title = "Journey to Hillsbrad Foothills", npc = 1937, npcName = "Apothecary Renferrel", minLevel = 19, qlvl = 20, map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e", note = "Keep it: Apothecary Lydon in Tarren Mill, a later guide" },
+					},
+				},
 				{
 					title = "The Ivar Patch",
 					note = "Take the road north toward Tirisfal Glades: the Yoricks' house at Malden's Orchard is on the way. Ivar the Foul lurks a short walk west of it.",
@@ -22393,8 +22395,6 @@ do
 						{ t = "accept", quest = 425, title = "Ivar the Foul", npc = 1950, npcName = "Rane Yorick", minLevel = 10, qlvl = 12, pre = { 91921 }, preTitles = { [91921] = "Return to Quinn (Again)" }, map = 1421, x = 53.46, y = 13.43, z = 52.8, f = "e", note = "Rane Yorick" },
 						{ t = "collect", quest = 425, title = "Ivar the Foul", item = 3621, itemName = "Ivar's Head", oi = 1, map = 1421, x = 51.52, y = 13.9, f = "e", from = "Ivar the Foul", fromKind = "npc" },
 						{ t = "turnin", quest = 425, title = "Ivar the Foul", npc = 1950, npcName = "Rane Yorick", map = 1421, x = 53.46, y = 13.43, z = 52.8, f = "e" },
-					},
-				},
 					},
 				},
 				{
