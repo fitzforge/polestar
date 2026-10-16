@@ -1,0 +1,20 @@
+## Interface: 16001
+## Title: Polestar Names
+## Notes: NPC and object names in your client's language for Polestar's guides. Loaded on demand.
+## Author: Polestar
+## X-License: GPL-3.0-only
+## Version: 0.2.4
+## Category: Quests
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## X-Locales: deDE, esES, esMX, frFR, koKR, ptBR, ruRU, zhCN, zhTW
+
+deDE.lua [AllowLoadTextLocale deDE]
+esES.lua [AllowLoadTextLocale esES]
+esMX.lua [AllowLoadTextLocale esMX]
+frFR.lua [AllowLoadTextLocale frFR]
+koKR.lua [AllowLoadTextLocale koKR]
+ptBR.lua [AllowLoadTextLocale ptBR]
+ruRU.lua [AllowLoadTextLocale ruRU]
+zhCN.lua [AllowLoadTextLocale zhCN]
+zhTW.lua [AllowLoadTextLocale zhTW]

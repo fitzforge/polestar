@@ -407,7 +407,7 @@ local function addDroppers(list)
 	if type(list) ~= "table" then return end
 	for i = 1, #list do
 		local e = list[i]
-		addName(type(e) == "table" and e.name or e)
+		addName(type(e) == "table" and ns.LocalName("npc", e.id, e.name) or e)
 	end
 end
 
@@ -426,7 +426,7 @@ function Buttons.TargetNames(view, raw)
 		local rg = raw and raw[g] or gv
 		if QoL.Open(gv) then
 			if gv.t == "kill" then
-				addName(rg.target or gv.subject)
+				addName(ns.LocalName("npc", rg.npc, rg.target) or gv.subject)
 			elseif gv.t == "collect" and qdb then
 				if gv.quest and rg.oi and QDB.GetObjectiveMobs then
 					addDroppers(QDB.GetObjectiveMobs(gv.quest, rg.oi))

@@ -27,6 +27,7 @@ one into the other. The addons:
 | `Polestar_Guides` (`addon/Polestar_Guides/`) | Polestar's own guide pack (pack id `guides`) | `compile`, from `guides/` | yes (generated) | yes |
 | community guide packs | Addons by other authors (`X-Polestar-Pack` in their TOC; `docs/PACKS.md`, `docs/PACK_FORMAT.md`) | the same compiler, from their own repositories | in their own repositories | by their authors |
 | `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `itemdb build` (`Items.lua`), then `gear build` (`Forever.lua`) | yes (generated) | yes |
+| `Polestar_Names` (`addon/Polestar_Names/`) | NPC and object names in the client's language for the guides, one file per language; loaded on demand, never in an English client (Core, "Names in the client's language") | `names build`, after `compile` | yes (generated) | yes |
 | `Polestar_QuestDB` (`addon/Polestar_QuestDB/`) | The quest database behind quest markers and tooltips; loaded on demand | `questdb build` | no (local, gitignored) | yes, when built |
 | `Polestar_Codex` (`addon/Polestar_Codex/`) | Lookup's Codex, and the Dungeons and Rares data; loaded on demand | `codex build`, from release-safe inputs (`--local-extras` builds a local-only one) | no (generated, gitignored) | yes, always: `pack` fails without it |
 | `Polestar_Nav` (`addon/Polestar_Nav/`) | Shortest Path Forever's walking router and his map of Zephras Isle (Cillian Berragan, GPL-3.0-or-later) with Polestar's walking maps of Eastern Kingdoms and Kalimdor in his format and the walk's chokepoints, for the arrow's walking routes; loaded on demand at login, never while the target is handed to an installed Shortest Path Forever (Nav, "In-game walking routes (Polestar_Nav)", "Hand-off to Shortest Path Forever") | `nav vendor <checkout>` (his files, `UPSTREAM.json`), `nav pack` (ours, `PACK.json`, from the navigation grid) | yes | yes, always |
@@ -445,6 +446,46 @@ the pack loads in about 20 ms (4.4 MB; it never loads at login), the first
 query costs 7 ms (guide headers), a keystroke 1.5–4 ms (1 to 8 letters), a
 detail page (`Lookup.Sources`) 0.1 ms for a mount up to 10 ms for an item
 with 40 drop sources.
+
+### Names in the client's language (`Core/LocalNames.lua`, `Polestar_Names`)
+
+The compiled guides name NPCs and objects in English (`npcName`, `objName`,
+a kill's `target`). In a client of another language they read in that
+language from the load-on-demand data addon `Polestar_Names`:
+
+```lua
+Polestar.LocalName(kind, id, english) -> name   -- kind "npc" | "object"
+Polestar.LocalNames.IsLoaded() -> bool
+Polestar.LocalNames.Register(locale, npcs, objects)   -- the data addon's one call: { [id] = name } each
+```
+
+`LocalName` returns the client's name for the ID, else `english`: in an
+English client, for an ID the pack has no name for (a name the same in both
+languages is not stored), and while the pack is missing or not loaded. The
+first call in a client whose language the pack has loads it once through
+`Data.Pack`; the pack's languages are its TOC's `X-Locales` line, read with
+`C_AddOns.GetAddOnMetadata` without loading it, so an English client never
+loads it. `LoadAddOn` carries no combat restriction in the Forever client,
+but `Data.Pack` loads nothing in combat: the English shows meanwhile, the
+load runs on `PLAYER_REGEN_ENABLED`, and `NAMES_CHANGED` fires (the message
+`Core/Names.lua` fires for quest titles and item names), so what shows names
+redraws.
+
+The pack holds one file per language (`frFR.lua`, `deDE.lua`, ...), each
+calling `Register` once. Its TOC lists them as `frFR.lua [AllowLoadTextLocale
+frFR]`, the per-file condition Blizzard's own Forever TOCs use, so the client
+reads only its own language's file; each file also starts with
+`if GetLocale() ~= "frFR" then return end` for a client that would read them
+all. The test harness drops the bracketed conditions and loads every file,
+the guard keeping the right one.
+
+Read through it: the Engine's goal texts, details and the arrow's label
+(`npcOf`, and `Own.npcName` / `Own.objName` for the accept, turn-in, talk,
+click, flight path and kill subjects, the "Not offered by" text, a gate's
+giver), the target button's `/targetexact` names (kill targets, and the quest
+database's droppers where it gives their ID) and the class trainer in the
+guide window's notice, the arrow and Nearby. Lookup, Dungeons and Rares name
+NPCs from the Codex, in English.
 
 ### Guide data (compiled Lua) — the toolchain/Engine contract
 
@@ -3201,6 +3242,33 @@ built.
   all cut by an item's 10-dropper cap (the internal build keeps AtlasLoot's
   instance trash past it; every dropper of every item would be 1.6 million
   sources against 74 thousand).
+
+### Names (`names build`)
+
+`node tools/polestar.js names build` writes `addon/Polestar_Names` (in git)
+from the IDs the compiled guides name (`addon/Polestar_Guides/Guides.lua`:
+goals' and candidates' `npc` / `npcName`, kills' `target` / `npc`, `object` /
+`objName`; and `Core/ClassTrainers.lua`), so it runs after `compile`. For each
+language of QuestieDB's localization (deDE, esES, esMX, frFR, koKR, ptBR,
+ruRU, zhCN, zhTW), first that has a name wins:
+
+1. QuestieDB's Forever store, the installed copy `data build --questie`
+   reads (`--questie <dir>`, `--no-questie`): `X-l10n-Version` must be 1;
+   `X-l10n-<locale>-Npc` / `-Object` is base64 of a zlib-compressed CBOR
+   table of columns (1 names, 2 subnames), indexed by the ID's position in
+   the ascending `X-<Entity>-IDS` list (QuestieDB's `src/l10n/overlay.lua`).
+2. pfQuest's locale databases (`data/sources/pfQuest/db/<locale>/units.lua`,
+   `objects.lua`, `--pfquest <dir>`), the Era client's names.
+
+A name equal to our English is left out. An ID whose Era English (pfQuest's
+`db/enUS`) differs from ours was renamed for Forever and keeps its English,
+since an Era translation names the old NPC. Each language file stays under
+256 KiB (`frFR.lua` is about 30 KiB); the TOC takes its version from
+package.json and lists the files with their `[AllowLoadTextLocale]`
+condition and `X-Locales`; `LICENSE-DATA.txt` names both sources with their
+versions and pfQuest's MIT notice. Same inputs give the same bytes.
+`tests/names.test.js` covers the reader, the merge and the committed pack;
+`tests/engine-localnames.test.js` the runtime.
 
 ### Reference data (`data/forever/`, built by `data build`, gitignored)
 

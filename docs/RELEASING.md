@@ -12,7 +12,7 @@ skip with a reason.
 
 | File | Contents |
 |---|---|
-| `Polestar-<version>.zip` | `Polestar` (with `LICENSE` and a player `README.txt`), `Polestar_Guides`, always `Polestar_Nav` (Shortest Path Forever's walking router and maps by Cillian Berragan, with its own GPL-3.0-or-later `LICENSE`, `CREDITS.md` and `UPSTREAM.json`; `nav check` must pass), `Polestar_QuestDB` / `Polestar_ItemDB` when built, and always `Polestar_Codex` (with its `LICENSE-DATA.txt`) |
+| `Polestar-<version>.zip` | `Polestar` (with `LICENSE` and a player `README.txt`), `Polestar_Guides`, always `Polestar_Nav` (Shortest Path Forever's walking router and maps by Cillian Berragan, with its own GPL-3.0-or-later `LICENSE`, `CREDITS.md` and `UPSTREAM.json`; `nav check` must pass), `Polestar_QuestDB` / `Polestar_ItemDB` / `Polestar_Names` (committed, with its `LICENSE-DATA.txt`) when built, and always `Polestar_Codex` (with its `LICENSE-DATA.txt`) |
 | `Polestar_Recorder-<version>.zip` | `Polestar_Recorder` (optional, with `LICENSE`) |
 | `SHA256SUMS` | checksums of both zips, in the format `sha256sum -c` reads |
 
@@ -42,8 +42,8 @@ follow `x.y.z`; `0.x` releases are betas.
 
 Releases are built from the full local data build of the steps below.
 [THIRD_PARTY.md](../THIRD_PARTY.md) ("Distributing Polestar") lists what
-that puts in the zip: QuestieDB facts in the guide pack, `Polestar_QuestDB`
-and `Polestar_Codex`, nothing from AtlasLoot, RareScanner or DungeonJournal,
+that puts in the zip: QuestieDB facts in the guide pack, `Polestar_QuestDB`,
+`Polestar_Names` and `Polestar_Codex`, nothing from AtlasLoot, RareScanner or DungeonJournal,
 and never the zone crossings pack (`pack` leaves it out). The Codex is part of
 Polestar (Lookup, Dungeons and Rares read it): `pack` stops when
 `Polestar_Codex` is not built, or was built with `--local-extras`, or names
@@ -69,6 +69,7 @@ Replace `0.2.0` with the new version throughout.
    node tools/polestar.js codex build        # release-safe; never --local-extras here
    node tools/polestar.js lint
    node tools/polestar.js compile
+   node tools/polestar.js names build        # after compile: the names of the NPCs and objects the guides name
    ```
 
 3. Run the whole suite with the data built (nothing skips for missing data
@@ -116,7 +117,7 @@ Replace `0.2.0` with the new version throughout.
    ignored) on `next`, bring `main` up to it, tag and push both:
 
    ```sh
-   git add package.json guides/pack.json addon/Polestar addon/Polestar_Guides addon/Polestar_ItemDB addon/Polestar_Nav addon/Polestar_Recorder
+   git add package.json guides/pack.json addon/Polestar addon/Polestar_Guides addon/Polestar_ItemDB addon/Polestar_Names addon/Polestar_Nav addon/Polestar_Recorder
    git commit -m "Release: 0.2.0"
    git switch main && git merge --ff-only next && git switch next
    git tag -a v0.2.0 -m "Polestar 0.2.0" main

@@ -622,10 +622,15 @@ local function chosen(goal)
 	return p.list[p.i]
 end
 
+-- NPC and object names in the client's language (Core/LocalNames.lua; on
+-- Own: the main chunk is at 200 locals).
+function Own.npcName(goal) return ns.LocalName("npc", goal.npc, goal.npcName) end
+function Own.objName(goal) return ns.LocalName("object", goal.object, goal.objName) end
+
 local function npcOf(goal)
 	local c = chosen(goal)
-	if c then return c.npc, c.npcName end
-	return goal.npc, goal.npcName
+	if c then return c.npc, Own.npcName(c) end
+	return goal.npc, Own.npcName(goal)
 end
 
 ---------------------------------------------------------------------------
@@ -1277,7 +1282,7 @@ local function whoOf(goal)
 	if WHO_VERBS[goal.t] then
 		local npc, name = npcOf(goal)
 		if npc then return "npc", npc, name end
-		if goal.object then return "object", goal.object, goal.objName end
+		if goal.object then return "object", goal.object, Own.objName(goal) end
 	end
 	return "here"
 end
@@ -1390,7 +1395,7 @@ local function unavailableText(u)
 		local pre = missingPre(a)
 		if pre then return L["Requires %s first"]:format(titleOfQuest(pre, a.preTitles)) end
 	end
-	return L["Not offered by %s"]:format(a.npcName or a.objName or L["the quest giver"])
+	return L["Not offered by %s"]:format(Own.npcName(a) or Own.objName(a) or L["the quest giver"])
 end
 
 -- A translated pattern (L["from %s"]) filled with value; nil without one.
@@ -1405,18 +1410,18 @@ local function describe(goal)
 	local t = goal.t
 	local C = Compat()
 	if t == "accept" then
-		local detail = fmt(L["from %s"], goal.npcName or goal.objName or Own.itemName(goal))
+		local detail = fmt(L["from %s"], Own.npcName(goal) or Own.objName(goal) or Own.itemName(goal))
 		local lvl = tonumber(goal.minLevel)
 		if lvl and player and (player.level or 1) < lvl then
 			detail = detail and L["%s, from level %d"]:format(detail, lvl) or L["From level %d"]:format(lvl)
 		end
 		return L["Accept"], questTitle(goal), "quest", detail
 	elseif t == "turnin" then
-		return L["Turn in"], questTitle(goal), "quest", fmt(L["at %s"], goal.npcName or goal.objName)
+		return L["Turn in"], questTitle(goal), "quest", fmt(L["at %s"], Own.npcName(goal) or Own.objName(goal))
 	elseif t == "complete" then
 		return L["Complete"], questTitle(goal), "quest", nil
 	elseif t == "kill" then
-		return L["Kill"], goal.target, "npc", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
+		return L["Kill"], ns.LocalName("npc", goal.npc, goal.target), "npc", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
 	elseif t == "collect" then
 		if goal.quest then return L["Collect"], Own.itemName(goal), "item", fmt(L["for %s"], questTitle(goal)) end
 		local _, npcName = npcOf(goal)
@@ -1427,9 +1432,9 @@ local function describe(goal)
 		local lx, ly = liveXY(goal)
 		return L["Go to"], ("%.1f, %.1f"):format(lx or goal.x, ly or goal.y), "place", mapName
 	elseif t == "talk" then
-		return L["Talk to"], goal.npcName, "npc", nil
+		return L["Talk to"], Own.npcName(goal), "npc", nil
 	elseif t == "interact" then
-		return L["Click"], goal.objName, "object", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
+		return L["Click"], Own.objName(goal), "object", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
 	elseif t == "use" then
 		return L["Use"], Own.itemName(goal), "item", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
 	elseif t == "sethome" then
@@ -1439,7 +1444,7 @@ local function describe(goal)
 	elseif t == "hearth" then
 		return L["Hearth to"], goal.location, "place", nil
 	elseif t == "getfp" then
-		return L["Get the flight path at"], goal.location, "place", fmt(L["from %s"], goal.npcName)
+		return L["Get the flight path at"], goal.location, "place", fmt(L["from %s"], Own.npcName(goal))
 	elseif t == "fly" then
 		return L["Fly to"], goal.location, "place", nil
 	elseif t == "train" then
@@ -3032,7 +3037,7 @@ function Engine.StartGate(id)
 		level = gate.level,
 		pre = gate.pre,
 		preTitle = gate.pre and titleOfQuest(gate.pre, gate.preTitles) or nil,
-		giver = a and (a.npcName or a.objName or Own.itemName(a)) or nil,
+		giver = a and (Own.npcName(a) or Own.objName(a) or Own.itemName(a)) or nil,
 		map = a and a.map or nil,
 	}
 end

@@ -1,0 +1,40 @@
+Polestar names: third-party notices
+===================================
+
+The <locale>.lua files hold NPC and object names in the game client's
+languages, for the IDs Polestar's guides name: facts (game data names),
+filled in from the sources below.
+
+QuestieDB (Questie-Forever), baked Forever store: localized names
+----------------------------------------------------------------
+URL: https://github.com/Questie/QuestieDB
+Revision: 1.0.6 36ca1ca86f6c1838de479c7c7452eb0a57d5c135
+License: No license file in Questie/Questie or Questie/QuestieDB; CurseForge lists GPL-3.0, and the maintainers ask that it be treated as all rights reserved (https://github.com/Questie/Questie/issues/4447). Read from the local install; facts only (NPC and object names) ship here, credited here, and come out if the maintainers ask.
+
+pfQuest
+-------
+URL: https://github.com/shagu/pfQuest
+Revision: 104f35678ca39ab1fb78b655f815cc7016f5e0c8
+License: MIT
+
+MIT License
+
+Copyright (c) 2017-2021 Eric Mauser (Shagu)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

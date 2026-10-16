@@ -171,6 +171,8 @@ function stub.addonLoaded(name)
 	if name == "Polestar" and Polestar then
 		Polestar.Compat = Polestar.Compat or Compat
 		Polestar.Engine = Polestar.Engine or Engine
+		-- Core/LocalNames.lua is not loaded: an English client's names.
+		Polestar.LocalName = Polestar.LocalName or function(_, _, english) return english end
 		if not Polestar.RegisterMapFrames then
 			function Polestar.RegisterMapFrames(t)
 				for id, b in pairs(t.era or {}) do nav.era[id] = b end

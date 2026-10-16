@@ -63,7 +63,9 @@ function expand(addonDir, entries) {
 	return out;
 }
 
-// The TOC's file list (lines that are not blank, comments or ## metadata).
+// The TOC's file list (lines that are not blank, comments or ## metadata),
+// without per-file directives (`frFR.lua [AllowLoadTextLocale frFR]`): every
+// file loads, and a locale file's own GetLocale() guard keeps the client's.
 function tocEntries(addonDir) {
 	const name = path.basename(addonDir);
 	const toc = path.join(addonDir, `${name}.toc`);
@@ -72,7 +74,8 @@ function tocEntries(addonDir) {
 		.readFileSync(toc, 'utf8')
 		.split(/\r?\n/)
 		.map((l) => l.trim())
-		.filter((l) => l && !l.startsWith('#'));
+		.filter((l) => l && !l.startsWith('#'))
+		.map((l) => l.replace(/\s*\[[^\]]*\]/g, ''));
 }
 
 // The files an addon folder's TOC loads, in order (the folder may be anywhere).

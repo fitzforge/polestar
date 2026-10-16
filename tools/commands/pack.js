@@ -21,7 +21,7 @@ const usage = `usage: node tools/polestar.js pack [<dir>] [options]
 
 In the repository: compiles our guides, then writes dist/Polestar-<version>.zip
 (Polestar, Polestar_Guides, Polestar_Nav, Polestar_Codex, and Polestar_QuestDB /
-Polestar_ItemDB when built), dist/Polestar_Recorder-<version>.zip and
+Polestar_ItemDB / Polestar_Names when built), dist/Polestar_Recorder-<version>.zip and
 dist/SHA256SUMS. Polestar/ in the zip also carries LICENSE and README.txt
 (install steps), Polestar_Recorder/ the LICENSE. The Codex must be built
 first (\`codex build\`) from release-safe inputs: pack stops on a missing

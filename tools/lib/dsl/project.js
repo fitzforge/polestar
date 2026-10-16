@@ -248,7 +248,7 @@ function writePackDir(outDir, files) {
 // is missing; `pack` refuses a release without the Codex, which Lookup,
 // Dungeons and Rares read: tools/lib/codex/pack.js releaseRefusal).
 const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav'];
-const RELEASE_DATA_ADDONS = ['Polestar_QuestDB', 'Polestar_ItemDB', 'Polestar_Codex'];
+const RELEASE_DATA_ADDONS = ['Polestar_QuestDB', 'Polestar_ItemDB', 'Polestar_Codex', 'Polestar_Names'];
 
 // -> { names, skipped }: the release addons present under addonsDir, in load order.
 function releaseAddons(addonsDir) {
