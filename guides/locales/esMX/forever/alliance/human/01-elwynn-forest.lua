@@ -162,10 +162,6 @@ return {
 	-- Step 31: "Auntie" Bernice Stonefield
 	["\"Auntie\" Bernice Stonefield"] = "\"Tita\" Bernice Pedregosa",
 
-	-- Step 32: Billy Maclure
-	-- {area:57} Fargodeep Mine
-	["{area:57}'s mouth"] = "La entrada de {area:57}",
-
 	-- Step 33: Goldtooth
 	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
@@ -362,5 +358,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {quest:1688} (level 9) stands by its farmhouse."] = "Cabalga de vuelta por {area:87} y hacia el este por el camino hasta {area:62}. {quest:1688} (nivel 9) está junto a la casa de la granja.",
+	-- ["{area:57}'s mouth"] = "La entrada de {area:57}",
 	-- ["{item:1006}: Princess"] = "{item:1006}: Princesa",
 }

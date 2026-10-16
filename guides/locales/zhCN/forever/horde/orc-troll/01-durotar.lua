@@ -18,8 +18,6 @@ return {
 	["Training weapons and boars"] = "训练武器和野猪",
 	-- plural, as words: Mottled Boars = {npc:3098} Mottled Boar
 	["The weapons lie around the Den and the training grounds; the Mottled Boars roam the whole valley floor."] = "被遗弃的训练武器散落在洞穴和训练场周围；{npc:3098}在整个山谷谷底游荡。",
-	-- {area:364} The Den
-	["{area:364}'s cave mouth"] = "{area:364}的洞口",
 
 	-- Step 4: The Den
 	-- {npc:3143} Gornek · {npc:3159} Kzan Thornslash
@@ -281,4 +279,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Follow the road south-west from {area:379} to the {area:380}. {zone:1413} guide starts here."] = "沿道路从{area:379}向西南到{area:380}。{zone:1413}指南从这里开始。",
+	-- ["{area:364}'s cave mouth"] = "{area:364}的洞口",
 }

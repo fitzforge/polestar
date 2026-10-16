@@ -162,10 +162,6 @@ return {
 	-- Step 31: "Auntie" Bernice Stonefield
 	["\"Auntie\" Bernice Stonefield"] = "\"Titia\" Berenice Campedra",
 
-	-- Step 32: Billy Maclure
-	-- {area:57} Fargodeep Mine
-	["{area:57}'s mouth"] = "Boca de {area:57}",
-
 	-- Step 33: Goldtooth
 	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
@@ -361,5 +357,6 @@ return {
 	["Follow the road west past Westbrook into {zone:1436}, then south along it to {area:108}. Thor, the gryphon master, stands on the hill."] = "Siga a estrada para o oeste, passando pela Ribeira d'Oeste, até {zone:1436}; depois, para o sul por ela até {area:108}. Thor, o mestre de grifos, fica no morro.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{area:57}'s mouth"] = "Boca de {area:57}",
 	-- ["{item:1006}: Princess"] = "{item:1006}: Princesa",
 }

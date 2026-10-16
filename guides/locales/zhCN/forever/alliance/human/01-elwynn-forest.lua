@@ -162,10 +162,6 @@ return {
 	-- Step 31: "Auntie" Bernice Stonefield
 	["\"Auntie\" Bernice Stonefield"] = "波尼斯·斯通菲尔德姑妈",
 
-	-- Step 32: Billy Maclure
-	-- {area:57} Fargodeep Mine
-	["{area:57}'s mouth"] = "{area:57}的入口",
-
 	-- Step 33: Goldtooth
 	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
@@ -362,5 +358,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {quest:1688} (level 9) stands by its farmhouse."] = "骑马穿过{area:87}，沿道路向东到{area:62}。{quest:1688}（9级）站在农舍旁。",
+	-- ["{area:57}'s mouth"] = "{area:57}的入口",
 	-- ["{item:1006}: Princess"] = "{item:1006}：公主",
 }

@@ -162,10 +162,6 @@ return {
 	-- Step 31: "Auntie" Bernice Stonefield
 	["\"Auntie\" Bernice Stonefield"] = "버니스 \"아줌마\" 스톤필드",
 
-	-- Step 32: Billy Maclure
-	-- {area:57} Fargodeep Mine
-	["{area:57}'s mouth"] = "{area:57} 입구",
-
 	-- Step 33: Goldtooth
 	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
@@ -363,5 +359,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Gakin. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "가킨에게 돌아가십시오. {object:2164} 지하실의 소환진에서 {item:6928}을(를) 사용하고 소환된 공허방랑자를 쓰러뜨리십시오.",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {quest:1688} (level 9) stands by its farmhouse."] = "{area:87}을(를) 지나 다시 나가 동쪽 길을 따라 {area:62}(으)로 가십시오. {quest:1688}(9레벨)은(는) 농가 옆에 있습니다.",
+	-- ["{area:57}'s mouth"] = "{area:57} 입구",
 	-- ["{item:1006}: Princess"] = "{item:1006}: 공주",
 }

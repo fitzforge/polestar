@@ -18,8 +18,6 @@ return {
 	["Training weapons and boars"] = "Übungswaffen und Eber",
 	-- plural, as words: Mottled Boars = {npc:3098} Mottled Boar
 	["The weapons lie around the Den and the training grounds; the Mottled Boars roam the whole valley floor."] = "Die Waffen liegen um den Höhlenbau und den Übungsplatz; die Scheckigen Eber streifen über den ganzen Talboden.",
-	-- {area:364} The Den
-	["{area:364}'s cave mouth"] = "Höhleneingang von {area:364}",
 
 	-- Step 4: The Den
 	-- {npc:3143} Gornek · {npc:3159} Kzan Thornslash
@@ -281,4 +279,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Follow the road south-west from {area:379} to the {area:380}. {zone:1413} guide starts here."] = "Folge der Straße von {area:379} nach Südwesten nach {area:380}. Hier beginnt der Guide für das {zone:1413}.",
+	-- ["{area:364}'s cave mouth"] = "Höhleneingang von {area:364}",
 }

@@ -18,8 +18,6 @@ return {
 	["Training weapons and boars"] = "Armas de entrenamiento y jabalíes",
 	-- plural, as words: Mottled Boars = {npc:3098} Mottled Boar
 	["The weapons lie around the Den and the training grounds; the Mottled Boars roam the whole valley floor."] = "Las armas están alrededor de El Cubil y del campo de entrenamiento; los jabalíes jaspeados recorren todo el fondo del valle.",
-	-- {area:364} The Den
-	["{area:364}'s cave mouth"] = "Entrada de la cueva de {area:364}",
 
 	-- Step 4: The Den
 	-- {npc:3143} Gornek · {npc:3159} Kzan Thornslash
@@ -281,6 +279,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Follow the road south-west from {area:379} to the {area:380}. {zone:1413} guide starts here."] = "Sigue el camino hacia el suroeste desde {area:379} hasta {area:380}. Aquí empieza la guía de {zone:1413}.",
+	-- ["{area:364}'s cave mouth"] = "Entrada de la cueva de {area:364}",
 	-- ["{npc:3171}: Tame Beast"] = "{npc:3171}: Domesticar bestia",
 	-- ["{npc:3352}: Beast Training"] = "{npc:3352}: Adiestramiento de bestias",
 	-- ["{npc:5875}: Summon Voidwalker"] = "{npc:5875}: Invocar abisario",

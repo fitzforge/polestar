@@ -18,8 +18,6 @@ return {
 	["Training weapons and boars"] = "Armas de treino e javalis",
 	-- plural, as words: Mottled Boars = {npc:3098} Mottled Boar
 	["The weapons lie around the Den and the training grounds; the Mottled Boars roam the whole valley floor."] = "As armas ficam em volta d'O Covil e do campo de treino; os Mosquetuscos vagam por todo o fundo do vale.",
-	-- {area:364} The Den
-	["{area:364}'s cave mouth"] = "Entrada da caverna de {area:364}",
 
 	-- Step 4: The Den
 	-- {npc:3143} Gornek · {npc:3159} Kzan Thornslash
@@ -278,4 +276,7 @@ return {
 	-- Step 67: The Crossroads
 	-- {area:379} Far Watch Post · {area:380} The Crossroads · {zone:1413} Barrens
 	["Follow the road south-west from {area:379} to the {area:380}. {zone:1413} guide starts here."] = "Siga a estrada para sudoeste do {area:379} até a {area:380}. O guia de {zone:1413} começa aqui.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{area:364}'s cave mouth"] = "Entrada da caverna de {area:364}",
 }

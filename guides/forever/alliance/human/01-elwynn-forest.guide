@@ -328,7 +328,7 @@ step "Auntie" Bernice Stonefield
 step Billy Maclure
   turnin 84
   accept 87
-  goto 39.5,82.4 "Fargodeep Mine's mouth"
+  goto 39.5,82.4 "Fargodeep Mine"
 
 step Goldtooth
   tip Goldtooth is inside the Fargodeep Mine, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a Westfall Deed now and then: right-click it.
@@ -410,7 +410,7 @@ step The gnoll camps
 
 # "The mine entrance is at 61.6,54.1" (https://www.wowhead.com/classic/quest=76, comments).
 step The Jasperlode Mine's entrance
-  goto 61.6,54.1 "The Jasperlode Mine"
+  goto 61.6,54.1 "Jasperlode Mine"
 
 step The Jasperlode Mine
   tip The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.

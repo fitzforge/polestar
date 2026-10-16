@@ -162,10 +162,6 @@ return {
 	-- Step 31: "Auntie" Bernice Stonefield
 	["\"Auntie\" Bernice Stonefield"] = "\"Tatie\" Bernice Stonefield",
 
-	-- Step 32: Billy Maclure
-	-- {area:57} Fargodeep Mine
-	["{area:57}'s mouth"] = "Entrée de la {area:57}",
-
 	-- Step 33: Goldtooth
 	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
@@ -365,6 +361,7 @@ return {
 	-- ["Summon Voidwalker"] = "Invocation d'un marcheur du Vide",
 	-- ["Tame Beast"] = "Apprivoiser une bête",
 	-- ["The {skill:356} Traps sit along the west shore of the lake."] = "Les pièges de {skill:356} sont disposés le long de la rive ouest du lac.",
+	-- ["{area:57}'s mouth"] = "Entrée de la {area:57}",
 	-- ["{item:1006}: Princess"] = "{item:1006} : Princesse",
 	-- ["{npc:459}: Summon Imp"] = "{npc:459} : Invocation d'un diablotin",
 }

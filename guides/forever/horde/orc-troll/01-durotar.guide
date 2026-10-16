@@ -112,7 +112,7 @@ step Training weapons and boars
   tip The weapons lie around the Den and the training grounds; the Mottled Boars roam the whole valley floor.
   collect 277653 quest 97279.1
   kill 3098 quest 788.1
-  goto 42.4,68.6 "The Den's cave mouth"
+  goto 42.4,68.6 "The Den"
 
 step The Den
   tip Gornek stands just inside the cave mouth; Kzan Thornslash at the back of the cave behind him.
@@ -163,7 +163,7 @@ step Sarkoth
 step Hana'zua
   turnin 790
   accept 804
-  goto 42.4,68.6 "The Den's cave mouth"
+  goto 42.4,68.6 "The Den"
 
 step Back to the Den
   turnin 804                          -- Gornek
