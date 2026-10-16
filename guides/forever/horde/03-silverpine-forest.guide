@@ -13,12 +13,12 @@ next forever/horde/04-the-barrens
 # Tirisfal Glades -> the Sepulcher (flight path, bind) -> the Dalaran crate
 # and back -> north loop: the Dead Field, Malden's Orchard, Erland's escort,
 # worg hearts -> hearth -> the Decrepit Ferry and back -> north again: Quinn,
-# Ivar the Foul, the murloc eyes on the shore, then Fenris Isle -> the
-# Sepulcher -> south loop: Ambermill, the Moonrage, the refugees, Beren's
-# Peril -> hearth -> grind to 19 on the lake shore -> zeppelin to Orgrimmar:
-# the city's own quests, training. The guide ends in Orgrimmar, in the Valley
-# of Wisdom; the next one flies to Ratchet from Doras in the Valley of
-# Strength.
+# the murloc eyes on the shore, then Fenris Isle -> the Sepulcher -> south
+# loop: Ambermill, the refugees, Beren's Peril -> hearth -> grind to 19 on the
+# lake shore -> Quinn and Ivar the Foul on the road north -> zeppelin to
+# Orgrimmar: the city's own quests, training. The guide ends in Orgrimmar, in
+# the Valley of Wisdom; the next one flies to Ratchet from Doras in the Valley
+# of Strength.
 #
 # Deviations from the export:
 # - Westfall (the lighthouse: Keeper of the Flame 103, The Coastal Menace 104,
@@ -29,7 +29,7 @@ next forever/horde/04-the-barrens
 # - The Orgrimmar flight path is taken on the first pass through the city at
 #   16.6 (the export takes it at 19).
 # - Ambermill Investigations (479) is done on the one southern loop with
-#   Watching the Roads, Arugal's Folly and Stop the Spread, not on its own trip.
+#   Watching the Roads and Stop the Spread, not on its own trip.
 # - The grind to 19 uses the Vile Fin Lakestalkers on Silverpine's own shore
 #   of Lordamere Lake, a short walk from the Sepulcher; the export's camp is
 #   the same murlocs across the lake by Dalaran, in Alterac Mountains.
@@ -45,9 +45,11 @@ next forever/horde/04-the-barrens
 #
 # Optional: Resting in Pieces and The Hidden Niche (460, 461): A Talking Head
 # is a rare drop from the Rot Hide gnolls, and the Dusty Shelf stands inside
-# Fenris Keep among level 18-22 gnolls. Arugal's Folly (98298, Forever): it
-# is listed after Dalar Dawnweaver's Arugal's Folly series (421-424, 99),
-# which the route does not run, so Dalar may not offer it.
+# Fenris Keep among level 18-22 gnolls.
+#
+# Left out: the Forever Arugal's Folly (98298): Dalar offers it only after
+# the Classic Arugal's Folly series (421-424, 99; Wowhead Forever's Series
+# box, #51), which the route does not run.
 #
 # Quinn's potions run Wild Hearts (429) -> Return to Quinn (430) -> Wild Eyes
 # (91920, Forever) -> Return to Quinn (Again) (91921, Forever): the quest
@@ -58,8 +60,10 @@ next forever/horde/04-the-barrens
 # first and Wild Eyes before 430 was handed in.
 # Wild Eyes is now taken from Quinn when 430 is handed in at the Ivar Patch,
 # its murlocs line the shore walk to Fenris Isle, and Renferrel takes it at
-# the Sepulcher after the island. Return to Quinn (Again) is left out: it is
-# a walk back north to Quinn for one delivery.
+# the Sepulcher after the island. On Forever, Ivar the Foul (425) opens only
+# once Return to Quinn (Again) is handed in (Wowhead Forever comments on 425
+# and 91921, #51), so both are done at the Yoricks' house on the road north
+# out of the forest at the end.
 #
 # Skyborne: Welcome to Azeroth (95350) is turned in to Thrall in Grommash
 # Hold, and Journey to the Crossroads (98024) taken on to Thork. Exploring the
@@ -230,13 +234,10 @@ step The Sepulcher
 
 # ---------------------------------------------------------------- North again, then Fenris Isle
 
-step The Ivar Patch
-  tip North again to the Yoricks' house. Ivar the Foul lurks a short walk west of it.
+step Quinn Yorick
+  tip North again to the Yoricks' house.
   turnin 430                          -- Quinn Yorick
   accept 91920
-  accept 425                          -- Rane Yorick
-  collect 3621 quest 425.1
-  turnin 425
 
 step Vile Fin murlocs
   tip Follow the lake shore south-east toward Fenris Isle: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes.
@@ -255,9 +256,9 @@ step The Sepulcher
   tip Swim back and follow the road west to the Sepulcher.
   turnin 443                          -- Apothecary Renferrel
   turnin 91920
+  accept 91921                        -- Apothecary Renferrel: for Quinn, on the road north at the end
   accept 95981                        -- Shadow Priest Allister
   accept 516                          -- Shadow Priest Allister: Beren's Peril, on the south loop
-  accept 98298 optional               -- Dalar Dawnweaver: take it if he offers it; it may follow his Arugal's Folly series, which the route does not run
   accept 98299
 
 # ---------------------------------------------------------------- South loop
@@ -267,10 +268,6 @@ step Ambermill
   collect 3354 quest 479.1
   kill 1889 quest 95981.2
   kill 1888 quest 95981.1
-
-step Moonrage Bloodhowlers
-  tip Only if Dalar gave you Arugal's Folly: the Bloodhowlers prowl the woods south-west of Ambermill, east of Pyrewood; they drop the Worgen Bits.
-  collect 280375 quest 98298.1 optional
 
 step The refugees
   tip The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the Greymane Wall.
@@ -286,7 +283,6 @@ step Hearth to the Sepulcher
   hearth "The Sepulcher"
   turnin 479                          -- Shadow Priest Allister
   turnin 95981
-  turnin 98298 optional               -- Dalar Dawnweaver
   turnin 98299
   turnin 516
 
@@ -297,6 +293,13 @@ step Lordamere Lake shore
 
 step Apothecary Renferrel
   accept 493                          -- Keep it: Apothecary Lydon in Tarren Mill, a later guide
+
+step The Ivar Patch
+  tip Take the road north toward Tirisfal Glades: the Yoricks' house at Malden's Orchard is on the way. Ivar the Foul lurks a short walk west of it.
+  turnin 91921                        -- Quinn Yorick
+  accept 425                          -- Rane Yorick
+  collect 3621 quest 425.1
+  turnin 425
 
 # ---------------------------------------------------------------- Orgrimmar
 

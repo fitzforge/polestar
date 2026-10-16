@@ -247,9 +247,10 @@ function greySkippedInDarkshore(level) {
 
 test('forever/alliance/03-darkshore.guide: Wogi\'s report: with Skip grey quests on, a Human at 20 leaves out the grey quests, keeps the Buzzbox chain, and one on the route\'s level keeps them all', { skip }, () => {
 	// At 20, quests of level 13 and below are grey. Buzzbox 827 (983, level
-	// 10) and Buzzbox 411 (1001, 12) open Buzzbox 323 and 525, and the first
-	// Washed Ashore (3524, 13) the second: they stay.
-	assert.deepEqual(greySkippedInDarkshore(20).sort((a, b) => a - b), [953, 954, 955, 956, 957, 958, 4722, 4723, 98025]);
+	// 10) and Buzzbox 411 (1001, 12) open Buzzbox 323 and 525, the first
+	// Washed Ashore (3524, 13) the second, and the two grey beached remains
+	// (4722, 4723) Holy Diver: they stay.
+	assert.deepEqual(greySkippedInDarkshore(20).sort((a, b) => a - b), [953, 954, 955, 956, 957, 958, 98025]);
 	// The simulator's Human reaches Darkshore at 16 to 18: Buzzbox 827 is
 	// already grey then, and stays for its chain.
 	assert.deepEqual(greySkippedInDarkshore(17), []);
@@ -400,6 +401,7 @@ const SILVERPINE = 'forever/horde/03-silverpine-forest.guide';
 const HILLSBRAD_ALLIANCE = 'forever/alliance/30-40/01-hillsbrad-foothills.guide';
 const ASHENVALE_30 = 'forever/alliance/30-40/03-ashenvale.guide';
 const ARATHI = 'forever/alliance/30-40/05-arathi-highlands.guide';
+const DARKSHORE = 'forever/alliance/03-darkshore.guide';
 
 test('Forever follow-ups are taken only once the quests before them are handed in', { skip }, () => {
 	for (const [guide, quest, after, optional] of [
@@ -419,6 +421,12 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[HILLSBRAD_ALLIANCE, 88758, [88757], true],
 		[ASHENVALE_30, 98418, [98417], true],
 		[ARATHI, 92459, [92458], true],
+		// The #51 sweep: Holy Diver after all nine beached remains, Ivar the
+		// Foul after Return to Quinn (Again); 92911 and 98298 are left out.
+		[DARKSHORE, 87760, [4722, 4723, 4725, 4727, 4728, 4730, 4731, 4732, 4733]],
+		[SILVERPINE, 425, [91921]],
+		[SILVERPINE, 98298, [99], true],
+		[WESTFALL, 92911, [92910], true],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));

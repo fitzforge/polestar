@@ -38,6 +38,12 @@ next forever/alliance/04-redridge-mountains
 #   in at the Ironforge stop (06-ashenvale).
 # - The Lakeshire flight path and hearth the export lists at the end of this
 #   visit are taken on arrival in Redridge (next guide).
+# - Holy Diver (87760, Forever): Gwennyth offers it only once all nine
+#   Beached Sea Creature and Turtle quests are handed in (a Wowhead Forever
+#   comment, #51; the quest data has no prerequisite for it). It is taken
+#   with the last three after the fourth loop, its rod comes from the
+#   Stormscale Beastmistresses on the naga trip, and it is handed in on the
+#   way back south.
 #
 # Optional: The Family and the Fishing Pole (1141) needs Fishing.
 # Gyromast's Revenge (2078) ends with the Threshwackonator 4100, an elite: not
@@ -239,7 +245,6 @@ step Auberdine
   turnin 4723
   accept 947                                  -- Barithras Moonshade
   accept 1138                                 -- Gubber Blump
-  accept 87760                                -- Gwennyth Bly'Leggonde
   accept 4740                                 -- The WANTED poster
   accept 965                                  -- Sentinel Elissa Starbreeze
   accept 986                                  -- Terenthis
@@ -257,9 +262,8 @@ step The bay wrecks
   collect 12237 quest 1138                    -- Fine Crab Chunks
 
 step The Ruins of Mathystra
-  tip Gelkak Gyromast hides on the little island off the ruins; Stormscale Beastmistresses walk the shore. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom).
+  tip Gelkak Gyromast hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom).
   accept 2098                                 -- Gelkak Gyromast
-  collect 280686 quest 87760                  -- Rod of Deep Dominion: Stormscale Beastmistress
   collect 7498 quest 2098
   collect 7499 quest 2098
   collect 7500 quest 2098
@@ -290,7 +294,6 @@ step Hearth to Auberdine
   turnin 982                                  -- Gorbold Steelhand
   turnin 4763                                 -- Thundris Windweaver
   turnin 1138                                 -- Gubber Blump
-  turnin 87760                                -- Gwennyth Bly'Leggonde
   vendor nearest
 
 step Lunar Fungus and Earthroot
@@ -345,6 +348,7 @@ step Auberdine
   turnin 4731                                 -- Gwennyth Bly'Leggonde
   turnin 4732
   turnin 4733
+  accept 87760                                -- Holy Diver: Gwennyth offers it once all nine beached remains are handed in
   turnin 4740                                 -- Sentinel Glynda Nal'Shea
   turnin 6123 only NightElf,Druid             -- Alanndarian Nightsong
   accept 6124 only NightElf,Druid             -- She gives you the Curative Animal Salve
@@ -354,14 +358,16 @@ step Auberdine
   vendor nearest
 
 step The naga
-  tip Follow the coast north-east to the Ruins of Mathystra. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them.
+  tip Follow the coast north-east to the Ruins of Mathystra. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore.
   collect 5273 quest 951                      -- Mathystra Relics
   kill 2181 quest 98013
   kill 2182 quest 98013
   kill 2183 quest 98013
+  collect 280686 quest 87760                  -- Rod of Deep Dominion: Stormscale Beastmistress
 
 step Back south
   hearth "Auberdine"                          -- Hearthstone on cooldown? Follow the coast road back south.
+  turnin 87760                                -- Gwennyth Bly'Leggonde
   turnin 951                                  -- Onu, at the Grove
   turnin 98013                                -- Arbal
 

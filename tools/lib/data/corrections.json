@@ -1,6 +1,17 @@
 {
 	"_about": "Polestar's own fixes to the merged reference data (data build applies them after QuestieDB, before recordings). One entry per fact, with where the fact comes from. quests: `set` replaces fields. npcs/objects: `set` replaces fields (Forever elite and rare ranks, which QuestieDB's Forever store lacks); `addSpawns` adds { \"<uiMapID>\": { f, pts } } maps the entity lacks (an existing map is replaced). items: `removeDrops` { npc: [ids], object: [ids] } and `removeVendors` [ids] drop wrong sources the pfQuest/QuestieDB union kept. Documented in docs/ARCHITECTURE.md (Reference data, Sources and precedence).",
 	"quests": {
+		"425": {
+			"set": {
+				"pre": [
+					91921
+				],
+				"preAny": [
+					91921
+				]
+			},
+			"note": "Ivar the Foul (Silverpine, Rane Yorick) comes after Return to Quinn (Again) 91921 on Forever, not straight after Return to Quinn 430: a Wowhead Forever comment on https://www.wowhead.com/forever/quest=425 (2026-10-04: \"In Forever, you need to complete Return to Quinn (Again) before this is available\") and one on https://www.wowhead.com/forever/quest=91921 (\"Allows you to start quest Ivar the Foul\"), checked 2026-10-17. Issue #51. pfQuest and QuestieDB 1.0.5 have the Classic prerequisite 430."
+		},
 		"1501": {
 			"set": {
 				"races": 146
@@ -12,6 +23,34 @@
 				"races": 146
 			},
 			"note": "The Binding (Warlock voidwalker, after 1501) is open to Orc, Undead and Troll Warlocks: Wowhead Forever https://www.wowhead.com/forever/quest=1504 lists Races [race=2], [race=5], [race=8] (checked 2026-10-14). The merged data has races 2 (Orc only)."
+		},
+		"87760": {
+			"set": {
+				"pre": [
+					4722,
+					4723,
+					4725,
+					4727,
+					4728,
+					4730,
+					4731,
+					4732,
+					4733
+				],
+				"preAll": [
+					4722,
+					4723,
+					4725,
+					4727,
+					4728,
+					4730,
+					4731,
+					4732,
+					4733
+				],
+				"preAny": []
+			},
+			"note": "Holy Diver (Darkshore, Gwennyth Bly'Leggonde) is offered only once all nine Beached Sea Creature and Beached Sea Turtle quests are handed in: a Wowhead Forever comment on https://www.wowhead.com/forever/quest=87760 (2026-10-06: \"This quest only unlocks after you've completed all 9 beached sea creature quests\"), checked 2026-10-17. Issue #51. QuestieDB 1.0.5 has no prerequisite."
 		},
 		"88758": {
 			"set": {
@@ -204,6 +243,17 @@
 				"races": 4294967372
 			},
 			"note": "Destruction in Deadmines (92819) is step 11 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15); a Wowhead Forever comment on quest=92753 (2026-10-01) says to leave the Deadmines by the back door and continue with Alba Fairmoon at the exit. QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92819 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
+		},
+		"92911": {
+			"set": {
+				"pre": [
+					92910
+				],
+				"preAny": [
+					92910
+				]
+			},
+			"note": "The second Harvesting the Harvesters 92911 (Westfall, Ozwin Ironsprocket) comes after the one started by the Precessive Autocognition Assembly, 92910: its text on https://www.wowhead.com/forever/quest=92911 opens \"I see... this gives me some insight into what makes those monsters tick\" and goes on \"I'll continue tinkering with the assembly you brought me\" (checked 2026-10-17). Issue #51. QuestieDB 1.0.5 has no prerequisite."
 		},
 		"94373": {
 			"set": {
@@ -467,6 +517,17 @@
 				]
 			},
 			"note": "Bloom of the Heavens (98209, Sylessa Duskwhisper's delivery to Thundris Windweaver) comes after Bloom of the Heavens 98208, recovering Nord'el from the wreck south of Menethil: the quest chain on https://foreverchanges.pro/quest/98209, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists the two in that order, and its text asks you to deliver the Nord'el. QuestieDB 1.0.5 has no prerequisite."
+		},
+		"98298": {
+			"set": {
+				"pre": [
+					99
+				],
+				"preAny": [
+					99
+				]
+			},
+			"note": "The Forever Arugal's Folly 98298 (Silverpine, Dalar Dawnweaver) comes after the Classic one, 99: Wowhead Forever's Series box on https://www.wowhead.com/forever/quest=98298 lists 421, 422, 423, 424, 99 and then 98298 (checked 2026-10-17). Issue #51. QuestieDB 1.0.5 has no prerequisite."
 		},
 		"98386": {
 			"set": {

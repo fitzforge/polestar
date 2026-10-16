@@ -32,6 +32,11 @@ next forever/alliance/03-darkshore
 #   in the middle of the loop instead +0.06 / +0.06 / +0.06 / +0.06.
 # - Harvesting the Harvesters (92910) starts from an item the Golems and
 #   Watchers drop: it is picked up on the farms rather than at Alexston.
+# - Left out: the second Harvesting the Harvesters (92911). Ozwin offers it
+#   only once 92910 is handed in (its text follows the assembly; #51, the
+#   quest data has no prerequisite for it), and the route does not come
+#   back to Saldean's after that; it also asks for Copper Modulators and a
+#   Crude Scope, Engineering parts.
 # - Left out: Continue to Stormwind (6281): the route accepts it but never
 #   turns it in. Of Mice and Milk (93928, re-checked on the 2026 refresh):
 #   the new route still accepts it and never turns it in; it ends at Hemet
@@ -57,8 +62,7 @@ next forever/alliance/03-darkshore
 #   visit are taken on arrival in Darkshore (next guide).
 #
 # Optional: Furlbrow's Deed (184), only with the Westfall Deed from Elwynn's
-# Defias. The second Harvesting the Harvesters (92911) turn-in is optional:
-# reports say Ozwin also asks for engineering parts.
+# Defias.
 #
 # Class quests: Human Warriors take the Defensive Stance quests (1638, 1639,
 # 1640, 1665) and Human Priests hand in Desperate Prayer and Divine Grace
@@ -114,7 +118,6 @@ step Saldean's Farm
   accept 9
   accept 22                                   -- Salma Saldean
   accept 92909                                -- Ozwin Ironsprocket
-  accept 92911
 
 step The Jansen Stead
   tip Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go.
@@ -139,7 +142,6 @@ step Molsen Farm
   kill 114 quest 9                            -- Harvest Watchers
   collect 255007 quest 92909.1
   collect 255010 quest 92909.2
-  collect 255007 quest 92911.1
   collect 732 quest 38.4                      -- Okra
   collect 255155                              -- Precessive Autocognition Assembly
   accept 92910
@@ -173,7 +175,6 @@ step Saldean's Farm
   turnin 38
   turnin 92909                                -- Ozwin Ironsprocket
   turnin 92910
-  turnin 92911 optional                       -- Only if he takes the isosprings alone
 
 step Sentinel Hill
   turnin 109                                  -- Gryan Stoutmantle
