@@ -294,7 +294,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		}
 	}
 
-	return { dispatch, loadIndex, backfill, refresh, newPost, message, edit, issues };
+	return { dispatch, loadIndex, backfill, refresh, newPost, message, edit, issues, issueFor };
 }
 
 module.exports = { createSync };

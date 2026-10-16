@@ -42,6 +42,14 @@ function duplicateOf(comments) {
 	return null;
 }
 
+// The first line of a "not planned" close, by the resolution label /close
+// sets (lib/commands.js); closed on GitHub without one, "won't change".
+const NOT_PLANNED = {
+	'resolution:no-action': 'No change is needed here.',
+	'resolution:cannot-reproduce': 'We couldn\'t reproduce this one.',
+	'resolution:not-resolved': 'We\'re closing this one without a fix for now.',
+};
+
 // The message and status for an issue's close or reopen.
 function issueMessage({ repo, issue, action, owner, comments }) {
 	const ping = owner ? `<@${owner}> ` : '';
@@ -56,7 +64,9 @@ function issueMessage({ repo, issue, action, owner, comments }) {
 	}
 	if (issue.state_reason === 'not_planned') {
 		const note = maintainerNote(comments);
-		let content = `${ping}We've decided not to change this one.`;
+		const labels = (issue.labels || []).map((l) => (typeof l === 'string' ? l : l.name));
+		const lead = labels.map((l) => NOT_PLANNED[l]).find(Boolean) || 'We\'ve decided not to change this one.';
+		let content = `${ping}${lead}`;
 		if (note) content += '\n' + quote(clip(note, MAX_REASON));
 		content += `\nThanks for the report! (${link})`;
 		return { role: 'wontfix', locked: true, content };

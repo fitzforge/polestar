@@ -71,6 +71,10 @@ function createGitHub({ token, repo, api = API, fetch: fetchImpl = fetch }) {
 		comment: (n, body) => request('POST', `${r}/issues/${n}/comments`, { body }),
 		comments: (n) => list(`${r}/issues/${n}/comments`),
 		addLabels: (n, labels) => request('POST', `${r}/issues/${n}/labels`, { labels }),
+		// Gone already is fine (404).
+		removeLabel: (n, name) => request('DELETE', `${r}/issues/${n}/labels/${encodeURIComponent(name)}`).catch((err) => {
+			if (err.status !== 404) throw err;
+		}),
 		releases: () => list(`${r}/releases`, 100),
 		// Issues (not pull requests) carrying a label, newest first.
 		issuesLabelled: async (label, { state = 'all', since, max = 300 } = {}) => {

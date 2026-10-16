@@ -234,3 +234,83 @@ test('a release tells the threads of fixes closed since the last release, once',
 
 	assert.deepEqual(await onRelease({ discord, github, event: { release }, log: quietLog }), { told: 0, failed: 0 });
 });
+
+// Admin slash commands (lib/commands.js): /close with a reason and /reopen,
+// run in a #bugs thread; the issue changes on GitHub and the Action then
+// tells the thread as when it closes there.
+const { createCommands } = require('../tools/discord-bot/lib/commands');
+
+function command(name, opts = {}, { admin = true, channel = '1001' } = {}) {
+	return {
+		id: 'i1', token: 'tok', application_id: 'app', type: 2, channel_id: channel,
+		member: { permissions: admin ? String(1n << 3n | 1n << 10n) : String(1n << 10n) },
+		data: { name, options: Object.entries(opts).map(([k, value]) => ({ name: k, value })) },
+	};
+}
+
+async function commanded() {
+	const s = await filed();
+	s.commands = createCommands({ discord: s.discord, github: s.github, issueFor: s.sync.issueFor, log: quietLog });
+	// What the admin was told: the edited reply to the deferred interaction.
+	s.told = () => s.discord.requests.filter((r) => r.method === 'PATCH').at(-1).body.content;
+	return s;
+}
+
+test('only administrators can use /close and /reopen: they are registered for Administrators and checked on every use', async () => {
+	const { discord, github, commands } = await commanded();
+	await commands.register('app', '800');
+	const reg = discord.requests[0];
+	assert.equal(reg.path, '/applications/app/guilds/800/commands');
+	assert.deepEqual(reg.body.map((c) => [c.name, c.default_member_permissions]), [['close', '8'], ['reopen', '8']]);
+
+	await commands.handle(command('close', { reason: 'fixed' }, { admin: false }));
+	const reply = discord.requests.at(-1);
+	assert.equal(reply.body.type, 4);
+	assert.equal(reply.body.data.flags, 64, 'seen only by the one who asked');
+	assert.match(reply.body.data.content, /Only server administrators/);
+	assert.equal(github.issues[0].state, 'open');
+});
+
+test("/close Can't reproduce closes the thread's issue with the admin's note; the thread hears it in those words, tagged and locked", async () => {
+	const { discord, github, commands, told } = await commanded();
+	await commands.handle(command('close', { reason: 'noreproduce', note: 'Tried on a fresh Human, the trainer was there.' }));
+	const issue = github.issues[0];
+	assert.deepEqual([issue.state, issue.state_reason], ['closed', 'not_planned']);
+	assert.ok(issue.labels.some((l) => l.name === 'resolution:cannot-reproduce'));
+	assert.match(told(), /^Closed \[fitzforge\/polestar#1\].* as \*\*Can\u2019t reproduce\*\*/);
+
+	await onIssue({ discord, github, event: { action: 'closed', issue }, log: quietLog });
+	assert.match(discord.sent.at(-1).content, /^<@u1> We couldn't reproduce this one\.\n> Tried on a fresh Human, the trainer was there\./);
+	const t = discord.channels.get('1001');
+	assert.deepEqual(t.applied_tags, ['t-questing', 't-wontfix']);
+	assert.equal(t.thread_metadata.locked, true);
+});
+
+test('/close Duplicate needs the issue it duplicates and points the thread at it; /reopen clears the resolution, a new reason replaces it', async () => {
+	const { discord, github, commands, told } = await commanded();
+	await commands.handle(command('close', { reason: 'duplicate' }));
+	assert.match(told(), /Give the issue it duplicates/);
+	assert.equal(github.issues[0].state, 'open');
+
+	await commands.handle(command('close', { reason: 'duplicate', duplicate_of: 7 }));
+	assert.equal(github.issues[0].state_reason, 'duplicate');
+	await onIssue({ discord, github, event: { action: 'closed', issue: github.issues[0] }, log: quietLog });
+	assert.match(discord.sent.at(-1).content, /tracking it in \[fitzforge\/polestar#7\]/);
+
+	await commands.handle(command('reopen'));
+	assert.equal(github.issues[0].state, 'open');
+	assert.ok(!github.issues[0].labels.some((l) => l.name.startsWith('resolution:')));
+	await commands.handle(command('close', { reason: 'noaction' }));
+	assert.deepEqual(github.issues[0].labels.filter((l) => l.name.startsWith('resolution:')).map((l) => l.name), ['resolution:no-action']);
+	await onIssue({ discord, github, event: { action: 'closed', issue: github.issues[0] }, log: quietLog });
+	assert.match(discord.sent.at(-1).content, /^<@u1> No change is needed here\./);
+});
+
+test('outside a filed #bugs thread /close asks for the issue number and changes nothing', async () => {
+	const { github, commands, told, discord } = await commanded();
+	discord.channels.set('42', { id: '42', parent_id: null });
+	discord.messages.set('42', []);
+	await commands.handle(command('close', { reason: 'fixed' }, { channel: '42' }));
+	assert.match(told(), /isn\u2019t a filed bug report/);
+	assert.equal(github.issues[0].state, 'open');
+});

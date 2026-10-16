@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.5 (unreleased)
+## Unreleased
 
 ### For players
 
@@ -18,6 +18,14 @@
   folder of the Polestar zip, `Polestar_Names`, which only a client in
   another language loads, and only its own language's file. An NPC it has
   no name for, or one renamed for Forever, stays in English.
+
+### For contributors
+
+- `tools/discord-bot`: `/close` and `/reopen` for server administrators in
+  a #bugs thread. `/close` takes a reason (Fixed, Won't fix, No action
+  needed, Can't reproduce, Not resolved, Duplicate) and an optional note,
+  closes the issue with it, and the reporter hears it in those words with
+  the note quoted (`tools/discord-bot/README.md`).
 
 ## 0.2.4 (2026-10-16)
 

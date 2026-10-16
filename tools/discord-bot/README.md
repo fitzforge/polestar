@@ -25,7 +25,7 @@ sequenceDiagram
 | The reporter writes again in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue. Other people's replies stay on Discord |
 | The reporter edits the post's first message | the bot | nothing; the issue body is written again |
 | Issue closed as **completed** (button, or `Fixes #N` in a commit) | `discord-issue-sync.yml` | ping: "This is fixed and will ship in the next Polestar update", tag **Fixed**, thread locked |
-| Issue closed as **not planned** | the same | ping: "We've decided not to change this one", quoting your last comment on the issue as the reason; tag **Won't fix**, locked |
+| Issue closed as **not planned** | the same | ping: "We've decided not to change this one" (or, from `/close`, "No change is needed here", "We couldn't reproduce this one", "We're closing this one without a fix for now"), quoting your last comment on the issue as the reason; tag **Won't fix**, locked |
 | Issue closed as **duplicate** | the same | ping: "already reported, tracked in #M" (from a `Duplicate of #M` comment); tag **Duplicate**, locked |
 | Issue reopened | the same | "We've reopened this", tag **Tracked**, unlocked |
 | A release published | `discord-release-notify.yml` | ping: "The fix is out in **Polestar 0.2.x**", for every issue closed as completed since the release before; the issue gets `released:v0.2.x` so it is never told twice |
@@ -61,9 +61,11 @@ other issues or carry HTML. Say so in the #bugs guidelines, for example:
    `DISCORD_TOKEN`), turn off Public Bot, and turn on **Message Content
    Intent**.
 2. Invite it, with your application id in place of `APP_ID`:
-   `https://discord.com/oauth2/authorize?client_id=APP_ID&scope=bot&permissions=292057844736`
+   `https://discord.com/oauth2/authorize?client_id=APP_ID&scope=bot+applications.commands&permissions=292057844736`
    (View Channels, Send Messages, Send Messages in Threads, Manage Threads,
-   Read Message History).
+   Read Message History; `applications.commands` for `/close` and
+   `/reopen`). Should the log ever say "slash commands not registered"
+   with a 403, open the link again; there is no need to remove the bot.
 3. On #bugs, add four tags: **Tracked**, **Fixed**, **Won't fix** and
    **Duplicate**, each with "Only allow moderators to apply this tag". A
    missing one is skipped. A post tagged with any of them by hand is never
@@ -117,6 +119,29 @@ A restart loses nothing: the bot reads back which posts it filed (a hidden
 marker in each issue body, and its "Tracked as" reply in each thread), files
 the posts made while it was away, and Discord replays what a short drop
 missed. Edits and follow-ups made during a long outage are not carried over.
+
+## Closing from Discord
+
+Server administrators can close or reopen a report from its #bugs thread.
+The bot changes the issue on GitHub; `discord-issue-sync.yml` then tells
+the thread, as when it is closed there. Only you see the bot's answer.
+
+| Command | The issue | The reporter is told |
+|---|---|---|
+| `/close reason:Fixed` | closed as completed | "This is fixed and will ship in the next Polestar update", **Fixed** |
+| `/close reason:Won't fix` | not planned, `resolution:wontfix` | "We've decided not to change this one", **Won't fix** |
+| `/close reason:No action needed` | not planned, `resolution:no-action` | "No change is needed here", **Won't fix** |
+| `/close reason:Can't reproduce` | not planned, `resolution:cannot-reproduce` | "We couldn't reproduce this one", **Won't fix** |
+| `/close reason:Not resolved` | not planned, `resolution:not-resolved` | "We're closing this one without a fix for now", **Won't fix** |
+| `/close reason:Duplicate duplicate_of:N` | duplicate, a `Duplicate of #N` comment | "already reported, tracked in #N", **Duplicate** |
+| `/reopen` | reopened, its `resolution:` label removed | "We've reopened this", **Tracked**, unlocked |
+
+`note:` is posted on the issue as your comment; for the four not-planned
+reasons it is quoted to the reporter under the first line. `issue:N` acts
+on another issue, for use outside its thread. The commands are registered
+in the forum's server for Administrators only, and each use is checked
+again, so loosening them under Server Settings, Integrations lets others
+see them but not use them.
 
 ## Working on it
 

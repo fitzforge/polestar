@@ -24,12 +24,18 @@ function fakeDiscord() {
 	const messages = new Map(); // channel -> [message]
 	const sent = [];
 	const edits = [];
+	const requests = []; // raw REST calls: slash command registration and interaction replies
 	let nextId = 5000;
 	return {
 		channels,
 		messages,
 		sent,
 		edits,
+		requests,
+		async request(method, path, body) {
+			requests.push({ method, path, body });
+			return null;
+		},
 		// A forum post: its thread and its first message (same id).
 		post(id, { owner = 'u1', name = 'A bug', content = '', tags = [], attachments = [], meta = {}, author = {} } = {}) {
 			channels.set(id, { id, parent_id: FORUM, guild_id: GUILD, owner_id: owner, name, applied_tags: tags, thread_metadata: meta });
@@ -95,9 +101,16 @@ function fakeGitHub(repo = 'fitzforge/polestar') {
 			issues.push(issue);
 			return issue;
 		},
+		async getIssue(n) {
+			if (!issues[n - 1]) throw httpError(404);
+			return structuredClone(issues[n - 1]);
+		},
 		async updateIssue(n, fields) {
 			Object.assign(issues[n - 1], fields);
 			return issues[n - 1];
+		},
+		async removeLabel(n, name) {
+			issues[n - 1].labels = issues[n - 1].labels.filter((l) => l.name !== name);
 		},
 		async comment(n, body) {
 			if (!comments.has(n)) comments.set(n, []);
