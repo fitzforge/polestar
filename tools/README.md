@@ -70,6 +70,7 @@ without QuestieDB.
 | `itemdb build` | The `Polestar_ItemDB` item stats (`Items.lua`) |
 | `gear build` / `gear fetch` | Forever item stats, reward choices and stat weight bands / refresh the cached sims |
 | `questdb build` | The `Polestar_QuestDB` data addon |
+| `names build` | The `Polestar_Names` data addon: the guides' NPC and object names in each client language, one file per language |
 | `codex build` | Lookup's Codex: `data/forever/codex/*.json` and the `Polestar_Codex` data addon |
 | `codex parity` | The release Codex against the last `--local-extras` build, per kind: `data/local/codex-parity.{json,md}` |
 | `nav pack` | Polestar's walking maps of Eastern Kingdoms and Kalimdor from the navigation grid in Shortest Path Forever's map format, with the walk's chokepoints, into `addon/Polestar_Nav` (`Nav/Nav0*.lua`, `Nav/Nav1*.lua`, `Nav/Chokepoints.lua`, `PACK.json`, `Nav/Nav.xml`); `--cells` (default 128), `--date` (the headers' date: the same grid, cells and date give the same bytes), `--check` compares the folder with `PACK.json` |
@@ -163,6 +164,7 @@ file's language written by `header()` in `lib/generated.js`:
 | `addon/Polestar/QoL/Data.lua` | `qol build` | `data/forever` npcs, map-frames | yes | rerun |
 | `addon/Polestar_ItemDB/Items.lua`, its TOC | `itemdb build` | Classic Era client item tables | yes | rerun; `tests/itemdb.test.js` loads it within its size budget |
 | `addon/Polestar_ItemDB/Forever.lua` and `LICENSE-DATA.txt`, `addon/Polestar/Gear/SpecData.lua` and `LICENSE-DATA.txt`; `data/forever/gear/report.json` | `gear build`, after `itemdb build` | the installed ForeverLevelingBiS, the sims cached in `data/sources/wowsims` (`gear fetch`) | yes; the report is local | rerun |
+| `addon/Polestar_Names/` | `names build`, after `compile` | the installed QuestieDB's localization blocks, pfQuest's `db/<locale>` (`data/sources/pfQuest`), the NPCs and objects named in `addon/Polestar_Guides/Guides.lua` and `Core/ClassTrainers.lua` | yes | rerun after `compile` names new NPCs; `tests/names.test.js` loads every language file within its budget |
 | `addon/Polestar_QuestDB/` | `questdb build` | `data/forever` quests, npcs, objects, items, map-frames | local; ships in the release zip when built | `tests/questdb.test.js` loads it within its budget |
 | `data/forever/codex/*.json`, `addon/Polestar_Codex/` (with `LICENSE-DATA.txt`) | `codex build` | the installed ForeverLevelingBiS; `data/forever` including instances, trainers and professions; Forever and Era client tables; our guides. `--local-extras` adds AtlasLoot, RareScanner and `dungeons.json` (local-only) | local; always in the release zip (`pack` fails without a release-safe one) | `tests/lookup-codex.test.js` loads it in game |
 | `addon/Polestar_Nav/Routing/`, `Nav/Nav2991*.lua`, `UPSTREAM.json` | `nav vendor <checkout>` | a git checkout of https://github.com/cjber/shortest-path-forever | yes (vendored; always in the release zip) | `nav check`; `tests/nav-vendor.test.js` |
