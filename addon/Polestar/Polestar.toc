@@ -25,7 +25,7 @@
 ## Version: 0.2.4
 ## Category: Quests
 ## IconTexture: Interface\AddOns\Polestar\Media\UI\logo
-## OptionalDeps: EllesmereUI, TomTom
+## OptionalDeps: EllesmereUI, TomTom, OpenMap
 ## SavedVariables: PolestarDB
 ## SavedVariablesPerCharacter: PolestarCharDB
 

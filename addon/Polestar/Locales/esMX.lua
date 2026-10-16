@@ -1915,6 +1915,9 @@ L["Pursuit of Justice adds run speed. Champion of the Light is left out while th
 L["Twist of Light makes swapping seals cheaper and adds seal echoes; it is Forever's seal-twisting talent."] = "Giro de Luz abarata el cambio de sellos y añade ecos de sello; es el talento de alternancia de sellos de Forever."
 L["Spare points go to Divine Strength and Holy's Improved Seals for damage, then Deflection for survival."] = "Los puntos sobrantes van a Fuerza divina y a Sellos mejorados de Sagrado para daño, y luego a Desviación para sobrevivir."
 
+-- Nav/Pins.lua
+-- L["Polestar trail dots"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."
 -- L["The arrow's target and the areas it spawns in."] = "El objetivo de la flecha y las zonas donde aparece."

@@ -1916,6 +1916,9 @@ L["Pursuit of Justice adds run speed. Champion of the Light is left out while th
 L["Twist of Light makes swapping seals cheaper and adds seal echoes; it is Forever's seal-twisting talent."] = "빛의 비틀림은 문장 교체 비용을 줄이고 문장 메아리를 더합니다. Forever의 문장 비틀기 특성입니다."
 L["Spare points go to Divine Strength and Holy's Improved Seals for damage, then Deflection for survival."] = "남는 포인트는 피해를 위해 신성한 힘과 신성의 향상된 문장에, 그다음 생존을 위해 굴절에 투자합니다."
 
+-- Nav/Pins.lua
+-- L["Polestar trail dots"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
 -- L["Browsing the guide needs a gamepad: turn it on in the game's options and plug one in."] = "가이드 탐색에는 게임패드가 필요합니다. 게임 설정에서 켜고 게임패드를 연결하십시오."

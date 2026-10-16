@@ -1917,6 +1917,9 @@ L["Pursuit of Justice adds run speed. Champion of the Light is left out while th
 L["Twist of Light makes swapping seals cheaper and adds seal echoes; it is Forever's seal-twisting talent."] = "Torsion de Lumière rend le changement de sceau moins cher et ajoute des échos de sceau ; c'est le talent d'alternance de sceaux de Forever."
 L["Spare points go to Divine Strength and Holy's Improved Seals for damage, then Deflection for survival."] = "Les points en trop vont à Force divine et aux Sceaux améliorés de Sacré pour les dégâts, puis à Déviation pour la survie."
 
+-- Nav/Pins.lua
+-- L["Polestar trail dots"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
 -- L["Blood Elf"] = "Elfe de sang"

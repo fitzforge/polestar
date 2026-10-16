@@ -1790,6 +1790,19 @@ inside the visible disc or square, 5 px, at most 40. World map: every max(15,
 map width / 60) yd, clipped to the map, 6 px (counter-scaled like the pins)
 under the pins, textures on one no-mouse frame, at most 300. One 20 Hz driver runs only while dots show.
 `nav.trailDots` (default on) with `nav.worldPins` / `nav.minimapPins` per surface.
+On OpenMap's stitched world map (`OpenMapAPI`, OpenMap's `docs/api.md`; an
+optional dependency), the world map frame shows only the map under the view's
+centre while OpenMap draws the rest, so the trail goes through OpenMap's own
+placement instead: each run's continent yards to the shown map's percent through
+a reference map on that continent (the shown map, or on the world map its
+children), placed by `OpenMapAPI.WorldFromMap` / `MapFromWorld`; clipped to what
+the map's scroll frame shows (and 4% past it), not to the map; every max(15,
+view width / 60) yd rounded up to 15 yd times a power of two, so dots keep their
+places through a zoom within a step; redrawn when a pan or zoom moves the view
+(the canvas's and its scroll frame's place, read each frame) and when OpenMap
+switches its map on or off (`OpenMap_StitchedChanged`). `nav.openmapDots`
+(default on) is a switch of Polestar's in OpenMap's menu; it hides the dots on
+OpenMap's map only. Only OpenMap's table is called; the map frame is only read.
 The trail stands in only while route lines draw nothing (`nav.routeLines` off):
 `Nav/Layers.lua` clears it while `Polestar.RouteLines.Active()`.
 

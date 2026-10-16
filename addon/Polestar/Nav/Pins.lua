@@ -44,7 +44,9 @@
 -- in the world as the player walks and run on across joints. A continent
 -- change breaks a run. Minimap dots sit MM_SPACING apart inside the visible
 -- disc (or square); world map dots a WORLD_DIVS-th of the viewed map's width
--- apart (at least WORLD_MIN_SPACING), inside its rectangle, under every pin.
+-- apart (at least WORLD_MIN_SPACING), inside its rectangle, under every pin;
+-- on OpenMap's stitched map, inside what the view shows, through OpenMap's
+-- placement (see "OpenMap" below).
 -- Segment lengths are measured once per SetTrail. The dots crawl toward the
 -- destination, one spacing per TRAIL_PERIOD, from a 20 Hz driver that runs
 -- only while dots show on a visible minimap or an open world map; with
@@ -58,6 +60,7 @@ local floor = math.floor
 
 local Pins = {}
 ns.Pins = Pins
+local L = ns.L
 
 local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Nav\\"
 local AREA_ALPHA = 0.32 -- area disc opacity, times the pin colour's alpha
@@ -1070,7 +1073,7 @@ do
 
 	local function onWorldView(_, what, elapsed)
 		if what == "tick" then
-			if wDirty then drawWorld() end
+			if wDirty then drawWorld() else world.followView() end
 			followGamepadCursor(elapsed)
 		elseif what == "show" or what == "map" or what == "size" then
 			drawWorld()
@@ -1088,6 +1091,7 @@ do
 		local M = ns.MapCanvas
 		wView = WorldMapFrame and M and M.Watch(WorldMapFrame, onWorldView) or nil
 		world.view = wView
+		world.openMap() -- OpenMap's menu switch, when it is loaded (an optional dependency: before Polestar)
 		return wView ~= nil
 	end
 
@@ -1100,6 +1104,179 @@ do
 	-- A draw still due this frame runs now (diagnostics and tests).
 	function world.flush()
 		if wDirty and wView and wView.shown then drawWorld() end
+	end
+
+	---------------------------------------------------------------------------
+	-- OpenMap (an optional world map addon, its OpenMapAPI: docs/api.md in
+	-- its repository). While its stitched map shows, the world map frame's
+	-- map is only the zone or continent under the view's centre (or the
+	-- whole world, 947), and the art around it is OpenMap's: the trail is
+	-- drawn wherever it shows on screen, through OpenMap's own placement of
+	-- every map on the stitched world, so the dots carry on into the
+	-- neighbouring zones and across the world view. Only OpenMap's table is
+	-- called (read-only, plus a switch of Polestar's in its menu); the map
+	-- frame is read as everywhere else.
+	--   nav.openmapDots   the trail on OpenMap's stitched map (on; its menu's switch)
+	---------------------------------------------------------------------------
+	local OM_MARGIN = 0.04   -- of the view's size: dots placed just past its edges
+	local omHooked = false
+	local omOn = false       -- the last trail draw went through OpenMap
+	local omX0, omY0, omX1, omY1 = 0, 0, 0, 0 -- the view it was drawn for (map percent)
+	local omRefs = {}        -- host map -> { [continent] = { map, left, top, kx, ky } }, measured once
+	local omFit = {}         -- host map -> { [continent] = { ub, uc, va, vc } }: world yards -> host percent
+
+	-- A map's continent and world yards -> percent (viewMap's measure), or nil.
+	local function frameOf(C, mapID)
+		local c1, top, left = C.MapToWorld(mapID, 0, 0)
+		local c2, bottom, right = C.MapToWorld(mapID, 100, 100)
+		if not (c1 and c1 == c2 and top ~= bottom and left ~= right) then return nil end
+		return { map = mapID, c = c1, left = left, top = top, kx = 100 / (right - left), ky = 100 / (bottom - top) }
+	end
+
+	-- The maps that tell each continent's world yards on the host map: the
+	-- host itself on one continent, else (the world map) its children.
+	local function refsFor(C, host)
+		local refs = omRefs[host]
+		if refs then return refs end
+		refs = {}
+		local own = frameOf(C, host)
+		if own then
+			refs[own.c] = own
+		elseif C_Map and C_Map.GetMapChildrenInfo then
+			local ok, kids = pcall(C_Map.GetMapChildrenInfo, host)
+			if ok and type(kids) == "table" then
+				for _, kid in ipairs(kids) do
+					local f = kid and kid.mapID and frameOf(C, kid.mapID)
+					if f and not refs[f.c] then refs[f.c] = f end
+				end
+			end
+		end
+		omRefs[host] = refs
+		return refs
+	end
+
+	-- World yards on continent c -> percent of the host map, as OpenMap
+	-- places the reference map on its stitched world; nil when it can't.
+	local function fitFor(OM, C, host, c)
+		local byC = omFit[host]
+		if not byC then
+			byC = {}
+			omFit[host] = byC
+		end
+		local fit = byC[c]
+		if fit ~= nil then return fit or nil end
+		local ref = refsFor(C, host)[c]
+		if not ref then
+			byC[c] = false
+			return nil
+		end
+		local ok, u0, v0 = pcall(OM.WorldFromMap, ref.map, 0, 0)
+		local ok1, u1, v1 = pcall(OM.WorldFromMap, ref.map, 1, 1)
+		if not (ok and ok1 and u0 and u1) then return nil end -- (not built yet: asked again next draw)
+		local okA, hx0, hy0 = pcall(OM.MapFromWorld, host, u0, v0)
+		local okB, hx1, hy1 = pcall(OM.MapFromWorld, host, u1, v1)
+		if not (okA and okB and hx0 and hx1) or hx0 == hx1 or hy0 == hy1 then return nil end
+		-- reference percent: x = (wy - left) * kx, y = (wx - top) * ky; host percent = 100 * h0 + ref * (h1 - h0)
+		local ub, va = ref.kx * (hx1 - hx0), ref.ky * (hy1 - hy0)
+		fit = { ub = ub, uc = 100 * hx0 - ref.left * ub, va = va, vc = 100 * hy0 - ref.top * va }
+		byC[c] = fit
+		return fit
+	end
+
+	-- Dot spacing for a view `pct` percent of the host wide, at `perYard`
+	-- percent a yard: a WORLD_DIVS-th of the view, at least
+	-- WORLD_MIN_SPACING, in steps of twice the last, so the dots keep their
+	-- places while a zoom stays within a step.
+	local LOG2 = math.log(2)
+	local function stitchedSpacing(pct, perYard)
+		local raw = pct / abs(perYard) / WORLD_DIVS
+		if raw <= WORLD_MIN_SPACING then return WORLD_MIN_SPACING end
+		return WORLD_MIN_SPACING * 2 ^ ceil(math.log(raw / WORLD_MIN_SPACING) / LOG2 - 1e-9)
+	end
+
+	-- What the map's scroll frame shows of the canvas, in percent of the
+	-- viewed map: x0, y0, x1, y1 (reads only: the canvas and its parent's place).
+	local function viewRect()
+		local v = wView
+		local canvas = v.canvas
+		local frame = canvas.GetParent and canvas:GetParent()
+		local w, h = v.width or 0, v.height or 0
+		if not frame or w <= 0 or h <= 0 then return 0, 0, 100, 100 end
+		local cl, ct, cs = canvas:GetLeft(), canvas:GetTop(), canvas:GetEffectiveScale()
+		local fl, ft, fr, fb, fs = frame:GetLeft(), frame:GetTop(), frame:GetRight(), frame:GetBottom(), frame:GetEffectiveScale()
+		if not (cl and ct and fl and ft and fr and fb and cs and fs and cs > 0) then return 0, 0, 100, 100 end
+		local kx, ky = 100 / (w * cs), 100 / (h * cs)
+		return (fl * fs - cl * cs) * kx, (ct * cs - ft * fs) * ky, (fr * fs - cl * cs) * kx, (ct * cs - fb * fs) * ky
+	end
+
+	-- OpenMap's switch: the trail on its map.
+	local function hookOpenMap(OM)
+		if omHooked then return end
+		omHooked = true
+		if type(OM.RegisterCallback) == "function" then
+			pcall(OM.RegisterCallback, Pins, "OpenMap_StitchedChanged", function() refreshWorld() end)
+		end
+		if type(OM.RegisterMenuToggle) == "function" then
+			pcall(OM.RegisterMenuToggle, ADDON, {
+				id = "trailDots",
+				label = L["Polestar trail dots"],
+				section = "Polestar",
+				icon = MEDIA .. "pin-fill",
+				get = function() return ns.Get("nav.openmapDots") and true or false end,
+				set = function(on) ns.Set("nav.openmapDots", on and true or false) end,
+			})
+		end
+	end
+	ns.On("SETTING_CHANGED", function(path)
+		if path == "nav.openmapDots" or path == "" or path == "nav" then refreshWorld() end
+	end)
+
+	-- OpenMapAPI while its stitched map shows, else nil.
+	local function openMap()
+		local OM = OpenMapAPI
+		if type(OM) ~= "table" or OM.major ~= 1 or type(OM.IsStitched) ~= "function"
+			or type(OM.WorldFromMap) ~= "function" or type(OM.MapFromWorld) ~= "function" then
+			return nil
+		end
+		hookOpenMap(OM)
+		local ok, on = pcall(OM.IsStitched)
+		return ok and on and OM or nil
+	end
+	world.openMap = openMap
+
+	-- The trail on OpenMap's stitched map: every run whose continent the
+	-- host map can place, clipped to the view (and a margin). Returns the count.
+	local function stitchedTrail(OM, frac, pc, px, py)
+		if not ns.Get("nav.openmapDots") then return 0 end
+		local C = ns.Compat
+		local host = wView.mapID
+		if not (C and C.MapToWorld and host) then return 0 end
+		local x0, y0, x1, y1 = viewRect()
+		omX0, omY0, omX1, omY1 = x0, y0, x1, y1
+		local mx, my = (x1 - x0) * OM_MARGIN, (y1 - y0) * OM_MARGIN
+		cx0, cy0, cx1, cy1 = x0 - mx, y0 - my, x1 + mx, y1 + my
+		local count, runs = 0, trail.runs
+		for k = 1, #runs do
+			local run = runs[k]
+			local fit = fitFor(OM, C, host, run.c)
+			if fit then
+				ua, ub, uc, va, vb, vc = 0, fit.ub, fit.uc, fit.va, 0, fit.vc
+				count = runDots(loadRun(run, pc, px, py), stitchedSpacing(x1 - x0, fit.ub), frac, clipRect, WORLD_CAP, count)
+			end
+		end
+		return count
+	end
+
+	-- Every frame of the open map: on OpenMap's map a pan or zoom moves the
+	-- view without changing the map, so the trail follows it here.
+	function world.followView()
+		if not (omOn and trail and trail.world) then return end
+		local x0, y0, x1, y1 = viewRect()
+		local eps = (omX1 - omX0) * 0.002
+		if abs(x0 - omX0) > eps or abs(y0 - omY0) > eps or abs(x1 - omX1) > eps or abs(y1 - omY1) > eps then
+			drawTrailWorld(trailFrac())
+			updateTrailDriver()
+		end
 	end
 
 	function viewMap(mapID)
@@ -1131,16 +1308,23 @@ do
 	function drawTrailWorld(frac)
 		local count = 0
 		local v = wView
-		if trail and trail.world and wC and v and v.shown then
+		omOn = false
+		if trail and trail.world and v and v.shown then
 			local C = ns.Compat
 			local pc, px, py
 			if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
-			ua, ub, uc, va, vb, vc = 0, wKx, -wLeft * wKx, wKy, 0, -wTop * wKy
-			cx0, cy0, cx1, cy1 = 0, 0, 100, 100
-			local runs = trail.runs
-			for k = 1, #runs do
-				local run = runs[k]
-				if run.c == wC then count = runDots(loadRun(run, pc, px, py), wSpacing, frac, clipRect, WORLD_CAP, count) end
+			local OM = openMap()
+			if OM then
+				omOn = true
+				count = stitchedTrail(OM, frac, pc, px, py)
+			elseif wC then
+				ua, ub, uc, va, vb, vc = 0, wKx, -wLeft * wKx, wKy, 0, -wTop * wKy
+				cx0, cy0, cx1, cy1 = 0, 0, 100, 100
+				local runs = trail.runs
+				for k = 1, #runs do
+					local run = runs[k]
+					if run.c == wC then count = runDots(loadRun(run, pc, px, py), wSpacing, frac, clipRect, WORLD_CAP, count) end
+				end
 			end
 		end
 		local t = wTrail

@@ -243,6 +243,9 @@ map. Renders of every window and state, drawn without the game, are in
 - **Nearby services.** `/polestar near repair` (trainer, a profession,
   class, reagents, vendor, innkeeper, bank, auction, flight, stable) points
   the arrow at the quickest one to reach; the map's tracking menu lists them.
+- **OpenMap.** On [OpenMap](https://www.curseforge.com/wow/addons/openmap)'s
+  seamless world map the trail dots carry on across zone borders and show on
+  the whole-world view too. OpenMap's menu has a "Polestar trail dots" switch.
 - **Other addons' waypoints** (Options, Integrations, TomTom). Without TomTom, "Let other addons set
   waypoints" (off by default) lets addons that set TomTom waypoints point
   Polestar's arrow and makes `/way` work; addons that expect TomTom's own

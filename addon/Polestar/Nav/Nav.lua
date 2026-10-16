@@ -34,6 +34,7 @@ ns.RegisterDefaults("nav", {
 	worldPins = true,
 	minimapPins = true,
 	trailDots = true,
+	openmapDots = true, -- the trail on OpenMap's stitched map (Nav/Pins.lua; OpenMap's menu switch)
 	tomtom = true,
 	useTomTomArrow = false,
 	blizzardWaypoint = false,

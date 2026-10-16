@@ -390,3 +390,149 @@ test('the trail follows the route as its legs advance (ROUTE_ADVANCED)', () => {
 	const line = [[0, 785], [0, -780]];
 	assertDots(out.last.mm, expectDots(line, MM_SPACING, 0.5).filter(([n, w]) => Math.hypot(n, w - 785) <= MM_LIMIT), 'minimap');
 });
+
+// OpenMap's stitched map (OpenMapAPI, a fake): every map placed on one world,
+// 0..1 across and down. Map 9000 (continent 0) and 9001 (continent 1) as on
+// that world; 9002 inside 9000 where its yards put it; 947 the world itself,
+// the two as its children. The view is the map frame's scroll frame
+// (WorldMapFrame.ScrollContainer) over the 1000 px canvas.
+const OPENMAP = `
+local rects = { [947] = { 0, 1, 0, 1 }, [9000] = { 0.1, 0.4, 0.2, 0.6 }, [9001] = { 0.6, 0.8, 0.3, 0.5 },
+	[9002] = { 0.22, 0.28, 0.36, 0.44 } }
+local OM = { major = 1, version = 1, stitched = true, toggles = {}, callbacks = {}, calls = 0 }
+OpenMapAPI = OM
+function OM.IsStitched() return OM.stitched end
+function OM.WorldFromMap(id, x, y)
+	OM.calls = OM.calls + 1
+	local r = rects[id]
+	if r then return r[1] + x * (r[2] - r[1]), r[3] + y * (r[4] - r[3]) end
+end
+function OM.MapFromWorld(id, u, v)
+	OM.calls = OM.calls + 1
+	local r = rects[id]
+	if r then return (u - r[1]) / (r[2] - r[1]), (v - r[3]) / (r[4] - r[3]) end
+end
+function OM.RegisterMenuToggle(owner, spec) OM.toggles[owner .. "." .. spec.id] = spec end
+function OM.RegisterCallback(owner, event, fn) OM.callbacks[event] = fn end
+function C_Map.GetMapChildrenInfo(id)
+	if id == 947 then return { { mapID = 9000 }, { mapID = 9001 } } end
+	return {}
+end
+local sc = WorldMapFrame.ScrollContainer
+-- the view: the scroll frame over canvas percent x0..x1, y0..y1 (the canvas: 1000 px at 0, 0)
+local function view(x0, y0, x1, y1)
+	sc.x, sc.width = x0 * 10, (x1 - x0) * 10
+	sc.height = (y1 - y0) * 10
+	sc.y = 1000 - y1 * 10
+end
+view(0, 0, 100, 100)
+-- the dots drawn: percent of the viewed map
+local function rawDots()
+	local out = {}
+	for i, dot in ipairs(Pins.GetTrailFrames("world")) do
+		local x, y = nav.worldPoint(dot)
+		out[i] = { x = x, y = y }
+	end
+	return out
+end
+`;
+
+// The spacing on OpenMap's map: a 60th of the view's width in yards, at least
+// 15 yd, in steps of twice the last.
+const stitchedSpacing = (yardsAcross) => {
+	const raw = yardsAcross / 60;
+	return raw <= 15 ? 15 : 15 * 2 ** Math.ceil(Math.log2(raw / 15) - 1e-9);
+};
+
+test('OpenMap: on a zone the dots run on past its edges as far as the view shows, through OpenMap\'s placement', () => {
+	const [out] = run(`${OPENMAP}
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("ui.reduceMotion", true)
+		nav.maps[9002] = { c = 0, top = 200, bottom = -200, left = 200, right = -200, name = "Tinyshire" }
+		nav.place(0, 0)
+		target(0, -900)
+		view(-100, -100, 200, 200)                       -- three of Tinyshire's widths across
+		nav.showWorldMap(9002)
+		local r = { dots = rawDots() }
+		OM.stitched = false                              -- Blizzard's own map again
+		OM.callbacks.OpenMap_StitchedChanged(false)
+		stub.runMapFrame(WorldMapFrame, 0)
+		r.plain = worldDots(9002)
+		r.writes = #stub.mapWrites
+		emit(r)`);
+	// 9002 percent -> yards: wy = 200 - 4 * x, wx = 200 - 4 * y
+	const dots = out.dots.map((d) => ({ wx: 200 - 4 * d.y, wy: 200 - 4 * d.x, x: d.x }));
+	const spacing = stitchedSpacing(300 * 4); // 1200 yd across: 30 yd
+	assert.equal(spacing, 30);
+	const reach = 200 + 300 * 0.04; // the view's right edge and its margin, in percent
+	const want = expectDots([[0, 0], [0, -900]], spacing, 0.5).filter(([, wy]) => (200 - wy) / 4 <= reach);
+	assertDots(dots, want, 'stitched, to the view\'s edge');
+	assert.ok(dots.some((d) => d.x > 100), 'dots past the zone\'s own edge');
+	assert.ok(out.plain.length > 0 && out.plain.every((d) => d.x >= 0 && d.x <= 100), 'not stitched: clipped to the zone as before');
+	assert.equal(out.writes, 0, 'nothing written into the map');
+});
+
+test('OpenMap: the world view places each continent\'s dots through its own map, and follows a pan', () => {
+	const [out] = run(`${OPENMAP}
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("ui.reduceMotion", true)
+		nav.place(0, 300, 1)                             -- on Farland (continent 1)
+		Polestar.Nav.SetTarget(9001, 80, 50, "Far target")
+		nav.showWorldMap(947)
+		local r = { world = rawDots() }
+		view(70, 0, 80, 100)                             -- pan: a strip of the world
+		stub.runMapFrame(WorldMapFrame, 0)
+		r.panned = rawDots()
+		local calls = OM.calls
+		stub.runMapFrame(WorldMapFrame, 0)               -- still: no redraw, no new placement asked
+		r.callsStill = OM.calls - calls
+		emit(r)`);
+	// world percent -> Farland yards: u = 0.6 + (500 - wy) / 1000 * 0.2, v = 0.3 + (500 - wx) / 1000 * 0.2
+	const toYards = (d) => ({ wx: 500 - (d.y / 100 - 0.3) / 0.2 * 1000, wy: 500 - (d.x / 100 - 0.6) / 0.2 * 1000, x: d.x });
+	const line = [[0, 300], [0, -300]]; // Farland (80, 50): wy = 500 - 0.8 * 1000
+	const spacing = stitchedSpacing(1000 * 5); // the world's width: 5000 Farland yards
+	assert.equal(spacing, 120);
+	assertDots(out.world.map(toYards), expectDots(line, spacing, 0.5), 'world view');
+	const strip = stitchedSpacing(10 * 50); // 10% of the world: 500 yd, 15 yd apart
+	const lo = 70 - 10 * 0.04, hi = 80 + 10 * 0.04;
+	const want = expectDots(line, strip, 0.5).filter(([, wy]) => {
+		const x = (0.6 + (500 - wy) / 1000 * 0.2) * 100;
+		return x >= lo - 1e-9 && x <= hi + 1e-9;
+	});
+	assertDots(out.panned.map(toYards), want, 'after the pan: the strip, at its spacing');
+	assert.equal(out.callsStill, 0);
+});
+
+test('OpenMap: its menu has a switch for the dots (nav.openmapDots), and Polestar\'s trail setting still rules', () => {
+	const [out] = run(`${OPENMAP}
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("ui.reduceMotion", true)
+		nav.place(0, 0)
+		target(0, -900)
+		nav.showWorldMap(9000)
+		local spec = OM.toggles["Polestar.trailDots"]
+		local r = { on = #rawDots(), get = spec and spec.get(), label = spec and spec.label, section = spec and spec.section }
+		spec.set(false)
+		stub.runMapFrame(WorldMapFrame, 0)
+		r.off, r.setting, r.getOff = #rawDots(), Polestar.Get("nav.openmapDots"), spec.get()
+		OM.stitched = false
+		OM.callbacks.OpenMap_StitchedChanged(false)
+		stub.runMapFrame(WorldMapFrame, 0)
+		r.blizzard = #rawDots()                          -- the switch is OpenMap's map's only
+		spec.set(true)
+		OM.stitched = true
+		OM.callbacks.OpenMap_StitchedChanged(true)
+		Polestar.Set("nav.trailDots", false)
+		stub.runMapFrame(WorldMapFrame, 0)
+		r.trailOff = #rawDots()
+		emit(r)`);
+	assert.ok(out.on > 0);
+	assert.equal(out.get, true);
+	assert.equal(out.label, 'Polestar trail dots');
+	assert.equal(out.section, 'Polestar');
+	assert.equal(out.off, 0);
+	assert.equal(out.setting, false);
+	assert.equal(out.getOff, false);
+	assert.ok(out.blizzard > 0);
+	assert.equal(out.trailOff, 0);
+});
