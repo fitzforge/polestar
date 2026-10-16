@@ -2179,12 +2179,11 @@ do
 			steps = {
 				{
 					title = "Menethil Harbor",
-					note = "Captain Stoutfist stands in Menethil Keep; James Halloran and Sylessa Duskwhisper stand together by the north gate.",
+					note = "Captain Stoutfist stands in Menethil Keep; James Halloran stands by the north gate.",
 					goals = {
 						{ t = "accept", quest = 98221, title = "From the Ashes", npc = 2104, npcName = "Captain Stoutfist", minLevel = 23, qlvl = 28, map = 1437, x = 9.86, y = 57.49, z = 26.8, f = "e", note = "Captain Stoutfist: From the Ashes" },
 						{ t = "accept", quest = 98230, title = "This Land Was Their Land", npc = 2104, npcName = "Captain Stoutfist", minLevel = 22, qlvl = 29, map = 1437, x = 9.86, y = 57.49, z = 26.8, f = "e", note = "Captain Stoutfist: for Howin Kindfeather" },
 						{ t = "accept", quest = 98072, title = "Crocs of the Sky", npc = 2094, npcName = "James Halloran", qlvl = 27, map = 1437, x = 8.55, y = 55.74, z = 10.1, f = "e", note = "James Halloran" },
-						{ t = "accept", quest = 98209, title = "Bloom of the Heavens", npc = 270844, npcName = "Sylessa Duskwhisper", minLevel = 22, qlvl = 29, map = 1437, x = 7.96, y = 55.85, f = "e", note = "Sylessa Duskwhisper: for Thundris Windweaver in Auberdine (02-desolace)" },
 					},
 				},
 				{
@@ -2276,8 +2275,6 @@ do
 					goals = {
 						{ t = "accept", quest = 87318, title = "Hearts of the Lost", npc = 5683, npcName = "Comar Villard", minLevel = 28, qlvl = 33, map = 1437, x = 49.93, y = 12.55, z = 79.3, f = "e", note = "Comar Villard" },
 						{ t = "turnin", quest = 87318, title = "Hearts of the Lost", npc = 271322, npcName = "Essene Villard", map = 1437, x = 51.54, y = 9, f = "e", note = "Essene Villard" },
-						{ t = "accept", quest = 88758, title = "Sentiments of the Lost", npc = 271322, npcName = "Essene Villard", minLevel = 28, qlvl = 33, map = 1437, x = 51.54, y = 9, f = "e" },
-						{ t = "turnin", quest = 88758, title = "Sentiments of the Lost", npc = 5683, npcName = "Comar Villard", map = 1437, x = 49.93, y = 12.55, z = 79.3, f = "e", note = "Comar Villard" },
 					},
 				},
 				{
@@ -2529,9 +2526,8 @@ do
 				},
 				{
 					title = "Auberdine",
-					note = "Take the boat to Auberdine from Menethil's docks. Thundris Windweaver stands in Auberdine, north of the flight master.",
+					note = "Take the boat to Auberdine from Menethil's docks.",
 					goals = {
-						{ t = "turnin", quest = 98209, title = "Bloom of the Heavens", npc = 3649, npcName = "Thundris Windweaver", map = 1439, x = 37.4, y = 40.13, z = 8.3, f = "e", note = "Thundris Windweaver: Nord'el, from Sylessa in Menethil" },
 						{ t = "fly", location = "Astranaar" },
 					},
 				},
@@ -2792,11 +2788,10 @@ do
 				},
 				{
 					title = "Forest Song",
-					note = "Forest Song, the Night Elf outpost at the eastern end of the road: Kayneth Stillwind and Maseara Autumnmoon stand there.",
+					note = "Forest Song, the Night Elf outpost at the eastern end of the road: Kayneth Stillwind stands there.",
 					goals = {
 						{ t = "turnin", quest = 4581, title = "Kayneth Stillwind", npc = 3848, npcName = "Kayneth Stillwind", map = 1440, x = 85.24, y = 44.71, z = 169.2, f = "e", note = "Kayneth Stillwind" },
 						{ t = "accept", quest = 1011, title = "Forsaken Diseases", npc = 3848, npcName = "Kayneth Stillwind", minLevel = 24, qlvl = 29, pre = { 4581 }, preTitles = { [4581] = "Kayneth Stillwind" }, map = 1440, x = 85.24, y = 44.71, z = 169.2, f = "e" },
-						{ t = "accept", quest = 98418, title = "Shared Fury", npc = 221269, npcName = "Maseara Autumnmoon", minLevel = 23, qlvl = 30, map = 1440, x = 86.25, y = 45.81, f = "e", note = "Maseara Autumnmoon" },
 					},
 				},
 				{
@@ -2829,15 +2824,6 @@ do
 					},
 				},
 				{
-					title = "Xavian satyrs",
-					note = "Back west along the road to the satyr camps of Xavian.",
-					goals = {
-						{ t = "kill", quest = 98418, title = "Shared Fury", target = "Xavian Felsworn", npc = 3755, count = 5, oi = 1, map = 1440, x = 79.61, y = 46.86, z = 203, f = "e", spots = { { x = 79.1, y = 47.2, r = 41, n = 3 }, { x = 77.7, y = 45.8, r = 42, n = 3 }, { x = 78.4, y = 42.6, r = 16, n = 2 }, { x = 78.9, y = 45.8, r = 15, n = 1, alt = true } }, note = "Xavian Felsworn" },
-						{ t = "kill", quest = 98418, title = "Shared Fury", target = "Xavian Hellcaller", npc = 3757, count = 5, oi = 2, map = 1440, x = 79.06, y = 45.55, z = 214.8, f = "e", spots = { { x = 78.3, y = 45, r = 49, n = 5 }, { x = 77.8, y = 42.5, r = 15, n = 1 } }, note = "Xavian Hellcaller" },
-						{ t = "kill", quest = 98418, title = "Shared Fury", target = "Xavian Rogue", npc = 3752, count = 5, oi = 3, map = 1440, x = 78.4, y = 45.12, z = 212.9, f = "e", spots = { { x = 78.3, y = 45.6, r = 51, n = 5 }, { x = 78.3, y = 43.7, r = 15, n = 1 } }, note = "Xavian Rogue" },
-					},
-				},
-				{
 					title = "Insane druids",
 					note = "The three druids stand together at the Forsaken camp south of Forest Song.",
 					goals = {
@@ -2850,7 +2836,6 @@ do
 					title = "Forest Song",
 					goals = {
 						{ t = "turnin", quest = 1012, title = "Insane Druids", npc = 3848, npcName = "Kayneth Stillwind", map = 1440, x = 85.24, y = 44.71, z = 169.2, f = "e", note = "Kayneth Stillwind" },
-						{ t = "turnin", quest = 98418, title = "Shared Fury", npc = 221269, npcName = "Maseara Autumnmoon", map = 1440, x = 86.25, y = 45.81, f = "e", note = "Maseara Autumnmoon" },
 					},
 				},
 				{
@@ -3714,10 +3699,8 @@ do
 					note = "South-west to the Kirin Tor camp on the lake shore west of Dalaran, just over the border into Silverpine Forest: the Image of Archmage Modera stands there. Archmage Ansirem stands south-east of it, by the dome.",
 					goals = {
 						{ t = "turnin", quest = 92432, title = "An Alarming Request", npc = 269127, npcName = "Image of Archmage Modera", map = 1421, x = 68.6, y = 45.18, f = "e", note = "Image of Archmage Modera" },
-						{ t = "accept", quest = 92459, title = "Friend of the Kirin Tor", npc = 269127, npcName = "Image of Archmage Modera", minLevel = 24, qlvl = 33, map = 1421, x = 68.6, y = 45.18, f = "e", optional = true, note = "Image of Archmage Modera: Friend of the Kirin Tor" },
 						{ t = "turnin", quest = 602, title = "Magical Analysis", npc = 2543, npcName = "Archmage Ansirem Runeweaver", map = 1416, x = 18.84, y = 78.49, z = 42, f = "e", note = "Archmage Ansirem Runeweaver" },
 						{ t = "accept", quest = 603, title = "Ansirem's Key", npc = 2543, npcName = "Archmage Ansirem Runeweaver", minLevel = 32, qlvl = 37, pre = { 602 }, preTitles = { [602] = "Magical Analysis" }, map = 1416, x = 18.84, y = 78.49, z = 42, f = "e", note = "For Catelyn the Blade in Booty Bay: keep it" },
-						{ t = "turnin", quest = 92459, title = "Friend of the Kirin Tor", npc = 252085, npcName = "Archmage Celindra", map = 1416, x = 14.27, y = 60.07, f = "e", optional = true, note = "Archmage Celindra, in the City of Dalaran" },
 					},
 				},
 				{
@@ -22224,7 +22207,6 @@ do
 						{ t = "accept", quest = 477, title = "Border Crossings", npc = 2121, npcName = "Shadow Priest Allister", minLevel = 10, qlvl = 14, map = 1421, x = 43.98, y = 40.93, z = 126.5, f = "e", note = "Shadow Priest Allister" },
 						{ t = "accept", quest = 428, title = "Lost Deathstalkers", npc = 1952, npcName = "High Executor Hadrec", minLevel = 10, qlvl = 12, closedBy = { 429 }, preTitles = { [429] = "Wild Hearts" }, map = 1421, x = 43.42, y = 40.86, z = 105, f = "e", note = "High Executor Hadrec" },
 						{ t = "accept", quest = 437, title = "The Dead Fields", npc = 1952, npcName = "High Executor Hadrec", minLevel = 10, qlvl = 14, map = 1421, x = 43.42, y = 40.86, z = 105, f = "e" },
-						{ t = "accept", quest = 91921, title = "Return to Quinn (Again)", npc = 1937, npcName = "Apothecary Renferrel", minLevel = 10, qlvl = 11, map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e", note = "Apothecary Renferrel" },
 					},
 				},
 				{
@@ -22268,8 +22250,6 @@ do
 					goals = {
 						{ t = "turnin", quest = 428, title = "Lost Deathstalkers", npc = 1950, npcName = "Rane Yorick", map = 1421, x = 53.46, y = 13.43, z = 52.8, f = "e", note = "Rane Yorick" },
 						{ t = "accept", quest = 429, title = "Wild Hearts", npc = 1950, npcName = "Rane Yorick", minLevel = 10, qlvl = 11, map = 1421, x = 53.46, y = 13.43, z = 52.8, f = "e" },
-						{ t = "turnin", quest = 91921, title = "Return to Quinn (Again)", npc = 1951, npcName = "Quinn Yorick", map = 1421, x = 53.43, y = 12.59, z = 58.6, f = "e", note = "Quinn Yorick" },
-						{ t = "accept", quest = 91920, title = "Wild Eyes", npc = 1951, npcName = "Quinn Yorick", minLevel = 10, qlvl = 11, map = 1421, x = 53.43, y = 12.59, z = 58.6, f = "e" },
 					},
 				},
 				{
@@ -22288,11 +22268,10 @@ do
 					},
 				},
 				{
-					title = "Worgs and murlocs",
-					note = "Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes.",
+					title = "Mottled Worgs",
+					note = "Mottled Worgs prowl the hills around the house.",
 					goals = {
 						{ t = "collect", quest = 429, title = "Wild Hearts", item = 3164, itemName = "Discolored Worg Heart", count = 6, oi = 1, map = 1421, x = 54.88, y = 13.61, f = "e", spots = { { x = 55.2, y = 12.9, r = 43, n = 4 }, { x = 59.5, y = 16, r = 40, n = 1 }, { x = 61.6, y = 8.8, r = 40, n = 3 }, { x = 69.1, y = 6.6, r = 50, n = 8 }, { x = 49.7, y = 14.5, r = 40, n = 2 }, { x = 50.9, y = 21.8, r = 40, n = 1 }, { x = 44.5, y = 26.1, r = 40, n = 2 }, { x = 44.2, y = 47.9, r = 40, n = 1 }, { x = 49.8, y = 75.9, r = 55, n = 4 }, { x = 45.3, y = 80, r = 40, n = 2 }, { x = 50, y = 84.5, r = 40, n = 2 }, { x = 55, y = 80.3, r = 40, n = 1 }, { x = 56.5, y = 16.4, r = 49, n = 3, alt = true }, { x = 57.2, y = 9.4, r = 52, n = 7, alt = true }, { x = 52.3, y = 17.5, r = 40, n = 1, alt = true }, { x = 58.6, y = 13.8, r = 40, n = 2, alt = true }, { x = 59.3, y = 10.5, r = 40, n = 2, alt = true }, { x = 50.7, y = 18.7, r = 40, n = 2, alt = true }, { x = 59.2, y = 7.8, r = 42, n = 3, alt = true }, { x = 61.3, y = 11.9, r = 40, n = 1, alt = true }, { x = 49, y = 20.1, r = 40, n = 1, alt = true }, { x = 48.3, y = 22.1, r = 40, n = 2, alt = true }, { x = 64, y = 11.1, r = 43, n = 3, alt = true }, { x = 47.1, y = 24.9, r = 47, n = 4, alt = true }, { x = 65, y = 6.6, r = 67, n = 7, alt = true }, { x = 66.5, y = 9.1, r = 50, n = 4, alt = true }, { x = 46.5, y = 45.9, r = 40, n = 1, alt = true }, { x = 47.9, y = 48.1, r = 40, n = 1, alt = true }, { x = 45.8, y = 50.2, r = 40, n = 1, alt = true }, { x = 43.2, y = 52.4, r = 40, n = 1, alt = true }, { x = 51.7, y = 77.7, r = 50, n = 5, alt = true }, { x = 47.5, y = 77.2, r = 40, n = 2, alt = true }, { x = 48.6, y = 81.3, r = 50, n = 5, alt = true }, { x = 52.5, y = 81.9, r = 40, n = 1, alt = true } }, spread = true },
-						{ t = "collect", quest = 91920, title = "Wild Eyes", item = 730, itemName = "Murloc Eye", count = 3, oi = 1, map = 1421, x = 57.57, y = 18.41, f = "e", spots = { { x = 58.3, y = 18.4, r = 64, n = 11 }, { x = 57.5, y = 22.7, r = 57, n = 7 }, { x = 56.3, y = 27, r = 58, n = 8 }, { x = 67.5, y = 20.5, r = 40, n = 3 }, { x = 71, y = 22.1, r = 54, n = 4 }, { x = 73, y = 16.9, r = 57, n = 11 }, { x = 64.4, y = 12.5, r = 40, n = 9 }, { x = 76.5, y = 33.5, r = 79, n = 11 }, { x = 80.6, y = 31.9, r = 40, n = 5 }, { x = 80.5, y = 27.8, r = 40, n = 4 }, { x = 64.9, y = 42.3, r = 42, n = 8 }, { x = 67.3, y = 49, r = 40, n = 2 }, { x = 60.3, y = 16.7, r = 52, n = 11, alt = true }, { x = 62, y = 13.5, r = 53, n = 8, alt = true }, { x = 65.1, y = 20.4, r = 51, n = 6, alt = true }, { x = 66.4, y = 12.7, r = 40, n = 10, alt = true }, { x = 67.8, y = 17.9, r = 61, n = 5, alt = true }, { x = 69.8, y = 20.1, r = 40, n = 3, alt = true }, { x = 70.5, y = 17.8, r = 40, n = 5, alt = true }, { x = 74.2, y = 18.6, r = 40, n = 5, alt = true }, { x = 75.2, y = 16.7, r = 40, n = 4, alt = true }, { x = 66.7, y = 44.1, r = 40, n = 4, alt = true }, { x = 66.4, y = 46.1, r = 49, n = 7, alt = true }, { x = 77.8, y = 31.2, r = 91, n = 18, alt = true }, { x = 79.8, y = 29, r = 56, n = 9, alt = true } }, spread = true },
 					},
 				},
 				{
@@ -22306,7 +22285,6 @@ do
 						{ t = "turnin", quest = 3221, title = "Speak with Renferrel", npc = 1937, npcName = "Apothecary Renferrel", map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e", note = "Apothecary Renferrel" },
 						{ t = "turnin", quest = 429, title = "Wild Hearts", npc = 1937, npcName = "Apothecary Renferrel", map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e" },
 						{ t = "accept", quest = 430, title = "Return to Quinn", npc = 1937, npcName = "Apothecary Renferrel", minLevel = 10, qlvl = 11, pre = { 429 }, preTitles = { [429] = "Wild Hearts" }, map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e" },
-						{ t = "turnin", quest = 91920, title = "Wild Eyes", npc = 1937, npcName = "Apothecary Renferrel", map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e" },
 					},
 				},
 				{
@@ -22327,11 +22305,19 @@ do
 				{
 					title = "The Ivar Patch",
 					note = "North again to the Yoricks' house. Ivar the Foul lurks a short walk west of it.",
+						{ t = "accept", quest = 91920, title = "Wild Eyes", npc = 1951, npcName = "Quinn Yorick", minLevel = 10, qlvl = 11, map = 1421, x = 53.43, y = 12.59, z = 58.6, f = "e" },
 					goals = {
 						{ t = "turnin", quest = 430, title = "Return to Quinn", npc = 1951, npcName = "Quinn Yorick", map = 1421, x = 53.43, y = 12.59, z = 58.6, f = "e", note = "Quinn Yorick" },
 						{ t = "accept", quest = 425, title = "Ivar the Foul", npc = 1950, npcName = "Rane Yorick", minLevel = 10, qlvl = 12, pre = { 430 }, preTitles = { [430] = "Return to Quinn" }, map = 1421, x = 53.46, y = 13.43, z = 52.8, f = "e", note = "Rane Yorick" },
 						{ t = "collect", quest = 425, title = "Ivar the Foul", item = 3621, itemName = "Ivar's Head", oi = 1, map = 1421, x = 51.52, y = 13.9, f = "e", from = "Ivar the Foul", fromKind = "npc" },
 						{ t = "turnin", quest = 425, title = "Ivar the Foul", npc = 1950, npcName = "Rane Yorick", map = 1421, x = 53.46, y = 13.43, z = 52.8, f = "e" },
+				{
+					title = "Vile Fin murlocs",
+					note = "Follow the lake shore south-east toward Fenris Isle: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes.",
+					goals = {
+						{ t = "collect", quest = 91920, title = "Wild Eyes", item = 730, itemName = "Murloc Eye", count = 3, oi = 1, map = 1421, x = 56.92, y = 19.32, f = "e", spots = { { x = 58.3, y = 18.4, r = 64, n = 11 }, { x = 57.5, y = 22.7, r = 57, n = 7 }, { x = 56.3, y = 27, r = 58, n = 8 }, { x = 67.5, y = 20.5, r = 40, n = 3 }, { x = 71, y = 22.1, r = 54, n = 4 }, { x = 73, y = 16.9, r = 57, n = 11 }, { x = 64.4, y = 12.5, r = 40, n = 9 }, { x = 76.5, y = 33.5, r = 79, n = 11 }, { x = 80.6, y = 31.9, r = 40, n = 5 }, { x = 80.5, y = 27.8, r = 40, n = 4 }, { x = 64.9, y = 42.3, r = 42, n = 8 }, { x = 67.3, y = 49, r = 40, n = 2 }, { x = 60.3, y = 16.7, r = 52, n = 11, alt = true }, { x = 62, y = 13.5, r = 53, n = 8, alt = true }, { x = 65.1, y = 20.4, r = 51, n = 6, alt = true }, { x = 66.4, y = 12.7, r = 40, n = 10, alt = true }, { x = 67.8, y = 17.9, r = 61, n = 5, alt = true }, { x = 69.8, y = 20.1, r = 40, n = 3, alt = true }, { x = 70.5, y = 17.8, r = 40, n = 5, alt = true }, { x = 74.2, y = 18.6, r = 40, n = 5, alt = true }, { x = 75.2, y = 16.7, r = 40, n = 4, alt = true }, { x = 66.7, y = 44.1, r = 40, n = 4, alt = true }, { x = 66.4, y = 46.1, r = 49, n = 7, alt = true }, { x = 77.8, y = 31.2, r = 91, n = 18, alt = true }, { x = 79.8, y = 29, r = 56, n = 9, alt = true } }, spread = true },
+					},
+				},
 					},
 				},
 				{
@@ -22349,6 +22335,7 @@ do
 				{
 					title = "The Sepulcher",
 					note = "Swim back and follow the road west to the Sepulcher.",
+						{ t = "turnin", quest = 91920, title = "Wild Eyes", npc = 1937, npcName = "Apothecary Renferrel", map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e" },
 					goals = {
 						{ t = "turnin", quest = 443, title = "Rot Hide Ichor", npc = 1937, npcName = "Apothecary Renferrel", map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e", note = "Apothecary Renferrel" },
 						{ t = "accept", quest = 95981, title = "Watching the Roads", npc = 2121, npcName = "Shadow Priest Allister", minLevel = 10, qlvl = 20, map = 1421, x = 43.98, y = 40.93, z = 126.5, f = "e", note = "Shadow Priest Allister" },

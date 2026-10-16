@@ -13,6 +13,39 @@
 			},
 			"note": "The Binding (Warlock voidwalker, after 1501) is open to Orc, Undead and Troll Warlocks: Wowhead Forever https://www.wowhead.com/forever/quest=1504 lists Races [race=2], [race=5], [race=8] (checked 2026-10-14). The merged data has races 2 (Orc only)."
 		},
+		"88758": {
+			"set": {
+				"pre": [
+					88757
+				],
+				"preAny": [
+					88757
+				]
+			},
+			"note": "Sentiments of the Lost (Wetlands, Essene Villard) comes after Accessories of the Lost 88757: the quest chain on https://foreverchanges.pro/quest/88758, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists \"1. Hearts of the Lost; 2. Accessories of the Lost; 3. Sentiments of the Lost\", and its text (\"one last favor\") follows Essene's repacking. QuestieDB 1.0.5 has no prerequisite."
+		},
+		"91920": {
+			"set": {
+				"pre": [
+					430
+				],
+				"preAny": [
+					430
+				]
+			},
+			"note": "Wild Eyes (Silverpine, Quinn Yorick) comes after Return to Quinn 430: the quest chain on https://foreverchanges.pro/quest/91920, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists \"1. Lost Deathstalkers; 2. Wild Hearts; 3. Return to Quinn; 4. Wild Eyes; 5. Return to Quinn (Again)\", and its text opens \"the potion made no noticeable difference\". QuestieDB 1.0.5 has no prerequisite."
+		},
+		"91921": {
+			"set": {
+				"pre": [
+					91920
+				],
+				"preAny": [
+					91920
+				]
+			},
+			"note": "Return to Quinn (Again) (Silverpine, Apothecary Renferrel) comes after Wild Eyes 91920: the quest chain on https://foreverchanges.pro/quest/91921, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists it fifth, after Wild Eyes, and its text brings \"the new potion\". QuestieDB 1.0.5 has no prerequisite."
+		},
 		"92434": {
 			"set": {
 				"pre": [
@@ -34,6 +67,17 @@
 				]
 			},
 			"note": "Heart of Disruption (City of Dalaran, Alliance) has An Alarming Request 92432 as its breadcrumb: a Wowhead Forever comment on https://www.wowhead.com/forever/quest=92432 (2026-10-03, \"Leads To: Heart of Disruption\" quest=92458), checked 2026-10-15."
+		},
+		"92459": {
+			"set": {
+				"pre": [
+					92458
+				],
+				"preAny": [
+					92458
+				]
+			},
+			"note": "Friend of the Kirin Tor (Image of Archmage Modera) comes after Heart of Disruption 92458, the City of Dalaran quest: the quest chain on https://foreverchanges.pro/quest/92459, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists \"1. An Alarming Request; 2. Heart of Disruption; 3. Friend of the Kirin Tor\", and its text (\"The city is calming down ... Take this mote\") follows the dungeon. QuestieDB 1.0.5 has no prerequisite."
 		},
 		"92479": {
 			"set": {
@@ -413,6 +457,17 @@
 			},
 			"note": "Scout Support (Hillsbrad, High Executor Darthalia, for Deathstalker Masoj) is offered only after Battle of Hillsbrad part II 528: a Wowhead Forever comment on https://www.wowhead.com/forever/quest=98094 (\"Prerequisite is 528 (part II)\"), checked 2026-10-16. Issue #148 (Taako): Darthalia did not offer it with 527 turned in and 528 open. QuestieDB 1.0.5 has no prerequisite."
 		},
+		"98209": {
+			"set": {
+				"pre": [
+					98208
+				],
+				"preAny": [
+					98208
+				]
+			},
+			"note": "Bloom of the Heavens (98209, Sylessa Duskwhisper's delivery to Thundris Windweaver) comes after Bloom of the Heavens 98208, recovering Nord'el from the wreck south of Menethil: the quest chain on https://foreverchanges.pro/quest/98209, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists the two in that order, and its text asks you to deliver the Nord'el. QuestieDB 1.0.5 has no prerequisite."
+		},
 		"98386": {
 			"set": {
 				"pre": [
@@ -440,6 +495,17 @@
 				]
 			},
 			"note": "A Light in the Darkness (Tirisfal): Wowhead Forever https://www.wowhead.com/forever/quest=98389 lists \"Webbed Forsaken freed\" (6), credited by npc=271961 Webbed Forsaken, which is friendly to the Horde and has 8 map points in Night's Web Hollow (https://www.wowhead.com/forever/npc=271961), checked 2026-10-13. Encoded as an event and not a kill: freeing a friendly NPC is an interaction, not a fight. The position is the Webbed Forsaken spawn nearest the centroid of its 24 spawns in data/forever (Tirisfal 24.67,59.39, Era frame = Forever frame). QuestieDB 1.0.5 has no objectives."
+		},
+		"98418": {
+			"set": {
+				"pre": [
+					98417
+				],
+				"preAny": [
+					98417
+				]
+			},
+			"note": "Shared Fury (Ashenvale, Maseara Autumnmoon) comes after Vengeful Trail 98417: the quest chain on https://foreverchanges.pro/quest/98418, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists \"1. Vengeful Trail; 2. Shared Fury\", and its text reads from Kurothel's written words, the scroll Vengeful Trail finds. QuestieDB 1.0.5 has no prerequisite."
 		},
 		"98435": {
 			"set": {
