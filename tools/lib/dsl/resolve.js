@@ -19,7 +19,7 @@ const { objectiveLabel } = require('./data');
 const { checkLocation } = require('./places');
 const { blockingPrereqs } = require('../data/prereqs');
 const { clusterPoints, scaleOf } = require('../questdb/cluster');
-const { groupOf } = require('./group');
+const { groupOf, isElite, hostileTo } = require('./group');
 const { goalHeight } = require('./heights');
 
 // A collect's sources are named only for an item that few creatures or
@@ -60,9 +60,12 @@ function distance(data, map, ax, ay, bx, by) {
 }
 
 // Pick an entity and a point for it. candidates: [{ kind, id }] in priority
-// order (e.g. by drop chance). -> { cand, map, x, y, f, sources } | { cand } (no
-// usable spawns) | null (no candidates). `sources`: the candidates the point
-// was chosen among on its map (the likely droppers there).
+// order (e.g. by drop chance). -> { cand, map, x, y, f, sources, elites } |
+// { cand } (no usable spawns) | null (no candidates). `sources`: the
+// candidates the point was chosen among on its map (the likely droppers
+// there), `elites`: the elite droppers there passed over for them (see onMap).
+// opts: { usedMaps, sides } (`sides`: the factions the goal applies to, for
+// passing over elite droppers).
 //
 // Maps are tried in this order: the current zone, then maps the guide has
 // already used (most recent first). On the first map where any candidate
@@ -86,8 +89,9 @@ function pickSpawn(data, candidates, zoneMap, prev, opts = {}) {
 	if (zoneMap != null) maps.push(zoneMap);
 	for (const m of opts.usedMaps || []) if (!maps.includes(m)) maps.push(m);
 	for (const m of maps) {
-		const on = onMap(all, m);
+		const { on, elites } = onMap(data, all, m, opts.sides);
 		if (!on.length) continue;
+		const found = { sources: on.map((o) => o.cand), elites: elites.map((o) => o.cand) };
 		if (prev && prev.map === m) {
 			let best = null;
 			for (const { cand, s } of on) {
@@ -96,9 +100,9 @@ function pickSpawn(data, candidates, zoneMap, prev, opts = {}) {
 					if (!best || d < best.d) best = { d, cand, x: p[0], y: p[1], f: s.f };
 				}
 			}
-			return { ...point(best.cand, m, best.x, best.y, best.f), sources: on.map((o) => o.cand) };
+			return { ...point(best.cand, m, best.x, best.y, best.f), ...found };
 		}
-		return { ...centroid(on[0].cand, on[0].s), sources: on.map((o) => o.cand) };
+		return { ...centroid(on[0].cand, on[0].s), ...found };
 	}
 	for (const { cand, spawns } of all) {
 		if (!spawns.length) continue;
@@ -109,21 +113,61 @@ function pickSpawn(data, candidates, zoneMap, prev, opts = {}) {
 }
 
 // The candidates ([{ cand, spawns }]) that spawn on `map`, with their spawns
-// there: [{ cand, s }]. Sources with a drop chance: only the likely ones count
-// (at least half the best chance here; sub-1% drops only when nothing better
-// drops here).
-function onMap(all, map) {
-	const on = [];
+// there. -> { on: [{ cand, s }], elites: [{ cand, s }] }
+//
+// With `sides` (the factions the goal applies to): where elites (group.js
+// isElite) drop it beside normal sources (a non-elite npc hostile to a side,
+// or an object), each at 1% or more (any chance when nothing here drops it
+// at 1%), only the normal ones count, at any chance the elites have: a
+// player farms the normal mobs, not the elite camp beside them. The elites
+// passed over are `elites` (spawnSpots keeps the arrow out of their camps).
+// An item only elites drop here keeps them.
+//
+// Sources with a drop chance: only the likely ones count (at least half the
+// best chance here; sub-1% drops only when nothing better drops here).
+function onMap(data, all, map, sides) {
+	let on = [];
+	let elites = [];
 	for (const { cand, spawns } of all) {
 		const s = spawns.find((sp) => sp.map === map);
 		if (s) on.push({ cand, s });
 	}
-	if (on.some((o) => typeof o.cand.chance === 'number')) {
-		const best = Math.max(...on.map((o) => o.cand.chance || 0));
-		const likely = on.filter((o) => (o.cand.chance || 0) >= best / 2 && ((o.cand.chance || 0) >= 1 || best < 1));
-		if (likely.length) return likely;
+	const chanceOf = (o) => o.cand.chance || 0;
+	const split = sides ? eliteSplit(data, on.map((o) => o.cand), sides) : null;
+	if (split) {
+		elites = on.filter((o) => split.elites.includes(o.cand));
+		on = on.filter((o) => split.normal.includes(o.cand));
 	}
-	return on;
+	if (on.some((o) => typeof o.cand.chance === 'number')) {
+		const best = Math.max(...on.map(chanceOf));
+		const likely = on.filter((o) => chanceOf(o) >= best / 2 && (chanceOf(o) >= 1 || best < 1));
+		if (likely.length) on = likely;
+	}
+	return { on, elites };
+}
+
+// Sources ([{ kind, id, chance? }]) that elites (group.js isElite) and normal
+// sources (a non-elite npc hostile to one of `sides`, or an object) both drop
+// at 1% or more (any chance when none drops it at 1%, or none has a chance).
+// -> { normal, elites } | null (not both)
+function eliteSplit(data, cands, sides) {
+	const chances = cands.some((c) => typeof c.chance === 'number');
+	const best = Math.max(0, ...cands.map((c) => c.chance || 0));
+	const real = cands.filter((c) => !chances || (c.chance || 0) >= 1 || best < 1);
+	const elites = real.filter((c) => eliteSource(data, c, sides));
+	const normal = real.filter((c) => normalSource(data, c, sides));
+	return elites.length && normal.length ? { normal, elites } : null;
+}
+
+function eliteSource(data, cand, sides) {
+	const n = cand.kind === 'npc' ? data.npc(cand.id) : null;
+	return !!(n && isElite(n.rank, n.faction, sides));
+}
+
+function normalSource(data, cand, sides) {
+	if (cand.kind !== 'npc') return true;
+	const n = data.npc(cand.id);
+	return !!(n && hostileTo(n.faction, sides) && !isElite(n.rank, n.faction, sides));
 }
 
 function point(cand, map, x, y, f) {
@@ -165,8 +209,14 @@ function point(cand, map, x, y, f) {
 //
 // Alternatives come nearest to the goal's point first.
 //
-// -> { spots: [{ x, y, r, n, alt? }], spread: bool } (map percent, radius in
-// yards, spawn count) | undefined
+// Elite camps: `elites` are elite droppers passed over for the normal sources
+// (onMap). A place of the sources with more of their spawns than its own
+// within its radius (at least SPOT_CLUSTER_YARDS) is in their camp: the
+// arrow never picks it while it has another place, and a goal point there
+// moves to the nearest other place (`at`).
+//
+// -> { spots: [{ x, y, r, n, alt? }], spread: bool, at?: { x, y } } (map
+// percent, radius in yards, spawn count) | undefined
 const SPOT_CAP = 6;
 const SPOT_CLUSTER_YARDS = 70;
 const SPOT_MAX_CLUSTER_YARDS = 250;
@@ -265,31 +315,51 @@ function gatherNode(data, src) {
 	return !!(o && Array.isArray(o.roles) && o.roles.some((r) => GATHER_ROLES.includes(r)));
 }
 
-function spawnSpots(data, sources, map, f, x, y) {
+function spawnSpots(data, sources, map, f, x, y, elites = []) {
 	const pts = spawnPointsOf(data, sources, map, f);
 	if (pts.length < 2) return undefined;
 	const frame = data.eraFrame(map);
 	const spread = extent90(pts, frame) > SPREAD_YARDS;
+	let clusters;
+	if (pts.length <= SPOT_CAP) clusters = clusterPoints(pts, frame, { radius: SPOT_CLUSTER_YARDS, cap: Infinity, minRadius: SPOT_MIN_RADIUS });
+	else {
+		const spacing = medianSpacing(pts, frame);
+		const radius = Math.min(SPOT_MAX_CLUSTER_YARDS, Math.max(SPOT_CLUSTER_YARDS, 2 * spacing));
+		const minRadius = spread ? Math.round(Math.min(SPREAD_MAX_MIN_RADIUS, Math.max(SPREAD_MIN_RADIUS, spacing))) : SPOT_MIN_RADIUS;
+		clusters = clusterPoints(pts, frame, { radius, cap: Infinity, minRadius });
+	}
+	// The places outside elite camps; the goal's point leaves a camp for the nearest of them.
+	const { sx, sy } = scaleOf(frame);
+	const yards = (a, b) => Math.hypot((a.x - b.x) * sx, (a.y - b.y) * sy);
+	const elitePts = spawnPointsOf(data, elites, map, f).map(([ex, ey]) => ({ x: ex, y: ey }));
+	const inCamp = (c) => elitePts.filter((p) => yards(p, c) <= Math.max(c.r, SPOT_CLUSTER_YARDS)).length > c.n;
+	const camped = elitePts.length ? clusters.filter(inCamp) : [];
+	const open = camped.length < clusters.length ? clusters.filter((c) => !camped.includes(c)) : clusters;
+	let at;
+	if (open !== clusters) {
+		const here = { x, y };
+		const nearest = (list) => list.reduce((a, b) => (yards(b, here) < yards(a, here) ? b : a));
+		if (camped.includes(nearest(clusters))) {
+			const to = nearest(open);
+			x = to.x;
+			y = to.y;
+			at = { x, y };
+		}
+	}
 	const nearestFirst = (spots) => {
 		const d = new Map(spots.map((s) => [s, distance(data, map, s.x, s.y, x, y)]));
 		return spots.sort((a, b) => d.get(a) - d.get(b) || b.n - a.n || a.x - b.x || a.y - b.y);
 	};
 	// The clusters the arrow picks from first, then every other one as an alternative.
-	const withRest = (picked, clusters) => [...picked, ...nearestFirst(clusters.filter((c) => !picked.includes(c))).map((c) => ({ ...c, alt: true }))];
-	if (pts.length <= SPOT_CAP) {
-		const places = clusterPoints(pts, frame, { radius: SPOT_CLUSTER_YARDS, cap: Infinity, minRadius: SPOT_MIN_RADIUS });
-		return spread ? { spots: walk(data, map, places, x, y), spread: true } : { spots: nearestFirst(places), spread: false };
+	const withRest = (picked) => [...picked, ...nearestFirst(clusters.filter((c) => !picked.includes(c))).map((c) => ({ ...c, alt: true }))];
+	let spots;
+	if (pts.length <= SPOT_CAP) spots = withRest(spread ? walk(data, map, open, x, y) : nearestFirst(open.slice()));
+	else if (spread) spots = withRest(walk(data, map, evenly(data, map, open, SPREAD_CAP, x, y), x, y));
+	else {
+		const camps = open.some((s) => s.n > 1) ? open.filter((s) => s.n > 1) : open;
+		spots = withRest(nearestFirst(camps.slice()).slice(0, SPOT_CAP));
 	}
-	const spacing = medianSpacing(pts, frame);
-	const radius = Math.min(SPOT_MAX_CLUSTER_YARDS, Math.max(SPOT_CLUSTER_YARDS, 2 * spacing));
-	if (spread) {
-		const minRadius = Math.round(Math.min(SPREAD_MAX_MIN_RADIUS, Math.max(SPREAD_MIN_RADIUS, spacing)));
-		const clusters = clusterPoints(pts, frame, { radius, cap: Infinity, minRadius });
-		return { spots: withRest(walk(data, map, evenly(data, map, clusters, SPREAD_CAP, x, y), x, y), clusters), spread: true };
-	}
-	const clusters = clusterPoints(pts, frame, { radius, cap: Infinity, minRadius: SPOT_MIN_RADIUS });
-	const camps = clusters.some((s) => s.n > 1) ? clusters.filter((s) => s.n > 1) : clusters;
-	return { spots: withRest(nearestFirst(camps).slice(0, SPOT_CAP), clusters), spread: false };
+	return at ? { spots, spread, at } : { spots, spread };
 }
 
 // A hand-placed goal (`@x,y`) whose target spawns at several places: the
@@ -802,9 +872,13 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			// over the world (cloth: hundreds of droppers, where a guard's 100%
 			// says nothing about where to farm it). `fromFaction` lets the
 			// engine tell an enemy from a friend of the character's faction.
+			// Where normal droppers and elites both drop it, only the normal
+			// ones are named, as the arrow leads to them (onMap).
 			const widespread = candidates.filter((s) => s.chance >= 2).length > MAX_NAMED_SOURCES;
-			if (!widespread && candidates.length && (candidates.length === 1 || candidates[0].chance >= 50)) {
-				const top = candidates[0];
+			const split = eliteSplit(data, candidates, ctx.sides);
+			const named = split ? split.normal : candidates;
+			if (!widespread && named.length && (candidates.length === 1 || named[0].chance >= 50)) {
+				const top = named[0];
 				const rec = top.kind === 'npc' ? data.npc(top.id) : data.object(top.id);
 				if (rec && rec.name) {
 					goal.from = String(rec.name);
@@ -813,7 +887,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 						if (Number(rec.rank) > 0) goal.fromRank = Number(rec.rank);
 						if (['A', 'H', 'AH'].includes(rec.faction)) goal.fromFaction = rec.faction;
 					}
-					const next = candidates[1];
+					const next = named[1];
 					const nrec = next && next.kind === top.kind && next.chance >= 50 && (next.kind === 'npc' ? data.npc(next.id) : data.object(next.id));
 					if (nrec && nrec.name && String(nrec.name) !== goal.from) goal.fromAlso = String(nrec.name);
 				}
@@ -1125,7 +1199,9 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	if (g.explicitCoords && (g.nearest || g.classTrain || (g.profession !== undefined && g.npc === undefined))) {
 		err(ln, 'smart targets pick their NPC and position at runtime; drop the coordinates, or name an npc id');
 	}
-	const picked = pickSpawn(data, candidates, map, prev, { usedMaps: ctx.usedMaps });
+	// A collect's droppers: the normal ones over elites beside them (onMap).
+	const dropSides = v === 'collect' ? ctx.sides : undefined;
+	const picked = pickSpawn(data, candidates, map, prev, { usedMaps: ctx.usedMaps, sides: dropSides });
 	if (picked) {
 		const c = picked.cand;
 		if (v === 'accept' || v === 'turnin') {
@@ -1158,10 +1234,14 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		// spot by spot); the others go to the nearest place.
 		const area = v === 'kill' || v === 'collect' || v === 'interact';
 		if (!g.explicitCoords && picked.x !== undefined) {
-			const sp = spawnSpots(data, area ? picked.sources || [c] : [c], picked.map, picked.f, picked.x, picked.y);
+			const sp = spawnSpots(data, area ? picked.sources || [c] : [c], picked.map, picked.f, picked.x, picked.y, area ? picked.elites : undefined);
 			if (sp) {
 				goal.spots = sp.spots;
 				if (sp.spread && area) goal.spread = true;
+				if (sp.at) {
+					goal.x = sp.at.x;
+					goal.y = sp.at.y;
+				}
 			}
 		} else if (g.explicitCoords && goal.x !== undefined) {
 			// Hand-placed: the sources known to give the item (a drop chance, or a
@@ -1172,7 +1252,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			// point anywhere in it lists every node place.
 			const known = area ? candidates.filter((s) => s.chance === undefined || s.chance > 0 || gatherNode(data, s)) : [c];
 			const all = known.map((cand) => ({ cand, spawns: data.spawns(cand.kind, cand.id) }));
-			const sources = onMap(all, goal.map).map((o) => o.cand);
+			const sources = onMap(data, all, goal.map, dropSides).on.map((o) => o.cand);
 			const near = !area ? SPAWN_CHECK_YARDS : sources.length && sources.every((s) => gatherNode(data, s)) ? Infinity : SPREAD_YARDS;
 			setIf(goal, 'spots', handSpots(data, sources, goal.map, goal.f, goal.x, goal.y, near));
 		}

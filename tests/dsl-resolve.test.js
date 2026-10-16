@@ -6,6 +6,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { compile, guideText, plain, fixtureData } = require('./helpers/dsl');
+const { Data } = require('../tools/lib/dsl/data');
 
 function goalsOf(lines) {
 	const r = compile(guideText(lines));
@@ -81,6 +82,63 @@ test('a second source dropping the item at 50% or more is named beside the first
 	assert.deepEqual([g.from, g.fromAlso, g.fromKind], ['Timber Wolf', 'Diseased Young Wolf', 'npc']);
 	// Tough Wolf Meat: Diseased Young Wolf drops it at 40%, so only Timber Wolf is named.
 	assert.equal(goalsOf(['step One', '  collect 750 x4']).goals[0].fromAlso, undefined);
+});
+
+// Fixture data plus an orc camp on Elwynn: elite Blackrock Sentries (rank 1)
+// at 30,30 and normal Blackrock Grunts at 70,70, both hostile, one Grunt
+// among the Sentries. Item 95110 drops from the Sentry at 100% and the Grunt
+// at 37% (Hillsbrad Human Skull), 95111 from both at 50% (Battleworn Axe),
+// 95112 only from the Sentry.
+function eliteCampData() {
+	const base = fixtureData();
+	const camp = (x, y) => [[x, y], [x + 0.3, y + 0.2], [x - 0.2, y + 0.3]];
+	const npcs = {
+		...base.npcs,
+		95050: { id: 95050, name: 'Blackrock Sentry', level: 25, rank: 1, faction: null, spawns: { 1429: { f: 'e', pts: camp(30, 30) } } },
+		95051: { id: 95051, name: 'Blackrock Grunt', level: 24, faction: null, spawns: { 1429: { f: 'e', pts: [...camp(70, 70), [30.4, 29.8]] } } },
+	};
+	const item = (id, name, npc) => ({ id, name, drops: { npc, object: {} }, vendors: [] });
+	const items = {
+		...base.items,
+		95110: item(95110, 'Orc Skull', { 95050: 100, 95051: 37 }),
+		95111: item(95111, 'Orc Axe', { 95050: 50, 95051: 50 }),
+		95112: item(95112, 'Sentry Badge', { 95050: 100 }),
+	};
+	return new Data({ quests: base.quests, npcs, objects: base.objects, items, zones: base.zones, 'map-frames': base.mapFrames, meta: base.meta }, { dir: base.dir });
+}
+
+test('a collect that normal mobs drop leads to them, not into the camp of elites that drop it too (#126)', () => {
+	const data = eliteCampData();
+	const goal = (...lines) => {
+		const r = compile(guideText(['step One', ...lines]), data);
+		assert.deepEqual(r.errors, [], r.text);
+		return plain(r.guides[0].steps[0].goals.at(-1));
+	};
+	const near = (s, x, y) => Math.abs(s.x - x) < 2 && Math.abs(s.y - y) < 2;
+	const arrow = (g) => g.spots.filter((s) => !s.alt);
+	const alts = (g) => g.spots.filter((s) => s.alt);
+	// The Sentry's 100% would leave out the Grunt's 37%: the Grunts are still where to farm it.
+	// The Grunt among the Sentries is only an alternative, never the elites' own spawns.
+	const skull = goal('  collect 95110 x5');
+	assert.ok(!near(skull, 30, 30), `the point is not at the Sentries: ${skull.x},${skull.y}`);
+	assert.ok(arrow(skull).length && arrow(skull).every((s) => near(s, 70, 70)), JSON.stringify(skull.spots));
+	assert.deepEqual(alts(skull).map((s) => s.n), [1], JSON.stringify(skull.spots));
+	// Equal chances, coming from the Sentries' camp: the point leaves it for the Grunts' camp.
+	const axe = goal('  goto 30,31', '  collect 95111 x10');
+	assert.ok(near(axe, 70, 70), `the point is at the Grunts: ${axe.x},${axe.y}`);
+	assert.ok(arrow(axe).every((s) => near(s, 70, 70)), JSON.stringify(axe.spots));
+	assert.deepEqual(alts(axe).map((s) => s.n), [1], JSON.stringify(axe.spots));
+	// The goal line names the Grunts it leads to, not the elites.
+	assert.deepEqual([axe.from, axe.fromAlso, axe.fromRank], ['Blackrock Grunt', undefined, undefined]);
+	assert.equal(skull.from, undefined, 'the Grunt drops it at 37%: nothing to name');
+	// Hand-placed at the Grunts: the Sentries' spawns make no alternative.
+	const hand = goal('  collect 95111 x10 @70,70');
+	assert.deepEqual(alts(hand).map((s) => s.n), [1], JSON.stringify(hand.spots));
+	// An item only the elites drop still leads to them.
+	const badge = goal('  collect 95112 x1 optional');
+	assert.ok(near(badge, 30, 30), `the point is at the Sentries: ${badge.x},${badge.y}`);
+	assert.ok(badge.spots.every((s) => near(s, 30, 30)), JSON.stringify(badge.spots));
+	assert.deepEqual([badge.from, badge.fromRank], ['Blackrock Sentry', 1]);
 });
 
 test('kill goals carry the spawn areas of their mob, nearest to the chosen point first, every other place as an alternative; single spawns get none', () => {

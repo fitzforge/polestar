@@ -15,8 +15,13 @@ const SOLO = require('../sim/solo');
 const ELITE_RANKS = new Set([1, 2, 3]);
 const FRIENDLY_TO = { Alliance: ['A', 'AH'], Horde: ['H', 'AH'] };
 
+// Whether an npc of `faction` is hostile to one of `sides`.
+function hostileTo(faction, sides) {
+	return sides.some((s) => !FRIENDLY_TO[s].includes(faction));
+}
+
 function isElite(rank, faction, sides) {
-	return ELITE_RANKS.has(Number(rank)) && sides.some((s) => !FRIENDLY_TO[s].includes(faction));
+	return ELITE_RANKS.has(Number(rank)) && hostileTo(faction, sides);
 }
 
 // A `kill` of an elite, or a `collect` of an item whose every located dropper
@@ -69,4 +74,4 @@ function groupOf(goal, explicit, sides, data) {
 	return elite ? { kind: 'elite', rank: elite.rank } : null;
 }
 
-module.exports = { eliteWork, groupOf };
+module.exports = { eliteWork, groupOf, isElite, hostileTo };
