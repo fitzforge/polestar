@@ -207,7 +207,7 @@ test('an accept closed for good (its breadcrumb target or an exclusive quest tak
 		{ goals = { { t = "level", level = 30 } } },
 	} })`;
 	const script = 'emit({ at = E.GetStepIndex(), step1 = brief(1), step2 = brief(2), wp = E.GetWaypoint() and E.GetWaypoint().stepIndex or false })';
-	const [closed] = run({ guides: guide, before: 'stub.world.complete({ 1093 }); stub.world.onQuest(1472, {})', script });
+	const [closed] = run({ guides: guide, before: 'stub.world.complete({ 1093 }); stub.world.onQuest(1472, {}, "Devourer of Souls")', script });
 	assert.deepEqual(closed, {
 		at: 3,
 		step1: ['skipped:closed:No longer offered: you took Super Reaper 6000', 'skipped:closed:No longer offered: you took Devourer of Souls'],

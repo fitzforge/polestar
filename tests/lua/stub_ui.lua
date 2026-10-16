@@ -620,6 +620,9 @@ function Compat.IsInInstance() return false end
 function Compat.GetPlayerInfo() return uistub.player end
 function Compat.GetMapName(id) return MAPS[id] end
 function Compat.GetQuestTitle() return nil end
+function Compat.GetItemName() return nil end
+function Compat.RequestQuest() return false end
+function Compat.RequestItem() return false end
 function Compat.InCombat() return stub.inCombat end
 -- The world map opener: a scene's global OpenWorldMap stands in for the client's.
 function Compat.CanOpenWorldMap() return OpenWorldMap ~= nil end

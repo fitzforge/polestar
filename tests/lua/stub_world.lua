@@ -17,6 +17,8 @@
 --   w.greeting(197, { active = {...}, available = {...} })
 --   w.trainer(911); w.merchant(54); w.taxi(352, "Stormwind, Elwynn"); w.close()
 --   w.calls                                -- { { "AcceptQuest", q }, { "GetQuestReward", q, choice }, ... }
+--   w.titles[7] = "..."; w.itemNames[750] = "..."  -- the client's names (cached), its language
+--   w.loads                                -- { "quest:7", "item:750", ... } loads asked (RequestLoad*ByID)
 --   w.learnSkill(171, "Alchemy", 1, 75); w.skillUp(171, 50)    -- SKILL_LINES_CHANGED + CHAT_MSG_SKILL
 --   w.learnSpell(2330)                     -- spellbook spell (LEARNED_SPELL_IN_SKILL_LINE, SPELLS_CHANGED)
 --   w.learnRecipe(2330)                    -- profession recipe (NEW_RECIPE_LEARNED)
@@ -47,6 +49,8 @@ local world = {
 	completed = {},
 	titles = {},
 	items = {},
+	itemNames = {},
+	loads = {},
 	units = {},
 	taxiNodes = {},
 	frame = nil,
@@ -375,6 +379,7 @@ function C_QuestLog.GetTitleForQuestID(q)
 	local e = world.log[q]
 	return (e and e.title) or world.titles[q]
 end
+function C_QuestLog.RequestLoadQuestByID(q) table.insert(world.loads, "quest:" .. q) end
 function C_QuestLog.GetQuestObjectives(q)
 	local e = world.log[q]
 	if not e then return {} end
@@ -404,6 +409,9 @@ end
 C_Item = {}
 function C_Item.GetItemCount(id) return world.items[id] or 0 end
 GetItemCount = C_Item.GetItemCount
+function C_Item.GetItemNameByID(id) return world.itemNames[id] end
+function C_Item.IsItemDataCachedByID(id) return world.itemNames[id] ~= nil end
+function C_Item.RequestLoadItemDataByID(id) table.insert(world.loads, "item:" .. id) end
 
 ---------------------------------------------------------------------------
 -- Client API: maps

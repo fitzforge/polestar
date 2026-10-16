@@ -213,6 +213,14 @@ function Compat.GetQuestTitle(questID)
 	return nil
 end
 
+-- Asks the server for a quest's data, title included (QUEST_DATA_LOAD_RESULT
+-- fires with the quest ID and whether it loaded). false when the client
+-- cannot ask.
+function Compat.RequestQuest(questID)
+	if type(questID) ~= "number" or not (C_QuestLog and C_QuestLog.RequestLoadQuestByID) then return false end
+	return (pcall(C_QuestLog.RequestLoadQuestByID, questID))
+end
+
 -- Quests the open NPC window offers, as a list of quest IDs, or nil when the
 -- client cannot say. source: "gossip" (C_GossipInfo.GetAvailableQuests, as
 -- GossipFrameShared.lua reads it), "greeting" (GetNumAvailableQuests /
@@ -326,9 +334,19 @@ function Compat.ItemLink(itemID)
 	return nil
 end
 
+-- An item's name in the client's language, or nil while the item is not
+-- cached (C_Item.GetItemNameByID answers only from the cache).
+function Compat.GetItemName(itemID)
+	local fn = type(itemID) == "number" and ((C_Item and (C_Item.GetItemNameByID or C_Item.GetItemInfo)) or GetItemInfo)
+	if not fn then return nil end
+	local ok, name = pcall(fn, itemID)
+	if ok and type(name) == "string" and name ~= "" and not isSecret(name) then return name end
+	return nil
+end
+
 -- true when the item is in the client's cache; otherwise asks the server for
--- it (GET_ITEM_INFO_RECEIVED fires with the item ID when it arrives) and
--- returns false.
+-- it (GET_ITEM_INFO_RECEIVED and ITEM_DATA_LOAD_RESULT fire with the item ID
+-- when it arrives) and returns false.
 function Compat.RequestItem(itemID)
 	if type(itemID) ~= "number" or not C_Item then return false end
 	local cached = C_Item.IsItemDataCachedByID

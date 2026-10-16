@@ -1365,19 +1365,21 @@ local function titleMap()
 	return map
 end
 
+-- Quest titles and item names in the client's language (Core/Names.lua):
+-- the compiled English only while the client has none yet.
 local function questTitle(goal)
 	local q = goal.quest
 	if not q then return nil end
-	if goal.title then return goal.title end
-	local t = Compat().GetQuestTitle(q)
-	if t then return t end
-	return titleMap()[q] or (L["Quest"] .. " " .. q)
+	return ns.Names.Quest(q, goal.title or titleMap()[q]) or (L["Quest"] .. " " .. q)
 end
 
 -- Title of any quest the guide names (e.g. a prerequisite).
 local function titleOfQuest(q, hint)
-	return (hint and hint[q]) or titleMap()[q] or Compat().GetQuestTitle(q) or (L["Quest"] .. " " .. q)
+	return ns.Names.Quest(q, (hint and hint[q]) or titleMap()[q]) or (L["Quest"] .. " " .. q)
 end
+
+-- (On Own: the main chunk is at 200 locals.)
+function Own.itemName(goal) return ns.Names.Item(goal.item, goal.itemName) end
 
 -- Player-facing explanation of an unavailable mark.
 local function unavailableText(u)
@@ -1403,7 +1405,7 @@ local function describe(goal)
 	local t = goal.t
 	local C = Compat()
 	if t == "accept" then
-		local detail = fmt(L["from %s"], goal.npcName or goal.objName or goal.itemName)
+		local detail = fmt(L["from %s"], goal.npcName or goal.objName or Own.itemName(goal))
 		local lvl = tonumber(goal.minLevel)
 		if lvl and player and (player.level or 1) < lvl then
 			detail = detail and L["%s, from level %d"]:format(detail, lvl) or L["From level %d"]:format(lvl)
@@ -1416,9 +1418,9 @@ local function describe(goal)
 	elseif t == "kill" then
 		return L["Kill"], goal.target, "npc", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
 	elseif t == "collect" then
-		if goal.quest then return L["Collect"], goal.itemName, "item", fmt(L["for %s"], questTitle(goal)) end
+		if goal.quest then return L["Collect"], Own.itemName(goal), "item", fmt(L["for %s"], questTitle(goal)) end
 		local _, npcName = npcOf(goal)
-		return L["Collect"], goal.itemName, "item", fmt(L["from %s"], npcName)
+		return L["Collect"], Own.itemName(goal), "item", fmt(L["from %s"], npcName)
 	elseif t == "goto" then
 		local mapName = C.GetMapName(goal.map)
 		if goal.text then return L["Go to"], goal.text, "place", mapName end
@@ -1429,7 +1431,7 @@ local function describe(goal)
 	elseif t == "interact" then
 		return L["Click"], goal.objName, "object", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
 	elseif t == "use" then
-		return L["Use"], goal.itemName, "item", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
+		return L["Use"], Own.itemName(goal), "item", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
 	elseif t == "sethome" then
 		local _, npcName = npcOf(goal)
 		if goal.location then return L["Set your home to"], goal.location, "place", fmt(L["at %s"], npcName) end
@@ -1450,7 +1452,7 @@ local function describe(goal)
 		return L["Train at"], L["your trainer"], "text", nil
 	elseif t == "buy" then
 		local _, npcName = npcOf(goal)
-		return L["Buy"], goal.itemName, "item", fmt(L["from %s"], npcName)
+		return L["Buy"], Own.itemName(goal), "item", fmt(L["from %s"], npcName)
 	elseif t == "vendor" then
 		local _, npcName = npcOf(goal)
 		if npcName then return L["Sell and repair at"], npcName, "npc", nil end
@@ -2150,8 +2152,13 @@ end
 
 local sigParts = {}
 
+-- Bumped when quest titles or item names arrive (NAMES_CHANGED; on Own: the
+-- main chunk is at 200 locals).
+Own.namesGen = 0
+
 local function signature()
-	local n = 0
+	local n = 1
+	sigParts[1] = "names" .. Own.namesGen
 	if current then
 		-- A gate opening (level-up, turn-in) changes the view, not the step.
 		n = n + 1
@@ -2953,7 +2960,7 @@ function Engine.GetStepView(i)
 				if cg.t == "collect" and cg.item == ag.item and not cg.quest then
 					local cv = goals[c]
 					if cv.status ~= "na" and groupOf[c] == groupOf[a] then
-						local starter = { item = ag.itemName or cg.itemName, source = cv.source, note = cv.note }
+						local starter = { item = Own.itemName(ag) or Own.itemName(cg), source = cv.source, note = cv.note }
 						local open = av.status ~= "done" and av.status ~= "skipped"
 						if open and cv.status ~= "done" and cv.status ~= "skipped" then
 							av.folded = true
@@ -3025,7 +3032,7 @@ function Engine.StartGate(id)
 		level = gate.level,
 		pre = gate.pre,
 		preTitle = gate.pre and titleOfQuest(gate.pre, gate.preTitles) or nil,
-		giver = a and (a.npcName or a.objName or a.itemName) or nil,
+		giver = a and (a.npcName or a.objName or Own.itemName(a)) or nil,
 		map = a and a.map or nil,
 	}
 end
@@ -3270,6 +3277,13 @@ end
 for _, event in ipairs({ "ZONE_CHANGED", "ZONE_CHANGED_INDOORS", "ZONE_CHANGED_NEW_AREA", "PLAYER_CONTROL_GAINED" }) do
 	ns.RegisterEvent(event, onContextEvent)
 end
+
+-- Client names arrived for quests or items the views asked for: the next
+-- evaluation redraws the window and the arrow's label in their language.
+ns.On("NAMES_CHANGED", function()
+	Own.namesGen = Own.namesGen + 1
+	requestUpdate()
+end)
 
 -- `sethome nearest`: binding during the step completes it, in every tab.
 ns.RegisterEvent("HEARTHSTONE_BOUND", function()

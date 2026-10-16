@@ -3,6 +3,7 @@
 	<Script file="..\Locales\deDE.lua"/>
 	<Script file="..\Locales\esMX.lua"/>
 	<Script file="Compat.lua"/>
+	<Script file="Names.lua"/>
 	<Script file="Data.lua"/>
 	<Script file="Hooks.lua"/>
 	<Script file="Guides.lua"/>

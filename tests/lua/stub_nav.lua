@@ -81,6 +81,11 @@ function Compat.GetPlayerInfo() return { name = "Testchar", level = 10, faction 
 function Compat.GetItemCount(id) return nav.items[id] or 0 end
 function Compat.GetBindLocation() return nav.bind end
 function Compat.GetNpcID(unit) if unit == "npc" then return nav.npcUnit end end
+-- No client names: the compiled English shows (Core/Names.lua).
+function Compat.GetQuestTitle() return nil end
+function Compat.GetItemName() return nil end
+function Compat.RequestQuest() return false end
+function Compat.RequestItem() return false end
 
 ---------------------------------------------------------------------------
 -- Travel: run speed, Hearthstone cooldown, the flight map

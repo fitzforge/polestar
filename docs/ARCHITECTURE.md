@@ -127,6 +127,7 @@ Messages:
 | `STEP_SKIPPED` | fromStep, toStep or nil, `{ { quest, title, reason, text }, ... }` | Engine, active tab, just before `STEP_CHANGED`: the computed step moved past a step whose open quest goals became unavailable (reasons as in "Unavailable quests") |
 | `PLAYER_SKIPPED_STEP` | guideId, stepIndex | Engine, after `Skip()` (the window, the menu, `/polestar skip`): the guide window offers the undo |
 | `WAYPOINT_CHANGED` | waypoint or nil | Engine (and Nav when an override is set/cleared) |
+| `NAMES_CHANGED` | — | `Core/Names.lua`: client names arrived for quests or items asked through `Names` (at most once per 0.2 s); the Engine re-evaluates |
 | `GUIDE_COMPLETED` | guideId | Engine |
 | `SETTING_CHANGED` | path, value | Core settings |
 | `TOGGLE_FRAME` / `SHOW_FRAME` / `HIDE_FRAME` | — | commands, keybinds → UI |
@@ -253,6 +254,18 @@ table of labels holds `L["Home"]`, not `"Home"` translated later through
 (a guide's category, a faction, race and class names, profession and spec
 names, the release stage).
 
+Quest titles and item names come from the client, in its language
+(`Core/Names.lua`): `Names.Quest(questID, english)` and
+`Names.Item(itemID, english)` return the client's name, else `english`, the
+compiled name, while the client has none yet. A missing name is asked for
+once a session (`Compat.RequestQuest`, `Compat.RequestItem`); when one asked
+there arrives (`QUEST_DATA_LOAD_RESULT`, `ITEM_DATA_LOAD_RESULT`, never for
+another addon's IDs), `NAMES_CHANGED` fires and the Engine re-evaluates, so
+the guide window and the arrow's label redraw. The Engine's views (goal
+texts, details, starters, unavailable texts, skips) read names through it.
+Comparisons stay on the compiled names (a collect's source named
+as the item, the same title of another version of a quest).
+
 ### Compat — the client's game data goes through here
 
 UI, Nav and Engine read the client's quests, map, units and items through
@@ -340,6 +353,7 @@ Compat.IsOnQuest(questID)              -> bool
 Compat.IsQuestReadyForTurnIn(questID)  -> bool
 Compat.GetQuestObjectives(questID)     -> { { text, type, finished, numFulfilled, numRequired }, ... } | nil
 Compat.GetQuestTitle(questID)          -> string | nil (client cache; may be nil)
+Compat.RequestQuest(questID)           -> bool   (asked: QUEST_DATA_LOAD_RESULT follows; false when the client cannot ask)
 Compat.GetOfferedQuests(source)        -> { questID, ... } | nil   (source "gossip" | "greeting" | "detail")
 Compat.IsQuestTrivial(qlvl, level)     -> bool   (grey for that level)
 Compat.GetItemCount(itemID, includeBank) -> number   (includeBank: the bank's too)
@@ -348,7 +362,8 @@ Compat.ItemQualityHex(quality)         -> "ffrrggbb" | nil
 Compat.ItemIcon(itemID)                -> icon | nil (C_Item.GetItemIconByID; no cache needed)
 Compat.SpellIcon(spellID)              -> icon | nil
 Compat.ItemLink(itemID)                -> link | nil (nil while not cached)
-Compat.RequestItem(itemID)             -> bool   (cached; else requested: GET_ITEM_INFO_RECEIVED follows)
+Compat.GetItemName(itemID)             -> string | nil (the client's language; nil while not cached)
+Compat.RequestItem(itemID)             -> bool   (cached; else requested: GET_ITEM_INFO_RECEIVED and ITEM_DATA_LOAD_RESULT follow)
 Compat.SpellLink(spellID)              -> link | nil
 Compat.RequestSpell(spellID)           -> bool   (cached; else requested: SPELL_DATA_LOAD_RESULT follows)
 Compat.GetBindLocation()               -> string | nil
