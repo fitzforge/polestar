@@ -23507,9 +23507,9 @@ do
 			steps = {
 				{
 					title = "Tarren Mill",
-						{ t = "sethome", npc = 2388, npcName = "Innkeeper Shay", location = "Tarren Mill", map = 1424, x = 62.78, y = 19.03, z = 57.2, f = "e", note = "Innkeeper Shay: the last guide binds here, so this usually ticks at once" },
 					note = "Tarren Mill is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square.",
 					goals = {
+						{ t = "sethome", npc = 2388, npcName = "Innkeeper Shay", location = "Tarren Mill", map = 1424, x = 62.78, y = 19.03, z = 57.2, f = "e", note = "Innkeeper Shay: the last guide binds here, so this usually ticks at once" },
 						{ t = "turnin", quest = 493, title = "Journey to Hillsbrad Foothills", npc = 2216, npcName = "Apothecary Lydon", map = 1424, x = 61.44, y = 19.06, z = 57.6, f = "e", note = "Apothecary Lydon" },
 						{ t = "turnin", quest = 494, title = "Time To Strike", npc = 2215, npcName = "High Executor Darthalia", map = 1424, x = 62.33, y = 20.45, z = 54.5, f = "e", note = "High Executor Darthalia" },
 						{ t = "accept", quest = 498, title = "The Rescue", npc = 2229, npcName = "Krusk", minLevel = 17, qlvl = 22, map = 1424, x = 63.24, y = 20.66, z = 56.3, f = "e", note = "Krusk" },
@@ -25575,9 +25575,9 @@ do
 			version = 1,
 			steps = {
 				{
-						{ t = "sethome", npc = 6791, npcName = "Innkeeper Wiley", location = "Ratchet", map = 1413, x = 62.05, y = 39.41, z = 24, f = "e", note = "Innkeeper Wiley: the last guide binds here, so this usually ticks at once" },
 					title = "Fly to Camp Taurajo",
 					goals = {
+						{ t = "sethome", npc = 6791, npcName = "Innkeeper Wiley", location = "Ratchet", map = 1413, x = 62.05, y = 39.41, z = 24, f = "e", note = "Innkeeper Wiley: the last guide binds here, so this usually ticks at once" },
 						{ t = "fly", location = "Camp Taurajo" },
 					},
 				},
@@ -28813,9 +28813,9 @@ do
 			steps = {
 				{
 					title = "Everlook",
-						{ t = "sethome", npc = 11118, npcName = "Innkeeper Vizzie", location = "Everlook", map = 1452, x = 61.36, y = 38.83, z = 721.7, f = "e", note = "Innkeeper Vizzie: the last guide binds here, so this usually ticks at once" },
 					note = "Everlook is the goblin town on the east side of the valley.",
 					goals = {
+						{ t = "sethome", npc = 11118, npcName = "Innkeeper Vizzie", location = "Everlook", map = 1452, x = 61.36, y = 38.83, z = 721.7, f = "e", note = "Innkeeper Vizzie: the last guide binds here, so this usually ticks at once" },
 						{ t = "accept", quest = 6029, title = "The Everlook Report", npc = 10431, npcName = "Gregor Greystone", minLevel = 50, qlvl = 52, map = 1452, x = 61.35, y = 38.97, z = 721.7, f = "e", note = "Gregor Greystone" },
 						{ t = "accept", quest = 6030, title = "Duke Nicholas Zverenhoff", npc = 10431, npcName = "Gregor Greystone", minLevel = 50, qlvl = 52, map = 1452, x = 61.35, y = 38.97, z = 721.7, f = "e" },
 						{ t = "turnin", quest = 4808, title = "Felnok Steelspring", npc = 10468, npcName = "Felnok Steelspring", map = 1452, x = 61.63, y = 38.61, z = 721.3, f = "e", note = "Felnok Steelspring" },
