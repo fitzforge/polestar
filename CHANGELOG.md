@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### For players
+
+- A zone crossing you have walked past no longer turns you round: on the
+  road north out of the Barrens into Ashenvale, walking by the crossing's
+  Barrens end without touching it left the arrow pointing 400 yd back to it,
+  and Skip planned the same leg again. Between a crossing's two ends the route
+  now walks on to the far end, and skipping the near end keeps it skipped for
+  that target (thanks Mark).
+
 ### For contributors
 
 - `tools/discord-bot`: `/close` and `/reopen` for server administrators in

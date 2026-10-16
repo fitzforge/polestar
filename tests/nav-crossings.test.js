@@ -295,3 +295,55 @@ test('the local crossings route real trips through their gates, within the plann
 	assert.ok(out.routes[3].some((l) => /Loch Modan/.test(l)), `Dun Morogh -> Loch Modan crosses a tunnel: ${out.routes[3]}`);
 	assert.ok(out.ms < 20, `a plan with crossings took ${out.ms.toFixed(1)} ms`);
 });
+
+test('a start already past a crossing\'s near end walks on to its far end, never back', () => {
+	const [out] = run(`
+		local r = {}
+		local ROAD = { id = "road", a = { map = 9002, c = 0, wx = 600, wy = 300, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -300, r = 15 } }
+		crossings({ crossings = { ROAD } })
+		nav.place(-500, 500)                             -- West Vale, before the road
+		target(-500, -500, "Kobolds")
+		r.before = route()
+		nav.place(600, 100)                              -- on the road: 200 yd past its West Vale end, still in West Vale
+		target(-500, -500, "Kobolds")
+		r.on = route()
+		local legs = N.GetRoute()
+		r.firstTo = { legs[1].to.wx, legs[1].to.wy, legs[1].radius, legs[1].waypoint }
+		nav.place(300, 100)                              -- 300 yd off the road: not on it
+		target(-500, -500, "Kobolds")
+		local off = N.GetRoute()
+		r.offTo = { off[1].to.wx, off[1].to.wy }
+		emit(r)`);
+	assert.deepEqual(out.before, ['walk|Go to East Vale', 'walk|Go to East Vale', 'walk|Kobolds']);
+	assert.deepEqual(out.on, ['walk|Go to East Vale', 'walk|Kobolds'], 'straight on to the far end');
+	assert.deepEqual(out.firstTo, [600, -300, 15, true]);
+	assert.deepEqual(out.offTo, [600, 300], 'off the road the near end comes first, as before');
+});
+
+test('skipping a crossing\'s near end walks on, and later plans for that target never send you back to it', () => {
+	const [out] = run(`
+		local r, changes = {}, 0
+		local ROAD = { id = "road", a = { map = 9002, c = 0, wx = 600, wy = 300, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -300, r = 15 } }
+		crossings({ crossings = { ROAD } })
+		Polestar.On("ROUTE_CHANGED", function() changes = changes + 1 end)
+		nav.place(-500, 500)
+		target(-500, -500, "Kobolds")
+		stub.advance(0.2)
+		local c0 = changes
+		N.travel.SkipLeg()
+		stub.advance(1.2)
+		r.replanned = changes - c0
+		r.skip = route()
+		nav.place(300, 500)                              -- elsewhere in West Vale, off the road
+		stub.fire("ZONE_CHANGED")
+		local legs = N.GetRoute()
+		r.later = { legs[1].to.wx, legs[1].to.wy }
+		target(-400, -500, "Elsewhere")                  -- another target: the near end counts again
+		legs = N.GetRoute()
+		r.other = { legs[1].to.wx, legs[1].to.wy }
+		emit(r)`);
+	assert.equal(out.replanned, 0, 'skipping the near end moves on without planning back to it');
+	assert.deepEqual(out.skip, ['walk|Go to East Vale', 'walk|Kobolds']);
+	assert.deepEqual(out.later, [600, -300]);
+	assert.deepEqual(out.other, [600, 300]);
+});
