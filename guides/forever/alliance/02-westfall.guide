@@ -84,6 +84,10 @@ next forever/alliance/03-darkshore
 # see above) and its follow-up Explosive Consultation (92752), which only
 # leads back to Alba and the Deadmines.
 # Skyborne turn in Journey to Sentinel Hill (98021).
+# Alba Fairmoon's whole chain (92742-92753, 92819) is not for Humans on
+# Forever: Wowhead Forever lists Dwarf, Night Elf, Gnome and Skyborne (#144).
+# Its goals carry `only Dwarf,Gnome,NightElf,Skyborne`; the two mine steps,
+# which are only for 92745, carry it on the step.
 
 # ---------------------------------------------------------------- Sentinel Hill
 
@@ -98,8 +102,8 @@ step Sentinel Hill
   accept 12                                   -- Gryan Stoutmantle
   accept 102                                  -- Captain Danuvin
   accept 153                                  -- Scout Galiaan
-  accept 92742                                -- Alba Fairmoon
-  accept 92744
+  accept 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
+  accept 92744 only Dwarf,Gnome,NightElf,Skyborne
 
 # ---------------------------------------------------------------- Saldean's and the Jansen Stead
 
@@ -118,7 +122,7 @@ step The Jansen Stead
   accept 64                                   -- Farmer Furlbrow
   accept 184 optional                         -- Only if you looted a Westfall Deed in Elwynn: right-click it
   turnin 184 optional
-  collect 254546 quest 92742.1 @56.6,18.6     -- Fill the vial at the well
+  collect 254546 quest 92742.1 @56.6,18.6 only Dwarf,Gnome,NightElf,Skyborne -- Fill the vial at the well
   collect 1528 quest 151                      -- Sacks of Oats
 
 step Saldean's Farm
@@ -130,7 +134,7 @@ step Saldean's Farm
 
 step Molsen Farm
   tip West of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks here: leave it alone. Keep killing Goretusks and Fleshrippers on every leg of this loop.
-  collect 254547 quest 92742.2 @46.1,38.2     -- Fill the vial at the farm's well
+  collect 254547 quest 92742.2 @46.1,38.2 only Dwarf,Gnome,NightElf,Skyborne -- Fill the vial at the farm's well
   kill 114 quest 9                            -- Harvest Watchers
   collect 255007 quest 92909.1
   collect 255010 quest 92909.2
@@ -151,7 +155,7 @@ step Jangolode Mine
 
 step The north coast
   tip Murloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time.
-  collect 254548 quest 92744                  -- Longshore Murloc Gills
+  collect 254548 quest 92744 only Dwarf,Gnome,NightElf,Skyborne -- Longshore Murloc Gills
   collect 730 quest 38.2                      -- Murloc Eye
 
 step The gnoll hills
@@ -175,18 +179,20 @@ step Sentinel Hill
   turnin 12
   accept 13
   turnin 102                                  -- Captain Danuvin
-  turnin 92742                                -- Alba Fairmoon
-  turnin 92744
-  accept 92745
+  turnin 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
+  turnin 92744 only Dwarf,Gnome,NightElf,Skyborne
+  accept 92745 only Dwarf,Gnome,NightElf,Skyborne
   vendor nearest
 
 # ---------------------------------------------------------------- The mines
 
 step Jangolode Mine
+  only Dwarf,Gnome,NightElf,Skyborne
   tip Back north past Molsen Farm to the mine: Kobold Diggers work inside.
   kill 1236 quest 92745.1                     -- Kobold Diggers
 
 step The Gold Coast Quarry
+  only Dwarf,Gnome,NightElf,Skyborne
   tip South-west to the coast, west of Molsen Farm. Riverpaw Miners work the quarry.
   kill 1426 quest 92745.2                     -- Riverpaw Miners
 
@@ -201,8 +207,8 @@ step The western farms
 step Sentinel Hill
   turnin 13                                   -- Gryan Stoutmantle
   accept 14
-  turnin 92745                                -- Alba Fairmoon
-  accept 92747
+  turnin 92745 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
+  accept 92747 only Dwarf,Gnome,NightElf,Skyborne
   turnin 153                                  -- Scout Galiaan
 
 step Moonbrook and the Defias hills
@@ -210,14 +216,14 @@ step Moonbrook and the Defias hills
   kill 121 quest 14
   kill 449 quest 14
   kill 122 quest 14
-  collect 254676 quest 92747.1                -- Suspicious Industrial Supplies, from the crates around Moonbrook
+  collect 254676 quest 92747.1 only Dwarf,Gnome,NightElf,Skyborne -- Suspicious Industrial Supplies, from the crates around Moonbrook
 
 step Back to Sentinel Hill
   hearth "Sentinel Hill"                      -- Hearthstone on cooldown? Follow the road north-east.
   turnin 14                                   -- Gryan Stoutmantle
   accept 65                                   -- For Wiley the Black in Lakeshire, Redridge
-  turnin 92747                                -- Alba Fairmoon
-  accept 92748                                -- For Sprite Jumpsprocket in Stormwind's Dwarven District
+  turnin 92747 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
+  accept 92748 only Dwarf,Gnome,NightElf,Skyborne -- For Sprite Jumpsprocket in Stormwind's Dwarven District
   vendor nearest
 
 # ---------------------------------------------------------------- Stormwind and the boat
@@ -254,7 +260,7 @@ step Stormwind
   tip Fly or ride to Stormwind. Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Park (Druids). Sprite Jumpsprocket works in the Dwarven District, Morgan Pestle in the Trade District.
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 12, 14 and 16 spells
   buy 2449 x5 npc 1313 optional only NightElf,Druid -- Earthroot for Gathering the Cure (6123) in Darkshore: Maria Lumere, Alchemy Supplies; herbalists pick it there instead
-  turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
+  turnin 92748 only Dwarf,Gnome,NightElf,Skyborne -- Sprite Jumpsprocket, Dwarven District
   turnin 1861 only Mage choose 9513 7508      -- Jennea Cannon, Wizard's Sanctum: Mirror Lake
   turnin 61 only Human                        -- Morgan Pestle, Trade District
 

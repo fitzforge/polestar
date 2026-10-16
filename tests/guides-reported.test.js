@@ -416,6 +416,19 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 	}
 });
 
+// --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on
+// Forever (Wowhead Forever: Dwarf, Night Elf, Gnome, Skyborne).
+
+test(`${WESTFALL}: Alba Fairmoon's chain is not given to Humans (#144)`, { skip }, () => {
+	const chain = new Set([92742, 92744, 92745, 92747, 92748]);
+	const list = goals(WESTFALL).filter(({ goal }) => chain.has(goal.quest));
+	assert.ok(list.length > 0, 'the chain is in the guide');
+	for (const { step, goal } of list) {
+		const races = [step.only, goal.only].flatMap((o) => (o && o.races) || []);
+		assert.ok(races.length && !races.includes('Human'), `${goal.t} ${goal.quest} is for its races only, not Humans`);
+	}
+});
+
 // Every leveling guide with a profession quest still plays to the end for a
 // character who already has the profession (tests/guides.test.js plays them
 // all without one).

@@ -41,6 +41,18 @@
 			},
 			"note": "A Scribbled Letter is the Human Hunter letter: it ends at Tordrin Sternblade 248415 <Hunter Trainer> in Northshire (Wowhead Forever npc=248415, checked 2026-10-12). QuestieDB 1.0.5 has requiredClasses 1 (Warrior)."
 		},
+		"92742": {
+			"set": {
+				"races": 4294967372
+			},
+			"note": "Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92742 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
+		},
+		"92744": {
+			"set": {
+				"races": 4294967372
+			},
+			"note": "Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92744 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
+		},
 		"92745": {
 			"set": {
 				"pre": [
@@ -48,9 +60,10 @@
 				],
 				"preAny": [
 					92742
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "The State of the Mines (Westfall, Alba Fairmoon) is offered only after Testing the Wells 92742 is handed in: its text on https://www.wowhead.com/forever/quest=92745 opens \"The well samples you collected contain toxic metals!\" (checked 2026-10-16), and issue #143 (SouthernStyleSims) saw it in game: Alba did not offer it until another of her quests was turned in. Murloc Gills (92744) gets no link: nothing shows it gating or gated. QuestieDB 1.0.5 has no prerequisite."
+			"note": "The State of the Mines (Westfall, Alba Fairmoon) is offered only after Testing the Wells 92742 is handed in: its text on https://www.wowhead.com/forever/quest=92745 opens \"The well samples you collected contain toxic metals!\" (checked 2026-10-16), and issue #143 (SouthernStyleSims) saw it in game: Alba did not offer it until another of her quests was turned in. Murloc Gills (92744) gets no link: nothing shows it gating or gated. QuestieDB 1.0.5 has no prerequisite. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92745 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92747": {
 			"set": {
@@ -59,9 +72,10 @@
 				],
 				"preAny": [
 					92745
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Moonbrook Espionage (92747) is step 4 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. The State of the Mines (92745) itself comes after Testing the Wells (92742), seen in game (issue #143; see its own entry); Murloc Gills (92744) has no link."
+			"note": "Moonbrook Espionage (92747) is step 4 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. The State of the Mines (92745) itself comes after Testing the Wells (92742), seen in game (issue #143; see its own entry); Murloc Gills (92744) has no link. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92747 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92748": {
 			"set": {
@@ -70,9 +84,10 @@
 				],
 				"preAny": [
 					92747
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Explosive Consultation (92748) is step 5 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it."
+			"note": "Explosive Consultation (92748) is step 5 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92748 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92749": {
 			"set": {
@@ -81,9 +96,10 @@
 				],
 				"preAny": [
 					92748
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "A Dynamite Plan (92749) is step 6 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it."
+			"note": "A Dynamite Plan (92749) is step 6 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92749 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92750": {
 			"set": {
@@ -92,9 +108,10 @@
 				],
 				"preAny": [
 					92749
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Detonation at a Distance (92750) is step 7 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it."
+			"note": "Detonation at a Distance (92750) is step 7 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92750 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92751": {
 			"set": {
@@ -103,9 +120,10 @@
 				],
 				"preAny": [
 					92750
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Detonation at a Distance (92751) is step 8 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it."
+			"note": "Detonation at a Distance (92751) is step 8 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92751 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92752": {
 			"set": {
@@ -114,9 +132,10 @@
 				],
 				"preAny": [
 					92751
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Explosive Consultation (92752) is step 9 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it."
+			"note": "Explosive Consultation (92752) is step 9 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92752 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92753": {
 			"set": {
@@ -125,9 +144,10 @@
 				],
 				"preAny": [
 					92752
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Destruction in Deadmines (92753) is step 10 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it."
+			"note": "Destruction in Deadmines (92753) is step 10 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92753 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92819": {
 			"set": {
@@ -136,9 +156,10 @@
 				],
 				"preAny": [
 					92753
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Destruction in Deadmines (92819) is step 11 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15); a Wowhead Forever comment on quest=92753 (2026-10-01) says to leave the Deadmines by the back door and continue with Alba Fairmoon at the exit. QuestieDB 1.0.5 has no chain links for it."
+			"note": "Destruction in Deadmines (92819) is step 11 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15); a Wowhead Forever comment on quest=92753 (2026-10-01) says to leave the Deadmines by the back door and continue with Alba Fairmoon at the exit. QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92819 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"94373": {
 			"set": {
