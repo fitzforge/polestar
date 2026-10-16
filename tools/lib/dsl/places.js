@@ -24,8 +24,13 @@
 //         else the one node of that name or town serving every faction the
 //         goal applies to. The addon checks the nodes the flight map lists.
 // A name with no single match gets neither; the goal keeps its name match.
+//
+// A `sethome` naming no npc gets its inn's innkeeper (goalInnkeeper): of the
+// inns (travel.json) the location names, the one whose innkeeper serves every
+// faction the goal applies to, so the arrow has someone to lead to.
 
 const { areaNamed } = require('../data/areas');
+const { factionTag, usableBy } = require('./candidates');
 
 const DATA = new WeakMap();
 
@@ -151,6 +156,23 @@ function goalNode(data, goal, sides) {
 	return named.length === 1 ? named[0].id : undefined;
 }
 
+// A sethome's innkeeper, or null: the npc of the one inn (travel.json) whose
+// bind location (any of its names, ignoring case) is `location` and whose
+// innkeeper serves every faction in `sides` (neutral towns' goblins serve
+// both: candidates.js factionTag).
+function goalInnkeeper(data, location, sides) {
+	if (typeof location !== 'string') return null;
+	const want = location.trim().toLowerCase();
+	const named = data.inns().filter((i) => {
+		if (!(Number(i.npc) > 0)) return false;
+		const names = Array.isArray(i.names) && i.names.length ? i.names : [i.location];
+		if (!names.some((n) => String(n).toLowerCase() === want)) return false;
+		const tag = factionTag(data.npc(i.npc) || { faction: null, roles: ['innkeeper'] });
+		return (sides || []).every((s) => usableBy(tag, s));
+	});
+	return named.length === 1 ? { npc: Number(named[0].npc), npcName: named[0].npcName || null } : null;
+}
+
 // -> { places, withArea, getfp, withNode }: goals naming a place and how many
 // got an area; getfp goals and how many got a taxi node.
 function placeCounts(guides) {
@@ -172,4 +194,4 @@ function placeCounts(guides) {
 	return out;
 }
 
-module.exports = { checkLocation, goalArea, goalNode, placeCounts };
+module.exports = { checkLocation, goalArea, goalNode, goalInnkeeper, placeCounts };

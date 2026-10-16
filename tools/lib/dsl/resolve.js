@@ -21,7 +21,7 @@ const { blockingPrereqs } = require('../data/prereqs');
 const { clusterPoints, scaleOf } = require('../questdb/cluster');
 const { groupOf, isElite, hostileTo } = require('./group');
 const { goalHeight } = require('./heights');
-const { goalArea, goalNode } = require('./places');
+const { goalArea, goalNode, goalInnkeeper } = require('./places');
 
 // A collect's sources are named only for an item that few creatures or
 // objects drop (at 2% or more, with spawns); past this it drops everywhere.
@@ -1025,6 +1025,17 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 				smart(goal, entries, `class trainer`);
 			}
 			if (g.nearest && v === 'sethome') smart(goal, data.npcsWithRole('innkeeper').map((id) => ({ npc: id })), 'innkeeper');
+			// A located `sethome` naming no npc: its inn's innkeeper, for the
+			// factions the goal applies to, so the arrow leads there (places.js).
+			if (v === 'sethome' && g.npc === undefined && !g.nearest) {
+				const keeper = goalInnkeeper(data, g.location, smartSides(ctx.sides, applicable(ctx.layers || [])));
+				if (keeper) {
+					goal.npc = keeper.npc;
+					setIf(goal, 'npcName', nameOf(data, 'npc', keeper.npc) || keeper.npcName || undefined);
+					candidates = [{ kind: 'npc', id: keeper.npc }];
+					checkKinds = candidates;
+				}
+			}
 			// Sell junk and repair: every repairer also buys junk, a plain vendor may not repair.
 			if (g.nearest && v === 'vendor') smart(goal, data.npcsWithRole('repair').map((id) => ({ npc: id })), 'repair vendor');
 			if (g.npc !== undefined) {

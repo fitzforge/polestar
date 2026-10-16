@@ -102,7 +102,8 @@ return {
 	-- Step 17: Cenarion Hold
 	-- {area:3425} Cenarion Hold
 	["Follow the road south-west out of the pass to {area:3425}."] = "沿著道路從山口向西南前往{area:3425}。",
-	["Calandrath, the innkeeper"] = "卡蘭德拉斯，旅店老闆",
+	-- {npc:15174} Calandrath
+	["{npc:15174}, the innkeeper"] = "{npc:15174}，旅店老闆",
 	-- {npc:17082} Rifleman Torrig
 	["{npc:17082}, at the Alliance tents"] = "{npc:17082}，在聯盟帳篷旁",
 

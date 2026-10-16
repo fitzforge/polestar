@@ -102,7 +102,8 @@ return {
 	-- Step 17: Cenarion Hold
 	-- {area:3425} Cenarion Hold
 	["Follow the road south-west out of the pass to {area:3425}."] = "Suivez la route vers le sud-ouest à la sortie du col jusqu'à {area:3425}.",
-	["Calandrath, the innkeeper"] = "Calandrath, l'aubergiste",
+	-- {npc:15174} Calandrath
+	["{npc:15174}, the innkeeper"] = "{npc:15174}, l'aubergiste",
 	-- {npc:17082} Rifleman Torrig
 	["{npc:17082}, at the Alliance tents"] = "{npc:17082}, aux tentes de l'Alliance",
 

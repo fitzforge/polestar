@@ -130,7 +130,7 @@ A step must contain at least one goal.
 | `talk` | `<npcId>` | |
 | `interact` | `<objectId>` | Click a game object. |
 | `use` | `<itemId> ["Item name"]` | |
-| `sethome` | `"Location"` or `nearest` | Inn location as the game names it (the bind location it reports), e.g. `"Goldshire"`. `sethome nearest` binds at the nearest own-faction inn when the step comes up. Lint warns about a location no inn has (`polestar find --kind inn`). Completes on every client language: binding at the inn's innkeeper, or a bind location the client names as the inn's area (see "Places by ID"). |
+| `sethome` | `"Location"` or `nearest` | Inn location as the game names it (the bind location it reports), e.g. `"Goldshire"`. Without `npc` the compiler names the inn's innkeeper, so the arrow leads to them ("What the compiler fills in"); `npc <id>` picks one yourself. `sethome nearest` binds at the nearest own-faction inn when the step comes up. Lint warns about a location no inn has (`polestar find --kind inn`). Completes on every client language: binding at the inn's innkeeper, or a bind location the client names as the inn's area (see "Places by ID"). |
 | `hearth` | `"Location"` | Done when the zone or subzone where you land has that name: an inn's location or the zone it is in, in the client's language when the compiler finds its area ("Places by ID"). Lint warns about any other name. |
 | `getfp` | `"Location"` | Discover a flight path: the flight point's name (`"Stormwind, Elwynn"`) or its part before the comma (`"Stormwind"`). The compiler adds its taxi node, so it completes on every client language ("Places by ID"). Lint warns about a name no flight point has (`polestar find --kind flight`). |
 | `fly` | `"Location"` | Take a flight: the flight point's town (`"Stormwind"`), as the flight map picks the node by it. Done when the zone or subzone where you land has that name (in the client's language when the compiler finds its area, "Places by ID"); where the landing area is named differently (`"Stormwind City"`), the goal checks off only through a later goal of its step. Lint warns about a name that is no flight point's town, inn location or zone they are in. |
@@ -222,6 +222,7 @@ AND. `only Warrior,Paladin,Dwarf` = (Warrior or Paladin) and Dwarf.
 | height `z` | a goal at an NPC or object: the height of that NPC's or object's spawn (`spawnz.json`), so the walk ends on its floor: see "Heights" below |
 | place area `area` | `sethome`, `hearth`, `fly` and `getfp` (their location) and `goto` (its label): the AreaTable area of that name, so the goal completes and reads right on every client language: see "Places by ID" below |
 | taxi node `node` | `getfp`: its flight point's taxi node (`travel.json`): see "Places by ID" below |
+| `sethome` innkeeper `npc`, `npcName` and coordinates | a `sethome "Location"` without `npc`: the innkeeper of the one inn (`travel.json`) whose bind location is that name (ignoring case) and who serves every faction the goal applies to (a neutral town's goblin serves both). None when no such inn has one: the Alliance innkeeper's inn on a goal for both factions gets none |
 | name tokens `{kind:id}`, `names` | the game's names in every text a player reads, so each shows in the client's language: see "Names in texts" below |
 | (a note dropped) | a goal's `--` note that only names the goal's own NPC, object, target or item (`accept 6181 -- Quartermaster Lewis`): the goal shows that name already, in the client's language |
 
@@ -344,7 +345,8 @@ object's (its spawn, or your `@x,y` at it):
 - `accept` and `turnin` at their NPC or object (not a quest from an item);
 - `talk`, `kill` (the spawn nearest the previous goal; a point at the centre
   of many spawns is seldom within 15 yards of one), `interact`;
-- `buy`, `train`, `vendor`, `sethome`, `getfp` and `learn` naming an `npc`.
+- `buy`, `train`, `vendor`, `sethome`, `getfp` and `learn` naming an `npc`
+  (a `sethome` also with the innkeeper the compiler names).
 
 `goto` and `explore` (places), `collect` (a farming spot among the item's
 sources), `use` and smart targets (`nearest`, class and profession trainers:
