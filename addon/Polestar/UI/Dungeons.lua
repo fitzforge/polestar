@@ -2144,10 +2144,13 @@ DS.atts, DS.attSteps = atts, attSteps
 function DS.Frames() return root, home, pg, segs end
 
 ns.On("SHOW_DUNGEON", function(key) DS.Show(key) end)
-ns.On("CODEX_LOADED", function()
+-- The dungeon list carries names: a late names pack sorts and names it anew.
+local function listChanged()
 	listCache = nil
 	if root and root:IsVisible() then DS.Render() end
-end)
+end
+ns.On("CODEX_LOADED", listChanged)
+ns.On("NAMES_LOADED", listChanged)
 Theme.OnChanged(function() if root and root:IsVisible() then DS.Render() end end)
 local function questsChanged()
 	if root and root:IsVisible() and page then DS.Render() end

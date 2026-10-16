@@ -206,6 +206,23 @@ test('sources: NPCs, quests, dungeons and zones give location rows', () => {
 	assert.deepEqual(zone, { n: 0, name: 'Amber Vale' });
 });
 
+// A French client whose names pack lands after the first look: the Codex
+// names Elder Rowan in French from then on, and so must the cached rows.
+test('sources: a names pack landing late renames the cached rows', () => {
+	const [before, after] = run(`
+		local label = function() return rows("quest", 7001)[1].label end
+		emit(label())
+		local N = Polestar.Names
+		N.Localised = function() return true end
+		local cached = N.Cached
+		N.Cached = function(kind, id) if kind == "npc" and id == 5008 then return "Ancien Rowan" end return cached(kind, id) end
+		Polestar.Fire("NAMES_LOADED")
+		emit(label())
+	`);
+	assert.equal(before, 'Elder Rowan');
+	assert.equal(after, 'Ancien Rowan');
+});
+
 test('sources: an already finished quest is not offered as available', () => {
 	const [list] = run(`emit((rows("item", 8001)))`, { level: 20, setup: 'w.complete({ 7002 })' });
 	assert.deepEqual(pick(list, ['available', 'why', 'whyText']), [{ available: false, why: 'done', whyText: 'Already done' }]);

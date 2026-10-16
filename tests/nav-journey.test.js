@@ -509,6 +509,28 @@ test('nearby: the nearest spawn of each friendly NPC outside instances, ranked b
 	assert.equal(cls, 'Trainer Tess');
 });
 
+// A French client whose names pack lands after the first /polestar near: the
+// Codex then names its NPCs in French (Codex drops its records on
+// NAMES_LOADED), and so must the places Nearby kept.
+test('nearby: a names pack landing late renames the places; a learned NPC name too', () => {
+	const [before, after, learned] = run(CODEX + `
+		function GetLocale() return "frFR" end
+		Near.Go("repair")
+		emit(label())
+		npcs[2].name = "Forgeron lointain"
+		Polestar.Fire("NAMES_LOADED")
+		Near.Go("repair")
+		emit(label())
+		npcs[2].name = "Forgeron du lointain"
+		Polestar.Fire("NAME_LEARNED", "npc", 2)
+		Near.Go("repair")
+		emit(label())
+	`);
+	assert.equal(before, 'Far Smith');
+	assert.equal(after, 'Forgeron lointain');
+	assert.equal(learned, 'Forgeron du lointain');
+});
+
 test('nearby: Rank estimates only the nearest few, and the quickest by route wins over the nearest by line', () => {
 	const [out] = run(`
 		local Near = N.nearby

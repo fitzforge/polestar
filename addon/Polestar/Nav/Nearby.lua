@@ -157,6 +157,11 @@ local function rolePlaces(role)
 	return list
 end
 
+-- Places carry the NPC's name as read: drop them when the names pack lands
+-- late, or when an NPC's learned name changes.
+ns.On("NAMES_LOADED", function() index = {} end)
+ns.On("NAME_LEARNED", function(kind) if kind == "npc" then index = {} end end)
+
 -- The candidate places of a kind: list | nil, reason.
 local function candidates(kind, line)
 	local ok, why = codexReady()

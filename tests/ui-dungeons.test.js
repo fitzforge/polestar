@@ -137,6 +137,30 @@ test('Home: All dungeons groups by band; the faction filter changes the counts; 
 	assert.equal(out.tab, 'quests');
 });
 
+// A French client whose names pack lands with Home open: the cards take the
+// names Dungeons.List gives from then on.
+test('Home: a names pack landing late renames the cards', () => {
+	const [out] = run(`
+		Polestar.Dungeons.Open()
+		DS.SetBand("all")
+		local before = cardNames()
+		local list = Polestar.Dungeons.List
+		Polestar.Dungeons.List = function(...)
+			local out = {}
+			for i, d in ipairs(list(...)) do
+				local c = {}
+				for k, v in pairs(d) do c[k] = v end
+				if c.name == "Wailing Caverns" then c.name = "Cavernes des Lamentations" end
+				out[i] = c
+			end
+			return out
+		end
+		Polestar.Fire("NAMES_LOADED")
+		emit({ before = before, after = cardNames() })`);
+	assert.ok(out.before.includes('Wailing Caverns'));
+	assert.ok(out.after.includes('Cavernes des Lamentations'));
+});
+
 test('A page: the painting header with the name, facts and actions; tabs with counts; Guide me and Show on map act', () => {
 	const [out] = run(`
 		-- Nothing in the log: the hand-in stays away, so "Show on map" keeps its place among three actions.

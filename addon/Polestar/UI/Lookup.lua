@@ -1596,10 +1596,13 @@ end
 ns.On("SHOW_LOOKUP", function(q, k, id)
 	UI.ShowLookup({ query = q, kind = k, id = id })
 end)
-ns.On("CODEX_LOADED", function()
+-- A late names pack renames the results and the selection's sources.
+local function namesChanged()
 	stale()
 	refresh()
-end)
+end
+ns.On("CODEX_LOADED", namesChanged)
+ns.On("NAMES_LOADED", namesChanged)
 local function guidesChanged()
 	stale()
 	LK.Render()

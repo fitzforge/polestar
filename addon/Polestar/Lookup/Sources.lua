@@ -802,6 +802,13 @@ if ns.RegisterEvent then
 	ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", Lookup.ResetSources)
 end
 
+-- Rows carry NPC, object, quest and zone names as read: drop them when the
+-- names pack lands late or a learned name changes.
+if ns.On then
+	ns.On("NAMES_LOADED", Lookup.ResetSources)
+	ns.On("NAME_LEARNED", Lookup.ResetSources)
+end
+
 -- The best row for a guide: index given, else the first available guideable
 -- row, else the first guideable one.
 function Lookup.BestSource(list, index)
