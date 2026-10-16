@@ -24,16 +24,24 @@
 # boat to Southshore, its flight path, bind and The Shamed Lieutenant (98219)
 # turn-in moved here.
 # - Added: From the Ashes (98221), This Land Was Their Land (98230), Crocs of
-#   the Sky (98072), Bloom of the Heavens (98209, handed in at Auberdine in
-#   02-desolace), Understanding Our Present (98216), Gleaning Our Future
+#   the Sky (98072), Understanding Our Present (98216), Gleaning Our Future
 #   (98310), For Further Study (98313, to Historian Karnik), Razormaw Needling
 #   (98245), Stopping the Cycle (98297), Word to Ironforge (98300, to King
-#   Magni), Old Habits (98223), Spark of Freedom (87491), Hearts of the Lost
-#   (87318) and Sentiments of the Lost (88758).
+#   Magni), Old Habits (98223), Spark of Freedom (87491) and Hearts of the
+#   Lost (87318).
 # - Carnage (98283) is optional: Wowhead Forever lists it as an elite quest.
 # - The data has no prerequisites inside these chains; For Further Study and
 #   Word to Ironforge are taken on the way back, after the quests they most
 #   likely follow, so either order works.
+# - Left out, as each is the last part of a chain whose earlier part the
+#   route cannot place (the quest chains foreverchanges.pro shows from
+#   Wowhead's Forever database, checked 2026-10-17; the data has no
+#   prerequisite, and no spawns for the objects the earlier part asks for):
+#   Bloom of the Heavens (98209, Sylessa Duskwhisper's
+#   delivery to Auberdine) comes after Bloom of the Heavens (98208, recover
+#   Nord'el from the Flying Osprey wreck south of Menethil), and Sentiments of
+#   the Lost (88758, Essene's note to Corma) after Accessories of the Lost
+#   (88757, an elite quest for Essene's necklace, spellbook and waterskin).
 # - Left out: Crimson Crate Delivery (98240): by its text it comes after Crocs
 #   of the Sky, which is handed in back in Menethil, and it ends at Howin in
 #   the Green Belt: a second ride across the zone for 1200 XP. Horrors in the
@@ -82,11 +90,10 @@ next forever/alliance/30-40/02-desolace
 # ---------------------------------------------------------------- Menethil Harbor
 
 step Menethil Harbor
-  tip Captain Stoutfist stands in Menethil Keep; James Halloran and Sylessa Duskwhisper stand together by the north gate.
+  tip Captain Stoutfist stands in Menethil Keep; James Halloran stands by the north gate.
   accept 98221                        -- Captain Stoutfist: From the Ashes
   accept 98230                        -- Captain Stoutfist: for Howin Kindfeather
   accept 98072                        -- James Halloran
-  accept 98209                        -- Sylessa Duskwhisper: for Thundris Windweaver in Auberdine (02-desolace)
 
 # ---------------------------------------------------------------- Whelgar's Excavation Site
 
@@ -152,8 +159,6 @@ step The Villards
   tip Comar Villard waits north of Dun Modr by the Thandol Span; Essene a short walk further north-east.
   accept 87318                        -- Comar Villard
   turnin 87318                        -- Essene Villard
-  accept 88758
-  turnin 88758                        -- Comar Villard
 
 step Prospector Whelgar
   tip Back south down the road to the excavation site.

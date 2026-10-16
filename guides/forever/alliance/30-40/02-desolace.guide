@@ -11,9 +11,9 @@
 # Forever above level 30 cannot be checked in game until launch on 4
 # November: the Forever additions here come from the data (Questie Forever,
 # Wowhead Forever), not from play.
-# Added: Bloom of the Heavens (98209, Forever) is handed to Thundris
-# Windweaver while passing Auberdine; Sylessa gives it in Menethil at the
-# start of 30-40/01-hillsbrad-foothills (consensus Wetlands visit, 30.7).
+# Left out: Bloom of the Heavens (98209, Forever, to Thundris Windweaver in
+# Auberdine): Sylessa in Menethil offers it only after her first Bloom of the
+# Heavens (98208), which 30-40/01-hillsbrad-foothills cannot place.
 # Deviations from the simulator route (consensus, Alliance Human):
 # - Azore's Sceptre of Light is taken on the way to Thunder Axe Fortress and
 #   done together with Tyranis, instead of a separate trip from Nijel's Point
@@ -54,8 +54,7 @@ step Menethil Harbor
 
 step Auberdine
   zone Darkshore
-  tip Take the boat to Auberdine from Menethil's docks. Thundris Windweaver stands in Auberdine, north of the flight master.
-  turnin 98209                        -- Thundris Windweaver: Nord'el, from Sylessa in Menethil
+  tip Take the boat to Auberdine from Menethil's docks.
   fly "Astranaar"
 
 step Heartswood

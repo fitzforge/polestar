@@ -12,12 +12,13 @@ next forever/horde/04-the-barrens
 # Flow: the Crossroads -> Orgrimmar (training, flight path) -> zeppelin to
 # Tirisfal Glades -> the Sepulcher (flight path, bind) -> the Dalaran crate
 # and back -> north loop: the Dead Field, Malden's Orchard, Erland's escort,
-# worg hearts, murloc eyes -> hearth -> the Decrepit Ferry and back -> north
-# again: Quinn, Ivar the Foul, then Fenris Isle -> the Sepulcher -> south
-# loop: Ambermill, the Moonrage, the refugees, Beren's Peril -> hearth ->
-# grind to 19 on the lake shore -> zeppelin to Orgrimmar: the city's own
-# quests, training. The guide ends in Orgrimmar, in the Valley of Wisdom;
-# the next one flies to Ratchet from Doras in the Valley of Strength.
+# worg hearts -> hearth -> the Decrepit Ferry and back -> north again: Quinn,
+# Ivar the Foul, the murloc eyes on the shore, then Fenris Isle -> the
+# Sepulcher -> south loop: Ambermill, the Moonrage, the refugees, Beren's
+# Peril -> hearth -> grind to 19 on the lake shore -> zeppelin to Orgrimmar:
+# the city's own quests, training. The guide ends in Orgrimmar, in the Valley
+# of Wisdom; the next one flies to Ratchet from Doras in the Valley of
+# Strength.
 #
 # Deviations from the export:
 # - Westfall (the lighthouse: Keeper of the Flame 103, The Coastal Menace 104,
@@ -47,6 +48,18 @@ next forever/horde/04-the-barrens
 # Fenris Keep among level 18-22 gnolls. Arugal's Folly (98298, Forever): it
 # is listed after Dalar Dawnweaver's Arugal's Folly series (421-424, 99),
 # which the route does not run, so Dalar may not offer it.
+#
+# Quinn's potions run Wild Hearts (429) -> Return to Quinn (430) -> Wild Eyes
+# (91920, Forever) -> Return to Quinn (Again) (91921, Forever): the quest
+# chain foreverchanges.pro shows from Wowhead's Forever database (checked
+# 2026-10-17), and the texts agree (Wild Eyes opens "the potion made no
+# noticeable difference", 91921 brings "the new potion"). The data has no
+# prerequisite for the two Forever quests, so the guide used to take 91921
+# first and Wild Eyes before 430 was handed in.
+# Wild Eyes is now taken from Quinn when 430 is handed in at the Ivar Patch,
+# its murlocs line the shore walk to Fenris Isle, and Renferrel takes it at
+# the Sepulcher after the island. Return to Quinn (Again) is left out: it is
+# a walk back north to Quinn for one delivery.
 #
 # Skyborne: Welcome to Azeroth (95350) is turned in to Thrall in Grommash
 # Hold, and Journey to the Crossroads (98024) taken on to Thork. Exploring the
@@ -150,7 +163,6 @@ step The Sepulcher
   accept 477                          -- Shadow Priest Allister
   accept 428                          -- High Executor Hadrec
   accept 437
-  accept 91921                        -- Apothecary Renferrel
 
 step Border Crossings
   tip Follow the road south. The Dalaran Crate sits beside it, north of Pyrewood.
@@ -181,8 +193,6 @@ step Malden's Orchard
   tip Follow the road north-east to the Yoricks' house at Malden's Orchard.
   turnin 428                          -- Rane Yorick
   accept 429
-  turnin 91921                        -- Quinn Yorick
-  accept 91920
 
 step Escorting Erland
   tip Deathstalker Erland waits north-east of the house. Escort him back to Rane; worgs attack on the way.
@@ -193,10 +203,9 @@ step Rane Yorick
   turnin 435
   accept 449
 
-step Worgs and murlocs
-  tip Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes.
+step Mottled Worgs
+  tip Mottled Worgs prowl the hills around the house.
   collect 3164 quest 429.1
-  collect 730 quest 91920.1
 
 step Hearth to the Sepulcher
   hearth "The Sepulcher"
@@ -207,7 +216,6 @@ step Hearth to the Sepulcher
   turnin 3221                         -- Apothecary Renferrel
   turnin 429
   accept 430
-  turnin 91920
 
 # ---------------------------------------------------------------- The Decrepit Ferry
 
@@ -225,9 +233,14 @@ step The Sepulcher
 step The Ivar Patch
   tip North again to the Yoricks' house. Ivar the Foul lurks a short walk west of it.
   turnin 430                          -- Quinn Yorick
+  accept 91920
   accept 425                          -- Rane Yorick
   collect 3621 quest 425.1
   turnin 425
+
+step Vile Fin murlocs
+  tip Follow the lake shore south-east toward Fenris Isle: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes.
+  collect 730 quest 91920.1
 
 step Fenris Isle
   tip Follow the lake shore south-east and swim out to Fenris Isle. Rot Hide gnolls cover the island; every type drops ichor. Stay out of Fenris Keep on its north side unless you go for the optional niche: the gnolls there are level 18-22.
@@ -241,6 +254,7 @@ step Fenris Isle
 step The Sepulcher
   tip Swim back and follow the road west to the Sepulcher.
   turnin 443                          -- Apothecary Renferrel
+  turnin 91920
   accept 95981                        -- Shadow Priest Allister
   accept 516                          -- Shadow Priest Allister: Beren's Peril, on the south loop
   accept 98298 optional               -- Dalar Dawnweaver: take it if he offers it; it may follow his Arugal's Folly series, which the route does not run

@@ -386,12 +386,20 @@ test('Hotline\'s report: Walton and Vrang\'s quests come in the order the game o
 // Bandarion Keep (whiteswag, #128) and Linnea's second Rear Guard Patrol (#51)
 // in Tirisfal, Alther's Mill in Redridge (#126's report), The State of the
 // Mines in Westfall (SouthernStyleSims, #143) and Scout Support in Hillsbrad
-// (Taako, #148). Each accept comes after every quest it follows is handed in;
-// 99156 may be left out, never taken early.
+// (Taako, #148). The #128 sweep against the Forever quest chains found Quinn's
+// potions in Silverpine (Wild Eyes and Return to Quinn (Again) after Return
+// to Quinn) and, at 30-40, Bloom of the Heavens, Sentiments of the Lost,
+// Shared Fury and Friend of the Kirin Tor, each taken without the part before
+// it. Each accept comes after every quest it follows is handed in; the
+// optional ones may be left out, never taken early.
 
 const WESTFALL = 'forever/alliance/02-westfall.guide';
 const REDRIDGE = 'forever/alliance/04-redridge-mountains.guide';
 const HILLSBRAD_HORDE = 'forever/horde/06-hillsbrad-foothills.guide';
+const SILVERPINE = 'forever/horde/03-silverpine-forest.guide';
+const HILLSBRAD_ALLIANCE = 'forever/alliance/30-40/01-hillsbrad-foothills.guide';
+const ASHENVALE_30 = 'forever/alliance/30-40/03-ashenvale.guide';
+const ARATHI = 'forever/alliance/30-40/05-arathi-highlands.guide';
 
 test('Forever follow-ups are taken only once the quests before them are handed in', { skip }, () => {
 	for (const [guide, quest, after, optional] of [
@@ -405,6 +413,12 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[REDRIDGE, 98386, [89]],
 		[WESTFALL, 92745, [92742]],
 		[HILLSBRAD_HORDE, 98094, [528]],
+		[SILVERPINE, 91920, [430]],
+		[SILVERPINE, 91921, [91920], true],
+		[HILLSBRAD_ALLIANCE, 98209, [98208], true],
+		[HILLSBRAD_ALLIANCE, 88758, [88757], true],
+		[ASHENVALE_30, 98418, [98417], true],
+		[ARATHI, 92459, [92458], true],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));

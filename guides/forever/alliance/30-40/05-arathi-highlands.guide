@@ -18,10 +18,12 @@
 #   in northern Stranglethorn, and it is handed in on the Swamp stop of
 #   40-50/01-stranglethorn-vale. The data has no objectives for it, so each
 #   catch is a check-off the player ticks.
-# - Friend of the Kirin Tor (92459): optional; the Image of Archmage Modera
-#   offers it on the An Alarming Request turn-in, and Archmage Celindra stands
-#   in the City of Dalaran a short walk east (data). Not on the consensus
-#   route; optional because the way into the city is unchecked.
+# - Left out: Friend of the Kirin Tor (92459): the Image of Archmage Modera
+#   offers it only after Heart of Disruption (92458), the City of Dalaran
+#   dungeon quest that An Alarming Request leads to (the quest chain
+#   foreverchanges.pro shows from Wowhead's Forever database, checked
+#   2026-10-17; its text, "the city is calming down ... take this mote",
+#   follows the dungeon). The data has no prerequisite.
 # - The Image of Archmage Modera stands just inside Silverpine Forest in the
 #   data: the turn-in now uses the data's position instead of typed Alterac
 #   coordinates.
@@ -328,11 +330,9 @@ step Dalaran
   tip South-west to the Kirin Tor camp on the lake shore west of Dalaran, just over the border into Silverpine Forest: the Image of Archmage Modera stands there. Archmage Ansirem stands south-east of it, by the dome.
   zone Silverpine Forest
   turnin 92432 "An Alarming Request"  -- Image of Archmage Modera
-  accept 92459 optional               -- Image of Archmage Modera: Friend of the Kirin Tor
   zone Alterac Mountains
   turnin 602                          -- Archmage Ansirem Runeweaver
   accept 603                          -- For Catelyn the Blade in Booty Bay: keep it
-  turnin 92459 optional               -- Archmage Celindra, in the City of Dalaran
 
 # ---------------------------------------------------------------- Southshore
 
