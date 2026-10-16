@@ -633,6 +633,7 @@ Compat.SpellLink(spellID)              -> link | nil
 Compat.RequestSpell(spellID)           -> bool   (cached; else requested: SPELL_DATA_LOAD_RESULT follows)
 Compat.GetBindLocation()               -> string | nil
 Compat.IsOnTaxi()                      -> bool
+Compat.IsIndoors()                     -> bool   (IsIndoors: in a cave, mine or building)
 Compat.GetCurrentTaxiNode()            -> name of the open taxi map's node | nil
 Compat.GetNpcID(unit)                  -> number | nil   (from UnitGUID)
 Compat.InCombat()                      -> bool
@@ -803,7 +804,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `complete` | `quest`, `title` | — | ready for turn-in or completed |
 | `kill` | `target` | `npc`, `count`, `quest`, `oi` | objective `oi` finished, or quest ready/completed (not while the log lists no objectives yet, right after the accept); without `quest`: manual |
 | `collect` | `item`, `itemName` | `count`, `quest`, `oi` | objective finished / quest ready (as `kill`) / completed; without `quest`: item count ≥ `count` |
-| `goto` | `map`, `x`, `y` | `text`, `r` (default 8 yd), `area` (its name in the client's language shows instead of `text`) | within radius, **or** any later goal in the step is done |
+| `goto` | `map`, `x`, `y` | `text`, `r` (default 8 yd), `area` (its name in the client's language shows instead of `text`) | within radius, **or** gone into its `area` (subzone text equals the client's name of it, not the zone's, while indoors, after being seen elsewhere since the step came up; not for a goto after one into the same area in the step), **or** any later goal in the step is done |
 | `talk` | `npc`, `npcName` | — | gossip/quest frame opened with that NPC during this step; else manual |
 | `interact` | `object`, `objName` | `quest`, `oi` | objective state if `quest`; else manual |
 | `use` | `item`, `itemName` | `quest`, `oi` | objective state if `quest`; else manual |

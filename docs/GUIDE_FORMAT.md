@@ -126,7 +126,7 @@ A step must contain at least one goal.
 | `complete` | `<questId> ["Title"]` | Finish all objectives. |
 | `kill` | `<npcId>` or `"Target name"` | Pair with `quest Q.O` to track a quest objective. |
 | `collect` | `<itemId> ["Item name"]` | Pair with `quest Q.O`; otherwise tracked by bag count `xN`. `collect <item> xN nearest` (no `quest`) compiles to farm spots: clusters of normal or rare mobs that drop the item at 2% or more, outside towns and guard posts, each with the zone's safety (`A`/`H` faction zone, `AH` contested), mob level range, items per kill and spawn count; at most 16 per continent, spread over safety and 10-level bands. The engine picks one by the player's level, faction and travel time. |
-| `goto` | `<x>,<y> ["Label"]` | Coordinates are mandatory here. |
+| `goto` | `<x>,<y> ["Label"]` | Coordinates are mandatory here. A label that is a subzone's name as the game spells it (`"Fargodeep Mine"`, not `"Fargodeep Mine's mouth"`) gets its area ("Places by ID"); at a cave's or mine's mouth the goto then also counts as arrived once the player walks into it past the point (in that subzone and indoors). |
 | `talk` | `<npcId>` | |
 | `interact` | `<objectId>` | Click a game object. |
 | `use` | `<itemId> ["Item name"]` | |
@@ -355,8 +355,9 @@ Polestar compares IDs, or names the game gives in the same language:
   has a map, else the open world's (Eastern Kingdoms and Kalimdor, not
   Forever's copies of a town elsewhere). A name two areas share there gets
   none. In the game a `hearth` or `fly` is done when the zone or subzone text
-  is that area's name in the client's language (`C_Map.GetAreaInfo`), and the
-  guide window shows that name.
+  is that area's name in the client's language (`C_Map.GetAreaInfo`), a
+  `goto` also when the player goes indoors in that subzone (a cave or mine,
+  never a zone), and the guide window shows that name.
 - `node`: on `getfp`, the taxi node of its flight master (`npc`), else of the
   one flight point (`travel.json`) of that name or town serving every faction
   the goal applies to (Booty Bay has one per faction, so a goal for both gets

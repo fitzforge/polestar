@@ -352,6 +352,18 @@ local function inPlace(goal)
 	return same(zone, place) or same(sub, place)
 end
 
+-- Whether the player stands in a goto's place, by the subzone text: true or
+-- false for a goto whose area (`area`, its label's) the client names, nil
+-- for any other. A zone's name is never a goto's place: a label naming the
+-- zone (the zone text) would put the player there anywhere in it.
+function Own.inSubzone(goal)
+	local C = Compat()
+	local place = goal.area and C.GetAreaName and C.GetAreaName(goal.area)
+	if not place then return nil end
+	local zone, sub = C.GetZoneText()
+	return same(sub, place) and not same(zone, place)
+end
+
 -- Discovered flight paths, CharState().flags.fp; recreated if lost.
 local function fpTable()
 	local flags = ns.CharState().flags
@@ -2215,6 +2227,32 @@ function Own.reached(goal, c, px, py)
 	return dx * dx + dy * dy <= r * r
 end
 
+-- A goto whose label names a subzone (`area`) arrives on going in there, a
+-- cave or mine past its mouth's point (#177): in that subzone and indoors.
+-- Indoors, as a cave's subzone can also cover the ground around and above
+-- it (Fargodeep Mine), where the step's point still leads the way in. Only
+-- once the player was seen elsewhere while the goal was open: being inside
+-- when the goal comes up does not count, nor for a later goto of the step
+-- naming the same place (a waypoint further in). Own.outside: the gotos with
+-- a place the player was seen elsewhere while the goal was open.
+Own.outside = setmetatable({}, { __mode = "k" })
+function Own.enteredPlace(goals, g, goal)
+	local inside = Own.inSubzone(goal)
+	if inside == nil then return false end
+	local C = Compat()
+	inside = inside and C.IsIndoors ~= nil and C.IsIndoors()
+	if not inside then
+		Own.outside[goal] = true
+		return false
+	end
+	if not Own.outside[goal] then return false end
+	for j = 1, g - 1 do
+		local other = goals[j]
+		if other.t == "goto" and other.area == goal.area then return false end
+	end
+	return true
+end
+
 -- Loaded tab: mark arrived goals of the current step; true if any. A "Go to"
 -- naming its step is the area the step's work is in: reaching the place of
 -- any other goal of the step (where the arrow leads) arrives there too.
@@ -2229,6 +2267,7 @@ local function arriveLoaded(c, px, py)
 			local gc, gx, gy = goalWorld(goal)
 			local dx, dy, r = (gx or 0) - px, (gy or 0) - py, goal.r or DEFAULT_RADIUS
 			local here = gc == c and dx * dx + dy * dy <= r * r
+			if not here and goal.t == "goto" and Own.enteredPlace(goals, g, goal) then here = true end
 			if not here and goal.t == "goto" and step.title and goal.text == step.title then
 				for j = 1, #goals do
 					local other = goals[j]

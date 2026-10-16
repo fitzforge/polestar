@@ -96,6 +96,11 @@ function Compat.IsOnTaxi()
 	return readable(UnitOnTaxi and UnitOnTaxi("player")) and true or false
 end
 
+-- Inside a building, cave or mine (where the client allows no mount).
+function Compat.IsIndoors()
+	return readable(IsIndoors and IsIndoors()) and true or false
+end
+
 -- The player's world position from UnitPosition: wx (north), wy (west), z
 -- (nil when unread) and the instance map id, or nil while the client keeps it
 -- secret or hides it. The one place UnitPosition is read. Forever's client
