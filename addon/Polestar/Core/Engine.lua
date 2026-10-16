@@ -271,8 +271,11 @@ local Own = {}
 
 -- Quests found unavailable at their giver this session (questID ->
 -- { reason, accept }): the giver's window opened without offering them. Such a
--- quest's goals count as skipped until it is taken or done; the marks clear on
--- level-up and on any turn-in, since either can unlock it.
+-- quest's goals count as skipped until it is taken or done, or its giver
+-- offers it. A level-up or a turn-in can unlock it, so they clear the marks
+-- (Own.clearMarks), except those of accepts the route has moved past: the
+-- guide never goes back to a giver who said no; seeing that giver again
+-- checks afresh.
 local unavailable = {}
 -- Quests a giver's window offered this session (questID -> true): the
 -- giver's word beats a prerequisite the data names (Own.preBlocked).
@@ -1224,7 +1227,8 @@ end
 -- what they chose to pass. Before the start (or, with none, before the last
 -- quest progress), a step holds unless all its open goals are:
 -- - accepts the character cannot take yet (level, prerequisite): marked
---   unavailable for the session, so they come back on level-up or a turn-in;
+--   unavailable for the session like a giver's refusal, so the step stays
+--   passed until their giver offers them (Own.clearMarks).
 -- - goals the quest log cannot vouch for (goto, fly, getfp, train, vendor,
 --   hearth, non-quest kill/collect...) in a step before the last quest
 --   progress (anchorStep): the player is demonstrably past them;
@@ -3481,13 +3485,13 @@ ns.RegisterEvent("QUEST_TURNED_IN", function(_, questID)
 		end
 		useActive()
 	end
-	wipe(unavailable)
+	Own.clearMarks()
 	requestUpdate()
 end)
 
 ns.RegisterEvent("PLAYER_LEVEL_UP", function(_, level)
 	if type(level) == "number" and level > levelSeen then levelSeen = level end
-	wipe(unavailable)
+	Own.clearMarks()
 	requestUpdate()
 end)
 
@@ -3525,6 +3529,40 @@ local function unavailableReason(goal)
 	if lvl and (player.level or 1) < lvl then return "level" end
 	if missingPre(goal) then return "pre" end
 	return "offer"
+end
+
+-- A level-up or a turn-in (either can unlock a quest) clears the marks, so
+-- the giver's next window decides afresh. A mark whose accept is in a step a
+-- tab has moved past stays (#161): clearing it would send the guide back to a
+-- giver who said no, from wherever the player is now. It keeps that step
+-- passed with its reason brought up to date, until the giver's window offers
+-- the quest (checkOffers) or it is taken; a server gate the data does not
+-- know (a higher level) shows as "offer" and opens the same way.
+function Own.clearMarks()
+	if not player then
+		wipe(unavailable)
+		return
+	end
+	refreshPlayer() -- the new level: UnitLevel can lag PLAYER_LEVEL_UP
+	local keep = {}
+	for i = 1, #tabs do
+		use(tabs[i])
+		if guide then
+			local stepOf = layoutOf(guide).stepOf
+			for q, u in pairs(unavailable) do
+				local s = stepOf[u.accept]
+				if s and s <= passedUpTo and u.reason ~= "closed" then keep[q] = true end
+			end
+		end
+	end
+	useActive()
+	for q, u in pairs(unavailable) do
+		if keep[q] then
+			u.reason = unavailableReason(u.accept)
+		else
+			unavailable[q] = nil
+		end
+	end
 end
 
 local function checkOffers(source, startItem)
@@ -3589,17 +3627,19 @@ for _, event in ipairs({ "QUEST_COMPLETE", "QUEST_TURNED_IN" }) do
 	end)
 end
 
--- Quests their giver did not offer survive a reload: saved at logout as
--- CharState().offers[questID] = level, restored at login while the character
--- is still that level (a level-up or a turn-in clears them, as in play), so
--- the guide does not pull the player back to a giver who already said no.
+-- Quests their giver did not offer survive a reload and a relog, at any
+-- level: saved at logout as CharState().offers[questID] = true (older saves
+-- hold a level there, which reads the same) and restored at login, so placing
+-- the guide does not pull the player back to a giver who already said no
+-- (#161). As in play, the giver's window offering the quest clears the mark
+-- (checkOffers).
 function Own.saveOffers()
 	local s = ns.CharState()
 	local out
 	for q, u in pairs(unavailable) do
 		if u.reason == "offer" and not Compat().IsOnQuest(q) then
 			out = out or {}
-			out[q] = player and player.level or levelSeen
+			out[q] = true
 		end
 	end
 	s.offers = out
@@ -3608,10 +3648,9 @@ end
 function Own.restoreOffers()
 	local saved = ns.CharState().offers
 	if type(saved) ~= "table" then return end
-	local level = player and player.level
-	for q, lvl in pairs(saved) do
+	for q in pairs(saved) do
 		q = tonumber(q)
-		if q and lvl == level and not unavailable[q] then
+		if q and not unavailable[q] then
 			for _, t in ipairs(tabs) do
 				local a = layoutOf(t.guide).accepts[q]
 				if a then

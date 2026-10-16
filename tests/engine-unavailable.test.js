@@ -152,7 +152,7 @@ test('the follow-up a turn-in pops up says nothing about the giver\'s other ques
 	assert.equal(out.at, 1);
 });
 
-test('the marks clear on level-up and on any turn-in, and the guide goes back to them', () => {
+test('#161: a level-up or a turn-in leaves a step the guide has moved past passed, its reasons brought up to date, until its giver offers the quest', () => {
 	const [out] = run({
 		script: `
 			local w = stub.world
@@ -160,19 +160,107 @@ test('the marks clear on level-up and on any turn-in, and the guide goes back to
 			w.gossip(3464, { available = { { questID = 869 } } }); w.close(); w.accept(869, { 12 }); flush()
 			local r = { before = E.GetStepIndex() }
 			w.setLevel(13); flush()
-			r.levelUp = { E.GetStepIndex(), brief(1) }
-			w.gossip(3429, { available = {} }); w.close(); flush()
-			r.again = E.GetStepIndex()
+			r.level13 = { E.GetStepIndex(), brief(1) }
+			w.setLevel(14); flush()
+			r.level14 = { E.GetStepIndex(), brief(1) }
 			w.complete({ 871 }); w.turnIn(500); flush()
 			r.turnIn = { E.GetStepIndex(), brief(1)[1] }
+			-- Back at Thork later: he offers 870 now. The guide goes back for it.
+			w.gossip(3429, { available = { { questID = 870 } } }); flush()
+			r.offered = { E.GetStepIndex(), brief(1) }
+			w.accept(870, {}); w.close(); flush()
+			r.taken = E.GetStepIndex()
 			emit(r)
 		`,
 	});
 	assert.equal(out.before, 2);
-	// The window's marks go; 872 keeps its missing prerequisite until 871 is done.
-	assert.deepEqual(out.levelUp, [1, ['skipped:pre:Requires Disrupt the Attacks first', 'active:nil:nil', 'active:nil:nil', 'done:nil:nil']]);
-	assert.equal(out.again, 2);
-	assert.deepEqual(out.turnIn, [1, 'active:nil:nil']);
+	assert.deepEqual(out.level13, [2, [
+		'skipped:pre:Requires Disrupt the Attacks first',
+		'skipped:level:Requires level 14',
+		'skipped:offer:Not offered by Thork',
+		'done:nil:nil',
+	]], 'still at the raptors, and 880 still needs level 14');
+	assert.deepEqual(out.level14[0], 2);
+	assert.equal(out.level14[1][1], 'skipped:offer:Not offered by Thork', 'level 14 reached: no longer "Requires level 14"');
+	assert.deepEqual(out.turnIn, [2, 'skipped:offer:Not offered by Thork'], '871 done: no longer "Requires Disrupt the Attacks first"');
+	assert.deepEqual(out.offered, [1, [
+		'skipped:offer:Not offered by Thork',
+		'skipped:offer:Not offered by Thork',
+		'active:nil:nil',
+		'done:nil:nil',
+	]]);
+	assert.equal(out.taken, 2);
+});
+
+test('#161: a level-up or a turn-in clears the marks of the step at hand, so its giver is asked again', () => {
+	const [out] = run({
+		script: `
+			local w = stub.world
+			w.gossip(3429, { available = {} }); w.close(); flush()
+			local r = { before = { E.GetStepIndex(), brief(1) } }
+			w.setLevel(14); flush()
+			r.levelUp = { E.GetStepIndex(), brief(1) }
+			w.gossip(3429, { available = {} }); w.close(); flush()
+			w.complete({ 871 }); w.turnIn(500); flush()
+			r.turnIn = { E.GetStepIndex(), brief(1) }
+			emit(r)
+		`,
+	});
+	// Gazrog's 869 is still to take: Thork's step is the one at hand.
+	assert.deepEqual(out.before, [1, [
+		'skipped:pre:Requires Disrupt the Attacks first',
+		'skipped:level:Requires level 14',
+		'skipped:offer:Not offered by Thork',
+		'active:nil:nil',
+	]]);
+	// 872 keeps its missing prerequisite (known from the data) until 871 is done.
+	assert.deepEqual(out.levelUp, [1, ['skipped:pre:Requires Disrupt the Attacks first', 'active:nil:nil', 'active:nil:nil', 'active:nil:nil']]);
+	assert.deepEqual(out.turnIn, [1, ['active:nil:nil', 'active:nil:nil', 'active:nil:nil', 'active:nil:nil']]);
+});
+
+test('#161: a quest the giver refused although the data allows it (a server level gate the data lacks) is re-offered when the route next meets that giver', () => {
+	// Dalar (1938) at the Sepulcher: 98299's data says level 9, the server
+	// wants more. The route comes back to Dalar later for a turn-in.
+	const guides = `
+	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Silverpine", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+		{ title = "The Sepulcher", goals = {
+			{ t = "accept", quest = 98299, title = "Stop the Spread", npc = 1938, npcName = "Dalar Dawnweaver", minLevel = 9 },
+		} },
+		{ title = "Ambermill", goals = {
+			{ t = "collect", item = 5062, itemName = "Raptor Head", count = 12, quest = 869, oi = 1 },
+		} },
+		{ title = "Back to the Sepulcher", goals = {
+			{ t = "turnin", quest = 869, title = "Raptor Thieves", npc = 1938, npcName = "Dalar Dawnweaver" },
+		} },
+		{ goals = { { t = "level", level = 30 } } },
+	} })`;
+	const [out] = run({
+		guides,
+		before: 'w.onQuest(869, { 12 })',
+		script: `
+			local w = stub.world
+			Polestar.Set("behavior.autoTurnin", false) -- the player hands 869 in themselves
+			w.gossip(1938, { available = {} }); w.close(); flush()
+			local r = { refused = E.GetStepIndex() }
+			w.setLevel(13); flush()
+			r.levelUp = { E.GetStepIndex(), brief(1)[1] }
+			w.turnIn(500); flush()
+			r.turnIn = E.GetStepIndex()
+			w.progress(869, 1, 12); flush()
+			r.back = E.GetStepIndex()
+			w.gossip(1938, { available = { { questID = 98299 } }, active = { { questID = 869, isComplete = true } } }); flush()
+			r.offered = E.GetStepIndex()
+			w.accept(98299, {}); w.close(); flush()
+			r.taken = E.GetStepIndex()
+			emit(r)
+		`,
+	});
+	assert.equal(out.refused, 2);
+	assert.deepEqual(out.levelUp, [2, 'skipped:offer:Not offered by Dalar Dawnweaver'], 'the level-up keeps the guide at Ambermill');
+	assert.equal(out.turnIn, 2, 'so does a turn-in elsewhere');
+	assert.equal(out.back, 3);
+	assert.equal(out.offered, 1, 'Dalar offers it now: the guide goes back to it, the player standing at Dalar');
+	assert.equal(out.taken, 3);
 });
 
 test('#127: a quest the giver\'s window lists as active is taken, not refused, before the log has it; accepting clears a mark', () => {

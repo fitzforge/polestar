@@ -168,7 +168,7 @@ the nearest 5, `opts.compact` writes yards from 1000 as "1.2k yd"
 keeps yards for whoever reads it.
 
 `PolestarDB = { schema = 1, settings = { [section] = { ... } }, packs = { [packId] = { off = true } }, welcomeSeen = 1, gamepad = { chords = { [action] = "PADRSHOULDER+PADDUP" } } }`
-`PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = level }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, flags = { fp = { [name] = true }, ... }, welcomeSeen = 0|1 }`
+`PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = true }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, flags = { fp = { [name] = true }, ... }, welcomeSeen = 0|1 }`
 
 `packs[<id>].off` hides a pack's guides account-wide (the Guide packs page's
 switch). `welcomeSeen` (UI/Welcome.lua) is the version of the welcome last
@@ -1024,7 +1024,7 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   Shadowbreaker, not the Dwarf's). Prerequisites the data lacks (issue #51)
   mark nothing in advance; the giver's window covers them. The mark is live:
   it does not hold the step, the focus or the arrow, and it goes the moment
-  the prerequisite is done (the guide then goes back to it, as below), not
+  the prerequisite is done (the guide then goes back to it), not
   on an unrelated turn-in. A giver's window that offers the quest (this
   session) beats the data: no mark in advance after that. Beyond
   that, when a gossip/greeting/detail window opens on an `accept` goal's NPC
@@ -1039,12 +1039,16 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   client pops after a turn-in), or when an item starts it. An unavailable
   accept and the goals of that quest in the
   guide (objectives, complete, turnin) count as skipped, so the guide moves on
-  instead of stalling. The session marks clear on level-up, on any quest
-  turn-in (either can open a quest whose prerequisite the data lacks), and
-  for the quest itself when it is accepted or its giver's window lists it as
-  active; a quest in the log is not saved as refused at logout. The guide
-  goes back to a step the marks had let it pass until its giver says no
-  again. The view carries `unavailable = reason` and `unavailableText`.
+  instead of stalling. The session marks clear on level-up and on any quest
+  turn-in (either can open a quest whose prerequisite the data lacks), save
+  the marks of accepts in steps a tab has moved past (#161): those keep the
+  step passed, their reason brought up to date (a level now reached reads
+  `"offer"`), so the guide never goes back to a giver who said no. Every mark
+  goes for the quest itself when it is accepted, when its giver's window
+  offers it (also from a later step: the guide then goes back to it, the
+  player standing at that giver) or lists it as active. `"offer"` marks are
+  saved at logout (not for a quest in the log) and restored at login at any
+  level. The view carries `unavailable = reason` and `unavailableText`.
   When such marks move the guide past a step during play, the Engine fires
   `STEP_SKIPPED`; the guide window's banner then reads "Skipped <quest>  ·
   <reason>" (one line per quest) until the step changes again, it is
@@ -1300,9 +1304,10 @@ holds at its opening, see "Not yet available"):
   ahead with › was sent back to the first such step on every reload.)
 - Before the start (with no start: before the last quest progress), a step
   passes when every open goal is an accept the character cannot take yet
-  (level, prerequisite; marked unavailable for the session, so it comes back
-  on level-up or a turn-in), a soft goal (goto, fly, getfp, train, vendor,
-  hearth, sethome, talk, non-quest kill/collect/buy) in a step before the last
+  (level, prerequisite; marked unavailable for the session like a giver's
+  refusal, so it stays passed until its giver offers it), a soft goal (goto,
+  fly, getfp, train, vendor, hearth, sethome, talk, non-quest
+  kill/collect/buy) in a step before the last
   step with live quest progress (a done quest goal or an objective with some
   progress; class or race steps and goals, and optional goals, are no
   evidence), or a travel goal (goto, fly, hearth, explore) while the player

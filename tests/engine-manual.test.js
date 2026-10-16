@@ -168,7 +168,7 @@ test('a reload keeps the position: a skipped step stays skipped even with its qu
 	assert.deepEqual(out, { at: 4, skipped: '3' });
 });
 
-test('a reload keeps the position: quests their giver did not offer stay passed until a level or a turn-in', () => {
+test('a reload or a relog at a new level keeps the position: quests their giver did not offer stay passed until the giver offers them (#161)', () => {
 	const GUIDE = `
 		Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Crossroads", minLevel = 10, maxLevel = 20, steps = {
 			{ title = "Thork", goals = {
@@ -197,8 +197,19 @@ test('a reload keeps the position: quests their giver did not offer stay passed 
 	const script = `emit({ at = E.GetStepIndex(), status = E.GetStepView(1).goals[1].status, why = E.GetStepView(1).goals[1].unavailable or false })`;
 	const [reload] = run({ guides: GUIDE, before: `${before}; w.onQuest(869, { 12 })`, saved: reloadOf(first.db), script });
 	assert.deepEqual(reload, { at: 2, status: 'skipped', why: 'offer' }, 'the reload keeps the player at the raptors');
-	const [levelled] = run({ guides: GUIDE, before: `w.level = 13; w.onQuest(869, { 12 })`, saved: reloadOf(first.db), script });
-	assert.deepEqual(levelled, { at: 1, status: 'active', why: false }, 'a level later Thork may offer it: asked again');
+	const asked = `
+		local w = stub.world
+		local r = { at = E.GetStepIndex(), why = E.GetStepView(1).goals[1].unavailable or false }
+		w.gossip(3429, { available = { { questID = 870 } } }); flush()
+		r.offered = E.GetStepIndex()
+		emit(r)
+	`;
+	const [levelled] = run({ guides: GUIDE, before: `w.level = 13; w.onQuest(869, { 12 })`, saved: reloadOf(first.db), script: asked });
+	assert.deepEqual(levelled, { at: 2, why: 'offer', offered: 1 }, 'a level later the guide stays at the raptors; Thork offering it takes it back');
+	// Saves from before kept the level the quest was refused at.
+	const older = reloadOf({ ...first.db, offers: { 870: 12 } });
+	const [old] = run({ guides: GUIDE, before: `w.level = 13; w.onQuest(869, { 12 })`, saved: older, script: asked });
+	assert.deepEqual(old, { at: 2, why: 'offer', offered: 1 });
 });
 
 test('a pack update that moves steps keeps check-offs, skips and the place the player was looking at', () => {
