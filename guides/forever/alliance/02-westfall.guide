@@ -84,7 +84,8 @@ next forever/alliance/03-darkshore
 # see above) and its follow-up Explosive Consultation (92752), which only
 # leads back to Alba and the Deadmines.
 # Skyborne turn in Journey to Sentinel Hill (98021).
-# Alba Fairmoon's whole chain (92742-92753, 92819) is not for Humans on
+# Alba Fairmoon's whole chain (92742, 92744, 92745, 92747, 92748, 92749,
+# 92750, 92751, 92752, 92753, 92819) is not for Humans on
 # Forever: Wowhead Forever lists Dwarf, Night Elf, Gnome and Skyborne (#144).
 # Its goals carry `only Dwarf,Gnome,NightElf,Skyborne`; the two mine steps,
 # which are only for 92745, carry it on the step.
@@ -93,7 +94,7 @@ next forever/alliance/03-darkshore
 
 step Sentinel Hill
   zone Westfall
-  tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan and Alba Fairmoon on the south side of the hill, next to the inn and Thor the gryphon master.
+  tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan on the south side of the hill, next to the inn and Thor the gryphon master.
   accept 6181 only Human                      -- Quartermaster Lewis
   turnin 6181 only Human                      -- Thor; skip the free flight it offers
   sethome "Sentinel Hill"
@@ -102,7 +103,7 @@ step Sentinel Hill
   accept 12                                   -- Gryan Stoutmantle
   accept 102                                  -- Captain Danuvin
   accept 153                                  -- Scout Galiaan
-  accept 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
+  accept 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon, beside Scout Galiaan
   accept 92744 only Dwarf,Gnome,NightElf,Skyborne
 
 # ---------------------------------------------------------------- Saldean's and the Jansen Stead
@@ -116,7 +117,7 @@ step Saldean's Farm
   accept 92911
 
 step The Jansen Stead
-  tip Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go and fill the vial at the stead's well.
+  tip Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go.
   accept 36                                   -- Verna Furlbrow
   accept 151
   accept 64                                   -- Farmer Furlbrow
@@ -257,7 +258,7 @@ step Shaman training
 
 step Stormwind
   zone Stormwind City
-  tip Fly or ride to Stormwind. Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Park (Druids). Sprite Jumpsprocket works in the Dwarven District, Morgan Pestle in the Trade District.
+  tip Fly or ride to Stormwind. Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Park (Druids).
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 12, 14 and 16 spells
   buy 2449 x5 npc 1313 optional only NightElf,Druid -- Earthroot for Gathering the Cure (6123) in Darkshore: Maria Lumere, Alchemy Supplies; herbalists pick it there instead
   turnin 92748 only Dwarf,Gnome,NightElf,Skyborne -- Sprite Jumpsprocket, Dwarven District
