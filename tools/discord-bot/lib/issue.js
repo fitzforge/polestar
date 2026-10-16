@@ -1,6 +1,6 @@
 'use strict';
 // What the bot writes to GitHub for a #bugs post: the issue's title, body
-// and labels, the comments for the reporter's follow-ups, and the hidden
+// and labels, the comments for the thread's follow-ups, and the hidden
 // marker that ties an issue to its Discord thread. Pure functions: the
 // Discord message goes in, Markdown comes out.
 //
@@ -173,10 +173,12 @@ function issueBody(post) {
 	return out.join('\n');
 }
 
-// A follow-up from the reporter, as an issue comment.
+// A follow-up in the thread, as an issue comment: the reporter's, or
+// another player's.
 function followUpComment(msg) {
-	const { report, author, guild, thread, message, files = [] } = msg;
-	const out = [`**${cell(author)}** added on [Discord](${threadUrl(guild, thread, message)}):`, ''];
+	const { report, author, reporter = false, guild, thread, message, files = [] } = msg;
+	const head = reporter ? `**${cell(author)}** (the reporter) added on` : `**${cell(author)}** commented on`;
+	const out = [`${head} [Discord](${threadUrl(guild, thread, message)}):`, ''];
 	if (report.description) out.push(quote(report.description), '');
 	if (report.details) out.push(fence(report.block), '');
 	if (files.length) out.push(mediaSection(files), '');

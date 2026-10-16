@@ -1,6 +1,7 @@
 'use strict';
-// Discord #bugs to GitHub issues: a new post becomes an issue, the reporter's
-// later messages its comments, an edit of the first message its new body.
+// Discord #bugs to GitHub issues: a new post becomes an issue, every later
+// message in its thread (the reporter's and other players') a comment, an
+// edit of the first message its new body.
 // The bot keeps no database: an issue's body carries its thread's id (the
 // marker), the thread carries the bot's "Tracked as #N" reply, and both are
 // read back on start, so a restart neither loses nor repeats a post.
@@ -177,21 +178,23 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		});
 	}
 
-	// A message in a thread: the post itself, or a follow-up from its reporter.
+	// A message in a thread: the post itself, or a follow-up, the reporter's
+	// or anyone else's (another player's confirmation or a Wowhead link is
+	// context for whoever triages the issue).
 	async function message(m) {
 		if (m.channel_id === m.id) return newPost(m.id);
 		if (!m.author || m.author.bot || m.webhook_id) return null;
 		const thread = await getThread(m.channel_id);
 		if (!inForum(thread)) return null;
 		return serial(thread.id, async () => {
-			if (m.author.id !== thread.owner_id) return null;
 			const n = await issueFor(thread.id);
 			if (!n) return null;
 			const report = parseReport(I.discordToText(m.content, m.mentions));
 			const f = await files(thread.guild_id, thread.id, m);
 			if (!report.description && !report.details && !f.length) return null;
 			const author = await displayName(thread.guild_id, m.author, m.member);
-			await github.comment(n, I.followUpComment({ report, author, guild: thread.guild_id, thread: thread.id, message: m.id, files: f }));
+			const reporter = m.author.id === thread.owner_id;
+			await github.comment(n, I.followUpComment({ report, author, reporter, guild: thread.guild_id, thread: thread.id, message: m.id, files: f }));
 			log.info(`#${n}: added ${author}'s follow-up ${m.id}`);
 			return n;
 		});

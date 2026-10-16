@@ -13,7 +13,7 @@ sequenceDiagram
   P->>D: post: what went wrong, the report, screenshots
   B->>G: issue with labels, screenshots on the bug-media branch
   B->>D: "Tracked as #N", tag Tracked
-  P->>D: follow-up in the thread
+  P->>D: follow-up in the thread (the reporter or another player)
   B->>G: comment on the issue
   G->>D: closed: "fixed" / "not changing" / "duplicate", tag, lock (Action)
   G->>D: release published: "the fix is out in 0.2.x" (Action)
@@ -22,7 +22,7 @@ sequenceDiagram
 | What happens | Who does it | What the player sees |
 |---|---|---|
 | A new post | the bot, at once | "Tracked as fitzforge/polestar#N", tag **Tracked** |
-| The reporter writes again in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue. Other people's replies stay on Discord |
+| Anyone writes in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue, the reporter's marked "(the reporter)". The bot's own messages are not copied |
 | The reporter edits the post's first message | the bot | nothing; the issue body is written again |
 | Issue closed as **completed** (button, or `Fixes #N` in a commit) | `discord-issue-sync.yml` | ping: "This is fixed and will ship in the next Polestar update", tag **Fixed**, thread locked |
 | Issue closed as **not planned** | the same | ping: "We've decided not to change this one" (or, from `/close`, "No change is needed here", "We couldn't reproduce this one", "We're closing this one without a fix for now"), quoting your last comment on the issue as the reason; tag **Won't fix**, locked |

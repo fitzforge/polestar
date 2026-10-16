@@ -1,8 +1,8 @@
 'use strict';
 // The Discord bug bot (tools/discord-bot): reading the addon's report back
 // out of a #bugs post, filing posts as issues exactly once, carrying the
-// reporter's follow-ups and edits over, and telling the thread when the
-// issue closes, reopens or ships.
+// thread's follow-ups (the reporter's and other players') and edits over,
+// and telling the thread when the issue closes, reopens or ships.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -139,16 +139,21 @@ test('backfill leaves locked, tagged and older posts alone', async () => {
 	assert.deepEqual(github.issues.map((i) => i.title), ['New one']);
 });
 
-test("the reporter's follow-ups become comments; other people's do not", async () => {
+test("every player's follow-up becomes a comment, the reporter's marked as theirs; the bot's own messages and empty ones do not", async () => {
 	const { discord, github, sync } = setup();
 	discord.post('1001', { content: POST });
 	await sync.newPost('1001');
-	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u2', content: 'same for me' }));
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u2', content: 'Shows green until 85, not 100: https://www.wowhead.com/forever/spell=2392' }));
 	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u1', content: 'It happens at step 20 too', attachments: [{ id: 'a9', filename: 'b.jpg', content_type: 'image/jpeg', size: 5, url: 'y' }] }));
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u3', content: '' }));
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u4', content: 'I am a bot', bot: true }));
 	const comments = github.commentsByIssue.get(1);
-	assert.equal(comments.length, 1);
-	assert.match(comments[0].body, /It happens at step 20 too/);
-	assert.match(comments[0].body, /bug-media\/discord\/1001\/a9-b\.jpg/);
+	assert.equal(comments.length, 2);
+	assert.match(comments[0].body, /^\*\*someone\*\* commented on \[Discord\]/);
+	assert.match(comments[0].body, /green until 85, not 100/);
+	assert.match(comments[1].body, /^\*\*someone\*\* \(the reporter\) added on \[Discord\]/);
+	assert.match(comments[1].body, /It happens at step 20 too/);
+	assert.match(comments[1].body, /bug-media\/discord\/1001\/a9-b\.jpg/);
 });
 
 test('editing the first message rewrites the issue body, once per change', async () => {

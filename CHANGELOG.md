@@ -126,6 +126,10 @@
   needed, Can't reproduce, Not resolved, Duplicate) and an optional note,
   closes the issue with it, and the reporter hears it in those words with
   the note quoted (`tools/discord-bot/README.md`).
+- `tools/discord-bot`: every player's message in a tracked #bugs thread
+  becomes a comment on its issue, not only the reporter's: another player's
+  confirmation or Wowhead link is context for whoever triages it. The
+  reporter's comments say "(the reporter)".
 
 ## 0.2.4 (2026-10-16)
 
