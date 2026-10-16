@@ -491,6 +491,18 @@ emit(sq.hoverUnit(6, true))         -- GUID is a secret value (combat): no lines
 	assert.deepEqual(secret, ['?']);
 });
 
+test('a French client: the "Starts a quest" line reads the client title, the database one until the client has it', () => {
+	const [before, after, loads] = run(`
+emit(sq.hoverItem(1972))
+w.titles[17] = "Une note étrange"
+emit(sq.hoverItem(1972))
+emit(table.concat(w.loads, ","))
+`);
+	assert.deepEqual(before, ['?', 'Starts a quest: | A Strange Note']);
+	assert.deepEqual(after, ['?', 'Starts a quest: | Une note étrange']);
+	assert.equal(loads, 'quest:17', 'the missing title is asked for once');
+});
+
 test('object tooltips by id or, without one, by name', () => {
 	const [byId, byName] = run(`
 w.accept(18, { { text = "Bundle of Wood: 0/1", type = "object", required = 1 } })

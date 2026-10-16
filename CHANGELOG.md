@@ -5,10 +5,12 @@
 ### For players
 
 - In a client in another language than English, quest titles and item names
-  read in the client's language in the guide window and the arrow's label. A
-  name the game has not loaded yet shows in English for a moment, then in
-  your language once it arrives. NPC and object names, places and guide
-  notes are still in English.
+  read in the client's language: in the guide window and the arrow's label,
+  the Dungeons panel, rewards, the "Starts a quest" line of item tooltips,
+  the quest markers' tooltips, the missable-quest warning and the vendor
+  auto-buy messages. A name the game has not loaded yet shows in English for
+  a moment, then in your language once it arrives. NPC and object names,
+  places and guide notes are still in English.
 
 ## 0.2.4 (2026-10-16)
 

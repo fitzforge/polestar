@@ -1257,7 +1257,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 	local g = STATE_GLYPH[state]
 	b.Glyph:SetTexture(Theme.Media(g[1]))
 	W.Color(b.Glyph, g[2])
-	b.Title:SetText(q.title or (L["Quest"] .. " " .. tostring(q.id)))
+	b.Title:SetText(ns.Names.Quest(q.id, q.title) or (L["Quest"] .. " " .. tostring(q.id)))
 	-- Done: the muted text colour (held legible), its chip says so.
 	if state == "done" then W.Color(b.Title, "textMuted") else paintRGB(b.Title, difficulty(q.level, plevel)) end
 	-- Right of the title line: the state, then the faction mark.
@@ -1381,7 +1381,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 				r.Glyph:SetSize(5, 5)
 				W.Color(r.Glyph, "textMuted")
 			end
-			r.Title:SetText(cq.title or (L["Quest"] .. " " .. tostring(id)))
+			r.Title:SetText(ns.Names.Quest(id, cq.title) or (L["Quest"] .. " " .. tostring(id)))
 			if cs == "done" then W.Color(r.Title, "textMuted") else paintRGB(r.Title, difficulty(cq.level, plevel)) end
 			local sub = {}
 			if cq.level then sub[#sub + 1] = format(L["Level %d"], cq.level) end
@@ -1514,8 +1514,8 @@ local function renderBosses(key, f, plevel)
 				local row = tie(nt)
 				local spec = TIE[t.how] or TIE.involved
 				row.Glyph:SetTexture(Theme.Media(spec[1]))
-				local qh = "|c" .. hexOf(difficulty(q.level, plevel)) .. (q.title or "") .. "|r"
-				local ih = "|c" .. Theme.Hex("item") .. (t.itemName or L["an item"]) .. "|r"
+				local qh = "|c" .. hexOf(difficulty(q.level, plevel)) .. (ns.Names.Quest(t.id, q.title) or "") .. "|r"
+				local ih = "|c" .. Theme.Hex("item") .. (ns.Names.Item(t.item, t.itemName) or L["an item"]) .. "|r"
 				if t.how == "item" or t.how == "starts" then
 					row.Text:SetText(format(spec[2], ih, qh))
 				else
@@ -1567,7 +1567,7 @@ local function renderMap(key, d, f)
 					byGiver[id] = gq
 					order[#order + 1] = gq
 				end
-				gq.lines[#gq.lines + 1] = q.title
+				gq.lines[#gq.lines + 1] = ns.Names.Quest(q.id, q.title)
 			end
 		end
 		for _, gq in ipairs(order) do

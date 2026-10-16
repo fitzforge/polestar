@@ -251,13 +251,13 @@ local function money(copper)
 	return table.concat(parts, " ")
 end
 
--- An item name in its quality colour: the client's quality when the item is
--- cached, else the compiled one; the item token without either.
+-- An item name in its quality colour: the client's name and quality when
+-- the item is cached, else the compiled ones; the item token without either.
 local function rewardItem(it)
 	local C = ns.Compat
 	local q = (C and C.GetItemQuality and C.GetItemQuality(it.item)) or it.quality
 	local hex = q and C and C.ItemQualityHex and C.ItemQualityHex(q) or Theme.Hex("item")
-	return "|c" .. hex .. (it.itemName or ("#" .. it.item)) .. "|r"
+	return "|c" .. hex .. (ns.Names.Item(it.item, it.itemName) or ("#" .. it.item)) .. "|r"
 end
 
 local function itemList(list, joiner)

@@ -762,9 +762,10 @@ local function paintReward(t, e)
 	t.psReward = e
 	local icon, name, hex
 	if e.item then
-		W.PrefetchItem(e.item)
+		-- The client's name asks for the item when it is not cached (the
+		-- tooltip then has it).
+		name = ns.Names.Item(e.item, e.itemName) or (L["Item"] .. " " .. e.item)
 		icon = C.ItemIcon and C.ItemIcon(e.item)
-		name = e.itemName or (L["Item"] .. " " .. e.item)
 		local q = (C.GetItemQuality and C.GetItemQuality(e.item)) or e.quality
 		hex = q and C.ItemQualityHex and C.ItemQualityHex(q)
 	elseif e.spell then

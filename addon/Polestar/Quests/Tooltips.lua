@@ -80,7 +80,7 @@ local function addStartLines(tt, itemID)
 	for i = 1, #list do
 		local q = list[i]
 		if not ns.Compat.IsQuestCompleted(q) and not ns.Compat.IsOnQuest(q) then
-			addLine(tt, L["Starts a quest"] .. ":", Q.GetQuestTitle(q) or tostring(q), qc, tc)
+			addLine(tt, L["Starts a quest"] .. ":", ns.Names.Quest(q, Q.GetQuestTitle(q)) or tostring(q), qc, tc)
 			added = added + 1
 		end
 	end

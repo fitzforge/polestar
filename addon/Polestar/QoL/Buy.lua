@@ -92,7 +92,8 @@ function Buy.Run()
 		if w then
 			want[id] = nil
 			local name, _, price, perStack, numAvailable, _, _, extendedCost = GetMerchantItemInfo(i)
-			name = w.name or name or ("item " .. id)
+			-- The merchant's name for it: the client's language.
+			name = name or w.name or ("item " .. id)
 			local need = w.count - Client.ItemCount(id) - onTheWay(id)
 			if need > 0 and not extendedCost and (price or 0) > 0 then
 				perStack = (perStack and perStack > 0) and perStack or 1

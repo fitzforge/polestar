@@ -262,8 +262,10 @@ once a session (`Compat.RequestQuest`, `Compat.RequestItem`); when one asked
 there arrives (`QUEST_DATA_LOAD_RESULT`, `ITEM_DATA_LOAD_RESULT`, never for
 another addon's IDs), `NAMES_CHANGED` fires and the Engine re-evaluates, so
 the guide window and the arrow's label redraw. The Engine's views (goal
-texts, details, starters, unavailable texts, skips) read names through it.
-Comparisons stay on the compiled names (a collect's source named
+texts, details, starters, unavailable texts, skips), the Dungeons panel, the
+reward lines and tiles, the item tooltip's "Starts a quest" line, the
+available-quest marker tooltips and the missable-quest warning read names
+through it. Comparisons stay on the compiled names (a collect's source named
 as the item, the same title of another version of a quest).
 
 ### Compat — the client's game data goes through here
