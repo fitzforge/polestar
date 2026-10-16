@@ -1045,6 +1045,7 @@ L["Exploration"] = "탐험"
 L["Legacy"] = "옛 콘텐츠"
 L["Collectibles"] = "수집품"
 L["Sections"] = "섹션"
+L["guide status: Completed"] = "완료됨"
 
 -- UI/Lookup.lua
 L["Companion"] = "애완동물"

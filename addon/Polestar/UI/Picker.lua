@@ -629,7 +629,7 @@ local function layoutCards(tabs, active, byId, y)
 		c.Title:SetText(t.title or t.guideId)
 		local total = t.total or t.stepCount or 0
 		if t.complete then
-			c.Step:SetText(L["Complete"])
+			c.Step:SetText(ns.LC("guide status", "Completed"))
 		elseif t.stepIndex then
 			c.Step:SetText(string.format(L["Step %d of %d"], t.stepIndex, t.stepCount or 0))
 		else

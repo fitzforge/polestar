@@ -1045,6 +1045,7 @@ L["Exploration"] = "Исследование"
 L["Legacy"] = "Устаревшие"
 L["Collectibles"] = "Коллекции"
 L["Sections"] = "Разделы"
+L["guide status: Completed"] = "Завершён"
 
 -- UI/Lookup.lua
 L["Companion"] = "Питомец"

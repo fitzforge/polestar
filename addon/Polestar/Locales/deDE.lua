@@ -93,7 +93,7 @@ L["until skill %d"] = "bis Fertigkeit %d"
 L["Craft"] = "Fertige"
 L["Reach %s with"] = "Erreiche %s bei"
 L["Explore"] = "Erkunde"
-L["Complete"] = "Abgeschlossen"
+L["Complete"] = "Abschließen"
 L["Riding"] = "Reiten"
 
 -- Core/Guides.lua
@@ -409,6 +409,7 @@ L["Recently loaded"] = "Zuletzt geladen"
 L["Guides you load show up here."] = "Geladene Guides erscheinen hier."
 L["All"] = "Alle"
 L["Sections"] = "Abschnitte"
+L["guide status: Completed"] = "Abgeschlossen"
 
 -- UI/Report.lua
 L["skipped"] = "übersprungen"
