@@ -158,6 +158,41 @@ test('the ride observer times a loop from the positions along it and corrects a 
 	assert.equal(secretOk, true);
 });
 
+// Forever's client gives UnitPosition a height of exactly 0 (Core/Compat.lua
+// reads it as no height). Taken as real, a ride on a track up in the air (a
+// zeppelin at 120 yd) was 120 yd off its track and never timed.
+test('C5: a ride is timed when the client reports its height as 0, along a track up in the air', () => {
+	const [timed] = runAddon({
+		addons: [TRANSIT],
+		login: true,
+		script: `
+			local T = Polestar.Transit
+			T.Register({
+				routes = {
+					zep = { kind = "zeppelin", period = 100000, fit = { samples = 10, span = 15000, speed = 12 },
+						stops = { { 0, 20000, 0, 0, 0 }, { 50000, 70000, 0, 3000, 0 } },
+						frames = { { 0, 20000, 0, 0, 0, 0, 120 }, { 50000, 70000, 0, 3000, 0, 0, 120 }, { 100000, 100000, 0, 0, 0, 1, 120 } } },
+				},
+				services = {
+					["zep-x"] = { kind = "zeppelin", name = "A - B", ends = { "A", "B" }, board = 10, pre = 0, post = 0,
+						wait = { a = 60, b = 60 }, ride = { a = 30, b = 30 }, routes = { { route = "zep", a = { 1 }, b = { 2 } } } },
+				},
+			})
+			local function nowMs() return T.Now() * 1000 end
+			local EPOCH = nowMs() - 25000
+			function UnitPosition()
+				local p = (nowMs() - EPOCH) % 100000
+				return 3000 * math.min(1, math.max(0, (p - 20000) / 30000)), 0, 0, 0
+			end
+			stub.advance(25)
+			local s
+			for _, realm in pairs(Polestar.DB().transit or {}) do s = realm.zep end
+			emit(s and s.source or false)
+		`,
+	}).emitted;
+	assert.equal(timed, 'you', 'timed from the ride, matched on the ground plane');
+});
+
 test('lifts: found near a crossing, listed, untimed "about" captions then timed, either landing when the side is unknown (K3)', () => {
 	const [near, far, list, untimed, timed, either] = lua(`
 		emit({ T.LiftNear(0, 510, 495) })
@@ -376,7 +411,7 @@ test('`travel build` with timetable sources: Transit data in TravelData.lua, loa
 		const cm = path.join(sources, 'cmangos', DB_REV.slice(0, 12));
 		fs.mkdirSync(cm, { recursive: true });
 		fs.writeFileSync(path.join(cm, 'transit.json'), JSON.stringify({ spawns: { 20649: [{ guid: 44892, map: 0, x: 1596, y: 292, z: -41, o: 0 }] }, portals: {}, positions: {} }));
-		const opts = { dataDir: path.join(FIX, 'data'), recordingsDir: path.join(FIX, 'recordings'), sourcesDir: sources, offline: true };
+		const opts = { dataDir: path.join(FIX, 'data'), recordingsDir: path.join(FIX, 'recordings'), sourcesDir: sources, offline: true, shippedFile: null };
 		const one = await buildTravel(opts);
 		const two = await buildTravel(opts);
 		assert.equal(one.lua, two.lua);

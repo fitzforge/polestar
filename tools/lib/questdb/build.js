@@ -9,7 +9,7 @@
 //
 //   quests[id]  = { title, level, minLevel, races, classes, faction, start, finish,
 //                   startItem, pre, excl, objectives, zone, events, skill, holiday,
-//                   preAll, raceHigh }
+//                   preAll, raceHigh, items }
 //     races     the race mask's low 32 bits (the Era races), for bit.band
 //     raceHigh  the mask's Skyborne bits as a number: +1 High Order (Alliance,
 //               mask bit 2^32), +2 Windshaper (Horde, 2^33). 3 for a pfQuest-only
@@ -17,6 +17,9 @@
 //     faction   1 Alliance, 2 Horde, nil either (from the race mask, else the givers)
 //     start/finish  one ref or a list of refs: NPC id > 0, object id < 0
 //     startItem one item id or a list; excl: one id or a list
+//     items     the items the quest hands over (QuestieDB's sourceItemId and
+//               requiredSourceItems: Bethor's Scroll for Thule Ravenclaw), one
+//               id or a list; never its rewards
 //     pre / preAll  blocking prerequisites (tools/lib/data/prereqs.js, breadcrumbs
 //               dropped): one of `pre` must be done, and every one of `preAll`
 //     objectives  flat triples kind, id, count: kind 1 kill (npc), 2 item, 3 object,
@@ -172,6 +175,7 @@ function buildQuestDB({ dataDir, options = {} } = {}) {
 			q.event ? (Number(q.event) || 1) : null,
 			oneOrList(preAll.filter((p) => quests[p])),
 			q.races ? (forever ? raceParts(q.races).high : 3) : null,
+			oneOrList([...new Set([...list([q.sourceItem]), ...list(q.requiredItems)])].sort(byNum)),
 		]);
 	}
 
@@ -337,7 +341,7 @@ function emitFiles(db, meta) {
 	}
 	frameLines.push('\t} })', 'end');
 	files['MapFrames.lua'] = frameLines.join('\n') + '\n';
-	files['Quests.lua'] = dataFile('quests', db.quests, 'title, level, minLevel, races, classes, faction, start, finish, startItem, pre (one of), excl, objectives, zone, events, skill, holiday, preAll (every one), raceHigh');
+	files['Quests.lua'] = dataFile('quests', db.quests, 'title, level, minLevel, races, classes, faction, start, finish, startItem, pre (one of), excl, objectives, zone, events, skill, holiday, preAll (every one), raceHigh, items (handed over)');
 	files['Npcs.lua'] = dataFile('npcs', db.npcs, 'name, then per map: uiMapID, frame (0 Era, 1 live), cluster count, x, y, radius (yd) per cluster');
 	files['Objects.lua'] = dataFile('objects', db.objects, 'name, then per map: uiMapID, frame (0 Era, 1 live), cluster count, x, y, radius (yd) per cluster');
 	files['Items.lua'] = dataFile('items', db.items, 'name, NPC source count, (npc, chance)..., object source count, (object, chance)..., vendors...');

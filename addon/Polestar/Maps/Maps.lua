@@ -29,7 +29,7 @@ ns.RegisterDefaults("maps", {
 	travelMinimap = false,  -- travel icons on the minimap too
 	flightTimer = true,
 	instances = true,       -- record instance entries and runs
-	instanceDisplay = true, -- compact tracker on screen
+	instanceDisplay = false, -- compact tracker on screen, opt in
 	perHour = 5,            -- Classic: 5 instances per hour per account
 	perDay = 30,            -- Classic Era: 30 instances per day per account (0 = no daily cap)
 	timerPos = false,       -- { point, x, y } once dragged

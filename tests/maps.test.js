@@ -343,11 +343,12 @@ test('saved raid lockouts count down, and the slash command reports everything',
 	assert.match(text, /Forever may differ/);
 });
 
-test('the compact tracker shows while it matters and follows its settings', () => {
+test('the compact tracker is off until a player turns it on, then shows while it matters and follows its settings', () => {
 	const [out] = run(`
 		local f = stub.frame("PolestarInstanceTracker")
-		local idle = f:IsShown()
 		m.enter("Ragefire Chasm", 389)
+		local default = f:IsShown()
+		Polestar.Set("maps.instanceDisplay", true)
 		local inside = { shown = f:IsShown(), count = f.Count:GetText(), run = f.Run:GetText() }
 		m.leave()
 		local after = f:IsShown()
@@ -358,8 +359,8 @@ test('the compact tracker shows while it matters and follows its settings', () =
 		local capped = f.Wait:GetText()
 		m.jump(3601)
 		stub.advance(1.1)
-		emit({ idle = idle, inside = inside, after = after, off = off, capped = capped, expired = f:IsShown() })`);
-	assert.equal(out.idle, false);
+		emit({ default = default, inside = inside, after = after, off = off, capped = capped, expired = f:IsShown() })`);
+	assert.equal(out.default, false, 'off by default, even inside a new instance');
 	assert.deepEqual(out.inside, { shown: true, count: '1/5 this hour', run: 'Ragefire Chasm' });
 	assert.equal(out.after, true, 'still shown while an entry is inside the hour');
 	assert.equal(out.off, false);

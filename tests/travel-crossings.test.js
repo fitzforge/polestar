@@ -28,6 +28,7 @@ const opts = (extra = {}) => ({
 	recordingsDir: path.join(FIX, 'recordings'),
 	sourcesDir: path.join(FIX, 'sources'),
 	offline: true,
+	shippedFile: null, // the fixture maps: no shipped crossings
 	...extra,
 });
 
@@ -145,7 +146,7 @@ test('the local crossings file builds Polestar_Travel (never TravelData.lua), an
 
 		// The CLI writes the addon where it is told and reports the counts.
 		const cli = spawnSync(process.execPath, [
-			path.join(ROOT, 'tools', 'polestar.js'), 'travel', 'build', '--offline', '--data', path.join(FIX, 'data'), '--recordings', path.join(FIX, 'recordings'),
+			path.join(ROOT, 'tools', 'polestar.js'), 'travel', 'build', '--offline', '--shipped', 'none', '--data', path.join(FIX, 'data'), '--recordings', path.join(FIX, 'recordings'),
 			'--sources', path.join(FIX, 'sources'), '--crossings', CROSSINGS, '--json', path.join(dir, 'cli.json'), '--lua', path.join(dir, 'Cli.lua'),
 			'--travel-addon', path.join(dir, 'CliTravel'),
 		], { encoding: 'utf8' });
@@ -184,4 +185,49 @@ test('the local crossings file passes validation', { skip: !(fs.existsSync(LOCAL
 	assert.deepEqual(v.errors, []);
 	assert.ok(v.crossings.length > 0);
 	console.log(`local crossings: ${v.crossings.length} crossings, ${v.open.length} open-ground pairs, ${v.chains.length} approach chains`);
+});
+
+test('travel import: Carbonite\'s walks between zones become crossings, both ways unless marked one way; its transports are left out', () => {
+	const { carboniteCrossings } = require('../tools/lib/travel/carbonite');
+	const lua = [
+		'local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")',
+		'Nx.ZoneConnections = {',
+		'    "7|1||1429|32.33|49.86||1453|73.34|90.73", -- [1]',
+		'    "6|1||1436|56|47||1429|20|80", -- [2] one way',
+		'    "7|1||1429|33|50||1453|72|89", -- [3] a second point on the same border',
+		'    "7|1||1429|0|0||1436|0|0", -- [4] anywhere along the border: not a crossing point',
+		'    "3|2|"..L["Tram to Stormwind City"].."|1429|50|50|"..L["Tram to Ironforge"].."|1453|60|60", -- [5]',
+		'}',
+	].join('\n');
+	const doc = carboniteCrossings(lua, frames, { source: 'test' });
+	assert.deepEqual(doc.crossings.map((c) => [c.id, c.oneWay === true, c.a.map, c.b.map, c.a.radius]), [
+		['carbonite-elwynn-forest--stormwind-city', false, 1429, 1453, 30],
+		['carbonite-westfall--elwynn-forest', true, 1436, 1429, 30],
+		['carbonite-elwynn-forest--stormwind-city-2', false, 1429, 1453, 30],
+	]);
+	assert.deepEqual(validateCrossings(doc, frames).errors, []);
+	assert.throws(() => carboniteCrossings('Nx.ZoneConnections = {}', frames, { source: 'test' }), /no walking zone connections/);
+});
+
+// The shipped crossings (tools/lib/travel/crossings.json, in TravelData.lua),
+// on the real maps when this checkout has them built.
+const SHIPPED = require('../tools/lib/travel/build').SHIPPED_CROSSINGS;
+const realData = fs.existsSync(path.join(DATA, 'map-frames.json')) || 'data/forever not built (node tools/polestar.js data build)';
+
+// Fitz, 2026-10-16: from the Barrens (61.66,35.46) to his map marker by
+// Astranaar (Ashenvale 41.21,47.97), a Horde character who knows Ratchet,
+// the Crossroads, Sun Rock Retreat, Camp Taurajo, Orgrimmar and Thunder Bluff
+// flew to Sun Rock Retreat and walked straight over the ridge between
+// Stonetalon and Ashenvale. The way through is the Talondeep Path.
+test('shipped crossings: from the Barrens to Astranaar the walk from Sun Rock Retreat goes through the Talondeep Path, not over the ridge', { skip: realData === true ? false : realData }, () => {
+	const real = new Frames(JSON.parse(fs.readFileSync(path.join(DATA, 'map-frames.json'), 'utf8')).era, JSON.parse(fs.readFileSync(path.join(DATA, 'zones.json'), 'utf8')));
+	const v = validateCrossings(JSON.parse(fs.readFileSync(SHIPPED, 'utf8')), real);
+	assert.deepEqual(v.errors, []);
+	const talondeep = v.crossings.find((c) => c.a.map === 1440 && c.b.map === 1442);
+	assert.ok(talondeep, 'Ashenvale - Stonetalon Mountains');
+	const legs = planRoute({ from: { map: 1413, x: 61.66, y: 35.46 }, to: { map: 1440, x: 41.21, y: 47.97 }, faction: 'Horde', known: ['80', '25', '29', '77', '23', '22'] });
+	const at = (p, end) => Math.hypot(p.wx - end.wx, p.wy - end.wy) < 1;
+	const through = legs.findIndex((l) => l.kind === 'walk' && at(l.to, talondeep.b));
+	assert.ok(through >= 0, `a walk reaches the Stonetalon end of the Talondeep Path: ${legs.map((l) => `${l.kind} ${l.label}`).join(' | ')}`);
+	assert.ok(at(legs[through + 1].to, talondeep.a), 'and goes on to its Ashenvale end');
 });

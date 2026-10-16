@@ -6,9 +6,12 @@
 // teleports Nav/Transit.lua reads: tools/lib/travel/timetable.js); the
 // flights' tracks -> addon/Polestar/Maps/FlightPaths.lua (what the map's
 // route lines draw).
-// Crossings from the optional local crossings file
-// (data/local/crossings.json) go into the local data addon Polestar_Travel
-// instead, never into TravelData.lua. Same inputs give byte-identical outputs.
+// Crossings: the shipped crossings file (tools/lib/travel/crossings.json, from
+// `travel import`: Carbonite's zone connections, GPL-3.0) goes into
+// TravelData.lua as the full crossing data; the optional local crossings
+// file (data/local/crossings.json) goes into the local data addon
+// Polestar_Travel, never into TravelData.lua, and adds to it in game.
+// Same inputs give byte-identical outputs.
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -26,6 +29,7 @@ const { readRecordings } = require('../data/recordings');
 
 const { ROOT, DATA, SOURCES } = require('../paths');
 const PATH_CHUNK = 1000; // records per Lua function (keeps each under Lua 5.1's constant limits)
+const SHIPPED_CROSSINGS = path.join(__dirname, 'crossings.json'); // committed, from `travel import`
 
 function readJson(file) {
 	if (!fs.existsSync(file)) throw new Error(`missing ${file} (run: node tools/polestar.js data build)`);
@@ -100,9 +104,13 @@ function emitLua(t) {
 	lines.push('\t},');
 	lines.push('})');
 	lines.push(...transitLua(t.transit));
+	if (t.crossings.shipped) {
+		lines.push(`-- zone crossings: ${t.crossings.shippedSource}`);
+		lines.push(...crossingsLua(t.crossings.shipped, t.frames, { complete: true, live: t.live }));
+	}
 	if (t.crossings.recorded.length) {
 		lines.push(`-- zone crossings learned from recorded play (used where a continent has full crossing data)`);
-		lines.push(...crossingsLua({ crossings: t.crossings.recorded, open: [], chains: [] }, t.frames, { complete: false }));
+		lines.push(...crossingsLua({ crossings: t.crossings.recorded, open: [], chains: [] }, t.frames, { complete: false, live: t.live }));
 	}
 	const pn = t.paths.nodes;
 	for (let i = 0; i < pn.length; i += PATH_CHUNK) {
@@ -189,12 +197,15 @@ function emitFlightLua(build, legs) {
 
 // --- build ------------------------------------------------------------------
 
-// crossingsFile: the optional local crossings file (default data/local/crossings.json
-// next to dataDir); absent -> no Polestar_Travel output.
+// shippedFile: the shipped crossings file (default SHIPPED_CROSSINGS,
+// committed); absent -> no shipped crossings. crossingsFile: the optional
+// local crossings file (default data/local/crossings.json next to dataDir);
+// absent -> no Polestar_Travel output.
 async function buildTravel({
 	dataDir = DATA,
 	recordingsDir = path.join(ROOT, 'data', 'recordings'),
 	sourcesDir = SOURCES,
+	shippedFile = SHIPPED_CROSSINGS,
 	crossingsFile = path.join(dataDir, '..', 'local', 'crossings.json'),
 	build,
 	foreverBuild,
@@ -259,6 +270,8 @@ async function buildTravel({
 	const paths = buildPaths({ recordings, frames });
 	const recorded = recordedCrossings(paths.zoneSteps, frames);
 	const local = readCrossingsFile(crossingsFile, frames);
+	const shipped = readCrossingsFile(shippedFile, frames);
+	const shippedSource = shipped ? JSON.parse(fs.readFileSync(shippedFile, 'utf8')).source || path.basename(shippedFile) : null;
 	const warnings = [...src.warnings, ...(forever ? forever.warnings : []), ...(transitTables ? transitTables.warnings : []), ...transitWarnings, ...taxi.warnings, ...tr.warnings, ...transit.warnings, ...inns.warnings, ...paths.warnings];
 
 	const sources = [{ name: 'Blizzard Classic Era client tables (wago.tools)', build: src.build, tables: Object.keys(src.urls), urls: src.urls }];
@@ -271,6 +284,7 @@ async function buildTravel({
 		{ name: 'data/forever map-frames.json', use: 'Era map frames; Forever (live) frames for maps Forever added or redrew' },
 		{ name: 'data/recordings', use: 'learned walking paths and recorded zone crossings', sessions: paths.sessions },
 	);
+	if (shipped) sources.push({ name: 'Carbonite (github.com/IrcDirk/Carbonite-Classic, GPL-3.0)', source: shippedSource, use: 'zone crossings (tools/lib/travel/crossings.json)' });
 	const result = {
 		schema: 1,
 		build: src.build,
@@ -286,6 +300,7 @@ async function buildTravel({
 			pathNodes: paths.nodes.length,
 			pathEdges: paths.edges.length,
 			recordedCrossings: recorded.length,
+			shippedCrossings: shipped ? shipped.crossings.length : 0,
 			timetables: Object.keys(transit.services).length,
 			portals: transit.portals.length,
 			teleports: transit.teleports.length,
@@ -295,14 +310,15 @@ async function buildTravel({
 		transports: tr.transports,
 		inns: inns.inns,
 		paths: { nodes: paths.nodes, edges: paths.edges, sessions: paths.sessions },
-		crossings: { recorded },
+		crossings: { recorded, shipped: shipped ? { crossings: shipped.crossings, open: shipped.open, chains: shipped.chains } : null, shippedSource },
 		transit: { routes: transit.routes, services: transit.services, portals: transit.portals, teleports: transit.teleports },
 		warnings,
 	};
-	const lua = emitLua({ ...result, frames });
+	const live = mapFrames.forever || {};
+	const lua = emitLua({ ...result, frames, live });
 	const flightLua = emitFlightLua(src.build, taxi.legs);
 	const localCounts = local && crossingCounts(local);
-	return { travel: result, lua, flightLua, warnings, travelAddon: local ? emitTravelAddon(local, frames) : null, localCounts };
+	return { travel: result, lua, flightLua, warnings, travelAddon: local ? emitTravelAddon(local, frames, live) : null, localCounts };
 }
 
 // travelAddonDir: where Polestar_Travel goes (written only when the build read a local crossings file).
@@ -322,4 +338,4 @@ function writeTravel({ travel, lua, flightLua, travelAddon }, { jsonOut, luaOut,
 	}
 }
 
-module.exports = { buildTravel, writeTravel, emitLua, luaStr, TRAVEL_ADDON };
+module.exports = { buildTravel, writeTravel, emitLua, luaStr, TRAVEL_ADDON, SHIPPED_CROSSINGS };

@@ -199,7 +199,7 @@ local function layoutOf(g)
 	if l then return l end
 	l = { stepOf = {}, accepts = {} }
 	for s, step in ipairs(g.steps) do
-		for _, goal in ipairs(step.goals) do
+		for gi, goal in ipairs(step.goals) do
 			l.stepOf[goal] = s
 			if goal.t == "accept" and goal.quest then
 				local list = l.accepts[goal.quest]
@@ -207,7 +207,7 @@ local function layoutOf(g)
 					list = {}
 					l.accepts[goal.quest] = list
 				end
-				list[#list + 1] = { s = s, step = step, goal = goal }
+				list[#list + 1] = { s = s, key = s .. ":" .. gi, step = step, goal = goal }
 			end
 		end
 	end
@@ -218,8 +218,9 @@ end
 -- A turn-in, complete or objective goal for a quest the character neither
 -- has nor has done, and that this guide does not (for this character) accept
 -- at or before that step, in a step the player has not skipped, with an
--- accept that is not left out as grey: it was picked up on another route, or
--- skipped, so it cannot be done here and no longer applies.
+-- accept that is not left out as grey nor checked off: it was picked up on
+-- another route, or skipped, or ticked without being taken, so it cannot be
+-- done here and no longer applies. Taking the quest brings the goals back.
 local function orphaned(goal)
 	local q = goal.quest
 	if not q or goal.t == "accept" or not guide then return false end
@@ -229,8 +230,10 @@ local function orphaned(goal)
 	local s = l.stepOf[goal]
 	if not s then return false end
 	local skipped = ns.CharState().skipped[guide.id]
+	local manual = ns.CharState().manual[guide.id]
 	for _, a in ipairs(l.accepts[q] or NONE) do
-		if a.s <= s and not (skipped and skipped[a.s]) and Guides.Matches(a.step.only, player) and Guides.Matches(a.goal.only, player) and not greySkipped(a.goal) then
+		if a.s <= s and not (skipped and skipped[a.s]) and not (manual and manual[a.key])
+			and Guides.Matches(a.step.only, player) and Guides.Matches(a.goal.only, player) and not greySkipped(a.goal) then
 			return false
 		end
 	end

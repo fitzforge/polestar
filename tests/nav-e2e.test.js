@@ -136,9 +136,10 @@ end
 `;
 
 // Runs the scenario; its emitted record goes to the test's diagnostics (the numbers behind each check).
-function run(t, script) {
+// shipped: only what the release zip carries (no local Polestar_Travel crossing data).
+function run(t, script, { shipped = false } = {}) {
 	const addons = ['Polestar', { name: 'Polestar_Guides', files: ['MapFrames.lua'] }];
-	if (fs.existsSync(path.join(ADDONS, 'Polestar_Travel', 'Polestar_Travel.toc'))) addons.push('Polestar_Travel');
+	if (!shipped && fs.existsSync(path.join(ADDONS, 'Polestar_Travel', 'Polestar_Travel.toc'))) addons.push('Polestar_Travel');
 	const [out] = runAddon({
 		stubs: ['stub_world.lua', 'stub_encoding.lua', 'stub_packs.lua'],
 		before: before(),
@@ -296,6 +297,23 @@ test('second review: after the path arrives the arrow, the panel\'s leg time and
 	assert.ok(Math.abs(out.arrow - out.header) <= 1, `arrow ${out.arrow} s, header ${out.header} s`);
 	assert.ok(Math.abs(out.leg - out.header) <= 1, `leg ${out.leg} s, header ${out.header} s`);
 	assert.ok(Math.abs(out.planned - out.header) <= 1, `the legs' planned times (${out.planned} s) and the header (${out.header} s)`);
+});
+
+// Forever's client answers UnitPosition with a height of exactly 0 (reported
+// from Ratchet's flight master, 2026-10-16, where the ground is at 12 yd).
+// Taken as real, the search started on the nearest surface within 10 yd of 0,
+// 20 yd down the slope towards the harbour, and the line went there and back.
+test('Z1: a height of 0 from UnitPosition is no height: the walk to Mebok Mizzyrix starts from the ground at Ratchet\'s flight master, never out towards the harbour', { skip }, (t) => {
+	const out = run(t, `
+		local c, sx, sy = C.MapToWorld(1413, 63.07, 37.08, "e")
+		place(1413, sx, sy, 0)
+		local f = guide(1413, 62.37, 37.62, "Mebok Mizzyrix")
+		local east = 0
+		for _, p in ipairs(f.points) do if sy - p.y > east then east = sy - p.y end end
+		emit({ c = c, z = f.from[3], east = east, n = #f.points })`);
+	assert.equal(out.c, 1);
+	assert.equal(out.z, undefined, 'searched without a height');
+	assert.ok(out.east < 3, `no point of the path is east of the player, towards the harbour (${out.east.toFixed(1)} yd east, ${out.n} points)`);
 });
 
 test('b: where the straight line is blocked (Thelsamar to the Stonewrought Dam) the arrow follows the detour', { skip }, (t) => {
@@ -586,8 +604,9 @@ test('every one of the 49 zones the guides walk in routes on the shipped maps (o
 	const geo = new Geo(JSON.parse(fs.readFileSync(path.join(DATA, 'map-frames.json'), 'utf8')), JSON.parse(fs.readFileSync(path.join(DATA, 'zones.json'), 'utf8')));
 	const src = fs.readFileSync(path.join(ADDONS, 'Polestar_Guides', 'Guides.lua'), 'utf8');
 	const byZone = new Map();
-	for (const m of src.matchAll(/map = (\d+), x = ([\d.]+), y = ([\d.]+)/g)) {
-		const w = geo.toWorld(+m[1], +m[2], +m[3], 'e');
+	// A goal's coordinates are in the Era frame with f = "e", else the live (Forever) frame (Compat.MapToWorld).
+	for (const m of src.matchAll(/map = (\d+), x = ([\d.]+), y = ([\d.]+)(?:, z = -?[\d.]+)?(, f = "e")?/g)) {
+		const w = geo.toWorld(+m[1], +m[2], +m[3], m[4] ? 'e' : 'l');
 		if (!w || ![0, 1].includes(w.c)) continue;
 		if (!byZone.has(+m[1])) byZone.set(+m[1], []);
 		byZone.get(+m[1]).push(w);
@@ -632,4 +651,138 @@ emit(out)`,
 	assert.equal(out.n, ZONES.length);
 	assert.deepEqual(Object.values(out.failed), [], 'every zone routes');
 	assert.ok(typeof out.zephras === 'number' && out.zephras > 100, `Zephras Isle routes on his map (${out.zephras})`);
+});
+
+// Fitz, 2026-10-16: a map marker near Astranaar; the route landed at a flight
+// point south-west of it and drew a straight dotted walk over the
+// Ashenvale/Stonetalon ridge. Until his coordinates come, the case from the
+// description, with what the release zip carries (no local crossing data): a
+// Horde character at the Crossroads who knows Sun Rock Retreat, Splintertree
+// Post and Zoram'gar Outpost, guided to Ashenvale 40,70, just north-east of
+// the ridge. Without crossing data for Kalimdor, straight x1.25 the route
+// lands at Sun Rock Retreat, south-west, and walks over the ridge; the
+// engine's walk from there runs 365 yd off that line, and from Splintertree
+// Post it is 240 yd shorter. With complete crossing data (Carbonite's, in
+// TravelData.lua) Sun Rock Retreat's walk must take the Talondeep Path and
+// the straight plan lands at Splintertree Post already; either way the
+// measured plan lands there and draws its last walk along the engine's path.
+test('Ashenvale 40,70 from the Crossroads: the route lands where the engine\'s walk is short (Splintertree Post, not Sun Rock Retreat over the ridge), and its last walk follows the engine\'s path', { skip }, (t) => {
+	const out = run(t, `
+		w.faction = "Horde"
+		Polestar.CharState().flags.taxi = { [22] = true, [23] = true, [25] = true, [29] = true, [58] = true, [61] = true, [77] = true }
+		local by = {}
+		for _, n in ipairs(N.GetTravelData().taxi) do by[n.id] = n end
+		local xr, sun, splinter = by[25], by[29], by[61]
+		place(xr.map, xr.wx, xr.wy)
+		-- Where the route lands, its last walk, and how the route lines draw that walk.
+		local function route()
+			local legs, ci = N.GetRoute()
+			local fly, walk
+			for i = ci, #legs do
+				if legs[i].kind == "fly" then fly = legs[i] end
+				if legs[i].kind == "walk" then walk = legs[i] end
+			end
+			local g = N.GetRouteGeometry().legs
+			local last = g[#g]
+			return { lands = fly and fly.to.name, yards = walk.yards, engine = walk.engine or false, kind = last.kind, n = #last.pts,
+				first = { last.pts[1][2], last.pts[1][3] }, final = { last.pts[#last.pts][2], last.pts[#last.pts][3] } }
+		end
+		N.SetTarget(1440, 40, 70, "Fitz's marker", "e")
+		aim()
+		local covered = N.travel.CrossingCounts()
+		local r = { before = route(), kalimdorCrossings = false }
+		for _, c in ipairs(covered) do if c == 1 then r.kalimdorCrossings = true end end
+		local n = 0
+		while n < 400 and route().engine ~= "path" do stub.advance(0.05); aim(); n = n + 1 end
+		r.after = route()
+		local tc, tx, ty = N.GetTargetWorld()
+		r.target = { tx, ty }
+		r.splinter = { splinter.wx, splinter.wy }
+		local cost = N.walk.Measured(tc, tx, ty, false)
+		r.measured = { sun = cost(1, sun.wx, sun.wy), splinter = cost(1, splinter.wx, splinter.wy) }
+		r.straight = { sun = dist(sun.wx, sun.wy, tx, ty), splinter = dist(splinter.wx, splinter.wy, tx, ty) }
+		-- The engine's walk from Sun Rock Retreat: how far it runs from the straight line over the ridge.
+		local pts = E.FindSync(1, { x = sun.wx, y = sun.wy }, { x = tx, y = ty })
+		local dx, dy = tx - sun.wx, ty - sun.wy
+		local off = 0
+		for _, p in ipairs(pts) do
+			local s = math.max(0, math.min(1, ((p.x - sun.wx) * dx + (p.y - sun.wy) * dy) / (dx * dx + dy * dy)))
+			off = math.max(off, dist(sun.wx + dx * s, sun.wy + dy * s, p.x, p.y))
+		end
+		r.sunPath = { length = length(pts), off = off }
+		emit(r)`, { shipped: true });
+	const gap = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]);
+	if (!out.kalimdorCrossings) assert.equal(out.before.lands, 'Sun Rock Retreat, Stonetalon Mountains', 'straight x1.25 lands south-west of the ridge');
+	assert.equal(out.before.n, 2, 'and draws its last walk straight');
+	assert.ok(out.sunPath.off > 150, `the engine's walk from Sun Rock Retreat runs ${out.sunPath.off.toFixed(0)} yd off that straight line (${out.sunPath.length.toFixed(0)} yd against ${out.straight.sun.toFixed(0)} straight)`);
+	assert.ok(out.measured.sun > out.measured.splinter + 150, `measured: Sun Rock Retreat ${out.measured.sun.toFixed(0)} yd, Splintertree Post ${out.measured.splinter.toFixed(0)} yd (straight ${out.straight.sun.toFixed(0)} and ${out.straight.splinter.toFixed(0)})`);
+	assert.equal(out.after.lands, 'Splintertree Post, Ashenvale', 'the terrain favours Splintertree Post');
+	assert.equal(out.after.engine, 'path', 'its last walk is priced by its path');
+	assert.equal(out.after.kind, 'walk');
+	assert.ok(out.after.n > 2, `drawn along the engine's ${out.after.n} points, not straight`);
+	assert.ok(gap(out.after.first, out.splinter) < 15 && gap(out.after.final, out.target) < 15, 'from Splintertree Post to the marker');
+	assert.ok(Math.abs(out.after.yards - out.measured.splinter) < out.measured.splinter * 0.15, `${out.after.yards} yd along the path, ${out.measured.splinter.toFixed(0)} measured`);
+});
+
+// The cause itself, pinned (review of travel-terrain): a Horde character at the
+// Crossroads who knows Splintertree Post and Zoram'gar Outpost (not Sun Rock
+// Retreat), guided to targets west of Astranaar. At one of them the walk from
+// the landing straight x1.25 picks measures dearer than straight x1.25 (a
+// ridge in the way: its path goes round, over 100 yd off the line) and the
+// measured route lands elsewhere; where the walk measures within x1.25 the
+// landing stays. Which target shows it depends on the shipped maps: on 0.2.4's
+// Ashenvale 35,75 (Splintertree Post 1.38 x straight); on the re-packed maps,
+// which close steep faces, Ashenvale 30,70 (Zoram'gar Outpost 1.62 x, its path
+// round the ridge 590 yd off the straight line), while 35,75 now sits in a
+// pocket every landing reaches about 3 x straight and Splintertree Post is
+// still the least of them, so it stays.
+test('Ashenvale west of Astranaar: where a ridge makes the straight choice\'s measured walk dearer than straight x1.25, the measured route lands elsewhere', { skip }, (t) => {
+	const out = run(t, `
+		w.faction = "Horde"
+		Polestar.CharState().flags.taxi = { [22] = true, [23] = true, [25] = true, [58] = true, [61] = true, [77] = true }
+		local by, byName = {}, {}
+		for _, n in ipairs(N.GetTravelData().taxi) do by[n.id] = n; byName[n.name] = n end
+		local xr = by[25]
+		place(xr.map, xr.wx, xr.wy)
+		local function lands()
+			local legs, ci = N.GetRoute()
+			local fly
+			for i = ci, #legs do if legs[i].kind == "fly" then fly = legs[i] end end
+			return fly and fly.to.name or false
+		end
+		local r = {}
+		for _, g in ipairs({ { 30, 70 }, { 35, 75 } }) do
+			N.SetTarget(1440, g[1], g[2], "Behind the ridge", "e")
+			aim()
+			local before = lands()
+			local tc, tx, ty = N.GetTargetWorld()
+			local n = 0
+			while n < 400 and not N.walk.Measured(tc, tx, ty, false) do stub.advance(0.05); aim(); n = n + 1 end
+			local node = before and byName[before]
+			local cost = N.walk.Measured(tc, tx, ty, false)
+			local m = node and cost and cost(1, node.wx, node.wy)
+			local off = 0
+			if node and m then
+				-- How far the engine's walk from that landing runs from the straight line.
+				local pts = E.FindSync(1, { x = node.wx, y = node.wy }, { x = tx, y = ty }) or {}
+				local dx, dy = tx - node.wx, ty - node.wy
+				for _, p in ipairs(pts) do
+					local s = math.max(0, math.min(1, ((p.x - node.wx) * dx + (p.y - node.wy) * dy) / (dx * dx + dy * dy)))
+					off = math.max(off, dist(node.wx + dx * s, node.wy + dy * s, p.x, p.y))
+				end
+			end
+			r[#r + 1] = { at = g, before = before, after = lands(), measured = m or false, straight = node and dist(node.wx, node.wy, tx, ty) or false, off = off }
+		end
+		emit(r)`, { shipped: true });
+	let ridges = 0;
+	for (const c of Object.values(out)) {
+		if (!c.before || !c.measured) continue;
+		const ratio = c.measured / c.straight;
+		if (ratio > 1.25 && c.after !== c.before) {
+			ridges++;
+			assert.ok(c.off > 100, `${c.at}: the walk from ${c.before} goes round (${c.off.toFixed(0)} yd off the straight line, ${ratio.toFixed(2)} x)`);
+		}
+		if (ratio <= 1.25) assert.equal(c.after, c.before, `${c.at}: no ridge (${ratio.toFixed(2)} x), the same landing`);
+	}
+	assert.ok(ridges >= 1, 'a ridge makes one straight choice\'s walk dearer than straight x1.25, and the measured route lands elsewhere');
 });

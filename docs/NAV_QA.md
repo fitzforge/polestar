@@ -68,13 +68,14 @@ Also noted while reading v1.15.0, none reported by players:
   than two points (`UI/Strokes.lua:298`); Polestar's never does
   (`tests/nav-route-lines.test.js`).
 
-## Found while integrating (H1-H3)
+## Found while integrating (H1-H4)
 
 | # | Hazard | Polestar |
 |---|---|---|
 | H1 | Sharing an installed Shortest Path Forever's map tables: his engine trims and resets them while ours may be searching, which ends in a Lua error | Polestar always reads its own `PolestarPathData`: `tests/nav-vendor.test.js` |
 | H2 | Polestar's own "Show on map" (Dungeons) used the global world map opener that C3 describes | Fixed through `Compat.OpenWorldMap`: `tests/compat.test.js`, `tests/ui-dungeons.test.js` |
 | H3 | Both addons installed, both guide at once: two arrows, two route lines, two journeys, two `/way` and TomTom answers, and its corpse run fought over | Polestar hands its target to Shortest Path Forever (`Nav/Handoff.lua`, `Nav.HandedOff()`): its own arrow, trail, route lines, journey steps, travel button, alerts, map clicks, TomTom stand-in, `/way`, mirrors and walking searches step aside, nothing is sent in combat or while dead, and a journey the player cleared or replaced is not sent again: `tests/nav-handoff.test.js`; in game, see below |
+| H4 | The planner priced every walk but the one the arrow is on as a straight line x1.25, so it could land at a flight point whose walk crossed a ridge, and drew that walk straight over it (Fitz: a marker near Astranaar, the route via Sun Rock Retreat) | The walks into the target are measured by one reversed `Path.FindMany` per target (from the target's height) and priced by it; the route is planned once more when it lands and changes only if it goes another way (crossings and chain waypoints included); every later walk is searched once after the arrow's own and drawn and priced along its path; hand-made walks and the walk on from a guide `goto` stay straight: `tests/nav-spf.test.js` ("terrain", "crossings", "later walks", "review 1-10", "test gap"), `tests/nav-e2e.test.js` (Ashenvale 40,70; Ashenvale 35,75, where the ridge makes Splintertree Post's walk 1.38 x straight) |
 
 ## Chokepoint steps (K1-K8)
 

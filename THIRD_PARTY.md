@@ -36,6 +36,7 @@
 | [warcraft.wiki.gg](https://warcraft.wiki.gg) (vendor, item, quest and patch-note pages), and where it gives no standing [Wowhead](https://www.wowhead.com/classic)'s Classic reputation guides (Warsong Outriders, Silverwing Sentinels, Frostwolf Clan) | The reputation standing a vendor, an NPC handing an item out or a quest asks for an item, where no client table records it (`tools/lib/codex/repgates.json`) | Facts only (item, faction, standing, vendor or quest ids); no text, images or code copied | Each row cites its page; generated into `data/forever/codex/` and `Polestar_Codex` (shipped, listed in its `LICENSE-DATA.txt`) |
 | Web research: [Wowhead](https://www.wowhead.com/forever) database pages (Forever and Classic npc, item, quest and spell pages, and the Forever zone quest lists), wowforevertalents.com, foreverchanges.pro and Blizzard's own Forever pages | Facts checked or filled by hand or by `data build`: quest XP the data lacked (`data/sources/webxp/`), the XP and level changes Wowhead's Forever change notes record (`data/sources/wowhead/`), trainer roles of Forever NPCs, a few spawn and chain corrections (`tools/lib/data/corrections.json`, each entry with its source), mount and pet sources for the collectible guides, Forever zones, ships and race/class rules | Facts only; no text, images or code copied | Each correction entry, and each guide that relies on a web fact, names the page it used |
 | [Shortest Path Forever](https://github.com/cjber/shortest-path-forever) v1.15.0 by Cillian Berragan: `tools/baker/gen_nav.py` (HPA* entrances and edges, the cluster encodings, floor links), `tools/pack_nav.py` (zlib + base64 parts) and `Routing/PathGrid.lua`'s decoder | `nav pack` writes our navigation grid in his walking-map format so his engine in `Polestar_Nav` runs on it; the tests read it back with his decoder's logic. The maps themselves (`Nav/Nav0*.lua`, `Nav/Nav1*.lua`, `Chokepoints.lua`) are Polestar's, generated from the Forever client's geometry (map tiles, WMO and M2 collision, liquids; files by fileDataID from wago.tools, used as facts for interoperability like the other client tables) | GPL-3.0-or-later, used with his permission; the maps are Polestar's (GPL-3.0) | Ported in `tools/lib/nav/pack.js` (named in LICENSE, with the dated Portions Copyright line) and `tests/helpers/spfnav.js` (credited in their headers); the packed maps ship in `addon/Polestar_Nav/Nav/`, listed in `PACK.json` |
+| [Carbonite](https://github.com/IrcDirk/Carbonite-Classic) (Carbonite Classic, commit 4d06280; originally by Carbon Based Creations, LLC, who released it under the GPL) | The travel planner's zone crossings: where a walk may leave one zone for the next (its Classic Era `Data/classic/ZoneConnections.lua`, the 54 walks between zones), imported by `travel import --carbonite` into `tools/lib/travel/crossings.json` with an arrival radius of our own | GPL-3.0 | `tools/lib/travel/crossings.json` names the commit and file; generated into `addon/Polestar/Nav/TravelData.lua` (shipped) |
 
 ## Distributing Polestar
 
@@ -66,8 +67,13 @@ Polestar's own code and guides are GPL-3.0 (see LICENSE). What a release
   DungeonJournal (no licence) feed only `codex build --local-extras`, a
   comparison build for the developer's machine whose meta says so; `pack`
   refuses it, and any Codex whose sources name them.
-- The zone crossings pack (`Polestar_Travel`) never ships: its crossings come
-  from a local file.
+- Carbonite's zone crossings: always, in `TravelData.lua`, under GPL-3.0.
+  They are data of a GPL program, not Polestar's reference data: the
+  guide-pack exception does not cover them and the compiler never puts them
+  in a guide pack.
+- The local zone crossings pack (`Polestar_Travel`) never ships: its
+  crossings come from a local file (an import of another addon's data, for
+  the developer's machine only).
 - Recast's `dividePoly` (zlib) and TrinityCore's `GetLiquidTypeId`
   (GPL-2.0-or-later, compatible with Polestar's GPL-3.0) are ported into the
   navigation grid's tool code, which a release does not hold.

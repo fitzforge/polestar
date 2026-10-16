@@ -84,6 +84,11 @@ emit(Polestar.MapFrames.era[1429])
 	assert.deepEqual(frame, { c: 0, left: 1500, right: -1500, top: 500, bottom: -1500 });
 });
 
+test('HandsOver answers from the quest\'s handed-over items; a record without them (an older database) or an unknown quest says no, without an error', () => {
+	const [answers] = run('emit({ Q.HandsOver(19, 772), Q.HandsOver(19, 900), Q.HandsOver(19, 1), Q.HandsOver(7, 772), Q.HandsOver(99999, 772) })');
+	assert.deepEqual(answers, [true, true, false, false, false]);
+});
+
 test('does not load the database when qol.questDB is off', () => {
 	const [state] = run('local c = {}; for _, call in ipairs(sq.pins.calls) do if call[2]:find("^quests%.") then c[#c + 1] = call end end; emit({ Q.IsLoaded(), sq.loadCalls, Q.IsRunning(), #c })', {
 		saved: { Polestar: 'PolestarDB = { schema = 1, settings = { qol = { questDB = false } } }' },

@@ -424,6 +424,11 @@
 		"xp": null,
 		"skill": null,
 		"event": null,
+		"sourceItem": 772,
+		"requiredItems": [
+			900,
+			772
+		],
 		"source": [
 			"fixture"
 		]

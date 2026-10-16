@@ -98,14 +98,16 @@ end
 
 -- The player's world position from UnitPosition: wx (north), wy (west), z
 -- (nil when unread) and the instance map id, or nil while the client keeps it
--- secret or hides it. The one place UnitPosition is read.
+-- secret or hides it. The one place UnitPosition is read. Forever's client
+-- has given a height of exactly 0 where the ground is at 12 yd (Ratchet); a
+-- real height is never exactly 0, so that one is unread too.
 function Compat.GetPlayerUnitPosition()
 	if not UnitPosition then return nil end
 	local ok, x, y, z, instance = pcall(UnitPosition, "player")
 	if not ok then return nil end
 	x, y, z, instance = readable(x), readable(y), readable(z), readable(instance)
 	if type(x) ~= "number" or type(y) ~= "number" or instance == nil then return nil end
-	return x, y, type(z) == "number" and z or nil, instance
+	return x, y, type(z) == "number" and z ~= 0 and z or nil, instance
 end
 
 -- A spell's cooldown as GetTime start and duration; 0, 0 when it is ready

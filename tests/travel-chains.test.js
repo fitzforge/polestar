@@ -174,7 +174,7 @@ test('travel chain prints a candidate entry, and with it the planner enters the 
 
 	const crossingsFile = path.join(dir, 'crossings.json');
 	fs.writeFileSync(crossingsFile, JSON.stringify({ schema: 1, frame: 'e', chains: [chain] }));
-	const result = await buildTravel({ dataDir: path.join(FIX, 'data'), recordingsDir: path.join(FIX, 'recordings'), sourcesDir: path.join(FIX, 'sources'), offline: true, crossingsFile });
+	const result = await buildTravel({ dataDir: path.join(FIX, 'data'), recordingsDir: path.join(FIX, 'recordings'), sourcesDir: path.join(FIX, 'sources'), offline: true, shippedFile: null, crossingsFile });
 	writeTravel(result, { jsonOut: path.join(dir, 'travel.json'), luaOut: path.join(dir, 'TravelData.lua'), travelAddonDir: path.join(dir, 'Polestar_Travel') });
 	for (const f of ['map-frames.json', 'zones.json']) fs.copyFileSync(path.join(FIX, 'data', f), path.join(dir, f));
 	const south = frames.toMap(MAP, O.c, world([0, -400]).wx, world([0, -400]).wy);

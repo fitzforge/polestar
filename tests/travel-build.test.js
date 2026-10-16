@@ -21,6 +21,7 @@ const opts = (extra = {}) => ({
 	recordingsDir: path.join(FIX, 'recordings'),
 	sourcesDir: path.join(FIX, 'sources'),
 	offline: true,
+	shippedFile: null, // the fixture maps: no shipped crossings
 	...extra,
 });
 
@@ -110,7 +111,7 @@ test('the CLI writes byte-identical travel.json, TravelData.lua and FlightPaths.
 			const r = spawnSync(
 				process.execPath,
 				[
-					path.join(ROOT, 'tools', 'polestar.js'), 'travel', 'build', '--offline',
+					path.join(ROOT, 'tools', 'polestar.js'), 'travel', 'build', '--offline', '--shipped', 'none',
 					'--data', path.join(FIX, 'data'), '--recordings', path.join(FIX, 'recordings'), '--sources', path.join(FIX, 'sources'),
 					'--json', path.join(dir, 'travel.json'), '--lua', path.join(dir, 'TravelData.lua'), '--flight-lua', path.join(dir, 'FlightPaths.lua'),
 				],
@@ -136,7 +137,7 @@ test('with --lua and no --flight-lua the CLI writes FlightPaths.lua beside it, n
 	const before = fs.readFileSync(committed, 'utf8');
 	try {
 		const r = spawnSync(process.execPath, [
-			path.join(ROOT, 'tools', 'polestar.js'), 'travel', 'build', '--offline',
+			path.join(ROOT, 'tools', 'polestar.js'), 'travel', 'build', '--offline', '--shipped', 'none',
 			'--data', path.join(FIX, 'data'), '--recordings', path.join(FIX, 'recordings'), '--sources', path.join(FIX, 'sources'),
 			'--json', path.join(dir, 'travel.json'), '--lua', path.join(dir, 'TravelData.lua'), '--travel-addon', path.join(dir, 'PT'),
 		], { encoding: 'utf8' });

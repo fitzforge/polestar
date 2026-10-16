@@ -1,13 +1,14 @@
 'use strict';
-// node tools/polestar.js travel build | route | chain
+// node tools/polestar.js travel build | route | chain | import
 
 const fs = require('node:fs');
 const path = require('node:path');
 const { parseArgs } = require('node:util');
-const { buildTravel, writeTravel, TRAVEL_ADDON } = require('../lib/travel/build');
+const { buildTravel, writeTravel, TRAVEL_ADDON, SHIPPED_CROSSINGS } = require('../lib/travel/build');
 const { ROOT, DATA, SOURCES } = require('../lib/paths');
 const { planRoute } = require('../lib/travel/route');
-const { recordedChain } = require('../lib/travel/crossings');
+const { recordedChain, validateCrossings } = require('../lib/travel/crossings');
+const { carboniteCrossings } = require('../lib/travel/carbonite');
 const { recordedWalks } = require('../lib/travel/paths');
 const { Frames } = require('../lib/travel/geo');
 const { readRecordings } = require('../lib/data/recordings');
@@ -15,15 +16,18 @@ const { readRecordings } = require('../lib/data/recordings');
 const usage = `usage: node tools/polestar.js travel build [options]
        node tools/polestar.js travel route --from <map,x,y> --to <map,x,y> [options]
        node tools/polestar.js travel chain --to <map,x,y> [options]
+       node tools/polestar.js travel import --carbonite <ZoneConnections.lua> --source <text> [options]
 
 build: the flight network (Blizzard Classic Era TaxiNodes/TaxiPath/TaxiPathNode
 via wago.tools), boats/zeppelins/tram (plus the ships WoW Forever added, from
 the Forever client's TaxiPathNode), inns, learned walking paths and zone
 crossings learned from recordings -> data/forever/travel.json,
 addon/Polestar/Nav/TravelData.lua and the flights' tracks in
-addon/Polestar/Maps/FlightPaths.lua. With the optional local crossings file
-(data/local/crossings.json, validated) it also writes the local data addon
-addon/Polestar_Travel (installed when built, never packaged).
+addon/Polestar/Maps/FlightPaths.lua. The shipped crossings file
+(tools/lib/travel/crossings.json, from "travel import") goes into TravelData.lua.
+With the optional local crossings file (data/local/crossings.json, validated)
+it also writes the local data addon addon/Polestar_Travel (installed when
+built, never packaged).
 
   --offline            use cached wago.tools tables only
   --build <version>    Classic Era build (default: newest listed)
@@ -31,6 +35,7 @@ addon/Polestar_Travel (installed when built, never packaged).
   --data <dir>         data/forever (map-frames, zones, npcs, objects)
   --recordings <dir>   data/recordings
   --sources <dir>      data/sources (wago cache)
+  --shipped <file>     the shipped crossings file (default: tools/lib/travel/crossings.json; "none" to leave it out)
   --crossings <file>   the local crossings file (default: <data>/../local/crossings.json)
   --travel-addon <dir> Polestar_Travel output (default: addon/Polestar_Travel)
   --json <file>        travel.json output (default: <data>/travel.json)
@@ -73,7 +78,18 @@ before using it.
   --reverse            count each walk's way out, reversed, as a way in too
   --data <dir>         data/forever (map-frames, zones)
   --recordings <dir>   data/recordings
-  --json               print only the chain entry`;
+  --json               print only the chain entry
+
+import: the shipped crossings file from Carbonite's Classic Era zone
+connections (Carbonite/Data/classic/ZoneConnections.lua in
+github.com/IrcDirk/Carbonite-Classic, GPL-3.0): its walks between zones
+(two-way unless marked one way), validated, with the arrival radius given.
+
+  --carbonite <file>   Carbonite's ZoneConnections.lua
+  --source <text>      where it came from (repository and commit), kept in the file
+  --radius <yd>        arrival radius of every end (default 30)
+  --data <dir>         data/forever (map-frames, zones)
+  --out <file>         output (default: tools/lib/travel/crossings.json)`;
 
 async function build(rest) {
 	const { values } = parseArgs({
@@ -85,6 +101,7 @@ async function build(rest) {
 			data: { type: 'string' },
 			recordings: { type: 'string' },
 			sources: { type: 'string' },
+			shipped: { type: 'string' },
 			crossings: { type: 'string' },
 			'travel-addon': { type: 'string' },
 			json: { type: 'string' },
@@ -97,6 +114,7 @@ async function build(rest) {
 		dataDir,
 		recordingsDir: path.resolve(values.recordings || path.join(ROOT, 'data', 'recordings')),
 		sourcesDir: path.resolve(values.sources || SOURCES),
+		...(values.shipped ? { shippedFile: values.shipped === 'none' ? null : path.resolve(values.shipped) } : {}),
 		...(values.crossings ? { crossingsFile: path.resolve(values.crossings) } : {}),
 		build: values.build,
 		foreverBuild: values['forever-build'],
@@ -110,7 +128,7 @@ async function build(rest) {
 	const travelAddonDir = path.resolve(values['travel-addon'] || path.join(ROOT, 'addon', TRAVEL_ADDON));
 	writeTravel(result, { jsonOut, luaOut, flightOut, travelAddonDir });
 	const c = result.travel.counts;
-	console.log(`travel: build ${result.travel.build}: ${c.taxiNodes} flight masters, ${c.flights} flights, ${c.transports} transports, ${c.inns} inns, ${c.pathNodes} learned path nodes / ${c.pathEdges} edges, ${c.recordedCrossings} recorded crossings`);
+	console.log(`travel: build ${result.travel.build}: ${c.taxiNodes} flight masters, ${c.flights} flights, ${c.transports} transports, ${c.inns} inns, ${c.pathNodes} learned path nodes / ${c.pathEdges} edges, ${c.recordedCrossings} recorded crossings, ${c.shippedCrossings} shipped crossings`);
 	for (const w of result.warnings) console.log(`warning: ${w}`);
 	console.log(`wrote ${path.relative(process.cwd(), jsonOut)}`);
 	console.log(`wrote ${path.relative(process.cwd(), luaOut)}`);
@@ -125,6 +143,31 @@ async function build(rest) {
 	} else if (fs.existsSync(path.join(travelAddonDir, `${TRAVEL_ADDON}.toc`))) {
 		console.log(`note: no local crossings file; ${path.relative(process.cwd(), travelAddonDir)} left as it was`);
 	}
+	return 0;
+}
+
+function importCrossings(rest) {
+	const { values } = parseArgs({
+		args: rest,
+		options: {
+			carbonite: { type: 'string' },
+			source: { type: 'string' },
+			radius: { type: 'string' },
+			data: { type: 'string' },
+			out: { type: 'string' },
+		},
+	});
+	if (!values.carbonite) throw new Error('--carbonite <ZoneConnections.lua> is required');
+	if (!values.source) throw new Error('--source <text> is required (the repository and commit it came from)');
+	const dataDir = path.resolve(values.data || DATA);
+	const read = (f) => JSON.parse(fs.readFileSync(path.join(dataDir, f), 'utf8'));
+	const frames = new Frames(read('map-frames.json').era, read('zones.json'));
+	const doc = carboniteCrossings(fs.readFileSync(path.resolve(values.carbonite), 'utf8'), frames, { source: values.source, radius: yardsOption(values.radius, '--radius', undefined) });
+	const v = validateCrossings(doc, frames);
+	if (v.errors.length) throw new Error(`${v.errors.length} error(s)\n  ${v.errors.join('\n  ')}`);
+	const out = path.resolve(values.out || SHIPPED_CROSSINGS);
+	fs.writeFileSync(out, `${JSON.stringify(doc, null, '\t')}\n`);
+	console.log(`wrote ${path.relative(process.cwd(), out)}: ${doc.crossings.length} crossings (${doc.crossings.filter((c) => c.oneWay).length} one way)`);
 	return 0;
 }
 
@@ -261,7 +304,7 @@ function chain(rest) {
 
 module.exports = {
 	name: 'travel',
-	summary: 'Build the travel network (flights, boats, inns, learned paths), test routes and draft approach chains from recordings',
+	summary: 'Build the travel network (flights, boats, inns, learned paths, zone crossings), import zone crossings, test routes and draft approach chains from recordings',
 	usage,
 	async run(argv) {
 		const [sub, ...rest] = argv;
@@ -269,6 +312,7 @@ module.exports = {
 			if (sub === 'build') return await build(rest);
 			if (sub === 'route') return route(rest);
 			if (sub === 'chain') return chain(rest);
+			if (sub === 'import') return importCrossings(rest);
 		} catch (err) {
 			console.error(err.message);
 			return 1;

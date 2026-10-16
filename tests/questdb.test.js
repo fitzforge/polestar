@@ -89,11 +89,12 @@ test('the fixture database keeps quest-related entities only, in the documented 
 	assert.ok(!db.items.has(2000), 'item no quest references is dropped');
 	assert.ok(db.npcs.has(40) && db.objects.has(77), 'drop sources of objective items are kept');
 	assert.deepEqual(Object.keys(db.mapFrames).sort(), ['1411', '1426', '1429'], 'only maps with points get frames');
-	assert.deepEqual(db.quests.get(7), ['Kobold Camp Cleanup', 2, 1, null, null, 1, 197, 197, null, 783, null, [1, 6, 10], 1429, null, null, null, null, null]);
+	assert.deepEqual(db.quests.get(7), ['Kobold Camp Cleanup', 2, 1, null, null, 1, 197, 197, null, 783, null, [1, 6, 10], 1429, null, null, null, null, null, null]);
 	assert.deepEqual(db.quests.get(16)[6], -31, 'object givers are negative refs');
 	assert.deepEqual(db.quests.get(18)[11], [3, 55, null, 4, 1, null]);
 	assert.deepEqual(db.quests.get(18)[13], [1429, 0, 40.5, 70.3]);
 	assert.deepEqual(db.quests.get(19)[9], [33, 60]);
+	assert.deepEqual(db.quests.get(19)[18], [772, 900], 'the items the quest hands over, once each: sourceItem and requiredItems');
 	assert.equal(db.quests.get(12)[15], 10, 'holiday');
 	assert.deepEqual(db.items.get(772), ['Large Candle', 2, 6, 40, 40, 20.5, 1, 77, 100, 253]);
 	assert.deepEqual(db.npcs.get(197), ['Marshal McBride', 1429, 0, 1, 48.9, 41.6, 0]);

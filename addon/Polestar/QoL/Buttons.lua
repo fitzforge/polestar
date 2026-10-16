@@ -8,7 +8,8 @@
 --
 --   Quest item: the active tab's current `use` goal item; else the quest log
 --     item of a quest in the current step; else a usable quest item in the
---     bags while the step has open quest goals.
+--     bags that one of the step's open quests handed over when taken
+--     (Polestar.QuestDB; none without it), never one left from another quest.
 --   Hearthstone: while the current step has an open `hearth` goal.
 --   Target: /targetexact for the current step's kill targets and the mobs
 --     that drop its collect items (Polestar.QuestDB when loaded); every click
@@ -334,13 +335,24 @@ local function logItem(questID)
 	return Client.ItemIDFromLink((GetQuestLogSpecialItemInfo(index)))
 end
 
--- First usable quest-class item in the bags.
+-- The open quests of the current step (reused).
+local openQuests, openCount = {}, 0
+
+-- First usable quest-class item in the bags that one of the step's open
+-- quests handed over (Bethor's Potion, Thule Ravenclaw's reward, is none of
+-- them); nil without Polestar.QuestDB, which knows what each quest hands over.
 local function bagQuestItem()
+	local QDB = ns.QuestDB
+	if openCount == 0 or not (QDB and QDB.IsLoaded and QDB.IsLoaded() and QDB.HandsOver) then return nil end
 	for bag = 0, Client.NumBags() do
 		for slot = 1, Client.NumSlots(bag) do
 			local info = Client.SlotInfo(bag, slot)
 			local id = info and info.itemID
-			if id and Client.ItemClass(id) == Client.CLASS_QUEST and Client.ItemSpell(id) then return id end
+			if id and Client.ItemClass(id) == Client.CLASS_QUEST and Client.ItemSpell(id) then
+				for i = 1, openCount do
+					if QDB.HandsOver(openQuests[i], id) then return id end
+				end
+			end
 		end
 	end
 	return nil
@@ -359,17 +371,17 @@ function Buttons.ChooseQuestItem(view, raw)
 			if item and Client.ItemCount(item) > 0 then return item end
 		end
 	end
-	local questOpen = false
+	openCount = 0
 	for g = 1, #goals do
 		local gv = goals[g]
 		if gv.quest and QoL.Open(gv) and gv.t ~= "accept" then
-			questOpen = true
+			openCount = openCount + 1
+			openQuests[openCount] = gv.quest
 			local item = logItem(gv.quest)
 			if item and Client.ItemCount(item) > 0 then return item end
 		end
 	end
-	if questOpen then return bagQuestItem() end
-	return nil
+	return bagQuestItem()
 end
 
 function Buttons.WantsHearth(view)

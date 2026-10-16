@@ -1,0 +1,817 @@
+{
+	"schema": 1,
+	"frame": "e",
+	"source": "Carbonite (github.com/IrcDirk/Carbonite-Classic, GPL-3.0) at 4d062800ae0c77c3f52ecf436b175bf06dcced4a: Carbonite/Data/classic/ZoneConnections.lua, the walks between zones",
+	"crossings": [
+		{
+			"id": "carbonite-arathi-highlands--hillsbrad-foothills",
+			"a": {
+				"map": 1417,
+				"x": 20.34,
+				"y": 29.73,
+				"radius": 30
+			},
+			"b": {
+				"map": 1424,
+				"x": 81.96,
+				"y": 56.91,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-arathi-highlands--wetlands",
+			"a": {
+				"map": 1417,
+				"x": 45.45,
+				"y": 89.06,
+				"radius": 30
+			},
+			"b": {
+				"map": 1437,
+				"x": 51.06,
+				"y": 11.95,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-darkshore--ashenvale",
+			"a": {
+				"map": 1439,
+				"x": 43.69,
+				"y": 94.7,
+				"radius": 30
+			},
+			"b": {
+				"map": 1440,
+				"x": 29.16,
+				"y": 14.99,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-ashenvale--stonetalon-mountains",
+			"a": {
+				"map": 1440,
+				"x": 42.34,
+				"y": 70.96,
+				"radius": 30
+			},
+			"b": {
+				"map": 1442,
+				"x": 78.21,
+				"y": 42.94,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-ashenvale--felwood",
+			"a": {
+				"map": 1440,
+				"x": 55.85,
+				"y": 31.7,
+				"radius": 30
+			},
+			"b": {
+				"map": 1448,
+				"x": 54.91,
+				"y": 92.71,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-ashenvale--azshara",
+			"a": {
+				"map": 1440,
+				"x": 94.56,
+				"y": 47.6,
+				"radius": 30
+			},
+			"b": {
+				"map": 1447,
+				"x": 10.72,
+				"y": 75.27,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-ashenvale--the-barrens",
+			"a": {
+				"map": 1440,
+				"x": 68.63,
+				"y": 86.25,
+				"radius": 30
+			},
+			"b": {
+				"map": 1413,
+				"x": 48.44,
+				"y": 11.33,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-felwood--moonglade",
+			"a": {
+				"map": 1448,
+				"x": 64.97,
+				"y": 8.36,
+				"radius": 30
+			},
+			"b": {
+				"map": 1450,
+				"x": 35.77,
+				"y": 72.2,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-felwood--winterspring",
+			"a": {
+				"map": 1448,
+				"x": 64.97,
+				"y": 8.36,
+				"radius": 30
+			},
+			"b": {
+				"map": 1452,
+				"x": 27.96,
+				"y": 34.56,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-durotar--orgrimmar",
+			"a": {
+				"map": 1411,
+				"x": 45.54,
+				"y": 12.28,
+				"radius": 30
+			},
+			"b": {
+				"map": 1454,
+				"x": 52.49,
+				"y": 84.4,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-durotar--the-barrens",
+			"a": {
+				"map": 1411,
+				"x": 37.2,
+				"y": 43,
+				"radius": 30
+			},
+			"b": {
+				"map": 1413,
+				"x": 60.8,
+				"y": 19.8,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-stranglethorn-vale--duskwood",
+			"a": {
+				"map": 1434,
+				"x": 40.81,
+				"y": 4.19,
+				"radius": 30
+			},
+			"b": {
+				"map": 1431,
+				"x": 44.5,
+				"y": 87.51,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-duskwood--westfall",
+			"a": {
+				"map": 1431,
+				"x": 10.6,
+				"y": 63.8,
+				"radius": 30
+			},
+			"b": {
+				"map": 1436,
+				"x": 68.9,
+				"y": 63,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-westfall--elwynn-forest",
+			"a": {
+				"map": 1436,
+				"x": 60.9,
+				"y": 19,
+				"radius": 30
+			},
+			"b": {
+				"map": 1429,
+				"x": 22.3,
+				"y": 78.2,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-elwynn-forest--stormwind-city",
+			"a": {
+				"map": 1429,
+				"x": 32.33,
+				"y": 49.86,
+				"radius": 30
+			},
+			"b": {
+				"map": 1453,
+				"x": 73.34,
+				"y": 90.73,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-elwynn-forest--redridge-mountains",
+			"a": {
+				"map": 1429,
+				"x": 93.21,
+				"y": 72.27,
+				"radius": 30
+			},
+			"b": {
+				"map": 1433,
+				"x": 8.95,
+				"y": 71.9,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-duskwood--redridge-mountains",
+			"a": {
+				"map": 1431,
+				"x": 93.75,
+				"y": 11.43,
+				"radius": 30
+			},
+			"b": {
+				"map": 1433,
+				"x": 7.1,
+				"y": 89.26,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-duskwood--deadwind-pass",
+			"a": {
+				"map": 1431,
+				"x": 89.88,
+				"y": 41.25,
+				"radius": 30
+			},
+			"b": {
+				"map": 1430,
+				"x": 33.05,
+				"y": 35.96,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-deadwind-pass--swamp-of-sorrows",
+			"a": {
+				"map": 1430,
+				"x": 58.29,
+				"y": 41.44,
+				"radius": 30
+			},
+			"b": {
+				"map": 1435,
+				"x": 5.84,
+				"y": 60.78,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-blasted-lands--swamp-of-sorrows",
+			"a": {
+				"map": 1419,
+				"x": 52.03,
+				"y": 5.6,
+				"radius": 30
+			},
+			"b": {
+				"map": 1435,
+				"x": 33.83,
+				"y": 66.07,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-redridge-mountains--burning-steppes",
+			"a": {
+				"map": 1433,
+				"x": 46.52,
+				"y": 8.56,
+				"radius": 30
+			},
+			"b": {
+				"map": 1428,
+				"x": 78.85,
+				"y": 82.5,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-searing-gorge--burning-steppes",
+			"a": {
+				"map": 1427,
+				"x": 34.81,
+				"y": 83.74,
+				"radius": 30
+			},
+			"b": {
+				"map": 1428,
+				"x": 31.83,
+				"y": 50.44,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-searing-gorge--badlands",
+			"a": {
+				"map": 1427,
+				"x": 76.63,
+				"y": 56.67,
+				"radius": 30
+			},
+			"b": {
+				"map": 1418,
+				"x": 1.09,
+				"y": 62.92,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-loch-modan--badlands",
+			"a": {
+				"map": 1432,
+				"x": 47.19,
+				"y": 80.82,
+				"radius": 30
+			},
+			"b": {
+				"map": 1418,
+				"x": 49.36,
+				"y": 7.97,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-loch-modan--dun-morogh",
+			"a": {
+				"map": 1432,
+				"x": 19.61,
+				"y": 62.81,
+				"radius": 30
+			},
+			"b": {
+				"map": 1426,
+				"x": 86.13,
+				"y": 51.16,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-loch-modan--dun-morogh-2",
+			"a": {
+				"map": 1432,
+				"x": 19.23,
+				"y": 17.21,
+				"radius": 30
+			},
+			"b": {
+				"map": 1426,
+				"x": 84.37,
+				"y": 31.09,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-ironforge--dun-morogh",
+			"a": {
+				"map": 1455,
+				"x": 21.62,
+				"y": 77.79,
+				"radius": 30
+			},
+			"b": {
+				"map": 1426,
+				"x": 53.4,
+				"y": 35.01,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-loch-modan--wetlands",
+			"a": {
+				"map": 1432,
+				"x": 25.57,
+				"y": 10.47,
+				"radius": 30
+			},
+			"b": {
+				"map": 1437,
+				"x": 53.97,
+				"y": 70.33,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-alterac-mountains--hillsbrad-foothills",
+			"a": {
+				"map": 1416,
+				"x": 51.2,
+				"y": 65.6,
+				"radius": 30
+			},
+			"b": {
+				"map": 1424,
+				"x": 55.5,
+				"y": 16.6,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-the-hinterlands--hillsbrad-foothills",
+			"a": {
+				"map": 1425,
+				"x": 9.66,
+				"y": 55.77,
+				"radius": 30
+			},
+			"b": {
+				"map": 1424,
+				"x": 85.06,
+				"y": 31.27,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-the-hinterlands--western-plaguelands",
+			"a": {
+				"map": 1425,
+				"x": 24.94,
+				"y": 45.71,
+				"radius": 30
+			},
+			"b": {
+				"map": 1422,
+				"x": 65.48,
+				"y": 88.64,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-alterac-mountains--western-plaguelands",
+			"a": {
+				"map": 1416,
+				"x": 80.66,
+				"y": 36.42,
+				"radius": 30
+			},
+			"b": {
+				"map": 1422,
+				"x": 44.05,
+				"y": 86.19,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-tirisfal-glades--western-plaguelands",
+			"a": {
+				"map": 1420,
+				"x": 84.09,
+				"y": 70.49,
+				"radius": 30
+			},
+			"b": {
+				"map": 1422,
+				"x": 28.62,
+				"y": 57.46,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-eastern-plaguelands--western-plaguelands",
+			"a": {
+				"map": 1423,
+				"x": 8.82,
+				"y": 66.22,
+				"radius": 30
+			},
+			"b": {
+				"map": 1422,
+				"x": 69.67,
+				"y": 50.24,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-silverpine-forest--hillsbrad-foothills",
+			"a": {
+				"map": 1421,
+				"x": 66.36,
+				"y": 79.8,
+				"radius": 30
+			},
+			"b": {
+				"map": 1424,
+				"x": 14.35,
+				"y": 46.2,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-silverpine-forest--tirisfal-glades",
+			"a": {
+				"map": 1421,
+				"x": 67.56,
+				"y": 5.45,
+				"radius": 30
+			},
+			"b": {
+				"map": 1420,
+				"x": 54.14,
+				"y": 75.77,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-undercity--tirisfal-glades",
+			"a": {
+				"map": 1458,
+				"x": 66.01,
+				"y": 36.85,
+				"radius": 30
+			},
+			"b": {
+				"map": 1420,
+				"x": 61.86,
+				"y": 64.95,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-orgrimmar--the-barrens",
+			"a": {
+				"map": 1454,
+				"x": 18,
+				"y": 60.43,
+				"radius": 30
+			},
+			"b": {
+				"map": 1413,
+				"x": 63.88,
+				"y": 0,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-the-barrens--stonetalon-mountains",
+			"a": {
+				"map": 1413,
+				"x": 39.42,
+				"y": 29.68,
+				"radius": 30
+			},
+			"b": {
+				"map": 1442,
+				"x": 82.78,
+				"y": 96.94,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-desolace--stonetalon-mountains",
+			"a": {
+				"map": 1443,
+				"x": 53.4,
+				"y": 5.52,
+				"radius": 30
+			},
+			"b": {
+				"map": 1442,
+				"x": 30.21,
+				"y": 75.61,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-desolace--feralas",
+			"a": {
+				"map": 1443,
+				"x": 40.91,
+				"y": 90.72,
+				"radius": 30
+			},
+			"b": {
+				"map": 1444,
+				"x": 45.45,
+				"y": 2.82,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-feralas--thousand-needles",
+			"a": {
+				"map": 1444,
+				"x": 89.1,
+				"y": 41.14,
+				"radius": 30
+			},
+			"b": {
+				"map": 1441,
+				"x": 7.98,
+				"y": 10.93,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-the-barrens--thousand-needles",
+			"a": {
+				"map": 1413,
+				"x": 44.15,
+				"y": 91.23,
+				"radius": 30
+			},
+			"b": {
+				"map": 1441,
+				"x": 31.92,
+				"y": 24.22,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-tanaris--thousand-needles",
+			"a": {
+				"map": 1446,
+				"x": 50.68,
+				"y": 24.29,
+				"radius": 30
+			},
+			"b": {
+				"map": 1441,
+				"x": 74.24,
+				"y": 93.62,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-tanaris--un-goro-crater",
+			"a": {
+				"map": 1446,
+				"x": 27.08,
+				"y": 57.2,
+				"radius": 30
+			},
+			"b": {
+				"map": 1449,
+				"x": 71.44,
+				"y": 77.23,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-un-goro-crater--silithus",
+			"a": {
+				"map": 1449,
+				"x": 29.43,
+				"y": 22.42,
+				"radius": 30
+			},
+			"b": {
+				"map": 1451,
+				"x": 83.68,
+				"y": 14.26,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-dustwallow-marsh--the-barrens",
+			"a": {
+				"map": 1445,
+				"x": 30.02,
+				"y": 47.11,
+				"radius": 30
+			},
+			"b": {
+				"map": 1413,
+				"x": 49.53,
+				"y": 78.41,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-the-barrens--mulgore",
+			"a": {
+				"map": 1413,
+				"x": 41.87,
+				"y": 58.62,
+				"radius": 30
+			},
+			"b": {
+				"map": 1412,
+				"x": 68.59,
+				"y": 60.59,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-moonglade--winterspring",
+			"a": {
+				"map": 1450,
+				"x": 35.77,
+				"y": 72.2,
+				"radius": 30
+			},
+			"b": {
+				"map": 1452,
+				"x": 27.96,
+				"y": 34.56,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-teldrassil--darnassus",
+			"a": {
+				"map": 1438,
+				"x": 36.32,
+				"y": 54.38,
+				"radius": 30
+			},
+			"b": {
+				"map": 1457,
+				"x": 85.73,
+				"y": 35.93,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-mulgore--thunder-bluff",
+			"a": {
+				"map": 1412,
+				"x": 37.59,
+				"y": 33.03,
+				"radius": 30
+			},
+			"b": {
+				"map": 1456,
+				"x": 35.69,
+				"y": 63.08,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-mulgore--thunder-bluff-2",
+			"a": {
+				"map": 1412,
+				"x": 34.59,
+				"y": 27.91,
+				"radius": 30
+			},
+			"b": {
+				"map": 1456,
+				"x": 35.69,
+				"y": 63.08,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-mulgore--thunder-bluff-3",
+			"a": {
+				"map": 1412,
+				"x": 38.97,
+				"y": 19.09,
+				"radius": 30
+			},
+			"b": {
+				"map": 1456,
+				"x": 51.17,
+				"y": 31.54,
+				"radius": 30
+			}
+		},
+		{
+			"id": "carbonite-mulgore--thunder-bluff-4",
+			"a": {
+				"map": 1412,
+				"x": 42.13,
+				"y": 20.2,
+				"radius": 30
+			},
+			"b": {
+				"map": 1456,
+				"x": 51.17,
+				"y": 31.54,
+				"radius": 30
+			}
+		}
+	]
+}

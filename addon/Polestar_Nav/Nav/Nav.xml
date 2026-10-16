@@ -24,6 +24,8 @@
 	<Script file="Nav0_21.lua"/>
 	<Script file="Nav0_22.lua"/>
 	<Script file="Nav0_23.lua"/>
+	<Script file="Nav0_24.lua"/>
+	<Script file="Nav0_25.lua"/>
 	<Script file="Nav1.lua"/>
 	<Script file="Nav1_1.lua"/>
 	<Script file="Nav1_2.lua"/>
@@ -53,6 +55,8 @@
 	<Script file="Nav1_26.lua"/>
 	<Script file="Nav1_27.lua"/>
 	<Script file="Nav1_28.lua"/>
+	<Script file="Nav1_29.lua"/>
+	<Script file="Nav1_30.lua"/>
 	<Script file="Nav2991.lua"/>
 	<Script file="Nav2991_1.lua"/>
 	<Script file="Chokepoints.lua"/>

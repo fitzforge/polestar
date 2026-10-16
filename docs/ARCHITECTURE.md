@@ -342,7 +342,8 @@ Compat.GetPlayerInfo()          -> { name, realm, guid, level, xp, xpMax, race, 
                                    -- race = raceFile ("Human","Scourge",...), class = classFile ("WARRIOR"), faction = "Alliance"|"Horde"|"Neutral"
 Compat.GetPlayerMapPosition()   -> uiMapID, x, y | nil      (nil in instances / unknown)
 Compat.GetPlayerWorldPosition() -> continentID, wx, wy | nil  (via MapToWorld of the above)
-Compat.GetPlayerUnitPosition()  -> wx, wy, z | nil, instanceID | nil  (UnitPosition; the one place it is read; nil while secret)
+Compat.GetPlayerUnitPosition()  -> wx, wy, z | nil, instanceID | nil  (UnitPosition; the one place it is read; nil while secret;
+                                   -- z nil also when the client reports exactly 0, as Forever's does)
 Compat.MapToWorld(uiMapID, x, y, frame) -> continentID, wx, wy | nil
                                    -- frame "e": use registered Era frame for uiMapID (see Map frames); nil: live client
 Compat.WorldToMap(continentID, wx, wy, uiMapID) -> x, y | nil
@@ -1525,6 +1526,11 @@ Polestar.Nav.RegisterCrossings(d)                  -- zone crossings (merges; id
 Polestar.Nav.travel.SkipLeg() -> bool              -- leave this hearth/teleport/flight/ride out for the target; else the next leg
 Polestar.Nav.travel.SkipReplans(leg) -> bool      -- skipping it replans (the prompts' "Skip this leg"), else "Mark this leg done"
 Polestar.Nav.travel.RestoreWalk(c, x, y) -> bool  -- the path to (c, x, y) failed or was cleared: the walk's straight estimate again
+Polestar.Nav.travel.Remeasured() -> bool          -- Walk.Measure landed: plan again, take it only if it goes another way
+Polestar.Nav.travel.PricePaths() -> bool          -- a later walk's path landed (Walk.LegPath): its legs take its measure
+Polestar.Nav.walk.Measure(c, x, y, water, places) -- one reversed Path.FindMany from the target to the plan's places
+Polestar.Nav.walk.Measured(c, x, y, water) -> walkCost | nil -- the planner's p.walkCost for that target
+Polestar.Nav.walk.LegPath(from, to) -> yards | nil -- a later walk's searched path
 Polestar.Nav.travel.Progress() -> seconds, yards   -- the current leg's rest (allocation-free, always finite; rides count down)
 Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ... }, current, choke }, ... } } | nil
 -- leg = { kind = "walk"|"fly"|"boat"|"zeppelin"|"tram"|"portal"|"hearth"|"teleport"|"lift", from, to, label,
@@ -1533,7 +1539,8 @@ Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ...
 --         step ("crossing"|"chain"|"goto", or a chokepoint kind), choke = { kind, name } (ends at a chokepoint),
 --         stops (fly: every taxi node hopped), transport, side (the ride or portal and the end boarded),
 --         lift, side (a lift ride: Transit's lift id, "top"|"bottom" boarded),
---         item (hearth: 6948), spell (teleport), parent, seg, tail (pieces of a split walk) }
+--         item (hearth: 6948), spell (teleport), parent, seg, tail (pieces of a split walk),
+--         engine ("cost": a walk into the target priced by the engine's measure; "path": by its own path) }
 ```
 
 The planner is Dijkstra over the player, the target, known flight masters,
@@ -1575,10 +1582,10 @@ own caps and the cache bound them. The arrow's ETA adds the 1.25 detour only to 
 
 **Walking paths.** `Nav/Walk.lua` lets the arrow follow real paths on the
 ground with Shortest Path Forever's walking engine ("In-game walking routes
-(Polestar_Nav)" below). The planner above is unchanged and synchronous, its
-walk costs still straight lines (`Path.FindCost` is asynchronous and does
-not fit the 40 ms planner, so it is not used). Only the walk the arrow is
-on is searched: player to the current walk leg's end, or to the target,
+(Polestar_Nav)" below). The planner above stays synchronous; its walks into
+the target are priced by the engine's measure (below), its other walks by
+straight lines until their paths are searched. The walk the arrow is
+on is searched first: player to the current walk leg's end, or to the target,
 with `Path.Find` on the player's continent (from the player's height,
 `Compat.GetPlayerUnitPosition`; a ghost with `waterWalking`). Until the answer, and
 whenever there is none, the arrow points straight as before. With a path,
@@ -1609,9 +1616,70 @@ above it. `nav.navRouting` (default on, Guide > Arrow & routes) off, the
 engine missing, or Polestar_Nav not loaded: the straight arrow everywhere.
 `GetRouteGeometry` (rebuilt on `NAV_ROUTE_GEOMETRY`, which fires on every
 plan, leg change, target change and path arrival) gives the map lines the
-legs from the current one on: a walk as the engine's points once in, else
-player (or leg start) to leg end; a flight as its hop nodes; a ride or
+legs from the current one on: the current walk as the engine's points once
+in, else player (or leg start) to leg end; a later walk as its own searched
+path once in (below), else straight; a flight as its hop nodes; a ride or
 portal as its two ends; a hearth or teleport as from and to.
+
+**Walks priced by the engine.** A straight line x1.25 cannot tell a walk
+round a ridge from one over it, so the planner would land at a flight master
+whose straight walk crosses a mountain. On a continent the engine covers
+(`Path.Available`), each plan hands Walk.lua the places a walk to the target
+can start from (`p.places`: the player, known flight masters, docks and
+portal ends, the bound inn, teleport landings, crossing ends and chain
+mouths), and `Walk.Measure` runs one `Path.FindMany` from the target (at the
+target's height, `Nav.GetTargetWorld`'s fourth value, so a walk into an
+Undercity quarter is measured to its floor; a batch with it that finds
+nothing is asked once more without it) to the nearest 16 of them within
+3000 yd, reversed (`reverse = true`), so each cost is that place's walk to
+the target in running yards (after Shortest Path Forever's goal batch,
+`Journey/JourneySearch.lua`, v1.16.0). The next plans take `p.walkCost`
+(`Walk.Measured`) and price those walks by it, at run speed, with no detour;
+their legs carry `engine = "cost"` (a target inside an approach chain is
+reached by the chain's straight link and keeps its straight price). Rules: a
+place the engine finds no walk from (`false`: Thunder Bluff's flight
+master, on a tower it cannot snap from) and every place when none has a walk
+(the target snapped off the ground) or the batch failed keep the straight
+estimate; a place farther or beyond the nearest 16 keeps it too; the
+player's measure holds within 50 yd of where it was taken. Farther, the
+player's walk counts as missing from the measure, so the next plan (at most
+once per replan) measures it again; meanwhile it is that measure less the
+yards moved, never less than the straight distance (x1.0), so a walk never
+gets dearer for coming closer. A walk from a crossing end stays hand-made
+(drawn straight, never searched); only its price is the engine's. Measures
+are fixed per target (the last 4 targets are kept), so plans never
+flip-flop on them; a target is measured again only when a plan has a place
+its measure lacks (a flight master learned, a new bind, the player come
+within reach or walked away). When a measure lands, `Travel.Remeasured`
+plans once more and takes the new plan only if it goes another way (other
+flights, rides, portals, hearth, teleports, crossings or chain waypoints);
+the same way keeps the route and its progress, and its later walks take the
+fresh plan's prices (a walk already priced by its own path keeps that). On a
+flight it waits for the landing (which plans again), on a boat for the next
+Refresh after the ride. One batch runs at a time; a new target cancels the
+old one's; none starts in combat (owed until it ends; the engine's queue
+pauses a running one), with `nav.navRouting` off, or while handed off to
+Shortest Path Forever (`Walk:Refresh` cancels one in flight). The planner
+itself never waits: the first plan is straight, the measured one follows a
+few frames later.
+
+**Every later walk's path.** Once the plan has settled (no measure running)
+and the arrow's own search for the walk it is on has answered (checked on
+every `ROUTE_CHANGED` and `ROUTE_ADVANCED`: the current walk's goal must be
+the one searched, with a path or a failure; a flight, a ride or a hand-made
+walk has none to wait for), each later walk leg that is not hand-made, not
+a piece of a split walk and not the walk on from a guide `goto` (the arrow
+goes straight from the mouth) is searched once with `Path.Find`, one at a
+time, the last walk to the target's height (once more without it, as Z2),
+kept by its ends and water mode (the last 32; a failure is kept too and
+stays straight). When it lands the route lines draw that leg along it and
+`Travel.PricePaths` gives it the path's yards and run-speed seconds
+(`engine = "path"`), so the journey panel's times follow the ground; the
+boats, zeppelins and trams after it are timed again by their timetables from
+the new arrival (the current leg counts whole). A fresh plan through the
+same walk takes the kept path at once. A search whose leg leaves the route
+is cancelled; none starts in combat, with `nav.navRouting` off, or while
+handed off (`Walk:Refresh` cancels one in flight).
 
 **Chokepoint steps.** When the path arrives, the walk the arrow is on is
 split into legs where the path passes a chokepoint. It splits at the
@@ -1668,9 +1736,11 @@ walk stays inside one zone; between zones it goes only through
   node's `back` caption).
 
 A point's zone is its uiMap when the crossing data knows that zone; a zone
-the data lists as `wild` (no crossing data, e.g. maps Forever added) walks as
-before; any other map (a continent map, an instance) is placed in the
-smallest known zone frame holding the point. Walk legs end at every crossing
+the data lists as `wild` (no crossing data, e.g. the zones only Forever has)
+walks as before; any other map (a continent map, an instance) is placed in
+the smallest known zone frame holding the point (Forever's frame where
+Forever redrew the map, Stormwind City with its harbour, else Era's). Walk
+legs end at every crossing
 or chain waypoint and carry its caption and radius; the arrow shows the
 current leg's caption and points at its waypoint ("Enter Orgrimmar" at the
 gate, then the target's own label).
@@ -1685,15 +1755,25 @@ every plan, `ROUTE_ADVANCED` (legs, ci) when the current leg moves on.
 
 **Data.** `node tools/polestar.js travel build` writes TravelData.lua
 (committed: flight masters and flight times, boats, zeppelins, the tram and
-inns from the client tables, learned paths, and crossings learned from zone
-changes in recordings, `tools/lib/travel/crossings.js` `recordedCrossings`,
-registered with `complete = false`: they refine a continent that has full
-crossing data and change nothing elsewhere). Full crossing data comes from an
-optional local crossings file, `data/local/crossings.json` (gitignored),
-which the build validates and writes into the local data addon
+inns from the client tables, learned paths, the shipped zone crossings, and
+crossings learned from zone changes in recordings,
+`tools/lib/travel/crossings.js` `recordedCrossings`, registered with
+`complete = false`: they refine a continent that has full crossing data and
+change nothing elsewhere). The shipped crossings are the full crossing data
+of both continents (`complete = true`): `tools/lib/travel/crossings.json`,
+committed, written by `node tools/polestar.js travel import --carbonite
+<ZoneConnections.lua> --source <text>` from Carbonite's Classic Era zone
+connections (GPL-3.0; `tools/lib/travel/carbonite.js`): its walks between
+two zones of one continent, both ways unless Carbonite marks one way, every
+end with a 30 yd arrival radius (Carbonite gives none); its boats, zeppelins,
+tram and portals are TravelData's own transports and are left out. `travel
+build --shipped none` builds without them (the test fixtures). An optional
+local crossings file, `data/local/crossings.json` (gitignored), adds to them:
+the build validates it and writes it into the local data addon
 `addon/Polestar_Travel` (gitignored; `## Dependencies: Polestar`, registers
-with `RegisterCrossings` at load; installed when built, never packaged).
-Without the file nothing is written and TravelData.lua never holds it.
+with `RegisterCrossings` at load, which merges; installed when built, never
+packaged). Without the file nothing is written and TravelData.lua never holds
+it.
 
 The crossings file (schema 1, Era map percent):
 
@@ -1884,7 +1964,10 @@ GPL-3.0-or-later, used with his permission). `addon/Polestar_Nav` is his
 router, vendored, running on Polestar's own walking maps of Eastern Kingdoms
 and Kalimdor (packed from our navigation grid in his map format, `nav pack`)
 and his map of Zephras Isle; Polestar's travel planner (above) keeps choosing
-flights, rides and the Hearthstone, and only the walking is his engine's.
+flights, rides and the Hearthstone, and the walking is his engine's: the
+arrow's walk, every later walk's path, and the measure of the walks into the
+target the planner prices (`Path.Find` and one reversed `Path.FindMany` per
+target, "Walks priced by the engine" above).
 
 ```
 Polestar_Nav.toc        LoadOnDemand, Dependencies: Polestar
@@ -3697,9 +3780,26 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   `Polestar_Nav` routes on it. Each SPF cell (128 per tile by default, 4.17
   yd) holds the connected pieces of our surfaces in its columns (base plus
   floors; a wall inside a cell keeps its sides apart); a step between cells
-  is open only where one of our links (not a climb) crosses it, so walls,
-  cliffs and one-way climbs close it; falls and lifts stay out (lifts are
-  his transports). `chokepoints.js` adds `Chokepoints.lua`
+  is open only where one of our links crosses it, so walls and cliffs close
+  it; falls and lifts stay out (lifts are his transports), and so do
+  climbs (60-80°, one way up). Faces are held back: steep links (50-60°)
+  and terrain links inside a run of triangles over 50° (Forever's client
+  slides off them) rising more than a jump, or on ground steeper than 50°
+  measured 8 yd across. His steps are two-way and cost
+  their flat length, so a face packed as steps was a straight line up it
+  (Fitz's report: the Raptor Horns slope in the Barrens, 61.66,35.46 to
+  61.00,33.70, where the columns and cells averaged 51-56° triangles to
+  under 50°). A face link is opened again only when it is the only way
+  between two parts of the map (union-find over every other join, then the
+  face links gentlest first), so nothing reachable before is lost and a
+  face with a way round is walked round; closing them all cut off 84 guide
+  goals. An intra-cluster edge is pruned only for a two-hop path whose
+  hops are both shorter (gen_nav.py's 2% rule let two entrances a few yards
+  apart at the end of a long walk prune each other's edge, cutting a region
+  in two; it cut 14 guide goals off with faces held back, Thunder Bluff's
+  among them). A route down a face goes round as well; slopes under 50° still
+  cost only their flat length in his search (a height-aware step cost is his
+  engine's to add). `chokepoints.js` adds `Chokepoints.lua`
   (`PolestarNavChokepoints[map]`: lift landings, bridges, gates at passages,
   tunnels, cave and building mouths, passes, each named by its AreaTable
   area) for the journey's named walk steps.

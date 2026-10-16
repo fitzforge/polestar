@@ -78,12 +78,13 @@ test('options: every qol setting is registered, on Questing or Quality of Life, 
 // Quest item, Hearthstone and target buttons
 // ---------------------------------------------------------------------------
 
-test('quest item button: the current use goal item, else a quest log item, else a usable quest item in the bags', () => {
+test('quest item button: the current use goal item, else a quest log item, else a usable quest item one of the step\'s open quests handed over', () => {
 	const out = run(`
 		local b = PolestarQuestItemButton
 		q.items[900] = { name = "Torch", classID = 12, spell = 11 }
 		q.items[901] = { name = "Quest Wand", classID = 12 }
 		q.items[902] = { name = "Bag Quest Thing", classID = 12, spell = 12 }
+		q.items[903] = { name = "Bethor's Potion", classID = 12, spell = 13 }
 		q.addItem(0, 1, 900, 2)
 		q.step({ { t = "kill", target = "Wolf", quest = 5, oi = 1 }, { t = "use", item = 900, quest = 7, oi = 1 } })
 		emit({ b:GetAttribute("type"), b:GetAttribute("item"), b:IsShown(), b.Count:GetText() })
@@ -94,9 +95,19 @@ test('quest item button: the current use goal item, else a quest log item, else 
 		q.step({ { t = "kill", target = "Wolf", quest = 5, oi = 1 }, { t = "use", item = 900, quest = 7, status = "done" } })
 		emit({ b:GetAttribute("item") or "nil", b:IsShown() })
 
-		-- no log item: a usable quest item in the bags
+		-- no log item: another quest's usable item (a reward, Bethor's Potion)
+		-- first in the bags is never offered, without the quest database or with it
 		q.specialItems[5] = nil
 		q.bags[0].slots[1] = nil
+		q.bags[0].slots[2] = nil
+		q.addItem(0, 1, 903, 10)
+		q.step({ { t = "kill", target = "Wolf", quest = 5, oi = 1 } })
+		emit({ b:GetAttribute("item") or "nil", b:IsShown() })
+		Polestar.QuestDB = { IsLoaded = function() return true end, HandsOver = function(quest, item) return quest == 5 and item == 902 end }
+		q.step({ { t = "kill", target = "Wolf", quest = 5, oi = 1 } })
+		emit({ b:GetAttribute("item") or "nil", b:IsShown() })
+
+		-- the item quest 5 handed over, behind it in the bags: offered
 		q.addItem(0, 3, 902, 1)
 		q.step({ { t = "kill", target = "Wolf", quest = 5, oi = 1 } })
 		emit({ b:GetAttribute("item") or "nil", b:IsShown() })
@@ -113,9 +124,11 @@ test('quest item button: the current use goal item, else a quest log item, else 
 	`);
 	assert.deepEqual(out[0], ['item', 'item:900', true, '2']);
 	assert.deepEqual(out[1], ['item:901', true]);
-	assert.deepEqual(out[2], ['item:902', true]);
-	assert.deepEqual(out[3], ['nil', false]);
-	assert.deepEqual(out[4], ['nil', false]);
+	assert.deepEqual(out[2], ['nil', false], 'no quest database: no guess from the bags');
+	assert.deepEqual(out[3], ['nil', false], "another quest's item is never the step's");
+	assert.deepEqual(out[4], ['item:902', true]);
+	assert.deepEqual(out[5], ['nil', false]);
+	assert.deepEqual(out[6], ['nil', false]);
 });
 
 test('secure buttons: changes during combat wait for PLAYER_REGEN_ENABLED; display still updates', () => {

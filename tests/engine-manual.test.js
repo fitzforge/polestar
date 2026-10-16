@@ -292,6 +292,22 @@ test('every goal ticks done and back; ticks are saved, place the guide after a r
 	assert.deepEqual(reload, { at: 4, untick: 3, saved: '3:1' });
 });
 
+test('an accept ticked without taking the quest drops its later goals; taking it brings them back', () => {
+	const [out] = run({
+		saved: 'PolestarCharDB = { schema = 1, guide = "test/route" }',
+		script: `
+			local r = {}
+			E.ToggleGoal(1, 1); flush()
+			r.ticked = { E.GetStepView(2).goals[1].status, E.GetStepView(2).goals[2].status, E.GetStepIndex() }
+			stub.world.accept(783, {}, "A Threat Within"); flush()
+			r.taken = { E.GetStepView(2).goals[1].status, E.GetStepIndex() }
+			emit(r)
+		`,
+	});
+	assert.deepEqual(out.ticked, ['na', 'active', 2], "the turn-in of a quest never taken is not work; the step's other accept is");
+	assert.deepEqual(out.taken, ['active', 2]);
+});
+
 test('optional goals skip with one click, are saved, and come back with another', () => {
 	const GUIDE = `
 		Polestar.RegisterGuide({ id = "test/og", pack = "test", title = "Optional", minLevel = 1, maxLevel = 60, steps = {

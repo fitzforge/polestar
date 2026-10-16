@@ -23,6 +23,24 @@
 
 ### For players
 
+- Ticking a quest's accept off without taking the quest no longer sends you
+  to farm for it: its objectives and turn-in leave the guide, as when you
+  skip the step, and come back if you take the quest after all. A stray tick
+  on Raptor Horns in Ratchet kept the Barrens guide on the horns.
+- Walks between zones go through the real tunnels, passes, bridges and
+  gates: from the Barrens to Astranaar the route flew to Sun Rock Retreat
+  and walked straight over the ridge into Ashenvale; it now walks through the
+  Talondeep Path. The zone crossings are Carbonite's (GPL-3.0), shipped with
+  Polestar; until now only a local file had them, so released builds walked
+  between zones in straight lines.
+- The quest item button offers only an item from the step's own quests: it
+  took the first usable quest item in your bags, so Bethor's Potion from
+  Silverpine sat on it through the Barrens. From the bags it now offers only
+  an item one of the step's open quests handed you when you took it.
+- The instance counter ("1/5 this hour") no longer appears on screen unless
+  you turn it on: Options, Quality of Life, Trackers, Instances, "Compact
+  display". Instances are still counted, and /pole instances still lists
+  your runs and the hourly cap.
 - The Barrens (19-24) takes Her Name Is Olgra after Lost in Battle is handed
   in, the only time Mankrik offers it, and collects Olgra's Adornments on the
   way back down to Camp Taurajo: the guide asked for it at the first
@@ -59,7 +77,9 @@
   Shortest Path Forever's map format, with Cillian Berragan's permission): out
   of an inn by its door rather than through the wall, down into the Undercity
   by its lifts, never swimming across open sea (water the game tires you in),
-  and along the coast where that is the way. The maps take about 26 MB once
+  and along the coast where that is the way, and never straight up a slope
+  too steep to climb (the Raptor Horns hillside in the Barrens; thanks
+  Fitz). The maps take about 26 MB once
   loaded (Walk real paths on) and up to about 54 MB more while a walk is
   being searched; the zip grows by about 11 MB.
 - A class guide opened before your level says so: the guide window shows
@@ -440,6 +460,15 @@
   Kingdoms and Kalimdor are Polestar's own, in his format. They come in the
   new `Polestar_Nav` folder of the zip (install it with the others). Options,
   Arrow & routes, "Walk real paths" turns it off.
+- The route picks where to land by the real walk: the walks from the flight
+  masters, docks, portals, inn and teleports near your target are measured on
+  the ground, so a landing whose walk goes round a ridge loses to one whose
+  walk does not (a marker near Astranaar no longer sends you from Sun Rock
+  Retreat straight over the mountains, thanks Fitz). The walks later on the
+  route follow their paths on the map lines and in the journey too, each with
+  its own time, not only the one you are on; zone crossings, cave approaches
+  and the walk on from a guide's "go to the mouth" step stay straight, as the
+  zone data and the guide lay them out.
 - Works with Shortest Path Forever: with it installed, Polestar hands it the
   route. Each goal goes to it as a stop with the game's own mark (a quest's
   "!" or "?", a trainer, a flight master, a dungeon, a boat), a kill or
@@ -527,13 +556,14 @@
 - Boats, zeppelins, the Deeprun Tram and lifts run to their real timetables:
   each loop's period and stops from the transport model the servers use
   (accelerating, docking, the original servers' measured periods), so a
-  route weighs the real wait and ride. Ride one and Polestar times it from
-  where you are along the way ("Timed the Booty Bay - Ratchet from your
-  ride"); from then on, for six hours, the arrow says "Next boat in 1:20" or
-  "Boat docked, leaves in 0:40", and the route takes the boat you can
-  actually catch. Untimed, it says "Next boat in about 2:55". If you opt in
-  (Options, Arrow & routes, "Share boat times", off by default), the times
-  you take go to your guild and group on your realm, and theirs come to you.
+  route weighs the real wait and ride. Ride a boat, a zeppelin or the tram
+  and Polestar times it from where you are along the way ("Timed the Booty
+  Bay - Ratchet from your ride"); from then on, for six hours, the arrow says
+  "Next boat in 1:20" or "Boat docked, leaves in 0:40", and the route takes
+  the boat you can actually catch. Untimed, it says "Next boat in about
+  2:55". If you opt in (Options, Arrow & routes, "Share boat times", off by
+  default), the times you take go to your guild and group on your realm, and
+  theirs come to you.
   After Shortest Path Forever by Cillian Berragan, whose timetables these
   are.
 - Routes can start with a class teleport you know: a mage's Teleport to a
@@ -639,6 +669,21 @@
 
 ### For contributors
 
+- `Compat.GetPlayerUnitPosition` returns no height when the client reports
+  exactly 0, as Forever's does. Taken as real, it started walking paths on
+  the nearest surface within 10 yd of 0 (from Ratchet's flight master: 20 yd
+  down the slope towards the harbour, then back) and kept Transit from
+  timing a ride on a raised track (a zeppelin at 120 yd). With no height,
+  Walk starts from the ground under the player and Transit matches the ride
+  on the ground plane.
+- `node tools/polestar.js travel import --carbonite <ZoneConnections.lua>
+  --source <text>` writes the shipped zone crossings,
+  `tools/lib/travel/crossings.json`, from Carbonite's Classic Era zone
+  connections (54 walks between zones, 30 yd arrival radius); `travel build`
+  puts them into TravelData.lua as both continents' full crossing data
+  (`--shipped none` leaves them out). Zones only Forever has are `wild`, and a
+  zone's rectangle is Forever's where it redrew the map. The local crossings
+  file still builds Polestar_Travel, which adds to them.
 - A Feature request issue form beside Bug report and Wrong step, tagged
   `enhancement`, with a field for the Discord thread an idea came from
   (thanks CDVolvik).
@@ -665,7 +710,11 @@
   navigation grid in his walking-map format (`tools/lib/nav/pack.js`, a port
   of his `gen_nav.py` and `pack_nav.py`: 128 cells a tile, a step between
   cells open only where one of our links crosses it, floors for stacked
-  surfaces, his HPA* graph), with `Nav/Chokepoints.lua`
+  surfaces, his HPA* graph; climbs are no step, and a face, steep links and
+  runs of terrain triangles over 50° that Forever's client slides off, only
+  where it is the only way between two places, since his steps are two-way
+  at flat cost; an intra-cluster edge is pruned only via two shorter hops,
+  so pruning never cuts a region), with `Nav/Chokepoints.lua`
   (`tools/lib/nav/chokepoints.js`) and `PACK.json` (grid build, cells, date,
   sizes, sha256; `nav check` and `nav pack --check` hold the folder to it);
   `nav vendor` now takes only his router and the maps we do not pack
@@ -852,8 +901,8 @@
   world map itself (NAV_QA C3).
 - `pack` and `install` ship `Polestar_Nav` with Polestar and Polestar_Guides,
   and Polestar checks its version at login like the data packs'.
-- `Nav/Walk.lua` follows `Polestar_NavEngine`'s paths: only the walk the
-  arrow is on is searched (`Path.Find`, cancelled on a new goal, asked again
+- `Nav/Walk.lua` follows `Polestar_NavEngine`'s paths: the walk the arrow is
+  on is searched first (`Path.Find`, cancelled on a new goal, asked again
   25 yd off the path, never in combat), hand-made walks (crossings, chains,
   a goal after a guide `goto`) stay straight, and every failure falls back
   to the straight arrow; it splits that walk at the lifts `Nav/Transit.lua`
@@ -867,6 +916,33 @@
   `stops`, `item`/`spell`, `Travel.SkipLeg()` and `Travel.Progress()`; option
   `nav.navRouting`. Tested by `tests/nav-spf.test.js` (fake engine; NAV_QA
   C1, C2, K1-K8) and `tests/travel-transit.test.js` (2, 3, 11, C9, C11, C15).
+- The planner's walks into the target are priced by the walking engine:
+  `Travel.lua` hands each plan's places (the player, flight masters, docks,
+  portal ends, the inn, teleport landings, crossing ends and chain mouths;
+  `p.places`) to `Walk.Measure`, which runs one reversed `Path.FindMany` from
+  the target to the nearest 16 within 3000 yd (after Shortest Path Forever's
+  goal batch, `Journey/JourneySearch.lua`, v1.16.0); later plans price those
+  walks by it (`p.walkCost` from `Walk.Measured`, legs `engine = "cost"`; a
+  target inside a chain keeps its straight link). The batch goes from the
+  target's height (once more without it when it finds nothing). A place with
+  no walk found, or a target with none at all, keeps straight x1.25; the
+  player's measure holds within 50 yd, and farther is measured again with
+  the next plan, meanwhile never priced above the straight distance.
+  Measures are fixed per target (the last 4 kept), so `Travel.Remeasured`
+  replans once when one lands (after a flight or a boat ride) and keeps the
+  route unless the way changes (its flights, rides, hearth, teleports,
+  crossings or chain waypoints), the kept route taking the new walk prices.
+  Every later walk leg that is not hand-made, not a piece of a split walk and
+  not the walk on from a guide `goto` is searched once after the arrow's own
+  search and the measure (`Path.Find`, one at a time, the last walk to the
+  target's height, the last 32 kept by their ends and water mode):
+  `Walk.LegPath`, drawn by `GetRouteGeometry`, priced by
+  `Travel.PricePaths` (`engine = "path"`), which times the rides after it
+  again by their timetables. Nothing is measured or searched in combat or
+  while handed off. Tested by `tests/nav-spf.test.js` (fake engine: terrain,
+  crossings, later walks, the review's ten points) and
+  `tests/nav-e2e.test.js` (Ashenvale 40,70 and 35,75 on the real engine;
+  NAV_QA H4).
 - `Maps/RouteStrokes.lua` (route-line geometry) and `Maps/RouteLines.lua`
   (the world map pin and minimap painters) port Shortest Path Forever's
   `UI/Strokes.lua`, `UI/FlightLines.lua` and `UI/Route.lua`; they draw

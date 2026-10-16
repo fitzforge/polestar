@@ -422,24 +422,29 @@ function endLua(p) {
 	return `{ map = ${p.map}, c = ${p.c}, wx = ${num(p.wx)}, wy = ${num(p.wy)}, r = ${num(p.r)} }`;
 }
 
-// Zone info the planner needs for every zone a set mentions: name and Era
-// frame (to place a point whose map is not a zone), plus `wild`: the other
-// zone maps of a covered continent (no crossing data; walked as before).
-function zoneTable(set, frames, { complete }) {
+// Zone info the planner needs for every zone a set mentions: name and frame
+// (to place a point whose map is not a zone), plus `wild`: the other zone
+// maps of a covered continent (no crossing data; walked as before). `live`:
+// map-frames.json `forever`, the frames of the maps Forever redrew (Stormwind
+// City with its harbour) or added (Mount Hyjal): a zone's rectangle is the
+// one in game, and a zone only Forever has is wild.
+function zoneTable(set, frames, { complete, live = {} }) {
 	const maps = new Set();
 	for (const e of set.crossings) maps.add(e.a.map).add(e.b.map);
 	for (const e of set.open) maps.add(e.a).add(e.b);
 	for (const ch of set.chains) for (const n of ch.nodes) maps.add(n.map);
+	const frameOf = (map) => live[String(map)] || frames.frame(map);
 	const zones = [...maps].sort((a, b) => a - b).map((map) => {
-		const f = frames.frame(map);
+		const f = frameOf(map);
 		return { map, name: frames.name(map) || String(map), c: f.c, top: f.top, bottom: f.bottom, left: f.left, right: f.right };
 	});
 	const wild = [];
 	if (complete) {
 		const covered = new Set(zones.map((z) => z.c));
-		for (const [id, f] of frames.frames) {
+		const ids = new Set([...frames.frames.keys(), ...Object.keys(live).map(Number)]);
+		for (const id of ids) {
 			const z = frames.zones[String(id)];
-			if (z && z.type === 3 && covered.has(f.c) && !maps.has(id)) wild.push(id);
+			if (z && z.type === 3 && covered.has(frameOf(id).c) && !maps.has(id)) wild.push(id);
 		}
 		wild.sort((a, b) => a - b);
 	}
@@ -447,13 +452,13 @@ function zoneTable(set, frames, { complete }) {
 }
 
 // The N.RegisterCrossings({...}) call for a set (lines, no trailing newline).
-function crossingsLua(set, frames, { complete }) {
-	const { zones, wild } = zoneTable(set, frames, { complete });
+function crossingsLua(set, frames, { complete, live }) {
+	const { zones, wild } = zoneTable(set, frames, { complete, live });
 	const L = [];
 	L.push('N.RegisterCrossings({');
 	if (complete) L.push('\t-- the continents this set covers walk between zones only through it');
 	L.push(`\tcomplete = ${complete ? 'true' : 'false'},`);
-	L.push('\t-- uiMap = { name, continent, Era frame }');
+	L.push('\t-- uiMap = { name, continent, frame (Forever\'s where it redrew the map, else Era\'s) }');
 	L.push('\tzones = {');
 	for (const z of zones) L.push(`\t\t[${z.map}] = { name = ${luaStr(z.name)}, c = ${z.c}, top = ${num(z.top)}, bottom = ${num(z.bottom)}, left = ${num(z.left)}, right = ${num(z.right)} },`);
 	L.push('\t},');
@@ -499,7 +504,7 @@ function crossingsLua(set, frames, { complete }) {
 const TRAVEL_ADDON = 'Polestar_Travel';
 
 // The local data addon: { 'Polestar_Travel.toc': text, 'Crossings.lua': text }.
-function emitTravelAddon(set, frames) {
+function emitTravelAddon(set, frames, live) {
 	const toc = [
 		'## Interface: 16001',
 		'## Title: Polestar Travel (local)',
@@ -520,7 +525,7 @@ function emitTravelAddon(set, frames) {
 		'local N = Polestar and Polestar.Nav',
 		'if not (N and N.RegisterCrossings) then return end',
 		'',
-		...crossingsLua(set, frames, { complete: true }),
+		...crossingsLua(set, frames, { complete: true, live }),
 		'',
 	].join('\n');
 	return { [`${TRAVEL_ADDON}.toc`]: toc, 'Crossings.lua': lua };

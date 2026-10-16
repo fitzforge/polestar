@@ -18,7 +18,9 @@ General Public License, version 3 or (at your option) any later version, and
 adapted for Polestar on 2026-10-15 with his permission. In the Polestar
 folder: Maps/RouteLines.lua, Maps/RouteStrokes.lua, Nav/Alerts.lua,
 Nav/Journey.lua, Nav/Nearby.lua, Nav/Prompts.lua, Nav/Transit.lua,
-Nav/TravelData.lua (its boat, zeppelin, tram and lift timings), Nav/Walk.lua,
+Nav/TravelData.lua (its boat, zeppelin, tram and lift timings), Nav/Walk.lua
+(and, adapted on 2026-10-16, its measure of the walks into the target after
+the goal batch of his journey search, v1.16.0),
 QoL/Flight.lua and UI/JourneyPanel.lua; in the repository's tools, tools/lib/travel/
 timetable.js, tools/lib/travel/cmangos.js and tools/lib/nav/pack.js (a port
 of his tools/baker/gen_nav.py and tools/pack_nav.py), and in its tests

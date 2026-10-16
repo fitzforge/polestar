@@ -33,7 +33,7 @@
 // column (i, j) falls in cell (floor((255.5 - j) C / 256), floor((255.5 - i)
 // C / 256)) by its centre. A cell's surfaces are the connected pieces of
 // our walkable surfaces in its columns, joined by our links inside the
-// cell (every stored link but a climb, which is one way up), leaving out
+// cell (every stored link but a closed one, CLOSED below), leaving out
 // regions of under MIN_REGION surfaces (rooftops, props) and anything below
 // the cell's top water surface (lake beds; SPF's rule). The piece of the
 // largest region (then the most columns, then the highest) is the base
@@ -42,32 +42,65 @@
 // cell. A piece's height is its entry nearest the cell's centre; its value
 // 2 (water) when most of its entries are swim surfaces, else 1.
 // Edges (decided here): two surfaces of neighbouring cells (8 directions)
-// are joined when one of our links (not a climb; either way) crosses
-// between their entries. The base-to-base steps go to the grid's close
+// are joined when one of our links (not a closed one; either way) crosses
+// between their entries (a face link only as a bridge, Faces below). The base-to-base steps go to the grid's close
 // flags (an orthogonal step with no link is closed; a diagonal with a link
 // whose L-shaped detours are closed is opened explicitly), every pair with
-// a floor to the floor links. Falls (one way down), climbs (one way up)
-// and lifts (SPF keeps lifts outside the grid, in its transport data) are
-// left out; slope costs have no place in the format (a step costs its
-// length, water `swim` times that). Fatigue water is no surface of our grid
-// (SWIM | BLOCKED, grid/surfaces.js), so no route here crosses open sea.
+// a floor to the floor links. Falls (one way down) and lifts (SPF keeps
+// lifts outside the grid, in its transport data) are left out; slope costs
+// have no place in the format (a step costs its length, water `swim` times
+// that). Fatigue water is no surface of our grid (SWIM | BLOCKED,
+// grid/surfaces.js), so no route here crosses open sea.
+// Faces (decided 2026-10-16). His steps are two-way and cost their flat
+// length, so a face packed as steps is a straight line up it. Forever's
+// client slides off terrain whose triangle is steeper than about 50°
+// (FLAG.STEEP, the triangle under the column): Fitz could not walk up the
+// slope by the Raptor Horns (the Barrens, 61.66,35.46 to 61.00,33.70), 51-56°
+// triangles rising 14 yd, that the engine drew a line up. Column-to-column
+// gradients there read 32-49° on half the links (the columns sample the
+// ADT's triangles alternately), and the 4.17 yd cells average the rest, so
+// neither our link classes nor the cells' heights see that face. Hence:
+// - climbed links (CLIMB, 60-80°, one way up) are no step (CLOSED);
+// - face links are held back: steep links (STEEP, 50-60°), and terrain links
+//   touching a FLAG.STEEP column inside a run of them (along the link's
+//   direction) that rises more than JUMP: a hop up one steep triangle is
+//   kept, a slope of them is not; and terrain links touching ground whose
+//   height, over FALL_SPAN columns either way (8.3 yd across), rises more
+//   than 50° (a hillside whose triangles alternate 49° and 54° is such a
+//   slope, though no run of steep ones is);
+// - and every face link that is the only way between two parts of the map
+//   is opened again (Faces: union-find over all other joins, then the face
+//   links gentlest first, each opened only when it joins two parts). Every
+//   part connected with all steep links open stays connected, so no place
+//   is lost; a face with a way round is walked round. Closing them all
+//   instead cut off 84 guide goals (roads up to Ironforge and Stormwind's
+//   canals among them): steep triangles are common on ground players
+//   cross, a bridge between two places is not a face to avoid.
+// A route down a face goes round too, a little longer; slopes under 50°
+// still cost their flat length (a height-aware step cost is his engine's to
+// add).
 
 const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
 const zlib = require('node:zlib');
 const { header } = require('../generated');
-const { ADT, TILE_CELLS, CELL, NO_LINK, NO_COMP, DIRS, FLAG, CLS, STEP, decodeTile, tileKey } = require('./grid/format');
+const { ADT, TILE_CELLS, CELL, NO_LINK, NO_COMP, DIRS, FLAG, CLS, STEP, JUMP, WALK_MAX, STEEP_MAX, decodeTile, tileKey } = require('./grid/format');
 
 const T = ADT;
 const SWIM = 3.0; // gen_nav.py: a swum yard counts as three running ones
 const WEIGHTS = [SWIM, 1.0]; // every graph edge carries one cost per weight: swimming, walking on water
 const ENTRANCE_YD = (20 * T) / 67; // gen_nav.py's 20-cell entrance runs at 67 cells, in yards
-const PRUNE = 1.02; // drop an intra edge when a two-hop path is within 2%
+const PRUNE = 1.02; // drop an intra edge when a two-hop path is within 2% (and both hops are shorter: never cuts a region)
 const ZQ = 2; // base heights are stored to this step (yd)
 const MIN_REGION = 1000; // walkable surfaces a region needs to be packed (path.js SNAP_REGION)
 const BLOCK_BYTES = 16 * 1024; // pack_nav.py: the client decompresses blocks into a 16 KB buffer
 const PART_BYTES = 512 * 1024; // pack_nav.py: bytes per Lua part file
+// Stored link classes that are no step in the pack: steep (50-60°) and climbed (60-80°) terrain.
+const CLOSED = (code) => code === NO_LINK || code >> 5 === CLS.CLIMB;
+const TAN_WALK = Math.tan((WALK_MAX * Math.PI) / 180);
+const FALL_SPAN = 2; // columns either way the ground's steepness is measured over (8.3 yd across)
+const TAN_STEEP = Math.tan((STEEP_MAX * Math.PI) / 180); // a steep link across tiles: ranked as the steepest of its class
 const B64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 // SPF directions: +x, -x, +y, -y, +x+y, +x-y, -x+y, -x-y (x north, y west).
 const SDX = [1, -1, 0, 0, 1, 1, -1, -1];
@@ -290,6 +323,88 @@ class CellGrid {
 }
 
 // Our grid (format.js tiles, regions from the graph) -> CellGrid.
+// The joins between cells, holding back those up a face (steep links, and
+// links in a run of terrain the client slides off): union-find over the
+// nodes; bridge() then opens, gentlest first, only the face links that join
+// two parts nothing else joins, so every part of the map stays as connected
+// as with all of them open.
+class Faces {
+	constructor(cg) {
+		this.cg = cg;
+		this.NB = cg.GW * cg.GH;
+		this.base = new Int32Array(this.NB); // parent + 1, 0 a root
+		this.floor = new Int32Array(1 << 16);
+		this.a = [];
+		this.b = [];
+		this.g = [];
+		this.count = 0;
+	}
+
+	up(x) {
+		if (x < this.NB) return this.base[x] - 1;
+		const f = x - this.NB;
+		return f < this.floor.length ? this.floor[f] - 1 : -1;
+	}
+
+	set(x, p) {
+		if (x < this.NB) {
+			this.base[x] = p + 1;
+			return;
+		}
+		const f = x - this.NB;
+		if (f >= this.floor.length) {
+			const grown = new Int32Array(Math.max(f + 1, this.floor.length * 2));
+			grown.set(this.floor);
+			this.floor = grown;
+		}
+		this.floor[f] = p + 1;
+	}
+
+	find(x) {
+		let p = this.up(x);
+		while (p >= 0) {
+			const q = this.up(p);
+			if (q >= 0) this.set(x, q);
+			x = p;
+			p = this.up(x);
+		}
+		return x;
+	}
+
+	// An open join. One between clusters that meet only at a corner joins
+	// nothing for the engine (his entrances cross a cluster's sides), so it
+	// does not count as a way in.
+	join(a, b) {
+		this.cg.join(a, b);
+		const cg = this.cg;
+		const ka = cg.clusterOfCell(cg.cellOf(a));
+		const kb = cg.clusterOfCell(cg.cellOf(b));
+		if (Math.floor(ka / cg.NY) !== Math.floor(kb / cg.NY) && ka % cg.NY !== kb % cg.NY) return;
+		const ra = this.find(a);
+		const rb = this.find(b);
+		if (ra !== rb) this.set(Math.max(ra, rb), Math.min(ra, rb));
+	}
+
+	// A face link, its gradient (rise over run).
+	add(a, b, g) {
+		this.a.push(a);
+		this.b.push(b);
+		this.g.push(g);
+		this.count++;
+	}
+
+	bridge() {
+		const order = Array.from(this.g.keys()).sort((x, y) => this.g[x] - this.g[y] || this.a[x] - this.a[y] || this.b[x] - this.b[y]);
+		let opened = 0;
+		for (const x of order) {
+			if (this.find(this.a[x]) === this.find(this.b[x])) continue;
+			this.join(this.a[x], this.b[x]);
+			opened++;
+		}
+		return opened;
+	}
+}
+
 // source: { tiles: [{ col, row, tile }] or a loader, regions } — see cellGridFromDir.
 function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 	const rows = tiles.map((t) => t.row);
@@ -315,7 +430,8 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 	const order = tiles.map((t, i) => ({ ...t, i })).sort((a, b) => b.row - a.row || b.col - a.col); // cluster order
 	const byKey = new Map(order.map((t) => [tileKey(t.col, t.row), t]));
 	const border = new Map(); // tile key -> Map (k << 5 | layer) -> node
-	const cross = []; // node, neighbour tile key, k2, layer
+	const cross = []; // node, neighbour tile key, (k2 << 5) | layer, 1 when a steep link
+	const faces = new Faces(cg);
 	let packed = 0;
 	let dropped = 0;
 	for (const meta of order) {
@@ -327,6 +443,67 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 		const cl = cg.cluster(k);
 		cl.floorStart = cg.floorCell.length;
 		const { n, first, z, flags, links, comp } = t;
+		const terr = (e) => (flags[e] & (FLAG.TERRAIN | FLAG.WMO | FLAG.M2)) === FLAG.TERRAIN;
+		// A terrain link touching terrain the client slides off, inside a run of such columns (along the link's
+		// direction, following links) that rises more than JUMP: a face link (Faces).
+		const steepRun = (e, i, j, d, e2) => {
+			if (!terr(e) || !terr(e2) || !(slide(e) || slide(e2))) return false;
+			let lo = Infinity;
+			let hi = -Infinity;
+			const walk = (x, ci, cj, dir) => {
+				for (let n = 0; n < 64 && slide(x); n++) {
+					if (z[x] < lo) lo = z[x];
+					if (z[x] > hi) hi = z[x];
+					const c = links[x * 8 + dir];
+					const ni = ci + DIRS[dir][0];
+					const nj = cj + DIRS[dir][1];
+					if (c === NO_LINK || ni < 0 || nj < 0 || ni > 255 || nj > 255) return;
+					x = first[nj * TILE_CELLS + ni] + (c & 31);
+					if (!terr(x)) return;
+					ci = ni;
+					cj = nj;
+				}
+			};
+			walk(e2, i + DIRS[d][0], j + DIRS[d][1], d);
+			walk(e, i, j, (d + 4) & 7);
+			return hi > lo + JUMP;
+		};
+		// The ground's own steepness at a terrain entry: its height's gradient over FALL_SPAN columns either way along
+		// i and j (following links on its surface), so the triangles' alternation the columns sample averages out;
+		// tan of the slope, 0 when no neighbour is linked.
+		const fall = new Float32Array(n).fill(-1);
+		const reach = (e, i, j, d) => {
+			let x = e;
+			let ci = i;
+			let cj = j;
+			let steps = 0;
+			for (; steps < FALL_SPAN; steps++) {
+				const c = links[x * 8 + d];
+				const ni = ci + DIRS[d][0];
+				const nj = cj + DIRS[d][1];
+				if (c === NO_LINK || ni < 0 || nj < 0 || ni > 255 || nj > 255) break;
+				const y = first[nj * TILE_CELLS + ni] + (c & 31);
+				if (!terr(y)) break;
+				x = y;
+				ci = ni;
+				cj = nj;
+			}
+			return [x, steps];
+		};
+		const fallOf = (e, k2) => {
+			if (fall[e] >= 0) return fall[e];
+			const i = k2 & 255;
+			const j = k2 >> 8;
+			let g2 = 0;
+			for (const d of [0, 2]) {
+				const [p, sp] = reach(e, i, j, d);
+				const [q, sq] = reach(e, i, j, d + 4);
+				if (sp + sq) g2 += ((z[p] - z[q]) / ((sp + sq) * CELL)) ** 2;
+			}
+			return (fall[e] = Math.sqrt(g2));
+		};
+		// Terrain whose triangle is over WALK_MAX (FLAG.STEEP, surfaces.js): the client slides off it.
+		const slide = (e) => (flags[e] & (FLAG.TERRAIN | FLAG.WMO | FLAG.M2 | FLAG.STEEP)) === (FLAG.TERRAIN | FLAG.STEEP);
 		const base = regions.compBase.get(tileKey(meta.col, meta.row));
 		const big = (e) => !(flags[e] & FLAG.BLOCKED) && comp[e] !== NO_COMP && base !== undefined && regions.regionSize[regions.region[base + comp[e]]] >= MIN_REGION;
 		const node = new Int32Array(n).fill(-1);
@@ -339,7 +516,7 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 			}
 			return x;
 		};
-		// Entries with a link (not a climb) out of or into their cell: a piece
+		// Entries with a link (not a closed one) out of or into their cell: a piece
 		// with none is cut off (a wall's top, a pillar) and left out.
 		const joined = new Uint8Array(n);
 		for (let k2 = 0; k2 < TILE_CELLS * TILE_CELLS; k2++) {
@@ -349,7 +526,7 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 				if (!big(e)) continue;
 				for (let d = 0; d < 8; d++) {
 					const code = links[e * 8 + d];
-					if (code === NO_LINK || code >> 5 === CLS.CLIMB) continue;
+					if (CLOSED(code)) continue;
 					const i2 = i + DIRS[d][0];
 					const j2 = j + DIRS[d][1];
 					if (i2 < 0 || j2 < 0 || i2 > 255 || j2 > 255) joined[e] = 1;
@@ -386,7 +563,7 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 				const j = kk >> 8;
 				for (let d = 0; d < 8; d++) {
 					const code = links[e * 8 + d];
-					if (code === NO_LINK || code >> 5 === CLS.CLIMB) continue;
+					if (CLOSED(code)) continue;
 					const i2 = i + DIRS[d][0];
 					const j2 = j + DIRS[d][1];
 					if (i2 < 0 || j2 < 0 || i2 > 255 || j2 > 255 || LX[j2] !== lx || LY[i2] !== ly) continue;
@@ -449,7 +626,7 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 			for (let a = 0; a < m; a++) loc[ents[2 * a]] = -1;
 		}
 		cl.floorEnd = cg.floorCell.length;
-		// Joins: every link (not a climb) into another cell.
+		// Joins: every link (not a closed one) into another cell.
 		const mine = new Map();
 		for (let k2 = 0; k2 < TILE_CELLS * TILE_CELLS; k2++) {
 			const i = k2 & 255;
@@ -461,13 +638,16 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 				if (edge) mine.set((k2 << 5) | (e - first[k2]), a);
 				for (let d = 0; d < 8; d++) {
 					const code = links[e * 8 + d];
-					if (code === NO_LINK || code >> 5 === CLS.CLIMB) continue;
+					if (CLOSED(code)) continue;
 					let i2 = i + DIRS[d][0];
 					let j2 = j + DIRS[d][1];
 					if (i2 >= 0 && j2 >= 0 && i2 <= 255 && j2 <= 255) {
 						if (LX[j2] === LX[j] && LY[i2] === LY[i]) continue;
-						const b = node[first[j2 * TILE_CELLS + i2] + (code & 31)];
-						if (b >= 0) cg.join(a, b);
+						const e2 = first[j2 * TILE_CELLS + i2] + (code & 31);
+						const b = node[e2];
+						if (b < 0) continue;
+						if (code >> 5 === CLS.STEEP || steepRun(e, i, j, d, e2) || (terr(e) && terr(e2) && (fallOf(e, k2) > TAN_WALK || fallOf(e2, j2 * TILE_CELLS + i2) > TAN_WALK))) faces.add(a, b, Math.abs(z[e2] - z[e]) / (d & 1 ? CELL * Math.SQRT2 : CELL));
+						else faces.join(a, b);
 						continue;
 					}
 					let col = meta.col;
@@ -476,18 +656,21 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 					else if (i2 > 255) (col++, (i2 -= 256));
 					if (j2 < 0) (row--, (j2 += 256));
 					else if (j2 > 255) (row++, (j2 -= 256));
-					if (byKey.has(tileKey(col, row))) cross.push(a, tileKey(col, row), (((j2 << 8) | i2) << 5) | (code & 31));
+					if (byKey.has(tileKey(col, row))) cross.push(a, tileKey(col, row), (((j2 << 8) | i2) << 5) | (code & 31), code >> 5 === CLS.STEEP ? 1 : 0);
 				}
 			}
 		}
 		border.set(tileKey(meta.col, meta.row), mine);
 	}
-	for (let x = 0; x < cross.length; x += 3) {
+	for (let x = 0; x < cross.length; x += 4) {
 		const b = border.get(cross[x + 1])?.get(cross[x + 2]);
-		if (b !== undefined) cg.join(cross[x], b);
+		if (b === undefined) continue;
+		if (cross[x + 3]) faces.add(cross[x], b, TAN_STEEP);
+		else faces.join(cross[x], b);
 	}
+	const opened = faces.bridge();
 	cg.finish();
-	log(`cells ${C}: ${cg.clusters.size} clusters, surfaces ${packed} (floors ${cg.floorCell.length}), dropped small-region entries ${dropped}`);
+	log(`cells ${C}: ${cg.clusters.size} clusters, surfaces ${packed} (floors ${cg.floorCell.length}), dropped small-region entries ${dropped}, face links ${faces.count} (opened as the only way in ${opened})`);
 	return cg;
 }
 
@@ -732,7 +915,9 @@ function buildHpa(cg, log = () => {}) {
 				for (let mode = 0; mode < WEIGHTS.length && pruned; mode++) {
 					const D = dists[mode];
 					let any = false;
-					for (let x = 0; x < n && !any; x++) if (x !== a && x !== b && D[a * n + x] + D[x * n + b] <= ds[mode] * PRUNE) any = true;
+					// Both legs shorter than the edge: a detour never prunes the edges it rests on (two entrances a few
+					// yards apart at the far end of a long walk would otherwise prune each other's edge to it).
+					for (let x = 0; x < n && !any; x++) if (x !== a && x !== b && D[a * n + x] < ds[mode] && D[x * n + b] < ds[mode] && D[a * n + x] + D[x * n + b] <= ds[mode] * PRUNE) any = true;
 					pruned = any;
 				}
 				if (!pruned) edges.set(`${el[a]},${el[b]}`, [el[a], el[b], ds]);

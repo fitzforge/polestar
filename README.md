@@ -231,10 +231,10 @@ map. Renders of every window and state, drawn without the game, are in
   Hill").
 - **Trail dots** on the world map and the minimap crawl along the route
   between its waypoints (Map options can turn them off).
-- **Zone crossings.** With an optional local crossings file, walks between
-  zones go through the real tunnels, passes, bridges, gates and lifts, one
-  waypoint at a time with its own caption ("Enter Orgrimmar" at the gate), and
-  caves are entered at their mouth.
+- **Zone crossings.** Walks between zones go through the real tunnels,
+  passes, bridges and gates (Carbonite's zone connections), one waypoint at a
+  time ("Go to Ashenvale"): from Sun Rock Retreat to Astranaar through the
+  Talondeep Path, not over the ridge.
 - **`/polestar way <x> <y> [label]`** points the arrow anywhere on the current
   map.
 - **Go anywhere.** Shift-click the world map or the minimap and the arrow
