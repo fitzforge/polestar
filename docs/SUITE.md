@@ -42,7 +42,7 @@ GPL-3.0; each input keeps its own licence, and the rules follow it:
 | Input | What may enter the repository and the releases |
 |---|---|
 | MIT (pfQuest, ForeverLevelingBiS, wowsims) | Derived data, with attribution (THIRD_PARTY.md) |
-| QuestieDB (no licence file; its maintainers ask that it be treated as all rights reserved) | Facts only, credited, in the shipped packs (the compiled guides, `Polestar_QuestDB`, `Polestar_Codex`); `data build --no-questie` builds without them if the maintainers ask |
+| QuestieDB (no licence file; its maintainers ask that it be treated as all rights reserved) | Facts only, credited, in the shipped packs (the compiled guides, `Polestar_QuestDB`, `Polestar_Codex`, `Polestar_Names`); `data build --no-questie` builds without them if the maintainers ask |
 | Web sources (Wowhead's Forever database, warcraft.wiki.gg, the Forever databases) | Facts only, each with its source: corrections, `entrances.json`, `repgates.json`, `attunements.json`, `journal-quests.json`, the Wowhead caches (incl. its dungeon and raid quest lists) |
 | GPL-2.0, no licence or All Rights Reserved addons (AtlasLoot, DungeonJournal, RareScanner, Attune) | Nothing: the importer code only, read by `codex build --local-extras` for the parity comparison (Attune: by `codex attune`, the local comparison of dungeon quests and attunements); its output stays local and `pack` refuses it |
 
@@ -76,6 +76,7 @@ their versions in its `meta`.
 | `Polestar_Guides` | `guides/**` | yes | always |
 | `Polestar_ItemDB` | client item tables | yes | on demand |
 | `Polestar_QuestDB` | `data/forever` (includes QuestieDB) | no (local) | on demand |
+| `Polestar_Names` | QuestieDB's and pfQuest's localized names, for the NPCs and objects the compiled guides name | yes | on demand, in a client of another language than English (its language's file only) |
 | `Polestar_Codex` | `data/forever/codex` (release-safe inputs) | no (generated); in every release zip | on demand (first search, tooltip or lookup) |
 | `Polestar_Travel` | a local crossings file (`travel build`) | no (local) | always, when built |
 | community guide packs (`PolestarPack_*` by default) | a pack's `.guide` files, by its author (`docs/PACKS.md`) | in the author's repository | always, when installed |

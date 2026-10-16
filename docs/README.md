@@ -74,7 +74,7 @@ generated file, whether it is committed, and the order to rebuild in.
 - **Goal**: one thing to do in a step, as a verb and its arguments (`accept 783`, `kill`, `goto`, `turnin`...).
 - **Guide pack**: an addon of guides for Polestar, built by the compiler from a folder with a `pack.json`; Polestar's own is `Polestar_Guides` (pack id `guides`), every other pack is a separate addon made and supported by its author ([GUIDE_PACKS.md](GUIDE_PACKS.md)).
 - **Reference data**: the game facts in `data/forever/*.json` (quests, NPCs, objects, items, zones, map frames and more) that the compiler and the data builds read; built locally by `data build`.
-- **Data addon**: a companion addon that carries data, not code, mostly loaded on demand: `Polestar_QuestDB`, `Polestar_ItemDB`, `Polestar_Codex`, `Polestar_Travel`.
+- **Data addon**: a companion addon that carries data, not code, mostly loaded on demand: `Polestar_QuestDB`, `Polestar_ItemDB`, `Polestar_Codex`, `Polestar_Names`, `Polestar_Travel`.
 - **Codex**: Lookup's database of items, mounts, pets, recipes, NPCs, rares, quests, zones, dungeons and treasures, with where each comes from (`codex build`, the `Polestar_Codex` addon).
 - **QuestDB**: the quest database behind quest markers and tooltips (`questdb build`, the `Polestar_QuestDB` addon).
 - **ItemDB**: item stats for the gear advice (`itemdb build` and `gear build`, the `Polestar_ItemDB` addon).
