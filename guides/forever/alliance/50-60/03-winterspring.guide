@@ -42,6 +42,7 @@ next forever/alliance/50-60/04-western-plaguelands
 # ---------------------------------------------------------------- Everlook
 
 step Everlook
+  sethome "Everlook" npc 11118        -- Innkeeper Vizzie: the last guide binds here, so this usually ticks at once
   accept 5601                         -- Jessica Redpath: keep it for Darrowshire
   accept 6028                         -- Gregor Greystone: keep both for the Plaguelands
   accept 6030

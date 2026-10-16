@@ -48,6 +48,10 @@ next forever/alliance/50-60/01-burning-steppes
 
 # ---------------------------------------------------------------- The way in
 
+step Thelsamar
+  zone Loch Modan
+  sethome "Stoutlager Inn" npc 6734   -- Innkeeper Hearthstove: the last guide hearths you here, so this usually ticks at once
+
 step Gadgetzan
   zone Tanaris
   tip From Thelsamar fly to Menethil Harbor, take the boat to Theramore and fly on to Gadgetzan. Torwa's first quest in the crater needs level 48: finish the level here if you are short.

@@ -84,6 +84,7 @@ next forever/horde/40-50/01-stranglethorn-vale
 
 step Fly to Camp Taurajo
   zone The Barrens
+  sethome "Ratchet" npc 6791          -- Innkeeper Wiley: the last guide binds here, so this usually ticks at once
   fly "Camp Taurajo"
 
 step Shady Rest Inn

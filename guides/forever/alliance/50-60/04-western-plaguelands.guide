@@ -52,9 +52,16 @@ levels 54-57
 zone Western Plaguelands
 next forever/alliance/50-60/05-silithus
 
+# ---------------------------------------------------------------- Light's Hope Chapel
+
+step Light's Hope Chapel
+  zone Eastern Plaguelands
+  sethome "Light's Hope Chapel" npc 16256 -- Jessica Chambers: the last guide binds here, so this usually ticks at once
+
 # ---------------------------------------------------------------- Chillwind Camp
 
 step Chillwind Camp
+  zone Western Plaguelands
   fly "Chillwind Camp"
   accept 5092                         -- Commander Ashlam Valorfist
   accept 5402                         -- Argent Officer Pureheart

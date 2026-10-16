@@ -5311,6 +5311,7 @@ do
 				{
 					title = "Aerie Peak",
 					goals = {
+						{ t = "sethome", npc = 7744, npcName = "Innkeeper Thulfram", location = "Aerie Peak", map = 1425, x = 14.15, y = 41.57, z = 131.6, f = "e", note = "Innkeeper Thulfram: the last guide binds here, so this usually ticks at once" },
 						{ t = "accept", quest = 2877, title = "Skulk Rock Clean-up", npc = 7884, npcName = "Fraggar Thundermantle", minLevel = 40, qlvl = 48, map = 1425, x = 14.83, y = 44.57, z = 123.3, f = "e", note = "Fraggar Thundermantle" },
 						{ t = "accept", quest = 2989, title = "The Altar of Zul", npc = 5636, npcName = "Gryphon Master Talonaxe", minLevel = 40, qlvl = 48, pre = { 2988 }, preTitles = { [2988] = "Witherbark Cages" }, map = 1425, x = 9.75, y = 44.47, z = 197.7, f = "e", note = "Gryphon Master Talonaxe" },
 					},
@@ -5512,6 +5513,12 @@ do
 			version = 1,
 			steps = {
 				{
+					title = "Thelsamar",
+					goals = {
+						{ t = "sethome", npc = 6734, npcName = "Innkeeper Hearthstove", location = "Stoutlager Inn", map = 1432, x = 35.53, y = 48.4, z = 323.3, f = "e", note = "Innkeeper Hearthstove: the last guide hearths you here, so this usually ticks at once" },
+					},
+				},
+				{
 					title = "Thorium Point",
 					note = "From Thelsamar ride south into the Badlands, then west past the Horde town of Kargath (give it room) and up the trail into Searing Gorge. Thorium Point is the scaffolded camp on the north-west rim.",
 					goals = {
@@ -5653,6 +5660,12 @@ do
 			author = "Polestar",
 			version = 1,
 			steps = {
+				{
+					title = "Thelsamar",
+					goals = {
+						{ t = "sethome", npc = 6734, npcName = "Innkeeper Hearthstove", location = "Stoutlager Inn", map = 1432, x = 35.53, y = 48.4, z = 323.3, f = "e", note = "Innkeeper Hearthstove: the last guide hearths you here, so this usually ticks at once" },
+					},
+				},
 				{
 					title = "Gadgetzan",
 					note = "From Thelsamar fly to Menethil Harbor, take the boat to Theramore and fly on to Gadgetzan. Torwa's first quest in the crater needs level 48: finish the level here if you are short.",
@@ -6041,6 +6054,12 @@ do
 			author = "Polestar",
 			version = 1,
 			steps = {
+				{
+					title = "Ironforge",
+					goals = {
+						{ t = "sethome", npc = 5111, npcName = "Innkeeper Firebrew", location = "Ironforge", map = 1455, x = 18.15, y = 51.45, z = 502, f = "e", note = "Innkeeper Firebrew: the last guide binds here, so this usually ticks at once" },
+					},
+				},
 				{
 					title = "Menethil Harbor",
 					note = "Fly from Ironforge to Menethil Harbor and take the boat to Auberdine.",
@@ -6544,6 +6563,7 @@ do
 				{
 					title = "Everlook",
 					goals = {
+						{ t = "sethome", npc = 11118, npcName = "Innkeeper Vizzie", location = "Everlook", map = 1452, x = 61.36, y = 38.83, z = 721.7, f = "e", note = "Innkeeper Vizzie: the last guide binds here, so this usually ticks at once" },
 						{ t = "accept", quest = 5601, title = "Sister Pamela", npc = 11629, npcName = "Jessica Redpath", minLevel = 50, qlvl = 55, closedBy = { 5149, 5142 }, preTitles = { [5142] = "Little Pamela", [5149] = "Pamela's Doll" }, map = 1452, x = 61.28, y = 38.98, z = 721.7, f = "e", note = "Jessica Redpath: keep it for Darrowshire" },
 						{ t = "accept", quest = 6028, title = "The Everlook Report", npc = 10431, npcName = "Gregor Greystone", minLevel = 50, qlvl = 52, map = 1452, x = 61.35, y = 38.97, z = 721.7, f = "e", note = "Gregor Greystone: keep both for the Plaguelands" },
 						{ t = "accept", quest = 6030, title = "Duke Nicholas Zverenhoff", npc = 10431, npcName = "Gregor Greystone", minLevel = 50, qlvl = 52, map = 1452, x = 61.35, y = 38.97, z = 721.7, f = "e" },
@@ -6846,6 +6866,12 @@ do
 			author = "Polestar",
 			version = 1,
 			steps = {
+				{
+					title = "Light's Hope Chapel",
+					goals = {
+						{ t = "sethome", npc = 16256, npcName = "Jessica Chambers", location = "Light's Hope Chapel", map = 1423, x = 71.8, y = 48.52, z = 90.9, note = "Jessica Chambers: the last guide binds here, so this usually ticks at once" },
+					},
+				},
 				{
 					title = "Chillwind Camp",
 					goals = {
@@ -7688,6 +7714,7 @@ do
 					title = "Astranaar",
 					note = "You start in Ratchet, where the previous guide hearthed you. Fly to Astranaar.",
 					goals = {
+						{ t = "sethome", npc = 6791, npcName = "Innkeeper Wiley", location = "Ratchet", map = 1413, x = 62.05, y = 39.41, z = 24, f = "e", note = "Innkeeper Wiley: the last guide hearths you here, so this usually ticks at once" },
 						{ t = "fly", location = "Astranaar" },
 					},
 				},
@@ -23480,7 +23507,8 @@ do
 			steps = {
 				{
 					title = "Tarren Mill",
-					note = "You arrive bound at the Tarren Mill inn. Everyone stands around the town square.",
+						{ t = "sethome", npc = 2388, npcName = "Innkeeper Shay", location = "Tarren Mill", map = 1424, x = 62.78, y = 19.03, z = 57.2, f = "e", note = "Innkeeper Shay: the last guide binds here, so this usually ticks at once" },
+					note = "Tarren Mill is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square.",
 					goals = {
 						{ t = "turnin", quest = 493, title = "Journey to Hillsbrad Foothills", npc = 2216, npcName = "Apothecary Lydon", map = 1424, x = 61.44, y = 19.06, z = 57.6, f = "e", note = "Apothecary Lydon" },
 						{ t = "turnin", quest = 494, title = "Time To Strike", npc = 2215, npcName = "High Executor Darthalia", map = 1424, x = 62.33, y = 20.45, z = 54.5, f = "e", note = "High Executor Darthalia" },
@@ -25547,6 +25575,7 @@ do
 			version = 1,
 			steps = {
 				{
+						{ t = "sethome", npc = 6791, npcName = "Innkeeper Wiley", location = "Ratchet", map = 1413, x = 62.05, y = 39.41, z = 24, f = "e", note = "Innkeeper Wiley: the last guide binds here, so this usually ticks at once" },
 					title = "Fly to Camp Taurajo",
 					goals = {
 						{ t = "fly", location = "Camp Taurajo" },
@@ -28784,6 +28813,7 @@ do
 			steps = {
 				{
 					title = "Everlook",
+						{ t = "sethome", npc = 11118, npcName = "Innkeeper Vizzie", location = "Everlook", map = 1452, x = 61.36, y = 38.83, z = 721.7, f = "e", note = "Innkeeper Vizzie: the last guide binds here, so this usually ticks at once" },
 					note = "Everlook is the goblin town on the east side of the valley.",
 					goals = {
 						{ t = "accept", quest = 6029, title = "The Everlook Report", npc = 10431, npcName = "Gregor Greystone", minLevel = 50, qlvl = 52, map = 1452, x = 61.35, y = 38.97, z = 721.7, f = "e", note = "Gregor Greystone" },

@@ -56,6 +56,7 @@ next forever/alliance/40-50/06-searing-gorge
 # ---------------------------------------------------------------- Aerie Peak
 
 step Aerie Peak
+  sethome "Aerie Peak" npc 7744       -- Innkeeper Thulfram: the last guide binds here, so this usually ticks at once
   accept 2877                         -- Fraggar Thundermantle
   accept 2989                         -- Gryphon Master Talonaxe
 

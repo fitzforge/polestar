@@ -58,6 +58,7 @@ zone Silithus
 step Astranaar
   zone The Barrens
   tip You start in Ratchet, where the previous guide hearthed you. Fly to Astranaar.
+  sethome "Ratchet" npc 6791          -- Innkeeper Wiley: the last guide hearths you here, so this usually ticks at once
   fly "Astranaar"
 
 step The Emerald Sanctuary

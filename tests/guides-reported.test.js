@@ -604,3 +604,31 @@ test("Fitz's playtest: typed coordinates are on the zone of every character who 
 	}
 	assert.deepEqual(offenders, [], 'typed coordinates on a zone some of their characters are not in');
 });
+
+// --- Hearths on another guide's bind (#171): Hillsbrad's "Hearth to Tarren
+// Mill" relied on the bind the Stonetalon guide makes, so a player who
+// skipped it, or started Hillsbrad from the picker, was told to hearth with a
+// Hearthstone set to Camp Taurajo. A guide that hearths to an inn binds there
+// itself first, on a step everyone plays (a goal that ticks at once for a
+// player already bound). The guides below never pass the inn before their
+// hearth, so a bind there would add a detour; they still rely on the guide
+// before them.
+const HEARTH_ON_AN_EARLIER_BIND = new Set([
+	// Enters the Badlands from Ironband's dig site in south-east Loch Modan; Thelsamar is off the way.
+	'forever/alliance/30-40/06-badlands.guide Stoutlager Inn',
+	// Starts at the Broken Pillar and goes down into the crater; Gadgetzan is to the north.
+	'forever/horde/50-60/01-un-goro-crater.guide Gadgetzan',
+]);
+
+test('#171: every hearth is to an inn the guide binds at first', { skip }, () => {
+	const offenders = [];
+	for (const guide of allGuides()) {
+		const bound = new Set();
+		for (const { step, goal } of goals(guide)) {
+			if (goal.t === 'sethome' && everyone({ step, goal })) bound.add(goal.location);
+			const key = `${guide} ${goal.location}`;
+			if (goal.t === 'hearth' && !bound.has(goal.location) && !HEARTH_ON_AN_EARLIER_BIND.has(key)) offenders.push(`${key} (step ${step.title})`);
+		}
+	}
+	assert.deepEqual(offenders, [], 'hearths to an inn the guide has not bound at');
+});

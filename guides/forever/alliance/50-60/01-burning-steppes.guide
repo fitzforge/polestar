@@ -33,6 +33,12 @@ levels 51-53
 zone Burning Steppes
 next forever/alliance/50-60/02-felwood
 
+# ---------------------------------------------------------------- Ironforge
+
+step Ironforge
+  zone Ironforge
+  sethome "Ironforge" npc 5111        -- Innkeeper Firebrew: the last guide binds here, so this usually ticks at once
+
 # ---------------------------------------------------------------- Azshara
 
 step Menethil Harbor

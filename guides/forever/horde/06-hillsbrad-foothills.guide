@@ -9,7 +9,7 @@ next forever/horde/07-ashenvale
 # consensus-horde-tauren, visits 10-12) and Era-baseline reference data;
 # not yet play-tested on Forever.
 #
-# Flow: Tarren Mill (arrive bound here) -> the hills west of town (bears,
+# Flow: Tarren Mill (bind again: the last guide binds here) -> the hills west of town (bears,
 # creepers, lions) -> Hillsbrad Fields (farmers) -> Tarren Mill -> Stanley
 # and the southern fields (peasants, skulls) -> Tarren Mill -> the Syndicate
 # camps, Durnholde Keep, Deathstalker Masoj and the Mudsnout Blossoms ->
@@ -83,7 +83,8 @@ next forever/horde/07-ashenvale
 # ---------------------------------------------------------------- Tarren Mill
 
 step Tarren Mill
-  tip You arrive bound at the Tarren Mill inn. Everyone stands around the town square.
+  tip Tarren Mill is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square.
+  sethome "Tarren Mill" npc 2388      -- Innkeeper Shay: the last guide binds here, so this usually ticks at once
   turnin 493                          -- Apothecary Lydon
   turnin 494                          -- High Executor Darthalia
   accept 498                          -- Krusk

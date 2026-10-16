@@ -23,9 +23,16 @@ levels 47-49
 zone Searing Gorge
 next forever/alliance/40-50/07-un-goro-crater
 
+# ---------------------------------------------------------------- Thelsamar
+
+step Thelsamar
+  zone Loch Modan
+  sethome "Stoutlager Inn" npc 6734   -- Innkeeper Hearthstove: the last guide hearths you here, so this usually ticks at once
+
 # ---------------------------------------------------------------- Thorium Point
 
 step Thorium Point
+  zone Searing Gorge
   tip From Thelsamar ride south into the Badlands, then west past the Horde town of Kargath (give it room) and up the trail into Searing Gorge. Thorium Point is the scaffolded camp on the north-west rim.
   getfp "Thorium Point" npc 2941      -- Lanie Reed
   accept 7728 object 179827           -- The Wanted/Missing/Lost & Found board
