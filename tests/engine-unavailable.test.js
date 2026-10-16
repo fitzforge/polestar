@@ -175,6 +175,60 @@ test('the marks clear on level-up and on any turn-in, and the guide goes back to
 	assert.deepEqual(out.turnIn, [1, 'active:nil:nil']);
 });
 
+// Issue #127: accepting a quest refreshes its giver's window, and the game
+// lists the quest among the player's own there about 0.1 s before the quest
+// log has it. Polestar read that window as a refusal ("Not offered by Rudra
+// Amberstill", with the quest in the log).
+test('#127: a quest the window lists as the player\'s own is taken, not refused, while the quest log catches up', () => {
+	const gossip = `
+		local w = stub.world
+		-- Thork's window as the accept itself leaves it: 870 has moved to his
+		-- active quests, the log does not have it yet.
+		w.gossip(3429, { available = {}, active = { { questID = 870 } } }); flush()
+		local during = brief(1)
+		w.accept(870, { 1 }); w.close(); flush()
+		emit({ during = during, after = brief(1)[3] })
+	`;
+	const [out] = run({ script: gossip });
+	assert.deepEqual(out.during, [
+		'skipped:pre:Requires Disrupt the Attacks first',
+		'skipped:level:Requires level 14',
+		'active:nil:nil', // not "skipped:offer:Not offered by Thork"
+		'active:nil:nil',
+	]);
+	assert.equal(out.after, 'done:nil:nil');
+
+	// The greeting panel says the same through GetNumActiveQuests / GetActiveQuestID.
+	const [greeting] = run({
+		script: `
+			local w = stub.world
+			w.greeting(3429, { available = {}, active = { { questID = 870 } } }); flush()
+			emit(brief(1)[3])
+		`,
+	});
+	assert.equal(greeting, 'active:nil:nil');
+});
+
+test('#127: a mark goes when its quest is accepted, so abandoning it later does not skip the step', () => {
+	const [out] = run({
+		script: `
+			local w = stub.world
+			local r = {}
+			w.gossip(3429, { available = {} }); w.close(); flush()
+			r.marked = brief(1)[3]
+			-- Thork offers it on a later visit and the player takes it.
+			w.accept(870, { 1 }); flush()
+			r.accepted = brief(1)[3]
+			w.abandon(870); flush()
+			r.abandoned = brief(1)[3]
+			emit(r)
+		`,
+	});
+	assert.equal(out.marked, 'skipped:offer:Not offered by Thork');
+	assert.equal(out.accepted, 'done:nil:nil');
+	assert.equal(out.abandoned, 'active:nil:nil'); // the mark did not survive the accept
+});
+
 test('prerequisites: every `preAll` must be done, one `pre` suffices; the text names the missing one', () => {
 	// 890 needs 871 and 873 (preAll); 891 needs 871 or 873 (pre). Only 871 is done.
 	const guide = `

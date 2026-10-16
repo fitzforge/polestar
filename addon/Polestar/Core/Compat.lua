@@ -246,6 +246,35 @@ function Compat.GetOfferedQuests(source)
 	return out
 end
 
+-- Quests the open NPC window lists as the player's own, as a list of quest
+-- IDs, or nil when the window says nothing about them. The game fills this
+-- list a moment before the quest log, so a quest just accepted stands here
+-- while IsOnQuest is still false. source: "gossip"
+-- (C_GossipInfo.GetActiveQuests, as GossipFrameShared.lua reads it) or
+-- "greeting" (GetNumActiveQuests / GetActiveQuestID, as QuestFrame.lua's
+-- greeting panel does).
+function Compat.GetActiveQuests(source)
+	local out = {}
+	if source == "gossip" then
+		local G = C_GossipInfo
+		if not (G and G.GetActiveQuests) then return nil end
+		local list = G.GetActiveQuests() or {}
+		for i = 1, #list do
+			local q = list[i].questID
+			if q then out[#out + 1] = q end
+		end
+	elseif source == "greeting" then
+		if not (GetNumActiveQuests and GetActiveQuestID) then return nil end
+		for i = 1, GetNumActiveQuests() or 0 do
+			local q = GetActiveQuestID(i)
+			if q then out[#out + 1] = q end
+		end
+	else
+		return nil
+	end
+	return out
+end
+
 -- Classic grey level (no XP from quests at or below it), used when the
 -- client gives no trivial range.
 local function greyLevel(level)

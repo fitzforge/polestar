@@ -3428,6 +3428,12 @@ ns.RegisterEvent("QUEST_TURNED_IN", function(_, questID)
 	requestUpdate()
 end)
 
+-- A quest in the log was offered, whatever its giver's window said a moment
+-- earlier: its mark goes, and only its own, since the others still stand.
+ns.RegisterEvent("QUEST_ACCEPTED", function(_, questID)
+	if type(questID) == "number" then unavailable[questID] = nil end
+end)
+
 ns.RegisterEvent("PLAYER_LEVEL_UP", function(_, level)
 	if type(level) == "number" and level > levelSeen then levelSeen = level end
 	wipe(unavailable)
@@ -3459,7 +3465,9 @@ end
 -- its quest marks it unavailable; one that offers it clears the mark. A
 -- detail window opened from that giver's list, popped up by a turn-in at
 -- that giver (the follow-up quest), or started by an item, says nothing
--- about the others.
+-- about the others. A quest the window lists among the player's own is
+-- taken, not refused: the game moves it there a moment before the quest
+-- log, so the window the accept itself refreshes already shows it.
 local LIST_WINDOW = 30 -- seconds a list or a turn-in covers the detail windows opened from it
 local listedAt = {} -- npc -> GetTime() of its last gossip/greeting list or turn-in
 
@@ -3497,13 +3505,22 @@ local function checkOffers(source, startItem)
 		unavailable[list[i]] = nil
 		Own.offered[list[i]] = true
 	end
+	-- The window's own quests, which the player holds whatever the log says
+	-- yet. Not Own.offered: this window may be the chain's turn-in rather
+	-- than the quest's giver.
+	local taken = {}
+	local active = C.GetActiveQuests(source)
+	for i = 1, active and #active or 0 do
+		taken[active[i]] = true
+		unavailable[active[i]] = nil
+	end
 	for i = 1, #tabs do
 		use(tabs[i])
 		if guide and current then
 			for _, goal in ipairs(guide.steps[current].goals) do
 				local q = goal.quest
 				if goal.t == "accept" and q and (goal.npc == npc or goal.object == npc) and goalApplies(goal)
-					and not offered[q] and not C.IsOnQuest(q) and not questDone(q) and not unavailable[q] then
+					and not offered[q] and not taken[q] and not C.IsOnQuest(q) and not questDone(q) and not unavailable[q] then
 					unavailable[q] = { reason = unavailableReason(goal), accept = goal }
 				end
 			end
