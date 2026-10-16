@@ -599,6 +599,8 @@ function stub.addonLoaded(name)
 		Polestar.Engine = Engine
 		Polestar.Nav = Nav
 		Polestar.Pins = Pins
+		-- Core/LocalNames.lua is not loaded: an English client's names.
+		Polestar.LocalName = Polestar.LocalName or function(_, _, english) return english end
 		local C = Polestar.Compat
 		function C.MapToWorld(map, x, y, frame)
 			if map ~= 9000 or frame == "e" then return nil end

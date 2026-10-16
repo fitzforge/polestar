@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.5 (unreleased)
+
+### For players
+
+- In a client in another language than English, the guide names NPCs and
+  objects in your language: in its steps, the arrow's label, "Not offered
+  by", the class trainer notice and the target button, whose `/targetexact`
+  now finds the mob in a French or German client. The names come in a new
+  folder of the Polestar zip, `Polestar_Names`, which only a client in
+  another language loads, and only its own language's file. An NPC it has
+  no name for, or one renamed for Forever, stays in English.
+
 ## 0.2.4 (2026-10-16)
 
 ### For players

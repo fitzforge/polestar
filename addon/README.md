@@ -13,6 +13,7 @@ page says which part is which.
 | `Polestar` | The addon: guide engine, waypoint arrow and travel planner, quest markers, gear advice, world map, quality of life, Lookup, Dungeons, Rares, Talents and every window. | Hand-written, apart from the generated files listed below | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_Guides` | Polestar's own guide pack (pack id `guides`): every guide under `guides/`, compiled to Lua. Loads with Polestar. | `compile`, from `guides/` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_ItemDB` | Item stats for the gear advice (`Items.lua`) and Forever item stats with quest reward choices (`Forever.lua`). Loaded on demand. | `itemdb build`, then `gear build` | yes (generated) | yes, in `Polestar-<version>.zip` |
+| `Polestar_Names` | NPC and object names in the client's language for the guides' steps, the arrow's label and the target button: one file per language (`frFR.lua`, `deDE.lua`, ...), and the client loads only its own. Loaded on demand, never in an English client. | `names build`, from QuestieDB's Forever store and pfQuest | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_QuestDB` | The quest database behind the quest markers, available-quest markers, tooltips and nameplate icons. Loaded on demand. | `questdb build`, from `data/forever` | no (gitignored, built locally) | yes, in `Polestar-<version>.zip` when built |
 | `Polestar_Codex` | Lookup's Codex: items, mounts, pets, recipes, NPCs, rares, quests, zones, dungeons and treasures with where each comes from; also the Dungeons and Rares data. Loaded on demand. | `codex build` | no (gitignored, built locally) | no: `install` copies it when built, `pack` never packages it |
 | `Polestar_Nav` | The arrow's walking routes: [Shortest Path Forever](https://github.com/cjber/shortest-path-forever)'s router and his map of Zephras Isle by Cillian Berragan, GPL-3.0-or-later, used with his permission (`CREDITS.md`), on Polestar's walking maps of Eastern Kingdoms and Kalimdor in his format, with the walk's chokepoints. `API.lua` hands the engine to Polestar as `Polestar_NavEngine`; it reads only its own maps (`PolestarPathData`), also with Shortest Path Forever installed. Loaded on demand at login. | `nav vendor <checkout>` (his router and map 2991, `UPSTREAM.json`), `nav pack` (Polestar's maps and `Chokepoints.lua`, `PACK.json`); never edited by hand | yes (generated and vendored) | yes, in `Polestar-<version>.zip` |
@@ -21,7 +22,8 @@ page says which part is which.
 
 The data addons Polestar can do without: with `Polestar_QuestDB`,
 `Polestar_Codex` or `Polestar_ItemDB` missing, the features that read them say
-what is missing instead of failing; without `Polestar_Nav` the arrow points
+what is missing instead of failing; without `Polestar_Names` NPCs and objects
+are named in English; without `Polestar_Nav` the arrow points
 straight at each stop. Which inputs may be redistributed, and so
 which data addons may ship, is in [THIRD_PARTY.md](../THIRD_PARTY.md).
 
@@ -66,6 +68,7 @@ never in saved variables.
 | `Compat.lua` | `Compat` | Every quest, map and unit client call, in one place, so tests can swap it for a fake; also the one copy of the client helpers every module shares: `IsSecret` and `Readable` (secret values from combat-restricted APIs), `Now` (the server clock) and `MapName` (the client's map name, else the Codex zone's) |
 | `Data.lua` | `Data` | Loads the load-on-demand data addons (`Data.Pack(name)`) |
 | `Hooks.lua` | `Hooks` | The one owner of the tooltip and item-click hooks; modules add lines and handle clicks through it |
+| `LocalNames.lua` | `LocalNames` | NPC and object names in the client's language (`Polestar.LocalName(kind, id, english)`), from `Polestar_Names` loaded on demand |
 | `Guides.lua` | `Guides` | The guide registry: packs, guides and map frames registered at load time, and the queries behind the guide menu (lists, suggestions) |
 | `Search.lua` | `Search` | One search over guides and every Codex entity, for the hub's search box and Lookup |
 | `Engine.lua` | `Engine` | The guide engine: the current step, each goal's status, where the waypoint points; progress recomputed from live client state |
@@ -244,6 +247,7 @@ to rebuild in.
 | `Polestar_ItemDB/Items.lua` | `node tools/polestar.js itemdb build` |
 | `Polestar_ItemDB/Forever.lua`, `Polestar_ItemDB/LICENSE-DATA.txt` | `node tools/polestar.js gear build` |
 | `Polestar_ItemDB/Polestar_ItemDB.toc` | `itemdb build`, then `gear build` adds `Forever.lua` to it |
+| `Polestar_Names/*` (TOC, `<locale>.lua`, `LICENSE-DATA.txt`) | `node tools/polestar.js names build` |
 | `Polestar_QuestDB/*` (local) | `node tools/polestar.js questdb build` |
 | `Polestar_Codex/*` (local) | `node tools/polestar.js codex build` |
 | `Polestar_Travel/*` (local) | `node tools/polestar.js travel build` |

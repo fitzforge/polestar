@@ -788,8 +788,9 @@ end)
 
 local function trainerPlace(t)
 	local zone = t.map and UI.MapName(t.map) or nil
-	if t.npcName and zone then return t.npcName .. ", " .. zone end
-	return t.npcName or zone
+	local name = ns.LocalName("npc", t.npc, t.npcName)
+	if name and zone then return name .. ", " .. zone end
+	return name or zone
 end
 
 -- One link-style action in the banner (label, chevron).
@@ -887,7 +888,7 @@ function GF.TakeBanner()
 		notices.train = nil
 		local t, nav2 = n.trainer, ns.Nav
 		if t and t.map and t.x and nav2 and nav2.SetTarget then
-			nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Class trainer"], t.f, "trainer")
+			nav2.SetTarget(t.map, t.x, t.y, ns.LocalName("npc", t.npc, t.npcName) or L["Class trainer"], t.f, "trainer")
 		end
 	end
 	GF.Layout()

@@ -91,10 +91,10 @@ function Data.Info(name)
 end
 
 -- Folders the release zip puts beside Polestar. The first two must be there;
--- the walking routes (Polestar_Nav), quest and item packs are optional (the
+-- the walking routes (Polestar_Nav), quest, item and name packs are optional (the
 -- arrow falls back to straight lines; a source install may not build the
 -- packs), but when present they must be the same version.
-local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Nav", "Polestar_QuestDB", "Polestar_ItemDB" }
+local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Nav", "Polestar_QuestDB", "Polestar_ItemDB", "Polestar_Names" }
 local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true }
 
 local function installed(name)

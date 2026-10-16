@@ -234,7 +234,7 @@ function Nearby.Find(key, line)
 		local E = ns.Engine
 		local t = E and E.NearestClassTrainer and E.NearestClassTrainer()
 		if t then
-			local place = { id = t.npc, name = t.npcName, map = t.map, x = t.x, y = t.y, f = t.f }
+			local place = { id = t.npc, name = ns.LocalName("npc", t.npc, t.npcName), map = t.map, x = t.x, y = t.y, f = t.f }
 			return place, estimate(place)
 		end
 	end
