@@ -273,9 +273,9 @@ local Own = {}
 -- { reason, accept }): the giver's window opened without offering them. Such a
 -- quest's goals count as skipped until it is taken or done, or its giver
 -- offers it. A level-up or a turn-in can unlock it, so they clear the marks
--- (Own.clearMarks), except those of accepts the route has moved past: the
--- guide never goes back to a giver who said no; seeing that giver again
--- checks afresh.
+-- (Own.clearMarks), except the giver's refusals ("offer") of accepts the route
+-- has moved past: the guide never goes back to a giver who said no for no
+-- reason the data knows; seeing that giver again checks afresh.
 local unavailable = {}
 -- Quests a giver's window offered this session (questID -> true): the
 -- giver's word beats a prerequisite the data names (Own.preBlocked).
@@ -1227,8 +1227,8 @@ end
 -- what they chose to pass. Before the start (or, with none, before the last
 -- quest progress), a step holds unless all its open goals are:
 -- - accepts the character cannot take yet (level, prerequisite): marked
---   unavailable for the session like a giver's refusal, so the step stays
---   passed until their giver offers them (Own.clearMarks).
+--   unavailable for the session, so they come back when the level is
+--   reached or the prerequisite done (Own.clearMarks);
 -- - goals the quest log cannot vouch for (goto, fly, getfp, train, vendor,
 --   hearth, non-quest kill/collect...) in a step before the last quest
 --   progress (anchorStep): the player is demonstrably past them;
@@ -3533,32 +3533,38 @@ end
 
 -- A level-up or a turn-in (either can unlock a quest) clears the marks, so
 -- the giver's next window decides afresh. A mark whose accept is in a step a
--- tab has moved past stays (#161): clearing it would send the guide back to a
+-- tab has moved past is cleared only when the data says the quest has just
+-- opened: a "level" or "pre" mark whose level is reached and prerequisites
+-- done (the guide goes back to it, as for #70). A "level" or "pre" mark still
+-- gated stays, its reason brought up to date (a level reached, a
+-- prerequisite still missing). An "offer" mark stays (#161): nothing in the
+-- data explains the refusal, and clearing it would send the guide back to a
 -- giver who said no, from wherever the player is now. It keeps that step
--- passed with its reason brought up to date, until the giver's window offers
--- the quest (checkOffers) or it is taken; a server gate the data does not
--- know (a higher level) shows as "offer" and opens the same way.
+-- passed until the giver's window offers the quest (checkOffers) or it is
+-- taken; a server gate the data does not know (a higher level) opens the
+-- same way.
 function Own.clearMarks()
 	if not player then
 		wipe(unavailable)
 		return
 	end
 	refreshPlayer() -- the new level: UnitLevel can lag PLAYER_LEVEL_UP
-	local keep = {}
+	local passed = {}
 	for i = 1, #tabs do
 		use(tabs[i])
 		if guide then
 			local stepOf = layoutOf(guide).stepOf
 			for q, u in pairs(unavailable) do
 				local s = stepOf[u.accept]
-				if s and s <= passedUpTo and u.reason ~= "closed" then keep[q] = true end
+				if s and s <= passedUpTo and u.reason ~= "closed" then passed[q] = true end
 			end
 		end
 	end
 	useActive()
 	for q, u in pairs(unavailable) do
-		if keep[q] then
-			u.reason = unavailableReason(u.accept)
+		local now = passed[q] and unavailableReason(u.accept)
+		if now and (u.reason == "offer" or now ~= "offer") then
+			if u.reason ~= "offer" then u.reason = now end
 		else
 			unavailable[q] = nil
 		end

@@ -152,7 +152,7 @@ test('the follow-up a turn-in pops up says nothing about the giver\'s other ques
 	assert.equal(out.at, 1);
 });
 
-test('#161: a level-up or a turn-in leaves a step the guide has moved past passed, its reasons brought up to date, until its giver offers the quest', () => {
+test('#161: in a step the guide has moved past, a level-up or a turn-in brings back what the data says has opened (level, prerequisite), never what the giver refused', () => {
 	const [out] = run({
 		script: `
 			local w = stub.world
@@ -163,13 +163,10 @@ test('#161: a level-up or a turn-in leaves a step the guide has moved past passe
 			r.level13 = { E.GetStepIndex(), brief(1) }
 			w.setLevel(14); flush()
 			r.level14 = { E.GetStepIndex(), brief(1) }
-			w.complete({ 871 }); w.turnIn(500); flush()
-			r.turnIn = { E.GetStepIndex(), brief(1)[1] }
-			-- Back at Thork later: he offers 870 now. The guide goes back for it.
-			w.gossip(3429, { available = { { questID = 870 } } }); flush()
-			r.offered = { E.GetStepIndex(), brief(1) }
-			w.accept(870, {}); w.close(); flush()
+			w.gossip(3429, { available = { { questID = 880 } } }); w.accept(880, {}); w.close(); flush()
 			r.taken = E.GetStepIndex()
+			w.complete({ 871 }); w.turnIn(500); flush()
+			r.turnIn = { E.GetStepIndex(), brief(1) }
 			emit(r)
 		`,
 	});
@@ -179,17 +176,20 @@ test('#161: a level-up or a turn-in leaves a step the guide has moved past passe
 		'skipped:level:Requires level 14',
 		'skipped:offer:Not offered by Thork',
 		'done:nil:nil',
-	]], 'still at the raptors, and 880 still needs level 14');
-	assert.deepEqual(out.level14[0], 2);
-	assert.equal(out.level14[1][1], 'skipped:offer:Not offered by Thork', 'level 14 reached: no longer "Requires level 14"');
-	assert.deepEqual(out.turnIn, [2, 'skipped:offer:Not offered by Thork'], '871 done: no longer "Requires Disrupt the Attacks first"');
-	assert.deepEqual(out.offered, [1, [
+	]], 'still at the raptors: 880 still needs level 14');
+	assert.deepEqual(out.level14, [1, [
+		'skipped:pre:Requires Disrupt the Attacks first',
+		'active:nil:nil',
 		'skipped:offer:Not offered by Thork',
-		'skipped:offer:Not offered by Thork',
+		'done:nil:nil',
+	]], 'level 14: back to Thork for 880; 870, which he refused, stays passed');
+	assert.equal(out.taken, 2);
+	assert.deepEqual(out.turnIn, [1, [
 		'active:nil:nil',
 		'done:nil:nil',
-	]]);
-	assert.equal(out.taken, 2);
+		'skipped:offer:Not offered by Thork',
+		'done:nil:nil',
+	]], '871 done: back to Thork for 872; 870 stays passed');
 });
 
 test('#161: a level-up or a turn-in clears the marks of the step at hand, so its giver is asked again', () => {

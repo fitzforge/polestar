@@ -1040,15 +1040,18 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   accept and the goals of that quest in the
   guide (objectives, complete, turnin) count as skipped, so the guide moves on
   instead of stalling. The session marks clear on level-up and on any quest
-  turn-in (either can open a quest whose prerequisite the data lacks), save
-  the marks of accepts in steps a tab has moved past (#161): those keep the
-  step passed, their reason brought up to date (a level now reached reads
-  `"offer"`), so the guide never goes back to a giver who said no. Every mark
-  goes for the quest itself when it is accepted, when its giver's window
-  offers it (also from a later step: the guide then goes back to it, the
-  player standing at that giver) or lists it as active. `"offer"` marks are
-  saved at logout (not for a quest in the log) and restored at login at any
-  level. The view carries `unavailable = reason` and `unavailableText`.
+  turn-in (either can open a quest whose prerequisite the data lacks). In
+  steps a tab has moved past, a `"level"` or `"pre"` mark clears only once
+  the data says the quest is open (level reached, prerequisites done: the
+  guide goes back to it) and otherwise stays with its reason brought up to
+  date; an `"offer"` mark stays (#161), keeping the step passed, so the
+  guide never goes back to a giver who said no for no reason the data
+  knows. Every mark goes for the quest itself when it is accepted, when its
+  giver's window offers it (also from a later step: the guide then goes
+  back to it, the player standing at that giver) or lists it as active.
+  `"offer"` marks are saved at logout (not for a quest in the log) and
+  restored at login at any level. The view carries `unavailable = reason`
+  and `unavailableText`.
   When such marks move the guide past a step during play, the Engine fires
   `STEP_SKIPPED`; the guide window's banner then reads "Skipped <quest>  ·
   <reason>" (one line per quest) until the step changes again, it is
@@ -1304,8 +1307,8 @@ holds at its opening, see "Not yet available"):
   ahead with › was sent back to the first such step on every reload.)
 - Before the start (with no start: before the last quest progress), a step
   passes when every open goal is an accept the character cannot take yet
-  (level, prerequisite; marked unavailable for the session like a giver's
-  refusal, so it stays passed until its giver offers it), a soft goal (goto,
+  (level, prerequisite; marked unavailable for the session, so it comes back
+  once the level is reached or the prerequisite done), a soft goal (goto,
   fly, getfp, train, vendor, hearth, sethome, talk, non-quest
   kill/collect/buy) in a step before the last
   step with live quest progress (a done quest goal or an objective with some
