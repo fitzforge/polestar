@@ -1,0 +1,158 @@
+guide completionist/alliance/nightelf/19-ironforge-stormwind-city
+title Ironforge & Stormwind City
+faction Alliance
+race NightElf
+levels 39-41
+zone Ironforge
+category Completionist
+folder Completionist · NightElf 30-40
+keywords completionist, every quest, Ironforge, Stormwind City, The Barrens, Westfall
+next completionist/alliance/nightelf/20-stranglethorn-vale
+
+# Route: guide 19 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 39 to
+# 41, 40 quests, 1.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Ironforge, Stormwind City, The Barrens, Westfall): Ironforge -> near
+# Ironforge -> Ironforge -> near Ironforge -> near Stormwind City -> near
+# Stormwind -> Stormwind City -> Ratchet -> The Dagger Hills.
+#
+# Optional (elite: grouping up is advised): Save Techbot's Brain! (2922;
+# Techbot 26); The Black Box (708; Zaricotl 55-56); The Star, the Hand and the
+# Heart (735; Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying
+# 44); The Shattered Necklace (2198; Shadowforge Surveyor 35-36, Shadowforge
+# Ruffian 36-37, Shadowforge Digger 35-36, Stonevault Rockchewer 36-37,
+# Stonevault Oracle 37-38, Stonevault Cave Hunter 36-37); The Perenolde Tiara
+# (543; Grel'borg the Miser 39); A Host of Evil (6626; Razorfen Battleguard
+# 33-34, Razorfen Thornweaver 33-34, Death's Head Cultist 33-34).
+#
+# Profession quests here are not routed (they need the skill): 866 Root
+# Samples; 3633 Goblin Engineering; 3634 Gnome Engineering; 3646 Membership
+# Card Renewal.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Knowledge in the Deeps (971), Knowledge in the Deeps
+# (971), Mythology of the Titans (1050), Mythology of the Titans (1050), The
+# Lost Tablets of Will (1139), Back to Uldaman (2200), Restoring the Necklace
+# (2204), The Lost Dwarves (2398), Essential Artificials (2924), Essential
+# Artificials (2924), The Grand Betrayal (2929), The Grand Betrayal (2929),
+# Data Rescue (2930), Data Rescue (2930), Kharan Mighthammer (4341), The Fate
+# of the Kingdom (4362), The Restless Dead (96394), The Restless Dead (96394),
+# An Ancient Grudge (96395), Important Heirlooms (96403), Important Heirlooms
+# (96403), The Treaty of Understanding (98423), Quell The Uprising (387),
+# Quell the Uprising (387), The Color of Blood (388), The Color of Blood
+# (388), The Stockade Riots (391), The Stockade Riots (391), Underground
+# Assault (2040), Underground Assault (2040), Bring the Light (3636), A Green
+# Sample (92456), A Green Sample (92456), Power Overwhelming (92489), Power
+# Overwhelming (92489), Mortality Wanes (1142), Willix the Importer (1144),
+# Blueleaf Tubers (1221), Blueleaf Tubers (1221), Deviate Eradication (1487),
+# Deviate Eradication (1487), The Glowing Shard (6981), The Defias Brotherhood
+# (166), The Defias Brotherhood (166), The Unsent Letter (373).
+
+step Gnoarn
+  tip Techbot (level 26) is elite: grouping up is advised unless you are well above level 26.
+  accept 2927
+  turnin 2923
+  accept 2922 optional
+  turnin 637
+  accept 683
+  turnin 2925
+
+step Historian Karnik
+  turnin 98313
+
+step Ironforge
+  sethome "Ironforge"
+  turnin 683
+  turnin 98300
+  accept 686
+
+step Grand Mason Marblesten
+  turnin 686
+  accept 689
+
+step Gerrig Bonegrip
+  turnin 653
+  turnin 727
+
+step Prospector Stormpike
+  turnin 514
+
+step Pilot Longbeard
+  tip Zaricotl (level 55-56) is elite: grouping up is advised unless you are well above level 56.
+  turnin 708 optional
+  accept 1179
+
+step Prospector Stormpike
+  accept 525
+  turnin 1457
+  turnin 1467
+
+step Gerrig Bonegrip
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  accept 687
+  accept 735 optional
+
+step Krom Stoutarm
+  accept 1360
+
+step Talvash del Kissel
+  tip Shadowforge Surveyor (level 35-36), Shadowforge Ruffian (level 36-37), Shadowforge Digger (level 35-36) and 3 more are elite: grouping up is advised unless you are well above level 38.
+  turnin 2198 optional
+  accept 2199
+
+step Garion Wendell
+  zone Stormwind City
+  accept 82208
+  turnin 82208
+  accept 690
+  accept 1271
+  turnin 1271
+  accept 1301
+
+step Angus Stern
+  tip Grel'borg the Miser (level 39) is elite: grouping up is advised unless you are well above level 39.
+  accept 543 optional
+  accept 212
+  accept 1260
+
+step Brother Crowley
+  accept 6141
+
+step Brohann Caskbelly
+  accept 1448
+
+step Stormwind City
+  sethome "Stormwind City"
+  accept 1363
+  turnin 1363
+  accept 1364
+
+step Ratchet
+  zone The Barrens
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  getfp "Ratchet"
+  sethome "Ratchet"
+  turnin 1039
+  accept 1040
+  kill 7874 quest 6626.2 optional
+  kill 7873 quest 6626.1 optional
+
+step Back to Ratchet
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  kill 7872 quest 6626.3 optional
+  hearth "Ratchet"
+
+step Wharfmaster Dizzywig
+  turnin 1111
+
+step Gazlowe
+  turnin 1178
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  accept 48
+  note "Profession quests here, for players with the skill: Root Samples (Herbalism 1), Goblin Engineering (Engineering 200), Gnome Engineering (Engineering 200), Membership Card Renewal (Engineering 200)."

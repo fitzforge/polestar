@@ -1,0 +1,149 @@
+guide completionist/alliance/skyborne/15-badlands
+title Badlands
+faction Alliance
+race Skyborne
+levels 37-39
+zone Badlands
+category Completionist
+folder Completionist · Skyborne 30-40
+keywords completionist, every quest
+next completionist/alliance/skyborne/16-stranglethorn-vale
+
+# Route: guide 15 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 37 to
+# 39, 21 quests, 3.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Badlands): Agmond's End -> Valley of Fangs -> Agmond's End -> Valley
+# of Fangs -> Agmond's End -> Valley of Fangs -> The Maker's Terrace ->
+# Agmond's End -> The Dustbowl -> Kargath -> The Dustbowl -> Hammertoe's
+# Digsite -> Valley of Fangs -> ….
+#
+# Optional (elite: grouping up is advised): The Black Box (708; Zaricotl
+# 55-56).
+#
+# Profession quests here are not routed (they need the skill): 1559 Flash Bomb
+# Recipe.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Ribbly Screwspigot (4136), Kibler's Exotic Pets (4729),
+# En-Ay-Es-Tee-Why (4862).
+
+step Theldurin the Lost
+  accept 709
+
+step Battered Dwarven Skeleton
+  turnin 738
+  accept 739
+
+step Agmond's End: Murdaloc and Stonevault Bonesnapper
+  kill 2945 quest 739.1
+  kill 2893 quest 739.2
+
+step Rigglefuzz
+  accept 705
+  accept 2418 optional
+  turnin 1106
+  accept 1108
+
+step Agmond's End: Indurium Flake
+  tip Zaricotl (level 55-56) is elite: grouping up is advised unless you are well above level 56. Zaricotl drops the Corroded Black Box: right-click it to start The Black Box.
+  collect 4613 x1 optional
+  accept 708 optional
+  collect 5797 quest 1108.1
+
+step Martek the Exiled
+  turnin 1108
+  accept 1137
+
+step The Maker's Terrace: Solution to Doom
+  complete 709
+  collect 8009 quest 2418.1 optional
+  collect 8052 quest 2418.2 optional
+
+step Theldurin the Lost
+  turnin 2418 optional
+  turnin 709
+  accept 727
+
+step Lotwil Veriatus
+  accept 710
+
+step The Dustbowl: Small Stone Shard
+  collect 4626 quest 710.1
+
+step Lotwil Veriatus
+  turnin 710
+  accept 711
+
+step Kargath: Large Stone Slab
+  collect 4627 quest 711.1
+
+step Lotwil Veriatus
+  turnin 711
+  accept 712
+
+step Crumpled Map
+  accept 720
+
+step Sigrun Ironhew
+  accept 718
+  turnin 720
+  accept 719
+  accept 721
+
+step Hammertoe's Digsite: Ryedol's Lucky Pick
+  collect 4616 quest 719.1
+
+step Prospector Ryedol
+  turnin 719
+
+step Rigglefuzz
+  accept 703
+
+step Valley of Fangs: Buzzard Wing
+  collect 3404 quest 703.1
+
+step Rigglefuzz
+  turnin 703
+
+step Camp Kosh: Mirages
+  complete 718
+
+step Sigrun Ironhew
+  turnin 718
+  accept 733
+
+step Camp Kosh: Scrap Metal
+  collect 4630 quest 733.1
+
+step Sigrun Ironhew
+  turnin 733
+
+step Camp Cagg: Bracers of Rock Binding
+  collect 4628 quest 712.1
+
+step Lotwil Veriatus
+  turnin 712
+  accept 716
+
+step The Dustbowl: Stone Is Better than Cloth
+  complete 716
+
+step Lucien Tosselwrench
+  turnin 716
+
+step The Dustbowl: Rock Elemental Shard
+  collect 7848 quest 2500.3
+
+step Angor Fortress: Crag Coyote Fang
+  collect 7846 quest 2500.2
+
+step The Maker's Terrace: Buzzard Gizzard
+  collect 7847 quest 2500.1
+
+step Back to Stoutlager Inn
+  hearth "Stoutlager Inn"
+  note "Profession quests here, for players with the skill: Flash Bomb Recipe (Engineering 1)."

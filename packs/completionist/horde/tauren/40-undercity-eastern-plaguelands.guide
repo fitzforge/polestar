@@ -1,0 +1,224 @@
+guide completionist/horde/tauren/40-undercity-eastern-plaguelands
+title Undercity & Eastern Plaguelands
+faction Horde
+race Tauren
+levels 57-58
+zone Undercity
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest, Undercity, Western Plaguelands, Eastern Plaguelands, Orgrimmar, Winterspring, Blasted Lands, Thousand Needles
+next completionist/horde/tauren/41-tanaris-hillsbrad-foothills
+
+# Route: guide 40 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 57 to
+# 58, 48 quests, 2.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Undercity, Western Plaguelands, Eastern Plaguelands, Orgrimmar,
+# Winterspring, Blasted Lands, Thousand Needles): Undercity -> near Undercity
+# -> Undercity -> near Undercity -> Undercity -> Felstone Field -> Dalson's
+# Tears -> Ruins of Andorhal -> The Writhing Haunt -> Thondroril River ->
+# Ruins of Andorhal -> The Marris Stead -> Darrowshire -> ….
+#
+# Optional (elite: grouping up is advised): The Star, the Hand and the Heart
+# (736; Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44);
+# The Crimson Courier (6145; Crimson Courier 60); The Scarlet Oracle, Demetria
+# (6148; Demetria 61).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Book of Ur (1013), The Book of Ur (1013), Going,
+# Going, Guano! (1109), Going, Going, Guano! (1109), Bring the End (3341), The
+# Power to Destroy... (5725), Light's Justice (92421), Light's Justice
+# (92421), The New Plague (95216), Source of Power (96988), Doctor Theolen
+# Krastinov, the Butcher (5382), Kirtonos the Herald (5384), The Lich, Ras
+# Frostwhisper (5466), Krastinov's Bag of Horrors (5515), Of Love and Family
+# (5848), Oculus Illusions (6569), Dawn's Gambit (4771), The Flesh Does Not
+# Lie (5212), The Active Agent (5213), The Great Fras Siabi (5214), Houses of
+# the Holy (5243), The Archivist (5251), Above and Beyond (5263), The Restless
+# Souls (5282), Menethil's Gift (5463), Plagued Hatchlings (5529), Ramstein
+# (6163), Dead Man's Plea (8945), Anthion's Old Friend (8948), Necklace
+# Recovery, Take 2 (2284), Rig Wars (2841), Rig Wars (2841), The Royal Rescue
+# (4003), For The Horde! (4974), Returning the Lost Satchel (5724), Hidden
+# Enemies (5728), Hidden Enemies (5728), Slaying the Beast (5761), Slaying the
+# Beast (5761), Changing Tastes (95697), Changing Tastes (95697), Gahz'rilla
+# (2770).
+
+step Raleigh Andrean
+  turnin 441
+  accept 530
+
+step Apothecary Zinge
+  accept 1358
+
+step Glix Xizzix
+  turnin 98545
+
+step Bethor Iceshard
+  accept 446
+  accept 7813
+
+step Varimathras
+  turnin 550
+
+step Keeper Bel'dugur
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  turnin 736 optional
+  accept 737
+
+step Royal Overseer Bauhaus
+  accept 5049
+  turnin 5049
+  accept 5050
+
+step Apothecary Zinge
+  accept 4133
+
+step Harbinger Balthazad
+  accept 7492
+
+step Lady Sylvanas Windrunner
+  tip Crimson Courier (level 60) is elite: grouping up is advised unless you are well above level 60.
+  accept 5961
+  turnin 6144
+  accept 6145 optional
+
+step Apothecary Zinge
+  accept 4769
+
+step Janice Felstone
+  zone Western Plaguelands
+  turnin 5050
+  accept 5051
+
+step Felstone Field: Two Halves Become One
+  complete 5051
+
+step Janice Felstone
+  turnin 5051
+  turnin 5218
+
+step Scourge Cauldron
+  accept 5221
+
+step Dalson's Tears: Runecloth
+  collect 14047 quest 5221.3
+
+step Chromie
+  turnin 5941
+
+step The Writhing Haunt: Writhing Haunt Cauldron Key
+  collect 13197 quest 5233.1
+
+step Scourge Cauldron
+  turnin 5233
+  accept 5234
+
+step The Writhing Haunt: Somatic Intensifier
+  collect 13356 quest 5221.2
+
+step Tirion Fordring
+  turnin 5781
+  accept 5845
+
+step Chromie
+  accept 5721
+
+step Nathanos Blightcaller
+  zone Eastern Plaguelands
+  turnin 5961
+
+step Darrowshire: The Battle of Darrowshire
+  complete 5721
+
+step Pamela Redpath
+  turnin 5721
+  accept 5942
+  turnin 5942
+
+step Northpass Tower: Of Lost Honor
+  complete 5845
+
+step Nathanos Blightcaller
+  tip Crimson Courier (level 60) is elite: grouping up is advised unless you are well above level 60.
+  collect 15868 quest 6145.1 optional
+  turnin 6145 optional
+  accept 6146
+
+step The Marris Stead: Nathanos' Ruse
+  complete 6146
+
+step Crusader Lord Valdelmar
+  turnin 6146
+  accept 6147
+
+step Nathanos Blightcaller
+  tip Demetria (level 61) is elite: grouping up is advised unless you are well above level 61.
+  turnin 6147
+  accept 6148 optional
+  kill 12339 quest 6148.1 optional
+
+step Back to Undercity
+  tip Demetria (level 61) is elite: grouping up is advised unless you are well above level 61.
+  turnin 6148 optional
+  hearth "Undercity"
+
+step Rilli Greasygob
+  zone Orgrimmar
+  turnin 3923
+  accept 3924
+
+step near Orgrimmar: Samophlange Manual
+  complete 3924
+
+step Rilli Greasygob
+  turnin 3924
+
+step Rashona Straglash
+  accept 7826
+
+step Zor Lonetree
+  accept 1061
+
+step Vehena
+  accept 7833
+
+step Donova Snowden
+  zone Winterspring
+  turnin 3909
+  accept 3912
+  turnin 5085
+  accept 5086
+
+step Owl Wing Thicket: Moontouched Owlbeast
+  kill 7453 quest 4741.1
+
+step Dreadmaul Hold: Servant of Grol
+  zone Blasted Lands
+  kill 7669 quest 2681.2
+
+step Serpent's Coil: Servant of Allistarj
+  kill 7670 quest 2681.3
+
+step The Dark Portal: Servant of Razelikh
+  kill 7668 quest 2681.1
+
+step Altar of Storms: Servant of Sevine
+  kill 7671 quest 2681.4
+
+step Kravel Koalbeard
+  zone Thousand Needles
+  turnin 1117
+  accept 1190
+  turnin 1187
+  accept 1188
+  accept 1191
+  turnin 1191
+  turnin 1190
+  accept 1194
+  turnin 1194
+  accept 1118
+
+step Gadgetzan
+  sethome "Gadgetzan"

@@ -1,0 +1,196 @@
+guide completionist/horde/orc/31-un-goro-crater
+title Un'Goro Crater
+faction Horde
+race Orc
+levels 50-52
+zone Un'Goro Crater
+category Completionist
+folder Completionist · Orc 50-60
+keywords completionist, every quest
+next completionist/horde/orc/32-eastern-plaguelands
+
+# Route: guide 31 of 49 of the simulator's completionist route for Orc (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 50 to 52, 27
+# quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Un'Goro Crater): Lakkari Tar Pits -> Ironstone Plateau -> Fire Plume
+# Ridge -> Lakkari Tar Pits -> The Marshlands -> The Slithering Scar -> The
+# Marshlands -> The Slithering Scar -> Terror Run -> Lakkari Tar Pits -> The
+# Marshlands -> Ironstone Plateau -> The Marshlands -> ….
+#
+# Left to other guides: class quests (the Class category).
+
+step Williden Marshal
+  accept 3881
+  accept 3883
+  accept 3882
+  accept 4501
+  accept 4492
+
+step Lakkari Tar Pits: Lost!
+  complete 4492
+
+step Larion
+  accept 4145
+  accept 4503
+  accept 4243
+
+step Lakkari Tar Pits: Bloodpetal Flayer
+  kill 6510 quest 4145.3
+
+step Lakkari Tar Pits: Dinosaur Bone and Webbed Diemetradon Scale
+  collect 11114 quest 3882.1
+  collect 11830 quest 4503.1
+
+step Lakkari Tar Pits: Pterrordax
+  kill 9166 quest 4501.1
+
+step A-Me 01
+  turnin 4243
+  accept 4244 optional
+
+step Ironstone Plateau: Bloodpetal Thresher
+  kill 6511 quest 4145.4
+
+step Ironstone Plateau: Bloodpetal Lasher
+  kill 6509 quest 4145.1
+
+step Ringo
+  turnin 4492
+  accept 4491
+
+step Lakkari Tar Pits: A Little Help From My Friends
+  tip Spraggle's Canteen lasts 25 minutes: go straight on with it.
+  complete 4491
+
+step Spraggle Frock
+  turnin 4491
+
+step A Wrecked Raft
+  accept 3844
+  turnin 3844
+  accept 3845
+
+step The Marshlands: It's a Secret to Everybody
+  complete 3845
+
+step The Slithering Scar
+  tip Ravasaur Runner drops the A Mangled Journal: right-click it to start Williden's Journal.
+  collect 11116 x1
+  accept 3884
+
+step Torwa Pathfinder
+  accept 4289
+  accept 4290
+
+step The Marshlands: The Fare of Lar'korwi
+  complete 4290
+
+step Torwa Pathfinder
+  turnin 4290
+  accept 4291
+
+step The Marshlands: Ravasaur Pheromone Gland
+  collect 11509 quest 4291.1
+
+step Torwa Pathfinder
+  turnin 4291
+
+step The Slithering Scar: Hive Wall Sample
+  collect 11131 quest 3883.1
+
+step Terror Run: Expedition Salvation
+  complete 3881
+
+step Lakkari Tar Pits: Bloodpetal Trapper and Webbed Pterrordax Scale and more
+  kill 6512 quest 4145.2
+  collect 11831 quest 4503.2
+  kill 9167 quest 4501.2
+
+step Shizzle
+  turnin 4503
+
+step Spraggle Frock
+  turnin 4501
+
+step Torwa Pathfinder
+  accept 4292
+
+step Ironstone Plateau: Lar'korwi's Head
+  collect 11510 quest 4292.1
+
+step Torwa Pathfinder
+  turnin 4292
+
+step Spark Nilminer
+  turnin 3882
+  turnin 3883
+  turnin 3881
+  turnin 3884
+  turnin 3845
+  accept 3908
+  turnin 4145
+  accept 4147
+  accept 4284
+
+step Lakkari Tar Pits: Crystals of Power
+  complete 4284
+
+step J.D. Collie
+  turnin 4284
+  accept 4285
+  accept 4287
+  accept 4288
+
+step Lakkari Tar Pits: Northern Crystal Pylon
+  interact 164955 quest 4285.1
+
+step Ironstone Plateau: Un'Goro Gorilla Pelt and Un'Goro Stomper Pelt and more
+  collect 11478 quest 4289.1
+  collect 11479 quest 4289.2
+  collect 11480 quest 4289.3
+
+step Ironstone Plateau: Eastern Crystal Pylon
+  interact 164957 quest 4287.1
+
+step Torwa Pathfinder
+  turnin 4289
+  accept 4301
+
+step Golakka Hot Springs: Western Crystal Pylon
+  interact 164956 quest 4288.1
+
+step J.D. Collie
+  turnin 4285
+  turnin 4287
+  turnin 4288
+  accept 4321
+  turnin 4321
+
+step Ironstone Plateau: U'cha's Pelt
+  collect 11476 quest 4301.1
+
+step Torwa Pathfinder
+  turnin 4301
+
+step Krakle
+  accept 974
+
+step Fire Plume Ridge: Fire Plume Ridge Hot Spot
+  interact 148503 quest 974.1
+
+step Krakle
+  turnin 974
+  accept 980
+
+step Back to Revantusk Village
+  hearth "Revantusk Village"
+
+step Light's Hope Chapel
+  getfp "Light's Hope Chapel"
+
+step Light's Hope Chapel
+  sethome "Light's Hope Chapel"

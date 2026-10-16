@@ -1,0 +1,223 @@
+guide completionist/horde/tauren/43-the-barrens-arathi-highlands
+title The Barrens & Arathi Highlands
+faction Horde
+race Tauren
+levels 58-59
+zone The Barrens
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest, The Barrens, Stranglethorn Vale, Badlands, Arathi Highlands, Felwood
+next completionist/horde/tauren/44-tanaris-silverpine-forest
+
+# Route: guide 43 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 58 to
+# 59, 49 quests, 3.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Barrens, Stranglethorn Vale, Badlands, Arathi Highlands, Felwood):
+# Ratchet -> The Crossroads -> Camp Taurajo -> The Merchant Coast -> Razorfen
+# Kraul -> Camp Taurajo -> The Crossroads -> Lushwater Oasis -> Honor's Stand
+# -> Boulder Lode Mine -> Ratchet -> Booty Bay -> Grom'gol Base Camp -> ….
+#
+# Optional (elite: grouping up is advised): Summoning the Princess (656;
+# Myzrael 44); Recover the Key! (7846; Hitah'ya the Keeper 51); Wanted: Vile
+# Priestess Hexx and Her Minions (7861; Vile Priestess Hexx 51, Vilebranch
+# Aman'zasi Guard 50-51).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Willix the Importer (1144), Blueleaf Tubers (1221),
+# Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate Eradication
+# (1487), The Glowing Shard (6981), Find the Gems and Power Source (2339),
+# Disharmony of Fire (3907), Commander Gor'shak (3981), The Rise of the
+# Machines (4063), KILL ON SIGHT: Dark Iron Dwarves (4081), KILL ON SIGHT:
+# High Ranking Dark Iron Officials (4082), Operation: Death to Angerforge
+# (4132), Lost Thunderbrew Recipe (4134), Ribbly Screwspigot (4136), The Pack
+# Mistress (4724), Kibler's Exotic Pets (4729), The Darkstone Tablet (4768),
+# En-Ay-Es-Tee-Why (4862), Warlord's Command (4903), Operative Bijou (4981),
+# Dragonmaw Rumors (95663).
+
+step Liv Rizzlefix
+  turnin 4502
+
+step The Crossroads
+  sethome "The Crossroads"
+  accept 91899
+  accept 91900
+
+step The Crossroads: A Sealed Crate
+  complete 91899
+
+step Dokimi
+  turnin 91899
+
+step The Crossroads: A Sealed Crate
+  complete 91900
+
+step Dokimi
+  turnin 91900
+
+step Sergra Darkthorn
+  turnin 860
+  turnin 886
+
+step Jahan Hawkwing
+  turnin 6364
+
+step Camp Taurajo
+  sethome "Camp Taurajo"
+  accept 874
+
+step Mahren Skyseer
+  turnin 874
+  accept 873
+
+step The Merchant Coast: Heart of Isha Awak
+  collect 5104 quest 873.1
+
+step Mahren Skyseer
+  turnin 873
+
+step Grish Longrunner
+  turnin 5881
+
+step Tatternack Steelforge
+  turnin 1153
+
+step The Crossroads
+  sethome "The Crossroads"
+  turnin 1148
+  accept 1184
+  turnin 1358
+
+step Lushwater Oasis: Serpentbloom
+  collect 5339 quest 962.1
+
+step Makaba Flathoof
+  turnin 6629
+  turnin 1061
+  turnin 1068
+
+step Back to The Crossroads
+  hearth "The Crossroads"
+
+step Boulder Lode Mine: Wool Cloth
+  collect 2592 quest 7826.1
+  collect 2592 quest 7833.1
+
+step Ratchet: The Stone Circle
+  sethome "Ratchet"
+  complete 3444
+
+step Booty Bay
+  zone Stranglethorn Vale
+  sethome "Booty Bay"
+  turnin 1118
+
+step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp"
+  turnin 2932
+
+step Booty Bay
+  sethome "Booty Bay"
+  accept 1119
+
+step Kargath
+  zone Badlands
+  sethome "Kargath"
+  turnin 3822
+  turnin 4133
+  turnin 4061
+  accept 4062
+
+step Lotwil Veriatus
+  turnin 4062
+
+step Shadowmage Vivian Lagrave
+  turnin 4769
+
+step Theldurin the Lost
+  tip Myzrael (level 44) is elite: grouping up is advised unless you are well above level 44.
+  turnin 737
+  accept 656 optional
+
+step Rigglefuzz
+  turnin 705
+
+step Neeka Bloodscar
+  turnin 1418
+
+step Angor Fortress: Reclaimed Treasures
+  complete 2342
+
+step Jarkal Mossmeld
+  turnin 2202
+
+step Hammerfall
+  zone Arathi Highlands
+  tip Myzrael (level 44) is elite: grouping up is advised unless you are well above level 44.
+  sethome "Hammerfall"
+  accept 8265
+  turnin 8265
+  collect 4473 quest 656.1 optional
+
+step Shakes O'Breen
+  tip Myzrael (level 44) is elite: grouping up is advised unless you are well above level 44.
+  turnin 656 optional
+  turnin 670
+  accept 667
+
+step Faldir's Cove: Death From Below
+  complete 667
+
+step Shakes O'Breen
+  turnin 667
+
+step Back to Hammerfall
+  hearth "Hammerfall"
+
+step Messenger Bag
+  tip Hitah'ya the Keeper (level 51), Vile Priestess Hexx (level 51) and Vilebranch Aman'zasi Guard (level 50-51) are elite: grouping up is advised unless you are well above level 51.
+  collect 19064 quest 7846.1 optional
+  kill 2648 quest 7861.2 optional
+  accept 79976
+  turnin 79975
+  turnin 79976
+
+step Boulder'gor: Boulderfist Enforcer and Boulderfist Ogre
+  kill 2564 quest 676.2
+  kill 2562 quest 676.1
+
+step Dabyrie's Farmstead: Marcel's Head and Kenata's Head and more
+  collect 5832 quest 1164.2
+  collect 5830 quest 1164.1
+  collect 5831 quest 1164.3
+
+step Drum Fel
+  turnin 676
+
+step Eridan Bluewind
+  zone Felwood
+  turnin 3942
+  accept 4084
+
+step Emerald Sanctuary: Silvery Claws
+  collect 11172 quest 4084.1
+
+step Irontree Woods: Irontree Heart
+  collect 11173 quest 4084.2
+
+step Eridan Bluewind
+  turnin 4084
+  accept 4005
+
+step Irontree Woods: Toxic Horror Droplet
+  collect 12822 quest 5086.1
+
+step Trull Failbane
+  turnin 4741
+  accept 4721
+
+step Gadgetzan
+  sethome "Gadgetzan"

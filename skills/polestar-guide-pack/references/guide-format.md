@@ -28,7 +28,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `race <Race>, ...` | Only these races (Conditions) |
 | `class <Class>, ...` | Only these classes |
 | `next <id>, ...` | The guide that follows. Several ids: the player chooses, the first is the default; each must suit this guide's characters (`polestar find <zone> --kind guide --race <Race>`) |
-| `category <Category>` | `Leveling` (default), `Class`, `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Dungeons` |
+| `category <Category>` | `Leveling` (default), `Class`, `Completionist`, `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Dungeons` |
 | `folder <text>` | The guide menu folder to list it under |
 | `keywords <word>, ...` | Extra words the guide menu search matches |
 | `collects <item>, ...` | Item ids the guide obtains |
@@ -133,7 +133,7 @@ Warrior or Paladin).
   accepts, in this guide or one that leads to it with `next` (a `direct`
   turn-in is the exception; `complete` and objectives for one are an error).
 - An unknown id without a quoted name; an unknown verb or modifier.
-- A required kill of an elite in a `Leveling` guide.
+- A required kill of an elite in a `Leveling` or `Completionist` guide.
 - A `next` guide none of this guide's characters can follow.
 
 Lint also warns when a quest is accepted and never handed in, when

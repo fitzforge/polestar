@@ -1,0 +1,264 @@
+guide completionist/alliance/skyborne/50-westfall-stranglethorn-vale
+title Westfall & Stranglethorn Vale
+faction Alliance
+race Skyborne
+levels 60-60
+zone Westfall
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Duskwood, Stormwind City, Azshara, Wetlands, Arathi Highlands, Westfall, Hillsbrad Foothills, Moonglade, Durotar, Stranglethorn Vale
+
+# Route: guide 50 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 60 to
+# 60, 47 quests, 8.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Duskwood, Stormwind City, Azshara, Wetlands, Arathi Highlands,
+# Westfall, Hillsbrad Foothills, Moonglade, Durotar, Stranglethorn Vale): The
+# Hushed Bank -> Darkshire -> Manor Mistmantle -> Darkshire -> Raven Hill
+# Cemetery -> near Stormwind City -> Stormwind City -> Ravencrest Monument ->
+# Dun Modr -> Refuge Pointe -> Sentinel Hill -> Westfall Lighthouse ->
+# Sentinel Hill -> ….
+#
+# Optional (elite: grouping up is advised): Morbent Fel (55; Morbent Fel 32);
+# Crushridge Warmongers (504; Crushridge Warmonger 39-40).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Crime and Punishment (377), Crime and Punishment (377),
+# Quell The Uprising (387), Quell the Uprising (387), The Color of Blood
+# (388), The Color of Blood (388), The Stockade Riots (391), The Stockade
+# Riots (391), Underground Assault (2040), Underground Assault (2040), Bring
+# the Light (3636), A Green Sample (92456), A Green Sample (92456), Power
+# Overwhelming (92489), Power Overwhelming (92489), The Fury Runs Deep (378),
+# The Fury Runs Deep (378), Lost in the Thicket Things (95647), Fallen in the
+# Fen (95795), Heartwoven (95809), Highland Hides (98815), Highland Hides
+# (98815), Prehistoric Prism (98824), Prehistoric Prism (98824), The Defias
+# Brotherhood (166), The Defias Brotherhood (166), The Unsent Letter (373), In
+# the Name of the Light (1053).
+
+step Sven Yorgen
+  zone Duskwood
+  tip Morbent Fel (level 32) is elite: grouping up is advised unless you are well above level 32.
+  turnin 325
+  accept 55 optional
+  kill 1200 quest 55.1 optional
+
+step Darkshire
+  tip Morbent Fel (level 32) is elite: grouping up is advised unless you are well above level 32.
+  turnin 55 optional
+  sethome "Darkshire"
+  turnin 78
+  accept 79
+  turnin 79
+  accept 80
+  turnin 80
+  accept 97
+  turnin 97
+  accept 98
+
+step Manor Mistmantle: Mistmantle Family Ring
+  collect 3629 quest 98.1
+
+step Madame Eva
+  turnin 98
+
+step Raven Hill Cemetery: Silk Cloth
+  collect 4306 quest 7793.1
+
+step Brother Kristoff
+  zone Stormwind City
+  turnin 346
+
+step Stormwind City
+  sethome "Stormwind City"
+  turnin 7793
+
+step Duke Hydraxis
+  zone Azshara
+  turnin 6804
+  turnin 6805
+
+step Back to Stormwind City
+  hearth "Stormwind City"
+
+step Rhag Garmason
+  zone Wetlands
+  turnin 633
+  accept 634
+
+step Captain Nials
+  zone Arathi Highlands
+  turnin 634
+
+step Sentinel Hill
+  zone Westfall
+  sethome "Sentinel Hill"
+  turnin 92752
+  accept 92753
+
+step Gryan Stoutmantle
+  turnin 98021
+
+step Alba Fairmoon
+  turnin 92753
+  accept 92819
+  turnin 92819
+
+step Gryan Stoutmantle
+  turnin 141
+  accept 142
+
+step Moonbrook: A Mysterious Message
+  collect 1381 quest 142.1
+
+step Gryan Stoutmantle
+  turnin 142
+  accept 155
+
+step Moonbrook: The Defias Brotherhood
+  complete 155
+
+step Gryan Stoutmantle
+  turnin 155
+  accept 214
+
+step The Dagger Hills: Red Silk Bandana
+  collect 915 quest 214.1
+
+step Scout Riell
+  turnin 214
+
+step Grimbooze Thunderbrew
+  turnin 49
+
+step Brohann Caskbelly
+  zone Stormwind City
+  turnin 1469
+
+step Highlord Bolvar Fordragon
+  turnin 93963
+
+step Gilbert Gray
+  turnin 95065
+
+step Stormwind City
+  sethome "Stormwind City"
+  accept 7795
+
+step Stormwind: A Donation of Runecloth
+  complete 7795
+
+step Clavicus Knavingham
+  turnin 7795
+  turnin 6187 optional
+
+step Southshore
+  zone Hillsbrad Foothills
+  tip Crushridge Warmonger (level 39-40) is elite: grouping up is advised unless you are well above level 40.
+  sethome "Southshore"
+  turnin 504 optional
+  turnin 537
+  turnin 565
+
+step Umber
+  zone Moonglade
+  turnin 6844
+  accept 6845
+
+step Rabine Saturna
+  turnin 6845
+
+step Umber
+  accept 1185
+  turnin 1185
+
+step Rabine Saturna
+  turnin 5527
+  accept 5526
+
+step Moonglade: Shards of the Felvine
+  complete 5526
+
+step Rabine Saturna
+  turnin 5526
+
+step Moonglade
+  getfp "Moonglade"
+  accept 98738
+  accept 98404
+
+step Moonglade: Relic of the Fang and Relic of the Claw and more
+  collect 280502 quest 98404.1
+  collect 280679 quest 98404.2
+  collect 280680 quest 98404.3
+
+step Dendrite Starblaze
+  turnin 98738
+  accept 98341
+
+step Avatar of Saeyleenan
+  turnin 98341
+  turnin 98404
+
+step Rezlak
+  zone Durotar
+  accept 834
+
+step Drygulch Ravine: Sack of Supplies
+  collect 4918 quest 834.1
+
+step Rezlak
+  turnin 834
+  accept 835
+
+step Drygulch Ravine: Dustwind Storm Witch
+  kill 3118 quest 835.2
+
+step Drygulch Ravine: Dustwind Savage
+  kill 3117 quest 835.1
+
+step Rezlak
+  turnin 835
+
+step Booty Bay
+  zone Stranglethorn Vale
+  sethome "Booty Bay"
+  turnin 1122
+
+step Fleet Master Firallon
+  accept 4621
+
+step Booty Bay: Baron Revilgaz and Fleet Master Seahorn
+  kill 2496 quest 4621.1
+  kill 2487 quest 4621.2
+
+step 'Pretty Boy' Duncan
+  accept 1036
+
+step Fleet Master Firallon
+  turnin 1036
+  turnin 4621
+
+step Back to Booty Bay
+  hearth "Booty Bay"
+
+step Vinchaxa
+  accept 8195 optional
+  accept 8238 optional
+  accept 8239 optional
+  accept 8240
+  turnin 8240
+  collect 19698 quest 8195.1 optional
+  collect 19699 quest 8195.2 optional
+  collect 19700 quest 8195.3 optional
+  collect 19701 quest 8238.1 optional
+  collect 19702 quest 8238.2 optional
+  collect 19703 quest 8238.3 optional
+  collect 19704 quest 8239.1 optional
+  collect 19705 quest 8239.2 optional
+  collect 19706 quest 8239.3 optional
+  turnin 8195 optional
+  turnin 8238 optional
+  turnin 8239 optional

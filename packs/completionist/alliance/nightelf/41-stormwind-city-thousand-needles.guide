@@ -1,0 +1,298 @@
+guide completionist/alliance/nightelf/41-stormwind-city-thousand-needles
+title Stormwind City & Thousand Needles
+faction Alliance
+race NightElf
+levels 56-58
+zone Stormwind City
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Stormwind City, Darnassus, Moonglade, Ironforge, Azshara, Thousand Needles, Eastern Plaguelands, Western Plaguelands, Searing Gorge
+next completionist/alliance/nightelf/42-tanaris-un-goro-crater
+
+# Route: guide 41 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 56 to
+# 58, 75 quests, 3.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stormwind City, Darnassus, Moonglade, Ironforge, Azshara, Thousand
+# Needles, Eastern Plaguelands, Western Plaguelands, Searing Gorge): near
+# Stormwind City -> Stormwind City -> near Stormwind City -> Stormwind City ->
+# near Stormwind -> near Stormwind City -> Stormwind -> Stormwind City -> near
+# Stormwind City -> Stormwind City -> near Stormwind -> Stormwind -> near
+# Craftsmen's Terrace -> ….
+#
+# Optional (elite: grouping up is advised): Oh Brother... (167; Foreman
+# Thistlenettle 20); Collecting Memories (168; Skeletal Miner 17-18, Undead
+# Excavator 17-18, Undead Dynamiter 17-18); Encrusted Tail Fins (1107;
+# Saltscale Warrior 35-36, Saltscale Oracle 36-37, Saltscale Tide Lord 37,
+# Saltscale Forager 35-36, Saltscale Hunter 35-36); A Host of Evil (6626;
+# Razorfen Battleguard 33-34, Razorfen Thornweaver 33-34, Death's Head Cultist
+# 33-34).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489), In Search
+# of Thaelrid (1198), Twilight Falls (1199), Knowledge in the Deeps (971),
+# Knowledge in the Deeps (971), Mythology of the Titans (1050), Mythology of
+# the Titans (1050), The Lost Tablets of Will (1139), Back to Uldaman (2200),
+# Restoring the Necklace (2204), The Lost Dwarves (2398), Essential
+# Artificials (2924), Essential Artificials (2924), The Grand Betrayal (2929),
+# The Grand Betrayal (2929), Data Rescue (2930), Data Rescue (2930), Kharan
+# Mighthammer (4341), The Fate of the Kingdom (4362), The Restless Dead
+# (96394), The Restless Dead (96394), An Ancient Grudge (96395), Important
+# Heirlooms (96403), Important Heirlooms (96403), The Treaty of Understanding
+# (98423), The Crone of the Kraul (1101), Gahz'rilla (2770), Dawn's Gambit
+# (4771), The Flesh Does Not Lie (5212), The Active Agent (5213), The Great
+# Fras Siabi (5214), Houses of the Holy (5243), The Archivist (5251), Above
+# and Beyond (5263), The Restless Souls (5282), Menethil's Gift (5463),
+# Plagued Hatchlings (5529), Dead Man's Plea (8945), Anthion's Old Friend
+# (8948), Barov Family Fortune (5343), Doctor Theolen Krastinov, the Butcher
+# (5382), Kirtonos the Herald (5384), The Lich, Ras Frostwhisper (5466),
+# Krastinov's Bag of Horrors (5515), Of Love and Family (5848), A Crumpled Up
+# Note (4264), Blackhand's Command (7761), The Left Piece of Lord Valthalak's
+# Amulet (8966), The Left Piece of Lord Valthalak's Amulet (8967), The Left
+# Piece of Lord Valthalak's Amulet (8968), The Left Piece of Lord Valthalak's
+# Amulet (8969), The Right Piece of Lord Valthalak's Amulet (8989), The Right
+# Piece of Lord Valthalak's Amulet (8990), The Right Piece of Lord Valthalak's
+# Amulet (8991), The Right Piece of Lord Valthalak's Amulet (8992), Mea Culpa,
+# Lord Valthalak (8995).
+
+step Baros Alexston
+  turnin 399
+
+step Stormwind City
+  tip Foreman Thistlenettle (level 20), Skeletal Miner (level 17-18), Undead Excavator (level 17-18) and Undead Dynamiter (level 17-18) are elite: grouping up is advised unless you are well above level 20.
+  turnin 167 optional
+  turnin 168 optional
+  sethome "Stormwind City"
+  accept 7791
+
+step near Stormwind City: Wool Cloth
+  collect 2592 quest 7791.1
+
+step Clavicus Knavingham
+  turnin 7791
+  turnin 1076
+  accept 1077
+
+step Milton Sheaf
+  turnin 542
+  turnin 563
+
+step Caretaker Folsom
+  turnin 2928 optional
+  turnin 70
+  accept 72
+  turnin 72
+  accept 74
+
+step Elling Trias
+  turnin 1245
+  accept 1246
+
+step Dashel Stonefist
+  turnin 1246
+  accept 1447
+
+step Stormwind: The Missing Diplomat
+  complete 1447
+
+step Dashel Stonefist
+  turnin 1447
+  accept 1247
+
+step Elling Trias
+  turnin 1247
+  accept 1248
+
+step Clavicus Knavingham
+  accept 7793
+  turnin 697
+  accept 5066
+
+step Royal Factor Bathrilor
+  accept 5048
+  turnin 5048
+  accept 5050
+
+step Crier Goodman
+  accept 1015
+  accept 7494
+
+step Count Remington Ridgewell
+  accept 4766
+  accept 6182
+
+step Master Mathias Shaw
+  turnin 6182
+  accept 6183
+  turnin 6183
+  accept 6184
+
+step Gracina Spiritmight
+  zone Darnassus
+  accept 4493
+
+step Arch Druid Fandral Staghelm
+  turnin 1015
+  accept 6761
+  turnin 6761
+  accept 6762
+
+step Rabine Saturna
+  zone Moonglade
+  turnin 6762
+  accept 1124
+  accept 5527
+
+step Back to Stormwind City
+  hearth "Stormwind City"
+
+step Prospector Stormpike
+  zone Ironforge
+  accept 302
+
+step Gnoarn
+  accept 2039
+  accept 2041
+  accept 7807
+
+step Mistina Steelshield
+  accept 7802
+
+step Lomac Gearstrip
+  turnin 1072
+  accept 1073
+
+step Duke Hydraxis
+  zone Azshara
+  accept 6804
+  accept 6805
+
+step Ruins of Eldarath: Arcane Runes
+  complete 3449
+
+step Pilot Xiggs Fuselighter
+  turnin 3449
+  accept 3461
+
+step Captain Vanessa Beltis
+  accept 3382
+
+step The Ruined Reaches: A Crew Under Fire
+  complete 3382
+
+step Captain Vanessa Beltis
+  turnin 3382
+
+step Ruins of Eldarath: Fragments of the Past
+  complete 5246
+
+step Highperch: Highperch Venom Sac
+  zone Thousand Needles
+  collect 5809 quest 1135.1
+
+step Pozzik
+  tip Saltscale Warrior (level 35-36), Saltscale Oracle (level 36-37), Saltscale Tide Lord (level 37) and 2 more are elite: grouping up is advised unless you are well above level 37.
+  turnin 1183
+  accept 1186
+  turnin 1186
+  accept 1187
+  turnin 1179
+  turnin 1137
+  turnin 1112
+  accept 1114
+  turnin 1114
+  accept 1115
+  accept 1190
+  accept 1191
+  turnin 1191
+  turnin 1190
+  accept 1194
+  turnin 1194
+  turnin 1107 optional
+
+step Back to Stormwind City
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  turnin 6626 optional
+  hearth "Stormwind City"
+
+step Ironforge
+  zone Ironforge
+  sethome "Ironforge"
+  accept 3702
+
+step Ironforge: The Smoldering Ruins of Thaurissan
+  complete 3702
+
+step Royal Historian Archesonus
+  turnin 3702
+  accept 3701
+  accept 7261
+
+step Cenarion Emissary Jademoon
+  accept 8275
+
+step Corin's Crossing: Mageweave Cloth
+  zone Eastern Plaguelands
+  collect 4338 quest 7799.1
+
+step Light's Hope Chapel
+  sethome "Light's Hope Chapel"
+  turnin 5210
+  accept 5168
+  accept 5181
+
+step Corin's Crossing: Villains of Darrowshire
+  complete 5181
+
+step Carlin Redpath
+  turnin 5181
+
+step Aurora Skycaller
+  turnin 5246
+  accept 5247
+
+step Lake Mereldar: Discordant Bracers
+  collect 17309 quest 6804.1
+
+step The Undercroft: Taelan's Hammer
+  collect 14613 quest 5781.1
+
+step Commander Ashlam Valorfist
+  zone Western Plaguelands
+  turnin 5066
+
+step Janice Felstone
+  turnin 5050
+  accept 5051
+
+step Felstone Field: Two Halves Become One
+  complete 5051
+
+step Janice Felstone
+  turnin 5051
+
+step Gahrron's Withering: Heroes of Darrowshire
+  complete 5168
+
+step Tirion Fordring
+  turnin 5781
+  accept 5845
+
+step Flint Shadowmore
+  turnin 6184
+  accept 6185 optional
+
+step Dustfire Valley: Mageweave Cloth
+  zone Searing Gorge
+  collect 4338 quest 7804.1
+  collect 4338 quest 7809.1
+
+step Gadgetzan
+  sethome "Gadgetzan"

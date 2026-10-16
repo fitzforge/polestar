@@ -1,0 +1,66 @@
+guide completionist/alliance/skyborne/22-hillsbrad-foothills
+title Hillsbrad Foothills
+faction Alliance
+race Skyborne
+levels 43-44
+zone Hillsbrad Foothills
+category Completionist
+folder Completionist · Skyborne 40-50
+keywords completionist, every quest, Stormwind City, Hillsbrad Foothills
+next completionist/alliance/skyborne/23-tanaris
+
+# Route: guide 22 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 43 to
+# 44, 19 quests, 0.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stormwind City, Hillsbrad Foothills): near Stormwind City -> near
+# Stormwind -> Southshore -> Darrow Hill -> Southshore.
+#
+# Optional (elite: grouping up is advised): The Perenolde Tiara (543;
+# Grel'borg the Miser 39); Crushridge Warmongers (504; Crushridge Warmonger
+# 39-40).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489), In the Name
+# of the Light (1053).
+
+step Angus Stern
+  zone Stormwind City
+  tip Grel'borg the Miser (level 39) is elite: grouping up is advised unless you are well above level 39.
+  turnin 543 optional
+  turnin 212
+
+step Brohann Caskbelly
+  turnin 1448
+  accept 1449
+
+step Southshore
+  zone Hillsbrad Foothills
+  sethome "Southshore"
+  turnin 540
+  accept 542
+
+step Darrow Hill: Alterac Granite
+  collect 4521 quest 689.1
+
+step Phin Odelic
+  tip Crushridge Warmonger (level 39-40) is elite: grouping up is advised unless you are well above level 40.
+  turnin 661
+  turnin 647
+  turnin 512
+  turnin 551
+  accept 554
+  turnin 500
+  accept 504 optional
+  turnin 525
+  turnin 523
+  accept 537
+  turnin 564
+  turnin 1052

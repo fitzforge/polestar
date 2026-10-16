@@ -1,0 +1,427 @@
+guide completionist/horde/undead/19-stranglethorn-vale
+title Stranglethorn Vale
+faction Horde
+race Undead
+levels 38-43
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · Undead 30-40
+keywords completionist, every quest
+next completionist/horde/undead/20-arathi-highlands
+
+# Route: guide 19 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 38 to
+# 43, 66 quests, 13.6 h under the model. The order is the simulator's (`sim
+# run --objective completionist`, then `sim export`; docs/SIMULATION.md §10):
+# fix a step in the exporter or the data, not only here, so the next export
+# keeps it.
+#
+# Flow (Stranglethorn Vale): Nesingwary's Expedition -> Lake Nazferiti ->
+# Kurzen's Compound -> Nesingwary's Expedition -> Kal'ai Ruins -> Nesingwary's
+# Expedition -> Ruins of Zul'Kunda -> The Vile Reef -> Nesingwary's Expedition
+# -> Grom'gol Base Camp -> Nesingwary's Expedition -> Mosh'Ogg Ogre Mound ->
+# Nesingwary's Expedition -> ….
+#
+# Optional (elite: grouping up is advised): Encrusted Tail Fins (1107;
+# Saltscale Warrior 35-36, Saltscale Oracle 36-37, Saltscale Tide Lord 37,
+# Saltscale Forager 35-36, Saltscale Hunter 35-36); Panther Mastery (193;
+# Bhag'thera 40); Raptor Mastery (197; Tethis 43); Big Game Hunter (208; King
+# Bangalash 43); The Mind's Eye (591; Mai'Zoth 47); Cracking Maury's Foot
+# (613; Mosh'Ogg Mauler 43-44, Mosh'Ogg Shaman 43-44, Mosh'Ogg Lord 45,
+# Mosh'Ogg Warmonger 41-42, Mosh'Ogg Spellcrafter 43-44, Mosh'Ogg Butcher 44);
+# The Monogrammed Sash (620; Mok'rash 50); The Captain's Chest (8551; Gorlash
+# 47); Excelsior (628; Elder Saltwater Crocolisk 38).
+#
+# Left to other guides: class quests (the Class category).
+
+step Barnil Stonepot
+  accept 583
+  turnin 5762
+  turnin 5763
+  turnin 583
+  accept 194
+  accept 185
+  accept 338
+  accept 339 optional
+  accept 340 optional
+  accept 341
+  accept 342 optional
+
+step Nesingwary's Expedition: The Green Hills of Stranglethorn
+  complete 338
+
+step Sir S. J. Erlgadin
+  accept 190
+
+step Lake Nazferiti: Young Stranglethorn Tiger
+  kill 681 quest 185.1
+
+step Kurzen's Compound: Young Panther
+  kill 683 quest 190.1
+
+step Kurzen's Compound: Green Hills of Stranglethorn - Page 4 and Green Hills of Stranglethorn - Page 6 and more
+  collect 2728 quest 339.2 optional
+  collect 2730 quest 339.3 optional
+  collect 2734 quest 340.1 optional
+  collect 2735 quest 340.2 optional
+  collect 2740 quest 340.4 optional
+  collect 2742 quest 341.1
+  collect 2744 quest 341.2
+  collect 2745 quest 341.3
+  collect 2750 quest 342.2 optional
+
+step Kurzen's Compound: Green Hills of Stranglethorn - Page 24
+  collect 2748 quest 341.4
+
+step Barnil Stonepot
+  turnin 341
+  turnin 185
+  accept 186
+  turnin 190
+  accept 191
+
+step Nesingwary's Expedition: Stranglethorn Tiger
+  kill 682 quest 186.1
+
+step Ajeck Rouack
+  turnin 186
+  accept 187
+
+step Kal'ai Ruins: Elder Stranglethorn Tiger
+  kill 1085 quest 187.1
+
+step Ajeck Rouack
+  turnin 187
+  accept 188
+
+step Ruins of Zul'Kunda: Panther
+  kill 736 quest 191.1
+
+step Ruins of Zul'Kunda: Stranglethorn Raptor
+  kill 685 quest 194.1
+
+step The Vile Reef: Blue Pearl
+  tip Saltscale Warrior (level 35-36), Saltscale Oracle (level 36-37), Saltscale Tide Lord (level 37) and 2 more are elite: grouping up is advised unless you are well above level 37.
+  collect 5796 quest 1107.1 optional
+  collect 4611 quest 705.1
+
+step Nesingwary's Expedition: Paw of Sin'Dall
+  collect 3879 quest 188.1
+
+step Hemet Nesingwary
+  turnin 194
+  accept 195
+  turnin 188
+  turnin 191
+  accept 192
+
+step Grom'gol Base Camp: Lashtail Raptor
+  kill 686 quest 195.1
+
+step Hemet Nesingwary
+  turnin 195
+  accept 196
+
+step Mosh'Ogg Ogre Mound: Shadowmaw Panther
+  collect 2751 quest 342.3 optional
+  collect 2732 quest 339.4 optional
+  kill 684 quest 192.1
+
+step Sir S. J. Erlgadin
+  tip Bhag'thera (level 40) is elite: grouping up is advised unless you are well above level 40.
+  turnin 192
+  accept 193 optional
+
+step Gurubashi Arena: Jungle Stalker
+  kill 687 quest 196.1
+
+step Booty Bay
+  sethome "Booty Bay"
+  accept 201
+  accept 575
+
+step Lake Nazferiti: Large River Crocolisk Skin
+  tip Bhag'thera (level 40) is elite: grouping up is advised unless you are well above level 40.
+  collect 3876 quest 193.1 optional
+  collect 2725 quest 339.1 optional
+  collect 2738 quest 340.3 optional
+  collect 2749 quest 342.1 optional
+  collect 4053 quest 575.1
+
+step Sir S. J. Erlgadin
+  tip Bhag'thera (level 40) and Tethis (level 43) are elite: grouping up is advised unless you are well above level 43.
+  turnin 193 optional
+  turnin 196
+  accept 197 optional
+
+step Nesingwary's Expedition: Investigate the Camp
+  complete 201
+
+step Barnil Stonepot
+  tip Tethis (level 43) and King Bangalash (level 43) are elite: grouping up is advised unless you are well above level 43.
+  turnin 339 optional
+  turnin 340 optional
+  turnin 342 optional
+  turnin 338
+  collect 3877 quest 197.1 optional
+  turnin 197 optional
+  accept 208 optional
+  collect 3880 quest 208.1 optional
+
+step Back to Booty Bay
+  tip King Bangalash (level 43) is elite: grouping up is advised unless you are well above level 43.
+  turnin 208 optional
+  hearth "Booty Bay"
+
+step Krazek
+  turnin 201
+  turnin 575
+
+step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp"
+  turnin 1240
+  accept 1261
+  accept 598
+
+step Balia'mah Ruins: Split Bone Necklace
+  collect 3916 quest 598.1
+
+step Kin'weelay
+  turnin 598
+  accept 584
+
+step Ruins of Zul'Kunda: Gan'zulah's Head and Nezzliok's Head
+  collect 3904 quest 584.1
+  collect 3905 quest 584.2
+
+step Back to Grom'gol Base Camp
+  hearth "Grom'gol Base Camp"
+
+step Bubbling Cauldron
+  turnin 584
+  accept 585
+  accept 586
+
+step Ruins of Zul'Mamwe: Broken Armor of Ana'thek and Skullsplitter Hunter
+  collect 3909 quest 586.4
+  kill 669 quest 586.1
+
+step Ruins of Zul'Mamwe: Skullsplitter Headhunter and Skullsplitter Berserker
+  kill 781 quest 586.2
+  kill 783 quest 586.3
+
+step Mosh'Ogg Ogre Mound: Speaking with Nezzliok
+  complete 585
+
+step Bubbling Cauldron
+  turnin 585
+  turnin 586
+  accept 588
+  turnin 588
+  accept 589
+
+step Crystalvein Mine: Pulsing Blue Shard
+  collect 3911 quest 589.1
+
+step Kin'weelay
+  tip Mai'Zoth (level 47) is elite: grouping up is advised unless you are well above level 47.
+  turnin 589
+  accept 591 optional
+
+step Kin'weelay
+  tip Mai'Zoth (level 47) is elite: grouping up is advised unless you are well above level 47.
+  collect 3616 quest 591.1 optional
+  turnin 591 optional
+  accept 592
+
+step Ruins of Aboraz: Filled Soul Gem
+  collect 3913 quest 592.1
+
+step Booty Bay
+  sethome "Booty Bay"
+  turnin 1180
+  accept 1181
+
+step Baron Revilgaz
+  turnin 1181
+  accept 1182
+  turnin 1115
+  accept 1116
+  accept 606
+
+step Mistvale Valley: Mistvale Giblets
+  collect 3919 quest 606.1
+
+step 'Shaky' Phillipe
+  turnin 606
+  accept 607
+
+step 'Sea Wolf' MacKinley
+  turnin 607
+  accept 609
+
+step Ruins of Aboraz: Chucky's Huge Ring
+  collect 3926 quest 609.3
+
+step Venture Co. Base Camp: Goblin Sponsorship
+  complete 1182
+
+step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp"
+  turnin 592
+
+step Ruins of Jubuwal: Maury's Clubbed Foot and Jon-Jon's Golden Spyglass
+  collect 3924 quest 609.1
+  collect 3925 quest 609.2
+
+step Booty Bay
+  tip Mosh'Ogg Mauler (level 43-44), Mosh'Ogg Shaman (level 43-44), Mosh'Ogg Lord (level 45) and 3 more are elite: grouping up is advised unless you are well above level 45.
+  sethome "Booty Bay"
+  turnin 609
+  accept 613 optional
+  turnin 1182
+  accept 1183
+  accept 600
+
+step Crystalvein Mine: Singing Blue Crystal
+  collect 3917 quest 600.1
+
+step Back to Booty Bay
+  tip Mosh'Ogg Mauler (level 43-44), Mosh'Ogg Shaman (level 43-44), Mosh'Ogg Lord (level 45) and 3 more are elite: grouping up is advised unless you are well above level 45.
+  collect 3930 quest 613.1 optional
+  hearth "Booty Bay"
+
+step 'Sea Wolf' MacKinley
+  tip Mosh'Ogg Mauler (level 43-44), Mosh'Ogg Shaman (level 43-44), Mosh'Ogg Lord (level 45) and 4 more are elite: grouping up is advised unless you are well above level 50. Mok'rash drops the Monogrammed Sash: right-click it to start The Monogrammed Sash.
+  turnin 613 optional
+  turnin 600
+  turnin 669
+  accept 670
+  accept 577
+  accept 621
+  collect 3985 x1 optional
+  accept 620 optional
+
+step Wild Shore
+  tip Mok'rash (level 50) is elite: grouping up is advised unless you are well above level 50. Cortello's Riddle drops the Cortello's Riddle: right-click it to start Cortello's Riddle.
+  turnin 620 optional
+  collect 4056 x1
+  accept 624
+
+step Ruins of Aboraz: Zanzil's Mixture
+  collect 4016 quest 621.1
+
+step Crank Fizzlebub
+  turnin 621
+
+step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp"
+  accept 2932
+
+step Mizjah Ruins: Snapjaw Crocolisk Skin
+  collect 4104 quest 577.1
+
+step Far Seer Mok'thardin
+  accept 572
+
+step Gurubashi Arena: Jungle Stalker Feather
+  collect 3863 quest 572.1
+
+step Booty Bay
+  tip Gorlash (level 47) is elite: grouping up is advised unless you are well above level 47.
+  sethome "Booty Bay"
+  accept 8551 optional
+  collect 3932 quest 8551.1 optional
+
+step Grom'gol Base Camp
+  tip Gorlash (level 47) is elite: grouping up is advised unless you are well above level 47.
+  turnin 8551 optional
+  sethome "Grom'gol Base Camp"
+  turnin 572
+  accept 571
+
+step Mistvale Valley: Aged Gorilla Sinew
+  collect 3862 quest 571.1
+
+step Booty Bay
+  tip Elder Saltwater Crocolisk (level 38) is elite: grouping up is advised unless you are well above level 38.
+  sethome "Booty Bay"
+  turnin 577
+  accept 628 optional
+
+step Grom'gol Base Camp: Elder Crocolisk Skin
+  tip Elder Saltwater Crocolisk (level 38) is elite: grouping up is advised unless you are well above level 38.
+  sethome "Grom'gol Base Camp"
+  collect 4105 quest 628.1 optional
+
+step Far Seer Mok'thardin
+  turnin 571
+  accept 573
+
+step Nek'mani Wellspring: Naga Explorer
+  kill 1907 quest 573.1
+
+step Booty Bay
+  tip Elder Saltwater Crocolisk (level 38) is elite: grouping up is advised unless you are well above level 38.
+  sethome "Booty Bay"
+  turnin 628 optional
+
+step Nek'mani Wellspring: Mok'thardin's Enchantment
+  complete 573
+
+step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp"
+  turnin 573
+
+step Booty Bay
+  sethome "Booty Bay"
+  accept 595
+  accept 209
+
+step Bloodsail Correspondence
+  turnin 595
+  accept 597
+
+step First Mate Crazz
+  turnin 597
+  accept 599
+  accept 576
+  turnin 599
+  accept 604
+  accept 587
+
+step Wild Shore: Dizzy's Eye and Snuff
+  collect 3897 quest 576.1
+  collect 3910 quest 587.1
+
+step Wild Shore: The Bloodsail Buccaneers
+  complete 604
+
+step Deeg
+  turnin 587
+  turnin 604
+  accept 608
+
+step Wild Shore: Captain Keelhaul and Fleet Master Firallon
+  kill 2548 quest 608.2
+  kill 2546 quest 608.3
+
+step Wild Shore: Captain Stillwater
+  kill 2550 quest 608.1
+
+step Ruins of Zul'Mamwe: Skullsplitter Tusk
+  collect 1524 quest 209.1
+
+step Back to Booty Bay
+  hearth "Booty Bay"
+
+step Dizzy One-Eye
+  turnin 576
+  turnin 608
+  turnin 209
+
+step Hammerfall
+  getfp "Hammerfall"
+
+step Hammerfall
+  sethome "Hammerfall"

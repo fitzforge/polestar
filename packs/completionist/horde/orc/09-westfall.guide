@@ -1,0 +1,57 @@
+guide completionist/horde/orc/09-westfall
+title Westfall
+faction Horde
+race Orc
+levels 25-26
+zone Westfall
+category Completionist
+folder Completionist · Orc 20-30
+keywords completionist, every quest
+next completionist/horde/orc/10-stonetalon-mountains
+
+# Route: guide 9 of 49 of the simulator's completionist route for Orc (1199 of
+# 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 25 to 26, 4
+# quests, 0.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Westfall): Westfall Lighthouse -> Demont's Place -> Gold Coast Quarry
+# -> Jangolode Mine -> Alexston Farmstead -> Westfall Lighthouse -> Demont's
+# Place -> Westfall Lighthouse -> Alexston Farmstead.
+#
+# Left to other guides: class quests (the Class category).
+
+step Captain Grayson
+  accept 103
+  accept 152
+
+step Demont's Place: Murloc Tidehunter and Murloc Oracle
+  kill 127 quest 152.3
+  kill 517 quest 152.4
+
+step Gold Coast Quarry: Murloc Warrior
+  kill 171 quest 152.2
+
+step Jangolode Mine: Murloc Coastrunner
+  kill 126 quest 152.1
+
+step Alexston Farmstead: Flask of Oil
+  collect 814 quest 103.1
+
+step Captain Grayson
+  turnin 103
+  turnin 152
+  accept 104
+
+step Demont's Place: Scale of Old Murk-Eye
+  collect 3636 quest 104.1
+
+step Captain Grayson
+  turnin 104
+
+step Burned-Out Remains
+  turnin 79007
+
+step Back to Thunder Bluff
+  hearth "Thunder Bluff"

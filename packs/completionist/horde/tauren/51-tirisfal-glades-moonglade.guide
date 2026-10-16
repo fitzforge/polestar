@@ -1,0 +1,150 @@
+guide completionist/horde/tauren/51-tirisfal-glades-moonglade
+title Tirisfal Glades & Moonglade
+faction Horde
+race Tauren
+levels 60-60
+zone Moonglade
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest, Tirisfal Glades, Durotar, Thousand Needles, Thunder Bluff, Western Plaguelands, Azshara, Moonglade, Swamp of Sorrows, Burning Steppes
+
+# Route: guide 51 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 60 to
+# 60, 28 quests, 2.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Tirisfal Glades, Durotar, Thousand Needles, Thunder Bluff, Western
+# Plaguelands, Azshara, Moonglade, Swamp of Sorrows, Burning Steppes): The
+# Bulwark -> The Writhing Haunt -> The Bulwark -> Thunder Ridge -> Freewind
+# Post -> Darkcloud Pinnacle -> Freewind Post -> Splithoof Crag -> near
+# Thunder Bluff -> Thunder Bluff -> Ravencrest Monument -> Moonglade ->
+# Thunder Bluff -> ….
+#
+# Optional (elite: grouping up is advised): Arikara (5088; Arikara 28).
+#
+# Left out: Gahrron's Withering Cauldron (5227): the route takes them here but
+# cannot finish them (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Vorrel's Revenge (1051), Barov Family Fortune (5341), The
+# Wrath of Rath'mael (92422), The Wrath of Rath'mael (92422), Crest of
+# Lordaeron (95204), Unending Torment (97288), Gahz'rilla (2770), Leaders of
+# the Fang (914), Compendium of the Fallen (1049), A Vengeful Fate (1102),
+# Testing an Enemy's Strength (5723), Doctor Theolen Krastinov, the Butcher
+# (5382), Kirtonos the Herald (5384), The Lich, Ras Frostwhisper (5466),
+# Krastinov's Bag of Horrors (5515), Of Love and Family (5848), Oculus
+# Illusions (6569), Dark Iron Legacy (3802), A Taste of Flame (4024),
+# Precarious Predicament (4121), The Heart of the Mountain (4123), Egg
+# Freezing (4734), Egg Collection (4735).
+
+step The Bulwark: Arcane Quickener
+  zone Tirisfal Glades
+  buy 13320 x1 nearest
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  tip Arcane Quickener lasts 30 minutes: go straight on with it.
+  turnin 5224
+
+step Shadow Priestess Vandis
+  zone Tirisfal Glades
+  turnin 5236
+  accept 5238
+  turnin 5238
+  turnin 5804
+  accept 5511
+  turnin 5511
+
+step Rhinag
+  zone Durotar
+  turnin 812
+
+step Freewind Post
+  zone Thousand Needles
+  sethome "Freewind Post"
+  turnin 1196
+  accept 1197
+
+step Darkcloud Pinnacle: The Sacred Flame
+  complete 1197
+
+step Rau Cliffrunner
+  tip Arikara (level 28) is elite: grouping up is advised unless you are well above level 28.
+  turnin 1197
+  collect 12925 quest 5088.1 optional
+  interact 175944 quest 5088.2 optional
+
+step Back to Freewind Post
+  tip Arikara (level 28) is elite: grouping up is advised unless you are well above level 28.
+  turnin 5088 optional
+  hearth "Freewind Post"
+
+step Dorn Plainstalker
+  turnin 1394
+
+step Apothecary Zamah
+  zone Thunder Bluff
+  turnin 962
+  turnin 1086
+
+step Thunder Bluff
+  sethome "Thunder Bluff"
+  turnin 97538
+
+step Duke Hydraxis
+  zone Azshara
+  turnin 6804
+  turnin 6805
+
+step Umber
+  zone Moonglade
+  turnin 6844
+  accept 6845
+
+step Rabine Saturna
+  turnin 6845
+
+step Umber
+  accept 1185
+  turnin 1185
+
+step Rabine Saturna
+  turnin 5527
+  accept 5526
+
+step Moonglade: Shards of the Felvine
+  complete 5526
+
+step Rabine Saturna
+  turnin 5526
+
+step Back to Thunder Bluff
+  hearth "Thunder Bluff"
+
+step Melor Stonehoof
+  zone Thunder Bluff
+  turnin 1136
+
+step Rumstag Proudstrider
+  turnin 7821
+
+step Katar
+  zone Swamp of Sorrows
+  turnin 1428
+
+step Stonard
+  sethome "Stonard"
+  turnin 1444
+  accept 1445 optional
+  turnin 1391
+  collect 6181 quest 1445.1 optional
+
+step Fallen Hero of the Horde
+  turnin 1445 optional
+  turnin 3626
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  turnin 4907

@@ -1,0 +1,313 @@
+guide completionist/alliance/gnome/08-ashenvale-stonetalon-mountains
+title Ashenvale & Stonetalon Mountains
+faction Alliance
+race Gnome
+levels 25-28
+zone Ashenvale
+category Completionist
+folder Completionist · Gnome 20-30
+keywords completionist, every quest, Ashenvale, Stonetalon Mountains
+next completionist/alliance/gnome/09-wetlands
+
+# Route: guide 8 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 25 to 28, 53
+# quests, 3.7 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Ashenvale, Stonetalon Mountains): Lake Falathim -> The Shrine of
+# Aessina -> Lake Falathim -> Maestra's Post -> Lake Falathim -> Astranaar ->
+# Fire Scar Shrine -> Lake Falathim -> The Zoram Strand -> Astranaar ->
+# Mystral Lake -> Night Run -> Satyrnaar -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Blackfathom Villainy (1200), Vyletongue Corruption (7041),
+# Corruption of Earth and Seed (7065).
+
+step Sentinel Onaeya
+  turnin 5713
+
+step Therysil
+  turnin 945
+
+step Delgren the Purifier
+  turnin 967
+  accept 970
+
+step Maestra's Post: Glowing Soul Gem
+  collect 5366 quest 970.1
+
+step Delgren the Purifier
+  turnin 970
+  accept 973
+
+step Astranaar
+  getfp "Astranaar"
+  sethome "Astranaar"
+  accept 1008
+  turnin 990
+
+step Fire Scar Shrine: Ilkrud Magthrull's Tome
+  collect 5533 quest 973.1
+
+step Delgren the Purifier
+  turnin 973
+  accept 1140
+
+step The Zoram Strand: Wrathtail Head
+  collect 5490 quest 1008.1
+
+step Back to Astranaar
+  hearth "Astranaar"
+
+step Shindrell Swiftfire
+  turnin 1008
+
+step Alonso
+  accept 78132
+  turnin 78132
+  accept 78133
+  turnin 78133
+  accept 78134
+  turnin 78134
+
+step Night Run: Circle of Imprisonment
+  interact 19901 quest 1140.1
+
+step Satyrnaar: Circle of Imprisonment
+  interact 20352 quest 1140.2
+
+step Delgren the Purifier
+  turnin 1140
+  accept 1167
+
+step Raene Wolfrunner
+  accept 991
+  accept 1054
+  accept 1056
+  accept 1070
+  accept 1134
+
+step Thistlefur Village: Dal Bloodclaw's Skull
+  collect 5544 quest 1054.1
+
+step Raene Wolfrunner
+  turnin 1054
+
+step Orendil Broadleaf
+  accept 1010
+  accept 976
+
+step Lake Falathim: The Sleeper Has Awakened
+  complete 5321
+
+step Liladris Moonriver
+  turnin 5321
+
+step Teronis' Corpse
+  turnin 991
+  accept 1023
+
+step Lake Falathim: Glowing Gem
+  collect 5463 quest 1023.1
+
+step Talen
+  accept 1007
+
+step The Zoram Strand: The Ancient Statuette
+  complete 1007
+
+step Talen
+  turnin 1007
+  accept 1009
+
+step The Zoram Strand: Ring of Zoram
+  collect 5445 quest 1009.1
+
+step Talen
+  collect 5952 quest 1275.1 optional
+  turnin 1009
+
+step Maestra's Post: Bathran's Hair
+  collect 5437 quest 1010.1
+
+step Orendil Broadleaf
+  turnin 1010
+  accept 1020
+
+step Back to Astranaar
+  hearth "Astranaar"
+
+step Raene Wolfrunner
+  turnin 1023
+  accept 1024
+  accept 1025
+  turnin 1020
+  accept 1033
+
+step Iris Lake: Elune's Tear
+  complete 1033
+
+step Shael'dryn
+  turnin 1024
+  accept 1026
+
+step The Howling Vale: Raene's Cleansing
+  complete 1026
+
+step Shael'dryn
+  turnin 1026
+  accept 1027
+
+step Mystral Lake: Foulweald Den Watcher and Foulweald Ursa and more
+  kill 3746 quest 1025.1
+  kill 3749 quest 1025.2
+  kill 3750 quest 1025.3
+
+step Mystral Lake: Foulweald Warrior
+  kill 3743 quest 1025.4
+
+step Sentinel Velene Starstrike
+  accept 1016
+
+step Mystral Lake: Elemental Bracers
+  complete 1016
+
+step Sentinel Velene Starstrike
+  turnin 1016
+  accept 1017
+
+step Pelturas Whitemoon
+  turnin 1033
+  accept 1034
+  turnin 1025
+
+step The Ruins of Stardust: Handful of Stardust
+  collect 5494 quest 1034.1
+
+step Pelturas Whitemoon
+  turnin 1034
+  accept 1035
+
+step Fallen Sky Lake: Fallen Moonstone
+  collect 5508 quest 1035.1
+
+step Fallen Sky Lake: Iron Pommel
+  collect 5519 quest 1027.1
+
+step Shael'dryn
+  turnin 1027
+  accept 1028
+
+step Hidden Shrine
+  turnin 1028
+  accept 1055
+
+step Shael'dryn
+  turnin 1055
+  accept 1029
+
+step Pelturas Whitemoon
+  turnin 1035
+  turnin 1029
+  accept 1030
+
+step Krolg
+  turnin 1030
+  accept 1045
+
+step Mystral Lake: Bloodtooth Guard and Ran Bloodtooth
+  kill 3932 quest 1045.2
+  kill 3696 quest 1045.1
+
+step Krolg
+  turnin 1045
+  accept 1046
+
+step Mystral Lake: Ran Bloodtooth's Skull
+  collect 5388 quest 1046.1
+
+step Back to Astranaar
+  hearth "Astranaar"
+
+step Raene Wolfrunner
+  turnin 1046
+
+step Pocket Litter
+  zone Stonetalon Mountains
+  accept 79980
+  turnin 79980
+
+step Kaela Shadowspear
+  accept 1085
+  turnin 1085
+  accept 1071
+  accept 1093
+
+step Windshear Crag: Super Reaper 6000 Blueprints
+  collect 5734 quest 1093.1
+
+step Windshear Crag: Venture Co. Deforester
+  kill 3991 quest 1071.2
+
+step Windshear Crag: Venture Co. Logger
+  kill 3989 quest 1071.1
+
+step Piznik
+  accept 1090
+
+step Windshear Crag: Gerenzo's Orders
+  complete 1090
+
+step Piznik
+  turnin 1090
+  accept 1092
+
+step Ziz Fizziks
+  turnin 1092
+  turnin 1093
+
+step Mound of Dirt
+  accept 79974
+
+step Ziz Fizziks
+  accept 1094
+
+step Gaxim Rustfizzle
+  turnin 1071
+  accept 1072
+  accept 1075
+
+step Night Elf Courier
+  accept 86574
+
+step Mirkfallon Lake: Stonetalon Supply Bundle
+  collect 277917 quest 86574.1
+
+step Stonetalon Peak
+  getfp "Stonetalon Peak"
+  sethome "Stonetalon Peak"
+  accept 1057
+  turnin 86574
+
+step The Charred Vale: Bloodfury Harpy and Bloodfury Ambusher
+  kill 4022 quest 1057.1
+  kill 4025 quest 1057.2
+
+step The Charred Vale: Bloodfury Roguefeather and Bloodfury Slayer
+  kill 4023 quest 1057.4
+  kill 4024 quest 1057.3
+
+step Back to Stonetalon Peak
+  hearth "Stonetalon Peak"
+
+step Keeper Albagorm
+  turnin 1057
+  accept 1059
+
+step Menethil Harbor
+  getfp "Menethil Harbor"
+
+step Menethil Harbor
+  sethome "Deepwater Tavern"

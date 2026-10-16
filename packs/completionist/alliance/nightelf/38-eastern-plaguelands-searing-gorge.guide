@@ -1,0 +1,154 @@
+guide completionist/alliance/nightelf/38-eastern-plaguelands-searing-gorge
+title Eastern Plaguelands & Searing Gorge
+faction Alliance
+race NightElf
+levels 55-56
+zone Eastern Plaguelands
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Eastern Plaguelands, Searing Gorge
+next completionist/alliance/nightelf/39-redridge-mountains-felwood
+
+# Route: guide 38 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 55 to
+# 56, 26 quests, 3.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Eastern Plaguelands, Searing Gorge): Light's Hope Chapel -> The
+# Infectis Scar -> Light's Hope Chapel -> Darrowshire -> The Undercroft ->
+# Terrordale -> Light's Hope Chapel -> Quel'Lithien Lodge -> Light's Hope
+# Chapel -> The Fungal Vale -> The Undercroft -> Thondroril River ->
+# Terrordale -> ….
+#
+# Optional (elite: grouping up is advised): Rise, Obsidion! (3566; Lathoric
+# the Black 52, Obsidion 52).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Dawn's Gambit (4771), The Flesh Does Not Lie (5212), The
+# Active Agent (5213), The Great Fras Siabi (5214), Houses of the Holy (5243),
+# The Archivist (5251), Above and Beyond (5263), The Restless Souls (5282),
+# Menethil's Gift (5463), Plagued Hatchlings (5529), Dead Man's Plea (8945),
+# Anthion's Old Friend (8948), A Crumpled Up Note (4264), Blackhand's Command
+# (7761), The Left Piece of Lord Valthalak's Amulet (8966), The Left Piece of
+# Lord Valthalak's Amulet (8967), The Left Piece of Lord Valthalak's Amulet
+# (8968), The Left Piece of Lord Valthalak's Amulet (8969), The Right Piece of
+# Lord Valthalak's Amulet (8989), The Right Piece of Lord Valthalak's Amulet
+# (8990), The Right Piece of Lord Valthalak's Amulet (8991), The Right Piece
+# of Lord Valthalak's Amulet (8992), Mea Culpa, Lord Valthalak (8995).
+
+step Carlin Redpath
+  accept 5211
+  turnin 6030
+  accept 5508 optional
+  accept 5509
+  accept 5510
+  accept 6021
+
+step The Infectis Scar: Corruptor's Scourgestone and Minion's Scourgestone
+  collect 12843 quest 5508.1 optional
+  collect 12840 quest 5510.1
+
+step Light's Hope Chapel: Defenders of Darrowshire and Invader's Scourgestone
+  complete 5211
+  collect 12841 quest 5509.1
+
+step Carlin Redpath
+  turnin 5211
+  turnin 5509
+  turnin 5510
+  turnin 5508 optional
+
+step Pamela Redpath
+  turnin 5142
+  accept 5149
+
+step Darrowshire: Pamela's Doll
+  complete 5149
+
+step Pamela Redpath
+  turnin 5149
+  accept 5152
+  accept 5241
+
+step The Undercroft: Zaeldarr's Head
+  collect 15785 quest 6021.1
+
+step Terrordale: Plagueland Termites
+  collect 15043 quest 5903.1
+
+step Augustus the Touched
+  accept 6164
+
+step Terrordale: Augustus' Receipt Book
+  complete 6164
+
+step Augustus the Touched
+  turnin 6164
+
+step Back to Light's Hope Chapel
+  hearth "Light's Hope Chapel"
+
+step Caretaker Alen
+  turnin 6021
+  turnin 5241
+
+step Aurora Skycaller
+  turnin 5245
+  accept 5246
+
+step Caretaker Alen
+  accept 5281
+
+step The Fungal Vale: Plaguehound
+  kill 8597 quest 5542.2
+
+step Torn Scroll
+  accept 6024
+
+step Thondroril River: Plaguebat
+  kill 8600 quest 5543.1
+
+step Terrordale: Slab of Carrion Worm Meat
+  collect 13853 quest 5544.1
+
+step Egan
+  turnin 5281
+
+step Terrordale: Frenzied Plaguehound
+  kill 8598 quest 5542.3
+
+step Quel'Lithien Lodge: Hameya's Key
+  collect 15767 quest 6024.1
+
+step Mound of Dirt
+  turnin 6024
+
+step Dying Archaeologist
+  zone Searing Gorge
+  turnin 3371
+  accept 3372
+
+step Firewatch Ridge: Release Them
+  complete 3372
+
+step Altar of Suntara
+  tip Lathoric the Black (level 52) and Obsidion (level 52) are elite: grouping up is advised unless you are well above level 52.
+  turnin 3372
+  accept 3566 optional
+
+step Wooden Outhouse
+  tip Lathoric the Black (level 52) and Obsidion (level 52) are elite: grouping up is advised unless you are well above level 52.
+  collect 10447 quest 3566.1 optional
+  collect 10446 quest 3566.2 optional
+  turnin 4449
+  accept 4450
+
+step Grimesilt Dig Site: Solid Crystal Leg Shaft
+  collect 11725 quest 4450.2
+
+step Craftsmen's Terrace
+  collect 11468 quest 4286.1 optional
+  collect 10561 quest 4244.1 optional
+  sethome "Craftsmen's Terrace"

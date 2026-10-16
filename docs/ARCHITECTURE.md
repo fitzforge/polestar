@@ -2931,7 +2931,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   selected guide's zone art, facts (led by a guide's `reward` tiles and
   `why`, "Guide data"), progress, pitch, pros and cons, a favourite
   star, "Load guide" and "Open in new tab". Selecting never loads; the buttons,
-  a double-click or Enter do.
+  a double-click or Enter do. A Completionist guide (the route through every
+  quest, docs/SIMULATION.md "Completionist") lists in id order (its route
+  order) within its folder, and its Quests fact counts what this character
+  has already turned in ("12 of 48 done", `Compat.IsQuestCompleted`); like
+  every category but Leveling, it is never suggested by itself.
   Its search also lists Codex matches under the guides (`UI.LookupRows`,
   `UI.LookupCount`, `UI.LookupTotal` from `UI/Lookup.lua`): an "In the
   Codex" folder with up to three per kind and a "Look up everything" line;

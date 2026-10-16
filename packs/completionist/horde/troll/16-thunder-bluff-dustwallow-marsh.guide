@@ -1,0 +1,239 @@
+guide completionist/horde/troll/16-thunder-bluff-dustwallow-marsh
+title Thunder Bluff & Dustwallow Marsh
+faction Horde
+race Troll
+levels 32-34
+zone Thunder Bluff
+category Completionist
+folder Completionist · Troll 30-40
+keywords completionist, every quest, Thunder Bluff, Mulgore, Undercity, Dustwallow Marsh, The Barrens
+next completionist/horde/troll/17-thousand-needles-hillsbrad-foothills
+
+# Route: guide 16 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 32 to 34, 53
+# quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Thunder Bluff, Mulgore, Undercity, Dustwallow Marsh, The Barrens):
+# Thunder Bluff -> near Thunder Bluff -> Thunder Bluff -> near Thunder Bluff
+# -> Thunder Bluff -> near Thunder Bluff -> Thunder Bluff -> near Thunder
+# Bluff -> Skywatcher Plateau -> Undercity -> Brackenwall Village -> Witch
+# Hill -> Theramore Isle -> ….
+#
+# Optional (elite: grouping up is advised): A Host of Evil (6626; Razorfen
+# Battleguard 33-34, Razorfen Thornweaver 33-34, Death's Head Cultist 33-34).
+#
+# Profession quests here are not routed (they need the skill): 6607 Nat Pagle,
+# Angler Extreme.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Leaders of the Fang (914), Compendium of the Fallen
+# (1049), A Vengeful Fate (1102), Testing an Enemy's Strength (5723), Leaders
+# of the Fang (914), Compendium of the Fallen (1049), A Vengeful Fate (1102),
+# Searching for the Lost Satchel (5722), Testing an Enemy's Strength (5723),
+# The Book of Ur (1013), The Book of Ur (1013), Going, Going, Guano! (1109),
+# Going, Going, Guano! (1109), Bring the End (3341), The Power to Destroy...
+# (5725), Light's Justice (92421), Light's Justice (92421), The New Plague
+# (95216), Source of Power (96988), Tiara of the Deep (2846), Willix the
+# Importer (1144), Blueleaf Tubers (1221), Blueleaf Tubers (1221), Deviate
+# Eradication (1487), Deviate Eradication (1487), The Glowing Shard (6981).
+
+step Eylah Sunhorn
+  accept 97485
+
+step Boarton Shadetotem
+  accept 76160
+  turnin 76160
+
+step Thunder Bluff: Traditions of the Bluff
+  complete 97485
+
+step Cairne Bloodhoof
+  turnin 775
+  turnin 98430
+  turnin 99082
+  accept 776
+
+step Eylah Sunhorn
+  turnin 97485
+
+step Arch Druid Hamuul Runetotem
+  turnin 98435
+
+step Eyahn Eagletalon
+  accept 744
+
+step Melor Stonehoof
+  turnin 861
+  accept 860
+
+step Arch Druid Hamuul Runetotem
+  accept 886
+
+step Apothecary Zamah
+  turnin 853
+
+step Arch Druid Hamuul Runetotem
+  turnin 1489
+  turnin 1063
+
+step Melor Stonehoof
+  turnin 1130
+
+step Apothecary Zamah
+  turnin 962
+
+step Magatha Grimtotem
+  accept 1064
+  accept 1490
+  turnin 1490
+
+step Apothecary Zamah
+  turnin 1064
+  accept 1065
+
+step Tah Winterhoof
+  turnin 97538
+  turnin 1195
+  accept 1196
+
+step Melor Stonehoof
+  turnin 1131
+
+step Magatha Grimtotem
+  turnin 5062
+
+step Mazu'kon
+  zone Mulgore
+  accept 96241
+  accept 96259
+  accept 96261
+  accept 96260
+
+step Skywatcher Plateau: Crystalline Silk
+  collect 273181 quest 96260.1
+
+step Skywatcher Plateau: Broodmother Valraxx
+  kill 264082 quest 96261.1
+
+step Skywatcher Plateau
+  tip Broodmother Valraxx drops the Bloody Parchment: right-click it to start A Darker Truth.
+  collect 273658 x1
+  accept 96294
+
+step Skywatcher Plateau: Gloomrise Toxin Sample and Gloomrise Soldier and more
+  collect 273001 quest 96241.1
+  kill 264083 quest 96259.1
+  kill 264079 quest 96259.2
+
+step Yorn Grimtotem
+  turnin 96260
+  turnin 96241
+  turnin 96259
+  turnin 96261
+  turnin 96294
+
+step Back to Thunder Bluff
+  hearth "Thunder Bluff"
+
+step Calder Gray
+  zone Undercity
+  accept 97985
+  turnin 513
+  accept 515
+
+step Parqual Fintallas
+  turnin 1159
+  accept 1160
+  turnin 1160
+  accept 6628
+  turnin 6628
+  accept 1394
+  sethome "Undercity"
+  accept 1164
+
+step Brackenwall Village
+  zone Dustwallow Marsh
+  getfp "Brackenwall Village"
+  accept 1201
+
+step Brackenwall Village: Theramore Infiltrator
+  kill 4834 quest 1201.1
+
+step Nazeer Bloodpike
+  turnin 1201
+  accept 1202
+
+step 'Stinky' Ignatz
+  accept 1270
+
+step Witch Hill: Stinky's Escape
+  complete 1270
+
+step Loose Dirt
+  accept 1238
+  accept 1218
+
+step Theramore Isle: The Theramore Docks
+  complete 1202
+
+step Nazeer Bloodpike
+  turnin 1238
+  turnin 1202
+
+step Loose Dirt
+  accept 1239
+
+step Nazeer Bloodpike
+  turnin 1239
+  accept 1240
+
+step Mudcrush Durtfeet
+  accept 1177
+
+step Witch Hill: Mirefin Head
+  collect 5847 quest 1177.1
+
+step Mudcrush Durtfeet
+  turnin 1177
+
+step Feegly the Exiled
+  zone The Barrens
+  accept 857
+
+step Bael Modan: The Tear of the Moons
+  complete 857
+
+step Feegly the Exiled
+  turnin 857
+
+step Razorfen Downs: Arnak's Hoof
+  collect 12884 quest 5147.1
+
+step Lakota Windsong
+  accept 4904
+
+step Brave Moonhorn
+  accept 4542
+  turnin 5881
+
+step Camp Taurajo
+  sethome "Camp Taurajo"
+  accept 1153
+
+step Regthar Deathgate
+  turnin 1361
+
+step Back to Camp Taurajo
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  hearth "Camp Taurajo"
+  kill 7872 quest 6626.3 optional
+
+step Freewind Post
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  kill 7874 quest 6626.2 optional
+  kill 7873 quest 6626.1 optional
+  sethome "Freewind Post"
+  note "Profession quests here, for players with the skill: Nat Pagle, Angler Extreme (Fishing 225)."

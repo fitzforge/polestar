@@ -1,0 +1,30 @@
+guide completionist/horde/skyborne/16-shen-dralas
+title Shen'dralas
+faction Horde
+race Skyborne
+levels 37-38
+zone Shen'dralas
+category Completionist
+folder Completionist · Skyborne 30-40
+keywords completionist, every quest
+next completionist/horde/skyborne/17-arathi-highlands
+
+# Route: guide 16 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 37 to
+# 38, 5 quests, 0.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Shen'dralas): Valley of Bones.
+#
+# Left to other guides: class quests (the Class category).
+
+step Nerlokh
+  accept 93035
+  turnin 93034
+  turnin 93035
+  accept 93037
+  turnin 93037
+  accept 93041
+  accept 93128

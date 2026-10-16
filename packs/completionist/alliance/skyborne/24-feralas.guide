@@ -1,0 +1,206 @@
+guide completionist/alliance/skyborne/24-feralas
+title Feralas
+faction Alliance
+race Skyborne
+levels 45-47
+zone Feralas
+category Completionist
+folder Completionist · Skyborne 40-50
+keywords completionist, every quest
+next completionist/alliance/skyborne/25-teldrassil-badlands
+
+# Route: guide 24 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 45 to
+# 47, 33 quests, 3.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Feralas): Sardor Isle -> The Twin Colossals -> Feral Scar Vale -> The
+# Forgotten Coast -> The Twin Colossals -> Sardor Isle -> Isle of Dread ->
+# Sardor Isle -> The Twin Colossals -> Grimtotem Compound -> Feral Scar Vale
+# -> Ruins of Isildien -> The Writhing Deep -> ….
+#
+# Profession quests here are not routed (they need the skill): 2847 Wild
+# Leather Armor; 2848 Wild Leather Shoulders; 2849 Wild Leather Vest; 2850
+# Wild Leather Helmet; 2851 Wild Leather Boots; 2852 Wild Leather Leggings;
+# 2853 Master of the Wild Leather.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Crone of the Kraul (1101), Pusillin and the Elder
+# Azj'Tordin (7441), Elven Legends (7482), Lethtendris's Web (7488).
+
+step Angelas Moonbreeze
+  accept 2982
+  accept 4124
+  accept 2866
+  turnin 4124
+  accept 4125
+
+step Pratt McGrubben
+  accept 2821
+
+step Solarsal Gazebo
+  turnin 2866
+  accept 2867
+
+step Sardor Isle
+  tip Coast Crawl Deepseer drops the OOX-22/FE Distress Beacon: right-click it to start Find OOX-22/FE!.
+  collect 8705 x1
+  accept 2766
+
+step Shandris Feathermoon
+  turnin 2867
+  accept 3130
+  turnin 3130
+  accept 2869
+
+step Sardor Isle: Hatecrest Naga Scale
+  collect 9247 quest 2869.1
+
+step Latronicus Moonspear
+  turnin 2869
+  accept 2870
+
+step The Twin Colossals: Screecher Spirits
+  complete 3520
+
+step Homing Robot OOX-22/FE
+  turnin 2766
+  accept 2767
+
+step Feral Scar Vale: Thick Yeti Hide
+  collect 8973 quest 2821.1
+
+step Wrecked Row Boat
+  turnin 4125
+  accept 4127
+
+step The Twin Colossals: Rescue OOX-22/FE!
+  complete 2767
+
+step Ginro Hearthkindle
+  turnin 4127
+  accept 4129
+  turnin 4129
+  accept 4130
+  turnin 4130
+  accept 4131
+  turnin 2821
+  accept 7733
+
+step Isle of Dread: Mysterious Relic
+  collect 9248 quest 2870.1
+
+step Back to Feathermoon Stronghold
+  hearth "Feathermoon Stronghold"
+
+step Latronicus Moonspear
+  turnin 2870
+  accept 2871
+  turnin 2871
+
+step The Twin Colossals
+  tip Rage Scar Yeti drops the Pristine Yeti Hide: right-click it to start Pristine Yeti Hide.
+  collect 18969 x1
+  accept 7735
+
+step The Twin Colossals: Rage Scar Yeti Hide
+  collect 18947 quest 7733.1
+
+step Kindal Moonweaver
+  accept 2969
+
+step Grimtotem Compound: Freedom for All Creatures
+  complete 2969
+
+step Kindal Moonweaver
+  turnin 2969
+  accept 2970
+
+step Grimtotem Compound: Grimtotem Raider and Grimtotem Shaman
+  kill 7725 quest 2970.2
+  kill 7727 quest 2970.3
+
+step Grimtotem Compound: Grimtotem Naturalist
+  kill 7726 quest 2970.1
+
+step Jer'kai Moonweaver
+  turnin 2970
+  accept 2972
+
+step Feral Scar Vale: Gordunni Warlock and Gordunni Brute
+  kill 5240 quest 2982.1
+  kill 5232 quest 2982.3
+
+step Ruins of Isildien: Gordunni Shaman
+  kill 5236 quest 2982.2
+
+step Large Leather Backpacks
+  tip Large Leather Backpacks drops the Undelivered Parcel: right-click it to start Thalanaar Delivery.
+  turnin 4131
+  accept 4135
+  collect 11463 x1
+  accept 4281
+
+step Zukk'ash Pod
+  turnin 4135
+  accept 4265
+
+step The Writhing Deep: Freed from the Hive
+  complete 4265
+
+step Lower Wilds
+  getfp "Thalanaar"
+  turnin 4281
+
+step Back to Feathermoon Stronghold
+  hearth "Feathermoon Stronghold"
+
+step Ginro Hearthkindle
+  turnin 4265
+  accept 4266
+  turnin 2982
+  turnin 4266
+  accept 4267
+  turnin 7733
+  turnin 7735
+
+step Zorbin Fandazzle
+  accept 7003
+  accept 7721
+
+step The Forgotten Coast: Miniaturization Residue
+  collect 18956 quest 7003.1
+
+step Zorbin Fandazzle
+  turnin 7003
+
+step Feral Scar Vale: Water Elemental Core
+  collect 18958 quest 7721.1
+
+step Zorbin Fandazzle
+  turnin 7721
+
+step Troyas Moonbreeze
+  accept 2939
+
+step Rockbiter
+  accept 2844
+
+step Shay Leafrunner
+  turnin 2844
+  accept 2845
+
+step The Twin Colossals: Wandering Shay
+  complete 2845
+
+step Rockbiter
+  turnin 2845
+
+step Angelas Moonbreeze
+  accept 3445
+
+step Rut'theran Village
+  getfp "Rut'theran Village"
+  note "Profession quests here, for players with the skill: Wild Leather Armor (Leatherworking 200), Wild Leather Shoulders (Leatherworking 225), Wild Leather Vest (Leatherworking 225), Wild Leather Helmet (Leatherworking 225), Wild Leather Boots (Leatherworking 225), Wild Leather Leggings (Leatherworking 225), Master of the Wild Leather (Leatherworking 225)."

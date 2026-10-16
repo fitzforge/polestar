@@ -1,0 +1,433 @@
+guide completionist/alliance/skyborne/02-elwynn-forest
+title Elwynn Forest
+faction Alliance
+race Skyborne
+levels 14-17
+zone Elwynn Forest
+category Completionist
+folder Completionist · Skyborne 1-20
+keywords completionist, every quest
+next completionist/alliance/skyborne/03-darkshore
+
+# Route: guide 2 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 14 to
+# 17, 70 quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Elwynn Forest): Goldshire -> Crystal Lake -> Goldshire -> Fargodeep
+# Mine -> Forest's Edge -> Fargodeep Mine -> Goldshire -> Crystal Lake ->
+# Goldshire -> Northshire Valley -> Tower of Azora -> Northshire Valley ->
+# Goldshire -> ….
+#
+# Optional (elite: grouping up is advised): The Big Picture (91752;
+# Shinyfinder Narf 3); Book Return (91775; Nimsy 6); Wanted:  "Hogger" (176;
+# Hogger 11); Rare Books (91777; Geosculptor Yip 7, Mother Fang 7-10);
+# Croaky's Head (91740; Croaky 11); Elmpaw's Head (91746; Elmpaw 12).
+#
+# Profession quests here are not routed (they need the skill): 91751 Rough
+# Wolf Pelts; 91753 An Enchanting Lesson; 97915 Camping 101: Alchemy; 97916
+# Camping 101: Blacksmithing; 97917 Camping 101: Enchanting; 97918 Camping
+# 101: Engineering; 97919 Camping 101: First Aid; 97920 Camping 101: Fishing;
+# 97921 Camping 101: Herbalism; 97922 Camping 101: Leatherworking; 97923
+# Camping 101: Mining; 97924 Camping 101: Skinning; 97925 Camping 101:
+# Tailoring.
+#
+# Left to other guides: class quests (the Class category).
+
+step Sam Sarsaparilla
+  accept 95998
+
+step Goldshire: Basic Campfire
+  interact 460003 quest 95998.1 "Sit near Sam's Basic Campfire by typing /sit in the chat window and wait until you receive the Boosted Rest buff"
+  interact 460003 quest 95998.2 "Sit near Sam's Basic Campfire by typing /sit in the chat window and wait until you receive the Boosted Rest buff"
+
+step Sam Sarsaparilla
+  turnin 95998
+  accept 96626
+
+step Goldshire: Camping 101: Cooking
+  complete 96626
+
+step Tomas
+  turnin 96626
+  accept 47
+  accept 62
+  accept 60
+  accept 99127
+  accept 99143
+
+step Crystal Lake: Half-Eaten Fish
+  collect 286205 quest 99127.1
+
+step Jason Mathers
+  turnin 99127
+  accept 99128
+
+step Crystal Lake: Murloc and Shiny Junk and more
+  kill 285 quest 99128.2
+  collect 286209 quest 99143.1
+  kill 735 quest 99128.1
+
+step Lee Brown
+  turnin 99143
+  turnin 99128
+  accept 99129
+
+step Remy 'Two Times'
+  turnin 99129
+  accept 99130
+
+step Fargodeep Mine: Large Candle and Gold Dust and more
+  collect 772 quest 60.1
+  collect 773 quest 47.1
+  complete 62
+
+step Fargodeep Mine: Duskweed Petal
+  collect 286214 quest 99130.1
+
+step Maybell Maclure
+  accept 106
+
+step 'Auntie' Bernice Stonefield
+  accept 85
+
+step Tommy Joe Stonefield
+  turnin 106
+  accept 111
+
+step Gramma Stonefield
+  turnin 111
+  accept 107
+
+step Fargodeep Mine: Vial of Animal Blood
+  collect 286215 quest 99130.2
+
+step Billy Maclure
+  turnin 85
+  accept 86
+
+step Fargodeep Mine: Chunk of Boar Meat
+  collect 769 quest 86.1
+
+step 'Auntie' Bernice Stonefield
+  turnin 86
+  accept 84
+
+step Billy Maclure
+  turnin 84
+  accept 87
+
+step Fargodeep Mine: Bernice's Necklace
+  collect 981 quest 87.1
+
+step Remy 'Two Times'
+  turnin 47
+  turnin 99130
+  accept 99131
+  turnin 62
+  accept 76
+  turnin 60
+  turnin 107
+  accept 61
+  accept 112
+
+step Jason Mathers
+  turnin 99131
+
+step Crystal Lake: Crystal Kelp Frond
+  collect 1256 quest 112.1
+
+step William Pestle
+  turnin 112
+  accept 114
+
+step Falkhaan Isenstrider
+  accept 2158
+  accept 783
+
+step Marshal McBride
+  turnin 783
+  accept 7
+  accept 33
+  accept 18
+  accept 5261
+
+step Northshire Valley: Tough Wolf Meat
+  collect 750 quest 33.1
+
+step Eagan Peltskinner
+  tip Kobold Vermin drops the Nibbled-On Book: right-click it to start Nibbled-On Book.
+  turnin 33
+  turnin 5261
+  collect 247834 x1
+  accept 91741
+
+step Northshire Valley: Kobold Vermin
+  kill 6 quest 7.1
+
+step Brother Paxton
+  turnin 91741
+  accept 92124
+  turnin 92124
+  accept 91743
+  turnin 7
+  accept 15
+
+step Northshire Valley: Kobold Worker and Stolen Book
+  kill 257 quest 15.1
+  collect 247839 quest 91743.1
+
+step Brother Paxton
+  turnin 91743
+  accept 91745
+  turnin 15
+  accept 21
+
+step Northshire Valley: Red Burlap Bandana
+  collect 752 quest 18.1
+
+step Deputy Willem
+  turnin 18
+  accept 6
+  accept 3903
+  turnin 3903
+  accept 3904
+
+step Kelsey Fargo
+  tip Shinyfinder Narf (level 3) is elite: grouping up is advised unless you are well above level 3.
+  turnin 91745
+  accept 91752 optional
+
+step Northshire Valley: Kobold Laborer and Sack of 'Picture' Books
+  tip Shinyfinder Narf (level 3) is elite: grouping up is advised unless you are well above level 3.
+  kill 80 quest 21.1
+  collect 247886 quest 91752.1 optional
+
+step Marshal McBride
+  tip Shinyfinder Narf (level 3) is elite: grouping up is advised unless you are well above level 3.
+  turnin 21
+  turnin 91752 optional
+  accept 54
+  accept 91758
+  turnin 91758
+  accept 91772
+
+step Northshire Valley: Milly's Harvest
+  collect 11119 quest 3904.1
+
+step Tower of Azora: The Jasperlode Mine
+  complete 76
+
+step Northshire Valley: Garrick's Head
+  collect 182 quest 6.1
+
+step Milly Osworth
+  turnin 3904
+  accept 3905
+  turnin 3905
+  turnin 6
+
+step Goldshire: Kobold Tracks
+  interact 563442 quest 91772.1
+
+step Innkeeper Farley
+  tip Nimsy (level 6) is elite: grouping up is advised unless you are well above level 6.
+  turnin 2158
+  turnin 54
+  turnin 91772
+  turnin 76
+  accept 91775 optional
+
+step Maybell Maclure
+  tip Nimsy (level 6) is elite: grouping up is advised unless you are well above level 6.
+  collect 248002 quest 91775.1 optional
+  collect 248001 quest 91775.2 optional
+  turnin 114
+
+step 'Auntie' Bernice Stonefield
+  tip Hogger (level 11) is elite: grouping up is advised unless you are well above level 11.
+  turnin 87
+  accept 176 optional
+
+step Back to Goldshire
+  tip Hogger (level 11), Nimsy (level 6), Geosculptor Yip (level 7) and Mother Fang (level 7-10) are elite: grouping up is advised unless you are well above level 11.
+  collect 1931 quest 176.1 optional
+  hearth "Goldshire"
+  turnin 91775 optional
+  turnin 176 optional
+  accept 91777 optional
+  collect 248003 quest 91777.1 optional
+  collect 248004 quest 91777.2 optional
+
+step Sara Timberlain
+  tip Geosculptor Yip (level 7) and Mother Fang (level 7-10) are elite: grouping up is advised unless you are well above level 10.
+  turnin 91777 optional
+  accept 83
+  accept 5545
+
+step Eastvale Logging Camp: Bundle of Wood
+  collect 13872 quest 5545.1
+
+step Supervisor Raelen
+  turnin 5545
+
+step Brackwell Pumpkin Patch: Red Linen Bandana
+  collect 1019 quest 83.1
+
+step Sara Timberlain
+  turnin 83
+  accept 91733
+
+step Guard Thomas
+  accept 52
+
+step Brackwell Pumpkin Patch: Waterlogged Saw
+  collect 247813 quest 91733.2
+
+step Ridgepoint Tower: Waterlogged Axe
+  collect 247817 quest 91733.1
+
+step Ridgepoint Tower: Waterlogged Toolbox
+  tip Croaky (level 11) is elite: grouping up is advised unless you are well above level 11. Croaky drops the Croaky's Head: right-click it to start Croaky's Head.
+  collect 247826 x1 optional
+  accept 91740 optional
+  collect 247818 quest 91733.3
+
+step Ridgepoint Tower: Prowler
+  tip Croaky (level 11) is elite: grouping up is advised unless you are well above level 11.
+  turnin 91740 optional
+  kill 118 quest 52.1
+
+step Hagar Lowe
+  accept 91732
+
+step Tower of Azora: Young Forest Bear
+  kill 822 quest 52.2
+
+step Ormin Pelford
+  turnin 91733
+  turnin 52
+
+step Blixie Fitzwink
+  accept 91725
+  accept 91723
+
+step Tower of Azora: Kobold Geomancer
+  kill 476 quest 91723.1
+
+step Tower of Azora: Mining Tools
+  collect 247816 quest 91732.1
+
+step Stone Cairn Lake: Stolen Enchanting Supplies
+  collect 247805 quest 91725.1
+
+step Hagar Lowe
+  tip Elmpaw (level 12) is elite: grouping up is advised unless you are well above level 12. Elmpaw drops the Elmpaw's Head: right-click it to start Elmpaw's Head.
+  collect 247862 x1 optional
+  accept 91746 optional
+  turnin 91732
+
+step Hamish Bergwort
+  turnin 91723
+  accept 91724
+  turnin 91725
+
+step Stone Cairn Lake: Defias Rogue Wizard
+  kill 474 quest 91724.1
+
+step Hamish Bergwort
+  turnin 91724
+
+step Remy 'Two Times'
+  tip Elmpaw (level 12) is elite: grouping up is advised unless you are well above level 12.
+  turnin 91746 optional
+  accept 40
+  accept 239
+  turnin 40
+  accept 35
+
+step Jerod's Landing
+  tip Defias Bandit drops the Westfall Deed: right-click it to start Furlbrow's Deed.
+  collect 1972 x1
+  accept 184
+
+step Ma Stonefield
+  accept 88
+
+step Forest's Edge
+  tip Gruff Swiftbite drops the Gold Pickup Schedule: right-click it to start The Collector.
+  collect 1307 x1
+  accept 123
+
+step Deputy Rainer
+  turnin 239
+  accept 11
+  accept 91738
+
+step Forest's Edge: An Apple Treat
+  complete 91738
+
+step Sergeant De Vries
+  turnin 91738
+
+step Forest's Edge: Painted Gnoll Armband
+  collect 782 quest 11.1
+
+step Deputy Rainer
+  turnin 11
+
+step Back to Goldshire
+  hearth "Goldshire"
+
+step Marshal Dughan
+  turnin 123
+  accept 147
+
+step Brackwell Pumpkin Patch: Brass Collar and The Collector's Ring
+  collect 1006 quest 88.1
+  collect 2239 quest 147.1
+
+step Guard Thomas
+  turnin 35
+  accept 37
+
+step A half-eaten body
+  turnin 37
+  accept 45
+
+step Rolf's corpse
+  turnin 45
+  accept 71
+
+step Guard Thomas
+  turnin 71
+  accept 39
+
+step Marshal Dughan
+  turnin 39
+  turnin 147
+  accept 59
+
+step Ma Stonefield
+  turnin 88
+
+step Guard Thomas
+  accept 46
+
+step Sara Timberlain
+  turnin 59
+
+step Ridgepoint Tower: Torn Murloc Fin
+  collect 780 quest 46.1
+
+step Guard Thomas
+  turnin 46
+
+step Auberdine
+  getfp "Auberdine"
+
+step Auberdine
+  sethome "Auberdine"
+  note "Profession quests here, for players with the skill: Rough Wolf Pelts (Skinning 1), An Enchanting Lesson (Enchanting 1), Camping 101: Alchemy (Alchemy 1), Camping 101: Blacksmithing (Blacksmithing 1), Camping 101: Enchanting (Enchanting 1), Camping 101: Engineering (Engineering 1), Camping 101: First Aid (First Aid 1), Camping 101: Fishing (Fishing 1), Camping 101: Herbalism (Herbalism 1), Camping 101: Leatherworking (Leatherworking 1), Camping 101: Mining (Mining 1), Camping 101: Skinning (Skinning 1), Camping 101: Tailoring (Tailoring 1)."

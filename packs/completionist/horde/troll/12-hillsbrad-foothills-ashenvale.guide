@@ -1,0 +1,165 @@
+guide completionist/horde/troll/12-hillsbrad-foothills-ashenvale
+title Hillsbrad Foothills & Ashenvale
+faction Horde
+race Troll
+levels 28-30
+zone Hillsbrad Foothills
+category Completionist
+folder Completionist · Troll 20-30
+keywords completionist, every quest, Hillsbrad Foothills, Ashenvale
+next completionist/horde/troll/13-the-barrens
+
+# Route: guide 12 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 28 to 30, 22
+# quests, 3.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Hillsbrad Foothills, Ashenvale): Tarren Mill -> Durnholde Keep ->
+# Nethander Stead -> Hillsbrad Fields -> Southpoint Tower -> Hillsbrad Fields
+# -> Tarren Mill -> Hillsbrad Fields -> Tarren Mill -> Hillsbrad Fields ->
+# Tarren Mill -> Hillsbrad Fields -> Tarren Mill -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Grave Knight (96986), Blackfathom Villainy (6561),
+# Allegiance to the Old Gods (6565), Allegiance to the Old Gods (6565),
+# Amongst the Ruins (6921), Amongst the Ruins (6921), Baron Aquanis (6922).
+
+step Krusk
+  accept 498
+  accept 549
+  accept 98094
+  accept 527
+  accept 567
+  turnin 493
+  accept 496
+
+step Tarren Mill: Creeper Ichor and Gray Bear Tongue
+  collect 3477 quest 496.2
+  collect 3476 quest 496.1
+
+step Apothecary Lydon
+  turnin 496
+  accept 499
+  turnin 499
+
+step Durnholde Keep: Locked ball and chain and Syndicate Watchman
+  interact 1721 quest 498.1
+  kill 2261 quest 549.2
+  interact 1722 quest 498.2
+
+step Durnholde Keep: Syndicate Rogue
+  kill 2260 quest 549.1
+
+step Deathstalker Masoj
+  turnin 98094
+  accept 98095
+  turnin 98095
+
+step Hillsbrad Fields: Farmer Kalaba
+  kill 2451 quest 567.4
+
+step Hillsbrad Fields: Miner Hackett
+  kill 2450 quest 567.3
+
+step Deathstalker Lesh
+  accept 494
+
+step Hillsbrad Fields: Clerk Horrace Whitesteed and Citizen Wilkes
+  kill 2448 quest 567.1
+  kill 2449 quest 567.2
+
+step Hillsbrad Fields: Hillsbrad Farmer and Farmer Ray and more
+  kill 2266 quest 527.1
+  kill 232 quest 527.3
+  kill 2360 quest 527.2
+  kill 2403 quest 527.4
+
+step Back to Tarren Mill
+  hearth "Tarren Mill"
+
+step Krusk
+  turnin 498
+  turnin 549
+  turnin 494
+  turnin 527
+  turnin 567
+  accept 528
+  accept 546
+
+step Hillsbrad Fields: Hillsbrad Peasant and Hillsbrad Human Skull
+  kill 2267 quest 528.1
+  collect 3692 quest 546.1
+
+step High Executor Darthalia
+  turnin 528
+  accept 529
+  turnin 546
+
+step Hillsbrad Fields: Battle of Hillsbrad
+  complete 529
+
+step High Executor Darthalia
+  turnin 529
+  accept 532
+
+step Hillsbrad Fields: Battle of Hillsbrad
+  complete 532
+
+step High Executor Darthalia
+  turnin 532
+  accept 539
+
+step Azurelode Mine: Foreman Bonds and Hillsbrad Miner
+  kill 2305 quest 539.1
+  kill 2269 quest 539.2
+
+step Back to Tarren Mill
+  hearth "Tarren Mill"
+
+step High Executor Darthalia
+  turnin 539
+  accept 541 optional
+
+step High Executor Darthalia
+  kill 2344 quest 541.1 optional
+  kill 2345 quest 541.2 optional
+  kill 2346 quest 541.3 optional
+  kill 2304 quest 541.4 optional
+  turnin 541 optional
+  accept 550
+  accept 501
+
+step Night Run
+  zone Ashenvale
+  sethome "Splintertree Post"
+  accept 25
+
+step Gurda Ragescar
+  accept 6504
+
+step Fallen Sky Lake: The Lost Pages
+  complete 6504
+
+step Gurda Ragescar
+  turnin 6504
+
+step Mystral Lake
+  tip Tideress drops the Befouled Water Globe: right-click it to start The Befouled Element.
+  collect 16408 x1
+  accept 1918
+
+step Mystral Lake: Befouled Water Elemental
+  kill 3917 quest 25.1
+
+step Mastok Wrilehiss
+  turnin 25
+  turnin 1918
+  accept 824
+
+step Je'neu Sancrea
+  turnin 824
+
+step Ratchet
+  sethome "Ratchet"

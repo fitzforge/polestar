@@ -1,0 +1,120 @@
+guide completionist/horde/undead/14-stranglethorn-vale
+title Stranglethorn Vale
+faction Horde
+race Undead
+levels 31-34
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · Undead 30-40
+keywords completionist, every quest
+next completionist/horde/undead/15-the-barrens-dustwallow-marsh
+
+# Route: guide 14 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 31 to
+# 34, 12 quests, 4.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stranglethorn Vale): Grom'gol Base Camp -> Kal'ai Ruins -> Grom'gol
+# Base Camp -> Bal'lal Ruins -> The Vile Reef -> Grom'gol Base Camp -> Ruins
+# of Zul'Kunda -> Grom'gol Base Camp -> Booty Bay -> Crystalvein Mine ->
+# Bal'lal Ruins -> Booty Bay -> Grom'gol Base Camp -> ….
+#
+# Profession quests here are not routed (they need the skill): 2760 The
+# Mithril Order; 2761 Smelt On, Smelt Off; 2762 The Great Silver Deceiver;
+# 2763 The Art of the Imbue; 2764 Galvan's Finest Pupil; 2765 Expert
+# Blacksmith!; 3642 The Pledge of Secrecy; 3643 Show Your Work; 3645
+# Membership Card Renewal; 5148 Tribal Leatherworking.
+#
+# Left to other guides: class quests (the Class category).
+
+step Nimboya
+  accept 581
+
+step Kal'ai Ruins
+  tip Gluggle drops the Pendant of Myzrael: right-click it to start Crystal in the Mountains.
+  collect 4614 x1
+  accept 635
+
+step Kin'weelay
+  accept 596
+  accept 629
+
+step Bal'lal Ruins: Bloody Bone Necklace and Bloodscalp Tusk
+  collect 3915 quest 596.1
+  collect 3901 quest 581.1
+
+step The Vile Reef: The Vile Reef
+  complete 629
+
+step Nimboya
+  turnin 581
+  accept 582
+  turnin 596
+  turnin 629
+
+step Ruins of Zul'Kunda: Shrunken Head
+  collect 1532 quest 582.1
+
+step Back to Grom'gol Base Camp
+  hearth "Grom'gol Base Camp"
+
+step Nimboya
+  turnin 582
+
+step Booty Bay
+  getfp "Booty Bay"
+  sethome "Booty Bay"
+  accept 605
+  accept 189
+
+step Crystalvein Mine: Singing Crystal Shard
+  collect 3918 quest 605.1
+
+step Bal'lal Ruins: Bloodscalp Ear
+  collect 1519 quest 189.1
+
+step Back to Booty Bay
+  hearth "Booty Bay"
+
+step Crank Fizzlebub
+  turnin 605
+  turnin 189
+  accept 213
+
+step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp"
+  accept 570
+  accept 568
+  accept 638
+
+step Grom'gol Base Camp: Lashtail Raptor
+  kill 686 quest 568.1
+
+step Commander Aggro'gosh
+  turnin 568
+  accept 569
+
+step Mizjah Ruins: Mosh'Ogg Brute and Mosh'Ogg Witch Doctor
+  kill 1142 quest 569.1
+  kill 1144 quest 569.2
+
+step Mizjah Ruins: Shadowmaw Claw and Pristine Tigress Fang
+  collect 3838 quest 570.1
+  collect 3839 quest 570.2
+
+step Far Seer Mok'thardin
+  turnin 570
+  turnin 569
+
+step Venture Co. Base Camp: Tumbled Crystal
+  collect 4106 quest 213.1
+
+step Booty Bay
+  sethome "Booty Bay"
+  turnin 213
+
+step Ratchet
+  sethome "Ratchet"
+  note "Profession quests here, for players with the skill: The Mithril Order (Blacksmithing 210), Smelt On, Smelt Off (Blacksmithing 210), The Great Silver Deceiver (Blacksmithing 210), The Art of the Imbue (Blacksmithing 210), Galvan's Finest Pupil (Blacksmithing 210), Expert Blacksmith! (Blacksmithing 210), The Pledge of Secrecy (Engineering 200), Show Your Work (Engineering 200), Membership Card Renewal (Engineering 200), Tribal Leatherworking (Leatherworking 225)."

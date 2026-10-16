@@ -1,0 +1,71 @@
+guide completionist/horde/tauren/42-feralas
+title Feralas
+faction Horde
+race Tauren
+levels 58-59
+zone Feralas
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest
+next completionist/horde/tauren/43-the-barrens-arathi-highlands
+
+# Route: guide 42 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 58 to
+# 59, 9 quests, 0.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Feralas): Camp Mojache -> Feral Scar Vale -> Camp Mojache -> Grimtotem
+# Compound -> Camp Mojache -> Ruins of Ravenwind -> Camp Mojache ->
+# Frayfeather Highlands -> Camp Mojache.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Pusillin and the Elder Azj'Tordin (7441), Elven Legends
+# (7481), Lethtendris's Web (7489).
+
+step Witch Doctor Uzer'i
+  turnin 3123
+  accept 3124
+
+step Feral Scar Vale: Hippogryph Muisek
+  collect 9595 quest 3124.1
+
+step Back to Camp Mojache
+  hearth "Camp Mojache"
+
+step Witch Doctor Uzer'i
+  turnin 3124
+  accept 3125
+
+step Grimtotem Compound: Faerie Dragon Muisek
+  collect 9596 quest 3125.1
+
+step Witch Doctor Uzer'i
+  turnin 3125
+  accept 3126
+
+step Camp Mojache: Treant Muisek
+  collect 9593 quest 3126.1
+
+step Witch Doctor Uzer'i
+  turnin 3126
+  accept 3127
+
+step Ruins of Ravenwind: Mountain Giant Muisek
+  collect 9597 quest 3127.1
+
+step Witch Doctor Uzer'i
+  turnin 3127
+  accept 3129
+  turnin 3129
+
+step Frayfeather Highlands: The Super Egg-O-Matic
+  complete 2741
+
+step Talo Thornhoof
+  turnin 4120
+  turnin 7492
+
+step Ratchet
+  sethome "Ratchet"

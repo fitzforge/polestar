@@ -1,0 +1,276 @@
+guide completionist/alliance/human/10-duskwood
+title Duskwood
+faction Alliance
+race Human
+levels 28-32
+zone Duskwood
+category Completionist
+folder Completionist · Human 20-30
+keywords completionist, every quest, Duskwood, Dun Morogh
+next completionist/alliance/human/11-wetlands
+
+# Route: guide 10 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 28 to 32, 47
+# quests, 6.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Duskwood, Dun Morogh): Darkshire -> Tranquil Gardens Cemetery ->
+# Darkshire -> Manor Mistmantle -> Darkshire -> Tranquil Gardens Cemetery ->
+# The Rotting Orchard -> The Yorgen Farmstead -> Vul'Gol Ogre Mound -> Raven
+# Hill -> The Hushed Bank -> Raven Hill Cemetery -> The Hushed Bank -> ….
+#
+# Optional (elite: grouping up is advised): Bride of the Embalmer (253; Eliza
+# 31).
+#
+# Profession quests here are not routed (they need the skill): 90 Seasoned
+# Wolf Kabobs; 95217 The Quarry's Smith; 96031 Camping 101: Leatherworking;
+# 96044 Camping 101: Blacksmithing; 96046 Camping 101: Mining; 96047 Camping
+# 101: First Aid; 96050 Camping 101: Fishing; 96055 Camping 101: Herbalism;
+# 96056 Camping 101: Skinning; 96057 Camping 101: Tailoring; 96058 Camping
+# 101: Engineering.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Crime and Punishment (377), Crime and Punishment (377), A
+# Fine Mess (2904), The Sparklematic 5200! (2951), The Only Cure is More Green
+# Glow (2962), The Only Cure is More Green Glow (2962), Hurley Blackbreath
+# (4126), Old Ironforge Incursion (96393), Old Ironforge Incursion (96393).
+
+step Madame Eva
+  accept 101
+  accept 96139
+  accept 56
+  accept 165
+  accept 164
+  accept 163
+  accept 174 optional
+
+step Tranquil Gardens Cemetery
+  tip Skeletal Horror drops the An Old History Book: right-click it to start An Old History Book.
+  collect 2794 x1
+  accept 337
+
+step Tranquil Gardens Cemetery: Skeletal Warrior and Skeletal Mage and more
+  kill 48 quest 56.1
+  kill 203 quest 56.2
+  collect 2378 quest 101.3
+
+step Commander Althea Ebonlocke
+  turnin 56
+  accept 57
+
+step Manor Mistmantle: Vial of Spider Venom
+  collect 1130 quest 101.2
+
+step Manor Mistmantle: Ghoul Fang
+  collect 1129 quest 101.1
+
+step Madame Eva
+  turnin 101
+
+step Tranquil Gardens Cemetery: Skeletal Horror
+  kill 202 quest 57.2
+
+step The Rotting Orchard
+  tip Lost Watcher drops the Merrick's Bow: right-click it to start Merrick's Bow.
+  collect 281142 x1
+  accept 96138
+
+step Watcher Dodds
+  accept 236
+  accept 245
+
+step Vul'Gol Ogre Mound: Splinter Fist Warrior and Splinter Fist Taskmaster
+  kill 212 quest 96138.1
+  kill 892 quest 96138.2
+
+step Raven Hill: Raven Hill Tome
+  collect 281046 quest 96139.1
+
+step Jitters
+  turnin 163
+  accept 5
+
+step The Hushed Bank: Pygmy Venom Web Spider
+  kill 539 quest 245.1
+
+step Sven Yorgen
+  turnin 164
+  accept 95
+  accept 226
+
+step Raven Hill Cemetery: Rabid Dire Wolf
+  kill 565 quest 226.2
+
+step Raven Hill Cemetery: Starving Dire Wolf
+  kill 213 quest 226.1
+
+step Abercrombie
+  accept 148
+  turnin 165
+
+step Raven Hill Cemetery: Skeletal Fiend
+  kill 531 quest 57.1
+
+step Lars
+  turnin 226
+
+step Back to Darkshire
+  hearth "Darkshire"
+
+step Watcher Dodds
+  turnin 245
+
+step Mound of loose dirt
+  turnin 95
+  accept 230
+
+step Sirra Von'Indi
+  turnin 96138
+  turnin 96139
+  turnin 57
+  accept 58
+  turnin 5
+  accept 93
+  turnin 148
+  accept 149
+
+step Darkshire: Gooey Spider Leg
+  collect 2251 quest 93.1
+
+step Blind Mary
+  turnin 149
+  accept 154
+
+step Madame Eva
+  turnin 154
+  accept 157
+  turnin 93
+  accept 240
+
+step Watcher Callahan
+  turnin 236
+
+step Abercrombie
+  turnin 157
+  accept 158
+
+step Raven Hill Cemetery: Plague Spreader
+  kill 604 quest 58.1
+
+step Jitters
+  turnin 240
+
+step Sven Yorgen
+  turnin 230
+  accept 262
+
+step Commander Althea Ebonlocke
+  turnin 58
+  turnin 158
+  accept 156
+  turnin 262
+  accept 265
+  turnin 265
+  accept 266
+  turnin 266
+  accept 453
+
+step Tranquil Gardens Cemetery: Rot Blossom
+  collect 1598 quest 156.1
+
+step Tavernkeep Smitts
+  turnin 156
+  accept 159
+
+step Abercrombie
+  turnin 159
+  accept 133
+
+step Raven Hill Cemetery: Ghoul Rib
+  collect 884 quest 133.1
+
+step Abercrombie
+  turnin 133
+  accept 134
+
+step Jitters
+  turnin 453
+  accept 268
+
+step Sven Yorgen
+  turnin 268
+  accept 323
+
+step Raven Hill Cemetery: Skeletal Raider and Skeletal Healer and more
+  kill 1110 quest 323.1
+  kill 787 quest 323.2
+  kill 785 quest 323.3
+
+step Sven Yorgen
+  turnin 323
+  accept 269
+
+step Vul'Gol Ogre Mound: Ogre Thieves
+  complete 134
+
+step Abercrombie
+  turnin 134
+  accept 160
+
+step Back to Darkshire
+  hearth "Darkshire"
+
+step Lord Ello Ebonlocke
+  tip Eliza (level 31) is elite: grouping up is advised unless you are well above level 31.
+  turnin 160
+  accept 251
+  turnin 251
+  accept 401
+  turnin 401
+  accept 252
+  turnin 252
+  accept 253 optional
+
+step Lord Ello Ebonlocke
+  tip Eliza (level 31) is elite: grouping up is advised unless you are well above level 31.
+  collect 2382 quest 253.1 optional
+  turnin 253 optional
+  accept 66
+  accept 173
+  turnin 66
+  accept 67
+
+step The Rotting Orchard: Nightbane Shadow Weaver
+  kill 533 quest 173.1
+
+step Calor
+  turnin 173
+  accept 221
+
+step Brightwood Grove: Nightbane Dark Runner
+  kill 205 quest 221.1
+
+step Calor
+  turnin 221
+  accept 222
+
+step Tranquil Gardens Cemetery: Nightbane Vile Fang and Nightbane Tainted One
+  kill 206 quest 222.1
+  kill 920 quest 222.2
+
+step Calor
+  turnin 222
+  accept 223
+  turnin 223
+
+step Ironforge
+  zone Dun Morogh
+  sethome "Thunderbrew Distillery"
+  turnin 467
+
+step Back to Thunderbrew Distillery
+  collect 4371 quest 174.1 optional
+  hearth "Thunderbrew Distillery"
+  note "Profession quests here, for players with the skill: Seasoned Wolf Kabobs (Cooking 50), The Quarry's Smith (Blacksmithing 1), Camping 101: Leatherworking (Leatherworking 1), Camping 101: Blacksmithing (Blacksmithing 1), Camping 101: Mining (Mining 1), Camping 101: First Aid (First Aid 1), Camping 101: Fishing (Fishing 1), Camping 101: Herbalism (Herbalism 1), Camping 101: Skinning (Skinning 1), Camping 101: Tailoring (Tailoring 1), Camping 101: Engineering (Engineering 1)."

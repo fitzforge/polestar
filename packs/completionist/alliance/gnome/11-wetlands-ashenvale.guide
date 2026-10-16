@@ -1,0 +1,210 @@
+guide completionist/alliance/gnome/11-wetlands-ashenvale
+title Wetlands & Ashenvale
+faction Alliance
+race Gnome
+levels 32-34
+zone Wetlands
+category Completionist
+folder Completionist · Gnome 30-40
+keywords completionist, every quest, Wetlands, Ironforge, Ashenvale
+next completionist/alliance/gnome/12-stormwind-city-hillsbrad-foothills
+
+# Route: guide 11 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 32 to 34, 27
+# quests, 3.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Wetlands, Ironforge, Ashenvale): Dun Modr -> Whelgar's Excavation Site
+# -> Angerfang Encampment -> Direforge Hill -> Dun Modr -> Raptor Ridge ->
+# Thelgen Rock -> Angerfang Encampment -> Whelgar's Excavation Site ->
+# Menethil Harbor -> Dun Modr -> Menethil Harbor -> Dun Modr -> ….
+#
+# Optional (elite: grouping up is advised): The Dark Iron War (303; Dark Iron
+# Dwarf 27-28, Dark Iron Tunneler 29-30, Dark Iron Saboteur 28-29, Dark Iron
+# Demolitionist 30-31); A Grim Task (304; Balgaras the Foul 34).
+#
+# Profession quests here are not routed (they need the skill): 1578 Supplying
+# the Front; 1618 Gearing Redridge; 3629 Goblin Engineering; 3632 Gnome
+# Engineering; 3640 The Pledge of Secrecy; 3641 Show Your Work; 3647
+# Membership Card Renewal; 5283 The Art of the Armorsmith; 5284 The Way of the
+# Weaponsmith; 6609 I Got Nothin' Left!; 6612 I Know A Guy...; 6625 Alliance
+# Trauma; 96045 Camping 101: Alchemy; 96059 Camping 101: Enchanting.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Fury Runs Deep (378), The Fury Runs Deep (378), Lost
+# in the Thicket Things (95647), Fallen in the Fen (95795), Heartwoven
+# (95809), Highland Hides (98815), Highland Hides (98815), Prehistoric Prism
+# (98824), Prehistoric Prism (98824), Knowledge in the Deeps (971), Knowledge
+# in the Deeps (971), Mythology of the Titans (1050), Mythology of the Titans
+# (1050), The Lost Tablets of Will (1139), Back to Uldaman (2200), Restoring
+# the Necklace (2204), The Lost Dwarves (2398), Essential Artificials (2924),
+# Essential Artificials (2924), The Grand Betrayal (2929), The Grand Betrayal
+# (2929), Data Rescue (2930), Data Rescue (2930), Kharan Mighthammer (4341),
+# The Fate of the Kingdom (4362), The Restless Dead (96394), The Restless Dead
+# (96394), An Ancient Grudge (96395), Important Heirlooms (96403), Important
+# Heirlooms (96403), The Treaty of Understanding (98423), Blackfathom Villainy
+# (1200).
+
+step Motley Garmason
+  tip Dark Iron Dwarf (level 27-28), Dark Iron Tunneler (level 29-30), Dark Iron Saboteur (level 28-29) and Dark Iron Demolitionist (level 30-31) are elite: grouping up is advised unless you are well above level 31.
+  accept 303 optional
+
+step Prospector Whelgar
+  tip Dark Iron Dwarf (level 27-28), Dark Iron Tunneler (level 29-30), Dark Iron Saboteur (level 28-29) and Dark Iron Demolitionist (level 30-31) are elite: grouping up is advised unless you are well above level 31.
+  kill 1051 quest 303.1 optional
+  kill 1053 quest 303.2 optional
+  kill 1052 quest 303.3 optional
+  accept 98313
+  accept 98310
+
+step Howin Kindfeather
+  accept 98297
+  accept 98300
+
+step Direforge Hill: Heart of Neru
+  tip Dark Iron Dwarf (level 27-28), Dark Iron Tunneler (level 29-30), Dark Iron Saboteur (level 28-29) and Dark Iron Demolitionist (level 30-31) are elite: grouping up is advised unless you are well above level 31.
+  kill 1054 quest 303.4 optional
+  collect 280398 quest 98310.4
+
+step Dun Modr: Heart of Modr
+  collect 280396 quest 98310.2
+
+step Raptor Ridge: Subdued Dragonspawn and Heart of Ados
+  tip Dark Iron Dwarf (level 27-28), Dark Iron Tunneler (level 29-30), Dark Iron Saboteur (level 28-29) and Dark Iron Demolitionist (level 30-31) are elite: grouping up is advised unless you are well above level 31.
+  turnin 303 optional
+  kill 271373 quest 98297.1
+  collect 280395 quest 98310.1
+
+step Thelgen Rock: Heart of Golm
+  collect 280397 quest 98310.3
+
+step Howin Kindfeather
+  turnin 98297
+
+step Prospector Whelgar
+  turnin 98310
+
+step Menethil Harbor
+  sethome "Deepwater Tavern"
+  accept 472
+
+step Longbraid the Grim
+  turnin 472
+
+step Back to Deepwater Tavern
+  hearth "Deepwater Tavern"
+
+step Red Jack Flint
+  accept 1132
+  accept 1302
+
+step Captive Fire Elemental
+  accept 87491
+
+step Longbraid the Grim
+  tip Balgaras the Foul (level 34) is elite: grouping up is advised unless you are well above level 34.
+  accept 304 optional
+  accept 631
+  turnin 87491
+
+step Comar Villard
+  tip Balgaras the Foul (level 34) is elite: grouping up is advised unless you are well above level 34.
+  accept 87318
+  turnin 87318
+  accept 88758
+  turnin 88758
+  collect 3639 quest 304.1 optional
+  turnin 304 optional
+
+step Prospector Stormpike
+  zone Ironforge
+  accept 707
+  getfp "Ironforge"
+  accept 1453
+
+step Maseara Autumnmoon
+  zone Ashenvale
+  accept 98418
+
+step Satyrnaar: Xavian Felsworn and Xavian Hellcaller and more
+  kill 3755 quest 98418.1
+  kill 3757 quest 98418.2
+  kill 3752 quest 98418.3
+
+step Maseara Autumnmoon
+  turnin 98418
+
+step Gleaming Crescent Pendant
+  accept 98027
+
+step Sentinel Melyria Frostshadow
+  accept 1022
+
+step Astranaar
+  sethome "Astranaar"
+  accept 4581
+  accept 95737
+
+step The Howling Vale: Tome of Mel'Thandris
+  interact 19027 quest 1022.1
+
+step Back to Astranaar
+  hearth "Astranaar"
+
+step Maliynn
+  turnin 98027
+
+step Sentinel Melyria Frostshadow
+  turnin 1022
+  accept 1037
+
+step Kayneth Stillwind
+  turnin 4581
+  accept 1011
+
+step Felfire Hill: Forsaken Diseases
+  complete 1011
+
+step Kayneth Stillwind
+  turnin 1011
+  accept 1012
+
+step Felfire Hill: Taneel Darkwood and Uthil Mooncall and more
+  kill 3940 quest 1012.1
+  kill 3941 quest 1012.2
+  kill 3942 quest 1012.3
+
+step Kayneth Stillwind
+  turnin 1012
+
+step Illiyana
+  accept 1021
+
+step Shandrina
+  accept 86757
+
+step Fallen Sky Lake: Curved Orcish Dagger
+  collect 279507 quest 86757.2
+
+step Warsong Lumber Camp: Jagged Orcish Sword
+  collect 279505 quest 86757.1
+
+step Anilia
+  turnin 1021
+  accept 1031
+
+step Satyrnaar: Branch of Cenarius
+  collect 5461 quest 1031.1
+
+step Back to Astranaar
+  hearth "Astranaar"
+
+step Shandrina
+  turnin 86757
+
+step Illiyana
+  turnin 1031
+  accept 1032
+  note "Profession quests here, for players with the skill: Supplying the Front (Blacksmithing 30), Gearing Redridge (Blacksmithing 60), Goblin Engineering (Engineering 200), Gnome Engineering (Engineering 200), The Pledge of Secrecy (Engineering 200), Show Your Work (Engineering 200), Membership Card Renewal (Engineering 200), The Art of the Armorsmith (Blacksmithing 200), The Way of the Weaponsmith (Blacksmithing 200), I Got Nothin' Left! (Fishing 225), I Know A Guy... (Cooking 225), Alliance Trauma (First Aid 225), Camping 101: Alchemy (Alchemy 1), Camping 101: Enchanting (Enchanting 1)."

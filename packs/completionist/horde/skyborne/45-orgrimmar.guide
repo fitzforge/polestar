@@ -1,0 +1,69 @@
+guide completionist/horde/skyborne/45-orgrimmar
+title Orgrimmar
+faction Horde
+race Skyborne
+levels 58-59
+zone Orgrimmar
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest
+next completionist/horde/skyborne/46-azshara-undercity
+
+# Route: guide 45 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 58 to
+# 59, 12 quests, 0.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Orgrimmar): near Orgrimmar -> Orgrimmar -> near Orgrimmar ->
+# Orgrimmar.
+#
+# Optional (elite: grouping up is advised): Necklace Recovery (2283;
+# Shadowforge Surveyor 35-36, Shadowforge Ruffian 36-37, Shadowforge Digger
+# 35-36, Stonevault Rockchewer 36-37, Stonevault Oracle 37-38, Stonevault Cave
+# Hunter 36-37).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Necklace Recovery, Take 2 (2284), Rig Wars (2841), Rig
+# Wars (2841), The Royal Rescue (4003), For The Horde! (4974), Returning the
+# Lost Satchel (5724), Hidden Enemies (5728), Hidden Enemies (5728), Slaying
+# the Beast (5761), Slaying the Beast (5761), Changing Tastes (95697),
+# Changing Tastes (95697).
+
+step Vehena
+  turnin 7834
+
+step Keldran
+  turnin 1436
+
+step Rashona Straglash
+  turnin 7827
+
+step Belgrom Rockmaul
+  turnin 1184
+
+step Thrall
+  turnin 5726
+  accept 5727
+  turnin 93739
+
+step Orgrimmar
+  sethome "Orgrimmar"
+  turnin 813
+
+step Orgrimmar: Hidden Enemies
+  complete 5727
+
+step Thrall
+  turnin 5727
+
+step Dran Droffers
+  tip Shadowforge Surveyor (level 35-36), Shadowforge Ruffian (level 36-37), Shadowforge Digger (level 35-36) and 3 more are elite: grouping up is advised unless you are well above level 38.
+  turnin 2283 optional
+  turnin 4509
+  accept 4511
+  turnin 4300
+
+step Karus
+  turnin 4511

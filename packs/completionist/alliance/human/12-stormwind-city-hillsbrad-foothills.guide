@@ -1,0 +1,220 @@
+guide completionist/alliance/human/12-stormwind-city-hillsbrad-foothills
+title Stormwind City & Hillsbrad Foothills
+faction Alliance
+race Human
+levels 33-34
+zone Stormwind City
+category Completionist
+folder Completionist · Human 30-40
+keywords completionist, every quest, Stormwind City, Stonetalon Mountains, Hillsbrad Foothills, Darnassus
+next completionist/alliance/human/13-thousand-needles-dustwallow-marsh
+
+# Route: guide 12 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 33 to 34, 52
+# quests, 3.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stormwind City, Stonetalon Mountains, Hillsbrad Foothills, Darnassus):
+# near Stormwind City -> Stormwind City -> near Stormwind City -> Stormwind ->
+# near Stormwind -> Stormwind City -> near Stormwind City -> near Stormwind ->
+# near Stormwind City -> near Stormwind -> near Stormwind City -> near
+# Stormwind -> Stormwind -> ….
+#
+# Optional (elite: grouping up is advised): Oh Brother... (167; Foreman
+# Thistlenettle 20); Collecting Memories (168; Skeletal Miner 17-18, Undead
+# Excavator 17-18, Undead Dynamiter 17-18).
+#
+# Profession quests here are not routed (they need the skill): 2758 The
+# Origins of Smithing; 2759 In Search of Galvan; 3630 Gnome Engineering; 4181
+# Goblin Engineering; 7497 The Journey Has Just Begun.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489), Vyletongue
+# Corruption (7041), Corruption of Earth and Seed (7065), In the Name of the
+# Light (1053), In Search of Thaelrid (1198), Twilight Falls (1199).
+
+step Baros Alexston
+  accept 399
+
+step Borgus Steelhand
+  tip Foreman Thistlenettle (level 20), Skeletal Miner (level 17-18), Undead Excavator (level 17-18) and Undead Dynamiter (level 17-18) are elite: grouping up is advised unless you are well above level 20.
+  accept 167 optional
+  accept 168 optional
+  accept 97894
+
+step Baros Alexston
+  accept 97926
+  accept 95161
+
+step Stormwind City: Cask of Merlot
+  getfp "Stormwind"
+  sethome "Stormwind City"
+  buy 1941 x1 nearest
+
+step Roy Lewells
+  accept 97234
+
+step General Marcus Jonathan
+  turnin 120
+  accept 121
+
+step Donyal Tovald
+  turnin 97234
+
+step Collin Mauren
+  accept 1078
+  turnin 1075
+  accept 1076
+
+step Argos Nightwhisper
+  accept 3765
+
+step Bishop Farthing
+  turnin 269
+
+step Milton Sheaf
+  turnin 337
+  turnin 98190
+
+step Archbishop Benedictus
+  turnin 293
+  accept 98219
+  accept 270
+  accept 2923
+  accept 343
+
+step Milton Sheaf
+  accept 2928 optional
+  turnin 343
+  accept 344
+  accept 538
+  accept 98191
+
+step Lord Grayson Shadowbreaker
+  turnin 98191
+
+step Garion Wendell
+  accept 79536
+  turnin 79536
+
+step Zardeth of the Black Claw
+  accept 335
+
+step Thomas
+  accept 1274
+
+step Bishop DeLavey
+  turnin 1274
+  accept 1241
+
+step Jorgen
+  turnin 1241
+  accept 1242
+
+step Elling Trias
+  turnin 1242
+  accept 1243
+
+step Veenix
+  zone Stonetalon Mountains
+  accept 78270
+  turnin 78270
+
+step Windshear Crag: Deepmoss Egg
+  collect 5570 quest 1069.1
+
+step Pocket Litter
+  turnin 79192
+
+step Ziz Fizziks
+  turnin 1483
+
+step The Charred Vale: Crystalized Scales
+  collect 5675 quest 1078.1
+
+step Back to Stormwind City
+  hearth "Stormwind City"
+
+step Southshore
+  zone Hillsbrad Foothills
+  getfp "Southshore"
+  sethome "Southshore"
+  turnin 98219
+  turnin 538
+  accept 540
+
+step Tom 'Half-fish' Wilson
+  accept 98459
+
+step Lieutenant Farren Orinelle
+  accept 536
+
+step Captain McManus
+  accept 98059
+  turnin 98059
+
+step Western Strand: Torn Fin Tidehunter and Torn Fin Oracle
+  kill 2377 quest 536.1
+  kill 2376 quest 536.2
+
+step Lieutenant Farren Orinelle
+  turnin 536
+  accept 559
+
+step Western Strand: Murloc Head
+  collect 3716 quest 559.1
+
+step Lieutenant Farren Orinelle
+  turnin 559
+  accept 560
+  turnin 560
+  accept 561
+  turnin 561
+  accept 562
+
+step Southshore: Daggerspine Shorehunter and Daggerspine Siren
+  kill 2369 quest 562.1
+  kill 2371 quest 562.2
+
+step Lieutenant Farren Orinelle
+  turnin 562
+  accept 563
+  accept 505
+
+step Syndicate Documents
+  accept 510
+
+step Tarren Mill: Syndicate Footpad
+  kill 2240 quest 505.1
+
+step Darrow Hill: Syndicate Thief
+  kill 2241 quest 505.2
+
+step Back to Southshore
+  hearth "Southshore"
+
+step Magistrate Henry Maleb
+  turnin 505
+  turnin 510
+  accept 512
+
+step Mathiel
+  zone Darnassus
+  accept 2925
+  sethome "Craftsmen's Terrace"
+  turnin 1037
+  accept 1038
+
+step near Craftsmen's Terrace: Velinde's Effects
+  complete 1038
+
+step Thyn'tel Bladeweaver
+  turnin 1038
+  accept 1039
+  note "Profession quests here, for players with the skill: The Origins of Smithing (Blacksmithing 210), In Search of Galvan (Blacksmithing 210), Gnome Engineering (Engineering 200), Goblin Engineering (Engineering 200), The Journey Has Just Begun (Leatherworking 300)."

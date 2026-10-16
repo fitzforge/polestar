@@ -1,0 +1,139 @@
+guide completionist/alliance/dwarf/23-duskwood-stranglethorn-vale
+title Duskwood & Stranglethorn Vale
+faction Alliance
+race Dwarf
+levels 43-44
+zone Duskwood
+category Completionist
+folder Completionist · Dwarf 40-50
+keywords completionist, every quest, Duskwood, Stranglethorn Vale
+next completionist/alliance/dwarf/24-dustwallow-marsh-swamp-of-sorrows
+
+# Route: guide 23 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 43 to 44, 29
+# quests, 1.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Duskwood, Stranglethorn Vale): Darkshire -> Tranquil Gardens Cemetery
+# -> Darkshire -> Brightwood Grove -> The Yorgen Farmstead -> Vul'Gol Ogre
+# Mound -> Darkshire -> Tranquil Gardens Cemetery -> Darkshire -> Raven Hill
+# Cemetery -> Addle's Stead -> Darkshire -> Raven Hill Cemetery -> ….
+#
+# Optional (elite: grouping up is advised): Mor'Ladim (228; Mor'Ladim 35); The
+# Star, the Hand and the Heart (735; Grel'borg the Miser 39, Dagun the
+# Ravenous 43, Mogh the Undying 44).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Crime and Punishment (377), Crime and Punishment (377).
+
+step Viktori Prism'Antras
+  turnin 174 optional
+  accept 175
+
+step Blind Mary
+  turnin 175
+  accept 177
+
+step Tranquil Gardens Cemetery: Mary's Looking Glass
+  collect 1946 quest 177.1
+
+step Viktori Prism'Antras
+  turnin 177
+  accept 181
+
+step Brightwood Grove: Black Ravager
+  kill 628 quest 96137.2
+
+step The Yorgen Farmstead: Young Black Ravager
+  kill 923 quest 96137.1
+
+step Vul'Gol Ogre Mound: Ogre's Monocle
+  collect 1968 quest 181.1
+
+step Back to Darkshire
+  hearth "Darkshire"
+
+step Sirra Von'Indi
+  turnin 96137
+
+step Viktori Prism'Antras
+  turnin 181
+
+step Clerk Daltry
+  turnin 68
+  turnin 1041
+  accept 69
+  accept 1042
+  turnin 1042
+  accept 1043
+
+step Tranquil Gardens Cemetery: Mound of Dirt
+  interact 19030 quest 1043.1
+
+step Jonathan Carevin
+  turnin 1043
+  accept 1044
+  turnin 1243
+  accept 1244
+
+step A Weathered Grave
+  accept 225
+
+step Addle's Stead: The Missing Diplomat
+  complete 1244
+
+step Sirra Von'Indi
+  tip Mor'Ladim (level 35) is elite: grouping up is advised unless you are well above level 35.
+  turnin 225
+  accept 227
+  turnin 227
+  accept 228 optional
+  turnin 1244
+  accept 1245
+
+step Commander Althea Ebonlocke
+  tip Mor'Ladim (level 35) is elite: grouping up is advised unless you are well above level 35.
+  collect 3514 quest 228.1 optional
+  turnin 228 optional
+  accept 229
+  turnin 229
+  accept 231
+
+step A Weathered Grave
+  turnin 231
+
+step Booty Bay
+  zone Stranglethorn Vale
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  collect 4644 quest 735.3 optional
+  sethome "Booty Bay"
+  turnin 1115
+  accept 1116
+  turnin 603
+  accept 610
+
+step Booty Bay: Catelyn's Blade
+  collect 4027 quest 610.1
+
+step Catelyn the Blade
+  turnin 610
+  accept 611
+
+step Ziata'jai Ruins: Chilled Basilisk Haunch
+  collect 2476 quest 212.1
+
+step The Vile Reef: Stone of the Tides
+  collect 4034 quest 611.1
+
+step Baron Revilgaz
+  turnin 611
+  turnin 627
+  accept 622
+
+step Corporal Kaleb
+  turnin 622
+
+step Theramore Isle
+  sethome "Theramore Isle"

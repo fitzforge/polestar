@@ -1,0 +1,162 @@
+guide completionist/horde/undead/18-arathi-highlands-badlands
+title Arathi Highlands & Badlands
+faction Horde
+race Undead
+levels 37-39
+zone Badlands
+category Completionist
+folder Completionist · Undead 30-40
+keywords completionist, every quest, Arathi Highlands, Badlands
+next completionist/horde/undead/19-stranglethorn-vale
+
+# Route: guide 18 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 37 to
+# 39, 23 quests, 4.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Arathi Highlands, Badlands): Faldir's Cove -> Agmond's End -> Valley
+# of Fangs -> Agmond's End -> Valley of Fangs -> The Maker's Terrace ->
+# Agmond's End -> Kargath -> Apocryphan's Rest -> Kargath -> The Dustbowl ->
+# Kargath -> The Dustbowl -> ….
+#
+# Profession quests here are not routed (they need the skill): 5146 Elemental
+# Leatherworking; 6622 Triage; 1559 Flash Bomb Recipe; 2203 Badlands Reagent
+# Run II; 5145 Dragonscale Leatherworking.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Dragonmaw Rumors (95663), Find the Gems and Power Source
+# (2339), Disharmony of Fire (3907), Commander Gor'shak (3981), The Rise of
+# the Machines (4063), KILL ON SIGHT: Dark Iron Dwarves (4081), KILL ON SIGHT:
+# High Ranking Dark Iron Officials (4082), Operation: Death to Angerforge
+# (4132), Lost Thunderbrew Recipe (4134), Ribbly Screwspigot (4136), The Pack
+# Mistress (4724), Kibler's Exotic Pets (4729), The Darkstone Tablet (4768),
+# En-Ay-Es-Tee-Why (4862), Warlord's Command (4903), Operative Bijou (4981).
+
+step Lolo the Lookout
+  zone Arathi Highlands
+  accept 663
+  turnin 663
+  accept 662
+  accept 665
+
+step Faldir's Cove: Sunken Treasure
+  complete 665
+
+step Doctor Draxlegauge
+  turnin 665
+  accept 666
+  accept 664
+
+step Faldir's Cove: Daggerspine Raider and Daggerspine Sorceress and more
+  kill 2595 quest 664.1
+  kill 2596 quest 664.2
+  complete 662
+  collect 4492 quest 666.1
+
+step First Mate Nilzlix
+  turnin 662
+  turnin 666
+  accept 668
+  turnin 664
+  turnin 668
+  accept 669
+
+step Theldurin the Lost
+  zone Badlands
+  accept 709
+
+step Rigglefuzz
+  accept 705
+  accept 2418 optional
+  turnin 1106
+  accept 1108
+
+step Agmond's End: Indurium Flake
+  collect 5797 quest 1108.1
+
+step Martek the Exiled
+  turnin 1108
+  accept 1137
+
+step The Maker's Terrace: Solution to Doom
+  complete 709
+  collect 8009 quest 2418.1 optional
+  collect 8052 quest 2418.2 optional
+
+step Theldurin the Lost
+  turnin 2418 optional
+  turnin 709
+  accept 728
+
+step Kargath
+  getfp "Kargath"
+  sethome "Kargath"
+  accept 1419
+  accept 1420
+
+step Apocryphan's Rest: Coyote Jawbone
+  collect 6166 quest 1419.1
+
+step Neeka Bloodscar
+  turnin 1419
+
+step Lotwil Veriatus
+  accept 710
+
+step The Dustbowl: Small Stone Shard
+  collect 4626 quest 710.1
+
+step Lotwil Veriatus
+  turnin 710
+  accept 711
+
+step Kargath: Large Stone Slab
+  collect 4627 quest 711.1
+
+step Lotwil Veriatus
+  turnin 711
+  accept 712
+
+step Rigglefuzz
+  accept 703
+
+step Valley of Fangs: Buzzard Wing
+  collect 3404 quest 703.1
+
+step Rigglefuzz
+  turnin 703
+
+step Back to Kargath
+  hearth "Kargath"
+
+step Camp Cagg: Bracers of Rock Binding
+  collect 4628 quest 712.1
+
+step Lotwil Veriatus
+  turnin 712
+  accept 716
+
+step The Dustbowl: Stone Is Better than Cloth
+  complete 716
+
+step Lucien Tosselwrench
+  turnin 716
+
+step Jarkal Mossmeld
+  accept 2258
+
+step Apocryphan's Rest: Crag Coyote Fang
+  collect 7846 quest 2258.2
+
+step Apocryphan's Rest: Buzzard Gizzard
+  collect 7847 quest 2258.1
+
+step The Dustbowl: Rock Elemental Shard
+  collect 7848 quest 2258.3
+
+step Jarkal Mossmeld
+  turnin 2258
+  accept 2202
+  note "Profession quests here, for players with the skill: Elemental Leatherworking (Leatherworking 225), Triage (First Aid 225), Flash Bomb Recipe (Engineering 1), Badlands Reagent Run II (Alchemy 210), Dragonscale Leatherworking (Leatherworking 225)."

@@ -1,0 +1,201 @@
+guide completionist/horde/undead/33-winterspring-stonetalon-mountains
+title Winterspring & Stonetalon Mountains
+faction Horde
+race Undead
+levels 54-56
+zone Winterspring
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Winterspring, Stonetalon Mountains
+next completionist/horde/undead/34-undercity-orgrimmar
+
+# Route: guide 33 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 54 to
+# 56, 32 quests, 5.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Winterspring, Stonetalon Mountains): Frostfire Hot Springs ->
+# Winterfall Village -> Frostfire Hot Springs -> Everlook -> Ice Thistle Hills
+# -> Everlook -> Frostfire Hot Springs -> Timbermaw Post -> Frostfire Hot
+# Springs -> Starfall Village -> Everlook -> Ice Thistle Hills -> Everlook ->
+# ….
+#
+# Optional (elite: grouping up is advised): Ursius of the Shardtooth (5054;
+# Ursius 56); Brumeran of the Chillwind (5055; Brumeran 58); Shy-Rotam (5056;
+# Shy-Rotam 60).
+#
+# Profession quests here are not routed (they need the skill): 5124 Fiery
+# Plate Gauntlets; 5127 The Demon Forge; 5305 Sweet Serenity; 5306 Snakestone
+# of the Shadow Huntress; 5307 Corruption; 8798 A Yeti of Your Own.
+#
+# Left to other guides: class quests (the Class category).
+
+step Salfa
+  accept 8464
+  turnin 8465
+
+step Frostfire Hot Springs: Winterfall Den Watcher
+  kill 7440 quest 8464.2
+
+step Winterfall Village: Winterfall Ursa
+  kill 7438 quest 8464.3
+
+step Winterfall Village: Winterfall Shaman
+  kill 7439 quest 8464.1
+
+step Salfa
+  turnin 8464
+
+step Everlook
+  getfp "Everlook"
+  sethome "Everlook"
+  accept 6605
+  accept 6029
+  accept 6030
+  turnin 4808
+  accept 4809
+
+step Ice Thistle Hills: Uncracked Chillwind Horn
+  collect 12444 quest 4809.1
+
+step Felnok Steelspring
+  turnin 4809
+  accept 4810
+
+step Frostfire Hot Springs
+  tip Winterfall Pathfinder drops the Winterfall Ritual Totem: right-click it to start Winterfall Ritual Totem.
+  collect 20742 x1
+  accept 8471
+
+step Donova Snowden
+  turnin 3908
+  accept 3909
+
+step Salfa
+  accept 8469
+
+step Frostfire Hot Springs: Runecloth and Winterfall Spirit Beads
+  collect 14047 quest 6031.1
+  collect 21383 quest 8469.1
+
+step Salfa
+  turnin 8469
+
+step Donova Snowden
+  accept 5082
+  turnin 980
+  accept 4842
+
+step Frostfire Hot Springs: Ragged Owlbeast
+  kill 7450 quest 4521.2
+
+step Salfa
+  accept 6241
+
+step Frostfire Hot Springs: Winterfall Den Watcher and Winterfall Totemic
+  kill 7440 quest 5082.2
+  kill 7440 quest 6241.1
+  kill 7441 quest 6241.2
+
+step Frostfire Hot Springs
+  tip Winterfall Pathfinder drops the Empty Firewater Flask: right-click it to start Winterfall Firewater.
+  collect 12771 x1
+  accept 5083
+
+step Frostfire Hot Springs: Winterfall Pathfinder
+  kill 7442 quest 5082.1
+  kill 7442 quest 6241.3
+
+step Donova Snowden
+  turnin 5083
+  accept 5084
+
+step Salfa
+  turnin 6241
+
+step Timbermaw Post: Winterfall Totemic
+  kill 7441 quest 5082.3
+
+step Donova Snowden
+  turnin 5082
+
+step Back to Everlook
+  hearth "Everlook"
+
+step Starfall Village: Raging Owlbeast
+  kill 7451 quest 4521.1
+
+step Umi Rumplesnicker
+  tip Ursius (level 56) is elite: grouping up is advised unless you are well above level 56.
+  accept 3783
+  accept 6603
+  accept 5054 optional
+  kill 10806 quest 5054.1 optional
+
+step Ice Thistle Hills: Thick Yeti Fur
+  tip Ursius (level 56) and Brumeran (level 58) are elite: grouping up is advised unless you are well above level 58.
+  turnin 5054 optional
+  accept 5055 optional
+  collect 12366 quest 3783.1
+
+step Umi Rumplesnicker
+  turnin 3783
+  accept 977
+
+step Ice Thistle Hills: Pristine Yeti Horn
+  collect 12367 quest 977.1
+
+step Umi Rumplesnicker
+  turnin 977
+  accept 5163
+
+step Everlook: Legacki
+  kill 10978 quest 5163.1
+
+step Frostwhisper Gorge: Strange Sources
+  tip Brumeran (level 58) is elite: grouping up is advised unless you are well above level 58.
+  kill 10807 quest 5055.1 optional
+  complete 4842
+
+step Back to Everlook
+  tip Brumeran (level 58) and Shy-Rotam (level 60) are elite: grouping up is advised unless you are well above level 60.
+  hearth "Everlook"
+  turnin 5055 optional
+  accept 5056 optional
+
+step Storm Shadowhoof
+  tip Shy-Rotam (level 60) is elite: grouping up is advised unless you are well above level 60.
+  kill 10737 quest 5056.1 optional
+  turnin 5056 optional
+  accept 5057
+  turnin 5057
+
+step Donova Snowden
+  turnin 6603
+  turnin 4842
+
+step Sun Rock Retreat
+  zone Stonetalon Mountains
+  sethome "Sun Rock Retreat"
+  turnin 6401
+
+step Windshear Crag: XT:9
+  kill 4074 quest 1068.2
+
+step Windshear Crag: XT:4
+  kill 4073 quest 1068.1
+
+step Grimtotem Post: Grimtotem Brute
+  kill 11912 quest 6629.2
+
+step Grimtotem Post: Grundig Darkcloud
+  kill 11858 quest 6629.1
+
+step Ziz Fizziks
+  turnin 1095
+
+step Undercity
+  sethome "Undercity"
+  note "Profession quests here, for players with the skill: Fiery Plate Gauntlets (Blacksmithing 275), The Demon Forge (Blacksmithing 270), Sweet Serenity (Blacksmithing 250), Snakestone of the Shadow Huntress (Blacksmithing 250), Corruption (Blacksmithing 250), A Yeti of Your Own (Engineering 250)."

@@ -1,0 +1,259 @@
+guide completionist/alliance/nightelf/50-winterspring-azshara
+title Winterspring & Azshara
+faction Alliance
+race NightElf
+levels 59-60
+zone Azshara
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Thousand Needles, Duskwood, Stormwind City, Eastern Plaguelands, Darnassus, Winterspring, Azshara, Wetlands, Dun Morogh
+next completionist/alliance/nightelf/51-stranglethorn-vale
+
+# Route: guide 50 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 59 to
+# 60, 55 quests, 3.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Thousand Needles, Duskwood, Stormwind City, Eastern Plaguelands,
+# Darnassus, Winterspring, Azshara, Wetlands, Dun Morogh): The Shimmering
+# Flats -> Darkshire -> Manor Mistmantle -> Darkshire -> Raven Hill Cemetery
+# -> near Stormwind City -> near Stormwind -> Stormwind City -> Quel'Lithien
+# Lodge -> Darrowshire -> Craftsmen's Terrace -> near Craftsmen's Terrace ->
+# Craftsmen's Terrace -> ….
+#
+# Optional (elite: grouping up is advised): High Chief Winterfall (5121; High
+# Chief Winterfall 59); The Final Piece (5123; High Chief Winterfall 59); The
+# Name of the Beast (3510; Hetaera 55).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Crone of the Kraul (1101), Gahz'rilla (2770), Crime
+# and Punishment (377), Crime and Punishment (377), Quell The Uprising (387),
+# Quell the Uprising (387), The Color of Blood (388), The Color of Blood
+# (388), The Stockade Riots (391), The Stockade Riots (391), Underground
+# Assault (2040), Underground Assault (2040), Bring the Light (3636), A Green
+# Sample (92456), A Green Sample (92456), Power Overwhelming (92489), Power
+# Overwhelming (92489), Dawn's Gambit (4771), The Flesh Does Not Lie (5212),
+# The Active Agent (5213), The Great Fras Siabi (5214), Houses of the Holy
+# (5243), The Archivist (5251), Above and Beyond (5263), The Restless Souls
+# (5282), Menethil's Gift (5463), Plagued Hatchlings (5529), Dead Man's Plea
+# (8945), Anthion's Old Friend (8948), In Search of Thaelrid (1198), Twilight
+# Falls (1199), Drakefire Amulet (6502), The Fury Runs Deep (378), The Fury
+# Runs Deep (378), Lost in the Thicket Things (95647), Fallen in the Fen
+# (95795), Heartwoven (95809), Highland Hides (98815), Highland Hides (98815),
+# Prehistoric Prism (98824), Prehistoric Prism (98824), A Fine Mess (2904),
+# The Sparklematic 5200! (2951), The Only Cure is More Green Glow (2962), The
+# Only Cure is More Green Glow (2962), Hurley Blackbreath (4126), Old
+# Ironforge Incursion (96393), Old Ironforge Incursion (96393).
+
+step Razzeric
+  zone Thousand Needles
+  turnin 1187
+  accept 1188
+  turnin 1117
+  accept 1118
+  turnin 2769
+  turnin 3841
+  accept 3842
+
+step The Shimmering Flats: A Short Incubation
+  complete 3842
+
+step Quentin
+  turnin 3842
+  accept 3843
+
+step Darkshire
+  zone Duskwood
+  sethome "Darkshire"
+  accept 146
+  turnin 78
+  accept 79
+  turnin 79
+  accept 80
+  turnin 80
+  accept 97
+  turnin 97
+  accept 98
+
+step Manor Mistmantle: Mistmantle Family Ring
+  collect 3629 quest 98.1
+
+step Madame Eva
+  turnin 98
+
+step Raven Hill Cemetery: Silk Cloth
+  collect 4306 quest 7793.1
+
+step Brother Kristoff
+  zone Stormwind City
+  turnin 346
+
+step Grimand Elmore
+  accept 325
+
+step Zardeth of the Black Claw
+  turnin 335
+  accept 336
+
+step Lord Baurles K. Wishock
+  turnin 336
+
+step Stormwind City
+  sethome "Stormwind City"
+  turnin 7793
+
+step Aurora Skycaller
+  zone Eastern Plaguelands
+  turnin 5247
+  accept 5248
+
+step Darrowshire: The Battle of Darrowshire
+  complete 5721
+
+step Pamela Redpath
+  turnin 5721
+  accept 5942
+  turnin 5942
+
+step Back to Stormwind City
+  kill 11878 quest 6187.1 optional
+  hearth "Stormwind City"
+
+step Craftsmen's Terrace
+  zone Darnassus
+  sethome "Craftsmen's Terrace"
+  turnin 7792
+
+step Tyrande Whisperwind
+  turnin 1081
+
+step Thyn'tel Bladeweaver
+  turnin 1044
+
+step Donova Snowden
+  zone Winterspring
+  turnin 5086
+  accept 5087
+
+step Frostfire Hot Springs: Winterfall Crate
+  collect 12829 quest 5087.1
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5087
+  accept 5121 optional
+
+step Remorseful Highborne
+  turnin 5248
+  accept 5252
+
+step Everlook
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59. High Chief Winterfall drops the Crudely-written Log: right-click it to start The Final Piece.
+  kill 10738 quest 5121.1 optional
+  collect 12842 x1 optional
+  accept 5123 optional
+  sethome "Everlook"
+  turnin 5163
+
+step Wynd Nightchaser
+  turnin 5252
+  accept 5253
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5121 optional
+  turnin 5123 optional
+  accept 5128
+
+step Southridge Beach: The Demon Hunter
+  zone Azshara
+  complete 2744
+
+step Loramus Thalipedes
+  turnin 2744
+  accept 3141
+
+step Southridge Beach: Loramus
+  complete 3141
+
+step Loramus Thalipedes
+  turnin 3141
+  accept 3508
+  turnin 3508
+  accept 3509
+
+step Lord Arkkoroc
+  tip Hetaera (level 55) is elite: grouping up is advised unless you are well above level 55.
+  turnin 3509
+  accept 3510 optional
+
+step Lord Arkkoroc
+  tip Hetaera (level 55) is elite: grouping up is advised unless you are well above level 55.
+  collect 10599 quest 3510.1 optional
+  collect 10598 quest 3510.2 optional
+  collect 10600 quest 3510.3 optional
+  turnin 3510 optional
+  accept 3511
+
+step Loramus Thalipedes
+  turnin 3511
+  accept 3602
+
+step Southridge Beach: Crystallized Azsharite
+  tip Felhound Tracker Kit lasts 10 minutes: go straight on with it.
+  collect 10714 quest 3602.1
+
+step Loramus Thalipedes
+  turnin 3602
+
+step Loramus Thalipedes
+  accept 3621
+
+step Duke Hydraxis
+  turnin 6804
+  turnin 6805
+
+step Back to Everlook
+  hearth "Everlook"
+
+step Craftsmen's Terrace
+  zone Darnassus
+  sethome "Craftsmen's Terrace"
+  turnin 7799
+
+step Gracina Spiritmight
+  turnin 4508
+
+step Arch Druid Fandral Staghelm
+  turnin 5253
+
+step Gracina Spiritmight
+  accept 4510
+
+step Idriana
+  turnin 4510
+
+step Arch Druid Fandral Staghelm
+  turnin 4902
+
+step Rhag Garmason
+  zone Wetlands
+  turnin 633
+  accept 634
+
+step Ironforge
+  zone Dun Morogh
+  sethome "Thunderbrew Distillery"
+  turnin 466
+
+step Misty Pine Refuge: A Donation of Runecloth
+  complete 7805
+  complete 7811
+
+step Ragnar Thunderbrew
+  turnin 4128
+
+step Booty Bay
+  sethome "Booty Bay"

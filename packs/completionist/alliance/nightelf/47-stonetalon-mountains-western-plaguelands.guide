@@ -1,0 +1,188 @@
+guide completionist/alliance/nightelf/47-stonetalon-mountains-western-plaguelands
+title Stonetalon Mountains & Western Plaguelands
+faction Alliance
+race NightElf
+levels 59-60
+zone Stonetalon Mountains
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Stonetalon Mountains, Teldrassil, Duskwood, Western Plaguelands, Tirisfal Glades, Durotar
+next completionist/alliance/nightelf/48-ashenvale-swamp-of-sorrows
+
+# Route: guide 47 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 59 to
+# 60, 41 quests, 3.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stonetalon Mountains, Teldrassil, Duskwood, Western Plaguelands,
+# Tirisfal Glades, Durotar): Stonetalon Peak -> Webwinder Path -> Windshear
+# Crag -> Webwinder Path -> Windshear Crag -> Sun Rock Retreat -> Webwinder
+# Path -> The Charred Vale -> Webwinder Path -> Windshear Crag -> Webwinder
+# Path -> Windshear Crag -> The Charred Vale -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Vyletongue Corruption (7041), Corruption of Earth and Seed
+# (7065), In Search of Thaelrid (1198), Twilight Falls (1199), Crime and
+# Punishment (377), Crime and Punishment (377), Barov Family Fortune (5343),
+# Doctor Theolen Krastinov, the Butcher (5382), Kirtonos the Herald (5384),
+# The Lich, Ras Frostwhisper (5466), Krastinov's Bag of Horrors (5515), Of
+# Love and Family (5848), Remember That I Love You (92415), Crest of Lordaeron
+# (95189), Bloodied Insignia (95195), Abominable Creatures (95250).
+
+step Keeper Albagorm
+  turnin 1056
+
+step Kaela Shadowspear
+  turnin 1070
+
+step Windshear Crag: Pridewing Venom Sac
+  collect 5808 quest 1134.1
+
+step Veenix
+  accept 78270
+  turnin 78270
+
+step Windshear Crag: Deepmoss Egg
+  collect 5570 quest 1069.1
+
+step Pocket Litter
+  turnin 79192
+
+step Gaxim Rustfizzle
+  turnin 1077
+  turnin 1074
+
+step Ziz Fizziks
+  turnin 1483
+  turnin 1095
+
+step The Charred Vale: Crystalized Scales
+  collect 5675 quest 1078.1
+
+step Gaxim Rustfizzle
+  accept 2931
+  accept 1079
+  accept 1080
+
+step Ziz Fizziks
+  accept 1096
+
+step Windshear Crag: Covert Ops - Alpha
+  complete 1079
+
+step Windshear Crag: Covert Ops - Beta
+  complete 1080
+
+step Gaxim Rustfizzle
+  turnin 1079
+  turnin 1080
+  accept 1091
+  turnin 1091
+  accept 1083
+
+step Windshear Crag: Gerenzo's Mechanical Arm
+  collect 5736 quest 1096.1
+
+step The Charred Vale: Smoldering Embers
+  collect 5659 quest 1083.1
+
+step Kaela Shadowspear
+  turnin 1083
+  turnin 1096
+  accept 1084
+
+step The Charred Vale: Corroded Shrapnel
+  collect 5664 quest 1084.1
+
+step Kaela Shadowspear
+  turnin 1084
+  accept 1082
+
+step Back to Stonetalon Peak
+  hearth "Stonetalon Peak"
+
+step Erelas Ambersky
+  zone Teldrassil
+  turnin 4901
+  accept 4902
+
+step Night Watch Guard
+  zone Duskwood
+  accept 99267
+  turnin 99267
+
+step Raven Hill Cemetery: Nightcrawlers
+  collect 6530 quest 95065.1
+
+step Darkshire: Bottle of Moonshine and A Donation of Wool
+  sethome "Darkshire"
+  buy 1942 x1 nearest
+  complete 7792
+
+step Avette Fellwood
+  turnin 95161
+  turnin 145
+
+step Chromie
+  zone Western Plaguelands
+  collect 12843 quest 5406.1 optional
+  turnin 5941
+
+step Felstone Field: Minion's Scourgestone and Invader's Scourgestone
+  collect 12840 quest 5408.1
+  collect 12841 quest 5407.1
+
+step Tirion Fordring
+  turnin 5845
+  accept 5846
+
+step Artist Renfray
+  turnin 5846
+
+step Alchemist Arbington
+  turnin 5801
+  accept 5803
+
+step Chromie
+  accept 5721
+
+step Ruins of Andorhal: Araj's Scarab
+  complete 5803
+
+step Alchemist Arbington
+  turnin 5803
+  accept 5505
+  turnin 5505
+  turnin 6185 optional
+  accept 6186
+
+step Argent Officer Garush
+  zone Tirisfal Glades
+  turnin 5406 optional
+  turnin 5407
+  turnin 5408
+
+step Back to Darkshire
+  hearth "Darkshire"
+
+step Rezlak
+  zone Durotar
+  accept 834
+
+step Drygulch Ravine: Sack of Supplies
+  collect 4918 quest 834.1
+
+step Rezlak
+  turnin 834
+  accept 835
+
+step Drygulch Ravine: Dustwind Storm Witch
+  kill 3118 quest 835.2
+
+step Drygulch Ravine: Dustwind Savage
+  kill 3117 quest 835.1
+
+step Rezlak
+  turnin 835

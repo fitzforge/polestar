@@ -1,0 +1,53 @@
+guide completionist/horde/orc/20-shen-dralas-mulgore
+title Shen'dralas & Mulgore
+faction Horde
+race Orc
+levels 37-38
+zone Shen'dralas
+category Completionist
+folder Completionist · Orc 30-40
+keywords completionist, every quest, Shen'dralas, Mulgore
+next completionist/horde/orc/21-stranglethorn-vale
+
+# Route: guide 20 of 49 of the simulator's completionist route for Orc (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 37 to 38, 8
+# quests, 0.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Shen'dralas, Mulgore): Valley of Bones -> Skywatcher Plateau ->
+# Windfury Ridge -> Thunder Bluff.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Leaders of the Fang (914), Compendium of the Fallen
+# (1049), A Vengeful Fate (1102), Searching for the Lost Satchel (5722),
+# Testing an Enemy's Strength (5723).
+
+step Nerlokh
+  accept 93035
+  turnin 93034
+  turnin 93035
+  accept 93037
+  turnin 93037
+  accept 93041
+  accept 93128
+
+step Mazu'kon
+  zone Mulgore
+  accept 96774
+
+step Skywatcher Plateau: Ancient Gurubashi Idol
+  complete 96774
+
+step Mazu'kon
+  turnin 96774
+
+step Windfury Ridge: Horn of Arra'chea
+  collect 4841 quest 776.1
+
+step Thunder Bluff: Azure Feather
+  collect 4752 quest 744.1
+
+step Thunder Bluff: Bronze Feather
+  collect 4753 quest 744.2

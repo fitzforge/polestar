@@ -1,0 +1,576 @@
+guide completionist/horde/orc/08-the-barrens
+title The Barrens
+faction Horde
+race Orc
+levels 20-26
+zone The Barrens
+category Completionist
+folder Completionist · Orc 20-30
+keywords completionist, every quest, The Barrens, Thunder Bluff
+next completionist/horde/orc/09-westfall
+
+# Route: guide 8 of 49 of the simulator's completionist route for Orc (1199 of
+# 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 20 to 26, 87
+# quests, 9.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Barrens, Thunder Bluff): The Crossroads -> Ratchet -> The
+# Crossroads -> Lushwater Oasis -> The Crossroads -> The Forgotten Pools ->
+# The Crossroads -> The Stagnant Oasis -> The Crossroads -> Lushwater Oasis ->
+# The Crossroads -> Grol'dom Farm -> The Sludge Fen -> ….
+#
+# Optional (elite: grouping up is advised): Trouble at the Docks (959; Mad
+# Magglish 18); WANTED: Bruuz (92706; Bruuz 20); Chol'aruk the Ravener (97003;
+# Chol'aruk 20); Wrongly Blamed, Justly Corrected (97250; Outraged Pillager
+# 23).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Willix the Importer (1144), Blueleaf Tubers (1221),
+# Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate Eradication
+# (1487), The Glowing Shard (6981), Leaders of the Fang (914), Compendium of
+# the Fallen (1049), A Vengeful Fate (1102), Testing an Enemy's Strength
+# (5723).
+
+step Sergra Darkthorn
+  accept 844
+  accept 870
+
+step The Crossroads: Plainstrider Beak
+  collect 5087 quest 844.1
+
+step Zargh
+  accept 6365
+  turnin 844
+  accept 845
+  turnin 6365
+  accept 6384
+  accept 848
+
+step The Crossroads: Zhevra Hooves
+  collect 5086 quest 845.1
+
+step Sergra Darkthorn
+  turnin 845
+  accept 903
+
+step Ratchet: Prowler Claws
+  collect 5096 quest 903.1
+
+step Ratchet
+  sethome "Ratchet"
+  accept 894
+
+step The Crossroads
+  sethome "The Crossroads"
+  turnin 903
+  accept 881
+
+step Lushwater Oasis: Fungal Spores
+  collect 5012 quest 848.1
+
+step Back to The Crossroads
+  hearth "The Crossroads"
+
+step Apothecary Helbrim
+  turnin 848
+  accept 853
+
+step The Forgotten Pools: The Forgotten Pools
+  complete 870
+
+step Tonga Runetotem
+  turnin 870
+  accept 877
+
+step The Stagnant Oasis: Bubbling Fissure
+  interact 3737 quest 877.1
+
+step Tonga Runetotem
+  turnin 877
+  accept 880
+
+step Lushwater Oasis: Altered Snapjaw Shell
+  collect 5098 quest 880.1
+
+step Tonga Runetotem
+  turnin 880
+  accept 3301
+
+step Grol'dom Farm: Echeyakee's Hide
+  collect 5100 quest 881.1
+
+step Control Console
+  turnin 894
+  accept 900
+
+step The Sludge Fen: Main Control Valve and Fuel Control Valve and more
+  interact 4072 quest 900.1
+  interact 61936 quest 900.2
+  interact 61935 quest 900.3
+
+step Control Console
+  turnin 900
+  accept 901
+
+step The Sludge Fen: Console Key
+  collect 5089 quest 901.1
+
+step Control Console
+  turnin 901
+  accept 902
+
+step Kargal Battlescar
+  turnin 840
+  accept 842
+
+step Ratchet
+  sethome "Ratchet"
+  turnin 902
+  accept 3921
+
+step The Crossroads
+  sethome "The Crossroads"
+  turnin 842
+  turnin 881
+  accept 905
+
+step The Stagnant Oasis: Blue Raptor Nest and Yellow Raptor Nest and more
+  interact 6907 quest 905.1
+  interact 6908 quest 905.2
+  interact 6906 quest 905.3
+
+step Agama'gor
+  tip Lakota'mani drops the Hoof of Lakota'mani: right-click it to start Lakota'mani.
+  collect 5099 x1
+  accept 883
+
+step Field of Giants
+  tip Silithid Harvester drops the Harvester's Head: right-click it to start The Harvester.
+  collect 5138 x1
+  accept 897
+
+step Blackthorn Ridge
+  tip Washte Pawne drops the Washte Pawne's Feather: right-click it to start Washte Pawne.
+  collect 5103 x1
+  accept 885
+
+step Camp Taurajo
+  tip Owatanka drops the Owatanka's Tailspike: right-click it to start Owatanka.
+  getfp "Camp Taurajo"
+  collect 5102 x1
+  accept 884
+
+step Camp Taurajo
+  sethome "Camp Taurajo"
+  turnin 884
+  turnin 883
+  turnin 885
+  turnin 897
+
+step The Crossroads
+  sethome "The Crossroads"
+  turnin 905
+  accept 3261
+
+step Wenikee Boltbucket
+  turnin 3921
+  accept 3922
+
+step The Sludge Fen: Nugget Slug
+  collect 11143 quest 3922.1
+
+step Wenikee Boltbucket
+  turnin 3922
+  accept 3923
+
+step Back to The Crossroads
+  hearth "The Crossroads"
+
+step Camp Taurajo
+  sethome "Camp Taurajo"
+  turnin 3261
+  accept 882
+
+step Thorn Hill: Ishamuhale's Fang
+  collect 5101 quest 882.1
+
+step Jorn Skyseer
+  turnin 882
+  accept 907
+
+step Camp Taurajo: Thunder Lizard Blood
+  collect 5143 quest 907.1
+
+step Jorn Skyseer
+  turnin 907
+  accept 913
+
+step Camp Taurajo: Thunderhawk Wings
+  collect 5164 quest 913.1
+
+step Jorn Skyseer
+  turnin 913
+
+step Ratchet
+  tip Mad Magglish (level 18) and Bruuz (level 20) are elite: grouping up is advised unless you are well above level 20.
+  sethome "Ratchet"
+  accept 959 optional
+  accept 895
+  accept 92706 optional
+  accept 865
+  accept 1069
+  accept 891
+  accept 896
+  collect 253710 quest 92706.1 optional
+
+step Ratchet: Intact Raptor Horn
+  tip Bruuz (level 20) is elite: grouping up is advised unless you are well above level 20.
+  turnin 92706 optional
+  collect 5055 quest 865.1
+
+step Mebok Mizzyrix
+  turnin 865
+  accept 1491 optional
+
+step The Merchant Coast: Baron Longshore's Head
+  collect 5084 quest 895.1
+
+step Northwatch Hold: Cannoneer Smythe
+  kill 3454 quest 891.3
+
+step Gilthares Firebough
+  accept 898
+
+step Northwatch Hold: Captain Fairmount and Cannoneer Whessan
+  kill 3393 quest 891.1
+  kill 3455 quest 891.2
+
+step Northwatch Hold: Theramore Medal
+  collect 5078 quest 891.4
+
+step Ratchet: Free From the Hold
+  complete 898
+
+step Captain Thalo'thas Brightsun
+  turnin 898
+  turnin 891
+
+step Gazlowe
+  turnin 895
+
+step The Crossroads
+  tip Chol'aruk (level 20) is elite: grouping up is advised unless you are well above level 20.
+  sethome "The Crossroads"
+  accept 97003 optional
+
+step Darsok Swiftdagger
+  accept 867
+  accept 899
+  accept 4921
+  accept 1489
+  accept 1486 optional
+  collect 6443 quest 1486.1 optional
+
+step Regthar Deathgate
+  tip Mad Magglish (level 18) is elite: grouping up is advised unless you are well above level 18.
+  turnin 1486 optional
+  collect 5334 quest 959.1 optional
+  collect 6464 quest 1491.1 optional
+  accept 850
+
+step The Forgotten Pools: Barak's Head
+  collect 5022 quest 850.1
+
+step Regthar Deathgate
+  turnin 850
+  accept 851
+
+step The Dry Hills
+  tip Chen's Empty Keg drops the Chen's Empty Keg: right-click it to start Chen's Empty Keg.
+  collect 4926 x1
+  accept 819
+
+step The Dry Hills: Witchwing Talon
+  collect 5064 quest 867.1
+
+step Vrang Wildgore
+  accept 95494
+  accept 95507
+
+step The Dry Hills: Savannah Lion Hide
+  collect 269715 quest 95494.1
+
+step Dreadmist Peak: Trapped Game
+  collect 269719 quest 95507.1
+
+step Vrang Wildgore
+  turnin 95494
+  turnin 95507
+  accept 95495
+
+step Walton
+  turnin 95495
+  accept 95621
+
+step The Dry Hills: Benedict's Orders
+  collect 270151 quest 95621.1
+
+step Walton
+  turnin 95621
+  accept 95508
+
+step The Dry Hills: Terry Longdrink
+  kill 261367 quest 95508.1
+
+step Walton
+  turnin 95508
+
+step Makaba Flathoof
+  accept 6548
+  accept 1062
+
+step Agama'gor: Bristleback Quilboar Tusk
+  collect 5085 quest 899.1
+
+step Bramblescar: Lost in Battle
+  complete 4921
+
+step The Stagnant Oasis: Verog's Head
+  collect 5023 quest 851.1
+
+step Back to The Crossroads
+  hearth "The Crossroads"
+
+step Mankrik
+  turnin 899
+  turnin 4921
+  accept 95774
+  turnin 867
+  accept 875
+
+step Regthar Deathgate
+  turnin 851
+  accept 852
+
+step Lushwater Oasis: Hezrul's Head
+  collect 5025 quest 852.1
+
+step Lushwater Oasis: Olgra's Adornments
+  collect 277277 quest 95774.1
+
+step Mankrik
+  tip Chol'aruk (level 20) is elite: grouping up is advised unless you are well above level 20.
+  turnin 95774
+  collect 276070 quest 97003.1 optional
+
+step The Dry Hills: Harpy Lieutenant Ring
+  tip Chol'aruk (level 20) is elite: grouping up is advised unless you are well above level 20.
+  turnin 97003 optional
+  collect 5065 quest 875.1
+
+step Regthar Deathgate
+  turnin 852
+
+step Darsok Swiftdagger
+  turnin 875
+  accept 876
+
+step Ratchet
+  tip Mad Magglish (level 18) is elite: grouping up is advised unless you are well above level 18.
+  sethome "Ratchet"
+  turnin 1491 optional
+  turnin 819
+  accept 821
+  turnin 959 optional
+
+step Ratchet: Plainstrider Kidney
+  collect 4894 quest 821.2
+
+step Ratchet: Savannah Lion Tusk
+  collect 4893 quest 821.1
+
+step Bramblescar: Thunder Lizard Horn
+  collect 4895 quest 821.3
+
+step Camp Taurajo
+  sethome "Camp Taurajo"
+  accept 878
+
+step Agama'gor: Bristleback Water Seeker
+  kill 3260 quest 878.1
+
+step Bramblescar: Bristleback Thornweaver
+  kill 3261 quest 878.2
+
+step Bramblescar: Bristleback Geomancer
+  kill 3263 quest 878.3
+
+step Back to Camp Taurajo
+  hearth "Camp Taurajo"
+
+step Mangletooth
+  turnin 878
+  accept 5052
+
+step Agama'gor: Blood Shard
+  collect 5075 quest 5052.1
+
+step Mangletooth
+  turnin 5052
+
+step Burned-Out Remains
+  tip Aean Swiftriver drops the Runed Scroll: right-click it to start The Runed Scroll.
+  collect 10621 x1 optional
+  accept 3513 optional
+  accept 79007
+  accept 79192
+
+step Ratchet
+  sethome "Ratchet"
+  turnin 821
+  accept 822
+
+step Ratchet: Kodo Liver
+  collect 4896 quest 822.3
+
+step Wizzlecrank's Shredder
+  accept 858
+
+step The Sludge Fen: Ignition Key
+  collect 5050 quest 858.1
+
+step Wizzlecrank's Shredder
+  turnin 858
+  accept 863
+
+step Boulder Lode Mine: Cats Eye Emerald
+  collect 5097 quest 896.1
+
+step The Sludge Fen: The Escape
+  complete 863
+
+step The Dry Hills: Serena's Head
+  collect 5067 quest 876.1
+
+step The Crossroads
+  sethome "The Crossroads"
+  turnin 876
+  accept 1060
+
+step Field of Giants: Thunderhawk Saliva Gland and Lightning Gland
+  collect 4897 quest 822.2
+  collect 4898 quest 822.1
+
+step Ratchet
+  sethome "Ratchet"
+  turnin 822
+  turnin 863
+  turnin 896
+
+step Camp Taurajo
+  tip Outraged Pillager (level 23) is elite: grouping up is advised unless you are well above level 23.
+  sethome "Camp Taurajo"
+  accept 893
+  accept 6382
+  accept 97250 optional
+  accept 879
+
+step Gann Stonespire
+  accept 843
+
+step Sulhasa
+  accept 98093
+
+step Field of Giants: Hecklefang Stalker
+  kill 4128 quest 98093.1
+
+step Bael Modan: Stormhide
+  tip Outraged Pillager (level 23) is elite: grouping up is advised unless you are well above level 23.
+  kill 268622 quest 97250.1 optional
+  kill 268623 quest 97250.2 optional
+  kill 3238 quest 98093.2
+
+step Bael Modan: Bael'dun Excavator and Bael'dun Foreman and more
+  kill 3374 quest 843.1
+  kill 3375 quest 843.2
+  collect 5006 quest 843.3
+
+step Blackthorn Ridge: Nak's Skull
+  collect 5073 quest 879.2
+
+step Blackthorn Ridge: Charred Razormane Wand and Razormane War Shield
+  collect 5092 quest 893.2
+  collect 5094 quest 893.3
+
+step Blackthorn Ridge: Lok's Skull
+  collect 5072 quest 879.3
+
+step Blackthorn Ridge: Razormane Backstabber and Kuz's Skull
+  collect 5093 quest 893.1
+  collect 5074 quest 879.1
+
+step Sulhasa
+  turnin 98093
+
+step Gann Stonespire
+  turnin 843
+  accept 846
+
+step Bael Modan: Nitroglycerin and Wood Pulp and more
+  collect 5017 quest 846.1
+  collect 5018 quest 846.2
+  collect 5019 quest 846.3
+
+step Gann Stonespire
+  turnin 846
+  accept 849
+
+step Bael Modan: Bael Modan Flying Machine
+  interact 3644 quest 849.1
+
+step Gann Stonespire
+  turnin 849
+
+step Back to Camp Taurajo
+  hearth "Camp Taurajo"
+
+step Jorn Skyseer
+  tip Outraged Pillager (level 23) is elite: grouping up is advised unless you are well above level 23.
+  accept 1130
+  turnin 97250 optional
+  turnin 879
+  accept 906
+  turnin 893
+
+step The Crossroads
+  sethome "The Crossroads"
+  accept 868
+  accept 6541
+  turnin 906
+
+step Ratchet
+  sethome "Ratchet"
+  accept 1483
+
+step Field of Giants: Silithid Egg
+  collect 5058 quest 868.1
+
+step The Crossroads
+  sethome "The Crossroads"
+  turnin 868
+
+step Clarice Foster
+  zone Thunder Bluff
+  accept 264
+  accept 962
+
+step Thunder Bluff
+  getfp "Thunder Bluff"
+  sethome "Thunder Bluff"
+  accept 97538
+  accept 1195
+
+step Melor Stonehoof
+  accept 1131

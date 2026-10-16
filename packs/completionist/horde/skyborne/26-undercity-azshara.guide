@@ -1,0 +1,193 @@
+guide completionist/horde/skyborne/26-undercity-azshara
+title Undercity & Azshara
+faction Horde
+race Skyborne
+levels 49-50
+zone Azshara
+category Completionist
+folder Completionist · Skyborne 40-50
+keywords completionist, every quest, Undercity, Orgrimmar, Azshara
+next completionist/horde/skyborne/27-stranglethorn-vale
+
+# Route: guide 26 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 49 to
+# 50, 41 quests, 1.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Undercity, Orgrimmar, Azshara): Undercity -> near Undercity ->
+# Undercity -> near Undercity -> Undercity -> near Undercity -> near Orgrimmar
+# -> Orgrimmar -> near Orgrimmar -> Valormok -> Ruins of Eldarath -> Valormok
+# -> Timbermaw Hold -> ….
+#
+# Optional (elite: grouping up is advised): Whispering Horror Residue (95328;
+# Whispering Horror 11-13); Necklace Recovery (2283; Shadowforge Surveyor
+# 35-36, Shadowforge Ruffian 36-37, Shadowforge Digger 35-36, Stonevault
+# Rockchewer 36-37, Stonevault Oracle 37-38, Stonevault Cave Hunter 36-37).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Book of Ur (1013), The Book of Ur (1013), Going,
+# Going, Guano! (1109), Going, Going, Guano! (1109), Bring the End (3341), The
+# Power to Destroy... (5725), Light's Justice (92421), Light's Justice
+# (92421), The New Plague (95216), Source of Power (96988), Necklace Recovery,
+# Take 2 (2284), Rig Wars (2841), Rig Wars (2841), The Royal Rescue (4003),
+# For The Horde! (4974), Returning the Lost Satchel (5724), Hidden Enemies
+# (5728), Hidden Enemies (5728), Slaying the Beast (5761), Slaying the Beast
+# (5761), Changing Tastes (95697), Changing Tastes (95697).
+
+step Patrick Garrett
+  zone Undercity
+  accept 2342
+
+step Sharlindra
+  accept 495
+
+step Apothecary Zinge
+  accept 232
+  turnin 232
+  accept 238
+  turnin 238
+  accept 243
+
+step Oran Snakewrithe
+  turnin 2782
+  accept 79095
+  turnin 79095
+  turnin 405
+  accept 357
+
+step Excitable Slime
+  accept 97583
+
+step Undercity: Nutritious Slime Sludge
+  buy 278265 x1 nearest
+
+step Excitable Slime
+  turnin 97583
+  turnin 1359
+  turnin 447
+  accept 450
+  accept 97891
+
+step near Undercity: Exploring the Horde
+  complete 93739
+
+step Doctor Martin Felben
+  turnin 97891
+
+step Bethor Iceshard
+  tip Whispering Horror (level 11-13) is elite: grouping up is advised unless you are well above level 13.
+  turnin 95328 optional
+  turnin 444
+
+step Undercity: A Frightened Request
+  complete 92401
+
+step Bethor Iceshard
+  turnin 491
+
+step Zor Lonetree
+  zone Orgrimmar
+  turnin 1262
+  accept 7541
+  turnin 7541
+
+step Craven Drok
+  accept 1431
+
+step Belgrom Rockmaul
+  turnin 1145
+  accept 1146
+
+step Keldran
+  turnin 1431
+  accept 1432
+
+step Zilzibin Drumlore
+  tip Shadowforge Surveyor (level 35-36), Shadowforge Ruffian (level 36-37), Shadowforge Digger (level 35-36) and 3 more are elite: grouping up is advised unless you are well above level 38.
+  turnin 7732
+  sethome "Orgrimmar"
+  turnin 3121
+  accept 2283 optional
+
+step Belgrom Rockmaul
+  turnin 2976
+
+step Uthel'nay
+  turnin 3002
+
+step Valormok
+  zone Azshara
+  getfp "Valormok"
+  accept 3517
+
+step Ruins of Eldarath: Stealing Knowledge
+  complete 3517
+
+step Sanath Lim-yo
+  accept 3381
+
+step Jediga
+  turnin 3517
+  accept 3518
+  accept 3541
+  accept 3542
+  accept 3561
+
+step Valormok: Undamaged Hippogryph Feather
+  collect 10450 quest 3381.1
+
+step Sanath Lim-yo
+  turnin 3381
+
+step Archmage Xylem
+  turnin 3561
+  accept 3565
+
+step Jediga
+  turnin 3565
+
+step Loh'atu
+  accept 5536
+  accept 5535
+
+step Shadowsong Shrine: Highborne Apparition
+  kill 6116 quest 5535.1
+
+step Shadowsong Shrine: Highborne Lichling
+  kill 6117 quest 5535.2
+
+step Haldarr Encampment: Haldarr Satyr and Haldarr Trickster and more
+  kill 6125 quest 5536.1
+  kill 6126 quest 5536.2
+  kill 6127 quest 5536.3
+
+step Loh'atu
+  turnin 5535
+  turnin 5536
+
+step Kim'jael
+  accept 3601
+
+step Thalassian Base Camp: Kim'Jael's Compass and Kim'Jael's Scope and more
+  collect 10717 quest 3601.1
+  collect 10715 quest 3601.2
+  collect 10722 quest 3601.3
+  collect 10718 quest 3601.4
+
+step Kim'jael
+  turnin 3601
+  accept 5534
+
+step The Shattered Strand: Some Rune
+  collect 13815 quest 5534.1
+
+step Kim'jael
+  turnin 5534
+
+step Back to Orgrimmar
+  hearth "Orgrimmar"
+
+step Booty Bay
+  sethome "Booty Bay"

@@ -1,0 +1,91 @@
+guide completionist/horde/skyborne/48-stonetalon-mountains-thunder-bluff
+title Stonetalon Mountains & Thunder Bluff
+faction Horde
+race Skyborne
+levels 60-60
+zone Stonetalon Mountains
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Stonetalon Mountains, Thunder Bluff
+next completionist/horde/skyborne/49-silithus
+
+# Route: guide 48 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 60 to
+# 60, 12 quests, 0.7 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stonetalon Mountains, Thunder Bluff): Windshear Crag -> Sun Rock
+# Retreat -> Webwinder Path -> Mirkfallon Lake -> Windshear Crag -> Webwinder
+# Path -> Sun Rock Retreat -> Stonetalon Peak -> near Thunder Bluff.
+#
+# Optional (elite: grouping up is advised): Earthen Arise (6481; Goggeroc 20).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Leaders of the Fang (914), A Vengeful Fate (1102), Testing
+# an Enemy's Strength (5723).
+
+step Windshear Crag: The Flying Machine Airport
+  complete 1086
+
+step Sun Rock Retreat
+  tip Goggeroc (level 20) is elite: grouping up is advised unless you are well above level 20.
+  sethome "Sun Rock Retreat"
+  turnin 6421
+  accept 6481 optional
+  kill 11920 quest 6481.1 optional
+
+step Ziz Fizziks
+  tip Goggeroc (level 20) is elite: grouping up is advised unless you are well above level 20.
+  turnin 6481 optional
+  accept 1096
+
+step Mirkfallon Lake: Mirkweed Pods
+  collect 278201 quest 97538.1
+
+step Windshear Crag: Gerenzo's Mechanical Arm
+  collect 5736 quest 1096.1
+
+step Ziz Fizziks
+  turnin 1096
+
+step Braelyn Firehand
+  turnin 1088
+  accept 1089
+
+step Stonetalon Peak: The Den
+  complete 1089
+
+step Talon Den Hoard
+  turnin 1089
+
+step Back to Sun Rock Retreat
+  hearth "Sun Rock Retreat"
+
+step Ghede
+  zone Thunder Bluff
+  turnin 3761
+  accept 3782
+  turnin 3782
+  accept 3786
+
+step near Thunder Bluff: Morrowgrain Research
+  complete 3786
+
+step Bashana Runetotem
+  turnin 3786
+  accept 3804
+
+step near Thunder Bluff: Morrowgrain to Thunder Bluff
+  complete 3804
+
+step Bashana Runetotem
+  turnin 3804
+  turnin 4883
+
+step Twilight Base Camp
+  getfp "Cenarion Hold"
+
+step Twilight Base Camp
+  sethome "Cenarion Hold"

@@ -1,0 +1,57 @@
+guide completionist/horde/undead/06-tirisfal-glades
+title Tirisfal Glades
+faction Horde
+race Undead
+levels 19-20
+zone Tirisfal Glades
+category Completionist
+folder Completionist · Undead 1-20
+keywords completionist, every quest
+next completionist/horde/undead/07-the-barrens
+
+# Route: guide 6 of 51 of the simulator's completionist route for Undead (1199
+# of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 19 to 20, 6
+# quests, 0.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Tirisfal Glades): Balnir Farmstead -> Brill -> Balnir Farmstead ->
+# Whispering Forest.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Vorrel's Revenge (1051), Barov Family Fortune (5341), The
+# Wrath of Rath'mael (92422), The Wrath of Rath'mael (92422), Crest of
+# Lordaeron (95204), Unending Torment (97288).
+
+step Hadric Harlson
+  accept 96897
+  accept 96898
+  accept 96899
+
+step Balnir Farmstead: Necrotic Crystal Fragment and Dark Neophyte and more
+  collect 275851 quest 96898.1
+  kill 267006 quest 96897.1
+  kill 275437 quest 96897.2
+  kill 1547 quest 96897.3
+
+step Brill
+  sethome "Gallows' End Tavern"
+  accept 96895
+
+step Hadric Harlson
+  turnin 96898
+  turnin 96897
+  turnin 96895
+
+step Leonid Barthalomew the Revered
+  turnin 96899
+  accept 96896
+  turnin 96896
+  accept 98545
+
+step The Crossroads
+  getfp "Crossroads"
+
+step The Crossroads
+  sethome "The Crossroads"

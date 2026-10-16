@@ -1,0 +1,47 @@
+guide completionist/horde/troll/47-undercity
+title Undercity
+faction Horde
+race Troll
+levels 60-60
+zone Undercity
+category Completionist
+folder Completionist · Troll 50-60
+keywords completionist, every quest, Undercity, Thunder Bluff
+next completionist/horde/troll/48-stranglethorn-vale
+
+# Route: guide 47 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 60 to 60, 7
+# quests, 0.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Undercity, Thunder Bluff): Undercity -> near Undercity -> Undercity ->
+# Thunder Bluff.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Book of Ur (1013), The Book of Ur (1013), Going,
+# Going, Guano! (1109), Going, Going, Guano! (1109), Bring the End (3341), The
+# Power to Destroy... (5725), Light's Justice (92421), Light's Justice
+# (92421), The New Plague (95216), Source of Power (96988), Leaders of the
+# Fang (914), Compendium of the Fallen (1049), A Vengeful Fate (1102), Testing
+# an Enemy's Strength (5723).
+
+step Raleigh Andrean
+  turnin 530
+  turnin 7813
+  turnin 2342
+
+step Sharlindra
+  turnin 521
+
+step Master Apothecary Faranell
+  turnin 2938
+
+step Thunder Bluff
+  zone Thunder Bluff
+  sethome "Thunder Bluff"
+  turnin 1205
+
+step Rumstag Proudstrider
+  turnin 7822

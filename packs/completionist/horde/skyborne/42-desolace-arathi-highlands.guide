@@ -1,0 +1,155 @@
+guide completionist/horde/skyborne/42-desolace-arathi-highlands
+title Desolace & Arathi Highlands
+faction Horde
+race Skyborne
+levels 57-59
+zone Desolace
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Desolace, Arathi Highlands
+next completionist/horde/skyborne/43-felwood-winterspring
+
+# Route: guide 42 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 57 to
+# 59, 30 quests, 3.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Desolace, Arathi Highlands): Sargeron -> Kolkar Village -> Kodo
+# Graveyard -> Magram Village -> Sargeron -> Thunder Axe Fortress -> Kodo
+# Graveyard -> Gelkis Village -> Magram Village -> Gelkis Village -> Kodo
+# Graveyard -> Valley of Spears -> Mannoroc Coven -> ….
+#
+# Optional (elite: grouping up is advised): Khan Hratha (1380; Khan Hratha
+# 42); Nothing But The Truth (1383; Deepstrider Giant 38-39, Deepstrider
+# Searcher 39-40); Shadowshard Fragments (7068; Shadowshard Rumbler 40-41,
+# Shadowshard Smasher 41-42, Shadowshard Thunderer 38); Summoning the Princess
+# (656; Myzrael 44); Recover the Key! (7846; Hitah'ya the Keeper 51); Wanted:
+# Vile Priestess Hexx and Her Minions (7861; Vile Priestess Hexx 51,
+# Vilebranch Aman'zasi Guard 50-51).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Blood of the Black Dragon Champion (6602), Vyletongue
+# Corruption (7029), Legends of Maraudon (7044), Corruption of Earth and Seed
+# (7064), The Pariah's Instructions (7067), Dragonmaw Rumors (95663).
+
+step Sargeron: Resonite Crystal and Wool Cloth
+  collect 16581 quest 6421.1
+  collect 2592 quest 7820.1
+
+step Kolkar Village: Silk Cloth
+  collect 4306 quest 7821.1
+
+step Gurda Wildmane
+  accept 94872
+
+step Takata Steelblade
+  turnin 1432
+  accept 1433
+  accept 1434
+  turnin 1433
+  accept 1435
+
+step Gorhak
+  turnin 94872
+
+step Sargeron: Hatefury Felsworn
+  kill 4672 quest 1434.2
+
+step Sargeron: Hatefury Hellcaller and Hatefury Rogue
+  kill 4675 quest 1434.4
+  kill 4670 quest 1434.1
+
+step Sargeron: Hatefury Betrayer
+  kill 4673 quest 1434.3
+
+step Thunder Axe Fortress: Infused Burning Gem
+  collect 6435 quest 1435.1
+
+step Maurin Bonesplitter
+  turnin 1435
+  turnin 1434
+  accept 1436
+
+step Uthek the Wise
+  turnin 93041
+  turnin 93128
+  turnin 1373
+  accept 1374
+
+step Magram Village: Khan Jehn's Head
+  collect 6072 quest 1374.1
+
+step Uthek the Wise
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1374
+  accept 1380 optional
+  collect 6077 quest 1380.1 optional
+
+step Hornizz Brimbuzzle
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1380 optional
+  accept 6134
+
+step Melizza Brimbuzzle
+  accept 6132
+
+step Valley of Spears: Get Me Out of Here!
+  complete 6132
+
+step Mannoroc Coven: Ghost-o-plasm
+  collect 15849 quest 6134.1
+
+step Hornizz Brimbuzzle
+  turnin 6132
+  turnin 6134
+
+step Kodo Graveyard: A Donation of Mageweave
+  complete 7822
+  accept 7028 optional
+  collect 17684 quest 7028.1 optional
+
+step Back to Stonard
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42), Shadowshard Thunderer (level 38) and 3 more are elite: grouping up is advised unless you are well above level 44.
+  turnin 7028 optional
+  collect 17756 quest 7068.1 optional
+  collect 6082 quest 1383.3 optional
+  hearth "Stonard"
+  collect 4473 quest 656.1 optional
+
+step Shakes O'Breen
+  zone Arathi Highlands
+  tip Myzrael (level 44) is elite: grouping up is advised unless you are well above level 44.
+  turnin 656 optional
+  turnin 670
+  accept 667
+
+step Faldir's Cove: Death From Below
+  complete 667
+
+step Shakes O'Breen
+  turnin 667
+
+step Messenger Bag
+  tip Hitah'ya the Keeper (level 51), Vile Priestess Hexx (level 51) and Vilebranch Aman'zasi Guard (level 50-51) are elite: grouping up is advised unless you are well above level 51.
+  collect 19064 quest 7846.1 optional
+  kill 2648 quest 7861.2 optional
+  accept 79976
+  turnin 79975
+  turnin 79976
+
+step Boulder'gor: Boulderfist Enforcer and Boulderfist Ogre
+  kill 2564 quest 676.2
+  kill 2562 quest 676.1
+
+step Dabyrie's Farmstead: Marcel's Head and Kenata's Head and more
+  collect 5832 quest 1164.2
+  collect 5830 quest 1164.1
+  collect 5831 quest 1164.3
+
+step Hammerfall
+  sethome "Hammerfall"
+  turnin 676
+  accept 8265
+  turnin 8265

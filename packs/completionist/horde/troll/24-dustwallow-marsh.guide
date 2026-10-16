@@ -1,0 +1,121 @@
+guide completionist/horde/troll/24-dustwallow-marsh
+title Dustwallow Marsh
+faction Horde
+race Troll
+levels 43-45
+zone Dustwallow Marsh
+category Completionist
+folder Completionist · Troll 40-50
+keywords completionist, every quest
+next completionist/horde/troll/25-badlands
+
+# Route: guide 24 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 43 to 45, 21
+# quests, 2.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Dustwallow Marsh): Brackenwall Village -> The Quagmire -> Brackenwall
+# Village -> Witch Hill -> Theramore Isle -> The Quagmire -> Brackenwall
+# Village -> Witch Hill -> Brackenwall Village -> The Den of Flame ->
+# Brackenwall Village -> Wyrmbog -> Brackenwall Village.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Tiara of the Deep (2846).
+
+step Krog
+  turnin 1251
+  turnin 1268
+  turnin 1269
+  accept 1321
+  turnin 1321
+  accept 1322
+
+step Brackenwall Village: Acidic Venom Sac
+  collect 5959 quest 1322.1
+
+step Do'gol
+  turnin 1322
+  accept 1323
+  turnin 1323
+
+step Ogron
+  accept 1273
+
+step The Quagmire: Questioning Reethe
+  complete 1273
+
+step Krog
+  turnin 1273
+  accept 1276
+
+step 'Swamp Eye' Jarl
+  turnin 1218
+  accept 1206
+
+step Theramore Isle: Jeweled Pendant
+  collect 5942 quest 1261.1
+
+step The Quagmire: Razzeric's Tweaking
+  complete 1187
+
+step Nazeer Bloodpike
+  turnin 1261
+  accept 1262
+
+step Brackenwall Village: Unpopped Darkmist Eye
+  collect 5884 quest 1206.1
+
+step 'Swamp Eye' Jarl
+  turnin 1206
+  accept 1203
+
+step Witch Hill: Jarl Needs a Blade
+  complete 1203
+
+step 'Swamp Eye' Jarl
+  turnin 1203
+
+step Tharg
+  accept 1168
+  accept 1166
+  accept 1169
+
+step The Den of Flame: Searing Tongue and Searing Heart
+  collect 5840 quest 1169.1
+  collect 5841 quest 1169.2
+
+step The Den of Flame: Firemane Scout and Firemane Ash Tail and more
+  kill 4329 quest 1168.1
+  kill 4331 quest 1168.2
+  kill 4328 quest 1168.3
+
+step The Den of Flame: Overlord Mok'Morokk's Concern
+  complete 1166
+
+step Draz'Zilb
+  turnin 1169
+  accept 1170
+  turnin 1168
+  turnin 1166
+  turnin 1170
+  accept 1171
+  turnin 1171
+  accept 1172
+
+step Wyrmbog: Egg of Onyxia
+  interact 20359 quest 1172.1
+
+step Draz'Zilb
+  turnin 1172
+  accept 1173
+
+step Brackenwall Village: Challenge Overlord Mok'Morokk
+  complete 1173
+
+step Draz'Zilb
+  turnin 1173
+
+step Back to Hammerfall
+  hearth "Hammerfall"

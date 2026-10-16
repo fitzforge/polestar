@@ -1,0 +1,67 @@
+guide completionist/horde/troll/07-undercity
+title Undercity
+faction Horde
+race Troll
+levels 20-21
+zone Undercity
+category Completionist
+folder Completionist · Troll 20-30
+keywords completionist, every quest
+next completionist/horde/troll/08-the-barrens
+
+# Route: guide 7 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 20 to 21, 12
+# quests, 0.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Undercity): Undercity -> near Undercity -> Undercity -> near
+# Undercity.
+#
+# Optional (elite: grouping up is advised): Whispering Horror Residue (95328;
+# Whispering Horror 11-13).
+#
+# Profession quests here are not routed (they need the skill): 3526 Goblin
+# Engineering; 3635 Gnome Engineering.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Book of Ur (1013), The Book of Ur (1013), Going,
+# Going, Guano! (1109), Going, Going, Guano! (1109), Bring the End (3341), The
+# Power to Destroy... (5725), Light's Justice (92421), Light's Justice
+# (92421), The New Plague (95216), Source of Power (96988).
+
+step Owen Thadd
+  accept 79095
+  turnin 79095
+  turnin 405
+  accept 357
+
+step Excitable Slime
+  accept 97583
+
+step Undercity: Nutritious Slime Sludge
+  buy 278265 x1 nearest
+
+step Excitable Slime
+  turnin 97583
+  turnin 1359
+  turnin 447
+  accept 450
+  accept 97891
+  turnin 97891
+
+step Bethor Iceshard
+  tip Whispering Horror (level 11-13) is elite: grouping up is advised unless you are well above level 13.
+  turnin 95328 optional
+  turnin 444
+
+step Undercity: A Frightened Request
+  complete 92401
+
+step Bethor Iceshard
+  turnin 491
+
+step The Crossroads
+  sethome "The Crossroads"
+  note "Profession quests here, for players with the skill: Goblin Engineering (Engineering 200), Gnome Engineering (Engineering 200)."

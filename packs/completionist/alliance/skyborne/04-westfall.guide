@@ -1,0 +1,214 @@
+guide completionist/alliance/skyborne/04-westfall
+title Westfall
+faction Alliance
+race Skyborne
+levels 20-23
+zone Westfall
+category Completionist
+folder Completionist · Skyborne 20-30
+keywords completionist, every quest
+next completionist/alliance/skyborne/05-loch-modan
+
+# Route: guide 4 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 20 to
+# 23, 27 quests, 3.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Westfall): Sentinel Hill -> Saldean's Farm -> The Jansen Stead ->
+# Saldean's Farm -> Jangolode Mine -> Furlbrow's Pumpkin Farm -> The Jansen
+# Stead -> Saldean's Farm -> Sentinel Hill -> Moonbrook -> Westfall Lighthouse
+# -> Demont's Place -> Alexston Farmstead -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Defias Brotherhood (166), The Defias Brotherhood
+# (166), The Unsent Letter (373).
+
+step Scout Galiaan
+  accept 153
+  accept 92742
+  accept 92744
+  accept 92745
+
+step Sentinel Hill: Testing the Wells
+  complete 92742
+
+step Alba Fairmoon
+  turnin 92742
+
+step Captain Danuvin
+  accept 102
+  accept 12
+
+step Sentinel Hill: Red Leather Bandana and Defias Trapper and more
+  collect 829 quest 153.1
+  kill 504 quest 12.1
+  kill 95 quest 12.2
+
+step Scout Galiaan
+  turnin 153
+
+step Gryan Stoutmantle
+  turnin 12
+  accept 13
+
+step Farmer Saldean
+  accept 9
+  accept 109
+  accept 22
+
+step Saldean's Farm: Goretusk Liver
+  collect 723 quest 22.1
+
+step Salma Saldean
+  turnin 22
+
+step Ozwin Ironsprocket
+  accept 92909
+  accept 92911
+
+step Saldean's Farm: Harvest Watcher and Golem Isospring and more
+  kill 114 quest 9.1
+  collect 255007 quest 92909.1
+  collect 255010 quest 92909.2
+  collect 255007 quest 92911.1
+  collect 4363 quest 92911.2
+
+step Ozwin Ironsprocket
+  turnin 92909
+  turnin 92911
+
+step Farmer Saldean
+  turnin 9
+
+step Verna Furlbrow
+  accept 36
+  accept 151
+  turnin 184
+  accept 64
+
+step The Jansen Stead: Handful of Oats
+  collect 1528 quest 151.1
+
+step Verna Furlbrow
+  turnin 151
+
+step Salma Saldean
+  turnin 36
+  accept 38
+
+step Saldean's Farm: Goretusk Snout and Stringy Vulture Meat
+  collect 731 quest 38.3
+  collect 729 quest 38.1
+
+step Jangolode Mine: Gnoll Paw and Kobold Digger
+  collect 725 quest 102.1
+  kill 1236 quest 92745.1
+
+step Furlbrow's Pumpkin Farm: The Forgotten Heirloom
+  complete 64
+
+step The Jansen Stead: Murloc Eye
+  collect 730 quest 38.2
+
+step Farmer Furlbrow
+  turnin 64
+
+step Saldean's Farm: Okra
+  collect 732 quest 38.4
+
+step Salma Saldean
+  turnin 38
+
+step Gryan Stoutmantle
+  turnin 109
+  turnin 102
+
+step Moonbrook: Defias Pillager and Defias Looter
+  kill 589 quest 13.1
+  kill 590 quest 13.2
+
+step Captain Grayson
+  accept 103
+  accept 152
+
+step Demont's Place: Murloc Tidehunter and Murloc Oracle
+  kill 127 quest 152.3
+  kill 517 quest 152.4
+
+step Alexston Farmstead: Flask of Oil
+  collect 814 quest 103.1
+
+step Gold Coast Quarry
+  tip Harvest Golem drops the Precessive Autocognition Assembly: right-click it to start Harvesting the Harvesters.
+  collect 255155 x1
+  accept 92910
+
+step Gold Coast Quarry: Riverpaw Miner and Murloc Warrior
+  kill 1426 quest 92745.2
+  kill 171 quest 152.2
+
+step Gold Coast Quarry: Longshore Murloc Gill
+  collect 254548 quest 92744.1
+
+step Jangolode Mine: Murloc Coastrunner
+  kill 126 quest 152.1
+
+step Ozwin Ironsprocket
+  turnin 92910
+
+step Gryan Stoutmantle
+  turnin 13
+  accept 14
+
+step Alba Fairmoon
+  turnin 92744
+  turnin 92745
+  accept 92747
+
+step Moonbrook: Suspicious Industrial Supplies
+  collect 254676 quest 92747.1
+
+step Demont's Place: Defias Pathstalker and Defias Knuckleduster
+  kill 121 quest 14.2
+  kill 449 quest 14.3
+
+step Captain Grayson
+  turnin 152
+  turnin 103
+
+step Back to Sentinel Hill
+  hearth "Sentinel Hill"
+
+step The Dagger Hills: Defias Highwayman
+  kill 122 quest 14.1
+
+step Alba Fairmoon
+  turnin 92747
+  accept 92748
+
+step Gryan Stoutmantle
+  turnin 14
+  accept 65
+
+step Mouse
+  accept 93928
+
+step Captain Grayson
+  accept 104
+
+step Demont's Place: Scale of Old Murk-Eye
+  collect 3636 quest 104.1
+
+step Captain Grayson
+  turnin 104
+
+step Burned-Out Remains
+  accept 79008
+
+step Thelsamar
+  getfp "Thelsamar"
+
+step Thelsamar
+  sethome "Stoutlager Inn"

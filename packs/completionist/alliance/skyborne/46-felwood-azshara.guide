@@ -1,0 +1,210 @@
+guide completionist/alliance/skyborne/46-felwood-azshara
+title Felwood & Azshara
+faction Alliance
+race Skyborne
+levels 59-60
+zone Azshara
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Felwood, Ashenvale, Thousand Needles, Tanaris, Swamp of Sorrows, Azshara, The Barrens
+next completionist/alliance/skyborne/47-darnassus-the-hinterlands
+
+# Route: guide 46 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 59 to
+# 60, 46 quests, 3.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Felwood, Ashenvale, Thousand Needles, Tanaris, Swamp of Sorrows,
+# Azshara, The Barrens): Emerald Sanctuary -> Jaedenar -> Irontree Woods ->
+# Emerald Sanctuary -> Bloodvenom Falls -> Emerald Sanctuary -> The Zoram
+# Strand -> The Shrine of Aessina -> Lake Falathim -> Astranaar -> Lake
+# Falathim -> Mystral Lake -> Satyrnaar -> ….
+#
+# Optional (elite: grouping up is advised): The Name of the Beast (3510;
+# Hetaera 55).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Blackfathom Villainy (1200), The Crone of the Kraul
+# (1101), Gahz'rilla (2770), Divino-matic Rod (2768), Scarab Shells (2865),
+# Troll Temper (3042), Into the Depths (3446), Secret of the Circle (3447),
+# The Prophecy of Mosh'aru (3527), The God Hakkar (3528), The Final Tablets
+# (4788), Mortality Wanes (1142), Willix the Importer (1144), Blueleaf Tubers
+# (1221), Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate
+# Eradication (1487), The Glowing Shard (6981).
+
+step Eridan Bluewind
+  zone Felwood
+  turnin 3942
+  accept 4084
+  turnin 5159
+  accept 5165
+
+step Emerald Sanctuary: Silvery Claws
+  collect 11172 quest 4084.1
+
+step Jaedenar: Brazier of Malice and Brazier of Suffering
+  interact 176159 quest 5165.2
+  interact 176160 quest 5165.3
+
+step Jaedenar: Brazier of Pain and Brazier of Hatred
+  interact 176158 quest 5165.1
+  interact 176161 quest 5165.4
+
+step Irontree Woods: Irontree Heart
+  collect 11173 quest 4084.2
+
+step Greta Mosshoof
+  turnin 5165
+  accept 5242
+  turnin 4084
+  accept 4005
+
+step Bloodvenom Falls: Moora and Salia and more
+  kill 9861 quest 5242.1
+  kill 9860 quest 5242.2
+  collect 13207 quest 5242.3
+
+step Greta Mosshoof
+  turnin 5242
+  turnin 5128
+
+step The Zoram Strand: Bolt of Woolen Cloth
+  zone Ashenvale
+  collect 2997 quest 565.1
+
+step Illiyana
+  turnin 1032
+
+step Delgren the Purifier
+  turnin 981
+
+step Astranaar
+  sethome "Astranaar"
+  turnin 1082
+  accept 1081
+  turnin 1133
+  turnin 1134
+
+step Delgren the Purifier
+  turnin 976
+
+step Back to Astranaar
+  hearth "Astranaar"
+
+step Sentinel Velene Starstrike
+  turnin 1017
+
+step Kayneth Stillwind
+  turnin 4261
+
+step Illiyana Moonblaze
+  accept 7865
+  turnin 7865
+
+step Razzeric
+  zone Thousand Needles
+  turnin 1187
+  accept 1188
+  turnin 1117
+  accept 1118
+  turnin 2769
+  turnin 3841
+  accept 3842
+
+step The Shimmering Flats: A Short Incubation
+  complete 3842
+
+step Quentin
+  turnin 3842
+  accept 3843
+
+step Gadgetzan
+  zone Tanaris
+  sethome "Gadgetzan"
+  turnin 1188
+  accept 1189
+  turnin 2864
+
+step Abyssal Sands: Roc Gizzard
+  collect 6257 quest 1452.1
+
+step Stoley
+  turnin 2872
+
+step Fallen Hero of the Horde
+  turnin 2743
+
+step Misty Reed Strand: Goodsteel's Balanced Flameberge
+  collect 11723 quest 4450.4
+
+step Fallen Hero of the Horde
+  accept 2744
+
+step Back to Gadgetzan
+  hearth "Gadgetzan"
+
+step Alchemist Pestlezugg
+  turnin 4507
+  accept 4508
+  turnin 4450
+  turnin 2741
+
+step Marvon Rivetseeker
+  turnin 3444
+
+step Lost Rigger Cove: Silver Totem of Aquementas
+  collect 11522 quest 4005.1
+
+step Southridge Beach: The Demon Hunter
+  zone Azshara
+  complete 2744
+
+step Loramus Thalipedes
+  turnin 2744
+  accept 3141
+
+step Southridge Beach: Loramus
+  complete 3141
+
+step Loramus Thalipedes
+  turnin 3141
+  accept 3508
+  turnin 3508
+  accept 3509
+
+step Lord Arkkoroc
+  tip Hetaera (level 55) is elite: grouping up is advised unless you are well above level 55.
+  turnin 3509
+  accept 3510 optional
+
+step Lord Arkkoroc
+  tip Hetaera (level 55) is elite: grouping up is advised unless you are well above level 55.
+  collect 10599 quest 3510.1 optional
+  collect 10598 quest 3510.2 optional
+  collect 10600 quest 3510.3 optional
+  turnin 3510 optional
+  accept 3511
+
+step Loramus Thalipedes
+  turnin 3511
+  accept 3602
+
+step Southridge Beach: Crystallized Azsharite
+  tip Felhound Tracker Kit lasts 10 minutes: go straight on with it.
+  collect 10714 quest 3602.1
+
+step Loramus Thalipedes
+  turnin 3602
+
+step Loramus Thalipedes
+  accept 3621
+
+step Ratchet
+  zone The Barrens
+  sethome "Ratchet"
+  turnin 4502
+
+step Craftsmen's Terrace
+  sethome "Craftsmen's Terrace"

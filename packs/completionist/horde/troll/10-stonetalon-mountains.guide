@@ -1,0 +1,187 @@
+guide completionist/horde/troll/10-stonetalon-mountains
+title Stonetalon Mountains
+faction Horde
+race Troll
+levels 25-27
+zone Stonetalon Mountains
+category Completionist
+folder Completionist · Troll 20-30
+keywords completionist, every quest
+next completionist/horde/troll/11-ashenvale
+
+# Route: guide 10 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 25 to 27, 28
+# quests, 3.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stonetalon Mountains): Webwinder Path -> Sun Rock Retreat -> Windshear
+# Crag -> Camp Aparaje -> Malaka'jin -> Webwinder Path -> Sun Rock Retreat ->
+# Malaka'jin -> Grimtotem Post -> Camp Aparaje -> Sishir Canyon -> Webwinder
+# Path -> Malaka'jin -> ….
+#
+# Optional (elite: grouping up is advised): Arachnophobia (6284; Besseleth
+# 21); Bloodfury Bloodline (6283; Bloodfury Ripper 26).
+#
+# Left to other guides: class quests (the Class category).
+
+step Veenix
+  accept 78270
+  turnin 78270
+
+step Pocket Litter
+  turnin 79192
+
+step Windshear Crag: Venture Co. Logger
+  kill 3989 quest 1062.1
+
+step Windshear Crag: Deepmoss Egg
+  collect 5570 quest 1069.1
+
+step Camp Aparaje: Grimtotem Ruffian and Grimtotem Mercenary
+  kill 11910 quest 6548.1
+  kill 11911 quest 6548.2
+
+step Witch Doctor Jin'Zil
+  turnin 1060
+
+step Ziz Fizziks
+  turnin 1483
+
+step Sun Rock Retreat
+  getfp "Sun Rock Retreat"
+  sethome "Sun Rock Retreat"
+  accept 6421
+
+step Pocket Litter
+  tip Besseleth (level 21) is elite: grouping up is advised unless you are well above level 21.
+  accept 79980
+  turnin 79980
+  accept 6284 optional
+  collect 16192 quest 6284.1 optional
+
+step Xen'Zilla
+  tip Besseleth (level 21) is elite: grouping up is advised unless you are well above level 21.
+  turnin 6284 optional
+  accept 6461
+
+step Kaya Flathoof
+  accept 6523
+
+step Camp Aparaje: Protect Kaya
+  complete 6523
+
+step Back to Sun Rock Retreat
+  hearth "Sun Rock Retreat"
+
+step Sishir Canyon: Deepmoss Creeper
+  kill 4005 quest 6461.1
+
+step Webwinder Path: Deepmoss Venomspitter
+  kill 4007 quest 6461.2
+
+step Xen'Zilla
+  turnin 6461
+
+step Braelyn Firehand
+  accept 1087
+  accept 6301
+  accept 86576
+  accept 6282
+  accept 6393
+  accept 6562
+
+step The Charred Vale: Bloodfury Slayer and Glittering Sunstone and more
+  kill 4024 quest 6282.3
+  collect 277936 quest 86576.1
+  kill 4023 quest 6282.4
+  collect 16312 quest 6393.1
+
+step The Charred Vale: Bloodfury Ambusher and Bloodfury Harpy
+  kill 4025 quest 6282.2
+  kill 4022 quest 6282.1
+
+step Maggran Earthbinder
+  tip Bloodfury Ripper (level 26) is elite: grouping up is advised unless you are well above level 26.
+  turnin 6282
+  accept 6283 optional
+  turnin 86576
+  turnin 6393
+
+step Ziz Fizziks
+  accept 1093
+
+step Windshear Crag: Super Reaper 6000 Blueprints
+  collect 5734 quest 1093.1
+
+step Ziz Fizziks
+  turnin 1093
+  accept 1094
+
+step Piznik
+  accept 1090
+
+step Windshear Crag: Gerenzo's Orders
+  complete 1090
+
+step Piznik
+  turnin 1090
+  accept 1092
+
+step Ziz Fizziks
+  turnin 1092
+
+step Mirkfallon Lake: Gaea Seed and Mirkweed Pods
+  collect 16205 quest 6301.1
+  collect 278201 quest 97538.1
+
+step Tammra Windfield
+  turnin 6301
+  accept 6381
+
+step The Charred Vale: Gaea Dirt Mound
+  tip Bloodfury Ripper (level 26) is elite: grouping up is advised unless you are well above level 26.
+  collect 16190 quest 6283.1 optional
+  interact 177929 quest 6381.1
+
+step Back to Sun Rock Retreat
+  hearth "Sun Rock Retreat"
+
+step Maggran Earthbinder
+  tip Bloodfury Ripper (level 26) is elite: grouping up is advised unless you are well above level 26.
+  turnin 6283 optional
+  turnin 6381
+
+step Witch Doctor Jin'Zil
+  accept 1058
+
+step Stonetalon Peak: Courser Eye
+  collect 5585 quest 1058.3
+
+step Stonetalon Peak: Cenarion Botanist and Son of Cenarius and more
+  kill 4051 quest 1087.3
+  kill 4057 quest 1087.1
+  kill 4053 quest 1087.2
+
+step Stonetalon Peak: Twilight Whisker
+  collect 5584 quest 1058.2
+
+step Stonetalon Peak: Stonetalon Sap
+  collect 5582 quest 1058.1
+
+step Stonetalon Peak: Fey Dragon Scale
+  collect 5583 quest 1058.4
+
+step Braelyn Firehand
+  turnin 1087
+  accept 1088
+
+step Witch Doctor Jin'Zil
+  turnin 1058
+
+step Bloodfury Windcaller (level 27)
+  level 27 -- grind on Bloodfury Windcaller (level 25) at The Charred Vale
+
+step Mound of Dirt
+  accept 79974

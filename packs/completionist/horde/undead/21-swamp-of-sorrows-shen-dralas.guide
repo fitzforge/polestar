@@ -1,0 +1,82 @@
+guide completionist/horde/undead/21-swamp-of-sorrows-shen-dralas
+title Swamp of Sorrows & Shen'dralas
+faction Horde
+race Undead
+levels 43-44
+zone Swamp of Sorrows
+category Completionist
+folder Completionist · Undead 40-50
+keywords completionist, every quest, Swamp of Sorrows, Shen'dralas
+next completionist/horde/undead/22-dustwallow-marsh
+
+# Route: guide 21 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 43 to
+# 44, 15 quests, 1.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Swamp of Sorrows, Shen'dralas): Splinterspear Junction -> Stonard ->
+# The Shifting Mire -> Fallow Sanctuary -> The Shifting Mire -> Itharius's
+# Cave -> The Harborage -> Fallow Sanctuary -> The Harborage -> Splinterspear
+# Junction -> Valley of Bones.
+#
+# Left to other guides: class quests (the Class category).
+
+step Amaryllis Webb
+  accept 93176
+  turnin 93176
+
+step Stonard
+  getfp "Stonard"
+  sethome "Stonard"
+  accept 1418
+  turnin 1420
+  accept 93663
+
+step Stonard: Lost in Transit
+  complete 93663
+
+step The Shifting Mire
+  tip Noboru the Cudgel drops the Noboru's Cudgel: right-click it to start Noboru the Cudgel.
+  collect 6196 x1
+  accept 1392
+
+step Fallow Sanctuary: Draenethyst Shard
+  collect 6190 quest 1373.1
+
+step Galen Goodward
+  accept 1393
+
+step The Shifting Mire: Galen's Escape
+  complete 1393
+
+step Galen's Strongbox
+  turnin 1393
+
+step Itharius's Cave: Speck of Dream Dust
+  collect 5803 quest 1116.1
+
+step Magtoor
+  accept 1389
+  turnin 93663
+  turnin 1392
+
+step Fallow Sanctuary: Draenethyst Crystal
+  collect 6071 quest 1389.1
+
+step Magtoor
+  turnin 1389
+
+step A Soggy Scroll
+  turnin 624
+
+step Nerlokh
+  zone Shen'dralas
+  accept 93035
+  turnin 93034
+  turnin 93035
+  accept 93037
+  turnin 93037
+  accept 93041
+  accept 93128

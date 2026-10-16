@@ -1,0 +1,158 @@
+guide completionist/alliance/human/05-the-barrens
+title The Barrens
+faction Alliance
+race Human
+levels 21-24
+zone The Barrens
+category Completionist
+folder Completionist · Human 20-30
+keywords completionist, every quest
+next completionist/alliance/human/06-loch-modan-darkshore
+
+# Route: guide 5 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 21 to 24, 21
+# quests, 3.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Barrens): Ratchet -> The Merchant Coast -> Ratchet -> The Merchant
+# Coast -> Ratchet -> The Sludge Fen -> Ratchet -> The Merchant Coast ->
+# Ratchet -> The Sludge Fen -> Boulder Lode Mine -> Ratchet -> Field of Giants
+# -> Ratchet.
+#
+# Optional (elite: grouping up is advised): Trouble at the Docks (959; Mad
+# Magglish 18); Chol'aruk the Ravener (97005; Chol'aruk 20).
+#
+# Profession quests here are not routed (they need the skill): 866 Root
+# Samples; 3633 Goblin Engineering; 3634 Gnome Engineering; 3646 Membership
+# Card Renewal.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Mortality Wanes (1142), Willix the Importer (1144),
+# Blueleaf Tubers (1221), Blueleaf Tubers (1221), Deviate Eradication (1487),
+# Deviate Eradication (1487), The Glowing Shard (6981).
+
+step Sputtervalve
+  accept 894
+  accept 887
+
+step The Merchant Coast: Southsea Brigand
+  kill 3381 quest 887.1
+
+step The Merchant Coast: Southsea Cannoneer
+  kill 3382 quest 887.2
+
+step Gazlowe
+  turnin 887
+  accept 890
+
+step Wharfmaster Dizzywig
+  turnin 890
+  accept 892
+
+step Gazlowe
+  turnin 892
+  accept 888
+
+step The Merchant Coast: Stolen Booty
+  complete 888
+
+step Gazlowe
+  turnin 888
+
+step Control Console
+  turnin 894
+  accept 900
+
+step The Sludge Fen: Main Control Valve and Fuel Control Valve and more
+  interact 4072 quest 900.1
+  interact 61936 quest 900.2
+  interact 61935 quest 900.3
+
+step Control Console
+  turnin 900
+  accept 901
+
+step The Sludge Fen: Console Key
+  collect 5089 quest 901.1
+
+step Control Console
+  turnin 901
+  accept 902
+
+step Back to Ratchet
+  hearth "Ratchet"
+
+step Sputtervalve
+  tip Mad Magglish (level 18) is elite: grouping up is advised unless you are well above level 18.
+  turnin 902
+  accept 865
+  accept 1069
+  accept 895
+  accept 959 optional
+  accept 896
+
+step Ratchet: Intact Raptor Horn
+  tip Chol'aruk (level 20) is elite: grouping up is advised unless you are well above level 20.
+  accept 97005 optional
+  collect 5055 quest 865.1
+
+step Mebok Mizzyrix
+  turnin 865
+  accept 1491 optional
+
+step The Merchant Coast: Baron Longshore's Head
+  collect 5084 quest 895.1
+
+step Gazlowe
+  tip Chol'aruk (level 20) is elite: grouping up is advised unless you are well above level 20.
+  turnin 895
+  collect 276070 quest 97005.1 optional
+  accept 1486 optional
+  collect 6443 quest 1486.1 optional
+
+step Back to Ratchet
+  tip Mad Magglish (level 18) and Chol'aruk (level 20) are elite: grouping up is advised unless you are well above level 20.
+  turnin 1486 optional
+  collect 5334 quest 959.1 optional
+  collect 6464 quest 1491.1 optional
+  turnin 97005 optional
+  hearth "Ratchet"
+
+step Wizzlecrank's Shredder
+  tip Mad Magglish (level 18) is elite: grouping up is advised unless you are well above level 18.
+  turnin 1491 optional
+  turnin 959 optional
+  accept 858
+
+step The Sludge Fen: Ignition Key
+  collect 5050 quest 858.1
+
+step Wizzlecrank's Shredder
+  turnin 858
+  accept 863
+
+step The Sludge Fen: The Escape
+  complete 863
+
+step Boulder Lode Mine: Cats Eye Emerald
+  collect 5097 quest 896.1
+
+step Sputtervalve
+  turnin 863
+  turnin 896
+
+step Burned-Out Remains
+  turnin 79008
+  accept 79192
+
+step Sputtervalve
+  accept 1483
+
+step Thelsamar
+  getfp "Thelsamar"
+
+step Thelsamar
+  sethome "Stoutlager Inn"
+  note "Profession quests here, for players with the skill: Root Samples (Herbalism 1), Goblin Engineering (Engineering 200), Gnome Engineering (Engineering 200), Membership Card Renewal (Engineering 200)."

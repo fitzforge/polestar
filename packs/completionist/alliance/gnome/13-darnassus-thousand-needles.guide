@@ -1,0 +1,176 @@
+guide completionist/alliance/gnome/13-darnassus-thousand-needles
+title Darnassus & Thousand Needles
+faction Alliance
+race Gnome
+levels 33-35
+zone Darnassus
+category Completionist
+folder Completionist · Gnome 30-40
+keywords completionist, every quest, Darnassus, Thousand Needles, Dustwallow Marsh, The Barrens
+next completionist/alliance/gnome/14-hillsbrad-foothills
+
+# Route: guide 13 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 33 to 35, 34
+# quests, 3.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Darnassus, Thousand Needles, Dustwallow Marsh, The Barrens): near
+# Craftsmen's Terrace -> Craftsmen's Terrace -> near Craftsmen's Terrace ->
+# Craftsmen's Terrace -> The Shimmering Flats -> The Great Lift -> Theramore
+# Isle -> Ratchet.
+#
+# Optional (elite: grouping up is advised): Encrusted Tail Fins (1107;
+# Saltscale Warrior 35-36, Saltscale Oracle 36-37, Saltscale Tide Lord 37,
+# Saltscale Forager 35-36, Saltscale Hunter 35-36); A Host of Evil (6626;
+# Razorfen Battleguard 33-34, Razorfen Thornweaver 33-34, Death's Head Cultist
+# 33-34).
+#
+# Profession quests here are not routed (they need the skill): 5143 Tribal
+# Leatherworking; 6607 Nat Pagle, Angler Extreme; 6624 Triage.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In Search of Thaelrid (1198), Twilight Falls (1199), The
+# Crone of the Kraul (1101), Gahz'rilla (2770), Tiara of the Deep (2846),
+# Mortality Wanes (1142), Willix the Importer (1144), Blueleaf Tubers (1221),
+# Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate Eradication
+# (1487), The Glowing Shard (6981).
+
+step Priestess A'moora
+  accept 2518
+
+step near Craftsmen's Terrace: Vial of Blessed Water
+  collect 5646 quest 934.1
+
+step Sentinel Dalia Sunblade
+  accept 98067
+
+step Sister Aquinne
+  accept 2519
+  turnin 98391
+
+step Rellian Greenspyre
+  turnin 922
+  accept 923
+
+step near Craftsmen's Terrace: Credit
+  kill 270418 quest 98067.1
+
+step Arch Druid Fandral Staghelm
+  turnin 935
+  accept 98046
+
+step Craftsmen's Terrace: Credit
+  sethome "Craftsmen's Terrace"
+  kill 270420 quest 98067.3
+
+step near Craftsmen's Terrace: Credit
+  kill 270421 quest 98067.4
+
+step Lariia
+  turnin 98046
+  accept 98065
+  turnin 98067
+  turnin 2519
+  turnin 98065
+
+step Arch Druid Fandral Staghelm
+  turnin 940
+  accept 952
+
+step Chief Archaeologist Greywhisker
+  turnin 741
+
+step Mathiel
+  accept 2925
+  turnin 1037
+  accept 1038
+
+step near Craftsmen's Terrace: Velinde's Effects
+  complete 1038
+
+step Thyn'tel Bladeweaver
+  turnin 1038
+  accept 1039
+
+step Pozzik
+  zone Thousand Needles
+  accept 1176
+  accept 1175
+  accept 1105
+  accept 1104
+  accept 1110
+  accept 1111
+  accept 5762
+
+step The Shimmering Flats: Salty Scorpid Venom
+  collect 5794 quest 1104.1
+
+step The Shimmering Flats: Saltstone Basilisk
+  kill 4147 quest 1175.1
+
+step The Shimmering Flats: Hardened Tortoise Shell
+  collect 5795 quest 1105.1
+
+step The Shimmering Flats: Saltstone Crystalhide and Saltstone Gazer and more
+  kill 4151 quest 1175.2
+  kill 4150 quest 1175.3
+  collect 5798 quest 1110.1
+
+step Kravel Koalbeard
+  tip Saltscale Warrior (level 35-36), Saltscale Oracle (level 36-37), Saltscale Tide Lord (level 37) and 2 more are elite: grouping up is advised unless you are well above level 37.
+  turnin 1110
+  turnin 1105
+  turnin 1104
+  accept 1106
+  accept 1107 optional
+
+step Trackmaster Zherin
+  turnin 1175
+
+step The Shimmering Flats: Hollow Vulture Bone
+  collect 5848 quest 1176.1
+
+step Pozzik
+  turnin 1176
+  accept 1178
+
+step The Great Lift
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34. Henrig Lonebrow's Journal drops the Henrig Lonebrow's Journal: right-click it to start Lonebrow's Journal.
+  accept 6626 optional
+  collect 5791 x1
+  accept 1100
+
+step Theramore Isle
+  zone Dustwallow Marsh
+  sethome "Theramore Isle"
+  accept 1133
+  accept 1135
+  turnin 1132
+  getfp "Theramore"
+  turnin 1302
+
+step Ratchet
+  zone The Barrens
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  sethome "Ratchet"
+  turnin 1039
+  accept 1040
+  kill 7874 quest 6626.2 optional
+  kill 7873 quest 6626.1 optional
+
+step Back to Ratchet
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  kill 7872 quest 6626.3 optional
+  hearth "Ratchet"
+
+step Wharfmaster Dizzywig
+  turnin 1111
+
+step Gazlowe
+  turnin 1178
+
+step Southshore
+  sethome "Southshore"
+  note "Profession quests here, for players with the skill: Tribal Leatherworking (Leatherworking 225), Nat Pagle, Angler Extreme (Fishing 225), Triage (First Aid 225)."

@@ -288,6 +288,32 @@ test('categories: left out without a guide for any faction; faded with a tip whe
 	assert.equal(out.leveling, false);
 });
 
+test('Completionist: its own category after Class, a chain listed in route order, and how many of a guide\'s quests are done', () => {
+	const [out] = run(`
+		local function comp(id, title, lo, hi, quests)
+			local goals = {}
+			for _, q in ipairs(quests) do goals[#goals + 1] = { t = "accept", quest = q, title = "Q" .. q, status = "pending" } end
+			uistub.guides[id] = { id = id, title = title, faction = "Alliance", races = { "Human" }, minLevel = lo, maxLevel = hi, category = "Completionist",
+				folder = "Completionist \\194\\183 Human", zone = 0, zoneName = title, steps = { { title = "One", goals = goals } } }
+			table.insert(uistub.order, id)
+		end
+		-- The second guide starts lower (a cleanup pass): the route order still wins.
+		comp("completionist/alliance/human/01-elwynn-forest", "Elwynn Forest", 1, 12, { 7001, 7002, 7003 })
+		comp("completionist/alliance/human/02-stormwind-city", "Stormwind City", 1, 9, { 7004 })
+		Polestar.Compat.IsQuestCompleted = function(id) return id == 7001 or id == 7003 end
+		UI.ShowPicker()
+		P.SetCategory("Completionist")
+		local r = { cats = P.categories, icon = nav("Completionist").Icon:GetTexture(), folders = folders(), lines = lines() }
+		rowFor("Elwynn Forest"):Click()
+		r.facts = P.detail.facts
+		emit(r)`);
+	assert.deepEqual(out.cats.slice(0, 4), ['All', 'Leveling', 'Completionist', 'Professions']);
+	assert.match(out.icon, /icon-complete$/);
+	assert.deepEqual(out.folders, ['Completionist \u00b7 Human 2']);
+	assert.deepEqual(out.lines, ['Elwynn Forest (1\u201312)', 'Stormwind City (1\u20139)']);
+	assert.deepEqual(out.facts.find((f) => f[0] === 'Quests'), ['Quests', '2 of 3 done']);
+});
+
 test('selecting a guide shows its details and loads nothing; the selection is remembered', () => {
 	const [out] = run(`
 		uistub.openTabs(TABS, 1)

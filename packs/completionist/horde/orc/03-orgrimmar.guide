@@ -1,0 +1,85 @@
+guide completionist/horde/orc/03-orgrimmar
+title Orgrimmar
+faction Horde
+race Orc
+levels 14-16
+zone Orgrimmar
+category Completionist
+folder Completionist · Orc 1-20
+keywords completionist, every quest
+next completionist/horde/orc/04-mulgore
+
+# Route: guide 3 of 49 of the simulator's completionist route for Orc (1199 of
+# 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 14 to 16, 10
+# quests, 0.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Orgrimmar): near Orgrimmar -> Orgrimmar -> near Orgrimmar.
+#
+# Optional (elite: grouping up is advised): Halikor's Hoof (96877; Halikor
+# 12).
+#
+# Left out: The New Horde (787), Finding the Antidote (813), Need for a Cure
+# (812), Hidden Enemies (5726): the route takes them here but cannot finish
+# them (the coverage report's missed quests).
+#
+# Profession quests here are not routed (they need the skill): 2751 Barbaric
+# Battlements; 2752 On Iron Pauldrons; 2753 Trampled Under Foot; 2754 Horns of
+# Frenzy; 2755 Joys of Omosh; 2756 The Old Ways; 2757 Booty Bay or Bust!; 5301
+# The Art of the Armorsmith; 5302 The Way of the Weaponsmith; 6608 You Too
+# Good.; 6611 To Gadgetzan You Go!; 96874 This Is Spinal Axe; 96875 Beasts of
+# Thunder Ridge.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Necklace Recovery, Take 2 (2284), Rig Wars (2841), Rig
+# Wars (2841), The Royal Rescue (4003), For The Horde! (4974), Returning the
+# Lost Satchel (5724), Hidden Enemies (5728), Hidden Enemies (5728), Slaying
+# the Beast (5761), Slaying the Beast (5761), Changing Tastes (95697),
+# Changing Tastes (95697).
+
+step Thra
+  accept 97326
+
+step near Orgrimmar: Smooth Boulder
+  collect 277952 quest 97326.1
+
+step Thra
+  turnin 97326
+  turnin 831
+
+step Orgrimmar
+  getfp "Orgrimmar"
+  sethome "Orgrimmar"
+  turnin 829
+  turnin 832
+  accept 809
+
+step Thatog
+  accept 97246
+
+step Borstan
+  accept 97249
+  turnin 97246
+
+step Migi
+  turnin 97249
+
+step Yelmak
+  tip Halikor (level 12) is elite: grouping up is advised unless you are well above level 12.
+  accept 97275
+  turnin 97275
+  accept 97242
+  turnin 96877 optional
+
+step near Orgrimmar: Handful of Cattails and Speargrass Cuttings
+  collect 277278 quest 97242.1
+  collect 277279 quest 97242.2
+
+step Kor'geld
+  turnin 97242
+
+step Bloodhoof Village
+  sethome "Bloodhoof Village"
+  note "Profession quests here, for players with the skill: Barbaric Battlements (Blacksmithing 140), On Iron Pauldrons (Blacksmithing 1), Trampled Under Foot (Blacksmithing 1), Horns of Frenzy (Blacksmithing 1), Joys of Omosh (Blacksmithing 1), The Old Ways (Blacksmithing 210), Booty Bay or Bust! (Blacksmithing 210), The Art of the Armorsmith (Blacksmithing 200), The Way of the Weaponsmith (Blacksmithing 200), You Too Good. (Fishing 225), To Gadgetzan You Go! (Cooking 225), This Is Spinal Axe (Blacksmithing 1), Beasts of Thunder Ridge (Leatherworking 1)."

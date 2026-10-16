@@ -1,0 +1,160 @@
+guide completionist/horde/skyborne/39-tanaris-feralas
+title Tanaris & Feralas
+faction Horde
+race Skyborne
+levels 57-58
+zone Tanaris
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Tanaris, Feralas, The Barrens, Durotar
+next completionist/horde/skyborne/40-the-barrens-swamp-of-sorrows
+
+# Route: guide 39 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 57 to
+# 58, 38 quests, 1.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Tanaris, Feralas, The Barrens, Durotar): Gadgetzan -> Noonshade Ruins
+# -> Steamwheedle Port -> Gadgetzan -> Zul'Farrak -> Gadgetzan -> Broken
+# Pillar -> Gadgetzan -> Camp Mojache -> Feral Scar Vale -> Camp Mojache ->
+# Grimtotem Compound -> Camp Mojache -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Divino-matic Rod (2768), Scarab Shells (2865), Troll
+# Temper (3042), Into the Depths (3446), Secret of the Circle (3447), The
+# Prophecy of Mosh'aru (3527), The God Hakkar (3528), The Final Tablets
+# (4788), Pusillin and the Elder Azj'Tordin (7441), Elven Legends (7481),
+# Lethtendris's Web (7489), Willix the Importer (1144), Blueleaf Tubers
+# (1221), Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate
+# Eradication (1487), The Glowing Shard (6981).
+
+step Tran'rek
+  turnin 2864
+  accept 379
+
+step Noonshade Ruins: Wastewander Water Pouch
+  collect 8483 quest 379.1
+
+step Yeh'kinya
+  turnin 3520
+  turnin 2872
+
+step Chief Engineer Bilgewhizzle
+  turnin 379
+
+step Zul'Farrak: The Spider God
+  complete 2936
+
+step Egg-O-Matic
+  accept 2741
+  turnin 2641
+  accept 2661
+  turnin 2661
+  accept 2662
+  turnin 2662
+
+step Marvon Rivetseeker
+  turnin 3380
+  accept 3444
+
+step Gaeriyan
+  turnin 3912
+
+step Gadgetzan: Sprinkle
+  kill 7583 quest 5163.2
+
+step Tran'rek
+  turnin 4504
+  turnin 4496
+  accept 4507
+
+step Gaeriyan
+  accept 3913
+
+step A Conspicuous Gravestone
+  turnin 3913
+  accept 3914
+
+step Krinkle Goodsteel
+  turnin 5514
+  accept 5802
+
+step Camp Mojache
+  zone Feralas
+  sethome "Camp Mojache"
+  turnin 3123
+  accept 3124
+
+step Feral Scar Vale: Hippogryph Muisek
+  collect 9595 quest 3124.1
+
+step Witch Doctor Uzer'i
+  turnin 3124
+  accept 3125
+
+step Grimtotem Compound: Faerie Dragon Muisek
+  collect 9596 quest 3125.1
+
+step Witch Doctor Uzer'i
+  turnin 3125
+  accept 3126
+
+step Camp Mojache: Treant Muisek
+  collect 9593 quest 3126.1
+
+step Witch Doctor Uzer'i
+  turnin 3126
+  accept 3127
+
+step Ruins of Ravenwind: Mountain Giant Muisek
+  collect 9597 quest 3127.1
+
+step Back to Camp Mojache
+  hearth "Camp Mojache"
+
+step Witch Doctor Uzer'i
+  turnin 3127
+  accept 3129
+  turnin 3129
+
+step Frayfeather Highlands: The Super Egg-O-Matic
+  complete 2741
+
+step The Crossroads
+  zone The Barrens
+  sethome "The Crossroads"
+  turnin 1358
+
+step Lushwater Oasis: Serpentbloom
+  collect 5339 quest 962.1
+
+step Makaba Flathoof
+  turnin 6629
+  turnin 1061
+  turnin 1068
+
+step Boulder Lode Mine: Wool Cloth
+  collect 2592 quest 7826.1
+  collect 2592 quest 7833.1
+
+step Kelm Hargunth
+  accept 7868
+  turnin 7868
+
+step Islen Waterseer
+  turnin 5158
+  accept 5159
+
+step Ratchet
+  sethome "Ratchet"
+  turnin 4147
+
+step Master Gadrin
+  zone Durotar
+  turnin 2936
+  accept 2937 optional
+
+step The Crossroads
+  sethome "The Crossroads"

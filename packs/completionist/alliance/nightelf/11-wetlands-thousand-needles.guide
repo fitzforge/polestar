@@ -1,0 +1,242 @@
+guide completionist/alliance/nightelf/11-wetlands-thousand-needles
+title Wetlands & Thousand Needles
+faction Alliance
+race NightElf
+levels 32-34
+zone Wetlands
+category Completionist
+folder Completionist · NightElf 30-40
+keywords completionist, every quest, Stormwind City, Wetlands, Arathi Highlands, Thousand Needles, Dun Morogh
+next completionist/alliance/nightelf/12-hillsbrad-foothills-dustwallow-marsh
+
+# Route: guide 11 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 32 to
+# 34, 46 quests, 4.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stormwind City, Wetlands, Arathi Highlands, Thousand Needles, Dun
+# Morogh): near Stormwind City -> Stormwind City -> near Stormwind City ->
+# Stormwind -> near Stormwind -> Stormwind City -> near Stormwind City -> near
+# Stormwind -> near Stormwind City -> Whelgar's Excavation Site -> Angerfang
+# Encampment -> Direforge Hill -> Dun Modr -> ….
+#
+# Optional (elite: grouping up is advised): Oh Brother... (167; Foreman
+# Thistlenettle 20); Collecting Memories (168; Skeletal Miner 17-18, Undead
+# Excavator 17-18, Undead Dynamiter 17-18); The Dark Iron War (303; Dark Iron
+# Dwarf 27-28, Dark Iron Tunneler 29-30, Dark Iron Saboteur 28-29, Dark Iron
+# Demolitionist 30-31); A Grim Task (304; Balgaras the Foul 34); Encrusted
+# Tail Fins (1107; Saltscale Warrior 35-36, Saltscale Oracle 36-37, Saltscale
+# Tide Lord 37, Saltscale Forager 35-36, Saltscale Hunter 35-36); A Host of
+# Evil (6626; Razorfen Battleguard 33-34, Razorfen Thornweaver 33-34, Death's
+# Head Cultist 33-34).
+#
+# Profession quests here are not routed (they need the skill): 2758 The
+# Origins of Smithing; 2759 In Search of Galvan; 3630 Gnome Engineering; 4181
+# Goblin Engineering; 7497 The Journey Has Just Begun; 5143 Tribal
+# Leatherworking; 95217 The Quarry's Smith; 96031 Camping 101: Leatherworking;
+# 96044 Camping 101: Blacksmithing; 96046 Camping 101: Mining; 96047 Camping
+# 101: First Aid; 96050 Camping 101: Fishing; 96055 Camping 101: Herbalism;
+# 96056 Camping 101: Skinning; 96057 Camping 101: Tailoring; 96058 Camping
+# 101: Engineering.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489), The Fury
+# Runs Deep (378), The Fury Runs Deep (378), Lost in the Thicket Things
+# (95647), Fallen in the Fen (95795), Heartwoven (95809), Highland Hides
+# (98815), Highland Hides (98815), Prehistoric Prism (98824), Prehistoric
+# Prism (98824), The Crone of the Kraul (1101), Gahz'rilla (2770), A Fine Mess
+# (2904), The Sparklematic 5200! (2951), The Only Cure is More Green Glow
+# (2962), The Only Cure is More Green Glow (2962), Hurley Blackbreath (4126),
+# Old Ironforge Incursion (96393), Old Ironforge Incursion (96393).
+
+step Baros Alexston
+  zone Stormwind City
+  accept 399
+
+step Borgus Steelhand
+  tip Foreman Thistlenettle (level 20), Skeletal Miner (level 17-18), Undead Excavator (level 17-18) and Undead Dynamiter (level 17-18) are elite: grouping up is advised unless you are well above level 20.
+  accept 167 optional
+  accept 168 optional
+  accept 97894
+
+step Baros Alexston
+  accept 97926
+  accept 95161
+
+step Stormwind City: Cask of Merlot
+  getfp "Stormwind"
+  sethome "Stormwind City"
+  buy 1941 x1 nearest
+
+step Roy Lewells
+  accept 97234
+
+step General Marcus Jonathan
+  turnin 120
+  accept 121
+
+step Donyal Tovald
+  turnin 97234
+
+step Collin Mauren
+  accept 1078
+  turnin 1075
+  accept 1076
+
+step Argos Nightwhisper
+  accept 3765
+
+step Bishop Farthing
+  turnin 269
+
+step Milton Sheaf
+  turnin 337
+  turnin 98190
+
+step Archbishop Benedictus
+  tip Dark Iron Dwarf (level 27-28), Dark Iron Tunneler (level 29-30), Dark Iron Saboteur (level 28-29) and Dark Iron Demolitionist (level 30-31) are elite: grouping up is advised unless you are well above level 31.
+  turnin 293
+  accept 303 optional
+
+step Prospector Whelgar
+  zone Wetlands
+  tip Dark Iron Dwarf (level 27-28), Dark Iron Tunneler (level 29-30), Dark Iron Saboteur (level 28-29) and Dark Iron Demolitionist (level 30-31) are elite: grouping up is advised unless you are well above level 31.
+  kill 1051 quest 303.1 optional
+  kill 1053 quest 303.2 optional
+  kill 1052 quest 303.3 optional
+  accept 98313
+  accept 98310
+
+step Howin Kindfeather
+  accept 98297
+  accept 98300
+
+step Direforge Hill: Heart of Neru
+  tip Dark Iron Dwarf (level 27-28), Dark Iron Tunneler (level 29-30), Dark Iron Saboteur (level 28-29) and Dark Iron Demolitionist (level 30-31) are elite: grouping up is advised unless you are well above level 31.
+  kill 1054 quest 303.4 optional
+  collect 280398 quest 98310.4
+
+step Dun Modr: Heart of Modr
+  collect 280396 quest 98310.2
+
+step Raptor Ridge: Subdued Dragonspawn and Heart of Ados
+  tip Dark Iron Dwarf (level 27-28), Dark Iron Tunneler (level 29-30), Dark Iron Saboteur (level 28-29) and Dark Iron Demolitionist (level 30-31) are elite: grouping up is advised unless you are well above level 31.
+  turnin 303 optional
+  kill 271373 quest 98297.1
+  collect 280395 quest 98310.1
+
+step Thelgen Rock: Heart of Golm
+  collect 280397 quest 98310.3
+
+step Howin Kindfeather
+  turnin 98297
+
+step Prospector Whelgar
+  turnin 98310
+
+step Menethil Harbor
+  sethome "Deepwater Tavern"
+  accept 472
+
+step Longbraid the Grim
+  turnin 472
+
+step Back to Deepwater Tavern
+  hearth "Deepwater Tavern"
+
+step Red Jack Flint
+  accept 1132
+  accept 1302
+
+step Captive Fire Elemental
+  accept 87491
+
+step Longbraid the Grim
+  tip Balgaras the Foul (level 34) is elite: grouping up is advised unless you are well above level 34.
+  accept 304 optional
+  accept 631
+  turnin 87491
+
+step Comar Villard
+  tip Balgaras the Foul (level 34) is elite: grouping up is advised unless you are well above level 34.
+  accept 87318
+  turnin 87318
+  accept 88758
+  turnin 88758
+  collect 3639 quest 304.1 optional
+  turnin 304 optional
+
+step Messenger Bag
+  zone Arathi Highlands
+  accept 79976
+  turnin 79976
+
+step Ebenezer Rustlocke's Corpse
+  turnin 631
+
+step Pozzik
+  zone Thousand Needles
+  accept 1176
+  accept 1175
+  accept 1105
+  accept 1104
+  accept 1110
+  accept 1111
+  accept 5762
+
+step The Shimmering Flats: Salty Scorpid Venom
+  collect 5794 quest 1104.1
+
+step The Shimmering Flats: Saltstone Basilisk
+  kill 4147 quest 1175.1
+
+step The Shimmering Flats: Hardened Tortoise Shell
+  collect 5795 quest 1105.1
+
+step The Shimmering Flats: Saltstone Crystalhide and Saltstone Gazer and more
+  kill 4151 quest 1175.2
+  kill 4150 quest 1175.3
+  collect 5798 quest 1110.1
+
+step Kravel Koalbeard
+  tip Saltscale Warrior (level 35-36), Saltscale Oracle (level 36-37), Saltscale Tide Lord (level 37) and 2 more are elite: grouping up is advised unless you are well above level 37.
+  turnin 1110
+  turnin 1105
+  turnin 1104
+  accept 1106
+  accept 1107 optional
+
+step Trackmaster Zherin
+  turnin 1175
+
+step The Shimmering Flats: Hollow Vulture Bone
+  collect 5848 quest 1176.1
+
+step Pozzik
+  turnin 1176
+  accept 1178
+
+step The Great Lift
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34. Henrig Lonebrow's Journal drops the Henrig Lonebrow's Journal: right-click it to start Lonebrow's Journal.
+  accept 6626 optional
+  collect 5791 x1
+  accept 1100
+
+step Back to Deepwater Tavern
+  hearth "Deepwater Tavern"
+
+step Ironforge
+  zone Dun Morogh
+  sethome "Thunderbrew Distillery"
+  turnin 467
+
+step Back to Thunderbrew Distillery
+  collect 4371 quest 174.1 optional
+  hearth "Thunderbrew Distillery"
+  note "Profession quests here, for players with the skill: The Origins of Smithing (Blacksmithing 210), In Search of Galvan (Blacksmithing 210), Gnome Engineering (Engineering 200), Goblin Engineering (Engineering 200), The Journey Has Just Begun (Leatherworking 300), Tribal Leatherworking (Leatherworking 225), The Quarry's Smith (Blacksmithing 1), Camping 101: Leatherworking (Leatherworking 1), Camping 101: Blacksmithing (Blacksmithing 1), Camping 101: Mining (Mining 1), Camping 101: First Aid (First Aid 1), Camping 101: Fishing (Fishing 1), Camping 101: Herbalism (Herbalism 1), Camping 101: Skinning (Skinning 1), Camping 101: Tailoring (Tailoring 1), Camping 101: Engineering (Engineering 1)."

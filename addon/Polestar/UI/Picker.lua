@@ -5,8 +5,8 @@
 --
 -- Left: the hub rail (sections, Options at its foot; below), then the
 -- sidebar: the search under the wordmark, then the categories with their
--- icons and counts (All, Leveling, Professions, Reputation, Exploration,
--- Legacy, Collectibles, Favorites). A category with no guide for any faction
+-- icons and counts (All, Leveling, Class, Completionist, Professions,
+-- Reputation, Exploration, Legacy, Collectibles, Favorites). A category with no guide for any faction
 -- is left out; one empty only for this faction fades and says how to reach
 -- its guides. Dungeons have their own hub section, not a category.
 -- Middle: tabs (Home: Continue cards for the open tabs and the suggested
@@ -24,8 +24,9 @@
 -- night band without it) with the title on it, chips (levels, group,
 -- faction, races, classes), progress, the facts (what the guide's goal gives
 -- and why: a Class guide's `reward`, item and spell icons with the game's
--- tooltip on hover, and its `why`; steps, the quests this character takes,
--- the zones in route order, what comes next), pitch, pros and cons,
+-- tooltip on hover, and its `why`; steps, the quests this character takes (a
+-- Completionist guide: how many of them are done), the zones in route order,
+-- what comes next), pitch, pros and cons,
 -- the favourite star, "Load guide" (into the current tab) and "Open in new
 -- tab"; on an open guide Load reads "Continue" and the new-tab button goes.
 --
@@ -78,13 +79,13 @@ local VIEWS = { "home", "browse", "current", "recent" }
 local VIEW_LABEL = { home = L["Home"], browse = L["Browse"], current = L["Current"], recent = L["Recent"] }
 
 -- The guide format's categories, in the order players look for them.
-local CATEGORIES = { "Leveling", "Class", "Professions", "Reputation", "Exploration", "Legacy", "Collectibles" }
+local CATEGORIES = { "Leveling", "Class", "Completionist", "Professions", "Reputation", "Exploration", "Legacy", "Collectibles" }
 P.CATEGORIES = CATEGORIES
 local CATEGORY_RANK = {}
 for i, c in ipairs(CATEGORIES) do CATEGORY_RANK[c] = i end
 local CATEGORY_ICON = {
-	Leveling = "icon-level", Class = "icon-train", Professions = "icon-craft", Reputation = "icon-rep", Exploration = "icon-explore",
-	Legacy = "icon-achieve", Collectibles = "icon-collect", Favorites = "star",
+	Leveling = "icon-level", Class = "icon-train", Completionist = "icon-complete", Professions = "icon-craft", Reputation = "icon-rep",
+	Exploration = "icon-explore", Legacy = "icon-achieve", Collectibles = "icon-collect", Favorites = "star",
 }
 P.CATEGORY_ICON = CATEGORY_ICON
 
@@ -281,9 +282,14 @@ function P.Entries(filter, q, cat)
 		if key[a] ~= key[b] then return key[a] < key[b] end
 		local fa, fb = rankOfFaction(a.faction, mine), rankOfFaction(b.faction, mine)
 		if fa ~= fb then return fa < fb end
+		-- A Completionist chain is listed in route order (its files are
+		-- numbered "01-...", "02-..."): a cleanup guide late in the route can
+		-- start below the one before it.
+		local ca, cb = categoryOf(a), categoryOf(b)
+		if ca == "Completionist" and cb == "Completionist" then return (a.id or "") < (b.id or "") end
 		local la, lb = a.minLevel or 0, b.minLevel or 0
 		if la ~= lb then return la < lb end
-		if categoryOf(a) == "Leveling" then return (a.id or "") < (b.id or "") end
+		if ca == "Leveling" then return (a.id or "") < (b.id or "") end
 		return (a.title or "") < (b.title or "")
 	end)
 	local out, folder = {}, nil
@@ -338,7 +344,7 @@ local mapName = ns.Compat.MapName
 local function guideFacts(g)
 	local f = factCache[g.id]
 	if f then return f end
-	f = { quests = 0, zones = {} }
+	f = { quests = 0, zones = {}, questIds = {} }
 	local G, C = ns.Guides, ns.Compat
 	local full = G and G.Get and G.Get(g.id)
 	local player
@@ -356,7 +362,10 @@ local function guideFacts(g)
 		if applies(step.only) and type(step.goals) == "table" then
 			for _, goal in ipairs(step.goals) do
 				if applies(goal.only) then
-					if goal.t == "accept" then f.quests = f.quests + 1 end
+					if goal.t == "accept" then
+						f.quests = f.quests + 1
+						if goal.quest then f.questIds[#f.questIds + 1] = goal.quest end
+					end
 					local name = mapName(goal.map)
 					if name and not seen[name] then
 						seen[name] = true
@@ -1056,7 +1065,19 @@ local function renderDetails(byId, tabs, active)
 	end
 	if type(g.why) == "string" and g.why ~= "" then facts[#facts + 1] = { L["Why"], g.why } end
 	if g.stepCount then facts[#facts + 1] = { L["Steps"], tostring(g.stepCount) } end
-	if info.quests > 0 then facts[#facts + 1] = { L["Quests"], tostring(info.quests) } end
+	if info.quests > 0 then
+		-- A Completionist guide counts what this character already turned in
+		-- (the client's completed-quest flags), so a player switching in from
+		-- the leveling guides sees what is left.
+		local IsDone = ns.Compat.IsQuestCompleted
+		if categoryOf(g) == "Completionist" and IsDone and #info.questIds > 0 then
+			local done = 0
+			for _, id in ipairs(info.questIds) do if IsDone(id) then done = done + 1 end end
+			facts[#facts + 1] = { L["Quests"], string.format(L["%d of %d done"], done, #info.questIds) }
+		else
+			facts[#facts + 1] = { L["Quests"], tostring(info.quests) }
+		end
+	end
 	if #info.zones > 0 then facts[#facts + 1] = { L["Zones"], info.zones, "textDim" } end
 	local nextText = nextFact(g, byId)
 	if nextText then facts[#facts + 1] = { L["Next"], nextText, "textDim" } end

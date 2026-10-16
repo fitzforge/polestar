@@ -21,10 +21,12 @@
 //   - objective site: only for accepted quests; kills give XP at the level
 //     they happen; level-ups mid-way switch rates.
 //   - turn-in: accepted quest with all its sites done; XP reduced by level.
-// A package runs at most MAX_VISITS times; a return does only what opened
-// since (quest chains that go to another zone and back: Scholomance and the
-// Argent Dawn turn-ins, Loramus in Azshara); a home package runs once.
-// More makes the route infeasible. Route
+// A package runs at most MAX_VISITS times (COMPLETIONIST_MAX_VISITS on a
+// completionist run: its chains bounce between zones more often, the Western
+// Plaguelands cauldrons between the Bulwark and the fields five times); a
+// return does only what opened since (quest chains that go to another zone
+// and back: Scholomance and the Argent Dawn turn-ins, Loramus in Azshara); a
+// home package runs once. More makes the route infeasible. Route
 // rules (packages only, not guide sequences; docs/SIMULATION.md "Starts"):
 //   - home first: every home package (start zone 1-5; Skyborne: Zephras
 //     Isle) before any other package, else the route is infeasible;
@@ -36,6 +38,16 @@
 //     followed as a plan, under-levelled). Off in search, where it would
 //     turn the gate into "grind anywhere".
 // After the last package the character grinds to 60 at the best site for its level.
+//
+// Completionist runs (run.completionist, docs/SIMULATION.md "Completionist"):
+// reaching 60 does not end the route (`capped`: no more XP, quests still
+// count), nothing is ground after the last package, and the route's cost is
+// the time to its last step plus the policies: grinding and zone changes as
+// above, `greyWeight` × the time to grind back the XP quests lost by being
+// turned in above their level (`greySec`, all of it at 60), `missWeight`
+// per quest of the run (the eligible set) left undone, and `returnWeight`
+// per return to a package already run (`returns`): a zone visit does what it
+// can in one go, and comes back only when that clearly pays.
 
 const { Travel } = require('./travel');
 const { MOBL, K_ACCEPT, K_TASK, K_TURNIN, K_GRIND, K_DUNGEON, W_KILL, W_USE, W_ESCORT, W_BUY } = require('./run');
@@ -51,10 +63,12 @@ const J_TASK = 2;
 const J_KNOWN = 3;
 const J_PKG = 4;
 const J_DUNGEON = 5;
-const J_VISIT2 = 6;
-const J_VISIT3 = 7;
+const J_VISIT = 6; // a counter (returns to the package), undone by decrement
 
 const MAX_VISITS = 3;
+const COMPLETIONIST_MAX_VISITS = 6;
+// Runs package p may have on route `run`.
+const maxVisits = (run) => (run.completionist ? COMPLETIONIST_MAX_VISITS : MAX_VISITS);
 
 class Evaluator {
 	constructor(run, tables, opts = {}) {
@@ -65,8 +79,8 @@ class Evaluator {
 		this.taskDone = new Uint8Array(run.taskPt.length);
 		this.known = new Uint8Array(run.N);
 		this.usedPkg = new Uint8Array(run.P);
-		this.visit2 = new Uint8Array(run.P); // a second visit of the package
-		this.visit3 = new Uint8Array(run.P); // a third
+		this.returns1 = new Uint8Array(run.P); // returns to the package after its first run
+		this.maxReturns = maxVisits(run) - 1;
 		this.dungeonDone = new Uint8Array(Math.max(1, (run.dungeons || []).length));
 		// Steps of the package being run whose accept (or dungeon) was deferred
 		// as too low: sized for the longest package.
@@ -100,8 +114,7 @@ class Evaluator {
 		this.taskDone.fill(0);
 		this.known.fill(0);
 		this.usedPkg.fill(0);
-		this.visit2.fill(0);
-		this.visit3.fill(0);
+		this.returns1.fill(0);
 		this.dungeonDone.fill(0);
 		this.levelTimes.fill(0);
 		this.jLen = 0;
@@ -133,7 +146,12 @@ class Evaluator {
 		this.steps = 0;
 		this.catchUpSec = 0;
 		this.zoneChanges = 0;
+		this.returns = 0;
 		this.awayPending = false;
+		this.capped = false;
+		this.xpLost = 0;
+		this.greySec = 0;
+		this.greyQuests = 0;
 	}
 
 	snapshot() {
@@ -144,14 +162,17 @@ class Evaluator {
 			infeasible: this.infeasible, hearths: this.hearths, flights: this.flights, levelFrom: this.level,
 			xpDungeon: this.xpDungeon, dungeonSec: this.dungeonSec, dungeonsRun: this.dungeonsRun,
 			homeLeft: this.homeLeft, unreachable: this.unreachable, riskCrossings: this.riskCrossings, steps: this.steps, catchUpSec: this.catchUpSec,
-			zoneChanges: this.zoneChanges,
+			zoneChanges: this.zoneChanges, returns: this.returns, capped: this.capped, xpLost: this.xpLost, greySec: this.greySec, greyQuests: this.greyQuests,
 		};
 	}
 
 	restore(s) {
 		// Undo journaled writes back to the snapshot.
-		const arrs = [this.done, this.active, this.taskDone, this.known, this.usedPkg, this.dungeonDone, this.visit2, this.visit3];
-		for (let k = this.jLen - 1; k >= s.j; k--) arrs[this.jArr[k]][this.jIdx[k]] ^= 1;
+		const arrs = [this.done, this.active, this.taskDone, this.known, this.usedPkg, this.dungeonDone, this.returns1];
+		for (let k = this.jLen - 1; k >= s.j; k--) {
+			if (this.jArr[k] === J_VISIT) this.returns1[this.jIdx[k]]--;
+			else arrs[this.jArr[k]][this.jIdx[k]] ^= 1;
+		}
 		this.jLen = s.j;
 		for (let l = s.level + 1; l <= 60; l++) this.levelTimes[l] = 0;
 		this.time = s.time;
@@ -182,23 +203,29 @@ class Evaluator {
 		this.steps = s.steps;
 		this.catchUpSec = s.catchUpSec;
 		this.zoneChanges = s.zoneChanges;
+		this.returns = s.returns;
+		this.capped = s.capped;
+		this.xpLost = s.xpLost;
+		this.greySec = s.greySec;
+		this.greyQuests = s.greyQuests;
 	}
 
 	// Flip a 0 flag to 1, journaled when trial moves are active.
 	set1(arrId, arr, i) {
 		arr[i] = 1;
-		if (this.journaling) {
-			if (this.jLen >= this.jArr.length) {
-				const a = new Int32Array(this.jArr.length * 2);
-				a.set(this.jArr);
-				this.jArr = a;
-				const b = new Int32Array(this.jIdx.length * 2);
-				b.set(this.jIdx);
-				this.jIdx = b;
-			}
-			this.jArr[this.jLen] = arrId;
-			this.jIdx[this.jLen++] = i;
+		if (this.journaling) this.journal(arrId, i);
+	}
+	journal(arrId, i) {
+		if (this.jLen >= this.jArr.length) {
+			const a = new Int32Array(this.jArr.length * 2);
+			a.set(this.jArr);
+			this.jArr = a;
+			const b = new Int32Array(this.jIdx.length * 2);
+			b.set(this.jIdx);
+			this.jIdx = b;
 		}
+		this.jArr[this.jLen] = arrId;
+		this.jIdx[this.jLen++] = i;
 	}
 	// Turn-off of `active` at turn-in: journaled as a flip too.
 	set0Active(i) {
@@ -226,7 +253,9 @@ class Evaluator {
 		if (this.level >= 60) {
 			this.level = 60;
 			this.xp = 0;
-			this.finished = true;
+			// A completionist route goes on at 60 for the quests left.
+			if (this.run.completionist) this.capped = true;
+			else this.finished = true;
 			return;
 		}
 		this.time += this.p.levelOverhead;
@@ -237,8 +266,9 @@ class Evaluator {
 	}
 
 	gain(amount) {
+		if (this.capped) return;
 		this.xp += amount;
-		while (!this.finished && this.xp >= LEVEL_XP[this.level]) this.levelUp();
+		while (!this.finished && !this.capped && this.xp >= LEVEL_XP[this.level]) this.levelUp();
 	}
 
 	// Grind until `level` (+ xpInto) at the best site for the current level.
@@ -328,7 +358,7 @@ class Evaluator {
 				const walk = (r.wSpacing[w] * p.spacing) / (p.runSpeed * (this.mounted ? 1 : 1));
 				while (n > 0 && !this.finished) {
 					const L = this.level;
-					const xpPer = t.killX[L * MOBL + M] * (elite ? 2 : 1);
+					const xpPer = this.capped ? 0 : t.killX[L * MOBL + M] * (elite ? 2 : 1);
 					const tPer = t.killT[L * MOBL + M] * (elite ? p.eliteTime : 1) + walk;
 					if (xpPer <= 0) {
 						this.time += n * tPer;
@@ -420,7 +450,14 @@ class Evaluator {
 			}
 			this.time += this.p.talkSec;
 			const d = this.level - r.qLevel[q];
-			const xp = this.t.qFull[q] * SHARE[d < 0 ? 0 : d > 63 ? 63 : d];
+			const share = this.capped ? 0 : SHARE[d < 0 ? 0 : d > 63 ? 63 : d];
+			const xp = this.t.qFull[q] * share;
+			if (share < 1 && this.run.completionist) {
+				const lost = this.t.qFull[q] - xp;
+				this.xpLost += lost;
+				this.greySec += lost / this.t.grindRate[Math.max(1, Math.min(60, r.qLevel[q]))];
+				this.greyQuests++;
+			}
 			this.set0Active(q);
 			this.set1(J_DONE, this.done, q);
 			this.questsDone++;
@@ -480,12 +517,12 @@ class Evaluator {
 	}
 
 	// Whether package p may run next: home packages first, once each; any
-	// other package up to MAX_VISITS times (flags usedPkg, visit2, visit3).
+	// other package up to maxVisits(run) times (usedPkg, then returns1).
 	canVisit(p) {
 		const r = this.run;
 		if (this.homeLeft > 0 && !r.pkgHome[p]) return false;
 		if (!this.usedPkg[p]) return true;
-		return !r.pkgHome[p] && !this.visit3[p];
+		return !r.pkgHome[p] && this.returns1[p] < this.maxReturns;
 	}
 
 	// Run package p: its steps in tour order. An accept (or dungeon) above the
@@ -497,7 +534,7 @@ class Evaluator {
 	// (still too low: grinding first).
 	// Route rules (home first, away below level 10, catch-up): see the top.
 	// Returns false when the route is infeasible (a package run more than
-	// MAX_VISITS times or a home package twice, or a non-home package while
+	// maxVisits(run) times or a home package twice, or a non-home package while
 	// home packages are left).
 	runPackage(p) {
 		const r = this.run;
@@ -508,8 +545,11 @@ class Evaluator {
 		if (!this.usedPkg[p]) {
 			this.set1(J_PKG, this.usedPkg, p);
 			if (r.pkgHome[p]) this.homeLeft--;
-		} else if (!this.visit2[p]) this.set1(J_VISIT2, this.visit2, p);
-		else this.set1(J_VISIT3, this.visit3, p);
+		} else {
+			this.returns++;
+			this.returns1[p]++;
+			if (this.journaling) this.journal(J_VISIT, p);
+		}
 		// Away below level 10: grind to 10 before the package's first move
 		// (moveTo), so a package that does nothing grinds nothing.
 		this.awayPending = r.pkgAway[p] === 1 && this.level < r.homeLevel;
@@ -583,14 +623,14 @@ class Evaluator {
 	}
 
 	finish() {
-		if (!this.finished) this.grindTo(60);
+		if (!this.finished && !this.run.completionist) this.grindTo(60);
 	}
 
 	result(extra = {}) {
 		const timeTo = {};
 		for (let l = 10; l <= 60; l += 10) timeTo[l] = this.levelTimes[l];
 		return {
-			seconds: this.levelTimes[60] || this.time,
+			seconds: this.run.completionist ? this.time : this.levelTimes[60] || this.time,
 			feasible: !this.infeasible,
 			timeTo,
 			levelTimes: Array.from(this.levelTimes),
@@ -607,6 +647,7 @@ class Evaluator {
 			riskCrossings: this.riskCrossings,
 			catchUpSeconds: this.catchUpSec,
 			zoneChanges: this.zoneChanges,
+			...(this.run.completionist ? { missed: this.run.Q - this.questsDone, xpLost: Math.round(this.xpLost), greySeconds: this.greySec, greyQuests: this.greyQuests } : {}),
 			...extra,
 		};
 	}
@@ -633,8 +674,8 @@ class Evaluator {
 	// policies: routes level by quests, take a hub's quests and do them in one
 	// go, and switch zones when it is clearly worth it; with neither, the
 	// search ground or flew across continents wherever that saved a minute).
-	// Reported times (evaluate) stay real. The number of packages used is
-	// left in this.lastUsed.
+	// Reported times (evaluate) stay real. Completionist runs: see the top
+	// (policyCost). The number of packages used is left in this.lastUsed.
 	cost(route) {
 		this.reset();
 		let used = 0;
@@ -647,7 +688,15 @@ class Evaluator {
 		}
 		this.finish();
 		this.lastUsed = used;
-		return (this.levelTimes[60] || this.time) + ((this.p.grindWeight || 1) - 1) * this.grindSec + (this.p.zoneChange || 0) * this.zoneChanges;
+		return this.policyCost();
+	}
+
+	// The cost of the state reached (after finish()).
+	policyCost() {
+		const p = this.p;
+		const policy = ((p.grindWeight || 1) - 1) * this.grindSec + (p.zoneChange || 0) * this.zoneChanges;
+		if (this.run.completionist) return this.time + policy + (p.greyWeight || 0) * this.greySec + (p.missWeight || 0) * (this.run.Q - this.questsDone) + (p.returnWeight || 0) * this.returns;
+		return (this.levelTimes[60] || this.time) + policy;
 	}
 
 	packageRecord(p, s) {
@@ -656,7 +705,7 @@ class Evaluator {
 		return {
 			pkg: p, key: pk.key, zone: pk.zoneName,
 			arrive: s.time, leave: this.time,
-			levelIn: s.level + s.xp / LEVEL_XP[s.level], levelOut: this.level + (this.level < 60 ? this.xp / LEVEL_XP[this.level] : 0),
+			levelIn: s.level + (s.level < 60 ? s.xp / LEVEL_XP[s.level] : 0), levelOut: this.level + (this.level < 60 ? this.xp / LEVEL_XP[this.level] : 0),
 			xpQuest: this.xpQuest - s.xpQuest, xpKill: this.xpKill - s.xpKill, grind: this.grindSec - s.grindSec,
 			travel: this.travelSec - s.travelSec, quests: this.questsDone - s.questsDone, dungeon: this.dungeonSec - s.dungeonSec,
 			catchUp: this.catchUpSec - s.catchUpSec, risk: this.riskCrossings - s.riskCrossings,
@@ -686,4 +735,4 @@ class Evaluator {
 	}
 }
 
-module.exports = { Evaluator, SHARE, MAX_VISITS };
+module.exports = { Evaluator, SHARE, MAX_VISITS, maxVisits };

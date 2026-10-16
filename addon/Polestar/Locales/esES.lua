@@ -1045,6 +1045,7 @@ L["Exploration"] = "Exploración"
 L["Legacy"] = "Legado"
 L["Collectibles"] = "Coleccionables"
 L["Sections"] = "Secciones"
+-- L["Completionist"] = ""
 
 -- UI/Lookup.lua
 L["Companion"] = "Mascota de compañía"

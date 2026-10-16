@@ -1,0 +1,120 @@
+guide completionist/alliance/human/30-badlands-azshara
+title Badlands & Azshara
+faction Alliance
+race Human
+levels 48-50
+zone Azshara
+category Completionist
+folder Completionist · Human 40-50
+keywords completionist, every quest, Badlands, Azshara
+next completionist/alliance/human/31-feralas
+
+# Route: guide 30 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 48 to 50, 11
+# quests, 2.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Badlands, Azshara): Hammertoe's Digsite -> Dustwind Gulch ->
+# Hammertoe's Digsite -> Lethlor Ravine -> Hammertoe's Digsite -> Camp Cagg ->
+# Dustwind Gulch -> Camp Cagg -> Valormok -> Shadowsong Shrine -> Haldarr
+# Encampment -> Shadowsong Shrine -> Legashi Encampment -> ….
+#
+# Optional (elite: grouping up is advised): Tremors of the Earth (717;
+# Blacklash 50, Hematus 50).
+#
+# Profession quests here are not routed (they need the skill): 5141
+# Dragonscale Leatherworking.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Ribbly Screwspigot (4136), Kibler's Exotic Pets (4729),
+# En-Ay-Es-Tee-Why (4862).
+
+step Prospector Ryedol
+  zone Badlands
+  turnin 723
+  accept 724
+
+step Garek
+  accept 732
+
+step Sigrun Ironhew
+  accept 706
+
+step Lethlor Ravine: Black Drake's Heart
+  collect 4612 quest 706.1
+
+step Sigrun Ironhew
+  turnin 706
+
+step Camp Cagg: Sign of the Earth
+  collect 4640 quest 732.1
+
+step Garek
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 732
+  accept 717 optional
+  collect 4615 quest 717.1 optional
+  collect 4645 quest 717.2 optional
+
+step Camp Cagg: Silk Cloth
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 717 optional
+  collect 4306 quest 4449.2
+
+step Back to Darkshire
+  hearth "Darkshire"
+
+step Sanath Lim-yo
+  zone Azshara
+  accept 3381
+
+step Valormok: Undamaged Hippogryph Feather
+  collect 10450 quest 3381.1
+
+step Sanath Lim-yo
+  turnin 3381
+
+step Shadowsong Shrine
+  getfp "Talrendis Point"
+  accept 5535
+  accept 5536
+
+step Shadowsong Shrine: Highborne Apparition
+  kill 6116 quest 5535.1
+
+step Shadowsong Shrine: Highborne Lichling
+  kill 6117 quest 5535.2
+
+step Haldarr Encampment: Haldarr Satyr and Haldarr Trickster and more
+  kill 6125 quest 5536.1
+  kill 6126 quest 5536.2
+  kill 6127 quest 5536.3
+
+step Loh'atu
+  turnin 5535
+  turnin 5536
+
+step Kim'jael
+  accept 3601
+
+step Thalassian Base Camp: Kim'Jael's Compass and Kim'Jael's Scope and more
+  collect 10717 quest 3601.1
+  collect 10715 quest 3601.2
+  collect 10722 quest 3601.3
+  collect 10718 quest 3601.4
+
+step Kim'jael
+  turnin 3601
+  accept 5534
+
+step The Shattered Strand: Some Rune
+  collect 13815 quest 5534.1
+
+step Kim'jael
+  turnin 5534
+
+step Lower Wilds
+  getfp "Thalanaar"
+  note "Profession quests here, for players with the skill: Dragonscale Leatherworking (Leatherworking 225)."

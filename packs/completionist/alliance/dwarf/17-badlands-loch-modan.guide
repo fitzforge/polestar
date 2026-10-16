@@ -1,0 +1,198 @@
+guide completionist/alliance/dwarf/17-badlands-loch-modan
+title Badlands & Loch Modan
+faction Alliance
+race Dwarf
+levels 37-39
+zone Badlands
+category Completionist
+folder Completionist · Dwarf 30-40
+keywords completionist, every quest, Badlands, Loch Modan, The Barrens
+next completionist/alliance/dwarf/18-stranglethorn-vale
+
+# Route: guide 17 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 37 to 39, 29
+# quests, 3.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Badlands, Loch Modan, The Barrens): Agmond's End -> Valley of Fangs ->
+# Agmond's End -> Valley of Fangs -> Agmond's End -> Valley of Fangs -> The
+# Maker's Terrace -> Agmond's End -> The Dustbowl -> Kargath -> The Dustbowl
+# -> Hammertoe's Digsite -> Valley of Fangs -> ….
+#
+# Optional (elite: grouping up is advised): The Black Box (708; Zaricotl
+# 55-56); Amulet of Secrets (722; Magregan Deepshadow 38).
+#
+# Profession quests here are not routed (they need the skill): 1559 Flash Bomb
+# Recipe.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Ribbly Screwspigot (4136), Kibler's Exotic Pets (4729),
+# En-Ay-Es-Tee-Why (4862), Mortality Wanes (1142), Willix the Importer (1144),
+# Blueleaf Tubers (1221), Blueleaf Tubers (1221), Deviate Eradication (1487),
+# Deviate Eradication (1487), The Glowing Shard (6981).
+
+step Theldurin the Lost
+  accept 709
+
+step Battered Dwarven Skeleton
+  turnin 738
+  accept 739
+
+step Agmond's End: Murdaloc and Stonevault Bonesnapper
+  kill 2945 quest 739.1
+  kill 2893 quest 739.2
+
+step Rigglefuzz
+  accept 705
+  accept 2418 optional
+  turnin 1106
+  accept 1108
+
+step Agmond's End: Indurium Flake
+  tip Zaricotl (level 55-56) is elite: grouping up is advised unless you are well above level 56. Zaricotl drops the Corroded Black Box: right-click it to start The Black Box.
+  collect 4613 x1 optional
+  accept 708 optional
+  collect 5797 quest 1108.1
+
+step Martek the Exiled
+  turnin 1108
+  accept 1137
+
+step The Maker's Terrace: Solution to Doom
+  complete 709
+  collect 8009 quest 2418.1 optional
+  collect 8052 quest 2418.2 optional
+
+step Theldurin the Lost
+  turnin 2418 optional
+  turnin 709
+  accept 727
+
+step Lotwil Veriatus
+  accept 710
+
+step The Dustbowl: Small Stone Shard
+  collect 4626 quest 710.1
+
+step Lotwil Veriatus
+  turnin 710
+  accept 711
+
+step Kargath: Large Stone Slab
+  collect 4627 quest 711.1
+
+step Lotwil Veriatus
+  turnin 711
+  accept 712
+
+step Crumpled Map
+  accept 720
+
+step Sigrun Ironhew
+  accept 718
+  turnin 720
+  accept 719
+  accept 721
+
+step Hammertoe's Digsite: Ryedol's Lucky Pick
+  collect 4616 quest 719.1
+
+step Prospector Ryedol
+  turnin 719
+
+step Rigglefuzz
+  accept 703
+
+step Valley of Fangs: Buzzard Wing
+  collect 3404 quest 703.1
+
+step Rigglefuzz
+  turnin 703
+
+step Camp Kosh: Mirages
+  complete 718
+
+step Sigrun Ironhew
+  turnin 718
+  accept 733
+
+step Camp Kosh: Scrap Metal
+  collect 4630 quest 733.1
+
+step Sigrun Ironhew
+  turnin 733
+
+step Camp Cagg: Bracers of Rock Binding
+  collect 4628 quest 712.1
+
+step Lotwil Veriatus
+  turnin 712
+  accept 716
+
+step The Dustbowl: Stone Is Better than Cloth
+  complete 716
+
+step Lucien Tosselwrench
+  turnin 716
+
+step The Dustbowl: Rock Elemental Shard
+  collect 7848 quest 2500.3
+
+step Angor Fortress: Crag Coyote Fang
+  collect 7846 quest 2500.2
+
+step The Maker's Terrace: Buzzard Gizzard
+  collect 7847 quest 2500.1
+
+step Prospector Ironband
+  zone Loch Modan
+  turnin 739
+
+step Hammertoe Grez
+  turnin 721
+
+step Prospector Ironband
+  accept 704
+
+step Back to Stoutlager Inn
+  hearth "Stoutlager Inn"
+
+step Stonesplinter Valley: Carved Stone Urn
+  collect 4610 quest 704.1
+
+step Prospector Ironband
+  turnin 704
+
+step Ghak Healtouch
+  tip Magregan Deepshadow (level 38) is elite: grouping up is advised unless you are well above level 38.
+  accept 722 optional
+  turnin 2500
+  accept 17
+
+step Stonesplinter Valley: Magenta Fungus Cap
+  collect 8047 quest 17.1
+
+step Ghak Healtouch
+  turnin 17
+
+step Hoofprints
+  zone The Barrens
+  accept 1284
+  accept 1253
+  accept 1252
+
+step Ratchet
+  sethome "Ratchet"
+  accept 1112
+
+step Gazlowe
+  accept 1180
+
+step Booty Bay
+  getfp "Booty Bay"
+
+step Booty Bay
+  sethome "Booty Bay"
+  note "Profession quests here, for players with the skill: Flash Bomb Recipe (Engineering 1)."

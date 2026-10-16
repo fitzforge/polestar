@@ -1,0 +1,181 @@
+guide completionist/alliance/nightelf/21-swamp-of-sorrows-desolace
+title Swamp of Sorrows & Desolace
+faction Alliance
+race NightElf
+levels 42-44
+zone Swamp of Sorrows
+category Completionist
+folder Completionist · NightElf 40-50
+keywords completionist, every quest, Swamp of Sorrows, Desolace, Alterac Mountains, Silverpine Forest
+next completionist/alliance/nightelf/22-hillsbrad-foothills
+
+# Route: guide 21 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 42 to
+# 44, 33 quests, 3.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Swamp of Sorrows, Desolace, Alterac Mountains, Silverpine Forest):
+# Splinterspear Junction -> The Harborage -> The Shifting Mire -> Fallow
+# Sanctuary -> The Shifting Mire -> The Harborage -> Splinterspear Junction ->
+# Stagalbog -> Splinterspear Junction -> Fallow Sanctuary -> Misty Valley ->
+# Pool of Tears -> Gelkis Village -> ….
+#
+# Optional (elite: grouping up is advised): Khan Hratha (1380; Khan Hratha
+# 42); Shadowshard Fragments (7070; Shadowshard Rumbler 40-41, Shadowshard
+# Smasher 41-42, Shadowshard Thunderer 38); The Perenolde Tiara (543;
+# Grel'borg the Miser 39); The Star, the Hand and the Heart (735; Grel'borg
+# the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Legends of Maraudon (7044), The Pariah's Instructions
+# (7067), Starving Arcane (92457), Heart of Disruption (92458), Past Due
+# (96800), Past Due (96800), Starving Arcane (92457), Heart of Disruption
+# (92458).
+
+step Amaryllis Webb
+  accept 93176
+  turnin 93176
+  accept 1396
+
+step Splinterspear Junction: Sorrow Spinner and Swamp Jaguar and more
+  kill 858 quest 1396.2
+  kill 767 quest 1396.3
+  kill 1084 quest 1396.1
+
+step Watcher Biggs
+  turnin 1396
+  accept 1421
+
+step Magtoor
+  accept 1389
+
+step The Shifting Mire
+  tip Noboru the Cudgel drops the Noboru's Cudgel: right-click it to start Noboru the Cudgel.
+  collect 6196 x1
+  accept 1392
+
+step Fallow Sanctuary: Draenethyst Shard
+  collect 6190 quest 1373.1
+
+step Galen Goodward
+  accept 1393
+
+step Fallow Sanctuary: The Lost Caravan
+  complete 1421
+
+step Fallow Sanctuary
+  tip Scattered Crate drops the Lost Supplies: right-click it to start The Lost Supplies.
+  collect 6172 x1
+  accept 1423
+
+step Fallow Sanctuary: Draenethyst Crystal
+  collect 6071 quest 1389.1
+
+step The Shifting Mire: Galen's Escape
+  complete 1393
+
+step Galen's Strongbox
+  turnin 1393
+
+step Magtoor
+  turnin 1389
+  turnin 1392
+
+step Watcher Biggs
+  turnin 1421
+  accept 1398
+
+step Stagalbog: Sundried Driftwood
+  collect 6146 quest 1398.1
+
+step Watcher Biggs
+  turnin 1398
+  accept 1425
+
+step Fallow Sanctuary: Pristine Crawler Leg
+  collect 5938 quest 1258.1
+
+step Misty Valley: Khadgar's Essays on Dimensional Convergence
+  collect 6065 quest 1364.1
+
+step Pool of Tears: In Search of The Temple
+  complete 1448
+
+step Back to Booty Bay
+  hearth "Booty Bay"
+  accept 7028 optional
+  collect 17684 quest 7028.1 optional
+
+step Uthek the Wise
+  zone Desolace
+  turnin 7028 optional
+  turnin 93041
+  turnin 93128
+  turnin 1373
+  accept 1374
+
+step Magram Village: Khan Jehn's Head
+  collect 6072 quest 1374.1
+
+step Uthek the Wise
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1374
+  accept 1380 optional
+  collect 6077 quest 1380.1 optional
+
+step Nijel's Point
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1380 optional
+  sethome "Nijel's Point"
+  turnin 6141
+
+step Back to Nijel's Point
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  collect 17756 quest 7070.1 optional
+  hearth "Nijel's Point"
+
+step Bath'rah the Windwatcher
+  zone Alterac Mountains
+  accept 96137
+
+step Gallows' Corner: Recovered Tome
+  collect 3658 quest 540.1
+
+step Ruins of Alterac: Preserving Knowledge
+  complete 540
+
+step Strahnbrad: Alterac Signet Ring and Head of Baron Vardus
+  collect 3505 quest 512.1
+  collect 3626 quest 523.1
+
+step Gallows' Corner: Dirty Knucklebones
+  collect 2843 quest 500.1
+
+step Corrahn's Dagger: Hulking Mountain Lion
+  kill 2407 quest 564.2
+
+step The Headland: Mountain Lion
+  kill 2406 quest 564.1
+
+step Archmage Ansirem Runeweaver
+  turnin 602
+
+step Dandred's Fold
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44. Worn Wooden Chest drops the Ensorcelled Parchment: right-click it to start The Ensorcelled Parchment.
+  collect 3684 quest 543.1 optional
+  collect 4646 quest 735.1 optional
+  collect 3706 x1
+  accept 551
+
+step Archmage Ansirem Runeweaver
+  accept 603
+
+step Image of Archmage Modera
+  zone Silverpine Forest
+  accept 92459
+  turnin 92432
+
+step Southshore
+  sethome "Southshore"

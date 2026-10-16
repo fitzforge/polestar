@@ -1,0 +1,86 @@
+guide completionist/horde/skyborne/47-tirisfal-glades-stranglethorn-vale
+title Tirisfal Glades & Stranglethorn Vale
+faction Horde
+race Skyborne
+levels 59-60
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Felwood, Tirisfal Glades, Stranglethorn Vale
+next completionist/horde/skyborne/48-stonetalon-mountains-thunder-bluff
+
+# Route: guide 47 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 59 to
+# 60, 18 quests, 6.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Felwood, Tirisfal Glades, Stranglethorn Vale): Emerald Sanctuary ->
+# Jaedenar -> The Bulwark -> Booty Bay -> Mosh'Ogg Ogre Mound -> Zuuldaia
+# Ruins.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Vorrel's Revenge (1051), Barov Family Fortune (5341), The
+# Wrath of Rath'mael (92422), The Wrath of Rath'mael (92422), Crest of
+# Lordaeron (95204), Unending Torment (97288).
+
+step Kelek Skykeeper
+  zone Felwood
+  turnin 5128
+
+step Trull Failbane
+  turnin 4882
+  turnin 4721
+  accept 4883
+
+step Back to Undercity
+  hearth "Undercity"
+
+step The Bulwark: Arcane Quickener
+  zone Tirisfal Glades
+  buy 13320 x1 nearest
+
+step Shadow Priestess Vandis
+  turnin 5236
+  accept 5238
+  turnin 5238
+  turnin 5804
+  accept 5511
+  turnin 5511
+
+step Booty Bay
+  zone Stranglethorn Vale
+  sethome "Booty Bay"
+  turnin 580
+  turnin 348
+
+step Galvan the Ancient
+  turnin 3621
+  accept 3625
+
+step Mosh'Ogg Ogre Mound: Enchanted Azsharite Fel Weaponry
+  complete 3625
+
+step Galvan the Ancient
+  turnin 3625
+  accept 3626
+
+step Vinchaxa
+  accept 8195 optional
+  accept 8238 optional
+  accept 8239 optional
+  accept 8240
+  turnin 8240
+  collect 19698 quest 8195.1 optional
+  collect 19699 quest 8195.2 optional
+  collect 19700 quest 8195.3 optional
+  collect 19701 quest 8238.1 optional
+  collect 19702 quest 8238.2 optional
+  collect 19703 quest 8238.3 optional
+  collect 19704 quest 8239.1 optional
+  collect 19705 quest 8239.2 optional
+  collect 19706 quest 8239.3 optional
+  turnin 8195 optional
+  turnin 8238 optional
+  turnin 8239 optional

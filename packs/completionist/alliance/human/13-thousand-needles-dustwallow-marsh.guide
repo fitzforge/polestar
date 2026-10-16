@@ -1,0 +1,158 @@
+guide completionist/alliance/human/13-thousand-needles-dustwallow-marsh
+title Thousand Needles & Dustwallow Marsh
+faction Alliance
+race Human
+levels 33-36
+zone Dustwallow Marsh
+category Completionist
+folder Completionist · Human 30-40
+keywords completionist, every quest, Thousand Needles, Dustwallow Marsh
+next completionist/alliance/human/14-the-barrens-hillsbrad-foothills
+
+# Route: guide 13 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 33 to 36, 25
+# quests, 3.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Thousand Needles, Dustwallow Marsh): The Shimmering Flats -> The Great
+# Lift -> Witch Hill -> Theramore Isle -> Witch Hill -> Brackenwall Village ->
+# Witch Hill -> Theramore Isle -> Brackenwall Village -> Witch Hill ->
+# Theramore Isle -> Brackenwall Village -> Theramore Isle.
+#
+# Optional (elite: grouping up is advised): Encrusted Tail Fins (1107;
+# Saltscale Warrior 35-36, Saltscale Oracle 36-37, Saltscale Tide Lord 37,
+# Saltscale Forager 35-36, Saltscale Hunter 35-36); A Host of Evil (6626;
+# Razorfen Battleguard 33-34, Razorfen Thornweaver 33-34, Death's Head Cultist
+# 33-34).
+#
+# Profession quests here are not routed (they need the skill): 5143 Tribal
+# Leatherworking; 6607 Nat Pagle, Angler Extreme; 6624 Triage.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Crone of the Kraul (1101), Gahz'rilla (2770), Tiara of
+# the Deep (2846).
+
+step Pozzik
+  zone Thousand Needles
+  accept 1176
+  accept 1175
+  accept 1105
+  accept 1104
+  accept 1110
+  accept 1111
+  accept 5762
+
+step The Shimmering Flats: Salty Scorpid Venom
+  collect 5794 quest 1104.1
+
+step The Shimmering Flats: Saltstone Basilisk
+  kill 4147 quest 1175.1
+
+step The Shimmering Flats: Hardened Tortoise Shell
+  collect 5795 quest 1105.1
+
+step The Shimmering Flats: Saltstone Crystalhide and Saltstone Gazer and more
+  kill 4151 quest 1175.2
+  kill 4150 quest 1175.3
+  collect 5798 quest 1110.1
+
+step Kravel Koalbeard
+  tip Saltscale Warrior (level 35-36), Saltscale Oracle (level 36-37), Saltscale Tide Lord (level 37) and 2 more are elite: grouping up is advised unless you are well above level 37.
+  turnin 1110
+  turnin 1105
+  turnin 1104
+  accept 1106
+  accept 1107 optional
+
+step Trackmaster Zherin
+  turnin 1175
+
+step The Shimmering Flats: Hollow Vulture Bone
+  collect 5848 quest 1176.1
+
+step Pozzik
+  turnin 1176
+  accept 1178
+
+step The Great Lift
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34. Henrig Lonebrow's Journal drops the Henrig Lonebrow's Journal: right-click it to start Lonebrow's Journal.
+  accept 6626 optional
+  collect 5791 x1
+  accept 1100
+
+step 'Swamp Eye' Jarl
+  zone Dustwallow Marsh
+  accept 1218
+  accept 1219
+
+step 'Stinky' Ignatz
+  accept 1222
+
+step Witch Hill: Stinky's Escape
+  complete 1222
+
+step Theramore Isle
+  sethome "Theramore Isle"
+  turnin 1222
+  getfp "Theramore"
+  turnin 1219
+
+step Theramore Isle: Soothing Spices
+  buy 3713 x3 nearest
+
+step Theramore Lieutenant
+  accept 1220
+  turnin 1220
+
+step 'Swamp Eye' Jarl
+  turnin 1218
+  accept 1206
+
+step Brackenwall Village: Unpopped Darkmist Eye
+  collect 5884 quest 1206.1
+
+step 'Swamp Eye' Jarl
+  turnin 1206
+  accept 1203
+
+step Witch Hill: Jarl Needs a Blade
+  complete 1203
+
+step 'Swamp Eye' Jarl
+  turnin 1203
+
+step Back to Theramore Isle
+  hearth "Theramore Isle"
+
+step Morgan Stern
+  accept 1204
+
+step Theramore Isle: Forked Mudrock Tongue
+  collect 5883 quest 1204.1
+
+step Morgan Stern
+  turnin 1204
+
+step Mudcrush Durtfeet
+  accept 1177
+
+step Witch Hill: Mirefin Head
+  collect 5847 quest 1177.1
+
+step Morgan Stern
+  accept 1258
+
+step Mudcrush Durtfeet
+  turnin 1177
+
+step Fiora Longears
+  accept 1133
+  accept 1135
+  turnin 1132
+  turnin 1302
+
+step Ratchet
+  sethome "Ratchet"
+  note "Profession quests here, for players with the skill: Tribal Leatherworking (Leatherworking 225), Nat Pagle, Angler Extreme (Fishing 225), Triage (First Aid 225)."

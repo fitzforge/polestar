@@ -1,0 +1,95 @@
+guide completionist/horde/undead/30-burning-steppes-badlands
+title Burning Steppes & Badlands
+faction Horde
+race Undead
+levels 52-53
+zone Burning Steppes
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Burning Steppes, Badlands, Arathi Highlands
+next completionist/horde/undead/31-western-plaguelands-westfall
+
+# Route: guide 30 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 52 to
+# 53, 11 quests, 1.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Burning Steppes, Badlands, Arathi Highlands): Ruins of Thaurissan ->
+# Blackrock Stronghold -> Ruins of Thaurissan -> Blackrock Mountain -> Kargath
+# -> Camp Cagg -> Kargath -> Camp Cagg -> Faldir's Cove.
+#
+# Optional (elite: grouping up is advised): Broken Alliances (793; Blacklash
+# 50, Hematus 50); Recover the Key! (7846; Hitah'ya the Keeper 51); Wanted:
+# Vile Priestess Hexx and Her Minions (7861; Vile Priestess Hexx 51,
+# Vilebranch Aman'zasi Guard 50-51).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Dark Iron Legacy (3802), A Taste of Flame (4024),
+# Precarious Predicament (4121), The Heart of the Mountain (4123), Egg
+# Freezing (4734), Egg Collection (4735), Find the Gems and Power Source
+# (2339), Disharmony of Fire (3907), Commander Gor'shak (3981), The Rise of
+# the Machines (4063), KILL ON SIGHT: Dark Iron Dwarves (4081), KILL ON SIGHT:
+# High Ranking Dark Iron Officials (4082), Operation: Death to Angerforge
+# (4132), Lost Thunderbrew Recipe (4134), Ribbly Screwspigot (4136), The Pack
+# Mistress (4724), Kibler's Exotic Pets (4729), The Darkstone Tablet (4768),
+# En-Ay-Es-Tee-Why (4862), Warlord's Command (4903), Operative Bijou (4981),
+# Dragonmaw Rumors (95663).
+
+step Maxwort Uberglint
+  accept 4296
+  accept 4726
+
+step Ruins of Thaurissan: Broodling Essence
+  collect 12283 quest 4726.1
+
+step Tinkee Steamboil
+  turnin 4726
+  accept 4808
+
+step Blackrock Stronghold: Tablet Transcript
+  collect 11470 quest 4296.1
+
+step Maxwort Uberglint
+  turnin 4296
+
+step Franclorn Forgewright
+  accept 3801
+  turnin 3801
+  accept 4022 optional
+  complete 4022 optional
+  turnin 4022 optional
+
+step Kargath
+  zone Badlands
+  sethome "Kargath"
+  accept 782
+
+step Camp Cagg: Sign of the Earth
+  collect 4640 quest 782.1
+
+step Gorn
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 782
+  accept 793 optional
+  collect 4615 quest 793.1 optional
+  collect 4645 quest 793.2 optional
+
+step Camp Cagg: Silk Cloth
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 793 optional
+  collect 4306 quest 4449.2
+
+step Shakes O'Breen
+  zone Arathi Highlands
+  accept 667
+
+step Faldir's Cove: Death From Below
+  complete 667
+
+step Shakes O'Breen
+  tip Hitah'ya the Keeper (level 51), Vile Priestess Hexx (level 51) and Vilebranch Aman'zasi Guard (level 50-51) are elite: grouping up is advised unless you are well above level 51.
+  turnin 667
+  collect 19064 quest 7846.1 optional
+  kill 2648 quest 7861.2 optional

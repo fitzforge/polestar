@@ -1,0 +1,161 @@
+guide completionist/horde/orc/22-arathi-highlands
+title Arathi Highlands
+faction Horde
+race Orc
+levels 42-44
+zone Arathi Highlands
+category Completionist
+folder Completionist · Orc 40-50
+keywords completionist, every quest
+next completionist/horde/orc/23-thousand-needles
+
+# Route: guide 22 of 49 of the simulator's completionist route for Orc (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 42 to 44, 28
+# quests, 3.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Arathi Highlands): Hammerfall -> Circle of East Binding -> Hammerfall
+# -> Witherbark Village -> Boulderfist Hall -> Hammerfall -> Boulderfist Hall
+# -> Hammerfall -> Northfold Manor -> Circle of West Binding -> Circle of
+# Inner Binding -> Hammerfall -> Circle of Inner Binding -> ….
+#
+# Optional (elite: grouping up is advised): Call to Arms (679; Boulderfist
+# Shaman 38-39, Boulderfist Lord 39-40); The Real Threat (680; Or'Kalar 40);
+# Breaking the Keystone (652; Fozruk 42); Sigil of Strom (639; Syndicate
+# Prowler 36-37, Syndicate Conjuror 35-36, Syndicate Magus 37-38); Foul Magics
+# (673; Marez Cowl 40).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Dragonmaw Rumors (95663).
+
+step Tor'gan
+  accept 671
+  accept 677
+  accept 655
+  turnin 655
+  accept 672
+
+step Hammerfall: Highland Raptor Eye
+  collect 4512 quest 672.1
+
+step Tor'gan
+  turnin 672
+  accept 674
+  turnin 674
+  accept 675
+  turnin 675
+  accept 701
+
+step Shards of Myzrael
+  turnin 635
+  accept 642
+
+step Hammerfall: Mote of Myzrael
+  collect 4435 quest 642.1
+
+step Iridescent Shards
+  turnin 642
+  accept 651
+
+step Witherbark Village: Witherbark Axe Thrower and Witherbark Witch Doctor
+  kill 2554 quest 677.1
+  kill 2555 quest 677.3
+
+step Witherbark Village: Witherbark Headhunter
+  kill 2556 quest 677.2
+
+step Boulderfist Hall: Raptor Heart
+  collect 4513 quest 701.1
+
+step Tor'gan
+  turnin 701
+  accept 702
+  turnin 677
+  accept 678
+  turnin 702
+  accept 847
+
+step Boulderfist Hall: Boulderfist Brute and Boulderfist Magus
+  kill 2566 quest 678.1
+  kill 2567 quest 678.2
+
+step Back to Hammerfall
+  hearth "Hammerfall"
+
+step Tor'gan
+  tip Boulderfist Shaman (level 38-39), Boulderfist Lord (level 39-40) and Or'Kalar (level 40) are elite: grouping up is advised unless you are well above level 40.
+  turnin 847
+  turnin 678
+  accept 679 optional
+  accept 680 optional
+
+step Northfold Manor: Bloodstone Amulet
+  collect 4495 quest 671.1
+
+step Circle of West Binding: Stones of Binding
+  complete 651
+
+step Stone of Inner Binding
+  tip Fozruk (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 651
+  accept 652 optional
+
+step Korin Fel
+  tip Fozruk (level 42), Boulderfist Shaman (level 38-39), Boulderfist Lord (level 39-40) and Or'Kalar (level 40) are elite: grouping up is advised unless you are well above level 42.
+  collect 4469 quest 652.1 optional
+  kill 2570 quest 679.1 optional
+  kill 2571 quest 679.2 optional
+  collect 4551 quest 680.1 optional
+  turnin 680 optional
+  turnin 679 optional
+  turnin 671
+
+step Keystone
+  tip Fozruk (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 652 optional
+  accept 688
+
+step Zaruk
+  tip Syndicate Prowler (level 36-37), Syndicate Conjuror (level 35-36), Syndicate Magus (level 37-38) and Marez Cowl (level 40) are elite: grouping up is advised unless you are well above level 40.
+  turnin 688
+  accept 687
+  accept 639 optional
+  turnin 638
+  accept 673 optional
+
+step Shakes O'Breen
+  tip Marez Cowl (level 40), Syndicate Prowler (level 36-37), Syndicate Conjuror (level 35-36) and Syndicate Magus (level 37-38) are elite: grouping up is advised unless you are well above level 40.
+  collect 4510 quest 673.1 optional
+  collect 4440 quest 639.1 optional
+  turnin 670
+
+step Back to Hammerfall
+  tip Marez Cowl (level 40), Syndicate Prowler (level 36-37), Syndicate Conjuror (level 35-36) and Syndicate Magus (level 37-38) are elite: grouping up is advised unless you are well above level 40.
+  hearth "Hammerfall"
+  turnin 673 optional
+  turnin 639 optional
+  accept 640 optional
+
+step Tor'gan
+  collect 4450 quest 640.1 optional
+  turnin 640 optional
+  accept 641
+  turnin 641
+  accept 643 optional
+  collect 4458 quest 643.1 optional
+  turnin 643 optional
+  accept 644 optional
+
+step Zengu
+  collect 4466 quest 644.1 optional
+  turnin 644 optional
+  accept 645
+
+step Trollbane's Tomb
+  turnin 645
+  accept 646
+
+step Zengu
+  turnin 646

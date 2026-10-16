@@ -1,0 +1,342 @@
+guide completionist/horde/skyborne/46-azshara-undercity
+title Azshara & Undercity
+faction Horde
+race Skyborne
+levels 58-60
+zone Azshara
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Azshara, Undercity, Orgrimmar, Eastern Plaguelands, Tirisfal Glades, Western Plaguelands
+next completionist/horde/skyborne/47-tirisfal-glades-stranglethorn-vale
+
+# Route: guide 46 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 58 to
+# 60, 69 quests, 3.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Azshara, Undercity, Orgrimmar, Eastern Plaguelands, Tirisfal Glades,
+# Western Plaguelands): Shadowsong Shrine -> Valormok -> The Shattered Strand
+# -> Southridge Beach -> Temple of Arkkoran -> Thalassian Base Camp -> Temple
+# of Arkkoran -> Southridge Beach -> Valormok -> The Ruined Reaches ->
+# Ravencrest Monument -> Undercity -> near Undercity -> ….
+#
+# Optional (elite: grouping up is advised): The Name of the Beast (3510;
+# Hetaera 55); The Star, the Hand and the Heart (736; Grel'borg the Miser 39,
+# Dagun the Ravenous 43, Mogh the Undying 44); The Crimson Courier (6145;
+# Crimson Courier 60); Shadowshard Fragments (7068; Shadowshard Rumbler 40-41,
+# Shadowshard Smasher 41-42, Shadowshard Thunderer 38); The Scarlet Oracle,
+# Demetria (6148; Demetria 61).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Book of Ur (1013), The Book of Ur (1013), Going,
+# Going, Guano! (1109), Going, Going, Guano! (1109), Bring the End (3341), The
+# Power to Destroy... (5725), Light's Justice (92421), Light's Justice
+# (92421), The New Plague (95216), Source of Power (96988), Necklace Recovery,
+# Take 2 (2284), Rig Wars (2841), Rig Wars (2841), The Royal Rescue (4003),
+# For The Horde! (4974), Returning the Lost Satchel (5724), Hidden Enemies
+# (5728), Hidden Enemies (5728), Slaying the Beast (5761), Slaying the Beast
+# (5761), Changing Tastes (95697), Changing Tastes (95697), Dawn's Gambit
+# (4771), The Flesh Does Not Lie (5212), The Active Agent (5213), The Great
+# Fras Siabi (5214), Houses of the Holy (5243), The Archivist (5251), Above
+# and Beyond (5263), The Restless Souls (5282), Menethil's Gift (5463),
+# Plagued Hatchlings (5529), Ramstein (6163), Dead Man's Plea (8945),
+# Anthion's Old Friend (8948), Vorrel's Revenge (1051), Barov Family Fortune
+# (5341), The Wrath of Rath'mael (92422), The Wrath of Rath'mael (92422),
+# Crest of Lordaeron (95204), Unending Torment (97288), Doctor Theolen
+# Krastinov, the Butcher (5382), Kirtonos the Herald (5384), The Lich, Ras
+# Frostwhisper (5466), Krastinov's Bag of Horrors (5515), Of Love and Family
+# (5848), Oculus Illusions (6569).
+
+step Shadowsong Shrine: Mageweave Cloth
+  collect 4338 quest 7835.1
+  collect 4338 quest 7831.1
+
+step Jediga
+  turnin 3562
+  turnin 3563
+  turnin 3564
+  turnin 3504
+  accept 3505
+
+step The Shattered Strand: Filled Vial Labeled #1
+  collect 10691 quest 3568.1
+
+step The Shattered Strand: Filled Vial Labeled #2 and Filled Vial Labeled #3
+  collect 10692 quest 3568.2
+  collect 10693 quest 3568.3
+
+step The Shattered Strand: Filled Vial Labeled #4
+  collect 10694 quest 3568.4
+
+step Southridge Beach: The Demon Hunter
+  complete 2744
+
+step Loramus Thalipedes
+  turnin 2744
+  accept 3141
+
+step Southridge Beach: Loramus
+  complete 3141
+
+step Loramus Thalipedes
+  turnin 3141
+  accept 3508
+  turnin 3508
+  accept 3509
+
+step Lord Arkkoroc
+  tip Hetaera (level 55) is elite: grouping up is advised unless you are well above level 55.
+  turnin 3509
+  accept 3510 optional
+
+step Thalassian Base Camp: Blood Elf Reclaimer and Blood Elf Surveyor
+  kill 6199 quest 3505.1
+  kill 6198 quest 3505.2
+
+step Kaldorei Tome of Summoning
+  turnin 3505
+  accept 3506
+
+step Thalassian Base Camp: Head of Magus Rimtori
+  collect 10597 quest 3506.1
+
+step Lord Arkkoroc
+  tip Hetaera (level 55) is elite: grouping up is advised unless you are well above level 55.
+  collect 10599 quest 3510.1 optional
+  collect 10598 quest 3510.2 optional
+  collect 10600 quest 3510.3 optional
+  turnin 3510 optional
+  accept 3511
+
+step Loramus Thalipedes
+  turnin 3511
+  accept 3602
+
+step Southridge Beach: Crystallized Azsharite
+  tip Felhound Tracker Kit lasts 10 minutes: go straight on with it.
+  collect 10714 quest 3602.1
+
+step Loramus Thalipedes
+  turnin 3602
+
+step Loramus Thalipedes
+  accept 3621
+
+step Ag'tor Bloodfist
+  turnin 3506
+  accept 3507
+
+step Captain Vanessa Beltis
+  accept 3382
+
+step The Ruined Reaches: A Crew Under Fire
+  complete 3382
+
+step Captain Vanessa Beltis
+  turnin 3382
+
+step Duke Hydraxis
+  accept 6804
+  accept 6805
+
+step Back to Orgrimmar
+  hearth "Orgrimmar"
+
+step Undercity
+  zone Undercity
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  sethome "Undercity"
+  turnin 736 optional
+  accept 737
+
+step Sharlindra
+  turnin 521
+
+step Master Apothecary Faranell
+  turnin 2938
+
+step Royal Overseer Bauhaus
+  accept 5049
+  turnin 5049
+  accept 5050
+
+step Apothecary Zinge
+  accept 4133
+
+step Harbinger Balthazad
+  accept 7492
+
+step Lady Sylvanas Windrunner
+  tip Crimson Courier (level 60) is elite: grouping up is advised unless you are well above level 60.
+  accept 5961
+  turnin 6144
+  accept 6145 optional
+
+step Apothecary Zinge
+  accept 4769
+  turnin 97985
+
+step Genavie Callow
+  turnin 1164
+  turnin 7814
+  turnin 530
+  turnin 7813
+
+step Rashona Straglash
+  zone Orgrimmar
+  turnin 7826
+
+step Vehena
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  turnin 7833
+  turnin 7068 optional
+  turnin 7835
+
+step Rashona Straglash
+  turnin 7831
+  turnin 81
+
+step Belgrom Rockmaul
+  turnin 3507
+
+step Light's Hope Chapel
+  zone Eastern Plaguelands
+  sethome "Light's Hope Chapel"
+  turnin 5168
+  accept 5206
+
+step Light's Hope Chapel: Marauders of Darrowshire
+  complete 5206
+
+step Carlin Redpath
+  turnin 5206
+  accept 5941
+
+step Nathanos Blightcaller
+  turnin 5961
+
+step Lake Mereldar: Discordant Bracers
+  collect 17309 quest 6804.1
+
+step Northpass Tower: Of Lost Honor
+  complete 5845
+
+step Nathanos Blightcaller
+  tip Crimson Courier (level 60) is elite: grouping up is advised unless you are well above level 60.
+  collect 15868 quest 6145.1 optional
+  turnin 6145 optional
+  accept 6146
+
+step The Marris Stead: Nathanos' Ruse
+  complete 6146
+
+step Back to Light's Hope Chapel
+  hearth "Light's Hope Chapel"
+
+step Crusader Lord Valdelmar
+  turnin 6146
+  accept 6147
+
+step Nathanos Blightcaller
+  tip Demetria (level 61) is elite: grouping up is advised unless you are well above level 61.
+  turnin 6147
+  accept 6148 optional
+  kill 12339 quest 6148.1 optional
+  turnin 6148 optional
+
+step Gunther Arcanus
+  zone Tirisfal Glades
+  turnin 366
+  accept 409
+
+step Brightwater Lake: Lillith Nefara
+  kill 1946 quest 409.1
+
+step Gunther Arcanus
+  turnin 409
+  accept 411
+
+step High Executor Derrington
+  turnin 5093
+  turnin 5802
+
+step The Bulwark: Arcane Quickener
+  buy 13320 x1 nearest
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  tip Arcane Quickener lasts 30 minutes: go straight on with it.
+  turnin 5221
+
+step Shadow Priestess Vandis
+  zone Tirisfal Glades
+  turnin 5234
+  accept 5235
+  accept 5804
+
+step Janice Felstone
+  zone Western Plaguelands
+  turnin 5050
+  accept 5051
+
+step Felstone Field: Two Halves Become One
+  complete 5051
+
+step Janice Felstone
+  turnin 5051
+
+step Chromie
+  turnin 5941
+
+step Scourge Cauldron
+  accept 5224
+
+step The Writhing Haunt: Somatic Intensifier and Runecloth
+  collect 13356 quest 5224.2
+  collect 14047 quest 5224.3
+
+step Gahrron's Withering: Gahrron's Withering Cauldron Key
+  collect 13196 quest 5235.1
+
+step Scourge Cauldron
+  turnin 5235
+  accept 5236
+
+step Tirion Fordring
+  turnin 5845
+  accept 5846
+
+step Ruins of Andorhal: Araj's Scarab
+  complete 5804
+
+step Chromie
+  accept 5721
+
+step Artist Renfray
+  turnin 5846
+
+step Bethor Iceshard
+  zone Undercity
+  turnin 411
+
+step Master Apothecary Faranell
+  turnin 451
+
+step Undercity
+  sethome "Undercity"
+  turnin 7817
+
+step Chemist Cuely
+  turnin 3568
+  accept 3569
+  turnin 3569
+  accept 3570
+  turnin 3570
+
+step Oran Snakewrithe
+  turnin 2995
+
+step Chemist Fuely
+  turnin 4642

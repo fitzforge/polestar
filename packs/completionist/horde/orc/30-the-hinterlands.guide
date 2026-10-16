@@ -1,0 +1,170 @@
+guide completionist/horde/orc/30-the-hinterlands
+title The Hinterlands
+faction Horde
+race Orc
+levels 48-51
+zone The Hinterlands
+category Completionist
+folder Completionist · Orc 40-50
+keywords completionist, every quest
+next completionist/horde/orc/31-un-goro-crater
+
+# Route: guide 30 of 49 of the simulator's completionist route for Orc (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 48 to 51, 23
+# quests, 5.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Hinterlands): Hiri'watha -> The Overlook Cliffs -> Jintha'Alor ->
+# Skulk Rock -> The Creeping Ruin -> The Altar of Zul -> Valorwind Lake ->
+# Quel'Danil Lodge -> Valorwind Lake -> Agol'watha -> Shaol'watha -> The
+# Overlook Cliffs -> Shaol'watha -> ….
+#
+# Optional (elite: grouping up is advised): Gammerita, Mon! (7816; Gammerita
+# 48); Wanted: Vile Priestess Hexx and Her Minions (7861; Vile Priestess Hexx
+# 51, Vilebranch Aman'zasi Guard 50-51); Job Opening: Guard Captain of
+# Revantusk Village (7862; Vilebranch Berserker 47-48, Vilebranch Shadow
+# Hunter 48-49, Vilebranch Blood Drinker 49-50, Vilebranch Soul Eater 49-50);
+# Recover the Key! (7846; Hitah'ya the Keeper 51).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Jammal'an the Prophet (1446).
+
+step Venom Bottle
+  accept 2933
+
+step The Overlook Cliffs
+  tip Gammerita (level 48) is elite: grouping up is advised unless you are well above level 48.
+  getfp "Revantusk Village"
+  sethome "Revantusk Village"
+  accept 7815
+  accept 7816 optional
+  accept 7828
+  accept 7829
+  accept 7830
+  accept 7841
+  accept 7844
+
+step The Overlook Cliffs: Saltwater Snapjaw
+  kill 2505 quest 7815.1
+
+step Katoom the Angler
+  turnin 7815
+  accept 7840
+  accept 7839
+
+step The Overlook Cliffs
+  tip Saltwater Snapjaw drops the OOX-09/HL Distress Beacon: right-click it to start Find OOX-09/HL!.
+  collect 8704 x1
+  accept 485
+
+step The Overlook Cliffs: Silvermane Stalker
+  kill 2926 quest 7828.1
+
+step Jintha'Alor: Skylord Plume
+  collect 19025 quest 7830.1
+
+step Skulk Rock: Savage Owlbeast
+  kill 2929 quest 7829.1
+
+step The Creeping Ruin: Silvermane Howler
+  kill 2925 quest 7828.2
+
+step The Altar of Zul: Vilebranch Soothsayer
+  kill 4467 quest 7844.2
+
+step Valorwind Lake: Sprinkle's Secret Ingredient
+  complete 2641
+
+step Quel'Danil Lodge: Highvale Scout and Highvale Ranger
+  kill 2692 quest 7841.1
+  kill 2694 quest 7841.3
+
+step Rin'ji
+  accept 2742
+
+step Quel'Danil Lodge: Highvale Marksman and Highvale Outrunner
+  kill 2693 quest 7841.4
+  kill 2691 quest 7841.2
+
+step Valorwind Lake: Rin'ji is Trapped!
+  complete 2742
+
+step Homing Robot OOX-09/HL
+  turnin 485
+  accept 836
+
+step Shaol'watha: Vilebranch Scalper and Vilebranch Hooligans
+  kill 4466 quest 7844.1
+  complete 7839
+
+step The Overlook Cliffs: Rescue OOX-09/HL! and Katoom's Best Lure
+  tip Gammerita (level 48) is elite: grouping up is advised unless you are well above level 48.
+  complete 836
+  collect 19023 quest 7816.1 optional
+
+step Rin'ji's Secret
+  turnin 2742
+  accept 2782
+
+step Shaol'watha: Lard's Lunch
+  collect 19034 quest 7840.1
+
+step Mystic Yayo'jin
+  tip Gammerita (level 48) is elite: grouping up is advised unless you are well above level 48.
+  turnin 7844
+  turnin 7841
+  accept 7842
+  turnin 7828
+  turnin 7829
+  turnin 7830
+  turnin 7816 optional
+  turnin 7840
+  turnin 7839
+
+step Jintha'Alor: Long Elegant Feather
+  collect 4589 quest 7842.1
+
+step Otho Moji'ko
+  turnin 7842
+  accept 7843
+
+step Aerie Peak: The Final Message to the Wildhammer
+  complete 7843
+
+step Back to Revantusk Village
+  hearth "Revantusk Village"
+
+step Otho Moji'ko
+  tip Vile Priestess Hexx (level 51), Vilebranch Aman'zasi Guard (level 50-51), Vilebranch Berserker (level 47-48) and 3 more are elite: grouping up is advised unless you are well above level 51.
+  turnin 7843
+  accept 7849
+  accept 7861 optional
+  accept 7862 optional
+  accept 7845
+  accept 7850
+  kill 2647 quest 7862.4 optional
+  kill 2646 quest 7862.3 optional
+  kill 2645 quest 7862.2 optional
+
+step Elder Torntusk
+  tip Vilebranch Berserker (level 47-48), Vilebranch Shadow Hunter (level 48-49), Vilebranch Blood Drinker (level 49-50) and 2 more are elite: grouping up is advised unless you are well above level 51.
+  kill 2643 quest 7862.1 optional
+  turnin 7845
+  accept 7846 optional
+
+step Jintha'Alor: Vessel of Tainted Blood and Separation Anxiety
+  tip Vile Priestess Hexx (level 51) and Vilebranch Aman'zasi Guard (level 50-51) are elite: grouping up is advised unless you are well above level 51.
+  kill 7995 quest 7861.1 optional
+  collect 19071 quest 7850.1
+  complete 7849
+
+step Primal Torntusk
+  tip Vilebranch Berserker (level 47-48), Vilebranch Shadow Hunter (level 48-49), Vilebranch Blood Drinker (level 49-50) and Vilebranch Soul Eater (level 49-50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 7850
+  turnin 7862 optional
+  turnin 7849
+
+step Lakkari Tar Pits
+  getfp "Marshal's Refuge"

@@ -618,7 +618,7 @@ function objectiveFor(q, kind, id) {
 	return idx < 0 ? null : idx + 1;
 }
 
-const CATEGORIES = ['Leveling', 'Class', 'Professions', 'Reputation', 'Legacy', 'Exploration', 'Collectibles', 'Dungeons'];
+const CATEGORIES = ['Leveling', 'Class', 'Completionist', 'Professions', 'Reputation', 'Legacy', 'Exploration', 'Collectibles', 'Dungeons'];
 
 // Documented categories are matched case-insensitively; others pass through with a warning.
 function canonicalCategory(raw, ast, warn) {

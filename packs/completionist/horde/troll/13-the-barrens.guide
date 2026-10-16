@@ -1,0 +1,46 @@
+guide completionist/horde/troll/13-the-barrens
+title The Barrens
+faction Horde
+race Troll
+levels 30-31
+zone The Barrens
+category Completionist
+folder Completionist · Troll 30-40
+keywords completionist, every quest
+next completionist/horde/troll/14-thousand-needles-stonetalon-mountains
+
+# Route: guide 13 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 30 to 31, 11
+# quests, 0.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Barrens): Ratchet -> Lushwater Oasis -> Honor's Stand -> Ratchet.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Willix the Importer (1144), Blueleaf Tubers (1221),
+# Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate Eradication
+# (1487), The Glowing Shard (6981).
+
+step Mebok Mizzyrix
+  turnin 1069
+
+step Lushwater Oasis: Serpentbloom
+  collect 5339 quest 962.1
+
+step Makaba Flathoof
+  turnin 6523
+  accept 6401
+  turnin 6548
+  accept 6629
+  turnin 1062
+  accept 1063
+  accept 1068
+
+step Back to Ratchet
+  hearth "Ratchet"
+
+step Sputtervalve
+  turnin 1094
+  accept 1095

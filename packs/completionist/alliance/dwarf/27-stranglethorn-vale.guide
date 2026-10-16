@@ -1,0 +1,162 @@
+guide completionist/alliance/dwarf/27-stranglethorn-vale
+title Stranglethorn Vale
+faction Alliance
+race Dwarf
+levels 45-47
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · Dwarf 40-50
+keywords completionist, every quest
+next completionist/alliance/dwarf/28-feralas
+
+# Route: guide 27 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 45 to 47, 32
+# quests, 2.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stranglethorn Vale): Booty Bay -> Wild Shore -> Ruins of Aboraz ->
+# Booty Bay -> Wild Shore -> Booty Bay -> Wild Shore -> Booty Bay -> Wild
+# Shore -> Ruins of Zul'Mamwe -> Mistvale Valley -> Nek'mani Wellspring ->
+# Booty Bay -> Mistvale Valley.
+#
+# Optional (elite: grouping up is advised): The Monogrammed Sash (620;
+# Mok'rash 50); The Captain's Chest (8551; Gorlash 47); The Monogrammed Sash
+# (8552; Mok'rash 50); Facing Negolash (8554; Negolash 52); The Captain's
+# Chest (614; Gorlash 47); Facing Negolash (618; Negolash 52).
+#
+# Left to other guides: class quests (the Class category).
+
+step Fleet Master Seahorn
+  tip Mok'rash (level 50) is elite: grouping up is advised unless you are well above level 50. Mok'rash drops the Monogrammed Sash: right-click it to start The Monogrammed Sash.
+  turnin 669
+  accept 670
+  accept 621
+  collect 3985 x1 optional
+  accept 620 optional
+
+step Wild Shore
+  tip Gorlash (level 47) and Mok'rash (level 50) are elite: grouping up is advised unless you are well above level 50. Cortello's Riddle drops the Cortello's Riddle: right-click it to start Cortello's Riddle.
+  accept 8551 optional
+  turnin 620 optional
+  collect 4056 x1
+  accept 624
+
+step Ruins of Aboraz: Zanzil's Mixture
+  tip Gorlash (level 47) is elite: grouping up is advised unless you are well above level 47.
+  collect 3932 quest 8551.1 optional
+  collect 4016 quest 621.1
+
+step Crank Fizzlebub
+  tip Gorlash (level 47) is elite: grouping up is advised unless you are well above level 47.
+  turnin 8551 optional
+  turnin 621
+  accept 348
+  accept 595
+  accept 2872
+  turnin 2874
+  accept 209
+  accept 2864
+  accept 580
+  accept 617
+
+step Bloodsail Correspondence
+  turnin 595
+  accept 597
+
+step Captain Hecklebury Smotts
+  tip Mok'rash (level 50) and Negolash (level 52) are elite: grouping up is advised unless you are well above level 52. Mok'rash drops the Monogrammed Sash: right-click it to start The Monogrammed Sash.
+  collect 3985 x1 optional
+  accept 8552 optional
+  turnin 8552 optional
+  accept 8553
+  turnin 8553
+  accept 8554 optional
+  turnin 597
+  accept 599
+
+step Dizzy One-Eye
+  accept 576
+  turnin 599
+  accept 604
+  accept 587
+
+step Wild Shore: The Bloodsail Buccaneers
+  complete 604
+
+step Wild Shore: Dizzy's Eye
+  tip Gorlash (level 47) is elite: grouping up is advised unless you are well above level 47.
+  collect 3897 quest 576.1
+  accept 614 optional
+
+step Captain Hecklebury Smotts
+  tip Gorlash (level 47) and Negolash (level 52) are elite: grouping up is advised unless you are well above level 52.
+  collect 3932 quest 614.1 optional
+  turnin 614 optional
+  accept 615
+  turnin 615
+  accept 618 optional
+
+step Wild Shore: Snuff
+  collect 3910 quest 587.1
+
+step Dizzy One-Eye
+  tip Negolash (level 52) is elite: grouping up is advised unless you are well above level 52.
+  collect 3935 quest 618.1 optional
+  collect 3935 quest 8554.1 optional
+  turnin 576
+
+step Deeg
+  tip Negolash (level 52) is elite: grouping up is advised unless you are well above level 52.
+  turnin 618 optional
+  turnin 8554 optional
+  turnin 587
+  turnin 604
+  accept 608
+
+step Wild Shore: Captain Keelhaul and Fleet Master Firallon
+  kill 2548 quest 608.2
+  kill 2546 quest 608.3
+
+step Wild Shore: Captain Stillwater
+  kill 2550 quest 608.1
+
+step Ruins of Zul'Mamwe: Skullsplitter Tusk
+  collect 1524 quest 209.1
+
+step Mistvale Valley: Heart of Mokk
+  collect 2797 quest 348.1
+
+step Nek'mani Wellspring: Sweet Amber
+  complete 48
+
+step Nek'mani Wellspring: Akiris Reed
+  collect 4029 quest 617.1
+
+step Fleet Master Seahorn
+  turnin 608
+  turnin 209
+  turnin 617
+  accept 623
+  turnin 648
+  turnin 1116
+  accept 1117
+
+step Witch Doctor Unbagwa
+  accept 349
+
+step Mistvale Valley: Gorilla Fang
+  collect 2799 quest 349.1
+
+step Witch Doctor Unbagwa
+  turnin 349
+
+step Back to Booty Bay
+  hearth "Booty Bay"
+
+step Sardor Isle
+  getfp "Feathermoon"
+
+step Sardor Isle
+  sethome "Feathermoon Stronghold"

@@ -1,0 +1,105 @@
+guide completionist/alliance/dwarf/35-blasted-lands-swamp-of-sorrows
+title Blasted Lands & Swamp of Sorrows
+faction Alliance
+race Dwarf
+levels 52-54
+zone Blasted Lands
+category Completionist
+folder Completionist · Dwarf 50-60
+keywords completionist, every quest, Blasted Lands, Swamp of Sorrows
+next completionist/alliance/dwarf/36-winterspring
+
+# Route: guide 35 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 52 to 54, 17
+# quests, 1.7 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Blasted Lands, Swamp of Sorrows): Nethergarde Keep -> Garrison Armory
+# -> Dreadmaul Hold -> Garrison Armory -> Rise of the Defiler -> Serpent's
+# Coil -> Nethergarde Keep -> The Dark Portal -> Rise of the Defiler -> Altar
+# of Storms -> Garrison Armory -> Splinterspear Junction.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Nekrum's Medallion (2991).
+
+step Watcher Mahar Ba
+  turnin 1364
+  turnin 2990
+
+step Bloodmage Drazial
+  accept 2581
+  accept 2583
+  accept 2585
+  accept 2601
+  accept 2603
+
+step Garrison Armory: Vulture Gizzard and Snickerfang Jowl and more
+  collect 8396 quest 2585.2
+  collect 8396 quest 2601.2
+  collect 8396 quest 2603.1
+  collect 8391 quest 2581.1
+  collect 8391 quest 2603.2
+  collect 8393 quest 2581.3
+  collect 8393 quest 2583.2
+  collect 8393 quest 2585.1
+
+step Dreadmaul Hold: Servant of Grol
+  kill 7669 quest 2681.2
+
+step Bloodmage Lynnore
+  turnin 2603
+
+step Kum'isha the Collector
+  accept 2521 optional
+  accept 3501
+
+step Serpent's Coil: Blasted Boar Lung and Basilisk Brain
+  collect 8392 quest 2581.2
+  collect 8392 quest 2583.1
+  collect 8392 quest 2585.3
+  collect 8394 quest 2583.3
+  collect 8394 quest 2601.1
+
+step Serpent's Coil: Servant of Allistarj
+  kill 7670 quest 2681.3
+
+step Nethergarde Keep: Everything Counts In Large Amounts
+  complete 3501
+
+step The Dark Portal: Servant of Razelikh
+  kill 7668 quest 2681.1
+
+step Kum'isha the Collector
+  collect 8244 quest 2521.1 optional
+  turnin 3501
+  turnin 2521 optional
+  accept 2522 optional
+  collect 8244 quest 2522.1 optional
+
+step Altar of Storms: Servant of Sevine
+  turnin 2522 optional
+  kill 7671 quest 2681.4
+
+step Bloodmage Drazial
+  turnin 2581
+  turnin 2583
+  turnin 2585
+  turnin 2601
+
+step A Soggy Scroll
+  zone Swamp of Sorrows
+  turnin 624
+  accept 625
+
+step Fallen Hero of the Horde
+  turnin 2681
+  accept 2702
+  turnin 2702
+  accept 2701
+  turnin 2701
+  accept 2721
+
+step Back to Dolanaar
+  hearth "Dolanaar"

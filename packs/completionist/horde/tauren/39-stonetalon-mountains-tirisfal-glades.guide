@@ -1,0 +1,264 @@
+guide completionist/horde/tauren/39-stonetalon-mountains-tirisfal-glades
+title Stonetalon Mountains & Tirisfal Glades
+faction Horde
+race Tauren
+levels 57-58
+zone Tirisfal Glades
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest, Swamp of Sorrows, Thunder Bluff, Dustwallow Marsh, Stonetalon Mountains, Tirisfal Glades, Alterac Mountains, The Hinterlands
+next completionist/horde/tauren/40-undercity-eastern-plaguelands
+
+# Route: guide 39 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 57 to
+# 58, 61 quests, 3.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Swamp of Sorrows, Thunder Bluff, Dustwallow Marsh, Stonetalon
+# Mountains, Tirisfal Glades, Alterac Mountains, The Hinterlands):
+# Splinterspear Junction -> Stagalbog -> Misty Reed Strand -> Splinterspear
+# Junction -> Thunder Bluff -> near Thunder Bluff -> Thunder Bluff -> The
+# Quagmire -> The Den of Flame -> The Quagmire -> Windshear Crag -> Sun Rock
+# Retreat -> Webwinder Path -> ….
+#
+# Optional (elite: grouping up is advised): Nothing But The Truth (1383;
+# Deepstrider Giant 38-39, Deepstrider Searcher 39-40); Arikara (5088; Arikara
+# 28); The Star, the Hand and the Heart (736; Grel'borg the Miser 39, Dagun
+# the Ravenous 43, Mogh the Undying 44); Earthen Arise (6481; Goggeroc 20);
+# The Crown of Will (518; Crushridge Mauler 36-37).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Leaders of the Fang (914), Compendium of the Fallen
+# (1049), A Vengeful Fate (1102), Testing an Enemy's Strength (5723), Tiara of
+# the Deep (2846), Vorrel's Revenge (1051), Barov Family Fortune (5341), The
+# Wrath of Rath'mael (92422), The Wrath of Rath'mael (92422), Crest of
+# Lordaeron (95204), Unending Torment (97288), Heart of Disruption (96984),
+# The Grave Knight (96986), Opportunistic Education (96987), Jammal'an the
+# Prophet (1446).
+
+step A Soggy Scroll
+  zone Swamp of Sorrows
+  accept 625
+
+step Katar
+  turnin 1426
+  accept 1427
+  turnin 1427
+  accept 1428
+
+step Misty Reed Strand: Marsh Inkspewer
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  kill 750 quest 1428.1
+  collect 6080 quest 1383.1 optional
+
+step Misty Reed Strand: Goodsteel's Balanced Flameberge
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  collect 6081 quest 1383.2 optional
+  collect 11723 quest 4450.4
+
+step Fallen Hero of the Horde
+  turnin 2623
+  accept 2801
+
+step Splinterspear Junction: A Tale of Sorrow
+  complete 2801
+
+step Fallen Hero of the Horde
+  turnin 2801
+  accept 2681
+
+step Thunder Bluff
+  zone Thunder Bluff
+  sethome "Thunder Bluff"
+  accept 1000
+
+step Arch Druid Hamuul Runetotem
+  tip Arikara (level 28) is elite: grouping up is advised unless you are well above level 28.
+  turnin 1000
+  accept 1123
+  accept 5088 optional
+
+step Melor Stonehoof
+  accept 1136
+  turnin 1276
+
+step Rumstag Proudstrider
+  accept 7821
+
+step The Quagmire: Deadmire's Tooth
+  zone Dustwallow Marsh
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  collect 4641 quest 736.2 optional
+  collect 5945 quest 1205.1
+
+step Musty Scroll
+  turnin 625
+  accept 626
+
+step Tabetha
+  turnin 2861
+
+step The Quagmire: Ledger from Tanaris
+  complete 4450
+
+step Back to Thunder Bluff
+  hearth "Thunder Bluff"
+
+step Windshear Crag: The Flying Machine Airport
+  zone Stonetalon Mountains
+  complete 1086
+
+step Sun Rock Retreat
+  tip Goggeroc (level 20) is elite: grouping up is advised unless you are well above level 20.
+  sethome "Sun Rock Retreat"
+  turnin 6421
+  accept 6481 optional
+  kill 11920 quest 6481.1 optional
+
+step Ziz Fizziks
+  tip Goggeroc (level 20) is elite: grouping up is advised unless you are well above level 20.
+  turnin 6481 optional
+  accept 1096
+
+step Mirkfallon Lake: Mirkweed Pods
+  collect 278201 quest 97538.1
+
+step Windshear Crag: Gerenzo's Mechanical Arm
+  collect 5736 quest 1096.1
+
+step Ziz Fizziks
+  turnin 1096
+
+step Braelyn Firehand
+  turnin 1088
+  accept 1089
+
+step Stonetalon Peak: The Den
+  complete 1089
+
+step Talon Den Hoard
+  turnin 1089
+
+step Braug Dimspirit
+  turnin 1152
+  accept 1154
+  turnin 1154
+  accept 6627
+  turnin 6627
+  accept 1159
+
+step Maggran Earthbinder
+  accept 5881
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  turnin 105
+
+step The Bulwark: Arcane Quickener
+  buy 13320 x1 nearest
+
+step Shadow Priestess Vandis
+  turnin 5232
+  accept 5233
+  turnin 964
+  accept 5514
+
+step Hadric Harlson
+  accept 96897
+  accept 96898
+  accept 96899
+
+step Balnir Farmstead: Necrotic Crystal Fragment and Dark Neophyte and more
+  collect 275851 quest 96898.1
+  kill 267006 quest 96897.1
+  kill 275437 quest 96897.2
+  kill 1547 quest 96897.3
+
+step Brill
+  sethome "Gallows' End Tavern"
+  accept 96895
+
+step Hadric Harlson
+  turnin 96898
+  turnin 96897
+  turnin 96895
+
+step Magistrate Sevren
+  accept 441
+
+step Leonid Barthalomew the Revered
+  turnin 96899
+  accept 96896
+  turnin 96896
+  accept 98545
+
+step Back to Gallows' End Tavern
+  hearth "Gallows' End Tavern"
+
+step Gunther Arcanus
+  turnin 366
+  accept 409
+
+step Brightwater Lake: Lillith Nefara
+  kill 1946 quest 409.1
+
+step Gunther Arcanus
+  turnin 409
+  accept 411
+
+step Gol'dir
+  zone Alterac Mountains
+  accept 506
+
+step Strahnbrad: Head of Baron Vardus
+  tip Crushridge Mauler (level 36-37), Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  kill 2254 quest 518.1 optional
+  collect 4646 quest 736.1 optional
+  collect 3626 quest 566.1
+
+step Warmaster Laggrond
+  turnin 7241
+
+step Hiri'watha: Grim Message
+  zone The Hinterlands
+  complete 2932
+
+step Cortello's Treasure
+  turnin 626
+
+step Shadra'Alor: Undamaged Venom Sac
+  collect 9322 quest 2934.1
+
+step Atal'ai Exile
+  turnin 1429
+  accept 1444
+
+step Hiri'watha: Wildkin Muisek
+  collect 9594 quest 3123.1
+
+step The Overlook Cliffs: Whiskey Slim's Lost Grog
+  sethome "Revantusk Village"
+  complete 580
+
+step Quel'Danil Lodge: Highvale Records and Highvale Notes
+  interact 144071 quest 2995.1
+  interact 144072 quest 2995.2
+
+step Gilveradin Sunchaser
+  turnin 650
+  accept 77
+
+step Quel'Danil Lodge: Highvale Report
+  interact 144073 quest 2995.3
+
+step Agol'watha: Hinterlands Honey Ripple
+  collect 8684 quest 77.1
+
+step Gilveradin Sunchaser
+  turnin 77
+  accept 81
+
+step Undercity
+  sethome "Undercity"

@@ -1,0 +1,303 @@
+guide completionist/alliance/nightelf/39-redridge-mountains-felwood
+title Redridge Mountains & Felwood
+faction Alliance
+race NightElf
+levels 55-57
+zone Redridge Mountains
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Darnassus, The Barrens, Teldrassil, Redridge Mountains, Felwood, Darkshore, Westfall, Ironforge, Stormwind City
+next completionist/alliance/nightelf/40-duskwood-feralas
+
+# Route: guide 39 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 55 to
+# 57, 67 quests, 3.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Darnassus, The Barrens, Teldrassil, Redridge Mountains, Felwood,
+# Darkshore, Westfall, Ironforge, Stormwind City): Craftsmen's Terrace -> near
+# Craftsmen's Terrace -> Craftsmen's Terrace -> near Craftsmen's Terrace ->
+# The Merchant Coast -> Rut'theran Village -> Lakeshire -> Three Corners ->
+# Lakeshire -> Emerald Sanctuary -> Jaedenar -> Felpaw Village -> Emerald
+# Sanctuary -> ….
+#
+# Optional (elite: grouping up is advised): Oh Brother... (167; Foreman
+# Thistlenettle 20); Collecting Memories (168; Skeletal Miner 17-18, Undead
+# Excavator 17-18, Undead Dynamiter 17-18); Save Techbot's Brain! (2922;
+# Techbot 26).
+#
+# Left out: Return to Nessa (6343): the route takes them here but cannot
+# finish them (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In Search of Thaelrid (1198), Twilight Falls (1199),
+# Mortality Wanes (1142), Willix the Importer (1144), Blueleaf Tubers (1221),
+# Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate Eradication
+# (1487), The Glowing Shard (6981), In Search of Thaelrid (1198), Twilight
+# Falls (1199), What Comes Around... (386), What Comes Around... (386),
+# Songblade Search (95772), Songblade Search (95772), The Defias Brotherhood
+# (166), The Defias Brotherhood (166), The Unsent Letter (373), Knowledge in
+# the Deeps (971), Knowledge in the Deeps (971), Mythology of the Titans
+# (1050), Mythology of the Titans (1050), The Lost Tablets of Will (1139),
+# Back to Uldaman (2200), Restoring the Necklace (2204), The Lost Dwarves
+# (2398), Essential Artificials (2924), Essential Artificials (2924), The
+# Grand Betrayal (2929), The Grand Betrayal (2929), Data Rescue (2930), Data
+# Rescue (2930), Kharan Mighthammer (4341), The Fate of the Kingdom (4362),
+# The Restless Dead (96394), The Restless Dead (96394), An Ancient Grudge
+# (96395), Important Heirlooms (96403), Important Heirlooms (96403), The
+# Treaty of Understanding (98423), Quell The Uprising (387), Quell the
+# Uprising (387), The Color of Blood (388), The Color of Blood (388), The
+# Stockade Riots (391), The Stockade Riots (391), Underground Assault (2040),
+# Underground Assault (2040), Bring the Light (3636), A Green Sample (92456),
+# A Green Sample (92456), Power Overwhelming (92489), Power Overwhelming
+# (92489).
+
+step Raedon Duskstriker
+  zone Darnassus
+  accept 7799
+
+step Jenal
+  turnin 3764
+  accept 3781
+  turnin 3781
+  accept 3785
+
+step near Craftsmen's Terrace: Morrowgrain Research
+  complete 3785
+
+step Mathrengyl Bearwalker
+  turnin 3785
+  accept 3803
+
+step near Craftsmen's Terrace: Morrowgrain to Darnassus
+  complete 3803
+
+step Mathrengyl Bearwalker
+  turnin 3803
+
+step near Craftsmen's Terrace: Vial of Blessed Water
+  collect 5646 quest 4441.1
+
+step Mathrengyl Bearwalker
+  turnin 4986
+
+step Mydrannul
+  accept 6344
+
+step Raedon Duskstriker
+  accept 7792
+
+step Chief Archaeologist Greywhisker
+  accept 730
+  accept 942
+
+step Islen Waterseer
+  zone The Barrens
+  turnin 5158
+  accept 5159
+
+step Back to Craftsmen's Terrace
+  hearth "Craftsmen's Terrace"
+
+step Nessa Shadowsong
+  zone Teldrassil
+  accept 6341
+  turnin 6344
+  turnin 6341
+  accept 6342
+  turnin 978
+  accept 979
+
+step Lakeshire
+  zone Redridge Mountains
+  sethome "Lakeshire"
+  turnin 4183
+  accept 4184
+
+step Marcy Baker
+  accept 91904
+  accept 91905
+
+step Three Corners: A Sealed Crate
+  complete 91904
+
+step Marcy Baker
+  turnin 91904
+
+step Three Corners: A Sealed Crate
+  complete 91905
+
+step Marcy Baker
+  turnin 91905
+  accept 91899
+  accept 91900
+
+step Three Corners: A Sealed Crate
+  complete 91899
+
+step Marcy Baker
+  turnin 91899
+
+step Three Corners: A Sealed Crate
+  complete 91900
+
+step Marcy Baker
+  turnin 91900
+
+step Verner Osgood
+  accept 1097
+  turnin 121
+  turnin 65
+  accept 132
+  accept 143
+
+step Greta Mosshoof
+  zone Felwood
+  turnin 5159
+  accept 5165
+
+step Jaedenar: Brazier of Malice and Brazier of Suffering
+  interact 176159 quest 5165.2
+  interact 176160 quest 5165.3
+
+step Jaedenar: Brazier of Pain and Brazier of Hatred
+  interact 176158 quest 5165.1
+  interact 176161 quest 5165.4
+
+step Kernda
+  turnin 8471
+  turnin 6031
+
+step Greta Mosshoof
+  turnin 5165
+  accept 5242
+  turnin 4441
+  accept 4442
+  turnin 4442
+
+step Bloodvenom Falls: Moora and Salia and more
+  kill 9861 quest 5242.1
+  kill 9860 quest 5242.2
+  collect 13207 quest 5242.3
+
+step Arei
+  accept 4261
+
+step Irontree Woods: Ancient Spirit
+  complete 4261
+
+step Greta Mosshoof
+  turnin 5242
+
+step Deadwood Cauldron
+  turnin 5084
+  accept 5085
+
+step Ivy Leafrunner
+  accept 5249
+
+step Auberdine
+  zone Darkshore
+  sethome "Auberdine"
+  turnin 6342
+
+step Onu
+  turnin 952
+
+step Back to Auberdine
+  hearth "Auberdine"
+
+step Archaeologist Hollee
+  turnin 730
+  turnin 97894
+  turnin 97926
+
+step Balthule Shadowstrike
+  turnin 1167
+  accept 1143
+
+step Tower of Althalaxx: Athrikus Narassin's Head
+  collect 5383 quest 1143.1
+
+step Balthule Shadowstrike
+  turnin 1143
+  accept 981
+
+step Gershala Nightwhisper
+  turnin 3765
+
+step The Master's Glaive: Supplies to Auberdine
+  complete 976
+
+step Thundris Windweaver
+  turnin 98209
+
+step Alexston Farmstead: Humble Beginnings
+  zone Westfall
+  complete 399
+
+step Sentinel Hill
+  sethome "Sentinel Hill"
+  turnin 132
+  turnin 143
+  accept 135
+  accept 144
+
+step The Dagger Hills: Keg of Thunderbrew and Thistlenettle's Badge and more
+  tip Foreman Thistlenettle (level 20), Skeletal Miner (level 17-18), Undead Excavator (level 17-18) and Undead Dynamiter (level 17-18) are elite: grouping up is advised unless you are well above level 20.
+  buy 1262 x1 nearest
+  collect 1875 quest 167.1 optional
+  collect 1894 quest 168.1 optional
+
+step Saldean's Farm: Dust Devil Debris
+  collect 5669 quest 1076.1
+
+step Old Footlocker
+  turnin 67
+  accept 68
+
+step Grand Mason Marblesten
+  zone Ironforge
+  tip Techbot (level 26) is elite: grouping up is advised unless you are well above level 26.
+  turnin 2922 optional
+  turnin 689
+  accept 700
+
+step Ironforge
+  sethome "Ironforge"
+  turnin 700
+  accept 7803
+
+step Prospector Stormpike
+  turnin 554
+
+step Bubulo Acerbus
+  accept 7808
+
+step Stormwind City
+  zone Stormwind City
+  sethome "Stormwind City"
+  accept 7794
+  accept 1477
+
+step Highlord Bolvar Fordragon
+  turnin 4184
+  accept 4185
+
+step near Stormwind: The True Masters
+  complete 4185
+
+step Highlord Bolvar Fordragon
+  turnin 4185
+  accept 4186
+
+step Royal Factor Bathrilor
+  turnin 5022
+
+step Tannysa
+  accept 3787
+
+step Darkshire
+  sethome "Darkshire"

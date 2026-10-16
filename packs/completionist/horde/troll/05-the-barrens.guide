@@ -1,0 +1,145 @@
+guide completionist/horde/troll/05-the-barrens
+title The Barrens
+faction Horde
+race Troll
+levels 16-18
+zone The Barrens
+category Completionist
+folder Completionist · Troll 1-20
+keywords completionist, every quest
+next completionist/horde/troll/06-silverpine-forest
+
+# Route: guide 5 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 16 to 18, 15
+# quests, 1.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Barrens): The Crossroads -> Far Watch Post -> The Crossroads ->
+# Thorn Hill -> Far Watch Post -> Ratchet -> The Merchant Coast -> Ratchet ->
+# The Merchant Coast -> Raptor Grounds -> Ratchet -> The Crossroads -> The
+# Forgotten Pools -> ….
+#
+# Profession quests here are not routed (they need the skill): 862 Dig Rat
+# Stew; 866 Root Samples; 3633 Goblin Engineering; 3637 Gnome Engineering;
+# 3646 Membership Card Renewal.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Willix the Importer (1144), Blueleaf Tubers (1221),
+# Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate Eradication
+# (1487), The Glowing Shard (6981).
+
+step Dokimi
+  accept 91901
+  turnin 91901
+
+step Far Watch Post: Ak'Zeloth
+  complete 809
+
+step Ak'Zeloth
+  turnin 809
+
+step Thork
+  accept 5041
+  accept 871
+  accept 1492
+  accept 869
+
+step The Crossroads: Raptor Head
+  collect 5062 quest 869.1
+
+step Gazrog
+  turnin 869
+  accept 3281
+
+step The Crossroads: Razormane Water Seeker and Razormane Thornweaver
+  kill 3267 quest 871.1
+  kill 3268 quest 871.2
+
+step Thorn Hill: Supplies for the Crossroads
+  complete 5041
+
+step Thorn Hill: Razormane Hunter
+  kill 3265 quest 871.3
+
+step Ak'Zeloth
+  accept 924
+
+step Ratchet
+  getfp "Ratchet"
+  accept 887
+  accept 97253
+
+step Ratchet
+  sethome "Ratchet"
+  turnin 1492
+
+step The Merchant Coast: Southsea Brigand
+  kill 3381 quest 887.1
+
+step The Merchant Coast: Southsea Cannoneer
+  kill 3382 quest 887.2
+
+step The Merchant Coast: Handful of Complicated Parts
+  collect 277331 quest 97253.1
+
+step Wrenix the Wretched
+  turnin 97253
+  turnin 887
+  accept 890
+  turnin 890
+  accept 892
+  turnin 892
+  accept 888
+
+step The Merchant Coast: Stolen Booty
+  complete 888
+
+step Raptor Grounds: Stolen Silver
+  complete 3281
+
+step Back to Ratchet
+  hearth "Ratchet"
+
+step Gazlowe
+  turnin 888
+
+step The Crossroads
+  sethome "The Crossroads"
+  turnin 3281
+  turnin 871
+  turnin 5041
+  accept 872
+
+step Regthar Deathgate
+  accept 855
+
+step The Forgotten Pools: Centaur Bracers
+  collect 5030 quest 855.1
+
+step Regthar Deathgate
+  turnin 855
+
+step Dreadmist Peak: The Altar of Fire
+  interact 3525 quest 924.1
+
+step Ak'Zeloth
+  turnin 924
+
+step Far Watch Post: Razormane Geomancer
+  kill 3269 quest 872.1
+
+step Thorn Hill: Razormane Defender and Kreenig Snarlsnout's Tusk
+  kill 3266 quest 872.2
+  collect 5063 quest 872.3
+
+step Thork
+  turnin 872
+
+step The Sepulcher
+  getfp "The Sepulcher"
+
+step The Sepulcher
+  sethome "The Sepulcher"
+  note "Profession quests here, for players with the skill: Dig Rat Stew (Cooking 15), Root Samples (Herbalism 1), Goblin Engineering (Engineering 200), Gnome Engineering (Engineering 200), Membership Card Renewal (Engineering 200)."

@@ -1,0 +1,297 @@
+guide completionist/alliance/gnome/45-loch-modan-stormwind-city
+title Loch Modan & Stormwind City
+faction Alliance
+race Gnome
+levels 58-59
+zone Loch Modan
+category Completionist
+folder Completionist · Gnome 50-60
+keywords completionist, every quest, Loch Modan, Ironforge, Stormwind City, Redridge Mountains, Duskwood, Elwynn Forest, Thousand Needles, Tanaris, Dun Morogh, The Hinterlands
+next completionist/alliance/gnome/46-ironforge-stonetalon-mountains
+
+# Route: guide 45 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 58 to 59, 73
+# quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Loch Modan, Ironforge, Stormwind City, Redridge Mountains, Duskwood,
+# Elwynn Forest, Thousand Needles, Tanaris, Dun Morogh, The Hinterlands):
+# Thelsamar -> North Gate Pass -> Grizzlepaw Ridge -> Ironband's Excavation
+# Site -> Stonewrought Dam -> Silver Stream Mine -> Stonewrought Dam -> Valley
+# of Kings -> Stonewrought Dam -> Ironforge -> near Ironforge -> Stormwind
+# City -> near Stormwind -> ….
+#
+# Optional (elite: grouping up is advised): A Dark Threat Looms (278; Mo'grosh
+# Ogre 18-19, Mo'grosh Enforcer 18-19, Mo'grosh Brute 19-20, Mo'grosh Shaman
+# 18-19, Mo'grosh Mystic 19-20, Emogg the Crusher 19); Rise, Obsidion! (3566;
+# Lathoric the Black 52, Obsidion 52); Oh Brother... (167; Foreman
+# Thistlenettle 20); Collecting Memories (168; Skeletal Miner 17-18, Undead
+# Excavator 17-18, Undead Dynamiter 17-18); Save Techbot's Brain! (2922;
+# Techbot 26).
+#
+# Left out: Morganth (249): the route takes them here but cannot finish them
+# (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Knowledge in the Deeps (971), Knowledge in the Deeps
+# (971), Mythology of the Titans (1050), Mythology of the Titans (1050), The
+# Lost Tablets of Will (1139), Back to Uldaman (2200), Restoring the Necklace
+# (2204), The Lost Dwarves (2398), Essential Artificials (2924), Essential
+# Artificials (2924), The Grand Betrayal (2929), The Grand Betrayal (2929),
+# Data Rescue (2930), Data Rescue (2930), Kharan Mighthammer (4341), The Fate
+# of the Kingdom (4362), The Restless Dead (96394), The Restless Dead (96394),
+# An Ancient Grudge (96395), Important Heirlooms (96403), Important Heirlooms
+# (96403), The Treaty of Understanding (98423), Quell The Uprising (387),
+# Quell the Uprising (387), The Color of Blood (388), The Color of Blood
+# (388), The Stockade Riots (391), The Stockade Riots (391), Underground
+# Assault (2040), Underground Assault (2040), Bring the Light (3636), A Green
+# Sample (92456), A Green Sample (92456), Power Overwhelming (92489), Power
+# Overwhelming (92489), What Comes Around... (386), What Comes Around...
+# (386), Songblade Search (95772), Songblade Search (95772), Crime and
+# Punishment (377), Crime and Punishment (377), The Crone of the Kraul (1101),
+# Gahz'rilla (2770), Divino-matic Rod (2768), Scarab Shells (2865), Troll
+# Temper (3042), Into the Depths (3446), Secret of the Circle (3447), The
+# Prophecy of Mosh'aru (3527), The God Hakkar (3528), The Final Tablets
+# (4788), A Fine Mess (2904), The Sparklematic 5200! (2951), The Only Cure is
+# More Green Glow (2962), The Only Cure is More Green Glow (2962), Hurley
+# Blackbreath (4126), Old Ironforge Incursion (96393), Old Ironforge Incursion
+# (96393), Jammal'an the Prophet (1446).
+
+step Brock Stoneseeker
+  turnin 6392
+  turnin 302
+  accept 273
+
+step Mountaineer Stormpike
+  turnin 353
+
+step Back to Stoutlager Inn
+  hearth "Stoutlager Inn"
+
+step Grizzlepaw Ridge: Resupplying the Excavation
+  complete 273
+
+step Huldar
+  turnin 273
+  accept 454
+  turnin 454
+  accept 309
+
+step Ironband's Excavation Site: Protecting the Shipment
+  complete 309
+
+step Prospector Ironband
+  turnin 309
+
+step Bingles Blastenheimer
+  turnin 2039
+
+step Carved Figurine
+  turnin 79974
+  accept 79975
+
+step Silver Stream Mine: Minor Mana Potion
+  collect 2455 quest 1073.1
+
+step Chief Engineer Hinderweir VII
+  turnin 274
+
+step Mountaineer Pebblebitty
+  tip Mo'grosh Ogre (level 18-19), Mo'grosh Enforcer (level 18-19), Mo'grosh Brute (level 19-20) and 3 more are elite: grouping up is advised unless you are well above level 20.
+  turnin 3201
+  accept 278 optional
+  collect 2606 quest 278.1 optional
+  collect 2939 quest 278.3 optional
+
+step Chief Engineer Hinderweir VII
+  tip Mo'grosh Ogre (level 18-19), Mo'grosh Enforcer (level 18-19), Mo'grosh Brute (level 19-20) and 3 more are elite: grouping up is advised unless you are well above level 20.
+  collect 2607 quest 278.2 optional
+  turnin 278 optional
+  accept 280
+  turnin 280
+  accept 283
+  turnin 283
+
+step Bubulo Acerbus
+  zone Ironforge
+  turnin 7809
+
+step Mistina Steelshield
+  turnin 7804
+
+step Tymor
+  turnin 3461
+
+step Curator Thorius
+  tip Lathoric the Black (level 52) and Obsidion (level 52) are elite: grouping up is advised unless you are well above level 52.
+  turnin 3566 optional
+  turnin 4513
+
+step Stormwind City
+  zone Stormwind City
+  sethome "Stormwind City"
+  turnin 7794
+
+step Highlord Bolvar Fordragon
+  turnin 6186
+
+step Lakeshire
+  zone Redridge Mountains
+  sethome "Lakeshire"
+  turnin 144
+  accept 145
+
+step Darkshire: A Donation of Silk
+  zone Duskwood
+  sethome "Darkshire"
+  complete 7798
+
+step Raven Hill Cemetery: Silk Cloth
+  collect 4306 quest 7793.1
+
+step Night Watch Guard
+  accept 99267
+  turnin 99267
+
+step Raven Hill Cemetery: Nightcrawlers
+  collect 6530 quest 95065.1
+
+step Back to Darkshire
+  hearth "Darkshire"
+
+step Darkshire: Bottle of Moonshine and A Donation of Wool
+  buy 1942 x1 nearest
+  complete 7792
+
+step Avette Fellwood
+  turnin 95161
+  turnin 145
+
+step Brother Paxton
+  zone Elwynn Forest
+  turnin 347
+  accept 346
+
+step Marshal Haggard
+  turnin 74
+  accept 75
+
+step Eastvale Logging Camp: The Legend of Stalvan
+  complete 75
+
+step Marshal Haggard
+  turnin 75
+  accept 78
+
+step Razzeric
+  zone Thousand Needles
+  turnin 1187
+  accept 1188
+  turnin 1179
+  turnin 1117
+  accept 1118
+  turnin 2769
+  turnin 3841
+  accept 3842
+
+step The Shimmering Flats: A Short Incubation
+  complete 3842
+
+step Quentin
+  turnin 3842
+  accept 3843
+
+step Aerie Peak
+  zone The Hinterlands
+  tip Fragile Sprite Darter Egg lasts 60 minutes: go straight on with it.
+  turnin 3843
+
+step Gadgetzan
+  zone Tanaris
+  sethome "Gadgetzan"
+  turnin 4507
+  accept 4508
+  turnin 1188
+  accept 1189
+  turnin 2864
+
+step Abyssal Sands: Roc Gizzard
+  collect 6257 quest 1452.1
+
+step Stoley
+  turnin 2872
+
+step Baros Alexston
+  zone Stormwind City
+  turnin 399
+
+step Shoni the Shilent
+  tip Foreman Thistlenettle (level 20), Skeletal Miner (level 17-18), Undead Excavator (level 17-18) and Undead Dynamiter (level 17-18) are elite: grouping up is advised unless you are well above level 20.
+  turnin 167 optional
+  turnin 168 optional
+  turnin 2041
+
+step Stormwind City
+  sethome "Stormwind City"
+  accept 7791
+
+step near Stormwind City: Wool Cloth
+  collect 2592 quest 7791.1
+
+step Clavicus Knavingham
+  turnin 7791
+
+step Master Mathias Shaw
+  accept 141
+
+step Collin Mauren
+  turnin 1078
+  turnin 1076
+  accept 1077
+
+step Grimand Elmore
+  turnin 322
+
+step Milton Sheaf
+  turnin 542
+  turnin 563
+  accept 6187 optional
+
+step The Grizzled Den
+  zone Dun Morogh
+  sethome "Thunderbrew Distillery"
+  turnin 2927
+
+step Pilot Stonegear
+  turnin 466
+
+step Back to Thunderbrew Distillery
+  tip Techbot (level 26) is elite: grouping up is advised unless you are well above level 26.
+  collect 9277 quest 2922.1 optional
+  collect 9309 quest 2928.1 optional
+  hearth "Thunderbrew Distillery"
+
+step Shimmer Ridge: Silver Bar
+  collect 2842 quest 2199.1
+
+step Aerie Peak
+  zone The Hinterlands
+  sethome "Aerie Peak"
+  accept 4297
+
+step Rhapsody Shindigger
+  turnin 1452
+  accept 1469
+
+step The Creeping Ruin: Silvermane Stalker Flank
+  collect 11472 quest 4297.1
+
+step Agnar Beastamer
+  turnin 4297
+  accept 4298
+  turnin 4298
+
+step Cortello's Treasure
+  turnin 626

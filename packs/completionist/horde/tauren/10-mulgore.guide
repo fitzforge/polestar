@@ -1,0 +1,62 @@
+guide completionist/horde/tauren/10-mulgore
+title Mulgore
+faction Horde
+race Tauren
+levels 28-29
+zone Mulgore
+category Completionist
+folder Completionist · Tauren 20-30
+keywords completionist, every quest
+next completionist/horde/tauren/11-hillsbrad-foothills
+
+# Route: guide 10 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 28 to
+# 29, 5 quests, 0.7 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Mulgore): Skywatcher Plateau.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Leaders of the Fang (914), Compendium of the Fallen
+# (1049), A Vengeful Fate (1102), Searching for the Lost Satchel (5722),
+# Testing an Enemy's Strength (5723).
+
+step Mazu'kon
+  accept 96241
+  accept 96259
+  accept 96261
+  accept 96260
+
+step Skywatcher Plateau: Crystalline Silk
+  collect 273181 quest 96260.1
+
+step Skywatcher Plateau: Broodmother Valraxx
+  kill 264082 quest 96261.1
+
+step Skywatcher Plateau
+  tip Broodmother Valraxx drops the Bloody Parchment: right-click it to start A Darker Truth.
+  collect 273658 x1
+  accept 96294
+
+step Skywatcher Plateau: Gloomrise Toxin Sample and Gloomrise Soldier and more
+  collect 273001 quest 96241.1
+  kill 264083 quest 96259.1
+  kill 264079 quest 96259.2
+
+step Yorn Grimtotem
+  turnin 96260
+  turnin 96241
+  turnin 96259
+  turnin 96261
+  turnin 96294
+
+step Back to Sun Rock Retreat
+  hearth "Sun Rock Retreat"
+
+step Tarren Mill
+  getfp "Tarren Mill"
+
+step Tarren Mill
+  sethome "Tarren Mill"

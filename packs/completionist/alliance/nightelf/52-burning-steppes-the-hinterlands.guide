@@ -1,0 +1,220 @@
+guide completionist/alliance/nightelf/52-burning-steppes-the-hinterlands
+title Burning Steppes & The Hinterlands
+faction Alliance
+race NightElf
+levels 60-60
+zone Burning Steppes
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Burning Steppes, Tanaris, Un'Goro Crater, Thousand Needles, The Hinterlands, Stormwind City, Winterspring, Moonglade, Ironforge, The Barrens, Stranglethorn Vale
+next completionist/alliance/nightelf/53-westfall
+
+# Route: guide 52 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 60 to
+# 60, 39 quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Burning Steppes, Tanaris, Un'Goro Crater, Thousand Needles, The
+# Hinterlands, Stormwind City, Winterspring, Moonglade, Ironforge, The
+# Barrens, Stranglethorn Vale): Morgan's Vigil -> Ruins of Thaurissan ->
+# Morgan's Vigil -> Ruins of Thaurissan -> Morgan's Vigil -> Gadgetzan -> Lost
+# Rigger Cove -> Fire Plume Ridge -> Lakkari Tar Pits -> Gadgetzan -> Abyssal
+# Sands -> Steamwheedle Port -> The Shimmering Flats -> ….
+#
+# Optional (elite: grouping up is advised): It's Dangerous to Go Alone (3962;
+# Blazerunner 56); An Ambassador of Evil (762; Ambassador Infernus 42).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Dark Iron Legacy (3802), A Taste of Flame (4024), The
+# Heart of the Mountain (4123), Marshal Windsor (4241), Incendius! (4263), Put
+# Her Down (4701), Egg Freezing (4734), Egg Collection (4735), Doomrigger's
+# Clasp (4764), Maxwell's Mission (5081), General Drakkisath's Demise (5102),
+# Divino-matic Rod (2768), Scarab Shells (2865), Troll Temper (3042), Into the
+# Depths (3446), Secret of the Circle (3447), The Prophecy of Mosh'aru (3527),
+# The God Hakkar (3528), The Final Tablets (4788), The Crone of the Kraul
+# (1101), Gahz'rilla (2770), Jammal'an the Prophet (1446), Quell The Uprising
+# (387), Quell the Uprising (387), The Color of Blood (388), The Color of
+# Blood (388), The Stockade Riots (391), The Stockade Riots (391), Underground
+# Assault (2040), Underground Assault (2040), Bring the Light (3636), A Green
+# Sample (92456), A Green Sample (92456), Power Overwhelming (92489), Power
+# Overwhelming (92489), Drakefire Amulet (6502), Knowledge in the Deeps (971),
+# Knowledge in the Deeps (971), Mythology of the Titans (1050), Mythology of
+# the Titans (1050), The Lost Tablets of Will (1139), Back to Uldaman (2200),
+# Restoring the Necklace (2204), The Lost Dwarves (2398), Essential
+# Artificials (2924), Essential Artificials (2924), The Grand Betrayal (2929),
+# The Grand Betrayal (2929), Data Rescue (2930), Data Rescue (2930), Kharan
+# Mighthammer (4341), The Fate of the Kingdom (4362), The Restless Dead
+# (96394), The Restless Dead (96394), An Ancient Grudge (96395), Important
+# Heirlooms (96403), Important Heirlooms (96403), The Treaty of Understanding
+# (98423), Mortality Wanes (1142), Willix the Importer (1144), Blueleaf Tubers
+# (1221), Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate
+# Eradication (1487), The Glowing Shard (6981).
+
+step Oralius
+  turnin 4286 optional
+  turnin 4223
+  accept 4224
+
+step Yuka Screwspigot
+  turnin 4324
+  turnin 4810
+
+step Ruins of Thaurissan: The True Masters
+  complete 4224
+
+step Ruins of Thaurissan: Thaurissan Relic
+  interact 153556 quest 3701.1
+
+step Marshal Maxwell
+  turnin 4224
+
+step Ragged John
+  accept 4866
+
+step Ruins of Thaurissan: Mother's Milk
+  complete 4866
+
+step Ragged John
+  turnin 4866
+
+step Mayara Brightwing
+  turnin 4766
+
+step Gadgetzan
+  zone Tanaris
+  sethome "Gadgetzan"
+  turnin 4450
+  turnin 2741
+
+step Lost Rigger Cove: Silver Totem of Aquementas
+  collect 11522 quest 4005.1
+
+step Back to Gadgetzan
+  hearth "Gadgetzan"
+
+step Fire Plume Ridge: Un'Goro Ash
+  zone Un'Goro Crater
+  collect 11829 quest 4502.1
+
+step J.D. Collie
+  turnin 4005
+  accept 3961
+
+step Linken
+  tip Blazerunner (level 56) is elite: grouping up is advised unless you are well above level 56.
+  turnin 3961
+  accept 3962 optional
+  complete 3962 optional
+  turnin 3962 optional
+
+step Shreev
+  zone Tanaris
+  turnin 1188
+  accept 1189
+  turnin 2864
+
+step Abyssal Sands: Roc Gizzard
+  collect 6257 quest 1452.1
+
+step Stoley
+  turnin 2872
+
+step Kravel Koalbeard
+  zone Thousand Needles
+  turnin 1119
+  accept 1120
+  turnin 1120
+  accept 1122
+
+step Cortello's Treasure
+  zone The Hinterlands
+  turnin 626
+
+step Aerie Peak
+  sethome "Aerie Peak"
+  turnin 3843
+  accept 4297
+
+step Rhapsody Shindigger
+  turnin 1452
+  accept 1469
+
+step The Creeping Ruin: Silvermane Stalker Flank
+  collect 11472 quest 4297.1
+
+step Valorwind Lake: Sweet Amber
+  complete 49
+
+step Back to Aerie Peak
+  hearth "Aerie Peak"
+
+step Agnar Beastamer
+  turnin 4297
+  accept 4298
+  turnin 4298
+
+step Stormwind City
+  zone Stormwind City
+  sethome "Stormwind City"
+  accept 7795
+
+step Stormwind: A Donation of Runecloth
+  complete 7795
+
+step Clavicus Knavingham
+  turnin 7795
+  turnin 6187 optional
+
+step Everlook
+  zone Winterspring
+  sethome "Everlook"
+  accept 4907
+
+step Umber
+  zone Moonglade
+  turnin 6844
+  accept 6845
+
+step Rabine Saturna
+  turnin 6845
+
+step Umber
+  accept 1185
+  turnin 1185
+
+step Rabine Saturna
+  turnin 5527
+  accept 5526
+
+step Moonglade: Shards of the Felvine
+  complete 5526
+
+step Rabine Saturna
+  turnin 5526
+
+step Ironforge
+  zone Ironforge
+  tip Ambassador Infernus (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 762 optional
+  sethome "Ironforge"
+  turnin 3701
+  turnin 7805
+
+step Bubulo Acerbus
+  turnin 7811
+
+step Razzeric
+  zone Thousand Needles
+  turnin 1189
+
+step Ratchet
+  zone The Barrens
+  sethome "Ratchet"
+  turnin 4502
+
+step Booty Bay
+  zone Stranglethorn Vale
+  sethome "Booty Bay"
+  turnin 1122

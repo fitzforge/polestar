@@ -1,0 +1,191 @@
+guide completionist/alliance/human/20-arathi-highlands
+title Arathi Highlands
+faction Alliance
+race Human
+levels 41-43
+zone Arathi Highlands
+category Completionist
+folder Completionist · Human 40-50
+keywords completionist, every quest
+next completionist/alliance/human/21-ironforge-thousand-needles
+
+# Route: guide 20 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 41 to 43, 34
+# quests, 2.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Arathi Highlands): Circle of West Binding -> Thandol Span -> Faldir's
+# Cove -> Thandol Span -> Refuge Pointe -> Boulder'gor -> Northfold Manor ->
+# Boulder'gor -> Refuge Pointe -> Go'Shek Farm -> Circle of Outer Binding ->
+# Go'Shek Farm -> Circle of East Binding -> ….
+#
+# Optional (elite: grouping up is advised): Wanted!  Marez Cowl (684; Marez
+# Cowl 40); Wanted!  Otto and Falconcrest (685; Otto 38, Lord Falconcrest 40);
+# Stromgarde Badges (682; Syndicate Prowler 36-37, Syndicate Conjuror 35-36,
+# Syndicate Magus 37-38); Breaking the Keystone (652; Fozruk 42); Trelane's
+# Defenses (694; Boulderfist Shaman 38-39).
+#
+# Left to other guides: class quests (the Class category).
+
+step Messenger Bag
+  accept 79976
+  turnin 79976
+
+step Ebenezer Rustlocke's Corpse
+  turnin 631
+
+step Lolo the Lookout
+  accept 663
+  turnin 663
+  accept 662
+  accept 665
+
+step Faldir's Cove: Sunken Treasure
+  complete 665
+
+step Doctor Draxlegauge
+  turnin 665
+  accept 666
+  accept 664
+
+step Faldir's Cove: Daggerspine Raider and Daggerspine Sorceress and more
+  kill 2595 quest 664.1
+  kill 2596 quest 664.2
+  complete 662
+  collect 4492 quest 666.1
+
+step First Mate Nilzlix
+  turnin 662
+  turnin 666
+  accept 668
+  turnin 664
+  turnin 668
+  accept 669
+
+step Thandol Span
+  tip Waterlogged Letter drops the Waterlogged Envelope: right-click it to start Sully Balloo's Letter.
+  collect 4433 x1
+  accept 637
+
+step Refuge Pointe
+  tip Marez Cowl (level 40), Otto (level 38) and Lord Falconcrest (level 40) are elite: grouping up is advised unless you are well above level 40.
+  getfp "Refuge Pointe"
+  accept 681
+  accept 684 optional
+  accept 685 optional
+  accept 691
+  turnin 690
+
+step Boulder'gor: Witherbark Tusk
+  collect 4503 quest 691.1
+
+step Northfold Manor: Syndicate Highwayman and Syndicate Mercenary
+  kill 2586 quest 681.1
+  kill 2589 quest 681.2
+
+step Boulder'gor: Witherbark Medicine Pouch
+  collect 4522 quest 691.2
+
+step Captain Nials
+  tip Syndicate Prowler (level 36-37), Syndicate Conjuror (level 35-36) and Syndicate Magus (level 37-38) are elite: grouping up is advised unless you are well above level 38.
+  turnin 681
+  accept 682 optional
+
+step Quae
+  turnin 659
+  accept 658
+
+step Circle of Outer Binding: Sealed Folder
+  collect 4482 quest 658.1
+
+step Quae
+  turnin 658
+  accept 657
+  turnin 657
+  accept 660
+
+step Go'Shek Farm: Hints of a New Plague?
+  complete 660
+
+step Quae
+  turnin 660
+  accept 661
+
+step Shards of Myzrael
+  turnin 635
+  accept 642
+
+step Hammerfall: Mote of Myzrael
+  collect 4435 quest 642.1
+
+step Iridescent Shards
+  turnin 642
+  accept 651
+
+step Circle of West Binding: Stones of Binding
+  tip Marez Cowl (level 40), Syndicate Prowler (level 36-37), Syndicate Conjuror (level 35-36) and 3 more are elite: grouping up is advised unless you are well above level 40.
+  collect 4515 quest 684.1 optional
+  collect 4506 quest 682.1 optional
+  collect 4516 quest 685.1 optional
+  collect 4517 quest 685.2 optional
+  complete 651
+
+step Stone of Inner Binding
+  tip Syndicate Prowler (level 36-37), Syndicate Conjuror (level 35-36), Syndicate Magus (level 37-38) and 4 more are elite: grouping up is advised unless you are well above level 42.
+  turnin 682 optional
+  turnin 685 optional
+  turnin 684 optional
+  turnin 651
+  accept 652 optional
+
+step Foggy MacKreel
+  accept 647
+  accept 632
+
+step Witherbark Village: Shadow Hunter Knife
+  collect 5040 quest 691.3
+
+step Apprentice Kryten
+  tip Fozruk (level 42) is elite: grouping up is advised unless you are well above level 42.
+  collect 4469 quest 652.1 optional
+  turnin 691
+  accept 693
+
+step Keystone
+  tip Fozruk (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 652 optional
+  accept 653
+
+step Boulderfist Hall: Trelane's Wand of Invocation
+  collect 4525 quest 693.1
+
+step Skuerto
+  tip Boulderfist Shaman (level 38-39) is elite: grouping up is advised unless you are well above level 39.
+  turnin 693
+  accept 694 optional
+
+step Apprentice Kryten
+  tip Boulderfist Shaman (level 38-39) is elite: grouping up is advised unless you are well above level 39.
+  collect 4527 quest 694.1 optional
+  turnin 694 optional
+  accept 695
+  turnin 695
+  accept 696
+
+step Stromgarde Keep: Attack on the Tower
+  complete 696
+
+step Skuerto
+  turnin 696
+  accept 697
+
+step Hammerfall: Lesser Bloodstone Ore
+  collect 4278 quest 627.1
+
+step Back to Stormwind City
+  hearth "Stormwind City"
+
+step Ironforge
+  getfp "Ironforge"

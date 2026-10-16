@@ -1,0 +1,276 @@
+guide completionist/horde/skyborne/40-the-barrens-swamp-of-sorrows
+title The Barrens & Swamp of Sorrows
+faction Horde
+race Skyborne
+levels 57-58
+zone The Barrens
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, The Barrens, Un'Goro Crater, Swamp of Sorrows
+next completionist/horde/skyborne/41-dustwallow-marsh
+
+# Route: guide 40 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 57 to
+# 58, 48 quests, 3.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Barrens, Un'Goro Crater, Swamp of Sorrows): The Crossroads -> Far
+# Watch Post -> The Crossroads -> Thorn Hill -> Far Watch Post -> Ratchet ->
+# The Merchant Coast -> Ratchet -> The Merchant Coast -> Raptor Grounds ->
+# Ratchet -> The Crossroads -> The Forgotten Pools -> ….
+#
+# Optional (elite: grouping up is advised): Nothing But The Truth (1383;
+# Deepstrider Giant 38-39, Deepstrider Searcher 39-40).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Willix the Importer (1144), Blueleaf Tubers (1221),
+# Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate Eradication
+# (1487), The Glowing Shard (6981).
+
+step Dokimi
+  accept 91899
+  accept 91900
+  accept 91901
+  turnin 91901
+
+step The Crossroads: A Sealed Crate
+  complete 91899
+
+step Dokimi
+  turnin 91899
+
+step The Crossroads: A Sealed Crate
+  complete 91900
+
+step Dokimi
+  turnin 91900
+
+step Far Watch Post: Ak'Zeloth
+  complete 809
+
+step Ak'Zeloth
+  turnin 809
+
+step Tonga Runetotem
+  turnin 886
+  accept 5041
+  accept 871
+  turnin 98024
+  accept 1492
+  accept 869
+  turnin 860
+
+step The Crossroads: Raptor Head
+  collect 5062 quest 869.1
+
+step Gazrog
+  turnin 869
+  accept 3281
+
+step The Crossroads: Razormane Water Seeker and Razormane Thornweaver
+  kill 3267 quest 871.1
+  kill 3268 quest 871.2
+
+step Thorn Hill: Supplies for the Crossroads
+  complete 5041
+
+step Thorn Hill: Razormane Hunter
+  kill 3265 quest 871.3
+
+step Ak'Zeloth
+  accept 924
+
+step Gazlowe
+  accept 887
+  accept 97253
+
+step Ratchet
+  sethome "Ratchet"
+  turnin 1492
+
+step The Merchant Coast: Southsea Brigand
+  kill 3381 quest 887.1
+
+step The Merchant Coast: Southsea Cannoneer
+  kill 3382 quest 887.2
+
+step The Merchant Coast: Handful of Complicated Parts
+  collect 277331 quest 97253.1
+
+step Wrenix the Wretched
+  turnin 97253
+  turnin 887
+  accept 890
+  turnin 890
+  accept 892
+  turnin 892
+  accept 888
+
+step The Merchant Coast: Stolen Booty
+  complete 888
+
+step Raptor Grounds: Stolen Silver
+  complete 3281
+
+step Back to Ratchet
+  hearth "Ratchet"
+
+step Gazlowe
+  turnin 888
+
+step The Crossroads
+  sethome "The Crossroads"
+  turnin 3281
+  turnin 871
+  turnin 5041
+  accept 872
+
+step Regthar Deathgate
+  accept 855
+
+step The Forgotten Pools: Centaur Bracers
+  collect 5030 quest 855.1
+
+step Regthar Deathgate
+  turnin 855
+
+step Dreadmist Peak: The Altar of Fire
+  interact 3525 quest 924.1
+
+step Ak'Zeloth
+  turnin 924
+
+step Far Watch Post: Razormane Geomancer
+  kill 3269 quest 872.1
+
+step Thorn Hill: Razormane Defender and Kreenig Snarlsnout's Tusk
+  kill 3266 quest 872.2
+  collect 5063 quest 872.3
+
+step Thork
+  turnin 872
+
+step Camp Taurajo
+  sethome "Camp Taurajo"
+  accept 874
+
+step Mahren Skyseer
+  turnin 874
+  accept 873
+
+step The Merchant Coast: Heart of Isha Awak
+  collect 5104 quest 873.1
+
+step Mahren Skyseer
+  turnin 873
+
+step Ratchet
+  sethome "Ratchet"
+  accept 4502
+
+step Horde Warbringer
+  accept 8367
+
+step The Mor'shan Rampart: For Great Honor
+  complete 8367
+
+step Horde Warbringer
+  turnin 8367
+  accept 8388
+
+step The Mor'shan Rampart: For Great Honor
+  complete 8388
+
+step Horde Warbringer
+  turnin 8388
+
+step The Crossroads
+  sethome "The Crossroads"
+  accept 91904
+
+step The Crossroads: A Sealed Crate
+  complete 91904
+
+step Dokimi
+  turnin 91904
+
+step Ratchet
+  sethome "Ratchet"
+  accept 96339
+  turnin 96339
+  accept 96383
+  turnin 96383
+  turnin 1270
+
+step Ratchet: Soothing Spices and The Stone Circle
+  buy 3713 x3 nearest
+  complete 3444
+
+step Linken
+  zone Un'Goro Crater
+  turnin 3914
+  accept 3941
+
+step Fire Plume Ridge: Un'Goro Ash
+  collect 11829 quest 4502.1
+
+step The Slithering Scar: Gorishi Queen Brain
+  collect 11835 quest 4507.1
+
+step J.D. Collie
+  turnin 3941
+  accept 3942
+
+step Fire Plume Ridge: Unfinished Skeleton Key
+  collect 14645 quest 5802.1
+
+step Back to Ratchet
+  hearth "Ratchet"
+
+step Liv Rizzlefix
+  zone The Barrens
+  turnin 4502
+
+step Camp Taurajo
+  sethome "Camp Taurajo"
+  turnin 1153
+
+step The Crossroads
+  sethome "The Crossroads"
+  turnin 1148
+  accept 1184
+
+step Regthar Deathgate
+  turnin 1361
+
+step A Soggy Scroll
+  zone Swamp of Sorrows
+  accept 625
+
+step Katar
+  turnin 1426
+  accept 1427
+  turnin 1427
+  accept 1428
+
+step Misty Reed Strand: Marsh Inkspewer
+  kill 750 quest 1428.1
+
+step Stonard
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  sethome "Stonard"
+  turnin 1444
+  accept 1445 optional
+  collect 6181 quest 1445.1 optional
+  collect 6080 quest 1383.1 optional
+
+step Back to Stonard
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  collect 6081 quest 1383.2 optional
+  turnin 1445 optional
+  hearth "Stonard"
+
+step Misty Reed Strand: Goodsteel's Balanced Flameberge
+  collect 11723 quest 4450.4

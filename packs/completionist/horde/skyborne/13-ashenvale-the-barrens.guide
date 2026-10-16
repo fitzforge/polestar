@@ -1,0 +1,75 @@
+guide completionist/horde/skyborne/13-ashenvale-the-barrens
+title Ashenvale & The Barrens
+faction Horde
+race Skyborne
+levels 34-35
+zone The Barrens
+category Completionist
+folder Completionist · Skyborne 30-40
+keywords completionist, every quest, Ashenvale, The Barrens
+next completionist/horde/skyborne/14-dustwallow-marsh-stonetalon-mountains
+
+# Route: guide 13 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 34 to
+# 35, 15 quests, 0.7 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Ashenvale, The Barrens): Fallen Sky Lake -> Raynewood Retreat -> The
+# Zoram Strand -> Ratchet -> The Crossroads -> The Forgotten Pools -> Bael
+# Modan.
+#
+# Optional (elite: grouping up is advised): Allegiance to the Old Gods (6564;
+# Blackfathom Tide Priestess 20-21).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Blackfathom Villainy (6561), Allegiance to the Old Gods
+# (6565), Allegiance to the Old Gods (6565), Amongst the Ruins (6921), Amongst
+# the Ruins (6921), Baron Aquanis (6922), Willix the Importer (1144), Blueleaf
+# Tubers (1221), Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate
+# Eradication (1487), The Glowing Shard (6981).
+
+step Fallen Sky Lake: Filled Etched Phial
+  zone Ashenvale
+  turnin 3514 optional
+  collect 5868 quest 1195.1
+
+step Raynewood Retreat: Ordanus' Head
+  collect 5686 quest 1088.1
+
+step Je'neu Sancrea
+  tip Blackfathom Tide Priestess (level 20-21) is elite: grouping up is advised unless you are well above level 21. Blackfathom Tide Priestess drops the Damp Note: right-click it to start Allegiance to the Old Gods.
+  turnin 6562
+  collect 16790 x1 optional
+  accept 6564 optional
+  turnin 6564 optional
+
+step Ratchet
+  zone The Barrens
+  sethome "Ratchet"
+  turnin 1111
+  accept 1112
+
+step Gazlowe
+  turnin 1178
+  accept 1180
+
+step Nizook Boof
+  accept 98906
+  turnin 98906
+
+step The Crossroads
+  sethome "The Crossroads"
+  accept 1145
+
+step Regthar Deathgate
+  accept 1362
+
+step Hoofprints
+  accept 1268
+  accept 1269
+  accept 1251
+
+step Brackenwall Village
+  getfp "Brackenwall Village"

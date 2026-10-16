@@ -1,0 +1,220 @@
+guide completionist/horde/orc/43-the-barrens-tirisfal-glades
+title The Barrens & Tirisfal Glades
+faction Horde
+race Orc
+levels 58-59
+zone The Barrens
+category Completionist
+folder Completionist · Orc 50-60
+keywords completionist, every quest, The Barrens, Stranglethorn Vale, Duskwood, Swamp of Sorrows, Blasted Lands, Tanaris, Thousand Needles, Tirisfal Glades
+next completionist/horde/orc/44-azshara-feralas
+
+# Route: guide 43 of 49 of the simulator's completionist route for Orc (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 58 to 59, 52
+# quests, 2.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Barrens, Stranglethorn Vale, Duskwood, Swamp of Sorrows, Blasted
+# Lands, Tanaris, Thousand Needles, Tirisfal Glades): The Crossroads -> Camp
+# Taurajo -> The Merchant Coast -> Camp Taurajo -> The Crossroads -> Honor's
+# Stand -> Boulder Lode Mine -> The Mor'shan Rampart -> The Merchant Coast ->
+# Ratchet -> The Mor'shan Rampart -> The Crossroads -> Ratchet -> ….
+#
+# Optional (elite: grouping up is advised): Nothing But The Truth (1383;
+# Deepstrider Giant 38-39, Deepstrider Searcher 39-40).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Willix the Importer (1144), Blueleaf Tubers (1221),
+# Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate Eradication
+# (1487), The Glowing Shard (6981), Divino-matic Rod (2768), Scarab Shells
+# (2865), Troll Temper (3042), Into the Depths (3446), Secret of the Circle
+# (3447), The Prophecy of Mosh'aru (3527), The God Hakkar (3528), The Final
+# Tablets (4788), Gahz'rilla (2770), Vorrel's Revenge (1051), Barov Family
+# Fortune (5341), The Wrath of Rath'mael (92422), The Wrath of Rath'mael
+# (92422), Crest of Lordaeron (95204), Unending Torment (97288).
+
+step Dokimi
+  accept 91899
+  accept 91900
+
+step The Crossroads: A Sealed Crate
+  complete 91899
+
+step Dokimi
+  turnin 91899
+
+step The Crossroads: A Sealed Crate
+  complete 91900
+
+step Dokimi
+  turnin 91900
+
+step Tonga Runetotem
+  turnin 886
+  turnin 860
+
+step Camp Taurajo
+  sethome "Camp Taurajo"
+  accept 874
+
+step Mahren Skyseer
+  turnin 874
+  accept 873
+
+step The Merchant Coast: Heart of Isha Awak
+  collect 5104 quest 873.1
+
+step Mahren Skyseer
+  turnin 873
+
+step Tatternack Steelforge
+  turnin 1153
+
+step The Crossroads
+  sethome "The Crossroads"
+  turnin 1148
+  accept 1184
+
+step Zargh
+  turnin 6386
+  turnin 1358
+
+step Makaba Flathoof
+  turnin 6629
+  turnin 1061
+  turnin 1068
+
+step Boulder Lode Mine: Wool Cloth
+  collect 2592 quest 7826.1
+  collect 2592 quest 7833.1
+
+step Kelm Hargunth
+  accept 7868
+  turnin 7868
+
+step Back to The Crossroads
+  hearth "The Crossroads"
+
+step Islen Waterseer
+  turnin 5158
+  accept 5159
+
+step Ratchet
+  sethome "Ratchet"
+  turnin 4147
+
+step Ratchet: The Stone Circle
+  complete 3444
+
+step Liv Rizzlefix
+  accept 4502
+
+step Horde Warbringer
+  accept 8367
+
+step The Mor'shan Rampart: For Great Honor
+  complete 8367
+
+step Horde Warbringer
+  turnin 8367
+  accept 8388
+
+step The Mor'shan Rampart: For Great Honor
+  complete 8388
+
+step Horde Warbringer
+  turnin 8388
+
+step The Crossroads
+  sethome "The Crossroads"
+  accept 91904
+
+step The Crossroads: A Sealed Crate
+  complete 91904
+
+step Dokimi
+  turnin 91904
+
+step Ratchet
+  sethome "Ratchet"
+  accept 96339
+  turnin 96339
+  accept 96383
+  turnin 96383
+
+step Booty Bay
+  zone Stranglethorn Vale
+  sethome "Booty Bay"
+  turnin 1118
+  accept 1119
+
+step Razzeric
+  zone Thousand Needles
+  tip Fool's Stout lasts 120 minutes: go straight on with it.
+  turnin 1119
+
+step Apothecary Faustin
+  zone Duskwood
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  turnin 1383 optional
+  accept 1388
+  turnin 1388
+  accept 1391
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 2681
+  accept 2702
+  turnin 2702
+  accept 2701
+  turnin 2701
+  accept 2721
+
+step Spirit of Kirith
+  zone Blasted Lands
+  turnin 2721
+  accept 2743
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 2743
+  accept 2744
+
+step Gadgetzan
+  zone Tanaris
+  sethome "Gadgetzan"
+  turnin 4507
+  accept 4509
+
+step Razzeric
+  zone Thousand Needles
+  turnin 1189
+  accept 1120
+  turnin 1120
+  accept 1122
+
+step Gunther Arcanus
+  zone Tirisfal Glades
+  turnin 366
+  accept 409
+
+step Brightwater Lake: Lillith Nefara
+  kill 1946 quest 409.1
+
+step Gunther Arcanus
+  turnin 409
+  accept 411
+
+step High Executor Derrington
+  turnin 5093
+  turnin 5802
+
+step The Bulwark: Arcane Quickener
+  buy 13320 x1 nearest
+
+step Shadow Priestess Vandis
+  turnin 5234
+  accept 5235
+  accept 5804

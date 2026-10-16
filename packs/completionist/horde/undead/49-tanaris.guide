@@ -1,0 +1,31 @@
+guide completionist/horde/undead/49-tanaris
+title Tanaris
+faction Horde
+race Undead
+levels 60-60
+zone Tanaris
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest
+next completionist/horde/undead/50-orgrimmar-stranglethorn-vale
+
+# Route: guide 49 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 60 to
+# 60, 4 quests, 0.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Tanaris): Gadgetzan.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Divino-matic Rod (2768), Scarab Shells (2865), Troll
+# Temper (3042), Into the Depths (3446), Secret of the Circle (3447), The
+# Prophecy of Mosh'aru (3527), The God Hakkar (3528), The Final Tablets
+# (4788).
+
+step Krinkle Goodsteel
+  turnin 4450
+  turnin 2741
+  turnin 4507
+  accept 4509

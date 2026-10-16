@@ -1,0 +1,89 @@
+guide completionist/horde/tauren/47-orgrimmar
+title Orgrimmar
+faction Horde
+race Tauren
+levels 59-60
+zone Orgrimmar
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest
+next completionist/horde/tauren/48-undercity-thunder-bluff
+
+# Route: guide 47 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 59 to
+# 60, 17 quests, 0.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Orgrimmar): Orgrimmar -> near Orgrimmar -> Orgrimmar -> near Orgrimmar
+# -> Orgrimmar.
+#
+# Optional (elite: grouping up is advised): Necklace Recovery (2283;
+# Shadowforge Surveyor 35-36, Shadowforge Ruffian 36-37, Shadowforge Digger
+# 35-36, Stonevault Rockchewer 36-37, Stonevault Oracle 37-38, Stonevault Cave
+# Hunter 36-37); Shadowshard Fragments (7068; Shadowshard Rumbler 40-41,
+# Shadowshard Smasher 41-42, Shadowshard Thunderer 38).
+#
+# Left out: A Donation of Runecloth (7824), A Donation of Runecloth (7836):
+# the route takes them here but cannot finish them (the coverage report's
+# missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Necklace Recovery, Take 2 (2284), Rig Wars (2841), Rig
+# Wars (2841), The Royal Rescue (4003), For The Horde! (4974), Returning the
+# Lost Satchel (5724), Hidden Enemies (5728), Hidden Enemies (5728), Slaying
+# the Beast (5761), Slaying the Beast (5761), Changing Tastes (95697),
+# Changing Tastes (95697).
+
+step Orgrimmar
+  tip Shadowforge Surveyor (level 35-36), Shadowforge Ruffian (level 36-37), Shadowforge Digger (level 35-36) and 3 more are elite: grouping up is advised unless you are well above level 38.
+  turnin 2283 optional
+  sethome "Orgrimmar"
+  turnin 813
+
+step Thrall
+  turnin 5726
+  accept 5727
+
+step Orgrimmar: Hidden Enemies
+  complete 5727
+
+step Thrall
+  turnin 5727
+
+step Uthel'nay
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  turnin 7068 optional
+  turnin 7835
+
+step Rashona Straglash
+  turnin 7831
+  turnin 81
+
+step Belgrom Rockmaul
+  turnin 3507
+
+step Rashona Straglash
+  turnin 7826
+
+step Vehena
+  turnin 7833
+  turnin 7834
+
+step Rashona Straglash
+  turnin 7827
+
+step Belgrom Rockmaul
+  turnin 1184
+
+step Zilzibin Drumlore
+  turnin 4509
+  accept 4511
+  turnin 4300
+
+step Karus
+  turnin 4511
+
+step Undercity
+  sethome "Undercity"

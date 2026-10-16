@@ -1,0 +1,62 @@
+guide completionist/horde/skyborne/25-hillsbrad-foothills
+title Hillsbrad Foothills
+faction Horde
+race Skyborne
+levels 48-50
+zone Hillsbrad Foothills
+category Completionist
+folder Completionist · Skyborne 40-50
+keywords completionist, every quest
+next completionist/horde/skyborne/26-undercity-azshara
+
+# Route: guide 25 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 48 to
+# 50, 10 quests, 0.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Hillsbrad Foothills): Tarren Mill -> Durnholde Keep -> Tarren Mill ->
+# Hillsbrad Fields -> Azurelode Mine -> Southshore -> Tarren Mill.
+#
+# Optional (elite: grouping up is advised): The Crown of Will (518; Crushridge
+# Mauler 36-37).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Grave Knight (96986).
+
+step Melisara
+  tip Crushridge Mauler (level 36-37) is elite: grouping up is advised unless you are well above level 37.
+  accept 518 optional
+  accept 566
+  turnin 2933
+  accept 2934
+  turnin 1065
+  accept 1066
+
+step Durnholde Keep: Vial of Innocent Blood
+  collect 5620 quest 1066.1
+
+step Apothecary Lydon
+  turnin 1066
+  accept 1067
+  turnin 501
+  accept 502
+
+step Stanley
+  turnin 502
+
+step Azurelode Mine: Torn Fin Eye
+  collect 3510 quest 515.3
+
+step Southshore: Daggerspine Scale
+  collect 3509 quest 515.2
+
+step Back to Tarren Mill
+  hearth "Tarren Mill"
+
+step Apothecary Lydon
+  turnin 515
+
+step Undercity
+  sethome "Undercity"

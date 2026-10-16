@@ -1,0 +1,207 @@
+guide completionist/horde/skyborne/12-thunder-bluff-hillsbrad-foothills
+title Thunder Bluff & Hillsbrad Foothills
+faction Horde
+race Skyborne
+levels 33-35
+zone Hillsbrad Foothills
+category Completionist
+folder Completionist · Skyborne 30-40
+keywords completionist, every quest, Thunder Bluff, Thousand Needles, Hillsbrad Foothills, Undercity, Alterac Mountains
+next completionist/horde/skyborne/13-ashenvale-the-barrens
+
+# Route: guide 12 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 33 to
+# 35, 46 quests, 3.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Thunder Bluff, Thousand Needles, Hillsbrad Foothills, Undercity,
+# Alterac Mountains): Thunder Bluff -> near Thunder Bluff -> Thunder Bluff ->
+# near Thunder Bluff -> Thunder Bluff -> near Thunder Bluff -> Camp E'thok ->
+# Freewind Post -> Darkcloud Pinnacle -> Camp E'thok -> Freewind Post -> The
+# Shimmering Flats -> Freewind Post -> ….
+#
+# Optional (elite: grouping up is advised): A Host of Evil (6626; Razorfen
+# Battleguard 33-34, Razorfen Thornweaver 33-34, Death's Head Cultist 33-34).
+#
+# Profession quests here are not routed (they need the skill): 3526 Goblin
+# Engineering; 3635 Gnome Engineering; 7321 Soothing Turtle Bisque.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Leaders of the Fang (914), A Vengeful Fate (1102), Testing
+# an Enemy's Strength (5723), Gahz'rilla (2770), The Grave Knight (96986), The
+# Book of Ur (1013), The Book of Ur (1013), Going, Going, Guano! (1109),
+# Going, Going, Guano! (1109), Bring the End (3341), The Power to Destroy...
+# (5725), Light's Justice (92421), Light's Justice (92421), The New Plague
+# (95216), Source of Power (96988), Heart of Disruption (96984), The Grave
+# Knight (96986), Opportunistic Education (96987).
+
+step Cairne Bloodhoof
+  zone Thunder Bluff
+  turnin 776
+
+step Eyahn Eagletalon
+  turnin 744
+
+step Apothecary Zamah
+  turnin 853
+
+step Arch Druid Hamuul Runetotem
+  turnin 1489
+  turnin 1063
+
+step Melor Stonehoof
+  turnin 1130
+
+step Clarice Foster
+  accept 264
+  accept 962
+
+step Magatha Grimtotem
+  accept 1064
+  accept 1490
+  turnin 1490
+
+step Apothecary Zamah
+  turnin 1064
+  accept 1065
+
+step Tah Winterhoof
+  accept 97538
+  accept 1195
+
+step Melor Stonehoof
+  accept 1131
+
+step Magatha Grimtotem
+  turnin 5062
+
+step Camp E'thok: Steelsnap's Rib
+  zone Thousand Needles
+  collect 5837 quest 1131.1
+
+step Freewind Post
+  sethome "Freewind Post"
+  turnin 4542
+  turnin 5147
+
+step Darkcloud Pinnacle: Free at Last
+  complete 4904
+
+step Camp E'thok: Unrefined Ore Sample
+  collect 5842 quest 1153.1
+
+step Back to Freewind Post
+  hearth "Freewind Post"
+
+step Thalia Amberhide
+  turnin 4904
+
+step Kravel Koalbeard
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  turnin 6626 optional
+  accept 1111
+  accept 1176
+
+step The Shimmering Flats: Hollow Vulture Bone
+  collect 5848 quest 1176.1
+
+step Pozzik
+  turnin 1176
+  accept 1178
+
+step Cliffwatcher Longhorn
+  accept 5361
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  sethome "Tarren Mill"
+  accept 509
+
+step Nethander Stead: Mudsnout Blossoms
+  collect 3502 quest 509.1
+
+step Apothecary Lydon
+  turnin 509
+  accept 513
+  accept 676
+  accept 544
+  accept 93680
+  turnin 93680
+  accept 556
+  accept 547 optional
+  accept 533
+  accept 1361
+  accept 552
+
+step Henchman Valik
+  accept 535
+
+step Tarren Mill: Syndicate Missive and Southshore Stout
+  collect 3601 quest 533.1
+  collect 3703 quest 535.1
+
+step Henchman Valik
+  turnin 535
+
+step Krusk
+  turnin 533
+  accept 503
+
+step Darrow Hill: Helcular's Rod
+  collect 3708 quest 552.1
+
+step Back to Tarren Mill
+  hearth "Tarren Mill"
+
+step Novice Thaivand
+  turnin 552
+  accept 553
+
+step Darrow Hill: Flame of Azel and Flame of Veraz
+  interact 1768 quest 553.1
+  interact 1769 quest 553.2
+  collect 3693 quest 547.1 optional
+  turnin 547 optional
+
+step Undercity
+  zone Undercity
+  getfp "Undercity"
+  accept 97985
+  turnin 513
+  accept 515
+
+step Parqual Fintallas
+  turnin 1159
+  accept 1160
+  turnin 1160
+  accept 6628
+  turnin 6628
+  accept 1394
+  sethome "Undercity"
+  accept 1164
+
+step Corrahn's Dagger: Mountain Lion Blood
+  zone Alterac Mountains
+  collect 3496 quest 501.1
+
+step Lordamere Internment Camp: Bloodstone Wedge and Bloodstone Marble and more
+  collect 3691 quest 544.1
+  collect 3689 quest 544.2
+  collect 3690 quest 544.3
+  collect 3714 quest 556.1
+  collect 3688 quest 544.4
+
+step Growless Cave: Flame of Uzel
+  interact 1770 quest 553.3
+
+step Strahnbrad: Gol'dir
+  complete 503
+
+step Gol'dir
+  turnin 503
+
+step Back to Undercity
+  hearth "Undercity"
+  note "Profession quests here, for players with the skill: Goblin Engineering (Engineering 200), Gnome Engineering (Engineering 200), Soothing Turtle Bisque (Cooking 1)."

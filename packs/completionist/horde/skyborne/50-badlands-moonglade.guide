@@ -1,0 +1,177 @@
+guide completionist/horde/skyborne/50-badlands-moonglade
+title Badlands & Moonglade
+faction Horde
+race Skyborne
+levels 60-60
+zone Badlands
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Swamp of Sorrows, Redridge Mountains, Badlands, Western Plaguelands, Eastern Plaguelands, Hillsbrad Foothills, Azshara, Un'Goro Crater, Feralas, Thunder Bluff, Durotar, Moonglade
+
+# Route: guide 50 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 60 to
+# 60, 37 quests, 2.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Swamp of Sorrows, Redridge Mountains, Badlands, Western Plaguelands,
+# Eastern Plaguelands, Hillsbrad Foothills, Azshara, Un'Goro Crater, Feralas,
+# Thunder Bluff, Durotar, Moonglade): Stagalbog -> Stonard -> Splinterspear
+# Junction -> Lakeshire -> Agmond's End -> Kargath -> The Dustbowl -> Kargath
+# -> The Writhing Haunt -> Darrowshire -> Tarren Mill -> Ravencrest Monument
+# -> Lakkari Tar Pits -> ….
+#
+# Optional (elite: grouping up is advised): It's Dangerous to Go Alone (3962;
+# Blazerunner 56).
+#
+# Left out: Gahrron's Withering Cauldron (5227): the route takes them here but
+# cannot finish them (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Find the Gems and Power Source (2339), Disharmony of Fire
+# (3907), Commander Gor'shak (3981), The Rise of the Machines (4063), KILL ON
+# SIGHT: Dark Iron Dwarves (4081), KILL ON SIGHT: High Ranking Dark Iron
+# Officials (4082), Operation: Death to Angerforge (4132), Lost Thunderbrew
+# Recipe (4134), Ribbly Screwspigot (4136), The Pack Mistress (4724), Kibler's
+# Exotic Pets (4729), The Darkstone Tablet (4768), En-Ay-Es-Tee-Why (4862),
+# Warlord's Command (4903), Operative Bijou (4981), Doctor Theolen Krastinov,
+# the Butcher (5382), Kirtonos the Herald (5384), The Lich, Ras Frostwhisper
+# (5466), Krastinov's Bag of Horrors (5515), Of Love and Family (5848), Oculus
+# Illusions (6569), Dawn's Gambit (4771), The Flesh Does Not Lie (5212), The
+# Active Agent (5213), The Great Fras Siabi (5214), Houses of the Holy (5243),
+# The Archivist (5251), Above and Beyond (5263), The Restless Souls (5282),
+# Menethil's Gift (5463), Plagued Hatchlings (5529), Ramstein (6163), Dead
+# Man's Plea (8945), Anthion's Old Friend (8948), The Grave Knight (96986),
+# Pusillin and the Elder Azj'Tordin (7441), Elven Legends (7481),
+# Lethtendris's Web (7489), Leaders of the Fang (914), A Vengeful Fate (1102),
+# Testing an Enemy's Strength (5723).
+
+step Katar
+  zone Swamp of Sorrows
+  turnin 1428
+
+step Stonard
+  sethome "Stonard"
+  turnin 1391
+
+step Fallen Hero of the Horde
+  turnin 3626
+
+step Shawn
+  zone Redridge Mountains
+  accept 3741
+
+step Lakeshire: Hilary's Necklace
+  complete 3741
+
+step Hilary
+  turnin 3741
+
+step Theldurin the Lost
+  zone Badlands
+  turnin 737
+
+step Kargath
+  sethome "Kargath"
+  turnin 1418
+  turnin 2202
+  turnin 3822
+  turnin 4133
+  turnin 4061
+  accept 4062
+
+step Lotwil Veriatus
+  turnin 4062
+
+step Shadowmage Vivian Lagrave
+  turnin 4769
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  turnin 5224
+
+step Darrowshire: The Battle of Darrowshire
+  zone Eastern Plaguelands
+  complete 5721
+
+step Pamela Redpath
+  turnin 5721
+  accept 5942
+  turnin 5942
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  sethome "Tarren Mill"
+  turnin 493
+
+step Duke Hydraxis
+  zone Azshara
+  turnin 6804
+  turnin 6805
+
+step J.D. Collie
+  zone Un'Goro Crater
+  turnin 4005
+  accept 3961
+
+step Linken
+  tip Blazerunner (level 56) is elite: grouping up is advised unless you are well above level 56.
+  turnin 3961
+  accept 3962 optional
+  complete 3962 optional
+  turnin 3962 optional
+
+step Camp Mojache
+  zone Feralas
+  sethome "Camp Mojache"
+  turnin 4120
+  turnin 7492
+
+step Apothecary Zamah
+  zone Thunder Bluff
+  turnin 962
+  turnin 1086
+
+step Thunder Bluff
+  sethome "Thunder Bluff"
+  turnin 7820
+  turnin 97538
+
+step Melor Stonehoof
+  turnin 1205
+
+step Rumstag Proudstrider
+  turnin 7822
+
+step Melor Stonehoof
+  turnin 1136
+
+step Rumstag Proudstrider
+  turnin 7821
+
+step Rhinag
+  zone Durotar
+  turnin 812
+
+step Umber
+  zone Moonglade
+  turnin 6844
+  accept 6845
+
+step Rabine Saturna
+  turnin 6845
+
+step Umber
+  accept 1185
+  turnin 1185
+
+step Rabine Saturna
+  turnin 5527
+  accept 5526
+
+step Moonglade: Shards of the Felvine
+  complete 5526
+
+step Rabine Saturna
+  turnin 5526

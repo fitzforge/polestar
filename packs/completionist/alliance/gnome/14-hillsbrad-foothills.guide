@@ -1,0 +1,68 @@
+guide completionist/alliance/gnome/14-hillsbrad-foothills
+title Hillsbrad Foothills
+faction Alliance
+race Gnome
+levels 34-35
+zone Hillsbrad Foothills
+category Completionist
+folder Completionist · Gnome 30-40
+keywords completionist, every quest
+next completionist/alliance/gnome/15-desolace
+
+# Route: guide 14 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 34 to 35, 11
+# quests, 1.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Hillsbrad Foothills): Southshore -> Tarren Mill -> Darrow Hill ->
+# Southshore.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In the Name of the Light (1053).
+
+step Chef Jessen
+  tip Shadowy Assassin drops the Assassin's Contract: right-click it to start Assassin's Contract.
+  accept 555
+  accept 98463
+  accept 659
+  collect 3668 x1
+  accept 522
+  accept 565
+
+step Southshore: Soothing Spices and Fine Thread
+  buy 3713 x1 nearest
+  buy 2321 x1 nearest
+
+step Marshal Redpath
+  accept 500
+  turnin 522
+  accept 92432
+  accept 564
+
+step Southshore: Turtle Meat
+  collect 3712 quest 555.1
+
+step Syndicate Documents
+  accept 511
+
+step Darrow Hill: Yeti Fur
+  collect 3720 quest 565.4
+
+step Chef Jessen
+  turnin 555
+  turnin 511
+  accept 514
+
+step Syndicate Thief (level 35)
+  level 35 -- grind on Syndicate Thief (level 34) at Corrahn's Dagger
+
+step Magistrate Henry Maleb
+  accept 523
+
+step Nijel's Point
+  getfp "Nijel's Point"
+
+step Nijel's Point
+  sethome "Nijel's Point"

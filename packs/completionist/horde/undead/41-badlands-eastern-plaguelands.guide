@@ -1,0 +1,271 @@
+guide completionist/horde/undead/41-badlands-eastern-plaguelands
+title Badlands & Eastern Plaguelands
+faction Horde
+race Undead
+levels 58-59
+zone Eastern Plaguelands
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Undercity, Tirisfal Glades, Tanaris, Durotar, Badlands, Arathi Highlands, Eastern Plaguelands, The Hinterlands, Hillsbrad Foothills
+next completionist/horde/undead/42-swamp-of-sorrows-winterspring
+
+# Route: guide 41 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 58 to
+# 59, 64 quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Undercity, Tirisfal Glades, Tanaris, Durotar, Badlands, Arathi
+# Highlands, Eastern Plaguelands, The Hinterlands, Hillsbrad Foothills):
+# Undercity -> near Undercity -> Undercity -> The Bulwark -> Gadgetzan ->
+# Noonshade Ruins -> Gadgetzan -> Zul'Farrak -> Broken Pillar -> Lost Rigger
+# Cove -> Sen'jin Village -> Valley of Trials -> Skull Rock -> ….
+#
+# Optional (elite: grouping up is advised): The Crimson Courier (6145; Crimson
+# Courier 60); The Star, the Hand and the Heart (736; Grel'borg the Miser 39,
+# Dagun the Ravenous 43, Mogh the Undying 44); Summoning the Princess (656;
+# Myzrael 44); The Scarlet Oracle, Demetria (6148; Demetria 61); The Crown of
+# Will (519; Targ 41, Muckrake 40, Glommus 39); The Crown of Will (520;
+# Mug'thol 43).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Book of Ur (1013), The Book of Ur (1013), Going,
+# Going, Guano! (1109), Going, Going, Guano! (1109), Bring the End (3341), The
+# Power to Destroy... (5725), Light's Justice (92421), Light's Justice
+# (92421), The New Plague (95216), Source of Power (96988), Vorrel's Revenge
+# (1051), Barov Family Fortune (5341), The Wrath of Rath'mael (92422), The
+# Wrath of Rath'mael (92422), Crest of Lordaeron (95204), Unending Torment
+# (97288), Divino-matic Rod (2768), Scarab Shells (2865), Troll Temper (3042),
+# Into the Depths (3446), Secret of the Circle (3447), The Prophecy of
+# Mosh'aru (3527), The God Hakkar (3528), The Final Tablets (4788), Find the
+# Gems and Power Source (2339), Disharmony of Fire (3907), Commander Gor'shak
+# (3981), The Rise of the Machines (4063), KILL ON SIGHT: Dark Iron Dwarves
+# (4081), KILL ON SIGHT: High Ranking Dark Iron Officials (4082), Operation:
+# Death to Angerforge (4132), Lost Thunderbrew Recipe (4134), Ribbly
+# Screwspigot (4136), The Pack Mistress (4724), Kibler's Exotic Pets (4729),
+# The Darkstone Tablet (4768), En-Ay-Es-Tee-Why (4862), Warlord's Command
+# (4903), Operative Bijou (4981), Dragonmaw Rumors (95663), Dawn's Gambit
+# (4771), The Flesh Does Not Lie (5212), The Active Agent (5213), The Great
+# Fras Siabi (5214), Houses of the Holy (5243), The Archivist (5251), Above
+# and Beyond (5263), The Restless Souls (5282), Menethil's Gift (5463),
+# Plagued Hatchlings (5529), Ramstein (6163), Dead Man's Plea (8945),
+# Anthion's Old Friend (8948), Jammal'an the Prophet (1446), The Grave Knight
+# (96986).
+
+step Royal Overseer Bauhaus
+  zone Undercity
+  accept 5049
+  turnin 5049
+  accept 5050
+
+step Apothecary Zinge
+  accept 4133
+
+step Harbinger Balthazad
+  accept 7492
+
+step Lady Sylvanas Windrunner
+  tip Crimson Courier (level 60) is elite: grouping up is advised unless you are well above level 60.
+  accept 5961
+  turnin 6144
+  accept 6145 optional
+
+step Apothecary Zinge
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  accept 4769
+  turnin 736 optional
+  accept 737
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  turnin 5093
+  turnin 5802
+
+step The Bulwark: Arcane Quickener
+  buy 13320 x1 nearest
+
+step Shadow Priestess Vandis
+  turnin 5234
+  accept 5235
+  accept 5804
+
+step Back to Undercity
+  hearth "Undercity"
+
+step Gadgetzan
+  zone Tanaris
+  sethome "Gadgetzan"
+  turnin 1188
+  accept 1189
+  turnin 243
+  turnin 4504
+  turnin 4496
+  accept 4507
+  accept 379
+
+step Noonshade Ruins: Wastewander Water Pouch
+  collect 8483 quest 379.1
+
+step Chief Engineer Bilgewhizzle
+  turnin 379
+
+step Zul'Farrak: The Spider God
+  complete 2936
+
+step Marvon Rivetseeker
+  turnin 3444
+
+step Lost Rigger Cove: Silver Totem of Aquementas
+  collect 11522 quest 4005.1
+
+step Master Gadrin
+  zone Durotar
+  turnin 2936
+  accept 2937 optional
+
+step Gornek
+  turnin 787
+
+step Skull Rock: Venomtail Poison Sac
+  collect 4886 quest 813.1
+
+step Skull Rock: Lieutenant's Insignia
+  collect 14544 quest 5726.1
+
+step Theldurin the Lost
+  zone Badlands
+  turnin 687
+  turnin 737
+  accept 692
+
+step Agmond's End: Torn Scroll Fragment and Crumpled Scroll Fragment and more
+  collect 4518 quest 692.1
+  collect 4519 quest 692.2
+  collect 4520 quest 692.3
+
+step Theldurin the Lost
+  tip Myzrael (level 44) is elite: grouping up is advised unless you are well above level 44.
+  turnin 692
+  accept 656 optional
+
+step Rigglefuzz
+  turnin 705
+
+step Kargath
+  sethome "Kargath"
+  turnin 1418
+
+step Angor Fortress: Reclaimed Treasures
+  complete 2342
+
+step Jarkal Mossmeld
+  tip Myzrael (level 44) is elite: grouping up is advised unless you are well above level 44.
+  turnin 2202
+  accept 3821
+  turnin 4133
+  accept 4061
+  turnin 4769
+  collect 4473 quest 656.1 optional
+
+step Nathanos Blightcaller
+  zone Eastern Plaguelands
+  turnin 5961
+
+step Darrowshire: The Battle of Darrowshire
+  complete 5721
+
+step Pamela Redpath
+  turnin 5721
+  accept 5942
+  turnin 5942
+
+step Northpass Tower: Of Lost Honor
+  complete 5845
+
+step Nathanos Blightcaller
+  tip Crimson Courier (level 60) is elite: grouping up is advised unless you are well above level 60.
+  collect 15868 quest 6145.1 optional
+  turnin 6145 optional
+  accept 6146
+
+step The Marris Stead: Nathanos' Ruse
+  complete 6146
+
+step Crusader Lord Valdelmar
+  turnin 6146
+  accept 6147
+
+step Nathanos Blightcaller
+  tip Demetria (level 61) is elite: grouping up is advised unless you are well above level 61.
+  turnin 6147
+  accept 6148 optional
+  kill 12339 quest 6148.1 optional
+  turnin 6148 optional
+
+step Cortello's Treasure
+  zone The Hinterlands
+  turnin 626
+
+step Hiri'watha: Wildkin Muisek
+  collect 9324 quest 2937.1 optional
+  collect 9594 quest 3123.1
+
+step Gilveradin Sunchaser
+  turnin 650
+  accept 77
+
+step Agol'watha: Hinterlands Honey Ripple
+  collect 8684 quest 77.1
+
+step Gilveradin Sunchaser
+  turnin 77
+  accept 81
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  tip Targ (level 41), Muckrake (level 40), Glommus (level 39) and Mug'thol (level 43) are elite: grouping up is advised unless you are well above level 43.
+  sethome "Tarren Mill"
+  turnin 519 optional
+  accept 520 optional
+  turnin 2937 optional
+  accept 2938
+  accept 517
+
+step Dun Garok: Elixir of Agony
+  complete 517
+
+step Back to Tarren Mill
+  hearth "Tarren Mill"
+
+step Apothecary Lydon
+  turnin 517
+  accept 524
+  turnin 524
+  turnin 545
+  accept 92434
+  turnin 557
+  turnin 508
+
+step Messenger Bag
+  zone Arathi Highlands
+  tip Myzrael (level 44) is elite: grouping up is advised unless you are well above level 44.
+  turnin 656 optional
+  accept 79976
+  turnin 79975
+  turnin 79976
+
+step Boulder'gor: Boulderfist Enforcer and Boulderfist Ogre
+  kill 2564 quest 676.2
+  kill 2562 quest 676.1
+
+step Dabyrie's Farmstead: Marcel's Head and Kenata's Head and more
+  collect 5832 quest 1164.2
+  collect 5830 quest 1164.1
+  collect 5831 quest 1164.3
+
+step Hammerfall
+  sethome "Hammerfall"
+  turnin 676
+  accept 8265
+  turnin 8265

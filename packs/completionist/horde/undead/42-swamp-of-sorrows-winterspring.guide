@@ -1,0 +1,183 @@
+guide completionist/horde/undead/42-swamp-of-sorrows-winterspring
+title Swamp of Sorrows & Winterspring
+faction Horde
+race Undead
+levels 58-60
+zone Swamp of Sorrows
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Western Plaguelands, Swamp of Sorrows, Blasted Lands, Thousand Needles, Winterspring
+next completionist/horde/undead/43-felwood
+
+# Route: guide 42 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 58 to
+# 60, 39 quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Western Plaguelands, Swamp of Sorrows, Blasted Lands, Thousand
+# Needles, Winterspring): Felstone Field -> The Writhing Haunt -> Dalson's
+# Tears -> Gahrron's Withering -> Thondroril River -> Ruins of Andorhal ->
+# Darrowmere Lake -> Stagalbog -> Misty Reed Strand -> Stonard -> Misty Reed
+# Strand -> Splinterspear Junction -> Serpent's Coil -> ….
+#
+# Optional (elite: grouping up is advised): Nothing But The Truth (1383;
+# Deepstrider Giant 38-39, Deepstrider Searcher 39-40); Arikara (5088; Arikara
+# 28); High Chief Winterfall (5121; High Chief Winterfall 59); The Final Piece
+# (5123; High Chief Winterfall 59).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Doctor Theolen Krastinov, the Butcher (5382), Kirtonos the
+# Herald (5384), The Lich, Ras Frostwhisper (5466), Krastinov's Bag of Horrors
+# (5515), Of Love and Family (5848), Oculus Illusions (6569), Gahz'rilla
+# (2770).
+
+step Janice Felstone
+  zone Western Plaguelands
+  turnin 5050
+  accept 5051
+
+step Felstone Field: Two Halves Become One
+  complete 5051
+
+step Janice Felstone
+  turnin 5051
+
+step Scourge Cauldron
+  accept 5224
+
+step The Writhing Haunt: Somatic Intensifier and Runecloth
+  collect 13356 quest 5224.2
+  collect 14047 quest 5224.3
+
+step Scourge Cauldron
+  turnin 5221
+
+step Gahrron's Withering: Gahrron's Withering Cauldron Key
+  collect 13196 quest 5235.1
+
+step Scourge Cauldron
+  turnin 5235
+  accept 5236
+
+step Tirion Fordring
+  turnin 5845
+  accept 5846
+
+step Ruins of Andorhal: Araj's Scarab
+  complete 5804
+
+step Artist Renfray
+  turnin 5846
+
+step Katar
+  zone Swamp of Sorrows
+  turnin 1426
+  accept 1427
+  turnin 1427
+  accept 1428
+
+step Misty Reed Strand: Marsh Inkspewer
+  kill 750 quest 1428.1
+
+step Stonard
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  sethome "Stonard"
+  turnin 1444
+  accept 1445 optional
+  collect 6181 quest 1445.1 optional
+  collect 6080 quest 1383.1 optional
+
+step Back to Stonard
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  collect 6081 quest 1383.2 optional
+  turnin 1445 optional
+  hearth "Stonard"
+
+step Misty Reed Strand: Goodsteel's Balanced Flameberge
+  collect 11723 quest 4450.4
+
+step Fallen Hero of the Horde
+  turnin 2681
+  accept 2702
+  turnin 2702
+  accept 2701
+  turnin 2701
+  accept 2721
+
+step Spirit of Kirith
+  zone Blasted Lands
+  turnin 2721
+  accept 2743
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 2743
+  accept 2744
+
+step Razzeric
+  zone Thousand Needles
+  turnin 1189
+  turnin 1119
+  accept 1120
+  turnin 1120
+  accept 1122
+
+step Freewind Post
+  sethome "Freewind Post"
+  turnin 1196
+  accept 1197
+
+step Darkcloud Pinnacle: The Sacred Flame
+  complete 1197
+
+step Rau Cliffrunner
+  tip Arikara (level 28) is elite: grouping up is advised unless you are well above level 28.
+  turnin 1197
+  collect 12925 quest 5088.1 optional
+  interact 175944 quest 5088.2 optional
+  turnin 5088 optional
+
+step Everlook
+  zone Winterspring
+  sethome "Everlook"
+  accept 6606
+  turnin 6606
+  accept 4907
+
+step Donova Snowden
+  turnin 5086
+  accept 5087
+
+step Frostfire Hot Springs: Winterfall Crate
+  collect 12829 quest 5087.1
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5087
+  accept 5121 optional
+
+step Back to Everlook
+  hearth "Everlook"
+
+step Umi Rumplesnicker
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59. High Chief Winterfall drops the Crudely-written Log: right-click it to start The Final Piece.
+  kill 10738 quest 5121.1 optional
+  collect 12842 x1 optional
+  accept 5123 optional
+  turnin 5163
+
+step The Hidden Grove: Berserk Owlbeast
+  kill 7454 quest 4721.1
+
+step Mazthoril
+  tip Crazed Owlbeast drops the Blue-feathered Necklace: right-click it to start Guarding Secrets.
+  collect 12558 x1
+  accept 4882
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5121 optional
+  turnin 5123 optional
+  accept 5128

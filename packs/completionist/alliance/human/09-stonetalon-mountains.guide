@@ -1,0 +1,105 @@
+guide completionist/alliance/human/09-stonetalon-mountains
+title Stonetalon Mountains
+faction Alliance
+race Human
+levels 27-29
+zone Stonetalon Mountains
+category Completionist
+folder Completionist · Human 20-30
+keywords completionist, every quest
+next completionist/alliance/human/10-duskwood
+
+# Route: guide 9 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 27 to 29, 16
+# quests, 1.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stonetalon Mountains): Sun Rock Retreat -> Webwinder Path -> Windshear
+# Crag -> Webwinder Path -> Mirkfallon Lake -> Stonetalon Peak -> The Charred
+# Vale -> Stonetalon Peak -> Webwinder Path -> Windshear Crag.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Vyletongue Corruption (7041), Corruption of Earth and Seed
+# (7065).
+
+step Pocket Litter
+  accept 79980
+  turnin 79980
+  accept 79974
+
+step Kaela Shadowspear
+  accept 1085
+  turnin 1085
+  accept 1071
+  accept 1093
+
+step Windshear Crag: Super Reaper 6000 Blueprints
+  collect 5734 quest 1093.1
+
+step Windshear Crag: Venture Co. Deforester
+  kill 3991 quest 1071.2
+
+step Windshear Crag: Venture Co. Logger
+  kill 3989 quest 1071.1
+
+step Piznik
+  accept 1090
+
+step Windshear Crag: Gerenzo's Orders
+  complete 1090
+
+step Piznik
+  turnin 1090
+  accept 1092
+
+step Ziz Fizziks
+  turnin 1092
+  turnin 1093
+  accept 1094
+
+step Gaxim Rustfizzle
+  turnin 1071
+  accept 1072
+  accept 1075
+
+step Night Elf Courier
+  accept 86574
+
+step Mirkfallon Lake: Stonetalon Supply Bundle
+  collect 277917 quest 86574.1
+
+step Stonetalon Peak
+  getfp "Stonetalon Peak"
+  sethome "Stonetalon Peak"
+  accept 1057
+  turnin 86574
+
+step The Charred Vale: Bloodfury Harpy and Bloodfury Ambusher
+  kill 4022 quest 1057.1
+  kill 4025 quest 1057.2
+
+step The Charred Vale: Bloodfury Roguefeather and Bloodfury Slayer
+  kill 4023 quest 1057.4
+  kill 4024 quest 1057.3
+
+step Back to Stonetalon Peak
+  hearth "Stonetalon Peak"
+
+step Keeper Albagorm
+  turnin 1057
+  accept 1059
+  turnin 1056
+
+step Kaela Shadowspear
+  turnin 1070
+
+step Windshear Crag: Pridewing Venom Sac
+  collect 5808 quest 1134.1
+
+step Darkshire
+  getfp "Darkshire"
+
+step Darkshire
+  sethome "Darkshire"

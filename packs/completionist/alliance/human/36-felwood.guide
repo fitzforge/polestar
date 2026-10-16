@@ -1,0 +1,189 @@
+guide completionist/alliance/human/36-felwood
+title Felwood
+faction Alliance
+race Human
+levels 52-54
+zone Felwood
+category Completionist
+folder Completionist · Human 50-60
+keywords completionist, every quest
+next completionist/alliance/human/37-winterspring
+
+# Route: guide 36 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 52 to 54, 24
+# quests, 3.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Felwood): Felpaw Village -> Emerald Sanctuary -> Deadwood Village ->
+# Emerald Sanctuary -> Deadwood Village -> Felpaw Village -> Emerald Sanctuary
+# -> Morlos'Aran -> Emerald Sanctuary -> Jadefire Glen -> Ruins of Constellas
+# -> Jaedenar -> Shatter Scar Vale -> ….
+#
+# Profession quests here are not routed (they need the skill): 4104 Salve via
+# Mining; 4105 Salve via Gathering; 4106 Salve via Skinning; 4107 Salve via
+# Disenchanting; 5883 Salve via Mining; 5884 Salve via Gathering; 5885 Salve
+# via Skinning; 5886 Salve via Disenchanting; 6032 Sacred Cloth.
+#
+# Left to other guides: class quests (the Class category).
+
+step Felpaw Village
+  tip Deadwood Avenger drops the Deadwood Ritual Totem: right-click it to start Deadwood Ritual Totem.
+  collect 20741 x1
+  accept 8470
+  accept 8461
+
+step Felpaw Village: Deadwood Avenger and Deadwood Den Watcher and more
+  kill 7157 quest 8461.2
+  kill 7156 quest 8461.1
+  kill 7158 quest 8461.3
+
+step Nafien
+  turnin 8461
+  accept 8465
+  accept 8467
+
+step Felpaw Village: Deadwood Headdress Feather
+  collect 21377 quest 8467.1
+
+step Kernda
+  turnin 8470
+
+step Nafien
+  turnin 8467
+
+step Grazle
+  accept 6131
+  accept 6221
+  accept 8460
+
+step Deadwood Village: Deadwood Warrior and Deadwood Gardener
+  kill 7153 quest 6131.1
+  kill 7154 quest 6131.2
+  kill 7153 quest 8460.1
+  kill 7154 quest 8460.3
+
+step Deadwood Village: Deadwood Pathfinder
+  kill 7155 quest 6131.3
+  kill 7155 quest 8460.2
+
+step Grazle
+  turnin 6131
+  turnin 8460
+  accept 8462
+  accept 8466
+
+step Deadwood Village: Deadwood Headdress Feather
+  collect 21377 quest 8466.1
+
+step Felpaw Village: Deadwood Den Watcher and Deadwood Avenger
+  kill 7156 quest 6221.1
+  kill 7157 quest 6221.2
+
+step Nafien
+  turnin 8462
+
+step Felpaw Village: Deadwood Shaman
+  kill 7158 quest 6221.3
+
+step Grazle
+  turnin 8466
+  turnin 6221
+  accept 4421
+  accept 5155
+
+step Arathandris Silversky
+  accept 4101
+
+step Taronn Redfeather
+  accept 5156
+
+step Jadefire Glen: Jadefire Felsworn
+  kill 7109 quest 4421.1
+
+step Ruins of Constellas: Filled Cursed Ooze Jar
+  collect 11947 quest 4512.1
+
+step Ruins of Constellas: Jadefire Shadowstalker and Jadefire Rogue
+  kill 7110 quest 4421.2
+  kill 7106 quest 4421.3
+
+step Jaedenar: Jaedenar Guardian and Jaedenar Hound and more
+  kill 7113 quest 5155.2
+  kill 7125 quest 5155.1
+  kill 7115 quest 5155.3
+  kill 7112 quest 5155.4
+
+step Jaedenar
+  tip Jaedenar Darkweaver drops the Blood Red Key: right-click it to start A Strange Red Key.
+  collect 13140 x1
+  accept 5202
+  turnin 5202
+  accept 5203
+
+step Jaedenar: Rescue From Jaedenar
+  complete 5203
+
+step Jaedenar: Filled Tainted Ooze Jar
+  collect 11949 quest 4512.2
+
+step Shatter Scar Vale: Entropic Beast and Entropic Horror
+  kill 9878 quest 5156.1
+  kill 9879 quest 5156.2
+
+step Jadefire Run
+  tip Xavaric drops the Flute of Xavaric: right-click it to start Flute of Xavaric.
+  collect 11668 x1
+  accept 939
+
+step Jadefire Run: Jadefire Felbind
+  collect 11674 quest 939.1
+
+step Talonbranch Glade: Blood Amber
+  collect 11503 quest 4101.1
+
+step Meilosh
+  accept 6031
+
+step Ruins of Constellas: Xavathras
+  kill 9454 quest 4421.4
+
+step Taronn Redfeather
+  turnin 5156
+  turnin 5155
+  accept 5157
+  turnin 5203
+  accept 5204
+  turnin 939
+  turnin 4421
+  accept 4441
+  accept 4906
+
+step Arathandris Silversky
+  turnin 4101
+
+step Jaedenar: Corrupt Moonwell Water
+  collect 12907 quest 5157.1
+
+step Bloodvenom Falls: Rakaiah
+  kill 9518 quest 5204.1
+
+step Remains of Trey Lightforge
+  turnin 5204
+  accept 5385
+
+step Jadefire Run: Jadefire Trickster and Jadefire Betrayer
+  kill 7107 quest 4906.3
+  kill 7108 quest 4906.2
+
+step Jadefire Run: Jadefire Hellcaller and Xavaric
+  kill 7111 quest 4906.1
+  kill 10648 quest 4906.4
+
+step Eridan Bluewind
+  turnin 4906
+  turnin 5385
+  turnin 5157
+  accept 5158
+  note "Profession quests here, for players with the skill: Salve via Mining (Mining 200), Salve via Gathering (Herbalism 200), Salve via Skinning (Skinning 200), Salve via Disenchanting (Enchanting 200), Salve via Mining (Mining 200), Salve via Gathering (Herbalism 200), Salve via Skinning (Skinning 200), Salve via Disenchanting (Enchanting 200), Sacred Cloth (Tailoring 280)."

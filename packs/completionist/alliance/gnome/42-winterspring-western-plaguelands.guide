@@ -1,0 +1,217 @@
+guide completionist/alliance/gnome/42-winterspring-western-plaguelands
+title Winterspring & Western Plaguelands
+faction Alliance
+race Gnome
+levels 57-58
+zone Western Plaguelands
+category Completionist
+folder Completionist · Gnome 50-60
+keywords completionist, every quest, Winterspring, Azshara, Teldrassil, Alterac Mountains, Tirisfal Glades, Western Plaguelands, Eastern Plaguelands, Felwood, Durotar
+next completionist/alliance/gnome/43-dustwallow-marsh-feralas
+
+# Route: guide 42 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 57 to 58, 42
+# quests, 3.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Winterspring, Azshara, Teldrassil, Alterac Mountains, Tirisfal Glades,
+# Western Plaguelands, Eastern Plaguelands, Felwood, Durotar): Everlook -> Ice
+# Thistle Hills -> Everlook -> Frostfire Hot Springs -> Starfall Village ->
+# Owl Wing Thicket -> Ravencrest Monument -> Ruins of Eldarath -> Ravencrest
+# Monument -> The Ruined Reaches -> Ruins of Eldarath -> Rut'theran Village ->
+# Dalaran -> ….
+#
+# Optional (elite: grouping up is advised): The Super Snapper FX (2944;
+# Gammerita 48); Crushridge Warmongers (504; Crushridge Warmonger 39-40).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Drakefire Amulet (6502), In Search of Thaelrid (1198),
+# Twilight Falls (1199), Starving Arcane (92457), Heart of Disruption (92458),
+# Past Due (96800), Past Due (96800), Remember That I Love You (92415), Crest
+# of Lordaeron (95189), Bloodied Insignia (95195), Abominable Creatures
+# (95250), Barov Family Fortune (5343), Doctor Theolen Krastinov, the Butcher
+# (5382), Kirtonos the Herald (5384), The Lich, Ras Frostwhisper (5466),
+# Krastinov's Bag of Horrors (5515), Of Love and Family (5848), Dawn's Gambit
+# (4771), The Flesh Does Not Lie (5212), The Active Agent (5213), The Great
+# Fras Siabi (5214), Houses of the Holy (5243), The Archivist (5251), Above
+# and Beyond (5263), The Restless Souls (5282), Menethil's Gift (5463),
+# Plagued Hatchlings (5529), Dead Man's Plea (8945), Anthion's Old Friend
+# (8948).
+
+step Felnok Steelspring
+  zone Winterspring
+  turnin 4808
+  accept 4809
+
+step Ice Thistle Hills: Uncracked Chillwind Horn
+  collect 12444 quest 4809.1
+
+step Felnok Steelspring
+  turnin 4809
+  accept 4810
+
+step Donova Snowden
+  turnin 3909
+  accept 3912
+  turnin 5085
+  accept 5086
+
+step Back to Everlook
+  hearth "Everlook"
+
+step Wynd Nightchaser
+  turnin 5249
+
+step Ranshalla
+  turnin 979
+  accept 4901
+
+step Owl Wing Thicket: Guardians of the Altar
+  complete 4901
+
+step Duke Hydraxis
+  zone Azshara
+  accept 6804
+  accept 6805
+
+step Ruins of Eldarath: Arcane Runes
+  complete 3449
+
+step Pilot Xiggs Fuselighter
+  turnin 3449
+  accept 3461
+
+step Captain Vanessa Beltis
+  accept 3382
+
+step The Ruined Reaches: A Crew Under Fire
+  complete 3382
+
+step Captain Vanessa Beltis
+  turnin 3382
+
+step Ruins of Eldarath: Fragments of the Past
+  complete 5246
+
+step Daryn Lightwind
+  zone Teldrassil
+  tip Gammerita (level 48) is elite: grouping up is advised unless you are well above level 48.
+  turnin 2944 optional
+  accept 2943
+  turnin 4901
+  accept 4902
+
+step Archmage Celindra
+  zone Alterac Mountains
+  turnin 92459
+
+step Strahnbrad: Argus Shadow Mage
+  kill 2318 quest 537.1
+
+step Dandred's Fold: Head of Nagaz
+  tip Crushridge Warmonger (level 39-40) is elite: grouping up is advised unless you are well above level 40.
+  kill 2287 quest 504.1 optional
+  collect 3672 quest 537.2
+
+step Argent Officer Garush
+  zone Tirisfal Glades
+  accept 5406 optional
+  accept 5407
+  accept 5408
+
+step Commander Ashlam Valorfist
+  zone Western Plaguelands
+  turnin 5066
+
+step Felstone Field: Minion's Scourgestone and Invader's Scourgestone
+  collect 12843 quest 5406.1 optional
+  collect 12840 quest 5408.1
+  collect 12841 quest 5407.1
+
+step Janice Felstone
+  turnin 5050
+  accept 5051
+
+step Felstone Field: Two Halves Become One
+  complete 5051
+
+step Janice Felstone
+  turnin 5051
+
+step Gahrron's Withering: Heroes of Darrowshire
+  complete 5168
+
+step Tirion Fordring
+  turnin 5781
+  accept 5845
+
+step Alchemist Arbington
+  turnin 5801
+  accept 5803
+
+step Ruins of Andorhal: Araj's Scarab
+  complete 5803
+
+step Alchemist Arbington
+  turnin 5803
+  accept 5505
+  turnin 5505
+  turnin 6184
+  accept 6185 optional
+
+step Corin's Crossing: Mageweave Cloth
+  zone Eastern Plaguelands
+  collect 4338 quest 7799.1
+
+step Light's Hope Chapel
+  sethome "Light's Hope Chapel"
+  turnin 5168
+  accept 5206
+
+step Light's Hope Chapel: Marauders of Darrowshire
+  complete 5206
+
+step Carlin Redpath
+  turnin 5206
+  accept 5941
+
+step Aurora Skycaller
+  turnin 5246
+  accept 5247
+
+step Northpass Tower: Of Lost Honor
+  complete 5845
+
+step Lake Mereldar: Discordant Bracers
+  collect 17309 quest 6804.1
+  kill 11878 quest 6185.4 optional
+  complete 6185 optional
+
+step Irontree Woods: Toxic Horror Droplet
+  zone Felwood
+  collect 12822 quest 5086.1
+
+step Rezlak
+  zone Durotar
+  accept 834
+
+step Drygulch Ravine: Sack of Supplies
+  collect 4918 quest 834.1
+
+step Rezlak
+  turnin 834
+  accept 835
+
+step Drygulch Ravine: Dustwind Storm Witch
+  kill 3118 quest 835.2
+
+step Drygulch Ravine: Dustwind Savage
+  kill 3117 quest 835.1
+
+step Rezlak
+  turnin 835
+
+step Gadgetzan
+  sethome "Gadgetzan"

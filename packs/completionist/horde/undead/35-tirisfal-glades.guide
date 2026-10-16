@@ -1,0 +1,81 @@
+guide completionist/horde/undead/35-tirisfal-glades
+title Tirisfal Glades
+faction Horde
+race Undead
+levels 55-56
+zone Tirisfal Glades
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Tirisfal Glades, Duskwood, Burning Steppes, Searing Gorge
+next completionist/horde/undead/36-eastern-plaguelands-western-plaguelands
+
+# Route: guide 35 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 55 to
+# 56, 16 quests, 1.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Tirisfal Glades, Duskwood, Burning Steppes, Searing Gorge): The
+# Bulwark -> Darkshire -> Ruins of Thaurissan -> Grimesilt Dig Site.
+#
+# Optional (elite: grouping up is advised): Nothing But The Truth (1383;
+# Deepstrider Giant 38-39, Deepstrider Searcher 39-40).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Vorrel's Revenge (1051), Barov Family Fortune (5341), The
+# Wrath of Rath'mael (92422), The Wrath of Rath'mael (92422), Crest of
+# Lordaeron (95204), Unending Torment (97288), Dark Iron Legacy (3802), A
+# Taste of Flame (4024), Precarious Predicament (4121), The Heart of the
+# Mountain (4123), Egg Freezing (4734), Egg Collection (4735), Blackhand's
+# Command (7761), The Left Piece of Lord Valthalak's Amulet (8966), The Left
+# Piece of Lord Valthalak's Amulet (8967), The Left Piece of Lord Valthalak's
+# Amulet (8968), The Left Piece of Lord Valthalak's Amulet (8969), The Right
+# Piece of Lord Valthalak's Amulet (8989), The Right Piece of Lord Valthalak's
+# Amulet (8990), The Right Piece of Lord Valthalak's Amulet (8991), The Right
+# Piece of Lord Valthalak's Amulet (8992), Mea Culpa, Lord Valthalak (8995).
+
+step High Executor Derrington
+  turnin 5096
+  accept 5098
+  accept 5228
+  accept 5406 optional
+  accept 5407
+  accept 5408
+  turnin 5228
+  accept 5229
+  turnin 5901
+  accept 5902
+
+step Back to Orgrimmar
+  hearth "Orgrimmar"
+
+step Deathstalker Zraedus
+  zone Duskwood
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  accept 1372
+  turnin 1372
+  accept 1383 optional
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  turnin 4810
+  accept 4866
+
+step Ruins of Thaurissan: Mother's Milk
+  complete 4866
+
+step Ragged John
+  turnin 4866
+
+step Wooden Outhouse
+  zone Searing Gorge
+  turnin 4449
+  accept 4450
+
+step Grimesilt Dig Site: Solid Crystal Leg Shaft
+  collect 11725 quest 4450.2
+
+step Light's Hope Chapel
+  collect 10561 quest 4244.1 optional
+  sethome "Light's Hope Chapel"

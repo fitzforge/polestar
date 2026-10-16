@@ -1,0 +1,334 @@
+guide completionist/horde/undead/34-undercity-orgrimmar
+title Undercity & Orgrimmar
+faction Horde
+race Undead
+levels 55-56
+zone Undercity
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Undercity, The Hinterlands, Orgrimmar, Felwood, Thunder Bluff, Azshara, Ashenvale, Alterac Mountains
+next completionist/horde/undead/35-tirisfal-glades
+
+# Route: guide 34 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 55 to
+# 56, 102 quests, 3.0 h under the model. The order is the simulator's (`sim
+# run --objective completionist`, then `sim export`; docs/SIMULATION.md §10):
+# fix a step in the exporter or the data, not only here, so the next export
+# keeps it.
+#
+# Flow (Undercity, The Hinterlands, Orgrimmar, Felwood, Thunder Bluff,
+# Azshara, Ashenvale, Alterac Mountains): Undercity -> near Undercity ->
+# Undercity -> near Undercity -> Undercity -> near Undercity -> Undercity ->
+# near Undercity -> Undercity -> Hiri'watha -> Shadra'Alor -> Quel'Danil Lodge
+# -> Jintha'Alor -> ….
+#
+# Optional (elite: grouping up is advised): The Star, the Hand and the Heart
+# (736; Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44);
+# Recover the Key! (7846; Hitah'ya the Keeper 51); Wanted: Vile Priestess Hexx
+# and Her Minions (7861; Vile Priestess Hexx 51, Vilebranch Aman'zasi Guard
+# 50-51); Shadowshard Fragments (7068; Shadowshard Rumbler 40-41, Shadowshard
+# Smasher 41-42, Shadowshard Thunderer 38); Allegiance to the Old Gods (6564;
+# Blackfathom Tide Priestess 20-21); The Crown of Will (518; Crushridge Mauler
+# 36-37).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Book of Ur (1013), The Book of Ur (1013), Going,
+# Going, Guano! (1109), Going, Going, Guano! (1109), Bring the End (3341), The
+# Power to Destroy... (5725), Light's Justice (92421), Light's Justice
+# (92421), The New Plague (95216), Source of Power (96988), Jammal'an the
+# Prophet (1446), Necklace Recovery, Take 2 (2284), Rig Wars (2841), Rig Wars
+# (2841), The Royal Rescue (4003), For The Horde! (4974), Returning the Lost
+# Satchel (5724), Hidden Enemies (5728), Hidden Enemies (5728), Slaying the
+# Beast (5761), Slaying the Beast (5761), Changing Tastes (95697), Changing
+# Tastes (95697), Leaders of the Fang (914), A Vengeful Fate (1102), Testing
+# an Enemy's Strength (5723), Blackfathom Villainy (6561), Allegiance to the
+# Old Gods (6565), Allegiance to the Old Gods (6565), Amongst the Ruins
+# (6921), Amongst the Ruins (6921), Baron Aquanis (6922), Heart of Disruption
+# (96984), The Grave Knight (96986), Opportunistic Education (96987).
+
+step Gordon Wendham
+  accept 6322
+  turnin 6322
+  accept 6324
+
+step Apothecary Zinge
+  accept 1358
+
+step Glix Xizzix
+  turnin 98545
+
+step Bethor Iceshard
+  accept 446
+  accept 7813
+
+step Varimathras
+  turnin 550
+
+step Calder Gray
+  accept 97985
+  turnin 513
+  accept 515
+
+step Parqual Fintallas
+  turnin 1159
+  accept 1160
+  turnin 1160
+  accept 6628
+  turnin 6628
+  accept 1394
+  accept 1164
+  turnin 728
+
+step Ralston Farnsley
+  accept 7814
+
+step Keeper Bel'dugur
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  accept 736 optional
+  accept 2342
+
+step Sharlindra
+  accept 495
+
+step Apothecary Zinge
+  accept 232
+  turnin 232
+  accept 238
+  turnin 238
+  accept 243
+
+step Oran Snakewrithe
+  turnin 2782
+  accept 7817
+
+step Anastasia Hartwell
+  accept 2861
+
+step Chemist Cuely
+  accept 3568
+  turnin 3542
+  accept 3564
+
+step Oran Snakewrithe
+  accept 2995
+  accept 8273
+  turnin 8273
+
+step Chemist Fuely
+  accept 4293
+  accept 4294
+
+step near Undercity: Pure Un'Goro Sample and Corrupted Felwood Sample
+  collect 12236 quest 4294.1
+  collect 12234 quest 4293.1
+
+step Chemist Fuely
+  turnin 4293
+  turnin 4294
+  accept 4642
+
+step Royal Overseer Bauhaus
+  turnin 5023
+
+step Hiri'watha: Grim Message
+  zone The Hinterlands
+  complete 2932
+
+step Shadra'Alor: Undamaged Venom Sac
+  collect 9322 quest 2934.1
+
+step Atal'ai Exile
+  turnin 1429
+  accept 1444
+
+step Quel'Danil Lodge: Highvale Records and Highvale Notes and more
+  interact 144071 quest 2995.1
+  interact 144072 quest 2995.2
+  interact 144073 quest 2995.3
+
+step Elder Torntusk
+  tip Hitah'ya the Keeper (level 51) is elite: grouping up is advised unless you are well above level 51.
+  turnin 7846 optional
+  accept 7847
+
+step The Overlook Cliffs
+  tip Vile Priestess Hexx (level 51) and Vilebranch Aman'zasi Guard (level 50-51) are elite: grouping up is advised unless you are well above level 51.
+  sethome "Revantusk Village"
+  turnin 7847
+  turnin 7861 optional
+
+step Vehena
+  zone Orgrimmar
+  accept 7834
+
+step Keldran
+  turnin 1436
+
+step Rashona Straglash
+  accept 7827
+
+step Winna Hazzard
+  zone Felwood
+  turnin 6605
+
+step Kernda
+  turnin 8471
+  turnin 6031
+
+step Deadwood Cauldron
+  turnin 5084
+
+step Trull Failbane
+  turnin 4521
+  accept 4741
+
+step Deadwood Cauldron
+  accept 5085
+
+step Clarice Foster
+  zone Thunder Bluff
+  accept 264
+  accept 962
+
+step Thunder Bluff
+  sethome "Thunder Bluff"
+  accept 7820
+
+step Magatha Grimtotem
+  accept 1064
+  accept 1490
+  turnin 1490
+
+step Apothecary Zamah
+  turnin 1064
+  accept 1065
+
+step Tah Winterhoof
+  accept 97538
+  accept 1195
+
+step Melor Stonehoof
+  accept 1131
+
+step Magatha Grimtotem
+  turnin 5062
+
+step Melor Stonehoof
+  accept 1205
+
+step Rumstag Proudstrider
+  accept 7822
+
+step Magatha Grimtotem
+  turnin 3518
+
+step Bluff Runner Windstrider
+  accept 1000
+
+step Arch Druid Hamuul Runetotem
+  turnin 1000
+  accept 1123
+  accept 3562
+  accept 3761
+  turnin 4987
+
+step Rilli Greasygob
+  zone Orgrimmar
+  turnin 3923
+  accept 3924
+
+step near Orgrimmar: Samophlange Manual
+  complete 3924
+
+step Rilli Greasygob
+  turnin 3924
+
+step Rashona Straglash
+  accept 7826
+
+step Zor Lonetree
+  accept 1061
+
+step Vehena
+  accept 7833
+
+step Zilzibin Drumlore
+  accept 4494
+  accept 4300
+
+step Orgrimmar
+  sethome "Orgrimmar"
+  accept 936
+
+step Warcaller Gorlach
+  accept 5093
+
+step Frostwolf Ambassador Rokhstrom
+  accept 7241
+  accept 8276
+
+step Uthel'nay
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  accept 7068 optional
+  accept 7835
+
+step Neeru Fireblade
+  accept 3122
+  turnin 32
+
+step Rashona Straglash
+  accept 7831
+
+step Belgrom Rockmaul
+  accept 2981
+
+step Dran Droffers
+  accept 649
+  turnin 649
+  accept 650
+  turnin 3541
+  accept 3563
+
+step Belgrom Rockmaul
+  accept 3504
+
+step Duke Hydraxis
+  zone Azshara
+  accept 6804
+  accept 6805
+
+step Back to Orgrimmar
+  hearth "Orgrimmar"
+
+step Fallen Sky Lake: Filled Etched Phial
+  zone Ashenvale
+  turnin 3514 optional
+  collect 5868 quest 1195.1
+
+step Raynewood Retreat: Ordanus' Head
+  collect 5686 quest 1088.1
+
+step Je'neu Sancrea
+  tip Blackfathom Tide Priestess (level 20-21) is elite: grouping up is advised unless you are well above level 21. Blackfathom Tide Priestess drops the Damp Note: right-click it to start Allegiance to the Old Gods.
+  turnin 6562
+  collect 16790 x1 optional
+  accept 6564 optional
+
+step Locke Okarr
+  tip Blackfathom Tide Priestess (level 20-21) is elite: grouping up is advised unless you are well above level 21.
+  turnin 6564 optional
+  turnin 6571
+
+step Felfire Hill: Silk Cloth
+  collect 4306 quest 7827.1
+  collect 4306 quest 7834.1
+
+step Gol'dir
+  zone Alterac Mountains
+  accept 506
+
+step Strahnbrad: Head of Baron Vardus
+  tip Crushridge Mauler (level 36-37), Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  kill 2254 quest 518.1 optional
+  collect 4646 quest 736.1 optional
+  collect 3626 quest 566.1

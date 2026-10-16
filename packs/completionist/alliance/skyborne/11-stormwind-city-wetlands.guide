@@ -1,0 +1,298 @@
+guide completionist/alliance/skyborne/11-stormwind-city-wetlands
+title Stormwind City & Wetlands
+faction Alliance
+race Skyborne
+levels 32-34
+zone Stormwind City
+category Completionist
+folder Completionist · Skyborne 30-40
+keywords completionist, every quest, Stormwind City, Thousand Needles, Ironforge, Wetlands
+next completionist/alliance/skyborne/12-hillsbrad-foothills-dustwallow-marsh
+
+# Route: guide 11 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 32 to
+# 34, 63 quests, 3.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stormwind City, Thousand Needles, Ironforge, Wetlands): near Stormwind
+# City -> Stormwind City -> near Stormwind City -> Stormwind -> near Stormwind
+# -> Stormwind City -> near Stormwind City -> near Stormwind -> near Stormwind
+# City -> The Shimmering Flats -> The Great Lift -> near Stormwind City ->
+# near Stormwind -> ….
+#
+# Optional (elite: grouping up is advised): Oh Brother... (167; Foreman
+# Thistlenettle 20); Collecting Memories (168; Skeletal Miner 17-18, Undead
+# Excavator 17-18, Undead Dynamiter 17-18); Encrusted Tail Fins (1107;
+# Saltscale Warrior 35-36, Saltscale Oracle 36-37, Saltscale Tide Lord 37,
+# Saltscale Forager 35-36, Saltscale Hunter 35-36); A Host of Evil (6626;
+# Razorfen Battleguard 33-34, Razorfen Thornweaver 33-34, Death's Head Cultist
+# 33-34); The Dark Iron War (303; Dark Iron Dwarf 27-28, Dark Iron Tunneler
+# 29-30, Dark Iron Saboteur 28-29, Dark Iron Demolitionist 30-31); A Grim Task
+# (304; Balgaras the Foul 34).
+#
+# Profession quests here are not routed (they need the skill): 2758 The
+# Origins of Smithing; 2759 In Search of Galvan; 3630 Gnome Engineering; 4181
+# Goblin Engineering; 7497 The Journey Has Just Begun; 5143 Tribal
+# Leatherworking; 1578 Supplying the Front; 1618 Gearing Redridge; 3629 Goblin
+# Engineering; 3632 Gnome Engineering; 3640 The Pledge of Secrecy; 3641 Show
+# Your Work; 3647 Membership Card Renewal; 5283 The Art of the Armorsmith;
+# 5284 The Way of the Weaponsmith; 6609 I Got Nothin' Left!; 6612 I Know A
+# Guy...; 6625 Alliance Trauma; 96045 Camping 101: Alchemy; 96059 Camping 101:
+# Enchanting.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489), The Crone
+# of the Kraul (1101), Gahz'rilla (2770), Knowledge in the Deeps (971),
+# Knowledge in the Deeps (971), Mythology of the Titans (1050), Mythology of
+# the Titans (1050), The Lost Tablets of Will (1139), Back to Uldaman (2200),
+# Restoring the Necklace (2204), The Lost Dwarves (2398), Essential
+# Artificials (2924), Essential Artificials (2924), The Grand Betrayal (2929),
+# The Grand Betrayal (2929), Data Rescue (2930), Data Rescue (2930), Kharan
+# Mighthammer (4341), The Fate of the Kingdom (4362), The Restless Dead
+# (96394), The Restless Dead (96394), An Ancient Grudge (96395), Important
+# Heirlooms (96403), Important Heirlooms (96403), The Treaty of Understanding
+# (98423), The Fury Runs Deep (378), The Fury Runs Deep (378), Lost in the
+# Thicket Things (95647), Fallen in the Fen (95795), Heartwoven (95809),
+# Highland Hides (98815), Highland Hides (98815), Prehistoric Prism (98824),
+# Prehistoric Prism (98824).
+
+step Baros Alexston
+  accept 399
+
+step Borgus Steelhand
+  tip Foreman Thistlenettle (level 20), Skeletal Miner (level 17-18), Undead Excavator (level 17-18) and Undead Dynamiter (level 17-18) are elite: grouping up is advised unless you are well above level 20.
+  accept 167 optional
+  accept 168 optional
+  accept 97894
+
+step Baros Alexston
+  accept 97926
+  accept 95161
+
+step Stormwind City: Cask of Merlot
+  getfp "Stormwind"
+  sethome "Stormwind City"
+  buy 1941 x1 nearest
+
+step Roy Lewells
+  accept 97234
+
+step General Marcus Jonathan
+  turnin 120
+  accept 121
+
+step Donyal Tovald
+  turnin 97234
+
+step Collin Mauren
+  accept 1078
+  turnin 1075
+  accept 1076
+
+step Argos Nightwhisper
+  accept 3765
+
+step Bishop Farthing
+  turnin 269
+
+step Milton Sheaf
+  turnin 337
+  turnin 98190
+
+step Archbishop Benedictus
+  turnin 293
+
+step Pozzik
+  zone Thousand Needles
+  accept 1176
+  accept 1175
+  accept 1105
+  accept 1104
+  accept 1110
+  accept 1111
+  accept 5762
+
+step The Shimmering Flats: Salty Scorpid Venom
+  collect 5794 quest 1104.1
+
+step The Shimmering Flats: Saltstone Basilisk
+  kill 4147 quest 1175.1
+
+step The Shimmering Flats: Hardened Tortoise Shell
+  collect 5795 quest 1105.1
+
+step The Shimmering Flats: Saltstone Crystalhide and Saltstone Gazer and more
+  kill 4151 quest 1175.2
+  kill 4150 quest 1175.3
+  collect 5798 quest 1110.1
+
+step Kravel Koalbeard
+  tip Saltscale Warrior (level 35-36), Saltscale Oracle (level 36-37), Saltscale Tide Lord (level 37) and 2 more are elite: grouping up is advised unless you are well above level 37.
+  turnin 1110
+  turnin 1105
+  turnin 1104
+  accept 1106
+  accept 1107 optional
+
+step Trackmaster Zherin
+  turnin 1175
+
+step The Shimmering Flats: Hollow Vulture Bone
+  collect 5848 quest 1176.1
+
+step Pozzik
+  turnin 1176
+  accept 1178
+
+step The Great Lift
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34. Henrig Lonebrow's Journal drops the Henrig Lonebrow's Journal: right-click it to start Lonebrow's Journal.
+  accept 6626 optional
+  collect 5791 x1
+  accept 1100
+
+step Back to Stormwind City
+  hearth "Stormwind City"
+
+step Lord Grayson Shadowbreaker
+  zone Stormwind City
+  accept 98219
+  accept 270
+  accept 2923
+  accept 343
+
+step Milton Sheaf
+  accept 2928 optional
+  turnin 343
+  accept 344
+  accept 538
+  accept 98191
+
+step Lord Grayson Shadowbreaker
+  turnin 98191
+
+step Garion Wendell
+  accept 79536
+  turnin 79536
+
+step Zardeth of the Black Claw
+  accept 335
+
+step Thomas
+  accept 1274
+
+step Bishop DeLavey
+  turnin 1274
+  accept 1241
+
+step Jorgen
+  turnin 1241
+  accept 1242
+
+step Elling Trias
+  turnin 1242
+  accept 1243
+
+step Prospector Stormpike
+  zone Ironforge
+  accept 707
+  getfp "Ironforge"
+  accept 1453
+
+step Misplaced Packages
+  accept 97263
+
+step Eldrun Stormbreaker
+  turnin 97263
+
+step Jemma Quikswitch
+  accept 95041
+
+step Prospector Stormpike
+  turnin 301
+
+step Gerrig Bonegrip
+  tip Dark Iron Dwarf (level 27-28), Dark Iron Tunneler (level 29-30), Dark Iron Saboteur (level 28-29) and Dark Iron Demolitionist (level 30-31) are elite: grouping up is advised unless you are well above level 31.
+  turnin 968
+  accept 303 optional
+
+step Prospector Whelgar
+  zone Wetlands
+  tip Dark Iron Dwarf (level 27-28), Dark Iron Tunneler (level 29-30), Dark Iron Saboteur (level 28-29) and Dark Iron Demolitionist (level 30-31) are elite: grouping up is advised unless you are well above level 31.
+  kill 1051 quest 303.1 optional
+  kill 1053 quest 303.2 optional
+  kill 1052 quest 303.3 optional
+  accept 98313
+  accept 98310
+
+step Howin Kindfeather
+  accept 98297
+  accept 98300
+
+step Direforge Hill: Heart of Neru
+  tip Dark Iron Dwarf (level 27-28), Dark Iron Tunneler (level 29-30), Dark Iron Saboteur (level 28-29) and Dark Iron Demolitionist (level 30-31) are elite: grouping up is advised unless you are well above level 31.
+  kill 1054 quest 303.4 optional
+  collect 280398 quest 98310.4
+
+step Dun Modr: Heart of Modr
+  collect 280396 quest 98310.2
+
+step Raptor Ridge: Subdued Dragonspawn and Heart of Ados
+  tip Dark Iron Dwarf (level 27-28), Dark Iron Tunneler (level 29-30), Dark Iron Saboteur (level 28-29) and Dark Iron Demolitionist (level 30-31) are elite: grouping up is advised unless you are well above level 31.
+  turnin 303 optional
+  kill 271373 quest 98297.1
+  collect 280395 quest 98310.1
+
+step Thelgen Rock: Heart of Golm
+  collect 280397 quest 98310.3
+
+step Howin Kindfeather
+  turnin 98297
+
+step Prospector Whelgar
+  turnin 98310
+
+step Menethil Harbor
+  sethome "Deepwater Tavern"
+  accept 472
+
+step Longbraid the Grim
+  turnin 472
+
+step Back to Deepwater Tavern
+  hearth "Deepwater Tavern"
+
+step Red Jack Flint
+  accept 1132
+  accept 1302
+
+step Captive Fire Elemental
+  accept 87491
+
+step Longbraid the Grim
+  tip Balgaras the Foul (level 34) is elite: grouping up is advised unless you are well above level 34.
+  accept 304 optional
+  accept 631
+  turnin 87491
+
+step Comar Villard
+  tip Balgaras the Foul (level 34) is elite: grouping up is advised unless you are well above level 34.
+  accept 87318
+  turnin 87318
+  accept 88758
+  turnin 88758
+  collect 3639 quest 304.1 optional
+
+step Southshore
+  tip Balgaras the Foul (level 34) is elite: grouping up is advised unless you are well above level 34.
+  turnin 304 optional
+  getfp "Southshore"
+
+step Southshore
+  sethome "Southshore"
+  note "Profession quests here, for players with the skill: The Origins of Smithing (Blacksmithing 210), In Search of Galvan (Blacksmithing 210), Gnome Engineering (Engineering 200), Goblin Engineering (Engineering 200), The Journey Has Just Begun (Leatherworking 300), Tribal Leatherworking (Leatherworking 225), Supplying the Front (Blacksmithing 30), Gearing Redridge (Blacksmithing 60), Goblin Engineering (Engineering 200), Gnome Engineering (Engineering 200), The Pledge of Secrecy (Engineering 200), Show Your Work (Engineering 200), Membership Card Renewal (Engineering 200), The Art of the Armorsmith (Blacksmithing 200), The Way of the Weaponsmith (Blacksmithing 200), I Got Nothin' Left! (Fishing 225), I Know A Guy... (Cooking 225), Alliance Trauma (First Aid 225), Camping 101: Alchemy (Alchemy 1), Camping 101: Enchanting (Enchanting 1)."

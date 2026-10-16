@@ -1,0 +1,259 @@
+guide completionist/horde/skyborne/34-orgrimmar-thunder-bluff
+title Orgrimmar & Thunder Bluff
+faction Horde
+race Skyborne
+levels 55-56
+zone Orgrimmar
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Felwood, Orgrimmar, Thunder Bluff, Thousand Needles, Stranglethorn Vale, Swamp of Sorrows, Undercity
+next completionist/horde/skyborne/35-eastern-plaguelands-tirisfal-glades
+
+# Route: guide 34 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 55 to
+# 56, 76 quests, 2.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Felwood, Orgrimmar, Thunder Bluff, Thousand Needles, Stranglethorn
+# Vale, Swamp of Sorrows, Undercity): Jaedenar -> Felpaw Village -> Jaedenar
+# -> Felpaw Village -> near Orgrimmar -> Orgrimmar -> near Orgrimmar ->
+# Orgrimmar -> Thunder Bluff -> near Thunder Bluff -> Thunder Bluff -> near
+# Thunder Bluff -> The Shimmering Flats -> ….
+#
+# Optional (elite: grouping up is advised): Shadowshard Fragments (7068;
+# Shadowshard Rumbler 40-41, Shadowshard Smasher 41-42, Shadowshard Thunderer
+# 38); Arikara (5088; Arikara 28); The Star, the Hand and the Heart (736;
+# Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Necklace Recovery, Take 2 (2284), Rig Wars (2841), Rig
+# Wars (2841), The Royal Rescue (4003), For The Horde! (4974), Returning the
+# Lost Satchel (5724), Hidden Enemies (5728), Hidden Enemies (5728), Slaying
+# the Beast (5761), Slaying the Beast (5761), Changing Tastes (95697),
+# Changing Tastes (95697), Leaders of the Fang (914), A Vengeful Fate (1102),
+# Testing an Enemy's Strength (5723), Gahz'rilla (2770), The Book of Ur
+# (1013), The Book of Ur (1013), Going, Going, Guano! (1109), Going, Going,
+# Guano! (1109), Bring the End (3341), The Power to Destroy... (5725), Light's
+# Justice (92421), Light's Justice (92421), The New Plague (95216), Source of
+# Power (96988).
+
+step Winna Hazzard
+  zone Felwood
+  turnin 6605
+
+step Kernda
+  turnin 8471
+  turnin 6031
+
+step Deadwood Cauldron
+  turnin 5084
+
+step Trull Failbane
+  turnin 4521
+  accept 4741
+
+step Deadwood Cauldron
+  accept 5085
+
+step Vehena
+  zone Orgrimmar
+  accept 7834
+
+step Rashona Straglash
+  accept 7827
+
+step Rilli Greasygob
+  turnin 3923
+  accept 3924
+
+step near Orgrimmar: Samophlange Manual
+  complete 3924
+
+step Rilli Greasygob
+  turnin 3924
+
+step Rashona Straglash
+  accept 7826
+
+step Zor Lonetree
+  accept 1061
+
+step Vehena
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  accept 7833
+  accept 7068 optional
+  accept 7835
+
+step Orgrimmar
+  sethome "Orgrimmar"
+  accept 3122
+  turnin 32
+
+step Rashona Straglash
+  accept 7831
+
+step Belgrom Rockmaul
+  accept 2981
+
+step Dran Droffers
+  accept 649
+  turnin 649
+  accept 650
+  turnin 3541
+  accept 3563
+
+step Belgrom Rockmaul
+  accept 3504
+
+step Zilzibin Drumlore
+  accept 4494
+  accept 4300
+
+step Innkeeper Gryshka
+  accept 936
+
+step Warcaller Gorlach
+  accept 5093
+
+step Frostwolf Ambassador Rokhstrom
+  accept 7241
+  accept 8276
+
+step Thunder Bluff
+  zone Thunder Bluff
+  sethome "Thunder Bluff"
+  accept 1205
+
+step Rumstag Proudstrider
+  accept 7822
+
+step Magatha Grimtotem
+  turnin 3518
+  accept 3562
+  accept 3761
+  turnin 936
+  turnin 4987
+
+step Apothecary Zamah
+  turnin 1067
+  accept 1086
+
+step Rumstag Proudstrider
+  accept 7820
+  turnin 1195
+  accept 1196
+
+step Melor Stonehoof
+  turnin 1131
+
+step Melor Stonehoof
+  tip Arikara (level 28) is elite: grouping up is advised unless you are well above level 28.
+  accept 5088 optional
+  accept 1136
+  turnin 1276
+
+step Rumstag Proudstrider
+  accept 7821
+  accept 1000
+
+step Arch Druid Hamuul Runetotem
+  turnin 1000
+  accept 1123
+
+step Kravel Koalbeard
+  zone Thousand Needles
+  turnin 1117
+  turnin 1187
+  accept 1188
+
+step Moktar Krin
+  turnin 1146
+  accept 1147
+
+step The Shimmering Flats: Silithid Searcher and Silithid Hive Drone
+  kill 4130 quest 1147.1
+  kill 4133 quest 1147.2
+
+step The Shimmering Flats: Silithid Invader
+  kill 4131 quest 1147.3
+
+step Moktar Krin
+  turnin 1147
+
+step Kravel Koalbeard
+  accept 1118
+
+step Back to Thunder Bluff
+  hearth "Thunder Bluff"
+
+step Booty Bay
+  zone Stranglethorn Vale
+  sethome "Booty Bay"
+  turnin 1118
+  accept 1119
+
+step Gurubashi Arena
+  tip Arena Treasure Chest drops the Arena Master: right-click it to start Arena Master.
+  collect 18706 x1
+  accept 7810
+  turnin 7810
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 2681
+  accept 2702
+  turnin 2702
+  accept 2701
+  turnin 2701
+  accept 2721
+
+step Undercity
+  zone Undercity
+  sethome "Undercity"
+  turnin 728
+
+step Ralston Farnsley
+  accept 7814
+  accept 7817
+
+step Anastasia Hartwell
+  accept 2861
+
+step Chemist Cuely
+  accept 3568
+  turnin 3542
+  accept 3564
+
+step Oran Snakewrithe
+  accept 2995
+  accept 8273
+  turnin 8273
+
+step Chemist Fuely
+  accept 4293
+  accept 4294
+
+step near Undercity: Pure Un'Goro Sample and Corrupted Felwood Sample
+  collect 12236 quest 4294.1
+  collect 12234 quest 4293.1
+
+step Chemist Fuely
+  turnin 4293
+  turnin 4294
+  accept 4642
+
+step Royal Overseer Bauhaus
+  turnin 5023
+
+step Keeper Bel'dugur
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  accept 736 optional
+  turnin 2342
+
+step Light's Hope Chapel
+  getfp "Light's Hope Chapel"
+
+step Light's Hope Chapel
+  sethome "Light's Hope Chapel"

@@ -1,0 +1,183 @@
+guide completionist/horde/skyborne/49-silithus
+title Silithus
+faction Horde
+race Skyborne
+levels 60-60
+zone Silithus
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest
+next completionist/horde/skyborne/50-badlands-moonglade
+
+# Route: guide 49 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 60 to
+# 60, 23 quests, 4.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Silithus): Twilight Base Camp -> Hive'Ashi -> Twilight Base Camp ->
+# Southwind Village -> Twilight Base Camp -> Hive'Regal -> Twilight Base Camp
+# -> The Crystal Vale -> Twilight Base Camp -> Southwind Village -> Hive'Regal
+# -> The Scarab Wall -> The Crystal Vale -> ….
+#
+# Optional (elite: grouping up is advised): Wanted - Deathclasp, Terror of the
+# Sands (8283; Deathclasp 59); Breaking the Code (8310; Hive'Regal Ambusher
+# 59-60, Hive'Regal Burrower 59-60, Hive'Regal Spitfire 59-60, Hive'Regal
+# Slavemaker 59-60, Hive'Regal Hive Lord 59-61).
+#
+# Profession quests here are not routed (they need the skill): 8307 Desert
+# Recipe; 8313 Sharing the Knowledge; 8317 Kitchen Assistance.
+#
+# Left to other guides: class quests (the Class category).
+
+step Windcaller Proudhorn
+  tip Deathclasp (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 8276
+  accept 8284
+  accept 8280
+  accept 8283 optional
+  accept 8277
+
+step Hive'Ashi: Dredge Striker and Sand Skitterer Fang
+  kill 11740 quest 8280.1
+  collect 20376 quest 8277.2
+
+step Windcaller Proudhorn
+  turnin 8280
+  accept 8281
+
+step Twilight Base Camp: Dredge Crusher
+  kill 11741 quest 8281.1
+
+step Southwind Village: Stonelash Scorpid Stinger
+  collect 20373 quest 8277.1
+
+step Windcaller Proudhorn
+  turnin 8281
+  turnin 8277
+  accept 8278
+
+step Twilight Base Camp: Stonelash Pincer Stinger
+  collect 20374 quest 8278.2
+
+step Hive'Regal: Stonelash Flayer Stinger and Rock Stalker Fang
+  tip Deathclasp (level 59) is elite: grouping up is advised unless you are well above level 59.
+  collect 20385 quest 8283.1 optional
+  collect 20375 quest 8278.1
+  collect 20377 quest 8278.3
+
+step Beetix Ficklespragg
+  tip Deathclasp (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 8278
+  accept 8282
+  turnin 8283 optional
+
+step The Crystal Vale: Dust Stormer
+  kill 11744 quest 6805.1
+
+step The Crystal Vale: Desert Rumbler
+  kill 11746 quest 6805.2
+
+step The Crystal Vale: Twilight Tablet Fragment
+  collect 20378 quest 8284.1
+
+step Geologist Larksbane
+  turnin 8284
+  accept 8285
+
+step Hermit Ortell
+  turnin 8285
+  accept 8279
+
+step Hive'Regal: Noggle's Lost Satchel
+  complete 8282
+
+step The Scarab Wall: Twilight Lexicon - Chapter 2
+  collect 20395 quest 8279.2
+
+step The Crystal Vale: Twilight Lexicon - Chapter 1
+  collect 20394 quest 8279.1
+
+step Twilight Base Camp: Twilight Lexicon - Chapter 3
+  collect 20396 quest 8279.3
+
+step Noggle Ficklespragg
+  turnin 8282
+
+step Hermit Ortell
+  turnin 8279
+  accept 8287
+  accept 8323
+
+step Back to Cenarion Hold
+  hearth "Cenarion Hold"
+
+step Commander Mar'alith
+  turnin 8287
+
+step Twilight Base Camp: Encrypted Twilight Text
+  collect 20404 quest 8323.1
+
+step Hermit Ortell
+  turnin 8323
+
+step Layo Starstrike
+  turnin 1124
+  accept 1125
+
+step Southwind Village: Tortured Druid and Tortured Sentinel
+  kill 12178 quest 1125.1
+  kill 12179 quest 1125.2
+
+step Layo Starstrike
+  turnin 1125
+  accept 1126
+
+step Southwind Village: Encrusted Silithid Object
+  collect 17346 quest 1126.1
+
+step Layo Starstrike
+  turnin 1126
+  accept 6844
+
+step Commander Mar'alith
+  accept 8304
+  accept 8318
+
+step Twilight Base Camp: Encrypted Twilight Text
+  collect 20404 quest 8318.1
+
+step The Scarab Wall: Dearest Natalia
+  complete 8304
+
+step Back to Cenarion Hold
+  hearth "Cenarion Hold"
+
+step Southwind Village: A Reliquary of Purity
+  complete 5527
+
+step Commander Mar'alith
+  tip Hive'Regal Ambusher (level 59-60), Hive'Regal Burrower (level 59-60), Hive'Regal Spitfire (level 59-60) and 2 more are elite: grouping up is advised unless you are well above level 61.
+  turnin 8304
+  turnin 8318
+  accept 8310 optional
+  collect 20459 quest 8310.3 optional
+  collect 20457 quest 8310.1 optional
+  collect 20458 quest 8310.2 optional
+
+step Scout Bloodfist
+  tip Hive'Regal Ambusher (level 59-60), Hive'Regal Burrower (level 59-60), Hive'Regal Spitfire (level 59-60) and 2 more are elite: grouping up is advised unless you are well above level 61.
+  turnin 8310 optional
+  accept 9416
+
+step General Kirika
+  turnin 9416
+  accept 9422
+
+step Hive'Regal: Scouring the Desert
+  complete 9422
+
+step General Kirika
+  turnin 9422
+  note "Profession quests here, for players with the skill: Desert Recipe (Cooking 285), Sharing the Knowledge (Cooking 285), Kitchen Assistance (Cooking 285)."

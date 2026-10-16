@@ -1,0 +1,220 @@
+guide completionist/horde/troll/17-thousand-needles-hillsbrad-foothills
+title Thousand Needles & Hillsbrad Foothills
+faction Horde
+race Troll
+levels 33-35
+zone Hillsbrad Foothills
+category Completionist
+folder Completionist · Troll 30-40
+keywords completionist, every quest, Thousand Needles, Hillsbrad Foothills, The Barrens, Orgrimmar, Swamp of Sorrows, Loch Modan
+next completionist/horde/troll/18-arathi-highlands
+
+# Route: guide 17 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 33 to 35, 47
+# quests, 3.7 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Thousand Needles, Hillsbrad Foothills, The Barrens, Orgrimmar, Swamp
+# of Sorrows, Loch Modan): Freewind Post -> Darkcloud Pinnacle -> Freewind
+# Post -> Darkcloud Pinnacle -> Camp E'thok -> Freewind Post -> Windbreak
+# Canyon -> Splithoof Crag -> The Shimmering Flats -> Freewind Post -> Tarren
+# Mill -> Durnholde Keep -> Tarren Mill -> ….
+#
+# Optional (elite: grouping up is advised): A Host of Evil (6626; Razorfen
+# Battleguard 33-34, Razorfen Thornweaver 33-34, Death's Head Cultist 33-34).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Gahz'rilla (2770), The Grave Knight (96986), Willix the
+# Importer (1144), Blueleaf Tubers (1221), Blueleaf Tubers (1221), Deviate
+# Eradication (1487), Deviate Eradication (1487), The Glowing Shard (6981),
+# Necklace Recovery, Take 2 (2284), Rig Wars (2841), Rig Wars (2841), The
+# Royal Rescue (4003), For The Horde! (4974), Returning the Lost Satchel
+# (5724), Hidden Enemies (5728), Hidden Enemies (5728), Slaying the Beast
+# (5761), Slaying the Beast (5761), Changing Tastes (95697), Changing Tastes
+# (95697).
+
+step Rau Cliffrunner
+  zone Thousand Needles
+  turnin 1196
+  accept 1197
+
+step Darkcloud Pinnacle: The Sacred Flame
+  complete 1197
+
+step Rau Cliffrunner
+  turnin 1197
+  turnin 4542
+  turnin 5147
+
+step Darkcloud Pinnacle: Free at Last
+  complete 4904
+
+step Camp E'thok: Unrefined Ore Sample
+  collect 5842 quest 1153.1
+
+step Back to Freewind Post
+  hearth "Freewind Post"
+
+step Thalia Amberhide
+  turnin 4904
+
+step Windbreak Canyon: Stormheart's Still-beating Heart
+  collect 279186 quest 97985.1
+
+step Dorn Plainstalker
+  turnin 1394
+
+step Kravel Koalbeard
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  turnin 6626 optional
+  accept 1111
+  accept 1176
+
+step The Shimmering Flats: Hollow Vulture Bone
+  collect 5848 quest 1176.1
+
+step Pozzik
+  turnin 1176
+  accept 1178
+
+step Cliffwatcher Longhorn
+  accept 5361
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  sethome "Tarren Mill"
+  turnin 1065
+  accept 1066
+
+step Durnholde Keep: Vial of Innocent Blood
+  collect 5620 quest 1066.1
+
+step Apothecary Lydon
+  turnin 1066
+  accept 1067
+  turnin 501
+  accept 502
+
+step Stanley
+  turnin 502
+
+step Azurelode Mine: Torn Fin Eye
+  collect 3510 quest 515.3
+
+step Southshore: Daggerspine Scale
+  collect 3509 quest 515.2
+
+step Back to Tarren Mill
+  hearth "Tarren Mill"
+
+step Apothecary Lydon
+  turnin 515
+  accept 517
+
+step Dun Garok: Elixir of Agony
+  complete 517
+
+step Apothecary Lydon
+  turnin 517
+  accept 524
+  turnin 524
+  turnin 544
+  accept 545
+  turnin 556
+  accept 557
+
+step Helcular's Grave
+  turnin 553
+
+step Ratchet
+  zone The Barrens
+  sethome "Ratchet"
+  turnin 1270
+
+step Ratchet: Soothing Spices
+  buy 3713 x3 nearest
+
+step Wharfmaster Dizzywig
+  turnin 1111
+  accept 1112
+
+step Gazlowe
+  turnin 1178
+  accept 1180
+
+step Nizook Boof
+  accept 98906
+  turnin 98906
+
+step The Crossroads
+  sethome "The Crossroads"
+  accept 1145
+
+step Regthar Deathgate
+  accept 1362
+
+step Hoofprints
+  accept 1268
+  accept 1269
+  accept 1251
+
+step Craven Drok
+  zone Orgrimmar
+  accept 1431
+
+step Belgrom Rockmaul
+  turnin 1145
+  accept 1146
+
+step Keldran
+  turnin 1431
+  accept 1432
+
+step Amaryllis Webb
+  zone Swamp of Sorrows
+  accept 93176
+  turnin 93176
+
+step Stonard
+  getfp "Stonard"
+  sethome "Stonard"
+  accept 1418
+  accept 93663
+
+step Stonard: Lost in Transit
+  complete 93663
+
+step The Shifting Mire
+  tip Noboru the Cudgel drops the Noboru's Cudgel: right-click it to start Noboru the Cudgel.
+  collect 6196 x1
+  accept 1392
+
+step Galen Goodward
+  accept 1393
+
+step The Shifting Mire: Galen's Escape
+  complete 1393
+
+step Galen's Strongbox
+  turnin 1393
+
+step Magtoor
+  accept 1389
+  turnin 93663
+  turnin 1392
+
+step Fallow Sanctuary: Draenethyst Crystal
+  collect 6071 quest 1389.1
+
+step Back to Stonard
+  hearth "Stonard"
+
+step Magtoor
+  turnin 1389
+
+step Carved Figurine
+  zone Loch Modan
+  accept 79975
+  turnin 79974

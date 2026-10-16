@@ -1,0 +1,188 @@
+guide completionist/horde/tauren/29-felwood
+title Felwood
+faction Horde
+race Tauren
+levels 51-53
+zone Felwood
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest
+next completionist/horde/tauren/30-burning-steppes
+
+# Route: guide 29 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 51 to
+# 53, 24 quests, 3.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Felwood): Felpaw Village -> Emerald Sanctuary -> Deadwood Village ->
+# Emerald Sanctuary -> Deadwood Village -> Felpaw Village -> Emerald Sanctuary
+# -> Jaedenar -> Ruins of Constellas -> Jaedenar -> Shatter Scar Vale ->
+# Irontree Woods -> Talonbranch Glade -> ….
+#
+# Profession quests here are not routed (they need the skill): 4109 Salve via
+# Mining; 4110 Salve via Gathering; 4111 Salve via Skinning; 4112 Salve via
+# Disenchanting; 5888 Salve via Mining; 5889 Salve via Gathering; 5890 Salve
+# via Skinning; 5891 Salve via Disenchanting; 6032 Sacred Cloth.
+#
+# Left to other guides: class quests (the Class category).
+
+step Felpaw Village
+  tip Deadwood Avenger drops the Deadwood Ritual Totem: right-click it to start Deadwood Ritual Totem.
+  collect 20741 x1
+  accept 8470
+  accept 8461
+
+step Felpaw Village: Deadwood Avenger and Deadwood Den Watcher and more
+  kill 7157 quest 8461.2
+  kill 7156 quest 8461.1
+  kill 7158 quest 8461.3
+
+step Nafien
+  turnin 8461
+  accept 8465
+  accept 8467
+
+step Felpaw Village: Deadwood Headdress Feather
+  collect 21377 quest 8467.1
+
+step Kernda
+  turnin 8470
+
+step Nafien
+  turnin 8467
+
+step Grazle
+  accept 8460
+  accept 6221
+  accept 6131
+
+step Deadwood Village: Deadwood Warrior and Deadwood Gardener
+  kill 7153 quest 6131.1
+  kill 7154 quest 6131.2
+  kill 7153 quest 8460.1
+  kill 7154 quest 8460.3
+
+step Deadwood Village: Deadwood Pathfinder
+  kill 7155 quest 6131.3
+  kill 7155 quest 8460.2
+
+step Grazle
+  turnin 6131
+  turnin 8460
+  accept 8462
+  accept 8466
+
+step Deadwood Village: Deadwood Headdress Feather
+  collect 21377 quest 8466.1
+
+step Felpaw Village: Deadwood Den Watcher and Deadwood Avenger
+  kill 7156 quest 6221.1
+  kill 7157 quest 6221.2
+
+step Nafien
+  turnin 8462
+
+step Felpaw Village: Deadwood Shaman
+  kill 7158 quest 6221.3
+
+step Grazle
+  turnin 8466
+  turnin 6221
+  accept 5155
+  accept 5156
+
+step Maybess Riverbreeze
+  accept 4102
+
+step Jaedenar: Jaedenar Hound and Jaedenar Adept and more
+  kill 7125 quest 5155.1
+  kill 7115 quest 5155.3
+  kill 7112 quest 5155.4
+  kill 7113 quest 5155.2
+
+step Jaedenar
+  tip Jaedenar Darkweaver drops the Blood Red Key: right-click it to start A Strange Red Key.
+  getfp "Bloodvenom Post"
+  collect 13140 x1
+  accept 5202
+  turnin 5202
+  accept 5203
+  accept 6162
+
+step Winna Hazzard
+  accept 4505
+
+step Jaedenar: Rescue From Jaedenar
+  complete 5203
+
+step Ruins of Constellas: Filled Flasket
+  collect 12567 quest 4505.1
+
+step Winna Hazzard
+  turnin 4505
+  accept 4506
+
+step Jaedenar: Corrupted Sabers
+  complete 4506
+
+step Winna Hazzard
+  turnin 4506
+
+step Shatter Scar Vale: Entropic Beast and Entropic Horror
+  kill 9878 quest 5156.1
+  kill 9879 quest 5156.2
+
+step Irontree Woods: Felpaw Ravager
+  kill 8961 quest 4120.2
+
+step Irontree Woods: Angerclaw Grizzly
+  kill 8957 quest 4120.1
+
+step Talonbranch Glade: Blood Amber
+  collect 11503 quest 4102.1
+
+step Meilosh
+  accept 6031
+
+step Jessir Moonbow
+  turnin 5203
+  accept 5204
+  turnin 5155
+  accept 5157
+  turnin 5156
+
+step Deadwood Village: Overlord Ror's Claw
+  collect 15879 quest 6162.1
+
+step Maybess Riverbreeze
+  turnin 4102
+
+step Jaedenar: Corrupt Moonwell Water
+  collect 12907 quest 5157.1
+
+step Dreka'Sur
+  turnin 6162
+
+step Bloodvenom Falls: Rakaiah
+  kill 9518 quest 5204.1
+
+step Remains of Trey Lightforge
+  turnin 5204
+  accept 5385
+
+step Greta Mosshoof
+  turnin 5157
+  accept 5158
+  turnin 5385
+
+step Trull Failbane
+  accept 4521
+
+step Back to Light's Hope Chapel
+  hearth "Light's Hope Chapel"
+
+step Ruins of Thaurissan
+  getfp "Flame Crest"
+  note "Profession quests here, for players with the skill: Salve via Mining (Mining 200), Salve via Gathering (Herbalism 200), Salve via Skinning (Skinning 200), Salve via Disenchanting (Enchanting 200), Salve via Mining (Mining 200), Salve via Gathering (Herbalism 200), Salve via Skinning (Skinning 200), Salve via Disenchanting (Enchanting 200), Sacred Cloth (Tailoring 280)."

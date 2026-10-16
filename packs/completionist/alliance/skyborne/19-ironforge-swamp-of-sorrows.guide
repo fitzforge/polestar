@@ -1,0 +1,181 @@
+guide completionist/alliance/skyborne/19-ironforge-swamp-of-sorrows
+title Ironforge & Swamp of Sorrows
+faction Alliance
+race Skyborne
+levels 42-43
+zone Swamp of Sorrows
+category Completionist
+folder Completionist · Skyborne 40-50
+keywords completionist, every quest, Ironforge, Swamp of Sorrows, Dustwallow Marsh
+next completionist/alliance/skyborne/20-the-barrens
+
+# Route: guide 19 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 42 to
+# 43, 37 quests, 1.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Ironforge, Swamp of Sorrows, Dustwallow Marsh): Ironforge -> near
+# Ironforge -> Ironforge -> near Ironforge -> Splinterspear Junction -> The
+# Harborage -> The Shifting Mire -> Fallow Sanctuary -> The Shifting Mire ->
+# The Harborage -> Splinterspear Junction -> Stagalbog -> Splinterspear
+# Junction -> ….
+#
+# Optional (elite: grouping up is advised): Save Techbot's Brain! (2922;
+# Techbot 26); The Black Box (708; Zaricotl 55-56); The Star, the Hand and the
+# Heart (735; Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying
+# 44); The Shattered Necklace (2198; Shadowforge Surveyor 35-36, Shadowforge
+# Ruffian 36-37, Shadowforge Digger 35-36, Stonevault Rockchewer 36-37,
+# Stonevault Oracle 37-38, Stonevault Cave Hunter 36-37); Shadowshard
+# Fragments (7070; Shadowshard Rumbler 40-41, Shadowshard Smasher 41-42,
+# Shadowshard Thunderer 38).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Knowledge in the Deeps (971), Knowledge in the Deeps
+# (971), Mythology of the Titans (1050), Mythology of the Titans (1050), The
+# Lost Tablets of Will (1139), Back to Uldaman (2200), Restoring the Necklace
+# (2204), The Lost Dwarves (2398), Essential Artificials (2924), Essential
+# Artificials (2924), The Grand Betrayal (2929), The Grand Betrayal (2929),
+# Data Rescue (2930), Data Rescue (2930), Kharan Mighthammer (4341), The Fate
+# of the Kingdom (4362), The Restless Dead (96394), The Restless Dead (96394),
+# An Ancient Grudge (96395), Important Heirlooms (96403), Important Heirlooms
+# (96403), The Treaty of Understanding (98423), Tiara of the Deep (2846).
+
+step Gnoarn
+  zone Ironforge
+  tip Techbot (level 26) is elite: grouping up is advised unless you are well above level 26.
+  accept 2927
+  turnin 2923
+  accept 2922 optional
+  turnin 637
+  accept 683
+  turnin 2925
+
+step Historian Karnik
+  turnin 98313
+
+step Ironforge
+  sethome "Ironforge"
+  turnin 683
+  turnin 98300
+  accept 686
+
+step Grand Mason Marblesten
+  turnin 686
+  accept 689
+
+step Gerrig Bonegrip
+  turnin 653
+  turnin 727
+
+step Prospector Stormpike
+  turnin 514
+
+step Pilot Longbeard
+  tip Zaricotl (level 55-56) is elite: grouping up is advised unless you are well above level 56.
+  turnin 708 optional
+  accept 1179
+
+step Prospector Stormpike
+  accept 525
+  turnin 1457
+  turnin 1467
+
+step Gerrig Bonegrip
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  accept 687
+  accept 735 optional
+
+step Krom Stoutarm
+  accept 1360
+
+step Talvash del Kissel
+  tip Shadowforge Surveyor (level 35-36), Shadowforge Ruffian (level 36-37), Shadowforge Digger (level 35-36) and 3 more are elite: grouping up is advised unless you are well above level 38.
+  turnin 2198 optional
+  accept 2199
+
+step Amaryllis Webb
+  zone Swamp of Sorrows
+  accept 93176
+  turnin 93176
+  accept 1396
+
+step Splinterspear Junction: Sorrow Spinner and Swamp Jaguar and more
+  kill 858 quest 1396.2
+  kill 767 quest 1396.3
+  kill 1084 quest 1396.1
+
+step Watcher Biggs
+  turnin 1396
+  accept 1421
+
+step Magtoor
+  accept 1389
+
+step The Shifting Mire
+  tip Noboru the Cudgel drops the Noboru's Cudgel: right-click it to start Noboru the Cudgel.
+  collect 6196 x1
+  accept 1392
+
+step Fallow Sanctuary: Draenethyst Shard
+  collect 6190 quest 1373.1
+
+step Galen Goodward
+  accept 1393
+
+step Fallow Sanctuary: The Lost Caravan
+  complete 1421
+
+step Fallow Sanctuary
+  tip Scattered Crate drops the Lost Supplies: right-click it to start The Lost Supplies.
+  collect 6172 x1
+  accept 1423
+
+step Fallow Sanctuary: Draenethyst Crystal
+  collect 6071 quest 1389.1
+
+step The Shifting Mire: Galen's Escape
+  complete 1393
+
+step Galen's Strongbox
+  turnin 1393
+
+step Magtoor
+  turnin 1389
+  turnin 1392
+
+step Watcher Biggs
+  turnin 1421
+  accept 1398
+
+step Stagalbog: Sundried Driftwood
+  collect 6146 quest 1398.1
+
+step Watcher Biggs
+  turnin 1398
+  accept 1425
+
+step Fallow Sanctuary: Pristine Crawler Leg
+  collect 5938 quest 1258.1
+
+step Misty Valley: Khadgar's Essays on Dimensional Convergence
+  collect 6065 quest 1364.1
+
+step Pool of Tears: In Search of The Temple
+  complete 1448
+
+step Back to Ironforge
+  hearth "Ironforge"
+
+step Theramore Isle
+  zone Dustwallow Marsh
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  sethome "Theramore Isle"
+  accept 7070 optional
+
+step Ratchet
+  getfp "Ratchet"
+
+step Ratchet
+  sethome "Ratchet"

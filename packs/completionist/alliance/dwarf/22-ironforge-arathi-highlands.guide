@@ -1,0 +1,263 @@
+guide completionist/alliance/dwarf/22-ironforge-arathi-highlands
+title Ironforge & Arathi Highlands
+faction Alliance
+race Dwarf
+levels 42-44
+zone Ironforge
+category Completionist
+folder Completionist · Dwarf 40-50
+keywords completionist, every quest, Ironforge, Stormwind City, Badlands, Alterac Mountains, Arathi Highlands, Hillsbrad Foothills
+next completionist/alliance/dwarf/23-duskwood-stranglethorn-vale
+
+# Route: guide 22 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 42 to 44, 65
+# quests, 2.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Ironforge, Stormwind City, Badlands, Alterac Mountains, Arathi
+# Highlands, Hillsbrad Foothills): Ironforge -> near Ironforge -> Ironforge ->
+# near Ironforge -> Ironforge -> near Ironforge -> near Stormwind City -> near
+# Stormwind -> Stormwind City -> near Ironforge -> Agmond's End -> Valley of
+# Fangs -> Angor Fortress -> ….
+#
+# Optional (elite: grouping up is advised): Save Techbot's Brain! (2922;
+# Techbot 26); The Black Box (708; Zaricotl 55-56); The Perenolde Tiara (543;
+# Grel'borg the Miser 39); The Star, the Hand and the Heart (735; Grel'borg
+# the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44); The Shattered
+# Necklace (2198; Shadowforge Surveyor 35-36, Shadowforge Ruffian 36-37,
+# Shadowforge Digger 35-36, Stonevault Rockchewer 36-37, Stonevault Oracle
+# 37-38, Stonevault Cave Hunter 36-37); Amulet of Secrets (722; Magregan
+# Deepshadow 38); Crushridge Warmongers (504; Crushridge Warmonger 39-40).
+#
+# Left out: Data Hoarders (95041): the route takes them here but cannot finish
+# them (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Knowledge in the Deeps (971), Knowledge in the Deeps
+# (971), Mythology of the Titans (1050), Mythology of the Titans (1050), The
+# Lost Tablets of Will (1139), Back to Uldaman (2200), Restoring the Necklace
+# (2204), The Lost Dwarves (2398), Essential Artificials (2924), Essential
+# Artificials (2924), The Grand Betrayal (2929), The Grand Betrayal (2929),
+# Data Rescue (2930), Data Rescue (2930), Kharan Mighthammer (4341), The Fate
+# of the Kingdom (4362), The Restless Dead (96394), The Restless Dead (96394),
+# An Ancient Grudge (96395), Important Heirlooms (96403), Important Heirlooms
+# (96403), The Treaty of Understanding (98423), Quell The Uprising (387),
+# Quell the Uprising (387), The Color of Blood (388), The Color of Blood
+# (388), The Stockade Riots (391), The Stockade Riots (391), Underground
+# Assault (2040), Underground Assault (2040), Bring the Light (3636), A Green
+# Sample (92456), A Green Sample (92456), Power Overwhelming (92489), Power
+# Overwhelming (92489), Ribbly Screwspigot (4136), Kibler's Exotic Pets
+# (4729), En-Ay-Es-Tee-Why (4862), Starving Arcane (92457), Heart of
+# Disruption (92458), Past Due (96800), Past Due (96800), In the Name of the
+# Light (1053).
+
+step Gnoarn
+  tip Techbot (level 26) is elite: grouping up is advised unless you are well above level 26.
+  accept 2927
+  turnin 2923
+  accept 2922 optional
+  turnin 637
+  accept 683
+  turnin 2931
+  turnin 2925
+
+step Historian Karnik
+  turnin 98313
+
+step Ironforge
+  sethome "Ironforge"
+  turnin 683
+  turnin 98300
+  accept 686
+
+step Grand Mason Marblesten
+  turnin 686
+  accept 689
+
+step Gerrig Bonegrip
+  turnin 653
+  turnin 727
+
+step Prospector Stormpike
+  turnin 514
+
+step Pilot Longbeard
+  tip Zaricotl (level 55-56) is elite: grouping up is advised unless you are well above level 56.
+  turnin 708 optional
+  accept 1179
+
+step Misplaced Packages
+  accept 97263
+
+step Senator Barin Redstone
+  turnin 291
+
+step Eldrun Stormbreaker
+  turnin 97263
+  turnin 6391
+  turnin 968
+
+step Prospector Stormpike
+  turnin 301
+
+step Garion Wendell
+  zone Stormwind City
+  accept 82208
+  turnin 82208
+  accept 690
+  accept 1301
+
+step Angus Stern
+  tip Grel'borg the Miser (level 39) is elite: grouping up is advised unless you are well above level 39.
+  accept 543 optional
+  accept 212
+  accept 1260
+
+step Brother Crowley
+  accept 6141
+
+step Brohann Caskbelly
+  accept 1448
+
+step Stormwind City
+  sethome "Stormwind City"
+  accept 1363
+  turnin 1363
+  accept 1364
+
+step Prospector Stormpike
+  zone Ironforge
+  accept 525
+  turnin 1457
+  turnin 1467
+
+step Gerrig Bonegrip
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  accept 687
+  accept 735 optional
+
+step Krom Stoutarm
+  accept 1360
+
+step Talvash del Kissel
+  tip Shadowforge Surveyor (level 35-36), Shadowforge Ruffian (level 36-37), Shadowforge Digger (level 35-36) and 3 more are elite: grouping up is advised unless you are well above level 38.
+  turnin 2198 optional
+  accept 2199
+
+step Theldurin the Lost
+  zone Badlands
+  turnin 687
+  accept 692
+
+step Agmond's End: Torn Scroll Fragment and Crumpled Scroll Fragment and more
+  collect 4518 quest 692.1
+  collect 4519 quest 692.2
+  collect 4520 quest 692.3
+
+step Theldurin the Lost
+  turnin 692
+
+step Rigglefuzz
+  turnin 705
+
+step Angor Fortress: Reclaimed Treasures and Hammertoe's Amulet
+  tip Magregan Deepshadow (level 38) is elite: grouping up is advised unless you are well above level 38.
+  complete 1360
+  collect 4635 quest 722.1 optional
+
+step Back to Stormwind City
+  hearth "Stormwind City"
+
+step Bath'rah the Windwatcher
+  zone Alterac Mountains
+  accept 96137
+
+step Gallows' Corner: Recovered Tome
+  collect 3658 quest 540.1
+
+step Ruins of Alterac: Preserving Knowledge
+  complete 540
+
+step Strahnbrad: Alterac Signet Ring and Head of Baron Vardus
+  collect 3505 quest 512.1
+  collect 3626 quest 523.1
+
+step Gallows' Corner: Dirty Knucklebones
+  collect 2843 quest 500.1
+
+step Corrahn's Dagger: Hulking Mountain Lion
+  kill 2407 quest 564.2
+
+step The Headland: Mountain Lion
+  kill 2406 quest 564.1
+
+step Archmage Ansirem Runeweaver
+  turnin 602
+
+step Dandred's Fold
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44. Worn Wooden Chest drops the Ensorcelled Parchment: right-click it to start The Ensorcelled Parchment.
+  collect 3684 quest 543.1 optional
+  collect 4646 quest 735.1 optional
+  collect 3706 x1
+  accept 551
+
+step Archmage Ansirem Runeweaver
+  accept 603
+
+step Lolo the Lookout
+  zone Arathi Highlands
+  accept 663
+  turnin 663
+  accept 662
+  accept 665
+
+step Faldir's Cove: Sunken Treasure
+  complete 665
+
+step Doctor Draxlegauge
+  turnin 665
+  accept 666
+  accept 664
+
+step Faldir's Cove: Daggerspine Raider and Daggerspine Sorceress and more
+  kill 2595 quest 664.1
+  kill 2596 quest 664.2
+  complete 662
+  collect 4492 quest 666.1
+
+step First Mate Nilzlix
+  turnin 662
+  turnin 666
+  accept 668
+  turnin 664
+  turnin 668
+  accept 669
+
+step Southshore
+  zone Hillsbrad Foothills
+  tip Crushridge Warmonger (level 39-40) is elite: grouping up is advised unless you are well above level 40.
+  sethome "Southshore"
+  turnin 551
+  accept 554
+  turnin 500
+  accept 504 optional
+  turnin 525
+  turnin 523
+  accept 537
+  turnin 564
+  turnin 1052
+  turnin 540
+  accept 542
+
+step Darrow Hill: Alterac Granite
+  collect 4521 quest 689.1
+
+step Phin Odelic
+  turnin 661
+  turnin 647
+  turnin 512
+
+step Darkshire
+  sethome "Darkshire"

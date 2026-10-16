@@ -1,0 +1,218 @@
+guide completionist/alliance/human/23-alterac-mountains-the-hinterlands
+title Alterac Mountains & The Hinterlands
+faction Alliance
+race Human
+levels 43-45
+zone The Hinterlands
+category Completionist
+folder Completionist · Human 40-50
+keywords completionist, every quest, Elwynn Forest, Alterac Mountains, Westfall, Stranglethorn Vale, Stormwind City, The Hinterlands
+next completionist/alliance/human/24-hillsbrad-foothills
+
+# Route: guide 23 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 43 to 45, 41
+# quests, 4.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Elwynn Forest, Alterac Mountains, Westfall, Stranglethorn Vale,
+# Stormwind City, The Hinterlands): Goldshire -> Tower of Azora -> Northshire
+# Valley -> Tower of Azora -> Chillwind Point -> Gallows' Corner -> Ruins of
+# Alterac -> Dalaran -> Strahnbrad -> Gallows' Corner -> Corrahn's Dagger ->
+# The Headland -> Lordamere Internment Camp -> ….
+#
+# Optional (elite: grouping up is advised): The Perenolde Tiara (543;
+# Grel'borg the Miser 39); The Star, the Hand and the Heart (735; Grel'borg
+# the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Starving Arcane (92457), Heart of Disruption (92458), Past
+# Due (96800), Past Due (96800), The Defias Brotherhood (166), The Defias
+# Brotherhood (166), The Unsent Letter (373), Quell The Uprising (387), Quell
+# the Uprising (387), The Color of Blood (388), The Color of Blood (388), The
+# Stockade Riots (391), The Stockade Riots (391), Underground Assault (2040),
+# Underground Assault (2040), Bring the Light (3636), A Green Sample (92456),
+# A Green Sample (92456), Power Overwhelming (92489), Power Overwhelming
+# (92489), Jammal'an the Prophet (1446).
+
+step Smith Argus
+  zone Elwynn Forest
+  turnin 118
+  accept 119
+
+step Goldshire: Skin of Sweet Rum
+  buy 1939 x1 nearest
+
+step Theocritus
+  turnin 178
+
+step Brother Paxton
+  turnin 344
+  accept 345
+
+step Theocritus
+  accept 94
+
+step Bath'rah the Windwatcher
+  zone Alterac Mountains
+  accept 96137
+
+step Gallows' Corner: Recovered Tome
+  collect 3658 quest 540.1
+
+step Ruins of Alterac: Preserving Knowledge
+  complete 540
+
+step Archmage Celindra
+  turnin 92459
+
+step Strahnbrad: Alterac Signet Ring and Head of Baron Vardus
+  collect 3505 quest 512.1
+  collect 3626 quest 523.1
+
+step Gallows' Corner: Dirty Knucklebones
+  collect 2843 quest 500.1
+
+step Corrahn's Dagger: Hulking Mountain Lion
+  kill 2407 quest 564.2
+
+step The Headland: Mountain Lion
+  kill 2406 quest 564.1
+
+step Archmage Ansirem Runeweaver
+  turnin 602
+
+step Dandred's Fold
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44. Worn Wooden Chest drops the Ensorcelled Parchment: right-click it to start The Ensorcelled Parchment.
+  collect 3684 quest 543.1 optional
+  collect 4646 quest 735.1 optional
+  collect 3706 x1
+  accept 551
+
+step Archmage Ansirem Runeweaver
+  accept 603
+
+step Back to Goldshire
+  hearth "Goldshire"
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  accept 48
+
+step Booty Bay
+  zone Stranglethorn Vale
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  collect 4644 quest 735.3 optional
+  sethome "Booty Bay"
+  turnin 1115
+  accept 1116
+  turnin 603
+  accept 610
+
+step Booty Bay: Catelyn's Blade
+  collect 4027 quest 610.1
+
+step Catelyn the Blade
+  turnin 610
+  accept 611
+
+step Ziata'jai Ruins: Chilled Basilisk Haunch
+  collect 2476 quest 212.1
+
+step The Vile Reef: Stone of the Tides
+  collect 4034 quest 611.1
+
+step Baron Revilgaz
+  turnin 611
+  turnin 627
+  accept 622
+
+step Corporal Kaleb
+  turnin 622
+
+step Angus Stern
+  zone Stormwind City
+  tip Grel'borg the Miser (level 39) is elite: grouping up is advised unless you are well above level 39.
+  turnin 543 optional
+  turnin 212
+
+step Brohann Caskbelly
+  turnin 1448
+  accept 1449
+
+step Aerie Peak
+  zone The Hinterlands
+  getfp "Aerie Peak"
+  sethome "Aerie Peak"
+  turnin 1449
+  accept 1450
+  turnin 1450
+  accept 1451
+  accept 2988
+  accept 2877
+  accept 2880
+
+step Hiri'watha: First Witherbark Cage and Second Witherbark Cage and more
+  interact 144066 quest 2988.1
+  interact 144067 quest 2988.2
+  collect 9259 quest 2880.1
+
+step Rhapsody Shindigger
+  turnin 1451
+  accept 1452
+
+step Agol'watha: Green Sludge
+  kill 2655 quest 2877.1
+
+step Skulk Rock: Jade Ooze
+  kill 2656 quest 2877.2
+
+step Hiri'watha: Third Witherbark Cage
+  interact 144068 quest 2988.3
+
+step Fraggar Thundermantle
+  turnin 2877
+  turnin 2880
+  accept 2881
+
+step Gryphon Master Talonaxe
+  turnin 2988
+  accept 2989
+
+step Hiri'watha: Troll Tribal Necklace
+  collect 9259 quest 2881.1
+
+step The Altar of Zul: The Altar of Zul
+  complete 2989
+
+step Back to Aerie Peak
+  hearth "Aerie Peak"
+
+step Fraggar Thundermantle
+  turnin 2881
+
+step Gryphon Master Talonaxe
+  turnin 2989
+  accept 2990
+
+step The Overlook Cliffs
+  tip Saltwater Snapjaw drops the OOX-09/HL Distress Beacon: right-click it to start Find OOX-09/HL!.
+  collect 8704 x1
+  accept 485
+
+step Homing Robot OOX-09/HL
+  turnin 485
+  accept 836
+
+step The Overlook Cliffs: Rescue OOX-09/HL!
+  complete 836
+
+step Back to Aerie Peak
+  hearth "Aerie Peak"
+
+step Aerie Peak: Wildkin Feather
+  collect 10819 quest 3661.1
+
+step Southshore
+  sethome "Southshore"

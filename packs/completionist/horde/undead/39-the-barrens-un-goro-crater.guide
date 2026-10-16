@@ -1,0 +1,259 @@
+guide completionist/horde/undead/39-the-barrens-un-goro-crater
+title The Barrens & Un'Goro Crater
+faction Horde
+race Undead
+levels 57-58
+zone The Barrens
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, The Barrens, Dustwallow Marsh, Thousand Needles, Un'Goro Crater, Stonetalon Mountains
+next completionist/horde/undead/40-felwood-alterac-mountains
+
+# Route: guide 39 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 57 to
+# 58, 59 quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Barrens, Dustwallow Marsh, Thousand Needles, Un'Goro Crater,
+# Stonetalon Mountains): Ratchet -> The Mor'shan Rampart -> The Crossroads ->
+# Ratchet -> Camp Taurajo -> The Crossroads -> Camp Taurajo -> The Merchant
+# Coast -> The Quagmire -> The Den of Flame -> The Quagmire -> The Shimmering
+# Flats -> Lakkari Tar Pits -> ….
+#
+# Optional (elite: grouping up is advised): The Star, the Hand and the Heart
+# (736; Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44);
+# Earthen Arise (6481; Goggeroc 20).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Willix the Importer (1144), Blueleaf Tubers (1221),
+# Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate Eradication
+# (1487), The Glowing Shard (6981), Tiara of the Deep (2846), Gahz'rilla
+# (2770).
+
+step Ratchet: The Stone Circle
+  complete 3444
+
+step Liv Rizzlefix
+  accept 4502
+
+step Horde Warbringer
+  accept 8367
+
+step The Mor'shan Rampart: For Great Honor
+  complete 8367
+
+step Horde Warbringer
+  turnin 8367
+  accept 8388
+
+step The Mor'shan Rampart: For Great Honor
+  complete 8388
+
+step Horde Warbringer
+  turnin 8388
+
+step The Crossroads
+  sethome "The Crossroads"
+  accept 91904
+
+step The Crossroads: A Sealed Crate
+  complete 91904
+
+step Dokimi
+  turnin 91904
+
+step Ratchet
+  sethome "Ratchet"
+  accept 96339
+  turnin 96339
+  accept 96383
+  turnin 96383
+
+step Camp Taurajo
+  sethome "Camp Taurajo"
+  turnin 1153
+
+step The Crossroads
+  sethome "The Crossroads"
+  turnin 1148
+  accept 1184
+  accept 91899
+  accept 91900
+
+step The Crossroads: A Sealed Crate
+  complete 91899
+
+step Dokimi
+  turnin 91899
+
+step The Crossroads: A Sealed Crate
+  complete 91900
+
+step Dokimi
+  turnin 91900
+
+step Tonga Runetotem
+  turnin 886
+  turnin 860
+
+step Camp Taurajo
+  sethome "Camp Taurajo"
+  accept 874
+
+step Mahren Skyseer
+  turnin 874
+  accept 873
+
+step The Merchant Coast: Heart of Isha Awak
+  collect 5104 quest 873.1
+
+step Mahren Skyseer
+  turnin 873
+
+step The Quagmire: Razzeric's Tweaking
+  zone Dustwallow Marsh
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  collect 4641 quest 736.2 optional
+  complete 1187
+
+step The Quagmire: Deadmire's Tooth
+  collect 5945 quest 1205.1
+
+step Musty Scroll
+  turnin 625
+  accept 626
+
+step Tabetha
+  turnin 2861
+
+step Kravel Koalbeard
+  zone Thousand Needles
+  turnin 1117
+  accept 1190
+  turnin 1187
+  accept 1188
+  accept 1191
+  turnin 1191
+  turnin 1190
+  accept 1194
+  turnin 1194
+  accept 1118
+
+step Linken
+  zone Un'Goro Crater
+  turnin 3914
+  accept 3941
+
+step Lakkari Tar Pits: Merged Ooze Sample
+  collect 12291 quest 4642.1
+
+step A-Me 01
+  turnin 4244 optional
+  accept 4245
+
+step Lakkari Tar Pits: Super Sticky Tar
+  collect 11834 quest 4504.1
+
+step Fire Plume Ridge: Un'Goro Ash
+  collect 11829 quest 4502.1
+
+step Ironstone Plateau: White Ravasaur Claw
+  collect 11477 quest 4300.1
+
+step The Marshlands: Un'Goro Soil
+  collect 11018 quest 4496.2
+
+step The Slithering Scar: Gorishi Scent Gland
+  collect 11837 quest 4496.1
+
+step Lakkari Tar Pits: Un'Goro Soil
+  collect 11018 quest 3761.1
+
+step Lakkari Tar Pits: Chasing A-Me 01
+  complete 4245
+
+step Karna Remtravel
+  turnin 4245
+
+step J.D. Collie
+  turnin 3941
+  accept 3942
+
+step Fire Plume Ridge: Unfinished Skeleton Key
+  collect 14645 quest 5802.1
+
+step Lakkari Tar Pits: Are We There, Yeti?
+  complete 5163
+
+step Back to Camp Taurajo
+  hearth "Camp Taurajo"
+
+step Kelm Hargunth
+  zone The Barrens
+  accept 7868
+  turnin 7868
+
+step Islen Waterseer
+  turnin 5158
+  accept 5159
+
+step Ratchet
+  sethome "Ratchet"
+  turnin 4147
+  turnin 4502
+
+step The Crossroads
+  sethome "The Crossroads"
+  turnin 1358
+
+step Lushwater Oasis: Serpentbloom
+  collect 5339 quest 962.1
+
+step Makaba Flathoof
+  turnin 6629
+  turnin 1061
+  turnin 1068
+
+step Boulder Lode Mine: Wool Cloth
+  collect 2592 quest 7826.1
+  collect 2592 quest 7833.1
+
+step Windshear Crag: The Flying Machine Airport
+  zone Stonetalon Mountains
+  complete 1086
+
+step Sun Rock Retreat
+  tip Goggeroc (level 20) is elite: grouping up is advised unless you are well above level 20.
+  sethome "Sun Rock Retreat"
+  turnin 6421
+  accept 6481 optional
+  kill 11920 quest 6481.1 optional
+
+step Ziz Fizziks
+  tip Goggeroc (level 20) is elite: grouping up is advised unless you are well above level 20.
+  turnin 6481 optional
+  accept 1096
+
+step Mirkfallon Lake: Mirkweed Pods
+  collect 278201 quest 97538.1
+
+step Windshear Crag: Gerenzo's Mechanical Arm
+  collect 5736 quest 1096.1
+
+step Ziz Fizziks
+  turnin 1096
+
+step Braelyn Firehand
+  turnin 1088
+  accept 1089
+
+step Stonetalon Peak: The Den
+  complete 1089
+
+step Talon Den Hoard
+  turnin 1089
+
+step Back to Sun Rock Retreat
+  hearth "Sun Rock Retreat"

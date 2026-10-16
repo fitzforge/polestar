@@ -1,0 +1,69 @@
+guide completionist/horde/skyborne/20-swamp-of-sorrows
+title Swamp of Sorrows
+faction Horde
+race Skyborne
+levels 43-45
+zone Swamp of Sorrows
+category Completionist
+folder Completionist · Skyborne 40-50
+keywords completionist, every quest
+next completionist/horde/skyborne/21-tanaris
+
+# Route: guide 20 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 43 to
+# 45, 7 quests, 1.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Swamp of Sorrows): Stonard -> Stagalbog -> Stonard -> Pool of Tears ->
+# Stonard.
+#
+# Left to other guides: class quests (the Class category).
+
+step Dar
+  accept 698
+  accept 1430
+
+step Stonard: Unprepared Sawtooth Flank
+  collect 6169 quest 698.1
+
+step Tok'Kar
+  turnin 698
+  accept 699
+
+step Stagalbog: Monstrous Crawler Leg
+  collect 6184 quest 1430.1
+
+step Stagalbog: Sawtooth Snapper Claw
+  collect 6168 quest 699.1
+
+step Tok'Kar
+  turnin 699
+  accept 1422
+  turnin 1422
+  accept 1426
+
+step Stagalbog: Marsh Murloc and Marsh Inkspewer
+  kill 747 quest 1426.1
+  kill 750 quest 1426.2
+
+step Back to Stonard
+  hearth "Stonard"
+
+step Dar
+  turnin 1430
+  accept 1424
+
+step Pool of Tears: Atal'ai Artifact
+  collect 6175 quest 1424.1
+
+step Fel'zerul
+  turnin 1424
+  accept 1429
+
+step Gadgetzan
+  getfp "Gadgetzan"
+
+step Gadgetzan
+  sethome "Gadgetzan"

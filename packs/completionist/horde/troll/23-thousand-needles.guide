@@ -1,0 +1,47 @@
+guide completionist/horde/troll/23-thousand-needles
+title Thousand Needles
+faction Horde
+race Troll
+levels 43-44
+zone Thousand Needles
+category Completionist
+folder Completionist · Troll 40-50
+keywords completionist, every quest
+next completionist/horde/troll/24-dustwallow-marsh
+
+# Route: guide 23 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 43 to 44, 8
+# quests, 0.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Thousand Needles): The Shimmering Flats -> Windbreak Canyon -> The
+# Shimmering Flats -> Windbreak Canyon.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Gahz'rilla (2770).
+
+step Kravel Koalbeard
+  turnin 1112
+  accept 1114
+  turnin 1114
+  accept 1115
+  turnin 1183
+  accept 1186
+  turnin 1186
+  accept 1187
+
+step Moktar Krin
+  turnin 1146
+  accept 1147
+
+step The Shimmering Flats: Silithid Searcher and Silithid Hive Drone
+  kill 4130 quest 1147.1
+  kill 4133 quest 1147.2
+
+step The Shimmering Flats: Silithid Invader
+  kill 4131 quest 1147.3
+
+step Moktar Krin
+  turnin 1147

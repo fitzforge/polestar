@@ -409,6 +409,7 @@ L["Recently loaded"] = "Zuletzt geladen"
 L["Guides you load show up here."] = "Geladene Guides erscheinen hier."
 L["All"] = "Alle"
 L["Sections"] = "Abschnitte"
+-- L["Completionist"] = ""
 
 -- UI/Report.lua
 L["skipped"] = "übersprungen"

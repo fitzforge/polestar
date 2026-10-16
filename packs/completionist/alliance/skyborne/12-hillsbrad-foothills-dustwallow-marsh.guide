@@ -1,0 +1,171 @@
+guide completionist/alliance/skyborne/12-hillsbrad-foothills-dustwallow-marsh
+title Hillsbrad Foothills & Dustwallow Marsh
+faction Alliance
+race Skyborne
+levels 33-36
+zone Hillsbrad Foothills
+category Completionist
+folder Completionist · Skyborne 30-40
+keywords completionist, every quest, Hillsbrad Foothills, Arathi Highlands, Dustwallow Marsh
+next completionist/alliance/skyborne/13-hillsbrad-foothills
+
+# Route: guide 12 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 33 to
+# 36, 29 quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Hillsbrad Foothills, Arathi Highlands, Dustwallow Marsh): Southshore
+# -> Western Strand -> Southshore -> Western Strand -> Southshore -> Tarren
+# Mill -> Darrow Hill -> Southshore -> Circle of West Binding -> Thandol Span
+# -> Theramore Isle -> Witch Hill -> Theramore Isle -> ….
+#
+# Profession quests here are not routed (they need the skill): 6607 Nat Pagle,
+# Angler Extreme; 6624 Triage.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In the Name of the Light (1053), Tiara of the Deep (2846).
+
+step Lieutenant Farren Orinelle
+  turnin 98219
+  turnin 538
+  accept 540
+
+step Tom 'Half-fish' Wilson
+  accept 98459
+
+step Lieutenant Farren Orinelle
+  accept 536
+
+step Captain McManus
+  accept 98059
+  turnin 98059
+
+step Western Strand: Torn Fin Tidehunter and Torn Fin Oracle
+  kill 2377 quest 536.1
+  kill 2376 quest 536.2
+
+step Lieutenant Farren Orinelle
+  turnin 536
+  accept 559
+
+step Western Strand: Murloc Head
+  collect 3716 quest 559.1
+
+step Lieutenant Farren Orinelle
+  turnin 559
+  accept 560
+  turnin 560
+  accept 561
+  turnin 561
+  accept 562
+
+step Southshore: Daggerspine Shorehunter and Daggerspine Siren
+  kill 2369 quest 562.1
+  kill 2371 quest 562.2
+
+step Lieutenant Farren Orinelle
+  turnin 562
+  accept 563
+  accept 505
+
+step Syndicate Documents
+  accept 510
+
+step Tarren Mill: Syndicate Footpad
+  kill 2240 quest 505.1
+
+step Darrow Hill: Syndicate Thief
+  kill 2241 quest 505.2
+
+step Back to Southshore
+  hearth "Southshore"
+
+step Magistrate Henry Maleb
+  turnin 505
+  turnin 510
+  accept 512
+
+step Messenger Bag
+  zone Arathi Highlands
+  accept 79976
+  turnin 79976
+
+step Ebenezer Rustlocke's Corpse
+  turnin 631
+
+step Theramore Isle
+  zone Dustwallow Marsh
+  sethome "Theramore Isle"
+  accept 1133
+  accept 1135
+  turnin 1132
+  getfp "Theramore"
+  turnin 1302
+
+step 'Swamp Eye' Jarl
+  accept 1218
+  accept 1219
+
+step 'Stinky' Ignatz
+  accept 1222
+
+step Witch Hill: Stinky's Escape
+  complete 1222
+
+step Morgan Stern
+  turnin 1222
+  turnin 1219
+
+step Theramore Isle: Soothing Spices
+  buy 3713 x3 nearest
+
+step Theramore Lieutenant
+  accept 1220
+  turnin 1220
+
+step 'Swamp Eye' Jarl
+  turnin 1218
+  accept 1206
+
+step Brackenwall Village: Unpopped Darkmist Eye
+  collect 5884 quest 1206.1
+
+step 'Swamp Eye' Jarl
+  turnin 1206
+  accept 1203
+
+step Witch Hill: Jarl Needs a Blade
+  complete 1203
+
+step 'Swamp Eye' Jarl
+  turnin 1203
+
+step Back to Theramore Isle
+  hearth "Theramore Isle"
+
+step Morgan Stern
+  accept 1204
+
+step Theramore Isle: Forked Mudrock Tongue
+  collect 5883 quest 1204.1
+
+step Morgan Stern
+  turnin 1204
+
+step Mudcrush Durtfeet
+  accept 1177
+
+step Witch Hill: Mirefin Head
+  collect 5847 quest 1177.1
+
+step Morgan Stern
+  accept 1258
+
+step Mudcrush Durtfeet
+  turnin 1177
+
+step Southshore
+  sethome "Southshore"
+  note "Profession quests here, for players with the skill: Nat Pagle, Angler Extreme (Fishing 225), Triage (First Aid 225)."

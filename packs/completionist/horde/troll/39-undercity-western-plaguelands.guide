@@ -1,0 +1,266 @@
+guide completionist/horde/troll/39-undercity-western-plaguelands
+title Undercity & Western Plaguelands
+faction Horde
+race Troll
+levels 56-58
+zone Undercity
+category Completionist
+folder Completionist · Troll 50-60
+keywords completionist, every quest, Undercity, Moonglade, Azshara, Feralas, Tirisfal Glades, Alterac Mountains, Western Plaguelands
+next completionist/horde/troll/40-swamp-of-sorrows-desolace
+
+# Route: guide 39 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 56 to 58, 64
+# quests, 3.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Undercity, Moonglade, Azshara, Feralas, Tirisfal Glades, Alterac
+# Mountains, Western Plaguelands): Undercity -> near Undercity -> Undercity ->
+# Moonglade -> Ravencrest Monument -> Camp Mojache -> Feral Scar Vale ->
+# Grimtotem Compound -> Camp Mojache -> The Twin Colossals -> The Forgotten
+# Coast -> The Twin Colossals -> Feral Scar Vale -> ….
+#
+# Optional (elite: grouping up is advised): The Star, the Hand and the Heart
+# (736; Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44);
+# The Crimson Courier (6145; Crimson Courier 60); The Crown of Will (518;
+# Crushridge Mauler 36-37).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Book of Ur (1013), The Book of Ur (1013), Going,
+# Going, Guano! (1109), Going, Going, Guano! (1109), Bring the End (3341), The
+# Power to Destroy... (5725), Light's Justice (92421), Light's Justice
+# (92421), The New Plague (95216), Source of Power (96988), Pusillin and the
+# Elder Azj'Tordin (7441), Elven Legends (7481), Lethtendris's Web (7489),
+# Vorrel's Revenge (1051), Barov Family Fortune (5341), The Wrath of Rath'mael
+# (92422), The Wrath of Rath'mael (92422), Crest of Lordaeron (95204),
+# Unending Torment (97288), Heart of Disruption (96984), The Grave Knight
+# (96986), Opportunistic Education (96987), Doctor Theolen Krastinov, the
+# Butcher (5382), Kirtonos the Herald (5384), The Lich, Ras Frostwhisper
+# (5466), Krastinov's Bag of Horrors (5515), Of Love and Family (5848), Oculus
+# Illusions (6569).
+
+step Keeper Bel'dugur
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  accept 736 optional
+  accept 2342
+
+step Sharlindra
+  accept 495
+
+step Apothecary Zinge
+  accept 232
+  turnin 232
+  accept 238
+  turnin 238
+  accept 243
+
+step Oran Snakewrithe
+  turnin 2782
+
+step Rabine Saturna
+  zone Moonglade
+  turnin 1123
+  accept 1124
+  accept 5527
+
+step Duke Hydraxis
+  zone Azshara
+  accept 6804
+  accept 6805
+
+step Camp Mojache
+  zone Feralas
+  sethome "Camp Mojache"
+  turnin 3122
+  accept 3123
+  accept 3128
+  turnin 2981
+
+step Camp Mojache: Splintered Log and Metallic Fragments
+  collect 9590 quest 3128.1
+  collect 9592 quest 3128.4
+
+step Feral Scar Vale: Resilient Sinew
+  collect 9591 quest 3128.3
+
+step Back to Camp Mojache
+  hearth "Camp Mojache"
+
+step Grimtotem Compound: Encrusted Minerals
+  collect 9589 quest 3128.2
+
+step Witch Doctor Uzer'i
+  turnin 3128
+
+step Zorbin Fandazzle
+  accept 7725
+
+step The Forgotten Coast: Miniaturization Residue
+  tip Zorbin's Ultra-Shrinker lasts 120 minutes: go straight on with it.
+  collect 18956 quest 7725.1
+
+step Zorbin Fandazzle
+  turnin 7725
+
+step Zorbin Fandazzle
+  accept 7726
+
+step Feral Scar Vale: Water Elemental Core
+  collect 18958 quest 7726.1
+
+step Zorbin Fandazzle
+  turnin 7726
+
+step The Twin Colossals: The Videre Elixir
+  complete 3909
+
+step Undercity
+  zone Undercity
+  sethome "Undercity"
+  accept 7817
+
+step Anastasia Hartwell
+  accept 2861
+
+step Chemist Cuely
+  accept 3568
+  turnin 3542
+  accept 3564
+
+step Oran Snakewrithe
+  accept 2995
+  accept 8273
+  turnin 8273
+
+step Chemist Fuely
+  accept 4293
+  accept 4294
+
+step near Undercity: Pure Un'Goro Sample and Corrupted Felwood Sample
+  collect 12236 quest 4294.1
+  collect 12234 quest 4293.1
+
+step Chemist Fuely
+  turnin 4293
+  turnin 4294
+  accept 4642
+
+step Royal Overseer Bauhaus
+  turnin 5023
+  accept 5049
+  turnin 5049
+  accept 5050
+
+step Apothecary Zinge
+  accept 4133
+
+step Harbinger Balthazad
+  accept 7492
+
+step Lady Sylvanas Windrunner
+  tip Crimson Courier (level 60) is elite: grouping up is advised unless you are well above level 60.
+  accept 5961
+  turnin 6144
+  accept 6145 optional
+
+step Apothecary Zinge
+  accept 4769
+
+step Raleigh Andrean
+  turnin 441
+  accept 530
+
+step Apothecary Zinge
+  accept 1358
+
+step Glix Xizzix
+  turnin 98545
+
+step Bethor Iceshard
+  accept 446
+  accept 7813
+
+step Varimathras
+  turnin 550
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  turnin 105
+
+step The Bulwark: Arcane Quickener
+  buy 13320 x1 nearest
+
+step Janice Felstone
+  zone Western Plaguelands
+  tip Arcane Quickener lasts 30 minutes: go straight on with it.
+  turnin 5218
+
+step Shadow Priestess Vandis
+  zone Tirisfal Glades
+  turnin 5232
+  accept 5233
+  turnin 6390
+  turnin 964
+  accept 5514
+  turnin 6029
+
+step Gol'dir
+  zone Alterac Mountains
+  accept 506
+
+step Strahnbrad: Head of Baron Vardus
+  tip Crushridge Mauler (level 36-37), Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  kill 2254 quest 518.1 optional
+  collect 4646 quest 736.1 optional
+  collect 3626 quest 566.1
+
+step Warmaster Laggrond
+  turnin 7241
+
+step Northridge Lumber Camp: Mageweave Cloth
+  zone Western Plaguelands
+  collect 4338 quest 7817.1
+
+step Janice Felstone
+  turnin 5050
+  accept 5051
+
+step Felstone Field: Two Halves Become One
+  complete 5051
+
+step Janice Felstone
+  turnin 5051
+
+step Scourge Cauldron
+  accept 5221
+
+step Dalson's Tears: Runecloth
+  collect 14047 quest 5221.3
+
+step Chromie
+  turnin 5941
+
+step The Writhing Haunt: Writhing Haunt Cauldron Key
+  collect 13197 quest 5233.1
+
+step Scourge Cauldron
+  turnin 5233
+  accept 5234
+
+step The Writhing Haunt: Somatic Intensifier
+  collect 13356 quest 5221.2
+
+step Tirion Fordring
+  turnin 5781
+  accept 5845
+
+step Chromie
+  accept 5721
+
+step Back to Undercity
+  hearth "Undercity"
+
+step Stonard
+  sethome "Stonard"

@@ -110,7 +110,8 @@ function buildSimPack(files, data) {
 function playGuide(pack, g, { race, faction, cls, stubs = [], before = '', script = null, handOver = null }) {
 	const raceName = race === 'Scourge' ? 'Undead' : race;
 	const first = g.steps.flatMap((s) => s.goals).find((x) => x.map && x.x != null);
-	const home = g.category && g.category !== 'Leveling' ? HOME[race] : null;
+	// Route chains (Leveling, Completionist) start where their first goal is.
+	const home = g.category && g.category !== 'Leveling' && g.category !== 'Completionist' ? HOME[race] : null;
 	const start = home ? { map: home[0], x: home[1], y: home[2] } : first;
 	return runAddon({
 		stubs: ['stub_world.lua', ...stubs],

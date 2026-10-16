@@ -1,0 +1,113 @@
+guide completionist/alliance/skyborne/43-loch-modan-ironforge
+title Loch Modan & Ironforge
+faction Alliance
+race Skyborne
+levels 58-59
+zone Ironforge
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Loch Modan, Ironforge
+next completionist/alliance/skyborne/44-stormwind-city-tanaris
+
+# Route: guide 43 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 58 to
+# 59, 21 quests, 0.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Loch Modan, Ironforge): Stonewrought Dam -> Silver Stream Mine -> The
+# Loch -> Stonewrought Dam -> Ironforge -> near Ironforge -> Ironforge.
+#
+# Optional (elite: grouping up is advised): A Dark Threat Looms (278; Mo'grosh
+# Ogre 18-19, Mo'grosh Enforcer 18-19, Mo'grosh Brute 19-20, Mo'grosh Shaman
+# 18-19, Mo'grosh Mystic 19-20, Emogg the Crusher 19).
+#
+# Left out: An Ambassador of Evil (762): the route takes them here but cannot
+# finish them (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Knowledge in the Deeps (971), Knowledge in the Deeps
+# (971), Mythology of the Titans (1050), Mythology of the Titans (1050), The
+# Lost Tablets of Will (1139), Back to Uldaman (2200), Restoring the Necklace
+# (2204), The Lost Dwarves (2398), Essential Artificials (2924), Essential
+# Artificials (2924), The Grand Betrayal (2929), The Grand Betrayal (2929),
+# Data Rescue (2930), Data Rescue (2930), Kharan Mighthammer (4341), The Fate
+# of the Kingdom (4362), The Restless Dead (96394), The Restless Dead (96394),
+# An Ancient Grudge (96395), Important Heirlooms (96403), Important Heirlooms
+# (96403), The Treaty of Understanding (98423).
+
+step Chief Engineer Hinderweir VII
+  zone Loch Modan
+  tip Mo'grosh Ogre (level 18-19), Mo'grosh Enforcer (level 18-19), Mo'grosh Brute (level 19-20) and 3 more are elite: grouping up is advised unless you are well above level 20.
+  accept 278 optional
+
+step Silver Stream Mine: Lurker Venom
+  tip Mo'grosh Ogre (level 18-19), Mo'grosh Enforcer (level 18-19), Mo'grosh Brute (level 19-20) and 3 more are elite: grouping up is advised unless you are well above level 20.
+  collect 2606 quest 278.1 optional
+
+step The Loch: Crocolisk Tear
+  tip Mo'grosh Ogre (level 18-19), Mo'grosh Enforcer (level 18-19), Mo'grosh Brute (level 19-20) and 3 more are elite: grouping up is advised unless you are well above level 20.
+  collect 2939 quest 278.3 optional
+
+step Chief Engineer Hinderweir VII
+  tip Mo'grosh Ogre (level 18-19), Mo'grosh Enforcer (level 18-19), Mo'grosh Brute (level 19-20) and 3 more are elite: grouping up is advised unless you are well above level 20.
+  collect 2607 quest 278.2 optional
+  turnin 278 optional
+  accept 280
+  turnin 280
+  accept 283
+  turnin 283
+
+step Bubulo Acerbus
+  zone Ironforge
+  turnin 7807
+
+step Mistina Steelshield
+  turnin 7802
+
+step Lomac Gearstrip
+  turnin 1073
+  accept 1074
+
+step Curator Thorius
+  turnin 3182
+  accept 3201
+  turnin 4513
+  accept 725
+  turnin 725
+  accept 726
+  turnin 726
+
+step Master Mechanic Castpipe
+  turnin 2931
+
+step Mistina Steelshield
+  turnin 7803
+
+step Bubulo Acerbus
+  turnin 7808
+
+step Ironforge
+  sethome "Ironforge"
+  accept 3702
+
+step Ironforge: The Smoldering Ruins of Thaurissan
+  complete 3702
+
+step Royal Historian Archesonus
+  turnin 3702
+  accept 3701
+  accept 7805
+
+step Bubulo Acerbus
+  accept 7811
+
+step Lieutenant Rotimer
+  accept 7261
+
+step Cenarion Emissary Jademoon
+  accept 8275
+
+step Stormwind City
+  sethome "Stormwind City"

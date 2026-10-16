@@ -1,0 +1,67 @@
+guide completionist/horde/troll/32-eastern-plaguelands
+title Eastern Plaguelands
+faction Horde
+race Troll
+levels 51-52
+zone Eastern Plaguelands
+category Completionist
+folder Completionist · Troll 50-60
+keywords completionist, every quest
+next completionist/horde/troll/33-stranglethorn-vale-blasted-lands
+
+# Route: guide 32 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 51 to 52, 6
+# quests, 0.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Eastern Plaguelands): Light's Hope Chapel -> Darrowshire -> The
+# Undercroft -> Terrordale -> Light's Hope Chapel.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Dawn's Gambit (4771), The Flesh Does Not Lie (5212), The
+# Active Agent (5213), The Great Fras Siabi (5214), Houses of the Holy (5243),
+# The Archivist (5251), Above and Beyond (5263), The Restless Souls (5282),
+# Menethil's Gift (5463), Plagued Hatchlings (5529), Ramstein (6163), Dead
+# Man's Plea (8945), Anthion's Old Friend (8948).
+
+step Carlin Redpath
+  accept 5211
+  accept 6021
+
+step Light's Hope Chapel: Defenders of Darrowshire
+  complete 5211
+
+step Carlin Redpath
+  turnin 5211
+
+step Pamela Redpath
+  accept 5149
+
+step Darrowshire: Pamela's Doll
+  complete 5149
+
+step Pamela Redpath
+  turnin 5149
+  accept 5152
+  accept 5241
+
+step The Undercroft: Zaeldarr's Head
+  collect 15785 quest 6021.1
+
+step Augustus the Touched
+  accept 6164
+
+step Terrordale: Augustus' Receipt Book
+  complete 6164
+
+step Augustus the Touched
+  turnin 6164
+
+step Caretaker Alen
+  turnin 6021
+  turnin 5241
+
+step Booty Bay
+  sethome "Booty Bay"

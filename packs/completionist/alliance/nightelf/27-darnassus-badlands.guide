@@ -1,0 +1,163 @@
+guide completionist/alliance/nightelf/27-darnassus-badlands
+title Darnassus & Badlands
+faction Alliance
+race NightElf
+levels 47-49
+zone Darnassus
+category Completionist
+folder Completionist · NightElf 40-50
+keywords completionist, every quest, Darnassus, Teldrassil, Stormwind City, Badlands, Tanaris
+next completionist/alliance/nightelf/28-the-barrens
+
+# Route: guide 27 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 47 to
+# 49, 33 quests, 2.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Darnassus, Teldrassil, Stormwind City, Badlands, Tanaris): near
+# Craftsmen's Terrace -> Craftsmen's Terrace -> near Craftsmen's Terrace ->
+# Craftsmen's Terrace -> near Craftsmen's Terrace -> Rut'theran Village ->
+# near Stormwind City -> near Stormwind -> Dustwind Gulch -> Hammertoe's
+# Digsite -> Lethlor Ravine -> Hammertoe's Digsite -> Camp Cagg -> ….
+#
+# Optional (elite: grouping up is advised): Prayer to Elune (3378; Twilight
+# Dark Shaman 47-48, Twilight Fire Guard 48-49, Twilight Geomancer 49-50,
+# Twilight Idolater 49-51); The Perenolde Tiara (543; Grel'borg the Miser 39);
+# Tremors of the Earth (717; Blacklash 50, Hematus 50); The Super Snapper FX
+# (2944; Gammerita 48).
+#
+# Left out: Tears of the Moon (2518), Crown of the Earth (934), Tumors (923):
+# the route takes them here but cannot finish them (the coverage report's
+# missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In Search of Thaelrid (1198), Twilight Falls (1199), In
+# Search of Thaelrid (1198), Twilight Falls (1199), Quell The Uprising (387),
+# Quell the Uprising (387), The Color of Blood (388), The Color of Blood
+# (388), The Stockade Riots (391), The Stockade Riots (391), Underground
+# Assault (2040), Underground Assault (2040), Bring the Light (3636), A Green
+# Sample (92456), A Green Sample (92456), Power Overwhelming (92489), Power
+# Overwhelming (92489), Ribbly Screwspigot (4136), Kibler's Exotic Pets
+# (4729), En-Ay-Es-Tee-Why (4862), Divino-matic Rod (2768), Scarab Shells
+# (2865), Troll Temper (3042), Into the Depths (3446), Secret of the Circle
+# (3447), The Prophecy of Mosh'aru (3527), The God Hakkar (3528), The Final
+# Tablets (4788).
+
+step Sentinel Dalia Sunblade
+  accept 98067
+
+step Sister Aquinne
+  accept 2519
+  turnin 98391
+
+step Rellian Greenspyre
+  turnin 922
+
+step near Craftsmen's Terrace: Credit
+  kill 270418 quest 98067.1
+
+step Arch Druid Fandral Staghelm
+  turnin 935
+  accept 98046
+
+step Craftsmen's Terrace: Credit
+  sethome "Craftsmen's Terrace"
+  kill 270420 quest 98067.3
+
+step near Craftsmen's Terrace: Credit
+  kill 270421 quest 98067.4
+
+step Lariia
+  turnin 98046
+  accept 98065
+  turnin 98067
+  turnin 2519
+  turnin 98065
+
+step Arch Druid Fandral Staghelm
+  turnin 940
+  accept 952
+
+step Chief Archaeologist Greywhisker
+  tip Twilight Dark Shaman (level 47-48), Twilight Fire Guard (level 48-49), Twilight Geomancer (level 49-50) and Twilight Idolater (level 49-51) are elite: grouping up is advised unless you are well above level 51.
+  turnin 741
+  turnin 162
+  turnin 4267
+  turnin 2972
+  turnin 3378 optional
+
+step Arch Druid Fandral Staghelm
+  accept 3764
+
+step Innkeeper Saelienne
+  accept 3763
+
+step Arch Druid Fandral Staghelm
+  turnin 3763
+
+step Rut'theran Village
+  zone Teldrassil
+  getfp "Rut'theran Village"
+  turnin 2939
+  turnin 3022
+  accept 2940
+  accept 3661
+  turnin 2940
+  accept 2941
+
+step Angus Stern
+  zone Stormwind City
+  tip Grel'borg the Miser (level 39) is elite: grouping up is advised unless you are well above level 39.
+  turnin 543 optional
+  turnin 212
+
+step Brohann Caskbelly
+  turnin 1448
+  accept 1449
+
+step Garek
+  zone Badlands
+  accept 732
+
+step Sigrun Ironhew
+  accept 706
+
+step Lethlor Ravine: Black Drake's Heart
+  collect 4612 quest 706.1
+
+step Sigrun Ironhew
+  turnin 706
+
+step Camp Cagg: Sign of the Earth
+  collect 4640 quest 732.1
+
+step Garek
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 732
+  accept 717 optional
+  collect 4615 quest 717.1 optional
+  collect 4645 quest 717.2 optional
+
+step Camp Cagg: Silk Cloth
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 717 optional
+  collect 4306 quest 4449.2
+
+step Yeh'kinya
+  zone Tanaris
+  turnin 3520
+
+step Gadgetzan
+  tip Gammerita (level 48) is elite: grouping up is advised unless you are well above level 48.
+  sethome "Gadgetzan"
+  turnin 2941
+  accept 2944 optional
+
+step Marvon Rivetseeker
+  turnin 3445
+  accept 3444
+
+step Back to Gadgetzan
+  hearth "Gadgetzan"

@@ -1,0 +1,195 @@
+guide completionist/horde/tauren/23-feralas
+title Feralas
+faction Horde
+race Tauren
+levels 45-48
+zone Feralas
+category Completionist
+folder Completionist · Tauren 40-50
+keywords completionist, every quest
+next completionist/horde/tauren/24-searing-gorge-azshara
+
+# Route: guide 23 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 45 to
+# 48, 29 quests, 3.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Feralas): Camp Mojache -> Gordunni Outpost -> Camp Mojache -> Ruins of
+# Isildien -> Feral Scar Vale -> Grimtotem Compound -> Camp Mojache ->
+# Grimtotem Compound -> The Writhing Deep -> Camp Mojache -> The Writhing Deep
+# -> Camp Mojache -> Feral Scar Vale -> ….
+#
+# Optional (elite: grouping up is advised): Dark Heart (3062; Edana Hatetalon
+# 50).
+#
+# Profession quests here are not routed (they need the skill): 2854 Wild
+# Leather Armor; 2855 Wild Leather Shoulders; 2856 Wild Leather Vest; 2857
+# Wild Leather Helmet; 2858 Wild Leather Boots; 2859 Wild Leather Leggings;
+# 2860 Master of the Wild Leather.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Pusillin and the Elder Azj'Tordin (7441), Elven Legends
+# (7481), Lethtendris's Web (7489).
+
+step Jangdor Swiftstrider
+  accept 2822
+  accept 3121
+  accept 2987
+  accept 2975
+  accept 2973
+  accept 2862
+
+step Camp Mojache: Woodpaw Gnoll Mane
+  collect 9237 quest 2862.1
+
+step Hadoken Swiftstrider
+  turnin 2862
+  accept 2863
+
+step Gordunni Outpost: Gordunni Ogre and Gordunni Ogre Mage
+  kill 5229 quest 2975.1
+  kill 5237 quest 2975.2
+
+step Gordunni Outpost
+  tip Gordunni Scroll drops the Gordunni Scroll: right-click it to start The Gordunni Scroll.
+  collect 9370 x1
+  accept 2978
+
+step Gordunni Outpost: Gordunni Brute and Gordunni Cobalt
+  kill 5232 quest 2975.3
+  collect 9463 quest 2987.1
+
+step Rok Orhan
+  turnin 2975
+  turnin 2978
+  accept 2979
+  accept 2980
+  turnin 2987
+
+step Ruins of Isildien: Gordunni Shaman and Gordunni Orb
+  kill 5236 quest 2980.1
+  collect 9371 quest 2979.1
+
+step Feral Scar Vale: Thick Yeti Hide
+  collect 8973 quest 2822.1
+
+step Feral Scar Vale: Gordunni Warlock and Gordunni Mauler
+  kill 5240 quest 2980.2
+  kill 5234 quest 2980.3
+
+step Grimtotem Compound: Woodpaw Alpha
+  kill 5258 quest 2863.1
+
+step Grimtotem Compound: Iridescent Sprite Darter Wing
+  collect 9369 quest 2973.1
+
+step Jangdor Swiftstrider
+  turnin 2822
+  accept 7734
+  turnin 2863
+  accept 2902
+  turnin 2973
+  accept 2974
+  turnin 2979
+  turnin 2980
+  accept 3002
+
+step Grimtotem Compound: Grimtotem Horn
+  collect 9460 quest 2974.1
+
+step Woodpaw Battle Map
+  turnin 2902
+  accept 2903
+
+step Hadoken Swiftstrider
+  turnin 2903
+  accept 7730
+  accept 7731
+  turnin 2974
+  accept 2976
+
+step The Writhing Deep: Zukk'ash Carapace and Stinglasher's Glands
+  collect 18961 quest 7730.1
+  collect 18962 quest 7731.1
+
+step Hadoken Swiftstrider
+  turnin 7730
+  turnin 7731
+  accept 7732
+
+step Feral Scar Vale: Rage Scar Yeti Hide
+  collect 18947 quest 7734.1
+
+step The Twin Colossals
+  tip Rage Scar Yeti drops the Perfect Yeti Hide: right-click it to start Perfect Yeti Hide.
+  collect 18972 x1
+  accept 7738
+
+step The Twin Colossals: Screecher Spirits
+  complete 3520
+
+step Sardor Isle
+  tip Coast Crawl Deepseer drops the OOX-22/FE Distress Beacon: right-click it to start Find OOX-22/FE!.
+  collect 8705 x1
+  accept 2766
+
+step Back to Camp Mojache
+  hearth "Camp Mojache"
+
+step Homing Robot OOX-22/FE
+  turnin 2766
+  accept 2767
+
+step The Twin Colossals: Rescue OOX-22/FE!
+  complete 2767
+
+step Jangdor Swiftstrider
+  turnin 7734
+  turnin 7738
+
+step Zorbin Fandazzle
+  accept 7003
+  accept 7721
+
+step The Forgotten Coast: Miniaturization Residue
+  collect 18956 quest 7003.1
+
+step Zorbin Fandazzle
+  turnin 7003
+
+step Feral Scar Vale: Water Elemental Core
+  collect 18958 quest 7721.1
+
+step Zorbin Fandazzle
+  turnin 7721
+
+step Talo Thornhoof
+  tip Edana Hatetalon (level 50) is elite: grouping up is advised unless you are well above level 50.
+  accept 3063
+  accept 3062 optional
+
+step Ruins of Ravenwind: Northspring Roguefeather and Northspring Harpy
+  kill 5363 quest 3063.2
+  kill 5362 quest 3063.1
+
+step Ruins of Ravenwind: Northspring Slayer and Northspring Windcaller
+  kill 5364 quest 3063.3
+  kill 5366 quest 3063.4
+
+step Back to Camp Mojache
+  tip Edana Hatetalon (level 50) is elite: grouping up is advised unless you are well above level 50.
+  collect 9528 quest 3062.1 optional
+  hearth "Camp Mojache"
+
+step Talo Thornhoof
+  tip Edana Hatetalon (level 50) is elite: grouping up is advised unless you are well above level 50.
+  turnin 3062 optional
+  turnin 3063
+  accept 3380
+  accept 4120
+
+step The Cauldron
+  getfp "Thorium Point"
+  note "Profession quests here, for players with the skill: Wild Leather Armor (Leatherworking 200), Wild Leather Shoulders (Leatherworking 225), Wild Leather Vest (Leatherworking 225), Wild Leather Helmet (Leatherworking 225), Wild Leather Boots (Leatherworking 225), Wild Leather Leggings (Leatherworking 225), Master of the Wild Leather (Leatherworking 225)."

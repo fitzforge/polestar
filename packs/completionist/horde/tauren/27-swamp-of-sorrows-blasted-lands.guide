@@ -1,0 +1,212 @@
+guide completionist/horde/tauren/27-swamp-of-sorrows-blasted-lands
+title Swamp of Sorrows & Blasted Lands
+faction Horde
+race Tauren
+levels 50-52
+zone Swamp of Sorrows
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest, Swamp of Sorrows, Blasted Lands, Redridge Mountains, Duskwood
+next completionist/horde/tauren/28-eastern-plaguelands
+
+# Route: guide 27 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 50 to
+# 52, 32 quests, 3.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Swamp of Sorrows, Blasted Lands, Redridge Mountains, Duskwood):
+# Splinterspear Junction -> Stonard -> Stagalbog -> Stonard -> Pool of Tears
+# -> Stonard -> Splinterspear Junction -> Stonard -> The Shifting Mire ->
+# Fallow Sanctuary -> The Shifting Mire -> Itharius's Cave -> The Harborage ->
+# ….
+#
+# Optional (elite: grouping up is advised): Nothing But The Truth (1383;
+# Deepstrider Giant 38-39, Deepstrider Searcher 39-40).
+#
+# Left to other guides: class quests (the Class category).
+
+step Fallen Hero of the Horde
+  accept 2784
+
+step Splinterspear Junction: Fall From Grace
+  complete 2784
+
+step Fallen Hero of the Horde
+  turnin 2784
+  accept 2621
+
+step Stonard
+  getfp "Stonard"
+  sethome "Stonard"
+  turnin 2621
+  accept 2622
+  turnin 2622
+  accept 2623
+  accept 698
+  accept 1430
+
+step Stonard: Unprepared Sawtooth Flank
+  collect 6169 quest 698.1
+
+step Tok'Kar
+  turnin 698
+  accept 699
+
+step Stagalbog: Monstrous Crawler Leg
+  collect 6184 quest 1430.1
+
+step Stagalbog: Sawtooth Snapper Claw
+  collect 6168 quest 699.1
+
+step Tok'Kar
+  turnin 699
+  accept 1422
+  turnin 1422
+  accept 1426
+
+step Stagalbog: Marsh Murloc and Marsh Inkspewer
+  kill 747 quest 1426.1
+  kill 750 quest 1426.2
+
+step Back to Stonard
+  hearth "Stonard"
+
+step Dar
+  turnin 1430
+  accept 1424
+
+step Pool of Tears: Atal'ai Artifact
+  collect 6175 quest 1424.1
+
+step Fel'zerul
+  turnin 1424
+  accept 1429
+
+step Amaryllis Webb
+  accept 93176
+  turnin 93176
+
+step Helgrum the Swift
+  accept 1418
+  turnin 1420
+  accept 93663
+
+step Stonard: Lost in Transit
+  complete 93663
+
+step The Shifting Mire
+  tip Noboru the Cudgel drops the Noboru's Cudgel: right-click it to start Noboru the Cudgel.
+  collect 6196 x1
+  accept 1392
+
+step Fallow Sanctuary: Draenethyst Shard
+  collect 6190 quest 1373.1
+
+step Galen Goodward
+  accept 1393
+
+step The Shifting Mire: Galen's Escape
+  complete 1393
+
+step Galen's Strongbox
+  turnin 1393
+
+step Itharius's Cave: Speck of Dream Dust
+  collect 5803 quest 1116.1
+
+step Magtoor
+  accept 1389
+  turnin 93663
+  turnin 1392
+
+step Fallow Sanctuary: Draenethyst Crystal
+  collect 6071 quest 1389.1
+
+step Magtoor
+  turnin 1389
+
+step A Soggy Scroll
+  turnin 624
+
+step Bloodmage Drazial
+  zone Blasted Lands
+  accept 2581
+  accept 2583
+  accept 2585
+  accept 2601
+  accept 2603
+
+step Garrison Armory: Vulture Gizzard and Snickerfang Jowl and more
+  collect 8396 quest 2585.2
+  collect 8396 quest 2601.2
+  collect 8396 quest 2603.1
+  collect 8391 quest 2581.1
+  collect 8391 quest 2603.2
+  collect 8393 quest 2581.3
+  collect 8393 quest 2583.2
+  collect 8393 quest 2585.1
+
+step Bloodmage Lynnore
+  turnin 2603
+
+step Kum'isha the Collector
+  accept 2521 optional
+  accept 3501
+
+step Serpent's Coil: Blasted Boar Lung and Basilisk Brain
+  collect 8392 quest 2581.2
+  collect 8392 quest 2583.1
+  collect 8392 quest 2585.3
+  collect 8394 quest 2583.3
+  collect 8394 quest 2601.1
+
+step Nethergarde Keep: Warchief's Orders
+  collect 8463 quest 2623.1
+
+step Nethergarde Keep: Imperfect Draenethyst Fragment
+  collect 10593 quest 3501.1
+
+step Bloodmage Lynnore
+  turnin 2601
+  turnin 2581
+  turnin 2583
+  turnin 2585
+
+step Kum'isha the Collector
+  collect 8244 quest 2521.1 optional
+  turnin 3501
+  turnin 2521 optional
+  accept 2522 optional
+  collect 8244 quest 2522.1 optional
+
+step Nethergarde Keep: Marsh Flesheater
+  turnin 2522 optional
+  kill 751 quest 1426.3
+
+step Back to Stonard
+  hearth "Stonard"
+
+step Shawn
+  zone Redridge Mountains
+  accept 3741
+
+step Lakeshire: Hilary's Necklace
+  complete 3741
+
+step Hilary
+  turnin 3741
+
+step Deathstalker Zraedus
+  zone Duskwood
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  accept 1372
+  turnin 1372
+  accept 1383 optional
+
+step Light's Hope Chapel
+  getfp "Light's Hope Chapel"
+
+step Light's Hope Chapel
+  sethome "Light's Hope Chapel"

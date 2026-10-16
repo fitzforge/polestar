@@ -1,0 +1,208 @@
+guide completionist/horde/tauren/38-feralas-stranglethorn-vale
+title Feralas & Stranglethorn Vale
+faction Horde
+race Tauren
+levels 56-58
+zone Feralas
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest, Ashenvale, Thunder Bluff, Feralas, Stranglethorn Vale, Badlands, Searing Gorge
+next completionist/horde/tauren/39-stonetalon-mountains-tirisfal-glades
+
+# Route: guide 38 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 56 to
+# 58, 35 quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Ashenvale, Thunder Bluff, Feralas, Stranglethorn Vale, Badlands,
+# Searing Gorge): Fallen Sky Lake -> Raynewood Retreat -> The Zoram Strand ->
+# Night Run -> Felfire Hill -> near Thunder Bluff -> Thunder Bluff -> Camp
+# Mojache -> Feral Scar Vale -> Grimtotem Compound -> Camp Mojache -> The Twin
+# Colossals -> The Forgotten Coast -> ….
+#
+# Optional (elite: grouping up is advised): Allegiance to the Old Gods (6564;
+# Blackfathom Tide Priestess 20-21); The Star, the Hand and the Heart (736;
+# Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44); Broken
+# Alliances (793; Blacklash 50, Hematus 50).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Blackfathom Villainy (6561), Allegiance to the Old Gods
+# (6565), Allegiance to the Old Gods (6565), Amongst the Ruins (6921), Amongst
+# the Ruins (6921), Baron Aquanis (6922), Leaders of the Fang (914),
+# Compendium of the Fallen (1049), A Vengeful Fate (1102), Testing an Enemy's
+# Strength (5723), Pusillin and the Elder Azj'Tordin (7441), Elven Legends
+# (7481), Lethtendris's Web (7489), Find the Gems and Power Source (2339),
+# Disharmony of Fire (3907), Commander Gor'shak (3981), The Rise of the
+# Machines (4063), KILL ON SIGHT: Dark Iron Dwarves (4081), KILL ON SIGHT:
+# High Ranking Dark Iron Officials (4082), Operation: Death to Angerforge
+# (4132), Lost Thunderbrew Recipe (4134), Ribbly Screwspigot (4136), The Pack
+# Mistress (4724), Kibler's Exotic Pets (4729), The Darkstone Tablet (4768),
+# En-Ay-Es-Tee-Why (4862), Warlord's Command (4903), Operative Bijou (4981),
+# Blackhand's Command (7761), The Left Piece of Lord Valthalak's Amulet
+# (8966), The Left Piece of Lord Valthalak's Amulet (8967), The Left Piece of
+# Lord Valthalak's Amulet (8968), The Left Piece of Lord Valthalak's Amulet
+# (8969), The Right Piece of Lord Valthalak's Amulet (8989), The Right Piece
+# of Lord Valthalak's Amulet (8990), The Right Piece of Lord Valthalak's
+# Amulet (8991), The Right Piece of Lord Valthalak's Amulet (8992), Mea Culpa,
+# Lord Valthalak (8995).
+
+step Fallen Sky Lake: Filled Etched Phial
+  zone Ashenvale
+  turnin 3514 optional
+  collect 5868 quest 1195.1
+
+step Raynewood Retreat: Ordanus' Head
+  collect 5686 quest 1088.1
+
+step Je'neu Sancrea
+  tip Blackfathom Tide Priestess (level 20-21) is elite: grouping up is advised unless you are well above level 21. Blackfathom Tide Priestess drops the Damp Note: right-click it to start Allegiance to the Old Gods.
+  turnin 6562
+  collect 16790 x1 optional
+  accept 6564 optional
+
+step Locke Okarr
+  tip Blackfathom Tide Priestess (level 20-21) is elite: grouping up is advised unless you are well above level 21.
+  turnin 6564 optional
+  turnin 6571
+
+step Felfire Hill: Silk Cloth
+  collect 4306 quest 7827.1
+  collect 4306 quest 7834.1
+
+step Apothecary Zamah
+  zone Thunder Bluff
+  turnin 1067
+  accept 1086
+
+step Thunder Bluff
+  sethome "Thunder Bluff"
+  turnin 7820
+  turnin 1195
+  accept 1196
+
+step Melor Stonehoof
+  turnin 1131
+
+step Camp Mojache
+  zone Feralas
+  sethome "Camp Mojache"
+  turnin 3122
+  accept 3123
+  accept 3128
+  turnin 2981
+
+step Camp Mojache: Splintered Log and Metallic Fragments
+  collect 9590 quest 3128.1
+  collect 9592 quest 3128.4
+
+step Feral Scar Vale: Resilient Sinew
+  collect 9591 quest 3128.3
+
+step Back to Camp Mojache
+  hearth "Camp Mojache"
+
+step Grimtotem Compound: Encrusted Minerals
+  collect 9589 quest 3128.2
+
+step Witch Doctor Uzer'i
+  turnin 3128
+
+step Zorbin Fandazzle
+  accept 7725
+
+step The Forgotten Coast: Miniaturization Residue
+  tip Zorbin's Ultra-Shrinker lasts 120 minutes: go straight on with it.
+  collect 18956 quest 7725.1
+
+step Zorbin Fandazzle
+  turnin 7725
+
+step Zorbin Fandazzle
+  accept 7726
+
+step Feral Scar Vale: Water Elemental Core
+  collect 18958 quest 7726.1
+
+step Zorbin Fandazzle
+  turnin 7726
+
+step The Twin Colossals: The Videre Elixir
+  complete 3909
+
+step Booty Bay
+  zone Stranglethorn Vale
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  collect 4644 quest 736.3 optional
+  sethome "Booty Bay"
+  turnin 1116
+  accept 1117
+
+step Witch Doctor Unbagwa
+  accept 349
+
+step Mistvale Valley: Gorilla Fang
+  collect 2799 quest 349.1
+
+step Witch Doctor Unbagwa
+  turnin 349
+
+step Fleet Master Firallon
+  accept 9272
+  turnin 9272
+  accept 4621
+
+step Booty Bay: Baron Revilgaz and Fleet Master Seahorn
+  kill 2496 quest 4621.1
+  kill 2487 quest 4621.2
+
+step 'Pretty Boy' Duncan
+  accept 1036
+
+step Fleet Master Firallon
+  turnin 1036
+  turnin 4621
+
+step Gurubashi Arena
+  tip Arena Treasure Chest drops the Arena Master: right-click it to start Arena Master.
+  collect 18706 x1
+  accept 7810
+  turnin 7810
+
+step Kargath
+  zone Badlands
+  sethome "Kargath"
+  accept 782
+
+step Camp Cagg: Sign of the Earth
+  collect 4640 quest 782.1
+
+step Gorn
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 782
+  accept 793 optional
+
+step Back to Kargath
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  collect 4615 quest 793.1 optional
+  collect 4645 quest 793.2 optional
+  hearth "Kargath"
+
+step Camp Cagg: Silk Cloth
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 793 optional
+  collect 4306 quest 4449.2
+
+step Thal'trak Proudtusk
+  accept 3821
+  accept 4061
+
+step Wooden Outhouse
+  zone Searing Gorge
+  turnin 4449
+  accept 4450
+
+step Grimesilt Dig Site: Solid Crystal Leg Shaft
+  collect 11725 quest 4450.2
+  collect 10561 quest 4244.1 optional

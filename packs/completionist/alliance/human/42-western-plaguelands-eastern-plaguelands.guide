@@ -1,0 +1,109 @@
+guide completionist/alliance/human/42-western-plaguelands-eastern-plaguelands
+title Western Plaguelands & Eastern Plaguelands
+faction Alliance
+race Human
+levels 57-58
+zone Western Plaguelands
+category Completionist
+folder Completionist · Human 50-60
+keywords completionist, every quest, Hillsbrad Foothills, Tirisfal Glades, Western Plaguelands, Eastern Plaguelands
+next completionist/alliance/human/43-dustwallow-marsh-westfall
+
+# Route: guide 42 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 57 to 58, 19
+# quests, 0.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Hillsbrad Foothills, Tirisfal Glades, Western Plaguelands, Eastern
+# Plaguelands): Darrow Hill -> Southshore -> The Bulwark -> Sorrow Hill ->
+# Ruins of Andorhal -> Felstone Field -> Thondroril River -> Ruins of Andorhal
+# -> Sorrow Hill -> Quel'Lithien Lodge -> Northpass Tower -> Darrowshire ->
+# Corin's Crossing.
+#
+# Optional (elite: grouping up is advised): Crushridge Warmongers (504;
+# Crushridge Warmonger 39-40).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In the Name of the Light (1053), Remember That I Love You
+# (92415), Crest of Lordaeron (95189), Bloodied Insignia (95195), Abominable
+# Creatures (95250), Barov Family Fortune (5343), Doctor Theolen Krastinov,
+# the Butcher (5382), Kirtonos the Herald (5384), The Lich, Ras Frostwhisper
+# (5466), Krastinov's Bag of Horrors (5515), Of Love and Family (5848), Dawn's
+# Gambit (4771), The Flesh Does Not Lie (5212), The Active Agent (5213), The
+# Great Fras Siabi (5214), Houses of the Holy (5243), The Archivist (5251),
+# Above and Beyond (5263), The Restless Souls (5282), Menethil's Gift (5463),
+# Plagued Hatchlings (5529), Dead Man's Plea (8945), Anthion's Old Friend
+# (8948).
+
+step Lieutenant Haggerdin
+  zone Hillsbrad Foothills
+  turnin 7261
+
+step Southshore
+  tip Crushridge Warmonger (level 39-40) is elite: grouping up is advised unless you are well above level 40.
+  sethome "Southshore"
+  turnin 504 optional
+  turnin 537
+
+step Argent Officer Garush
+  zone Tirisfal Glades
+  turnin 5406 optional
+  turnin 5407
+  turnin 5408
+
+step Commander Ashlam Valorfist
+  zone Western Plaguelands
+  turnin 5066
+
+step Chromie
+  turnin 5941
+
+step Janice Felstone
+  turnin 5050
+  accept 5051
+
+step Felstone Field: Two Halves Become One
+  complete 5051
+
+step Janice Felstone
+  turnin 5051
+
+step Tirion Fordring
+  turnin 5781
+  accept 5845
+
+step Chromie
+  accept 5721
+
+step Flint Shadowmore
+  turnin 6184
+  accept 6185 optional
+
+step Aurora Skycaller
+  zone Eastern Plaguelands
+  turnin 5247
+  accept 5248
+
+step Northpass Tower: Of Lost Honor
+  complete 5845
+
+step Darrowshire: The Battle of Darrowshire
+  complete 5721
+
+step Pamela Redpath
+  turnin 5721
+  accept 5942
+  turnin 5942
+
+step Corin's Crossing: Mageweave Cloth
+  kill 11878 quest 6185.4 optional
+  complete 6185 optional
+  collect 4338 quest 7799.1
+
+step Back to Southshore
+  hearth "Southshore"
+
+step Theramore Isle
+  sethome "Theramore Isle"

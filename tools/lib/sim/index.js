@@ -14,6 +14,7 @@ const { runJob, search } = require('./search');
 const { Pool } = require('./pool');
 const { loadParamsFile, effective, means } = require('./params');
 const { CLASSES, classLabel } = require('../game/races');
+const { loadData } = require('../route/model');
 
 const { ROOT, DATA, SOURCES } = require('../paths');
 const DEFAULTS = {
@@ -44,11 +45,14 @@ function normFaction(f) {
 	return v;
 }
 
+// opts.variant: 'solo' (default, the leveling world) or 'completionist'
+// (elite quests kept; family 'completionist' runs on it).
 async function loadWorld(o) {
 	const opts = { ...DEFAULTS, ...o };
+	const variant = opts.variant || 'solo';
 	const questXp = await loadQuestXp({ sourcesDir: opts.sourcesDir, offline: opts.offline, log: opts.log });
-	const world = getWorld({ dataDir: opts.dataDir, sourcesDir: opts.sourcesDir, simDir: opts.simDir, faction: opts.faction, rebuild: opts.rebuild, questXp, log: opts.log, bandWidth: opts.bandWidth, extraStarts: opts.extraStarts });
-	return { world, worldFile: worldFile(opts.simDir, opts.faction) };
+	const world = getWorld({ dataDir: opts.dataDir, sourcesDir: opts.sourcesDir, simDir: opts.simDir, faction: opts.faction, rebuild: opts.rebuild, questXp, log: opts.log, bandWidth: opts.bandWidth, extraStarts: opts.extraStarts, variant });
+	return { world, worldFile: worldFile(opts.simDir, opts.faction, variant) };
 }
 
 function paramsFor(simDir, cls) {
@@ -61,6 +65,11 @@ function makeRun(world, { race, cls, params, family = 'solo' }) {
 	const run = compileRun(world, { race, cls, family });
 	const tables = makeTables(run, params);
 	return { run, tables, ev: new Evaluator(run, tables) };
+}
+
+// The world a family runs on (sim.loadWorld's variant).
+function variantOf(family) {
+	return family === 'completionist' ? 'completionist' : 'solo';
 }
 
 function className(cls) {
@@ -115,13 +124,16 @@ function benchEval(ev, route, ms = 1500) {
 }
 
 // Search for one character. Returns the result object (also written to disk
-// unless opts.write === false).
+// unless opts.write === false; opts.resultFile: where). opts.paramOverrides:
+// parameter values replacing the means (a policy sweep: { greyWeight: 2 }).
+// The completionist family also writes its coverage report beside the result
+// (<result>-coverage.json / .md, tools/lib/sim/completionist.js).
 async function runCharacter(o) {
 	const opts = { ...DEFAULTS, seed: 1, paths: 1e6, workers: Math.max(1, os.availableParallelism ? os.availableParallelism() : os.cpus().length), family: 'solo', ...Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined)) };
 	const faction = normFaction(opts.faction);
-	const { world, worldFile: wf } = opts.world ? { world: opts.world, worldFile: opts.worldFile } : await loadWorld({ ...opts, faction });
+	const { world, worldFile: wf } = opts.world ? { world: opts.world, worldFile: opts.worldFile } : await loadWorld({ ...opts, faction, variant: variantOf(opts.family) });
 	const { eff, mean } = paramsFor(opts.simDir, opts.cls);
-	const params = opts.params || mean;
+	const params = { ...(opts.params || mean), ...(opts.paramOverrides || {}) };
 	const runOpts = { race: opts.race, cls: opts.cls || null, family: opts.family };
 	const local = makeRun(world, { ...runOpts, params });
 	const log = opts.log || (() => {});
@@ -156,13 +168,20 @@ async function runCharacter(o) {
 		best: {
 			route: keys(bestRoute), seconds: best.seconds, timeTo: best.timeTo, levelTimes: best.levelTimes, xpSplit: best.xpSplit,
 			travelSeconds: best.travelSeconds, grindSeconds: best.grindSeconds, questsDone: best.questsDone, hearths: best.hearths, flights: best.flights,
+			...(local.run.completionist ? { cost: res.best.seconds, eligible: local.run.Q, missed: best.missed, xpLost: best.xpLost, greySeconds: best.greySeconds, greyQuests: best.greyQuests, zoneChanges: best.zoneChanges } : {}),
 			visits: best.visits,
 		},
 		elite: res.elite.map((e) => ({ route: keys(prune(ev, e.route)), seconds: e.seconds })),
 	};
 	if (opts.write !== false) {
-		const file = resultFile(opts.simDir, faction, opts.race, opts.cls, opts.family);
+		const file = opts.resultFile || resultFile(opts.simDir, faction, opts.race, opts.cls, opts.family);
 		fs.mkdirSync(path.dirname(file), { recursive: true });
+		if (local.run.completionist) {
+			const { coverage, writeCoverage } = require('./completionist');
+			const cov = coverage({ world, run: local.run, ev, route: bestRoute, data: loadData(opts.dataDir) });
+			out.coverage = cov.summary;
+			writeCoverage(cov, file.replace(/\.json$/, '-coverage'), { label: `Best completionist route: ${(best.seconds / 3600).toFixed(1)} h under the model (world ${world.dataHash.slice(0, 12)}).` });
+		}
 		fs.writeFileSync(file, `${JSON.stringify(out, null, 1)}\n`);
 		out.file = file;
 	}
@@ -191,6 +210,6 @@ function assertFresh(res, world, file) {
 }
 
 module.exports = {
-	DEFAULTS, START_RACES, normFaction, normClass, loadWorld, paramsFor, makeRun, className, resultFile, assertFresh,
+	DEFAULTS, START_RACES, normFaction, normClass, loadWorld, paramsFor, makeRun, className, resultFile, assertFresh, variantOf,
 	prune, describe, benchEval, runCharacter, routeFromKeys, downsample,
 };

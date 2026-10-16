@@ -1,0 +1,190 @@
+guide completionist/horde/undead/29-swamp-of-sorrows-blasted-lands
+title Swamp of Sorrows & Blasted Lands
+faction Horde
+race Undead
+levels 51-53
+zone Blasted Lands
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Eastern Plaguelands, Swamp of Sorrows, Blasted Lands
+next completionist/horde/undead/30-burning-steppes-badlands
+
+# Route: guide 29 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 51 to
+# 53, 27 quests, 3.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Eastern Plaguelands, Swamp of Sorrows, Blasted Lands): Light's Hope
+# Chapel -> Darrowshire -> The Undercroft -> Terrordale -> Light's Hope Chapel
+# -> Stonard -> Splinterspear Junction -> Stonard -> Stagalbog -> Stonard ->
+# Pool of Tears -> Stonard -> Splinterspear Junction -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Dawn's Gambit (4771), The Flesh Does Not Lie (5212), The
+# Active Agent (5213), The Great Fras Siabi (5214), Houses of the Holy (5243),
+# The Archivist (5251), Above and Beyond (5263), The Restless Souls (5282),
+# Menethil's Gift (5463), Plagued Hatchlings (5529), Ramstein (6163), Dead
+# Man's Plea (8945), Anthion's Old Friend (8948).
+
+step Carlin Redpath
+  zone Eastern Plaguelands
+  accept 5211
+  accept 6021
+
+step Light's Hope Chapel: Defenders of Darrowshire
+  complete 5211
+
+step Carlin Redpath
+  turnin 5211
+
+step Pamela Redpath
+  accept 5149
+
+step Darrowshire: Pamela's Doll
+  complete 5149
+
+step Pamela Redpath
+  turnin 5149
+  accept 5152
+  accept 5241
+
+step The Undercroft: Zaeldarr's Head
+  collect 15785 quest 6021.1
+
+step Terrordale: Plagueland Termites
+  collect 15043 quest 5901.1
+
+step Augustus the Touched
+  accept 6164
+
+step Terrordale: Augustus' Receipt Book
+  complete 6164
+
+step Augustus the Touched
+  turnin 6164
+
+step Caretaker Alen
+  turnin 6021
+  turnin 5241
+
+step Stonard
+  zone Swamp of Sorrows
+  sethome "Stonard"
+  accept 698
+  accept 1430
+
+step A Soggy Scroll
+  accept 625
+
+step Stonard: Unprepared Sawtooth Flank
+  collect 6169 quest 698.1
+
+step Tok'Kar
+  turnin 698
+  accept 699
+
+step Stagalbog: Monstrous Crawler Leg
+  collect 6184 quest 1430.1
+
+step Stagalbog: Sawtooth Snapper Claw
+  collect 6168 quest 699.1
+
+step Tok'Kar
+  turnin 699
+  accept 1422
+  turnin 1422
+  accept 1426
+
+step Stagalbog: Marsh Murloc and Marsh Inkspewer
+  kill 747 quest 1426.1
+  kill 750 quest 1426.2
+
+step Back to Stonard
+  hearth "Stonard"
+
+step Dar
+  turnin 1430
+  accept 1424
+
+step Pool of Tears: Atal'ai Artifact
+  collect 6175 quest 1424.1
+
+step Fel'zerul
+  turnin 1424
+  accept 1429
+
+step Fallen Hero of the Horde
+  accept 2784
+
+step Splinterspear Junction: Fall From Grace
+  complete 2784
+
+step Fallen Hero of the Horde
+  turnin 2784
+  accept 2621
+
+step Dispatch Commander Ruag
+  turnin 2621
+  accept 2622
+  turnin 2622
+  accept 2623
+
+step Bloodmage Drazial
+  zone Blasted Lands
+  accept 2581
+  accept 2583
+  accept 2585
+  accept 2601
+  accept 2603
+
+step Garrison Armory: Vulture Gizzard and Snickerfang Jowl and more
+  collect 8396 quest 2585.2
+  collect 8396 quest 2601.2
+  collect 8396 quest 2603.1
+  collect 8391 quest 2581.1
+  collect 8391 quest 2603.2
+  collect 8393 quest 2581.3
+  collect 8393 quest 2583.2
+  collect 8393 quest 2585.1
+
+step Bloodmage Lynnore
+  turnin 2603
+
+step Kum'isha the Collector
+  accept 2521 optional
+  accept 3501
+
+step Serpent's Coil: Blasted Boar Lung and Basilisk Brain
+  collect 8392 quest 2581.2
+  collect 8392 quest 2583.1
+  collect 8392 quest 2585.3
+  collect 8394 quest 2583.3
+  collect 8394 quest 2601.1
+
+step Nethergarde Keep: Warchief's Orders
+  collect 8463 quest 2623.1
+
+step Nethergarde Keep: Imperfect Draenethyst Fragment
+  collect 10593 quest 3501.1
+
+step Bloodmage Lynnore
+  turnin 2601
+  turnin 2581
+  turnin 2583
+  turnin 2585
+
+step Kum'isha the Collector
+  collect 8244 quest 2521.1 optional
+  turnin 3501
+  turnin 2521 optional
+  accept 2522 optional
+  collect 8244 quest 2522.1 optional
+
+step Back to Stonard
+  turnin 2522 optional
+  hearth "Stonard"
+
+step Ruins of Thaurissan
+  getfp "Flame Crest"

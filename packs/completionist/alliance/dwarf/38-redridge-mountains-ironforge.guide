@@ -1,0 +1,262 @@
+guide completionist/alliance/dwarf/38-redridge-mountains-ironforge
+title Redridge Mountains & Ironforge
+faction Alliance
+race Dwarf
+levels 55-57
+zone Redridge Mountains
+category Completionist
+folder Completionist · Dwarf 50-60
+keywords completionist, every quest, Darnassus, Redridge Mountains, Teldrassil, Felwood, Ironforge
+next completionist/alliance/dwarf/39-eastern-plaguelands-stormwind-city
+
+# Route: guide 38 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 55 to 57, 65
+# quests, 2.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Darnassus, Redridge Mountains, Teldrassil, Felwood, Ironforge): near
+# Craftsmen's Terrace -> Craftsmen's Terrace -> near Craftsmen's Terrace ->
+# Craftsmen's Terrace -> near Craftsmen's Terrace -> Lakeshire -> Three
+# Corners -> Lakeshire -> Lakeridge Highway -> Lakeshire -> Redridge Canyons
+# -> Lakeshire -> Redridge Canyons -> ….
+#
+# Optional (elite: grouping up is advised): The Star, the Hand and the Heart
+# (735; Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44);
+# An Ambassador of Evil (762; Ambassador Infernus 42).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In Search of Thaelrid (1198), Twilight Falls (1199), What
+# Comes Around... (386), What Comes Around... (386), Songblade Search (95772),
+# Songblade Search (95772), In Search of Thaelrid (1198), Twilight Falls
+# (1199), Knowledge in the Deeps (971), Knowledge in the Deeps (971),
+# Mythology of the Titans (1050), Mythology of the Titans (1050), The Lost
+# Tablets of Will (1139), Back to Uldaman (2200), Restoring the Necklace
+# (2204), The Lost Dwarves (2398), Essential Artificials (2924), Essential
+# Artificials (2924), The Grand Betrayal (2929), The Grand Betrayal (2929),
+# Data Rescue (2930), Data Rescue (2930), Kharan Mighthammer (4341), The Fate
+# of the Kingdom (4362), The Restless Dead (96394), The Restless Dead (96394),
+# An Ancient Grudge (96395), Important Heirlooms (96403), Important Heirlooms
+# (96403), The Treaty of Understanding (98423).
+
+step Priestess A'moora
+  zone Darnassus
+  turnin 2518
+  accept 2520
+
+step near Craftsmen's Terrace: Temple of the Moon Fountain
+  interact 138498 quest 2520.1
+
+step Priestess A'moora
+  turnin 2520
+
+step Rellian Greenspyre
+  turnin 923
+  accept 2498
+
+step Craftsmen's Terrace
+  sethome "Craftsmen's Terrace"
+  accept 7792
+
+step Chief Archaeologist Greywhisker
+  accept 730
+  accept 942
+
+step Thyn'tel Bladeweaver
+  turnin 1044
+  accept 7798
+  accept 7799
+
+step Jenal
+  turnin 3764
+  accept 3781
+  turnin 3781
+  accept 3785
+
+step near Craftsmen's Terrace: Morrowgrain Research
+  complete 3785
+
+step Mathrengyl Bearwalker
+  turnin 3785
+  accept 3803
+
+step near Craftsmen's Terrace: Morrowgrain to Darnassus
+  complete 3803
+
+step Mathrengyl Bearwalker
+  turnin 3803
+
+step near Craftsmen's Terrace: Vial of Blessed Water
+  collect 5646 quest 4441.1
+
+step Mathrengyl Bearwalker
+  turnin 4986
+
+step Lakeshire
+  zone Redridge Mountains
+  sethome "Lakeshire"
+  turnin 4183
+  accept 4184
+
+step Marcy Baker
+  accept 91904
+  accept 91905
+
+step Three Corners: A Sealed Crate
+  complete 91904
+
+step Marcy Baker
+  turnin 91904
+
+step Three Corners: A Sealed Crate
+  complete 91905
+
+step Marcy Baker
+  turnin 91905
+  accept 91899
+  accept 91900
+
+step Three Corners: A Sealed Crate
+  complete 91899
+
+step Marcy Baker
+  turnin 91899
+
+step Three Corners: A Sealed Crate
+  complete 91900
+
+step Marcy Baker
+  turnin 91900
+
+step Verner Osgood
+  accept 1097
+  turnin 119
+  turnin 121
+  turnin 65
+  accept 132
+  accept 143
+  accept 122
+  accept 124
+
+step Lakeshire: Redridge Brute
+  kill 426 quest 124.1
+
+step Lakeridge Highway: Underbelly Whelp Scale
+  collect 1221 quest 122.1
+
+step Verner Osgood
+  turnin 122
+
+step Redridge Canyons: Redridge Mystic
+  kill 430 quest 124.2
+
+step Verner Osgood
+  turnin 124
+  accept 126
+
+step Redridge Canyons: Yowler's Paw
+  collect 3614 quest 126.1
+
+step Verner Osgood
+  turnin 126
+
+step Erelas Ambersky
+  zone Teldrassil
+  turnin 978
+  accept 979
+
+step Kernda
+  zone Felwood
+  turnin 8471
+  turnin 6031
+
+step Eridan Bluewind
+  turnin 4441
+  accept 4442
+  turnin 4442
+
+step Arei
+  accept 4261
+
+step Irontree Woods: Ancient Spirit
+  complete 4261
+
+step Deadwood Cauldron
+  turnin 5084
+  accept 5085
+
+step Ivy Leafrunner
+  accept 5249
+
+step Back to Lakeshire
+  hearth "Lakeshire"
+
+step Grand Mason Marblesten
+  zone Ironforge
+  turnin 689
+  accept 700
+
+step Ironforge
+  sethome "Ironforge"
+  turnin 700
+  accept 7803
+
+step Prospector Stormpike
+  turnin 554
+
+step Bubulo Acerbus
+  accept 7808
+
+step Historian Karnik
+  turnin 724
+
+step Golnir Bouldertoe
+  accept 6388
+  turnin 6388
+  accept 6392
+
+step Prospector Stormpike
+  accept 302
+
+step Gnoarn
+  accept 2039
+  accept 2041
+  accept 7807
+
+step Mistina Steelshield
+  accept 7802
+
+step Lomac Gearstrip
+  turnin 1072
+  accept 1073
+
+step Bubulo Acerbus
+  accept 7809
+
+step Mistina Steelshield
+  accept 7804
+
+step Laris Geardawdle
+  turnin 4512
+  accept 4513
+
+step Gerrig Bonegrip
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  turnin 735 optional
+  accept 737
+
+step Krom Stoutarm
+  tip Ambassador Infernus (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1360
+  accept 725
+  turnin 725
+  accept 726
+  turnin 726
+  accept 762 optional
+
+step Light's Hope Chapel
+  getfp "Light's Hope Chapel"
+
+step Light's Hope Chapel
+  sethome "Light's Hope Chapel"

@@ -1,0 +1,156 @@
+guide completionist/alliance/nightelf/46-loch-modan-ironforge
+title Loch Modan & Ironforge
+faction Alliance
+race NightElf
+levels 58-60
+zone Loch Modan
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Loch Modan, Ironforge, Tirisfal Glades, Felwood
+next completionist/alliance/nightelf/47-stonetalon-mountains-western-plaguelands
+
+# Route: guide 46 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 58 to
+# 60, 31 quests, 2.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Loch Modan, Ironforge, Tirisfal Glades, Felwood): Valley of Kings ->
+# Thelsamar -> Grizzlepaw Ridge -> Ironband's Excavation Site -> North Gate
+# Pass -> Ironband's Excavation Site -> Stonewrought Dam -> Silver Stream Mine
+# -> Stonewrought Dam -> Stonesplinter Valley -> Ironforge -> near Ironforge
+# -> The Bulwark -> ….
+#
+# Optional (elite: grouping up is advised): A Dark Threat Looms (278; Mo'grosh
+# Ogre 18-19, Mo'grosh Enforcer 18-19, Mo'grosh Brute 19-20, Mo'grosh Shaman
+# 18-19, Mo'grosh Mystic 19-20, Emogg the Crusher 19); Amulet of Secrets (722;
+# Magregan Deepshadow 38).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Knowledge in the Deeps (971), Knowledge in the Deeps
+# (971), Mythology of the Titans (1050), Mythology of the Titans (1050), The
+# Lost Tablets of Will (1139), Back to Uldaman (2200), Restoring the Necklace
+# (2204), The Lost Dwarves (2398), Essential Artificials (2924), Essential
+# Artificials (2924), The Grand Betrayal (2929), The Grand Betrayal (2929),
+# Data Rescue (2930), Data Rescue (2930), Kharan Mighthammer (4341), The Fate
+# of the Kingdom (4362), The Restless Dead (96394), The Restless Dead (96394),
+# An Ancient Grudge (96395), Important Heirlooms (96403), Important Heirlooms
+# (96403), The Treaty of Understanding (98423), Remember That I Love You
+# (92415), Crest of Lordaeron (95189), Bloodied Insignia (95195), Abominable
+# Creatures (95250).
+
+step Mountaineer Pebblebitty
+  turnin 3201
+
+step Thelsamar
+  sethome "Stoutlager Inn"
+  turnin 414
+  turnin 302
+  accept 273
+
+step Grizzlepaw Ridge: Resupplying the Excavation
+  complete 273
+
+step Huldar
+  turnin 273
+  accept 454
+  turnin 454
+  accept 309
+
+step Ironband's Excavation Site: Protecting the Shipment
+  complete 309
+
+step Prospector Ironband
+  turnin 309
+
+step Back to Stoutlager Inn
+  hearth "Stoutlager Inn"
+
+step Mountaineer Stormpike
+  turnin 353
+
+step Bingles Blastenheimer
+  turnin 2039
+
+step Carved Figurine
+  turnin 79974
+  accept 79975
+
+step Silver Stream Mine: Minor Mana Potion
+  collect 2455 quest 1073.1
+
+step Chief Engineer Hinderweir VII
+  tip Mo'grosh Ogre (level 18-19), Mo'grosh Enforcer (level 18-19), Mo'grosh Brute (level 19-20) and 3 more are elite: grouping up is advised unless you are well above level 20.
+  turnin 274
+  accept 278 optional
+  collect 2606 quest 278.1 optional
+  collect 2939 quest 278.3 optional
+
+step Chief Engineer Hinderweir VII
+  tip Mo'grosh Ogre (level 18-19), Mo'grosh Enforcer (level 18-19), Mo'grosh Brute (level 19-20) and 3 more are elite: grouping up is advised unless you are well above level 20.
+  collect 2607 quest 278.2 optional
+  turnin 278 optional
+  accept 280
+  turnin 280
+  accept 283
+  turnin 283
+
+step Hammertoe Grez
+  tip Magregan Deepshadow (level 38) is elite: grouping up is advised unless you are well above level 38.
+  turnin 722 optional
+  accept 723
+
+step Bubulo Acerbus
+  zone Ironforge
+  turnin 7809
+
+step Mistina Steelshield
+  turnin 7804
+
+step Tymor
+  turnin 3461
+
+step Laris Geardawdle
+  turnin 4513
+
+step Argent Officer Garush
+  zone Tirisfal Glades
+  accept 5406 optional
+  accept 5407
+  accept 5408
+
+step Back to Stoutlager Inn
+  hearth "Stoutlager Inn"
+
+step Bubulo Acerbus
+  zone Ironforge
+  turnin 7807
+
+step Mistina Steelshield
+  turnin 7802
+
+step Lomac Gearstrip
+  turnin 1073
+  accept 1074
+
+step Eridan Bluewind
+  zone Felwood
+  turnin 3942
+  accept 4084
+
+step Emerald Sanctuary: Silvery Claws
+  collect 11172 quest 4084.1
+
+step Irontree Woods: Irontree Heart
+  collect 11173 quest 4084.2
+
+step Eridan Bluewind
+  turnin 4084
+  accept 4005
+
+step Irontree Woods: Toxic Horror Droplet
+  collect 12822 quest 5086.1
+
+step Stonetalon Peak
+  sethome "Stonetalon Peak"

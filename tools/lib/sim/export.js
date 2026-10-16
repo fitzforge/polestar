@@ -17,6 +17,8 @@ const { K_ACCEPT, K_TASK, K_TURNIN, K_DUNGEON } = require('./run');
 const { LEVEL_XP } = require('../game/xp');
 const { ISLE_MAPS, ISLANDS, cluster } = require('./world');
 const { loadAreas } = require('../exploration/areas');
+const { loadData } = require('../route/model');
+const { completionistGuides } = require('./completionist-guides');
 
 function slug(s) {
 	return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
@@ -360,12 +362,16 @@ function nameEvents(world, run, visits, places) {
 
 // Export one route: guides + visits.json under `out`. meta: { faction, race,
 // label, family, seconds }; places: loadPlaces(); camps: loadCamps().
-// Returns { guides, visits, file }.
-function exportRoute({ world, ev, run, route, meta, out, base, places, camps }) {
+// A completionist route (meta.family) writes Completionist guides instead of
+// skeletons (completionist-guides.js; `completionist`: { data, coverage,
+// limit }). Returns { guides, visits, file }.
+function exportRoute({ world, ev, run, route, meta, out, base, places, camps, completionist = null }) {
 	const entries = executedSteps(ev, run, route);
 	const visits = visitsOf(world, run, entries, base, places, camps);
 	nameEvents(world, run, visits, places);
-	const guides = guidesFor(meta, visits);
+	const guides = completionist
+		? completionistGuides({ world, run, data: completionist.data, entries, meta, place: placeNamer(world, places), coverage: completionist.coverage, base, limit: completionist.limit })
+		: guidesFor(meta, visits);
 	for (const g of guides) {
 		const file = path.join(out, g.file);
 		fs.mkdirSync(path.dirname(file), { recursive: true });
@@ -386,21 +392,34 @@ function exportRoute({ world, ev, run, route, meta, out, base, places, camps }) 
 
 async function exportGuides(o) {
 	const res = JSON.parse(fs.readFileSync(o.result, 'utf8'));
-	const { world } = o.world ? { world: o.world } : await sim.loadWorld({ ...o, faction: res.faction });
+	const { world } = o.world ? { world: o.world } : await sim.loadWorld({ ...o, faction: res.faction, variant: sim.variantOf(res.family) });
 	sim.assertFresh(res, world, path.basename(o.result));
 	const places = await loadPlaces(o);
 	const camps = loadCamps(o);
 	const { ev, run } = sim.makeRun(world, { race: res.race, cls: res.class === 'any' ? null : res.class, params: res.params, family: res.family });
 	const route = sim.routeFromKeys(run, res.best.route);
-	const base = `sim/${res.faction.toLowerCase()}/${slug(res.race)}${res.family === 'solo' ? '' : `-${res.family}`}`;
 	const meta = { faction: res.faction, race: res.race, family: res.family, worldHash: world.dataHash, label: `${res.faction} ${res.race}, ${res.family}, best route ${(res.best.seconds / 3600).toFixed(1)} h under the model`, seconds: res.best.seconds };
+	if (res.family === 'completionist') {
+		const data = { ...loadData(o.dataDir), professions: readJson(path.join(o.dataDir, 'professions.json')) };
+		const coverage = require('./completionist').coverage({ world, run, ev, route, data });
+		// The Completionist guides are their own pack (packs/completionist,
+		// pack id `completionist`), so their ids start with its prefix.
+		const base = `completionist/${res.faction.toLowerCase()}/${slug(res.race)}`;
+		meta.label = `the simulator's completionist route for ${res.race} (${res.best.questsDone} of ${res.best.eligible} eligible quests, ${(res.best.seconds / 3600).toFixed(1)} h, world ${world.dataHash.slice(0, 12)})`;
+		return exportRoute({ world, ev, run, route, meta, out: o.out, base, places, camps, completionist: { data, coverage, limit: o.limit || Infinity } });
+	}
+	const base = `sim/${res.faction.toLowerCase()}/${slug(res.race)}${res.family === 'solo' ? '' : `-${res.family}`}`;
 	return exportRoute({ world, ev, run, route, meta, out: o.out, base, places, camps });
+}
+
+function readJson(file) {
+	return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
 }
 
 async function command(args, o) {
 	if (!args.result) throw new Error('--result <file> is required');
 	const out = path.resolve(args.out || path.join(sim.DEFAULTS.simDir, 'export'));
-	const r = await exportGuides({ ...sim.DEFAULTS, ...o, result: path.resolve(args.result), out });
+	const r = await exportGuides({ ...sim.DEFAULTS, ...o, result: path.resolve(args.result), out, limit: args.limit ? Number(args.limit) : undefined });
 	console.log(`wrote ${r.guides.length} skeleton guides and ${path.relative(process.cwd(), r.file)} under ${path.relative(process.cwd(), out) || '.'}`);
 	for (const g of r.guides) console.log(`  ${g.file}`);
 	return 0;

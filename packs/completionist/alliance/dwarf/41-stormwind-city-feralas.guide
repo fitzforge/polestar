@@ -1,0 +1,251 @@
+guide completionist/alliance/dwarf/41-stormwind-city-feralas
+title Stormwind City & Feralas
+faction Alliance
+race Dwarf
+levels 56-58
+zone Stormwind City
+category Completionist
+folder Completionist · Dwarf 50-60
+keywords completionist, every quest, Stormwind City, Darnassus, Moonglade, Tanaris, Un'Goro Crater, Feralas, The Barrens
+next completionist/alliance/dwarf/42-winterspring-western-plaguelands
+
+# Route: guide 41 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 56 to 58, 61
+# quests, 3.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stormwind City, Darnassus, Moonglade, Tanaris, Un'Goro Crater,
+# Feralas, The Barrens): Stormwind City -> near Stormwind City -> Stormwind
+# City -> near Stormwind -> Stormwind -> near Stormwind City -> Stormwind City
+# -> near Stormwind City -> near Stormwind -> Stormwind -> near Stormwind ->
+# near Stormwind City -> Stormwind -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489), In Search
+# of Thaelrid (1198), Twilight Falls (1199), Divino-matic Rod (2768), Scarab
+# Shells (2865), Troll Temper (3042), Into the Depths (3446), Secret of the
+# Circle (3447), The Prophecy of Mosh'aru (3527), The God Hakkar (3528), The
+# Final Tablets (4788), The Crone of the Kraul (1101), Pusillin and the Elder
+# Azj'Tordin (7441), Elven Legends (7482), Lethtendris's Web (7488), Mortality
+# Wanes (1142), Willix the Importer (1144), Blueleaf Tubers (1221), Blueleaf
+# Tubers (1221), Deviate Eradication (1487), Deviate Eradication (1487), The
+# Glowing Shard (6981).
+
+step Crier Goodman
+  accept 5066
+
+step Royal Factor Bathrilor
+  accept 5048
+  turnin 5048
+  accept 5050
+
+step Crier Goodman
+  accept 1015
+  accept 7494
+
+step Count Remington Ridgewell
+  accept 4766
+  accept 6182
+
+step Master Mathias Shaw
+  turnin 6182
+  accept 6183
+  turnin 6183
+  accept 6184
+
+step Garion Wendell
+  accept 78148
+  turnin 78148
+  accept 84397
+  turnin 84397
+  accept 84398
+  turnin 84398
+  accept 84399
+  turnin 84399
+  accept 84402
+  turnin 84402
+
+step Rema Schneider
+  accept 334
+  accept 333
+  accept 332
+  turnin 61
+  turnin 332
+  turnin 333
+
+step Thurman Schneider
+  turnin 334
+
+step Grimand Elmore
+  accept 353
+  turnin 1097
+  turnin 92748
+  accept 92749
+
+step near Stormwind: A Dynamite Plan
+  complete 92749
+
+step Sprite Jumpsprocket
+  turnin 92749
+  accept 92750
+  turnin 1338
+
+step Elaine Trias
+  accept 97222
+  turnin 97222
+
+step Jasper Fel
+  turnin 92750
+  accept 92751
+
+step Sprite Jumpsprocket
+  turnin 92751
+  accept 92752
+
+step Manifest Clerk Philmor
+  accept 97220
+
+step Gilbert Gray
+  accept 95065
+
+step Elaine Trias
+  turnin 97220
+
+step Master Mathias Shaw
+  turnin 135
+
+step Baros Alexston
+  turnin 97914
+
+step Gracina Spiritmight
+  zone Darnassus
+  accept 4493
+
+step Arch Druid Fandral Staghelm
+  turnin 1015
+  accept 6761
+  turnin 6761
+  accept 6762
+
+step Rabine Saturna
+  zone Moonglade
+  turnin 6762
+  accept 1124
+  accept 5527
+
+step Back to Stormwind City
+  hearth "Stormwind City"
+
+step Gadgetzan
+  zone Tanaris
+  sethome "Gadgetzan"
+  accept 4504
+  turnin 4493
+  accept 4496
+
+step Yorba Screwspigot
+  accept 4324
+
+step Krinkle Goodsteel
+  turnin 5538
+  accept 5801
+
+step Lakkari Tar Pits: Super Sticky Tar
+  zone Un'Goro Crater
+  collect 11834 quest 4504.1
+
+step Fire Plume Ridge: Filled Pure Sample Jar
+  collect 11954 quest 4513.1
+
+step The Marshlands: Un'Goro Soil
+  collect 11018 quest 4496.2
+
+step The Slithering Scar: Gorishi Scent Gland
+  collect 11837 quest 4496.1
+
+step Fire Plume Ridge: Unfinished Skeleton Key
+  collect 14645 quest 5801.1
+
+step Kindal Moonweaver
+  zone Feralas
+  accept 3841
+
+step Zorbin Fandazzle
+  accept 7725
+
+step The Forgotten Coast: Miniaturization Residue
+  tip Zorbin's Ultra-Shrinker lasts 120 minutes: go straight on with it.
+  collect 18956 quest 7725.1
+
+step Zorbin Fandazzle
+  turnin 7725
+
+step Zorbin Fandazzle
+  accept 7726
+
+step Feral Scar Vale: Water Elemental Core
+  collect 18958 quest 7726.1
+
+step Zorbin Fandazzle
+  turnin 7726
+
+step Sardor Isle
+  sethome "Feathermoon Stronghold"
+  turnin 3787
+
+step The Twin Colossals: The Videre Elixir
+  complete 3909
+
+step Falfindel Waywarder
+  turnin 1059
+  accept 98155
+  turnin 1100
+
+step Lower Wilds: Pristine Pesterhide Pelt
+  collect 279472 quest 98155.1
+
+step Kristy Grant
+  turnin 98155
+
+step Back to Feathermoon Stronghold
+  hearth "Feathermoon Stronghold"
+
+step The Twin Colossals: Ironfur Liver
+  collect 6258 quest 1452.2
+
+step The Twin Colossals: Groddoc Liver
+  collect 6259 quest 1452.3
+
+step Ratchet
+  zone The Barrens
+  sethome "Ratchet"
+  turnin 1069
+
+step Burned-Out Remains
+  turnin 79008
+
+step Sputtervalve
+  turnin 1094
+  accept 1095
+
+step Dreadmist Peak: Sarilus Foulborne's Head
+  collect 5537 quest 1017.1
+
+step Ratchet: The Stone Circle
+  complete 3444
+
+step Liv Rizzlefix
+  accept 4502
+  accept 96339
+  turnin 96339
+  accept 96383
+  turnin 96383
+
+step Everlook
+  sethome "Everlook"

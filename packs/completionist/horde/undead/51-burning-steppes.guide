@@ -1,0 +1,109 @@
+guide completionist/horde/undead/51-burning-steppes
+title Burning Steppes
+faction Horde
+race Undead
+levels 60-60
+zone Burning Steppes
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Swamp of Sorrows, Redridge Mountains, Burning Steppes, Badlands, Durotar, Orgrimmar, Western Plaguelands
+
+# Route: guide 51 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 60 to
+# 60, 13 quests, 1.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Swamp of Sorrows, Redridge Mountains, Burning Steppes, Badlands,
+# Durotar, Orgrimmar, Western Plaguelands): Stagalbog -> Stonard ->
+# Splinterspear Junction -> Lakeshire -> Ruins of Thaurissan -> Dreadmaul Rock
+# -> Ruins of Thaurissan -> Kargath -> The Dustbowl -> Thunder Ridge -> The
+# Writhing Haunt.
+#
+# Optional (elite: grouping up is advised): Necklace Recovery (2283;
+# Shadowforge Surveyor 35-36, Shadowforge Ruffian 36-37, Shadowforge Digger
+# 35-36, Stonevault Rockchewer 36-37, Stonevault Oracle 37-38, Stonevault Cave
+# Hunter 36-37).
+#
+# Left out: Gahrron's Withering Cauldron (5227): the route takes them here but
+# cannot finish them (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Dark Iron Legacy (3802), A Taste of Flame (4024),
+# Precarious Predicament (4121), The Heart of the Mountain (4123), Egg
+# Freezing (4734), Egg Collection (4735), Find the Gems and Power Source
+# (2339), Disharmony of Fire (3907), Commander Gor'shak (3981), The Rise of
+# the Machines (4063), KILL ON SIGHT: Dark Iron Dwarves (4081), KILL ON SIGHT:
+# High Ranking Dark Iron Officials (4082), Operation: Death to Angerforge
+# (4132), Lost Thunderbrew Recipe (4134), Ribbly Screwspigot (4136), The Pack
+# Mistress (4724), Kibler's Exotic Pets (4729), The Darkstone Tablet (4768),
+# En-Ay-Es-Tee-Why (4862), Warlord's Command (4903), Operative Bijou (4981),
+# Necklace Recovery, Take 2 (2284), Rig Wars (2841), Rig Wars (2841), The
+# Royal Rescue (4003), For The Horde! (4974), Returning the Lost Satchel
+# (5724), Hidden Enemies (5728), Hidden Enemies (5728), Slaying the Beast
+# (5761), Slaying the Beast (5761), Changing Tastes (95697), Changing Tastes
+# (95697), Doctor Theolen Krastinov, the Butcher (5382), Kirtonos the Herald
+# (5384), The Lich, Ras Frostwhisper (5466), Krastinov's Bag of Horrors
+# (5515), Of Love and Family (5848), Oculus Illusions (6569).
+
+step Katar
+  zone Swamp of Sorrows
+  turnin 1428
+
+step Stonard
+  sethome "Stonard"
+  turnin 1391
+
+step Fallen Hero of the Horde
+  turnin 3626
+
+step Shawn
+  zone Redridge Mountains
+  accept 3741
+
+step Lakeshire: Hilary's Necklace
+  complete 3741
+
+step Hilary
+  turnin 3741
+
+step Yuka Screwspigot
+  zone Burning Steppes
+  turnin 4324
+
+step Sha'ni Proudtusk
+  turnin 3821
+  accept 3822
+
+step Dreadmaul Rock: Sha'ni's Nose-Ring
+  collect 11058 quest 3822.1
+
+step Ruins of Thaurissan: Fractured Elemental Shard
+  collect 11266 quest 4061.1
+
+step Tinkee Steamboil
+  turnin 4907
+
+step Kargath
+  zone Badlands
+  sethome "Kargath"
+  turnin 3822
+  turnin 4061
+  accept 4062
+
+step Lotwil Veriatus
+  turnin 4062
+
+step Back to Kargath
+  hearth "Kargath"
+
+step Rhinag
+  zone Durotar
+  turnin 812
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  tip Shadowforge Surveyor (level 35-36), Shadowforge Ruffian (level 36-37), Shadowforge Digger (level 35-36) and 3 more are elite: grouping up is advised unless you are well above level 38.
+  turnin 2283 optional
+  turnin 5224

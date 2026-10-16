@@ -1,0 +1,252 @@
+guide completionist/horde/undead/13-stonetalon-mountains-hillsbrad-foothills
+title Stonetalon Mountains & Hillsbrad Foothills
+faction Horde
+race Undead
+levels 30-32
+zone Stonetalon Mountains
+category Completionist
+folder Completionist · Undead 30-40
+keywords completionist, every quest, Stonetalon Mountains, Hillsbrad Foothills, Alterac Mountains
+next completionist/horde/undead/14-stranglethorn-vale
+
+# Route: guide 13 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 30 to
+# 32, 40 quests, 5.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stonetalon Mountains, Hillsbrad Foothills, Alterac Mountains): Sun
+# Rock Retreat -> Malaka'jin -> Grimtotem Post -> Camp Aparaje -> Sishir
+# Canyon -> Webwinder Path -> Malaka'jin -> Sun Rock Retreat -> The Charred
+# Vale -> Sun Rock Retreat -> Webwinder Path -> Windshear Crag -> Webwinder
+# Path -> ….
+#
+# Optional (elite: grouping up is advised): Arachnophobia (6284; Besseleth
+# 21); Bloodfury Bloodline (6283; Bloodfury Ripper 26).
+#
+# Profession quests here are not routed (they need the skill): 7321 Soothing
+# Turtle Bisque.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Grave Knight (96986), Heart of Disruption (96984), The
+# Grave Knight (96986), Opportunistic Education (96987).
+
+step Mor'rogal
+  accept 6421
+
+step Pocket Litter
+  tip Besseleth (level 21) is elite: grouping up is advised unless you are well above level 21.
+  accept 79980
+  turnin 79980
+  accept 79974
+  accept 6284 optional
+  collect 16192 quest 6284.1 optional
+
+step Xen'Zilla
+  tip Besseleth (level 21) is elite: grouping up is advised unless you are well above level 21.
+  turnin 6284 optional
+  kill 8518 quest 3514.1 optional
+  accept 6461
+
+step Kaya Flathoof
+  accept 6523
+
+step Camp Aparaje: Protect Kaya
+  complete 6523
+
+step Back to Sun Rock Retreat
+  hearth "Sun Rock Retreat"
+
+step Sishir Canyon: Deepmoss Creeper
+  kill 4005 quest 6461.1
+
+step Webwinder Path: Deepmoss Venomspitter
+  kill 4007 quest 6461.2
+
+step Xen'Zilla
+  turnin 6461
+
+step Braelyn Firehand
+  accept 1087
+  accept 6301
+  accept 86576
+  accept 6282
+  accept 6393
+  accept 6562
+
+step The Charred Vale: Bloodfury Slayer and Glittering Sunstone and more
+  kill 4024 quest 6282.3
+  collect 277936 quest 86576.1
+  kill 4023 quest 6282.4
+  collect 16312 quest 6393.1
+
+step The Charred Vale: Bloodfury Ambusher and Bloodfury Harpy
+  kill 4025 quest 6282.2
+  kill 4022 quest 6282.1
+
+step Maggran Earthbinder
+  tip Bloodfury Ripper (level 26) is elite: grouping up is advised unless you are well above level 26.
+  turnin 6282
+  accept 6283 optional
+  turnin 86576
+  turnin 6393
+
+step Ziz Fizziks
+  accept 1093
+
+step Windshear Crag: Super Reaper 6000 Blueprints
+  collect 5734 quest 1093.1
+
+step Ziz Fizziks
+  turnin 1093
+  accept 1094
+
+step Piznik
+  accept 1090
+
+step Windshear Crag: Gerenzo's Orders
+  complete 1090
+
+step Piznik
+  turnin 1090
+  accept 1092
+
+step Ziz Fizziks
+  turnin 1092
+
+step Mirkfallon Lake: Gaea Seed
+  collect 16205 quest 6301.1
+
+step Tammra Windfield
+  turnin 6301
+  accept 6381
+
+step The Charred Vale: Gaea Dirt Mound
+  tip Bloodfury Ripper (level 26) is elite: grouping up is advised unless you are well above level 26.
+  collect 16190 quest 6283.1 optional
+  interact 177929 quest 6381.1
+
+step Back to Sun Rock Retreat
+  hearth "Sun Rock Retreat"
+
+step Maggran Earthbinder
+  tip Bloodfury Ripper (level 26) is elite: grouping up is advised unless you are well above level 26.
+  turnin 6283 optional
+  turnin 6381
+
+step Witch Doctor Jin'Zil
+  accept 1058
+
+step Stonetalon Peak: Courser Eye
+  collect 5585 quest 1058.3
+
+step Stonetalon Peak: Cenarion Botanist and Son of Cenarius and more
+  kill 4051 quest 1087.3
+  kill 4057 quest 1087.1
+  kill 4053 quest 1087.2
+
+step Stonetalon Peak: Twilight Whisker
+  collect 5584 quest 1058.2
+
+step Stonetalon Peak: Stonetalon Sap
+  collect 5582 quest 1058.1
+
+step Stonetalon Peak: Fey Dragon Scale
+  collect 5583 quest 1058.4
+
+step Braelyn Firehand
+  turnin 1087
+  accept 1088
+
+step Witch Doctor Jin'Zil
+  turnin 1058
+
+step Braug Dimspirit
+  turnin 1152
+  accept 1154
+  turnin 1154
+  accept 6627
+  turnin 6627
+  accept 1159
+
+step Maggran Earthbinder
+  accept 5881
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  sethome "Tarren Mill"
+  accept 509
+
+step Nethander Stead: Mudsnout Blossoms
+  collect 3502 quest 509.1
+
+step Back to Tarren Mill
+  hearth "Tarren Mill"
+
+step Apothecary Lydon
+  turnin 509
+  accept 513
+  accept 676
+  accept 544
+  accept 93680
+  turnin 93680
+  accept 556
+  accept 547 optional
+  accept 533
+  accept 1361
+  accept 552
+
+step Henchman Valik
+  accept 535
+
+step Tarren Mill: Syndicate Missive and Southshore Stout
+  collect 3601 quest 533.1
+  collect 3703 quest 535.1
+
+step Henchman Valik
+  turnin 535
+
+step Krusk
+  turnin 533
+  accept 503
+
+step Darrow Hill: Helcular's Rod
+  collect 3708 quest 552.1
+
+step Novice Thaivand
+  turnin 552
+  accept 553
+
+step Darrow Hill: Flame of Azel and Flame of Veraz
+  interact 1768 quest 553.1
+  interact 1769 quest 553.2
+  collect 3693 quest 547.1 optional
+  turnin 547 optional
+
+step Corrahn's Dagger: Mountain Lion Blood
+  zone Alterac Mountains
+  collect 3496 quest 501.1
+
+step Lordamere Internment Camp: Bloodstone Wedge and Bloodstone Marble and more
+  collect 3691 quest 544.1
+  collect 3689 quest 544.2
+  collect 3690 quest 544.3
+  collect 3714 quest 556.1
+  collect 3688 quest 544.4
+
+step Growless Cave: Flame of Uzel
+  interact 1770 quest 553.3
+
+step Strahnbrad: Gol'dir
+  complete 503
+
+step Gol'dir
+  turnin 503
+
+step Grom'gol Base Camp
+  getfp "Grom'gol"
+
+step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp"
+  note "Profession quests here, for players with the skill: Soothing Turtle Bisque (Cooking 1)."

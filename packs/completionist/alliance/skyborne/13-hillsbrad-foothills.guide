@@ -1,0 +1,63 @@
+guide completionist/alliance/skyborne/13-hillsbrad-foothills
+title Hillsbrad Foothills
+faction Alliance
+race Skyborne
+levels 35-36
+zone Hillsbrad Foothills
+category Completionist
+folder Completionist · Skyborne 30-40
+keywords completionist, every quest
+next completionist/alliance/skyborne/14-desolace
+
+# Route: guide 13 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 35 to
+# 36, 11 quests, 1.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Hillsbrad Foothills): Southshore -> Tarren Mill -> Darrow Hill ->
+# Southshore.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In the Name of the Light (1053).
+
+step Chef Jessen
+  tip Shadowy Assassin drops the Assassin's Contract: right-click it to start Assassin's Contract.
+  accept 555
+  accept 98463
+  accept 659
+  collect 3668 x1
+  accept 522
+  accept 565
+
+step Southshore: Soothing Spices and Fine Thread
+  buy 3713 x1 nearest
+  buy 2321 x1 nearest
+
+step Marshal Redpath
+  accept 500
+  turnin 522
+  accept 523
+  accept 92432
+  accept 564
+
+step Southshore: Turtle Meat
+  collect 3712 quest 555.1
+
+step Syndicate Documents
+  accept 511
+
+step Darrow Hill: Yeti Fur
+  collect 3720 quest 565.4
+
+step Chef Jessen
+  turnin 555
+  turnin 511
+  accept 514
+
+step Nijel's Point
+  getfp "Nijel's Point"
+
+step Nijel's Point
+  sethome "Nijel's Point"

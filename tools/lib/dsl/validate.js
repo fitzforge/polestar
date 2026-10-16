@@ -6,16 +6,17 @@
 // never take, missing prerequisites, accepts above the plausible level,
 // accepts closed by an exclusive quest taken earlier, accepts never turned in
 // on a route, `complete` on quests without objectives, required elite work in
-// Leveling guides, `|` in player-facing text, a `goto` placed right before a
-// goal that already leads to the same place, and timed quest items carried
-// longer than they last (timed.js).
+// Leveling and Completionist guides, `|` in player-facing text, a `goto`
+// placed right before a goal that already leads to the same place, and timed
+// quest items carried longer than they last (timed.js).
 //
 // Our house rules (required elite work, the solo filter) are errors in our
 // pack (`guides`) and warnings in every other.
 //
 // validateGuides(guides, data, diag) — guides are resolver output (resolve.js).
-// validateSoloPolicy(guides, excluded, diag) — lint only: leveling goals on
-// quests the simulator's solo filter excludes (tools/lib/sim/solo.js).
+// validateSoloPolicy(guides, excluded, diag) — lint only: leveling (and
+// completionist) goals on quests the simulator's solo filter excludes
+// (tools/lib/sim/solo.js).
 // validatePackFrames(guides, data, ours, ourData, diag) — another pack's map
 // frames that differ from the ones our guides register.
 
@@ -66,12 +67,14 @@ function followProblem(g, other, data) {
 }
 
 // Elite work (group.js `eliteWork`): Leveling guides route solo characters,
-// so it may appear only as an `optional` extra.
+// so it may appear only as an `optional` extra; so do Completionist guides,
+// which route every quest but leave the group work optional.
 // Goals already reported as elite errors, so the lint solo policy skips them.
 const eliteReported = new WeakSet();
+const SOLO_CATEGORIES = new Set(['Leveling', 'Completionist']);
 
-function eliteTip(target) {
-	return `in a Leveling guide make the goal \`optional\` with the tip "${target} is elite: grouping up is advised."`;
+function eliteTip(target, category = 'Leveling') {
+	return `in a ${category} guide make the goal \`optional\` with the tip "${target} is elite: grouping up is advised."`;
 }
 
 // Our house rules: errors in our pack, warnings in every other.
@@ -173,12 +176,12 @@ function validatePackFrames(guides, data, ours, ourData, diag) {
 
 // The message for elite work (group.js `eliteWork`): a `kill` of an elite, or
 // a `collect` of an item only elites drop. Null when the goal is not elite work.
-function eliteGoal(goal, sides, data) {
+function eliteGoal(goal, sides, data, category) {
 	const elite = eliteWork(goal, sides, data);
 	if (!elite) return null;
-	if (goal.t === 'kill') return `\`kill\` npc ${goal.npc} (${elite.names[0]}) is elite; ${eliteTip(elite.names[0])}`;
+	if (goal.t === 'kill') return `\`kill\` npc ${goal.npc} (${elite.names[0]}) is elite; ${eliteTip(elite.names[0], category)}`;
 	const item = `\`collect\` item ${goal.item}${goal.itemName ? ` (${goal.itemName})` : ''}`;
-	return `${item} drops only from elites (${elite.names.join(', ')}); ${eliteTip(elite.names[0])}`;
+	return `${item} drops only from elites (${elite.names.join(', ')}); ${eliteTip(elite.names[0], category)}`;
 }
 
 // The characters a goal applies to, as "side|race|class" keys, narrowed by the
@@ -440,12 +443,12 @@ function validateGuides(guides, data, diag) {
 			for (const { goal } of goalsOf(a)) if (goal.t === 'turnin' && goal.direct) direct.add(goal.quest);
 		}
 		const gl = guideLayer(g);
-		const leveling = g.category === 'Leveling';
+		const solo = SOLO_CATEGORIES.has(g.category);
 		for (const { step, goal } of goalsOf(g)) {
 			const ln = goal._line;
 			const q = goal.quest !== undefined ? data.quest(goal.quest) : null;
-			if (leveling && !goal.optional) {
-				const elite = eliteGoal(goal, applicable([gl, step._only, goal._only]).factions, data);
+			if (solo && !goal.optional) {
+				const elite = eliteGoal(goal, applicable([gl, step._only, goal._only]).factions, data, g.category);
 				if (elite) {
 					houseRule(diag, g)(file, ln, elite);
 					eliteReported.add(goal);
@@ -585,7 +588,7 @@ function validateGuides(guides, data, diag) {
 	}
 }
 
-// Leveling guides route solo characters: a goal that needs a quest the
+// Leveling (and Completionist) guides route solo characters: a goal that needs a quest the
 // simulator's solo filter excludes in a solo category (or as a profession
 // quest) should be `optional`; an elite one must be (an error, unless the
 // goal was already reported as elite work). `excluded` maps a faction to the
@@ -602,7 +605,7 @@ function soloExclusion(e) {
 
 function validateSoloPolicy(guides, excluded, diag) {
 	for (const g of guides) {
-		if (g.category !== 'Leveling') continue;
+		if (!SOLO_CATEGORIES.has(g.category)) continue;
 		const gl = guideLayer(g);
 		for (const step of g.steps) {
 			for (const goal of step.goals) {
@@ -613,9 +616,9 @@ function validateSoloPolicy(guides, excluded, diag) {
 					if (!why || (why === 'repeatable' && goal.direct)) continue;
 					const title = e.title || goal.title;
 					if (why === 'elite') {
-						houseRule(diag, g)(g._ast.file, goal._line, `quest ${goal.quest} (${title}) is elite (solo filter: ${e.reason}); ${eliteTip(title)}`);
+						houseRule(diag, g)(g._ast.file, goal._line, `quest ${goal.quest} (${title}) is elite (solo filter: ${e.reason}); ${eliteTip(title, g.category)}`);
 					} else {
-						diag.warn(g._ast.file, goal._line, `quest ${goal.quest} (${title}) is excluded from solo leveling (${why}: ${e.reason}); make the goal \`optional\``);
+						diag.warn(g._ast.file, goal._line, `quest ${goal.quest} (${title}) is excluded from solo ${g.category === 'Completionist' ? 'routes' : 'leveling'} (${why}: ${e.reason}); make the goal \`optional\``);
 					}
 					break;
 				}

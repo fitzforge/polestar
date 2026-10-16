@@ -1,0 +1,60 @@
+guide completionist/horde/orc/28-orgrimmar
+title Orgrimmar
+faction Horde
+race Orc
+levels 47-48
+zone Orgrimmar
+category Completionist
+folder Completionist · Orc 40-50
+keywords completionist, every quest, Orgrimmar, Duskwood
+next completionist/horde/orc/29-searing-gorge-azshara
+
+# Route: guide 28 of 49 of the simulator's completionist route for Orc (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 47 to 48, 9
+# quests, 0.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Orgrimmar, Duskwood): near Orgrimmar -> Darkshire.
+#
+# Optional (elite: grouping up is advised): Necklace Recovery (2283;
+# Shadowforge Surveyor 35-36, Shadowforge Ruffian 36-37, Shadowforge Digger
+# 35-36, Stonevault Rockchewer 36-37, Stonevault Oracle 37-38, Stonevault Cave
+# Hunter 36-37); Nothing But The Truth (1383; Deepstrider Giant 38-39,
+# Deepstrider Searcher 39-40).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Necklace Recovery, Take 2 (2284), Rig Wars (2841), Rig
+# Wars (2841), The Royal Rescue (4003), For The Horde! (4974), Returning the
+# Lost Satchel (5724), Hidden Enemies (5728), Hidden Enemies (5728), Slaying
+# the Beast (5761), Slaying the Beast (5761), Changing Tastes (95697),
+# Changing Tastes (95697).
+
+step Zor Lonetree
+  turnin 1262
+  accept 7541
+  turnin 7541
+
+step Zilzibin Drumlore
+  tip Shadowforge Surveyor (level 35-36), Shadowforge Ruffian (level 36-37), Shadowforge Digger (level 35-36) and 3 more are elite: grouping up is advised unless you are well above level 38.
+  turnin 7732
+  sethome "Orgrimmar"
+  turnin 3121
+  accept 2283 optional
+
+step Belgrom Rockmaul
+  turnin 2976
+
+step Uthel'nay
+  turnin 3002
+
+step Deathstalker Zraedus
+  zone Duskwood
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  accept 1372
+  turnin 1372
+  accept 1383 optional
+
+step The Cauldron
+  getfp "Thorium Point"

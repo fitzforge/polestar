@@ -1,0 +1,223 @@
+guide completionist/horde/orc/14-thousand-needles-stonetalon-mountains
+title Thousand Needles & Stonetalon Mountains
+faction Horde
+race Orc
+levels 30-32
+zone Thousand Needles
+category Completionist
+folder Completionist · Orc 30-40
+keywords completionist, every quest, Thousand Needles, Stonetalon Mountains
+next completionist/horde/orc/15-hillsbrad-foothills-alterac-mountains
+
+# Route: guide 14 of 49 of the simulator's completionist route for Orc (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 30 to 32, 37
+# quests, 3.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Thousand Needles, Stonetalon Mountains): Camp E'thok -> Freewind Post
+# -> Splithoof Crag -> Darkcloud Pinnacle -> Highperch -> Freewind Post ->
+# Splithoof Crag -> Darkcloud Pinnacle -> Highperch -> Darkcloud Pinnacle ->
+# Freewind Post -> The Shimmering Flats -> Freewind Post -> ….
+#
+# Optional (elite: grouping up is advised): Hypercapacitor Gizmo (5151;
+# Enraged Panther 30); Encrusted Tail Fins (1107; Saltscale Warrior 35-36,
+# Saltscale Oracle 36-37, Saltscale Tide Lord 37, Saltscale Forager 35-36,
+# Saltscale Hunter 35-36); A Host of Evil (6626; Razorfen Battleguard 33-34,
+# Razorfen Thornweaver 33-34, Death's Head Cultist 33-34).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Gahz'rilla (2770).
+
+step Camp E'thok: Steelsnap's Rib
+  collect 5837 quest 1131.1
+
+step Freewind Post
+  getfp "Freewind Post"
+  sethome "Freewind Post"
+  accept 4767
+  accept 4821
+  accept 5147
+  accept 4841
+
+step Splithoof Crag: Galak Wrangler and Galak Windchaser
+  kill 4093 quest 4841.2
+  kill 4096 quest 4841.3
+
+step Darkcloud Pinnacle: Galak Scout
+  kill 4094 quest 4841.1
+
+step Darkcloud Pinnacle
+  tip Galak Messenger drops the Assassination Note: right-click it to start Assassination Plot.
+  collect 12564 x1
+  accept 4881
+
+step Wizlo Bearingshiner
+  tip Enraged Panther (level 30) is elite: grouping up is advised unless you are well above level 30.
+  accept 5151 optional
+  turnin 4881
+  accept 4966
+
+step Highperch: Galak Assassin
+  kill 10720 quest 4966.1
+
+step Kanati Greycloud
+  tip Enraged Panther (level 30) is elite: grouping up is advised unless you are well above level 30.
+  collect 12946 quest 5151.1 optional
+  turnin 4966
+  turnin 5151 optional
+
+step Pao'ka Swiftmountain
+  accept 4770
+
+step Highperch: Homeward Bound
+  complete 4770
+
+step Highperch: Highperch Wyvern Egg
+  collect 12356 quest 4767.1
+
+step Motega Firemane
+  turnin 4770
+
+step Freewind Post: Alien Egg
+  complete 4821
+
+step Hagar Lightninghoof
+  turnin 4821
+  accept 4865
+  turnin 4767
+  turnin 4841
+  accept 5064
+
+step Dorn Plainstalker
+  accept 1149
+  turnin 1149
+  accept 1150
+  turnin 1150
+  accept 1151
+  turnin 1151
+  accept 1152
+
+step Darkcloud Pinnacle: Grimtotem Spying
+  complete 5064
+
+step Motega Firemane
+  turnin 4865
+  accept 5062
+
+step Darkcloud Pinnacle: Incendia Agave
+  collect 12732 quest 5062.1
+
+step Back to Freewind Post
+  hearth "Freewind Post"
+
+step Cliffwatcher Longhorn
+  turnin 5064
+
+step Kravel Koalbeard
+  accept 1110
+  accept 5762
+  accept 1104
+  accept 1105
+
+step Trackmaster Zherin
+  accept 1175
+
+step The Shimmering Flats: Saltstone Crystalhide and Saltstone Gazer and more
+  kill 4151 quest 1175.2
+  kill 4150 quest 1175.3
+  collect 5798 quest 1110.1
+
+step The Shimmering Flats: Salty Scorpid Venom
+  collect 5794 quest 1104.1
+
+step The Shimmering Flats: Saltstone Basilisk
+  kill 4147 quest 1175.1
+
+step The Shimmering Flats: Hardened Tortoise Shell
+  collect 5795 quest 1105.1
+
+step Kravel Koalbeard
+  tip Saltscale Warrior (level 35-36), Saltscale Oracle (level 36-37), Saltscale Tide Lord (level 37) and 2 more are elite: grouping up is advised unless you are well above level 37.
+  turnin 1110
+  turnin 1105
+  turnin 1104
+  accept 1106
+  accept 1107 optional
+
+step Trackmaster Zherin
+  turnin 1175
+
+step Back to Freewind Post
+  hearth "Freewind Post"
+
+step Jandia
+  accept 98070
+
+step The Screeching Canyon: Screeching Harpy and Screeching Roguefeather and more
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  accept 6626 optional
+  kill 4100 quest 98070.1
+  kill 4101 quest 98070.2
+  kill 4104 quest 98070.3
+
+step Jandia
+  turnin 98070
+
+step Sun Rock Retreat
+  zone Stonetalon Mountains
+  sethome "Sun Rock Retreat"
+  turnin 6401
+
+step Windshear Crag: XT:9
+  kill 4074 quest 1068.2
+
+step Windshear Crag: XT:4
+  kill 4073 quest 1068.1
+
+step Grimtotem Post: Grimtotem Brute
+  kill 11912 quest 6629.2
+
+step Grimtotem Post: Grundig Darkcloud
+  kill 11858 quest 6629.1
+
+step Ziz Fizziks
+  turnin 1095
+
+step Ziz Fizziks
+  kill 8518 quest 3514.1 optional
+  accept 1096
+
+step Windshear Crag: Gerenzo's Mechanical Arm
+  collect 5736 quest 1096.1
+
+step Ziz Fizziks
+  turnin 1096
+
+step Braelyn Firehand
+  turnin 1088
+  accept 1089
+
+step Stonetalon Peak: The Den
+  complete 1089
+
+step Talon Den Hoard
+  turnin 1089
+
+step Back to Sun Rock Retreat
+  hearth "Sun Rock Retreat"
+
+step Braug Dimspirit
+  turnin 1152
+  accept 1154
+  turnin 1154
+  accept 6627
+  turnin 6627
+  accept 1159
+
+step Maggran Earthbinder
+  accept 5881
+
+step Tarren Mill
+  sethome "Tarren Mill"

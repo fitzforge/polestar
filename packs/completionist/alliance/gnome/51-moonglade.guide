@@ -1,0 +1,41 @@
+guide completionist/alliance/gnome/51-moonglade
+title Moonglade
+faction Alliance
+race Gnome
+levels 60-60
+zone Moonglade
+category Completionist
+folder Completionist · Gnome 50-60
+keywords completionist, every quest
+
+# Route: guide 51 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 60 to 60, 5
+# quests, 0.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Moonglade): Moonglade.
+#
+# Left to other guides: class quests (the Class category).
+
+step Umber
+  turnin 6844
+  accept 6845
+
+step Rabine Saturna
+  turnin 6845
+
+step Umber
+  accept 1185
+  turnin 1185
+
+step Rabine Saturna
+  turnin 5527
+  accept 5526
+
+step Moonglade: Shards of the Felvine
+  complete 5526
+
+step Rabine Saturna
+  turnin 5526

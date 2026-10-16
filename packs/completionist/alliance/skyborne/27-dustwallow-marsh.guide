@@ -1,0 +1,73 @@
+guide completionist/alliance/skyborne/27-dustwallow-marsh
+title Dustwallow Marsh
+faction Alliance
+race Skyborne
+levels 47-48
+zone Dustwallow Marsh
+category Completionist
+folder Completionist · Skyborne 40-50
+keywords completionist, every quest, Dustwallow Marsh, Arathi Highlands
+next completionist/alliance/skyborne/28-dun-morogh
+
+# Route: guide 27 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 47 to
+# 48, 17 quests, 0.7 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Dustwallow Marsh, Arathi Highlands): Theramore Isle -> The Den of
+# Flame -> Theramore Isle -> The Den of Flame -> Theramore Isle.
+#
+# Optional (elite: grouping up is advised): The Star, the Hand and the Heart
+# (735; Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44);
+# Summoning the Princess (656; Myzrael 44).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Tiara of the Deep (2846).
+
+step Captain Garran Vimes
+  turnin 1252
+  turnin 1253
+  turnin 1284
+  accept 1259
+  accept 1319
+  turnin 1259
+  accept 1285
+  turnin 1285
+  accept 1286
+
+step Caz Twosprocket
+  turnin 1319
+  accept 1320
+
+step Captain Garran Vimes
+  turnin 1320
+
+step Balos Jacken
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  collect 4641 quest 735.2 optional
+  turnin 1286
+  accept 1287
+
+step Captain Garran Vimes
+  turnin 1287
+  accept 1288
+  turnin 1288
+  turnin 1260
+  turnin 1258
+
+step Musty Scroll
+  turnin 625
+  accept 626
+
+step Privateer Groy
+  tip Myzrael (level 44) is elite: grouping up is advised unless you are well above level 44.
+  turnin 623
+  collect 4473 quest 656.1 optional
+
+step The Grizzled Den
+  zone Arathi Highlands
+  tip Myzrael (level 44) is elite: grouping up is advised unless you are well above level 44.
+  turnin 656 optional
+  sethome "Thunderbrew Distillery"

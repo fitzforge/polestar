@@ -1,0 +1,234 @@
+guide completionist/horde/skyborne/37-thousand-needles-hillsbrad-foothills
+title Thousand Needles & Hillsbrad Foothills
+faction Horde
+race Skyborne
+levels 57-58
+zone Thousand Needles
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Thousand Needles, Searing Gorge, Loch Modan, The Hinterlands, Hillsbrad Foothills, Western Plaguelands, Durotar, Winterspring
+next completionist/horde/skyborne/38-moonglade-tirisfal-glades
+
+# Route: guide 37 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 57 to
+# 58, 59 quests, 3.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Thousand Needles, Searing Gorge, Loch Modan, The Hinterlands,
+# Hillsbrad Foothills, Western Plaguelands, Durotar, Winterspring): Freewind
+# Post -> Darkcloud Pinnacle -> Freewind Post -> Windbreak Canyon -> Splithoof
+# Crag -> The Shimmering Flats -> Grimesilt Dig Site -> Stonesplinter Valley
+# -> Stonewrought Dam -> Hiri'watha -> Shadra'Alor -> Tarren Mill ->
+# Hiri'watha -> ….
+#
+# Optional (elite: grouping up is advised): Arikara (5088; Arikara 28);
+# Encrusted Tail Fins (1107; Saltscale Warrior 35-36, Saltscale Oracle 36-37,
+# Saltscale Tide Lord 37, Saltscale Forager 35-36, Saltscale Hunter 35-36);
+# Necklace Recovery (2283; Shadowforge Surveyor 35-36, Shadowforge Ruffian
+# 36-37, Shadowforge Digger 35-36, Stonevault Rockchewer 36-37, Stonevault
+# Oracle 37-38, Stonevault Cave Hunter 36-37); The Crown of Will (519; Targ
+# 41, Muckrake 40, Glommus 39); The Crown of Will (520; Mug'thol 43).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Gahz'rilla (2770), Blackhand's Command (7761), The Left
+# Piece of Lord Valthalak's Amulet (8966), The Left Piece of Lord Valthalak's
+# Amulet (8967), The Left Piece of Lord Valthalak's Amulet (8968), The Left
+# Piece of Lord Valthalak's Amulet (8969), The Right Piece of Lord Valthalak's
+# Amulet (8989), The Right Piece of Lord Valthalak's Amulet (8990), The Right
+# Piece of Lord Valthalak's Amulet (8991), The Right Piece of Lord Valthalak's
+# Amulet (8992), Mea Culpa, Lord Valthalak (8995), Jammal'an the Prophet
+# (1446), The Grave Knight (96986), Doctor Theolen Krastinov, the Butcher
+# (5382), Kirtonos the Herald (5384), The Lich, Ras Frostwhisper (5466),
+# Krastinov's Bag of Horrors (5515), Of Love and Family (5848), Oculus
+# Illusions (6569).
+
+step Rau Cliffrunner
+  turnin 1196
+  accept 1197
+
+step Darkcloud Pinnacle: The Sacred Flame
+  complete 1197
+
+step Rau Cliffrunner
+  tip Arikara (level 28) is elite: grouping up is advised unless you are well above level 28.
+  turnin 1197
+  collect 12925 quest 5088.1 optional
+  interact 175944 quest 5088.2 optional
+
+step Windbreak Canyon: Stormheart's Still-beating Heart
+  tip Arikara (level 28) is elite: grouping up is advised unless you are well above level 28.
+  turnin 5088 optional
+  collect 279186 quest 97985.1
+
+step Dorn Plainstalker
+  turnin 1394
+
+step Fizzle Brassbolts
+  tip Saltscale Warrior (level 35-36), Saltscale Oracle (level 36-37), Saltscale Tide Lord (level 37) and 2 more are elite: grouping up is advised unless you are well above level 37.
+  turnin 1137
+  turnin 1107 optional
+
+step The Shimmering Flats
+  tip Silithid Hive Drone drops the Cracked Silithid Carapace: right-click it to start Parts of the Swarm.
+  collect 5877 x1
+  accept 1148
+
+step The Shimmering Flats: Silithid Heart and Silithid Talon and more
+  collect 5855 quest 1148.1
+  collect 5854 quest 1148.2
+  collect 5853 quest 1148.3
+
+step Pozzik
+  accept 1190
+  turnin 1189
+  accept 1191
+  turnin 1191
+  turnin 1190
+  accept 1194
+  turnin 1194
+  turnin 1119
+  accept 1120
+  turnin 1120
+  accept 1122
+
+step Wooden Outhouse
+  zone Searing Gorge
+  turnin 4449
+  accept 4450
+
+step Grimesilt Dig Site: Solid Crystal Leg Shaft
+  collect 11725 quest 4450.2
+
+step Stonesplinter Valley: Shattered Necklace and Magenta Fungus Cap
+  zone Loch Modan
+  tip Shadowforge Surveyor (level 35-36), Shadowforge Ruffian (level 36-37), Shadowforge Digger (level 35-36) and 3 more are elite: grouping up is advised unless you are well above level 38.
+  collect 7666 quest 2283.1 optional
+  collect 8047 quest 2202.1
+
+step Carved Figurine
+  accept 79975
+  turnin 79974
+
+step Hiri'watha: Grim Message
+  zone The Hinterlands
+  complete 2932
+
+step Shadra'Alor: Undamaged Venom Sac
+  collect 9322 quest 2934.1
+
+step Melisara
+  zone Hillsbrad Foothills
+  tip Undamaged Venom Sac lasts 30 minutes: go straight on with it.
+  turnin 2934
+
+step Hiri'watha: Wildkin Muisek
+  zone The Hinterlands
+  collect 9594 quest 3123.1
+
+step The Overlook Cliffs: Whiskey Slim's Lost Grog
+  sethome "Revantusk Village"
+  complete 580
+
+step Quel'Danil Lodge: Highvale Records and Highvale Notes
+  interact 144071 quest 2995.1
+  interact 144072 quest 2995.2
+
+step Gilveradin Sunchaser
+  turnin 650
+  accept 77
+
+step Quel'Danil Lodge: Highvale Report
+  interact 144073 quest 2995.3
+
+step Agol'watha: Hinterlands Honey Ripple
+  collect 8684 quest 77.1
+
+step Gilveradin Sunchaser
+  turnin 77
+  accept 81
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  sethome "Tarren Mill"
+  accept 517
+
+step Dun Garok: Elixir of Agony
+  complete 517
+
+step Back to Tarren Mill
+  hearth "Tarren Mill"
+
+step Apothecary Lydon
+  turnin 517
+  accept 524
+  turnin 524
+  turnin 544
+  accept 545
+  turnin 556
+  accept 557
+  turnin 506
+  accept 507
+
+step Helcular's Grave
+  turnin 553
+
+step Melisara
+  tip Targ (level 41), Muckrake (level 40), Glommus (level 39) and Mug'thol (level 43) are elite: grouping up is advised unless you are well above level 43.
+  turnin 495
+  turnin 519 optional
+  accept 520 optional
+  accept 2935
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  accept 5218
+
+step Felstone Field: Osseous Agitator and Runecloth
+  collect 13357 quest 5218.2
+  collect 14047 quest 5218.3
+
+step Dalson's Tears: Dalson's Tears Cauldron Key
+  collect 13195 quest 5231.1
+
+step Scourge Cauldron
+  turnin 5231
+  accept 5232
+
+step Ruins of Andorhal: Alas, Andorhal
+  complete 105
+
+step Gahrron's Withering: Heroes of Darrowshire
+  complete 5168
+
+step Tirion Fordring
+  turnin 5781
+  accept 5845
+
+step Felstone Field: Skeletal Fragments
+  collect 14619 quest 964.1
+
+step Master Gadrin
+  zone Durotar
+  turnin 2935
+  accept 2936
+
+step Gornek
+  turnin 787
+
+step Skull Rock: Venomtail Poison Sac
+  collect 4886 quest 813.1
+
+step Skull Rock: Lieutenant's Insignia
+  collect 14544 quest 5726.1
+
+step Donova Snowden
+  zone Winterspring
+  turnin 3909
+  accept 3912
+  turnin 5085
+  accept 5086
+
+step Owl Wing Thicket: Moontouched Owlbeast
+  kill 7453 quest 4741.1

@@ -1,0 +1,95 @@
+guide completionist/horde/undead/38-tanaris
+title Tanaris
+faction Horde
+race Undead
+levels 57-58
+zone Tanaris
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Tanaris, Thunder Bluff, Desolace
+next completionist/horde/undead/39-the-barrens-un-goro-crater
+
+# Route: guide 38 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 57 to
+# 58, 26 quests, 0.7 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Tanaris, Thunder Bluff, Desolace): Gadgetzan -> Steamwheedle Port ->
+# Gadgetzan -> Broken Pillar -> Gadgetzan -> Steamwheedle Port -> Gadgetzan ->
+# near Thunder Bluff -> Thunder Bluff -> Sargeron.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Divino-matic Rod (2768), Scarab Shells (2865), Troll
+# Temper (3042), Into the Depths (3446), Secret of the Circle (3447), The
+# Prophecy of Mosh'aru (3527), The God Hakkar (3528), The Final Tablets
+# (4788), Leaders of the Fang (914), A Vengeful Fate (1102), Testing an
+# Enemy's Strength (5723), Blood of the Black Dragon Champion (6602),
+# Vyletongue Corruption (7029), Legends of Maraudon (7044), Corruption of
+# Earth and Seed (7064), The Pariah's Instructions (7067).
+
+step Tran'rek
+  turnin 2864
+
+step Yeh'kinya
+  turnin 3520
+  turnin 2872
+
+step Egg-O-Matic
+  accept 2741
+  turnin 2641
+  accept 2661
+  turnin 2661
+  accept 2662
+  turnin 2662
+
+step Marvon Rivetseeker
+  turnin 3380
+  accept 3444
+
+step Gaeriyan
+  turnin 3912
+
+step Gadgetzan: Sprinkle
+  kill 7583 quest 5163.2
+
+step Tran'rek
+  accept 4504
+  turnin 4494
+  accept 4496
+
+step Gaeriyan
+  accept 3913
+
+step A Conspicuous Gravestone
+  turnin 3913
+  accept 3914
+
+step Yorba Screwspigot
+  accept 4324
+
+step Krinkle Goodsteel
+  turnin 5514
+  accept 5802
+
+step Apothecary Zamah
+  zone Thunder Bluff
+  turnin 1067
+  accept 1086
+
+step Thunder Bluff
+  sethome "Thunder Bluff"
+  turnin 1195
+  accept 1196
+
+step Melor Stonehoof
+  turnin 1131
+
+step Sargeron: Resonite Crystal and Wool Cloth
+  zone Desolace
+  collect 16581 quest 6421.1
+  collect 2592 quest 7820.1
+
+step Ratchet
+  sethome "Ratchet"

@@ -1,0 +1,11 @@
+{
+	"id": "completionist",
+	"title": "Polestar Completionist",
+	"author": "Polestar",
+	"version": "0.1.0",
+	"license": "GPL-3.0-only",
+	"website": "https://github.com/fitzforge/polestar",
+	"source": "The simulator's completionist routes (docs/SIMULATION.md, Completionist routes)",
+	"notes": "Every open-world quest of your race, zone by zone, 1-60: a guide pack for Polestar.",
+	"folder": "PolestarPack_Completionist"
+}

@@ -1,0 +1,109 @@
+guide completionist/horde/orc/49-swamp-of-sorrows-moonglade
+title Swamp of Sorrows & Moonglade
+faction Horde
+race Orc
+levels 60-60
+zone Swamp of Sorrows
+category Completionist
+folder Completionist · Orc 50-60
+keywords completionist, every quest, Tirisfal Glades, Western Plaguelands, Swamp of Sorrows, Azshara, Moonglade, Burning Steppes
+
+# Route: guide 49 of 49 of the simulator's completionist route for Orc (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 60 to 60, 20
+# quests, 2.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Tirisfal Glades, Western Plaguelands, Swamp of Sorrows, Azshara,
+# Moonglade, Burning Steppes): The Bulwark -> The Writhing Haunt -> The
+# Bulwark -> Stagalbog -> Stonard -> Splinterspear Junction -> Ravencrest
+# Monument -> Moonglade -> Ruins of Thaurissan.
+#
+# Left out: Gahrron's Withering Cauldron (5227), Continued Threat (1428): the
+# route takes them here but cannot finish them (the coverage report's missed
+# quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Vorrel's Revenge (1051), Barov Family Fortune (5341), The
+# Wrath of Rath'mael (92422), The Wrath of Rath'mael (92422), Crest of
+# Lordaeron (95204), Unending Torment (97288), Doctor Theolen Krastinov, the
+# Butcher (5382), Kirtonos the Herald (5384), The Lich, Ras Frostwhisper
+# (5466), Krastinov's Bag of Horrors (5515), Of Love and Family (5848), Oculus
+# Illusions (6569), Dark Iron Legacy (3802), A Taste of Flame (4024),
+# Precarious Predicament (4121), The Heart of the Mountain (4123), Egg
+# Freezing (4734), Egg Collection (4735).
+
+step The Bulwark: Arcane Quickener
+  zone Tirisfal Glades
+  buy 13320 x1 nearest
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  tip Arcane Quickener lasts 30 minutes: go straight on with it.
+  turnin 5224
+
+step Shadow Priestess Vandis
+  zone Tirisfal Glades
+  turnin 5236
+  accept 5238
+  turnin 5238
+  turnin 5804
+  accept 5511
+  turnin 5511
+
+step Back to Booty Bay
+  zone Western Plaguelands
+  hearth "Booty Bay"
+
+step Katar
+  zone Swamp of Sorrows
+  turnin 1426
+  accept 1427
+  turnin 1427
+
+step Stonard
+  sethome "Stonard"
+  turnin 1444
+  accept 1445 optional
+  turnin 1391
+  collect 6181 quest 1445.1 optional
+
+step Fallen Hero of the Horde
+  turnin 1445 optional
+  turnin 3626
+
+step Duke Hydraxis
+  zone Azshara
+  turnin 6804
+  turnin 6805
+
+step Umber
+  zone Moonglade
+  turnin 6844
+  accept 6845
+
+step Rabine Saturna
+  turnin 6845
+
+step Umber
+  accept 1185
+  turnin 1185
+
+step Rabine Saturna
+  turnin 5527
+  accept 5526
+
+step Moonglade: Shards of the Felvine
+  complete 5526
+
+step Rabine Saturna
+  turnin 5526
+
+step Back to Stonard
+  hearth "Stonard"
+
+step Yuka Screwspigot
+  zone Burning Steppes
+  turnin 4324
+  turnin 4907

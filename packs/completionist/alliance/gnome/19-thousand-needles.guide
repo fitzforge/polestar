@@ -1,0 +1,51 @@
+guide completionist/alliance/gnome/19-thousand-needles
+title Thousand Needles
+faction Alliance
+race Gnome
+levels 41-42
+zone Thousand Needles
+category Completionist
+folder Completionist · Gnome 40-50
+keywords completionist, every quest
+next completionist/alliance/gnome/20-arathi-highlands
+
+# Route: guide 19 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 41 to 42, 13
+# quests, 0.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Thousand Needles): Highperch -> The Shimmering Flats.
+#
+# Optional (elite: grouping up is advised): Encrusted Tail Fins (1107;
+# Saltscale Warrior 35-36, Saltscale Oracle 36-37, Saltscale Tide Lord 37,
+# Saltscale Forager 35-36, Saltscale Hunter 35-36); A Host of Evil (6626;
+# Razorfen Battleguard 33-34, Razorfen Thornweaver 33-34, Death's Head Cultist
+# 33-34).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Crone of the Kraul (1101), Gahz'rilla (2770).
+
+step Highperch: Highperch Venom Sac
+  collect 5809 quest 1135.1
+
+step Pozzik
+  tip Saltscale Warrior (level 35-36), Saltscale Oracle (level 36-37), Saltscale Tide Lord (level 37) and 5 more are elite: grouping up is advised unless you are well above level 37.
+  turnin 1183
+  accept 1186
+  turnin 1186
+  accept 1187
+  turnin 1137
+  turnin 1112
+  accept 1114
+  turnin 1114
+  accept 1115
+  accept 1190
+  accept 1191
+  turnin 1191
+  turnin 1190
+  accept 1194
+  turnin 1194
+  turnin 1107 optional
+  turnin 6626 optional

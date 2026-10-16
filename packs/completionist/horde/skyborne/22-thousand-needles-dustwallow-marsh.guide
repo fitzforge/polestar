@@ -1,0 +1,90 @@
+guide completionist/horde/skyborne/22-thousand-needles-dustwallow-marsh
+title Thousand Needles & Dustwallow Marsh
+faction Horde
+race Skyborne
+levels 45-47
+zone Dustwallow Marsh
+category Completionist
+folder Completionist · Skyborne 40-50
+keywords completionist, every quest, Thousand Needles, Dustwallow Marsh
+next completionist/horde/skyborne/23-feralas
+
+# Route: guide 22 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 45 to
+# 47, 15 quests, 1.7 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Thousand Needles, Dustwallow Marsh): The Shimmering Flats -> Theramore
+# Isle -> The Quagmire -> Brackenwall Village -> The Den of Flame ->
+# Brackenwall Village -> Wyrmbog -> Brackenwall Village.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Gahz'rilla (2770), Tiara of the Deep (2846).
+
+step Kravel Koalbeard
+  zone Thousand Needles
+  turnin 1112
+  accept 1114
+  turnin 1114
+  accept 1115
+  turnin 1183
+  accept 1186
+  turnin 1186
+  accept 1187
+
+step Theramore Isle: Jeweled Pendant
+  zone Dustwallow Marsh
+  collect 5942 quest 1261.1
+
+step The Quagmire: Razzeric's Tweaking
+  complete 1187
+
+step Nazeer Bloodpike
+  turnin 1261
+  accept 1262
+  accept 1168
+  accept 1166
+  accept 1169
+
+step The Den of Flame: Searing Tongue and Searing Heart
+  collect 5840 quest 1169.1
+  collect 5841 quest 1169.2
+
+step The Den of Flame: Firemane Scout and Firemane Ash Tail and more
+  kill 4329 quest 1168.1
+  kill 4331 quest 1168.2
+  kill 4328 quest 1168.3
+
+step The Den of Flame: Overlord Mok'Morokk's Concern
+  complete 1166
+
+step Draz'Zilb
+  turnin 1169
+  accept 1170
+  turnin 1168
+  turnin 1166
+  turnin 1170
+  accept 1171
+  turnin 1171
+  accept 1172
+
+step Wyrmbog: Egg of Onyxia
+  interact 20359 quest 1172.1
+
+step Draz'Zilb
+  turnin 1172
+  accept 1173
+
+step Brackenwall Village: Challenge Overlord Mok'Morokk
+  complete 1173
+
+step Draz'Zilb
+  turnin 1173
+
+step Camp Mojache
+  getfp "Camp Mojache"
+
+step Camp Mojache
+  sethome "Camp Mojache"

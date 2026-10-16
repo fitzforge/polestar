@@ -1,0 +1,128 @@
+guide completionist/horde/skyborne/14-dustwallow-marsh-stonetalon-mountains
+title Dustwallow Marsh & Stonetalon Mountains
+faction Horde
+race Skyborne
+levels 34-36
+zone Dustwallow Marsh
+category Completionist
+folder Completionist · Skyborne 30-40
+keywords completionist, every quest, Dustwallow Marsh, Stonetalon Mountains, Mulgore
+next completionist/horde/skyborne/15-desolace
+
+# Route: guide 14 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 34 to
+# 36, 21 quests, 1.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Dustwallow Marsh, Stonetalon Mountains, Mulgore): Brackenwall Village
+# -> The Quagmire -> Brackenwall Village -> Witch Hill -> Theramore Isle ->
+# Brackenwall Village -> Witch Hill -> Brackenwall Village -> Witch Hill ->
+# Brackenwall Village -> Sun Rock Retreat -> Windshear Crag -> Grimtotem Post
+# -> ….
+#
+# Profession quests here are not routed (they need the skill): 6607 Nat Pagle,
+# Angler Extreme.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Tiara of the Deep (2846), Leaders of the Fang (914), A
+# Vengeful Fate (1102), Searching for the Lost Satchel (5722), Testing an
+# Enemy's Strength (5723).
+
+step Nazeer Bloodpike
+  accept 1201
+  turnin 1251
+  turnin 1268
+  turnin 1269
+  accept 1321
+  turnin 1321
+  accept 1322
+
+step Brackenwall Village: Acidic Venom Sac and Theramore Infiltrator
+  collect 5959 quest 1322.1
+  kill 4834 quest 1201.1
+
+step Do'gol
+  turnin 1322
+  accept 1323
+  turnin 1323
+  turnin 1201
+  accept 1202
+
+step Ogron
+  accept 1273
+
+step The Quagmire: Questioning Reethe
+  complete 1273
+
+step Krog
+  turnin 1273
+  accept 1276
+
+step 'Stinky' Ignatz
+  accept 1270
+
+step Witch Hill: Stinky's Escape
+  complete 1270
+
+step Loose Dirt
+  accept 1238
+  accept 1218
+
+step Theramore Isle: The Theramore Docks
+  complete 1202
+
+step Nazeer Bloodpike
+  turnin 1238
+  turnin 1202
+
+step Loose Dirt
+  accept 1239
+
+step Nazeer Bloodpike
+  turnin 1239
+  accept 1240
+
+step Mudcrush Durtfeet
+  accept 1177
+
+step Witch Hill: Mirefin Head
+  collect 5847 quest 1177.1
+
+step Mudcrush Durtfeet
+  turnin 1177
+
+step Back to The Crossroads
+  hearth "The Crossroads"
+
+step Sun Rock Retreat
+  zone Stonetalon Mountains
+  sethome "Sun Rock Retreat"
+  turnin 6401
+
+step Windshear Crag: XT:9
+  kill 4074 quest 1068.2
+
+step Windshear Crag: XT:4
+  kill 4073 quest 1068.1
+
+step Grimtotem Post: Grimtotem Brute
+  kill 11912 quest 6629.2
+
+step Grimtotem Post: Grundig Darkcloud
+  kill 11858 quest 6629.1
+
+step Ziz Fizziks
+  turnin 1095
+
+step Mazu'kon
+  zone Mulgore
+  accept 96774
+
+step Skywatcher Plateau: Ancient Gurubashi Idol
+  complete 96774
+
+step Mazu'kon
+  turnin 96774
+  note "Profession quests here, for players with the skill: Nat Pagle, Angler Extreme (Fishing 225)."

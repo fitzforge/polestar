@@ -1,0 +1,159 @@
+guide completionist/horde/tauren/34-the-barrens-orgrimmar
+title The Barrens & Orgrimmar
+faction Horde
+race Tauren
+levels 55-56
+zone The Barrens
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest, The Barrens, Orgrimmar, Azshara
+next completionist/horde/tauren/35-thunder-bluff-undercity
+
+# Route: guide 34 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 55 to
+# 56, 42 quests, 1.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Barrens, Orgrimmar, Azshara): The Mor'shan Rampart -> The Merchant
+# Coast -> Ratchet -> The Mor'shan Rampart -> The Crossroads -> Ratchet ->
+# Honor's Stand -> Ratchet -> near Orgrimmar -> Orgrimmar -> near Orgrimmar ->
+# Orgrimmar -> near Orgrimmar -> Ravencrest Monument.
+#
+# Optional (elite: grouping up is advised): Shadowshard Fragments (7068;
+# Shadowshard Rumbler 40-41, Shadowshard Smasher 41-42, Shadowshard Thunderer
+# 38).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Willix the Importer (1144), Blueleaf Tubers (1221),
+# Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate Eradication
+# (1487), The Glowing Shard (6981), Necklace Recovery, Take 2 (2284), Rig Wars
+# (2841), Rig Wars (2841), The Royal Rescue (4003), For The Horde! (4974),
+# Returning the Lost Satchel (5724), Hidden Enemies (5728), Hidden Enemies
+# (5728), Slaying the Beast (5761), Slaying the Beast (5761), Changing Tastes
+# (95697), Changing Tastes (95697).
+
+step Kelm Hargunth
+  accept 7868
+  turnin 7868
+
+step Islen Waterseer
+  turnin 5158
+  accept 5159
+
+step Ratchet
+  sethome "Ratchet"
+  turnin 4147
+  accept 4502
+
+step Horde Warbringer
+  accept 8367
+
+step The Mor'shan Rampart: For Great Honor
+  complete 8367
+
+step Horde Warbringer
+  turnin 8367
+  accept 8388
+
+step The Mor'shan Rampart: For Great Honor
+  complete 8388
+
+step Horde Warbringer
+  turnin 8388
+
+step The Crossroads
+  sethome "The Crossroads"
+  accept 91904
+
+step The Crossroads: A Sealed Crate
+  complete 91904
+
+step Dokimi
+  turnin 91904
+
+step Ratchet
+  sethome "Ratchet"
+  accept 96339
+  turnin 96339
+  accept 96383
+  turnin 96383
+  turnin 1069
+
+step Makaba Flathoof
+  turnin 6523
+  accept 6401
+  turnin 6548
+  accept 6629
+  turnin 1062
+  accept 1063
+  accept 1068
+
+step Sputtervalve
+  turnin 1094
+  accept 1095
+
+step Uthel'nay
+  zone Orgrimmar
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  accept 7068 optional
+  accept 7835
+
+step Orgrimmar
+  sethome "Orgrimmar"
+  accept 3122
+  turnin 32
+
+step Rashona Straglash
+  accept 7831
+
+step Belgrom Rockmaul
+  accept 2981
+
+step Dran Droffers
+  accept 649
+  turnin 649
+  accept 650
+  turnin 3541
+  accept 3563
+
+step Belgrom Rockmaul
+  accept 3504
+
+step Zilzibin Drumlore
+  accept 4494
+  accept 4300
+
+step Innkeeper Gryshka
+  accept 936
+
+step Warcaller Gorlach
+  accept 5093
+
+step Frostwolf Ambassador Rokhstrom
+  accept 7241
+  accept 8276
+
+step Vehena
+  accept 7834
+
+step Keldran
+  turnin 1436
+
+step Rashona Straglash
+  accept 7827
+
+step Duke Hydraxis
+  zone Azshara
+  accept 6804
+  accept 6805
+
+step Back to Orgrimmar
+  hearth "Orgrimmar"
+
+step Thunder Bluff
+  getfp "Thunder Bluff"
+
+step Thunder Bluff
+  sethome "Thunder Bluff"

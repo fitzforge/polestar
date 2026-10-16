@@ -1,0 +1,52 @@
+guide completionist/horde/tauren/30-burning-steppes
+title Burning Steppes
+faction Horde
+race Tauren
+levels 52-53
+zone Burning Steppes
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest
+next completionist/horde/tauren/31-un-goro-crater
+
+# Route: guide 30 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 52 to
+# 53, 5 quests, 0.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Burning Steppes): Ruins of Thaurissan -> Blackrock Stronghold -> Ruins
+# of Thaurissan -> Blackrock Mountain.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Dark Iron Legacy (3802), A Taste of Flame (4024),
+# Precarious Predicament (4121), The Heart of the Mountain (4123), Egg
+# Freezing (4734), Egg Collection (4735).
+
+step Maxwort Uberglint
+  accept 4296
+  accept 4726
+
+step Ruins of Thaurissan: Broodling Essence
+  collect 12283 quest 4726.1
+
+step Tinkee Steamboil
+  turnin 4726
+  accept 4808
+
+step Blackrock Stronghold: Tablet Transcript
+  collect 11470 quest 4296.1
+
+step Maxwort Uberglint
+  turnin 4296
+
+step Franclorn Forgewright
+  accept 3801
+  turnin 3801
+  accept 4022 optional
+  complete 4022 optional
+
+step Lakkari Tar Pits
+  turnin 4022 optional
+  getfp "Marshal's Refuge"

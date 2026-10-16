@@ -1,0 +1,95 @@
+guide completionist/horde/undead/16-mulgore-thousand-needles
+title Mulgore & Thousand Needles
+faction Horde
+race Undead
+levels 34-36
+zone Mulgore
+category Completionist
+folder Completionist · Undead 30-40
+keywords completionist, every quest, Mulgore, Thousand Needles
+next completionist/horde/undead/17-desolace
+
+# Route: guide 16 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 34 to
+# 36, 13 quests, 1.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Mulgore, Thousand Needles): Skywatcher Plateau -> Windfury Ridge ->
+# Thunder Bluff -> The Shimmering Flats -> Windbreak Canyon -> The Shimmering
+# Flats -> Windbreak Canyon.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Leaders of the Fang (914), A Vengeful Fate (1102),
+# Searching for the Lost Satchel (5722), Testing an Enemy's Strength (5723),
+# Gahz'rilla (2770).
+
+step Mazu'kon
+  accept 96241
+  accept 96259
+  accept 96261
+  accept 96260
+
+step Skywatcher Plateau: Crystalline Silk
+  collect 273181 quest 96260.1
+
+step Skywatcher Plateau: Broodmother Valraxx
+  kill 264082 quest 96261.1
+
+step Skywatcher Plateau
+  tip Broodmother Valraxx drops the Bloody Parchment: right-click it to start A Darker Truth.
+  collect 273658 x1
+  accept 96294
+
+step Skywatcher Plateau: Gloomrise Toxin Sample and Gloomrise Soldier and more
+  collect 273001 quest 96241.1
+  kill 264083 quest 96259.1
+  kill 264079 quest 96259.2
+
+step Yorn Grimtotem
+  turnin 96260
+  turnin 96241
+  turnin 96259
+  turnin 96261
+  turnin 96294
+  accept 96774
+
+step Skywatcher Plateau: Ancient Gurubashi Idol
+  complete 96774
+
+step Mazu'kon
+  turnin 96774
+
+step Windfury Ridge: Horn of Arra'chea
+  collect 4841 quest 776.1
+
+step Thunder Bluff: Azure Feather
+  collect 4752 quest 744.1
+
+step Thunder Bluff: Bronze Feather
+  collect 4753 quest 744.2
+
+step Kravel Koalbeard
+  zone Thousand Needles
+  turnin 1112
+  accept 1114
+  turnin 1114
+  accept 1115
+
+step Moktar Krin
+  turnin 1146
+  accept 1147
+
+step The Shimmering Flats: Silithid Searcher and Silithid Hive Drone
+  kill 4130 quest 1147.1
+  kill 4133 quest 1147.2
+
+step The Shimmering Flats: Silithid Invader
+  kill 4131 quest 1147.3
+
+step Moktar Krin
+  turnin 1147
+
+step Back to Camp Taurajo
+  hearth "Camp Taurajo"

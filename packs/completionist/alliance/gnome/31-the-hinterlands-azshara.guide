@@ -1,0 +1,186 @@
+guide completionist/alliance/gnome/31-the-hinterlands-azshara
+title The Hinterlands & Azshara
+faction Alliance
+race Gnome
+levels 48-50
+zone The Hinterlands
+category Completionist
+folder Completionist · Gnome 40-50
+keywords completionist, every quest, The Hinterlands, Westfall, Darnassus, Azshara
+next completionist/alliance/gnome/32-stranglethorn-vale-ironforge
+
+# Route: guide 31 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 48 to 50, 28
+# quests, 3.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Hinterlands, Westfall, Darnassus, Azshara): Aerie Peak ->
+# Hiri'watha -> Quel'Danil Lodge -> Agol'watha -> Skulk Rock -> The Overlook
+# Cliffs -> Hiri'watha -> Aerie Peak -> Hiri'watha -> The Altar of Zul ->
+# Aerie Peak -> The Overlook Cliffs -> Agol'watha -> ….
+#
+# Optional (elite: grouping up is advised): Prayer to Elune (3378; Twilight
+# Dark Shaman 47-48, Twilight Fire Guard 48-49, Twilight Geomancer 49-50,
+# Twilight Idolater 49-51).
+#
+# Profession quests here are not routed (they need the skill): 5141
+# Dragonscale Leatherworking.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Jammal'an the Prophet (1446), The Defias Brotherhood
+# (166), The Defias Brotherhood (166), The Unsent Letter (373), In Search of
+# Thaelrid (1198), Twilight Falls (1199).
+
+step Falstad Wildhammer
+  turnin 1449
+  accept 1450
+  turnin 1450
+  accept 1451
+  accept 2988
+  accept 2877
+  accept 2880
+
+step Hiri'watha: First Witherbark Cage and Second Witherbark Cage and more
+  interact 144066 quest 2988.1
+  interact 144067 quest 2988.2
+  collect 9259 quest 2880.1
+
+step Rhapsody Shindigger
+  turnin 1451
+  accept 1452
+
+step Agol'watha: Green Sludge
+  kill 2655 quest 2877.1
+
+step Skulk Rock: Jade Ooze
+  kill 2656 quest 2877.2
+
+step The Overlook Cliffs: Whiskey Slim's Lost Grog
+  complete 580
+
+step Back to Aerie Peak
+  hearth "Aerie Peak"
+
+step Hiri'watha: Third Witherbark Cage
+  interact 144068 quest 2988.3
+
+step Fraggar Thundermantle
+  turnin 2877
+  turnin 2880
+  accept 2881
+
+step Gryphon Master Talonaxe
+  turnin 2988
+  accept 2989
+
+step Hiri'watha: Troll Tribal Necklace
+  collect 9259 quest 2881.1
+
+step The Altar of Zul: The Altar of Zul
+  complete 2989
+
+step Fraggar Thundermantle
+  turnin 2881
+
+step Gryphon Master Talonaxe
+  turnin 2989
+  accept 2990
+
+step The Overlook Cliffs
+  tip Saltwater Snapjaw drops the OOX-09/HL Distress Beacon: right-click it to start Find OOX-09/HL!.
+  collect 8704 x1
+  accept 485
+
+step Homing Robot OOX-09/HL
+  turnin 485
+  accept 836
+
+step The Overlook Cliffs: Rescue OOX-09/HL!
+  complete 836
+
+step Back to Aerie Peak
+  hearth "Aerie Peak"
+
+step Valorwind Lake: Sprinkle's Secret Ingredient
+  complete 2641
+
+step Aerie Peak: Wildkin Feather
+  collect 10819 quest 3661.1
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  turnin 48
+  accept 49
+
+step Arch Druid Fandral Staghelm
+  zone Darnassus
+  tip Twilight Dark Shaman (level 47-48), Twilight Fire Guard (level 48-49), Twilight Geomancer (level 49-50) and Twilight Idolater (level 49-51) are elite: grouping up is advised unless you are well above level 51.
+  turnin 3378 optional
+  accept 3764
+
+step Craftsmen's Terrace
+  sethome "Craftsmen's Terrace"
+  accept 3763
+
+step Arch Druid Fandral Staghelm
+  turnin 3763
+
+step Gracina Spiritmight
+  turnin 162
+  turnin 4267
+  turnin 2972
+
+step Sanath Lim-yo
+  zone Azshara
+  accept 3381
+
+step Valormok: Undamaged Hippogryph Feather
+  collect 10450 quest 3381.1
+
+step Sanath Lim-yo
+  turnin 3381
+
+step Shadowsong Shrine
+  getfp "Talrendis Point"
+  accept 5535
+  accept 5536
+
+step Shadowsong Shrine: Highborne Apparition
+  kill 6116 quest 5535.1
+
+step Shadowsong Shrine: Highborne Lichling
+  kill 6117 quest 5535.2
+
+step Haldarr Encampment: Haldarr Satyr and Haldarr Trickster and more
+  kill 6125 quest 5536.1
+  kill 6126 quest 5536.2
+  kill 6127 quest 5536.3
+
+step Loh'atu
+  turnin 5535
+  turnin 5536
+
+step Kim'jael
+  accept 3601
+
+step Thalassian Base Camp: Kim'Jael's Compass and Kim'Jael's Scope and more
+  collect 10717 quest 3601.1
+  collect 10715 quest 3601.2
+  collect 10722 quest 3601.3
+  collect 10718 quest 3601.4
+
+step Kim'jael
+  turnin 3601
+  accept 5534
+
+step The Shattered Strand: Some Rune
+  collect 13815 quest 5534.1
+
+step Kim'jael
+  turnin 5534
+
+step Booty Bay
+  sethome "Booty Bay"
+  note "Profession quests here, for players with the skill: Dragonscale Leatherworking (Leatherworking 225)."

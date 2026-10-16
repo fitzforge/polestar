@@ -164,6 +164,13 @@ routes Polestar's simulator has found ship with Polestar once its open data
 lands; until then a result exists only where you ran the simulator yourself
 (docs/SIMULATION.md).
 
+Polestar's own Completionist pack (packs/completionist in the repository,
+the `PolestarPack_Completionist` addon) is built this way, and is a working
+example of a large pack: about 500 guides from
+`sim run --objective completionist` and `sim export` (whose completionist
+export writes ids under the pack's prefix itself), linted, played and zipped
+with the same `lint`, `playtest` and `pack` commands as any other pack.
+
 ### By hand
 
 Look up every id instead of guessing it:

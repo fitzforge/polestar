@@ -1,0 +1,199 @@
+guide completionist/alliance/nightelf/45-stormwind-city-wetlands
+title Stormwind City & Wetlands
+faction Alliance
+race NightElf
+levels 58-59
+zone Stormwind City
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Stormwind City, Elwynn Forest, Wetlands, Eastern Plaguelands
+next completionist/alliance/nightelf/46-loch-modan-ironforge
+
+# Route: guide 45 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 58 to
+# 59, 52 quests, 1.7 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stormwind City, Elwynn Forest, Wetlands, Eastern Plaguelands): near
+# Stormwind City -> Stormwind City -> near Stormwind City -> near Stormwind ->
+# Stormwind -> near Stormwind -> near Stormwind City -> Stormwind -> near
+# Stormwind City -> Northshire Valley -> Eastvale Logging Camp -> Menethil
+# Harbor -> Black Channel Marsh -> ….
+#
+# Left out: Morganth (249): the route takes them here but cannot finish them
+# (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489), The Fury
+# Runs Deep (378), The Fury Runs Deep (378), Lost in the Thicket Things
+# (95647), Fallen in the Fen (95795), Heartwoven (95809), Highland Hides
+# (98815), Highland Hides (98815), Prehistoric Prism (98824), Prehistoric
+# Prism (98824), Dawn's Gambit (4771), The Flesh Does Not Lie (5212), The
+# Active Agent (5213), The Great Fras Siabi (5214), Houses of the Holy (5243),
+# The Archivist (5251), Above and Beyond (5263), The Restless Souls (5282),
+# Menethil's Gift (5463), Plagued Hatchlings (5529), Dead Man's Plea (8945),
+# Anthion's Old Friend (8948).
+
+step Garion Wendell
+  accept 78148
+  turnin 78148
+  accept 84397
+  turnin 84397
+  accept 84398
+  turnin 84398
+  accept 84399
+  turnin 84399
+  accept 84402
+  turnin 84402
+
+step Stormwind City
+  sethome "Stormwind City"
+  accept 334
+  accept 333
+  accept 332
+  turnin 61
+  turnin 332
+  turnin 333
+
+step Thurman Schneider
+  turnin 334
+
+step Grimand Elmore
+  accept 353
+  turnin 1097
+  turnin 92748
+  accept 92749
+
+step near Stormwind: A Dynamite Plan
+  complete 92749
+
+step Sprite Jumpsprocket
+  turnin 92749
+  accept 92750
+  turnin 1338
+
+step Elaine Trias
+  accept 97222
+  turnin 97222
+
+step Jasper Fel
+  turnin 92750
+  accept 92751
+
+step Sprite Jumpsprocket
+  turnin 92751
+  accept 92752
+
+step Manifest Clerk Philmor
+  accept 97220
+
+step Gilbert Gray
+  accept 95065
+
+step Elaine Trias
+  turnin 97220
+
+step Master Mathias Shaw
+  turnin 135
+
+step Baros Alexston
+  turnin 97914
+
+step Brother Paxton
+  zone Elwynn Forest
+  turnin 347
+  accept 346
+
+step Marshal Haggard
+  turnin 74
+  accept 75
+
+step Eastvale Logging Camp: The Legend of Stalvan
+  complete 75
+
+step Marshal Haggard
+  turnin 75
+  accept 78
+
+step Back to Stormwind City
+  hearth "Stormwind City"
+
+step Menethil Harbor
+  zone Wetlands
+  sethome "Deepwater Tavern"
+  turnin 942
+  accept 943
+
+step Menethil Harbor: A Donation of Wool
+  complete 7802
+  complete 7807
+
+step Black Channel Marsh: Stone of Relu
+  collect 5233 quest 943.1
+
+step Archaeologist Flagongut
+  turnin 943
+  turnin 98459
+  turnin 270
+  accept 321
+  turnin 321
+  accept 324
+
+step Menethil Harbor: Lightforge Ingot
+  collect 2702 quest 324.1
+
+step Glorin Steelbrow
+  turnin 324
+  accept 322
+
+step Thelgen Rock: Incendicite Ore
+  collect 3340 quest 466.1
+
+step Thelgen Rock: A Noble Brew
+  complete 335
+
+step Thelgen Rock: A Donation of Silk
+  complete 7803
+  complete 7808
+
+step Mikhail
+  turnin 1248
+  turnin 1301
+  accept 1249
+
+step Menethil Harbor: The Missing Diplomat
+  complete 1249
+
+step Mikhail
+  turnin 1249
+  accept 1250
+  turnin 1250
+  accept 1264
+
+step Rhag Garmason
+  turnin 632
+  accept 633
+
+step Light's Hope Chapel
+  zone Eastern Plaguelands
+  sethome "Light's Hope Chapel"
+  turnin 5168
+  accept 5206
+
+step Light's Hope Chapel: Marauders of Darrowshire
+  complete 5206
+
+step Carlin Redpath
+  turnin 5206
+  accept 5941
+
+step Northpass Tower: Of Lost Honor
+  complete 5845
+  kill 11878 quest 6185.4 optional
+  complete 6185 optional

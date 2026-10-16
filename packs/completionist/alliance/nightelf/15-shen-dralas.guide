@@ -1,0 +1,35 @@
+guide completionist/alliance/nightelf/15-shen-dralas
+title Shen'dralas
+faction Alliance
+race NightElf
+levels 37-38
+zone Shen'dralas
+category Completionist
+folder Completionist · NightElf 30-40
+keywords completionist, every quest
+next completionist/alliance/nightelf/16-arathi-highlands
+
+# Route: guide 15 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 37 to
+# 38, 7 quests, 0.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Shen'dralas): Valley of Bones.
+#
+# Left to other guides: class quests (the Class category).
+
+step Nerlokh
+  accept 93035
+  turnin 93034
+  turnin 93035
+  accept 93037
+  turnin 93037
+  accept 93041
+  accept 93128
+
+step Orgrul
+  turnin 92841
+  accept 92844
+  turnin 92844

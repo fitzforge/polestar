@@ -1,0 +1,236 @@
+guide completionist/horde/troll/41-eastern-plaguelands-silverpine-forest
+title Eastern Plaguelands & Silverpine Forest
+faction Horde
+race Troll
+levels 57-58
+zone Silverpine Forest
+category Completionist
+folder Completionist · Troll 50-60
+keywords completionist, every quest, Hillsbrad Foothills, Alterac Mountains, Eastern Plaguelands, Silverpine Forest, Dustwallow Marsh, Durotar, Stranglethorn Vale, Undercity
+next completionist/horde/troll/42-tanaris-un-goro-crater
+
+# Route: guide 41 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 57 to 58, 48
+# quests, 3.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Hillsbrad Foothills, Alterac Mountains, Eastern Plaguelands,
+# Silverpine Forest, Dustwallow Marsh, Durotar, Stranglethorn Vale,
+# Undercity): Tarren Mill -> Dalaran -> Growless Cave -> Dandred's Fold -> The
+# Marris Stead -> Darrowshire -> Lake Mereldar -> Northpass Tower -> The
+# Marris Stead -> Tyr's Hand -> The Marris Stead -> Tarren Mill -> Fenris Isle
+# -> ….
+#
+# Optional (elite: grouping up is advised): The Crown of Will (518; Crushridge
+# Mauler 36-37); The Crown of Will (519; Targ 41, Muckrake 40, Glommus 39);
+# The Crimson Courier (6145; Crimson Courier 60); The Scarlet Oracle, Demetria
+# (6148; Demetria 61); The Crown of Will (520; Mug'thol 43); Assault on Fenris
+# Isle (442; Thule Ravenclaw 24); The Star, the Hand and the Heart (736;
+# Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Grave Knight (96986), Heart of Disruption (96984), The
+# Grave Knight (96986), Opportunistic Education (96987), Dawn's Gambit (4771),
+# The Flesh Does Not Lie (5212), The Active Agent (5213), The Great Fras Siabi
+# (5214), Houses of the Holy (5243), The Archivist (5251), Above and Beyond
+# (5263), The Restless Souls (5282), Menethil's Gift (5463), Plagued
+# Hatchlings (5529), Ramstein (6163), Dead Man's Plea (8945), Anthion's Old
+# Friend (8948), Arugal Must Die (1014), Arugal Must Die (1014), Into The
+# Scarlet Monastery (1048), Deathstalkers in Shadowfang (1098), Deathstalkers
+# in Shadowfang (1098), The Power to Destroy... (5725), The New Plague
+# (95216), Heart of Disruption (96984), Source of Power (96988), Tiara of the
+# Deep (2846), The Book of Ur (1013), The Book of Ur (1013), Going, Going,
+# Guano! (1109), Going, Going, Guano! (1109), Bring the End (3341), The Power
+# to Destroy... (5725), Light's Justice (92421), Light's Justice (92421), The
+# New Plague (95216), Source of Power (96988).
+
+step Melisara
+  zone Hillsbrad Foothills
+  tip Crushridge Mauler (level 36-37), Targ (level 41), Muckrake (level 40) and Glommus (level 39) are elite: grouping up is advised unless you are well above level 41.
+  turnin 518 optional
+  accept 519 optional
+  turnin 566
+  turnin 2934
+  accept 2935
+  turnin 506
+  accept 507
+  turnin 495
+
+step Dalaran: Dalaran Summoner and Elemental Slave and more
+  zone Alterac Mountains
+  kill 2358 quest 545.1
+  kill 2359 quest 545.2
+  collect 3715 quest 557.1
+
+step Growless Cave: Frostmaw's Mane
+  collect 5811 quest 1136.1
+
+step Dandred's Fold: Lord Aliden Perenolde
+  kill 2423 quest 507.1
+
+step Elysa
+  turnin 507
+
+step Dandred's Fold: Silk Cloth
+  collect 4306 quest 7814.1
+
+step Elysa
+  tip Targ (level 41), Muckrake (level 40) and Glommus (level 39) are elite: grouping up is advised unless you are well above level 41.
+  accept 508
+  collect 3550 quest 519.1 optional
+  collect 3551 quest 519.2 optional
+  collect 3552 quest 519.3 optional
+
+step Nathanos Blightcaller
+  zone Eastern Plaguelands
+  turnin 5961
+
+step Darrowshire: The Battle of Darrowshire
+  complete 5721
+
+step Pamela Redpath
+  turnin 5721
+  accept 5942
+  turnin 5942
+
+step Lake Mereldar: Discordant Bracers
+  collect 17309 quest 6804.1
+
+step Northpass Tower: Of Lost Honor
+  complete 5845
+
+step Nathanos Blightcaller
+  tip Crimson Courier (level 60) is elite: grouping up is advised unless you are well above level 60.
+  collect 15868 quest 6145.1 optional
+  turnin 6145 optional
+  accept 6146
+
+step The Marris Stead: Nathanos' Ruse
+  complete 6146
+
+step Crusader Lord Valdelmar
+  turnin 6146
+  accept 6147
+
+step Nathanos Blightcaller
+  tip Demetria (level 61) is elite: grouping up is advised unless you are well above level 61.
+  turnin 6147
+  accept 6148 optional
+  kill 12339 quest 6148.1 optional
+
+step Back to Tarren Mill
+  tip Demetria (level 61) is elite: grouping up is advised unless you are well above level 61.
+  turnin 6148 optional
+  hearth "Tarren Mill"
+
+step Melisara
+  zone Hillsbrad Foothills
+  tip Targ (level 41), Muckrake (level 40), Glommus (level 39) and Mug'thol (level 43) are elite: grouping up is advised unless you are well above level 43.
+  turnin 519 optional
+  accept 520 optional
+  turnin 545
+  accept 92434
+  turnin 557
+  turnin 508
+
+step Fenris Isle: Blood in the Streets
+  zone Silverpine Forest
+  complete 92434
+
+step Image of Archmage Modera
+  turnin 92434
+
+step The Sepulcher
+  tip Thule Ravenclaw (level 24) is elite: grouping up is advised unless you are well above level 24.
+  sethome "The Sepulcher"
+  turnin 446
+  accept 448
+  turnin 448
+  accept 442 optional
+  turnin 3301
+
+step Pyrewood Village: A Recipe For Death
+  complete 450
+
+step The Greymane Wall: Valdred's Hands
+  collect 3613 quest 530.1
+
+step Apothecary Renferrel
+  turnin 450
+  accept 451
+
+step Malden's Orchard: Hardened Tumor
+  collect 3258 quest 451.3
+
+step Fenris Isle: Lake Creeper Moss
+  tip Thule Ravenclaw (level 24) is elite: grouping up is advised unless you are well above level 24.
+  collect 3623 quest 442.1 optional
+  collect 3257 quest 451.2
+
+step Fenris Isle: Lake Skulker Moss
+  collect 3256 quest 451.1
+
+step High Executor Hadrec
+  tip Thule Ravenclaw (level 24) is elite: grouping up is advised unless you are well above level 24.
+  turnin 442 optional
+  turnin 264
+  turnin 92401
+
+step Fenris Isle: Wool Cloth
+  collect 2592 quest 7813.1
+
+step The Quagmire: Deadmire's Tooth
+  zone Dustwallow Marsh
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  collect 4641 quest 736.2 optional
+  collect 5945 quest 1205.1
+
+step Musty Scroll
+  turnin 625
+  accept 626
+
+step Tabetha
+  turnin 2861
+
+step The Quagmire: Ledger from Tanaris
+  complete 4450
+
+step Master Gadrin
+  zone Durotar
+  turnin 2935
+  accept 2936
+
+step Booty Bay
+  zone Stranglethorn Vale
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  collect 4644 quest 736.3 optional
+  sethome "Booty Bay"
+  turnin 1116
+  accept 1117
+
+step Witch Doctor Unbagwa
+  accept 349
+
+step Mistvale Valley: Gorilla Fang
+  collect 2799 quest 349.1
+
+step Witch Doctor Unbagwa
+  turnin 349
+
+step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp"
+  turnin 2932
+
+step Bethor Iceshard
+  zone Undercity
+  turnin 357
+  accept 366
+
+step Master Apothecary Faranell
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  turnin 451
+  sethome "Undercity"
+  turnin 736 optional
+  accept 737

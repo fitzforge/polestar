@@ -1,0 +1,141 @@
+guide completionist/alliance/human/22-desolace-loch-modan
+title Desolace & Loch Modan
+faction Alliance
+race Human
+levels 42-44
+zone Desolace
+category Completionist
+folder Completionist · Human 40-50
+keywords completionist, every quest, Desolace, Teldrassil, Loch Modan
+next completionist/alliance/human/23-alterac-mountains-the-hinterlands
+
+# Route: guide 22 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 42 to 44, 23
+# quests, 3.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Desolace, Teldrassil, Loch Modan): Nijel's Point -> Sargeron ->
+# Nijel's Point -> Thunder Axe Fortress -> Nijel's Point -> Ethel Rethor ->
+# Gelkis Village -> Mannoroc Coven -> Nijel's Point -> Ranazjar Isle -> Gelkis
+# Village -> Magram Village -> Gelkis Village -> ….
+#
+# Optional (elite: grouping up is advised): Khan Hratha (1380; Khan Hratha
+# 42); Shadowshard Fragments (7070; Shadowshard Rumbler 40-41, Shadowshard
+# Smasher 41-42, Shadowshard Thunderer 38); Amulet of Secrets (722; Magregan
+# Deepshadow 38).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Legends of Maraudon (7044), The Pariah's Instructions
+# (7067), In Search of Thaelrid (1198), Twilight Falls (1199).
+
+step Kreldig Ungor
+  turnin 1453
+  accept 1454
+  accept 1458
+
+step Sargeron: Hatefury Claw and Hatefury Horn
+  collect 6246 quest 1458.1
+  collect 6247 quest 1458.2
+
+step Kreldig Ungor
+  turnin 1458
+  accept 1459
+
+step Nijel's Point: Scorpashi Venom
+  collect 6248 quest 1459.1
+
+step Thunder Axe Fortress: Aged Kodo Hide
+  collect 6249 quest 1459.2
+
+step Kreldig Ungor
+  turnin 1459
+  accept 1466
+
+step Karnitol's Chest
+  turnin 1454
+  accept 1455
+
+step Uthek the Wise
+  turnin 93041
+  turnin 93128
+
+step Mannoroc Coven: Doomwarder Blood
+  collect 6252 quest 1466.3
+
+step Mannoroc Coven: Nether Wing and Felhound Brain
+  collect 6251 quest 1466.2
+  collect 6250 quest 1466.1
+
+step Back to Nijel's Point
+  hearth "Nijel's Point"
+
+step Kreldig Ungor
+  turnin 1455
+  turnin 1466
+  accept 1456
+  accept 1467
+
+step Ranazjar Isle: Karnitol's Satchel
+  collect 6245 quest 1456.1
+
+step Uthek the Wise
+  turnin 1373
+  accept 1374
+
+step Magram Village: Khan Jehn's Head
+  collect 6072 quest 1374.1
+
+step Uthek the Wise
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1374
+  accept 1380 optional
+  collect 6077 quest 1380.1 optional
+
+step Kreldig Ungor
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1380 optional
+  turnin 1456
+  accept 1457
+  turnin 6141
+  accept 7028 optional
+
+step Back to Nijel's Point
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  collect 17684 quest 7028.1 optional
+  collect 17756 quest 7070.1 optional
+  hearth "Nijel's Point"
+  turnin 7028 optional
+
+step Rut'theran Village
+  zone Teldrassil
+  getfp "Rut'theran Village"
+  accept 3661
+
+step Prospector Ironband
+  zone Loch Modan
+  turnin 707
+  accept 704
+
+step Stonesplinter Valley: Carved Stone Urn
+  collect 4610 quest 704.1
+
+step Prospector Ironband
+  turnin 704
+
+step Thelsamar
+  tip Magregan Deepshadow (level 38) is elite: grouping up is advised unless you are well above level 38.
+  accept 722 optional
+  sethome "Stoutlager Inn"
+  turnin 2500
+  accept 17
+
+step Stonesplinter Valley: Magenta Fungus Cap
+  collect 8047 quest 17.1
+
+step Ghak Healtouch
+  turnin 17
+
+step Goldshire
+  sethome "Goldshire"

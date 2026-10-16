@@ -1,0 +1,79 @@
+guide completionist/alliance/dwarf/25-stormwind-city-elwynn-forest
+title Stormwind City & Elwynn Forest
+faction Alliance
+race Dwarf
+levels 44-45
+zone Elwynn Forest
+category Completionist
+folder Completionist · Dwarf 40-50
+keywords completionist, every quest, Stormwind City, Elwynn Forest, Loch Modan
+next completionist/alliance/dwarf/26-tanaris
+
+# Route: guide 25 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 44 to 45, 16
+# quests, 0.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stormwind City, Elwynn Forest, Loch Modan): near Stormwind City ->
+# near Stormwind -> Goldshire -> Tower of Azora -> Goldshire -> Northshire
+# Valley -> Tower of Azora -> Goldshire -> Stonesplinter Valley.
+#
+# Optional (elite: grouping up is advised): The Perenolde Tiara (543;
+# Grel'borg the Miser 39); Amulet of Secrets (722; Magregan Deepshadow 38).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489).
+
+step Angus Stern
+  zone Stormwind City
+  accept 1271
+  turnin 1271
+
+step Angus Stern
+  tip Grel'borg the Miser (level 39) is elite: grouping up is advised unless you are well above level 39.
+  turnin 543 optional
+  turnin 212
+
+step Brohann Caskbelly
+  turnin 1448
+  accept 1449
+
+step Goldshire
+  zone Elwynn Forest
+  sethome "Goldshire"
+  turnin 118
+  accept 119
+
+step Goldshire: Skin of Sweet Rum
+  buy 1939 x1 nearest
+
+step Theocritus
+  turnin 178
+
+step Innkeeper Farley
+  turnin 69
+
+step Brother Paxton
+  turnin 344
+  accept 345
+
+step Theocritus
+  accept 94
+
+step Innkeeper Farley
+  accept 70
+
+step Goldshire: The Legend of Stalvan
+  complete 70
+
+step Hammertoe Grez
+  zone Loch Modan
+  tip Magregan Deepshadow (level 38) is elite: grouping up is advised unless you are well above level 38.
+  turnin 722 optional
+  accept 723

@@ -1,0 +1,114 @@
+guide completionist/horde/tauren/46-azshara
+title Azshara
+faction Horde
+race Tauren
+levels 59-60
+zone Azshara
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest
+next completionist/horde/tauren/47-orgrimmar
+
+# Route: guide 46 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 59 to
+# 60, 19 quests, 0.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Azshara): Shadowsong Shrine -> Valormok -> The Shattered Strand ->
+# Southridge Beach -> Temple of Arkkoran -> Thalassian Base Camp -> Temple of
+# Arkkoran -> Southridge Beach -> Valormok -> The Ruined Reaches.
+#
+# Optional (elite: grouping up is advised): The Name of the Beast (3510;
+# Hetaera 55).
+#
+# Left to other guides: class quests (the Class category).
+
+step Shadowsong Shrine: Mageweave Cloth
+  collect 4338 quest 7835.1
+  collect 4338 quest 7831.1
+
+step Jediga
+  turnin 3562
+  turnin 3563
+  turnin 3564
+  turnin 3504
+  accept 3505
+
+step The Shattered Strand: Filled Vial Labeled #1
+  collect 10691 quest 3568.1
+
+step The Shattered Strand: Filled Vial Labeled #2 and Filled Vial Labeled #3
+  collect 10692 quest 3568.2
+  collect 10693 quest 3568.3
+
+step The Shattered Strand: Filled Vial Labeled #4
+  collect 10694 quest 3568.4
+
+step Southridge Beach: The Demon Hunter
+  complete 2744
+
+step Loramus Thalipedes
+  turnin 2744
+  accept 3141
+
+step Southridge Beach: Loramus
+  complete 3141
+
+step Loramus Thalipedes
+  turnin 3141
+  accept 3508
+  turnin 3508
+  accept 3509
+
+step Lord Arkkoroc
+  tip Hetaera (level 55) is elite: grouping up is advised unless you are well above level 55.
+  turnin 3509
+  accept 3510 optional
+
+step Thalassian Base Camp: Blood Elf Reclaimer and Blood Elf Surveyor
+  kill 6199 quest 3505.1
+  kill 6198 quest 3505.2
+
+step Kaldorei Tome of Summoning
+  turnin 3505
+  accept 3506
+
+step Thalassian Base Camp: Head of Magus Rimtori
+  collect 10597 quest 3506.1
+
+step Lord Arkkoroc
+  tip Hetaera (level 55) is elite: grouping up is advised unless you are well above level 55.
+  collect 10599 quest 3510.1 optional
+  collect 10598 quest 3510.2 optional
+  collect 10600 quest 3510.3 optional
+  turnin 3510 optional
+  accept 3511
+
+step Loramus Thalipedes
+  turnin 3511
+  accept 3602
+
+step Southridge Beach: Crystallized Azsharite
+  tip Felhound Tracker Kit lasts 10 minutes: go straight on with it.
+  collect 10714 quest 3602.1
+
+step Loramus Thalipedes
+  turnin 3602
+
+step Loramus Thalipedes
+  accept 3621
+
+step Ag'tor Bloodfist
+  turnin 3506
+  accept 3507
+
+step Captain Vanessa Beltis
+  accept 3382
+
+step The Ruined Reaches: A Crew Under Fire
+  complete 3382
+
+step Captain Vanessa Beltis
+  turnin 3382

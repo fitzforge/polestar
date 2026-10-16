@@ -1,0 +1,111 @@
+guide completionist/alliance/dwarf/48-darnassus-un-goro-crater
+title Darnassus & Un'Goro Crater
+faction Alliance
+race Dwarf
+levels 59-60
+zone Darnassus
+category Completionist
+folder Completionist · Dwarf 50-60
+keywords completionist, every quest, Darnassus, Hillsbrad Foothills, Tanaris, Thousand Needles, Un'Goro Crater
+next completionist/alliance/dwarf/49-silithus
+
+# Route: guide 48 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 59 to 60, 21
+# quests, 1.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Darnassus, Hillsbrad Foothills, Tanaris, Thousand Needles, Un'Goro
+# Crater): Craftsmen's Terrace -> near Craftsmen's Terrace -> Craftsmen's
+# Terrace -> near Craftsmen's Terrace -> Craftsmen's Terrace -> Southshore ->
+# Darrow Hill -> Gadgetzan -> Lost Rigger Cove -> The Shimmering Flats ->
+# Lakkari Tar Pits.
+#
+# Optional (elite: grouping up is advised): Crushridge Warmongers (504;
+# Crushridge Warmonger 39-40); It's Dangerous to Go Alone (3962; Blazerunner
+# 56).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In Search of Thaelrid (1198), Twilight Falls (1199), In
+# the Name of the Light (1053), Divino-matic Rod (2768), Scarab Shells (2865),
+# Troll Temper (3042), Into the Depths (3446), Secret of the Circle (3447),
+# The Prophecy of Mosh'aru (3527), The God Hakkar (3528), The Final Tablets
+# (4788), The Crone of the Kraul (1101), Gahz'rilla (2770).
+
+step Raedon Duskstriker
+  turnin 7799
+
+step Gracina Spiritmight
+  turnin 4508
+
+step Arch Druid Fandral Staghelm
+  turnin 5253
+
+step Gracina Spiritmight
+  accept 4510
+
+step Idriana
+  turnin 4510
+
+step Arch Druid Fandral Staghelm
+  turnin 4902
+
+step Raedon Duskstriker
+  turnin 7792
+
+step Tyrande Whisperwind
+  turnin 1081
+
+step Raedon Duskstriker
+  turnin 7798
+
+step Southshore
+  zone Hillsbrad Foothills
+  tip Crushridge Warmonger (level 39-40) is elite: grouping up is advised unless you are well above level 40.
+  sethome "Southshore"
+  turnin 504 optional
+  turnin 537
+  turnin 565
+
+step Lieutenant Haggerdin
+  turnin 7261
+
+step Back to Southshore
+  hearth "Southshore"
+
+step Gadgetzan
+  zone Tanaris
+  sethome "Gadgetzan"
+  turnin 4450
+  turnin 2741
+
+step Lost Rigger Cove: Silver Totem of Aquementas
+  collect 11522 quest 4005.1
+
+step Razzeric
+  zone Thousand Needles
+  turnin 1189
+  turnin 1119
+  accept 1120
+  turnin 1120
+  accept 1122
+
+step J.D. Collie
+  zone Un'Goro Crater
+  turnin 4005
+  accept 3961
+
+step Linken
+  tip Blazerunner (level 56) is elite: grouping up is advised unless you are well above level 56.
+  turnin 3961
+  accept 3962 optional
+  complete 3962 optional
+
+step Twilight Base Camp
+  tip Blazerunner (level 56) is elite: grouping up is advised unless you are well above level 56.
+  turnin 3962 optional
+  getfp "Cenarion Hold"
+
+step Twilight Base Camp
+  sethome "Cenarion Hold"

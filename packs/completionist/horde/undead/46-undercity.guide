@@ -1,0 +1,81 @@
+guide completionist/horde/undead/46-undercity
+title Undercity
+faction Horde
+race Undead
+levels 59-60
+zone Undercity
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Undercity, Duskwood, Blasted Lands
+next completionist/horde/undead/47-thunder-bluff-feralas
+
+# Route: guide 46 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 59 to
+# 60, 18 quests, 0.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Undercity, Duskwood, Blasted Lands): Undercity -> near Undercity ->
+# Undercity -> near Undercity -> Undercity -> near Undercity -> Undercity ->
+# Darkshire -> Nethergarde Keep.
+#
+# Optional (elite: grouping up is advised): Nothing But The Truth (1383;
+# Deepstrider Giant 38-39, Deepstrider Searcher 39-40).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Book of Ur (1013), The Book of Ur (1013), Going,
+# Going, Guano! (1109), Going, Going, Guano! (1109), Bring the End (3341), The
+# Power to Destroy... (5725), Light's Justice (92421), Light's Justice
+# (92421), The New Plague (95216), Source of Power (96988).
+
+step Patrick Garrett
+  turnin 2342
+
+step Sharlindra
+  turnin 521
+
+step Master Apothecary Faranell
+  turnin 2938
+  turnin 451
+
+step Ralston Farnsley
+  turnin 7817
+
+step Chemist Cuely
+  turnin 3568
+  accept 3569
+  turnin 3569
+  accept 3570
+  turnin 3570
+
+step Oran Snakewrithe
+  turnin 2995
+
+step Chemist Fuely
+  turnin 4642
+  turnin 97985
+
+step Genavie Callow
+  turnin 1164
+  turnin 7814
+  turnin 7813
+
+step Apothecary Faustin
+  zone Duskwood
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  turnin 1383 optional
+  accept 1388
+  turnin 1388
+  accept 1391
+
+step Nethergarde Keep: Marsh Flesheater and Marsh Oracle
+  zone Blasted Lands
+  kill 751 quest 1428.2
+  kill 752 quest 1428.3
+
+step Back to Undercity
+  hearth "Undercity"
+
+step Thunder Bluff
+  sethome "Thunder Bluff"

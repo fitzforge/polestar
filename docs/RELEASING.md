@@ -22,7 +22,13 @@ reproducible: the same sources give byte-identical archives.
 
 Guide packs are packed by their authors with `polestar pack` in the pack
 folder (`<pack>/dist/<folder>-<version>.zip`, version from its `pack.json`);
-see docs/PACKS.md.
+see docs/PACKS.md. Our own Completionist pack is one of them, released on its
+own: `node tools/polestar.js pack packs/completionist` writes
+`packs/completionist/dist/PolestarPack_Completionist-<version>.zip` (the
+version in `packs/completionist/pack.json`, raised when its guides change).
+Its guides are the simulator's completionist routes (docs/SIMULATION.md §10):
+regenerated with `sim run --objective completionist` and `sim export`, not
+edited by hand.
 
 ## Version
 

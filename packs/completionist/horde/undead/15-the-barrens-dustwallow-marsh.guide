@@ -1,0 +1,243 @@
+guide completionist/horde/undead/15-the-barrens-dustwallow-marsh
+title The Barrens & Dustwallow Marsh
+faction Horde
+race Undead
+levels 33-35
+zone The Barrens
+category Completionist
+folder Completionist · Undead 30-40
+keywords completionist, every quest, The Barrens, Thousand Needles, Dustwallow Marsh, Thunder Bluff, Orgrimmar
+next completionist/horde/undead/16-mulgore-thousand-needles
+
+# Route: guide 15 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 33 to
+# 35, 54 quests, 3.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Barrens, Thousand Needles, Dustwallow Marsh, Thunder Bluff,
+# Orgrimmar): Ratchet -> Honor's Stand -> Ratchet -> The Shimmering Flats ->
+# Freewind Post -> Brackenwall Village -> Witch Hill -> Theramore Isle ->
+# Brackenwall Village -> Witch Hill -> Brackenwall Village -> Witch Hill ->
+# Brackenwall Village -> ….
+#
+# Optional (elite: grouping up is advised): A Host of Evil (6626; Razorfen
+# Battleguard 33-34, Razorfen Thornweaver 33-34, Death's Head Cultist 33-34).
+#
+# Profession quests here are not routed (they need the skill): 6607 Nat Pagle,
+# Angler Extreme.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Willix the Importer (1144), Blueleaf Tubers (1221),
+# Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate Eradication
+# (1487), The Glowing Shard (6981), Gahz'rilla (2770), Tiara of the Deep
+# (2846), Leaders of the Fang (914), A Vengeful Fate (1102), Testing an
+# Enemy's Strength (5723), Necklace Recovery, Take 2 (2284), Rig Wars (2841),
+# Rig Wars (2841), The Royal Rescue (4003), For The Horde! (4974), Returning
+# the Lost Satchel (5724), Hidden Enemies (5728), Hidden Enemies (5728),
+# Slaying the Beast (5761), Slaying the Beast (5761), Changing Tastes (95697),
+# Changing Tastes (95697).
+
+step Mebok Mizzyrix
+  turnin 1069
+
+step Makaba Flathoof
+  turnin 6523
+  accept 6401
+  turnin 6548
+  accept 6629
+  turnin 1062
+  accept 1063
+  accept 1068
+
+step Back to Ratchet
+  hearth "Ratchet"
+
+step Sputtervalve
+  turnin 1094
+  accept 1095
+
+step Kravel Koalbeard
+  zone Thousand Needles
+  accept 1111
+  accept 1176
+
+step The Shimmering Flats: Hollow Vulture Bone
+  collect 5848 quest 1176.1
+
+step Pozzik
+  turnin 1176
+  accept 1178
+
+step Freewind Post
+  sethome "Freewind Post"
+  accept 5361
+
+step Brackenwall Village
+  zone Dustwallow Marsh
+  getfp "Brackenwall Village"
+  accept 1201
+
+step Brackenwall Village: Theramore Infiltrator
+  kill 4834 quest 1201.1
+
+step Nazeer Bloodpike
+  turnin 1201
+  accept 1202
+
+step 'Stinky' Ignatz
+  accept 1270
+
+step Witch Hill: Stinky's Escape
+  complete 1270
+
+step Loose Dirt
+  accept 1238
+  accept 1218
+
+step Theramore Isle: The Theramore Docks
+  complete 1202
+
+step Nazeer Bloodpike
+  turnin 1238
+  turnin 1202
+
+step Loose Dirt
+  accept 1239
+
+step Nazeer Bloodpike
+  turnin 1239
+  accept 1240
+
+step Mudcrush Durtfeet
+  accept 1177
+
+step Witch Hill: Mirefin Head
+  collect 5847 quest 1177.1
+
+step Mudcrush Durtfeet
+  turnin 1177
+
+step Thunder Bluff
+  zone Thunder Bluff
+  getfp "Thunder Bluff"
+  sethome "Thunder Bluff"
+  turnin 775
+  turnin 98430
+  turnin 99082
+  accept 776
+
+step Eylah Sunhorn
+  accept 97485
+
+step Thunder Bluff: Traditions of the Bluff
+  complete 97485
+
+step Eylah Sunhorn
+  turnin 97485
+
+step Arch Druid Hamuul Runetotem
+  turnin 98435
+
+step Eyahn Eagletalon
+  accept 744
+
+step Melor Stonehoof
+  turnin 861
+  accept 860
+
+step Arch Druid Hamuul Runetotem
+  accept 886
+
+step Apothecary Zamah
+  turnin 853
+
+step Arch Druid Hamuul Runetotem
+  turnin 1489
+  turnin 1063
+
+step Melor Stonehoof
+  turnin 1130
+
+step Ratchet
+  zone The Barrens
+  sethome "Ratchet"
+  turnin 1270
+
+step Ratchet: Soothing Spices
+  buy 3713 x3 nearest
+
+step Wharfmaster Dizzywig
+  turnin 1111
+  accept 1112
+
+step Gazlowe
+  turnin 1178
+  accept 1180
+
+step Nizook Boof
+  accept 98906
+  turnin 98906
+
+step The Crossroads
+  sethome "The Crossroads"
+  accept 1145
+
+step Regthar Deathgate
+  accept 1362
+
+step Back to The Crossroads
+  hearth "The Crossroads"
+
+step Hoofprints
+  accept 1268
+  accept 1269
+  accept 1251
+
+step Feegly the Exiled
+  accept 857
+
+step Bael Modan: The Tear of the Moons
+  complete 857
+
+step Feegly the Exiled
+  turnin 857
+
+step Razorfen Downs: Arnak's Hoof
+  collect 12884 quest 5147.1
+
+step Lakota Windsong
+  accept 4904
+
+step Brave Moonhorn
+  accept 4542
+  turnin 5881
+
+step Camp Taurajo
+  sethome "Camp Taurajo"
+  accept 1153
+
+step Regthar Deathgate
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  turnin 1361
+  kill 7872 quest 6626.3 optional
+
+step Back to Camp Taurajo
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  kill 7874 quest 6626.2 optional
+  kill 7873 quest 6626.1 optional
+  hearth "Camp Taurajo"
+
+step Craven Drok
+  zone Orgrimmar
+  accept 1431
+
+step Belgrom Rockmaul
+  turnin 1145
+  accept 1146
+
+step Keldran
+  turnin 1431
+  accept 1432
+  note "Profession quests here, for players with the skill: Nat Pagle, Angler Extreme (Fishing 225)."

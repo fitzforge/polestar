@@ -1,0 +1,273 @@
+guide completionist/alliance/human/48-azshara-stranglethorn-vale
+title Azshara & Stranglethorn Vale
+faction Alliance
+race Human
+levels 59-60
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · Human 50-60
+keywords completionist, every quest, Azshara, Stormwind City, Darnassus, Dun Morogh, Elwynn Forest, Stranglethorn Vale, Ironforge, Westfall
+next completionist/alliance/human/49-silithus
+
+# Route: guide 48 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 59 to 60, 44
+# quests, 8.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Azshara, Stormwind City, Darnassus, Dun Morogh, Elwynn Forest,
+# Stranglethorn Vale, Ironforge, Westfall): Southridge Beach -> Temple of
+# Arkkoran -> Southridge Beach -> Stormwind City -> near Stormwind ->
+# Craftsmen's Terrace -> near Craftsmen's Terrace -> Craftsmen's Terrace ->
+# near Craftsmen's Terrace -> Craftsmen's Terrace -> near Craftsmen's Terrace
+# -> Misty Pine Refuge -> The Grizzled Den -> ….
+#
+# Optional (elite: grouping up is advised): The Name of the Beast (3510;
+# Hetaera 55); Morganth (249; Morganth 26); Message in a Bottle (630; King
+# Mukla 51); An Ambassador of Evil (762; Ambassador Infernus 42).
+#
+# Left out: Order Must Be Restored (6187): the route takes them here but
+# cannot finish them (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489), In Search
+# of Thaelrid (1198), Twilight Falls (1199), A Fine Mess (2904), The
+# Sparklematic 5200! (2951), The Only Cure is More Green Glow (2962), The Only
+# Cure is More Green Glow (2962), Hurley Blackbreath (4126), Old Ironforge
+# Incursion (96393), Old Ironforge Incursion (96393), Knowledge in the Deeps
+# (971), Knowledge in the Deeps (971), Mythology of the Titans (1050),
+# Mythology of the Titans (1050), The Lost Tablets of Will (1139), Back to
+# Uldaman (2200), Restoring the Necklace (2204), The Lost Dwarves (2398),
+# Essential Artificials (2924), Essential Artificials (2924), The Grand
+# Betrayal (2929), The Grand Betrayal (2929), Data Rescue (2930), Data Rescue
+# (2930), Kharan Mighthammer (4341), The Fate of the Kingdom (4362), The
+# Restless Dead (96394), The Restless Dead (96394), An Ancient Grudge (96395),
+# Important Heirlooms (96403), Important Heirlooms (96403), The Treaty of
+# Understanding (98423), The Defias Brotherhood (166), The Defias Brotherhood
+# (166), The Unsent Letter (373).
+
+step Southridge Beach: The Demon Hunter
+  zone Azshara
+  complete 2744
+
+step Loramus Thalipedes
+  turnin 2744
+  accept 3141
+
+step Southridge Beach: Loramus
+  complete 3141
+
+step Loramus Thalipedes
+  turnin 3141
+  accept 3508
+  turnin 3508
+  accept 3509
+
+step Lord Arkkoroc
+  tip Hetaera (level 55) is elite: grouping up is advised unless you are well above level 55.
+  turnin 3509
+  accept 3510 optional
+
+step Lord Arkkoroc
+  tip Hetaera (level 55) is elite: grouping up is advised unless you are well above level 55.
+  collect 10599 quest 3510.1 optional
+  collect 10598 quest 3510.2 optional
+  collect 10600 quest 3510.3 optional
+  turnin 3510 optional
+  accept 3511
+
+step Loramus Thalipedes
+  turnin 3511
+  accept 3602
+
+step Southridge Beach: Crystallized Azsharite
+  tip Felhound Tracker Kit lasts 10 minutes: go straight on with it.
+  collect 10714 quest 3602.1
+
+step Loramus Thalipedes
+  turnin 3602
+
+step Loramus Thalipedes
+  accept 3621
+
+step Back to Stormwind City
+  hearth "Stormwind City"
+
+step Clavicus Knavingham
+  zone Stormwind City
+  turnin 7794
+
+step Brohann Caskbelly
+  turnin 1475
+
+step Highlord Bolvar Fordragon
+  turnin 6186
+
+step Craftsmen's Terrace
+  zone Darnassus
+  sethome "Craftsmen's Terrace"
+  turnin 7799
+
+step Gracina Spiritmight
+  turnin 4508
+
+step Arch Druid Fandral Staghelm
+  turnin 5253
+
+step Raedon Duskstriker
+  turnin 7792
+
+step Tyrande Whisperwind
+  turnin 1081
+
+step Thyn'tel Bladeweaver
+  turnin 1044
+
+step Gracina Spiritmight
+  accept 4510
+
+step Idriana
+  turnin 4510
+
+step Arch Druid Fandral Staghelm
+  turnin 4902
+
+step Misty Pine Refuge: A Donation of Runecloth
+  zone Dun Morogh
+  complete 7805
+  complete 7811
+
+step The Grizzled Den
+  sethome "Thunderbrew Distillery"
+  turnin 4128
+
+step Pilot Stonegear
+  turnin 466
+
+step Marshal Haggard
+  zone Elwynn Forest
+  tip Morganth (level 26) is elite: grouping up is advised unless you are well above level 26.
+  turnin 249 optional
+  turnin 74
+  accept 75
+
+step Eastvale Logging Camp: The Legend of Stalvan
+  complete 75
+
+step Marshal Haggard
+  turnin 75
+  accept 78
+
+step Galvan the Ancient
+  zone Stranglethorn Vale
+  turnin 3621
+  accept 3625
+
+step Mosh'Ogg Ogre Mound: Enchanted Azsharite Fel Weaponry
+  complete 3625
+
+step Galvan the Ancient
+  turnin 3625
+  accept 3626
+
+step Wild Shore
+  tip Half-Buried Bottle drops the Carefully Folded Note: right-click it to start Message in a Bottle.
+  collect 4098 x1
+  accept 594
+
+step Princess Poobah
+  tip King Mukla (level 51) is elite: grouping up is advised unless you are well above level 51.
+  turnin 594
+  accept 630 optional
+  collect 4103 quest 630.1 optional
+
+step Booty Bay
+  tip King Mukla (level 51) is elite: grouping up is advised unless you are well above level 51.
+  turnin 630 optional
+  sethome "Booty Bay"
+  accept 3721
+  turnin 3721
+
+step Fleet Master Firallon
+  accept 9272
+  turnin 9272
+
+step Crank Fizzlebub
+  turnin 1122
+  turnin 580
+
+step Stormwind City
+  zone Stormwind City
+  sethome "Stormwind City"
+  accept 7795
+
+step Stormwind: A Donation of Runecloth
+  complete 7795
+
+step Clavicus Knavingham
+  turnin 7795
+
+step Mistina Steelshield
+  zone Ironforge
+  turnin 7805
+
+step Bubulo Acerbus
+  turnin 7811
+
+step Back to Stormwind City
+  tip Ambassador Infernus (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 762 optional
+  hearth "Stormwind City"
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  turnin 49
+
+step Fleet Master Firallon
+  zone Stranglethorn Vale
+  accept 4621
+
+step Booty Bay: Baron Revilgaz and Fleet Master Seahorn
+  sethome "Booty Bay"
+  kill 2496 quest 4621.1
+  kill 2487 quest 4621.2
+
+step 'Pretty Boy' Duncan
+  accept 1036
+
+step Fleet Master Firallon
+  turnin 1036
+  turnin 4621
+
+step Vinchaxa
+  accept 8195 optional
+  accept 8238 optional
+  accept 8239 optional
+  accept 8240
+  turnin 8240
+  collect 19698 quest 8195.1 optional
+  collect 19699 quest 8195.2 optional
+  collect 19700 quest 8195.3 optional
+  collect 19701 quest 8238.1 optional
+  collect 19702 quest 8238.2 optional
+  collect 19703 quest 8238.3 optional
+  collect 19704 quest 8239.1 optional
+  collect 19705 quest 8239.2 optional
+  collect 19706 quest 8239.3 optional
+
+step Back to Booty Bay
+  turnin 8195 optional
+  turnin 8238 optional
+  turnin 8239 optional
+  hearth "Booty Bay"
+
+step Twilight Base Camp
+  getfp "Cenarion Hold"
+
+step Twilight Base Camp
+  sethome "Cenarion Hold"

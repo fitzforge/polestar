@@ -1,0 +1,263 @@
+guide completionist/alliance/gnome/15-desolace
+title Desolace
+faction Alliance
+race Gnome
+levels 35-38
+zone Desolace
+category Completionist
+folder Completionist · Gnome 30-40
+keywords completionist, every quest
+next completionist/alliance/gnome/16-shen-dralas
+
+# Route: guide 15 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 35 to 38, 40
+# quests, 5.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Desolace): Nijel's Point -> Sargeron -> Nijel's Point -> Tethris Aran
+# -> Nijel's Point -> Thunder Axe Fortress -> Kormek's Hut -> Kolkar Village
+# -> Kodo Graveyard -> Magram Village -> Kolkar Village -> Kormek's Hut ->
+# Magram Village -> ….
+#
+# Optional (elite: grouping up is advised): Khan Hratha (1381; Khan Hratha
+# 42).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Legends of Maraudon (7044), The Pariah's Instructions
+# (7067).
+
+step Vahlarriel Demonslayer
+  accept 1437
+  accept 1382
+  accept 1385
+  accept 93224
+  accept 1387
+  turnin 1453
+  accept 1454
+  accept 1458
+
+step Sargeron: Hatefury Claw and Hatefury Horn
+  collect 6246 quest 1458.1
+  collect 6247 quest 1458.2
+
+step Kreldig Ungor
+  turnin 1458
+  accept 1459
+
+step Nijel's Point: Scorpashi Venom
+  collect 6248 quest 1459.1
+
+step Malem Chest
+  turnin 1437
+  accept 1465
+
+step Vahlarriel Demonslayer
+  turnin 1465
+  accept 1438
+
+step Dalinda Malem
+  turnin 1438
+  accept 1439
+
+step Thunder Axe Fortress: Tyranis' Pendant
+  collect 6767 quest 1439.1
+
+step Dalinda Malem
+  turnin 1439
+  accept 1440
+
+step Thunder Axe Fortress: Return to Vahlarriel and Aged Kodo Hide
+  complete 1440
+  collect 6249 quest 1459.2
+
+step Cork Gizelton
+  accept 5821
+
+step Kormek's Hut: Centaur Ear
+  collect 6067 quest 1387.1
+
+step Kolkar Village: Bodyguard for Hire
+  complete 5821
+
+step Smeed Scrabblescrew
+  turnin 5821
+  accept 5561
+
+step Kodo Graveyard: Aged Kodo
+  kill 4700 quest 5561.1
+
+step Smeed Scrabblescrew
+  turnin 5561
+
+step Warug
+  turnin 1385
+  accept 1386
+  accept 92743
+  turnin 92743
+  accept 92841
+
+step Kolkar Village: Kolkar Scout
+  kill 4633 quest 1386.2
+
+step Kormek's Hut: Kolkar Centaur and Kolkar Mauler
+  kill 4632 quest 1386.1
+  kill 4634 quest 1386.3
+
+step Warug
+  turnin 1386
+  accept 1369
+
+step Back to Nijel's Point
+  hearth "Nijel's Point"
+
+step Vahlarriel Demonslayer
+  turnin 1440
+  turnin 1387
+  turnin 1459
+  accept 1466
+
+step Azore Aldamort
+  accept 5741
+
+step Karnitol's Chest
+  turnin 1454
+  accept 1455
+  accept 6161
+
+step Ethel Rethor: Rackmore's Silver Key
+  collect 15878 quest 6161.1
+
+step Ethel Rethor: Rackmore's Golden Key
+  collect 15881 quest 6161.2
+
+step Rackmore's Chest
+  turnin 6161
+
+step Thunder Axe Fortress: Sceptre of Light
+  collect 15750 quest 5741.1
+
+step Azore Aldamort
+  turnin 5741
+  accept 6027
+
+step Ranazjar Isle: Book of the Ancients
+  collect 15803 quest 6027.1
+
+step Azore Aldamort
+  turnin 6027
+
+step Valley of Spears: Carved Centaur Totem
+  collect 254432 quest 93224.1
+
+step Uthek the Wise
+  turnin 1382
+  accept 1384
+  accept 93034
+
+step Gelkis Village: Broken Tears
+  collect 6083 quest 1369.1
+
+step Mannoroc Coven: Doomwarder Blood
+  collect 6252 quest 1466.3
+
+step Mannoroc Coven: Nether Wing and Felhound Brain
+  collect 6251 quest 1466.2
+  collect 6250 quest 1466.1
+
+step Kolkar Village: Crude Charm
+  collect 6079 quest 1384.1
+
+step Warug
+  turnin 1369
+  accept 1371
+
+step Magram Village: Gizmo for Warug
+  complete 1371
+
+step Warug
+  turnin 1371
+  accept 1375
+
+step Gelkis Village: Khan Shaka's Head
+  collect 6073 quest 1375.1
+
+step Uthek the Wise
+  turnin 1384
+  accept 1370
+
+step Magram Village: Crudely Dried Meat
+  collect 6069 quest 1370.1
+
+step Warug
+  turnin 1375
+
+step Back to Nijel's Point
+  hearth "Nijel's Point"
+
+step Captain Pentigast
+  turnin 93224
+  turnin 1455
+  turnin 1466
+  accept 1456
+  accept 1467
+
+step Ranazjar Isle: Karnitol's Satchel
+  collect 6245 quest 1456.1
+
+step Uthek the Wise
+  turnin 1370
+  accept 1373
+
+step Kreldig Ungor
+  turnin 1456
+  accept 1457
+  accept 261
+
+step Bibbly F'utzbuckle
+  accept 5501
+
+step Kodo Graveyard: Kodo Bone
+  collect 13703 quest 5501.1
+
+step Hornizz Brimbuzzle
+  accept 6134
+
+step Rigger Gizelton
+  accept 5943
+
+step Mannoroc Coven: Gizelton Caravan
+  complete 5943
+
+step Smeed Scrabblescrew
+  turnin 5943
+
+step Bibbly F'utzbuckle
+  turnin 5501
+
+step Melizza Brimbuzzle
+  accept 6132
+
+step Valley of Spears: Get Me Out of Here!
+  complete 6132
+
+step Mannoroc Coven: Ghost-o-plasm and Undead Ravager
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  collect 15849 quest 6134.1
+  kill 11561 quest 261.1
+  accept 1381 optional
+  collect 6077 quest 1381.1 optional
+
+step Hornizz Brimbuzzle
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1381 optional
+  turnin 6132
+  turnin 6134
+
+step Back to Nijel's Point
+  hearth "Nijel's Point"
+
+step Brother Anton
+  turnin 261
+  accept 1052

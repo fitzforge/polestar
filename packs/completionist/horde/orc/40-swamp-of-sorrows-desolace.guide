@@ -1,0 +1,181 @@
+guide completionist/horde/orc/40-swamp-of-sorrows-desolace
+title Swamp of Sorrows & Desolace
+faction Horde
+race Orc
+levels 57-58
+zone Swamp of Sorrows
+category Completionist
+folder Completionist · Orc 50-60
+keywords completionist, every quest, Swamp of Sorrows, Winterspring, Desolace
+next completionist/horde/orc/41-eastern-plaguelands-silverpine-forest
+
+# Route: guide 40 of 49 of the simulator's completionist route for Orc (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 57 to 58, 37
+# quests, 4.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Swamp of Sorrows, Winterspring, Desolace): Stonard -> Fallow Sanctuary
+# -> Itharius's Cave -> Splinterspear Junction -> Stonard -> Splinterspear
+# Junction -> Stonard -> Stagalbog -> Stonard -> Pool of Tears -> Stonard ->
+# Misty Reed Strand -> Splinterspear Junction -> ….
+#
+# Optional (elite: grouping up is advised): Nothing But The Truth (1383;
+# Deepstrider Giant 38-39, Deepstrider Searcher 39-40); Khan Hratha (1380;
+# Khan Hratha 42); Shadowshard Fragments (7068; Shadowshard Rumbler 40-41,
+# Shadowshard Smasher 41-42, Shadowshard Thunderer 38).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Blood of the Black Dragon Champion (6602), Vyletongue
+# Corruption (7029), Legends of Maraudon (7044), Corruption of Earth and Seed
+# (7064), The Pariah's Instructions (7067).
+
+step Helgrum the Swift
+  turnin 1420
+
+step Fallow Sanctuary: Draenethyst Shard
+  collect 6190 quest 1373.1
+
+step Itharius's Cave: Speck of Dream Dust
+  collect 5803 quest 1116.1
+
+step A Soggy Scroll
+  turnin 624
+
+step Dar
+  accept 698
+  accept 1430
+
+step A Soggy Scroll
+  accept 625
+
+step Stonard: Unprepared Sawtooth Flank
+  collect 6169 quest 698.1
+
+step Tok'Kar
+  turnin 698
+  accept 699
+
+step Stagalbog: Monstrous Crawler Leg
+  collect 6184 quest 1430.1
+
+step Stagalbog: Sawtooth Snapper Claw
+  collect 6168 quest 699.1
+
+step Tok'Kar
+  turnin 699
+  accept 1422
+  turnin 1422
+  accept 1426
+
+step Stagalbog: Marsh Murloc and Marsh Inkspewer
+  kill 747 quest 1426.1
+  kill 750 quest 1426.2
+
+step Back to Stonard
+  hearth "Stonard"
+
+step Dar
+  turnin 1430
+  accept 1424
+
+step Pool of Tears: Atal'ai Artifact
+  collect 6175 quest 1424.1
+
+step Fel'zerul
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  collect 6080 quest 1383.1 optional
+  turnin 1424
+  accept 1429
+
+step Misty Reed Strand: Goodsteel's Balanced Flameberge
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  collect 6081 quest 1383.2 optional
+  collect 11723 quest 4450.4
+
+step Fallen Hero of the Horde
+  turnin 2623
+  accept 2801
+
+step Splinterspear Junction: A Tale of Sorrow
+  complete 2801
+
+step Fallen Hero of the Horde
+  turnin 2801
+  accept 2681
+
+step Everlook
+  zone Winterspring
+  sethome "Everlook"
+  accept 6606
+  turnin 6606
+  accept 4907
+
+step Donova Snowden
+  turnin 3909
+  accept 3912
+  turnin 5085
+  accept 5086
+
+step Owl Wing Thicket: Moontouched Owlbeast
+  kill 7453 quest 4741.1
+
+step Kolkar Village: Silk Cloth
+  zone Desolace
+  collect 4306 quest 7821.1
+
+step Gurda Wildmane
+  accept 94872
+
+step Gorhak
+  turnin 94872
+
+step Uthek the Wise
+  turnin 93041
+  turnin 93128
+  turnin 1373
+  accept 1374
+
+step Magram Village: Khan Jehn's Head
+  collect 6072 quest 1374.1
+
+step Uthek the Wise
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1374
+  accept 1380 optional
+  collect 6077 quest 1380.1 optional
+
+step Hornizz Brimbuzzle
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1380 optional
+  accept 6134
+
+step Melizza Brimbuzzle
+  accept 6132
+
+step Valley of Spears: Get Me Out of Here!
+  complete 6132
+
+step Mannoroc Coven: Ghost-o-plasm
+  collect 15849 quest 6134.1
+
+step Hornizz Brimbuzzle
+  turnin 6132
+  turnin 6134
+
+step Kodo Graveyard: A Donation of Mageweave
+  complete 7822
+  accept 7028 optional
+  collect 17684 quest 7028.1 optional
+
+step Sargeron: Resonite Crystal and Wool Cloth
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42), Shadowshard Thunderer (level 38) and 2 more are elite: grouping up is advised unless you are well above level 42.
+  turnin 7028 optional
+  collect 17756 quest 7068.1 optional
+  collect 6082 quest 1383.3 optional
+  collect 16581 quest 6421.1
+  collect 2592 quest 7820.1
+
+step Tarren Mill
+  sethome "Tarren Mill"

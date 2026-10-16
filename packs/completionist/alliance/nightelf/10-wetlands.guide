@@ -1,0 +1,295 @@
+guide completionist/alliance/nightelf/10-wetlands
+title Wetlands
+faction Alliance
+race NightElf
+levels 30-33
+zone Wetlands
+category Completionist
+folder Completionist · NightElf 30-40
+keywords completionist, every quest
+next completionist/alliance/nightelf/11-wetlands-thousand-needles
+
+# Route: guide 10 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 30 to
+# 33, 49 quests, 3.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Wetlands): Menethil Harbor -> Bluegill Marsh -> Sundown Marsh -> Black
+# Channel Marsh -> Menethil Harbor -> Bluegill Marsh -> Menethil Harbor ->
+# Thelgen Rock -> Angerfang Encampment -> The Green Belt -> Mosshide Fen ->
+# Thelgen Rock -> The Green Belt -> ….
+#
+# Optional (elite: grouping up is advised): Death to the Dragonmaw (98291;
+# Dragonmaw Reclaimer 30, Dragonmaw Soulbinder, Dragonmaw Infiltrator); Defeat
+# Nek'rosh (474; Chieftain Nek'rosh 32).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Fury Runs Deep (378), The Fury Runs Deep (378), Lost
+# in the Thicket Things (95647), Fallen in the Fen (95795), Heartwoven
+# (95809), Highland Hides (98815), Highland Hides (98815), Prehistoric Prism
+# (98824), Prehistoric Prism (98824).
+
+step Valstag Ironjaw
+  accept 98197
+  accept 98240
+  accept 484
+
+step Menethil Harbor: Khaz Modan Timber and Khaz Modan Iron
+  collect 279821 quest 98197.1
+  collect 279822 quest 98197.2
+
+step Karl Boran
+  accept 279
+  accept 98189
+  accept 98190
+  turnin 98189
+  turnin 98197
+  accept 470
+  accept 98282
+  accept 463
+  accept 526
+
+step Menethil Harbor: Lightforge Ingot
+  collect 2702 quest 526.1
+
+step Glorin Steelbrow
+  turnin 526
+
+step Menethil Harbor: Young Crocolisk Skin
+  collect 3397 quest 484.1
+
+step Tarrel Rockweaver
+  turnin 98461
+
+step James Halloran
+  turnin 484
+  accept 471
+
+step Bluegill Marsh: Bluegill Murloc and Gobbler's Head
+  kill 1024 quest 279.1
+  collect 3618 quest 279.2
+
+step Sundown Marsh: Giant Crocolisk Skin
+  collect 3348 quest 471.1
+
+step Black Channel Marsh: Sida's Bag
+  collect 3349 quest 470.1
+
+step Sida
+  turnin 470
+  turnin 279
+  accept 281
+  turnin 471
+
+step Damaged Crate
+  turnin 281
+  accept 284
+  turnin 284
+  accept 285
+
+step Half-buried Barrel
+  turnin 285
+  accept 286
+
+step Karl Boran
+  turnin 286
+
+step Thelgen Rock: Dragonmaw Scout and Dragonmaw Grunt
+  kill 2103 quest 455.1
+  kill 2102 quest 455.2
+
+step Thelgen Rock: The Algaz Gauntlet
+  complete 455
+
+step Angerfang Encampment: Unruptured Stalker Gland
+  collect 280319 quest 98282.1
+
+step Howin Kindfeather
+  turnin 98240
+  accept 469
+
+step Rethiel the Greenwarden
+  turnin 463
+  accept 276
+
+step Mosshide Fen: Mosshide Mongrel
+  kill 1008 quest 276.2
+
+step Thelgen Rock: Mosshide Gnoll
+  kill 1007 quest 276.1
+
+step Rethiel the Greenwarden
+  turnin 276
+  accept 277
+
+step Ironbeard's Tomb: Crude Flint
+  collect 2611 quest 277.1
+
+step Ashlan Stonesmirk
+  turnin 161
+  accept 274
+
+step Rethiel the Greenwarden
+  turnin 277
+  accept 275
+
+step The Green Belt: Fen Creeper
+  kill 1040 quest 275.1
+
+step Rethiel the Greenwarden
+  turnin 275
+
+step Back to Deepwater Tavern
+  hearth "Deepwater Tavern"
+
+step Caitlin Grassman
+  turnin 98282
+  turnin 455
+
+step James Halloran
+  turnin 469
+  accept 473
+  turnin 473
+  accept 464
+  accept 98221
+  turnin 98221
+  accept 98230
+  accept 98072
+  accept 98209
+  accept 288
+
+step Menethil Harbor: Flagon of Mead
+  buy 2594 x1 nearest
+
+step First Mate Fitzsimmons
+  turnin 288
+  accept 289
+  turnin 95737
+
+step Sundown Marsh: Cursed Marine
+  kill 1158 quest 289.2
+
+step Bluegill Marsh: Cursed Sailor and Snellig's Snuffbox
+  kill 1157 quest 289.1
+  collect 3619 quest 289.3
+
+step Tarrel Rockweaver
+  accept 305
+
+step First Mate Fitzsimmons
+  turnin 289
+  accept 290
+
+step Sundown Marsh: Intrepid Strongbox Key
+  collect 2629 quest 290.1
+
+step Intrepid's Locked Strongbox
+  turnin 290
+  accept 292
+
+step Glorin Steelbrow
+  turnin 292
+  accept 293
+
+step Ormer Ironbraid
+  accept 294
+  accept 299
+  accept 98216
+  turnin 305
+  accept 306
+
+step Whelgar's Excavation Site: Titanic Keystone
+  collect 279993 quest 98216.1
+
+step Black Channel Marsh: Mottled Raptor
+  kill 1020 quest 294.1
+
+step Tarrel Rockweaver
+  turnin 306
+
+step Whelgar's Excavation Site: Mottled Screecher
+  kill 1021 quest 294.2
+
+step Whelgar's Excavation Site: Uncovering the Past
+  complete 299
+
+step Ormer Ironbraid
+  turnin 294
+  accept 295
+  turnin 299
+  turnin 98216
+
+step Whelgar's Excavation Site: Mottled Scytheclaw and Mottled Razormaw
+  kill 1022 quest 295.1
+  kill 1023 quest 295.2
+
+step Ormer Ironbraid
+  turnin 295
+  accept 296
+
+step Whelgar's Excavation Site: Sarltooth's Talon
+  collect 3638 quest 296.1
+
+step Ormer Ironbraid
+  turnin 296
+
+step Angerfang Encampment: Dragonmaw War Banner
+  collect 3337 quest 464.1
+
+step Howin Kindfeather
+  tip Dragonmaw Reclaimer (level 30), Dragonmaw Soulbinder and Dragonmaw Infiltrator are elite: grouping up is advised unless you are well above level 30.
+  turnin 98230
+  accept 98245
+  accept 98291 optional
+
+step Rethiel the Greenwarden
+  tip Dragonmaw Reclaimer (level 30), Dragonmaw Soulbinder and Dragonmaw Infiltrator are elite: grouping up is advised unless you are well above level 30.
+  kill 271351 quest 98291.1 optional
+  accept 98283
+  accept 95646
+
+step Direforge Hill: Pristine Crimson Scale
+  collect 279385 quest 98072.1
+
+step Direforge Hill: Razormaw Incisor and Carnage's Head
+  collect 280103 quest 98245.1
+  collect 280330 quest 98283.2
+
+step Angerfang Encampment: Horrible Rootcore
+  collect 270180 quest 95646.1
+
+step Tattered Spellbook
+  accept 98223
+
+step The Green Belt: Malignant Rotclaw Flesh
+  tip Dragonmaw Reclaimer (level 30), Dragonmaw Soulbinder and Dragonmaw Infiltrator are elite: grouping up is advised unless you are well above level 30.
+  kill 271348 quest 98291.2 optional
+  kill 271346 quest 98291.3 optional
+  collect 280331 quest 98283.1
+
+step Rethiel the Greenwarden
+  turnin 95646
+  turnin 98283
+
+step Howin Kindfeather
+  tip Dragonmaw Reclaimer (level 30), Dragonmaw Soulbinder and Dragonmaw Infiltrator are elite: grouping up is advised unless you are well above level 30.
+  turnin 98245
+  turnin 98291 optional
+
+step Back to Deepwater Tavern
+  hearth "Deepwater Tavern"
+
+step Captain Stoutfist
+  turnin 464
+  turnin 98223
+  accept 465
+  turnin 98072
+
+step Dragonmaw Catapult
+  tip Chieftain Nek'rosh (level 32) is elite: grouping up is advised unless you are well above level 32.
+  turnin 465
+  accept 474 optional
+  collect 3625 quest 474.1 optional
+  turnin 474 optional

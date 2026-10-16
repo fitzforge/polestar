@@ -1,0 +1,273 @@
+guide completionist/alliance/human/40-darnassus-stormwind-city
+title Darnassus & Stormwind City
+faction Alliance
+race Human
+levels 56-58
+zone Stormwind City
+category Completionist
+folder Completionist · Human 50-60
+keywords completionist, every quest, Ironforge, Eastern Plaguelands, Darnassus, Felwood, Redridge Mountains, Stormwind City, Dun Morogh, Alterac Mountains, Blasted Lands
+next completionist/alliance/human/41-blasted-lands-wetlands
+
+# Route: guide 40 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 56 to 58, 66
+# quests, 3.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Ironforge, Eastern Plaguelands, Darnassus, Felwood, Redridge
+# Mountains, Stormwind City, Dun Morogh, Alterac Mountains, Blasted Lands):
+# Ironforge -> near Ironforge -> Ironforge -> Light's Hope Chapel ->
+# Quel'Lithien Lodge -> Lake Mereldar -> The Undercroft -> near Craftsmen's
+# Terrace -> Craftsmen's Terrace -> near Craftsmen's Terrace -> Craftsmen's
+# Terrace -> near Craftsmen's Terrace -> Felpaw Village -> ….
+#
+# Optional (elite: grouping up is advised): Rise, Obsidion! (3566; Lathoric
+# the Black 52, Obsidion 52); Gnogaine (2926; Irradiated Invader 24-26,
+# Irradiated Pillager 25-26); Save Techbot's Brain! (2922; Techbot 26);
+# Crushridge Warmongers (504; Crushridge Warmonger 39-40).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Knowledge in the Deeps (971), Knowledge in the Deeps
+# (971), Mythology of the Titans (1050), Mythology of the Titans (1050), The
+# Lost Tablets of Will (1139), Back to Uldaman (2200), Restoring the Necklace
+# (2204), The Lost Dwarves (2398), Essential Artificials (2924), Essential
+# Artificials (2924), The Grand Betrayal (2929), The Grand Betrayal (2929),
+# Data Rescue (2930), Data Rescue (2930), Kharan Mighthammer (4341), The Fate
+# of the Kingdom (4362), The Restless Dead (96394), The Restless Dead (96394),
+# An Ancient Grudge (96395), Important Heirlooms (96403), Important Heirlooms
+# (96403), The Treaty of Understanding (98423), Dawn's Gambit (4771), The
+# Flesh Does Not Lie (5212), The Active Agent (5213), The Great Fras Siabi
+# (5214), Houses of the Holy (5243), The Archivist (5251), Above and Beyond
+# (5263), The Restless Souls (5282), Menethil's Gift (5463), Plagued
+# Hatchlings (5529), Dead Man's Plea (8945), Anthion's Old Friend (8948), In
+# Search of Thaelrid (1198), Twilight Falls (1199), What Comes Around...
+# (386), What Comes Around... (386), Songblade Search (95772), Songblade
+# Search (95772), Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489), A Fine Mess
+# (2904), The Sparklematic 5200! (2951), The Only Cure is More Green Glow
+# (2962), The Only Cure is More Green Glow (2962), Hurley Blackbreath (4126),
+# Old Ironforge Incursion (96393), Old Ironforge Incursion (96393), Starving
+# Arcane (92457), Heart of Disruption (92458), Past Due (96800), Past Due
+# (96800), Nekrum's Medallion (2991).
+
+step Royal Historian Archesonus
+  zone Ironforge
+  accept 3702
+
+step Ironforge: The Smoldering Ruins of Thaurissan
+  complete 3702
+
+step Royal Historian Archesonus
+  turnin 3702
+  accept 3701
+  accept 7261
+
+step Cenarion Emissary Jademoon
+  accept 8275
+  turnin 7809
+  turnin 7804
+
+step Tymor
+  turnin 3461
+
+step Curator Thorius
+  tip Lathoric the Black (level 52) and Obsidion (level 52) are elite: grouping up is advised unless you are well above level 52.
+  turnin 3566 optional
+  turnin 4513
+
+step Senator Barin Redstone
+  turnin 291
+
+step Jemma Quikswitch
+  turnin 95041
+
+step Light's Hope Chapel
+  zone Eastern Plaguelands
+  sethome "Light's Hope Chapel"
+  turnin 5168
+  accept 5206
+
+step Light's Hope Chapel: Marauders of Darrowshire
+  complete 5206
+
+step Carlin Redpath
+  turnin 5206
+  accept 5941
+
+step Aurora Skycaller
+  turnin 5246
+  accept 5247
+
+step Lake Mereldar: Discordant Bracers
+  collect 17309 quest 6804.1
+
+step The Undercroft: Taelan's Hammer
+  collect 14613 quest 5781.1
+
+step Priestess A'moora
+  zone Darnassus
+  turnin 2518
+  accept 2520
+
+step near Craftsmen's Terrace: Temple of the Moon Fountain
+  interact 138498 quest 2520.1
+
+step Priestess A'moora
+  turnin 2520
+
+step Rellian Greenspyre
+  turnin 923
+  accept 2498
+
+step Craftsmen's Terrace
+  sethome "Craftsmen's Terrace"
+  accept 7799
+
+step Jenal
+  turnin 3764
+  accept 3781
+  turnin 3781
+  accept 3785
+
+step near Craftsmen's Terrace: Morrowgrain Research
+  complete 3785
+
+step Mathrengyl Bearwalker
+  turnin 3785
+  accept 3803
+
+step near Craftsmen's Terrace: Morrowgrain to Darnassus
+  complete 3803
+
+step Mathrengyl Bearwalker
+  turnin 3803
+
+step near Craftsmen's Terrace: Vial of Blessed Water
+  collect 5646 quest 4441.1
+
+step Mathrengyl Bearwalker
+  turnin 4986
+
+step Raedon Duskstriker
+  accept 7792
+
+step Chief Archaeologist Greywhisker
+  accept 730
+  accept 942
+
+step Kernda
+  zone Felwood
+  turnin 8471
+  turnin 6031
+
+step Eridan Bluewind
+  turnin 4441
+  accept 4442
+  turnin 4442
+
+step Arei
+  accept 4261
+
+step Irontree Woods: Ancient Spirit
+  complete 4261
+
+step Deadwood Cauldron
+  turnin 5084
+  accept 5085
+
+step Ivy Leafrunner
+  accept 5249
+
+step Back to Craftsmen's Terrace
+  hearth "Craftsmen's Terrace"
+
+step Lakeshire
+  zone Redridge Mountains
+  sethome "Lakeshire"
+  turnin 4186
+
+step Stormwind
+  zone Stormwind City
+  sethome "Stormwind City"
+  turnin 1245
+  accept 1246
+
+step Dashel Stonefist
+  turnin 1246
+  accept 1447
+
+step Stormwind: The Missing Diplomat
+  complete 1447
+
+step Dashel Stonefist
+  turnin 1447
+  accept 1247
+
+step Elling Trias
+  turnin 1247
+  accept 1248
+
+step Clavicus Knavingham
+  accept 7793
+  turnin 697
+  accept 5066
+
+step Royal Factor Bathrilor
+  accept 5048
+  turnin 5048
+  accept 5050
+
+step Crier Goodman
+  accept 1015
+  accept 7494
+
+step Count Remington Ridgewell
+  accept 4766
+  accept 6182
+
+step Master Mathias Shaw
+  turnin 6182
+  accept 6183
+  turnin 6183
+  accept 6184
+
+step The Grizzled Den
+  zone Dun Morogh
+  tip Irradiated Invader (level 24-26) and Irradiated Pillager (level 25-26) are elite: grouping up is advised unless you are well above level 26.
+  sethome "Thunderbrew Distillery"
+  accept 2926 optional
+  turnin 2927
+
+step Pilot Stonegear
+  tip Irradiated Invader (level 24-26), Irradiated Pillager (level 25-26) and Techbot (level 26) are elite: grouping up is advised unless you are well above level 26.
+  accept 466
+  collect 9284 quest 2926.1 optional
+  collect 9277 quest 2922.1 optional
+  collect 9309 quest 2928.1 optional
+
+step Shimmer Ridge: Silver Bar
+  tip Irradiated Invader (level 24-26) and Irradiated Pillager (level 25-26) are elite: grouping up is advised unless you are well above level 26.
+  turnin 2926 optional
+  collect 2842 quest 2199.1
+
+step Strahnbrad: Argus Shadow Mage
+  zone Alterac Mountains
+  kill 2318 quest 537.1
+
+step Dandred's Fold: Head of Nagaz
+  tip Crushridge Warmonger (level 39-40) is elite: grouping up is advised unless you are well above level 40.
+  kill 2287 quest 504.1 optional
+  collect 3672 quest 537.2
+
+step Back to Thunderbrew Distillery
+  hearth "Thunderbrew Distillery"
+
+step Ambassador Ardalan
+  zone Blasted Lands
+  accept 2783
+  accept 4128

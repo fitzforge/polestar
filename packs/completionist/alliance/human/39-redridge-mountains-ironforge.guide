@@ -1,0 +1,296 @@
+guide completionist/alliance/human/39-redridge-mountains-ironforge
+title Redridge Mountains & Ironforge
+faction Alliance
+race Human
+levels 55-57
+zone Redridge Mountains
+category Completionist
+folder Completionist · Human 50-60
+keywords completionist, every quest, Redridge Mountains, Western Plaguelands, Stormwind City, Ironforge, Searing Gorge, Azshara, Un'Goro Crater
+next completionist/alliance/human/40-darnassus-stormwind-city
+
+# Route: guide 39 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 55 to 57, 65
+# quests, 3.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Redridge Mountains, Western Plaguelands, Stormwind City, Ironforge,
+# Searing Gorge, Azshara, Un'Goro Crater): Three Corners -> Lakeshire -> Three
+# Corners -> Sorrow Hill -> Felstone Field -> Northridge Lumber Camp ->
+# Gahrron's Withering -> Sorrow Hill -> Thondroril River -> Lakeshire ->
+# Lakeridge Highway -> Lakeshire -> Redridge Canyons -> ….
+#
+# Optional (elite: grouping up is advised): Rise, Obsidion! (3566; Lathoric
+# the Black 52, Obsidion 52).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): What Comes Around... (386), What Comes Around... (386),
+# Songblade Search (95772), Songblade Search (95772), Barov Family Fortune
+# (5343), Doctor Theolen Krastinov, the Butcher (5382), Kirtonos the Herald
+# (5384), The Lich, Ras Frostwhisper (5466), Krastinov's Bag of Horrors
+# (5515), Of Love and Family (5848), Quell The Uprising (387), Quell the
+# Uprising (387), The Color of Blood (388), The Color of Blood (388), The
+# Stockade Riots (391), The Stockade Riots (391), Underground Assault (2040),
+# Underground Assault (2040), Bring the Light (3636), A Green Sample (92456),
+# A Green Sample (92456), Power Overwhelming (92489), Power Overwhelming
+# (92489), Knowledge in the Deeps (971), Knowledge in the Deeps (971),
+# Mythology of the Titans (1050), Mythology of the Titans (1050), The Lost
+# Tablets of Will (1139), Back to Uldaman (2200), Restoring the Necklace
+# (2204), The Lost Dwarves (2398), Essential Artificials (2924), Essential
+# Artificials (2924), The Grand Betrayal (2929), The Grand Betrayal (2929),
+# Data Rescue (2930), Data Rescue (2930), Kharan Mighthammer (4341), The Fate
+# of the Kingdom (4362), The Restless Dead (96394), The Restless Dead (96394),
+# An Ancient Grudge (96395), Important Heirlooms (96403), Important Heirlooms
+# (96403), The Treaty of Understanding (98423), A Crumpled Up Note (4264),
+# Blackhand's Command (7761), The Left Piece of Lord Valthalak's Amulet
+# (8966), The Left Piece of Lord Valthalak's Amulet (8967), The Left Piece of
+# Lord Valthalak's Amulet (8968), The Left Piece of Lord Valthalak's Amulet
+# (8969), The Right Piece of Lord Valthalak's Amulet (8989), The Right Piece
+# of Lord Valthalak's Amulet (8990), The Right Piece of Lord Valthalak's
+# Amulet (8991), The Right Piece of Lord Valthalak's Amulet (8992), Mea Culpa,
+# Lord Valthalak (8995).
+
+step Marcy Baker
+  accept 91899
+  accept 91900
+
+step Three Corners: A Sealed Crate
+  complete 91899
+
+step Marcy Baker
+  turnin 91899
+
+step Three Corners: A Sealed Crate
+  complete 91900
+
+step Marcy Baker
+  turnin 91900
+
+step Lakeshire
+  sethome "Lakeshire"
+  accept 1097
+  turnin 119
+  turnin 121
+  turnin 65
+  turnin 4183
+  accept 4184
+
+step Marcy Baker
+  accept 91904
+  accept 91905
+
+step Three Corners: A Sealed Crate
+  complete 91904
+
+step Marcy Baker
+  turnin 91904
+
+step Three Corners: A Sealed Crate
+  complete 91905
+
+step Marcy Baker
+  turnin 91905
+
+step Nathaniel Dumah
+  zone Western Plaguelands
+  turnin 5903
+  accept 5904
+
+step Felstone Field: Minion's Scourgestone and Invader's Scourgestone
+  collect 12843 quest 5406.1 optional
+  collect 12840 quest 5408.1
+  collect 12841 quest 5407.1
+
+step Termite Barrel
+  turnin 5904
+  accept 6389
+
+step Gahrron's Withering: Heroes of Darrowshire
+  complete 5168
+
+step Nathaniel Dumah
+  turnin 6389
+
+step Tirion Fordring
+  turnin 5543
+  turnin 5544
+  turnin 5542
+  accept 5742
+
+step Thondroril River: Redemption
+  complete 5742
+
+step Tirion Fordring
+  turnin 5742
+  accept 5781
+
+step Back to Lakeshire
+  hearth "Lakeshire"
+
+step Wiley the Black
+  zone Redridge Mountains
+  accept 132
+  accept 143
+  accept 122
+  accept 124
+
+step Lakeshire: Redridge Brute
+  kill 426 quest 124.1
+
+step Lakeridge Highway: Underbelly Whelp Scale
+  collect 1221 quest 122.1
+
+step Verner Osgood
+  turnin 122
+
+step Redridge Canyons: Redridge Mystic
+  kill 430 quest 124.2
+
+step Verner Osgood
+  turnin 124
+  accept 126
+
+step Redridge Canyons: Yowler's Paw
+  collect 3614 quest 126.1
+
+step Verner Osgood
+  turnin 126
+
+step Stormwind City
+  zone Stormwind City
+  sethome "Stormwind City"
+  accept 7794
+  accept 1477
+
+step Highlord Bolvar Fordragon
+  turnin 4184
+  accept 4185
+
+step near Stormwind: The True Masters
+  complete 4185
+
+step Highlord Bolvar Fordragon
+  turnin 4185
+  accept 4186
+
+step Royal Factor Bathrilor
+  turnin 5022
+
+step Bubulo Acerbus
+  zone Ironforge
+  accept 7809
+
+step Mistina Steelshield
+  accept 7804
+
+step Laris Geardawdle
+  turnin 4512
+  accept 4513
+
+step Grand Mason Marblesten
+  turnin 689
+  accept 700
+
+step Ironforge
+  sethome "Ironforge"
+  turnin 700
+  accept 7803
+
+step Prospector Stormpike
+  turnin 554
+
+step Bubulo Acerbus
+  accept 7808
+
+step Historian Karnik
+  turnin 724
+  accept 302
+
+step Gnoarn
+  accept 2039
+  accept 2041
+  accept 7807
+
+step Mistina Steelshield
+  accept 7802
+
+step Lomac Gearstrip
+  turnin 1072
+  accept 1073
+
+step Dying Archaeologist
+  zone Searing Gorge
+  turnin 3371
+  accept 3372
+
+step Firewatch Ridge: Release Them
+  complete 3372
+
+step Altar of Suntara
+  turnin 3372
+
+step Dustfire Valley: Mageweave Cloth
+  tip Lathoric the Black (level 52) and Obsidion (level 52) are elite: grouping up is advised unless you are well above level 52.
+  collect 4338 quest 7804.1
+  collect 4338 quest 7809.1
+  accept 3566 optional
+
+step Wooden Outhouse
+  tip Lathoric the Black (level 52) and Obsidion (level 52) are elite: grouping up is advised unless you are well above level 52.
+  collect 10447 quest 3566.1 optional
+  collect 10446 quest 3566.2 optional
+  turnin 4449
+  accept 4450
+
+step Grimesilt Dig Site: Solid Crystal Leg Shaft
+  collect 11725 quest 4450.2
+
+step Back to Ironforge
+  collect 11468 quest 4286.1 optional
+  collect 10561 quest 4244.1 optional
+  hearth "Ironforge"
+
+step Ruins of Eldarath: Arcane Runes
+  complete 3449
+
+step Pilot Xiggs Fuselighter
+  turnin 3449
+  accept 3461
+
+step Captain Vanessa Beltis
+  accept 3382
+
+step The Ruined Reaches: A Crew Under Fire
+  complete 3382
+
+step Captain Vanessa Beltis
+  turnin 3382
+
+step Ruins of Eldarath: Fragments of the Past
+  complete 5246
+
+step Duke Hydraxis
+  accept 6804
+  accept 6805
+
+step A-Me 01
+  zone Un'Goro Crater
+  turnin 4244 optional
+  accept 4245
+
+step Fire Plume Ridge: Filled Pure Sample Jar
+  collect 11954 quest 4513.1
+
+step Lakkari Tar Pits: Chasing A-Me 01
+  complete 4245
+
+step Karna Remtravel
+  turnin 4245
+
+step Golakka Hot Springs: Un'Goro Soil
+  collect 11018 quest 3764.1
+
+step Back to Ironforge
+  hearth "Ironforge"

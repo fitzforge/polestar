@@ -1,0 +1,111 @@
+guide completionist/alliance/nightelf/48-ashenvale-swamp-of-sorrows
+title Ashenvale & Swamp of Sorrows
+faction Alliance
+race NightElf
+levels 59-60
+zone Ashenvale
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Ashenvale, The Barrens, Blasted Lands, Swamp of Sorrows
+next completionist/alliance/nightelf/49-dustwallow-marsh-ironforge
+
+# Route: guide 48 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 59 to
+# 60, 23 quests, 1.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Ashenvale, The Barrens, Blasted Lands, Swamp of Sorrows): Fallen Sky
+# Lake -> The Zoram Strand -> The Shrine of Aessina -> Lake Falathim ->
+# Astranaar -> Lake Falathim -> Mystral Lake -> Ratchet -> Nethergarde Keep ->
+# Splinterspear Junction -> Misty Reed Strand -> Nethergarde Keep -> Dreadmaul
+# Hold -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Blackfathom Villainy (1200), Mortality Wanes (1142),
+# Willix the Importer (1144), Blueleaf Tubers (1221), Blueleaf Tubers (1221),
+# Deviate Eradication (1487), Deviate Eradication (1487), The Glowing Shard
+# (6981), Nekrum's Medallion (2991).
+
+step Illiyana Moonblaze
+  accept 7865
+  turnin 7865
+
+step The Zoram Strand: Bolt of Woolen Cloth
+  collect 2997 quest 565.1
+
+step Illiyana
+  turnin 1032
+
+step Delgren the Purifier
+  turnin 981
+
+step Astranaar
+  sethome "Astranaar"
+  turnin 1082
+  accept 1081
+  turnin 1133
+  turnin 1134
+
+step Delgren the Purifier
+  turnin 976
+
+step Sentinel Velene Starstrike
+  turnin 1017
+
+step Ratchet
+  zone The Barrens
+  sethome "Ratchet"
+  accept 4502
+  accept 96339
+  turnin 96339
+  accept 96383
+  turnin 96383
+  turnin 1069
+
+step Ambassador Ardalan
+  zone Blasted Lands
+  accept 2783
+  accept 4128
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 2783
+  accept 2801
+
+step Splinterspear Junction: A Tale of Sorrow
+  complete 2801
+
+step Fallen Hero of the Horde
+  turnin 2801
+  accept 2681
+
+step A Soggy Scroll
+  turnin 624
+  accept 625
+
+step Misty Reed Strand: Goodsteel's Balanced Flameberge
+  collect 11723 quest 4450.4
+
+step Quartermaster Lungertz
+  zone Blasted Lands
+  turnin 1395
+
+step Dreadmaul Hold: Servant of Grol
+  kill 7669 quest 2681.2
+
+step Serpent's Coil: Servant of Allistarj
+  kill 7670 quest 2681.3
+
+step The Dark Portal: Servant of Razelikh
+  kill 7668 quest 2681.1
+
+step Altar of Storms: Servant of Sevine
+  kill 7671 quest 2681.4
+
+step Back to Ratchet
+  hearth "Ratchet"
+
+step Theramore Isle
+  sethome "Theramore Isle"

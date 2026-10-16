@@ -1,0 +1,218 @@
+guide completionist/horde/orc/11-ashenvale
+title Ashenvale
+faction Horde
+race Orc
+levels 27-29
+zone Ashenvale
+category Completionist
+folder Completionist · Orc 20-30
+keywords completionist, every quest
+next completionist/horde/orc/12-hillsbrad-foothills-ashenvale
+
+# Route: guide 11 of 49 of the simulator's completionist route for Orc (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 27 to 29, 30
+# quests, 3.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Ashenvale): Mystral Lake -> The Zoram Strand -> Night Run -> Fallen
+# Sky Lake -> Raynewood Retreat -> Night Run -> Fallen Sky Lake -> Night Run
+# -> Satyrnaar -> Astranaar -> The Ruins of Stardust -> Astranaar ->
+# Thistlefur Village -> ….
+#
+# Optional (elite: grouping up is advised): Allegiance to the Old Gods (6564;
+# Blackfathom Tide Priestess 20-21).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Blackfathom Villainy (6561), Allegiance to the Old Gods
+# (6565), Allegiance to the Old Gods (6565), Amongst the Ruins (6921), Amongst
+# the Ruins (6921), Baron Aquanis (6922).
+
+step Alonso
+  accept 78132
+  turnin 78132
+  accept 78133
+  turnin 78133
+  accept 78134
+  turnin 78134
+
+step Back to Sun Rock Retreat
+  turnin 3513 optional
+  accept 3514 optional
+  hearth "Sun Rock Retreat"
+
+step The Zoram Strand
+  getfp "Zoram'gar Outpost"
+  accept 6442
+
+step The Zoram Strand: Wrathtail Head
+  collect 5490 quest 6442.1
+
+step Marukai
+  turnin 6442
+
+step Night Run
+  getfp "Splintertree Post"
+  sethome "Splintertree Post"
+  accept 6383
+  turnin 6382
+  turnin 6383
+
+step Kuray'bin
+  accept 6503
+
+step Night Run: Ashenvale Outrunner
+  kill 12856 quest 6503.1
+
+step Night Run
+  tip Sharptalon drops the Sharptalon's Claw: right-click it to start Sharptalon's Claw.
+  collect 16305 x1
+  accept 2
+
+step Senani Thunderheart
+  turnin 2
+
+step Kuray'bin
+  turnin 6503
+
+step Torek
+  accept 6544
+
+step Fallen Sky Lake: Torek's Assault
+  complete 6544
+
+step Fallen Sky Lake: Filled Etched Phial
+  collect 5868 quest 1195.1
+
+step Raynewood Retreat
+  tip Shadumbra drops the Shadumbra's Head: right-click it to start Shadumbra's Head.
+  collect 16304 x1
+  accept 24
+
+step Raynewood Retreat: Ordanus' Head
+  collect 5686 quest 1088.1
+
+step Senani Thunderheart
+  turnin 24
+  turnin 6544
+
+step Kadrak
+  turnin 6541
+  accept 6543
+
+step Night Run: Warsong Scout Update
+  buy 16764 x1 nearest
+
+step Satyrnaar: Warsong Outrider Update
+  buy 16765 x1 nearest
+
+step Va'xug Firefure
+  accept 98251
+  accept 98252
+
+step The Ruins of Stardust: Shadowhorn Stag
+  kill 3817 quest 98251.1
+
+step The Ruins of Stardust
+  tip Ursangous drops the Ursangous's Paw: right-click it to start Ursangous's Paw.
+  collect 16303 x1
+  accept 23
+
+step The Ruins of Stardust: Ashenvale Bear
+  kill 3809 quest 98251.2
+
+step Va'xug Firefure
+  turnin 98251
+
+step Eye of Kilrogg
+  turnin 98252
+
+step Ruul Snowhoof
+  accept 6482
+
+step Thistlefur Village: Freedom to Ruul
+  complete 6482
+
+step The Zoram Strand: Warsong Runner Update
+  buy 16763 x1 nearest
+
+step Muglash
+  accept 6641
+  accept 6462
+  turnin 6562
+  accept 6563
+
+step The Zoram Strand: Vorsha the Lasher
+  complete 6641
+
+step The Zoram Strand: Sapphire of Aku'Mai
+  tip Blackfathom Tide Priestess (level 20-21) is elite: grouping up is advised unless you are well above level 21. Blackfathom Tide Priestess drops the Damp Note: right-click it to start Allegiance to the Old Gods.
+  collect 16790 x1 optional
+  accept 6564 optional
+  collect 16784 quest 6563.1
+
+step Thistlefur Village: Troll Charm
+  collect 16602 quest 6462.1
+
+step Warsong Runner
+  tip Blackfathom Tide Priestess (level 20-21) is elite: grouping up is advised unless you are well above level 21.
+  turnin 6641
+  turnin 6564 optional
+  turnin 6563
+  turnin 6462
+
+step Back to Splintertree Post
+  hearth "Splintertree Post"
+
+step Senani Thunderheart
+  turnin 23
+  accept 247
+  turnin 247
+  turnin 6482
+
+step Kadrak
+  turnin 6543
+
+step Karang Amakkar
+  accept 216
+
+step Thistlefur Village: Thistlefur Shaman
+  kill 3924 quest 216.2
+
+step Thistlefur Village: Thistlefur Avenger
+  kill 3925 quest 216.1
+
+step Karang Amakkar
+  turnin 216
+  accept 6621
+
+step Raynewood Retreat: Murgut's Totem
+  collect 16976 quest 6621.1
+
+step Locke Okarr
+  accept 6571
+
+step Pixel
+  accept 6441
+
+step Night Run: Satyr Horns
+  collect 5481 quest 6441.1
+
+step Raynewood Retreat: Logging Rope
+  collect 16743 quest 6571.4
+
+step Back to Splintertree Post
+  hearth "Splintertree Post"
+
+step Pixel
+  turnin 6441
+
+step Karang Amakkar
+  turnin 6621
+
+step Tarren Mill
+  getfp "Tarren Mill"
+
+step Tarren Mill
+  sethome "Tarren Mill"

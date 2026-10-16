@@ -1,0 +1,230 @@
+guide completionist/alliance/dwarf/24-dustwallow-marsh-swamp-of-sorrows
+title Dustwallow Marsh & Swamp of Sorrows
+faction Alliance
+race Dwarf
+levels 43-45
+zone Dustwallow Marsh
+category Completionist
+folder Completionist · Dwarf 40-50
+keywords completionist, every quest, Dustwallow Marsh, Swamp of Sorrows, Desolace
+next completionist/alliance/dwarf/25-stormwind-city-elwynn-forest
+
+# Route: guide 24 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 43 to 45, 41
+# quests, 4.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Dustwallow Marsh, Swamp of Sorrows, Desolace): Theramore Isle -> Witch
+# Hill -> Theramore Isle -> Witch Hill -> Brackenwall Village -> The Den of
+# Flame -> Witch Hill -> Theramore Isle -> Brackenwall Village -> Witch Hill
+# -> Brackenwall Village -> Splinterspear Junction -> Itharius's Cave -> ….
+#
+# Optional (elite: grouping up is advised): The Star, the Hand and the Heart
+# (735; Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44);
+# Shadowshard Fragments (7070; Shadowshard Rumbler 40-41, Shadowshard Smasher
+# 41-42, Shadowshard Thunderer 38); Khan Hratha (1380; Khan Hratha 42).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Tiara of the Deep (2846), Legends of Maraudon (7044), The
+# Pariah's Instructions (7067).
+
+step Captain Garran Vimes
+  turnin 1252
+  turnin 1253
+  turnin 1284
+  accept 1259
+  accept 1319
+  turnin 1259
+  accept 1285
+  turnin 1285
+  accept 1286
+
+step Caz Twosprocket
+  turnin 1319
+  accept 1320
+
+step Captain Garran Vimes
+  turnin 1320
+
+step 'Swamp Eye' Jarl
+  accept 1218
+  accept 1219
+
+step 'Stinky' Ignatz
+  accept 1222
+
+step Witch Hill: Stinky's Escape
+  complete 1222
+
+step Back to Theramore Isle
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  collect 4641 quest 735.2 optional
+  hearth "Theramore Isle"
+
+step Morgan Stern
+  turnin 1222
+  turnin 1219
+
+step Theramore Isle: Soothing Spices
+  buy 3713 x3 nearest
+
+step Theramore Lieutenant
+  accept 1220
+  turnin 1220
+
+step 'Swamp Eye' Jarl
+  turnin 1218
+  accept 1206
+
+step Brackenwall Village: Unpopped Darkmist Eye
+  collect 5884 quest 1206.1
+
+step Balos Jacken
+  turnin 1286
+  accept 1287
+
+step 'Swamp Eye' Jarl
+  turnin 1206
+  accept 1203
+
+step Witch Hill: Jarl Needs a Blade
+  complete 1203
+
+step 'Swamp Eye' Jarl
+  turnin 1203
+
+step Captain Garran Vimes
+  turnin 1287
+  accept 1288
+  turnin 1288
+  accept 1204
+  turnin 1260
+
+step Theramore Isle: Forked Mudrock Tongue
+  collect 5883 quest 1204.1
+
+step Morgan Stern
+  turnin 1204
+  accept 1258
+
+step Mudcrush Durtfeet
+  accept 1177
+
+step Witch Hill: Mirefin Head
+  collect 5847 quest 1177.1
+
+step Mudcrush Durtfeet
+  turnin 1177
+
+step Back to Theramore Isle
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  hearth "Theramore Isle"
+  accept 7070 optional
+
+step Amaryllis Webb
+  zone Swamp of Sorrows
+  accept 93176
+  turnin 93176
+  accept 1396
+
+step Splinterspear Junction: Sorrow Spinner and Swamp Jaguar and more
+  kill 858 quest 1396.2
+  kill 767 quest 1396.3
+  kill 1084 quest 1396.1
+
+step Watcher Biggs
+  turnin 1396
+  accept 1421
+
+step Itharius's Cave: Speck of Dream Dust
+  collect 5803 quest 1116.1
+
+step Magtoor
+  accept 1389
+
+step The Shifting Mire
+  tip Noboru the Cudgel drops the Noboru's Cudgel: right-click it to start Noboru the Cudgel.
+  collect 6196 x1
+  accept 1392
+
+step Fallow Sanctuary: Draenethyst Shard
+  collect 6190 quest 1373.1
+
+step Galen Goodward
+  accept 1393
+
+step Fallow Sanctuary: The Lost Caravan
+  complete 1421
+
+step Fallow Sanctuary
+  tip Scattered Crate drops the Lost Supplies: right-click it to start The Lost Supplies.
+  collect 6172 x1
+  accept 1423
+
+step Fallow Sanctuary: Draenethyst Crystal
+  collect 6071 quest 1389.1
+
+step The Shifting Mire: Galen's Escape
+  complete 1393
+
+step Galen's Strongbox
+  turnin 1393
+
+step Magtoor
+  turnin 1389
+  turnin 1392
+
+step Watcher Biggs
+  turnin 1421
+  accept 1398
+
+step Stagalbog: Sundried Driftwood
+  collect 6146 quest 1398.1
+
+step Watcher Biggs
+  turnin 1398
+  accept 1425
+
+step Fallow Sanctuary: Pristine Crawler Leg
+  collect 5938 quest 1258.1
+
+step Misty Valley: Khadgar's Essays on Dimensional Convergence
+  collect 6065 quest 1364.1
+
+step Pool of Tears: In Search of The Temple
+  complete 1448
+
+step Back to Theramore Isle
+  hearth "Theramore Isle"
+
+step Uthek the Wise
+  zone Desolace
+  turnin 93041
+  turnin 93128
+  turnin 1373
+  accept 1374
+
+step Magram Village: Khan Jehn's Head
+  collect 6072 quest 1374.1
+
+step Uthek the Wise
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1374
+  accept 1380 optional
+  collect 6077 quest 1380.1 optional
+
+step Nijel's Point
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1380 optional
+  sethome "Nijel's Point"
+  turnin 6141
+  accept 7028 optional
+
+step Back to Nijel's Point
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  collect 17684 quest 7028.1 optional
+  collect 17756 quest 7070.1 optional
+  hearth "Nijel's Point"
+  turnin 7028 optional

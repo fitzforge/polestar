@@ -1,0 +1,113 @@
+guide completionist/alliance/human/35-darnassus-teldrassil
+title Darnassus & Teldrassil
+faction Alliance
+race Human
+levels 52-53
+zone Darnassus
+category Completionist
+folder Completionist · Human 50-60
+keywords completionist, every quest, Darnassus, Teldrassil
+next completionist/alliance/human/36-felwood
+
+# Route: guide 35 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 52 to 53, 25
+# quests, 1.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Darnassus, Teldrassil): near Craftsmen's Terrace -> Craftsmen's
+# Terrace -> near Craftsmen's Terrace -> Rut'theran Village -> Wellspring Lake
+# -> Dolanaar -> near Craftsmen's Terrace -> Craftsmen's Terrace -> near
+# Craftsmen's Terrace.
+#
+# Optional (elite: grouping up is advised): Prayer to Elune (3378; Twilight
+# Dark Shaman 47-48, Twilight Fire Guard 48-49, Twilight Geomancer 49-50,
+# Twilight Idolater 49-51).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In Search of Thaelrid (1198), Twilight Falls (1199), In
+# Search of Thaelrid (1198), Twilight Falls (1199).
+
+step Priestess A'moora
+  accept 2518
+
+step near Craftsmen's Terrace: Vial of Blessed Water
+  collect 5646 quest 934.1
+
+step Sentinel Dalia Sunblade
+  accept 98067
+
+step Sister Aquinne
+  accept 2519
+  turnin 98391
+
+step Rellian Greenspyre
+  turnin 922
+  accept 923
+
+step near Craftsmen's Terrace: Credit
+  kill 270418 quest 98067.1
+
+step Arch Druid Fandral Staghelm
+  turnin 935
+  accept 98046
+
+step Craftsmen's Terrace: Credit
+  sethome "Craftsmen's Terrace"
+  kill 270420 quest 98067.3
+
+step near Craftsmen's Terrace: Credit
+  kill 270421 quest 98067.4
+
+step Lariia
+  turnin 98046
+  accept 98065
+  turnin 98067
+  turnin 2519
+  turnin 98065
+
+step Arch Druid Fandral Staghelm
+  turnin 940
+  accept 952
+
+step Chief Archaeologist Greywhisker
+  turnin 741
+
+step Daryn Lightwind
+  zone Teldrassil
+  turnin 2939
+  turnin 3022
+  accept 2940
+  turnin 3661
+  turnin 2940
+  accept 2941
+  accept 978
+
+step Wellspring Lake: Mossy Tumor
+  collect 5170 quest 923.1
+
+step Wellspring Lake: Silvery Spinnerets
+  collect 8344 quest 2518.1
+
+step Dolanaar
+  sethome "Dolanaar"
+  turnin 934
+
+step Gracina Spiritmight
+  zone Darnassus
+  tip Twilight Dark Shaman (level 47-48), Twilight Fire Guard (level 48-49), Twilight Geomancer (level 49-50) and Twilight Idolater (level 49-51) are elite: grouping up is advised unless you are well above level 51.
+  turnin 162
+  turnin 4267
+  turnin 2972
+  turnin 3378 optional
+
+step Arch Druid Fandral Staghelm
+  accept 3764
+
+step Craftsmen's Terrace
+  sethome "Craftsmen's Terrace"
+  accept 3763
+
+step Arch Druid Fandral Staghelm
+  turnin 3763

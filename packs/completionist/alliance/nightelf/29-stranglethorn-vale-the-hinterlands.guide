@@ -1,0 +1,258 @@
+guide completionist/alliance/nightelf/29-stranglethorn-vale-the-hinterlands
+title Stranglethorn Vale & The Hinterlands
+faction Alliance
+race NightElf
+levels 48-50
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · NightElf 40-50
+keywords completionist, every quest, Stranglethorn Vale, The Hinterlands, Westfall
+next completionist/alliance/nightelf/30-azshara
+
+# Route: guide 29 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 48 to
+# 50, 54 quests, 4.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stranglethorn Vale, The Hinterlands, Westfall): Booty Bay -> Venture
+# Co. Base Camp -> Booty Bay -> The Vile Reef -> Booty Bay -> Wild Shore ->
+# Ruins of Aboraz -> Booty Bay -> Wild Shore -> Booty Bay -> Wild Shore ->
+# Ruins of Zul'Mamwe -> Mistvale Valley -> ….
+#
+# Optional (elite: grouping up is advised): The Monogrammed Sash (620;
+# Mok'rash 50); The Captain's Chest (8551; Gorlash 47); The Captain's Chest
+# (614; Gorlash 47); Facing Negolash (618; Negolash 52); The Monogrammed Sash
+# (8552; Mok'rash 50); Facing Negolash (8554; Negolash 52); The Super Snapper
+# FX (2944; Gammerita 48).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Jammal'an the Prophet (1446), The Defias Brotherhood
+# (166), The Defias Brotherhood (166), The Unsent Letter (373).
+
+step Caravaneer Ruzzgot
+  accept 1041
+  turnin 1180
+  accept 1181
+  turnin 1181
+  accept 1182
+
+step Venture Co. Base Camp: Goblin Sponsorship
+  complete 1182
+
+step Baron Revilgaz
+  turnin 1182
+  accept 1183
+  turnin 603
+  accept 610
+
+step Booty Bay: Catelyn's Blade
+  collect 4027 quest 610.1
+
+step Catelyn the Blade
+  turnin 610
+  accept 611
+
+step The Vile Reef: Stone of the Tides
+  collect 4034 quest 611.1
+
+step Back to Booty Bay
+  hearth "Booty Bay"
+
+step Baron Revilgaz
+  turnin 611
+  turnin 669
+  accept 670
+  accept 621
+
+step Captain Hecklebury Smotts
+  tip Mok'rash (level 50) and Gorlash (level 47) are elite: grouping up is advised unless you are well above level 50. Mok'rash drops the Monogrammed Sash: right-click it to start The Monogrammed Sash.
+  collect 3985 x1 optional
+  accept 620 optional
+  accept 8551 optional
+  accept 614 optional
+  turnin 620 optional
+  accept 615
+  turnin 615
+
+step Wild Shore
+  tip Cortello's Riddle drops the Cortello's Riddle: right-click it to start Cortello's Riddle.
+  collect 4056 x1
+  accept 624
+
+step Ruins of Aboraz: Zanzil's Mixture
+  tip Gorlash (level 47) is elite: grouping up is advised unless you are well above level 47.
+  collect 3932 quest 8551.1 optional
+  collect 3932 quest 614.1 optional
+  collect 4016 quest 621.1
+
+step Crank Fizzlebub
+  tip Gorlash (level 47) is elite: grouping up is advised unless you are well above level 47.
+  turnin 614 optional
+  turnin 8551 optional
+  turnin 621
+  accept 348
+  accept 595
+  turnin 2767
+  accept 2872
+  turnin 2874
+  accept 209
+  accept 2864
+  accept 580
+  accept 617
+
+step Bloodsail Correspondence
+  tip Negolash (level 52) is elite: grouping up is advised unless you are well above level 52.
+  accept 618 optional
+  turnin 595
+  accept 597
+
+step Captain Hecklebury Smotts
+  tip Mok'rash (level 50) and Negolash (level 52) are elite: grouping up is advised unless you are well above level 52. Mok'rash drops the Monogrammed Sash: right-click it to start The Monogrammed Sash.
+  collect 3985 x1 optional
+  accept 8552 optional
+  turnin 8552 optional
+  accept 8553
+  turnin 8553
+  accept 8554 optional
+  turnin 597
+  accept 599
+
+step Dizzy One-Eye
+  accept 576
+  turnin 599
+  accept 604
+  accept 587
+
+step Wild Shore: The Bloodsail Buccaneers
+  complete 604
+
+step Wild Shore: Dizzy's Eye and Snuff
+  collect 3897 quest 576.1
+  collect 3910 quest 587.1
+
+step Dizzy One-Eye
+  tip Negolash (level 52) is elite: grouping up is advised unless you are well above level 52.
+  collect 3935 quest 618.1 optional
+  collect 3935 quest 8554.1 optional
+  turnin 576
+
+step Deeg
+  tip Negolash (level 52) is elite: grouping up is advised unless you are well above level 52.
+  turnin 618 optional
+  turnin 8554 optional
+  turnin 587
+  turnin 604
+  accept 608
+
+step Wild Shore: Captain Keelhaul and Fleet Master Firallon
+  kill 2548 quest 608.2
+  kill 2546 quest 608.3
+
+step Wild Shore: Captain Stillwater
+  kill 2550 quest 608.1
+
+step Ruins of Zul'Mamwe: Skullsplitter Tusk
+  collect 1524 quest 209.1
+
+step Mistvale Valley: Heart of Mokk
+  collect 2797 quest 348.1
+
+step Nek'mani Wellspring: Sweet Amber
+  complete 48
+
+step Nek'mani Wellspring: Akiris Reed
+  collect 4029 quest 617.1
+
+step Fleet Master Seahorn
+  turnin 608
+  turnin 209
+  turnin 617
+  accept 623
+  turnin 648
+
+step Aerie Peak
+  zone The Hinterlands
+  getfp "Aerie Peak"
+  sethome "Aerie Peak"
+  turnin 1449
+  accept 1450
+  turnin 1450
+  accept 1451
+  accept 2988
+  accept 2877
+  accept 2880
+
+step Hiri'watha: First Witherbark Cage and Second Witherbark Cage and more
+  interact 144066 quest 2988.1
+  interact 144067 quest 2988.2
+  collect 9259 quest 2880.1
+
+step Rhapsody Shindigger
+  turnin 1451
+  accept 1452
+
+step Agol'watha: Green Sludge
+  kill 2655 quest 2877.1
+
+step Skulk Rock: Jade Ooze
+  kill 2656 quest 2877.2
+
+step The Overlook Cliffs: Whiskey Slim's Lost Grog
+  complete 580
+
+step Back to Aerie Peak
+  hearth "Aerie Peak"
+
+step Hiri'watha: Third Witherbark Cage
+  interact 144068 quest 2988.3
+
+step Fraggar Thundermantle
+  turnin 2877
+  turnin 2880
+  accept 2881
+
+step Gryphon Master Talonaxe
+  turnin 2988
+  accept 2989
+
+step Hiri'watha: Troll Tribal Necklace
+  collect 9259 quest 2881.1
+
+step The Altar of Zul: The Altar of Zul
+  complete 2989
+
+step Fraggar Thundermantle
+  turnin 2881
+
+step Gryphon Master Talonaxe
+  turnin 2989
+  accept 2990
+
+step The Overlook Cliffs
+  tip Gammerita (level 48) is elite: grouping up is advised unless you are well above level 48. Saltwater Snapjaw drops the OOX-09/HL Distress Beacon: right-click it to start Find OOX-09/HL!.
+  collect 9330 quest 2944.1 optional
+  collect 8704 x1
+  accept 485
+
+step Homing Robot OOX-09/HL
+  turnin 485
+  accept 836
+
+step The Overlook Cliffs: Rescue OOX-09/HL!
+  complete 836
+
+step Back to Aerie Peak
+  hearth "Aerie Peak"
+
+step Valorwind Lake: Sprinkle's Secret Ingredient
+  complete 2641
+
+step Aerie Peak: Wildkin Feather
+  collect 10819 quest 3661.1
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  turnin 48
+  accept 49

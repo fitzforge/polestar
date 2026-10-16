@@ -1,0 +1,199 @@
+guide completionist/alliance/skyborne/30-darnassus-azshara
+title Darnassus & Azshara
+faction Alliance
+race Skyborne
+levels 49-50
+zone Darnassus
+category Completionist
+folder Completionist · Skyborne 40-50
+keywords completionist, every quest, Darnassus, Teldrassil, Azshara, Badlands
+next completionist/alliance/skyborne/31-un-goro-crater
+
+# Route: guide 30 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 49 to
+# 50, 32 quests, 2.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Darnassus, Teldrassil, Azshara, Badlands): near Craftsmen's Terrace ->
+# Craftsmen's Terrace -> near Craftsmen's Terrace -> Craftsmen's Terrace ->
+# near Craftsmen's Terrace -> Wellspring Lake -> Dolanaar -> Valormok ->
+# Shadowsong Shrine -> Haldarr Encampment -> Shadowsong Shrine -> Legashi
+# Encampment -> Thalassian Base Camp -> ….
+#
+# Optional (elite: grouping up is advised): Prayer to Elune (3378; Twilight
+# Dark Shaman 47-48, Twilight Fire Guard 48-49, Twilight Geomancer 49-50,
+# Twilight Idolater 49-51); The Super Snapper FX (2944; Gammerita 48); Tremors
+# of the Earth (717; Blacklash 50, Hematus 50).
+#
+# Profession quests here are not routed (they need the skill): 5141
+# Dragonscale Leatherworking.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In Search of Thaelrid (1198), Twilight Falls (1199), In
+# Search of Thaelrid (1198), Twilight Falls (1199), Ribbly Screwspigot (4136),
+# Kibler's Exotic Pets (4729), En-Ay-Es-Tee-Why (4862).
+
+step Priestess A'moora
+  accept 2518
+
+step near Craftsmen's Terrace: Vial of Blessed Water
+  collect 5646 quest 934.1
+
+step Sentinel Dalia Sunblade
+  accept 98067
+
+step Sister Aquinne
+  accept 2519
+  turnin 98391
+
+step Rellian Greenspyre
+  turnin 922
+  accept 923
+
+step near Craftsmen's Terrace: Credit
+  kill 270418 quest 98067.1
+
+step Arch Druid Fandral Staghelm
+  turnin 935
+  accept 98046
+
+step Craftsmen's Terrace: Credit
+  sethome "Craftsmen's Terrace"
+  kill 270420 quest 98067.3
+
+step near Craftsmen's Terrace: Credit
+  kill 270421 quest 98067.4
+
+step Lariia
+  turnin 98046
+  accept 98065
+  turnin 98067
+  turnin 2519
+  turnin 98065
+
+step Arch Druid Fandral Staghelm
+  turnin 940
+  accept 952
+
+step Chief Archaeologist Greywhisker
+  tip Twilight Dark Shaman (level 47-48), Twilight Fire Guard (level 48-49), Twilight Geomancer (level 49-50) and Twilight Idolater (level 49-51) are elite: grouping up is advised unless you are well above level 51.
+  turnin 741
+  turnin 162
+  turnin 4267
+  turnin 2972
+  turnin 3378 optional
+
+step Arch Druid Fandral Staghelm
+  accept 3764
+
+step Innkeeper Saelienne
+  accept 3763
+
+step Arch Druid Fandral Staghelm
+  turnin 3763
+
+step Wellspring Lake: Mossy Tumor
+  zone Teldrassil
+  collect 5170 quest 923.1
+
+step Wellspring Lake: Silvery Spinnerets
+  collect 8344 quest 2518.1
+
+step Dolanaar
+  tip Gammerita (level 48) is elite: grouping up is advised unless you are well above level 48.
+  sethome "Dolanaar"
+  turnin 934
+  turnin 2944 optional
+
+step Sanath Lim-yo
+  zone Azshara
+  accept 3381
+
+step Valormok: Undamaged Hippogryph Feather
+  collect 10450 quest 3381.1
+
+step Sanath Lim-yo
+  turnin 3381
+
+step Shadowsong Shrine
+  getfp "Talrendis Point"
+  accept 5535
+  accept 5536
+
+step Shadowsong Shrine: Highborne Apparition
+  kill 6116 quest 5535.1
+
+step Shadowsong Shrine: Highborne Lichling
+  kill 6117 quest 5535.2
+
+step Haldarr Encampment: Haldarr Satyr and Haldarr Trickster and more
+  kill 6125 quest 5536.1
+  kill 6126 quest 5536.2
+  kill 6127 quest 5536.3
+
+step Loh'atu
+  turnin 5535
+  turnin 5536
+
+step Kim'jael
+  accept 3601
+
+step Thalassian Base Camp: Kim'Jael's Compass and Kim'Jael's Scope and more
+  collect 10717 quest 3601.1
+  collect 10715 quest 3601.2
+  collect 10722 quest 3601.3
+  collect 10718 quest 3601.4
+
+step Kim'jael
+  turnin 3601
+  accept 5534
+
+step The Shattered Strand: Some Rune
+  collect 13815 quest 5534.1
+
+step Kim'jael
+  turnin 5534
+
+step Back to Dolanaar
+  hearth "Dolanaar"
+
+step Theldurin the Lost
+  zone Badlands
+  turnin 737
+
+step Prospector Ryedol
+  turnin 723
+  accept 724
+
+step Garek
+  accept 732
+
+step Sigrun Ironhew
+  accept 706
+
+step Lethlor Ravine: Black Drake's Heart
+  collect 4612 quest 706.1
+
+step Sigrun Ironhew
+  turnin 706
+
+step Camp Cagg: Sign of the Earth
+  collect 4640 quest 732.1
+
+step Garek
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 732
+  accept 717 optional
+  collect 4615 quest 717.1 optional
+  collect 4645 quest 717.2 optional
+
+step Camp Cagg: Silk Cloth
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 717 optional
+  collect 4306 quest 4449.2
+
+step Lakkari Tar Pits
+  getfp "Marshal's Refuge"
+  note "Profession quests here, for players with the skill: Dragonscale Leatherworking (Leatherworking 225)."

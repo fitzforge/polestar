@@ -1,0 +1,244 @@
+guide completionist/alliance/nightelf/12-hillsbrad-foothills-dustwallow-marsh
+title Hillsbrad Foothills & Dustwallow Marsh
+faction Alliance
+race NightElf
+levels 33-36
+zone Hillsbrad Foothills
+category Completionist
+folder Completionist · NightElf 30-40
+keywords completionist, every quest, Ironforge, Stormwind City, Hillsbrad Foothills, Dustwallow Marsh
+next completionist/alliance/nightelf/13-arathi-highlands-hillsbrad-foothills
+
+# Route: guide 12 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 33 to
+# 36, 45 quests, 3.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Ironforge, Stormwind City, Hillsbrad Foothills, Dustwallow Marsh):
+# near Ironforge -> Ironforge -> near Ironforge -> near Stormwind City -> near
+# Stormwind -> near Stormwind City -> near Stormwind -> Stormwind ->
+# Southshore -> Western Strand -> Southshore -> Western Strand -> Southshore
+# -> ….
+#
+# Profession quests here are not routed (they need the skill): 1578 Supplying
+# the Front; 1618 Gearing Redridge; 3629 Goblin Engineering; 3632 Gnome
+# Engineering; 3640 The Pledge of Secrecy; 3641 Show Your Work; 3647
+# Membership Card Renewal; 5283 The Art of the Armorsmith; 5284 The Way of the
+# Weaponsmith; 6609 I Got Nothin' Left!; 6612 I Know A Guy...; 6625 Alliance
+# Trauma; 96045 Camping 101: Alchemy; 96059 Camping 101: Enchanting; 6607 Nat
+# Pagle, Angler Extreme; 6624 Triage.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Knowledge in the Deeps (971), Knowledge in the Deeps
+# (971), Mythology of the Titans (1050), Mythology of the Titans (1050), The
+# Lost Tablets of Will (1139), Back to Uldaman (2200), Restoring the Necklace
+# (2204), The Lost Dwarves (2398), Essential Artificials (2924), Essential
+# Artificials (2924), The Grand Betrayal (2929), The Grand Betrayal (2929),
+# Data Rescue (2930), Data Rescue (2930), Kharan Mighthammer (4341), The Fate
+# of the Kingdom (4362), The Restless Dead (96394), The Restless Dead (96394),
+# An Ancient Grudge (96395), Important Heirlooms (96403), Important Heirlooms
+# (96403), The Treaty of Understanding (98423), Quell The Uprising (387),
+# Quell the Uprising (387), The Color of Blood (388), The Color of Blood
+# (388), The Stockade Riots (391), The Stockade Riots (391), Underground
+# Assault (2040), Underground Assault (2040), Bring the Light (3636), A Green
+# Sample (92456), A Green Sample (92456), Power Overwhelming (92489), Power
+# Overwhelming (92489), In the Name of the Light (1053), Tiara of the Deep
+# (2846).
+
+step Prospector Stormpike
+  zone Ironforge
+  accept 707
+  getfp "Ironforge"
+  accept 1453
+
+step Misplaced Packages
+  accept 97263
+
+step Eldrun Stormbreaker
+  turnin 97263
+
+step Jemma Quikswitch
+  accept 95041
+
+step Prospector Stormpike
+  turnin 301
+
+step Gerrig Bonegrip
+  turnin 968
+
+step Lord Grayson Shadowbreaker
+  zone Stormwind City
+  accept 98219
+  accept 270
+  accept 2923
+  accept 343
+
+step Milton Sheaf
+  accept 2928 optional
+  turnin 343
+  accept 344
+  accept 538
+  accept 98191
+
+step Lord Grayson Shadowbreaker
+  turnin 98191
+
+step Garion Wendell
+  accept 79536
+  turnin 79536
+
+step Zardeth of the Black Claw
+  accept 335
+
+step Thomas
+  accept 1274
+
+step Bishop DeLavey
+  turnin 1274
+  accept 1241
+
+step Jorgen
+  turnin 1241
+  accept 1242
+
+step Stormwind
+  sethome "Stormwind City"
+  turnin 1242
+  accept 1243
+
+step Southshore
+  zone Hillsbrad Foothills
+  getfp "Southshore"
+  sethome "Southshore"
+  turnin 98219
+  turnin 538
+  accept 540
+
+step Tom 'Half-fish' Wilson
+  accept 98459
+
+step Lieutenant Farren Orinelle
+  accept 536
+
+step Captain McManus
+  accept 98059
+  turnin 98059
+
+step Western Strand: Torn Fin Tidehunter and Torn Fin Oracle
+  kill 2377 quest 536.1
+  kill 2376 quest 536.2
+
+step Lieutenant Farren Orinelle
+  turnin 536
+  accept 559
+
+step Western Strand: Murloc Head
+  collect 3716 quest 559.1
+
+step Lieutenant Farren Orinelle
+  turnin 559
+  accept 560
+  turnin 560
+  accept 561
+  turnin 561
+  accept 562
+
+step Southshore: Daggerspine Shorehunter and Daggerspine Siren
+  kill 2369 quest 562.1
+  kill 2371 quest 562.2
+
+step Lieutenant Farren Orinelle
+  turnin 562
+  accept 563
+  accept 505
+
+step Syndicate Documents
+  accept 510
+
+step Tarren Mill: Syndicate Footpad
+  kill 2240 quest 505.1
+
+step Darrow Hill: Syndicate Thief
+  kill 2241 quest 505.2
+
+step Back to Southshore
+  hearth "Southshore"
+
+step Magistrate Henry Maleb
+  turnin 505
+  turnin 510
+  accept 512
+
+step Theramore Isle
+  zone Dustwallow Marsh
+  sethome "Theramore Isle"
+  accept 1133
+  accept 1135
+  turnin 1132
+  getfp "Theramore"
+  turnin 1302
+
+step 'Swamp Eye' Jarl
+  accept 1218
+  accept 1219
+
+step 'Stinky' Ignatz
+  accept 1222
+
+step Witch Hill: Stinky's Escape
+  complete 1222
+
+step Morgan Stern
+  turnin 1222
+  turnin 1219
+
+step Theramore Isle: Soothing Spices
+  buy 3713 x3 nearest
+
+step Theramore Lieutenant
+  accept 1220
+  turnin 1220
+
+step 'Swamp Eye' Jarl
+  turnin 1218
+  accept 1206
+
+step Brackenwall Village: Unpopped Darkmist Eye
+  collect 5884 quest 1206.1
+
+step 'Swamp Eye' Jarl
+  turnin 1206
+  accept 1203
+
+step Witch Hill: Jarl Needs a Blade
+  complete 1203
+
+step 'Swamp Eye' Jarl
+  turnin 1203
+
+step Back to Theramore Isle
+  hearth "Theramore Isle"
+
+step Morgan Stern
+  accept 1204
+
+step Theramore Isle: Forked Mudrock Tongue
+  collect 5883 quest 1204.1
+
+step Morgan Stern
+  turnin 1204
+
+step Mudcrush Durtfeet
+  accept 1177
+
+step Witch Hill: Mirefin Head
+  collect 5847 quest 1177.1
+
+step Mudcrush Durtfeet
+  turnin 1177
+
+step Morgan Stern
+  accept 1258
+  note "Profession quests here, for players with the skill: Supplying the Front (Blacksmithing 30), Gearing Redridge (Blacksmithing 60), Goblin Engineering (Engineering 200), Gnome Engineering (Engineering 200), The Pledge of Secrecy (Engineering 200), Show Your Work (Engineering 200), Membership Card Renewal (Engineering 200), The Art of the Armorsmith (Blacksmithing 200), The Way of the Weaponsmith (Blacksmithing 200), I Got Nothin' Left! (Fishing 225), I Know A Guy... (Cooking 225), Alliance Trauma (First Aid 225), Camping 101: Alchemy (Alchemy 1), Camping 101: Enchanting (Enchanting 1), Nat Pagle, Angler Extreme (Fishing 225), Triage (First Aid 225)."

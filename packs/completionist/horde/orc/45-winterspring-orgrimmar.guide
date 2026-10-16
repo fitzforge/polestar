@@ -1,0 +1,282 @@
+guide completionist/horde/orc/45-winterspring-orgrimmar
+title Winterspring & Orgrimmar
+faction Horde
+race Orc
+levels 59-60
+zone Orgrimmar
+category Completionist
+folder Completionist · Orc 50-60
+keywords completionist, every quest, Winterspring, Ashenvale, Orgrimmar, Undercity, Western Plaguelands, Felwood, Stonetalon Mountains, Thunder Bluff, Tanaris, Un'Goro Crater
+next completionist/horde/orc/46-silithus
+
+# Route: guide 45 of 49 of the simulator's completionist route for Orc (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 59 to 60, 55
+# quests, 2.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Winterspring, Ashenvale, Orgrimmar, Undercity, Western Plaguelands,
+# Felwood, Stonetalon Mountains, Thunder Bluff, Tanaris, Un'Goro Crater):
+# Frostfire Hot Springs -> Everlook -> The Hidden Grove -> Mazthoril ->
+# Frostfire Hot Springs -> Night Run -> Felfire Hill -> near Orgrimmar ->
+# Orgrimmar -> near Orgrimmar -> Undercity -> near Undercity -> Undercity ->
+# ….
+#
+# Optional (elite: grouping up is advised): High Chief Winterfall (5121; High
+# Chief Winterfall 59); The Final Piece (5123; High Chief Winterfall 59);
+# Shadowshard Fragments (7068; Shadowshard Rumbler 40-41, Shadowshard Smasher
+# 41-42, Shadowshard Thunderer 38); Necklace Recovery (2283; Shadowforge
+# Surveyor 35-36, Shadowforge Ruffian 36-37, Shadowforge Digger 35-36,
+# Stonevault Rockchewer 36-37, Stonevault Oracle 37-38, Stonevault Cave Hunter
+# 36-37); Earthen Arise (6481; Goggeroc 20); It's Dangerous to Go Alone (3962;
+# Blazerunner 56).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Blackfathom Villainy (6561), Allegiance to the Old Gods
+# (6565), Allegiance to the Old Gods (6565), Amongst the Ruins (6921), Amongst
+# the Ruins (6921), Baron Aquanis (6922), Necklace Recovery, Take 2 (2284),
+# Rig Wars (2841), Rig Wars (2841), The Royal Rescue (4003), For The Horde!
+# (4974), Returning the Lost Satchel (5724), Hidden Enemies (5728), Hidden
+# Enemies (5728), Slaying the Beast (5761), Slaying the Beast (5761), Changing
+# Tastes (95697), Changing Tastes (95697), The Book of Ur (1013), The Book of
+# Ur (1013), Going, Going, Guano! (1109), Going, Going, Guano! (1109), Bring
+# the End (3341), The Power to Destroy... (5725), Light's Justice (92421),
+# Light's Justice (92421), The New Plague (95216), Source of Power (96988),
+# Doctor Theolen Krastinov, the Butcher (5382), Kirtonos the Herald (5384),
+# The Lich, Ras Frostwhisper (5466), Krastinov's Bag of Horrors (5515), Of
+# Love and Family (5848), Oculus Illusions (6569), Leaders of the Fang (914),
+# Compendium of the Fallen (1049), A Vengeful Fate (1102), Testing an Enemy's
+# Strength (5723), Divino-matic Rod (2768), Scarab Shells (2865), Troll Temper
+# (3042), Into the Depths (3446), Secret of the Circle (3447), The Prophecy of
+# Mosh'aru (3527), The God Hakkar (3528), The Final Tablets (4788).
+
+step Donova Snowden
+  zone Winterspring
+  turnin 5086
+  accept 5087
+
+step Frostfire Hot Springs: Winterfall Crate
+  collect 12829 quest 5087.1
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5087
+  accept 5121 optional
+
+step Everlook
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59. High Chief Winterfall drops the Crudely-written Log: right-click it to start The Final Piece.
+  kill 10738 quest 5121.1 optional
+  collect 12842 x1 optional
+  accept 5123 optional
+  sethome "Everlook"
+  turnin 5163
+
+step The Hidden Grove: Berserk Owlbeast
+  kill 7454 quest 4721.1
+
+step Back to Everlook
+  hearth "Everlook"
+
+step Mazthoril
+  tip Crazed Owlbeast drops the Blue-feathered Necklace: right-click it to start Guarding Secrets.
+  collect 12558 x1
+  accept 4882
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5121 optional
+  turnin 5123 optional
+  accept 5128
+
+step Locke Okarr
+  zone Ashenvale
+  turnin 3514 optional
+  turnin 6571
+
+step Felfire Hill: Silk Cloth
+  collect 4306 quest 7827.1
+  collect 4306 quest 7834.1
+
+step Zilzibin Drumlore
+  zone Orgrimmar
+  turnin 4509
+  accept 4511
+  turnin 4300
+
+step Orgrimmar
+  sethome "Orgrimmar"
+  turnin 4511
+
+step Uthel'nay
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  turnin 7068 optional
+  turnin 7835
+
+step Rashona Straglash
+  turnin 7831
+  turnin 81
+
+step Belgrom Rockmaul
+  turnin 3507
+
+step Undercity
+  zone Undercity
+  sethome "Undercity"
+  turnin 7814
+  turnin 7817
+
+step Chemist Cuely
+  turnin 3568
+  accept 3569
+  turnin 3569
+  accept 3570
+  turnin 3570
+
+step Oran Snakewrithe
+  turnin 2995
+
+step Chemist Fuely
+  turnin 4642
+
+step Bethor Iceshard
+  turnin 411
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  accept 5224
+
+step The Writhing Haunt: Somatic Intensifier and Runecloth
+  collect 13356 quest 5224.2
+  collect 14047 quest 5224.3
+
+step Scourge Cauldron
+  turnin 5221
+
+step Gahrron's Withering: Gahrron's Withering Cauldron Key
+  collect 13196 quest 5235.1
+
+step Scourge Cauldron
+  turnin 5235
+  accept 5236
+
+step Tirion Fordring
+  turnin 5845
+  accept 5846
+
+step Ruins of Andorhal: Araj's Scarab
+  complete 5804
+
+step Artist Renfray
+  turnin 5846
+
+step Back to Undercity
+  hearth "Undercity"
+
+step Rashona Straglash
+  zone Orgrimmar
+  turnin 7826
+
+step Vehena
+  turnin 7833
+  turnin 7834
+
+step Rashona Straglash
+  turnin 7827
+
+step Belgrom Rockmaul
+  tip Shadowforge Surveyor (level 35-36), Shadowforge Ruffian (level 36-37), Shadowforge Digger (level 35-36) and 3 more are elite: grouping up is advised unless you are well above level 38.
+  turnin 1184
+  turnin 2283 optional
+
+step Kelek Skykeeper
+  zone Felwood
+  turnin 5128
+
+step Trull Failbane
+  turnin 4882
+  turnin 4721
+  accept 4883
+
+step Windshear Crag: The Flying Machine Airport
+  zone Stonetalon Mountains
+  complete 1086
+
+step Sun Rock Retreat
+  tip Goggeroc (level 20) is elite: grouping up is advised unless you are well above level 20.
+  sethome "Sun Rock Retreat"
+  turnin 6421
+  accept 6481 optional
+  kill 11920 quest 6481.1 optional
+  turnin 6481 optional
+
+step Apothecary Zamah
+  zone Thunder Bluff
+  turnin 1086
+
+step Thunder Bluff
+  sethome "Thunder Bluff"
+  turnin 7820
+
+step Ghede
+  turnin 3761
+  accept 3782
+  turnin 3782
+  accept 3786
+
+step near Thunder Bluff: Morrowgrain Research
+  complete 3786
+
+step Bashana Runetotem
+  turnin 3786
+  accept 3804
+
+step near Thunder Bluff: Morrowgrain to Thunder Bluff
+  complete 3804
+
+step Bashana Runetotem
+  turnin 3804
+  turnin 4883
+
+step Gadgetzan
+  zone Tanaris
+  sethome "Gadgetzan"
+  accept 379
+
+step Noonshade Ruins: Wastewander Water Pouch
+  collect 8483 quest 379.1
+
+step Chief Engineer Bilgewhizzle
+  turnin 379
+  turnin 2741
+
+step Marvon Rivetseeker
+  turnin 3444
+
+step Lost Rigger Cove: Silver Totem of Aquementas
+  collect 11522 quest 4005.1
+
+step Back to Gadgetzan
+  hearth "Gadgetzan"
+
+step Fire Plume Ridge: Un'Goro Ash
+  zone Un'Goro Crater
+  collect 11829 quest 4502.1
+
+step J.D. Collie
+  turnin 4005
+  accept 3961
+
+step Linken
+  tip Blazerunner (level 56) is elite: grouping up is advised unless you are well above level 56.
+  turnin 3961
+  accept 3962 optional
+  complete 3962 optional
+
+step Twilight Base Camp
+  tip Blazerunner (level 56) is elite: grouping up is advised unless you are well above level 56.
+  turnin 3962 optional
+  getfp "Cenarion Hold"
+
+step Twilight Base Camp
+  sethome "Cenarion Hold"

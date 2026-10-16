@@ -1,0 +1,110 @@
+guide completionist/alliance/nightelf/44-stranglethorn-vale-redridge-mountains
+title Stranglethorn Vale & Redridge Mountains
+faction Alliance
+race NightElf
+levels 58-59
+zone Redridge Mountains
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Stranglethorn Vale, Redridge Mountains
+next completionist/alliance/nightelf/45-stormwind-city-wetlands
+
+# Route: guide 44 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 58 to
+# 59, 19 quests, 1.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stranglethorn Vale, Redridge Mountains): Booty Bay -> Mistvale Valley
+# -> Gurubashi Arena -> Nesingwary's Expedition -> Lakeshire -> Lake Everstill
+# -> Render's Camp -> Redridge Canyons -> Lakeshire -> Galardell Valley ->
+# Stonewatch -> Lakeshire -> Lakeridge Highway -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): What Comes Around... (386), What Comes Around... (386),
+# Songblade Search (95772), Songblade Search (95772).
+
+step Krazek
+  zone Stranglethorn Vale
+  turnin 1115
+  accept 1116
+
+step Witch Doctor Unbagwa
+  accept 349
+
+step Mistvale Valley: Gorilla Fang
+  collect 2799 quest 349.1
+
+step Witch Doctor Unbagwa
+  turnin 349
+
+step Gurubashi Arena
+  tip Arena Treasure Chest drops the Arena Master: right-click it to start Arena Master.
+  collect 18706 x1
+  accept 7810
+  turnin 7810
+
+step Hemet Nesingwary
+  turnin 93928
+
+step Lakeshire
+  zone Redridge Mountains
+  sethome "Lakeshire"
+  turnin 345
+  accept 347
+  accept 150
+  accept 128
+
+step Lake Everstill: Murloc Fin
+  collect 1468 quest 150.1
+
+step Render's Camp: Blackrock Champion
+  kill 435 quest 128.1
+
+step Redridge Canyons: Rethban Ore
+  collect 2798 quest 347.1
+
+step Dockmaster Baren
+  turnin 150
+
+step Guard Howe
+  turnin 128
+
+step Old Lion Statue
+  turnin 94
+  accept 248
+
+step An Empty Jar
+  turnin 248
+
+step Verner Osgood
+  turnin 119
+  turnin 144
+  turnin 4186
+  accept 122
+  accept 124
+
+step Lakeshire: Redridge Brute
+  kill 426 quest 124.1
+
+step Lakeridge Highway: Underbelly Whelp Scale
+  collect 1221 quest 122.1
+
+step Verner Osgood
+  turnin 122
+
+step Redridge Canyons: Redridge Mystic
+  kill 430 quest 124.2
+
+step Verner Osgood
+  turnin 124
+  accept 126
+
+step Redridge Canyons: Yowler's Paw
+  collect 3614 quest 126.1
+
+step Verner Osgood
+  turnin 126
+  accept 145
+  accept 4223

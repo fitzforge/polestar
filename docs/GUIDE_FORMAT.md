@@ -66,8 +66,8 @@ Every line before the first `step`.
 | `race` | no | comma list (see Conditions) |
 | `class` | no | comma list |
 | `next` | no | id of the guide that follows, or several ids separated by commas: a **route choice**. The player picks where to level next in the "Choose your path" window; the first id is the author's default. Every option must be the guide's own faction. |
-| `category` | no | default `Leveling`; others: `Class` (class quest chains, mounts and weapons; pair with a `class` header), `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Dungeons` |
-| `folder` | no | the guide menu folder this guide is listed under, any category (e.g. `Mounts · Level 40`, `Companion pets · Vendors`). Guides sharing a folder sort by faction (yours first), then level. Without it: the category's folder (Leveling: by faction and level band). |
+| `category` | no | default `Leveling`; others: `Class` (class quest chains, mounts and weapons; pair with a `class` header), `Completionist` (a route through every quest a character can take, from `polestar sim export` of a completionist route: docs/SIMULATION.md "Completionist"; the leveling house rules apply), `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Dungeons` |
+| `folder` | no | the guide menu folder this guide is listed under, any category (e.g. `Mounts · Level 40`, `Companion pets · Vendors`). Guides sharing a folder sort by faction (yours first), then level (Completionist guides by id: their route order). Without it: the category's folder (Leveling: by faction and level band). |
 | `keywords` | no | comma list of extra words the guide menu search matches (e.g. the colours a mount guide covers); an empty entry is an error, a repeated one a warning |
 | `collects` | no | comma list of item ids this guide obtains (a mount guide: every colour it sells). Compiled as `collects = { ... }`; the Lookup module opens this guide for those items instead of building one. Malformed or repeated ids are errors; an id missing from `items.json` is a warning. |
 | `reward` | no (a warning on a `Class` guide without it) | what the guide's goal gives, shown first in the guide menu's details with its icon and the game's tooltip. Repeatable, one entry per line: `reward item <item> ["Name"] [quality] ...` (entries as in `choose`; several on one line are a choice of one), `reward spell <spellId> "Spell name"` (a mount, a form, a demon, an ability; the name is required; the id is the spell the player ends up with, as the Forever client's `SpellName` table has it: `reward spell 691 "Summon Felhunter"`, not the quest's "Teach" spell) or `reward text <words>` (anything without an id: reputation, experience). A spell written as `reward text` shows a glyph instead of its icon and no tooltip, and tests/guides-class.test.js fails on one for the guide's class. The details list the entries given outright under "Reward", then the choices under "Choose one", each group in header order. An item's name defaults to `items.json`; an id missing there needs its name. Compiled as `reward = { { item, itemName, quality, choice }, { spell, spellName }, { text } }`. |
@@ -430,7 +430,7 @@ Errors:
 - `accept` for a quest whose `races`/`classes` exclude every character the
   step or goal can apply to
 - coordinates outside 0–100
-- required elite work in a `Leveling` guide (a warning in other packs; elite work may appear there only as
+- required elite work in a `Leveling` or `Completionist` guide (a warning in other packs; elite work may appear there only as
   an `optional` extra, with the tip `<Target> is elite: grouping up is advised.`):
   a non-`optional` `kill` of an npc of rank 1–3 (elite, rare elite, boss) hostile
   to a side the goal applies to (a friendly one is a talk credit), or `collect` of
@@ -496,7 +496,7 @@ Warnings:
 - another pack's Era frame for a map Polestar's guides also use, with other
   bounds: in game Polestar's wins, so coordinates on that map may be off
 - `lint` only, with a simulator world cached in `data/sim` (or `--sim <dir>`): a
-  non-`optional` quest goal in a `Leveling` guide on a quest the solo filter
+  non-`optional` quest goal in a `Leveling` or `Completionist` guide on a quest the solo filter
   excludes (dungeon, raid, pvp, rare drop, reputation, repeatable or profession;
   `elite` is an error, above); a `turnin … direct` is no repeatable to grind
   and is left out of the repeatable check

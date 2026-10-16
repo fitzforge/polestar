@@ -1,0 +1,91 @@
+guide completionist/alliance/skyborne/41-duskwood-un-goro-crater
+title Duskwood & Un'Goro Crater
+faction Alliance
+race Skyborne
+levels 57-58
+zone Duskwood
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Duskwood, Swamp of Sorrows, Un'Goro Crater
+next completionist/alliance/skyborne/42-duskwood-western-plaguelands
+
+# Route: guide 41 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 57 to
+# 58, 21 quests, 1.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Duskwood, Swamp of Sorrows, Un'Goro Crater): Darkshire -> Raven Hill
+# -> Raven Hill Cemetery -> Darkshire -> Itharius's Cave -> Splinterspear
+# Junction -> Ironstone Plateau -> Lakkari Tar Pits -> Fire Plume Ridge -> The
+# Marshlands -> Lakkari Tar Pits -> The Slithering Scar -> Fire Plume Ridge.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Crime and Punishment (377), Crime and Punishment (377).
+
+step Watchmaster Sorigal
+  accept 1395
+  turnin 1477
+
+step Raven Hill: Mageweave Cloth
+  collect 4338 quest 7794.1
+
+step Night Watch Guard
+  accept 99267
+  turnin 99267
+
+step Raven Hill Cemetery: Nightcrawlers
+  collect 6530 quest 95065.1
+
+step Back to Darkshire
+  hearth "Darkshire"
+
+step Darkshire: Bottle of Moonshine and A Donation of Wool
+  buy 1942 x1 nearest
+  complete 7792
+
+step Avette Fellwood
+  turnin 95161
+  turnin 145
+
+step Itharius's Cave: Speck of Dream Dust
+  zone Swamp of Sorrows
+  collect 5803 quest 1116.1
+
+step Fallen Hero of the Horde
+  turnin 2681
+  accept 2702
+  turnin 2702
+  accept 2701
+  turnin 2701
+  accept 2721
+
+step A-Me 01
+  zone Un'Goro Crater
+  turnin 4244 optional
+  accept 4245
+
+step Lakkari Tar Pits: Super Sticky Tar
+  collect 11834 quest 4504.1
+
+step Fire Plume Ridge: Filled Pure Sample Jar
+  collect 11954 quest 4513.1
+
+step The Marshlands: Un'Goro Soil
+  collect 11018 quest 4496.2
+
+step Lakkari Tar Pits: Chasing A-Me 01
+  complete 4245
+
+step Karna Remtravel
+  turnin 4245
+
+step The Slithering Scar: Gorishi Scent Gland
+  collect 11837 quest 4496.1
+
+step Fire Plume Ridge: Unfinished Skeleton Key
+  collect 14645 quest 5801.1
+
+step Back to Darkshire
+  hearth "Darkshire"

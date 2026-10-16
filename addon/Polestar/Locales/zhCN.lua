@@ -1045,6 +1045,7 @@ L["Exploration"] = "探索"
 L["Legacy"] = "传承"
 L["Collectibles"] = "收藏品"
 L["Sections"] = "分区"
+L["Completionist"] = "全部任务"
 
 -- UI/Lookup.lua
 L["Companion"] = "小伙伴"

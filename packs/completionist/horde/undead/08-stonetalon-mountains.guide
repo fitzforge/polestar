@@ -1,0 +1,54 @@
+guide completionist/horde/undead/08-stonetalon-mountains
+title Stonetalon Mountains
+faction Horde
+race Undead
+levels 25-26
+zone Stonetalon Mountains
+category Completionist
+folder Completionist · Undead 20-30
+keywords completionist, every quest
+next completionist/horde/undead/09-ashenvale
+
+# Route: guide 8 of 51 of the simulator's completionist route for Undead (1199
+# of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 25 to 26, 7
+# quests, 0.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stonetalon Mountains): Webwinder Path -> Sun Rock Retreat -> Windshear
+# Crag -> Camp Aparaje -> Malaka'jin -> Webwinder Path.
+#
+# Left to other guides: class quests (the Class category).
+
+step Veenix
+  accept 78270
+  turnin 78270
+
+step Pocket Litter
+  turnin 79192
+
+step Windshear Crag: Venture Co. Logger
+  kill 3989 quest 1062.1
+
+step Windshear Crag: Deepmoss Egg
+  collect 5570 quest 1069.1
+
+step Camp Aparaje: Grimtotem Ruffian and Grimtotem Mercenary
+  kill 11910 quest 6548.1
+  kill 11911 quest 6548.2
+
+step Witch Doctor Jin'Zil
+  turnin 1060
+
+step Ziz Fizziks
+  turnin 1483
+
+step Back to The Crossroads
+  hearth "The Crossroads"
+
+step Night Run
+  getfp "Splintertree Post"
+
+step Night Run
+  sethome "Splintertree Post"

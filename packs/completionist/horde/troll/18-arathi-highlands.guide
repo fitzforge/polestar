@@ -1,0 +1,80 @@
+guide completionist/horde/troll/18-arathi-highlands
+title Arathi Highlands
+faction Horde
+race Troll
+levels 34-36
+zone Arathi Highlands
+category Completionist
+folder Completionist · Troll 30-40
+keywords completionist, every quest
+next completionist/horde/troll/19-desolace
+
+# Route: guide 18 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 34 to 36, 11
+# quests, 1.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Arathi Highlands): Circle of West Binding -> Boulder'gor -> Dabyrie's
+# Farmstead -> Hammerfall -> Faldir's Cove.
+#
+# Profession quests here are not routed (they need the skill): 5146 Elemental
+# Leatherworking; 6622 Triage.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Dragonmaw Rumors (95663).
+
+step Messenger Bag
+  accept 79976
+  turnin 79975
+  turnin 79976
+
+step Boulder'gor: Boulderfist Enforcer and Boulderfist Ogre
+  kill 2564 quest 676.2
+  kill 2562 quest 676.1
+
+step Dabyrie's Farmstead: Marcel's Head and Kenata's Head and more
+  collect 5832 quest 1164.2
+  collect 5830 quest 1164.1
+  collect 5831 quest 1164.3
+
+step Hammerfall
+  getfp "Hammerfall"
+  sethome "Hammerfall"
+  turnin 676
+
+step Boulderfist Brute (level 35)
+  level 35 -- grind on Boulderfist Brute (level 36) at Boulderfist Hall
+
+step Lolo the Lookout
+  accept 663
+  turnin 663
+  accept 662
+  accept 665
+
+step Faldir's Cove: Sunken Treasure
+  complete 665
+
+step Doctor Draxlegauge
+  turnin 665
+  accept 666
+  accept 664
+
+step Faldir's Cove: Daggerspine Raider and Daggerspine Sorceress and more
+  kill 2595 quest 664.1
+  kill 2596 quest 664.2
+  complete 662
+  collect 4492 quest 666.1
+
+step First Mate Nilzlix
+  turnin 662
+  turnin 666
+  accept 668
+  turnin 664
+  turnin 668
+  accept 669
+
+step Back to Hammerfall
+  hearth "Hammerfall"
+  note "Profession quests here, for players with the skill: Elemental Leatherworking (Leatherworking 225), Triage (First Aid 225)."

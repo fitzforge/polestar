@@ -1,0 +1,193 @@
+guide completionist/alliance/human/41-blasted-lands-wetlands
+title Blasted Lands & Wetlands
+faction Alliance
+race Human
+levels 57-58
+zone Wetlands
+category Completionist
+folder Completionist · Human 50-60
+keywords completionist, every quest, Swamp of Sorrows, Blasted Lands, Feralas, Darnassus, Wetlands, Moonglade
+next completionist/alliance/human/42-western-plaguelands-eastern-plaguelands
+
+# Route: guide 41 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 57 to 58, 43
+# quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Swamp of Sorrows, Blasted Lands, Feralas, Darnassus, Wetlands,
+# Moonglade): Splinterspear Junction -> Itharius's Cave -> Splinterspear
+# Junction -> Misty Reed Strand -> Dreadmaul Hold -> Rise of the Defiler ->
+# Serpent's Coil -> Nethergarde Keep -> The Dark Portal -> Rise of the Defiler
+# -> Altar of Storms -> Sardor Isle -> The Twin Colossals -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Nekrum's Medallion (2991), The Crone of the Kraul (1101),
+# Pusillin and the Elder Azj'Tordin (7441), Elven Legends (7482),
+# Lethtendris's Web (7488), In Search of Thaelrid (1198), Twilight Falls
+# (1199), The Fury Runs Deep (378), The Fury Runs Deep (378), Lost in the
+# Thicket Things (95647), Fallen in the Fen (95795), Heartwoven (95809),
+# Highland Hides (98815), Highland Hides (98815), Prehistoric Prism (98824),
+# Prehistoric Prism (98824).
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 2783
+  accept 2801
+
+step Splinterspear Junction: A Tale of Sorrow
+  complete 2801
+
+step Fallen Hero of the Horde
+  turnin 2801
+  accept 2681
+
+step Itharius's Cave: Speck of Dream Dust
+  collect 5803 quest 1116.1
+
+step A Soggy Scroll
+  turnin 624
+  accept 625
+
+step Misty Reed Strand: Goodsteel's Balanced Flameberge
+  collect 11723 quest 4450.4
+
+step Dreadmaul Hold: Servant of Grol
+  zone Blasted Lands
+  kill 7669 quest 2681.2
+
+step Kum'isha the Collector
+  accept 2521 optional
+  accept 3501
+
+step Serpent's Coil: Servant of Allistarj
+  kill 7670 quest 2681.3
+
+step Nethergarde Keep: Everything Counts In Large Amounts
+  complete 3501
+
+step The Dark Portal: Servant of Razelikh
+  kill 7668 quest 2681.1
+
+step Kum'isha the Collector
+  collect 8244 quest 2521.1 optional
+  turnin 3501
+  turnin 2521 optional
+  accept 2522 optional
+  collect 8244 quest 2522.1 optional
+
+step Altar of Storms: Servant of Sevine
+  turnin 2522 optional
+  kill 7671 quest 2681.4
+
+step Back to Thunderbrew Distillery
+  hearth "Thunderbrew Distillery"
+
+step Sardor Isle
+  zone Feralas
+  sethome "Feathermoon Stronghold"
+  accept 3791
+
+step Sardor Isle: The Mystery of Morrowgrain
+  complete 3791
+
+step Quintis Jonespyre
+  turnin 3791
+  accept 3792
+
+step Sardor Isle: Morrowgrain to Feathermoon Stronghold
+  complete 3792
+
+step Quintis Jonespyre
+  turnin 3792
+
+step Gregan Brewspewer
+  turnin 4142
+
+step Latronicus Moonspear
+  turnin 7494
+
+step Dire Maul: Vial of Dire Water
+  collect 16973 quest 5247.3
+
+step Kindal Moonweaver
+  accept 3841
+
+step The Twin Colossals: The Videre Elixir
+  complete 3909
+
+step Gracina Spiritmight
+  zone Darnassus
+  accept 4493
+
+step Arch Druid Fandral Staghelm
+  turnin 1015
+  accept 6761
+  turnin 6761
+  accept 6762
+
+step Menethil Harbor
+  zone Wetlands
+  sethome "Deepwater Tavern"
+  turnin 942
+  accept 943
+
+step Menethil Harbor: A Donation of Wool
+  complete 7802
+  complete 7807
+
+step Black Channel Marsh: Stone of Relu
+  collect 5233 quest 943.1
+
+step Archaeologist Flagongut
+  turnin 943
+  turnin 98459
+  turnin 270
+  accept 321
+  turnin 321
+  accept 324
+
+step Menethil Harbor: Lightforge Ingot
+  collect 2702 quest 324.1
+
+step Glorin Steelbrow
+  turnin 324
+  accept 322
+
+step Thelgen Rock: Incendicite Ore
+  collect 3340 quest 466.1
+
+step Thelgen Rock: A Noble Brew
+  complete 335
+
+step Thelgen Rock: A Donation of Silk
+  complete 7803
+  complete 7808
+
+step Back to Deepwater Tavern
+  hearth "Deepwater Tavern"
+
+step Mikhail
+  turnin 1248
+  turnin 1301
+  accept 1249
+
+step Menethil Harbor: The Missing Diplomat
+  complete 1249
+
+step Mikhail
+  turnin 1249
+  accept 1250
+  turnin 1250
+  accept 1264
+
+step Rhag Garmason
+  turnin 632
+  accept 633
+
+step Rabine Saturna
+  zone Moonglade
+  turnin 6762
+  accept 1124
+  accept 5527

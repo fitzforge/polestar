@@ -1,0 +1,182 @@
+guide completionist/horde/skyborne/43-felwood-winterspring
+title Felwood & Winterspring
+faction Horde
+race Skyborne
+levels 58-59
+zone Felwood
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, The Hinterlands, Alterac Mountains, Felwood, Winterspring, Blasted Lands, Swamp of Sorrows
+next completionist/horde/skyborne/44-stranglethorn-vale-silverpine-forest
+
+# Route: guide 43 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 58 to
+# 59, 34 quests, 3.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (The Hinterlands, Alterac Mountains, Felwood, Winterspring, Blasted
+# Lands, Swamp of Sorrows): Shaol'watha -> Jintha'Alor -> The Overlook Cliffs
+# -> Dalaran -> Growless Cave -> Dandred's Fold -> Emerald Sanctuary ->
+# Jaedenar -> Irontree Woods -> Emerald Sanctuary -> Bloodvenom Falls ->
+# Emerald Sanctuary -> Irontree Woods -> ….
+#
+# Optional (elite: grouping up is advised): Recover the Key! (7846; Hitah'ya
+# the Keeper 51); Wanted: Vile Priestess Hexx and Her Minions (7861; Vile
+# Priestess Hexx 51, Vilebranch Aman'zasi Guard 50-51); The Crown of Will
+# (520; Mug'thol 43); High Chief Winterfall (5121; High Chief Winterfall 59);
+# The Final Piece (5123; High Chief Winterfall 59).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Jammal'an the Prophet (1446), Heart of Disruption (96984),
+# The Grave Knight (96986), Opportunistic Education (96987).
+
+step Cortello's Treasure
+  zone The Hinterlands
+  turnin 626
+
+step Back to Hammerfall
+  hearth "Hammerfall"
+
+step Elder Torntusk
+  tip Hitah'ya the Keeper (level 51) is elite: grouping up is advised unless you are well above level 51.
+  collect 9324 quest 2937.1 optional
+  turnin 7846 optional
+  accept 7847
+
+step The Overlook Cliffs
+  tip Vile Priestess Hexx (level 51) and Vilebranch Aman'zasi Guard (level 50-51) are elite: grouping up is advised unless you are well above level 51.
+  sethome "Revantusk Village"
+  turnin 7847
+  turnin 7861 optional
+
+step Dalaran: Dalaran Summoner and Elemental Slave and more
+  zone Alterac Mountains
+  kill 2358 quest 545.1
+  kill 2359 quest 545.2
+  collect 3715 quest 557.1
+
+step Growless Cave: Frostmaw's Mane
+  collect 5811 quest 1136.1
+
+step Dandred's Fold: Lord Aliden Perenolde
+  kill 2423 quest 507.1
+
+step Elysa
+  turnin 507
+
+step Dandred's Fold: Silk Cloth
+  collect 4306 quest 7814.1
+
+step Elysa
+  tip Mug'thol (level 43) is elite: grouping up is advised unless you are well above level 43.
+  accept 508
+  collect 3553 quest 520.1 optional
+  collect 3554 quest 520.2 optional
+
+step Greta Mosshoof
+  zone Felwood
+  turnin 5159
+  accept 5165
+  turnin 3942
+  accept 4084
+
+step Emerald Sanctuary: Silvery Claws
+  collect 11172 quest 4084.1
+
+step Jaedenar: Brazier of Pain and Brazier of Hatred
+  interact 176158 quest 5165.1
+  interact 176161 quest 5165.4
+
+step Jaedenar: Brazier of Malice and Brazier of Suffering
+  interact 176159 quest 5165.2
+  interact 176160 quest 5165.3
+
+step Irontree Woods: Irontree Heart and Felpaw Ravager
+  collect 11173 quest 4084.2
+  kill 8961 quest 4120.2
+
+step Irontree Woods: Angerclaw Grizzly
+  kill 8957 quest 4120.1
+
+step Eridan Bluewind
+  turnin 4084
+  accept 4005
+  turnin 5165
+  accept 5242
+
+step Bloodvenom Falls: Moora and Salia and more
+  kill 9861 quest 5242.1
+  kill 9860 quest 5242.2
+  collect 13207 quest 5242.3
+
+step Greta Mosshoof
+  turnin 5242
+
+step Irontree Woods: Toxic Horror Droplet
+  collect 12822 quest 5086.1
+
+step Trull Failbane
+  turnin 4741
+  accept 4721
+
+step Donova Snowden
+  zone Winterspring
+  turnin 5086
+  accept 5087
+
+step Frostfire Hot Springs: Winterfall Crate
+  collect 12829 quest 5087.1
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5087
+  accept 5121 optional
+
+step Everlook
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59. High Chief Winterfall drops the Crudely-written Log: right-click it to start The Final Piece.
+  kill 10738 quest 5121.1 optional
+  collect 12842 x1 optional
+  accept 5123 optional
+  sethome "Everlook"
+  turnin 5163
+
+step The Hidden Grove: Berserk Owlbeast
+  kill 7454 quest 4721.1
+
+step Back to Everlook
+  hearth "Everlook"
+
+step Mazthoril
+  tip Crazed Owlbeast drops the Blue-feathered Necklace: right-click it to start Guarding Secrets.
+  collect 12558 x1
+  accept 4882
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5121 optional
+  turnin 5123 optional
+  accept 5128
+
+step Harlo Wigglesworth
+  accept 6606
+  turnin 6606
+  accept 4907
+
+step Spirit of Kirith
+  zone Blasted Lands
+  turnin 2721
+  accept 2743
+
+step Nethergarde Keep: Marsh Flesheater and Marsh Oracle
+  kill 751 quest 1428.2
+  kill 752 quest 1428.3
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 2743
+  accept 2744
+
+step Gadgetzan
+  sethome "Gadgetzan"

@@ -1,0 +1,133 @@
+guide completionist/horde/undead/47-thunder-bluff-feralas
+title Thunder Bluff & Feralas
+faction Horde
+race Undead
+levels 59-60
+zone Thunder Bluff
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Thunder Bluff, Feralas, Un'Goro Crater
+next completionist/horde/undead/48-silithus
+
+# Route: guide 47 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 59 to
+# 60, 27 quests, 1.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Thunder Bluff, Feralas, Un'Goro Crater): Thunder Bluff -> near Thunder
+# Bluff -> Thunder Bluff -> Camp Mojache -> Feral Scar Vale -> Camp Mojache ->
+# Grimtotem Compound -> Camp Mojache -> Ruins of Ravenwind -> Camp Mojache ->
+# Frayfeather Highlands -> The Slithering Scar -> Lakkari Tar Pits.
+#
+# Optional (elite: grouping up is advised): It's Dangerous to Go Alone (3962;
+# Blazerunner 56).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Leaders of the Fang (914), A Vengeful Fate (1102), Testing
+# an Enemy's Strength (5723), Pusillin and the Elder Azj'Tordin (7441), Elven
+# Legends (7481), Lethtendris's Web (7489).
+
+step Melor Stonehoof
+  turnin 1136
+
+step Rumstag Proudstrider
+  turnin 7821
+
+step Arch Druid Hamuul Runetotem
+  turnin 936
+  turnin 3761
+  accept 3782
+  turnin 3782
+  accept 3786
+
+step near Thunder Bluff: Morrowgrain Research
+  complete 3786
+
+step Bashana Runetotem
+  turnin 3786
+  accept 3804
+
+step near Thunder Bluff: Morrowgrain to Thunder Bluff
+  complete 3804
+
+step Bashana Runetotem
+  turnin 3804
+  turnin 4883
+
+step Apothecary Zamah
+  turnin 962
+  turnin 1086
+
+step Rumstag Proudstrider
+  turnin 7820
+  turnin 97538
+
+step Melor Stonehoof
+  turnin 1205
+
+step Rumstag Proudstrider
+  turnin 7822
+
+step Camp Mojache
+  zone Feralas
+  sethome "Camp Mojache"
+  turnin 4120
+  turnin 7492
+  turnin 3123
+  accept 3124
+
+step Feral Scar Vale: Hippogryph Muisek
+  collect 9595 quest 3124.1
+
+step Witch Doctor Uzer'i
+  turnin 3124
+  accept 3125
+
+step Grimtotem Compound: Faerie Dragon Muisek
+  collect 9596 quest 3125.1
+
+step Witch Doctor Uzer'i
+  turnin 3125
+  accept 3126
+
+step Camp Mojache: Treant Muisek
+  collect 9593 quest 3126.1
+
+step Witch Doctor Uzer'i
+  turnin 3126
+  accept 3127
+
+step Ruins of Ravenwind: Mountain Giant Muisek
+  collect 9597 quest 3127.1
+
+step Witch Doctor Uzer'i
+  turnin 3127
+  accept 3129
+  turnin 3129
+
+step Frayfeather Highlands: The Super Egg-O-Matic
+  complete 2741
+
+step The Slithering Scar: Gorishi Queen Brain
+  zone Un'Goro Crater
+  collect 11835 quest 4507.1
+
+step J.D. Collie
+  turnin 4005
+  accept 3961
+
+step Linken
+  tip Blazerunner (level 56) is elite: grouping up is advised unless you are well above level 56.
+  turnin 3961
+  accept 3962 optional
+  complete 3962 optional
+
+step Twilight Base Camp
+  tip Blazerunner (level 56) is elite: grouping up is advised unless you are well above level 56.
+  turnin 3962 optional
+  getfp "Cenarion Hold"
+
+step Twilight Base Camp
+  sethome "Cenarion Hold"

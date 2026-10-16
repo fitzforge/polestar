@@ -1,0 +1,177 @@
+guide completionist/alliance/skyborne/38-redridge-mountains-western-plaguelands
+title Redridge Mountains & Western Plaguelands
+faction Alliance
+race Skyborne
+levels 56-57
+zone Redridge Mountains
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Redridge Mountains, Western Plaguelands, Westfall
+next completionist/alliance/skyborne/39-stormwind-city-feralas
+
+# Route: guide 38 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 56 to
+# 57, 38 quests, 1.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Redridge Mountains, Western Plaguelands, Westfall): Lakeshire -> Three
+# Corners -> Lakeshire -> Sorrow Hill -> Ruins of Andorhal -> Northridge
+# Lumber Camp -> Sorrow Hill -> Thondroril River -> Lakeshire -> Lakeridge
+# Highway -> Lakeshire -> Redridge Canyons -> Lakeshire -> ….
+#
+# Optional (elite: grouping up is advised): Oh Brother... (167; Foreman
+# Thistlenettle 20); Collecting Memories (168; Skeletal Miner 17-18, Undead
+# Excavator 17-18, Undead Dynamiter 17-18).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): What Comes Around... (386), What Comes Around... (386),
+# Songblade Search (95772), Songblade Search (95772), Barov Family Fortune
+# (5343), Doctor Theolen Krastinov, the Butcher (5382), Kirtonos the Herald
+# (5384), The Lich, Ras Frostwhisper (5466), Krastinov's Bag of Horrors
+# (5515), Of Love and Family (5848), The Defias Brotherhood (166), The Defias
+# Brotherhood (166), The Unsent Letter (373).
+
+step Magistrate Solomon
+  turnin 4183
+  accept 4184
+
+step Marcy Baker
+  accept 91904
+  accept 91905
+
+step Three Corners: A Sealed Crate
+  complete 91904
+
+step Marcy Baker
+  turnin 91904
+
+step Three Corners: A Sealed Crate
+  complete 91905
+
+step Marcy Baker
+  turnin 91905
+  accept 91899
+  accept 91900
+
+step Three Corners: A Sealed Crate
+  complete 91899
+
+step Marcy Baker
+  turnin 91899
+
+step Three Corners: A Sealed Crate
+  complete 91900
+
+step Marcy Baker
+  turnin 91900
+
+step Verner Osgood
+  accept 1097
+  turnin 119
+  turnin 121
+  turnin 65
+
+step Nathaniel Dumah
+  zone Western Plaguelands
+  turnin 5903
+  accept 5904
+
+step Marlene Redpath
+  turnin 5152
+  accept 5153
+
+step Sorrow Hill: A Strange Historian
+  complete 5153
+
+step Chromie
+  turnin 5153
+  accept 5154
+
+step Ruins of Andorhal: The Annals of Darrowshire
+  complete 5154
+
+step Chromie
+  turnin 5154
+  accept 5210
+
+step Termite Barrel
+  turnin 5904
+  accept 6389
+
+step Nathaniel Dumah
+  turnin 6389
+
+step Tirion Fordring
+  turnin 5543
+  turnin 5544
+  turnin 5542
+  accept 5742
+
+step Thondroril River: Redemption
+  complete 5742
+
+step Tirion Fordring
+  turnin 5742
+  accept 5781
+
+step Back to Lakeshire
+  hearth "Lakeshire"
+
+step Wiley the Black
+  zone Redridge Mountains
+  accept 132
+  accept 143
+  accept 122
+  accept 124
+
+step Lakeshire: Redridge Brute
+  kill 426 quest 124.1
+
+step Lakeridge Highway: Underbelly Whelp Scale
+  collect 1221 quest 122.1
+
+step Verner Osgood
+  turnin 122
+
+step Redridge Canyons: Redridge Mystic
+  kill 430 quest 124.2
+
+step Verner Osgood
+  turnin 124
+  accept 126
+
+step Redridge Canyons: Yowler's Paw
+  collect 3614 quest 126.1
+
+step Verner Osgood
+  turnin 126
+
+step Alexston Farmstead: Humble Beginnings
+  zone Westfall
+  complete 399
+
+step Sentinel Hill
+  sethome "Sentinel Hill"
+  turnin 132
+  turnin 143
+  accept 135
+  accept 144
+
+step The Dagger Hills: Keg of Thunderbrew and Thistlenettle's Badge and more
+  tip Foreman Thistlenettle (level 20), Skeletal Miner (level 17-18), Undead Excavator (level 17-18) and Undead Dynamiter (level 17-18) are elite: grouping up is advised unless you are well above level 20.
+  buy 1262 x1 nearest
+  collect 1875 quest 167.1 optional
+  collect 1894 quest 168.1 optional
+
+step Saldean's Farm: Dust Devil Debris
+  collect 5669 quest 1076.1
+
+step Old Footlocker
+  turnin 67
+  accept 68
+
+step Grimbooze Thunderbrew
+  turnin 48
+  accept 49

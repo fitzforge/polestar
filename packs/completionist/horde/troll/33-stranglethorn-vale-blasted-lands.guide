@@ -1,0 +1,280 @@
+guide completionist/horde/troll/33-stranglethorn-vale-blasted-lands
+title Stranglethorn Vale & Blasted Lands
+faction Horde
+race Troll
+levels 51-53
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · Troll 50-60
+keywords completionist, every quest, Stranglethorn Vale, Badlands, Burning Steppes, Swamp of Sorrows, Redridge Mountains, Searing Gorge, Loch Modan, Blasted Lands, Tirisfal Glades
+next completionist/horde/troll/34-western-plaguelands-tirisfal-glades
+
+# Route: guide 33 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 51 to 53, 50
+# quests, 4.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stranglethorn Vale, Badlands, Burning Steppes, Swamp of Sorrows,
+# Redridge Mountains, Searing Gorge, Loch Modan, Blasted Lands, Tirisfal
+# Glades): Booty Bay -> Mistvale Valley -> Nek'mani Wellspring -> Booty Bay ->
+# Wild Shore -> Jaguero Isle -> Booty Bay -> Kargath -> Camp Cagg -> Kargath
+# -> Camp Cagg -> Ruins of Thaurissan -> Blackrock Stronghold -> ….
+#
+# Optional (elite: grouping up is advised): The Monogrammed Sash (8552;
+# Mok'rash 50); Facing Negolash (618; Negolash 52); Facing Negolash (8554;
+# Negolash 52); Message in a Bottle (630; King Mukla 51); Broken Alliances
+# (793; Blacklash 50, Hematus 50); Necklace Recovery (2283; Shadowforge
+# Surveyor 35-36, Shadowforge Ruffian 36-37, Shadowforge Digger 35-36,
+# Stonevault Rockchewer 36-37, Stonevault Oracle 37-38, Stonevault Cave Hunter
+# 36-37).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Find the Gems and Power Source (2339), Disharmony of Fire
+# (3907), Commander Gor'shak (3981), The Rise of the Machines (4063), KILL ON
+# SIGHT: Dark Iron Dwarves (4081), KILL ON SIGHT: High Ranking Dark Iron
+# Officials (4082), Operation: Death to Angerforge (4132), Lost Thunderbrew
+# Recipe (4134), Ribbly Screwspigot (4136), The Pack Mistress (4724), Kibler's
+# Exotic Pets (4729), The Darkstone Tablet (4768), En-Ay-Es-Tee-Why (4862),
+# Warlord's Command (4903), Operative Bijou (4981), Dark Iron Legacy (3802), A
+# Taste of Flame (4024), Precarious Predicament (4121), The Heart of the
+# Mountain (4123), Egg Freezing (4734), Egg Collection (4735), Blackhand's
+# Command (7761), The Left Piece of Lord Valthalak's Amulet (8966), The Left
+# Piece of Lord Valthalak's Amulet (8967), The Left Piece of Lord Valthalak's
+# Amulet (8968), The Left Piece of Lord Valthalak's Amulet (8969), The Right
+# Piece of Lord Valthalak's Amulet (8989), The Right Piece of Lord Valthalak's
+# Amulet (8990), The Right Piece of Lord Valthalak's Amulet (8991), The Right
+# Piece of Lord Valthalak's Amulet (8992), Mea Culpa, Lord Valthalak (8995),
+# Vorrel's Revenge (1051), Barov Family Fortune (5341), The Wrath of Rath'mael
+# (92422), The Wrath of Rath'mael (92422), Crest of Lordaeron (95204),
+# Unending Torment (97288).
+
+step Krazek
+  turnin 1115
+  accept 1116
+
+step Captain Hecklebury Smotts
+  accept 615
+  turnin 615
+
+step Oglethorpe Obnoticus
+  turnin 2767
+  accept 348
+  turnin 2874
+  accept 2872
+  accept 580
+  accept 2864
+  accept 617
+
+step Sprogger
+  tip Mok'rash (level 50) and Negolash (level 52) are elite: grouping up is advised unless you are well above level 52. Mok'rash drops the Monogrammed Sash: right-click it to start The Monogrammed Sash.
+  collect 3985 x1 optional
+  accept 8552 optional
+  accept 618 optional
+  turnin 8552 optional
+  accept 8553
+  turnin 8553
+  accept 8554 optional
+
+step Mistvale Valley: Heart of Mokk
+  tip Negolash (level 52) is elite: grouping up is advised unless you are well above level 52.
+  collect 3935 quest 618.1 optional
+  collect 3935 quest 8554.1 optional
+  collect 2797 quest 348.1
+
+step Nek'mani Wellspring: Akiris Reed
+  collect 4029 quest 617.1
+
+step Captain Hecklebury Smotts
+  tip Negolash (level 52) is elite: grouping up is advised unless you are well above level 52.
+  turnin 8554 optional
+  turnin 618 optional
+  turnin 617
+
+step Wild Shore
+  tip Half-Buried Bottle drops the Carefully Folded Note: right-click it to start Message in a Bottle.
+  collect 4098 x1
+  accept 594
+
+step Princess Poobah
+  tip King Mukla (level 51) is elite: grouping up is advised unless you are well above level 51.
+  turnin 594
+  accept 630 optional
+  collect 4103 quest 630.1 optional
+
+step Oglethorpe Obnoticus
+  tip King Mukla (level 51) is elite: grouping up is advised unless you are well above level 51.
+  turnin 630 optional
+  turnin 648
+  turnin 836
+  accept 3721
+  turnin 3721
+
+step Booty Bay: Warsong Supplies
+  complete 6571
+
+step Kargath
+  zone Badlands
+  sethome "Kargath"
+  accept 3821
+  accept 4061
+  accept 782
+
+step Camp Cagg: Sign of the Earth
+  collect 4640 quest 782.1
+
+step Gorn
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 782
+  accept 793 optional
+
+step Back to Kargath
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  collect 4615 quest 793.1 optional
+  collect 4645 quest 793.2 optional
+  hearth "Kargath"
+
+step Camp Cagg: Silk Cloth
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 793 optional
+  collect 4306 quest 4449.2
+
+step Ruins of Thaurissan
+  zone Burning Steppes
+  getfp "Flame Crest"
+  accept 4296
+  accept 4726
+
+step Ruins of Thaurissan: Broodling Essence
+  collect 12283 quest 4726.1
+
+step Tinkee Steamboil
+  turnin 4726
+  accept 4808
+
+step Blackrock Stronghold: Tablet Transcript
+  collect 11470 quest 4296.1
+
+step Maxwort Uberglint
+  turnin 4296
+
+step Sha'ni Proudtusk
+  turnin 3821
+  accept 3822
+
+step Dreadmaul Rock: Sha'ni's Nose-Ring
+  collect 11058 quest 3822.1
+
+step Franclorn Forgewright
+  accept 3801
+  turnin 3801
+
+step Ruins of Thaurissan: Fractured Elemental Shard
+  collect 11266 quest 4061.1
+  accept 4022 optional
+  complete 4022 optional
+  turnin 4022 optional
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  accept 2784
+
+step Splinterspear Junction: Fall From Grace
+  complete 2784
+
+step Fallen Hero of the Horde
+  turnin 2784
+  accept 2621
+
+step Stonard
+  sethome "Stonard"
+  turnin 2621
+  accept 2622
+  turnin 2622
+  accept 2623
+
+step Shawn
+  zone Redridge Mountains
+  accept 3741
+
+step Lakeshire: Hilary's Necklace
+  complete 3741
+
+step Hilary
+  turnin 3741
+
+step Wooden Outhouse
+  zone Searing Gorge
+  turnin 4449
+  accept 4450
+
+step Grimesilt Dig Site: Solid Crystal Leg Shaft
+  collect 11725 quest 4450.2
+  collect 10561 quest 4244.1 optional
+
+step Stonesplinter Valley: Magenta Fungus Cap and Shattered Necklace
+  zone Loch Modan
+  tip Shadowforge Surveyor (level 35-36), Shadowforge Ruffian (level 36-37), Shadowforge Digger (level 35-36) and 3 more are elite: grouping up is advised unless you are well above level 38.
+  collect 8047 quest 2202.1
+  collect 7666 quest 2283.1 optional
+
+step Back to Stonard
+  hearth "Stonard"
+
+step Bloodmage Drazial
+  zone Blasted Lands
+  accept 2581
+  accept 2583
+  accept 2585
+  accept 2601
+  accept 2603
+
+step Garrison Armory: Vulture Gizzard and Snickerfang Jowl and more
+  collect 8396 quest 2585.2
+  collect 8396 quest 2601.2
+  collect 8396 quest 2603.1
+  collect 8391 quest 2581.1
+  collect 8391 quest 2603.2
+  collect 8393 quest 2581.3
+  collect 8393 quest 2583.2
+  collect 8393 quest 2585.1
+
+step Bloodmage Lynnore
+  turnin 2603
+
+step Kum'isha the Collector
+  accept 2521 optional
+  accept 3501
+
+step Serpent's Coil: Blasted Boar Lung and Basilisk Brain
+  collect 8392 quest 2581.2
+  collect 8392 quest 2583.1
+  collect 8392 quest 2585.3
+  collect 8394 quest 2583.3
+  collect 8394 quest 2601.1
+
+step Nethergarde Keep: Warchief's Orders
+  collect 8463 quest 2623.1
+
+step Nethergarde Keep: Imperfect Draenethyst Fragment
+  collect 10593 quest 3501.1
+
+step Bloodmage Lynnore
+  turnin 2601
+  turnin 2581
+  turnin 2583
+  turnin 2585
+
+step Kum'isha the Collector
+  collect 8244 quest 2521.1 optional
+  turnin 3501
+  turnin 2521 optional
+  accept 2522 optional
+  collect 8244 quest 2522.1 optional
+  turnin 2522 optional
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  accept 5096
+  accept 5901

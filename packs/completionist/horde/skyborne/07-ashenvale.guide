@@ -1,0 +1,231 @@
+guide completionist/horde/skyborne/07-ashenvale
+title Ashenvale
+faction Horde
+race Skyborne
+levels 25-28
+zone Ashenvale
+category Completionist
+folder Completionist · Skyborne 20-30
+keywords completionist, every quest
+next completionist/horde/skyborne/08-hillsbrad-foothills
+
+# Route: guide 7 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 25 to
+# 28, 30 quests, 3.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Ashenvale): Mystral Lake -> The Zoram Strand -> Night Run -> Fallen
+# Sky Lake -> Raynewood Retreat -> Night Run -> Fallen Sky Lake -> Night Run
+# -> Satyrnaar -> Astranaar -> The Ruins of Stardust -> Astranaar ->
+# Thistlefur Village -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Blackfathom Villainy (6561), Allegiance to the Old Gods
+# (6565), Allegiance to the Old Gods (6565), Amongst the Ruins (6921), Amongst
+# the Ruins (6921), Baron Aquanis (6922).
+
+step Alonso
+  accept 78132
+  turnin 78132
+  accept 78133
+  turnin 78133
+  accept 78134
+  turnin 78134
+
+step The Zoram Strand
+  turnin 3513 optional
+  accept 3514 optional
+  getfp "Zoram'gar Outpost"
+  accept 6442
+
+step The Zoram Strand: Wrathtail Head
+  collect 5490 quest 6442.1
+
+step Marukai
+  turnin 6442
+
+step Night Run
+  getfp "Splintertree Post"
+  sethome "Splintertree Post"
+  accept 6383
+  turnin 6382
+  turnin 6383
+
+step Kuray'bin
+  accept 6503
+
+step Night Run: Ashenvale Outrunner
+  kill 12856 quest 6503.1
+
+step Night Run
+  tip Sharptalon drops the Sharptalon's Claw: right-click it to start Sharptalon's Claw.
+  collect 16305 x1
+  accept 2
+
+step Senani Thunderheart
+  turnin 2
+
+step Kuray'bin
+  turnin 6503
+
+step Torek
+  accept 6544
+
+step Fallen Sky Lake: Torek's Assault
+  complete 6544
+
+step Raynewood Retreat
+  tip Shadumbra drops the Shadumbra's Head: right-click it to start Shadumbra's Head.
+  collect 16304 x1
+  accept 24
+
+step Back to Splintertree Post
+  hearth "Splintertree Post"
+
+step Senani Thunderheart
+  turnin 24
+  turnin 6544
+
+step Kadrak
+  turnin 6541
+  accept 6543
+
+step Night Run: Warsong Scout Update
+  buy 16764 x1 nearest
+
+step Satyrnaar: Warsong Outrider Update
+  buy 16765 x1 nearest
+
+step Va'xug Firefure
+  accept 98251
+  accept 98252
+
+step The Ruins of Stardust: Shadowhorn Stag
+  kill 3817 quest 98251.1
+
+step The Ruins of Stardust
+  tip Ursangous drops the Ursangous's Paw: right-click it to start Ursangous's Paw.
+  collect 16303 x1
+  accept 23
+
+step The Ruins of Stardust: Ashenvale Bear
+  kill 3809 quest 98251.2
+
+step Va'xug Firefure
+  turnin 98251
+
+step Eye of Kilrogg
+  turnin 98252
+
+step Ruul Snowhoof
+  accept 6482
+
+step Thistlefur Village: Freedom to Ruul
+  complete 6482
+
+step The Zoram Strand: Warsong Runner Update
+  buy 16763 x1 nearest
+
+step Muglash
+  accept 6641
+  accept 6462
+  accept 6563
+
+step The Zoram Strand: Vorsha the Lasher
+  complete 6641
+
+step The Zoram Strand: Sapphire of Aku'Mai
+  collect 16784 quest 6563.1
+
+step Thistlefur Village: Troll Charm
+  collect 16602 quest 6462.1
+
+step Warsong Runner
+  turnin 6641
+  turnin 6563
+  turnin 6462
+
+step Senani Thunderheart
+  turnin 23
+  accept 247
+  turnin 247
+  turnin 6482
+
+step Kadrak
+  turnin 6543
+
+step Back to Splintertree Post
+  hearth "Splintertree Post"
+
+step Karang Amakkar
+  accept 216
+
+step Thistlefur Village: Thistlefur Shaman
+  kill 3924 quest 216.2
+
+step Thistlefur Village: Thistlefur Avenger
+  kill 3925 quest 216.1
+
+step Karang Amakkar
+  turnin 216
+  accept 6621
+
+step Raynewood Retreat: Murgut's Totem
+  collect 16976 quest 6621.1
+
+step Locke Okarr
+  accept 6571
+
+step Pixel
+  accept 6441
+
+step Night Run: Satyr Horns
+  collect 5481 quest 6441.1
+
+step Raynewood Retreat: Logging Rope
+  collect 16743 quest 6571.4
+
+step Pixel
+  turnin 6441
+
+step Karang Amakkar
+  turnin 6621
+
+step Back to Splintertree Post
+  hearth "Splintertree Post"
+
+step Mastok Wrilehiss
+  accept 25
+
+step Gurda Ragescar
+  accept 6504
+
+step Fallen Sky Lake: The Lost Pages
+  complete 6504
+
+step Gurda Ragescar
+  turnin 6504
+
+step Mystral Lake
+  tip Tideress drops the Befouled Water Globe: right-click it to start The Befouled Element.
+  collect 16408 x1
+  accept 1918
+
+step Mystral Lake: Befouled Water Elemental
+  kill 3917 quest 25.1
+
+step Mastok Wrilehiss
+  turnin 25
+  turnin 1918
+  accept 824
+
+step Je'neu Sancrea
+  turnin 824
+
+step Tarren Mill
+  getfp "Tarren Mill"
+
+step Tarren Mill
+  sethome "Tarren Mill"

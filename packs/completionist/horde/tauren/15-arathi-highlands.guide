@@ -1,0 +1,57 @@
+guide completionist/horde/tauren/15-arathi-highlands
+title Arathi Highlands
+faction Horde
+race Tauren
+levels 35-36
+zone Arathi Highlands
+category Completionist
+folder Completionist · Tauren 30-40
+keywords completionist, every quest
+next completionist/horde/tauren/16-desolace
+
+# Route: guide 15 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 35 to
+# 36, 7 quests, 0.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Arathi Highlands): Faldir's Cove.
+#
+# Profession quests here are not routed (they need the skill): 5146 Elemental
+# Leatherworking; 6622 Triage.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Dragonmaw Rumors (95663).
+
+step Lolo the Lookout
+  accept 663
+  turnin 663
+  accept 662
+  accept 665
+
+step Faldir's Cove: Sunken Treasure
+  complete 665
+
+step Doctor Draxlegauge
+  turnin 665
+  accept 666
+  accept 664
+
+step Faldir's Cove: Daggerspine Raider and Daggerspine Sorceress and more
+  kill 2595 quest 664.1
+  kill 2596 quest 664.2
+  complete 662
+  collect 4492 quest 666.1
+
+step First Mate Nilzlix
+  turnin 662
+  turnin 666
+  accept 668
+  turnin 664
+  turnin 668
+  accept 669
+
+step Back to Camp Taurajo
+  hearth "Camp Taurajo"
+  note "Profession quests here, for players with the skill: Elemental Leatherworking (Leatherworking 225), Triage (First Aid 225)."

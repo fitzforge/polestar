@@ -1,0 +1,227 @@
+guide completionist/horde/skyborne/11-the-barrens-stranglethorn-vale
+title The Barrens & Stranglethorn Vale
+faction Horde
+race Skyborne
+levels 30-34
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · Skyborne 30-40
+keywords completionist, every quest, Mulgore, The Barrens, Stranglethorn Vale
+next completionist/horde/skyborne/12-thunder-bluff-hillsbrad-foothills
+
+# Route: guide 11 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 30 to
+# 34, 36 quests, 7.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Mulgore, The Barrens, Stranglethorn Vale): Windfury Ridge -> Thunder
+# Bluff -> Skywatcher Plateau -> Bael Modan -> Razorfen Downs -> Razorfen
+# Kraul -> Camp Taurajo -> Ratchet -> Honor's Stand -> Ratchet -> Grom'gol
+# Base Camp -> Kal'ai Ruins -> Bal'lal Ruins -> ….
+#
+# Optional (elite: grouping up is advised): A Host of Evil (6626; Razorfen
+# Battleguard 33-34, Razorfen Thornweaver 33-34, Death's Head Cultist 33-34).
+#
+# Profession quests here are not routed (they need the skill): 2760 The
+# Mithril Order; 2761 Smelt On, Smelt Off; 2762 The Great Silver Deceiver;
+# 2763 The Art of the Imbue; 2764 Galvan's Finest Pupil; 2765 Expert
+# Blacksmith!; 3642 The Pledge of Secrecy; 3643 Show Your Work; 3645
+# Membership Card Renewal; 5148 Tribal Leatherworking.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Leaders of the Fang (914), A Vengeful Fate (1102),
+# Searching for the Lost Satchel (5722), Testing an Enemy's Strength (5723),
+# Willix the Importer (1144), Blueleaf Tubers (1221), Blueleaf Tubers (1221),
+# Deviate Eradication (1487), Deviate Eradication (1487), The Glowing Shard
+# (6981).
+
+step Windfury Ridge: Horn of Arra'chea
+  zone Mulgore
+  collect 4841 quest 776.1
+
+step Thunder Bluff: Bronze Feather
+  collect 4753 quest 744.2
+
+step Thunder Bluff: Azure Feather
+  collect 4752 quest 744.1
+
+step Mazu'kon
+  accept 96241
+  accept 96259
+  accept 96261
+  accept 96260
+
+step Skywatcher Plateau: Crystalline Silk
+  collect 273181 quest 96260.1
+
+step Skywatcher Plateau: Broodmother Valraxx
+  kill 264082 quest 96261.1
+
+step Skywatcher Plateau
+  tip Broodmother Valraxx drops the Bloody Parchment: right-click it to start A Darker Truth.
+  collect 273658 x1
+  accept 96294
+
+step Skywatcher Plateau: Gloomrise Toxin Sample and Gloomrise Soldier and more
+  collect 273001 quest 96241.1
+  kill 264083 quest 96259.1
+  kill 264079 quest 96259.2
+
+step Yorn Grimtotem
+  turnin 96260
+  turnin 96241
+  turnin 96259
+  turnin 96261
+  turnin 96294
+
+step Feegly the Exiled
+  zone The Barrens
+  accept 857
+
+step Bael Modan: The Tear of the Moons
+  complete 857
+
+step Feegly the Exiled
+  turnin 857
+
+step Razorfen Downs: Arnak's Hoof
+  collect 12884 quest 5147.1
+
+step Lakota Windsong
+  accept 4904
+
+step Brave Moonhorn
+  accept 4542
+  turnin 5881
+
+step Camp Taurajo
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  sethome "Camp Taurajo"
+  accept 1153
+  kill 7872 quest 6626.3 optional
+
+step Back to Camp Taurajo
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  kill 7874 quest 6626.2 optional
+  kill 7873 quest 6626.1 optional
+  hearth "Camp Taurajo"
+
+step Ratchet
+  sethome "Ratchet"
+  turnin 1069
+
+step Makaba Flathoof
+  turnin 6523
+  accept 6401
+  turnin 6548
+  accept 6629
+  turnin 1062
+  accept 1063
+  accept 1068
+
+step Sputtervalve
+  turnin 1094
+  accept 1095
+
+step Grom'gol Base Camp
+  zone Stranglethorn Vale
+  getfp "Grom'gol"
+  sethome "Grom'gol Base Camp"
+  accept 581
+
+step Kal'ai Ruins
+  tip Gluggle drops the Pendant of Myzrael: right-click it to start Crystal in the Mountains.
+  collect 4614 x1
+  accept 635
+
+step Bal'lal Ruins: Bloodscalp Tusk
+  collect 3901 quest 581.1
+
+step Nimboya
+  turnin 581
+
+step Booty Bay
+  getfp "Booty Bay"
+  sethome "Booty Bay"
+  accept 605
+  accept 189
+
+step Crystalvein Mine: Singing Crystal Shard
+  collect 3918 quest 605.1
+
+step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp"
+  accept 596
+
+step Bal'lal Ruins: Bloody Bone Necklace
+  collect 3915 quest 596.1
+
+step Kin'weelay
+  turnin 596
+  accept 629
+
+step The Vile Reef: The Vile Reef
+  complete 629
+
+step Kin'weelay
+  turnin 629
+  accept 582
+
+step Ruins of Zul'Kunda: Shrunken Head
+  collect 1532 quest 582.1
+
+step Back to Grom'gol Base Camp
+  hearth "Grom'gol Base Camp"
+
+step Nimboya
+  turnin 582
+
+step Bal'lal Ruins: Bloodscalp Ear
+  collect 1519 quest 189.1
+
+step Booty Bay
+  sethome "Booty Bay"
+  turnin 605
+  turnin 189
+  accept 213
+
+step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp"
+  accept 570
+  accept 568
+  accept 638
+
+step Grom'gol Base Camp: Lashtail Raptor
+  kill 686 quest 568.1
+
+step Commander Aggro'gosh
+  turnin 568
+  accept 569
+
+step Mizjah Ruins: Mosh'Ogg Brute and Mosh'Ogg Witch Doctor
+  kill 1142 quest 569.1
+  kill 1144 quest 569.2
+
+step Mizjah Ruins: Shadowmaw Claw and Pristine Tigress Fang
+  collect 3838 quest 570.1
+  collect 3839 quest 570.2
+
+step Far Seer Mok'thardin
+  turnin 570
+  turnin 569
+
+step Venture Co. Base Camp: Tumbled Crystal
+  collect 4106 quest 213.1
+
+step Back to Grom'gol Base Camp
+  hearth "Grom'gol Base Camp"
+
+step Booty Bay
+  sethome "Booty Bay"
+  turnin 213
+
+step Thunder Bluff
+  sethome "Thunder Bluff"
+  note "Profession quests here, for players with the skill: The Mithril Order (Blacksmithing 210), Smelt On, Smelt Off (Blacksmithing 210), The Great Silver Deceiver (Blacksmithing 210), The Art of the Imbue (Blacksmithing 210), Galvan's Finest Pupil (Blacksmithing 210), Expert Blacksmith! (Blacksmithing 210), The Pledge of Secrecy (Engineering 200), Show Your Work (Engineering 200), Membership Card Renewal (Engineering 200), Tribal Leatherworking (Leatherworking 225)."

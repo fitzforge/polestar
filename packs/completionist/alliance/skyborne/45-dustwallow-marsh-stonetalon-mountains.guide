@@ -1,0 +1,231 @@
+guide completionist/alliance/skyborne/45-dustwallow-marsh-stonetalon-mountains
+title Dustwallow Marsh & Stonetalon Mountains
+faction Alliance
+race Skyborne
+levels 58-60
+zone Stonetalon Mountains
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Dustwallow Marsh, Stranglethorn Vale, The Barrens, Stonetalon Mountains, Un'Goro Crater, Arathi Highlands, Eastern Plaguelands, Winterspring
+next completionist/alliance/skyborne/46-felwood-azshara
+
+# Route: guide 45 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 58 to
+# 60, 50 quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Dustwallow Marsh, Stranglethorn Vale, The Barrens, Stonetalon
+# Mountains, Un'Goro Crater, Arathi Highlands, Eastern Plaguelands,
+# Winterspring): The Quagmire -> Theramore Isle -> The Quagmire -> Theramore
+# Isle -> Brackenwall Village -> Theramore Isle -> Booty Bay -> The Merchant
+# Coast -> Ratchet -> Webwinder Path -> Windshear Crag -> Webwinder Path ->
+# Windshear Crag -> ….
+#
+# Optional (elite: grouping up is advised): Shadowshard Fragments (7070;
+# Shadowshard Rumbler 40-41, Shadowshard Smasher 41-42, Shadowshard Thunderer
+# 38); High Chief Winterfall (5121; High Chief Winterfall 59); The Final Piece
+# (5123; High Chief Winterfall 59).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Tiara of the Deep (2846), Mortality Wanes (1142), Willix
+# the Importer (1144), Blueleaf Tubers (1221), Blueleaf Tubers (1221), Deviate
+# Eradication (1487), Deviate Eradication (1487), The Glowing Shard (6981),
+# Vyletongue Corruption (7041), Corruption of Earth and Seed (7065), Dawn's
+# Gambit (4771), The Flesh Does Not Lie (5212), The Active Agent (5213), The
+# Great Fras Siabi (5214), Houses of the Holy (5243), The Archivist (5251),
+# Above and Beyond (5263), The Restless Souls (5282), Menethil's Gift (5463),
+# Plagued Hatchlings (5529), Dead Man's Plea (8945), Anthion's Old Friend
+# (8948), Drakefire Amulet (6502).
+
+step Tabetha
+  zone Dustwallow Marsh
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  turnin 7070 optional
+  turnin 2861
+
+step Fiora Longears
+  turnin 1135
+  turnin 1264
+
+step The Quagmire: Razzeric's Tweaking
+  complete 1187
+
+step Commander Samaul
+  accept 1265
+
+step Theramore Isle: The Missing Diplomat
+  complete 1265
+
+step Archmage Tervosh
+  turnin 1265
+  accept 1266
+
+step Private Hendel
+  turnin 1266
+  accept 1324
+
+step Brackenwall Village: The Missing Diplomat
+  complete 1324
+
+step Back to Theramore Isle
+  hearth "Theramore Isle"
+
+step Archmage Tervosh
+  turnin 1324
+  accept 1267
+  turnin 1267
+
+step Booty Bay
+  zone Stranglethorn Vale
+  sethome "Booty Bay"
+  turnin 1116
+  accept 1117
+
+step Islen Waterseer
+  zone The Barrens
+  turnin 5158
+  accept 5159
+
+step Ratchet
+  sethome "Ratchet"
+  turnin 1069
+
+step Ratchet: The Stone Circle
+  complete 3444
+
+step Liv Rizzlefix
+  accept 4502
+  accept 96339
+  turnin 96339
+  accept 96383
+  turnin 96383
+
+step Gaxim Rustfizzle
+  zone Stonetalon Mountains
+  turnin 1077
+  turnin 1074
+  accept 1079
+  accept 1080
+
+step Ziz Fizziks
+  accept 1096
+
+step Windshear Crag: Covert Ops - Alpha
+  complete 1079
+
+step Windshear Crag: Covert Ops - Beta
+  complete 1080
+
+step Gaxim Rustfizzle
+  turnin 1079
+  turnin 1080
+  accept 1091
+  turnin 1091
+  accept 1083
+
+step Windshear Crag: Gerenzo's Mechanical Arm
+  collect 5736 quest 1096.1
+
+step The Charred Vale: Smoldering Embers
+  collect 5659 quest 1083.1
+
+step Kaela Shadowspear
+  turnin 1083
+  turnin 1096
+  accept 1084
+
+step The Charred Vale: Corroded Shrapnel
+  collect 5664 quest 1084.1
+
+step Kaela Shadowspear
+  turnin 1084
+  accept 1082
+
+step Back to Ratchet
+  hearth "Ratchet"
+
+step Linken
+  zone Un'Goro Crater
+  turnin 3914
+  accept 3941
+
+step Fire Plume Ridge: Un'Goro Ash
+  collect 11829 quest 4502.1
+
+step J.D. Collie
+  turnin 3941
+  accept 3942
+
+step The Slithering Scar: Gorishi Queen Brain
+  collect 11835 quest 4507.1
+
+step Messenger Bag
+  zone Arathi Highlands
+  turnin 79975
+
+step Thandol Span: Cache of Explosives
+  interact 2704 quest 633.1
+
+step Samuel Hawke
+  accept 8262
+  turnin 8262
+
+step Corin's Crossing: Mageweave Cloth
+  zone Eastern Plaguelands
+  collect 4338 quest 7799.1
+
+step Aurora Skycaller
+  turnin 5247
+  accept 5248
+
+step Darrowshire: The Battle of Darrowshire
+  complete 5721
+
+step Pamela Redpath
+  turnin 5721
+  accept 5942
+  turnin 5942
+
+step Back to Ratchet
+  kill 11878 quest 6187.1 optional
+  hearth "Ratchet"
+
+step Everlook
+  zone Winterspring
+  sethome "Everlook"
+  accept 4907
+
+step Donova Snowden
+  turnin 5086
+  accept 5087
+
+step Frostfire Hot Springs: Winterfall Crate
+  collect 12829 quest 5087.1
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5087
+  accept 5121 optional
+
+step Remorseful Highborne
+  turnin 5248
+  accept 5252
+
+step Umi Rumplesnicker
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59. High Chief Winterfall drops the Crudely-written Log: right-click it to start The Final Piece.
+  kill 10738 quest 5121.1 optional
+  collect 12842 x1 optional
+  accept 5123 optional
+  turnin 5163
+
+step Wynd Nightchaser
+  turnin 5252
+  accept 5253
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5121 optional
+  turnin 5123 optional
+  accept 5128

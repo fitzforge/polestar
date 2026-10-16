@@ -1,0 +1,115 @@
+guide completionist/alliance/nightelf/51-stranglethorn-vale
+title Stranglethorn Vale
+faction Alliance
+race NightElf
+levels 60-60
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Stranglethorn Vale, Swamp of Sorrows, Badlands
+next completionist/alliance/nightelf/52-burning-steppes-the-hinterlands
+
+# Route: guide 51 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 60 to
+# 60, 20 quests, 6.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stranglethorn Vale, Swamp of Sorrows, Badlands): Booty Bay -> Mosh'Ogg
+# Ogre Mound -> Wild Shore -> Jaguero Isle -> Booty Bay -> Wild Shore -> Booty
+# Bay -> Wild Shore -> Zuuldaia Ruins -> Splinterspear Junction -> Agmond's
+# End.
+#
+# Optional (elite: grouping up is advised): Message in a Bottle (630; King
+# Mukla 51); An Ambassador of Evil (762; Ambassador Infernus 42).
+#
+# Left out: Uniting the Shattered Amulet (3627): the route takes them here but
+# cannot finish them (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Ribbly Screwspigot (4136), Kibler's Exotic Pets (4729),
+# En-Ay-Es-Tee-Why (4862).
+
+step Crank Fizzlebub
+  turnin 1118
+  accept 1119
+  turnin 580
+  turnin 348
+  turnin 836
+
+step Galvan the Ancient
+  turnin 3621
+  accept 3625
+
+step Mosh'Ogg Ogre Mound: Enchanted Azsharite Fel Weaponry
+  complete 3625
+
+step Galvan the Ancient
+  turnin 3625
+  accept 3626
+
+step Back to Booty Bay
+  hearth "Booty Bay"
+
+step Wild Shore
+  tip Half-Buried Bottle drops the Carefully Folded Note: right-click it to start Message in a Bottle.
+  collect 4098 x1
+  accept 594
+
+step Princess Poobah
+  tip King Mukla (level 51) is elite: grouping up is advised unless you are well above level 51.
+  turnin 594
+  accept 630 optional
+  collect 4103 quest 630.1 optional
+
+step Oglethorpe Obnoticus
+  tip King Mukla (level 51) is elite: grouping up is advised unless you are well above level 51.
+  turnin 630 optional
+  accept 3721
+  turnin 3721
+
+step Fleet Master Firallon
+  accept 9272
+  turnin 9272
+  accept 4621
+
+step Booty Bay: Baron Revilgaz and Fleet Master Seahorn
+  kill 2496 quest 4621.1
+  kill 2487 quest 4621.2
+
+step 'Pretty Boy' Duncan
+  accept 1036
+
+step Fleet Master Firallon
+  turnin 1036
+  turnin 4621
+
+step Vinchaxa
+  accept 8195 optional
+  accept 8238 optional
+  accept 8239 optional
+  accept 8240
+  turnin 8240
+  collect 19698 quest 8195.1 optional
+  collect 19699 quest 8195.2 optional
+  collect 19700 quest 8195.3 optional
+  collect 19701 quest 8238.1 optional
+  collect 19702 quest 8238.2 optional
+  collect 19703 quest 8238.3 optional
+  collect 19704 quest 8239.1 optional
+  collect 19705 quest 8239.2 optional
+  collect 19706 quest 8239.3 optional
+  turnin 8195 optional
+  turnin 8238 optional
+  turnin 8239 optional
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 3626
+
+step Theldurin the Lost
+  zone Badlands
+  tip Ambassador Infernus (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 737
+  collect 4621 quest 762.1 optional

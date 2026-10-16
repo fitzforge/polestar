@@ -1,0 +1,171 @@
+guide completionist/alliance/skyborne/21-alterac-mountains-stranglethorn-vale
+title Alterac Mountains & Stranglethorn Vale
+faction Alliance
+race Skyborne
+levels 42-44
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · Skyborne 40-50
+keywords completionist, every quest, Shen'dralas, Desolace, Alterac Mountains, Stranglethorn Vale
+next completionist/alliance/skyborne/22-hillsbrad-foothills
+
+# Route: guide 21 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 42 to
+# 44, 37 quests, 3.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Shen'dralas, Desolace, Alterac Mountains, Stranglethorn Vale): Valley
+# of Bones -> Gelkis Village -> Magram Village -> Gelkis Village -> Nijel's
+# Point -> Chillwind Point -> Gallows' Corner -> Ruins of Alterac ->
+# Strahnbrad -> Gallows' Corner -> Corrahn's Dagger -> The Headland ->
+# Lordamere Internment Camp -> ….
+#
+# Optional (elite: grouping up is advised): Khan Hratha (1380; Khan Hratha
+# 42); Shadowshard Fragments (7070; Shadowshard Rumbler 40-41, Shadowshard
+# Smasher 41-42, Shadowshard Thunderer 38); The Perenolde Tiara (543;
+# Grel'borg the Miser 39); The Star, the Hand and the Heart (735; Grel'borg
+# the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Legends of Maraudon (7044), The Pariah's Instructions
+# (7067), Starving Arcane (92457), Heart of Disruption (92458), Past Due
+# (96800), Past Due (96800).
+
+step Nerlokh
+  zone Shen'dralas
+  accept 93035
+  turnin 93034
+  turnin 93035
+  accept 93037
+  turnin 93037
+  accept 93041
+  accept 93128
+
+step Orgrul
+  turnin 92841
+  accept 92844
+  turnin 92844
+
+step Uthek the Wise
+  zone Desolace
+  turnin 93041
+  turnin 93128
+  turnin 1373
+  accept 1374
+
+step Magram Village: Khan Jehn's Head
+  collect 6072 quest 1374.1
+
+step Uthek the Wise
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1374
+  accept 1380 optional
+  collect 6077 quest 1380.1 optional
+
+step Nijel's Point
+  tip Khan Hratha (level 42) is elite: grouping up is advised unless you are well above level 42.
+  turnin 1380 optional
+  sethome "Nijel's Point"
+  turnin 6141
+
+step Back to Nijel's Point
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  collect 17756 quest 7070.1 optional
+  hearth "Nijel's Point"
+  accept 7028 optional
+  collect 17684 quest 7028.1 optional
+  turnin 7028 optional
+
+step Bath'rah the Windwatcher
+  zone Alterac Mountains
+  accept 96137
+
+step Gallows' Corner: Recovered Tome
+  collect 3658 quest 540.1
+
+step Ruins of Alterac: Preserving Knowledge
+  complete 540
+
+step Strahnbrad: Alterac Signet Ring and Head of Baron Vardus
+  collect 3505 quest 512.1
+  collect 3626 quest 523.1
+
+step Gallows' Corner: Dirty Knucklebones
+  collect 2843 quest 500.1
+
+step Corrahn's Dagger: Hulking Mountain Lion
+  kill 2407 quest 564.2
+
+step The Headland: Mountain Lion
+  kill 2406 quest 564.1
+
+step Archmage Ansirem Runeweaver
+  turnin 602
+
+step Denaaris Stargale
+  accept 94947
+  turnin 94946
+
+step Dalaran: Skyborne Portal to Stormwind
+  interact 631299 quest 94947.1
+
+step Dandred's Fold
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44. Worn Wooden Chest drops the Ensorcelled Parchment: right-click it to start The Ensorcelled Parchment.
+  collect 3684 quest 543.1 optional
+  collect 4646 quest 735.1 optional
+  collect 3706 x1
+  accept 551
+
+step Archmage Ansirem Runeweaver
+  accept 603
+
+step Back to Nijel's Point
+  hearth "Nijel's Point"
+
+step Booty Bay
+  zone Stranglethorn Vale
+  sethome "Booty Bay"
+  turnin 1040
+  accept 1041
+
+step Wharfmaster Lozgil
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  collect 4644 quest 735.3 optional
+  turnin 1180
+  accept 1181
+
+step Baron Revilgaz
+  turnin 1181
+  accept 1182
+
+step Venture Co. Base Camp: Goblin Sponsorship
+  complete 1182
+
+step Baron Revilgaz
+  turnin 1182
+  accept 1183
+  turnin 603
+  accept 610
+
+step Booty Bay: Catelyn's Blade
+  collect 4027 quest 610.1
+
+step Catelyn the Blade
+  turnin 610
+  accept 611
+
+step Ziata'jai Ruins: Chilled Basilisk Haunch
+  collect 2476 quest 212.1
+
+step The Vile Reef: Stone of the Tides
+  collect 4034 quest 611.1
+
+step Baron Revilgaz
+  turnin 611
+  turnin 627
+  accept 622
+
+step Corporal Kaleb
+  turnin 622

@@ -1,0 +1,76 @@
+guide completionist/horde/orc/48-stranglethorn-vale
+title Stranglethorn Vale
+faction Horde
+race Orc
+levels 60-60
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · Orc 50-60
+keywords completionist, every quest
+next completionist/horde/orc/49-swamp-of-sorrows-moonglade
+
+# Route: guide 48 of 49 of the simulator's completionist route for Orc (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 60 to 60, 13
+# quests, 6.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stranglethorn Vale): Zuuldaia Ruins -> Booty Bay -> Wild Shore ->
+# Booty Bay -> Wild Shore -> Booty Bay -> Mosh'Ogg Ogre Mound.
+#
+# Left to other guides: class quests (the Class category).
+
+step Vinchaxa
+  accept 8195 optional
+  accept 8238 optional
+  accept 8239 optional
+  accept 8240
+  turnin 8240
+  collect 19698 quest 8195.1 optional
+  collect 19699 quest 8195.2 optional
+  collect 19700 quest 8195.3 optional
+  collect 19701 quest 8238.1 optional
+  collect 19702 quest 8238.2 optional
+  collect 19703 quest 8238.3 optional
+  collect 19704 quest 8239.1 optional
+  collect 19705 quest 8239.2 optional
+  collect 19706 quest 8239.3 optional
+
+step Booty Bay
+  turnin 8195 optional
+  turnin 8238 optional
+  turnin 8239 optional
+  sethome "Booty Bay"
+  turnin 1122
+
+step Fleet Master Firallon
+  accept 9272
+  turnin 9272
+  accept 4621
+
+step Booty Bay: Baron Revilgaz and Fleet Master Seahorn
+  kill 2496 quest 4621.1
+  kill 2487 quest 4621.2
+
+step 'Pretty Boy' Duncan
+  accept 1036
+
+step Fleet Master Firallon
+  turnin 1036
+  turnin 4621
+
+step Whiskey Slim
+  turnin 580
+  turnin 348
+
+step Galvan the Ancient
+  turnin 3621
+  accept 3625
+
+step Mosh'Ogg Ogre Mound: Enchanted Azsharite Fel Weaponry
+  complete 3625
+
+step Galvan the Ancient
+  turnin 3625
+  accept 3626

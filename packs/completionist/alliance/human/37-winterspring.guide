@@ -1,0 +1,185 @@
+guide completionist/alliance/human/37-winterspring
+title Winterspring
+faction Alliance
+race Human
+levels 53-55
+zone Winterspring
+category Completionist
+folder Completionist · Human 50-60
+keywords completionist, every quest, Winterspring, Teldrassil
+next completionist/alliance/human/38-western-plaguelands-eastern-plaguelands
+
+# Route: guide 37 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 53 to 55, 30
+# quests, 4.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Winterspring, Teldrassil): Frostfire Hot Springs -> Winterfall Village
+# -> Frostfire Hot Springs -> Everlook -> Ice Thistle Hills -> Everlook ->
+# Frostfire Hot Springs -> Timbermaw Post -> Frostfire Hot Springs -> Starfall
+# Village -> Lake Kel'Theril -> Everlook -> Ice Thistle Hills -> ….
+#
+# Profession quests here are not routed (they need the skill): 5124 Fiery
+# Plate Gauntlets; 5127 The Demon Forge; 5305 Sweet Serenity; 5306 Snakestone
+# of the Shadow Huntress; 5307 Corruption; 8798 A Yeti of Your Own.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Drakefire Amulet (6502), In Search of Thaelrid (1198),
+# Twilight Falls (1199).
+
+step Salfa
+  accept 8464
+  turnin 8465
+
+step Frostfire Hot Springs: Winterfall Den Watcher
+  kill 7440 quest 8464.2
+
+step Winterfall Village: Winterfall Ursa
+  kill 7438 quest 8464.3
+
+step Winterfall Village: Winterfall Shaman
+  kill 7439 quest 8464.1
+
+step Salfa
+  turnin 8464
+
+step Everlook
+  getfp "Everlook"
+  sethome "Everlook"
+  accept 6028
+  accept 6030
+  turnin 4808
+  accept 4809
+
+step Ice Thistle Hills: Uncracked Chillwind Horn
+  collect 12444 quest 4809.1
+
+step Felnok Steelspring
+  turnin 4809
+  accept 4810
+
+step Frostfire Hot Springs
+  tip Winterfall Pathfinder drops the Winterfall Ritual Totem: right-click it to start Winterfall Ritual Totem.
+  collect 20742 x1
+  accept 8471
+
+step Donova Snowden
+  turnin 3908
+  accept 3909
+
+step Salfa
+  accept 8469
+
+step Frostfire Hot Springs: Runecloth and Winterfall Spirit Beads
+  collect 14047 quest 6031.1
+  collect 21383 quest 8469.1
+
+step Salfa
+  turnin 8469
+
+step Donova Snowden
+  accept 5082
+  turnin 980
+  accept 4842
+
+step Frostfire Hot Springs: Moontouched Feather
+  collect 12383 quest 978.1
+
+step Salfa
+  accept 6241
+
+step Frostfire Hot Springs: Winterfall Den Watcher and Winterfall Totemic
+  kill 7440 quest 5082.2
+  kill 7440 quest 6241.1
+  kill 7441 quest 6241.2
+
+step Frostfire Hot Springs
+  tip Winterfall Pathfinder drops the Empty Firewater Flask: right-click it to start Winterfall Firewater.
+  collect 12771 x1
+  accept 5083
+
+step Frostfire Hot Springs: Winterfall Pathfinder
+  kill 7442 quest 5082.1
+  kill 7442 quest 6241.3
+
+step Donova Snowden
+  turnin 5083
+  accept 5084
+
+step Salfa
+  turnin 6241
+
+step Timbermaw Post: Winterfall Totemic
+  kill 7441 quest 5082.3
+
+step Donova Snowden
+  turnin 5082
+
+step Back to Everlook
+  hearth "Everlook"
+
+step Wynd Nightchaser
+  accept 5244
+  turnin 5244
+  accept 4861
+  accept 5245
+
+step Lake Kel'Theril: Troubled Spirits of Kel'Theril
+  complete 5245
+
+step Meggi Peppinrocker
+  accept 6603
+  accept 3783
+  accept 6604
+
+step Ice Thistle Hills: Thick Yeti Fur
+  collect 12366 quest 3783.1
+
+step Umi Rumplesnicker
+  turnin 3783
+  accept 977
+
+step Ice Thistle Hills: Pristine Yeti Horn
+  collect 12367 quest 977.1
+
+step Umi Rumplesnicker
+  turnin 977
+  accept 5163
+
+step Everlook: Legacki
+  kill 10978 quest 5163.1
+
+step Jaron Stoneshaper
+  turnin 6604
+
+step Damaged Crate
+  turnin 4861
+  accept 4863
+
+step Jaron's Wagon
+  turnin 4863
+  accept 4864
+
+step Frostwhisper Gorge: Strange Sources
+  complete 4842
+
+step Mazthoril: Blue-feathered Amulet
+  collect 12524 quest 4864.2
+
+step Jaron Stoneshaper
+  turnin 4864
+
+step Donova Snowden
+  turnin 4842
+  turnin 6603
+
+step Erelas Ambersky
+  zone Teldrassil
+  turnin 978
+  accept 979
+
+step Sorrow Hill
+  getfp "Chillwind Camp"
+  note "Profession quests here, for players with the skill: Fiery Plate Gauntlets (Blacksmithing 275), The Demon Forge (Blacksmithing 270), Sweet Serenity (Blacksmithing 250), Snakestone of the Shadow Huntress (Blacksmithing 250), Corruption (Blacksmithing 250), A Yeti of Your Own (Engineering 250)."

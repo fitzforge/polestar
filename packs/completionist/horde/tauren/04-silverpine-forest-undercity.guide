@@ -1,0 +1,257 @@
+guide completionist/horde/tauren/04-silverpine-forest-undercity
+title Silverpine Forest & Undercity
+faction Horde
+race Tauren
+levels 16-20
+zone Silverpine Forest
+category Completionist
+folder Completionist · Tauren 1-20
+keywords completionist, every quest, Silverpine Forest, Undercity
+next completionist/horde/tauren/05-orgrimmar
+
+# Route: guide 4 of 51 of the simulator's completionist route for Tauren (1211
+# of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 16 to 20, 45
+# quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Silverpine Forest, Undercity): The Sepulcher -> The Decrepit Ferry ->
+# Olsen's Farthing -> The Greymane Wall -> Pyrewood Village -> Beren's Peril
+# -> Ambermill -> The Sepulcher -> The Dead Field -> Malden's Orchard ->
+# Ambermill -> The Sepulcher -> The Decrepit Ferry -> ….
+#
+# Optional (elite: grouping up is advised): Arugal's Folly (99; Moonrage
+# Watcher 13-14, Moonrage Sentry 14-15, Moonrage Elder 14-15, Moonrage Armorer
+# 14-15, Moonrage Tailor 14-15, Moonrage Leatherworker 14-15); Pyrewood Ambush
+# (452; Councilman Smithers 12); Whispering Horror Residue (95328; Whispering
+# Horror 11-13).
+#
+# Profession quests here are not routed (they need the skill): 3526 Goblin
+# Engineering; 3635 Gnome Engineering.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Arugal Must Die (1014), Arugal Must Die (1014), Into The
+# Scarlet Monastery (1048), Deathstalkers in Shadowfang (1098), Deathstalkers
+# in Shadowfang (1098), The Power to Destroy... (5725), The New Plague
+# (95216), Heart of Disruption (96984), Source of Power (96988), The Book of
+# Ur (1013), The Book of Ur (1013), Going, Going, Guano! (1109), Going, Going,
+# Guano! (1109), Bring the End (3341), The Power to Destroy... (5725), Light's
+# Justice (92421), Light's Justice (92421), The New Plague (95216), Source of
+# Power (96988).
+
+step Dalar Dawnweaver
+  accept 98298
+  accept 98299
+  accept 477
+  accept 95981
+  accept 428
+  accept 437
+  turnin 445
+  accept 447
+  accept 91921
+
+step The Decrepit Ferry: Grizzled Bear Heart
+  collect 3253 quest 447.1
+
+step Dalaran Crate
+  turnin 477
+  accept 478
+
+step The Greymane Wall: Haggard Refugee and Sickly Refugee
+  kill 2053 quest 98299.1
+  kill 2054 quest 98299.2
+
+step Pyrewood Village: Worgen Bits
+  collect 280375 quest 98298.1
+
+step Beren's Peril: Dalaran Watcher
+  kill 1888 quest 95981.1
+
+step Ambermill: Dalaran Wizard
+  kill 1889 quest 95981.2
+
+step Shadow Priest Allister
+  turnin 478
+  turnin 95981
+  accept 481
+  turnin 481
+  turnin 98298
+  turnin 98299
+  accept 482
+  turnin 482
+  accept 479
+
+step The Dead Field: The Dead Fields
+  complete 437
+
+step Rane Yorick
+  turnin 428
+  accept 429
+  turnin 91921
+  accept 91920
+
+step Deathstalker Erland
+  accept 435
+
+step Malden's Orchard: Discolored Worg Heart and Escorting Erland
+  collect 3164 quest 429.1
+  complete 435
+
+step Rane Yorick
+  turnin 435
+  accept 449
+
+step Malden's Orchard: Murloc Eye
+  collect 730 quest 91920.1
+
+step Back to The Sepulcher
+  hearth "The Sepulcher"
+
+step Ambermill: Dalaran Pendant
+  collect 3354 quest 479.1
+
+step Shadow Priest Allister
+  turnin 479
+  accept 480
+  turnin 437
+  turnin 449
+  accept 438
+  accept 3221
+  turnin 429
+  turnin 3221
+  turnin 91920
+  accept 430
+  accept 1359
+
+step Corpse Laden Boat
+  turnin 438
+  accept 439
+
+step High Executor Hadrec
+  turnin 439
+  accept 440
+  accept 443
+
+step The Skittering Dark: Skittering Blood
+  collect 3254 quest 447.2
+
+step Quinn Yorick
+  turnin 430
+  accept 425
+
+step Malden's Orchard: Ivar's Head
+  collect 3621 quest 425.1
+
+step Rane Yorick
+  turnin 425
+
+step Fenris Isle: Rot Hide Ichor
+  collect 3236 quest 443.1
+
+step Apothecary Renferrel
+  turnin 443
+  accept 444
+
+step Ambermill: Ataeric's Staff
+  collect 3515 quest 480.1
+
+step Shadow Priest Allister
+  turnin 480
+  accept 421
+  accept 92401
+
+step The Shining Strand: Moonrage Whitescalp
+  kill 1769 quest 421.1
+
+step Dalar Dawnweaver
+  turnin 421
+  accept 422
+
+step The Shining Strand: Arugal's Folly
+  complete 422
+
+step Dalar Dawnweaver
+  turnin 422
+  accept 423
+
+step North Tide's Hollow: Darksoul Shackle
+  collect 3157 quest 423.2
+
+step Deep Elem Mine: Glutton Shackle
+  collect 3156 quest 423.1
+
+step Dalar Dawnweaver
+  turnin 423
+  accept 424
+
+step Deep Elem Mine: Head of Grimson
+  collect 3634 quest 424.1
+
+step Dalar Dawnweaver
+  tip Moonrage Watcher (level 13-14), Moonrage Sentry (level 14-15), Moonrage Elder (level 14-15) and 4 more are elite: grouping up is advised unless you are well above level 15.
+  turnin 424
+  accept 99 optional
+  accept 452 optional
+  kill 2060 quest 452.1 optional
+
+step Back to The Sepulcher
+  tip Councilman Smithers (level 12), Moonrage Watcher (level 13-14), Moonrage Sentry (level 14-15) and 4 more are elite: grouping up is advised unless you are well above level 15.
+  turnin 452 optional
+  collect 3218 quest 99.1 optional
+  hearth "The Sepulcher"
+
+step Fenris Isle
+  tip Moonrage Watcher (level 13-14), Moonrage Sentry (level 14-15), Moonrage Elder (level 14-15) and 3 more are elite: grouping up is advised unless you are well above level 15. Rot Hide Plague Weaver drops the A Talking Head: right-click it to start Resting in Pieces.
+  turnin 99 optional
+  collect 3317 x1
+  accept 460
+  turnin 460
+  accept 461
+  turnin 461
+  accept 491
+
+step Shadow Priest Allister
+  accept 516
+
+step Beren's Peril: Ravenclaw Drudger and Ravenclaw Guardian
+  kill 1974 quest 516.1
+  kill 1973 quest 516.2
+
+step Shadow Priest Allister
+  turnin 516
+
+step Undercity
+  zone Undercity
+  getfp "Undercity"
+  sethome "Undercity"
+  accept 79095
+  turnin 79095
+  turnin 405
+  accept 357
+
+step Excitable Slime
+  accept 97583
+
+step Undercity: Nutritious Slime Sludge
+  buy 278265 x1 nearest
+
+step Excitable Slime
+  turnin 97583
+  turnin 1359
+  turnin 447
+  accept 450
+  accept 97891
+  turnin 97891
+
+step Bethor Iceshard
+  tip Whispering Horror (level 11-13) is elite: grouping up is advised unless you are well above level 13.
+  turnin 95328 optional
+  turnin 444
+
+step Undercity: A Frightened Request
+  complete 92401
+
+step Bethor Iceshard
+  turnin 491
+  note "Profession quests here, for players with the skill: Goblin Engineering (Engineering 200), Gnome Engineering (Engineering 200)."

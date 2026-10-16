@@ -1,0 +1,258 @@
+guide completionist/alliance/human/46-stormwind-city-stonetalon-mountains
+title Stormwind City & Stonetalon Mountains
+faction Alliance
+race Human
+levels 58-59
+zone Stormwind City
+category Completionist
+folder Completionist · Human 50-60
+keywords completionist, every quest, Stormwind City, Thousand Needles, Duskwood, Stonetalon Mountains, Ashenvale, Felwood, Western Plaguelands
+next completionist/alliance/human/47-winterspring-tanaris
+
+# Route: guide 46 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 58 to 59, 59
+# quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stormwind City, Thousand Needles, Duskwood, Stonetalon Mountains,
+# Ashenvale, Felwood, Western Plaguelands): near Stormwind City -> Stormwind
+# -> near Stormwind City -> Stormwind -> near Stormwind -> Stormwind City ->
+# near Stormwind City -> Stormwind City -> Stormwind -> Stormwind City -> near
+# Stormwind City -> near Stormwind -> The Shimmering Flats -> ….
+#
+# Optional (elite: grouping up is advised): Oh Brother... (167; Foreman
+# Thistlenettle 20); Collecting Memories (168; Skeletal Miner 17-18, Undead
+# Excavator 17-18, Undead Dynamiter 17-18).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489), The Crone
+# of the Kraul (1101), Gahz'rilla (2770), Crime and Punishment (377), Crime
+# and Punishment (377), Vyletongue Corruption (7041), Corruption of Earth and
+# Seed (7065), Blackfathom Villainy (1200), Barov Family Fortune (5343),
+# Doctor Theolen Krastinov, the Butcher (5382), Kirtonos the Herald (5384),
+# The Lich, Ras Frostwhisper (5466), Krastinov's Bag of Horrors (5515), Of
+# Love and Family (5848).
+
+step Grimand Elmore
+  turnin 1097
+
+step Gilbert Gray
+  turnin 95065
+
+step Master Mathias Shaw
+  turnin 135
+
+step Baros Alexston
+  turnin 399
+
+step Osric Strang
+  accept 6261
+
+step Stormwind
+  sethome "Stormwind City"
+  turnin 6261
+  accept 6285
+
+step Shoni the Shilent
+  tip Foreman Thistlenettle (level 20), Skeletal Miner (level 17-18), Undead Excavator (level 17-18) and Undead Dynamiter (level 17-18) are elite: grouping up is advised unless you are well above level 20.
+  turnin 167 optional
+  turnin 168 optional
+  turnin 2041
+
+step Clavicus Knavingham
+  accept 7791
+
+step near Stormwind City: Wool Cloth
+  collect 2592 quest 7791.1
+
+step Clavicus Knavingham
+  turnin 7791
+
+step Master Mathias Shaw
+  accept 141
+
+step Collin Mauren
+  turnin 1078
+  turnin 1076
+  accept 1077
+
+step Grimand Elmore
+  turnin 322
+
+step Milton Sheaf
+  turnin 542
+  turnin 563
+
+step Razzeric
+  zone Thousand Needles
+  turnin 1189
+  turnin 1119
+  accept 1120
+  turnin 1120
+  accept 1122
+
+step Back to Stormwind City
+  hearth "Stormwind City"
+
+step Brohann Caskbelly
+  zone Stormwind City
+  turnin 1469
+  accept 1475
+
+step Tannysa
+  accept 3787
+
+step Darkshire
+  zone Duskwood
+  sethome "Darkshire"
+  accept 1395
+  turnin 1477
+
+step Raven Hill: Mageweave Cloth
+  collect 4338 quest 7794.1
+
+step Gaxim Rustfizzle
+  zone Stonetalon Mountains
+  turnin 1077
+  turnin 1074
+
+step Ziz Fizziks
+  turnin 1095
+
+step Gaxim Rustfizzle
+  accept 2931
+  accept 1079
+  accept 1080
+
+step Ziz Fizziks
+  accept 1096
+
+step Windshear Crag: Covert Ops - Alpha
+  complete 1079
+
+step Windshear Crag: Covert Ops - Beta
+  complete 1080
+
+step Gaxim Rustfizzle
+  turnin 1079
+  turnin 1080
+  accept 1091
+  turnin 1091
+  accept 1083
+
+step Windshear Crag: Gerenzo's Mechanical Arm
+  collect 5736 quest 1096.1
+
+step The Charred Vale: Smoldering Embers
+  collect 5659 quest 1083.1
+
+step Kaela Shadowspear
+  turnin 1083
+  turnin 1096
+  accept 1084
+
+step The Charred Vale: Corroded Shrapnel
+  collect 5664 quest 1084.1
+
+step Kaela Shadowspear
+  turnin 1084
+  accept 1082
+
+step Delgren the Purifier
+  zone Ashenvale
+  turnin 981
+
+step Astranaar
+  sethome "Astranaar"
+  turnin 1082
+  accept 1081
+  turnin 1133
+  turnin 1134
+
+step Delgren the Purifier
+  turnin 976
+
+step Back to Astranaar
+  hearth "Astranaar"
+
+step Sentinel Velene Starstrike
+  turnin 1017
+
+step Illiyana Moonblaze
+  accept 7865
+  turnin 7865
+
+step Kayneth Stillwind
+  turnin 4261
+
+step Eridan Bluewind
+  zone Felwood
+  turnin 3942
+  accept 4084
+  turnin 5159
+  accept 5165
+
+step Emerald Sanctuary: Silvery Claws
+  collect 11172 quest 4084.1
+
+step Jaedenar: Brazier of Malice and Brazier of Suffering
+  interact 176159 quest 5165.2
+  interact 176160 quest 5165.3
+
+step Jaedenar: Brazier of Pain and Brazier of Hatred
+  interact 176158 quest 5165.1
+  interact 176161 quest 5165.4
+
+step Irontree Woods: Irontree Heart
+  collect 11173 quest 4084.2
+
+step Greta Mosshoof
+  turnin 5165
+  accept 5242
+  turnin 4084
+  accept 4005
+
+step Bloodvenom Falls: Moora and Salia and more
+  kill 9861 quest 5242.1
+  kill 9860 quest 5242.2
+  collect 13207 quest 5242.3
+
+step Greta Mosshoof
+  turnin 5242
+
+step Irontree Woods: Toxic Horror Droplet
+  collect 12822 quest 5086.1
+
+step Tirion Fordring
+  zone Western Plaguelands
+  turnin 5845
+  accept 5846
+
+step Artist Renfray
+  turnin 5846
+
+step Alchemist Arbington
+  turnin 5801
+  accept 5803
+
+step Ruins of Andorhal: Araj's Scarab
+  complete 5803
+
+step Alchemist Arbington
+  turnin 5803
+  accept 5505
+  turnin 5505
+  turnin 6185 optional
+  accept 6186
+
+step Back to Astranaar
+  hearth "Astranaar"
+
+step Everlook
+  sethome "Everlook"

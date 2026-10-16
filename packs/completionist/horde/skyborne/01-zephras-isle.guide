@@ -1,0 +1,556 @@
+guide completionist/horde/skyborne/01-zephras-isle
+title Zephras Isle
+faction Horde
+race Skyborne
+levels 1-15
+zone Zephras Isle
+category Completionist
+folder Completionist · Skyborne 1-20
+keywords completionist, every quest
+next completionist/horde/skyborne/02-mulgore-thunder-bluff
+
+# Route: guide 1 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 1 to 15,
+# 86 quests, 5.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Zephras Isle): Thendal Village -> Thendal Grove -> Thendal Standing
+# Stones -> Thendal Village -> Thendal Standing Stones -> Thendal Village ->
+# Shen'dar Village -> Windsong Standing Stones -> Shen'dar Village -> Windsong
+# Standing Stones -> Shen'dar Village -> Windsong Standing Stones -> Shen'dar
+# Village -> ….
+#
+# Optional (elite: grouping up is advised): WANTED: Vulgara the Insatiable
+# (93318; Vulgara the Insatiable 8).
+#
+# Profession quests here are not routed (they need the skill): 97963 Camping
+# 101: Alchemy; 97964 Camping 101: Blacksmithing; 97965 Camping 101: First
+# Aid; 97967 Camping 101: Fishing; 97968 Camping 101: Herbalism; 97969 Camping
+# 101: Leatherworking; 97970 Camping 101: Mining; 97971 Camping 101: Skinning;
+# 97972 Camping 101: Tailoring; 98284 Camping 101: Enchanting; 98285 Camping
+# 101: Engineering.
+#
+# Left to other guides: class quests (the Class category).
+
+step Ailee Farheart
+  tip Every quest counts here, grey ones too: keep Options > Automation > "Skip grey quests" off.
+  accept 92460
+  turnin 92460
+  accept 92461
+  accept 92462
+
+step Thendal Grove: Juvenile Vuldren
+  kill 250873 quest 92461.1
+
+step Yala Windwatcher
+  accept 92465
+
+step Thendal Standing Stones: Al'Aketh Convert and Roiling Winds
+  kill 251160 quest 92465.1
+  kill 251143 quest 92465.2
+
+step Yala Windwatcher
+  turnin 92465
+  accept 92469
+
+step Rorian the Dayseeker
+  turnin 92469
+  accept 94414
+
+step Thendal Village: The Anchors of Zephras
+  complete 94414
+
+step Halaan Hawk-Eye
+  turnin 94414
+  accept 92474
+  turnin 92474
+  accept 92598
+  accept 92464
+  turnin 92461
+  accept 93552
+
+step Thendal Village: Windstone Cluster
+  collect 258772 quest 93552.1
+
+step Dalia the Collector
+  turnin 93552
+
+step Yala Windwatcher
+  turnin 92464
+
+step Thendal Standing Stones: Elemental Convergence
+  interact 460001 quest 92598.1 "Use your Skysight racial ability at the Elemental Convergence in Thendal Grove"
+
+step Thendal Village: Pesky Cirrusfly
+  kill 251169 quest 92462.1
+
+step Elatrell Featherlight
+  turnin 92462
+  accept 92463
+  turnin 92598
+
+step Illaya Amberwind
+  accept 92595
+
+step Shen'dar Village: The Windshapers
+  complete 92595
+
+step Illaya Amberwind
+  turnin 92595
+  accept 94411
+
+step Windsong Standing Stones: High Order Apprentice
+  kill 257521 quest 94411.1
+
+step Constable Aonda
+  accept 92514
+
+step Shen'dar Village: Welcome to Shen'dar Village
+  complete 92514
+
+step Constable Aonda
+  turnin 92514
+  accept 92517
+
+step Windsong Standing Stones: Highlands Bandit
+  kill 251918 quest 92517.1
+
+step Windsong Standing Stones: 'Badwind' Bennic
+  kill 255534 quest 92517.2
+
+step Teeri Wellwind
+  accept 92516
+  accept 93319
+
+step Windsong Standing Stones: Pilfered Windstone
+  collect 257945 quest 93319.1
+
+step Indari Sunseam
+  accept 92515
+
+step Shen'dar Village: Prideclaw Pelt
+  collect 252670 quest 92515.1
+
+step Indari Sunseam
+  turnin 92515
+  accept 93951
+  accept 92553
+
+step Shen'dar Village: Small Egg and Strider Meat
+  collect 6889 quest 92553.1
+  collect 5469 quest 92553.2
+
+step Zerril Softbreeze
+  tip Vulgara the Insatiable (level 8) is elite: grouping up is advised unless you are well above level 8.
+  turnin 92553
+  accept 93318 optional
+
+step Rorian the Dayseeker
+  accept 92471
+  turnin 92471
+  accept 92470
+  accept 92473
+
+step Thendal Grove: Scrawny Ursera Claw
+  collect 251918 quest 92473.1
+
+step Valreaa Valewind
+  turnin 92473
+
+step Hanaa Nightwind
+  accept 92544
+
+step Thendal Grove: Al'Aketh Brute and Al'Aketh Neophyte and more
+  kill 251145 quest 92544.1
+  kill 251448 quest 92544.2
+  kill 256935 quest 92544.3
+
+step Hanaa Nightwind
+  turnin 92544
+
+step Thendal Grove: Head of Urs'anah and Ursera Scavenger
+  collect 252665 quest 92470.2
+  kill 250937 quest 92470.1
+
+step Aetheen of the Gales
+  turnin 92470
+  accept 92472
+  accept 96638
+
+step Thendal Standing Stones: Cirrusfly Queen
+  kill 251404 quest 92463.1
+
+step Elatrell Featherlight
+  turnin 92463
+
+step Illaya Amberwind
+  turnin 94411
+  turnin 93319
+  turnin 92472
+  turnin 92517
+  accept 93036
+  turnin 93036
+  accept 92529
+
+step Shen'dar Highlands: Hippogryph Protector and Hippogryph Matriarch and more
+  tip Vulgara the Insatiable (level 8) is elite: grouping up is advised unless you are well above level 8.
+  collect 257942 quest 93318.1 optional
+  kill 251284 quest 92516.2
+  kill 251261 quest 92516.3
+  collect 263493 quest 93951.1
+
+step Shen'dar Highlands: Hippogryph Youth
+  kill 251291 quest 92516.1
+
+step Raan Wildwind
+  turnin 96638
+
+step Teeri Wellwind
+  tip Vulgara the Insatiable (level 8) is elite: grouping up is advised unless you are well above level 8.
+  turnin 92516
+  turnin 93951
+  turnin 93318 optional
+
+step Missionary Jasaan
+  turnin 92529
+  accept 92528
+
+step Falaath Village: Wardrobe
+  kill 254128 quest 92528.1
+
+step Constable Aonda
+  turnin 92528
+  accept 92550
+  accept 93926
+  accept 92551
+
+step Falaath Village: Living Lightning
+  kill 251662 quest 92550.2
+
+step Falaath Village: Commander Cyclas's Head
+  collect 252661 quest 92550.3
+
+step Falaath Village: Stolen Shen'dar Supplies and Al'Aketh Stormcaller
+  collect 252760 quest 92551.1
+  kill 252068 quest 92550.1
+
+step West Pylon Watchtower: The Western Watch
+  complete 93926
+
+step Peacekeeper Vaaniel
+  turnin 93926
+  accept 93927
+
+step West Pylon Watchtower: Bloody Note and Skypriest Aanders and more
+  collect 254871 quest 93927.2
+  kill 256966 quest 93927.1
+  collect 263415 quest 93927.3
+  collect 263418 quest 93927.4
+
+step Danarii Bellowveil
+  turnin 92551
+  turnin 93927
+  turnin 92550
+
+step Nyalah Brightfire
+  accept 93317
+  accept 92679
+
+step Overlook Standing Stones: Windsong Crawler Meat
+  collect 257941 quest 93317.1
+
+step Windfield Orchard: Blood Tithe
+  complete 92679
+
+step Aamelia Windfield
+  turnin 92679
+  accept 92682
+  accept 92683
+  accept 92684
+
+step Windfield Orchard: Lowlands Galestrider Tenderloin
+  collect 253597 quest 92684.1
+
+step Malfunctioning Cyclone Construct
+  accept 92698
+
+step Windfield Orchard: Flutterfly Dust and Ripe Stormapple and more
+  collect 253595 quest 92683.1
+  collect 253591 quest 92682.1
+  kill 252802 quest 92682.2
+
+step Aamelia Windfield
+  turnin 92682
+  turnin 92684
+  turnin 92683
+  turnin 92698
+  accept 92685
+
+step Windfield Orchard: Blood-Stained Bandit Mask
+  collect 253596 quest 92685.1
+
+step Aamelia Windfield
+  turnin 92685
+  accept 92693
+
+step Windfield Orchard: Ferauu the Bludgeon
+  kill 252863 quest 92693.2
+
+step Aamelia Windfield
+  turnin 92693
+  accept 92703
+
+step Nyalah Brightfire
+  turnin 93317
+  turnin 92703
+
+step Ealaane Nimbuswalker
+  accept 94896
+  accept 94897
+
+step Fendaal Windstone
+  accept 98512
+
+step Gustberry Lowlands: Al'Aketh Assassin
+  kill 254626 quest 98512.1
+
+step Fendaal Windstone
+  turnin 98512
+
+step Strange Hermit
+  accept 93159
+
+step Windsong Lake: The Strange Hermit
+  complete 93159
+
+step Strange Hermit
+  turnin 93159
+  accept 93160
+  accept 93172
+
+step Shadowgale Forest: Zephyrseed
+  collect 257128 quest 93160.1
+
+step Ruins of Ban'aethal: Abandoned Belongings and Wind Hollow and more
+  collect 266433 quest 94896.1
+  kill 251676 quest 93172.1
+  collect 266434 quest 94897.1
+
+step Strange Hermit
+  turnin 93160
+  turnin 93172
+
+step Elegael Thornpaw
+  accept 94493
+  turnin 94493
+  accept 94485
+  accept 94486
+  accept 94487
+
+step Shadowgale Forest: Bloody Heirloom
+  collect 265141 quest 94487.1
+
+step Vayn Moongaze
+  accept 93165
+
+step Shadowgale Forest: Al'Alketh Cultist's Ear
+  collect 258771 quest 93165.1
+
+step Vayn Moongaze
+  turnin 93165
+
+step Shadowgale Forest: Pristine Shriekling Feather
+  collect 265140 quest 94486.1
+
+step Shadowgale Forest: Lady's Tear Moss
+  collect 265105 quest 94485.1
+
+step Elegael Thornpaw
+  turnin 94485
+  turnin 94487
+  turnin 94486
+  accept 94488
+  accept 94489
+
+step Shadowgale Forest
+  tip Commander Haalien drops the Ripped Missive: right-click it to start Ripped Missive.
+  collect 265476 x1
+  accept 94490
+
+step Shadowgale Forest: Commander Haalien's Severed Head and Naaleos Leafwhisper and more
+  collect 265475 quest 94488.1
+  kill 258134 quest 94489.1
+  kill 258130 quest 94489.2
+
+step Elegael Thornpaw
+  turnin 94488
+  turnin 94489
+  turnin 94490
+  accept 94491
+
+step Constable Aonda
+  accept 92579
+  accept 93948
+
+step Lotheluum Starbreeze
+  turnin 94491
+  turnin 94896
+  turnin 94897
+  turnin 93948
+  turnin 92579
+  accept 92700
+  accept 93949
+
+step Valanaar: Skyhopper
+  kill 251727 quest 93949.1
+
+step Valennia Stormfist
+  turnin 93949
+
+step Ayessa Dawnsinger
+  turnin 92700
+  accept 92708
+  accept 93735
+
+step Valanaar: A Grand Adventure
+  complete 92708
+
+step Ayessa Dawnsinger
+  turnin 92708
+  accept 93736
+
+step Riaani Nightwind
+  turnin 93735
+  accept 93737
+
+step Ruins of Ban'aethal: Wind Hollow Essence
+  collect 262357 quest 93736.1
+
+step Windsong Lake: Enchanted Gyrozephyr
+  collect 260883 quest 93737.3
+
+step Shen'dar Highlands: Crystallized Lightning
+  collect 260881 quest 93737.2
+
+step Windfield Orchard: Air Construct Core
+  collect 260880 quest 93737.4
+
+step Endaria Mistgaze
+  turnin 93736
+
+step Riaani Nightwind
+  turnin 93737
+  accept 93738
+
+step Ayessa Dawnsinger
+  turnin 93738
+  accept 93746
+
+step Shrine of Akir: Belathaan Brightwish
+  kill 256247 quest 93746.1
+
+step Ayessa Dawnsinger
+  turnin 93746
+  accept 92871
+  accept 93740
+
+step Valennia Stormfist
+  turnin 92871
+  accept 93320
+
+step East Pylon Watchtower: Al'Aketh Windstone Charm
+  collect 255658 quest 93740.1
+
+step Yorana Windyreed
+  turnin 93320
+  accept 92642
+  accept 92645
+
+step East Pylon Watchtower: Al'Aketh Healer and Al'Aketh Brawler and more
+  kill 254596 quest 92642.1
+  kill 270201 quest 92642.2
+  kill 252666 quest 92645.1
+
+step Yorana Windyreed
+  turnin 92642
+  turnin 92645
+  accept 92880
+
+step Valennia Stormfist
+  turnin 92880
+  accept 92881
+  turnin 92881
+  accept 92643
+
+step Ayessa Dawnsinger
+  turnin 93740
+
+step Gustberry Lowlands: The Turncoat
+  complete 92643
+
+step Dead Cultist
+  turnin 92643
+  accept 92644
+
+step Talaanis Shadowsong
+  turnin 92644
+  accept 94568
+
+step Valanaar: The Cult's True Plans
+  complete 94568
+
+step Talaanis Shadowsong
+  turnin 94568
+  accept 92640
+
+step Valanaar: Desperate Times
+  complete 92640
+
+step Valennia Stormfist
+  turnin 92640
+  accept 93065
+
+step Gustberry Lowlands: Prepare for Battle
+  complete 93065
+
+step Valennia Stormfist
+  turnin 93065
+  accept 92947
+
+step Shrine of Akir: Al'Aketh Spiritcaller and Al'Aketh Blademaster
+  kill 252763 quest 92947.2
+  kill 252765 quest 92947.3
+
+step Shrine of Akir: Al'Aketh Guardian and Making Our Move
+  kill 252762 quest 92947.1
+  complete 92947
+
+step Hyusaa Quickbreeze
+  turnin 92947
+  accept 93958
+  turnin 93958
+  accept 92646
+
+step Rohashi Spires: Confront Lorthuna
+  complete 92646
+
+step Ayessa Dawnsinger
+  turnin 92646
+  accept 93836
+
+step Valanaar: The Fate of Zephras
+  complete 93836
+
+step Talaanis Shadowsong
+  turnin 93836
+  accept 93090
+
+step Ayessa Dawnsinger
+  turnin 93090
+  accept 95349
+
+step Bloodhoof Village
+  sethome "Bloodhoof Village"
+  note "Profession quests here, for players with the skill: Camping 101: Alchemy (Alchemy 1), Camping 101: Blacksmithing (Blacksmithing 1), Camping 101: First Aid (First Aid 1), Camping 101: Fishing (Fishing 1), Camping 101: Herbalism (Herbalism 1), Camping 101: Leatherworking (Leatherworking 1), Camping 101: Mining (Mining 1), Camping 101: Skinning (Skinning 1), Camping 101: Tailoring (Tailoring 1), Camping 101: Enchanting (Enchanting 1), Camping 101: Engineering (Engineering 1)."

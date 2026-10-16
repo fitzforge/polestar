@@ -1,0 +1,65 @@
+guide completionist/horde/skyborne/38-moonglade-tirisfal-glades
+title Moonglade & Tirisfal Glades
+faction Horde
+race Skyborne
+levels 57-58
+zone Moonglade
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Moonglade, Tirisfal Glades
+next completionist/horde/skyborne/39-tanaris-feralas
+
+# Route: guide 38 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 57 to
+# 58, 12 quests, 0.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Moonglade, Tirisfal Glades): Moonglade -> The Bulwark.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Vorrel's Revenge (1051), Barov Family Fortune (5341), The
+# Wrath of Rath'mael (92422), The Wrath of Rath'mael (92422), Crest of
+# Lordaeron (95204), Unending Torment (97288).
+
+step Avatar of Saeyleenan
+  accept 98738
+  accept 98404
+
+step Moonglade: Relic of the Fang and Relic of the Claw and more
+  collect 280502 quest 98404.1
+  collect 280679 quest 98404.2
+  collect 280680 quest 98404.3
+
+step Dendrite Starblaze
+  turnin 98738
+  accept 98341
+
+step Avatar of Saeyleenan
+  turnin 98341
+  turnin 98404
+
+step Rabine Saturna
+  turnin 1123
+  accept 1124
+  accept 5527
+
+step Back to Tarren Mill
+  hearth "Tarren Mill"
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  turnin 105
+
+step The Bulwark: Arcane Quickener
+  buy 13320 x1 nearest
+
+step Shadow Priestess Vandis
+  turnin 5232
+  accept 5233
+  turnin 964
+  accept 5514
+
+step Gadgetzan
+  sethome "Gadgetzan"

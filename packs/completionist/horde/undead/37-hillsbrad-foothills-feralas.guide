@@ -1,0 +1,248 @@
+guide completionist/horde/undead/37-hillsbrad-foothills-feralas
+title Hillsbrad Foothills & Feralas
+faction Horde
+race Undead
+levels 56-58
+zone Hillsbrad Foothills
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Hillsbrad Foothills, Tirisfal Glades, Feralas, Thousand Needles, Moonglade, Winterspring, Western Plaguelands, Swamp of Sorrows
+next completionist/horde/undead/38-tanaris
+
+# Route: guide 37 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 56 to
+# 58, 58 quests, 3.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Hillsbrad Foothills, Tirisfal Glades, Feralas, Thousand Needles,
+# Moonglade, Winterspring, Western Plaguelands, Swamp of Sorrows): Tarren Mill
+# -> Southshore -> Tarren Mill -> Durnholde Keep -> Tarren Mill -> Hillsbrad
+# Fields -> Azurelode Mine -> Southshore -> Tarren Mill -> The Bulwark ->
+# Felstone Field -> The Bulwark -> Camp Mojache -> ….
+#
+# Optional (elite: grouping up is advised): The Crown of Will (518; Crushridge
+# Mauler 36-37); The Crown of Will (519; Targ 41, Muckrake 40, Glommus 39);
+# Encrusted Tail Fins (1107; Saltscale Warrior 35-36, Saltscale Oracle 36-37,
+# Saltscale Tide Lord 37, Saltscale Forager 35-36, Saltscale Hunter 35-36); A
+# Host of Evil (6626; Razorfen Battleguard 33-34, Razorfen Thornweaver 33-34,
+# Death's Head Cultist 33-34).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Grave Knight (96986), Vorrel's Revenge (1051), Barov
+# Family Fortune (5341), The Wrath of Rath'mael (92422), The Wrath of
+# Rath'mael (92422), Crest of Lordaeron (95204), Unending Torment (97288),
+# Pusillin and the Elder Azj'Tordin (7441), Elven Legends (7481),
+# Lethtendris's Web (7489), Gahz'rilla (2770), Doctor Theolen Krastinov, the
+# Butcher (5382), Kirtonos the Herald (5384), The Lich, Ras Frostwhisper
+# (5466), Krastinov's Bag of Horrors (5515), Of Love and Family (5848), Oculus
+# Illusions (6569).
+
+step Magus Wordeen Voidglare
+  turnin 544
+  accept 545
+  turnin 556
+  accept 557
+  turnin 506
+  accept 507
+
+step Helcular's Grave
+  turnin 553
+
+step Melisara
+  tip Crushridge Mauler (level 36-37), Targ (level 41), Muckrake (level 40) and Glommus (level 39) are elite: grouping up is advised unless you are well above level 41.
+  turnin 495
+  turnin 518 optional
+  accept 519 optional
+  turnin 566
+  turnin 2934
+  accept 2935
+  turnin 1065
+  accept 1066
+
+step Durnholde Keep: Vial of Innocent Blood
+  collect 5620 quest 1066.1
+
+step Apothecary Lydon
+  turnin 1066
+  accept 1067
+  turnin 501
+  accept 502
+
+step Stanley
+  turnin 502
+
+step Azurelode Mine: Torn Fin Eye
+  collect 3510 quest 515.3
+
+step Southshore: Daggerspine Scale
+  collect 3509 quest 515.2
+
+step Back to Tarren Mill
+  hearth "Tarren Mill"
+
+step Apothecary Lydon
+  turnin 515
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  turnin 105
+
+step The Bulwark: Arcane Quickener
+  buy 13320 x1 nearest
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  tip Arcane Quickener lasts 30 minutes: go straight on with it.
+  turnin 5218
+
+step Shadow Priestess Vandis
+  zone Tirisfal Glades
+  turnin 5232
+  accept 5233
+  turnin 964
+  accept 5514
+  turnin 6029
+
+step Camp Mojache
+  zone Feralas
+  sethome "Camp Mojache"
+  turnin 3122
+  accept 3123
+  accept 3128
+  turnin 2981
+
+step Camp Mojache: Splintered Log and Metallic Fragments
+  collect 9590 quest 3128.1
+  collect 9592 quest 3128.4
+
+step Feral Scar Vale: Resilient Sinew
+  collect 9591 quest 3128.3
+
+step Grimtotem Compound: Encrusted Minerals
+  collect 9589 quest 3128.2
+
+step Witch Doctor Uzer'i
+  turnin 3128
+
+step Zorbin Fandazzle
+  accept 7725
+
+step The Forgotten Coast: Miniaturization Residue
+  tip Zorbin's Ultra-Shrinker lasts 120 minutes: go straight on with it.
+  collect 18956 quest 7725.1
+
+step Zorbin Fandazzle
+  turnin 7725
+
+step Zorbin Fandazzle
+  accept 7726
+
+step Feral Scar Vale: Water Elemental Core
+  collect 18958 quest 7726.1
+
+step Zorbin Fandazzle
+  turnin 7726
+
+step The Twin Colossals: The Videre Elixir
+  complete 3909
+
+step Back to Camp Mojache
+  hearth "Camp Mojache"
+
+step Witch Doctor Uzer'i
+  accept 3380
+  accept 4120
+
+step Camp E'thok: Steelsnap's Rib
+  zone Thousand Needles
+  collect 5837 quest 1131.1
+
+step Freewind Post
+  sethome "Freewind Post"
+  turnin 4542
+  turnin 5147
+
+step Darkcloud Pinnacle: Free at Last
+  complete 4904
+
+step Camp E'thok: Unrefined Ore Sample
+  collect 5842 quest 1153.1
+
+step Thalia Amberhide
+  turnin 4904
+
+step Windbreak Canyon: Stormheart's Still-beating Heart
+  collect 279186 quest 97985.1
+
+step Dorn Plainstalker
+  turnin 1394
+
+step Fizzle Brassbolts
+  tip Saltscale Warrior (level 35-36), Saltscale Oracle (level 36-37), Saltscale Tide Lord (level 37) and 2 more are elite: grouping up is advised unless you are well above level 37.
+  turnin 1137
+  turnin 1107 optional
+
+step The Shimmering Flats
+  tip Silithid Hive Drone drops the Cracked Silithid Carapace: right-click it to start Parts of the Swarm.
+  collect 5877 x1
+  accept 1148
+
+step The Shimmering Flats: Silithid Heart and Silithid Talon and more
+  tip Razorfen Battleguard (level 33-34), Razorfen Thornweaver (level 33-34) and Death's Head Cultist (level 33-34) are elite: grouping up is advised unless you are well above level 34.
+  collect 5855 quest 1148.1
+  collect 5854 quest 1148.2
+  collect 5853 quest 1148.3
+  turnin 6626 optional
+
+step Rabine Saturna
+  zone Moonglade
+  turnin 1123
+  accept 1124
+  accept 5527
+
+step Donova Snowden
+  zone Winterspring
+  turnin 3909
+  accept 3912
+  turnin 5085
+  accept 5086
+
+step Owl Wing Thicket: Moontouched Owlbeast
+  kill 7453 quest 4741.1
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  accept 5221
+
+step Dalson's Tears: Runecloth
+  collect 14047 quest 5221.3
+
+step The Writhing Haunt: Writhing Haunt Cauldron Key
+  collect 13197 quest 5233.1
+
+step Scourge Cauldron
+  turnin 5233
+  accept 5234
+
+step The Writhing Haunt: Somatic Intensifier
+  collect 13356 quest 5221.2
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 2623
+  accept 2801
+
+step Splinterspear Junction: A Tale of Sorrow
+  complete 2801
+
+step Fallen Hero of the Horde
+  turnin 2801
+  accept 2681
+
+step Back to Freewind Post
+  hearth "Freewind Post"
+
+step Gadgetzan
+  sethome "Gadgetzan"

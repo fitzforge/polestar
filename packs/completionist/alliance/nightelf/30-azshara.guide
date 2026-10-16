@@ -1,0 +1,81 @@
+guide completionist/alliance/nightelf/30-azshara
+title Azshara
+faction Alliance
+race NightElf
+levels 49-50
+zone Azshara
+category Completionist
+folder Completionist · NightElf 40-50
+keywords completionist, every quest
+next completionist/alliance/nightelf/31-dun-morogh
+
+# Route: guide 30 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 49 to
+# 50, 5 quests, 0.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Azshara): Valormok -> Shadowsong Shrine -> Haldarr Encampment ->
+# Shadowsong Shrine -> Legashi Encampment -> Thalassian Base Camp -> Legashi
+# Encampment -> The Shattered Strand -> Legashi Encampment.
+#
+# Profession quests here are not routed (they need the skill): 5141
+# Dragonscale Leatherworking.
+#
+# Left to other guides: class quests (the Class category).
+
+step Sanath Lim-yo
+  accept 3381
+
+step Valormok: Undamaged Hippogryph Feather
+  collect 10450 quest 3381.1
+
+step Sanath Lim-yo
+  turnin 3381
+
+step Shadowsong Shrine
+  getfp "Talrendis Point"
+  accept 5535
+  accept 5536
+
+step Shadowsong Shrine: Highborne Apparition
+  kill 6116 quest 5535.1
+
+step Shadowsong Shrine: Highborne Lichling
+  kill 6117 quest 5535.2
+
+step Haldarr Encampment: Haldarr Satyr and Haldarr Trickster and more
+  kill 6125 quest 5536.1
+  kill 6126 quest 5536.2
+  kill 6127 quest 5536.3
+
+step Loh'atu
+  turnin 5535
+  turnin 5536
+
+step Kim'jael
+  accept 3601
+
+step Thalassian Base Camp: Kim'Jael's Compass and Kim'Jael's Scope and more
+  collect 10717 quest 3601.1
+  collect 10715 quest 3601.2
+  collect 10722 quest 3601.3
+  collect 10718 quest 3601.4
+
+step Kim'jael
+  turnin 3601
+  accept 5534
+
+step The Shattered Strand: Some Rune
+  collect 13815 quest 5534.1
+
+step Kim'jael
+  turnin 5534
+
+step Back to Aerie Peak
+  hearth "Aerie Peak"
+
+step The Grizzled Den
+  sethome "Thunderbrew Distillery"
+  note "Profession quests here, for players with the skill: Dragonscale Leatherworking (Leatherworking 225)."

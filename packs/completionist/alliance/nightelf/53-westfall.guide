@@ -1,0 +1,124 @@
+guide completionist/alliance/nightelf/53-westfall
+title Westfall
+faction Alliance
+race NightElf
+levels 60-60
+zone Westfall
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Arathi Highlands, Stormwind City, Felwood, Ashenvale, Burning Steppes, Redridge Mountains, Westfall, Duskwood
+
+# Route: guide 53 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 60 to
+# 60, 19 quests, 1.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Arathi Highlands, Stormwind City, Felwood, Ashenvale, Burning Steppes,
+# Redridge Mountains, Westfall, Duskwood): Refuge Pointe -> Faldir's Cove ->
+# near Stormwind -> Emerald Sanctuary -> Satyrnaar -> Ruins of Thaurissan ->
+# Lakeshire -> The Dagger Hills -> Sentinel Hill -> Westfall Lighthouse ->
+# Sentinel Hill -> Moonbrook -> Sentinel Hill -> ….
+#
+# Optional (elite: grouping up is advised): Morbent Fel (55; Morbent Fel 32).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489), Blackfathom
+# Villainy (1200), Dark Iron Legacy (3802), A Taste of Flame (4024), The Heart
+# of the Mountain (4123), Marshal Windsor (4241), Incendius! (4263), Put Her
+# Down (4701), Egg Freezing (4734), Egg Collection (4735), Doomrigger's Clasp
+# (4764), Maxwell's Mission (5081), General Drakkisath's Demise (5102), What
+# Comes Around... (386), What Comes Around... (386), Songblade Search (95772),
+# Songblade Search (95772), The Defias Brotherhood (166), The Defias
+# Brotherhood (166), The Unsent Letter (373), Crime and Punishment (377),
+# Crime and Punishment (377).
+
+step Captain Nials
+  zone Arathi Highlands
+  turnin 634
+
+step Shakes O'Breen
+  turnin 670
+  accept 667
+
+step Faldir's Cove: Death From Below
+  complete 667
+
+step Shakes O'Breen
+  turnin 667
+
+step Brohann Caskbelly
+  zone Stormwind City
+  turnin 1469
+
+step Kelek Skykeeper
+  zone Felwood
+  turnin 5128
+
+step Kayneth Stillwind
+  zone Ashenvale
+  turnin 4261
+
+step Back to Booty Bay
+  hearth "Booty Bay"
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  turnin 4907
+
+step Lakeshire
+  zone Redridge Mountains
+  sethome "Lakeshire"
+  turnin 116
+  turnin 146
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  turnin 49
+
+step Sentinel Hill
+  sethome "Sentinel Hill"
+  turnin 92752
+  accept 92753
+
+step Alba Fairmoon
+  turnin 92753
+  accept 92819
+  turnin 92819
+
+step Gryan Stoutmantle
+  turnin 141
+  accept 142
+
+step Moonbrook: A Mysterious Message
+  collect 1381 quest 142.1
+
+step Gryan Stoutmantle
+  turnin 142
+  accept 155
+
+step Moonbrook: The Defias Brotherhood
+  complete 155
+
+step Gryan Stoutmantle
+  turnin 155
+  accept 214
+
+step The Dagger Hills: Red Silk Bandana
+  collect 915 quest 214.1
+
+step Scout Riell
+  turnin 214
+
+step Sven Yorgen
+  zone Duskwood
+  tip Morbent Fel (level 32) is elite: grouping up is advised unless you are well above level 32.
+  turnin 325
+  accept 55 optional
+  kill 1200 quest 55.1 optional
+  turnin 55 optional

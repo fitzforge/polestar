@@ -1,0 +1,56 @@
+guide completionist/horde/undead/10-silverpine-forest
+title Silverpine Forest
+faction Horde
+race Undead
+levels 27-28
+zone Silverpine Forest
+category Completionist
+folder Completionist · Undead 20-30
+keywords completionist, every quest
+next completionist/horde/undead/11-hillsbrad-foothills
+
+# Route: guide 10 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 27 to
+# 28, 4 quests, 0.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Silverpine Forest): Beren's Peril -> The Sepulcher.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Arugal Must Die (1014), Arugal Must Die (1014), Into The
+# Scarlet Monastery (1048), Deathstalkers in Shadowfang (1098), Deathstalkers
+# in Shadowfang (1098), The Power to Destroy... (5725), The New Plague
+# (95216), Heart of Disruption (96984), Source of Power (96988).
+
+step Beren's Peril
+  tip Ravenclaw Guardian drops the Note Scrap: right-click it to start The Offering Stone.
+  collect 271343 x1
+  accept 95884
+
+step Beren's Peril: Note Scrap
+  collect 271343 quest 95884.1
+
+step Offering Stone
+  turnin 95884
+  accept 95883
+  accept 95885
+
+step Beren's Peril: Tortured Soul
+  kill 212753 quest 95885.1
+  collect 271350 quest 95883.1
+
+step Offering Stone
+  turnin 95883
+  turnin 95885
+
+step The Sepulcher
+  sethome "The Sepulcher"
+  accept 493
+
+step Tarren Mill
+  getfp "Tarren Mill"
+
+step Tarren Mill
+  sethome "Tarren Mill"

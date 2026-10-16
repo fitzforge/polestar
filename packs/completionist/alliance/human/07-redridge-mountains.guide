@@ -1,0 +1,178 @@
+guide completionist/alliance/human/07-redridge-mountains
+title Redridge Mountains
+faction Alliance
+race Human
+levels 24-26
+zone Redridge Mountains
+category Completionist
+folder Completionist · Human 20-30
+keywords completionist, every quest
+next completionist/alliance/human/08-ashenvale
+
+# Route: guide 7 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 24 to 26, 25
+# quests, 2.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Redridge Mountains): Lakeshire -> Three Corners -> Lakeshire ->
+# Lakeridge Highway -> Three Corners -> Lakeshire -> Lake Everstill ->
+# Lakeshire -> Alther's Mill -> Galardell Valley -> Alther's Mill -> Lakeshire
+# -> Redridge Canyons -> ….
+#
+# Optional (elite: grouping up is advised): WANTED: Gath'Ilzogg (169;
+# Gath'Ilzogg 26); WANTED: Incinerator Gar'im (95999; Incinerator Gar'im 23);
+# Tharil'zun (19; Tharil'zun 24); Shadow Magic (115; Blackrock Shadowcaster
+# 22-23).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): What Comes Around... (386), What Comes Around... (386),
+# Songblade Search (95772), Songblade Search (95772).
+
+step Darcy
+  tip Gath'Ilzogg (level 26) is elite: grouping up is advised unless you are well above level 26.
+  accept 129
+  accept 116
+  getfp "Lakeshire"
+  accept 180
+  accept 169 optional
+  accept 120
+  accept 118
+  accept 125
+  accept 98386
+  accept 3741
+
+step Deputy Feldon
+  accept 98407
+
+step Lakeshire: Hilary's Necklace
+  complete 3741
+
+step Hilary
+  turnin 3741
+
+step Chef Breanna
+  accept 92
+
+step Lakeshire: Great Goretusk Snout
+  collect 2296 quest 92.1
+
+step Three Corners: Spiked Collar
+  collect 280911 quest 98407.1
+
+step Guard Parker
+  turnin 129
+  accept 130
+  accept 244
+
+step Deputy Feldon
+  turnin 244
+  turnin 98407
+  accept 246
+
+step Lakeridge Highway: Redridge Poacher
+  kill 424 quest 246.2
+
+step Three Corners: Redridge Mongrel
+  kill 423 quest 246.1
+
+step Martie Jainrose
+  turnin 130
+  accept 131
+  turnin 131
+
+step Deputy Feldon
+  turnin 246
+
+step Lake Everstill: The Lost Tools
+  complete 125
+
+step Foreman Oslow
+  turnin 125
+  accept 89
+
+step Lakeshire: Iron Pike and Iron Rivet
+  collect 2856 quest 89.1
+  collect 1013 quest 89.2
+
+step Foreman Oslow
+  turnin 89
+
+step Alther's Mill: Tough Condor Meat
+  collect 1080 quest 92.2
+
+step Galardell Valley: Fangore's Paw
+  collect 3632 quest 180.1
+
+step Galardell Valley
+  tip Shadowhide Darkweaver drops the Glowing Shadowhide Pendant: right-click it to start Theocritus' Retrieval.
+  collect 1962 x1
+  accept 178
+
+step Alther's Mill: Greater Tarantula and Crisp Spider Meat
+  tip Gath'Ilzogg (level 26) is elite: grouping up is advised unless you are well above level 26.
+  collect 3633 quest 169.1 optional
+  kill 505 quest 98386.1
+  collect 1081 quest 92.3
+
+step Foreman Oslow
+  tip Gath'Ilzogg (level 26) is elite: grouping up is advised unless you are well above level 26.
+  turnin 98386
+  turnin 169 optional
+  turnin 180
+
+step Chef Breanna
+  tip Incinerator Gar'im (level 23) is elite: grouping up is advised unless you are well above level 23.
+  turnin 92
+  accept 127
+  accept 95999 optional
+
+step Bailiff Conacher
+  accept 91
+  accept 20
+
+step Lakeshire: Battleworn Axe and Spotted Sunfish
+  collect 3014 quest 20.1
+  collect 1467 quest 127.1
+
+step Marshal Marris
+  tip Tharil'zun (level 24) and Blackrock Shadowcaster (level 22-23) are elite: grouping up is advised unless you are well above level 24.
+  turnin 20
+  accept 19 optional
+  accept 115 optional
+  turnin 127
+
+step Martie Jainrose
+  accept 34
+
+step Lakeshire: Bellygrub's Tusk
+  collect 3631 quest 34.1
+
+step Martie Jainrose
+  turnin 34
+
+step Corporal Keeshan
+  accept 219
+
+step Stonewatch: Midnight Orb and Tharil'zun's Head and more
+  tip Blackrock Shadowcaster (level 22-23) and Tharil'zun (level 24) are elite: grouping up is advised unless you are well above level 24.
+  collect 1261 quest 115.1 optional
+  collect 1260 quest 19.1 optional
+  collect 1075 quest 91.1
+
+step Back to Lakeshire
+  tip Incinerator Gar'im (level 23) is elite: grouping up is advised unless you are well above level 23.
+  collect 271872 quest 95999.1 optional
+  hearth "Lakeshire"
+
+step Lakeshire: Missing In Action
+  complete 219
+
+step Marshal Marris
+  tip Tharil'zun (level 24), Blackrock Shadowcaster (level 22-23) and Incinerator Gar'im (level 23) are elite: grouping up is advised unless you are well above level 24.
+  turnin 219
+  turnin 19 optional
+  turnin 115 optional
+  turnin 95999 optional
+  turnin 91

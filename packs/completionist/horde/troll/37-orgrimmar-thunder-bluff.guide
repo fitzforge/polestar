@@ -1,0 +1,300 @@
+guide completionist/horde/troll/37-orgrimmar-thunder-bluff
+title Orgrimmar & Thunder Bluff
+faction Horde
+race Troll
+levels 55-56
+zone Orgrimmar
+category Completionist
+folder Completionist · Troll 50-60
+keywords completionist, every quest, Orgrimmar, Western Plaguelands, Stranglethorn Vale, Felwood, Thunder Bluff, Undercity, Hillsbrad Foothills, Burning Steppes, Arathi Highlands, The Hinterlands
+next completionist/horde/troll/38-eastern-plaguelands-western-plaguelands
+
+# Route: guide 37 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 55 to 56, 79
+# quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Orgrimmar, Western Plaguelands, Stranglethorn Vale, Felwood, Thunder
+# Bluff, Undercity, Hillsbrad Foothills, Burning Steppes, Arathi Highlands,
+# The Hinterlands): near Orgrimmar -> Orgrimmar -> near Orgrimmar -> Orgrimmar
+# -> near Orgrimmar -> Orgrimmar -> near Orgrimmar -> Felstone Field -> Ruins
+# of Andorhal -> Gurubashi Arena -> Jaedenar -> Felpaw Village -> Jaedenar ->
+# ….
+#
+# Optional (elite: grouping up is advised): Shadowshard Fragments (7068;
+# Shadowshard Rumbler 40-41, Shadowshard Smasher 41-42, Shadowshard Thunderer
+# 38); Arikara (5088; Arikara 28); The Crown of Will (518; Crushridge Mauler
+# 36-37); Recover the Key! (7846; Hitah'ya the Keeper 51); Wanted: Vile
+# Priestess Hexx and Her Minions (7861; Vile Priestess Hexx 51, Vilebranch
+# Aman'zasi Guard 50-51); Summoning the Princess (656; Myzrael 44).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Necklace Recovery, Take 2 (2284), Rig Wars (2841), Rig
+# Wars (2841), The Royal Rescue (4003), For The Horde! (4974), Returning the
+# Lost Satchel (5724), Hidden Enemies (5728), Hidden Enemies (5728), Slaying
+# the Beast (5761), Slaying the Beast (5761), Changing Tastes (95697),
+# Changing Tastes (95697), Doctor Theolen Krastinov, the Butcher (5382),
+# Kirtonos the Herald (5384), The Lich, Ras Frostwhisper (5466), Krastinov's
+# Bag of Horrors (5515), Of Love and Family (5848), Oculus Illusions (6569),
+# Leaders of the Fang (914), Compendium of the Fallen (1049), A Vengeful Fate
+# (1102), Testing an Enemy's Strength (5723), The Book of Ur (1013), The Book
+# of Ur (1013), Going, Going, Guano! (1109), Going, Going, Guano! (1109),
+# Bring the End (3341), The Power to Destroy... (5725), Light's Justice
+# (92421), Light's Justice (92421), The New Plague (95216), Source of Power
+# (96988), The Grave Knight (96986), Dark Iron Legacy (3802), A Taste of Flame
+# (4024), Precarious Predicament (4121), The Heart of the Mountain (4123), Egg
+# Freezing (4734), Egg Collection (4735), Dragonmaw Rumors (95663), Jammal'an
+# the Prophet (1446).
+
+step Vehena
+  accept 7834
+
+step Keldran
+  turnin 1436
+
+step Rashona Straglash
+  accept 7827
+  accept 4494
+
+step Jes'rimon
+  accept 4300
+
+step Orgrimmar
+  sethome "Orgrimmar"
+  accept 936
+
+step Warcaller Gorlach
+  accept 5093
+
+step Frostwolf Ambassador Rokhstrom
+  accept 7241
+  accept 8276
+
+step Uthel'nay
+  tip Shadowshard Rumbler (level 40-41), Shadowshard Smasher (level 41-42) and Shadowshard Thunderer (level 38) are elite: grouping up is advised unless you are well above level 42.
+  accept 7068 optional
+  accept 7835
+
+step Neeru Fireblade
+  accept 3122
+  turnin 32
+
+step Rashona Straglash
+  accept 7831
+
+step Belgrom Rockmaul
+  accept 2981
+
+step Dran Droffers
+  accept 649
+  turnin 649
+  accept 650
+  turnin 3541
+  accept 3563
+
+step Belgrom Rockmaul
+  accept 3504
+  turnin 3923
+  accept 3924
+
+step near Orgrimmar: Samophlange Manual
+  complete 3924
+
+step Rilli Greasygob
+  turnin 3924
+
+step Innkeeper Gryshka
+  turnin 6384
+  accept 6385
+  turnin 6385
+  accept 6386
+
+step Rashona Straglash
+  accept 7826
+
+step Zor Lonetree
+  accept 1061
+
+step Vehena
+  accept 7833
+
+step Felstone Field: Felstone Field Cauldron Key and Invader's Scourgestone and more
+  zone Western Plaguelands
+  collect 13194 quest 5229.1
+  collect 12841 quest 5407.1
+  collect 12840 quest 5408.1
+
+step Scourge Cauldron
+  turnin 5229
+  accept 5230
+
+step Ruins of Andorhal: All Along the Watchtowers and Corruptor's Scourgestone
+  complete 5098
+  collect 12843 quest 5406.1 optional
+
+step Gurubashi Arena
+  zone Stranglethorn Vale
+  tip Arena Treasure Chest drops the Arena Master: right-click it to start Arena Master.
+  collect 18706 x1
+  accept 7810
+  turnin 7810
+
+step Back to Orgrimmar
+  hearth "Orgrimmar"
+
+step Winna Hazzard
+  zone Felwood
+  turnin 6605
+
+step Kernda
+  turnin 8471
+  turnin 6031
+
+step Deadwood Cauldron
+  turnin 5084
+
+step Trull Failbane
+  turnin 4521
+  accept 4741
+
+step Deadwood Cauldron
+  accept 5085
+
+step Thunder Bluff
+  zone Thunder Bluff
+  sethome "Thunder Bluff"
+  accept 1000
+
+step Arch Druid Hamuul Runetotem
+  turnin 1000
+  accept 1123
+
+step Melor Stonehoof
+  accept 1205
+
+step Rumstag Proudstrider
+  accept 7822
+
+step Magatha Grimtotem
+  turnin 3518
+
+step Cairne Bloodhoof
+  turnin 776
+
+step Eyahn Eagletalon
+  turnin 744
+
+step Magatha Grimtotem
+  tip Arikara (level 28) is elite: grouping up is advised unless you are well above level 28.
+  accept 3562
+  accept 3761
+  turnin 936
+  turnin 4987
+  accept 5088 optional
+
+step Melor Stonehoof
+  accept 1136
+  turnin 1276
+
+step Rumstag Proudstrider
+  accept 7821
+
+step Apothecary Zamah
+  turnin 1067
+  accept 1086
+
+step Rumstag Proudstrider
+  accept 7820
+
+step Calder Gray
+  zone Undercity
+  turnin 97985
+
+step Undercity
+  sethome "Undercity"
+  turnin 1164
+  turnin 728
+  accept 7814
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  tip Crushridge Mauler (level 36-37) is elite: grouping up is advised unless you are well above level 37.
+  sethome "Tarren Mill"
+  accept 518 optional
+  accept 566
+  turnin 2933
+  accept 2934
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  turnin 4810
+  accept 4866
+
+step Ruins of Thaurissan: Mother's Milk
+  complete 4866
+
+step Ragged John
+  turnin 4866
+
+step Back to Tarren Mill
+  hearth "Tarren Mill"
+
+step Shakes O'Breen
+  zone Arathi Highlands
+  accept 667
+
+step Faldir's Cove: Death From Below
+  complete 667
+
+step Shakes O'Breen
+  turnin 667
+
+step Hammerfall
+  tip Hitah'ya the Keeper (level 51), Vile Priestess Hexx (level 51), Vilebranch Aman'zasi Guard (level 50-51) and Myzrael (level 44) are elite: grouping up is advised unless you are well above level 51.
+  collect 19064 quest 7846.1 optional
+  kill 2648 quest 7861.2 optional
+  sethome "Hammerfall"
+  accept 8265
+  turnin 8265
+  collect 4473 quest 656.1 optional
+  turnin 656 optional
+
+step Hiri'watha: Grim Message
+  zone The Hinterlands
+  complete 2932
+
+step Shadra'Alor: Undamaged Venom Sac
+  collect 9322 quest 2934.1
+
+step The Overlook Cliffs: Whiskey Slim's Lost Grog
+  sethome "Revantusk Village"
+  complete 580
+
+step Gilveradin Sunchaser
+  turnin 650
+  accept 77
+
+step Agol'watha: Hinterlands Honey Ripple
+  collect 8684 quest 77.1
+
+step Gilveradin Sunchaser
+  turnin 77
+  accept 81
+
+step Back to Revantusk Village
+  hearth "Revantusk Village"
+
+step Elder Torntusk
+  tip Hitah'ya the Keeper (level 51) is elite: grouping up is advised unless you are well above level 51.
+  turnin 7846 optional
+  accept 7847
+
+step Primal Torntusk
+  tip Vile Priestess Hexx (level 51) and Vilebranch Aman'zasi Guard (level 50-51) are elite: grouping up is advised unless you are well above level 51.
+  turnin 7847
+  turnin 7861 optional
+
+step Light's Hope Chapel
+  sethome "Light's Hope Chapel"

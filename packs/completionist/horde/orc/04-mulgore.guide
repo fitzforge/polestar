@@ -1,0 +1,286 @@
+guide completionist/horde/orc/04-mulgore
+title Mulgore
+faction Horde
+race Orc
+levels 15-17
+zone Mulgore
+category Completionist
+folder Completionist · Orc 1-20
+keywords completionist, every quest
+next completionist/horde/orc/05-the-barrens
+
+# Route: guide 4 of 49 of the simulator's completionist route for Orc (1199 of
+# 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 15 to 17, 41
+# quests, 2.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Mulgore): Bloodhoof Village -> The Rolling Plains -> Bloodhoof Village
+# -> Winterhoof Water Well -> The Rolling Plains -> The Venture Co. Mine ->
+# Ravaged Caravan -> Thunderhorn Water Well -> Bloodhoof Village -> Winterhoof
+# Water Well -> Red Cloud Mesa -> Brambleblade Ravine -> Red Cloud Mesa -> ….
+#
+# Optional (elite: grouping up is advised): Ceasing Operations (98427; Venture
+# Co. Clearclutter 12).
+#
+# Profession quests here are not routed (they need the skill): 768 Gathering
+# Leather; 769 Kodo Hide Bag; 97927 Camping 101: Alchemy; 97928 Camping 101:
+# Blacksmithing; 97929 Camping 101: Enchanting; 97930 Camping 101:
+# Engineering; 97931 Camping 101: First Aid; 97932 Camping 101: Fishing; 97933
+# Camping 101: Herbalism; 97934 Camping 101: Leatherworking; 97935 Camping
+# 101: Mining; 97936 Camping 101: Skinning; 97937 Camping 101: Tailoring.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Leaders of the Fang (914), Compendium of the Fallen
+# (1049), A Vengeful Fate (1102), Searching for the Lost Satchel (5722),
+# Testing an Enemy's Strength (5723).
+
+step Skorn Whitecloud
+  accept 861
+
+step The Rolling Plains: Flatland Prowler Claw
+  collect 5203 quest 861.1
+
+step Harken Windtotem
+  accept 761
+  accept 98435
+  accept 99108
+  turnin 99108
+  accept 743
+  accept 99101
+  accept 99079
+  accept 99082
+  accept 99080
+  accept 767
+  accept 745
+  turnin 99101
+  turnin 767
+  accept 771
+  accept 766
+  accept 96130
+
+step Bloodhoof Village: Ambercorn
+  collect 4809 quest 771.2
+
+step Winterhoof Water Well: Trophy Swoop Quill
+  collect 4769 quest 761.1
+
+step Morin Cloudstalker
+  tip Venture Co. Clearclutter (level 12) is elite: grouping up is advised unless you are well above level 12.
+  accept 749
+  accept 98427 optional
+
+step Malah Longwind
+  turnin 99079
+  accept 99081
+
+step The Rolling Plains: Herak's Head
+  collect 286075 quest 99080.3
+
+step The Rolling Plains: Galak Centaur and Galak Outrunner
+  kill 2967 quest 99080.1
+  kill 2968 quest 99080.2
+
+step The Venture Co. Mine
+  tip Supervisor Fizsprocket drops the Mulgore Expansion Plans: right-click it to start Fizsprocket's Notes.
+  collect 281031 x1
+  accept 98424
+
+step The Venture Co. Mine: Barrens Operations Best Practices
+  collect 281036 quest 98424.2
+
+step The Venture Co. Mine: Shredder Operation Instructions and One 'Gerenzo', of Stonetalon
+  collect 281035 quest 98424.1
+  collect 281037 quest 98424.3
+
+step Sealed Supply Crate
+  tip Venture Co. Clearclutter (level 12) is elite: grouping up is advised unless you are well above level 12.
+  collect 281048 quest 98427.1 optional
+  turnin 749
+  accept 751
+
+step Thunderhorn Water Well: Well Stone and Prairie Wolf Heart and more
+  collect 4808 quest 771.1
+  collect 4804 quest 766.1
+  collect 4807 quest 766.4
+
+step Thunderhorn Water Well: Flatland Cougar Femur
+  collect 4805 quest 766.2
+
+step Zarlman Two-Moons
+  turnin 771
+  accept 772
+  turnin 761
+  turnin 99080
+  turnin 99081
+
+step Winterhoof Water Well: Palemane Tanner and Palemane Skinner and more
+  kill 2949 quest 745.1
+  kill 2950 quest 745.2
+  collect 4806 quest 766.3
+
+step Chief Hawkwind
+  accept 752
+  accept 3376
+  accept 747
+
+step Red Cloud Mesa: Plainstrider Meat and Plainstrider Feather
+  collect 4739 quest 747.1
+  collect 4740 quest 747.2
+
+step Grull Hawkwind
+  turnin 747
+  accept 750
+
+step Greatmother Hawkwind
+  turnin 752
+  accept 753
+
+step Red Cloud Mesa: A Humble Task
+  complete 753
+
+step Chief Hawkwind
+  turnin 753
+  accept 755
+
+step Antur Fallow
+  accept 1656
+
+step Red Cloud Mesa: Mountain Cougar Pelt
+  collect 4742 quest 750.1
+
+step Seer Graytongue
+  turnin 755
+  accept 95805
+  accept 757
+
+step Ritual Fire
+  tip Pouch of Smoldering Incense lasts 10 minutes: go straight on with it.
+  turnin 95805
+
+step Grull Hawkwind
+  turnin 750
+  accept 780
+
+step Red Cloud Mesa: Battleboar Snout and Battleboar Flank
+  collect 4848 quest 780.1
+  collect 4849 quest 780.2
+
+step Brambleblade Ravine: Bristleback Belt
+  collect 4770 quest 757.1
+
+step Brambleblade Ravine: Chief Sharptusk Thornmantle's Head
+  collect 10459 quest 3376.1
+
+step Brambleblade Ravine
+  tip Dirt-stained Map drops the Dirt-stained Map: right-click it to start Attack on Camp Narache.
+  collect 4851 x1
+  accept 781
+
+step Back to Bloodhoof Village
+  hearth "Bloodhoof Village"
+
+step Grull Hawkwind
+  turnin 780
+  turnin 3376
+  turnin 781
+  turnin 757
+  accept 763
+
+step Innkeeper Kauth
+  turnin 1656
+  turnin 763
+  turnin 766
+
+step Palemane Rock: Chakuyak's Pelt
+  collect 270302 quest 96130.1
+
+step Perith Stormhoof
+  accept 98430
+
+step Palemane Rock: Palemane Poacher
+  kill 2951 quest 745.3
+
+step Palemane Rock: The Longwalkers
+  complete 98430
+
+step Baine Bloodhoof
+  turnin 745
+
+step Yaw Sharpmane
+  turnin 96130
+
+step Morin Cloudstalker
+  tip Venture Co. Clearclutter (level 12) is elite: grouping up is advised unless you are well above level 12.
+  turnin 751
+  turnin 98424
+  turnin 98427 optional
+  accept 764
+  accept 765
+
+step The Venture Co. Mine: Venture Co. Worker and Venture Co. Supervisor and more
+  kill 2978 quest 764.1
+  kill 2979 quest 764.2
+  collect 4819 quest 765.1
+
+step Morin Cloudstalker
+  turnin 764
+  turnin 765
+
+step Bael'dun Digsite: Windfury Talon
+  collect 4751 quest 743.1
+
+step Seer Wiserunner
+  turnin 772
+  accept 773
+
+step Ruul Eagletalon
+  turnin 743
+
+step Ancestral Spirit
+  turnin 773
+  accept 775
+
+step Baine Bloodhoof
+  accept 746
+
+step Ahab Wheathoof
+  accept 99411
+
+step Bloodhoof Village: Kyle the Frenzied
+  kill 277154 quest 99411.1
+
+step Ahab Wheathoof
+  turnin 99411
+
+step Thunder Bluff
+  tip Ghost Howl drops the Demon Scarred Cloak: right-click it to start The Demon Scarred Cloak.
+  collect 4854 x1
+  accept 770
+
+step Bael'dun Digsite: Broken Tools
+  collect 4703 quest 746.1
+
+step Back to Bloodhoof Village
+  hearth "Bloodhoof Village"
+
+step Skorn Whitecloud
+  turnin 770
+  turnin 746
+
+step Lorekeeper Raintotem
+  accept 833
+
+step Red Rocks: Bristleback Interloper
+  kill 3232 quest 833.1
+
+step Lorekeeper Raintotem
+  turnin 833
+
+step The Crossroads
+  getfp "Crossroads"
+
+step The Crossroads
+  sethome "The Crossroads"
+  note "Profession quests here, for players with the skill: Gathering Leather (Skinning 1), Kodo Hide Bag (Leatherworking 10), Camping 101: Alchemy (Alchemy 1), Camping 101: Blacksmithing (Blacksmithing 1), Camping 101: Enchanting (Enchanting 1), Camping 101: Engineering (Engineering 1), Camping 101: First Aid (First Aid 1), Camping 101: Fishing (Fishing 1), Camping 101: Herbalism (Herbalism 1), Camping 101: Leatherworking (Leatherworking 1), Camping 101: Mining (Mining 1), Camping 101: Skinning (Skinning 1), Camping 101: Tailoring (Tailoring 1)."

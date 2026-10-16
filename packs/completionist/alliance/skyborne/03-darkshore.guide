@@ -1,0 +1,411 @@
+guide completionist/alliance/skyborne/03-darkshore
+title Darkshore
+faction Alliance
+race Skyborne
+levels 16-21
+zone Darkshore
+category Completionist
+folder Completionist · Skyborne 1-20
+keywords completionist, every quest
+next completionist/alliance/skyborne/04-westfall
+
+# Route: guide 3 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 16 to
+# 21, 67 quests, 5.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Darkshore): Auberdine -> Ameth'Aran -> Auberdine -> Bashal'Aran ->
+# Tower of Althalaxx -> Cliffspring River -> Auberdine -> Ameth'Aran -> Grove
+# of the Ancients -> The Master's Glaive -> Auberdine -> Bashal'Aran ->
+# Cliffspring River -> ….
+#
+# Optional (elite: grouping up is advised): Baron Marinous (98028; Baron
+# Marinous 21).
+#
+# Profession quests here are not routed (they need the skill): 1579 Gaffer
+# Jacks; 1580 Electropellers; 2178 Easy Strider Living.
+#
+# Left to other guides: class quests (the Class category).
+
+step WANTED: Murkdeep!
+  accept 98025
+  accept 983
+  accept 1141
+
+step Auberdine: The Family and the Fishing Pole
+  complete 1141
+
+step Gubber Blump
+  turnin 1141
+
+step Auberdine: Crawler Leg
+  collect 5385 quest 983.1
+
+step Buzzbox 827
+  turnin 983
+  accept 1001
+
+step Auberdine: Thresher Eye
+  collect 5412 quest 1001.1
+
+step Thundris Windweaver
+  accept 954
+  accept 958
+
+step Tharnariun Treetender
+  accept 2118
+  accept 984
+
+step Ameth'Aran: Rabid Thistle Bear
+  kill 2164 quest 2118.1
+
+step Sentinel Tysha Moonblade
+  accept 953
+
+step Ameth'Aran: Highborne Relic and The Lay of Ameth'Aran and more
+  collect 5360 quest 958.1
+  interact 17188 quest 953.1
+  collect 281038 quest 98025.1
+
+step Ameth'Aran: The Fall of Ameth'Aran
+  interact 17189 quest 953.2
+
+step Sentinel Tysha Moonblade
+  turnin 953
+
+step Back to Auberdine
+  hearth "Auberdine"
+
+step Tharnariun Treetender
+  turnin 2118
+  accept 2138
+  turnin 98025
+
+step Thundris Windweaver
+  turnin 958
+
+step Bashal'Aran: Bashal'Aran
+  complete 954
+
+step Asterion
+  turnin 954
+  accept 955
+
+step Bashal'Aran: Grell Earring
+  collect 5336 quest 955.1
+
+step Asterion
+  turnin 955
+  accept 956
+
+step Bashal'Aran: Ancient Moonstone Seal
+  collect 5338 quest 956.1
+
+step Asterion
+  turnin 956
+  accept 957
+
+step Buzzbox 411
+  turnin 1001
+  accept 1002
+
+step Bashal'Aran: Moonstalker Fang
+  collect 5413 quest 1002.1
+
+step Buzzbox 323
+  turnin 1002
+  accept 1003
+
+step Cliffspring River: How Big a Threat?
+  complete 984
+
+step Cliffspring River: Grizzled Scalp
+  collect 5414 quest 1003.1
+
+step Terenthis
+  turnin 984
+  accept 985
+
+step Ameth'Aran: Rabid Thistle Bear and Blackwood Pathfinder and more
+  kill 2164 quest 2138.1
+  kill 2167 quest 985.1
+  kill 2324 quest 985.2
+
+step Ameth'Aran: Ancient Flame
+  interact 16393 quest 957.1
+
+step Buzzbox 525
+  turnin 1003
+
+step The Master's Glaive
+  tip Twilight Thug drops the Book: The Powers Below: right-click it to start The Powers Below.
+  collect 5352 x1
+  accept 968
+  accept 945
+
+step The Master's Glaive: Therylune's Escape
+  complete 945
+
+step Sentinel Aynasha
+  accept 5713
+
+step The Master's Glaive: One Shot. One Kill.
+  complete 5713
+
+step Back to Auberdine
+  hearth "Auberdine"
+
+step Terenthis
+  turnin 985
+  accept 986
+  turnin 2138
+  accept 2139
+
+step Asterion
+  turnin 957
+
+step Cliffspring River: Den Mother
+  kill 6788 quest 2139.1
+
+step Grove of the Ancients: Fine Moonstalker Pelt
+  collect 5386 quest 986.1
+
+step Tharnariun Treetender
+  turnin 2139
+  turnin 986
+  accept 993
+
+step Volcor
+  turnin 993
+  accept 994
+
+step Grove of the Ancients: Escape Through Force
+  complete 994
+
+step Terenthis
+  turnin 994
+  accept 4811
+  accept 990
+  accept 4761
+  accept 965
+  accept 947
+  accept 4740
+
+step Gwennyth Bly'Leggonde
+  accept 87760
+  accept 3524
+  accept 1138
+  accept 963
+
+step Archaeologist Hollee
+  accept 729
+  accept 982
+  accept 97914
+  turnin 4761
+  accept 4762
+
+step Auberdine: Washed Ashore
+  complete 3524
+
+step Gwennyth Bly'Leggonde
+  turnin 3524
+  accept 4681
+
+step Auberdine: Washed Ashore
+  complete 4681
+
+step Gwennyth Bly'Leggonde
+  turnin 4681
+
+step Beached Sea Creature
+  accept 4723
+
+step Bashal'Aran: Deep Ocean, Vast Sea
+  complete 982
+
+step Beached Sea Turtle
+  accept 4725
+
+step Bashal'Aran: Fine Crab Chunks
+  collect 12237 quest 1138.1
+
+step Ruins of Mathystra: Rod of Deep Dominion
+  collect 280686 quest 87760.1
+
+step Beached Sea Turtle
+  accept 4727
+
+step Gelkak Gyromast
+  accept 2098
+
+step Ruins of Mathystra: Middle of Gelkak's Key
+  collect 7499 quest 2098.2
+
+step Ruins of Mathystra: Bottom of Gelkak's Key
+  collect 7500 quest 2098.3
+
+step Ruins of Mathystra: Top of Gelkak's Key
+  collect 7498 quest 2098.1
+
+step Gelkak Gyromast
+  turnin 2098
+  accept 2078 optional
+  complete 2078 optional
+
+step Balthule Shadowstrike
+  turnin 2078 optional
+  turnin 965
+  accept 966
+
+step Tower of Althalaxx: Worn Parchment
+  collect 5348 quest 966.1
+
+step Balthule Shadowstrike
+  turnin 966
+  accept 967
+
+step Tower of Althalaxx: Cliffspring River Sample
+  collect 12349 quest 4762.1
+
+step Cliffspring River: Cave Mushrooms
+  complete 947
+
+step Back to Auberdine
+  hearth "Auberdine"
+
+step Ameth'Aran: The Red Crystal
+  complete 4811
+
+step Ameth'Aran: Anaya's Pendant
+  collect 5382 quest 963.1
+
+step Beached Sea Turtle
+  accept 4722
+
+step Beached Sea Creature
+  accept 4728
+
+step Remtravel's Excavation: Murkdeep
+  kill 10323 quest 4740.1
+
+step Beached Sea Creature
+  accept 4730
+  accept 4731
+
+step Beached Sea Turtle
+  accept 4732
+  accept 4733
+
+step Prospector Remtravel
+  turnin 729
+  accept 731
+
+step Remtravel's Excavation: The Absent Minded Prospector
+  complete 731
+
+step Twilight Tome
+  accept 98042
+
+step Remtravel's Excavation: Peerless Eye
+  collect 279279 quest 98042.1
+
+step Arbal
+  accept 98013
+
+step Gwennyth Bly'Leggonde
+  turnin 4733
+  turnin 4732
+  turnin 4731
+  turnin 4730
+  turnin 4728
+  turnin 4723
+  turnin 4722
+  turnin 4725
+  turnin 4727
+  turnin 87760
+  turnin 1138
+  turnin 963
+  turnin 947
+  accept 948
+  turnin 4740
+  turnin 4811
+  accept 4812
+
+step Auberdine: Moonwell Water Tube
+  collect 14339 quest 4812.1
+
+step Archaeologist Hollee
+  turnin 731
+  accept 741
+  turnin 982
+  turnin 98042
+  turnin 4762
+  accept 4763
+
+step Mysterious Red Crystal
+  turnin 4812
+  accept 4813
+
+step Cliffspring River: The Blackwood Corrupted
+  complete 4763
+
+step Tower of Althalaxx: Stormscale Myrmidon
+  kill 2181 quest 98013.1
+
+step Ruins of Mathystra: Stormscale Warrior
+  kill 2183 quest 98013.3
+
+step Tower of Althalaxx: Stormscale Sorceress
+  kill 2182 quest 98013.2
+
+step Thundris Windweaver
+  turnin 4763
+  turnin 4813
+
+step Onu
+  turnin 948
+  accept 944
+  turnin 98013
+
+step The Master's Glaive: The Master's Glaive
+  complete 944
+
+step Scrying Bowl
+  turnin 944
+  accept 949
+  turnin 949
+  accept 950
+
+step Onu
+  turnin 950
+  accept 951
+
+step Back to Auberdine
+  hearth "Auberdine"
+
+step Tower of Althalaxx: Mathystra Relic
+  collect 5273 quest 951.1
+
+step Onu
+  turnin 951
+
+step Gershala Nightwhisper
+  accept 1275 optional
+  accept 98461
+
+step Kerlonian Evershade
+  tip Baron Marinous (level 21) is elite: grouping up is advised unless you are well above level 21. Baron Marinous drops the Clouded Water Globe: right-click it to start Baron Marinous.
+  accept 5321
+  collect 279275 x1 optional
+  accept 98028 optional
+
+step Sentinel Hill
+  tip Baron Marinous (level 21) is elite: grouping up is advised unless you are well above level 21.
+  turnin 98028 optional
+  getfp "Sentinel Hill"
+
+step Sentinel Hill
+  sethome "Sentinel Hill"
+  note "Profession quests here, for players with the skill: Gaffer Jacks (Fishing 30), Electropellers (Fishing 30), Easy Strider Living (Cooking 10)."

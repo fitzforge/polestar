@@ -1,0 +1,216 @@
+guide completionist/horde/skyborne/44-stranglethorn-vale-silverpine-forest
+title Stranglethorn Vale & Silverpine Forest
+faction Horde
+race Skyborne
+levels 58-59
+zone Silverpine Forest
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Tanaris, Burning Steppes, Duskwood, Stranglethorn Vale, Ashenvale, Western Plaguelands, Hillsbrad Foothills, Silverpine Forest
+next completionist/horde/skyborne/45-orgrimmar
+
+# Route: guide 44 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 58 to
+# 59, 46 quests, 2.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Tanaris, Burning Steppes, Duskwood, Stranglethorn Vale, Ashenvale,
+# Western Plaguelands, Hillsbrad Foothills, Silverpine Forest): Gadgetzan ->
+# Broken Pillar -> Lost Rigger Cove -> Ruins of Thaurissan -> Darkshire ->
+# Wild Shore -> Booty Bay -> Wild Shore -> Booty Bay -> Grom'gol Base Camp ->
+# Night Run -> Felfire Hill -> Felstone Field -> ….
+#
+# Optional (elite: grouping up is advised): Nothing But The Truth (1383;
+# Deepstrider Giant 38-39, Deepstrider Searcher 39-40); The Star, the Hand and
+# the Heart (736; Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the
+# Undying 44); The Crown of Will (520; Mug'thol 43); Assault on Fenris Isle
+# (442; Thule Ravenclaw 24).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Divino-matic Rod (2768), Scarab Shells (2865), Troll
+# Temper (3042), Into the Depths (3446), Secret of the Circle (3447), The
+# Prophecy of Mosh'aru (3527), The God Hakkar (3528), The Final Tablets
+# (4788), Dark Iron Legacy (3802), A Taste of Flame (4024), Precarious
+# Predicament (4121), The Heart of the Mountain (4123), Egg Freezing (4734),
+# Egg Collection (4735), Blackfathom Villainy (6561), Allegiance to the Old
+# Gods (6565), Allegiance to the Old Gods (6565), Amongst the Ruins (6921),
+# Amongst the Ruins (6921), Baron Aquanis (6922), Doctor Theolen Krastinov,
+# the Butcher (5382), Kirtonos the Herald (5384), The Lich, Ras Frostwhisper
+# (5466), Krastinov's Bag of Horrors (5515), Of Love and Family (5848), Oculus
+# Illusions (6569), The Grave Knight (96986), Arugal Must Die (1014), Arugal
+# Must Die (1014), Into The Scarlet Monastery (1048), Deathstalkers in
+# Shadowfang (1098), Deathstalkers in Shadowfang (1098), The Power to
+# Destroy... (5725), The New Plague (95216), Heart of Disruption (96984),
+# Source of Power (96988).
+
+step Alchemist Pestlezugg
+  zone Tanaris
+  turnin 4507
+  accept 4509
+  turnin 4450
+  turnin 2741
+
+step Marvon Rivetseeker
+  turnin 3444
+
+step Lost Rigger Cove: Silver Totem of Aquementas
+  collect 11522 quest 4005.1
+
+step Yuka Screwspigot
+  zone Burning Steppes
+  turnin 4324
+  turnin 4907
+
+step Apothecary Faustin
+  zone Duskwood
+  tip Deepstrider Giant (level 38-39) and Deepstrider Searcher (level 39-40) are elite: grouping up is advised unless you are well above level 40.
+  turnin 1383 optional
+  accept 1388
+  turnin 1388
+  accept 1391
+
+step Fleet Master Firallon
+  zone Stranglethorn Vale
+  accept 9272
+  turnin 9272
+  accept 4621
+
+step Booty Bay: Baron Revilgaz and Fleet Master Seahorn
+  sethome "Booty Bay"
+  kill 2496 quest 4621.1
+  kill 2487 quest 4621.2
+
+step 'Pretty Boy' Duncan
+  accept 1036
+
+step Fleet Master Firallon
+  turnin 1036
+  turnin 4621
+
+step Back to Booty Bay
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  collect 4644 quest 736.3 optional
+  hearth "Booty Bay"
+
+step Crank Fizzlebub
+  turnin 1122
+
+step Grom'gol Base Camp
+  sethome "Grom'gol Base Camp"
+  turnin 2932
+
+step Locke Okarr
+  zone Ashenvale
+  turnin 6571
+
+step Felfire Hill: Silk Cloth
+  collect 4306 quest 7827.1
+  collect 4306 quest 7834.1
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  turnin 5218
+
+step Scourge Cauldron
+  accept 5221
+
+step Dalson's Tears: Runecloth
+  collect 14047 quest 5221.3
+
+step The Writhing Haunt: Writhing Haunt Cauldron Key
+  collect 13197 quest 5233.1
+
+step Scourge Cauldron
+  turnin 5233
+  accept 5234
+
+step The Writhing Haunt: Somatic Intensifier
+  collect 13356 quest 5221.2
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  tip Mug'thol (level 43) is elite: grouping up is advised unless you are well above level 43.
+  sethome "Tarren Mill"
+  turnin 520 optional
+  accept 521
+  turnin 2937 optional
+  accept 2938
+  turnin 545
+  accept 92434
+  turnin 557
+  turnin 508
+
+step The Sepulcher
+  zone Silverpine Forest
+  tip Thule Ravenclaw (level 24) is elite: grouping up is advised unless you are well above level 24.
+  sethome "The Sepulcher"
+  turnin 446
+  accept 448
+  turnin 448
+  accept 442 optional
+  turnin 3301
+
+step Pyrewood Village: A Recipe For Death
+  complete 450
+
+step The Greymane Wall: Valdred's Hands
+  collect 3613 quest 530.1
+
+step Apothecary Renferrel
+  turnin 450
+  accept 451
+
+step Malden's Orchard: Hardened Tumor
+  collect 3258 quest 451.3
+
+step Fenris Isle: Lake Creeper Moss
+  tip Thule Ravenclaw (level 24) is elite: grouping up is advised unless you are well above level 24.
+  collect 3623 quest 442.1 optional
+  collect 3257 quest 451.2
+
+step Fenris Isle: Lake Skulker Moss
+  collect 3256 quest 451.1
+
+step Back to The Sepulcher
+  hearth "The Sepulcher"
+
+step High Executor Hadrec
+  tip Thule Ravenclaw (level 24) is elite: grouping up is advised unless you are well above level 24.
+  turnin 442 optional
+  turnin 264
+  turnin 92401
+
+step Fenris Isle: Wool Cloth
+  collect 2592 quest 7813.1
+
+step Beren's Peril
+  tip Ravenclaw Guardian drops the Note Scrap: right-click it to start The Offering Stone.
+  collect 271343 x1
+  accept 95884
+
+step Beren's Peril: Note Scrap
+  collect 271343 quest 95884.1
+
+step Offering Stone
+  turnin 95884
+  accept 95883
+  accept 95885
+
+step Beren's Peril: Tortured Soul
+  kill 212753 quest 95885.1
+  collect 271350 quest 95883.1
+
+step Offering Stone
+  turnin 95883
+  turnin 95885
+
+step Apothecary Renferrel
+  accept 493
+
+step Fenris Isle: Blood in the Streets
+  complete 92434
+
+step Image of Archmage Modera
+  turnin 92434

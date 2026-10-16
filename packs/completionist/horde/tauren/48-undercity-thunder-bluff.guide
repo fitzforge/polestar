@@ -1,0 +1,162 @@
+guide completionist/horde/tauren/48-undercity-thunder-bluff
+title Undercity & Thunder Bluff
+faction Horde
+race Tauren
+levels 59-60
+zone Undercity
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest, Undercity, Tirisfal Glades, Western Plaguelands, Thunder Bluff
+next completionist/horde/tauren/49-silithus
+
+# Route: guide 48 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 59 to
+# 60, 38 quests, 0.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Undercity, Tirisfal Glades, Western Plaguelands, Thunder Bluff):
+# Undercity -> near Undercity -> Undercity -> near Undercity -> Undercity ->
+# near Undercity -> Undercity -> near Undercity -> Undercity -> The Bulwark ->
+# Dalson's Tears -> The Bulwark -> The Writhing Haunt -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Book of Ur (1013), The Book of Ur (1013), Going,
+# Going, Guano! (1109), Going, Going, Guano! (1109), Bring the End (3341), The
+# Power to Destroy... (5725), Light's Justice (92421), Light's Justice
+# (92421), The New Plague (95216), Source of Power (96988), Vorrel's Revenge
+# (1051), Barov Family Fortune (5341), The Wrath of Rath'mael (92422), The
+# Wrath of Rath'mael (92422), Crest of Lordaeron (95204), Unending Torment
+# (97288), Doctor Theolen Krastinov, the Butcher (5382), Kirtonos the Herald
+# (5384), The Lich, Ras Frostwhisper (5466), Krastinov's Bag of Horrors
+# (5515), Of Love and Family (5848), Oculus Illusions (6569), Leaders of the
+# Fang (914), Compendium of the Fallen (1049), A Vengeful Fate (1102), Testing
+# an Enemy's Strength (5723).
+
+step Ralston Farnsley
+  turnin 7817
+
+step Chemist Cuely
+  turnin 3568
+  accept 3569
+  turnin 3569
+  accept 3570
+  turnin 3570
+
+step Oran Snakewrithe
+  turnin 2995
+  accept 8273
+  turnin 8273
+
+step Chemist Fuely
+  turnin 4642
+  turnin 97985
+  turnin 1159
+  accept 1160
+  turnin 1160
+  accept 6628
+  turnin 6628
+  accept 1394
+
+step Genavie Callow
+  turnin 1164
+  turnin 7814
+  turnin 2342
+
+step Sharlindra
+  turnin 521
+
+step Master Apothecary Faranell
+  turnin 2938
+
+step Bethor Iceshard
+  turnin 411
+
+step Master Apothecary Faranell
+  turnin 451
+
+step Raleigh Andrean
+  turnin 530
+  turnin 7813
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  turnin 5093
+  turnin 5802
+
+step The Bulwark: Arcane Quickener
+  buy 13320 x1 nearest
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  tip Arcane Quickener lasts 30 minutes: go straight on with it.
+  turnin 5221
+
+step Shadow Priestess Vandis
+  zone Tirisfal Glades
+  turnin 5234
+  accept 5235
+  accept 5804
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  accept 5224
+
+step The Writhing Haunt: Somatic Intensifier and Runecloth
+  collect 13356 quest 5224.2
+  collect 14047 quest 5224.3
+
+step Gahrron's Withering: Gahrron's Withering Cauldron Key
+  collect 13196 quest 5235.1
+
+step Scourge Cauldron
+  turnin 5235
+  accept 5236
+
+step Tirion Fordring
+  turnin 5845
+  accept 5846
+
+step Ruins of Andorhal: Araj's Scarab
+  complete 5804
+
+step Artist Renfray
+  turnin 5846
+
+step Back to Undercity
+  hearth "Undercity"
+
+step Thunder Bluff
+  zone Thunder Bluff
+  sethome "Thunder Bluff"
+  turnin 1205
+
+step Rumstag Proudstrider
+  turnin 7822
+
+step Ghede
+  turnin 3761
+  accept 3782
+  turnin 3782
+  accept 3786
+
+step near Thunder Bluff: Morrowgrain Research
+  complete 3786
+
+step Bashana Runetotem
+  turnin 3786
+  accept 3804
+
+step near Thunder Bluff: Morrowgrain to Thunder Bluff
+  complete 3804
+
+step Bashana Runetotem
+  turnin 3804
+  turnin 4883
+
+step Twilight Base Camp
+  getfp "Cenarion Hold"
+
+step Twilight Base Camp
+  sethome "Cenarion Hold"

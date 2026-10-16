@@ -1,0 +1,238 @@
+guide completionist/horde/undead/36-eastern-plaguelands-western-plaguelands
+title Eastern Plaguelands & Western Plaguelands
+faction Horde
+race Undead
+levels 55-57
+zone Eastern Plaguelands
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest, Eastern Plaguelands, Western Plaguelands, Tirisfal Glades
+next completionist/horde/undead/37-hillsbrad-foothills-feralas
+
+# Route: guide 36 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 55 to
+# 57, 41 quests, 3.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Eastern Plaguelands, Western Plaguelands, Tirisfal Glades): Light's
+# Hope Chapel -> The Infectis Scar -> Light's Hope Chapel -> Corin's Crossing
+# -> Darrowshire -> Light's Hope Chapel -> The Marris Stead -> The Undercroft
+# -> The Fungal Vale -> Lake Mereldar -> Light's Hope Chapel -> Quel'Lithien
+# Lodge -> Terrordale -> ….
+#
+# Optional (elite: grouping up is advised): Duskwing, Oh How I Hate Thee...
+# (6135; Duskwing 60); The Corpulent One (6136; Borelgore 61).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Dawn's Gambit (4771), The Flesh Does Not Lie (5212), The
+# Active Agent (5213), The Great Fras Siabi (5214), Houses of the Holy (5243),
+# The Archivist (5251), Above and Beyond (5263), The Restless Souls (5282),
+# Menethil's Gift (5463), Plagued Hatchlings (5529), Ramstein (6163), Dead
+# Man's Plea (8945), Anthion's Old Friend (8948), Doctor Theolen Krastinov,
+# the Butcher (5382), Kirtonos the Herald (5384), The Lich, Ras Frostwhisper
+# (5466), Krastinov's Bag of Horrors (5515), Of Love and Family (5848), Oculus
+# Illusions (6569), Vorrel's Revenge (1051), Barov Family Fortune (5341), The
+# Wrath of Rath'mael (92422), The Wrath of Rath'mael (92422), Crest of
+# Lordaeron (95204), Unending Torment (97288).
+
+step Carlin Redpath
+  turnin 5210
+  accept 5168
+  accept 5181
+  turnin 6030
+  accept 5508 optional
+  accept 5509
+  accept 5510
+
+step The Infectis Scar: Corruptor's Scourgestone and Minion's Scourgestone
+  collect 12843 quest 5508.1 optional
+  collect 12840 quest 5510.1
+
+step Light's Hope Chapel: Invader's Scourgestone
+  collect 12841 quest 5509.1
+
+step Duke Nicholas Zverenhoff
+  turnin 5509
+  turnin 5508 optional
+  turnin 5510
+
+step Corin's Crossing: Villains of Darrowshire
+  complete 5181
+
+step Pamela Redpath
+  turnin 5142
+
+step Back to Light's Hope Chapel
+  hearth "Light's Hope Chapel"
+
+step Carlin Redpath
+  turnin 5181
+
+step Nathanos Blightcaller
+  accept 6022
+  accept 6042
+  accept 6133
+
+step The Marris Stead: To Kill With Purpose
+  complete 6022
+
+step Nathanos Blightcaller
+  turnin 6022
+
+step Torn Scroll
+  accept 6024
+
+step The Fungal Vale: Noxious Plaguebat and Plaguehound
+  kill 8601 quest 6042.1
+  kill 8597 quest 5542.2
+
+step Lake Mereldar: Discordant Bracers
+  collect 17309 quest 6804.1
+
+step Caretaker Alen
+  accept 5281
+
+step Quel'Lithien Lodge: Hameya's Key
+  collect 15767 quest 6024.1
+
+step Quel'Lithien Lodge: Pathstrider and The Ranger Lord's Behest
+  kill 8565 quest 6133.1
+  complete 6133
+
+step Terrordale: Monstrous Plaguebat
+  kill 8602 quest 6042.2
+
+step Terrordale: Frenzied Plaguehound
+  kill 8598 quest 5542.3
+
+step Egan
+  turnin 5281
+
+step Terrordale: Slab of Carrion Worm Meat
+  collect 13853 quest 5544.1
+
+step Thondroril River: Plaguebat
+  kill 8600 quest 5543.1
+
+step Nathanos Blightcaller
+  turnin 6042
+  turnin 6133
+
+step Mound of Dirt
+  tip Duskwing (level 60) and Borelgore (level 61) are elite: grouping up is advised unless you are well above level 61.
+  turnin 6024
+  accept 6135 optional
+  accept 6136 optional
+
+step Nathanos Blightcaller
+  tip Borelgore (level 61) and Duskwing (level 60) are elite: grouping up is advised unless you are well above level 61.
+  kill 11896 quest 6136.1 optional
+  collect 15850 quest 6135.1 optional
+  turnin 6135 optional
+  turnin 6136 optional
+  accept 6144
+
+step Northridge Lumber Camp: Mageweave Cloth
+  zone Western Plaguelands
+  collect 4338 quest 7817.1
+
+step Felstone Field: Felstone Field Cauldron Key and Invader's Scourgestone and more
+  collect 13194 quest 5229.1
+  collect 12841 quest 5407.1
+  collect 12840 quest 5408.1
+
+step Scourge Cauldron
+  turnin 5229
+  accept 5230
+
+step Ruins of Andorhal: All Along the Watchtowers and Corruptor's Scourgestone
+  complete 5098
+  collect 12843 quest 5406.1 optional
+
+step Termite Barrel
+  turnin 5902
+  accept 6390
+
+step Gahrron's Withering: Heroes of Darrowshire
+  complete 5168
+
+step Tirion Fordring
+  turnin 5543
+  turnin 5544
+  turnin 5542
+  accept 5742
+
+step Thondroril River: Redemption
+  complete 5742
+
+step Tirion Fordring
+  turnin 5742
+  accept 5781
+
+step Back to Light's Hope Chapel
+  hearth "Light's Hope Chapel"
+
+step Carlin Redpath
+  zone Eastern Plaguelands
+  turnin 5168
+  accept 5206
+
+step Light's Hope Chapel: Marauders of Darrowshire
+  complete 5206
+
+step Carlin Redpath
+  turnin 5206
+  accept 5941
+
+step The Undercroft: Taelan's Hammer
+  collect 14613 quest 5781.1
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  turnin 5098
+  accept 105
+  turnin 5406 optional
+  turnin 5407
+  turnin 5408
+  turnin 5230
+  accept 5231
+  turnin 6390
+  accept 838
+  turnin 838
+  accept 964
+
+step Scourge Cauldron
+  zone Western Plaguelands
+  accept 5218
+
+step Felstone Field: Osseous Agitator and Runecloth
+  collect 13357 quest 5218.2
+  collect 14047 quest 5218.3
+
+step Dalson's Tears: Dalson's Tears Cauldron Key
+  collect 13195 quest 5231.1
+
+step Scourge Cauldron
+  turnin 5231
+  accept 5232
+
+step Chromie
+  turnin 5941
+
+step Ruins of Andorhal: Alas, Andorhal
+  complete 105
+
+step Tirion Fordring
+  turnin 5781
+  accept 5845
+
+step Chromie
+  accept 5721
+
+step Felstone Field: Skeletal Fragments
+  collect 14619 quest 964.1
+
+step Tarren Mill
+  sethome "Tarren Mill"

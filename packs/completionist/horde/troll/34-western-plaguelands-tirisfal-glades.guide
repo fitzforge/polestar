@@ -1,0 +1,230 @@
+guide completionist/horde/troll/34-western-plaguelands-tirisfal-glades
+title Western Plaguelands & Tirisfal Glades
+faction Horde
+race Troll
+levels 52-54
+zone Western Plaguelands
+category Completionist
+folder Completionist · Troll 50-60
+keywords completionist, every quest, Western Plaguelands, Tirisfal Glades
+next completionist/horde/troll/35-felwood
+
+# Route: guide 34 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 52 to 54, 42
+# quests, 2.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Western Plaguelands, Tirisfal Glades): Felstone Field -> Sorrow Hill
+# -> Ruins of Andorhal -> Sorrow Hill -> Northridge Lumber Camp -> Felstone
+# Field -> Northridge Lumber Camp -> Hearthglen -> The Weeping Cave ->
+# Northridge Lumber Camp -> Hearthglen -> Northridge Lumber Camp -> Thondroril
+# River -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Doctor Theolen Krastinov, the Butcher (5382), Kirtonos the
+# Herald (5384), The Lich, Ras Frostwhisper (5466), Krastinov's Bag of Horrors
+# (5515), Of Love and Family (5848), Oculus Illusions (6569), Vorrel's Revenge
+# (1051), Barov Family Fortune (5341), The Wrath of Rath'mael (92422), The
+# Wrath of Rath'mael (92422), Crest of Lordaeron (95204), Unending Torment
+# (97288).
+
+step Janice Felstone
+  accept 5021
+  turnin 5021
+  accept 5023
+
+step Felstone Field: Scarlet Diversions
+  complete 5096
+
+step Marlene Redpath
+  turnin 5152
+  accept 5142
+  accept 5153
+
+step Sorrow Hill: A Strange Historian
+  complete 5153
+
+step Argent Officer Pureheart
+  accept 5401
+  turnin 5401
+  accept 5402
+  accept 5403
+  accept 5404 optional
+
+step Sorrow Hill: Minion's Scourgestone
+  collect 12840 quest 5402.1
+
+step Argent Officer Pureheart
+  turnin 5402
+
+step Ruins of Andorhal: Corruptor's Scourgestone and Invader's Scourgestone
+  collect 12843 quest 5404.1 optional
+  collect 12841 quest 5403.1
+
+step Chromie
+  turnin 5153
+  accept 5154
+
+step Ruins of Andorhal: The Annals of Darrowshire
+  complete 5154
+
+step Chromie
+  turnin 5154
+  accept 5210
+
+step Argent Officer Pureheart
+  turnin 5403
+  turnin 5404 optional
+
+step Kirsta Deepshadow
+  accept 6004
+
+step Northridge Lumber Camp: Scarlet Mage
+  kill 1826 quest 6004.3
+
+step Northridge Lumber Camp: Scarlet Knight and Scarlet Hunter
+  kill 1833 quest 6004.4
+  kill 1831 quest 6004.2
+
+step Felstone Field: Scarlet Medic
+  kill 10605 quest 6004.1
+
+step Kirsta Deepshadow
+  turnin 6004
+  accept 6023
+
+step Hearthglen: Cavalier Durgen
+  kill 11611 quest 6023.2
+
+step The Weeping Cave: Huntsman Radley
+  kill 11613 quest 6023.1
+
+step Kirsta Deepshadow
+  turnin 6023
+  accept 6025
+
+step Hearthglen: Unfinished Business
+  complete 6025
+
+step Kirsta Deepshadow
+  turnin 6025
+
+step Tirion Fordring
+  accept 5542
+  accept 5543
+  accept 5544
+
+step Thondroril River: Plaguehound Runt
+  kill 8596 quest 5542.1
+
+step Outhouse
+  accept 5059
+
+step Dalson's Tears: Dalson Outhouse Key
+  collect 12738 quest 5059.1
+
+step Locked Cabinet
+  accept 5060
+  turnin 5059
+
+step Dalson's Tears: Dalson Cabinet Key
+  collect 12739 quest 5060.1
+
+step Mrs. Dalson's Diary
+  accept 5058
+  turnin 5058
+  turnin 5060
+
+step Mulgris Deepriver
+  accept 4984
+
+step The Writhing Haunt: Diseased Wolf
+  kill 1817 quest 4984.1
+
+step Mulgris Deepriver
+  turnin 4984
+  accept 4985
+
+step Chromie
+  accept 4971
+
+step Ruins of Andorhal: Temporal Parasite
+  kill 10717 quest 4971.1
+
+step Chromie
+  turnin 4971
+  accept 4972
+
+step Ruins of Andorhal: Andorhal Watch
+  collect 12638 quest 4972.1
+
+step Chromie
+  turnin 4972
+  accept 4973
+
+step Ruins of Andorhal: Andorhal Watch
+  collect 12638 quest 4973.1
+
+step Chromie
+  turnin 4973
+
+step Gahrron's Withering: Diseased Grizzly
+  kill 1816 quest 4985.1
+
+step Mulgris Deepriver
+  turnin 4985
+  accept 4987
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  turnin 5096
+  accept 5098
+  accept 5228
+  accept 5406 optional
+  accept 5407
+  accept 5408
+  turnin 5228
+  accept 5229
+
+step Brightwater Lake: The Lich's Identity
+  complete 357
+
+step Brill
+  sethome "Gallows' End Tavern"
+  turnin 440
+
+step Hadric Harlson
+  accept 96897
+  accept 96898
+  accept 96899
+
+step Balnir Farmstead: Necrotic Crystal Fragment and Dark Neophyte and more
+  collect 275851 quest 96898.1
+  kill 267006 quest 96897.1
+  kill 275437 quest 96897.2
+  kill 1547 quest 96897.3
+
+step Deathguard Terrence
+  accept 96895
+
+step Hadric Harlson
+  turnin 96898
+  turnin 96897
+  turnin 96895
+
+step Magistrate Sevren
+  accept 441
+
+step Leonid Barthalomew the Revered
+  turnin 96899
+  accept 96896
+  turnin 96896
+  accept 98545
+
+step Back to Gallows' End Tavern
+  hearth "Gallows' End Tavern"
+
+step Jaedenar
+  getfp "Bloodvenom Post"

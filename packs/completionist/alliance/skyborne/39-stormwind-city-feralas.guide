@@ -1,0 +1,331 @@
+guide completionist/alliance/skyborne/39-stormwind-city-feralas
+title Stormwind City & Feralas
+faction Alliance
+race Skyborne
+levels 56-58
+zone Stormwind City
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Stormwind City, Feralas, Thousand Needles, Stranglethorn Vale, Ironforge, Darnassus
+next completionist/alliance/skyborne/40-eastern-plaguelands-loch-modan
+
+# Route: guide 39 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 56 to
+# 58, 83 quests, 3.1 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stormwind City, Feralas, Thousand Needles, Stranglethorn Vale,
+# Ironforge, Darnassus): near Stormwind City -> Stormwind City -> near
+# Stormwind City -> near Stormwind -> Stormwind -> near Stormwind -> near
+# Stormwind City -> Stormwind -> near Stormwind City -> Stormwind City -> near
+# Stormwind -> near Stormwind City -> Stormwind City -> ….
+#
+# Optional (elite: grouping up is advised): Encrusted Tail Fins (1107;
+# Saltscale Warrior 35-36, Saltscale Oracle 36-37, Saltscale Tide Lord 37,
+# Saltscale Forager 35-36, Saltscale Hunter 35-36); A Host of Evil (6626;
+# Razorfen Battleguard 33-34, Razorfen Thornweaver 33-34, Death's Head Cultist
+# 33-34); Rise, Obsidion! (3566; Lathoric the Black 52, Obsidion 52).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Quell The Uprising (387), Quell the Uprising (387), The
+# Color of Blood (388), The Color of Blood (388), The Stockade Riots (391),
+# The Stockade Riots (391), Underground Assault (2040), Underground Assault
+# (2040), Bring the Light (3636), A Green Sample (92456), A Green Sample
+# (92456), Power Overwhelming (92489), Power Overwhelming (92489), The Crone
+# of the Kraul (1101), Pusillin and the Elder Azj'Tordin (7441), Elven Legends
+# (7482), Lethtendris's Web (7488), The Crone of the Kraul (1101), Gahz'rilla
+# (2770), Knowledge in the Deeps (971), Knowledge in the Deeps (971),
+# Mythology of the Titans (1050), Mythology of the Titans (1050), The Lost
+# Tablets of Will (1139), Back to Uldaman (2200), Restoring the Necklace
+# (2204), The Lost Dwarves (2398), Essential Artificials (2924), Essential
+# Artificials (2924), The Grand Betrayal (2929), The Grand Betrayal (2929),
+# Data Rescue (2930), Data Rescue (2930), Kharan Mighthammer (4341), The Fate
+# of the Kingdom (4362), The Restless Dead (96394), The Restless Dead (96394),
+# An Ancient Grudge (96395), Important Heirlooms (96403), Important Heirlooms
+# (96403), The Treaty of Understanding (98423), In Search of Thaelrid (1198),
+# Twilight Falls (1199).
+
+step Garion Wendell
+  accept 78148
+  turnin 78148
+  accept 84397
+  turnin 84397
+  accept 84398
+  turnin 84398
+  accept 84399
+  turnin 84399
+  accept 84402
+  turnin 84402
+
+step Stormwind City
+  sethome "Stormwind City"
+  accept 334
+  accept 333
+  accept 332
+  turnin 61
+  turnin 332
+  turnin 333
+
+step Thurman Schneider
+  turnin 334
+
+step Grimand Elmore
+  accept 353
+  turnin 1097
+  turnin 92748
+  accept 92749
+
+step near Stormwind: A Dynamite Plan
+  complete 92749
+
+step Sprite Jumpsprocket
+  turnin 92749
+  accept 92750
+  turnin 1338
+
+step Highlord Bolvar Fordragon
+  turnin 94947
+  accept 93963
+  accept 98021
+
+step Jasper Fel
+  turnin 92750
+  accept 92751
+
+step Elaine Trias
+  accept 97222
+  turnin 97222
+
+step Sprite Jumpsprocket
+  turnin 92751
+  accept 92752
+
+step Manifest Clerk Philmor
+  accept 97220
+
+step Gilbert Gray
+  accept 95065
+
+step Elaine Trias
+  turnin 97220
+
+step Master Mathias Shaw
+  turnin 135
+
+step Baros Alexston
+  turnin 97914
+
+step Clavicus Knavingham
+  accept 7794
+  accept 1477
+
+step Highlord Bolvar Fordragon
+  turnin 4184
+  accept 4185
+
+step near Stormwind: The True Masters
+  complete 4185
+
+step Highlord Bolvar Fordragon
+  turnin 4185
+  accept 4186
+
+step Royal Factor Bathrilor
+  turnin 5022
+
+step Tannysa
+  accept 3787
+
+step Kristy Grant
+  zone Feralas
+  accept 98155
+  turnin 1100
+
+step Lower Wilds: Pristine Pesterhide Pelt
+  collect 279472 quest 98155.1
+
+step Kristy Grant
+  turnin 98155
+
+step The Twin Colossals: Ironfur Liver
+  collect 6258 quest 1452.2
+
+step The Twin Colossals: Groddoc Liver
+  collect 6259 quest 1452.3
+
+step Kindal Moonweaver
+  accept 3841
+
+step Zorbin Fandazzle
+  accept 7725
+
+step The Forgotten Coast: Miniaturization Residue
+  tip Zorbin's Ultra-Shrinker lasts 120 minutes: go straight on with it.
+  collect 18956 quest 7725.1
+
+step Zorbin Fandazzle
+  turnin 7725
+
+step Zorbin Fandazzle
+  accept 7726
+
+step Feral Scar Vale: Water Elemental Core
+  collect 18958 quest 7726.1
+
+step Zorbin Fandazzle
+  turnin 7726
+
+step Sardor Isle
+  sethome "Feathermoon Stronghold"
+  turnin 2943
+  accept 2879
+
+step Ruins of Ravenwind: Stave of Equinex
+  collect 9306 quest 2879.1
+
+step Equinex Monolith
+  turnin 2879
+  accept 2942
+
+step Ruins of Ravenwind: The Morrow Stone
+  complete 2942
+
+step Back to Feathermoon Stronghold
+  hearth "Feathermoon Stronghold"
+
+step Troyas Moonbreeze
+  turnin 2942
+  turnin 3787
+
+step The Twin Colossals: The Videre Elixir
+  complete 3909
+
+step Falfindel Waywarder
+  turnin 1059
+
+step Highperch: Highperch Venom Sac
+  zone Thousand Needles
+  collect 5809 quest 1135.1
+
+step Pozzik
+  tip Saltscale Warrior (level 35-36), Saltscale Oracle (level 36-37), Saltscale Tide Lord (level 37) and 5 more are elite: grouping up is advised unless you are well above level 37.
+  turnin 1183
+  accept 1186
+  turnin 1186
+  accept 1187
+  turnin 1179
+  turnin 1137
+  turnin 1112
+  accept 1114
+  turnin 1114
+  accept 1115
+  accept 1190
+  accept 1191
+  turnin 1191
+  turnin 1190
+  accept 1194
+  turnin 1194
+  turnin 1107 optional
+  turnin 6626 optional
+
+step Booty Bay
+  zone Stranglethorn Vale
+  sethome "Booty Bay"
+  turnin 1115
+  accept 1116
+
+step Witch Doctor Unbagwa
+  accept 349
+
+step Mistvale Valley: Gorilla Fang
+  collect 2799 quest 349.1
+
+step Witch Doctor Unbagwa
+  turnin 349
+
+step Stormwind City
+  zone Stormwind City
+  sethome "Stormwind City"
+  accept 5066
+
+step Royal Factor Bathrilor
+  accept 5048
+  turnin 5048
+  accept 5050
+
+step Crier Goodman
+  accept 1015
+  accept 7494
+
+step Highlord Bolvar Fordragon
+  accept 6182
+
+step Master Mathias Shaw
+  turnin 6182
+  accept 6183
+  turnin 6183
+  accept 6184
+
+step Blackrock Battlemaster (level 57)
+  level 57 -- grind on Blackrock Battlemaster (level 58) at Blackrock Stronghold
+
+step Count Remington Ridgewell
+  accept 4766
+
+step Bubulo Acerbus
+  zone Ironforge
+  turnin 7809
+
+step Mistina Steelshield
+  turnin 7804
+
+step Tymor
+  turnin 3461
+
+step Curator Thorius
+  tip Lathoric the Black (level 52) and Obsidion (level 52) are elite: grouping up is advised unless you are well above level 52.
+  turnin 3566 optional
+  turnin 4512
+  accept 4513
+
+step Ironforge
+  sethome "Ironforge"
+  turnin 291
+
+step Jemma Quikswitch
+  turnin 95041
+
+step Priestess A'moora
+  zone Darnassus
+  turnin 2518
+  accept 2520
+
+step near Craftsmen's Terrace: Temple of the Moon Fountain
+  interact 138498 quest 2520.1
+
+step Priestess A'moora
+  turnin 2520
+
+step Rellian Greenspyre
+  turnin 923
+  accept 2498
+
+step near Craftsmen's Terrace: Exploring the Alliance
+  complete 93963
+
+step Gracina Spiritmight
+  accept 4493
+
+step Arch Druid Fandral Staghelm
+  turnin 1015
+  accept 6761
+  turnin 6761
+  accept 6762
+
+step Back to Ironforge
+  hearth "Ironforge"
+
+step Light's Hope Chapel
+  sethome "Light's Hope Chapel"

@@ -1,0 +1,123 @@
+guide completionist/alliance/dwarf/50-stranglethorn-vale
+title Stranglethorn Vale
+faction Alliance
+race Dwarf
+levels 60-60
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · Dwarf 50-60
+keywords completionist, every quest, Tirisfal Glades, Burning Steppes, Redridge Mountains, Stranglethorn Vale, Swamp of Sorrows, The Barrens, Azshara
+next completionist/alliance/dwarf/51-moonglade
+
+# Route: guide 50 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 60 to 60, 19
+# quests, 7.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Tirisfal Glades, Burning Steppes, Redridge Mountains, Stranglethorn
+# Vale, Swamp of Sorrows, The Barrens, Azshara): The Bulwark -> Ruins of
+# Thaurissan -> Lakeshire -> Mosh'Ogg Ogre Mound -> Booty Bay -> Wild Shore ->
+# Booty Bay -> Wild Shore -> Zuuldaia Ruins -> Splinterspear Junction ->
+# Ratchet -> Ravencrest Monument.
+#
+# Left out: Uniting the Shattered Amulet (3627): the route takes them here but
+# cannot finish them (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Remember That I Love You (92415), Crest of Lordaeron
+# (95189), Bloodied Insignia (95195), Abominable Creatures (95250), Dark Iron
+# Legacy (3802), A Taste of Flame (4024), The Heart of the Mountain (4123),
+# Marshal Windsor (4241), Incendius! (4263), Put Her Down (4701), Egg Freezing
+# (4734), Egg Collection (4735), Doomrigger's Clasp (4764), Maxwell's Mission
+# (5081), General Drakkisath's Demise (5102), What Comes Around... (386), What
+# Comes Around... (386), Songblade Search (95772), Songblade Search (95772),
+# Mortality Wanes (1142), Willix the Importer (1144), Blueleaf Tubers (1221),
+# Blueleaf Tubers (1221), Deviate Eradication (1487), Deviate Eradication
+# (1487), The Glowing Shard (6981).
+
+step Argent Officer Garush
+  zone Tirisfal Glades
+  turnin 5406 optional
+  turnin 5407
+  turnin 5408
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  turnin 4907
+
+step Lakeshire
+  zone Redridge Mountains
+  sethome "Lakeshire"
+  turnin 116
+  turnin 146
+
+step Galvan the Ancient
+  zone Stranglethorn Vale
+  turnin 3621
+  accept 3625
+
+step Mosh'Ogg Ogre Mound: Enchanted Azsharite Fel Weaponry
+  complete 3625
+
+step Galvan the Ancient
+  turnin 3625
+  accept 3626
+
+step Booty Bay
+  sethome "Booty Bay"
+  turnin 1122
+
+step Fleet Master Firallon
+  accept 4621
+
+step Booty Bay: Baron Revilgaz and Fleet Master Seahorn
+  kill 2496 quest 4621.1
+  kill 2487 quest 4621.2
+
+step 'Pretty Boy' Duncan
+  accept 1036
+
+step Fleet Master Firallon
+  turnin 1036
+  turnin 4621
+
+step Back to Booty Bay
+  hearth "Booty Bay"
+
+step Vinchaxa
+  accept 8195 optional
+  accept 8238 optional
+  accept 8239 optional
+  accept 8240
+  turnin 8240
+  collect 19698 quest 8195.1 optional
+  collect 19699 quest 8195.2 optional
+  collect 19700 quest 8195.3 optional
+  collect 19701 quest 8238.1 optional
+  collect 19702 quest 8238.2 optional
+  collect 19703 quest 8238.3 optional
+  collect 19704 quest 8239.1 optional
+  collect 19705 quest 8239.2 optional
+  collect 19706 quest 8239.3 optional
+  turnin 8195 optional
+  turnin 8238 optional
+  turnin 8239 optional
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 3626
+
+step Back to Booty Bay
+  hearth "Booty Bay"
+
+step Ratchet
+  zone The Barrens
+  sethome "Ratchet"
+  turnin 4502
+
+step Duke Hydraxis
+  zone Azshara
+  turnin 6804
+  turnin 6805

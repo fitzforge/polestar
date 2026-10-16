@@ -1,0 +1,76 @@
+guide completionist/horde/tauren/45-winterspring
+title Winterspring
+faction Horde
+race Tauren
+levels 59-60
+zone Winterspring
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest, Winterspring, Felwood
+next completionist/horde/tauren/46-azshara
+
+# Route: guide 45 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 59 to
+# 60, 11 quests, 0.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Winterspring, Felwood): Everlook -> Frostfire Hot Springs -> Everlook
+# -> The Hidden Grove -> Mazthoril -> Frostfire Hot Springs -> Emerald
+# Sanctuary -> Jaedenar.
+#
+# Optional (elite: grouping up is advised): High Chief Winterfall (5121; High
+# Chief Winterfall 59); The Final Piece (5123; High Chief Winterfall 59).
+#
+# Left to other guides: class quests (the Class category).
+
+step Harlo Wigglesworth
+  accept 6606
+  turnin 6606
+  accept 4907
+
+step Donova Snowden
+  turnin 5086
+  accept 5087
+
+step Frostfire Hot Springs: Winterfall Crate
+  collect 12829 quest 5087.1
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5087
+  accept 5121 optional
+
+step Back to Everlook
+  hearth "Everlook"
+
+step Umi Rumplesnicker
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59. High Chief Winterfall drops the Crudely-written Log: right-click it to start The Final Piece.
+  kill 10738 quest 5121.1 optional
+  collect 12842 x1 optional
+  accept 5123 optional
+  turnin 5163
+
+step The Hidden Grove: Berserk Owlbeast
+  kill 7454 quest 4721.1
+
+step Mazthoril
+  tip Crazed Owlbeast drops the Blue-feathered Necklace: right-click it to start Guarding Secrets.
+  collect 12558 x1
+  accept 4882
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5121 optional
+  turnin 5123 optional
+  accept 5128
+
+step Kelek Skykeeper
+  zone Felwood
+  turnin 5128
+
+step Trull Failbane
+  turnin 4882
+  turnin 4721
+  accept 4883

@@ -1,0 +1,232 @@
+guide completionist/alliance/gnome/30-searing-gorge-badlands
+title Searing Gorge & Badlands
+faction Alliance
+race Gnome
+levels 47-49
+zone Searing Gorge
+category Completionist
+folder Completionist · Gnome 40-50
+keywords completionist, every quest, Searing Gorge, Badlands, Loch Modan
+next completionist/alliance/gnome/31-the-hinterlands-azshara
+
+# Route: guide 30 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 47 to 49, 30
+# quests, 3.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Searing Gorge, Badlands, Loch Modan): The Cauldron -> Firewatch Ridge
+# -> The Cauldron -> Firewatch Ridge -> The Cauldron -> Firewatch Ridge -> The
+# Cauldron -> Grimesilt Dig Site -> Dustfire Valley -> Firewatch Ridge -> The
+# Cauldron -> Firewatch Ridge -> The Cauldron -> ….
+#
+# Optional (elite: grouping up is advised): The Flame's Casing (3452; Twilight
+# Dark Shaman 47-48, Twilight Fire Guard 48-49, Twilight Geomancer 49-50,
+# Twilight Idolater 49-51); Prayer to Elune (3378; Twilight Dark Shaman 47-48,
+# Twilight Fire Guard 48-49, Twilight Geomancer 49-50, Twilight Idolater
+# 49-51); The Horn of the Beast (3181; Margol the Rager 48); WANTED: Overseer
+# Maltorius (7701; Overseer Maltorius 50); Summoning the Princess (656;
+# Myzrael 44); Tremors of the Earth (717; Blacklash 50, Hematus 50).
+#
+# Profession quests here are not routed (they need the skill): 3379
+# Shadoweaver; 3385 The Undermarket; 3402 The Undermarket; 5144 Elemental
+# Leatherworking.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): A Crumpled Up Note (4264), Blackhand's Command (7761), The
+# Left Piece of Lord Valthalak's Amulet (8966), The Left Piece of Lord
+# Valthalak's Amulet (8967), The Left Piece of Lord Valthalak's Amulet (8968),
+# The Left Piece of Lord Valthalak's Amulet (8969), The Right Piece of Lord
+# Valthalak's Amulet (8989), The Right Piece of Lord Valthalak's Amulet
+# (8990), The Right Piece of Lord Valthalak's Amulet (8991), The Right Piece
+# of Lord Valthalak's Amulet (8992), Mea Culpa, Lord Valthalak (8995), Ribbly
+# Screwspigot (4136), Kibler's Exotic Pets (4729), En-Ay-Es-Tee-Why (4862).
+
+step Kalaran Windblade
+  accept 3441
+
+step The Cauldron: Divine Retribution
+  complete 3441
+
+step Kalaran Windblade
+  turnin 3441
+  accept 3442
+
+step Firewatch Ridge: Golem Oil
+  collect 10511 quest 3442.2
+
+step The Cauldron: Heart of Flame
+  collect 10509 quest 3442.1
+
+step Kalaran Windblade
+  turnin 3442
+  accept 3443
+
+step Firewatch Ridge: Thorium Plated Dagger
+  collect 10551 quest 3443.1
+
+step Kalaran Windblade
+  tip Twilight Dark Shaman (level 47-48), Twilight Fire Guard (level 48-49), Twilight Geomancer (level 49-50) and Twilight Idolater (level 49-51) are elite: grouping up is advised unless you are well above level 51.
+  turnin 3443
+  accept 3452 optional
+
+step Zamael Lunthistle
+  accept 3377
+
+step Firewatch Ridge: Prayer to Elune
+  complete 3377
+
+step Zamael Lunthistle
+  tip Twilight Dark Shaman (level 47-48), Twilight Fire Guard (level 48-49), Twilight Geomancer (level 49-50) and Twilight Idolater (level 49-51) are elite: grouping up is advised unless you are well above level 51.
+  turnin 3377
+  accept 3378 optional
+
+step Kalaran Windblade
+  tip Twilight Dark Shaman (level 47-48), Twilight Fire Guard (level 48-49), Twilight Geomancer (level 49-50) and Twilight Idolater (level 49-51) are elite: grouping up is advised unless you are well above level 51.
+  collect 10552 quest 3452.1 optional
+  collect 10458 quest 3378.1 optional
+  turnin 3452 optional
+  accept 3453
+
+step The Cauldron: The Torch of Retribution
+  complete 3453
+
+step Kalaran Windblade
+  turnin 3453
+  accept 3454
+  turnin 3454
+  accept 3462
+  turnin 3462
+  accept 3463
+
+step The Cauldron: Sentry Brazier
+  interact 149031 quest 3463.3
+
+step The Cauldron: Sentry Brazier
+  interact 149030 quest 3463.2
+
+step The Cauldron: Sentry Brazier
+  interact 149025 quest 3463.1
+  interact 149032 quest 3463.4
+
+step Squire Maltrake
+  turnin 3463
+  accept 3481
+  turnin 3481
+
+step Dorius Stonetender
+  accept 3367
+
+step Dustfire Valley: Suntara Stones
+  tip Margol the Rager (level 48) is elite: grouping up is advised unless you are well above level 48. Margol the Rager drops the Margol's Horn: right-click it to start The Horn of the Beast.
+  collect 10000 x1 optional
+  accept 3181 optional
+  complete 3367
+
+step Singed Letter
+  turnin 3367
+  accept 3368
+
+step Master Smith Burninate
+  tip Overseer Maltorius (level 50) is elite: grouping up is advised unless you are well above level 50.
+  accept 7722
+  accept 7723
+  accept 7724
+  accept 7727
+  accept 7701 optional
+  accept 7728
+  accept 7729
+
+step The Cauldron: Incendosaur
+  kill 9318 quest 7727.1
+
+step The Cauldron: Dark Iron Taskmaster and Dark Iron Slaver and more
+  tip Overseer Maltorius (level 50) is elite: grouping up is advised unless you are well above level 50.
+  kill 5846 quest 7729.1
+  kill 5844 quest 7729.2
+  collect 18946 quest 7701.1 optional
+  complete 7722
+
+step Master Smith Burninate
+  tip Overseer Maltorius (level 50) is elite: grouping up is advised unless you are well above level 50.
+  turnin 7722
+  turnin 7727
+  turnin 7701 optional
+  turnin 7729
+
+step The Cauldron: Heavy War Golem
+  kill 5854 quest 7723.1
+
+step The Cauldron: Smithing Tuyere
+  collect 18959 quest 7728.1
+
+step The Cauldron
+  tip Dark Iron Slaver drops the Grimesilt Outhouse Key: right-click it to start The Key to Freedom.
+  collect 11818 x1
+  accept 4451
+
+step The Cauldron: Lookout's Spyglass
+  collect 18960 quest 7728.2
+
+step Wooden Outhouse
+  turnin 4451
+  accept 4449
+
+step Grimesilt Dig Site: Dark Iron Geologist
+  kill 5839 quest 4449.1
+
+step Firewatch Ridge: Greater Lava Spider
+  kill 5858 quest 7724.1
+
+step Hansel Heavyhands
+  turnin 7724
+  turnin 7723
+  turnin 7728
+
+step Prospector Ryedol
+  zone Badlands
+  tip Myzrael (level 44) is elite: grouping up is advised unless you are well above level 44.
+  accept 656 optional
+  turnin 723
+  accept 724
+
+step Garek
+  accept 732
+
+step Sigrun Ironhew
+  accept 706
+
+step Lethlor Ravine: Black Drake's Heart
+  collect 4612 quest 706.1
+
+step Sigrun Ironhew
+  turnin 706
+
+step Camp Cagg: Sign of the Earth
+  collect 4640 quest 732.1
+
+step Garek
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 732
+  accept 717 optional
+  collect 4615 quest 717.1 optional
+  collect 4645 quest 717.2 optional
+
+step Camp Cagg: Silk Cloth
+  tip Blacklash (level 50) and Hematus (level 50) are elite: grouping up is advised unless you are well above level 50.
+  turnin 717 optional
+  collect 4306 quest 4449.2
+
+step Mountaineer Pebblebitty
+  zone Loch Modan
+  tip Margol the Rager (level 48) is elite: grouping up is advised unless you are well above level 48.
+  turnin 3181 optional
+  accept 3182
+
+step Aerie Peak
+  getfp "Aerie Peak"
+
+step Aerie Peak
+  sethome "Aerie Peak"
+  note "Profession quests here, for players with the skill: Shadoweaver (Tailoring 230), The Undermarket (Tailoring 230), The Undermarket (Tailoring 230), Elemental Leatherworking (Leatherworking 225)."

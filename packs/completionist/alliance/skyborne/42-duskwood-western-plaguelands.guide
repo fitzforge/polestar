@@ -1,0 +1,266 @@
+guide completionist/alliance/skyborne/42-duskwood-western-plaguelands
+title Duskwood & Western Plaguelands
+faction Alliance
+race Skyborne
+levels 57-59
+zone Duskwood
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Duskwood, Teldrassil, Winterspring, Elwynn Forest, Redridge Mountains, Western Plaguelands, Stonetalon Mountains, Blasted Lands
+next completionist/alliance/skyborne/43-loch-modan-ironforge
+
+# Route: guide 42 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 57 to
+# 59, 59 quests, 3.7 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Duskwood, Teldrassil, Winterspring, Elwynn Forest, Redridge Mountains,
+# Western Plaguelands, Stonetalon Mountains, Blasted Lands): Darkshire ->
+# Tranquil Gardens Cemetery -> Darkshire -> Brightwood Grove -> The Yorgen
+# Farmstead -> Vul'Gol Ogre Mound -> Darkshire -> Manor Mistmantle -> Tranquil
+# Gardens Cemetery -> Darkshire -> Raven Hill Cemetery -> Addle's Stead ->
+# Darkshire -> ….
+#
+# Optional (elite: grouping up is advised): Mor'Ladim (228; Mor'Ladim 35);
+# Oakenscowl (2499; Oakenscowl 9).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Crime and Punishment (377), Crime and Punishment (377), In
+# Search of Thaelrid (1198), Twilight Falls (1199), Drakefire Amulet (6502),
+# What Comes Around... (386), What Comes Around... (386), Songblade Search
+# (95772), Songblade Search (95772), Barov Family Fortune (5343), Doctor
+# Theolen Krastinov, the Butcher (5382), Kirtonos the Herald (5384), The Lich,
+# Ras Frostwhisper (5466), Krastinov's Bag of Horrors (5515), Of Love and
+# Family (5848), Vyletongue Corruption (7041), Corruption of Earth and Seed
+# (7065), Nekrum's Medallion (2991).
+
+step Lord Ello Ebonlocke
+  accept 146
+
+step Viktori Prism'Antras
+  turnin 174 optional
+  accept 175
+
+step Blind Mary
+  turnin 175
+  accept 177
+
+step Tranquil Gardens Cemetery: Mary's Looking Glass
+  collect 1946 quest 177.1
+
+step Viktori Prism'Antras
+  turnin 177
+  accept 181
+
+step Brightwood Grove: Black Ravager
+  kill 628 quest 96137.2
+
+step The Yorgen Farmstead: Young Black Ravager
+  kill 923 quest 96137.1
+
+step Vul'Gol Ogre Mound: Ogre's Monocle
+  collect 1968 quest 181.1
+
+step Sirra Von'Indi
+  turnin 96137
+
+step Viktori Prism'Antras
+  turnin 181
+
+step Clerk Daltry
+  turnin 68
+  turnin 1041
+  accept 69
+  accept 1042
+  turnin 1042
+  accept 1043
+
+step Manor Mistmantle: A Noble Brew
+  complete 335
+
+step Tranquil Gardens Cemetery: Mound of Dirt
+  interact 19030 quest 1043.1
+
+step Jonathan Carevin
+  turnin 1043
+  accept 1044
+  turnin 1243
+
+step Darkshire: A Donation of Silk
+  complete 7798
+
+step Watcher Backus
+  accept 1244
+
+step A Weathered Grave
+  accept 225
+
+step Addle's Stead: The Missing Diplomat
+  complete 1244
+
+step Sirra Von'Indi
+  tip Mor'Ladim (level 35) is elite: grouping up is advised unless you are well above level 35.
+  turnin 225
+  accept 227
+  turnin 227
+  accept 228 optional
+  turnin 1244
+  accept 1245
+
+step Commander Althea Ebonlocke
+  tip Mor'Ladim (level 35) is elite: grouping up is advised unless you are well above level 35.
+  collect 3514 quest 228.1 optional
+  turnin 228 optional
+  accept 229
+  turnin 229
+  accept 231
+
+step A Weathered Grave
+  turnin 231
+
+step Denalan
+  zone Teldrassil
+  tip Oakenscowl (level 9) is elite: grouping up is advised unless you are well above level 9.
+  turnin 2498
+  accept 2499 optional
+  collect 8136 quest 2499.1 optional
+
+step Donova Snowden
+  zone Winterspring
+  turnin 3909
+  accept 3912
+  turnin 5085
+  accept 5086
+
+step Wynd Nightchaser
+  turnin 5249
+
+step Ranshalla
+  turnin 979
+  accept 4901
+
+step Owl Wing Thicket: Guardians of the Altar
+  complete 4901
+
+step Back to Darkshire
+  hearth "Darkshire"
+
+step Goldshire
+  zone Elwynn Forest
+  sethome "Goldshire"
+  turnin 69
+
+step Brother Paxton
+  turnin 344
+  accept 345
+
+step Theocritus
+  accept 94
+
+step Innkeeper Farley
+  accept 70
+
+step Goldshire: The Legend of Stalvan
+  complete 70
+
+step Lakeshire
+  zone Redridge Mountains
+  sethome "Lakeshire"
+  turnin 345
+  accept 347
+  accept 150
+  accept 128
+
+step Lake Everstill: Murloc Fin
+  collect 1468 quest 150.1
+
+step Render's Camp: Blackrock Champion
+  kill 435 quest 128.1
+
+step Redridge Canyons: Rethban Ore
+  collect 2798 quest 347.1
+
+step Dockmaster Baren
+  turnin 150
+
+step Guard Howe
+  turnin 128
+
+step Old Lion Statue
+  turnin 94
+  accept 248
+
+step An Empty Jar
+  turnin 248
+
+step Erelas Ambersky
+  zone Teldrassil
+  tip Oakenscowl (level 9) is elite: grouping up is advised unless you are well above level 9.
+  turnin 2499 optional
+  turnin 4901
+
+step Chromie
+  zone Western Plaguelands
+  turnin 5941
+
+step Tirion Fordring
+  turnin 5845
+  accept 5846
+
+step Artist Renfray
+  turnin 5846
+
+step Alchemist Arbington
+  turnin 5801
+  accept 5803
+
+step Chromie
+  accept 5721
+
+step Ruins of Andorhal: Araj's Scarab
+  complete 5803
+
+step Alchemist Arbington
+  turnin 5803
+  accept 5505
+  turnin 5505
+  turnin 6185 optional
+  accept 6186
+
+step Erelas Ambersky
+  zone Teldrassil
+  accept 4902
+
+step Gaxim Rustfizzle
+  zone Stonetalon Mountains
+  accept 2931
+
+step Veenix
+  accept 78270
+  turnin 78270
+
+step Windshear Crag: Deepmoss Egg
+  collect 5570 quest 1069.1
+
+step Pocket Litter
+  turnin 79192
+
+step Ziz Fizziks
+  turnin 1483
+  turnin 1095
+
+step The Charred Vale: Crystalized Scales
+  collect 5675 quest 1078.1
+
+step Back to Lakeshire
+  hearth "Lakeshire"
+
+step Quartermaster Lungertz
+  zone Blasted Lands
+  turnin 1395
+
+step Spirit of Kirith
+  turnin 2721
+  accept 2743

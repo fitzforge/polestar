@@ -1,0 +1,29 @@
+guide completionist/horde/undead/43-felwood
+title Felwood
+faction Horde
+race Undead
+levels 59-60
+zone Felwood
+category Completionist
+folder Completionist · Undead 50-60
+keywords completionist, every quest
+next completionist/horde/undead/44-azshara-desolace
+
+# Route: guide 43 of 51 of the simulator's completionist route for Undead
+# (1199 of 1215 eligible quests, 157.8 h, world baeac23fbe5e): levels 59 to
+# 60, 4 quests, 0.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Felwood): Emerald Sanctuary -> Jaedenar.
+#
+# Left to other guides: class quests (the Class category).
+
+step Kelek Skykeeper
+  turnin 5128
+
+step Trull Failbane
+  turnin 4882
+  turnin 4721
+  accept 4883

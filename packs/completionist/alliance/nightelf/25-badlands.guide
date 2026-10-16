@@ -1,0 +1,51 @@
+guide completionist/alliance/nightelf/25-badlands
+title Badlands
+faction Alliance
+race NightElf
+levels 46-47
+zone Badlands
+category Completionist
+folder Completionist · NightElf 40-50
+keywords completionist, every quest
+next completionist/alliance/nightelf/26-searing-gorge
+
+# Route: guide 25 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 46 to
+# 47, 6 quests, 0.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Badlands): Agmond's End -> Valley of Fangs -> Angor Fortress.
+#
+# Optional (elite: grouping up is advised): Summoning the Princess (656;
+# Myzrael 44); Amulet of Secrets (722; Magregan Deepshadow 38).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Ribbly Screwspigot (4136), Kibler's Exotic Pets (4729),
+# En-Ay-Es-Tee-Why (4862).
+
+step Theldurin the Lost
+  turnin 687
+  accept 692
+
+step Agmond's End: Torn Scroll Fragment and Crumpled Scroll Fragment and more
+  collect 4518 quest 692.1
+  collect 4519 quest 692.2
+  collect 4520 quest 692.3
+
+step Theldurin the Lost
+  tip Myzrael (level 44) is elite: grouping up is advised unless you are well above level 44.
+  turnin 692
+  accept 656 optional
+
+step Rigglefuzz
+  turnin 705
+
+step Angor Fortress: Reclaimed Treasures and Hammertoe's Amulet
+  tip Magregan Deepshadow (level 38) is elite: grouping up is advised unless you are well above level 38.
+  complete 1360
+  collect 4635 quest 722.1 optional
+
+step The Cauldron
+  getfp "Thorium Point"

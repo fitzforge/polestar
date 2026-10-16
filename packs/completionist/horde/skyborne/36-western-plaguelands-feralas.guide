@@ -1,0 +1,232 @@
+guide completionist/horde/skyborne/36-western-plaguelands-feralas
+title Western Plaguelands & Feralas
+faction Horde
+race Skyborne
+levels 56-58
+zone Western Plaguelands
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Western Plaguelands, Eastern Plaguelands, Tirisfal Glades, Burning Steppes, Tanaris, Un'Goro Crater, Feralas
+next completionist/horde/skyborne/37-thousand-needles-hillsbrad-foothills
+
+# Route: guide 36 of 50 of the simulator's completionist route for Skyborne
+# (1291 of 1301 eligible quests, 161.8 h, world baeac23fbe5e): levels 56 to
+# 58, 48 quests, 3.5 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Western Plaguelands, Eastern Plaguelands, Tirisfal Glades, Burning
+# Steppes, Tanaris, Un'Goro Crater, Feralas): Northridge Lumber Camp ->
+# Felstone Field -> Ruins of Andorhal -> Sorrow Hill -> Ruins of Andorhal ->
+# Northridge Lumber Camp -> Thondroril River -> Light's Hope Chapel -> Corin's
+# Crossing -> Light's Hope Chapel -> The Undercroft -> The Bulwark -> Ruins of
+# Thaurissan -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Doctor Theolen Krastinov, the Butcher (5382), Kirtonos the
+# Herald (5384), The Lich, Ras Frostwhisper (5466), Krastinov's Bag of Horrors
+# (5515), Of Love and Family (5848), Oculus Illusions (6569), Dawn's Gambit
+# (4771), The Flesh Does Not Lie (5212), The Active Agent (5213), The Great
+# Fras Siabi (5214), Houses of the Holy (5243), The Archivist (5251), Above
+# and Beyond (5263), The Restless Souls (5282), Menethil's Gift (5463),
+# Plagued Hatchlings (5529), Ramstein (6163), Dead Man's Plea (8945),
+# Anthion's Old Friend (8948), Vorrel's Revenge (1051), Barov Family Fortune
+# (5341), The Wrath of Rath'mael (92422), The Wrath of Rath'mael (92422),
+# Crest of Lordaeron (95204), Unending Torment (97288), Dark Iron Legacy
+# (3802), A Taste of Flame (4024), Precarious Predicament (4121), The Heart of
+# the Mountain (4123), Egg Freezing (4734), Egg Collection (4735),
+# Divino-matic Rod (2768), Scarab Shells (2865), Troll Temper (3042), Into the
+# Depths (3446), Secret of the Circle (3447), The Prophecy of Mosh'aru (3527),
+# The God Hakkar (3528), The Final Tablets (4788), Pusillin and the Elder
+# Azj'Tordin (7441), Elven Legends (7481), Lethtendris's Web (7489).
+
+step Northridge Lumber Camp: Mageweave Cloth
+  collect 4338 quest 7817.1
+
+step Felstone Field: Felstone Field Cauldron Key and Invader's Scourgestone and more
+  collect 13194 quest 5229.1
+  collect 12841 quest 5407.1
+  collect 12840 quest 5408.1
+
+step Scourge Cauldron
+  turnin 5229
+  accept 5230
+
+step Ruins of Andorhal: All Along the Watchtowers and Corruptor's Scourgestone
+  complete 5098
+  collect 12843 quest 5406.1 optional
+
+step Marlene Redpath
+  turnin 5152
+  accept 5153
+
+step Sorrow Hill: A Strange Historian
+  complete 5153
+
+step Chromie
+  turnin 5153
+  accept 5154
+
+step Ruins of Andorhal: The Annals of Darrowshire
+  complete 5154
+
+step Chromie
+  turnin 5154
+  accept 5210
+
+step Termite Barrel
+  turnin 5902
+  accept 6390
+
+step Tirion Fordring
+  turnin 5543
+  turnin 5544
+  turnin 5542
+  accept 5742
+
+step Thondroril River: Redemption
+  complete 5742
+
+step Tirion Fordring
+  turnin 5742
+  accept 5781
+
+step Light's Hope Chapel
+  zone Eastern Plaguelands
+  sethome "Light's Hope Chapel"
+  turnin 5210
+  accept 5168
+  accept 5181
+
+step Corin's Crossing: Villains of Darrowshire
+  complete 5181
+
+step Carlin Redpath
+  turnin 5181
+
+step The Undercroft: Taelan's Hammer
+  collect 14613 quest 5781.1
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  turnin 5098
+  accept 105
+  turnin 5406 optional
+  turnin 5407
+  turnin 5408
+  turnin 5230
+  accept 5231
+  turnin 6390
+  accept 838
+  turnin 838
+  accept 964
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  turnin 4810
+  accept 4866
+
+step Ruins of Thaurissan: Mother's Milk
+  complete 4866
+
+step Ragged John
+  turnin 4866
+
+step Gadgetzan
+  zone Tanaris
+  sethome "Gadgetzan"
+  turnin 1188
+  accept 1189
+  turnin 243
+  accept 4504
+  turnin 4494
+  accept 4496
+
+step Yorba Screwspigot
+  accept 4324
+
+step Back to Gadgetzan
+  hearth "Gadgetzan"
+
+step Lakkari Tar Pits: Merged Ooze Sample
+  zone Un'Goro Crater
+  collect 12291 quest 4642.1
+
+step A-Me 01
+  turnin 4244 optional
+  accept 4245
+
+step Lakkari Tar Pits: Super Sticky Tar
+  collect 11834 quest 4504.1
+
+step Ironstone Plateau: White Ravasaur Claw
+  collect 11477 quest 4300.1
+
+step The Marshlands: Un'Goro Soil
+  collect 11018 quest 4496.2
+
+step The Slithering Scar: Gorishi Scent Gland
+  collect 11837 quest 4496.1
+
+step Lakkari Tar Pits: Un'Goro Soil
+  collect 11018 quest 3761.1
+
+step Lakkari Tar Pits: Chasing A-Me 01
+  complete 4245
+
+step Karna Remtravel
+  turnin 4245
+
+step Camp Mojache
+  zone Feralas
+  sethome "Camp Mojache"
+  turnin 3122
+  accept 3123
+  accept 3128
+  turnin 2981
+
+step Camp Mojache: Splintered Log and Metallic Fragments
+  collect 9590 quest 3128.1
+  collect 9592 quest 3128.4
+
+step Feral Scar Vale: Resilient Sinew
+  collect 9591 quest 3128.3
+
+step Back to Camp Mojache
+  hearth "Camp Mojache"
+
+step Grimtotem Compound: Encrusted Minerals
+  collect 9589 quest 3128.2
+
+step Witch Doctor Uzer'i
+  turnin 3128
+
+step Zorbin Fandazzle
+  accept 7725
+
+step The Forgotten Coast: Miniaturization Residue
+  tip Zorbin's Ultra-Shrinker lasts 120 minutes: go straight on with it.
+  collect 18956 quest 7725.1
+
+step Zorbin Fandazzle
+  turnin 7725
+
+step Zorbin Fandazzle
+  accept 7726
+
+step Feral Scar Vale: Water Elemental Core
+  collect 18958 quest 7726.1
+
+step Zorbin Fandazzle
+  turnin 7726
+
+step The Twin Colossals: The Videre Elixir
+  complete 3909
+
+step Witch Doctor Uzer'i
+  accept 3380
+  accept 4120
+
+step Freewind Post
+  sethome "Freewind Post"

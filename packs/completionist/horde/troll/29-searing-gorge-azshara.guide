@@ -1,0 +1,226 @@
+guide completionist/horde/troll/29-searing-gorge-azshara
+title Searing Gorge & Azshara
+faction Horde
+race Troll
+levels 47-49
+zone Searing Gorge
+category Completionist
+folder Completionist · Troll 40-50
+keywords completionist, every quest, Searing Gorge, Azshara
+next completionist/horde/troll/30-the-hinterlands
+
+# Route: guide 29 of 49 of the simulator's completionist route for Troll (1199
+# of 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 47 to 49, 29
+# quests, 3.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Searing Gorge, Azshara): The Cauldron -> Firewatch Ridge -> The
+# Cauldron -> Firewatch Ridge -> The Cauldron -> Firewatch Ridge -> The
+# Cauldron -> Grimesilt Dig Site -> Firewatch Ridge -> The Cauldron ->
+# Firewatch Ridge -> Valormok -> Ruins of Eldarath -> ….
+#
+# Optional (elite: grouping up is advised): The Flame's Casing (3452; Twilight
+# Dark Shaman 47-48, Twilight Fire Guard 48-49, Twilight Geomancer 49-50,
+# Twilight Idolater 49-51); WANTED: Overseer Maltorius (7701; Overseer
+# Maltorius 50).
+#
+# Profession quests here are not routed (they need the skill): 3379
+# Shadoweaver; 3385 The Undermarket; 3402 The Undermarket.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Blackhand's Command (7761), The Left Piece of Lord
+# Valthalak's Amulet (8966), The Left Piece of Lord Valthalak's Amulet (8967),
+# The Left Piece of Lord Valthalak's Amulet (8968), The Left Piece of Lord
+# Valthalak's Amulet (8969), The Right Piece of Lord Valthalak's Amulet
+# (8989), The Right Piece of Lord Valthalak's Amulet (8990), The Right Piece
+# of Lord Valthalak's Amulet (8991), The Right Piece of Lord Valthalak's
+# Amulet (8992), Mea Culpa, Lord Valthalak (8995).
+
+step Kalaran Windblade
+  accept 3441
+
+step The Cauldron: Divine Retribution
+  complete 3441
+
+step Kalaran Windblade
+  turnin 3441
+  accept 3442
+
+step Firewatch Ridge: Golem Oil
+  collect 10511 quest 3442.2
+
+step The Cauldron: Heart of Flame
+  collect 10509 quest 3442.1
+
+step Kalaran Windblade
+  turnin 3442
+  accept 3443
+
+step Firewatch Ridge: Thorium Plated Dagger
+  collect 10551 quest 3443.1
+
+step Kalaran Windblade
+  tip Twilight Dark Shaman (level 47-48), Twilight Fire Guard (level 48-49), Twilight Geomancer (level 49-50) and Twilight Idolater (level 49-51) are elite: grouping up is advised unless you are well above level 51.
+  turnin 3443
+  accept 3452 optional
+
+step Kalaran Windblade
+  tip Twilight Dark Shaman (level 47-48), Twilight Fire Guard (level 48-49), Twilight Geomancer (level 49-50) and Twilight Idolater (level 49-51) are elite: grouping up is advised unless you are well above level 51.
+  collect 10552 quest 3452.1 optional
+  turnin 3452 optional
+  accept 3453
+
+step The Cauldron: The Torch of Retribution
+  complete 3453
+
+step Kalaran Windblade
+  turnin 3453
+  accept 3454
+  turnin 3454
+  accept 3462
+  turnin 3462
+  accept 3463
+
+step The Cauldron: Sentry Brazier
+  interact 149032 quest 3463.4
+  interact 149025 quest 3463.1
+
+step The Cauldron: Sentry Brazier
+  interact 149030 quest 3463.2
+
+step The Cauldron: Sentry Brazier
+  interact 149031 quest 3463.3
+
+step Squire Maltrake
+  turnin 3463
+  accept 3481
+  turnin 3481
+
+step Master Smith Burninate
+  tip Overseer Maltorius (level 50) is elite: grouping up is advised unless you are well above level 50.
+  accept 7722
+  accept 7723
+  accept 7724
+  accept 7727
+  accept 7701 optional
+  accept 7728
+  accept 7729
+
+step The Cauldron: What the Flux? and Head of Overseer Maltorius and more
+  tip Overseer Maltorius (level 50) is elite: grouping up is advised unless you are well above level 50.
+  complete 7722
+  collect 18946 quest 7701.1 optional
+  kill 5846 quest 7729.1
+  kill 5844 quest 7729.2
+  kill 5854 quest 7723.1
+
+step The Cauldron: Smithing Tuyere
+  collect 18959 quest 7728.1
+
+step The Cauldron
+  tip Dark Iron Slaver drops the Grimesilt Outhouse Key: right-click it to start The Key to Freedom.
+  collect 11818 x1
+  accept 4451
+
+step The Cauldron: Lookout's Spyglass
+  collect 18960 quest 7728.2
+
+step Wooden Outhouse
+  turnin 4451
+  accept 4449
+
+step Grimesilt Dig Site: Dark Iron Geologist
+  kill 5839 quest 4449.1
+
+step Firewatch Ridge: Greater Lava Spider
+  kill 5858 quest 7724.1
+
+step Master Smith Burninate
+  turnin 7722
+
+step The Cauldron: Incendosaur
+  kill 9318 quest 7727.1
+
+step Taskmaster Scrange
+  tip Overseer Maltorius (level 50) is elite: grouping up is advised unless you are well above level 50.
+  turnin 7729
+  turnin 7728
+  turnin 7724
+  turnin 7727
+  turnin 7723
+  turnin 7701 optional
+
+step Back to Orgrimmar
+  hearth "Orgrimmar"
+
+step Valormok
+  zone Azshara
+  getfp "Valormok"
+  accept 3517
+
+step Ruins of Eldarath: Stealing Knowledge
+  complete 3517
+
+step Sanath Lim-yo
+  accept 3381
+
+step Jediga
+  turnin 3517
+  accept 3518
+  accept 3541
+  accept 3542
+  accept 3561
+
+step Valormok: Undamaged Hippogryph Feather
+  collect 10450 quest 3381.1
+
+step Sanath Lim-yo
+  turnin 3381
+
+step Archmage Xylem
+  turnin 3561
+  accept 3565
+
+step Jediga
+  turnin 3565
+
+step Loh'atu
+  accept 5536
+  accept 5535
+
+step Shadowsong Shrine: Highborne Apparition
+  kill 6116 quest 5535.1
+
+step Shadowsong Shrine: Highborne Lichling
+  kill 6117 quest 5535.2
+
+step Haldarr Encampment: Haldarr Satyr and Haldarr Trickster and more
+  kill 6125 quest 5536.1
+  kill 6126 quest 5536.2
+  kill 6127 quest 5536.3
+
+step Loh'atu
+  turnin 5535
+  turnin 5536
+
+step Kim'jael
+  accept 3601
+
+step Thalassian Base Camp: Kim'Jael's Compass and Kim'Jael's Scope and more
+  collect 10717 quest 3601.1
+  collect 10715 quest 3601.2
+  collect 10722 quest 3601.3
+  collect 10718 quest 3601.4
+
+step Kim'jael
+  turnin 3601
+  accept 5534
+
+step The Shattered Strand: Some Rune
+  collect 13815 quest 5534.1
+
+step Kim'jael
+  turnin 5534
+  note "Profession quests here, for players with the skill: Shadoweaver (Tailoring 230), The Undermarket (Tailoring 230), The Undermarket (Tailoring 230)."

@@ -1,0 +1,281 @@
+guide completionist/horde/tauren/35-thunder-bluff-undercity
+title Thunder Bluff & Undercity
+faction Horde
+race Tauren
+levels 55-56
+zone Thunder Bluff
+category Completionist
+folder Completionist · Tauren 50-60
+keywords completionist, every quest, Thunder Bluff, Undercity, Felwood, Stonetalon Mountains, Desolace
+next completionist/horde/tauren/36-thousand-needles-western-plaguelands
+
+# Route: guide 35 of 51 of the simulator's completionist route for Tauren
+# (1211 of 1222 eligible quests, 160.2 h, world baeac23fbe5e): levels 55 to
+# 56, 78 quests, 3.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Thunder Bluff, Undercity, Felwood, Stonetalon Mountains, Desolace):
+# Thunder Bluff -> near Thunder Bluff -> Thunder Bluff -> near Thunder Bluff
+# -> Thunder Bluff -> near Thunder Bluff -> Thunder Bluff -> near Thunder
+# Bluff -> Thunder Bluff -> near Thunder Bluff -> near Undercity -> Undercity
+# -> near Undercity -> ….
+#
+# Optional (elite: grouping up is advised): The Star, the Hand and the Heart
+# (736; Grel'borg the Miser 39, Dagun the Ravenous 43, Mogh the Undying 44);
+# Nothing But The Truth (1383; Deepstrider Giant 38-39, Deepstrider Searcher
+# 39-40); Shadowshard Fragments (7068; Shadowshard Rumbler 40-41, Shadowshard
+# Smasher 41-42, Shadowshard Thunderer 38).
+#
+# Left out: Rites of the Earthmother (776), Preparation for Ceremony (744):
+# the route takes them here but cannot finish them (the coverage report's
+# missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Leaders of the Fang (914), Compendium of the Fallen
+# (1049), A Vengeful Fate (1102), Testing an Enemy's Strength (5723), The Book
+# of Ur (1013), The Book of Ur (1013), Going, Going, Guano! (1109), Going,
+# Going, Guano! (1109), Bring the End (3341), The Power to Destroy... (5725),
+# Light's Justice (92421), Light's Justice (92421), The New Plague (95216),
+# Source of Power (96988), Blood of the Black Dragon Champion (6602),
+# Vyletongue Corruption (7029), Legends of Maraudon (7044), Corruption of
+# Earth and Seed (7064), The Pariah's Instructions (7067).
+
+step Eylah Sunhorn
+  accept 97485
+
+step Boarton Shadetotem
+  accept 76160
+  turnin 76160
+
+step Thunder Bluff: Traditions of the Bluff
+  complete 97485
+
+step Cairne Bloodhoof
+  turnin 775
+  turnin 98430
+  turnin 99082
+
+step Eylah Sunhorn
+  turnin 97485
+
+step Arch Druid Hamuul Runetotem
+  turnin 98435
+
+step Ahanu
+  turnin 6362
+  accept 6363
+  turnin 6363
+  accept 6364
+
+step Melor Stonehoof
+  turnin 861
+  accept 860
+
+step Arch Druid Hamuul Runetotem
+  accept 886
+
+step Apothecary Zamah
+  turnin 853
+
+step Arch Druid Hamuul Runetotem
+  turnin 1489
+  turnin 1063
+
+step Melor Stonehoof
+  turnin 1130
+  accept 1205
+
+step Rumstag Proudstrider
+  accept 7822
+
+step Magatha Grimtotem
+  turnin 3518
+  accept 3562
+  accept 3761
+  turnin 936
+  turnin 4987
+
+step Clarice Foster
+  accept 264
+  accept 962
+
+step Rumstag Proudstrider
+  accept 7820
+
+step Magatha Grimtotem
+  accept 1064
+  accept 1490
+  turnin 1490
+
+step Apothecary Zamah
+  turnin 1064
+  accept 1065
+
+step Tah Winterhoof
+  accept 97538
+  accept 1195
+
+step Melor Stonehoof
+  accept 1131
+
+step Magatha Grimtotem
+  turnin 5062
+
+step Bethor Iceshard
+  zone Undercity
+  turnin 357
+  accept 366
+
+step Calder Gray
+  accept 97985
+  turnin 513
+  accept 515
+
+step Undercity
+  sethome "Undercity"
+  accept 1164
+  turnin 728
+  accept 7814
+  accept 7817
+
+step Anastasia Hartwell
+  accept 2861
+
+step Chemist Cuely
+  accept 3568
+  turnin 3542
+  accept 3564
+
+step Oran Snakewrithe
+  accept 2995
+
+step Chemist Fuely
+  accept 4293
+  accept 4294
+
+step near Undercity: Pure Un'Goro Sample and Corrupted Felwood Sample
+  collect 12236 quest 4294.1
+  collect 12234 quest 4293.1
+
+step Chemist Fuely
+  turnin 4293
+  turnin 4294
+  accept 4642
+
+step Royal Overseer Bauhaus
+  turnin 5023
+
+step Keeper Bel'dugur
+  tip Grel'borg the Miser (level 39), Dagun the Ravenous (level 43) and Mogh the Undying (level 44) are elite: grouping up is advised unless you are well above level 44.
+  accept 736 optional
+  accept 2342
+
+step Sharlindra
+  accept 495
+
+step Apothecary Zinge
+  accept 232
+  turnin 232
+  accept 238
+  turnin 238
+  accept 243
+
+step Oran Snakewrithe
+  turnin 2782
+
+step Greta Mosshoof
+  zone Felwood
+  turnin 5159
+  accept 5165
+
+step Jaedenar: Brazier of Pain and Brazier of Hatred
+  interact 176158 quest 5165.1
+  interact 176161 quest 5165.4
+
+step Jaedenar: Brazier of Malice and Brazier of Suffering
+  interact 176159 quest 5165.2
+  interact 176160 quest 5165.3
+
+step Winna Hazzard
+  turnin 6605
+
+step Kernda
+  turnin 8471
+  turnin 6031
+
+step Greta Mosshoof
+  turnin 5165
+  accept 5242
+
+step Bloodvenom Falls: Moora and Salia and more
+  kill 9861 quest 5242.1
+  kill 9860 quest 5242.2
+  collect 13207 quest 5242.3
+
+step Greta Mosshoof
+  turnin 5242
+
+step Deadwood Cauldron
+  turnin 5084
+
+step Trull Failbane
+  turnin 4521
+  accept 4741
+
+step Deadwood Cauldron
+  accept 5085
+
+step Sun Rock Retreat
+  zone Stonetalon Mountains
+  sethome "Sun Rock Retreat"
+  turnin 6401
+
+step Windshear Crag: XT:9
+  kill 4074 quest 1068.2
+
+step Windshear Crag: XT:4
+  kill 4073 quest 1068.1
+
+step Grimtotem Post: Grimtotem Brute
+  kill 11912 quest 6629.2
+
+step Grimtotem Post: Grundig Darkcloud
+  kill 11858 quest 6629.1
+
+step Back to Sun Rock Retreat
+  hearth "Sun Rock Retreat"
+
+step Ziz Fizziks
+  turnin 1095
+
+step Sargeron: Resonite Crystal and Wool Cloth
+  zone Desolace
+  collect 16581 quest 6421.1
+  collect 2592 quest 7820.1
+
+step Hornizz Brimbuzzle
+  accept 6134
+
+step Melizza Brimbuzzle
+  accept 6132
+
+step Valley of Spears: Get Me Out of Here!
+  complete 6132
+
+step Mannoroc Coven: Ghost-o-plasm
+  collect 15849 quest 6134.1
+
+step Hornizz Brimbuzzle
+  turnin 6132
+  turnin 6134
+
+step Kodo Graveyard: A Donation of Mageweave
+  tip Deepstrider Giant (level 38-39), Deepstrider Searcher (level 39-40), Shadowshard Rumbler (level 40-41) and 2 more are elite: grouping up is advised unless you are well above level 42.
+  complete 7822
+  collect 6082 quest 1383.3 optional
+  collect 17756 quest 7068.1 optional
+  accept 7028 optional
+  collect 17684 quest 7028.1 optional
+  turnin 7028 optional

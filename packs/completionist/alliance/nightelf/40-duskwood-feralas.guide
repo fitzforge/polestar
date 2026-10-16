@@ -1,0 +1,294 @@
+guide completionist/alliance/nightelf/40-duskwood-feralas
+title Duskwood & Feralas
+faction Alliance
+race NightElf
+levels 56-57
+zone Duskwood
+category Completionist
+folder Completionist · NightElf 50-60
+keywords completionist, every quest, Duskwood, Elwynn Forest, Ironforge, Western Plaguelands, Feralas, Winterspring
+next completionist/alliance/nightelf/41-stormwind-city-thousand-needles
+
+# Route: guide 40 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 56 to
+# 57, 65 quests, 3.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Duskwood, Elwynn Forest, Ironforge, Western Plaguelands, Feralas,
+# Winterspring): Darkshire -> Raven Hill -> Darkshire -> Tranquil Gardens
+# Cemetery -> Darkshire -> Brightwood Grove -> The Yorgen Farmstead -> Vul'Gol
+# Ogre Mound -> Darkshire -> Tranquil Gardens Cemetery -> Darkshire -> Raven
+# Hill Cemetery -> Addle's Stead -> ….
+#
+# Optional (elite: grouping up is advised): Mor'Ladim (228; Mor'Ladim 35);
+# Rise, Obsidion! (3566; Lathoric the Black 52, Obsidion 52).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Crime and Punishment (377), Crime and Punishment (377),
+# Knowledge in the Deeps (971), Knowledge in the Deeps (971), Mythology of the
+# Titans (1050), Mythology of the Titans (1050), The Lost Tablets of Will
+# (1139), Back to Uldaman (2200), Restoring the Necklace (2204), The Lost
+# Dwarves (2398), Essential Artificials (2924), Essential Artificials (2924),
+# The Grand Betrayal (2929), The Grand Betrayal (2929), Data Rescue (2930),
+# Data Rescue (2930), Kharan Mighthammer (4341), The Fate of the Kingdom
+# (4362), The Restless Dead (96394), The Restless Dead (96394), An Ancient
+# Grudge (96395), Important Heirlooms (96403), Important Heirlooms (96403),
+# The Treaty of Understanding (98423), Barov Family Fortune (5343), Doctor
+# Theolen Krastinov, the Butcher (5382), Kirtonos the Herald (5384), The Lich,
+# Ras Frostwhisper (5466), Krastinov's Bag of Horrors (5515), Of Love and
+# Family (5848), The Crone of the Kraul (1101), Pusillin and the Elder
+# Azj'Tordin (7441), Elven Legends (7482), Lethtendris's Web (7488), Drakefire
+# Amulet (6502).
+
+step Watchmaster Sorigal
+  accept 1395
+  turnin 1477
+
+step Raven Hill: Mageweave Cloth
+  collect 4338 quest 7794.1
+
+step Back to Darkshire
+  hearth "Darkshire"
+
+step Viktori Prism'Antras
+  turnin 174 optional
+  accept 175
+
+step Blind Mary
+  turnin 175
+  accept 177
+
+step Tranquil Gardens Cemetery: Mary's Looking Glass
+  collect 1946 quest 177.1
+
+step Viktori Prism'Antras
+  turnin 177
+  accept 181
+
+step Brightwood Grove: Black Ravager
+  kill 628 quest 96137.2
+
+step The Yorgen Farmstead: Young Black Ravager
+  kill 923 quest 96137.1
+
+step Vul'Gol Ogre Mound: Ogre's Monocle
+  collect 1968 quest 181.1
+
+step Sirra Von'Indi
+  turnin 96137
+
+step Viktori Prism'Antras
+  turnin 181
+
+step Clerk Daltry
+  turnin 68
+  turnin 1041
+  accept 69
+  accept 1042
+  turnin 1042
+  accept 1043
+
+step Tranquil Gardens Cemetery: Mound of Dirt
+  interact 19030 quest 1043.1
+
+step Jonathan Carevin
+  turnin 1043
+  accept 1044
+  turnin 1243
+  accept 1244
+
+step A Weathered Grave
+  accept 225
+
+step Addle's Stead: The Missing Diplomat
+  complete 1244
+
+step Sirra Von'Indi
+  tip Mor'Ladim (level 35) is elite: grouping up is advised unless you are well above level 35.
+  turnin 225
+  accept 227
+  turnin 227
+  accept 228 optional
+  turnin 1244
+  accept 1245
+
+step Commander Althea Ebonlocke
+  tip Mor'Ladim (level 35) is elite: grouping up is advised unless you are well above level 35.
+  collect 3514 quest 228.1 optional
+  turnin 228 optional
+  accept 229
+  turnin 229
+  accept 231
+
+step A Weathered Grave
+  turnin 231
+
+step Goldshire
+  zone Elwynn Forest
+  sethome "Goldshire"
+  turnin 118
+  accept 119
+
+step Goldshire: Skin of Sweet Rum
+  buy 1939 x1 nearest
+
+step Theocritus
+  turnin 178
+
+step Innkeeper Farley
+  turnin 69
+
+step Brother Paxton
+  turnin 344
+  accept 345
+
+step Theocritus
+  accept 94
+
+step Innkeeper Farley
+  accept 70
+
+step Goldshire: The Legend of Stalvan
+  complete 70
+
+step Bubulo Acerbus
+  zone Ironforge
+  accept 7809
+
+step Mistina Steelshield
+  accept 7804
+
+step Curator Thorius
+  tip Lathoric the Black (level 52) and Obsidion (level 52) are elite: grouping up is advised unless you are well above level 52.
+  turnin 3566 optional
+  turnin 4512
+  accept 4513
+
+step Nathaniel Dumah
+  zone Western Plaguelands
+  turnin 5903
+  accept 5904
+
+step Marlene Redpath
+  turnin 5152
+  accept 5153
+
+step Sorrow Hill: A Strange Historian
+  complete 5153
+
+step Chromie
+  turnin 5153
+  accept 5154
+
+step Ruins of Andorhal: The Annals of Darrowshire
+  complete 5154
+
+step Chromie
+  turnin 5154
+  accept 5210
+
+step Termite Barrel
+  turnin 5904
+  accept 6389
+
+step Nathaniel Dumah
+  turnin 6389
+
+step Tirion Fordring
+  turnin 5543
+  turnin 5544
+  turnin 5542
+  accept 5742
+
+step Thondroril River: Redemption
+  complete 5742
+
+step Tirion Fordring
+  turnin 5742
+  accept 5781
+
+step Back to Goldshire
+  hearth "Goldshire"
+
+step Kristy Grant
+  zone Feralas
+  accept 98155
+  turnin 1100
+
+step Lower Wilds: Pristine Pesterhide Pelt
+  collect 279472 quest 98155.1
+
+step Kristy Grant
+  turnin 98155
+
+step The Twin Colossals: Ironfur Liver
+  collect 6258 quest 1452.2
+
+step The Twin Colossals: Groddoc Liver
+  collect 6259 quest 1452.3
+
+step Kindal Moonweaver
+  accept 3841
+
+step Zorbin Fandazzle
+  accept 7725
+
+step The Forgotten Coast: Miniaturization Residue
+  tip Zorbin's Ultra-Shrinker lasts 120 minutes: go straight on with it.
+  collect 18956 quest 7725.1
+
+step Zorbin Fandazzle
+  turnin 7725
+
+step Zorbin Fandazzle
+  accept 7726
+
+step Feral Scar Vale: Water Elemental Core
+  collect 18958 quest 7726.1
+
+step Zorbin Fandazzle
+  turnin 7726
+
+step Sardor Isle
+  sethome "Feathermoon Stronghold"
+  turnin 2943
+  accept 2879
+
+step Ruins of Ravenwind: Stave of Equinex
+  collect 9306 quest 2879.1
+
+step Equinex Monolith
+  turnin 2879
+  accept 2942
+
+step Ruins of Ravenwind: The Morrow Stone
+  complete 2942
+
+step Back to Feathermoon Stronghold
+  hearth "Feathermoon Stronghold"
+
+step Troyas Moonbreeze
+  turnin 2942
+  turnin 3787
+
+step The Twin Colossals: The Videre Elixir
+  complete 3909
+
+step Donova Snowden
+  zone Winterspring
+  turnin 3909
+  accept 3912
+  turnin 5085
+  accept 5086
+
+step Wynd Nightchaser
+  turnin 5249
+
+step Ranshalla
+  turnin 979
+  accept 4901
+
+step Owl Wing Thicket: Guardians of the Altar
+  complete 4901

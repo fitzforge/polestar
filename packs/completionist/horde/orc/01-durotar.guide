@@ -1,0 +1,369 @@
+guide completionist/horde/orc/01-durotar
+title Durotar
+faction Horde
+race Orc
+levels 1-13
+zone Durotar
+category Completionist
+folder Completionist · Orc 1-20
+keywords completionist, every quest
+next completionist/horde/orc/02-tirisfal-glades
+
+# Route: guide 1 of 49 of the simulator's completionist route for Orc (1199 of
+# 1215 eligible quests, 157.3 h, world baeac23fbe5e): levels 1 to 13, 52
+# quests, 3.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Durotar): Valley of Trials -> Razor Hill -> Tiragarde Keep -> Sen'jin
+# Village -> Echo Isles -> Sen'jin Village -> Kolkar Crag -> Valley of Trials
+# -> Tiragarde Keep -> Razormane Grounds -> Valley of Trials -> Sen'jin
+# Village -> Razor Hill -> ….
+#
+# Optional (elite: grouping up is advised): Ukor's Lost Pack (96876; Ukorsbane
+# 8); Halikor's Hoof (96877; Halikor 12); Threat from Below (99052; Aggor the
+# Young 11).
+#
+# Left out: Need for a Cure (812): the route takes them here but cannot finish
+# them (the coverage report's missed quests).
+#
+# Profession quests here are not routed (they need the skill): 6623 Horde
+# Trauma; 7493 The Journey Has Just Begun; 96102 Camping 101: Tailoring; 96873
+# A Pain in the Neck; 97899 Camping 101: Alchemy; 97900 Camping 101:
+# Blacksmithing; 97901 Camping 101: Enchanting; 97902 Camping 101:
+# Engineering; 97903 Camping 101: First Aid; 97904 Camping 101: Fishing; 97905
+# Camping 101: Herbalism; 97906 Camping 101: Leatherworking; 97907 Camping
+# 101: Mining; 97908 Camping 101: Skinning.
+#
+# Left to other guides: class quests (the Class category).
+
+step Kaltunk
+  tip Every quest counts here, grey ones too: keep Options > Automation > "Skip grey quests" off.
+  accept 4641
+  turnin 4641
+  accept 97279
+  accept 788
+
+step Valley of Trials: Abandoned Training Weapon
+  collect 277653 quest 97279.1
+
+step Kzan Thornslash
+  turnin 97279
+
+step Hana'zua
+  accept 790
+
+step Valley of Trials: Sarkoth's Mangled Claw
+  collect 4905 quest 790.1
+
+step Hana'zua
+  turnin 790
+
+step Zureetha Fargaze
+  accept 792
+
+step Hana'zua
+  accept 804
+
+step Gornek
+  turnin 804
+
+step Valley of Trials: Mottled Boar
+  kill 3098 quest 788.1
+
+step Foreman Thazz'ril
+  accept 5441
+
+step Valley of Trials: Lazy Peons
+  complete 5441
+
+step Foreman Thazz'ril
+  turnin 5441
+  accept 6394
+  turnin 788
+  accept 789
+  accept 4402
+
+step Valley of Trials: Cactus Apple and Scorpid Worker Tail
+  collect 11583 quest 4402.1
+  collect 4862 quest 789.1
+
+step Gornek
+  turnin 789
+  turnin 4402
+
+step Valley of Trials: Vile Familiar and Thazz'ril's Pick
+  kill 3101 quest 792.1
+  complete 6394
+
+step Brakk
+  accept 96604
+
+step Razor Hill: Basic Campfire
+  interact 460003 quest 96604.1 "Sit near Brakk's Basic Campfire by typing /sit in the chat window and wait until you receive the Boosted Rest buff"
+  interact 460003 quest 96604.2 "Sit near Brakk's Basic Campfire by typing /sit in the chat window and wait until you receive the Boosted Rest buff"
+
+step Brakk
+  turnin 96604
+  accept 96655
+  sethome "Razor Hill"
+  accept 784
+
+step Cook Torka
+  accept 96825
+
+step Razor Hill: Camping 101: Cooking
+  complete 96655
+
+step Cook Torka
+  turnin 96655
+
+step Furl Scornbrow
+  tip Ukorsbane (level 8) is elite: grouping up is advised unless you are well above level 8. Ukorsbane drops the Ukor's Lost Pack: right-click it to start Ukor's Lost Pack.
+  collect 275722 x1 optional
+  accept 96876 optional
+  accept 791
+
+step Turroc
+  accept 96822
+
+step Tiragarde Keep: Raider's Shield and Kul Tiras Sailor and more
+  collect 275717 quest 96822.3
+  kill 3128 quest 784.1
+  collect 4870 quest 791.1
+  collect 275716 quest 96822.2
+
+step Tiragarde Keep: Raider's Bow and Kul Tiras Marine and more
+  collect 275713 quest 96822.1
+  kill 3129 quest 784.2
+  kill 3192 quest 784.3
+
+step Tiragarde Keep
+  tip Benedict's Chest drops the Aged Envelope: right-click it to start The Admiral's Orders.
+  collect 4881 x1
+  accept 830
+
+step Ukor
+  tip Ukorsbane (level 8) is elite: grouping up is advised unless you are well above level 8.
+  turnin 96876 optional
+  accept 2161
+
+step Lar Prowltusk
+  accept 786
+  accept 97223
+  accept 808
+  accept 823
+  accept 826
+  accept 818
+  accept 97225
+  accept 817
+  accept 96821
+
+step Sen'jin Village: Intact Makrura Eye
+  collect 4887 quest 818.1
+
+step Echo Isles: Bloodtalon Martriarch Eggs
+  collect 277128 quest 97223.1
+
+step Echo Isles: Hexed Troll and Voodoo Troll and more
+  kill 3207 quest 826.1
+  kill 3206 quest 826.2
+  collect 4866 quest 826.3
+  complete 808
+  collect 277135 quest 97225.1
+
+step Echo Isles: Durotar Tiger Fur and Crawler Mucus
+  collect 4892 quest 817.1
+  collect 4888 quest 818.2
+
+step Master Gadrin
+  turnin 808
+  turnin 826
+  turnin 97225
+  turnin 818
+  turnin 817
+  turnin 97223
+
+step Kolkar Crag: Attack Plan: Valley of Trials
+  interact 3189 quest 786.1
+
+step Kolkar Crag: Attack Plan: Sen'jin Village
+  interact 3190 quest 786.2
+
+step Pal'juh
+  accept 99123
+
+step Kolkar Crag: Lost in the Shadows and Attack Plan: Orgrimmar
+  complete 99123
+  interact 3192 quest 786.3
+
+step Foreman Thazz'ril
+  turnin 6394
+  turnin 792
+  accept 794
+
+step Valley of Trials: Ridgeshade Lurker
+  kill 266849 quest 96821.2
+
+step Tiragarde Keep: Ridgeshade Creeper
+  kill 266850 quest 96821.1
+
+step Razormane Grounds: Prickly Pear Fruit
+  collect 275718 quest 96825.1
+
+step Razormane Grounds: Burning Blade Medallion
+  collect 4859 quest 794.1
+
+step Zureetha Fargaze
+  turnin 794
+  accept 805
+  accept 96652
+
+step Lar Prowltusk
+  turnin 786
+  turnin 805
+  turnin 99123
+
+step Back to Razor Hill
+  hearth "Razor Hill"
+
+step Brakk
+  turnin 96652
+  turnin 784
+  turnin 830
+  turnin 96821
+  accept 825
+  accept 831
+  turnin 823
+  accept 806
+
+step Tiragarde Keep: Gnomish Tools
+  collect 4863 quest 825.1
+
+step Turroc
+  turnin 96822
+  turnin 2161
+
+step Thunder Ridge: Fizzle's Claw
+  collect 4869 quest 806.1
+
+step Furl Scornbrow
+  turnin 791
+  turnin 96825
+
+step Gar'Thok
+  turnin 825
+  turnin 806
+  accept 828
+
+step Margoz
+  turnin 828
+  accept 827
+
+step Drygulch Ravine: Searing Collar
+  collect 4871 quest 827.1
+
+step Margoz
+  turnin 827
+  accept 829
+
+step Skull Rock
+  tip Gazz'uz drops the Eye of Burning Shadow: right-click it to start Burning Shadows.
+  collect 4903 x1
+  accept 832
+
+step Gar'Thok
+  accept 837
+  accept 99048
+  accept 815
+
+step Razor Hill: Razormane Quilboar and Razormane Scout
+  kill 3111 quest 837.1
+  kill 3112 quest 837.2
+
+step Heglan Shadeeye
+  turnin 99048
+  accept 99049
+
+step Razor Hill: Orcish Dagger and Broken Bone Trident and more
+  collect 286012 quest 99049.1
+  collect 286010 quest 99049.3
+  collect 286011 quest 99049.2
+
+step Orgnil Soulscar
+  turnin 99049
+  accept 99051
+
+step Razormane Grounds: Razormane Battleguard and Razormane Dustrunner
+  kill 3114 quest 837.4
+  kill 3113 quest 837.3
+
+step Misha Tor'kren
+  accept 816
+
+step Rezlak
+  tip Halikor (level 12) is elite: grouping up is advised unless you are well above level 12. Halikor drops the Halikor's Hoof: right-click it to start Halikor's Hoof.
+  collect 275723 x1 optional
+  accept 96877 optional
+  accept 834
+  accept 97282
+
+step Drygulch Ravine: Sack of Supplies
+  collect 4918 quest 834.1
+
+step Drygulch Ravine
+  tip Dustwind Storm Witch drops the Dull Storm Orb: right-click it to start A Simmering Storm.
+  collect 277661 x1
+  accept 97281
+
+step Rezlak
+  turnin 834
+  turnin 97281
+  accept 835
+
+step Thunder Ridge: Charged Thunder Lizard Organ
+  collect 277665 quest 97282.1
+
+step Drygulch Ravine: Dustwind Storm Witch
+  kill 3118 quest 835.2
+
+step Drygulch Ravine: Naga Spinefin
+  collect 286008 quest 99051.1
+
+step Drygulch Ravine: Dustwind Savage
+  kill 3117 quest 835.1
+
+step Rezlak
+  turnin 97282
+  turnin 835
+
+step Thunder Ridge: Kron's Amulet
+  collect 4891 quest 816.1
+
+step Misha Tor'kren
+  turnin 816
+
+step Back to Razor Hill
+  hearth "Razor Hill"
+
+step Gar'Thok
+  tip Aggor the Young (level 11) is elite: grouping up is advised unless you are well above level 11.
+  turnin 837
+  turnin 99051
+  accept 99052 optional
+
+step Echo Isles: Taillasher Egg
+  tip Aggor the Young (level 11) is elite: grouping up is advised unless you are well above level 11.
+  collect 286009 quest 99052.1 optional
+  collect 4890 quest 815.1
+
+step Orgnil Soulscar
+  tip Aggor the Young (level 11) is elite: grouping up is advised unless you are well above level 11.
+  turnin 99052 optional
+  turnin 815
+  accept 840
+
+step Brill
+  sethome "Gallows' End Tavern"
+  note "Profession quests here, for players with the skill: Horde Trauma (First Aid 225), The Journey Has Just Begun (Leatherworking 300), Camping 101: Tailoring (Tailoring 1), A Pain in the Neck (Enchanting 1), Camping 101: Alchemy (Alchemy 1), Camping 101: Blacksmithing (Blacksmithing 1), Camping 101: Enchanting (Enchanting 1), Camping 101: Engineering (Engineering 1), Camping 101: First Aid (First Aid 1), Camping 101: Fishing (Fishing 1), Camping 101: Herbalism (Herbalism 1), Camping 101: Leatherworking (Leatherworking 1), Camping 101: Mining (Mining 1), Camping 101: Skinning (Skinning 1)."

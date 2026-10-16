@@ -1,0 +1,155 @@
+guide completionist/alliance/skyborne/36-darnassus-wetlands
+title Darnassus & Wetlands
+faction Alliance
+race Skyborne
+levels 55-56
+zone Wetlands
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Darnassus, Ironforge, Wetlands
+next completionist/alliance/skyborne/37-eastern-plaguelands-azshara
+
+# Route: guide 36 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 55 to
+# 56, 33 quests, 1.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Darnassus, Ironforge, Wetlands): Craftsmen's Terrace -> near
+# Craftsmen's Terrace -> Craftsmen's Terrace -> near Craftsmen's Terrace ->
+# near Ironforge -> Ironforge -> near Ironforge -> Ironforge -> near Ironforge
+# -> Ironforge -> near Ironforge -> Menethil Harbor -> Black Channel Marsh ->
+# ….
+#
+# Optional (elite: grouping up is advised): Save Techbot's Brain! (2922;
+# Techbot 26).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In Search of Thaelrid (1198), Twilight Falls (1199),
+# Knowledge in the Deeps (971), Knowledge in the Deeps (971), Mythology of the
+# Titans (1050), Mythology of the Titans (1050), The Lost Tablets of Will
+# (1139), Back to Uldaman (2200), Restoring the Necklace (2204), The Lost
+# Dwarves (2398), Essential Artificials (2924), Essential Artificials (2924),
+# The Grand Betrayal (2929), The Grand Betrayal (2929), Data Rescue (2930),
+# Data Rescue (2930), Kharan Mighthammer (4341), The Fate of the Kingdom
+# (4362), The Restless Dead (96394), The Restless Dead (96394), An Ancient
+# Grudge (96395), Important Heirlooms (96403), Important Heirlooms (96403),
+# The Treaty of Understanding (98423), The Fury Runs Deep (378), The Fury Runs
+# Deep (378), Lost in the Thicket Things (95647), Fallen in the Fen (95795),
+# Heartwoven (95809), Highland Hides (98815), Highland Hides (98815),
+# Prehistoric Prism (98824), Prehistoric Prism (98824).
+
+step Raedon Duskstriker
+  zone Darnassus
+  accept 7799
+
+step Jenal
+  turnin 3764
+  accept 3781
+  turnin 3781
+  accept 3785
+
+step near Craftsmen's Terrace: Morrowgrain Research
+  complete 3785
+
+step Mathrengyl Bearwalker
+  turnin 3785
+  accept 3803
+
+step near Craftsmen's Terrace: Morrowgrain to Darnassus
+  complete 3803
+
+step Mathrengyl Bearwalker
+  turnin 3803
+
+step near Craftsmen's Terrace: Vial of Blessed Water
+  collect 5646 quest 4441.1
+
+step Mathrengyl Bearwalker
+  turnin 4986
+
+step Raedon Duskstriker
+  accept 7798
+  accept 7792
+
+step Chief Archaeologist Greywhisker
+  accept 730
+  accept 942
+
+step Prospector Stormpike
+  zone Ironforge
+  accept 302
+
+step Gnoarn
+  accept 2039
+  accept 2041
+  accept 7807
+
+step Mistina Steelshield
+  accept 7802
+
+step Lomac Gearstrip
+  turnin 1072
+  accept 1073
+
+step Grand Mason Marblesten
+  tip Techbot (level 26) is elite: grouping up is advised unless you are well above level 26.
+  turnin 2922 optional
+  turnin 689
+  accept 700
+
+step Ironforge
+  sethome "Ironforge"
+  turnin 700
+  accept 7803
+
+step Prospector Stormpike
+  turnin 554
+
+step Bubulo Acerbus
+  accept 7808
+
+step Historian Karnik
+  turnin 724
+
+step Menethil Harbor
+  zone Wetlands
+  sethome "Deepwater Tavern"
+  turnin 942
+  accept 943
+
+step Menethil Harbor: A Donation of Wool
+  complete 7802
+  complete 7807
+
+step Black Channel Marsh: Stone of Relu
+  collect 5233 quest 943.1
+
+step Archaeologist Flagongut
+  turnin 943
+  turnin 98459
+  turnin 270
+  accept 321
+  turnin 321
+  accept 324
+
+step Menethil Harbor: Lightforge Ingot
+  collect 2702 quest 324.1
+
+step Glorin Steelbrow
+  turnin 324
+  accept 322
+
+step Thelgen Rock: Incendicite Ore
+  collect 3340 quest 466.1
+
+step Thelgen Rock: A Donation of Silk
+  complete 7803
+  complete 7808
+
+step Light's Hope Chapel
+  getfp "Light's Hope Chapel"
+
+step Light's Hope Chapel
+  sethome "Light's Hope Chapel"

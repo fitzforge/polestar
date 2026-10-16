@@ -1,0 +1,332 @@
+guide completionist/alliance/skyborne/16-stranglethorn-vale
+title Stranglethorn Vale
+faction Alliance
+race Skyborne
+levels 38-42
+zone Stranglethorn Vale
+category Completionist
+folder Completionist · Skyborne 30-40
+keywords completionist, every quest
+next completionist/alliance/skyborne/17-stormwind-city-loch-modan
+
+# Route: guide 16 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 38 to
+# 42, 56 quests, 9.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Stranglethorn Vale): Nesingwary's Expedition -> Lake Nazferiti ->
+# Kurzen's Compound -> Rebel Camp -> Nesingwary's Expedition -> Kal'ai Ruins
+# -> The Vile Reef -> Ruins of Zul'Kunda -> Nesingwary's Expedition -> Kal'ai
+# Ruins -> Grom'gol Base Camp -> Nesingwary's Expedition -> Kurzen's Compound
+# -> ….
+#
+# Optional (elite: grouping up is advised): Encrusted Tail Fins (1107;
+# Saltscale Warrior 35-36, Saltscale Oracle 36-37, Saltscale Tide Lord 37,
+# Saltscale Forager 35-36, Saltscale Hunter 35-36); Cracking Maury's Foot
+# (613; Mosh'Ogg Mauler 43-44, Mosh'Ogg Shaman 43-44, Mosh'Ogg Lord 45,
+# Mosh'Ogg Warmonger 41-42, Mosh'Ogg Spellcrafter 43-44, Mosh'Ogg Butcher 44);
+# Panther Mastery (193; Bhag'thera 40); Raptor Mastery (197; Tethis 43);
+# Colonel Kurzen (202; Colonel Kurzen 39-40); Big Game Hunter (208; King
+# Bangalash 43); Mai'Zoth (206; Mai'Zoth 47); Excelsior (628; Elder Saltwater
+# Crocolisk 38).
+#
+# Profession quests here are not routed (they need the skill): 2760 The
+# Mithril Order; 2761 Smelt On, Smelt Off; 2762 The Great Silver Deceiver;
+# 2763 The Art of the Imbue; 2764 Galvan's Finest Pupil; 2765 Expert
+# Blacksmith!; 3645 Membership Card Renewal.
+#
+# Left to other guides: class quests (the Class category).
+
+step Barnil Stonepot
+  accept 583
+  turnin 583
+  turnin 5762
+  accept 194
+  accept 185
+  accept 338
+  accept 339 optional
+  accept 340 optional
+  accept 341
+  accept 342 optional
+
+step Nesingwary's Expedition: The Green Hills of Stranglethorn
+  complete 338
+
+step Sir S. J. Erlgadin
+  accept 190
+
+step Lake Nazferiti: Young Stranglethorn Tiger
+  kill 681 quest 185.1
+
+step Kurzen's Compound: Young Panther
+  kill 683 quest 190.1
+
+step Private Thorsen
+  accept 215
+
+step Sergeant Yohwa
+  accept 203
+  accept 204
+  turnin 215
+  accept 200
+
+step Sir S. J. Erlgadin
+  turnin 190
+  accept 191
+  turnin 185
+  accept 186
+
+step Nesingwary's Expedition: Stranglethorn Tiger
+  kill 682 quest 186.1
+
+step Kal'ai Ruins
+  tip Gluggle drops the Pendant of Myzrael: right-click it to start Crystal in the Mountains.
+  collect 4614 x1
+  accept 635
+
+step The Vile Reef: Blue Pearl
+  collect 4611 quest 705.1
+
+step Ruins of Zul'Kunda: Stranglethorn Raptor
+  tip Saltscale Warrior (level 35-36), Saltscale Oracle (level 36-37), Saltscale Tide Lord (level 37) and 2 more are elite: grouping up is advised unless you are well above level 37.
+  collect 5796 quest 1107.1 optional
+  kill 685 quest 194.1
+
+step Ruins of Zul'Kunda: Panther
+  kill 736 quest 191.1
+
+step Sir S. J. Erlgadin
+  turnin 191
+  accept 192
+  turnin 186
+  accept 187
+  turnin 194
+  accept 195
+
+step Kal'ai Ruins: Elder Stranglethorn Tiger
+  kill 1085 quest 187.1
+
+step Grom'gol Base Camp: Lashtail Raptor
+  kill 686 quest 195.1
+
+step Hemet Nesingwary
+  turnin 195
+  accept 196
+  turnin 187
+  accept 188
+
+step Nesingwary's Expedition: Paw of Sin'Dall
+  collect 3879 quest 188.1
+
+step Ajeck Rouack
+  turnin 188
+
+step Bookie Herod's Records
+  turnin 200
+  accept 328
+
+step Kurzen's Compound: Bad Medicine and Kurzen Jungle Fighter and more
+  complete 204
+  kill 937 quest 203.1
+  collect 2728 quest 339.2 optional
+  collect 2730 quest 339.3 optional
+  collect 2734 quest 340.1 optional
+  collect 2735 quest 340.2 optional
+  collect 2740 quest 340.4 optional
+  collect 2742 quest 341.1
+  collect 2744 quest 341.2
+  collect 2745 quest 341.3
+  collect 2750 quest 342.2 optional
+
+step Kurzen's Compound: Green Hills of Stranglethorn - Page 24
+  collect 2748 quest 341.4
+
+step Bookie Herod's Strongbox
+  turnin 328
+  accept 329
+
+step Mosh'Ogg Ogre Mound: Shadowmaw Panther
+  kill 684 quest 192.1
+
+step Gurubashi Arena: Jungle Stalker
+  collect 2732 quest 339.4 optional
+  collect 2751 quest 342.3 optional
+  kill 687 quest 196.1
+
+step Booty Bay
+  getfp "Booty Bay"
+  sethome "Booty Bay"
+  accept 605
+  turnin 98463
+  accept 189
+  accept 198
+  accept 201
+  accept 606
+  accept 575
+
+step Mistvale Valley: Mistvale Giblets
+  collect 2725 quest 339.1 optional
+  collect 2738 quest 340.3 optional
+  collect 2749 quest 342.1 optional
+  collect 3919 quest 606.1
+
+step 'Shaky' Phillipe
+  turnin 606
+  accept 607
+
+step 'Sea Wolf' MacKinley
+  turnin 607
+  accept 609
+
+step Ruins of Aboraz: Chucky's Huge Ring
+  collect 3926 quest 609.3
+
+step Crystalvein Mine: Singing Crystal Shard
+  collect 3918 quest 605.1
+
+step Ruins of Jubuwal: Maury's Clubbed Foot and Jon-Jon's Golden Spyglass
+  collect 3924 quest 609.1
+  collect 3925 quest 609.2
+
+step Back to Booty Bay
+  hearth "Booty Bay"
+
+step 'Sea Wolf' MacKinley
+  tip Mosh'Ogg Mauler (level 43-44), Mosh'Ogg Shaman (level 43-44), Mosh'Ogg Lord (level 45) and 3 more are elite: grouping up is advised unless you are well above level 45.
+  turnin 609
+  accept 613 optional
+  turnin 605
+  accept 600
+
+step Crystalvein Mine: Singing Blue Crystal
+  collect 3917 quest 600.1
+
+step Lake Nazferiti: Large River Crocolisk Skin
+  tip Mosh'Ogg Mauler (level 43-44), Mosh'Ogg Shaman (level 43-44), Mosh'Ogg Lord (level 45) and 3 more are elite: grouping up is advised unless you are well above level 45.
+  collect 3930 quest 613.1 optional
+  collect 4053 quest 575.1
+
+step Private Thorsen
+  turnin 198
+
+step Sergeant Yohwa
+  turnin 203
+  turnin 204
+  accept 574
+  turnin 329
+  accept 330
+  accept 207
+  turnin 330
+  accept 331
+  turnin 331
+
+step Barnil Stonepot
+  turnin 341
+  turnin 339 optional
+  turnin 340 optional
+  turnin 342 optional
+  turnin 338
+
+step Nesingwary's Expedition: Investigate the Camp
+  complete 201
+
+step Sir S. J. Erlgadin
+  tip Bhag'thera (level 40) and Tethis (level 43) are elite: grouping up is advised unless you are well above level 43.
+  turnin 192
+  accept 193 optional
+  turnin 196
+  accept 197 optional
+
+step Bal'lal Ruins: Bloodscalp Ear
+  collect 1519 quest 189.1
+
+step Ruins of Zul'Kunda: Kurzen's Mystery
+  complete 207
+
+step Brother Nimetz
+  turnin 207
+  accept 205
+
+step Kurzen's Compound: Kurzen Commando and Kurzen Headshrinker
+  kill 938 quest 574.1
+  kill 941 quest 574.2
+
+step Lieutenant Doren
+  tip Colonel Kurzen (level 39-40) is elite: grouping up is advised unless you are well above level 40.
+  turnin 574
+  accept 202 optional
+  collect 3615 quest 202.3 optional
+  kill 978 quest 202.2 optional
+
+step Balia'mah Ruins: Skullsplitter Fetish
+  tip Bhag'thera (level 40), Colonel Kurzen (level 39-40) and Tethis (level 43) are elite: grouping up is advised unless you are well above level 43.
+  collect 3876 quest 193.1 optional
+  kill 939 quest 202.1 optional
+  collect 2466 quest 205.1
+  collect 3877 quest 197.1 optional
+
+step Lieutenant Doren
+  tip Bhag'thera (level 40), Tethis (level 43), King Bangalash (level 43) and 2 more are elite: grouping up is advised unless you are well above level 47.
+  turnin 193 optional
+  turnin 197 optional
+  accept 208 optional
+  turnin 202 optional
+  turnin 205
+  accept 206 optional
+  collect 3616 quest 206.1 optional
+  collect 3880 quest 208.1 optional
+
+step Back to Booty Bay
+  tip King Bangalash (level 43) and Mai'Zoth (level 47) are elite: grouping up is advised unless you are well above level 47.
+  turnin 208 optional
+  turnin 206 optional
+  hearth "Booty Bay"
+
+step Kebok
+  tip Mosh'Ogg Mauler (level 43-44), Mosh'Ogg Shaman (level 43-44), Mosh'Ogg Lord (level 45) and 3 more are elite: grouping up is advised unless you are well above level 45.
+  turnin 189
+  turnin 201
+  turnin 600
+  turnin 613 optional
+  turnin 575
+  accept 213
+  accept 616
+  turnin 616
+  accept 578
+  accept 577
+
+step Mizjah Ruins: Snapjaw Crocolisk Skin
+  collect 4104 quest 577.1
+
+step Venture Co. Base Camp: Tumbled Crystal
+  collect 4106 quest 213.1
+
+step Corporal Kaleb
+  accept 210
+
+step The Vile Reef: The Stone of the Tides
+  complete 578
+
+step Baron Revilgaz
+  tip Elder Saltwater Crocolisk (level 38) is elite: grouping up is advised unless you are well above level 38.
+  turnin 578
+  accept 601
+  turnin 213
+  turnin 210
+  accept 627
+  turnin 577
+  accept 628 optional
+
+step The Vile Reef: Water Elemental Bracers
+  tip Elder Saltwater Crocolisk (level 38) is elite: grouping up is advised unless you are well above level 38.
+  collect 4105 quest 628.1 optional
+  collect 3923 quest 601.1
+
+step Baron Revilgaz
+  tip Elder Saltwater Crocolisk (level 38) is elite: grouping up is advised unless you are well above level 38.
+  turnin 601
+  accept 602
+  turnin 628 optional
+  note "Profession quests here, for players with the skill: The Mithril Order (Blacksmithing 210), Smelt On, Smelt Off (Blacksmithing 210), The Great Silver Deceiver (Blacksmithing 210), The Art of the Imbue (Blacksmithing 210), Galvan's Finest Pupil (Blacksmithing 210), Expert Blacksmith! (Blacksmithing 210), Membership Card Renewal (Engineering 200)."

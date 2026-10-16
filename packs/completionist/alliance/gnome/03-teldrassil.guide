@@ -1,0 +1,383 @@
+guide completionist/alliance/gnome/03-teldrassil
+title Teldrassil
+faction Alliance
+race Gnome
+levels 15-17
+zone Teldrassil
+category Completionist
+folder Completionist · Gnome 1-20
+keywords completionist, every quest
+next completionist/alliance/gnome/04-darkshore
+
+# Route: guide 3 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 15 to 17, 57
+# quests, 2.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Teldrassil): Dolanaar -> Ban'ethil Hollow -> Dolanaar -> Starbreeze
+# Village -> Shadowglen -> The Oracle Glade -> Wellspring Lake -> Shadowglen
+# -> Dolanaar -> Lake Al'Ameth -> Starbreeze Village -> Dolanaar -> Starbreeze
+# Village -> ….
+#
+# Optional (elite: grouping up is advised): Twisted Hatred (98403; Xethorr the
+# Wicked 12).
+#
+# Profession quests here are not routed (they need the skill): 1581 Elixirs
+# for the Bladeleafs; 1582 Moonglow Vest; 97938 Camping 101: Alchemy; 97939
+# Camping 101: Blacksmithing; 97940 Camping 101: Enchanting; 97941 Camping
+# 101: Engineering; 97942 Camping 101: First Aid; 97943 Camping 101: Fishing;
+# 97944 Camping 101: Herbalism; 97946 Camping 101: Leatherworking; 97948
+# Camping 101: Mining; 97949 Camping 101: Skinning; 97950 Camping 101:
+# Tailoring.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In Search of Thaelrid (1198), Twilight Falls (1199).
+
+step Sentinel Kyra Starsong
+  accept 99046
+  accept 997
+  accept 475
+  accept 87288
+  accept 932
+  accept 2438
+  accept 98391
+
+step Moon Priestess Amara
+  accept 487
+
+step Dolanaar: Melenas' Head and Soft Nightsaber Pelt
+  collect 5221 quest 932.1
+  collect 280087 quest 87288.1
+
+step Sentinel Shayla Nightbreeze
+  accept 490
+
+step Ban'ethil Hollow: Gnarlpine Ambusher and Gnarlpine Fang
+  kill 2152 quest 487.1
+  collect 5220 quest 490.1
+
+step Sentinel Shayla Nightbreeze
+  turnin 490
+
+step Sentinel Lynessa Duskblossom
+  accept 99053
+
+step Ban'ethil Hollow: Escaping Ban'ethil
+  complete 99053
+
+step Oben Rageclaw
+  accept 2541
+
+step Ban'ethil Hollow: Shaman Voodoo Charm
+  collect 8363 quest 2541.1
+
+step Oben Rageclaw
+  turnin 2541
+  accept 2561
+
+step Ban'ethil Hollow: Rageclaw
+  kill 7318 quest 2561.1
+
+step Oben Rageclaw
+  turnin 2561
+
+step Moon Priestess Amara
+  tip Xethorr the Wicked (level 12) is elite: grouping up is advised unless you are well above level 12.
+  turnin 487
+  turnin 87288
+  turnin 932
+  accept 98403 optional
+
+step Sentinel Kyra Starsong
+  turnin 99053
+  accept 4161
+
+step Dolanaar: Small Spider Leg
+  collect 5465 quest 4161.1
+
+step Zarrin
+  turnin 4161
+
+step Zenn Foulhoof
+  accept 488
+
+step Dolanaar: Webwood Spider Silk and Nightsaber Fang
+  collect 3412 quest 488.3
+  collect 3409 quest 488.1
+
+step Gaerolas Talvethren
+  turnin 475
+  accept 476
+
+step Starbreeze Village: The Emerald Dreamcatcher
+  complete 2438
+
+step Starbreeze Village: Strigid Owl Feather
+  collect 3411 quest 488.2
+
+step Porthannius
+  accept 2159
+
+step Conservator Ilthalaine
+  accept 456
+
+step Shadowglen: Young Nightsaber
+  kill 2031 quest 456.1
+
+step Dirania Silvershine
+  accept 4495
+  accept 458
+
+step Gilshalan Windwalker
+  accept 916
+
+step Shadowglen: Young Thistle Boar
+  kill 1984 quest 456.2
+
+step Tarindrella
+  turnin 458
+  accept 459
+  accept 97977
+  turnin 456
+  accept 457
+
+step Shadowglen: Gnarlpine Totem and Fel Moss
+  collect 279082 quest 97977.1
+  collect 3297 quest 459.1
+
+step Tarindrella
+  tip Xethorr the Wicked (level 12) is elite: grouping up is advised unless you are well above level 12.
+  turnin 459
+  turnin 97977
+  collect 281023 quest 98403.2 optional
+
+step Sentinel Eralya Leafshadow
+  tip Xethorr the Wicked (level 12) is elite: grouping up is advised unless you are well above level 12.
+  kill 272096 quest 98403.1 optional
+  turnin 99046
+  accept 99047
+
+step Wellspring Lake
+  tip Blackmoss the Fetid drops the Moss-twined Heart: right-click it to start The Moss-twined Heart.
+  collect 5179 x1
+  accept 927
+
+step Iverron
+  turnin 4495
+  accept 3519
+
+step Shadowglen
+  tip Githyiss the Vile drops the Fang of Githyiss: right-click it to start Fang of Githyiss.
+  collect 277190 x1
+  accept 97236
+
+step Shadowglen: Webwood Venom Sac
+  collect 5166 quest 916.1
+
+step Shadowglen: Thistle Boar and Mangy Nightsaber
+  kill 1985 quest 457.2
+  kill 2032 quest 457.1
+
+step Dirania Silvershine
+  turnin 3519
+  accept 3521
+  turnin 457
+
+step Shadowglen: Hyacinth Mushroom
+  collect 10639 quest 3521.1
+
+step Gilshalan Windwalker
+  turnin 916
+  turnin 97236
+  accept 917
+
+step Shadowglen: Moonpetal Lily
+  collect 10641 quest 3521.2
+
+step Shadowglen: Webwood Egg and Webwood Ichor
+  complete 917
+  collect 10640 quest 3521.3
+
+step Gilshalan Windwalker
+  turnin 917
+  accept 920
+  turnin 920
+  accept 921
+
+step Dirania Silvershine
+  turnin 3521
+  accept 3522
+
+step Iverron
+  tip Iverron's Antidote lasts 5 minutes: go straight on with it.
+  turnin 3522
+
+step Shadowglen: Filled Crystal Phial
+  collect 5184 quest 921.1
+
+step Tenaron Stormgrip
+  turnin 921
+  accept 928
+
+step Back to Dolanaar
+  hearth "Dolanaar"
+
+step Byancie
+  turnin 99047
+  accept 99050
+
+step Dolanaar: Empty Vial
+  buy 3371 x1 nearest
+
+step Tallonkai Swiftroot
+  tip Xethorr the Wicked (level 12) is elite: grouping up is advised unless you are well above level 12.
+  turnin 2438
+  turnin 98403 optional
+  accept 2459
+
+step Athridas Bearmantle
+  turnin 476
+  accept 483
+  turnin 2159
+
+step Corithras Moonrage
+  turnin 928
+  accept 929
+
+step Lake Al'Ameth: The Great Tree Provides
+  complete 99050
+
+step Denalan
+  turnin 997
+  turnin 927
+  accept 918
+  accept 919
+
+step Lake Al'Ameth: Timberling Sprout
+  collect 5169 quest 919.1
+
+step Lake Al'Ameth: Timberling Seed
+  collect 5168 quest 918.1
+
+step Denalan
+  turnin 919
+  turnin 918
+  accept 922
+
+step Starbreeze Village: Filled Jade Phial
+  collect 5639 quest 929.1
+
+step Zenn Foulhoof
+  turnin 488
+
+step Sentinel Kyra Starsong
+  accept 489
+  turnin 929
+  accept 933
+  turnin 99050
+  accept 99073
+
+step Dolanaar: Fel Cone
+  collect 3418 quest 489.1
+
+step Starbreeze Village: Gnarlpine Mystic
+  kill 7235 quest 2459.1
+
+step Zenn Foulhoof
+  turnin 489
+
+step Tallonkai Swiftroot
+  turnin 2459
+
+step Pools of Arlithrien: The Relics of Wakening
+  complete 483
+
+step Pools of Arlithrien: Filled Tourmaline Phial
+  collect 5645 quest 933.1
+
+step Strange Fruited Plant
+  accept 930
+
+step Denalan
+  turnin 930
+
+step Corithras Moonrage
+  turnin 933
+  accept 934
+  accept 7383
+
+step Athridas Bearmantle
+  turnin 483
+  accept 486
+
+step Gnarlpine Hold: Ursal the Mauler
+  kill 2039 quest 486.1
+
+step Strange Fronded Plant
+  accept 931
+
+step The Oracle Glade: Filled Amethyst Phial
+  collect 18151 quest 7383.1
+
+step Sentinel Eralya Leafshadow
+  turnin 99073
+
+step Athridas Bearmantle
+  turnin 486
+
+step Corithras Moonrage
+  turnin 7383
+  accept 935
+
+step Denalan
+  turnin 931
+  accept 2399
+  turnin 2399
+
+step Sentinel Arynia Cloudsbreak
+  accept 937
+
+step The Oracle Glade: Bloodfeather Belt
+  collect 5204 quest 937.1
+
+step Sentinel Arynia Cloudsbreak
+  turnin 937
+  accept 98392
+
+step The Oracle Glade: Hatescreech's Amulet and Windmistress Gaedress' Amulet
+  collect 280831 quest 98392.1
+  collect 280832 quest 98392.2
+
+step Mist
+  accept 938
+
+step The Oracle Glade: Witchmother Arysa's Amulet
+  collect 280834 quest 98392.3
+
+step Sentinel Arynia Cloudsbreak
+  turnin 98392
+  accept 98398
+
+step The Oracle Glade: Mist
+  complete 938
+
+step Oracle Tree Bark
+  turnin 98398
+  turnin 938
+  accept 940
+
+step Back to Dolanaar
+  hearth "Dolanaar"
+
+step Denalan
+  accept 941
+  turnin 941
+
+step Auberdine
+  getfp "Auberdine"
+
+step Auberdine
+  sethome "Auberdine"
+  note "Profession quests here, for players with the skill: Elixirs for the Bladeleafs (Alchemy 20), Moonglow Vest (Leatherworking 90), Camping 101: Alchemy (Alchemy 1), Camping 101: Blacksmithing (Blacksmithing 1), Camping 101: Enchanting (Enchanting 1), Camping 101: Engineering (Engineering 1), Camping 101: First Aid (First Aid 1), Camping 101: Fishing (Fishing 1), Camping 101: Herbalism (Herbalism 1), Camping 101: Leatherworking (Leatherworking 1), Camping 101: Mining (Mining 1), Camping 101: Skinning (Skinning 1), Camping 101: Tailoring (Tailoring 1)."

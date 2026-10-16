@@ -1,0 +1,33 @@
+guide completionist/alliance/gnome/29-teldrassil
+title Teldrassil
+faction Alliance
+race Gnome
+levels 47-48
+zone Teldrassil
+category Completionist
+folder Completionist · Gnome 40-50
+keywords completionist, every quest
+next completionist/alliance/gnome/30-searing-gorge-badlands
+
+# Route: guide 29 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 47 to 48, 5
+# quests, 0.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Teldrassil): Rut'theran Village.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In Search of Thaelrid (1198), Twilight Falls (1199).
+
+step Daryn Lightwind
+  turnin 2939
+  turnin 3022
+  accept 2940
+  accept 3661
+  turnin 2940
+  accept 2941
+
+step The Cauldron
+  getfp "Thorium Point"

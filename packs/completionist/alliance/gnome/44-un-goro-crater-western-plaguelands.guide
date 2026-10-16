@@ -1,0 +1,86 @@
+guide completionist/alliance/gnome/44-un-goro-crater-western-plaguelands
+title Un'Goro Crater & Western Plaguelands
+faction Alliance
+race Gnome
+levels 58-59
+zone Un'Goro Crater
+category Completionist
+folder Completionist · Gnome 50-60
+keywords completionist, every quest, Un'Goro Crater, Blasted Lands, Western Plaguelands
+next completionist/alliance/gnome/45-loch-modan-stormwind-city
+
+# Route: guide 44 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 58 to 59, 18
+# quests, 1.3 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Un'Goro Crater, Blasted Lands, Western Plaguelands): Lakkari Tar Pits
+# -> Ironstone Plateau -> Fire Plume Ridge -> Lakkari Tar Pits -> The
+# Slithering Scar -> Nethergarde Keep -> Serpent's Coil -> Nethergarde Keep ->
+# Ruins of Andorhal -> Thondroril River -> Darrowmere Lake -> Ruins of
+# Andorhal -> Sorrow Hill.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Nekrum's Medallion (2991), Barov Family Fortune (5343),
+# Doctor Theolen Krastinov, the Butcher (5382), Kirtonos the Herald (5384),
+# The Lich, Ras Frostwhisper (5466), Krastinov's Bag of Horrors (5515), Of
+# Love and Family (5848).
+
+step Linken
+  turnin 3914
+  accept 3941
+
+step A-Me 01
+  turnin 4244 optional
+  accept 4245
+
+step Fire Plume Ridge: Un'Goro Ash
+  collect 11829 quest 4502.1
+
+step Lakkari Tar Pits: Chasing A-Me 01
+  complete 4245
+
+step Karna Remtravel
+  turnin 4245
+
+step J.D. Collie
+  turnin 3941
+  accept 3942
+
+step The Slithering Scar: Gorishi Queen Brain
+  collect 11835 quest 4507.1
+
+step Quartermaster Lungertz
+  zone Blasted Lands
+  turnin 1395
+
+step Spirit of Kirith
+  turnin 2721
+  accept 2743
+
+step Quartermaster Lungertz
+  turnin 1423
+  turnin 1425
+
+step Chromie
+  zone Western Plaguelands
+  turnin 5941
+
+step Tirion Fordring
+  turnin 5845
+  accept 5846
+
+step Artist Renfray
+  turnin 5846
+
+step Chromie
+  accept 5721
+
+step Flint Shadowmore
+  turnin 6185 optional
+  accept 6186
+
+step Thelsamar
+  sethome "Stoutlager Inn"

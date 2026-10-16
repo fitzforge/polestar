@@ -1,0 +1,236 @@
+guide completionist/alliance/gnome/47-winterspring-azshara
+title Winterspring & Azshara
+faction Alliance
+race Gnome
+levels 59-60
+zone Azshara
+category Completionist
+folder Completionist · Gnome 50-60
+keywords completionist, every quest, Winterspring, Stranglethorn Vale, Azshara, Darkshore, Ashenvale, Felwood
+next completionist/alliance/gnome/48-darnassus-un-goro-crater
+
+# Route: guide 47 of 51 of the simulator's completionist route for Gnome (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 59 to 60, 48
+# quests, 3.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Winterspring, Stranglethorn Vale, Azshara, Darkshore, Ashenvale,
+# Felwood): Frostfire Hot Springs -> Lake Kel'Theril -> Everlook -> Starfall
+# Village -> Frostfire Hot Springs -> Everlook -> Gurubashi Arena ->
+# Nesingwary's Expedition -> Booty Bay -> Southridge Beach -> Temple of
+# Arkkoran -> Southridge Beach -> Grove of the Ancients -> ….
+#
+# Optional (elite: grouping up is advised): High Chief Winterfall (5121; High
+# Chief Winterfall 59); The Final Piece (5123; High Chief Winterfall 59); The
+# Name of the Beast (3510; Hetaera 55).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Drakefire Amulet (6502), Blackfathom Villainy (1200).
+
+step Donova Snowden
+  zone Winterspring
+  turnin 5086
+  accept 5087
+
+step Frostfire Hot Springs: Winterfall Crate
+  collect 12829 quest 5087.1
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5087
+  accept 5121 optional
+
+step Remorseful Highborne
+  turnin 5248
+  accept 5252
+
+step Everlook
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59. High Chief Winterfall drops the Crudely-written Log: right-click it to start The Final Piece.
+  kill 10738 quest 5121.1 optional
+  collect 12842 x1 optional
+  accept 5123 optional
+  sethome "Everlook"
+  turnin 5163
+
+step Wynd Nightchaser
+  turnin 5252
+  accept 5253
+
+step Donova Snowden
+  tip High Chief Winterfall (level 59) is elite: grouping up is advised unless you are well above level 59.
+  turnin 5121 optional
+  turnin 5123 optional
+  accept 5128
+
+step Felnok Steelspring
+  accept 4907
+
+step Gurubashi Arena
+  zone Stranglethorn Vale
+  tip Arena Treasure Chest drops the Arena Master: right-click it to start Arena Master.
+  collect 18706 x1
+  accept 7810
+  turnin 7810
+
+step Hemet Nesingwary
+  turnin 93928
+
+step Booty Bay
+  sethome "Booty Bay"
+  turnin 1118
+  accept 1119
+
+step Southridge Beach: The Demon Hunter
+  zone Azshara
+  complete 2744
+
+step Loramus Thalipedes
+  turnin 2744
+  accept 3141
+
+step Southridge Beach: Loramus
+  complete 3141
+
+step Loramus Thalipedes
+  turnin 3141
+  accept 3508
+  turnin 3508
+  accept 3509
+
+step Lord Arkkoroc
+  tip Hetaera (level 55) is elite: grouping up is advised unless you are well above level 55.
+  turnin 3509
+  accept 3510 optional
+
+step Lord Arkkoroc
+  tip Hetaera (level 55) is elite: grouping up is advised unless you are well above level 55.
+  collect 10599 quest 3510.1 optional
+  collect 10598 quest 3510.2 optional
+  collect 10600 quest 3510.3 optional
+  turnin 3510 optional
+  accept 3511
+
+step Loramus Thalipedes
+  turnin 3511
+  accept 3602
+
+step Southridge Beach: Crystallized Azsharite
+  tip Felhound Tracker Kit lasts 10 minutes: go straight on with it.
+  collect 10714 quest 3602.1
+
+step Loramus Thalipedes
+  turnin 3602
+
+step Loramus Thalipedes
+  accept 3621
+
+step Onu
+  zone Darkshore
+  turnin 952
+
+step Auberdine
+  sethome "Auberdine"
+  turnin 730
+  turnin 97894
+  turnin 97926
+
+step Balthule Shadowstrike
+  turnin 1167
+  accept 1143
+
+step Tower of Althalaxx: Athrikus Narassin's Head
+  collect 5383 quest 1143.1
+
+step Balthule Shadowstrike
+  turnin 1143
+  accept 981
+
+step Back to Auberdine
+  hearth "Auberdine"
+
+step Gershala Nightwhisper
+  turnin 3765
+
+step The Master's Glaive: Supplies to Auberdine
+  complete 976
+
+step Thundris Windweaver
+  turnin 98209
+  turnin 1275 optional
+
+step The Master's Glaive: Satyr Horns
+  collect 5481 quest 1032.1
+
+step The Zoram Strand: Bolt of Woolen Cloth
+  zone Ashenvale
+  collect 2997 quest 565.1
+
+step Illiyana
+  turnin 1032
+
+step Illiyana Moonblaze
+  accept 7865
+  turnin 7865
+
+step Delgren the Purifier
+  turnin 981
+
+step Astranaar
+  sethome "Astranaar"
+  turnin 1082
+  accept 1081
+  turnin 1133
+  turnin 1134
+
+step Delgren the Purifier
+  turnin 976
+
+step Sentinel Velene Starstrike
+  turnin 1017
+
+step Kayneth Stillwind
+  turnin 4261
+
+step Back to Astranaar
+  hearth "Astranaar"
+
+step Eridan Bluewind
+  zone Felwood
+  turnin 3942
+  accept 4084
+  turnin 5159
+  accept 5165
+
+step Emerald Sanctuary: Silvery Claws
+  collect 11172 quest 4084.1
+
+step Jaedenar: Brazier of Malice and Brazier of Suffering
+  interact 176159 quest 5165.2
+  interact 176160 quest 5165.3
+
+step Jaedenar: Brazier of Pain and Brazier of Hatred
+  interact 176158 quest 5165.1
+  interact 176161 quest 5165.4
+
+step Irontree Woods: Irontree Heart
+  collect 11173 quest 4084.2
+
+step Greta Mosshoof
+  turnin 5165
+  accept 5242
+  turnin 4084
+  accept 4005
+
+step Bloodvenom Falls: Moora and Salia and more
+  kill 9861 quest 5242.1
+  kill 9860 quest 5242.2
+  collect 13207 quest 5242.3
+
+step Greta Mosshoof
+  turnin 5242
+  turnin 5128
+
+step Craftsmen's Terrace
+  sethome "Craftsmen's Terrace"

@@ -1,0 +1,130 @@
+guide completionist/alliance/human/50-westfall-duskwood
+title Westfall & Duskwood
+faction Alliance
+race Human
+levels 60-60
+zone Duskwood
+category Completionist
+folder Completionist · Human 50-60
+keywords completionist, every quest, Westfall, Duskwood, Moonglade, Azshara, Swamp of Sorrows, Burning Steppes, Arathi Highlands
+
+# Route: guide 50 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 60 to 60, 22
+# quests, 1.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Westfall, Duskwood, Moonglade, Azshara, Swamp of Sorrows, Burning
+# Steppes, Arathi Highlands): Sentinel Hill -> Moonbrook -> Sentinel Hill ->
+# Moonbrook -> Sentinel Hill -> The Dagger Hills -> Sentinel Hill -> The
+# Hushed Bank -> Darkshire -> Manor Mistmantle -> Darkshire -> Moonglade ->
+# Ravencrest Monument -> ….
+#
+# Optional (elite: grouping up is advised): Morbent Fel (55; Morbent Fel 32).
+#
+# Left out: Uniting the Shattered Amulet (3627): the route takes them here but
+# cannot finish them (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Defias Brotherhood (166), The Defias Brotherhood
+# (166), The Unsent Letter (373), Crime and Punishment (377), Crime and
+# Punishment (377), Dark Iron Legacy (3802), A Taste of Flame (4024), The
+# Heart of the Mountain (4123), Marshal Windsor (4241), Incendius! (4263), Put
+# Her Down (4701), Egg Freezing (4734), Egg Collection (4735), Doomrigger's
+# Clasp (4764), Maxwell's Mission (5081), General Drakkisath's Demise (5102).
+
+step Quartermaster Lewis
+  zone Westfall
+  turnin 6285
+  sethome "Sentinel Hill"
+  turnin 141
+  accept 142
+
+step Moonbrook: A Mysterious Message
+  collect 1381 quest 142.1
+
+step Gryan Stoutmantle
+  turnin 142
+  accept 155
+
+step Moonbrook: The Defias Brotherhood
+  complete 155
+
+step Gryan Stoutmantle
+  turnin 155
+  accept 214
+
+step The Dagger Hills: Red Silk Bandana
+  collect 915 quest 214.1
+
+step Scout Riell
+  turnin 214
+
+step Sven Yorgen
+  zone Duskwood
+  tip Morbent Fel (level 32) is elite: grouping up is advised unless you are well above level 32.
+  turnin 325
+  accept 55 optional
+  kill 1200 quest 55.1 optional
+
+step Darkshire
+  tip Morbent Fel (level 32) is elite: grouping up is advised unless you are well above level 32.
+  turnin 55 optional
+  sethome "Darkshire"
+  turnin 78
+  accept 79
+  turnin 79
+  accept 80
+  turnin 80
+  accept 97
+  turnin 97
+  accept 98
+
+step Manor Mistmantle: Mistmantle Family Ring
+  collect 3629 quest 98.1
+
+step Madame Eva
+  turnin 98
+
+step Umber
+  zone Moonglade
+  turnin 6844
+  accept 6845
+
+step Rabine Saturna
+  turnin 6845
+
+step Umber
+  accept 1185
+  turnin 1185
+
+step Rabine Saturna
+  turnin 5527
+  accept 5526
+
+step Moonglade: Shards of the Felvine
+  complete 5526
+
+step Rabine Saturna
+  turnin 5526
+
+step Duke Hydraxis
+  zone Azshara
+  turnin 6804
+  turnin 6805
+
+step Back to Darkshire
+  hearth "Darkshire"
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 3626
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  turnin 4907
+
+step Captain Nials
+  zone Arathi Highlands
+  turnin 634

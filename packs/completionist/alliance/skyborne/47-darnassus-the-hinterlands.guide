@@ -1,0 +1,125 @@
+guide completionist/alliance/skyborne/47-darnassus-the-hinterlands
+title Darnassus & The Hinterlands
+faction Alliance
+race Skyborne
+levels 59-60
+zone Darnassus
+category Completionist
+folder Completionist · Skyborne 50-60
+keywords completionist, every quest, Darnassus, Alterac Mountains, The Hinterlands, Loch Modan, Elwynn Forest
+next completionist/alliance/skyborne/48-stranglethorn-vale-un-goro-crater
+
+# Route: guide 47 of 50 of the simulator's completionist route for Skyborne
+# (1539 of 1546 eligible quests, 166.6 h, world baeac23fbe5e): levels 59 to
+# 60, 24 quests, 1.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Darnassus, Alterac Mountains, The Hinterlands, Loch Modan, Elwynn
+# Forest): Craftsmen's Terrace -> near Craftsmen's Terrace -> Dalaran ->
+# Strahnbrad -> Dandred's Fold -> Aerie Peak -> Quel'Danil Lodge -> The
+# Creeping Ruin -> Valorwind Lake -> Aerie Peak -> Valley of Kings ->
+# Craftsmen's Terrace -> near Craftsmen's Terrace -> ….
+#
+# Optional (elite: grouping up is advised): Crushridge Warmongers (504;
+# Crushridge Warmonger 39-40).
+#
+# Left out: Morganth (249): the route takes them here but cannot finish them
+# (the coverage report's missed quests).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In Search of Thaelrid (1198), Twilight Falls (1199),
+# Starving Arcane (92457), Heart of Disruption (92458), Past Due (96800), Past
+# Due (96800), Jammal'an the Prophet (1446).
+
+step Raedon Duskstriker
+  turnin 7799
+
+step Gracina Spiritmight
+  turnin 4508
+
+step Arch Druid Fandral Staghelm
+  turnin 5253
+
+step Archmage Celindra
+  zone Alterac Mountains
+  turnin 92459
+
+step Strahnbrad: Argus Shadow Mage
+  kill 2318 quest 537.1
+
+step Dandred's Fold: Head of Nagaz
+  tip Crushridge Warmonger (level 39-40) is elite: grouping up is advised unless you are well above level 40.
+  kill 2287 quest 504.1 optional
+  collect 3672 quest 537.2
+
+step Aerie Peak
+  zone The Hinterlands
+  sethome "Aerie Peak"
+  turnin 3843
+  accept 4297
+
+step Rhapsody Shindigger
+  turnin 1452
+  accept 1469
+
+step The Creeping Ruin: Silvermane Stalker Flank
+  collect 11472 quest 4297.1
+
+step Valorwind Lake: Sweet Amber
+  complete 49
+
+step Back to Aerie Peak
+  hearth "Aerie Peak"
+
+step Agnar Beastamer
+  turnin 4297
+  accept 4298
+  turnin 4298
+
+step Mountaineer Pebblebitty
+  zone Loch Modan
+  turnin 3201
+
+step Craftsmen's Terrace
+  zone Darnassus
+  sethome "Craftsmen's Terrace"
+  turnin 7798
+
+step Gracina Spiritmight
+  accept 4510
+
+step Idriana
+  turnin 4510
+
+step Arch Druid Fandral Staghelm
+  turnin 4902
+
+step Raedon Duskstriker
+  turnin 7792
+
+step Tyrande Whisperwind
+  turnin 1081
+
+step Thyn'tel Bladeweaver
+  turnin 1044
+
+step Brother Paxton
+  zone Elwynn Forest
+  turnin 347
+  accept 346
+
+step Marshal Haggard
+  turnin 74
+  accept 75
+
+step Eastvale Logging Camp: The Legend of Stalvan
+  complete 75
+
+step Marshal Haggard
+  turnin 75
+  accept 78
+
+step Booty Bay
+  sethome "Booty Bay"

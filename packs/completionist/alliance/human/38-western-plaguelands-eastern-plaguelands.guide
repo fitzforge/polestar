@@ -1,0 +1,390 @@
+guide completionist/alliance/human/38-western-plaguelands-eastern-plaguelands
+title Western Plaguelands & Eastern Plaguelands
+faction Alliance
+race Human
+levels 54-56
+zone Western Plaguelands
+category Completionist
+folder Completionist · Human 50-60
+keywords completionist, every quest, Western Plaguelands, Tirisfal Glades, Eastern Plaguelands
+next completionist/alliance/human/39-redridge-mountains-ironforge
+
+# Route: guide 38 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 54 to 56, 61
+# quests, 4.8 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Western Plaguelands, Tirisfal Glades, Eastern Plaguelands): Sorrow
+# Hill -> Ruins of Andorhal -> Felstone Field -> Northridge Lumber Camp ->
+# Felstone Field -> Northridge Lumber Camp -> Hearthglen -> The Weeping Cave
+# -> Northridge Lumber Camp -> Hearthglen -> Northridge Lumber Camp -> Sorrow
+# Hill -> Ruins of Andorhal -> ….
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Barov Family Fortune (5343), Doctor Theolen Krastinov, the
+# Butcher (5382), Kirtonos the Herald (5384), The Lich, Ras Frostwhisper
+# (5466), Krastinov's Bag of Horrors (5515), Of Love and Family (5848),
+# Remember That I Love You (92415), Crest of Lordaeron (95189), Bloodied
+# Insignia (95195), Abominable Creatures (95250), Dawn's Gambit (4771), The
+# Flesh Does Not Lie (5212), The Active Agent (5213), The Great Fras Siabi
+# (5214), Houses of the Holy (5243), The Archivist (5251), Above and Beyond
+# (5263), The Restless Souls (5282), Menethil's Gift (5463), Plagued
+# Hatchlings (5529), Dead Man's Plea (8945), Anthion's Old Friend (8948).
+
+step Commander Ashlam Valorfist
+  accept 5092
+  turnin 6028
+  accept 5401
+  turnin 5401
+  accept 5402
+  accept 5403
+  accept 5404 optional
+  accept 5903
+
+step Sorrow Hill: Skeletal Flayer and Minion's Scourgestone
+  kill 1783 quest 5092.1
+  collect 12840 quest 5402.1
+
+step Marlene Redpath
+  turnin 5152
+  accept 5142
+  accept 5153
+
+step Sorrow Hill: A Strange Historian and Slavering Ghoul
+  complete 5153
+  kill 1791 quest 5092.2
+
+step Ruins of Andorhal: Corruptor's Scourgestone and Invader's Scourgestone
+  collect 12843 quest 5404.1 optional
+  collect 12841 quest 5403.1
+
+step Chromie
+  turnin 5153
+  accept 5154
+
+step Ruins of Andorhal: The Annals of Darrowshire
+  complete 5154
+
+step Chromie
+  turnin 5154
+  accept 5210
+
+step Janice Felstone
+  accept 5021
+  turnin 5021
+  accept 5022
+
+step Kirsta Deepshadow
+  accept 6004
+
+step Northridge Lumber Camp: Scarlet Mage
+  kill 1826 quest 6004.3
+
+step Northridge Lumber Camp: Scarlet Knight and Scarlet Hunter
+  kill 1833 quest 6004.4
+  kill 1831 quest 6004.2
+
+step Felstone Field: Scarlet Medic
+  kill 10605 quest 6004.1
+
+step Kirsta Deepshadow
+  turnin 6004
+  accept 6023
+
+step Hearthglen: Cavalier Durgen
+  kill 11611 quest 6023.2
+
+step The Weeping Cave: Huntsman Radley
+  kill 11613 quest 6023.1
+
+step Kirsta Deepshadow
+  turnin 6023
+  accept 6025
+
+step Hearthglen: Unfinished Business
+  complete 6025
+
+step Kirsta Deepshadow
+  turnin 6025
+
+step Argent Officer Pureheart
+  turnin 5402
+  turnin 5403
+  turnin 5404 optional
+  turnin 5092
+  accept 5097
+  accept 5215
+  turnin 5215
+  accept 5216
+
+step Ruins of Andorhal: All Along the Watchtowers
+  complete 5097
+
+step Commander Ashlam Valorfist
+  turnin 5097
+
+step Felstone Field: Felstone Field Cauldron Key
+  collect 13194 quest 5216.1
+
+step Scourge Cauldron
+  turnin 5216
+  accept 5217
+
+step High Priestess MacDonnell
+  turnin 5217
+  accept 5219
+
+step Scourge Cauldron
+  accept 5218
+
+step Felstone Field: Osseous Agitator and Runecloth
+  collect 13357 quest 5218.2
+  collect 14047 quest 5218.3
+
+step Dalson's Tears: Dalson's Tears Cauldron Key
+  collect 13195 quest 5219.1
+
+step Scourge Cauldron
+  turnin 5219
+  accept 5220
+
+step Sorrow Hill: Arcane Quickener
+  buy 13320 x1 nearest
+
+step Scourge Cauldron
+  tip Arcane Quickener lasts 30 minutes: go straight on with it.
+  turnin 5218
+
+step High Priestess MacDonnell
+  turnin 5220
+  accept 5222
+
+step The Writhing Haunt: Writhing Haunt Cauldron Key
+  collect 13197 quest 5222.1
+
+step Scourge Cauldron
+  turnin 5222
+  accept 5223
+
+step Scourge Cauldron
+  accept 5221
+
+step Dalson's Tears: Runecloth
+  collect 14047 quest 5221.3
+
+step The Writhing Haunt: Somatic Intensifier
+  collect 13356 quest 5221.2
+
+step Sorrow Hill: Arcane Quickener
+  buy 13320 x1 nearest
+
+step Scourge Cauldron
+  tip Arcane Quickener lasts 30 minutes: go straight on with it.
+  turnin 5221
+
+step High Priestess MacDonnell
+  turnin 5223
+  accept 5225
+
+step Scourge Cauldron
+  accept 5224
+
+step The Writhing Haunt: Somatic Intensifier and Runecloth
+  collect 13356 quest 5224.2
+  collect 14047 quest 5224.3
+
+step Commander Ashlam Valorfist
+  accept 211
+
+step Ruins of Andorhal: Alas, Andorhal
+  complete 211
+
+step Commander Ashlam Valorfist
+  turnin 211
+
+step Gahrron's Withering: Gahrron's Withering Cauldron Key
+  collect 13196 quest 5225.1
+
+step Scourge Cauldron
+  turnin 5225
+  accept 5226
+
+step Sorrow Hill: Arcane Quickener
+  buy 13320 x1 nearest
+
+step Scourge Cauldron
+  tip Arcane Quickener lasts 30 minutes: go straight on with it.
+  turnin 5224
+
+step High Priestess MacDonnell
+  turnin 5226
+  accept 5237
+  turnin 5237
+
+step Scourge Cauldron
+  accept 5227
+
+step Gahrron's Withering: Ectoplasmic Resonator and Runecloth
+  collect 13354 quest 5227.2
+  collect 14047 quest 5227.3
+
+step Sorrow Hill: Arcane Quickener
+  buy 13320 x1 nearest
+
+step Scourge Cauldron
+  turnin 5227
+
+step Tirion Fordring
+  accept 5542
+  accept 5543
+  accept 5544
+
+step Thondroril River: Plaguehound Runt
+  kill 8596 quest 5542.1
+
+step Outhouse
+  accept 5059
+
+step Dalson's Tears: Dalson Outhouse Key
+  collect 12738 quest 5059.1
+
+step Locked Cabinet
+  accept 5060
+  turnin 5059
+
+step Dalson's Tears: Dalson Cabinet Key
+  collect 12739 quest 5060.1
+
+step Mrs. Dalson's Diary
+  accept 5058
+  turnin 5058
+  turnin 5060
+
+step Mulgris Deepriver
+  accept 4984
+
+step The Writhing Haunt: Diseased Wolf
+  kill 1817 quest 4984.1
+
+step Mulgris Deepriver
+  turnin 4984
+  accept 4985
+
+step Gahrron's Withering: Diseased Grizzly
+  kill 1816 quest 4985.1
+
+step Mulgris Deepriver
+  turnin 4985
+  accept 4986
+
+step Commander Ashlam Valorfist
+  accept 5533
+  turnin 5533
+  accept 5537
+
+step Sorrow Hill: Skeletal Fragments
+  collect 14619 quest 5537.1
+
+step Alchemist Arbington
+  turnin 5537
+  accept 5538
+
+step Chromie
+  accept 4971
+
+step Ruins of Andorhal: Temporal Parasite
+  kill 10717 quest 4971.1
+
+step Chromie
+  turnin 4971
+  accept 4972
+
+step Ruins of Andorhal: Andorhal Watch
+  collect 12638 quest 4972.1
+
+step Chromie
+  turnin 4972
+  accept 4973
+
+step Ruins of Andorhal: Andorhal Watch
+  collect 12638 quest 4973.1
+
+step Chromie
+  turnin 4973
+
+step Argent Officer Garush
+  zone Tirisfal Glades
+  accept 5406 optional
+  accept 5407
+  accept 5408
+
+step Light's Hope Chapel
+  zone Eastern Plaguelands
+  sethome "Light's Hope Chapel"
+  turnin 5210
+  accept 5168
+  accept 5181
+  turnin 6030
+  accept 5508 optional
+  accept 5509
+  accept 5510
+
+step The Infectis Scar: Corruptor's Scourgestone and Minion's Scourgestone
+  collect 12843 quest 5508.1 optional
+  collect 12840 quest 5510.1
+
+step Light's Hope Chapel: Invader's Scourgestone
+  collect 12841 quest 5509.1
+
+step Duke Nicholas Zverenhoff
+  turnin 5509
+  turnin 5510
+  turnin 5508 optional
+
+step Corin's Crossing: Villains of Darrowshire
+  complete 5181
+
+step Pamela Redpath
+  turnin 5142
+
+step Terrordale: Plagueland Termites
+  collect 15043 quest 5903.1
+
+step Back to Light's Hope Chapel
+  hearth "Light's Hope Chapel"
+
+step Carlin Redpath
+  turnin 5181
+
+step Aurora Skycaller
+  turnin 5245
+  accept 5246
+
+step Caretaker Alen
+  accept 5281
+
+step The Fungal Vale: Plaguehound
+  kill 8597 quest 5542.2
+
+step Torn Scroll
+  accept 6024
+
+step Thondroril River: Plaguebat
+  kill 8600 quest 5543.1
+
+step Terrordale: Slab of Carrion Worm Meat
+  collect 13853 quest 5544.1
+
+step Egan
+  turnin 5281
+
+step Terrordale: Frenzied Plaguehound
+  kill 8598 quest 5542.3
+
+step Quel'Lithien Lodge: Hameya's Key
+  collect 15767 quest 6024.1
+
+step Mound of Dirt
+  turnin 6024

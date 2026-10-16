@@ -1,0 +1,194 @@
+guide completionist/alliance/human/25-tanaris
+title Tanaris
+faction Alliance
+race Human
+levels 44-46
+zone Tanaris
+category Completionist
+folder Completionist · Human 40-50
+keywords completionist, every quest
+next completionist/alliance/human/26-badlands
+
+# Route: guide 25 of 50 of the simulator's completionist route for Human (1452
+# of 1458 eligible quests, 164.9 h, world baeac23fbe5e): levels 44 to 46, 27
+# quests, 4.0 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Tanaris): Steamwheedle Port -> Waterspring Field -> Lost Rigger Cove
+# -> Steamwheedle Port -> Gadgetzan -> Noonshade Ruins -> Gadgetzan ->
+# Waterspring Field -> Noonshade Ruins -> Gadgetzan -> Sandsorrow Watch ->
+# Gadgetzan -> The Noxious Lair -> ….
+#
+# Profession quests here are not routed (they need the skill): 2771 A Good
+# Head On Your Shoulders; 2772 The World At Your Feet; 2773 The Mithril Kid;
+# 3321 Did You Lose This?; 3638 The Pledge of Secrecy; 3639 Show Your Work;
+# 3644 Membership Card Renewal; 6610 Clamlette Surprise; 7652 A Blue Light
+# Bargain; 7653 Imperial Plate Belt; 7654 Imperial Plate Boots; 7655 Imperial
+# Plate Bracer; 7656 Imperial Plate Chest; 7657 Imperial Plate Helm; 7658
+# Imperial Plate Leggings; 7659 Imperial Plate Shoulders.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): Divino-matic Rod (2768), Scarab Shells (2865), Troll
+# Temper (3042), Into the Depths (3446), Secret of the Circle (3447), The
+# Prophecy of Mosh'aru (3527), The God Hakkar (3528), The Final Tablets
+# (4788).
+
+step Security Chief Bilgewhizzle
+  accept 8366
+  accept 2873
+  accept 3520
+  accept 2781
+  accept 2875
+  accept 8365
+
+step Waterspring Field: Caliph Scorpidsting's Head
+  collect 8723 quest 2781.1
+
+step Lost Rigger Cove: Southsea Freebooter and Stoley's Shipment and more
+  kill 7856 quest 8366.2
+  complete 2873
+  kill 7855 quest 8366.1
+  collect 9246 quest 2875.1
+
+step Lost Rigger Cove: Southsea Pirate Hat and Southsea Dock Worker
+  collect 20519 quest 8365.1
+  kill 7857 quest 8366.3
+
+step Lost Rigger Cove: Southsea Swashbuckler
+  kill 7858 quest 8366.4
+
+step Stoley
+  turnin 2873
+  accept 2874
+  turnin 2875
+  turnin 8366
+  turnin 8365
+
+step Gadgetzan
+  getfp "Gadgetzan"
+  sethome "Gadgetzan"
+  accept 1707
+  turnin 2781
+  accept 1690
+
+step Senior Surveyor Fizzledowser
+  accept 992
+
+step Noonshade Ruins: Wastewander Water Pouch and Wastewander Bandit and more
+  collect 8483 quest 1707.1
+  kill 5618 quest 1690.1
+  kill 5616 quest 1690.2
+
+step Spigot Operator Luglunket
+  turnin 1707
+  accept 1878
+  turnin 1690
+  accept 1691
+
+step Waterspring Field: Wastewander Assassin and Wastewander Shadow Mage
+  kill 5623 quest 1691.2
+  kill 5617 quest 1691.3
+
+step Waterspring Field: Wastewander Rogue
+  kill 5615 quest 1691.1
+
+step Noonshade Ruins: Wastewander Water Pouch
+  collect 8483 quest 1878.1
+
+step Spigot Operator Luglunket
+  turnin 1878
+  turnin 1691
+
+step Sandsorrow Watch: Tapped Dowsing Widget
+  collect 8585 quest 992.1
+
+step Senior Surveyor Fizzledowser
+  turnin 992
+  accept 82
+
+step The Noxious Lair: Centipaar Insect Parts
+  collect 8587 quest 82.1
+
+step Tooga
+  accept 1560
+
+step Back to Gadgetzan
+  hearth "Gadgetzan"
+
+step Alchemist Pestlezugg
+  turnin 82
+  accept 10
+
+step Steamwheedle Port: Tooga's Quest
+  complete 1560
+
+step Torta
+  turnin 1560
+
+step The Gaping Chasm: The Scrimshank Redemption
+  complete 10
+
+step Senior Surveyor Fizzledowser
+  turnin 10
+  accept 110
+  turnin 110
+  accept 113
+  turnin 113
+  accept 162
+  accept 2605
+  accept 3362
+
+step Curgle Cranklehop
+  accept 3022
+  accept 5863
+
+step Marvon Rivetseeker
+  accept 3161
+
+step Broken Pillar: Gahz'ridian Ornament
+  collect 8443 quest 3161.1
+
+step Marvon Rivetseeker
+  turnin 3161
+
+step Dunemaul Compound: Dunemaul Brute
+  kill 5474 quest 5863.1
+
+step Dunemaul Compound: Gor'marok the Ravager
+  kill 12046 quest 5863.3
+
+step Dunemaul Compound: Dunemaul Enforcer
+  kill 5472 quest 5863.2
+
+step Thistleshrub Valley: Gnarled Thistleshrub
+  kill 5490 quest 3362.1
+
+step Thistleshrub Valley: Laden Dew Gland and Thistleshrub Rootshaper
+  collect 8428 quest 2605.1
+  kill 5485 quest 3362.2
+
+step The Gaping Chasm
+  tip Hazzali Sandreaver drops the OOX-17/TN Distress Beacon: right-click it to start Find OOX-17/TN!.
+  collect 8623 x1
+  accept 351
+
+step Homing Robot OOX-17/TN
+  turnin 351
+  accept 648
+
+step Back to Gadgetzan
+  hearth "Gadgetzan"
+
+step Marin Noggenfogger
+  turnin 2605
+  accept 2606
+  turnin 3362
+  turnin 2606
+  accept 2641
+  turnin 5863
+
+step Steamwheedle Port: Rescue OOX-17/TN!
+  complete 648
+  note "Profession quests here, for players with the skill: A Good Head On Your Shoulders (Blacksmithing 210), The World At Your Feet (Blacksmithing 210), The Mithril Kid (Blacksmithing 210), Did You Lose This? (Blacksmithing 210), The Pledge of Secrecy (Engineering 200), Show Your Work (Engineering 200), Membership Card Renewal (Engineering 200), Clamlette Surprise (Cooking 225), A Blue Light Bargain (Blacksmithing 265), Imperial Plate Belt (Blacksmithing 265), Imperial Plate Boots (Blacksmithing 265), Imperial Plate Bracer (Blacksmithing 265), Imperial Plate Chest (Blacksmithing 265), Imperial Plate Helm (Blacksmithing 265), Imperial Plate Leggings (Blacksmithing 265), Imperial Plate Shoulders (Blacksmithing 265)."

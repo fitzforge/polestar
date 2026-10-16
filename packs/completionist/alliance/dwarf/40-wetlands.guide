@@ -1,0 +1,113 @@
+guide completionist/alliance/dwarf/40-wetlands
+title Wetlands
+faction Alliance
+race Dwarf
+levels 56-57
+zone Wetlands
+category Completionist
+folder Completionist · Dwarf 50-60
+keywords completionist, every quest, Wetlands, The Hinterlands, Westfall, Badlands
+next completionist/alliance/dwarf/41-stormwind-city-feralas
+
+# Route: guide 40 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 56 to 57, 25
+# quests, 1.6 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Wetlands, The Hinterlands, Westfall, Badlands): Menethil Harbor ->
+# Black Channel Marsh -> Menethil Harbor -> Thelgen Rock -> Menethil Harbor ->
+# Thelgen Rock -> Menethil Harbor -> Dun Modr -> Valorwind Lake -> The Dagger
+# Hills -> Agmond's End.
+#
+# Optional (elite: grouping up is advised): The Super Snapper FX (2944;
+# Gammerita 48); An Ambassador of Evil (762; Ambassador Infernus 42).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): The Fury Runs Deep (378), The Fury Runs Deep (378), Lost
+# in the Thicket Things (95647), Fallen in the Fen (95795), Heartwoven
+# (95809), Highland Hides (98815), Highland Hides (98815), Prehistoric Prism
+# (98824), Prehistoric Prism (98824), Jammal'an the Prophet (1446), The Defias
+# Brotherhood (166), The Defias Brotherhood (166), The Unsent Letter (373),
+# Ribbly Screwspigot (4136), Kibler's Exotic Pets (4729), En-Ay-Es-Tee-Why
+# (4862).
+
+step Archaeologist Flagongut
+  turnin 942
+  accept 943
+
+step Menethil Harbor: A Donation of Wool
+  complete 7802
+  complete 7807
+
+step Black Channel Marsh: Stone of Relu
+  collect 5233 quest 943.1
+
+step Archaeologist Flagongut
+  turnin 943
+  turnin 98459
+  turnin 270
+  accept 321
+  turnin 321
+  accept 324
+
+step Menethil Harbor: Lightforge Ingot
+  collect 2702 quest 324.1
+
+step Glorin Steelbrow
+  turnin 324
+  accept 322
+
+step Thelgen Rock: Incendicite Ore
+  collect 3340 quest 466.1
+
+step Back to Deepwater Tavern
+  hearth "Deepwater Tavern"
+
+step Caitlin Grassman
+  turnin 95737
+
+step Thelgen Rock: A Noble Brew
+  complete 335
+
+step Thelgen Rock: A Donation of Silk
+  complete 7803
+  complete 7808
+
+step Mikhail
+  turnin 1248
+  turnin 1301
+  accept 1249
+
+step Menethil Harbor: The Missing Diplomat
+  complete 1249
+
+step Mikhail
+  turnin 1249
+  accept 1250
+  turnin 1250
+  accept 1264
+
+step Rhag Garmason
+  turnin 632
+  accept 633
+
+step Valorwind Lake: Sweet Amber
+  zone The Hinterlands
+  tip Gammerita (level 48) is elite: grouping up is advised unless you are well above level 48.
+  complete 49
+  collect 9330 quest 2944.1 optional
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  turnin 49
+
+step Theldurin the Lost
+  zone Badlands
+  turnin 737
+
+step Stormwind City
+  tip Ambassador Infernus (level 42) is elite: grouping up is advised unless you are well above level 42.
+  collect 4621 quest 762.1 optional
+  sethome "Stormwind City"

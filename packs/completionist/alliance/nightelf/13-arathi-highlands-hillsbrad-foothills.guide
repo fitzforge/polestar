@@ -1,0 +1,93 @@
+guide completionist/alliance/nightelf/13-arathi-highlands-hillsbrad-foothills
+title Arathi Highlands & Hillsbrad Foothills
+faction Alliance
+race NightElf
+levels 35-36
+zone Arathi Highlands
+category Completionist
+folder Completionist · NightElf 30-40
+keywords completionist, every quest, Arathi Highlands, Hillsbrad Foothills
+next completionist/alliance/nightelf/14-desolace
+
+# Route: guide 13 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 35 to
+# 36, 18 quests, 1.4 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Arathi Highlands, Hillsbrad Foothills): Faldir's Cove -> Southshore ->
+# Tarren Mill -> Darrow Hill -> Southshore.
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): In the Name of the Light (1053).
+
+step Lolo the Lookout
+  accept 663
+  turnin 663
+  accept 662
+  accept 665
+
+step Faldir's Cove: Sunken Treasure
+  complete 665
+
+step Doctor Draxlegauge
+  turnin 665
+  accept 666
+  accept 664
+
+step Faldir's Cove: Daggerspine Raider and Daggerspine Sorceress and more
+  kill 2595 quest 664.1
+  kill 2596 quest 664.2
+  complete 662
+  collect 4492 quest 666.1
+
+step First Mate Nilzlix
+  turnin 662
+  turnin 666
+  accept 668
+  turnin 664
+  turnin 668
+  accept 669
+
+step Southshore
+  zone Hillsbrad Foothills
+  tip Shadowy Assassin drops the Assassin's Contract: right-click it to start Assassin's Contract.
+  sethome "Southshore"
+  accept 555
+  accept 98463
+  accept 659
+  collect 3668 x1
+  accept 522
+  accept 565
+
+step Southshore: Soothing Spices and Fine Thread
+  buy 3713 x1 nearest
+  buy 2321 x1 nearest
+
+step Marshal Redpath
+  accept 500
+  turnin 522
+  accept 523
+  accept 92432
+  accept 564
+
+step Southshore: Turtle Meat
+  collect 3712 quest 555.1
+
+step Syndicate Documents
+  accept 511
+
+step Darrow Hill: Yeti Fur
+  collect 3720 quest 565.4
+
+step Chef Jessen
+  turnin 555
+  turnin 511
+  accept 514
+
+step Nijel's Point
+  getfp "Nijel's Point"
+
+step Nijel's Point
+  sethome "Nijel's Point"

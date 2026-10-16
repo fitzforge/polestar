@@ -1,0 +1,397 @@
+guide completionist/alliance/nightelf/31-dun-morogh
+title Dun Morogh
+faction Alliance
+race NightElf
+levels 49-50
+zone Dun Morogh
+category Completionist
+folder Completionist · NightElf 40-50
+keywords completionist, every quest
+next completionist/alliance/nightelf/32-blasted-lands
+
+# Route: guide 31 of 53 of the simulator's completionist route for NightElf
+# (1445 of 1459 eligible quests, 164.6 h, world baeac23fbe5e): levels 49 to
+# 50, 62 quests, 2.9 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Dun Morogh): The Grizzled Den -> Ironforge -> Shimmer Ridge -> The
+# Grizzled Den -> Ironforge -> Shimmer Ridge -> The Grizzled Den -> Ironforge
+# -> Misty Pine Refuge -> The Tundrid Hills -> Misty Pine Refuge -> Ironforge
+# -> Misty Pine Refuge -> ….
+#
+# Optional (elite: grouping up is advised): Gnogaine (2926; Irradiated Invader
+# 24-26, Irradiated Pillager 25-26); Save Techbot's Brain! (2922; Techbot 26);
+# Protecting the Herd (314; Vagash 11).
+#
+# Left to other guides: class quests (the Class category); dungeon quests (the
+# Dungeons guides): A Fine Mess (2904), The Sparklematic 5200! (2951), The
+# Only Cure is More Green Glow (2962), The Only Cure is More Green Glow
+# (2962), Hurley Blackbreath (4126), Old Ironforge Incursion (96393), Old
+# Ironforge Incursion (96393).
+
+step Ozzie Togglevolt
+  tip Irradiated Invader (level 24-26) and Irradiated Pillager (level 25-26) are elite: grouping up is advised unless you are well above level 26.
+  accept 2926 optional
+  turnin 2927
+
+step Pilot Stonegear
+  tip Irradiated Invader (level 24-26), Irradiated Pillager (level 25-26) and Techbot (level 26) are elite: grouping up is advised unless you are well above level 26.
+  accept 466
+  collect 9284 quest 2926.1 optional
+  collect 9277 quest 2922.1 optional
+  collect 9309 quest 2928.1 optional
+
+step Shimmer Ridge: Silver Bar
+  tip Irradiated Invader (level 24-26) and Irradiated Pillager (level 25-26) are elite: grouping up is advised unless you are well above level 26.
+  turnin 2926 optional
+  collect 2842 quest 2199.1
+
+step Tognus Flintfire
+  accept 98321
+  accept 400
+  accept 384
+  accept 98322
+
+step The Grizzled Den: Rhapsody Malt
+  buy 2894 x1 nearest
+
+step Maxan Anvol
+  accept 99158
+
+step The Grizzled Den: Crag Boar Rib
+  collect 2886 quest 384.1
+
+step Ragnar Thunderbrew
+  turnin 384
+
+step Pilot Bellowfiz
+  accept 317
+  accept 313
+  turnin 400
+  accept 5541
+
+step Ironforge: Thick Bear Fur and Chunk of Boar Meat
+  collect 6952 quest 317.2
+  collect 769 quest 317.1
+
+step Pilot Bellowfiz
+  turnin 317
+  accept 318
+
+step Shimmer Ridge: Flintfire's Shipment and Wendigo Mane
+  collect 280413 quest 98321.1
+  collect 2671 quest 313.1
+
+step Tognus Flintfire
+  turnin 98321
+
+step The Grizzled Den: Ammo for Rumbleshot
+  complete 5541
+
+step Mountaineer Gretchen
+  turnin 98322
+  accept 98319
+
+step The Grizzled Den: Mountaineer Cornelius
+  interact 460004 quest 98319.1
+
+step Mountaineer Gretchen
+  turnin 98319
+  accept 98323
+
+step Senir Whitebeard
+  turnin 98323
+
+step Pilot Stonegear
+  turnin 313
+
+step Father Gavin
+  turnin 99158
+  accept 99159
+
+step The Tundrid Hills: Mostly Dry Firewood
+  collect 286339 quest 99159.1
+
+step Father Gavin
+  turnin 99159
+  accept 99160
+  accept 99162
+
+step Ironforge: Minor Ice Elemental
+  kill 276003 quest 99160.1
+
+step Father Gavin
+  turnin 99160
+  accept 99161
+
+step Misty Pine Refuge: Avala's Core
+  collect 286325 quest 99161.1
+
+step Ironforge: Coalbeard's Rifle
+  collect 286358 quest 99162.3
+
+step Kharanos: Stoneanvil's Rifle
+  collect 286360 quest 99162.1
+
+step Amberstill Ranch: Sunhammer's Rifle
+  collect 286359 quest 99162.2
+
+step Father Gavin
+  turnin 99161
+  turnin 99162
+
+step Foreman Stonebrow
+  accept 432
+
+step Gol'Bolar Quarry: Rockjaw Skullthumper
+  kill 1115 quest 432.1
+
+step Foreman Stonebrow
+  turnin 432
+
+step Back to Thunderbrew Distillery
+  hearth "Thunderbrew Distillery"
+
+step Hegnar Rumbleshot
+  turnin 5541
+
+step Hands Springsprocket
+  accept 2160
+
+step Sten Stoutarm
+  accept 179
+
+step Coldridge Valley: Tough Wolf Meat
+  collect 750 quest 179.1
+
+step Sten Stoutarm
+  turnin 179
+  accept 233
+  accept 170
+  accept 3361
+  accept 97277
+
+step Frostmane Hold: Gozwin's Mechanic's Log and Snow Leopard Prowler
+  collect 277976 quest 97277.1
+  kill 269075 quest 97277.2
+
+step Grund Drokda
+  turnin 97277
+
+step Coldridge Valley: Rockjaw Trogg and Burly Rockjaw Trogg
+  kill 707 quest 170.1
+  kill 724 quest 170.2
+
+step Balir Frosthammer
+  turnin 170
+
+step Grelin Whitebeard
+  accept 182
+  accept 3364
+
+step Felix Whindlebolt
+  tip Durnan's Scalding Mornbrew lasts 5 minutes: go straight on with it.
+  turnin 3364
+
+step Coldridge Valley: Frostmane Troll Whelp
+  kill 706 quest 182.1
+
+step Grelin Whitebeard
+  turnin 182
+  accept 218
+
+step Coldridge Valley: A Refugee's Quandary
+  complete 3361
+
+step Talin Keeneye
+  turnin 233
+  accept 183
+  accept 234
+
+step Coldridge Valley: Small Crag Boar
+  kill 708 quest 183.1
+
+step Talin Keeneye
+  turnin 183
+
+step Coldridge Valley: Grelin Whitebeard's Journal
+  collect 2004 quest 218.1
+
+step Grelin Whitebeard
+  turnin 234
+  turnin 218
+  accept 282
+
+step Felix Whindlebolt
+  turnin 3361
+  accept 3365
+
+step Mountaineer Thalos
+  turnin 282
+  accept 420
+
+step Nori Pridedrift
+  turnin 3365
+
+step Rejold Barleybrew
+  turnin 318
+  accept 315
+  accept 319
+  accept 310
+  accept 98326
+
+step Brewnall Village: Ice Claw Bear and Snow Leopard
+  kill 1196 quest 319.1
+  kill 1201 quest 319.3
+
+step Brewnall Village: Elder Crag Boar
+  kill 1127 quest 319.2
+
+step Rejold Barleybrew
+  turnin 319
+  accept 320
+
+step Chill Breeze Valley: Sack of Fish
+  collect 280426 quest 98326.1
+
+step Senir Whitebeard
+  turnin 420
+  turnin 2160
+  accept 403
+  turnin 310
+  turnin 403
+  accept 311
+
+step Pilot Bellowfiz
+  turnin 320
+
+step Shimmer Ridge: Shimmerweed
+  collect 2676 quest 315.1
+
+step Gretta Ganter
+  turnin 98326
+  turnin 311
+  turnin 315
+
+step Earthseer Farsen
+  accept 96392
+
+step Gol'Bolar Quarry: Farsen's Watch
+  complete 96392
+
+step Earthseer Farsen
+  turnin 96392
+  accept 96390
+
+step Senator Mehr Stonehallow
+  accept 433
+
+step Helm's Bed Lake
+  tip Rockjaw Ambusher drops the Empty Powder Keg: right-click it to start Stolen Blasting Powder.
+  collect 268548 x1
+  accept 95213
+
+step Helm's Bed Lake: Empty Powder Keg and Rockjaw Bonesnapper
+  collect 268548 quest 95213.1
+  kill 1117 quest 433.1
+  kill 1117 quest 96390.2
+
+step Quarrymaster Thesten
+  turnin 95213
+  accept 95214
+  turnin 433
+
+step Helm's Bed Lake: Stolen Blasting Powder
+  collect 267415 quest 95214.1
+
+step Quarrymaster Thesten
+  turnin 95214
+
+step Rudra Amberstill
+  tip Vagash (level 11) is elite: grouping up is advised unless you are well above level 11.
+  accept 314 optional
+  accept 95212
+  collect 3627 quest 314.1 optional
+
+step Gol'Bolar Quarry: Pristine Leopard Pelt
+  tip Vagash (level 11) is elite: grouping up is advised unless you are well above level 11.
+  turnin 314 optional
+  collect 267414 quest 95212.1
+
+step Helm's Bed Lake
+  tip Dark Iron Spy drops the Dark Iron Map: right-click it to start Underground Map.
+  collect 274268 x1
+  accept 96391
+
+step Helm's Bed Lake: Dark Iron Spy
+  kill 6123 quest 96390.1
+
+step Earthseer Farsen
+  turnin 96390
+  turnin 96391
+
+step Rudra Amberstill
+  turnin 95212
+
+step Beldin Steelgrill
+  accept 96408
+  accept 415
+
+step Razzle Sprysprocket
+  accept 412
+
+step Senir Whitebeard
+  accept 287
+
+step Tundra MacGrann
+  accept 312
+
+step Chill Breeze Valley: Tundra MacGrann's Stolen Stash
+  complete 312
+
+step Frostmane Hold: Frostmane Hold
+  complete 287
+
+step Gnomeregan: Restabilization Cog and Gyromechanic Gear and more
+  collect 3083 quest 412.1
+  collect 3084 quest 412.2
+  collect 267413 quest 95041.1
+
+step Rejold Barleybrew
+  accept 413
+  turnin 415
+
+step Tundra MacGrann
+  turnin 312
+
+step Razzle Sprysprocket
+  turnin 412
+
+step Senir Whitebeard
+  turnin 287
+  accept 291
+
+step Earthseer Farsen
+  turnin 96408
+
+step Mountaineer Barleybrew
+  turnin 413
+  accept 414
+
+step Pilot Hammerfoot
+  accept 419
+
+step A Dwarven Corpse
+  turnin 419
+  accept 417
+
+step North Gate Outpost: Mangy Claw
+  collect 3183 quest 417.1
+
+step Pilot Hammerfoot
+  turnin 417
+
+step Nethergarde Keep
+  getfp "Nethergarde Keep"

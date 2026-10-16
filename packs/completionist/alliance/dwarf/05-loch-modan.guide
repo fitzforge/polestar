@@ -1,0 +1,254 @@
+guide completionist/alliance/dwarf/05-loch-modan
+title Loch Modan
+faction Alliance
+race Dwarf
+levels 20-23
+zone Loch Modan
+category Completionist
+folder Completionist · Dwarf 20-30
+keywords completionist, every quest
+next completionist/alliance/dwarf/06-the-barrens
+
+# Route: guide 5 of 51 of the simulator's completionist route for Dwarf (1451
+# of 1458 eligible quests, 164.1 h, world baeac23fbe5e): levels 20 to 23, 36
+# quests, 3.2 h under the model. The order is the simulator's (`sim run
+# --objective completionist`, then `sim export`; docs/SIMULATION.md §10): fix
+# a step in the exporter or the data, not only here, so the next export keeps
+# it.
+#
+# Flow (Loch Modan): Thelsamar -> Stonewrought Dam -> North Gate Pass ->
+# Silver Stream Mine -> North Gate Pass -> Grizzlepaw Ridge -> Ironband's
+# Excavation Site -> The Farstrider Lodge -> The Loch -> Thelsamar -> Valley
+# of Kings -> Stonesplinter Valley -> Valley of Kings -> ….
+#
+# Optional (elite: grouping up is advised): Mercenaries (255; Mo'grosh Ogre
+# 18-19, Mo'grosh Brute 19-20, Mo'grosh Enforcer 18-19); Vyrin's Revenge (271;
+# Ol' Sooty 20); WANTED: Chok'sul (256; Chok'sul 22).
+#
+# Profession quests here are not routed (they need the skill): 2501 Badlands
+# Reagent Run II.
+#
+# Left to other guides: class quests (the Class category).
+
+step Mountaineer Kadrell
+  accept 416
+  turnin 414
+  accept 1339
+  accept 418
+  accept 86667
+
+step Thelsamar: Snowbound
+  complete 86667
+
+step Brock Stoneseeker
+  accept 6387
+  turnin 6387
+  accept 6391
+
+step Thelsamar: Spider Ichor
+  collect 3174 quest 418.3
+
+step Thelsamar: Tunnel Rat Ear
+  collect 3110 quest 416.1
+
+step Mountaineer Kadrell
+  turnin 416
+
+step Thelsamar: Boar Intestines
+  collect 3172 quest 418.1
+
+step Norric Lochthane
+  turnin 86667
+
+step Mountaineer Stormpike
+  turnin 1339
+  accept 307
+  accept 1338
+
+step Silver Stream Mine: Miners' Gear
+  collect 2640 quest 307.1
+
+step Mountaineer Stormpike
+  turnin 307
+
+step Back to Stoutlager Inn
+  hearth "Stoutlager Inn"
+
+step Grizzlepaw Ridge: Bear Meat
+  collect 3173 quest 418.2
+
+step Prospector Ironband
+  accept 298
+
+step Marek Ironheart
+  accept 385
+
+step The Loch: Crocolisk Meat and Crocolisk Skin
+  collect 2924 quest 385.1
+  collect 2925 quest 385.2
+
+step Jern Hornhelm
+  turnin 298
+  accept 301
+  turnin 418
+
+step Mountaineer Cobbleflint
+  accept 224
+  accept 267
+
+step Stonesplinter Valley: Trogg Stone Tooth and Stonesplinter Trogg and more
+  collect 2536 quest 267.1
+  kill 1161 quest 224.1
+  kill 1162 quest 224.2
+
+step Mountaineer Ylva
+  accept 86585
+
+step Stonesplinter Valley: Headsplitter
+  kill 269185 quest 86585.1
+
+step Captain Rugelfuss
+  turnin 267
+  turnin 86585
+  turnin 224
+  accept 237
+
+step Stonesplinter Valley: Stonesplinter Skullthumper and Stonesplinter Seer
+  kill 1163 quest 237.1
+  kill 1166 quest 237.2
+
+step Mountaineer Gravelgaw
+  turnin 237
+  accept 263
+
+step Stonesplinter Valley: Stonesplinter Shaman and Stonesplinter Bonesnapper
+  kill 1197 quest 263.1
+  kill 1164 quest 263.2
+
+step Mountaineer Wallbang
+  turnin 263
+  accept 217
+
+step Stonesplinter Valley: Grawmug and Gnasher and more
+  kill 1205 quest 217.1
+  kill 1206 quest 217.2
+  kill 1207 quest 217.3
+
+step Captain Rugelfuss
+  turnin 217
+
+step Marek Ironheart
+  turnin 385
+  accept 86758
+  accept 257
+
+step Ironband's Excavation Site: Mountain Buzzard
+  kill 1194 quest 257.1
+
+step Ironband's Excavation Site
+  tip Excavation Tools drops the Excavation Tools: right-click it to start Excavation Tools.
+  collect 278049 x1
+  accept 86613
+
+step Ironband's Excavation Site: Excavation Tools
+  collect 278398 quest 86613.1
+  collect 278049 quest 86613.2
+
+step Magmar Fellhew
+  accept 297
+  turnin 86613
+
+step Ironband's Excavation Site: Carved Stone Idol
+  collect 2636 quest 297.1
+
+step Magmar Fellhew
+  turnin 297
+
+step Bingles Blastenheimer
+  accept 2038
+
+step The Loch: Marek's Croc-Hunting Knife
+  collect 279591 quest 86758.1
+
+step Discarded Fishing Toolbox
+  accept 86614
+
+step Jern Hornhelm
+  tip Mo'grosh Ogre (level 18-19), Mo'grosh Brute (level 19-20) and Mo'grosh Enforcer (level 18-19) are elite: grouping up is advised unless you are well above level 20.
+  accept 436
+  accept 255 optional
+
+step Khara Deepwater
+  turnin 86614
+
+step Stonewrought Dam: Bingles' Missing Supplies
+  tip Mo'grosh Ogre (level 18-19), Mo'grosh Brute (level 19-20) and Mo'grosh Enforcer (level 18-19) are elite: grouping up is advised unless you are well above level 20.
+  complete 2038
+  kill 1178 quest 255.1 optional
+  kill 1179 quest 255.3 optional
+
+step Bingles Blastenheimer
+  tip Mo'grosh Ogre (level 18-19), Mo'grosh Brute (level 19-20) and Mo'grosh Enforcer (level 18-19) are elite: grouping up is advised unless you are well above level 20.
+  kill 1180 quest 255.2 optional
+  turnin 2038
+
+step Magmar Fellhew
+  turnin 436
+
+step Marek Ironheart
+  turnin 86758
+  turnin 257
+  accept 258
+
+step The Loch: Elder Mountain Boar
+  kill 1192 quest 258.1
+
+step Back to Stoutlager Inn
+  hearth "Stoutlager Inn"
+
+step Daryl the Youngling
+  tip Mo'grosh Ogre (level 18-19), Mo'grosh Brute (level 19-20), Mo'grosh Enforcer (level 18-19) and Ol' Sooty (level 20) are elite: grouping up is advised unless you are well above level 20.
+  turnin 255 optional
+  turnin 258
+  accept 271 optional
+
+step Daryl the Youngling
+  tip Ol' Sooty (level 20) is elite: grouping up is advised unless you are well above level 20.
+  collect 2713 quest 271.1 optional
+  turnin 271 optional
+  accept 531
+  turnin 531
+
+step Chief Engineer Hinderweir VII
+  accept 250
+
+step Suspicious Barrel
+  turnin 250
+  accept 199
+
+step Chief Engineer Hinderweir VII
+  turnin 199
+  accept 161
+
+step Mountaineer Rockgar
+  accept 455
+
+step Mountaineer Kadrell
+  tip Chok'sul (level 22) is elite: grouping up is advised unless you are well above level 22.
+  accept 467
+  accept 468
+  accept 256 optional
+
+step Mountaineer Rockgar
+  tip Chok'sul (level 22) is elite: grouping up is advised unless you are well above level 22.
+  collect 2561 quest 256.1 optional
+  turnin 468
+
+step Ratchet
+  tip Chok'sul (level 22) is elite: grouping up is advised unless you are well above level 22.
+  turnin 256 optional
+  getfp "Ratchet"
+
+step Ratchet
+  sethome "Ratchet"
+  note "Profession quests here, for players with the skill: Badlands Reagent Run II (Alchemy 210)."
