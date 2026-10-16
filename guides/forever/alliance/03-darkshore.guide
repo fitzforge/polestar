@@ -123,7 +123,8 @@ step Bears and the Blackwood camp
 step Ameth'Aran
   tip Sentinel Tysha Moonblade stands at the north edge of the ruins. Cursed, Writhing and Wailing Highborne haunt them; Anaya Dawnrunner's ghost walks among them, Jai'vhanel the owl circles east of them. The two tablets lie in the ruins; a Beached Sea Turtle lies on the shore west of them.
   accept 953                                  -- Sentinel Tysha Moonblade
-  complete 953                                -- Read both tablets
+  interact 17188 quest 953.1                  -- Read the Lay of Ameth'Aran
+  interact 17189 quest 953.2                  -- Read the Fall of Ameth'Aran
   collect 5360 quest 958                      -- Highborne Relics
   collect 5382 quest 963                      -- Anaya's Pendant
   collect 281038 quest 98025                  -- Feather of Jai'vhanel

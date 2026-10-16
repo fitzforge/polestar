@@ -249,8 +249,8 @@ step Sen'jin Village
 
 step Ridgeshade spiders
   tip The spiders lurk in the hills along the road north toward Razor Hill.
-  kill 266850 quest 96821.1
-  kill 266849 quest 96821.2
+  kill 266850 quest 96821.2
+  kill 266849 quest 96821.1
 
 step Brakk's campfire
   tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears.

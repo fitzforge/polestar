@@ -321,8 +321,8 @@ step Kharanos and the depot
   accept 412                                  -- Razzle Sprysprocket, by the depot
 
 step Rumbleshot's Ammo
-  tip The ammo crate sits in the Frostmane camp on Shimmer Ridge; Hegnar Rumbleshot camps south of it, by the road to Coldridge.
-  complete 5541
+  tip The Ammo Crate sits next to Mountaineer Gretchen, south of the Grizzled Den; Hegnar Rumbleshot camps south-west of it, by the road to Coldridge.
+  collect 13850 quest 5541.1                  -- Rumbleshot's Ammo: the Ammo Crate
   turnin 5541                                 -- Hegnar Rumbleshot
 
 # ---------------------------------------------------------------- Brewnall Village
@@ -343,7 +343,8 @@ step Brewnall Village
 
 step Gnomes, bears and leopards
   tip Leper Gnomes around Brewnall and the Gnomeregan road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake.
-  complete 412
+  collect 3083 quest 412.1                    -- Restabilization Cog: Leper Gnomes
+  collect 3084 quest 412.2                    -- Gyromechanic Gear: Leper Gnomes
   kill 1196 quest 319                         -- Ice Claw Bear
   kill 1127 quest 319                         -- Elder Crag Boar
   kill 1201 quest 319                         -- Snow Leopard
@@ -386,7 +387,9 @@ step Father Gavin
 step The cold
   tip Minor Ice Elementals drift around the frozen lake by the refuge. The three rifles are in the snow around it.
   kill 276003 quest 99160                     -- Minor Ice Elemental
-  complete 99162
+  collect 286360 quest 99162.1                -- Stoneanvil's Rifle
+  collect 286359 quest 99162.2                -- Sunhammer's Rifle
+  collect 286358 quest 99162.3                -- Coalbeard's Rifle
 
 step Father Gavin
   turnin 99162
@@ -444,7 +447,7 @@ step North Gate Outpost
   accept 419                                  -- Pilot Hammerfoot
   turnin 419                                  -- A Dwarven Corpse
   accept 417
-  complete 417
+  collect 3183 quest 417.1                    -- Mangy Claw: Mangeclaw
   turnin 417                                  -- Pilot Hammerfoot
 
 step Hearth to Kharanos
@@ -507,8 +510,8 @@ step Braldir Ashmantle
 step Fire Tar and the Reagent Pouch
   only Shaman
   tip Stonesplinter Seers (level 13) stand among the troggs in the south of Stonesplinter Valley, south of Braldir; Tunnel Rat Geomancers (level 12) work the Silver Stream Mine at the north end of the loch. The troggs come in packs and some throw from range: pull one at a time.
-  collect 6652 quest 94466.2                  -- Reagent Pouch: Stonesplinter Seers
-  collect 5026 quest 94466.1                  -- Fire Tar: Tunnel Rat Geomancers
+  collect 6652 quest 94466.1                  -- Reagent Pouch: Stonesplinter Seers
+  collect 5026 quest 94466.2                  -- Fire Tar: Tunnel Rat Geomancers
 
 step The Fire Spirit Stone
   only Shaman
@@ -553,7 +556,7 @@ step Earthseer Farsen
 step Tundra MacGrann
   tip Tundra MacGrann camps in Chill Breeze Valley, south of Brewnall. His meats are in the locker in Old Icebeard's cave to the north-east of his camp: grab them and leave quickly.
   accept 312                                  -- Tundra MacGrann
-  complete 312
+  collect 2667 quest 312.1                    -- MacGrann's Dried Meats: the meat locker
   turnin 312
 
 # ---------------------------------------------------------------- Ironforge

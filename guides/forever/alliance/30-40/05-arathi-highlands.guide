@@ -225,7 +225,10 @@ step Doctor Draxlegauge
 
 step The wrecks
   tip The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.
-  complete 662
+  collect 4487 quest 662.1            -- Maiden's Folly Charts
+  collect 4489 quest 662.2            -- Maiden's Folly Log
+  collect 4488 quest 662.3            -- Spirit of Silverpine Charts
+  collect 4490 quest 662.4            -- Spirit of Silverpine Log
   collect 4492 quest 666              -- Elven Gem
   kill 2595 quest 664.1               -- Daggerspine Raider
   kill 2596 quest 664.2               -- Daggerspine Sorceress
@@ -288,7 +291,9 @@ step Witherbark Village
 
 step Stones of Binding
   tip Each key lies at one of the Highlands' standing-stone circles: east of the shards, near Refuge Pointe and in the west. The Stone of Inner Binding stands west of Refuge Pointe.
-  complete 651
+  collect 4483 quest 651.1            -- Burning Key: Stone of West Binding
+  collect 4484 quest 651.2            -- Cresting Key: Stone of East Binding
+  collect 4485 quest 651.3            -- Thundering Key: Stone of Outer Binding
   turnin 651                          -- Stone of Inner Binding
 
 step Refuge Pointe
@@ -323,7 +328,8 @@ step Crushridge ogres
 
 step Ruins of Alterac
   tip The tomes lie in the ruined keep west of Strahnbrad; Argus Shadow Mages hold the ruins.
-  complete 540
+  collect 3658 quest 540.1            -- Recovered Tome: Crushridge ogres
+  collect 3659 quest 540.2            -- Worn Leather Book: the Weathered Bookcase
   kill 2318 quest 537.1               -- Argus Shadow Mage
 
 step Dalaran

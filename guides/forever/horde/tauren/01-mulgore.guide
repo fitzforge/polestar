@@ -123,7 +123,7 @@ step Greatmother Hawkwind
   tip Greatmother Hawkwind sits by the tent on the camp's eastern edge; the Water Pitcher stands next to her.
   turnin 752
   accept 753
-  complete 753
+  collect 4755 quest 753.1            -- Water Pitcher
 
 step Chief Hawkwind
   turnin 753
@@ -132,7 +132,7 @@ step Chief Hawkwind
 step The Hunt Continues
   tip Antur Fallow stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to Grull.
   accept 1656                         -- Antur Fallow
-  complete 750
+  collect 4742 quest 750.1            -- Mountain Cougar Pelt
 
 step Grull Hawkwind
   turnin 750
@@ -261,7 +261,8 @@ step Ahab Wheathoof
 step Thunderhorn Water Well
   tip The well lies north of the village. Well Stones sit around the well, Ambercorn lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for Mazzranache and Swoop Hunting.
   use 5415 quest 758.1 @44.6,45.4     -- Thunderhorn Cleansing Totem
-  complete 771
+  collect 4808 quest 771.1            -- Well Stone
+  collect 4809 quest 771.2            -- Ambercorn
   complete 99411
   collect 4804 quest 766.1 optional
   collect 4805 quest 766.2 optional
@@ -388,7 +389,7 @@ step Red Rocks
   complete 833
   turnin 833
   turnin 773
-  complete 861                        -- Flatland Prowlers roam the plains around Red Rocks
+  collect 5203 quest 861.1            -- Flatland Prowler Claw: Flatland Prowlers roam the plains around Red Rocks
   accept 775
 
 # ---------------------------------------------------------------- Thunder Bluff

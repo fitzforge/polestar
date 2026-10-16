@@ -538,6 +538,54 @@ test('every step with a quest objective to do has a goal the arrow can lead to',
 	assert.deepEqual(offenders, [], 'steps whose objectives have no place');
 });
 
+// A turn-in's place does not lead to the objective (Dun Morogh, Rumbleshot's
+// Ammo: the arrow sent players to Hegnar while the Ammo Crate stands by
+// Mountaineer Gretchen). When the data knows where every objective of a quest
+// is (an item that drops from a spawned NPC or object, or an object to use), a
+// bare `complete` is not enough: the step needs a placed goal of its own for
+// that quest (`collect <item> quest <id>.<n>`, `interact`) or a questless one
+// (`goto`, `use @x,y`).
+const OBJECTIVE_WITHOUT_A_PLACE = new Set([
+	339, 340, 341, 342, // Green Hills of Stranglethorn: pages drop at random across the zone
+	96605, 96608, // The Great Outdoors: the campfire is built with a spell, not clicked
+	6134, // Ghost-o-plasm Round Up: the spectres come to the Ghost Magnets in the Kodo Graveyard, not their data spawn
+]);
+
+test('Rumbleshot\'s Ammo: every objective the data can place has a goal of its own, not only the turn-in', { skip }, () => {
+	const placed = (g) => g.map != null && g.x != null;
+	const spawned = (x) => !!x && Object.keys(x.spawns || {}).length > 0;
+	const knownPlace = (o) =>
+		o.type === 'item'
+			? Object.keys(data.items[o.id]?.drops?.npc || {}).some((n) => spawned(data.npcs[n])) || Object.keys(data.items[o.id]?.drops?.object || {}).some((n) => spawned(data.objects[n]))
+			: o.type === 'object' && spawned(data.objects[o.id]);
+	const offenders = [];
+	for (const guide of allGuides()) {
+		compiled(guide).steps.forEach((step, i) => {
+			for (const g of step.goals) {
+				if (g.t !== 'complete' || placed(g) || OBJECTIVE_WITHOUT_A_PLACE.has(g.quest)) continue;
+				const objectives = data.quests[g.quest]?.objectives || [];
+				if (!objectives.length || !objectives.every(knownPlace)) continue;
+				if (step.goals.some((o) => placed(o) && o.t !== 'accept' && o.t !== 'turnin' && (o.quest == null || o.quest === g.quest))) continue;
+				offenders.push(`${guide} step ${i + 1} (${step.title}): complete ${g.quest}`);
+			}
+		});
+	}
+	assert.deepEqual(offenders, [], 'objectives led to only by their turn-in');
+});
+
+test(`${DUN_MOROGH}: Rumbleshot's Ammo leads to the Ammo Crate by Mountaineer Gretchen, not to Hegnar`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const ammo = list.find(({ goal: g }) => g.t === 'collect' && g.quest === 5541);
+	assert.ok(ammo && located(ammo), 'the ammo has a place');
+	assert.ok(yards(ammo.goal, { map: ammo.goal.map, x: 44.13, y: 56.95 }) < 30, `the ammo is at the crate (${ammo.goal.x},${ammo.goal.y})`);
+});
+
+test('legacy-challenges: Return to Bodley is turned in before Back to the Beginning is taken', { skip }, () => {
+	const list = goals('forever/legacy/legacy-challenges.guide');
+	const bodley = at(list, 'turnin 8996', (g) => g.t === 'turnin' && g.quest === 8996);
+	for (const quest of [8997, 8998]) assert.ok(bodley < at(list, `accept ${quest}`, (g) => g.t === 'accept' && g.quest === quest), `8996 before ${quest}`);
+});
+
 // --- Boats in open water (Fitz's playtest at the Auberdine pier): a boat's
 // stop in travel.json is where the ship stands (TaxiPathNode), most of them in
 // open water 12-14 yd off the pier. A goto there completes only within 8 yd of

@@ -131,6 +131,8 @@ step Adventure: explore the world map
 step Adventure: Lord Valthalak
   zone Burning Steppes
   tip The Lord Valthalak questline is a point. It is the level 60 dungeon-set chain: Deliana (Ironforge) or Mokvar (Orgrimmar) send you through In Search of Anthion and Anthion's Parting Words to Bodley at Blackrock Mountain, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, Lord Valthalak end with Return to Bodley. Back to the Beginning then leads to the class Saving the Best for Last quests.
+  accept 8996 optional @32.2,25.8    -- Spirit of Lord Valthalak, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to Bodley's Blackrock Mountain)
+  turnin 8996 optional               -- Bodley: Return to Bodley
   accept 8997 only Alliance optional -- Bodley offers it once Return to Bodley is turned in
   accept 8998 only Horde optional    -- Bodley offers it once Return to Bodley is turned in
   note Which quest Blizzard counts as the end of the questline (Return to Bodley or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded.

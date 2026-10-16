@@ -135,6 +135,8 @@ step Trial of the Lake
   turnin 6126
   accept 6127                         -- The Principal Source: Dreadmist Peak, next guide
   accept 28
+  collect 15877 x1                    -- Shrine Bauble, from a Bauble Container in the lake
+  use 15877 @36.0,41.4                -- At the Shrine of Remulos
   complete 28
   turnin 28                           -- Tajarri, at the Shrine of Remulos
   accept 30

@@ -216,7 +216,10 @@ step Kurzen's Compound
 
 step The jungle ruins
   tip Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on Lake Nazferiti carries the Tumbled Crystals.
-  complete 207                        -- Kurzen's Mystery: four troll legends
+  collect 2005 quest 207.1            -- The First Troll Legend: Moon Over the Vale
+  collect 2006 quest 207.2            -- The Second Troll Legend: Gri'lek the Wanderer
+  collect 2007 quest 207.3            -- The Third Troll Legend: Fall of Gurubashi
+  collect 2008 quest 207.4            -- The Fourth Troll Legend: The Emperor's Tomb
   kill 684 quest 192                  -- Shadowmaw Panther
   collect 4106 quest 213              -- Tumbled Crystal
   complete 339                        -- Chapter I
