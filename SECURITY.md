@@ -16,9 +16,9 @@ not be named) go in the changelog once it ships.
 - **The addon acting against the player**: mail, trade, the auction house,
   the guild bank, buying or spending without the player asking; chat or
   addon messages sent on its own; anything that runs code it was sent.
-- **Guide packs and data**: a guide, data or locale file that gets the addon
+- **Community addons, guides and data**: a guide, data or locale file that gets the addon
   to run code, open a link or act for the player.
-- **The toolchain**: a command that runs code from a guide pack, a pull
+- **The toolchain**: a command that runs code from a pack, a pull
   request or a downloaded file, or reads or writes outside the repository
   and its data folders.
 - **The project's automation**: the GitHub workflows, the Discord bot and

@@ -1,82 +1,85 @@
-# Guide packs
+# Community guides
 
-A guide pack is someone else's guides for Polestar. The first half of this
-page is for players; the second half is for people who want to write their
-own.
+A community addon is someone else's guides for Polestar. The first half of
+this page is for players; the second half is for people who want to write
+their own.
 
 ## For players
 
-### What a guide pack is
+### What a community addon is
 
-- A guide pack is a separate addon, made by someone who is not part of
+- A community addon is a separate addon, made by someone who is not part of
   Polestar.
 - Its guides are that person's own. They are not Polestar's leveling routes,
   and Polestar does not test or vouch for them.
-- Polestar does not ship, host or recommend any pack. You only see a pack if
-  you install it yourself.
-- A pack adds guides. It never replaces Polestar's guides or another pack's.
+- Polestar does not ship, host or recommend any community addon. You only
+  see one if you install it yourself.
+- A community addon adds guides. It never replaces Polestar's guides or
+  another community addon's.
 
-### Telling a pack from Polestar's own addons
+### Telling a community addon from Polestar's own addons
 
 In the game's AddOns list, Polestar has one entry in the Quests category.
-Open it and you see Polestar's own addons and the packs you have installed,
-side by side.
+Open it and you see Polestar's own addons and the community addons you have
+installed, side by side.
 
 - **Polestar's own addons** are Polestar Guides and the addons that carry
   Polestar's data (Polestar Quest Database, Polestar Item Data, Polestar
   Codex), plus Polestar Recorder for guide authors. Each lists Polestar as
   its author.
-- **A pack** built with Polestar's tools is titled "Polestar Pack:" and its
-  own name, such as "Polestar Pack: Emberway Routes". Point at it and the
-  tooltip shows its version and a line such as "Guide pack for Polestar by
-  Ashka", unless its author wrote a line of their own.
+- **A community addon** built with Polestar's tools is titled "Polestar
+  Community:" and its own name, such as "Polestar Community: Emberway
+  Routes". One built before Polestar used that name reads "Polestar Pack:"
+  until its author rebuilds it; Polestar reads both. Point at it and the
+  tooltip shows its version and a line such as "Community addon for Polestar
+  by Ashka", unless its author wrote a line of their own.
 
-### Installing a pack
+### Installing a community addon
 
-1. Install Polestar first: a pack does nothing without it.
-2. Download the pack from wherever its author publishes it, such as
-   CurseForge, Wago or the author's own site. A pack's page there should say
-   that it needs Polestar.
+1. Install Polestar first: a community addon does nothing without it.
+2. Download it from wherever its author publishes it, such as CurseForge,
+   Wago or the author's own site. Its page there should say that it needs
+   Polestar.
 3. Install it like any addon: with your addon app, or by unzipping it into
    the game's `Interface/AddOns` folder, next to the `Polestar` folders.
-4. Restart the game. After the first install, `/reload` is enough when the
-   pack updates.
+4. Restart the game. After the first install, `/reload` is enough when it
+   updates.
 
 ### Where its guides show
 
 Open the guide menu (`/polestar guides`). Below Polestar's own categories is
-a heading, **Guide packs**, with one entry per pack: its title and its
-author. Each guide's details say who wrote it, as "By <author> · <pack>
-<version> · <licence>".
+a heading, **Community guides**, with one entry per community addon: its
+title and its author. Each guide's details say who wrote it, as "By <author>
+· <title> <version> · <licence>".
 
 Polestar suggests the next guide from its own guides. To have suggestions
-come from a pack instead, pick it under **Suggest guides from** in Options >
-Guide packs. Polestar's guides still fill in wherever the pack has nothing
-for your character.
+come from a community addon instead, pick it under **Suggest guides from** in
+Options > Community guides. Polestar's guides still fill in wherever the
+community addon has nothing for your character.
 
-### Turning a pack on or off
+### Turning a community addon on or off
 
-Options > Guide packs (`/polestar packs`) lists every pack you have
-installed, with its author, version, licence and website. The switch on a
-pack's row shows or hides its guides at once, without a reload. To remove a
-pack for good, delete its folder or uninstall it in your addon app.
+Options > Community guides (`/polestar packs`) lists every community addon
+you have installed, with its author, version, licence and website. The
+switch on its row shows or hides its guides at once, without a reload. To
+remove one for good, delete its folder or uninstall it in your addon app.
 
-If a pack cannot run, its row says why. If it has problems, the row says how
-many, with **Show** to read them and **Copy report** to copy them for the
-author.
+If a community addon cannot run, its row says why. If it has problems, the
+row says how many, with **Show** to read them and **Copy report** to copy
+them for the author.
 
-### Who supports a pack
+### Who supports a community addon
 
-The pack's author. Report wrong steps and other problems in a pack to its
-author, where they publish it, not to Polestar. The Guide packs page shows
-the pack's website when the author gave one, and **Copy report** gives you
-the details to send.
+Its author. Report wrong steps and other problems in a community addon to
+its author, where they publish it, not to Polestar. The Community guides
+page shows its website when the author gave one, and **Copy report** gives
+you the details to send.
 
 ### A word on safety
 
-A pack is an addon like any other, and the game runs it like any other.
-Install packs only from authors you trust, and from the place the author
-publishes them.
+A community addon is an addon like any other, and the game runs it like any
+other. Install community addons only from authors you trust, and from the
+place the author publishes them.
 
 ## For authors
 
@@ -97,9 +100,9 @@ own:
 
 Publish the result as your own addon, on the addon sites, in the shape
 Polestar expects. Players install it next to Polestar and your guides appear
-in Polestar's guide menu under **Guide packs**, with your name on them.
+in Polestar's guide menu under **Community guides**, with your name on them.
 
-### From an empty folder to a published pack
+### From an empty folder to a published community addon
 
 ```sh
 git clone https://github.com/fitzforge/polestar.git
@@ -140,7 +143,8 @@ polestar dev --play    # lint and build on every save, with the browser playgrou
 
 ### What a pack holds
 
-You write two things:
+A community addon is built from a pack: a folder with a `pack.json` and
+`.guide` files. You write two things:
 
 - `pack.json`: the pack's `id`, `title`, `author`, `version` and `license`,
   all required, and optionally a `website`, a `source` (where the guides come
@@ -154,9 +158,11 @@ the compiled guides, `MapFrames.lua`, and the licence files. Do not edit
 these by hand: rebuild instead. [PACK_FORMAT.md](PACK_FORMAT.md) has every
 line of them.
 
-The TOC places your pack in the AddOns list for you: titled "Polestar Pack:
-<your title>", under Polestar's entry in the Quests category, with the line
-"Guide pack for Polestar by <author>" unless you write your own `notes`.
+The TOC places your community addon in the AddOns list for you: titled
+"Polestar Community: <your title>", under Polestar's entry in the Quests
+category, with the line "Community addon for Polestar by <author>" unless you
+write your own `notes`. Community addons built before this name read
+"Polestar Pack:" until you rebuild; Polestar reads both.
 Polestar's own menus show your title as you wrote it.
 
 ### What the tools require
@@ -181,21 +187,21 @@ writes for a licence it has no text for.
 ### What we ask of you
 
 These are not checked by any tool. They are what players need to tell your
-pack apart and to reach you:
+community addon apart and to reach you:
 
 - **A name that says whose it is.** Pick a title of your own that cannot be
-  mistaken for Polestar's own addons (the tools put "Polestar Pack:" before
-  it in the AddOns list), and say on your addon page that it is a guide pack
-  for Polestar. If you write your own `notes`, keep it clear that the pack
-  is yours and for Polestar.
+  mistaken for Polestar's own addons (the tools put "Polestar Community:"
+  before it in the AddOns list), and say on your addon page that it is a
+  community addon for Polestar. If you write your own `notes`, keep it
+  clear that the community addon is yours and for Polestar.
 - **Your name as author** (required), the name players will look for.
 - **A version** you raise with every release (required by the tools).
-- **A website or support link** in `website`, so the Guide packs page shows
-  players where to report problems. Say the same on your addon page and in
+- **A website or support link** in `website`, so the Community guides page
+  shows players where to report problems. Say the same on your addon page and in
   your README.
 - **A licence of your choice** for your guides. Polestar's
-  [LICENSE-EXCEPTION.md](../LICENSE-EXCEPTION.md) lets you publish a pack
-  built by its compiler, including the reference data the compiler puts in
+  [LICENSE-EXCEPTION.md](../LICENSE-EXCEPTION.md) lets you publish a
+  community addon built by its compiler, including the reference data the compiler puts in
   it, under any terms you like.
 - **Your own guide text.** Do not copy text from Polestar's own guides into
   your pack. The licence exception does not cover it. Handing over to one of

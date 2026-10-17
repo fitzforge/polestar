@@ -640,7 +640,7 @@ function uistub.install(opts)
 	end
 	Polestar.Engine = Engine
 	-- The real registry stays reachable for pages that show its records
-	-- (the Guide packs page): Polestar.Guides = uistub.realGuides.
+	-- (the Community guides page): Polestar.Guides = uistub.realGuides.
 	if Polestar.Guides ~= Guides then uistub.realGuides = Polestar.Guides end
 	Polestar.Guides = Guides
 	if not opts.noNav then Polestar.Nav = Nav end

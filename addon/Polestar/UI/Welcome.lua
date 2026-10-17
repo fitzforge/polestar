@@ -614,7 +614,7 @@ PAGES[#PAGES + 1] = {
 		-- The invite as a link (the scheme left off); a click opens the copy
 		-- window holding it, since the game cannot open links.
 		F.Discord = W.Link(p, (ns.DiscordURL:gsub("^%a+://", "")), function() UI.ShowDiscord() end)
-		p.Packs = note(p, L["Guide packs"])
+		p.Packs = note(p, L["Community guides"])
 
 		F.Start = W.Button(F.Foot, L["Start guide"], startSuggested, { primary = true })
 		F.Browse = W.Button(F.Foot, L["Browse guides"], function()
@@ -702,7 +702,7 @@ PAGES[#PAGES + 1] = {
 		lay(p.Discord, true)
 		F.Discord:ClearAllPoints()
 		F.Discord:SetPoint("RIGHT", p, "TOPRIGHT", 0, -(p.Discord.psY + p.Discord.psH / 2))
-		p.Packs.Text:SetText((L["Guides made by other players for Polestar, not our own routes: each pack is an addon of its own, installed like any other. Its guides appear in %s under Guide packs, credited to their author, who supports them. More in Options > Guide packs."]):format(cmd("/polestar guides")))
+		p.Packs.Text:SetText((L["Guides made by other players for Polestar, not our own routes: each community addon is installed like any other addon. Its guides appear in %s under Community guides, credited to their author, who supports them. More in Options > Community guides."]):format(cmd("/polestar guides")))
 		lay(p.Packs, true)
 		W.SetButtonText(F.Start, g and L["Start guide"] or L["Choose a guide"])
 		return y - 16

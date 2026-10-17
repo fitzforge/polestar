@@ -214,7 +214,7 @@ Agents are welcome. [AGENTS.md](AGENTS.md), which most coding agents read
 on their own, sends them to the skill for their task in `skills/`:
 `polestar-contributing` for any change or pull request, `polestar-triage`
 for checking a report, `polestar-guide-fix` for fixing a guide step and
-`polestar-guide-pack` for writing a guide pack. Your own agent settings and
+`polestar-guide-pack` for writing a community addon. Your own agent settings and
 notes stay yours: keep them out of commits. Claude Code reads AGENTS.md only
 while you have no `CLAUDE.md` or `CLAUDE.local.md` of your own; if you write
 one, start it with `@AGENTS.md`. The rules that matter most:
@@ -304,6 +304,6 @@ the player) and merged into its base branch.
 
 ## Licence
 
-Contributions to Polestar are under GPL-3.0 ([LICENSE](LICENSE)). Guide packs
-written by others are separate works; see
+Contributions to Polestar are under GPL-3.0 ([LICENSE](LICENSE)). Community
+addons written by others are separate works; see
 [LICENSE-EXCEPTION.md](LICENSE-EXCEPTION.md).

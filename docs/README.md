@@ -1,7 +1,7 @@
 # Polestar documentation
 
 Where each question is answered, grouped by who asks it: players who install
-and go, guide authors who write guide packs (other people's guides for
+and go, guide authors who write community addons (other people's guides for
 Polestar, each a separate addon), contributors who fix and build,
 and maintainers who release. Paths are from the repository root.
 
@@ -11,12 +11,12 @@ and maintainers who release. Paths are from the repository root.
 |---|---|---|
 | [README.md](../README.md) | players, everyone | What Polestar is, how to install it, what it does, where to go next |
 | [CHANGELOG.md](../CHANGELOG.md) | players, guide authors, contributors | What changed in each release, under "For players", "For guide authors" and "For contributors"; what is merged but not released yet is in `changes/` ([changes/README.md](../changes/README.md)) |
-| [docs/GUIDE_PACKS.md](GUIDE_PACKS.md) | players, guide authors | What a guide pack is and is not, how to tell one from Polestar's own addons, installing one, turning it on or off, who supports it; for authors, the steps from `new` to publishing, what the tools require and what we ask of you. The in-game Guide packs page links here |
+| [docs/GUIDE_PACKS.md](GUIDE_PACKS.md) | players, guide authors | What a community addon is and is not, how to tell one from Polestar's own addons, installing one, turning it on or off, who supports it; for authors, the steps from `new` to publishing, what the tools require and what we ask of you. The in-game Community guides page links here |
 | [docs/GUIDE_CHEATSHEET.md](GUIDE_CHEATSHEET.md) | guide authors | The guide format on one page: every header line, goal and condition, with what it does and a short example |
 | [docs/GUIDE_FORMAT.md](GUIDE_FORMAT.md) | guide authors | The `.guide` language in full: header, steps, goals, conditions, what the compiler fills in, validation, a cookbook |
-| [docs/PACKS.md](PACKS.md) | guide authors | The full handbook: how to write, test, publish and update a guide pack; every problem the tools or the game can report, with its fix |
-| [docs/PACK_FORMAT.md](PACK_FORMAT.md) | guide authors, tool builders | The contract between a guide pack and Polestar: `pack.json`, the addon the compiler writes, the rules Polestar enforces, versioning |
-| [LICENSE-EXCEPTION.md](../LICENSE-EXCEPTION.md) | guide authors | The permission to distribute a compiled guide pack under terms of your choice |
+| [docs/PACKS.md](PACKS.md) | guide authors | The full handbook: how to write, test, publish and update a community addon; every problem the tools or the game can report, with its fix |
+| [docs/PACK_FORMAT.md](PACK_FORMAT.md) | guide authors, tool builders | The contract between a community addon and Polestar: `pack.json`, the addon the compiler writes, the rules Polestar enforces, versioning |
+| [LICENSE-EXCEPTION.md](../LICENSE-EXCEPTION.md) | guide authors | The permission to distribute a compiled community addon under terms of your choice |
 | [CONTRIBUTING.md](../CONTRIBUTING.md) | players, guide authors, contributors | Ways to help; how to report a wrong step; how to fix a guide; setting up; code changes; which branch a pull request goes to; using an AI agent; commits and pull requests; the licence of contributions |
 | [AGENTS.md](../AGENTS.md) and [skills/](../skills) | contributors' coding agents | AGENTS.md points every agent to its skill: `polestar-contributing` (branches, generated files, changelog fragments, what a pull request must not do, posting on issues), `polestar-triage` (checking a report before agreeing it is a bug), `polestar-guide-fix`, `polestar-guide-pack` |
 | [SECURITY.md](../SECURITY.md) | everyone | How to report a security problem privately, and what counts as one |
@@ -75,7 +75,7 @@ generated file, whether it is committed, and the order to rebuild in.
 - **Guide**: one route, written as a `.guide` file and compiled to Lua; its id reads like `forever/alliance/human/01-elwynn-forest`.
 - **Step**: one stop in a guide: a title, optional conditions and tip, and at least one goal.
 - **Goal**: one thing to do in a step, as a verb and its arguments (`accept 783`, `kill`, `goto`, `turnin`...).
-- **Guide pack**: an addon of guides for Polestar, built by the compiler from a folder with a `pack.json`; Polestar's own is `Polestar_Guides` (pack id `guides`), every other pack is a separate addon made and supported by its author ([GUIDE_PACKS.md](GUIDE_PACKS.md)).
+- **Pack**: an addon of guides for Polestar, built by the compiler from a folder with a `pack.json` (the folder is a pack too); Polestar's own is `Polestar_Guides` (pack id `guides`). **Community addon**: every other pack, a separate addon made and supported by its author, listed under Community guides ([GUIDE_PACKS.md](GUIDE_PACKS.md)).
 - **Reference data**: the game facts in `data/forever/*.json` (quests, NPCs, objects, items, zones, map frames and more) that the compiler and the data builds read; built locally by `data build`.
 - **Data addon**: a companion addon that carries data, not code, mostly loaded on demand: `Polestar_QuestDB`, `Polestar_ItemDB`, `Polestar_Codex`, `Polestar_Travel`.
 - **Codex**: Lookup's database of items, mounts, pets, recipes, NPCs, rares, quests, zones, dungeons and treasures, with where each comes from (`codex build`, the `Polestar_Codex` addon).

@@ -1,5 +1,5 @@
 'use strict';
-// Guide packs switched off and on, where suggestions come from, and the
+// Community addons switched off and on, where suggestions come from, and the
 // installed packs the core finds in the AddOns list
 // (addon/Polestar/Core/Guides.lua, Search.lua, Lookup/Guide.lua).
 
@@ -151,8 +151,8 @@ test('installed packs: on, broken, turned off, not loaded, too new, never regist
 			stub.addonMeta.Polestar_Guides = toc("guides", "Polestar Guides")
 			stub.addonMeta.JoeAddon = toc("joe", "Joe's Routes")
 			stub.addonMeta.EmptyAddon = toc("empty", "Empty")
-			stub.addonMeta.Off = toc("off", "Switched Off", { Title = "Polestar Pack: Switched Off" })
-			stub.addonMeta.Old = toc("old", "Old Pack")
+			stub.addonMeta.Off = toc("off", "Switched Off", { Title = "Polestar Community: Switched Off" })
+			stub.addonMeta.Old = toc("old", "Old Pack", { Title = "Polestar Pack: Old Pack" })
 			stub.addonMeta.Future = toc("future", "Future Pack", { ["X-Polestar-Format"] = "4", ["X-Polestar-Needs"] = "0.4.0" })
 			stub.addonMeta.Crash = toc("crash", "Crashing Pack")`,
 	});
@@ -173,8 +173,9 @@ test('installed packs: on, broken, turned off, not loaded, too new, never regist
 	assert.deepEqual(
 		{ id: by.Off.id, title: by.Off.title, author: by.Off.author, version: by.Off.version, license: by.Off.license, website: by.Off.website },
 		{ id: 'off', title: 'Switched Off', author: 'Switched Off Author', version: '2.0', license: 'CC0-1.0', website: 'https://example.org/off' },
-		'an unregistered pack reads its TOC, without the "Polestar Pack: " the compiler puts before its title',
+		'an unregistered pack reads its TOC, without the "Polestar Community: " the compiler puts before its title',
 	);
+	assert.equal(by.Old.title, 'Old Pack', 'the legacy "Polestar Pack: " title prefix is stripped too');
 	assert.equal(by.JoeAddon.title, "Joe's Routes", 'a registered pack keeps what it registered');
 	assert.equal(out.problems, 2);
 });

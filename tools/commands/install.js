@@ -27,7 +27,7 @@ names addons Polestar_Names_<locale> when they have been built (and with
 --recorder, addon/Polestar_Recorder) into World of Warcraft: Forever's AddOns
 folder.
 
-Given another guide pack (<dir>, --pack, or run inside one) it lints and
+Given another pack (<dir>, --pack, or run inside one) it lints and
 builds that pack into <pack>/dist/<folder>/ instead and installs that
 folder; an existing <AddOns>/<folder> is replaced only when it is empty or a
 generated build of the same pack (its TOC's X-Polestar-Pack names this
@@ -48,7 +48,7 @@ options:
   --recorder    also install Polestar_Recorder
   --dry-run     print what would happen, change nothing
   --addons <dir>  source folder holding the addons (default addon/)
-  --no-data     a guide pack only: build it without reference data (every
+  --no-data     a pack only: build it without reference data (every
                 quest title, NPC name and place given in the guide)
 ${PACK_USAGE}`;
 
@@ -262,7 +262,7 @@ async function run(argv, env = process.env, native = {}) {
 	}
 	if (other) return installPack(other, opts, ctx);
 	if (opts.noData) {
-		console.error(`--no-data builds a guide pack; run it inside the pack or name its folder\n\n${usage}`);
+		console.error(`--no-data builds a community addon; run it inside the pack or name its folder\n\n${usage}`);
 		return 2;
 	}
 	const source = opts.addons ? path.resolve(opts.addons) : path.join(ROOT, 'addon');

@@ -12,7 +12,7 @@ const { worldFile, dataHash } = require('../lib/sim/world');
 const usage = `usage: node tools/polestar.js lint [<dir>] [options]
 
 Runs every compile check (syntax, data lookups, cross-guide validation) on a
-guide pack without writing anything: the pack in <dir> (or --pack), else the nearest
+pack without writing anything: the pack in <dir> (or --pack), else the nearest
 folder holding a pack.json (this one or a parent), else our guides/. Exit
 code 1 on errors. Another pack is checked with our guides as context (its
 \`next\` and turn-ins see our chains; their own diagnostics are not shown).

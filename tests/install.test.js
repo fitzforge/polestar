@@ -209,7 +209,7 @@ test('inside a pack, install builds it and installs its folder; a second install
 	assert.match(first.out, /added PolestarPack_MiniPack/);
 	const folder = path.join(dest, 'PolestarPack_MiniPack');
 	assert.deepEqual(fs.readdirSync(folder).sort(), ['Guides.lua', 'LICENSE-DATA.txt', 'PolestarPack_MiniPack.toc', 'MapFrames.lua', 'Pack.lua'].sort());
-	assert.match(fs.readFileSync(path.join(folder, 'PolestarPack_MiniPack.toc'), 'utf8'), /^## Title: Polestar Pack: Mini Pack$/m);
+	assert.match(fs.readFileSync(path.join(folder, 'PolestarPack_MiniPack.toc'), 'utf8'), /^## Title: Polestar Community: Mini Pack$/m);
 	assert.ok(fs.existsSync(path.join(pack, 'dist', 'PolestarPack_MiniPack', 'Guides.lua')), 'built into the pack\'s dist/');
 	assert.deepEqual(fs.readdirSync(dest).sort(), ['Polestar', 'PolestarPack_MiniPack', 'OtherAddon'].sort(), 'only the pack folder is installed');
 	fs.writeFileSync(path.join(pack, 'guides', 'b.guide'), fs.readFileSync(path.join(pack, 'guides', 'b.guide'), 'utf8').replace('title Mini B', 'title Mini B2'));
@@ -237,7 +237,7 @@ test('install of a pack without reference data stops with one error and touches 
 	assert.equal(fs.existsSync(path.join(pack, 'dist')), false);
 	const ours = await quiet(() => install.run(['--no-data', '--dest', dest], {}));
 	assert.equal(ours.result, 2, ours.out);
-	assert.match(ours.out, /--no-data builds a guide pack/);
+	assert.match(ours.out, /--no-data builds a community addon/);
 });
 
 test('install refuses to replace a hand-made folder with the pack folder\'s name', async () => {
@@ -248,7 +248,7 @@ test('install refuses to replace a hand-made folder with the pack folder\'s name
 	const before = snapshot(dest);
 	const { result, out } = await quiet(() => install.run([...packArgs(pack), '--dest', dest], {}));
 	assert.equal(result, 1, out);
-	assert.match(out, /refusing to install: .*PolestarPack_MiniPack: it is not a generated guide pack/);
+	assert.match(out, /refusing to install: .*PolestarPack_MiniPack: it is not a generated community addon/);
 	assert.deepEqual(snapshot(dest), before);
 });
 
@@ -271,7 +271,7 @@ test('install refuses a generated folder of another pack with the same folder na
 	const before = snapshot(dest);
 	const { result, out } = await quiet(() => install.run([...packArgs(miniCopy()), '--dest', dest], {}));
 	assert.equal(result, 1, out);
-	assert.match(out, /refusing to install: .*PolestarPack_MiniPack: it holds the guide pack "other-mini", not "mini"; set "folder" in pack\.json/);
+	assert.match(out, /refusing to install: .*PolestarPack_MiniPack: it holds the community addon "other-mini", not "mini"; set "folder" in pack\.json/);
 	assert.deepEqual(snapshot(dest), before);
 });
 

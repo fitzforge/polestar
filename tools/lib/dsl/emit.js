@@ -3,7 +3,7 @@
 // (docs/ARCHITECTURE.md, "Guide data"). Output is deterministic: fixed key
 // order, stable number formatting, sorted guides.
 
-const { FORMAT, NEEDS, TOC_MARKER, TOC_TITLE_PREFIX } = require('../pack/format');
+const { FORMAT, NEEDS, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX } = require('../pack/format');
 const { header } = require('../generated');
 
 const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'names', 'written', 'steps'];
@@ -154,16 +154,18 @@ function emitPack(manifest) {
 
 // <folder>.toc: the pack's metadata for the client and for Polestar's pack
 // list (optional lines only when the value exists), then the fixed file set.
-// A pack other than ours reads "Polestar Pack: <title>" in the AddOns list and
-// sits in Polestar's group there, under Polestar's own entry, like
-// Polestar_Guides; Polestar's menus show the plain title (Pack.lua).
+// A pack other than ours reads "Polestar Community: <title>" in the AddOns list
+// and sits in Polestar's group there, under Polestar's own entry, like
+// Polestar_Guides; Polestar's menus show the plain title (Pack.lua). A title
+// already carrying that prefix or the legacy "Polestar Pack: " is kept.
 function emitToc(manifest, iface) {
 	const ours = manifest.id === 'guides';
-	const title = ours || manifest.title.startsWith(TOC_TITLE_PREFIX) ? manifest.title : `${TOC_TITLE_PREFIX}${manifest.title}`;
+	const prefixed = [TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX].some((p) => manifest.title.startsWith(p));
+	const title = ours || prefixed ? manifest.title : `${TOC_TITLE_PREFIX}${manifest.title}`;
 	const lines = [
 		`## Interface: ${iface}`,
 		`## Title: ${title}`,
-		`## Notes: ${manifest.notes || `Guide pack for Polestar by ${manifest.author}`}`,
+		`## Notes: ${manifest.notes || `Community addon for Polestar by ${manifest.author}`}`,
 		// Polestar's own pack: the AddOns list in the client's language too.
 		...(ours ? require('../i18n/toc').tocLines('Polestar_Guides') : []),
 		`## Author: ${manifest.author}`,

@@ -43,7 +43,7 @@ test('GET /api/version moves when a rebuild restarts the session, so the page ca
 		const before = await version();
 		assert.equal((await get('meta')).version, before, '/api/meta gives the page the same count to start from');
 		assert.equal(await version(), before, 'steady while nothing restarts');
-		await play.reload({ why: 'Guide pack rebuilt; UI reloaded.' });
+		await play.reload({ why: 'Community addon rebuilt; UI reloaded.' });
 		const after = await version();
 		assert.notEqual(after, before);
 		// A pack whose Lua fails while loading: the restart fails, and the

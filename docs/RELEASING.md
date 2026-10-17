@@ -20,7 +20,7 @@ Addon folders sit at the top level of each zip, so a player (or an addon
 manager) extracts straight into `Interface/AddOns/`. The zips are
 reproducible: the same sources give byte-identical archives.
 
-Guide packs are packed by their authors with `polestar pack` in the pack
+Community addons are packed by their authors with `polestar pack` in the pack
 folder (`<pack>/dist/<folder>-<version>.zip`, version from its `pack.json`);
 see docs/PACKS.md.
 
@@ -42,7 +42,7 @@ follow `x.y.z`; `0.x` releases are betas.
 
 Feature releases are built from the full local data build of the steps below.
 [THIRD_PARTY.md](../THIRD_PARTY.md) ("Distributing Polestar") lists what
-that puts in the zip: QuestieDB facts in the guide pack, `Polestar_QuestDB`
+that puts in the zip: QuestieDB facts in `Polestar_Guides`, `Polestar_QuestDB`
 and `Polestar_Codex`, nothing from AtlasLoot, RareScanner or DungeonJournal,
 and never the zone crossings pack (`pack` leaves it out). The Codex is part of
 Polestar (Lookup, Dungeons and Rares read it): `pack` stops when

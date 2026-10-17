@@ -45,7 +45,7 @@ Around the guides it adds a 3D waypoint arrow that walks real paths and a travel
 
 - **Leveling, professions, reputations, exploration, Legacy challenges, mounts and pets**, each guide with its levels, steps and the guide that follows it.
 - **Professions** send you to the nearest trainer, vendor or inn of your own faction from where you stand.
-- **Guide packs**, other people's guides for Polestar, appear here too under their own heading, each credited to its author.
+- **Community guides**, other people's guides for Polestar, appear here too under their own heading, each credited to its author.
 
 ## Lookup, Dungeons and Rares
 
@@ -109,15 +109,15 @@ To update by hand, delete the old Polestar folders first, then unzip the new ver
 - **`/polestar skip`** moves on from a step for good (the window offers Undo); `/polestar next` and `/polestar prev` only look ahead or back.
 - **`/polestar help`** lists every command.
 
-## Guide packs
+## Community guides
 
-A guide pack is someone else's guides for Polestar. It is a separate addon, made by its author, not by Polestar, and its guides are not Polestar's leveling routes.
+A community addon is someone else's guides for Polestar. It is a separate addon, made by its author, not by Polestar, and its guides are not Polestar's leveling routes.
 
-Get a pack from its author's own project page and install it like any addon. Its guides then appear in the guide menu under Guide packs, credited to the author, and Options > Guide packs (`/polestar packs`) turns each pack on or off.
+Get a community addon from its author's own project page and install it like any addon. Its guides then appear in the guide menu under Community guides, credited to the author, and Options > Community guides (`/polestar packs`) turns each one on or off.
 
-Each pack is supported by its author: report a pack's problems to them, not to Polestar. A pack is an addon like any other, so install packs from authors you trust.
+Each community addon is supported by its author: report its problems to them, not to Polestar. It is an addon like any other, so install community addons from authors you trust.
 
-Write leveling guides of your own? Polestar's guide format, compiler, checks, playtests, arrow and markers are yours to use. Publish your guides as your own addon and they appear in Polestar's menus as a pack. [Guide packs explained](https://github.com/fitzforge/polestar/blob/main/docs/GUIDE_PACKS.md) covers both sides.
+Write leveling guides of your own? Polestar's guide format, compiler, checks, playtests, arrow and markers are yours to use. Publish your guides as your own addon and they appear in Polestar's menus under Community guides. [Community guides explained](https://github.com/fitzforge/polestar/blob/main/docs/GUIDE_PACKS.md) covers both sides.
 
 ## Beta
 
@@ -133,7 +133,7 @@ A step in the wrong order, or a quest that is not where the guide says? Please t
 - **Source code:** [github.com/fitzforge/polestar](https://github.com/fitzforge/polestar)
 - **Issues:** [report a wrong step or a bug](https://github.com/fitzforge/polestar/issues)
 - **Changelog:** [CHANGELOG.md](https://github.com/fitzforge/polestar/blob/main/CHANGELOG.md)
-- **Docs:** [README](https://github.com/fitzforge/polestar/blob/main/README.md), [the documentation index](https://github.com/fitzforge/polestar/blob/main/docs/README.md), [guide packs explained](https://github.com/fitzforge/polestar/blob/main/docs/GUIDE_PACKS.md), [writing a guide pack](https://github.com/fitzforge/polestar/blob/main/docs/PACKS.md)
+- **Docs:** [README](https://github.com/fitzforge/polestar/blob/main/README.md), [the documentation index](https://github.com/fitzforge/polestar/blob/main/docs/README.md), [community guides explained](https://github.com/fitzforge/polestar/blob/main/docs/GUIDE_PACKS.md), [writing a community addon](https://github.com/fitzforge/polestar/blob/main/docs/PACKS.md)
 
 ## Licence and credits
 

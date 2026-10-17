@@ -283,7 +283,7 @@ that every TOC under `addon/` has all nine and that they match.
 ## Guide texts
 
 A guide's own words (its title, why and route-choice lines, each step's title
-and tip, each goal's note and label) are translated per guide pack, in the
+and tip, each goal's note and label) are translated per pack, in the
 pack's `locales/` folder: `guides/locales/<locale>/` for Polestar's own, one
 file per guide at the guide's path (`forever/alliance/02-westfall.lua`), plus
 `_pack.lua` for the pack's own texts (its title and notes, its guides' menu
@@ -331,7 +331,7 @@ locale files and the texts addons `compile` writes.
 - `node tools/polestar.js i18n guides sync [<locale>...]` writes every
   guide's file and `_pack.lua` for each language named (without one: each the
   pack has a folder for): every text in reading order, the translations kept,
-  the lost ones moved to the end. `--pack <dir>` names another guide pack.
+  the lost ones moved to the end. `--pack <dir>` names another pack.
 - `node tools/polestar.js i18n guides check [<locale>...]` fails on a file
   Lua cannot load, a translation that leaves out or adds a token or a line
   break, a stale translation, or a file no guide has. `lint` and `compile`

@@ -3,7 +3,7 @@
 Every line of the format on one page, with an example each:
 [GUIDE_CHEATSHEET.md](GUIDE_CHEATSHEET.md). This page has the full rules.
 
-Guides are written as `.guide` text files in a guide pack (Polestar's own:
+Guides are written as `.guide` text files in a pack (Polestar's own:
 `guides/`; a community pack: any folder holding a `pack.json`, see
 [PACKS.md](PACKS.md)) and compiled to Lua by `node tools/polestar.js compile`.
 The compiler fills in names, titles and coordinates from the reference data in

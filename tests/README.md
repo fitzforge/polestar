@@ -76,7 +76,7 @@ modules meet. New client APIs go in the stub of the module that needs them;
 | `helpers/locale.js` | `fakeLocale(locale, strings)`: Lua for `runAddon`'s `before` that makes `GetLocale()` return `locale` and fills `Polestar.L` with `strings` right after `Core/Init.lua`, where a locale file loads. Fake a locale Polestar does not ship (`itIT`); a shipped one throws |
 | `helpers/tmp.js` | `tmpdir()`: a fresh temporary folder, removed when the test process exits |
 | `helpers/codex.js` | `writeCodexPack`, `sampleCodex`: a loadable `Polestar_Codex` built from a Codex object such as `fixtures/codex/sample.json` |
-| `helpers/packs.js` | `TEST_PACK`, `TEST_SOURCE`: the Lua lines that register the test guide pack and make it the suggestion source |
+| `helpers/packs.js` | `TEST_PACK`, `TEST_SOURCE`: the Lua lines that register the test community addon and make it the suggestion source |
 | `helpers/profile.js` | `profileGuide`: plays a guide with every handler timed. Also a command: `node tests/helpers/profile.js <guide> [race] [class] --packs [--sample=1000]` |
 | `helpers/guide-engine.js` | `officialGuides()`: every guide under `guides/` compiled once with the real data (legacy left out); `stepGroups(guide, data, who, steps)`: the Engine's focus and groups of those steps for one character, with nothing done |
 
@@ -84,7 +84,7 @@ modules meet. New client APIs go in the stub of the module that needs them;
 
 `fixtures/` holds small, committed inputs, so the suite runs on a fresh clone:
 reference data in the `data/forever` shape (`dsl/data`, `questdb`, `route`,
-`find/data`), guide packs good and bad (`packs`), cached source tables
+`find/data`), packs good and bad (`packs`), cached source tables
 (`data/sources`, `professions/wago`, `travel/sources`), recordings,
 installed-addon samples (`codex/addons`, `dungeonjournal`,
 `consume/wowsims`), simulator inputs (`sim`) and six compiled guides frozen

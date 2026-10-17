@@ -28,18 +28,18 @@ dist/SHA256SUMS. Polestar/ in the zip also carries LICENSE and README.txt
 first (\`codex build\`) from release-safe inputs: pack stops on a missing
 Codex or a --local-extras one.
 
-Given another guide pack (<dir>, --pack, or run inside one): lints and builds it with our
+Given another pack (<dir>, --pack, or run inside one): lints and builds it with our
 guides as context, then writes <pack>/dist/<folder>-<version>.zip holding its
 addon folder, the version taken from pack.json. Both are byte for byte
 reproducible. Without reference data (\`data build\`) pack stops with one
-error; a guide pack can be built without it with --no-data.
+error; a pack can be built without it with --no-data.
 
 options:
 ${PACK_USAGE}
   --guides <dir>        our guide sources (default guides/; not with a pack folder)
   --addons <dir>        addon source folder (default addon/)
   --dist <dir>          output folder (default dist/, <pack>/dist/ for a pack)
-  --no-data             a guide pack only: build it without reference data
+  --no-data             a pack only: build it without reference data
                         (every quest title, NPC name and place given in the guide)`;
 
 // Our guides (in dirs.guides) built in memory; null (reported) on errors.
@@ -170,7 +170,7 @@ function pack(dirs, version) {
 		console.error(`pack failed: ${e.message}`);
 		return 1;
 	}
-	console.log(`guide pack: ${plural(built.guides.length, 'guide')}`);
+	console.log(`community addon: ${plural(built.guides.length, 'guide')}`);
 	return 0;
 }
 
@@ -219,7 +219,7 @@ async function run(argv) {
 	}
 	if (other) return packOther(other, opts);
 	if (opts.noData) {
-		console.error(`--no-data builds a guide pack; our release needs the reference data\n\n${usage}`);
+		console.error(`--no-data builds a community addon; our release needs the reference data\n\n${usage}`);
 		return 2;
 	}
 	const dirs = {
@@ -231,4 +231,4 @@ async function run(argv) {
 	return pack(dirs, project.packageVersion());
 }
 
-module.exports = { name: 'pack', summary: 'Build the release zips, or a guide pack\'s zip', usage, run };
+module.exports = { name: 'pack', summary: 'Build the release zips, or a community addon\'s zip', usage, run };

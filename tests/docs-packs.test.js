@@ -3,7 +3,7 @@
 // names every goal verb the runtime reads (Core/Guides.lua's REQUIRED table,
 // Polestar.Guides.VERBS) and every guide and goal key the compiler writes
 // (tools/lib/dsl/emit.js); docs/PACKS.md (the handbook) names every problem
-// kind and pack status the Guide packs page can show.
+// kind and pack status the Community guides page can show.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

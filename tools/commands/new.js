@@ -28,7 +28,7 @@ const LICENSE_LINKS = {
 
 const usage = `usage: node tools/polestar.js new [dir] [options]
 
-Starts a guide pack in [dir] (default: the current folder), which must be
+Starts a pack in [dir] (default: the current folder), which must be
 empty or missing (run it before \`git init\`: a folder holding .git is not
 empty): pack.json, an example guide, README.md, LICENSE, .gitignore, VS Code
 tasks, AGENTS.md / CLAUDE.md for AI assistants, the polestar-guide-pack skill
@@ -260,4 +260,4 @@ async function run(argv) {
 	return 0;
 }
 
-module.exports = { name: 'new', summary: 'Start a guide pack in a new folder from the template', usage, run };
+module.exports = { name: 'new', summary: 'Start a pack in a new folder from the template', usage, run };

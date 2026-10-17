@@ -44,7 +44,7 @@ options:
                          POLESTAR_WTF overrides)
   --out <dir|file>       import/watch/list: recordings folder (default data/recordings);
                          draft: output .guide file or folder (default <pack>/drafts)
-  --pack <dir>           draft: the guide pack the draft belongs to
+  --pack <dir>           draft: the pack the draft belongs to
   --recordings <dir>     draft/report: where sessions are read (default data/recordings)
   --interval <ms>        watch: polling interval (default 1000)
   --force                draft: overwrite an existing draft

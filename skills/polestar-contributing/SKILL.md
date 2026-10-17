@@ -23,7 +23,7 @@ says where each topic is documented. `polestar` below is
 |---|---|
 | Looking at, triaging, reproducing or answering a bug report or issue | polestar-triage |
 | Fixing a step, route, giver or coordinate in `guides/` | polestar-guide-fix |
-| Writing a separate guide pack (not Polestar's own guides) | polestar-guide-pack |
+| Writing a separate community addon (guide pack; not Polestar's own guides) | polestar-guide-pack |
 
 ## Bug reports are leads, not verdicts
 

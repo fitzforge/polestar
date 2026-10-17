@@ -1,14 +1,16 @@
-# Guide pack format
+# Community addon format
 
-The contract between a guide pack and Polestar, for anyone building tools of
+The contract between a community addon and Polestar, for anyone building tools of
 their own. Authors who use Polestar's tools never write any of this by hand:
 they write `pack.json` and `.guide` files ([GUIDE_FORMAT.md](GUIDE_FORMAT.md))
 and `polestar compile` writes the rest. The handbook is
 [PACKS.md](PACKS.md).
 
-A guide pack is an addon for World of Warcraft: Forever that depends on
-Polestar and registers guides with it. Polestar's own guides are a pack too
-(`Polestar_Guides`, pack id `guides`).
+A community addon is an addon for World of Warcraft: Forever that depends
+on Polestar and registers guides with it. It is built from a pack: a folder
+with a `pack.json` and `.guide` files. In the format, every such addon is a
+pack; Polestar's own guides are a pack too (`Polestar_Guides`, pack id
+`guides`).
 
 ## `pack.json`
 
@@ -39,7 +41,7 @@ a parent.
 | `license` | yes | the licence of the pack's guides, as an SPDX id where one exists (`CC-BY-4.0`, `CC0-1.0`, `MIT`, `GPL-3.0-only`); at most 64 characters |
 | `website` | no | `https://` or `http://` address; at most 200 characters |
 | `source` | no | where the guides come from, in the author's words; at most 200 characters |
-| `notes` | no | one line for the AddOns list, shown when the player points at the pack there; at most 200 characters (default "Guide pack for Polestar by <author>") |
+| `notes` | no | one line for the AddOns list, shown when the player points at the pack there; at most 200 characters (default "Community addon for Polestar by <author>") |
 | `folder` | no | the addon's folder name: 1 to 64 letters, digits, `_` and `-`, not `Polestar` and not starting with `Polestar_` (in any case); default `PolestarPack_` and the title in CamelCase (`Joe's Routes` → `PolestarPack_JoesRoutes`), or the id when the title has no letters or digits |
 
 Every value is a string on one line. A missing required field, or a value
@@ -103,8 +105,8 @@ Each guide's table is built inside its own function in `Guides.lua`, so Lua
 
 ```
 ## Interface: 16001
-## Title: Polestar Pack: Joe's Routes
-## Notes: Guide pack for Polestar by Joe
+## Title: Polestar Community: Joe's Routes
+## Notes: Community addon for Polestar by Joe
 ## Author: Joe
 ## Version: 1.2.0
 ## Category: Quests
@@ -125,13 +127,13 @@ Guides.lua
 | Field | Value |
 |---|---|
 | `Interface` | copied from `addon/Polestar/Polestar.toc` at build time |
-| `Title` | "Polestar Pack: " and `pack.json` `title` (the title alone when it already starts so), so the AddOns list reads the addon as a pack. Polestar's own menus show the title without it. Polestar's own pack (`guides`) gets no prefix |
+| `Title` | "Polestar Community: " and `pack.json` `title` (the title alone when it already starts so), so the AddOns list reads the addon as a community addon. Community addons built before this prefix carry "Polestar Pack: " until rebuilt; Polestar recognises both. Polestar's own menus show the title without it. Polestar's own pack (`guides`) gets no prefix |
 | `Author`, `Version` | from `pack.json` |
-| `Notes` | `pack.json` `notes`, else "Guide pack for Polestar by <author>" |
+| `Notes` | `pack.json` `notes`, else "Community addon for Polestar by <author>" |
 | `Category` | `Quests`, Polestar's category in the AddOns list |
 | `Group` | `Polestar`: the AddOns list shows the pack under Polestar's own entry, beside Polestar's own addons. Not written for Polestar's own pack |
 | `Dependencies` | `Polestar`: the client loads Polestar first |
-| `X-Polestar-Pack` | the pack id. Polestar lists every addon carrying it on the Guide packs page, loaded or not |
+| `X-Polestar-Pack` | the pack id. Polestar lists every addon carrying it on the Community guides page, loaded or not |
 | `X-Polestar-Format` | the pack format (below) |
 | `X-Polestar-Needs` | the first Polestar version that reads that format, so an older Polestar can say which version the pack needs |
 | `X-License` | `pack.json` `license` |
@@ -143,9 +145,9 @@ The comment line is the **generated-folder marker**, and with
 replaced without the check) and `dev` (the folder
 in AddOns) write a pack folder only when it is absent, empty, or carrying
 the generated marker and no other pack's id. Anything else is refused: a
-folder without the marker as "not a generated guide pack", one generated
+folder without the marker as "not a generated community addon", one generated
 for another pack as holding that pack, with the hint to set `folder` in
-`pack.json`. `pack` builds a guide pack's zip in memory, and `play` writes
+`pack.json`. `pack` builds a community addon's zip in memory, and `play` writes
 into a new temporary folder, so neither touches an existing pack folder.
 
 ## Rules Polestar enforces
@@ -183,7 +185,7 @@ before a pack is built (`tests/packs-parity.test.js` holds the two together).
 6. **Visible problems.** Every refusal is recorded against its pack with a
    kind: `pack-refused` (the pack), `guide-refused` (one guide, with its id),
    `no-guides` (the addon loaded but registered no guides, usually a Lua error
-   in its files). The Guide packs page shows them.
+   in its files). The Community guides page shows them.
 7. **Text prints literally.** Every string a pack registers is escaped once,
    at registration (`|` doubled), so colour and link codes do not work. A
    guide's ids (`id`, `pack`, `next`, `nextChoices`) are left as written.
@@ -191,7 +193,7 @@ before a pack is built (`tests/packs-parity.test.js` holds the two together).
    missing or switched off reopen in their old place when it comes back.
 9. **Packs on disk.** At login Polestar lists every addon whose TOC carries
    `X-Polestar-Pack`, loaded or not, with a status. A registered pack is
-   `on`, `off` (switched off on the Guide packs page), `refused`, `too-new`
+   `on`, `off` (switched off on the Community guides page), `refused`, `too-new`
    (a newer format) or `broken` (registered no guides). One that never
    registered is, in this order of precedence, `too-new`, `disabled` (turned
    off in the AddOns list), `not-loaded` (the client did not load it: out of
@@ -199,7 +201,7 @@ before a pack is built (`tests/packs-parity.test.js` holds the two together).
 
 Only guides of packs that are on are shown, searched and suggested.
 Suggestions come from Polestar's guides unless the player picks a pack under
-**Suggest guides from** on the Guide packs page; only packs with Leveling
+**Suggest guides from** on the Community guides page; only packs with Leveling
 guides are offered there, and Polestar's guides fill in where the chosen pack
 has nothing for the character.
 
@@ -401,5 +403,5 @@ frames of a pack that is not registered are dropped.
   into the TOC as `X-Polestar-Needs`. Format 1 is read by Polestar 0.1.0 and
   later, format 2 (the `group`, `reward` and `why` keys) by 0.2.4 and later.
 - A pack in a format this Polestar does not read registers nothing; the
-  Guide packs page shows it as `too-new` with "Needs Polestar <version> or
+  Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

@@ -1,12 +1,13 @@
 ---
 name: polestar-guide-pack
-description: Writes, fixes and builds Polestar guide packs, addons of .guide files (leveling routes, profession and collectible guides) that the Polestar addon for World of Warcraft Forever loads. Use when creating a pack with `polestar new`, writing or editing .guide files, looking up quest, NPC, item or object ids with `polestar find`, fixing `polestar lint` or `polestar playtest` problems, or building a pack's release zip.
+description: Writes, fixes and builds Polestar community addons (guide packs), addons of .guide files (leveling routes, profession and collectible guides) that the Polestar addon for World of Warcraft Forever loads. Use when creating a pack with `polestar new`, writing or editing .guide files, looking up quest, NPC, item or object ids with `polestar find`, fixing `polestar lint` or `polestar playtest` problems, or building a pack's release zip.
 compatibility: Needs a Polestar clone with its reference data built (data/forever), Node 24 or newer, and Lua 5.1 or LuaJIT for playtest.
 ---
 
-# Writing Polestar guide packs
+# Writing Polestar community addons
 
-A guide pack is a folder with a `pack.json` and `.guide` text files. Polestar's
+A community addon is built from a pack: a folder with a `pack.json` and
+`.guide` text files. Polestar's
 tools check the guides against the game's data, play them to the end without
 the game, and build the addon. The `polestar` command comes from a Polestar
 clone (`npm link` in it); without it, run
@@ -37,9 +38,9 @@ Read it before writing a guide.
   included: hand over to them with `next` instead.
 - **Pack naming.** `pack.json`'s `title` is the pack's own name
   (`Joe's Routes`), one that cannot be taken for Polestar's own addons. The
-  build titles the addon "Polestar Pack: Joe's Routes" and groups it under
+  build titles the addon "Polestar Community: Joe's Routes" and groups it under
   Polestar in the game's AddOns list; the addon page should say the same:
-  a guide pack for Polestar, by its author. Every guide id starts with the
+  a community addon for Polestar, by its author. Every guide id starts with the
   pack id and a slash (`joe-routes/westfall`).
 
 ## Workflow

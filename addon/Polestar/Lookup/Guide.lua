@@ -643,7 +643,7 @@ end
 
 -- Polestar's own internal pack, held from the moment Polestar's files load:
 -- packs load after Polestar (their Dependencies), so a later claim on
--- `lookup` is refused like any other and listed on the Guide packs page.
+-- `lookup` is refused like any other and listed on the Community guides page.
 ns.RegisterPack({ id = "lookup", title = L["Lookup"], internal = true })
 
 local function register(def)

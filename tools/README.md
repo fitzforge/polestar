@@ -27,7 +27,7 @@ is installed. The contract the tools write to is in
 | Command | What it does |
 |---|---|
 | `doctor` | Checks Node, Lua, the reference data, the AddOns folder and a pack's `pack.json` |
-| `install` | Copies (or with `--link`, symlinks) the addons into the game's AddOns folder; given a guide pack, builds and installs that pack |
+| `install` | Copies (or with `--link`, symlinks) the addons into the game's AddOns folder; given a pack, builds and installs its community addon |
 | `play` | The playground: the real addon in the browser against a simulated world |
 | `planner` | The route planner: a guide played on the real map with its clock, XP and quest log, its walks routed on the navigation grid when `nav build` has built it (`--nav <dir>`), edited in place; it fetches the game icons its page shows from wago.tools as they are first asked for (cached in `data/local/planner/icons/`); `planner art` builds its map art, `planner mcp` serves its commands to AI agents |
 | `preview` | Renders the guide window, the hub and the options to `docs/preview/*.svg` |
@@ -36,7 +36,7 @@ is installed. The contract the tools write to is in
 
 | Command | What it does |
 |---|---|
-| `new` | Starts a guide pack in a new folder from `tools/templates/pack` |
+| `new` | Starts a pack (the source of a community addon) in a new folder from `tools/templates/pack` |
 | `lint` | Checks a pack's `.guide` files without writing anything |
 | `compile` | Compiles a pack into its addon folder (ours into `addon/Polestar_Guides`) |
 | `dev` | Rebuilds a pack into the game, and optionally the playground, on every save |
@@ -88,7 +88,7 @@ without QuestieDB.
 | Command | What it does |
 |---|---|
 | `version` | Shows, or sets, the version in `package.json`, `guides/pack.json` and every addon TOC |
-| `pack` | Writes the release zips and `SHA256SUMS` to `dist/`; given a guide pack, that pack's zip |
+| `pack` | Writes the release zips and `SHA256SUMS` to `dist/`; given a pack, its community addon's zip |
 | `changelog add` / `check` / `show` / `build <version>` | The changelog fragments in `changes/`: writes one from `--text` or stdin / checks every fragment (CI) / prints them as the release will / assembles them into CHANGELOG.md under `## <version> (<date>)` and deletes them; `--root` works on another checkout |
 | `release scope` | Lists the paths since the last `vX.Y.Z` tag (or `--base`, or `--files -`) that a patch release may not carry; exit 1 when there are any. The `Base branch` check runs it on pull requests into `hotfix/` |
 | `release patch <version> --root <checkout>` | A patch release's build in a `hotfix/` checkout, with that checkout's tools: scope, the last release's data addons back, version, lint, compile, and the compiled guides that changed |
@@ -108,7 +108,7 @@ The release steps are in [docs/RELEASING.md](../docs/RELEASING.md).
 | `play/` | The playground: server, Lua session, driver and the page in `play/public` |
 | `planner/` | The route planner: server, workspace (packs, sources, edits, undo, lint), the command registry shared by HTTP, MCP and WebMCP, the MCP bridge, the walk routes on the navigation grid (`navpool.js`: worker pool, route cache, Walkable tiles) and the page in `planner/public` (WebGL2 map in `public/map`) |
 | `readme/` | The README's art, drawn by `readme`: `brand.js` (banners, emblem, logo, download and CurseForge buttons, CurseForge avatar) with the wordmark outlines of `outline.js`, `charts.js` (route charts) and `png.js` (the listing's PNG copies, through `rsvg-convert`) |
-| `templates/pack/` | What `new` copies into a new guide pack |
+| `templates/pack/` | What `new` copies into a new pack |
 | `discord-bot/` | The bug bot, a service rather than a command: files the Discord #bugs forum's posts as GitHub issues and tells the threads when they are fixed or shipped; setup in [discord-bot/README.md](discord-bot/README.md) |
 
 ### tools/lib

@@ -253,9 +253,9 @@ function packDirRefusal(dir, packId = null) {
 		return fs.existsSync(dir) ? 'it is not a folder' : null;
 	}
 	if (!entries.length) return null;
-	if (!isGeneratedDir(dir)) return `it is not a generated guide pack (no TOC with the "${GENERATED_MARKER}" line); move it away first`;
+	if (!isGeneratedDir(dir)) return `it is not a generated community addon (no TOC with the "${GENERATED_MARKER}" line); move it away first`;
 	const owner = packId ? generatedPackId(dir) : null;
-	if (owner && owner !== packId) return `it holds the guide pack "${owner}", not "${packId}"; set "folder" in pack.json to a folder name of your own`;
+	if (owner && owner !== packId) return `it holds the community addon "${owner}", not "${packId}"; set "folder" in pack.json to a folder name of your own`;
 	return null;
 }
 
@@ -321,7 +321,7 @@ function textsDirRefusal(dir, packId) {
 	const text = toc ? fs.readFileSync(path.join(dir, toc), 'utf8') : '';
 	const m = text.includes(GENERATED_MARKER) && TEXTS_ID_LINE.exec(text);
 	if (!m) return `it is not a generated texts addon (no TOC with the "${GENERATED_MARKER}" line); move it away first`;
-	if (packId && m[1] !== packId) return `it holds the texts of the guide pack "${m[1]}", not "${packId}"`;
+	if (packId && m[1] !== packId) return `it holds the texts of the community addon "${m[1]}", not "${packId}"`;
 	return null;
 }
 

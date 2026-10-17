@@ -247,7 +247,7 @@ test('pack refuses a pack with errors and writes nothing', async () => {
 	assert.equal(fs.existsSync(path.join(dir, 'dist')), false);
 });
 
-test('pack without reference data stops with one error and writes nothing; --no-data is for a guide pack only', async () => {
+test('pack without reference data stops with one error and writes nothing; --no-data is for a pack only', async () => {
 	const dir = tmpdir();
 	fs.cpSync(path.join(__dirname, 'fixtures', 'packs', 'mini'), dir, { recursive: true });
 	const missing = path.join(tmpdir(), 'nope');
@@ -259,7 +259,7 @@ test('pack without reference data stops with one error and writes nothing; --no-
 	assert.equal(fs.existsSync(path.join(dir, 'dist')), false);
 	const ours = await quiet(() => pack.run(['--no-data', '--guides', GUIDES_DIR]));
 	assert.equal(ours.result, 2, ours.out);
-	assert.match(ours.out, /--no-data builds a guide pack; our release needs the reference data/);
+	assert.match(ours.out, /--no-data builds a community addon; our release needs the reference data/);
 });
 
 test('our release: the guide pack folder is not checked for a TOC before it is generated, and write errors are reported', async () => {

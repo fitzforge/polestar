@@ -82,7 +82,7 @@ async function run(argv) {
 			console.error(built.noData ? 'play: not started: no reference data' : `play: the pack has ${plural(built.diag.errors.length, 'error')}; fix them first`);
 			return 1;
 		}
-		console.log(`guide pack ${built.manifest.id}: ${plural(built.guides.length, 'guide')}, loaded after ours`);
+		console.log(`community addon ${built.manifest.id}: ${plural(built.guides.length, 'guide')}, loaded after ours`);
 		packs.push(dir);
 	}
 	const { startServer } = require('../play/server');
@@ -124,7 +124,7 @@ const usage = [
 	'built data packs against the simulated world, and prints its URL. Click,',
 	'hover, scroll, drag and type in the game screen; the side panel sets the',
 	'character, moves them, plays guide goals and tweaks the look live.',
-	'Given another guide pack (<dir>, --pack, or run inside one) that pack is',
+	'Given another pack (<dir>, --pack, or run inside one) that pack is',
 	'linted, built into a temp folder and loaded after our guides.',
 	'',
 	'  --port <n>   port on 127.0.0.1 (default 8077; 0 picks a free one)',

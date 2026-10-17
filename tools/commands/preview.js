@@ -383,7 +383,7 @@ end`;
 // the arrow in your own colours.
 const CUSTOM_LOOK = `Polestar.Set("ui.borderAccent", true); Polestar.Set("ui.borderSize", 2); Polestar.Set("ui.band", false); Polestar.Set("ui.shadow", false)
 Polestar.Set("nav.arrowColor", { 0.45, 0.7, 1 }); Polestar.Set("nav.arrowNearColor", { 1, 0.55, 0.85 })`;
-// The Guide packs page over the real registry (uistub.realGuides in place
+// The Community guides page over the real registry (uistub.realGuides in place
 // of stub_ui's fake): ours and Joe's on, Ann's with two problems, Sam's
 // too new for this Polestar, Kim's turned off in the AddOns list.
 const PACKS_ADDONS = `stub.addons = {
@@ -974,7 +974,7 @@ end`,
 	},
 	{
 		file: 'options-packs.svg',
-		title: 'Options: Guide packs: ours and a community pack on, one with problems and its report, one turned off, one too new; where suggestions come from',
+		title: 'Options: Community guides: ours and a community addon on, one with problems and its report, one turned off, one too new; where suggestions come from',
 		panels: [
 			{ roots: OPTIONS, before: PACKS_ADDONS, script: `${PACKS_SCENE}; Polestar.UI.ShowOptions("guidepacks")` },
 			{ roots: OPTIONS, before: PACKS_ADDONS, script: `${PACKS_SCENE}; Polestar.UI.ShowOptions("guidepacks")

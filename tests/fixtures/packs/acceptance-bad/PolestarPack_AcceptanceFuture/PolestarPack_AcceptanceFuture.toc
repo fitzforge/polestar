@@ -1,6 +1,6 @@
 ## Interface: 16001
 ## Title: Acceptance Future
-## Notes: Guide pack for Polestar
+## Notes: Community addon for Polestar
 ## Author: Bo
 ## Version: 3.0.0
 ## Dependencies: Polestar

@@ -178,7 +178,7 @@ class Workspace extends EventEmitter {
 		this.packs = [];
 		const dirs = [...(official ? [officialDir] : []), ...packs];
 		for (const dir of dirs) this.addPack(path.resolve(dir));
-		if (!this.packs.length) throw new Error('no guide pack to plan');
+		if (!this.packs.length) throw new Error('no pack to plan');
 		this.sources = new Map(); // abs -> { abs, file, pack, text, hash, id, header }
 		this.byId = new Map();
 		this.initial = new Map(); // abs -> the text when the planner started (null: no file then)

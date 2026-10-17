@@ -1,6 +1,6 @@
 ## Interface: 16001
 ## Title: Acceptance Stray
-## Notes: Guide pack for Polestar
+## Notes: Community addon for Polestar
 ## Author: Bo
 ## Version: 0.1.0
 ## Dependencies: Polestar

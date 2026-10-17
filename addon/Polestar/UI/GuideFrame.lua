@@ -1136,15 +1136,15 @@ local function setEmpty(kind)
 	empty.Secondary:Hide()
 	local glyph, color = "emblem", "accent"
 	if kind == "noguides" and UI.Packs and UI.Packs.AnySwitchedOff() then
-		-- Installed but switched off on the Guide packs page.
+		-- Installed but switched off on the Community guides page.
 		empty.Title:SetText(L["No guides shown"])
-		empty.Text:SetText(L["The guide packs are switched off. Turn one on under Options, Guide packs (/polestar packs)."])
-		W.SetButtonText(empty.Primary, L["Guide packs"])
+		empty.Text:SetText(L["The community addons are switched off. Turn one on under Options, Community guides (/polestar packs)."])
+		W.SetButtonText(empty.Primary, L["Community guides"])
 		empty.Primary.psAction = function() UI.ShowOptions("guidepacks") end
 		empty.Primary:Show()
 	elseif kind == "noguides" then
 		empty.Title:SetText(L["No guides installed"])
-		empty.Text:SetText(L["Enable Polestar Guides or a guide pack in the AddOns list on the character screen, then reload."])
+		empty.Text:SetText(L["Enable Polestar Guides or a community addon in the AddOns list on the character screen, then reload."])
 	elseif kind == "noguide" then
 		local id = G and G.Suggest and G.Suggest()
 		local suggested = id and G.Get(id)

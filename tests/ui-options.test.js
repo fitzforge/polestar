@@ -65,10 +65,10 @@ test('pages: by order, a page with nothing to set left out, Recorder and About l
 			tabs = (function() local t = {} for _, b in ipairs(PolestarOptions.tabButtons) do if b:IsShown() then t[#t + 1] = b.Label:GetText() end end return t end)(),
 			footer = footer() })`, { between: FAKE_PAGE });
 	// Questing, Discovery and Quality of Life fill from modules not loaded
-	// here; Gear registered no control: all left out of the list. Guide packs
+	// here; Gear registered no control: all left out of the list. Community guides
 	// (a custom page) and Integrations (which says when it has nothing) are
 	// always there.
-	assert.deepEqual(out.nav, ['Guide', 'Appearance', 'Map', 'Quests', 'Integrations', 'Guide packs', 'Gamepad', 'Recorder', 'About']);
+	assert.deepEqual(out.nav, ['Guide', 'Appearance', 'Map', 'Quests', 'Integrations', 'Community guides', 'Gamepad', 'Recorder', 'About']);
 	assert.equal(out.title, 'Guide');
 	assert.deepEqual(out.tabs, ['Window', 'Arrow & routes', 'Automation']);
 	assert.deepEqual(out.pages.find((p) => p.name === 'Quests'), { name: 'Quests', key: 'quests', builtin: false, tabs: ['Map'] });
@@ -169,7 +169,7 @@ test('page keys stay English on a translated client: /polestar options quests, g
 			Questing: 'Questen',
 			Discovery: 'Entdecken',
 			'Quality of Life': 'Komfort',
-			'Guide packs': 'Guide-Pakete',
+			'Community guides': 'Community-Guides',
 			About: 'Über',
 			Quests: 'Aufträge',
 			'Rewards & gear': 'Belohnungen & Ausrüstung',
@@ -198,7 +198,7 @@ test('page keys stay English on a translated client: /polestar options quests, g
 		'options appearance': 'appearance: Darstellung > Colour & type',
 		'options qualityoflife': 'qualityoflife: Komfort > Travel',
 		'options about': 'about: Über > ',
-		packs: 'guidepacks: Guide-Pakete > ',
+		packs: 'guidepacks: Community-Guides > ',
 		keys: ['guide', 'appearance', 'map', 'questing', 'discovery', 'qualityoflife', 'integrations', 'guidepacks', 'gamepad', 'recorder', 'about'],
 	});
 });

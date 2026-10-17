@@ -461,7 +461,7 @@ function ns.RegisterPack(meta)
 		r.status = "on"
 		return true
 	end
-	-- Every other pack, refused ones included, is listed on the Guide packs page.
+	-- Every other pack, refused ones included, is listed on the Community guides page.
 	local addon = meta.addon
 	local r = newRecord(meta, addon)
 	loadingRefused = nil
@@ -692,7 +692,7 @@ function Guides.Packs()
 	return out
 end
 
--- Problems over every listed pack (the Guide packs page's dot).
+-- Problems over every listed pack (the Community guides page's dot).
 function Guides.ProblemCount()
 	local n = 0
 	for _, r in ipairs(Guides.Packs()) do n = n + #r.problems end
@@ -735,12 +735,14 @@ local function noGuides(r)
 end
 
 -- A pack that never registered, from its TOC and the client's state. The
--- compiler writes its Title as "Polestar Pack: <title>" for the AddOns list;
+-- compiler writes its Title as "Polestar Community: <title>" for the AddOns
+-- list (community addons built before that say "Polestar Pack: <title>");
 -- here it reads as the pack's own title, as a registered pack's does.
 -- Priority: too-new > disabled > not-loaded > broken.
 local function fromToc(r, name, reason, enabled)
 	local title = meta(name, "Title")
-	r.title = escape(title and title:gsub("^Polestar Pack: ", "") or name)
+	if title then title = title:gsub("^Polestar Community: ", ""):gsub("^Polestar Pack: ", "") end
+	r.title = escape(title or name)
 	for key, field in pairs({ author = "Author", version = "Version", license = "X-License", website = "X-Website" }) do
 		local v = meta(name, field)
 		r[key] = v and escape(v) or nil
@@ -925,7 +927,7 @@ local function canSuggest(id)
 end
 
 -- The packs suggestions can come from, ours ("guides") first, then the
--- others as Guides.Packs orders them (the Guide packs page's choices).
+-- others as Guides.Packs orders them (the Community guides page's choices).
 function Guides.SuggestSources()
 	local out = { "guides" }
 	for _, r in ipairs(Guides.Packs()) do

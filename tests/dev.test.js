@@ -105,7 +105,7 @@ test('dev refuses to replace a folder it did not generate', { timeout: 30000 }, 
 	fs.writeFileSync(path.join(dest, FOLDER, 'notes.txt'), 'mine\n');
 	const d = dev(pack, dest);
 	try {
-		await d.waitFor(/refusing to write into .*PolestarPack_MiniPack: it is not a generated guide pack/);
+		await d.waitFor(/refusing to write into .*PolestarPack_MiniPack: it is not a generated community addon/);
 		assert.deepEqual(fs.readdirSync(path.join(dest, FOLDER)), ['notes.txt']);
 		assert.doesNotMatch(d.out(), RESTART);
 	} finally {
@@ -122,7 +122,7 @@ test('dev refuses a generated folder of another pack with the same folder name, 
 	fs.writeFileSync(path.join(other, `${FOLDER}.toc`), toc);
 	const d = dev(pack, dest);
 	try {
-		await d.waitFor(/refusing to write into .*PolestarPack_MiniPack: it holds the guide pack "someone-else", not "mini"; set "folder" in pack\.json/);
+		await d.waitFor(/refusing to write into .*PolestarPack_MiniPack: it holds the community addon "someone-else", not "mini"; set "folder" in pack\.json/);
 		assert.equal(fs.readFileSync(path.join(other, `${FOLDER}.toc`), 'utf8'), toc);
 		assert.deepEqual(fs.readdirSync(other), [`${FOLDER}.toc`]);
 	} finally {

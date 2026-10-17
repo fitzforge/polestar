@@ -32,7 +32,7 @@ options:
                      score for that class (run/robust/compare/bench); default none ("any")
   --band <levels>    level width of the world's quest packages (default 5; a new width rebuilds the world)
   --guides <dir>     compare: Polestar guides folder to score (default guides/), e.g. an old copy
-  --pack <dir>       compare: also score this guide pack's chain (or name the pack folder
+  --pack <dir>       compare: also score this pack's chain (or name the pack folder
                      as the one argument; default: the nearest pack.json); after our chain
                      up to its first level when it starts above 1;
                      written to data/bench/compare-<faction>-<race>-<pack id>.json

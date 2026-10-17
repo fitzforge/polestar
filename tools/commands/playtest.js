@@ -9,7 +9,7 @@ const { findLua } = require('../lib/lua');
 
 const usage = `usage: node tools/polestar.js playtest [<dir>] [options]
 
-Plays a guide pack's guides to the end in the real addon against a simulated
+Plays a pack's guides to the end in the real addon against a simulated
 world (needs Lua 5.1; \`doctor\` checks): each guide once per class it
 branches on (\`only\`) plus one class it never names, as each race that can
 reach it. The pack is the one in <dir> (or --pack), else the nearest folder

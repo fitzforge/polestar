@@ -91,7 +91,7 @@ P.CATEGORY_ICON = CATEGORY_ICON
 local categoryOf = UI.Category
 
 -- Community guide packs: their guides are not in our categories but under
--- the "Guide packs" heading, one entry per pack (key "pack:<id>"); All,
+-- the "Community guides" heading, one entry per pack (key "pack:<id>"); All,
 -- Favorites and search cover every shown guide.
 local PACK = "pack:"
 
@@ -1221,10 +1221,10 @@ local function navItems(counts, total)
 		if exists[c] then items[#items + 1] = { key = c, label = L[c], icon = CATEGORY_ICON[c], count = counts[c] or 0 } end
 	end
 	items[#items + 1] = { key = "Favorites", label = L["Favourites"], icon = CATEGORY_ICON.Favorites, count = counts.Favorites or 0 }
-	-- Guide packs: one entry per shown pack with guides, "<title> · <author>".
+	-- Community guides: one entry per shown pack with guides, "<title> · <author>".
 	if #packs > 0 then
 		table.sort(packs, function(a, b) return (a.title or a.id):lower() < (b.title or b.id):lower() end)
-		items[#items + 1] = { key = "", heading = true, label = L["Guide packs"] }
+		items[#items + 1] = { key = "", heading = true, label = L["Community guides"] }
 		for _, r in ipairs(packs) do
 			local label = r.title or r.id
 			if r.author then label = label .. DOT .. r.author end
@@ -1540,8 +1540,8 @@ function P.Render()
 		if n == 0 and not (query ~= "" and UI.LookupCount and UI.LookupCount() > 0) then
 			if #(ns.Guides and ns.Guides.List and ns.Guides.List() or {}) == 0 then
 				empty = (UI.Packs and UI.Packs.AnySwitchedOff())
-					and L["No guides shown: the guide packs are switched off. Turn one on under Options, Guide packs (/polestar packs)."]
-					or L["No guides installed. Enable Polestar Guides or a guide pack in the AddOns list on the character screen, then reload."]
+					and L["No guides shown: the community addons are switched off. Turn one on under Options, Community guides (/polestar packs)."]
+					or L["No guides installed. Enable Polestar Guides or a community addon in the AddOns list on the character screen, then reload."]
 			elseif query ~= "" then
 				empty = string.format(L["No guides match \226\128\156%s\226\128\157."], query)
 			elseif category == "Favorites" then

@@ -12,8 +12,8 @@ const { packCommand, buildPack } = require('../lib/pack/build');
 
 const usage = `usage: node tools/polestar.js compile [<dir>] [options]
 
-Compiles a guide pack's .guide files (docs/GUIDE_FORMAT.md) into its addon
-folder, as its pack.json describes it: the generated TOC, Pack.lua,
+Compiles a pack's .guide files (docs/GUIDE_FORMAT.md) into its community
+addon folder, as its pack.json describes it: the generated TOC, Pack.lua,
 MapFrames.lua, Guides.lua and LICENSE-DATA.txt, plus the pack's LICENSE file
 as LICENSE.txt when it has one. The pack is the one in <dir> (or
 --pack), else the nearest folder holding a pack.json (this one or a parent),
@@ -76,4 +76,4 @@ async function run(argv) {
 	return 0;
 }
 
-module.exports = { name: 'compile', summary: 'Compile a guide pack into its addon folder', usage, run };
+module.exports = { name: 'compile', summary: 'Compile a pack into its community addon folder', usage, run };

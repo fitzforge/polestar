@@ -1,5 +1,5 @@
 'use strict';
-// Guide packs in the guide menu (addon/Polestar/UI/Picker.lua) and the
+// Community guides in the guide menu (addon/Polestar/UI/Picker.lua) and the
 // credits line on every guide, over the real guide registry
 // (uistub.realGuides) and the UI's fake Engine (tests/lua/stub_ui.lua). Our
 // categories list only our guides; All lists every shown guide; a "Guide
@@ -74,7 +74,7 @@ test('a pack\'s entry lists its guides grouped by its folders, categories and ba
 	assert.deepEqual(out.joe, ['[Leveling 1–30]', "Joe's Barrens", "Joe's Redridge", '[Night routes]', 'Night Run', '[Professions]', "Joe's Tailoring"]);
 });
 
-test('the "Guide packs" heading and one entry per shown pack, "<title> · <author>"; hiding the pack removes them', () => {
+test('the "Community guides" heading and one entry per shown pack, "<title> · <author>"; hiding the pack removes them', () => {
 	const [out] = run(`
 		UI.ShowPicker()
 		P.SetCategory("pack:joe")
@@ -82,10 +82,10 @@ test('the "Guide packs" heading and one entry per shown pack, "<title> · <autho
 		G.SetPackShown("joe", false)
 		emit({ shown = shown, hidden = { nav = nav(), category = P.Category(), joe = rowFor("Joe's Barrens") ~= nil,
 			all = titles(P.Entries("All", "", "All")) } })`);
-	assert.deepEqual(out.shown.nav.slice(-2), ['# Guide packs', "Joe's Routes  ·  Joe"]);
+	assert.deepEqual(out.shown.nav.slice(-2), ['# Community guides', "Joe's Routes  ·  Joe"]);
 	assert.equal(out.shown.title, "Joe's Routes");
 	assert.equal(out.shown.joe, true);
-	assert.ok(!out.hidden.nav.includes('# Guide packs'), out.hidden.nav.join(', '));
+	assert.ok(!out.hidden.nav.includes('# Community guides'), out.hidden.nav.join(', '));
 	assert.ok(!out.hidden.nav.some((l) => l.startsWith("Joe's Routes")));
 	assert.equal(out.hidden.category, 'All');
 	assert.equal(out.hidden.joe, false);
@@ -122,7 +122,7 @@ test('no heading without a shown pack that has guides', () => {
 			for _, b in ipairs(PolestarPicker.navButtons) do if b:IsShown() then out[#out + 1] = b.Label:GetText() end end
 			emit(out)`,
 	}).emitted;
-	assert.ok(!out.includes('Guide packs'), out.join(', '));
+	assert.ok(!out.includes('Community guides'), out.join(', '));
 });
 
 test('pack guides carry their pack\'s title in rows and search results', () => {
@@ -173,7 +173,7 @@ test('a "|" in a pack title and source prints literally in the sidebar, the head
 	assert.equal(out.source, '“My ||Hitem:1||h notes”');
 });
 
-test('the empty states name Polestar Guides and guide packs', () => {
+test('the empty states name Polestar Guides and community addons', () => {
 	const [out] = runAddon({
 		stubs: ['stub_ui.lua'],
 		addons: [{ name: 'Polestar', files: FILES }],
@@ -186,9 +186,9 @@ test('the empty states name Polestar Guides and guide packs', () => {
 			Polestar.UI.Picker.SetCategory("All")
 			local GF = PolestarGuideFrame
 			emit({ picker = PolestarPicker.Empty:GetText(), frame = { uistub.findText(GF, "No guides installed") ~= nil,
-				uistub.findText(GF, "Enable Polestar Guides or a guide pack in the AddOns list on the character screen, then reload.") ~= nil } })`,
+				uistub.findText(GF, "Enable Polestar Guides or a community addon in the AddOns list on the character screen, then reload.") ~= nil } })`,
 	}).emitted;
-	assert.equal(out.picker, 'No guides installed. Enable Polestar Guides or a guide pack in the AddOns list on the character screen, then reload.');
+	assert.equal(out.picker, 'No guides installed. Enable Polestar Guides or a community addon in the AddOns list on the character screen, then reload.');
 	assert.deepEqual(out.frame, [true, true]);
 });
 
@@ -255,7 +255,7 @@ test('a pooled row measures its note and title from scratch: longer ones after s
 	assert.equal(out.title, Math.floor(out.titleFull + 1), 'the title has room and gets its whole width');
 });
 
-test('every pack switched off: the empty states point to the Guide packs page, not the AddOns list', () => {
+test('every pack switched off: the empty states point to the Community guides page, not the AddOns list', () => {
 	const [out] = run(`
 		G.SetPackShown("guides", false)
 		G.SetPackShown("joe", false)
@@ -266,16 +266,16 @@ test('every pack switched off: the empty states point to the Guide packs page, n
 		local GF = PolestarGuideFrame
 		local button
 		for _, f in ipairs(stub.frames) do
-			if rawget(f, "psAction") and rawget(f, "Label") and f:IsVisible() and f.Label:GetText() == "Guide packs" then button = f end
+			if rawget(f, "psAction") and rawget(f, "Label") and f:IsVisible() and f.Label:GetText() == "Community guides" then button = f end
 		end
 		local r = { picker = PolestarPicker.Empty:GetText(), title = uistub.findText(GF, "No guides shown") ~= nil,
-			text = uistub.findText(GF, "The guide packs are switched off. Turn one on under Options, Guide packs (/polestar packs).") ~= nil,
+			text = uistub.findText(GF, "The community addons are switched off. Turn one on under Options, Community guides (/polestar packs).") ~= nil,
 			installed = uistub.findText(GF, "No guides installed") ~= nil, button = button ~= nil }
 		if button then button.psAction() end
 		r.options = PolestarOptions ~= nil and PolestarOptions:IsShown() and PolestarOptions.Title:GetText() or false
 		emit(r)`);
-	assert.equal(out.picker, 'No guides shown: the guide packs are switched off. Turn one on under Options, Guide packs (/polestar packs).');
+	assert.equal(out.picker, 'No guides shown: the community addons are switched off. Turn one on under Options, Community guides (/polestar packs).');
 	assert.deepEqual({ title: out.title, text: out.text, installed: out.installed, button: out.button },
 		{ title: true, text: true, installed: false, button: true });
-	assert.equal(out.options, 'Guide packs');
+	assert.equal(out.options, 'Community guides');
 });

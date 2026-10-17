@@ -1,14 +1,15 @@
-# Writing guide packs
+# Writing community addons
 
-A guide pack is your own guides for Polestar, published as your own addon.
-Players install it next to Polestar; its guides then appear in Polestar's
-guide menu under "Guide packs", with your name on them. You write guides as
+A community addon is your own guides for Polestar, published as your own
+addon. Players install it next to Polestar; its guides then appear in
+Polestar's guide menu under "Community guides", with your name on them. You write guides as
 plain text (`.guide` files, [GUIDE_FORMAT.md](GUIDE_FORMAT.md)), and
 Polestar's tools check them, play them to the end without the game, and
-build the addon.
+build the addon. A community addon is built from a pack: a folder with a
+`pack.json` and `.guide` files.
 
-Players: [GUIDE_PACKS.md](GUIDE_PACKS.md) explains what a pack is, how to
-install one and who supports it. Authors: start there too for the short
+Players: [GUIDE_PACKS.md](GUIDE_PACKS.md) explains what a community addon
+is, how to install one and who supports it. Authors: start there too for the short
 version (the steps, what the tools require, what we ask of you); this page
 is the full handbook.
 
@@ -120,15 +121,15 @@ polestar dev --play               # lint and build on every save, with the playg
    for this pack (the folder rule, below).
 3. **`polestar play`** (or `dev --play`) runs the real Polestar against a
    simulated world, with your pack loaded after our guides, and prints the
-   address to open in your browser: open the guide menu, find your pack under "Guide packs", load a guide and
-   play it with the side panel. Options > Guide packs shows your pack's row
+   address to open in your browser: open the guide menu, find your pack under "Community guides", load a guide
+   and play it with the side panel. Options > Community guides shows your pack's row
    and any problems.
 4. **`polestar install`** inside the pack (or `polestar install <dir>`
    from anywhere) builds it and installs it into the game, when you are not
    running `dev`.
 5. **In game:** the first time, restart the game so the client sees the new
    addon; after that, `/reload` shows every change. Open the guide menu
-   (`/polestar guides`) and pick your guide under "Guide packs".
+   (`/polestar guides`) and pick your guide under "Community guides".
 
 ## Four ways to write guides
 
@@ -275,7 +276,7 @@ on another.
 |---|---|
 | `polestar lint` | every check `compile` makes, writing nothing; exit code 1 on errors. `--format json` prints one document on stdout and no summary: `{ "ok", "errors", "warnings", "diagnostics" }`, `ok` true without errors, `errors` and `warnings` the counts, and `diagnostics` one object per problem with `file`, `line`, `severity` (`error` or `warning`), `message` and, when there is one, `hint`. `--quiet` leaves the warnings out of the list (text, JSON and annotations alike); the JSON counts still include them. `--format github` prints workflow annotations. `--include-drafts` checks `drafts/` too. `--no-data` checks without reference data: the guides must give every quest title, NPC name and place themselves (`compile`, `dev`, and `install` and `pack` on a pack take it too; it cannot be combined with `--data`, `--context-data` or `--sim`) |
 | `polestar playtest [--filter text] [--class C]` | plays every guide (with `--filter`, those whose file or id contains the text) to the end in the real addon against a simulated world, once per class it branches on plus one it never names, as each race that can reach it (only race and class pairs the game has); Polestar's guides join where yours hand over. Prints per guide, race and class `ok  joe/elwynn (Human Warrior)`, `stuck … at step N "title": goal M (…) stays active`, `fail …` (a problem found while playing, such as a goal with no location) or, for a hand-over that does not land on the next guide with something to do or lands on one the character cannot follow (`no Human can follow it`), a `stuck` line naming the hand-over; exit code 1 when any is stuck or fails, when nothing played, or when the pack does not compile |
-| `polestar play` | the playground: your guides, your row on the Guide packs page and its problems, in the browser |
+| `polestar play` | the playground: your guides, your row on the Community guides page and its problems, in the browser |
 | `polestar sim compare --faction F [--race R]` | inside a pack: scores your leveling chain beside Polestar's under the simulator's model (hours to level 10, 20 … 60); a chain starting above level 1 is scored after Polestar's own chain up to the level yours starts at, and a chain whose guides name no race is scored for every race of the faction. Needs the simulator's world (docs/SIMULATION.md) |
 | `polestar doctor` | the setup, and the pack's `pack.json` |
 
@@ -296,12 +297,13 @@ The zip holds the addon folder (the TOC, `Pack.lua`, `MapFrames.lua`,
 `Guides.lua` and `LICENSE-DATA.txt`), byte for byte reproducible, with the
 pack's `LICENSE` as `LICENSE.txt` when the pack folder has one.
 
-The TOC places the pack in the game's AddOns list for you: titled
-"Polestar Pack: <title>" (your title as it is when it already starts with
-that), grouped with Polestar, in the Quests category, with your `notes` as
-its description, or "Guide pack for Polestar by <author>" when `pack.json`
-has none. Polestar's own menus and the Guide packs page show your title as
-you wrote it.
+The TOC places the community addon in the game's AddOns list for you:
+titled "Polestar Community: <title>" (your title as it is when it already
+starts with that), grouped with Polestar, in the Quests category, with your
+`notes` as its description, or "Community addon for Polestar by <author>"
+when `pack.json` has none. Polestar's own menus and the Community guides
+page show your title as you wrote it. Community addons built before this
+name read "Polestar Pack: <title>" until rebuilt; Polestar reads both.
 
 Upload the zip to:
 
@@ -323,12 +325,12 @@ compiler places in them, under terms of your choice; the pack's
 copied from Polestar's own guides.
 
 Players see your title, author, version, licence, guide count, website and
-`source` on the Guide packs page, and "By <author> · <pack title> <version> ·
+`source` on the Community guides page, and "By <author> · <pack title> <version> ·
 <licence>" in each guide's details. Each pack is made and supported by its
 author: put where to report problems in your README and on the listing.
 
 Polestar suggests the next guide from its own guides unless the player picks
-your pack under **Suggest guides from** (Options > Guide packs); only packs
+your pack under **Suggest guides from** (Options > Community guides); only packs
 with Leveling guides are offered there. With your pack picked, Polestar's
 guides still fill in wherever yours have nothing for the character (another
 race, another level range).
@@ -349,8 +351,8 @@ race, another level range).
 
 ## In game: statuses and problems
 
-Options > **Guide packs** (`/polestar packs`) lists every pack the game has
-installed, ours first. The rules behind the statuses and problems below are
+Options > **Community guides** (`/polestar packs`) lists every pack the game
+has installed, ours first. The rules behind the statuses and problems below are
 in PACK_FORMAT.md, "Rules Polestar enforces". Each row has a status:
 
 | Status | The row says | Fix |
@@ -387,8 +389,8 @@ scan at login, so the row's **Show** and **Copy report** are where to read
 them.
 
 Below the list, **Suggest guides from** picks where suggestions come from
-(Publishing, above), and **About guide packs** tells players in plain words
-what a pack is, with a **Read more:** link to
+(Publishing, above), and **About community guides** tells players in plain
+words what a community addon is, with a **Read more:** link to
 [GUIDE_PACKS.md](GUIDE_PACKS.md). A pack's website and that link open the
 copy window, with the address selected to copy.
 
@@ -444,8 +446,8 @@ reasons are the same everywhere:
 
 | Message | Fix |
 |---|---|
-| refusing to write into <dir>: it is not a generated guide pack (no TOC with the "Generated by …" line); move it away first | a folder of the same name that Polestar did not write is in the way (in AddOns or `dist/`): move or rename it, or set `folder` in `pack.json` |
-| refusing to write into <dir>: it holds the guide pack "<other id>", not "<id>"; set "folder" in pack.json to a folder name of your own | another pack builds into the same folder name (folder names come from titles, so two packs titled alike collide): set `folder` in `pack.json` |
+| refusing to write into <dir>: it is not a generated community addon (no TOC with the "Generated by …" line); move it away first | a folder of the same name that Polestar did not write is in the way (in AddOns or `dist/`): move or rename it, or set `folder` in `pack.json` |
+| refusing to write into <dir>: it holds the community addon "<other id>", not "<id>"; set "folder" in pack.json to a folder name of your own | another pack builds into the same folder name (folder names come from titles, so two packs titled alike collide): set `folder` in `pack.json` |
 | refusing to write into <dir>: it is not a folder / refusing to install: <AddOns>/<folder> exists and is not a folder | a file has the pack folder's name: move or rename it, or set `folder` in `pack.json` |
 
 ## Where things are

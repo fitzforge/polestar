@@ -229,7 +229,7 @@ test('compile never writes into a folder that is not a generated pack (case-inse
 	fs.writeFileSync(path.join(out, 'Guides', 'forever', 'precious.guide'), 'guide t/x\n');
 	const r = cli('compile', '--guides', GUIDES_DIR, '--data', DATA_DIR, '--out', out);
 	assert.equal(r.status, 1);
-	assert.match(r.stderr, /refusing to write into .*: it is not a generated guide pack/);
+	assert.match(r.stderr, /refusing to write into .*: it is not a generated community addon/);
 	assert.equal(fs.readFileSync(path.join(out, 'Guides', 'forever', 'precious.guide'), 'utf8'), 'guide t/x\n');
 	assert.deepEqual(fs.readdirSync(out), ['Guides']);
 });

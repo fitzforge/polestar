@@ -10,7 +10,7 @@ your task:
 | Any change, commit, pull request or issue comment | [skills/polestar-contributing/SKILL.md](skills/polestar-contributing/SKILL.md) |
 | Looking at, triaging or answering a bug report | [skills/polestar-triage/SKILL.md](skills/polestar-triage/SKILL.md) |
 | Fixing a step, route, giver or coordinate in `guides/` | [skills/polestar-guide-fix/SKILL.md](skills/polestar-guide-fix/SKILL.md) |
-| Writing a separate guide pack | [skills/polestar-guide-pack/SKILL.md](skills/polestar-guide-pack/SKILL.md) |
+| Writing a separate community addon (guide pack) | [skills/polestar-guide-pack/SKILL.md](skills/polestar-guide-pack/SKILL.md) |
 
 The rules that hold for every task:
 

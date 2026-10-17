@@ -79,17 +79,17 @@ their versions in its `meta`.
 | `Polestar_QuestDB` | `data/forever` (includes QuestieDB) | no (local) | on demand |
 | `Polestar_Codex` | `data/forever/codex` (release-safe inputs) | no (generated); in every release zip | on demand (first search, tooltip or lookup) |
 | `Polestar_Travel` | a local crossings file (`travel build`) | no (local) | always, when built |
-| community guide packs (`PolestarPack_*` by default) | a pack's `.guide` files, by its author (`docs/PACKS.md`) | in the author's repository | always, when installed |
+| community addons (`PolestarPack_*` by default) | a pack's `.guide` files, by its author (`docs/PACKS.md`) | in the author's repository | always, when installed |
 
 Local packs are generated into gitignored folders and installed by
 `node tools/polestar.js install` like the rest. Without them the core still
 works: Lookup, Dungeons and Rares say the Codex is not installed (get the
 release zip, not GitHub's "Source code") or turned off (enable it) instead of failing. Every addon, what it holds and how it is built: [ARCHITECTURE, "Overview"](ARCHITECTURE.md#overview).
 
-Guide packs (ours and the community's) register through one registry
+Packs (ours and the community addons) register through one registry
 (`Core/Guides.lua`, ARCHITECTURE "The guide registry"; the rules in
 PACK_FORMAT.md): each owns its guide-id prefix,
-a refusal is recorded against its pack and shown on Options > Guide packs, and
+a refusal is recorded against its pack and shown on Options > Community guides, and
 a pack the player switches off hides its guides everywhere (`PACKS_CHANGED`).
 The tools treat every pack alike (`new`, `doctor`, `lint`, `compile`,
 `playtest`, `play`, `dev`, `pack`, `install`, `sim compare --pack`);
@@ -127,7 +127,7 @@ choice, the welcome for new characters (`UI/Welcome.lua`), the copy window
 (`UI/Copy.lua`, `PolestarCopy`: text to copy, such as `/polestar where`'s
 lines), the report window (`UI/Report.lua`, `PolestarReport`: the guide
 window's bug writes a report on the step on screen to paste on the Polestar
-Discord) and the rare alert. Options carries a Guide packs page
+Discord) and the rare alert. Options carries a Community guides page
 (`UI/Packs.lua`) and a Gamepad page (`UI/GamepadGuide.lua`); every window
 answers a gamepad while it is open (`UI/Gamepad.lua`, ported from Ding! by
 Yendi).

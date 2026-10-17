@@ -119,7 +119,7 @@ ${wrapWords(require('../lib/i18n/leaks').SCENE_NAMES.join(', ') + '.', 29)}
                              folder.
 
   i18n guides sync [<locale>...]
-                             writes a guide pack's texts in other languages
+                             writes a pack's texts in other languages
                              (docs/TRANSLATING.md, "Guide texts"):
                              <pack>/locales/<locale>/<guide path>.lua per
                              guide and _pack.lua for the pack's own texts,
@@ -152,7 +152,7 @@ options:
                     drop the entries that no longer show
   --slack <n>       fit: measure every glyph n times wider (1.15: about the
                     client's own font)
-  --pack <dir>      guides: the guide pack (default our guides/)
+  --pack <dir>      guides: the pack (default our guides/)
   --data <dir>      guides: the reference data (default data/forever)
   --markdown        status: a Markdown table
   --no-questie      names: leave DingDB out (its base data is QuestieDB's)

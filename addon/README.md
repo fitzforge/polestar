@@ -187,7 +187,7 @@ never in saved variables.
 | `Welcome.lua` | `UI.Welcome` | The welcome a character sees the first time Polestar meets it |
 | `Copy.lua` | `UI.ShowCopy` | A small window holding text to copy |
 | `Report.lua` | `UI.Report` | "Report a problem" (the guide window's bug button, `/polestar report`): a report on the step on screen to copy for the Polestar Discord; `UI.ShowDiscord`, the invite on its own |
-| `Packs.lua` | `UI.Packs` | The Guide packs page of the options window |
+| `Packs.lua` | `UI.Packs` | The Community guides page of the options window |
 | `Options.lua` | `UI.Options` | The options window: pages, tabs, sections, settings search |
 
 ### Rares

@@ -241,7 +241,7 @@ return out`);
 		await session.stop({ save });
 	}
 
-	function reload({ packs: next = null, why = 'Guide pack rebuilt; UI reloaded.' } = {}) {
+	function reload({ packs: next = null, why = 'Community addon rebuilt; UI reloaded.' } = {}) {
 		return serial(async () => {
 			if (next) session.packs = next;
 			await relog({ why });

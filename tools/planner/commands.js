@@ -286,7 +286,7 @@ async function navRoute(ws, a) {
 const COMMANDS = [
 	{
 		name: 'planner_info',
-		description: 'What the planner has loaded: its version, the guide packs (ours is "guides"), the local map art (available, client build, continents), the navigation grid walks are routed on (nav: { available, build (the nav build id timelines and routes are cached under), continents, aids (the arrow aids file exists: GET /nav/aids.json) }), the icons the page can ask for (icons: { glyphs: names for GET /glyph/<name>.png, ui: keys for GET /icon/ui/<key>.png, kinds: the /icon/<kind>/ kinds, available: game icons can be served }), races.json (each race file\'s playable sides and classes), the classes, and defaults (a character and a start guide). Call this first.',
+		description: 'What the planner has loaded: its version, the packs (ours is "guides"), the local map art (available, client build, continents), the navigation grid walks are routed on (nav: { available, build (the nav build id timelines and routes are cached under), continents, aids (the arrow aids file exists: GET /nav/aids.json) }), the icons the page can ask for (icons: { glyphs: names for GET /glyph/<name>.png, ui: keys for GET /icon/ui/<key>.png, kinds: the /icon/<kind>/ kinds, available: game icons can be served }), races.json (each race file\'s playable sides and classes), the classes, and defaults (a character and a start guide). Call this first.',
 		input: NONE,
 		mutates: false,
 		handler: (ws, a, ctx) => ({

@@ -1,5 +1,5 @@
 'use strict';
-// The Guide packs page (addon/Polestar/UI/Packs.lua, registered by
+// The Community guides page (addon/Polestar/UI/Packs.lua, registered by
 // UI/Options.lua) against the real Core + Theme + UI manifests. The UI's
 // fake Engine comes from tests/lua/stub_ui.lua; the guide registry is the
 // real one (Core/Guides.lua), so the rows come from the core's own records
@@ -108,7 +108,7 @@ test('one row per pack, ours first: credits, count, website, source and each sta
 		end
 		emit({ rows = rows, title = PolestarOptions.Title:GetText() })`);
 	const by = Object.fromEntries(out.rows.map((r) => [r.addon, r]));
-	assert.equal(out.title, 'Guide packs');
+	assert.equal(out.title, 'Community guides');
 	assert.deepEqual(out.rows.map((r) => r.addon),
 		['Polestar_Guides', 'Crash', 'Dung', 'EmptyAddon', 'Future', 'JoeAddon', 'Old', 'Probs', 'Off']);
 	assert.deepEqual(by.Polestar_Guides, { addon: 'Polestar_Guides', title: 'Polestar Guides', credits: 'Polestar  ·  1.2.0  ·  GPL-3.0',
@@ -182,8 +182,8 @@ test('Show lists the problems; Copy report fills a selected box with the pack, v
 		assert.ok(out.list.includes(m), `the list shows "${m}"`);
 		assert.ok(out.report.includes(m), `the report has "${m}"`);
 	}
-	assert.match(out.report, /^Pack: probs \(Probs\)$/m);
-	assert.match(out.report, /Pack version: 1\.2\.0/);
+	assert.match(out.report, /^Community addon: probs \(Probs\)$/m);
+	assert.match(out.report, /Community addon version: 1\.2\.0/);
 	assert.match(out.report, /Polestar version: 0\.1\.0-test/);
 	assert.match(out.report, /1\.60\.1 \(70338\)/);
 	assert.equal(out.focused, true, 'the report box takes focus, its text selected');
@@ -244,7 +244,7 @@ test('a refused pack\'s id and addon, kept as given, print literally in the row 
 		emit({ title = title, report = row.Report:IsShown() and row.Report:GetText() or false, status = shownText(row.Status) })`);
 	assert.equal(out.title, 'bad||cffid');
 	assert.ok(out.report, 'the report opens');
-	assert.equal(out.report.split('\n')[0], 'Pack: bad||cffid (Bad||Addon)');
+	assert.equal(out.report.split('\n')[0], 'Community addon: bad||cffid (Bad||Addon)');
 	// Once: the refusal message escaped the id already, the report adds nothing to it.
 	assert.match(out.status, /Pack id bad\|\|cffid is not valid/);
 	assert.doesNotMatch(out.report, /\|\|\|\|/);
@@ -314,7 +314,7 @@ test('/polestar packs opens the page', () => {
 	const [out] = run(`
 		SlashCmdList.POLESTAR("packs")
 		emit({ shown = PolestarOptions:IsShown(), title = PolestarOptions.Title:GetText() })`);
-	assert.deepEqual(out, { shown: true, title: 'Guide packs' });
+	assert.deepEqual(out, { shown: true, title: 'Community guides' });
 });
 
 test('the website and the docs line are links that open the copy window; without X-Website, the source path', () => {
@@ -330,7 +330,7 @@ test('the website and the docs line are links that open the copy window; without
 	{ before: 'stub.addonMeta.Polestar = { ["X-Website"] = "https://github.com/polestar/polestar/" }' });
 	assert.deepEqual(withSite, {
 		label: 'Read more:', link: 'github.com/polestar/polestar/blob/HEAD/docs/GUIDE_PACKS.md', kind: 'Button',
-		docsTitle: 'Guide packs, explained', docsCopy: 'https://github.com/polestar/polestar/blob/HEAD/docs/GUIDE_PACKS.md',
+		docsTitle: 'Community guides, explained', docsCopy: 'https://github.com/polestar/polestar/blob/HEAD/docs/GUIDE_PACKS.md',
 		siteTitle: "Joe's Routes website", siteCopy: 'https://github.com/joe/routes',
 	});
 	const [without] = run(`

@@ -1,5 +1,5 @@
 'use strict';
-// Guide packs, end to end. The packs are built by the CLI into a temp AddOns
+// Community guides, end to end. The packs are built by the CLI into a temp AddOns
 // folder:
 //
 //   acceptance-good                         made by `polestar new --yes` in
@@ -172,7 +172,7 @@ test('beside ours: a row with its credits, its own picker entry, credits in the 
 		local ours = shownText(P.details.Credits)
 		emit({ page = page, picker = picker, credits = credits, ours = ours, next = G.Get("acceptance-good/example").next })`);
 	assert.deepEqual(out.page, { title: 'Acceptance Good', credits: 'Ann Example  ·  0.1.0  ·  CC-BY-4.0', count: '2 guides', on: true, status: false, problems: false });
-	const heading = out.picker.nav.indexOf('# Guide packs');
+	const heading = out.picker.nav.indexOf('# Community guides');
 	assert.ok(heading >= 0, out.picker.nav.join(', '));
 	assert.ok(out.picker.nav.slice(heading).includes('Acceptance Good  ·  Ann Example'), out.picker.nav.join(', '));
 	assert.equal(out.picker.title, 'Acceptance Good');

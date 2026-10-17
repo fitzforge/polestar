@@ -36,8 +36,8 @@ test('the TOC is generated with the credits, the format and the marker', () => {
 		files['PolestarPack_MiniPack.toc'],
 		[
 			'## Interface: 16001',
-			'## Title: Polestar Pack: Mini Pack',
-			'## Notes: Guide pack for Polestar by Ann',
+			'## Title: Polestar Community: Mini Pack',
+			'## Notes: Community addon for Polestar by Ann',
 			'## Author: Ann',
 			'## Version: 0.3.0',
 			'## Category: Quests',
@@ -56,6 +56,14 @@ test('the TOC is generated with the credits, the format and the marker', () => {
 			'',
 		].join('\n'),
 	);
+});
+
+test('a title already carrying the new or the legacy prefix is kept as written', () => {
+	const { manifest } = build();
+	const { emitToc } = require('../tools/lib/dsl/emit');
+	for (const title of ['Polestar Community: Mini Pack', 'Polestar Pack: Mini Pack']) {
+		assert.match(emitToc({ ...manifest, title }, '16001'), new RegExp(`^## Title: ${title}$`, 'm'));
+	}
 });
 
 test('Pack.lua registers the pack with its credits', () => {
@@ -106,7 +114,7 @@ test('writePackDir refuses a folder it did not generate', () => {
 	const dir = tmpdir();
 	fs.writeFileSync(path.join(dir, 'PolestarPack_MiniPack.toc'), '## Title: Mine\n\nMine.lua\n');
 	fs.writeFileSync(path.join(dir, 'Mine.lua'), '-- mine\n');
-	assert.throws(() => writePackDir(dir, files), /not a generated guide pack/);
+	assert.throws(() => writePackDir(dir, files), /not a generated community addon/);
 	assert.equal(fs.readFileSync(path.join(dir, 'PolestarPack_MiniPack.toc'), 'utf8'), '## Title: Mine\n\nMine.lua\n');
 	assert.equal(fs.existsSync(path.join(dir, 'Pack.lua')), false);
 });
@@ -147,7 +155,7 @@ test('one folder rule: an absent or empty folder, or a generated one, may be rep
 	const mine = path.join(root, 'mine');
 	fs.mkdirSync(mine);
 	fs.writeFileSync(path.join(mine, 'notes.txt'), 'mine\n');
-	assert.match(packDirRefusal(mine), /^it is not a generated guide pack \(no TOC with the ".*" line\); move it away first$/);
+	assert.match(packDirRefusal(mine), /^it is not a generated community addon \(no TOC with the ".*" line\); move it away first$/);
 	const file = path.join(root, 'file');
 	fs.writeFileSync(file, 'x');
 	assert.equal(packDirRefusal(file), 'it is not a folder');

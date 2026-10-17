@@ -24,7 +24,7 @@ const DEBOUNCE_MS = 200;
 
 const usage = `usage: node tools/polestar.js dev [<dir>] [options]
 
-On a guide pack (<dir>, --pack, or run inside one): watches pack.json and
+On a pack (<dir>, --pack, or run inside one): watches pack.json and
 the pack's .guide files. On every save it lints, printing the diagnostics,
 and without errors compiles the pack into <AddOns>/<folder>, then reloads
 the playground when --play started one. In game, /reload shows the change;
@@ -73,7 +73,7 @@ async function run(argv, env = process.env) {
 		return 2;
 	}
 	if (!first) {
-		console.error('dev works on a guide pack: run it inside one (a folder with pack.json) or name its folder; our guides build with `compile`');
+		console.error('dev works on a pack: run it inside one (a folder with pack.json) or name its folder; our guides build with `compile`');
 		return 2;
 	}
 	const dataDir = resolvePath(opts.data, 'data/forever', ROOT);
@@ -196,4 +196,4 @@ async function run(argv, env = process.env) {
 	return 0;
 }
 
-module.exports = { name: 'dev', summary: 'Rebuild a guide pack into the game on every save', usage, run };
+module.exports = { name: 'dev', summary: 'Rebuild a pack into the game on every save', usage, run };

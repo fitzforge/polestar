@@ -1,6 +1,7 @@
-# Working in this guide pack
+# Working in this pack
 
-This folder is a Polestar guide pack: `pack.json` describes it and
+This folder is a pack, the source of a community addon for Polestar:
+`pack.json` describes it and
 `guides/*.guide` hold its guides, written in Polestar's guide format
 (docs/GUIDE_CHEATSHEET.md on one page, docs/GUIDE_FORMAT.md in full, in
 Polestar's source). Every guide id starts with `{{id}}/`. The `polestar`

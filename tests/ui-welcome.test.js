@@ -338,17 +338,17 @@ test('the start page invites the player to the Discord community: its mark, and 
 	assert.ok(out.shared && out.copy === out.shared, `the copy window holds the shared invite: ${out.copy}`);
 });
 
-test('the start page says what guide packs are and where to learn more', () => {
+test('the start page says what community guides are and where to learn more', () => {
 	const [out] = run(`
 		Wel.Show("start")
 		local F = PolestarWelcome
 		local t = plain(F.pages.start.Packs.Text:GetText())
-		emit({ head = uistub.findText(F, "Guide packs") ~= nil,
+		emit({ head = uistub.findText(F, "Community guides") ~= nil,
 			others = t:find("made by other players for Polestar", 1, true) ~= nil,
 			addon = t:find("installed like any other", 1, true) ~= nil,
-			where = t:find("/polestar guides under Guide packs", 1, true) ~= nil,
+			where = t:find("/polestar guides under Community guides", 1, true) ~= nil,
 			author = t:find("credited to their author, who supports them", 1, true) ~= nil,
-			more = t:find("Options > Guide packs", 1, true) ~= nil })`);
+			more = t:find("Options > Community guides", 1, true) ~= nil })`);
 	assert.deepEqual(out, { head: true, others: true, addon: true, where: true, author: true, more: true });
 });
 
