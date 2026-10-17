@@ -373,9 +373,11 @@ test(`${DUROTAR}: AndarKerran's report: A Pain in the Neck is not offered to a T
 	]);
 	// Hidden ("na", like another class's goals), not offered and then skipped.
 	assert.deepEqual(painInTheNeck(), ['accept na', 'complete na', 'turnin na']);
-	const offered = ['accept pending', 'complete pending', 'turnin pending'];
+	// An enchanter is offered it. Its accept is optional, so the complete and
+	// the turn-in are theirs only once they take it (#221).
+	const offered = ['accept pending', 'complete na', 'turnin na'];
 	assert.deepEqual(painInTheNeck({ skills: 'w.skills[333] = { name = "Enchanting", rank = 1, maxRank = 75 }' }), offered);
-	// Learning Enchanting during the session brings them back.
+	// Learning Enchanting during the session brings the accept back.
 	assert.deepEqual(painInTheNeck({ after: 'stub.world.learnSkill(333, "Enchanting", 1, 75)' }), offered);
 });
 

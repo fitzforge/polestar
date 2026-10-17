@@ -233,9 +233,11 @@ end
 -- A turn-in, complete or objective goal for a quest the character neither
 -- has nor has done, and that this guide does not (for this character) accept
 -- at or before that step, in a step the player has not skipped, with an
--- accept that is not left out as grey nor checked off: it was picked up on
--- another route, or skipped, or ticked without being taken, so it cannot be
--- done here and no longer applies. Taking the quest brings the goals back.
+-- accept that is not optional, not left out as grey nor checked off: it was
+-- picked up on another route, or skipped, or ticked without being taken, so it
+-- cannot be done here and no longer applies. An `optional` accept the player
+-- did not take is the same: its turn-in holds only those who took the quest.
+-- Taking the quest brings the goals back.
 -- A `turnin ... direct` has no accept by definition: it is handed in from the
 -- giver's own window, so it is never orphaned.
 local function orphaned(goal)
@@ -249,7 +251,7 @@ local function orphaned(goal)
 	local skipped = ns.CharState().skipped[guide.id]
 	local manual = ns.CharState().manual[guide.id]
 	for _, a in ipairs(l.accepts[q] or NONE) do
-		if a.s <= s and not (skipped and skipped[a.s]) and not (manual and manual[a.key])
+		if a.s <= s and not a.goal.optional and not (skipped and skipped[a.s]) and not (manual and manual[a.key])
 			and Guides.Matches(a.step.only, player) and Guides.Matches(a.goal.only, player) and greyNeed(a.goal) ~= false then
 			return false
 		end

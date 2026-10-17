@@ -772,6 +772,23 @@ step Kobolds
   turnin 5261 optional                -- Eagan stands by the path
 ```
 
+The turn-in, objectives and `complete` goals of a quest whose accepts in the
+guide are all `optional` apply only while the quest is in the log or handed
+in. A player who never took it doesn't see them. So a side quest's turn-in
+can have a step of its own, written without `optional`: the step holds and
+leads the arrow to the ender for a player who took the quest, and the guide
+passes it for everyone else.
+
+```
+step Murlocs
+  collect 780 quest 46
+  collect 247826 x1 optional          -- Croaky's Head: Croaky
+  accept 91740 optional
+
+step Ridgepoint Tower
+  turnin 91740                        -- only for players who took it
+```
+
 **Leveling up before moving on.** `level <N>` holds its step until the
 character reaches level N. End a guide with it when the next guide's zone
 needs a level the route may not reach by itself:
