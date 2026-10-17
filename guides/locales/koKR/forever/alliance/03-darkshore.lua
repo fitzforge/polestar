@@ -71,12 +71,9 @@ return {
 
 	-- Step 10: The Tower of Althalaxx
 	-- {quest:954} Bashal'Aran · {quest:1002} Buzzbox 323
-	-- plural, as words: Grizzled Thistle Bears = {npc:2165} Grizzled Thistle Bear
-	["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower; Grizzled Thistle Bears roam around it."] = "달표범이 {quest:954}와(과) 탑 사이의 언덕을 배회합니다. {quest:1002}은(는) 탑 서쪽 언덕에 서 있고, 그 주변을 엉겅퀴불곰이 돌아다닙니다.",
+	["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower."] = "",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "달표범 송곳니",
-	-- plural, as words: Grizzled Scalps = {item:5414} Grizzled Scalp
-	["Grizzled Scalps"] = "불곰 가죽",
 
 	-- Step 11: Hearth to Auberdine
 	-- {area:442} Auberdine
@@ -121,7 +118,10 @@ return {
 	-- {area:448} Grove of the Ancients
 	["The {area:448}"] = "{area:448}",
 	-- {quest:1003} Buzzbox 525
-	["{quest:1003} stands west of the Grove."] = "{quest:1003}은(는) 고대정령의 숲 서쪽에 서 있습니다.",
+	-- plural, as words: Grizzled Thistle Bears = {npc:2165} Grizzled Thistle Bear
+	["Grizzled Thistle Bears roam the hills around the Grove; {quest:1003} stands west of it among them."] = "",
+	-- plural, as words: Grizzled Scalps = {item:5414} Grizzled Scalp
+	["Grizzled Scalps"] = "불곰 가죽",
 
 	-- Step 18: The red crystal
 	["Back north-east into the mountains to the crystal."] = "북동쪽 산으로 돌아가 수정에게 가십시오.",
@@ -269,6 +269,8 @@ return {
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the boat to {zone:1453}."] = "차원문을 타고 {npc:4217}에게 올라간 다음, {area:442}(으)로 날아가 {zone:1453}행 배를 타십시오.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower; Grizzled Thistle Bears roam around it."] = "달표범이 {quest:954}와(과) 탑 사이의 언덕을 배회합니다. {quest:1002}은(는) 탑 서쪽 언덕에 서 있고, 그 주변을 엉겅퀴불곰이 돌아다닙니다.",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "{npc:2232}은(는) 마을 아래 해안을 따라 기어다니고, {quest:983}은(는) 부두 바로 남쪽 해변에 서 있습니다. {npc:2185}은(는) 얕은 물에서 헤엄칩니다. {quest:4723}은(는) 마을 바로 남쪽 해안에 놓여 있습니다.",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}: 폐허 서쪽, 북쪽 해안 앞바다 물속의 {object:177790}",
+	-- ["{quest:1003} stands west of the Grove."] = "{quest:1003}은(는) 고대정령의 숲 서쪽에 서 있습니다.",
 }

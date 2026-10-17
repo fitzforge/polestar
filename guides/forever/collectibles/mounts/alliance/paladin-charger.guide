@@ -109,7 +109,7 @@ step Grimand Elmore
 
 step Grimand's materials
   tip Runecloth drops from humanoids around level 50 and up; Arthas' Tears is an herb of the Plaguelands and Felwood; Arcanite Bars are an Alchemy transmute. The Auction House in Stormwind's Trade District sells all three, and so do crafters.
-  collect 14047 quest 7642.3          -- Runecloth
+  collect 14047 quest 7642.3 @61.2,71.3 live -- Runecloth
   collect 8836 quest 7642.2           -- Arthas' Tears
   collect 12360 quest 7642.4 @61.2,71.3 live -- Arcanite Bars: the Auction House
 

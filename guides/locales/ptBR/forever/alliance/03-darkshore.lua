@@ -71,12 +71,9 @@ return {
 
 	-- Step 10: The Tower of Althalaxx
 	-- {quest:954} Bashal'Aran · {quest:1002} Buzzbox 323
-	-- plural, as words: Grizzled Thistle Bears = {npc:2165} Grizzled Thistle Bear
-	["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower; Grizzled Thistle Bears roam around it."] = "Espreitalunas rondam as colinas entre {quest:954} e a torre. {quest:1002} fica na colina a oeste da torre; Ursocardos Grisalhos vagam ao redor.",
+	["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower."] = "",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "Presas de Espreitaluna",
-	-- plural, as words: Grizzled Scalps = {item:5414} Grizzled Scalp
-	["Grizzled Scalps"] = "Escalpos Grisalhos",
 
 	-- Step 11: Hearth to Auberdine
 	-- {area:442} Auberdine
@@ -121,7 +118,10 @@ return {
 	-- {area:448} Grove of the Ancients
 	["The {area:448}"] = "{area:448}",
 	-- {quest:1003} Buzzbox 525
-	["{quest:1003} stands west of the Grove."] = "{quest:1003} fica a oeste do Bosque.",
+	-- plural, as words: Grizzled Thistle Bears = {npc:2165} Grizzled Thistle Bear
+	["Grizzled Thistle Bears roam the hills around the Grove; {quest:1003} stands west of it among them."] = "",
+	-- plural, as words: Grizzled Scalps = {item:5414} Grizzled Scalp
+	["Grizzled Scalps"] = "Escalpos Grisalhos",
 
 	-- Step 18: The red crystal
 	["Back north-east into the mountains to the crystal."] = "Volte para nordeste, pelas montanhas, até o cristal.",
@@ -267,4 +267,8 @@ return {
 	-- Step 42: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1453} Stormwind
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the boat to {zone:1453}."] = "Pegue o portal para subir até {npc:4217} e depois voe de volta para {area:442} para o barco para {zone:1453}.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower; Grizzled Thistle Bears roam around it."] = "Espreitalunas rondam as colinas entre {quest:954} e a torre. {quest:1002} fica na colina a oeste da torre; Ursocardos Grisalhos vagam ao redor.",
+	-- ["{quest:1003} stands west of the Grove."] = "{quest:1003} fica a oeste do Bosque.",
 }

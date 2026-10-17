@@ -638,3 +638,36 @@ test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, 
 	assert.equal(trail.length, 6, JSON.stringify(ichor.spots));
 	assert.ok(trail.every((s) => !s.alt), 'every spot of the Highborne trail is searched');
 });
+
+// The goals the stray rule moved, checked against their steps (#175 review): the
+// Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
+// leads to the Auction House, not to the guards and mobs that happen to drop it.
+
+test('forever/alliance/03-darkshore.guide: the Grizzled Scalps are collected in the step at the Grove, where the bears are and Buzzbox 525 takes them', { skip }, () => {
+	const list = goals('forever/alliance/03-darkshore.guide');
+	const i = at(list, 'Grizzled Scalp', (g) => g.t === 'collect' && g.item === 5414);
+	const turnin = at(list, 'turnin 1003', is('turnin', 1003));
+	assert.equal(list[i].step, list[turnin].step, 'one step: the bears and Buzzbox 525');
+	assert.ok(i < turnin);
+	assert.ok(yards(list[i].goal, list[turnin].goal) < 300, `the scalps' point ${list[i].goal.x},${list[i].goal.y} is near Buzzbox 525`);
+});
+
+test('the cloth the guides tell you to buy leads to the Auction House: the capitals\' cloth donations and Grimand\'s Runecloth', { skip }, () => {
+	// The auctioneers: Stormwind's Trade District (live frame) and Ironforge's (Era frame).
+	const ah = { 1453: { x: 61.2, y: 71.3 }, 1455: { x: 24.2, y: 74.7 } };
+	const cases = [
+		['forever/alliance/50-60/06-silithus.guide', [7793, 7794, 7795, 7807, 7808, 7809, 7811, 7802, 7803, 7804, 7805]],
+		['forever/collectibles/mounts/alliance/paladin-charger.guide', [7642]],
+	];
+	for (const [guide, quests] of cases) {
+		for (const quest of quests) {
+			const list = goals(guide).filter(({ goal }) => goal.t === 'collect' && goal.quest === quest && [2592, 4306, 4338, 14047].includes(goal.item));
+			assert.ok(list.length, `${guide}: the cloth of ${quest}`);
+			for (const { goal } of list) {
+				const at_ = ah[goal.map];
+				assert.ok(at_ && goal.x === at_.x && goal.y === at_.y, `${guide}: ${quest} ${goal.itemName}: the point ${goal.map} ${goal.x},${goal.y} is the Auction House`);
+				for (const s of (goal.spots || []).filter((o) => !o.alt)) assert.deepEqual([s.x, s.y], [at_.x, at_.y], `${guide}: ${quest}: the arrow picks only the Auction House`);
+			}
+		}
+	}
+});

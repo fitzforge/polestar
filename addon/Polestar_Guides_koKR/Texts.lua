@@ -92,7 +92,6 @@ t.guides["forever/alliance/03-darkshore"] = (function() return {
 		["Kill Rabid Thistle Bears in the hills east of {area:442}, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "{area:442} 동쪽 언덕에서 광포한 엉겅퀴곰을 처치한 다음, 그 남동쪽의 펄볼그 야영지로 걸어가십시오. 아직 처치할 것은 없습니다.",
 		["Moonstalker Fangs"] = "달표범 송곳니",
 		["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "덩치큰 달표범이 글레이브 주변 숲을 배회합니다. {object:10076}와(과) {object:12666}은(는) 구덩이 바닥에 있고, {npc:3584}은(는) 구덩이 북쪽에 서 있습니다.",
-		["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower; Grizzled Thistle Bears roam around it."] = "달표범이 {quest:954}와(과) 탑 사이의 언덕을 배회합니다. {quest:1002}은(는) 탑 서쪽 언덕에 서 있고, 그 주변을 엉겅퀴불곰이 돌아다닙니다.",
 		["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path there. Take the portal up to {npc:4217} in the {area:1658}."] = "나이트 엘프는 {area:442}에서 {area:702}(으)로 날아가십시오. 스카이본은 {area:442} 부두에서 배를 타고 가서 그곳의 루테란 비행 경로를 익히십시오. 차원문을 타고 {area:1658}의 {npc:4217}에게 올라가십시오.",
 		["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "언덕을 따라 북쪽으로 가십시오. {npc:3650}은(는) {quest:954} 폐허에서 기다립니다. 폐허에는 광기어린 그렐과 비열한 마귀가 가득하고, 동쪽 끝에는 데스릴 사티로스가 있습니다. {quest:1001}은(는) 폐허 서쪽 길가에 서 있습니다.",
 		["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "신도나 암살단원이 {item:5352}을(를) 떨어뜨렸을 때만: 오른쪽 클릭하십시오",
@@ -153,7 +152,6 @@ t.guides["forever/alliance/03-darkshore"] = (function() return {
 		["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out."] = "{npc:3692}은(는) {area:449} 동쪽 언덕에 숨어 있습니다. 그가 길로 돌아가도록 도우십시오. 나가는 길에 그도 싸웁니다.",
 		["{npc:3694}: for {npc:3691} in {area:415}, on the later {zone:1440} leg"] = "{npc:3694}: 나중의 {zone:1440} 구간에서 {area:415}의 {npc:3691}에게",
 		["{npc:6667} hides on the little island off the ruins; Stormscale Beastmistresses walk the shore. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}은(는) 폐허 앞바다의 작은 섬에 숨어 있고, 폭풍비늘 야수조련사가 해안을 거닙니다. 열쇠 조각은 거대한 숲타조(윗부분), 잿빛안개멀록(가운데), 사나운 모래톱게(아랫부분)에게서 떨어집니다.",
-		["{quest:1003} stands west of the Grove."] = "{quest:1003}은(는) 고대정령의 숲 서쪽에 서 있습니다.",
 		["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}: {area:445}에서 채집기를 채우십시오",
 		["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394}(나이트 엘프)와(과) {npc:272054}(스카이본)이(가) {area:493} 남쪽에서 기다립니다. 세 유물은 그 동쪽의 {area:2363}에 있습니다. 첫 몇 주의 제보에 따르면 다른 플레이어가 유물을 획득하는 중에는 아무것도 나오지 않습니다: 잠시 기다렸다가 다시 시도하십시오.",
 } end)()

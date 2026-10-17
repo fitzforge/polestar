@@ -146,11 +146,10 @@ step Bashal'Aran
   accept 1002
 
 step The Tower of Althalaxx
-  tip Moonstalkers prowl the hills between Bashal'Aran and the tower. Buzzbox 323 stands on the hill west of the tower; Grizzled Thistle Bears roam around it.
+  tip Moonstalkers prowl the hills between Bashal'Aran and the tower. Buzzbox 323 stands on the hill west of the tower.
   collect 5413 quest 1002                     -- Moonstalker Fangs
   turnin 1002                                 -- Buzzbox 323
   accept 1003
-  collect 5414 quest 1003                     -- Grizzled Scalps
 
 step Hearth to Auberdine
   hearth "Auberdine"
@@ -209,7 +208,8 @@ step The southern beaches
   accept 4730                                 -- Beached Sea Creature
 
 step The Grove of the Ancients
-  tip Buzzbox 525 stands west of the Grove.
+  tip Grizzled Thistle Bears roam the hills around the Grove; Buzzbox 525 stands west of it among them.
+  collect 5414 quest 1003                     -- Grizzled Scalps
   turnin 1003                                 -- Buzzbox 525
 
 step The red crystal

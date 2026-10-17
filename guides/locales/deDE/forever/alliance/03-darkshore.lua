@@ -71,12 +71,9 @@ return {
 
 	-- Step 10: The Tower of Althalaxx
 	-- {quest:954} Bashal'Aran · {quest:1002} Buzzbox 323
-	-- plural, as words: Grizzled Thistle Bears = {npc:2165} Grizzled Thistle Bear
-	["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower; Grizzled Thistle Bears roam around it."] = "Mondpirscher streifen durch die Hügel zwischen {quest:954} und dem Turm. {quest:1002} steht auf dem Hügel westlich des Turms; Ergraute Distelbären streifen um ihn herum.",
+	["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower."] = "",
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "Mondpirscher-Fangzähne",
-	-- plural, as words: Grizzled Scalps = {item:5414} Grizzled Scalp
-	["Grizzled Scalps"] = "Ergraute Skalpe",
 
 	-- Step 11: Hearth to Auberdine
 	-- {area:442} Auberdine
@@ -121,7 +118,10 @@ return {
 	-- {area:448} Grove of the Ancients
 	["The {area:448}"] = "Zum Ort {area:448}",
 	-- {quest:1003} Buzzbox 525
-	["{quest:1003} stands west of the Grove."] = "{quest:1003} steht westlich des Hains.",
+	-- plural, as words: Grizzled Thistle Bears = {npc:2165} Grizzled Thistle Bear
+	["Grizzled Thistle Bears roam the hills around the Grove; {quest:1003} stands west of it among them."] = "",
+	-- plural, as words: Grizzled Scalps = {item:5414} Grizzled Scalp
+	["Grizzled Scalps"] = "Ergraute Skalpe",
 
 	-- Step 18: The red crystal
 	["Back north-east into the mountains to the crystal."] = "Zurück nach Nordosten in die Berge zum Kristall.",
@@ -269,6 +269,8 @@ return {
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the boat to {zone:1453}."] = "Nimm das Portal hinauf zu {npc:4217} und flieg dann zurück nach {area:442} zum Boot nach {zone:1453}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Moonstalkers prowl the hills between {quest:954} and the tower. {quest:1002} stands on the hill west of the tower; Grizzled Thistle Bears roam around it."] = "Mondpirscher streifen durch die Hügel zwischen {quest:954} und dem Turm. {quest:1002} steht auf dem Hügel westlich des Turms; Ergraute Distelbären streifen um ihn herum.",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "Gezeitenkriecher krabbeln unterhalb des Dorfes am Ufer entlang; {quest:983} steht am Strand gleich südlich der Anlegestelle. Drescher der Dunkelküste schwimmen im seichten Wasser. {quest:4723} liegt gleich südlich des Dorfes am Ufer.",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}: die {object:177790} unter Wasser vor der Nordküste, westlich der Ruinen",
+	-- ["{quest:1003} stands west of the Grove."] = "{quest:1003} steht westlich des Hains.",
 }
