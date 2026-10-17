@@ -959,6 +959,35 @@ test(`${DARKSHORE}: Twerkjob's report: The Red Crystal leads the arrow to the cr
 	assert.ok(yards(lead.goal, crystal) < 30, `the arrow leads to the crystal (${lead.goal.x},${lead.goal.y})`);
 });
 
+// The Blackwood Corrupted (4763): the Talisman comes from Xabraxxis, whom the
+// Filled Cleansing Bowl calls once it is mixed with the fruit, grain and nut
+// samples and set by the camp's north bonfire. The guide only asked for the
+// Talisman, so a player who never filled the bowl had nothing to call him with.
+// The bowl and the samples are bag-count goals: they are used up at the
+// bonfire, and a goal on the quest would hold until the Talisman is looted.
+test(`${DARKSHORE}: XooVe's report (#302): The Blackwood Corrupted fills the bowl at the moonwell, takes the three samples and sets the bowl by the bonfire before the Talisman`, { skip }, () => {
+	const list = goals(DARKSHORE);
+	const accept = at(list, 'accept 4763', is('accept', 4763));
+	const talisman = at(list, 'collect 12355 (Talisman of Corruption)', (g) => g.t === 'collect' && g.item === 12355);
+	const spot = (object) => {
+		const [x, y] = data.objects[object].spawns[1439].pts[0];
+		return { map: 1439, x, y };
+	};
+	const bowl = at(list, 'collect 12347 (Filled Cleansing Bowl)', (g) => g.t === 'collect' && g.item === 12347);
+	assert.ok(accept < bowl && bowl < talisman, 'the bowl is filled after the accept and before the Talisman');
+	assert.equal(list[bowl].goal.quest, undefined, 'the bowl counts from the bags');
+	assert.ok(yards(list[bowl].goal, spot(174795)) < 30, 'the arrow leads to the Auberdine Moonwell');
+	const use = at(list, 'use 12347 (the bowl at the bonfire)', (g) => g.t === 'use' && g.item === 12347);
+	assert.ok(bowl < use && use < talisman, 'the bowl is set down after it is filled and before the Talisman');
+	assert.ok(yards(list[use].goal, spot(175338)) < 30, 'the arrow leads to the north bonfire');
+	for (const [item, stores] of [[12341, 175330], [12342, 175331], [12343, 175329]]) {
+		const sample = at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item);
+		assert.ok(bowl < sample && sample < use, `sample ${item} is taken before the bowl is set down`);
+		assert.equal(list[sample].goal.quest, undefined, `sample ${item} counts from the bags`);
+		assert.ok(yards(list[sample].goal, spot(stores)) < 30, `the arrow leads to the stores of sample ${item}`);
+	}
+});
+
 test(`${DUN_MOROGH}: Rumbleshot's Ammo leads to the Ammo Crate by Mountaineer Gretchen, not to Hegnar`, { skip }, () => {
 	const list = goals(DUN_MOROGH);
 	const ammo = list.find(({ goal: g }) => g.t === 'collect' && g.quest === 5541);
