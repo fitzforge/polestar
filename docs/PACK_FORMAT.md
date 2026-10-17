@@ -277,7 +277,7 @@ Guide keys (the compiler writes them in this order):
 | `races` | no | list of race file names (`"Human"`, `"Scourge"`, `"NightElf"`, …); absent: any |
 | `classes` | no | list of class file names (`"WARRIOR"`, …); absent: any |
 | `minLevel`, `maxLevel` | no | numbers |
-| `category` | no | `"Leveling"` (default), `"Class"`, `"Professions"`, `"Reputation"`, `"Legacy"`, `"Exploration"`, `"Collectibles"`, `"Dungeons"`; the compiler passes another name through with a warning |
+| `category` | no | `"Leveling"` (default), `"Class"`, `"Professions"`, `"Reputation"`, `"Legacy"`, `"Exploration"`, `"Collectibles"`, `"Miscellaneous"`, `"Dungeons"`; the compiler passes another name through with a warning |
 | `folder` | no | the guide menu folder |
 | `keywords` | no | list of extra search words |
 | `collects` | no | list of item ids the guide obtains |

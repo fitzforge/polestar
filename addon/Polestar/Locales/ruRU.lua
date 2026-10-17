@@ -1050,6 +1050,7 @@ L["Legacy"] = "Наследие"
 L["Collectibles"] = "Коллекции"
 L["Sections"] = "Разделы"
 L["guide status: Completed"] = "Завершён"
+L["Miscellaneous"] = "Разное"
 
 -- UI/Lookup.lua
 L["Companion"] = "Питомец"

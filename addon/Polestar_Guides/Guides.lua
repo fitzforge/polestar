@@ -33785,6 +33785,463 @@ do
 	register()
 end
 
+-- Source: forever/miscellaneous/cozy-sleeping-bag.guide
+do
+	local function register()
+		Polestar.RegisterGuide({
+			id = "forever/miscellaneous/cozy-sleeping-bag",
+			pack = "guides",
+			title = "{item:211527}",
+			minLevel = 14,
+			maxLevel = 32,
+			category = "Miscellaneous",
+			keywords = { "Cozy Sleeping Bag", "Old Toolbox", "Student Fodder", "... and that note you found", "Stepping Stones", "Scramble", "Wet Job", "Eagle's Fist", "This Must Be The Place", "Burned-Out Remains", "Nailed Plank", "Thoradin's Wall" },
+			collects = { 211527, 221498 },
+			reward = { { item = 211527, itemName = "Cozy Sleeping Bag" }, { item = 221498, itemName = "Old Toolbox" } },
+			why = "A trail of hidden notes across both continents: the {item:211527} at the end, a 12-slot {item:221498} on the way.",
+			zone = 1436,
+			zoneName = "Westfall",
+			author = "Polestar",
+			version = 1,
+			names = { ["area:1057"] = "Thoradin's Wall", ["area:146"] = "Stonewrought Dam", ["area:287"] = "Hillsbrad", ["item:211527"] = "Cozy Sleeping Bag", ["item:221498"] = "Old Toolbox", ["object:424005"] = "Pocket Litter", ["object:424012"] = "Mound of Dirt", ["zone:1413"] = "Barrens", ["zone:1432"] = "Loch Modan", ["zone:1436"] = "Westfall", ["zone:1442"] = "Stonetalon Mountains" },
+			steps = {
+				{
+					title = "The note in {zone:1436}",
+					note = "A burned-out campfire in western {zone:1436}, with a nailed plank beside it.",
+					only = { factions = { "Alliance" } },
+					goals = {
+						{ t = "accept", quest = 79008, title = "... and that note you found", object = 415107, objName = "Burned-Out Remains", minLevel = 14, qlvl = 22, map = 1436, x = 37.34, y = 50.63, f = "e" },
+					},
+				},
+				{
+					title = "Its twin in the {zone:1413}",
+					note = "The note's \"twin land\" is the {zone:1413}: the same burned-out campfire stands in the southern {zone:1413}.",
+					only = { factions = { "Alliance" } },
+					goals = {
+						{ t = "turnin", quest = 79008, title = "... and that note you found", object = 415106, objName = "Burned-Out Remains", map = 1413, x = 46.34, y = 73.88, f = "e" },
+						{ t = "accept", quest = 79192, title = "Stepping Stones", object = 417072, objName = "Nailed Plank", minLevel = 14, qlvl = 24, map = 1413, x = 46.36, y = 73.8, f = "e" },
+					},
+				},
+				{
+					title = "The note in the {zone:1413}",
+					note = "A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it.",
+					only = { factions = { "Horde" } },
+					goals = {
+						{ t = "accept", quest = 79007, title = "... and that note you found", object = 415106, objName = "Burned-Out Remains", minLevel = 14, qlvl = 22, map = 1413, x = 46.34, y = 73.88, f = "e" },
+					},
+				},
+				{
+					title = "Its twin in {zone:1436}",
+					note = "The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}.",
+					only = { factions = { "Horde" } },
+					goals = {
+						{ t = "turnin", quest = 79007, title = "... and that note you found", object = 415107, objName = "Burned-Out Remains", map = 1436, x = 37.34, y = 50.63, f = "e" },
+						{ t = "accept", quest = 79192, title = "Stepping Stones", object = 424010, objName = "Nailed Plank", minLevel = 14, qlvl = 24, map = 1436, x = 37.43, y = 50.89, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1442}",
+					note = "The next hideout is a small camp in the hills of eastern Stonetalon. Leave the road where a path climbs into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent.",
+					goals = {
+						{ t = "goto", text = "Path into the hills", map = 1442, x = 50.9, y = 52.3, f = "e" },
+						{ t = "turnin", quest = 79192, title = "Stepping Stones", object = 424005, objName = "Pocket Litter", map = 1442, x = 40.76, y = 52.57, f = "e" },
+						{ t = "accept", quest = 79980, title = "Scramble", object = 424005, objName = "Pocket Litter", minLevel = 14, qlvl = 24, map = 1442, x = 40.76, y = 52.57, f = "e" },
+					},
+				},
+				{
+					title = "A hundred paces north",
+					note = "Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up.",
+					goals = {
+						{ t = "turnin", quest = 79980, title = "Scramble", object = 424012, objName = "Mound of Dirt", map = 1442, x = 39.62, y = 49.86, f = "e" },
+						{ t = "accept", quest = 79974, title = "Wet Job", object = 424012, objName = "Mound of Dirt", minLevel = 14, qlvl = 32, map = 1442, x = 39.62, y = 49.86, f = "e" },
+					},
+				},
+				{
+					title = "The dam in {zone:1432}",
+					note = "The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge.",
+					goals = {
+						{ t = "turnin", quest = 79974, title = "Wet Job", object = 424007, objName = "Carved Figurine", map = 1432, x = 49.35, y = 12.9, f = "e" },
+						{ t = "accept", quest = 79975, title = "Eagle's Fist", object = 424007, objName = "Carved Figurine", minLevel = 14, qlvl = 32, map = 1432, x = 49.35, y = 12.9, f = "e" },
+					},
+				},
+				{
+					title = "{area:1057}",
+					note = "At the gate in {area:1057} between Arathi and {area:287}, turn north and follow the wall on the {area:287} side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through.",
+					goals = {
+						{ t = "goto", text = "Fallen cart", map = 1424, x = 87.5, y = 47.7, f = "e" },
+					},
+				},
+				{
+					title = "The hidden camp",
+					goals = {
+						{ t = "turnin", quest = 79975, title = "Eagle's Fist", object = 406918, objName = "Messenger Bag", map = 1417, x = 22.46, y = 24.21, f = "e" },
+						{ t = "accept", quest = 79976, title = "This Must Be The Place", object = 406918, objName = "Messenger Bag", minLevel = 14, qlvl = 32, map = 1417, x = 22.46, y = 24.21, f = "e" },
+						{ t = "turnin", quest = 79976, title = "This Must Be The Place", object = 424006, objName = "Hastily Rolled-Up Satchel", map = 1417, x = 22.45, y = 24.21, f = "e" },
+					},
+				},
+			},
+		})
+	end
+	register()
+end
+
+-- Source: forever/miscellaneous/library-books.guide
+do
+	local function register()
+		Polestar.RegisterGuide({
+			id = "forever/miscellaneous/library-books",
+			pack = "guides",
+			title = "Library Books",
+			minLevel = 20,
+			maxLevel = 50,
+			category = "Miscellaneous",
+			keywords = { "Library", "books", "Friend of the Library", "Greater Friend of the Library", "Garion Wendell", "Owen Thadd", "Comprehension Charm", "Scholarly Pendant", "Erudite's Amulet", "Field Researcher's Loop", "Philanthropist's Ring", "Truthseeker's Bow", "Crest of Elucidation", "Researcher's Night Light" },
+			reward = { { item = 277203, itemName = "Scholarly Pendant", choice = true }, { item = 277204, itemName = "Erudite's Amulet", choice = true }, { item = 281634, itemName = "Field Researcher's Loop", choice = true }, { item = 281635, itemName = "Philanthropist's Ring", choice = true }, { item = 277254, itemName = "Truthseeker's Bow", choice = true }, { item = 277258, itemName = "Crest of Elucidation", choice = true }, { item = 277260, itemName = "Researcher's Night Light", choice = true } },
+			why = "Lost books and scrolls all over the world: each pays experience at the library, and enough of them earn a {quest:78150} reward.",
+			zone = 1453,
+			zoneName = "Stormwind City",
+			author = "Polestar",
+			version = 1,
+			names = { ["area:108"] = "Sentinel Hill", ["area:1236"] = "Haldarr Encampment", ["area:144"] = "Thelsamar", ["area:1477"] = "Temple of Atal'Hakkar", ["area:159"] = "Brill", ["area:20"] = "Moonbrook", ["area:2097"] = "Darkcloud Pinnacle", ["area:2098"] = "Dawning Wood Catacombs", ["area:2537"] = "Grimtotem Post", ["area:254"] = "Blackrock Mountain", ["area:310"] = "Crystalvein Mine", ["area:382"] = "Sludge Fen", ["area:392"] = "Ratchet", ["area:443"] = "Ruins of Mathystra", ["area:718"] = "Wailing Caverns", ["area:87"] = "Goldshire", ["area:91"] = "Tower of Azora", ["npc:14387"] = "Lothos Riftwaker", ["npc:211022"] = "Owen Thadd", ["npc:211033"] = "Garion Wendell", ["npc:8888"] = "Franclorn Forgewright", ["object:172961"] = "Valley of Spirits", ["object:2101"] = "Mage Quarter", ["object:36082"] = "Magic Quarter", ["object:386691"] = "Library Book", ["quest:78124"] = "Nar'thalas Almanac", ["quest:78127"] = "The Dalaran Digest", ["quest:78150"] = "Friend of the Library", ["quest:79536"] = "Greater Friend of the Library", ["quest:82208"] = "Greater Friend of the Library", ["zone:1413"] = "The Barrens", ["zone:1416"] = "Alterac Mountains", ["zone:1417"] = "Arathi Highlands", ["zone:1418"] = "Badlands", ["zone:1419"] = "Blasted Lands", ["zone:1420"] = "Tirisfal Glades", ["zone:1421"] = "Silverpine Forest", ["zone:1425"] = "The Hinterlands", ["zone:1427"] = "Searing Gorge", ["zone:1429"] = "Elwynn Forest", ["zone:1431"] = "Duskwood", ["zone:1432"] = "Loch Modan", ["zone:1434"] = "Stranglethorn Vale", ["zone:1435"] = "Swamp of Sorrows", ["zone:1436"] = "Westfall", ["zone:1437"] = "Wetlands", ["zone:1439"] = "Darkshore", ["zone:1441"] = "Thousand Needles", ["zone:1442"] = "Stonetalon Mountains", ["zone:1443"] = "Desolace", ["zone:1445"] = "Dustwallow Marsh", ["zone:1446"] = "Tanaris", ["zone:1447"] = "Azshara", ["zone:1454"] = "Orgrimmar", ["zone:1455"] = "Ironforge" },
+			steps = {
+				{
+					title = "{zone:1429}",
+					note = "Halfway up the {area:91}, east of {area:87}. Nothing hostile inside.",
+					only = { factions = { "Alliance" } },
+					goals = {
+						{ t = "collect", item = 203755, itemName = "Archmage Theocritus' Research Journal", map = 1429, x = 65.4, y = 70.1, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1436}",
+					note = "Two books: one in a house at {area:20}, one at {area:108} (Alliance only).",
+					goals = {
+						{ t = "collect", item = 209845, itemName = "Bewitchments and Glamours", map = 1436, x = 45.4, y = 70.4, f = "e" },
+						{ t = "collect", item = 208860, itemName = "Rumi of Gnomeregan: The Collected Works", map = 1436, x = 52.7, y = 53.8, f = "e", only = { factions = { "Alliance" } }, note = "Rumi of Gnomeregan" },
+					},
+				},
+				{
+					title = "{zone:1431}",
+					note = "The spellbook lies in the {area:2098}, the crypt in north-western {zone:1431}. Undead fill it; a corpse run works if you are low.",
+					goals = {
+						{ t = "collect", item = 209849, itemName = "Crimes Against Anatomy", map = 1431, x = 16.7, y = 28.4, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1434}",
+					note = "On a bench beside the {area:310} entrance, in the middle of the zone.",
+					goals = {
+						{ t = "collect", item = 213165, itemName = "Basilisks: Should Petrification be Feared?", map = 1434, x = 41.5, y = 50.9, f = "e", from = "Research Notes", fromKind = "object", fromId = 421526 },
+					},
+				},
+				{
+					title = "{zone:1435}",
+					note = "On the top walkway of the {area:1477}, outside the dungeon.",
+					goals = {
+						{ t = "collect", item = 220345, itemName = "Sanguine Sorcery", map = 1435, x = 70, y = 51, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1419}",
+					goals = {
+						{ t = "collect", item = 220353, itemName = "Conjurer's Codex", map = 1419, x = 55.4, y = 32.2, f = "e" },
+					},
+				},
+				{
+					title = "{area:254}",
+					note = "Inside {area:254}, not in a dungeon: the book lies on the altar in {npc:8888}'s tomb, near {npc:14387}. The waypoint marks the mountain.",
+					goals = {
+						{ t = "collect", item = 220349, itemName = "Stonewrought Design", map = 1428, x = 28.96, y = 28.93, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1427}",
+					note = "On a table inside a tent near the middle of the zone.",
+					goals = {
+						{ t = "collect", item = 220352, itemName = "A Mind of Metal", map = 1427, x = 37.8, y = 49.3, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1418}",
+					note = "Inside a crypt near the middle of the zone, reached from the path to its south.",
+					goals = {
+						{ t = "collect", item = 215820, itemName = "Mummies: A Guide to the Unsavory Undead", map = 1418, x = 56.7, y = 39.9, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1432}",
+					note = "Two books: scrolls in the Mo'grosh ogre cave in the north-east, and the Gnomish Tome in {area:144}.",
+					only = { factions = { "Alliance" } },
+					goals = {
+						{ t = "collect", item = 209850, itemName = "Runes of the Sorcerer-Kings", map = 1432, x = 77.4, y = 14, f = "e" },
+						{ t = "collect", item = 208860, itemName = "Rumi of Gnomeregan: The Collected Works", map = 1432, x = 35.6, y = 48.9, f = "e", note = "Rumi of Gnomeregan" },
+					},
+				},
+				{
+					title = "{zone:1455}",
+					only = { factions = { "Alliance" } },
+					goals = {
+						{ t = "collect", item = 203754, itemName = "Archmage Antonidas: The Unabridged Autobiography", map = 1455, x = 76, y = 10.4, f = "e", from = "Library Book", fromKind = "object", fromId = 386691 },
+					},
+				},
+				{
+					title = "{zone:1437}",
+					goals = {
+						{ t = "collect", item = 209848, itemName = "Goaz Scrolls", map = 1437, x = 33.6, y = 47.9, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1417}",
+					note = "Beside a tent entrance in the troll village in south-eastern Arathi.",
+					goals = {
+						{ t = "collect", item = 215816, itemName = "A Web of Lies: Debunking Myths and Legends", map = 1417, x = 73.6, y = 65.2, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1425}",
+					goals = {
+						{ t = "collect", item = 220350, itemName = "Venomous Journeys", map = 1425, x = 36, y = 72.8, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1416}",
+					goals = {
+						{ t = "collect", item = 215815, itemName = "Defensive Magics 101", map = 1416, x = 48.4, y = 57.6, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1421}",
+					goals = {
+						{ t = "collect", item = 209844, itemName = "The Dalaran Digest, Vol. 23", map = 1421, x = 63.5, y = 63.2, f = "e", note = "{quest:78127}" },
+					},
+				},
+				{
+					title = "{zone:1420}",
+					note = "On a shelf in {area:159}'s apothecary.",
+					only = { factions = { "Horde" } },
+					goals = {
+						{ t = "collect", item = 208185, itemName = "The Apothecary's Metaphysical Primer", map = 1420, x = 59.4, y = 52.3, f = "e", from = "Apothecary Society Primer", fromKind = "object", fromId = 405879 },
+					},
+				},
+				{
+					title = "{zone:1439}",
+					note = "Down the stairs at the {area:443} in northern {zone:1439}.",
+					goals = {
+						{ t = "collect", item = 209843, itemName = "Nar'thalas Almanac, Vol. 74", map = 1439, x = 59.6, y = 22.2, f = "e", note = "{quest:78124}" },
+					},
+				},
+				{
+					title = "{zone:1447}",
+					note = "On a crate in the {area:1236}, in the far west of {zone:1447}.",
+					goals = {
+						{ t = "collect", item = 220348, itemName = "Everyday Etiquette", map = 1447, x = 20.7, y = 62, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1454}",
+					note = "The Mural of Ta'zo is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book.",
+					only = { factions = { "Horde" } },
+					goals = {
+						{ t = "collect", item = 207972, itemName = "The Lessons of Ta'zo", map = 1454, x = 38.7, y = 78.4, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1413}",
+					note = "Three books: scrolls outside the {area:718} entrance, the manual in the control room at the top of the oil rig at the {area:382}, and the Goblin Tome beside Gazlowe in {area:392}.",
+					goals = {
+						{ t = "collect", item = 209846, itemName = "Secrets of the Dreamers", map = 1413, x = 49.3, y = 32.9, f = "e" },
+						{ t = "collect", item = 209847, itemName = "Arcanic Systems Manual", map = 1413, x = 56.3, y = 8.8, f = "e" },
+						{ t = "collect", item = 208800, itemName = "Baxtan: On Destructive Magics", map = 1413, x = 62.7, y = 36.3, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1442}",
+					note = "On a barrel in a tent at {area:2537}, in the far south-east of the zone.",
+					goals = {
+						{ t = "collect", item = 209851, itemName = "Fury of the Land", map = 1442, x = 74.4, y = 85.7, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1443}",
+					goals = {
+						{ t = "collect", item = 215817, itemName = "Demons and You", map = 1443, x = 55, y = 26.2, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1441}",
+					note = "Inside a hut on the {area:2097} mesa.",
+					goals = {
+						{ t = "collect", item = 215683, itemName = "Geomancy: The Stone-Cold Truth", map = 1441, x = 34.4, y = 40.1, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1445}",
+					note = "On the ground at the eastern side of the murloc camp in north-eastern Dustwallow.",
+					goals = {
+						{ t = "collect", item = 215822, itemName = "RwlRwlRwlRwl!", map = 1445, x = 57.2, y = 20.8, f = "e" },
+					},
+				},
+				{
+					title = "{zone:1446}",
+					note = "On a bookshelf in the middle building of the pirate camp on the eastern coast.",
+					goals = {
+						{ t = "collect", item = 220346, itemName = "Legends of the Tidesages", map = 1446, x = 72.6, y = 47.8, f = "e" },
+					},
+				},
+				{
+					title = "{npc:211033}",
+					note = "{npc:211033} keeps the library in the {object:2101}. Open each book to take its quest, then hand it in: one at a time keeps your quest log free. Skip the books you did not find.",
+					only = { factions = { "Alliance" } },
+					goals = {
+						{ t = "accept", quest = 79092, title = "Archmage Theocritus' Research Journal", item = 203755, itemName = "Archmage Theocritus' Research Journal", minLevel = 1, qlvl = 20 },
+						{ t = "turnin", quest = 79092, title = "Archmage Theocritus' Research Journal", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.97, y = 86.39, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 78142, title = "Bewitchments and Glamours", item = 209845, itemName = "Bewitchments and Glamours" },
+						{ t = "turnin", quest = 78142, title = "Bewitchments and Glamours", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 79093, title = "Rumi of Gnomeregan: The Collected Works", item = 208860, itemName = "Rumi of Gnomeregan: The Collected Works" },
+						{ t = "turnin", quest = 79093, title = "Rumi of Gnomeregan: The Collected Works", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 78147, title = "Crimes Against Anatomy", item = 209849, itemName = "Crimes Against Anatomy" },
+						{ t = "turnin", quest = 78147, title = "Crimes Against Anatomy", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 79535, title = "Basilisks: Should Petrification be Feared?", item = 213165, itemName = "Basilisks: Should Petrification be Feared?" },
+						{ t = "turnin", quest = 79535, title = "Basilisks: Should Petrification be Feared?", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 81947, title = "Sanguine Sorcery", item = 220345, itemName = "Sanguine Sorcery" },
+						{ t = "turnin", quest = 81947, title = "Sanguine Sorcery", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 81956, title = "Conjurer's Codex", item = 220353, itemName = "Conjurer's Codex" },
+						{ t = "turnin", quest = 81956, title = "Conjurer's Codex", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 81953, title = "Stonewrought Design", item = 220349, itemName = "Stonewrought Design" },
+						{ t = "turnin", quest = 81953, title = "Stonewrought Design", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 81955, title = "A Mind of Metal", item = 220352, itemName = "A Mind of Metal" },
+						{ t = "turnin", quest = 81955, title = "A Mind of Metal", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 79951, title = "Mummies: A Guide to the Unsavory Undead", item = 215820, itemName = "Mummies: A Guide to the Unsavory Undead" },
+						{ t = "turnin", quest = 79951, title = "Mummies: A Guide to the Unsavory Undead", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 78148, title = "Runes of the Sorcerer-Kings", item = 209850, itemName = "Runes of the Sorcerer-Kings", minLevel = 1, qlvl = 20 },
+						{ t = "turnin", quest = 78148, title = "Runes of the Sorcerer-Kings", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 79091, title = "Archmage Antonidas: The Unabridged Autobiography", item = 203754, itemName = "Archmage Antonidas: The Unabridged Autobiography" },
+						{ t = "turnin", quest = 79091, title = "Archmage Antonidas: The Unabridged Autobiography", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 78146, title = "Goaz Scrolls", item = 209848, itemName = "Goaz Scrolls" },
+						{ t = "turnin", quest = 78146, title = "Goaz Scrolls", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 79949, title = "A Web of Lies: Debunking Myths and Legends", item = 215816, itemName = "A Web of Lies: Debunking Myths and Legends" },
+						{ t = "turnin", quest = 79949, title = "A Web of Lies: Debunking Myths and Legends", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 81954, title = "Venomous Journeys", item = 220350, itemName = "Venomous Journeys" },
+						{ t = "turnin", quest = 81954, title = "Venomous Journeys", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 79948, title = "Defensive Magics 101", item = 215815, itemName = "Defensive Magics 101" },
+						{ t = "turnin", quest = 79948, title = "Defensive Magics 101", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 78127, title = "The Dalaran Digest", item = 209844, itemName = "The Dalaran Digest, Vol. 23" },
+						{ t = "turnin", quest = 78127, title = "The Dalaran Digest", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 78124, title = "Nar'thalas Almanac", item = 209843, itemName = "Nar'thalas Almanac, Vol. 74" },
+						{ t = "turnin", quest = 78124, title = "Nar'thalas Almanac", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 81952, title = "Everyday Etiquette", item = 220348, itemName = "Everyday Etiquette" },
+						{ t = "turnin", quest = 81952, title = "Everyday Etiquette", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 78143, title = "Secrets of the Dreamers", item = 209846, itemName = "Secrets of the Dreamers" },
+						{ t = "turnin", quest = 78143, title = "Secrets of the Dreamers", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 78145, title = "Arcanic Systems Manual", item = 209847, itemName = "Arcanic Systems Manual" },
+						{ t = "turnin", quest = 78145, title = "Arcanic Systems Manual", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 79097, title = "Baxtan: On Destructive Magics", item = 208800, itemName = "Baxtan: On Destructive Magics" },
+						{ t = "turnin", quest = 79097, title = "Baxtan: On Destructive Magics", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 78149, title = "Fury of the Land", item = 209851, itemName = "Fury of the Land" },
+						{ t = "turnin", quest = 78149, title = "Fury of the Land", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 79950, title = "Demons and You", item = 215817 },
+						{ t = "turnin", quest = 79950, title = "Demons and You", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 79947, title = "Geomancy: The Stone-Cold Truth", item = 215683, itemName = "Geomancy: The Stone-Cold Truth" },
+						{ t = "turnin", quest = 79947, title = "Geomancy: The Stone-Cold Truth", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 79952, title = "RwlRwlRwlRwl!", item = 215822, itemName = "RwlRwlRwlRwl!" },
+						{ t = "turnin", quest = 79952, title = "RwlRwlRwlRwl!", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+						{ t = "accept", quest = 81949, title = "Legends of the Tidesages", item = 220346 },
+						{ t = "turnin", quest = 81949, title = "Legends of the Tidesages", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } } },
+					},
+				},
+				{
+					title = "{npc:211022}",
+					note = "{npc:211022} keeps the library in the {object:36082}. Open each book to take its quest, then hand it in: one at a time keeps your quest log free. Skip the books you did not find.",
+					only = { factions = { "Horde" } },
+					goals = {
+						{ t = "accept", quest = 78142, title = "Bewitchments and Glamours", item = 209845, itemName = "Bewitchments and Glamours" },
+						{ t = "turnin", quest = 78142, title = "Bewitchments and Glamours", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.56, y = 33.14, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 78147, title = "Crimes Against Anatomy", item = 209849, itemName = "Crimes Against Anatomy" },
+						{ t = "turnin", quest = 78147, title = "Crimes Against Anatomy", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 79535, title = "Basilisks: Should Petrification be Feared?", item = 213165, itemName = "Basilisks: Should Petrification be Feared?" },
+						{ t = "turnin", quest = 79535, title = "Basilisks: Should Petrification be Feared?", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 81947, title = "Sanguine Sorcery", item = 220345, itemName = "Sanguine Sorcery" },
+						{ t = "turnin", quest = 81947, title = "Sanguine Sorcery", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 81956, title = "Conjurer's Codex", item = 220353, itemName = "Conjurer's Codex" },
+						{ t = "turnin", quest = 81956, title = "Conjurer's Codex", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 81953, title = "Stonewrought Design", item = 220349, itemName = "Stonewrought Design" },
+						{ t = "turnin", quest = 81953, title = "Stonewrought Design", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 81955, title = "A Mind of Metal", item = 220352, itemName = "A Mind of Metal" },
+						{ t = "turnin", quest = 81955, title = "A Mind of Metal", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 79951, title = "Mummies: A Guide to the Unsavory Undead", item = 215820, itemName = "Mummies: A Guide to the Unsavory Undead" },
+						{ t = "turnin", quest = 79951, title = "Mummies: A Guide to the Unsavory Undead", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 78146, title = "Goaz Scrolls", item = 209848, itemName = "Goaz Scrolls" },
+						{ t = "turnin", quest = 78146, title = "Goaz Scrolls", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 79949, title = "A Web of Lies: Debunking Myths and Legends", item = 215816, itemName = "A Web of Lies: Debunking Myths and Legends" },
+						{ t = "turnin", quest = 79949, title = "A Web of Lies: Debunking Myths and Legends", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 81954, title = "Venomous Journeys", item = 220350, itemName = "Venomous Journeys" },
+						{ t = "turnin", quest = 81954, title = "Venomous Journeys", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 79948, title = "Defensive Magics 101", item = 215815, itemName = "Defensive Magics 101" },
+						{ t = "turnin", quest = 79948, title = "Defensive Magics 101", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 78127, title = "The Dalaran Digest", item = 209844, itemName = "The Dalaran Digest, Vol. 23" },
+						{ t = "turnin", quest = 78127, title = "The Dalaran Digest", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 79095, title = "The Apothecary's Metaphysical Primer", item = 208185, itemName = "The Apothecary's Metaphysical Primer", minLevel = 1, qlvl = 20 },
+						{ t = "turnin", quest = 79095, title = "The Apothecary's Metaphysical Primer", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 78124, title = "Nar'thalas Almanac", item = 209843, itemName = "Nar'thalas Almanac, Vol. 74" },
+						{ t = "turnin", quest = 78124, title = "Nar'thalas Almanac", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 81952, title = "Everyday Etiquette", item = 220348, itemName = "Everyday Etiquette" },
+						{ t = "turnin", quest = 81952, title = "Everyday Etiquette", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 79094, title = "The Lessons of Ta'zo", item = 207972 },
+						{ t = "turnin", quest = 79094, title = "The Lessons of Ta'zo", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 78143, title = "Secrets of the Dreamers", item = 209846, itemName = "Secrets of the Dreamers" },
+						{ t = "turnin", quest = 78143, title = "Secrets of the Dreamers", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 78145, title = "Arcanic Systems Manual", item = 209847, itemName = "Arcanic Systems Manual" },
+						{ t = "turnin", quest = 78145, title = "Arcanic Systems Manual", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 79097, title = "Baxtan: On Destructive Magics", item = 208800, itemName = "Baxtan: On Destructive Magics" },
+						{ t = "turnin", quest = 79097, title = "Baxtan: On Destructive Magics", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 78149, title = "Fury of the Land", item = 209851, itemName = "Fury of the Land" },
+						{ t = "turnin", quest = 78149, title = "Fury of the Land", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 79950, title = "Demons and You", item = 215817 },
+						{ t = "turnin", quest = 79950, title = "Demons and You", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 79947, title = "Geomancy: The Stone-Cold Truth", item = 215683, itemName = "Geomancy: The Stone-Cold Truth" },
+						{ t = "turnin", quest = 79947, title = "Geomancy: The Stone-Cold Truth", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 79952, title = "RwlRwlRwlRwl!", item = 215822, itemName = "RwlRwlRwlRwl!" },
+						{ t = "turnin", quest = 79952, title = "RwlRwlRwlRwl!", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+						{ t = "accept", quest = 81949, title = "Legends of the Tidesages", item = 220346 },
+						{ t = "turnin", quest = 81949, title = "Legends of the Tidesages", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } } },
+					},
+				},
+				{
+					title = "{quest:78150}",
+					note = "Once enough books are in, the librarian offers {quest:78150}. Take it when it appears.",
+					goals = {
+						{ t = "accept", quest = 78150, title = "Friend of the Library", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.97, y = 86.39, spots = { { x = 49, y = 86.4, r = 15, n = 2 } }, optional = true, only = { factions = { "Alliance" } } },
+						{ t = "turnin", quest = 78150, title = "Friend of the Library", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } }, optional = true, only = { factions = { "Alliance" } } },
+						{ t = "accept", quest = 78150, title = "Friend of the Library", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.56, y = 33.14, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } }, optional = true, only = { factions = { "Horde" } } },
+						{ t = "turnin", quest = 78150, title = "Friend of the Library", npc = 211022, npcName = "Owen Thadd", map = 1458, x = 73.69, y = 33.22, f = "e", spots = { { x = 73.6, y = 33.1, r = 15, n = 5 } }, optional = true, only = { factions = { "Horde" } } },
+					},
+				},
+				{
+					title = "{quest:79536}",
+					note = "From level 20, with more books handed in, {npc:211033} offers {quest:79536}.",
+					only = { factions = { "Alliance" } },
+					goals = {
+						{ t = "level", level = 20 },
+						{ t = "accept", quest = 79536, title = "Greater Friend of the Library", npc = 211033, npcName = "Garion Wendell", minLevel = 20, qlvl = 35, map = 1453, x = 48.97, y = 86.39, spots = { { x = 49, y = 86.4, r = 15, n = 2 } }, optional = true },
+						{ t = "turnin", quest = 79536, title = "Greater Friend of the Library", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } }, optional = true },
+					},
+				},
+				{
+					title = "The second {quest:82208}",
+					note = "From level 30, with more books still, {npc:211033} offers the second {quest:82208}.",
+					only = { factions = { "Alliance" } },
+					goals = {
+						{ t = "level", level = 30 },
+						{ t = "accept", quest = 82208, title = "Greater Friend of the Library", npc = 211033, npcName = "Garion Wendell", minLevel = 30, qlvl = 45, map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } }, optional = true },
+						{ t = "turnin", quest = 82208, title = "Greater Friend of the Library", npc = 211033, npcName = "Garion Wendell", map = 1453, x = 48.95, y = 86.54, spots = { { x = 49, y = 86.4, r = 15, n = 2 } }, optional = true },
+					},
+				},
+			},
+		})
+	end
+	register()
+end
+
 -- Source: forever/professions/alchemy.guide
 do
 	local function register()

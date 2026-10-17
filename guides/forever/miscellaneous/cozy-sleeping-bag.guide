@@ -1,0 +1,83 @@
+guide forever/miscellaneous/cozy-sleeping-bag
+title Cozy Sleeping Bag
+category Miscellaneous
+keywords Cozy Sleeping Bag, Old Toolbox, Student Fodder, ... and that note you found, Stepping Stones, Scramble, Wet Job, Eagle's Fist, This Must Be The Place, Burned-Out Remains, Nailed Plank, Thoradin's Wall
+collects 211527, 221498
+reward item 211527
+reward item 221498
+why A trail of hidden notes across both continents: the Cozy Sleeping Bag at the end, a 12-slot Old Toolbox on the way.
+levels 14-32
+zone Westfall
+
+# The six-quest chain Forever kept from Season of Discovery, at lower levels
+# (22-32, needs 14). Every quest starts and ends at a game object; none has
+# objectives, so each step is a hand-in at the next hiding place.
+# Sources:
+# - Quests, objects and their spawns: data/forever (QuestieDB Forever):
+#   79008 / 79007 ... and that note you found, 79192 Stepping Stones, 79980
+#   Scramble, 79974 Wet Job, 79975 Eagle's Fist, 79976 This Must Be The Place.
+# - The order per faction: 79008 (Alliance) starts at the Westfall remains
+#   (415107) and ends at the Barrens ones (415106, Nailed Plank 417072); 79007
+#   (Horde) the reverse (Westfall Nailed Plank 424010). Stepping Stones starts
+#   at either plank.
+# - Rewards (Old Toolbox 221498 from Stepping Stones; Cozy Sleeping Bag 211527
+#   and Student Fodder from This Must Be The Place), the path into the
+#   Stonetalon hills (about 50.9,52.3) and the climb to the Messenger Bag from
+#   the Hillsbrad side of Thoradin's Wall (a fallen cart against the wall, about
+#   87.5,47.7 in Hillsbrad Foothills): Wowhead's Forever quest pages and their
+#   comments, from the local archive, facts only.
+# Not play-tested on Forever yet.
+
+step The note in Westfall
+  only Alliance
+  tip A burned-out campfire in western Westfall, with a nailed plank beside it.
+  accept 79008
+
+step Its twin in the Barrens
+  only Alliance
+  zone The Barrens
+  tip The note's "twin land" is the Barrens: the same burned-out campfire stands in the southern Barrens.
+  turnin 79008
+  accept 79192 object 417072
+
+step The note in the Barrens
+  only Horde
+  zone The Barrens
+  tip A burned-out campfire in the southern Barrens, with a nailed plank beside it.
+  accept 79007
+
+step Its twin in Westfall
+  only Horde
+  zone Westfall
+  tip The note's "twin land" is Westfall: the same burned-out campfire stands in western Westfall.
+  turnin 79007
+  accept 79192 object 424010
+
+step Stonetalon Mountains
+  zone Stonetalon Mountains
+  tip The next hideout is a small camp in the hills of eastern Stonetalon. Leave the road where a path climbs into the hills and follow it to the camp; the Pocket Litter lies on a crate beside its tent.
+  goto 50.9,52.3 "Path into the hills"
+  turnin 79192
+  accept 79980
+
+step A hundred paces north
+  tip Walk north through the camp and drop carefully down the steep slope to the Mound of Dirt on the ledge below. A missed jump only slides you down: hug the cliff and walk back up.
+  turnin 79980
+  accept 79974
+
+step The dam in Loch Modan
+  zone Loch Modan
+  tip The figurine is on a ledge just below the top of the Stonewrought Dam, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge.
+  turnin 79974
+  accept 79975
+
+step Thoradin's Wall
+  zone Hillsbrad Foothills
+  tip At the gate in Thoradin's Wall between Arathi and Hillsbrad, turn north and follow the wall on the Hillsbrad side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through.
+  goto 87.5,47.7 "Fallen cart"
+
+step The hidden camp
+  zone Arathi Highlands
+  turnin 79975
+  accept 79976
+  turnin 79976

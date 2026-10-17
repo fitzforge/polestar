@@ -6,7 +6,7 @@
 -- Left: the hub rail (sections, Options at its foot; below), then the
 -- sidebar: the search under the wordmark, then the categories with their
 -- icons and counts (All, Leveling, Professions, Reputation, Exploration,
--- Legacy, Collectibles, Favorites). A category with no guide for any faction
+-- Legacy, Collectibles, Miscellaneous, Favorites). A category with no guide for any faction
 -- is left out; one empty only for this faction fades and says how to reach
 -- its guides. Dungeons have their own hub section, not a category.
 -- Middle: tabs (Home: Continue cards for the open tabs and the suggested
@@ -78,13 +78,13 @@ local VIEWS = { "home", "browse", "current", "recent" }
 local VIEW_LABEL = { home = L["Home"], browse = L["Browse"], current = L["Current"], recent = L["Recent"] }
 
 -- The guide format's categories, in the order players look for them.
-local CATEGORIES = { "Leveling", "Class", "Professions", "Reputation", "Exploration", "Legacy", "Collectibles" }
+local CATEGORIES = { "Leveling", "Class", "Professions", "Reputation", "Exploration", "Legacy", "Collectibles", "Miscellaneous" }
 P.CATEGORIES = CATEGORIES
 local CATEGORY_RANK = {}
 for i, c in ipairs(CATEGORIES) do CATEGORY_RANK[c] = i end
 local CATEGORY_ICON = {
 	Leveling = "icon-level", Class = "icon-train", Professions = "icon-craft", Reputation = "icon-rep", Exploration = "icon-explore",
-	Legacy = "icon-achieve", Collectibles = "icon-collect", Favorites = "star",
+	Legacy = "icon-achieve", Collectibles = "icon-collect", Miscellaneous = "icon-treasure", Favorites = "star",
 }
 P.CATEGORY_ICON = CATEGORY_ICON
 

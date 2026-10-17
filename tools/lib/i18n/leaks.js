@@ -126,7 +126,7 @@ leaks.try("picker", function()
 	UI.ShowPicker(); stub.advance(0.5); leaks.hover()
 	for _, s in ipairs(P.Sections()) do leaks.try("picker section " .. tostring(s.key), function() P.ShowSection(s.key); stub.advance(0.3); leaks.hover() end) end
 	P.ShowSection(P.Sections()[1].key)
-	for _, c in ipairs({ "Leveling", "Professions", "Reputation", "Class", "Dungeons", "Collectibles", "Events", "Mounts", "Pets" }) do
+	for _, c in ipairs({ "Leveling", "Professions", "Reputation", "Class", "Dungeons", "Collectibles", "Miscellaneous", "Events", "Mounts", "Pets" }) do
 		leaks.try("picker category " .. c, function() P.SetCategory(c); stub.advance(0.2); leaks.hover() end)
 	end
 	for _, v in ipairs({ "list", "cards", "map", "grid" }) do leaks.try("picker view " .. v, function() P.SetView(v); stub.advance(0.2); leaks.hover() end) end

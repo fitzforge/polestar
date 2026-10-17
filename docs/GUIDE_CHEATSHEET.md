@@ -23,7 +23,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `faction <Faction>` | Only for `Alliance` or `Horde` characters | `faction Alliance` |
 | `race <Race>, ...` | Only for these races (see Conditions) | `race Human, Dwarf` |
 | `class <Class>, ...` | Only for these classes | `class Warrior, Paladin` |
-| `category <Category>` | The guide menu category: `Leveling` (default), `Class`, `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles` or `Dungeons` | `category Professions` |
+| `category <Category>` | The guide menu category: `Leveling` (default), `Class`, `Professions`, `Reputation`, `Legacy`, `Exploration`, `Collectibles`, `Miscellaneous` or `Dungeons` | `category Professions` |
 | `folder <text>` | The guide menu folder to list it under | `folder Mounts · Level 40` |
 | `keywords <word>, ...` | Extra words the guide menu search finds it by | `keywords wolf, meat` |
 | `collects <item>, ...` | Items the guide obtains; Lookup opens this guide for them | `collects 750` |

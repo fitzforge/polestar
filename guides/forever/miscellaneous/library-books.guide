@@ -1,0 +1,312 @@
+guide forever/miscellaneous/library-books
+title Library Books
+category Miscellaneous
+keywords Library, books, Friend of the Library, Greater Friend of the Library, Garion Wendell, Owen Thadd, Comprehension Charm, Scholarly Pendant, Erudite's Amulet, Field Researcher's Loop, Philanthropist's Ring, Truthseeker's Bow, Crest of Elucidation, Researcher's Night Light
+reward item 277203 277204
+reward item 281634 281635
+reward item 277254 277258 277260
+why Lost books and scrolls all over the world: each pays experience at the library, and enough of them earn a Friend of the Library reward.
+levels 20-50
+zone Stormwind City
+
+# The library book quests Forever kept from Season of Discovery. Each book is
+# an item looted from an object (the Mural of Ta'zo: used) that starts its
+# quest; every class can loot and hand them in, mages also get a Comprehension
+# Charm. Garion Wendell (Stormwind Mage Quarter) takes them for the Alliance,
+# Owen Thadd (Undercity Magic Quarter) for the Horde. The books are kept in the
+# bags and their quests accepted at the librarian, one at a time, so the quest
+# log never fills: there are more books than it holds.
+#
+# Order: Eastern Kingdoms from Elwynn south, then north, then Kalimdor from
+# Darkshore south. Alliance-only: Antonidas and Rumi (the wiki names only
+# Garion Wendell for them), Theocritus, Runes of the Sorcerer-Kings and both
+# Greater Friend of the Library quests (their race masks in data/forever).
+# Horde-only: Ta'zo (the wiki) and the Apothecary's Primer (race mask).
+# Ta'zo, Demons and You and Legends of the Tidesages are items data/forever
+# lacks, so they carry their names here (lint warns that it cannot fill them).
+#
+# Sources (facts only):
+# - Quests, items, librarians: data/forever (QuestieDB Forever).
+# - Book object ids and spawns: QuestieDB @ e9a67d1a2753a0e64c4c96bf7864788fac7b765f,
+#   src/corrections/Forever/foreverObjectFixes.lua (hand-written Forever fixes,
+#   one entry per book object); warcraft.wiki.gg book pages (CC BY-SA 3.0) for
+#   405879, 421526 and 441248, which those fixes do not place, and as a check
+#   on every other point. Not used: QuestieDB's generated SoD and Forever base
+#   object files (built from Wowhead).
+# - Where each book sits (the tips) and the milestone rewards: warcraft.wiki.gg
+#   and Wowhead's Forever quest pages and comments from the local archive.
+# - data/forever puts an Elwynn spawn (65.4,70.1) on 386691, the Antonidas
+#   book; both sources above place 386691 in Ironforge only and that Elwynn
+#   point on 386759 (Theocritus). The goals below are placed by hand.
+# - The milestone quests (Friend of the Library 78150, Greater Friend of the
+#   Library 79536 and 82208) are offered by the librarian once enough books are
+#   handed in; their levels are the data's. How many books each takes is not in
+#   any source we use, so the steps do not count them.
+# Not play-tested on Forever yet.
+
+step Elwynn Forest
+  only Alliance
+  zone Elwynn Forest
+  tip Halfway up the Tower of Azora, east of Goldshire. Nothing hostile inside.
+  collect 203755 @65.4,70.1                  -- Archmage Theocritus' Research Journal
+
+step Westfall
+  zone Westfall
+  tip Two books: one in a house at Moonbrook, one at Sentinel Hill (Alliance only).
+  collect 209845 @45.4,70.4                  -- Bewitchments and Glamours
+  collect 208860 @52.7,53.8 only Alliance    -- Rumi of Gnomeregan
+
+step Duskwood
+  zone Duskwood
+  tip The spellbook lies in the Dawning Wood Catacombs, the crypt in north-western Duskwood. Undead fill it; a corpse run works if you are low.
+  collect 209849 @16.7,28.4                  -- Crimes Against Anatomy
+
+step Stranglethorn Vale
+  zone Stranglethorn Vale
+  tip On a bench beside the Crystalvein Mine entrance, in the middle of the zone.
+  collect 213165 @41.5,50.9                  -- Basilisks: Should Petrification be Feared?
+
+step Swamp of Sorrows
+  zone Swamp of Sorrows
+  tip On the top walkway of the Temple of Atal'Hakkar, outside the dungeon.
+  collect 220345 @70,51                      -- Sanguine Sorcery
+
+step Blasted Lands
+  zone Blasted Lands
+  collect 220353 @55.4,32.2                  -- Conjurer's Codex
+
+step Blackrock Mountain
+  zone Burning Steppes
+  tip Inside Blackrock Mountain, not in a dungeon: the book lies on the altar in Franclorn Forgewright's tomb, near Lothos Riftwaker. The waypoint marks the mountain.
+  collect 220349 @28.96,28.93                -- Stonewrought Design
+
+step Searing Gorge
+  zone Searing Gorge
+  tip On a table inside a tent near the middle of the zone.
+  collect 220352 @37.8,49.3                  -- A Mind of Metal
+
+step Badlands
+  zone Badlands
+  tip Inside a crypt near the middle of the zone, reached from the path to its south.
+  collect 215820 @56.7,39.9                  -- Mummies: A Guide to the Unsavory Undead
+
+step Loch Modan
+  only Alliance
+  zone Loch Modan
+  tip Two books: scrolls in the Mo'grosh ogre cave in the north-east, and the Gnomish Tome in Thelsamar.
+  collect 209850 @77.4,14                    -- Runes of the Sorcerer-Kings
+  collect 208860 @35.6,48.9                  -- Rumi of Gnomeregan
+
+step Ironforge
+  only Alliance
+  zone Ironforge
+  collect 203754 @76,10.4                    -- Archmage Antonidas: The Unabridged Autobiography
+
+step Wetlands
+  zone Wetlands
+  collect 209848 @33.6,47.9                  -- Goaz Scrolls
+
+step Arathi Highlands
+  zone Arathi Highlands
+  tip Beside a tent entrance in the troll village in south-eastern Arathi.
+  collect 215816 @73.6,65.2                  -- A Web of Lies: Debunking Myths and Legends
+
+step The Hinterlands
+  zone The Hinterlands
+  collect 220350 @36,72.8                    -- Venomous Journeys
+
+step Alterac Mountains
+  zone Alterac Mountains
+  collect 215815 @48.4,57.6                  -- Defensive Magics 101
+
+step Silverpine Forest
+  zone Silverpine Forest
+  collect 209844 @63.5,63.2                  -- The Dalaran Digest
+
+step Tirisfal Glades
+  only Horde
+  zone Tirisfal Glades
+  tip On a shelf in Brill's apothecary.
+  collect 208185 @59.4,52.3                  -- The Apothecary's Metaphysical Primer
+
+step Darkshore
+  zone Darkshore
+  tip Down the stairs at the Ruins of Mathystra in northern Darkshore.
+  collect 209843 @59.6,22.2                  -- Nar'thalas Almanac
+
+step Azshara
+  zone Azshara
+  tip On a crate in the Haldarr Encampment, in the far west of Azshara.
+  collect 220348 @20.7,62                    -- Everyday Etiquette
+
+step Orgrimmar
+  only Horde
+  zone Orgrimmar
+  tip The Mural of Ta'zo is the stone tablet leaning against the wall in the Valley of Spirits, on the way to the mage trainers. Use it to take the book.
+  collect 207972 "The Lessons of Ta'zo" @38.7,78.4
+
+step The Barrens
+  zone The Barrens
+  tip Three books: scrolls outside the Wailing Caverns entrance, the manual in the control room at the top of the oil rig at the Sludge Fen, and the Goblin Tome beside Gazlowe in Ratchet.
+  collect 209846 @49.3,32.9                  -- Secrets of the Dreamers
+  collect 209847 @56.3,8.8                   -- Arcanic Systems Manual
+  collect 208800 @62.7,36.3                  -- Baxtan: On Destructive Magics
+
+step Stonetalon Mountains
+  zone Stonetalon Mountains
+  tip On a barrel in a tent at Grimtotem Post, in the far south-east of the zone.
+  collect 209851 @74.4,85.7                  -- Fury of the Land
+
+step Desolace
+  zone Desolace
+  collect 215817 "Demons and You" @55,26.2
+
+step Thousand Needles
+  zone Thousand Needles
+  tip Inside a hut on the Darkcloud Pinnacle mesa.
+  collect 215683 @34.4,40.1                  -- Geomancy: The Stone-Cold Truth
+
+step Dustwallow Marsh
+  zone Dustwallow Marsh
+  tip On the ground at the eastern side of the murloc camp in north-eastern Dustwallow.
+  collect 215822 @57.2,20.8                  -- RwlRwlRwlRwl!
+
+step Tanaris
+  zone Tanaris
+  tip On a bookshelf in the middle building of the pirate camp on the eastern coast.
+  collect 220346 "Legends of the Tidesages" @72.6,47.8
+
+step Garion Wendell
+  only Alliance
+  zone Stormwind City
+  tip Garion Wendell keeps the library in the Mage Quarter. Open each book to take its quest, then hand it in: one at a time keeps your quest log free. Skip the books you did not find.
+  accept 79092 item 203755
+  turnin 79092 npc 211033
+  accept 78142 item 209845
+  turnin 78142 npc 211033
+  accept 79093 item 208860
+  turnin 79093 npc 211033
+  accept 78147 item 209849
+  turnin 78147 npc 211033
+  accept 79535 item 213165
+  turnin 79535 npc 211033
+  accept 81947 item 220345
+  turnin 81947 npc 211033
+  accept 81956 item 220353
+  turnin 81956 npc 211033
+  accept 81953 item 220349
+  turnin 81953 npc 211033
+  accept 81955 item 220352
+  turnin 81955 npc 211033
+  accept 79951 item 215820
+  turnin 79951 npc 211033
+  accept 78148 item 209850
+  turnin 78148 npc 211033
+  accept 79091 item 203754
+  turnin 79091 npc 211033
+  accept 78146 item 209848
+  turnin 78146 npc 211033
+  accept 79949 item 215816
+  turnin 79949 npc 211033
+  accept 81954 item 220350
+  turnin 81954 npc 211033
+  accept 79948 item 215815
+  turnin 79948 npc 211033
+  accept 78127 item 209844
+  turnin 78127 npc 211033
+  accept 78124 item 209843
+  turnin 78124 npc 211033
+  accept 81952 item 220348
+  turnin 81952 npc 211033
+  accept 78143 item 209846
+  turnin 78143 npc 211033
+  accept 78145 item 209847
+  turnin 78145 npc 211033
+  accept 79097 item 208800
+  turnin 79097 npc 211033
+  accept 78149 item 209851
+  turnin 78149 npc 211033
+  accept 79950 item 215817
+  turnin 79950 npc 211033
+  accept 79947 item 215683
+  turnin 79947 npc 211033
+  accept 79952 item 215822
+  turnin 79952 npc 211033
+  accept 81949 item 220346
+  turnin 81949 npc 211033
+
+step Owen Thadd
+  only Horde
+  zone Undercity
+  tip Owen Thadd keeps the library in the Magic Quarter. Open each book to take its quest, then hand it in: one at a time keeps your quest log free. Skip the books you did not find.
+  accept 78142 item 209845
+  turnin 78142 npc 211022
+  accept 78147 item 209849
+  turnin 78147 npc 211022
+  accept 79535 item 213165
+  turnin 79535 npc 211022
+  accept 81947 item 220345
+  turnin 81947 npc 211022
+  accept 81956 item 220353
+  turnin 81956 npc 211022
+  accept 81953 item 220349
+  turnin 81953 npc 211022
+  accept 81955 item 220352
+  turnin 81955 npc 211022
+  accept 79951 item 215820
+  turnin 79951 npc 211022
+  accept 78146 item 209848
+  turnin 78146 npc 211022
+  accept 79949 item 215816
+  turnin 79949 npc 211022
+  accept 81954 item 220350
+  turnin 81954 npc 211022
+  accept 79948 item 215815
+  turnin 79948 npc 211022
+  accept 78127 item 209844
+  turnin 78127 npc 211022
+  accept 79095 item 208185
+  turnin 79095 npc 211022
+  accept 78124 item 209843
+  turnin 78124 npc 211022
+  accept 81952 item 220348
+  turnin 81952 npc 211022
+  accept 79094 item 207972
+  turnin 79094 npc 211022
+  accept 78143 item 209846
+  turnin 78143 npc 211022
+  accept 78145 item 209847
+  turnin 78145 npc 211022
+  accept 79097 item 208800
+  turnin 79097 npc 211022
+  accept 78149 item 209851
+  turnin 78149 npc 211022
+  accept 79950 item 215817
+  turnin 79950 npc 211022
+  accept 79947 item 215683
+  turnin 79947 npc 211022
+  accept 79952 item 215822
+  turnin 79952 npc 211022
+  accept 81949 item 220346
+  turnin 81949 npc 211022
+
+step Friend of the Library
+  tip Once enough books are in, the librarian offers Friend of the Library. Take it when it appears.
+  accept 78150 npc 211033 optional only Alliance
+  turnin 78150 npc 211033 optional only Alliance
+  accept 78150 npc 211022 optional only Horde
+  turnin 78150 npc 211022 optional only Horde
+
+step Greater Friend of the Library
+  only Alliance
+  tip From level 20, with more books handed in, Garion Wendell offers Greater Friend of the Library.
+  level 20
+  accept 79536 npc 211033 optional
+  turnin 79536 npc 211033 optional
+
+step The second Greater Friend of the Library
+  only Alliance
+  tip From level 30, with more books still, Garion Wendell offers the second Greater Friend of the Library.
+  level 30
+  accept 82208 npc 211033 optional
+  turnin 82208 npc 211033 optional
