@@ -8,7 +8,7 @@
 
 Polestar is one addon for the whole of WoW: Forever. It carries 220 guides: 57 leveling guides that take both factions from 1 to 60 from every race's starting zone (Zephras Isle for the Skyborne included), 62 class guides for every class's quest chains, the twelve professions from 1 to 300, 17 reputations, 7 exploration guides, the Legacy challenges and 64 collectible guides, one per mount and per pet.
 
-Around the guides it adds a 3D waypoint arrow that walks real paths and a travel planner, quest markers on the map, an upgrade indicator on item tooltips, a dungeon quest journal, rare alerts and the quality-of-life helpers a long leveling session needs. Its interface is in English, German and Latin American Spanish. It is free, open source under the GPL-3.0, and made in the open on GitHub.
+Around the guides it adds a 3D waypoint arrow that walks real paths and a travel planner, quest markers on the map, an upgrade indicator on item tooltips, a dungeon quest journal, rare alerts and the quality-of-life helpers a long leveling session needs, and every window works with a gamepad. Its interface and its guides read in English, German, French, Spanish (Spain and Latin America), Brazilian Portuguese, Russian, Korean and Chinese (Simplified and Traditional), with every NPC, place, item and quest named as your game names it. It is free, open source under the GPL-3.0, and made in the open on GitHub.
 
 ---
 
@@ -23,6 +23,7 @@ Around the guides it adds a 3D waypoint arrow that walks real paths and a travel
 - **A guide for where you are.** The window opens with a guide for your race, class, level and zone, and each guide hands over to the next one in its chain when you finish it.
 - **Solo by design.** The leveling routes use only quests one player can do alone; a quest that needs an elite appears as an extra marked "optional". Class quests come at the level each class gets them.
 - **Tabs.** Up to six guides open at once: a leveling route and a profession, say.
+- **Gamepad.** Every Polestar window answers the D-pad, A, B, Y and LB / RB, with a bar of button hints. Options, Gamepad names the buttons (Xbox letters or PlayStation shapes) and binds any Polestar action to a key, a button or two buttons held together; nothing is bound until you choose.
 
 ## Finding the way
 
@@ -31,7 +32,7 @@ Around the guides it adds a 3D waypoint arrow that walks real paths and a travel
 **The arrow.** Distance and the goal it leads to.
 
 - **A 3D waypoint arrow** points at the current goal, with distance and ETA, and knows every place a target spawns: a click moves it on to the next one.
-- **Real paths:** the arrow walks you round cliffs, walls and water, through town gates, into caves and down the Undercity's lifts, on Polestar's walking maps with a router that started from the routing engine of Cillian Berragan's [Shortest Path Forever](https://github.com/cjber/shortest-path-forever), used with his kind permission. With Shortest Path Forever itself installed, Polestar still guides; **Hand guiding to Shortest Path Forever** (Options, Integrations) hands it the guiding instead, so the two never guide at once.
+- **Real paths:** the arrow walks you round cliffs, walls and water, through town gates, into caves and down the Undercity's lifts, on Polestar's walking maps with a router that started from the routing engine of Cillian Berragan's [Shortest Path Forever](https://github.com/cjber/shortest-path-forever), used with his kind permission. Walks keep to roads where they are not much longer, stay out of the other faction's towns and go round zones far above your level; the route style (Fastest, Balanced or Roads) is yours to pick. With Shortest Path Forever itself installed, Polestar still guides; **Hand guiding to Shortest Path Forever** (Options, Integrations) hands it the guiding instead, so the two never guide at once.
 - **The travel planner** uses known flight paths, boats, zeppelins, the tram, lifts, portals, class teleports and your Hearthstone when they are faster, with boats and zeppelins on their real timetables, each leg with its own caption and time ("Fly to Crossroads", "Take The Great Lift, leaves in about 0:15").
 - **Quest markers** for givers, objectives and turn-ins on the world map and the minimap, with tooltip lines on the mobs and items a quest needs and nameplate icons on the mobs you still need.
 - **Upgrade advice** on item tooltips and on the quest reward panel: by how much an item is an upgrade for your spec at your level, and which reward to take.
@@ -65,9 +66,10 @@ Around the guides it adds a 3D waypoint arrow that walks real paths and a travel
 
 **Transparent mode.** Outlined text straight on the world; the controls appear under the cursor.
 
+- **Skins**: Polestar's own look (the default), Halo, Hearth, and WoW Forever, Blizzard and Classic drawn in the game's own art. Every window and the arrow take the skin.
 - **Colour schemes**: Dusk (the default), Night and Graphite, with your own accent or your class colour, background colour, opacity and brightness on top. Text stays legible whatever you pick.
 - **Windows**: the guide window standard, compact or transparent, its scale, width and opacity; the arrow's style, size and colours; reduced motion.
-- **Fonts**: the game's own by default, or Inter. With EllesmereUI installed, Polestar follows its accent and font.
+- **Fonts**: the skin's by default (the game's own, Fira Sans in Halo), or the game's, Inter or Fira Sans. With EllesmereUI installed, Polestar follows its accent and font.
 
 ## Quality of life
 
@@ -75,7 +77,9 @@ Around the guides it adds a 3D waypoint arrow that walks real paths and a travel
 
 **Options.** Every setting as one row, applied as you change it, with a search that finds any of them.
 
-Quest item, target and Hearthstone buttons; XP per hour and time to level; selling greys and repairing; taking the best quest reward; instant quest text and faster auto-loot; flight map and death helpers. Requests from other players: accept summons, resurrections and party invitations from friends and guildmates; decline other party invitations, guild invitations and duels. Hold **Shift** to skip auto-accept, auto-turn-in, auto-sell or the flight helper once, or to answer a request yourself.
+Quest item, target and Hearthstone buttons; XP per hour and time to level; selling greys and repairing; taking the best quest reward; instant quest text and faster auto-loot; flight map and death helpers; a minimap button. Requests from other players: accept summons, resurrections and party invitations from friends and guildmates; decline other party invitations, guild invitations and duels. Hold **Shift** to skip auto-accept, auto-turn-in, auto-sell or the flight helper once, or to answer a request yourself.
+
+**Integrations.** Options, Integrations holds every setting that depends on another addon, and lists each one only while it is installed: Shortest Path Forever, TomTom, EllesmereUI, and Questie, whose tracker can show where Polestar plans to hand in each completed quest.
 
 ---
 
@@ -104,7 +108,8 @@ To update by hand, delete the old Polestar folders first, then unzip the new ver
 ## Getting started
 
 - **The welcome.** Each new character's first login opens a short welcome: a hello, the guide Polestar suggests for that character and the three things to know. `/polestar welcome` shows it again.
-- **`/polestar guides`** opens the hub: every guide, Lookup, Dungeons and Rares. `/polestar` (or `/pole`) shows the guide window.
+- **`/polestar guides`** opens the hub: every guide, Lookup, Dungeons and Rares. `/polestar` (or `/pole`) shows the guide window. The minimap button (Options, Map; off by default) shows or hides the guide window with a click and opens the settings with a right-click.
+- **With the game's gamepad interface on**, Polestar's slash commands are off, because the game blocks gamepad actions after any addon command typed in chat: open Polestar from its minimap button, on by default with the gamepad, or bind a key in Key Bindings.
 - **`/polestar options`** holds every setting. Quest markers on the map are off until you turn them on under **Map**.
 - **`/polestar skip`** moves on from a step for good (the window offers Undo); `/polestar next` and `/polestar prev` only look ahead or back.
 - **`/polestar help`** lists every command.
@@ -135,8 +140,12 @@ A step in the wrong order, or a quest that is not where the guide says? Please t
 - **Changelog:** [CHANGELOG.md](https://github.com/fitzforge/polestar/blob/main/CHANGELOG.md)
 - **Docs:** [README](https://github.com/fitzforge/polestar/blob/main/README.md), [the documentation index](https://github.com/fitzforge/polestar/blob/main/docs/README.md), [community guides explained](https://github.com/fitzforge/polestar/blob/main/docs/GUIDE_PACKS.md), [writing a community addon](https://github.com/fitzforge/polestar/blob/main/docs/PACKS.md)
 
+## Support Polestar
+
+Polestar is free and stays free, with no ads and nothing locked. If it saves you some hours on the way to 60 and you'd like to say thanks, you can [buy me a coffee on Ko-fi](https://ko-fi.com/0xfitz). It helps keep the routes and the data up to date. Reports, guides and translations help just as much.
+
 ## Licence and credits
 
-Polestar is free and open source under the [GNU General Public License, version 3](https://github.com/fitzforge/polestar/blob/main/LICENSE). Its data comes from public sources, the game client's own tables and recordings, each used as its licence allows: [THIRD_PARTY.md](https://github.com/fitzforge/polestar/blob/main/THIRD_PARTY.md) credits every input with its licence. No game art ships with Polestar: every texture is drawn in code, and zone paintings are read from your own client. The Inter typeface (SIL Open Font License 1.1) ships with the addon. The screenshots show the game (© Blizzard Entertainment).
+Polestar is free and open source under the [GNU General Public License, version 3](https://github.com/fitzforge/polestar/blob/main/LICENSE). Its data comes from public sources, the game client's own tables and recordings, each used as its licence allows: [THIRD_PARTY.md](https://github.com/fitzforge/polestar/blob/main/THIRD_PARTY.md) credits every input with its licence. No game art ships with Polestar: every texture is drawn in code, and zone paintings and the game-art skins are read from your own client. The Inter and Fira Sans typefaces (SIL Open Font License 1.1) ship with the addon. The screenshots show the game (© Blizzard Entertainment).
 
 *World of Warcraft is a trademark of Blizzard Entertainment. Polestar is a community project, not affiliated with or endorsed by Blizzard.*
