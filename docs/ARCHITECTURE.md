@@ -1646,7 +1646,9 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   and read as nil. The global is taken at login, once every addon has loaded,
   so an addon bringing its own TomTom-compatible global keeps it; it is given
   back (cleared) when the setting goes off or TomTom loads. `Nav/Bridges.lua`
-  never mirrors into it. Default off: the stand-in has methods only, so an
+  never mirrors into it, nor into Shortest Path Forever's own stand-in (the
+  global while it is installed and TomTom is not): a waypoint there starts a
+  journey of its own, which Polestar steps aside for (#306). Default off: the stand-in has methods only, so an
   addon that finds the global and reads TomTom's settings (`TomTom.db`, its
   profile) would error; the option ("Let other addons set waypoints",
   Options, Integrations, TomTom) says so. With it off nothing sets

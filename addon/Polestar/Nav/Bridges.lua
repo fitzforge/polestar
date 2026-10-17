@@ -18,10 +18,15 @@ local tomtomUid      -- TomTom waypoint we own
 local blizzardSet = false
 
 -- Real TomTom only: Nav/Journey.lua's stand-in answers other addons' calls
--- by setting our target, so mirroring into it would loop.
+-- by setting our target, so mirroring into it would loop. Shortest Path
+-- Forever's stand-in (TomTom not installed) would loop too: our waypoint
+-- starts a journey of its own, Polestar steps aside for it, the mirror goes,
+-- the journey ends and Polestar takes it back, every frame (#306).
 local function tomtom()
 	local T = TomTom
 	if T == Nav.tomtomShim then return nil end
+	local H, C = Nav.handoff, ns.Compat
+	if H and H.Available() and not (C and C.AddOnPresent and C.AddOnPresent("TomTom")) then return nil end
 	if type(T) == "table" and type(T.AddWaypoint) == "function" and type(T.RemoveWaypoint) == "function" then return T end
 end
 

@@ -289,6 +289,7 @@ test('H3 (NAV_QA): with it installed the target goes as one stop, and every Pole
 
 test('mirrors stay out while handing off: no waypoint in its TomTom stand-in, no Blizzard waypoint', () => {
 	const [out] = run(`
+		Polestar.Compat.AddOnPresent = function(name) return name == "TomTom" end
 		nav.withTomTom()
 		Polestar.Set("nav.blizzardWaypoint", true)
 		nav.userWaypoints = {}
@@ -306,6 +307,51 @@ test('mirrors stay out while handing off: no waypoint in its TomTom stand-in, no
 	assert.equal(out.adds, 0, 'no TomTom waypoint: a second journey');
 	assert.equal(out.sets, 0, 'no Blizzard waypoint: a second arrow');
 	assert.equal(out.after, 1, 'the mirror is back with the hand-off off');
+});
+
+// Shortest Path Forever's own TomTom stand-in (its Core/TomTom.lua, on by
+// default while TomTom is not installed): a waypoint set there starts a
+// journey of its own, owner "TomTom"; removing it cancels that journey. It
+// takes 20 waypoints at most, so a loop ends and can be counted.
+const SPF_TOMTOM = `${SPF}
+TomTom = {}
+local live, taken = nil, 0
+function TomTom:AddWaypoint(map, x, y, opts)
+	if taken >= 20 then return nil end
+	taken = taken + 1
+	if not ShortestPathForever.API.Navigate("TomTom", map, x, y, opts and opts.title) then return nil end
+	live = { map, x, y, title = opts and opts.title }
+	return live
+end
+function TomTom:RemoveWaypoint(uid)
+	if uid ~= live then return false end
+	live = nil
+	ShortestPathForever.API.Cancel("TomTom")
+	return true
+end
+`;
+
+test('its TomTom stand-in gets no mirrored waypoint: Polestar guides, and does not step aside for a journey it started itself (#306)', () => {
+	const [out] = run(`
+		nav.setWaypoint(copy(FARLAND))
+		for _ = 1, 5 do stub.runTimers(); stub.advance(1.1) end
+		local tomtom = 0
+		for _, c in ipairs(spf.calls) do if c.owner == "TomTom" then tomtom = tomtom + 1 end end
+		emit({ tomtom = tomtom, handedOff = N.HandedOff(), arrow = arrowShown(), owner = spf.owner or false })
+	`, { saved: FRESH, spf: SPF_TOMTOM });
+	assert.deepEqual(out, { tomtom: 0, handedOff: false, arrow: true, owner: false });
+});
+
+test('a real TomTom beside Shortest Path Forever still gets the mirror', () => {
+	const [out] = run(`
+		Polestar.Compat.AddOnPresent = function(name) return name == "TomTom" end
+		nav.withTomTom()
+		nav.setWaypoint(copy(FARLAND))
+		local adds = 0
+		for _, c in ipairs(TomTom.calls) do if c.op == "add" then adds = adds + 1 end end
+		emit({ adds = adds, handedOff = N.HandedOff() })
+	`, { saved: FRESH });
+	assert.deepEqual(out, { adds: 1, handedOff: false });
 });
 
 // One step of goals around (50, 40): wolves for quest 101 in two spawn spots,
