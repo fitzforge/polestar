@@ -466,6 +466,23 @@ test(`${DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is t
 	assert.ok(handIn < at(list, 'accept 4728', is('accept', 4728)), 'before the second loop');
 });
 
+// The same pattern elsewhere: a quest taken where the route already stands,
+// instead of on a walk back to its giver later.
+const STRANGLETHORN_HORDE = 'forever/horde/30-40/02-stranglethorn-vale.guide';
+const TANARIS_ALLIANCE = 'forever/alliance/40-50/04-tanaris.guide';
+
+test('#213: quests whose giver the route already stands at are taken there, not on a walk back', { skip }, () => {
+	for (const [guide, quest, withGoal, what] of [
+		[TIRISFAL, 365, is('accept', 590), "Calvin's duel at Solliden"],
+		[TANARIS_ALLIANCE, 2781, is('accept', 2875), "Andre Firebeard's poster at Steamwheedle Port"],
+		[STRANGLETHORN_HORDE, 192, is('turnin', 191), "Panther Mastery's second turn-in"],
+	]) {
+		const list = goals(guide);
+		const take = at(list, `${guide}: accept ${quest}`, is('accept', quest));
+		assert.equal(list[take].step, list[at(list, `${guide}: ${what}`, withGoal)].step, `${guide}: ${quest} is taken at ${what}`);
+	}
+});
+
 // Every leveling guide with a profession quest still plays to the end for a
 // character who already has the profession (tests/guides.test.js plays them
 // all without one).

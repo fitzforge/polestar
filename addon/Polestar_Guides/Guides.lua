@@ -5090,6 +5090,7 @@ do
 						{ t = "accept", quest = 2873, title = "Stoley's Shipment", npc = 7881, npcName = "Stoley", minLevel = 40, qlvl = 45, map = 1446, x = 67.11, y = 23.98, z = 8.1, f = "e" },
 						{ t = "accept", quest = 8366, title = "Southsea Shakedown", npc = 7882, npcName = "Security Chief Bilgewhizzle", minLevel = 40, qlvl = 45, map = 1446, x = 67.06, y = 23.89, z = 8.1, f = "e", note = "Security Chief Bilgewhizzle" },
 						{ t = "accept", quest = 2875, title = "WANTED: Andre Firebeard", object = 142122, objName = "Wanted Poster", minLevel = 40, qlvl = 45, map = 1446, x = 66.82, y = 22.29, z = 8, f = "e", note = "The Wanted poster beside him" },
+						{ t = "accept", quest = 2781, title = "WANTED: Caliph Scorpidsting", object = 142122, objName = "Wanted Poster", minLevel = 39, qlvl = 46, map = 1446, x = 66.82, y = 22.29, z = 8, f = "e", note = "The same poster: Caliph comes much later, after Gadgetzan" },
 						{ t = "accept", quest = 8365, title = "Pirate Hats Ahoy!", npc = 15165, npcName = "Haughty Modiste", minLevel = 40, qlvl = 45, map = 1446, x = 66.56, y = 22.27, z = 8.8, f = "e", note = "Haughty Modiste" },
 					},
 				},
@@ -5211,12 +5212,6 @@ do
 						{ t = "accept", quest = 1560, title = "Tooga's Quest", npc = 5955, npcName = "Tooga", minLevel = 40, qlvl = 50, map = 1446, x = 29.48, y = 60.51, f = "e", spots = { { x = 29.5, y = 60.5, r = 15, n = 1 }, { x = 30, y = 65, r = 15, n = 1 }, { x = 30, y = 70, r = 15, n = 1 }, { x = 31.8, y = 74.2, r = 15, n = 1 } }, note = "Tooga" },
 						{ t = "complete", quest = 1560, title = "Tooga's Quest" },
 						{ t = "turnin", quest = 1560, title = "Tooga's Quest", npc = 6015, npcName = "Torta", map = 1446, x = 66.58, y = 25.67, z = 0.8, f = "e", note = "Torta" },
-					},
-				},
-				{
-					title = "Steamwheedle Port",
-					goals = {
-						{ t = "accept", quest = 2781, title = "WANTED: Caliph Scorpidsting", object = 142122, objName = "Wanted Poster", minLevel = 39, qlvl = 46, map = 1446, x = 66.82, y = 22.29, z = 8, f = "e", note = "The Wanted poster by Security Chief Bilgewhizzle" },
 					},
 				},
 				{
@@ -24782,6 +24777,12 @@ do
 						{ t = "turnin", quest = 186, title = "Tiger Mastery", npc = 717, npcName = "Ajeck Rouack", map = 1434, x = 35.62, y = 10.62, z = 11.2, f = "e", note = "Ajeck Rouack" },
 						{ t = "accept", quest = 187, title = "Tiger Mastery", npc = 717, npcName = "Ajeck Rouack", minLevel = 28, qlvl = 35, pre = { 186 }, preTitles = { [186] = "Tiger Mastery" }, map = 1434, x = 35.62, y = 10.62, z = 11.2, f = "e" },
 						{ t = "turnin", quest = 191, title = "Panther Mastery", npc = 718, npcName = "Sir S. J. Erlgadin", map = 1434, x = 35.55, y = 10.55, z = 11.1, f = "e", note = "Sir S. J. Erlgadin" },
+						{ t = "accept", quest = 192, title = "Panther Mastery", npc = 718, npcName = "Sir S. J. Erlgadin", minLevel = 28, qlvl = 38, pre = { 191 }, preTitles = { [191] = "Panther Mastery" }, map = 1434, x = 35.55, y = 10.55, z = 11.1, f = "e", note = "The Shadowmaw Panthers come much later, by Grom'gol" },
+						{ t = "accept", quest = 338, title = "The Green Hills of Stranglethorn", npc = 716, npcName = "Barnil Stonepot", minLevel = 30, qlvl = 40, pre = { 583 }, preTitles = { [583] = "Welcome to the Jungle" }, map = 1434, x = 35.66, y = 10.53, z = 11.1, f = "e", optional = true, note = "Barnil Stonepot" },
+						{ t = "accept", quest = 339, title = "Chapter I", npc = 716, npcName = "Barnil Stonepot", minLevel = 30, qlvl = 40, map = 1434, x = 35.66, y = 10.53, z = 11.1, f = "e", optional = true },
+						{ t = "accept", quest = 340, title = "Chapter II", npc = 716, npcName = "Barnil Stonepot", minLevel = 30, qlvl = 40, map = 1434, x = 35.66, y = 10.53, z = 11.1, f = "e", optional = true },
+						{ t = "accept", quest = 341, title = "Chapter III", npc = 716, npcName = "Barnil Stonepot", minLevel = 30, qlvl = 40, map = 1434, x = 35.66, y = 10.53, z = 11.1, f = "e", optional = true },
+						{ t = "accept", quest = 342, title = "Chapter IV", npc = 716, npcName = "Barnil Stonepot", minLevel = 30, qlvl = 40, map = 1434, x = 35.66, y = 10.53, z = 11.1, f = "e", optional = true },
 						{ t = "turnin", quest = 194, title = "Raptor Mastery", npc = 715, npcName = "Hemet Nesingwary", map = 1434, x = 35.66, y = 10.81, z = 11, f = "e", note = "Hemet Nesingwary" },
 						{ t = "accept", quest = 195, title = "Raptor Mastery", npc = 715, npcName = "Hemet Nesingwary", minLevel = 28, qlvl = 36, pre = { 194 }, preTitles = { [194] = "Raptor Mastery" }, map = 1434, x = 35.66, y = 10.81, z = 11, f = "e" },
 					},
@@ -24958,23 +24959,11 @@ do
 					},
 				},
 				{
-					title = "Nesingwary's camp",
-					note = "Follow the road north to the camp.",
-					goals = {
-						{ t = "accept", quest = 192, title = "Panther Mastery", npc = 718, npcName = "Sir S. J. Erlgadin", minLevel = 28, qlvl = 38, pre = { 191 }, preTitles = { [191] = "Panther Mastery" }, map = 1434, x = 35.55, y = 10.55, z = 11.1, f = "e", note = "Sir S. J. Erlgadin" },
-						{ t = "accept", quest = 338, title = "The Green Hills of Stranglethorn", npc = 716, npcName = "Barnil Stonepot", minLevel = 30, qlvl = 40, pre = { 583 }, preTitles = { [583] = "Welcome to the Jungle" }, map = 1434, x = 35.66, y = 10.53, z = 11.1, f = "e", optional = true, note = "Barnil Stonepot" },
-						{ t = "accept", quest = 339, title = "Chapter I", npc = 716, npcName = "Barnil Stonepot", minLevel = 30, qlvl = 40, map = 1434, x = 35.66, y = 10.53, z = 11.1, f = "e", optional = true },
-						{ t = "accept", quest = 340, title = "Chapter II", npc = 716, npcName = "Barnil Stonepot", minLevel = 30, qlvl = 40, map = 1434, x = 35.66, y = 10.53, z = 11.1, f = "e", optional = true },
-						{ t = "accept", quest = 341, title = "Chapter III", npc = 716, npcName = "Barnil Stonepot", minLevel = 30, qlvl = 40, map = 1434, x = 35.66, y = 10.53, z = 11.1, f = "e", optional = true },
-						{ t = "accept", quest = 342, title = "Chapter IV", npc = 716, npcName = "Barnil Stonepot", minLevel = 30, qlvl = 40, map = 1434, x = 35.66, y = 10.53, z = 11.1, f = "e", optional = true },
-					},
-				},
-				{
 					title = "Green Hills pages",
 					note = "Pages of The Green Hills of Stranglethorn drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. Barnil takes the chapters later in this guide.",
 					goals = {
-						{ t = "collect", quest = 339, title = "Chapter I", item = 2725, itemName = "Green Hills of Stranglethorn - Page 1", oi = 1, map = 1434, x = 34.71, y = 21.9, f = "e", spots = { { x = 34.5, y = 22.4, r = 39, n = 3 }, { x = 35.5, y = 23.7, r = 15, n = 1 } }, optional = true, from = "Gluggle", fromKind = "npc", fromRank = 4 },
-						{ t = "collect", quest = 339, title = "Chapter I", item = 2728, itemName = "Green Hills of Stranglethorn - Page 4", oi = 2, map = 1434, x = 34.71, y = 21.9, f = "e", spots = { { x = 34.5, y = 22.4, r = 39, n = 3 }, { x = 35.5, y = 23.7, r = 15, n = 1 } }, optional = true },
+						{ t = "collect", quest = 339, title = "Chapter I", item = 2725, itemName = "Green Hills of Stranglethorn - Page 1", oi = 1, map = 1434, x = 33.92, y = 22.63, f = "e", spots = { { x = 34.5, y = 22.4, r = 39, n = 3 }, { x = 35.5, y = 23.7, r = 15, n = 1 } }, optional = true, from = "Gluggle", fromKind = "npc", fromRank = 4 },
+						{ t = "collect", quest = 339, title = "Chapter I", item = 2728, itemName = "Green Hills of Stranglethorn - Page 4", oi = 2, map = 1434, x = 33.92, y = 22.63, f = "e", spots = { { x = 34.5, y = 22.4, r = 39, n = 3 }, { x = 35.5, y = 23.7, r = 15, n = 1 } }, optional = true },
 						{ t = "collect", quest = 339, title = "Chapter I", item = 2730, itemName = "Green Hills of Stranglethorn - Page 6", oi = 3, map = 1434, x = 44.66, y = 11.01, f = "e", spots = { { x = 44.7, y = 11, r = 15, n = 1 }, { x = 44.6, y = 8.2, r = 28, n = 2 } }, optional = true, from = "Bookie Herod", fromKind = "npc" },
 						{ t = "collect", quest = 339, title = "Chapter I", item = 2732, itemName = "Green Hills of Stranglethorn - Page 8", oi = 4, map = 1434, x = 49.83, y = 30.87, f = "e", spots = { { x = 49.8, y = 30.9, r = 15, n = 1 }, { x = 28.6, y = 62.3, r = 21, n = 2 } }, spread = true, optional = true },
 						{ t = "collect", quest = 340, title = "Chapter II", item = 2734, itemName = "Green Hills of Stranglethorn - Page 10", oi = 1, map = 1434, x = 44.66, y = 11.01, f = "e", spots = { { x = 44.7, y = 11, r = 15, n = 1 }, { x = 44.6, y = 8.2, r = 28, n = 2 }, { x = 29.2, y = 88.8, r = 15, n = 1 } }, spread = true, optional = true },
@@ -32833,8 +32822,9 @@ do
 				},
 				{
 					title = "Calvin Montague",
-					note = "Walk on west to Calvin and talk to him: he wants a duel.",
+					note = "Walk on west to the Solliden Farmstead. Deathguard Simmer stands at the farm; Calvin, by the farmhouse, wants a duel: talk to him.",
 					goals = {
+						{ t = "accept", quest = 365, title = "Fields of Grief", npc = 1519, npcName = "Deathguard Simmer", minLevel = 4, qlvl = 7, map = 1420, x = 40.91, y = 54.17, z = 32.3, f = "e", note = "Deathguard Simmer" },
 						{ t = "accept", quest = 590, title = "A Rogue's Deal", npc = 6784, npcName = "Calvin Montague", minLevel = 1, qlvl = 5, pre = { 8 }, preTitles = { [8] = "A Rogue's Deal" }, map = 1420, x = 38.23, y = 56.79, z = 54, f = "e" },
 						{ t = "complete", quest = 590, title = "A Rogue's Deal", map = 1420, x = 38.2, y = 56.8, f = "e", note = "Beat Calvin in the duel" },
 						{ t = "turnin", quest = 590, title = "A Rogue's Deal", npc = 6784, npcName = "Calvin Montague", map = 1420, x = 38.23, y = 56.79, z = 54, f = "e" },
@@ -32941,17 +32931,10 @@ do
 					},
 				},
 				{
-					title = "Deathguard Simmer",
-					note = "Walk south-west to the Solliden Farmstead; Simmer stands at the farm.",
-					goals = {
-						{ t = "accept", quest = 365, title = "Fields of Grief", npc = 1519, npcName = "Deathguard Simmer", minLevel = 4, qlvl = 7, map = 1420, x = 40.91, y = 54.17, z = 32.3, f = "e" },
-					},
-				},
-				{
 					title = "Tirisfal Pumpkins",
-					note = "The pumpkins grow in the Scarlet-held fields north-west of Solliden.",
+					note = "Walk south-west from the mills: the pumpkins grow in the Scarlet-held fields north-west of Solliden.",
 					goals = {
-						{ t = "collect", quest = 365, title = "Fields of Grief", item = 2846, itemName = "Tirisfal Pumpkin", count = 10, oi = 1, map = 1420, x = 37.16, y = 52.18, f = "e", spots = { { x = 36.7, y = 51.6, r = 32, n = 5 }, { x = 36.9, y = 49.4, r = 42, n = 6 }, { x = 35.4, y = 50.6, r = 64, n = 7 }, { x = 34.5, y = 51.2, r = 46, n = 6 }, { x = 32.1, y = 46.9, r = 22, n = 3 } }, from = "Tirisfal Pumpkin", fromKind = "object" },
+						{ t = "collect", quest = 365, title = "Fields of Grief", item = 2846, itemName = "Tirisfal Pumpkin", count = 10, oi = 1, map = 1420, x = 37.29, y = 48.92, f = "e", spots = { { x = 36.9, y = 49.4, r = 42, n = 6 }, { x = 36.7, y = 51.6, r = 32, n = 5 }, { x = 35.4, y = 50.6, r = 64, n = 7 }, { x = 34.5, y = 51.2, r = 46, n = 6 }, { x = 32.1, y = 46.9, r = 22, n = 3 } }, from = "Tirisfal Pumpkin", fromKind = "object" },
 					},
 				},
 				{

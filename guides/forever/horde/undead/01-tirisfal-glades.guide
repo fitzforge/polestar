@@ -12,10 +12,10 @@ next forever/horde/02-the-barrens
 # swapped within one Brill visit.
 #
 # Flow: Deathknell -> the road east past Calvin Montague and Gordo -> Brill
-# (bind) -> Doom Weed north of town -> west fields, Gordo, Calvin's duel ->
-# hearth -> the north: Rot Hide graveyards, Maggot Eye, the Vile Fin coast ->
-# Brill -> Deathguard Linnea's camp -> Brill -> west loop: Agamand Mills,
-# Solliden, the pumpkin fields, the Crusader's Outpost, the Whispering Forest
+# (bind) -> Doom Weed north of town -> west fields, Gordo, Simmer and Calvin's
+# duel at Solliden -> hearth -> the north: Rot Hide graveyards, Maggot Eye, the
+# Vile Fin coast -> Brill -> Deathguard Linnea's camp -> Brill -> west loop:
+# Agamand Mills, the pumpkin fields, the Crusader's Outpost, the Whispering Forest
 # and Shadowvale -> hearth -> Brill -> the Scarlet camp south of town -> Brill
 # -> east loop: Linnea's camp, the Balnir Farmstead cultists and graves,
 # Captain Vachon, the Vicious Night Web Spiders -> Linnea's camp -> Brill ->
@@ -55,6 +55,10 @@ next forever/horde/02-the-barrens
 #   murloc skins come from the west-loop shore, the wings and hides from the
 #   bats and darkhounds you pass anyway. Tomb Weed (99142) is taken from
 #   Holland at the 10.3 turn-in round (export: 12.0).
+# - Fields of Grief (365) is taken from Deathguard Simmer at the Solliden
+#   Farmstead when you walk past him to Calvin's duel, so the west loop goes
+#   from Agamand Mills straight to the pumpkin fields instead of down to the
+#   farm and back up.
 # - The export runs Brill -> spiders -> Brill -> Vachon -> Brill -> Melrache ->
 #   Brill -> cultists -> Agamand Mills -> hearth. Here everything east of Brill
 #   is one loop after the Scarlet camp, Melrache is one trip from Brill and the
@@ -294,7 +298,8 @@ step Gordo
   collect 286202 quest 99141.3 @43.1,54.7 -- Ask Gordo for his report
 
 step Calvin Montague
-  tip Walk on west to Calvin and talk to him: he wants a duel.
+  tip Walk on west to the Solliden Farmstead. Deathguard Simmer stands at the farm; Calvin, by the farmhouse, wants a duel: talk to him.
+  accept 365                          -- Deathguard Simmer
   accept 590
   complete 590 @38.2,56.8             -- Beat Calvin in the duel
   turnin 590
@@ -373,12 +378,8 @@ step Agamand Mills
   collect 2839 optional               -- A Letter to Yvette, a rare drop
   accept 361 optional                 -- Only if the letter dropped
 
-step Deathguard Simmer
-  tip Walk south-west to the Solliden Farmstead; Simmer stands at the farm.
-  accept 365
-
 step Tirisfal Pumpkins
-  tip The pumpkins grow in the Scarlet-held fields north-west of Solliden.
+  tip Walk south-west from the mills: the pumpkins grow in the Scarlet-held fields north-west of Solliden.
   collect 2846 quest 365.1
 
 step Crusader's Outpost

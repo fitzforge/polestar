@@ -14,8 +14,9 @@
 # and the first bounties) and the Wastewander bandits are killed on the ride
 # back from Steamwheedle Port. Tooga is walked home straight from Thistleshrub
 # Valley instead of after a hearth and a ride back; Caliph Scorpidsting (2781)
-# is picked up at Steamwheedle where Tooga's walk ends and killed on the way
-# to the Gaping Chasm. One hearth instead of two.
+# is taken from the Wanted Poster with Andre Firebeard's bounty on the first
+# visit to the port (not on a detour back into the port after Tooga's walk)
+# and killed on the way to the Gaping Chasm. One hearth instead of two.
 #
 # Added: Keeping Pace and Rizzle's Schematics (1190, 1194, with Zamek's
 # Distraction 1191), from News for Fizzle (1137, carried from Martek in
@@ -79,6 +80,7 @@ step Steamwheedle Port
   accept 2873
   accept 8366                         -- Security Chief Bilgewhizzle
   accept 2875 object 142122           -- The Wanted poster beside him
+  accept 2781 object 142122           -- The same poster: Caliph comes much later, after Gadgetzan
   accept 8365                         -- Haughty Modiste
 
 step Lost Rigger Cove
@@ -163,9 +165,6 @@ step Tooga's escort
   accept 1560                         -- Tooga
   complete 1560
   turnin 1560                         -- Torta
-
-step Steamwheedle Port
-  accept 2781 object 142122           -- The Wanted poster by Security Chief Bilgewhizzle
 
 step Gadgetzan
   tip Ride back west to Gadgetzan.

@@ -16,14 +16,14 @@ next forever/horde/30-40/03-arathi-highlands
 # Flow: the Undercity (where the previous guide ends) -> zeppelin to Grom'gol
 # (flight path, bind) -> Nesingwary's camp -> young tigers and panthers ->
 # Nesingwary -> tigers, panthers, raptors and the Bloodscalp trolls ->
-# Nesingwary -> elder tigers and Lashtail raptors -> Grom'gol -> Nesingwary
-# and Sin'Dall -> the Bloodscalp village -> hearth to Grom'gol -> the road
-# south to Booty Bay (flight path) -> fly to Grom'gol -> the river, the
-# basilisks and the Bloodscalp village -> Grom'gol -> fly to Booty Bay -> fly
-# to Grom'gol -> Lashtail raptors -> Mosh'Ogg, Shadowmaw and the Snapjaw
-# river -> Grom'gol -> the Vile Reef -> the Bloodscalp ruins -> Grom'gol ->
-# Nesingwary's camp (Panther Mastery, The Green Hills of Stranglethorn) ->
-# pages from the trolls -> Shadowmaw panthers -> Nesingwary -> hearth to
+# Nesingwary (Panther Mastery, The Green Hills of Stranglethorn) -> elder
+# tigers and Lashtail raptors -> Grom'gol -> Nesingwary and Sin'Dall -> the
+# Bloodscalp village -> hearth to Grom'gol -> the road south to Booty Bay
+# (flight path) -> fly to Grom'gol -> the river, the basilisks and the
+# Bloodscalp village -> Grom'gol -> fly to Booty Bay -> fly to Grom'gol ->
+# Lashtail raptors -> Mosh'Ogg, Shadowmaw and the Snapjaw river -> Grom'gol
+# -> the Vile Reef -> the Bloodscalp ruins -> Grom'gol -> pages from the
+# trolls -> Shadowmaw panthers -> Nesingwary -> hearth to
 # Grom'gol -> Jungle Stalkers on the coast -> Grom'gol -> Mistvale gorillas
 # -> Booty Bay (Hostile Takeover, bind) -> fly to Grom'gol -> the Venture
 # Co. camp -> hearth to Booty Bay.
@@ -59,6 +59,10 @@ next forever/horde/30-40/03-arathi-highlands
 # - The export takes the Hammerfall flight path and bind at the end of this
 #   visit; they are at the start of forever/horde/30-40/03-arathi-highlands,
 #   where you are actually in Hammerfall.
+# - Panther Mastery (192) and The Green Hills of Stranglethorn (338-342) are
+#   taken when the panthers of 191 are handed in, not on a ride from Grom'gol
+#   up to Nesingwary's camp and back down to the Shadowmaw Panthers by
+#   Grom'gol: the panthers are still hunted at the same point of the route.
 #
 # Class quests: Shamans make one hop to Kalimdor from Grom'gol once they are
 # bound there: the zeppelin to Orgrimmar, a flight to Ratchet (the Shard of
@@ -150,6 +154,12 @@ step Nesingwary's camp
   turnin 186                          -- Ajeck Rouack
   accept 187
   turnin 191                          -- Sir S. J. Erlgadin
+  accept 192                          -- The Shadowmaw Panthers come much later, by Grom'gol
+  accept 338 optional                 -- Barnil Stonepot
+  accept 339 optional
+  accept 340 optional
+  accept 341 optional
+  accept 342 optional
   turnin 194                          -- Hemet Nesingwary
   accept 195
 
@@ -268,17 +278,6 @@ step Grom'gol
   tip Ride back south to Grom'gol.
   turnin 596                          -- Kin'weelay
   turnin 629
-
-# ---------------------------------------------------------------- Nesingwary's camp
-
-step Nesingwary's camp
-  tip Follow the road north to the camp.
-  accept 192                          -- Sir S. J. Erlgadin
-  accept 338 optional                 -- Barnil Stonepot
-  accept 339 optional
-  accept 340 optional
-  accept 341 optional
-  accept 342 optional
 
 step Green Hills pages
   tip Pages of The Green Hills of Stranglethorn drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. Barnil takes the chapters later in this guide.
