@@ -110,7 +110,11 @@ function buildQuestDB({ dataDir, options = {} } = {}) {
 	const npcs = readJson(path.join(dataDir, 'npcs.json'));
 	const objects = readJson(path.join(dataDir, 'objects.json'));
 	const items = readJson(path.join(dataDir, 'items.json'));
-	const frames = (readJson(path.join(dataDir, 'map-frames.json')).era) || {};
+	const mapFramesJson = readJson(path.join(dataDir, 'map-frames.json'));
+	const frames = mapFramesJson.era || {};
+	// Live points on a map Forever added (Zephras Isle, Riverglades) are clustered in
+	// yards through its Forever frame: it has no Era one.
+	const foreverFrames = mapFramesJson.forever || {};
 	const metaFile = path.join(dataDir, 'meta.json');
 	const meta = fs.existsSync(metaFile) ? JSON.parse(fs.readFileSync(metaFile, 'utf8')) : { sources: [] };
 	const warnings = [];
@@ -203,7 +207,7 @@ function buildQuestDB({ dataDir, options = {} } = {}) {
 		for (const map of ids(e.spawns || {})) {
 			const s = e.spawns[map];
 			const live = s.f === 'l';
-			const frame = frames[map];
+			const frame = frames[map] || (live ? foreverFrames[map] : undefined);
 			if (!live && !frame) continue; // an Era point without an Era frame cannot be placed
 			// Every known spawn, so every place the entity spawns gets a marker.
 			const pts = [...(s.pts || []), ...(s.more || [])];

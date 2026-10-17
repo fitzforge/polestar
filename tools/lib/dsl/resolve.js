@@ -356,7 +356,7 @@ function gatherNode(data, src) {
 function spawnSpots(data, sources, map, f, x, y, elites = []) {
 	const pts = spawnPointsOf(data, sources, map, f);
 	if (pts.length < 2) return undefined;
-	const frame = data.eraFrame(map);
+	const frame = data.frame(map);
 	const spread = extent90(pts, frame) > SPREAD_YARDS;
 	let clusters;
 	if (pts.length <= SPOT_CAP) clusters = clusterPoints(pts, frame, { radius: SPOT_CLUSTER_YARDS, cap: Infinity, minRadius: SPOT_MIN_RADIUS });

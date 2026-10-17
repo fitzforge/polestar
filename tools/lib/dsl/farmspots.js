@@ -69,7 +69,7 @@ function townPoints(data) {
 }
 
 function yardScale(data, map) {
-	const fr = data.eraFrame(map);
+	const fr = data.frame(map);
 	if (!fr) return { sx: 30, sy: 20 };
 	return { sx: Math.abs(fr.right - fr.left) / 100, sy: Math.abs(fr.bottom - fr.top) / 100 };
 }

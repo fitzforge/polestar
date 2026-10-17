@@ -207,6 +207,25 @@ test('candidate sets keep one candidate per town on every map, nearest to the pr
 	for (const id of [90100, 190, 54]) assert.ok(ids.includes(id), `${id} missing from ${ids.join(',')}`);
 });
 
+test('a map with only a Forever frame keeps one candidate per town too, not one per map (#299: Zephras Isle)', () => {
+	const { data } = dataWith((raw) => {
+		// Zephras Isle: a map Forever added, so map-frames.json has only its Forever frame.
+		raw['map-frames.json'].forever = { 2521: { c: 2991, left: 4231.25, right: -1331.25, top: 4956.25, bottom: 1247.917 } };
+		const npcs = raw['npcs.json'];
+		const smith = (id, name, x, y) => {
+			npcs[id] = { id, name, level: 5, faction: 'A', roles: ['repair', 'vendor'], spawns: { 2521: { pts: [[x, y]] } } };
+		};
+		// Two smiths a few yards apart in one village, one in another village 20% of the map south.
+		smith(91000, 'Isle Smith A', 42.8, 23.6);
+		smith(91001, 'Isle Smith B', 42.9, 23.6);
+		smith(91002, 'Shen Smith', 42.0, 44.9);
+	});
+	const isle = goals([...head('Alliance'), 'step S', '  vendor nearest'], data).goals[0].candidates.filter((c) => c.map === 2521);
+	// Both villages stay, so the engine can send a player in the southern one to its own smith;
+	// placed by neither frame, every one after the first on the map was dropped.
+	assert.deepEqual(isle.map((c) => c.npc).sort(), [91000, 91002], isle.map((c) => c.npcName).join(', '));
+});
+
 test('accept goals carry the quest level and prerequisites for grey-quest skipping', () => {
 	const g = goals([...head('Alliance'), 'step S', '  accept 9500', '  accept 783 lvl 3']).goals;
 	assert.deepEqual([g[0].qlvl, g[0].pre, g[1].qlvl, g[1].pre, g[1].minLevel], [3, [9201, 783], 1, undefined, 3]);

@@ -281,9 +281,17 @@ class Data {
 		return era[map] || null;
 	}
 
-	// Map size in yards for distance math: Era bounds when known.
+	// Bounds for yard math: the Era frame, else the Forever one (a map Forever
+	// added, such as Zephras Isle or Riverglades, has only that; its points are
+	// in the live frame). Not for converting Era-frame coordinates.
+	frame(map) {
+		const forever = this.mapFrames.forever || {};
+		return this.eraFrame(map) || forever[map] || null;
+	}
+
+	// Map size in yards for distance math: the map's bounds when known.
 	mapSize(map) {
-		const fr = this.eraFrame(map);
+		const fr = this.frame(map);
 		if (!fr) return null;
 		const w = Math.abs(fr.right - fr.left);
 		const h = Math.abs(fr.bottom - fr.top);

@@ -273,7 +273,9 @@ stats` counts the tokens, by kind and by where the compiler found them.
 place, and a player who finds nothing where the arrow led must be able to try
 the others. So a goal placed at an NPC or object gets every place its target
 spawns: `spots = { { x, y, r, n, alt }, ... }`, each the centre (map percent,
-in the goal's own `map` and frame `f`), radius in yards covering its spawns,
+in the goal's own `map` and frame `f`), radius in yards covering its spawns
+(measured through the map's Era frame, else its Forever one: Zephras Isle,
+Riverglades and the other maps Forever added have only that),
 and spawn count of one cluster of the target's spawns (for `collect`: the
 likely sources' spawns on that map, mobs, objects and nodes, as chosen above).
 Every known spawn on the goal's map lies in a spot (the reference data's

@@ -2,7 +2,8 @@
 // Spawn clusters for the quest database: the points of one entity on one map
 // become a few centroids with a radius, so a camp of twenty wolves is one
 // marker instead of twenty. Distances are measured in yards through the map's
-// Era frame (map percent is not square), and the result is deterministic.
+// frame (map percent is not square): its Era frame, else its Forever one for
+// a map Forever added (Zephras Isle); the result is deterministic.
 
 // Yards per map percent along x and y for a frame { left, right, top, bottom };
 // maps without a frame fall back to a mid-sized zone (3000 x 2000 yd).
