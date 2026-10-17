@@ -154,9 +154,10 @@ step The shrine of An'she and Mu'sha
 
 step Brambleblade Ravine
   tip Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. Chief Sharptusk Thornmantle stands at its eastern end, and the Dirt-stained Map lies on the ground in the camp.
-  complete 780
-  complete 757
-  complete 3376
+  collect 4848 quest 780.1            -- Battleboar Snout
+  collect 4849 quest 780.2            -- Battleboar Flank
+  collect 4770 quest 757.1            -- Bristleback Belt
+  collect 10459 quest 3376.1          -- Chief Sharptusk Thornmantle's Head
   collect 4851
   accept 781
 

@@ -565,7 +565,8 @@ test('Rumbleshot\'s Ammo: every objective the data can place has a goal of its o
 				if (g.t !== 'complete' || placed(g) || OBJECTIVE_WITHOUT_A_PLACE.has(g.quest)) continue;
 				const objectives = data.quests[g.quest]?.objectives || [];
 				if (!objectives.length || !objectives.every(knownPlace)) continue;
-				if (step.goals.some((o) => placed(o) && o.t !== 'accept' && o.t !== 'turnin' && (o.quest == null || o.quest === g.quest))) continue;
+				const leads = (o) => placed(o) && (o.quest === g.quest ? o.t !== 'accept' && o.t !== 'turnin' : o.quest == null && (o.t === 'goto' || o.t === 'use'));
+				if (step.goals.some(leads)) continue;
 				offenders.push(`${guide} step ${i + 1} (${step.title}): complete ${g.quest}`);
 			}
 		});
