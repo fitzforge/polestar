@@ -165,8 +165,8 @@ L["Open the Gamepad page: button names and bindings"] = "게임패드 페이지 
 L["Dusk"] = "황혼"
 L["Night"] = "밤"
 L["Graphite"] = "흑연"
--- L["Halo"] = ""
--- L["Blizzard"] = ""
+L["Halo"] = "Halo"
+L["Blizzard"] = "Blizzard"
 
 -- Theme/Widgets.lua
 L["Click to copy"] = "클릭하여 복사"
@@ -1598,11 +1598,11 @@ L["Close the game menu to see Polestar's settings."] = "Polestar 설정을 보�
 L["Integrations"] = "연동"
 L["Settings for other addons Polestar works with, shown when they are installed."] = "Polestar와 연동되는 다른 애드온의 설정이며, 해당 애드온이 설치되어 있을 때 표시됩니다."
 L["None of the addons Polestar works with is installed."] = "Polestar와 연동되는 애드온이 설치되어 있지 않습니다."
--- L["The skin's font (the default: the game's own, Fira Sans in Halo), the game's, Inter, Fira Sans, or EllesmereUI's."] = ""
--- L["The skin's font"] = ""
--- L["Skin"] = ""
--- L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans) or Blizzard (the game's own frames, buttons and font). Style, compact mode and the colours you pick work in each."] = ""
--- L["The skin's arrow"] = ""
+L["The skin's font (the default: the game's own, Fira Sans in Halo), the game's, Inter, Fira Sans, or EllesmereUI's."] = "스킨의 글꼴(기본값: 게임 글꼴, Halo에서는 Fira Sans), 게임 글꼴, Inter, Fira Sans 또는 EllesmereUI의 글꼴."
+L["The skin's font"] = "스킨의 글꼴"
+L["Skin"] = "스킨"
+L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans) or Blizzard (the game's own frames, buttons and font). Style, compact mode and the colours you pick work in each."] = "Polestar 고유의 모습(기본값), Halo(테두리 없이 가장자리가 부드러운 어두운 베일, Fira Sans) 또는 Blizzard(게임의 테두리, 버튼, 글꼴). 스타일, 간소 모드, 직접 고른 색상은 모든 스킨에서 적용됩니다."
+L["The skin's arrow"] = "스킨의 화살표"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"

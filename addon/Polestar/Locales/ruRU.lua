@@ -165,8 +165,8 @@ L["Open the Gamepad page: button names and bindings"] = "Открыть стра
 L["Dusk"] = "Сумерки"
 L["Night"] = "Ночь"
 L["Graphite"] = "Графит"
--- L["Halo"] = ""
--- L["Blizzard"] = ""
+L["Halo"] = "Halo"
+L["Blizzard"] = "Blizzard"
 
 -- Theme/Widgets.lua
 L["Click to copy"] = "Щелкните, чтобы скопировать"
@@ -1598,11 +1598,11 @@ L["Close the game menu to see Polestar's settings."] = "Закройте игр�
 L["Integrations"] = "Интеграции"
 L["Settings for other addons Polestar works with, shown when they are installed."] = "Настройки других аддонов, с которыми работает Polestar; показываются, если они установлены."
 L["None of the addons Polestar works with is installed."] = "Ни один из аддонов, с которыми работает Polestar, не установлен."
--- L["The skin's font (the default: the game's own, Fira Sans in Halo), the game's, Inter, Fira Sans, or EllesmereUI's."] = ""
--- L["The skin's font"] = ""
--- L["Skin"] = ""
--- L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans) or Blizzard (the game's own frames, buttons and font). Style, compact mode and the colours you pick work in each."] = ""
--- L["The skin's arrow"] = ""
+L["The skin's font (the default: the game's own, Fira Sans in Halo), the game's, Inter, Fira Sans, or EllesmereUI's."] = "Шрифт оформления (по умолчанию: шрифт игры, Fira Sans в Halo), шрифт игры, Inter, Fira Sans или шрифт EllesmereUI."
+L["The skin's font"] = "Шрифт оформления"
+L["Skin"] = "Оформление"
+L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans) or Blizzard (the game's own frames, buttons and font). Style, compact mode and the colours you pick work in each."] = "Собственный вид Polestar (по умолчанию), Halo (без рамки, темная вуаль с мягкими краями, Fira Sans) или Blizzard (рамки, кнопки и шрифт игры). Стиль, компактный режим и выбранные вами цвета работают в каждом."
+L["The skin's arrow"] = "Стрелка оформления"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"

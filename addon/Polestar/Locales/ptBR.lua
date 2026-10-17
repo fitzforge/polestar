@@ -165,8 +165,8 @@ L["Open the Gamepad page: button names and bindings"] = "Abrir a página Control
 L["Dusk"] = "Crepúsculo"
 L["Night"] = "Noite"
 L["Graphite"] = "Grafite"
--- L["Halo"] = ""
--- L["Blizzard"] = ""
+L["Halo"] = "Halo"
+L["Blizzard"] = "Blizzard"
 
 -- Theme/Widgets.lua
 L["Click to copy"] = "Clique para copiar"
@@ -1598,11 +1598,11 @@ L["Close the game menu to see Polestar's settings."] = "Feche o menu do jogo par
 L["Integrations"] = "Integrações"
 L["Settings for other addons Polestar works with, shown when they are installed."] = "Configurações de outros addons com os quais o Polestar funciona, mostradas quando estão instalados."
 L["None of the addons Polestar works with is installed."] = "Nenhum dos addons com os quais o Polestar funciona está instalado."
--- L["The skin's font (the default: the game's own, Fira Sans in Halo), the game's, Inter, Fira Sans, or EllesmereUI's."] = ""
--- L["The skin's font"] = ""
--- L["Skin"] = ""
--- L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans) or Blizzard (the game's own frames, buttons and font). Style, compact mode and the colours you pick work in each."] = ""
--- L["The skin's arrow"] = ""
+L["The skin's font (the default: the game's own, Fira Sans in Halo), the game's, Inter, Fira Sans, or EllesmereUI's."] = "A fonte da aparência (padrão: a do jogo, Fira Sans no Halo), a do jogo, Inter, Fira Sans ou a do EllesmereUI."
+L["The skin's font"] = "A fonte da aparência"
+L["Skin"] = "Aparência"
+L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans) or Blizzard (the game's own frames, buttons and font). Style, compact mode and the colours you pick work in each."] = "O visual do próprio Polestar (padrão), Halo (sem moldura, um véu escuro de bordas suaves, Fira Sans) ou Blizzard (as molduras, os botões e a fonte do jogo). O estilo, o modo compacto e as cores que você escolher funcionam em cada uma."
+L["The skin's arrow"] = "A seta da aparência"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso de raide"

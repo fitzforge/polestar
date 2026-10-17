@@ -165,8 +165,8 @@ L["Open the Gamepad page: button names and bindings"] = "打开手柄页面：�
 L["Dusk"] = "黄昏"
 L["Night"] = "夜晚"
 L["Graphite"] = "石墨"
--- L["Halo"] = ""
--- L["Blizzard"] = ""
+L["Halo"] = "Halo"
+L["Blizzard"] = "Blizzard"
 
 -- Theme/Widgets.lua
 L["Click to copy"] = "点击复制"
@@ -1598,11 +1598,11 @@ L["Close the game menu to see Polestar's settings."] = "关闭游戏菜单以查
 L["Integrations"] = "整合"
 L["Settings for other addons Polestar works with, shown when they are installed."] = "Polestar 可配合的其他插件的设置，安装后显示。"
 L["None of the addons Polestar works with is installed."] = "未安装任何 Polestar 可配合的插件。"
--- L["The skin's font (the default: the game's own, Fira Sans in Halo), the game's, Inter, Fira Sans, or EllesmereUI's."] = ""
--- L["The skin's font"] = ""
--- L["Skin"] = ""
--- L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans) or Blizzard (the game's own frames, buttons and font). Style, compact mode and the colours you pick work in each."] = ""
--- L["The skin's arrow"] = ""
+L["The skin's font (the default: the game's own, Fira Sans in Halo), the game's, Inter, Fira Sans, or EllesmereUI's."] = "外观的字体（默认：游戏字体，Halo 中为 Fira Sans）、游戏字体、Inter、Fira Sans 或 EllesmereUI 的字体。"
+L["The skin's font"] = "外观的字体"
+L["Skin"] = "外观"
+L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans) or Blizzard (the game's own frames, buttons and font). Style, compact mode and the colours you pick work in each."] = "Polestar 自己的样式（默认）、Halo（无边框，边缘柔和的深色遮罩，Fira Sans）或 Blizzard（游戏自带的边框、按钮和字体）。样式、紧凑模式和你选的颜色在每种外观中都有效。"
+L["The skin's arrow"] = "外观的箭头"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"

@@ -165,8 +165,8 @@ L["Open the Gamepad page: button names and bindings"] = "Abrir la página Mando:
 L["Dusk"] = "Crepúsculo"
 L["Night"] = "Noche"
 L["Graphite"] = "Grafito"
--- L["Halo"] = ""
--- L["Blizzard"] = ""
+L["Halo"] = "Halo"
+L["Blizzard"] = "Blizzard"
 
 -- Theme/Widgets.lua
 L["Click to copy"] = "Haz clic para copiar"
@@ -1598,11 +1598,11 @@ L["Close the game menu to see Polestar's settings."] = "Cierra el menú del jueg
 L["Integrations"] = "Integraciones"
 L["Settings for other addons Polestar works with, shown when they are installed."] = "Ajustes para otros addons con los que funciona Polestar; se muestran cuando están instalados."
 L["None of the addons Polestar works with is installed."] = "No está instalado ninguno de los addons con los que funciona Polestar."
--- L["The skin's font (the default: the game's own, Fira Sans in Halo), the game's, Inter, Fira Sans, or EllesmereUI's."] = ""
--- L["The skin's font"] = ""
--- L["Skin"] = ""
--- L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans) or Blizzard (the game's own frames, buttons and font). Style, compact mode and the colours you pick work in each."] = ""
--- L["The skin's arrow"] = ""
+L["The skin's font (the default: the game's own, Fira Sans in Halo), the game's, Inter, Fira Sans, or EllesmereUI's."] = "La fuente de la apariencia (por defecto: la del juego, Fira Sans en Halo), la del juego, Inter, Fira Sans o la de EllesmereUI."
+L["The skin's font"] = "La fuente de la apariencia"
+L["Skin"] = "Apariencia"
+L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans) or Blizzard (the game's own frames, buttons and font). Style, compact mode and the colours you pick work in each."] = "El aspecto propio de Polestar (por defecto), Halo (sin marco, un velo oscuro de bordes suaves, Fira Sans) o Blizzard (los marcos, botones y fuente del juego). El estilo, el modo compacto y los colores que elijas funcionan en cada una."
+L["The skin's arrow"] = "La flecha de la apariencia"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso de la banda"
