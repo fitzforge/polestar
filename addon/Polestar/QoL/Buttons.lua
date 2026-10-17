@@ -178,6 +178,20 @@ local function refreshHotkey(b)
 	b.Hotkey:SetText(t or "")
 end
 
+-- The label's anchor pair for each qol.buttonTextSide: label point, button point, x, y.
+local LABEL_SIDE = {
+	right = { "LEFT", "RIGHT", 8, 0 },
+	left = { "RIGHT", "LEFT", -8, 0 },
+	above = { "BOTTOM", "TOP", 0, 4 },
+	below = { "TOP", "BOTTOM", 0, -4 },
+}
+
+local function placeLabel(b)
+	local a = LABEL_SIDE[ns.Get("qol.buttonTextSide")] or LABEL_SIDE.right
+	b.Label:ClearAllPoints()
+	b.Label:SetPoint(a[1], b, a[2], a[3], a[4])
+end
+
 local function newButton(name, onEnter)
 	local b = CreateFrame("Button", name, UIParent, "SecureActionButtonTemplate")
 	b:SetSize(SIZE, SIZE)
@@ -224,8 +238,8 @@ local function newButton(name, onEnter)
 	local label = b:CreateFontString(nil, "OVERLAY")
 	font(label, "small")
 	color(label, "textDim")
-	label:SetPoint("LEFT", b, "RIGHT", 8, 0)
 	b.Label = label
+	placeLabel(b)
 
 	paintBorder(b, false)
 	local T = Theme()
@@ -668,6 +682,9 @@ ns.On("SETTING_CHANGED", function(path)
 	if not itemButton or type(path) ~= "string" then return end
 	if path == "qol.buttonScale" or path == "qol" or path == "" then
 		place()
+	end
+	if path == "qol.buttonTextSide" or path == "qol" or path == "" then
+		for i = 1, #set do placeLabel(set[i]) end
 	end
 	if path:sub(1, 4) == "qol." or path == "qol" or path == "" then refreshSoon() end
 end)

@@ -40,6 +40,7 @@ local defaults = {
 	targetButton = true,     -- target macro button
 	hearthButton = true,     -- Hearthstone button while a hearth goal is active
 	buttonScale = 1,
+	buttonTextSide = "right", -- which side of the button its name sits on
 	xpTracker = true,
 	sellJunk = true,
 	autoRepair = true,

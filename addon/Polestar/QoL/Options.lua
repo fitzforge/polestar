@@ -33,6 +33,8 @@ register(QUESTING, L["Buttons"], L["Action buttons"], {
 		help = L["Shows your Hearthstone while the guide says to hearth. Bindable."] },
 	{ kind = "slider", key = "qol.buttonScale", label = L["Button size"], min = 0.6, max = 1.6, step = 0.05, format = function(v) return math.floor(v * 100 + 0.5) .. "%" end,
 		help = L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] },
+	{ kind = "dropdown", key = "qol.buttonTextSide", label = L["Target name position"], help = L["Where the target's name shows around the target button: right, left, above or below."],
+		choices = { { value = "right", label = L["Right"] }, { value = "left", label = L["Left"] }, { value = "above", label = L["Above"] }, { value = "below", label = L["Below"] } } },
 	{ kind = "button", label = L["Reset button positions"], help = L["Put the buttons back in their default spot."],
 		onClick = function() if QoL.Buttons then QoL.Buttons.ResetPositions() end end },
 })
