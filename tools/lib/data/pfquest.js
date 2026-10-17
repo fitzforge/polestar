@@ -10,6 +10,7 @@
 // "-tbc"/"-wotlk" files are other expansions and are not loaded.
 
 const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { luaToJson } = require('../lua');
@@ -107,6 +108,49 @@ function pairsOf(v) {
 	return Array.isArray(v) ? v : [];
 }
 
+// LuaJIT allows one function 65536 constants, and db/units.lua is a single
+// table constructor with more (Lua 5.1 allows 262143). A file of the shape
+// `pfDB["x"]["y"] = {` ... `}` with its entries at two spaces is rewritten as
+// one function per `batch` lines, merged into the same table; a file of any
+// other shape (or with long strings, where a line could sit inside a string)
+// comes back null and is loaded as it is.
+function splitTable(src, batch = 5000) {
+	const lines = src.split(/\r?\n/);
+	while (lines.length && lines[lines.length - 1] === '') lines.pop();
+	const head = /^(pfDB\["[\w-]+"\]\["[\w-]+"\]) = \{$/.exec(lines[0]);
+	if (!head || lines[lines.length - 1] !== '}' || src.includes('[[') || /\\\r?\n/.test(src)) return null;
+	const out = ['local t = {}', `${head[1]} = t`];
+	let part = [];
+	const flush = () => {
+		if (!part.length) return;
+		out.push('for k, v in pairs((function() return {', ...part, '} end)()) do t[k] = v end');
+		part = [];
+	};
+	for (const line of lines.slice(1, -1)) {
+		if (part.length >= batch && line.startsWith('  [')) flush();
+		part.push(line);
+	}
+	flush();
+	return `${out.join('\n')}\n`;
+}
+
+// Run fn(paths) with each file split by splitTable into a temporary copy.
+function withSplitFiles(files, fn) {
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'polestar-pfquest-'));
+	try {
+		const paths = files.map((f, i) => {
+			const split = splitTable(fs.readFileSync(f, 'utf8'));
+			if (!split) return f;
+			const copy = path.join(dir, `${i}-${path.basename(f)}`);
+			fs.writeFileSync(copy, split);
+			return copy;
+		});
+		return fn(paths);
+	} finally {
+		fs.rmSync(dir, { recursive: true, force: true });
+	}
+}
+
 // -> raw database: { quests: Map, units: Map, objects: Map, items: Map,
 //    refloot: Map, areatrigger: Map, meta: Map<category, Map<id, faction>>,
 //    loc: { quests, units, objects, items } (Maps) }
@@ -123,7 +167,7 @@ function loadPfQuest(dir) {
 		if (fs.existsSync(f)) files.push(f);
 		else throw new Error(`pfQuest: missing ${path.relative(dir, f)}`);
 	}
-	const raw = luaToJson({ files, prelude: PRELUDE, expr: EXPR });
+	const raw = withSplitFiles(files, (paths) => luaToJson({ files: paths, prelude: PRELUDE, expr: EXPR }));
 	const toMap = (list) => new Map(pairsOf(list).map(([k, v]) => [Number(k), v]));
 	const items = new Map();
 	for (const [id, r] of pairsOf(raw.items)) {
@@ -166,8 +210,8 @@ function loadPfQuestNames(dir, locales) {
 		if (!fs.existsSync(folder)) continue;
 		const files = Object.values(NAME_FILES).map((f) => path.join(folder, `${f}.lua`)).filter((f) => fs.existsSync(f));
 		const kinds = Object.entries(NAME_FILES).map(([k, db]) => `${k} = ${JSON.stringify(db)}`).join(', ');
-		const raw = luaToJson({
-			files,
+		const raw = withSplitFiles(files, (paths) => luaToJson({
+			files: paths,
 			prelude: PRELUDE,
 			expr: `
 local out = { objective = {} }
@@ -184,7 +228,7 @@ for kind, db in pairs({ ${kinds} }) do
   out[kind] = list
 end
 return out`,
-		});
+		}));
 		for (const kind of Object.keys(byKind)) {
 			const list = pairsOf(raw[kind]).slice().sort((a, b) => a[0] - b[0]);
 			for (const [id, name] of list) byKind[kind].set(Number(id), name);
@@ -193,4 +237,4 @@ return out`,
 	return out;
 }
 
-module.exports = { REPO, ensurePfQuest, checkLicense, loadPfQuest, loadPfQuestNames };
+module.exports = { REPO, ensurePfQuest, checkLicense, loadPfQuest, loadPfQuestNames, splitTable };
