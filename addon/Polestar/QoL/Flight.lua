@@ -159,39 +159,110 @@ function Flight.FindNode(dest)
 end
 
 ---------------------------------------------------------------------------
--- The mark on the flight map
+-- The mark on the flight map: the node's name over an arrow that bobs above
+-- it, pointing down, and a ring on the node that sends out a slow ripple.
+-- All in the accent, the name outlined to read on the parchment. Both loops
+-- are the client's own animation groups (no OnUpdate of ours); with
+-- ui.reduceMotion they do not play and the mark stands still.
 ---------------------------------------------------------------------------
 
+local BOB = 5              -- the arrow's travel, pixels
+local BOB_TIME = 0.55      -- one way
+local RIPPLE_TIME = 1.6    -- one ripple, from the ring outwards
+local RIPPLE_SCALE = 2.4
+
 local mark
+
+local function reduceMotion()
+	return ns.Get and ns.Get("ui.reduceMotion") and true or false
+end
 
 local function markFrame()
 	if mark then return mark end
 	local T = ns.Theme
+	local media = function(name) return T and T.Media and T.Media(name) or nil end
 	mark = CreateFrame("Frame", nil, UIParent)
 	mark:SetSize(40, 40)
 	mark:Hide()
-	local glow = mark:CreateTexture(nil, "BACKGROUND")
-	glow:SetAllPoints(mark)
-	glow:SetTexture(T and T.Media and T.Media("glow") or nil)
-	glow:SetBlendMode("ADD")
+	-- A soft dark halo, not a glow: the taxi map is light parchment.
+	local halo = mark:CreateTexture(nil, "BACKGROUND")
+	halo:SetAllPoints(mark)
+	halo:SetTexture(media("glow"))
+	halo:SetVertexColor(0, 0, 0, 0.3)
+	local ripple = mark:CreateTexture(nil, "BORDER")
+	ripple:SetSize(30, 30)
+	ripple:SetPoint("CENTER", mark, "CENTER", 0, 0)
+	ripple:SetTexture(media("qol-fly-ring"))
 	local ring = mark:CreateTexture(nil, "OVERLAY")
-	ring:SetSize(26, 26)
+	ring:SetSize(30, 30)
 	ring:SetPoint("CENTER", mark, "CENTER", 0, 0)
-	ring:SetTexture(T and T.Media and T.Media("qol-ring") or nil)
+	ring:SetTexture(media("qol-fly-ring"))
+	local arrow = mark:CreateTexture(nil, "OVERLAY")
+	arrow:SetSize(26, 26)
+	arrow:SetPoint("BOTTOM", mark, "CENTER", 0, 14)
+	arrow:SetTexture(media("qol-fly-arrow"))
 	local label = mark:CreateFontString(nil, "OVERLAY")
-	if T and T.Font then T.Font(label, "small") end
-	label:SetPoint("BOTTOM", mark, "TOP", 0, -4)
-	mark.Label = label
+	if T and T.Font then T.Font(label, "body") end
+	if T and T.SetOutline then T.SetOutline(label, true) end
+	label:SetPoint("BOTTOM", arrow, "TOP", 0, BOB + 1)
+	mark.Label, mark.Arrow, mark.Ripple = label, arrow, ripple
+
+	local bob = arrow:CreateAnimationGroup()
+	bob:SetLooping("BOUNCE")
+	local move = bob:CreateAnimation("Translation")
+	move:SetOffset(0, BOB)
+	move:SetDuration(BOB_TIME)
+	move:SetSmoothing("IN_OUT")
+	mark.Bob = bob
+
+	local wave = ripple:CreateAnimationGroup()
+	wave:SetLooping("REPEAT")
+	local grow = wave:CreateAnimation("Scale")
+	if grow.SetScaleFrom then
+		grow:SetScaleFrom(1, 1)
+		grow:SetScaleTo(RIPPLE_SCALE, RIPPLE_SCALE)
+	else
+		grow:SetScale(RIPPLE_SCALE, RIPPLE_SCALE)
+	end
+	grow:SetDuration(RIPPLE_TIME)
+	grow:SetSmoothing("OUT")
+	local fade = wave:CreateAnimation("Alpha")
+	fade:SetFromAlpha(0.9)
+	fade:SetToAlpha(0)
+	fade:SetDuration(RIPPLE_TIME)
+	fade:SetSmoothing("OUT")
+	mark.Wave = wave
+
 	local function paint()
 		if not (T and T.Accent) then return end
 		local r, g, b = T.Accent()
-		glow:SetVertexColor(r, g, b, 0.7)
+		ripple:SetVertexColor(r, g, b, 1)
 		ring:SetVertexColor(r, g, b, 1)
+		arrow:SetVertexColor(r, g, b, 1)
 		label:SetTextColor(r, g, b, 1)
 	end
 	paint()
 	if T and T.OnChanged then T.OnChanged(paint) end
 	return mark
+end
+
+-- Plays the mark's loops, or holds it still under ui.reduceMotion.
+local function animate(m)
+	if reduceMotion() then
+		m.Bob:Stop()
+		m.Wave:Stop()
+		m.Ripple:Hide()
+	else
+		m.Ripple:Show()
+		if not m.Bob:IsPlaying() then m.Bob:Play() end
+		if not m.Wave:IsPlaying() then m.Wave:Play() end
+	end
+end
+
+-- The node's name as the map shows it, without its zone ("Thelsamar").
+local function nodeLabel(index, dest)
+	local name = (TaxiNodeName and TaxiNodeName(index)) or dest or ""
+	return name:match("^([^,]+),") or name
 end
 
 local function nodeFrame(index)
@@ -316,8 +387,9 @@ function Flight.Highlight()
 		m:ClearAllPoints()
 		m:SetPoint("CENTER", anchor, "CENTER", 0, 0)
 		m:SetFrameLevel((anchor:GetFrameLevel() or 1) + 5)
-		m.Label:SetText(L["Route"])
+		m.Label:SetText(nodeLabel(index, dest))
 		m:Show()
+		animate(m)
 		hookButtons()
 		Flight.DrawRoute(index)
 	elseif not told then
@@ -343,4 +415,9 @@ end)
 -- A route planned while the map is open (a flight path just learned).
 ns.On("ROUTE_CHANGED", function()
 	if TaxiFrame and TaxiFrame:IsShown() then Flight.Highlight() end
+end)
+-- ui.reduceMotion stops or restarts the mark's loops at once.
+ns.On("SETTING_CHANGED", function(path)
+	if path ~= "" and path ~= "ui" and path ~= "ui.reduceMotion" then return end
+	if mark and mark:IsShown() then animate(mark) end
 end)

@@ -604,7 +604,6 @@ L["Wearing %s (%s)."] = "已装备%s（%s）。"
 L["Wearing %s."] = "已装备%s。"
 
 -- QoL/Flight.lua
-L["Route"] = "路线"
 L["Route: fly to %s."] = "路线：飞往%s。"
 
 -- QoL/Death.lua
@@ -1937,3 +1936,4 @@ L["Shortest Path Forever's arrow, route and journey take you to each goal. Poles
 -- L["Guide with Shortest Path Forever when it's installed"] = "安装 Shortest Path Forever 时由其导航"
 -- L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "由 Shortest Path Forever 的箭头、路线和行程带你前往每个目标。Polestar 的箭头、路线线条、行程步骤、旅行按钮、交通提醒、地图点击和 /way 将让位；指南窗口和地图标记保留。"
 -- L["Browsing the guide needs a gamepad: turn it on in the game's options and plug one in."] = "浏览指南需要手柄：请在游戏选项中启用手柄并连接一个手柄。"
+-- L["Route"] = "路线"

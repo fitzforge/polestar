@@ -10,6 +10,8 @@
 //   qol-upgrade  quest reward badge: an upgrade, a bold up arrow with a dark rim
 //   qol-coin     quest reward badge: sells for most, a coin with a dark rim
 //   qol-ring     flight map destination marker: a ring with four ticks
+//   qol-fly-arrow flight map destination: a bold down arrow with a heavy dark rim
+//   qol-fly-ring  flight map destination: the ring on the node, heavy dark rim
 //
 //   node tools/polestar.js media qol
 
@@ -32,6 +34,13 @@ const { union, subtract, intersect } = sdf;
 function arrow() {
 	const head = poly([[12, 3.6], [19.6, 11.8], [4.4, 11.8]]);
 	const stem = box(12, 15.4, 3.1, 5, 0.6);
+	return sdf.offset(union(head, stem), g(0.7));
+}
+
+// The up arrow turned over: it bobs above a flight map node, pointing at it.
+function arrowDown() {
+	const head = poly([[12, 20.4], [4.4, 12.2], [19.6, 12.2]]);
+	const stem = box(12, 8.6, 3.1, 5, 0.6);
 	return sdf.offset(union(head, stem), g(0.7));
 }
 
@@ -87,12 +96,24 @@ function badge(shape) {
 }
 const BADGES = { 'qol-upgrade': arrow(), 'qol-coin': coin() };
 
+// Flight map marks sit on the taxi map's light parchment, where the gold
+// accent alone disappears: a heavier, nearly opaque dark rim keeps the
+// tinted shape readable there.
+function rimmed(shape) {
+	const c = new Canvas(SIZE, SIZE);
+	c.fill(sdf.offset(shape, g(2.1)), [0, 0, 0, 0.9], { feather: 1.5 });
+	c.fill(shape, [1, 1, 1, 1]);
+	return c;
+}
+const MARKS = { 'qol-fly-arrow': arrowDown(), 'qol-fly-ring': ring(12, 12, 6.8, 2.6) };
+
 function generate(addonRoot) {
 	const dir = path.join(addonRoot, 'Media', 'UI');
 	const written = [];
 	for (const [name, shape] of Object.entries(GLYPHS)) written.push(glyph(shape).write(path.join(dir, `${name}.tga`)));
 	for (const [name, shape] of Object.entries(BADGES)) written.push(badge(shape).write(path.join(dir, `${name}.tga`)));
+	for (const [name, shape] of Object.entries(MARKS)) written.push(rimmed(shape).write(path.join(dir, `${name}.tga`)));
 	return written;
 }
 
-module.exports = { name: 'qol', generate, textures: [...Object.keys(GLYPHS), ...Object.keys(BADGES)] };
+module.exports = { name: 'qol', generate, textures: [...Object.keys(GLYPHS), ...Object.keys(BADGES), ...Object.keys(MARKS)] };

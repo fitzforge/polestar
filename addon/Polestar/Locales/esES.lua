@@ -604,7 +604,6 @@ L["Wearing %s (%s)."] = "Equipado: %s (%s)."
 L["Wearing %s."] = "Equipado: %s."
 
 -- QoL/Flight.lua
-L["Route"] = "Ruta"
 L["Route: fly to %s."] = "Ruta: vuela a %s."
 
 -- QoL/Death.lua
@@ -1937,3 +1936,4 @@ L["Shortest Path Forever's arrow, route and journey take you to each goal. Poles
 -- L["Guide with Shortest Path Forever when it's installed"] = "Guiar con Shortest Path Forever si está instalado"
 -- L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "La flecha, la ruta y el trayecto de Shortest Path Forever te llevan a cada objetivo. La flecha de Polestar, las líneas de ruta, los pasos del trayecto, el botón de viaje, los avisos de transporte, los clics en el mapa y /way se apartan; la ventana de la guía y los marcadores del mapa se quedan."
 -- L["Browsing the guide needs a gamepad: turn it on in the game's options and plug one in."] = "Recorrer la guía requiere un mando: actívalo en las opciones del juego y conecta uno."
+-- L["Route"] = "Ruta"

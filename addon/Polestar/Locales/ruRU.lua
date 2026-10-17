@@ -604,7 +604,6 @@ L["Wearing %s (%s)."] = "Надето: %s (%s)."
 L["Wearing %s."] = "Надето: %s."
 
 -- QoL/Flight.lua
-L["Route"] = "Маршрут"
 L["Route: fly to %s."] = "Маршрут: лететь в %s."
 
 -- QoL/Death.lua
@@ -1937,3 +1936,4 @@ L["Shortest Path Forever's arrow, route and journey take you to each goal. Poles
 -- L["Guide with Shortest Path Forever when it's installed"] = "Вести через Shortest Path Forever, если он установлен"
 -- L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "Стрелка, маршрут и путь Shortest Path Forever ведут к каждой цели. Стрелка Polestar, линии маршрута, шаги пути, кнопка пути, оповещения о транспорте, щелчки по карте и /way отключаются; окно гайда и метки на карте остаются."
 -- L["Browsing the guide needs a gamepad: turn it on in the game's options and plug one in."] = "Чтобы листать гайд, нужен геймпад: включите его в настройках игры и подключите."
+-- L["Route"] = "Маршрут"

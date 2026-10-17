@@ -1740,6 +1740,25 @@ test("flight: marks the route's next flight destination, else the fly goal; neve
 	assert.equal(out[3], 'none');
 });
 
+test("flight: the mark names the destination node and bobs, unless motion is reduced", () => {
+	const out = run(`
+		q.step({ { t = "fly", location = "Sentinel Hill" } })
+		q.openTaxi({ "Stormwind, Elwynn", "Lakeshire, Redridge", "Sentinel Hill, Westfall" })
+		local function theMark()
+			for _, c in ipairs(TaxiButton3.children) do if c.Label and c.Bob then return c end end
+		end
+		local m = theMark()
+		emit({ m.Label:GetText(), m.Bob.plays or 0, m.Wave.plays or 0, m.Ripple:IsShown() })
+		stub.fire("TAXIMAP_CLOSED")
+		Polestar.Set("ui.reduceMotion", true)
+		q.openTaxi({ "Stormwind, Elwynn", "Lakeshire, Redridge", "Sentinel Hill, Westfall" })
+		emit({ m.Bob.plays or 0, m.Wave.plays or 0, m.Ripple:IsShown() })
+	`);
+	assert.equal(out[0][0], 'Sentinel Hill');
+	assert.ok(out[0][1] > 0 && out[0][2] > 0 && out[0][3], 'the arrow bobs and the ring ripples');
+	assert.deepEqual(out[1], [out[0][1], out[0][2], false], 'reduced motion plays neither loop and hides the ripple');
+});
+
 // ---------------------------------------------------------------------------
 // Death helper
 // ---------------------------------------------------------------------------

@@ -1520,7 +1520,6 @@ L["Resurrect at the Spirit Healer (%s): your corpse is %s away, longer than %s o
 L["Resurrect at the Spirit Healer (%s)."] = "Lass dich beim Geistheiler wiederbeleben (%s)."
 L["Your corpse"] = "Deine Leiche"
 L["Spirit Healer"] = "Geistheiler"
-L["Route"] = "Route"
 L["Route: fly to %s."] = "Route: Flieg nach %s."
 L["%dh %02dm"] = "%d Std. %02d Min."
 L["%dm"] = "%d Min."
@@ -1941,3 +1940,4 @@ L["Shortest Path Forever's arrow, route and journey take you to each goal. Poles
 -- L["Guide with Shortest Path Forever when it's installed"] = "Mit Shortest Path Forever führen, wenn es installiert ist"
 -- L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "Pfeil, Route und Reise von Shortest Path Forever führen dich zu jedem Ziel. Polestars Pfeil, Routenlinien, Reiseschritte, Reise-Button, Transport-Alarme, Kartenklicks und /way treten zur Seite; das Guide-Fenster und die Kartenmarkierungen bleiben."
 -- L["Browsing the guide needs a gamepad: turn it on in the game's options and plug one in."] = "Zum Durchgehen des Guides brauchst du ein Gamepad: Aktiviere es in den Spieloptionen und schließ eines an."
+-- L["Route"] = "Route"
