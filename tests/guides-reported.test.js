@@ -559,6 +559,13 @@ test(`${DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is t
 	assert.ok(handIn < at(list, 'accept 4728', is('accept', 4728)), 'before the second loop');
 });
 
+test(`${TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to Dolanaar that passes Zenn (#89)`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const take = at(list, "accept 488 (Zenn's Bidding)", is('accept', 488));
+	assert.ok(at(list, 'accept 2159 (Porthannius, leaving Shadowglen)', is('accept', 2159)) < take, 'after Porthannius');
+	assert.ok(take < at(list, 'turnin 96630 (Lyreena Duskblade in Dolanaar)', is('turnin', 96630)), 'before the first Dolanaar stop');
+});
+
 // The same pattern elsewhere: a quest taken where the route already stands,
 // instead of on a walk back to its giver later.
 const STRANGLETHORN_HORDE = 'forever/horde/30-40/02-stranglethorn-vale.guide';
