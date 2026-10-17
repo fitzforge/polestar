@@ -665,6 +665,16 @@ function Compat.GetSkillRank(skillLineOrName)
 	return nil
 end
 
+-- A spell the character has, weapon skills included (Forever's spellbook
+-- check says no for those; IsPlayerSpell answers): true, false, or nil when
+-- the client cannot tell.
+function Compat.IsPlayerSpell(spellID)
+	if not (spellID and IsPlayerSpell) then return nil end
+	local ok, known = pcall(IsPlayerSpell, spellID)
+	if not ok then return nil end
+	return known and true or false
+end
+
 -- Spells in the spellbook, and profession recipes (which are not).
 function Compat.IsSpellKnown(spellID)
 	if not spellID then return false end

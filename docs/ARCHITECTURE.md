@@ -1615,7 +1615,11 @@ Polestar.Nav.API.Active() -> active, owner      -- anything guided to; owner whi
 Polestar.Nav.journey.PlanTo(map, x, y, label, f) -> ok   -- onto the zone under a continent spot; refuses open sea
 Polestar.Nav.journey.Estimate(from, to, budgeted) -> seconds | nil[, "busy"] -- from, to = { map, x, y, f } (percent); from nil: the player; "busy" only when budgeted (the API)
 Polestar.Nav.nearby.Find(kind, skillLine) -> place, seconds | nil, "kind" | "codex" | "combat" | "none"
-Polestar.Nav.nearby.Go(kind, skillLine) -> ok
+Polestar.Nav.nearby.Go(kind, skillLine) -> ok           -- weapon: skillLine is the weapon skill's line, or nil for any
+Polestar.Nav.nearby.Trip() -> { target, name, label } | nil   -- the trip Go started, while its target is the one shown
+Polestar.Nav.nearby.EndTrip(arrived) -> ok                -- back to the guide: the trip's target lets go
+Polestar.Nav.nearby.Weapons() -> { { line, label, known, level }, ... }   -- the weapons the class can use that a master of its side teaches
+Polestar.Nav.nearby.MenuItems() -> items                  -- the guide window button's list (vendor first; a weapons page)
 Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the player to the cursor on the minimap
 ```
 
@@ -1666,7 +1670,10 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
 - **Nearby services** (`/polestar near <kind> [profession]`; `nav.nearbyMenu`
   adds a "Nearby services" submenu to `MENU_WORLD_MAP_TRACKING` and
   `MENU_MINIMAP_TRACKING`): kinds trainer (profession, by skill line, or any),
-  class, repair, reagents, vendor, innkeeper, bank, auction, flight, stable.
+  class, weapon (a weapon skill's line, or any), repair, reagents, vendor,
+  innkeeper, bank, auction, flight, stable. Weapon masters are the NPCs of
+  `WEAPON_MASTERS` (the weapon skills each teaches, noted by hand) of the
+  player's side.
   Places are the Codex's NPCs with that role (`Codex.WithRole`, loaded on
   demand, never in combat), friendly to the player's faction and outside
   instances; reagents are vendors listed in `QoL.data.reagentVendors` (`qol
@@ -1675,6 +1682,20 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   line (the player's continent first), the six nearest of those estimated by
   `Journey.Estimate`, the quickest becomes the target and one chat line names
   it, its zone and the time.
+- **The guide window's button** (`nav.nearbyButton`, on: Options, Guide,
+  Arrow & routes): an icon left of the bug, Skip left of it (left of the bug
+  when it is off). Its menu is `Nearby.MenuItems()`: the services, a trainer
+  per profession the character has, and Weapon master, a page of
+  `Nearby.Weapons()` (a known weapon, by `Compat.IsPlayerSpell` on its
+  skill's spell, and polearms before level 20 are listed and off); off in
+  combat.
+- **The trip back to the guide.** `Go` starts a trip (`Nearby.Trip()`) and
+  fires `NEARBY_TRIP(trip)`. `Nav` fires `NAV_ARRIVED(target)` once per
+  arrival; on the trip's target, `EndTrip(true)` releases it and the arrow is
+  back on the guide's step. Any other target (a goal clicked, a map click)
+  ends the trip quietly, and `NEARBY_TRIP(nil)` follows each end. On the
+  way, the guide window shows a banner and the button's list a first entry,
+  both "Back to the guide" (`EndTrip()`).
 
 ### Hand-off to Shortest Path Forever
 

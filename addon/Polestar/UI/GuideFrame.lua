@@ -765,9 +765,17 @@ local function awayNotice(E, g)
 	return a
 end
 
+local function nearbyTrip()
+	local Nearby = ns.Nav and ns.Nav.nearby
+	return Nearby and Nearby.Trip and Nearby.Trip() or nil
+end
+
 local function bannerNotice()
 	local E = Engine()
 	local g = E and E.GetGuide and E.GetGuide()
+	-- On the way to a nearby service (Nav/Nearby.lua): the way back first.
+	local t = nearbyTrip()
+	if t then return "trip", t end
 	local k = notices.stepSkip
 	if k and g ~= nil and g.id == k.guideId and (not view or view.index ~= k.step) then return "stepSkip", k end
 	local s = notices.skipped
@@ -856,6 +864,11 @@ function GF.LayoutBanner(width)
 			placeLink(banner.Jump, string.format(L["Back to step %d"], n.live), 0, -4)
 		end
 		banner.Close:Show()
+	elseif kind == "trip" then
+		banner.Icon:SetTexture(Theme.Media("icon-goto"))
+		banner.Text:SetText(string.format(L["On the way to %s (%s)."], n.name or "", n.label or ""))
+		placeLink(banner.Jump, L["Back to the guide"], 0, -4)
+		banner.Close:Hide()
 	elseif kind == "outlevel" then
 		banner.Icon:SetTexture(Theme.Media("icon-level"))
 		banner.Text:SetText(L["You have outlevelled this guide."])
@@ -887,7 +900,9 @@ end
 function GF.TakeBanner()
 	local kind, n = bannerNotice()
 	local E = Engine()
-	if kind == "stepSkip" then
+	if kind == "trip" then
+		ns.Nav.nearby.EndTrip()
+	elseif kind == "stepSkip" then
 		notices.stepSkip = nil
 		if E and E.Unskip then E.Unskip(n.step) end
 	elseif kind == "away" then
@@ -916,7 +931,9 @@ end
 -- screen that is not the live one: until another step is).
 function GF.DismissBanner()
 	local kind, n = bannerNotice()
-	if kind == "away" then
+	if kind == "trip" then
+		ns.Nav.nearby.EndTrip()
+	elseif kind == "away" then
 		notices.away = n.guideId .. ":" .. n.index
 	elseif kind then
 		notices[kind] = nil
@@ -1070,7 +1087,8 @@ function GF.Layout()
 	nav.Title:SetShown((not showStrip or not steps) and nav.Title:GetText() ~= nil and nav.Title:GetText() ~= "")
 	local skipW = nav.Skip:IsShown() and nav.Skip:GetWidth() + 4 or 0
 	local reportW = nav.Report:IsShown() and nav.Report:GetWidth() or 0
-	nav.Title:SetWidth(max(40, width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - skipW - reportW))
+	local nearbyW = nav.Nearby:IsShown() and nav.Nearby:GetWidth() or 0
+	nav.Title:SetWidth(max(40, width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - skipW - reportW - nearbyW))
 	card:SetWidth(width)
 
 	local y = 0
@@ -1266,6 +1284,13 @@ function GF.PaintSkip(shown, enabled)
 	W.Color(b.Label, "textDim", a)
 end
 
+-- Skip sits left of the Nearby services button, or of the bug when that
+-- button is off (nav.nearbyButton).
+local function anchorSkip()
+	nav.Skip:ClearAllPoints()
+	nav.Skip:SetPoint("RIGHT", nav.Nearby:IsShown() and nav.Nearby or nav.Report, "LEFT", -2, 0)
+end
+
 local function navigatorFor(guide, index)
 	local E = Engine()
 	local count = guide and E.GetStepCount and E.GetStepCount() or 0
@@ -1282,6 +1307,9 @@ local function navigatorFor(guide, index)
 	W.SetIconState(nav.Next, false, guide ~= nil and index ~= nil)
 	GF.PaintSkip(guide ~= nil, guide ~= nil and index ~= nil)
 	nav.Report:SetShown(guide ~= nil)
+	nav.Nearby:ClearAllPoints()
+	nav.Nearby:SetPoint("RIGHT", guide and nav.Report or nav.Menu, "LEFT", 0, 0)
+	anchorSkip()
 	-- No guide: no steps to walk; the navigator names the addon instead.
 	nav.Steps:SetShown(guide ~= nil)
 	nav.Title:ClearAllPoints()
@@ -1737,6 +1765,11 @@ local APPLY = {
 	["ui.notesOpen"] = function() tipOpen = ns.Get("ui.notesOpen") and true or false; GF.Render() end,
 	["ui.combat"] = function() GF.ApplyVisibility(); GF.ApplyAlpha(false) end,
 	["ui.font"] = function() GF.Layout() end,
+	["nav.nearbyButton"] = function()
+		nav.Nearby:SetShown(ns.Get("nav.nearbyButton") ~= false)
+		anchorSkip()
+		GF.Layout()
+	end,
 }
 
 ---------------------------------------------------------------------------
@@ -2026,6 +2059,59 @@ local function openMenu(button)
 	})
 end
 
+-- Nearby services (Nav/Nearby.lua): the nearest vendor, repair, inn, flight
+-- master or trainer, as the arrow's target. Looked up after combat only.
+local openNearby
+
+-- The weapon master's page of the menu: the weapons to learn, each to the
+-- nearest master who teaches it; a weapon already known, or not yet at this
+-- level, says so and is off. Back returns to the services.
+local function openWeapons(button, entry)
+	local Nearby = ns.Nav.nearby
+	local fight = InCombatLockdown and InCombatLockdown()
+	local items = {
+		{ text = L["Back"], icon = "chevron-left", onClick = function() openNearby(button) end },
+		{ separator = true },
+	}
+	for _, w in ipairs(entry.weapons) do
+		local text, off = w.label, fight
+		if w.known then
+			text, off = string.format(L["%s (known)"], w.label), true
+		elseif w.level then
+			text, off = string.format(L["%s (from level %d)"], w.label, w.level), true
+		end
+		local line = w.line
+		items[#items + 1] = { text = text, disabled = off, onClick = function() Nearby.Go("weapon", line) end }
+	end
+	W.ShowMenu(button, items)
+end
+
+function openNearby(button)
+	if W.MenuShown(button) then return W.HideMenu() end
+	local Nearby = ns.Nav and ns.Nav.nearby
+	if not (Nearby and Nearby.MenuItems) then return end
+	local fight = InCombatLockdown and InCombatLockdown()
+	local items = {}
+	if Nearby.Trip and Nearby.Trip() then
+		items[1] = { text = L["Back to the guide"], icon = "chevron-left", onClick = function() Nearby.EndTrip() end }
+		items[2] = { separator = true }
+	end
+	for _, e in ipairs(Nearby.MenuItems()) do
+		if e.separator then
+			items[#items + 1] = e
+		elseif e.weapons then
+			-- A page of its own: which weapon to learn.
+			items[#items + 1] = { text = e.label .. "  \226\128\186", icon = e.icon, disabled = fight,
+				onClick = function() openWeapons(button, e) end }
+		else
+			local key, line = e.key, e.line
+			items[#items + 1] = { text = e.label, icon = e.icon, disabled = fight,
+				onClick = function() Nearby.Go(key, line) end }
+		end
+	end
+	W.ShowMenu(button, items)
+end
+
 ---------------------------------------------------------------------------
 -- Build
 ---------------------------------------------------------------------------
@@ -2126,6 +2212,12 @@ local function build()
 	nav.Report.psTipLines = { L["Write what went wrong, copy the report and paste it on the Polestar Discord."] }
 	nav.Report:SetPoint("RIGHT", nav.Menu, "LEFT", 0, 0)
 	nav.Report:Hide()
+	-- Nearby services: left of the bug, right of Skip.
+	nav.Nearby = W.IconButton(nav, "icon-goto", 24, L["Nearby services"], openNearby)
+	nav.Nearby.psTipLines = { L["Points the arrow at the nearest vendor, repair, inn, flight master or trainer."] }
+	nav.Nearby:SetPoint("RIGHT", nav.Report, "LEFT", 0, 0)
+	nav.Nearby:SetShown(ns.Get("nav.nearbyButton") ~= false)
+	GF.nearbyButton = nav.Nearby
 	-- Skip: the 11px skip glyph and a Small label, a ghost button left of the
 	-- bug.
 	local skip = CreateFrame("Button", nil, nav)
@@ -2138,7 +2230,6 @@ local function build()
 	skip.Label:SetPoint("LEFT", skip.Icon, "RIGHT", 5, 0)
 	skip.Label:SetText(L["Skip"])
 	skip:SetWidth(floor(7 + 11 + 5 + skip.Label:GetStringWidth() + 8 + 0.5))
-	skip:SetPoint("RIGHT", nav.Report, "LEFT", -2, 0)
 	skip:SetScript("OnClick", function() GF.SkipStep() end)
 	skip:SetScript("OnEnter", function(self)
 		if self:IsEnabled() then
@@ -2154,6 +2245,7 @@ local function build()
 	end)
 	skip:Hide()
 	nav.Skip = skip
+	anchorSkip()
 	nav.Title = T(nav, "small", "textDim")
 	-- The step's own title and the guide's facts, on the step number.
 	local countHit = CreateFrame("Frame", nil, nav.Steps)
@@ -2167,11 +2259,11 @@ local function build()
 		GF.HoverIn()
 	end)
 	countHit:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
-	for _, b in ipairs({ nav.Menu, nav.Report, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
+	for _, b in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
 	-- Transparent chrome: the step number fades with its chevrons (nav.Steps
 	-- holds all three) and the title with them; a lone "3 / 8" over the world
 	-- would read as a stray number. Progress stays readable in the foot.
-	for _, c in ipairs({ nav.Menu, nav.Report, nav.Skip, nav.Steps, nav.Title }) do chrome[#chrome + 1] = c end
+	for _, c in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.Skip, nav.Steps, nav.Title }) do chrome[#chrome + 1] = c end
 
 	-- Body
 	body = CreateFrame("Frame", nil, F)
@@ -2514,6 +2606,11 @@ ns.On("CLASS_TRAINED", function()
 	if not F or not notices.train then return end
 	notices.train = nil
 	if ns.IsLoggedIn() then GF.Layout() end
+end)
+
+-- A trip to a nearby service began or ended: its banner shows or goes.
+ns.On("NEARBY_TRIP", function()
+	if F and ns.IsLoggedIn() then GF.Layout() end
 end)
 
 ns.On("SETTING_CHANGED", function(path)

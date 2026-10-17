@@ -43,7 +43,7 @@ local format, lower = string.format, string.lower
 local Nearby = {}
 Nav.nearby = Nearby
 
-ns.RegisterDefaults("nav", { nearbyMenu = true })
+ns.RegisterDefaults("nav", { nearbyMenu = true, nearbyButton = true })
 
 local RANKED = 6
 local RUN_SPEED = 7
@@ -54,6 +54,7 @@ local FACTION = { Alliance = "A", Horde = "H" }
 local KINDS = {
 	{ key = "trainer", label = L["Profession trainer"], stop = "trainer" },
 	{ key = "class", label = L["Class trainer"], stop = "trainer" },
+	{ key = "weapon", label = L["Weapon master"], stop = "trainer" },
 	{ key = "repair", role = "repair", label = L["Repair"] },
 	{ key = "reagents", role = "vendor", only = "reagentVendors", label = L["Reagents"] },
 	{ key = "vendor", role = "vendor", label = L["Vendor"] },
@@ -70,6 +71,86 @@ local ALIAS = {
 	flightmaster = "flight", stablemaster = "stable", reagent = "reagents", trainers = "trainer",
 }
 Nearby.KINDS = KINDS
+
+---------------------------------------------------------------------------
+-- Weapon masters
+---------------------------------------------------------------------------
+
+-- The weapon skills each weapon master teaches (the game's skill line ids),
+-- and its side. From Ding! by Yendi (GPL-3.0, v1.8.1, commit fb0a06a,
+-- tools/data/corrections/10_weapon_masters.lua): noted by hand and checked
+-- against the trainer lists of cMaNGOS classic-db (GPL-3.0).
+local WEAPON_MASTERS = {
+	[11867] = { "A", 43, 55, 136, 173, 226, 229 }, -- Woo Ping, Stormwind
+	[11865] = { "A", 44, 46, 54, 160, 172, 473 },  -- Buliwyf Stonehand, Ironforge
+	[13084] = { "A", 173, 176, 226 },              -- Bixi Wobblebonk, Ironforge
+	[11866] = { "A", 45, 136, 173, 176, 473 },     -- Ilyenia Moonfire, Darnassus
+	[2704] = { "H", 44, 45, 136, 172, 176 },       -- Hanashi, Orgrimmar
+	[11868] = { "H", 44, 45, 172, 173, 176, 473 }, -- Sayoc, Orgrimmar
+	[11869] = { "H", 46, 54, 136, 160 },           -- Ansekhwa, Thunder Bluff
+	[11870] = { "H", 43, 55, 173, 226, 229 },      -- Archibald, Undercity
+}
+
+-- The weapons a master teaches: skill line, item subclass (Gear.PROFICIENCY's
+-- weapons), the weapon skill's spell (known by its id in any language) and the
+-- level it can be learned from.
+local WEAPONS = {
+	{ line = 43, subclass = 7, spell = 201, label = L["Swords"] },
+	{ line = 55, subclass = 8, spell = 202, label = L["Two-handed swords"] },
+	{ line = 44, subclass = 0, spell = 196, label = L["Axes"] },
+	{ line = 172, subclass = 1, spell = 197, label = L["Two-handed axes"] },
+	{ line = 54, subclass = 4, spell = 198, label = L["Maces"] },
+	{ line = 160, subclass = 5, spell = 199, label = L["Two-handed maces"] },
+	{ line = 229, subclass = 6, spell = 200, label = L["Polearms"], level = 20 },
+	{ line = 136, subclass = 10, spell = 227, label = L["Staves"] },
+	{ line = 173, subclass = 15, spell = 1180, label = L["Daggers"] },
+	{ line = 473, subclass = 13, spell = 15590, label = L["Fist weapons"] },
+	{ line = 45, subclass = 2, spell = 264, label = L["Bows"] },
+	{ line = 226, subclass = 18, spell = 5011, label = L["Crossbows"] },
+	{ line = 46, subclass = 3, spell = 266, label = L["Guns"] },
+	{ line = 176, subclass = 16, spell = 2567, label = L["Thrown"] },
+}
+local WEAPON_BY_LINE = {}
+for _, w in ipairs(WEAPONS) do WEAPON_BY_LINE[w.line] = w end
+Nearby.WEAPON_MASTERS, Nearby.WEAPONS = WEAPON_MASTERS, WEAPONS
+
+local function teaches(id, line, code)
+	local m = WEAPON_MASTERS[id]
+	if not m or (code and m[1] ~= code) then return false end
+	if not line then return true end
+	for i = 2, #m do
+		if m[i] == line then return true end
+	end
+	return false
+end
+
+-- The weapons the character's class can use that a master of its side
+-- teaches, in WEAPONS' order: { line, label, known, level }. `known`: true
+-- (the character has the skill's spell), false (it has not), nil (the client
+-- cannot tell). `level`: the level it can be learned from, when above the
+-- character's. Nothing for a class the gear tables do not know.
+function Nearby.Weapons()
+	local C = ns.Compat
+	local info = C.GetPlayerInfo and C.GetPlayerInfo() or {}
+	local G = ns.Gear
+	local prof = G and G.PROFICIENCY and G.PROFICIENCY[info.class or ""]
+	if not prof then return {} end
+	local code = FACTION[info.faction]
+	local out = {}
+	for _, w in ipairs(WEAPONS) do
+		local taught = false
+		for id in pairs(WEAPON_MASTERS) do
+			if teaches(id, w.line, code) then taught = true end
+		end
+		if prof.weapons[w.subclass] and taught then
+			local known
+			if C.IsPlayerSpell then known = C.IsPlayerSpell(w.spell) end
+			local level = w.level and (info.level or 1) < w.level and w.level or nil
+			out[#out + 1] = { line = w.line, label = w.label, known = known, level = level }
+		end
+	end
+	return out
+end
 
 ---------------------------------------------------------------------------
 -- Professions
@@ -175,6 +256,27 @@ local function candidates(kind, line)
 		end
 		return all
 	end
+	if kind.key == "weapon" then
+		local key = "weapon:" .. tostring(line or "any")
+		if index[key] then return index[key] end
+		local X, C = ns.Codex, ns.Compat
+		local info = C.GetPlayerInfo and C.GetPlayerInfo()
+		local code = info and FACTION[info.faction]
+		local list = {}
+		for id in pairs(WEAPON_MASTERS) do
+			local npc = teaches(id, line, code) and X.Npc(id)
+			if npc then
+				for _, s in ipairs(npc.spawns or {}) do
+					local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
+					if c then
+						list[#list + 1] = { id = id, name = npc.name, map = s.map, x = s.x, y = s.y, f = s.f, c = c, wx = wx, wy = wy }
+					end
+				end
+			end
+		end
+		index[key] = list
+		return list
+	end
 	if kind.key == "class" then
 		local info = ns.Compat.GetPlayerInfo and ns.Compat.GetPlayerInfo()
 		if not (info and info.class) then return nil, "none" end
@@ -262,8 +364,46 @@ end
 
 local function kindLabel(key, line)
 	if key == "trainer" and line then return format(L["%s trainer"], Nearby.ProfessionName(line)) end
+	if key == "weapon" and WEAPON_BY_LINE[line] then return format(L["Weapon master (%s)"], WEAPON_BY_LINE[line].label) end
 	return BY_KEY[key].label
 end
+
+-- A trip to a service: the arrow's target until the player gets there, or
+-- picks "Back to the guide" (the guide window's banner, the Nearby menu).
+-- Then the arrow is back on the guide's step. Any other target (a step change,
+-- a goal clicked, a map click) ends it too.
+local trip
+
+-- The trip under way: { target, name, label }, or nil.
+function Nearby.Trip()
+	if trip and not (Nav.IsOverride() and Nav.GetTarget() == trip.target) then trip = nil end
+	return trip
+end
+
+-- Back to the guide: the trip's target lets go. `arrived`: said as "At <name>".
+-- False when there is no trip.
+function Nearby.EndTrip(arrived)
+	local t = Nearby.Trip()
+	if not t then return false end
+	trip = nil
+	Nav.ReleaseTarget()
+	ns.Print(arrived and format(L["At %s: the arrow is back on the guide."], t.name) or L["The arrow is back on the guide."])
+	ns.Fire("NEARBY_TRIP", nil)
+	return true
+end
+
+-- There: the arrow goes back to the guide, after the arrival is drawn.
+ns.On("NAV_ARRIVED", function(target)
+	if not (trip and trip.target == target) then return end
+	C_Timer.After(0, function()
+		if trip and trip.target == target then Nearby.EndTrip(true) end
+	end)
+end)
+
+-- Another target took over: the trip is over, without a word.
+ns.On("WAYPOINT_CHANGED", function()
+	if trip and not Nearby.Trip() then ns.Fire("NEARBY_TRIP", nil) end
+end)
 
 function Nearby.Go(key, line)
 	key = ALIAS[key] or key
@@ -271,7 +411,7 @@ function Nearby.Go(key, line)
 	if not place then
 		local why = seconds
 		if why == "kind" then
-			ns.Print(L["Usage: /polestar near trainer [profession] | class | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"])
+			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"])
 		elseif why == "combat" then
 			ns.Print(L["Nearby services can be looked up after combat."])
 		elseif why == "missing" then
@@ -288,6 +428,8 @@ function Nearby.Go(key, line)
 		return false
 	end
 	if not Nav.SetTarget(place.map, place.x, place.y, place.name, place.f, BY_KEY[key].stop, place.z) then return false end
+	trip = { target = Nav.GetTarget(), name = place.name, label = kindLabel(key, line) }
+	ns.Fire("NEARBY_TRIP", trip)
 	local zone = ns.Compat.GetMapName(place.map) or "?"
 	local Q = ns.QoL
 	local time = seconds and Q and Q.Duration and Q.Duration(seconds)
@@ -304,7 +446,7 @@ function Nearby.Command(rest)
 	local text = lower((rest or ""):match("^%s*(.-)%s*$"))
 	local word, more = text:match("^(%S+)%s*(.-)$")
 	if not word then
-		ns.Print(L["Usage: /polestar near trainer [profession] | class | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"])
+		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"])
 		return
 	end
 	local key = ALIAS[word] or word
@@ -342,6 +484,13 @@ local function addMenu(_, root)
 			for _, line in ipairs(professionLines()) do
 				trainers:CreateButton(Nearby.ProfessionName(line), function() Nearby.Go("trainer", line) end)
 			end
+		elseif k.key == "weapon" then
+			local masters = sub:CreateButton(k.label)
+			masters:CreateButton(L["Nearest"], function() Nearby.Go("weapon") end)
+			for _, w in ipairs(Nearby.Weapons()) do
+				local line = w.line
+				masters:CreateButton(w.label, function() Nearby.Go("weapon", line) end)
+			end
 		else
 			local key = k.key
 			sub:CreateButton(k.label, function() Nearby.Go(key) end)
@@ -349,6 +498,43 @@ local function addMenu(_, root)
 	end
 end
 Nearby.AddMenu = addMenu
+
+-- The guide window's "Nearby" button (UI/GuideFrame.lua): the everyday
+-- services first, then a trainer for each profession the character has (any
+-- profession trainer when it has none), then the rest. Each entry is
+-- { key, line, label, icon }, for Nearby.Go(key, line).
+local BUTTON_ORDER = { "vendor", "repair", "innkeeper", "flight", "class", "trainer", "weapon", "-", "reagents", "bank", "auction", "stable" }
+local ICONS = { vendor = "icon-vendor", repair = "icon-buy", innkeeper = "icon-sethome", flight = "icon-fly",
+	class = "icon-train", trainer = "icon-skill", weapon = "icon-train" }
+
+function Nearby.MenuItems()
+	local items = {}
+	for _, key in ipairs(BUTTON_ORDER) do
+		if key == "-" then
+			items[#items + 1] = { separator = true }
+		elseif key == "trainer" then
+			local known = 0
+			for _, line in ipairs(professionLines()) do
+				local rank = ns.Compat.GetSkillRank(line)
+				if rank and rank > 0 then
+					known = known + 1
+					items[#items + 1] = { key = key, line = line, label = kindLabel(key, line), icon = ICONS.trainer }
+				end
+			end
+			if known == 0 then items[#items + 1] = { key = key, label = BY_KEY[key].label, icon = ICONS.trainer } end
+		elseif key == "weapon" then
+			-- Its weapons, to pick from: { key, line, label, known, level } each.
+			local weapons = {}
+			for _, w in ipairs(Nearby.Weapons()) do
+				weapons[#weapons + 1] = { key = key, line = w.line, label = w.label, known = w.known, level = w.level }
+			end
+			if #weapons > 0 then items[#items + 1] = { key = key, label = BY_KEY[key].label, icon = ICONS.weapon, weapons = weapons } end
+		else
+			items[#items + 1] = { key = key, label = BY_KEY[key].label, icon = ICONS[key] }
+		end
+	end
+	return items
+end
 
 -- Not with the gamepad interface (ns.GamepadUI): the game's menus join its
 -- focus as they open, and an entry of Polestar's runs in that flow.
@@ -367,6 +553,8 @@ if ns.RegisterOptions then
 		controls = {
 			{ kind = "toggle", key = "nav.nearbyMenu", label = L["Nearby services in map menus"],
 				help = L["The world map's and minimap's tracking menus find the nearest trainer, vendor, inn, bank and more (/polestar near)."] },
+			{ kind = "toggle", key = "nav.nearbyButton", label = L["Nearby services button"],
+				help = L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] },
 		},
 	})
 	if not ok and geterrorhandler then geterrorhandler()(err) end

@@ -614,7 +614,7 @@ test('nearby: the tracking menus carry a Nearby services submenu with every kind
 		for _, k in ipairs(sub.kids) do texts[#texts + 1] = k.text end
 		local trainers = {}
 		for _, k in ipairs(sub.kids[1].kids) do trainers[#trainers + 1] = k.text end
-		sub.kids[3].fn() -- Repair
+		sub.kids[4].fn() -- Repair
 		local world = stub.menus.MENU_WORLD_MAP_TRACKING ~= nil
 		Polestar.Set("nav.nearbyMenu", false)
 		local empty = node("root")
@@ -622,11 +622,104 @@ test('nearby: the tracking menus carry a Nearby services submenu with every kind
 		emit({ title = sub.text, texts = texts, trainers = trainers, label = label(), world = world, off = #empty.kids })
 	`);
 	assert.equal(out.title, 'Nearby services');
-	assert.deepEqual(out.texts, ['Profession trainer', 'Class trainer', 'Repair', 'Reagents', 'Vendor', 'Innkeeper', 'Bank', 'Auction house', 'Flight master', 'Stable master']);
+	assert.deepEqual(out.texts, ['Profession trainer', 'Class trainer', 'Weapon master', 'Repair', 'Reagents', 'Vendor', 'Innkeeper', 'Bank', 'Auction house', 'Flight master', 'Stable master']);
 	assert.deepEqual(out.trainers, ['Nearest', 'Alchemy', 'Mining'], 'no riding trainer');
 	assert.equal(out.label, 'Far Smith');
 	assert.equal(out.world, true);
 	assert.equal(out.off, 0);
+});
+
+test('nearby: a trip ends at the service, or on Back to the guide, and the arrow is back on the guide; another target ends it quietly', () => {
+	const [out] = run(CODEX + `
+		local trips = 0
+		Polestar.On("NEARBY_TRIP", function() trips = trips + 1 end)
+		Near.Go("repair")
+		local going = Near.Trip()
+		local onTrip = { name = going and going.name, label = going and going.label, override = N.IsOverride() }
+		Polestar.Fire("NAV_ARRIVED", N.GetTarget())
+		local before = Near.Trip() ~= nil
+		stub.runTimers()
+		local arrived = { trip = Near.Trip() == nil, override = N.IsOverride(), said = said("At Far Smith: the arrow is back on the guide.") }
+		Near.Go("vendor")
+		local backed = { ended = Near.EndTrip(), trip = Near.Trip() == nil, override = N.IsOverride(), said = said("The arrow is back on the guide."), again = Near.EndTrip() }
+		Near.Go("vendor")
+		N.SetTarget(9000, 10, 10, "Elsewhere")
+		emit({ onTrip = onTrip, before = before, arrived = arrived, backed = backed, replaced = Near.Trip() == nil, label = label(), trips = trips })
+	`);
+	assert.deepEqual(out.onTrip, { name: 'Far Smith', label: 'Repair', override: true });
+	assert.equal(out.before, true, 'the arrival is drawn first');
+	assert.deepEqual(out.arrived, { trip: true, override: false, said: true });
+	assert.deepEqual(out.backed, { ended: true, trip: true, override: false, said: true, again: false });
+	assert.equal(out.replaced, true);
+	assert.equal(out.label, 'Elsewhere');
+	assert.equal(out.trips, 6, 'start and end of each of the three trips');
+});
+
+test("nearby: weapon masters: the class's weapons a master of its side teaches, known or not, and the nearest master of the one picked", () => {
+	const [out] = run(CODEX + `
+		local C = Polestar.Compat
+		local info = { name = "Testchar", level = 12, faction = "Alliance", class = "ROGUE" }
+		C.GetPlayerInfo = function() return info end
+		Polestar.Gear = { PROFICIENCY = { ROGUE = { weapons = { [2] = true, [3] = true, [4] = true, [7] = true, [13] = true, [15] = true, [16] = true, [18] = true } } } }
+		C.IsPlayerSpell = function(id) return id == 1180 end -- daggers
+		C.GetSkillRank = function() return nil end
+		local function names(list)
+			local out = {}
+			for _, w in ipairs(list) do out[#out + 1] = w.label .. (w.known and " known" or "") end
+			return out
+		end
+		local rogue = names(Near.Weapons())
+		-- Woo Ping (Stormwind) teaches swords; Bixi Wobblebonk (Ironforge) daggers.
+		local codexNpc = Polestar.Codex.Npc
+		Polestar.Codex.Npc = function(id)
+			if id == 11867 then return { id = id, name = "Woo Ping", faction = "A", spawns = { { map = 9000, x = 60, y = 50 } } } end
+			if id == 13084 then return { id = id, name = "Bixi Wobblebonk", faction = "A", spawns = { { map = 9000, x = 70, y = 50 } } } end
+			return codexNpc(id)
+		end
+		Near.Go("weapon", 43)
+		local swords = label()
+		local said1 = said("Nearest weapon master (swords): Woo Ping")
+		info.faction = "Horde"
+		local horde = names(Near.Weapons())
+		info.class, info.level = "WARRIOR", 12
+		Polestar.Gear.PROFICIENCY.WARRIOR = { weapons = { [0] = true, [6] = true, [7] = true } }
+		local polearms
+		for _, w in ipairs(Near.Weapons()) do if w.label == "Polearms" then polearms = w.level end end
+		local listed
+		for _, e in ipairs(Near.MenuItems()) do if e.weapons then listed = #e.weapons end end
+		Polestar.Gear = nil
+		emit({ rogue = rogue, swords = swords, said = said1, horde = horde, polearms = polearms, listed = listed, none = #Near.Weapons() })
+	`);
+	assert.deepEqual(out.rogue, ['Swords', 'Maces', 'Daggers known', 'Fist weapons', 'Bows', 'Crossbows', 'Guns', 'Thrown'], 'a rogue, Alliance side');
+	assert.equal(out.swords, 'Woo Ping');
+	assert.equal(out.said, true);
+	assert.deepEqual(out.horde, ['Swords', 'Maces', 'Daggers known', 'Fist weapons', 'Bows', 'Crossbows', 'Guns', 'Thrown'], "the Horde's masters teach them all too");
+	assert.equal(out.polearms, 20, 'polearms from level 20');
+	assert.equal(out.listed, 3, 'the guide window lists the weapon master with its weapons');
+	assert.equal(out.none, 0, 'no gear tables: no weapons');
+});
+
+test("nearby: the guide window's list puts the everyday services first, then a trainer for each profession the character has", () => {
+	const [mining, none] = run(CODEX + `
+		local function texts()
+			local out = {}
+			for _, e in ipairs(Near.MenuItems()) do out[#out + 1] = e.separator and "-" or e.label end
+			return out
+		end
+		local MINING = 186
+		Polestar.Compat.GetSkillRank = function(line) if line == MINING then return 75, 150 end end
+		local items = Near.MenuItems()
+		local miningKey
+		for _, e in ipairs(items) do if e.line == MINING then miningKey = e.key end end
+		emit({ texts = texts(), key = miningKey })
+		Polestar.Compat.GetSkillRank = function() return nil end
+		emit(texts())
+	`);
+	assert.deepEqual(mining.texts, ['Vendor', 'Repair', 'Innkeeper', 'Flight master', 'Class trainer', 'Mining trainer', '-',
+		'Reagents', 'Bank', 'Auction house', 'Stable master']);
+	assert.equal(mining.key, 'trainer');
+	assert.deepEqual(none, ['Vendor', 'Repair', 'Innkeeper', 'Flight master', 'Class trainer', 'Profession trainer', '-',
+		'Reagents', 'Bank', 'Auction house', 'Stable master'], 'no profession yet: the nearest trainer of any');
 });
 
 // ---------------------------------------------------------------------------

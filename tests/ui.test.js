@@ -629,6 +629,58 @@ test('a goal with alternative trainers shows where it is and cycles to the next'
 	assert.equal(out.alone, 'Elwynn Forest', 'without a person above, the goal names its zone');
 });
 
+test('the Nearby menu opens a page of weapons: known ones and those not yet at this level are off, a pick goes to the master, Back returns', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local B = GF.nearbyButton
+		local function rows()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r end end
+			return out
+		end
+		local function pick(text)
+			for _, r in ipairs(rows()) do if r.Text:GetText() == text then r:Click() return r end end
+		end
+		B:Click()
+		pick("Weapon master  \\226\\128\\186")
+		local page = {}
+		for _, r in ipairs(rows()) do page[#page + 1] = { r.Text:GetText(), r.psItem.disabled and true or false } end
+		pick("Daggers (known)")
+		local stillOpen = PolestarMenu:IsShown()
+		pick("Swords")
+		local go = lastCall("NearbyGo")
+		B:Click()
+		pick("Weapon master  \\226\\128\\186")
+		pick("Back")
+		local back = rows()[1].Text:GetText()
+		emit({ page = page, stillOpen = stillOpen, go = go, back = back })`);
+	assert.deepEqual(out.page, [['Back', false], ['Swords', false], ['Daggers (known)', true], ['Polearms (from level 20)', true]]);
+	assert.equal(out.stillOpen, true, 'a weapon already known does nothing');
+	assert.deepEqual(out.go, ['NearbyGo', 'weapon', 43]);
+	assert.equal(out.back, 'Vendor', 'Back shows the services again');
+});
+
+test('on the way to a nearby service, a banner and the Nearby menu offer the way back to the guide', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local B = GF.parts.banner
+		local before = B:IsShown()
+		uistub.trip = { name = "Innkeeper Farley", label = "Innkeeper" }
+		Polestar.Fire("NEARBY_TRIP", uistub.trip)
+		local shown = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText(), B.Close:IsShown() }
+		GF.nearbyButton:Click()
+		local first = PolestarMenu.rows[1].Text:GetText()
+		W.HideMenu()
+		B.Jump:Click()
+		local ended = lastCall("NearbyEndTrip") ~= nil
+		emit({ before = before, shown = shown, first = first, ended = ended, after = B:IsShown() })`);
+	assert.equal(out.before, false);
+	assert.deepEqual(out.shown, [true, 'On the way to Innkeeper Farley (Innkeeper).', 'Back to the guide', false]);
+	assert.equal(out.first, 'Back to the guide');
+	assert.equal(out.ended, true);
+	assert.equal(out.after, false, 'the banner goes with the trip');
+});
+
 test('GUIDE_OUTLEVELED: a dismissible banner offers the better guide, in the same tab', () => {
 	const [out] = run(`
 		uistub.openTabs(TABS, 1)
@@ -670,6 +722,55 @@ test('non-leveling guides name their category, and a place only when the guide h
 		'Reputation  \u00b7  Stormwind City  \u00b7  Levels 12\u201360',
 		'Professions  \u00b7  Levels 5\u201360',
 	]);
+});
+
+test('the header carries Nearby services between Skip and the bug: its menu points the arrow, nothing in combat, and an option hides it', () => {
+	const [out] = run(`
+		local nav, B = GF.parts.nav, GF.nearbyButton
+		local function rows()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r end end
+			return out
+		end
+		local function texts()
+			local out = {}
+			for _, r in ipairs(rows()) do out[#out + 1] = r.Text:GetText() end
+			return out
+		end
+		local function relOf(f) local _, rel = f:GetPoint(1) return rel end
+		local noGuide = { shown = B:IsShown(), rel = relOf(B) == nav.Menu }
+		uistub.setGuide(uistub.elwynn, 3)
+		local order = { skip = relOf(nav.Skip) == B, nearby = relOf(B) == nav.Report, report = relOf(nav.Report) == nav.Menu }
+		B:Click()
+		local items = texts()
+		for _, r in ipairs(rows()) do if r.Text:GetText() == "Mining trainer" then r:Click() end end
+		local mining = lastCall("NearbyGo")
+		B:Click()
+		for _, r in ipairs(rows()) do if r.Text:GetText() == "Innkeeper" then r:Click() end end
+		local inn = lastCall("NearbyGo")
+		stub.inCombat = true
+		B:Click()
+		local disabled = 0
+		for _, r in ipairs(rows()) do if not r.psItem.disabled then disabled = disabled + 1 end end
+		W.HideMenu()
+		stub.inCombat = false
+		Polestar.Set("nav.nearbyButton", false)
+		local off = B:IsShown()
+		-- Off, Skip moves up to the bug, and stays there on the next step.
+		local skipOff = { now = relOf(nav.Skip) == nav.Report }
+		uistub.setGuide(uistub.elwynn, 4)
+		skipOff.nextStep = relOf(nav.Skip) == nav.Report
+		Polestar.Set("nav.nearbyButton", true)
+		skipOff.backOn = relOf(nav.Skip) == B
+		emit({ noGuide = noGuide, order = order, items = items, mining = mining, inn = inn, enabledInCombat = disabled, off = off, skipOff = skipOff })`);
+	assert.deepEqual(out.noGuide, { shown: true, rel: true }, 'without a guide it sits by the menu');
+	assert.deepEqual(out.order, { skip: true, nearby: true, report: true }, 'Skip, Nearby, the bug, the menu');
+	assert.deepEqual(out.items, ['Vendor', 'Innkeeper', 'Mining trainer', 'Weapon master  \u203a', 'Bank']);
+	assert.deepEqual(out.mining, ['NearbyGo', 'trainer', 186]);
+	assert.deepEqual(out.inn, ['NearbyGo', 'innkeeper']);
+	assert.equal(out.enabledInCombat, 0, 'in combat every entry is off');
+	assert.equal(out.off, false);
+	assert.deepEqual(out.skipOff, { now: true, nextStep: true, backOn: true }, 'with the button off, Skip sits by the bug');
 });
 
 test('the header menu: picker, new tab, compact, transparent, lock; destructive items ask twice', () => {

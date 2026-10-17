@@ -234,9 +234,10 @@ test('Era-frame targets convert through the registered Era bounds', () => {
 	assert.deepEqual(out.liveCoords, [9000, 52, 48.5]);
 });
 
-test('reaching the target switches to the arrived state, with hysteresis and one chime', () => {
+test('reaching the target switches to the arrived state, with hysteresis, one chime and one NAV_ARRIVED', () => {
 	const [out] = run(`
-		local seen = {}
+		local seen, arrivals = {}, 0
+		Polestar.On("NAV_ARRIVED", function(t) if t == N.GetTarget() then arrivals = arrivals + 1 end end)
 		target(20, 0)
 		stub.advance(0.2)
 		seen[#seen + 1] = { A.GetMode(), A.distText:GetText(), #stub.sounds }
@@ -253,6 +254,7 @@ test('reaching the target switches to the arrived state, with hysteresis and one
 		nav.place(18, 0)
 		stub.advance(0.2)
 		seen[#seen + 1] = { A.GetMode(), #stub.sounds }
+		seen[#seen + 1] = arrivals
 		emit(seen)`);
 	assert.deepEqual(out, [
 		['travel', '20 yd', 0],
@@ -260,6 +262,7 @@ test('reaching the target switches to the arrived state, with hysteresis and one
 		['arrived', 1],
 		['travel', '20 yd', false],
 		['arrived', 1],
+		2,
 	]);
 });
 

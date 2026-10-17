@@ -374,6 +374,8 @@ function Nav.Sample()
 	elseif dist <= r then
 		arrived = true
 		playArrival()
+		-- NAV_ARRIVED(target): once per arrival (Nav/Nearby.lua ends its trip).
+		pcall(ns.Fire, "NAV_ARRIVED", target)
 	end
 	if arrived and target.search then return "search", dist, angle, dn, dw end
 	if arrived then return "arrived", dist, angle, dn, dw end
