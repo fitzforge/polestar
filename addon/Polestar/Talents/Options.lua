@@ -16,7 +16,7 @@ local ok, err = ns.RegisterOptions({
 	page = L["Questing"], tab = L["Talents"], section = L["Talent plan"],
 	controls = {
 		{ kind = "toggle", key = "talents.enabled", label = L["Talent plans"],
-			help = L["Follow a talent plan for your class and spec (/pole talents). Paladin only for now."] },
+			help = L["Follow a talent plan for your class and spec (/pole talents)."] },
 		{ kind = "toggle", key = "talents.overlay", label = L["Mark the talent frame"], disabled = off,
 			help = L["A ring on the next talent in your plan and a flag on points the plan does not spend."] },
 		{ kind = "toggle", key = "talents.badges", label = L["Pick numbers"], disabled = overlayOff,

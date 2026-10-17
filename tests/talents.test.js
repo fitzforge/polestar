@@ -61,6 +61,35 @@ emit(T.Replay(d, { key = "k", picks = { { order = 1, node = 3, rank = 1 } } })[1
 	assert.match(none, /needs Bestial Swiftness or Bestial Wrath/);
 });
 
+// Every class's plans in Builds.lua: three specs, 51 picks each, legal under the snapshot.
+const CLASS_SPECS = {
+	PALADIN: ['Holy', 'Protection', 'Retribution'],
+	ROGUE: ['Assassination', 'Combat', 'Subtlety'],
+	WARRIOR: ['Arms', 'Fury', 'Protection'],
+};
+
+test('Builds.lua: every class has a plan per spec, 51 picks each, every one legal under the snapshot', () => {
+	const [out] = run(`
+local o = {}
+for _, cls in ipairs({ ${Object.keys(CLASS_SPECS).map((c) => `"${c}"`).join(', ')} }) do
+	local d = T.Data(cls)
+	local c = { specs = d and d.specs, plans = {} }
+	for _, b in ipairs(d and d.builds or {}) do
+		c.plans[#c.plans + 1] = { key = b.key, spec = b.specName, picks = #b.picks, errors = T.Replay(d, b) }
+	end
+	o[cls] = c
+end
+emit(o)`);
+	for (const [cls, specs] of Object.entries(CLASS_SPECS)) {
+		assert.deepEqual(out[cls].specs, specs, cls);
+		assert.deepEqual(out[cls].plans.map((p) => p.spec), specs, `${cls}: one plan per spec, in order`);
+		for (const p of out[cls].plans) {
+			assert.equal(p.picks, 51, `${cls} ${p.key}`);
+			assert.equal(Object.keys(p.errors).length, 0, `${cls} ${p.key}: ${JSON.stringify(p.errors)}`);
+		}
+	}
+});
+
 test('Replay: a skipped arrow, an early tier and a skipped rank are caught; "started" relaxes arrows', () => {
 	const [out, started] = run(`
 local ret = plan("retribution")
