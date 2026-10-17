@@ -416,6 +416,12 @@ function ns.Set(path, value)
 	ns.Fire("SETTING_CHANGED", path, ns.Get(path))
 end
 
+-- The arrow, the action buttons and the timers: with ui.lockHud on, a drag
+-- moves them only while Shift is held, so a stray drag does nothing.
+function ns.DragLocked()
+	return ns.Get("ui.lockHud") and not ns.Compat.IsShiftKeyDown() and true or false
+end
+
 -- Forget stored values for one section (or all), back to defaults.
 function ns.ResetSettings(section)
 	local settings = DB().settings

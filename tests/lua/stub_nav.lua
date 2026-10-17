@@ -83,6 +83,7 @@ function Compat.GetPlayerFaction() if nav.faction == "Alliance" or nav.faction =
 function Compat.GetItemCount(id) return nav.items[id] or 0 end
 function Compat.GetBindLocation() return nav.bind end
 function Compat.GetNpcID(unit) if unit == "npc" then return nav.npcUnit end end
+function Compat.IsShiftKeyDown() return stub.keys.shift end
 
 ---------------------------------------------------------------------------
 -- Travel: run speed, Hearthstone cooldown, the flight map

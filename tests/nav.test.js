@@ -1015,6 +1015,64 @@ test('settings apply live: scale, alpha, visibility, pins, position and Blizzard
 	]);
 });
 
+test('with the lock on, only a Shift-drag moves the arrow, and the movable wash shows only with Shift held', () => {
+	const [out] = run(`
+		local r = {}
+		target(100, 0)
+		stub.advance(0.1)
+		local f = A.frame
+		local function hover()
+			stub.RunScript(f, "OnEnter")
+			local seen = { A.mover:IsShown(), GameTooltip.lines[2] }
+			stub.RunScript(f, "OnLeave")
+			return seen
+		end
+		local function drag()
+			stub.RunScript(f, "OnDragStart")
+			local started = f.moving == true
+			f:StopMovingOrSizing()
+			return started
+		end
+		r.unlocked = { drag(), hover() }
+		Polestar.Set("ui.lockHud", true)
+		r.locked = { drag(), hover() }
+		r.mouse = f:IsMouseEnabled()
+		stub.keys.shift = true
+		r.shift = { drag(), hover() }
+		-- Shift let go mid-drag: the drag carries on and its end saves the spot.
+		stub.RunScript(f, "OnDragStart")
+		stub.keys.shift = false
+		f:ClearAllPoints()
+		f:SetPoint("CENTER", UIParent, "CENTER", 80, 20)
+		stub.RunScript(f, "OnDragStop")
+		r.saved = PolestarDB.settings.nav.arrowPos
+		r.stopped = f.moving
+		emit(r)`);
+	assert.deepEqual(out.unlocked, [true, [true, 'Drag to move.']], 'off by default: a plain drag moves it');
+	assert.deepEqual(out.locked, [false, [false, 'Shift-drag to move.']], 'locked: a plain drag does nothing, no wash');
+	assert.equal(out.mouse, true, 'locked, the arrow still takes the mouse for clicks');
+	assert.deepEqual(out.shift, [true, [true, 'Shift-drag to move.']], 'locked: Shift-drag moves it');
+	assert.deepEqual(out.saved, { point: 'CENTER', relPoint: 'CENTER', x: 80, y: 20 });
+	assert.equal(out.stopped, false);
+});
+
+test('with the lock on, a drag that does not move the arrow does not save its spot', () => {
+	const [out] = run(`
+		target(100, 0)
+		stub.advance(0.1)
+		local f = A.frame
+		Polestar.Set("ui.lockHud", true)
+		stub.RunScript(f, "OnDragStart")
+		stub.RunScript(f, "OnDragStop")
+		local refused = Polestar.Get("nav.arrowPos") == nil
+		stub.keys.shift = true
+		stub.RunScript(f, "OnDragStart")
+		stub.RunScript(f, "OnDragStop")
+		emit({ refused = refused, shift = Polestar.Get("nav.arrowPos") ~= nil })`);
+	assert.equal(out.refused, true, 'a plain drag on the locked arrow leaves nav.arrowPos alone');
+	assert.equal(out.shift, true, 'a Shift-drag still saves the spot');
+});
+
 test('ETA appears while closing in at running speed', () => {
 	const [out] = run(`
 		target(300, 0)

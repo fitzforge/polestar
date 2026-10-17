@@ -199,6 +199,7 @@ L["%d:%02d total"] = "총 %d:%02d"
 L["Polestar arrow"] = "Polestar 화살표"
 L["Drag to move."] = "끌어서 이동."
 L["Click for the next spot."] = "클릭하면 다음 지점."
+-- L["Shift-drag to move."] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "지점 %d/%d"
@@ -567,6 +568,7 @@ L["%ds"] = "%d초"
 -- QoL/Buttons.lua
 L["Target"] = "대상"
 L["Click again for the next name. Drag to move."] = "다시 클릭하면 다음 이름. 끌어서 이동."
+-- L["Click again for the next name. Shift-drag to move."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "레벨 %d"
@@ -1616,6 +1618,8 @@ L["The skin's font"] = "스킨 글꼴"
 L["Skin"] = "스킨"
 L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = "Polestar 고유의 모습(기본), 후광(테두리 없이 부드러운 어두운 장막, Fira Sans), 화롯가(따뜻한 게임 색), 또는 게임 고유의 아트: WoW Forever, 블리자드, 클래식. 스타일, 간략 모드, 직접 고른 색은 모든 스킨에 적용됩니다."
 L["The skin's arrow"] = "스킨 화살표"
+-- L["Lock arrow and buttons"] = ""
+-- L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"

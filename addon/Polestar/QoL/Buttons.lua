@@ -20,9 +20,9 @@
 --     item. Independent of the three buttons' settings.
 --
 -- The buttons hang off one holder: hearth above the item, target below. A
--- left-drag on any of them moves the set (out of combat); the position is
--- per character, so the Hearthstone button, shown only for hearth goals,
--- appears in its slot of the moved set.
+-- left-drag on any of them moves the set (out of combat; with ui.lockHud on,
+-- only a Shift-drag); the position is per character, so the Hearthstone
+-- button, shown only for hearth goals, appears in its slot of the moved set.
 
 local ADDON, ns = ...
 local L = ns.L
@@ -148,6 +148,8 @@ local function onDragStart(b)
 	if QoL.InLockdown() then return end
 	b.dragging = true
 	useOnKeyDown(b, true)
+	-- Locked: still a drag, so its release uses nothing, but the set stays.
+	if ns.DragLocked() then return end
 	moving = true
 	holder:StartMoving()
 end
@@ -298,7 +300,7 @@ end
 
 local function itemTooltip(b, tip)
 	if b.itemID and tip.SetItemByID then tip:SetItemByID(b.itemID) end
-	tip:AddLine(L["Drag to move."], 0.6, 0.6, 0.6)
+	tip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
 end
 
 local function newItemButton(name)
@@ -489,7 +491,8 @@ end
 local function targetTooltip(b, tip)
 	tip:SetText(L["Target"])
 	for i = 1, #target.list do tip:AddLine(target.list[i], 1, 1, 1) end
-	tip:AddLine(L["Click again for the next name. Drag to move."], 0.6, 0.6, 0.6)
+	tip:AddLine(ns.Get("ui.lockHud") and L["Click again for the next name. Shift-drag to move."]
+		or L["Click again for the next name. Drag to move."], 0.6, 0.6, 0.6)
 end
 
 ---------------------------------------------------------------------------

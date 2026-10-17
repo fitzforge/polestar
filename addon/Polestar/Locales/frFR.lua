@@ -200,6 +200,7 @@ L["%d:%02d total"] = "%d:%02d au total"
 L["Polestar arrow"] = "Flèche de Polestar"
 L["Drag to move."] = "Glissez pour déplacer."
 L["Click for the next spot."] = "Cliquez pour le point suivant."
+-- L["Shift-drag to move."] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Point %d sur %d"
@@ -568,6 +569,7 @@ L["%ds"] = "%ds"
 -- QoL/Buttons.lua
 L["Target"] = "Cibler"
 L["Click again for the next name. Drag to move."] = "Cliquez à nouveau pour le nom suivant. Glissez pour déplacer."
+-- L["Click again for the next name. Shift-drag to move."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "Niveau %d"
@@ -1617,6 +1619,8 @@ L["The skin's font"] = "La police de l'habillage"
 L["Skin"] = "Habillage"
 L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = "L'apparence de Polestar (par défaut), Halo (sans cadre, un voile sombre aux bords adoucis, Fira Sans), Foyer (les couleurs chaudes du jeu), ou les graphismes du jeu : WoW Forever, Blizzard et Classique. Le style, le mode compact et les couleurs que vous choisissez s'appliquent à chacun."
 L["The skin's arrow"] = "La flèche de l'habillage"
+-- L["Lock arrow and buttons"] = ""
+-- L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"

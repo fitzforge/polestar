@@ -301,6 +301,30 @@ test('built-in controls write settings and follow changes made elsewhere', () =>
 	assert.equal(out.arrowStyle, '3D');
 });
 
+test('the lock for the arrow, buttons and timers sits under Lock window, off by default, and says Shift-drag still moves them', () => {
+	const [out] = run(`
+		UI.ShowOptions("guide")
+		local w = O.Controls("guide", "Window")["ui.lockHud"]
+		local groups = O.Search("lock")
+		local labels, help = {}, nil
+		for _, g in ipairs(groups) do
+			if g.title == "Guide  \\194\\183  Window" then
+				for _, c in ipairs(g.controls) do
+					labels[#labels + 1] = c.label
+					if c.key == "ui.lockHud" then help = c.help end
+				end
+			end
+		end
+		local default = Polestar.Get("ui.lockHud")
+		w:Click()
+		emit({ labels = labels, help = help, default = default, clicked = Polestar.Get("ui.lockHud"), label = w.Label:GetText() })`);
+	assert.deepEqual(out.labels, ['Lock window', 'Lock arrow and buttons']);
+	assert.equal(out.help, 'Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them.');
+	assert.equal(out.default, false);
+	assert.equal(out.clicked, true);
+	assert.equal(out.label, 'Lock arrow and buttons');
+});
+
 test('search finds settings by label and help across pages, registered ones included', () => {
 	const [out] = run(`
 		UI.ShowOptions()
@@ -319,7 +343,7 @@ test('search finds settings by label and help across pages, registered ones incl
 		box:SetText("")
 		stub.RunScript(box, "OnTextChanged", true)
 		emit({ arrow = arrow, help = help, none = none, found = found, back = PolestarOptions.Title:GetText() })`, { between: FAKE_PAGE });
-	assert.deepEqual(out.arrow.titles, ['Guide  \u00b7  Arrow & routes', 'Appearance  \u00b7  Arrow', 'Map  \u00b7  Guide & quests', 'Gamepad  \u00b7  Key bindings']);
+	assert.deepEqual(out.arrow.titles, ['Guide  \u00b7  Window', 'Guide  \u00b7  Arrow & routes','Appearance  \u00b7  Arrow', 'Map  \u00b7  Guide & quests', 'Gamepad  \u00b7  Key bindings']);
 	assert.equal(out.arrow.title, 'Search');
 	assert.equal(out.arrow.sub, `${out.arrow.count} settings match`);
 	assert.equal(out.arrow.tabRow, false);

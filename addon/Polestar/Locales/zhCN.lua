@@ -199,6 +199,7 @@ L["%d:%02d total"] = "共 %d:%02d"
 L["Polestar arrow"] = "Polestar 箭头"
 L["Drag to move."] = "拖动以移动。"
 L["Click for the next spot."] = "点击前往下一地点。"
+-- L["Shift-drag to move."] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "地点 %d/%d"
@@ -567,6 +568,7 @@ L["%ds"] = "%d秒"
 -- QoL/Buttons.lua
 L["Target"] = "目标"
 L["Click again for the next name. Drag to move."] = "再次点击切换下一个名字。拖动以移动。"
+-- L["Click again for the next name. Shift-drag to move."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "等级 %d"
@@ -1616,6 +1618,8 @@ L["The skin's font"] = "皮肤的字体"
 L["Skin"] = "皮肤"
 L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = "Polestar 自己的外观（默认）、光环（无边框，柔和的暗色薄纱，Fira Sans）、炉边（游戏的暖色调），或游戏自身的美术：WoW Forever、暴雪和经典。样式、紧凑模式和你选的颜色在每种皮肤中都有效。"
 L["The skin's arrow"] = "皮肤的箭头"
+-- L["Lock arrow and buttons"] = ""
+-- L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"

@@ -487,6 +487,30 @@ test('action buttons: a left-drag moves the whole set and never uses the item; c
 	assert.deepEqual(out[6], [['CENTER', 'CENTER', 260, -140], false]);
 });
 
+test('action buttons: with the lock on, only a Shift-drag moves the set; a plain drag uses nothing and clicks still act', () => {
+	const out = run(`${ACTS}
+		q.items[900] = { name = "Torch" }
+		q.addItem(0, 1, 900, 1)
+		q.step({ { t = "use", item = 900, quest = 7 }, { t = "kill", target = "Wolf" } })
+		stub.cvars.ActionButtonUseKeyDown = "1"
+		Polestar.Set("ui.lockHud", true)
+		emit({ drag(item, -300, 50), drag(target, -300, 50), spot(), mouseClick(item, false), mouseClick(item, true), keyPress(item) })
+		hover(target)
+		emit(GameTooltip.lines[#GameTooltip.lines])
+		leave(target)
+		stub.keys.shift = true
+		emit({ drag(target, -200, 30), spot() })
+		Polestar.Set("ui.lockHud", false)
+		stub.keys.shift = false
+		emit({ drag(item, -100, 10), spot() })
+	`);
+	assert.deepEqual(out[0], [[false, 0, 'false'], [false, 0, 'false'], ['CENTER', 'CENTER', 260, -140], 1, 1, [1, 1]],
+		'locked, no Shift: neither drag moves the set or uses anything; clicks and keys act once');
+	assert.equal(out[1], 'Click again for the next name. Shift-drag to move.');
+	assert.deepEqual(out[2], [[true, 0, 'false'], ['CENTER', 'CENTER', -200, 30]], 'locked, Shift held: the drag moves the set');
+	assert.deepEqual(out[3], [[true, 0, 'false'], ['CENTER', 'CENTER', -100, 10]], 'unlocked: a plain drag moves it again, live');
+});
+
 test('action buttons: the set comes back where it was left after a reload', () => {
 	const [s] = run(`${ACTS} emit(spot())`, {
 		saved: { Polestar: 'PolestarCharDB = { qol = { buttonPos = { "TOPLEFT", "TOPLEFT", 40, -60 } } }' },

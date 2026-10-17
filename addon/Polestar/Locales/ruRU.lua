@@ -199,6 +199,7 @@ L["%d:%02d total"] = "Всего %d:%02d"
 L["Polestar arrow"] = "Стрелка Polestar"
 L["Drag to move."] = "Перетащите, чтобы переместить."
 L["Click for the next spot."] = "Щелкните для следующей точки."
+-- L["Shift-drag to move."] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Точка %d из %d"
@@ -567,6 +568,7 @@ L["%ds"] = "%dс"
 -- QoL/Buttons.lua
 L["Target"] = "Цель"
 L["Click again for the next name. Drag to move."] = "Щелкните еще раз для следующего имени. Перетащите, чтобы переместить."
+-- L["Click again for the next name. Shift-drag to move."] = ""
 
 -- QoL/XP.lua
 L["Level %d"] = "Уровень %d"
@@ -1616,6 +1618,8 @@ L["The skin's font"] = "Шрифт оформления"
 L["Skin"] = "Оформление"
 L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = "Собственный вид Polestar (по умолчанию), Ореол (без рамки, мягкая темная вуаль, Fira Sans), Очаг (теплые цвета игры) или собственная графика игры: WoW Forever, Blizzard и Classic. Стиль, компактный режим и выбранные цвета работают в каждом оформлении."
 L["The skin's arrow"] = "Стрелка оформления"
+-- L["Lock arrow and buttons"] = ""
+-- L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"

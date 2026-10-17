@@ -80,7 +80,7 @@ frame:SetSize(WIDTH, DIAL + TEXT_H)
 frame:SetFrameStrata("MEDIUM")
 frame:SetClampedToScreen(true)
 frame:SetMovable(true)
-frame:EnableMouse(true) -- always movable: drag the arrow anywhere
+frame:EnableMouse(true) -- always movable: drag the arrow anywhere (Shift-drag with ui.lockHud on)
 frame:RegisterForDrag("LeftButton")
 frame:Hide()
 
@@ -561,21 +561,26 @@ function Nav.ResetArrowPosition()
 	ns.Set("nav.arrowPos", nil)
 end
 
+local moving = false
 frame:SetScript("OnDragStart", function(self)
+	if ns.DragLocked() then return end
+	moving = true
 	self:StartMoving()
 end)
 
 frame:SetScript("OnDragStop", function(self)
+	if not moving then return end
+	moving = false
 	self:StopMovingOrSizing()
 	local point, _, relPoint, x, y = self:GetPoint(1)
 	if point then ns.Set("nav.arrowPos", { point = point, relPoint = relPoint, x = x, y = y }) end
 end)
 
 frame:SetScript("OnEnter", function(self)
-	mover:Show()
+	mover:SetShown(not ns.DragLocked())
 	GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
 	GameTooltip:SetText(L["Polestar arrow"])
-	GameTooltip:AddLine(L["Drag to move."], Nav.RGB("text"))
+	GameTooltip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], Nav.RGB("text"))
 	local target = Nav.GetTarget()
 	if target and target.spots then GameTooltip:AddLine(L["Click for the next spot."], Nav.RGB("text")) end
 	GameTooltip:Show()

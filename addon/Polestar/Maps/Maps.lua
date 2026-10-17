@@ -302,8 +302,15 @@ function Maps.CompactFrame(name, posKey, defaultPoint, dx, dy)
 			f:SetPoint(defaultPoint, UIParent, defaultPoint, dx, dy)
 		end
 	end
-	f:SetScript("OnDragStart", function(self) self:StartMoving() end)
+	local moving = false
+	f:SetScript("OnDragStart", function(self)
+		if ns.DragLocked() then return end
+		moving = true
+		self:StartMoving()
+	end)
 	f:SetScript("OnDragStop", function(self)
+		if not moving then return end
+		moving = false
 		self:StopMovingOrSizing()
 		local cx, cy = self:GetCenter()
 		local ux, uy = UIParent:GetCenter()

@@ -169,6 +169,7 @@ L["%d:%02d total"] = "%d:%02d gesamt"
 L["Polestar arrow"] = "Polestar-Pfeil"
 L["Drag to move."] = "Ziehen zum Verschieben."
 L["Click for the next spot."] = "Klicken für den nächsten Punkt."
+-- L["Shift-drag to move."] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Punkt %d von %d"
@@ -931,6 +932,8 @@ L["The skin's font"] = "Die Schrift des Designs"
 L["Skin"] = "Design"
 L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = "Polestars eigenes Aussehen (Standard), Halo (ohne Rahmen, ein weicher dunkler Schleier, Fira Sans), Herd (warme Farben des Spiels) oder die Grafik des Spiels selbst: WoW Forever, Blizzard und Classic. Stil, Kompaktmodus und die Farben, die du wählst, wirken in jedem Design."
 L["The skin's arrow"] = "Der Pfeil des Designs"
+-- L["Lock arrow and buttons"] = ""
+-- L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -1911,6 +1914,9 @@ L["Hearth"] = "Herd"
 L["WoW Forever"] = "WoW Forever"
 L["Blizzard"] = "Blizzard"
 L["Classic"] = "Classic"
+
+-- QoL/Buttons.lua
+-- L["Click again for the next name. Shift-drag to move."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

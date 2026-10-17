@@ -18,6 +18,7 @@ local format, type = string.format, type
 ns.RegisterDefaults("ui", {
 	shown = true,
 	locked = false,
+	lockHud = false, -- the arrow, the action buttons and the timers move only on a Shift-drag (ns.DragLocked)
 	growUp = false, -- pin the guide window by its bottom edge, so it grows upward
 	compact = false,
 	style = "standard", -- "standard" | "transparent"
