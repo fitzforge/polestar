@@ -281,6 +281,44 @@ Polestar.RegisterGuide({ id = "test/coven", pack = "test", title = "Coven", zone
 	});
 });
 
+test('a goto ahead of a step done only through class quests, a skipped step or unavailable quests still holds (#240)', () => {
+	// What counts as the player having been through the next step is what
+	// placement counts (anchorStep): its own quest work. A Warrior who took The
+	// Islander anywhere is not in Orgrimmar (Arathi's zeppelin, Sorek's accept
+	// `only Warrior`); a step the player skipped or one whose only quest the
+	// giver will never offer proves nothing either. The last pair is the control.
+	const STEPS = `
+Polestar.RegisterGuide({ id = "test/evidence", pack = "test", title = "Evidence", zone = 1429, steps = {
+	{ title = "Hold", goals = { { t = "level", level = 60 } } },
+	{ title = "Zeppelin", goals = { { t = "goto", map = 1429, x = 20, y = 20, text = "Zeppelin" } } },
+	{ title = "Sorek", goals = { { t = "turnin", quest = 783, title = "A Threat Within", npc = 197, map = 1429, x = 22, y = 20, only = { classes = { "WARRIOR" } } } } },
+	{ title = "Path", goals = { { t = "goto", map = 1429, x = 30, y = 20, text = "Path" } } },
+	{ title = "Warrior trainer", only = { classes = { "WARRIOR" } }, goals = { { t = "turnin", quest = 783, title = "A Threat Within", npc = 197, map = 1429, x = 32, y = 20 } } },
+	{ title = "Cave", goals = { { t = "goto", map = 1429, x = 40, y = 20, text = "Cave" } } },
+	{ title = "Skipped", goals = { { t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 42, y = 20 } } },
+	{ title = "Dock", goals = { { t = "goto", map = 1429, x = 50, y = 20, text = "Dock" } } },
+	{ title = "Closed", goals = { { t = "accept", quest = 60, title = "Kobold Candles", npc = 253, map = 1429, x = 52, y = 20, closedBy = { 783 } } } },
+	{ title = "Mouth", goals = { { t = "goto", map = 1429, x = 60, y = 20, text = "Mouth" } } },
+	{ title = "Inside", goals = { { t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 62, y = 20 } } },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+`;
+	const [out] = run({
+		guides: STEPS,
+		script: `
+			local w = stub.world
+			E.SetGuide("test/evidence"); flush()
+			E.Goto(7); E.Skip(); flush()
+			w.accept(783, {}); w.turnIn(783); w.accept(7, {}); w.turnIn(7); flush()
+			emit({ skipped = PolestarCharDB.skipped["test/evidence"][7] == true,
+				gotos = { E.GetStepView(2).goals[1].status, E.GetStepView(4).goals[1].status, E.GetStepView(6).goals[1].status,
+				E.GetStepView(8).goals[1].status, E.GetStepView(10).goals[1].status } })
+		`,
+	});
+	assert.equal(out.skipped, true, 'the turn-in after the cave was skipped');
+	assert.deepEqual(out.gotos.map((st) => st === 'done'), [false, false, false, false, true], 'only the goto ahead of quest work everyone does is done');
+});
+
 test('a kill goal with spawn areas points at the area nearest the player, switching only once another is clearly nearer', () => {
 	// Elwynn here is 30 yd per map percent across: the two areas are 600 yd apart, radius 30.
 	const SPOTS = `

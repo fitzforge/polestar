@@ -1228,19 +1228,22 @@ local function isQuestGoal(goal)
 end
 
 -- Whether the step after s that applies to the character is done with quest
--- work done in it: a step passed only because its quests are unavailable, or
--- of `train` or `level` goals alone, is no sign the player went there. A step
--- the player skipped vouches for nothing. (On Own: the main chunk is at 200
--- locals.)
+-- work done in it, as anchorStep counts it: a step passed only because its
+-- quests are unavailable (their goals are not done then), or with no quest
+-- goal (`train`, `level`, travel), is no sign the player went there; nor are
+-- class and race steps and goals (`only`), whose quests run on their own
+-- schedule (The Islander, taken by a Warrior anywhere, does not put him in
+-- Orgrimmar). A step the player skipped vouches for nothing. (On Own: the
+-- main chunk is at 200 locals.)
 function Own.nextStepDone(s)
 	local steps = guide.steps
 	local sk = skippedFor(guide.id)
 	for n = s + 1, #steps do
 		local step = steps[n]
 		if stepApplies(step) then
-			if sk and sk[n] then return false end
+			if step.only or (sk and sk[n]) then return false end
 			for g, goal in ipairs(step.goals) do
-				if blocks(goal) and isQuestGoal(goal) and goalApplies(goal) and not unavailableFor(goal) and goalDone(n, g, goal) then
+				if not goal.only and blocks(goal) and isQuestGoal(goal) and goalApplies(goal) and goalDone(n, g, goal) then
 					return stepDone(n)
 				end
 			end

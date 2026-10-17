@@ -600,11 +600,14 @@ kill or drop whose target spawns nowhere in the data (an instance boss placed at
 its entrance), and gotos in steps with `fly` or `hearth`.
 
 A `goto` counts as done on arrival, once a later goal of its step is done,
-or, when nothing but gotos follows it in its step, once the next step is done
-with quest work done in it: a cave's mouth in a step of its own no longer
-sends back a player who already did the work inside. A goto ahead of a step
-of `train` or `level` goals alone still holds, and so does one followed by
-`optional` goals in its own step: that is where they are done.
+or, when only other gotos, notes and goals for other characters follow it in
+its step, once the next step for the character is done with a quest goal of
+it done: a cave's mouth in a step of its own no longer sends back a player who
+already did the work inside. The goto still holds when that next step has no
+quest goal (training, a level, travel), is for some classes or races only
+(`only`), was skipped, or was passed only because its quests are unavailable,
+when the quest goal done is itself `only`, and when `optional` goals follow
+the goto in its own step: that is where they are done.
 
 ### People and things: `talk`, `interact`, `use`
 
