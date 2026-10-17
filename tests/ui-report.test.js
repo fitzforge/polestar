@@ -121,6 +121,25 @@ test('errors Polestar caught come with the report, counted, by their path from t
 	]);
 });
 
+test('actions the game blocked from Polestar (taint, no Lua error) come with the report: counted, newest time; other addons\' are left out', () => {
+	const [out] = run(`
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UseAction()")
+		stub.advance(5)
+		stub.fire("ADDON_ACTION_FORBIDDEN", "OtherAddon", "CastSpellByName()")
+		stub.fire("ADDON_ACTION_FORBIDDEN", "Polestar_Gamepad", "ClearOverrideBindings()")
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UseAction()")
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		emit({ text = PolestarReport.Box:GetText(), at = date("%H:%M:%S") })`);
+	const lines = out.text.split('\n');
+	assert.ok(!lines.includes('Errors: none'), out.text);
+	assert.ok(lines.includes('Errors:'), out.text);
+	assert.deepEqual(lines.filter((l) => l.startsWith('  ')), [
+		`  1x blocked: ClearOverrideBindings() (${out.at})`,
+		`  2x blocked: UseAction() (${out.at})`,
+	]);
+});
+
 test('what the player typed stays while it is the same step; a report on another step starts empty', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)

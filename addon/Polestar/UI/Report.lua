@@ -182,7 +182,8 @@ end
 
 -- The errors Polestar caught (ns.Errors), then with !BugGrabber installed the
 -- ones it grabbed this session in Polestar's files: the newest few, each
--- with how often it came, its path from the AddOns folder.
+-- with how often it came, its path from the AddOns folder; then the
+-- protected calls the game blocked from Polestar (taint is no Lua error).
 local function errorLines(out)
 	local list, seen = {}, {}
 	local function add(msg, count)
@@ -205,13 +206,18 @@ local function errorLines(out)
 			end
 		end
 	end
-	if #list == 0 then
+	local blocked = ns.Blocked and ns.Blocked() or {}
+	if #list == 0 and #blocked == 0 then
 		out[#out + 1] = L["Errors: none"]
 		return
 	end
 	out[#out + 1] = L["Errors:"]
 	for i = max(1, #list - ERRORS_MAX + 1), #list do
 		out[#out + 1] = cut(("  %dx %s"):format(list[i].count, list[i].msg))
+	end
+	for i = max(1, #blocked - ERRORS_MAX + 1), #blocked do
+		local b = blocked[i]
+		out[#out + 1] = cut(("  %dx %s"):format(b.count, L["blocked: %s (%s)"]:format(plain(b.fn), b.at)))
 	end
 end
 

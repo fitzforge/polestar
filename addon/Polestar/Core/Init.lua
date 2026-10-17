@@ -131,6 +131,30 @@ function ns.NoteError(err)
 end
 function ns.Errors() return errors end
 
+-- The protected calls the game blocked from Polestar this session
+-- (ADDON_ACTION_BLOCKED, ADDON_ACTION_FORBIDDEN: the addon's name, then the
+-- function), for the report: taint is no Lua error, so without these a
+-- report on a broken gamepad or button reads "Errors: none". The last few,
+-- oldest first, each with how often and when it last came.
+local MAX_BLOCKED = 5
+local blocked = {}
+function ns.NoteBlocked(addon, fn)
+	if type(addon) ~= "string" or not (addon == ADDON or addon:find("^Polestar_")) then return end
+	fn = tostring(fn or "?")
+	local at = date("%H:%M:%S")
+	for i = 1, #blocked do
+		if blocked[i].fn == fn then
+			local e = table.remove(blocked, i)
+			e.count, e.at = e.count + 1, at
+			blocked[#blocked + 1] = e
+			return
+		end
+	end
+	if #blocked >= MAX_BLOCKED then table.remove(blocked, 1) end
+	blocked[#blocked + 1] = { fn = fn, count = 1, at = at }
+end
+function ns.Blocked() return blocked end
+
 -- Run a callback; report its error without stopping the caller's loop.
 local function call(fn, ...)
 	local ok, err = pcall(fn, ...)
@@ -456,6 +480,9 @@ local function onLogin()
 end
 
 ns.RegisterEvent("ADDON_LOADED", onAddonLoaded)
+local function onBlocked(_, addon, fn) ns.NoteBlocked(addon, fn) end
+ns.RegisterEvent("ADDON_ACTION_BLOCKED", onBlocked)
+ns.RegisterEvent("ADDON_ACTION_FORBIDDEN", onBlocked)
 ns.RegisterEvent("PLAYER_LOGIN", onLogin)
 
 ---------------------------------------------------------------------------
