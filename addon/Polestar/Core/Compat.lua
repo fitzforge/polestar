@@ -236,6 +236,19 @@ function Compat.GetQuestObjectives(questID)
 	return out
 end
 
+-- A quest-log objective line's label: its text without the counts
+-- ("Kobold Vermin slain: 3/10", "Linen Cloth: 2/6", on some clients "3/10
+-- Kobold Vermin slain"), the name an objective is matched on (the guide's
+-- objective goals, Engine; the quest tracker's lines). A line of counts alone
+-- (" slain: 0/8", ": 0/1") has no name yet: "".
+function Compat.ObjectiveLabel(text)
+	if type(text) ~= "string" then return "" end
+	local s = text:gsub("^%s*%d+%s*/%s*%d+%s+", ""):gsub("%s*:%s*%d+%s*/%s*%d+%s*$", "")
+	s = s:gsub("^%s+", ""):gsub("%s+$", "")
+	if s == "slain" then return "" end
+	return (s:gsub("%s+slain$", ""))
+end
+
 function Compat.GetQuestTitle(questID)
 	if C_QuestLog and C_QuestLog.GetTitleForQuestID then
 		local t = C_QuestLog.GetTitleForQuestID(questID)

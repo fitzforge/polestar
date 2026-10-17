@@ -352,6 +352,18 @@ emit(P.Line({ t = "kill", quest = 33, oi = 1, status = "active" }))`, SHOWN);
 	assert.equal(line, `Ana 5/8${DOT}Ben done`);
 });
 
+test('party: a member\'s count is read from the quest-log line the goal reads, not its compiled position (#335)', () => {
+	// Slimy Menace in the game's order, Murloc first; the guide compiled Murloc as objective 2.
+	const [murloc, streamrunner] = run(`${SENT}
+w.onQuest(99128, { { text = "Murloc slain: 0/7", required = 7, type = "monster" }, { text = "Murloc Streamrunner slain: 0/4", required = 4, type = "monster" } })
+p.join("Ana")
+p.receive("Ana-TestRealm", "1|99128:3/7,1/4")
+emit(P.Line({ t = "kill", quest = 99128, target = "Murloc", npc = 285, oi = 2, status = "active" }))
+emit(P.Line({ t = "kill", quest = 99128, target = "Murloc Streamrunner", npc = 735, oi = 1, status = "active" }))`, SHOWN);
+	assert.equal(murloc, 'Ana 3/7');
+	assert.equal(streamrunner, 'Ana 1/4');
+});
+
 test('party: members without the quest, or showing off, add nothing', () => {
 	const [other, off] = run(`${SENT}
 p.join("Ana")

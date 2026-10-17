@@ -169,14 +169,10 @@ local find, sort = string.find, table.sort
 
 -- Client objective lines carry counts: "Kobold Vermin slain: 3/10",
 -- "Linen Cloth: 2/6", on some clients "3/10 Kobold Vermin slain". A line's
--- label is its text without them, the name an objective is matched on; a
--- line of counts alone (" slain: 0/8", ": 0/1") has no name yet.
-local function lineLabel(text)
-	local s = text:gsub("^%s*%d+%s*/%s*%d+%s+", ""):gsub("%s*:%s*%d+%s*/%s*%d+%s*$", "")
-	s = s:gsub("^%s+", ""):gsub("%s+$", "")
-	if s == "slain" then return "" end
-	return (s:gsub("%s+slain$", ""))
-end
+-- label is its text without them (Compat.ObjectiveLabel, shared with the
+-- guide's objective goals), the name an objective is matched on; a line of
+-- counts alone (" slain: 0/8", ": 0/1") has no name yet.
+local lineLabel = ns.Compat.ObjectiveLabel
 
 -- Same-name objectives, one group per name, longest name first (database
 -- order between equal lengths).

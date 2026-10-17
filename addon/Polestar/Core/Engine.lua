@@ -983,8 +983,56 @@ end
 
 local goalDone
 
--- Objective goals: done when objective `oi` is finished or the quest is ready
--- for turn-in or turned in. Returns done, cur, max.
+-- The quest-log line an objective goal reads (#223, #279, #335). The game
+-- does not always list a quest's objectives in the order the guide was
+-- compiled with: Slimy Menace counts Murlocs first where the quest data and
+-- Wowhead list Murloc Streamrunners first, so `oi` alone read the other
+-- objective's count and ticked the other line. With more than one line: the
+-- line labelled with the goal's target (its NPC, item or object, in the
+-- client's language where Polestar.Names has it) wins, else the line holding
+-- that name with the least else in its label ("Murloc" never takes "Murloc
+-- Streamrunner slain"), the compiled `oi` among equals; with no name, or no
+-- line holding it (a label not filled in yet, another language), `oi` as
+-- compiled. (On Own: the main chunk is at 200 locals.)
+Own.OBJECTIVE_NAME = {
+	kill = function(g, N) return N.Npc(g.npc) or g.target end,
+	collect = function(g, N) return N.Item(g.item) or g.itemName end,
+	interact = function(g, N) return N.Object(g.object) or g.objName end,
+}
+function Own.objectiveLine(goal, objs)
+	local oi = goal.oi
+	local nameOf = #objs > 1 and Own.OBJECTIVE_NAME[goal.t]
+	local name = nameOf and nameOf(goal, ns.Names)
+	if type(name) ~= "string" or name == "" then return oi end
+	local label = Compat().ObjectiveLabel
+	local best, bestScore
+	for k = 1, #objs do
+		local l = label(objs[k].text)
+		local score
+		if l == name then
+			score = 0
+		elseif l ~= "" and l:find(name, 1, true) then
+			score = #l - #name
+		end
+		if score and (not bestScore or score < bestScore or (score == bestScore and k == oi)) then
+			best, bestScore = k, score
+		end
+	end
+	return best or oi
+end
+
+-- The quest-log line (an index into Compat.GetQuestObjectives) objective goal
+-- `goal` reads, as Own.objectiveLine picks it; its `oi` while the quest is not in
+-- the log. Party sync reads members' counts by it: theirs come in the same
+-- game order.
+function Engine.ObjectiveLine(goal)
+	if type(goal) ~= "table" or not goal.quest or not goal.oi then return goal and goal.oi end
+	local objs = Compat().GetQuestObjectives(goal.quest)
+	return objs and Own.objectiveLine(goal, objs) or goal.oi
+end
+
+-- Objective goals: done when objective `oi` (its line, Own.objectiveLine) is
+-- finished or the quest is ready for turn-in or turned in. Returns done, cur, max.
 local function objectiveState(goal)
 	local q = goal.quest
 	if questDone(q) then return true end
@@ -997,7 +1045,7 @@ local function objectiveState(goal)
 		-- not filled them in yet (right after the accept), and its ready flag
 		-- says nothing until it has.
 		if not objs then return false end
-		local o = objs[goal.oi]
+		local o = objs[Own.objectiveLine(goal, objs)]
 		if o then cur, max, finished = o.numFulfilled, o.numRequired, o.finished end
 	end
 	if C.IsQuestReadyForTurnIn(q) then return true, cur, max end

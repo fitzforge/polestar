@@ -478,7 +478,7 @@ function Party.Line(goal, noMissing)
 	local parts = {}
 	for _, m in ipairs(Party.Members()) do
 		local counts = m.quests[goal.quest]
-		local c = counts and counts[goal.oi]
+		local c = counts and counts[ns.Engine.ObjectiveLine(goal)]
 		if c then
 			parts[#parts + 1] = c[1] >= c[2] and L["%s done"]:format(m.name) or (m.name .. " " .. c[1] .. "/" .. c[2])
 		end
