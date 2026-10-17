@@ -21,6 +21,7 @@ const { loadWowhead } = require('../tools/lib/codex/wowhead');
 const { runAddon } = require('./helpers/lua');
 const { writeTestPack } = require('./helpers/dsl');
 const { buildSimPack, playGuide, SIMULATE } = require('../tools/lib/playtest');
+const { makeProjector } = require('../tools/lib/route/geo');
 
 const skip = needs('quests.json', 'npcs.json', 'objects.json', 'map-frames.json');
 
@@ -1255,4 +1256,39 @@ test('#246: no NPC or object goal is on a neighbouring zone\'s map where the two
 		}
 	}
 	assert.deepEqual([...new Set(offenders)], [], 'goals on the map of a zone Wowhead Forever does not place them in');
+});
+
+// --- Battleworn Axe (Tazul, #286): the Redridge guide typed the orcs' camp at
+// Alther's Mill as @55.9,43.6, a live-frame spot from the data, in a guide
+// whose coordinates are Era-frame by default. Redridge's Forever map is
+// shifted 5 units from Classic's, so the arrow led into the tarantulas in the
+// middle of the mill, 68 yd west of the nearest orc. A typed coordinate on a
+// goal the data can place is near one of its spawns in the frame it is
+// compiled in, not only in the other one.
+test("#286: a typed coordinate is near its target's spawns in its own map frame, not only in the other one", { skip }, () => {
+	data = data || loadData(DATA);
+	const { point } = makeProjector(data.mapFrames);
+	const offenders = [];
+	for (const guide of allGuides()) {
+		const g = compiled(guide);
+		g._ast.steps.forEach((as, si) => as.goals.forEach((ag, gi) => {
+			const goal = g.steps[si] && g.steps[si].goals[gi];
+			if (!ag.explicitCoords || !goal || goal.map == null || goal.x == null) return;
+			const targets = [];
+			if (goal.t === 'collect') {
+				const item = data.item(goal.item);
+				for (const id of Object.keys((item && item.drops && item.drops.npc) || {})) targets.push(['npc', id]);
+				for (const id of Object.keys((item && item.drops && item.drops.object) || {})) targets.push(['object', id]);
+			} else if (goal.npc) targets.push(['npc', goal.npc]);
+			else if (goal.object) targets.push(['object', goal.object]);
+			const pts = targets.flatMap(([kind, id]) => data.spawns(kind, Number(id)).filter((s) => s.map === goal.map).flatMap((s) => s.pts.map((p) => point(s.map, p[0], p[1], s.f))));
+			if (!pts.length) return;
+			const f = goal.f || 'l';
+			const near = (q) => Math.min(...pts.map((p) => Math.hypot(p.wx - q.wx, p.wy - q.wy)));
+			const own = near(point(goal.map, goal.x, goal.y, f));
+			const other = near(point(goal.map, goal.x, goal.y, f === 'l' ? 'e' : 'l'));
+			if (own > 40 && other < 10) offenders.push(`${guide}:${ag.line} ${goal.t} @${goal.x},${goal.y} (step ${g.steps[si].title}) is ${Math.round(own)} yd from its target in its ${f === 'l' ? 'live' : 'Era'} frame, ${Math.round(other)} yd in the other`);
+		}));
+	}
+	assert.deepEqual(offenders, [], 'typed coordinates written in the other map frame');
 });

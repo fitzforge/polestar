@@ -269,7 +269,7 @@ step Gloomrise
   collect 273181 quest 96260.1        -- Crystalline Silk, from Gloomrise Spinners
   kill 264083 quest 96259.1
   kill 264079 quest 96259.2
-  collect 273658 @33.4,7.6            -- Bloody Parchment, from Broodmother Valraxx
+  collect 273658 @33.4,7.6 live       -- Bloody Parchment, from Broodmother Valraxx
   accept 96294 item 273658
 
 step The Earthen Ring

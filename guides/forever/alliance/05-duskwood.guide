@@ -237,7 +237,7 @@ step Master Mathias Shaw
   buy 3421 x1 npc 1302 optional               -- Simple Wildflowers: Bernard Gump
   buy 3372 x1 npc 1313 optional               -- Leaded Vial: Maria Lumere, Alchemy Supplies
   buy 4371 x1 npc 5519 optional               -- Bronze Tube: Billibub Cogspinner, Dwarven District
-  collect 8431 quest 2609.4 optional @50.6,60.1 -- Spool of Light Chartreuse Silk Thread
+  collect 8431 quest 2609.4 optional @50.6,60.1 live -- Spool of Light Chartreuse Silk Thread
   turnin 2609 optional                        -- Doc Mixilpixil: Eau de Mixilpixil
 
 # ---------------------------------------------------------------- Stormwind and the boat
