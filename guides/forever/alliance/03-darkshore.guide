@@ -44,6 +44,12 @@ next forever/alliance/04-redridge-mountains
 #   with the last three after the fourth loop, its rod comes from the
 #   Stormscale Beastmistresses on the naga trip, and it is handed in on the
 #   way back south.
+# - Beached Sea Creature (4723) is taken on the first loop, on the walk from
+#   Asterion down to Buzzbox 411 that passes it, and handed in at the first
+#   hearth (#213), instead of a detour from Cliffspring Falls on the second.
+#   The three remains past Remtravel's Excavation (4731-4733) stay on the
+#   fourth loop: Greymist Oracles and Tidehunters (18-20) guard them, which
+#   the second loop reaches at about 18.
 #
 # Optional: The Family and the Fishing Pole (1141) needs Fishing.
 # Gyromast's Revenge (2078) ends with the Threshwackonator 4100, an elite: not
@@ -137,7 +143,7 @@ step The red crystal
   complete 4811
 
 step Bashal'Aran
-  tip North along the hills. Asterion waits in the ruins of Bashal'Aran; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. Buzzbox 411 stands by the road west of the ruins.
+  tip North along the hills. Asterion waits in the ruins of Bashal'Aran; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. Buzzbox 411 stands by the road west of the ruins; a Beached Sea Creature lies on the shore on the way to him.
   turnin 954                                  -- Asterion
   accept 955
   collect 5336 quest 955                      -- Grell Earrings
@@ -146,6 +152,7 @@ step Bashal'Aran
   collect 5338 quest 956                      -- Ancient Moonstone Seal: Deth'ryll Satyrs
   turnin 956
   accept 957
+  accept 4723                                 -- Beached Sea Creature
   turnin 1001                                 -- Buzzbox 411
   accept 1002
 
@@ -169,6 +176,7 @@ step Hearth to Auberdine
   turnin 958
   accept 4762
   turnin 4722                                 -- Gwennyth Bly'Leggonde
+  turnin 4723
   turnin 963                                  -- Cerellean Whiteclaw
   collect 14339 quest 4812                    -- Fill the tube at the moonwell in the village
   vendor nearest
@@ -209,7 +217,7 @@ step The Ancient Flame
   interact 16393 quest 957.1                  -- Ancient Flame
 
 step The southern beaches
-  tip Follow the coast south past Ameth'Aran: one Beached Sea Creature lies on the shore west of the Grove, another further south near Remtravel's Excavation.
+  tip Follow the coast south past Ameth'Aran: one Beached Sea Creature lies on the shore west of the Grove, another further south near Remtravel's Excavation. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level.
   accept 4728                                 -- Beached Sea Creature
   accept 4730                                 -- Beached Sea Creature
 
@@ -223,12 +231,11 @@ step The red crystal
   accept 4813
 
 step Cliffspring Falls
-  tip Follow the hills north to the Cliffspring River and up to the falls. Three more beached remains lie on the north shore: near the Ruins of Mathystra, north of Bashal'Aran and west of Bashal'Aran.
+  tip Follow the hills north to the Cliffspring River and up to the falls. Two more beached remains lie on the north shore: near the Ruins of Mathystra and north of Bashal'Aran.
   collect 12349 quest 4762                    -- Cliffspring River Sample, at the waterfall
   collect 15845 quest 6122.1 only NightElf,Druid -- Filled Cliffspring Falls Sampler: at the mouth of the cave by the falls
   accept 4727                                 -- Beached Sea Turtle
   accept 4725                                 -- Beached Sea Turtle
-  accept 4723                                 -- Beached Sea Creature
 
 step Bashal'Aran
   turnin 957                                  -- Asterion
@@ -243,7 +250,6 @@ step Auberdine
   turnin 4730
   turnin 4727
   turnin 4725
-  turnin 4723
   accept 947                                  -- Barithras Moonshade
   accept 1138                                 -- Gubber Blump
   accept 4740                                 -- The WANTED poster
@@ -327,7 +333,7 @@ step The Master's Glaive
   complete 945                                -- Escort her out of the glaive; Therysil takes the turn-in in Ashenvale
 
 step Murkdeep's beach
-  tip Murkdeep camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches south of Remtravel's Excavation.
+  tip Murkdeep camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches west and south-west of Remtravel's Excavation.
   kill 10323 quest 4740                       -- Murkdeep
   accept 4731                                 -- Beached Sea Turtle
   accept 4732                                 -- Beached Sea Turtle

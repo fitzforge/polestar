@@ -451,6 +451,21 @@ test(`${WESTFALL}: Alba Fairmoon's chain is not given to Humans (#144)`, { skip 
 	}
 });
 
+// --- Darkshore (XooVe, #213): the first loop walked past a Beached Sea
+// Creature from Asterion to Buzzbox 411 and the second loop came back for it.
+
+test(`${DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is taken on the walk from Asterion to Buzzbox 411 (#213)`, { skip }, () => {
+	const list = goals(DARKSHORE);
+	const take = at(list, 'accept 4723 (Beached Sea Creature)', is('accept', 4723));
+	assert.equal(list[take].step.title, "Bashal'Aran", "it is taken in the Bashal'Aran step");
+	assert.ok(at(list, 'accept 957 (Asterion)', is('accept', 957)) < take, 'after Asterion');
+	assert.ok(take < at(list, 'turnin 1001 (Buzzbox 411)', is('turnin', 1001)), 'before Buzzbox 411');
+	// Handed in at the first hearth, with the Beached Sea Turtle, before the second loop.
+	const handIn = at(list, 'turnin 4723', is('turnin', 4723));
+	assert.equal(list[handIn].step, list[at(list, 'turnin 4722', is('turnin', 4722))].step, 'handed in with 4722');
+	assert.ok(handIn < at(list, 'accept 4728', is('accept', 4728)), 'before the second loop');
+});
+
 // Every leveling guide with a profession quest still plays to the end for a
 // character who already has the profession (tests/guides.test.js plays them
 // all without one).
