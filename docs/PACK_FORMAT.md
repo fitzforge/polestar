@@ -1,10 +1,21 @@
 # Community addon format
 
-The contract between a community addon and Polestar, for anyone building tools of
-their own. Authors who use Polestar's tools never write any of this by hand:
-they write `pack.json` and `.guide` files ([GUIDE_FORMAT.md](GUIDE_FORMAT.md))
-and `polestar compile` writes the rest. The handbook is
-[PACKS.md](PACKS.md).
+The contract between a community addon and Polestar, for anyone building
+tools of their own. Authors who use Polestar's tools never write any of this
+by hand: they write `pack.json` and `.guide` files
+([GUIDE_FORMAT.md](GUIDE_FORMAT.md)) and `polestar compile` writes the rest.
+The handbook is [PACKS.md](PACKS.md).
+
+> [!TIP]
+> Building a tool that generates guides? The simplest path is to write a
+> pack (`pack.json` and `.guide` files) and let `polestar lint`,
+> `polestar playtest` and `polestar pack` check and build it. Write the
+> addon described below yourself only when that is not an option.
+
+**On this page:** [`pack.json`](#packjson) ·
+[The addon](#the-addon) · [TOC fields](#toc-fields) ·
+[Rules Polestar enforces](#rules-polestar-enforces) ·
+[Format 3](#format-3) · [Versioning](#versioning)
 
 A community addon is an addon for World of Warcraft: Forever that depends
 on Polestar and registers guides with it. It is built from a pack: a folder

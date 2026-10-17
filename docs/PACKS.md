@@ -1,22 +1,28 @@
 # Writing community addons
 
 A community addon is your own guides for Polestar, published as your own
-addon. Players install it next to Polestar; its guides then appear in
-Polestar's guide menu under "Community guides", with your name on them. You write guides as
-plain text (`.guide` files, [GUIDE_FORMAT.md](GUIDE_FORMAT.md)), and
-Polestar's tools check them, play them to the end without the game, and
-build the addon. A community addon is built from a pack: a folder with a
-`pack.json` and `.guide` files.
+addon. Players install it next to Polestar, and its guides appear in
+Polestar's guide menu under **Community guides**, with your name on them.
+You write guides as plain text (`.guide` files,
+[GUIDE_FORMAT.md](GUIDE_FORMAT.md)), and Polestar's tools check them, play
+them to the end without the game, and build the addon. A community addon is
+built from a pack: a folder with a `pack.json` and `.guide` files.
 
-Players: [GUIDE_PACKS.md](GUIDE_PACKS.md) explains what a community addon
-is, how to install one and who supports it. Authors: start there too for the short
-version (the steps, what the tools require, what we ask of you); this page
-is the full handbook.
+> [!TIP]
+> New here? [GUIDE_PACKS.md](GUIDE_PACKS.md) is the short version: what a
+> community addon is, the steps from `new` to publishing, and what we ask of
+> authors. This page is the full handbook; the exact files the tools write
+> are in [PACK_FORMAT.md](PACK_FORMAT.md).
 
-This handbook covers setting up, a first pack, the ways to write guides,
-testing, publishing and updating, and every problem the tools or the game can
-report with its fix. The exact contract the tools write is in
-[PACK_FORMAT.md](PACK_FORMAT.md).
+**On this page**
+
+| | |
+|---|---|
+| **Get going** | [Setup](#setup) · [A first pack in 15 minutes](#a-first-pack-in-15-minutes) |
+| **Write guides** | [By playing](#by-playing) · [From the simulator](#from-the-simulator) · [By hand](#by-hand) · [With an AI assistant](#with-an-ai-assistant) |
+| **Ship it** | [Testing](#testing) · [Publishing](#publishing) · [Updating](#updating) |
+| **Fix a problem** | [In game: statuses and problems](#in-game-statuses-and-problems) · [Lint messages](#lint-messages) |
+| **Reference** | [Where things are](#where-things-are) |
 
 ## Setup
 
