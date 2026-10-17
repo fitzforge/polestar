@@ -1158,6 +1158,27 @@ test(`${STONETALON_HORDE}: #246: Kadrak's goals are on the Barrens' map, and the
 	assert.equal(scout.map, 1440, 'the Warsong Scout is still in Ashenvale');
 });
 
+// Tirion's quests have two givers in the data: Tirion Fordring (1855) at his
+// hut on the Thondroril, and Lord Tirion Fordring (12126), who stands in
+// Hearthglen only during the In Dreams event. On Western Plaguelands' map the
+// compiler picked the one spawned there, 12126, and sent players into the
+// Scarlet town (the Alliance Western Plaguelands and Horde Felwood guides).
+test('#246: every goal with Tirion leads to Tirion Fordring at his hut, never to Lord Tirion Fordring in Hearthglen', { skip }, () => {
+	const tirion = [5542, 5543, 5544, 5742, 5781];
+	const found = [];
+	for (const guide of allGuides()) {
+		for (const { step, goal } of goals(guide)) {
+			if (!tirion.includes(goal.quest) || !['accept', 'turnin'].includes(goal.t)) continue;
+			found.push(`${guide} ${goal.t} ${goal.quest}`);
+			const picked = { npc: goal.npc, map: goal.map };
+			assert.deepEqual(picked, { npc: 1855, map: 1423 }, `${guide} (step ${step.title}) ${goal.t} ${goal.quest}: Tirion Fordring on the Eastern Plaguelands' map`);
+		}
+	}
+	for (const guide of ['forever/alliance/50-60/04-western-plaguelands.guide', 'forever/horde/50-60/02-felwood.guide']) {
+		for (const q of [5542, 5543, 5544]) assert.ok(found.includes(`${guide} accept ${q}`), `${guide} takes ${q} from Tirion`);
+	}
+});
+
 // The same pattern everywhere: where the zone maps overlap, the data spawns an
 // NPC or object at one spot on both maps, and the step's zone picks the map.
 // A goal on the map of a zone Wowhead Forever does not list it in, while the

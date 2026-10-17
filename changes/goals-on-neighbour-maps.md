@@ -7,6 +7,6 @@ section: players
   Tirion Fordring's hut, Argent Officer Garush at the Bulwark, Erion
   Shadewhisper in Darnassus, Tal and Cairne in Thunder Bluff, the Great Lift's
   top, Henchman Valik, Lieutenant Haggerdin and the Syndicate camps in
-  Alterac, and the Uldaman dig in the Badlands. The Western Plaguelands guide
-  also takes Tirion's first three quests at his hut instead of in Hearthglen
-  (thanks fur and CDVolvik).
+  Alterac, and the Uldaman dig in the Badlands. The Western Plaguelands
+  (Alliance) and Felwood (Horde) guides also take Tirion's first three quests
+  at his hut instead of in Hearthglen (thanks fur and CDVolvik).

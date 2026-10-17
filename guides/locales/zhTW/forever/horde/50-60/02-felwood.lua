@@ -70,10 +70,10 @@ return {
 	["Keep the branch: {npc:5770} is in {zone:1456}."] = "保留樹枝：{npc:5770}在{zone:1456}。",
 
 	-- Step 14: Tirion Fordring
-	-- {area:2620} Thondroril River · {zone:1423} Eastern Plaguelands
-	["Ride north along the eastern hills; Tirion lives in a small house by the {area:2620}, at the border with the {zone:1423}."] = "沿著東側山丘向北騎；提里奧住在{area:2620}旁的一間小屋，位於與{zone:1423}的邊界。",
-	-- {zone:1423} Eastern Plaguelands
-	["Tirion's hunts are in the {zone:1423}: keep them for later."] = "提里奧的狩獵任務在{zone:1423}：先保留。",
+	-- {npc:1855} Tirion Fordring · {area:2619} Thondroril River · {zone:1423} Eastern Plaguelands
+	["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "沿著東側山丘向北騎；{npc:1855}住在{area:2619}旁的一間小屋，位於與{zone:1423}的邊界。",
+	-- {npc:1855} Tirion Fordring · {zone:1423} Eastern Plaguelands
+	["{npc:1855}'s hunts are in the {zone:1423}: keep them for later."] = "{npc:1855}的狩獵任務在{zone:1423}：先保留。",
 
 	-- Step 15: Kirsta Deepshadow
 	-- {area:192} Northridge Lumber Camp · {npc:11610} Kirsta Deepshadow
