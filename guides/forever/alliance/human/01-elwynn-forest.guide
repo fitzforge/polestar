@@ -68,7 +68,9 @@ next forever/alliance/02-westfall
 # - Northshire: Eagan Peltskinner's Wolves Across the Border (33) is taken
 #   after Deputy Willem and Marshal McBride (Willem is at the spawn, Eagan at
 #   the far corner), and Investigate Echo Ridge (15) right after Kobold Camp
-#   Cleanup is handed in to McBride, before the class letters.
+#   Cleanup is handed in to McBride, before the class letters. Skirmish at
+#   Echo Ridge (21) is taken when Investigate Echo Ridge is handed in, before
+#   the walk to Brother Paxton (#310).
 # - Eastvale: Sara Timberlain, on the way in, before Hagar Lowe.
 #
 # Class quests, as class-only steps (the level 10-12 ones from the last
@@ -161,9 +163,9 @@ step Echo Ridge Mine
 
 step Northshire Abbey
   turnin 15                                   -- Marshal McBride
+  accept 21
   turnin 91743                                -- Brother Paxton
   accept 91745
-  accept 21                                   -- Marshal McBride
   turnin 3100 only Warrior                    -- Llane Beshere, the warrior trainer
   turnin 3101 only Paladin                    -- Brother Sammuel, the paladin trainer
   turnin 92479 only Hunter                    -- Tordrin Sternblade, by the Abbey

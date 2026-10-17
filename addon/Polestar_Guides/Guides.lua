@@ -9140,9 +9140,9 @@ do
 					title = "{area:24}",
 					goals = {
 						{ t = "turnin", quest = 15, title = "Investigate Echo Ridge", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.92, y = 41.61, z = 82, f = "e" },
+						{ t = "accept", quest = 21, title = "Skirmish at Echo Ridge", npc = 197, npcName = "Marshal McBride", minLevel = 1, qlvl = 5, pre = { 15 }, preTitles = { [15] = "Investigate Echo Ridge" }, map = 1429, x = 48.92, y = 41.61, z = 82, f = "e" },
 						{ t = "turnin", quest = 91743, title = "Rascally Rodents", npc = 951, npcName = "Brother Paxton", map = 1429, x = 49.61, y = 40.41, z = 82.1, f = "e" },
 						{ t = "accept", quest = 91745, title = "Mining Consultant", npc = 951, npcName = "Brother Paxton", minLevel = 1, qlvl = 3, pre = { 91743 }, preTitles = { [91743] = "Rascally Rodents" }, map = 1429, x = 49.61, y = 40.41, z = 82.1, f = "e" },
-						{ t = "accept", quest = 21, title = "Skirmish at Echo Ridge", npc = 197, npcName = "Marshal McBride", minLevel = 1, qlvl = 5, pre = { 15 }, preTitles = { [15] = "Investigate Echo Ridge" }, map = 1429, x = 48.92, y = 41.61, z = 82, f = "e" },
 						{ t = "turnin", quest = 3100, title = "Simple Letter", npc = 911, npcName = "Llane Beshere", map = 1429, x = 50.24, y = 42.29, z = 82.3, f = "e", only = { classes = { "WARRIOR" } }, note = "{npc:911}, the warrior trainer" },
 						{ t = "turnin", quest = 3101, title = "Consecrated Letter", npc = 925, npcName = "Brother Sammuel", map = 1429, x = 50.43, y = 42.12, z = 82.3, f = "e", only = { classes = { "PALADIN" } }, note = "{npc:925}, the paladin trainer" },
 						{ t = "turnin", quest = 92479, title = "A Scribbled Letter", npc = 248415, npcName = "Tordrin Sternblade", map = 1429, x = 51.21, y = 40.8, f = "e", only = { classes = { "HUNTER" } }, note = "{npc:248415}, by the Abbey" },

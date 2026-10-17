@@ -591,6 +591,12 @@ test(`${BADLANDS}: the same pattern as #89: Book of the Ancients is taken from A
 	assert.ok(take < at(list, "turnin 1454 (Karnitol's Chest)", is('turnin', 1454)), 'before the chest');
 });
 
+test(`${ELWYNN}: Zepheriel's report (#310): Skirmish at Echo Ridge is taken from Marshal McBride when Investigate Echo Ridge is handed in, not after a walk to Brother Paxton and back`, { skip }, () => {
+	const list = goals(ELWYNN);
+	const handIn = at(list, 'turnin 15 (Investigate Echo Ridge)', is('turnin', 15));
+	assert.ok(is('accept', 21)(list[handIn + 1].goal), `the goal after the hand-in is accept 21, not ${list[handIn + 1].goal.t} ${list[handIn + 1].goal.quest}`);
+});
+
 // The same pattern elsewhere: a quest taken where the route already stands,
 // instead of on a walk back to its giver later.
 const STRANGLETHORN_HORDE = 'forever/horde/30-40/02-stranglethorn-vale.guide';
