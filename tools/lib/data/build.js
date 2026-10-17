@@ -213,10 +213,10 @@ async function buildData(options = {}) {
 		qstats = applyQuestie(norm, qz, { areaToUiMap, liveMaps: live, spawnOptions, toWorld, instanceOfArea });
 	}
 
-	// Wowhead Forever's change notes, before our own corrections.
+	// Wowhead Forever's change notes (the cached zone lists), before our own corrections.
 	let wh = null;
 	if (qz && options.wowhead) {
-		const zl = await loadZoneQuests({ sourcesDir, zones, offline, fetchImpl: options.fetchImpl, log });
+		const zl = loadZoneQuests({ sourcesDir });
 		warnings.push(...zl.warnings);
 		wh = { zl, changed: applyChangeNotes(norm.quests, zl.rows), facts: applyWowheadFacts(norm.quests, zl.rows), xpFilled: 0 };
 	}

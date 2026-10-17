@@ -56,7 +56,9 @@ next forever/alliance/02-westfall
 # - "Beer Basted Boar Ribs" (384) is taken from Ragnar on arrival in
 #   Kharanos, before the cooking lesson: on Forever he offers it to
 #   characters without Cooking too (seen in game; QuestieDB's Forever store
-#   lists no skill, only pfQuest's Classic data lists Cooking).
+#   lists no skill, only pfQuest's Classic data lists Cooking). Its Rhapsody
+#   Malt is bought from Innkeeper Belm in the same visit, and Maxan Anvol
+#   (beside Tannok) is taken before the walk out to the forge.
 #
 # Left out: "The Reports" (291) and "Stout to Kadrell" (414) are accepted by
 # the route but never turned in (the route goes to Westfall, not Ironforge's
@@ -156,7 +158,7 @@ step Anvilmar
   turnin 3115 only Warlock                    -- Alamar Grimm, inside Anvilmar
   accept 233
   accept 170                                  -- Balir Frosthammer, next to Sten
-  train class                                 -- Level 2 spells, inside Anvilmar
+  train class                                 -- Inside Anvilmar
 
 step The troggs
   tip Rockjaw Troggs and Burly Rockjaw Troggs dig all over the valley floor south of Anvilmar.
@@ -254,11 +256,12 @@ step Kharanos
   tip Follow the road through the tunnel and north-east to Kharanos. Kill the Crag Boars on the way: their ribs drop before you have Ragnar's quest and count toward it. Senir, Eric and his campfire are outside the Thunderbrew Distillery. Tannok, Maxan and Ragnar are inside. Tharek Blackstone works the forge.
   turnin 420                                  -- Senir Whitebeard
   turnin 2160                                 -- Tannok Frosthammer, in the distillery
+  accept 99158                                -- Maxan Anvol, next to Tannok
+  accept 384                                  -- Ragnar Thunderbrew
   sethome "Thunderbrew Distillery"
+  buy 2894 x1 npc 1247                        -- Rhapsody Malt, from Innkeeper Belm
   train class
   accept 400                                  -- Tharek Blackstone
-  accept 99158                                -- Maxan Anvol
-  accept 384                                  -- Ragnar Thunderbrew
   accept 98322                                -- Senir Whitebeard
 
 step The Great Outdoors
@@ -279,7 +282,7 @@ step Steelgrill's Depot
   accept 5541                                 -- Loslor Rudge
 
 step Boars and bears
-  tip Crag Boars and Young Black Bears roam the fields around Kharanos and the depot. Buy the Rhapsody Malt from the innkeeper in the distillery.
+  tip Crag Boars and Young Black Bears roam the fields around Kharanos and the depot.
   complete 384
   complete 317
 
@@ -356,7 +359,11 @@ step Frosthowl
 # ---------------------------------------------------------------- Back to Kharanos
 
 step Kharanos
+  tip Jarven Thunderbrew guards the Thunder Ale barrels in the distillery basement. Buy a Thunder Ale from Innkeeper Belm, click the guarded barrel, then hand the ale to Jarven from his quest window (there is no quest to accept); after that, the unguarded barrel takes the Barleybrew Scalder.
   turnin 412                                  -- Razzle Sprysprocket
+  buy 2686 x1 npc 1247                        -- Thunder Ale, from Innkeeper Belm in the distillery
+  turnin 403 direct                           -- The Guarded Thunder Ale Barrel in the basement
+  turnin 308 direct                           -- Jarven Thunderbrew, beside the barrel
   turnin 310                                  -- The Unguarded Thunder Ale Barrel in the distillery
   accept 311
   turnin 287                                  -- Senir Whitebeard

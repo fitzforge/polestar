@@ -57,10 +57,18 @@ function Maps.TaxiNodeByName(name, faction)
 	return fallback
 end
 
+-- A node's short name to show: in the client's language (the names pack's,
+-- else the client's own `fallback`), else the data's English.
 local function nodeName(id, fallback)
 	local d = travel()
 	local node = d and id and d.taxiById[id]
-	return node and (node.short or node.name) or fallback
+	if not node then return fallback end
+	local N = ns.Names
+	if N and N.Localised() then
+		local T = ns.Nav and ns.Nav.travel
+		return (N.Taxi(node.id) and T and T.TaxiName(node, true)) or fallback or node.short or node.name
+	end
+	return node.short or node.name
 end
 
 -- Estimated seconds for one flight leg of `yards`.

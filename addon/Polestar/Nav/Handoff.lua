@@ -388,7 +388,7 @@ end
 
 if ns.RegisterOptions then
 	local ok, err = ns.RegisterOptions({
-		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
+		page = L["Integrations"], section = "Shortest Path Forever",
 		controls = {
 			{ kind = "toggle", key = "nav.spfHandoff", label = L["Guide with Shortest Path Forever when it's installed"],
 				help = L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."],

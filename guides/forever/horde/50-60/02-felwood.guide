@@ -57,6 +57,8 @@ next forever/horde/50-60/03-winterspring
 #   (4741) at about 57. Target: Writhing Haunt and its return (5233, 5234)
 #   need the Felstone Field and Dalson's Tears cauldrons first; the route
 #   does those at 58.
+# - Emerald Sanctuary, on the way back south: Taronn, Greta and Jessir, who
+#   stand together, before Maybess Riverbreeze on the west side.
 #
 # Left open for later guides: Better Late Than Never (5023, Royal Overseer
 # Bauhaus), Little Pamela (5142), Glyphed Oaken Branch (4987, Nara Wildmane),
@@ -329,10 +331,10 @@ step Nafien
 step Emerald Sanctuary
   tip Ride the road south through Felwood to the Sanctuary.
   turnin 5156                         -- Taronn Redfeather
-  turnin 4102                         -- Maybess Riverbreeze
   turnin 5157                         -- Greta Mosshoof
   accept 5158
   turnin 5385 optional                -- Jessir Moonbow
+  turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
   note Keep Seeking Spiritual Aid: Islen Waterseer is in the Barrens.
 
 step Overlord Ror

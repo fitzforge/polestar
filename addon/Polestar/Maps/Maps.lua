@@ -21,6 +21,10 @@ ns.RegisterDefaults("maps", {
 	zoneLevels = true,      -- level ranges on the continent and zone maps
 	coords = true,          -- player and cursor coordinates on the world map
 	minimapCoords = false,  -- a small player coordinate readout on the minimap
+	-- A Polestar button on the minimap's edge. On by default with the gamepad
+	-- interface, which has no slash commands (Core/Init.lua, ns.GamepadUI).
+	minimapButton = ns.GamepadUI(),
+	minimapButtonAngle = 225, -- where on the edge, degrees (0 = east, counter-clockwise)
 	reveal = "tint",        -- unexplored areas: "off" | "on" (revealed) | "tint" (revealed, tinted)
 	dungeonPins = false,    -- dungeon entrances on the world map (from the Codex pack)
 	taxiPins = false,       -- flight masters
@@ -221,6 +225,14 @@ register({
 			help = L["Shows your position and the cursor's position under the world map."] },
 		{ kind = "toggle", key = "maps.minimapCoords", label = L["Coordinates on the minimap"],
 			help = L["A small readout of your position at the bottom of the minimap."] },
+	},
+})
+
+register({
+	page = MAP, tab = L["Guide & quests"], section = L["Guide"],
+	controls = {
+		{ kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"],
+			help = L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] },
 	},
 })
 

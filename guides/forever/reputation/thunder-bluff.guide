@@ -12,8 +12,8 @@ zone Thunder Bluff
 # play-tested on Forever yet. Refine it with Polestar_Recorder sessions.
 #
 # The client never flags a repeatable quest as completed, so the Additional
-# Runecloth steps track the Thunder Bluff standing itself (rep 81) instead of
-# the turn-in. Cloth counts (60 per first donation, 20 per repeat) are game
+# Runecloth steps finish on the Thunder Bluff standing (rep 81); each
+# step's optional `turnin 7825 direct` checks off at its first hand-in. Cloth counts (60 per first donation, 20 per repeat) are game
 # knowledge: the data only has the 60 Runecloth of A Donation of Runecloth.
 
 step Rumstag Proudstrider: A Donation of Wool
@@ -66,17 +66,17 @@ step Rumstag Proudstrider: Runecloth delivered
 step Additional Runecloth to Honored
   tip Additional Runecloth takes 20 Runecloth per turn-in and repeats as often as you like. Bring Runecloth in multiples of 20 and hand them all in at once, one turn-in after another. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
   collect 14047 x20 optional @40,51.3 map 1423
-  talk 14728 optional -- Additional Runecloth
+  turnin 7825 direct optional
   rep 81 Honored
 
 step Additional Runecloth to Revered
   tip Keep handing in Additional Runecloth, 20 Runecloth at a time. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
   collect 14047 x20 optional @40,51.3 map 1423
-  talk 14728 optional
+  turnin 7825 direct optional
   rep 81 Revered
 
 step Additional Runecloth to Exalted
   tip Keep handing in Additional Runecloth until Thunder Bluff is Exalted. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
   collect 14047 x20 optional @40,51.3 map 1423
-  talk 14728 optional
+  turnin 7825 direct optional
   rep 81 Exalted

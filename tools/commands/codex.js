@@ -1,12 +1,11 @@
 'use strict';
-// node tools/polestar.js codex build|parity|wowhead|attune [options]
+// node tools/polestar.js codex build|parity|attune [options]
 
 const path = require('node:path');
 const { parseArgs } = require('node:util');
 
 const usage = `usage: node tools/polestar.js codex build [options]
        node tools/polestar.js codex parity [--ours <dir>] [--against <dir>]
-       node tools/polestar.js codex wowhead [--delay <ms>] [--limit <n>] [--max-age <days>] [--dry-run]
        node tools/polestar.js codex attune [--addons <dir>] [--ours <dir>]
 
 Builds Lookup's Codex: every item, mount, pet, recipe, NPC, rare, quest,
@@ -32,23 +31,14 @@ ships that folder in the release zip.
                      (DungeonJournal, no licence). For this machine only: the
                      pack's meta says local and \`pack\` refuses to ship it.
 
+A release build also reads the Wowhead Forever facts cached in
+data/sources/wowhead/codex/ (tools/lib/codex/wowhead.js), when present.
+
 A release build compares itself with the last --local-extras build (when
 data/local/codex-extras exists), entity by entity, writes
 data/local/codex-parity.json and .md and records the match per kind in its
 meta (\`parity\`). \`codex parity\` reruns that comparison on two built
 folders (default ours data/forever/codex, against data/local/codex-extras).
-
-\`codex wowhead\` reads Wowhead's Forever list pages first (NPCs, objects,
-items by id range, up to 1,000 rows a request: level, classification, boss,
-location and how Forever changed each), then the pages of what
-data/local/codex-parity.json lists as missing or different, and of our
-instances' bosses (NPC and object pages, item tooltips), one request at a
-time. A page is fetched again only when its list row changed, an older
-parser read it, or it is older than --max-age and an open parity gap (not
-settled: no reason, not "not in Forever") or Forever's own (new or updated:
-one Forever left as in Classic keeps its page). Both are cached under
-data/sources/wowhead/codex/ (a release \`codex build\` reads that cache;
-tools/lib/codex/wowhead.js).
 
 \`codex attune\` compares the built Dungeons journal (--ours, default
 data/forever/codex) with the installed Attune addon (no licence: read on
@@ -57,11 +47,7 @@ every journal quest's rewards, written to data/local/dungeon-quests-audit.md
 (and .json), and the attunement chains to data/local/attunements-audit.md.
 
   --ours <dir>       parity: the release build (default data/forever/codex)
-  --against <dir>    parity: the internal build (default data/local/codex-extras)
-  --delay <ms>       wowhead: pause between requests (default 1500)
-  --limit <n>        wowhead: fetch at most n pages this run (lists first)
-  --max-age <days>   wowhead: refetch lists and pages older than this (default 7)
-  --dry-run          wowhead: count the requests a run would make, fetch nothing`;
+  --against <dir>    parity: the internal build (default data/local/codex-extras)`;
 
 function fail(msg) {
 	console.error(`${msg}\n\n${usage}`);
@@ -169,49 +155,6 @@ async function runParity(rest) {
 	return 0;
 }
 
-async function runWowhead(rest) {
-	let values;
-	try {
-		({ values } = parseArgs({ args: rest, options: { delay: { type: 'string' }, limit: { type: 'string' }, 'max-age': { type: 'string' }, 'dry-run': { type: 'boolean' } }, strict: true }));
-	} catch (err) {
-		return fail(err.message);
-	}
-	const fs = require('node:fs');
-	const { ROOT, SOURCES } = require('../lib/paths');
-	const { fetchEntities, fetchLists, politeClient, wowheadWants, openGaps, MAX_AGE_DAYS } = require('../lib/codex/wowhead');
-	const read = (f) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null);
-	const report = read(path.join(ROOT, 'data', 'local', 'codex-parity.json'));
-	if (!report) return fail('no data/local/codex-parity.json: run `codex build --local-extras`, then `codex build`');
-	// The client's create-item spells (SpellEffect), for the items ours has no source for.
-	const { clientFacts } = require('../lib/codex/build');
-	const { parseCsv } = require('../lib/data/csv');
-	const wago = await clientDir(path.join(ROOT, 'data', 'forever', 'codex'));
-	const effects = wago && path.join(wago, 'SpellEffect.csv');
-	const { creates } = clientFacts({ SpellEffect: effects && fs.existsSync(effects) ? parseCsv(fs.readFileSync(effects, 'utf8')) : [] });
-	const ours = { items: read(path.join(ROOT, 'data', 'forever', 'codex', 'items.json')) || {}, creates };
-	const want = wowheadWants(report, read(path.join(ROOT, 'data', 'forever', 'codex', 'instances.json')) || {}, read(path.join(ROOT, 'data', 'forever', 'objects.json')) || {}, ours);
-	// The parity report's open gaps (no instance bosses, name matches or
-	// settled rows): a stale page of one is fetched again.
-	const gaps = wowheadWants(openGaps(report));
-	const maxAgeDays = values['max-age'] ? Number(values['max-age']) : MAX_AGE_DAYS;
-	if (!(maxAgeDays >= 0)) return fail(`--max-age: not a number of days: ${values['max-age']}`);
-	const dryRun = !!values['dry-run'];
-	const log = (m) => console.error(m);
-	const client = politeClient({ delayMs: values.delay ? Number(values.delay) : undefined, log });
-	const lists = await fetchLists({ sourcesDir: SOURCES, client, maxAgeDays, dryRun, log });
-	for (const f of lists.failed.slice(0, 20)) console.error(`  list ${f.url}: ${f.error}`);
-	const res = await fetchEntities({ sourcesDir: SOURCES, want, lists: lists.rows, gaps, client, maxAgeDays, dryRun, limit: values.limit ? Number(values.limit) : Infinity, log });
-	const listed = Object.entries(lists.rows).map(([t, rows]) => `${t} ${rows ? Object.keys(rows).length : 'incomplete'}`).join(', ');
-	const why = Object.entries(res.reasons).map(([k, n]) => `${n} ${k}`).join(', ');
-	if (dryRun) {
-		console.log(`wowhead (dry run): ${lists.planned} list ranges and ${res.queued} pages to fetch (${why}), ${res.cached} pages kept; list rows: ${listed}`);
-		return 0;
-	}
-	console.log(`wowhead: ${lists.requests} list requests (rows: ${listed}); ${res.requests} page requests: ${res.fetched} fetched, ${res.missing} not on Wowhead, ${res.failed.length} failed (${why}); ${res.cached} kept`);
-	for (const f of res.failed.slice(0, 20)) console.error(`  ${f.type}=${f.id}: ${f.error}`);
-	return res.failed.length || lists.failed.length ? 1 : 0;
-}
-
 async function runAttune(rest) {
 	let values;
 	try {
@@ -253,7 +196,6 @@ async function run(argv) {
 	const [sub, ...rest] = argv;
 	if (sub === 'build') return runBuild(rest);
 	if (sub === 'parity') return runParity(rest);
-	if (sub === 'wowhead') return runWowhead(rest);
 	if (sub === 'attune') return runAttune(rest);
 	return fail(sub ? `unknown subcommand "${sub}"` : 'missing subcommand');
 }

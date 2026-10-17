@@ -54,6 +54,8 @@
 #   Death From Below (667) need Sunken Treasure (669), handed to Fleet Master
 #   Seahorn in Booty Bay in that same later guide; Goblin Sponsorship (1182)
 #   needs the Ratchet chain (1180, 1181), which no Alliance guide takes.
+# - Southshore after the hearth, in walking order from the inn: Phin,
+#   Redpath, Maleb, Bartolo, Dibbs, Darren.
 # Class quests: Warlocks hand the Heartswood to Gakin and summon their
 # Succubus (1738, 1739) at the Stormwind stop. Warlocks who took What Is
 # Love? (65602, optional, Forever) hand Gakin the Wooden Figurine there too
@@ -339,17 +341,18 @@ step Dalaran
 step Southshore
   zone Hillsbrad Foothills
   hearth "Southshore"
+  turnin 661                          -- Phin Odelic
+  turnin 500                          -- Marshal Redpath
   turnin 537                          -- Magistrate Henry Maleb
   turnin 512
   turnin 523
-  turnin 564                          -- Darren Malvew
+  buy 2321 x1 npc 2381 optional       -- Fine Thread for Bartolo's cloak, from Micha Yance, if you have none
   turnin 565                          -- Bartolo Ginsetti
-  turnin 500                          -- Marshal Redpath
   turnin 540                          -- Loremaster Dibbs
   accept 542                          -- For Milton Sheaf in Stormwind: keep it
   turnin 551
   accept 554
-  turnin 661                          -- Phin Odelic
+  turnin 564                          -- Darren Malvew
 
 # ---------------------------------------------------------------- Loch Modan
 

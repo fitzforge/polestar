@@ -17,5 +17,6 @@ zone Undercity
 step WRIGGLE.
   tip Find the Excitable Slime, a critter in the Undercity canals, and /dance with it until it offers WRIGGLE. Buy Nutritious Slime Sludge from a vendor in the canals and bring it back; if the slime seems tired, dance with it again.
   accept 97583 "WRIGGLE." @57.4,63.6 live
+  buy 278265 x1 npc 4612              -- Nutritious Slime Sludge: Boyle, in the canals beside the slime
   turnin 97583 "WRIGGLE." @57.4,63.6 live
   collect 275682 "Excitable Slime" @57.4,63.6 live

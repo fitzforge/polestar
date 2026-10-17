@@ -61,7 +61,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | Line | What it does | Also takes |
 |---|---|---|
 | `accept <quest> ["Title"]` | Take a quest; giver, title and place from the data | `npc`, `object`, `item`, `lvl` |
-| `turnin <quest> ["Title"]` | Hand a quest in | `npc`, `object`, `choose`, `reward`, `xp`, `money` |
+| `turnin <quest> ["Title"]` | Hand a quest in | `npc`, `object`, `choose`, `reward`, `xp`, `money`, `direct` |
 | `complete <quest> ["Title"]` | Finish every objective of a quest with nothing more specific to track | |
 | `kill <npc>` / `kill "<Name>"` | Kill a mob; with `quest Q.O` the quest log counts it, without it the player ticks it | `npc`, `quest`, `xN` |
 | `collect <item> ["Name"]` | Loot or gather items; without `quest`, counted in the bags | `quest`, `xN`, `nearest` |
@@ -113,6 +113,7 @@ After the arguments, in any order.
 | `criteria <n>` | On `achieve`: one criterion |
 | `choose <item> ...` / `reward <item> ...` | On `turnin`: the rewards to pick from, the ones given outright |
 | `xp <N>` / `money <amount>` | On `turnin`: what it pays (`money 1g50s`) |
+| `direct` | On `turnin`: handed in from the giver's window with no `accept`, so it needs none. The quest never enters the log: get what it asks for with a plain `buy` or `collect` |
 
 ## Conditions
 
@@ -129,7 +130,8 @@ Warrior or Paladin).
 ## Lint errors that come up most
 
 - A `turnin`, `complete` or objective goal for a quest no earlier goal
-  accepts, in this guide or one that leads to it with `next`.
+  accepts, in this guide or one that leads to it with `next` (a `direct`
+  turn-in is the exception; `complete` and objectives for one are an error).
 - An unknown id without a quoted name; an unknown verb or modifier.
 - A required kill of an elite in a `Leveling` guide.
 - A `next` guide none of this guide's characters can follow.

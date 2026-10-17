@@ -26,6 +26,8 @@
 #   Bundle (623): the boat lands next to Privateer Groy.
 # - Troll Necklace Bounty's repeat (2881) is optional: hand in spare
 #   necklaces only.
+# - Aerie Peak: Fraggar (2880) on the way up, then Talonaxe beside the
+#   flight master at the top.
 # Left out: Rhapsody's Kalimdor Kocktail (1452): never handed in on the route.
 # Murdaloc (739) and Ironband Wants You! (707) are handed in by a later guide
 # in Loch Modan. Class quests: Warlocks hand in Summon Felsteed (4488) at
@@ -113,11 +115,11 @@ step Witherbark villages
   collect 9259 quest 2880             -- Troll Tribal Necklace
 
 step Aerie Peak
-  turnin 2988                         -- Gryphon Master Talonaxe
-  note Talonaxe's next task waits for a later Hinterlands guide.
   turnin 2880                         -- Fraggar Thundermantle
   accept 2881 optional                -- Fraggar keeps paying for necklaces: hand in any extras
   turnin 2881 optional
+  turnin 2988                         -- Gryphon Master Talonaxe, beside the flight master at the top
+  note Talonaxe's next task waits for a later Hinterlands guide.
 
 # ---------------------------------------------------------------- Theramore
 

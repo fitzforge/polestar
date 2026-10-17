@@ -106,29 +106,29 @@ function foreverBuild(sourcesDir) {
 
 const KIND = { 1: 'dungeon', 2: 'raid', 3: 'pvp' };
 
-// Instance maps of Map.csv rows: map id -> { kind, name, area }.
+// Instance maps of Map.csv rows: map id -> { kind, name, area, map }.
 function instanceMaps(mapRows) {
 	const maps = new Map();
 	for (const m of mapRows) {
 		const k = KIND[Number(m.InstanceType)];
-		if (k) maps.set(Number(m.ID), { kind: k, name: m.MapName_lang, area: Number(m.AreaTableID) || 0 });
+		if (k) maps.set(Number(m.ID), { kind: k, name: m.MapName_lang, area: Number(m.AreaTableID) || 0, map: Number(m.ID) });
 	}
 	return maps;
 }
 
-// AreaTable ids inside instances -> { kind: 'dungeon' | 'raid' | 'pvp', name }
-// (the instance's name): areas on an instance map, each instance map's own
+// AreaTable ids inside instances -> { kind: 'dungeon' | 'raid' | 'pvp', name, map }
+// (the instance's name and Map.csv id): areas on an instance map, each instance map's own
 // area, and the entrance subzones named after the instance (Gnomeregan 133
 // in Dun Morogh, Uldaman 1517).
 function instancesByArea(mapRows, areaRows) {
 	const maps = instanceMaps(mapRows);
 	const byName = new Map([...maps.values()].map((m) => [m.name, m]));
 	const out = {};
-	for (const m of maps.values()) if (m.area) out[m.area] = { kind: m.kind, name: m.name };
+	for (const m of maps.values()) if (m.area) out[m.area] = { kind: m.kind, name: m.name, map: m.map };
 	for (const a of areaRows) {
 		const id = Number(a.ID);
 		const m = maps.get(Number(a.ContinentID)) || (Number(a.ParentAreaID) ? byName.get(a.AreaName_lang) : null);
-		if (m) out[id] = { kind: m.kind, name: m.name };
+		if (m) out[id] = { kind: m.kind, name: m.name, map: m.map };
 	}
 	return out;
 }
@@ -140,7 +140,7 @@ function instanceAreas(mapRows, areaRows) {
 	return out;
 }
 
-// UiMap ids drawn only on instance maps (UiMapAssignment.csv) -> { kind, name }.
+// UiMap ids drawn only on instance maps (UiMapAssignment.csv) -> { kind, name, map }.
 function instancesByUiMap(mapRows, assignmentRows) {
 	const maps = instanceMaps(mapRows);
 	const seen = new Map(); // uiMap -> instance map, or null once it also shows another map
@@ -151,7 +151,7 @@ function instancesByUiMap(mapRows, assignmentRows) {
 		else if (seen.get(ui) !== m) seen.set(ui, null);
 	}
 	const out = {};
-	for (const [ui, m] of seen) if (m) out[ui] = { kind: m.kind, name: m.name };
+	for (const [ui, m] of seen) if (m) out[ui] = { kind: m.kind, name: m.name, map: m.map };
 	return out;
 }
 
@@ -185,7 +185,7 @@ function loadInstances(sourcesDir) {
 // item ('item': some npc or object that drops it) has an open-world spawn.
 // The world builder decides the same while it places the quest (it also
 // counts dungeons.json quests, which the compiler does not read).
-// -> { kind: 'dungeon' | 'raid' | 'pvp', name } | null
+// -> { kind: 'dungeon' | 'raid' | 'pvp', name, map } | null
 function instanceQuest(quest, areas, placed) {
 	const inst = quest && areas && areas[quest.area];
 	if (!inst) return null;

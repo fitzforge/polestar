@@ -23,6 +23,19 @@ local KIND = {
 	tram = { label = L["Deeprun Tram to %s"], color = "object" },
 }
 
+-- Names to show, in the client's language (Nav/Travel.lua: by area and node
+-- id), else the data's English.
+local function placeName(p)
+	local T = ns.Nav and ns.Nav.travel
+	return T and T.PlaceName and T.PlaceName(p) or p.name
+end
+
+local function taxiName(node, short)
+	local T = ns.Nav and ns.Nav.travel
+	if T and T.TaxiName then return T.TaxiName(node, short) end
+	return short and node.short or node.name
+end
+
 local function color(name, a)
 	local T = ns.Theme
 	if T and T.Color then
@@ -44,7 +57,7 @@ end
 
 local function taxiTooltip(node, data, faction, known)
 	return function(tip)
-		tip:SetText(node.name, rgb("text"))
+		tip:SetText(taxiName(node), rgb("text"))
 		local status = known[node.id] and L["Flight master, known"] or L["Flight master, not discovered"]
 		if node.faction == 3 then status = status .. " · " .. L["Neutral"] end
 		tip:AddLine(status, rgb(known[node.id] and "success" or "warning"))
@@ -62,7 +75,7 @@ local function taxiTooltip(node, data, faction, known)
 				local secs = Maps.LearnedFlight(node.id, dest.id)
 				local t = secs and Maps.FormatTime(secs) or ("~" .. Maps.FormatTime(Maps.LegSeconds(legs[i + 1])))
 				local r, g, b = rgb(known[dest.id] and "text" or "textMuted")
-				local name = dest.short or dest.name
+				local name = taxiName(dest, true)
 				if not known[dest.id] then name = name .. " " .. L["(not discovered)"] end
 				tip:AddDoubleLine(name, t, r, g, b, rgb("textDim"))
 			end
@@ -73,8 +86,8 @@ end
 local function dockTooltip(t, here, there, ride, waitThere, waitHere)
 	return function(tip)
 		local kind = KIND[t.kind] or KIND.boat
-		tip:SetText(format(kind.label, there.name), rgb("text"))
-		tip:AddLine(format(L["From %s"], here.name), rgb("textDim"))
+		tip:SetText(format(kind.label, placeName(there)), rgb("text"))
+		tip:AddLine(format(L["From %s"], placeName(here)), rgb("textDim"))
 		if ride then
 			tip:AddDoubleLine(L["Ride"], Maps.FormatTime(ride), rgb("textDim"))
 			local cycle = (t.ab or 0) + (t.ba or 0) + (waitThere or 0) + (waitHere or 0)
@@ -85,7 +98,7 @@ end
 
 local function innTooltip(inn, bound)
 	return function(tip)
-		tip:SetText(inn.name, rgb("text"))
+		tip:SetText(placeName(inn), rgb("text"))
 		tip:AddLine(L["Inn"], rgb("textDim"))
 		if bound then tip:AddLine(L["Your Hearthstone is bound here"], rgb("success")) end
 	end

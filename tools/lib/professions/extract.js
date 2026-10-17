@@ -16,9 +16,14 @@
 //     Powder 125, Bolt of Mageweave 175, Cured Thick Hide 200 where yellow =
 //     grey), and every known real value is at or below yellow, so a guide
 //     never sends the player to learn a recipe the trainer does not offer yet.
-//   - Season of Discovery content ships in the same Era client. It is left
-//     out: spell ids >= 400000, and recipes whose created item or recipe item
-//     is missing from items.json (built from pfQuest's vanilla database).
+//   - AcquireMethod 3 is a spell nobody learns: Forever retired Alchemy's
+//     healing potions (2330, 2337, ...) this way and teaches them in First
+//     Aid under new spell ids. Those rows are left out ("retired").
+//   - Season of Discovery content ships in the same client. It is left out:
+//     spell ids from 400000 that the Classic Era client's SkillLineAbility
+//     lists too (`season`; Forever's own recipes, past 1,000,000, it does
+//     not), else every spell id 400000-999999; and recipes whose created item
+//     is missing from items.json.
 
 const PROFESSIONS = {
 	171: 'primary', 164: 'primary', 333: 'primary', 202: 'primary', 165: 'primary', 197: 'primary',
@@ -27,6 +32,7 @@ const PROFESSIONS = {
 };
 
 const SOD_SPELL_MIN = 400000;
+const FOREVER_SPELL_MIN = 1000000;
 const ESTIMATE_GAP = 0;
 
 // Specialization recipes that trainers teach without a recipe item (game
@@ -63,31 +69,61 @@ function byId(rows) {
 	return m;
 }
 
+// An effect's base points as the Era client stores them (EffectBasePoints,
+// one less than the value with EffectDieSides 1). The Forever client keeps
+// only the value, EffectBasePointsF.
+function basePoints(e) {
+	if (e.EffectBasePoints != null && e.EffectBasePoints !== '') return int(e.EffectBasePoints);
+	return Math.round(Number(e.EffectBasePointsF) || 0) - 1;
+}
+
 // Indexes over the raw tables shared by every profession.
 function indexTables(t) {
 	const spellName = new Map((t.SpellName || []).map((r) => [int(r.ID), r.Name_lang]));
 	const effects = new Map();
-	const teachers = new Map(); // learned spell -> [teaching spells] (Effect 36)
+	const learns = new Map(); // teaching spell -> [learned spells] (Effect 36)
 	for (const r of t.SpellEffect || []) {
 		if (int(r.DifficultyID) !== 0) continue;
 		const s = int(r.SpellID);
 		if (!effects.has(s)) effects.set(s, []);
 		effects.get(s).push(r);
-		if (int(r.Effect) === 36) {
-			const learned = int(r.EffectTriggerSpell);
-			if (!teachers.has(learned)) teachers.set(learned, []);
-			teachers.get(learned).push(s);
+		if (int(r.Effect) === 36 && int(r.EffectTriggerSpell) > 0) {
+			if (!learns.has(s)) learns.set(s, []);
+			learns.get(s).push(int(r.EffectTriggerSpell));
 		}
 	}
 	for (const list of effects.values()) list.sort((a, b) => int(a.EffectIndex) - int(b.EffectIndex));
-	const itemEffects = groupBy(t.ItemEffect, 'SpellID'); // learn spell -> item effect rows
+	// learned spell -> items that teach it. An item effect with TriggerType 6
+	// teaches its SpellID itself (Forever's recipe items); any other casts a
+	// teaching spell (Effect 36, the Era client's). The Era client's ItemEffect
+	// names the item (ParentItemID), Forever's links them in ItemXItemEffect.
+	const effectItems = groupBy(t.ItemXItemEffect, 'ItemEffectID');
+	const taughtBy = new Map();
+	for (const r of t.ItemEffect || []) {
+		const parents = int(r.ParentItemID) ? [int(r.ParentItemID)] : (effectItems.get(int(r.ID)) || []).map((x) => int(x.ItemID));
+		const learned = int(r.TriggerType) === 6 ? [int(r.SpellID)] : learns.get(int(r.SpellID)) || [];
+		for (const s of learned) {
+			if (!taughtBy.has(s)) taughtBy.set(s, []);
+			taughtBy.get(s).push(...parents);
+		}
+	}
+	// Tool category (SpellTotems.RequiredTotemCategoryID, how Forever names a
+	// recipe's tool) -> the items of that category (ItemSparse.TotemCategoryID), by id.
+	const toolItems = new Map();
+	for (const r of t.ItemSparse || []) {
+		const cat = int(r.TotemCategoryID);
+		if (!cat) continue;
+		if (!toolItems.has(cat)) toolItems.set(cat, []);
+		toolItems.get(cat).push(int(r.ID));
+	}
+	for (const list of toolItems.values()) list.sort((a, b) => a - b);
 	return {
 		spellName,
 		effects,
-		teachers,
-		itemEffects,
+		taughtBy,
 		reagents: new Map((t.SpellReagents || []).map((r) => [int(r.SpellID), r])),
 		totems: new Map((t.SpellTotems || []).map((r) => [int(r.SpellID), r])),
+		toolItems,
 		casting: new Map((t.SpellCastingRequirements || []).map((r) => [int(r.SpellID), r])),
 		focus: new Map((t.SpellFocusObject || []).map((r) => [int(r.ID), r.Name_lang])),
 		sparse: byId(t.ItemSparse),
@@ -100,13 +136,10 @@ function indexTables(t) {
 // Recipe items (Item ClassID 9) whose use teaches `spell`, in items.json only.
 function recipeItemsFor(ix, spell, items) {
 	const out = [];
-	for (const teach of ix.teachers.get(spell) || []) {
-		for (const e of ix.itemEffects.get(teach) || []) {
-			const id = int(e.ParentItemID);
-			const it = ix.item.get(id);
-			if (!it || int(it.ClassID) !== 9 || !items[id] || out.includes(id)) continue;
-			out.push(id);
-		}
+	for (const id of ix.taughtBy.get(spell) || []) {
+		const it = ix.item.get(id);
+		if (!it || int(it.ClassID) !== 9 || !items[id] || out.includes(id)) continue;
+		out.push(id);
 	}
 	return out.sort((a, b) => a - b);
 }
@@ -131,7 +164,8 @@ function extractRecipe(ix, row, ctx) {
 	const create = effects.find((e) => int(e.Effect) === 24 && int(e.EffectItemType) > 0);
 	const enchant = effects.find((e) => int(e.Effect) === 53);
 	if (!create && !enchant) return { skip: 'not a recipe' };
-	if (spell >= SOD_SPELL_MIN) return { skip: 'season' };
+	if (int(row.AcquireMethod) === 3) return { skip: 'retired' };
+	if (spell >= SOD_SPELL_MIN && (ctx.season ? ctx.season.has(spell) : spell < FOREVER_SPELL_MIN)) return { skip: 'season' };
 	const made = create ? int(create.EffectItemType) : null;
 	if (made && !ctx.items[made]) return { skip: 'season' };
 	const yellow = int(row.TrivialSkillLineRankLow);
@@ -140,7 +174,7 @@ function extractRecipe(ix, row, ctx) {
 	const r = { spell, name: ix.spellName.get(spell) || `Spell ${spell}` };
 	if (made) {
 		r.item = made;
-		r.itemCount = Math.max(1, int(create.EffectBasePoints) + 1);
+		r.itemCount = Math.max(1, basePoints(create) + 1);
 	}
 	if (enchant) r.enchant = true;
 	const rg = ix.reagents.get(spell);
@@ -195,14 +229,23 @@ function extractRecipe(ix, row, ctx) {
 	}
 	const ups = int(row.NumSkillUps);
 	if (ups > 1) r.skillUps = ups;
+	// A tool is an item (Totem_0..1, the Era client) or a tool category
+	// (Forever): its first item in items.json, which is the plain tool
+	// (category 162 -> Blacksmith Hammer 5956, not the Arcanite one).
 	const tot = ix.totems.get(spell);
 	if (tot) {
 		const tools = [int(tot.Totem_0), int(tot.Totem_1)].filter((x) => x > 0);
+		for (const cat of [int(tot.RequiredTotemCategoryID_0), int(tot.RequiredTotemCategoryID_1)]) {
+			const list = (cat > 0 && ix.toolItems.get(cat)) || [];
+			const id = list.find((x) => ctx.items[x]) || list[0];
+			if (id && !tools.includes(id)) tools.push(id);
+		}
 		if (tools.length) r.tools = tools;
 	}
 	const cast = ix.casting.get(spell);
 	if (cast && int(cast.RequiresSpellFocus) > 0) r.focus = ix.focus.get(int(cast.RequiresSpellFocus)) || `focus ${int(cast.RequiresSpellFocus)}`;
-	const race = int(row.RaceMask_0);
+	// The low 32 race bits, unsigned (Forever's RaceMasks_0 is a signed int32).
+	const race = int(row.RaceMasks_0 ?? row.RaceMask_0) >>> 0;
 	if (race) r.races = race;
 	const cls = int(row.ClassMask);
 	if (cls) r.classes = cls;
@@ -217,7 +260,7 @@ function rankSpells(ix, skillLine) {
 		const spell = int(row.Spell);
 		const e = (ix.effects.get(spell) || []).find((x) => int(x.Effect) === 118 && int(x.EffectMiscValue_0) === skillLine);
 		if (!e) continue;
-		const tier = int(e.EffectBasePoints);
+		const tier = basePoints(e);
 		if (out[tier] === undefined || spell < out[tier]) out[tier] = spell;
 	}
 	return out;
@@ -274,9 +317,10 @@ function materialInfo(ix, id, ctx, madeBy) {
 }
 
 // -> { professions, report: { [id]: { recipes, skipped: { reason: n } } }, warnings }
-function extractProfessions(tables, { items = {}, npcs = {}, objects = {}, stock = new Map(), trainers = () => null } = {}) {
+// season: Set of Season of Discovery spell ids (see the top), else the id range decides.
+function extractProfessions(tables, { items = {}, npcs = {}, objects = {}, stock = new Map(), trainers = () => null, season = null } = {}) {
 	const ix = indexTables(tables);
-	const ctx = { items, npcs, objects, stock };
+	const ctx = { items, npcs, objects, stock, season };
 	const out = {};
 	const report = {};
 	const warnings = [];
@@ -336,4 +380,4 @@ function extractProfessions(tables, { items = {}, npcs = {}, objects = {}, stock
 	return { professions: out, report, warnings };
 }
 
-module.exports = { extractProfessions, indexTables, PROFESSIONS, ESTIMATE_GAP, SOD_SPELL_MIN };
+module.exports = { extractProfessions, indexTables, PROFESSIONS, ESTIMATE_GAP, SOD_SPELL_MIN, FOREVER_SPELL_MIN };

@@ -152,6 +152,9 @@ const DATA_KEYS = {
 		'Warrior', 'Paladin', 'Hunter', 'Rogue', 'Priest', 'Shaman', 'Mage', 'Warlock', 'Druid'],
 	// Lookup.PROFESSIONS (Lookup/Sources.lua), shown through L[name] in Lookup/Guide.lua.
 	'Lookup/Sources.lua': ['Alchemy', 'Blacksmithing', 'Enchanting', 'Engineering', 'Herbalism', 'Leatherworking', 'Mining', 'Skinning', 'Tailoring', 'Cooking', 'Fishing', 'First Aid'],
+	// Engine's skillName: a skill goal's name through L when the client has no name for its
+	// skill line (the professions above, and Riding).
+	'Core/Engine.lua': ['Riding'],
 	// ns.stage (Core/Init.lua), the chip beside the version (Theme/Widgets.lua).
 	'Core/Init.lua': ['Beta'],
 };
@@ -166,6 +169,27 @@ function specLabels(addonDir) {
 	const src = fs.readFileSync(file, 'utf8');
 	while ((m = re.exec(src))) out.push(m[1]);
 	return out;
+}
+
+// The spec names of Talents/Builds.lua (`specs = { "...", ... }` per class), shown through
+// L[...] (Talents.Register's specName).
+function talentSpecs(addonDir) {
+	const file = path.join(addonDir, 'Talents', 'Builds.lua');
+	if (!fs.existsSync(file)) return [];
+	const out = [];
+	for (const m of fs.readFileSync(file, 'utf8').matchAll(/\bspecs\s*=\s*\{([^}]*)\}/g)) {
+		for (const s of m[1].matchAll(/"((?:[^"\\]|\\.)*)"/g)) out.push(s[1]);
+	}
+	return out;
+}
+
+// The attunement table's notes (tools/lib/codex/attunements.json `note`),
+// shown through L[a.note] on the Dungeons Attunement tab and in its guide.
+function attunementNotes(addonDir) {
+	const file = path.join(__dirname, '..', 'codex', 'attunements.json');
+	if (!fs.existsSync(path.join(addonDir, 'Dungeons', 'Attune.lua')) || !fs.existsSync(file)) return [];
+	const doc = JSON.parse(fs.readFileSync(file, 'utf8'));
+	return [...new Set((doc.attunements || []).map((a) => a.note).filter((n) => typeof n === 'string' && n !== ''))];
 }
 
 function luaFiles(dir, skip) {
@@ -210,6 +234,8 @@ function extractKeys(addonDir) {
 		for (const key of list) add(key, { file, line: 0, data: true });
 	}
 	for (const key of specLabels(addonDir)) add(key, { file: 'Gear/Weights.lua', line: 0, data: true });
+	for (const key of talentSpecs(addonDir)) add(key, { file: 'Talents/Builds.lua', line: 0, data: true });
+	for (const key of attunementNotes(addonDir)) add(key, { file: 'Dungeons/Attune.lua', line: 0, data: true });
 	return keys;
 }
 

@@ -48,6 +48,11 @@ next forever/horde/05-stonetalon-mountains
 #   first, The Hermit Tanner up to Walton, then Trouble in the Valley and
 #   Unwelcome Guests. The export took Walton's two first, which he does not
 #   offer yet (a player's report).
+# - Visiting order inside a town follows where you arrive: Sputtervalve
+#   (beside the wind rider master) first and Dizzywig on the dock last when
+#   you fly into Ratchet; Dizzywig first when you walk in from the south
+#   coast; Tatternack Steelforge, at the north edge of Camp Taurajo, last;
+#   Gann Stonespire's two quests in one visit before Sulhasa.
 #
 # Optional: WANTED: Bruuz (92706): Bruuz is elite, grouping up is advised.
 # Owatanka (884), Lakota'mani (883), The Harvester (897) and Washte Pawne
@@ -111,12 +116,12 @@ step Fly to Ratchet
 
 step Ratchet
   zone The Barrens
-  accept 865                          -- Mebok Mizzyrix
+  accept 1483                         -- Sputtervalve, beside the wind rider master. Keep it: Ziz Fizziks is in Stonetalon, later
   accept 895                          -- WANTED poster
   accept 92706 optional               -- WANTED poster
+  accept 865                          -- Mebok Mizzyrix
   accept 891                          -- Captain Thalo'thas Brightsun
-  accept 896                          -- Wharfmaster Dizzywig
-  accept 1483                         -- Sputtervalve. Keep it: Ziz Fizziks is in Stonetalon, later
+  accept 896                          -- Wharfmaster Dizzywig, on the dock
 
 step Bruuz
   tip Bruuz swims in the harbour just off Ratchet's docks. Bruuz is elite: grouping up is advised.
@@ -333,11 +338,11 @@ step Camp Taurajo
   turnin 3261                         -- Jorn Skyseer
   accept 882
   accept 878                          -- Mangletooth, in the cage
-  accept 893                          -- Tatternack Steelforge
   turnin 1511 only Warlock            -- Grunt Logmar
   accept 1515 only Warlock
   turnin 1823 only Warrior            -- Ruga Ragetotem
   accept 1824 only Warrior
+  accept 893                          -- Tatternack Steelforge, at the north edge of the camp
 
 step Bristleback camps
   tip The Bristleback quilboar camps spread over the plains north of Camp Taurajo, either side of the Gold Road. Every Bristleback drops a tusk; Mankrik's wife lies at the north edge. Keep one Blood Shard. Lakota'mani, a grey kodo, sometimes wanders here: his hoof starts a quest.
@@ -376,9 +381,9 @@ step Islen Waterseer
   accept 1530
 
 step Ratchet
-  turnin 865                          -- Mebok Mizzyrix
   turnin 896                          -- Wharfmaster Dizzywig
   turnin 863                          -- Sputtervalve
+  turnin 865                          -- Mebok Mizzyrix
   vendor nearest
 
 step Ishamuhale
@@ -470,8 +475,8 @@ step Bael Modan
 
 step Gann Stonespire
   turnin 843
-  turnin 98093 @47.8,77.6             -- Sulhasa
   accept 846
+  turnin 98093 @47.8,77.6             -- Sulhasa
 
 step Bael'dun fortress
   tip The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them.

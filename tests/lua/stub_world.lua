@@ -9,6 +9,7 @@
 --   w.accept(7, { 10 })                    -- objectives: counts or { text, type, required }
 --   w.progress(7, 1, 4)                    -- objective 1 at 4/10
 --   w.turnIn(7)
+--   w.repeatable[308] = true               -- a turn-in never flags it completed
 --   w.complete({ 783, 7 })                 -- already turned in (no events): alts
 --   w.setLevel(4); w.addItem(750, 2); w.bind("Goldshire"); w.setZone("Elwynn Forest", "Goldshire")
 --   w.gossip(197, { available = { { questID = 7, title = "..." } }, active = { { questID = 783, isComplete = true } } })
@@ -42,6 +43,7 @@ local world = {
 	bindLocation = "Northshire Abbey",
 	zone = "Elwynn Forest", subzone = "Northshire Valley",
 	inInstance = false,
+	indoors = false, -- IsIndoors(): in a cave, mine or building
 	maps = {},
 	log = {},
 	completed = {},
@@ -52,6 +54,7 @@ local world = {
 	frame = nil,
 	calls = {},
 	choices = {}, -- questID -> reward choices offered on its reward panel
+	repeatable = {}, -- questID -> true: a turn-in never flags it completed
 	skills = {}, -- skillLine -> { name, rank, maxRank }
 	spells = {}, -- spellbook spells
 	recipes = {}, -- learned profession recipes
@@ -154,7 +157,7 @@ end
 
 function world.turnIn(q, xp, money)
 	world.log[q] = nil
-	world.completed[q] = true
+	if not world.repeatable[q] then world.completed[q] = true end
 	fire("QUEST_TURNED_IN", q, xp or 0, money or 0)
 	fire("QUEST_REMOVED", q, false)
 	logChanged()
@@ -214,9 +217,13 @@ function world.questDetail(npc, q, opts)
 	fire("QUEST_DETAIL", opts.startItem)
 end
 
-function world.questProgress(npc, q)
+-- opts.completable: the window's own word, for a quest handed in without ever
+-- being accepted (a give-item quest, which is never in the log). Left out, the
+-- quest log decides, as for a quest taken the usual way.
+function world.questProgress(npc, q, opts)
 	talkTo(npc)
-	world.frame = { kind = "progress", npc = npc, questID = q }
+	opts = opts or {}
+	world.frame = { kind = "progress", npc = npc, questID = q, completable = opts.completable }
 	fire("QUEST_PROGRESS")
 end
 
@@ -353,6 +360,7 @@ function UnitGUID(unit)
 	return world.units[unit]
 end
 function UnitOnTaxi(unit) return unit == "player" and world.onTaxi or false end
+function IsIndoors() return world.indoors end
 function UnitAffectingCombat(unit) return unit == "player" and stub.inCombat or false end
 function GetZoneText() return world.zone or "" end
 function GetRealZoneText() return world.zone or "" end
@@ -485,7 +493,12 @@ function AcknowledgeAutoAcceptQuest() acceptOpen("AcknowledgeAutoAcceptQuest") e
 function DeclineQuest() call("DeclineQuest"); world.close() end
 function CloseQuest() world.close() end
 
-function IsQuestCompletable() local f = frameOf("progress"); return f and questReady(f.questID) or false end
+function IsQuestCompletable()
+	local f = frameOf("progress")
+	if not f then return false end
+	if f.completable ~= nil then return f.completable and true or false end
+	return questReady(f.questID)
+end
 function CompleteQuest()
 	local f = frameOf("progress")
 	call("CompleteQuest", f and f.questID)

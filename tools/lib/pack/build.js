@@ -9,6 +9,7 @@ const path = require('node:path');
 const { Diagnostics } = require('../dsl/diag');
 const { parseArgs, resolvePath, printDiagnostics, formatError, plural } = require('../cli');
 const { compileProject, buildPackFiles } = require('../dsl/project');
+const { packTranslations } = require('../i18n/guides');
 const { ROOT, DATA } = require('../paths');
 const { hasCoreData, emptyData, CORE_FILES } = require('../dsl/data');
 const { commandPack, packArgument } = require('./locate');
@@ -164,6 +165,15 @@ function buildPack(pack, { dataDir = DATA, cache = null, includeDrafts = false, 
 	});
 	r.diag.list.push(...pack.diags, ...((cache && cache.diags) || []));
 	const license = readLicense(pack, r.diag);
+	// The pack's translations (<pack>/locales/<locale>/, docs/TRANSLATING.md
+	// "Guide texts"): a file Lua cannot load, a broken or stale translation and
+	// an orphan file are warnings; the English shows for each.
+	let translations = {};
+	if (!r.diag.hasErrors()) {
+		const got = packTranslations(pack.dir, pack.manifest, r.guides);
+		translations = got.translations;
+		for (const w of got.warnings) r.diag.warn(w.file, 0, w.message);
+	}
 	const ok = !r.diag.hasErrors();
 	return {
 		ok,
@@ -172,7 +182,8 @@ function buildPack(pack, { dataDir = DATA, cache = null, includeDrafts = false, 
 		guides: r.guides,
 		sources: r.sources,
 		data: r.data,
-		files: ok && files ? buildPackFiles({ guides: r.guides, manifest: pack.manifest, data: r.data, license }) : null,
+		files: ok && files ? buildPackFiles({ guides: r.guides, manifest: pack.manifest, data: r.data, license, translations }) : null,
+		tokens: r.tokens,
 		noData: false,
 	};
 }

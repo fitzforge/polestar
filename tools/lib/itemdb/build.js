@@ -45,6 +45,7 @@ function emitToc(version, files = ['Items.lua']) {
 		'## Interface: 16001',
 		'## Title: Polestar Item Data',
 		'## Notes: Item stats for Polestar\'s gear advice. Loaded on demand.',
+		...require('../i18n/toc').tocLines('Polestar_ItemDB'),
 		'## Author: Polestar',
 		'## X-License: GPL-3.0-only',
 		`## Version: ${version}`,

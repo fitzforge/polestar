@@ -59,6 +59,8 @@ test('formatGoal writes the canonical forms', () => {
 	};
 	assert.equal(f('accept 7 "A Title"   only Human, Dwarf optional -- from Marshal'), 'accept 7 "A Title" optional only Human,Dwarf -- from Marshal');
 	assert.equal(f('turnin 7 money 15000 xp 300 choose 6480 918 "Hide Pack" common'), 'turnin 7 choose 6480 918 "Hide Pack" common xp 300 money 1g50s');
+	// #108: the editor must not drop `direct` when it rewrites a turn-in.
+	assert.equal(f('turnin 308 optional direct'), 'turnin 308 direct optional');
 	assert.equal(f('goto 39.5, 80 r 20'), 'goto 39.5,80.0 r 20');
 	assert.equal(f('kill "Wolf" npc 299 x8 @40,50 live'), 'kill "Wolf" @40.0,50.0 live npc 299 x8');
 	assert.equal(f('train Mining Expert'), 'train Mining Expert');
@@ -86,6 +88,7 @@ test('verbSchema lists each verb with its positional and modifier fields', () =>
 	assert.ok(verbs.goto.positional.some((p) => p.type === 'coords' && p.required));
 	assert.ok(!verbs.goto.modifiers.some((m) => m.mod === 'at'));
 	assert.ok(verbs.turnin.modifiers.some((m) => m.key === 'rewardMoney'));
+	assert.ok(verbs.turnin.modifiers.some((m) => m.key === 'direct' && m.type === 'bool'));
 });
 
 const BASE = [

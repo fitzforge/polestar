@@ -1,10 +1,31 @@
 Polestar names (ruRU): third-party notices
 ==========================================
 
-The quest, NPC, object and item names in this folder are the game's names in
-Russian, for Polestar's guides. Names and texts of the game belong to
-Blizzard Entertainment. They come from the sources below, the first one
-with a name winning.
+The names in this folder (quests, NPCs, objects, items, instances, dungeon
+encounters, factions, flight points and some quest objectives) are the game's
+texts in Russian, for Polestar. Names and texts of the game belong to
+Blizzard Entertainment. They come from the sources below, in this order, the
+first one with a name for an id winning.
+
+World of Warcraft client tables, via wago.tools
+-----------------------------------------------
+Build: 1.60.1.70425, World of Warcraft: Forever (wow_classic_beta)
+Build: 1.15.9.70003, Classic Era (wow_classic_era), for the items Forever's table lacks
+Table: https://wago.tools/db2/DungeonEncounter/csv?build=1.60.1.70425&locale=ruRU
+Table: https://wago.tools/db2/Faction/csv?build=1.60.1.70425&locale=ruRU
+Table: https://wago.tools/db2/ItemSparse/csv?build=1.15.9.70003&locale=ruRU
+Table: https://wago.tools/db2/ItemSparse/csv?build=1.60.1.70425&locale=ruRU
+Table: https://wago.tools/db2/Map/csv?build=1.60.1.70425&locale=ruRU
+Table: https://wago.tools/db2/TaxiNodes/csv?build=1.60.1.70425&locale=ruRU
+The client's own strings: names only.
+Names taken: 21318 items, 30 instances, 342 encounters, 74 factions, 61 flight points.
+
+Wowhead, World of Warcraft: Forever database
+--------------------------------------------
+URL: https://www.wowhead.com/forever/ru/ (list pages; tooltips from nether.wowhead.com/forever)
+Read: 2026-10-16 to 2026-10-16
+Public web pages; the game's names only (facts), credited in THIRD_PARTY.md.
+Names taken: 4829 quests, 9279 NPCs, 1080 objects, 499 items, 1 quest objective.
 
 DingDB, the game database of Ding! by Yendi (@moust4ki)
 -------------------------------------------------------
@@ -14,7 +35,7 @@ File: Ding/DB/CREDITS.md (sha256 d32ce3d857766e88d0afd94d39eb0d4e3317ccc5538a467
 File: Ding/DB/Locales/ruRU.lua (sha256 3a7ec4e35701a690282ed0b5ec91240c8c7c62b1f0a32d0000e780f5d52f8636)
 License: GPL-3.0 (Copyright Yendi), used in Polestar with his permission
 (THIRD_PARTY.md in the Polestar repository).
-Names taken: 4251 quests, 8051 NPCs, 949 objects, 14970 items.
+Names taken: 50 quests, 4 NPCs, 32 objects, 11 items.
 DingDB's base data is generated from Questie and QuestieDB: see CREDITS.md
 beside this file.
 
@@ -24,7 +45,7 @@ URL: https://github.com/shagu/pfQuest
 Revision: 104f35678ca39ab1fb78b655f815cc7016f5e0c8
 Files: db/ruRU/{quests,units,objects,items}.lua
 License: MIT
-Names taken: 18 quests, 90 NPCs, 43 objects, 1844 items (the ones DingDB lacks).
+Names taken: 10 quests, 75 objects, 501 items, 27 quest objectives (the ones the sources above lack).
 
 MIT License
 

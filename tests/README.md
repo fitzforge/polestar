@@ -43,13 +43,13 @@ client loads them.
 
 | File | What it fakes |
 |---|---|
-| `wow_stub.lua` | The generic client every module shares: frames, scripts, events, timers and a clock the test advances, fonts, animation groups, slash commands, settings panels. No quest, map or unit APIs. |
+| `wow_stub.lua` | The generic client every module shares: frames, scripts, events, timers and a clock the test advances, fonts, animation groups, slash commands, settings panels, and the map frames' shape (`stub.newMapCanvas`: the world map's canvas and the getters Polestar reads; `stub.guardMap`: any write of addon code into a map's tables fails, and what it reads is listed), and the gamepad interface's hook on `CreateFrame` (a call from addon code with a parent that is, or is under, a frame addon code did not make fails and is listed in `stub.underGameFrames`). No quest, map data or unit APIs. |
 | `stub_world.lua` | The game world for Core tests: the player, quest log, bags, NPCs, the quest, gossip, trainer, merchant and taxi frames, and maps with simple bounds |
-| `stub_nav.lua` | A world for Nav: fakes of `Compat` and `Engine`, a world map canvas, the minimap, super-tracking and an optional waypoint addon |
+| `stub_nav.lua` | A world for Nav: fakes of `Compat` and `Engine`, the world map (guarded), the minimap, super-tracking and an optional waypoint addon |
 | `stub_quests.lua` | Quest log enumeration, completed quests, tooltip processing, nameplates, loading `Polestar_QuestDB`, and a fake of `Pins` |
 | `stub_questlog.lua` | The client's quest title surfaces (quest log, tracker, gossip, greeting and quest details), for quest levels |
 | `stub_gear.lua` | Items, equipment, bags, talents, tooltips and quest reward choices |
-| `stub_maps.lua` | The taxi map, instances and saved lockouts, and a small travel world |
+| `stub_maps.lua` | The taxi map, instances and saved lockouts, a small travel world, and the world map over it (guarded) |
 | `stub_qol.lua` | A world for Quality of Life: fakes of the Engine, Nav and Pins, and the client APIs QoL uses (XP, merchant, rewards, gossip, taxi, death, requests from other players) |
 | `stub_lookup.lua` | A stand-in for Search, the Codex and the Lookup runtime, for the Lookup window's tests (global `lookupstub`) |
 | `stub_lookup_runtime.lua` | The client pieces the Lookup runtime touches: tooltip post-calls, mount auras, Alt-click (global `lookuprt`) |
@@ -57,6 +57,7 @@ client loads them.
 | `stub_packs.lua` | Load-on-demand data addons from real files: `LoadAddOn` runs a pack's files once and fires `ADDON_LOADED` |
 | `stub_encoding.lua` | `C_EncodingUtil.DecodeBase64` and `DecompressString` (zlib inflate) in plain Lua 5.1, so `Polestar_Nav`'s walking maps decode as in the client; `stub.decompressed` counts the blocks |
 | `stub_ui.lua` | A stand-in for the Engine, the guide registry, Nav and Compat, with sample guides, for the UI tests and for `preview` (global `uistub`) |
+| `stub_gamepad.lua` | A gamepad and the key binding API: `C_GamePad`, `IsKeyDown`, saved and override bindings (refused in combat), and `stub.press(key[, down])`, which delivers a button as the client does: the frames reading the gamepad first, then the override bindings, then the game's binding |
 | `stub_recorder.lua` | The Recorder's slice of the world: player, maps, quest log, NPCs (classification, level), deaths, loot windows and their sources, instances, flight masters, talents |
 | `profile.lua` | Not a stub: per-handler timing and a stack sampler for `helpers/profile.js` |
 
@@ -68,7 +69,7 @@ modules meet. New client APIs go in the stub of the module that needs them;
 
 | File | What it gives |
 |---|---|
-| `helpers/lua.js` | `runAddon({ stubs, before, addons, saved, login, script })`: runs addons under Lua 5.1 and returns what the script `emit`ted. `POLESTAR_ADDON_DIR` loads the addons from another folder. |
+| `helpers/lua.js` | `runAddon({ stubs, before, addons, saved, login, script })`: runs addons under Lua 5.1 and returns what the script `emit`ted. `POLESTAR_ADDON_DIR` loads the addons from another folder. Every file it loads as an addon is listed in `stub.addonSources` (the map guard's addon code). |
 | `helpers/dsl.js` | The toolchain tests' helpers: the fixture reference data (`DATA_DIR`, `fixtureData`), `compile` of guide text, `writeTestPack` |
 | `helpers/cli.js` | `polestar(args, { cwd, env, input })` runs the command line as a child process; `quiet(fn)` runs a command in-process with its output captured; `fakeAddons` lays out addon folders for pack and install tests |
 | `helpers/data.js` | `needs(...files)`: the one skip reason for a test that reads `data/forever` when those files are not built |
@@ -77,6 +78,7 @@ modules meet. New client APIs go in the stub of the module that needs them;
 | `helpers/codex.js` | `writeCodexPack`, `sampleCodex`: a loadable `Polestar_Codex` built from a Codex object such as `fixtures/codex/sample.json` |
 | `helpers/packs.js` | `TEST_PACK`, `TEST_SOURCE`: the Lua lines that register the test guide pack and make it the suggestion source |
 | `helpers/profile.js` | `profileGuide`: plays a guide with every handler timed. Also a command: `node tests/helpers/profile.js <guide> [race] [class] --packs [--sample=1000]` |
+| `helpers/guide-engine.js` | `officialGuides()`: every guide under `guides/` compiled once with the real data (legacy left out); `stepGroups(guide, data, who, steps)`: the Engine's focus and groups of those steps for one character, with nothing done |
 
 ## Fixtures
 
@@ -97,7 +99,7 @@ CI, they skip; everything else runs.
 
 | Local input | Built by | Tests that use it |
 |---|---|---|
-| `data/forever/*.json` (reference data) | `data build` and the other data commands | `guides.test.js`, `guides-caves.test.js` and `guides-reported.test.js` (player-reported guide fixes, one case per report), `lint-timed.test.js` (the old and fixed orders of timed quest items, every guide in time; needs item durations), `engine-placement.test.js`, `perf.test.js`, `acceptance-packs.test.js`, `playtest.test.js`, `play.test.js`, `play-pack.test.js`, `play-start.test.js`, `new.test.js`, `dev.test.js`, `dsl.test.js`, `maps-zonelevels.test.js`, `profession-gathering.test.js`, `questdb.test.js`, `planner-timeline.test.js` (the Dwarf chain played to level 55; needs `travel.json` too) |
+| `data/forever/*.json` (reference data) | `data build` and the other data commands | `guides.test.js`, `guides-caves.test.js` and `guides-reported.test.js` (player-reported guide fixes, one case per report), `guides-patterns.test.js` (the patterns behind those reports, across every guide: the first giver beside the spawn, class letters on a training visit, "Click X" only for clicks, quest clicks shown with their step's kills, vendor-only items bought), `lint-timed.test.js` (the old and fixed orders of timed quest items, every guide in time; needs item durations), `engine-placement.test.js`, `perf.test.js`, `acceptance-packs.test.js`, `playtest.test.js`, `play.test.js`, `play-pack.test.js`, `play-start.test.js`, `new.test.js`, `dev.test.js`, `dsl.test.js`, `maps-zonelevels.test.js`, `profession-gathering.test.js`, `questdb.test.js`, `planner-timeline.test.js` (the Dwarf chain played to level 55; needs `travel.json` too) |
 | Client map tables cached in `data/sources/wago` | `exploration build` | `exploration.test.js` |
 | Classic Era `TaxiPathNode` cached in `data/sources/wago` | `travel build` | `nav-transit.test.js` (the transport model against every sniffed CMaNGOS period) |
 | `addon/Polestar_QuestDB` | `questdb build` | `questdb.test.js`, `quests.test.js` |

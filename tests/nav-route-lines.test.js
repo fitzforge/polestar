@@ -241,8 +241,8 @@ local function shown(owner)
 	return n
 end
 local function worldPin()
-	local pool = WorldMapFrame.pinPools.PolestarRouteLinesTemplate
-	if pool then for pin in pool:EnumerateActive() do return pin end end
+	local f = R.GetWorldFrame()
+	if f and f:IsShown() then return f end
 end
 ${script}`,
 	}).emitted;
@@ -277,7 +277,7 @@ test('the painters draw the route on the world map and the minimap, and stand in
 	assert.ok(out.world > 10 && out.worldLines === out.world, `world map: ${out.world} strokes, ${out.worldLines} lines shown`);
 	assert.ok(out.minimap > 5, `minimap: ${out.minimap} strokes`);
 	assert.equal(out.trail, false, 'the trail stands down while the lines draw');
-	assert.equal(out.offWorld, true, 'nav.routeLines off: no world pin');
+	assert.equal(out.offWorld, true, 'nav.routeLines off: no world lines');
 	assert.equal(out.offTrail, true, 'and the trail is back');
 	assert.equal(out.backTrail, false);
 	assert.ok(out.backWorld > 10);
@@ -306,7 +306,9 @@ test('the minimap redraws only when something changed, and its line pool never s
 	assert.ok(out.limit <= 600);
 });
 
-test('NAV_QA C4: in combat the world map pin is neither acquired nor released; the refresh waits for combat to end', () => {
+// The lines are Polestar's own frame on the canvas (Nav/MapCanvas.lua): nothing
+// is acquired from the map or released to it, so combat changes nothing.
+test('NAV_QA C4: in combat the world map lines redraw on the frame in hand and turn off at once', () => {
 	const [out] = painted(`
 		local C = Polestar.Compat
 		function C.InCombat() return stub.inCombat and true or false end
@@ -321,15 +323,12 @@ test('NAV_QA C4: in combat the world map pin is neither acquired nor released; t
 		stub.advance(0.3)
 		local r = { samePin = worldPin() == pin, lines = shown(pin) }
 		Polestar.Set("nav.routeLines", false)
-		r.keptInCombat = worldPin() == pin
+		r.offInCombat = worldPin() == nil
 		stub.inCombat = false
-		stub.fire("PLAYER_REGEN_ENABLED")
-		r.released = worldPin() == nil
 		emit(r)`);
-	assert.equal(out.samePin, true, 'the pin in hand is redrawn, not swapped');
+	assert.equal(out.samePin, true, 'the frame in hand is redrawn, not swapped');
 	assert.ok(out.lines > 10);
-	assert.equal(out.keptInCombat, true, 'turning the lines off in combat waits');
-	assert.equal(out.released, true, 'and happens once combat ends');
+	assert.equal(out.offInCombat, true, 'turning the lines off in combat takes effect at once');
 });
 
 test('NAV_QA C5: a secret position or facing hides the minimap line, with no error', () => {
@@ -439,31 +438,29 @@ test('NAV_QA K8: a chokepoint stop wears its glyph; a hand-made stop (no choke) 
 	assert.equal(out[2].backdrop, false);
 });
 
-test('review P3-8: Blizzard_WorldMap loading after login installs the route-line pin', () => {
+test('review P3-8: Blizzard_WorldMap loading after login draws the route lines on the map', () => {
 	const [out] = runAddon({
 		stubs: ['stub_nav.lua'],
-		before: 'stub.savedPools = WorldMapFrame.pinPools; WorldMapFrame.pinPools = nil',
+		before: 'stub.savedMap = WorldMapFrame; WorldMapFrame = nil',
 		addons: [LINES],
 		login: true,
 		script: `
 local N, R, nav = Polestar.Nav, Polestar.RouteLines, stub.nav
-WorldMapFrame:GetCanvas():SetSize(1000, 1000)
 Polestar.Set("nav.travel", false)
 nav.place(0, 0)
 local m, x, y = nav.mapPoint(0, -600)
 N.SetTarget(m, x, y, "Target")
 stub.advance(0.3)
-local before = WorldMapFrame.pinPools
-WorldMapFrame.pinPools = stub.savedPools
+local before = R.GetWorldFrame()
+WorldMapFrame = stub.savedMap
+WorldMapFrame:GetCanvas():SetSize(1000, 1000)
 stub.fire("ADDON_LOADED", "Blizzard_WorldMap")
 nav.showWorldMap(9000)
-local pool = WorldMapFrame.pinPools.PolestarRouteLinesTemplate
-local n = 0
-if pool then for _ in pool:EnumerateActive() do n = n + 1 end end
-emit({ before = before == nil, pins = n, strokes = R.GetStrokes("world").n })`,
+local f = R.GetWorldFrame()
+emit({ before = before == nil, shown = f ~= nil and f:IsShown(), strokes = R.GetStrokes("world").n })`,
 	}).emitted;
 	assert.equal(out.before, true);
-	assert.equal(out.pins, 1, 'the pin is installed and acquired once the map addon loads');
+	assert.equal(out.shown, true, 'the lines show once the map addon loads');
 	assert.ok(out.strokes > 10);
 });
 
@@ -532,8 +529,7 @@ local m, x, y = nav.mapPoint(0, -600)
 N.SetTarget(m, x, y, "Target")
 nav.showWorldMap(9000)
 stub.advance(0.3)
-local pin
-for p in WorldMapFrame.pinPools.PolestarRouteLinesTemplate:EnumerateActive() do pin = p end
+local pin = Polestar.RouteLines.GetWorldFrame()
 local outline = pin.outlines[1]
 outline:SetVertexColor(1, 0, 0) -- stale
 T.Refresh()

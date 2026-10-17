@@ -244,6 +244,29 @@ const GLYPHS = {
 		polyline([[3.6, 12.2], [12, 16.8], [20.4, 12.2]], 2.1),
 		polyline([[3.6, 16.2], [12, 20.8], [20.4, 16.2]], 2.1),
 	),
+	// Integrations (other addons Polestar works with): a plug, two prongs
+	// over its body, the cable out of the bottom.
+	plug: union(
+		line(9, 2.8, 9, 7.6, 2.2), line(15, 2.8, 15, 7.6, 2.2),
+		box(12, 11.2, 6.6, 3.8, 1.4),
+		poly([[8.4, 14.4], [15.6, 14.4], [13.6, 18], [10.4, 18]]),
+		line(12, 17.4, 12, 21.4, 2.25),
+	),
+	// Gamepad (UI/Gamepad.lua): the options page's controller, and the
+	// PlayStation face buttons drawn as their shapes (Xbox's are letters, set
+	// as text). The D-pad uses the chevrons.
+	gamepad: subtract(
+		union(
+			box(12, 10.6, 9.6, 4.8, 3.4),
+			rotate(box(5.6, 15.4, 2.8, 4.6, 2.6), 18, 5.6, 15.4),
+			rotate(box(18.4, 15.4, 2.8, 4.6, 2.6), -18, 18.4, 15.4),
+		),
+		union(box(7.2, 10.6, 2.9, 0.8), box(7.2, 10.6, 0.8, 2.9), dot(16.2, 9, 1.15), dot(18.4, 11.4, 1.15)),
+	),
+	'pad-cross': union(line(6.5, 6.5, 17.5, 17.5, 2.6), line(17.5, 6.5, 6.5, 17.5, 2.6)),
+	'pad-circle': ring(12, 12, 6.6, 2.6),
+	'pad-square': subtract(box(12, 12, 6.8, 6.8), box(12, 12, 4.2, 4.2)),
+	'pad-triangle': polyline([[12, 4.6], [19.4, 17.6], [4.6, 17.6], [12, 4.6]], 2.6),
 };
 
 function glyph(shape) {

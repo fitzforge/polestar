@@ -3,27 +3,18 @@
 // facts Forever changed. Facts only (ids, XP, levels); results stay in data/,
 // which is gitignored.
 //
-// Quest lists: /forever/quests/<continent>/<zone> carries a Listview of the
-// zone's quests: id, name, level, reqlevel, xp, category (the zone's AreaTable
-// id), type (Wowhead's quest type: 81 Dungeon, 62 Raid, 1 Elite, 41 PvP),
-// side (1 Alliance, 2 Horde, 3 both), itemchoices and itemrewards ([[item,
-// count]]: one of the choices, every one of the rewards), money (copper),
-// reprewards ([[faction, value]]) and envChange { status: new | updated |
-// unchanged, lines }. Class quests are filed under the class instead
-// (/forever/quests/classes/<class>, a negative category per class), dungeon
-// and raid quests under their instance (/forever/quests/dungeons and
-// /forever/quests/raids list every one, each row's category the instance's
-// area: 1581 The Deadmines). Wowhead answers an unknown path with a generic
-// list, so only rows whose category is the page's own count (any category on
-// the dungeon and raid pages).
+// `data build` reads the zone quest lists cached in data/sources/wowhead/,
+// when there are any, and builds without them otherwise.
 //
-// Cache: <sources>/wowhead/zones.json ({ version, fetchedAt, pages: ["<page>",
-// ...], zones: { "<area>": rows } }), refetched once it is a day old (Wowhead
-// adds quests as players find them), when it lacks a page the build now reads
-// or when an older parser wrote it (`version`); --offline builds read it and
-// fetch nothing. A row: { id, name, level, reqlevel, xp, type, side, choices,
-// items, money, rep, status, lines } (choices / items [[item, count]], rep
-// [[faction, value]]).
+// Cache: <sources>/wowhead/zones.json ({ fetchedAt, zones: { "<area>": rows } }),
+// one list per zone, class (a negative category per class) and instance (the
+// dungeon and raid lists, each row under its instance's area: 1581 The
+// Deadmines). A row: { id, name, zone, level, reqlevel, xp, type (Wowhead's
+// quest type: 81 Dungeon, 62 Raid, 1 Elite, 41 PvP), side (1 Alliance, 2
+// Horde, 3 both), choices (one of them), items (every one) [[item, count]],
+// money (copper), rep [[faction, value]], status (new | updated |
+// unchanged), lines (the change notes) }; an older cache's rows lack `zone`
+// (their list's key gives it).
 //
 // What the build does with it:
 // - applyChangeNotes: a note "Experience X instead of Y", "Level X instead of
@@ -46,73 +37,6 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const BASE = 'https://www.wowhead.com/forever';
-const CONCURRENCY = 4;
-const ZONE_TTL_MS = 24 * 60 * 60 * 1000;
-// Bumped when a row gains fields: an older cache is read again.
-const CACHE_VERSION = 2;
-const CONTINENTS = { 1414: 'kalimdor', 1415: 'eastern-kingdoms' };
-// Wowhead's quest categories for the class pages.
-const CLASS_PAGES = [
-	['Warlock', -61], ['Warrior', -81], ['Shaman', -82], ['Paladin', -141], ['Mage', -161],
-	['Rogue', -162], ['Hunter', -261], ['Priest', -262], ['Druid', -263],
-];
-
-// "Un'Goro Crater" -> "ungoro-crater"
-function slug(name) {
-	return String(name).toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
-
-// The JSON array starting at text[start] ('['), strings respected.
-function arrayAt(text, start) {
-	let depth = 0;
-	let inString = false;
-	for (let i = start; i < text.length; i++) {
-		const c = text[i];
-		if (inString) {
-			if (c === '\\') i++;
-			else if (c === '"') inString = false;
-		} else if (c === '"') inString = true;
-		else if (c === '[') depth++;
-		else if (c === ']' && --depth === 0) return JSON.parse(text.slice(start, i + 1));
-	}
-	throw new Error('unterminated array');
-}
-
-function plain(s) {
-	return String(s).replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/&#0?39;|&#x27;/g, "'").trim();
-}
-
-const pairs = (v) => (Array.isArray(v) ? v.filter((p) => Array.isArray(p) && Number.isInteger(p[0]) && p[0] > 0).map((p) => [p[0], Number(p[1]) || 1]) : []);
-
-// Zone page HTML -> rows of the quest Listview whose category is `area`
-// (any category when `area` is null: the dungeon and raid pages), each with
-// its category as `zone` ([] for a page without one).
-function parseZoneQuests(html, area) {
-	const i = html.indexOf("new Listview({template: 'quest'");
-	if (i < 0) return [];
-	const d = html.indexOf('data:', i);
-	const open = d < 0 ? -1 : html.indexOf('[', d);
-	if (open < 0) return [];
-	return arrayAt(html, open)
-		.filter((q) => (area === null ? Number.isInteger(q.category) : q.category === area) && Number.isInteger(q.id))
-		.map((q) => ({
-			id: q.id,
-			name: q.name,
-			zone: q.category,
-			level: q.level || null,
-			reqlevel: q.reqlevel || null,
-			xp: q.xp || null,
-			type: q.type || 0,
-			side: q.side || 0,
-			choices: pairs(q.itemchoices),
-			items: pairs(q.itemrewards),
-			money: q.money || 0,
-			rep: pairs(q.reprewards),
-			status: (q.envChange && q.envChange.status) || 'unchanged',
-			lines: ((q.envChange && q.envChange.lines) || []).map(plain),
-		}))
-		.sort((a, b) => a.id - b.id);
-}
 
 const NOTES = [
 	['xp', /^Experience ([\d,]+) instead of ([\d,]+|none)$/],
@@ -135,86 +59,13 @@ function parseChangeNotes(lines) {
 	return out;
 }
 
-// Quest lists worth asking for: the class pages, then zone and city maps
-// (UiMap type 3) with an area, then every dungeon's and raid's quests (two
-// pages, `area` null: rows of any category). A zone's continent comes from
-// its parent; a zone without one is tried under both continents and bare.
-const INSTANCE_PAGES = [
-	{ area: null, page: 'dungeons', name: 'Dungeons', paths: ['dungeons'] },
-	{ area: null, page: 'raids', name: 'Raids', paths: ['raids'] },
-];
-function zonePages(zones) {
-	const out = CLASS_PAGES.map(([name, area]) => ({ area, page: String(area), name, paths: [`classes/${name.toLowerCase()}`] }));
-	const seen = new Set();
-	for (const z of Object.values(zones)) {
-		if (z.type !== 3 || !z.areaId || !z.name || seen.has(z.areaId)) continue;
-		seen.add(z.areaId);
-		const s = slug(z.name);
-		const cont = CONTINENTS[z.parent];
-		out.push({ area: z.areaId, page: String(z.areaId), name: z.name, paths: cont ? [`${cont}/${s}`] : [`kalimdor/${s}`, `eastern-kingdoms/${s}`, s] });
-	}
-	return [...out.sort((a, b) => a.area - b.area), ...INSTANCE_PAGES];
-}
-
-async function get(fetchImpl, url) {
-	const res = await fetchImpl(url, { headers: { 'user-agent': 'Mozilla/5.0 (polestar-data-build)' } });
-	if (res.status === 404) return null;
-	if (!res.ok) throw new Error(`GET ${url}: HTTP ${res.status}`);
-	return res.text();
-}
-
-async function pool(items, fn) {
-	let next = 0;
-	const workers = Array.from({ length: Math.min(CONCURRENCY, items.length) }, async () => {
-		while (next < items.length) await fn(items[next++]);
-	});
-	await Promise.all(workers);
-}
-
-// -> { rows: Map<id, row>, file, fetchedAt, warnings }
-async function loadZoneQuests({ sourcesDir, zones, offline = false, fetchImpl = globalThis.fetch, log = () => {}, now = Date.now() }) {
+// The cached zone lists. -> { rows: Map<id, row>, file, fetchedAt, warnings }
+function loadZoneQuests({ sourcesDir }) {
 	const file = path.join(sourcesDir, 'wowhead', 'zones.json');
-	let cache = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null;
-	const warnings = [];
-	const pages = zonePages(zones);
-	// A cache read before a page was added to the list (the class pages, a new
-	// zone, the dungeon and raid pages) or by an older parser is stale too,
-	// whatever its age: it records the pages it read (older caches: the pages
-	// that had rows).
-	const read = new Set((cache && (cache.pages || Object.keys(cache.zones || {}))) || []);
-	const missing = pages.some((z) => !read.has(z.page)) || !cache || cache.version !== CACHE_VERSION;
-	if ((!cache || missing || now - Date.parse(cache.fetchedAt) >= ZONE_TTL_MS) && !offline) {
-		log(`reading ${pages.length} Wowhead Forever zone quest lists`);
-		const fresh = { version: CACHE_VERSION, fetchedAt: new Date(now).toISOString(), pages: pages.map((z) => z.page), zones: {} };
-		let errors = 0;
-		await pool(pages, async (z) => {
-			try {
-				for (const p of z.paths) {
-					const rows = parseZoneQuests((await get(fetchImpl, `${BASE}/quests/${p}`)) || '', z.area);
-					if (!rows.length) continue;
-					// A dungeon or raid page's rows go under their own instance's area.
-					for (const r of rows) (fresh.zones[r.zone] = fresh.zones[r.zone] || []).push(r);
-					break;
-				}
-			} catch (err) {
-				errors++;
-				if (errors <= 3) warnings.push(`Wowhead ${z.name}: ${err.message}`);
-			}
-		});
-		for (const list of Object.values(fresh.zones)) list.sort((a, b) => a.id - b.id);
-		if (errors) {
-			warnings.push(`${errors} Wowhead zone lists failed; ${cache ? 'kept the cached lists' : 'building without them'}`);
-		} else {
-			cache = fresh;
-			fs.mkdirSync(path.dirname(file), { recursive: true });
-			fs.writeFileSync(`${file}.tmp`, `${JSON.stringify(cache, null, '\t')}\n`);
-			fs.renameSync(`${file}.tmp`, file);
-		}
-	}
+	const cache = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null;
 	const rows = new Map();
 	if (cache) for (const [zone, list] of Object.entries(cache.zones)) for (const r of list) rows.set(r.id, r.zone === undefined ? { ...r, zone: Number(zone) } : r);
-	else warnings.push(offline ? '--offline: no cached Wowhead zone lists' : 'no Wowhead zone lists');
-	return { rows, file, fetchedAt: cache ? cache.fetchedAt : null, warnings };
+	return { rows, file, fetchedAt: cache ? cache.fetchedAt : null, warnings: cache ? [] : ['no cached Wowhead zone lists'] };
 }
 
 function tag(q, source) {
@@ -289,4 +140,4 @@ function applyWowheadFacts(quests, rows) {
 	return n;
 }
 
-module.exports = { BASE, slug, parseZoneQuests, parseChangeNotes, zonePages, loadZoneQuests, applyChangeNotes, fillWowheadXp, applyWowheadFacts };
+module.exports = { BASE, parseChangeNotes, loadZoneQuests, applyChangeNotes, fillWowheadXp, applyWowheadFacts };

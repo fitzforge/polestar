@@ -224,7 +224,10 @@ local WHO = { accept = true, turnin = true, talk = true, train = true, vendor = 
 	getfp = true, learn = true, buy = true, interact = true }
 local function whoOf(goal)
 	if WHO[goal.t] and goal.npc then return "npc:" .. goal.npc, "npc", goal.npcName or (goal.subjectKind == "npc" and goal.subject) or nil end
-	if WHO[goal.t] and goal.object then return "object:" .. goal.object, "object", goal.objectName end
+	-- A quest interact is field work, not a visit (Engine whoOf).
+	if WHO[goal.t] and goal.object and not (goal.t == "interact" and goal.quest) then
+		return "object:" .. goal.object, "object", goal.objectName
+	end
 	return "here", "here", nil
 end
 local function groupsOf(goals)
@@ -641,6 +644,8 @@ function uistub.install(opts)
 	if Polestar.Guides ~= Guides then uistub.realGuides = Polestar.Guides end
 	Polestar.Guides = Guides
 	if not opts.noNav then Polestar.Nav = Nav end
+	-- Whether another addon is there: the real check, over the C_AddOns stub.
+	if Polestar.Compat ~= Compat then Compat.AddOnPresent = Polestar.Compat.AddOnPresent end
 	Polestar.Compat = Compat
 	-- The real modules register these; the fakes stand in for them.
 	if not opts.noNav and Polestar.GetDefault("nav.arrow") == nil then

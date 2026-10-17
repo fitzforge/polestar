@@ -43,7 +43,7 @@ why it does not apply.
 | C1 | An arrow update queued before a cancel read a cleared path | Fixed 1.4.7 (#73) | Cancelling or replacing guidance between queued updates revives nothing: `tests/nav-prompts.test.js`, `tests/nav-spf.test.js` |
 | C2 | A cancelled search read cleared walking batches | Fixed 1.12.1 (#125) | A cancelled search never calls back: `tests/nav-spf.test.js`, `tests/nav-vendor.test.js` |
 | C3 | Opening the world map from addon code tainted it: no map in combat, quest pins lost until a reload | Fixed 1.8.0 (#92) | `Compat.OpenWorldMap` only, never in combat, and a lint rejecting any other opener: `tests/compat.test.js` |
-| C4 | Map and minimap pins refreshed in combat | Fixed 1.4.6 (#71) | Route-line refreshes wait for the end of combat: `tests/nav-route-lines.test.js` |
+| C4 | Map and minimap pins refreshed in combat | Fixed 1.4.6 (#71) | The route lines are Polestar's own frame on the map's canvas (nothing is acquired from the map), so they redraw and turn off in combat as out of it: `tests/nav-route-lines.test.js` |
 | C5 | Errors when the position or facing could not be read | Fixed 1.2.0 (#21), 1.15.0 | `Compat.GetPlayerUnitPosition()` is the one reader; unreadable values hide or skip with no error: `tests/nav-prompts.test.js`, `tests/nav-route-lines.test.js`, `tests/nav-transit.test.js` |
 | C6 | Stormwind walks started on the canal bed below the street and doubled back | Fixed 1.2.0 (#29, #41) | Stormwind's flight master to the Mage Quarter never reverses on a level street: `tests/nav-vendor.test.js` |
 | C7 | Walks to a boat crossed the water at Auberdine | Fixed 1.11.1 (#120) | Polestar walks to its own dock points (`travel build`); in game, see below |

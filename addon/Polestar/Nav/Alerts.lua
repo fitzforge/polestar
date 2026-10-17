@@ -220,7 +220,8 @@ function Alerts.Check()
 	if not id then return false end
 	local arriveIn, _, timed = X.NextArrival(leg.kind, id, now, leg.side)
 	if timed == false or not arriveIn or arriveIn <= 0 or not Alerts.Due(arriveIn, AT_DOCK) then return false end
-	local to = leg.to and leg.to.name or ""
+	local T = Nav.travel
+	local to = leg.to and ((T and T.PlaceName and T.PlaceName(leg.to)) or leg.to.name) or ""
 	return alert(tostring(id) .. ":" .. tostring(leg.side or from.name or "?"), leg.kind,
 		format(ARRIVES[leg.kind], to), L["Arrives in %s"], arriveIn)
 end

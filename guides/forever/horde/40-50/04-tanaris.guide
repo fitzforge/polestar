@@ -34,6 +34,9 @@ next forever/horde/40-50/05-the-hinterlands
 # - Caught! (4449) is taken, done and handed in on the way into the gorge
 #   from Kargath, instead of being carried through the whole zone; Thorium
 #   Point's flight path then replaces the hearth out.
+# - Gadgetzan on arrival: Tran'rek and the poster beside the wind rider
+#   master first, then Andi Lynn, the inn and Marin; Fizzledowser on the west
+#   side last, on the way out.
 #
 # Optional: Find and Rescue OOX-17/TN! (351, 648): the beacon is a rare
 # drop; the reward waits with Oglethorpe in Booty Bay. The Key to Freedom
@@ -61,11 +64,11 @@ step Fly to Gadgetzan
 
 step Gadgetzan
   zone Tanaris
-  sethome "Gadgetzan" npc 7733          -- Innkeeper Fizzgrimble
+  accept 3362                           -- Tran'rek, beside the wind rider master
   accept 2781 object 150075             -- the Wanted Poster in the square
-  accept 2605                           -- Marin Noggenfogger
-  accept 3362                           -- Tran'rek
   accept 5863                           -- Andi Lynn
+  sethome "Gadgetzan" npc 7733          -- Innkeeper Fizzgrimble
+  accept 2605                           -- Marin Noggenfogger
   accept 992                            -- Senior Surveyor Fizzledowser
 
 step Sandsorrow Watch

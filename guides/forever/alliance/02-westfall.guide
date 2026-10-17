@@ -46,6 +46,9 @@ next forever/alliance/03-darkshore
 #   hand in Shipment to Stormwind (61, from Elwynn) there.
 # - The Auberdine flight path and hearth the export lists at the end of this
 #   visit are taken on arrival in Darkshore (next guide).
+# - Sentinel Hill: Humans hand Thor the Quartermaster's letter (6181) after
+#   Gryan and Danuvin, who stand beside Lewis at the top of the tower, so
+#   the hill is walked down once.
 #
 # Optional: Furlbrow's Deed (184), only with the Westfall Deed from Elwynn's
 # Defias. The second Harvesting the Harvesters (92911) turn-in is optional:
@@ -82,12 +85,12 @@ step Sentinel Hill
   zone Westfall
   tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan and Alba Fairmoon on the south side of the hill, next to the inn and Thor the gryphon master.
   accept 6181 only Human                      -- Quartermaster Lewis
-  turnin 6181 only Human                      -- Thor; skip the free flight it offers
   sethome "Sentinel Hill"
   getfp "Sentinel Hill"
   turnin 98021 only Skyborne                  -- Gryan Stoutmantle
   accept 12                                   -- Gryan Stoutmantle
   accept 102                                  -- Captain Danuvin
+  turnin 6181 only Human                      -- Thor; skip the free flight it offers
   accept 153                                  -- Scout Galiaan
   accept 92742                                -- Alba Fairmoon
   accept 92744

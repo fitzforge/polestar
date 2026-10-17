@@ -1,6 +1,6 @@
 local ADDON = ...
 
-Polestar.RegisterPack({ addon = ADDON, id = "acceptance-future", format = 3, title = "Acceptance Future", author = "Bo", version = "3.0.0", license = "MIT" })
+Polestar.RegisterPack({ addon = ADDON, id = "acceptance-future", format = 4, title = "Acceptance Future", author = "Bo", version = "3.0.0", license = "MIT" })
 Polestar.RegisterGuide({
 	id = "acceptance-future/a",
 	pack = "acceptance-future",

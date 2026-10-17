@@ -1,0 +1,98 @@
+-- Spanish (Latin America) (esMX): the guide forever/professions/herbalism (forever/professions/herbalism.guide).
+-- Written by `node tools/polestar.js i18n guides sync esMX`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
+-- name there in Spanish (Latin America) (the English is listed above the line). A name the English has in the plural, as words,
+-- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
+-- A token marked "no name in this language" would show in English: write that name in Spanish (Latin America) words instead.
+-- The comments are rewritten by sync.
+return {
+	-- Step 1: Learn Herbalism
+	-- {skill:182} Herbalism
+	["Learn {skill:182}"] = "Aprende {skill:182}",
+	-- {skill:182} Herbalism
+	["Any {skill:182} trainer of your faction teaches Apprentice {skill:182} (character level 5); the arrow picks the nearest."] = "Cualquier instructor de {skill:182} de tu facción enseña Aprendiz de {skill:182} (nivel de personaje 5); la flecha elige el más cercano.",
+
+	-- Step 2: Silverleaf & Earthroot: Elwynn Forest (1-50)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {skill:182} Herbalism
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10."] = "Recolecta cada {item:2447} (1, naranja), {item:765} (1, naranja), {item:2449} (desde 15) que encuentres y recorre los puntos de ruta hasta {skill:182} 50. Nivel de la zona: 1-10.",
+
+	-- Step 8: Journeyman Herbalism
+	-- {skill:182} Herbalism
+	["Journeyman {skill:182}"] = "{skill:182} de oficial",
+	-- {skill:182} Herbalism
+	["Journeyman {skill:182} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:182} trainer of your faction."] = "Oficial de {skill:182} sube el límite a 150; requiere habilidad 50 y nivel de personaje 10. La flecha elige el instructor de {skill:182} más cercano de tu facción.",
+
+	-- Step 9: Briarthorn & Stranglekelp: Westfall (50-100)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {skill:182} Herbalism
+	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. Zone level 10-20."] = "Recolecta cada {item:2447} (1, amarillo), {item:765} (1, amarillo), {item:2449} (15, amarillo), {item:785} (50, naranja), {item:2450} (desde 70), {item:3820} (desde 85) que encuentres y recorre los puntos de ruta hasta {skill:182} 100. Nivel de la zona: 10-20.",
+
+	-- Step 10: Mageroyal & Briarthorn: Loch Modan (50-100)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {skill:182} Herbalism
+	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70) you pass and circle the waypoints until {skill:182} 100. Zone level 10-20."] = "Recolecta cada {item:2447} (1, amarillo), {item:765} (1, amarillo), {item:2449} (15, amarillo), {item:785} (50, naranja), {item:2450} (desde 70) que encuentres y recorre los puntos de ruta hasta {skill:182} 100. Nivel de la zona: 10-20.",
+
+	-- Step 12: Briarthorn & Stranglekelp: The Barrens (50-100)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {skill:182} Herbalism
+	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. Zone level 10-25."] = "Recolecta cada {item:2447} (1, amarillo), {item:765} (1, amarillo), {item:2449} (15, amarillo), {item:785} (50, naranja), {item:2450} (desde 70), {item:3820} (desde 85) que encuentres y recorre los puntos de ruta hasta {skill:182} 100. Nivel de la zona: 10-25.",
+
+	-- Step 14: Bruiseweed: Redridge Mountains (100-125)
+	-- {item:2447} Peacebloom · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed · {skill:182} Herbalism
+	["Pick every {item:2447} (1, green), {item:2449} (15, green), {item:785} (50, green), {item:2450} (70, yellow), {item:2453} (100, orange) you pass and circle the waypoints until {skill:182} 125. Zone level 15-25."] = "Recolecta cada {item:2447} (1, verde), {item:2449} (15, verde), {item:785} (50, verde), {item:2450} (70, amarillo), {item:2453} (100, naranja) que encuentres y recorre los puntos de ruta hasta {skill:182} 125. Nivel de la zona: 15-25.",
+
+	-- Step 15: Bruiseweed & Wild Steelbloom: Thousand Needles (100-125)
+	-- {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {skill:182} Herbalism
+	["Pick every {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. Zone level 25-35."] = "Recolecta cada {item:2453} (100, naranja), {object:1623} (desde 115) que encuentres y recorre los puntos de ruta hasta {skill:182} 125. Nivel de la zona: 25-35.",
+
+	-- Step 16: Bruiseweed & Wild Steelbloom: Hillsbrad Foothills (100-125)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {skill:182} Herbalism
+	["Pick every {item:2447} (1, green), {item:765} (1, green), {item:2449} (15, green), {item:785} (50, green), {item:2450} (70, yellow), {item:3820} (85, orange), {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. Zone level 20-30."] = "Recolecta cada {item:2447} (1, verde), {item:765} (1, verde), {item:2449} (15, verde), {item:785} (50, verde), {item:2450} (70, amarillo), {item:3820} (85, naranja), {item:2453} (100, naranja), {object:1623} (desde 115) que encuentres y recorre los puntos de ruta hasta {skill:182} 125. Nivel de la zona: 20-30.",
+
+	-- Step 17: Expert Herbalism
+	-- {skill:182} Herbalism
+	["Expert {skill:182}"] = "Experto de {skill:182}",
+	-- {skill:182} Herbalism
+	["Expert {skill:182} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:182} trainer of your faction."] = "Experto de {skill:182} sube el límite a 225; requiere habilidad 125 y nivel de personaje 20. La flecha elige el instructor de {skill:182} más cercano de tu facción.",
+
+	-- Step 18: Grave Moss & Kingsblood: Duskwood (125-160)
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {object:1628} Grave Moss · {item:3356} Kingsblood · {skill:182} Herbalism
+	["Pick every {item:785} (50, green), {item:2450} (70, green), {item:2453} (100, yellow), {object:1623} (115, orange), {object:1628} (120, orange), {item:3356} (125, orange) you pass and circle the waypoints until {skill:182} 160. Zone level 18-30."] = "Recolecta cada {item:785} (50, verde), {item:2450} (70, verde), {item:2453} (100, amarillo), {object:1623} (115, naranja), {object:1628} (120, naranja), {item:3356} (125, naranja) que encuentres y recorre los puntos de ruta hasta {skill:182} 160. Nivel de la zona: 18-30.",
+
+	-- Step 19: Kingsblood & Liferoot: Alterac Mountains (125-160)
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {object:1628} Grave Moss · {item:3356} Kingsblood · {item:3357} Liferoot · {skill:182} Herbalism
+	["Pick every {item:785} (50, green), {item:2450} (70, green), {item:3820} (85, yellow), {item:2453} (100, yellow), {object:1623} (115, orange), {object:1628} (120, orange), {item:3356} (125, orange), {item:3357} (from 150) you pass and circle the waypoints until {skill:182} 160. Zone level 30-40."] = "Recolecta cada {item:785} (50, verde), {item:2450} (70, verde), {item:3820} (85, amarillo), {item:2453} (100, amarillo), {object:1623} (115, naranja), {object:1628} (120, naranja), {item:3356} (125, naranja), {item:3357} (desde 150) que encuentres y recorre los puntos de ruta hasta {skill:182} 160. Nivel de la zona: 30-40.",
+
+	-- Step 20: Fadeleaf & Goldthorn: Swamp of Sorrows (160-185)
+	-- {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {skill:182} Herbalism
+	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. Zone level 35-45."] = "Recolecta cada {item:3820} (85, verde), {item:3356} (125, amarillo), {item:3357} (150, naranja), {item:3818} (160, naranja), {item:3821} (desde 170) que encuentres y recorre los puntos de ruta hasta {skill:182} 185. Nivel de la zona: 35-45.",
+
+	-- Step 21: Goldthorn & Khadgar's Whisker: Swamp of Sorrows (185-200)
+	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
+	["Pick every {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45."] = "Recolecta cada {item:3356} (125, verde), {item:3357} (150, amarillo), {item:3818} (160, amarillo), {item:3821} (170, naranja), {object:2043} (185, naranja) que encuentres y recorre los puntos de ruta hasta {skill:182} 200. Nivel de la zona: 35-45.",
+
+	-- Step 22: Artisan Herbalism
+	-- {skill:182} Herbalism
+	["Artisan {skill:182}"] = "Artesano de {skill:182}",
+	-- {skill:182} Herbalism
+	["Artisan {skill:182} raises the cap to 300; it needs skill 200 and character level 35. The arrow picks the nearest {skill:182} trainer of your faction."] = "Artesano de {skill:182} sube el límite a 300; requiere habilidad 200 y nivel de personaje 35. La flecha elige el instructor de {skill:182} más cercano de tu facción.",
+
+	-- Step 23: Khadgar's Whisker: Swamp of Sorrows (200-210) cont.
+	-- {object:2043} Khadgar's Whisker · {zone:1435} Swamp of Sorrows
+	["{object:2043}: {zone:1435} (200-210) cont."] = "{object:2043}: {zone:1435} (200-210) cont.",
+	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
+	["Pick every {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45."] = "Recolecta cada {item:3356} (125, verde), {item:3357} (150, verde), {item:3818} (160, amarillo), {item:3821} (170, amarillo), {object:2043} (185, naranja) que encuentres y recorre los puntos de ruta hasta {skill:182} 210. Nivel de la zona: 35-45.",
+
+	-- Step 24: Firebloom & Purple Lotus: Badlands (210-230)
+	-- {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:4625} Firebloom · {item:8831} Purple Lotus · {skill:182} Herbalism
+	["Pick every {object:1623} (115, green), {item:3356} (125, green), {item:3818} (160, green), {item:3821} (170, yellow), {object:2043} (185, yellow), {item:4625} (205, orange), {item:8831} (210, orange) you pass and circle the waypoints until {skill:182} 230. Zone level 35-45."] = "Recolecta cada {object:1623} (115, verde), {item:3356} (125, verde), {item:3818} (160, verde), {item:3821} (170, amarillo), {object:2043} (185, amarillo), {item:4625} (205, naranja), {item:8831} (210, naranja) que encuentres y recorre los puntos de ruta hasta {skill:182} 230. Nivel de la zona: 35-45.",
+
+	-- Step 25: Sungrass & Gromsblood: Blasted Lands (230-260)
+	-- {item:4625} Firebloom · {item:8838} Sungrass · {item:8846} Gromsblood · {skill:182} Herbalism
+	["Pick every {item:4625} (205, yellow), {item:8838} (230, orange), {item:8846} (from 250) you pass and circle the waypoints until {skill:182} 260. Zone level 45-55."] = "Recolecta cada {item:4625} (205, amarillo), {item:8838} (230, naranja), {item:8846} (desde 250) que encuentres y recorre los puntos de ruta hasta {skill:182} 260. Nivel de la zona: 45-55.",
+
+	-- Step 26: Dreamfoil & Mountain Silversage: Felwood (260-285)
+	-- {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:8846} Gromsblood · {item:13464} Golden Sansam · {item:13463} Dreamfoil · {item:13465} Mountain Silversage · {skill:182} Herbalism
+	["Pick every {item:8836} (220, yellow), {item:8838} (230, yellow), {item:8846} (250, orange), {item:13464} (260, orange), {item:13463} (from 270), {item:13465} (from 280) you pass and circle the waypoints until {skill:182} 285. Zone level 48-55."] = "Recolecta cada {item:8836} (220, amarillo), {item:8838} (230, amarillo), {item:8846} (250, naranja), {item:13464} (260, naranja), {item:13463} (desde 270), {item:13465} (desde 280) que encuentres y recorre los puntos de ruta hasta {skill:182} 285. Nivel de la zona: 48-55.",
+
+	-- Step 27: Mountain Silversage & Plaguebloom: Felwood (285-300)
+	-- {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:8846} Gromsblood · {item:13464} Golden Sansam · {item:13463} Dreamfoil · {item:13465} Mountain Silversage · {item:13466} Plaguebloom · {skill:182} Herbalism
+	["Pick every {item:8836} (220, green), {item:8838} (230, green), {item:8846} (250, yellow), {item:13464} (260, yellow), {item:13463} (270, orange), {item:13465} (280, orange), {item:13466} (285, orange) you pass and circle the waypoints until {skill:182} 300. Zone level 48-55."] = "Recolecta cada {item:8836} (220, verde), {item:8838} (230, verde), {item:8846} (250, amarillo), {item:13464} (260, amarillo), {item:13463} (270, naranja), {item:13465} (280, naranja), {item:13466} (285, naranja) que encuentres y recorre los puntos de ruta hasta {skill:182} 300. Nivel de la zona: 48-55.",
+}

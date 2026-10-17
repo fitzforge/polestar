@@ -45,8 +45,8 @@ end
 -- World map dots on map id: map percent and the world points they show.
 local function worldDots(id)
 	local b, out = nav.maps[id], {}
-	for i, pin in ipairs(Pins.GetTrailFrames("world")) do
-		local x, y = pin.normalizedX * 100, pin.normalizedY * 100
+	for i, dot in ipairs(Pins.GetTrailFrames("world")) do
+		local x, y = nav.worldPoint(dot)
 		out[i] = { x = x, y = y, wx = b.top + (b.bottom - b.top) * y / 100, wy = b.left + (b.right - b.left) * x / 100 }
 	end
 	return out
@@ -192,8 +192,8 @@ test('world map: spacing scales with the viewed map (60 to its width, at least 1
 		target(0, 0)
 		nav.showWorldMap(9000)
 		r.clipped = worldDots(9000)
-		local pin = Pins.GetTrailFrames("world")[1]
-		r.pin = { pin.width, pin:IsMouseEnabled() and true or false, pin.pinFrameLevelType }
+		local dot = Pins.GetTrailFrames("world")[1]
+		r.pin = { dot.width, dot.parent:IsMouseEnabled() and true or false, dot.parent:GetFrameLevel() }
 		emit(r)`);
 	const line = [[0, 0], [0, -900]];
 	assertDots(out.zone, expectDots(line, worldSpacing(2000), 0.5), 'map 9000: 33.3 yd apart');
@@ -204,7 +204,7 @@ test('world map: spacing scales with the viewed map (60 to its width, at least 1
 	assertDots(out.clipped, far.filter(([, w]) => w <= 1000), 'only the part on the map');
 	assert.ok(far.length > out.clipped.length);
 	assert.ok(out.clipped.every((d) => d.x >= 0 && d.x <= 100 && d.y >= 0 && d.y <= 100));
-	assert.deepEqual(out.pin, [6, false, 'PIN_FRAME_LEVEL_QUEST_BLOB'], 'small, no mouse, under the pins');
+	assert.deepEqual(out.pin, [6, false, 2010], "small, no mouse, under the pins (the map's PIN_FRAME_LEVEL_QUEST_BLOB)");
 });
 
 test('a flight route: dots run from the player along every leg on both surfaces', () => {
@@ -271,11 +271,11 @@ test('counts are capped: 40 on the minimap, 300 on the world map', () => {
 		Polestar.Fire("ROUTE_CHANGED", legs)
 		nav.showWorldMap(9000)
 		r.world = #Pins.GetTrailFrames("world")
-		r.pool = WorldMapFrame.pinPools.PolestarPinsTrailTemplate:GetNumActive()
+		r.pool = #Pins.GetTrailFrames("world")[1].parent.regions
 		emit(r)`);
 	assert.equal(out.mm, 40);
 	assert.equal(out.world, 300);
-	assert.equal(out.pool, 300, 'no pins beyond the cap');
+	assert.equal(out.pool, 300, 'no dots made beyond the cap');
 });
 
 test('the dots crawl toward the target while shown, and hold still with reduced motion', () => {

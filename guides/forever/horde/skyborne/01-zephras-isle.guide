@@ -70,8 +70,9 @@ next forever/horde/02-the-barrens
 #   lakes north-west of town, a Vuldren Alpha at the orchard, an Ornery
 #   Galestrider in the fields west of town, done after the orchard.
 # - Class letters at 2: once Harmony in Balance (92461) is turned in, Rorian
-#   gives each class its trainer quest, handed in a few steps away in the
-#   village: The Warrior's Path (92532) to Blademaster Ren in the
+#   gives each class its trainer quest, handed in with the level 4 turn-ins
+#   in the village, just before training (nothing to learn before then):
+#   The Warrior's Path (92532) to Blademaster Ren in the
 #   watchtower; The Way of the Hunter (92482) to Tai'ree Farsight; Embracing
 #   the Elements (92484) to Windshaper Boro; A Student of Nature (92485) to
 #   Xyton Silverwind. Rogue: At Home in the Shadows (92483): Rorian to Akeri
@@ -119,10 +120,6 @@ step Back to Thendal Village
   accept 92482 only Hunter            -- Rorian the Dayseeker: a note from your trainer
   accept 92484 only Shaman            -- Rorian: examine the Humming Recall Crystal
   accept 92485 only Druid             -- Rorian: A Student of Nature
-  turnin 92532 only Warrior           -- Blademaster Ren, in the watchtower
-  turnin 92482 only Hunter            -- Tai'ree Farsight
-  turnin 92484 only Shaman            -- Windshaper Boro, at the village centre
-  turnin 92485 only Druid             -- Xyton Silverwind, the druid trainer, on the ground floor of the tree behind Rorian
   accept 93552                        -- Dalia the Collector
   accept 94414                        -- Halaan Hawk-Eye
   complete 94414 @43.77,24.08         -- talk to Halaan Hawk-Eye
@@ -165,6 +162,10 @@ step Thendal Village turn-ins
   turnin 92469                        -- Rorian the Dayseeker
   accept 92483 only Rogue             -- Rorian the Dayseeker: read the Simple Note
   turnin 92483 only Rogue             -- Akeri Duskblade, in the watchtower
+  turnin 92532 only Warrior           -- Blademaster Ren, in the watchtower
+  turnin 92482 only Hunter            -- Tai'ree Farsight
+  turnin 92484 only Shaman            -- Windshaper Boro, at the village centre
+  turnin 92485 only Druid             -- Xyton Silverwind, the druid trainer, on the ground floor of the tree behind Rorian
   level 4
   accept 92471
   turnin 92471                        -- Aetheen of the Gales
@@ -338,11 +339,11 @@ step To Valanaar
   tip Take the road south-east to Valanaar, the Skyborne town on the south coast. Nyalah and Alvarion stand at its western edge.
   accept 93317                        -- Nyalah Brightfire
   accept 92679                        -- Alvarion Windfield
-  talk 252448                         -- Alvarion Windfield
+  kill 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
 
 step Windsong Crawlers
   tip The crawlers scuttle along the shore south-west of town.
-  collect 257941 quest 93317.1
+  collect 257941 quest 93317.1 @51.6,71.9
 
 step Valanaar
   turnin 93317                        -- Nyalah Brightfire
@@ -368,7 +369,7 @@ step Riaani Nightwind
   tip Riaani stands in the Gustberry Lowlands just north-west of town.
   turnin 93735
   accept 93737
-  talk 256083                         -- Riaani Nightwind
+  kill 256083 quest 93737.1 "Listen to Riaani Nightwind"
 
 step Wind Hollows and Construct Parts
   tip Wind Hollows drift over the lowlands around Valanaar. The first Construct Parts lie west of the orchard road.
@@ -382,8 +383,7 @@ step Endaria Mistgaze
 
 step Windfield Orchard
   tip Windfield Orchard is west of Valanaar along the coast road.
-  talk 252800                         -- Aamelia Windfield
-  complete 92679 @46.7,81.95
+  kill 252800 quest 92679.1 @46.7,81.95 "Talk to Aamelia Windfield"
   turnin 92679                        -- Aamelia Windfield
   accept 92682
   accept 92683
@@ -412,7 +412,7 @@ step Bandit Highwaymen
 step Standing Our Ground
   turnin 92685                        -- Aamelia Windfield
   accept 92693
-  talk 252800                         -- Aamelia Windfield
+  kill 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
   kill 252863 quest 92693.2
   turnin 92693
   accept 92703
@@ -426,10 +426,10 @@ step Taming the Beast
   only Hunter
   tip Quel'ana Quickgale in Valanaar hands you a Taming Rod three times: tame a Windsong Crawler by the lakes north-west of town, an Ornery Galestrider in the fields west of town and a Vuldren Alpha at Windfield Orchard, returning to her after each. Quel'dora Quickgale stands beside her.
   accept 94978                        -- Quel'ana Quickgale
-  kill 254588 quest 94978.1
+  kill 254588 quest 94978.1 @51.6,71.9
   turnin 94978
   accept 94979
-  kill 251707 quest 94979.1
+  kill 251707 quest 94979.1 @53.5,71.7
   turnin 94979
   accept 94013
   kill 250874 quest 94013.1
@@ -462,7 +462,7 @@ step The East Pylon Watchtower
   turnin 93320                        -- Yorana Windyreed
   accept 92642
   accept 92645
-  kill 254596 quest 92642.1
+  kill 254596 quest 92642.1 @65.0,66.7
   kill 270201 quest 92642.2
   kill 252666 quest 92645.1
   collect 255658 quest 93740.1
@@ -547,8 +547,8 @@ step Unfortunate News
   accept 92640
 
 step Desperate Times
-  talk 252383                         -- Valennia Stormfist
-  talk 251968                         -- Ayessa Dawnsinger
+  kill 252383 quest 92640.1 "Talk to Valennia Stormfist"
+  kill 251968 quest 92640.2 "Talk to Ayessa Dawnsinger"
   talk 252475                         -- Elaadrin Evengale
   complete 92640 @66.59,79.92
   turnin 92640                        -- Valennia Stormfist
@@ -569,8 +569,7 @@ step The Shrine of Akir
   kill 252762 quest 92947.1
   kill 252763 quest 92947.2
   kill 252765 quest 92947.3
-  talk 253576                         -- Hyusaa Quickbreeze
-  complete 92947 @63.77,50.51
+  kill 253576 quest 92947.4 @63.77,50.51 "Talk to Hyusaa Quickbreeze"
   turnin 92947                        -- Hyusaa Quickbreeze
   accept 93958
   turnin 93958                        -- Valennia Stormfist
@@ -604,11 +603,11 @@ step Elegael again
   accept 94489
 
 step The Al'Aketh camp
-  tip Commander Haalien, Jorel Windsinger and Naaleos Leafwhisper are in the cult camp east of Elegael. Vayn Moongaze stands at its edge. Haalien also drops a Ripped Missive: read it to start the next quest.
+  tip Commander Haalien, Jorel Windsinger and Naaleos Leafwhisper are in the cult camp east of Elegael. Vayn Moongaze stands at its edge. Haalien also drops a Ripped Missive: read it to start the next quest. For The Wounds of Betrayal, enter the Nightfang Den, heal 7 injured druids and find Jorel.
   accept 93165                        -- Vayn Moongaze
   collect 265475 quest 94488.1
-  kill 258130 quest 94489.2
-  kill 258134 quest 94489.1
+  kill 258130 quest 94489.2 "Find Jorel Windsinger"
+  kill 258134 quest 94489.1 "Heal the injured druids in the Nightfang Den"
   collect 258771 quest 93165.1
   collect 265476
   accept 94490
@@ -689,8 +688,8 @@ step Traditions of the Bluff
 
 step Hunter Rise
   zone Thunder Bluff
-  tip Spread the incense at the ceremonial mat and burner on the south-facing cliff of Hunter Rise.
-  interact 665373 quest 97485.2       -- Incense Burner
+  tip Use the Prepared Incense at the ceremonial mat and burner on the south-facing cliff of Hunter Rise.
+  use 278078 quest 97485.2 @53.3,87.9 "Spread the Prepared Incense off Hunter Rise"
 
 step Eylah Sunhorn
   zone Thunder Bluff

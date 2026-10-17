@@ -7,10 +7,12 @@
 -- Level ranges come from ZoneLevels.lua (`node tools/polestar.js maps build`,
 -- heuristic in tools/lib/maps/zonelevels.js).
 --
--- A Blizzard_MapCanvas data provider (no pins) tells us about map, size and
--- zoom changes; labels live on the canvas, counter-scaled so they keep their
--- size when zooming. The info bar ticks ten times a second while the map is
--- open and repaints only when a shown number changed.
+-- The world map's view (Core/MapCanvas.lua) tells us about map, size and
+-- zoom changes, reading the map and writing nothing into it; labels are
+-- Polestar's own frames on the canvas, counter-scaled so they keep their
+-- size when zooming. The info bar, Polestar's frame on the map, ticks ten
+-- times a second while the map is open and repaints only when a shown
+-- number changed.
 
 local ADDON, ns = ...
 local Maps = ns.Maps
@@ -72,7 +74,7 @@ end
 -- Zone labels on the continent canvas
 ---------------------------------------------------------------------------
 
-local provider, owner
+local view, owner
 local labels, used = {}, 0
 
 local function label(i)
@@ -80,7 +82,7 @@ local function label(i)
 	if f then return f end
 	local W = ns.Widgets
 	local T = ns.Theme
-	f = CreateFrame("Frame", nil, owner:GetCanvas())
+	f = ns.CreateFrameUnder("Frame", nil, view.canvas)
 	f:SetSize(120, 30)
 	f.Name = W.Text(f, "small", "textDim")
 	f.Name:SetPoint("BOTTOM", f, "CENTER", 0, 0)
@@ -101,12 +103,10 @@ local function hideLabels(from)
 end
 
 local function placeLabels()
-	if not owner then return end
-	local canvas = owner:GetCanvas()
-	local scale = owner.GetCanvasScale and owner:GetCanvasScale() or 1
-	if not scale or scale <= 0 then scale = 1 end
-	local inv = 1 / scale
-	local w, h = canvas:GetWidth(), canvas:GetHeight()
+	if not view then return end
+	local canvas = view.canvas
+	local inv = 1 / view.scale
+	local w, h = view.width, view.height
 	for i = 1, used do
 		local f = labels[i]
 		f:SetScale(inv)
@@ -117,7 +117,7 @@ end
 
 local function layoutLabels()
 	used = 0
-	local mapID = owner and owner:GetMapID()
+	local mapID = view and view.mapID
 	local info = mapInfo(mapID)
 	if not (info and info.mapType == CONTINENT and ns.Get("maps.zoneLevels") and C_Map.GetMapRectOnMap) then
 		hideLabels(1)
@@ -183,7 +183,7 @@ local function zoneFor(mapID, info, cx, cy)
 end
 
 local function update(force)
-	local mapID = owner:GetMapID()
+	local mapID = view.mapID
 	local coords, zones = ns.Get("maps.coords"), ns.Get("maps.zoneLevels")
 	local cx, cy
 	if owner.GetNormalizedCursorPosition and (not owner.IsCanvasMouseFocus or owner:IsCanvasMouseFocus()) then
@@ -233,7 +233,7 @@ local function buildBar()
 	local W = ns.Widgets
 	if bar or not W then return end
 	local host = owner.ScrollContainer or owner
-	bar = CreateFrame("Frame", "PolestarMapInfo", owner)
+	bar = ns.CreateFrameUnder("Frame", "PolestarMapInfo", owner)
 	bar:SetHeight(22)
 	bar:SetPoint("BOTTOMLEFT", host, "BOTTOMLEFT", 0, 0)
 	bar:SetPoint("BOTTOMRIGHT", host, "BOTTOMRIGHT", 0, 0)
@@ -267,42 +267,33 @@ local function refreshBar()
 end
 
 ---------------------------------------------------------------------------
--- The data provider
+-- The view
 ---------------------------------------------------------------------------
 
-local function install()
-	if provider then return true end
-	local map = WorldMapFrame
-	if not (map and map.AddDataProvider and map.GetCanvas and map.GetMapID
-		and MapCanvasDataProviderMixin and CreateFromMixins) then
-		return false
-	end
-	provider = CreateFromMixins(MapCanvasDataProviderMixin)
-	function provider:RemoveAllData()
-		hideLabels(1)
-		used = 0
-	end
-	function provider:RefreshAllData()
+local function onView(_, what)
+	if what == "show" or what == "map" then
 		layoutLabels()
 		refreshBar()
-	end
-	function provider:OnMapChanged()
-		self:RefreshAllData()
-	end
-	function provider:OnCanvasScaleChanged()
+	elseif what == "size" or what == "scale" then
 		placeLabels()
 	end
-	function provider:OnCanvasSizeChanged()
-		placeLabels()
-	end
-	owner = map
+end
+
+local function install()
+	if view then return true end
+	local M = ns.MapCanvas
+	view = WorldMapFrame and M and M.Watch(WorldMapFrame, onView) or nil
+	if not view then return false end
+	owner = WorldMapFrame
 	buildBar()
-	map:AddDataProvider(provider)
 	return true
 end
 
 function Maps.RefreshWorldMap()
-	if provider and owner and owner:IsShown() then provider:RefreshAllData() end
+	if view and view.shown then
+		layoutLabels()
+		refreshBar()
+	end
 end
 
 ns.On("SETTING_CHANGED", function(path)

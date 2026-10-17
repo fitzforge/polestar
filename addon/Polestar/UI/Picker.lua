@@ -640,7 +640,7 @@ local function layoutCards(tabs, active, byId, y)
 		c.Title:SetText(t.title or t.guideId)
 		local total = t.total or t.stepCount or 0
 		if t.complete then
-			c.Step:SetText(L["Complete"])
+			c.Step:SetText(ns.LC("guide status", "Completed"))
 		elseif t.stepIndex then
 			c.Step:SetText(string.format(L["Step %d of %d"], t.stepIndex, t.stepCount or 0))
 		else
@@ -698,8 +698,10 @@ local function factRow(i)
 	if f then return f end
 	f = {}
 	f.Label = W.Text(details, "small", "textMuted")
-	f.Label:SetWidth(FACT_W)
+	f.Label:SetWidth(FACT_W - 8) -- 8px clear of the value; a long label wraps
+	f.Label:SetWordWrap(true)
 	f.Label:SetJustifyH("LEFT")
+	f.Label:SetJustifyV("TOP")
 	f.Value = W.Text(details, "note", "text")
 	f.Value:SetWidth(DETAIL_W - DPAD * 2 - FACT_W)
 	f.Value:SetJustifyH("LEFT")
@@ -775,13 +777,13 @@ local function paintReward(t, e)
 	if e.item then
 		W.PrefetchItem(e.item)
 		icon = C.ItemIcon and C.ItemIcon(e.item)
-		name = e.itemName or (L["Item"] .. " " .. e.item)
+		name = ns.Names.Item(e.item) or e.itemName or (L["Item"] .. " " .. e.item)
 		local q = (C.GetItemQuality and C.GetItemQuality(e.item)) or e.quality
 		hex = q and C.ItemQualityHex and C.ItemQualityHex(q)
 	elseif e.spell then
 		W.PrefetchSpell(e.spell)
 		icon = C.SpellIcon and C.SpellIcon(e.spell)
-		name = e.spellName or (L["Spell"] .. " " .. e.spell)
+		name = ns.Names.Spell(e.spell) or e.spellName or (L["Spell"] .. " " .. e.spell)
 	else
 		name = e.text or ""
 	end
@@ -1075,11 +1077,20 @@ local function renderDetails(byId, tabs, active)
 	d.FactRule:SetShown(#facts > 0)
 	local shownFacts, shownRewards, nTiles = {}, {}, 0
 	if #facts > 0 then y = y + 1 + 16 end
+	-- The label column: FACT_W, or wider by what a label's longest word
+	-- needs ("Choisissez-en"), so a label wraps between words only.
+	local factW = FACT_W
+	for i, f in ipairs(facts) do
+		for word in f[1]:gmatch("%S+") do factW = max(factW, math.ceil(W.TextWidth(factRow(i).Label, word)) + 8) end
+	end
+	local valueW = DETAIL_W - DPAD * 2 - factW
 	for i, f in ipairs(facts) do
 		local row = factRow(i)
+		row.Label:SetWidth(factW - 8)
 		row.Label:SetText(f[1])
 		row.Label:ClearAllPoints()
 		row.Label:Show()
+		row.Value:SetWidth(valueW)
 		if f.rewards then
 			-- The label sits on the first tile's text line.
 			row.Label:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD, -(y + (REWARD_H - row.Label:GetStringHeight()) / 2))
@@ -1088,8 +1099,10 @@ local function renderDetails(byId, tabs, active)
 			for k, e in ipairs(f.rewards) do
 				nTiles = nTiles + 1
 				local t = rewardTile(nTiles)
+				t:SetWidth(valueW)
+				t.Name:SetWidth(valueW - REWARD_H - 8)
 				t:ClearAllPoints()
-				t:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD + FACT_W, -y)
+				t:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD + factW, -y)
 				names[k] = paintReward(t, e)
 				shownRewards[#shownRewards + 1] = { kind = e.item and "item" or e.spell and "spell" or "text", id = e.item or e.spell, name = names[k], choice = e.choice and true or nil }
 				t:Show()
@@ -1102,7 +1115,7 @@ local function renderDetails(byId, tabs, active)
 			if type(f[2]) == "table" then fitZones(row.Value, f[2]) else row.Value:SetText(f[2]) end
 			row.Label:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD, -(y + 1))
 			row.Value:ClearAllPoints()
-			row.Value:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD + FACT_W, -y)
+			row.Value:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD + factW, -y)
 			row.Value:Show()
 			y = y + max(row.Value:GetStringHeight(), row.Label:GetStringHeight()) + FACT_GAP
 			shownFacts[i] = { f[1], row.Value:GetText() }
@@ -1315,6 +1328,18 @@ function P.ShowSection(key)
 	end
 	section = key
 	if win and win:IsShown() then P.Render() end
+end
+
+-- The section `delta` away on the rail (LB / RB on a gamepad).
+function P.StepSection(delta)
+	local cur = P.Section()
+	for i, s in ipairs(sections) do
+		if s.key == cur then
+			local to = sections[i + delta]
+			if to then P.ShowSection(to.key) end
+			return
+		end
+	end
 end
 
 -- The hub's search wordings, longest first: the box shows the first that fits.
@@ -1726,6 +1751,34 @@ local function build()
 
 	buildDetails()
 	win:HookScript("OnShow", function() P.Render() end)
+	-- A gamepad moves through the hub (UI/Gamepad.lua): LB / RB step the
+	-- rail's sections, X loads the guide on a focused row.
+	if ns.Gamepad and ns.Gamepad.Register then
+		ns.Gamepad.Register(win, {
+			initial = function(rows)
+				local first
+				for i, w in ipairs(rows) do
+					if ns.Gamepad.Within(w, win.Main) and w.psKey == nil then
+						if w.psGuide and w.psGuide.id == P.Selected() then return i end
+						first = first or i
+					end
+				end
+				return first
+			end,
+			prevTab = function() P.StepSection(-1) end,
+			nextTab = function() P.StepSection(1) end,
+			tabsLabel = L["Sections"],
+			-- The close sits among the details' own buttons: B goes in the hint bar.
+			close = false,
+			x = function(w)
+				if w and w.psGuide and w.psGuide.id then
+					P.Select(w.psGuide.id)
+					P.LoadSelected()
+				end
+			end,
+			xLabel = function(w) return w.psGuide and L["Load guide"] or nil end,
+		})
+	end
 end
 
 -- opts: { newTab = true } when loading should open a new tab.
@@ -1753,6 +1806,12 @@ function UI.ShowPicker(opts)
 	end
 	if settings then settings:Hide() end
 end
+
+-- A new font measures the rail, the sidebar and the details' label column
+-- anew: the hub on screen renders again.
+W.OnFontChanged(function()
+	if win and win:IsShown() then P.Render() end
+end)
 
 function P.SetQuery(text)
 	if not win then build() end

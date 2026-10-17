@@ -266,7 +266,7 @@ test('the Map page gathers every map setting from its modules into the declared 
 		Zones: ['Zones', 'Coordinates'],
 	});
 	assert.deepEqual(out.keys['Guide & quests'], [
-		'nav.minimapPins', 'nav.trailDots', 'nav.worldPins', 'qol.availableQuests', 'qol.guideDim', 'qol.guideHighlight', 'qol.lowLevelQuests',
+		'maps.minimapButton', 'nav.minimapPins', 'nav.trailDots', 'nav.worldPins', 'qol.availableQuests', 'qol.guideDim', 'qol.guideHighlight', 'qol.lowLevelQuests',
 		'qol.mapObjectives', 'qol.minimapObjectives', 'qol.objectiveAreas', 'qol.questLevelWindow', 'qol.turnInMarkers',
 	]);
 	assert.deepEqual(out.keys['Rares & travel'], [

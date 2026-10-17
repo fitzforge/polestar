@@ -23,8 +23,9 @@ const TABLES = PRODUCTS.era.tables;
 // A build version names a cache folder: digits and dots only (security L10).
 const BUILD_RE = /^\d+(\.\d+)+$/;
 
-function tableUrl(table, build) {
-	return `https://wago.tools/db2/${table}/csv?build=${encodeURIComponent(build)}`;
+// locale: a client language (deDE...): the table's strings in it; none for English.
+function tableUrl(table, build, locale = null) {
+	return `https://wago.tools/db2/${table}/csv?build=${encodeURIComponent(build)}${locale ? `&locale=${encodeURIComponent(locale)}` : ''}`;
 }
 
 function compareVersions(a, b) {
@@ -62,14 +63,16 @@ async function latestBuild(fetchImpl, product) {
 }
 
 // The rows of client table `table` of `build`: the cached
-// <sourcesDir>/wago/<build>/<table>.csv, else fetched (`get(url)` -> text,
-// checked to be a DB2 CSV export) and cached, written atomically. Offline, a
-// missing file throws `missing(file)` (default an Error naming it).
-async function cachedTable({ sourcesDir, build, table, offline = false, get, missing, log = () => {} }) {
-	const file = path.join(sourcesDir, 'wago', build, `${table}.csv`);
+// <sourcesDir>/wago/<build>/<table>.csv (<build>/<locale>/<table>.csv for a
+// language's strings), else fetched (`get(url)` -> text, checked to be a DB2
+// CSV export) and cached, written atomically. Offline, a missing file throws
+// `missing(file)` (default an Error naming it).
+async function cachedTable({ sourcesDir, build, table, locale = null, offline = false, get, missing, log = () => {} }) {
+	if (locale && !/^[a-z]{2}[A-Z]{2}$/.test(locale)) throw new Error(`wago: bad locale "${locale}"`);
+	const file = path.join(sourcesDir, 'wago', build, ...(locale ? [locale] : []), `${table}.csv`);
 	if (fs.existsSync(file)) return parseCsv(fs.readFileSync(file, 'utf8'));
 	if (offline) throw missing ? missing(file) : new Error(`--offline: missing cached ${path.relative(process.cwd(), file)}`);
-	const url = tableUrl(table, build);
+	const url = tableUrl(table, build, locale);
 	log(`fetching ${url}`);
 	const text = await get(url);
 	const rows = parseCsv(text);

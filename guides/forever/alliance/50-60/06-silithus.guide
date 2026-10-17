@@ -319,12 +319,12 @@ step Stormwind
   tip Go back down to Rut'theran Village, take the boat to Auberdine and the boat on to Stormwind Harbor. Bring sixty Silk, sixty Mageweave and sixty Runecloth for Clavicus: buy what you lack at the Auction House.
   sethome "Stormwind City"
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
-  collect 4306 x60 quest 7793.1       -- Silk Cloth
-  collect 4338 x60 quest 7794.1       -- Mageweave Cloth
+  collect 4306 x60 quest 7793.1 @61.2,71.3 live -- Silk Cloth
+  collect 4338 x60 quest 7794.1 @61.2,71.3 live -- Mageweave Cloth
   turnin 7793                         -- Clavicus Knavingham, in the Trade District
   turnin 7794
   accept 7795
-  collect 14047 x60 quest 7795.1      -- Runecloth
+  collect 14047 x60 quest 7795.1 @61.2,71.3 live -- Runecloth
   turnin 7795
 
 step Ironforge
@@ -332,23 +332,23 @@ step Ironforge
   tip Take the Deeprun Tram to Ironforge. Bubulo Acerbus and Mistina Steelshield each want sixty Wool, sixty Silk and sixty Mageweave, then sixty Runecloth: 120 of each in all, from your bags or the Auction House.
   turnin 4513                         -- Laris Geardawdle
   train class only Shaman             -- Stormwind has no shaman trainer
-  collect 2592 x60 quest 7807.1       -- Wool Cloth
-  collect 4306 x60 quest 7808.1       -- Silk Cloth
-  collect 4338 x60 quest 7809.1       -- Mageweave Cloth
+  collect 2592 x60 quest 7807.1 @24.2,74.7 -- Wool Cloth
+  collect 4306 x60 quest 7808.1 @24.2,74.7 -- Silk Cloth
+  collect 4338 x60 quest 7809.1 @24.2,74.7 -- Mageweave Cloth
   turnin 7807                         -- Bubulo Acerbus
   turnin 7808
   turnin 7809
   accept 7811
-  collect 14047 x60 quest 7811.1      -- Runecloth
+  collect 14047 x60 quest 7811.1 @24.2,74.7 -- Runecloth
   turnin 7811
-  collect 2592 x60 quest 7802.1       -- Wool Cloth
-  collect 4306 x60 quest 7803.1       -- Silk Cloth
-  collect 4338 x60 quest 7804.1       -- Mageweave Cloth
+  collect 2592 x60 quest 7802.1 @24.2,74.7 -- Wool Cloth
+  collect 4306 x60 quest 7803.1 @24.2,74.7 -- Silk Cloth
+  collect 4338 x60 quest 7804.1 @24.2,74.7 -- Mageweave Cloth
   turnin 7802                         -- Mistina Steelshield
   turnin 7803
   turnin 7804
   accept 7805
-  collect 14047 x60 quest 7805.1      -- Runecloth
+  collect 14047 x60 quest 7805.1 @24.2,74.7 -- Runecloth
   turnin 7805
 
 # ---------------------------------------------------------------- Western Plaguelands

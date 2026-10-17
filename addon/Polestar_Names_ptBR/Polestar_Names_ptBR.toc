@@ -1,6 +1,24 @@
 ## Interface: 16001
 ## Title: Polestar Names (ptBR)
-## Notes: Quest, NPC, object and item names in Portuguese (Brazil) for Polestar's guides. Loaded on demand on a Portuguese (Brazil) client.
+## Notes: Names of quests, NPCs, objects, items, instances and more in Portuguese (Brazil) for Polestar. Loaded on demand on a Portuguese (Brazil) client.
+## Title-deDE: Polestar Namen (ptBR)
+## Notes-deDE: Spielnamen für Polestar (Quests, NPCs, Objekte, Gegenstände, Instanzen und mehr). Sprache: Portugiesisch (Brasilien). Wird bei Bedarf geladen, nur in einem Client dieser Sprache.
+## Title-esES: Polestar: nombres (ptBR)
+## Notes-esES: Nombres del juego para Polestar (misiones, PNJ, objetos, instancias y más). Idioma: portugués (Brasil). Se carga bajo demanda solo en un cliente en ese idioma.
+## Title-esMX: Polestar: nombres (ptBR)
+## Notes-esMX: Nombres del juego para Polestar (misiones, PNJ, objetos, instancias y más). Idioma: portugués (Brasil). Se carga bajo demanda solo en un cliente en ese idioma.
+## Title-frFR: Polestar : noms (ptBR)
+## Notes-frFR: Noms du jeu pour Polestar (quêtes, PNJ, objets, instances et plus). Langue : portugais (Brésil). Chargé à la demande, uniquement sur un client dans cette langue.
+## Title-koKR: Polestar 이름 (ptBR)
+## Notes-koKR: Polestar용 게임 이름(퀘스트, NPC, 물체, 아이템, 인스턴스 등). 언어: 포르투갈어(브라질). 해당 언어 클라이언트에서만 필요할 때 불러옵니다.
+## Title-ptBR: Polestar: nomes (ptBR)
+## Notes-ptBR: Nomes do jogo para o Polestar (missões, PNJs, objetos, itens, instâncias e mais). Idioma: português (Brasil). Carregado sob demanda, só em um cliente nesse idioma.
+## Title-ruRU: Polestar: названия (ptBR)
+## Notes-ruRU: Названия из игры для Polestar (задания, NPC, объекты, предметы, подземелья и другое). Язык: португальский (Бразилия). Загружается по требованию, только в клиенте на этом языке.
+## Title-zhCN: Polestar 名称 (ptBR)
+## Notes-zhCN: Polestar 使用的游戏名称（任务、NPC、物体、物品、副本等）。语言：葡萄牙语（巴西）。仅在该语言的客户端中按需加载。
+## Title-zhTW: Polestar 名稱 (ptBR)
+## Notes-zhTW: Polestar 使用的遊戲名稱（任務、NPC、物件、物品、副本等）。語言：葡萄牙語（巴西）。僅在該語言的用戶端中按需載入。
 ## Author: Polestar
 ## X-License: GPL-3.0-only
 ## Version: 0.2.4

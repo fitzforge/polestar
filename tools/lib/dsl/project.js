@@ -10,13 +10,14 @@ const { parseGuide } = require('./parse');
 const { resolveGuide } = require('./resolve');
 const { validateGuides, validatePackFrames, forEachGoalMap } = require('./validate');
 const { loadData } = require('./data');
-const { emitGuides, emitPack, emitToc, emitMapFrames, emitLicense } = require('./emit');
+const { tokeniseGuides } = require('./tokens');
+const { emitGuides, emitPack, emitToc, emitTextsToc, emitTexts, emitMapFrames, emitLicense } = require('./emit');
 const { ownsGuideId, GENERATED_MARKER } = require('../pack/format');
 const { heightCounts } = require('./heights');
 const { HEIGHTS_SOURCE } = require('../travel/cmangos');
 
 const { ROOT, DATA } = require('../paths');
-const { LOCALE_CODES } = require('../i18n/locales');
+const { LOCALES, LOCALE_CODES } = require('../i18n/locales');
 const { ADDON_PREFIX: NAMES_PREFIX } = require('../i18n/names');
 // Our own pack: guides/pack.json and the guides beside it.
 const OFFICIAL_DIR = path.join(ROOT, 'guides');
@@ -132,7 +133,7 @@ function compileSources(sources, data, diag = new Diagnostics(), opts = {}) {
 	}
 	if (!opts.context) {
 		validateGuides(guides, data, diag);
-		return { guides, diag };
+		return { guides, diag, tokens: localise(guides, data, diag) };
 	}
 	const ours = resolveSources(opts.context.sources, opts.context.data, new Diagnostics(), 'guides');
 	const ourFiles = new Set(opts.context.sources.map((s) => s.file));
@@ -141,7 +142,22 @@ function compileSources(sources, data, diag = new Diagnostics(), opts = {}) {
 	validateGuides([...ours, ...guides], data, all);
 	for (const d of all.list) if (!ourFiles.has(d.file)) diag.list.push(d);
 	validatePackFrames(guides, data, ours, opts.context.data, diag);
-	return { guides, diag };
+	return { guides, diag, tokens: localise(guides, data, diag) };
+}
+
+// Gives each guide `_localised`: the copy Guides.lua holds, its prose with
+// name tokens (tokens.js), which the pack's translations are keyed by. A token
+// its author wrote that the data does not know is an error. -> tokens.js's
+// stats.
+function localise(guides, data, diag) {
+	const r = tokeniseGuides(guides, data);
+	guides.forEach((g, i) => hidden(g, '_localised', r.guides[i]));
+	for (const p of r.problems) diag.error(p.guide._ast.file, p.line, p.message, 'write a name token as {kind:id}, kind one of npc object item quest zone area spell faction skill, with an id the data has');
+	return r.stats;
+}
+
+function hidden(obj, key, value) {
+	Object.defineProperty(obj, key, { value, enumerable: false, configurable: true, writable: true });
 }
 
 // Era bounds for every map any emitted coordinate uses: the goal's own
@@ -161,18 +177,33 @@ function referencedFrames(guides, data) {
 // plus LICENSE.txt holding `license` (the pack's LICENSE file) when given.
 // LICENSE-DATA.txt names meta.json's sources, and CMaNGOS classic-db when a
 // goal carries a height (heights.js) and meta.json does not name it already.
-function buildPackFiles({ guides, manifest, data, license = null }) {
+// `translations` (tools/lib/i18n/guides.js packTranslations: { [locale]: {
+// pack, guides } }) add a texts addon per language beside the folder,
+// named `../<folder>_<locale>/<file>` (writePackDir writes them there).
+function buildPackFiles({ guides, manifest, data, license = null, translations = {} }) {
 	const sources = (data.meta && Array.isArray(data.meta.sources) && data.meta.sources) || [];
 	const meta = heightCounts(guides).withZ && !sources.some((s) => s && s.name === HEIGHTS_SOURCE.name) ? { ...data.meta, sources: [...sources, HEIGHTS_SOURCE] } : data.meta;
+	const iface = coreInterface();
 	const files = {
-		[`${manifest.folder}.toc`]: emitToc(manifest, coreInterface()),
+		[`${manifest.folder}.toc`]: emitToc(manifest, iface),
 		'Pack.lua': emitPack(manifest),
 		'MapFrames.lua': emitMapFrames(referencedFrames(guides, data), manifest.id),
-		'Guides.lua': emitGuides(guides.map((g) => ({ guide: g, source: g._ast && g._ast.source ? g._ast.source : null }))),
+		'Guides.lua': emitGuides(guides.map((g) => ({ guide: g._localised || g, source: g._ast && g._ast.source ? g._ast.source : null }))),
 		'LICENSE-DATA.txt': emitLicense(meta),
 	};
 	if (license != null) files['LICENSE.txt'] = license;
+	for (const locale of Object.keys(translations).sort()) {
+		const name = textsAddon(manifest.folder, locale);
+		files[`../${name}/${name}.toc`] = emitTextsToc(manifest, locale, LOCALES[locale].language, iface);
+		files[`../${name}/Texts.lua`] = emitTexts(manifest.id, locale, translations[locale]);
+		if (license != null) files[`../${name}/LICENSE.txt`] = license;
+	}
 	return files;
+}
+
+// The texts addon of pack folder `folder` in `locale` (Core/GuideTexts.lua).
+function textsAddon(folder, locale) {
+	return `${folder}_${locale}`;
 }
 
 // Whether dir is a folder we generated: a TOC carrying the marker, or the
@@ -231,17 +262,67 @@ function packDirRefusal(dir, packId = null) {
 // Write a pack folder where packDirRefusal allows it (for the pack the
 // files' TOC names). The old layout (Pack.xml, Guides/) is removed, and a
 // LICENSE.txt the build no longer has; generated files are replaced;
-// anything else is left alone.
+// anything else is left alone. Files named `../<folder>_<locale>/...` are the
+// pack's texts addons (buildPackFiles), each written whole beside outDir; a
+// texts addon of the pack whose language the build no longer has is removed.
 function writePackDir(outDir, files) {
-	const toc = Object.keys(files).find((name) => name.toLowerCase().endsWith('.toc'));
+	const toc = Object.keys(files).find((name) => !name.startsWith('../') && name.toLowerCase().endsWith('.toc'));
 	const m = toc ? PACK_ID_LINE.exec(String(files[toc])) : null;
-	const refusal = packDirRefusal(outDir, m ? m[1] : null);
+	const packId = m ? m[1] : null;
+	const siblings = new Map(); // folder -> { name: content }
+	for (const name of Object.keys(files)) {
+		if (!name.startsWith('../')) continue;
+		const [folder, ...rest] = name.slice(3).split('/');
+		if (!siblings.has(folder)) siblings.set(folder, {});
+		siblings.get(folder)[rest.join('/')] = files[name];
+	}
+	const refusal = packDirRefusal(outDir, packId);
 	if (refusal) throw new Error(`refusing to write into ${outDir}: ${refusal}`);
+	const parent = path.dirname(outDir);
+	const base = path.basename(outDir);
+	for (const locale of LOCALE_CODES) {
+		const dir = path.join(parent, textsAddon(base, locale));
+		const why = textsDirRefusal(dir, packId);
+		if (siblings.has(path.basename(dir)) && why) throw new Error(`refusing to write into ${dir}: ${why}`);
+	}
 	fs.mkdirSync(outDir, { recursive: true });
 	fs.rmSync(path.join(outDir, 'Guides'), { recursive: true, force: true });
 	fs.rmSync(path.join(outDir, 'Pack.xml'), { force: true });
 	if (!('LICENSE.txt' in files)) fs.rmSync(path.join(outDir, 'LICENSE.txt'), { force: true });
-	for (const name of Object.keys(files).sort()) fs.writeFileSync(path.join(outDir, name), files[name]);
+	for (const name of Object.keys(files).sort()) if (!name.startsWith('../')) fs.writeFileSync(path.join(outDir, name), files[name]);
+	for (const locale of LOCALE_CODES) {
+		const folder = textsAddon(base, locale);
+		const dir = path.join(parent, folder);
+		const own = siblings.get(folder);
+		if (!own) {
+			if (fs.existsSync(dir) && !textsDirRefusal(dir, packId) && fs.readdirSync(dir).length) fs.rmSync(dir, { recursive: true, force: true });
+			continue;
+		}
+		fs.rmSync(dir, { recursive: true, force: true });
+		fs.mkdirSync(dir, { recursive: true });
+		for (const name of Object.keys(own).sort()) fs.writeFileSync(path.join(dir, name), own[name]);
+	}
+}
+
+// The pack id a generated texts addon's TOC names (`## X-Polestar-Texts:`).
+const TEXTS_ID_LINE = /^## X-Polestar-Texts:[ \t]*(\S+)[ \t]*$/m;
+
+// Whether dir may hold pack packId's texts addon: absent, empty, or one we
+// generated for that pack. -> null, or why not.
+function textsDirRefusal(dir, packId) {
+	let entries;
+	try {
+		entries = fs.readdirSync(dir);
+	} catch {
+		return fs.existsSync(dir) ? 'it is not a folder' : null;
+	}
+	if (!entries.length) return null;
+	const toc = entries.find((e) => e.toLowerCase().endsWith('.toc'));
+	const text = toc ? fs.readFileSync(path.join(dir, toc), 'utf8') : '';
+	const m = text.includes(GENERATED_MARKER) && TEXTS_ID_LINE.exec(text);
+	if (!m) return `it is not a generated texts addon (no TOC with the "${GENERATED_MARKER}" line); move it away first`;
+	if (packId && m[1] !== packId) return `it holds the texts of the guide pack "${m[1]}", not "${packId}"`;
+	return null;
 }
 
 // Addon folders of the release: always these (Polestar_Nav is committed:
@@ -252,6 +333,9 @@ function writePackDir(outDir, files) {
 // addons of each language last (`i18n names`, committed; the client loads only
 // its own).
 const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav'];
+// Our guide pack's texts addons (buildPackFiles), each in the release once
+// that language has a translation.
+const RELEASE_TEXT_ADDONS = LOCALE_CODES.map((l) => textsAddon('Polestar_Guides', l));
 const RELEASE_DATA_ADDONS = [
 	'Polestar_QuestDB', 'Polestar_ItemDB', 'Polestar_Codex',
 	...LOCALE_CODES.map((l) => `${NAMES_PREFIX}${l}`),
@@ -260,7 +344,8 @@ const RELEASE_DATA_ADDONS = [
 // -> { names, skipped }: the release addons present under addonsDir, in load order.
 function releaseAddons(addonsDir) {
 	const skipped = RELEASE_DATA_ADDONS.filter((n) => !fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
-	return { names: [...RELEASE_ADDONS, ...RELEASE_DATA_ADDONS.filter((n) => !skipped.includes(n))], skipped };
+	const texts = RELEASE_TEXT_ADDONS.filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
+	return { names: [...RELEASE_ADDONS, ...texts, ...RELEASE_DATA_ADDONS.filter((n) => !skipped.includes(n))], skipped };
 }
 
 module.exports = {
@@ -273,8 +358,10 @@ module.exports = {
 	compileSources,
 	buildPackFiles,
 	packDirRefusal,
+	textsDirRefusal,
 	writePackDir,
 	referencedFrames,
+	textsAddon,
 	RELEASE_ADDONS,
 	RELEASE_DATA_ADDONS,
 	releaseAddons,

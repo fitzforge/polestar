@@ -69,6 +69,6 @@ test('chokepoints: a bridge over a river and a gate through a wall, from the gri
 	}
 	const lua = chokepointsLua({ 0: list }, 'test');
 	assert.match(lua, /^PolestarNavChokepoints = PolestarNavChokepoints or \{\}$/m);
-	assert.match(lua, /kind = "bridge", name = "Test Vale", zone = "Test Vale", sides = \{ \{ wx = /);
+	assert.match(lua, /kind = "bridge", name = "Test Vale", area = \d+, zone = "Test Vale", zoneArea = \d+, sides = \{ \{ wx = /);
 	assert.match(lua, new RegExp(`liftEnd = "bottom", pair = ${list.indexOf(top) + 1}`), 'pair is a 1-based Lua index');
 });

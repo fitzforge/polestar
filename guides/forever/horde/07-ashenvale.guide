@@ -53,6 +53,8 @@ next forever/horde/30-40/01-desolace
 #   Rok'Alim the Pounder, an elite: optional. Its follow-up, Test of Lore
 #   (1152), is not taken: it ends with Braug Dimspirit in Stonetalon, which
 #   the route does not visit again.
+# - Mirage Raceway: Trackmaster Zherin and Pozzik, the first two you reach
+#   coming off the flats, before the Brassbolts and Kravel.
 #
 # Optional: Test of Strength (1151): Rok'Alim the Pounder is elite: grouping
 # up is advised.
@@ -256,7 +258,7 @@ step Thunder Bluff
 
 step The Earthen Ring
   tip Take a lift down from Thunder Bluff. The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury.
-  accept 96241 @32.5,20.6             -- Mazu'kon
+  accept 96241 @32.5,20.6 live        -- Mazu'kon
   accept 96260                        -- Yorn Grimtotem
   accept 96259                        -- Muln Earthfury
 
@@ -410,12 +412,12 @@ step The salt flats
   kill 4150 quest 1175.3
 
 step Mirage Raceway
+  turnin 1175                         -- Trackmaster Zherin
+  turnin 1176                         -- Pozzik
   turnin 1110                         -- Kravel Koalbeard
   turnin 1104                         -- Fizzle Brassbolts
   turnin 1105                         -- Wizzle Brassbolts
   accept 1106                         -- Fizzle Brassbolts: his letter goes to Martek in the Badlands, around level 38
-  turnin 1176                         -- Pozzik
-  turnin 1175                         -- Trackmaster Zherin
 
 step Freewind Post
   hearth "Freewind Post"

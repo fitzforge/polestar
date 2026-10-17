@@ -121,12 +121,14 @@ function loadFonts() {
 	return new Proxy(fonts, { get: (t, k) => t[k] || t[FALLBACK] });
 }
 
-// Advance widths (em) for every code point the UI can plausibly show.
-function metricsLua(fonts) {
+// Advance widths (em) for every code point the UI can plausibly show, and
+// `extra` ones (tools/preview/fit.js: the translations' scripts).
+function metricsLua(fonts, extra = []) {
 	const cps = [];
 	for (let c = 32; c < 127; c++) cps.push(c);
 	for (let c = 0xa0; c < 0x180; c++) cps.push(c);
 	cps.push(0x2013, 0x2014, 0x2018, 0x2019, 0x201c, 0x201d, 0x2026, 0x2022, 0x00b7, 0x00d7, 0x2192);
+	for (const c of extra) if (!cps.includes(c)) cps.push(c);
 	const parts = FONT_FILES.map((file) => {
 		const f = fonts[file];
 		const adv = cps.map((c) => `[${c}]=${f.advanceEm(c).toFixed(5)}`).join(',');
@@ -335,6 +337,25 @@ Polestar.Transit = { Now = function() return 1000 end, NextDeparture = function(
 uistub.target = { label = "Silithus" }
 ${TABS}
 Polestar.Fire("ROUTE_CHANGED", JR.legs)`;
+// The game's gamepad interface with a gamepad plugged in (labels "Letters":
+// Xbox; "Shapes": PlayStation), LT acting as Shift, and a few saved bindings
+// for the Key bindings tab.
+const PAD = (labels = 'Letters') => `Enum.InputDeviceInterfaceType = { Mkb = 0, Gamepad = 1 }
+C_InputInterfaceStyle = { GetCurrentStyle = function() return 1 end }
+C_GamePad = { IsEnabled = function() return true end, GetAllDeviceIDs = function() return { 1 } end,
+	GetActiveDeviceID = function() return 1 end, GetDeviceMappedState = function() return { labelStyle = "${labels}" } end }
+stub.cvars.GamePadEmulateShift = "PADLTRIGGER"
+local saved = { PAD3 = "CLICK PolestarQuestItemButton:LeftButton", ["SHIFT-PADDRIGHT"] = "POLESTAR_NEXT", ["SHIFT-PADDLEFT"] = "POLESTAR_PREV", N = "POLESTAR_TOGGLE" }
+function GetBindingKey(action)
+	local keys = {}
+	for k, a in pairs(saved) do if a == action then keys[#keys + 1] = k end end
+	table.sort(keys)
+	return unpack(keys)
+end`;
+// The gamepad's ring, hint bar and B chip, moved to the window holding the gamepad.
+const PAD_UI = ['PolestarPadRing', 'PolestarPadHints', 'PolestarPadBadge'];
+const PAD_GUIDE = [...GUIDE, ...PAD_UI];
+const PAD_OPTIONS = [...OPTIONS, ...PAD_UI];
 const HOVER = 'PolestarGuideFrame.IsMouseOver = function() return true end; Polestar.UI.GuideFrame.HoverIn()';
 const RECORDER = `stub.addonsLoaded.Polestar_Recorder = true
 PolestarRecorderDB = { enabled = true, current = "s2", sessions = {
@@ -469,9 +490,9 @@ function questDbLua() {
 }
 const MAP_W = 700, MAP_H = 470;
 // Runs before the addon files: the world, then the map canvas (the shape of
-// Blizzard_MapCanvas a data provider sees, as tests/lua/stub_nav.lua fakes
-// it) sized like the world map's, and the minimap's ground. Map percent to
-// canvas pixels: x * MAP_W, y * MAP_H from the top left.
+// Blizzard_MapCanvas Polestar reads, tests/lua/wow_stub.lua's world map with
+// its own canvas) sized like the world map's, and the minimap's ground. Map
+// percent to canvas pixels: x * MAP_W, y * MAP_H from the top left.
 const QUEST_PLAYER = { x: 46.4, y: 39.6 };
 // The zone a scene plays in (default: Elwynn at the abbey); `frame` its
 // world bounds, the same in the Era frame.
@@ -487,27 +508,10 @@ stub.worldMapID = ${place.map}
 local FONT = "Interface\\\\AddOns\\\\Polestar\\\\Media\\\\Fonts\\\\Inter-SemiBold.ttf"
 local NAV = "Interface\\\\AddOns\\\\Polestar\\\\Media\\\\Nav\\\\"
 
-MapCanvasDataProviderMixin = {
-	OnAdded = function(self, map) self.owningMap = map end,
-	GetMap = function(self) return self.owningMap end,
-	RemoveAllData = function() end,
-	RefreshAllData = function() end,
-	OnMapChanged = function(self) self:RefreshAllData() end,
-}
-MapCanvasPinMixin = {
-	OnLoad = function() end, OnAcquired = function() end, OnReleased = function() end,
-	SetOwningMap = function(self, map) self.owningMap = map end,
-	GetMap = function(self) return self.owningMap end,
-	SetPosition = function(self, x, y) self:GetMap():SetPinPosition(self, x, y) end,
-	SetScalingLimits = function() end, SetIgnoreGlobalPinScale = function() end,
-	UseFrameLevelType = function(self, t) self.pinFrameLevelType = t end,
-	CheckMouseButtonPassthrough = function() end,
-}
 local map = WorldMapFrame
 map:SetSize(${MAP_W}, ${MAP_H})
 map:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 map:Show()
-map.pinPools = {}
 map.ScrollContainer:SetAllPoints(map)
 local canvas = CreateFrame("Frame", nil, map.ScrollContainer)
 canvas:SetPoint("TOPLEFT", map, "TOPLEFT", 0, 0)
@@ -529,32 +533,10 @@ local name = canvas:CreateFontString(nil, "ARTWORK")
 name:SetFont(FONT, 15, ""); name:SetTextColor(0.93, 0.89, 0.78, 0.6)
 name:SetPoint("TOPLEFT", canvas, "TOPLEFT", 14, -12); name:SetText("${place.name}")
 function map.GetCanvas() return canvas end
-function map.SetPinPosition(self, pin, x, y)
-	pin:ClearAllPoints()
-	pin:SetPoint("CENTER", canvas, "TOPLEFT", x * ${MAP_W}, -y * ${MAP_H})
-end
--- Blizzard_MapCanvas: AcquirePin applies the frame level of the pin's type
--- (Blizzard_WorldMap orders QUEST_BLOB far below SUPER_TRACKED_QUEST); pins
--- of one type share it and draw in acquire order (re-stamped for render.js).
-local acquired = 0
-function map.AcquirePin(self, template, ...)
-	local pool = self.pinPools[template]
-	local pin, new = pool:Acquire()
-	pin.pinTemplate = template
-	pin:SetOwningMap(self)
-	if new then pin:OnLoad() end
-	pin:SetFrameLevel(canvas:GetFrameLevel() + (pin.pinFrameLevelType == "PIN_FRAME_LEVEL_QUEST_BLOB" and 2 or 20))
-	acquired = acquired + 1
-	pin.seq = 1000000 + acquired
-	pin:Show()
-	pin:OnAcquired(...)
-	pin:CheckMouseButtonPassthrough("RightButton")
-	return pin
-end
-function map.RemoveAllPinsByTemplate(self, template)
-	if self.pinPools[template] then self.pinPools[template]:ReleaseAll() end
-end
-function map.UnregisterPin() end
+-- Blizzard_WorldMap orders QUEST_BLOB far below SUPER_TRACKED_QUEST, both
+-- under the player's unit pin.
+local levels = { GetValidFrameLevel = function(_, t) return canvas:GetFrameLevel() + (t == "PIN_FRAME_LEVEL_QUEST_BLOB" and 2 or 20) end }
+function map.GetPinFrameLevelsManager() return levels end
 -- The player, as the world map's own unit pin draws it: above every pin.
 local me = CreateFrame("Frame", nil, canvas)
 me:SetFrameLevel(100); me:SetSize(22, 22)
@@ -951,6 +933,41 @@ stub.RunScript(d, "OnTextChanged", true)`,
 		],
 	},
 	{
+		file: 'gamepad-guide.svg',
+		title: 'Focus mode on the guide window (Browse the guide with the gamepad): the first open goal; down a line on a hub step; up into the navigator with PlayStation buttons',
+		panels: [
+			{ roots: PAD_GUIDE, before: PAD(), script: `${TABS}; Polestar.Gamepad.StartFocus()` },
+			{ roots: PAD_GUIDE, before: PAD(), script: `${TABS}; uistub.setStep(4); Polestar.Gamepad.StartFocus(); Polestar.Gamepad.Dispatch("PADDDOWN")` },
+			{ roots: PAD_GUIDE, before: PAD('Shapes'), script: `${TABS}; Polestar.Gamepad.StartFocus(); Polestar.Gamepad.Dispatch("PADDUP")` },
+		],
+	},
+	{
+		file: 'gamepad-options.svg',
+		title: 'Options with a gamepad: the Gamepad page (a dropdown focused, D-pad left / right steps it), a binding row on its Key bindings tab (chips for buttons, chords and keys), and a slider with PlayStation buttons; B sits on the close button',
+		panels: [
+			{ roots: PAD_OPTIONS, before: PAD(), script: 'Polestar.UI.ShowOptions("gamepad"); stub.advance(0.3)' },
+			{ roots: PAD_OPTIONS, before: PAD(), script: 'Polestar.UI.ShowOptions("gamepad"); stub.advance(0.3); Polestar.Gamepad.Dispatch("PADRSHOULDER"); stub.advance(0.3); Polestar.Gamepad.Dispatch("PADDDOWN")' },
+			{
+				roots: PAD_OPTIONS, before: PAD('Shapes'),
+				script: `Polestar.UI.ShowOptions("guide"); stub.advance(0.3)
+local G = Polestar.Gamepad
+for _ = 1, 30 do
+	local f = G.Focused(PolestarOptions)
+	if f and f.psStep then break end
+	G.Dispatch("PADDDOWN")
+end`,
+			},
+		],
+	},
+	{
+		file: 'gamepad-hub.svg',
+		title: 'The guide menu with a gamepad: the focus starts on the selected guide (X loads it, LB / RB step the sections); a dropdown\'s choices in the shared menu, the current one focused',
+		panels: [
+			{ roots: [...PICKER, ...PAD_UI], before: PAD(), script: pickerScene(`${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.Select(uistub.elwynn); stub.advance(0.3)`) },
+			{ roots: [...PAD_OPTIONS, 'PolestarMenu'], before: PAD(), script: 'Polestar.UI.ShowOptions("gamepad"); stub.advance(0.3); Polestar.Gamepad.Dispatch("PAD1")' },
+		],
+	},
+	{
 		file: 'options-appearance.svg',
 		title: 'Options: Appearance (Colour & type, Windows, Arrow); then a look of your own: an accent border 2px thick, no band, no shadow, your own arrow colours',
 		panels: [
@@ -977,6 +994,14 @@ stub.RunScript(d, "OnTextChanged", true)`,
 		panels: [
 			{ roots: OPTIONS, before: RECORDER, script: 'Polestar.UI.ShowOptions("recorder")' },
 			{ roots: OPTIONS, script: 'Polestar.UI.ShowOptions("about")' },
+		],
+	},
+	{
+		file: 'options-integrations.svg',
+		title: 'Options: Integrations: Questie\'s section while Questie is loaded; with no supported addon, one line says so',
+		panels: [
+			{ roots: OPTIONS, script: 'stub.addonsLoaded.Questie = true; Polestar.UI.ShowOptions("integrations")' },
+			{ roots: OPTIONS, script: 'Polestar.UI.ShowOptions("integrations")' },
 		],
 	},
 	{

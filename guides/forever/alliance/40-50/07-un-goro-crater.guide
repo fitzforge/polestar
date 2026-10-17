@@ -24,6 +24,8 @@
 #   turn-in follow at once instead of after the level 51 grind.
 # - Local order: Lar'korwi is close to Torwa, so his head goes in before U'cha; the crater is then crossed once
 #   (north-east, west, south-east back to Torwa).
+# - Local order: on the return from loop 2, Shizzle (4503) and Spraggle
+#   (4501) at the refuge's entrance come first, then the Marshals and Spark.
 # - Williden's Journal (3884) is optional: A Mangled Journal is a rare drop from the crater's beasts.
 # - Export visit 58 (Rut'theran Village at 51.4: 3022, 3661, 2939, 2940) is handed in by 40-50/05, which already
 #   passes Rut'theran at 47, so there is no Teldrassil trip here. The Talrendis Point flight path (listed by the
@@ -181,12 +183,12 @@ step Western Pylon
 
 step Marshal's Refuge
   tip Ride north along the western jungle back to the refuge.
+  turnin 4503                         -- Shizzle, at the refuge's entrance
+  turnin 4501                         -- Spraggle Frock
+  turnin 3882                         -- Spark Nilminer
+  turnin 3883                         -- Hol'anyee Marshal
   turnin 3881                         -- Williden Marshal
   turnin 3884 optional
-  turnin 3883                         -- Hol'anyee Marshal
-  turnin 3882                         -- Spark Nilminer
-  turnin 4503                         -- Shizzle
-  turnin 4501                         -- Spraggle Frock
   turnin 4285                         -- J.D. Collie
   turnin 4287
   turnin 4288

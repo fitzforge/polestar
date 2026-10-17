@@ -112,7 +112,7 @@ step Training weapons and boars
   tip The weapons lie around the Den and the training grounds; the Mottled Boars roam the whole valley floor.
   collect 277653 quest 97279.1
   kill 3098 quest 788.1
-  goto 42.4,68.6 "The Den's cave mouth"
+  goto 42.4,68.6 "The Den"
 
 step The Den
   tip Gornek stands just inside the cave mouth; Kzan Thornslash at the back of the cave behind him.
@@ -163,7 +163,7 @@ step Sarkoth
 step Hana'zua
   turnin 790
   accept 804
-  goto 42.4,68.6 "The Den's cave mouth"
+  goto 42.4,68.6 "The Den"
 
 step Back to the Den
   turnin 804                          -- Gornek
@@ -176,7 +176,7 @@ step Foreman Thazz'ril
 
 step Lazy Peons
   tip Hit the sleeping peons north of the Den with the Foreman's Blackjack.
-  kill 10556 quest 5441.1
+  kill 10556 quest 5441.1 "Wake Lazy Peons with the Foreman's Blackjack"
 
 step Foreman Thazz'ril
   turnin 5441
@@ -261,15 +261,15 @@ step Brakk's campfire
   accept 96655
 
 step Razor Hill
-  turnin 2161                         -- Innkeeper Grosk
-  sethome "Razor Hill"
+  accept 96822                        -- Turroc, on the east side of town
   turnin 96821                        -- Gar'Thok
   accept 784
   complete 96655 @51.1,42.5           -- Talk to Cook Torka
   turnin 96655
   accept 96825
+  turnin 2161                         -- Innkeeper Grosk
+  sethome "Razor Hill"
   accept 791                          -- Furl Scornbrow, in the watchtower
-  accept 96822                        -- Turroc
 
 step Prickly pears
   tip The prickly pears grow among the quilboar huts just west of town.

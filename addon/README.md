@@ -89,6 +89,7 @@ never in saved variables.
 | File | Public table | What it does |
 |---|---|---|
 | `Nav.lua` | `Nav` | The point being guided to and where it is relative to the player |
+| `MapCanvas.lua` | `MapCanvas` | Drawing on Blizzard's map frames (world map, battlefield map) with Polestar's own frames, the maps only read |
 | `Pins.lua` | `Pins` | Map and minimap icons for every module, in named layers |
 | `Arrow.lua` | `Nav.arrow` | The waypoint arrow: turning, distance, label, arrival ring |
 | `Layers.lua` | (local) | Nav's own pins: the target, its area, the points where the travel route changes mode |
@@ -128,6 +129,7 @@ never in saved variables.
 | `ZoneLevels.lua` | (registers data) | Generated: each zone's level range |
 | `Reveal.lua` | `Maps` | The world map without fog of war |
 | `Coords.lua` | `Maps` | The player's coordinates under the minimap |
+| `MinimapButton.lua` | `Maps` | The optional Polestar button on the minimap's edge |
 | `Dungeons.lua` | `Maps` | Dungeon entrance pins on the world map |
 | `TravelPins.lua` | `Maps` | Flight master and transport pins |
 | `FlightTimer.lua` | `Maps` | Destination and time left while on a flight |

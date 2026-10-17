@@ -10,3 +10,4 @@ ID,DifficultyID,EffectIndex,Effect,EffectBasePoints,EffectDieSides,EffectItemTyp
 108,0,0,24,0,1,118,0,0,2330
 109,0,0,118,0,0,0,0,171,2259
 110,1,0,24,0,0,9999,0,0,2963
+111,0,0,24,0,1,2575,0,0,2392

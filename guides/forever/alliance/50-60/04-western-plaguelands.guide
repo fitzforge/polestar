@@ -125,10 +125,10 @@ step Chillwind Camp
 
 step The Andorhal watchtowers
   tip Use the Beacon Torch at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.
-  kill 10902 quest 5097.1             -- Andorhal Tower One
-  kill 10903 quest 5097.2             -- Andorhal Tower Two
-  kill 10904 quest 5097.3             -- Andorhal Tower Three
-  kill 10905 quest 5097.4             -- Andorhal Tower Four
+  kill 10902 quest 5097.1 "Mark Andorhal Tower One with the Beacon Torch"
+  kill 10903 quest 5097.2 "Mark Andorhal Tower Two with the Beacon Torch"
+  kill 10904 quest 5097.3 "Mark Andorhal Tower Three with the Beacon Torch"
+  kill 10905 quest 5097.4 "Mark Andorhal Tower Four with the Beacon Torch"
 
 step Felstone Field cauldron
   tip Cauldron Lord Bilemaw guards the cauldron in Felstone Field, west of Andorhal.

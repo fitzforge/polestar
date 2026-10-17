@@ -30,7 +30,8 @@ options:
   --no-web-xp          skip quest XP lookups on wowforevertalents.com / foreverchanges.pro
                        for quests QuestieDB has no XP for (results cached in data/sources/webxp/)
   --no-wowhead         skip Wowhead Forever's change notes (XP, levels) and its XP for quests
-                       still without any (zone lists cached a day in data/sources/wowhead/)
+                       still without any (the zone lists cached in data/sources/wowhead/,
+                       when present)
   --recordings <dir>   recordings folder (default: data/recordings)
   --out <dir>          output folder (default: data/forever)
   --sources <dir>      source cache folder (default: data/sources)

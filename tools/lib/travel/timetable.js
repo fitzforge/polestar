@@ -300,18 +300,22 @@ function stopsAt(route, at) {
 // --- lifts and the tram (TransportAnimation) ---------------------------------
 
 // Explicit site and car identities (entry, spawn guid) keep ids stable if
-// the sources gain spawns. Shortest Path Forever's list.
+// the sources gain spawns. Shortest Path Forever's list. area: the AreaTable
+// area the lift is named by (its name in the client's language); dir: which
+// of that place's lifts ("Undercity, east lift"), none for a lift named by
+// its area alone.
 const LIFTS = [
-	{ id: 'lift-great-lift', name: 'The Great Lift', cars: [[11898, 16874], [11899, 16876]], fit: 'lift' },
-	{ id: 'lift-freewind-post', name: 'Freewind Post', cars: [[11898, 16875], [11899, 16877]], fit: 'lift' },
-	{ id: 'lift-thunder-bluff-west', name: 'Thunder Bluff, west lift', cars: [[4170, 18298], [4171, 18435]], fit: 'liftSlow' },
-	{ id: 'lift-thunder-bluff-north', name: 'Thunder Bluff, north lift', cars: [[47296, 20639], [47297, 20640]], fit: 'liftSlow' },
-	{ id: 'lift-undercity-west', name: 'Undercity, west lift', cars: [[20649, 44892]], fit: 'liftShort' },
-	{ id: 'lift-undercity-east', name: 'Undercity, east lift', cars: [[20652, 44962]], fit: 'liftShort' },
-	{ id: 'lift-undercity-south', name: 'Undercity, south lift', cars: [[20655, 44901]], fit: 'liftShort' },
+	{ id: 'lift-great-lift', name: 'The Great Lift', area: 485, cars: [[11898, 16874], [11899, 16876]], fit: 'lift' },
+	{ id: 'lift-freewind-post', name: 'Freewind Post', area: 484, cars: [[11898, 16875], [11899, 16877]], fit: 'lift' },
+	{ id: 'lift-thunder-bluff-west', name: 'Thunder Bluff, west lift', area: 1638, dir: 'west', cars: [[4170, 18298], [4171, 18435]], fit: 'liftSlow' },
+	{ id: 'lift-thunder-bluff-north', name: 'Thunder Bluff, north lift', area: 1638, dir: 'north', cars: [[47296, 20639], [47297, 20640]], fit: 'liftSlow' },
+	{ id: 'lift-undercity-west', name: 'Undercity, west lift', area: 1497, dir: 'west', cars: [[20649, 44892]], fit: 'liftShort' },
+	{ id: 'lift-undercity-east', name: 'Undercity, east lift', area: 1497, dir: 'east', cars: [[20652, 44962]], fit: 'liftShort' },
+	{ id: 'lift-undercity-south', name: 'Undercity, south lift', area: 1497, dir: 'south', cars: [[20655, 44901]], fit: 'liftShort' },
 ];
 // The two trains' lead cars (176081/176085 follow 176080; 176083/176084 follow 176082).
 const TRAINS = [176080, 176082];
+const DEEPRUN_TRAM_AREA = 2257; // AreaTable "Deeprun Tram"
 const TRAM_SPLIT_Y = 1200; // tram instance (map 369): Ironforge station below, Stormwind above
 
 function animationTracks(rows) {
@@ -416,6 +420,8 @@ function buildLifts(tracks, db, routes, services, warnings) {
 		services[site.id] = {
 			kind: 'lift',
 			name: site.name,
+			area: site.area,
+			...(site.dir ? { dir: site.dir } : {}),
 			c: landings[0].c,
 			wx: round(mean(landings, 0), 1),
 			wy: round(mean(landings, 1), 1),
@@ -446,15 +452,16 @@ function buildTram(transport, tracks, db, routes, services, warnings) {
 		routes[id] = built.route;
 		parts.push({ route: id, a: built.a, b: built.b });
 	}
-	services[transport.id] = { kind: 'tram', name: 'Deeprun Tram', ends: [transport.a.name, transport.b.name], board: BOARD.tram, pre: LOAD_SECONDS + TRAM_WALK, post: LOAD_SECONDS + TRAM_WALK, routes: parts };
+	services[transport.id] = { kind: 'tram', name: 'Deeprun Tram', area: DEEPRUN_TRAM_AREA, ends: [transport.a.name, transport.b.name], areas: [transport.a.area, transport.b.area], board: BOARD.tram, pre: LOAD_SECONDS + TRAM_WALK, post: LOAD_SECONDS + TRAM_WALK, routes: parts };
 }
 
 // --- portals and teleports ---------------------------------------------------
 
-// Walk-in portals: the AreaTrigger (client) to its classic-db destination.
+// Walk-in portals: the AreaTrigger (client) to its classic-db destination;
+// fromArea / toArea the AreaTable areas of its ends.
 const PORTALS = [
-	{ trigger: 527, id: 'portal-ruttheran', from: 'Darnassus', to: "Rut'theran Village" },
-	{ trigger: 542, id: 'portal-darnassus', from: "Rut'theran Village", to: 'Darnassus' },
+	{ trigger: 527, id: 'portal-ruttheran', from: 'Darnassus', fromArea: 1657, to: "Rut'theran Village", toArea: 702 },
+	{ trigger: 542, id: 'portal-darnassus', from: "Rut'theran Village", fromArea: 702, to: 'Darnassus', toArea: 1657 },
 ];
 const PORTAL_SECONDS = 5; // the loading screen
 
@@ -464,13 +471,17 @@ const TELEPORT_EFFECTS = new Set([5, 252]);
 const DEST_HOME = 9;
 const DEST_DB = 17;
 const HEARTHSTONE_SPELL = 8690; // the planner's own hearth leg
+// The AreaTable area each class teleport's destination is named by (the
+// spell's own name comes from the client: SpellName).
+const TELEPORT_AREA = { 3561: 1519, 3562: 1537, 3563: 1497, 3565: 1657, 3566: 1638, 3567: 1637, 18960: 493 };
 
-// A world point -> an end { name, c, wx, wy, map, x, y, f } on the smallest
-// zone or city map holding it (its live frame where Forever redrew it).
-function place(name, c, wx, wy, frames, liveFrames) {
+// A world point -> an end { name, area?, c, wx, wy, map, x, y, f } on the smallest
+// zone or city map holding it (its live frame where Forever redrew it); area:
+// the AreaTable area it is named by.
+function place(name, c, wx, wy, frames, liveFrames, area) {
 	for (const cand of frames.containing(c, wx, wy)) {
 		const m = inZone(frames, liveFrames, cand.map, c, wx, wy);
-		if (m) return { name, c, wx: round(wx, 1), wy: round(wy, 1), map: cand.map, x: round(m.x, 2), y: round(m.y, 2), f: m.f };
+		if (m) return { name, ...(area ? { area } : {}), c, wx: round(wx, 1), wy: round(wy, 1), map: cand.map, x: round(m.x, 2), y: round(m.y, 2), f: m.f };
 	}
 	return null;
 }
@@ -485,13 +496,13 @@ function buildPortals(areaTriggers, db, frames, liveFrames, warnings) {
 			warnings.push(`${p.id}: ${t ? 'classic-db areatrigger_teleport' : 'AreaTrigger'} ${p.trigger} missing, skipped`);
 			continue;
 		}
-		const a = place(p.from, int(t.ContinentID), Number(t.Pos_0), Number(t.Pos_1), frames, liveFrames);
-		const b = place(p.to, dest.map, dest.x, dest.y, frames, liveFrames);
+		const a = place(p.from, int(t.ContinentID), Number(t.Pos_0), Number(t.Pos_1), frames, liveFrames, p.fromArea);
+		const b = place(p.to, dest.map, dest.x, dest.y, frames, liveFrames, p.toArea);
 		if (!a || !b) {
 			warnings.push(`${p.id}: an end is on no map, skipped`);
 			continue;
 		}
-		out.push({ id: p.id, name: p.to, a, b, seconds: PORTAL_SECONDS, source: `AreaTrigger ${p.trigger} -> classic-db areatrigger_teleport ${p.trigger}` });
+		out.push({ id: p.id, name: p.to, area: p.toArea, a, b, seconds: PORTAL_SECONDS, source: `AreaTrigger ${p.trigger} -> classic-db areatrigger_teleport ${p.trigger}` });
 	}
 	return out;
 }
@@ -524,7 +535,7 @@ function buildTeleports(tables, db, frames, liveFrames, warnings) {
 			entry.bind = true;
 		} else {
 			const pos = db.positions && db.positions[spell];
-			const to = pos && place(name.replace(/^[^:]*:\s*/, ''), pos.map, pos.x, pos.y, frames, liveFrames);
+			const to = pos && place(name.replace(/^[^:]*:\s*/, ''), pos.map, pos.x, pos.y, frames, liveFrames, TELEPORT_AREA[spell]);
 			if (!to) {
 				warnings.push(`teleport ${name} (${spell}): no destination on a mapped continent, skipped`);
 				continue;
@@ -575,7 +586,7 @@ function buildTimetables({ tables, foreverTables = null, transit = null, db = nu
 			warnings.push(`${t.id}: no ${a.length ? t.b.name : t.a.name} stop on the TaxiPath ${t.path} timetable; estimate kept`);
 			continue;
 		}
-		services[t.id] = { kind: t.kind, name: `${t.a.name} - ${t.b.name}`, ends: [t.a.name, t.b.name], board: BOARD[t.kind], pre: 0, post: 0, routes: [{ route: id, a, b }] };
+		services[t.id] = { kind: t.kind, name: `${t.a.name} - ${t.b.name}`, ends: [t.a.name, t.b.name], areas: [t.a.area, t.b.area], board: BOARD[t.kind], pre: 0, post: 0, routes: [{ route: id, a, b }] };
 	}
 	let portals = [];
 	let teleports = [];

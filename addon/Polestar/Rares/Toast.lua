@@ -21,7 +21,9 @@ local floor, max, format, concat = math.floor, math.max, string.format, table.co
 local T = {}
 Rares.Toast = T
 
-local WIDTH, BAND_H, ROW_H = 368, 64, 48
+-- WIDTH at least; wider, up to MAX_W, when a longer name, facts line or
+-- pair of buttons needs it (a translation, a long zone name).
+local WIDTH, MAX_W, BAND_H, ROW_H = 368, 520, 64, 48
 local PAD = 16
 local DOT = "  \194\183  "
 local DEFAULT = { "TOP", 0, -132 }
@@ -135,7 +137,7 @@ local function build()
 		if self:IsMouseOver() then return end
 		self.psLeft = (self.psLeft or 0) - elapsed
 		local total = self.psTotal or 1
-		W.SetProgress(self.Timer, max(0, self.psLeft) / total, WIDTH - 2)
+		W.SetProgress(self.Timer, max(0, self.psLeft) / total, self:GetWidth() - 2)
 		if self.psLeft <= 0 then T.Hide() end
 	end)
 	f:Hide()
@@ -161,9 +163,19 @@ function T.Show(a)
 		f.Open:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", PAD, 10)
 	end
 	f.Open:SetShown(a.id ~= nil)
+	-- As wide as the name, the facts and the buttons need; the band keeps
+	-- its proportions (cropped, never stretched).
+	local textX = PAD + 36 + 12
+	local need = max(WIDTH,
+		textX + math.ceil(W.TextWidth(f.Name)) + 40,
+		textX + math.ceil(W.TextWidth(f.Facts)) + PAD,
+		PAD + (f.Waypoint:IsShown() and f.Waypoint:GetWidth() + 8 or 0) + (f.Open:IsShown() and f.Open:GetWidth() or 0) + PAD)
+	local width = math.min(MAX_W, need)
+	f:SetWidth(width)
+	f.Band:SetTexCoord(Theme.BandCoords(width - 2, BAND_H))
 	local secs = tonumber(Rares.Get("toastSeconds")) or 20
 	f.psTotal, f.psLeft = secs, secs
-	W.SetProgress(f.Timer, 1, WIDTH - 2)
+	W.SetProgress(f.Timer, 1, width - 2)
 	local wasShown = f:IsShown()
 	place()
 	f:Show()

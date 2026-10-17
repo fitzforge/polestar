@@ -93,6 +93,12 @@ local shown = {} -- what the last render put up, for tests and the preview
 
 local function D() return ns.Dungeons end
 
+-- A faction's name in the client's language (Names.Faction), else the data's.
+local function factionName(id, name)
+	local N = ns.Names
+	return (N and N.Faction and N.Faction(id)) or name
+end
+
 ---------------------------------------------------------------------------
 -- Helpers
 ---------------------------------------------------------------------------
@@ -302,7 +308,9 @@ local POINT_COLOR = { npc = "npc", object = "object", item = "item" }
 -- "Nalpak  ·  The Barrens", coloured; "inside the dungeon" when it is.
 local function pointText(p)
 	if type(p) ~= "table" then return "|c" .. Theme.Hex("textMuted") .. L["Not known"] .. "|r" end
-	local name = p.name or L["Not known"]
+	local N = ns.Names
+	local own = type(p.id) == "number" and ((p.kind == "npc" and N.Npc(p.id)) or (p.kind == "object" and N.Object(p.id)) or (p.kind == "item" and N.Item(p.id))) or nil
+	local name = own or p.name or L["Not known"]
 	local text = "|c" .. Theme.Hex(POINT_COLOR[p.kind] or "npc") .. name .. "|r"
 	local place
 	if p.inside then
@@ -392,6 +400,7 @@ local function card(i)
 	c.Name:SetPoint("BOTTOMLEFT", c.Art, "BOTTOMLEFT", PAD - CARD_X - 1, 10)
 	c.Name:SetWidth(cw - (PAD - CARD_X) * 2)
 	c.Stats = W.Text(c, "small", "textDim")
+	c.Stats:SetSpacing(2) -- factLines may break it onto a second line
 	c.Stats:SetPoint("LEFT", c, "TOPLEFT", PAD - CARD_X, -(CARD_ART + 20))
 	c.Forever = W.Chip(c)
 	c.Yours = W.Chip(c)
@@ -492,6 +501,8 @@ local function block(i)
 	b.StartLabel = label(b, L["Starts"])
 	b.StartPin = pin(b)
 	b.Start = W.Text(b, "label", "text")
+	b.Start:SetWordWrap(true)
+	b.Start:SetJustifyV("TOP")
 	b.StartLink = CreateFrame("Button", nil, b)
 	b.StartLink:SetHeight(22)
 	b.StartLink:SetFrameLevel(b.StartPin:GetFrameLevel() + 1)
@@ -733,6 +744,9 @@ function DS.Build(parent, shell)
 	pg.Measure = W.Text(pg, "note", "text")
 	pg.Measure:SetWordWrap(true)
 	pg.Measure:Hide()
+	pg.MeasureStart = W.Text(pg, "label", "text") -- a quest's start line
+	pg.MeasureStart:SetWordWrap(true)
+	pg.MeasureStart:Hide()
 
 	-- The header painting, in the shell's header band under its close.
 	local art = ZoneArt.Create(pg, MW, SH.header, "bg")
@@ -757,6 +771,7 @@ function DS.Build(parent, shell)
 	pg.Forever = W.Chip(over)
 	pg.Forever:SetPoint("LEFT", pg.Title, "RIGHT", 12, 0)
 	pg.Sub = textShadow(W.Text(over, "note", "textDim"))
+	pg.Sub:SetSpacing(2)
 	pg.Sub:SetPoint("TOPLEFT", pg.Title, "BOTTOMLEFT", 0, -8)
 	-- The actions, right to left from the band's corner (pageHeader places
 	-- them): the primary one is "Hand in the quests" while quests here are
@@ -878,6 +893,24 @@ local function defaultBand(plevel)
 	return level > 0 and "level" or "all"
 end
 
+-- A dungeon's facts ("Levels 17–24 · The Barrens · ...", on its card and
+-- under its name), broken onto more lines between two facts where one line
+-- is too narrow.
+local function factLines(fs, facts, width)
+	local lines, line = {}, nil
+	for _, fact in ipairs(facts) do
+		local candidate = line and (line .. DOT .. fact) or fact
+		if line and W.TextWidth(fs, candidate) > width then
+			lines[#lines + 1] = line
+			line = fact
+		else
+			line = candidate
+		end
+	end
+	lines[#lines + 1] = line or ""
+	return concat(lines, "\n")
+end
+
 local function paintCard(c, d, f, plevel, key)
 	c.psKey, c.psEntry = d.key, d
 	c.Name:SetText(d.name)
@@ -900,7 +933,6 @@ local function paintCard(c, d, f, plevel, key)
 	else
 		facts[#facts + 1] = n == 1 and L["1 quest"] or format(L["%d quests"], n)
 	end
-	c.Stats:SetText(concat(facts, DOT))
 	local cw = c:GetWidth()
 	local right = PAD - CARD_X
 	-- Under For your level every card is; elsewhere the chip marks them.
@@ -920,7 +952,9 @@ local function paintCard(c, d, f, plevel, key)
 	else
 		c.Forever:Hide()
 	end
-	c.Stats:SetWidth(max(60, cw - (PAD - CARD_X) - right - 6))
+	local statsW = max(60, cw - (PAD - CARD_X) - right - 6)
+	c.Stats:SetWidth(statsW)
+	c.Stats:SetText(factLines(c.Stats, facts, statsW))
 	W.Color(c.Stats, n > 0 and "textDim" or "textMuted")
 end
 
@@ -1106,7 +1140,9 @@ local function pageHeader(d)
 		end
 	end
 	pg.Title:SetWidth(min(floor(pg.Title:GetStringWidth() + 1), MW - PAD * 2 - 140))
-	pg.Sub:SetWidth(MW - PAD - 24 - used - (PAD - 12))
+	local subW = MW - PAD - 24 - used - (PAD - 12)
+	pg.Sub:SetWidth(subW)
+	pg.Sub:SetText(factLines(pg.Sub, facts, subW))
 end
 
 -- Why a page has nothing to pick up, in one sentence.
@@ -1139,7 +1175,7 @@ local function rewardExtras(rw)
 	if m then extras[#extras + 1] = m end
 	for _, r in ipairs(rw.rep or {}) do
 		if r.value and r.value ~= 0 then
-			extras[#extras + 1] = format(r.value > 0 and "+%d %s" or "%d %s", r.value, r.name or L["Reputation"])
+			extras[#extras + 1] = format(r.value > 0 and "+%d %s" or "%d %s", r.value, factionName(r.faction, r.name) or L["Reputation"])
 		end
 	end
 	return extras
@@ -1155,19 +1191,44 @@ local function tilesHeight(n)
 	return floor((n + per - 1) / per) * (TILE_H + 6) - 6
 end
 
-local function plan(q)
+-- Where a quest starts, and the line that says so: the giver or object, or
+-- the item that starts it with the boss it drops from. -> point, text
+local function startLine(q, key)
+	local s = startOf(q, ns.PlayerPoint())
+	if q.startItem and not (s and s.kind == "item") then s = { kind = "item", id = q.startItem.id, name = q.startItem.name, map = s and s.map, x = s and s.x, y = s and s.y, f = s and s.f, inside = s and s.inside } end
+	local text = pointText(s)
+	if s and s.kind == "item" and key then
+		-- An item that starts it: the boss it drops from, when one does.
+		for _, boss in ipairs(D().Bosses(key)) do
+			for _, t in ipairs(boss.quests or {}) do
+				if t.id == q.id and t.how == "starts" then
+					text = "|c" .. Theme.Hex("item") .. ((type(s.id) == "number" and ns.Names.Item(s.id)) or s.name or "") .. "|r|c" .. Theme.Hex("textMuted") .. DOT .. "|r|c" .. Theme.Hex("textDim") .. format(L["drops from %s"], boss.name) .. "|r"
+				end
+			end
+		end
+	end
+	return s, text
+end
+
+local function plan(q, key)
 	local VW = mainWidth() - VALUE_X - PAD
 	local p = {}
 	local y = 66
-	if q.objective then
+	p.objective = D().ObjectiveText(q)
+	if p.objective then
 		p.obj = y
 		local m = pg.Measure
 		m:SetWidth(min(VW, 620))
-		m:SetText(q.objective)
+		m:SetText(p.objective)
 		y = y + max(16, m:GetStringHeight()) + 12
 	end
 	p.starts = y
-	y = y + 22 + 12
+	-- The start line wraps where it is too long for its half (paintQuest).
+	local m = pg.MeasureStart
+	m:SetWidth(floor((VW - 16) / 2) - 24)
+	local _, startText = startLine(q, key)
+	m:SetText(startText)
+	y = y + max(22, 5 + m:GetStringHeight() + 5) + 12
 	local nChain = #(q.chain or {})
 	if nChain > 0 then
 		p.chain = y
@@ -1295,7 +1356,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 		b.Obj:ClearAllPoints()
 		b.Obj:SetPoint("TOPLEFT", b, "TOPLEFT", VALUE_X, -p.obj)
 		b.Obj:SetWidth(min(VW, 620))
-		b.Obj:SetText(q.objective)
+		b.Obj:SetText(p.objective)
 		b.Obj:Show()
 	else
 		b.Obj:Hide()
@@ -1303,8 +1364,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 	-- Starts and ends, side by side.
 	local y = p.starts
 	local half = floor((VW - 16) / 2)
-	local s = startOf(q, ns.PlayerPoint())
-	if q.startItem and not (s and s.kind == "item") then s = { kind = "item", name = q.startItem.name, map = s and s.map, x = s and s.x, y = s and s.y, f = s and s.f, inside = s and s.inside } end
+	local s, startText = startLine(q, key)
 	labelAt(b.StartLabel, y + 4)
 	b.StartPin:ClearAllPoints()
 	b.StartPin:SetPoint("TOPLEFT", b, "TOPLEFT", VALUE_X - 4, -y)
@@ -1330,19 +1390,10 @@ local function paintQuest(b, q, p, top, plevel, key)
 	end
 	b.StartPin.psTip, b.StartPin.psTipLines = link.psTip, link.psTipLines
 	b.Start:ClearAllPoints()
-	b.Start:SetPoint("LEFT", b.StartPin, "RIGHT", 4, 0)
+	-- Its first line level with the pin's middle; a long one ("… drops from
+	-- <boss>") wraps under it, and plan made the room.
+	b.Start:SetPoint("TOPLEFT", b.StartPin, "TOPRIGHT", 4, -5)
 	b.Start:SetWidth(half - 24)
-	local startText = pointText(s)
-	if s and s.kind == "item" and key then
-		-- An item that starts it: the boss it drops from, when one does.
-		for _, boss in ipairs(D().Bosses(key)) do
-			for _, t in ipairs(boss.quests or {}) do
-				if t.id == q.id and t.how == "starts" then
-					startText = "|c" .. Theme.Hex("item") .. (s.name or "") .. "|r|c" .. Theme.Hex("textMuted") .. DOT .. "|r|c" .. Theme.Hex("textDim") .. format(L["drops from %s"], boss.name) .. "|r"
-				end
-			end
-		end
-	end
 	b.Start:SetText(startText)
 	link:ClearAllPoints()
 	link:SetPoint("LEFT", b.StartPin, "LEFT", 0, 0)
@@ -1452,7 +1503,7 @@ local function renderQuests(key, f, plevel)
 	local plans, tops = {}, {}
 	local y = 0
 	for i, q in ipairs(qs) do
-		local p = plan(q)
+		local p = plan(q, key)
 		plans[i], tops[i] = p, y
 		y = y + p.h
 	end
@@ -1626,7 +1677,7 @@ local function stepLine(s, plevel)
 	elseif s.kind == "object" then
 		return format(L["%s from %s"], colored("item", s.item.name), colored("object", s.object and s.object.name)), s.object
 	elseif s.kind == "rep" then
-		return format(L["Reach %s with %s"], standingName(s.standing), colored("faction", s.name)), nil
+		return format(L["Reach %s with %s"], standingName(s.standing), colored("faction", factionName(s.faction, s.name))), nil
 	elseif s.kind == "gift" then
 		return format(L["%s gives you %s"], colored("npc", s.npc and s.npc.name), colored("item", s.item.name)), s.npc
 	end
@@ -1641,7 +1692,7 @@ local function stepSub(s, state)
 	elseif state == "log" then t[#t + 1] = L["In your log"]
 	elseif state == "locked" then t[#t + 1] = L["After the steps before it"]
 	elseif state == "level" then t[#t + 1] = format(L["From level %d"], s.minLevel or 0)
-	elseif state == "rep" and s.rep then t[#t + 1] = format(L["Needs %s with %s"], standingName(s.rep.standing), s.rep.name or L["Not known"])
+	elseif state == "rep" and s.rep then t[#t + 1] = format(L["Needs %s with %s"], standingName(s.rep.standing), factionName(s.rep.faction, s.rep.name) or L["Not known"])
 	elseif state == "skip" then t[#t + 1] = L["Not needed"]
 	end
 	if s.kind == "quest" and s.start then
@@ -1711,7 +1762,7 @@ local function renderAttune(key, f, plevel)
 		local hy = 66
 		if a.note then
 			h.Note:SetWidth(MW - PAD * 2)
-			h.Note:SetText(a.note)
+			h.Note:SetText(L[a.note]) -- the attunement table's notes are data keys (tools/lib/i18n/keys.js)
 			h.Note:Show()
 			hy = hy + floor(h.Note:GetStringHeight() + 0.5)
 		else
@@ -2095,10 +2146,13 @@ DS.atts, DS.attSteps = atts, attSteps
 function DS.Frames() return root, home, pg, segs end
 
 ns.On("SHOW_DUNGEON", function(key) DS.Show(key) end)
-ns.On("CODEX_LOADED", function()
+-- The dungeon list carries names: a late names pack sorts and names it anew.
+local function listChanged()
 	listCache = nil
 	if root and root:IsVisible() then DS.Render() end
-end)
+end
+ns.On("CODEX_LOADED", listChanged)
+ns.On("NAMES_LOADED", listChanged)
 Theme.OnChanged(function() if root and root:IsVisible() then DS.Render() end end)
 local function questsChanged()
 	if root and root:IsVisible() and page then DS.Render() end

@@ -1,7 +1,8 @@
 'use strict';
 // `profession build` / `profession draft`: client-table parsing (fixture CSVs
-// under tests/fixtures/professions/wago), skill thresholds, the recipe
-// planner's choices on small professions, and deterministic output.
+// under tests/fixtures/professions/wago: a Forever build, 1.60.1.1, and the
+// Classic Era build, 1.15.9.1, that fills its gaps), skill thresholds, the
+// recipe planner's choices on small professions, and deterministic output.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -16,6 +17,7 @@ const { planProfession, chance, expectedCrafts, SWITCH_BASE, SWITCH_CRAFTS } = r
 const { draftGuide, farmSpot, skinSpot } = require('../tools/lib/professions/guide');
 const { sourceOf, gatherCost, homeMap, zoneOf } = require('../tools/lib/professions/materials');
 const { tmpdir } = require('./helpers/tmp');
+const { DATA: REAL_DATA, needs } = require('./helpers/data');
 
 const FX = path.join(__dirname, 'fixtures', 'professions');
 const DATA = path.join(FX, 'data');
@@ -29,23 +31,36 @@ function tmpFile(name) {
 	return path.join(tmpdir('polestar-prof-'), name);
 }
 
-test('loadTables reads the cached build offline and fails clearly on a missing table', async () => {
-	const res = await loadTables({ sourcesDir: FX, offline: true });
-	assert.equal(res.build, '1.15.9.1');
+test('loadTables reads the cached Forever build offline, Era only for a table it lacks, and fails clearly on a missing table', async () => {
+	const res = await loadTables({ sourcesDir: FX, offline: true, product: 'forever' });
+	assert.equal(res.build, '1.60.1.1');
 	assert.equal(res.tables.SkillLine.length, 2);
 	assert.equal(res.tables.SkillLine[0].DisplayName_lang, 'Tailoring');
-	assert.equal(res.tables.SpellTotems.length, 0);
-	await assert.rejects(loadTables({ sourcesDir: FX, offline: true, tables: ['SkillLine', 'Nope'] }), /no cached wago\.tools build/);
+	// Not cached for Forever: read whole from Era, with a warning.
+	assert.equal(res.eraBuild, '1.15.9.1');
+	assert.deepEqual(res.tables.SpellFocusObject, [{ ID: '1', Name_lang: 'Anvil' }]);
+	assert.ok(res.warnings.some((w) => /^SpellFocusObject: no Forever 1\.60\.1\.1 table .*read Classic Era 1\.15\.9\.1$/.test(w)));
+	assert.equal(res.tables.SpellTotems.length, 1, "Forever's own SpellTotems");
+	// A table no cached build holds fails.
+	await assert.rejects(loadTables({ sourcesDir: FX, offline: true, product: 'forever', tables: ['SkillLine', 'Nope'] }), /no cached wago\.tools build/);
+	// The other tools that read client tables through loadTables still get Era by default.
+	assert.equal((await loadTables({ sourcesDir: FX, offline: true, tables: ['SkillLine'] })).build, '1.15.9.1');
 });
 
-test('recipes: created items, reagents, thresholds and learn sources from the client tables', async () => {
-	const { tables } = await loadTables({ sourcesDir: FX, offline: true });
-	const { professions, report } = extractProfessions(tables, {
+async function fixtureTables() {
+	const { tables, eraTables } = await loadTables({ sourcesDir: FX, offline: true, product: 'forever', eraFill: true });
+	const season = new Set(eraTables.SkillLineAbility.map((r) => Number(r.Spell)).filter((s) => s >= 400000));
+	return extractProfessions(tables, {
 		items: readJson('items'),
 		npcs: readJson('npcs'),
 		objects: readJson('objects'),
+		season,
 		trainers: (id, kind) => resolveTrainers(id, readJson('npcs'), { kind }),
 	});
+}
+
+test('recipes: created items, reagents, thresholds and learn sources from the client tables', async () => {
+	const { professions, report } = await fixtureTables();
 	const tailoring = professions[197];
 	assert.equal(tailoring.name, 'Tailoring');
 	assert.equal(tailoring.kind, 'primary');
@@ -65,10 +80,21 @@ test('recipes: created items, reagents, thresholds and learn sources from the cl
 	assert.equal(by[2389].learnedAt, 40);
 	assert.equal(by[2389].cost, 200);
 	assert.equal(by[2389].learnedAtEstimated, undefined);
-	// Season of Discovery spells are left out; rank spells and non-recipes are not recipes.
+	// Forever's thresholds, not Classic Era's (issue #109: Red Linen Shirt is
+	// 50/67/85 on Forever, 65/82/100 in the Era client).
+	assert.deepEqual([by[2392].yellow, by[2392].green, by[2392].grey], [50, 67, 85]);
+	// Season of Discovery spells (in the Era client too) are left out, and so are
+	// the ones Forever retired (AcquireMethod 3); rank spells and non-recipes are
+	// not recipes. Forever's own spells, past 1,000,000, stay.
 	assert.equal(by[439085], undefined);
+	assert.equal(by[2386], undefined);
 	assert.equal(by[3908], undefined);
-	assert.deepEqual(report[197].skipped, { season: 1 });
+	assert.deepEqual(report[197].skipped, { season: 1, retired: 1 });
+	// Forever's columns: EffectBasePointsF (2 made), a signed race mask read
+	// unsigned, a tool category (162) resolved to its plain tool.
+	assert.equal(by[1257000].itemCount, 2);
+	assert.equal(by[1257000].races, 2973060173);
+	assert.deepEqual(by[1257000].tools, [5956]);
 	// Rank spells: tier index from the skill effect.
 	assert.equal(tailoring.ranks[0].spell, 3908);
 	assert.equal(tailoring.ranks[1].spell, 3909);
@@ -76,7 +102,10 @@ test('recipes: created items, reagents, thresholds and learn sources from the cl
 	// Materials: unit price and vendors per side (a limited-stock vendor is kept apart).
 	assert.deepEqual(tailoring.materials[2320].vendors, { Alliance: [1347, 5000], Horde: [3364] });
 	assert.equal(tailoring.materials[2996].madeBy[0].spell, 2963);
+	// Spells and items the Forever tables lack come from Era: Minor Healing
+	// Potion's name and reagents, Empty Vial's prices.
 	assert.equal(professions[171].recipes[0].name, 'Minor Healing Potion');
+	assert.deepEqual(professions[171].recipes[0].reagents.map((g) => g.item), [2447, 765, 3371]);
 	assert.deepEqual(professions[171].materials[3371], { name: 'Empty Vial', buy: 20, buyCount: 5, sell: 1, quality: 1, vendors: { Alliance: [1347], Horde: [3364] } });
 });
 
@@ -106,7 +135,7 @@ test('build writes the same professions.json twice and reads limited stock', asy
 	assert.deepEqual(Object.keys(json), ['171', '197']);
 	assert.deepEqual(json[197].materials[2320].vendors, { Alliance: [1347], Horde: [3364] });
 	assert.deepEqual(json[197].materials[2320].limitedVendors, { Alliance: [5000], Horde: [] });
-	assert.equal(ra.report[197].recipes, 4);
+	assert.equal(ra.report[197].recipes, 6);
 });
 
 test('skill-up chance: certain while orange, linear from yellow to grey, none at grey', () => {
@@ -176,6 +205,19 @@ test('planner: segments stop at rank caps and skip unusable recipes', () => {
 	const plan = planProfession(prof, data, { to: 100 });
 	assert.deepEqual(plan.segments.map((s) => [s.spell, s.from, s.to]), [[1, 1, 75], [1, 75, 100]]);
 	assert.deepEqual(plan.excluded.map((e) => e.spell), [2, 3, 4, 5, 6]);
+});
+
+test('planner and draft: past the last usable recipe the plan stops and the guide names what is left', () => {
+	// Forever Tailoring at 295: every recipe that still gives a point needs a
+	// station (Spinning Wheel, Loom) or is a drop.
+	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 1, 55, 90, 10, { focus: 'Spinning Wheel' }), rec(3, 1, 55, 90, 10, { source: 'drop', recipeItem: 77 })]);
+	const plan = planProfession(prof, data, { to: 75 });
+	assert.equal(plan.reach, 60);
+	assert.deepEqual(plan.segments.map((s) => [s.spell, s.from, s.to]), [[1, 1, 60]]);
+	const { text } = draftGuide('Tailoring', data, { to: 75 });
+	assert.match(text, /^# {4}60-75 not routed: /m);
+	assert.match(text, /\nstep Tailoring 60-75\n {2}tip On Forever no recipe .* past 60, .* Recipes that still do: R2 \(needs a Spinning Wheel\), R3 \(recipe is a drop\)\.\n {2}skill Tailoring 75\n$/);
+	assert.throws(() => planProfession(smallProfession([rec(1, 20, 40, 60, 10)]).prof, data, { to: 75 }), /no recipe chain starts at 1/);
 });
 
 test('planner: a material the profession makes is crafted, and its recipe gates the user', () => {
@@ -353,4 +395,24 @@ test('farm spots prefer real sources (2% or more), including clickable clams, ov
 	delete data.objects[7];
 	delete data.items[5500].drops.object[7];
 	assert.equal(farmSpot(5500, 'drop', 'Alliance', 0, data).label, 'Bluegill Murloc');
+});
+
+// With the real data: every `craft <recipe> until <skill>` in the generated
+// profession guides stops at or before the recipe's grey threshold. Issue #109:
+// guides drafted from Classic Era thresholds sent players on past where
+// Forever's recipes turn grey (Red Linen Shirt "until 82" on a recipe grey at 85
+// but green from 67; Tailoring, Leatherworking and Blacksmithing steps that
+// cannot be finished).
+test('no profession guide crafts a recipe past its grey threshold (issue #109)', { skip: needs('professions.json', 'quests.json', 'npcs.json', 'objects.json', 'items.json', 'map-frames.json') }, () => {
+	const { compileSources, OFFICIAL_DIR } = require('../tools/lib/dsl/project');
+	const { loadData } = require('../tools/lib/dsl/data');
+	const dir = path.join(OFFICIAL_DIR, 'forever', 'professions');
+	const sources = fs
+		.readdirSync(dir)
+		.filter((f) => f.endsWith('.guide'))
+		.sort()
+		.map((f) => ({ file: path.join(dir, f), text: fs.readFileSync(path.join(dir, f), 'utf8') }));
+	const { diag } = compileSources(sources, loadData(REAL_DATA));
+	const grey = diag.warnings.filter((d) => /turns grey at/.test(d.message)).map((d) => `${path.basename(d.file)}:${d.line} ${d.message}`);
+	assert.deepEqual(grey, []);
 });

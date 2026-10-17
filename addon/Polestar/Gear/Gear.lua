@@ -787,6 +787,7 @@ ns.RegisterCommand("gear", function(rest)
 		ns.Print(L["Gear advice: no weights for this class"])
 		return
 	end
+	if label then label = L[label] end
 	if rest == nil or rest == "" then
 		ns.Print(L["Gear weights"] .. ": " .. tostring(label) .. " (" .. (SPEC_SOURCE[source] or tostring(source)) .. ")")
 		return

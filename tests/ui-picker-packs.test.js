@@ -212,14 +212,21 @@ test('a 64-character pack title is cut: in the sidebar, the header and a row\'s 
 		for _, b in ipairs(PolestarPicker.navButtons) do if b:IsShown() and b.psKey == "pack:joe" then entry = b end end
 		local p2, rel, rp, x = entry.Label:GetPoint(2)
 		local t2, trel, trp, tx = PolestarPicker.Title:GetPoint(2)
-		emit({ note = note, label = { n = entry.Label:GetNumPoints(), point = p2, own = rel == entry, rp = rp, x = x },
+		-- The width its anchors give it in the 240px sidebar (the stub does
+		-- not resolve anchors): 64 characters wrap to many lines there, and
+		-- the label keeps two.
+		entry.Label:SetWidth(239 - 24 - 16 - 12 - 24)
+		local fits = { lines = entry.Label:GetStringHeight() / entry.Label:GetLineHeight(), h = entry.Label:GetStringHeight(), row = entry:GetHeight() }
+		emit({ note = note, fits = fits, count = entry.Count:IsShown() and math.ceil(entry.Count:GetStringWidth()) or 0, label = { n = entry.Label:GetNumPoints(), point = p2, own = rel == entry, rp = rp, x = x },
 			title = { text = PolestarPicker.Title:GetText(), n = PolestarPicker.Title:GetNumPoints(), point = t2, own = trel == PolestarPicker.Header, x = tx } })`,
 	{ before: `JOE_TITLE = "${long}"` });
 	assert.equal(out.note.text, long);
 	assert.ok(out.note.w <= Math.floor(out.note.row * 0.45), `note ${out.note.w} within 45% of ${out.note.row}`);
 	assert.ok(out.note.title >= 40);
-	assert.deepEqual(out.label, { n: 2, point: 'RIGHT', own: true, rp: 'RIGHT', x: -(24 + 32) },
-		'the label ends short of the count, so it truncates');
+	assert.deepEqual(out.label, { n: 2, point: 'RIGHT', own: true, rp: 'RIGHT', x: -(24 + (out.count ? out.count + 8 : 0)) },
+		'the label ends short of the count, as wide as it is');
+	assert.equal(out.fits.lines, 2, 'a long label takes two lines at most');
+	assert.ok(out.fits.h <= out.fits.row, `the label (${out.fits.h}) stays within its row (${out.fits.row})`);
 	assert.equal(out.title.text, long);
 	assert.deepEqual({ n: out.title.n, point: out.title.point, own: out.title.own }, { n: 2, point: 'TOPRIGHT', own: true });
 	assert.ok(out.title.x < 0);

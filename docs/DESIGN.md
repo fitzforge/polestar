@@ -344,6 +344,22 @@ components:
   scrubber-fill:
     backgroundColor: "{colors.accent}"
     height: "2px"
+  pad-chip:
+    backgroundColor: "{colors.chip}"
+    textColor: "{colors.text}"
+    typography: "{typography.caption}"
+    rounded: "{rounded.capsule}"
+    padding: "0 7px"
+    height: "20px"
+  pad-focus:
+    backgroundColor: "{colors.hover}"
+    borderColor: "{colors.accent}"
+    borderWidth: "2px"
+  pad-hints:
+    backgroundColor: "{colors.panel}"
+    textColor: "{colors.textDim}"
+    typography: "{typography.small}"
+    padding: "4px 12px"
 ---
 
 # Design System: Polestar
@@ -630,6 +646,9 @@ A page in a desktop browser (`node tools/polestar.js planner`) that plays a guid
 - **Handles (Edit):** each located goal is a 15px disc in its subject colour with a 2px ink edge (18px with an accent edge under the cursor; hollow, on the scrim at 55%, where the place is implied rather than written), dragged to move it; a radius shows as an ink ring at 80% that drags too, in the accent under the cursor. A drag writes the .guide file.
 - **Transport bar:** 56px on the footer ground: play (a 32px button on the control ground, its glyph in the accent), previous and next step, the clock (Number, the total in textMuted), the scrubber, the speed (a 72px dropdown) and the route's totals in Small textMuted, the estimated steps in warning. The scrubber is a 40px hit area over a 2px track wash with an accent fill and a 12px thumb in text that grows 1.15× under the cursor; 1×6px ticks mark guide bounds (hairline) and level-ups (quest gold at 45%); its tooltip is Small on the raised ground with a hairline.
 - **Windows over the page:** the library (the guide menu: a 380px list on the sidebar ground beside the guide's details under a 216px zone painting), the Changes drawer (400px, from the right) and toasts (the raised ground, a status glyph) cast the window shadow and come in over 180ms; the library dims the page behind it with the scrim at 55%. Popovers and menus lift by tone and hairline only, as in the addon.
+
+### Gamepad
+Ported from Ding! by Yendi (@moust4ki). With a gamepad, the window that holds it marks one widget as focused: the mouse's hover wash, held, under a 2px accent ring at 90% just inside the widget's edges (the focus the One Accent Rule names), on setting rows, buttons, list rows and goal lines alike. Buttons are chips (`G.Glyph`): a 20px circle for a face button (Xbox's letter in Caption, PlayStation's shape drawn in the glyph family: cross, circle, square, triangle) and for a D-pad direction (the chevron), a 20px capsule 7px each side for the rest ("LB", "RT", "Ctrl"), "+" in Small textDim between the buttons of a combination; the chip wash, the name in text, never the accent. The hint bar sits 8px under the window, on the panel ground with a hairline: chip, 6px, the action in Small textDim, 16px to the next, wrapping to the window's width (300 at least) rather than leaving one out. It lists only what no button on screen shows: the D-pad, A, X and Y on the focused widget, LB / RB; B sits as a chip 4px left of the window's close button instead. A binding row carries its key as chips at the right edge, "Not bound" in Small textMuted, "Press a button…" in the accent while it waits, who else has a key in danger. Without a gamepad none of it shows, and the words speak of the mouse and the keyboard.
 
 ### Motion
 Three durations: 120ms for shells opening, menus, page changes, toggles and chrome appearing; 180ms for content changing in place and the route choice opening; 200ms for progress fills and the combat fade. A strong (quartic) ease-out for anything entering or answering the player, and a small back-out pop for a check landing. Options pages fade in without moving; the next person slides up 6px as it fades in; the rare alert settles 18px from above. Reduced motion snaps every movement (offset, size, scale, width) and keeps fades at 60% of their length. Nothing runs per frame unless something is moving.

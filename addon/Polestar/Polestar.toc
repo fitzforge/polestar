@@ -1,6 +1,24 @@
 ## Interface: 16001
 ## Title: Polestar
 ## Notes: Leveling guides for World of Warcraft: Forever.
+## Title-deDE: Polestar
+## Notes-deDE: Leveling-Guides für World of Warcraft: Forever.
+## Title-esES: Polestar
+## Notes-esES: Guías para subir de nivel en World of Warcraft: Forever.
+## Title-esMX: Polestar
+## Notes-esMX: Guías para subir de nivel en World of Warcraft: Forever.
+## Title-frFR: Polestar
+## Notes-frFR: Guides de montée en niveau pour World of Warcraft: Forever.
+## Title-koKR: Polestar
+## Notes-koKR: World of Warcraft: Forever 레벨업 가이드.
+## Title-ptBR: Polestar
+## Notes-ptBR: Guias de evolução para World of Warcraft: Forever.
+## Title-ruRU: Polestar
+## Notes-ruRU: Гайды по прокачке для World of Warcraft: Forever.
+## Title-zhCN: Polestar
+## Notes-zhCN: 魔兽世界：Forever 练级指南。
+## Title-zhTW: Polestar
+## Notes-zhTW: World of Warcraft: Forever 的升級指南。
 ## Author: Polestar
 ## X-License: GPL-3.0-only
 ## X-Website: https://github.com/fitzforge/polestar

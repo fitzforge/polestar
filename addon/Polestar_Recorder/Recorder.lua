@@ -16,6 +16,11 @@
 
 local ADDON, ns = ...
 
+-- ns.L[key]: the key is the English text, a missing key returns itself.
+-- Locales/<locale>.lua (after this file in the TOC) fill it on that client,
+-- as Polestar's do (docs/TRANSLATING.md; `node tools/polestar.js i18n`).
+ns.L = setmetatable({}, { __index = function(_, key) return key end })
+
 local type, pairs, pcall, floor, tostring, select = type, pairs, pcall, math.floor, tostring, select
 
 ns.SCHEMA = 1

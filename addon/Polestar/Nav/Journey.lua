@@ -67,7 +67,6 @@ local RUN_SPEED = 7     -- yd/s, the straight-line estimate without the planner
 local CONTINENT = 2     -- Enum.UIMapType.Continent; lower is the world and the cosmos
 local AGAIN = 0.015     -- of the clicked map's width: a click this close to the planned spot lets it go
 local AGAIN_MINIMAP = 0.08 -- of the minimap's radius
-local OWN_PIN = "PolestarPinsTemplate"
 
 ---------------------------------------------------------------------------
 -- Places
@@ -210,18 +209,18 @@ end
 
 -- The world map pin under the cursor: "own" for one of Polestar's clickable
 -- pins (they keep their clicks), else its name (or nil) and position (0-1).
+-- Polestar's are its own frames (Pins.WorldPinOf), Blizzard's the map's pins.
 local function hoveredPin(map)
+	local P = ns.Pins
 	for _, f in ipairs(foci()) do
+		local own = type(f) == "table" and P and P.WorldPinOf and P.WorldPinOf(f)
+		if own then
+			if own.pin.onClick then return "own" end
+			return type(own.pin.tooltip) == "string" and own.pin.tooltip or nil, own.x / 100, own.y / 100
+		end
 		if type(f) == "table" and f.pinTemplate and f.GetMap and f:GetMap() == map then
-			local name
-			if f.pinTemplate == OWN_PIN then
-				local p = f.data and f.data.pin
-				if p and p.onClick then return "own" end
-				name = p and type(p.tooltip) == "string" and p.tooltip or nil
-			else
-				local info = f.poiInfo or f.taxiNodeData
-				name = info and type(info.name) == "string" and info.name or (type(f.name) == "string" and f.name) or nil
-			end
+			local info = f.poiInfo or f.taxiNodeData
+			local name = info and type(info.name) == "string" and info.name or (type(f.name) == "string" and f.name) or nil
 			local x, y
 			if f.GetPosition then x, y = f:GetPosition() end
 			return name, x, y
@@ -243,21 +242,15 @@ local function onCanvasClick(canvas, button)
 	return true
 end
 
--- Shift-click on the target's own pin (which takes canvas clicks) lets it go.
-local function onPinAction(canvas, action, button)
-	local MA = MapCanvasMixin and MapCanvasMixin.MouseAction
-	if not (MA and action == MA.Click) or button ~= "LeftButton" or not planning()
+-- Shift-click on the target's own pin (which takes the click) lets it go
+-- (Pins.OnWorldClick: Polestar's pins are its own frames, not the map's).
+local function onOwnPinClick(_, layer, button)
+	if button ~= "LeftButton" or not (layer and layer.name == "nav.target") or not planning()
 		or not IsShiftKeyDown() or IsAltKeyDown() or chatOpen() or not Nav.IsOverride() then
 		return false
 	end
-	for _, f in ipairs(foci()) do
-		local layer = type(f) == "table" and f.pinTemplate == OWN_PIN and f.data and f.data.layer
-		if layer and layer.name == "nav.target" and f:GetMap() == canvas then
-			Nav.ReleaseTarget()
-			return true
-		end
-	end
-	return false
+	Nav.ReleaseTarget()
+	return true
 end
 
 -- Alt-click anywhere on the world map, its icons included. Observed through
@@ -285,11 +278,13 @@ end
 
 local worldHooked, minimapHooked = false, false
 
+-- Not with the gamepad interface (ns.GamepadUI): the handler is a write
+-- into the map's own table, and the gamepad clicks the map with A, never
+-- the mouse this answers.
 local function hookWorldMap()
 	local map = WorldMapFrame
-	if worldHooked or not (map and map.AddCanvasClickHandler and map.GetNormalizedCursorPosition) then return worldHooked end
+	if worldHooked or ns.GamepadUI() or not (map and map.AddCanvasClickHandler and map.GetNormalizedCursorPosition) then return worldHooked end
 	map:AddCanvasClickHandler(onCanvasClick)
-	if map.AddGlobalPinMouseActionHandler then map:AddGlobalPinMouseActionHandler(onPinAction) end
 	worldHooked = true
 	return true
 end
@@ -303,6 +298,7 @@ end
 ns.OnLogin(function()
 	hookMinimap()
 	ns.RegisterEvent("GLOBAL_MOUSE_DOWN", onGlobalMouseDown)
+	if ns.Pins and ns.Pins.OnWorldClick then ns.Pins.OnWorldClick(onOwnPinClick) end
 	if hookWorldMap() then return end
 	local function onLoaded(_, name)
 		if name == "Blizzard_WorldMap" and hookWorldMap() then ns.UnregisterEvent("ADDON_LOADED", onLoaded) end
@@ -722,8 +718,9 @@ local function wayTaken()
 end
 
 -- Every addon has loaded by login, so whoever owns /way is there to be seen.
+-- No slash command with the gamepad interface (Core/Init.lua).
 local function claimWay()
-	if SLASH_POLESTARWAY1 or not ns.Get("nav.answerTomTom") or Nav.HandedOff() or wayTaken() then return end
+	if SLASH_POLESTARWAY1 or ns.GamepadUI() or not ns.Get("nav.answerTomTom") or Nav.HandedOff() or wayTaken() then return end
 	SLASH_POLESTARWAY1 = "/way"
 	SlashCmdList.POLESTARWAY = Journey.Way
 end
@@ -774,7 +771,7 @@ if ns.RegisterOptions then
 	})
 	if not ok and geterrorhandler then geterrorhandler()(err) end
 	ok, err = ns.RegisterOptions({
-		page = L["Guide"], tab = L["Arrow & routes"], section = L["Other waypoints"],
+		page = L["Integrations"], section = "TomTom",
 		controls = {
 			Nav.HandoffOption({ kind = "toggle", key = "nav.answerTomTom", label = L["Let other addons set waypoints"],
 				help = L["Without TomTom installed, waypoints other addons set through TomTom, and /way, point Polestar's arrow. Addons that expect TomTom's own settings may not work with it on."] }),

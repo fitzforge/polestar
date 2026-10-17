@@ -8,6 +8,7 @@ do
 			pack = "test",
 			title = "Names",
 			reward = { { item = 2862, itemName = "Rough Sharpening Stone" } },
+			names = { ["npc:299"] = "Young Wolf", ["zone:1429"] = "Elwynn Forest" },
 			steps = {
 				{
 					title = "Goldshire",

@@ -239,7 +239,7 @@ test('release merge: rares from npc ranks (4 rare, 2 rare elite) with spawns and
 	assert.deepEqual(codex.objects[2843].loot, [1179]);
 	const drop = codex.items[5191].sources.find((s) => s.type === 'drop');
 	assert.deepEqual(drop, { type: 'drop', npc: 639, chance: 17.5, instance: 'deadmines', from: ['forever'] });
-	assert.deepEqual(codex.instances.deadmines.bosses.at(-1), { name: 'Edwin VanCleef', npc: 639, items: [5193, 5191] });
+	assert.deepEqual(codex.instances.deadmines.bosses.at(-1), { name: 'Edwin VanCleef', npc: 639, items: [5193, 5191], encounter: 1 });
 });
 
 test('buildCodex: a release build says so in its meta and ships its notices; a --local-extras build is refused by pack', async () => {

@@ -384,7 +384,7 @@ test('the world map shows zone ranges on the continent, the hovered zone, and pl
 			local function labels()
 				local out = {}
 				for _, f in ipairs(stub.frames) do
-					if f.parent == stub.maps.canvas and f.Range and f:IsShown() then
+					if f.parent == stub.maps.canvas and rawget(f, "Range") and f:IsShown() then
 						local p = f.points[1]
 						out[#out + 1] = { name = f.Name:GetText(), range = f.Range:GetText(), x = p.x, y = p.y, scale = f:GetScale() }
 					end
@@ -397,7 +397,7 @@ test('the world map shows zone ranges on the continent, the hovered zone, and pl
 			stub.advance(0.2)
 			local continent = { labels = labels(), zone = bar.Zone:GetText(), coords = bar.Coords:GetText() }
 			m.canvasScale = 2
-			for p in pairs(WorldMapFrame.dataProviders) do if p.OnCanvasScaleChanged then p:OnCanvasScaleChanged() end end
+			stub.runMapFrame(WorldMapFrame, 0)
 			local zoomed = labels()
 			m.cursor = nil
 			m.showMap(9000)
@@ -437,7 +437,7 @@ test('every Maps setting is registered with a label and help: map features on th
 	assert.equal(out.missing, '');
 	assert.deepEqual(Object.keys(out.pages).sort(), ['Map', 'Quality of Life']);
 	assert.deepEqual(out.pages.Map.sort(), [
-		'maps.coords', 'maps.dockPins', 'maps.dungeonPins', 'maps.innPins', 'maps.minimapCoords', 'maps.reveal',
+		'maps.coords', 'maps.dockPins', 'maps.dungeonPins', 'maps.innPins', 'maps.minimapButton', 'maps.minimapCoords', 'maps.reveal',
 		'maps.taxiPins', 'maps.travelMinimap', 'maps.zoneLevels',
 	]);
 	assert.deepEqual(out.pages['Quality of Life'].sort(), [

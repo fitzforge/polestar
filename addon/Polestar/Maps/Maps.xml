@@ -4,6 +4,7 @@
 	<Script file="ZoneLevels.lua"/>
 	<Script file="Reveal.lua"/>
 	<Script file="Coords.lua"/>
+	<Script file="MinimapButton.lua"/>
 	<Script file="Dungeons.lua"/>
 	<Script file="TravelPins.lua"/>
 	<Script file="FlightPaths.lua"/>

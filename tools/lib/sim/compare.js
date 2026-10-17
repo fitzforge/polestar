@@ -21,6 +21,9 @@ const { ROOT } = require('../paths');
 
 let LEVELS = [10, 20, 30, 40, 50, 60];
 
+// A class run writes its own files, so the class-agnostic ones are left alone.
+const clsPart = (cls) => (cls ? `-${cls.toLowerCase()}` : '');
+
 // Every source for one character: [{ id, label, source, events | route, family?, guides? }]
 function sources(o, faction, race, run, runD) {
 	const out = [];
@@ -33,7 +36,7 @@ function sources(o, faction, race, run, runD) {
 	if (resD) out.push({ id: 'best-dungeons', label: 'Best found (dungeons)', source: 'sim', route: sim.routeFromKeys(runD, resD.best.route), family: 'dungeons' });
 	const guidesDir = o.guidesDir || path.join(ROOT, 'guides');
 	try {
-		const L = loadPolestarRoutes({ guidesDir, dataDir: o.dataDir, faction, race, cls: null });
+		const L = loadPolestarRoutes({ guidesDir, dataDir: o.dataDir, faction, race, cls: o.cls || null });
 		if (L) {
 			out.push({ id: 'polestar', label: 'Polestar default', source: 'polestar', events: evs(L.default.events) });
 			L.variants.forEach((v, i) => out.push({ id: `polestar-${i + 1}`, label: `Polestar ${v.label}`, source: 'polestar-variant', events: evs(v.sequence.events) }));
@@ -45,7 +48,7 @@ function sources(o, faction, race, run, runD) {
 		const id = o.pack.manifest.id;
 		const ids = (seq) => seq.guides.map((g) => g.id);
 		try {
-			const P = loadPolestarRoutes({ guidesDir, dataDir: o.dataDir, faction, race, cls: null, pack: o.pack });
+			const P = loadPolestarRoutes({ guidesDir, dataDir: o.dataDir, faction, race, cls: o.cls || null, pack: o.pack });
 			if (P) {
 				out.push({ id: 'pack', label: `${id} default`, source: 'pack', events: evs(P.default.events), guides: ids(P.default) });
 				P.variants.forEach((v, i) => out.push({ id: `pack-${i + 1}`, label: `${id} ${v.label}`, source: 'pack-variant', events: evs(v.sequence.events), guides: ids(v.sequence) }));
@@ -62,7 +65,7 @@ function sources(o, faction, race, run, runD) {
 // A `sim run` result, or null when missing; a result searched on another
 // world (data or builder changed) is refused, never replayed.
 function loadResult(o, faction, race, family, world, warn) {
-	const f = sim.resultFile(o.simDir, faction, race, null, family);
+	const f = sim.resultFile(o.simDir, faction, race, o.cls || null, family);
 	if (!fs.existsSync(f)) return null;
 	const res = JSON.parse(fs.readFileSync(f, 'utf8'));
 	try {
@@ -109,12 +112,12 @@ function score(ev, run, src) {
 async function compare(o) {
 	const faction = sim.normFaction(o.faction);
 	const { world } = await sim.loadWorld({ ...o, faction });
-	const { mean } = sim.paramsFor(o.simDir, null);
+	const { mean } = sim.paramsFor(o.simDir, o.cls || null);
 	const out = [];
 	for (const race of o.race ? [o.race] : sim.START_RACES[faction]) {
 		// Solo sources run without dungeons, dungeon routes with them.
-		const solo = sim.makeRun(world, { race, cls: null, params: mean, family: 'solo' });
-		const dung = sim.makeRun(world, { race, cls: null, params: mean, family: 'dungeons' });
+		const solo = sim.makeRun(world, { race, cls: o.cls || null, params: mean, family: 'solo' });
+		const dung = sim.makeRun(world, { race, cls: o.cls || null, params: mean, family: 'dungeons' });
 		const { list, warn } = sources(o, faction, race, solo.run, dung.run);
 		const rows = [];
 		for (const src of list) {
@@ -136,7 +139,7 @@ async function compare(o) {
 				trace,
 			});
 		}
-		out.push({ faction, race, rows, warn });
+		out.push({ faction, race, class: sim.className(o.cls), rows, warn });
 	}
 	return out;
 }
@@ -175,6 +178,13 @@ async function compareCommand(args, o) {
 		console.error(`sim compare: --guides ${args.guides} is not a folder`);
 		return 2;
 	}
+	let cls;
+	try {
+		cls = sim.normClass(args.class);
+	} catch (err) {
+		console.error(`sim compare: ${err.message}`);
+		return 2;
+	}
 	const { pack, usage, error } = comparePack(args);
 	if (usage) {
 		console.error(`sim compare: ${usage}`);
@@ -184,7 +194,7 @@ async function compareCommand(args, o) {
 		console.error(`sim compare: ${error}`);
 		return 1;
 	}
-	const opts = { ...sim.DEFAULTS, ...o, faction: args.faction, race: args.race, guidesDir: args.guides ? path.resolve(args.guides) : undefined, pack, withOptional: !!args['with-optional'] };
+	const opts = { ...sim.DEFAULTS, ...o, faction: args.faction, race: args.race, cls, guidesDir: args.guides ? path.resolve(args.guides) : undefined, pack, withOptional: !!args['with-optional'] };
 	if (args.to) LEVELS = String(args.to).split(',').map(Number).filter((l) => l >= 2 && l <= 60);
 	HEAD = makeHead();
 	const res = await compare(opts);
@@ -201,7 +211,7 @@ async function compareCommand(args, o) {
 			shown.push({ ...variants[variants.length - 1], label: `${name} worst choice: ${variants[variants.length - 1].label.replace(prefix, '')}` });
 			choices.push([name, variants]);
 		}
-		console.log(`\n== ${c.faction} ${c.race}: same calibrated model (guides ${opts.withOptional ? 'with' : 'without'} their optional goals; times are /played hours; grind = time spent grinding incl. after the guide ends) ==`);
+		console.log(`\n== ${c.faction} ${c.race} (${c.class}): same calibrated model (guides ${opts.withOptional ? 'with' : 'without'} their optional goals; times are /played hours; grind = time spent grinding incl. after the guide ends) ==`);
 		console.log(table(HEAD, shown.map(fmtRow)));
 		for (const [name, variants] of choices) {
 			console.log(`\n${name} route choices (${variants.length} complete paths):`);
@@ -209,10 +219,10 @@ async function compareCommand(args, o) {
 		}
 		for (const w of c.warn) console.log(`warning: ${w}`);
 		// A pack's comparison is its own file, so ours is never overwritten.
-		const file = path.join(opts.benchDir, `compare-${c.faction.toLowerCase()}-${c.race.toLowerCase()}${pack ? `-${pack.manifest.id}` : ''}.json`);
+		const file = path.join(opts.benchDir, `compare-${c.faction.toLowerCase()}-${c.race.toLowerCase()}${clsPart(opts.cls)}${pack ? `-${pack.manifest.id}` : ''}.json`);
 		fs.writeFileSync(file, `${JSON.stringify({ ...c, ...(pack ? { pack: pack.manifest.id } : {}), rows: c.rows.map(({ trace, ...x }) => x) }, null, 1)}\n`);
 		const md = choices.length ? choices.map(([name, variants]) => `## ${name} route choices\n\n${mdTable(HEAD, variants.map(fmtRow))}\n`).join('\n') : `## Polestar route choices\n\n${mdTable(HEAD, [])}\n`;
-		fs.writeFileSync(file.replace(/\.json$/, '.md'), `# ${c.faction} ${c.race}${pack ? ` (${pack.manifest.id})` : ''}: route comparison\n\n${mdTable(HEAD, shown.map(fmtRow))}\n\n${md}`);
+		fs.writeFileSync(file.replace(/\.json$/, '.md'), `# ${c.faction} ${c.race} (${c.class})${pack ? ` (${pack.manifest.id})` : ''}: route comparison\n\n${mdTable(HEAD, shown.map(fmtRow))}\n\n${md}`);
 		console.log(`wrote ${path.relative(process.cwd(), file)} (+ .md)`);
 	}
 	return 0;
@@ -265,18 +275,25 @@ async function bench(o) {
 			}
 			return { bracket: `${lo}-${hi}`, rows, overlap };
 		});
-		out.push({ faction: c.faction, race: c.race, sources: per.map((p) => ({ id: p.id, label: p.label })), brackets });
+		out.push({ faction: c.faction, race: c.race, class: c.class, sources: per.map((p) => ({ id: p.id, label: p.label })), brackets });
 	}
 	return out;
 }
 
 async function benchCommand(args, o) {
-	const opts = { ...sim.DEFAULTS, ...o, faction: args.faction, race: args.race, withOptional: !!args['with-optional'] };
+	let cls;
+	try {
+		cls = sim.normClass(args.class);
+	} catch (err) {
+		console.error(`sim bench: ${err.message}`);
+		return 2;
+	}
+	const opts = { ...sim.DEFAULTS, ...o, faction: args.faction, race: args.race, cls, withOptional: !!args['with-optional'] };
 	const res = await bench(opts);
 	fs.mkdirSync(opts.benchDir, { recursive: true });
 	for (const b of res) {
-		const md = [`# Bench ${b.faction} ${b.race}`, '', `Sources: ${b.sources.map((s) => `${s.id} = ${s.label}`).join('; ')}`, ''];
-		console.log(`\n== bench ${b.faction} ${b.race} ==`);
+		const md = [`# Bench ${b.faction} ${b.race} (${b.class})`, '', `Sources: ${b.sources.map((s) => `${s.id} = ${s.label}`).join('; ')}`, ''];
+		console.log(`\n== bench ${b.faction} ${b.race} (${b.class}) ==`);
 		for (const br of b.brackets) {
 			const head = ['source', 'quests', 'zones (levels)'];
 			const rows = br.rows.map((r) => [r.id, r.quests, r.zones.join(' > ') || '-']);
@@ -286,7 +303,7 @@ async function benchCommand(args, o) {
 			console.log(`overlap (shared quests, Jaccard): ${ov}`);
 			md.push(`## Levels ${br.bracket}`, '', mdTable(head, rows), '', `Overlap: ${ov}`, '');
 		}
-		const file = path.join(opts.benchDir, `bench-${b.faction.toLowerCase()}-${b.race.toLowerCase()}`);
+		const file = path.join(opts.benchDir, `bench-${b.faction.toLowerCase()}-${b.race.toLowerCase()}${clsPart(opts.cls)}`);
 		fs.writeFileSync(`${file}.json`, `${JSON.stringify(b, null, 1)}\n`);
 		fs.writeFileSync(`${file}.md`, `${md.join('\n')}\n`);
 		console.log(`\nwrote ${path.relative(process.cwd(), file)}.{json,md}`);

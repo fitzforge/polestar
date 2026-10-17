@@ -12,6 +12,7 @@ const { compile, guideText, plain, GUIDES_DIR, DATA_DIR, ourManifest, writeTestP
 const { tmpdir } = require('./helpers/tmp');
 const { polestar } = require('./helpers/cli');
 const { compileProject } = require('../tools/lib/dsl/project');
+const { fillTokens } = require('../tools/lib/dsl/tokens');
 
 const cli = (...args) => polestar(args);
 
@@ -64,7 +65,7 @@ test('the compiled pack loads under Lua 5.1 with Core/Init.lua and round-trips t
 		{
 			addon: 'Polestar_Guides',
 			id: 'guides',
-			format: 2,
+			format: 3,
 			title: 'Polestar Guides',
 			author: 'Polestar',
 			version: manifest.version,
@@ -72,7 +73,8 @@ test('the compiled pack loads under Lua 5.1 with Core/Init.lua and round-trips t
 			notes: 'Leveling, profession, reputation and collectible guides for Polestar.',
 		},
 	]);
-	assert.deepEqual(loaded.guides, plain(guides));
+	// Guides.lua holds the guides as compiled, their texts with name tokens (tokens.js).
+	assert.deepEqual(loaded.guides, plain(guides.map((g) => g._localised)));
 	assert.deepEqual(loaded.guides.map((g) => g.id), ['forever/alliance/human/01-northshire', 'forever/alliance/human/02-elwynn']);
 	assert.deepEqual(loaded.guides.map((g) => g.pack), ['guides', 'guides']);
 	// Era bounds only for maps the guides reference (all fixture goals are in Elwynn Forest).
@@ -103,10 +105,11 @@ test('strings with quotes, backslashes, control characters and UTF-8 survive the
 	const r = compile(src);
 	assert.deepEqual(r.errors, []);
 	const loaded = loadPack(writeTestPack(r.guides));
-	assert.deepEqual(loaded.guides, plain(r.guides));
+	assert.deepEqual(loaded.guides, plain(r.guides.map((x) => x._localised)));
 	const g = loaded.guides[0];
-	assert.equal(g.title, tricky);
-	assert.equal(g.steps[0].title, tricky);
+	// The title names the quest: a token, its English in `names`.
+	assert.equal(fillTokens(g.title, g.names), tricky);
+	assert.equal(fillTokens(g.steps[0].title, g.names), tricky);
 	assert.equal(g.steps[0].note, 'First line.\n]] [[ --[[ not a comment');
 	assert.equal(g.steps[0].goals[0].title, tricky);
 	assert.equal(g.steps[0].goals[0].note, 'note with "quotes" and \\ backslash');

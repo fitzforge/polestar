@@ -60,6 +60,11 @@ next forever/alliance/02-westfall
 #   comes from the Applejack Still (91736) north of the garrison, for four
 #   Shiny Red Apples (Wowhead Forever, quest=91736), bought from Homer
 #   Stonefield at the Stonefield farm. The still is a short walk off the road.
+# - Northshire: Eagan Peltskinner's Wolves Across the Border (33) is taken
+#   after Deputy Willem and Marshal McBride (Willem is at the spawn, Eagan at
+#   the far corner), and Investigate Echo Ridge (15) right after Kobold Camp
+#   Cleanup is handed in to McBride, before the class letters.
+# - Eastvale: Sara Timberlain, on the way in, before Hagar Lowe.
 #
 # Class quests, as class-only steps (the level 10-12 ones from the last
 # Goldshire stop, about level 12):
@@ -88,8 +93,9 @@ next forever/alliance/02-westfall
 # - Rogue: their level 10 quests reward items, not spells: not taken.
 #   Rogues: see the Class guide Blade of Cunning (Alliance).
 # - Level 1 class letters are taken: every class's letter from Marshal
-#   McBride (3100-3105, 92479) goes to its trainer in the Abbey once Kobold
-#   Camp Cleanup is handed in.
+#   McBride (3100-3105, 92479) is taken once Kobold Camp Cleanup is handed
+#   in and goes to its trainer in the Abbey after Echo Ridge Mine, with the
+#   next train, so the trainer visit has something to learn.
 # Train at the Abbey and in Goldshire.
 # Left out: An Enchanting Lesson (91753, it needs Enchanting to disenchant
 # the effigies). Rare Books (91777, after Book Return) wants two books from
@@ -106,11 +112,11 @@ next forever/alliance/02-westfall
 
 step Northshire Abbey
   tip You start in front of the Abbey. Deputy Willem stands at the foot of the steps, Marshal McBride inside the hall, Brother Paxton and Daniel in the library to the right, Eagan Peltskinner outside the north-west corner.
-  accept 33                                   -- Eagan Peltskinner
   accept 783                                  -- Deputy Willem
   turnin 783                                  -- Marshal McBride
   accept 7
   accept 5261                                 -- Deputy Willem
+  accept 33                                   -- Eagan Peltskinner
   accept 1598 only Warlock                    -- Drusilla La Salle, outside the Abbey
 
 step Wolves
@@ -135,21 +141,14 @@ step Northshire Abbey
   turnin 92124                                -- Daniel, in the library
   accept 91743                                -- Brother Paxton
   turnin 7                                    -- Marshal McBride
-  accept 3100 only Warrior                    -- Marshal McBride: Simple Letter
-  turnin 3100 only Warrior                    -- Llane Beshere, the warrior trainer
-  accept 3101 only Paladin                    -- Marshal McBride: Consecrated Letter
-  turnin 3101 only Paladin                    -- Brother Sammuel, the paladin trainer
-  accept 92479 only Hunter                    -- Marshal McBride: A Scribbled Letter
-  turnin 92479 only Hunter                    -- Tordrin Sternblade, by the Abbey
-  accept 3102 only Rogue                      -- Marshal McBride: Encrypted Letter
-  turnin 3102 only Rogue                      -- Jorik Kerridan, the rogue trainer
-  accept 3103 only Priest                     -- Marshal McBride: Hallowed Letter
-  turnin 3103 only Priest                     -- Priestess Anetta, the priest trainer
-  accept 3104 only Mage                       -- Marshal McBride: Glyphic Letter
-  turnin 3104 only Mage                       -- Khelden Bremen, the mage trainer, inside the Abbey
-  accept 3105 only Warlock                    -- Marshal McBride: Tainted Letter
-  turnin 3105 only Warlock                    -- Drusilla La Salle, outside the Abbey
   accept 15
+  accept 3100 only Warrior                    -- Marshal McBride: Simple Letter
+  accept 3101 only Paladin                    -- Marshal McBride: Consecrated Letter
+  accept 92479 only Hunter                    -- Marshal McBride: A Scribbled Letter
+  accept 3102 only Rogue                      -- Marshal McBride: Encrypted Letter
+  accept 3103 only Priest                     -- Marshal McBride: Hallowed Letter
+  accept 3104 only Mage                       -- Marshal McBride: Glyphic Letter
+  accept 3105 only Warlock                    -- Marshal McBride: Tainted Letter
 
 step Echo Ridge Mine
   tip Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the Stolen Books.
@@ -161,6 +160,13 @@ step Northshire Abbey
   turnin 91743                                -- Brother Paxton
   accept 91745
   accept 21                                   -- Marshal McBride
+  turnin 3100 only Warrior                    -- Llane Beshere, the warrior trainer
+  turnin 3101 only Paladin                    -- Brother Sammuel, the paladin trainer
+  turnin 92479 only Hunter                    -- Tordrin Sternblade, by the Abbey
+  turnin 3102 only Rogue                      -- Jorik Kerridan, the rogue trainer
+  turnin 3103 only Priest                     -- Priestess Anetta, the priest trainer
+  turnin 3104 only Mage                       -- Khelden Bremen, the mage trainer, inside the Abbey
+  turnin 3105 only Warlock                    -- Drusilla La Salle, outside the Abbey
   train class
 
 step The Defias camp
@@ -322,7 +328,7 @@ step "Auntie" Bernice Stonefield
 step Billy Maclure
   turnin 84
   accept 87
-  goto 39.5,82.4 "Fargodeep Mine's mouth"
+  goto 39.5,82.4 "Fargodeep Mine"
 
 step Goldtooth
   tip Goldtooth is inside the Fargodeep Mine, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a Westfall Deed now and then: right-click it.
@@ -404,7 +410,7 @@ step The gnoll camps
 
 # "The mine entrance is at 61.6,54.1" (https://www.wowhead.com/classic/quest=76, comments).
 step The Jasperlode Mine's entrance
-  goto 61.6,54.1 "The Jasperlode Mine"
+  goto 61.6,54.1 "Jasperlode Mine"
 
 step The Jasperlode Mine
   tip The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.
@@ -490,9 +496,9 @@ step Guard Thomas
   turnin 52
 
 step The Eastvale Logging Camp
-  turnin 91732                                -- Hagar Lowe
   turnin 59                                   -- Sara Timberlain
   turnin 83
+  turnin 91732                                -- Hagar Lowe
 
 step Stone Cairn Lake
   tip North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.

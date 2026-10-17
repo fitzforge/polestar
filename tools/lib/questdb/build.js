@@ -323,6 +323,7 @@ function emitFiles(db, meta) {
 		'## Interface: 16001',
 		'## Title: Polestar Quest Database',
 		'## Notes: Quest, NPC, object and item data for Polestar\'s quest markers and tooltips. Loaded on demand.',
+		...require('../i18n/toc').tocLines('Polestar_QuestDB'),
 		'## Author: Polestar',
 		`## Version: ${version()}`,
 		'## Category: Quests',

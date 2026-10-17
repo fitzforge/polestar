@@ -89,11 +89,31 @@ node --test tests/guides-reported.test.js
 npm test
 ```
 
-Commit the recompiled `addon/Polestar_Guides/` with the fix, and never edit
-Guides.lua by hand. Lint and playtest must pass, and so must every class
-playtest plays. If a guide you did not touch changes in Guides.lua, your
-local data is older or newer than the branch's: say so in the pull request
-rather than committing the unrelated changes.
+Commit the recompiled `addon/Polestar_Guides/` with the fix. Lint and
+playtest must pass, and so must every class playtest plays.
+
+Guides.lua is only ever the file `polestar compile` writes: never edit it by
+hand and never splice in hunks from another compile. A spliced hunk can be
+valid Lua that loads without an error while the game never sees its goals (a
+goal left between a step's `title` and its `goals = {`, a step's goals left
+open so the next step becomes one of its goals).
+
+If a guide you did not touch changes in Guides.lua, your local data is older
+or newer than the branch's. Keep only your change: compile the guides before
+and after it with the same data, and merge that difference into the
+committed file:
+
+```sh
+tmp=$(mktemp -d)
+git archive <base branch> guides | tar -x -C "$tmp"   # the guides your change starts from
+polestar compile --guides "$tmp/guides" --out "$tmp/before"
+polestar compile --out "$tmp/after"
+git merge-file addon/Polestar_Guides/Guides.lua "$tmp/before/Guides.lua" "$tmp/after/Guides.lua"
+```
+
+A conflict means your data differs from the branch's in the lines your change
+touches: rebuild the data, or say so in the pull request and leave
+Guides.lua to the maintainer.
 
 ## 6. Changelog and commit
 

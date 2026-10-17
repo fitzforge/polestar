@@ -213,8 +213,11 @@ test('EllesmereUI: an optional scheme and follow toggles, never a lock', () => {
 		local cancelled = { accent = Polestar.Get("ui.accent"), match = Polestar.Get("ui.matchAccent") }
 		Polestar.Set("ui.accent", { 1, 0, 0 })
 		local own = Polestar.Get("ui.matchAccent")
-		look["ui.matchAccent"]:Click()
+		Polestar.UI.ShowOptions("integrations")
+		Polestar.UI.Options.Controls("integrations")["ui.matchAccent"]:Click()
 		local rematched = { accent = Polestar.Get("ui.accent"), live = { T.Accent() } }
+		Polestar.UI.ShowOptions("appearance")
+		look = Polestar.UI.Options.Controls("appearance")
 		local font = look["ui.font"]
 		local fontLabel = font.Button.Label:GetText()
 		font.Button:Click()
@@ -222,7 +225,8 @@ test('EllesmereUI: an optional scheme and follow toggles, never a lock', () => {
 		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then items[#items + 1] = r.Text:GetText() end end
 		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Inter" then r:Click() end end
 		local inter = { match = Polestar.Get("ui.matchFont"), font = { fs:GetFont() }, label = font.Button.Label:GetText() }
-		look["ui.matchFont"]:Click()
+		Polestar.UI.ShowOptions("integrations")
+		Polestar.UI.Options.Controls("integrations")["ui.matchFont"]:Click()
 		emit({ registered = stub.skinRegistered, eui = T.IsEllesmere(), skinned = #stub.skinned,
 			shellArt = PolestarGuideFrame.euiSkin or false, houseBg = PolestarGuideFrame.psSkin.bg:IsShown(),
 			band = GF.parts.band:IsShown(), followFont = followFont, before = before, after = after, fired = fired,
@@ -378,7 +382,7 @@ test('every texture the UI shows, and every goal verb icon, exists as a valid TG
 // string's font is repainted) and a button switching between the two looks.
 test('a primary button label has no drop shadow, a secondary one keeps it, across scheme changes and toggles', () => {
 	const [out] = run(`
-		local parent = CreateFrame("Frame", nil, UIParent)
+		local parent = UIParent
 		local primary = W.Button(parent, "Open in new tab", nil, { primary = true, icon = "plus" })
 		local secondary = W.Button(parent, "Load guide")
 		local function alpha(b) local _, _, _, a = b.Label:GetShadowColor() return a end
@@ -397,7 +401,7 @@ test('a primary button label has no drop shadow, a secondary one keeps it, acros
 
 test('W.Link: an address in the accent with no box; under the cursor the text colour, an accent underline and "Click to copy"; a click runs its action', () => {
 	const [out] = run(`
-		local parent = CreateFrame("Frame", nil, UIParent)
+		local parent = UIParent
 		local clicked = 0
 		local link = W.Link(parent, "discord.gg/example", function() clicked = clicked + 1 end, { role = "note" })
 		local function rgb(r, g, b) return { r, g, b } end

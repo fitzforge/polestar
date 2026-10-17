@@ -177,7 +177,11 @@ test('the world map redraws for the map being viewed, converting world, Era-fram
 		})
 		local function snapshot()
 			local out = {}
-			for _, pin in ipairs(nav.pins()) do out[#out + 1] = { pin.normalizedX, pin.normalizedY } end
+			for _, pin in ipairs(nav.pins()) do
+				local x, y = nav.worldPoint(pin)
+				assert(math.abs(x - pin.data.x) < 1e-9 and math.abs(y - pin.data.y) < 1e-9, "drawn where its data says")
+				out[#out + 1] = { pin.data.x / 100, pin.data.y / 100 }
+			end
 			table.sort(out, function(a, b) return a[1] < b[1] end)
 			return out
 		end
@@ -186,9 +190,20 @@ test('the world map redraws for the map being viewed, converting world, Era-fram
 		r.home = snapshot()
 		local pins = nav.pins()
 		for _, pin in ipairs(pins) do
-			if pin.normalizedX == 0.25 then
+			if pin.data.x == 25 then
 				r.tooltip = nav.tooltipOf(pin)
-				pin:OnMouseClickAction("LeftButton")
+				nav.click(pin, "LeftButton")
+				stub.RunScript(pin, "OnEnter")            -- pressed on the pin, released off it: no click
+				stub.fire("GLOBAL_MOUSE_DOWN", "LeftButton")
+				stub.RunScript(pin, "OnLeave")
+				stub.fire("GLOBAL_MOUSE_UP", "LeftButton")
+				stub.RunScript(pin, "OnEnter")            -- the right button is the map's (zoom out)
+				stub.fire("GLOBAL_MOUSE_DOWN", "RightButton")
+				stub.fire("GLOBAL_MOUSE_UP", "RightButton")
+				stub.RunScript(pin, "OnLeave")
+				r.mouse = pin:IsMouseEnabled()
+				r.passThrough = pin.passThrough
+				r.level = pin:GetFrameLevel()
 			end
 		end
 		r.clicked = clicked
@@ -202,6 +217,9 @@ test('the world map redraws for the map being viewed, converting world, Era-fram
 	assert.deepEqual(out.home, [[0.25, 0.75], [0.5, 0.5], [0.52, 0.485]]);
 	assert.deepEqual(out.tooltip, ['Flight master', 'known']);
 	assert.equal(out.clicked, 'LeftButton');
+	assert.equal(out.mouse, true);
+	assert.deepEqual(out.passThrough, ['RightButton'], 'the right button goes through to the map (zoom out)');
+	assert.equal(out.level, 2060, "at the map's PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST");
 	assert.deepEqual(out.other, [[0.5, 0.5]]);
 	assert.deepEqual(out.reopened, [[0.1, 0.1]]);
 });
@@ -215,23 +233,23 @@ test('a pin\'s area draws a disc of its radius in yards under the world map pins
 		})
 		nav.showWorldMap(9000)
 		local r = { pins = #nav.pins() }
-		local areas = nav.pins("PolestarPinsAreaTemplate")
+		local areas = nav.pins("areas")
 		r.areas = #areas
 		local a = areas[1]
 		r.size = { a.width, a.height }
-		r.at = { a.normalizedX, a.normalizedY }
-		r.level = a.pinFrameLevelType
+		r.at = { nav.worldPoint(a) }
+		r.level = a:GetFrameLevel()
 		r.mouse = a:IsMouseEnabled() and true or false
 		local _, _, _, alpha = a.tex:GetVertexColor()
 		r.alpha = alpha
 		Pins.SetLayer("quests.objectives", { { map = 9000, x = 40, y = 40 } })
-		r.cleared = #nav.pins("PolestarPinsAreaTemplate")
+		r.cleared = #nav.pins("areas")
 		emit(r)`);
 	assert.equal(out.pins, 2);
 	assert.equal(out.areas, 1);
 	assert.deepEqual(out.size.map((v) => Math.round(v)), [60, 60], 'diameter: 2 x 3 % of a 1000 px canvas');
-	assert.deepEqual(out.at, [0.4, 0.4]);
-	assert.equal(out.level, 'PIN_FRAME_LEVEL_QUEST_BLOB');
+	assert.deepEqual(out.at, [40, 40]);
+	assert.equal(out.level, 2010, "at the map's PIN_FRAME_LEVEL_QUEST_BLOB");
 	assert.equal(out.mouse, false);
 	assert.ok(out.alpha > 0 && out.alpha < 0.5, 'a faint disc');
 	assert.equal(out.cleared, 0);
@@ -270,7 +288,7 @@ test('a layer with minimapAreas draws its areas on the minimap too, cut at the r
 		r.squareMask = { mask.texture, math.floor(mask.width + 0.5) }
 		GetMinimapShape = nil
 		nav.showWorldMap(9000)
-		r.world = { #nav.pins("PolestarPinsAreaTemplate"), #nav.pins() }
+		r.world = { #nav.pins("areas"), #nav.pins() }
 		Pins.ClearLayer("spawns")
 		stub.advance(0.3)
 		r.cleared = #Pins.GetMinimapAreas("spawns")
@@ -341,8 +359,7 @@ end
 test('a hull is a region cut from pieces that tile it exactly, with a rim kept thin on screen; on the minimap walking only moves it', () => {
 	const [out] = run(`${PIECES}
 		WorldMapFrame.Child:SetSize(1000, 1000)                          -- map 9000: 0.5 canvas units a yard
-		local canvasScale = 1
-		function WorldMapFrame.GetCanvasScale() return canvasScale end
+
 		nav.viewRadius = 200                                             -- 0.35 px a yard
 		local offsets = 0
 		local orig = stub.Methods.SetVertexOffset
@@ -353,13 +370,14 @@ test('a hull is a region cut from pieces that tile it exactly, with a rim kept t
 		}, { minimapAreas = true })
 		nav.showWorldMap(9000)
 		local r = {}
-		local hulls = nav.pins("PolestarPinsHullTemplate")
+		local hulls = nav.pins("hulls")
 		local pin = hulls[1]
-		r.world = { #hulls, #nav.pins(), pin.pinFrameLevelType, pin:IsMouseEnabled() and true or false,
-			pin.normalizedX, pin.normalizedY, pin.width, pin.height, pin.used }
+		local x, y = nav.worldPoint(pin)
+		r.world = { #hulls, #nav.pins(), pin:GetFrameLevel(), pin:IsMouseEnabled() and true or false,
+			x / 100, y / 100, pin.width, pin.height, pin.used }
 		r.worldPieces = pieces(pin.texs, pin.used, pin.width, pin.height, pin.outline)
-		canvasScale = 2                                                  -- zoomed in: the rim halves in canvas units
-		pin:OnCanvasScaleChanged()
+		WorldMapFrame.ScrollContainer.currentScale = 2                   -- zoomed in: the rim halves in canvas units
+		stub.runMapFrame(WorldMapFrame, 0)
 		r.zoomed = pieces(pin.texs, pin.used, pin.width, pin.height, pin.outline)
 		stub.advance(0.3)
 		local mm = Pins.GetMinimapHulls("spawns")
@@ -374,10 +392,10 @@ test('a hull is a region cut from pieces that tile it exactly, with a rim kept t
 		r.stats = Pins.AreaStats()
 		Pins.ClearLayer("spawns")
 		stub.advance(0.3)
-		r.cleared = { #nav.pins("PolestarPinsHullTemplate"), #Pins.GetMinimapHulls("spawns"), rec.texs[1]:IsShown() }
+		r.cleared = { #nav.pins("hulls"), #Pins.GetMinimapHulls("spawns"), rec.texs[1]:IsShown() }
 		emit(r)`);
 	const [count, plain, level, mouse, x, y, w, h, used] = out.world;
-	assert.deepEqual([count, plain, level, mouse], [1, 0, 'PIN_FRAME_LEVEL_QUEST_BLOB', false], 'one region under every pin, no pin, no mouse');
+	assert.deepEqual([count, plain, level, mouse], [1, 0, 2010, false], 'one region under every pin (PIN_FRAME_LEVEL_QUEST_BLOB), no pin, no mouse');
 	assert.deepEqual([x, y], [0.5, 0.5], 'centred on its centre');
 	assert.deepEqual([Math.round(w), Math.round(h)], [150, 100], '300 x 200 yd at 0.5 canvas units a yard');
 	assert.equal(used, 5, 'a 4-gon: one fill quad and a rim quad per side');
@@ -420,11 +438,11 @@ test('world map redraws hand every pin frame back the pin it showed, and no hull
 			pins[#pins + 1] = { c = 0, wx = cx, wy = cy, hull = hull, area = 40, priority = k % 3 }
 		end
 		Pins.SetLayer("spawns", pins)
-		local templates = { "PolestarPinsTemplate", "PolestarPinsHullTemplate", "PolestarPinsAreaTemplate" }
+		local kinds = { "pins", "hulls", "areas" }
 		local function owners()
 			local r, n = {}, 0
-			for _, t in ipairs(templates) do
-				for pin in WorldMapFrame.pinPools[t]:EnumerateActive() do
+			for _, kind in ipairs(kinds) do
+				for _, pin in ipairs(Pins.GetWorldFrames(kind)) do
 					r[pin], n = pin.data.pin, n + 1
 				end
 			end
@@ -434,6 +452,7 @@ test('world map redraws hand every pin frame back the pin it showed, and no hull
 		local first, shown = owners()
 		local r = { shown = shown, moved = 0, spare = 0 }
 		for _ = 1, 4 do
+			WorldMapFrame:Hide()
 			nav.showWorldMap(9000)                                      -- the same pins drawn again
 			local now = owners()
 			for frame, pin in pairs(first) do
@@ -509,6 +528,55 @@ test('minimap pins follow a rotating minimap, priority stacks, tooltips and clic
 	assert.deepEqual(out.afterTurn, [-35, 0]);
 });
 
+// The gamepad interface's map cursor is no mouse (Blizzard_GamepadSoftCursor):
+// the map hovers its own pins near it and clicks them on A; Polestar's pins
+// must answer it too, or a gamepad player gets no tooltip and no
+// click-to-target on them.
+test('with the gamepad, the map cursor near a pin shows its tooltip and A clicks it, once a press', () => {
+	const [out] = run(`
+		local clicks = {}
+		Pins.SetLayer("quests", {
+			at(0, 0, { tooltip = "Here", onClick = function(button) clicks[#clicks + 1] = button end }),
+			at(0, -100, {}),                                 -- 5 % east: nothing to show or click
+		})
+		nav.showWorldMap(9000)
+		-- The canvas's top left on screen at (100, 900): map (50, 50) at (600, 400), map (55, 50) at (650, 400).
+		local canvas = WorldMapFrame.Child
+		canvas.x, canvas.y = 100, -100
+		local function at(x, y) SoftCursor.x, SoftCursor.y = x, y; stub.runMapFrame(WorldMapFrame, 0.06) end
+		local function press(down) stub.keysDown.PAD1 = down; stub.runMapFrame(WorldMapFrame, 0.01) end
+		local function tip() return GameTooltip:IsShown() and GameTooltip.owner and GameTooltip.owner.data.pin.tooltip or false end
+		local r = {}
+		at(605, 403)
+		r.hidden = { tip(), #clicks }                    -- the cursor shows only while the map has the gamepad's focus
+		SoftCursor:Show()
+		at(605, 403)
+		r.near = tip()
+		press(true); press(true); press(false); press(true); press(false)
+		r.clicks = clicks
+		at(650, 400)
+		r.plain = tip()                                  -- over the pin with nothing to show
+		press(true); press(false)
+		r.plainClicks = #clicks
+		at(611, 400)
+		r.far = tip()                                    -- 11 units away: still in reach
+		at(613, 400)
+		r.out = tip()
+		at(600, 400)
+		SoftCursor:Hide()
+		stub.runMapFrame(WorldMapFrame, 0.06)
+		r.cursorGone = tip()
+		emit(r)`);
+	assert.deepEqual(out.hidden, [false, 0]);
+	assert.equal(out.near, 'Here', 'the tooltip of the pin under the cursor');
+	assert.deepEqual(out.clicks, ['LeftButton', 'LeftButton'], 'one click a press, none while held');
+	assert.equal(out.plain, false);
+	assert.equal(out.plainClicks, 2);
+	assert.equal(out.far, 'Here');
+	assert.equal(out.out, false, 'past 12 units: the tooltip goes');
+	assert.equal(out.cursorGone, false, 'and with the cursor');
+});
+
 test('world map pins never call the combat-restricted SetPassThroughButtons in combat', () => {
 	const [out] = run(`
 		local r = {}
@@ -527,11 +595,51 @@ test('world map pins never call the combat-restricted SetPassThroughButtons in c
 			if pin.passThrough and pin.passThrough[1] == "RightButton" then set = set + 1 end
 		end
 		r.setAfter = set
-		Pins.SetLayer("quests", { at(0, 0) })            -- reacquiring out of combat: still set, no repeat calls needed
+		Pins.SetLayer("quests", { at(0, 0) })            -- drawn again out of combat: still set, no repeat calls needed
 		r.reacquired = nav.pins()[1].passThrough and nav.pins()[1].passThrough[1]
 		emit(r)`);
 	assert.equal(out.blockedInCombat, 0, 'no restricted call while in combat');
 	assert.equal(out.pendingInCombat, 3);
 	assert.equal(out.setAfter, 3, 'right-click passthrough applied once combat ends');
 	assert.equal(out.reacquired, 'RightButton');
+});
+
+// As the gamepad interface focuses the world map, its navigation
+// (Blizzard_GamepadSmartNavigation/Utility.lua, SmartNavigation_CanFocusFrame)
+// scans every frame under it and takes a Button or EditBox, or a frame with an
+// OnMouseDown or OnMouseUp script, for a button, reading that script back with
+// GetScript: in game Polestar's function in its secure code tainted the map's
+// FocusGamepad, and the next close blocked the interface's actions.
+test('no frame Polestar puts on the world map looks like a button to the gamepad\'s navigation, and its pins still click', () => {
+	const [out] = run(`
+		local clicks = {}
+		Pins.SetLayer("quests", {
+			at(0, 0, { tooltip = "Here", onClick = function(button) clicks[#clicks + 1] = button end, area = 50 }),
+			{ c = 0, wx = 300, wy = 300, hull = { 400, 300, 300, 450, 200, 300, 300, 150 }, areaOnly = true },
+		})
+		nav.setWaypoint({ map = 9000, x = 70, y = 70, label = "There" })
+		nav.showWorldMap(9000)
+		stub.advance(0.2)
+		local function addon(fn) return fn ~= nil and stub.addonSources[debug.getinfo(fn, "S").source] ~= nil end
+		local looks, scanned = {}, 0
+		local function scan(f)
+			for _, c in ipairs(f.children) do
+				scanned = scanned + 1
+				local kind = c.kind
+				if ((kind == "Button" or kind == "EditBox" or kind == "CheckButton") and next(c.scripts))
+					or addon(c.scripts.OnMouseUp) or addon(c.scripts.OnMouseDown) then
+					looks[#looks + 1] = kind
+				end
+				scan(c)
+			end
+		end
+		scan(WorldMapFrame)
+		local pin
+		for _, f in ipairs(nav.pins()) do if f.data.pin.tooltip == "Here" then pin = f end end
+		nav.click(pin, "LeftButton")
+		nav.click(pin, "MiddleButton")
+		emit({ looks = table.concat(looks, ", "), scanned = scanned, clicks = clicks })`);
+	assert.equal(out.looks, '', 'no Button, no OnMouseDown or OnMouseUp script of the addon');
+	assert.ok(out.scanned >= 6, `the pins, area, region, trail and the view's frame were scanned (${out.scanned})`);
+	assert.deepEqual(out.clicks, ['LeftButton', 'MiddleButton']);
 });

@@ -49,16 +49,17 @@ function localeState(addonDir, locales, { glossaryDir } = {}) {
 }
 
 // The files sync writes: { [file]: { text, added, retired, dropped, filled, kept } },
-// for each locale that has a file and each locale in `create` that has none.
+// for each locale that has a file and each locale in `create` that has none
+// (headed "<language> (<locale>): <title>.").
 // `fill` and `retire` ({ [locale]: { key: value } }) are updateLocaleText's.
 // A locale whose file has an error is left out.
-function syncFiles(state, { create = [], fill = {}, retire = {} } = {}) {
+function syncFiles(state, { create = [], fill = {}, retire = {}, title } = {}) {
 	const files = {};
 	for (const [locale, s] of Object.entries(state.locales)) {
 		if (s.error) continue;
 		const opts = { keys: state.keys, fill: fill[locale] || {}, retire: retire[locale] || {} };
 		if (s.exists) files[s.file] = updateLocaleText({ text: fs.readFileSync(s.file, 'utf8'), file: rel(s.file), ...opts });
-		else if (create.includes(locale)) files[s.file] = newLocaleText({ locale, ...opts });
+		else if (create.includes(locale)) files[s.file] = newLocaleText({ locale, title, ...opts });
 	}
 	return files;
 }

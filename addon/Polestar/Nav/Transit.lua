@@ -32,8 +32,8 @@
 --   Transit.Caption(kind, id, now, side) -> "Next boat in 1:20", "Boat
 --       docked, leaves in 0:40", untimed "Next boat in about 2:55"; nil for
 --       an unknown id
---   Transit.Riding(now) -> { kind, route, dock, arriveIn } | nil
---   Transit.LiftNear(c, wx, wy [, yards]) -> liftId, name
+--   Transit.Riding(now) -> { kind, route, dock, arriveIn } | nil   (dock: its name to show)
+--   Transit.LiftNear(c, wx, wy [, yards]) -> liftId, name (to show)
 --   Transit.Teleports(now) -> usable class teleports, see below
 -- Fires ns.Fire("NAV_TRANSIT", changed, own) when a sighting changes a
 -- timing or the usable teleports change: changed = { [service id] = kind }
@@ -72,17 +72,47 @@ local GCD = 1.5
 ---------------------------------------------------------------------------
 
 local routes, services, teleportData = {}, {}, {}
-local routeName, stopName = {}, {} -- [route] = display name; [route][stop index] = dock name
+local routeEnds, stopName = {}, {} -- [route] = service | { { name, area }, ... } (its ends); [route][stop index] = { name, area } | a landing's word
 local routeServices = {}           -- [route] = { [service id] = kind }: who a sighting retimes
 
+-- Names to show, in the client's language (Polestar.Names: the AreaTable
+-- area a place, tram or lift is named by), else the data's English.
+local LIFT_OF = { north = L["%s, north lift"], south = L["%s, south lift"], east = L["%s, east lift"], west = L["%s, west lift"] }
+
+local function areaName(name, area)
+	local N = ns.Names
+	return (area and N and N.Area(area)) or name
+end
+
+local function serviceName(s)
+	local N = ns.Names
+	local place = s.area and N and N.Area(s.area)
+	if not place then return s.name end
+	return s.dir and LIFT_OF[s.dir] and format(LIFT_OF[s.dir], place) or place
+end
+
+local function routeName(id)
+	local e = routeEnds[id]
+	if not e then return nil end
+	if e.kind then return serviceName(e) end
+	local out = {}
+	for i, p in ipairs(e) do out[i] = areaName(p[1], p[2]) end
+	return concat(out, " - ")
+end
+
+local function dockName(d)
+	if type(d) == "table" then return areaName(d[1], d[2]) end
+	return d
+end
+
 local function pointOf(t)
-	return t and { name = t[1], c = t[2], wx = t[3], wy = t[4], map = t[5], x = t[6], y = t[7], f = t[8] or "e" }
+	return t and { name = t[1], c = t[2], wx = t[3], wy = t[4], map = t[5], x = t[6], y = t[7], f = t[8] or "e", area = t[9] }
 end
 
 function Transit.Register(d)
 	if type(d) ~= "table" then return end
 	routes, services, teleportData = d.routes or {}, d.services or {}, {}
-	routeName, stopName, routeServices = {}, {}, {}
+	routeEnds, stopName, routeServices = {}, {}, {}
 	-- Each car's frames: a loop's cars follow one another, each ending on a
 	-- jump frame (the Great Lift's two cars share a loop but not a place).
 	for _, route in pairs(routes) do
@@ -98,10 +128,14 @@ function Transit.Register(d)
 	local ids = {}
 	for id in pairs(services) do ids[#ids + 1] = id end
 	table.sort(ids)
-	local ends = {}
 	for _, id in ipairs(ids) do
 		local s = services[id]
-		local names = s.kind == "lift" and { L["top"], L["bottom"] } or s.ends or {}
+		local names = {}
+		if s.kind == "lift" then
+			names = { L["top"], L["bottom"] }
+		else
+			for k, n in ipairs(s.ends or {}) do names[k] = { n, s.areas and s.areas[k] } end
+		end
 		for _, part in ipairs(s.routes or {}) do
 			local stops = stopName[part.route] or {}
 			stopName[part.route] = stops
@@ -112,16 +146,15 @@ function Transit.Register(d)
 				for _, i in ipairs(part[side] or {}) do stops[i] = stops[i] or names[k] end
 			end
 			if s.kind == "lift" or s.kind == "tram" then
-				routeName[part.route] = s.name
+				routeEnds[part.route] = s
 			else
-				local list = ends[part.route] or {}
-				ends[part.route] = list
+				local list = routeEnds[part.route] or {}
+				routeEnds[part.route] = list
 				for _, n in ipairs(names) do
 					local seen = false
-					for _, m in ipairs(list) do seen = seen or m == n end
+					for _, m in ipairs(list) do seen = seen or m[1] == n[1] end
 					if not seen then list[#list + 1] = n end
 				end
-				routeName[part.route] = concat(list, " - ")
 			end
 		end
 	end
@@ -361,7 +394,7 @@ function Transit.Lifts()
 	local list = {}
 	for id, s in pairs(services) do
 		if s.kind == "lift" then
-			list[#list + 1] = { id = id, name = s.name, c = s.c, wx = s.wx, wy = s.wy, top = s.top, bottom = s.bottom }
+			list[#list + 1] = { id = id, name = serviceName(s), c = s.c, wx = s.wx, wy = s.wy, top = s.top, bottom = s.bottom }
 		end
 	end
 	table.sort(list, function(a, b) return a.id < b.id end)
@@ -379,7 +412,7 @@ function Transit.LiftNear(c, wx, wy, yards)
 			if d <= best and (not bestId or d < best or id < bestId) then best, bestId = d, id end
 		end
 	end
-	if bestId then return bestId, services[bestId].name end
+	if bestId then return bestId, serviceName(services[bestId]) end
 	return nil
 end
 
@@ -498,7 +531,7 @@ local function record()
 	if sighted(id, { epoch = fits[id].epoch, seen = floor(now), source = "you" }, now) then
 		ride.announced = id
 		if not routine then
-			ns.Print(format(L["Timed the %s from your ride."], routeName[id] or id))
+			ns.Print(format(L["Timed the %s from your ride."], routeName(id) or id))
 			if share then share(id) end
 		end
 		ns.Fire("NAV_TRANSIT", changedBy(id), true)
@@ -592,7 +625,7 @@ function Transit.Riding(now)
 		end
 	end
 	if not best then return nil end
-	return { kind = route.kind, route = id, dock = stopName[id] and stopName[id][at], arriveIn = best / 1000 }
+	return { kind = route.kind, route = id, dock = stopName[id] and dockName(stopName[id][at]), arriveIn = best / 1000 }
 end
 
 ---------------------------------------------------------------------------
@@ -792,7 +825,7 @@ local function cooldown(spell)
 	return max(0, start + duration - GetTime())
 end
 
--- -> { { spell, name, cast = s, ready = s until castable, to = point | nil,
+-- -> { { spell, name (the client's, in its language), cast = s, ready = s until castable, to = point | nil,
 --   bind = true (lands at the bind point) }, ... }: known, with reagents in
 -- the bags. The entries keep their identity while the set is unchanged.
 function Transit.Teleports(now)
@@ -808,7 +841,8 @@ function Transit.Teleports(now)
 	if key ~= usableKey then
 		usableKey, usable = key, {}
 		for i, t in ipairs(list) do
-			usable[i] = { spell = t.spell, name = t.name, cast = t.cast, to = t.to, bind = t.bind, ready = 0 }
+			local N = ns.Names
+			usable[i] = { spell = t.spell, name = (N and N.Spell(t.spell)) or t.name, cast = t.cast, to = t.to, bind = t.bind, ready = 0 }
 		end
 	end
 	for _, u in ipairs(usable) do u.ready = cooldown(u.spell) end

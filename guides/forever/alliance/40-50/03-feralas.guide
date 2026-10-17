@@ -17,6 +17,8 @@
 # Thalanaar when the eastern loop passes it, not on the way out to Tanaris.
 # The eastern loop runs Grimtotem -> Writhing Deep -> Thalanaar -> Rage Scar
 # -> Rockbiter and ends with the hearth, instead of crossing the zone twice.
+# Feathermoon on arrival runs flight master, Pratt, inn, Latronicus and
+# Shandris, Ginro, Troyas, Angelas, without walking back past Pratt.
 #
 # Dropped: Find and Rescue OOX-22/FE! (2766, 2767). The beacon is a 1-2.5%
 # drop and the reward waits in Booty Bay, which the route no longer visits at
@@ -42,14 +44,14 @@ next forever/alliance/40-50/04-tanaris
 step Feathermoon Stronghold
   tip From Theramore, fly to Nijel's Point and ride south out of Desolace into Feralas; the road leads west to the Forgotten Coast dock, where the boat crosses to Feathermoon on Sardor Isle.
   getfp "Feathermoon" npc 8019        -- Fyldren Moonfeather
-  sethome "Feathermoon Stronghold" npc 7736 -- Innkeeper Shyria
-  accept 2982                         -- Angelas Moonbreeze
   accept 2821                         -- Pratt McGrubben
-  accept 2939                         -- Troyas Moonbreeze: his answer waits in Rut'theran Village, later
+  sethome "Feathermoon Stronghold" npc 7736 -- Innkeeper Shyria
   accept 4124                         -- Latronicus Moonspear, at the top of the stronghold
   accept 2866                         -- Shandris Feathermoon, beside him
   turnin 4124                         -- Ginro Hearthkindle
   accept 4125
+  accept 2939                         -- Troyas Moonbreeze: his answer waits in Rut'theran Village, later
+  accept 2982                         -- Angelas Moonbreeze
 
 step Ruins of Solarsal
   tip Walk south along the island to the naga ruins; the gazebo stands among them.

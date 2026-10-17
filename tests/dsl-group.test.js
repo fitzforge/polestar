@@ -77,7 +77,7 @@ test('the compiled group reaches the pack: goal and guide keys in Guides.lua', (
 	assert.match(lua, /t = "kill", [^\n]*group = \{ kind = "group", size = 3 \} \},/);
 });
 
-test('loadData reads the instances from the client tables in the sources folder beside the data folder', () => {
+test('loadData reads the instances (name, kind, map id) from the client tables in the sources folder beside the data folder', () => {
 	const root = tmpdir();
 	const dataDir = path.join(root, 'forever');
 	fs.cpSync(DATA_DIR, dataDir, { recursive: true });
@@ -89,7 +89,7 @@ test('loadData reads the instances from the client tables in the sources folder 
 	fs.writeFileSync(path.join(build, 'UiMapAssignment.csv'), 'UiMapID,MapID\n235,429\n236,429\n1429,0\n');
 	assert.deepEqual(loadData(dataDir).instances, {
 		build: '1.60.1.1',
-		areas: { 2557: { kind: 'dungeon', name: 'Dire Maul' }, 2717: { kind: 'raid', name: 'Molten Core' }, 3000: { kind: 'dungeon', name: 'Dire Maul' } },
-		maps: { 235: { kind: 'dungeon', name: 'Dire Maul' }, 236: { kind: 'dungeon', name: 'Dire Maul' } },
+		areas: { 2557: { kind: 'dungeon', name: 'Dire Maul', map: 429 }, 2717: { kind: 'raid', name: 'Molten Core', map: 409 }, 3000: { kind: 'dungeon', name: 'Dire Maul', map: 429 } },
+		maps: { 235: { kind: 'dungeon', name: 'Dire Maul', map: 429 }, 236: { kind: 'dungeon', name: 'Dire Maul', map: 429 } },
 	});
 });

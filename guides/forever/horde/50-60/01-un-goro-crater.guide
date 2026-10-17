@@ -56,6 +56,8 @@ next forever/horde/50-60/02-felwood
 #   repeatable Argent Dawn turn-ins and need 20 Minion's or 10 Invader's
 #   Scourgestones each, which only drop while the Argent Dawn Commission is
 #   equipped; hand them in whenever you have enough.
+# - Back at Marshal's Refuge, Shizzle at the entrance first; in the
+#   Undercity, Harbinger Balthazad beside the bat master first.
 #
 # Left open for later guides: The New Springs (980) and It's a Secret to
 # Everybody (3908, Donova Snowden), Marvon's Workshop (4147), Felnok
@@ -202,6 +204,7 @@ step Escort Ringo
 # ---------------------------------------------------------------- Back at the refuge
 
 step Marshal's Refuge
+  turnin 4503                         -- Shizzle, at the entrance
   turnin 4491                         -- Spraggle Frock
   turnin 4501
   turnin 4145                         -- Larion
@@ -212,7 +215,6 @@ step Marshal's Refuge
   turnin 3884 optional
   turnin 3883                         -- Hol'anyee Marshal
   turnin 3882                         -- Spark Nilminer
-  turnin 4503                         -- Shizzle
   turnin 4284                         -- J.D. Collie
   accept 4285
   accept 4287
@@ -353,9 +355,9 @@ step Kargath
 step Undercity
   zone Undercity
   fly "Undercity"
+  accept 5094                         -- Harbinger Balthazad, the Trade Quarter, beside the bat master
   turnin 3542                         -- Andron Gant, the Rogues' Quarter
   accept 3564
-  accept 5094                         -- Harbinger Balthazad, the Trade Quarter
   accept 3568                         -- Chemist Cuely, the Apothecarium: the vials fill in Azshara later
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
 
@@ -400,7 +402,7 @@ step Light's Hope Chapel
 
 step Darrowshire Spirits
   tip With Carlin's quest in your log, slain Scourge sometimes leave a Darrowshire Spirit; talk to it to free it. Kill undead on the ride south-west to Darrowshire.
-  kill 11064 quest 5211
+  kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
   collect 12840 quest 5510 optional
   collect 12841 quest 5509 optional
 

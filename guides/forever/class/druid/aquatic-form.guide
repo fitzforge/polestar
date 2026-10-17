@@ -24,7 +24,9 @@ zone Moonglade
 # The leveling guides carry the chain inline (Night Elves in
 # alliance/03-darkshore, 04-redridge-mountains and 06-ashenvale; Tauren in
 # horde/03-silverpine-forest and 04-the-barrens): this guide is for druids off
-# our route. Skyborne: the data offers no Aquatic Form quest to them.
+# our route. Skyborne: Wowhead Forever opens the Alliance chain (26, 29, 272,
+# 5061) to Skyborne druids too (corrections.json, checked 2026-10-16); this
+# guide has no Skyborne steps yet.
 # Sources: quests.json, objects.json and items.json (Questie 12.1.0,
 # Forever); the lockbox tips are the ones the leveling guides above use.
 

@@ -42,6 +42,9 @@
 # - Added: Suspicious Hoofprints (1284), by the Shady Rest badge, handed in to
 #   Vimes on the Theramore stop the loop already makes (James Hyal, turned
 #   in the guide before, opens it).
+# - Stormwind: Andromath (1477) right after Angus in the Mage Quarter, before
+#   Mazen and Dellis; Brohann (1448) in the Dwarven District before Milton
+#   in the Keep.
 # Left out: ... and Bugs (1258), Sunken Treasure (670), Cortello's Riddle part
 # 2 (625: west Dustwallow), and the Ironforge breadcrumbs Find Bingles and
 # Speak with Shoni (2039, 2041): never finished on the route or dropped with
@@ -345,12 +348,12 @@ step Stormwind
   turnin 212                          -- Angus Stern
   accept 1271
   turnin 1271
+  accept 1477                         -- High Sorcerer Andromath: for Nethergarde Keep, keep it
   accept 1363                         -- Mazen Mac'Nadir
   turnin 1363                         -- Acolyte Dellis
   accept 1364
-  accept 1477                         -- High Sorcerer Andromath: for Nethergarde Keep, keep it
-  turnin 542                          -- Milton Sheaf, the Royal Library in Stormwind Keep
   accept 1448                         -- Brohann Caskbelly
+  turnin 542                          -- Milton Sheaf, the Royal Library in Stormwind Keep
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
 
 step Riding at 40

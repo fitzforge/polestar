@@ -1,10 +1,11 @@
 'use strict';
-// `profession build`: client tables (wago.tools) + data/forever -> data/forever/professions.json.
+// `profession build`: the Forever client's tables (wago.tools; Classic Era
+// fills their gaps, tables.js) + data/forever -> data/forever/professions.json.
 
 const fs = require('node:fs');
 const path = require('node:path');
 const { loadTables } = require('./tables');
-const { extractProfessions } = require('./extract');
+const { extractProfessions, SOD_SPELL_MIN } = require('./extract');
 const { resolveTrainers } = require('./trainers');
 
 const { DATA, SOURCES } = require('../paths');
@@ -59,13 +60,16 @@ async function buildProfessions({ dataDir, sourcesDir, pfquestDir, build, offlin
 	const stockFile = path.join(pfquestDir, 'db', 'items.lua');
 	if (fs.existsSync(stockFile)) stock = parseVendorStock(fs.readFileSync(stockFile, 'utf8'));
 	else warnings.push(`${stockFile} missing: vendor stock limits unknown, every vendor counts as unlimited`);
-	const loaded = await loadTables({ sourcesDir, build, offline, fetchImpl, log });
+	const loaded = await loadTables({ sourcesDir, build, offline, fetchImpl, log, product: 'forever', eraFill: true });
 	warnings.push(...loaded.warnings);
+	// Season of Discovery recipes: the ones the Era client lists from SOD_SPELL_MIN.
+	const season = new Set(loaded.eraTables.SkillLineAbility.map((r) => Number(r.Spell)).filter((s) => s >= SOD_SPELL_MIN));
 	const res = extractProfessions(loaded.tables, {
 		items,
 		npcs,
 		objects,
 		stock,
+		season,
 		trainers: (id, kind) => resolveTrainers(id, npcs, { kind }),
 	});
 	warnings.push(...res.warnings);
@@ -75,7 +79,7 @@ async function buildProfessions({ dataDir, sourcesDir, pfquestDir, build, offlin
 	fs.mkdirSync(path.dirname(outFile), { recursive: true });
 	fs.writeFileSync(`${outFile}.tmp`, text);
 	fs.renameSync(`${outFile}.tmp`, outFile);
-	return { outFile, build: loaded.build, report: res.report, warnings, professions: res.professions };
+	return { outFile, build: loaded.build, eraBuild: loaded.eraBuild, report: res.report, warnings, professions: res.professions };
 }
 
 module.exports = { buildProfessions, parseVendorStock };

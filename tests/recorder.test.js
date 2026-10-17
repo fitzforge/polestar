@@ -471,3 +471,23 @@ test('/psrec: off pauses recording, maps dumps world bounds, talents dumps the t
 	assert.equal(out.markCount, 500);
 	assert.equal(out.dropped, 100);
 });
+
+test('/psrec speaks the client\'s language through the Recorder\'s own locale file; English where it has no translation', () => {
+	const before = `function GetLocale() return "ruRU" end
+do
+	local load = loadfile
+	function loadfile(file)
+		if file:match("Polestar_Recorder[/\\\\]Locales[/\\\\]ruRU%.lua$") then
+			return function(_, ns) ns.L["recording %s"] = "запись: %s"; ns.L["on"] = "вкл" end
+		end
+		return load(file)
+	end
+end`;
+	const [lines] = run(`
+stub.messages = {}
+SlashCmdList.POLESTARREC("on")
+SlashCmdList.POLESTARREC("mark")
+emit(stub.messages)`, { before });
+	assert.ok(lines[0].includes('запись: |cff4fd18fвкл|r'), lines[0]);
+	assert.ok(lines[1].includes('usage: /psrec mark <text>'), lines[1]);
+});

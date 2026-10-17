@@ -40,6 +40,8 @@ next forever/horde/06-hillsbrad-foothills
 #   which passes Deathstalker Lesh: Time To Strike (494, export visit 10) is
 #   picked up there (optional: players who fly in never meet him) and handed
 #   to Darthalia on arrival in the next guide.
+# - Sun Rock: Maggran on the lower level before Tsunaman and Mor'rogal, who
+#   stand together on the upper ledge.
 #
 # Carried on: Calling in the Reserves (5881) and Further Instructions (1094)
 # are turned in in the Barrens and Trouble in the Deeps (6562) at Zoram'gar
@@ -203,9 +205,9 @@ step The Charred Vale
 
 step Sun Rock Retreat
   turnin 6381                         -- Tammra Windfield
-  turnin 6393                         -- Tsunaman
   turnin 6282                         -- Maggran Earthbinder
-  turnin 86576 npc 11861              -- Mor'rogal, beside Maggran
+  turnin 6393                         -- Tsunaman, up on the ledge
+  turnin 86576 npc 11861              -- Mor'rogal, beside Tsunaman
 
 step Malaka'jin
   tip Ride back down the Webwinder Path to Malaka'jin.

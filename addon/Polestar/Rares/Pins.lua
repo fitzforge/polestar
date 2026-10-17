@@ -259,11 +259,16 @@ local function onMapShown()
 	if Rares.Codex(true) and first then Rares.RefreshPins() end -- a fresh load fires CODEX_LOADED
 end
 
+-- The world map's view (Core/MapCanvas.lua) says when it opens; the map is
+-- only read.
 local hooked = false
 local function hookMap()
-	if hooked or not (WorldMapFrame and WorldMapFrame.HookScript) then return end
-	WorldMapFrame:HookScript("OnShow", onMapShown)
-	hooked = true
+	if hooked then return end
+	local M = ns.MapCanvas
+	if not (M and WorldMapFrame) then return end
+	hooked = M.Watch(WorldMapFrame, function(_, what)
+		if what == "show" then onMapShown() end
+	end) ~= nil
 end
 
 local function minimapLoad()

@@ -28,13 +28,13 @@ Polestar.RegisterGuide({
 `;
 
 // `script` runs after login with `w` = stub.world and `flush()`.
-function run({ before = '', saved, script }) {
+function run({ before = '', saved, guides = GUIDE, script }) {
 	return runAddon({
 		stubs: ['stub_world.lua'],
 		before: `w = stub.world; w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 }); w.moveTo(1429, 48, 42)\n${before}`,
 		addons: [CORE],
 		saved,
-		script: `${GUIDE}\nfunction flush() stub.advance(0.25) end\nstub.login()\n${script}`,
+		script: `${guides}\nfunction flush() stub.advance(0.25) end\nstub.login()\n${script}`,
 	}).emitted;
 }
 
@@ -197,4 +197,83 @@ test('the greeting panel selects guide quests by their index', () => {
 		`,
 	});
 	assert.deepEqual(out, { calls: ['SelectAvailableQuest 7 2', 'AcceptQuest 7 nil'], on7: true });
+});
+
+// Issue #108: Distracting Jarven (308) is handed in from Jarven Thunderbrew's
+// window with no accept, so the NPC lists it among the quests it offers, not
+// among the ones in the log. `turnin ... direct` is that goal.
+const DIRECT = `
+${TEST_PACK}
+${TEST_SOURCE}
+Polestar.RegisterGuide({
+	id = "test/auto", pack = "test", title = "Direct", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ goals = { { t = "turnin", quest = 308, title = "Distracting Jarven", direct = true, npc = 1373, npcName = "Jarven Thunderbrew" } } },
+		{ goals = { { t = "level", level = 3 } } },
+	},
+})
+`;
+
+test('#108: a `direct` turn-in is taken from the quests the giver offers and finished in the progress window', () => {
+	const [out] = run({
+		guides: DIRECT,
+		script: `
+			w.gossip(1373, { available = { { questID = 999 }, { questID = 308 } } }); flush()
+			-- The client opens the progress window for a quest with no accept: the
+			-- window says itself that the hand-in can be made.
+			w.questProgress(1373, 308, { completable = true }); flush()
+			${calls}
+			emit({ calls = c, step = Polestar.Engine.GetStepIndex() })
+		`,
+	});
+	assert.deepEqual(out.calls, [
+		'C_GossipInfo.SelectAvailableQuest 308 nil',
+		'CompleteQuest 308 nil',
+		'GetQuestReward 308 0',
+	]);
+	assert.equal(out.step, 2);
+});
+
+test('#108: a `direct` turn-in follows autoTurnin, not autoAccept: there is no accept to make', () => {
+	const script = `
+		w.gossip(1373, { available = { { questID = 308 } } }); flush()
+		${calls}
+		emit(c)
+	`;
+	const [acceptOnly] = run({ guides: DIRECT, script: `Polestar.Set("behavior.autoTurnin", false)\n${script}` });
+	assert.deepEqual(acceptOnly, {}, 'auto-accept alone must not hand anything in'); // no calls (Lua encodes an empty list as {})
+	const [turninOnly] = run({ guides: DIRECT, script: `Polestar.Set("behavior.autoAccept", false)\n${script}` });
+	assert.deepEqual(turninOnly, ['C_GossipInfo.SelectAvailableQuest 308 nil']);
+});
+
+// Jarven and the cloth quartermasters keep offering their repeatable quest: a
+// `direct` goal already done must not hand in another ale or more cloth.
+test('#108: a `direct` turn-in already done is never handed in again', () => {
+	const GUIDE = `
+${TEST_PACK}
+${TEST_SOURCE}
+Polestar.RegisterGuide({
+	id = "test/auto", pack = "test", title = "Direct", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ goals = {
+			{ t = "turnin", quest = 308, title = "Distracting Jarven", direct = true, npc = 1373, npcName = "Jarven Thunderbrew" },
+			{ t = "level", level = 3 },
+		} },
+	},
+})
+`;
+	const [out] = run({
+		guides: GUIDE,
+		before: 'w.repeatable[308] = true',
+		script: `
+			w.gossip(1373, { available = { { questID = 308 } } }); flush()
+			w.questProgress(1373, 308, { completable = true }); flush()
+			local first = #w.calls
+			w.gossip(1373, { available = { { questID = 308 } } }); flush(); w.close()
+			w.questProgress(1373, 308, { completable = true }); flush(); w.close()
+			w.greeting(1373, { available = { { questID = 308 } } }); flush(); w.close()
+			emit({ first = first, again = #w.calls - first, status = Polestar.Engine.GetStepView(1).goals[1].status })
+		`,
+	});
+	assert.deepEqual(out, { first: 3, again: 0, status: 'done' });
 });

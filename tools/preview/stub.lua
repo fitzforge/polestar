@@ -111,18 +111,39 @@ function preview.width(file, size, s)
 	return w * size
 end
 
+-- The breakable pieces of a word: CJK characters (ideographs, kana, their
+-- punctuation) one by one, as the client wraps between any two of them;
+-- everything else whole.
+local function pieces(word)
+	if not word:find("[\226-\239]") then return { word } end
+	local out, run = {}, ""
+	for ch in word:gmatch("[%z\1-\127\192-\247][\128-\191]*") do
+		local cp = codepoints(ch)[1]
+		if (cp >= 0x2E80 and cp <= 0x9FFF) or (cp >= 0xF900 and cp <= 0xFAFF) or (cp >= 0xFE30 and cp <= 0xFE4F) or (cp >= 0xFF00 and cp <= 0xFFEF) then
+			if run ~= "" then out[#out + 1] = run end
+			out[#out + 1], run = ch, ""
+		else
+			run = run .. ch
+		end
+	end
+	if run ~= "" then out[#out + 1] = run end
+	return out
+end
+
 -- Greedy word wrap, the same rule render.js uses.
 function preview.wrap(file, size, text, width)
 	local lines = {}
 	for para in (text .. "\n"):gmatch("(.-)\n") do
 		local line = ""
 		for word in para:gmatch("%S+") do
-			local candidate = line == "" and word or (line .. " " .. word)
-			if line ~= "" and preview.width(file, size, candidate) > width + 0.01 then
-				lines[#lines + 1] = line
-				line = word
-			else
-				line = candidate
+			for i, piece in ipairs(pieces(word)) do
+				local candidate = line == "" and piece or (line .. (i == 1 and " " or "") .. piece)
+				if line ~= "" and preview.width(file, size, candidate) > width + 0.01 then
+					lines[#lines + 1] = line
+					line = piece
+				else
+					line = candidate
+				end
 			end
 		end
 		lines[#lines + 1] = line

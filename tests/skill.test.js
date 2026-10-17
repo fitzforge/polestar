@@ -6,6 +6,7 @@
 // guide-format reference name every header key, step line, verb, modifier
 // and condition the parser accepts (and nothing else), and its example guide
 // lint clean and play to the end against data/forever (skipped without it).
+// The Claude Code and Codex plugins carry every skill.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -26,7 +27,7 @@ const read = (rel) => fs.readFileSync(path.join(SKILL, rel), 'utf8');
 const MAIN = read('SKILL.md');
 const REF = read('references/guide-format.md');
 const COMMANDS = load();
-const ALL = fs.readdirSync(SKILLS, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name).sort();
+const ALL = fs.readdirSync(SKILLS, { withFileTypes: true }).filter((d) => d.isDirectory() && !d.name.startsWith('.')).map((d) => d.name).sort();
 const skillText = (name) => fs.readFileSync(path.join(SKILLS, name, 'SKILL.md'), 'utf8');
 
 const spans = (text) => [...text.matchAll(/`([^`\n]+)`/g)].map((m) => m[1]);
@@ -107,6 +108,19 @@ test('every file a SKILL.md links and every repository file it names exists', ()
 	const docs = spans(MAIN + REF).filter((s) => /^docs\/[A-Z_]+\.md$/.test(s));
 	assert.ok(docs.length >= 4);
 	for (const d of docs) assert.ok(fs.existsSync(path.join(__dirname, '..', d)), d);
+});
+
+// Claude Code finds every skill under the plugin's skills path on its own;
+// Codex only takes a list, so a new skill must be added to it.
+test('the Claude Code and Codex plugins carry every skill', () => {
+	const root = path.join(__dirname, '..');
+	const json = (rel) => JSON.parse(fs.readFileSync(path.join(root, rel), 'utf8'));
+	const claude = json('.claude-plugin/marketplace.json').plugins.find((p) => p.name === 'polestar');
+	assert.equal(path.join(root, claude.source, ...claude.skills), SKILLS + path.sep);
+	const codex = json('.agents/plugins/marketplace.json').plugins.find((p) => p.name === 'polestar');
+	assert.equal(path.join(root, codex.source.path), SKILLS);
+	const manifest = json('skills/.codex-plugin/plugin.json');
+	assert.deepEqual(manifest.skills.map((s) => path.basename(s)).sort(), ALL);
 });
 
 // Every `polestar <command> ...` the skill writes, from code spans and code

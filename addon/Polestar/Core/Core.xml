@@ -13,9 +13,11 @@
 	<Script file="Data.lua"/>
 	<Script file="Names.lua"/>
 	<Script file="Hooks.lua"/>
+	<Script file="GuideTexts.lua"/>
 	<Script file="Guides.lua"/>
 	<Script file="Search.lua"/>
 	<Script file="Engine.lua"/>
+	<Script file="RoutePlan.lua"/>
 	<Script file="ClassTrainers.lua"/>
 	<Script file="Closes.lua"/>
 	<Script file="Automation.lua"/>

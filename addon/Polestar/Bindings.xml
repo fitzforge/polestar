@@ -8,6 +8,18 @@
 	<Binding name="POLESTAR_PREV" category="ADDONS">
 		Polestar.Bindings.Prev()
 	</Binding>
+	<Binding name="POLESTAR_FOCUS" category="ADDONS">
+		Polestar.Bindings.Focus()
+	</Binding>
+	<Binding name="POLESTAR_MENU" category="ADDONS">
+		Polestar.Bindings.Menu()
+	</Binding>
+	<Binding name="POLESTAR_OPTIONS" category="ADDONS">
+		Polestar.Bindings.Options()
+	</Binding>
+	<Binding name="POLESTAR_REPORT" category="ADDONS">
+		Polestar.Bindings.Report()
+	</Binding>
 	<Binding name="CLICK PolestarQuestItemButton:LeftButton" category="ADDONS"/>
 	<Binding name="CLICK PolestarTargetButton:LeftButton" category="ADDONS"/>
 	<Binding name="CLICK PolestarHearthButton:LeftButton" category="ADDONS"/>

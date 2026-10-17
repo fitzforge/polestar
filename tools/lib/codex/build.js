@@ -484,7 +484,7 @@ function mergeCodex(inputs) {
 			}
 			if (!rec.spawns.length && spawns.length) rec.spawns = spawns;
 		}
-		// Wowhead's NPC list rows (`codex wowhead`, one request per 1,000):
+		// Wowhead's cached NPC list rows (data/sources/wowhead/codex/lists):
 		// the level of an NPC neither our data nor a page gives one. Only the
 		// level: a row's rank and place are no page's (rares and bosses stay
 		// the pages' and the data's).
@@ -1345,7 +1345,8 @@ async function loadInputs({ addons, offline = false, dataDir, sourcesDir, build,
 		instances: j('instances.json', true) || {},
 		dungeons: localExtras ? j('dungeons.json', true) : null,
 	};
-	// Wowhead Forever per-entity facts (`codex wowhead`), release builds only.
+	// Wowhead Forever per-entity facts already cached in
+	// data/sources/wowhead/codex/ (nothing is fetched), release builds only.
 	const wowhead = localExtras ? null : loadWowhead(sourcesDir);
 	const warnings = [];
 	const { resolveAddonsDir } = require('../addons');

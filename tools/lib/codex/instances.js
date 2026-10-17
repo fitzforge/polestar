@@ -18,10 +18,11 @@
 // facts = { maps: instanceMapsOf rows (journal.js), encounters: { mapId: [ { id, name, order } ] },
 //   recMin: { mapId: level }, entry: { mapId: level }, era: Set(mapId)|null, lfgNames: [normalised names] }
 // Instance = { key, name, kind, forever, areaId, map, entrance, levels: [entry, min, max], bosses: [ Boss ] }
-// Boss = { name, npc|null, items, object?, role? }: object a chest's object id
+// Boss = { name, npc|null, items, object?, role?, encounter? }: object a chest's object id
 //   (a chest boss: npc null, unless an encounter has both); role
 //   'rare' | 'event' | 'optional' on the bosses after the encounters (none on
-//   an encounter's).
+//   an encounter's); encounter the DungeonEncounter id of an encounter's boss
+//   (its name in every language: Polestar.Names "encounter").
 //
 // "Placed inside" an instance: npcs.json / objects.json `instances` (QuestieDB,
 // recordings), or Wowhead's `location` naming an area on the instance's map
@@ -464,8 +465,8 @@ function buildInstances(facts, ctx = {}) {
 			map: m.id,
 			entrance,
 			levels,
-			// The old shape { name, npc, items }, plus object (a chest boss) and role when set.
-			bosses: bosses.map(({ name, npc, object, items, role }) => ({ name, npc, items, ...(object ? { object } : {}), ...(role ? { role } : {}) })),
+			// The old shape { name, npc, items }, plus object (a chest boss), role and encounter (its DungeonEncounter id) when set.
+			bosses: bosses.map(({ name, npc, object, items, role, encounter }) => ({ name, npc, items, ...(object ? { object } : {}), ...(role ? { role } : {}), ...(encounter ? { encounter } : {}) })),
 		};
 	}
 	// Every NPC placed in an instance (bosses first).

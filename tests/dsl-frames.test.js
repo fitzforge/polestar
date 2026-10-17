@@ -48,6 +48,26 @@ test('a coordinate on a map the guide never sets as zone warns (cross-continent 
 	assert.deepEqual(only(ok.warnings, /never sets zone/), []);
 });
 
+// Fitz's playtest: Darkshore's "Boat to Stormwind" pointed into Moonglade,
+// the zone a Night Elf Druid trip earlier in the guide had set.
+test('typed coordinates on a zone set by a step for some characters only warn when the others are elsewhere', () => {
+	const trip = ['step Trip', '  only Paladin', '  zone Stormwind City', '  goto 50,50'];
+	const src = dunMorogh([...trip, 'step Back', '  goto 30,72 "Coldridge"', '  goto 31,72 only Paladin', '  goto 32,72 map 1426']);
+	const r = compile(src);
+	// The Paladins' own goal and the one with `map` are fine; the goal everyone sees is in Stormwind for the others.
+	assert.deepEqual(only(r.warnings, /sets in a step for/), [
+		`test.guide:${lineOf(src, '  goto 30,72 "Coldridge"')}: coordinates on Stormwind City, the zone line ${lineOf(src, '  zone Stormwind City')} sets in a step for Paladin only; the others who see this goal are in Dun Morogh`,
+	]);
+	assert.equal(plain(r.guides[0].steps[1].goals[0]).map, 1453, 'the zone in effect still holds (only the warning is new)');
+	// A `zone` line after the trip, or a step only the trip's characters see, is fine.
+	for (const body of [
+		[...trip, 'step Back', '  zone Dun Morogh', '  goto 30,72'],
+		[...trip, 'step More', '  only Paladin', '  goto 30,72'],
+	]) {
+		assert.deepEqual(only(compile(dunMorogh(body)).warnings, /sets in a step for/), []);
+	}
+});
+
 test('hand-typed coordinates are Era-frame by default; `coords live` and `live`/`era` modifiers override', () => {
 	const goals = (src) => plain(compile(src).guides[0].steps[0].goals);
 	const era = goals(dunMorogh(['step S', '  goto 30,72', '  goto 31,72 live', '  kill 704 @30,72', '  explore 29,70 "Coldridge Valley"']));

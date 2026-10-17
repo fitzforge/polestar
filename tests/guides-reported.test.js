@@ -200,8 +200,10 @@ test(`${DUN_MOROGH}: thmastin's report: The Adventurer is taken from Thalos at t
 // --- Darkshore (Wogi): a Human at 20 was sent to grey quests.
 
 // Darkshore and the guides after it, played by the Engine for a level-`level`
-// Human with "Skip grey quests" on: the accepts it leaves out as grey.
-function greySkippedInDarkshore(level) {
+// Human with "Skip grey quests" on: the accepts it leaves out as grey
+// (`skipped`), and each grey accept it keeps with the quest it says it opens
+// and that line (`kept`).
+function greyInDarkshore(level) {
 	data = data || loadData(DATA);
 	const files = ['03-darkshore', '04-redridge-mountains', '05-duskwood', '06-ashenvale', '07-thousand-needles']
 		.map((n) => path.join(OFFICIAL_DIR, 'forever/alliance', `${n}.guide`));
@@ -222,15 +224,18 @@ function greySkippedInDarkshore(level) {
 				stub.login(); stub.advance(0.5)
 				local E = Polestar.Engine
 				E.SetGuide("forever/alliance/03-darkshore")
-				local out = {}
+				local skipped, kept = {}, {}
 				for i = 1, #E.GetGuide().steps do
 					for _, g in ipairs(E.GetStepView(i).goals) do
-						if g.skippedGrey then out[#out + 1] = g.quest end
+						if g.skippedGrey then skipped[#skipped + 1] = g.quest end
+						if g.keptGrey then kept[tostring(g.quest)] = { g.keptGrey, g.keptGreyText } end
 					end
 				end
-				emit(out)`,
+				emit({ skipped = skipped, kept = kept })`,
 		});
-		return Object.values(emitted[0]); // an empty Lua table comes back as {}
+		// An empty Lua table comes back as {}.
+		const { skipped, kept } = emitted[0];
+		return { skipped: Object.values(skipped), kept };
 	} finally {
 		fs.rmSync(dir, { recursive: true, force: true });
 	}
@@ -240,10 +245,24 @@ test('forever/alliance/03-darkshore.guide: Wogi\'s report: with Skip grey quests
 	// At 20, quests of level 13 and below are grey. Buzzbox 827 (983, level
 	// 10) and Buzzbox 411 (1001, 12) open Buzzbox 323 and 525, and the first
 	// Washed Ashore (3524, 13) the second: they stay.
-	assert.deepEqual(greySkippedInDarkshore(20).sort((a, b) => a - b), [953, 954, 955, 956, 957, 958, 4722, 4723, 98025]);
+	assert.deepEqual(greyInDarkshore(20).skipped.sort((a, b) => a - b), [953, 954, 955, 956, 957, 958, 4722, 4723, 98025]);
 	// The simulator's Human reaches Darkshore at 16 to 18: Buzzbox 827 is
 	// already grey then, and stays for its chain.
-	assert.deepEqual(greySkippedInDarkshore(17), []);
+	assert.deepEqual(greyInDarkshore(17).skipped, []);
+});
+
+test('forever/alliance/03-darkshore.guide: XooVe\'s report (#216): a grey quest Skip grey quests keeps says which quest it opens', { skip }, () => {
+	// At 20 Buzzbox 323 (1002, level 14) is the nearest quest still worth
+	// doing that 827 and 411 lead to; at 22 only Buzzbox 525 (1003, 16) is.
+	const at20 = greyInDarkshore(20).kept;
+	assert.deepEqual(at20['983'], [1002, 'Grey, kept: opens Buzzbox 323']);
+	assert.deepEqual(at20['1001'], [1002, 'Grey, kept: opens Buzzbox 323']);
+	const at22 = greyInDarkshore(22).kept;
+	assert.deepEqual(at22['983'], [1003, 'Grey, kept: opens Buzzbox 525']);
+	// At 23 the whole chain is grey and left out: nothing kept says so.
+	const at23 = greyInDarkshore(23);
+	assert.equal(at23.kept['983'], undefined);
+	assert.ok(at23.skipped.includes(983));
 });
 
 // --- Tirisfal (a Scourge Priest): the guide sent them to turn in Discipline
@@ -555,7 +574,7 @@ test('Sato\'s report: The Great Outdoors on Zephras Isle is done by sitting at R
 // The Gift of Skysight and Reading the Ley Lines are the racial spells cast
 // at the place: the line says so, and still counts from the quest log.
 test('Sato\'s report: the Skysight and Read Ley Line objectives tell you to cast the racial, and tick from the quest log', { skip }, () => {
-	for (const [guide, who, quest, spell] of [[ZEPHRAS_HORDE, SKYBORNE_HORDE, 92598, 'Skysight'], [ZEPHRAS_ALLIANCE, SKYBORNE_ALLIANCE, 92597, 'Read Ley Line']]) {
+	for (const [guide, who, quest, spell] of [[ZEPHRAS_HORDE, SKYBORNE_HORDE, 92598, 'Skysight'], [ZEPHRAS_ALLIANCE, SKYBORNE_ALLIANCE, 92597, 'Read Leyline']]) {
 		const list = goals(guide);
 		const i = at(list, `${guide}: the objective of ${quest}`, (g) => g.quest === quest && g.oi === 1);
 		const view = stepView(guide, who, list[i].s, `w.onQuest(${quest}, { { required = 1, fulfilled = 1 } })`);
@@ -589,5 +608,85 @@ test('Sato\'s report: the Scrawny Ursera step leads to the slope west of Thendal
 		const { goal } = list[at(list, `${guide}: Scrawny Ursera Claw`, (g) => g.t === 'collect' && g.item === 251918)];
 		assert.ok(wowhead.some(([x, y]) => close(goal, { map: 2521, x, y }, 0.3)), `${guide}: the arrow's point ${goal.x},${goal.y} is at a Scrawny Ursera spawn`);
 		for (const sp of (goal.spots || []).filter((o) => !o.alt)) assert.ok(sp.x <= 41.7, `${guide}: the spot ${sp.x},${sp.y} is west of the village`);
+	}
+});
+
+// --- Strays (#175, Phear): a mob or two on their own, hundreds of yards from the camp
+// that holds the rest, drew the point and the arrow away from the camp the step is about.
+
+test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it', { skip }, () => {
+	// [guide, the goal, the camp's x and y range (map percent)]
+	const cases = [
+		[DUN_MOROGH, 'Frostmane Headhunter (Frostmane Hold)', (g) => g.t === 'kill' && g.npc === 1123 && g.quest === 287, [20, 27, 49, 56]],
+		['forever/alliance/03-darkshore.guide', 'Grizzled Scalp', (g) => g.t === 'collect' && g.item === 5414, [37, 46, 69, 83]],
+		['forever/alliance/50-60/02-felwood.guide', 'Jadefire Hellcaller (Jadefire Run)', (g) => g.t === 'kill' && g.npc === 7111, [38, 44, 13, 23]],
+		['forever/horde/05-stonetalon-mountains.guide', 'Stonetalon Sap', (g) => g.t === 'collect' && g.item === 5582, [32, 41, 9, 21]],
+		['forever/horde/50-60/01-un-goro-crater.guide', 'Bloodpetal Lasher (east side)', (g) => g.t === 'kill' && g.npc === 6509, [55, 77, 20, 50]],
+		['forever/horde/50-60/01-un-goro-crater.guide', 'Bloodpetal Thresher (east side)', (g) => g.t === 'kill' && g.npc === 6511, [55, 77, 20, 50]],
+		['forever/horde/40-50/03-feralas.guide', 'Marsh Flesheater (huts on the western shore)', (g) => g.t === 'kill' && g.npc === 751, [60, 75, 75, 100]],
+	];
+	const inCamp = ([x0, x1, y0, y1]) => (p) => p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1;
+	for (const [guide, what, pred, camp] of cases) {
+		for (const { goal } of goals(guide).filter(({ goal }) => pred(goal))) {
+			assert.ok(inCamp(camp)(goal), `${guide}: ${what}: the point ${goal.x},${goal.y} is at the camp`);
+			const arrow = goal.spots.filter((s) => !s.alt);
+			assert.ok(arrow.length && arrow.every(inCamp(camp)), `${guide}: ${what}: the arrow picks only the camp: ${JSON.stringify(goal.spots)}`);
+			assert.ok(goal.spots.some((s) => s.alt && !inCamp(camp)(s)), `${guide}: ${what}: the strays stay alternatives`);
+		}
+		assert.ok(goals(guide).some(({ goal }) => pred(goal)), `${guide}: ${what} is in the guide`);
+	}
+	// Not strays: a sparse trail of single spawns (the Lingering Highborne through the ruins), spawns all
+	// over a zone (Scourgestones, the OOX beacon) and a target with six spawns or fewer (Pristine Black
+	// Diamond). The walk still starts at the spawn nearest the previous goal, a spot the arrow searches.
+	const kept = [
+		['forever/alliance/50-60/01-burning-steppes.guide', 7972],
+		['forever/class/priest/blood-of-morphaz.guide', 7972],
+		['forever/alliance/50-60/03-winterspring.guide', 12840],
+		['forever/horde/50-60/01-un-goro-crater.guide', 12840],
+		['forever/horde/40-50/02-feralas.guide', 8705],
+		['forever/class/shaman/darkreaver.guide', 18335],
+	];
+	for (const [guide, item] of kept) {
+		const list = goals(guide);
+		const { goal } = list[at(list, `${guide}: collect ${item}`, (g) => g.t === 'collect' && g.item === item)];
+		const first = goal.spots[0];
+		assert.ok(!first.alt && first.n === 1 && Math.hypot(first.x - goal.x, first.y - goal.y) <= 0.1, `${guide}: collect ${item}: the walk starts at the point ${goal.x},${goal.y}: ${JSON.stringify(first)}`);
+	}
+	const ichor = goals('forever/alliance/50-60/01-burning-steppes.guide').find(({ goal }) => goal.item === 7972).goal;
+	const trail = ichor.spots.filter((s) => s.x >= 34 && s.x <= 41 && s.y >= 45 && s.y <= 62);
+	assert.equal(trail.length, 6, JSON.stringify(ichor.spots));
+	assert.ok(trail.every((s) => !s.alt), 'every spot of the Highborne trail is searched');
+});
+
+// The goals the stray rule moved, checked against their steps (#175 review): the
+// Grizzled Scalps are taken where the bears are, and cloth the guide says to buy
+// leads to the Auction House, not to the guards and mobs that happen to drop it.
+
+test('forever/alliance/03-darkshore.guide: the Grizzled Scalps are collected in the step at the Grove, where the bears are and Buzzbox 525 takes them', { skip }, () => {
+	const list = goals('forever/alliance/03-darkshore.guide');
+	const i = at(list, 'Grizzled Scalp', (g) => g.t === 'collect' && g.item === 5414);
+	const turnin = at(list, 'turnin 1003', is('turnin', 1003));
+	assert.equal(list[i].step, list[turnin].step, 'one step: the bears and Buzzbox 525');
+	assert.ok(i < turnin);
+	assert.ok(yards(list[i].goal, list[turnin].goal) < 300, `the scalps' point ${list[i].goal.x},${list[i].goal.y} is near Buzzbox 525`);
+});
+
+test('the cloth the guides tell you to buy leads to the Auction House: the capitals\' cloth donations and Grimand\'s Runecloth', { skip }, () => {
+	// The auctioneers: Stormwind's Trade District (live frame) and Ironforge's (Era frame).
+	const ah = { 1453: { x: 61.2, y: 71.3 }, 1455: { x: 24.2, y: 74.7 } };
+	const cases = [
+		['forever/alliance/50-60/06-silithus.guide', [7793, 7794, 7795, 7807, 7808, 7809, 7811, 7802, 7803, 7804, 7805]],
+		['forever/collectibles/mounts/alliance/paladin-charger.guide', [7642]],
+	];
+	for (const [guide, quests] of cases) {
+		for (const quest of quests) {
+			const list = goals(guide).filter(({ goal }) => goal.t === 'collect' && goal.quest === quest && [2592, 4306, 4338, 14047].includes(goal.item));
+			assert.ok(list.length, `${guide}: the cloth of ${quest}`);
+			for (const { goal } of list) {
+				const at_ = ah[goal.map];
+				assert.ok(at_ && goal.x === at_.x && goal.y === at_.y, `${guide}: ${quest} ${goal.itemName}: the point ${goal.map} ${goal.x},${goal.y} is the Auction House`);
+				for (const s of (goal.spots || []).filter((o) => !o.alt)) assert.deepEqual([s.x, s.y], [at_.x, at_.y], `${guide}: ${quest}: the arrow picks only the Auction House`);
+			}
+		}
 	}
 });

@@ -1,6 +1,24 @@
 ## Interface: 16001
 ## Title: Polestar Names (zhTW)
-## Notes: Quest, NPC, object and item names in Chinese (traditional) for Polestar's guides. Loaded on demand on a Chinese (traditional) client.
+## Notes: Names of quests, NPCs, objects, items, instances and more in Chinese (traditional) for Polestar. Loaded on demand on a Chinese (traditional) client.
+## Title-deDE: Polestar Namen (zhTW)
+## Notes-deDE: Spielnamen für Polestar (Quests, NPCs, Objekte, Gegenstände, Instanzen und mehr). Sprache: Chinesisch (traditionell). Wird bei Bedarf geladen, nur in einem Client dieser Sprache.
+## Title-esES: Polestar: nombres (zhTW)
+## Notes-esES: Nombres del juego para Polestar (misiones, PNJ, objetos, instancias y más). Idioma: chino (tradicional). Se carga bajo demanda solo en un cliente en ese idioma.
+## Title-esMX: Polestar: nombres (zhTW)
+## Notes-esMX: Nombres del juego para Polestar (misiones, PNJ, objetos, instancias y más). Idioma: chino (tradicional). Se carga bajo demanda solo en un cliente en ese idioma.
+## Title-frFR: Polestar : noms (zhTW)
+## Notes-frFR: Noms du jeu pour Polestar (quêtes, PNJ, objets, instances et plus). Langue : chinois (traditionnel). Chargé à la demande, uniquement sur un client dans cette langue.
+## Title-koKR: Polestar 이름 (zhTW)
+## Notes-koKR: Polestar용 게임 이름(퀘스트, NPC, 물체, 아이템, 인스턴스 등). 언어: 중국어(번체). 해당 언어 클라이언트에서만 필요할 때 불러옵니다.
+## Title-ptBR: Polestar: nomes (zhTW)
+## Notes-ptBR: Nomes do jogo para o Polestar (missões, PNJs, objetos, itens, instâncias e mais). Idioma: chinês (tradicional). Carregado sob demanda, só em um cliente nesse idioma.
+## Title-ruRU: Polestar: названия (zhTW)
+## Notes-ruRU: Названия из игры для Polestar (задания, NPC, объекты, предметы, подземелья и другое). Язык: китайский (традиционный). Загружается по требованию, только в клиенте на этом языке.
+## Title-zhCN: Polestar 名称 (zhTW)
+## Notes-zhCN: Polestar 使用的游戏名称（任务、NPC、物体、物品、副本等）。语言：繁体中文。仅在该语言的客户端中按需加载。
+## Title-zhTW: Polestar 名稱 (zhTW)
+## Notes-zhTW: Polestar 使用的遊戲名稱（任務、NPC、物件、物品、副本等）。語言：繁體中文。僅在該語言的用戶端中按需載入。
 ## Author: Polestar
 ## X-License: GPL-3.0-only
 ## Version: 0.2.4

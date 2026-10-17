@@ -234,11 +234,15 @@ local function anchorOf(slot)
 end
 
 -- Draws the hops to slot; returns how many (0: none drawn).
+-- Not with the gamepad interface (ns.GamepadUI): the route needs the
+-- hooks below on the game's node buttons, whose OnEnter the gamepad's
+-- navigation runs from its own code as it moves over them. The node keeps
+-- its mark.
 function Flight.DrawRoute(slot)
 	hideLines()
 	drawnSlot = nil
 	local map = TaxiRouteMap
-	if not (slot and map and TaxiFrame and TaxiFrame:IsShown() and GetNumRoutes and TaxiGetNodeSlot and DrawLine) then return 0 end
+	if ns.GamepadUI() or not (slot and map and TaxiFrame and TaxiFrame:IsShown() and GetNumRoutes and TaxiGetNodeSlot and DrawLine) then return 0 end
 	local hops = GetNumRoutes(slot) or 0
 	local previous
 	for hop = 1, hops do
@@ -274,6 +278,7 @@ end
 
 -- Hovering another node: the game draws its route; ours comes back after.
 local function hookButtons()
+	if ns.GamepadUI() then return end
 	for i = 1, NumTaxiNodes and NumTaxiNodes() or 0 do
 		local b = _G["TaxiButton" .. i]
 		if b and not hooked[b] then

@@ -137,6 +137,30 @@ test('Home: All dungeons groups by band; the faction filter changes the counts; 
 	assert.equal(out.tab, 'quests');
 });
 
+// A French client whose names pack lands with Home open: the cards take the
+// names Dungeons.List gives from then on.
+test('Home: a names pack landing late renames the cards', () => {
+	const [out] = run(`
+		Polestar.Dungeons.Open()
+		DS.SetBand("all")
+		local before = cardNames()
+		local list = Polestar.Dungeons.List
+		Polestar.Dungeons.List = function(...)
+			local out = {}
+			for i, d in ipairs(list(...)) do
+				local c = {}
+				for k, v in pairs(d) do c[k] = v end
+				if c.name == "Wailing Caverns" then c.name = "Cavernes des Lamentations" end
+				out[i] = c
+			end
+			return out
+		end
+		Polestar.Fire("NAMES_LOADED")
+		emit({ before = before, after = cardNames() })`);
+	assert.ok(out.before.includes('Wailing Caverns'));
+	assert.ok(out.after.includes('Cavernes des Lamentations'));
+});
+
 test('A page: the painting header with the name, facts and actions; tabs with counts; Guide me and Show on map act', () => {
 	const [out] = run(`
 		-- Nothing in the log: the hand-in stays away, so "Show on map" keeps its place among three actions.
@@ -152,7 +176,8 @@ test('A page: the painting header with the name, facts and actions; tabs with co
 		pg.Back:Click()
 		emit({ head = head, tabs = (function() DS.Open("wailing-caverns") return tabs() end)(), nav = nav, map = uistub.worldMap,
 			back = (function() DS.Home() return { DS.Page() or false, PolestarPicker.Title:GetAlpha(), PolestarPicker.Band:IsShown(), pg:IsShown() } end)() })`);
-	assert.deepEqual(out.head, ['Wailing Caverns', 'Levels 17\u201324  \u00b7  The Barrens  \u00b7  10 players  \u00b7  4 bosses', true, true, true, false,
+	// The facts break between two facts where the actions leave too little room.
+	assert.deepEqual(out.head, ['Wailing Caverns', 'Levels 17\u201324  \u00b7  The Barrens  \u00b7  10 players\n4 bosses', true, true, true, false,
 		'Wailing Caverns', 0, false, true]);
 	assert.deepEqual(out.tabs, ['Quests  4', 'Attunement', 'Bosses  4', 'Map'], 'the fixture gives Wailing Caverns an attunement');
 	assert.deepEqual(out.nav, [1413, 46, 36.4, 'Wailing Caverns']);
@@ -402,7 +427,7 @@ test('Speed: pages reuse pooled frames, only cards in view are painted, open and
 		-- A page of forty quests draws only the blocks in view, the rest as they scroll in.
 		local qs = {}
 		for i = 1, 40 do
-			qs[i] = string.format('{id=%d,title="Errand %d",level=%d,minLevel=%d,objective="Collect 8 Things",start={kind="npc",id=1,name="Giver",map=1413,x=50,y=50},finish={kind="npc",id=1,name="Giver",map=1413,x=50,y=50},chain={},rewards={items={},xp=900,rep={}}}', 90000 + i, i, 20 + i % 5, 15)
+			qs[i] = string.format('{id=%d,title="Errand %d",level=%d,minLevel=%d,objectives={{k="item",id=1,n=8,name="Things"}},start={kind="npc",id=1,name="Giver",map=1413,x=50,y=50},finish={kind="npc",id=1,name="Giver",map=1413,x=50,y=50},chain={},rewards={items={},xp=900,rep={}}}', 90000 + i, i, 20 + i % 5, 15)
 		end
 		Polestar.Dungeons.Register("dungeon", { big = { name = "Big Hold", kind = "dungeon", minLevel = 20, maxLevel = 25, quests = { A = 40, H = 40 }, bosses = 0 } },
 			{ big = "return {quests={" .. table.concat(qs, ",") .. "},chain={},bosses={}}" })
@@ -456,4 +481,45 @@ test('review P3-13: "Show on map" in combat says in chat why the map stays shut,
 	assert.match(out.inCombat.printed, /map can't open in combat/);
 	assert.equal(out.after, 1413);
 	assert.equal(out.lines, 1, 'the out-of-combat click prints nothing');
+});
+
+test('a French client: a dungeon page and the Codex name quests, NPCs and items in French; English where French has none', () => {
+	const { namesPack } = require('./helpers/names');
+	const fr = namesPack('frFR', {
+		quest: { 1486: 'Peaux déviantes' },
+		npc: { 5767: 'Nalpak (fr)', 3671: 'Dame Anacondra', 234: 'Gryan Forte-Manteau' },
+		item: { 6480: 'Jambières déviantes lisses', 9739: "Gemme d'Anacondra" },
+	});
+	const [page, codex, learned] = runAddon({
+		stubs: ['stub_ui.lua'],
+		before: `function GetLocale() return "frFR" end
+do
+	local load = loadfile
+	function loadfile(file)
+		if file:match("[/\\\\]Locales[/\\\\]%a%a%u%u%.lua$") then return function() end end
+		return load(file)
+	end
+end
+${fr.stubLua}
+${pack.stubLua}`,
+		addons: [{ name: 'Polestar', files: FILES }],
+		script: `uistub.install()\nstub.login()
+local D = Polestar.Dungeons
+local q = D.Quest("wailing-caverns", 1486)
+local b = D.Bosses("wailing-caverns")
+emit({ q.title, q.start.name, q.rewards.items[1].name, q.rewards.items[2].name, b[1].name, b[1].quests[1].itemName, b[2].name })
+local C = Polestar.Codex
+emit({ C.Npc(234).name, C.Name("npc", 234), C.Name("npc", 639) })
+local guids = { target = "Creature-0-1-0-1-5767-0000AB", mouseover = "Creature-0-1-0-1-639-0000CD" }
+local named = { target = "Nalpak (client)", mouseover = "Edwin VanCleef (client)" }
+UnitGUID = function(u) return guids[u] end
+UnitName = function(u) return named[u] end
+UnitPlayerControlled = function() return false end
+Polestar.Compat.Readable = function(v) return v end
+stub.fire("PLAYER_TARGET_CHANGED"); stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit({ D.Quest("wailing-caverns", 1486).start.name, C.Npc(639).name })`,
+	}).emitted;
+	assert.deepEqual(page, ['Peaux déviantes', 'Nalpak (fr)', 'Jambières déviantes lisses', 'Deviate Hide Pack', 'Dame Anacondra', "Gemme d'Anacondra", 'Kresh']);
+	assert.deepEqual(codex, ['Gryan Forte-Manteau', 'Gryan Forte-Manteau', 'Edwin VanCleef']);
+	assert.deepEqual(learned, ['Nalpak (client)', 'Edwin VanCleef (client)'], 'an open page and decoded records pick up names learned in play');
 });

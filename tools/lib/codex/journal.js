@@ -20,26 +20,27 @@
 // `codex` the merged Codex (instances, items, npcs, objects, quests). Every
 // input may be missing; the result then holds less.
 //
-// Page: { key, name, kind, forever, minLevel, maxLevel, players, zone, zoneName,
+// Page: { key, name, map (the instance's Map id), kind, forever, minLevel, maxLevel, players, zone, zoneName,
 //   entrance: { map, x, y, f } | null,
 //   quests: [ Quest ] (level order), chain: { id: Quest } (prerequisites not on the page),
-//   bosses: [ { order, name, npc, level, object?, role?, quests: [ { id, how, item?, itemName? } ] } ],
+//   bosses: [ { order, name, npc, level, object?, role?, encounter?, quests: [ { id, how, item?, itemName? } ] } ],
 //   attunement: [ Attunement ] (tools/lib/codex/attunements.js; none: absent) }
-//   (object: a chest boss's object id; role: rare | event | optional, the bosses after the encounters)
+//   (object: a chest boss's object id; role: rare | event | optional, the bosses after the encounters;
+//   encounter: its DungeonEncounter id)
 // Quest: { id, title, level, minLevel, faction 'A'|'H'|null, classes|null, inside, shareable,
-//   objective|null, start|null, finish|null (each { kind, id, name, map, x, y, f, inside }),
+//   objectives: [ { k, id?, n?, name } ]|null (objectivesOf), start|null, finish|null (each { kind, id, name, map, x, y, f, inside }),
 //   startItem: { id, name }|null, chain: [ids, oldest first],
 //   rewards: { items: [ { id, name, quality, choice } ], xp, money, rep: [ { faction, name, value } ] },
 //   bosses: [names] }
 //
 // Facts only (ids, names, levels, coordinates, amounts); the objective line is
-// our own wording built from the objective facts.
+// our own wording, composed in the client's language from the objective facts.
 
 const fs = require('node:fs');
 const path = require('node:path');
 const { header } = require('../generated');
 
-const SCHEMA = 2;
+const SCHEMA = 3; // 3: objective facts (objectives) instead of an English line, instance map, boss encounter
 
 const num = (v) => {
 	const n = Number(v);
@@ -165,21 +166,26 @@ function chainOf(quests, fq, id, side) {
 
 const SIDE = { Alliance: 'A', Horde: 'H', A: 'A', H: 'H' };
 
-// Our own objective line from the objective facts.
-function objectiveText(objectives, names) {
-	const parts = [];
+// The objective facts a page shows: [ { k, id?, n?, name } ] in the quest's
+// order, k 'kill' | 'item' | 'object' (id the NPC, item or object) or
+// 'event' (no id: name is the data's text); n the count when over one;
+// name the English name (the line in another language is composed at run
+// time from these: Dungeons.ObjectiveText). An objective without a name is
+// left out; none left: null.
+function objectivesOf(objectives, names) {
+	const out = [];
 	for (const o of objectives || []) {
-		const name = (o.type === 'kill' && names.npc(o.id)) || (o.type === 'item' && names.item(o.id)) || (o.type === 'object' && names.object(o.id)) || o.text || null;
+		const k = o.type === 'kill' || o.type === 'item' || o.type === 'object' ? o.type : 'event';
+		const id = k === 'event' ? null : o.id ?? null;
+		const name = (k === 'kill' && names.npc(id)) || (k === 'item' && names.item(id)) || (k === 'object' && names.object(id)) || o.text || null;
 		if (!name) continue;
-		const n = Number(o.count) > 1 ? `${o.count} ` : '';
-		if (o.type === 'kill') parts.push(`kill ${n}${name}`);
-		else if (o.type === 'item') parts.push(`collect ${n}${name}`);
-		else if (o.type === 'object') parts.push(`use ${name}`);
-		else parts.push(name);
+		const part = { k };
+		if (id) part.id = id;
+		if (Number(o.count) > 1 && k !== 'object') part.n = Number(o.count);
+		part.name = name;
+		out.push(part);
 	}
-	if (!parts.length) return null;
-	const s = parts.join('; ');
-	return s.charAt(0).toUpperCase() + s.slice(1);
+	return out.length ? out : null;
 }
 
 // A giver or ender from its kind and id: name and first spawn from the Codex.
@@ -340,7 +346,7 @@ function buildPages(inputs, codex, warnings = []) {
 			classes: null,
 			inside: false,
 			shareable: null,
-			objective: objectiveText(src.objectives, names),
+			objectives: objectivesOf(src.objectives, names),
 			start: start || (startItem ? { kind: 'item', id: startItem.id, name: startItem.name, map: null, x: null, y: null, f: null, inside: false } : null),
 			finish: placeOf('npc', (e.npc || [])[0], codex) || placeOf('object', (e.object || [])[0], codex),
 			startItem,
@@ -370,7 +376,7 @@ function buildPages(inputs, codex, warnings = []) {
 			classes: q.classes && q.classes.length ? q.classes : null,
 			inside: !!(q.start && q.start.inDungeon),
 			shareable: typeof q.shareable === 'boolean' ? q.shareable : null,
-			objective: c ? c.objective : null,
+			objectives: c ? c.objectives : null,
 			start: djPlace(q.start) || (c && c.start),
 			finish: djPlace(q.end) || (c && c.finish),
 			startItem: q.startItem ? { id: q.startItem.item, name: q.startItem.name || names.item(q.startItem.item) } : c ? c.startItem : null,
@@ -509,12 +515,16 @@ function buildPages(inputs, codex, warnings = []) {
 		}
 		// Bosses in kill order, with the quests tied to each. A chest boss
 		// (object) ties the quests whose item it holds; role marks the bosses
-		// after the encounters (rare, event, optional).
+		// after the encounters (rare, event, optional); encounter is the
+		// DungeonEncounter id (DungeonJournal's bosses take the one of the
+		// Codex boss of the same name).
+		const encounterOf = {};
+		for (const b of inst.bosses || []) if (b.encounter && b.name) encounterOf[norm(b.name)] = b.encounter;
 		const bossList = d
-			? (d.bosses || []).map((b) => ({ name: b.name, npc: b.npc ?? null, level: b.level ?? null }))
+			? (d.bosses || []).map((b) => ({ name: b.name, npc: b.npc ?? null, level: b.level ?? null, encounter: encounterOf[norm(b.name)] || null }))
 			: (inst.bosses || [])
 					.filter((b) => b.name && b.name !== 'Trash')
-					.map((b) => ({ name: b.name, npc: b.npc ?? null, object: b.object ?? null, role: b.role ?? null, items: b.items || [], level: (npcs[b.npc] && npcs[b.npc].level) || null }));
+					.map((b) => ({ name: b.name, npc: b.npc ?? null, object: b.object ?? null, role: b.role ?? null, encounter: b.encounter ?? null, items: b.items || [], level: (npcs[b.npc] && npcs[b.npc].level) || null }));
 		const bosses = bossList.map((b, i) => {
 			const tied = [];
 			const add = (id, how, item) => {
@@ -540,6 +550,7 @@ function buildPages(inputs, codex, warnings = []) {
 			const page = { order: i + 1, name: b.name, npc: b.npc, level: b.level, quests: tied };
 			if (b.object) page.object = b.object;
 			if (b.role) page.role = b.role;
+			if (b.encounter) page.encounter = b.encounter;
 			return page;
 		});
 		const lv = inst.levels;
@@ -547,6 +558,7 @@ function buildPages(inputs, codex, warnings = []) {
 		pages[key] = {
 			key,
 			name: inst.name || key,
+			map: inst.map ?? (m && m.id) ?? null,
 			kind: inst.kind === 'raid' || (m && m.raid) ? 'raid' : 'dungeon',
 			forever: !!inst.forever,
 			minLevel: lv ? (lv[1] ?? lv[0]) : null,
@@ -636,6 +648,7 @@ function summaryOf(p) {
 	const count = (side) => p.quests.filter((q) => !q.faction || q.faction === side).length;
 	return {
 		name: p.name,
+		map: p.map,
 		kind: p.kind,
 		forever: p.forever || null,
 		minLevel: p.minLevel,
@@ -677,4 +690,4 @@ function emitJournal(journal) {
 	return [{ name: 'Dungeons1.lua', text: lines.join('\n') }];
 }
 
-module.exports = { instanceMapsOf, zonePoint, chainOf, objectiveText, buildJournal, emitJournal, loadJournalQuests, SCHEMA };
+module.exports = { instanceMapsOf, zonePoint, chainOf, objectivesOf, buildJournal, emitJournal, loadJournalQuests, SCHEMA };

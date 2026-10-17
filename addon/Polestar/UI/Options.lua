@@ -18,7 +18,7 @@ local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipa
 
 local SH = W.SHELL
 local GAP = 24 -- between the two grid columns
-local TILE_H, TILE_GAP = 60, 12
+local TILE_GAP = 12 -- between lines of button tiles
 
 local O = {}
 UI.Options = O
@@ -100,6 +100,7 @@ local function add(spec, builtin)
 	if spec.subtitle then p.subtitle = spec.subtitle end
 	if spec.custom then p.custom = spec.custom end
 	if spec.dot then p.dot = spec.dot end
+	if spec.empty then p.empty = spec.empty end
 	local s = sectionOf(tabOf(p, spec.tab), spec.section)
 	for _, c in ipairs(spec.controls or {}) do
 		c.page, c.tab, c.section = p, spec.tab, spec.section
@@ -124,7 +125,8 @@ end
 -- setting: follow the guide (Guide), make Polestar look their way
 -- (Appearance), choose what the maps show (Map), quest (Questing), find
 -- things (Discovery: Lookup, the dungeon journal, rares), small
--- conveniences (Quality of Life); the author's Recorder and About close the
+-- conveniences (Quality of Life), other addons Polestar works with
+-- (Integrations); the author's Recorder and About close the
 -- list. Modules still register their own controls; the pages they fill are
 -- declared here with their tabs and sections in order, and the modules
 -- register into them by name (docs/ARCHITECTURE.md, "Options registry").
@@ -247,9 +249,6 @@ local BUILTIN = {
 			end },
 		{ kind = "toggle", key = "ui.classAccent", label = L["Class colour"],
 			help = L["The accent follows your class: warlock purple, shaman blue, druid orange. Picking your own accent turns this off."] },
-		{ kind = "toggle", key = "ui.matchAccent", label = L["Match EllesmereUI accent"],
-			help = L["Follow EllesmereUI's accent, live. Picking your own accent turns this off."],
-			needs = function() return Theme.IsEllesmere() end },
 	} },
 	{ page = LOOK, tab = L["Colour & type"], section = L["Background"], controls = {
 		{ kind = "dropdown", key = "ui.scheme", label = L["Colour scheme"], disabled = houseOnly,
@@ -281,9 +280,6 @@ local BUILTIN = {
 				ns.Set("ui.font", v)
 				if Theme.IsEllesmere() then ns.Set("ui.matchFont", false) end
 			end },
-		{ kind = "toggle", key = "ui.matchFont", label = L["Match EllesmereUI font"],
-			help = L["Follow EllesmereUI's font, live. Choosing another font turns this off."],
-			needs = function() return Theme.IsEllesmere() end },
 		{ kind = "toggle", key = "ui.reduceMotion", label = L["Reduce motion"], help = L["No sliding or popping; fades stay short."] },
 	} },
 	{ page = LOOK, tab = L["Windows"], section = L["Frame"], controls = {
@@ -380,6 +376,22 @@ end
 
 for _, spec in ipairs(BUILTIN) do add(spec, true) end
 
+-- Integrations: a section per supported addon, each registered by its
+-- module with needs = the addon is present (Compat.AddOnPresent), so only
+-- installed addons show. The page stays in the list with none (`empty`:
+-- the line it shows then).
+add({ page = L["Integrations"], key = "integrations", icon = "plug", order = 65,
+	subtitle = L["Settings for other addons Polestar works with, shown when they are installed."],
+	empty = L["None of the addons Polestar works with is installed."] }, true)
+add({ page = L["Integrations"], section = "EllesmereUI", controls = {
+	{ kind = "toggle", key = "ui.matchAccent", label = L["Match EllesmereUI accent"],
+		help = L["Follow EllesmereUI's accent, live. Picking your own accent turns this off."],
+		needs = function() return Theme.IsEllesmere() end },
+	{ kind = "toggle", key = "ui.matchFont", label = L["Match EllesmereUI font"],
+		help = L["Follow EllesmereUI's font, live. Choosing another font turns this off."],
+		needs = function() return Theme.IsEllesmere() end },
+} }, true)
+
 ---------------------------------------------------------------------------
 -- Custom pages: Recorder status and About
 ---------------------------------------------------------------------------
@@ -405,8 +417,21 @@ end
 O.RecorderState = recorderState
 
 local function recorderCommand(arg)
-	local cmd = SlashCmdList and SlashCmdList.POLESTARREC
-	if cmd then cmd(arg) end
+	if PolestarRecorder_Command then PolestarRecorder_Command(arg) end
+end
+
+-- Two widgets side by side in the body's columns at y, sized by
+-- layout(widget, width) -> height and both as tall as the taller. -> height
+local function placePair(view, pair, y, cw, layout)
+	local h = 0
+	for col, w in ipairs(pair) do
+		w:ClearAllPoints()
+		w:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad + (col - 1) * (cw + GAP), -y)
+		w:Show()
+		h = max(h, layout(w, cw))
+	end
+	for _, w in ipairs(pair) do w:SetHeight(h) end
+	return h
 end
 
 local function buildRecorder(view)
@@ -453,15 +478,8 @@ local function buildRecorder(view)
 		rows.sessions.Value:SetText(st.sessions)
 		rows.events.Value:SetText(st.events)
 		rows.char.Value:SetText(st.char or "\226\128\147")
-		local order = { rows.status, rows.sessions, rows.events, rows.char }
-		for i, r in ipairs(order) do
-			local col, line = (i - 1) % 2, floor((i - 1) / 2)
-			r:ClearAllPoints()
-			r:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad + col * (cw + GAP), -(y + line * W.ROW_H))
-			r:SetWidth(cw)
-			r:Show()
-		end
-		y = y + 2 * W.ROW_H
+		y = y + placePair(view, { rows.status, rows.sessions }, y, cw, W.LayoutRow)
+		y = y + placePair(view, { rows.events, rows.char }, y, cw, W.LayoutRow)
 		actions:ClearAllPoints()
 		actions:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 		actions:SetWidth(win.BodyWidth)
@@ -471,13 +489,7 @@ local function buildRecorder(view)
 		toggle.Title:SetText(st.enabled and L["Stop recording"] or L["Start recording"])
 		toggle.psTitle = toggle.Title:GetText()
 		toggle.Desc:SetText(st.enabled and L["Nothing more is written until you start it again."] or L["Write quests, routes and world data for guide authors. Off until you start it."])
-		for i, t in ipairs({ toggle, status }) do
-			t:ClearAllPoints()
-			t:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad + (i - 1) * (cw + GAP), -y)
-			t:SetWidth(cw)
-			t:Show()
-		end
-		return y + TILE_H + 24
+		return y + placePair(view, { toggle, status }, y, cw, W.LayoutTile) + 24
 	end
 end
 
@@ -629,12 +641,7 @@ local function buildAbout(view)
 		maintH:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 		maintH:SetWidth(width)
 		y = y + 44 + 4
-		for i, t in ipairs({ resetAll, resetPos }) do
-			t:ClearAllPoints()
-			t:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad + (i - 1) * (cw + GAP), -y)
-			t:SetWidth(cw)
-		end
-		return y + TILE_H + 24
+		return y + placePair(view, { resetAll, resetPos }, y, cw, W.LayoutTile) + 24
 	end
 end
 
@@ -661,6 +668,7 @@ local ALIASES = {
 local function available(c)
 	if c.needs and not c.needs() then return false end
 	if c.kind == "button" then return true end
+	if c.kind == "binding" then return ns.Gamepad ~= nil and ns.Gamepad.BindingRow ~= nil end
 	return ns.GetDefault and ns.GetDefault(c.key) ~= nil
 end
 
@@ -696,6 +704,10 @@ local function makeControl(parent, c)
 			W.SetDisabledWhen(w, c.disabled)
 		end
 		return w
+	elseif c.kind == "binding" then
+		w = ns.Gamepad.BindingRow(parent, c)
+		w.psControl = c
+		return w
 	end
 	if c.disabled then W.SetDisabledWhen(w, c.disabled) end
 	w.psControl = c
@@ -703,32 +715,24 @@ local function makeControl(parent, c)
 end
 
 -- Lay controls out in a two-column grid from y; settings rows are 40px,
--- button tiles 60px. `cache` maps control spec -> widget. -> new y
+-- button tiles 60px, and a line grows to the tallest of its two (a label
+-- or description that wraps). `cache` maps control spec -> widget. -> new y
 function O.Grid(view, controls, y, cache)
 	local cw = (win.BodyWidth - GAP) / 2
 	local i, n = 1, #controls
 	while i <= n do
 		local tiles = controls[i].kind == "button"
-		local col, line = 0, 0
 		while i <= n and (controls[i].kind == "button") == tiles do
-			local c = controls[i]
-			local w = cache[c]
-			if not w then
-				w = makeControl(view, c)
-				cache[c] = w
+			local pair = {}
+			while #pair < 2 and i <= n and (controls[i].kind == "button") == tiles do
+				local c = controls[i]
+				if not cache[c] then cache[c] = makeControl(view, c) end
+				pair[#pair + 1] = cache[c]
+				i = i + 1
 			end
-			w:ClearAllPoints()
-			w:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad + col * (cw + GAP), -(y + line * (tiles and (TILE_H + TILE_GAP) or W.ROW_H)))
-			w:SetWidth(cw)
-			w:Show()
-			col = col + 1
-			if col == 2 then
-				col, line = 0, line + 1
-			end
-			i = i + 1
+			y = y + placePair(view, pair, y, cw, tiles and W.LayoutTile or W.LayoutRow) + (tiles and TILE_GAP or 0)
 		end
-		local lines = line + (col > 0 and 1 or 0)
-		y = y + (tiles and (lines * (TILE_H + TILE_GAP) + 4) or (lines * W.ROW_H + 8))
+		y = y + (tiles and 4 or 8)
 	end
 	return y
 end
@@ -782,7 +786,7 @@ local function buildView(p, t)
 					view.Empty = W.Text(view, "note", "textMuted")
 					view.Empty:SetWordWrap(true)
 				end
-				view.Empty:SetText(L["Nothing to set here yet: the module behind this page is not loaded."])
+				view.Empty:SetText(p.empty or L["Nothing to set here yet: the module behind this page is not loaded."])
 				view.Empty:SetWidth(win.BodyWidth)
 				view.Empty:ClearAllPoints()
 				view.Empty:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -24)
@@ -902,7 +906,7 @@ local function shownTabs(p)
 end
 
 local function pageShown(p)
-	if p.custom then return true end
+	if p.custom or p.empty then return true end
 	for _, t in ipairs(p.tabs) do
 		if tabHasControls(t) then return true end
 	end
@@ -1023,6 +1027,23 @@ function O.SetQuery(text)
 	renderFooter(nil)
 end
 
+-- The next (delta 1) or previous tab, running on into the next page's
+-- first tab or the previous page's last (LB / RB on a gamepad).
+function O.StepTab(delta)
+	if not win then return end
+	local list, at = {}, nil
+	for _, p in ipairs(pageList) do
+		if pageShown(p) then
+			for _, t in ipairs(shownTabs(p)) do
+				list[#list + 1] = { p.key, t.name }
+				if p == current and t == currentTab then at = #list end
+			end
+		end
+	end
+	local to = list[(at or 0) + delta]
+	if to then O.Select(to[1], to[2]) end
+end
+
 -- The settings are the hub's Options section in their own shell: the same
 -- rail, Options marked, so any section is one click back.
 local function build()
@@ -1035,6 +1056,16 @@ local function build()
 	})
 	O.frame = win
 	UI.Report.SidebarLink(win)
+	-- A gamepad moves through the page (UI/Gamepad.lua); LB / RB step the tabs.
+	if ns.Gamepad and ns.Gamepad.Register then
+		ns.Gamepad.Register(win, {
+			initial = function(rows)
+				for i, w in ipairs(rows) do if ns.Gamepad.Within(w, win.Body) then return i end end
+			end,
+			prevTab = function() O.StepTab(-1) end,
+			nextTab = function() O.StepTab(1) end,
+		})
+	end
 end
 
 local function renderRail()
@@ -1058,6 +1089,26 @@ function UI.ShowOptions(section)
 	win:Show()
 	O.Select(section or (current and current.key) or pageList[1].key)
 end
+
+-- A new font measures every label, value and description anew: the rail,
+-- the sidebar and the page on screen are laid out again where they are
+-- (other tabs lay out when selected).
+W.OnFontChanged(function()
+	if not (win and win:IsShown()) then return end
+	renderRail()
+	if query ~= "" then
+		W.ShellNav(win, navItems(), nil, function(k) O.Select(k) end)
+		renderSearch()
+		return
+	end
+	O.RefreshNav()
+	local view = O.view
+	if view and view:IsShown() and view.Refresh then
+		local h = view.Refresh()
+		view:SetHeight(h)
+		W.ShellBody(win, h)
+	end
+end)
 
 -- The widgets on a page tab (tests and preview): key -> widget.
 function O.Controls(key, tabName)
@@ -1117,10 +1168,14 @@ local function registerSettingsCategory()
 	sub:SetPoint("TOPLEFT", canvas, "TOPLEFT", 16, -80)
 	local open = W.Button(canvas, L["Open Polestar settings"], function()
 		-- Closing the game's Settings panel is protected in combat: from addon
-		-- code it would fail and blame Polestar. Leave it open then.
+		-- code it would fail and blame Polestar. Leave it open then, and with
+		-- the gamepad interface, whose focus a panel closed from addon code
+		-- leaves blocked (ns.GamepadUI): B closes it.
 		local panel = SettingsPanel
 		if panel and panel.IsShown and panel:IsShown() and HideUIPanel then
-			if InCombatLockdown and InCombatLockdown() then
+			if ns.GamepadUI() then
+				ns.Print(L["Close the game menu to see Polestar's settings."])
+			elseif InCombatLockdown and InCombatLockdown() then
 				ns.Print(L["Close the game menu to see Polestar's settings (it cannot be closed for you in combat)."])
 			else
 				HideUIPanel(panel)

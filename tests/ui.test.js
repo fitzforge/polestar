@@ -855,6 +855,21 @@ test('an unavailable quest stays readable but muted, says why, and drops its cou
 	assert.equal(out.fallback, 'Not offered');
 });
 
+test('a grey accept "Skip grey quests" keeps says which quest it opens, on its row and in its tooltip', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 4)
+		local g = uistub.goal(4, 2)
+		g.keptGrey, g.keptGreyText = 18, "Grey, kept: opens Brotherhood of Thieves"
+		uistub.update()
+		local r = rowFor("Investigate Echo Ridge")
+		emit({ sub = r and r.Sub:GetText() or false, line = Polestar.UI.GoalSubline(g), detail = Polestar.UI.GoalDetail(g),
+			plain = Polestar.UI.GoalSubline(uistub.goal(4, 4)) or false })`);
+	assert.equal(out.line, 'Grey, kept: opens Brotherhood of Thieves');
+	assert.equal(out.sub, out.line, 'shown under the goal in the window');
+	assert.match(out.detail, /Grey, kept: opens Brotherhood of Thieves/);
+	assert.doesNotMatch(String(out.plain), /Grey, kept/);
+});
+
 test('a farm-spot collect goal names its mobs, their levels and zone, and cycles to the next spot', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)

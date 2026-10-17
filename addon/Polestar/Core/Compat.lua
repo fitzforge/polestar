@@ -96,6 +96,11 @@ function Compat.IsOnTaxi()
 	return readable(UnitOnTaxi and UnitOnTaxi("player")) and true or false
 end
 
+-- Inside a building, cave or mine (where the client allows no mount).
+function Compat.IsIndoors()
+	return readable(IsIndoors and IsIndoors()) and true or false
+end
+
 -- The player's world position from UnitPosition: wx (north), wy (west), z
 -- (nil when unread) and the instance map id, or nil while the client keeps it
 -- secret or hides it. The one place UnitPosition is read. Forever's client
@@ -161,6 +166,17 @@ function Compat.GetCurrentTaxiNode()
 		end
 	end
 	return nil
+end
+
+-- Another addon installed and enabled: loaded, or loadable when it loads
+-- after Polestar. C_AddOns.IsAddOnLoaded / DoesAddOnExist / GetAddOnInfo
+-- (AddOnsDocumentation.lua).
+function Compat.AddOnPresent(name)
+	local A = C_AddOns
+	if not A then return false end
+	if A.IsAddOnLoaded and A.IsAddOnLoaded(name) then return true end
+	if not (A.DoesAddOnExist and A.GetAddOnInfo) or not A.DoesAddOnExist(name) then return false end
+	return select(4, A.GetAddOnInfo(name)) and true or false
 end
 
 ---------------------------------------------------------------------------
@@ -240,6 +256,33 @@ function Compat.GetOfferedQuests(source)
 		local q = GetQuestID and GetQuestID()
 		if not q or q == 0 then return nil end
 		out[1] = q
+	else
+		return nil
+	end
+	return out
+end
+
+-- Quests the open gossip or greeting window lists as active (in the log, or
+-- just accepted: the window refreshes a moment before the quest log does), as
+-- a list of quest IDs, or nil when the client cannot say. source: "gossip"
+-- (C_GossipInfo.GetActiveQuests) or "greeting" (GetNumActiveQuests /
+-- GetActiveQuestID, as QuestFrame.lua's greeting panel reads them).
+function Compat.GetActiveQuests(source)
+	local out = {}
+	if source == "gossip" then
+		local G = C_GossipInfo
+		if not (G and G.GetActiveQuests) then return nil end
+		local list = G.GetActiveQuests() or {}
+		for i = 1, #list do
+			local q = list[i].questID
+			if q then out[#out + 1] = q end
+		end
+	elseif source == "greeting" then
+		if not (GetNumActiveQuests and GetActiveQuestID) then return nil end
+		for i = 1, GetNumActiveQuests() or 0 do
+			local q = GetActiveQuestID(i)
+			if q then out[#out + 1] = q end
+		end
 	else
 		return nil
 	end
@@ -418,9 +461,13 @@ end
 -- leaves the map frame tainted, so every later open in combat is blocked and
 -- the quest pins are lost until a reload (Shortest Path Forever 1.8.0, #92;
 -- docs/NAV_QA.md C3); it is only the
--- fallback on a client without C_Map.OpenWorldMap. Never in combat.
+-- fallback on a client without C_Map.OpenWorldMap. Never in combat, and
+-- never with the gamepad interface (ns.GamepadUI): the map opened from
+-- addon code joins the gamepad's focus in Polestar's name, and its close
+-- is blocked. The button that would open it is not shown then.
 --   Compat.CanOpenWorldMap() -> bool ; Compat.OpenWorldMap(uiMapID) -> opened
 local function worldMapOpener()
+	if ns.GamepadUI() then return nil end
 	if C_Map and C_Map.OpenWorldMap then return C_Map.OpenWorldMap end
 	return OpenWorldMap
 end
@@ -620,6 +667,28 @@ function Compat.IsSpellKnown(spellID)
 		if recipe and recipe.learned then return true end
 	end
 	return false
+end
+
+-- A skill line's name in the client's language (C_SkillInfo by ID, else the
+-- character's professions), or nil when the client does not say.
+function Compat.GetSkillLineName(skillLine)
+	if type(skillLine) ~= "number" then return nil end
+	local S = C_SkillInfo
+	if S and S.GetSkillLineInfoByID then
+		local ok, info = pcall(S.GetSkillLineInfoByID, skillLine)
+		local name = ok and type(info) == "table" and readable(info.name)
+		if type(name) == "string" and name ~= "" then return name end
+	end
+	if GetProfessions and GetProfessionInfo then
+		local profs = { GetProfessions() }
+		for i = 1, 5 do
+			if profs[i] then
+				local pname, _, _, _, _, _, line = GetProfessionInfo(profs[i])
+				if line == skillLine and type(pname) == "string" and pname ~= "" then return pname end
+			end
+		end
+	end
+	return nil
 end
 
 -- standingID (1 Hated .. 8 Exalted), value, barMin, barMax, name; nil for a

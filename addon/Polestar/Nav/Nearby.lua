@@ -84,12 +84,17 @@ local function professionLines()
 	return out
 end
 
+-- A profession's name in the client's language: the client's skill-line
+-- name, else its English name (the Lookup.PROFESSIONS keys, DATA_KEYS in
+-- tools/lib/i18n/keys.js) through L.
 function Nearby.ProfessionName(line)
+	local client = ns.Compat.GetSkillLineName and ns.Compat.GetSkillLineName(line)
+	if client then return client end
 	local Lookup = ns.Lookup
 	local name = Lookup and Lookup.ProfessionName and Lookup.ProfessionName(line)
-	if name then return name end
+	if name then return L[name] end
 	for key, l in pairs(ns.Compat.SKILL_LINES or {}) do
-		if l == line then return (key:gsub("^%l", string.upper)) end
+		if l == line then return L[(key:gsub("^%l", string.upper))] end
 	end
 	return tostring(line)
 end
@@ -151,6 +156,11 @@ local function rolePlaces(role)
 	index[role] = list
 	return list
 end
+
+-- Places carry the NPC's name as read: drop them when the names pack lands
+-- late, or when an NPC's learned name changes.
+ns.On("NAMES_LOADED", function() index = {} end)
+ns.On("NAME_LEARNED", function(kind) if kind == "npc" then index = {} end end)
 
 -- The candidate places of a kind: list | nil, reason.
 local function candidates(kind, line)
@@ -339,8 +349,10 @@ local function addMenu(_, root)
 end
 Nearby.AddMenu = addMenu
 
+-- Not with the gamepad interface (ns.GamepadUI): the game's menus join its
+-- focus as they open, and an entry of Polestar's runs in that flow.
 ns.OnLogin(function()
-	if not (Menu and Menu.ModifyMenu) then return end
+	if ns.GamepadUI() or not (Menu and Menu.ModifyMenu) then return end
 	Menu.ModifyMenu("MENU_WORLD_MAP_TRACKING", addMenu)
 	Menu.ModifyMenu("MENU_MINIMAP_TRACKING", addMenu)
 end)

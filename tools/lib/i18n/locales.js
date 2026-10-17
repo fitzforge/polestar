@@ -12,7 +12,7 @@
 
 const LOCALES = {
 	deDE: { language: 'German', status: 'reviewed', translators: ['thecodingcortex'] },
-	esES: { language: 'Spanish (Spain)', status: 'ai', translators: [] },
+	esES: { language: 'Spanish (Spain)', status: 'reviewed', translators: ['julen92'] },
 	esMX: { language: 'Spanish (Latin America)', status: 'reviewed', translators: ['CDVolvik'] },
 	frFR: { language: 'French', status: 'reviewed', translators: ['Yendi'] },
 	koKR: { language: 'Korean', status: 'ai', translators: [] },

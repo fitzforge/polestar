@@ -115,6 +115,34 @@ test('a field step stays one group; accept, kill and turn-in at one NPC make thr
 	});
 });
 
+// Teldrassil "The Balance of Nature" (#102), Badlands' cages, Silithus'
+// braziers: objects clicked for a quest objective are field work beside the
+// kills, not a person met after them. A plain click (no quest) is a visit.
+test('a quest interact stays in the field group; a plain interact is its own group', () => {
+	const FIELD = `
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Woods", faction = "Horde", minLevel = 10, maxLevel = 20, zone = 1413, steps = {
+	{ title = "Woods", goals = {
+		{ t = "kill", target = "Gnarlpine Ursa", count = 4, quest = 456, oi = 1, map = 1413, x = 55, y = 44 },
+		{ t = "collect", item = 3297, itemName = "Fel Moss", count = 8, quest = 459, oi = 1, map = 1413, x = 55, y = 45 },
+		{ t = "interact", quest = 97977, object = 668482, objName = "Gnarlpine Totem", oi = 1, map = 1413, x = 56, y = 46,
+			spots = { { x = 56, y = 46, r = 15, n = 1 }, { x = 55.2, y = 44.2, r = 36, n = 2 } } },
+	} },
+	{ title = "Shrine", goals = {
+		{ t = "kill", target = "Gnarlpine Ursa", count = 4, quest = 456, oi = 1, map = 1413, x = 55, y = 44 },
+		{ t = "interact", quest = 97978, object = 668499, objName = "Old Shrine", oi = 1, map = 1413, x = 57, y = 47 },
+		{ t = "interact", object = 668500, objName = "Moonwell", map = 1413, x = 58, y = 47 },
+	} },
+} })
+`;
+	const [out] = run({
+		before: 'stub.world.onQuest(456, { 4 }); stub.world.onQuest(459, { 8 }); stub.world.onQuest(97977, { 4 }); stub.world.onQuest(97978, { 1 })',
+		guides: FIELD,
+		script: 'emit({ woods = groups(1), shrine = groups(2) })',
+	});
+	assert.deepEqual(out.woods, { groups: ['here nil 1+2+3 open3'], focus: 1 });
+	assert.deepEqual(out.shrine, { groups: ['here nil 1+2 open2', 'object Moonwell 3 open1'], focus: 1 });
+});
+
 test('doing a later person first marks that group done but leaves the focus on the first', () => {
 	const [out] = run({
 		before: 'stub.world.onQuest(840, {})',

@@ -29,8 +29,10 @@ zone Moonglade
 # Auction House.
 # Skyborne: Forever added Lessons Anew givers beside both Skyborne landings
 # (Alfina Nightgaze west of Dalaran, Hana Lighthoof in northern Mulgore), but
-# the data offers the rest of the chain to Night Elves and Tauren only, so
-# Skyborne steps are left out until the data has them.
+# the data offered the rest of the chain to Night Elves and Tauren only.
+# Wowhead Forever opens the Alliance chain (6121-6125) to Skyborne druids
+# (corrections.json, checked 2026-10-16); this guide has no Skyborne steps
+# yet.
 # Sources: quests.json, npcs.json, objects.json and items.json (Questie
 # 12.1.0, Forever); Wowhead Forever quest 6123 (the Lunar Fungal Blooms grow in
 # the moonkin caves east of Auberdine) and item 2449 (Earthroot vendors).

@@ -51,6 +51,16 @@ emit(o)`);
 	}
 });
 
+test('Replay: of several arrows into one talent, any one opens it', () => {
+	const [ok, none] = run(`
+local d = { prereq = "full", groups = {}, gates = {}, edges = { { 1, 3 }, { 2, 3 } }, nodes = {
+	[1] = { name = "Bestial Swiftness", max = 1 }, [2] = { name = "Bestial Wrath", max = 1 }, [3] = { name = "Intimidation", max = 1 } } }
+emit(#T.Replay(d, { key = "k", picks = { { order = 1, node = 1, rank = 1 }, { order = 2, node = 3, rank = 1 } } }))
+emit(T.Replay(d, { key = "k", picks = { { order = 1, node = 3, rank = 1 } } })[1])`);
+	assert.equal(ok, 0);
+	assert.match(none, /needs Bestial Swiftness or Bestial Wrath/);
+});
+
 test('Replay: a skipped arrow, an early tier and a skipped rank are caught; "started" relaxes arrows', () => {
 	const [out, started] = run(`
 local ret = plan("retribution")
@@ -258,6 +268,22 @@ emit({ flag = m and m:IsShown() and m.Flag:IsShown() or false })`, { stubs: [] }
 	assert.equal(outs[1].ring, true, 'the ring is on the new next pick');
 	assert.equal(outs[2].ring, false, 'no point left: no ring');
 	assert.equal(outs[3].flag, true);
+});
+
+// The gamepad interface hooks CreateFrame and, for a parent inside the open
+// talent frame, rebuilds its buttons in the caller's code: from Polestar's,
+// the talent frame's next gamepad action is blocked. wow_stub.lua's
+// CreateFrame lists those calls in stub.underGameFrames.
+test('Overlay: a mark and its ring and badge are made with no parent, then set under the talent button, so the gamepad interface never rebuilds the talent frame\'s buttons in Polestar\'s code', () => {
+	const [out] = run(`${FRAME}
+local on = 0
+for button, m in pairs(O.marks) do
+	if m:GetParent() == button and m.Ring:GetParent() == m and m.Badge:GetParent() == m then on = on + 1 end
+end
+emit({ marks = view().marks, on = on, under = table.concat(stub.underGameFrames, "; ") })`);
+	assert.ok(out.marks > 1, 'the planned talents are marked');
+	assert.ok(out.on >= out.marks, 'every mark hangs off its button, its ring and badge off the mark');
+	assert.equal(out.under, '', 'no CreateFrame names a game frame as parent');
 });
 
 test('Overlay: no level labels and nothing muted at the level cap; badges and tooltips give pick numbers', () => {

@@ -270,10 +270,10 @@ function updateLocaleText({ text, file, keys, fill = {}, retire = {} }) {
 
 // A new locale file: its header, then every key grouped under the file that
 // first uses it in load order, translated from `fill` or commented out.
-function newLocaleText({ locale, keys, fill = {}, retire = {} }) {
+function newLocaleText({ locale, keys, fill = {}, retire = {}, title = "Polestar's interface strings" }) {
 	const meta = LOCALES[locale];
 	const head = [
-		`-- ${meta ? meta.language : locale} (${locale}): Polestar's interface strings.`,
+		`-- ${meta ? meta.language : locale} (${locale}): ${title}.`,
 		'-- Keys are the English strings exactly as the code writes them; a key',
 		'-- missing here, or commented out, shows in English. Grouped by the file that',
 		'-- first uses each key. docs/TRANSLATING.md explains the rest.',

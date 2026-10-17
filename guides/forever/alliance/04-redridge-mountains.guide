@@ -33,6 +33,9 @@ next forever/alliance/05-duskwood
 #   Redridge later (25-26, after the Wetlands); this guide keeps the old
 #   place at 21-23, where its quests are not grey, and the zone order of
 #   the guides it chains with.
+# - Lakeshire on arrival: Oslow, Marris, Conacher, the docks (Baren, Wiley),
+#   then Breanna and Martie at the west end, one sweep instead of crossing
+#   town twice.
 #
 # Class quests at the Stormwind stop (about level 21): Rogues take Mathias and
 # the Defias (2360, Poisons; finished at the end of 05-duskwood), Warlocks
@@ -107,17 +110,17 @@ step Lakeridge Highway
 # ---------------------------------------------------------------- Lakeshire
 
 step Lakeshire
-  tip Cross the long bridge north into town. Foreman Oslow and Marshal Marris stand at the north end of the bridge, Dockmaster Baren on the docks, Chef Breanna at the inn, Bailiff Conacher in the town hall, Martie Jainrose in her garden at the west end.
+  tip Cross the long bridge north into town. Foreman Oslow and Marshal Marris stand at the north end of the bridge, Bailiff Conacher in the town hall, Dockmaster Baren and Wiley the Black on the docks, Chef Breanna at the inn, Martie Jainrose in her garden at the west end.
   sethome "Lakeshire"
   accept 125                                  -- Foreman Oslow
   accept 98386
   accept 20                                   -- Marshal Marris
+  accept 91                                   -- Bailiff Conacher
   accept 150                                  -- Dockmaster Baren
   accept 127
-  accept 92                                   -- Chef Breanna
-  accept 91                                   -- Bailiff Conacher
-  accept 34                                   -- Martie Jainrose
   turnin 65                                   -- Wiley the Black, by the docks
+  accept 92                                   -- Chef Breanna
+  accept 34                                   -- Martie Jainrose
 
 step Sunken Chest
   tip Swim east from the bridge into Lake Everstill; the chest lies on the lake bed.

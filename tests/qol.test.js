@@ -1274,6 +1274,30 @@ test('rewards: a disabled Gear module marks no upgrades; a single choice gets it
 	assert.deepEqual(single, [{ badge: 'qol-upgrade', tint: 'success', coin: false, best: false, onIcon: true }]);
 });
 
+// The gamepad interface hooks CreateFrame and, for a parent inside the quest
+// frame while it is open, rebuilds the quest frame's buttons in the caller's
+// code: a mark made by CreateFrame under a reward button, from Polestar's
+// code, blocks the next gamepad action there (the A that takes the reward).
+// wow_stub.lua's CreateFrame lists those in stub.underGameFrames.
+test('rewards: a mark is made with no parent, then set on its reward button, so the gamepad interface never rebuilds the quest frame\'s buttons in Polestar\'s code', () => {
+	const [out] = run(`${MARKS}
+		q.items[11] = { name = "Cloak", price = 120 }
+		q.items[12] = { name = "Potion", price = 50 }
+		q.choices = { { id = 11 }, { id = 12, count = 5 } }
+		Polestar.Gear = { IsEnabled = function() return true end, IsUpgrade = function(link) return link:find("item:11") ~= nil, 4 end }
+		q.questComplete()
+		stub.runTimers()
+		local on = 0
+		for _, b in ipairs(QuestInfoRewardsFrame.RewardButtons) do
+			for _, c in ipairs(b.children) do
+				if c.Badge and c:IsShown() and c:GetParent() == b then on = on + 1 end
+			end
+		end
+		emit({ marks = on, under = table.concat(stub.underGameFrames, "; ") })
+	`);
+	assert.deepEqual(out, { marks: 2, under: '' }, 'both choices are marked, on their own buttons, and no CreateFrame names a game frame as parent');
+});
+
 test('rewards: auto-pick takes the best when on; Shift, quest cost and a disabled Gear module are respected', () => {
 	const out = run(`
 		q.items[11] = { name = "Cloak", price = 120 }
@@ -1949,12 +1973,18 @@ test('summons: accepted out of combat when able to teleport; the dialog closes; 
 		s.combat.player = true; local combat = summon(); s.combat.player = false
 		s.canTeleport = false; local cannot = summon(); s.canTeleport = true
 		stub.keys.shift = true; local shift = summon(); stub.keys.shift = false
-		s.gamepad = true; local pad = summon(); local padClosed = #calls("StaticPopup_Hide"); s.gamepad = false
-		emit({ combat = combat, cannot = cannot, shift = shift, pad = pad, padClosed = padClosed })
+		emit({ combat = combat, cannot = cannot, shift = shift })
 	`);
 	assert.equal(out[0], 0, 'off by default');
 	assert.deepEqual(out[1], { n: 1, closed: 1, msg: true });
-	assert.deepEqual(out[2], { combat: 0, cannot: 0, shift: 0, pad: 1, padClosed: 0 }, 'Gamepad style: dialogs left alone');
+	assert.deepEqual(out[2], { combat: 0, cannot: 0, shift: 0 });
+	// The gamepad interface is read as the addon loads (Core/Init.lua).
+	const [pad] = run(`
+		q.calls = {}; set("acceptSummon", true)
+		q.showPopup("CONFIRM_SUMMON"); stub.fire("CONFIRM_SUMMON", 0, false); stub.runTimers()
+		emit({ n = #calls("ConfirmSummon"), closed = #calls("StaticPopup_Hide") })
+	`, { before: 'stub.qol.social.gamepad = true' });
+	assert.deepEqual(pad, { n: 1, closed: 0 }, 'Gamepad style: accepted, and the dialog left alone');
 });
 
 test('resurrections: accepted after the corpse delay while still offered; never from a caster in combat or in Hardcore', () => {

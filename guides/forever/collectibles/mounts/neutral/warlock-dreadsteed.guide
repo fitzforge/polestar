@@ -143,7 +143,7 @@ step Ulathek the Traitor
 
 step Xorothian Stardust
   tip Ur'dan, beside Lord Banehollow, sells the Xorothian Stardust; he only deals with you while a Shadowy Potion is active. Bring plenty of gold.
-  collect 18687 quest 7625.1 @36.2,44.5 -- Xorothian Stardust, bought from Ur'dan
+  buy 18687 npc 14522                 -- Xorothian Stardust, from Ur'dan
 
 step Imp Delivery
   zone Burning Steppes

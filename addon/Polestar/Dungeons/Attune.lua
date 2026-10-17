@@ -336,7 +336,9 @@ function Dungeons.AttuneGuide(key, id)
 					end
 					if not dup then steps[#steps + 1] = itemStep(s, inside) end
 				elseif s.kind == "rep" then
-					steps[#steps + 1] = { title = s.name or L["Reputation"], goals = { { t = "rep", faction = s.faction, factionName = s.name, standing = s.standing } } }
+					local N = ns.Names
+					local faction = (N and N.Faction(s.faction)) or s.name
+					steps[#steps + 1] = { title = faction or L["Reputation"], goals = { { t = "rep", faction = s.faction, factionName = faction, standing = s.standing } } }
 				elseif s.kind == "gift" then
 					steps[#steps + 1] = { title = s.npc and s.npc.name or L["Talk to"], goals = { at({ t = "talk", npc = s.npc and s.npc.id, npcName = s.npc and s.npc.name }, s.npc) } }
 				end
@@ -352,7 +354,7 @@ function Dungeons.AttuneGuide(key, id)
 	if #steps == 0 then return nil, "nothing" end
 	local d = Dungeons.Get(key)
 	local last = { title = d and d.name or a.name, goals = {} }
-	if a.note then last.goals[#last.goals + 1] = { t = "note", text = a.note } end
+	if a.note then last.goals[#last.goals + 1] = { t = "note", text = L[a.note] } end
 	local e = d and d.entrance
 	if located(e) then
 		last.goals[#last.goals + 1] = { t = "goto", text = L["Enter"] .. " " .. d.name, map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil }

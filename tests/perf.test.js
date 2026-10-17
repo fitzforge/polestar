@@ -57,7 +57,7 @@ const REF_BASELINE = 5.5;
 
 // Settings that are off by default, switched on so every module runs.
 const ALL_ON = {
-	'qol.nameplateIcons': true, 'qol.guideDim': true, 'maps.minimapCoords': true, 'maps.travelMinimap': true,
+	'qol.nameplateIcons': true, 'qol.guideDim': true, 'maps.minimapCoords': true, 'maps.minimapButton': true, 'maps.travelMinimap': true,
 	'rares.minimapRares': true, 'rares.minimapTreasures': true, 'rares.combatAlerts': true,
 };
 

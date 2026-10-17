@@ -37,7 +37,7 @@ async function act(base, action, known = 0) {
 	return r.json();
 }
 
-test('a scripted session: hub, a guide, a goal, a scheme change, then a clean stop', { skip, timeout: 120000 }, async () => {
+test('a scripted session: hub, a guide, a goal, a scheme change, the world map, then a clean stop', { skip, timeout: 120000 }, async () => {
 	const { startServer } = require('../tools/play/server');
 	const dataDir = tmpdir('polestar-play-test-');
 	const play = await startServer({ port: 0, dataDir, artDir: null });
@@ -78,6 +78,14 @@ test('a scripted session: hub, a guide, a goal, a scheme change, then a clean st
 		const frame = f.hits.find((h) => h.n === 'PolestarGuideFrame');
 		const hover = await act(play.url, { type: 'hover', id: frame.id, x: frame.r[0] + 5, y: frame.r[1] + 5 });
 		assert.equal(hover.errors.length, 0);
+
+		// The world map opens with the guide's pins on it and closes, without errors.
+		f = await act(play.url, { type: 'open', what: 'map' });
+		assert.equal(f.errors.length, 0);
+		assert.ok(f.hits.some((h) => h.n === 'WorldMapFrameCloseButton'), 'the map is open');
+		f = await act(play.url, { type: 'open', what: 'map' });
+		assert.equal(f.errors.length, 0);
+		assert.ok(!f.hits.some((h) => h.n === 'WorldMapFrameCloseButton'), 'and closed');
 
 		// A Lua error is reported, never fatal.
 		f = await act(play.url, { type: 'slash', text: '/run error("boom")' });

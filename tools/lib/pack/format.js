@@ -6,8 +6,8 @@ const { header } = require('../generated');
 // The pack format the compiler writes, and the first Polestar version that
 // reads each format (written into the TOC as X-Polestar-Needs). Format 2
 // adds `group` (docs/PACK_FORMAT.md, "Format 2").
-const FORMAT = 2;
-const NEEDS = { 1: '0.1.0', 2: '0.2.4' };
+const FORMAT = 3;
+const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5' };
 
 const PACK_ID_RE = /^[a-z0-9][a-z0-9-]{1,31}$/;
 const FOLDER_RE = /^[A-Za-z0-9_-]{1,64}$/;

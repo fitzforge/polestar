@@ -12,14 +12,16 @@
 -- What this adds to the stubs, so the UI behaves as it does in the client:
 --   - geometry: GetLeft/GetTop/GetRect/GetWidth/IsMouseOver... from the anchors
 --     (the same rules tools/preview/render.js draws with), and the cursor;
---   - input: mouse focus with OnEnter/OnLeave, clicks (OnMouseDown/Up, OnClick
---     for the buttons registered for it), the wheel, drags that move or size
---     frames (StartMoving/StartSizing), sliders, keyboard focus and typing,
---     Escape (UISpecialFrames), slash commands;
+--   - input: mouse focus with OnEnter/OnLeave, clicks (OnMouseDown/Up and
+--     GLOBAL_MOUSE_DOWN/UP, OnClick for the buttons registered for it), the
+--     wheel, drags that move or size frames (StartMoving/StartSizing),
+--     sliders, keyboard focus and typing, Escape (UISpecialFrames), slash
+--     commands;
 --   - errors: a script, timer or message handler that raises is reported (as
 --     the client's error frame does) and the caller carries on;
---   - a world map canvas (Blizzard_MapCanvas shape) for Nav pins, Maps' fog
---     reveal and labels, with the zone's art when the local art cache has it;
+--   - a world map canvas (the Blizzard_MapCanvas shape Polestar reads) for Nav
+--     pins, Maps' fog reveal and labels, with the zone's art when the local
+--     art cache has it;
 --   - SavedVariables and the character's world, serialized for the session.
 
 play = play or {}
@@ -422,12 +424,16 @@ function play.mouseDown(id, button, x, y)
 	play.cursor(x, y)
 	local f = object(id)
 	clearFocusUnless(f)
-	if not f then return end
 	button = button or "LeftButton"
+	if not f then
+		stub.fire("GLOBAL_MOUSE_DOWN", button)
+		return
+	end
 	play.buttonDown, play.lastButton = button, button
 	if f.kind == "Slider" and f.enabled ~= false then sliderTo(f, x) end
 	if f.kind == "EditBox" then M.SetFocus(f) end
 	if f.enabled ~= false or f.kind ~= "Button" then RunScript(f, "OnMouseDown", button) end
+	stub.fire("GLOBAL_MOUSE_DOWN", button)
 end
 
 function play.mouseUp(id, button, x, y, clicked)
@@ -435,8 +441,12 @@ function play.mouseUp(id, button, x, y, clicked)
 	local f = object(id)
 	button = button or "LeftButton"
 	play.buttonDown = nil
-	if not f then return end
+	if not f then
+		stub.fire("GLOBAL_MOUSE_UP", button)
+		return
+	end
 	if f.enabled ~= false or f.kind ~= "Button" then RunScript(f, "OnMouseUp", button) end
+	stub.fire("GLOBAL_MOUSE_UP", button)
 	if clicked and (f.kind == "Button" or f.kind == "CheckButton") and f.enabled ~= false and clickable(f, button) then
 		if f.kind == "CheckButton" then f.checked = not f.checked end
 		RunScript(f, "PreClick", button, false)
@@ -631,30 +641,12 @@ function play.popup(i, choice)
 end
 
 ---------------------------------------------------------------------------
--- The world map: Blizzard_MapCanvas's shape for data providers and pins
+-- The world map: tests/lua/wow_stub.lua's map canvas (the Blizzard_MapCanvas
+-- shape Polestar reads), drawn as the client draws it
 ---------------------------------------------------------------------------
 
 local NAV = "Interface\\AddOns\\Polestar\\Media\\Nav\\"
 local MAP_W, MAP_H = 1002, 668
-
-MapCanvasDataProviderMixin = MapCanvasDataProviderMixin or {
-	OnAdded = function(self, map) self.owningMap = map end,
-	OnRemoved = function(self) self.owningMap = nil end,
-	GetMap = function(self) return self.owningMap end,
-	RemoveAllData = function() end,
-	RefreshAllData = function() end,
-	OnMapChanged = function(self) self:RefreshAllData() end,
-	OnShow = function() end, OnHide = function() end,
-}
-MapCanvasPinMixin = MapCanvasPinMixin or {
-	OnLoad = function() end, OnAcquired = function() end, OnReleased = function() end,
-	SetOwningMap = function(self, map) self.owningMap = map end,
-	GetMap = function(self) return self.owningMap end,
-	SetPosition = function(self, x, y) self:GetMap():SetPinPosition(self, x, y) end,
-	SetScalingLimits = function() end, SetIgnoreGlobalPinScale = function() end,
-	UseFrameLevelType = function(self, t) self.pinFrameLevelType = t end,
-	CheckMouseButtonPassthrough = function() end, SetPassThroughButtons = function() end,
-}
 
 local map = WorldMapFrame
 local canvas, art, mapName, me, meArrow
@@ -666,7 +658,6 @@ local function buildMap()
 	map:SetSize(MAP_W, MAP_H + 34)
 	map:SetPoint("CENTER", UIParent, "CENTER", 0, 10)
 	map.shown = false
-	map.pinPools = map.pinPools or {}
 	map.mouse = true
 	local edge = map:CreateTexture(nil, "BACKGROUND")
 	edge:SetPoint("TOPLEFT", -2, 2)
@@ -709,40 +700,8 @@ local function buildMap()
 	meArrow:SetAllPoints(me)
 	meArrow:SetTexture(NAV .. "arrow")
 	function map.GetCanvas() return canvas end
-	function map.GetCanvasContainer() return map.ScrollContainer end
-	function map.GetCanvasScale() return 1 end
-	function map.GetGlobalAlpha() return 1 end
-	function map.AddMaskableTexture() end
-	function map.GetPinFrameLevelsManager()
-		return { GetValidFrameLevel = function(_, t) return canvas:GetFrameLevel() + (LEVELS[t] or 20) end }
-	end
-	function map.SetPinPosition(_, pin, px, py)
-		pin:ClearAllPoints()
-		pin:SetPoint("CENTER", canvas, "TOPLEFT", px * MAP_W, -py * MAP_H)
-	end
-	local acquired = 0
-	function map.AcquirePin(self, template, ...)
-		local pool = self.pinPools[template]
-		local pin, new = pool:Acquire()
-		pin.pinTemplate = template
-		pin:SetOwningMap(self)
-		if new and pin.OnLoad then pin:OnLoad() end
-		pin:SetFrameLevel(canvas:GetFrameLevel() + (LEVELS[pin.pinFrameLevelType] or 20))
-		acquired = acquired + 1
-		pin.seq = 1000000 + acquired
-		pin:Show()
-		pin:OnAcquired(...)
-		return pin
-	end
-	function map.RemoveAllPinsByTemplate(self, template)
-		if self.pinPools[template] then self.pinPools[template]:ReleaseAll() end
-	end
-	function map.EnumeratePinsByTemplate(self, template)
-		local pool = self.pinPools[template]
-		if pool and pool.EnumerateActive then return pool:EnumerateActive() end
-		return function() end
-	end
-	function map.UnregisterPin() end
+	local levels = { GetValidFrameLevel = function(_, t) return canvas:GetFrameLevel() + (LEVELS[t] or 20) end }
+	function map.GetPinFrameLevelsManager() return levels end
 	function map.SetMapID(_, id) play.openMap(id) end
 	if UISpecialFrames then table.insert(UISpecialFrames, "WorldMapFrame") end
 end
@@ -786,25 +745,18 @@ end
 -- Open the world map on uiMapID `id` (the player's map by default).
 function play.openMap(id)
 	id = id or stub.world.map
-	local changed = stub.worldMapID ~= id
 	stub.worldMapID = id
 	local info = C_Map.GetMapInfo(id)
 	mapName:SetText(info and info.name or ("Map " .. tostring(id)))
 	paintArt(id)
 	placeMe()
-	local wasShown = map.shown
 	map:Show()
-	for p in pairs(map.dataProviders) do
-		if not wasShown and p.OnShow then guard(p.OnShow)(p) end
-		if changed and p.OnMapChanged then guard(p.OnMapChanged)(p) elseif p.RefreshAllData then guard(p.RefreshAllData)(p, true) end
-	end
+	-- The map's next frame: what Polestar draws there shows at once.
+	guard(stub.runMapFrame)(map, 0)
 end
 function play.toggleMap()
 	if map.shown then map:Hide() else play.openMap() end
 end
-map:HookScript("OnHide", function()
-	for p in pairs(map.dataProviders) do if p.OnHide then p:OnHide() end end
-end)
 
 -- The minimap: a dark disc at the top right with the player at its centre.
 local function buildMinimap()

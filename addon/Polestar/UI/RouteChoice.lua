@@ -41,6 +41,7 @@ local F -- the window
 local cards = {}
 local fromId -- the guide whose choice is shown
 local waiting -- a choice to show once combat ends
+local unasked = false -- the choice on screen came by itself (the engine's offer), not for the player
 
 local function Engine() return ns.Engine end
 
@@ -319,7 +320,18 @@ local function build()
 	F.Later.psTip = L["The guide window keeps offering the choice; /polestar path opens it again."]
 
 	F:SetScript("OnShow", function(self) Anim.To(self, "alpha", 0, 1, Anim.BASE, "out") end)
-	if UISpecialFrames then tinsert(UISpecialFrames, "PolestarRouteChoice") end
+	ns.CloseOnEscape("PolestarRouteChoice")
+	-- A gamepad (UI/Gamepad.lua) starts on the recommended route. Offered by
+	-- itself, the window waits for the player before it takes the gamepad.
+	if ns.Gamepad and ns.Gamepad.Register then
+		ns.Gamepad.Register(F, {
+			initial = function(rows)
+				for i, w in ipairs(rows) do if w.psOption and w.psOption.recommended then return i end end
+			end,
+			back = function() RC.Hide() end,
+			unasked = function() return unasked end,
+		})
+	end
 	RC.frame = F
 end
 
@@ -373,8 +385,10 @@ local function layout(choice)
 end
 
 -- Show the choice after `id` (a guide whose `next` lists several guides).
--- Returns true when the window opened (or will, after combat).
-function RC.Show(id)
+-- Returns true when the window opened (or will, after combat). byItself:
+-- the engine offered it, the player did not ask (so does a choice put off
+-- until a fight ends).
+function RC.Show(id, byItself)
 	local E = Engine()
 	local choice = id and E and E.GetRouteChoice and E.GetRouteChoice(id)
 	if not choice or #choice.options < 2 then return false end
@@ -387,11 +401,12 @@ function RC.Show(id)
 	fromId = id
 	choice.offeredAgain = E.PendingRouteChoice and E.PendingRouteChoice() ~= id or false
 	layout(choice)
+	unasked = byItself and true or false
 	F:Show()
 	F:Raise()
 	return true
 end
-UI.ShowRouteChoice = RC.Show
+UI.ShowRouteChoice = function(id) return RC.Show(id) end
 
 function RC.Hide()
 	waiting = nil
@@ -412,7 +427,7 @@ function RC.IsShown()
 end
 
 ns.On("ROUTE_CHOICE", function(id)
-	if ns.IsLoggedIn() then RC.Show(id) else waiting = id end
+	if ns.IsLoggedIn() then RC.Show(id, true) else waiting = id end
 end)
 
 ns.On("ROUTE_CHOSEN", function()
@@ -420,9 +435,9 @@ ns.On("ROUTE_CHOSEN", function()
 end)
 
 ns.OnLogin(function()
-	if waiting then RC.Show(waiting) end
+	if waiting then RC.Show(waiting, true) end
 end)
 
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
-	if waiting then RC.Show(waiting) end
+	if waiting then RC.Show(waiting, true) end
 end)

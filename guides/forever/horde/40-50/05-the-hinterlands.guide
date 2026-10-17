@@ -35,6 +35,9 @@ next forever/horde/40-50/06-azshara
 #   your log, so it is handed in the moment you take it.
 # - A short grind check after the bloodmages (level 48) covers the
 #   experience lost with the dropped stops here and in the previous guide.
+# - Highvale: the report, the notes and the records nearest first, then
+#   Rin'ji. Revantusk Village: round the village from the west side, where
+#   you ride in; Gorkas, the flight master at the far east end, last.
 #
 # Class training: the Undercity for Warriors, Paladins, Rogues, Priests,
 # Mages and Warlocks; Hunters, Shamans and Druids trained at the end of the
@@ -128,10 +131,10 @@ step Gilveradin's camp
   accept 77
 
 step Highvale
-  tip The Highvale elves camp around Quel'Danil Lodge. Burn the records, the notes and the report in their camps. Rin'ji is held inside the lodge: lead him out and fight off the ambush on the way.
-  interact 144071 quest 2995.1          -- Highvale Records
-  interact 144072 quest 2995.2          -- Highvale Notes
+  tip The Highvale elves camp around Quel'Danil Lodge. Burn the report, the notes and the records in their camps. Rin'ji is held inside the lodge: lead him out and fight off the ambush on the way.
   interact 144073 quest 2995.3          -- Highvale Report
+  interact 144072 quest 2995.2          -- Highvale Notes
+  interact 144071 quest 2995.1          -- Highvale Records
   accept 2742                           -- Rin'ji
   complete 2742
 
@@ -154,19 +157,19 @@ step The Atal'ai Exile
 
 step Revantusk Village
   tip Follow the roads east across the Hinterlands to the troll village on the eastern coast.
-  getfp "Revantusk Village" npc 4314    -- Gorkas
+  accept 7839                           -- Smith Slagtree
   sethome "Revantusk Village" npc 14731 -- Lard
   accept 7840
-  accept 7815                           -- Katoom the Angler
-  accept 7839                           -- Smith Slagtree
+  accept 7850                           -- Primal Torntusk
+  accept 7845
   accept 7844                           -- Mystic Yayo'jin
   accept 7841                           -- Otho Moji'ko
   accept 7828                           -- Huntsman Markhor
   accept 7829
   accept 7830
   accept 7849
-  accept 7850                           -- Primal Torntusk
-  accept 7845
+  accept 7815                           -- Katoom the Angler
+  getfp "Revantusk Village" npc 4314    -- Gorkas
 
 # ---------------------------------------------------------------- The north coast
 

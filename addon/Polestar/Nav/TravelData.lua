@@ -348,26 +348,26 @@ N.RegisterTravelData({
 		80,32,3149,
 		80,64,3960,
 	},
-	-- ends: name, continent, wx, wy, uiMapID, x, y, frame ("e" Era, "l" live); seconds riding a->b, b->a and waiting at a, b
+	-- ends: name, continent, wx, wy, uiMapID, x, y, frame ("e" Era, "l" live), AreaTable area (its name in the client's language); seconds riding a->b, b->a and waiting at a, b
 	transports = {
-		{a={"Booty Bay",0,-14298.1,539.4,1434,26.35,73.56,"e"},ab=124,b={"Ratchet",1,-985.3,-3796.6,1413,63.35,38.45,"e"},ba=107,faction=3,id="boat-bootybay-ratchet",kind="boat",waitA=185,waitB=185},
-		{a={"Menethil Harbor",0,-3905.2,-585.8,1437,4.74,63.76,"e"},ab=104,b={"Theramore",1,-4016.4,-4740.6,1445,71.73,56.66,"e"},ba=106,faction=1,id="boat-menethil-theramore",kind="boat",waitA=175,waitB=175},
-		{a={"Menethil Harbor",0,-3709.5,-575.1,1437,4.49,56.66,"e"},ab=142,b={"Southshore",0,-1102.6,-554.7,1424,50.67,70.44,"e"},ba=224,faction=1,id="boat-menethil-southshore",kind="boat",waitA=253,waitB=253},
-		{a={"Southshore",0,-1102.6,-554.7,1424,50.67,70.44,"e"},ab=85,b={"Auberdine",1,6406.2,823.1,1439,32.34,44.13,"e"},ba=282,faction=1,id="boat-southshore-auberdine",kind="boat",waitA=253,waitB=253},
-		{a={"Menethil Harbor",0,-3709.5,-575.1,1437,4.49,56.66,"e"},ab=287,b={"Auberdine",1,6406.2,823.1,1439,32.34,44.13,"e"},ba=80,faction=1,id="boat-menethil-auberdine",kind="boat",waitA=253,waitB=253},
-		{a={"Stormwind Harbor",0,-8654.5,1344.4,1453,21.78,56.86,"l"},ab=60,b={"Auberdine",1,6548.3,942.2,1439,30.53,40.88,"e"},ba=67,faction=1,id="boat-stormwind-auberdine",kind="boat",waitA=134,waitB=134},
-		{a={"Steamwheedle Port",1,-6937.6,-4881.1,1446,67.57,23.1,"e"},ab=77,b={"Powderfuse Port",0,-8193.3,-5741.6,2548,79.38,53.4,"l"},ba=75,faction=3,id="boat-tanaris-powderfuse",kind="boat",waitA=146,waitB=146},
-		{a={"Auberdine",1,6594.4,759.8,1439,33.31,39.82,"e"},ab=92,b={"Rut'theran Village",1,8533.7,1025.1,1438,54.79,97.17,"e"},ba=105,faction=1,id="boat-auberdine-ruttheran",kind="boat",waitA=168,waitB=168},
-		{a={"Feathermoon Stronghold",1,-4197.3,3286.6,1444,31.01,39.51,"e"},ab=60,b={"The Forgotten Coast",1,-4347.8,2444.4,1444,43.13,42.76,"e"},ba=137,faction=1,id="boat-feathermoon",kind="boat",waitA=169,waitB=169},
-		{a={"Orgrimmar",1,1331,-4649.6,1411,50.82,13.54,"e"},ab=131,b={"Undercity",0,2064,288.6,1420,60.74,58.87,"e"},ba=105,faction=2,id="zeppelin-orgrimmar-undercity",kind="zeppelin",waitA=188,waitB=188},
-		{a={"Orgrimmar",1,1354,-4642.7,1411,50.69,12.89,"e"},ab=78,b={"Grom'gol",0,-12441.2,215.2,1434,31.43,29.91,"e"},ba=105,faction=2,id="zeppelin-orgrimmar-gromgol",kind="zeppelin",waitA=162,waitB=162},
-		{a={"Undercity",0,2054.7,241.6,1420,61.78,59.18,"e"},ab=96,b={"Grom'gol",0,-12417.8,208.2,1434,31.54,29.36,"e"},ba=117,faction=2,id="zeppelin-undercity-gromgol",kind="zeppelin",waitA=177,waitB=177},
-		{a={"Stormwind",0,-8346.5,514,1453,69.58,30.27,"l"},ab=74,b={"Ironforge",0,-4840.3,-1330.5,1455,78.02,51.37,"e"},ba=74,faction=1,id="tram-stormwind-ironforge",kind="tram",waitA=68,waitB=68},
+		{a={"Booty Bay",0,-14298.1,539.4,1434,26.35,73.56,"e",35},ab=124,b={"Ratchet",1,-985.3,-3796.6,1413,63.35,38.45,"e",392},ba=107,faction=3,id="boat-bootybay-ratchet",kind="boat",waitA=185,waitB=185},
+		{a={"Menethil Harbor",0,-3905.2,-585.8,1437,4.74,63.76,"e",150},ab=104,b={"Theramore",1,-4016.4,-4740.6,1445,71.73,56.66,"e",513},ba=106,faction=1,id="boat-menethil-theramore",kind="boat",waitA=175,waitB=175},
+		{a={"Menethil Harbor",0,-3709.5,-575.1,1437,4.49,56.66,"e",150},ab=142,b={"Southshore",0,-1102.6,-554.7,1424,50.67,70.44,"e",271},ba=224,faction=1,id="boat-menethil-southshore",kind="boat",waitA=253,waitB=253},
+		{a={"Southshore",0,-1102.6,-554.7,1424,50.67,70.44,"e",271},ab=85,b={"Auberdine",1,6406.2,823.1,1439,32.34,44.13,"e",442},ba=282,faction=1,id="boat-southshore-auberdine",kind="boat",waitA=253,waitB=253},
+		{a={"Menethil Harbor",0,-3709.5,-575.1,1437,4.49,56.66,"e",150},ab=287,b={"Auberdine",1,6406.2,823.1,1439,32.34,44.13,"e",442},ba=80,faction=1,id="boat-menethil-auberdine",kind="boat",waitA=253,waitB=253},
+		{a={"Stormwind Harbor",0,-8654.5,1344.4,1453,21.78,56.86,"l",17203},ab=60,b={"Auberdine",1,6548.3,942.2,1439,30.53,40.88,"e",442},ba=67,faction=1,id="boat-stormwind-auberdine",kind="boat",waitA=134,waitB=134},
+		{a={"Steamwheedle Port",1,-6937.6,-4881.1,1446,67.57,23.1,"e",977},ab=77,b={"Powderfuse Port",0,-8193.3,-5741.6,2548,79.38,53.4,"l",16727},ba=75,faction=3,id="boat-tanaris-powderfuse",kind="boat",waitA=146,waitB=146},
+		{a={"Auberdine",1,6594.4,759.8,1439,33.31,39.82,"e",442},ab=92,b={"Rut'theran Village",1,8533.7,1025.1,1438,54.79,97.17,"e",702},ba=105,faction=1,id="boat-auberdine-ruttheran",kind="boat",waitA=168,waitB=168},
+		{a={"Feathermoon Stronghold",1,-4197.3,3286.6,1444,31.01,39.51,"e",1116},ab=60,b={"The Forgotten Coast",1,-4347.8,2444.4,1444,43.13,42.76,"e",1108},ba=137,faction=1,id="boat-feathermoon",kind="boat",waitA=169,waitB=169},
+		{a={"Orgrimmar",1,1331,-4649.6,1411,50.82,13.54,"e",1637},ab=131,b={"Undercity",0,2064,288.6,1420,60.74,58.87,"e",1497},ba=105,faction=2,id="zeppelin-orgrimmar-undercity",kind="zeppelin",waitA=188,waitB=188},
+		{a={"Orgrimmar",1,1354,-4642.7,1411,50.69,12.89,"e",1637},ab=78,b={"Grom'gol",0,-12441.2,215.2,1434,31.43,29.91,"e",117},ba=105,faction=2,id="zeppelin-orgrimmar-gromgol",kind="zeppelin",waitA=162,waitB=162},
+		{a={"Undercity",0,2054.7,241.6,1420,61.78,59.18,"e",1497},ab=96,b={"Grom'gol",0,-12417.8,208.2,1434,31.54,29.36,"e",117},ba=117,faction=2,id="zeppelin-undercity-gromgol",kind="zeppelin",waitA=177,waitB=177},
+		{a={"Stormwind",0,-8346.5,514,1453,69.58,30.27,"l",1519},ab=74,b={"Ironforge",0,-4840.3,-1330.5,1455,78.02,51.37,"e",1537},ba=74,faction=1,id="tram-stormwind-ironforge",kind="tram",waitA=68,waitB=68},
 	},
-	-- walk-in portals, one way a -> b: id, destination name, ends as transports, seconds (the loading screen)
+	-- walk-in portals, one way a -> b: id, destination name and area, ends as transports, seconds (the loading screen)
 	portals = {
-		{a={"Darnassus",1,9947.5,2630,1457,29.13,41.21,"e"},b={"Rut'theran Village",1,8785.8,967,1438,55.93,89.74,"e"},id="portal-ruttheran",name="Rut'theran Village",seconds=5},
-		{a={"Rut'theran Village",1,8799.4,969.8,1438,55.87,89.34,"e"},b={"Darnassus",1,9946.3,2613,1457,30.75,41.39,"e"},id="portal-darnassus",name="Darnassus",seconds=5},
+		{a={"Darnassus",1,9947.5,2630,1457,29.13,41.21,"e",1657},area=702,b={"Rut'theran Village",1,8785.8,967,1438,55.93,89.74,"e",702},id="portal-ruttheran",name="Rut'theran Village",seconds=5},
+		{a={"Rut'theran Village",1,8799.4,969.8,1438,55.87,89.34,"e",702},area=1657,b={"Darnassus",1,9946.3,2613,1457,30.75,41.39,"e",1657},id="portal-darnassus",name="Darnassus",seconds=5},
 	},
 	-- bind location names (as GetBindLocation reports them), AreaTable area (WoW Forever client build 1.60.1.70425), innkeeper NPC, position
 	inns = {
@@ -425,7 +425,8 @@ N.RegisterTravelData({
 -- services[transport or lift id] = { kind, name, board (s at the dock before it leaves), pre/post (s outside
 --   the ride), wait/ride = { a, b } expected s while untimed, routes = { { route, a = stops, b = stops } } }
 --   (a, b: indices into the route's stops, from 1)
---   (ends = the a and b names; lifts: a = top, b = bottom, with c, wx, wy and the top and bottom z)
+--   (ends = the a and b names, areas = their AreaTable areas; area: the tram's or the lift's, dir: which of
+--   that place's lifts; lifts: a = top, b = bottom, with c, wx, wy and the top and bottom z)
 -- teleports: class teleports { spell, name, cast (s), reagents = { item, count, ... }, to = end | bind = true }
 if ns.Transit and ns.Transit.Register then
 	ns.Transit.Register({
@@ -1011,36 +1012,36 @@ if ns.Transit and ns.Transit.Register then
 			},
 		},
 		services = {
-			["boat-auberdine-ruttheran"] = {board=10,ends={"Auberdine","Rut'theran Village"},kind="boat",name="Auberdine - Rut'theran Village",post=0,pre=0,ride={a=91.7,b=104.5},routes={{a={2},b={1},route="path-293"}},wait={a=168.1,b=168.1}},
-			["boat-bootybay-ratchet"] = {board=10,ends={"Booty Bay","Ratchet"},kind="boat",name="Booty Bay - Ratchet",post=0,pre=0,ride={a=123.9,b=106.9},routes={{a={2},b={1},route="path-241"}},wait={a=185.4,b=185.4}},
-			["boat-feathermoon"] = {board=10,ends={"Feathermoon Stronghold","The Forgotten Coast"},kind="boat",name="Feathermoon Stronghold - The Forgotten Coast",post=0,pre=0,ride={a=60.1,b=136.9},routes={{a={1},b={2},route="path-303"}},wait={a=168.5,b=168.5}},
-			["boat-menethil-auberdine"] = {board=10,ends={"Menethil Harbor","Auberdine"},kind="boat",name="Menethil Harbor - Auberdine",post=0,pre=0,ride={a=286.6,b=79.5},routes={{a={1},b={3},route="path-11167"}},wait={a=253.1,b=253.1}},
-			["boat-menethil-southshore"] = {board=10,ends={"Menethil Harbor","Southshore"},kind="boat",name="Menethil Harbor - Southshore",post=0,pre=0,ride={a=142,b=224.1},routes={{a={1},b={2},route="path-11167"}},wait={a=253.1,b=253.1}},
-			["boat-menethil-theramore"] = {board=10,ends={"Menethil Harbor","Theramore"},kind="boat",name="Menethil Harbor - Theramore",post=0,pre=0,ride={a=103.6,b=105.6},routes={{a={1},b={2},route="path-292"}},wait={a=174.7,b=174.7}},
-			["boat-southshore-auberdine"] = {board=10,ends={"Southshore","Auberdine"},kind="boat",name="Southshore - Auberdine",post=0,pre=0,ride={a=84.6,b=281.5},routes={{a={2},b={3},route="path-11167"}},wait={a=253.1,b=253.1}},
-			["boat-stormwind-auberdine"] = {board=10,ends={"Stormwind Harbor","Auberdine"},kind="boat",name="Stormwind Harbor - Auberdine",post=0,pre=0,ride={a=59.8,b=67.3},routes={{a={2},b={1},route="path-11616"}},wait={a=133.5,b=133.5}},
-			["boat-tanaris-powderfuse"] = {board=10,ends={"Steamwheedle Port","Powderfuse Port"},kind="boat",name="Steamwheedle Port - Powderfuse Port",post=0,pre=0,ride={a=76.5,b=74.6},routes={{a={1},b={2},route="path-11391"}},wait={a=145.5,b=145.5}},
-			["lift-freewind-post"] = {board=2,bottom=-40.4,c=1,kind="lift",name="Freewind Post",post=0,pre=0,ride={a=10,b=10},routes={{a={1,3},b={2,4},route="lift-freewind-post"}},top=89,wait={a=9.5,b=9.5},wx=-5390.8,wy=-2497},
-			["lift-great-lift"] = {board=2,bottom=-44,c=1,kind="lift",name="The Great Lift",post=0,pre=0,ride={a=10,b=10},routes={{a={1,3},b={2,4},route="lift-great-lift"}},top=85.4,wait={a=9.5,b=9.5},wx=-4668.1,wy=-1838.6},
-			["lift-thunder-bluff-north"] = {board=2,bottom=69.1,c=1,kind="lift",name="Thunder Bluff, north lift",post=0,pre=0,ride={a=10,b=10},routes={{a={2},b={1},route="lift-thunder-bluff-north-1"},{a={1},b={2},route="lift-thunder-bluff-north-2"}},top=140.5,wait={a=12,b=12},wx=-1032.7,wy=-38.8},
-			["lift-thunder-bluff-west"] = {board=2,bottom=68.7,c=1,kind="lift",name="Thunder Bluff, west lift",post=0,pre=0,ride={a=10,b=10},routes={{a={1},b={2},route="lift-thunder-bluff-west-1"},{a={2},b={1},route="lift-thunder-bluff-west-2"}},top=130.1,wait={a=12,b=12},wx=-1297.3,wy=187.5},
-			["lift-undercity-east"] = {board=2,bottom=-40.8,c=0,kind="lift",name="Undercity, east lift",post=0,pre=0,ride={a=3.3,b=3.5},routes={{a={1},b={2},route="lift-undercity-east"}},top=55.7,wait={a=10.3,b=10.3},wx=1595.3,wy=188.6},
-			["lift-undercity-south"] = {board=2,bottom=-40.8,c=0,kind="lift",name="Undercity, south lift",post=0,pre=0,ride={a=3.3,b=3.5},routes={{a={1},b={2},route="lift-undercity-south"}},top=55.7,wait={a=10.3,b=10.3},wx=1544.2,wy=240.8},
-			["lift-undercity-west"] = {board=2,bottom=-40.8,c=0,kind="lift",name="Undercity, west lift",post=0,pre=0,ride={a=3.3,b=3.5},routes={{a={2},b={1},route="lift-undercity-west"}},top=55.7,wait={a=10.3,b=10.3},wx=1596.2,wy=291.8},
-			["tram-stormwind-ironforge"] = {board=5,ends={"Stormwind","Ironforge"},kind="tram",name="Deeprun Tram",post=15,pre=15,ride={a=73.6,b=73.6},routes={{a={1},b={2},route="tram-176080"},{a={2},b={1},route="tram-176082"}},wait={a=67.8,b=67.8}},
-			["zeppelin-orgrimmar-gromgol"] = {board=10,ends={"Orgrimmar","Grom'gol"},kind="zeppelin",name="Orgrimmar - Grom'gol",post=0,pre=0,ride={a=78.4,b=105},routes={{a={2},b={1},route="path-285"}},wait={a=161.7,b=161.7}},
-			["zeppelin-orgrimmar-undercity"] = {board=10,ends={"Orgrimmar","Undercity"},kind="zeppelin",name="Orgrimmar - Undercity",post=0,pre=0,ride={a=130.9,b=105.3},routes={{a={1},b={2},route="path-302"}},wait={a=188.1,b=188.1}},
-			["zeppelin-undercity-gromgol"] = {board=10,ends={"Undercity","Grom'gol"},kind="zeppelin",name="Undercity - Grom'gol",post=0,pre=0,ride={a=95.9,b=117},routes={{a={2},b={1},route="path-301"}},wait={a=176.5,b=176.5}},
+			["boat-auberdine-ruttheran"] = {areas={442,702},board=10,ends={"Auberdine","Rut'theran Village"},kind="boat",name="Auberdine - Rut'theran Village",post=0,pre=0,ride={a=91.7,b=104.5},routes={{a={2},b={1},route="path-293"}},wait={a=168.1,b=168.1}},
+			["boat-bootybay-ratchet"] = {areas={35,392},board=10,ends={"Booty Bay","Ratchet"},kind="boat",name="Booty Bay - Ratchet",post=0,pre=0,ride={a=123.9,b=106.9},routes={{a={2},b={1},route="path-241"}},wait={a=185.4,b=185.4}},
+			["boat-feathermoon"] = {areas={1116,1108},board=10,ends={"Feathermoon Stronghold","The Forgotten Coast"},kind="boat",name="Feathermoon Stronghold - The Forgotten Coast",post=0,pre=0,ride={a=60.1,b=136.9},routes={{a={1},b={2},route="path-303"}},wait={a=168.5,b=168.5}},
+			["boat-menethil-auberdine"] = {areas={150,442},board=10,ends={"Menethil Harbor","Auberdine"},kind="boat",name="Menethil Harbor - Auberdine",post=0,pre=0,ride={a=286.6,b=79.5},routes={{a={1},b={3},route="path-11167"}},wait={a=253.1,b=253.1}},
+			["boat-menethil-southshore"] = {areas={150,271},board=10,ends={"Menethil Harbor","Southshore"},kind="boat",name="Menethil Harbor - Southshore",post=0,pre=0,ride={a=142,b=224.1},routes={{a={1},b={2},route="path-11167"}},wait={a=253.1,b=253.1}},
+			["boat-menethil-theramore"] = {areas={150,513},board=10,ends={"Menethil Harbor","Theramore"},kind="boat",name="Menethil Harbor - Theramore",post=0,pre=0,ride={a=103.6,b=105.6},routes={{a={1},b={2},route="path-292"}},wait={a=174.7,b=174.7}},
+			["boat-southshore-auberdine"] = {areas={271,442},board=10,ends={"Southshore","Auberdine"},kind="boat",name="Southshore - Auberdine",post=0,pre=0,ride={a=84.6,b=281.5},routes={{a={2},b={3},route="path-11167"}},wait={a=253.1,b=253.1}},
+			["boat-stormwind-auberdine"] = {areas={17203,442},board=10,ends={"Stormwind Harbor","Auberdine"},kind="boat",name="Stormwind Harbor - Auberdine",post=0,pre=0,ride={a=59.8,b=67.3},routes={{a={2},b={1},route="path-11616"}},wait={a=133.5,b=133.5}},
+			["boat-tanaris-powderfuse"] = {areas={977,16727},board=10,ends={"Steamwheedle Port","Powderfuse Port"},kind="boat",name="Steamwheedle Port - Powderfuse Port",post=0,pre=0,ride={a=76.5,b=74.6},routes={{a={1},b={2},route="path-11391"}},wait={a=145.5,b=145.5}},
+			["lift-freewind-post"] = {area=484,board=2,bottom=-40.4,c=1,kind="lift",name="Freewind Post",post=0,pre=0,ride={a=10,b=10},routes={{a={1,3},b={2,4},route="lift-freewind-post"}},top=89,wait={a=9.5,b=9.5},wx=-5390.8,wy=-2497},
+			["lift-great-lift"] = {area=485,board=2,bottom=-44,c=1,kind="lift",name="The Great Lift",post=0,pre=0,ride={a=10,b=10},routes={{a={1,3},b={2,4},route="lift-great-lift"}},top=85.4,wait={a=9.5,b=9.5},wx=-4668.1,wy=-1838.6},
+			["lift-thunder-bluff-north"] = {area=1638,board=2,bottom=69.1,c=1,dir="north",kind="lift",name="Thunder Bluff, north lift",post=0,pre=0,ride={a=10,b=10},routes={{a={2},b={1},route="lift-thunder-bluff-north-1"},{a={1},b={2},route="lift-thunder-bluff-north-2"}},top=140.5,wait={a=12,b=12},wx=-1032.7,wy=-38.8},
+			["lift-thunder-bluff-west"] = {area=1638,board=2,bottom=68.7,c=1,dir="west",kind="lift",name="Thunder Bluff, west lift",post=0,pre=0,ride={a=10,b=10},routes={{a={1},b={2},route="lift-thunder-bluff-west-1"},{a={2},b={1},route="lift-thunder-bluff-west-2"}},top=130.1,wait={a=12,b=12},wx=-1297.3,wy=187.5},
+			["lift-undercity-east"] = {area=1497,board=2,bottom=-40.8,c=0,dir="east",kind="lift",name="Undercity, east lift",post=0,pre=0,ride={a=3.3,b=3.5},routes={{a={1},b={2},route="lift-undercity-east"}},top=55.7,wait={a=10.3,b=10.3},wx=1595.3,wy=188.6},
+			["lift-undercity-south"] = {area=1497,board=2,bottom=-40.8,c=0,dir="south",kind="lift",name="Undercity, south lift",post=0,pre=0,ride={a=3.3,b=3.5},routes={{a={1},b={2},route="lift-undercity-south"}},top=55.7,wait={a=10.3,b=10.3},wx=1544.2,wy=240.8},
+			["lift-undercity-west"] = {area=1497,board=2,bottom=-40.8,c=0,dir="west",kind="lift",name="Undercity, west lift",post=0,pre=0,ride={a=3.3,b=3.5},routes={{a={2},b={1},route="lift-undercity-west"}},top=55.7,wait={a=10.3,b=10.3},wx=1596.2,wy=291.8},
+			["tram-stormwind-ironforge"] = {area=2257,areas={1519,1537},board=5,ends={"Stormwind","Ironforge"},kind="tram",name="Deeprun Tram",post=15,pre=15,ride={a=73.6,b=73.6},routes={{a={1},b={2},route="tram-176080"},{a={2},b={1},route="tram-176082"}},wait={a=67.8,b=67.8}},
+			["zeppelin-orgrimmar-gromgol"] = {areas={1637,117},board=10,ends={"Orgrimmar","Grom'gol"},kind="zeppelin",name="Orgrimmar - Grom'gol",post=0,pre=0,ride={a=78.4,b=105},routes={{a={2},b={1},route="path-285"}},wait={a=161.7,b=161.7}},
+			["zeppelin-orgrimmar-undercity"] = {areas={1637,1497},board=10,ends={"Orgrimmar","Undercity"},kind="zeppelin",name="Orgrimmar - Undercity",post=0,pre=0,ride={a=130.9,b=105.3},routes={{a={1},b={2},route="path-302"}},wait={a=188.1,b=188.1}},
+			["zeppelin-undercity-gromgol"] = {areas={1497,117},board=10,ends={"Undercity","Grom'gol"},kind="zeppelin",name="Undercity - Grom'gol",post=0,pre=0,ride={a=95.9,b=117},routes={{a={2},b={1},route="path-301"}},wait={a=176.5,b=176.5}},
 		},
 		teleports = {
 			{bind=true,cast=10,name="Astral Recall",spell=556},
-			{cast=10,name="Teleport: Stormwind",reagents={17031,1},spell=3561,to={"Stormwind",0,-9003.5,870,1453,49.09,86.99,"l"}},
-			{cast=10,name="Teleport: Ironforge",reagents={17031,1},spell=3562,to={"Ironforge",0,-4613.6,-915.4,1455,25.52,8.41,"e"}},
-			{cast=10,name="Teleport: Undercity",reagents={17031,1},spell=3563,to={"Undercity",0,1773.5,61.1,1458,84.65,16.32,"e"}},
-			{cast=10,name="Teleport: Darnassus",reagents={17031,1},spell=3565,to={"Darnassus",1,9664.1,2526.4,1457,38.93,81.36,"e"}},
-			{cast=10,name="Teleport: Thunder Bluff",reagents={17031,1},spell=3566,to={"Thunder Bluff",1,-965,283.4,1456,22.35,16.52,"e"}},
-			{cast=10,name="Teleport: Orgrimmar",reagents={17031,1},spell=3567,to={"Orgrimmar",1,1469.9,-4221.5,1454,38.57,85.95,"e"}},
-			{cast=10,name="Teleport: Moonglade",spell=18960,to={"Moonglade",1,7991.9,-2679.8,1450,56.26,32.46,"e"}},
+			{cast=10,name="Teleport: Stormwind",reagents={17031,1},spell=3561,to={"Stormwind",0,-9003.5,870,1453,49.09,86.99,"l",1519}},
+			{cast=10,name="Teleport: Ironforge",reagents={17031,1},spell=3562,to={"Ironforge",0,-4613.6,-915.4,1455,25.52,8.41,"e",1537}},
+			{cast=10,name="Teleport: Undercity",reagents={17031,1},spell=3563,to={"Undercity",0,1773.5,61.1,1458,84.65,16.32,"e",1497}},
+			{cast=10,name="Teleport: Darnassus",reagents={17031,1},spell=3565,to={"Darnassus",1,9664.1,2526.4,1457,38.93,81.36,"e",1657}},
+			{cast=10,name="Teleport: Thunder Bluff",reagents={17031,1},spell=3566,to={"Thunder Bluff",1,-965,283.4,1456,22.35,16.52,"e",1638}},
+			{cast=10,name="Teleport: Orgrimmar",reagents={17031,1},spell=3567,to={"Orgrimmar",1,1469.9,-4221.5,1454,38.57,85.95,"e",1637}},
+			{cast=10,name="Teleport: Moonglade",spell=18960,to={"Moonglade",1,7991.9,-2679.8,1450,56.26,32.46,"e",493}},
 		},
 	})
 end

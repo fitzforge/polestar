@@ -12,6 +12,10 @@ BINDING_HEADER_POLESTAR = "Polestar"
 BINDING_NAME_POLESTAR_TOGGLE = L["Toggle guide window"]
 BINDING_NAME_POLESTAR_NEXT = L["Next step"]
 BINDING_NAME_POLESTAR_PREV = L["Previous step"]
+BINDING_NAME_POLESTAR_FOCUS = L["Browse the guide with the gamepad"]
+BINDING_NAME_POLESTAR_MENU = L["Open the guide menu"]
+BINDING_NAME_POLESTAR_OPTIONS = L["Open Polestar options"]
+BINDING_NAME_POLESTAR_REPORT = L["Report a problem"]
 -- Labels for the QoL secure buttons' CLICK bindings (QoL/Buttons.lua). The
 -- client looks these names up as globals; they contain spaces and a colon,
 -- so they can only be set through _G.
@@ -21,11 +25,15 @@ _G["BINDING_NAME_CLICK PolestarHearthButton:LeftButton"] = L["Use Hearthstone"]
 _G["BINDING_NAME_CLICK PolestarStepButton:LeftButton"] = L["Step action: NPC, quest item, mob or Hearthstone"]
 _G["BINDING_NAME_CLICK PolestarTravelButton:LeftButton"] = L["Use the route's Hearthstone or teleport"]
 
--- Entry points for Bindings.xml.
+-- Entry points for Bindings.xml (and Polestar's gamepad chords, UI/Gamepad.lua).
 ns.Bindings = {
 	Toggle = function() ns.Fire("TOGGLE_FRAME") end,
 	Next = function() Engine.Next() end,
 	Prev = function() Engine.Prev() end,
+	Focus = function() ns.Fire("TOGGLE_FOCUS") end,
+	Menu = function() ns.Fire("TOGGLE_PICKER") end,
+	Options = function() ns.Fire("TOGGLE_OPTIONS") end,
+	Report = function() ns.Fire("SHOW_REPORT") end,
 }
 
 local function needGuide()
@@ -169,3 +177,4 @@ ns.RegisterCommand("report", function() ns.Fire("SHOW_REPORT") end, L["Report a 
 ns.RegisterCommand("discord", function() ns.Fire("SHOW_DISCORD") end, L["The invite to the Polestar Discord"])
 
 ns.RegisterCommand("packs", function() ns.Fire("SHOW_OPTIONS", "guidepacks") end, L["Open the Guide packs page"])
+ns.RegisterCommand("gamepad", function() ns.Fire("SHOW_OPTIONS", "gamepad") end, L["Open the Gamepad page: button names and bindings"])

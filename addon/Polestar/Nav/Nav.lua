@@ -524,7 +524,7 @@ end)
 -- show Polestar's own arrow or route says so in one line instead. True if it did.
 function Nav.SayHandedOff()
 	if not (Nav.HandedOff and Nav.HandedOff()) then return false end
-	ns.Print(L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."])
+	ns.Print(L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."])
 	return true
 end
 

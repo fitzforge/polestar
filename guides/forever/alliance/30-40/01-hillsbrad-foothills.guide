@@ -56,6 +56,9 @@
 #   city are dropped: the next bind (Nijel's Point) replaces it before use.
 # - The route binds at Nijel's Point while still in Ironforge (a model
 #   shortcut): the bind is in the next guide, on arrival.
+# - Southshore on arrival, in walking order from the boat: McManus, the
+#   flight master, Micha, Bartolo, Darren, the inn (Farren, Kelly, Jessen),
+#   Phin, Maleb, Jacques.
 # Carried on to later guides: Costly Menace (564), Bartolo's Yeti Fur Cloak
 # (565), Hints of a New Plague? (659), An Alarming Request (92432), Noble
 # Deaths (512), Further Mysteries (525), Malin's Request (690), James Hyal
@@ -173,21 +176,21 @@ step Boat to Southshore
 
 step Southshore
   zone Hillsbrad Foothills
-  tip Pick up everything in town before heading out; Farren stands outside the inn, Maleb in the town hall, Captain McManus north-west of the flight master.
+  tip Pick up everything in town before heading out. Off the boat, Captain McManus is the first you meet, north-west of the flight master; Micha Yance and Bartolo Ginsetti stand between the flight master and the inn, Farren and Barkeep Kelly at the inn, Maleb in the town hall.
+  accept 98059                        -- Captain McManus
   getfp "Southshore" npc 2432         -- Darla Harris
+  buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
+  accept 565                          -- Bartolo Ginsetti
+  accept 564                          -- Darren Malvew: the lions come later
   sethome "Southshore" npc 2352       -- Innkeeper Anderson
   turnin 98219 npc 2228               -- Lieutenant Farren Orinelle
   accept 536                          -- Lieutenant Farren Orinelle
+  accept 98463                        -- Barkeep Kelly, in the inn: for Booty Bay (04-stranglethorn-vale)
   accept 555                          -- Chef Jessen
-  buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
   accept 659                          -- Phin Odelic: his trail leads to Arathi
+  accept 505                          -- Magistrate Henry Maleb
   # An Alarming Request requires level 30 (Wowhead Forever quest=92432, checked 2026-10-14).
   accept 92432 "An Alarming Request" npc 247264 lvl 30 -- Emissary Jacques
-  accept 505                          -- Magistrate Henry Maleb
-  accept 565                          -- Bartolo Ginsetti
-  accept 564                          -- Darren Malvew: the lions come later
-  accept 98463                        -- Barkeep Kelly, in the inn: for Booty Bay (04-stranglethorn-vale)
-  accept 98059                        -- Captain McManus
 
 # ---------------------------------------------------------------- The coast
 

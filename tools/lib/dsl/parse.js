@@ -36,7 +36,8 @@ const COORDS = ['at', 'map', 'r', 'frame'];
 const MODS = {
 	accept: [...COMMON, ...COORDS, 'npc', 'object', 'item', 'lvl'],
 	// `reward`/`choose`/`xp`/`money`: what the turn-in pays, shown on the goal.
-	turnin: [...COMMON, ...COORDS, 'npc', 'object', 'reward', 'choose', 'xp', 'money'],
+	// `direct`: handed in straight from the NPC's window, with no accept.
+	turnin: [...COMMON, ...COORDS, 'npc', 'object', 'reward', 'choose', 'xp', 'money', 'direct'],
 	complete: [...COMMON, ...COORDS],
 	kill: [...COMMON, ...COORDS, 'npc', 'quest', 'count'],
 	collect: [...COMMON, ...COORDS, 'quest', 'count', 'nearest'],
@@ -62,7 +63,7 @@ const MODS = {
 };
 const VERBS = Object.keys(MODS);
 const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]' };
-const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'reward', 'choose', 'xp', 'money', 'group'];
+const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'reward', 'choose', 'xp', 'money', 'group', 'direct'];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN = 2;
 const GROUP_MAX = 40;
@@ -244,7 +245,7 @@ function parseGuide(text, file, diag) {
 			if (lex.note !== null) err(ln, 'notes (` -- `) are only allowed on goal lines');
 			if (kw === 'zone') {
 				const spec = parseZoneSpec(line, lex, ln, err);
-				if (spec) zone = spec;
+				if (spec) zone = step.zone = spec; // the step's last `zone` line (resolve.js: who is in which zone)
 			} else if (kw === 'only') {
 				if (step.only) {
 					err(ln, 'duplicate `only` in step');
@@ -859,6 +860,11 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 			case 'optional':
 				if (!use('optional')) return null;
 				goal.optional = true;
+				i++;
+				continue;
+			case 'direct':
+				if (!use('direct')) return null;
+				goal.direct = true;
 				i++;
 				continue;
 			case 'group': {

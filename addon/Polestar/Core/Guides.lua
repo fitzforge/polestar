@@ -234,9 +234,11 @@ local function checkGoal(goal)
 		end
 	end
 	if goal.spread ~= nil and not (goal.spread == true and goal.spots ~= nil) then return "bad spread" end
-	-- A collect's dominant source: its name (and a second's), kind, rank and faction.
+	-- A collect's dominant source: its name (and a second's), their ids, kind, rank and faction.
 	if goal.from ~= nil and not isStr(goal.from) then return "bad from" end
 	if goal.fromAlso ~= nil and not isStr(goal.fromAlso) then return "bad fromAlso" end
+	if goal.fromId ~= nil and not isNum(goal.fromId) then return "bad fromId" end
+	if goal.fromAlsoId ~= nil and not isNum(goal.fromAlsoId) then return "bad fromAlsoId" end
 	if goal.fromKind ~= nil and goal.fromKind ~= "npc" and goal.fromKind ~= "object" then return "bad fromKind" end
 	if goal.fromRank ~= nil and not isNum(goal.fromRank) then return "bad fromRank" end
 	if goal.fromFaction ~= nil and goal.fromFaction ~= "A" and goal.fromFaction ~= "H" and goal.fromFaction ~= "AH" then
@@ -294,6 +296,15 @@ local function validate(def)
 		end
 	end
 	if def.why ~= nil and not isStr(def.why) then return "bad why" end
+	for _, key in ipairs({ "names", "written" }) do
+		local map = def[key]
+		if map ~= nil then
+			if type(map) ~= "table" then return "bad " .. key end
+			for k, v in pairs(map) do
+				if not (isStr(k) and isStr(v)) then return "bad " .. key end
+			end
+		end
+	end
 	for _, key in ipairs({ "races", "classes", "nextChoices", "pros", "cons", "keywords" }) do
 		local list = def[key]
 		if list ~= nil then
@@ -324,7 +335,7 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true }
 Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }
@@ -401,6 +412,8 @@ local function newRecord(meta, addon)
 	for _, key in ipairs(OPTIONAL_META) do
 		if type(meta[key]) == "string" then r[key] = escape(meta[key]) end
 	end
+	-- The English of the texts its texts addon translates (GuideTexts.PackText).
+	r.english = { title = type(meta.title) == "string" and meta.title or nil, notes = type(meta.notes) == "string" and meta.notes or nil }
 	records[#records + 1] = r
 	return r
 end
@@ -419,7 +432,7 @@ end
 -- its files register next under that id are dropped, never given to the
 -- holder. Cleared when that addon's files are done (ADDON_LOADED).
 local loadingRefused = nil
-ns.RegisterEvent("ADDON_LOADED", function() loadingRefused = nil end)
+local loaded = {} -- addon name -> true once its files are done (ADDON_LOADED)
 
 -- Counts a guide dropped with refused record r in r's problem.
 local function dropGuide(r, id)
@@ -536,6 +549,10 @@ function ns.RegisterGuide(def)
 		problem(r, "guide-refused", (L["Guide %s was refused: %s."]):format(escape(id), escape(err)), id)
 		return false, err
 	end
+	-- The texts in the client's language (GuideTexts), then escaped like the
+	-- rest. While the pack's files load its names stay English: the pack's
+	-- ADDON_LOADED brings its texts addon and the names in.
+	ns.GuideTexts.Prepare(def, not (r.addon and not loaded[r.addon]))
 	escapeTree(def, {}, ID_KEYS)
 	if not guides[id] then
 		order[#order + 1] = id
@@ -779,6 +796,61 @@ function Guides.ScanInstalled()
 end
 
 ---------------------------------------------------------------------------
+-- Texts in the client's language (GuideTexts): once a pack's files are in,
+-- its texts addon loads and its guides take the translations and the names;
+-- again when the names pack lands late (NAMES_LOADED) or a texts addon
+-- refused in combat loads after it.
+---------------------------------------------------------------------------
+
+local GuideTexts = ns.GuideTexts
+local loggedIn = false
+
+local function relocalise(packId)
+	local changed = false
+	for id, def in pairs(guides) do
+		if (packId == nil or def.pack == packId) and GuideTexts.Refresh(def) then
+			changed = true
+			local h = headers[id]
+			if h then
+				for _, k in ipairs(GuideTexts.GUIDE_FIELDS) do h[k] = def[k] end
+			end
+		end
+	end
+	for _, r in ipairs(records) do
+		if (packId == nil or r.id == packId) and r.english then
+			if r.english.title then r.title = escape(GuideTexts.PackText(r.id, r.english.title)) end
+			if r.english.notes then r.notes = escape(GuideTexts.PackText(r.id, r.english.notes)) end
+		end
+	end
+	if changed and loggedIn then ns.Fire("GUIDES_REGISTERED") end
+end
+
+ns.RegisterEvent("ADDON_LOADED", function(_, name)
+	loadingRefused = nil
+	if type(name) ~= "string" then return end
+	loaded[name] = true
+	if not ns.Names.Localised() then return end
+	for _, r in ipairs(records) do
+		if r.addon == name and accepted(r) then
+			GuideTexts.Load(name)
+			relocalise(r.id)
+		end
+	end
+end)
+
+ns.On("NAMES_LOADED", function() relocalise(nil) end)
+
+ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
+	for _, addon in ipairs(GuideTexts.Pending()) do
+		if GuideTexts.Load(addon) == "loaded" then
+			for _, r in ipairs(records) do
+				if r.addon == addon and accepted(r) then relocalise(r.id) end
+			end
+		end
+	end
+end)
+
+---------------------------------------------------------------------------
 -- Queries (guides of hidden packs are left out)
 ---------------------------------------------------------------------------
 
@@ -944,6 +1016,7 @@ function Guides.Suggest()
 end
 
 ns.OnLogin(function()
+	loggedIn = true
 	Guides.ScanInstalled()
 	ns.Fire("GUIDES_REGISTERED")
 end)

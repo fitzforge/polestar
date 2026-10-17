@@ -1,0 +1,20 @@
+{
+	"name": "polestar",
+	"interface": {
+		"displayName": "Polestar"
+	},
+	"plugins": [
+		{
+			"name": "polestar",
+			"source": {
+				"source": "local",
+				"path": "./skills"
+			},
+			"policy": {
+				"installation": "AVAILABLE",
+				"authentication": "ON_INSTALL"
+			},
+			"category": "Developer Tools"
+		}
+	]
+}

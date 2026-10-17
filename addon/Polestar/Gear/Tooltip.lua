@@ -54,7 +54,7 @@ end
 
 local function prefix()
 	local _, label = Gear.GetSpec()
-	if label then return L["Polestar"] .. " · " .. label end
+	if label then return L["Polestar"] .. " · " .. L[label] end
 	return L["Polestar"]
 end
 

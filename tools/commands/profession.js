@@ -11,14 +11,16 @@ const usage = `usage: node tools/polestar.js profession build [options]
        node tools/polestar.js profession draft <Profession> [options]
        node tools/polestar.js profession gathering build|check [options]
 
-build: writes data/forever/professions.json from Blizzard Classic Era client
-tables (wago.tools CSV: SkillLine, SkillLineAbility, SpellName, SpellEffect,
-SpellReagents, SpellTotems, SpellCastingRequirements, SpellFocusObject,
-ItemSparse, Item, ItemEffect) and data/forever/{items,npcs,objects}.json.
-Trainers come from a curated name list checked against npcs.json.
+build: writes data/forever/professions.json from the Forever client's tables
+(wago.tools CSV, wow_classic_beta 1.60+: SkillLine, SkillLineAbility,
+SpellName, SpellEffect, SpellReagents, SpellTotems, SpellCastingRequirements,
+SpellFocusObject, ItemSparse, Item, ItemEffect, ItemXItemEffect; the newest
+Classic Era build fills the spells and items they lack) and
+data/forever/{items,npcs,objects}.json. Trainers come from a curated name
+list checked against npcs.json.
 
   --offline            use cached tables only
-  --build <version>    wago.tools Classic Era build (default: newest listed)
+  --build <version>    wago.tools Forever build (default: newest listed)
   --data <dir>         reference data (default data/forever)
   --sources <dir>      source cache (default data/sources)
   --out <file>         default <data>/professions.json
@@ -74,7 +76,8 @@ async function runBuild(rest) {
 		const skipped = Object.entries(r.skipped).map(([k, n]) => `${n} ${k}`).join(', ');
 		return `  ${r.name.padEnd(15)} ${String(r.recipes).padStart(4)} recipes${skipped ? ` (left out: ${skipped})` : ''}`;
 	});
-	console.log(`wrote ${path.relative(process.cwd(), res.outFile) || res.outFile} from Classic Era build ${res.build}:\n${lines.join('\n')}`);
+	const era = res.eraBuild ? ` (gaps filled from Classic Era ${res.eraBuild})` : '';
+	console.log(`wrote ${path.relative(process.cwd(), res.outFile) || res.outFile} from Forever build ${res.build}${era}:\n${lines.join('\n')}`);
 	return 0;
 }
 

@@ -59,6 +59,9 @@ next forever/alliance/07-thousand-needles
 #   Wetlands before Redridge and Duskwood; the guides keep their zone order
 #   and the Forever Ashenvale quests of its 29-30 visit (98027, 98418,
 #   95737, 86757) are in 30-40/03-ashenvale.
+# - Menethil Harbor: Karl Boran (279), on the pier, is taken first off the
+#   boat and Caitlin Grassman (98282) next to Sida. Stormwind Keep: Bolvar
+#   (98190) before the Royal Library, on the way in.
 #
 # Class quests: on arrival in Auberdine, Night Elf Druids finish Trial of the
 # Sea Lion and Aquatic Form (272, 5061: Moonglade, then Darnassus) and Night
@@ -291,16 +294,16 @@ step To Menethil Harbor
 
 step Menethil Harbor
   zone Wetlands
+  accept 279                              -- Karl Boran, on the pier north of the inn
   getfp "Menethil Harbor" npc 1571        -- Shellei Brondir
   sethome "Deepwater Tavern" npc 1464     -- Innkeeper Helbrek
   accept 463                              -- First Mate Fitzsimmons, in the inn
   accept 470                              -- Sida
-  accept 279                              -- Karl Boran, on the pier north of the inn
+  accept 98282                            -- Caitlin Grassman
   accept 98197                            -- Valstag Ironjaw, by the keep
   accept 472                              -- Harlo Barnaby, by the north gate
   accept 484                              -- James Halloran, by the north gate
   accept 305                              -- Tarrel Rockweaver, by the north gate
-  accept 98282                            -- Caitlin Grassman
 
 step Spoils of War
   tip Timber and iron piles lie around the keep and along the harbor's walls.
@@ -455,9 +458,9 @@ step Cathedral of Light
 step Stormwind Keep
   turnin 1274                             -- Bishop DeLavey
   accept 1241
-  turnin 343                              -- Milton Sheaf, in the Royal Library
   turnin 98190 npc 1748                   -- Highlord Bolvar Fordragon
   accept 98191 npc 1748
+  turnin 343                              -- Milton Sheaf, in the Royal Library
   turnin 337 optional                     -- Only if you looted An Old History Book in Duskwood
 
 step Lord Grayson Shadowbreaker

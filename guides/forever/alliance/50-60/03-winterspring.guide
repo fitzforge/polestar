@@ -216,7 +216,7 @@ step Light's Hope Chapel
 
 step Corin's Crossing
   tip The Scourge around Corin's Crossing, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.
-  kill 11064 quest 5211.1             -- Darrowshire Spirit
+  kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
   collect 12841 quest 5509.1          -- Invader's Scourgestone
   collect 12840 quest 5510.1          -- Minion's Scourgestone
 

@@ -1,6 +1,18 @@
 {
 	"_about": "Polestar's own fixes to the merged reference data (data build applies them after QuestieDB, before recordings). One entry per fact, with where the fact comes from. quests: `set` replaces fields. npcs/objects: `set` replaces fields (Forever elite and rare ranks, which QuestieDB's Forever store lacks); `addSpawns` adds { \"<uiMapID>\": { f, pts } } maps the entity lacks (an existing map is replaced). items: `removeDrops` { npc: [ids], object: [ids] } and `removeVendors` [ids] drop wrong sources the pfQuest/QuestieDB union kept. Documented in docs/ARCHITECTURE.md (Reference data, Sources and precedence).",
 	"quests": {
+		"26": {
+			"set": {
+				"races": 4294967304
+			},
+			"note": "A Lesson to Learn (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids: Wowhead Forever https://www.wowhead.com/forever/quest=26 lists Races [race=4], [race=95] (checked 2026-10-16). The merged data has races 8 (Night Elf only), while Trial of the Sea Lion (272) before it already has Skyborne, so Skyborne druids stopped halfway."
+		},
+		"29": {
+			"set": {
+				"races": 4294967304
+			},
+			"note": "Trial of the Lake (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids: Wowhead Forever https://www.wowhead.com/forever/quest=29 lists Races [race=4], [race=95] (checked 2026-10-16). The merged data has races 8 (Night Elf only), while Trial of the Sea Lion (272) before it already has Skyborne, so Skyborne druids stopped halfway."
+		},
 		"1501": {
 			"set": {
 				"races": 146
@@ -12,6 +24,54 @@
 				"races": 146
 			},
 			"note": "The Binding (Warlock voidwalker, after 1501) is open to Orc, Undead and Troll Warlocks: Wowhead Forever https://www.wowhead.com/forever/quest=1504 lists Races [race=2], [race=5], [race=8] (checked 2026-10-14). The merged data has races 2 (Orc only)."
+		},
+		"1919": {
+			"set": {
+				"races": 4294967361
+			},
+			"note": "Report to Jennea (Alliance mage robe chain) is open to Human, Gnome and Skyborne Mages: Wowhead Forever https://www.wowhead.com/forever/quest=1919 lists Races [race=1], [race=7], [race=95] (checked 2026-10-16). The merged data has races 65 (Human and Gnome), while Investigate the Blue Recluse (1920) in the middle already has Skyborne."
+		},
+		"1921": {
+			"set": {
+				"races": 4294967361
+			},
+			"note": "Gathering Materials (Alliance mage robe chain) is open to Human, Gnome and Skyborne Mages: Wowhead Forever https://www.wowhead.com/forever/quest=1921 lists Races [race=1], [race=7], [race=95] (checked 2026-10-16). The merged data has races 65 (Human and Gnome), while Investigate the Blue Recluse (1920) in the middle already has Skyborne."
+		},
+		"1959": {
+			"set": {
+				"races": 146
+			},
+			"note": "Report to Anastasia (Horde mage robe chain) is open to Orc, Undead and Troll Mages: Wowhead Forever https://www.wowhead.com/forever/quest=1959 lists Races [race=2], [race=5], [race=8] (checked 2026-10-16). The merged data has races 144 (Undead and Troll), which leaves Orc mages out of the chain that 1961 (races 146) continues."
+		},
+		"1960": {
+			"set": {
+				"races": 146
+			},
+			"note": "Investigate the Alchemist Shop (Horde mage robe chain) is open to Orc, Undead and Troll Mages: Wowhead Forever https://www.wowhead.com/forever/quest=1960 lists Races [race=2], [race=5], [race=8] (checked 2026-10-16). The merged data has races 144 (Undead and Troll), which leaves Orc mages out of the chain that 1961 (races 146) continues."
+		},
+		"5061": {
+			"set": {
+				"races": 4294967304
+			},
+			"note": "Aquatic Form (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids: Wowhead Forever https://www.wowhead.com/forever/quest=5061 lists Races [race=4], [race=95] (checked 2026-10-16). The merged data has races 8 (Night Elf only), while Trial of the Sea Lion (272) before it already has Skyborne, so Skyborne druids stopped halfway."
+		},
+		"6123": {
+			"set": {
+				"races": 4294967304
+			},
+			"note": "Gathering the Cure (Druid Cure Poison, Alliance) is open to Night Elf and Skyborne Druids: Wowhead Forever https://www.wowhead.com/forever/quest=6123 lists Races [race=4], [race=95] (checked 2026-10-16). The merged data has races 8 (Night Elf only), while 6121 and 6122 before it already have Skyborne."
+		},
+		"6124": {
+			"set": {
+				"races": 4294967304
+			},
+			"note": "Curing the Sick (Druid Cure Poison, Alliance) is open to Night Elf and Skyborne Druids: Wowhead Forever https://www.wowhead.com/forever/quest=6124 lists Races [race=4], [race=95] (checked 2026-10-16). The merged data has races 8 (Night Elf only), while 6121 and 6122 before it already have Skyborne."
+		},
+		"6125": {
+			"set": {
+				"races": 4294967304
+			},
+			"note": "Power over Poison (Druid Cure Poison, Alliance) is open to Night Elf and Skyborne Druids: Wowhead Forever https://www.wowhead.com/forever/quest=6125 lists Races [race=4], [race=95] (checked 2026-10-16). The merged data has races 8 (Night Elf only), while 6121 and 6122 before it already have Skyborne."
 		},
 		"7637": {
 			"set": {
@@ -26,6 +86,10 @@
 		"92434": {
 			"set": {
 				"pre": [
+					545,
+					93680
+				],
+				"preAll": [
 					545,
 					93680
 				],
@@ -897,11 +961,303 @@
 			},
 			"note": "Wowhead Forever npc=252475: Elaadrin Evengale is Elite (checked 2026-10-13); QuestieDB's Forever store gives every Forever npc rank 0."
 		},
+		"254588": {
+			"addSpawns": {
+				"2521": {
+					"f": "l",
+					"pts": [
+						[
+							42.6,
+							66.4
+						],
+						[
+							44,
+							66.3
+						],
+						[
+							44.4,
+							65
+						],
+						[
+							44.6,
+							65.2
+						],
+						[
+							44.6,
+							65.8
+						],
+						[
+							45.6,
+							61.4
+						],
+						[
+							45.8,
+							47.8
+						],
+						[
+							46,
+							47.4
+						],
+						[
+							46.8,
+							46.2
+						],
+						[
+							47.4,
+							50.4
+						],
+						[
+							47.4,
+							50.6
+						],
+						[
+							47.6,
+							50.4
+						],
+						[
+							49.2,
+							59.4
+						],
+						[
+							49.2,
+							63.8
+						],
+						[
+							49.2,
+							65.6
+						],
+						[
+							49.6,
+							61
+						],
+						[
+							49.6,
+							67
+						],
+						[
+							51,
+							61
+						],
+						[
+							51.2,
+							58.8
+						],
+						[
+							51.2,
+							69.4
+						],
+						[
+							51.2,
+							70.6
+						],
+						[
+							51.4,
+							69.8
+						],
+						[
+							51.6,
+							69.4
+						],
+						[
+							51.6,
+							70.4
+						],
+						[
+							51.6,
+							70.6
+						],
+						[
+							51.6,
+							71.9
+						],
+						[
+							51.8,
+							73.2
+						],
+						[
+							51.8,
+							73.8
+						],
+						[
+							52.2,
+							58.4
+						],
+						[
+							52.2,
+							58.6
+						],
+						[
+							52.3,
+							74.7
+						],
+						[
+							52.4,
+							75.6
+						],
+						[
+							52.5,
+							75.4
+						],
+						[
+							52.6,
+							75.9
+						],
+						[
+							53.1,
+							77.2
+						],
+						[
+							53.2,
+							56.2
+						],
+						[
+							53.4,
+							57.2
+						],
+						[
+							53.4,
+							77.6
+						],
+						[
+							53.8,
+							77
+						],
+						[
+							53.9,
+							77.6
+						],
+						[
+							54.3,
+							79.3
+						],
+						[
+							55.2,
+							50.6
+						],
+						[
+							56.6,
+							56.2
+						],
+						[
+							62.3,
+							60.5
+						],
+						[
+							63.4,
+							58.4
+						],
+						[
+							63.4,
+							60.4
+						],
+						[
+							63.5,
+							60.4
+						],
+						[
+							63.6,
+							58.4
+						],
+						[
+							63.6,
+							60.7
+						],
+						[
+							64.1,
+							61.8
+						],
+						[
+							64.1,
+							63
+						],
+						[
+							65.3,
+							62
+						],
+						[
+							65.6,
+							62.2
+						],
+						[
+							68.4,
+							62.2
+						],
+						[
+							68.6,
+							62.2
+						]
+					]
+				}
+			},
+			"note": "Windsong Crawler (Zephras Isle, 93317 and the hunter's 94978): Wowhead Forever https://www.wowhead.com/forever/npc=254588 map data has 55 spawns on the shores and slopes, none within 300 yards of Valanaar (checked 2026-10-16). QuestieDB has a cluster of 8 points inside Valanaar (58.1-59.7, 72.7-74), among its quest givers, which became the step's first spot. Replaces the map's spawns with Wowhead's points, in Forever's frame."
+		},
 		"254589": {
 			"set": {
 				"rank": 1
 			},
 			"note": "Wowhead Forever npc=254589: Vulgara the Insatiable is Elite (checked 2026-10-13); QuestieDB's Forever store gives every Forever npc rank 0."
+		},
+		"254596": {
+			"addSpawns": {
+				"2521": {
+					"f": "l",
+					"pts": [
+						[
+							63.7,
+							68.7
+						],
+						[
+							65,
+							66.7
+						],
+						[
+							65.3,
+							65.2
+						],
+						[
+							65.4,
+							65.6
+						],
+						[
+							65.4,
+							68.4
+						],
+						[
+							65.4,
+							68.8
+						],
+						[
+							65.5,
+							65.6
+						],
+						[
+							65.5,
+							68.1
+						],
+						[
+							65.5,
+							69.3
+						],
+						[
+							65.8,
+							64.4
+						],
+						[
+							65.8,
+							65.4
+						],
+						[
+							66.1,
+							67.3
+						],
+						[
+							66.6,
+							68.3
+						]
+					]
+				}
+			},
+			"note": "Al'Aketh Healer (Zephras Isle, 92642): Wowhead Forever https://www.wowhead.com/forever/npc=254596 map data has 13 spawns at 63.7-66.6, 64.4-69.3 (checked 2026-10-16). QuestieDB has points beside Yorana Windyreed at the eastern watchtower (68.9,67.4-67.7) and one inside Valanaar next to Falfaan Halfwind (60.25,74.29), where Wowhead has none. Replaces the map's spawns with Wowhead's points, in Forever's frame."
 		},
 		"255109": {
 			"set": {
@@ -981,6 +1337,80 @@
 			},
 			"note": "Wowhead Forever npc=266852: Halikor is Elite (checked 2026-10-13); QuestieDB's Forever store gives every Forever npc rank 0."
 		},
+		"267006": {
+			"addSpawns": {
+				"1420": {
+					"f": "e",
+					"pts": [
+						[
+							66.2,
+							63.4
+						],
+						[
+							66.6,
+							65.4
+						],
+						[
+							66.6,
+							65.5
+						],
+						[
+							67,
+							63.4
+						],
+						[
+							67.2,
+							64.3
+						],
+						[
+							67.4,
+							67
+						],
+						[
+							67.8,
+							66.2
+						],
+						[
+							68.1,
+							64.2
+						],
+						[
+							68.2,
+							64.8
+						],
+						[
+							68.6,
+							62.9
+						],
+						[
+							68.8,
+							64.6
+						],
+						[
+							69,
+							63.6
+						],
+						[
+							69,
+							65.6
+						],
+						[
+							69.8,
+							64.4
+						],
+						[
+							69.8,
+							64.5
+						],
+						[
+							70.3,
+							65.8
+						]
+					]
+				}
+			},
+			"note": "Dark Neophyte (Tirisfal Glades, Balnir Farmstead, 96897/96898): Wowhead Forever https://www.wowhead.com/forever/npc=267006 map data has 16 spawns at 66.2-70.3, 62.9-67 (checked 2026-10-16). QuestieDB has 7 points around Hadric Harlson (65.8-66.5, 60.8-62.2), the quest giver, where Wowhead has none within 80 yards: the step's goal and first spot sat on him. Replaces the map's spawns with Wowhead's points."
+		},
 		"267307": {
 			"set": {
 				"rank": 1
@@ -1058,6 +1488,92 @@
 				"rank": 1
 			},
 			"note": "Wowhead Forever npc=275046: Dragonmaw Thaumaturgist is Elite (checked 2026-10-13); QuestieDB's Forever store gives every Forever npc rank 0."
+		},
+		"275437": {
+			"addSpawns": {
+				"1420": {
+					"f": "e",
+					"pts": [
+						[
+							66.1,
+							65.5
+						],
+						[
+							66.3,
+							63.3
+						],
+						[
+							66.6,
+							63
+						],
+						[
+							66.6,
+							65.4
+						],
+						[
+							67,
+							62
+						],
+						[
+							67.1,
+							64.2
+						],
+						[
+							67.4,
+							67
+						],
+						[
+							67.6,
+							65.5
+						],
+						[
+							67.7,
+							66.5
+						],
+						[
+							67.8,
+							64.2
+						],
+						[
+							68,
+							64.6
+						],
+						[
+							68.2,
+							63
+						],
+						[
+							68.5,
+							65
+						],
+						[
+							68.6,
+							62.9
+						],
+						[
+							69,
+							63.7
+						],
+						[
+							69.3,
+							65.9
+						],
+						[
+							69.6,
+							64.6
+						],
+						[
+							69.8,
+							64.2
+						],
+						[
+							69.9,
+							65.9
+						]
+					]
+				}
+			},
+			"note": "Dark Enforcer (Tirisfal Glades, Balnir Farmstead, 96897): Wowhead Forever https://www.wowhead.com/forever/npc=275437 map data has 19 spawns at 66.1-69.9, 62-67 (checked 2026-10-16). QuestieDB has 6 points around Hadric Harlson (65.7-66.3, 60.1-62.1), the quest giver, where Wowhead has none within 60 yards. Replaces the map's spawns with Wowhead's points."
 		},
 		"275666": {
 			"set": {

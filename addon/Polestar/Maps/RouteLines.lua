@@ -13,8 +13,13 @@
 -- buffer's limit.
 -- Portions Copyright (C) 2026 Cillian Berragan (Shortest Path Forever, GPL-3.0-or-later); adapted for Polestar, 2026-10-15.
 --
+-- On the world map the canvas-sized frame is Polestar's own, on the map's
+-- canvas through the map's view (Nav/MapCanvas.lua): the map is only read,
+-- never written (no data provider, no pin pool, no AcquirePin), so the
+-- gamepad interface's secure code meets nothing of Polestar's there.
+--
 -- Cost model: the draw paths are built once per NAV_ROUTE_GEOMETRY (flights
--- expanded along their tracks then). The world map pin redraws on map,
+-- expanded along their tracks then). The world map frame redraws on map,
 -- zoom, size, route, setting and theme changes, and when the player has
 -- walked past a point of the walk (its own 4 Hz check, which runs only while
 -- the map shows it). The minimap redraws from a 10 Hz driver that runs only
@@ -37,7 +42,6 @@ ns.RouteLines = RouteLines
 
 ns.RegisterDefaults("nav", { routeLines = true })
 
-local TEMPLATE = "PolestarRouteLinesTemplate"
 local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Nav\\"
 local DOT_TEXTURE = MEDIA .. "pin-fill"
 local UNDER_ALPHA = 0.5
@@ -205,12 +209,11 @@ local function newOwner(owner)
 end
 
 ---------------------------------------------------------------------------
--- The world map: one pin the size of the canvas, under every other pin.
+-- The world map: one frame the size of the canvas, under every pin.
 ---------------------------------------------------------------------------
 
 local worldStrokes = Strokes.New()
-local installedOn, provider, pinMixin, worldPin
-local pending = false -- a world map refresh waits for the end of combat
+local view, worldPin -- the world map's view; the frame the strokes are painted on
 local bounds = {} -- uiMapID -> { c, left, top, kx, ky } | false
 
 local mapView = { width = 0, height = 0, scale = 1, small = false, marks = {}, markCount = 0, colors = colors }
@@ -267,19 +270,16 @@ local function advance(pc, px, py)
 end
 
 local function drawWorld(pin)
-	local map = pin:GetMap()
-	local canvas = map and map:GetCanvas()
-	local mapID = map and map:GetMapID()
+	local mapID = view.mapID
 	local b = mapID and boundsOf(mapID)
-	if not (canvas and b) then
+	if not b then
 		worldStrokes.n = 0
 		paint(pin, worldStrokes)
 		return
 	end
-	local width, height = canvas:GetWidth(), canvas:GetHeight()
+	local width, height = view.width, view.height
 	pin:SetSize(width, height)
-	pin:SetPosition(0.5, 0.5)
-	local zoom = map.GetCanvasScale and map:GetCanvasScale() or 1
+	local zoom = view.scale
 	local v = mapView
 	v.c, v.left, v.top, v.kx, v.ky = b.c, b.left, b.top, b.kx, b.ky
 	v.width, v.height, v.scale, v.small = width, height, pin:GetEffectiveScale(), isSmall(mapID)
@@ -319,119 +319,43 @@ local function worldTick(pin, elapsed)
 	if advance(pc, px, py) or (live and dx * dx + dy * dy >= WORLD_MOVED * WORLD_MOVED) then drawWorld(pin) end
 end
 
-local function buildWorld()
-	pinMixin = CreateFromMixins(MapCanvasPinMixin)
-
-	-- Blizzard_MapCanvas loads a new pin on its first acquire; OnAcquired makes sure.
-	function pinMixin:OnLoad()
-		if self.lines then return end
-		self:SetIgnoreGlobalPinScale(true)
-		self:UseFrameLevelType("PIN_FRAME_LEVEL_QUEST_BLOB")
-		newOwner(self)
-		self:SetScript("OnUpdate", worldTick)
-	end
-
-	function pinMixin:CheckMouseButtonPassthrough() end -- never takes the mouse
-
-	function pinMixin:OnAcquired()
-		self:OnLoad()
-		worldPin = self
-		drawWorld(self)
-	end
-
-	function pinMixin:OnReleased()
-		if worldPin == self then worldPin = nil end
-	end
-
-	function pinMixin:OnCanvasScaleChanged()
-		drawWorld(self)
-	end
-
-	function pinMixin:OnCanvasSizeChanged()
-		drawWorld(self)
-	end
-
-	provider = CreateFromMixins(MapCanvasDataProviderMixin)
-
-	function provider:RemoveAllData()
-		self:GetMap():RemoveAllPinsByTemplate(TEMPLATE)
-	end
-
-	-- In combat the pin is not acquired or released: the pin in hand is
-	-- redrawn (lines only) and the refresh waits for PLAYER_REGEN_ENABLED
-	-- (SPF's map pin refreshes broke in combat: NAV_QA C4).
-	function provider:RefreshAllData()
-		local C = ns.Compat
-		if C and C.InCombat and C.InCombat() then
-			pending = true
-			if worldPin then drawWorld(worldPin) end
-			return
-		end
-		pending = false
-		self:RemoveAllData()
-		local world = surfaces()
-		if world and #paths > 0 then self:GetMap():AcquirePin(TEMPLATE) end
-	end
+-- The frame for the strokes: on the canvas at its top left, under every pin,
+-- no mouse; its OnUpdate runs only while the map shows it.
+local function ensureWorldPin()
+	if worldPin then return worldPin end
+	local canvas = view.canvas
+	worldPin = newOwner(ns.CreateFrameUnder("Frame", nil, canvas))
+	worldPin:SetPoint("TOPLEFT", canvas, "TOPLEFT", 0, 0)
+	worldPin:EnableMouse(false)
+	worldPin:SetScript("OnUpdate", worldTick)
+	return worldPin
 end
 
--- MapCanvas's pool contract (as Polestar.Pins' pools): one pin is ever in use.
-local function newPool(map)
-	local pool = { active = {}, inactive = {}, count = 0 }
-	function pool:Acquire()
-		local pin = table.remove(self.inactive)
-		local new = pin == nil
-		if new then
-			pin = CreateFrame("Frame", nil, map:GetCanvas())
-			Mixin(pin, pinMixin)
-			pin:EnableMouse(false)
-		end
-		self.active[pin] = true
-		self.count = self.count + 1
-		return pin, new
+-- The open map shows the strokes when there is a route for it (nothing is
+-- made before then); a closed map draws as it opens.
+local function refreshWorld()
+	if not (view and view.shown) then return end
+	local world = surfaces()
+	if world and #paths > 0 then
+		local pin = ensureWorldPin()
+		pin:SetFrameLevel(view:Level("PIN_FRAME_LEVEL_QUEST_BLOB"))
+		pin:Show()
+		drawWorld(pin)
+	elseif worldPin then
+		worldStrokes.n = 0
+		paint(worldPin, worldStrokes)
+		worldPin:Hide()
 	end
-	function pool:Release(pin)
-		if not self.active[pin] then return false end
-		local owner = pin.GetMap and pin:GetMap()
-		if owner and owner.UnregisterPin then owner:UnregisterPin(pin) end
-		pin:Hide()
-		pin:ClearAllPoints()
-		pin:OnReleased()
-		pin.pinTemplate = nil
-		pin:SetOwningMap(nil)
-		self.active[pin] = nil
-		self.count = self.count - 1
-		self.inactive[#self.inactive + 1] = pin
-		return true
-	end
-	function pool:ReleaseAll()
-		for pin in pairs(self.active) do self:Release(pin) end
-	end
-	function pool:EnumerateActive() return pairs(self.active) end
-	function pool:GetNumActive() return self.count end
-	return pool
 end
 
 local function installWorld()
-	if installedOn then return true end
-	local map = WorldMapFrame
-	if not (map and map.AddDataProvider and map.AcquirePin and map.pinPools and map.GetCanvas
-		and MapCanvasDataProviderMixin and MapCanvasPinMixin and CreateFromMixins and Mixin) then
-		return false
-	end
-	buildWorld()
-	if not map.pinPools[TEMPLATE] then map.pinPools[TEMPLATE] = newPool(map) end
-	map:AddDataProvider(provider)
-	installedOn = map
-	return true
+	if view then return true end
+	local M = ns.MapCanvas
+	view = WorldMapFrame and M and M.Watch(WorldMapFrame, function(_, what)
+		if what == "show" or what == "map" or what == "size" or what == "scale" then refreshWorld() end
+	end) or nil
+	return view ~= nil
 end
-
-local function refreshWorld()
-	if installedOn and installedOn:IsShown() then provider:RefreshAllData() end
-end
-
-ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
-	if pending then refreshWorld() end
-end)
 
 ---------------------------------------------------------------------------
 -- The minimap: one frame over its face, just under Polestar.Pins' trail and pins.
@@ -467,7 +391,7 @@ local function drawMinimap(force)
 	end
 	last.c, last.x, last.y, last.radius, last.facing, last.square = pc, px, py, radius, facing, square
 	last.width, last.height, last.scale, last.revision = width, height, scale, revision
-	if advance(pc, px, py) and worldPin and installedOn and installedOn:IsShown() then drawWorld(worldPin) end
+	if advance(pc, px, py) and worldPin and worldPin:IsShown() and view and view.shown then drawWorld(worldPin) end
 	local v = minimapView
 	v.c, v.x, v.y, v.radius, v.facing, v.square = pc, px, py, radius, facing, square
 	v.width, v.height, v.scale = width, height, scale
@@ -486,11 +410,11 @@ end
 
 local function ensureMinimap()
 	if mm or not Minimap then return mm ~= nil end
-	mm = newOwner(CreateFrame("Frame", nil, Minimap))
+	mm = newOwner(ns.CreateFrameUnder("Frame", nil, Minimap))
 	mm:SetAllPoints(Minimap)
 	mm:SetFrameLevel((Minimap:GetFrameLevel() or 1) + 3)
 	mm:EnableMouse(false)
-	driver = CreateFrame("Frame", nil, mm)
+	driver = ns.CreateFrameUnder("Frame", nil, mm)
 	driver:SetScript("OnUpdate", tick)
 	return true
 end
@@ -531,6 +455,12 @@ function RouteLines.Refresh()
 	refreshMinimap()
 end
 
+-- The world map frame the strokes are painted on (hidden while there is
+-- nothing to draw), or nil before the first (tests and diagnostics).
+function RouteLines.GetWorldFrame()
+	return worldPin
+end
+
 -- Strokes drawn on a surface ("world" | "minimap"): the buffer the painter
 -- last copied (tests and diagnostics).
 function RouteLines.GetStrokes(surface)
@@ -558,9 +488,9 @@ ns.OnLogin(function()
 	end
 	recolor()
 	RouteLines.Refresh()
-	-- Blizzard_WorldMap may load after login: install the pin when it does,
+	-- Blizzard_WorldMap may load after login: watch the map when it does,
 	-- as Polestar.Pins does (review P3-8).
-	if installedOn then return end
+	if view then return end
 	local function onLoaded(_, name)
 		if name == "Blizzard_WorldMap" and installWorld() then
 			ns.UnregisterEvent("ADDON_LOADED", onLoaded)

@@ -13,6 +13,7 @@ const { Evaluator } = require('./evaluate');
 const { runJob, search } = require('./search');
 const { Pool } = require('./pool');
 const { loadParamsFile, effective, means } = require('./params');
+const { CLASSES, classLabel } = require('../game/races');
 
 const { ROOT, DATA, SOURCES } = require('../paths');
 const DEFAULTS = {
@@ -25,6 +26,17 @@ const DEFAULTS = {
 const FACTIONS = { alliance: 'Alliance', horde: 'Horde' };
 // Start races the runs cover (one per starting area, plus Forever's own).
 const START_RACES = { Horde: ['Orc', 'Tauren', 'Undead', 'Skyborne'], Alliance: ['Human', 'Dwarf', 'NightElf', 'Skyborne'] };
+
+// Class names as the rest of the model writes them (title case: the keys of
+// CLASS_FACTOR in params.js and of CLASS_BITS in run.js), from any case. An
+// unknown name fails here: left alone it is a silent wrong answer, because
+// `q.classes & CLASS_BITS[undefined]` is 0, so every class quest drops out.
+function normClass(c) {
+	if (c == null || c === '') return null;
+	const k = String(c).toLowerCase();
+	if (!CLASSES[k]) throw new Error(`--class must be one of ${Object.values(CLASSES).map((x) => classLabel(x.file)).join(', ')} (got ${c})`);
+	return classLabel(CLASSES[k].file);
+}
 
 function normFaction(f) {
 	const v = FACTIONS[String(f || '').toLowerCase()];
@@ -179,6 +191,6 @@ function assertFresh(res, world, file) {
 }
 
 module.exports = {
-	DEFAULTS, START_RACES, normFaction, loadWorld, paramsFor, makeRun, className, resultFile, assertFresh,
+	DEFAULTS, START_RACES, normFaction, normClass, loadWorld, paramsFor, makeRun, className, resultFile, assertFresh,
 	prune, describe, benchEval, runCharacter, routeFromKeys, downsample,
 };

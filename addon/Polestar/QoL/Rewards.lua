@@ -192,7 +192,7 @@ end
 local function markFor(button)
 	local m = marks[button]
 	if m then return m end
-	m = CreateFrame("Frame", nil, button)
+	m = ns.CreateFrameUnder("Frame", nil, button)
 	m:SetFrameLevel((button:GetFrameLevel() or 1) + 3)
 	-- m spans the icon plus the frame around it.
 	local icon = button.Icon

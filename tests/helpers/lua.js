@@ -17,7 +17,8 @@
 // folder, .xml expanded) to load a subset, or { name, dir } to load the addon
 // folder `dir` (outside addon/, e.g. a pack built into a temp folder) by its
 // TOC. emit(value) prints one JSON line; runAddon returns those values parsed,
-// in order. A Lua error fails loudly.
+// in order. A Lua error fails loudly. Each addon file's chunk is listed in
+// stub.addonSources: wow_stub.lua's map guard tells addon code by it.
 
 const { spawnSync } = require('node:child_process');
 const fs = require('node:fs');
@@ -99,6 +100,7 @@ function buildProgram(opts) {
   for _, f in ipairs(files) do
     local chunk, err = loadfile(f)
     if not chunk then error(err, 0) end
+    stub.addonSources["@" .. f] = name
     chunk(name, ns)
   end
   if saved then saved() end

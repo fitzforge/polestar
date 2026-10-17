@@ -143,10 +143,17 @@ local function onMapShown()
 	if X and X.IsLoaded and not X.IsLoaded() and X.Load then X.Load() end -- fires CODEX_LOADED
 end
 
+-- The world map's view (Core/MapCanvas.lua) says when it opens; the map is
+-- only read.
 local hooked = false
 local function hookMap()
-	if hooked or not (WorldMapFrame and WorldMapFrame.HookScript) then return hooked end
-	WorldMapFrame:HookScript("OnShow", onMapShown)
+	if hooked then return true end
+	local M = ns.MapCanvas
+	if not (M and WorldMapFrame and M.Watch(WorldMapFrame, function(_, what)
+		if what == "show" then onMapShown() end
+	end)) then
+		return false
+	end
 	hooked = true
 	return true
 end

@@ -36,7 +36,7 @@ local function build()
 	if frame then return frame end
 	local W, T = ns.Widgets, ns.Theme
 	if not (W and W.Text and Minimap) then return nil end
-	frame = CreateFrame("Frame", "PolestarMinimapCoords", Minimap)
+	frame = ns.CreateFrameUnder("Frame", "PolestarMinimapCoords", Minimap)
 	frame:SetSize(72, 14)
 	frame:SetPoint("BOTTOM", Minimap, "BOTTOM", 0, 10)
 	frame:SetFrameLevel((Minimap:GetFrameLevel() or 1) + 5)

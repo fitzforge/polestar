@@ -195,8 +195,13 @@ local function localised()
 end
 
 -- A Codex entity's name in the client's language, or nil; never asks the
--- server (Names.Cached).
+-- server (Names.Cached). A dungeon or raid by its map (Names.Instance).
 local function localName(kind, id)
+	if kind == "instance" then
+		local C = ns.Codex
+		local inst = C and C.Instance and C.Instance(id)
+		return inst and type(inst.map) == "number" and ns.Names.Instance(inst.map) or nil
+	end
 	local nk = NAMES_KIND[kind]
 	if not nk or type(id) ~= "number" then return nil end
 	if nk == "zone" then return ns.Compat.GetMapName(id) end
@@ -245,9 +250,12 @@ local function guideList()
 				end
 			end
 			local where = {}
+			-- The zone as the client names it (its language), else the guide's English.
+			local zone = type(h.zone) == "number" and ns.Compat.MapName(h.zone) or h.zoneName
 			if type(h.zoneName) == "string" then where[#where + 1] = fold(h.zoneName) end
+			if type(zone) == "string" and zone ~= h.zoneName then where[#where + 1] = fold(zone) end
 			if type(h.category) == "string" then where[#where + 1] = fold(h.category) end
-			local sublabel = h.zoneName or h.category
+			local sublabel = zone or h.category
 			if h.minLevel and h.maxLevel then
 				sublabel = (sublabel and (sublabel .. " \194\183 ") or "") .. h.minLevel .. "-" .. h.maxLevel
 			end
@@ -455,6 +463,12 @@ function Search.Query(text, opts)
 		for _, r in ipairs(results) do Search.Subtitle(r) end
 	end
 	return results, counts, more
+end
+
+-- A result's name in the client's language (Polestar.Names, the client's map
+-- name), or nil on an English client or when nothing has one.
+function Search.LocalName(kind, id)
+	return localised() and localName(kind, id) or nil
 end
 
 -- Fills (once) and returns a result's subtitle: one record decode for a

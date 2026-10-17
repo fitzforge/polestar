@@ -138,7 +138,7 @@ test('with an origin URL the workflow and dev container install Polestar from it
 	const dc = JSON.parse(read(withRepo, '.devcontainer/devcontainer.json'));
 	assert.match(dc.image, /node:24/);
 	assert.ok(dc.postCreateCommand.includes(REPO) && /lua5\.1/.test(dc.postCreateCommand) && /npm link/.test(dc.postCreateCommand));
-	// Never fetch from community web sites (quest XP, Wowhead) from a runner or Codespace.
+	// Never fetch from community web sites (quest XP) or read a Wowhead cache from a runner or Codespace.
 	for (const text of [wf, dc.postCreateCommand]) assert.deepEqual(text.match(/polestar data build[^\n"&]*/g).map((s) => s.trim()), ['polestar data build --no-web-xp --no-wowhead']);
 	assert.doesNotMatch(a.stdout, /skipped/);
 

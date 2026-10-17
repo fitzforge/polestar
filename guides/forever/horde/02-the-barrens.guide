@@ -37,6 +37,8 @@ next forever/horde/03-silverpine-forest
 # - Rilli Greasygob (3923) is taken here from Wenikee, who you stand next to
 #   anyway; the export takes it at 20.4 on a later Barrens visit. Its turn-in
 #   comes in a later guide, outside Orgrimmar.
+# - In Ratchet, Sputtervalve, Wrenix and Gazlowe up the hill come before
+#   Wharfmaster Dizzywig on the dock: the dock is on the way to the beach.
 #
 # Dropped:
 # - Chen's Empty Keg part 2 (821): a horn from the southern thunder lizards and
@@ -161,10 +163,10 @@ step Ratchet
   zone The Barrens
   tip Follow the road south-east to Ratchet on the coast.
   getfp "Ratchet" npc 16227           -- Bragok
-  turnin 1492                         -- Wharfmaster Dizzywig
-  accept 887                          -- Gazlowe
-  accept 97253                        -- Wrenix the Wretched
   accept 894                          -- Sputtervalve: the console is in the Sludge Fen, later
+  accept 97253                        -- Wrenix the Wretched
+  accept 887                          -- Gazlowe
+  turnin 1492                         -- Wharfmaster Dizzywig, on the dock
 
 step Southsea beach
   tip The pirates camp on the beach south of Ratchet. The piles of complicated parts lie in the sand among them.

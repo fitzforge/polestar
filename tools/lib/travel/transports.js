@@ -43,17 +43,19 @@ const H = 2;
 const BOTH = 3;
 
 // path: TaxiPath ID in the Era client tables, or the Forever client tables
-// with client: 'forever'.
+// with client: 'forever'. An end's area: the AreaTable area of its place (the
+// WoW Forever client's), whose name the client gives in its language
+// (C_Map.GetAreaInfo); name is the English one, for logs and enUS.
 const TRANSPORTS = [
 	{
 		id: 'boat-bootybay-ratchet', kind: 'boat', faction: BOTH, path: 241,
-		a: { name: 'Booty Bay', zone: 1434, anchor: { npc: 'Wharfmaster Lozgil', use: 'position' } },
-		b: { name: 'Ratchet', zone: 1413, anchor: { npc: 'Wharfmaster Dizzywig', use: 'position' } },
+		a: { name: 'Booty Bay', area: 35, zone: 1434, anchor: { npc: 'Wharfmaster Lozgil', use: 'position' } },
+		b: { name: 'Ratchet', area: 392, zone: 1413, anchor: { npc: 'Wharfmaster Dizzywig', use: 'position' } },
 	},
 	{
 		id: 'boat-menethil-theramore', kind: 'boat', faction: A, path: 292,
-		a: { name: 'Menethil Harbor', zone: 1437, anchor: { object: 'Boat to Theramore', use: 'check' } },
-		b: { name: 'Theramore', zone: 1445 },
+		a: { name: 'Menethil Harbor', area: 150, zone: 1437, anchor: { object: 'Boat to Theramore', use: 'check' } },
+		b: { name: 'Theramore', area: 513, zone: 1445 },
 	},
 	// Forever ships (TaxiPath IDs of the Forever client). One ship sails
 	// Menethil Harbor -> Southshore -> Auberdine -> Menethil Harbor (TaxiPath
@@ -61,58 +63,58 @@ const TRANSPORTS = [
 	// in the client tables), so that pair keeps its id and rides the new loop.
 	{
 		id: 'boat-menethil-southshore', kind: 'boat', faction: A, client: 'forever', path: 11167,
-		a: { name: 'Menethil Harbor', zone: 1437 },
-		b: { name: 'Southshore', zone: 1424 },
+		a: { name: 'Menethil Harbor', area: 150, zone: 1437 },
+		b: { name: 'Southshore', area: 271, zone: 1424 },
 	},
 	{
 		id: 'boat-southshore-auberdine', kind: 'boat', faction: A, client: 'forever', path: 11167,
-		a: { name: 'Southshore', zone: 1424 },
-		b: { name: 'Auberdine', zone: 1439, anchor: { object: 'Boat to Menethil', use: 'check' } },
+		a: { name: 'Southshore', area: 271, zone: 1424 },
+		b: { name: 'Auberdine', area: 442, zone: 1439, anchor: { object: 'Boat to Menethil', use: 'check' } },
 	},
 	{
 		id: 'boat-menethil-auberdine', kind: 'boat', faction: A, client: 'forever', path: 11167,
-		a: { name: 'Menethil Harbor', zone: 1437 },
-		b: { name: 'Auberdine', zone: 1439, anchor: { object: 'Boat to Menethil', use: 'check' } },
+		a: { name: 'Menethil Harbor', area: 150, zone: 1437 },
+		b: { name: 'Auberdine', area: 442, zone: 1439, anchor: { object: 'Boat to Menethil', use: 'check' } },
 	},
 	{
 		id: 'boat-stormwind-auberdine', kind: 'boat', faction: A, client: 'forever', path: 11616,
-		a: { name: 'Stormwind Harbor', zone: 1453 },
-		b: { name: 'Auberdine', zone: 1439 },
+		a: { name: 'Stormwind Harbor', area: 17203, zone: 1453 },
+		b: { name: 'Auberdine', area: 442, zone: 1439 },
 	},
 	{
 		id: 'boat-tanaris-powderfuse', kind: 'boat', faction: BOTH, client: 'forever', path: 11391,
-		a: { name: 'Steamwheedle Port', zone: 1446, anchor: { npc: 'Wharfmaster Steamfizzle', use: 'position' } },
-		b: { name: 'Powderfuse Port', zone: 2548, anchor: { npc: 'Wharfmaster Whizzbuzz', use: 'position' } },
+		a: { name: 'Steamwheedle Port', area: 977, zone: 1446, anchor: { npc: 'Wharfmaster Steamfizzle', use: 'position' } },
+		b: { name: 'Powderfuse Port', area: 16727, zone: 2548, anchor: { npc: 'Wharfmaster Whizzbuzz', use: 'position' } },
 	},
 	{
 		id: 'boat-auberdine-ruttheran', kind: 'boat', faction: A, path: 293,
-		a: { name: 'Auberdine', zone: 1439, anchor: { object: 'Boat to Teldrassil', use: 'check' } },
-		b: { name: "Rut'theran Village", zone: 1438 },
+		a: { name: 'Auberdine', area: 442, zone: 1439, anchor: { object: 'Boat to Teldrassil', use: 'check' } },
+		b: { name: "Rut'theran Village", area: 702, zone: 1438 },
 	},
 	{
 		id: 'boat-feathermoon', kind: 'boat', faction: A, path: 303,
-		a: { name: 'Feathermoon Stronghold', zone: 1444, near: [31, 39.5] },
-		b: { name: 'The Forgotten Coast', zone: 1444, near: [43, 43] },
+		a: { name: 'Feathermoon Stronghold', area: 1116, zone: 1444, near: [31, 39.5] },
+		b: { name: 'The Forgotten Coast', area: 1108, zone: 1444, near: [43, 43] },
 	},
 	{
 		id: 'zeppelin-orgrimmar-undercity', kind: 'zeppelin', faction: H, path: 302,
-		a: { name: 'Orgrimmar', zone: 1411, anchor: { npc: 'Frezza', use: 'position' } },
-		b: { name: 'Undercity', zone: 1420, anchor: { npc: 'Zapetta', use: 'position' } },
+		a: { name: 'Orgrimmar', area: 1637, zone: 1411, anchor: { npc: 'Frezza', use: 'position' } },
+		b: { name: 'Undercity', area: 1497, zone: 1420, anchor: { npc: 'Zapetta', use: 'position' } },
 	},
 	{
 		id: 'zeppelin-orgrimmar-gromgol', kind: 'zeppelin', faction: H, path: 285,
-		a: { name: 'Orgrimmar', zone: 1411, anchor: { npc: 'Snurk Bucksquick', use: 'position' } },
-		b: { name: "Grom'gol", zone: 1434, anchor: { npc: "Nez'raz", use: 'position' } },
+		a: { name: 'Orgrimmar', area: 1637, zone: 1411, anchor: { npc: 'Snurk Bucksquick', use: 'position' } },
+		b: { name: "Grom'gol", area: 117, zone: 1434, anchor: { npc: "Nez'raz", use: 'position' } },
 	},
 	{
 		id: 'zeppelin-undercity-gromgol', kind: 'zeppelin', faction: H, path: 301,
-		a: { name: 'Undercity', zone: 1420, anchor: { npc: 'Hin Denburg', use: 'position' } },
-		b: { name: "Grom'gol", zone: 1434, anchor: { npc: 'Squibby Overspeck', use: 'position' } },
+		a: { name: 'Undercity', area: 1497, zone: 1420, anchor: { npc: 'Hin Denburg', use: 'position' } },
+		b: { name: "Grom'gol", area: 117, zone: 1434, anchor: { npc: 'Squibby Overspeck', use: 'position' } },
 	},
 	{
 		id: 'tram-stormwind-ironforge', kind: 'tram', faction: A,
-		a: { name: 'Stormwind', zone: 1453, trigger: 2173 },
-		b: { name: 'Ironforge', zone: 1455, trigger: 2175 },
+		a: { name: 'Stormwind', area: 1519, zone: 1453, trigger: 2173 },
+		b: { name: 'Ironforge', area: 1537, zone: 1455, trigger: 2175 },
 		inside: [2166, 2171],
 	},
 ];
@@ -235,6 +237,7 @@ function endpoint(end, frames, liveFrames, stop, anchorInfo, warnings, id) {
 	}
 	return {
 		name: end.name,
+		area: end.area,
 		c: pos.c,
 		wx: round(pos.wx, 1),
 		wy: round(pos.wy, 1),

@@ -432,7 +432,15 @@ local function build()
 	F.Invite = W.Button(F, L["Get the invite"], function() UI.ShowDiscord() end)
 
 	F:SetScript("OnShow", function(self) Anim.To(self, "alpha", 0, 1, Anim.FAST, "out") end)
-	if UISpecialFrames then tinsert(UISpecialFrames, "PolestarReport") end
+	ns.CloseOnEscape("PolestarReport")
+	-- A gamepad (UI/Gamepad.lua) starts on "Select report".
+	if ns.Gamepad and ns.Gamepad.Register then
+		ns.Gamepad.Register(F, {
+			initial = function(rows)
+				for i, w in ipairs(rows) do if w == F.Select then return i end end
+			end,
+		})
+	end
 end
 
 -- Opens the window on the step on screen. The details are taken now; what

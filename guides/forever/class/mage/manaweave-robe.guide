@@ -19,8 +19,9 @@ why A robe at 15 for Alliance mages, from Stormwind and Loch Modan.
 # (https://www.wowhead.com/forever/quest=1920 and 1941, checked 2026-10-14) for
 # the races and the reward (Manaweave Robe); the quest texts for the Blue
 # Recluse and the Silver Stream Mine.
-# Wowhead Forever lists Human, Gnome and Skyborne mages for 1919-1921; our data
-# has Skyborne only on 1920.
+# Wowhead Forever lists Human, Gnome and Skyborne mages for 1919-1921;
+# corrections.json adds Skyborne to 1919 and 1921, which the merged data
+# gave to Humans and Gnomes only.
 # Investigate the Blue Recluse needs Report to Jennea first (quests.json):
 # Zaldimar Wefhellt in Goldshire, Magis Sparkmantle in Kharanos and Dink in
 # Ironforge give it.

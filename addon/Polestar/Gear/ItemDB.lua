@@ -135,6 +135,11 @@ function DB.RegisterLeveling(m, data)
 	if ns.Fire then ns.Fire("ITEMDB_LOADED", meta) end
 end
 
+-- Parsed quests and sources hold translated names: parse them again once
+-- the names pack arrives late, and the sources when an NPC's name is learned.
+ns.On("NAMES_LOADED", function() srcCache, questCache = {}, {} end)
+ns.On("NAME_LEARNED", function(kind) if kind == "npc" then srcCache = {} end end)
+
 local function leveling()
 	if not lev then DB.Load() end
 	return lev
@@ -145,14 +150,18 @@ function DB.LevelingMeta()
 	return levMeta
 end
 
+-- Names below are the client's language's (Polestar.Names) where it has
+-- them, the leveling data's English otherwise.
 function DB.ItemName(id)
+	id = tonumber(id)
 	local d = leveling()
-	return d and d.names and d.names[tonumber(id)] or nil
+	return ns.Names.Item(id) or (d and d.names and d.names[id]) or nil
 end
 
-
+-- Zones are AreaTable areas.
 local function zoneName(d, zone)
-	return zone and zone ~= 0 and d.zones and d.zones[zone] or nil
+	if not zone or zone == 0 then return nil end
+	return ns.Names.Area(zone) or (d.zones and d.zones[zone]) or nil
 end
 
 local function parseQuest(d, id, s)
@@ -161,7 +170,7 @@ local function parseQuest(d, id, s)
 	local level, req, side, zone, race, class, dungeon = head:match("^(%d+) (%d+) (%d+) (%d+) (%d+) (%d+) (%d+)$")
 	if not level then return false end
 	local q = {
-		id = id, name = name ~= "" and name or nil,
+		id = id, name = ns.Names.Quest(id) or (name ~= "" and name or nil),
 		level = tonumber(level), req = tonumber(req), side = tonumber(side), zone = tonumber(zone),
 		reqRace = tonumber(race), reqClass = tonumber(class), dungeon = dungeon == "1",
 		choices = {}, items = {},
@@ -208,7 +217,7 @@ function DB.Sources(id)
 					local npc, pct, zone = tok:match("^d(%d+)x(%d+)z(%d+)$")
 					if npc then
 						npc, zone = tonumber(npc), tonumber(zone)
-						list[#list + 1] = { kind = "drop", npc = npc, npcName = d.npcs and d.npcs[npc], pct = tonumber(pct) / 10, zone = zone, zoneName = zoneName(d, zone) }
+						list[#list + 1] = { kind = "drop", npc = npc, npcName = ns.Names.Npc(npc) or (d.npcs and d.npcs[npc]), pct = tonumber(pct) / 10, zone = zone, zoneName = zoneName(d, zone) }
 					else
 						local spell, prof, skill = tok:match("^c(%d+)p(%d+)s(%d+)$")
 						if spell then

@@ -1,9 +1,11 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="UI.lua"/>
+	<Script file="Gamepad.lua"/>
 	<Script file="ZoneArt.lua"/>
 	<Script file="ZoneArtOverlays.lua"/>
 	<Script file="GuideFrame.lua"/>
 	<Script file="JourneyPanel.lua"/>
+	<Script file="GamepadGuide.lua"/>
 	<Script file="GearPick.lua"/>
 	<Script file="Picker.lua"/>
 	<Script file="Lookup.lua"/>
@@ -14,4 +16,5 @@
 	<Script file="Report.lua"/>
 	<Script file="Packs.lua"/>
 	<Script file="Options.lua"/>
+	<Script file="QuestieTurnIns.lua"/>
 </Ui>

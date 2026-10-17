@@ -133,9 +133,12 @@ Toggles.ERROR_TYPES = SPAM
 
 local hidden = {} -- message type -> true: the types this setting turned off
 
+-- Not with the gamepad interface (ns.GamepadUI): the setting writes the
+-- game's BLACK_LISTED_MESSAGE_TYPES, which UIErrorsFrame reads as the
+-- gamepad's own bindings and focus code show their errors.
 function Toggles.ApplyErrors()
 	local f = UIErrorsFrame
-	if not (f and f.SetMessageTypeEnabled) then return end
+	if ns.GamepadUI() or not (f and f.SetMessageTypeEnabled) then return end
 	if QoL.On("hideErrors") then
 		local blacklisted = BLACK_LISTED_MESSAGE_TYPES
 		for i = 1, #SPAM do

@@ -1,7 +1,9 @@
 -- A stand-in for the WoW: Forever client, generic enough for every module's
 -- tests: frames, scripts, events, timers, fonts, animation groups, slash
--- commands, settings panels and a fake EllesmereUI. Quest, map and unit APIs
--- are NOT here; each module adds the world it needs in tests/lua/stub_<module>.lua.
+-- commands, settings panels, a fake EllesmereUI, and the map frames' shape
+-- (Blizzard_MapCanvas: the world map and its canvas, and a guard that fails
+-- any write of addon code into them). Quest, map data and unit APIs are NOT
+-- here; each module adds the world it needs in tests/lua/stub_<module>.lua.
 --
 -- Frames are plain tables. A capitalized method that is not implemented below
 -- resolves to a no-op returning nil, so the long tail of Set* calls is accepted.
@@ -249,7 +251,10 @@ function Methods.GetStringWidth(self)
 	if self.wordWrap == false and w > 0 and full > w then return w end
 	return full
 end
--- Each line of the text (split at "\n") wraps on its own at the set width.
+-- Each line of the text (split at "\n") wraps on its own at the set width;
+-- SetMaxLines caps the lines drawn, as in the client.
+function Methods.SetMaxLines(self, n) self.maxLines = n end
+function Methods.GetMaxLines(self) return self.maxLines or 0 end
 function Methods.GetStringHeight(self)
 	local size = (self.font and self.font[2]) or 12
 	local w = self.width or 0
@@ -258,6 +263,7 @@ function Methods.GetStringHeight(self)
 	for line in (tostring(self.text or "") .. "\n"):gmatch("([^\n]*)\n") do
 		lines = lines + math.max(1, math.ceil(#line * size * 0.5 / w))
 	end
+	if (self.maxLines or 0) > 0 then lines = math.min(lines, self.maxLines) end
 	return lines * size
 end
 function Methods.GetLineHeight(self) return (self.font and self.font[2]) or 12 end
@@ -550,13 +556,262 @@ Minimap = CreateFrame("Minimap", "Minimap", UIParent)
 Minimap.width, Minimap.height = 140, 140
 function Minimap.GetZoom() return stub.minimapZoom or 0 end
 function Minimap.GetZoomLevels() return 6 end
-WorldMapFrame = CreateFrame("Frame", "WorldMapFrame", UIParent)
-WorldMapFrame.shown = false
-WorldMapFrame.dataProviders = {}
-function WorldMapFrame.AddDataProvider(self, p) self.dataProviders[p] = true; if p.OnAdded then p:OnAdded(self) end end
-function WorldMapFrame.RemoveDataProvider(self, p) self.dataProviders[p] = nil end
+---------------------------------------------------------------------------
+-- Map frames: the shape of Blizzard_MapCanvas (WorldMapFrame, and
+-- BattlefieldMapFrame through stub.newMapCanvas) that Polestar reads
+-- (Core/MapCanvas.lua): a canvas (ScrollContainer.Child) that shows and
+-- hides with the map, the getters Polestar may call, and Blizzard's own
+-- tables Polestar must never touch (dataProviders, pinPools).
+--   map.mapID (WorldMapFrame: stub.worldMapID), map.ScrollContainer.currentScale,
+--   map.ScrollContainer.zoomPercent, map.globalPinScale, map.globalAlpha
+--   stub.runMapFrame(map, dt)   one frame on the map: its frames' OnUpdate scripts
+--   stub.guardMap(map)          the map's tables read-only to addon code (below)
+---------------------------------------------------------------------------
+
+-- The client runs OnShow / OnHide on every shown descendant whose visibility
+-- changes with its ancestor's; map frames do here (the canvas's children
+-- show and hide with the map).
+local function cascade(f, script)
+	for _, c in ipairs(f.children) do
+		if c.shown then
+			RunScript(c, script)
+			cascade(c, script)
+		end
+	end
+end
+
+local MAP_LEVELS = {
+	PIN_FRAME_LEVEL_DEFAULT = 2000, PIN_FRAME_LEVEL_MAP_EXPLORATION = 2001, PIN_FRAME_LEVEL_QUEST_BLOB = 2010,
+	PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST = 2060,
+}
+
+function stub.newMapCanvas(name)
+	local map = CreateFrame("Frame", name, UIParent)
+	map.shown = false
+	map.dataProviders, map.pinPools = {}, {}
+	map.ScrollContainer = CreateFrame("Frame", nil, map)
+	map.pinFrameLevelsManager = { definitions = MAP_LEVELS }
+	function map.pinFrameLevelsManager.GetValidFrameLevel(self, levelType)
+		return self.definitions[levelType] or self.definitions.PIN_FRAME_LEVEL_DEFAULT
+	end
+	function map.Show(self)
+		local was = self.shown
+		self.shown = true
+		if not was then
+			RunScript(self, "OnShow")
+			if Methods.IsVisible(self) then cascade(self, "OnShow") end
+		end
+	end
+	function map.Hide(self)
+		local was, visible = self.shown, Methods.IsVisible(self)
+		self.shown = false
+		if was then
+			if visible then cascade(self, "OnHide") end
+			RunScript(self, "OnHide")
+		end
+	end
+	function map.SetShown(self, v) if v then self:Show() else self:Hide() end end
+	function map.GetMapID(self) return self.mapID end
+	-- The canvas (ScrollContainer.Child) is made on first use, so a run that
+	-- never draws on the map makes no frame for it (the preview's renders keep
+	-- their object ids). Kept under a lowercase key too: an unknown
+	-- capitalized key reads as a no-op method here.
+	function map.GetCanvas(self)
+		local canvas = self.canvas
+		if not canvas then
+			canvas = CreateFrame("Frame", nil, self.ScrollContainer)
+			self.canvas, self.ScrollContainer.Child = canvas, canvas
+		end
+		return canvas
+	end
+	function map.GetCanvasScale(self) return self.ScrollContainer.currentScale or 1 end
+	function map.HasZoomLevels() return true end
+	function map.GetCanvasZoomPercent(self) return self.ScrollContainer.zoomPercent or 0 end
+	function map.GetGlobalPinScale(self) return self.globalPinScale or 1 end
+	function map.GetGlobalAlpha(self) return self.globalAlpha or 1 end
+	function map.GetPinFrameLevelsManager(self) return self.pinFrameLevelsManager end
+	return map
+end
+
+function stub.runMapFrame(map, dt)
+	local list = {}
+	for _, f in ipairs(stub.frames) do
+		if f.scripts.OnUpdate and Methods.IsVisible(f) then
+			local p = f.parent
+			while p and p ~= map do p = p.parent end
+			if p then list[#list + 1] = f end
+		end
+	end
+	for _, f in ipairs(list) do RunScript(f, "OnUpdate", dt or 0) end
+end
+
+-- Taint, as far as the map is concerned. In the client a value written into
+-- a Blizzard table while an addon's code runs (the addon's own code, or
+-- Blizzard Lua it called) carries the addon's taint, and Blizzard's secure
+-- code that reads it is blocked; the client's C side (a frame method, a
+-- script or event it dispatches) starts clean. stub.guardMap(map) moves the
+-- map's tables (the frame, its scroll container and canvas, dataProviders,
+-- pinPools, the pin frame levels) behind a proxy that raises on, and lists
+-- in stub.mapWrites:
+--   * a Lua write while addon code is on the stack above the nearest C
+--     boundary (this file's code: methods, script dispatch, events, timers);
+--   * a frame method of this file changing a map frame when called straight
+--     from addon code (map:SetSize, map:Show, ...: Blizzard's windows are
+--     only read).
+-- Reads by addon code are kept: stub.mapReads[label][key] = true. Addon code
+-- is what helpers/lua.js loaded as an addon (stub.addonSources).
+stub.addonSources = stub.addonSources or {}
+stub.mapWrites, stub.mapReads = {}, {}
+local CLIENT = debug.getinfo(1, "S").source
+
+-- Levels count from the caller of these helpers, as debug.getinfo's do.
+local function addonAt(level)
+	local info = debug.getinfo(level + 1, "S")
+	return info and stub.addonSources[info.source] and info.source or nil
+end
+
+-- The addon file running a Lua write made from `level` upward, or nil.
+local function taintOf(level)
+	level = level + 1
+	while true do
+		local info = debug.getinfo(level, "S")
+		if not info then return nil end
+		if stub.addonSources[info.source] then return info.source end
+		if info.source == CLIENT then return nil end
+		level = level + 1
+	end
+end
+
+local function guard(t, label)
+	if getmetatable(t) and getmetatable(t).guarded then return t end
+	local shadow, mt = {}, getmetatable(t)
+	for k, v in pairs(t) do shadow[k] = v end
+	for k in pairs(shadow) do rawset(t, k, nil) end
+	local inner = mt and mt.__index
+	setmetatable(t, {
+		guarded = true,
+		__index = function(self, key)
+			if addonAt(2) then
+				stub.mapReads[label] = stub.mapReads[label] or {}
+				stub.mapReads[label][key] = true
+			end
+			local v = shadow[key]
+			if v ~= nil then return v end
+			if type(inner) == "function" then return inner(self, key) end
+			if type(inner) == "table" then return inner[key] end
+			return nil
+		end,
+		__newindex = function(_, key, value)
+			local writer = debug.getinfo(2, "Sn")
+			local by
+			if writer and writer.source == CLIENT then
+				by = addonAt(3)
+				if by then by = by .. " (" .. tostring(writer.name) .. ")" end
+			else
+				by = taintOf(2)
+			end
+			if by then
+				local msg = label .. "." .. tostring(key) .. " written by " .. by
+				table.insert(stub.mapWrites, msg)
+				error("addon code wrote into a Blizzard map table: " .. msg, 2)
+			end
+			shadow[key] = value
+		end,
+	})
+	return t
+end
+
+function stub.guardMap(map, label)
+	label = label or map.name or "map"
+	guard(map.dataProviders, label .. ".dataProviders")
+	guard(map.pinPools, label .. ".pinPools")
+	guard(map.pinFrameLevelsManager, label .. ".pinFrameLevelsManager")
+	guard(map:GetCanvas(), label .. ".canvas")
+	guard(map.ScrollContainer, label .. ".ScrollContainer")
+	guard(map, label)
+	return map
+end
+
+-- The gamepad interface (Blizzard_GamepadSmartNavigation) hooks CreateFrame:
+-- when the parent is, or is under, one of its open panels (the world map, the
+-- quest frame, the talents...), it rebuilds that panel's button list inside
+-- the caller's code, so a CreateFrame from addon code taints the panel and
+-- the next gamepad action there is blocked. The hook walks the parents up to
+-- UIParent. Here, stricter: CreateFrame called from addon code with a parent
+-- that is, or is under, a frame addon code did not make (UIParent ends the
+-- walk) raises and is listed in stub.underGameFrames ("Polestar/Nav/Pins.lua:764
+-- under WorldMapFrame (a frame under it)"). Frames the test stubs make for
+-- the game, even when addon code's call makes them, are the game's.
+-- SetParent is not hooked: a frame made with no parent, then set under a
+-- game frame, is how addon code puts one there.
+stub.underGameFrames = {}
+local addonMade = setmetatable({}, { __mode = "k" })
+
+local function nameOf(frame)
+	local f = frame
+	while f do
+		local n = f.name
+		if n then return f == frame and n or n .. " (a frame under it)" end
+		f = f.parent
+	end
+	return tostring(frame)
+end
+
+local function gameFrameAbove(parent)
+	local f = parent
+	while f and f ~= UIParent do
+		if not addonMade[f] then return f end
+		f = f.parent
+	end
+	return nil
+end
+
+-- The addon code that called CreateFrame, through the other stubs' wrappers
+-- of it (stub_qol.lua's, the play driver's): its debug.getinfo record, or nil.
+local function creator()
+	local level = 3
+	while true do
+		local info = debug.getinfo(level, "Sln")
+		if not info then return nil end
+		if stub.addonSources[info.source] then return info end
+		if info.name ~= "CreateFrame" then return nil end
+		level = level + 1
+	end
+end
+
+local createFrame = CreateFrame
+function CreateFrame(kind, name, parent, ...)
+	local by = creator()
+	if by and parent then
+		local game = gameFrameAbove(parent)
+		if game then
+			local msg = by.source:gsub("^@", ""):gsub("\\", "/"):gsub("^.-/addon/", "") .. ":" .. tostring(by.currentline)
+				.. " under " .. nameOf(game)
+			table.insert(stub.underGameFrames, msg)
+			error("addon code called CreateFrame with a parent under a game frame: " .. msg, 2)
+		end
+	end
+	local f = createFrame(kind, name, parent, ...)
+	if by then addonMade[f] = true end
+	return f
+end
+
+WorldMapFrame = stub.newMapCanvas("WorldMapFrame")
 function WorldMapFrame.GetMapID() return stub.worldMapID end
-WorldMapFrame.ScrollContainer = CreateFrame("Frame", nil, WorldMapFrame)
+
+-- The gamepad interface's map cursor (Blizzard_GamepadSoftCursor), hidden
+-- until a test shows it (while the map has the gamepad's focus), made by
+-- stub.withSoftCursor() (a frame made here would renumber the preview's
+-- objects); stub.keysDown[key] for IsKeyDown ("PAD1": the gamepad's A).
+function stub.withSoftCursor()
+	if not SoftCursor then
+		SoftCursor = CreateFrame("Frame", "SoftCursor", UIParent)
+		SoftCursor:Hide()
+	end
+	return SoftCursor
+end
+stub.keysDown = {}
+function IsKeyDown(key) return stub.keysDown[key] == true end
 UIErrorsFrame = CreateFrame("Frame", "UIErrorsFrame", UIParent)
 GameTooltip = CreateFrame("GameTooltip", "GameTooltip", UIParent)
 GameTooltip.lines = {}
@@ -565,6 +820,7 @@ function GameTooltip.ClearLines(self) self.lines = {} end
 function GameTooltip.AddLine(self, text) table.insert(self.lines, tostring(text)) end
 function GameTooltip.AddDoubleLine(self, l, r) table.insert(self.lines, tostring(l) .. " | " .. tostring(r)) end
 function GameTooltip.SetText(self, text) self.lines = { tostring(text) } end
+function GameTooltip.GetOwner(self) return self.owner end
 DEFAULT_CHAT_FRAME = CreateFrame("Frame", "ChatFrame1", UIParent)
 function DEFAULT_CHAT_FRAME.AddMessage(_, msg) table.insert(stub.messages, tostring(msg)) end
 ColorPickerFrame = CreateFrame("Frame", "ColorPickerFrame", UIParent)

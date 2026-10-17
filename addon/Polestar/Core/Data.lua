@@ -135,6 +135,10 @@ function Data.CheckInstall()
 	for _, name in ipairs(COMPANIONS) do check(name, mine, missing, stale) end
 	local names = ns.Names and ns.Names.PackName()
 	if names then check(names, mine, missing, stale) end
+	-- Our guide pack's texts addon for the client's language, when that
+	-- language has one (Core/GuideTexts.lua): never missing either.
+	local texts = ns.GuideTexts and ns.GuideTexts.TextsAddon("Polestar_Guides")
+	if texts then check(texts, mine, missing, stale) end
 	return missing, stale
 end
 

@@ -22,6 +22,8 @@
 # - Hameya's Plea (6024, scroll from 05): key and turn-in here. Marauders of Darrowshire
 #   (5206): the Scourge Champions in the Noxious Glade, north of the chapel.
 # - Train class in Ironforge (level 56 spells); Druids trained in Darnassus in the previous guide.
+# - Ironforge from the tram: Bubulo, Laris, Mistina, Archesonus, Rotimer,
+#   Jademoon, then the flight master.
 # Carried on: Umber, Archivist (6844), Super Sticky (4504), Bungle in the Jungle (4496), The Stone Circle (3444,
 # turned in later), Fire Plume Forged (5801), Linken's Memory (3942), Good Luck Charm
 # (5050), the cloth donations, Flint Shadowmore (6184), Taking Back Silithus (8275), Return to Chromie (5941),
@@ -175,17 +177,17 @@ step Ironforge
   zone Ironforge
   tip Take the Deeprun Tram to Ironforge.
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  accept 8275                         -- Cenarion Emissary Jademoon
-  turnin 3701                         -- Royal Historian Archesonus
-  turnin 4512                         -- Laris Geardawdle
-  accept 4513                         -- Its jars are filled on the next Un'Goro visit
-  accept 7807                         -- Bubulo Acerbus
+  accept 7807                         -- Bubulo Acerbus, by the tram
   accept 7808
   accept 7809
+  turnin 4512                         -- Laris Geardawdle
+  accept 4513                         -- Its jars are filled on the next Un'Goro visit
   accept 7802                         -- Mistina Steelshield
   accept 7803
   accept 7804
+  turnin 3701                         -- Royal Historian Archesonus
   accept 7261                         -- Lieutenant Rotimer
+  accept 8275                         -- Cenarion Emissary Jademoon
 
 # ---------------------------------------------------------------- To the Plaguelands
 

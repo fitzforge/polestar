@@ -85,18 +85,18 @@ function emitLua(t) {
 	lines.push('\tflights = {');
 	for (const l of t.taxi.legs) lines.push(`\t\t${l.from},${l.to},${l.yards},`);
 	lines.push('\t},');
-	lines.push('\t-- ends: name, continent, wx, wy, uiMapID, x, y, frame ("e" Era, "l" live); seconds riding a->b, b->a and waiting at a, b');
+	lines.push('\t-- ends: name, continent, wx, wy, uiMapID, x, y, frame ("e" Era, "l" live), AreaTable area (its name in the client\'s language); seconds riding a->b, b->a and waiting at a, b');
 	lines.push('\ttransports = {');
 	for (const tr of t.transports) {
-		const end = (e) => [e.name, e.c, e.wx, e.wy, e.map, e.x, e.y, e.f];
+		const end = (e) => [e.name, e.c, e.wx, e.wy, e.map, e.x, e.y, e.f, e.area];
 		lines.push(`\t\t${luaVal({ id: tr.id, kind: tr.kind, faction: tr.faction, a: end(tr.a), b: end(tr.b), ab: tr.ab, ba: tr.ba, waitA: tr.waitA, waitB: tr.waitB })},`);
 	}
 	lines.push('\t},');
-	lines.push('\t-- walk-in portals, one way a -> b: id, destination name, ends as transports, seconds (the loading screen)');
+	lines.push('\t-- walk-in portals, one way a -> b: id, destination name and area, ends as transports, seconds (the loading screen)');
 	lines.push('\tportals = {');
 	for (const p of t.transit.portals) {
-		const end = (e) => [e.name, e.c, e.wx, e.wy, e.map, e.x, e.y, e.f];
-		lines.push(`\t\t${luaVal({ id: p.id, name: p.name, a: end(p.a), b: end(p.b), seconds: p.seconds })},`);
+		const end = (e) => [e.name, e.c, e.wx, e.wy, e.map, e.x, e.y, e.f, e.area];
+		lines.push(`\t\t${luaVal({ id: p.id, name: p.name, area: p.area, a: end(p.a), b: end(p.b), seconds: p.seconds })},`);
 	}
 	lines.push('\t},');
 	lines.push(`\t-- bind location names (as GetBindLocation reports them), AreaTable area (WoW Forever client build ${t.areaBuild || 'none'}), innkeeper NPC, position`);
@@ -143,7 +143,8 @@ function transitLua(tr) {
 		'-- services[transport or lift id] = { kind, name, board (s at the dock before it leaves), pre/post (s outside',
 		'--   the ride), wait/ride = { a, b } expected s while untimed, routes = { { route, a = stops, b = stops } } }',
 		'--   (a, b: indices into the route\'s stops, from 1)',
-		'--   (ends = the a and b names; lifts: a = top, b = bottom, with c, wx, wy and the top and bottom z)',
+		'--   (ends = the a and b names, areas = their AreaTable areas; area: the tram\'s or the lift\'s, dir: which of',
+		'--   that place\'s lifts; lifts: a = top, b = bottom, with c, wx, wy and the top and bottom z)',
 		'-- teleports: class teleports { spell, name, cast (s), reagents = { item, count, ... }, to = end | bind = true }',
 		'if ns.Transit and ns.Transit.Register then',
 		'\tns.Transit.Register({',
@@ -163,7 +164,7 @@ function transitLua(tr) {
 	for (const [id, s] of Object.entries(tr.services)) lines.push(`\t\t\t[${luaStr(id)}] = ${luaVal(oneBased(s))},`);
 	lines.push('\t\t},', '\t\tteleports = {');
 	for (const { to, ...rest } of tr.teleports) {
-		lines.push(`\t\t\t${luaVal(to ? { ...rest, to: [to.name, to.c, to.wx, to.wy, to.map, to.x, to.y, to.f] } : rest)},`);
+		lines.push(`\t\t\t${luaVal(to ? { ...rest, to: [to.name, to.c, to.wx, to.wy, to.map, to.x, to.y, to.f, to.area] } : rest)},`);
 	}
 	lines.push('\t\t},', '\t})', 'end');
 	return lines;

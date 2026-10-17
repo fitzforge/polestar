@@ -103,11 +103,11 @@ polestar dev --play               # lint and build on every save, with the playg
      attaches it to a GitHub release: the only job allowed to write) and
      `.devcontainer/` (Codespaces). Both clone Polestar and build its
      reference data with `polestar data build --no-web-xp --no-wowhead`: that
-     skips the quest lookups on community web sites (Forever XP databases,
-     Wowhead), but the build still clones pfQuest and downloads the client
-     tables from wago.tools. So they need
-     the address of Polestar's public repository. `new` reads it from your
-     clone's `git remote get-url origin` and writes it as https, quoted: an
+     skips the quest lookups on community web sites (Forever XP databases)
+     and the Wowhead cache (a fresh clone has none), but the build still
+     clones pfQuest and downloads the client tables from wago.tools. So they
+     need the address of Polestar's public repository. `new` reads it from
+     your clone's `git remote get-url origin` and writes it as https, quoted: an
      SSH address (`git@host:owner/repo.git`, `ssh://`) or an `http://` one
      becomes its https form, and any user name, password, query (`?…`) or
      fragment (`#…`) is dropped. With no origin, or one that is neither
@@ -254,7 +254,9 @@ notes, routes you played, guides you wrote. Two ways work well:
   write only from the author's own material. It also writes the
   polestar-guide-pack skill (the workflow and the guide format on one page)
   into `.agents/skills/` and `.claude/skills/`; for an older pack, copy
-  `skills/polestar-guide-pack/` from your Polestar clone into both.
+  `skills/polestar-guide-pack/` from your Polestar clone into both, or run
+  `npx skills add fitzforge/polestar --skill polestar-guide-pack` in the
+  pack folder.
 
 **The ground rule:** an assistant's quest ids, NPC ids, place names and
 coordinates are guesses until `find`, lint and playtest confirm them.

@@ -84,6 +84,57 @@ test('turnin, complete and objective goals need an earlier accept in the guide',
 	]);
 });
 
+// Issue #108: quests handed in straight from the NPC's window, with no accept
+// (Distracting Jarven 308, the repeat cloth donations).
+test('#108: a `direct` turn-in needs no accept, and is checked for availability and prerequisites as an accept is', () => {
+	assert.deepEqual(compile(guideText(['step S', '  turnin 783 direct'])).errors, []);
+
+	// 9100 is Orc-only, so no character of this Alliance guide can be offered it.
+	const race = compile(guideText(['step S', '  turnin 9100 direct']));
+	assert.deepEqual(only(race.errors, /not available/), [
+		'test.guide:8: quest 9100 (Orcish Errand) is not available to any race this step applies to',
+	]);
+
+	// 7 needs 783 turned in first, and the chain never turns it in.
+	const pre = compile(guideText(['step S', '  turnin 7 direct']));
+	assert.deepEqual(only(pre.warnings, /turned in first/), [
+		'test.guide:8: quest 7 needs 783 (A Threat Within) turned in first, but the chain never turns it in',
+	]);
+});
+
+test('#108: `direct` contradicts an earlier accept, and a `direct` quest carries no objectives', () => {
+	const both = guideText(['step S', '  accept 783', '  turnin 783 direct']);
+	assert.deepEqual(only(compile(both).errors, /direct/), [
+		`test.guide:${lineOf(both, '  turnin 783 direct')}: \`turnin\` for quest 783 is marked \`direct\`, but the chain accepts that quest earlier: drop \`direct\``,
+	]);
+
+	// The item the hand-in asks for is a plain buy/collect: nothing tracks an
+	// objective of a quest that never enters the log. The goals come before the
+	// turn-in here, as they would in a guide, and still name the right reason.
+	const tracked = guideText(['step S', '  complete 783', '  collect 2589 quest 783', '  turnin 783 direct']);
+	const why = 'which is handed in directly (`turnin 783 direct`): it is never in the quest log, so nothing tracks its objectives. Get what it asks for with a plain `buy` or `collect`, without `quest`';
+	assert.deepEqual(only(compile(tracked).errors, /handed in directly/), [
+		`test.guide:${lineOf(tracked, '  complete 783')}: \`complete\` for quest 783 (A Threat Within), ${why}`,
+		`test.guide:${lineOf(tracked, '  collect 2589 quest 783')}: \`collect\` for quest 783 (A Threat Within), ${why}`,
+	]);
+});
+
+// 9390 is shaped like Distracting Jarven (308) and Additional Runecloth: a
+// repeatable quest its giver also takes back; 9391 a repeatable with another ender.
+function repeatableData() {
+	const base = fixtureData();
+	const q = (id, end) => ({ id, title: `Quest ${id}`, level: 2, minLevel: 1, races: null, classes: null, start: { npc: [823], object: [], item: [] }, end: { npc: [end], object: [] }, pre: [], excl: [], objectives: [], repeatable: true });
+	const quests = { ...base.quests, 9390: q(9390, 823), 9391: q(9391, 197) };
+	return new Data({ quests, npcs: base.npcs, objects: base.objects, items: base.items, zones: base.zones, 'map-frames': base.mapFrames, meta: base.meta }, { dir: base.dir });
+}
+
+test('#108: a plain turn-in never accepted, of a repeatable its giver takes back, hints at `direct`', () => {
+	const hints = (id) => compile(guideText(['step S', `  turnin ${id}`]), repeatableData()).diag.errors.map((d) => d.hint);
+	assert.deepEqual(hints(9390), ['a repeatable quest its giver takes back straight from the quest window: write `turnin <id> direct`']);
+	assert.deepEqual(hints(9391), [undefined]);
+	assert.deepEqual(hints(783), [undefined]);
+});
+
 test('an accept in a guide that chains into this one (even indirectly) satisfies a later turn-in; an unrelated guide does not', () => {
 	const first = text('t/one', ['step S', '  accept 33'], ['next t/two']);
 	const middle = text('t/two', ['step S', '  level 3'], ['next t/three']);
@@ -428,6 +479,18 @@ test('solo policy: goals on quests the simulator excludes are errors when elite,
 	]);
 	// Other categories than Leveling are not solo routes.
 	assert.deepEqual(check(guideText(['guide t/p', 'title P', 'faction Alliance', 'category Professions', '', 'step S', '  accept 7'])), []);
+});
+
+test('#108: solo policy: a `direct` turn-in of a repeatable is no grind; it does not need `optional`', () => {
+	const { validateSoloPolicy } = require('../tools/lib/dsl/validate');
+	const excluded = { Alliance: new Map([[9390, { id: 9390, title: 'Quest 9390', reason: 'repeatable without a recorded reward (no XP)', category: 'repeatable' }]]) };
+	const check = (line) => {
+		const r = compile(guideText(['step S', line]), repeatableData());
+		validateSoloPolicy(r.guides, excluded, r.diag);
+		return r.diag.warnings.filter((d) => /solo/.test(d.message)).length;
+	};
+	assert.equal(check('  turnin 9390 direct'), 0);
+	assert.equal(check('  accept 9390'), 1, 'an accepted repeatable still warns');
 });
 
 test('lint applies the solo policy from the cached world in --sim (built from the same data by the current builder)', () => {

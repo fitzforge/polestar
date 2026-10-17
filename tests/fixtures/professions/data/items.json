@@ -61,6 +61,15 @@
 		},
 		"vendors": []
 	},
+	"2575": {
+		"id": 2575,
+		"name": "Red Linen Shirt",
+		"drops": {
+			"npc": {},
+			"object": {}
+		},
+		"vendors": []
+	},
 	"2589": {
 		"id": 2589,
 		"name": "Linen Cloth",

@@ -56,6 +56,13 @@ next forever/alliance/02-westfall
 #   handed in, now goes to Rellian on that walk, just south of the Enclave.
 #   Measured with sim compare against this guide without them: 0.09 h
 #   sooner to 60 and to 30, 0.02 h later to 20.
+# - Town visits are walked in the order you pass the NPCs: at Aldrassil,
+#   Ilthalaine's second Balance of Nature (457) and Gilshalan (916) before
+#   climbing to Shanda; in Dolanaar, Syral before the inn on arrival, Zarrin
+#   first coming back from the lake, Kyra and Corithras first after the
+#   hearth, and after Ursal the Empty Vial (Narret Shadowgrove, beside
+#   Byancie) and Laurna before Athridas, the inn and Corithras. At the Oracle
+#   Glade, Arynia at the moonwell before the plant at its north end.
 #
 # Order changes for the hand-made quest chains (a follow-up is offered only
 # after its prerequisite is turned in):
@@ -138,11 +145,12 @@ step Back at Aldrassil
   accept 3118 only Rogue                      -- Conservator Ilthalaine: Encrypted Sigil
   accept 3119 only Priest                     -- Conservator Ilthalaine: Hallowed Sigil
   accept 3120 only Druid                      -- Conservator Ilthalaine: Verdant Sigil
-  accept 97979                                -- Shanda, inside the tree
-  turnin 97979
-  accept 457
-  accept 4495                                 -- Dirania Silvershine, east of the tree
+  accept 457                                  -- Conservator Ilthalaine
   accept 916                                  -- Gilshalan Windwalker, on the tree's ramp
+  accept 97979                                -- Shanda, inside the tree
+  note "The Goddess Provides: cast Elune's Light and Shadowmeld, then hand it back to Shanda"
+  turnin 97979
+  accept 4495                                 -- Dirania Silvershine, east of the tree
 
 step North to Shadowthread Cave
   tip Mangy Nightsabers and Thistle Boars roam north of Aldrassil, on the way to the cave. Iverron waits in the trees west of the cave mouth; Githyiss the Vile sits deep inside.
@@ -208,9 +216,9 @@ step Porthannius
 step Dolanaar
   tip Follow the road south-west out of Shadowglen to Dolanaar.
   turnin 96630                                -- Lyreena Duskblade, by the campfire
+  accept 997                                  -- Syral Bladeleaf
   turnin 2159                                 -- Innkeeper Keldamyr
   sethome "Dolanaar" npc 6736                 -- Innkeeper Keldamyr
-  accept 997                                  -- Syral Bladeleaf
   turnin 928                                  -- Corithras Moonrage, south of the inn
   accept 929
   train class
@@ -273,10 +281,10 @@ step Lake Al'Ameth
   turnin 919
 
 step Dolanaar
-  turnin 87288                                -- Aldia
   turnin 4161                                 -- Zarrin
   turnin 476                                  -- Athridas Bearmantle
   accept 483
+  turnin 87288                                -- Aldia
   turnin 2438                                 -- Tallonkai Swiftroot
   accept 2459
   accept 487                                  -- Moon Priestess Amara, on the road west of the village
@@ -329,13 +337,13 @@ step Gnarlpine Hold
 
 step Hearth to Dolanaar
   hearth "Dolanaar"
-  turnin 487                                  -- Moon Priestess Amara
-  turnin 932                                  -- Tallonkai Swiftroot
   turnin 99053                                -- Sentinel Kyra Starsong
-  turnin 483                                  -- Athridas Bearmantle
-  accept 486
   turnin 933                                  -- Corithras Moonrage
   accept 7383
+  turnin 487                                  -- Moon Priestess Amara
+  turnin 932                                  -- Tallonkai Swiftroot
+  turnin 483                                  -- Athridas Bearmantle
+  accept 486
 
 step Ferocitas the Dream Eater
   tip Gnarlpine Mystics and Ferocitas camp north-east of Starbreeze Village. Ferocitas drops the Gnarlpine Necklace: open it for the jewel.
@@ -353,8 +361,8 @@ step Sentinel Eralya Leafshadow
 step The Oracle Glade
   tip The moonwell is in the middle of the glade. The Strange Fronded Plant grows at its north end.
   collect 18151 quest 7383.1 @38.4,34.1       -- Use the Amethyst Phial at the moonwell
-  accept 931                                  -- Strange Fronded Plant
   accept 937                                  -- Sentinel Arynia Cloudsbreak, by the moonwell
+  accept 931                                  -- Strange Fronded Plant
 
 step Bloodfeather harpies
   tip The Bloodfeather harpies nest on the slopes west and north of the glade.
@@ -384,13 +392,14 @@ step Dolanaar
   tip North-east from Ursal's den, back to Dolanaar.
   turnin 99047                                -- Byancie
   accept 99050
-  buy 159 x1 npc 6736                         -- Refreshing Spring Water from Innkeeper Keldamyr, for Byancie
+  buy 3371 x1 npc 3614                        -- Empty Vial from Narret Shadowgrove, beside Byancie
+  accept 5629 only Priest                     -- Laurna Morninglight: Priestess Alathea in Darnassus takes it
   turnin 486                                  -- Athridas Bearmantle
+  buy 159 x1 npc 6736                         -- Refreshing Spring Water from Innkeeper Keldamyr, for Byancie
+  accept 6063 only Hunter                     -- Dazalar
   turnin 7383                                 -- Corithras Moonrage
   accept 935                                  -- Fandral in Darnassus takes it
-  accept 6063 only Hunter                     -- Dazalar
   accept 5925 only Druid                      -- Kal: Mathrengyl Bearwalker in Darnassus takes it
-  accept 5629 only Priest                     -- Laurna Morninglight: Priestess Alathea in Darnassus takes it
   train class
 
 step Lake Al'Ameth

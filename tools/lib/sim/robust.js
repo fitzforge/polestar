@@ -148,10 +148,17 @@ async function robust(o) {
 
 async function command(args, o) {
 	const faction = sim.normFaction(args.faction);
+	let cls;
+	try {
+		cls = sim.normClass(args.class);
+	} catch (err) {
+		console.error(`sim robust: ${err.message}`);
+		return 2;
+	}
 	const racesList = args.race ? [args.race] : sim.START_RACES[faction];
 	for (const race of racesList) {
 		const r = await robust({
-			...sim.DEFAULTS, ...o, faction, race, cls: args.class || null, family: args.dungeons ? 'dungeons' : 'solo',
+			...sim.DEFAULTS, ...o, faction, race, cls, family: args.dungeons ? 'dungeons' : 'solo',
 			draws: args.draws ? Number(args.draws) : 2000, top: args.top ? Number(args.top) : 10,
 			workers: args.workers ? Number(args.workers) : undefined, seed: args.seed ? Number(args.seed) : undefined,
 		});

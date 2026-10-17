@@ -109,7 +109,7 @@ step Grimand Elmore
 
 step Grimand's materials
   tip Runecloth drops from humanoids around level 50 and up; Arthas' Tears is an herb of the Plaguelands and Felwood; Arcanite Bars are an Alchemy transmute. The Auction House in Stormwind's Trade District sells all three, and so do crafters.
-  collect 14047 quest 7642.3          -- Runecloth
+  collect 14047 quest 7642.3 @61.2,71.3 live -- Runecloth
   collect 8836 quest 7642.2           -- Arthas' Tears
   collect 12360 quest 7642.4 @61.2,71.3 live -- Arcanite Bars: the Auction House
 
@@ -134,7 +134,7 @@ step Lord Grayson Shadowbreaker
 step Enriched Manna Biscuits
   zone Western Plaguelands
   tip The Argent Dawn quartermasters sell the biscuits in fives once the Argent Dawn is Friendly with you: Argent Quartermaster Lightspark at Chillwind Camp, Quartermaster Miranda Breechlock at Light's Hope Chapel, Argent Quartermaster Hasana at the Bulwark.
-  collect 13724 x20 @42.8,83.7        -- Enriched Manna Biscuits: Argent Quartermaster Lightspark, Chillwind Camp
+  buy 13724 x20 npc 10857             -- Enriched Manna Biscuits: Argent Quartermaster Lightspark, Chillwind Camp
 
 step Merideth Carlson
   zone Hillsbrad Foothills

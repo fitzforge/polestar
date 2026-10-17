@@ -22,8 +22,9 @@
 -- with inviteAccepted set, as its Accept button does, since its OnHide declines
 -- otherwise (GameDialogDefs.lua); GuildInviteFrame's OnHide declines, which is
 -- the answer anyway. Resurrection dialogs close themselves at PLAYER_ALIVE.
--- Under Forever's Gamepad interface style (C_InputInterfaceStyle) dialogs
--- belong to the gamepad focus system and are left for the player to dismiss.
+-- Under Forever's Gamepad interface style (ns.GamepadUI, Core/Init.lua)
+-- dialogs belong to the gamepad focus system and are left for the player
+-- to dismiss.
 -- Client: CONFIRM_SUMMON, RESURRECT_REQUEST, PARTY_INVITE_REQUEST,
 -- GUILD_INVITE_REQUEST, DUEL_REQUESTED (Blizzard_APIDocumentationGenerated);
 -- C_SummonInfo.ConfirmSummon, AcceptResurrect, AcceptGroup, DeclineGroup,
@@ -71,11 +72,7 @@ end
 -- Blizzard's dialogs
 ---------------------------------------------------------------------------
 
-local function gamepadUI()
-	local S, E = C_InputInterfaceStyle, Enum and Enum.InputDeviceInterfaceType
-	if not (S and S.GetCurrentStyle and E and E.Gamepad) then return false end
-	return S.GetCurrentStyle() == E.Gamepad
-end
+local gamepadUI = ns.GamepadUI
 
 local function nextFrame(fn)
 	if C_Timer and C_Timer.After then C_Timer.After(0, fn) else fn() end

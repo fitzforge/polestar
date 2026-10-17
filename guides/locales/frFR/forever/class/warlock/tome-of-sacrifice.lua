@@ -1,0 +1,36 @@
+-- French (frFR): the guide forever/class/warlock/tome-of-sacrifice (forever/class/warlock/tome-of-sacrifice.guide).
+-- Written by `node tools/polestar.js i18n guides sync frFR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
+-- name there in French (the English is listed above the line). A name the English has in the plural, as words,
+-- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
+-- A token marked "no name in this language" would show in English: write that name in French words instead.
+-- The comments are rewritten by sync.
+return {
+	-- Guide
+	-- {npc:14463} Daio the Decrepit · {npc:12396} Doomguard Commander · {zone:1419} Blasted Lands
+	["A rare off-hand at 60, {npc:14463}'s payment for capturing a {npc:12396} in the {zone:1419}."] = "Une main gauche rare au niveau 60, le paiement de {npc:14463} pour la capture d'un {npc:12396} dans {zone:1419}.",
+
+	-- Step 1: Daio the Decrepit
+	-- {npc:14463} Daio the Decrepit · {area:73} Tainted Scar · {zone:1419} Blasted Lands
+	["At 60 {npc:14463} waits in the {area:73}, in western {zone:1419}."] = "Au niveau 60, {npc:14463} attend dans {area:73}, à l'ouest de {zone:1419}.",
+
+	-- Step 2: Satyr Blood
+	-- {area:2577} Dire Maul · {area:2518} Lariss Pavilion · {area:1099} Camp Mojache · {item:18249} Crescent Key
+	["The Wildspawn satyrs of the Warpwood Quarter, {area:2577}'s eastern wing, carry the blood. The back door at {area:2518}, north of {area:1099}, needs the {item:18249}; otherwise go in by {area:2577}'s main entrance. Bring a group."] = "Les satyres Follengeance du quartier Crochebois, l'aile est de {area:2577}, portent le sang. La porte de derrière, à {area:2518} au nord de {area:1099}, exige {item:18249} ; sinon, entrez par l'entrée principale de {area:2577}. Venez en groupe.",
+	-- {item:18603} Satyr Blood
+	["{item:18603}, inside the Warpwood Quarter"] = "{item:18603}, dans le quartier Crochebois",
+
+	-- Step 3: Tears of the Hederine
+	-- {area:2256} Darkwhisper Gorge · {zone:1452} Winterspring
+	["The Hederine demons hold {area:2256}, in southern {zone:1452}. They are elite: grouping up is advised."] = "Les démons Hederine tiennent {area:2256}, au sud de {zone:1452}. Ils sont élites : il est conseillé de grouper.",
+
+	-- Step 4: Suppression
+	-- {npc:14463} Daio the Decrepit · {npc:12396} Doomguard Commander · {area:73} Tainted Scar · {item:18601} Glowing Crystal Prison
+	["Hand both in to {npc:14463}, then find the {npc:12396} in the {area:73} and use the {item:18601} on him. He is elite and fights to escape: grouping up is advised."] = "Rendez les deux à {npc:14463}, puis trouvez {npc:12396} dans {area:73} et utilisez {item:18601} sur lui. Il est élite et se bat pour s'échapper : il est conseillé de grouper.",
+	-- {item:18601} Glowing Crystal Prison · {npc:12396} Doomguard Commander
+	["{item:18601}, on the {npc:12396}"] = "{item:18601}, sur {npc:12396}",
+
+	-- Step 5: Back to Daio the Decrepit
+	-- {npc:14463} Daio the Decrepit
+	["Back to {npc:14463}"] = "Retour auprès de {npc:14463}",
+}

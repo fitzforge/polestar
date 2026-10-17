@@ -20,10 +20,10 @@ function src(faction, body) {
 	return `${[...head(faction), 'step S', ...body].join('\n')}\n`;
 }
 
-test('farm spots: clustered droppers with zone safety, level range, rate and spawn count', () => {
+test('farm spots: clustered droppers (by id and name) with zone safety, level range, rate and spawn count', () => {
 	const spots = farmSpots(fixtureData(), 4306);
 	const byName = Object.fromEntries(spots.map((s) => [s.npcName, s]));
-	assert.deepEqual(byName['Cloth Kobold'], { map: 1429, x: 65.4, y: 75.3, f: 'e', faction: 'A', npcName: 'Cloth Kobold', lvl: { min: 5, max: 5 }, rate: 0.3, spawns: 4 });
+	assert.deepEqual(byName['Cloth Kobold'], { map: 1429, x: 65.4, y: 75.3, f: 'e', faction: 'A', npc: 95001, npcName: 'Cloth Kobold', lvl: { min: 5, max: 5 }, rate: 0.3, spawns: 4 });
 	assert.deepEqual([byName['Cloth Harpy'].faction, byName['Cloth Harpy'].spawns], ['H', 3]);
 	assert.deepEqual([byName['Cloth Troll'].faction, byName['Cloth Troll'].lvl], ['AH', { min: 35, max: 35 }]);
 	assert.equal(byName['Lone Kobold'].spawns, 1);
@@ -82,7 +82,7 @@ test('farm spots and prerequisite titles emit Lua that the engine registry accep
 	assert.deepEqual(r.errors, []);
 	const file = path.join(writeTestPack(r.guides).dir, 'Guides.lua');
 	const lua = fs.readFileSync(file, 'utf8');
-	assert.match(lua, /\{ npcName = "Cloth Kobold", map = 1429, x = 65\.4, y = 75\.3, f = "e", faction = "A", lvl = \{ min = 5, max = 5 \}, rate = 0\.3, spawns = 4 \}/);
+	assert.match(lua, /\{ npc = 95001, npcName = "Cloth Kobold", map = 1429, x = 65\.4, y = 75\.3, f = "e", faction = "A", lvl = \{ min = 5, max = 5 \}, rate = 0\.3, spawns = 4 \}/);
 	assert.match(lua, /pre = \{ 9201, 783 \}, preTitles = \{ \[783\] = "A Threat Within", \[9201\] = "The First Step" \}/);
 	const [out] = runAddon({
 		addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],

@@ -55,6 +55,8 @@ next forever/horde/40-50/01-stranglethorn-vale
 #     taken in the Valley of Spears on the ride from Ethel Rethor back to
 #     Shadowprey, and handed in on a ride north from Mannoroc Coven before
 #     the hearth.
+# - Brackenwall, first visit: Mudcrush Durtfeet, at the south edge where the
+#   road comes in, before Krog and Do'gol.
 #
 # Class quests: none; Shamans handed Brine their waterskin (1536) in
 # forever/horde/06-hillsbrad-foothills.
@@ -97,6 +99,7 @@ step Shady Rest Inn
 
 step Brackenwall Village
   tip Take the road north at the fork to the ogre village of Brackenwall.
+  accept 1177                         -- Mudcrush Durtfeet, at the south edge of the village where the road comes in
   getfp "Brackenwall Village"
   turnin 1269                         -- Krog
   turnin 1251
@@ -104,7 +107,6 @@ step Brackenwall Village
   accept 1321
   turnin 1321                         -- Do'gol
   accept 1322
-  accept 1177                         -- Mudcrush Durtfeet, at the south edge of the village
   accept 1201                         -- Nazeer Bloodpike
 
 step Questioning Reethe

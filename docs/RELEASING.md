@@ -126,6 +126,27 @@ version throughout.
    10) until the maintainer has played the release on their own client and
    said it is good. If the servers are down, the release waits.
 
+   When the gamepad support changed (`UI/Gamepad.lua`, `UI/GamepadGuide.lua`,
+   `Bindings.xml`), play it with a gamepad too: `/console taintLog 1`, then
+   with "Browse the guide with the gamepad" on and again with the options
+   open, walk into a fight and out of it (the windows give the gamepad back
+   as it starts and take it again after), bind a button and a chord on the
+   Key bindings tab, use the quest item from focus mode, and `/reload`.
+   Then `/console taintLog 0`: `Logs/taint.log` names no Polestar file and
+   the chat shows no `ADDON_ACTION_BLOCKED` or `ADDON_ACTION_FORBIDDEN`.
+
+   Then once more with the game's gamepad interface on (Options, Gamepad,
+   Enable Gamepad UI), with `taintLog` at 0 (on this client it breaks every
+   addon's `hooksecurefunc` post-hooks, so a logged pass shows Polestar
+   misbehaving where nothing is wrong): `/polestar` is unknown, the minimap
+   button shows; open the options from it, move through them and close them
+   with B, browse the guide, and let a route choice or a new character's
+   welcome show by itself: it takes no button until the Browse the guide
+   button is pressed. Open and close the world map, a quest giver's window,
+   a vendor, the flight map and the talents with the gamepad. LB and RB +
+   the D-pad keep targeting while no Polestar window holds the gamepad, and
+   no "AddOn blocked" warning shows.
+
 7. Assemble the changelog from the fragments in `changes/` (CONTRIBUTING.md,
    "Commits and pull requests"), then commit it with the version bump and
    the regenerated files that are tracked (`git status` lists them;

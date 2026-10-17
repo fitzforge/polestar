@@ -32,6 +32,8 @@ next forever/horde/02-the-barrens
 # - Harpy Raiders (867) is done at about 14, after the Forgotten Pools next
 #   door, so Harpy Lieutenants (875) needs only one trip to the Dry Hills (the
 #   export goes there twice, at 15.6 and 16.1).
+# - In Ratchet, Sputtervalve, Wrenix and Gazlowe up the hill come before
+#   Wharfmaster Dizzywig on the dock: the dock is on the way to the beach.
 # - Hearths: one bind in Ratchet (12.8) and one hearth there from Echeyakee's
 #   lair (14.5); the export's other binds swap back and forth without a hearth
 #   between them. The final bind is at the Crossroads (16.1). The Sepulcher
@@ -148,10 +150,10 @@ step Ratchet
   tip Follow the road south-east to Ratchet on the coast.
   getfp "Ratchet"
   sethome "Ratchet"
-  turnin 1492                         -- Wharfmaster Dizzywig
-  accept 887                          -- Gazlowe
-  accept 97253                        -- Wrenix the Wretched
   accept 894                          -- Sputtervalve
+  accept 97253                        -- Wrenix the Wretched
+  accept 887                          -- Gazlowe
+  turnin 1492                         -- Wharfmaster Dizzywig, on the dock
 
 step Southsea beach
   tip The pirates camp along the beach south of Ratchet. The piles of complicated parts lie in and around their camp.

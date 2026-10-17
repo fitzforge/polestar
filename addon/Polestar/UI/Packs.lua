@@ -431,9 +431,8 @@ function P.Build(view)
 		y = y + 44
 		source:ClearAllPoints()
 		source:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
-		source:SetWidth(width)
 		source:Refresh()
-		y = y + W.ROW_H + 16
+		y = y + W.LayoutRow(source, width) + 16
 
 		aboutH:ClearAllPoints()
 		aboutH:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)

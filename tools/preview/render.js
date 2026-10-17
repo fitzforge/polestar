@@ -132,17 +132,23 @@ function plain(s) {
 	return String(s ?? '').replace(/\|\|/g, '\u0001').replace(/\|c[0-9a-fA-F]{8}/g, '').replace(/\|r/g, '').replace(/\u0001/g, '|');
 }
 
-// Greedy wrap, same rule as stub.lua.
+// Greedy wrap, same rule as stub.lua: at spaces, and between any two CJK
+// characters (ideographs, kana, their punctuation), as the client wraps them.
+const CJK = /[\u2e80-\u9fff\uf900-\ufaff\ufe30-\ufe4f\uff00-\uffef]/u;
+const PIECES = /[\u2e80-\u9fff\uf900-\ufaff\ufe30-\ufe4f\uff00-\uffef]|[^\u2e80-\u9fff\uf900-\ufaff\ufe30-\ufe4f\uff00-\uffef]+/gu;
 function wrap(fonts, font, text, width) {
 	const lines = [];
 	for (const para of text.split('\n')) {
 		let line = '';
 		for (const word of para.split(/\s+/).filter(Boolean)) {
-			const cand = line ? line + ' ' + word : word;
-			if (line && measure(fonts, font, cand) > width + 0.01) {
-				lines.push(line);
-				line = word;
-			} else line = cand;
+			const pieces = CJK.test(word) ? word.match(PIECES) : [word];
+			pieces.forEach((piece, i) => {
+				const cand = line ? line + (i === 0 ? ' ' : '') + piece : piece;
+				if (line && measure(fonts, font, cand) > width + 0.01) {
+					lines.push(line);
+					line = piece;
+				} else line = cand;
+			});
 		}
 		lines.push(line);
 	}

@@ -1,6 +1,24 @@
 ## Interface: 16001
 ## Title: Polestar Nav
 ## Notes: Part of Polestar: walking routes for the arrow, by Shortest Path Forever's pathing (Cillian Berragan, github.com/cjber/shortest-path-forever, used with his permission). Loaded on demand.
+## Title-deDE: Polestar Navigation
+## Notes-deDE: Teil von Polestar: Laufwege für den Pfeil, mit der Wegfindung von Shortest Path Forever (Cillian Berragan, github.com/cjber/shortest-path-forever, mit seiner Erlaubnis verwendet). Wird bei Bedarf geladen.
+## Title-esES: Polestar: navegación
+## Notes-esES: Parte de Polestar: rutas a pie para la flecha, con el cálculo de rutas de Shortest Path Forever (Cillian Berragan, github.com/cjber/shortest-path-forever, usado con su permiso). Se carga bajo demanda.
+## Title-esMX: Polestar: navegación
+## Notes-esMX: Parte de Polestar: rutas a pie para la flecha, con el cálculo de rutas de Shortest Path Forever (Cillian Berragan, github.com/cjber/shortest-path-forever, usado con su permiso). Se carga bajo demanda.
+## Title-frFR: Polestar : navigation
+## Notes-frFR: Fait partie de Polestar : itinéraires à pied pour la flèche, calculés par Shortest Path Forever (Cillian Berragan, github.com/cjber/shortest-path-forever, utilisé avec sa permission). Chargé à la demande.
+## Title-koKR: Polestar 길찾기
+## Notes-koKR: Polestar의 일부: 화살표용 도보 경로. Shortest Path Forever의 길찾기를 씁니다(Cillian Berragan, github.com/cjber/shortest-path-forever, 허락을 받아 사용). 필요할 때 불러옵니다.
+## Title-ptBR: Polestar: navegação
+## Notes-ptBR: Parte do Polestar: rotas a pé para a seta, com o cálculo de rotas do Shortest Path Forever (Cillian Berragan, github.com/cjber/shortest-path-forever, usado com permissão dele). Carregado sob demanda.
+## Title-ruRU: Polestar: навигация
+## Notes-ruRU: Часть Polestar: пешие маршруты для стрелки, построенные алгоритмом Shortest Path Forever (Cillian Berragan, github.com/cjber/shortest-path-forever, используется с его разрешения). Загружается по требованию.
+## Title-zhCN: Polestar 导航
+## Notes-zhCN: Polestar 的组成部分：为箭头提供步行路线，采用 Shortest Path Forever 的寻路（Cillian Berragan，github.com/cjber/shortest-path-forever，经其许可使用）。按需加载。
+## Title-zhTW: Polestar 導航
+## Notes-zhTW: Polestar 的一部分：為箭頭提供步行路線，採用 Shortest Path Forever 的尋路（Cillian Berragan，github.com/cjber/shortest-path-forever，經其許可使用）。按需載入。
 ## Author: Polestar; pathing by Cillian Berragan (Shortest Path Forever)
 ## Version: 0.2.4
 ## Category: Quests

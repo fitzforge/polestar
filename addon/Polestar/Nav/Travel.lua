@@ -93,12 +93,36 @@ local openPair = {}                             -- [map] = { [map] = true }: wal
 local chains = {}                               -- { id, name, open, nodes = { { map, c, wx, wy, r, caption, back, chain, idx }, ... } }
 local pathZone, zoneVersion = {}, 0             -- learned path node -> zone (false: none), cached per zone data
 
+-- "Stormwind" of "Stormwind, Elwynn" (a Chinese client's names part at "，").
 local function shortName(name)
-	return name:match("^([^,]+),") or name
+	return name:match("^([^,]+),") or name:match("^(.-)\239\188\140") or name
 end
 
-local function point(name, c, wx, wy, map, x, y, f)
-	return { name = name, c = c, wx = wx, wy = wy, map = map, x = x, y = y, f = f }
+-- area: the AreaTable area the place is named by (its name in the client's language).
+local function point(name, c, wx, wy, map, x, y, f, area)
+	return { name = name, c = c, wx = wx, wy = wy, map = map, x = x, y = y, f = f, area = area }
+end
+
+-- Names to show, in the client's language (Polestar.Names), else the data's
+-- English: a place by its AreaTable area, a flight point by its node id
+-- (short: the part before the comma), a spell by its id.
+function Travel.PlaceName(p)
+	if type(p) ~= "table" then return nil end
+	local N = ns.Names
+	return (N and p.area and N.Area(p.area)) or p.name
+end
+
+function Travel.TaxiName(node, short)
+	if type(node) ~= "table" then return nil end
+	local N = ns.Names
+	local name = N and node.id and N.Taxi(node.id)
+	if name then return short and shortName(name) or name end
+	return short and node.short or node.name
+end
+
+local function spellName(spell, english)
+	local N = ns.Names
+	return (N and spell and N.Spell(spell)) or english
 end
 
 local function clearData()
@@ -141,8 +165,8 @@ function Nav.RegisterTravelData(d, replace)
 		local a, b = t.a, t.b
 		transports[#transports + 1] = {
 			id = t.id, kind = t.kind, faction = t.faction,
-			a = point(a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8] or "e"),
-			b = point(b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8] or "e"),
+			a = point(a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8] or "e", a[9]),
+			b = point(b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8] or "e", b[9]),
 			ab = t.ab, ba = t.ba, waitA = t.waitA, waitB = t.waitB,
 		}
 	end
@@ -151,9 +175,9 @@ function Nav.RegisterTravelData(d, replace)
 		local a, b = t.a, t.b
 		if type(a) == "table" and type(b) == "table" then
 			portals[#portals + 1] = {
-				id = t.id, kind = "portal", name = t.name, faction = t.faction or 3, seconds = t.seconds or 5,
-				a = point(a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8] or "e"),
-				b = point(b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8] or "e"),
+				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, seconds = t.seconds or 5,
+				a = point(a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8] or "e", a[9]),
+				b = point(b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8] or "e", b[9]),
 			}
 		end
 	end
@@ -885,22 +909,22 @@ function Nav.PlanRoute(p)
 			end
 		elseif how == FLY then
 			leg.kind = "fly"
-			leg.label = format(L["Fly to %s"], vref[to].short)
+			leg.label = format(L["Fly to %s"], Travel.TaxiName(vref[to], true))
 		elseif how == RIDE then
 			local t = dockOf[u]
 			leg.kind = t.kind
-			leg.label = format(TAKE[t.kind] or TAKE.boat, dockEnd[to].name)
+			leg.label = format(TAKE[t.kind] or TAKE.boat, Travel.PlaceName(dockEnd[to]))
 			leg.transport, leg.side = t, dockSide[u]
 		elseif teleV[to] then
 			local e = teleV[to]
 			leg.kind = "teleport"
 			leg.spell = e.spell
-			leg.label = format(L["Cast %s"], e.name or "")
+			leg.label = format(L["Cast %s"], spellName(e.spell, e.name) or "")
 		else
 			leg.kind = "hearth"
 			leg.item = 6948 -- the Hearthstone
 			leg.seconds = HEARTH_SECONDS
-			leg.label = format(L["Hearth to %s"], p.hearthName or vref[to].name)
+			leg.label = format(L["Hearth to %s"], p.hearthName or Travel.PlaceName(vref[to]))
 		end
 		legs[#legs + 1] = leg
 		i = j

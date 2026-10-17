@@ -14,7 +14,6 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { instanceFacts, buildInstances } = require('../tools/lib/codex/instances');
 const { buildJournal, emitJournal } = require('../tools/lib/codex/journal');
-const { parseEntity, wowheadWants } = require('../tools/lib/codex/wowhead');
 const { runAddon } = require('./helpers/lua');
 const { writeCodexPack, sampleCodex } = require('./helpers/codex');
 const { fakeLocale } = require('./helpers/locale');
@@ -88,9 +87,9 @@ test('buildInstances: Wowhead location ties NPCs and chests to the instance; bos
 	const { instances, bossInstance, npcInstance } = buildInstances(facts, ctx());
 	const brd = instances['blackrock-depths'];
 	assert.deepEqual(brd.bosses, [
-		{ name: 'Lord Roccor', npc: 9025, items: [] },
-		{ name: 'The Seven', npc: null, items: [11920], object: 169243 },
-		{ name: 'Magmus', npc: 9938, items: [] },
+		{ name: 'Lord Roccor', npc: 9025, items: [], encounter: 1 },
+		{ name: 'The Seven', npc: null, items: [11920], object: 169243, encounter: 2 },
+		{ name: 'Magmus', npc: 9938, items: [], encounter: 3 },
 		{ name: 'Watchman Doomgrip', npc: 9476, items: [], role: 'optional' },
 		{ name: 'Gorosh the Dervish', npc: 9027, items: [1001], role: 'event' },
 		{ name: 'Panzor the Invincible', npc: 8923, items: [], role: 'rare' },
@@ -106,21 +105,7 @@ test('buildInstances: Wowhead location ties NPCs and chests to the instance; bos
 	assert.equal(npcInstance[8900], 'blackrock-depths');
 });
 
-test('parseEntity reads the page entry location and boss flag; wowheadWants asks for the objects named like a missing boss', () => {
-	const html = `<h1 class="heading-size-1">Gorosh the Dervish</h1>
-<script>$.extend(g_npcs[9027], {"boss":1,"classification":1,"id":9027,"location":[1584],"maxlevel":56,"name":"Gorosh the Dervish"});</script>`;
-	const n = parseEntity(html, 'npc', 9027);
-	assert.deepEqual([n.v, n.boss, n.location], [2, true, [1584]]);
-	const o = parseEntity('<h1 class="heading-size-1">Chest of The Seven</h1><script>$.extend(g_objects[169243], {"id":169243,"location":[1584],"name":"Chest of The Seven"});</script>', 'object', 169243);
-	assert.deepEqual([o.boss, o.location], [false, [1584]]);
-	assert.deepEqual(parseEntity('<h1 class="heading-size-1">Nobody</h1>', 'npc', 1).location, []);
-	const report = { kinds: { bosses: { missing: [{ id: 'blackrock-depths/9034', name: 'Chest of The Seven (Blackrock Depths)' }, { id: 'uldaman/baelogschest', name: "Baelog's Chest (Uldaman)" }] } } };
-	const want = wowheadWants(report, {}, { 169243: { name: 'Chest of The Seven' }, 123329: { name: "Baelog's Chest" }, 1: { name: 'Other' } });
-	assert.deepEqual(want.npc, [9034]);
-	assert.deepEqual(want.object, [123329, 169243]);
-});
-
-const LUA_FILES = { name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Core/Data.lua', 'Core/Guides.lua', 'Lookup/Codex.lua'] };
+const LUA_FILES = { name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Core/Data.lua', 'Core/Names.lua', 'Core/GuideTexts.lua', 'Core/Guides.lua', 'Lookup/Codex.lua'] };
 
 test('the pack carries chest bosses and roles; an encounter boss keeps the old bare npc ref', () => {
 	const codex = sampleCodex();

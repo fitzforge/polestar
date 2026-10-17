@@ -17,17 +17,18 @@ const { TEST_PACK, TEST_SOURCE } = require('./helpers/packs');
 const ADDON = { name: 'Polestar', files: ['Core/Core.xml', 'Theme/Theme.xml', 'Nav/Nav.xml'] };
 
 // What each client calls the places: AreaTable areas (Duskwood 10, Elwynn
-// Forest 12, Darkshire 42, Goldshire 87, Stormwind City 1519), the taxi nodes
-// (12 Darkshire, 2 Stormwind) and two subzones without a goal.
+// Forest 12, Darkshire 42, Goldshire 87, Stormwind City 1519; Durotar 14, its
+// Valley of Trials 363 and the Burning Blade Coven 365, a cave in it), the
+// taxi nodes (12 Darkshire, 2 Stormwind) and two subzones without a goal.
 const CLIENTS = {
 	frFR: {
-		areas: { 10: 'Bois de la Pénombre', 12: "Forêt d'Elwynn", 42: 'Sombre-Comté', 87: "Comté-de-l'Or", 1519: 'Hurlevent' },
+		areas: { 10: 'Bois de la Pénombre', 12: "Forêt d'Elwynn", 42: 'Sombre-Comté', 87: "Comté-de-l'Or", 1519: 'Hurlevent', 14: 'Durotar', 363: 'Vallée des Épreuves', 365: 'Antre de la Lame ardente' },
 		nodes: { 12: 'Sombre-Comté, Bois de la Pénombre', 2: "Hurlevent, Forêt d'Elwynn" },
 		grove: 'Bosquet de Clairbois',
 		trade: 'Quartier commerçant',
 	},
 	enUS: {
-		areas: { 10: 'Duskwood', 12: 'Elwynn Forest', 42: 'Darkshire', 87: 'Goldshire', 1519: 'Stormwind City' },
+		areas: { 10: 'Duskwood', 12: 'Elwynn Forest', 42: 'Darkshire', 87: 'Goldshire', 1519: 'Stormwind City', 14: 'Durotar', 363: 'Valley of Trials', 365: 'Burning Blade Coven' },
 		nodes: { 12: 'Darkshire, Duskwood', 2: 'Stormwind, Elwynn' },
 		grove: 'Brightwood Grove',
 		trade: 'Trade District',
@@ -191,4 +192,93 @@ Polestar.RegisterGuide({ id = "test/names", pack = "test", title = "Names", fact
 	assert.match(fr.text, /Darkshire$/, 'a goal without an area keeps its English place name');
 	const [en] = run('enUS', { guide: GUIDE, id: 'test/names', script });
 	assert.deepEqual(en, { trail: [1, 2, 3, 4], text: 'Hearth to Darkshire' });
+});
+
+// A goto labelled with a cave's subzone (compile gives it the area, #105) at
+// the cave's mouth, then one labelled with its zone; Durotar's frame as the
+// client places it (data/forever/map-frames.json).
+const COVEN = `
+Polestar.RegisterGuide({ id = "test/coven", pack = "test", title = "Coven", faction = "Alliance", minLevel = 1, maxLevel = 60, steps = {
+	{ goals = { { t = "goto", text = "{area:365}", area = 365, map = 1411, x = 45, y = 56 } } },
+	{ goals = { { t = "goto", text = "{zone:1411}", area = 14, map = 1411, x = 52, y = 44 } } },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+`;
+const DUROTAR = `
+w.addMap(1411, { name = "Durotar", c = 1, left = -1962.5, right = -7250, top = 1808.333, bottom = -1716.667 })
+w.moveTo(1411, 44, 62)
+w.zone, w.subzone = AREAS[14], AREAS[363]
+-- The player at x, y in Durotar's subzone sub, indoors or not; the step after
+-- the next arrival poll.
+function at(x, y, sub, indoors)
+	w.moveTo(1411, x, y)
+	w.indoors = indoors
+	stub.world.setZone(AREAS[14], sub)
+	stub.advance(0.6)
+	return E.GetStepIndex()
+end
+`;
+
+test('#177: walking into the cave a goto names arrives there, by area ID on a French client too; a goto naming the zone does not', () => {
+	for (const locale of ['frFR', 'enUS']) {
+		const [out] = run(locale, {
+			guide: COVEN,
+			id: 'test/coven',
+			before: DUROTAR,
+			script: `emit({
+				E.GetStepIndex(),
+				at(45.13, 55.75, AREAS[363], false), -- 11 yd from the mouth's point, outside
+				at(45.13, 55.75, AREAS[365], true),  -- the same 11 yd, inside the Burning Blade Coven
+				at(30, 30, AREAS[363], false),
+				at(30, 30, AREAS[14], true),         -- a subzone text naming the zone itself
+			})`,
+		});
+		assert.deepEqual(out, [1, 1, 2, 2, 2], locale);
+	}
+});
+
+test('#177: the cave arrives only on going in: not in its subzone outdoors, not when inside as the goto comes up, not for a second goto into it', () => {
+	// Its subzone outdoors, around or above the cave (Fargodeep Mine's hill).
+	const [outdoors] = run('frFR', {
+		guide: COVEN,
+		id: 'test/coven',
+		before: DUROTAR,
+		script: 'emit({ at(45.5, 57, AREAS[365], false), at(45.5, 57, AREAS[365], true) })',
+	});
+	assert.deepEqual(outdoors, [1, 2]);
+	// Inside the cave when the step comes up: the goto's point still leads.
+	const [inside] = run('frFR', {
+		guide: COVEN,
+		id: 'test/coven',
+		before: `${DUROTAR}\nw.moveTo(1411, 44.5, 55); w.subzone, w.indoors = AREAS[365], true`,
+		script: 'emit({ at(44.5, 55, AREAS[365], true), at(44, 62, AREAS[363], false), at(44.5, 55, AREAS[365], true) })',
+	});
+	assert.deepEqual(inside, [1, 1, 2]);
+	// A second goto of the step into the same cave is a waypoint further in.
+	const TWO = COVEN.replace('x = 45, y = 56 } } }', 'x = 45, y = 56 }, { t = "goto", text = "{area:365}", area = 365, map = 1411, x = 43, y = 53 } } }');
+	const [two] = run('frFR', {
+		guide: TWO,
+		id: 'test/coven',
+		before: DUROTAR,
+		script: 'emit({ at(45.13, 55.75, AREAS[365], true), at(43.05, 53.05, AREAS[365], true) })',
+	});
+	assert.deepEqual(two, [1, 2]);
+});
+
+test('#177: back at the goto after stepping past it, the player inside the cave still walks to its point: being outside earlier does not count', () => {
+	const [out] = run('frFR', {
+		guide: COVEN,
+		id: 'test/coven',
+		before: DUROTAR,
+		script: `
+			local r = { at(44, 62, AREAS[363], false) } -- outside, the goto open
+			E.Next(); flush(); r[#r + 1] = E.GetStepIndex()
+			r[#r + 1] = at(45.13, 55.75, AREAS[365], true) -- into the cave on the next step
+			E.Prev(); flush(); r[#r + 1] = E.GetStepIndex()
+			r[#r + 1] = at(45.13, 55.75, AREAS[365], true) -- still inside: the goto stays
+			r[#r + 1] = at(44, 62, AREAS[363], false)
+			r[#r + 1] = at(45.13, 55.75, AREAS[365], true) -- out and back in
+			emit(r)`,
+	});
+	assert.deepEqual(out, [1, 2, 2, 1, 1, 1, 2]);
 });

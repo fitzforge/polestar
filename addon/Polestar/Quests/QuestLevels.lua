@@ -338,7 +338,13 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.questLevels" or path == "qol" or path == "" then sync() end
 end)
 
+-- Not with the gamepad interface (ns.GamepadUI): every surface is a window
+-- its navigation manages, and these hooks resize the game's buttons there
+-- from Polestar's code. A list that lays itself out again then rebuilds the
+-- gamepad's buttons in that code (ScrollBoxListView.lua RefreshSmartNav),
+-- and the window's next close is blocked.
 ns.OnInit(function()
 	enabled = ns.Get("qol.questLevels") and true or false
+	if ns.GamepadUI() then return end
 	if not installReady() then ns.RegisterEvent("ADDON_LOADED", onAddonLoaded) end
 end)

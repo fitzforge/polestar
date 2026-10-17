@@ -44,11 +44,11 @@ end
 local function mark(button)
 	local m = marks[button]
 	if m then return m end
-	m = CreateFrame("Frame", nil, button)
+	m = ns.CreateFrameUnder("Frame", nil, button)
 	m:SetPoint("TOPLEFT", button, "TOPLEFT", -3, 3)
 	m:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 3, -3)
 	m:SetFrameLevel(button:GetFrameLevel() + 5)
-	m.Ring = CreateFrame("Frame", nil, m)
+	m.Ring = ns.CreateFrameUnder("Frame", nil, m)
 	-- Wider than the mark, so the top-right badge sits inside it.
 	m.Ring:SetPoint("TOPLEFT", m, "TOPLEFT", -RING_OUT, RING_OUT)
 	m.Ring:SetPoint("BOTTOMRIGHT", m, "BOTTOMRIGHT", RING_OUT, -RING_OUT)
@@ -56,7 +56,7 @@ local function mark(button)
 		edge(m.Ring, "TOPLEFT", "TOPRIGHT", true), edge(m.Ring, "BOTTOMLEFT", "BOTTOMRIGHT", true),
 		edge(m.Ring, "TOPLEFT", "BOTTOMLEFT"), edge(m.Ring, "TOPRIGHT", "BOTTOMRIGHT"),
 	}
-	m.Badge = CreateFrame("Frame", nil, m)
+	m.Badge = ns.CreateFrameUnder("Frame", nil, m)
 	m.Badge:SetSize(20, 14)
 	-- Top right: Blizzard's rank count sits bottom right, our off-plan flag top left.
 	m.Badge:SetPoint("TOPRIGHT", m, "TOPRIGHT", 2, 2)
@@ -110,7 +110,9 @@ function O.Draw()
 	for button in f:EnumerateAllTalentButtons() do
 		local liveID = button.GetNodeID and button:GetNodeID()
 		local id, pick, off, isNext = planFor(c, liveID)
-		if not hooked[button] and button.HookScript then
+		-- No tooltip line with the gamepad interface (ns.GamepadUI): its
+		-- navigation runs a button's OnEnter from its own code as it moves.
+		if not hooked[button] and button.HookScript and not ns.GamepadUI() then
 			button:HookScript("OnEnter", onEnter)
 			hooked[button] = true
 		end

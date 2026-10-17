@@ -725,6 +725,8 @@ end
 --   stop = { kind, name, zone, to (passages: the area beyond), wx, wy (on the
 --     path), r, along (yards from here), seg, lift (Transit id), side
 --     ("top"|"bottom": the landing boarded), endX, endY (the other landing) }
+--   (name, zone, to in the client's language when it names them: the
+--   chokepoints' AreaTable areas and lift objects, Polestar.Names)
 ---------------------------------------------------------------------------
 
 local SNAP = 15        -- yards: a chokepoint without a radius counts within this of the path
@@ -781,6 +783,12 @@ local function liftId(c, wx, wy)
 	return nil
 end
 
+-- A chokepoint's area name in the client's language, else the pack's English.
+local function areaName(id, english)
+	local N = ns.Names
+	return (N and id and N.Area(id)) or english
+end
+
 -- The stops along the current path from where the player is, in order.
 -- -> stops, total (yards along the path from the player to the goal)
 function Walk.Stops(pc, px, py)
@@ -825,7 +833,7 @@ function Walk.Stops(pc, px, py)
 	for _, f in ipairs(found) do
 		local e = f.entry
 		if not used[e] and f.along - lastAlong >= MIN_STEP then
-			local s = { kind = f.kind, name = e.name, zone = e.zone, wx = f.wx, wy = f.wy, r = f.r, along = f.along, seg = f.seg }
+			local s = { kind = f.kind, name = areaName(e.area, e.name), zone = areaName(e.zoneArea, e.zone), wx = f.wx, wy = f.wy, r = f.r, along = f.along, seg = f.seg }
 			if f.kind == "lift" then
 				-- The landing boarded and the ride to its pair. The side comes from
 				-- the path's height when it has one (K4): a packed lift's two
@@ -836,7 +844,7 @@ function Walk.Stops(pc, px, py)
 				local side = up ~= nil and (up and "bottom" or "top") or e.liftEnd
 				if other and side and e.liftEnd and other.liftEnd == side and e.liftEnd ~= side then
 					e, other = other, e
-					s.name, s.zone = e.name, e.zone
+					s.name, s.zone = areaName(e.area, e.name), areaName(e.zoneArea, e.zone)
 				end
 				if other then
 					used[other] = true
@@ -845,7 +853,11 @@ function Walk.Stops(pc, px, py)
 				s.side = side
 				local id, name = liftId(gc, e.wx, e.wy)
 				if packed then
-					s.lift, s.name = id or e.id, e.lift or name or e.name
+					-- The lift object's own name; on another client's language,
+					-- else the Transit lift's (its area's), before the English.
+					local N = ns.Names
+					local own = N and e.liftObject and N.Object(e.liftObject)
+					s.lift, s.name = id or e.id, own or (N and N.Localised() and name) or e.lift or name or s.name
 				else
 					s.lift, s.name = e.id or id, e.name or name
 				end
@@ -860,7 +872,7 @@ function Walk.Stops(pc, px, py)
 						if d < bestD then best, bestD = side, d end
 					end
 				end
-				s.to = best and best.area or nil
+				s.to = best and areaName(best.zoneArea, best.area) or nil
 			end
 			stops[#stops + 1] = s
 			lastAlong = f.along

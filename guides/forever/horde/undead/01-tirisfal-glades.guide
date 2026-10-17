@@ -9,7 +9,7 @@ next forever/horde/02-the-barrens
 # Route: the simulator's consensus Undead route (data/sim/export/
 # consensus-horde-undead, visit 1, levels 1-11.9). Checked against the
 # 2026-10-14 export: same Tirisfal quests, same order apart from turn-ins
-# swapped within one Brill visit.
+# and accepts swapped within a Brill visit.
 #
 # Flow: Deathknell -> the road east past Calvin Montague and Gordo -> Brill
 # (bind) -> Doom Weed north of town -> west fields, Gordo, Calvin's duel ->
@@ -300,11 +300,11 @@ step Hearth to Brill
 step Brill
   turnin 367                          -- Apothecary Johaan
   accept 368
+  accept 95314                        -- Carolai Anise, beside Johaan
   turnin 404                          -- Deathguard Dillinger
   accept 426
-  talk 265944                         -- William Pickman, in the inn: ask him about cooking
+  kill 265944 quest 96658.1 "Talk to William Pickman" -- in the inn: ask him about cooking
   turnin 96658
-  accept 95314                        -- Carolai Anise
   accept 398                          -- The Wanted poster by the inn
   accept 358                          -- Magistrate Sevren, in the town hall
   accept 362                          -- Coleman Farthing, in the inn
@@ -478,9 +478,9 @@ step Hadric Harlson
 
 step Balnir Farmstead
   tip The Cult of the Damned holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
-  kill 267006 quest 96897.1
-  kill 275437 quest 96897.2
-  collect 275851 quest 96898.1
+  kill 267006 quest 96897.1 @68.2,64.6
+  kill 275437 quest 96897.2 @68.2,64.6
+  collect 275851 quest 96898.1 @68.2,64.6
 
 step Balnir graves
   tip Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the Tomb Weed grows.

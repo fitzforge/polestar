@@ -60,7 +60,7 @@ function T.Register(data)
 	for _, b in ipairs(data.builds) do
 		local picks = {}
 		for i, p in ipairs(b.picks) do picks[i] = { order = i, node = p[1], rank = p[2] } end
-		b.picks, b.data, b.specName = picks, data, data.specs[b.spec]
+		b.picks, b.data, b.specName = picks, data, L[data.specs[b.spec]]
 	end
 	registry[data.class] = data
 end
@@ -79,7 +79,7 @@ end
 
 -- Every pick under the snapshot's rules (the tool's replay, again here so a
 -- hand-edited Builds.lua cannot slip through): one point a pick, the next
--- rank, the tier gate met, the arrows into it satisfied.
+-- rank, the tier gate met, an arrow into it satisfied (of several, any one).
 function T.Replay(data, build)
 	local errors, ranks = {}, {}
 	local function spent(g)
@@ -98,12 +98,16 @@ function T.Replay(data, build)
 			for _, g in ipairs(data.gates[p.node] or {}) do
 				if spent(g[1]) < g[2] then err(format("needs %d points in the tree", g[2])) end
 			end
+			-- Several arrows into one talent: any one of them opens it.
+			local into, open = {}, false
 			for _, e in ipairs(data.edges) do
 				if e[2] == p.node then
 					local from = data.nodes[e[1]]
-					if (ranks[e[1]] or 0) < T.PrereqRank(data, from) then err("needs " .. from.name) end
+					into[#into + 1] = from.name
+					if (ranks[e[1]] or 0) >= T.PrereqRank(data, from) then open = true end
 				end
 			end
+			if #into > 0 and not open then err("needs " .. table.concat(into, " or ")) end
 			ranks[p.node] = p.rank
 		end
 	end

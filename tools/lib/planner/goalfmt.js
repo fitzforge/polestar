@@ -294,6 +294,7 @@ function formatGoal(fields) {
 	if (f.rewardItems) push('reward', rewardText('reward', f.rewardItems));
 	if (f.rewardXp !== undefined) push('xp', `xp ${f.rewardXp}`);
 	if (f.rewardMoney !== undefined) push('money', `money ${moneyText(f.rewardMoney)}`);
+	if (f.direct && verb === 'turnin') push('direct', 'direct');
 	if (f.group) push('group', f.group.size !== undefined ? `group ${f.group.size}` : 'group');
 	const label = f.text !== undefined && !XY_POSITIONAL.includes(verb) && verb !== 'note' ? quote(f.text) : null;
 	if (f.optional) push('optional', 'optional');
@@ -415,13 +416,14 @@ const MODIFIER_FIELDS = {
 	reward: [fld('rewardItems', 'items', 'Rewards')],
 	xp: [fld('rewardXp', 'int', 'XP')],
 	money: [fld('rewardMoney', 'money', 'Money (copper)')],
+	direct: [fld('direct', 'bool', 'Handed in without an accept')],
 	group: [fld('group', 'group', 'Group')],
 	text: [fld('text', 'text', 'Label')],
 	optional: [fld('optional', 'bool', 'Optional')],
 	only: [fld('onlyText', 'text', 'Only for')],
 };
 // Modifier order of the schema = the order formatGoal writes them.
-const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'until', 'criteria', 'nearest', 'choose', 'reward', 'xp', 'money', 'group', 'text', 'optional', 'only'];
+const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'until', 'criteria', 'nearest', 'choose', 'reward', 'xp', 'money', 'direct', 'group', 'text', 'optional', 'only'];
 
 function verbSchema() {
 	const verbs = {};

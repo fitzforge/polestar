@@ -170,9 +170,12 @@ function m.jump(seconds)
 end
 
 ---------------------------------------------------------------------------
--- World map canvas (the Blizzard_MapCanvas shape a data provider sees)
+-- The world map (wow_stub.lua's map canvas, 1000 x 1000 canvas units; its
+-- tables guarded: addon code may only read them)
 --   m.withMapCanvas()          before login: continent 9100 holding zone 9000 at x 0.2-0.6, y 0.1-0.5
---   m.showMap(mapID)           open the world map on mapID
+--   m.showMap(mapID)           open the world map on mapID (or show mapID in the open
+--                              map), then one frame passes on the map
+--   m.canvasScale              the canvas scale (zoom), read on the map's next frame
 --   m.cursor = { nx, ny }      normalized cursor over the canvas (nil: off the map)
 ---------------------------------------------------------------------------
 
@@ -180,17 +183,9 @@ function m.withMapCanvas()
 	world.addMap(9100, { name = "Testland", c = 0, top = 3000, bottom = -7000, left = 5000, right = -5000 })
 	world.maps[9100].mapType = 2
 	world.maps[9000].parent = 9100
-	MapCanvasDataProviderMixin = MapCanvasDataProviderMixin or {
-		OnAdded = function(self, map) self.owningMap = map end,
-		GetMap = function(self) return self.owningMap end,
-		RemoveAllData = function() end,
-		RefreshAllData = function() end,
-		OnMapChanged = function(self) self:RefreshAllData() end,
-	}
 	local map = WorldMapFrame
-	m.canvas = m.canvas or CreateFrame("Frame", nil, map.ScrollContainer)
+	m.canvas = map:GetCanvas()
 	m.canvas:SetSize(1000, 1000)
-	function map.GetCanvas() return m.canvas end
 	function map.GetMapID() return m.viewMap end
 	function map.GetCanvasScale() return m.canvasScale or 1 end
 	function map.IsCanvasMouseFocus() return m.cursor ~= nil end
@@ -198,6 +193,8 @@ function m.withMapCanvas()
 		if not m.cursor then return nil end
 		return m.cursor[1], m.cursor[2]
 	end
+	stub.guardMap(map)
+	stub.withSoftCursor()
 	local getInfo = C_Map.GetMapInfo
 	function C_Map.GetMapInfo(id)
 		local info = getInfo(id)
@@ -217,10 +214,8 @@ end
 
 function m.showMap(mapID)
 	m.viewMap = mapID
-	WorldMapFrame:Show()
-	for p in pairs(WorldMapFrame.dataProviders) do
-		if p.OnMapChanged then p:OnMapChanged() end
-	end
+	if not WorldMapFrame:IsShown() then WorldMapFrame:Show() end
+	stub.runMapFrame(WorldMapFrame, 0)
 end
 
 return m

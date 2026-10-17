@@ -45,6 +45,8 @@ next forever/horde/50-60/07-felwood
 #   ride into Andorhal for the watchtowers, done at the silos in the same
 #   sweep, handed in at the closing Chromie stop. Counting Out Time
 #   (4972/4973) is left out: it sends you searching Andorhal's houses again.
+# - Cenarion Hold, riding in from the west: Bor Wildmane, on the west side,
+#   before Proudhorn and the Ficklesprags.
 #
 # Left out (besides the above): Stormers and Rumblers (6805: turned in to
 # Duke Hydraxis after 60), Skeletal Fragments (964: never turned in),
@@ -154,11 +156,11 @@ step Twilight Outpost
   collect 20404 x20
 
 step Cenarion Hold
+  accept 8318                         -- Bor Wildmane, on the west side of the Hold
+  turnin 8318
   turnin 8281                         -- Windcaller Proudhorn
   turnin 8278                         -- Beetix Ficklespragg
   accept 8282                         -- Noggle Ficklespragg
-  accept 8318                         -- Bor Wildmane
-  turnin 8318
 
 # ---------------------------------------------------------------- Noggle's satchel and Ortell
 
@@ -237,10 +239,10 @@ step Andorhal watchtowers and silos
   tip Ride south into Andorhal. Chromie waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the Beacon Torch to mark it; keep to the edges of town. Use the Temporal Displacer by the silos in the middle of town to bring out Temporal Parasites.
   accept 4971                         -- Chromie
   kill 10717 quest 4971.1
-  kill 10904 quest 5098.3
-  kill 10903 quest 5098.2
-  kill 10902 quest 5098.1
-  kill 10905 quest 5098.4
+  kill 10904 quest 5098.3 "Mark Andorhal Tower Three with the Beacon Torch"
+  kill 10903 quest 5098.2 "Mark Andorhal Tower Two with the Beacon Torch"
+  kill 10902 quest 5098.1 "Mark Andorhal Tower One with the Beacon Torch"
+  kill 10905 quest 5098.4 "Mark Andorhal Tower Four with the Beacon Torch"
 
 step The Bulwark
   zone Tirisfal Glades

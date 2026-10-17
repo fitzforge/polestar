@@ -9,10 +9,12 @@
 //   const list = chokepoints({ nav, c, aids, lifts, geo, areas });   // -> [entry]
 //   chokepointsLua({ [c]: list }, source)                            // -> Nav/Chokepoints.lua
 //
-// An entry: { wx, wy, z, r, kind, name, zone, sides?, liftEnd?, lift?, pair? }
+// An entry: { wx, wy, z, r, kind, name, area, zone, zoneArea, sides?, liftEnd?, lift?, liftObject?, pair? }
 // in UnitPosition's frame (wx north, wy west), yards. name: the area
 // (AreaTable, the chunk's area id) at the point, never empty (the zone's
-// name when the area has none); zone: the zone the area belongs to.
+// name when the area has none); zone: the zone the area belongs to; area,
+// zoneArea: their AreaTable ids, so the client names them in its language
+// (a side's zoneArea likewise); liftObject: the lift's GameObject entry.
 //
 // Rules (decided 2026-10-15):
 // - lift: both landings of every lift of the grid (lifts.json, build.js
@@ -121,12 +123,14 @@ function mouthAround(nav, c, wx, wy, z) {
 const CAPTION_KIND = { 'Enter the cave': 'cave', 'Go inside': 'building', 'Follow the path up': 'pass', 'Follow the path': 'pass' };
 const round1 = (v) => Math.round(v * 10) / 10;
 
-// AreaTable rows -> (areaId) -> { name, zone } with names, never empty.
+// AreaTable rows -> (areaId) -> { name, area, zone, zoneArea } with names, never
+// empty; area and zoneArea the ids of the rows the two names come from.
 function areaNames(areaRows) {
 	const rows = new Map(areaRows.map((r) => [Number(r.ID), r]));
 	return (id) => {
 		let r = rows.get(Number(id));
 		if (!r) return null;
+		const first = r;
 		const name = r.AreaName_lang || r.ZoneName;
 		const seen = new Set();
 		while (Number(r.ParentAreaID) > 0 && rows.has(Number(r.ParentAreaID)) && !seen.has(r.ID)) {
@@ -134,7 +138,7 @@ function areaNames(areaRows) {
 			r = rows.get(Number(r.ParentAreaID));
 		}
 		const zone = r.AreaName_lang || r.ZoneName;
-		return { name: name || zone, zone: zone || name };
+		return { name: name || zone, area: Number(name ? first.ID : r.ID), zone: zone || name, zoneArea: Number(zone ? r.ID : first.ID) };
 	};
 }
 
@@ -287,7 +291,7 @@ function chokepoints({ nav, c, aids, lifts = [], geo, areas }) {
 	}
 	const base = list.length;
 	for (const L of landings) {
-		list.push({ wx: round1(L.wx), wy: round1(L.wy), z: round1(L.z), r: R_MIN, kind: 'lift', ...place(L.wx, L.wy), lift: L.lift, liftEnd: L.liftEnd, pair: base + L.pair });
+		list.push({ wx: round1(L.wx), wy: round1(L.wy), z: round1(L.z), r: R_MIN, kind: 'lift', ...place(L.wx, L.wy), lift: L.lift, liftObject: L.id, liftEnd: L.liftEnd, pair: base + L.pair });
 	}
 	const near = (wx, wy, kind) => list.findIndex((x) => x.kind === kind && Math.hypot(x.wx - wx, x.wy - wy) <= MERGE);
 	const world = (p) => geo.toWorld(p.map, p.x, p.y, 'e');
@@ -316,7 +320,10 @@ function chokepoints({ nav, c, aids, lifts = [], geo, areas }) {
 		const wx = (a.wx + b.wx) / 2;
 		const wy = (a.wy + b.wy) / 2;
 		if (near(wx, wy, kind) >= 0) continue;
-		const sides = [[a, x.a], [b, x.b]].map(([p]) => ({ wx: round1(p.wx), wy: round1(p.wy), area: place(p.wx, p.wy).zone }));
+		const sides = [[a, x.a], [b, x.b]].map(([p]) => {
+			const at = place(p.wx, p.wy);
+			return { wx: round1(p.wx), wy: round1(p.wy), area: at.zone, ...(at.zoneArea ? { zoneArea: at.zoneArea } : {}) };
+		});
 		list.push({ wx: round1(wx), wy: round1(wy), z: zOf(wx, wy), r: Math.max(R_MIN, Math.min(R_MAX, x.a.radius || R_MIN)), kind, ...place(wx, wy), sides });
 	}
 	// The grid's bridges and gates; an aids pass where one stands becomes it.
@@ -331,9 +338,14 @@ function chokepoints({ nav, c, aids, lifts = [], geo, areas }) {
 	}
 	for (const x of list) {
 		if (x.z === null) delete x.z;
-		if (!x.name) x.name = x.zone || x.kind;
-		if (!x.zone) x.zone = x.name;
-		for (const s of x.sides || []) if (!s.area) s.area = x.zone;
+		if (!x.name) [x.name, x.area] = x.zone ? [x.zone, x.zoneArea] : [x.kind, undefined];
+		if (!x.zone) [x.zone, x.zoneArea] = [x.name, x.area];
+		for (const s of x.sides || []) {
+			if (s.area) continue;
+			s.area = x.zone;
+			if (x.zoneArea) s.zoneArea = x.zoneArea;
+		}
+		for (const k of ['area', 'zoneArea']) if (!x[k]) delete x[k];
 	}
 	return list;
 }
@@ -347,14 +359,15 @@ function chokepointsLua(byMap, gen, global = 'PolestarNavChokepoints') {
 	const lines = [
 		gen,
 		'-- Chokepoints a walk passes, for its named steps (tools/lib/nav/chokepoints.js; Nav/Walk.lua reads them).',
-		'-- Per continent: { wx, wy, z, r, kind, name, zone, sides?, liftEnd?, lift?, pair? } in UnitPosition\'s frame',
+		'-- Per continent: { wx, wy, z, r, kind, name, area?, zone, zoneArea?, sides?, liftEnd?, lift?, liftObject?, pair? } in UnitPosition\'s frame',
+		'-- (area, zoneArea: AreaTable ids of name and zone, for their names in the client\'s language; liftObject: the lift\'s GameObject)',
 		'-- (wx north, wy west), yards; kind lift | gate | bridge | tunnel | cave | building | pass; pair indexes this list.',
 		`${global} = ${global} or {}`,
 	];
 	for (const c of Object.keys(byMap).map(Number).sort((a, b) => a - b)) {
 		lines.push(`${global}[${c}] = {`);
 		for (const x of byMap[c]) {
-			const keys = ['wx', 'wy', 'z', 'r', 'kind', 'name', 'zone', 'lift', 'liftEnd', 'pair', 'sides'].filter((k) => x[k] !== undefined);
+			const keys = ['wx', 'wy', 'z', 'r', 'kind', 'name', 'area', 'zone', 'zoneArea', 'lift', 'liftObject', 'liftEnd', 'pair', 'sides'].filter((k) => x[k] !== undefined);
 			lines.push(`\t{ ${keys.map((k) => field(k, k === 'pair' ? x[k] + 1 : x[k])).join(', ')} },`);
 		}
 		lines.push('}');

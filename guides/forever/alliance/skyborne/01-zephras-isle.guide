@@ -60,6 +60,9 @@ next forever/alliance/02-westfall
 #   Falaath Village.
 # - Shadowgale Forest: the Strange Hermit's quests are done together with the
 #   refugees' belongings, which lie in the same corner of the forest.
+# - Valanaar: Mages hand Boughs in the Wind to Belann, on the way in, before
+#   Elaadrin; Druids take The Great Ursera Spirit (94006) from Lotheluum with
+#   Unnerving Silence (94484), in the same visit.
 #
 # Carried on: Journey to Sentinel Hill (98021), from Bolvar, is turned in to
 # Gryan Stoutmantle at the start of the Westfall guide.
@@ -123,12 +126,12 @@ step Raw Windstones and the Cirrusfly Queen
   kill 251404 quest 92463.1
 
 step Yala Windwatcher
-  tip Yala Windwatcher keeps watch east of the grove. The Roiling Winds and Al'Aketh Converts gather just north of her; the Ley Line rises further north: cast your Read Ley Line racial ability at it.
+  tip Yala Windwatcher keeps watch east of the grove. The Roiling Winds and Al'Aketh Converts gather just north of her; the Ley Line rises further north: cast your Read Leyline racial ability at it.
   turnin 92464                                -- Yala Windwatcher
   accept 92465
   kill 251143 quest 92465.2
   kill 251160 quest 92465.1
-  interact 460002 quest 92597.1 @46.29,17.87 "Cast Read Ley Line at the Ley Line"
+  interact 460002 quest 92597.1 @46.29,17.87 "Cast Read Leyline at the Ley Line"
   turnin 92465                                -- Yala Windwatcher
   accept 92469
 
@@ -277,10 +280,10 @@ step Shen'dar Village again
 # ---------------------------------------------------------------- Valanaar
 
 step The road to Valanaar
-  tip Take the road south-east. Nyalah Brightfire and Alvarion Windfield stand by the road west of Valanaar; Windsong Crawlers line the shore around them.
+  tip Take the road south-east. Nyalah Brightfire and Alvarion Windfield stand by the road west of Valanaar; Windsong Crawlers line the shore further west, around 51,70.
   accept 93317                                -- Nyalah Brightfire
   accept 92679                                -- Alvarion Windfield
-  collect 257941 quest 93317.1
+  collect 257941 quest 93317.1 @51.6,70.6
   turnin 93317                                -- Nyalah Brightfire
 
 step Valanaar
@@ -361,7 +364,7 @@ step Valanaar turn-ins
 step Taming the Beast
   only Hunter
   tip Each of Quel'ana's quests hands you a Taming Rod: use it on the beast she names, then bring the rod back to her in Valanaar. Windsong Crawlers line the shore west of town; Vuldren Alphas and Ornery Galestriders roam the Gustberry Lowlands around the Windfield farm. Her sister Quel'dora stands beside her.
-  kill 254588 quest 94978.1                   -- Windsong Crawler: tame it with the Taming Rod
+  kill 254588 quest 94978.1 @51.6,70.6        -- Windsong Crawler: tame it with the Taming Rod
   turnin 94978                                -- Quel'ana Quickgale
   accept 94979
   kill 251707 quest 94979.1                   -- Tame it with the Taming Rod
@@ -378,19 +381,19 @@ step The Windstone Formations
   collect 262668 quest 93797.1 only Mage      -- Wind-Infused Bough: by the wind shrine south of Falaath Village
 
 step Elaadrin Evengale
-  turnin 92840                                -- Elaadrin Evengale
   turnin 93797 only Mage                      -- Belann Windwood: Windbough Wand
+  turnin 92840                                -- Elaadrin Evengale
   accept 92834
   accept 92860
   turnin 92860                                -- Valennia Stormfist
   accept 93320
 
 step The eastern watchtower
-  tip Yorana Windyreed holds the watchtower north of Valanaar. The Al'Aketh camp is beside the tower; Commander Belguilos stands at its north end. The Al'Aketh there drop Windstone Charms.
+  tip Yorana Windyreed holds the watchtower north of Valanaar. The Al'Aketh camp is just west of the tower, its healers around 65,68 and 65,65; Commander Belguilos stands at its north end. The Al'Aketh there drop Windstone Charms.
   turnin 93320                                -- Yorana Windyreed
   accept 92642
   accept 92645
-  kill 254596 quest 92642.1
+  kill 254596 quest 92642.1 @65.4,68.4
   kill 270201 quest 92642.2
   collect 255658 quest 92834.1
   kill 252666 quest 92645.1                   -- Commander Belguilos
@@ -402,13 +405,13 @@ step Valanaar, the turncoat
   turnin 92834                                -- Elaadrin Evengale
   accept 92741                                -- Iaadaria Bitterwind
   accept 94484                                -- Lotheluum Starbreeze
+  accept 94006 only Druid                     -- Lotheluum Starbreeze
   accept 94896                                -- Ealaane Nimbuswalker
   accept 94897
   turnin 92880                                -- Valennia Stormfist
   accept 92881
   turnin 92881                                -- Talaanis Shadowsong
   accept 92643
-  accept 94006 only Druid                     -- Lotheluum Starbreeze
 
 step Urs'endris
   only Druid
@@ -483,7 +486,7 @@ step Elegael again
 
 step Vayn Moongaze
   tip Vayn Moongaze, Jorel Windsinger and Naaleos Leafwhisper are north-east of Elegael; Commander Haalien stands east of them. Haalien also drops a Ripped Missive.
-  complete 94489                              -- Speak with Jorel and Naaleos
+  complete 94489                              -- Heal 7 druids in the Nightfang Den, then find Jorel
   accept 93165                                -- Vayn Moongaze
   collect 258771 quest 93165.1
   turnin 93165

@@ -38,14 +38,15 @@ const NODES = [
 	{ id: 19, name: 'Booty Bay, Stranglethorn', short: 'Booty Bay', map: 1434, x: 27.53, y: 77.78, faction: 1, npc: 2859, npcName: 'Gyll' },
 ];
 
-// The fixture data in <root>/forever with a travel.json, and (areas) the
-// AreaTable cached in <root>/sources/wago/1.60.1.1 beside it.
-function placeData({ areas = true, travel = true } = {}) {
+// The fixture data in <root>/forever with a travel.json (its taxi nodes and
+// `inns`), and (areas) the AreaTable cached in <root>/sources/wago/1.60.1.1
+// beside it.
+function placeData({ areas = true, travel = true, inns = [] } = {}) {
 	const root = tmpdir('polestar-place-ids-');
 	const dir = path.join(root, 'forever');
 	fs.mkdirSync(dir);
 	for (const f of fs.readdirSync(DATA_DIR)) fs.copyFileSync(path.join(DATA_DIR, f), path.join(dir, f));
-	if (travel) fs.writeFileSync(path.join(dir, 'travel.json'), `${JSON.stringify({ inns: [], taxi: { nodes: NODES } })}\n`);
+	if (travel) fs.writeFileSync(path.join(dir, 'travel.json'), `${JSON.stringify({ inns, taxi: { nodes: NODES } })}\n`);
 	if (areas) {
 		const wago = path.join(root, 'sources', 'wago', '1.60.1.1');
 		fs.mkdirSync(wago, { recursive: true });
@@ -78,7 +79,7 @@ test('a place name gets its area: in the goal\'s zone, the open world\'s over a 
 		['hearth', 'Goldshire', 87, undefined],
 		['hearth', 'Thunderbrew Distillery', 2102, undefined],
 		['fly', 'Stormwind City', 1519, undefined],
-		['fly', 'Stormwind', undefined, undefined],
+		['fly', 'Stormwind', undefined, 2],
 		['getfp', 'Stormwind', undefined, 2],
 		['getfp', 'Booty Bay', undefined, 19],
 		['goto', 'Fargodeep Mine', 57, undefined],
@@ -87,7 +88,7 @@ test('a place name gets its area: in the goal\'s zone, the open world\'s over a 
 	]);
 });
 
-test('a getfp\'s node: its flight master, else the one node of its town for the goal\'s factions; none for a town split by faction on a guide for both', () => {
+test('a getfp\'s or fly\'s node: its flight master, else the one node of its town for the goal\'s factions; none for a town split by faction on a guide for both', () => {
 	const both = ['guide t/both', 'title Both', 'levels 1-10', 'zone Elwynn Forest', '', 'step S', '  getfp "Booty Bay"', '  getfp "Booty Bay" npc 2858'];
 	const r = compile(`${both.join('\n')}\n`, placeData().data);
 	assert.deepEqual(r.errors, []);
@@ -122,4 +123,47 @@ test('compile reports how many place goals got an area and getfp goals a taxi no
 	const none = polestar(['compile', '--guides', GUIDES_DIR, '--data', bare.dir, '--out', tmpdir()]);
 	assert.equal(none.status, 0, none.stderr);
 	assert.match(none.stdout, /\nareas: none \(no cached Forever AreaTable in the sources beside the reference data; `data build` downloads it\)\nnodes: none \(no travel\.json in the reference data; `travel build` writes it\)\nheights: /);
+});
+
+// Fixture inns: Goldshire's innkeeper is Alliance, Razor Hill's Horde, Booty
+// Bay's a neutral goblin; The Crossroads (Horde) is also reported as
+// "Crossroads", as in travel.json; the made-up Crossway has one inn per
+// faction. Innkeeper Boorand Plainswind is added to the fixture NPCs.
+const INNS = [
+	{ location: 'Goldshire', names: ['Goldshire'], npc: 295, npcName: 'Innkeeper Farley', map: 1429, x: 43.77, y: 65.8 },
+	{ location: 'Booty Bay', names: ['Booty Bay'], npc: 6807, npcName: 'Innkeeper Skindle', map: 1434, x: 27, y: 77.3 },
+	{ location: 'Razor Hill', names: ['Razor Hill'], npc: 6928, npcName: 'Innkeeper Grosk', map: 1411, x: 51.5, y: 41.6 },
+	{ location: 'The Crossroads', names: ['The Crossroads', 'Crossroads'], npc: 3934, npcName: 'Innkeeper Boorand Plainswind', map: 1413, x: 51.99, y: 29.89 },
+	{ location: 'Crossway', names: ['Crossway'], npc: 295, npcName: 'Innkeeper Farley', map: 1429, x: 43.77, y: 65.8 },
+	{ location: 'Crossway', names: ['Crossway'], npc: 6928, npcName: 'Innkeeper Grosk', map: 1411, x: 51.5, y: 41.6 },
+];
+const BOORAND = { id: 3934, name: 'Innkeeper Boorand Plainswind', level: 30, faction: 'H', roles: ['innkeeper', 'vendor'], spawns: { 1413: { f: 'e', pts: [[51.99, 29.89]] } } };
+const keepers = (r) => r.guides[0].steps[0].goals.map((g) => [g.location || 'nearest', g.npc, g.npcName, g.map, g.x, g.y]);
+
+test('a sethome naming no npc gets its inn\'s innkeeper and position, for the factions it applies to; an explicit npc wins', () => {
+	const { dir } = placeData({ inns: INNS });
+	const npcsFile = path.join(dir, 'npcs.json');
+	fs.writeFileSync(npcsFile, JSON.stringify({ ...JSON.parse(fs.readFileSync(npcsFile, 'utf8')), 3934: BOORAND }));
+	const data = loadData(dir);
+	const alliance = compile(guideText(['step Inns', '  sethome "Goldshire"', '  sethome "booty bay"', '  sethome "Razor Hill"', '  sethome "Crossroads"', '  sethome "Crossway"', '  sethome "Goldshire" npc 6807', '  sethome nearest']), data);
+	assert.deepEqual(alliance.errors, []);
+	assert.deepEqual(keepers(alliance), [
+		['Goldshire', 295, 'Innkeeper Farley', 1429, 43.77, 65.8],
+		['booty bay', 6807, 'Innkeeper Skindle', 1434, 27, 77.3],
+		['Razor Hill', undefined, undefined, undefined, undefined, undefined],
+		['Crossroads', undefined, undefined, undefined, undefined, undefined],
+		['Crossway', 295, 'Innkeeper Farley', 1429, 43.77, 65.8],
+		['Goldshire', 6807, 'Innkeeper Skindle', 1434, 27, 77.3],
+		['nearest', undefined, undefined, undefined, undefined, undefined],
+	]);
+	const both = ['guide t/both', 'title Both', 'levels 1-10', 'zone Elwynn Forest', '', 'step Inns', '  sethome "Booty Bay"', '  sethome "Goldshire"', '  sethome "Crossway"', '  sethome "Crossway" only Horde', '  sethome "Crossroads" only Horde'];
+	const r = compile(`${both.join('\n')}\n`, data);
+	assert.deepEqual(r.errors, []);
+	assert.deepEqual(keepers(r), [
+		['Booty Bay', 6807, 'Innkeeper Skindle', 1434, 27, 77.3],
+		['Goldshire', undefined, undefined, undefined, undefined, undefined],
+		['Crossway', undefined, undefined, undefined, undefined, undefined],
+		['Crossway', 6928, 'Innkeeper Grosk', 1411, 51.5, 41.6],
+		['Crossroads', 3934, 'Innkeeper Boorand Plainswind', 1413, 51.99, 29.89],
+	]);
 });

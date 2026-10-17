@@ -649,8 +649,27 @@ end)
 
 Theme.OnChanged(W.RefreshAll)
 
--- A grid row: label left (truncates against the control), a faint hairline
--- underneath, the description as the row's tooltip.
+-- fn() after the font changes (ui.font, EllesmereUI's font): text that
+-- sized its row, column or control measures differently, so a window shown
+-- lays itself out again. Colour and look changes do not call it.
+local fontHandlers, fontKey = {}, nil
+local function currentFont()
+	local path, _, flags = Theme.FontSpec("body")
+	return tostring(path) .. "|" .. tostring(flags) .. "|" .. Theme.SkinKey()
+end
+function W.OnFontChanged(fn)
+	fontHandlers[#fontHandlers + 1] = fn
+end
+Theme.OnChanged(function()
+	local key = currentFont()
+	if key == fontKey then return end
+	fontKey = key
+	for _, fn in ipairs(fontHandlers) do fn() end
+end)
+
+-- A grid row: label left, bound by the control and wrapping onto more lines
+-- rather than cut, a faint hairline underneath, the description as the
+-- row's tooltip. W.LayoutRow sizes it.
 local function settingRow(parent, label, desc)
 	local row = CreateFrame("Button", nil, parent)
 	row:SetHeight(W.RowH())
@@ -659,6 +678,7 @@ local function settingRow(parent, label, desc)
 	row.Rule:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", 0, 0)
 	row.Rule:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", 0, 0)
 	row.Label = W.Text(row, "body", "text")
+	row.Label:SetWordWrap(true)
 	row.Label:SetText(label)
 	row.Label:SetPoint("LEFT", row, "LEFT", 12, 0)
 	row.psLabel, row.psDesc = label, desc
@@ -668,9 +688,34 @@ local function settingRow(parent, label, desc)
 	return row
 end
 
--- Bound the label on the left of a row's control.
-local function fitLabel(row, control)
+-- Bound the label on the left of a row's control. span(row, width) -> the
+-- width the control takes from the row's right edge, its 12px inset and the
+-- 10px gap before the label included; it may size the control to fit.
+local function fitLabel(row, control, span)
 	row.Label:SetPoint("RIGHT", control, "LEFT", -10, 0)
+	row.psSpan = span
+end
+
+-- A font string's text width, unbound by its anchors or width (with `text`
+-- set first when given).
+local function textWidth(fs, text)
+	if text then fs:SetText(text) end
+	if fs.GetUnboundedStringWidth then return fs:GetUnboundedStringWidth() end
+	return fs:GetStringWidth()
+end
+W.TextWidth = textWidth
+
+-- Size a settings row (toggle, slider, dropdown, swatch, info) to `width`:
+-- its control takes what its text needs, the label the rest, on as many
+-- lines as it needs; the row grows past ROW_H when they do not fit in it.
+-- -> the row's height
+function W.LayoutRow(row, width)
+	row:SetWidth(width)
+	local span = row.psSpan and row.psSpan(row, width) or 22
+	row.Label:SetWidth(max(1, width - 12 - span))
+	local h = max(W.RowH(), math.ceil(row.Label:GetStringHeight()) + 16)
+	row:SetHeight(h)
+	return h
 end
 
 local function dimRow(row, enabled)
@@ -723,7 +768,6 @@ end
 local function toggleRefresh(self)
 	local on = toggleValue(self)
 	local enabled = W.Enabled(self)
-	if self.SetHeight and self.psRow then self:SetHeight(W.RowH()) end
 	dimRow(self, enabled)
 	if gameCheck(self, on) then
 		self.psOn = on
@@ -761,7 +805,7 @@ function W.Toggle(parent, label, path, desc, depends, opts)
 	row.Knob = row.Track:CreateTexture(nil, "OVERLAY")
 	row.Knob:SetTexture(Theme.Media("circle"))
 	row.Knob:SetSize(KNOB, KNOB)
-	fitLabel(row, row.Track)
+	fitLabel(row, row.Track, function() return 12 + TOGGLE_W + 10 end)
 	-- Left-click flips it; right-click puts the setting back to its default.
 	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	row:SetScript("OnClick", function(self, button)
@@ -807,7 +851,7 @@ end
 -- fill and a round thumb, its value right of it. Wheel steps it.
 ---------------------------------------------------------------------------
 
-local SLIDER_W, VALUE_W = 112, 44
+local SLIDER_W, SLIDER_MIN, VALUE_W = 112, 64, 44
 
 local function roundTo(v, stepSize)
 	return floor(v / stepSize + 0.5) * stepSize
@@ -825,7 +869,7 @@ local function sliderPaint(self, value)
 	local s = self.Slider
 	local lo, hi = s:GetMinMaxValues()
 	local v = value or s:GetValue()
-	local w = Theme.Metric("sliderW", SLIDER_W)
+	local w = self.psTrackW or Theme.Metric("sliderW", SLIDER_W)
 	local frac = hi > lo and (v - lo) / (hi - lo) or 0
 	self.Fill:SetWidth(max(0.01, w * frac))
 	self.Value:SetText(sliderText(self, v))
@@ -846,11 +890,6 @@ end
 function W.SkinSlider(self)
 	local bliz = Theme.SkinKey() == "blizzard"
 	local s = self.Slider
-	if self.psRow then
-		self:SetHeight(W.RowH())
-		s:SetWidth(Theme.Metric("sliderW", SLIDER_W))
-		self.Value:SetWidth(Theme.Metric("valueW", VALUE_W))
-	end
 	if bliz then
 		self.Track:SetHeight(8)
 		self.Track:SetVertexColor(0, 0, 0, 1)
@@ -901,6 +940,24 @@ local function sliderParts(owner, parent, width)
 	return s
 end
 
+-- A slider row's control: the value as wide as its widest end ("60
+-- minutes"), the track giving up to SLIDER_W - SLIDER_MIN of its width to a
+-- label that needs it.
+local function sliderSpan(row, width)
+	local v = row.Value
+	local shown = v:GetText()
+	local need = max(textWidth(v, sliderText(row, row.psMin)), textWidth(v, sliderText(row, row.psMax)))
+	v:SetText(shown or "")
+	local valueW = max(Theme.Metric("valueW", VALUE_W), math.ceil(need))
+	v:SetWidth(valueW)
+	local fixed = 12 + valueW + 8 + 10
+	local trackW = max(SLIDER_MIN, min(Theme.Metric("sliderW", SLIDER_W), width - 12 - fixed - math.ceil(textWidth(row.Label))))
+	row.Slider:SetWidth(trackW)
+	row.psTrackW = trackW
+	sliderPaint(row)
+	return fixed + trackW
+end
+
 -- opts.release: write the value when the drag ends, not on every step (a
 -- setting that rescales the window the slider sits in).
 function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opts)
@@ -915,7 +972,7 @@ function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opt
 	s:SetPoint("RIGHT", row.Value, "LEFT", -8, 0)
 	s:SetMinMaxValues(lo, hi)
 	s:SetValueStep(stepSize)
-	fitLabel(row, s)
+	fitLabel(row, s, sliderSpan)
 	s:SetScript("OnValueChanged", function(_, value, userInput)
 		value = roundTo(value, stepSize)
 		sliderPaint(row, value)
@@ -992,7 +1049,23 @@ local function buildMenu()
 	menu.seps = {}
 	menu:SetScript("OnHide", function() catcher:Hide() end)
 	menu:Hide()
-	if UISpecialFrames then tinsert(UISpecialFrames, "PolestarMenu") end
+	ns.CloseOnEscape("PolestarMenu")
+	-- A gamepad (UI/Gamepad.lua) picks a row, starting on the current choice; B closes.
+	if ns.Gamepad and ns.Gamepad.Register then
+		ns.Gamepad.Register(menu, {
+			rows = function()
+				local out = {}
+				for _, r in ipairs(menu.rows) do
+					if r:IsShown() and not (r.psItem and r.psItem.disabled) then out[#out + 1] = r end
+				end
+				return out
+			end,
+			initial = function(rows)
+				for i, r in ipairs(rows) do if r.psItem and r.psItem.checked then return i end end
+			end,
+			back = function() W.HideMenu() end,
+		})
+	end
 end
 
 local function menuRow(i)
@@ -1097,7 +1170,7 @@ end
 -- following it).
 ---------------------------------------------------------------------------
 
-local DROPDOWN_W = 150
+local DROPDOWN_W, DROPDOWN_MIN = 150, 72
 
 local function choicesOf(row)
 	local c = row.psChoices
@@ -1121,9 +1194,8 @@ local DROPDOWN_ARROW = "Interface\\ChatFrame\\UI-ChatIcon-ScrollDown-Up"
 
 local function dropdownRefresh(self)
 	self.Button.Label:SetText(choiceText(choicesOf(self), valueOf(self)))
-	self:SetHeight(W.RowH())
 	local b = self.Button
-	b:SetSize(Theme.Metric("dropdownW", DROPDOWN_W), Theme.Metric("dropdownH", 28))
+	b:SetHeight(Theme.Metric("dropdownH", 28))
 	local bliz = Theme.SkinKey() == "blizzard"
 	local size = bliz and 22 or Theme.Metric("chevron", 12)
 	b.Arrow:SetTexture(bliz and DROPDOWN_ARROW or Theme.Media("chevron-down"))
@@ -1149,6 +1221,31 @@ local function openChoices(self)
 	W.ShowMenu(self, items, { minWidth = self:GetWidth() })
 end
 
+-- The widest word of a row's label: the least it can wrap to uncut.
+local function widestWord(row)
+	local w = 0
+	for word in (row.psLabel or ""):gmatch("%S+") do w = max(w, textWidth(row.Label, word)) end
+	row.Label:SetText(row.psLabel)
+	return w
+end
+
+-- A dropdown row's control: as wide as its longest choice, DROPDOWN_W at
+-- least, but never so wide that the label loses room for its widest word
+-- (the label then wraps between words, never inside one): the box gives
+-- way first, down to DROPDOWN_MIN.
+local function dropdownSpan(row, width)
+	local b = row.Button
+	local shown = b.Label:GetText()
+	local need = 0
+	for _, c in ipairs(choicesOf(row)) do need = max(need, textWidth(b.Label, c.text)) end
+	b.Label:SetText(shown or "")
+	local desired = max(Theme.Metric("dropdownW", DROPDOWN_W), math.ceil(need) + 36)
+	local room = width - 12 - 10 - 12 - math.ceil(widestWord(row))
+	local bw = max(DROPDOWN_MIN, min(desired, room))
+	b:SetWidth(bw)
+	return 12 + bw + 10
+end
+
 function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 	local row = settingRow(parent, label, desc)
 	row.psChoices = choices
@@ -1157,6 +1254,11 @@ function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 	b:SetSize(DROPDOWN_W, 28)
 	b:SetPoint("RIGHT", row, "RIGHT", -12, 0)
 	b.Label = W.Text(b, "label", "text")
+	-- Where the box gave way to the label, the choice takes a second line
+	-- (two 12px lines fit its 28px); set on every refresh, so the cold-start
+	-- blank of a max-lines string (W.Text) does not stick.
+	b.Label:SetWordWrap(true)
+	b.Label:SetMaxLines(2)
 	b.Label:SetPoint("LEFT", b, "LEFT", 10, 0)
 	b.Label:SetPoint("RIGHT", b, "RIGHT", -26, 0)
 	b.Arrow = b:CreateTexture(nil, "ARTWORK")
@@ -1168,7 +1270,7 @@ function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 	b.psRow = row
 	b:SetScript("OnClick", openChoices)
 	row.Button = b
-	fitLabel(row, b)
+	fitLabel(row, b, dropdownSpan)
 	-- Right-click on the row puts the setting back to its default.
 	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	row:SetScript("OnClick", function(_, button)
@@ -1250,7 +1352,7 @@ function W.Swatch(parent, label, path, desc, opts)
 	row.Chip = fillTex
 	row.Note = W.Text(row, "small", "textMuted")
 	row.Note:SetPoint("RIGHT", chip, "LEFT", -8, 0)
-	fitLabel(row, row.Note)
+	fitLabel(row, row.Note, function(self) return 12 + 34 + 8 + math.ceil(textWidth(self.Note)) + 10 end)
 	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	row:SetScript("OnClick", function(self, button)
 		if not W.Enabled(self) then return end
@@ -1271,21 +1373,24 @@ function W.InfoRow(parent, label, desc)
 	row.Value = W.Text(row, "label", "textDim")
 	row.Value:SetJustifyH("RIGHT")
 	row.Value:SetPoint("RIGHT", row, "RIGHT", -12, 0)
-	fitLabel(row, row.Value)
+	fitLabel(row, row.Value, function(self) return 12 + math.ceil(textWidth(self.Value)) + 10 end)
 	row:SetScript("OnEnter", rowEnter)
 	row:SetScript("OnLeave", hideTip)
 	return row
 end
 
 ---------------------------------------------------------------------------
--- Action tile: icon, title and a one-line description; for consequential
--- actions (reset all, reset positions). confirm = a second click acts.
+-- Action tile: icon, title and a description; for consequential actions
+-- (reset all, reset positions). confirm = a second click acts. Title and
+-- description wrap; W.LayoutTile sizes the tile to them.
 ---------------------------------------------------------------------------
+
+local TILE_H, TILE_PAD = 60, 13
 
 function W.ActionTile(parent, icon, title, desc, onClick, opts)
 	opts = opts or {}
 	local b = CreateFrame("Button", nil, parent)
-	b:SetHeight(60)
+	b:SetHeight(TILE_H)
 	Theme.Skin(b, "tile")
 	b.Icon = b:CreateTexture(nil, "ARTWORK")
 	b.Icon:SetTexture(Theme.Media(icon))
@@ -1293,10 +1398,12 @@ function W.ActionTile(parent, icon, title, desc, onClick, opts)
 	b.Icon:SetPoint("LEFT", b, "LEFT", 16, 0)
 	W.Color(b.Icon, opts.danger and "danger" or "accent")
 	b.Title = W.Text(b, "body", "text")
-	b.Title:SetPoint("TOPLEFT", b, "TOPLEFT", 48, -13)
-	b.Title:SetPoint("TOPRIGHT", b, "TOPRIGHT", -12, -13)
+	b.Title:SetWordWrap(true)
+	b.Title:SetPoint("TOPLEFT", b, "TOPLEFT", 48, -TILE_PAD)
+	b.Title:SetPoint("TOPRIGHT", b, "TOPRIGHT", -12, -TILE_PAD)
 	b.Title:SetText(title)
 	b.Desc = W.Text(b, "small", "textMuted")
+	b.Desc:SetWordWrap(true)
 	b.Desc:SetPoint("TOPLEFT", b.Title, "BOTTOMLEFT", 0, -5)
 	b.Desc:SetPoint("TOPRIGHT", b.Title, "BOTTOMRIGHT", 0, -5)
 	b.Desc:SetText(desc or "")
@@ -1311,6 +1418,26 @@ function W.ActionTile(parent, icon, title, desc, onClick, opts)
 		b:SetScript("OnClick", onClick)
 	end
 	return b
+end
+
+-- Size an action tile to `width`, as tall as its title and description
+-- need (the title's "Click again to confirm" too), at least TILE_H. -> height
+function W.LayoutTile(b, width)
+	b:SetWidth(width)
+	local tw = max(1, width - 48 - 12)
+	b.Title:SetWidth(tw)
+	b.Desc:SetWidth(tw)
+	local titleH = b.Title:GetStringHeight()
+	if b.psConfirmText then
+		local shown = b.Title:GetText()
+		b.Title:SetText(L["Click again to confirm"])
+		titleH = max(titleH, b.Title:GetStringHeight())
+		b.Title:SetText(shown)
+	end
+	local descH = (b.Desc:GetText() or "") ~= "" and (5 + b.Desc:GetStringHeight()) or 0
+	local h = max(TILE_H, math.ceil(TILE_PAD + titleH + descH + TILE_PAD))
+	b:SetHeight(h)
+	return h
 end
 
 ---------------------------------------------------------------------------
@@ -1591,6 +1718,11 @@ local function navButton(f, i)
 	b.Icon:SetSize(16, 16)
 	b.Icon:SetPoint("LEFT", b, "LEFT", SHELL.side, 0)
 	b.Label = W.Text(b, "body", "textDim")
+	-- Two lines at most: both fit the 40px row (13px type); past that it is
+	-- cut. Its text is set on every ShellNav, so the cold-start blank of a
+	-- max-lines string (W.Text) does not stick.
+	b.Label:SetWordWrap(true)
+	b.Label:SetMaxLines(2)
 	b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
 	b.Count = W.Text(b, "number", "textMuted")
 	b.Count:SetJustifyH("RIGHT")
@@ -1619,7 +1751,6 @@ end
 -- many rows there are: past that line the list scrolls (wheel, thumb) and
 -- the active row is scrolled into view.
 local NAV_ROW = 40
-local NAV_COUNT_W = 32 -- room kept right of a row's label for its count or dot
 function W.ShellNav(f, items, active, onSelect)
 	f.psOnNav = onSelect
 	local sf = f.NavScroll
@@ -1643,8 +1774,8 @@ function W.ShellNav(f, items, active, onSelect)
 		b.psEmpty = empty
 		b.psHeading = item.heading and true or false
 		b.Icon:SetShown(not item.heading)
-		-- The label ends short of the count (or dot) so a long one is cut
-		-- with an ellipsis rather than running under it or off the sidebar.
+		-- The label ends short of the count (or dot), as wide as that is, and
+		-- takes a second line rather than run under it or off the sidebar.
 		b.Label:ClearAllPoints()
 		if item.heading then
 			b.Label:SetPoint("LEFT", b, "LEFT", SHELL.side, 0)
@@ -1653,8 +1784,9 @@ function W.ShellNav(f, items, active, onSelect)
 			b:SetAlpha(1)
 			b:Disable()
 		else
+			local reserve = b.Dot:IsShown() and 6 + 8 or b.Count:IsShown() and math.ceil(textWidth(b.Count)) + 8 or 0
 			b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
-			b.Label:SetPoint("RIGHT", b, "RIGHT", -(SHELL.side + NAV_COUNT_W), 0)
+			b.Label:SetPoint("RIGHT", b, "RIGHT", -(SHELL.side + reserve), 0)
 			b:Enable()
 		end
 		b:ClearAllPoints()
@@ -2017,7 +2149,7 @@ function W.Shell(name, opts)
 		Anim.To(self, "alpha", 0, 1, Anim.FAST, "out")
 	end)
 	f:HookScript("OnHide", function() W.HideMenu() end)
-	if UISpecialFrames and name then tinsert(UISpecialFrames, name) end
+	ns.CloseOnEscape(name)
 	return f
 end
 
@@ -2064,11 +2196,40 @@ local function railButton(f, i)
 	return b
 end
 
+-- The rail as wide as its widest label needs, SHELL.rail at least
+-- ("Lookup" is "Nachschlagen" in German); the window grows by as much, so the
+-- sidebar and the content keep their widths.
+local function fitRail(f, items, bottom)
+	local probe = rawget(f, "psRailProbe")
+	if not probe then
+		probe = W.Text(f.Rail, "caption", "textDim")
+		probe:Hide()
+		f.psRailProbe = probe
+	end
+	local need = 0
+	for _, list in ipairs({ items, bottom or {} }) do
+		for _, item in ipairs(list) do need = max(need, textWidth(probe, item.label or "")) end
+	end
+	local rail = max(SHELL.rail, math.ceil(need) + 8)
+	local grow = rail - f.psRail
+	if grow == 0 then return end
+	f.psRail = rail
+	f.Rail:SetWidth(rail)
+	f.Sidebar:SetPoint("TOPLEFT", f, "TOPLEFT", 1 + rail, -1)
+	f.Sidebar:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 1 + rail, 1)
+	f:SetWidth(f:GetWidth() + grow)
+	for _, b in ipairs(f.railButtons) do
+		b:SetWidth(rail)
+		b.Label:SetWidth(rail - 4)
+	end
+end
+
 -- items: { { key, label, icon, tip }, ... } stacked from the content line
 -- down; bottom: the same, stacked up from the rail's foot (Options). The
 -- active key is marked. -> the number of top items that fit.
 function W.ShellRail(f, items, bottom, active, onSelect)
 	if not rawget(f, "Rail") then return 0 end
+	fitRail(f, items, bottom)
 	local n = 0
 	local function place(item, i, y, fromBottom)
 		local b = railButton(f, i)
@@ -2166,7 +2327,8 @@ local registry = {} -- { spec, ... } in registration order
 local registryListeners = {}
 W.OptionsRegistry = registry
 
-local CONTROL_KINDS = { toggle = true, slider = true, dropdown = true, color = true, button = true }
+-- binding: a key binding row (UI/GamepadGuide.lua): { kind = "binding", action = "POLESTAR_NEXT", label, help }.
+local CONTROL_KINDS = { toggle = true, slider = true, dropdown = true, color = true, button = true, binding = true }
 
 -- spec = { page, key, icon, order, tab, section, controls = { { kind, key, label, help, ... } } }
 -- page is the title as shown, key (optional) the page's stable key.
@@ -2180,8 +2342,11 @@ function ns.RegisterOptions(spec)
 		if type(c) ~= "table" or not CONTROL_KINDS[c.kind] then
 			return false, ("RegisterOptions(%s): control %d has unknown kind %s"):format(spec.page, i, tostring(c and c.kind))
 		end
-		if c.kind ~= "button" and type(c.key) ~= "string" then
+		if c.kind ~= "button" and c.kind ~= "binding" and type(c.key) ~= "string" then
 			return false, ("RegisterOptions(%s): control %d needs a settings key"):format(spec.page, i)
+		end
+		if c.kind == "binding" and type(c.action) ~= "string" then
+			return false, ("RegisterOptions(%s): binding %d needs an action"):format(spec.page, i)
 		end
 		if c.kind == "button" and type(c.onClick) ~= "function" then
 			return false, ("RegisterOptions(%s): button %d needs onClick"):format(spec.page, i)

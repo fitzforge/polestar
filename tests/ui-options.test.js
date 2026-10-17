@@ -66,12 +66,49 @@ test('pages: by order, a page with nothing to set left out, Recorder and About l
 			footer = footer() })`, { between: FAKE_PAGE });
 	// Questing, Discovery and Quality of Life fill from modules not loaded
 	// here; Gear registered no control: all left out of the list. Guide packs
-	// (a custom page) is always there.
-	assert.deepEqual(out.nav, ['Guide', 'Appearance', 'Map', 'Quests', 'Guide packs', 'Recorder', 'About']);
+	// (a custom page) and Integrations (which says when it has nothing) are
+	// always there.
+	assert.deepEqual(out.nav, ['Guide', 'Appearance', 'Map', 'Quests', 'Integrations', 'Guide packs', 'Gamepad', 'Recorder', 'About']);
 	assert.equal(out.title, 'Guide');
 	assert.deepEqual(out.tabs, ['Window', 'Arrow & routes', 'Automation']);
 	assert.deepEqual(out.pages.find((p) => p.name === 'Quests'), { name: 'Quests', key: 'quests', builtin: false, tabs: ['Map'] });
 	assert.deepEqual(out.footer, ['Reset page', 'Reload UI', 'Close']);
+});
+
+// Options > Integrations: a section per supported addon, there only while
+// that addon is installed or loaded; with none, one line says so.
+test('Integrations lists Questie only when it is installed or loaded, else says none is', () => {
+	const show = `
+		UI.ShowOptions("integrations")
+		local headers = {}
+		for _, h in ipairs(O.view.headers) do if h:IsShown() then headers[#headers + 1] = h.Text:GetText() end end
+		local toggle = O.Controls("integrations")["routePlan.questie"]
+		emit({ title = PolestarOptions.Title:GetText(), headers = headers, empty = O.view.empty,
+			line = rawget(O.view, "Empty") and O.view.Empty:IsShown() and O.view.Empty:GetText() or nil,
+			toggle = toggle ~= nil and toggle:IsShown() or false, on = Polestar.Get("routePlan.questie"),
+			nav = navLabels() })`;
+	const [none] = run(show);
+	assert.equal(none.title, 'Integrations');
+	assert.ok(none.nav.includes('Integrations'));
+	assert.deepEqual(Object.values(none.headers), []);
+	assert.equal(none.empty, true);
+	assert.equal(none.line, 'None of the addons Polestar works with is installed.');
+	assert.equal(none.toggle, false);
+
+	const [loaded] = run(`stub.addonsLoaded.Questie = true\n${show}`);
+	assert.deepEqual(loaded.headers, ['Questie']);
+	assert.equal(loaded.empty, false);
+	assert.equal(loaded.line, undefined);
+	assert.equal(loaded.toggle, true);
+	assert.equal(loaded.on, false, 'planned turn-ins stay off until the player turns them on');
+
+	// Installed and enabled but loading after Polestar counts too.
+	const [installed] = run(`
+		table.insert(stub.addons, { name = "Questie" })
+		function C_AddOns.DoesAddOnExist(name) return name == "Questie" end
+		${show}`);
+	assert.deepEqual(installed.headers, ['Questie']);
+	assert.equal(installed.toggle, true);
 });
 
 // Players and macros still type the old page names (/polestar options
@@ -162,7 +199,7 @@ test('page keys stay English on a translated client: /polestar options quests, g
 		'options qualityoflife': 'qualityoflife: Komfort > Travel',
 		'options about': 'about: Über > ',
 		packs: 'guidepacks: Guide-Pakete > ',
-		keys: ['guide', 'appearance', 'map', 'questing', 'discovery', 'qualityoflife', 'guidepacks', 'recorder', 'about'],
+		keys: ['guide', 'appearance', 'map', 'questing', 'discovery', 'qualityoflife', 'integrations', 'guidepacks', 'gamepad', 'recorder', 'about'],
 	});
 });
 
@@ -282,7 +319,7 @@ test('search finds settings by label and help across pages, registered ones incl
 		box:SetText("")
 		stub.RunScript(box, "OnTextChanged", true)
 		emit({ arrow = arrow, help = help, none = none, found = found, back = PolestarOptions.Title:GetText() })`, { between: FAKE_PAGE });
-	assert.deepEqual(out.arrow.titles, ['Guide  \u00b7  Arrow & routes', 'Appearance  \u00b7  Arrow', 'Map  \u00b7  Guide & quests']);
+	assert.deepEqual(out.arrow.titles, ['Guide  \u00b7  Arrow & routes', 'Appearance  \u00b7  Arrow', 'Map  \u00b7  Guide & quests', 'Gamepad  \u00b7  Key bindings']);
 	assert.equal(out.arrow.title, 'Search');
 	assert.equal(out.arrow.sub, `${out.arrow.count} settings match`);
 	assert.equal(out.arrow.tabRow, false);
@@ -331,7 +368,7 @@ test('Recorder page: not installed, then live counts and a stop control', () => 
 		stub.addonsLoaded.Polestar_Recorder = true
 		PolestarRecorderDB = { enabled = true, current = "b", sessions = { a = { events = {} }, b = { char = { name = "Testchar" }, events = { {}, {}, {} } } } }
 		local sent = {}
-		SlashCmdList.POLESTARREC = function(arg) sent[#sent + 1] = arg; if arg == "off" then PolestarRecorderDB.enabled = false end end
+		PolestarRecorder_Command = function(arg) sent[#sent + 1] = arg; if arg == "off" then PolestarRecorderDB.enabled = false end end
 		UI.ShowOptions("recorder")
 		local values = {}
 		for _, f in ipairs({ O.view:GetChildren() }) do if rawget(f, "Value") and f:IsShown() then values[f.Label:GetText()] = f.Value:GetText() end end
@@ -509,6 +546,37 @@ test('window border, band and shadow repaint every window live; right-click rest
 	assert.equal(out.own.accentOff, false, 'picking an own border colour turns the accent border off');
 });
 
+test('switching the font lays the page out again: a label that now wraps grows its row and moves the rows below', () => {
+	const [out] = run(`
+		Polestar.Set("ui.font", "game")
+		UI.ShowOptions("guide")
+		local c = O.Controls("guide")
+		local row, below = c["ui.shown"], c["ui.locked"]
+		local function top(w) local _, _, _, _, y = w:GetPoint(1) return y end
+		local before = { h = row:GetHeight(), below = top(below), lines = row.Label:GetStringHeight() }
+		-- Inter set four times wider than the game font, as a font change can.
+		local M = stub.Methods
+		local function wide(self) return (self.font and tostring(self.font[1]):find("Inter")) and 4 or 1 end
+		M.GetUnboundedStringWidth = function(self)
+			return #tostring(self.text or "") * ((self.font and self.font[2]) or 12) * 0.5 * wide(self)
+		end
+		M.GetStringHeight = function(self)
+			local size, w = (self.font and self.font[2]) or 12, self.width or 0
+			if w <= 0 then return size end
+			local lines = 0
+			for line in (tostring(self.text or "") .. "\\n"):gmatch("([^\\n]*)\\n") do
+				lines = lines + math.max(1, math.ceil(#line * size * 0.5 * wide(self) / w))
+			end
+			return lines * size
+		end
+		Polestar.Set("ui.font", "inter")
+		emit({ before = before, after = { h = row:GetHeight(), below = top(below), lines = row.Label:GetStringHeight() } })`);
+	assert.equal(out.before.h, 40);
+	assert.ok(out.after.lines > out.before.lines, `the label wraps: ${out.before.lines} -> ${out.after.lines}`);
+	assert.ok(out.after.h > out.before.h, `its row grows: ${out.before.h} -> ${out.after.h}`);
+	assert.ok(out.after.below < out.before.below, `the rows below move down: ${out.before.below} -> ${out.after.below}`);
+});
+
 test('a Blizzard Settings category opens the options window', () => {
 	const [out] = run(`
 		local cat
@@ -539,6 +607,25 @@ test('in combat the Settings canvas button leaves the protected game panel alone
 	assert.deepEqual(out.inCombat, { hidden: 0, opened: true, hint: true });
 	assert.equal(out.hidden, 1);
 	assert.equal(out.opened, true);
+});
+
+// With the gamepad interface, a panel closed from addon code leaves the
+// gamepad's focus blocked (Core/Init.lua, GamepadUI): B closes it.
+test('with the gamepad interface the Settings canvas button leaves the game panel alone', () => {
+	const [out] = run(`
+		local hidden = 0
+		SettingsPanel = CreateFrame("Frame", "SettingsPanel", UIParent)
+		HideUIPanel = function(f) hidden = hidden + 1; f:Hide() end
+		local cat
+		for _, c in ipairs(Settings.categories) do if c.name == "Polestar" then cat = c end end
+		local open
+		for _, child in ipairs(cat.frame.children) do if type(child.Label) == "table" and child.Label:GetText() == "Open Polestar settings" then open = child end end
+		open:Click()
+		emit({ hidden = hidden, opened = PolestarOptions:IsShown(), hint = stub.messages[#stub.messages] })`,
+		{ before: 'Enum.InputDeviceInterfaceType = { Mkb = 0, Gamepad = 1 }; C_InputInterfaceStyle = { GetCurrentStyle = function() return 1 end }' });
+	assert.equal(out.hidden, 0);
+	assert.equal(out.opened, true);
+	assert.match(out.hint, /Close the game menu to see Polestar's settings\.$/);
 });
 
 test('hiding a window mid-drag on its scroll bar ends the drag', () => {

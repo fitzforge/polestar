@@ -60,10 +60,6 @@ local Pins = {}
 ns.Pins = Pins
 
 local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Nav\\"
-local TEMPLATE = "PolestarPinsTemplate"
-local AREA_TEMPLATE = "PolestarPinsAreaTemplate"
-local HULL_TEMPLATE = "PolestarPinsHullTemplate"
-local TRAIL_TEMPLATE = "PolestarPinsTrailTemplate"
 local AREA_ALPHA = 0.32 -- area disc opacity, times the pin colour's alpha
 -- Hulls: fill and rim opacity (times the pin colour's alpha), the rim's width
 -- on screen (UI units), and the solid texture their pieces are cut from.
@@ -670,250 +666,194 @@ function Pins.GetTrail()
 end
 
 ---------------------------------------------------------------------------
--- World map: a map canvas data provider (Blizzard_MapCanvas). AcquirePin
--- needs an XML template; Polestar's manifests load scripts only, so the
--- provider registers its own pool under TEMPLATE honouring the pool contract
--- MapCanvasMixin uses (Acquire, Release, ReleaseAll, EnumerateActive,
--- GetNumActive) and releasing pins the way MapCanvas's own pools do.
+-- World map: frames of Polestar's own on the map's canvas, driven by the
+-- world map's view (Core/MapCanvas.lua). The map is only read: no data
+-- provider, no pin pool of the map's, no AcquirePin, so the gamepad
+-- interface's secure code never meets a value of Polestar's (see the
+-- header of Core/MapCanvas.lua). Each kind sits at the frame level the map
+-- gives Blizzard's own pins of that sort:
+--   pins        PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST, counter-scaled as a
+--               map pin with SetScalingLimits(1, 1, 1.25) is (the same size
+--               on screen zoomed out, a quarter larger zoomed in); tooltip
+--               and click, with the mouse and with the gamepad's map cursor
+--               and A (below), the right button passed through to the map
+--               (zoom out)
+--   areas, hulls, trail dots
+--               PIN_FRAME_LEVEL_QUEST_BLOB, under every pin, no mouse; areas
+--               and hulls in canvas units (they scale with the terrain),
+--               dots counter-scaled like the pins
+-- A kind's frames are used in order, made in that order: the i-th pin of a
+-- draw is always the i-th frame, so a redraw hands every frame back the pin
+-- it showed, and higher priorities, drawn last, sit on top. Layer changes
+-- while the map is open are drawn once, on its next frame.
 ---------------------------------------------------------------------------
 
-local provider, pinMixin, areaMixin, hullMixin, trailMixin, installedOn
-local wDots, wDotCount = {}, 0 -- trail pins acquired since the last refresh, and how many show
-local TRAIL_DATA = {}
--- The viewed map (viewMap): its continent, world yards -> percent, and the
--- trail's dot spacing (nil continent: no trail or hull can show there).
-local wC, wLeft, wTop, wKx, wKy, wSpacing
-local viewMap -- forward
+-- What the rest of the file reads: the view, the frames drawn (n of each
+-- kind), the trail's textures, install, flush and dotsShown.
+local world = { pins = { n = 0 }, areas = { n = 0 }, hulls = { n = 0 } }
 
--- ReleaseAll goes through the pool's frames newest first, never pairs() over
--- the frame-keyed `active` (an order of table addresses, different from run
--- to run): Acquire pops the oldest first again, so a redraw hands every frame
--- back the pin it showed, as the minimap's frames are released.
-local function newPool(map, mixin, mouse)
-	local pool = { active = {}, inactive = {}, frames = {}, count = 0 }
+do
+	local PIN_LEVEL, BLOB_LEVEL = "PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST", "PIN_FRAME_LEVEL_QUEST_BLOB"
+	local PIN_ZOOMED = 1.25 -- pin scale zoomed in (1 zoomed out)
 
-	local function reset(pin)
-		local owner = pin.GetMap and pin:GetMap()
-		if owner and owner.UnregisterPin then owner:UnregisterPin(pin) end
-		pin:Hide()
-		pin:ClearAllPoints()
-		pin:OnReleased()
-		pin.pinTemplate = nil
-		pin:SetOwningMap(nil)
+	local wView              -- the world map's view, once Blizzard_WorldMap is loaded
+	local wDirty = false     -- something to draw on the map's next frame
+	local wPins, wAreas, wHulls = world.pins, world.areas, world.hulls
+	local wTrail             -- { host, dots = { texture, ... }, n, size, version }
+	local passPending = false -- pin frames made in combat wait for its end to pass the right button through
+	-- The viewed map (viewMap): its continent, world yards -> percent, and the
+	-- trail's dot spacing (nil continent: no trail or hull can show there).
+	local wC, wLeft, wTop, wKx, wKy, wSpacing
+	local viewMap -- forward
+
+	-- Centre frame f on (x, y), percent of the viewed map, at scale s.
+	local function placeAt(f, x, y, s)
+		local v = wView
+		f:SetScale(s)
+		f:ClearAllPoints()
+		f:SetPoint("CENTER", v.canvas, "TOPLEFT", v.width * x / 100 / s, -v.height * y / 100 / s)
 	end
 
-	function pool:Acquire()
-		local pin = table.remove(self.inactive)
-		local new = pin == nil
-		if new then
-			pin = CreateFrame("Frame", nil, map:GetCanvas())
-			Mixin(pin, mixin)
-			pin:EnableMouse(mouse)
-			self.frames[#self.frames + 1] = pin
-		end
-		self.active[pin] = true
-		self.count = self.count + 1
-		return pin, new
-	end
-
-	function pool:Release(pin)
-		if not self.active[pin] then return false end
-		reset(pin)
-		self.active[pin] = nil
-		self.count = self.count - 1
-		self.inactive[#self.inactive + 1] = pin
-		return true
-	end
-
-	function pool:ReleaseAll()
-		local frames = self.frames
-		for i = #frames, 1, -1 do self:Release(frames[i]) end
-	end
-
-	function pool:EnumerateActive()
-		return pairs(self.active)
-	end
-
-	function pool:GetNumActive()
-		return self.count
-	end
-
-	return pool
-end
-
-local function buildWorldMixins()
-	pinMixin = CreateFromMixins(MapCanvasPinMixin)
-
-	function pinMixin:OnLoad()
-		self:SetScalingLimits(1, 1, 1.25)
-		self:UseFrameLevelType("PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST")
-		buildLook(self)
-	end
-
-	-- MapCanvasMixin:AcquirePin calls this on every acquire, and the stock
-	-- version calls SetPassThroughButtons, which Forever restricts in combat
-	-- (SimpleScriptRegionAPI: IsProtectedFunction + HasRestrictions). Our pins
-	-- always pass the right button through to the map (zoom out), so it is set
-	-- once per frame, and deferred to PLAYER_REGEN_ENABLED for frames created
-	-- in combat.
-	function pinMixin:CheckMouseButtonPassthrough()
-		if self.passThroughSet then return end
+	-- SetPassThroughButtons is restricted in combat on Forever
+	-- (SimpleScriptRegionAPI: IsProtectedFunction + HasRestrictions): set once
+	-- per frame, and for frames made in combat once it ends (PLAYER_REGEN_ENABLED).
+	local function passRightButton(f)
 		if InCombatLockdown and InCombatLockdown() then
-			Pins.passThroughPending = true
+			passPending = true
 			return
 		end
-		self:SetPassThroughButtons("RightButton")
-		self.passThroughSet = true
+		f:SetPassThroughButtons("RightButton")
+		f.passThroughSet = true
+	end
+	ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
+		if not passPending then return end
+		passPending = false
+		for i = 1, #wPins do
+			if not wPins[i].passThroughSet then passRightButton(wPins[i]) end
+		end
+	end)
+
+	-- A pin takes clicks without a click script. As the gamepad interface
+	-- focuses the map, Blizzard_GamepadSmartNavigation scans every frame
+	-- under it for buttons (Utility.lua, SmartNavigation_CanFocusFrame) and
+	-- takes a frame with an OnMouseDown or OnMouseUp script for one, reading
+	-- that script back with GetScript: Polestar's function in its secure
+	-- code. Seen in game: the map's FocusGamepad then registered its
+	-- SmartNavigation callbacks tainted, and the next close blocked the
+	-- interface's actions. So a pin only takes the mouse (a left click stays
+	-- off the map under it; the right button passes through), its OnEnter
+	-- and OnLeave say which pin the pointer is on, and a click is a
+	-- GLOBAL_MOUSE_DOWN and a GLOBAL_MOUSE_UP of one button on that pin.
+	-- Pins.OnWorldClick(fn): fn(pin, layer, button) -> true takes a click
+	-- on a world map pin before the pin's onClick (Nav/Journey.lua: Shift
+	-- lets the target go).
+	local mousePin, pressedPin, pressedButton
+	local clickFilters = {}
+	function Pins.OnWorldClick(fn) clickFilters[#clickFilters + 1] = fn end
+	ns.RegisterEvent("GLOBAL_MOUSE_DOWN", function(_, button)
+		if button == "RightButton" then return end
+		pressedPin, pressedButton = mousePin, button
+	end)
+	ns.RegisterEvent("GLOBAL_MOUSE_UP", function(_, button)
+		local f = pressedPin
+		pressedPin = nil
+		if not (f and f == mousePin and button == pressedButton and f:IsVisible()) then return end
+		local d = f.data
+		for i = 1, #clickFilters do
+			if clickFilters[i](d.pin, d.layer, button) then return end
+		end
+		click(d.pin, button)
+	end)
+
+	local function worldPin(i)
+		local f = wPins[i]
+		if f then return f end
+		f = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		buildLook(f)
+		f.data = {}
+		f:EnableMouse(true)
+		f:SetScript("OnEnter", function(self)
+			mousePin = self
+			showTooltip(self, self.data.pin)
+		end)
+		f:SetScript("OnLeave", function(self)
+			if mousePin == self then mousePin = nil end
+			GameTooltip:Hide()
+		end)
+		passRightButton(f)
+		wPins[i] = f
+		return f
 	end
 
-	-- data = { pin, layer, x, y } (x, y: 0-100 on the viewed map)
-	function pinMixin:OnAcquired(data)
-		self.data = data
-		local p = data.pin
-		applyLook(self, p, (tonumber(p.size) or WORLD_SIZE) * data.layer.scale)
-		self:SetPosition(data.x / 100, data.y / 100)
+	-- Areas: a pin's `area` (yards) as a disc, its diameter dx / 50 of the
+	-- canvas's width (dx: the radius in percent of the map's width).
+	local function worldArea(i)
+		local f = wAreas[i]
+		if f then return f end
+		f = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		f.tex = f:CreateTexture(nil, "BACKGROUND")
+		f.tex:SetTexture(MEDIA .. "area")
+		f.tex:SetAllPoints()
+		f.data = {}
+		wAreas[i] = f
+		return f
 	end
 
-	function pinMixin:OnMouseEnter()
-		showTooltip(self, self.data and self.data.pin)
+	local function layoutArea(f)
+		local d = f.data
+		local size = d.dx / 50 * wView.width
+		f:SetSize(size, size)
+		placeAt(f, d.x, d.y, 1)
 	end
 
-	function pinMixin:OnMouseLeave()
-		GameTooltip:Hide()
-	end
-
-	function pinMixin:OnMouseClickAction(button)
-		click(self.data and self.data.pin, button)
-	end
-
-	-- Areas: a pin's `area` (yards) as a disc on the map canvas, under every
-	-- pin (the quest blob level), no mouse. They scale with the terrain: no
-	-- global pin scale, no scaling limits, sized in canvas units.
-	areaMixin = CreateFromMixins(MapCanvasPinMixin)
-
-	function areaMixin:OnLoad()
-		self:SetIgnoreGlobalPinScale(true)
-		self:UseFrameLevelType("PIN_FRAME_LEVEL_QUEST_BLOB")
-		self.tex = self:CreateTexture(nil, "BACKGROUND")
-		self.tex:SetTexture(MEDIA .. "area")
-		self.tex:SetAllPoints()
-	end
-
-	function areaMixin:CheckMouseButtonPassthrough() end -- never takes the mouse
-
-	function areaMixin:Resize()
-		local canvas = self:GetMap():GetCanvas()
-		local d = self.data.dx / 50 * (canvas:GetWidth() or 0)
-		self:SetSize(d, d)
-	end
-
-	-- data = { pin, layer, x, y, dx } (dx: the radius in percent of the map's width)
-	function areaMixin:OnAcquired(data)
-		self.data = data
-		local r, g, b, a = pinColor(data.pin)
-		self.tex:SetVertexColor(r, g, b, a * AREA_ALPHA)
-		self:SetScale(1)
-		self:Resize()
-		self:SetPosition(data.x / 100, data.y / 100)
-	end
-
-	function areaMixin:OnCanvasSizeChanged()
-		if self.data then self:Resize() end
-	end
-
-	-- Hulls: a pin's `hull` as a region on the map canvas, at the areas'
-	-- level, no mouse. Sized in canvas units like the areas; the rim stays
+	-- Hulls: a pin's `hull` as a region in canvas units; the rim stays
 	-- HULL_RIM_WIDTH wide on screen at any zoom.
-	hullMixin = CreateFromMixins(MapCanvasPinMixin)
-
-	function hullMixin:OnLoad()
-		self:SetIgnoreGlobalPinScale(true)
-		self:UseFrameLevelType("PIN_FRAME_LEVEL_QUEST_BLOB")
-		self.texs, self.used, self.outline = {}, 0, {}
-		self.get = function(k)
-			local t = self.texs[k]
+	local function worldHull(i)
+		local f = wHulls[i]
+		if f then return f end
+		f = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		f.texs, f.used, f.outline = {}, 0, {}
+		f.get = function(k)
+			local t = f.texs[k]
 			if not t then
-				t = hullTexture(self)
-				t:SetAllPoints(self)
-				self.texs[k] = t
+				t = hullTexture(f)
+				t:SetAllPoints(f)
+				f.texs[k] = t
 			end
 			t:Show()
 			return t
 		end
+		f.data = { xs = {}, ys = {} }
+		wHulls[i] = f
+		return f
 	end
 
-	function hullMixin:CheckMouseButtonPassthrough() end -- never takes the mouse
-
-	-- The rim's width in canvas units: HULL_RIM_WIDTH on screen.
-	local function rimWidth(map)
-		local scale = map.GetCanvasScale and map:GetCanvasScale() or 1
-		return HULL_RIM_WIDTH / (scale and scale > 0 and scale or 1)
+	local function rimWidth()
+		return HULL_RIM_WIDTH / (wView.scale or 1)
 	end
 
-	function hullMixin:Layout()
-		local d, map = self.data, self:GetMap()
-		local canvas = map:GetCanvas()
-		local w, h = canvas:GetWidth() or 0, canvas:GetHeight() or 0
+	local function layoutHull(f)
+		local d, v = f.data, wView
+		local w, h = v.width, v.height
 		local xs, ys, x, y = d.xs, d.ys, d.x, d.y
 		for i = 1, d.n do hx[i], hy[i] = (xs[i] - x) / 100 * w, (y - ys[i]) / 100 * h end
-		self.rim = rimWidth(map)
+		f.rim = rimWidth()
 		local r, g, b, a = pinColor(d.pin)
-		local used, hw, hh, n = layHull(d.n, self.rim, self.get, r, g, b, a)
-		for k = used + 1, self.used do self.texs[k]:Hide() end
-		self.used = used
-		self:SetSize(max(2 * hw, 1), max(2 * hh, 1))
-		outline(self.outline, used > 0 and n or 0)
+		local used, hw, hh, n = layHull(d.n, f.rim, f.get, r, g, b, a)
+		for k = used + 1, f.used do f.texs[k]:Hide() end
+		f.used = used
+		f:SetSize(max(2 * hw, 1), max(2 * hh, 1))
+		outline(f.outline, used > 0 and n or 0)
+		placeAt(f, x, y, 1)
 	end
 
-	-- data = { pin, layer, x, y, xs, ys, n } (the centre and the n points of
-	-- the hull, in percent of the viewed map)
-	function hullMixin:OnAcquired(data)
-		self.data = data
-		self:SetScale(1)
-		self:Layout()
-		self:SetPosition(data.x / 100, data.y / 100)
-	end
-
-	function hullMixin:OnCanvasSizeChanged()
-		if self.data then self:Layout() end
-	end
-
-	-- Zooming: the rim keeps its width on screen (within a quarter).
-	function hullMixin:OnCanvasScaleChanged()
-		if not self.data then return end
-		local rim = rimWidth(self:GetMap())
-		if not self.rim or rim > self.rim * 1.25 or rim < self.rim * 0.8 then self:Layout() end
-	end
-
-	-- Trail dots: small discs in the trail's colour, under every pin (the
-	-- areas' level), no mouse; drawTrailWorld places them.
-	trailMixin = CreateFromMixins(MapCanvasPinMixin)
-
-	function trailMixin:OnLoad()
-		self:SetScalingLimits(1, 1, 1.25)
-		self:UseFrameLevelType("PIN_FRAME_LEVEL_QUEST_BLOB")
-		self:SetSize(WORLD_DOT, WORLD_DOT)
-		self.tex = self:CreateTexture(nil, "ARTWORK")
-		self.tex:SetTexture(MEDIA .. "pin-fill")
-		self.tex:SetAllPoints()
-	end
-
-	function trailMixin:CheckMouseButtonPassthrough() end -- never takes the mouse
-
-	function trailMixin:OnAcquired()
-		if trail then self.tex:SetVertexColor(trail.r, trail.g, trail.b, TRAIL_ALPHA) end
-	end
-
-	provider = CreateFromMixins(MapCanvasDataProviderMixin)
-
-	function provider:RemoveAllData()
-		local map = self:GetMap()
-		map:RemoveAllPinsByTemplate(AREA_TEMPLATE)
-		map:RemoveAllPinsByTemplate(HULL_TEMPLATE)
-		map:RemoveAllPinsByTemplate(TEMPLATE)
-		map:RemoveAllPinsByTemplate(TRAIL_TEMPLATE)
-		for i = #wDots, 1, -1 do wDots[i] = nil end
-		wDotCount = 0
+	-- Hide a kind's frames from index `from` on; they keep no pin.
+	local function hideFrom(list, from)
+		for i = from, list.n do
+			local f = list[i]
+			f:Hide()
+			f.data.pin, f.data.layer = nil, nil
+		end
 	end
 
 	-- Radius of a pin's area in percent of the viewed map's width, or nil.
@@ -929,146 +869,319 @@ local function buildWorldMixins()
 		return dx > 0 and dx or nil
 	end
 
-	-- A pin's hull in percent of the viewed map (same continent), when any
-	-- of it lies on that map.
-	local function hullOn(p, layer, i, map)
+	-- A pin's hull in percent of the viewed map (same continent), drawn as the
+	-- count + 1st hull when any of it lies on that map. Returns the new count.
+	local sx, sy = {}, {}
+	local function hullOn(p, layer, i, count, level)
 		local hull, c = p.hull, layer.c[i]
-		if not (c and c == wC) then return end
-		local xs, ys, n = {}, {}, 0
+		if not (c and c == wC) then return count end
+		local n = 0
 		local x0, y0, x1, y1 = math.huge, math.huge, -math.huge, -math.huge
 		for k = 1, #hull - 1, 2 do
 			local x, y = (hull[k + 1] - wLeft) * wKx, (hull[k] - wTop) * wKy
 			n = n + 1
-			xs[n], ys[n] = x, y
+			sx[n], sy[n] = x, y
 			if x < x0 then x0 = x end
 			if x > x1 then x1 = x end
 			if y < y0 then y0 = y end
 			if y > y1 then y1 = y end
 		end
-		if n < 3 or x1 < 0 or x0 > 100 or y1 < 0 or y0 > 100 then return end
-		map:AcquirePin(HULL_TEMPLATE, {
-			pin = p, layer = layer, x = (layer.wy[i] - wLeft) * wKx, y = (layer.wx[i] - wTop) * wKy, xs = xs, ys = ys, n = n,
-		})
+		if n < 3 or x1 < 0 or x0 > 100 or y1 < 0 or y0 > 100 then return count end
+		local f = worldHull(count + 1)
+		local d = f.data
+		local xs, ys = d.xs, d.ys
+		for k = 1, n do xs[k], ys[k] = sx[k], sy[k] end
+		d.pin, d.layer, d.n = p, layer, n
+		d.x, d.y = (layer.wy[i] - wLeft) * wKx, (layer.wx[i] - wTop) * wKy
+		f:SetFrameLevel(level)
+		layoutHull(f)
+		f:Show()
+		return count + 1
 	end
 
-	-- Higher priority acquires last, so it lands on top.
+	-- Higher priority draws last, so it lands on top.
 	local queue, qPin, qLayer, qX, qY, qPri = {}, {}, {}, {}, {}, {}
 	local function byPriority(a, b)
 		if qPri[a] ~= qPri[b] then return qPri[a] < qPri[b] end
 		return a < b
 	end
 
-	function provider:RefreshAllData()
-		self:RemoveAllData()
-		local map = self:GetMap()
-		local mapID = map:GetMapID()
+	-- Every layer's pins, areas and hulls, and the trail, for the viewed map.
+	local function drawWorld()
+		wDirty = false
+		local v = wView
+		local mapID = v.mapID
 		local C = ns.Compat
-		if not mapID then return end
-		viewMap(mapID)
-		local n = 0
-		for _, name in ipairs(order) do
-			local layer = layers[name]
-			if layer and layer.world and not hidden[name] then
-				if not layer.resolved then resolveLayer(layer) end
-				local pins = layer.pins
-				for i = 1, #pins do
-					local p = pins[i]
-					if type(p.hull) == "table" then hullOn(p, layer, i, map) end
-					if not (p.areaOnly and not p.area) then
-						local x, y
-						if p.map == mapID and p.x and p.y and not p.f then
-							x, y = p.x, p.y
-						elseif layer.c[i] and C and C.WorldToMap then
-							x, y = C.WorldToMap(layer.c[i], layer.wx[i], layer.wy[i], mapID)
-						end
-						if x and x >= 0 and x <= 100 and y >= 0 and y <= 100 then
-							if not p.areaOnly then
-								n = n + 1
-								queue[n], qPin[n], qLayer[n], qX[n], qY[n], qPri[n] = n, p, layer, x, y, tonumber(p.priority) or 0
+		local n, areas, hulls = 0, 0, 0
+		if mapID then
+			viewMap(mapID)
+			local pinLevel, blobLevel = v:Level(PIN_LEVEL), v:Level(BLOB_LEVEL)
+			for _, name in ipairs(order) do
+				local layer = layers[name]
+				if layer and layer.world and not hidden[name] then
+					if not layer.resolved then resolveLayer(layer) end
+					local pins = layer.pins
+					for i = 1, #pins do
+						local p = pins[i]
+						if type(p.hull) == "table" then hulls = hullOn(p, layer, i, hulls, blobLevel) end
+						if not (p.areaOnly and not p.area) then
+							local x, y
+							if p.map == mapID and p.x and p.y and not p.f then
+								x, y = p.x, p.y
+							elseif layer.c[i] and C and C.WorldToMap then
+								x, y = C.WorldToMap(layer.c[i], layer.wx[i], layer.wy[i], mapID)
 							end
-							if p.area then
-								local dx = areaRadius(p, layer, i, x, mapID, C)
-								if dx then map:AcquirePin(AREA_TEMPLATE, { pin = p, layer = layer, x = x, y = y, dx = dx }) end
+							if x and x >= 0 and x <= 100 and y >= 0 and y <= 100 then
+								if not p.areaOnly then
+									n = n + 1
+									queue[n], qPin[n], qLayer[n], qX[n], qY[n], qPri[n] = n, p, layer, x, y, tonumber(p.priority) or 0
+								end
+								if p.area then
+									local dx = areaRadius(p, layer, i, x, mapID, C)
+									if dx then
+										areas = areas + 1
+										local f = worldArea(areas)
+										local d = f.data
+										d.pin, d.layer, d.x, d.y, d.dx = p, layer, x, y, dx
+										local r, g, b, a = pinColor(p)
+										f.tex:SetVertexColor(r, g, b, a * AREA_ALPHA)
+										f:SetFrameLevel(blobLevel)
+										layoutArea(f)
+										f:Show()
+									end
+								end
 							end
 						end
 					end
 				end
 			end
+			for i = #queue, n + 1, -1 do queue[i] = nil end
+			table.sort(queue, byPriority)
+			local scale = v:PinScale(1, PIN_ZOOMED)
+			for k = 1, n do
+				local i = queue[k]
+				local f = worldPin(k)
+				local d = f.data
+				d.pin, d.layer, d.x, d.y = qPin[i], qLayer[i], qX[i], qY[i]
+				applyLook(f, d.pin, (tonumber(d.pin.size) or WORLD_SIZE) * d.layer.scale)
+				f:SetFrameLevel(pinLevel)
+				placeAt(f, d.x, d.y, scale)
+				f:Show()
+			end
+			for i = 1, n do qPin[i], qLayer[i] = nil, nil end
+		else
+			wC = nil
 		end
+		hideFrom(wPins, n + 1)
+		hideFrom(wAreas, areas + 1)
+		hideFrom(wHulls, hulls + 1)
+		wPins.n, wAreas.n, wHulls.n = n, areas, hulls
 		drawTrailWorld(trailFrac())
 		updateTrailDriver()
-		for i = #queue, n + 1, -1 do queue[i] = nil end
-		table.sort(queue, byPriority)
-		for k = 1, n do
-			local i = queue[k]
-			map:AcquirePin(TEMPLATE, { pin = qPin[i], layer = qLayer[i], x = qX[i], y = qY[i] })
-		end
-		for i = 1, n do qPin[i], qLayer[i] = nil, nil end
 	end
-end
 
-local function installWorld()
-	if installedOn then return true end
-	local map = WorldMapFrame
-	if not (map and map.AddDataProvider and map.AcquirePin and map.pinPools and map.GetCanvas
-		and MapCanvasDataProviderMixin and MapCanvasPinMixin and CreateFromMixins and Mixin) then
-		return false
-	end
-	buildWorldMixins()
-	if not map.pinPools[TEMPLATE] then map.pinPools[TEMPLATE] = newPool(map, pinMixin, true) end
-	if not map.pinPools[AREA_TEMPLATE] then map.pinPools[AREA_TEMPLATE] = newPool(map, areaMixin, false) end
-	if not map.pinPools[HULL_TEMPLATE] then map.pinPools[HULL_TEMPLATE] = newPool(map, hullMixin, false) end
-	if not map.pinPools[TRAIL_TEMPLATE] then map.pinPools[TRAIL_TEMPLATE] = newPool(map, trailMixin, false) end
-	map:AddDataProvider(provider)
-	installedOn = map
-	return true
-end
-
-function refreshWorld()
-	if installedOn and installedOn:IsShown() then provider:RefreshAllData() end
-end
-
-function viewMap(mapID)
-	wC = nil
-	local C = ns.Compat
-	if not (mapID and C and C.MapToWorld) then return end
-	local c1, top, left = C.MapToWorld(mapID, 0, 0)
-	local c2, bottom, right = C.MapToWorld(mapID, 100, 100)
-	if not (c1 and c1 == c2 and top ~= bottom and left ~= right) then return end
-	wC, wLeft, wTop = c1, left, top
-	wKx, wKy = 100 / (right - left), 100 / (bottom - top)
-	wSpacing = max(WORLD_MIN_SPACING, abs(right - left) / WORLD_DIVS)
-end
-
--- Place the world map's trail dots, reusing the pins already acquired and
--- hiding the rest (on the map viewMap last measured).
-function drawTrailWorld(frac)
-	local count = 0
-	local map = installedOn
-	if trail and trail.world and wC and map and map:IsShown() then
-		local C = ns.Compat
-		local pc, px, py
-		if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
-		ua, ub, uc, va, vb, vc = 0, wKx, -wLeft * wKx, wKy, 0, -wTop * wKy
-		cx0, cy0, cx1, cy1 = 0, 0, 100, 100
-		local runs = trail.runs
-		for k = 1, #runs do
-			local run = runs[k]
-			if run.c == wC then count = runDots(loadRun(run, pc, px, py), wSpacing, frac, clipRect, WORLD_CAP, count) end
+	-- Zooming: pins and dots keep their size on screen, hull rims their width
+	-- (within a quarter); areas and hulls scale with the terrain.
+	local function rescaleWorld()
+		local scale = wView:PinScale(1, PIN_ZOOMED)
+		for i = 1, wPins.n do
+			local f = wPins[i]
+			placeAt(f, f.data.x, f.data.y, scale)
 		end
-		for i = 1, count do
-			local pin = wDots[i]
-			if not pin then
-				pin = map:AcquirePin(TRAIL_TEMPLATE, TRAIL_DATA)
-				wDots[i] = pin
-			elseif i > wDotCount then
-				pin:Show()
+		local rim = rimWidth()
+		for i = 1, wHulls.n do
+			local f = wHulls[i]
+			if not f.rim or rim > f.rim * 1.25 or rim < f.rim * 0.8 then layoutHull(f) end
+		end
+		local t = wTrail
+		local size = WORLD_DOT * scale
+		if t and t.size ~= size then
+			t.size = size
+			local dots = t.dots
+			for i = 1, t.n do dots[i]:SetSize(size, size) end
+			for i = t.n + 1, #dots do dots[i].styled = nil end
+		end
+	end
+
+	function world.dotsShown()
+		return wTrail ~= nil and wTrail.n > 0 and wView ~= nil and wView.shown
+	end
+
+	-- The gamepad interface's map cursor (Blizzard_GamepadSoftCursor's
+	-- SoftCursor, moved by the stick while the map has the gamepad's focus)
+	-- is no mouse: the map hovers its own pins near it
+	-- (MapCanvasMixin:UpdateGamepadCursor, within 12 units) and clicks them
+	-- on A (WorldMapMixin:GamepadMapClick). Polestar's pins do the same on
+	-- the view's frames, reading the cursor: the nearest pin with a tooltip
+	-- or a click within CURSOR_REACH shows its tooltip, and a press of A
+	-- clicks it. A is polled with IsKeyDown, as Blizzard_GamepadActionBars'
+	-- ClassActionFlyout polls its buttons, so the press still reaches the map.
+	local CURSOR_REACH, CURSOR_INTERVAL = 12, 0.05 -- UI units; seconds between searches
+	local hovered, hoveredPin, cursorAcc, padDown = nil, nil, 0, false
+
+	local function unhover()
+		if hovered and GameTooltip:GetOwner() == hovered then GameTooltip:Hide() end
+		hovered, hoveredPin = nil, nil
+	end
+
+	-- The pin frame nearest screen point (cx, cy) that shows a tooltip or
+	-- takes a click, within reach; its place from its map percent and the
+	-- canvas's (no layout read per pin).
+	local function pinAt(cx, cy)
+		local v = wView
+		local canvas = v.canvas
+		local left, top = canvas:GetLeft(), canvas:GetTop()
+		if not (left and top) then return nil end
+		local cs = canvas:GetEffectiveScale()
+		local reach = CURSOR_REACH * UIParent:GetEffectiveScale()
+		local best, bestD = nil, reach * reach
+		for i = 1, wPins.n do
+			local f = wPins[i]
+			local d = f.data
+			if d.pin.tooltip or d.pin.onClick then
+				local dx = (left + v.width * d.x / 100) * cs - cx
+				local dy = (top - v.height * d.y / 100) * cs - cy
+				local dd = dx * dx + dy * dy
+				if dd <= bestD then best, bestD = f, dd end
 			end
-			pin:SetPosition(dotX[i] / 100, dotY[i] / 100)
+		end
+		return best
+	end
+
+	local function followGamepadCursor(elapsed)
+		local cursor = SoftCursor
+		if not (cursor and cursor:IsShown()) then
+			if hovered then unhover() end
+			padDown = false
+			return
+		end
+		cursorAcc = cursorAcc + elapsed
+		if cursorAcc >= CURSOR_INTERVAL or (hovered and not hovered:IsShown()) then
+			cursorAcc = 0
+			local x, y = cursor:GetCenter()
+			local s = cursor:GetEffectiveScale()
+			local f = x and pinAt(x * s, y * s)
+			local p = f and f.data.pin
+			if p ~= hoveredPin or f ~= hovered then
+				unhover()
+				if f then
+					hovered, hoveredPin = f, p
+					showTooltip(f, p)
+				end
+			end
+		end
+		local down = IsKeyDown and IsKeyDown(GAMEPAD_FACE_BOTTOM or "PAD1") and true or false
+		if down and not padDown and hovered then click(hoveredPin, "LeftButton") end
+		padDown = down
+	end
+
+	local function onWorldView(_, what, elapsed)
+		if what == "tick" then
+			if wDirty then drawWorld() end
+			followGamepadCursor(elapsed)
+		elseif what == "show" or what == "map" or what == "size" then
+			drawWorld()
+		elseif what == "scale" then
+			rescaleWorld()
+		elseif what == "hide" then
+			unhover()
+			padDown = false
+			updateTrailDriver()
 		end
 	end
-	for i = count + 1, wDotCount do wDots[i]:Hide() end
-	wDotCount = count
+
+	function world.install()
+		if wView then return true end
+		local M = ns.MapCanvas
+		wView = WorldMapFrame and M and M.Watch(WorldMapFrame, onWorldView) or nil
+		world.view = wView
+		return wView ~= nil
+	end
+
+	-- Layers and the trail changed: drawn on the open map's next frame (a
+	-- closed map draws everything as it opens).
+	function refreshWorld()
+		if wView and wView.shown then wDirty = true end
+	end
+
+	-- A draw still due this frame runs now (diagnostics and tests).
+	function world.flush()
+		if wDirty and wView and wView.shown then drawWorld() end
+	end
+
+	function viewMap(mapID)
+		wC = nil
+		local C = ns.Compat
+		if not (mapID and C and C.MapToWorld) then return end
+		local c1, top, left = C.MapToWorld(mapID, 0, 0)
+		local c2, bottom, right = C.MapToWorld(mapID, 100, 100)
+		if not (c1 and c1 == c2 and top ~= bottom and left ~= right) then return end
+		wC, wLeft, wTop = c1, left, top
+		wKx, wKy = 100 / (right - left), 100 / (bottom - top)
+		wSpacing = max(WORLD_MIN_SPACING, abs(right - left) / WORLD_DIVS)
+	end
+
+	-- The trail's dots: textures on one frame at the canvas's top left, laid out
+	-- in canvas units; WORLD_DOT on screen like a pin.
+	local function trailHost()
+		if wTrail then return wTrail end
+		local host = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		host:SetPoint("TOPLEFT", wView.canvas, "TOPLEFT", 0, 0)
+		host:SetSize(1, 1)
+		wTrail = { host = host, dots = {}, n = 0 }
+		world.trail = wTrail
+		return wTrail
+	end
+
+	-- Place the world map's trail dots, reusing the textures already made and
+	-- hiding the rest (on the map viewMap last measured).
+	function drawTrailWorld(frac)
+		local count = 0
+		local v = wView
+		if trail and trail.world and wC and v and v.shown then
+			local C = ns.Compat
+			local pc, px, py
+			if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+			ua, ub, uc, va, vb, vc = 0, wKx, -wLeft * wKx, wKy, 0, -wTop * wKy
+			cx0, cy0, cx1, cy1 = 0, 0, 100, 100
+			local runs = trail.runs
+			for k = 1, #runs do
+				local run = runs[k]
+				if run.c == wC then count = runDots(loadRun(run, pc, px, py), wSpacing, frac, clipRect, WORLD_CAP, count) end
+			end
+		end
+		local t = wTrail
+		if count > 0 then
+			t = trailHost()
+			t.host:SetFrameLevel(v:Level(BLOB_LEVEL))
+			local size = WORLD_DOT * v:PinScale(1, PIN_ZOOMED)
+			local restyle = t.size ~= size or t.version ~= trail.version
+			t.size, t.version = size, trail.version
+			local w, h, dots = v.width, v.height, t.dots
+			for i = 1, count do
+				local dot = dots[i]
+				if not dot then
+					dot = t.host:CreateTexture(nil, "ARTWORK")
+					dot:SetTexture(MEDIA .. "pin-fill")
+					dots[i] = dot
+				end
+				if restyle or not dot.styled then
+					dot:SetSize(size, size)
+					dot:SetVertexColor(trail.r, trail.g, trail.b, TRAIL_ALPHA)
+					dot.styled = true
+				end
+				if i > t.n then dot:Show() end
+				dot:ClearAllPoints()
+				dot:SetPoint("CENTER", t.host, "TOPLEFT", dotX[i] / 100 * w, -dotY[i] / 100 * h)
+			end
+			-- Dots past the count wait unstyled: the size may change before they show again.
+			for i = count + 1, #dots do dots[i].styled = nil end
+		end
+		if t then
+			for i = count + 1, t.n do t.dots[i]:Hide() end
+			t.n = count
+		end
+	end
 end
 
 ---------------------------------------------------------------------------
@@ -1169,7 +1282,7 @@ end
 local function acquireMinimap()
 	local f = table.remove(mmFree)
 	if not f then
-		f = CreateFrame("Frame", nil, Minimap)
+		f = ns.CreateFrameUnder("Frame", nil, Minimap)
 		buildLook(f)
 		f:SetScript("OnEnter", function(self) showTooltip(self, self.pin) end)
 		f:SetScript("OnLeave", function() GameTooltip:Hide() end)
@@ -1242,7 +1355,7 @@ local mmDots, mmDotCount, mmTrailAt = {}, 0, -1
 
 local function minimapDot(i)
 	if not mmTrail then
-		mmTrail = CreateFrame("Frame", nil, Minimap)
+		mmTrail = ns.CreateFrameUnder("Frame", nil, Minimap)
 		mmTrail:SetAllPoints(Minimap)
 		mmTrail:SetFrameLevel((Minimap:GetFrameLevel() or 1) + 4)
 	end
@@ -1313,7 +1426,7 @@ end
 
 local function areaFrame()
 	if mmArea then return end
-	mmArea = CreateFrame("Frame", nil, Minimap)
+	mmArea = ns.CreateFrameUnder("Frame", nil, Minimap)
 	mmArea:SetAllPoints(Minimap)
 	mmArea:SetFrameLevel((Minimap:GetFrameLevel() or 1) + 3)
 	if mmArea.CreateMaskTexture then
@@ -1501,7 +1614,7 @@ local function drawMinimap()
 	hideHullsFrom(hulls)
 	drawTrailMinimap(trailFrac())
 	-- Held still, the world map's dots follow the player with these redraws.
-	if wDotCount > 0 and installedOn and installedOn:IsShown() and stillTrail() then drawTrailWorld(TRAIL_STILL) end
+	if world.dotsShown() and stillTrail() then drawTrailWorld(TRAIL_STILL) end
 	updateTrailDriver()
 end
 
@@ -1608,6 +1721,33 @@ function refreshMinimap(layersChanged)
 	redraw(layersChanged)
 end
 
+-- The pin a world map frame of Pins shows: { pin, layer, x, y } (x, y in
+-- percent of the viewed map), or nil for any other frame (Nav/Journey.lua
+-- tells Polestar's pins under the mouse by it).
+function Pins.WorldPinOf(frame)
+	local list = world.pins
+	for i = 1, list.n do
+		if list[i] == frame then return frame.data end
+	end
+	return nil
+end
+
+-- Frames drawn on the open world map, in draw order (diagnostics and tests;
+-- a draw still due this frame runs first): kind "pins" (a frame's `data`:
+-- { pin, layer, x, y }, x and y in percent of the viewed map), "areas" (the
+-- same and dx, the radius in percent of the map's width) or "hulls" (the
+-- same and xs, ys, n, the corners; the frame's `used` pieces of `texs`, its
+-- `outline`).
+function Pins.GetWorldFrames(kind)
+	world.flush()
+	local list = kind == "areas" and world.areas or kind == "hulls" and world.hulls or world.pins
+	local out = {}
+	if world.view and world.view.shown then
+		for i = 1, list.n do out[i] = list[i] end
+	end
+	return out
+end
+
 -- Frames currently drawn on the minimap for a layer (diagnostics and tests;
 -- a redraw still queued for this frame runs first).
 function Pins.GetMinimapFrames(name)
@@ -1650,15 +1790,14 @@ end
 function Pins.AreaStats()
 	flushQueued()
 	local out = { world = { hulls = 0, pieces = 0, discs = 0 }, minimap = { hulls = 0, pieces = 0, discs = mmAreaCount } }
-	local pools = installedOn and installedOn:IsShown() and installedOn.pinPools
-	if pools then
-		if pools[HULL_TEMPLATE] then
-			for pin in pools[HULL_TEMPLATE]:EnumerateActive() do
-				out.world.hulls = out.world.hulls + 1
-				out.world.pieces = out.world.pieces + pin.used
-			end
+	world.flush()
+	if world.view and world.view.shown then
+		local hulls = world.hulls
+		for i = 1, hulls.n do
+			out.world.hulls = out.world.hulls + 1
+			out.world.pieces = out.world.pieces + hulls[i].used
 		end
-		if pools[AREA_TEMPLATE] then out.world.discs = pools[AREA_TEMPLATE]:GetNumActive() end
+		out.world.discs = world.areas.n
 	end
 	for i = 1, mmHullCount do
 		local used = mmHulls[i].used
@@ -1683,9 +1822,6 @@ local function minimapTrailShown()
 	return mmDotCount > 0 and Minimap ~= nil and Minimap:IsVisible() and true or false
 end
 
-local function worldTrailShown()
-	return wDotCount > 0 and installedOn ~= nil and installedOn:IsShown() and true or false
-end
 
 local function trailTick(self, elapsed)
 	trailAccum = trailAccum + elapsed
@@ -1694,12 +1830,12 @@ local function trailTick(self, elapsed)
 	local frac = trailFrac()
 	-- The pins' own redraw may have drawn the minimap's dots this frame.
 	if minimapTrailShown() and GetTime() - mmTrailAt >= TRAIL_INTERVAL / 2 then drawTrailMinimap(frac) end
-	if worldTrailShown() then drawTrailWorld(frac) end
+	if world.dotsShown() then drawTrailWorld(frac) end
 	updateTrailDriver()
 end
 
 function updateTrailDriver()
-	if not stillTrail() and (minimapTrailShown() or worldTrailShown()) then
+	if not stillTrail() and (minimapTrailShown() or world.dotsShown()) then
 		if not trailDriver then
 			trailDriver = CreateFrame("Frame", nil, UIParent)
 			trailDriver:Hide()
@@ -1715,12 +1851,14 @@ function updateTrailDriver()
 	end
 end
 
--- Trail dots drawn on a surface ("minimap": textures, "world": map pins),
--- from the line's start (diagnostics and tests; a queued redraw runs first).
+-- Trail dots drawn on a surface (textures: "minimap" or "world"), from the
+-- line's start (diagnostics and tests; a queued redraw runs first).
 function Pins.GetTrailFrames(surface)
 	local out = {}
 	if surface == "world" then
-		for i = 1, wDotCount do out[i] = wDots[i] end
+		world.flush()
+		local t = world.trail
+		for i = 1, t and t.n or 0 do out[i] = t.dots[i] end
 	else
 		flushQueued()
 		for i = 1, mmDotCount do out[i] = mmDots[i] end
@@ -1734,7 +1872,7 @@ ns.On("SETTING_CHANGED", function(path)
 	if not trail then return end
 	local frac = trailFrac()
 	if Minimap then drawTrailMinimap(frac) end
-	if installedOn and installedOn:IsShown() then drawTrailWorld(frac) end
+	if world.view and world.view.shown then drawTrailWorld(frac) end
 	updateTrailDriver()
 end)
 
@@ -1759,33 +1897,11 @@ local function reresolve()
 end
 ns.OnInit(reresolve)
 
--- Pins created in combat get their right-button passthrough once it ends.
-ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
-	if not (Pins.passThroughPending and installedOn) then return end
-	Pins.passThroughPending = nil
-	local pool = installedOn.pinPools[TEMPLATE]
-	if not pool then return end
-	local function fix(pin)
-		if not pin.passThroughSet then
-			pin:SetPassThroughButtons("RightButton")
-			pin.passThroughSet = true
-		end
-	end
-	for pin in pool:EnumerateActive() do fix(pin) end
-	for _, pin in ipairs(pool.inactive) do fix(pin) end
-end)
-
 ns.OnLogin(function()
 	reresolve()
-	if installWorld() then
-		refreshWorld()
-		return
-	end
+	if world.install() then return end
 	local function onLoaded(_, name)
-		if name == "Blizzard_WorldMap" and installWorld() then
-			ns.UnregisterEvent("ADDON_LOADED", onLoaded)
-			refreshWorld()
-		end
+		if name == "Blizzard_WorldMap" and world.install() then ns.UnregisterEvent("ADDON_LOADED", onLoaded) end
 	end
 	ns.RegisterEvent("ADDON_LOADED", onLoaded)
 end)

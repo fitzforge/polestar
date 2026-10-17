@@ -2,11 +2,12 @@
 
 local ADDON, ns = ...
 local T = ns.Talents
+local L = ns.L
 
 T.Register({
 	class = "PALADIN", tree = 1100, prereq = "full",
 	source = "ForeverDB", url = "https://foreverdb.net/class/Paladin/talents",
-	summary = "Level as Retribution (quickest solo, with a two-hander and Seal of Command) or Protection (safe group pulls, dungeon-tank ready). Holy suits raids; it can level through its melee build, more slowly, if you want to heal dungeons on the way.",
+	summary = L["Level as Retribution (quickest solo, with a two-hander and Seal of Command) or Protection (safe group pulls, dungeon-tank ready). Holy suits raids; it can level through its melee build, more slowly, if you want to heal dungeons on the way."],
 	specs = { "Holy", "Protection", "Retribution" },
 	-- node = { entry, max ranks, spell, spec column, row, column, name }
 	nodes = {
@@ -146,14 +147,14 @@ T.Register({
 				{ 105704, 2 }, { 105699, 1 }, { 105699, 2 },
 			},
 			notes = {
-				[10] = "Start with Divine Intellect: more mana means you can melee and still cover your own (or a group's) healing.",
-				[15] = "Improved Seals raises every seal and Judgement here, which is where Holy's leveling damage comes from.",
-				[20] = "Reverence keeps a trickle of regen going while casting; three ranks unlock Illumination.",
-				[26] = "Illumination refunds mana on critical heals and is the heart of Holy's staying power.",
-				[32] = "Holy Shock is a talent on Forever: an instant heal or Holy hit, handy for emergencies and for pulling.",
-				[35] = "Holy Power raises Holy Shock's crit chance, feeding Illumination and Infusion of Light.",
-				[40] = "Light's Vigil turns Holy Shock into a group-heal burst; this is the signature Forever Holy talent.",
-				[41] = "The remaining 20 points go to Retribution: cheaper spells and more melee crit while questing, ending in Seal of Command.",
+				[10] = L["Start with Divine Intellect: more mana means you can melee and still cover your own (or a group's) healing."],
+				[15] = L["Improved Seals raises every seal and Judgement here, which is where Holy's leveling damage comes from."],
+				[20] = L["Reverence keeps a trickle of regen going while casting; three ranks unlock Illumination."],
+				[26] = L["Illumination refunds mana on critical heals and is the heart of Holy's staying power."],
+				[32] = L["Holy Shock is a talent on Forever: an instant heal or Holy hit, handy for emergencies and for pulling."],
+				[35] = L["Holy Power raises Holy Shock's crit chance, feeding Illumination and Infusion of Light."],
+				[40] = L["Light's Vigil turns Holy Shock into a group-heal burst; this is the signature Forever Holy talent."],
+				[41] = L["The remaining 20 points go to Retribution: cheaper spells and more melee crit while questing, ending in Seal of Command."],
 			},
 		},
 		{
@@ -171,14 +172,14 @@ T.Register({
 				{ 105334, 3 }, { 105333, 1 }, { 105333, 2 },
 			},
 			notes = {
-				[10] = "Open with Redoubt: blocking pays off at once, and Shield Specialization needs all five ranks.",
-				[15] = "Precision and Anticipation help you land hits and dodge them while questing with a shield.",
-				[20] = "Improved Seal of Fury and Improved Righteous Fury begin the mana and mitigation cycle Forever tanking is built on.",
-				[29] = "Around 20 points in, you match the usual dungeon-tank setup: Shield Specialization, Sacred Duty and Swift Judgement are complete.",
-				[33] = "Templar's Bulwark is an absorb cooldown that scales with your health, and Holy Shield later in the plan requires it.",
-				[37] = "Iron Creed adds threat and damage reduction to Holy Strike while Righteous Fury is active.",
-				[42] = "Holy Shield is the capstone: more block uptime, with Holy damage each time you block. Ideal for pulling packs.",
-				[43] = "Leftover points buy armor, a quicker Hammer of Justice, and Holy Strength and seal damage for leveling.",
+				[10] = L["Open with Redoubt: blocking pays off at once, and Shield Specialization needs all five ranks."],
+				[15] = L["Precision and Anticipation help you land hits and dodge them while questing with a shield."],
+				[20] = L["Improved Seal of Fury and Improved Righteous Fury begin the mana and mitigation cycle Forever tanking is built on."],
+				[29] = L["Around 20 points in, you match the usual dungeon-tank setup: Shield Specialization, Sacred Duty and Swift Judgement are complete."],
+				[33] = L["Templar's Bulwark is an absorb cooldown that scales with your health, and Holy Shield later in the plan requires it."],
+				[37] = L["Iron Creed adds threat and damage reduction to Holy Strike while Righteous Fury is active."],
+				[42] = L["Holy Shield is the capstone: more block uptime, with Holy damage each time you block. Ideal for pulling packs."],
+				[43] = L["Leftover points buy armor, a quicker Hammer of Justice, and Holy Strength and seal damage for leveling."],
 			},
 		},
 		{
@@ -196,14 +197,14 @@ T.Register({
 				{ 105694, 1 }, { 105698, 1 }, { 105698, 2 },
 			},
 			notes = {
-				[10] = "Benediction lowers the mana cost of Judgement, Holy Strike and seals, so you rest less between fights.",
-				[20] = "Seal of Command is the main two-hander seal for leveling; take it as soon as it opens.",
-				[21] = "Sanctified Judgement gives mana back and is the prerequisite arrow for Vengeance.",
-				[29] = "Sacred Arbiter strengthens Holy Strike and keeps Judgements rolling, and completes the 20 points row 5 asks for.",
-				[30] = "Vengeance, then Two-Handed Weapon Specialization: the crit-driven damage core of the two-hander plan.",
-				[36] = "Pursuit of Justice adds run speed. Champion of the Light is left out while the Retribution Aura spell-power bug keeps spell damage low.",
-				[40] = "Twist of Light makes swapping seals cheaper and adds seal echoes; it is Forever's seal-twisting talent.",
-				[43] = "Spare points go to Divine Strength and Holy's Improved Seals for damage, then Deflection for survival.",
+				[10] = L["Benediction lowers the mana cost of Judgement, Holy Strike and seals, so you rest less between fights."],
+				[20] = L["Seal of Command is the main two-hander seal for leveling; take it as soon as it opens."],
+				[21] = L["Sanctified Judgement gives mana back and is the prerequisite arrow for Vengeance."],
+				[29] = L["Sacred Arbiter strengthens Holy Strike and keeps Judgements rolling, and completes the 20 points row 5 asks for."],
+				[30] = L["Vengeance, then Two-Handed Weapon Specialization: the crit-driven damage core of the two-hander plan."],
+				[36] = L["Pursuit of Justice adds run speed. Champion of the Light is left out while the Retribution Aura spell-power bug keeps spell damage low."],
+				[40] = L["Twist of Light makes swapping seals cheaper and adds seal echoes; it is Forever's seal-twisting talent."],
+				[43] = L["Spare points go to Divine Strength and Holy's Improved Seals for damage, then Deflection for survival."],
 			},
 		},
 	},

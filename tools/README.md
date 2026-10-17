@@ -61,7 +61,7 @@ without QuestieDB.
 | `profession build` | Builds `data/forever/professions.json`; `profession draft <Profession>` drafts a 1-300 crafting guide; `profession gathering build` / `check` writes or checks the six generated gathering and secondary guides |
 | `exploration build` / `exploration check` | Writes or checks the exploration guides in `guides/forever/exploration` |
 | `trainers build` | Builds `data/forever/trainers.json` and `Core/ClassTrainers.lua` |
-| `talents build` / `talents check` | Writes or checks `Talents/Builds.lua`: the plans in `talents/forever/` resolved by name on the Forever trait tree and replayed under its rules |
+| `talents build` / `talents check` | Writes or checks `Talents/Builds.lua`: the plans in `talents/forever/` (one file per class) resolved by name on the Forever trait tree and replayed under its rules |
 | `travel build` | Builds the travel network: `data/forever/travel.json`, `Nav/TravelData.lua` (with the boat, zeppelin, tram and lift timetables, walk-in portals and class teleports `Nav/Transit.lua` reads), the flights' tracks (`Maps/FlightPaths.lua`), `Polestar_Travel`; `travel route` runs the in-game planner between two points; `travel chain` drafts an approach chain from recorded walks |
 | `nav build` / `nav path` | The navigation grid in `data/local/nav`: where a character can walk, climb, fall, swim and ride lifts, built from the Forever client's terrain, water and model collision (local only); `nav path` prints the route between two map points |
 | `nav aids` | The arrow's zone crossings, open borders and approach chains generated from the navigation grid (`nav build`) into `data/local/nav/aids.json` (crossings schema); `--report` measures the arrow on every guide leg without and with them; `--lua <file>` writes a Crossings.lua for a local test |
@@ -161,7 +161,7 @@ file's language written by `header()` in `lib/generated.js`:
 | `data/forever/*.json` (quests, npcs, objects, items, zones, map-frames, factions, races, meta) | `data build` | pfQuest, QuestieDB from the installed client, client tables from wago.tools, `data/recordings/*.json`; cached in `data/sources/` | local | `meta.json` records the sources and when |
 | `data/forever/spawnz.json` | `data build` | CMaNGOS classic-db's `creature` and `gameobject` spawns on maps 0 and 1 (the pinned dump, cached in `data/sources/cmangos/`, the rows kept as `spawnz.json` beside it); left out with one warning when `--offline` has no cached dump | local | `meta.json` records classic-db's revision; `compile` reads it for goal heights (`z`) and prints how many goals got one |
 | `data/forever/dungeons.json` | `dungeons build` | the installed dungeon journal addon, `data/forever` | local | none |
-| `data/forever/professions.json` | `profession build` | client tables, `data/forever` items, npcs, objects | local | none |
+| `data/forever/professions.json` | `profession build` | Forever client tables (Classic Era fills their gaps), `data/forever` items, npcs, objects | local | none |
 | `data/forever/trainers.json` | `trainers build` | `train` goals under `guides/`, `data/recordings`, the curated list, `npcs.json` | local | none |
 | `addon/Polestar/Core/ClassTrainers.lua` | `trainers build` | the same | yes | rerun |
 | `addon/Polestar/Talents/Builds.lua` | `talents build` | `talents/forever/*.json`, Forever trait tables from wago.tools (build pinned in `tools/commands/talents.js`) | yes | `talents check`; `tests/talents-build.test.js` runs it when the tables are cached |

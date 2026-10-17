@@ -10,7 +10,7 @@ const { runAddon } = require('./helpers/lua');
 const { writeCodexPack, sampleCodex } = require('./helpers/codex');
 const { emitPack, foldName } = require('../tools/lib/codex/pack');
 
-const FILES = { name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Core/Data.lua', 'Core/Guides.lua', 'Lookup/Codex.lua'] };
+const FILES = { name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Core/Data.lua', 'Core/Names.lua', 'Core/GuideTexts.lua', 'Core/Guides.lua', 'Lookup/Codex.lua'] };
 
 function run(script, { before = '', pack } = {}) {
 	return runAddon({
@@ -226,7 +226,7 @@ test('foldName folds names exactly like Search.Fold (without its leading space)'
 		'[Tag] (Old) 1/2', 'Ünder-Café', 'Tab\tName\nNext', 'ÿþ', 'ALL CAPS!', '"Quoted" & co.', 'Über_Thing~#5',
 	];
 	const [lua] = runAddon({
-		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Core/Data.lua', 'Core/Guides.lua', 'Core/Search.lua'] }],
+		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Core/Data.lua', 'Core/Names.lua', 'Core/GuideTexts.lua', 'Core/Guides.lua', 'Core/Search.lua'] }],
 		script: `
 local names = ${'{ ' + names.map((n) => JSON.stringify(n).replace(/\\u([0-9a-f]{4})/gi, (_, h) => String.fromCharCode(parseInt(h, 16)))).join(', ') + ' }'}
 local out = {}

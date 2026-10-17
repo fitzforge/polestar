@@ -278,7 +278,7 @@ test('new verbs emit Lua that loads under Lua 5.1 and round-trips, with reagents
 	const file = path.join(writeTestPack(r.guides).dir, 'Guides.lua');
 	const lua = fs.readFileSync(file, 'utf8');
 	assert.match(lua, /reagents = \{ \{ item = 2589, itemName = "Linen Cloth", count = 2 \} \}/);
-	assert.equal(lua, emitGuides([{ guide: r.guides[0], source: 'test.guide' }]));
+	assert.equal(lua, emitGuides([{ guide: r.guides[0]._localised, source: 'test.guide' }]));
 	const [out] = runAddon({
 		addons: [{ name: 'Polestar', files: ['Core/Init.lua'] }],
 		script: `
@@ -287,7 +287,7 @@ test('new verbs emit Lua that loads under Lua 5.1 and round-trips, with reagents
 			assert(loadfile(${JSON.stringify(file)}))("Polestar_Guides", {})
 			emit(got)`,
 	}).emitted;
-	assert.deepEqual(out, plain(r.guides[0]));
+	assert.deepEqual(out, plain(r.guides[0]._localised));
 	assert.equal(out.category, 'Professions');
 	assert.equal(out.steps[0].goals[1].note, '"Linen" \\ notes');
 });

@@ -24,3 +24,9 @@ node_modules/
 
 # The bug bot's secrets on the server.
 tools/discord-bot/.env
+
+# Personal agent instructions. A committed CLAUDE.md would stop Claude Code
+# reading AGENTS.md; a personal one starts with @AGENTS.md.
+/CLAUDE.md
+/CLAUDE.local.md
+/.claude/CLAUDE.md

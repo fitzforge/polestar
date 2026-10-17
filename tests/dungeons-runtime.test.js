@@ -9,8 +9,9 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { runAddon } = require('./helpers/lua');
+const { fakeLocale } = require('./helpers/locale');
 const { writeCodexPack } = require('./helpers/codex');
-const { instanceMapsOf, zonePoint, chainOf, objectiveText, buildJournal, emitJournal } = require('../tools/lib/codex/journal');
+const { instanceMapsOf, zonePoint, chainOf, objectivesOf, buildJournal, emitJournal } = require('../tools/lib/codex/journal');
 
 const { codex, inputs } = JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', 'codex', 'dungeons.json'), 'utf8'));
 
@@ -49,7 +50,7 @@ test('zonePoint: the preferred zone holding the point, else the frame it sits ne
 	assert.equal(zonePoint(frames, 0, 5000, 5000), null);
 });
 
-test('chainOf and objectiveText', () => {
+test('chainOf and objectivesOf', () => {
 	// Every prerequisite, depth first, oldest first; cycles stop.
 	assert.deepEqual(chainOf({ 3: { pre: [2] }, 2: { pre: [1] }, 1: { pre: [3] } }, {}, 3), [1, 2]);
 	// All of `pre`/`preAll` and each `preAny` alternative, not only the first
@@ -59,23 +60,24 @@ test('chainOf and objectiveText', () => {
 	assert.deepEqual(chainOf(quests, { 6144: { breadcrumbs: [5961] }, 5961: {} }, 6144, 'H'), [6022, 6135, 6042, 6136, 5961]);
 	assert.deepEqual(chainOf(quests, {}, 6144, null), [6022, 6135, 6042, 6133, 6136]);
 	const names = { npc: (id) => ({ 1: 'Kresh' })[id], item: (id) => ({ 2: 'Deviate Hide' })[id], object: () => 'Ancient Chest' };
-	assert.equal(
-		objectiveText([{ type: 'item', id: 2, count: 20 }, { type: 'kill', id: 1, count: 1 }, { type: 'object', id: 3 }, { type: 'event', text: 'Escort Muyoh' }], names),
-		'Collect 20 Deviate Hide; kill Kresh; use Ancient Chest; Escort Muyoh',
+	assert.deepEqual(
+		objectivesOf([{ type: 'item', id: 2, count: 20 }, { type: 'kill', id: 1, count: 1 }, { type: 'object', id: 3 }, { type: 'event', text: 'Escort Muyoh' }], names),
+		[{ k: 'item', id: 2, n: 20, name: 'Deviate Hide' }, { k: 'kill', id: 1, name: 'Kresh' }, { k: 'object', id: 3, name: 'Ancient Chest' }, { k: 'event', name: 'Escort Muyoh' }],
+		'the facts, so each client composes the line in its language',
 	);
-	assert.equal(objectiveText([], names), null);
+	assert.equal(objectivesOf([], names), null);
 });
 
 test('buildJournal: pages with quests from DungeonJournal, area and objectives; chains, rewards, bosses with tied quests, entrances', () => {
 	const j = buildJournal(inputs, codex);
-	assert.deepEqual(j.meta, { schema: 2, counts: { dungeons: 3, quests: 5, entrances: 2, attunements: 3 } });
+	assert.deepEqual(j.meta, { schema: 3, counts: { dungeons: 3, quests: 5, entrances: 2, attunements: 3 } });
 	const wc = j.dungeons['wailing-caverns'];
 	assert.equal(wc.zoneName, 'The Barrens');
 	assert.equal(wc.players, 10);
 	assert.deepEqual([wc.minLevel, wc.maxLevel], [17, 24]);
 	assert.deepEqual(wc.quests.map((q) => q.id), [1486, 959, 914, 6981], 'level order; the hidden quest stays out');
 	const [hides, docks, fang, shard] = wc.quests;
-	assert.equal(hides.objective, 'Collect 20 Deviate Hide');
+	assert.deepEqual(hides.objectives, [{ k: 'item', id: 6443, n: 20, name: 'Deviate Hide' }]);
 	assert.equal(hides.shareable, true);
 	assert.deepEqual(hides.rewards, {
 		items: [{ id: 6480, name: 'Slick Deviate Leggings', quality: 2, choice: true }, { id: 918, name: 'Deviate Hide Pack', quality: 1, choice: true }],
@@ -83,7 +85,7 @@ test('buildJournal: pages with quests from DungeonJournal, area and objectives; 
 	});
 	assert.deepEqual(hides.start, { kind: 'npc', id: 5767, name: 'Nalpak', map: 1413, x: 46, y: 35.7, f: 'e', inside: false });
 	assert.equal(docks.title, 'Trouble at the Docks', 'a quest filed under the area, not in DungeonJournal');
-	assert.equal(docks.objective, 'Kill Kresh');
+	assert.deepEqual(docks.objectives.map((o) => [o.k, o.name]), [['kill', 'Kresh']]);
 	assert.equal(docks.start.name, 'Tonga Runetotem');
 	assert.equal(fang.faction, 'H');
 	assert.deepEqual(fang.chain, [1490]);
@@ -223,20 +225,38 @@ for _, b in ipairs(D.Bosses("wailing-caverns")) do
 end
 local shard = D.Quest("wailing-caverns", 6981)
 emit({ all = ids(D.Quests("wailing-caverns")), a = ids(D.Quests("wailing-caverns", "A")), h = ids(D.Quests("wailing-caverns", "H")),
-	fang = { fang.title, fang.level, fang.minLevel, fang.faction, fang.shareable, fang.objective, fang.start.name, fang.start.map, fang.finish.name,
+	fang = { fang.title, fang.level, fang.minLevel, fang.faction, fang.shareable, D.ObjectiveText(fang), fang.start.name, fang.start.map, fang.finish.name,
 		fang.rewards.xp, fang.rewards.money, fang.rewards.rep[1].name, fang.rewards.rep[1].value }, items = items,
 	pre = { pre.title, pre.start.name, pre.start.x }, shard = { shard.inside, shard.startItem.name, shard.start.kind }, bosses = bosses,
 	missing = D.Quest("wailing-caverns", 1) == nil, noPage = #D.Quests("nowhere") })`);
 	assert.deepEqual(out.all, [1486, 959, 914, 6981]);
 	assert.deepEqual(out.a, [1486, 959, 6981]);
 	assert.deepEqual(out.h, [1486, 959, 914, 6981]);
-	assert.deepEqual(out.fang, ['Leaders of the Fang', 22, 18, 'H', true, 'Collect Gem of Cobrahn; collect Gem of Anacondra', 'Nara Wildmane', 1456, 'Nara Wildmane', 2350, 3500, 'Thunder Bluff', 250]);
+	assert.deepEqual(out.fang, ['Leaders of the Fang', 22, 18, 'H', true, 'Collect Gem of Cobrahn\nCollect Gem of Anacondra', 'Nara Wildmane', 1456, 'Nara Wildmane', 2350, 3500, 'Thunder Bluff', 250]);
 	assert.deepEqual(out.items, [[6505, 'Crescent Staff', 3, true], [6504, 'Wingblade', 3, true]]);
 	assert.deepEqual(out.pre, ['Nara Wildmane', 'Tonga Runetotem', 52.2]);
 	assert.deepEqual(out.shard, [true, 'Glowing Shard', 'item']);
 	assert.deepEqual(out.bosses, [[1, 'Lady Anacondra', 20, ['914:item']], [2, 'Kresh', 20, ['959:kill']], [3, 'Lord Cobrahn', 20, ['914:item']], [4, 'Mutanus the Devourer', 22, ['6981:starts']]]);
 	assert.equal(out.missing, true);
 	assert.equal(out.noPage, 0);
+});
+
+test('runtime: another language reads the objective line in its own words and names', () => {
+	const { emitted: [out] } = runAddon({
+		stubs: ['stub_world.lua'],
+		before: `${pack.stubLua}\n${fakeLocale('itIT', { 'Collect %s': 'Raccogli %s' })}`,
+		addons: [{ name: 'Polestar', files: FILES }],
+		script: `stub.login()
+local D = Polestar.Dungeons
+Polestar.Names.Add("itIT", "item", { [5423] = "Gemma di Cobrahn" })
+local fang = D.Quest("wailing-caverns", 914)
+local ids = {}
+for i, o in ipairs(fang.objectives) do ids[i] = o.id end
+Polestar.Names.Add("itIT", "objective", { [777] = "Scorta$B$Bil mercante, $N." })
+emit({ D.ObjectiveText(fang), ids, D.ObjectiveText({ id = 777, objectives = { { k = "event", name = "Escort the merchant" } } }) })`,
+	});
+	assert.match(out[0] || out[1] || '', /^Raccogli /, 'the template is the client language\'s');
+	assert.match(out[2], /^Scorta il mercante, [^$]*\.$/, 'an event reads the quest\'s own summary, its tokens filled');
 });
 
 test('runtime: Open fires SHOW_DUNGEON; GuideTo and GuideToPoint set the arrow; the setting stops it; without the pack it says why', () => {
@@ -280,4 +300,12 @@ emit({ list = #list, quests = #q, bosses = #b, listMs = (t1 - t0) * 1000, pageMs
 	assert.equal(out.list, 3);
 	assert.equal(out.quests, 4);
 	assert.ok(out.listMs < 50 && out.pageMs < 50, `list ${out.listMs} ms, page ${out.pageMs} ms`);
+});
+
+test('runtime: a page without objective facts (an older Codex pack) keeps its English line', () => {
+	const [out] = run(`
+local old = D.ObjectiveText({ id = 1, objective = "Kill 5 Kobolds" })
+local none = D.ObjectiveText({ id = 2 }) == nil
+emit({ old, none })`);
+	assert.deepEqual(out, ['Kill 5 Kobolds', true]);
 });

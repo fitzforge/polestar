@@ -29,20 +29,10 @@ local COVERED = {
 	acceptPartyFriends = "EllesmereUIFriends", -- auto-accept invites from friends
 }
 
--- Installed and enabled (loaded, or loadable when it loads after Polestar).
--- C_AddOns.IsAddOnLoaded / DoesAddOnExist / GetAddOnInfo (AddOnsDocumentation.lua).
-local function present(name)
-	local A = C_AddOns
-	if not A then return false end
-	if A.IsAddOnLoaded and A.IsAddOnLoaded(name) then return true end
-	if not (A.DoesAddOnExist and A.GetAddOnInfo) or not A.DoesAddOnExist(name) then return false end
-	return select(4, A.GetAddOnInfo(name)) and true or false
-end
-
 -- The EllesmereUI module doing `key`'s job, when it is there; nil otherwise.
 function QoL.CoveredBy(key)
 	local name = COVERED[key]
-	return name and present(name) and name or nil
+	return name and ns.Compat.AddOnPresent(name) and name or nil
 end
 
 local defaults = {

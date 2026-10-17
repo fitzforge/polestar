@@ -173,13 +173,19 @@ function planProfession(prof, data, { from = 1, to = 300 } = {}) {
 			}
 		}
 	}
+	// Forever gates some last points behind crafting stations (Tailoring
+	// 295-300: every recipe that still gives a point needs a Spinning Wheel, a
+	// Loom or a Moonwell, or is learned from a drop, an item or a reputation
+	// vendor): plan as far as the usable recipes go. `reach` < `to` says where
+	// the plan stops.
+	let reach = to;
 	if (!Number.isFinite(best[to])) {
-		let reach = from;
+		reach = from;
 		for (let s = from; s <= to; s++) if (Number.isFinite(best[s])) reach = s;
-		throw new Error(`${prof.name}: no recipe chain reaches ${to} (stuck at ${reach})`);
+		if (reach === from) throw new Error(`${prof.name}: no recipe chain starts at ${from}`);
 	}
 	const segments = [];
-	for (let t = to; t > from; ) {
+	for (let t = reach; t > from; ) {
 		const b = back[t];
 		segments.unshift({ spell: b.spell, from: b.s, to: t, crafts: b.crafts });
 		t = b.s;
@@ -218,7 +224,7 @@ function planProfession(prof, data, { from = 1, to = 300 } = {}) {
 		seg.make = make;
 		seg.need = [...need.entries()].sort((a, b) => a[0] - b[0]).map(([item, count]) => ({ item, count, src: unit(item).src }));
 	}
-	return { profession: prof, segments, total: best[to], excluded };
+	return { profession: prof, segments, total: best[reach], reach, excluded };
 }
 
 module.exports = { planProfession, expectedCrafts, chance, nextCap, CAPS, SWITCH_BASE, SWITCH_CRAFTS };

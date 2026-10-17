@@ -479,6 +479,19 @@ test('while the Codex loads the section says so, and searches again once it has'
 	assert.equal(out.empty, false);
 });
 
+// A French client whose names pack lands with results up: the search runs
+// again and the rows take the client's names.
+test('a names pack landing late searches again and the rows take the new names', () => {
+	const [out] = run(`
+		Polestar.Lookup.Show("lelanai")
+		local before = rowTexts(LK.results.Child)
+		for _, e in ipairs(lookupstub.entities) do if e.id == 4730 then e.title = "Lelanai la dresseuse" end end
+		Polestar.Fire("NAMES_LOADED")
+		emit({ before = before, after = rowTexts(LK.results.Child) })`);
+	assert.ok(out.before.some((t) => t.startsWith('Lelanai') && !t.includes('dresseuse')));
+	assert.ok(out.after.some((t) => t.includes('Lelanai la dresseuse')));
+});
+
 test('Lookup turned off in Options: guides only, the section says where to turn it on, nothing loads the Codex', () => {
 	const [out] = run(`
 		lookupstub.loaded, lookupstub.reason = false, "off"

@@ -1,0 +1,21 @@
+{
+	"name": "polestar",
+	"owner": {
+		"name": "fitzforge",
+		"url": "https://github.com/fitzforge/polestar"
+	},
+	"metadata": {
+		"description": "Agent skills for Polestar, the leveling guide addon for World of Warcraft: Forever"
+	},
+	"plugins": [
+		{
+			"name": "polestar",
+			"description": "Polestar's skills: contributing, triaging a bug report, fixing a guide step, and writing a guide pack. Contributing, triage and guide fixes work in a Polestar clone.",
+			"source": "./skills",
+			"strict": false,
+			"skills": ["./"],
+			"homepage": "https://github.com/fitzforge/polestar",
+			"license": "GPL-3.0-only"
+		}
+	]
+}

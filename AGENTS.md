@@ -22,4 +22,10 @@ The rules that hold for every task:
   ids, coordinates or names.
 - A human reads every comment before it is posted.
 
+Claude Code reads this file only while there is no `CLAUDE.md`,
+`.claude/CLAUDE.md` or `CLAUDE.local.md` in the repository or a folder above
+it. If you write one of those for yourself, put `@AGENTS.md` on its first
+line so these rules still load, and keep it out of commits (`.gitignore`
+already does).
+
 CONTRIBUTING.md is the long form for people.

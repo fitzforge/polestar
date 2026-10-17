@@ -6,7 +6,7 @@
 const { FORMAT, NEEDS, TOC_MARKER, TOC_TITLE_PREFIX } = require('../pack/format');
 const { header } = require('../generated');
 
-const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'steps'];
+const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'names', 'written', 'steps'];
 const STEP_KEYS = ['title', 'note', 'only', 'goals'];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
@@ -16,7 +16,7 @@ const GOAL_KEYS = [
 	't', 'class', 'spell', 'spellName', 'faction', 'factionName', 'standing', 'achievement', 'achievementName', 'criteria',
 	'quest', 'title', 'target', 'npc', 'npcName', 'object', 'objName', 'item', 'itemName', 'count', 'oi', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'untilSkill',
 	'reagents', 'location', 'minLevel', 'qlvl', 'pre', 'preAll', 'closedBy', 'preTitles', 'text', 'node', 'area', 'map', 'x', 'y', 'z', 'f', 'r', 'spots', 'spread', 'optional', 'only', 'profLine', 'profName', 'profRank', 'note',
-	'from', 'fromKind', 'fromRank', 'fromFaction', 'fromAlso', 'candidates', 'rewards', 'group',
+	'from', 'fromKind', 'fromRank', 'fromFaction', 'fromAlso', 'fromId', 'fromAlsoId', 'candidates', 'rewards', 'group', 'direct',
 ];
 const REAGENT_KEYS = ['item', 'itemName', 'count'];
 const CANDIDATE_KEYS = ['npc', 'npcName', 'map', 'x', 'y', 'f', 'faction', 'races', 'classes', 'lvl', 'rate', 'spawns'];
@@ -128,6 +128,10 @@ function emitGuide(guide, sourceRel) {
 				out.push('\t\t\t\t},');
 			}
 			out.push('\t\t\t},');
+		} else if (k === 'names' || k === 'written') {
+			// The English of the texts' name tokens (tools/lib/dsl/tokens.js), "kind:id" -> name;
+			// written: the author's words of a text that spells a name otherwise, tokenised text -> words.
+			out.push(`\t\t\t${k} = { ${Object.keys(v).sort().map((t) => `[${luaString(t)}] = ${luaString(v[t])}`).join(', ')} },`);
 		} else if (Array.isArray(v)) out.push(`\t\t\t${k} = ${list(v, LIST_KEYS[k] || null)},`);
 		else out.push(`\t\t\t${k} = ${scalar(v)},`);
 	}
@@ -160,6 +164,8 @@ function emitToc(manifest, iface) {
 		`## Interface: ${iface}`,
 		`## Title: ${title}`,
 		`## Notes: ${manifest.notes || `Guide pack for Polestar by ${manifest.author}`}`,
+		// Polestar's own pack: the AddOns list in the client's language too.
+		...(ours ? require('../i18n/toc').tocLines('Polestar_Guides') : []),
 		`## Author: ${manifest.author}`,
 		`## Version: ${manifest.version}`,
 		'## Category: Quests',
@@ -175,6 +181,45 @@ function emitToc(manifest, iface) {
 	if (manifest.website) lines.push(`## X-Website: ${manifest.website}`);
 	lines.push(TOC_MARKER, '', ...PACK_SCRIPTS);
 	return `${lines.join('\n')}\n`;
+}
+
+// A pack's texts addon for one language (docs/TRANSLATING.md, "Guide
+// texts"): <folder>_<locale>, which Polestar loads on demand on that client
+// only, once the pack's own files are in (Core/GuideTexts.lua). Its TOC
+// names the pack it translates; the client lists it under Polestar.
+function emitTextsToc(manifest, locale, language, iface) {
+	const lines = [
+		`## Interface: ${iface}`,
+		`## Title: ${manifest.title} (${locale})`,
+		`## Notes: ${language} texts of ${manifest.title}. Loaded on demand on a ${language} client.`,
+		// Polestar's own pack: the AddOns list in every client language too.
+		...(manifest.id === 'guides' ? require('../i18n/toc').tocLines(`Polestar_Guides_${locale}`) : []),
+		`## Author: ${manifest.author}`,
+		`## Version: ${manifest.version}`,
+		'## Category: Quests',
+		'## Group: Polestar',
+		'## LoadOnDemand: 1',
+		'## Dependencies: Polestar',
+		`## X-Polestar-Texts: ${manifest.id}`,
+		`## X-Polestar-Locale: ${locale}`,
+		`## X-License: ${manifest.license}`,
+		TOC_MARKER,
+		'',
+		'Texts.lua',
+	];
+	return `${lines.join('\n')}\n`;
+}
+
+// Texts.lua: t = { pack: { english: translation }, guides: { [id]: { ... } } },
+// registered for the pack in `locale`. Each guide's table is built in its own
+// function: Lua 5.1 limits the constants of one.
+function emitTexts(packId, locale, t) {
+	const entries = (o) => Object.keys(o).sort().map((k) => `\t[${luaString(k)}] = ${luaString(o[k])},`);
+	const out = [header('lua', 'compile', `the pack's locales/${locale}/ files`), '', 'local t = { guides = {} }', 't.pack = {', ...entries(t.pack || {}), '}'];
+	const guides = t.guides || {};
+	for (const id of Object.keys(guides).sort()) out.push(`t.guides[${luaString(id)}] = (function() return {`, ...entries(guides[id]).map((l) => `\t${l}`), '} end)()');
+	out.push('', `Polestar.RegisterGuideTexts(${luaString(locale)}, ${luaString(packId)}, t)`, '');
+	return out.join('\n');
 }
 
 // frames: { [mapId]: { c, left, right, top, bottom } }, registered for packId.
@@ -279,4 +324,4 @@ function emitLicense(meta) {
 	return `${out.join('\n').trimEnd()}\n`;
 }
 
-module.exports = { emitGuides, emitPack, emitToc, emitMapFrames, emitClassTrainers, emitLicense, luaString, luaNumber, GUIDE_KEYS, GOAL_KEYS };
+module.exports = { emitGuides, emitPack, emitToc, emitTextsToc, emitTexts, emitMapFrames, emitClassTrainers, emitLicense, luaString, luaNumber, GUIDE_KEYS, GOAL_KEYS };

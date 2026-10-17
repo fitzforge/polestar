@@ -187,7 +187,10 @@ function packOther(other, opts) {
 		const dist = opts.dist ? path.resolve(opts.dist) : path.join(other.dir, 'dist');
 		const folder = manifest.folder;
 		const out = `${folderIn(dist, folder)}-${manifest.version}.zip`;
-		const entries = [{ name: `${folder}/` }, ...Object.keys(files).sort().map((name) => ({ name: `${folder}/${name}`, data: files[name] }))];
+		// Files named ../<folder>_<locale>/... are its texts addons, folders of their own in the zip.
+		const at = (name) => path.posix.normalize(`${folder}/${name}`);
+		const dirs = [...new Set(Object.keys(files).map((name) => at(name).split('/')[0]))].sort();
+		const entries = dirs.flatMap((d) => [{ name: `${d}/` }, ...Object.keys(files).filter((name) => at(name).startsWith(`${d}/`)).sort().map((name) => ({ name: at(name), data: files[name] }))]);
 		writeZip(out, entries);
 		console.log(`wrote ${path.relative(process.cwd(), out)} (${plural(built.guides.length, 'guide')})`);
 	} catch (e) {

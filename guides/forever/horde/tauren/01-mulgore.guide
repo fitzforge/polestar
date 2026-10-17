@@ -181,10 +181,10 @@ step Call of Earth
 # ---------------------------------------------------------------- Bloodhoof Village
 
 step Kaga Wildhoof
-  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; build the campfire next to her.
+  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; /sit by her campfire until you get Boosted Rest.
   turnin 96659
   accept 96605
-  complete 96605
+  complete 96605 @46.2,67.3 live      -- /sit by Kaga's campfire until you get Boosted Rest
   turnin 96605
   accept 96661
 
@@ -262,11 +262,11 @@ step Thunderhorn Water Well
   collect 4807 quest 766.4 optional
 
 step Bloodhoof Village
+  turnin 99411                        -- Ahab Wheathoof, at the north end of the village
   turnin 771                          -- Zarlman Two-Moons
   accept 772
   turnin 758                          -- Mull Thunderhorn
   accept 759
-  turnin 99411                        -- Ahab Wheathoof
 
 # ---------------------------------------------------------------- The eastern plains
 
@@ -393,8 +393,8 @@ step Traditions of the Bluff
 
 step Hunter Rise
   zone Thunder Bluff
-  tip Spread the incense at the ceremonial mat and burner on the south-facing cliff of Hunter Rise.
-  interact 665373 quest 97485.2       -- Incense Burner
+  tip Use the Prepared Incense at the ceremonial mat and burner on the south-facing cliff of Hunter Rise.
+  use 278078 quest 97485.2 @53.3,87.9 "Spread the Prepared Incense off Hunter Rise"
   turnin 861                          -- Melor Stonehoof
   accept 860                          -- Melor Stonehoof: for Sergra Darkthorn at the Crossroads
   accept 1505 npc 3041 only Warrior   -- Torm Ragetotem

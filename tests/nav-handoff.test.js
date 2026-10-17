@@ -33,6 +33,7 @@ do
 			chunk(name, ns)
 			ns.Compat = stub.nav.Compat
 			ns.Compat.Readable = ns.Compat.Readable or function(v) return v end
+			ns.Compat.AddOnPresent = ns.Compat.AddOnPresent or function() return false end
 		end
 	end
 end
@@ -555,7 +556,7 @@ local O, W = Polestar.UI.Options, Polestar.Widgets
 local function controls()
 	local out = {}
 	Polestar.UI.ShowOptions("guide")
-	for _, at in ipairs({ { "guide", "Arrow & routes" }, { "appearance", "Arrow" }, { "map", "Guide & quests" } }) do
+	for _, at in ipairs({ { "guide", "Arrow & routes" }, { "appearance", "Arrow" }, { "map", "Guide & quests" }, { "integrations" } }) do
 		O.Select(at[1], at[2])
 		for key, w in pairs(O.Controls(at[1], at[2])) do out[key] = w end
 	end

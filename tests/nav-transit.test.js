@@ -391,7 +391,7 @@ test('lift tracks, portals and teleports from TransportAnimation, classic-db and
 	assert.deepEqual(out.portals.map((p) => [p.id, p.a.map, p.b.map, p.seconds]), [['portal-ruttheran', 1457, 1438, 5], ['portal-darnassus', 1438, 1457, 5]]);
 	assert.deepEqual(out.teleports, [
 		{ spell: 556, name: 'Astral Recall', cast: 10, bind: true },
-		{ spell: 3567, name: 'Teleport: Orgrimmar', cast: 10, reagents: [17031, 1], to: { name: 'Orgrimmar', c: 1, wx: 1469.9, wy: -4221.5, map: 1454, x: 40.72, y: 51.01, f: 'e' } },
+		{ spell: 3567, name: 'Teleport: Orgrimmar', cast: 10, reagents: [17031, 1], to: { name: 'Orgrimmar', area: 1637, c: 1, wx: 1469.9, wy: -4221.5, map: 1454, x: 40.72, y: 51.01, f: 'e' } },
 	]);
 	assert.ok(out.warnings.some((w) => /Teleport: Nowhere \(9999\): no destination/.test(w)));
 });
@@ -457,7 +457,7 @@ const TRAVEL_DATA = path.join(ROOT, 'addon', 'Polestar', 'Nav', 'TravelData.lua'
 test('review P0-1: the committed TravelData.lua\'s timetables index stops from 1; a sighting on every loop times every service', () => {
 	const text = fs.readFileSync(TRAVEL_DATA, 'utf8');
 	const routeIds = [...text.matchAll(/^\t\t\t\["([\w-]+)"\] = \{ kind = /gm)].map((m) => m[1]);
-	const serviceIds = [...text.matchAll(/^\t\t\t\["([\w-]+)"\] = \{board=/gm)].map((m) => m[1]);
+	const serviceIds = [...text.matchAll(/^\t\t\t\["([\w-]+)"\] = \{(?:area=\d+,|areas=\{[\d,]+\},)?board=/gm)].map((m) => m[1]);
 	assert.ok(routeIds.includes('path-285') && serviceIds.includes('zeppelin-orgrimmar-gromgol'));
 	const [zep, all, cars] = runAddon({
 		stubs: ['stub_nav.lua'],

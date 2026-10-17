@@ -16,6 +16,8 @@
 # Valley instead of after a hearth and a ride back; Caliph Scorpidsting (2781)
 # is picked up at Steamwheedle where Tooga's walk ends and killed on the way
 # to the Gaping Chasm. One hearth instead of two.
+# Gadgetzan from the north starts with Tran'rek; back from Steamwheedle, the
+# turn-ins run east to west (Andi Lynn first).
 #
 # Added: Keeping Pace and Rizzle's Schematics (1190, 1194, with Zamek's
 # Distraction 1191), from News for Fizzle (1137, carried from Martek in
@@ -65,9 +67,9 @@ step Pozzik
 step Gadgetzan
   zone Tanaris
   tip Ride south-east off the Shimmering Flats into Tanaris. Gadgetzan is just inside the border.
+  turnin 2864                         -- Tran'rek, north side of town
   getfp "Gadgetzan" npc 7823          -- Bera Stonehammer
   sethome "Gadgetzan" npc 7733        -- Innkeeper Fizzgrimble
-  turnin 2864                         -- Tran'rek, north side of town
   accept 1690                         -- Chief Engineer Bilgewhizzle, by the water tower
   accept 1707                         -- Spigot Operator Luglunket, next to him
 
@@ -169,11 +171,11 @@ step Steamwheedle Port
 
 step Gadgetzan
   tip Ride back west to Gadgetzan.
-  turnin 82                           -- Alchemist Pestlezugg
-  turnin 3362                         -- Tran'rek
+  turnin 5863                         -- Andi Lynn, on the east side of town
   turnin 2605                         -- Marin Noggenfogger
   accept 2606
-  turnin 5863                         -- Andi Lynn
+  turnin 3362                         -- Tran'rek
+  turnin 82                           -- Alchemist Pestlezugg
   turnin 2606                         -- Sprinkle
   note Sprinkle's next ingredient grows in the Hinterlands, and the route never brings it back: skip it.
   accept 10                           -- Senior Surveyor Fizzledowser

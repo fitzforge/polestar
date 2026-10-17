@@ -1,6 +1,7 @@
 -- /psrec: status, on|off, mark <text>, maps, talents, clear.
 
 local ADDON, ns = ...
+local L = ns.L
 
 local type, pairs, ipairs, tostring, GetTime = type, pairs, ipairs, tostring, GetTime
 
@@ -56,13 +57,13 @@ end
 -- Returns the dump, or nil plus a reason.
 local function dumpTalents()
 	if not (C_Traits and C_Traits.GetConfigInfo and C_Traits.GetTreeNodes and C_Traits.GetNodeInfo) then
-		return nil, "this client exposes no talent tree API"
+		return nil, L["this client exposes no talent tree API"]
 	end
 	local configID = activeConfigID()
-	if not configID then return nil, "no active talent configuration (too low level?)" end
+	if not configID then return nil, L["no active talent configuration (too low level?)"] end
 	local config = C_Traits.GetConfigInfo(configID)
 	if not config or type(config.treeIDs) ~= "table" or #config.treeIDs == 0 then
-		return nil, "the talent configuration has no trees"
+		return nil, L["the talent configuration has no trees"]
 	end
 	local _, class = UnitClass("player")
 	local GetVersion = GetBuildInfo
@@ -77,7 +78,7 @@ local function dumpTalents()
 		dump.trees[#dump.trees + 1] = tree
 		nodeCount = nodeCount + n
 	end
-	if nodeCount == 0 then return nil, "the talent trees returned no nodes" end
+	if nodeCount == 0 then return nil, L["the talent trees returned no nodes"] end
 	return dump, nodeCount
 end
 ns.DumpTalents = dumpTalents
@@ -250,25 +251,25 @@ end
 local function status()
 	local db = ns.DB()
 	local s = ns.Session()
-	ns.Print("recording", ns.IsEnabled() and "|cff4fd18fon|r" or "|cffd14f4foff|r")
+	ns.Print(L["recording %s"]:format(ns.IsEnabled() and "|cff4fd18f" .. L["on"] .. "|r" or "|cffd14f4f" .. L["off"] .. "|r"))
 	if s then
 		local pos = s.counts and s.counts.pos or 0
-		ns.Print(("session %s: %d events (%d breadcrumbs), %d min"):format(
+		ns.Print(L["session %s: %d events (%d breadcrumbs), %d min"]:format(
 			tostring(s.session), #s.events, pos, math.floor(ns.Now() / 60)))
 		local dropped = 0
 		for _, n in pairs(s.dropped or {}) do dropped = dropped + n end
-		if dropped > 0 then ns.Print(("%d events dropped by the per-session caps"):format(dropped)) end
+		if dropped > 0 then ns.Print(L["%d events dropped by the per-session caps"]:format(dropped)) end
 	else
-		ns.Print("no session yet")
+		ns.Print(L["no session yet"])
 	end
-	ns.Print(("%d sessions stored, %d maps dumped%s"):format(
-		countKeys(db.sessions), countKeys(db.maps), db.talents and ", talents dumped" or ""))
+	ns.Print(L["%d sessions stored, %d maps dumped"]:format(countKeys(db.sessions), countKeys(db.maps))
+		.. (db.talents and L[", talents dumped"] or ""))
 	if s then
-		ns.Print(("this session: %s"):format(table.concat({
-			s.factions and "factions" or "-", s.skills and "skills" or "-", s.legacy and "legacy" or "-",
+		ns.Print(L["this session: %s"]:format(table.concat({
+			s.factions and L["factions"] or "-", s.skills and L["skills"] or "-", s.legacy and L["legacy"] or "-",
 		}, " ")))
 	end
-	ns.Print("commands: /psrec on | off | mark <text> | maps | talents | legacy | factions | skills | clear")
+	ns.Print(L["commands: /psrec on | off | mark <text> | maps | talents | legacy | factions | skills | clear"])
 end
 
 ---------------------------------------------------------------------------
@@ -283,49 +284,49 @@ commands.status = status
 
 commands.on = function()
 	ns.SetEnabled(true)
-	ns.Print("recording |cff4fd18fon|r")
+	ns.Print(L["recording %s"]:format("|cff4fd18f" .. L["on"] .. "|r"))
 end
 
 commands.off = function()
 	ns.SetEnabled(false)
-	ns.Print("recording |cffd14f4foff|r")
+	ns.Print(L["recording %s"]:format("|cffd14f4f" .. L["off"] .. "|r"))
 end
 
 commands.mark = function(rest)
 	if rest == "" then
-		ns.Print("usage: /psrec mark <text>")
+		ns.Print(L["usage: /psrec mark <text>"])
 		return
 	end
 	if not ns.IsEnabled() then
-		ns.Print("recording is off; /psrec on first")
+		ns.Print(L["recording is off; /psrec on first"])
 		return
 	end
 	if ns.Record("mark", ns.Here({ text = rest })) then
-		ns.Print("marked:", rest)
+		ns.Print(L["marked: %s"]:format(rest))
 	else
-		ns.Print("mark not recorded (session cap reached)")
+		ns.Print(L["mark not recorded (session cap reached)"])
 	end
 end
 
 commands.maps = function()
 	local n = dumpMaps()
 	if n > 0 then
-		ns.Print(("recorded %d maps"):format(n))
+		ns.Print(L["recorded %d maps"]:format(n))
 	else
-		ns.Print("no maps found (C_Map unavailable)")
+		ns.Print(L["no maps found (C_Map unavailable)"])
 	end
 end
 
 commands.talents = function()
 	local dump, info = dumpTalents()
 	if not dump then
-		ns.Print("talents not recorded:", info)
+		ns.Print(L["talents not recorded: %s"]:format(tostring(info)))
 		return
 	end
 	local db = ns.DB()
 	if type(db.talents) ~= "table" then db.talents = {} end
 	db.talents[dump.class or "UNKNOWN"] = dump
-	ns.Print(("recorded %d talent nodes in %d tree(s) for %s"):format(info, #dump.trees, tostring(dump.class)))
+	ns.Print(L["recorded %d talent nodes in %d tree(s) for %s"]:format(info, #dump.trees, tostring(dump.class)))
 end
 
 -- Session-scoped dumps (character state at this moment); they travel with
@@ -333,39 +334,39 @@ end
 commands.legacy = function()
 	local dump, n = dumpLegacy()
 	if not ns.StoreDump("legacy", dump) then
-		ns.Print("no session yet")
+		ns.Print(L["no session yet"])
 		return
 	end
 	local nodes, renown = 0, dump.majorFactions[dump.rewardFaction]
 	for _, t in ipairs(dump.trees) do nodes = nodes + #t.nodes end
-	ns.Print(("recorded %d achievements in %d categories, %d major factions (Legacy renown %s), %d Legacy tree nodes"):format(
+	ns.Print(L["recorded %d achievements in %d categories, %d major factions (Legacy renown %s), %d Legacy tree nodes"]:format(
 		n, countKeys(dump.categories), countKeys(dump.majorFactions), renown and tostring(renown.level) or "?", nodes))
 end
 
 commands.factions = function()
 	local factions, n = ns.ScanFactions()
 	if not factions then
-		ns.Print("factions not recorded: this client exposes no C_Reputation list")
+		ns.Print(L["factions not recorded: this client exposes no C_Reputation list"])
 		return
 	end
 	if not ns.StoreDump("factions", factions) then
-		ns.Print("no session yet")
+		ns.Print(L["no session yet"])
 		return
 	end
-	ns.Print(("recorded %d factions"):format(n))
+	ns.Print(L["recorded %d factions"]:format(n))
 end
 
 commands.skills = function()
 	local skills, n = ns.ScanSkills()
 	if not skills then
-		ns.Print("skills not recorded: this client exposes no C_SkillInfo list")
+		ns.Print(L["skills not recorded: this client exposes no C_SkillInfo list"])
 		return
 	end
 	if not ns.StoreDump("skills", skills) then
-		ns.Print("no session yet")
+		ns.Print(L["no session yet"])
 		return
 	end
-	ns.Print(("recorded %d skill lines"):format(n))
+	ns.Print(L["recorded %d skill lines"]:format(n))
 end
 
 commands.clear = function(rest)
@@ -373,24 +374,41 @@ commands.clear = function(rest)
 	if rest == "confirm" and clearArmedAt and now - clearArmedAt <= CLEAR_WINDOW then
 		clearArmedAt = nil
 		local s = ns.ClearAll()
-		ns.Print("all recordings cleared; new session", tostring(s and s.session))
+		ns.Print(L["all recordings cleared; new session %s"]:format(tostring(s and s.session)))
 		return
 	end
 	clearArmedAt = now
-	ns.Print(("this deletes every recorded session. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."):format(CLEAR_WINDOW))
+	ns.Print(L["this deletes every recorded session. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."]:format(CLEAR_WINDOW))
 end
 
-SLASH_POLESTARREC1 = "/psrec"
-SLASH_POLESTARREC2 = "/polestarrec"
-SlashCmdList.POLESTARREC = function(msg)
+-- Polestar's Recorder page calls PolestarRecorder_Command. /psrec is not
+-- registered with Forever's gamepad interface on: the chat box calls a
+-- command and then closes itself in the command's taint, which blocks the
+-- gamepad's actions until a reload (Polestar's Core/Init.lua, ns.GamepadUI).
+-- The API is the answer; the CVar can stay "1" with the keyboard and mouse.
+local function gamepadUI()
+	local E = Enum and Enum.InputDeviceInterfaceType
+	if not (E and E.Gamepad) then return false end
+	local S = C_InputInterfaceStyle
+	if S and S.GetCurrentStyle then return S.GetCurrentStyle() == E.Gamepad end
+	local get = (C_CVar and C_CVar.GetCVar) or GetCVar
+	return get and tonumber(get("InputDeviceInterfaceStyle")) == E.Gamepad or false
+end
+
+function PolestarRecorder_Command(msg)
 	local name, rest = (msg or ""):match("^%s*(%S*)%s*(.-)%s*$")
 	name = (name or ""):lower()
 	if name == "" then name = "status" end
 	local fn = commands[name]
 	if not fn then
-		ns.Print("unknown command:", name)
+		ns.Print(L["unknown command: %s"]:format(name))
 		status()
 		return
 	end
 	fn(rest or "")
+end
+if not gamepadUI() then
+	SLASH_POLESTARREC1 = "/psrec"
+	SLASH_POLESTARREC2 = "/polestarrec"
+	SlashCmdList.POLESTARREC = PolestarRecorder_Command
 end

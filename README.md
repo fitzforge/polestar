@@ -243,7 +243,7 @@ map. Renders of every window and state, drawn without the game, are in
 - **Nearby services.** `/polestar near repair` (trainer, a profession,
   class, reagents, vendor, innkeeper, bank, auction, flight, stable) points
   the arrow at the quickest one to reach; the map's tracking menu lists them.
-- **Other addons' waypoints.** Without TomTom, "Let other addons set
+- **Other addons' waypoints** (Options, Integrations, TomTom). Without TomTom, "Let other addons set
   waypoints" (off by default) lets addons that set TomTom waypoints point
   Polestar's arrow and makes `/way` work; addons that expect TomTom's own
   settings may not work with it on. With TomTom, the arrow can follow
@@ -282,7 +282,7 @@ never guide at once (Polestar's walking maps are not even loaded). The guide
 window and the map pins stay. A kill or collect area is handed over as an
 area, so it holds you there until the goal is done; if you clear or replace
 the journey, Polestar leaves it be until the guide moves on. **Guide with
-Shortest Path Forever when it's installed** (Options, Arrow & routes) turns
+Shortest Path Forever when it's installed** (Options, Integrations) turns
 it off.
 
 ### Quests and the map
@@ -341,7 +341,7 @@ and each section says what is missing.
   scale, opacity and colours; reduced motion. Everything applies live,
   without a reload; right-click any setting to reset it.
 - **Fonts**: the game's own by default, or Inter, or EllesmereUI's.
-- **EllesmereUI**: Polestar follows its accent and font by default through
+- **EllesmereUI** (Options, Integrations): Polestar follows its accent and font by default through
   its public skinning API, and where its Quality of Life or Friends module
   does the same job as a Polestar toggle, the toggle starts off.
 
@@ -358,6 +358,46 @@ guildmates' party invitations; decline other party invitations, guild
 invitations and duels (friends and guild excepted). Hold **Shift** to skip
 auto-accept, auto-turn-in, auto-sell, training or the flight helper once, or
 to answer a request yourself.
+
+### With a gamepad
+
+Polestar plays with a gamepad on Forever (ported from Ding! by Yendi,
+@moust4ki). Open its options from the minimap button (or `/polestar
+gamepad` without the game's gamepad interface): their **Gamepad** page names
+the buttons (Xbox letters or PlayStation shapes, read off the gamepad by
+default), and its **Key bindings** tab binds every Polestar action: next and
+previous step, browse the guide, show or hide the guide window, the guide
+menu, the options, report a problem, and the quest item, target and
+Hearthstone buttons. Nothing is bound until you bind it. Press A on a row,
+then a button, or hold one button and press another for a combination:
+Polestar watches its combinations itself, keeps the second button from the
+game only while you hold the first, and never acts on one in a fight. With
+the game's gamepad interface on, LB and RB are its targeting buttons and
+every combination with them is the game's own: the row says so before it
+binds one. Tap B to cancel, hold B to bind B itself; Y unbinds. The rows take
+keys of the keyboard too.
+
+The guide window never takes a button away from the game. To browse it with
+the gamepad, bind **Browse the guide with the gamepad**: the D-pad picks a
+line (up from the goals: Skip, the bug, the menu and the tabs), A points the
+arrow there or uses the quest item on its line (not with the game's gamepad
+interface, whose own buttons Polestar leaves alone), X shows the line's
+details, LB / RB look at the previous and next step, Y minimizes the window,
+and B gives the gamepad back to the game.
+
+Every Polestar window you open (the guide menu with Lookup and Dungeons, the
+options, the welcome, the route choice, the report and copy windows, the
+drop-down menus) answers the gamepad while it is open: the D-pad moves the
+focus (an accent ring), A selects, B closes or goes back, LB / RB change tabs
+or pages, left / right adjust a slider or a drop-down, Y puts a setting back
+to its default. A window that opens by itself (the welcome on a new
+character, the choice of where to level next) takes no button until you press
+the Browse the guide button, which its bar shows. A bar under the window lists
+the buttons no button on screen shows; B sits on the window's close button.
+The gamepad goes back to the game when the window closes or a fight starts,
+and returns after it. Turn the bar off, or the windows' navigation
+altogether, on the Gamepad page. Without a gamepad plugged in, none of it
+shows: everything works with the mouse and keyboard as before.
 
 ### Recorder
 
@@ -376,8 +416,15 @@ steps and detours, the steps to fix first.
 
 `/polestar` (or `/pole`) shows or hides the guide window; settings live in
 `/polestar options`, grouped by what you came to do: Guide, Appearance, Map,
-Questing, Discovery, Quality of Life, Guide packs, Recorder and About, with a
-search that finds any setting.
+Questing, Discovery, Quality of Life, Integrations (settings for other addons
+Polestar works with, such as Questie, shown while they are installed), Guide
+packs, Gamepad, Recorder and About, with a search that finds any setting.
+
+With the game's gamepad interface on (Options, Gamepad, Enable Gamepad UI)
+there are no slash commands: the game blocks gamepad actions after any
+addon command typed in chat, until the game freezes. Polestar's minimap
+button (on by default then) and its key bindings open the guide and the
+settings instead, and Polestar keeps out of the game's own windows.
 
 <details>
 <summary><b>Every slash command</b></summary>
@@ -407,6 +454,7 @@ search that finds any setting.
 | `rares [test]` | Open Rares, or show a sample rare alert |
 | `questdb` | Quest database status |
 | `packs` | Open Options > Guide packs |
+| `gamepad` | Open Options > Gamepad: button names and key bindings |
 | `welcome` | Show the welcome again |
 | `where` | Print your map and position as guide lines (`zone map <id>`, `goto x,y live`), in a box to copy |
 | `report` | Report a problem with the step on screen (the guide window's bug button) |
@@ -829,6 +877,10 @@ saved you a minute. Questions and ideas are welcome on the
   `node tools/polestar.js preview` renders them for review.
 - **Recordings** are the most useful contribution of all: play a guide with
   the Recorder on and attach `record report` for the steps that felt slow.
+- **With an AI agent?** It reads [AGENTS.md](AGENTS.md) in a clone. To have
+  Polestar's skills everywhere, install them:
+  `npx skills add fitzforge/polestar -g`, or the Claude Code and Codex
+  plugins in [CONTRIBUTING.md](CONTRIBUTING.md#installing-the-skills).
 
 Contributions are accepted under the GPL-3.0, the project's licence.
 

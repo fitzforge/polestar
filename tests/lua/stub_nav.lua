@@ -1,7 +1,7 @@
 -- A fake world for Nav tests: Polestar.Compat and Polestar.Engine fakes
--- (installed just before ADDON_LOADED, after the addon files have run), a
--- MapCanvas-shaped WorldMapFrame, C_Minimap/C_Map/C_SuperTrack and an
--- optional TomTom.
+-- (installed just before ADDON_LOADED, after the addon files have run), the
+-- world map (wow_stub.lua's map canvas, guarded: addon code may only read
+-- it), C_Minimap/C_Map/C_SuperTrack and an optional TomTom.
 --
 -- Map 9000 "Testshire" (continent 0) spans world wx 1000..-1000 (top to
 -- bottom) and wy 1000..-1000 (left to right), so map (50, 50) is the world
@@ -12,7 +12,7 @@
 --   stub.nav.setWaypoint(wp)              Engine announces a waypoint
 --   stub.nav.changeStep(i, wp)            Engine moves to step i
 --   stub.nav.withTomTom()                 install a recording TomTom
---   stub.nav.showWorldMap(mapID)          open the world map on mapID
+--   stub.nav.showWorldMap(mapID)          open the world map on mapID (see the map section)
 
 local nav = {
 	player = { c = 0, wx = 0, wy = 0 },
@@ -213,32 +213,20 @@ function nav.withTomTom()
 end
 
 ---------------------------------------------------------------------------
--- Map canvas (the shape of Blizzard_MapCanvas that data providers use)
+-- The world map: wow_stub.lua's map canvas, 1000 x 1000 canvas units, its
+-- tables guarded (stub.guardMap: addon code may only read them).
+--   nav.showWorldMap(mapID)   open the world map on mapID, or show mapID in the
+--                             open map, then one frame passes on the map
+--   nav.pins(kind)            Pins' world map frames (Pins.GetWorldFrames: "pins"
+--                             by default, "areas", "hulls"), sorted by size
+--                             (largest first), then layer, then position
+--   nav.worldPoint(region)    where a world map frame or texture is centred:
+--                             x, y in percent of the viewed map
+--   nav.tooltipOf(frame)      tooltip lines a pin (world map or minimap) shows on hover
+--   nav.click(frame, button)  click a pin (a minimap pin: its OnMouseUp; a world map
+--                             pin: the pointer on it, GLOBAL_MOUSE_DOWN and _UP)
 ---------------------------------------------------------------------------
 
-MapCanvasDataProviderMixin = {}
-function MapCanvasDataProviderMixin:OnAdded(map) self.owningMap = map end
-function MapCanvasDataProviderMixin:GetMap() return self.owningMap end
-function MapCanvasDataProviderMixin:RemoveAllData() end
-function MapCanvasDataProviderMixin:RefreshAllData() end
-function MapCanvasDataProviderMixin:OnMapChanged() self:RefreshAllData() end
-
-MapCanvasPinMixin = {}
-function MapCanvasPinMixin:OnLoad() end
-function MapCanvasPinMixin:OnAcquired() end
-function MapCanvasPinMixin:OnReleased() end
-function MapCanvasPinMixin:SetOwningMap(map) self.owningMap = map end
-function MapCanvasPinMixin:GetMap() return self.owningMap end
-function MapCanvasPinMixin:SetPosition(x, y) self.normalizedX, self.normalizedY = x, y; self:GetMap():SetPinPosition(self, x, y) end
-function MapCanvasPinMixin:SetScalingLimits() end
-function MapCanvasPinMixin:UseFrameLevelType(t) self.pinFrameLevelType = t end
-function MapCanvasPinMixin:SetIgnoreGlobalPinScale(ignore) self.ignoreGlobalPinScale = ignore end
-function MapCanvasPinMixin:OnCanvasSizeChanged() end
--- As Blizzard_MapCanvas: clears, then sets the passthrough buttons on every acquire.
-function MapCanvasPinMixin:CheckMouseButtonPassthrough(...)
-	self:SetPassThroughButtons()
-	self:SetPassThroughButtons(...)
-end
 -- Forever restricts SetPassThroughButtons in combat (IsProtectedFunction + HasRestrictions).
 stub.blocked = {}
 function stub.Methods.SetPassThroughButtons(self, ...)
@@ -250,37 +238,19 @@ function stub.Methods.SetPassThroughButtons(self, ...)
 end
 
 local map = WorldMapFrame
-map.pinPools = {}
-map.Child = CreateFrame("Frame", nil, map.ScrollContainer)
-function map.GetCanvas() return map.Child end
-function map.SetPinPosition(self, pin, x, y)
-	pin:ClearAllPoints()
-	pin:SetPoint("CENTER", self:GetCanvas(), "TOPLEFT", x * 1000, -y * 1000)
-end
-function map.AcquirePin(self, template, ...)
-	local pool = self.pinPools[template]
-	assert(pool, "no pin pool for " .. tostring(template))
-	local pin, new = pool:Acquire()
-	pin.pinTemplate = template
-	pin:SetOwningMap(self)
-	if new then pin:OnLoad() end
-	pin:Show()
-	pin:OnAcquired(...)
-	pin:CheckMouseButtonPassthrough("RightButton")
-	return pin
-end
-function map.RemoveAllPinsByTemplate(self, template)
-	if self.pinPools[template] then self.pinPools[template]:ReleaseAll() end
-end
-function map.UnregisterPin() end
+map.Child = map:GetCanvas() -- the tests' shorthand for the canvas
+map.Child:SetSize(1000, 1000)
+stub.guardMap(map)
+stub.withSoftCursor()
 
--- Active world map pins of a template (default: Polestar.Pins), sorted by
--- size (largest first), then layer, then position.
-function nav.pins(template)
-	local out = {}
-	local pool = map.pinPools[template or "PolestarPinsTemplate"]
-	if not pool then return out end
-	for pin in pool:EnumerateActive() do out[#out + 1] = pin end
+function nav.showWorldMap(mapID)
+	stub.worldMapID = mapID
+	if not map:IsShown() then map:Show() end
+	stub.runMapFrame(map, 0)
+end
+
+function nav.pins(kind)
+	local out = Polestar.Pins.GetWorldFrames(kind or "pins")
 	table.sort(out, function(a, b)
 		if a.width ~= b.width then return a.width > b.width end
 		if a.data.layer.name ~= b.data.layer.name then return a.data.layer.name < b.data.layer.name end
@@ -290,16 +260,25 @@ function nav.pins(template)
 	return out
 end
 
--- Tooltip lines a pin shows on hover.
-function nav.tooltipOf(pin)
+function nav.worldPoint(r)
+	local p, s, canvas = r.points[1], r.scale or 1, map.Child
+	return p.x * s / canvas.width * 100, -p.y * s / canvas.height * 100
+end
+
+function nav.tooltipOf(f)
 	GameTooltip.lines = {}
-	-- World map pins use the map canvas OnMouseEnter; minimap pins their OnEnter script.
-	if rawget(pin, "data") then pin:OnMouseEnter() else stub.RunScript(pin, "OnEnter") end
+	stub.RunScript(f, "OnEnter")
 	return GameTooltip.lines
 end
 
-function nav.showWorldMap(mapID)
-	stub.worldMapID = mapID
-	map:Show()
-	for p in pairs(map.dataProviders) do p:OnMapChanged() end
+function nav.click(f, button)
+	button = button or "LeftButton"
+	if f.scripts.OnMouseUp then
+		stub.RunScript(f, "OnMouseUp", button)
+		return
+	end
+	stub.RunScript(f, "OnEnter")
+	stub.fire("GLOBAL_MOUSE_DOWN", button)
+	stub.fire("GLOBAL_MOUSE_UP", button)
+	stub.RunScript(f, "OnLeave")
 end

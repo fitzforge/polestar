@@ -151,16 +151,16 @@ function loadPfQuest(dir) {
 }
 
 // Names in other client languages: db/<locale>/{quests,units,objects,items}.lua
-// assign pfDB[<db>][<locale>] (a quest's title is its T). pfQuest has no
-// esMX: a locale without a folder comes back empty. -> { [locale]: { quest,
-// npc, object, item: Map id -> name } }
+// assign pfDB[<db>][<locale>] (a quest's title is its T, its objective text
+// its O). pfQuest has no esMX: a locale without a folder comes back empty.
+// -> { [locale]: { quest, npc, object, item, objective: Map id -> text } }
 const NAME_FILES = { quest: 'quests', npc: 'units', object: 'objects', item: 'items' };
 
 function loadPfQuestNames(dir, locales) {
 	const out = {};
 	for (const locale of locales) {
 		const byKind = {};
-		for (const kind of Object.keys(NAME_FILES)) byKind[kind] = new Map();
+		for (const kind of [...Object.keys(NAME_FILES), 'objective']) byKind[kind] = new Map();
 		out[locale] = byKind;
 		const folder = path.join(dir, 'db', locale);
 		if (!fs.existsSync(folder)) continue;
@@ -170,19 +170,22 @@ function loadPfQuestNames(dir, locales) {
 			files,
 			prelude: PRELUDE,
 			expr: `
-local out = {}
+local out = { objective = {} }
 for kind, db in pairs({ ${kinds} }) do
   local list = {}
   local t = rawget(pfDB, db) and rawget(pfDB[db], ${JSON.stringify(locale)}) or {}
   for id, v in pairs(t) do
     local name = type(v) == "table" and v.T or v
     if type(id) == "number" and type(name) == "string" then list[#list + 1] = { id, name } end
+    if kind == "quest" and type(id) == "number" and type(v) == "table" and type(v.O) == "string" then
+      out.objective[#out.objective + 1] = { id, v.O }
+    end
   end
   out[kind] = list
 end
 return out`,
 		});
-		for (const kind of Object.keys(NAME_FILES)) {
+		for (const kind of Object.keys(byKind)) {
 			const list = pairsOf(raw[kind]).slice().sort((a, b) => a[0] - b[0]);
 			for (const [id, name] of list) byKind[kind].set(Number(id), name);
 		}

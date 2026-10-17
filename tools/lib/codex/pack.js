@@ -369,6 +369,7 @@ function emitToc(version, files) {
 		'## Interface: 16001',
 		'## Title: Polestar Codex',
 		'## Notes: Part of Polestar: items, mounts, pets, NPCs, quests and where to get them, dungeons and rares, for Lookup, Dungeons and Rares. Loaded on demand.',
+		...require('../i18n/toc').tocLines('Polestar_Codex'),
 		'## Author: Polestar',
 		`## Version: ${version}`,
 		'## Category: Quests',

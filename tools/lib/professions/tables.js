@@ -4,27 +4,41 @@
 // (<sources>/wago/<build>/<Table>.csv; a cached build is immutable, so a
 // present file is never fetched again).
 //
-// Columns used (inspected on wow_classic_era 1.15.9.70003, 2026-10):
+// They are the Forever client's (`wow_classic_beta`, 1.60+; tools/lib/data/wago.js):
+// Forever changed recipe skill thresholds, reagents and names from Classic
+// Era (1.60.1.70425 against 1.15.9.70003: the thresholds of 597 of 1,265
+// recipes, 127 reagent lists; issue #109). Classic Era only fills gaps:
+//   - a table wago.tools has no Forever export of: SpellTotems,
+//     SpellCastingRequirements and SpellFocusObject (tools and spell foci)
+//     come whole from the newest Era build, with a warning;
+//   - with `eraFill`, the rows the Forever client lacks (1.60.1.70425: eight
+//     recipe spells such as the healing potions, which SkillLineAbility lists
+//     but SpellName and SpellEffect do not, and ~5k items, as the Codex
+//     found): Forever's rows win, Era's fill the spells and items it has none for.
+//
+// Columns used (inspected on wow_classic_beta 1.60.1.70425, 2026-10; where the
+// Era client names them differently, extract.js reads both):
 //   SkillLine            ID, DisplayName_lang, CategoryID (11 profession, 9 secondary)
 //   SkillLineAbility     SkillLine, Spell, AcquireMethod (1 = known with the skill),
 //                        TrivialSkillLineRankLow (yellow), TrivialSkillLineRankHigh (grey),
-//                        MinSkillLineRank, NumSkillUps, RaceMask_0, ClassMask
+//                        MinSkillLineRank, NumSkillUps, RaceMasks_0 (Era RaceMask_0), ClassMask
 //   SpellName            ID, Name_lang
 //   SpellEffect          SpellID, DifficultyID, Effect (24 create item, 36 learn spell,
-//                        53 enchant item, 118 skill), EffectItemType, EffectBasePoints,
-//                        EffectDieSides, EffectTriggerSpell, EffectMiscValue_0
+//                        53 enchant item, 118 skill), EffectItemType, EffectBasePointsF
+//                        (Era: EffectBasePoints + EffectDieSides), EffectTriggerSpell,
+//                        EffectMiscValue_0
 //   SpellReagents        SpellID, Reagent_0..7, ReagentCount_0..7
 //   SpellTotems          SpellID, Totem_0..1 (tools such as Blacksmith Hammer)
 //   SpellCastingRequirements SpellID, RequiresSpellFocus -> SpellFocusObject (Anvil, Forge...)
 //   ItemSparse           ID, Display_lang, BuyPrice, SellPrice, VendorStackCount,
 //                        OverallQualityID, RequiredSkill, RequiredSkillRank, RequiredAbility
 //   Item                 ID, ClassID (9 = recipe)
-//   ItemEffect           ParentItemID, SpellID (a recipe item's learn spell)
+//   ItemEffect           ID, SpellID, TriggerType (6: teaches SpellID, Forever's recipe
+//                        items; else SpellID is a teaching spell, Era's); the Era client
+//                        names the item in ParentItemID, Forever in ItemXItemEffect
+//   ItemXItemEffect      ItemEffectID, ItemID
 
-const fs = require('node:fs');
-const path = require('node:path');
-const { parseCsv } = require('../data/csv');
-const { compareVersions, tableUrl, PRODUCT, PRODUCTS, BUILDS_URL } = require('../data/wago');
+const { pickBuild, cachedTable, tableUrl } = require('../data/wago');
 
 const TABLES = [
 	'SkillLine',
@@ -38,21 +52,17 @@ const TABLES = [
 	'ItemSparse',
 	'Item',
 	'ItemEffect',
+	'ItemXItemEffect',
 ];
 
-function hasAll(dir, tables) {
-	return tables.every((t) => fs.existsSync(path.join(dir, `${t}.csv`)));
-}
-
-// Classic Era builds only: data/sources/wago also caches Forever (1.60) builds.
-function newestCachedBuild(cacheRoot, tables) {
-	if (!fs.existsSync(cacheRoot)) return null;
-	const builds = fs
-		.readdirSync(cacheRoot)
-		.filter((b) => /^\d+(\.\d+)+$/.test(b) && PRODUCTS.era.family.test(b) && hasAll(path.join(cacheRoot, b), tables))
-		.sort(compareVersions);
-	return builds.length ? builds[builds.length - 1] : null;
-}
+// The tables that may come whole from Classic Era when the Forever build lacks them.
+const ERA_FALLBACK = ['SpellTotems', 'SpellCastingRequirements', 'SpellFocusObject'];
+// `eraFill`: per spell (a spell the Forever SpellEffect has is wholly Forever's) and per id.
+const SPELL_ROWS = ['SpellEffect', 'SpellReagents', 'SpellTotems', 'SpellCastingRequirements'];
+const ID_ROWS = ['SpellName', 'ItemSparse', 'Item', 'SpellFocusObject'];
+// What fillFromEra reads from Era: never the skill lines, whose recipes and
+// thresholds are Forever's alone.
+const ERA_ROWS = [...SPELL_ROWS, ...ID_ROWS, 'ItemEffect'];
 
 async function fetchText(fetchImpl, url) {
 	const res = await fetchImpl(url, { headers: { 'user-agent': 'polestar-data-build' } });
@@ -60,51 +70,79 @@ async function fetchText(fetchImpl, url) {
 	return res.text();
 }
 
-async function latestBuild(fetchImpl) {
-	const builds = JSON.parse(await fetchText(fetchImpl, BUILDS_URL));
-	const list = Array.isArray(builds[PRODUCT]) ? builds[PRODUCT].map((b) => b.version).filter((v) => v && PRODUCTS.era.family.test(v)) : [];
-	if (!list.length) throw new Error(`${BUILDS_URL}: no ${PRODUCT} builds listed`);
-	return list.sort(compareVersions)[list.length - 1];
+// Forever's rows, plus Era's for the spells and items Forever's have none of.
+// `whole`: tables already read from Era entirely. -> tables
+function fillFromEra(tables, era, whole = []) {
+	const out = { ...tables };
+	const own = (t) => tables[t] && era[t] && !whole.includes(t);
+	const spells = new Set((tables.SpellEffect || []).map((r) => Number(r.SpellID)));
+	for (const t of SPELL_ROWS) if (own(t)) out[t] = tables[t].concat(era[t].filter((r) => !spells.has(Number(r.SpellID))));
+	for (const t of ID_ROWS) {
+		if (!own(t)) continue;
+		const ids = new Set(tables[t].map((r) => Number(r.ID)));
+		out[t] = tables[t].concat(era[t].filter((r) => !ids.has(Number(r.ID))));
+	}
+	if (own('ItemEffect')) {
+		const linked = new Set((tables.ItemXItemEffect || []).map((r) => Number(r.ItemID)));
+		out.ItemEffect = tables.ItemEffect.concat(era.ItemEffect.filter((r) => Number(r.ParentItemID) > 0 && !linked.has(Number(r.ParentItemID))));
+	}
+	return out;
 }
 
-// -> { build, tables: { SkillLine: rows, ... }, urls, warnings }
-async function loadTables({ sourcesDir, build, offline = false, fetchImpl = globalThis.fetch, log = () => {}, tables = TABLES }) {
-	const cacheRoot = path.join(sourcesDir, 'wago');
-	const warnings = [];
-	let chosen = build || null;
-	if (!chosen) {
-		if (offline) {
-			chosen = newestCachedBuild(cacheRoot, tables);
-			if (!chosen) throw new Error(`--offline: no cached wago.tools build under ${cacheRoot} with ${tables.join(', ')}`);
-		} else {
-			try {
-				chosen = await latestBuild(fetchImpl);
-			} catch (err) {
-				chosen = newestCachedBuild(cacheRoot, tables);
-				if (!chosen) throw err;
-				warnings.push(`wago.tools: ${err.message}; using cached build ${chosen}`);
-			}
+// `build` when given, else the newest build of `product` ("era", the default
+// for the other tools that read client tables through here, or "forever", what
+// `profession build` reads) wago.tools lists, else (offline, or wago.tools
+// unreachable) the newest cached one holding every table that cannot fall back
+// to Era. Forever only: a table in ERA_FALLBACK it lacks comes from Era, and
+// `eraFill` also reads the newest Era build's tables and fills the rows
+// Forever's lack (fillFromEra); `eraTables` returns what was read from Era,
+// including its SkillLineAbility (which spells are Season of Discovery's,
+// extract.js).
+// -> { build, tables: { SkillLine: rows, ... }, urls, eraBuild?, eraTables?, warnings }
+async function loadTables({ sourcesDir, build, offline = false, fetchImpl = globalThis.fetch, log = () => {}, tables = TABLES, product = 'era', eraFill = false }) {
+	const forever = product === 'forever';
+	const fallback = forever ? ERA_FALLBACK : [];
+	const own = tables.filter((t) => !fallback.includes(t));
+	const picked = await pickBuild({ sourcesDir, build, offline, fetchImpl, product, tables: own });
+	const warnings = [...picked.warnings];
+	const get = (url) => fetchText(fetchImpl, url);
+	let era = null;
+	const eraBuild = async () => {
+		if (!era) {
+			const needed = (eraFill ? [...ERA_ROWS, 'SkillLineAbility'] : ERA_FALLBACK).filter((t) => tables.includes(t));
+			era = await pickBuild({ sourcesDir, offline, fetchImpl, product: 'era', tables: needed });
+			warnings.push(...era.warnings);
 		}
-	}
-	const dir = path.join(cacheRoot, chosen);
+		return era.build;
+	};
 	const out = {};
 	const urls = {};
+	const whole = [];
 	for (const t of tables) {
-		const file = path.join(dir, `${t}.csv`);
-		urls[t] = tableUrl(t, chosen);
-		if (!fs.existsSync(file)) {
-			if (offline) throw new Error(`--offline: missing cached ${path.relative(process.cwd(), file)}`);
-			log(`fetching ${urls[t]}`);
-			const text = await fetchText(fetchImpl, urls[t]);
-			const rows = parseCsv(text);
-			if (!rows.length || !('ID' in rows[0])) throw new Error(`${urls[t]}: not a DB2 CSV export`);
-			fs.mkdirSync(dir, { recursive: true });
-			fs.writeFileSync(`${file}.tmp`, text);
-			fs.renameSync(`${file}.tmp`, file);
+		try {
+			out[t] = await cachedTable({ sourcesDir, build: picked.build, table: t, offline, get, log });
+			urls[t] = tableUrl(t, picked.build);
+		} catch (err) {
+			if (!fallback.includes(t)) throw err;
+			const b = await eraBuild();
+			out[t] = await cachedTable({ sourcesDir, build: b, table: t, offline, get, log });
+			urls[t] = tableUrl(t, b);
+			whole.push(t);
+			warnings.push(`${t}: no Forever ${picked.build} table (${err.message}); read Classic Era ${b}`);
 		}
-		out[t] = parseCsv(fs.readFileSync(file, 'utf8'));
 	}
-	return { build: chosen, tables: out, urls, warnings };
+	let result = out;
+	let eraTables;
+	if (eraFill && forever) {
+		const b = await eraBuild();
+		eraTables = {};
+		for (const t of tables) {
+			if (!(ERA_ROWS.includes(t) || t === 'SkillLineAbility') || whole.includes(t)) continue;
+			eraTables[t] = await cachedTable({ sourcesDir, build: b, table: t, offline, get, log });
+		}
+		result = fillFromEra(out, eraTables, whole);
+	}
+	return { build: picked.build, tables: result, urls, ...(era ? { eraBuild: era.build } : {}), ...(eraTables ? { eraTables } : {}), warnings };
 }
 
-module.exports = { loadTables, TABLES };
+module.exports = { loadTables, fillFromEra, TABLES, ERA_FALLBACK };

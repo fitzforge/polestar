@@ -50,6 +50,8 @@ next forever/horde/50-60/01-un-goro-crater
 #   50, and the only Undercity stop before Kargath comes at 49.5).
 # - Thunder Bluff's and Grom'gol's binds are dropped (replaced unused); the
 #   Camp Mojache and Gadgetzan binds are kept for their hearths.
+# - Gadgetzan by air: Tran'rek beside the wind rider master, Pestlezugg and
+#   Sprinkle first, then the inn and Marin on the south side, on the way out.
 #
 # Optional: Rescue OOX-22/FE! (2767), Rescue OOX-09/HL! (836) and Rescue
 # OOX-17/TN! (648) if you
@@ -302,15 +304,15 @@ step Back to Camp Mojache
 step Gadgetzan
   zone Tanaris
   fly "Gadgetzan"
-  sethome "Gadgetzan"
+  accept 4504                         -- Tran'rek, beside the wind rider master
+  turnin 4494                         -- Alchemist Pestlezugg
+  accept 4496
   turnin 2641                         -- Sprinkle
   accept 2661
+  sethome "Gadgetzan"
   turnin 2661                         -- Marin Noggenfogger
   accept 2662
   turnin 2662
-  accept 4504                         -- Tran'rek
-  turnin 4494                         -- Alchemist Pestlezugg
-  accept 4496
   note Tran'rek's tar and Pestlezugg's samples come from Un'Goro Crater.
 
 step Broken Pillar
