@@ -1603,7 +1603,7 @@ the two never guide at once. With the option off (the default) Polestar
 guides and sends nothing.
 
 ```lua
-Polestar.Nav.HandedOff() -> bool   -- the one predicate: installed, on, and the last stop not refused
+Polestar.Nav.HandedOff() -> bool   -- the one predicate: installed, on, the last stop not refused, and it guides that stop
 Polestar.Nav.Reapply()             -- (Nav.lua) re-plan and tell every module the same target again, unannounced
 Polestar.Nav.handoff.Available() -> bool
 ```
@@ -1654,6 +1654,15 @@ Polestar.Nav.handoff.Available() -> bool
   itself (`Nav.HandedOff()` false) and cancels its earlier journey; the next
   target, or a zone change, offers a stop again, and the first one taken hands
   back.
+- **No way there.** A stop it took that it then guides nothing to (its
+  `CurrentStop("Polestar")` set but `Active()` false: its search found no
+  way, `StopGuide` in its `Journey.lua`, the tracker saying "No way there
+  from here."; or its guidance turned off in its tracker): Polestar guides
+  that target itself (`Nav.HandedOff()` false), leaving its journey in place
+  and sending nothing. It is read on `Subscribe`'s news (else Nav's tick),
+  never while dead or a ghost (its corpse run). When it guides again Polestar
+  steps aside; when that journey ends Polestar goes on guiding, unless
+  another journey replaced it; the next stop taken hands back.
 - **Off.** Turning `nav.spfHandoff` off cancels the journey and Polestar
   guides again (`Polestar_Nav` loads then); on again sends the stop anew.
 - **Options and commands.** `Nav.HandoffOption(control)` wraps every option

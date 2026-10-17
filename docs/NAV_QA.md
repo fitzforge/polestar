@@ -130,5 +130,6 @@ What tests cannot prove, checked in the client before a release:
    installed" and follow a few guide steps (a pick-up, a kill area, a
    hand-in across a boat): only its arrow, line and journey show; the kill
    area stays held while you work it; clearing its journey sticks until the
-   step changes; a fight and a death send nothing; the option off brings
-   Polestar's arrow back.
+   step changes; a fight and a death send nothing; a goal it finds no way to
+   (its tracker: "No way there from here.") brings Polestar's arrow back;
+   the option off brings Polestar's arrow back.
