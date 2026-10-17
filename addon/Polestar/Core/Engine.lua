@@ -887,12 +887,12 @@ end
 
 -- map, x, y, f of the goal (the chosen candidate's when it has candidates,
 -- the chosen spawn area's when it has spots), then that area's radius in
--- yards, then the goal's height `z` (the compiler's, from the spawn of the
--- NPC or object it stands for) only while the position is the goal's own
--- point: a candidate or a spawn area elsewhere has none.
+-- yards, then the height `z`: the chosen candidate's own when it carries one
+-- (the compiler's, from its spawn), else the goal's height only while the
+-- position is the goal's own point; a spawn area elsewhere has none.
 local function posOf(goal)
 	local c = chosen(goal)
-	if c then return c.map, c.x, c.y, c.f end
+	if c then return c.map, c.x, c.y, c.f, nil, c.z end
 	local s = goal.spots and Spots.get(goal)
 	if s then return goal.map, s.x, s.y, goal.f, s.r, s.x == goal.x and s.y == goal.y and goal.z or nil end
 	return goal.map, goal.x, goal.y, goal.f, nil, goal.z

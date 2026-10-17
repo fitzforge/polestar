@@ -17,8 +17,9 @@
 //   interact         the object
 //   buy, train, vendor, sethome, getfp, learn   the named npc
 // Never: goto and explore (a place, not an entity), collect (a farming spot
-// among the item's sources), use (an item), and smart targets (`candidates`:
-// the engine picks the NPC at runtime).
+// among the item's sources), use (an item). Smart targets (`candidates`: the
+// engine picks the NPC at runtime) get the picked NPC's height through
+// entityHeight, applied per candidate by candidates.js.
 
 const HEIGHT_YARDS = 15;
 const HEIGHT_VERBS = new Set(['accept', 'turnin', 'talk', 'kill', 'interact', 'buy', 'train', 'vendor', 'sethome', 'getfp', 'learn']);
@@ -41,15 +42,14 @@ function worldPoint(data, goal) {
 	return { c: fr.c, wx: fr.top + ((fr.bottom - fr.top) * goal.y) / 100, wy: fr.left + ((fr.right - fr.left) * goal.x) / 100 };
 }
 
-// The goal's height, or undefined: the z of the nearest spawn of its entity on
-// its world point's map, when that spawn is within HEIGHT_YARDS.
-function goalHeight(data, goal) {
+// An entity's height at a point, or undefined: the z of the nearest spawn of
+// (kind, id) on the point's instance map, when that spawn is within
+// HEIGHT_YARDS. `point` is a goal point ({ map, x, y, f }).
+function entityHeight(data, kind, id, point) {
 	if (!data.spawnz) return undefined;
-	const e = heightEntity(goal);
-	if (!e) return undefined;
-	const list = (data.spawnz[e.kind] || {})[e.id];
+	const list = (data.spawnz[kind] || {})[id];
 	if (!Array.isArray(list)) return undefined;
-	const p = worldPoint(data, goal);
+	const p = worldPoint(data, point);
 	if (!p) return undefined;
 	let best = null;
 	for (const [map, x, y, z] of list) {
@@ -58,6 +58,14 @@ function goalHeight(data, goal) {
 		if (d <= HEIGHT_YARDS && (!best || d < best.d)) best = { d, z };
 	}
 	return best ? best.z : undefined;
+}
+
+// The goal's height, or undefined: the z of the nearest spawn of its entity on
+// its world point's map, when that spawn is within HEIGHT_YARDS.
+function goalHeight(data, goal) {
+	const e = heightEntity(goal);
+	if (!e) return undefined;
+	return entityHeight(data, e.kind, e.id, goal);
 }
 
 // -> { eligible, withZ }: goals whose point stands for an NPC or object, and
@@ -77,4 +85,4 @@ function heightCounts(guides) {
 	return { eligible, withZ };
 }
 
-module.exports = { HEIGHT_YARDS, HEIGHT_VERBS, heightEntity, worldPoint, goalHeight, heightCounts };
+module.exports = { HEIGHT_YARDS, HEIGHT_VERBS, heightEntity, worldPoint, entityHeight, goalHeight, heightCounts };

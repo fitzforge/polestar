@@ -349,9 +349,13 @@ object's (its spawn, or your `@x,y` at it):
   (a `sethome` also with the innkeeper the compiler names).
 
 `goto` and `explore` (places), `collect` (a farming spot among the item's
-sources), `use` and smart targets (`nearest`, class and profession trainers:
-the engine picks the NPC at runtime) never get one, nor does the arrow carry
-it to a spawn area other than the goal's own point. `compile` prints how many
+sources) and `use` never get one. Smart targets (`nearest`, class and
+profession trainers: the engine picks the NPC at runtime) get one per
+candidate, from a spawn of that candidate's own NPC on the candidate's map
+within 15 yards of its point (`z` optional on the candidate); the engine
+carries the picked candidate's `z` on the waypoint. Neither a goal's height
+nor a candidate's reaches a spawn area other than its own point. `compile`
+prints how many
 goals got one ("heights: N of M NPC or object goals got z"). In the game the
 walk is searched with the height and asked again without it when that finds
 no route or one ending more than 30 yards above or below it.

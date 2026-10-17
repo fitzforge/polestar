@@ -19,7 +19,7 @@ const GOAL_KEYS = [
 	'from', 'fromKind', 'fromRank', 'fromFaction', 'fromAlso', 'fromId', 'fromAlsoId', 'candidates', 'rewards', 'group', 'direct',
 ];
 const REAGENT_KEYS = ['item', 'itemName', 'count'];
-const CANDIDATE_KEYS = ['npc', 'npcName', 'map', 'x', 'y', 'f', 'faction', 'races', 'classes', 'lvl', 'rate', 'spawns'];
+const CANDIDATE_KEYS = ['npc', 'npcName', 'map', 'x', 'y', 'z', 'f', 'faction', 'races', 'classes', 'lvl', 'rate', 'spawns'];
 // Spawn areas: map-percent centre in the goal's map and frame, radius in yards,
 // spawn count, and `alt` for a place the arrow reaches only when moved on to it.
 const SPOT_KEYS = ['x', 'y', 'r', 'n', 'alt'];
