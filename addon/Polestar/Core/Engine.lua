@@ -2728,9 +2728,12 @@ local function evaluateLoaded(active)
 		-- player stands. A spot picked earlier (the step shown as "Then:" or
 		-- looked at ahead, from elsewhere) would otherwise only move at the
 		-- next arrival poll: a second evaluation right after the step change.
+		-- A goto's place counts as entered only from outside seen from now on
+		-- (Own.enteredPlace), also when the player comes back to the step.
 		if current then
 			local c, px, py
 			for _, goal in ipairs(guide.steps[current].goals) do
+				Own.outside[goal] = nil
 				if goal.candidates then picks[goal] = nil end
 				if goal.spots and Spots.chosen[goal] then
 					if px == nil then c, px, py = Compat().GetPlayerWorldPosition() end

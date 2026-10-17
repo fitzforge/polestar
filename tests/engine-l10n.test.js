@@ -264,3 +264,21 @@ test('#177: the cave arrives only on going in: not in its subzone outdoors, not 
 	});
 	assert.deepEqual(two, [1, 2]);
 });
+
+test('#177: back at the goto after stepping past it, the player inside the cave still walks to its point: being outside earlier does not count', () => {
+	const [out] = run('frFR', {
+		guide: COVEN,
+		id: 'test/coven',
+		before: DUROTAR,
+		script: `
+			local r = { at(44, 62, AREAS[363], false) } -- outside, the goto open
+			E.Next(); flush(); r[#r + 1] = E.GetStepIndex()
+			r[#r + 1] = at(45.13, 55.75, AREAS[365], true) -- into the cave on the next step
+			E.Prev(); flush(); r[#r + 1] = E.GetStepIndex()
+			r[#r + 1] = at(45.13, 55.75, AREAS[365], true) -- still inside: the goto stays
+			r[#r + 1] = at(44, 62, AREAS[363], false)
+			r[#r + 1] = at(45.13, 55.75, AREAS[365], true) -- out and back in
+			emit(r)`,
+	});
+	assert.deepEqual(out, [1, 2, 2, 1, 1, 1, 2]);
+});
