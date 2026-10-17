@@ -256,9 +256,9 @@ step Vrang Wildgore
   accept 95507
 
 step The Dry Hills
-  tip Savannah Patriarchs roam the plains east of the hills, and the Sprung Traps lie among them. Serena Bloodfeather leads the Witchwing harpies in the hills to the west.
-  collect 269715 quest 95494.1
-  collect 269719 quest 95507.1
+  tip Savannah Patriarchs roam the plains east of the hills, and the Sprung Traps lie among them, so do both here and skip the Matriarchs by Ratchet. Serena Bloodfeather leads the Witchwing harpies in the hills to the west.
+  collect 269715 quest 95494.1 @45.0,14.5
+  collect 269719 quest 95507.1 @45.0,14.5
   collect 5067 quest 876.1
 
 step Vrang Wildgore
