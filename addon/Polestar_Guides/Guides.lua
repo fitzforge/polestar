@@ -33862,7 +33862,7 @@ do
 				},
 				{
 					title = "{item:6053}",
-					note = "Teaches {item:6051} (needs {skill:171} 100). Vendors sell it in limited stock that restocks; the Auction House often has it too.",
+					note = "Teaches {item:6051} (needs {skill:171} 100). Vendors sell it in limited stock that restocks.",
 					goals = {
 						{ t = "buy", item = 6053, itemName = "Recipe: Holy Protection Potion", candidates = { { npc = 3490, npcName = "Hula'mahi", map = 1413, x = 51.39, y = 30.2, z = 95.9, f = "e", faction = "H" }, { npc = 3134, npcName = "Kzixx", map = 1431, x = 81.82, y = 19.77, z = 30.2, f = "e", faction = "AH" }, { npc = 1685, npcName = "Xandar Goodbeard", map = 1432, x = 82.47, y = 63.35, z = 407.8, f = "e", faction = "A" } } },
 					},
@@ -35555,7 +35555,7 @@ do
 				},
 				{
 					title = "{item:11039}",
-					note = "Teaches {spell:13419} (needs {skill:333} 110). Vendors sell it in limited stock that restocks; the Auction House often has it too.",
+					note = "Teaches {spell:13419} (needs {skill:333} 110). Vendors sell it in limited stock that restocks.",
 					goals = {
 						{ t = "buy", item = 11039, itemName = "Formula: Enchant Cloak - Minor Agility", candidates = { { npc = 3954, npcName = "Dalria", map = 1440, x = 35.12, y = 52.12, z = 110, f = "e", faction = "A" }, { npc = 12043, npcName = "Kulwia", map = 1442, x = 45.39, y = 59.33, z = 105.6, f = "e", faction = "H" } } },
 					},
@@ -36222,7 +36222,7 @@ do
 				},
 				{
 					title = "{item:16047}",
-					note = "Teaches {item:16000} (needs {skill:202} 275). Vendors sell it in limited stock that restocks; the Auction House often has it too.",
+					note = "Teaches {item:16000} (needs {skill:202} 275). Vendors sell it in limited stock that restocks.",
 					goals = {
 						{ t = "buy", item = 16047, itemName = "Schematic: Thorium Tube", candidates = { { npc = 11185, npcName = "Xizzer Fizzbolt", map = 1452, x = 60.8, y = 38.6, z = 721.9, f = "e", faction = "AH" }, { npc = 260565, npcName = "Kor'gar", map = 2548, x = 77.63, y = 50.89, faction = "A" } } },
 					},
@@ -37741,14 +37741,14 @@ do
 				},
 				{
 					title = "{item:15725}",
-					note = "Teaches {item:15083} (needs {skill:165} 235). Vendors sell it in limited stock that restocks; the Auction House often has it too.",
+					note = "Teaches {item:15083} (needs {skill:165} 235). Vendors sell it in limited stock that restocks.",
 					goals = {
 						{ t = "buy", item = 15725, itemName = "Pattern: Wicked Leather Gauntlets", candidates = { { npc = 12942, npcName = "Leonard Porter", map = 1422, x = 43.08, y = 84.31, z = 62.7, f = "e", faction = "A" }, { npc = 12943, npcName = "Werg Thickblade", map = 1422, x = 26.7, y = 56.8, z = 59.7, f = "e", faction = "H" } } },
 					},
 				},
 				{
 					title = "{item:15756}",
-					note = "Teaches {item:15094} (needs {skill:165} 265). Vendors sell it in limited stock that restocks; the Auction House often has it too.",
+					note = "Teaches {item:15094} (needs {skill:165} 265). Vendors sell it in limited stock that restocks.",
 					goals = {
 						{ t = "buy", item = 15756, itemName = "Pattern: Runic Leather Headband", candidates = { { npc = 12941, npcName = "Jase Farlane", map = 1423, x = 70.86, y = 48.06, z = 82.1, faction = "AH" } } },
 					},
@@ -38998,7 +38998,7 @@ do
 				},
 				{
 					title = "{item:7089}",
-					note = "Teaches {item:7053} (needs {skill:197} 140). Vendors sell it in limited stock that restocks; the Auction House often has it too.",
+					note = "Teaches {item:7053} (needs {skill:197} 140). Vendors sell it in limited stock that restocks.",
 					goals = {
 						{ t = "buy", item = 7089, itemName = "Pattern: Azure Silk Cloak", candidates = { { npc = 6576, npcName = "Brienna Starglow", map = 1441, x = 7, y = 18, z = -25.4, f = "e", faction = "A" }, { npc = 251997, npcName = "Norvin Alderman", map = 1416, x = 15.97, y = 65.51, f = "e", faction = "AH" }, { npc = 6574, npcName = "Jun'ha", map = 1417, x = 72.69, y = 36.45, z = 62.8, f = "e", faction = "H" } } },
 					},
@@ -39094,7 +39094,7 @@ do
 				},
 				{
 					title = "{item:14481}",
-					note = "Teaches {item:13863} (needs {skill:197} 230). Vendors sell it in limited stock that restocks; the Auction House often has it too.",
+					note = "Teaches {item:13863} (needs {skill:197} 230). Vendors sell it in limited stock that restocks.",
 					goals = {
 						{ t = "buy", item = 14481, itemName = "Pattern: Runecloth Gloves", candidates = { { npc = 11189, npcName = "Qia", map = 1452, x = 61.2, y = 37.21, z = 724, f = "e", faction = "AH" } } },
 					},

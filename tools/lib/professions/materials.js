@@ -108,7 +108,7 @@ function sourceOf(id, m, side, ctx) {
 	const limited = (m.limitedVendors && m.limitedVendors[side]) || [];
 	if (limited.length) {
 		const npc = ctx.npcs[limited[0]];
-		return { kind: 'limited', cost: Math.max(cost, m.buy || 0), vendors: limited, note: `limited stock at ${npc ? npc.name : 'a vendor'} (or the Auction House)` };
+		return { kind: 'limited', cost: Math.max(cost, m.buy || 0), vendors: limited, note: `limited stock at ${npc ? npc.name : 'a vendor'}${m.bop ? '' : ' (or the Auction House)'}` };
 	}
 	return { kind: 'unknown', cost: Infinity, note: 'no source in the reference data' };
 }

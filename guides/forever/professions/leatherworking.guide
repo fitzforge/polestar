@@ -324,11 +324,11 @@ step Artisan Leatherworking
   buy 14341 x82 nearest
 
 step Pattern: Wicked Leather Gauntlets
-  tip Teaches Wicked Leather Gauntlets (needs Leatherworking 235). Vendors sell it in limited stock that restocks; the Auction House often has it too.
+  tip Teaches Wicked Leather Gauntlets (needs Leatherworking 235). Vendors sell it in limited stock that restocks.
   buy 15725 nearest
 
 step Pattern: Runic Leather Headband
-  tip Teaches Runic Leather Headband (needs Leatherworking 265). Vendors sell it in limited stock that restocks; the Auction House often has it too.
+  tip Teaches Runic Leather Headband (needs Leatherworking 265). Vendors sell it in limited stock that restocks.
   buy 15756 nearest
 
 step Rugged Leather (Alliance)

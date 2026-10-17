@@ -4293,8 +4293,9 @@ SpellCastingRequirements, SpellFocusObject) comes whole from the newest Era
 build, and the spells and items the Forever tables lack come from Era's rows.
 Each profession also carries `mainTrainer { Alliance,
 Horde }` and `materials { itemId: { name, buy, buyCount, sell, quality,
-vendors { A, H }, limitedVendors { A, H }, madeBy, gather { herb, mine, fishing },
-drops, dropCount } }`; ranks carry `minSkill`, `spell`, `trainers { A, H }` and,
+vendors { A, H }, limitedVendors { A, H }, bop, madeBy, gather { herb, mine, fishing },
+drops, dropCount } }` (`bop`: the client's ItemSparse binds it when picked
+up, so the Auction House never has it); ranks carry `minSkill`, `spell`, `trainers { A, H }` and,
 for secondary skills, `book`/`quest`; recipes may carry `enchant`,
 `learnedAtEstimated`, `requires` (specialisation), `reputation { faction,
 standing }`, `tools`, `focus`, `races`, `classes`, `skillUps`. Season of

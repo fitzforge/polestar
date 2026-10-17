@@ -277,11 +277,11 @@ return {
 
 	-- Step 52: Pattern: Wicked Leather Gauntlets
 	-- {item:15083} Wicked Leather Gauntlets · {skill:165} Leatherworking
-	["Teaches {item:15083} (needs {skill:165} 235). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "Enseña {item:15083} (requiere {skill:165} 235). Los mercaderes lo venden en existencias limitadas que se reponen; la casa de subastas también suele tenerlo.",
+	["Teaches {item:15083} (needs {skill:165} 235). Vendors sell it in limited stock that restocks."] = "Enseña {item:15083} (requiere {skill:165} 235). Los mercaderes lo venden en existencias limitadas que se reponen.",
 
 	-- Step 53: Pattern: Runic Leather Headband
 	-- {item:15094} Runic Leather Headband · {skill:165} Leatherworking
-	["Teaches {item:15094} (needs {skill:165} 265). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "Enseña {item:15094} (requiere {skill:165} 265). Los mercaderes lo venden en existencias limitadas que se reponen; la casa de subastas también suele tenerlo.",
+	["Teaches {item:15094} (needs {skill:165} 265). Vendors sell it in limited stock that restocks."] = "Enseña {item:15094} (requiere {skill:165} 265). Los mercaderes lo venden en existencias limitadas que se reponen.",
 
 	-- Step 54: Rugged Leather (Alliance)
 	-- {item:8170} Rugged Leather

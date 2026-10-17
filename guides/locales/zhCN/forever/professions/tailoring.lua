@@ -103,7 +103,7 @@ return {
 
 	-- Step 19: Pattern: Azure Silk Cloak
 	-- {item:7053} Azure Silk Cloak · {skill:197} Tailoring
-	["Teaches {item:7053} (needs {skill:197} 140). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "学会{item:7053}（需要{skill:197} 140）。商人限量出售并会补货；拍卖行也常有。",
+	["Teaches {item:7053} (needs {skill:197} 140). Vendors sell it in limited stock that restocks."] = "学会{item:7053}（需要{skill:197} 140）。商人限量出售并会补货。",
 
 	-- Step 21: Mageweave Cloth (Alliance)
 	-- {item:4338} Mageweave Cloth
@@ -165,7 +165,7 @@ return {
 
 	-- Step 31: Pattern: Runecloth Gloves
 	-- {item:13863} Runecloth Gloves · {skill:197} Tailoring
-	["Teaches {item:13863} (needs {skill:197} 230). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "学会{item:13863}（需要{skill:197} 230）。商人限量出售并会补货；拍卖行也常有。",
+	["Teaches {item:13863} (needs {skill:197} 230). Vendors sell it in limited stock that restocks."] = "学会{item:13863}（需要{skill:197} 230）。商人限量出售并会补货。",
 
 	-- Step 32: Pattern: Runecloth Cuffs
 	-- {item:254123} Runecloth Cuffs · {skill:197} Tailoring

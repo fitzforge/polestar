@@ -31,7 +31,7 @@ return {
 
 	-- Step 5: Formula: Enchant Cloak - Minor Agility
 	-- {spell:13419} Enchant Cloak - Minor Agility · {skill:333} Enchanting
-	["Teaches {spell:13419} (needs {skill:333} 110). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "學會{spell:13419}（需要{skill:333}110點）。商人限量販售，會補貨；拍賣場也常有。",
+	["Teaches {spell:13419} (needs {skill:333} 110). Vendors sell it in limited stock that restocks."] = "學會{spell:13419}（需要{skill:333}110點）。商人限量販售，會補貨。",
 
 	-- Step 6: Shadowgem (Alliance)
 	-- {item:1210} Shadowgem

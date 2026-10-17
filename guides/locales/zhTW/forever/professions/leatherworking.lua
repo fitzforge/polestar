@@ -277,11 +277,11 @@ return {
 
 	-- Step 52: Pattern: Wicked Leather Gauntlets
 	-- {item:15083} Wicked Leather Gauntlets · {skill:165} Leatherworking
-	["Teaches {item:15083} (needs {skill:165} 235). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "學會{item:15083}（需要{skill:165}235點）。商人限量出售，會補貨；拍賣場也常有。",
+	["Teaches {item:15083} (needs {skill:165} 235). Vendors sell it in limited stock that restocks."] = "學會{item:15083}（需要{skill:165}235點）。商人限量出售，會補貨。",
 
 	-- Step 53: Pattern: Runic Leather Headband
 	-- {item:15094} Runic Leather Headband · {skill:165} Leatherworking
-	["Teaches {item:15094} (needs {skill:165} 265). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "學會{item:15094}（需要{skill:165}265點）。商人限量出售，會補貨；拍賣場也常有。",
+	["Teaches {item:15094} (needs {skill:165} 265). Vendors sell it in limited stock that restocks."] = "學會{item:15094}（需要{skill:165}265點）。商人限量出售，會補貨。",
 
 	-- Step 54: Rugged Leather (Alliance)
 	-- {item:8170} Rugged Leather

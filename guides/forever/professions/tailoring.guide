@@ -136,7 +136,7 @@ step Expert Tailoring
   buy 8343 x64 nearest
 
 step Pattern: Azure Silk Cloak
-  tip Teaches Azure Silk Cloak (needs Tailoring 140). Vendors sell it in limited stock that restocks; the Auction House often has it too.
+  tip Teaches Azure Silk Cloak (needs Tailoring 140). Vendors sell it in limited stock that restocks.
   buy 7089 nearest
 
 step Silk Cloth
@@ -199,7 +199,7 @@ step Artisan Tailoring
   buy 14341 x164 nearest
 
 step Pattern: Runecloth Gloves
-  tip Teaches Runecloth Gloves (needs Tailoring 230). Vendors sell it in limited stock that restocks; the Auction House often has it too.
+  tip Teaches Runecloth Gloves (needs Tailoring 230). Vendors sell it in limited stock that restocks.
   buy 14481 nearest
 
 step Pattern: Runecloth Cuffs

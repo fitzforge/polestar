@@ -61,7 +61,7 @@ step Journeyman Enchanting
   buy 10940 x15 nearest
 
 step Formula: Enchant Cloak - Minor Agility
-  tip Teaches Enchant Cloak - Minor Agility (needs Enchanting 110). Vendors sell it in limited stock that restocks; the Auction House often has it too.
+  tip Teaches Enchant Cloak - Minor Agility (needs Enchanting 110). Vendors sell it in limited stock that restocks.
   buy 11039 nearest
 
 step Shadowgem (Alliance)

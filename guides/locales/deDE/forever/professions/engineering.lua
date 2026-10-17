@@ -259,7 +259,7 @@ return {
 
 	-- Step 50: Schematic: Thorium Tube
 	-- {item:16000} Thorium Tube · {skill:202} Engineering
-	["Teaches {item:16000} (needs {skill:202} 275). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "Lehrt {item:16000} (erfordert {skill:202} 275). Händler verkaufen es in begrenzter Stückzahl, die wieder aufgefüllt wird; das Auktionshaus hat es oft auch.",
+	["Teaches {item:16000} (needs {skill:202} 275). Vendors sell it in limited stock that restocks."] = "Lehrt {item:16000} (erfordert {skill:202} 275). Händler verkaufen es in begrenzter Stückzahl, die wieder aufgefüllt wird.",
 
 	-- Step 53: Runecloth (Alliance)
 	-- {item:14047} Runecloth

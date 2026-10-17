@@ -103,7 +103,7 @@ return {
 
 	-- Step 19: Pattern: Azure Silk Cloak
 	-- {item:7053} Azure Silk Cloak · {skill:197} Tailoring
-	["Teaches {item:7053} (needs {skill:197} 140). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "{item:7053}을(를) 배웁니다({skill:197} 140 필요). 상인이 한정 수량으로 팔며 재입고됩니다. 경매장에도 자주 있습니다.",
+	["Teaches {item:7053} (needs {skill:197} 140). Vendors sell it in limited stock that restocks."] = "{item:7053}을(를) 배웁니다({skill:197} 140 필요). 상인이 한정 수량으로 팔며 재입고됩니다.",
 
 	-- Step 21: Mageweave Cloth (Alliance)
 	-- {item:4338} Mageweave Cloth
@@ -165,7 +165,7 @@ return {
 
 	-- Step 31: Pattern: Runecloth Gloves
 	-- {item:13863} Runecloth Gloves · {skill:197} Tailoring
-	["Teaches {item:13863} (needs {skill:197} 230). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "{item:13863}을(를) 배웁니다({skill:197} 230 필요). 상인이 한정 수량으로 팔며 재입고됩니다. 경매장에도 자주 있습니다.",
+	["Teaches {item:13863} (needs {skill:197} 230). Vendors sell it in limited stock that restocks."] = "{item:13863}을(를) 배웁니다({skill:197} 230 필요). 상인이 한정 수량으로 팔며 재입고됩니다.",
 
 	-- Step 32: Pattern: Runecloth Cuffs
 	-- {item:254123} Runecloth Cuffs · {skill:197} Tailoring

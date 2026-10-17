@@ -273,6 +273,9 @@ function materialInfo(ix, id, ctx, madeBy) {
 	const price = itemPrice(ix, id);
 	const m = { name: (it && it.name) || (ix.sparse.get(id) || {}).Display_lang || `Item ${id}` };
 	if (price) Object.assign(m, price);
+	// Bonding 1 binds when picked up: nobody can sell it on the Auction House.
+	// Forever made many vendor recipes so (Holy Protection Potion, issue #315).
+	if (int((ix.sparse.get(id) || {}).Bonding) === 1) m.bop = true;
 	const vendors = { Alliance: [], Horde: [] };
 	const limited = { Alliance: [], Horde: [] };
 	const limits = ctx.stock.get(id);

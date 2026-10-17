@@ -377,7 +377,8 @@ function draftGuide(name, data, opts = {}) {
 			line('');
 			line(`step ${m.name || `Recipe for ${r.name}`}`);
 			world();
-			line(`  tip Teaches ${r.name} (needs ${P} ${r.learnedAt}).${limited ? ' Vendors sell it in limited stock that restocks; the Auction House often has it too.' : ''}`);
+			const stock = limited ? ` Vendors sell it in limited stock that restocks${m.bop ? '' : '; the Auction House often has it too'}.` : '';
+			line(`  tip Teaches ${r.name} (needs ${P} ${r.learnedAt}).${stock}`);
 			line(`  buy ${r.recipeItem} nearest`);
 		}
 

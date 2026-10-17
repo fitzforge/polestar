@@ -102,6 +102,9 @@ test('recipes: created items, reagents, thresholds and learn sources from the cl
 	// Materials: unit price and vendors per side (a limited-stock vendor is kept apart).
 	assert.deepEqual(tailoring.materials[2320].vendors, { Alliance: [1347, 5000], Horde: [3364] });
 	assert.equal(tailoring.materials[2996].madeBy[0].spell, 2963);
+	// ItemSparse Bonding 1 (binds when picked up), as Forever made many vendor recipes (#315).
+	assert.equal(tailoring.materials[2598].bop, true);
+	assert.equal(tailoring.materials[2320].bop, undefined);
 	// Spells and items the Forever tables lack come from Era: Minor Healing
 	// Potion's name and reagents, Empty Vial's prices.
 	assert.equal(professions[171].recipes[0].name, 'Minor Healing Potion');
@@ -230,6 +233,25 @@ test('planner: a material the profession makes is crafted, and its recipe gates 
 	const s = plan.segments[0];
 	assert.deepEqual(s.make.map((m) => [m.recipe.spell, m.count]), [[50, s.count]]);
 	assert.deepEqual(s.need.map((n) => [n.item, n.count]), [[10, 2 * s.count]]);
+});
+
+test('draft: a limited-stock vendor recipe that binds when picked up is not sent to the Auction House (#315)', () => {
+	// Forever's Recipe: Holy Protection Potion binds when picked up, so no
+	// player can sell it there; a recipe that does not bind keeps the hint.
+	const { prof, data } = smallProfession([
+		rec(1, 1, 40, 60, 10),
+		rec(2, 40, 70, 90, 10, { source: 'vendor', recipeItem: 50, cost: 100 }),
+		rec(3, 1, 45, 65, 10),
+	]);
+	const limited = { Alliance: [1], Horde: [2] };
+	prof.materials[50] = { name: 'Recipe: Bound', buy: 100, buyCount: 1, sell: 25, quality: 1, limitedVendors: limited, bop: true };
+	const tip = (text) => text.split('\n').find((l) => l.startsWith('  tip Teaches R2'));
+	assert.equal(tip(draftGuide('Tailoring', data, { to: 75 }).text), '  tip Teaches R2 (needs Tailoring 40). Vendors sell it in limited stock that restocks.');
+	delete prof.materials[50].bop;
+	assert.equal(tip(draftGuide('Tailoring', data, { to: 75 }).text), '  tip Teaches R2 (needs Tailoring 40). Vendors sell it in limited stock that restocks; the Auction House often has it too.');
+	const ctx = { professions: {}, npcs: {}, objects: {}, zones: {}, self: 197 };
+	assert.equal(sourceOf(50, { ...prof.materials[50], bop: true }, 'Alliance', ctx).note, 'limited stock at a vendor');
+	assert.equal(sourceOf(50, prof.materials[50], 'Alliance', ctx).note, 'limited stock at a vendor (or the Auction House)');
 });
 
 test('materials: vendor price per unit, else 4x sell price scaled by quality', () => {

@@ -45,7 +45,7 @@ return {
 
 	-- Step 8: Recipe: Holy Protection Potion
 	-- {item:6051} Holy Protection Potion · {skill:171} Alchemy
-	["Teaches {item:6051} (needs {skill:171} 100). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "學會{item:6051}（需要{skill:171}100）。商人限量販售，會補貨；拍賣場也常有。",
+	["Teaches {item:6051} (needs {skill:171} 100). Vendors sell it in limited stock that restocks."] = "學會{item:6051}（需要{skill:171}100）。商人限量販售，會補貨。",
 
 	-- Step 9: Murloc Eye (Alliance)
 	-- {item:730} Murloc Eye

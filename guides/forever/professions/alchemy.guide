@@ -80,7 +80,7 @@ step Journeyman Alchemy
   buy 3371 x93 nearest
 
 step Recipe: Holy Protection Potion
-  tip Teaches Holy Protection Potion (needs Alchemy 100). Vendors sell it in limited stock that restocks; the Auction House often has it too.
+  tip Teaches Holy Protection Potion (needs Alchemy 100). Vendors sell it in limited stock that restocks.
   buy 6053 nearest
 
 step Murloc Eye (Alliance)

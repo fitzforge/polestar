@@ -31,7 +31,8 @@
 //   SpellTotems          SpellID, Totem_0..1 (tools such as Blacksmith Hammer)
 //   SpellCastingRequirements SpellID, RequiresSpellFocus -> SpellFocusObject (Anvil, Forge...)
 //   ItemSparse           ID, Display_lang, BuyPrice, SellPrice, VendorStackCount,
-//                        OverallQualityID, RequiredSkill, RequiredSkillRank, RequiredAbility
+//                        OverallQualityID, RequiredSkill, RequiredSkillRank, RequiredAbility,
+//                        Bonding (1 = binds when picked up)
 //   Item                 ID, ClassID (9 = recipe)
 //   ItemEffect           ID, SpellID, TriggerType (6: teaches SpellID, Forever's recipe
 //                        items; else SpellID is a teaching spell, Era's); the Era client

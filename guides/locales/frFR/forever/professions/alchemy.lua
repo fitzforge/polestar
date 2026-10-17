@@ -45,7 +45,7 @@ return {
 
 	-- Step 8: Recipe: Holy Protection Potion
 	-- {item:6051} Holy Protection Potion · {skill:171} Alchemy
-	["Teaches {item:6051} (needs {skill:171} 100). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "Apprend {item:6051} (requiert {skill:171} 100). Les marchands la vendent en stock limité qui se renouvelle ; l'hôtel des ventes en a souvent aussi.",
+	["Teaches {item:6051} (needs {skill:171} 100). Vendors sell it in limited stock that restocks."] = "Apprend {item:6051} (requiert {skill:171} 100). Les marchands la vendent en stock limité qui se renouvelle.",
 
 	-- Step 9: Murloc Eye (Alliance)
 	-- {item:730} Murloc Eye

@@ -294,7 +294,7 @@ step Schematic: Thorium Widget
   buy 16042 nearest
 
 step Schematic: Thorium Tube
-  tip Teaches Thorium Tube (needs Engineering 275). Vendors sell it in limited stock that restocks; the Auction House often has it too.
+  tip Teaches Thorium Tube (needs Engineering 275). Vendors sell it in limited stock that restocks.
   buy 16047 nearest
 
 step Solid Stone (Alliance)

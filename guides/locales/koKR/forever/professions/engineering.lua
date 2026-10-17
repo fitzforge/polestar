@@ -259,7 +259,7 @@ return {
 
 	-- Step 50: Schematic: Thorium Tube
 	-- {item:16000} Thorium Tube · {skill:202} Engineering
-	["Teaches {item:16000} (needs {skill:202} 275). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "{item:16000}을(를) 배웁니다({skill:202} 275 필요). 상인이 한정 수량으로 팔며 재입고됩니다. 경매장에도 자주 있습니다.",
+	["Teaches {item:16000} (needs {skill:202} 275). Vendors sell it in limited stock that restocks."] = "{item:16000}을(를) 배웁니다({skill:202} 275 필요). 상인이 한정 수량으로 팔며 재입고됩니다.",
 
 	-- Step 53: Runecloth (Alliance)
 	-- {item:14047} Runecloth
