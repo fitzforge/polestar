@@ -366,6 +366,53 @@ test('target button: a name with a line break or other control character never r
 	assert.equal(out[2], '/targetexact Kobold Laborer', 'TargetMacro itself drops an unsafe name');
 });
 
+test('rare button: targets the rares in range, comes up and goes with them, each click cycles, off with its setting', () => {
+	const out = run(`
+		local b = PolestarRareButton
+		local nearby = {}
+		Polestar.Rares = { Nearby = function() return nearby end }
+		q.step({ { t = "kill", target = "Wolf" } })
+		emit({ b:GetAttribute("macrotext") or "nil", b:IsShown() })
+		nearby = { "Thuros Lightfingers", "Bad\\n/run X()", "Hogger" }
+		Polestar.Fire("RARE_NEARBY")
+		stub.runTimers()
+		emit({ b:GetAttribute("type"), b:GetAttribute("macrotext"), b:IsShown(), b.Label:GetText(), PolestarTargetButton:GetAttribute("macrotext") })
+		q.click(b, false)
+		emit(b:GetAttribute("macrotext"))
+		q.combat(true)
+		nearby = { "Hogger" }
+		Polestar.Fire("RARE_NEARBY")
+		stub.runTimers()
+		emit({ b:GetAttribute("macrotext"), b:IsShown() })
+		q.combat(false)
+		emit({ b:GetAttribute("macrotext"), b:IsShown() })
+		set("rareButton", false)
+		emit({ b:GetAttribute("macrotext") or "nil", b:IsShown() })
+		set("rareButton", true)
+		nearby = {}
+		Polestar.Fire("RARE_NEARBY")
+		stub.runTimers()
+		emit({ b:GetAttribute("macrotext") or "nil", b:IsShown() })
+	`);
+	assert.deepEqual(out[0], ['nil', false]);
+	assert.deepEqual(out[1], ['macro', '/targetexact Hogger\n/targetexact Thuros Lightfingers', true, 'Thuros Lightfingers', '/targetexact Wolf']);
+	assert.equal(out[2], '/targetexact Thuros Lightfingers\n/targetexact Hogger', 'the next click moves on');
+	assert.deepEqual(out[3], ['/targetexact Thuros Lightfingers\n/targetexact Hogger', true], 'in combat the button keeps what it did');
+	assert.deepEqual(out[4], ['/targetexact Hogger', true]);
+	assert.deepEqual(out[5], ['nil', false]);
+	assert.deepEqual(out[6], ['nil', false]);
+});
+
+test('rare button: its icon is gold, apart from the red Target button', () => {
+	const [rare, target, gold] = run(`
+		emit({ PolestarRareButton.Icon:GetVertexColor() })
+		emit({ PolestarTargetButton.Icon:GetVertexColor() })
+		emit({ Polestar.Theme.Color("quest") })
+	`);
+	assert.deepEqual(rare.slice(0, 3), gold.slice(0, 3), 'the quest gold');
+	assert.notDeepEqual(rare.slice(0, 3), target.slice(0, 3), 'not the Target button color');
+});
+
 test('hearth: button while a hearth goal is open; GetHearth reports bind and cooldown', () => {
 	const out = run(`
 		local h = PolestarHearthButton

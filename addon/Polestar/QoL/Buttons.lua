@@ -1,5 +1,5 @@
 -- Action buttons: the quest item button, the Hearthstone button and the
--- target button. Each is a named secure button (bindable as
+-- target button and the rare button. Each is a named secure button (bindable as
 -- `CLICK <name>:LeftButton`); what it does is set through attributes, and
 -- every attribute, Show/Hide, scale or position change goes through
 -- QoL.Secure, so in combat it waits for PLAYER_REGEN_ENABLED while the button
@@ -14,12 +14,15 @@
 --   Target: /targetexact for the current step's kill targets and the mobs
 --     that drop its collect items (Polestar.QuestDB when loaded); every click
 --     moves the next name to the front.
+--   Rare: /targetexact for the rares in range (Polestar.Rares.Nearby): the
+--     button comes up when the addon spots one and goes when it dies or is
+--     out of sight; every click moves the next name to the front.
 --   Step key: no button on screen, only a binding: the first open goal it can
 --     act on, in guide order (a use goal's item, a hearth goal's Hearthstone,
 --     a kill or collect's mobs, an NPC goal's NPC by name), else the quest
---     item. Independent of the three buttons' settings.
+--     item. Independent of the buttons' settings.
 --
--- The buttons hang off one holder: hearth above the item, target below. A
+-- The buttons hang off one holder: hearth above the item, target and rare below. A
 -- left-drag on any of them moves the set (out of combat); the position is
 -- per character, so the Hearthstone button, shown only for hearth goals,
 -- appears in its slot of the moved set.
@@ -44,7 +47,7 @@ QoL.Buttons = Buttons
 -- button's slot above (+) or below (-) it, GAP button units apart.
 local DEFAULT_POS = { "CENTER", "CENTER", 260, -140 }
 local GAP = 44
-local SLOT = { PolestarHearthButton = 1, PolestarQuestItemButton = 0, PolestarTargetButton = -1 }
+local SLOT = { PolestarHearthButton = 1, PolestarQuestItemButton = 0, PolestarTargetButton = -1, PolestarRareButton = -2 }
 
 local function Theme() return ns.Theme end
 
@@ -493,6 +496,30 @@ local function targetTooltip(b, tip)
 end
 
 ---------------------------------------------------------------------------
+-- Rare button
+---------------------------------------------------------------------------
+
+local rare = { list = {}, sig = nil, cycle = 1 }
+
+local function applyRare(b)
+	QoL.Secure("rare", function()
+		local list = rare.list
+		local text = Buttons.TargetMacro(list, rare.cycle)
+		b:SetAttribute("type", text and "macro" or nil)
+		b:SetAttribute("macrotext", text)
+		b.applied = list[rare.cycle]
+		b.Label:SetText(b.applied or "")
+		if text then b:Show() else b:Hide() end
+	end)
+end
+
+local function rareTooltip(b, tip)
+	tip:SetText(L["Target rare"])
+	for i = 1, #rare.list do tip:AddLine(rare.list[i], 1, 1, 1) end
+	tip:AddLine(L["Click again for the next name. Drag to move."], 0.6, 0.6, 0.6)
+end
+
+---------------------------------------------------------------------------
 -- Step key
 ---------------------------------------------------------------------------
 
@@ -561,7 +588,7 @@ end
 -- Wiring
 ---------------------------------------------------------------------------
 
-local itemButton, hearthButton, targetButton, stepButton
+local itemButton, hearthButton, targetButton, rareButton, stepButton
 
 local function refresh()
 	if not itemButton then return end
@@ -579,6 +606,21 @@ local function refresh()
 		target.list = copy
 		target.cycle = 1
 		applyTarget(targetButton)
+	end
+
+	-- Not tied to the step: a rare can turn up on any of them.
+	local R = ns.Rares
+	local rares = QoL.On("rareButton") and R and R.Nearby and R.Nearby() or {}
+	local raresSig = concat(rares, "\n")
+	if raresSig ~= rare.sig then
+		rare.sig = raresSig
+		local copy = {}
+		for i = 1, #rares do
+			if Buttons.MacroSafeName(rares[i]) then copy[#copy + 1] = rares[i] end
+		end
+		rare.list = copy
+		rare.cycle = 1
+		applyRare(rareButton)
 	end
 
 	local kind, value = nil, nil
@@ -612,8 +654,8 @@ local function create()
 	holder:SetSize(SIZE, SIZE)
 	holder:SetMovable(true)
 	holder:SetClampedToScreen(true)
-	-- The clamp covers the hearth and target slots too.
-	holder:SetClampRectInsets(0, 0, GAP, -GAP)
+	-- The clamp covers the hearth, target and rare slots too.
+	holder:SetClampRectInsets(0, 0, GAP, -2 * GAP)
 	itemButton = newItemButton("PolestarQuestItemButton")
 	hearthButton = newItemButton("PolestarHearthButton")
 	targetButton = newButton("PolestarTargetButton", targetTooltip)
@@ -628,6 +670,18 @@ local function create()
 			applyTarget(targetButton)
 		end
 	end)
+	rareButton = newButton("PolestarRareButton", rareTooltip)
+	rareButton.Icon:SetTexture(media("qol-target"))
+	rareButton.Icon:SetTexCoord(0, 1, 0, 1)
+	color(rareButton.Icon, "quest")
+	rareButton:HookScript("PostClick", function(self, _, down)
+		if down or self.dragging then return end
+		local n = #rare.list
+		if n > 1 then
+			rare.cycle = rare.cycle % n + 1
+			applyRare(rareButton)
+		end
+	end)
 	-- The step key: a binding only, never shown.
 	stepButton = CreateFrame("Button", "PolestarStepButton", UIParent, "SecureActionButtonTemplate")
 	stepButton:RegisterForClicks("AnyUp", "AnyDown")
@@ -640,8 +694,8 @@ local function create()
 			applyStep(self)
 		end
 	end)
-	Buttons.item, Buttons.hearth, Buttons.target, Buttons.step = itemButton, hearthButton, targetButton, stepButton
-	set = { hearthButton, itemButton, targetButton }
+	Buttons.item, Buttons.hearth, Buttons.target, Buttons.rare, Buttons.step = itemButton, hearthButton, targetButton, rareButton, stepButton
+	set = { hearthButton, itemButton, targetButton, rareButton }
 	place()
 end
 
@@ -662,7 +716,9 @@ ns.RegisterEvent("UPDATE_BINDINGS", function()
 	refreshHotkey(itemButton)
 	refreshHotkey(hearthButton)
 	refreshHotkey(targetButton)
+	refreshHotkey(rareButton)
 end)
+ns.On("RARE_NEARBY", refreshSoon)
 ns.On("QUESTDB_LOADED", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
 	if not itemButton or type(path) ~= "string" then return end

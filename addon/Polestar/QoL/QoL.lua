@@ -38,6 +38,7 @@ end
 local defaults = {
 	itemButton = true,       -- quest item button
 	targetButton = true,     -- target macro button
+	rareButton = true,       -- target button for a rare the addon spotted
 	hearthButton = true,     -- Hearthstone button while a hearth goal is active
 	buttonScale = 1,
 	xpTracker = true,

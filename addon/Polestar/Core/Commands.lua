@@ -21,6 +21,7 @@ BINDING_NAME_POLESTAR_REPORT = L["Report a problem"]
 -- so they can only be set through _G.
 _G["BINDING_NAME_CLICK PolestarQuestItemButton:LeftButton"] = L["Use quest item"]
 _G["BINDING_NAME_CLICK PolestarTargetButton:LeftButton"] = L["Target quest mob"]
+_G["BINDING_NAME_CLICK PolestarRareButton:LeftButton"] = L["Target rare"]
 _G["BINDING_NAME_CLICK PolestarHearthButton:LeftButton"] = L["Use Hearthstone"]
 _G["BINDING_NAME_CLICK PolestarStepButton:LeftButton"] = L["Step action: NPC, quest item, mob or Hearthstone"]
 _G["BINDING_NAME_CLICK PolestarTravelButton:LeftButton"] = L["Use the route's Hearthstone or teleport"]

@@ -161,6 +161,7 @@ L["Browse the guide with the gamepad"] = "Parcourir le guide à la manette"
 L["Open the guide menu"] = "Ouvrir le menu du guide"
 L["Open Polestar options"] = "Ouvrir les options de Polestar"
 L["Open the Gamepad page: button names and bindings"] = "Ouvrir la page Manette : noms des boutons et raccourcis"
+-- L["Target rare"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "Crépuscule"
@@ -644,7 +645,6 @@ L["Targets the current step's mobs by name; each click moves to the next name. B
 L["Hearthstone button"] = "Bouton de pierre de foyer"
 L["Shows your Hearthstone while the guide says to hearth. Bindable."] = "Affiche votre pierre de foyer quand le guide demande de l'utiliser. Raccourci possible."
 L["Button size"] = "Taille des boutons"
-L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] = "Échelle des boutons d'objet de quête, de pierre de foyer et de ciblage. Faites-en glisser un pour tous les déplacer."
 L["Reset button positions"] = "Réinitialiser les boutons"
 L["Put the buttons back in their default spot."] = "Remet les boutons à leur place par défaut."
 L["Quest rewards"] = "Récompenses de quête"
@@ -704,6 +704,9 @@ L["XP tracker"] = "Suivi d'XP"
 L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."] = "XP par heure, temps, victimes et quêtes avant le niveau suivant, et temps par niveau (/pole xp)."
 L["Reset session"] = "Réinitialiser la session"
 L["Start this session's XP per hour from zero."] = "Remet à zéro l'XP par heure de cette session."
+-- L["Rare button"] = ""
+-- L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = ""
+-- L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Alliance uniquement"
@@ -1988,3 +1991,4 @@ L["Shortest Path Forever's arrow, route and journey take you to each goal. Poles
 -- L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "La flèche, l'itinéraire et le trajet de Shortest Path Forever vous mènent à chaque objectif. La flèche de Polestar, ses lignes d'itinéraire, les étapes du trajet, le bouton de voyage, les alertes de transport, les clics sur la carte et /way s'effacent ; la fenêtre du guide et les marques de la carte restent."
 -- L["Browsing the guide needs a gamepad: turn it on in the game's options and plug one in."] = "Parcourir le guide nécessite une manette : activez-la dans les options du jeu et branchez-en une."
 -- L["The game's own font (the default), Inter, or EllesmereUI's."] = "La police du jeu (par défaut), Inter, ou celle d'EllesmereUI."
+-- L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] = "Échelle des boutons d'objet de quête, de pierre de foyer et de ciblage. Faites-en glisser un pour tous les déplacer."

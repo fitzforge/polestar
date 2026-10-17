@@ -160,6 +160,7 @@ L["Browse the guide with the gamepad"] = "게임패드로 가이드 탐색"
 L["Open the guide menu"] = "가이드 메뉴 열기"
 L["Open Polestar options"] = "Polestar 설정 열기"
 L["Open the Gamepad page: button names and bindings"] = "게임패드 페이지 열기: 버튼 이름과 단축키"
+-- L["Target rare"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "황혼"
@@ -643,7 +644,6 @@ L["Targets the current step's mobs by name; each click moves to the next name. B
 L["Hearthstone button"] = "귀환석 버튼"
 L["Shows your Hearthstone while the guide says to hearth. Bindable."] = "가이드가 귀환석 사용을 지시하는 동안 귀환석을 표시합니다. 단축키 지정 가능."
 L["Button size"] = "버튼 크기"
-L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] = "퀘스트 아이템, 귀환석, 대상 버튼의 크기. 하나를 끌면 모두 이동합니다."
 L["Reset button positions"] = "버튼 위치 초기화"
 L["Put the buttons back in their default spot."] = "버튼을 기본 위치로 되돌립니다."
 L["Quest rewards"] = "퀘스트 보상"
@@ -703,6 +703,9 @@ L["XP tracker"] = "경험치 추적기"
 L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."] = "시간당 경험치, 레벨업까지 시간·처치 수·퀘스트 수, 레벨별 기록 (/pole xp)."
 L["Reset session"] = "접속 기록 초기화"
 L["Start this session's XP per hour from zero."] = "이번 접속의 시간당 경험치를 0부터 다시 셉니다."
+-- L["Rare button"] = ""
+-- L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = ""
+-- L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
@@ -1948,3 +1951,4 @@ L["Shortest Path Forever's arrow, route and journey take you to each goal. Poles
 -- L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "Shortest Path Forever의 화살표, 경로, 여정이 각 목표로 안내합니다. Polestar의 화살표, 경로선, 여정 단계, 이동 버튼, 교통수단 알림, 지도 클릭, /way는 물러나고 가이드 창과 지도 핀은 남습니다."
 -- L["Browsing the guide needs a gamepad: turn it on in the game's options and plug one in."] = "가이드 탐색에는 게임패드가 필요합니다. 게임 설정에서 켜고 게임패드를 연결하십시오."
 -- L["The game's own font (the default), Inter, or EllesmereUI's."] = "게임 글꼴(기본), Inter, 또는 EllesmereUI 글꼴."
+-- L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] = "퀘스트 아이템, 귀환석, 대상 버튼의 크기. 하나를 끌면 모두 이동합니다."

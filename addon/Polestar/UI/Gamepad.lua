@@ -350,6 +350,7 @@ G.ACTIONS = {
 	{ action = "POLESTAR_REPORT", section = "windows", label = L["Report a problem"], run = "Report" },
 	{ action = "CLICK PolestarQuestItemButton:LeftButton", section = "buttons", label = L["Use quest item"] },
 	{ action = "CLICK PolestarTargetButton:LeftButton", section = "buttons", label = L["Target quest mob"] },
+	{ action = "CLICK PolestarRareButton:LeftButton", section = "buttons", label = L["Target rare"] },
 	{ action = "CLICK PolestarHearthButton:LeftButton", section = "buttons", label = L["Use Hearthstone"] },
 	{ action = "CLICK PolestarStepButton:LeftButton", section = "buttons", label = L["Use the step button"] },
 	{ action = "CLICK PolestarTravelButton:LeftButton", section = "buttons", label = L["Use the travel button"] },

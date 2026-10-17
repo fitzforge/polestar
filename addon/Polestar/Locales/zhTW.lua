@@ -160,6 +160,7 @@ L["Browse the guide with the gamepad"] = "用控制器瀏覽指南"
 L["Open the guide menu"] = "開啟指南選單"
 L["Open Polestar options"] = "開啟 Polestar 選項"
 L["Open the Gamepad page: button names and bindings"] = "開啟「控制器」頁面：按鈕名稱與綁定"
+-- L["Target rare"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "黃昏"
@@ -643,7 +644,6 @@ L["Targets the current step's mobs by name; each click moves to the next name. B
 L["Hearthstone button"] = "爐石按鈕"
 L["Shows your Hearthstone while the guide says to hearth. Bindable."] = "指南要你使用爐石時顯示你的爐石。可綁定。"
 L["Button size"] = "按鈕大小"
-L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] = "任務物品、爐石與目標按鈕的縮放。拖曳其中一個即可一起移動。"
 L["Reset button positions"] = "重置按鈕位置"
 L["Put the buttons back in their default spot."] = "將按鈕放回預設位置。"
 L["Quest rewards"] = "任務獎勵"
@@ -703,6 +703,9 @@ L["XP tracker"] = "經驗追蹤器"
 L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."] = "每小時經驗、升級所需時間、擊殺與任務數，以及各等級分段（/pole xp）。"
 L["Reset session"] = "重置本次記錄"
 L["Start this session's XP per hour from zero."] = "將本次的每小時經驗從零開始計算。"
+-- L["Rare button"] = ""
+-- L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = ""
+-- L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"
@@ -1948,3 +1951,4 @@ L["Shortest Path Forever's arrow, route and journey take you to each goal. Poles
 -- L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "由 Shortest Path Forever 的箭頭、路線與旅程帶你前往每個目標。Polestar 的箭頭、路線線條、旅程步驟、旅行按鈕、交通提醒、地圖點擊與 /way 會讓開；指南視窗與地圖標記保留。"
 -- L["Browsing the guide needs a gamepad: turn it on in the game's options and plug one in."] = "瀏覽指南需要控制器：請在遊戲選項中啟用並接上控制器。"
 -- L["The game's own font (the default), Inter, or EllesmereUI's."] = "遊戲本身的字型（預設）、Inter 或 EllesmereUI 的字型。"
+-- L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] = "任務物品、爐石與目標按鈕的縮放。拖曳其中一個即可一起移動。"

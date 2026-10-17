@@ -22,8 +22,9 @@
 --   Rares.Codex(load) -> Codex | nil                  load = true loads it (out of combat)
 --   Rares.Nearest(spawns, point) -> spawn, yards      nearest spawn on the player's continent
 --   Rares.Show(kind, id)                              open the hub section at it (SHOW_RARES)
+--   Rares.Nearby() -> { name, ... }                   rares in range now, newest sighting first (reused list)
 -- Messages: RARE_SPOTTED(alert) when an alert fires; RARES_HISTORY(key) when
--- the history changes.
+-- the history changes; RARE_NEARBY when the rares in range change.
 
 local ADDON, ns = ...
 local L = ns.L
@@ -33,7 +34,8 @@ ns.Rares = Rares
 
 local serverTime, mapName = ns.Compat.Now, ns.Compat.MapName
 
-local type, pairs, tostring, tonumber, floor, sqrt, format = type, pairs, tostring, tonumber, math.floor, math.sqrt, string.format
+local wipe = wipe or function(t) for k in pairs(t) do t[k] = nil end return t end
+local type, pairs, tostring,tonumber, floor, sqrt, format = type, pairs, tostring, tonumber, math.floor, math.sqrt, string.format
 
 ns.RegisterDefaults("rares", {
 	enabled = true,
@@ -367,12 +369,87 @@ local function fire(a)
 	ns.Fire("RARE_SPOTTED", a)
 end
 
+-- Rares in range of the player now, for the rare button (QoL/Buttons.lua).
+-- A sighting keeps its rare here for NEAR_FOR seconds; after that it stays
+-- only while the client still shows it (its vignette, or its unit as target,
+-- mouseover or a nameplate). A dead one goes at once.
+local NEAR_FOR = 45
+local nearby, nearbyList, nearbyTimer = {}, {}, false
+
+local function clock() return GetTime and GetTime() or 0 end
+
+local function unitIs(unit, guid)
+	local readable = ns.Compat.Readable
+	if not (UnitExists and readable(UnitExists(unit))) then return false end
+	if readable(UnitGUID(unit)) ~= guid then return false end
+	return not readable(UnitIsDead and UnitIsDead(unit))
+end
+
+local function stillShown(e)
+	local V = C_VignetteInfo
+	if e.vignette and V and V.GetVignetteInfo then
+		local ok, info = pcall(V.GetVignetteInfo, e.vignette)
+		if ok and type(info) == "table" and not ns.Compat.Readable(info.isDead) then return true end
+	end
+	if not e.guid then return false end
+	if unitIs("target", e.guid) or unitIs("mouseover", e.guid) then return true end
+	for i = 1, 40 do
+		if unitIs("nameplate" .. i, e.guid) then return true end
+	end
+	return false
+end
+
+-- Names of the rares in range, newest sighting first (a reused list).
+function Rares.Nearby()
+	local now = clock()
+	local list = {}
+	for key, e in pairs(nearby) do
+		if now - e.at >= NEAR_FOR then
+			if stillShown(e) then e.at = now else nearby[key] = nil end
+		end
+		if nearby[key] then list[#list + 1] = e end
+	end
+	table.sort(list, function(a, b) return a.at > b.at end)
+	wipe(nearbyList)
+	for i = 1, #list do nearbyList[i] = list[i].name end
+	if #list > 0 and not nearbyTimer and C_Timer and C_Timer.After then
+		nearbyTimer = true
+		C_Timer.After(NEAR_FOR, function()
+			nearbyTimer = false
+			ns.Fire("RARE_NEARBY")
+		end)
+	end
+	return nearbyList
+end
+
+local function track(s)
+	if s.kind == "treasure" or type(s.name) ~= "string" or s.name == "" then return end
+	local key = Rares.Key("rare", s.id, s.name)
+	if not key then return end
+	if s.dead then
+		if nearby[key] then
+			nearby[key] = nil
+			ns.Fire("RARE_NEARBY")
+		end
+		return
+	end
+	local e = nearby[key]
+	if not e then
+		e = {}
+		nearby[key] = e
+	end
+	e.name, e.guid, e.at = s.name, s.guid, clock()
+	e.vignette = s.vignette or e.vignette
+	ns.Fire("RARE_NEARBY")
+end
+
 -- where = { map, x, y } (0-100, live frame): the thing's own position (a
 -- vignette's); without it a unit sighting is recorded where the player stands.
 function Rares.Sighting(s, where)
 	local ctx = context()
 	local action, reason = Rares.Decide(s, ctx)
 	if action == "skip" then return action, reason end
+	track(s)
 	local now = ctx.now
 	local exact = where ~= nil
 	if not where and (s.source == "nameplate" or s.source == "target" or s.source == "mouseover") then

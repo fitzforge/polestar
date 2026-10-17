@@ -160,6 +160,7 @@ L["Browse the guide with the gamepad"] = "用手柄浏览指南"
 L["Open the guide menu"] = "打开指南菜单"
 L["Open Polestar options"] = "打开 Polestar 选项"
 L["Open the Gamepad page: button names and bindings"] = "打开手柄页面：按钮名称和绑定"
+-- L["Target rare"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "黄昏"
@@ -643,7 +644,6 @@ L["Targets the current step's mobs by name; each click moves to the next name. B
 L["Hearthstone button"] = "炉石按钮"
 L["Shows your Hearthstone while the guide says to hearth. Bindable."] = "指南要求使用炉石时显示炉石。可绑定按键。"
 L["Button size"] = "按钮大小"
-L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] = "任务物品、炉石和目标按钮的缩放。拖动任意一个可整体移动。"
 L["Reset button positions"] = "重置按钮位置"
 L["Put the buttons back in their default spot."] = "将按钮放回默认位置。"
 L["Quest rewards"] = "任务奖励"
@@ -703,6 +703,9 @@ L["XP tracker"] = "经验追踪器"
 L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."] = "每小时经验、升级所需时间/击杀/任务，以及各级用时（/pole xp）。"
 L["Reset session"] = "重置本次统计"
 L["Start this session's XP per hour from zero."] = "将本次每小时经验从零开始计算。"
+-- L["Rare button"] = ""
+-- L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = ""
+-- L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"
@@ -1948,3 +1951,4 @@ L["Shortest Path Forever's arrow, route and journey take you to each goal. Poles
 -- L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "由 Shortest Path Forever 的箭头、路线和行程带你前往每个目标。Polestar 的箭头、路线线条、行程步骤、旅行按钮、交通提醒、地图点击和 /way 将让位；指南窗口和地图标记保留。"
 -- L["Browsing the guide needs a gamepad: turn it on in the game's options and plug one in."] = "浏览指南需要手柄：请在游戏选项中启用手柄并连接一个手柄。"
 -- L["The game's own font (the default), Inter, or EllesmereUI's."] = "游戏自带字体（默认）、Inter 或 EllesmereUI 的字体。"
+-- L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] = "任务物品、炉石和目标按钮的缩放。拖动任意一个可整体移动。"

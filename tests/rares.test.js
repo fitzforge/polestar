@@ -141,6 +141,44 @@ emit({ n = #got, source = got[#got].source, sounds = #stub.sounds })`);
 	assert.deepEqual(out[4], { n: 2, source: 'target', sounds: 2 });
 });
 
+test('Nearby: a spotted rare stays while the client shows it, goes when it dies or is out of sight', () => {
+	const out = run(`
+local U = stub.rares
+local fired = 0
+Polestar.On("RARE_NEARBY", function() fired = fired + 1 end)
+emit(#R.Nearby())
+U.unit("nameplate1", { npc = 61, name = "Thuros Lightfingers", level = 11, class = "rare" })
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+emit({ R.Nearby()[1], #R.Nearby(), fired })
+-- Past the time a sighting is trusted, the plate still shows it: it stays.
+stub.advance(60)
+emit(#R.Nearby())
+-- Dead on the plate and seen again: gone at once.
+U.unit("nameplate1", { npc = 61, name = "Thuros Lightfingers", level = 11, class = "rare", dead = true })
+stub.advance(4)
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+emit(#R.Nearby())
+-- Alive again, then out of sight for good.
+U.unit("nameplate1", { npc = 61, name = "Thuros Lightfingers", level = 11, class = "rare" })
+stub.advance(4)
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+emit(#R.Nearby())
+U.clear("nameplate1")
+stub.advance(60)
+emit(#R.Nearby())
+-- A treasure and an ordinary mob never list.
+U.unit("nameplate2", { npc = 257, name = "Kobold Worker", level = 3, class = "normal" })
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+emit(#R.Nearby())`);
+	assert.equal(out[0], 0);
+	assert.deepEqual(out[1], ['Thuros Lightfingers', 1, 1]);
+	assert.equal(out[2], 1);
+	assert.equal(out[3], 0);
+	assert.equal(out[4], 1);
+	assert.equal(out[5], 0);
+	assert.equal(out[6], 0);
+});
+
 test('ordinary mobs, players, pets, secret GUIDs and turned-off paths raise nothing', () => {
 	const [out] = run(`
 local U = stub.rares

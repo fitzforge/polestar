@@ -29,10 +29,12 @@ register(QUESTING, L["Buttons"], L["Action buttons"], {
 		help = L["A button for the current step's quest item, with count, cooldown and range. Bind it under Key Bindings > AddOns."] },
 	{ kind = "toggle", key = "qol.targetButton", label = L["Target button"],
 		help = L["Targets the current step's mobs by name; each click moves to the next name. Bindable."] },
+	{ kind = "toggle", key = "qol.rareButton", label = L["Rare button"],
+		help = L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] },
 	{ kind = "toggle", key = "qol.hearthButton", label = L["Hearthstone button"],
 		help = L["Shows your Hearthstone while the guide says to hearth. Bindable."] },
 	{ kind = "slider", key = "qol.buttonScale", label = L["Button size"], min = 0.6, max = 1.6, step = 0.05, format = function(v) return math.floor(v * 100 + 0.5) .. "%" end,
-		help = L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] },
+		help = L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all."] },
 	{ kind = "button", label = L["Reset button positions"], help = L["Put the buttons back in their default spot."],
 		onClick = function() if QoL.Buttons then QoL.Buttons.ResetPositions() end end },
 })

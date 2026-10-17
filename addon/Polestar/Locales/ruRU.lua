@@ -160,6 +160,7 @@ L["Browse the guide with the gamepad"] = "Листать гайд геймпад
 L["Open the guide menu"] = "Открыть меню гайда"
 L["Open Polestar options"] = "Открыть настройки Polestar"
 L["Open the Gamepad page: button names and bindings"] = "Открыть страницу «Геймпад»: названия кнопок и назначения"
+-- L["Target rare"] = ""
 
 -- Theme/Theme.lua
 L["Dusk"] = "Сумерки"
@@ -643,7 +644,6 @@ L["Targets the current step's mobs by name; each click moves to the next name. B
 L["Hearthstone button"] = "Кнопка камня возвращения"
 L["Shows your Hearthstone while the guide says to hearth. Bindable."] = "Показывает камень возвращения, когда гайд велит им воспользоваться. Можно назначить клавишу."
 L["Button size"] = "Размер кнопок"
-L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] = "Масштаб кнопок предмета задания, камня возвращения и цели. Перетащите одну, чтобы сдвинуть все."
 L["Reset button positions"] = "Сбросить положение кнопок"
 L["Put the buttons back in their default spot."] = "Вернуть кнопки на место по умолчанию."
 L["Quest rewards"] = "Награды за задания"
@@ -703,6 +703,9 @@ L["XP tracker"] = "Счетчик опыта"
 L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."] = "Опыт в час, время, убийства и задания до уровня, а также время по уровням (/pole xp)."
 L["Reset session"] = "Сбросить сеанс"
 L["Start this session's XP per hour from zero."] = "Начать отсчет опыта в час за этот сеанс с нуля."
+-- L["Rare button"] = ""
+-- L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] = ""
+-- L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"
@@ -1948,3 +1951,4 @@ L["Shortest Path Forever's arrow, route and journey take you to each goal. Poles
 -- L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "Стрелка, маршрут и путь Shortest Path Forever ведут к каждой цели. Стрелка Polestar, линии маршрута, шаги пути, кнопка пути, оповещения о транспорте, щелчки по карте и /way отключаются; окно гайда и метки на карте остаются."
 -- L["Browsing the guide needs a gamepad: turn it on in the game's options and plug one in."] = "Чтобы листать гайд, нужен геймпад: включите его в настройках игры и подключите."
 -- L["The game's own font (the default), Inter, or EllesmereUI's."] = "Шрифт игры (по умолчанию), Inter или шрифт EllesmereUI."
+-- L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] = "Масштаб кнопок предмета задания, камня возвращения и цели. Перетащите одну, чтобы сдвинуть все."
