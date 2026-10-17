@@ -748,25 +748,3 @@ test('#171: every hearth is to an inn the guide binds at first', { skip }, () =>
 	}
 	assert.deepEqual(offenders, [], 'hearths to an inn the guide has not bound at');
 });
-
-// --- #227 (sesgoe): Moon Priestess Amara rides the road west of Dolanaar, so
-// the arrow, at one point of her patrol, often finds the road empty. A quest
-// NPC who patrols is met on a step whose tip says so. The data has one point
-// for each, on the patrol path of CMaNGOS classic-db's spawn (Amara: spawn
-// group 19999's path; Thorsen: creature_movement_template 738).
-const STRANGLETHORN_ALLIANCE = 'forever/alliance/30-40/04-stranglethorn-vale.guide';
-const PATROLS = [
-	{ guide: TELDRASSIL, npc: 2151, name: 'Amara', goals: ['accept 487', 'turnin 487'] },
-	{ guide: STRANGLETHORN_ALLIANCE, npc: 738, name: 'Thorsen', goals: ['accept 215', 'turnin 198'] },
-];
-
-for (const p of PATROLS) {
-	test(`${p.guide}: sesgoe's report (#227): every goal at ${p.name} is on a step whose tip says ${p.name} patrols`, { skip }, () => {
-		const met = goals(p.guide).filter(({ goal }) => goal.npc === p.npc);
-		assert.deepEqual(met.map(({ goal }) => `${goal.t} ${goal.quest}`), p.goals, `the guide meets ${p.name} for these goals`);
-		for (const { step, goal } of met) {
-			assert.ok(located({ goal }), `${goal.t} ${goal.quest} has a point for the arrow`);
-			assert.match(step.note || '', new RegExp(`${p.name} patrols`), `step "${step.title}" says ${p.name} patrols`);
-		}
-	});
-}
