@@ -274,16 +274,16 @@ his addon:
 plans whole journeys with flights, boats, zeppelins, portals and live
 departure times.
 
-**Works with Shortest Path Forever.** With it installed, Polestar hands it
-the route: each goal goes to Shortest Path Forever, whose arrow, route and
-journey take you there, and Polestar's own arrow, route lines, journey steps,
-travel button, transport alerts, map clicks and `/way` step aside, so the two
-never guide at once (Polestar's walking maps are not even loaded). The guide
-window and the map pins stay. A kill or collect area is handed over as an
-area, so it holds you there until the goal is done; if you clear or replace
-the journey, Polestar leaves it be until the guide moves on. **Guide with
-Shortest Path Forever when it's installed** (Options, Integrations) turns
-it off.
+**Works with Shortest Path Forever.** With it installed, Polestar still
+guides by default. Turn on **Guide with Shortest Path Forever when it's
+installed** (Options, Integrations) and Polestar hands it the route instead:
+each goal goes to Shortest Path Forever, whose arrow, route and journey take
+you there, and Polestar's own arrow, route lines, journey steps, travel
+button, transport alerts, map clicks and `/way` step aside, so the two never
+guide at once (Polestar's walking maps are not even loaded). The guide window
+and the map pins stay. A kill or collect area is handed over as an area, so
+it holds you there until the goal is done; if you clear or replace the
+journey, Polestar leaves it be until the guide moves on.
 
 ### Quests and the map
 

@@ -125,8 +125,10 @@ What tests cannot prove, checked in the client before a release:
 4. **Loading (C17):** `Polestar_Nav` loads after login without a hitch;
    note its memory with `/run UpdateAddOnMemoryUsage() print(GetAddOnMemoryUsage("Polestar_Nav"))`
    (about 26,000 KB, in Stormwind and in Teldrassil alike).
-5. **Hand-off (H3):** with Shortest Path Forever installed, follow a few
-   guide steps (a pick-up, a kill area, a hand-in across a boat): only its
-   arrow, line and journey show; the kill area stays held while you work it;
-   clearing its journey sticks until the step changes; a fight and a death
-   send nothing; Polestar's option off brings Polestar's arrow back.
+5. **Hand-off (H3):** with Shortest Path Forever installed, Polestar's arrow
+   guides by default. Turn on "Guide with Shortest Path Forever when it's
+   installed" and follow a few guide steps (a pick-up, a kill area, a
+   hand-in across a boat): only its arrow, line and journey show; the kill
+   area stays held while you work it; clearing its journey sticks until the
+   step changes; a fight and a death send nothing; the option off brings
+   Polestar's arrow back.

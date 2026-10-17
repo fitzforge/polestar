@@ -1,5 +1,5 @@
--- Hand-off to Shortest Path Forever: with it installed (and nav.spfHandoff
--- on, the default), it guides to Polestar's target and Polestar's own
+-- Hand-off to Shortest Path Forever: with it installed and nav.spfHandoff on
+-- (off by default), it guides to Polestar's target and Polestar's own
 -- guidance steps aside, so the two never guide at once. Contract:
 -- docs/ARCHITECTURE.md, "Hand-off to Shortest Path Forever".
 --
@@ -40,7 +40,7 @@ local format, concat = string.format, table.concat
 local Handoff = {}
 Nav.handoff = Handoff
 
-ns.RegisterDefaults("nav", { spfHandoff = true })
+ns.RegisterDefaults("nav", { spfHandoff = false })
 
 local OWNER = "Polestar"
 local PLACE = 15 -- yards: a target this close to a flight master, inn or portal stands at it

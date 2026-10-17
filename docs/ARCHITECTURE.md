@@ -1595,10 +1595,12 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
 [Shortest Path Forever](https://github.com/cjber/shortest-path-forever)
 installed (its global `ShortestPathForever.API`, `version` 1, with `Cancel`
 and `NavigateRoute` or `Navigate`; every other function checked before it is
-called, as its `minor` grows) and `nav.spfHandoff` on (the default; Options,
-Integrations, Shortest Path Forever: "Guide with Shortest Path Forever when it's
-installed", shown only with it installed), Polestar's target is guided by it
-and Polestar's own guidance steps aside, so the two never guide at once.
+called, as its `minor` grows) and `nav.spfHandoff` on (off by default, after
+#235; Options, Integrations, Shortest Path Forever: "Guide with
+Shortest Path Forever when it's installed", shown only with it installed),
+Polestar's target is guided by it and Polestar's own guidance steps aside, so
+the two never guide at once. With the option off (the default) Polestar
+guides and sends nothing.
 
 ```lua
 Polestar.Nav.HandedOff() -> bool   -- the one predicate: installed, on, and the last stop not refused
@@ -2392,7 +2394,7 @@ tables (`PathGrid.lua` trimming, eviction, `Idle`, `Reset`) while ours may be
 in the middle of a search that already counts a cluster as decoded, which
 would end in a Lua error (docs/NAV_QA.md H1). With both
 addons installed and the hand-off off, each holds its own maps in memory
-(with it on, the default, `Polestar_Nav` is not loaded: "Hand-off to Shortest
+(with it on, `Polestar_Nav` is not loaded: "Hand-off to Shortest
 Path Forever"); `tests/nav-vendor.test.js`
 trims a stand-in for his tables after every frame of one of our searches and
 checks the route is unchanged.

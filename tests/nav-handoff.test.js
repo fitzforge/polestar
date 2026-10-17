@@ -205,15 +205,17 @@ end
 `;
 
 // The TomTom stand-in ("Let other addons set waypoints") is off by default;
-// it is on here so its stepping aside is seen.
-const SAVED = 'PolestarDB = { schema = 1, settings = { nav = { answerTomTom = true } } }';
+// it is on here so its stepping aside is seen. The hand-off is off by default
+// (#235); these tests turn it on, except where they say.
+const SAVED = 'PolestarDB = { schema = 1, settings = { nav = { answerTomTom = true, spfHandoff = true } } }';
+const SAVED_DEFAULT = 'PolestarDB = { schema = 1, settings = { nav = { answerTomTom = true } } }';
 
-function run(script, { spf = SPF, files = FILES } = {}) {
+function run(script, { spf = SPF, files = FILES, saved = SAVED } = {}) {
 	return runAddon({
 		stubs: ['stub_nav.lua'],
 		before: EARLY + (spf || ''),
 		addons: [{ name: 'Polestar', files }],
-		saved: { Polestar: SAVED },
+		saved: { Polestar: saved },
 		login: true,
 		script: PRELUDE + script,
 	}).emitted;
@@ -513,6 +515,22 @@ test('refused (Journeys off in Shortest Path Forever): Polestar guides that targ
 	`);
 	assert.deepEqual(out.off, [false, true, 3, 1, 1], 'Polestar guides; the refused stop is not offered on every tick');
 	assert.deepEqual(out.back, [true, 2, 0, 'Polestar', false]);
+});
+
+test('off by default (#235): with it installed Polestar guides and sends nothing; the option shows, off', () => {
+	const [out] = run(`
+		nav.setWaypoint(copy(FARLAND))
+		local s = surfaces()
+		s.handedOff = N.HandedOff()
+		s.shown = option().needs()
+		s.on = Polestar.Get("nav.spfHandoff")
+		s.sent = sent()
+		emit(s)
+	`, { saved: SAVED_DEFAULT });
+	assert.deepEqual(out, {
+		arrow: true, route: 3, lines: 3, journey: true, trail: false, walk: true, pack: true, way: true, shim: true,
+		handedOff: false, shown: true, on: false, sent: 0,
+	});
 });
 
 test('the hand-off off: Polestar guides again and its journey is cancelled; on again: the stop goes back', () => {
