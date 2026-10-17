@@ -52,7 +52,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 
 | Line | What it does | Example |
 |---|---|---|
-| `goto <x>,<y> ["Label"]` | Walk to a spot; checked off on arrival or when a later goal of the step is done | `goto 47.6,35.1 "Kobold camp"` |
+| `goto <x>,<y> ["Label"]` | Walk to a spot; checked off on arrival, when a later goal of the step is done, or, ending its step, when the next step's quest work is done | `goto 47.6,35.1 "Kobold camp"` |
 | `r <yards>` | How close `goto` counts as arrived (default 8) | `goto 42.9,65.6 "Goldshire" r 30` |
 | `@<x>,<y>` | Places any goal at these coordinates instead of the data's | `talk 197 @48.9,41.6` |
 | `map <uiMapID>` | The map this goal's `@` coordinates are on | `kill 69 map 1429 @45,40` |

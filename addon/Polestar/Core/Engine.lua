@@ -1111,15 +1111,21 @@ goalDone = function(s, g, goal)
 		-- its own later goals is scanned here already (recursing would make a
 		-- step of n waypoints cost 2^n checks).
 		local goals = guide.steps[s].goals
+		local leads = true -- nothing but gotos after it: it leads into the next step
 		for j = g + 1, #goals do
 			local later = goals[j]
 			if later.t == "goto" then
 				if (arrived[later] or checked(s, j)) and goalApplies(later) then return true end
-			elseif later.t ~= "note" and goalApplies(later) and goalDone(s, j, later) then
-				return true
+			elseif later.t ~= "note" and goalApplies(later) then
+				if goalDone(s, j, later) then return true end
+				leads = false
 			end
 		end
-		return false
+		-- The way into the next step (a cave's mouth, a dock): done once that
+		-- step's quest work is, so work done ahead of the guide never sends the
+		-- player back to the way in (#240). A goto with optional work after it
+		-- is where that work is, and holds.
+		return leads and Own.nextStepDone(s) or false
 	elseif t == "train" and isProfessionTrain(goal) then
 		-- Done once the profession's max rank reaches this rank's cap, at
 		-- whichever trainer.
@@ -1219,6 +1225,29 @@ local QUEST_VERBS = { accept = true, turnin = true, complete = true }
 local function isQuestGoal(goal)
 	return goal.quest and (QUEST_VERBS[goal.t] or goal.t == "kill" or goal.t == "collect"
 		or goal.t == "interact" or goal.t == "use")
+end
+
+-- Whether the step after s that applies to the character is done with quest
+-- work done in it: a step passed only because its quests are unavailable, or
+-- of `train` or `level` goals alone, is no sign the player went there. A step
+-- the player skipped vouches for nothing. (On Own: the main chunk is at 200
+-- locals.)
+function Own.nextStepDone(s)
+	local steps = guide.steps
+	local sk = skippedFor(guide.id)
+	for n = s + 1, #steps do
+		local step = steps[n]
+		if stepApplies(step) then
+			if sk and sk[n] then return false end
+			for g, goal in ipairs(step.goals) do
+				if blocks(goal) and isQuestGoal(goal) and goalApplies(goal) and not unavailableFor(goal) and goalDone(n, g, goal) then
+					return stepDone(n)
+				end
+			end
+			return false
+		end
+	end
+	return false
 end
 
 -- The last step with quest progress in the live quest log, or 0: a done quest
