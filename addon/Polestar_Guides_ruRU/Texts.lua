@@ -1548,7 +1548,6 @@ t.guides["forever/alliance/human/01-elwynn-forest"] = (function() return {
 		["Large Candles"] = "Большие свечи",
 		["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Выйдите из города {zone:1453} через главные ворота. Водопад ({quest:1861}) – к юго-западу от ворот, по пути на запад в зону {zone:1436}: наполните {item:7207} у его подножия.",
 		["Lost Books: Kobold Miners and Tunnelers"] = "Потерянные книги: кобольды-шахтеры и кобольды-проходчики",
-		["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "Мурлоки-добытчики и мурлоки-скрытни занимают реку к югу от моста. {npc:473} из Братства Справедливости ходит здесь: {area:62}, к западу от нее. По пути добейте лесных хищников и молодых лесных медведей.",
 		["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "Мурлоки и речные мурлоки-бегуны занимают восточный берег; груды мусора лежат в их лагере.",
 		["Murlocs and the Collector"] = "Мурлоки и Собиратель",
 		["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "К северо-востоку от лесозаготовок. Волшебники-плуты из Братства Справедливости стоят лагерем на берегах озера.",

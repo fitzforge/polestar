@@ -1069,3 +1069,74 @@ test('#171: every hearth is to an inn the guide binds at first', { skip }, () =>
 	}
 	assert.deepEqual(offenders, [], 'hearths to an inn the guide has not bound at');
 });
+
+// --- Croaky's Head (Syfin, #221): Croaky, a named elite, roams the murloc
+// shore south of the Eastvale bridge, where the second east loop collects the
+// Torn Murloc Fins. Its head starts Croaky's Head for Merell Ross at
+// Ridgepoint Tower, a short way east. The loot and the accept are optional
+// goals of the murloc step; the turn-in is a plain goal of a Ridgepoint Tower
+// step, which holds only a player who took the quest (an optional accept
+// vouches for nobody who did not).
+
+test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head`, { skip }, () => {
+	const pack = buildSimPack([ELWYNN]);
+	try {
+		const g = pack.guides[0];
+		data = data || loadData(DATA);
+		const [x, y] = data.npcs[248277].spawns[1429].pts[0];
+		// Recorded from the simulated player's own actions, once the engine has
+		// settled: the first Torn Murloc Fin (the murloc step is live; with the
+		// head, it is looted and right-clicked there), and any hand-in of
+		// Croaky's Head (the step it is handed in from, and where the arrow
+		// leads). The game takes no turn-in for a quest the player does not hold.
+		const watch = (head) => `
+			local E, w = Polestar.Engine, stub.world
+			local murlocs, ridge = false, false
+			local progress, turnIn = w.progress, w.turnIn
+			w.progress = function(q, ...)
+				if q == 46 and not murlocs then
+					murlocs = {}
+					if ${head} then
+						w.addItem(247826, 1)
+						w.accept(91740, {}, "Croaky's Head")
+						stub.advance(0.6)
+					end
+					for _, v in ipairs(E.GetStepView(E.GetStepIndex()).goals) do
+						if v.quest == 91740 or v.item == 247826 then murlocs[#murlocs + 1] = v.t .. " " .. tostring(v.optional) end
+					end
+				end
+				return progress(q, ...)
+			end
+			w.turnIn = function(q, ...)
+				if q == 91740 then
+					local i, wp = E.GetStepIndex(), E.GetWaypoint()
+					ridge = { title = E.GetStepView(i).title, status = E.GetStepView(i).goals[1].status, wp = wp and { map = wp.map, x = wp.x, y = wp.y } or false }
+					if not w.log[q] then return end
+				end
+				return turnIn(q, ...)
+			end
+			${SIMULATE}
+			local view
+			for i, s in ipairs(SIM_GUIDE.steps) do if s.title == "Ridgepoint Tower" then view = E.GetStepView(i).goals[1].status end end
+			emit({ murlocs = murlocs, ridge = ridge, later = view or false, done = C_QuestLog.IsQuestFlaggedCompleted(91740) })`;
+		for (const head of [false, true]) {
+			const [out, got] = playGuide(pack, g, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', script: watch(head) });
+			const who = head ? 'with the head' : 'without the head';
+			assert.equal(out.stuck, undefined, `${who}: not stuck: ${JSON.stringify(out.stuck)}`);
+			assert.ok(out.done, `${who}: plays to the end`);
+			assert.deepEqual(got.murlocs, ['collect true', 'accept true'], `${who}: the head and its accept are optional goals of the murloc step`);
+			assert.equal(got.done, head, `${who}: Croaky's Head ${head ? 'is' : 'is not'} handed in`);
+			if (head) {
+				assert.equal(got.ridge && got.ridge.title, 'Ridgepoint Tower', 'with the head: handed in at the Ridgepoint Tower step');
+				assert.equal(got.ridge.status, 'active', 'the turn-in holds the step');
+				assert.ok(got.ridge.wp && yards(got.ridge.wp, { map: 1429, x, y }) <= 5, `the arrow leads to Merell Ross at Ridgepoint Tower: ${JSON.stringify(got.ridge.wp)}`);
+				assert.equal(got.later, 'done');
+			} else {
+				assert.equal(got.ridge, false, 'without the head: Ridgepoint Tower is passed, nothing is handed in there');
+				assert.equal(got.later, 'na', "without the head: the turn-in is not this player's");
+			}
+		}
+	} finally {
+		pack.dispose();
+	}
+});

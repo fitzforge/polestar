@@ -1548,7 +1548,6 @@ t.guides["forever/alliance/human/01-elwynn-forest"] = (function() return {
 		["Large Candles"] = "{item:772}",
 		["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "从正门离开{zone:1453}。{quest:1861}瀑布在城门西南方，就在向西前往{zone:1436}的路上：在瀑布底部装满{item:7207}。",
 		["Lost Books: Kobold Miners and Tunnelers"] = "{item:248001}：{npc:40}和狗头人隧道工",
-		["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "{npc:46}和鱼人潜伏者遍布桥南边的河岸。迪菲亚成员{npc:473}在河西边的{area:62}巡逻。顺路收集完{npc:118}和{npc:822}。",
 		["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "鱼人和{npc:735}占据着东岸；{object:694785}在它们的营地里。",
 		["Murlocs and the Collector"] = "鱼人和收藏家",
 		["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "在伐木场东北方。{npc:474}在湖岸边扎营。",

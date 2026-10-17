@@ -1548,7 +1548,6 @@ t.guides["forever/alliance/human/01-elwynn-forest"] = (function() return {
 		["Large Candles"] = "큰 양초",
 		["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "정문으로 {zone:1453}을(를) 나가십시오. {quest:1861} 폭포는 성문 남서쪽, 서쪽 {zone:1436}(으)로 가는 길에 있습니다. 폭포 아래에서 {item:7207}을(를) 채우십시오.",
 		["Lost Books: Kobold Miners and Tunnelers"] = "잃어버린 책: 코볼트 광부와 코볼트 채굴꾼",
-		["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "멀록 채집꾼과 멀록 잠복꾼이 다리 남쪽 강을 따라 있습니다. 데피아즈단인 {npc:473}이(가) 그 서쪽 {area:62}을(를) 돌아다닙니다. 가는 길에 굶주린 늑대와 새끼곰을 마저 처치하십시오.",
 		["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "멀록과 멀록 길잡이가 동쪽 기슭을 차지하고 있으며, 잡동사니 더미는 그들의 야영지에 있습니다.",
 		["Murlocs and the Collector"] = "멀록과 수집가",
 		["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "벌목장 북동쪽입니다. 데피아즈단 견습마술사가 호숫가에 야영하고 있습니다.",

@@ -1548,7 +1548,6 @@ t.guides["forever/alliance/human/01-elwynn-forest"] = (function() return {
 		["Large Candles"] = "Velas Grandes",
 		["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Saia de {zone:1453} pelo portão principal. A cachoeira de {quest:1861} fica a sudoeste dos portões, no caminho para o oeste rumo a {zone:1436}: encha {item:7207} na base dela.",
 		["Lost Books: Kobold Miners and Tunnelers"] = "Livros Perdidos: Mineradores e Tuneleiros Kobold",
-		["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "Murlocs Colhedores e Murlocs Tocaieiros ocupam o rio ao sul da ponte. {npc:473}, um Défias, anda por {area:62}, a oeste dele. Termine os Predadores e Jovens Ursos da Floresta no caminho.",
 		["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "Murlocs e Murlocs Corredores ocupam a margem leste; as Pilhas de Sucata ficam no acampamento deles.",
 		["Murlocs and the Collector"] = "Murlocs e o Coletor",
 		["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "A nordeste do acampamento madeireiro. Teurgos Proscritos Défias acampam nas margens do lago.",

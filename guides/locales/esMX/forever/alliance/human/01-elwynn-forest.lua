@@ -272,20 +272,24 @@ return {
 
 	-- Step 57: Murlocs and the Collector
 	["Murlocs and the Collector"] = "Múrlocs y el Coleccionista",
-	-- {npc:473} Morgan the Collector · {area:62} Brackwell Pumpkin Patch
+	-- {npc:473} Morgan the Collector · {area:62} Brackwell Pumpkin Patch · {npc:248278} Croaky
 	-- plural, as words: Murloc Foragers = {npc:46} Murloc Forager · Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "Los Batidores múrloc y los Rondadores múrloc ocupan el río al sur del puente. {npc:473}, un Defias, recorre {area:62}, al oeste. Termina con los Merodeadores y los Osos del bosque jóvenes por el camino.",
+	["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "",
 	-- plural, as words: Torn Murloc Fins = {item:780} Torn Murloc Fin
 	["Torn Murloc Fins"] = "Aletas de múrloc rotas",
 
-	-- Step 60: Stone Cairn Lake
+	-- Step 58: Ridgepoint Tower
+	-- {npc:248277} Merell Ross · {area:798} Ridgepoint Tower
+	["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "",
+
+	-- Step 61: Stone Cairn Lake
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "Al noreste del campamento maderero. Los Zahoríes bribones de Defias acampan en las orillas del lago.",
 
-	-- Step 61: The Tower of Azora
+	-- Step 62: The Tower of Azora
 	["Follow the hills south to the tower, on the road west."] = "Sigue las colinas hacia el sur hasta la torre, en el camino al oeste.",
 
-	-- Step 62: Goldshire
+	-- Step 63: Goldshire
 	-- {area:87} Goldshire
 	["Follow the road west back to {area:87}."] = "Sigue el camino hacia el oeste de regreso a {area:87}.",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
@@ -297,7 +301,7 @@ return {
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
 	["{npc:328}: {npc:5497} in {zone:1453} takes it"] = "{npc:328}: la recibe {npc:5497} en {zone:1453}",
 
-	-- Step 63: Taming the Beast
+	-- Step 64: Taming the Beast
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
 	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507} está con los instructores de {area:87}. Cada una de sus misiones te da {item:15908}: úsala en la bestia que indica y luego devuélvele la vara. Los Jabalíes Pielroca y los Osos del bosque jóvenes recorren las colinas al sur de {area:64}; los Lobos grisáceos del bosque, el bosque al este de {area:18}.",
@@ -310,34 +314,34 @@ return {
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}, a su lado: {spell:5149}",
 
-	-- Step 64: Jennea Cannon
+	-- Step 65: Jennea Cannon
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["Follow the road north from {area:87} into {zone:1453}. {npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "Sigue el camino hacia el norte desde {area:87} hasta {zone:1453}. {npc:5497} está en el Wizard's Sanctum, la torre de {object:2101}; te da un frasco para la cascada de {quest:1861}.",
 
-	-- Step 65: Mirror Lake
+	-- Step 66: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Sal de {zone:1453} por la puerta principal. La cascada de {quest:1861} está al suroeste de las puertas, de camino al oeste hacia {zone:1436}: llena {item:7207} en su base.",
 
-	-- Step 66: Gakin the Darkbinder
+	-- Step 67: Gakin the Darkbinder
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["Follow the road north from {area:87} into {zone:1453}. {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "Sigue el camino hacia el norte desde {area:87} hasta {zone:1453}. {npc:6122} espera en el sótano de {object:2164}, en {object:2101}.",
 
-	-- Step 67: Surena Caledon
+	-- Step 68: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Ride back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Cabalga de vuelta por {area:87} y hacia el este por el camino hasta {area:62}. {npc:881} (nivel 9) está junto a la casa de la granja.",
 
-	-- Step 68: The Binding
+	-- Step 69: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Regresa con {npc:6122}. Usa {item:6928} en el círculo de invocación del sótano de {object:2164} y derrota al abisario que convoca.",
 	["Subdue the voidwalker"] = "Somete al abisario",
 
-	-- Step 69: The Tome of Divinity
+	-- Step 70: The Tome of Divinity
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6171} Duthorian Rall · {npc:6173} Gazin Tenorm · {npc:6174} Stephanie Turner · {object:2100} Old Town · {item:2589} Linen Cloth
 	["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Sigue el camino hacia el norte desde {area:87} hasta {zone:1453}. {npc:6171} y {npc:6173} están en la Cathedral of Light; {npc:6174} está en {object:2100} y pide diez de {item:2589} (lo sueltan los humanoides; la casa de subastas lo vende).",
 	-- {quest:2998} Tome of Divinity
 	["From the {quest:2998} he gives you"] = "Del {quest:2998} que te da",
 
-	-- Step 70: Henze Faulk
+	-- Step 71: Henze Faulk
 	-- {area:87} Goldshire · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["Ride back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Cabalga de vuelta por {area:87} y hacia el este hasta {area:86}. {npc:6172} yace al sur del lago: usa {item:6866} en él. Los Zahoríes bribones de Defias de alrededor llevan {item:6846}.",
@@ -347,16 +351,17 @@ return {
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: Zahoríes bribones de Defias",
 
-	-- Step 71: Gazin Tenorm
+	-- Step 72: Gazin Tenorm
 	["Back to the Cathedral of Light."] = "De vuelta a la Cathedral of Light.",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}: Redención",
 
-	-- Step 72: Sentinel Hill
+	-- Step 73: Sentinel Hill
 	-- {zone:1436} Westfall · {area:108} Sentinel Hill
 	["Follow the road west past Westbrook into {zone:1436}, then south along it to {area:108}. Thor, the gryphon master, stands on the hill."] = "Sigue el camino hacia el oeste pasando Arroyoeste hasta {zone:1436} y luego hacia el sur por él hasta {area:108}. Thor, el maestro de grifos, está en la colina.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "Los Batidores múrloc y los Rondadores múrloc ocupan el río al sur del puente. {npc:473}, un Defias, recorre {area:62}, al oeste. Termina con los Merodeadores y los Osos del bosque jóvenes por el camino.",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {quest:1688} (level 9) stands by its farmhouse."] = "Cabalga de vuelta por {area:87} y hacia el este por el camino hasta {area:62}. {quest:1688} (nivel 9) está junto a la casa de la granja.",
 	-- ["{area:57}'s mouth"] = "La entrada de {area:57}",
 	-- ["{item:1006}: Princess"] = "{item:1006}: Princesa",
