@@ -147,9 +147,10 @@ local function chainNeeds(g, level)
 							list = {}
 							pres[goal.quest] = list
 						end
-						for _, key in ipairs({ "pre", "preAll" }) do
-							if type(goal[key]) == "table" then list[#list + 1] = goal[key] end
-						end
+						-- Named, not walked: a list of key names here was a table
+						-- per accept of every guide down the chain (#60).
+						if type(goal.pre) == "table" then list[#list + 1] = goal.pre end
+						if type(goal.preAll) == "table" then list[#list + 1] = goal.preAll end
 						if not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) then open[#open + 1] = goal end
 					end
 				end

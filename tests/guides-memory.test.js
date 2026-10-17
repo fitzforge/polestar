@@ -8,8 +8,8 @@
 // The budget guards the resident cost against a structural regression (a goal
 // key added to every goal, a table kept per step where one per guide would do).
 // It is not a figure to compare across machines: Lua 5.1 and LuaJIT account for
-// tables differently (the same pack weighs about 24.5 MiB under Lua 5.1 and
-// about 16.5 MiB under LuaJIT), so the budget leaves room for the larger of the
+// tables differently (the same pack weighs about 26.1 MiB under Lua 5.1 and
+// about 18.2 MiB under LuaJIT), so the budget leaves room for the larger of the
 // two plus the guides still to come. Issue #60.
 
 const { test } = require('node:test');
@@ -22,7 +22,7 @@ const { runAddon, ROOT, ADDONS } = require('./helpers/lua');
 const { tmpdir } = require('./helpers/tmp');
 
 const PACK = path.join(ROOT, 'addon', 'Polestar_Guides', 'Guides.lua');
-const PACK_DIR = path.join(ADDONS, 'Polestar_Guides').replace(/\\/g, '/');
+const PACK_DIR = path.join(ADDONS, 'Polestar_Guides');
 const skip = !fs.existsSync(PACK) && 'addon/Polestar_Guides/Guides.lua not compiled (node tools/polestar.js compile)';
 
 // Resident KiB of the pack, and its guides, steps and goals, per faction.
@@ -100,8 +100,9 @@ test('the pack splits by faction, so one side plus the factionless guides is the
 	assert.equal(horde.none + horde.alliance + horde.horde, horde.guides);
 	for (const [side, m] of [['Alliance', horde], ['Horde', alliance]]) {
 		assert.ok(m.ownSide < m.all, `${side}: dropping the other side freed nothing`);
-		// Two thirds is loose on purpose: it is the composition of the pack that
-		// is being pinned, not a machine's byte count.
+		// The bound is loose on purpose, well above the share today: it is the
+		// composition of the pack that is being pinned, not a machine's byte
+		// count.
 		assert.ok(m.ownSide <= m.all * 0.7, `${side}: own side is ${(m.ownSide / m.all * 100).toFixed(0)} % of the pack, over 70 %`);
 		console.log(`guides pack, ${side} character: ${m.keptGuides} of ${m.guides} guides, resident ${(m.ownSide / 1024).toFixed(1)} of ${(m.all / 1024).toFixed(1)} MiB`);
 	}
@@ -124,12 +125,11 @@ const MAX_VALIDATE_KIB_PER_GOAL = 0.05;
 test('validating the registered guides allocates almost nothing per goal', { skip }, () => {
 	const { emitted } = runAddon({
 		stubs: ['stub_world.lua'],
-		addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+		// The pack by its TOC, the way the client loads it, so a file added to
+		// it is measured and cannot make this test and the compiled-pack ones
+		// disagree.
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }, { name: 'Polestar_Guides', dir: PACK_DIR }],
 		script: `
-			local dir = ${JSON.stringify(PACK_DIR)} .. "/"
-			for _, f in ipairs({ "Pack.lua", "MapFrames.lua", "Guides.lua" }) do
-				assert(loadfile(dir .. f))("Polestar_Guides", {})
-			end
 			local defs, goals = {}, 0
 			for _, header in ipairs(Polestar.Guides.List()) do
 				local g = Polestar.Guides.Get(header.id)
