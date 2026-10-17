@@ -591,3 +591,50 @@ test('Sato\'s report: the Scrawny Ursera step leads to the slope west of Thendal
 		for (const sp of (goal.spots || []).filter((o) => !o.alt)) assert.ok(sp.x <= 41.7, `${guide}: the spot ${sp.x},${sp.y} is west of the village`);
 	}
 });
+
+// --- Strays (#175, Phear): a mob or two on their own, hundreds of yards from the camp
+// that holds the rest, drew the point and the arrow away from the camp the step is about.
+
+test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it', { skip }, () => {
+	// [guide, the goal, the camp's x and y range (map percent)]
+	const cases = [
+		[DUN_MOROGH, 'Frostmane Headhunter (Frostmane Hold)', (g) => g.t === 'kill' && g.npc === 1123 && g.quest === 287, [20, 27, 49, 56]],
+		['forever/alliance/03-darkshore.guide', 'Grizzled Scalp', (g) => g.t === 'collect' && g.item === 5414, [37, 46, 69, 83]],
+		['forever/alliance/50-60/02-felwood.guide', 'Jadefire Hellcaller (Jadefire Run)', (g) => g.t === 'kill' && g.npc === 7111, [38, 44, 13, 23]],
+		['forever/horde/05-stonetalon-mountains.guide', 'Stonetalon Sap', (g) => g.t === 'collect' && g.item === 5582, [32, 41, 9, 21]],
+		['forever/horde/50-60/01-un-goro-crater.guide', 'Bloodpetal Lasher (east side)', (g) => g.t === 'kill' && g.npc === 6509, [55, 77, 20, 50]],
+		['forever/horde/50-60/01-un-goro-crater.guide', 'Bloodpetal Thresher (east side)', (g) => g.t === 'kill' && g.npc === 6511, [55, 77, 20, 50]],
+		['forever/horde/40-50/03-feralas.guide', 'Marsh Flesheater (huts on the western shore)', (g) => g.t === 'kill' && g.npc === 751, [60, 75, 75, 100]],
+	];
+	const inCamp = ([x0, x1, y0, y1]) => (p) => p.x >= x0 && p.x <= x1 && p.y >= y0 && p.y <= y1;
+	for (const [guide, what, pred, camp] of cases) {
+		for (const { goal } of goals(guide).filter(({ goal }) => pred(goal))) {
+			assert.ok(inCamp(camp)(goal), `${guide}: ${what}: the point ${goal.x},${goal.y} is at the camp`);
+			const arrow = goal.spots.filter((s) => !s.alt);
+			assert.ok(arrow.length && arrow.every(inCamp(camp)), `${guide}: ${what}: the arrow picks only the camp: ${JSON.stringify(goal.spots)}`);
+			assert.ok(goal.spots.some((s) => s.alt && !inCamp(camp)(s)), `${guide}: ${what}: the strays stay alternatives`);
+		}
+		assert.ok(goals(guide).some(({ goal }) => pred(goal)), `${guide}: ${what} is in the guide`);
+	}
+	// Not strays: a sparse trail of single spawns (the Lingering Highborne through the ruins), spawns all
+	// over a zone (Scourgestones, the OOX beacon) and a target with six spawns or fewer (Pristine Black
+	// Diamond). The walk still starts at the spawn nearest the previous goal, a spot the arrow searches.
+	const kept = [
+		['forever/alliance/50-60/01-burning-steppes.guide', 7972],
+		['forever/class/priest/blood-of-morphaz.guide', 7972],
+		['forever/alliance/50-60/03-winterspring.guide', 12840],
+		['forever/horde/50-60/01-un-goro-crater.guide', 12840],
+		['forever/horde/40-50/02-feralas.guide', 8705],
+		['forever/class/shaman/darkreaver.guide', 18335],
+	];
+	for (const [guide, item] of kept) {
+		const list = goals(guide);
+		const { goal } = list[at(list, `${guide}: collect ${item}`, (g) => g.t === 'collect' && g.item === item)];
+		const first = goal.spots[0];
+		assert.ok(!first.alt && first.n === 1 && Math.hypot(first.x - goal.x, first.y - goal.y) <= 0.1, `${guide}: collect ${item}: the walk starts at the point ${goal.x},${goal.y}: ${JSON.stringify(first)}`);
+	}
+	const ichor = goals('forever/alliance/50-60/01-burning-steppes.guide').find(({ goal }) => goal.item === 7972).goal;
+	const trail = ichor.spots.filter((s) => s.x >= 34 && s.x <= 41 && s.y >= 45 && s.y <= 62);
+	assert.equal(trail.length, 6, JSON.stringify(ichor.spots));
+	assert.ok(trail.every((s) => !s.alt), 'every spot of the Highborne trail is searched');
+});

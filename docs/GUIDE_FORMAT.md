@@ -307,6 +307,17 @@ gets no `spots`.
   the player searches spot by spot: the arrow says "Search here" inside a spot
   (never "Arrived"), moves on to the nearest spot not visited lately once the
   player leaves it, and the map shades every region the spots cover.
+- **Strays** (every goal the data places, any verb, whose target has more
+  than 6 spawns on the map): when the spawns, linked wherever two lie within
+  300 yd of each other, mostly (three quarters or more) form one area, a group
+  of one or two spawns apart from the rest is a stray: a mob or two on their
+  own, hundreds of yards from the camps. A stray is an alternative, and a goal
+  point at one (the spawn nearest the previous goal) moves to the nearest other
+  spot, so the arrow leads to the area that holds the target. A sparse trail of
+  three or more spawns is not a stray; nor is anything of a target with 6
+  spawns or fewer, or one spread over a zone with no area holding most of it.
+  A stray can still be the place a step means (a named mob that drops the item
+  too): place such a goal by hand (`@x,y`), or put it in the step at the camp.
 - **Hand-placed** (`@x,y`): the author's point is the spot the arrow takes,
   wide enough for any place of the target it stands in, and every other place
   the data knows follows as an alternative. Only where the data agrees: a point

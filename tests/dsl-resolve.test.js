@@ -226,6 +226,23 @@ test('an area objective with more clusters than the cap searches spots spread ev
 	}
 });
 
+test('a spawn or two far from the camp that holds most of a target are strays: the point and the arrow go to the camp, the strays are alternatives', () => {
+	// Hold Raider: eight spawns at a camp around 25,50 and two strays, at 41,44 and 40,36, more than
+	// 500 yd east of it. Coming from 42,47 the spawn nearest the previous goal is the stray at 41,44.
+	const g = goalsOf(['step One', '  goto 42,47', '  kill 95025']).goals[1];
+	const nearCamp = (s) => Math.abs(s.x - 25) < 1.5 && Math.abs(s.y - 50) < 1.5;
+	assert.ok(nearCamp(g), `the point is at the camp: ${g.x},${g.y}`);
+	const arrow = g.spots.filter((s) => !s.alt);
+	assert.ok(arrow.length && arrow.every(nearCamp), JSON.stringify(g.spots));
+	assert.deepEqual(g.spots.filter((s) => s.alt).map((s) => [s.x, s.y, s.n]), [[41, 44, 1], [40, 36, 1]], 'the strays follow, nearest first');
+	assert.deepEqual(outsideSpots(g, 'npc', 95025), []);
+	// Trail Raider: a camp of twelve around 70,20 and a trail of three spawns, 140 yd apart, more than
+	// 500 yd west of it: a sparse stretch to search, not strays, so the walk starts on the trail.
+	const t = goalsOf(['step One', '  goto 45,22', '  kill 95026']).goals[1];
+	assert.deepEqual([t.x, t.y, t.spread], [47, 20, true]);
+	assert.deepEqual(t.spots.filter((s) => !s.alt).slice(0, 3).map((s) => [s.x, s.y]), [[47, 20], [51, 20], [55, 20]]);
+});
+
 test('objective index and count come from the linked objective; explicit values win', () => {
 	const { goals, r } = goalsOf(['step One', '  accept 7', '  kill 6 quest 7', '  kill 6 x3 quest 7', '  accept 9400', '  interact 1617 quest 9400', '  kill 6 quest 7.1 x2']);
 	assert.deepEqual([goals[1].oi, goals[1].count, goals[1].title], [1, 10, 'Kobold Camp Cleanup']);
