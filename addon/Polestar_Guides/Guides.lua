@@ -19506,25 +19506,26 @@ do
 			zoneName = "Burning Steppes",
 			author = "Polestar",
 			version = 1,
+			group = true,
 			steps = {
 				{
 					title = "Kibler at Flame Crest",
 					note = "Kibler stands at Flame Crest in northern Burning Steppes, near the Blackrock Mountain path.",
 					goals = {
-						{ t = "accept", quest = 4862, title = "En-Ay-Es-Tee-Why", npc = 10260, npcName = "Kibler", minLevel = 55, qlvl = 59, map = 1428, x = 65.89, y = 21.92, z = 165.1, f = "e" },
+						{ t = "accept", quest = 4862, title = "En-Ay-Es-Tee-Why", npc = 10260, npcName = "Kibler", minLevel = 55, qlvl = 59, map = 1428, x = 65.89, y = 21.92, z = 165.1, f = "e", group = { kind = "dungeon", name = "Blackrock Spire" } },
 					},
 				},
 				{
 					title = "Lower Blackrock Spire",
 					note = "Lower Blackrock Spire is a group of five, level 55-60. Collect 15 Spire Spider Eggs from the nests near Mother Smolderweb.",
 					goals = {
-						{ t = "collect", quest = 4862, title = "En-Ay-Es-Tee-Why", item = 12530, itemName = "Spire Spider Egg", count = 15, oi = 1, map = 1428, x = 33.2, y = 24.9, f = "e", note = "Lower Blackrock Spire" },
+						{ t = "collect", quest = 4862, title = "En-Ay-Es-Tee-Why", item = 12530, itemName = "Spire Spider Egg", count = 15, oi = 1, map = 1428, x = 33.2, y = 24.9, f = "e", note = "Lower Blackrock Spire", group = { kind = "dungeon", name = "Blackrock Spire" } },
 					},
 				},
 				{
 					title = "Back to Kibler",
 					goals = {
-						{ t = "turnin", quest = 4862, title = "En-Ay-Es-Tee-Why", npc = 10260, npcName = "Kibler", map = 1428, x = 65.89, y = 21.92, z = 165.1, f = "e" },
+						{ t = "turnin", quest = 4862, title = "En-Ay-Es-Tee-Why", npc = 10260, npcName = "Kibler", map = 1428, x = 65.89, y = 21.92, z = 165.1, f = "e", group = { kind = "dungeon", name = "Blackrock Spire" } },
 						{ t = "collect", item = 12529, itemName = "Smolderweb Carrier", map = 1428, x = 65.9, y = 21.9, f = "e", note = "Smolderweb Carrier" },
 					},
 				},
@@ -19709,25 +19710,26 @@ do
 			zoneName = "Burning Steppes",
 			author = "Polestar",
 			version = 1,
+			group = true,
 			steps = {
 				{
 					title = "Kibler at Flame Crest",
 					note = "Kibler stands at Flame Crest in northern Burning Steppes, near the Blackrock Mountain path.",
 					goals = {
-						{ t = "accept", quest = 4729, title = "Kibler's Exotic Pets", npc = 10260, npcName = "Kibler", minLevel = 55, qlvl = 59, map = 1428, x = 65.89, y = 21.92, z = 165.1, f = "e" },
+						{ t = "accept", quest = 4729, title = "Kibler's Exotic Pets", npc = 10260, npcName = "Kibler", minLevel = 55, qlvl = 59, map = 1428, x = 65.89, y = 21.92, z = 165.1, f = "e", group = { kind = "dungeon", name = "Blackrock Spire" } },
 					},
 				},
 				{
 					title = "Upper Blackrock Spire",
 					note = "Upper Blackrock Spire is a raid group of up to ten, level 58-60. Use Kibler's cage on a Bloodaxe Worg Pup (Halycon's den) to get the Caged Worg Pup.",
 					goals = {
-						{ t = "collect", quest = 4729, title = "Kibler's Exotic Pets", item = 12263, itemName = "Caged Worg Pup", count = 1, oi = 1, map = 1428, x = 33.2, y = 24.9, f = "e", note = "Upper Blackrock Spire" },
+						{ t = "collect", quest = 4729, title = "Kibler's Exotic Pets", item = 12263, itemName = "Caged Worg Pup", count = 1, oi = 1, map = 1428, x = 33.2, y = 24.9, f = "e", note = "Upper Blackrock Spire", group = { kind = "dungeon", name = "Blackrock Spire" } },
 					},
 				},
 				{
 					title = "Back to Kibler",
 					goals = {
-						{ t = "turnin", quest = 4729, title = "Kibler's Exotic Pets", npc = 10260, npcName = "Kibler", map = 1428, x = 65.89, y = 21.92, z = 165.1, f = "e" },
+						{ t = "turnin", quest = 4729, title = "Kibler's Exotic Pets", npc = 10260, npcName = "Kibler", map = 1428, x = 65.89, y = 21.92, z = 165.1, f = "e", group = { kind = "dungeon", name = "Blackrock Spire" } },
 						{ t = "collect", item = 12264, itemName = "Worg Carrier", map = 1428, x = 65.9, y = 21.9, f = "e", note = "Worg Carrier" },
 					},
 				},
@@ -22716,14 +22718,14 @@ do
 					goals = {
 						{ t = "turnin", quest = 95494, title = "Bruised Pride and Lion Hides", npc = 3682, npcName = "Vrang Wildgore", map = 1413, x = 43.8, y = 12.21, z = 91.8, f = "e", note = "Vrang Wildgore" },
 						{ t = "turnin", quest = 95507, title = "Vrang's Game", npc = 3682, npcName = "Vrang Wildgore", map = 1413, x = 43.8, y = 12.21, z = 91.8, f = "e" },
-						{ t = "accept", quest = 95495, title = "The Hermit Tanner", npc = 3682, npcName = "Vrang Wildgore", minLevel = 14, qlvl = 18, map = 1413, x = 43.8, y = 12.21, z = 91.8, f = "e" },
+						{ t = "accept", quest = 95495, title = "The Hermit Tanner", npc = 3682, npcName = "Vrang Wildgore", minLevel = 14, qlvl = 18, preAll = { 95494, 95507 }, preTitles = { [95494] = "Bruised Pride and Lion Hides", [95507] = "Vrang's Game" }, map = 1413, x = 43.8, y = 12.21, z = 91.8, f = "e" },
 					},
 				},
 				{
 					title = "Walton",
 					goals = {
 						{ t = "turnin", quest = 95495, title = "The Hermit Tanner", npc = 261366, npcName = "Walton", map = 1413, x = 42.01, y = 11.44, f = "e", note = "Walton" },
-						{ t = "accept", quest = 95621, title = "Trouble in the Valley", npc = 261366, npcName = "Walton", minLevel = 14, qlvl = 18, map = 1413, x = 42.01, y = 11.44, f = "e" },
+						{ t = "accept", quest = 95621, title = "Trouble in the Valley", npc = 261366, npcName = "Walton", minLevel = 14, qlvl = 18, pre = { 95495 }, preTitles = { [95495] = "The Hermit Tanner" }, map = 1413, x = 42.01, y = 11.44, f = "e" },
 					},
 				},
 				{
@@ -22737,7 +22739,7 @@ do
 					title = "Walton",
 					goals = {
 						{ t = "turnin", quest = 95621, title = "Trouble in the Valley", npc = 261366, npcName = "Walton", map = 1413, x = 42.01, y = 11.44, f = "e", note = "Walton" },
-						{ t = "accept", quest = 95508, title = "Unwelcome Guests", npc = 261366, npcName = "Walton", minLevel = 14, qlvl = 18, map = 1413, x = 42.01, y = 11.44, f = "e" },
+						{ t = "accept", quest = 95508, title = "Unwelcome Guests", npc = 261366, npcName = "Walton", minLevel = 14, qlvl = 18, pre = { 95621 }, preTitles = { [95621] = "Trouble in the Valley" }, map = 1413, x = 42.01, y = 11.44, f = "e" },
 						{ t = "complete", quest = 95508, title = "Unwelcome Guests", note = "Assist Walton: stay by him when Terry Longdrink and the Kul Tiras marines come up the ridge" },
 						{ t = "turnin", quest = 95508, title = "Unwelcome Guests", npc = 261366, npcName = "Walton", map = 1413, x = 42.01, y = 11.44, f = "e" },
 					},
@@ -22899,7 +22901,7 @@ do
 					goals = {
 						{ t = "turnin", quest = 899, title = "Consumed by Hatred", npc = 3432, npcName = "Mankrik", map = 1413, x = 51.95, y = 31.58, z = 95.9, f = "e", note = "Mankrik" },
 						{ t = "turnin", quest = 4921, title = "Lost in Battle", npc = 3432, npcName = "Mankrik", map = 1413, x = 51.95, y = 31.58, z = 95.9, f = "e" },
-						{ t = "accept", quest = 95774, title = "Her Name Is Olgra", npc = 3432, npcName = "Mankrik", minLevel = 14, qlvl = 20, map = 1413, x = 51.95, y = 31.58, z = 95.9, f = "e", note = "Mankrik offers Her Name Is Olgra once Lost in Battle is handed in" },
+						{ t = "accept", quest = 95774, title = "Her Name Is Olgra", npc = 3432, npcName = "Mankrik", minLevel = 14, qlvl = 20, pre = { 4921 }, preTitles = { [4921] = "Lost in Battle" }, map = 1413, x = 51.95, y = 31.58, z = 95.9, f = "e", note = "Mankrik offers Her Name Is Olgra once Lost in Battle is handed in" },
 						{ t = "turnin", quest = 3281, title = "Stolen Silver", npc = 3464, npcName = "Gazrog", map = 1413, x = 51.93, y = 30.32, z = 96.4, f = "e", note = "Gazrog" },
 					},
 				},
@@ -32079,9 +32081,10 @@ do
 					title = "Brambleblade Ravine",
 					note = "Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. Chief Sharptusk Thornmantle stands at its eastern end, and the Dirt-stained Map lies on the ground in the camp.",
 					goals = {
-						{ t = "complete", quest = 780, title = "The Battleboars" },
-						{ t = "complete", quest = 757, title = "Rite of Strength" },
-						{ t = "complete", quest = 3376, title = "Break Sharptusk!" },
+						{ t = "collect", quest = 780, title = "The Battleboars", item = 4848, itemName = "Battleboar Snout", count = 8, oi = 1, map = 1412, x = 56.64, y = 88.76, spots = { { x = 56.8, y = 87.7, r = 40, n = 3 }, { x = 57.9, y = 84.8, r = 40, n = 2 }, { x = 60.2, y = 81.4, r = 40, n = 1 }, { x = 58.5, y = 79.9, r = 40, n = 2 }, { x = 56.6, y = 78.1, r = 40, n = 2 }, { x = 58.9, y = 76.5, r = 40, n = 2 }, { x = 61.8, y = 78.2, r = 40, n = 1 }, { x = 53, y = 77.1, r = 42, n = 5 }, { x = 51.2, y = 77.1, r = 51, n = 5 }, { x = 51.1, y = 79.6, r = 40, n = 3 }, { x = 52.7, y = 80.7, r = 50, n = 7 }, { x = 53.6, y = 84.4, r = 66, n = 8 }, { x = 55.4, y = 87.8, r = 49, n = 5, alt = true }, { x = 54.4, y = 86.5, r = 49, n = 5, alt = true }, { x = 53.8, y = 81.6, r = 40, n = 3, alt = true }, { x = 60.3, y = 78.6, r = 40, n = 4, alt = true } }, spread = true, note = "Battleboar Snout", from = "Bristleback Battleboar", fromKind = "npc", fromAlso = "Battleboar" },
+						{ t = "collect", quest = 780, title = "The Battleboars", item = 4849, itemName = "Battleboar Flank", count = 8, oi = 2, map = 1412, x = 56.64, y = 88.76, spots = { { x = 56.8, y = 87.7, r = 40, n = 3 }, { x = 57.9, y = 84.8, r = 40, n = 2 }, { x = 60.2, y = 81.4, r = 40, n = 1 }, { x = 58.5, y = 79.9, r = 40, n = 2 }, { x = 56.6, y = 78.1, r = 40, n = 2 }, { x = 58.9, y = 76.5, r = 40, n = 2 }, { x = 61.8, y = 78.2, r = 40, n = 1 }, { x = 53, y = 77.1, r = 42, n = 5 }, { x = 51.2, y = 77.1, r = 51, n = 5 }, { x = 51.1, y = 79.6, r = 40, n = 3 }, { x = 52.7, y = 80.7, r = 50, n = 7 }, { x = 53.6, y = 84.4, r = 66, n = 8 }, { x = 55.4, y = 87.8, r = 49, n = 5, alt = true }, { x = 54.4, y = 86.5, r = 49, n = 5, alt = true }, { x = 53.8, y = 81.6, r = 40, n = 3, alt = true }, { x = 60.3, y = 78.6, r = 40, n = 4, alt = true } }, spread = true, note = "Battleboar Flank", from = "Bristleback Battleboar", fromKind = "npc", fromAlso = "Battleboar" },
+						{ t = "collect", quest = 757, title = "Rite of Strength", item = 4770, itemName = "Bristleback Belt", count = 12, oi = 1, map = 1412, x = 56.44, y = 83.92, spots = { { x = 57.1, y = 83.4, r = 42, n = 5 }, { x = 56.6, y = 81.2, r = 70, n = 6 }, { x = 58.7, y = 81.3, r = 59, n = 7 }, { x = 56.5, y = 78.7, r = 50, n = 9 }, { x = 60.1, y = 81.6, r = 29, n = 2 }, { x = 57.7, y = 76.7, r = 76, n = 9 }, { x = 60.5, y = 78.9, r = 43, n = 8, alt = true }, { x = 60.1, y = 77.4, r = 30, n = 4, alt = true }, { x = 61.8, y = 78.2, r = 33, n = 5, alt = true } }, note = "Bristleback Belt", from = "Bristleback Quilboar", fromKind = "npc", fromAlso = "Bristleback Shaman" },
+						{ t = "collect", quest = 3376, title = "Break Sharptusk!", item = 10459, itemName = "Chief Sharptusk Thornmantle's Head", oi = 1, map = 1412, x = 61.02, y = 78, note = "Chief Sharptusk Thornmantle's Head", from = "Chief Sharptusk Thornmantle", fromKind = "npc" },
 						{ t = "collect", item = 4851, itemName = "Dirt-stained Map", map = 1412, x = 59.8, y = 82.2, from = "Dirt-stained Map", fromKind = "object" },
 						{ t = "accept", quest = 781, title = "Attack on Camp Narache", item = 4851, itemName = "Dirt-stained Map", minLevel = 1, qlvl = 4 },
 					},
