@@ -465,13 +465,14 @@ test(`${BARRENS}: Fitz's report: Jorn Skyseer is passed by while The Angry Scyth
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),
 // Bandarion Keep (whiteswag, #128) and Linnea's second Rear Guard Patrol (#51)
 // in Tirisfal, Alther's Mill in Redridge (#126's report), The State of the
-// Mines in Westfall (SouthernStyleSims, #143) and Scout Support in Hillsbrad
-// (Taako, #148). The #128 sweep against the Forever quest chains found Quinn's
-// potions in Silverpine (Wild Eyes and Return to Quinn (Again) after Return
-// to Quinn) and, at 30-40, Bloom of the Heavens, Sentiments of the Lost,
-// Shared Fury and Friend of the Kirin Tor, each taken without the part before
-// it. Each accept comes after every quest it follows is handed in; the
-// optional ones may be left out, never taken early.
+// Mines in Westfall (SouthernStyleSims, #143), Scout Support in Hillsbrad
+// (Taako, #148) and Stopping the Cycle in the Wetlands (#51). The #128 sweep
+// against the Forever quest chains found Quinn's potions in Silverpine (Wild
+// Eyes and Return to Quinn (Again) after Return to Quinn) and, at 30-40, Bloom
+// of the Heavens, Sentiments of the Lost, Shared Fury and Friend of the Kirin
+// Tor, each taken without the part before it. Each accept comes after every
+// quest it follows is handed in; the optional ones may be left out, never
+// taken early.
 
 const WESTFALL = 'forever/alliance/02-westfall.guide';
 const REDRIDGE = 'forever/alliance/04-redridge-mountains.guide';
@@ -499,6 +500,7 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[SILVERPINE, 91921, [91920], true],
 		[HILLSBRAD_ALLIANCE, 98209, [98208], true],
 		[HILLSBRAD_ALLIANCE, 88758, [88757], true],
+		[HILLSBRAD_ALLIANCE, 98297, [98291], true],
 		[ASHENVALE_30, 98418, [98417], true],
 		[ARATHI, 92459, [92458], true],
 		// The #51 sweep: Holy Diver after all nine beached remains, Ivar the

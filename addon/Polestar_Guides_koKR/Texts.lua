@@ -423,7 +423,6 @@ t.guides["forever/alliance/30-40/01-hillsbrad-foothills"] = (function() return {
 		["Level 30 and 32 spells"] = "30, 32레벨 주문",
 		["Murloc heads"] = "멀록 머리",
 		["North along the road to {area:205}. {npc:271460} stands in the ruins (use the {item:279996}); the {npc:271481} is held on the west side: lead it out to {npc:1072}."] = "길을 따라 북쪽 {area:205}(으)로 가십시오. {npc:271460}은(는) 폐허 안에 있습니다({item:279996} 사용). {npc:271481}은(는) 서쪽에 갇혀 있으니 {npc:1072}에게 데려가십시오.",
-		["North-east to the {area:1038}: the {npc:271373} are held there, and {npc:271338} stands at the gates (use the {item:279996})."] = "북동쪽 {area:1038}(으)로 가십시오. {npc:271373}이(가) 그곳에 갇혀 있으며, {npc:271338}이(가) 성문에 있습니다({item:279996} 사용).",
 		["Pick up everything in town before heading out. Off the boat, {npc:251493} is the first you meet, north-west of the flight master; {npc:2381} and {npc:2438} stand between the flight master and the inn, Farren and {npc:2366} at the inn, Maleb in the town hall."] = "출발 전에 마을의 퀘스트를 모두 수락하십시오. 배에서 내리면 비행 조련사 북서쪽의 {npc:251493}을(를) 먼저 만납니다. {npc:2381}와(과) {npc:2438}은(는) 비행 조련사와 여관 사이에, 파렌과 {npc:2366}은(는) 여관에, 말레브는 마을 회관에 있습니다.",
 		["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; {npc:271458} stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "새끼 붉은용이 성문 서쪽 언덕에, 광기에 물든 썩은발톱이 {area:1025}에, 무쇠턱 랩터가 북쪽 비탈에 가득합니다. {npc:271458}은(는) 북동쪽에 있습니다({item:279996} 사용).\n{quest:98283}은(는) 정예이므로 파티를 권장합니다.",
 		["Snapjaws"] = "무쇠턱거북",

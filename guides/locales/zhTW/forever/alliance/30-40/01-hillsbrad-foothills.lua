@@ -43,8 +43,8 @@ return {
 	["{npc:271462} stands in the south-eastern hills: use the {item:279996} beside it."] = "{npc:271462}站在東南方的山丘上：在它旁邊使用{item:279996}。",
 
 	-- Step 8: Dragonmaw Gates
-	-- {area:1038} Dragonmaw Gates · {npc:271373} Subdued Dragonspawn · {npc:271338} Ados · {item:279996} Goaz Stone
-	["North-east to the {area:1038}: the {npc:271373} are held there, and {npc:271338} stands at the gates (use the {item:279996})."] = "向東北前往{area:1038}：{npc:271373}被關在那裡，{npc:271338}站在大門旁（使用{item:279996}）。",
+	-- {area:1038} Dragonmaw Gates · {npc:271338} Ados · {item:279996} Goaz Stone
+	["North-east to the {area:1038}: {npc:271338} stands at the gates (use the {item:279996})."] = "",
 
 	-- Step 9: Whelps, raptors and Neru
 	-- {npc:271458} Neru
@@ -178,6 +178,7 @@ return {
 	-- ["Fly to {zone:1453}"] = "飛往{zone:1453}",
 	-- ["Follow the road north-east into the {area:1025}: {npc:270637} camps beside it, {npc:1244} a short way east."] = "沿著道路向東北進入{area:1025}：{npc:270637}在路旁紮營，{npc:1244}在東邊不遠處。",
 	-- ["Golm"] = "高爾姆",
+	-- ["North-east to the {area:1038}: the {npc:271373} are held there, and {npc:271338} stands at the gates (use the {item:279996})."] = "向東北前往{area:1038}：{npc:271373}被關在那裡，{npc:271338}站在大門旁（使用{item:279996}）。",
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; Neru stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "紅色雛龍遍布大門西邊的山丘，{npc:271334}在{area:1025}，刺喉龍在北面山坡；奈爾魯站在東北方（使用{item:279996}）。\n{quest:98283}是精英：建議組隊。",
 	-- ["South to the Dragonmaw's {area:1036}; the {object:671518} lies in the camp."] = "向南前往龍喉的{area:1036}；{object:671518}就在營地裡。",
 	-- ["{npc:2104} stands in {area:2103}; {npc:2094} and {npc:270844} stand together by the north gate."] = "{npc:2104}站在{area:2103}；{npc:2094}和{npc:270844}一起站在北門旁。",
