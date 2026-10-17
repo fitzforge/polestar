@@ -134,7 +134,7 @@ return {
 
 	-- Step 27: Sunken Temple
 	-- {area:1417} Sunken Temple
-	["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Hacer el {area:1417} en grupo en vez de matar bichos te lleva allí más rápido. Omite este paso para subir de nivel en solitario.",
+	["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Hacer el {area:1417} en grupo en vez de matar bichos te lleva allí más rápido. Sáltate este paso para subir de nivel en solitario.",
 
 	-- Step 28: Grind to 51
 	["Grind to 51"] = "Sube hasta el 51",

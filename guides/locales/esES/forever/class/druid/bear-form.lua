@@ -67,7 +67,7 @@ return {
 	-- {area:279} Dalaran
 	["Skyboat from {area:279}"] = "Barco celeste desde {area:279}",
 	-- {spell:5487} Bear Form · {zone:2521} Zephras Isle · {area:279} Dalaran
-	["{spell:5487} is taught on {zone:2521}. Skip this if you are still on the isle; otherwise take the skyboat from the north side of {area:279}."] = "{spell:5487} se aprende en {zone:2521}. Omite esto si sigues en la isla; si no, toma el barco celeste en el lado norte de {area:279}.",
+	["{spell:5487} is taught on {zone:2521}. Skip this if you are still on the isle; otherwise take the skyboat from the north side of {area:279}."] = "{spell:5487} se aprende en {zone:2521}. Sáltate esto si sigues en la isla; si no, toma el barco celeste en el lado norte de {area:279}.",
 	-- {zone:2521} Zephras Isle
 	["Skyboat to {zone:2521}"] = "Barco celeste a {zone:2521}",
 
@@ -75,7 +75,7 @@ return {
 	-- {zone:1456} Thunder Bluff
 	["Skyboat from {zone:1456}"] = "Barco celeste desde {zone:1456}",
 	-- {spell:5487} Bear Form · {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
-	["{spell:5487} is taught on {zone:2521}. Skip this if you are still on the isle; otherwise take the skyboat from the cliffs south of {area:17045}, north of {zone:1456}."] = "{spell:5487} se aprende en {zone:2521}. Omite esto si sigues en la isla; si no, toma el barco celeste en los acantilados al sur de {area:17045}, al norte de {zone:1456}.",
+	["{spell:5487} is taught on {zone:2521}. Skip this if you are still on the isle; otherwise take the skyboat from the cliffs south of {area:17045}, north of {zone:1456}."] = "{spell:5487} se aprende en {zone:2521}. Sáltate esto si sigues en la isla; si no, toma el barco celeste en los acantilados al sur de {area:17045}, al norte de {zone:1456}.",
 
 	-- Step 15: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar

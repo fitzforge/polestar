@@ -6,7 +6,7 @@
 	"accept": { "term": "Aceptar", "match": ["acept"], "client": "ACCEPT" },
 	"turn in": { "term": "Entregar", "match": ["entreg"], "client": "TURN_IN_QUEST" },
 	"complete": { "term": "Completar", "match": ["complet"] },
-	"skip": { "term": "Omitir", "match": ["omit"] },
+	"skip": { "term": "Saltar", "match": ["salt"], "client": "RENOWN_LEVEL_UP_SKIP_BUTTON" },
 	"quest": { "term": "Misión", "match": ["mision"], "client": "QUESTS_LABEL" },
 	"quest log": { "term": "Registro de misiones", "client": "QUEST_LOG" },
 	"quest giver": { "term": "Asignador de misiones", "match": ["asignador", "NPC"], "client": "TUTORIAL_TITLE1", "note": "NPC de misiones is the shorter player-facing wording." },

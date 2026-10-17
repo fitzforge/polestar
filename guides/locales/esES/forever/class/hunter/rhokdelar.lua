@@ -60,7 +60,7 @@ return {
 
 	-- Step 10: Azuregos
 	-- {item:18704} Mature Blue Dragon Sinew · {npc:6109} Azuregos · {zone:1447} Azshara · {zone:1452} Winterspring
-	["Hastat's quiver needs the {item:18704}. {npc:6109}, a world boss for a raid, roams the south of {zone:1447} and drops it most of the time; the Cobalt dragonkin of {zone:1452} drop it very rarely. Skip the rest of this guide if you do not want the quiver."] = "El carcaj de Hastat necesita {item:18704}. {npc:6109}, un jefe del mundo para una banda, recorre el sur de {zone:1447} y lo suelta casi siempre; los vermis de cobalto de {zone:1452} lo sueltan muy rara vez. Omite el resto de esta guía si no quieres el carcaj.",
+	["Hastat's quiver needs the {item:18704}. {npc:6109}, a world boss for a raid, roams the south of {zone:1447} and drops it most of the time; the Cobalt dragonkin of {zone:1452} drop it very rarely. Skip the rest of this guide if you do not want the quiver."] = "El carcaj de Hastat necesita {item:18704}. {npc:6109}, un jefe del mundo para una banda, recorre el sur de {zone:1447} y lo suelta casi siempre; los vermis de cobalto de {zone:1452} lo sueltan muy rara vez. Sáltate el resto de esta guía si no quieres el carcaj.",
 	-- {item:18704} Mature Blue Dragon Sinew · {npc:6109} Azuregos
 	["{item:18704}, from {npc:6109}"] = "{item:18704}, de {npc:6109}",
 
