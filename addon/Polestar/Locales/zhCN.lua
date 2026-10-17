@@ -695,6 +695,13 @@ L["XP tracker"] = "经验追踪器"
 L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."] = "每小时经验、升级所需时间/击杀/任务，以及各级用时（/pole xp）。"
 L["Reset session"] = "重置本次统计"
 L["Start this session's XP per hour from zero."] = "将本次每小时经验从零开始计算。"
+-- L["Mark what they target"] = ""
+-- L["A new one each press"] = ""
+-- L["Icon on mobs"] = ""
+-- L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] = ""
+-- L["Icon on NPCs"] = ""
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = ""
+-- L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"

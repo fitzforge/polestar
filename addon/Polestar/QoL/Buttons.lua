@@ -18,6 +18,10 @@
 --     act on, in guide order (a use goal's item, a hearth goal's Hearthstone,
 --     a kill or collect's mobs, an NPC goal's NPC by name), else the quest
 --     item. Independent of the three buttons' settings.
+--   Mark target (off by default): the target button and the step key clear
+--     the target first (out of combat) and end their macro with /tm, an icon
+--     on a live hostile target (skull unless set) or an NPC (star), or a new
+--     one each press (Buttons.MarkLine).
 --
 -- The buttons hang off one holder: hearth above the item, target below. A
 -- left-drag on any of them moves the set (out of combat); the position is
@@ -453,9 +457,53 @@ function Buttons.TargetNames(view, raw)
 	return names
 end
 
+-- NPCs: "exists" out of combat, not "help": a neutral NPC (Booty Bay,
+-- Gadgetzan) is no unit you can assist, and /cleartarget then /targetexact
+-- have made the target that NPC. In a fight the target is not cleared, so
+-- only one you cannot attack is marked, never the mob you are fighting.
+local MARK_UNIT = { mob = "[@target,harm,nodead]", npc = "[@target,exists,nodead,nocombat][@target,noharm,nodead]" }
+local MARK_KEY = { mob = "qol.markMob", npc = "qol.markNpc" }
+local MARK_DEFAULT = { mob = 8, npc = 1 }
+local OTHER = { mob = "npc", npc = "mob" }
+-- Presses with a cycling mark: one count for both kinds, so when both cycle
+-- an NPC's icon is not the next mob's.
+local presses = 0
+
+-- A mark setting as an icon 1-8, "cycle", or the kind's default.
+local function markSetting(kind)
+	local v = ns.Get(MARK_KEY[kind])
+	if v == "cycle" then return v end
+	v = tonumber(v)
+	return v and v >= 1 and v <= 8 and v == math.floor(v) and v or MARK_DEFAULT[kind]
+end
+
+-- The /tm line for kind ("mob" or "npc"), nil while marking is off. A fixed
+-- icon uses "!", so pressing again never takes it off. "cycle" puts the next
+-- icon on at each press, skipping the one the other kind keeps, with "~": a
+-- unit that already has an icon keeps it. In combat the macro cannot change,
+-- so until the fight ends each press puts on the same icon.
+function Buttons.MarkLine(kind)
+	if not kind or not QoL.On("markTarget") then return nil end
+	local icon = markSetting(kind)
+	if icon ~= "cycle" then return "/tm " .. MARK_UNIT[kind] .. " !" .. icon end
+	local other, icons = markSetting(OTHER[kind]), {}
+	for i = 1, 8 do
+		if i ~= other then icons[#icons + 1] = i end
+	end
+	return "/tm " .. MARK_UNIT[kind] .. " ~" .. icons[presses % #icons + 1]
+end
+
+-- After a press with kind's mark: true when the next press puts on a new icon.
+local function nextMark(kind)
+	if not kind or not QoL.On("markTarget") or markSetting(kind) ~= "cycle" then return false end
+	presses = presses + 1
+	return true
+end
+
 -- "/targetexact" lines with names[preferred] last, so it wins when present.
--- A name that is not MacroSafeName never becomes a line.
-function Buttons.TargetMacro(list, preferred)
+-- A name that is not MacroSafeName never becomes a line. mark: a /tm line
+-- (Buttons.MarkLine) for the end, kept when names are dropped to fit.
+function Buttons.TargetMacro(list, preferred, mark)
 	local n = #list
 	if n == 0 then return nil end
 	local lines = {}
@@ -464,10 +512,14 @@ function Buttons.TargetMacro(list, preferred)
 		if Buttons.MacroSafeName(list[idx]) then lines[#lines + 1] = "/targetexact " .. list[idx] end
 	end
 	if #lines == 0 then return nil end
-	local text = concat(lines, "\n")
+	-- Cleared first, so when no name is in range the old target is not marked;
+	-- not in a fight, where clearing it would stop melee and Auto Shot.
+	local head = mark and "/cleartarget [nocombat]\n" or ""
+	local tail = mark and ("\n" .. mark) or ""
+	local text = head .. concat(lines, "\n") .. tail
 	while #text > MACRO_LIMIT and #lines > 1 do
 		table.remove(lines, 1)
-		text = concat(lines, "\n")
+		text = head .. concat(lines, "\n") .. tail
 	end
 	return text
 end
@@ -477,7 +529,7 @@ local target = { list = {}, sig = nil, cycle = 1 }
 local function applyTarget(b)
 	QoL.Secure("target", function()
 		local list = target.list
-		local text = Buttons.TargetMacro(list, target.cycle)
+		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine("mob"))
 		b:SetAttribute("type", text and "macro" or nil)
 		b:SetAttribute("macrotext", text)
 		b.applied = list[target.cycle]
@@ -540,14 +592,16 @@ function Buttons.StepAction(view, raw)
 end
 
 local step = { kind = nil, value = nil, list = {}, sig = nil, cycle = 1 }
+-- The mark each kind of step key press puts on.
+local STEP_MARK = { target = "mob", npc = "npc" }
 
 local function applyStep(b)
 	QoL.Secure("step", function()
 		local text, item
 		if step.kind == "target" then
-			text = Buttons.TargetMacro(step.list, step.cycle)
+			text = Buttons.TargetMacro(step.list, step.cycle, Buttons.MarkLine("mob"))
 		elseif step.kind == "npc" then
-			text = Buttons.TargetMacro({ step.value }, 1)
+			text = Buttons.TargetMacro({ step.value }, 1, Buttons.MarkLine("npc"))
 		elseif step.kind == "item" then
 			item = "item:" .. step.value
 		end
@@ -571,7 +625,9 @@ local function refresh()
 	applyItem(hearthButton, QoL.On("hearthButton") and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
 
 	local list = QoL.On("targetButton") and view and Buttons.TargetNames(view, raw) or {}
-	local sig = concat(list, "\n")
+	-- The mark settings are part of both signatures, so changing one re-applies.
+	local mark = QoL.On("markTarget") and (markSetting("mob") .. " " .. markSetting("npc") .. "\n") or ""
+	local sig = mark .. concat(list, "\n")
 	if sig ~= target.sig then
 		target.sig = sig
 		local copy = {}
@@ -583,7 +639,7 @@ local function refresh()
 
 	local kind, value = nil, nil
 	if view then kind, value = Buttons.StepAction(view, raw) end
-	local stepSig = kind == "target" and ("target\n" .. concat(value, "\n")) or (tostring(kind) .. "\n" .. tostring(value))
+	local stepSig = mark .. (kind == "target" and ("target\n" .. concat(value, "\n")) or (tostring(kind) .. "\n" .. tostring(value)))
 	if stepSig ~= step.sig then
 		step.sig, step.kind, step.cycle = stepSig, kind, 1
 		local copy = {}
@@ -623,10 +679,11 @@ local function create()
 	targetButton:HookScript("PostClick", function(self, _, down)
 		if down or self.dragging then return end
 		local n = #target.list
-		if n > 1 then
-			target.cycle = target.cycle % n + 1
-			applyTarget(targetButton)
-		end
+		if n > 1 then target.cycle = target.cycle % n + 1 end
+		local marked = nextMark("mob")
+		if n > 1 or marked then applyTarget(targetButton) end
+		-- The step key shares the icon cycle.
+		if marked then applyStep(stepButton) end
 	end)
 	-- The step key: a binding only, never shown.
 	stepButton = CreateFrame("Button", "PolestarStepButton", UIParent, "SecureActionButtonTemplate")
@@ -635,10 +692,11 @@ local function create()
 	stepButton:HookScript("PostClick", function(self, _, down)
 		if down then return end
 		local n = #step.list
-		if step.kind == "target" and n > 1 then
-			step.cycle = step.cycle % n + 1
-			applyStep(self)
-		end
+		local names = step.kind == "target" and n > 1
+		if names then step.cycle = step.cycle % n + 1 end
+		local marked = nextMark(STEP_MARK[step.kind])
+		if names or marked then applyStep(self) end
+		if marked then applyTarget(targetButton) end
 	end)
 	Buttons.item, Buttons.hearth, Buttons.target, Buttons.step = itemButton, hearthButton, targetButton, stepButton
 	set = { hearthButton, itemButton, targetButton }

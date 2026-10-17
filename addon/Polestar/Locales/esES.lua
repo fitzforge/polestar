@@ -695,6 +695,13 @@ L["XP tracker"] = "Rastreador de XP"
 L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."] = "XP por hora, tiempo, enemigos y misiones que faltan para subir de nivel, y tiempo por nivel (/pole xp)."
 L["Reset session"] = "Reiniciar sesión"
 L["Start this session's XP per hour from zero."] = "Reinicia el cálculo de XP por hora de esta sesión."
+-- L["Mark what they target"] = ""
+-- L["A new one each press"] = ""
+-- L["Icon on mobs"] = ""
+-- L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] = ""
+-- L["Icon on NPCs"] = ""
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = ""
+-- L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] = ""
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Solo Alianza"

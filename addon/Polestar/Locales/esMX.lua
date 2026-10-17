@@ -611,6 +611,13 @@ L["When the step asks you to buy something and the merchant sells it, buys what 
 L["Trainers"] = "Instructores"
 L["Learn new spells"] = "Aprender hechizos nuevos"
 L["Learns every spell a class trainer offers that you can afford, and prints the total. Profession trainers are left alone. Hold Shift to skip."] = "Aprende cada hechizo que ofrece un instructor de clase y que puedas pagar, y muestra el total. No toca a los instructores de profesiones. Mantén presionado Mayús para omitirlo."
+-- L["Mark what they target"] = ""
+-- L["A new one each press"] = ""
+-- L["Icon on mobs"] = ""
+-- L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] = ""
+-- L["Icon on NPCs"] = ""
+-- L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] = ""
+-- L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] = ""
 
 -- QoL/QoL.lua
 L["%dh %02dm"] = "%dh %02dm"

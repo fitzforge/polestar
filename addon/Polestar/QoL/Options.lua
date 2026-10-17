@@ -23,6 +23,17 @@ local function help(key, text)
 end
 
 local function repairOff() return not QoL.On("autoRepair") end
+local function markOff() return not QoL.On("markTarget") end
+
+-- The eight raid icons, by the client's names, then a new one each press.
+local function markChoices()
+	local list = {}
+	for i = 1, 8 do
+		list[i] = { value = tostring(i), label = "|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_" .. i .. ":0|t " .. (_G["RAID_TARGET_" .. i] or i) }
+	end
+	list[9] = { value = "cycle", label = L["A new one each press"] }
+	return list
+end
 
 register(QUESTING, L["Buttons"], L["Action buttons"], {
 	{ kind = "toggle", key = "qol.itemButton", label = L["Quest item button"],
@@ -31,6 +42,12 @@ register(QUESTING, L["Buttons"], L["Action buttons"], {
 		help = L["Targets the current step's mobs by name; each click moves to the next name. Bindable."] },
 	{ kind = "toggle", key = "qol.hearthButton", label = L["Hearthstone button"],
 		help = L["Shows your Hearthstone while the guide says to hearth. Bindable."] },
+	{ kind = "toggle", key = "qol.markTarget", label = L["Mark what they target"],
+		help = L["The target button and the step key put a raid icon on the mob and the NPC they target; out of combat, a press that finds neither clears your target. Your party sees the icons; in a raid only the leader and assistants can set them."] },
+	{ kind = "dropdown", key = "qol.markMob", label = L["Icon on mobs"], choices = markChoices, disabled = markOff,
+		help = L["A new one each press skips the NPCs' icon and leaves a mob that has one as it is."] },
+	{ kind = "dropdown", key = "qol.markNpc", label = L["Icon on NPCs"], choices = markChoices, disabled = markOff,
+		help = L["A new one each press, so the last few NPCs keep theirs. Every press counts, even one that marks nothing."] },
 	{ kind = "slider", key = "qol.buttonScale", label = L["Button size"], min = 0.6, max = 1.6, step = 0.05, format = function(v) return math.floor(v * 100 + 0.5) .. "%" end,
 		help = L["Scale of the quest item, Hearthstone and target buttons. Drag one to move them all."] },
 	{ kind = "button", label = L["Reset button positions"], help = L["Put the buttons back in their default spot."],
