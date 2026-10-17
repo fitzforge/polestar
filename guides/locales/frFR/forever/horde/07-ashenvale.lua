@@ -105,8 +105,8 @@ return {
 
 	-- Step 24: The Earthen Ring
 	["The Earthen Ring"] = "Le Cercle terrestre",
-	-- {area:1638} Thunder Bluff · {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem · {npc:259118} Muln Earthfury
-	["Take a lift down from {area:1638}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "Descendez de {area:1638} par un ascenseur. Le camp du Cercle terrestre se trouve au nord des pitons : {npc:264074}, {npc:264072} et {npc:259118}.",
+	-- {zone:1456} Thunder Bluff · {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem · {npc:259118} Muln Earthfury
+	["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "Descendez de {zone:1456} par un ascenseur. Le camp du Cercle terrestre se trouve au nord des pitons : {npc:264074}, {npc:264072} et {npc:259118}.",
 
 	-- Step 25: Gloomrise
 	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
@@ -121,18 +121,18 @@ return {
 	["{item:273658}, from {npc:264082}"] = "{item:273658}, sur {npc:264082}",
 
 	-- Step 26: The Earthen Ring
-	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo
-	["Back south to the camp, then up into {area:1638} for the flight to {area:378}."] = "Retournez au camp au sud, puis montez à {area:1638} pour le vol vers {area:378}.",
+	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
+	["Back south to the camp, then up into {zone:1456} for the flight to {area:378}."] = "Retournez au camp au sud, puis montez à {zone:1456} pour le vol vers {area:378}.",
 
 	-- Step 27: Brine
-	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {npc:5899} Brine · {area:1718} Great Lift
-	["Fly from {area:1638} to {area:378}. {npc:5899}'s hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the {area:1718}."] = "Prenez le vol de {area:1638} à {area:378}. La hutte de {npc:5899} se dresse sur la crête au-dessus du point d'eau des huttins, au sud du camp, sur la route de {area:1718}.",
+	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {npc:5899} Brine · {area:1718} Great Lift
+	["Fly from {zone:1456} to {area:378}. {npc:5899}'s hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the {area:1718}."] = "Prenez le vol de {zone:1456} à {area:378}. La hutte de {npc:5899} se dresse sur la crête au-dessus du point d'eau des huttins, au sud du camp, sur la route de {area:1718}.",
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["for {npc:5901}, south of {area:392}: next guide"] = "pour {npc:5901}, au sud de {area:392} : guide suivant",
 
 	-- Step 28: Great Lift
-	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {area:1718} Great Lift · {zone:1413} Barrens
-	["Fly from {area:1638} to {area:378} and take the road south to the {area:1718} at the bottom of the {zone:1413}."] = "Prenez le vol de {area:1638} à {area:378} et suivez la route vers le sud jusqu'à {area:1718}, tout au sud de {zone:1413}.",
+	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {area:1718} Great Lift · {zone:1413} Barrens
+	["Fly from {zone:1456} to {area:378} and take the road south to the {area:1718} at the bottom of the {zone:1413}."] = "Prenez le vol de {zone:1456} à {area:378} et suivez la route vers le sud jusqu'à {area:1718}, tout au sud de {zone:1413}.",
 	-- {npc:10079} Brave Moonhorn
 	["{npc:10079}, at the top of the lift"] = "{npc:10079}, en haut de l'ascenseur",
 
@@ -177,8 +177,8 @@ return {
 	-- Step 37: Whitereach Post
 	-- {area:2237} Whitereach Post
 	["Follow the canyon west to {area:2237}."] = "Suivez le canyon vers l'ouest jusqu'à {area:2237}.",
-	-- {npc:10428} Motega Firemane · {area:1638} Thunder Bluff
-	["{npc:10428}'s next quest, Sacred Fire, ends in {area:1638}, off this route. Skip it."] = "La quête suivante de {npc:10428}, Feu sacré, se termine à {area:1638}, hors de cet itinéraire. Passez-la.",
+	-- {npc:10428} Motega Firemane · {zone:1456} Thunder Bluff
+	["{npc:10428}'s next quest, Sacred Fire, ends in {zone:1456}, off this route. Skip it."] = "La quête suivante de {npc:10428}, Feu sacré, se termine à {zone:1456}, hors de cet itinéraire. Passez-la.",
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
 	["Kill the {npc:10720} that comes for {npc:10638}"] = "Tuez {npc:10720} qui s'en prend à {npc:10638}",
 

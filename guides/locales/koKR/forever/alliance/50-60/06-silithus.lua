@@ -13,6 +13,8 @@ return {
 	-- Step 1: Astranaar
 	-- {area:392} Ratchet · {area:415} Astranaar
 	["You start in {area:392}, where the previous guide hearthed you. Fly to {area:415}."] = "이전 가이드에서 귀환석으로 돌아온 {area:392}에서 시작합니다. {area:415}(으)로 날아가세요.",
+	-- {npc:6791} Innkeeper Wiley
+	["{npc:6791}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6791}: 이전 가이드가 귀환석으로 이곳에 데려오므로 보통 바로 완료됩니다",
 
 	-- Step 2: The Emerald Sanctuary
 	-- {area:2479} Emerald Sanctuary

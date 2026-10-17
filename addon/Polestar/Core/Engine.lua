@@ -233,9 +233,11 @@ end
 -- A turn-in, complete or objective goal for a quest the character neither
 -- has nor has done, and that this guide does not (for this character) accept
 -- at or before that step, in a step the player has not skipped, with an
--- accept that is not left out as grey nor checked off: it was picked up on
--- another route, or skipped, or ticked without being taken, so it cannot be
--- done here and no longer applies. Taking the quest brings the goals back.
+-- accept that is not optional, not left out as grey nor checked off: it was
+-- picked up on another route, or skipped, or ticked without being taken, so it
+-- cannot be done here and no longer applies. An `optional` accept the player
+-- did not take is the same: its turn-in holds only those who took the quest.
+-- Taking the quest brings the goals back.
 -- A `turnin ... direct` has no accept by definition: it is handed in from the
 -- giver's own window, so it is never orphaned.
 local function orphaned(goal)
@@ -249,7 +251,7 @@ local function orphaned(goal)
 	local skipped = ns.CharState().skipped[guide.id]
 	local manual = ns.CharState().manual[guide.id]
 	for _, a in ipairs(l.accepts[q] or NONE) do
-		if a.s <= s and not (skipped and skipped[a.s]) and not (manual and manual[a.key])
+		if a.s <= s and not a.goal.optional and not (skipped and skipped[a.s]) and not (manual and manual[a.key])
 			and Guides.Matches(a.step.only, player) and Guides.Matches(a.goal.only, player) and greyNeed(a.goal) ~= false then
 			return false
 		end
@@ -887,14 +889,14 @@ end
 
 -- map, x, y, f of the goal (the chosen candidate's when it has candidates,
 -- the chosen spawn area's when it has spots), then that area's radius in
--- yards, then the goal's height `z` (the compiler's, from the spawn of the
--- NPC or object it stands for) only while the position is the goal's own
--- point: a candidate or a spawn area elsewhere has none.
+-- yards, then the height `z` there (the compiler's, from the spawn of the
+-- NPC or object it stands for): the candidate's or spawn area's own, else the
+-- goal's while the position is the goal's own point.
 local function posOf(goal)
 	local c = chosen(goal)
-	if c then return c.map, c.x, c.y, c.f end
+	if c then return c.map, c.x, c.y, c.f, nil, c.z end
 	local s = goal.spots and Spots.get(goal)
-	if s then return goal.map, s.x, s.y, goal.f, s.r, s.x == goal.x and s.y == goal.y and goal.z or nil end
+	if s then return goal.map, s.x, s.y, goal.f, s.r, s.z or (s.x == goal.x and s.y == goal.y and goal.z) or nil end
 	return goal.map, goal.x, goal.y, goal.f, nil, goal.z
 end
 
@@ -1109,15 +1111,21 @@ goalDone = function(s, g, goal)
 		-- its own later goals is scanned here already (recursing would make a
 		-- step of n waypoints cost 2^n checks).
 		local goals = guide.steps[s].goals
+		local leads = true -- nothing but gotos after it: it leads into the next step
 		for j = g + 1, #goals do
 			local later = goals[j]
 			if later.t == "goto" then
 				if (arrived[later] or checked(s, j)) and goalApplies(later) then return true end
-			elseif later.t ~= "note" and goalApplies(later) and goalDone(s, j, later) then
-				return true
+			elseif later.t ~= "note" and goalApplies(later) then
+				if goalDone(s, j, later) then return true end
+				leads = false
 			end
 		end
-		return false
+		-- The way into the next step (a cave's mouth, a dock): done once that
+		-- step's quest work is, so work done ahead of the guide never sends the
+		-- player back to the way in (#240). A goto with optional work after it
+		-- is where that work is, and holds.
+		return leads and Own.nextStepDone(s) or false
 	elseif t == "train" and isProfessionTrain(goal) then
 		-- Done once the profession's max rank reaches this rank's cap, at
 		-- whichever trainer.
@@ -1217,6 +1225,32 @@ local QUEST_VERBS = { accept = true, turnin = true, complete = true }
 local function isQuestGoal(goal)
 	return goal.quest and (QUEST_VERBS[goal.t] or goal.t == "kill" or goal.t == "collect"
 		or goal.t == "interact" or goal.t == "use")
+end
+
+-- Whether the step after s that applies to the character is done with quest
+-- work done in it, as anchorStep counts it: a step passed only because its
+-- quests are unavailable (their goals are not done then), or with no quest
+-- goal (`train`, `level`, travel), is no sign the player went there; nor are
+-- class and race steps and goals (`only`), whose quests run on their own
+-- schedule (The Islander, taken by a Warrior anywhere, does not put him in
+-- Orgrimmar). A step the player skipped vouches for nothing. (On Own: the
+-- main chunk is at 200 locals.)
+function Own.nextStepDone(s)
+	local steps = guide.steps
+	local sk = skippedFor(guide.id)
+	for n = s + 1, #steps do
+		local step = steps[n]
+		if stepApplies(step) then
+			if step.only or (sk and sk[n]) then return false end
+			for g, goal in ipairs(step.goals) do
+				if not goal.only and blocks(goal) and isQuestGoal(goal) and goalApplies(goal) and goalDone(n, g, goal) then
+					return stepDone(n)
+				end
+			end
+			return false
+		end
+	end
+	return false
 end
 
 -- The last step with quest progress in the live quest log, or 0: a done quest
@@ -1494,8 +1528,8 @@ local function stepGroups(s)
 			local goal = goals[g]
 			if stillBlocks(s, g, goal) then pending = pending + 1 end
 			if not grp.map and goalApplies(goal) then
-				local map, x, y, f = posOf(goal)
-				if map and x and y then grp.map, grp.x, grp.y, grp.f = map, x, y, f end
+				local map, x, y, f, _, z = posOf(goal)
+				if map and x and y then grp.map, grp.x, grp.y, grp.f, grp.z = map, x, y, f, z end
 			end
 		end
 		grp.pending, grp.done = pending, pending == 0
@@ -1716,7 +1750,7 @@ local function goalView(s, g, goal, stepStatus, group)
 	local progress = (cur and max) and { cur = cur, max = max, label = label, kind = pkind or "count" } or nil
 	local verb, subject, kind, detail = describe(goal)
 	local npc, npcName = npcOf(goal)
-	local map, x, y, f = posOf(goal)
+	local map, x, y, f, _, z = posOf(goal)
 	local alternatives
 	if goal.candidates then
 		local n = #pickFor(goal).list
@@ -1747,7 +1781,7 @@ local function goalView(s, g, goal, stepStatus, group)
 		dismissed = Own.goalSkipped(s, g) or nil,
 		optional = goal.optional and true or false,
 		note = goal.note,
-		map = map, x = x, y = y, f = f,
+		map = map, x = x, y = y, f = f, z = z,
 		quest = goal.quest, oi = goal.oi, npc = npc, npcName = npcName, item = goal.item,
 		alternatives = alternatives,
 		spots = goal.spots and #goal.spots or nil, spread = goal.spread or nil,
@@ -3226,7 +3260,7 @@ function Engine.GetStepView(i)
 			npc = grp.kind == "npc" and grp.id or nil,
 			object = grp.kind == "object" and grp.id or nil,
 			name = grp.name,
-			map = grp.map, x = grp.x, y = grp.y, f = grp.f,
+			map = grp.map, x = grp.x, y = grp.y, f = grp.f, z = grp.z,
 			goals = grp.goals, done = grp.done, pending = grp.pending,
 		}
 	end

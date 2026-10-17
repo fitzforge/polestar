@@ -44,6 +44,10 @@ next forever/alliance/02-westfall
 #   he stands by the path out of the glen, about 380 yards out of the way
 #   there and 65 on the way down to Dolanaar. 0.014 h sooner to 10 and to
 #   20 under the simulator.
+# - Zenn's Bidding (488) is taken from Zenn Foulhoof on that walk, not on a
+#   walk back east once Dolanaar is done: the road down from Shadowglen
+#   passes him (Pynte's report, #89). 0.004 h sooner to 10 and to 60 under
+#   the simulator.
 # - Added: The Enchanted Glade (937), Darkness in the Glade (98392) and The
 #   Oracle Tree (98398) from Sentinel Arynia Cloudsbreak at the Oracle Glade
 #   moonwell: every harpy lives around it. The chain's last steps go to
@@ -147,7 +151,7 @@ step Back at Aldrassil
   accept 3120 only Druid                      -- Conservator Ilthalaine: Verdant Sigil
   accept 457                                  -- Conservator Ilthalaine
   accept 916                                  -- Gilshalan Windwalker, on the tree's ramp
-  accept 97979                                -- Shanda, inside the tree
+  accept 97979                                -- Shanda: in at the tree's front entrance and up the ramp
   note "The Goddess Provides: cast Elune's Light and Shadowmeld, then hand it back to Shanda"
   turnin 97979
   accept 4495                                 -- Dirania Silvershine, east of the tree
@@ -172,7 +176,7 @@ step Aldrassil
   turnin 3116 only Warrior                    -- Alyissia, the warrior trainer
   turnin 3117 only Hunter                     -- Ayanna Everstride, the hunter trainer
   turnin 3118 only Rogue                      -- Frahun Shadewhisper, the rogue trainer
-  turnin 3119 only Priest                     -- Shanda, the priest trainer, inside the tree
+  turnin 3119 only Priest                     -- Shanda, the priest trainer: in at the tree's front entrance and up the ramp
   turnin 3120 only Druid                      -- Mardant Strongoak, the druid trainer at Aldrassil
   train class
 
@@ -213,8 +217,11 @@ step Porthannius
 
 # ---------------------------------------------------------------- Dolanaar
 
+step Zenn Foulhoof
+  tip Follow the road south-west out of Shadowglen. Zenn sits beside it just east of Dolanaar.
+  accept 488
+
 step Dolanaar
-  tip Follow the road south-west out of Shadowglen to Dolanaar.
   turnin 96630                                -- Lyreena Duskblade, by the campfire
   accept 997                                  -- Syral Bladeleaf
   turnin 2159                                 -- Innkeeper Keldamyr
@@ -223,12 +230,8 @@ step Dolanaar
   accept 929
   train class
 
-step Zenn Foulhoof
-  tip Zenn sits by the road just east of Dolanaar, on the way to Starbreeze Village.
-  accept 488
-
 step Zenn's Bidding and the Starbreeze moonwell
-  tip Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of Starbreeze Village.
+  tip Nightsabers, Strigid Owls and Webwood Lurkers roam all around Dolanaar and along the road east. The moonwell is at the west edge of Starbreeze Village.
   collect 3409 quest 488.1                    -- Nightsaber Fang
   collect 3411 quest 488.2                    -- Strigid Owl Feather
   collect 3412 quest 488.3                    -- Webwood Spider Silk
@@ -281,6 +284,7 @@ step Lake Al'Ameth
   turnin 919
 
 step Dolanaar
+  tip Moon Priestess Amara patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her.
   turnin 4161                                 -- Zarrin
   turnin 476                                  -- Athridas Bearmantle
   accept 483
@@ -336,6 +340,7 @@ step Gnarlpine Hold
 # ---------------------------------------------------------------- Back to Dolanaar
 
 step Hearth to Dolanaar
+  tip Moon Priestess Amara patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her.
   hearth "Dolanaar"
   turnin 99053                                -- Sentinel Kyra Starsong
   turnin 933                                  -- Corithras Moonrage
@@ -460,7 +465,7 @@ step Rut'theran Village
   accept 6342
 
 step Boat to Auberdine
-  goto 54.8,97.2 "Boat to Auberdine"
+  goto 54.79,96.81 "Boat to Auberdine"
 
 step Moonglade
   only Druid
@@ -503,7 +508,7 @@ step Auberdine
   zone Darkshore
   tip Laird's fish stall is by the docks. Then take the boat to Stormwind.
   turnin 6342                                 -- Laird
-  goto 30.5,40.9 "Boat to Stormwind"
+  goto 30.76,40.92 "Boat to Stormwind"
   note From Stormwind Harbor, ride through the city gates into Elwynn Forest and follow the road west to Westfall.
 
 step Defensive Stance

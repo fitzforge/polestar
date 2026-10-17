@@ -91,8 +91,10 @@ return {
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "冒险：{npc:16042}",
-	-- {npc:16042} Lord Valthalak · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任务线计1点。这是60级地下城套装任务链：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）通过“寻找安泰恩”和“告别安泰恩”把你送到{area:254}的{npc:16033}处，他的“烈焰之王”、瓦塔拉克公爵的护符左瓣和右瓣、“最后的准备”和“{npc:16042}”，最终以{quest:8996}结束。之后{quest:8997}会引向各职业的最终套装升级任务。",
+	-- {npc:16042} Lord Valthalak · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任务线计1点。这是60级地下城套装任务链：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）通过“寻找安泰恩”和“告别安泰恩”把你送到{area:254}的{npc:16033}处，他的“烈焰之王”、瓦塔拉克饰品的左瓣和右瓣、“最后的准备”和{quest:8995}，最终以{quest:8996}结束。之后{quest:8997}会引向各职业的“最后的奖赏”任务。",
+	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
+	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073}，在黑石塔上层完成“瓦塔拉克公爵”之后（数据中没有刷新点：箭头指向{npc:16033}所在的{area:254}）",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
 	["{npc:16033} offers it once {quest:8996} is turned in"] = "交还{quest:8996}后，{npc:16033}会提供此任务",
 	-- {quest:8996} Return to Bodley
@@ -175,6 +177,7 @@ return {
 	["all 8 Barrow Deeps bosses"] = "古墓深渊的全部8个首领",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任务线计1点。这是60级地下城套装任务链：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）通过“寻找安泰恩”和“告别安泰恩”把你送到{area:254}的{npc:16033}处，他的“烈焰之王”、瓦塔拉克公爵的护符左瓣和右瓣、“最后的准备”和“{npc:16042}”，最终以{quest:8996}结束。之后{quest:8997}会引向各职业的最终套装升级任务。",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of {item:22048}, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任务线计1点。这是60级地下城套装任务链：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）通过“寻找安泰恩”和“告别安泰恩”把你送到{area:254}的{npc:16033}处，他的“烈焰之王”、{item:22048}的左瓣和右瓣、“最后的准备”和“{npc:16042}”，最终以{quest:8996}结束。之后{quest:8997}会引向各职业的最终套装升级任务。",
 	-- ["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717}：通常的最后一个击杀；{area:717}没有固定的最终首领",
 }

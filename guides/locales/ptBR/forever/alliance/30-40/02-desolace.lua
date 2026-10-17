@@ -11,10 +11,8 @@ return {
 	["From {zone:1455}'s {npc:1573}"] = "Com {npc:1573}, em {zone:1455}",
 
 	-- Step 2: Auberdine
-	-- {area:442} Auberdine · {npc:3649} Thundris Windweaver
-	["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "Pegue o barco para {area:442} nas docas do Porto de Menethil. {npc:3649} fica em {area:442}, ao norte do mestre de voo.",
-	-- {npc:3649} Thundris Windweaver · {item:279915} Nord'el
-	["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}: {item:279915}, de Sylessa, no Porto de Menethil",
+	-- {area:442} Auberdine
+	["Take the boat to {area:442} from Menethil's docks."] = "Pegue o barco para {area:442} nas docas do Porto de Menethil.",
 
 	-- Step 3: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {area:1276} Talondeep Path
@@ -88,5 +86,7 @@ return {
 	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "Os Kolkar vagam pelas planícies ao redor de {area:609}; as orelhas deles são para {npc:5752}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "Pegue o barco para {area:442} nas docas do Porto de Menethil. {npc:3649} fica em {area:442}, ao norte do mestre de voo.",
 	-- ["The {area:1276}"] = "{area:1276}",
+	-- ["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}: {item:279915}, de Sylessa, no Porto de Menethil",
 }

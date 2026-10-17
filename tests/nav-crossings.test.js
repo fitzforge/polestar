@@ -295,3 +295,117 @@ test('the local crossings route real trips through their gates, within the plann
 	assert.ok(out.routes[3].some((l) => /Loch Modan/.test(l)), `Dun Morogh -> Loch Modan crosses a tunnel: ${out.routes[3]}`);
 	assert.ok(out.ms < 20, `a plan with crossings took ${out.ms.toFixed(1)} ms`);
 });
+
+test('a start already past a crossing\'s near end walks on to its far end, never back', () => {
+	const [out] = run(`
+		local r = {}
+		local ROAD = { id = "road", a = { map = 9002, c = 0, wx = 600, wy = 300, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -300, r = 15 } }
+		crossings({ crossings = { ROAD } })
+		nav.place(-500, 500)                             -- West Vale, before the road
+		target(-500, -500, "Kobolds")
+		r.before = route()
+		nav.place(600, 100)                              -- on the road: 200 yd past its West Vale end, still in West Vale
+		target(-500, -500, "Kobolds")
+		r.on = route()
+		local legs = N.GetRoute()
+		r.firstTo = { legs[1].to.wx, legs[1].to.wy, legs[1].radius, legs[1].waypoint }
+		nav.place(300, 100)                              -- 300 yd off the road: not on it
+		target(-500, -500, "Kobolds")
+		local off = N.GetRoute()
+		r.offTo = { off[1].to.wx, off[1].to.wy }
+		emit(r)`);
+	assert.deepEqual(out.before, ['walk|Go to East Vale', 'walk|Go to East Vale', 'walk|Kobolds']);
+	assert.deepEqual(out.on, ['walk|Go to East Vale', 'walk|Kobolds'], 'straight on to the far end');
+	assert.deepEqual(out.firstTo, [600, -300, 15, true]);
+	assert.deepEqual(out.offTo, [600, 300], 'off the road the near end comes first, as before');
+});
+
+test('skipping a crossing\'s near end walks on; later plans near the crossing walk on too, farther off the near end comes first again', () => {
+	const [out] = run(`
+		local r, changes = {}, 0
+		local ROAD = { id = "road", a = { map = 9002, c = 0, wx = 600, wy = 300, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -300, r = 15 } }
+		crossings({ crossings = { ROAD } })
+		Polestar.On("ROUTE_CHANGED", function() changes = changes + 1 end)
+		nav.place(-500, 500)
+		target(-500, -500, "Kobolds")
+		stub.advance(0.2)
+		local c0 = changes
+		N.travel.SkipLeg()
+		stub.advance(1.2)
+		r.replanned = changes - c0
+		r.skip = route()
+		local function first()
+			local legs = N.GetRoute()
+			return { legs[1].to.wx, legs[1].to.wy }
+		end
+		nav.place(450, 200)                              -- off the road, but nearer its far end than its ends are apart
+		stub.fire("ZONE_CHANGED")
+		r.near = first()
+		nav.place(300, 500)                              -- elsewhere in West Vale, farther from the far end than that
+		stub.fire("ZONE_CHANGED")
+		r.far = first()
+		nav.place(450, 200)
+		target(-400, -500, "Elsewhere")                  -- another target: the near end counts again
+		r.other = first()
+		emit(r)`);
+	assert.equal(out.replanned, 0, 'skipping the near end moves on without planning back to it');
+	assert.deepEqual(out.skip, ['walk|Go to East Vale', 'walk|Kobolds']);
+	assert.deepEqual(out.near, [600, -300], 'near the crossing the skipped end stays skipped');
+	assert.deepEqual(out.far, [600, 300], 'far from it the skip never walks straight over the zone border');
+	assert.deepEqual(out.other, [600, 300]);
+});
+
+// #237: on the Gold Road north out of the Barrens the real crossing's two ends
+// (Nav/TravelData.lua, carbonite-ashenvale--the-barrens) are about 510 yd
+// apart. Past the Barrens end, a plan made again before the client says
+// Ashenvale (a subzone change, or 50 yd walked once the plan is 30 s old) must
+// keep heading north, not send the player back to the Barrens end.
+test('the Barrens to Ashenvale road: plans made between the crossing\'s ends keep heading north (#237)', () => {
+	const [out] = runAddon({
+		stubs: ['stub_nav.lua'],
+		addons: [NAV],
+		login: true,
+		script: `
+			local N, nav = Polestar.Nav, stub.nav
+			nav.faction = "Horde"
+			nav.maps[1413] = { name = "The Barrens", c = 1, top = 1612.5, bottom = -5143.75, left = 2622.917, right = -7510.417 }
+			nav.maps[1440] = { name = "Ashenvale", c = 1, top = 4672.917, bottom = 829.167, left = 1700, right = -4066.667 }
+			-- The client calls everything here the Barrens until the player is through.
+			function nav.Compat.GetPlayerMapPosition()
+				local p, b = nav.player, nav.maps[1413]
+				return 1413, (p.wy - b.left) / (b.right - b.left) * 100, (p.wx - b.top) / (b.bottom - b.top) * 100
+			end
+			local function first()
+				local legs, ci = N.GetRoute()
+				local l = legs and legs[ci or 1]
+				return l and { l.to.wx, l.to.wy } or nil
+			end
+			local r, back = {}, {}
+			nav.place(500, -2290, 1)                         -- the Gold Road, south of the crossing
+			N.SetTarget(1440, 68.60, 89.10, "Kadrak")       -- the report's waypoint
+			local legs = N.GetRoute()
+			local near, far = legs[1].to, legs[2].to
+			r.ends = { legs[1].waypoint, legs[2].waypoint, math.floor(math.sqrt((far.wx - near.wx) ^ 2 + (far.wy - near.wy) ^ 2)) }
+			-- Walk north up the road at running speed from the Barrens end, still in the Barrens.
+			nav.place(near.wx - 5, near.wy, 1)
+			stub.advance(0.2)
+			stub.advance(1.2)
+			for wx = near.wx, near.wx + 280, 7 do
+				nav.place(wx, -2290, 1)
+				stub.advance(1)
+				local f = first()
+				if f and f[1] == near.wx and f[2] == near.wy then back[#back + 1] = math.floor(wx) end
+			end
+			r.back = table.concat(back, ",")
+			-- The report's spot: a subzone change there plans again.
+			nav.place(1042, -2292, 1)
+			stub.fire("ZONE_CHANGED")
+			r.zone = first()
+			r.far = { far.wx, far.wy }
+			emit(r)`,
+	}).emitted;
+	assert.deepEqual(out.ends.slice(0, 2), [true, true], 'the route goes through the crossing');
+	assert.ok(out.ends[2] > 400, `the crossing's ends are far apart (${out.ends[2]} yd)`);
+	assert.equal(out.back, '', 'walking north, no plan sends the player back to the Barrens end (the wx where one did)');
+	assert.deepEqual(out.zone, out.far, 'a subzone change between the ends keeps heading for the Ashenvale end');
+});

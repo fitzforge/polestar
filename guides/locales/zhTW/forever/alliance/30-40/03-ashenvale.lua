@@ -48,8 +48,8 @@ return {
 	["The {object:19901} stands in the satyr camp of {area:430}, further east along the road."] = "{object:19901}在道路更東邊的{area:430}薩特營地裡。",
 
 	-- Step 11: Forest Song
-	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind · {npc:221269} Maseara Autumnmoon
-	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} and {npc:221269} stand there."] = "{area:2358}是道路東端的夜精靈前哨：{npc:3848}和{npc:221269}站在那裡。",
+	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind
+	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358}是道路東端的夜精靈前哨：{npc:3848}站在那裡。",
 
 	-- Step 12: Bottle of Disease
 	-- {area:2358} Forest Song
@@ -64,52 +64,49 @@ return {
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交給{area:415}的{npc:3961}",
 
-	-- Step 16: Xavian satyrs
-	-- {area:429} Xavian
-	["{area:429} satyrs"] = "{area:429}的薩特",
-	-- {area:429} Xavian
-	["Back west along the road to the satyr camps of {area:429}."] = "沿著道路向西回到{area:429}的薩特營地。",
-
-	-- Step 17: Insane druids
+	-- Step 16: Insane druids
 	["Insane druids"] = "發狂的德魯伊",
 	-- {area:2358} Forest Song
 	["The three druids stand together at the Forsaken camp south of {area:2358}."] = "三名德魯伊一起站在{area:2358}南邊的被遺忘者營地。",
 
-	-- Step 19: Night Run
+	-- Step 18: Night Run
 	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
 	["The second {object:19901} lies in the valley of {area:428}, on the way west."] = "第二個{object:19901}在{area:428}的山谷裡，在往西的路上。",
 
-	-- Step 21: Hidden Shrine
+	-- Step 20: Hidden Shrine
 	["The shrine sits on the hill just south-east of the moonwell; follow the winding path up."] = "神龕在月井東南方的山丘上；沿著蜿蜒的小路往上走。",
 
-	-- Step 24: Krolg
+	-- Step 23: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake
 	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "未受腐化的熊怪{npc:3897}坐在{area:421}下方的道路南邊。",
 
-	-- Step 25: Ran Bloodtooth
+	-- Step 24: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
 	["{npc:3696} and his guards camp just east of {npc:3897}."] = "{npc:3696}和他的守衛在{npc:3897}東邊紮營。",
 
-	-- Step 30: Auberdine
+	-- Step 29: Auberdine
 	-- {area:150} Menethil Harbor · {area:442} Auberdine
 	["Take the boat to {area:150} from {area:442}'s docks."] = "從{area:442}的碼頭搭船前往{area:150}。",
 
-	-- Step 31: Glorin Steelbrow
+	-- Step 30: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
 	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217}站在米奈希爾城堡的上層。",
 
-	-- Step 32: Waterlogged Chest
+	-- Step 31: Waterlogged Chest
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "沉船殘骸在城堡南邊的淺水處。",
 
-	-- Step 33: Lightforge Ingots
+	-- Step 32: Lightforge Ingots
 	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
 	["Lightforge Ingots"] = "光鑄鐵錠",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "米奈希爾西南方海灘上的藍腮魚人帶著鐵錠。",
 
-	-- Step 35: Deepwater Tavern
+	-- Step 34: Deepwater Tavern
 	-- {npc:5082} Vincent Hyal · {npc:4963} Mikhail · {npc:4962} Tapoke "Slim" Jahn · {npc:1480} Caitlin Grassman
 	["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}、{npc:4963}和{npc:4962}·賈恩都在米奈希爾的旅店；你和{npc:4963}說話時塔伯克會攻擊你，但被打敗後就會投降。{npc:1480}站在旅店東北方不遠處。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back west along the road to the satyr camps of {area:429}."] = "沿著道路向西回到{area:429}的薩特營地。",
 	-- ["Geltharis"] = "加薩里斯",
+	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} and {npc:221269} stand there."] = "{area:2358}是道路東端的夜精靈前哨：{npc:3848}和{npc:221269}站在那裡。",
+	-- ["{area:429} satyrs"] = "{area:429}的薩特",
 }

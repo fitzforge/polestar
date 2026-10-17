@@ -304,7 +304,7 @@ test('abstract graph: slope links cost their yards, no lift ride, so the graph p
 
 const NAV = path.join(__dirname, '..', 'data', 'local', 'nav');
 const navIndex = fs.existsSync(path.join(NAV, 'index.json')) ? JSON.parse(fs.readFileSync(path.join(NAV, 'index.json'), 'utf8')) : null;
-const realSkip = !navIndex ? 'no navigation build in data/local/nav (node tools/polestar.js nav build)' : navIndex.version !== require('../tools/lib/nav/grid/format').VERSION ? `data/local/nav is tile version ${navIndex.version}: rebuild it (node tools/polestar.js nav build)` : false;
+const realSkip = !navIndex ? 'no navigation build in data/local/nav (node tools/polestar.js nav build)' : !require('../tools/lib/nav/grid/format').TILE_VERSIONS.includes(navIndex.version) ? `data/local/nav is tile version ${navIndex.version}: rebuild it (node tools/polestar.js nav build)` : false;
 
 test('real: Kharanos to inside Frostmane Hold goes through the cave mouth, not over the hills', { skip: realSkip }, () => {
 	const nav = openNav({ dir: NAV });

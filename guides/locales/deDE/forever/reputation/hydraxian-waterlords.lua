@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Poisoned Water
 	-- {item:17310} Aspect of Neptulon · {zone:1423} Eastern Plaguelands · {item:17309} Discordant Bracers
-	["Use the {item:17310} on the poisoned water elementals of {zone:1423}, then loot their {item:17309} (12). Our data has no spawn points for those elementals."] = "Benutze {item:17310} an den vergifteten Wasserelementaren in den {zone:1423} und plündere dann ihre {item:17309} (12). Unsere Daten haben keine Fundorte für diese Elementare.",
+	["Use the {item:17310} on the poisoned water elementals of {zone:1423}, then loot their {item:17309} (12)."] = "Benutze {item:17310} an den vergifteten Wasserelementaren in den {zone:1423} und plündere dann ihre {item:17309} (12).",
 
 	-- Step 4: Back to Duke Hydraxis
 	-- {npc:13278} Duke Hydraxis
@@ -54,4 +54,7 @@ return {
 	["{faction:749} to Exalted"] = "{faction:749} bis Ehrfürchtig",
 	-- {area:2717} Molten Core
 	["Keep clearing the {area:2717} until Exalted."] = "Säubere weiter den {area:2717}, bis du ehrfürchtig bist.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Use the {item:17310} on the poisoned water elementals of {zone:1423}, then loot their {item:17309} (12). Our data has no spawn points for those elementals."] = "Benutze {item:17310} an den vergifteten Wasserelementaren in den {zone:1423} und plündere dann ihre {item:17309} (12). Unsere Daten haben keine Fundorte für diese Elementare.",
 }

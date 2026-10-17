@@ -169,14 +169,16 @@ return {
 	-- {area:280} Strahnbrad
 	-- plural, as words: Argus Shadow Mages = {npc:2318} Argus Shadow Mage
 	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins."] = "Фолианты лежат в разрушенной крепости к западу от места {area:280}; руины удерживают темные маги Недремлющего Аргуса.",
+	-- {item:3658} Recovered Tome
+	["{item:3658}: Crushridge ogres"] = "{item:3658}: огры из клана Раздробленного Хребта",
+	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase
+	["{item:3659}: the {object:1760}"] = "{item:3659}: {object:1760}",
 
 	-- Step 44: Dalaran
 	-- {area:279} Dalaran · {zone:1421} Silverpine Forest · {npc:269127} Image of Archmage Modera
 	["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {zone:1421}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "На юго-запад к лагерю Кирин-Тора на берегу озера к западу от места {area:279}, сразу за границей зоны {zone:1421}: там стоит {npc:269127}. Верховный маг Ансарем стоит к юго-востоку от него, у купола.",
 	-- {npc:2542} Catelyn the Blade · {area:35} Booty Bay
 	["For {npc:2542} in {area:35}: keep it"] = "Для NPC {npc:2542} ({area:35}): сохраните",
-	-- {npc:252085} Archmage Celindra
-	["{npc:252085}, in the City of Dalaran"] = "{npc:252085}, в городе Даларан",
 
 	-- Step 45: Southshore
 	-- {item:2321} Fine Thread · {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance
@@ -194,4 +196,5 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Follow the road north to the draenei of the {area:657}."] = "Идите по дороге на север к дренеям ({area:657}).",
 	-- ["Summon Succubus"] = "Призыв суккуба",
+	-- ["{npc:252085}, in the City of Dalaran"] = "{npc:252085}, в городе Даларан",
 }

@@ -28,6 +28,10 @@ return {
 	["Cast {spell:18960}; {npc:11802} is in {area:2361}. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}."] = "Примените {spell:18960}; {npc:11802} – {area:2361}. Безделушки из святилища ({item:15877}) лежат на дне: {area:656} – и исчезают за несколько минут: плывите с одной прямо к месту {area:2362} на северо-западном берегу, используйте ее там и поговорите с NPC {npc:11799}.",
 	-- {quest:6127} The Principal Source · {area:384} Dreadmist Peak
 	["{quest:6127}: {area:384}, next guide"] = "{quest:6127}: {area:384}, следующий гайд",
+	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
+	["{item:15877}, from a {object:177785} in the lake"] = "{item:15877} – из объекта {object:177785} в озере",
+	-- {area:2362} Shrine of Remulos
+	["At the {area:2362}"] = "Здесь: {area:2362}",
 	-- {npc:11799} Tajarri · {area:2362} Shrine of Remulos
 	["{npc:11799}, at the {area:2362}"] = "{npc:11799}, {area:2362}",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven · {zone:1454} Orgrimmar
@@ -78,10 +82,11 @@ return {
 	-- {npc:1978} Deathstalker Erland · {npc:1950} Rane Yorick
 	["{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way."] = "{npc:1978} ждет к северо-востоку от дома. Проводите его к NPC {npc:1950}; по пути нападают ворги.",
 
-	-- Step 16: Worgs and murlocs
-	["Worgs and murlocs"] = "Ворги и мурлоки",
-	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg · Vile Fin Shredders = {npc:1767} Vile Fin Shredder
-	["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Крапчатые ворги ({npc:1766}) рыщут по холмам вокруг дома. Затем идите на юг вдоль берега озера: живорезы ({npc:1767}) и волноловы из племени Злобного Плавника роняют глаза мурлоков.",
+	-- Step 16: Mottled Worgs
+	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
+	["Mottled Worgs"] = "Крапчатые ворги",
+	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
+	["Mottled Worgs prowl the hills around the house."] = "Крапчатые ворги рыщут по холмам вокруг дома.",
 
 	-- Step 17: Hearth to the Sepulcher
 	-- {area:228} Sepulcher
@@ -91,11 +96,16 @@ return {
 	-- {object:1593} Corpse Laden Boat · {area:228} Sepulcher
 	["The {object:1593} lies at the ferry landing on the lake shore east of the {area:228}."] = "{object:1593} лежит у паромной пристани на берегу озера к востоку от места {area:228}.",
 
-	-- Step 20: The Ivar Patch
-	-- {quest:425} Ivar the Foul
-	["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "Снова на север к дому Йориков. {quest:425} прячется недалеко к западу от него.",
+	-- Step 20: Quinn Yorick
+	["North again to the Yoricks' house."] = "Снова на север к дому Йориков.",
 
-	-- Step 21: Fenris Isle
+	-- Step 21: Vile Fin murlocs
+	["Vile Fin murlocs"] = "Мурлоки из племени Злобного Плавника",
+	-- {area:172} Fenris Isle
+	-- plural, as words: Vile Fin Shredders = {npc:1767} Vile Fin Shredder
+	["Follow the lake shore south-east toward {area:172}: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "Идите вдоль берега озера на юго-восток ({area:172}): живорезы и волноловы из племени Злобного Плавника на берегу роняют глаза мурлоков.",
+
+	-- Step 22: Fenris Isle
 	-- {area:172} Fenris Isle · {area:235} Fenris Keep
 	["Follow the lake shore south-east and swim out to {area:172}. Rot Hide gnolls cover the island; every type drops ichor. Stay out of {area:235} on its north side unless you go for the optional niche: the gnolls there are level 18-22."] = "Идите вдоль берега озера на юго-восток и плывите: {area:172}. Остров заполнен гноллами из стаи Гнилошкуров; ихор падает со всех. Не заходите в {area:235} на северной стороне, если не идете за дополнительной нишей: гноллы там 18-22 уровня.",
 	-- {item:3317} A Talking Head
@@ -105,36 +115,24 @@ return {
 	-- {object:112888} Dusty Shelf
 	["{object:112888}, inside the keep"] = "{object:112888}, внутри крепости",
 
-	-- Step 22: Sepulcher
+	-- Step 23: Sepulcher
 	-- {area:228} Sepulcher
 	["Swim back and follow the road west to the {area:228}."] = "Плывите обратно и идите по дороге на запад: {area:228}.",
+	-- {npc:1937} Apothecary Renferrel
+	["{npc:1937}: for Quinn, on the road north at the end"] = "{npc:1937}: для Квинна, на дороге на север в конце",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril
 	["{npc:2121}: {quest:516}, on the south loop"] = "{npc:2121}: {quest:516}, на южном круге",
-	-- {npc:1938} Dalar Dawnweaver · {quest:98298} Arugal's Folly
-	["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: возьмите, если предложит; может идти после его серии {quest:98298}, которую маршрут не проходит",
 
-	-- Step 23: Ambermill
+	-- Step 24: Ambermill
 	-- {area:233} Ambermill · {npc:2120} Archmage Ataeric
 	["South-east down the road to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Wizards and Watchers patrol the roads around it. Stay out of the middle, where {npc:2120} stands."] = "На юго-восток по дороге: {area:233}. Заступники охраняют окраины, маги – город; с обоих падают подвески. Волшебники и дозорные патрулируют дороги вокруг. Держитесь подальше от центра, где стоит {npc:2120}.",
 
-	-- Step 24: Moonrage Bloodhowlers
-	-- plural, as words: Moonrage Bloodhowlers = {npc:1924} Moonrage Bloodhowler
-	["Moonrage Bloodhowlers"] = "Кровавые ревуны Лунной Ярости ({npc:1924})",
-	-- {npc:1938} Dalar Dawnweaver · {quest:98298} Arugal's Folly · {area:233} Ambermill · {item:280375} Worgen Bits
-	["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "Только если {npc:1938} дал вам {quest:98298}: кровавые ревуны рыщут в лесу к юго-западу от места {area:233}, к востоку от Деревни Погребальных Костров; с них падает {item:280375}.",
-
-	-- Step 25: The refugees
-	["The refugees"] = "Беженцы",
-	-- {area:230} Greymane Wall
-	-- plural, as words: Haggard Refugees = {npc:2053} Haggard Refugee
-	["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "Больные и изможденные беженцы ({npc:2053}) бредут по дороге к югу от Деревни Погребальных Костров в сторону места {area:230}.",
-
-	-- Step 26: Beren's Peril
+	-- Step 25: Beren's Peril
 	-- {quest:516} Beren's Peril
 	-- plural, as words: Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
-	["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "К северо-востоку от беженцев чернорабочие ({npc:1974}) и стражи Когтя Ворона бродят по руинам ({quest:516}) на юго-востоке леса.",
+	["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "К юго-западу от Янтарной мельницы, в руинах {quest:516} на юго-востоке леса, бродят чернорабочие и стражи Когтя Ворона.",
 
-	-- Step 28: Lordamere Lake shore
+	-- Step 27: Lordamere Lake shore
 	-- {area:1338} Lordamere Lake
 	["{area:1338} shore"] = "Берег: {area:1338}",
 	-- {area:237} Decrepit Ferry · {area:228} Sepulcher
@@ -143,9 +141,13 @@ return {
 	-- {npc:1909} Vile Fin Lakestalker · {area:1338} Lordamere Lake · {zone:1421} Silverpine Forest
 	["grind on {npc:1909} at {area:1338}, {zone:1421}"] = "бейте NPC {npc:1909} – {area:1338}, {zone:1421}",
 
-	-- Step 29: Apothecary Renferrel
+	-- Step 28: Apothecary Renferrel
 	-- {npc:2216} Apothecary Lydon · {area:272} Tarren Mill
 	["Keep it: {npc:2216} in {area:272}, a later guide"] = "Сохраните: {npc:2216} – {area:272}, в одном из следующих гайдов",
+
+	-- Step 29: The Ivar Patch
+	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
+	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Идите по дороге на север ({zone:1420}): дом Йориков ({area:238}) по пути. {quest:425} прячется недалеко к западу от него.",
 
 	-- Step 30: Brill
 	-- {zone:1420} Tirisfal Glades · {area:159} Brill · {npc:246152} Shari Stilwell
@@ -189,8 +191,17 @@ return {
 	["Speak with {npc:10540}, in Grommash Hold"] = "Поговорите с NPC {npc:10540} в Крепости Громмаш",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Moonrage Bloodhowlers"] = "Кровавые ревуны Лунной Ярости ({npc:1924})",
+	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Крапчатые ворги ({npc:1766}) рыщут по холмам вокруг дома. Затем идите на юг вдоль берега озера: живорезы ({npc:1767}) и волноловы из племени Злобного Плавника роняют глаза мурлоков.",
+	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "Снова на север к дому Йориков. {quest:425} прячется недалеко к западу от него.",
 	-- ["North of the {area:228}. Nightlash haunts the {area:240}: kill it, then walk across the field."] = "К северу от места {area:228}. Плеть ночи бродит здесь: {area:240}. Убейте ее, затем пройдите через поле.",
+	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "К северо-востоку от беженцев чернорабочие ({npc:1974}) и стражи Когтя Ворона бродят по руинам ({quest:516}) на юго-востоке леса.",
+	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "Только если {npc:1938} дал вам {quest:98298}: кровавые ревуны рыщут в лесу к юго-западу от места {area:233}, к востоку от Деревни Погребальных Костров; с них падает {item:280375}.",
+	-- ["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "Больные и изможденные беженцы ({npc:2053}) бредут по дороге к югу от Деревни Погребальных Костров в сторону места {area:230}.",
+	-- ["The refugees"] = "Беженцы",
 	-- ["The {area:228}"] = "{area:228}",
 	-- ["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for {quest:30}."] = "{object:177790} лежит на побережье к западу от места {area:240}. В нем {item:15882} для задания {quest:30}.",
+	-- ["Worgs and murlocs"] = "Ворги и мурлоки",
 	-- ["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228} – городок Отрекшихся у склепа посреди леса. Все нужные NPC стоят у входа в склеп; {npc:2226}, укротитель летучих мышей, – чуть к востоку.",
+	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: возьмите, если предложит; может идти после его серии {quest:98298}, которую маршрут не проходит",
 }

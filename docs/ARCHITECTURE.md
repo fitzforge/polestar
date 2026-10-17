@@ -30,7 +30,7 @@ one into the other. The addons:
 | `Polestar_Names_<locale>` (`addon/Polestar_Names_deDE/` … `zhTW/`) | Quest, NPC, object and item names in one client language, for `Polestar.Names`; loaded on demand, only the client's own, never in English | `i18n names`, from DingDB (pinned) and pfQuest | yes (generated) | yes |
 | `Polestar_QuestDB` (`addon/Polestar_QuestDB/`) | The quest database behind quest markers and tooltips; loaded on demand | `questdb build` | no (local, gitignored) | yes, when built |
 | `Polestar_Codex` (`addon/Polestar_Codex/`) | Lookup's Codex, and the Dungeons and Rares data; loaded on demand | `codex build`, from release-safe inputs (`--local-extras` builds a local-only one) | no (generated, gitignored) | yes, always: `pack` fails without it |
-| `Polestar_Nav` (`addon/Polestar_Nav/`) | Shortest Path Forever's walking router and his map of Zephras Isle (Cillian Berragan, GPL-3.0-or-later) with Polestar's walking maps of Eastern Kingdoms and Kalimdor in his format and the walk's chokepoints, for the arrow's walking routes; loaded on demand at login, never while the target is handed to an installed Shortest Path Forever (Nav, "In-game walking routes (Polestar_Nav)", "Hand-off to Shortest Path Forever") | `nav vendor <checkout>` (his files, `UPSTREAM.json`), `nav pack` (ours, `PACK.json`, from the navigation grid) | yes | yes, always |
+| `Polestar_Nav` (`addon/Polestar_Nav/`) | Polestar's walking router (started from Shortest Path Forever v1.16.0 by Cillian Berragan, GPL-3.0-or-later; Polestar's since 2026-10-16) with Polestar's walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle (maps format 2, grown from his format) and the walk's chokepoints, for the arrow's walking routes; loaded on demand at login, never while an installed Shortest Path Forever guides (the target handed to it, or a journey of its own running; Nav, "In-game walking routes (Polestar_Nav)", "Hand-off to Shortest Path Forever") | the router hand-written (`Routing/`); `nav pack` (the maps, `PACK.json`, from the navigation grid and the ground layers) | yes | yes, always |
 | `Polestar_Travel` (`addon/Polestar_Travel/`) | Zone crossings for the travel planner, from an optional local crossings file; loaded with Polestar | `travel build` | no (local, gitignored) | no, never packaged (Nav, "Travel planner and zone crossings") |
 | `Polestar_Recorder` (`addon/Polestar_Recorder/`) | The optional standalone recorder of play sessions, for authoring | hand-written | yes | yes, as its own zip |
 
@@ -81,8 +81,9 @@ Only these globals may be assigned anywhere under `addon/` (enforced by
 `SLASH_POLESTAR<n>`, `SLASH_POLESTARREC<n>`, `SLASH_POLESTARWAY<n>` (`/way`,
 claimed only while no addon has it), `BINDING_HEADER_POLESTAR`,
 `BINDING_NAME_POLESTAR_*`, in `Polestar_Nav` only `Polestar_NavEngine`
-(the engine's handoff) and `PolestarPathData` (the walking maps), and in
-`Nav/Journey.lua` only `TomTom` (its stand-in, set while TomTom is not
+(the engine's handoff), `PolestarPathData` (the walking maps) and, in
+`Routing/Costs.lua` only, `Polestar_NavCosts` (the router's ground-class
+costs), and in `Nav/Journey.lua` only `TomTom` (its stand-in, set while TomTom is not
 installed and cleared when it stands down; "Nav API").
 
 Everything else is `local` or lives on the `Polestar` table. Named frames must
@@ -173,7 +174,7 @@ keeps yards for whoever reads it.
 `packs[<id>].off` hides a pack's guides account-wide (the Guide packs page's
 switch). `welcomeSeen` (UI/Welcome.lua) is the version of the welcome last
 seen: in `PolestarDB`, the account has had its welcome (later characters skip
-its Set up page); in `PolestarCharDB`, this character has (0 while due).
+its Set up and Route style pages); in `PolestarCharDB`, this character has (0 while due).
 `behavior.suggestFrom` (default `"guides"`) is the pack suggestions come from.
 Modules keep their own keys beside these (`rares`, `instances`, `names` account-wide;
 `ui`, `routes`, `classTrainLevel`, `classTrainVisit`, `qol`, `flightTimes`,
@@ -224,7 +225,9 @@ instance or on a map without a position it prints why instead.
 ```lua
 Polestar.SafeCall(fn, ...)    -- runs fn; an error is noted, then handed to the error handler
 Polestar.NoteError(err)       -- notes an error Polestar caught (SafeCall, Hooks' callbacks)
-Polestar.Errors() -> { { msg, count }, ... }   -- this session's, oldest first, the last 5 kept
+Polestar.Errors() -> { { msg, count, seq }, ... }   -- this session's, oldest first, the last 5 kept
+Polestar.NoteBlocked(addon, fn)   -- notes a protected call the game blocked from Polestar or Polestar_*
+Polestar.Blocked() -> { { addon, fn, count, at, seq }, ... }   -- this session's, oldest first, the last 5 kept
 Polestar.DiscordURL           -- the Polestar Discord's invite
 ```
 
@@ -233,7 +236,12 @@ runs through `SafeCall`, and Hooks' callbacks through their own `pcall`, so
 the errors Polestar catches are noted by their first line, counted, for the
 report a player copies (UI, "Reporting a problem"). Polestar never replaces
 the game's error handler: wrapping it would shift the stack the game and
-!BugGrabber show for every error.
+!BugGrabber show for every error. Taint is no Lua error: `ADDON_ACTION_BLOCKED`
+and `ADDON_ACTION_FORBIDDEN` (the addon blamed, then the function) go to
+`NoteBlocked`, which keeps those blaming Polestar or a `Polestar_*` addon
+with the addon, how often and the time it last came (`%H:%M:%S`), so a
+report on a broken gamepad or button does not read "Errors: none". `seq`,
+one counter for both lists, says which came last.
 
 ### Frames under the game's UI
 
@@ -577,8 +585,8 @@ gamepad and key binding API (`C_GamePad`, `C_InputInterfaceStyle`,
 `C_KeyBindings`, `SetBinding`, `GetBindingKey`, `SetOverrideBindingClick`,
 `IsKeyDown`; `UI/Gamepad.lua`). Frame and system calls (`GetTime`, `GetServerTime`, `C_Timer`,
 `InCombatLockdown`, the cursor, CVars, addon loading, the build and locale)
-are not routed either. `Polestar_Nav` is a separate addon whose vendored
-engine stays as upstream wrote it, so it calls the client directly:
+are not routed either. `Polestar_Nav` is a separate addon whose router
+(started from Shortest Path Forever's) has no Compat, so it calls the client directly:
 `C_EncodingUtil.DecodeBase64` and `C_EncodingUtil.DecompressString` with
 `Enum.CompressionMethod.Zlib` (decoding a map cluster, `Routing/PathGrid.lua`),
 `debugprofilestop` (the frame budget), `C_Timer.After`, `InCombatLockdown`
@@ -602,6 +610,8 @@ Compat.Readable(v)              -> v | nil (a secret value reads as unknown)
 Compat.Now()                    -> seconds since the epoch, server clock
 Compat.GetPlayerInfo()          -> { name, realm, guid, level, xp, xpMax, race, class, faction }
                                    -- race = raceFile ("Human","Scourge",...), class = classFile ("WARRIOR"), faction = "Alliance"|"Horde"|"Neutral"
+Compat.GetPlayerFaction()       -> "Alliance" | "Horde" | nil  (UnitFactionGroup; nil when neutral, unread or secret;
+                                   -- the walking router's profile, Nav/Walk.lua)
 Compat.GetPlayerMapPosition()   -> uiMapID, x, y | nil      (nil in instances / unknown)
 Compat.GetPlayerWorldPosition() -> continentID, wx, wy | nil  (via MapToWorld of the above)
 Compat.GetPlayerUnitPosition()  -> wx, wy, z | nil, instanceID | nil  (UnitPosition; the one place it is read; nil while secret;
@@ -633,11 +643,11 @@ Compat.SpellLink(spellID)              -> link | nil
 Compat.RequestSpell(spellID)           -> bool   (cached; else requested: SPELL_DATA_LOAD_RESULT follows)
 Compat.GetBindLocation()               -> string | nil
 Compat.IsOnTaxi()                      -> bool
-Compat.IsIndoors()                     -> bool   (IsIndoors: in a cave, mine or building)
 Compat.GetCurrentTaxiNode()            -> name of the open taxi map's node | nil
 Compat.GetNpcID(unit)                  -> number | nil   (from UnitGUID)
 Compat.InCombat()                      -> bool
 Compat.IsInInstance()                  -> bool
+Compat.IsIndoors()                     -> bool | nil (the client's indoor state; nil without IsIndoors or when secret)
 Compat.IsShiftKeyDown()                -> bool
 Compat.AddOnPresent(name)              -> bool   (installed and enabled: loaded, or loadable after Polestar)
 Compat.Supports(feature)               -> bool   ("skill" | "spell" | "faction" | "explore" | "achievement")
@@ -767,10 +777,14 @@ places follow with `alt = true`; a hand-placed point is the first spot, the
 data's places its alternatives (GUIDE_FORMAT, "Spawn areas"). `x`/`y` stay the
 default point. `z` (optional, 0.2.4) is the height of the NPC or object the
 goal's `x`/`y` stands for (the compiler's, from `spawnz.json`: GUIDE_FORMAT,
-"Heights"); the Engine puts it on the waypoint while the waypoint is that
-point (`posOf`: not a smart target's candidate, not a spot elsewhere), and the
-walk to it is searched with it ("Walking paths" under Nav). Packs stay format
-2: an older Polestar ignores it.
+"Heights"); a spot and a smart target's candidate may carry their own `z`
+(0.2.5, #180), by the same rule from their own point. The Engine puts the
+height of the place it leads to on the waypoint (`posOf`: the chosen
+candidate's `z`, else the chosen spot's, else the goal's while the waypoint is
+the goal's own point), and on the step view's goals and groups, so a click on
+a goal's row, header or map pin and the training reminder's and Nearby's class
+trainer (`Nav.SetTarget`'s `z`) keep it; the walk to it is searched with it
+("Walking paths" under Nav). Packs stay format 2: an older Polestar ignores it.
 
 Group content (format 2; GUIDE_FORMAT, "Group content"): `group = { kind =
 "elite", rank = 1|2|3 }`, `{ kind = "dungeon"|"raid", name = "Dire Maul" }` or
@@ -804,7 +818,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `complete` | `quest`, `title` | — | ready for turn-in or completed |
 | `kill` | `target` | `npc`, `count`, `quest`, `oi` | objective `oi` finished, or quest ready/completed (not while the log lists no objectives yet, right after the accept); without `quest`: manual |
 | `collect` | `item`, `itemName` | `count`, `quest`, `oi` | objective finished / quest ready (as `kill`) / completed; without `quest`: item count ≥ `count` |
-| `goto` | `map`, `x`, `y` | `text`, `r` (default 8 yd), `area` (its name in the client's language shows instead of `text`) | within radius, **or** gone into its `area` (subzone text equals the client's name of it, not the zone's, while indoors, after being seen elsewhere since the step came up; not for a goto after one into the same area in the step), **or** any later goal in the step is done |
+| `goto` | `map`, `x`, `y` | `text`, `r` (default 8 yd), `area` (its name in the client's language shows instead of `text`) | within radius, **or** gone into its `area` (subzone text equals the client's name of it, not the zone's, while indoors, after being seen elsewhere since the step came up; not for a goto after one into the same area in the step), **or** any later goal in the step is done, **or**, when only gotos, notes and goals that do not apply follow it in the step, the next step that applies is done with a quest goal of it done (`Own.nextStepDone`, counted as anchorStep counts: not a skipped step or one with `only`, not a goal with `only`; a cave's mouth or a dock ahead of work done ahead of the guide, #240) |
 | `talk` | `npc`, `npcName` | — | gossip/quest frame opened with that NPC during this step; else manual |
 | `interact` | `object`, `objName` | `quest`, `oi` | objective state if `quest`; else manual |
 | `use` | `item`, `itemName` | `quest`, `oi` | objective state if `quest`; else manual |
@@ -922,7 +936,7 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
 
 #### Smart logic
 
-- **Candidate goals.** A compiled goal may carry `candidates = { { npc, npcName, map, x, y, f, faction = "A"|"H"|"AH", races?, classes? }, ... }`
+- **Candidate goals.** A compiled goal may carry `candidates = { { npc, npcName, map, x, y, z?, f, faction = "A"|"H"|"AH", races?, classes? }, ... }`
   (from `train <Profession>`, `train class`, `buy … nearest`, `vendor nearest`, `sethome nearest`; see GUIDE_FORMAT).
   The Engine filters by the character's faction (and races/classes when given),
   then picks the cheapest by `Polestar.Nav.EstimateTravel(from, to)` seconds when
@@ -1480,8 +1494,9 @@ colour change repaints live without a reload.
 ## Nav
 
 ```lua
-Polestar.Nav.SetTarget(map, x, y, label, f, stop)   -- user picked a goal; overrides the engine waypoint until the step changes;
-                                                     -- stop: what stands there ("dungeon", "trainer", ...), for the hand-off below
+Polestar.Nav.SetTarget(map, x, y, label, f, stop, z)   -- user picked a goal; overrides the engine waypoint until the step changes;
+                                                        -- stop: what stands there ("dungeon", "trainer", ...), for the hand-off below;
+                                                        -- z: the height of the NPC or object there, optional (the walk ends on its floor)
 Polestar.Nav.ClearTarget()
 Polestar.Nav.GetTarget() -> waypoint | nil
 Polestar.Nav.GetDistance() -> yards | nil      -- to an area target's edge, 0 inside it
@@ -1626,15 +1641,35 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
 [Shortest Path Forever](https://github.com/cjber/shortest-path-forever)
 installed (its global `ShortestPathForever.API`, `version` 1, with `Cancel`
 and `NavigateRoute` or `Navigate`; every other function checked before it is
-called, as its `minor` grows) and `nav.spfHandoff` on (the default; Options,
-Integrations, Shortest Path Forever: "Guide with Shortest Path Forever when it's
-installed", shown only with it installed), Polestar's target is guided by it
-and Polestar's own guidance steps aside, so the two never guide at once.
+called, as its `minor` grows) the two never guide at once:
+
+- **Hand-off** (`nav.spfHandoff` on; an option, off by default since 0.2.5:
+  Options, Integrations, Shortest Path Forever: "Hand guiding to Shortest
+  Path Forever", shown only with it installed): Polestar's target is guided
+  by it and Polestar's own guidance steps aside.
+- **Yield** (the option off, the default): Polestar guides, and steps aside
+  exactly as it does when handing off while Shortest Path Forever runs a
+  journey that is not Polestar's (`Active()` true and no
+  `CurrentStop("Polestar")`: one the player started there, or another
+  addon's). It looks on `Subscribe`'s news (else on Nav's once-a-second
+  tick), at `PLAYER_ENTERING_WORLD` and when the option is turned off; never
+  in combat (the news waits for `PLAYER_REGEN_ENABLED`). When that journey
+  ends Polestar guides again (`Nav.Reapply()`, the TomTom stand-in with it).
+  `Nav.SayHandedOff()` then says "Shortest Path Forever is guiding a journey
+  of its own. Polestar's arrow comes back when it ends."
+  A journey of Polestar's left running in it from 0.2.4 (which handed off by
+  default) is cancelled once with the option off, at the first
+  `PLAYER_ENTERING_WORLD` (in combat, when combat ends; until then Polestar
+  steps aside as if yielding, since that journey may still guide).
+  `Subscribe` is called at `PLAYER_ENTERING_WORLD` and when the option
+  changes, never in combat (then once combat ends); turning the option off in
+  combat cancels Polestar's journey there once combat ends.
 
 ```lua
-Polestar.Nav.HandedOff() -> bool   -- the one predicate: installed, on, and the last stop not refused
+Polestar.Nav.HandedOff() -> bool   -- the one predicate: handing off (installed, on, the last stop not refused, and it guides that stop), or yielding
 Polestar.Nav.Reapply()             -- (Nav.lua) re-plan and tell every module the same target again, unannounced
 Polestar.Nav.handoff.Available() -> bool
+Polestar.Nav.handoff.Yielding() -> bool  -- the option off and a journey not Polestar's runs in it
 ```
 
 - **What steps aside.** While `Nav.HandedOff()`: the arrow hides
@@ -1683,8 +1718,19 @@ Polestar.Nav.handoff.Available() -> bool
   itself (`Nav.HandedOff()` false) and cancels its earlier journey; the next
   target, or a zone change, offers a stop again, and the first one taken hands
   back.
+- **No way there.** A stop it took that it then guides nothing to (its
+  `CurrentStop("Polestar")` set but `Active()` false: its search found no
+  way, `StopGuide` in its `Journey.lua`, the tracker saying "No way there
+  from here."; or its guidance turned off in its tracker): Polestar guides
+  that target itself (`Nav.HandedOff()` false), leaving its journey in place
+  and sending nothing. It is read on `Subscribe`'s news (else Nav's tick) and
+  at death and coming back; it is never set while dead or a ghost (its corpse
+  run). Polestar goes on guiding after that journey ends, and steps aside as
+  soon as it guides anything again (that journey, the player's own, another
+  addon's, its corpse run); the next stop taken hands back.
 - **Off.** Turning `nav.spfHandoff` off cancels the journey and Polestar
-  guides again (`Polestar_Nav` loads then); on again sends the stop anew.
+  guides again (`Polestar_Nav` loads then), unless a journey not Polestar's
+  runs (yield, above); on again sends the stop anew.
 - **Options and commands.** `Nav.HandoffOption(control)` wraps every option
   that has no effect while handing off: its `disabled` also answers
   `Nav.HandedOff()` and its help ends "Greyed out while Shortest Path Forever
@@ -1694,7 +1740,8 @@ Polestar.Nav.handoff.Available() -> bool
   addons' waypoints, the Blizzard and TomTom mirrors and TomTom's arrow).
   Distances, boat-time sharing, map pins, following TomTom and the nearby
   menu still act and stay. `Nav.SayHandedOff()` prints one line ("Shortest
-  Path Forever is guiding. Turn off ...") instead of `/polestar arrow show`
+  Path Forever is guiding. Turn off "Hand guiding to Shortest Path Forever"
+  ...", or the yield's line above) instead of `/polestar arrow show`
   (or the bare toggle turning it on), `/polestar route` and
   `/polestar skipleg`. Polestar's arrival chime is silent meanwhile.
 
@@ -1899,10 +1946,13 @@ Polestar.Nav.travel.SkipLeg() -> bool              -- leave this hearth/teleport
 Polestar.Nav.travel.SkipReplans(leg) -> bool      -- skipping it replans (the prompts' "Skip this leg"), else "Mark this leg done"
 Polestar.Nav.travel.RestoreWalk(c, x, y) -> bool  -- the path to (c, x, y) failed or was cleared: the walk's straight estimate again
 Polestar.Nav.travel.Remeasured() -> bool          -- Walk.Measure landed: plan again, take it only if it goes another way
-Polestar.Nav.travel.PricePaths() -> bool          -- a later walk's path landed (Walk.LegPath): its legs take its measure
+Polestar.Nav.travel.PricePaths() -> bool          -- a later walk's path landed (Walk.LegPath): its legs take its yards and hubs
+Polestar.Nav.travel.WalkCostHook(fn)              -- fn(walk, cost) -> cost: a planner rule scaling walk costs, never times
+Polestar.Nav.travel.HubText(leg) -> text | nil     -- "Hostile town: <names>" for a walk with leg.hubs
+Polestar.Nav.travel.TakeWarning() -> text | nil    -- the current walk's hostile towns, once per walk (the arrow says it)
 Polestar.Nav.walk.Measure(c, x, y, water, places) -- one reversed Path.FindMany from the target to the plan's places
-Polestar.Nav.walk.Measured(c, x, y, water) -> walkCost | nil -- the planner's p.walkCost for that target
-Polestar.Nav.walk.LegPath(from, to) -> yards | nil -- a later walk's searched path
+Polestar.Nav.walk.Measured(c, x, y, water) -> walkCost | nil -- the planner's p.walkCost for that target: walkCost(c, wx, wy, start) -> cost, yards
+Polestar.Nav.walk.LegPath(from, to) -> yards, hubs | nil -- a later walk's searched path: Find's job.yards and job.hubs
 Polestar.Nav.travel.Progress() -> seconds, yards   -- the current leg's rest (allocation-free, always finite; rides count down)
 Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ... }, current, choke }, ... } } | nil
 -- leg = { kind = "walk"|"fly"|"boat"|"zeppelin"|"tram"|"portal"|"hearth"|"teleport"|"lift", from, to, label,
@@ -1912,7 +1962,8 @@ Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ...
 --         stops (fly: every taxi node hopped), transport, side (the ride or portal and the end boarded),
 --         lift, side (a lift ride: Transit's lift id, "top"|"bottom" boarded),
 --         item (hearth: 6948), spell (teleport), parent, seg, tail (pieces of a split walk),
---         engine ("cost": a walk into the target priced by the engine's measure; "path": by its own path) }
+--         engine ("cost": a walk into the target priced by the engine's measure; "path": by its own path),
+--         hubs = { { id, name, areaId }, ... } (a walk whose engine path enters the other faction's towns) }
 ```
 
 The planner is Dijkstra over the player, the target, known flight masters,
@@ -1931,6 +1982,13 @@ wait, never stops planning. `Transit.Teleports(now)` lists the castable teleport
 planned like the Hearthstone from the start. While a ride waits, the leg's
 caption gains `Transit.Caption` ("Next boat in 1:20"), refreshed every
 second; a crossing at a lift (`Transit.LiftNear`) the same.
+A transport end is its ship's stop; where the ship lies in the water off
+its pier, the end carries a board point on the deck (TravelData's `board`,
+below), and the dock vertex is there: the walk to the boat ends on the
+deck, with its height, and the boarding (60 yd), leaving (90 yd) and
+arrival (120 yd) checks measure from it. The ride, its caption and its
+timetable stay the transport's (`Nav.GetTravelData()` ends keep the stop,
+`end.board` the deck).
 `NAV_TRANSIT(changed, own)` plans again at once for the player's own rides
 and teleport changes (`own`, or `changed` nil); a shared time from another
 player only when a leg from the current one on uses a changed service
@@ -1977,8 +2035,52 @@ none). It goes to `Path.Find` as `to.z`, so the path ends on that floor; a
 search with it that fails, or whose path's last engine point before the goal
 lies more than 30 yd above or below it, is asked once more without it, and
 that answer stands for the goal (later searches for it, after straying, go
-without it too). Walks to a leg's end other than the target go without a
-height (docs/NAV_QA.md Z1-Z3).
+without it too). A walk to a leg's end with a height of its own (a dock's
+board point) carries that one the same way; walks to other leg ends go
+without a height (docs/NAV_QA.md Z1-Z3). A later walk from a board point
+(off the boat) starts at the deck's height (`from.z`; asked once more with
+neither height when that fails), and the measure into the target gives each
+dock place its deck height (`FindMany`'s per-target `z`).
+**The player's floor (#234, Ruling 36).** Forever's `UnitPosition` gives no
+height (Compat reads its 0 as none), and `Path.Find` from a point without one
+starts from the cheapest surface within a cell of it: a roof, rock top,
+bridge or upper floor above the player (at the Den's camp in the Valley of
+Trials, the rock top over the Den, whence Fastest crossed the hill to
+Hana'zua). So `Walk.lua` follows the height of the surface under the player:
+`Walk.Aim` checks at most every 0.25 s and reads the cell's surfaces
+(`Path.SurfacesAt`, into one reused table) only after moving 1 yd. Unknown,
+it seeds where the cell's surfaces lie within 10 yd (the router's `ZTOL`:
+the lowest), or, when `Compat.IsIndoors()` answers and the surfaces differ
+in indoor-ness (class indoor or indoor city against the rest), on those that
+match it when they lie within 10 yd (off the Undercity's lifts: the city
+under Tirisfal's outdoor ground); it never overrides a followed floor with
+the indoor state. Known, it follows the surface nearest it, never more than
+4 yd above (a ramp or stairs at mount speed, plus a jump); any drop is a
+fall; none is unknown. It is unknown again on another continent, after more
+than 30 yd from where it was last read (a hearth, teleport, landing, loading
+screen), after moving with no check for 2 s, on a taxi or a transport
+(`Transit.Riding`), within 8 yd of a lift (`Transit.LiftNear`: it changes
+level without moving), on a ghost state change, and on a read that raises.
+The read never decodes: a cell whose cluster is not decoded reads nil and
+queues `Path.Prefetch`, which decodes it under the router's frame budget as a
+search's clusters are (not in combat); meanwhile the floor is kept, checked
+but not read, and followed from there once the cluster is in. The arrow's
+search starts from the client's height when it gives one, else from the
+floor when known, checked within 2 s and read within 5 yd of the player
+(`from.z`); a search with it that finds nothing is asked once more without it,
+keeping the goal's height (one that ends off the goal's floor drops the
+goal's height, Z2, keeping the start), and that answer stands. The player's
+place in `Walk.Measure` takes the same height. Unknown, every search is as
+before; when the floor then becomes known within 5 s of a search sent
+without a start height (an arrival: login, hearth, a landing; ambiguous
+ground walked off), it is asked once more from the floor (Ruling 36b), once
+per such search and never in combat. The router keeps the one cluster the
+floor reads decoded, through `Idle` too: the one the player stands in (a read
+of another decoded cluster takes the slot at once; a `Path.Prefetch` that
+lands after the player walked back keeps out of it). `Path.ReleaseSurfaces()`
+cancels a pending prefetch and drops it: the target cleared or no `Walk.Aim`
+for 2 s (`Walk:Refresh`), never a style change, a level-up or a hand-made
+walk, which only clear the walk.
 Hand-made walks win: a walk leg from a crossing or chain waypoint, to a
 chain node past its mouth, or from inside a chain (`leg.handmade`), and a
 guide goal whose last located goal before it, across steps, is a `goto`
@@ -1993,6 +2095,52 @@ in, else player (or leg start) to leg end; a later walk as its own searched
 path once in (below), else straight; a flight as its hop nodes; a ride or
 portal as its two ends; a hearth or teleport as from and to.
 
+**Route style.** `nav.routeStyle` (Guide > Arrow & routes > Routes, "Route
+style"; `"fastest"`, `"balanced"` (the default) or `"roads"`) goes as
+`opts.style` with every search Walk.lua makes: the arrow's own walk, the
+planner's measure (`FindMany`) and every later walk. It is sent as saved;
+the router (`Costs.Style`) reads anything else (an older build's value, a
+typo, nil) as Balanced. A change (`Walk:OnSettings`, which notes the style
+at the first settings pass) drops every walk priced in the old style: the
+arrow's path (`Walk.Clear`, straight until the new one is in), the
+measure in flight and the kept measures, the later walk in flight and the
+kept later paths; then `Travel.Replan` plans at once, its plan measures the
+walks into the target again and the arrow and the later walks are searched
+again, all in the new style. No line drawn in the old style stays.
+
+**Zone danger.** Every search Walk.lua makes also goes with `opts.danger`,
+`Nav.danger.Table(level, startZone, goalZone)` (`Nav/Danger.lua`): every zone
+with a level range (`Maps.EachZoneLevels`) whose lowest level is at least the
+player's + 4 (x3) or more than + 10 (x20, the other faction's towns' strength), `Nav.danger.Mult`; a zone without a
+range (a city, an unknown one) never counts, and nil when none does. The
+idea and its 4-level threshold come from Ding! (Yendi, `ding-travel`
+2bccf01). The zones a walk starts and ends in are left out (`Path.ZoneAt` at
+its two ends: the player and the arrow's goal, a later walk's from and to),
+so a quest inside a dangerous zone is still walked to; the planner's measure
+(`FindMany`, one opts for all its places) leaves out the target's zone only,
+so a place inside a dangerous zone is priced through it. A table is built
+once per level and zone pair (the router keys its caches by its signature).
+The level is `Nav.danger.Level()`: `Compat.GetPlayerInfo().level`, or
+`PLAYER_LEVEL_UP`'s when higher (the client's can lag the event; Danger.lua's
+own handler keeps it, registered before Walk.lua's). A level-up drops every
+walk priced at the old level and re-plans at once, as a style change does.
+
+The journey planner's straight estimates take the same rule
+(`Nav.danger.Along(danger, map, x1, y1, x2, y2)`, `p.walkDanger`): a straight
+walk's cost (never its time) is multiplied by the mean, over the middle of
+each 100 yd piece of the line, of `danger[Path.ZoneAt(...)]` (1 elsewhere),
+the zones of its two ends never counting; the table is the plan's level's
+without the player's and the target's zones (`Travel.Replan` and
+`Nav.EstimateTravel` alike; the latter's 5 s cache is keyed by the level
+too). A walk half through a far-above zone costs x10.5, half through a
+dangerous one x2. The zones read are kept per chunk (16 to a tile) for the
+session's `Path.ZoneAt`, so later plans between the same places ask the
+router nothing. With `nav.navRouting` off or the guiding handed to Shortest
+Path Forever (`Nav.HandedOff()`), the next plan's estimates are today's at
+once, even though the loaded engine stays; likewise without `Path.ZoneAt` (no
+maps), its zone field or a dangerous zone. A measured walk (`p.walkCost`)
+already carries the router's pricing.
+
 **Walks priced by the engine.** A straight line x1.25 cannot tell a walk
 round a ridge from one over it, so the planner would land at a flight master
 whose straight walk crosses a mountain. On a continent the engine covers
@@ -2004,9 +2152,11 @@ target's height, `Nav.GetTargetWorld`'s fourth value, so a walk into an
 Undercity quarter is measured to its floor; a batch with it that finds
 nothing is asked once more without it) to the nearest 16 of them within
 3000 yd, reversed (`reverse = true`), so each cost is that place's walk to
-the target in running yards (after Shortest Path Forever's goal batch,
-`Journey/JourneySearch.lua`, v1.16.0). The next plans take `p.walkCost`
-(`Walk.Measured`) and price those walks by it, at run speed, with no detour;
+the target (after Shortest Path Forever's goal batch,
+`Journey/JourneySearch.lua`, v1.16.0), with its yards beside it
+(`job.yards[i]`). The next plans take `p.walkCost` (`Walk.Measured`: cost,
+yards) and order those walks by the cost and time them by the yards, at run
+speed, with no detour;
 their legs carry `engine = "cost"` (a target inside an approach chain is
 reached by the chain's straight link and keeps its straight price). Rules: a
 place the engine finds no walk from (`false`: Thunder Bluff's flight
@@ -2016,7 +2166,7 @@ estimate; a place farther or beyond the nearest 16 keeps it too; the
 player's measure holds within 50 yd of where it was taken. Farther, the
 player's walk counts as missing from the measure, so the next plan (at most
 once per replan) measures it again; meanwhile it is that measure less the
-yards moved, never less than the straight distance (x1.0), so a walk never
+yards moved (its cost scaled alike), never less than the straight distance (x1.0), so a walk never
 gets dearer for coming closer. A walk from a crossing end stays hand-made
 (drawn straight, never searched); only its price is the engine's. Measures
 are fixed per target (the last 4 targets are kept), so plans never
@@ -2045,7 +2195,7 @@ goes straight from the mouth) is searched once with `Path.Find`, one at a
 time, the last walk to the target's height (once more without it, as Z2),
 kept by its ends and water mode (the last 32; a failure is kept too and
 stays straight). When it lands the route lines draw that leg along it and
-`Travel.PricePaths` gives it the path's yards and run-speed seconds
+`Travel.PricePaths` gives it the path's yards (`Find`'s `job.yards`), run-speed seconds and hostile towns (`leg.hubs`)
 (`engine = "path"`), so the journey panel's times follow the ground; the
 boats, zeppelins and trams after it are timed again by their timetables from
 the new arrival (the current leg counts whole). A fresh plan through the
@@ -2158,6 +2308,21 @@ with `RegisterCrossings` at load, which merges; installed when built, never
 packaged). Without the file nothing is written and TravelData.lua never holds
 it.
 
+**Board points.** A boat's stop (its TaxiPathNode stop) is where the ship
+lies, 12-14 yd off its pier in open water at most docks. `travel build`
+reads the navigation grid (`--grid <dir>`, default `data/local/nav4`;
+`--grid none` or no grid: no board points, one warning) and gives every end
+whose point is not on dry walkable ground (a grid column with a surface
+that is not swum, not blocked and above the water there) a board point
+`{ wx, wy, z }` (`tools/lib/travel/transports.js` `boardPoint`): the
+nearest such surface within 30 yd, in a region of at least `SNAP_REGION`
+surfaces and open both ways (path.js's snap rules: not a piling or a pocket
+under a floor), at equal distance the larger region (the one the town is
+in), then the lower surface; an end with none warns. travel.json carries it
+as the end's `board`, TravelData.lua as the end's tenth field (after its
+AreaTable area). Zeppelin and tram ends stand on their platforms and get
+none.
+
 The crossings file (schema 1, Era map percent):
 
 ```json
@@ -2227,7 +2392,8 @@ up to 12 open-ground points around it are not walkable and 75% of the routes
 from them share their last 40 yd or more, through a cave (indoor under
 terrain), a building, a lift, a climb or a narrow way, that stretch becomes
 an approach chain (targets on one chain's way join it). It writes
-`data/local/nav/aids.json` (`source` and `build`, the grid's client build,
+`aids.json` in the grid's folder (`data/local/nav/aids.json` by default,
+`--out` another file; `source` and `build`, the grid's client build,
 on top) and with `--report` `aids-report.{json,md}`: every consecutive pair
 of located goals in the guides planned by `tools/lib/nav/arrow.js` (many
 PlanRoute calls in one Lua process) without and with the aids, and how many
@@ -2343,29 +2509,90 @@ still timetabled and the rest is skipped with a warning.
 
 The arrow's walks follow real paths thanks to Shortest Path Forever by
 Cillian Berragan (https://github.com/cjber/shortest-path-forever,
-GPL-3.0-or-later, used with his permission). `addon/Polestar_Nav` is his
-router, vendored, running on Polestar's own walking maps of Eastern Kingdoms
-and Kalimdor (packed from our navigation grid in his map format, `nav pack`)
-and his map of Zephras Isle; Polestar's travel planner (above) keeps choosing
-flights, rides and the Hearthstone, and the walking is his engine's: the
+GPL-3.0-or-later, used with his permission). Polestar's walking router
+started from Shortest Path Forever v1.16.0 by Cillian Berragan, with thanks;
+Polestar maintains it since 2026-10-16. `addon/Polestar_Nav` holds that
+router, running on Polestar's own walking maps of Eastern Kingdoms,
+Kalimdor and Zephras Isle (packed from our navigation grid in maps format 2,
+grown from his map format, `nav pack`); Polestar's travel planner (above) keeps choosing
+flights, rides and the Hearthstone, and the walking is the router's: the
 arrow's walk, every later walk's path, and the measure of the walks into the
 target the planner prices (`Path.Find` and one reversed `Path.FindMany` per
-target, "Walks priced by the engine" above).
+target, "Walks priced by the engine" above). On a map of format 2 (a ground
+class byte per node: road, gentle or steep slope, indoor, indoor city, and the
+Alliance and Horde hub bits) a grid step costs its length times
+`Costs.Mult(class, profile, style)` (`Routing/Costs.lua`), times the swim
+factor in water. The route style (`Costs.Style`: `"fastest"`, `"balanced"`
+or `"roads"`; nil or any other value is Balanced) picks the multipliers by
+base class, and a hub hostile to the profile multiplies its ground x20 in
+every style:
+
+| style | normal | road | gentle | steep | indoor | indoor city | smallest |
+|---|---|---|---|---|---|---|---|
+| Fastest | 1.0 | 1.0 | 1.0 | 1.2 | 2.0 | 1.0 | 1.0 |
+| Balanced (default) | 1.0 | 0.8 | 1.3 | 2.5 | 2.0 | 1.0 | 0.8 |
+| Roads | 1.0 | 0.5 | 1.6 | 4.0 | 2.0 | 1.0 | 0.5 |
+
+Fastest walks the shortest way (steep ground at 1.2 breaks near ties);
+Balanced takes a road up to 1.25 times the straight way; Roads up to 2
+times, and climbs less. Each graph edge carries one cost per profile
+(`costAlliance`, `costHorde`, `costNone`), baked by the packer at Balanced's
+numbers (`Costs.MULT`, `Costs.HUB`, mirrored in `tools/lib/nav/costs.js`),
+and its yards (the record layout is at `PathGrid.lua`'s `adjacent`): the
+walking maps are the same for every style. The style prices every grid step
+(the searches inside a cluster, the connections of the ends to the graph,
+the refinement of each crossed cluster) and the straightening; the graph
+edges keep Balanced's costs in every style, so which tiles a very long walk
+crosses follows Balanced, and the style shapes the walk inside them. The A*
+heuristics scale by the smallest multiplier they may meet: a search on the
+grid alone by the style's, one that crosses graph edges (and
+`Path.LowerBound(map, from, to, style)`) by the smaller of the style's and
+`Costs.MIN` (0.8), so they stay admissible; Balanced searches exactly as
+before styles. The drawn line straightens the found path
+(`PathGrid.lua`'s `smooth`) only over ground no costlier for the profile in
+the style than the path stretch it replaces, and into a hostile hub only
+where that stretch already entered one, so it never cuts a road's bend or a
+hostile hub's rim. A map of format 1 (0.2.4's, no class field) is class 0
+everywhere, has one edge cost for every profile and keeps the 1.0
+heuristic, so it routes and straightens exactly as before classes, for any
+profile and style.
+
+**Zone danger.** Each map tile of the walking maps carries the zone of its
+16 x 16 chunks (the metadata's `zone` field, `nav pack`: the grid's chunk
+area up its AreaTable parents to a zone of `zones.json`, as its uiMapID; the
+layout in `pack.js`'s HEADER). A search's `opts.danger`, a table
+`{ [uiMapID] = multiplier }` its caller builds, multiplies a grid step into a
+node by its chunk's zone's multiplier, on top of its class, profile and
+style; a graph edge costs its baked cost times the larger of its two ends'
+multipliers; straightening compares the same products, so the drawn line
+never cuts back into a zone the path went round. No zone is closed: when the
+only way crosses one, the walk takes it at that price. Multipliers are at
+least 1, so the heuristics and `Path.LowerBound` stay admissible; entries of
+1 or less are dropped. The searches' cache tags carry the table's signature
+(`uiMap=mult` by uiMapID), so two tables never share a cached connection or
+path, and `Path.ReuseMany` reuses a batch only for the same signature.
+Without `danger` (nil, `{}`, or on a map without the field) every search is
+byte-identical to before (tested against the router before it, from git).
+`Path.ZoneAt(map, x, y)` reads a point's zone from the same field (nil
+outside it), without decoding any cluster. The field is 29 KB of `Nav0.lua`
+(675 tiles), 40 KB of `Nav1.lua` (928) and 3 KB of `Nav2991.lua` (72); the
+packer needs no map frame for it, so Forever's own zones (Riverglades, Mount
+Hyjal, Shen'dralas, Zephras Isle) are there too; loaded, about 0.1 MB.
 
 ```
 Polestar_Nav.toc        LoadOnDemand, Dependencies: Polestar
   Nav\Nav.xml           the walking maps -> PolestarPathData[map], then the chokepoints
-    Nav0*.lua, Nav1*.lua  ours: `nav pack` from the grid (128 cells a tile, 4.17 yd), listed in PACK.json
-    Nav2991*.lua          his (Zephras Isle), listed in UPSTREAM.json
+    Nav0*.lua, Nav1*.lua, Nav2991*.lua  ours: `nav pack` from the grid (128 cells a tile, 4.17 yd), listed in PACK.json
     Chokepoints.lua       ours: PolestarNavChokepoints[map] for the walk's named steps
-  Routing\PathGrid.lua  his: decoded clusters, memory ceilings, frame slicing, string-pulling
-  Routing\Path.lua      his: HPA* between clusters, the 8 yd grid inside them, FindMany's Dijkstra
-  Routing\PathJobs.lua  his: the coroutine queue sharing Path.budget (2 ms) a frame
+  Routing\Costs.lua     ours: Polestar_NavCosts, the ground classes' multipliers and the faction profiles
+  Routing\PathGrid.lua  ours from his: decoded clusters and ground classes, memory ceilings, frame slicing, string-pulling
+  Routing\Path.lua      ours from his: HPA* between clusters, the grid inside them priced by class, FindMany's Dijkstra
+  Routing\PathJobs.lua  ours from his: the coroutine queue sharing Path.budget (2 ms) a frame
   API.lua               Polestar_NavEngine = the Path table, plus Available(map); the memory ceilings
 ```
 
-**Memory.** Loaded, the packed maps are about 26 MB of Lua strings (his own
-three maps were about 12 MB). A search decodes the clusters (ADT tiles) it
+**Memory.** The packed maps (format 2, all three) are 33.9 MB of files; loaded,
+the Lua heap holds about 34 MB (0.2.4's format 1 maps 28 MB; his own three maps were about 12 MB). A search decodes the clusters (ADT tiles) it
 crosses: by the engine's own accounting (`PathGrid.lua` gridSize, an upper
 bound) about 3.3 MB a cluster on average: 15.8 MB for Kharanos to
 Thelsamar (6 clusters), 28.5 MB for Razor Hill to the Valley of Strength
@@ -2373,10 +2600,18 @@ through Orgrimmar (4), 46.4 MB and 4.9 MB of graph for a 7,700 yd walk from
 the Crossroads to Tanaris (17 clusters, none evicted); the decoded graph of a
 whole continent is 4.2 MB (Eastern Kingdoms) or 4.9 MB (Kalimdor). His
 ceilings, 24 MB of grids and 4 MB of graph, were sized for his 8 yd cells, so
-`API.lua` raises them to `Path.cacheKB` 48 MB and `Path.graphKB` 6 MB (never
-by editing his files). Decoded grids go when no search is queued (`Idle`);
-in game the arrow holds about 26 MB with no search running and at most about
-80 MB (the strings and both ceilings) while one runs.
+`API.lua` sets `Path.cacheKB` 48 MB and `Path.graphKB` 16 MB while a search
+runs (maps format 2's longest corpus walk decodes 40.9 MB of grids and 15.7 MB
+of graph) and `Path.graphRestKB` 6 MB at rest. With no search queued (`Idle`)
+the decoded grids go and the decoded graph is trimmed to 6 MB: measured
+standalone (Task 15, LuaJIT heap at the router's callbacks), 33.8 MB with the
+maps loaded and no search, 38.3 MB after the six longest corpus walks and
+`Idle` (0.2.4: 27.8 MB and 33.4 MB), and a peak of 79.2 MB seen during those
+walks. Since the walking floor (#234) the cluster `Path.SurfacesAt`
+reads (the player's) stays decoded at rest while the arrow runs: one cluster,
+3.3 MB on average by the engine's accounting (3.1 MB allocated decoding the
+Den's camp's under LuaJIT); none without a target or 2 s after the arrow's
+last update.
 
 **A map is used whole.** `API.lua` drops a map whose packed tables hold
 fewer entries than its `counts` (a part file missing from the folder, or one
@@ -2390,16 +2625,26 @@ blocks are not checked at load; `nav check` pins them by sha256.
 
 **The handoff.** Polestar loads the addon with `Data.Pack("Polestar_Nav")`
 at login or later, never at its own `ADDON_LOADED` (decoding nothing, it
-still builds about 26 MB of packed strings) and never in combat; with
+still builds about 34 MB of packed strings) and never in combat; with
 `nav.navRouting` off it is not loaded. `API.lua` sets the global
-`Polestar_NavEngine` to upstream's Path table; `Nav/Walk.lua` keeps it as
-`Nav.Path`. The calls are upstream's, unchanged:
+`Polestar_NavEngine` to the router's Path table; `Nav/Walk.lua` keeps it as
+`Nav.Path`. The calls are Shortest Path Forever's, with the fifth argument
+widened:
 
 ```lua
-Path.Find(map, from, to, callback, waterWalking) -> job      -- callback(points, cost, job) or (nil, reason, job)
-Path.FindCost(map, from, to, callback, waterWalking) -> job  -- callback(cost, reason, job), no drawing points
-Path.FindMany(map, from, targets, callback, waterWalking, reverse, progress) -> job  -- costs[i] or false
+Path.Find(map, from, to, callback, opts) -> job      -- callback(points, cost, job) or (nil, reason, job); job.yards, job.hubs
+Path.FindCost(map, from, to, callback, opts) -> job  -- callback(cost, reason, job), no drawing points; job.yards
+Path.FindMany(map, from, targets, callback, opts, reverse, progress) -> job  -- costs[i] or false; job.yards[i]
+Path.ReuseMany(job, point, profile, style, danger) -> bool  -- may a batch from job's source serve one from point for profile in style with danger
+Path.ZoneAt(map, x, y) -> uiMapID | nil  -- a point's zone (the maps' zone field)
+Path.SurfacesAt(map, x, y, out) -> n | nil  -- the cell's walkable surfaces: out[i] height, out[-i] marks (1 water, 2 indoor); nil: its cluster not decoded (a Prefetch is queued)
+Path.Prefetch(map, x, y) -> job | nil  -- decode that cluster under the frame budget for SurfacesAt (one job at a time)
+Path.ReleaseSurfaces()  -- cancel a pending Prefetch; the cluster SurfacesAt reads may go at rest
 Path.Cancel(job) ; Path.Busy() -> bool ; Path.Available(map) -> bool
+-- opts: a boolean is waterWalking (as every caller passed it before profiles), or
+-- { waterWalking = boolean, profile = "Alliance" | "Horde" | nil (Costs.Profile(UnitFactionGroup)),
+--   style = "fastest" | "balanced" | "roads" | nil (Costs.Style: anything else is Balanced),
+--   danger = { [uiMapID] = multiplier >= 1 } | nil (Zone danger, above) }
 ```
 
 `map` is the instance map ID (`UnitPosition`'s fourth value: 0 Eastern
@@ -2407,14 +2652,67 @@ Kingdoms, 1 Kalimdor, 2991 Zephras Isle); points are `{ x, y, z }` in
 `UnitPosition`'s frame (x north, y west, z optional: it picks the floor).
 Results are `{ map, x, y, z }` from start to goal, `points.wet` the yards over
 water; cost is running yards with a swum yard counting the map's `swim`
-(3) unless `waterWalking`. Reasons: `nodata`, `outside`, `offmesh`,
+(3) unless `waterWalking`, and on a map with classes each yard times its
+class's multiplier for `profile` in `style` (graph edges at Balanced's). Beside the cost every result carries
+yards: `Find`'s `job.yards` is the drawn line's flat length; `FindCost`'s
+and `FindMany`'s are a second label along the cost-best path (grid step
+lengths and the edges' yards), on a format 1 map the cost itself (its edges
+carry no yards). `Find`'s `job.hubs` = `{ { id, name, areaId }, ... }` lists the hubs
+of the map's `hubs` metadata (`{ id, side, name, areaId, disks = { { x, y, r }, ...
+} }`) hostile to `profile` that the drawn line enters, each once, in path
+order (`{}` without a profile or hubs). Reasons: `nodata`, `outside`, `offmesh`,
 `unreachable`, `error`. Searches run as coroutines in `C_Timer.After(0)`
 slices of `Path.budget` ms, wait out combat, and drop decoded clusters once
-the queue is empty (`Path.cacheKB`, `Path.graphKB` cap them meanwhile, set
-in `API.lua`). The maps are base64 zlib blocks decoded per cluster with
-`C_EncodingUtil`. `nav check` holds his files to `UPSTREAM.json` and ours to
-`PACK.json` (grid build, cells, date, sizes, the sha256 of every file), and
-`Nav.xml` to both.
+the queue is empty, except the one `Path.SurfacesAt` reads (the player's
+floor, until `Path.ReleaseSurfaces`). `Path.cacheKB` and `Path.graphKB` cap
+them meanwhile, and `Idle` trims the decoded graph to `Path.graphRestKB`, all
+set in `API.lua`.
+The maps are base64 zlib blocks decoded per cluster with `C_EncodingUtil`.
+`nav check` holds the maps to `PACK.json` (grid build, cells, date, sizes,
+the sha256 of every file), and `Nav.xml` to it.
+
+**Polestar's side: the faction, cost and yards, hostile towns**
+(`Nav/Walk.lua`, `Nav/Travel.lua`). Every search goes with opts
+`{ waterWalking, profile, style, danger }`, `profile` the player's faction from
+`Compat.GetPlayerFaction()` (none when neutral or unread: the router then
+prices no hub hostile and still routes), `style` the Route style option
+(`nav.routeStyle`, above), `danger` the zones far above the player (Zone
+danger, above), so roads are preferred (x0.8 in Balanced), the other
+faction's towns avoided (x20) and dangerous zones x3 or x20. On format 2 maps a walk's cost is no
+longer its yards, so the two are kept apart: the cost chooses, yards are
+what is shown and timed.
+
+- The planner's `p.walkCost(c, wx, wy, start)` (`Walk.Measured`) returns the
+  measured walk's cost and its yards (`FindMany`'s `job.yards[i]`): the
+  Dijkstra orders by the cost (at run speed), the leg's `seconds` and `yards`
+  come from the yards. Those are the no-profile path's yards per graph edge,
+  so a measured walk that goes round a hostile town inside one cluster reads
+  a little short until its own path is searched (one yards value per edge,
+  for every profile); the reversed batch reads outbound edge costs, off by
+  at most one entered step at each end.
+- The arrow's walk is measured along its path's points (the drawn line,
+  whose length is `Find`'s `job.yards`); every later walk takes `Find`'s
+  `job.yards` (`Walk.LegPath`, `Travel.PricePaths`). An engine `cost` is
+  never shown as a distance.
+- `Travel.WalkCostHook(fn(walk, cost) -> cost)` registers a planner rule
+  (zone danger is built in, `p.walkDanger`, above; a hook sees its cost): every
+  walk the planner weighs is handed to each hook with `walk = { from = { c,
+  wx, wy }, to = { c, wx, wy }, seconds }` (one reused table) and its cost in
+  the planner's seconds; a number >= 0 back replaces the cost, the time stays.
+- Hostile towns: `Find`'s `job.hubs` goes on the walk's leg as `leg.hubs`
+  (`Travel.SplitWalk` for the arrow's walk: the unsplit leg, or
+  on every piece of a split one; `Travel.PricePaths` for later walks; a fresh search with the same towns, by id, changes nothing). The journey panel shows
+  "Hostile town: <name>" (names joined by commas, each name once: two towns
+  can share one) under the step in the warning colour, and the arrow says it
+  once under its label for 8 s when the walk starts (`Travel.TakeWarning`:
+  once per walk end and towns, until the target changes): under the step's
+  instruction on a route, under the target's label when the walk is the whole
+  route (no journey panel then). A walk whose target is inside a hostile town
+  warns too: the router enters it because it must, and the player is told.
+  `Travel.HubText` names each town in the client's language by its area:
+  `Compat.GetAreaName(areaId)` (`C_Map.GetAreaInfo`; the hub record's
+  AreaTable id), else the packed English name, as goto labels and
+  `Compat.MapName` do; the "each name once" rule works on the shown name.
 
 **Our own maps, always.** The engine reads only `PolestarPathData`, never an
 installed Shortest Path Forever's `ShortestPathForeverPathData`, even when it
@@ -2422,35 +2720,58 @@ holds the same bake: his engine evicts and resets the decoded entries of its
 tables (`PathGrid.lua` trimming, eviction, `Idle`, `Reset`) while ours may be
 in the middle of a search that already counts a cluster as decoded, which
 would end in a Lua error (docs/NAV_QA.md H1). With both
-addons installed and the hand-off off, each holds its own maps in memory
-(with it on, the default, `Polestar_Nav` is not loaded: "Hand-off to Shortest
-Path Forever"); `tests/nav-vendor.test.js`
+addons installed and not handing off, each holds its own maps in memory
+(handing off, `Polestar_Nav` is not loaded: "Hand-off to Shortest
+Path Forever"); `tests/nav-maps.test.js`
 trims a stand-in for his tables after every frame of one of our searches and
 checks the route is unchanged.
 
-**Updating.** `node tools/polestar.js nav vendor <checkout>`
-(`tools/lib/nav/vendor.js`) copies `Routing/PathGrid.lua`, `Path.lua`,
-`PathJobs.lua`, `Nav/Nav.xml` and the map files it lists, with one mechanical
-transform (idempotent): `ShortestPathForeverPathData` becomes
-`PolestarPathData`, and a first line names the upstream file and commit, his
-copyright and licence, and the date of the change (GPLv3 section 5a;
-`--date`, default today). Only `Nav<name>.lua` map names are taken from
-`Nav.xml`, so a checkout cannot point it outside `Nav/`. It refuses a
-checkout with uncommitted or untracked changes (`git status --porcelain`) or
-whose `origin` is not `github.com/cjber/shortest-path-forever` (https or ssh),
-and an output folder that has no `UPSTREAM.json` unless it is new and empty
-(or whose `UPSTREAM.json` is broken). It removes only files the previous
-`UPSTREAM.json` listed that upstream dropped, never any other file in the
-folder, and writes `UPSTREAM.json`
-(`{ repo, commit, version, vendored: date, files: { path: sha256 } }`); `nav
-check` reports a missing or broken `UPSTREAM.json` as such. Then update `CREDITS.md`'s version line by hand. `nav
-check` and `tests/nav-vendor.test.js` hold the folder to `UPSTREAM.json`; the
-test also loads the addon with the real maps (`tests/lua/stub_encoding.lua`
-decodes them in plain Lua), walks Goldshire to the Fargodeep Mine mouth and
-holds the engine to NAV_QA C2 (a cancelled search never calls back), C6
-(Stormwind's flight master to the Mage Quarter never doubles back) and C17
-(searches sliced over frames). Never edit the
-vendored files by hand: a fix belongs upstream, then a re-vendor.
+**Updating.** The router (`Routing/`) is Polestar's code: it is edited here,
+tested by `tests/nav-router.test.js` (synthetic maps with and without the
+class field; format 1 against the router before classes, from git) and the
+real-map tests, and no tool copies it from upstream any more; its three
+files that began as his keep his copyright and the GPL notice under a header
+line saying where it started. The maps are Polestar's too (Zephras Isle's
+since 2026-10-16, no longer copied from his repository): `nav pack`
+writes all three from the grid, and `nav check` and
+`tests/nav-maps.test.js` hold them to `PACK.json`; the test also loads the
+addon with the real maps (`tests/lua/stub_encoding.lua` decodes them in
+plain Lua), walks Goldshire to the Fargodeep Mine mouth and holds the engine
+to NAV_QA C2 (a cancelled search never calls back), C6 (Stormwind's flight
+master to the Mage Quarter never doubles back) and C17 (searches sliced over
+frames). Never edit a map by hand: change the grid, the layers or the packer
+and re-pack.
+
+**Measuring the maps.** `node tools/polestar.js nav eval`
+(`tools/lib/nav/eval/`) runs the engine outside the client: `harness.lua`
+(LuaJIT, else Lua 5.1) loads a folder's maps and router in the client's
+order (`tests/lua/stub_encoding.lua` decodes them), drives `Path.Find` and
+`Path.FindMany` with the frame pump in hand, and answers one JSON line per
+query (cost, the router's yards and hubs when it gives them, points, the
+drawn line's yards per zone by `Path.ZoneAt`, cold and warm milliseconds, Lua
+memory; an error reported through the client's error handler during a query
+fails that query, and the next starts clean). A route with a `level` is
+priced with zone danger as the addon prices it: the harness builds the
+danger table from each zone's lowest level (`tools/lib/maps/zonelevels.js`),
+the start's and the goal's zones (`Path.ZoneAt`) exempt.
+`run.js` resolves the route corpus
+(`routes.json`: 0.2.4's measured routes, the #98 and #195 reports,
+hostile-hub, road, building and slope routes; zone-map ends through
+`map-frames.json`, live frame or Era) and, with `--sweep`, one FindMany per
+zone with located guide goals and
+per side, from the zone's flight master; `metrics.js` measures each drawn
+line (the share our grid at `data/local/nav3` cannot walk straight, as
+0.2.4's maps were measured; the steepest climb; off-road share and yards in
+hostile hubs from `data/local/nav-layers` once built; indoor yards, and
+whether an end lies indoors, from the `FLAG.INDOOR` surfaces of the grid at
+`data/local/nav4`, the capitals apart as the packer's indoor city class);
+`compare.js` judges a candidate folder against `--baseline` (a folder, or
+an earlier `--out` report, its indoor yards measured again) on the acceptance
+checks A1-A8. A5 holds the building routes (Stormwind's streets, a line
+through Goldshire's inn) and every route found with both ends outdoors to no
+indoor yards; like A4's climbs, each route with some is listed beside the
+baseline's yards, and the baseline's own, for a person to judge the only-way
+ones (a tunnel 0.2.4 walks too).
 
 **Licence.** The folder is GPL-3.0-or-later with his copyright (`LICENSE`,
 `CREDITS.md`). It is code and data of a GPL program, not reference data:
@@ -2461,7 +2782,7 @@ into a guide pack.
 touches what Polestar uses from it (the router, the maps, route lines,
 timetables, map clicks, TomTom, the travel prompts) is listed in
 [docs/NAV_QA.md](NAV_QA.md) with the check Polestar holds itself to; test
-names cite its ids (rows 1-16, C1-C17, H1-H2, K1-K8, Z1-Z3).
+names cite its ids (rows 1-16, C1-C17, H1-H6, K1-K8, Z1-Z3).
 
 ## Quests — quest database, markers, tooltips, quest levels
 
@@ -3121,11 +3442,16 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `PACKS.md`: the TOC's `X-Website` + `/blob/HEAD/docs/GUIDE_PACKS.md`, else
   "docs/GUIDE_PACKS.md in Polestar's source"). While `Guides.ProblemCount() > 0` the page's sidebar row carries
   the warning dot (a page spec's `dot`). Nothing goes to chat.
-- **Welcome** (`UI/Welcome.lua`, `SHOW_WELCOME`): centred, three pages under
+- **Welcome** (`UI/Welcome.lua`, `SHOW_WELCOME`): centred, four pages under
   a starlit hero, with step dots, Skip, Back and Next in the footer: Hello,
   <name> (what Polestar does, then the guide window, the arrow and
   `/polestar guides`); Set up (quest automation, the guide at login, the
-  colour scheme as cards that apply live); Start (the guide
+  colour scheme as cards that apply live); Route style (`nav.routeStyle`,
+  the setting Options' Route style dropdown writes, as three cards, Fastest,
+  Balanced with its Recommended tag and Roads, each saying what it does: a
+  click sets it live and Nav/Walk.lua searches again, right-click or the
+  gamepad's Y puts Balanced back, and the pick follows the setting however
+  it changes; a line on what every style keeps you away from); Start (the guide
   `Guides.Suggest()` picks on its zone painting, with its level range and
   pitch; the beta note while `ns.routesBeta`; the Discord invite in a copy
   box; what guide packs are; then Start guide, or Choose a guide without
@@ -3136,7 +3462,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   combat, during a cinematic or over the route choice; a due welcome that never opened stays due
   for the next login, and one that opened is marked on the character as it
   opens (a /reload or logout with it up does not repeat it); one the intro
-  cinematic closes comes back on its page when the cinematic ends. Set up is in it only while the account has not had its
+  cinematic closes comes back on its page when the cinematic ends. Set up and Route style are in it only while the account has not had its
   welcome (`PolestarDB.welcomeSeen`); the page set is fixed when a showing
   starts. Any close marks the account (and the character). About's "Show the
   welcome again" and `/polestar welcome` open it with every page.
@@ -3166,16 +3492,19 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   position when the player set it); where the player stands (zone, subzone,
   `map <id> @x,y live`); other guide packs that are on; and the errors
   (`Polestar.Errors()`, plus with !BugGrabber its errors this session in
-  Polestar's files, `BugGrabber:GetDB()`), the newest three, counted, by
-  their path from the AddOns folder. Every line is cut at 100 bytes, so at
-  its longest the report fits one Discord message (2000 characters). Under
-  it, Discord's mark, "Polestar on Discord" and "Get the invite", which opens
-  the invite (`Polestar.DiscordURL`) in the copy window: the game opens no
-  links for addons, so the report is the only text a member copies. What the
-  player typed stays while the window is reopened on the same step. The
-  hub's and the settings' sidebars carry the Discord's mark at the end of
-  the version line (`UI.Report.SidebarLink(shell)`), which opens the invite like
-  `/polestar discord` (`UI.ShowDiscord`, `SHOW_DISCORD`).
+  Polestar's files, `BugGrabber:GetDB()`) by their path from the AddOns
+  folder, and the calls the game blocked (`Polestar.Blocked()`) as "blocked
+  in <addon>: <function> (<time>)": the newest three of both together, by
+  `seq` (!BugGrabber's count as the newest), each counted. Every line is cut
+  at 100 bytes, so at its longest the report fits one Discord message (2000
+  characters). Under it, Discord's mark, "Polestar on Discord" and "Get the
+  invite", which opens the invite (`Polestar.DiscordURL`) in the copy
+  window: the game opens no links for addons, so the report is the only text
+  a member copies. What the player typed stays while the window is reopened
+  on the same step. The hub's and the settings' sidebars carry the Discord's
+  mark at the end of the version line (`UI.Report.SidebarLink(shell)`),
+  which opens the invite like `/polestar discord` (`UI.ShowDiscord`,
+  `SHOW_DISCORD`).
 - **Per-character UI state** in `CharState().ui`: `recentGuides` (ids, newest
   first, at most 10), `favoriteGuides` (id -> true), `pickerSelected` (id).
 
@@ -3193,6 +3522,8 @@ lift, gate, bridge, cave, pass), its caption (`leg.label`; without one the
 kind's words and where it ends, never "Unknown") and its time. Boats,
 zeppelins, the tram and lifts add a line, "leaves in about 0:15 · ride 0:10"
 ("leaves in" once a ride timed the loop; "on board · 0:42" while riding).
+A walk whose engine path enters the other faction's towns (`leg.hubs`) adds
+"Hostile town: Southshore" (names joined by commas) in the warning colour.
 The current row wears the accent glyph and the 2px selection bar; a click
 on it opens the skip menu (`Nav.prompts.OpenMenu`).
 
@@ -4283,9 +4614,10 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   the per-tile graph otherwise, then smooths the path; `los` tests a
   straight walkable line. `nav path` prints one route.
 - **Packing for the in-game engine** (`nav pack`, `tools/lib/nav/pack.js`,
-  rules in its header): the grid in Shortest Path Forever's walking-map
-  format (his baker's HPA* and encodings, ported), so his engine in
-  `Polestar_Nav` routes on it. Each SPF cell (128 per tile by default, 4.17
+  rules in its header): the grid as Polestar's walking maps (format 2,
+  grown from Shortest Path Forever's walking-map format: his baker's HPA*
+  and encodings, ported), which the router in `Polestar_Nav` (started from
+  his engine) routes on. Each SPF cell (128 per tile by default, 4.17
   yd) holds the connected pieces of our surfaces in its columns (base plus
   floors; a wall inside a cell keeps its sides apart); a step between cells
   is open only where one of our links crosses it, so walls and cliffs close
@@ -4301,13 +4633,33 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   between two parts of the map (union-find over every other join, then the
   face links gentlest first), so nothing reachable before is lost and a
   face with a way round is walked round; closing them all cut off 84 guide
-  goals. An intra-cluster edge is pruned only for a two-hop path whose
+  goals. A cluster (one tile) border gets his entrances, one in every run
+  of crossings between the same two regions (~38 crossings at 128 cells, a
+  cell crossing straight and both ways diagonally, so about every 54 yd on
+  open ground), and one more on every road crossing it with none of his
+  within 8 yd: every walk across a border goes through an entrance, and
+  where the border crossed Ratchet's north-east road 35 yd from the main
+  road with the one entrance on the main road, walks left the road along
+  the border (Fitz's report, 2026-10-16). A run of dry crossings (ground
+  on both sides, no swim surface) that no entrance crosses dry gets one
+  too: land and the water it wades into are one region, so his entrance
+  can fall in the water beside a beach or a pier's root, and walks from
+  Auberdine to its boats swam 200 yd across the bay to the pier because
+  the beach crossed the tile border x = 6400 with no dry entrance
+  (Fitz's report, 2026-10-17). An intra-cluster edge is pruned only for a two-hop path whose
   hops are both shorter (gen_nav.py's 2% rule let two entrances a few yards
   apart at the end of a long walk prune each other's edge, cutting a region
   in two; it cut 14 guide goals off with faces held back, Thunder Bluff's
-  among them). A route down a face goes round as well; slopes under 50° still
-  cost only their flat length in his search (a height-aware step cost is his
-  engine's to add). `chokepoints.js` adds `Chokepoints.lua`
+  among them). A route down a face goes round as well. Every surface
+  carries a ground class byte (normal, road, gentle slope, steep slope,
+  indoor, indoor city, plus an Alliance and a Horde hub bit): the steepest
+  terrain triangle under it (grid format 4's tslope) against the slope
+  bands, the indoor flag (indoor city where the chunk's area or the zone
+  map around it is a capital, AreaTable `Flags_0 & 0x100`), the roads layer
+  and the hubs layer (`nav layers`, a hub bit on every cell a hub disk
+  touches); `Routing/Costs.lua` (mirrored in `tools/lib/nav/costs.js`)
+  prices a step by it, per faction, and every graph edge carries its cost
+  for Alliance, Horde and no profile and its yards. `chokepoints.js` adds `Chokepoints.lua`
   (`PolestarNavChokepoints[map]`: lift landings, bridges, gates at passages,
   tunnels, cave and building mouths, passes, each named by its AreaTable
   area) for the journey's named walk steps.

@@ -149,14 +149,19 @@ return {
 	-- Step 28: Captain Stoutfist
 	-- {area:150} Menethil Harbor
 	["Ride back west along the road to {area:150}."] = "Езжайте по дороге назад на запад: {area:150}.",
+	-- {quest:98221} From the Ashes · {quest:465} Nek'rosh's Gambit
+	["{quest:98221}: {quest:465} comes after it on Forever"] = "{quest:98221}: в Forever задание {quest:465} идет после него",
 
-	-- Step 29: Dragonmaw catapult
-	["Dragonmaw catapult"] = "Катапульта клана Драконьей Пасти",
-	["Ride east again; the catapult stands at the Dragonmaw camp south of the road."] = "Снова езжайте на восток; катапульта стоит в лагере клана Драконьей Пасти к югу от дороги.",
-	["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "Следующий шаг, «Убить Нек'роша», сталкивает вас с элитным вождем: пропустите его.",
+	-- Step 29: Angerfang Encampment
+	-- {area:1036} Angerfang Encampment · {npc:2091} Chieftain Nek'rosh
+	["Ride east again to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "Снова езжайте на восток к лагерю клана Драконьей Пасти. Четыре комплекта планов атаки лежат здесь: {area:1036}; {npc:2091}, элитный противник, тоже стоит в лагере.",
 
 	-- Step 30: To Theramore
 	["To Theramore"] = "На остров Терамор",
+	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
+	["{npc:2104}, in {area:2103}"] = "{npc:2104} – здесь: {area:2103}",
+	-- {zone:1437} Wetlands
+	["For the Dragonmaw catapult, on the {zone:1437} loop of the next guide"] = "Для катапульты клана Драконьей Пасти – на круге по зоне {zone:1437} в следующем гайде",
 	-- {area:513} Theramore Isle · {zone:1445} Dustwallow Marsh
 	["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "Сядьте на корабль у причала Гавани Менетилов: {area:513} ({zone:1445}).",
 
@@ -194,5 +199,8 @@ return {
 	["Back to Menethil"] = "Назад в Гавань Менетилов",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Dragonmaw catapult"] = "Катапульта клана Драконьей Пасти",
+	-- ["Ride east again; the catapult stands at the Dragonmaw camp south of the road."] = "Снова езжайте на восток; катапульта стоит в лагере клана Драконьей Пасти к югу от дороги.",
 	-- ["Ride east to the ogre mound. {item:1349} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Езжайте на восток к кургану огров. {item:1349} лежит в лагере у входа; его охраняют огры из клана Дробящего Кулака.",
+	-- ["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "Следующий шаг, «Убить Нек'роша», сталкивает вас с элитным вождем: пропустите его.",
 }

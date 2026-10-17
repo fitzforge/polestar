@@ -19,15 +19,16 @@ const DX = [1, -1, 0, 0, 1, 1, -1, -1];
 const DY = [0, 0, 1, -1, 1, -1, 1, -1];
 const OPP = [1, 0, 3, 2, 7, 6, 5, 4];
 
-// The data table a pack's files define: { cx0, cy0, nx, ny, cells, swim, zstep, graph, grid, height, floor }
-// with the packed blocks inflated (tools/load_nav.lua).
+// The data table a pack's files define: { cx0, cy0, nx, ny, cells, swim, zstep, graph, grid, height, floor, class,
+// classed } with the packed blocks inflated (tools/load_nav.lua); classed: a map of format 2 (a class field).
 function loadPack(files, map) {
 	const meta = files.get(`Nav${map}.lua`);
 	const field = (name) => Number(new RegExp(`\\t${name} = (-?[\\d.]+),`).exec(meta)[1]);
-	const D = { cx0: field('cx0'), cy0: field('cy0'), nx: field('nx'), ny: field('ny'), cells: field('cells'), swim: field('swim'), zstep: field('zstep'), graph: {}, grid: {}, height: {}, floor: {} };
+	const D = { cx0: field('cx0'), cy0: field('cy0'), nx: field('nx'), ny: field('ny'), cells: field('cells'), swim: field('swim'), zstep: field('zstep'), graph: {}, grid: {}, height: {}, floor: {}, class: {} };
+	D.classed = /^\tclass = \{\},$/m.test(meta);
 	for (const [name, src] of files) {
 		if (!new RegExp(`^Nav${map}_\\d+\\.lua$`).test(name)) continue;
-		for (const m of src.matchAll(/data\.packed\.(graph|grid|height|floor)\[(\d+)\] = \{([^}]*)\}/g)) {
+		for (const m of src.matchAll(/data\.packed\.(graph|grid|height|floor|class)\[(\d+)\] = \{([^}]*)\}/g)) {
 			const blocks = [...m[3].matchAll(/"([A-Za-z0-9+/=]+)"/g)].map((b) => zlib.inflateSync(Buffer.from(b[1], 'base64')).toString('ascii'));
 			D[m[1]][Number(m[2])] = blocks.join('');
 		}
@@ -174,7 +175,23 @@ function decodeCluster(D, k) {
 			}
 		}
 	}
-	return { C, N, val, m, z, at, links, nodes: node };
+	// Ground classes (Routing/PathGrid.lua decodeClasses): one per node, run-length; past the end (or none) 0.
+	const cls = new Array(node).fill(0);
+	const cs = D.class && D.class[k + 1];
+	if (cs) {
+		let n = 0;
+		let value = 0;
+		for (let i = 1; i <= cs.length; i++) {
+			const v = sym(cs, i);
+			if (v < 48) {
+				value = v;
+				cls[n++] = value;
+			} else {
+				for (let r = 48; r <= v; r++) cls[n++] = value;
+			}
+		}
+	}
+	return { C, N, val, m, z, at, links, nodes: node, cls };
 }
 
 // Path.lua search's moves out of node u inside the cluster: [v, length].
@@ -223,7 +240,8 @@ function reach(cl, from) {
 	return seen;
 }
 
-// A cluster's entrances: [{ cell, layer, comp, edges: [{ cluster offset, node, costs }] }].
+// A cluster's entrances: [{ cell, layer, comp, edges: [{ cluster offset, node, costs, yards }] }]: format 1 costs
+// [swimming, walking on water] (yards undefined), format 2 (D.classed) costs [Alliance, Horde, none] and yards.
 function decodeGraph(D, k) {
 	const s = D.graph[k + 1];
 	if (!s) return [];
@@ -236,8 +254,13 @@ function decodeGraph(D, k) {
 	}
 	for (const e of out) {
 		for (let j = 0; j < e.degree; j++) {
-			e.edges.push({ offset: sym(s, pos), node: num(s, pos + 1, 2), costs: [num(s, pos + 3, 2), num(s, pos + 5, 2)] });
-			pos += 7;
+			if (D.classed) {
+				e.edges.push({ offset: sym(s, pos), node: num(s, pos + 1, 2), costs: [num(s, pos + 3, 3), num(s, pos + 6, 3), num(s, pos + 9, 3)], yards: num(s, pos + 12, 2) });
+				pos += 14;
+			} else {
+				e.edges.push({ offset: sym(s, pos), node: num(s, pos + 1, 2), costs: [num(s, pos + 3, 2), num(s, pos + 5, 2)] });
+				pos += 7;
+			}
 		}
 	}
 	if (pos !== s.length + 1) throw new Error(`graph ${k}: ${s.length + 1 - pos} characters left over`);

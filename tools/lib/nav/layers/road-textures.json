@@ -1,0 +1,1167 @@
+{
+	"about": "Road textures (tileset paths, the _s and _h variants as their base) for the roads layer, of the diffuse textures the tex0 ADTs of the listed maps use (names from the wowdev community listfile): every one whose path matches named; one whose path matches ground when its shape is a road's; one in reviewed (checked by a person to lie on known roads) when its shape is a road's. A shape is a road's when at least roadShare of the texture's weight lies in strips: 8-connected components of columns where it weighs >= 128 (per tile) at least longYd long (bounding box diagonal), at most narrow columns of mean width (area over half the perimeter) and at least elongated long (diagonal^2 / area, in columns). shapes: the measures of every named, ground and reviewed texture and of every other road-shaped one (kind other: candidates for review; medianWidth: the width half the weight lies under). Regenerate with node tools/polestar.js nav layers roads --allowlist.",
+	"build": "1.60.1.70425",
+	"maps": [
+		0,
+		1
+	],
+	"named": "road|path|cobble|street|trail",
+	"ground": "dirt|footprint|brick|gravel",
+	"longYd": 60,
+	"narrow": 6,
+	"elongated": 10,
+	"roadShare": 0.5,
+	"reviewed": [
+		{
+			"texture": "tileset/ironforge/ironforgerock09browncracks.blp",
+			"note": "Dun Morogh's main road: one continuous strip through Kharanos (tiles 31_41 to 36_42), checked 2026-10-16"
+		},
+		{
+			"texture": "tileset/desolace/desolacecracks.blp",
+			"note": "Desolace's roads: thin strips north-south at about x 49, y 48-56 of uiMap 1443 and south-east at about 56,57 to 52,60, checked 2026-10-16"
+		}
+	],
+	"textures": [
+		"tileset/aerie peaks/aeriepeaksrockroadbase.blp",
+		"tileset/alteracmtns/alteracdirtbase.blp",
+		"tileset/alteracmtns/alteracrockroadbase.blp",
+		"tileset/ashenvale/ashenvaleroad.blp",
+		"tileset/ashzara/ashzararoad.blp",
+		"tileset/barrens/barrensroad01.blp",
+		"tileset/burningstepps/burningsteppsspireroad01.blp",
+		"tileset/darkshore/darkshoreroad.blp",
+		"tileset/desolace/desolacecracks.blp",
+		"tileset/durotar/durotarroad.blp",
+		"tileset/duskwallow marsh/duskwallowstoneroad.blp",
+		"tileset/duskwood/duskwoodcobblestone.blp",
+		"tileset/duskwood/duskwoodcobblestone2.blp",
+		"tileset/elwynn/elwynncobblestonebase.blp",
+		"tileset/elwynn/elwynncobblestonedock.blp",
+		"tileset/elwynn/elwynncobblestonedockdirt.blp",
+		"tileset/expansion02/dragonblight/db_titanroada.blp",
+		"tileset/expansion02/dragonblight/db_titanroadj.blp",
+		"tileset/expansion02/dragonblight/db_titanroadk.blp",
+		"tileset/expansion02/dragonblight/db_titanroadl.blp",
+		"tileset/expansion02/dragonblight/db_titanroadm.blp",
+		"tileset/expansion02/dragonblight/db_titanroadn.blp",
+		"tileset/expansion02/dragonblight/db_titanroado.blp",
+		"tileset/expansion02/lakewintergrasp/wg_titanroad01.blp",
+		"tileset/expansion02/lakewintergrasp/wg_titanroad03.blp",
+		"tileset/expansion03/gilneas/gn_cobblestonef.blp",
+		"tileset/expansion03/gilneas/gn_cobblestoneg.blp",
+		"tileset/expansion03/gilneas/gn_cobblestoneh.blp",
+		"tileset/felwood/felwoodroad.blp",
+		"tileset/feralas/feralasroad.blp",
+		"tileset/hyjal/alphahyjalroad.blp",
+		"tileset/ironforge/ironforgerock06road2.blp",
+		"tileset/ironforge/ironforgerock09browncracks.blp",
+		"tileset/kalidar/kalidardarnroad.blp",
+		"tileset/kalidar/kalidarroad.blp",
+		"tileset/loch modan/lochmodanbrickroadbase.blp",
+		"tileset/mullgore/mullgoreroad01.blp",
+		"tileset/orgrimmar/orgrim_road_01.blp",
+		"tileset/plaguelandseast/eastplaguedroadbase.blp",
+		"tileset/redridge/redridgerockroadbase.blp",
+		"tileset/silverpine/silverpineroad.blp",
+		"tileset/stranglethorn/stranglethorncobblestoneroad.blp",
+		"tileset/swamp of sorrows/swampsorrowsstoneroad07.blp",
+		"tileset/the blasted lands/blastedlandsroad.blp",
+		"tileset/tirisfall/tirisfallstoneroad01.blp",
+		"tileset/westwood/westfallcobblestonebase.blp",
+		"tileset/wetlands/wetlandsroad01.blp",
+		"tileset/winterspring grove/winterspringdirt.blp",
+		"tileset/zulgurub/zulgurubroad01.blp"
+	],
+	"shapes": [
+		{
+			"texture": "tileset/aerie peaks/aeriepeaksgravelneedlesbase.blp",
+			"kind": "ground",
+			"tiles": 6,
+			"columns": 2041,
+			"components": 97,
+			"medianWidth": 2,
+			"share": 0,
+			"road": false
+		},
+		{
+			"texture": "tileset/aerie peaks/aeriepeaksrockroadbase.blp",
+			"kind": "name",
+			"tiles": 9,
+			"columns": 2250,
+			"components": 48,
+			"medianWidth": 2.02,
+			"share": 0.83,
+			"road": true
+		},
+		{
+			"texture": "tileset/alteracmtns/alteracdirtbase.blp",
+			"kind": "ground",
+			"tiles": 13,
+			"columns": 52947,
+			"components": 956,
+			"medianWidth": 1.49,
+			"share": 0.655,
+			"road": true
+		},
+		{
+			"texture": "tileset/alteracmtns/alteracdirtbase02.blp",
+			"kind": "ground",
+			"tiles": 77,
+			"columns": 853160,
+			"components": 10425,
+			"medianWidth": 4.8,
+			"share": 0.133,
+			"road": false
+		},
+		{
+			"texture": "tileset/alteracmtns/alteracgrasshighlight02.blp",
+			"kind": "other",
+			"tiles": 28,
+			"columns": 18264,
+			"components": 334,
+			"medianWidth": 2.18,
+			"share": 0.685,
+			"road": false
+		},
+		{
+			"texture": "tileset/alteracmtns/alteracrockroadbase.blp",
+			"kind": "name",
+			"tiles": 18,
+			"columns": 9494,
+			"components": 157,
+			"medianWidth": 1.87,
+			"share": 0.813,
+			"road": true
+		},
+		{
+			"texture": "tileset/alteracmtns/alteracrubblebase.blp",
+			"kind": "other",
+			"tiles": 55,
+			"columns": 26565,
+			"components": 1144,
+			"medianWidth": 2.23,
+			"share": 0.569,
+			"road": false
+		},
+		{
+			"texture": "tileset/araithihighlands/arathihighlandscityfloor.blp",
+			"kind": "other",
+			"tiles": 3,
+			"columns": 5300,
+			"components": 66,
+			"medianWidth": 2.33,
+			"share": 0.508,
+			"road": false
+		},
+		{
+			"texture": "tileset/araithihighlands/arathihighlandsdirt.blp",
+			"kind": "ground",
+			"tiles": 25,
+			"columns": 145260,
+			"components": 9261,
+			"medianWidth": 3.1,
+			"share": 0.383,
+			"road": false
+		},
+		{
+			"texture": "tileset/ashenvale/ashenvaledirt.blp",
+			"kind": "ground",
+			"tiles": 3,
+			"columns": 1,
+			"components": 1,
+			"medianWidth": 0.5,
+			"share": 0,
+			"road": false
+		},
+		{
+			"texture": "tileset/ashenvale/ashenvaleroad.blp",
+			"kind": "name",
+			"tiles": 7,
+			"columns": 2714,
+			"components": 52,
+			"medianWidth": 2.09,
+			"share": 0.745,
+			"road": true
+		},
+		{
+			"texture": "tileset/ashzara/ashzaradirt.blp",
+			"kind": "ground",
+			"tiles": 55,
+			"columns": 238799,
+			"components": 12960,
+			"medianWidth": 2.7,
+			"share": 0.137,
+			"road": false
+		},
+		{
+			"texture": "tileset/ashzara/ashzararoad.blp",
+			"kind": "name",
+			"tiles": 4,
+			"columns": 3056,
+			"components": 43,
+			"medianWidth": 1.9,
+			"share": 0.896,
+			"road": true
+		},
+		{
+			"texture": "tileset/barrens/barrensbasedirt.blp",
+			"kind": "ground",
+			"tiles": 117,
+			"columns": 2574928,
+			"components": 21777,
+			"medianWidth": 17.42,
+			"share": 0.085,
+			"road": false
+		},
+		{
+			"texture": "tileset/barrens/barrensroad01.blp",
+			"kind": "name",
+			"tiles": 38,
+			"columns": 36416,
+			"components": 345,
+			"medianWidth": 2.57,
+			"share": 0.499,
+			"road": true
+		},
+		{
+			"texture": "tileset/burningstepps/burningsteppsbrick01.blp",
+			"kind": "ground",
+			"tiles": 16,
+			"columns": 42983,
+			"components": 85,
+			"medianWidth": 7.25,
+			"share": 0.034,
+			"road": false
+		},
+		{
+			"texture": "tileset/burningstepps/burningsteppslavatest02.blp",
+			"kind": "other",
+			"tiles": 14,
+			"columns": 7155,
+			"components": 333,
+			"medianWidth": 2.35,
+			"share": 0.508,
+			"road": false
+		},
+		{
+			"texture": "tileset/burningstepps/burningsteppsspireroad01.blp",
+			"kind": "name",
+			"tiles": 13,
+			"columns": 7067,
+			"components": 77,
+			"medianWidth": 2.2,
+			"share": 0.844,
+			"road": true
+		},
+		{
+			"texture": "tileset/darkshore/darkshoredirt.blp",
+			"kind": "ground",
+			"tiles": 34,
+			"columns": 215422,
+			"components": 5153,
+			"medianWidth": 3.38,
+			"share": 0.434,
+			"road": false
+		},
+		{
+			"texture": "tileset/darkshore/darkshoreroad.blp",
+			"kind": "name",
+			"tiles": 21,
+			"columns": 2872,
+			"components": 645,
+			"medianWidth": 1,
+			"share": 0.171,
+			"road": true
+		},
+		{
+			"texture": "tileset/deadwind pass/deadwindpassdirt.blp",
+			"kind": "ground",
+			"tiles": 23,
+			"columns": 191490,
+			"components": 2166,
+			"medianWidth": 3.24,
+			"share": 0.124,
+			"road": false
+		},
+		{
+			"texture": "tileset/desolace/desolacecracks.blp",
+			"kind": "review",
+			"tiles": 29,
+			"columns": 12523,
+			"components": 995,
+			"medianWidth": 1.74,
+			"share": 0.513,
+			"road": true
+		},
+		{
+			"texture": "tileset/desolace/desolacedirtfootprints.blp",
+			"kind": "ground",
+			"tiles": 45,
+			"columns": 93615,
+			"components": 7795,
+			"medianWidth": 3.59,
+			"share": 0.103,
+			"road": false
+		},
+		{
+			"texture": "tileset/durotar/durotardirt.blp",
+			"kind": "ground",
+			"tiles": 27,
+			"columns": 393730,
+			"components": 11845,
+			"medianWidth": 2.02,
+			"share": 0.14,
+			"road": false
+		},
+		{
+			"texture": "tileset/durotar/durotardirtsmooth.blp",
+			"kind": "ground",
+			"tiles": 24,
+			"columns": 254869,
+			"components": 5818,
+			"medianWidth": 1.79,
+			"share": 0.113,
+			"road": false
+		},
+		{
+			"texture": "tileset/durotar/durotarroad.blp",
+			"kind": "name",
+			"tiles": 16,
+			"columns": 37566,
+			"components": 155,
+			"medianWidth": 4.1,
+			"share": 0.313,
+			"road": true
+		},
+		{
+			"texture": "tileset/duskwallow marsh/duskwallowbrickfloor.blp",
+			"kind": "ground",
+			"tiles": 1,
+			"columns": 30,
+			"components": 1,
+			"medianWidth": 1.3,
+			"share": 0,
+			"road": false
+		},
+		{
+			"texture": "tileset/duskwallow marsh/duskwallowdirt.blp",
+			"kind": "ground",
+			"tiles": 7,
+			"columns": 35929,
+			"components": 230,
+			"medianWidth": 4.18,
+			"share": 0.099,
+			"road": false
+		},
+		{
+			"texture": "tileset/duskwallow marsh/duskwallowstoneroad.blp",
+			"kind": "name",
+			"tiles": 15,
+			"columns": 6418,
+			"components": 56,
+			"medianWidth": 2.52,
+			"share": 0.915,
+			"road": true
+		},
+		{
+			"texture": "tileset/duskwood/duskwoodcobblestone.blp",
+			"kind": "name",
+			"tiles": 13,
+			"columns": 10676,
+			"components": 178,
+			"medianWidth": 2.66,
+			"share": 0.87,
+			"road": true
+		},
+		{
+			"texture": "tileset/duskwood/duskwoodcobblestone2.blp",
+			"kind": "name",
+			"tiles": 2,
+			"columns": 1734,
+			"components": 57,
+			"medianWidth": 1.97,
+			"share": 0.731,
+			"road": true
+		},
+		{
+			"texture": "tileset/duskwood/duskwooddirt.blp",
+			"kind": "ground",
+			"tiles": 31,
+			"columns": 185903,
+			"components": 4420,
+			"medianWidth": 3.23,
+			"share": 0.067,
+			"road": false
+		},
+		{
+			"texture": "tileset/duskwood/duskwooddirt2.blp",
+			"kind": "ground",
+			"tiles": 18,
+			"columns": 87643,
+			"components": 440,
+			"medianWidth": 5.61,
+			"share": 0.112,
+			"road": false
+		},
+		{
+			"texture": "tileset/duskwood/duskwoodrockgravel.blp",
+			"kind": "ground",
+			"tiles": 31,
+			"columns": 57875,
+			"components": 2352,
+			"medianWidth": 1.64,
+			"share": 0.236,
+			"road": false
+		},
+		{
+			"texture": "tileset/elwynn/elwynncobblestonebase.blp",
+			"kind": "name",
+			"tiles": 24,
+			"columns": 21429,
+			"components": 109,
+			"medianWidth": 3.39,
+			"share": 0.859,
+			"road": true
+		},
+		{
+			"texture": "tileset/elwynn/elwynncobblestonedock.blp",
+			"kind": "name",
+			"tiles": 3,
+			"columns": 2322,
+			"components": 5,
+			"medianWidth": 5.84,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/elwynn/elwynncobblestonedockdirt.blp",
+			"kind": "name",
+			"tiles": 3,
+			"columns": 2604,
+			"components": 86,
+			"medianWidth": 2.77,
+			"share": 0.31,
+			"road": true
+		},
+		{
+			"texture": "tileset/elwynn/elwynndirtbase.blp",
+			"kind": "ground",
+			"tiles": 4,
+			"columns": 1,
+			"components": 1,
+			"medianWidth": 0.5,
+			"share": 0,
+			"road": false
+		},
+		{
+			"texture": "tileset/elwynn/elwynndirtbase2.blp",
+			"kind": "ground",
+			"tiles": 72,
+			"columns": 486625,
+			"components": 6480,
+			"medianWidth": 2.39,
+			"share": 0.378,
+			"road": false
+		},
+		{
+			"texture": "tileset/expansion01/ghostlands/ghostlandsdirt02.blp",
+			"kind": "ground",
+			"tiles": 2,
+			"columns": 1451,
+			"components": 5,
+			"medianWidth": 13.35,
+			"share": 0,
+			"road": false
+		},
+		{
+			"texture": "tileset/expansion02/boreantundra/bt_coldarrarockf.blp",
+			"kind": "other",
+			"tiles": 5,
+			"columns": 3676,
+			"components": 21,
+			"medianWidth": 2.76,
+			"share": 0.924,
+			"road": false
+		},
+		{
+			"texture": "tileset/expansion02/dragonblight/db_titanroada.blp",
+			"kind": "name",
+			"tiles": 1,
+			"columns": 0,
+			"components": 0,
+			"medianWidth": null,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/expansion02/dragonblight/db_titanroadj.blp",
+			"kind": "name",
+			"tiles": 1,
+			"columns": 252,
+			"components": 1,
+			"medianWidth": 7.88,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/expansion02/dragonblight/db_titanroadk.blp",
+			"kind": "name",
+			"tiles": 1,
+			"columns": 256,
+			"components": 1,
+			"medianWidth": 8,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/expansion02/dragonblight/db_titanroadl.blp",
+			"kind": "name",
+			"tiles": 1,
+			"columns": 256,
+			"components": 1,
+			"medianWidth": 8,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/expansion02/dragonblight/db_titanroadm.blp",
+			"kind": "name",
+			"tiles": 1,
+			"columns": 223,
+			"components": 1,
+			"medianWidth": 6.97,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/expansion02/dragonblight/db_titanroadn.blp",
+			"kind": "name",
+			"tiles": 1,
+			"columns": 256,
+			"components": 1,
+			"medianWidth": 8,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/expansion02/dragonblight/db_titanroado.blp",
+			"kind": "name",
+			"tiles": 1,
+			"columns": 226,
+			"components": 1,
+			"medianWidth": 7.06,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/expansion02/lakewintergrasp/wg_titanroad01.blp",
+			"kind": "name",
+			"tiles": 1,
+			"columns": 236,
+			"components": 1,
+			"medianWidth": 7.38,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/expansion02/lakewintergrasp/wg_titanroad03.blp",
+			"kind": "name",
+			"tiles": 1,
+			"columns": 0,
+			"components": 0,
+			"medianWidth": null,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/expansion03/gilneas/gn_cobblestonef.blp",
+			"kind": "name",
+			"tiles": 18,
+			"columns": 43598,
+			"components": 289,
+			"medianWidth": 2.89,
+			"share": 0.416,
+			"road": true
+		},
+		{
+			"texture": "tileset/expansion03/gilneas/gn_cobblestoneg.blp",
+			"kind": "name",
+			"tiles": 4,
+			"columns": 83,
+			"components": 53,
+			"medianWidth": 0.5,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/expansion03/gilneas/gn_cobblestoneh.blp",
+			"kind": "name",
+			"tiles": 5,
+			"columns": 385,
+			"components": 204,
+			"medianWidth": 0.67,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/expansion03/gilneas/gn_dirtb.blp",
+			"kind": "ground",
+			"tiles": 30,
+			"columns": 348386,
+			"components": 3839,
+			"medianWidth": 2,
+			"share": 0.122,
+			"road": false
+		},
+		{
+			"texture": "tileset/expansion03/gilneas/gn_dirtdarka.blp",
+			"kind": "ground",
+			"tiles": 4,
+			"columns": 17489,
+			"components": 518,
+			"medianWidth": 1.38,
+			"share": 0.356,
+			"road": false
+		},
+		{
+			"texture": "tileset/expansion03/twilighthighlands/th_dirt_04.blp",
+			"kind": "ground",
+			"tiles": 11,
+			"columns": 46799,
+			"components": 424,
+			"medianWidth": 2.59,
+			"share": 0.135,
+			"road": false
+		},
+		{
+			"texture": "tileset/expansion03/twilighthighlands/th_obsiddirt_01.blp",
+			"kind": "ground",
+			"tiles": 1,
+			"columns": 0,
+			"components": 0,
+			"medianWidth": null,
+			"share": 0,
+			"road": false
+		},
+		{
+			"texture": "tileset/expansion03/uldum/uldum_sand_dark_02.blp",
+			"kind": "other",
+			"tiles": 10,
+			"columns": 21338,
+			"components": 653,
+			"medianWidth": 5.39,
+			"share": 0.638,
+			"road": false
+		},
+		{
+			"texture": "tileset/felwood/felwooddirt.blp",
+			"kind": "ground",
+			"tiles": 45,
+			"columns": 401702,
+			"components": 8259,
+			"medianWidth": 2.77,
+			"share": 0.14,
+			"road": false
+		},
+		{
+			"texture": "tileset/felwood/felwoodroad.blp",
+			"kind": "name",
+			"tiles": 11,
+			"columns": 7122,
+			"components": 18,
+			"medianWidth": 2.24,
+			"share": 0.985,
+			"road": true
+		},
+		{
+			"texture": "tileset/feralas/feralasdirt.blp",
+			"kind": "ground",
+			"tiles": 124,
+			"columns": 1607919,
+			"components": 36271,
+			"medianWidth": 2.91,
+			"share": 0.108,
+			"road": false
+		},
+		{
+			"texture": "tileset/feralas/feralasroad.blp",
+			"kind": "name",
+			"tiles": 23,
+			"columns": 7457,
+			"components": 183,
+			"medianWidth": 1.79,
+			"share": 0.712,
+			"road": true
+		},
+		{
+			"texture": "tileset/hyjal/alphahyjalroad.blp",
+			"kind": "name",
+			"tiles": 16,
+			"columns": 8046,
+			"components": 112,
+			"medianWidth": 2.02,
+			"share": 0.869,
+			"road": true
+		},
+		{
+			"texture": "tileset/hyjal/hyjaldirtrock.blp",
+			"kind": "ground",
+			"tiles": 41,
+			"columns": 496059,
+			"components": 4381,
+			"medianWidth": 4.14,
+			"share": 0.149,
+			"road": false
+		},
+		{
+			"texture": "tileset/ironforge/ironforgefootprintsalpha.blp",
+			"kind": "ground",
+			"tiles": 14,
+			"columns": 782,
+			"components": 141,
+			"medianWidth": 0.83,
+			"share": 0.038,
+			"road": false
+		},
+		{
+			"texture": "tileset/ironforge/ironforgerock06road2.blp",
+			"kind": "name",
+			"tiles": 25,
+			"columns": 12216,
+			"components": 342,
+			"medianWidth": 2.45,
+			"share": 0.277,
+			"road": true
+		},
+		{
+			"texture": "tileset/ironforge/ironforgerock09browncracks.blp",
+			"kind": "review",
+			"tiles": 11,
+			"columns": 11278,
+			"components": 19,
+			"medianWidth": 3.13,
+			"share": 0.954,
+			"road": true
+		},
+		{
+			"texture": "tileset/kalidar/kalidardarnroad.blp",
+			"kind": "name",
+			"tiles": 13,
+			"columns": 6620,
+			"components": 51,
+			"medianWidth": 2.22,
+			"share": 0.856,
+			"road": true
+		},
+		{
+			"texture": "tileset/kalidar/kalidarroad.blp",
+			"kind": "name",
+			"tiles": 31,
+			"columns": 17105,
+			"components": 267,
+			"medianWidth": 2.29,
+			"share": 0.89,
+			"road": true
+		},
+		{
+			"texture": "tileset/loch modan/lochmodanbrickroadbase.blp",
+			"kind": "name",
+			"tiles": 12,
+			"columns": 7775,
+			"components": 497,
+			"medianWidth": 1.31,
+			"share": 0.521,
+			"road": true
+		},
+		{
+			"texture": "tileset/loch modan/lochmodandirt.blp",
+			"kind": "ground",
+			"tiles": 31,
+			"columns": 268202,
+			"components": 3559,
+			"medianWidth": 2.82,
+			"share": 0.259,
+			"road": false
+		},
+		{
+			"texture": "tileset/loch modan/lochmodangraveldirt.blp",
+			"kind": "ground",
+			"tiles": 21,
+			"columns": 16619,
+			"components": 2977,
+			"medianWidth": 1.13,
+			"share": 0.247,
+			"road": false
+		},
+		{
+			"texture": "tileset/loch modan/lochmodangraveldirtalpha.blp",
+			"kind": "ground",
+			"tiles": 10,
+			"columns": 10809,
+			"components": 320,
+			"medianWidth": 2,
+			"share": 0.269,
+			"road": false
+		},
+		{
+			"texture": "tileset/mullgore/mullgorebasedirt.blp",
+			"kind": "ground",
+			"tiles": 34,
+			"columns": 291016,
+			"components": 2888,
+			"medianWidth": 3.3,
+			"share": 0.151,
+			"road": false
+		},
+		{
+			"texture": "tileset/mullgore/mullgorecrackeddirt.blp",
+			"kind": "ground",
+			"tiles": 8,
+			"columns": 4948,
+			"components": 353,
+			"medianWidth": 1.9,
+			"share": 0.03,
+			"road": false
+		},
+		{
+			"texture": "tileset/mullgore/mullgoreroad01.blp",
+			"kind": "name",
+			"tiles": 13,
+			"columns": 6169,
+			"components": 84,
+			"medianWidth": 1.74,
+			"share": 0.863,
+			"road": true
+		},
+		{
+			"texture": "tileset/orgrimmar/orgrim_road_01.blp",
+			"kind": "name",
+			"tiles": 3,
+			"columns": 196,
+			"components": 12,
+			"medianWidth": 1.76,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/plaguelandseast/eastplaguedbasedirt.blp",
+			"kind": "ground",
+			"tiles": 41,
+			"columns": 431656,
+			"components": 4825,
+			"medianWidth": 20.51,
+			"share": 0.158,
+			"road": false
+		},
+		{
+			"texture": "tileset/plaguelandseast/eastplaguedroadbase.blp",
+			"kind": "name",
+			"tiles": 17,
+			"columns": 9878,
+			"components": 152,
+			"medianWidth": 2.06,
+			"share": 0.81,
+			"road": true
+		},
+		{
+			"texture": "tileset/plaguelandswest/westplaguedbasedirt.blp",
+			"kind": "ground",
+			"tiles": 26,
+			"columns": 133439,
+			"components": 487,
+			"medianWidth": 16.21,
+			"share": 0.069,
+			"road": false
+		},
+		{
+			"texture": "tileset/plaguelandswest/westplagueddirtrock.blp",
+			"kind": "ground",
+			"tiles": 22,
+			"columns": 245974,
+			"components": 2138,
+			"medianWidth": 3.51,
+			"share": 0.005,
+			"road": false
+		},
+		{
+			"texture": "tileset/redridge/redridgedirtbase.blp",
+			"kind": "ground",
+			"tiles": 20,
+			"columns": 188006,
+			"components": 5261,
+			"medianWidth": 2.84,
+			"share": 0.195,
+			"road": false
+		},
+		{
+			"texture": "tileset/redridge/redridgegrassdirtbase.blp",
+			"kind": "ground",
+			"tiles": 22,
+			"columns": 184297,
+			"components": 3451,
+			"medianWidth": 3.99,
+			"share": 0.144,
+			"road": false
+		},
+		{
+			"texture": "tileset/redridge/redridgerockroadbase.blp",
+			"kind": "name",
+			"tiles": 16,
+			"columns": 10221,
+			"components": 88,
+			"medianWidth": 2.37,
+			"share": 0.958,
+			"road": true
+		},
+		{
+			"texture": "tileset/silverpine/silverpinedirt.blp",
+			"kind": "ground",
+			"tiles": 40,
+			"columns": 394329,
+			"components": 5335,
+			"medianWidth": 3.61,
+			"share": 0.05,
+			"road": false
+		},
+		{
+			"texture": "tileset/silverpine/silverpinenewdirt.blp",
+			"kind": "ground",
+			"tiles": 9,
+			"columns": 29840,
+			"components": 462,
+			"medianWidth": 2.72,
+			"share": 0.008,
+			"road": false
+		},
+		{
+			"texture": "tileset/silverpine/silverpineroad.blp",
+			"kind": "name",
+			"tiles": 12,
+			"columns": 9132,
+			"components": 237,
+			"medianWidth": 1.79,
+			"share": 0.616,
+			"road": true
+		},
+		{
+			"texture": "tileset/stranglethorn/stranglethorncobblestoneroad.blp",
+			"kind": "name",
+			"tiles": 15,
+			"columns": 9178,
+			"components": 182,
+			"medianWidth": 2.19,
+			"share": 0.598,
+			"road": true
+		},
+		{
+			"texture": "tileset/stranglethorn/stranglethorndirt03.blp",
+			"kind": "ground",
+			"tiles": 42,
+			"columns": 186980,
+			"components": 5154,
+			"medianWidth": 3.1,
+			"share": 0.279,
+			"road": false
+		},
+		{
+			"texture": "tileset/stranglethorn/stranglethornmossrootdirt01.blp",
+			"kind": "ground",
+			"tiles": 4,
+			"columns": 775,
+			"components": 89,
+			"medianWidth": 1.3,
+			"share": 0,
+			"road": false
+		},
+		{
+			"texture": "tileset/swamp of sorrows/swampsorrowsdirt02.blp",
+			"kind": "ground",
+			"tiles": 7,
+			"columns": 18129,
+			"components": 120,
+			"medianWidth": 5.28,
+			"share": 0,
+			"road": false
+		},
+		{
+			"texture": "tileset/swamp of sorrows/swampsorrowsstoneroad07.blp",
+			"kind": "name",
+			"tiles": 10,
+			"columns": 10622,
+			"components": 101,
+			"medianWidth": 2.67,
+			"share": 0.821,
+			"road": true
+		},
+		{
+			"texture": "tileset/tanaris/tanarisdirtfootprint.blp",
+			"kind": "ground",
+			"tiles": 12,
+			"columns": 568,
+			"components": 177,
+			"medianWidth": 1.3,
+			"share": 0.482,
+			"road": false
+		},
+		{
+			"texture": "tileset/the badlands/badlandsdirt.blp",
+			"kind": "ground",
+			"tiles": 18,
+			"columns": 390954,
+			"components": 1182,
+			"medianWidth": 3.66,
+			"share": 0.017,
+			"road": false
+		},
+		{
+			"texture": "tileset/the blasted lands/blastedlandsdirt01.blp",
+			"kind": "ground",
+			"tiles": 15,
+			"columns": 194825,
+			"components": 1904,
+			"medianWidth": 3.8,
+			"share": 0.059,
+			"road": false
+		},
+		{
+			"texture": "tileset/the blasted lands/blastedlandsroad.blp",
+			"kind": "name",
+			"tiles": 6,
+			"columns": 4304,
+			"components": 21,
+			"medianWidth": 2.35,
+			"share": 0.927,
+			"road": true
+		},
+		{
+			"texture": "tileset/thousandneedles/thousandneedlesdirt.blp",
+			"kind": "ground",
+			"tiles": 29,
+			"columns": 318649,
+			"components": 1416,
+			"medianWidth": 5.33,
+			"share": 0.031,
+			"road": false
+		},
+		{
+			"texture": "tileset/tirisfall/tirisfalldirtrock02.blp",
+			"kind": "ground",
+			"tiles": 11,
+			"columns": 30419,
+			"components": 361,
+			"medianWidth": 3.85,
+			"share": 0.089,
+			"road": false
+		},
+		{
+			"texture": "tileset/tirisfall/tirisfalldirtrock07.blp",
+			"kind": "ground",
+			"tiles": 33,
+			"columns": 213121,
+			"components": 3053,
+			"medianWidth": 3.21,
+			"share": 0.02,
+			"road": false
+		},
+		{
+			"texture": "tileset/tirisfall/tirisfallstoneroad01.blp",
+			"kind": "name",
+			"tiles": 37,
+			"columns": 28066,
+			"components": 420,
+			"medianWidth": 2.3,
+			"share": 0.852,
+			"road": true
+		},
+		{
+			"texture": "tileset/westwood/westfallcobblestonebase.blp",
+			"kind": "name",
+			"tiles": 10,
+			"columns": 3946,
+			"components": 313,
+			"medianWidth": 1.19,
+			"share": 0.597,
+			"road": true
+		},
+		{
+			"texture": "tileset/westwood/westfalldirtbase.blp",
+			"kind": "ground",
+			"tiles": 12,
+			"columns": 192667,
+			"components": 2366,
+			"medianWidth": 2.83,
+			"share": 0.065,
+			"road": false
+		},
+		{
+			"texture": "tileset/wetlands/wetlandsdirt01.blp",
+			"kind": "ground",
+			"tiles": 941,
+			"columns": 40851095,
+			"components": 37031,
+			"medianWidth": 128,
+			"share": 0.005,
+			"road": false
+		},
+		{
+			"texture": "tileset/wetlands/wetlandsdirtmoss01.blp",
+			"kind": "ground",
+			"tiles": 304,
+			"columns": 3201982,
+			"components": 10996,
+			"medianWidth": 4.13,
+			"share": 0.027,
+			"road": false
+		},
+		{
+			"texture": "tileset/wetlands/wetlandsroad01.blp",
+			"kind": "name",
+			"tiles": 26,
+			"columns": 6615,
+			"components": 370,
+			"medianWidth": 1.57,
+			"share": 0.57,
+			"road": true
+		},
+		{
+			"texture": "tileset/winterspring grove/winterspringdirt.blp",
+			"kind": "ground",
+			"tiles": 20,
+			"columns": 25392,
+			"components": 73,
+			"medianWidth": 4.48,
+			"share": 0.865,
+			"road": true
+		},
+		{
+			"texture": "tileset/winterspring grove/winterspringfootprints.blp",
+			"kind": "ground",
+			"tiles": 7,
+			"columns": 143,
+			"components": 6,
+			"medianWidth": 2.71,
+			"share": 0,
+			"road": false
+		},
+		{
+			"texture": "tileset/zulgurub/zulgurubdirt01.blp",
+			"kind": "ground",
+			"tiles": 6,
+			"columns": 83324,
+			"components": 4175,
+			"medianWidth": 4.42,
+			"share": 0.083,
+			"road": false
+		},
+		{
+			"texture": "tileset/zulgurub/zulgurubroad01.blp",
+			"kind": "name",
+			"tiles": 7,
+			"columns": 6768,
+			"components": 77,
+			"medianWidth": 2.09,
+			"share": 0.664,
+			"road": true
+		}
+	]
+}

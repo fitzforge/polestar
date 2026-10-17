@@ -75,6 +75,8 @@ return {
 	["{npc:345} (level 24) roots around the pen just west of {area:69}. Pull him away from the other boars and fight at full health."] = "{npc:345} (nivel 24) hoza en el corral justo al oeste de {area:69}. Apártalo de los demás jabalíes y lucha con la salud al máximo.",
 
 	-- Step 12: Lakeshire
+	-- {npc:341} Foreman Oslow · {quest:89} The Everstill Bridge
+	["{npc:341}: after {quest:89}"] = "{npc:341}: después de {quest:89}",
 	-- {npc:703} Lieutenant Fangore · {area:1000} Galardell Valley
 	["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "El cartel de Se busca junto a la posada: {npc:703}, en {area:1000}",
 
@@ -88,7 +90,8 @@ return {
 	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Blackrock Renegades = {npc:437} Blackrock Renegade
 	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake; Blackrock Renegades hold the mill itself."] = "Las Tarántulas mayores recorren las laderas alrededor del molino al noreste del lago; los Renegados Roca Negra ocupan el propio molino.",
 	-- {item:3014} Battleworn Axe
-	["{item:3014}: any Blackrock orc"] = "{item:3014}: cualquier orco Roca Negra",
+	-- plural, as words: Blackrock Renegades = {npc:437} Blackrock Renegade
+	["{item:3014}: the Blackrock Renegades at the mill"] = "{item:3014}: los Renegados Roca Negra del molino",
 
 	-- Step 15: Galardell Valley
 	-- {npc:703} Lieutenant Fangore · {area:2099} Stonewatch Keep
@@ -119,4 +122,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bellygrub"] = "Panzallena",
+	-- ["{item:3014}: any Blackrock orc"] = "{item:3014}: cualquier orco Roca Negra",
 }

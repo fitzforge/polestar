@@ -150,8 +150,8 @@ return {
 	["Ask {npc:10666} for his report"] = "Спросите отчет у персонажа {npc:10666}",
 
 	-- Step 29: Calvin Montague
-	-- {npc:6784} Calvin Montague
-	["Walk on west to {npc:6784} and talk to him: he wants a duel."] = "Идите дальше на запад к NPC {npc:6784} и поговорите с ним: он хочет дуэль.",
+	-- {area:156} Solliden Farmstead · {npc:1519} Deathguard Simmer · {npc:6784} Calvin Montague
+	["Walk on west to the {area:156}. {npc:1519} stands at the farm; {npc:6784}, by the farmhouse, wants a duel: talk to him."] = "Идите дальше на запад сюда: {area:156}. {npc:1519} стоит на ферме; {npc:6784} у дома хочет дуэли: поговорите с ним.",
 	-- {npc:6784} Calvin Montague
 	["Beat {npc:6784} in the duel"] = "Победите на дуэли: {npc:6784}",
 
@@ -202,8 +202,6 @@ return {
 	-- Step 37: Deathguard Linnea
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart
 	["Follow the road south-east from {area:159} past the zeppelin towers. Linnea, Kristof and {npc:3549} camp by the road."] = "Идите по дороге на юго-восток от места {area:159} мимо башен дирижаблей. Линнея, Кристоф и {npc:3549} стоят лагерем у дороги.",
-	-- {npc:1495} Deathguard Linnea · {npc:276020} Riptear
-	["{npc:1495}: {npc:276020}, an elite abomination in the east"] = "{npc:1495}: {npc:276020}, элитное поганище на востоке",
 	-- {npc:251001} Deathguard Kristof
 	["Ask {npc:251001} for his report"] = "Спросите отчет у персонажа {npc:251001}",
 
@@ -219,16 +217,12 @@ return {
 	["{item:2839}, a rare drop"] = "{item:2839}, редкая добыча",
 	["Only if the letter dropped"] = "Только если выпало письмо",
 
-	-- Step 40: Deathguard Simmer
-	-- {area:156} Solliden Farmstead
-	["Walk south-west to the {area:156}; Simmer stands at the farm."] = "Идите на юго-запад сюда: {area:156}; Симмер стоит на ферме.",
-
-	-- Step 41: Tirisfal Pumpkins
+	-- Step 40: Tirisfal Pumpkins
 	-- plural, as words: Tirisfal Pumpkins = {object:375} Tirisfal Pumpkin
 	["Tirisfal Pumpkins"] = "Тирисфальские тыквы",
-	["The pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "Тыквы растут на полях Алого ордена к северо-западу от фермы Соллиден.",
+	["Walk south-west from the mills: the pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "Идите на юго-запад от мельниц: тыквы растут на полях Алого ордена к северо-западу от фермы Соллиден.",
 
-	-- Step 42: Crusader's Outpost
+	-- Step 41: Crusader's Outpost
 	["Crusader's Outpost"] = "Застава Алого Ордена",
 	-- {npc:275954} Bareth Dawnstone
 	-- plural, as words: Scarlet Warriors = {npc:1535} Scarlet Warrior
@@ -236,22 +230,22 @@ return {
 	-- {npc:275954} Bareth Dawnstone
 	["Escort {npc:275954} out of the outpost"] = "Выведите {npc:275954} с заставы",
 
-	-- Step 43: Vile Fin shore
+	-- Step 42: Vile Fin shore
 	["Vile Fin shore"] = "Берег Злобного Плавника",
 	["More Vile Fin murlocs walk the shore just north of the outpost."] = "Еще мурлоки Злобного Плавника бродят по берегу чуть к северу от заставы.",
 
-	-- Step 44: Paladin: Whispering Forest
+	-- Step 43: Paladin: Whispering Forest
 	-- {area:16616} Whispering Forest
 	["Paladin: {area:16616}"] = "Паладин: {area:16616}",
 	-- {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
 	["Head west into the {area:16616}; {npc:246389} and {npc:259190} camp at its edge."] = "Идите на запад сюда: {area:16616}; {npc:246389} и {npc:259190} стоят лагерем на окраине.",
 
-	-- Step 45: Shadowvale
+	-- Step 44: Shadowvale
 	-- {area:16881} Shadowvale · {item:286269} Glowing Crystal Fragment
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
 	["{area:16881} is the hollow at the west edge of the glades. The Shadowvale Lurchers and Mystics drop the bones; the bottles lie on the ground among them, and the {item:286269} is at the south end."] = "{area:16881} – лощина у западного края леса. Кости падают с тенедольных шпионов и мистиков; бутылки лежат на земле среди них, а {item:286269} – в южной части.",
 
-	-- Step 48: Brill
+	-- Step 47: Brill
 	-- {npc:1560} Yvette Farthing
 	["{npc:1560}, in the inn"] = "{npc:1560}, в таверне",
 	-- {npc:1931} Captured Scarlet Zealot
@@ -259,41 +253,41 @@ return {
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
 	["{npc:2128}: {npc:4568} in the {zone:1458} takes it"] = "{npc:2128}: задание принимает {npc:4568} ({zone:1458})",
 
-	-- Step 49: Ulag the Cleaver
+	-- Step 48: Ulag the Cleaver
 	-- {npc:1496} Deathguard Dillinger · {area:159} Brill · {npc:6390} Ulag the Cleaver
 	["{npc:1496} stands in {area:159}. {npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:1496} стоит здесь: {area:159}. {npc:6390} ждет в мавзолее на холме чуть к северу от городка: откройте ворота и сразитесь с ним.",
 
-	-- Step 50: Carendin Halgar
+	-- Step 49: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Идите на юг от места {area:159} сюда: {area:153} и спуститесь в город {zone:1458}. {npc:5675} стоит здесь: {object:36082}. Лагерь Алого ордена – чуть к западу от руин.",
 
-	-- Step 51: Anastasia Hartwell
+	-- Step 50: Anastasia Hartwell
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Идите на юг от места {area:159} сюда: {area:153} и спуститесь в город {zone:1458}. {npc:4568} стоит здесь: {object:36082}. Лагерь Алого ордена – чуть к западу от руин.",
 
-	-- Step 52: The Scarlet camp
+	-- Step 51: The Scarlet camp
 	["The Scarlet camp"] = "Лагерь Алого ордена",
 	-- {area:159} Brill · {npc:1662} Captain Perrine
 	["Follow the road south-west from {area:159} to the Scarlet Crusade camp. {npc:1662} stands at its south end; every Scarlet there can drop a ring."] = "Идите по дороге на юго-запад от места {area:159} к лагерю Алого ордена. {npc:1662} стоит в его южной части; кольцо может упасть с любого воина Алого ордена.",
 
-	-- Step 53: Perrine's Chest
+	-- Step 52: Perrine's Chest
 	-- {object:37098} Perrine's Chest · {npc:1662} Captain Perrine
 	["{object:37098} stands beside {npc:1662} at the camp's south end."] = "{object:37098} стоит рядом с персонажем {npc:1662} в южной части лагеря.",
 
-	-- Step 55: Deathguard Terrence
+	-- Step 54: Deathguard Terrence
 	-- {area:159} Brill
 	["Take the road south-east out of {area:159}; Terrence stands on it short of the zeppelin towers."] = "Идите по дороге на юго-восток от места {area:159}; Терренс стоит на ней, не доходя до башен дирижаблей.",
 
-	-- Step 56: Hadric Harlson
+	-- Step 55: Hadric Harlson
 	-- {npc:267009} Hadric Harlson · {npc:1495} Deathguard Linnea
 	["{npc:267009} stands at {npc:1495}'s camp."] = "{npc:267009} стоит в лагере ({npc:1495}).",
 
-	-- Step 57: Balnir Farmstead
+	-- Step 56: Balnir Farmstead
 	-- {quest:96897} The Cult of the Damned
 	-- plural, as words: Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["{quest:96897} holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too."] = "{quest:96897} занимает ферму чуть к юго-востоку от лагеря. Осколки некротического кристалла лежат на земле среди культистов, часть – у самих культистов.",
 
-	-- Step 58: Balnir graves
+	-- Step 57: Balnir graves
 	["Balnir graves"] = "Могилы фермы Балнира",
 	-- {quest:99142} Tomb Weed
 	-- plural, as words: Bleeding Horrors = {npc:1529} Bleeding Horror · Wandering Spirits = {npc:1532} Wandering Spirit
@@ -301,63 +295,66 @@ return {
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "{item:7227}, в саду фермы",
 
-	-- Step 59: Captain Vachon
+	-- Step 58: Captain Vachon
 	-- {npc:1664} Captain Vachon
 	-- plural, as words: Scarlet Friars = {npc:1538} Scarlet Friar
 	["The Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them."] = "Келейники из Алого ордена стоят лагерем чуть к северо-востоку от могил; {npc:1664} стоит среди них.",
 
-	-- Step 60: Vicious Night Web Spiders
+	-- Step 59: Vicious Night Web Spiders
 	-- plural, as words: Vicious Night Web Spiders = {npc:1555} Vicious Night Web Spider
 	["Vicious Night Web Spiders"] = "Злобные ночные кругопряды",
-	-- {npc:276020} Riptear
-	["The spiders lurk in the woods at the far east end of the glades. {npc:276020}, a rogue abomination, wanders just north-west of them. {npc:276020} is elite: grouping up is advised."] = "Пауки прячутся в лесу на дальнем востоке Тирисфальских лесов. {npc:276020}, поганище-отступник, бродит чуть к северо-западу от них. {npc:276020} – элита: лучше собрать группу.",
-	-- {item:286326} Riptear's Heart · {npc:276020} Riptear
-	["{item:286326}, from {npc:276020}"] = "{item:286326}, с NPC {npc:276020}",
+	["The spiders lurk in the woods at the far east end of the glades."] = "Пауки прячутся в лесу на дальнем востоке Тирисфальских лесов.",
 
-	-- Step 61: Hides for the Forsaken
+	-- Step 60: Hides for the Forsaken
 	-- plural, as words: Duskbats = {npc:1512} Duskbat
 	["Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way."] = "Сумеречницы и псы тьмы бродят вдоль всей дороги на запад; доберите крылья и шкуры по пути.",
 
-	-- Step 62: Deathguard Linnea's camp
+	-- Step 61: Deathguard Linnea's camp
 	-- {npc:1495} Deathguard Linnea
 	["{npc:1495}'s camp"] = "Лагерь: {npc:1495}",
 
-	-- Step 63: Brill
+	-- Step 62: Brill
 	-- {npc:2211} Captured Mountaineer
 	["The {npc:2211}, in the town hall basement"] = "{npc:2211}, в подвале ратуши",
 
-	-- Step 64: Captain Melrache
+	-- Step 63: Captain Melrache
 	-- {area:159} Brill · {area:162} Brightwater Lake · {npc:1665} Captain Melrache · {area:459} Scarlet Watch Post
 	-- plural, as words: Scarlet Bodyguards = {npc:1660} Scarlet Bodyguard
 	["Follow the road north-east from {area:159} past {area:162}. {npc:1665} and his two Scarlet Bodyguards hold the Scarlet watchtower on the north-east coast, north of the {area:459}: pull the bodyguards first."] = "Идите по дороге на северо-восток от места {area:159} мимо места {area:162}. {npc:1665} и два телохранителя из Алого ордена занимают сторожевую башню на северо-восточном побережье, к северу от места {area:459}: сначала выманите телохранителей.",
 
-	-- Step 65: Executor Zygand
+	-- Step 64: Executor Zygand
 	-- {area:159} Brill
 	["Back to {area:159}."] = "Назад сюда: {area:159}.",
 
-	-- Step 66: Leonid Barthalomew
+	-- Step 65: Leonid Barthalomew
 	-- {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker
 	["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp."] = "Идите по дороге на запад мимо места {area:157} сюда: {area:16616}. Леонид стоит чуть к северу от лагеря {npc:246389}.",
 	-- {npc:246378} Danitha Morr
 	["Listen to Leonid and {npc:246378}, then talk to him again"] = "Выслушайте Леонида и персонажа {npc:246378}, затем снова поговорите с ним",
 
-	-- Step 68: The Undercity
+	-- Step 67: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {item:6284} Runes of Summoning · {npc:4606} Aelthalyste · {object:36070} War Quarter · {npc:4568} Anastasia Hartwell
 	["{object:1661} is under the {area:153}, beside the zeppelin towers. {npc:5675} is in the {object:36082}: use the {item:6284} on the summoning circle beside him and defeat the voidwalker. {npc:4606} is in the {object:36070}. {npc:4568} is in the {object:36082} too."] = "{object:1661} – под местом {area:153}, рядом с башнями дирижаблей. {npc:5675} – здесь: {object:36082}: используйте предмет {item:6284} на круге призыва рядом с ним и одолейте демона Бездны. {npc:4606} – здесь: {object:36070}. {npc:4568} – тоже здесь: {object:36082}.",
 
-	-- Step 69: Zeppelin to Durotar
+	-- Step 68: Zeppelin to Durotar
 	-- {zone:1411} Durotar
 	["Zeppelin to {zone:1411}"] = "Дирижабль: {zone:1411}",
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1454} Orgrimmar · {object:3202} Grom'gol
 	["Walk south-east from {area:159} to the zeppelin towers outside the {area:153} and board the zeppelin to {zone:1454} (the other one goes to {object:3202})."] = "Идите на юго-восток от места {area:159} к башням дирижаблей у места {area:153} и садитесь на дирижабль ({zone:1454}) (другой летит сюда: {object:3202}).",
 	["Zeppelin tower"] = "Башня дирижаблей",
 
-	-- Step 70: The Crossroads
+	-- Step 69: The Crossroads
 	-- {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:815} Southfury River · {area:379} Far Watch Post · {area:380} The Crossroads
 	["The zeppelin lands at the tower just north-east of {zone:1454}'s main gate. Follow the road south into {zone:1411}, cross the {area:815} bridge below {area:379} and follow the road west to the {area:380}."] = "Дирижабль причаливает к башне чуть к северо-востоку от главных ворот ({zone:1454}). Идите по дороге на юг в край {zone:1411}, перейдите мост ({area:815}) под местом {area:379} и идите по дороге на запад к месту {area:380}.",
 	-- {npc:3615} Devrak
 	["{npc:3615}, the wind rider master"] = "{npc:3615}, распорядитель полетов",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "Тыквы растут на полях Алого ордена к северо-западу от фермы Соллиден.",
+	-- ["The spiders lurk in the woods at the far east end of the glades. {npc:276020}, a rogue abomination, wanders just north-west of them. {npc:276020} is elite: grouping up is advised."] = "Пауки прячутся в лесу на дальнем востоке Тирисфальских лесов. {npc:276020}, поганище-отступник, бродит чуть к северо-западу от них. {npc:276020} – элита: лучше собрать группу.",
 	-- ["The zeppelin lands at the tower just north-east of {zone:1454}'s main gate. Follow the road south into {zone:1411}, cross the {area:815} bridge below {area:379} and follow the road west to the {area:380}."] = "Дирижабль причаливает к башне чуть к северо-востоку от главных ворот ({zone:1454}). Идите по дороге на юг в край {zone:1411}, перейдите мост ({area:815}) под местом {area:379} и идите по дороге на запад сюда: {area:380}.",
+	-- ["Walk on west to {npc:6784} and talk to him: he wants a duel."] = "Идите дальше на запад к NPC {npc:6784} и поговорите с ним: он хочет дуэль.",
+	-- ["Walk south-west to the {area:156}; Simmer stands at the farm."] = "Идите на юго-запад сюда: {area:156}; Симмер стоит на ферме.",
+	-- ["{item:286326}, from {npc:276020}"] = "{item:286326}, с NPC {npc:276020}",
+	-- ["{npc:1495}: {npc:276020}, an elite abomination in the east"] = "{npc:1495}: {npc:276020}, элитное поганище на востоке",
 }

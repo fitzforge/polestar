@@ -11,10 +11,8 @@ return {
 	["From {zone:1455}'s {npc:1573}"] = "{zone:1455}의 {npc:1573}에게서",
 
 	-- Step 2: Auberdine
-	-- {area:442} Auberdine · {npc:3649} Thundris Windweaver
-	["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "메네실 항구의 부두에서 {area:442}행 배를 타십시오. {npc:3649}은(는) {area:442}의 비행 조련사 북쪽에 있습니다.",
-	-- {npc:3649} Thundris Windweaver · {item:279915} Nord'el
-	["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}: {item:279915}, 메네실 항구의 Sylessa에게서",
+	-- {area:442} Auberdine
+	["Take the boat to {area:442} from Menethil's docks."] = "메네실 항구의 부두에서 {area:442}행 배를 타십시오.",
 
 	-- Step 3: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {area:1276} Talondeep Path
@@ -88,5 +86,7 @@ return {
 	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "콜카르일족이 {area:609} 주변 평원을 돌아다닙니다. 귀는 {npc:5752}에게 가져가십시오.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "메네실 항구의 부두에서 {area:442}행 배를 타십시오. {npc:3649}은(는) {area:442}의 비행 조련사 북쪽에 있습니다.",
 	-- ["The {area:1276}"] = "{area:1276}",
+	-- ["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}: {item:279915}, 메네실 항구의 Sylessa에게서",
 }

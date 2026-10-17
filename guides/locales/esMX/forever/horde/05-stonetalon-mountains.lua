@@ -72,8 +72,8 @@ return {
 	-- Step 16: Sun Rock Retreat
 	-- {area:460} Sun Rock Retreat
 	["Follow the road west to {area:460}."] = "Sigue el camino al oeste hasta {area:460}.",
-	-- {npc:11860} Maggran Earthbinder · {object:19844} Great Lift
-	["{npc:11860}: Grish is at the {object:19844}, in the next guide"] = "{npc:11860}: Grish está en {object:19844}, en la siguiente guía",
+	-- {npc:11860} Maggran Earthbinder · {area:1718} Great Lift
+	["{npc:11860}: Grish is at the {area:1718}, in the next guide"] = "{npc:11860}: Grish está en {area:1718}, en la siguiente guía",
 	-- {npc:11860} Maggran Earthbinder
 	-- plural, as words: Glittering Sunstones = {item:277936} Glittering Sunstone
 	["{npc:11860}: Glittering Sunstones from the Bloodfury harpies"] = "{npc:11860}: piedrasoles relumbrantes de las arpías Furia Sangrienta",

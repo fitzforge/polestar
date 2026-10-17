@@ -24,8 +24,8 @@ return {
 	["{npc:3060}, the druid trainer beside him"] = "{npc:3060}, учитель друидов, рядом с ним",
 
 	-- Step 4: Greatmother Hawkwind
-	-- {npc:2991} Greatmother Hawkwind · {item:4755} Water Pitcher
-	["{npc:2991} sits by the tent on the camp's eastern edge; the {item:4755} stands next to her."] = "{npc:2991} сидит у шатра на восточном краю лагеря; {item:4755} стоит рядом с ней.",
+	-- {npc:2991} Greatmother Hawkwind · {object:2907} Water Pitcher
+	["{npc:2991} sits by the tent on the camp's eastern edge; the {object:2907} stands next to her."] = "{npc:2991} сидит у шатра на восточном краю лагеря; {object:2907} стоит рядом с ней.",
 
 	-- Step 6: The Hunt Continues
 	-- {npc:6775} Antur Fallow · {npc:2980} Grull Hawkwind
@@ -46,6 +46,7 @@ return {
 
 	-- Step 10: Brambleblade Ravine
 	-- {npc:8554} Chief Sharptusk Thornmantle · {object:3076} Dirt-stained Map
+	-- plural, as words: Battleboars = {npc:2966} Battleboar
 	["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {object:3076} lies on the ground in the camp."] = "К северу от святилища пасутся боевые вепри; дыбогривые свинобразы занимают ущелье к северо-востоку. {npc:8554} стоит в его восточной части, а {object:3076} лежит на земле в лагере.",
 
 	-- Step 11: Camp Narache
@@ -92,10 +93,6 @@ return {
 
 	-- Step 22: Back to Bloodhoof
 	["Back to Bloodhoof"] = "Назад в Деревня Кровавого Копыта",
-	-- {npc:2993} Baine Bloodhoof · {npc:3057} Cairne Bloodhoof · {zone:1456} Thunder Bluff
-	["{npc:2993}, for {npc:3057} in {zone:1456}"] = "{npc:2993}, для {npc:3057} ({zone:1456})",
-	-- {npc:2948} Mull Thunderhorn · {zone:1456} Thunder Bluff
-	["{npc:2948}, for Hamuul in {zone:1456}"] = "{npc:2948}, для Хамуула ({zone:1456})",
 
 	-- Step 23: Sparring Match
 	-- {npc:3063} Krang Stonehoof
@@ -107,9 +104,9 @@ return {
 	["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182} стоит на северной окраине деревни. Кайлу нужен предмет {item:287505} с равнинных долгоногов.",
 
 	-- Step 26: Thunderhorn Water Well
-	-- {item:4809} Ambercorn · {quest:766} Mazzranache · {quest:761} Swoop Hunting
-	-- plural, as words: Well Stones = {item:4808} Well Stone
-	["The well lies north of the village. Well Stones sit around the well, {item:4809} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "Колодец – к северу от деревни. Камни колодца ({item:4808}) лежат вокруг него, {item:4809} – под деревьями рядом. По пути убивайте волков, пум, долгоногов и перепелятников для заданий {quest:766} и {quest:761}.",
+	-- {object:2912} Ambercorn · {quest:766} Mazzranache · {quest:761} Swoop Hunting
+	-- plural, as words: Well Stones = {object:2910} Well Stone
+	["The well lies north of the village. Well Stones sit around the well, {object:2912} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "Колодец – к северу от деревни. Камни у источника лежат вокруг него, {object:2912} – под деревьями рядом. По пути убивайте волков, пум, долгоногов и перепелятников для заданий {quest:766} и {quest:761}.",
 
 	-- Step 27: Bloodhoof Village
 	-- {npc:277182} Ahab Wheathoof
@@ -126,12 +123,12 @@ return {
 	-- {npc:275789} Malah Longwind · {area:821} Rolling Plains
 	["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789} стоит здесь: {area:821}, чуть к востоку от колодца.",
 
-	-- Step 31: Galak centaurs and Prairie Wolf Alphas
+	-- Step 31: Prairie Wolf Alphas
 	-- plural, as words: Prairie Wolf Alphas = {npc:2960} Prairie Wolf Alpha
-	["Galak centaurs and Prairie Wolf Alphas"] = "Кентавры Галак и могучие волки прерий",
-	-- {area:821} Rolling Plains
+	["Prairie Wolf Alphas"] = "Могучие волки прерий",
+	-- {npc:275789} Malah Longwind
 	-- plural, as words: Prairie Wolf Alphas = {npc:2960} Prairie Wolf Alpha
-	["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "Кентавры племени Галак стоят лагерем на равнинах к северу от места {area:821}; их ведет Херак. Среди волков бродят могучие волки прерий.",
+	["Prairie Wolf Alphas roam among the wolves on the plains around {npc:275789} and the Galak camp to the east."] = "Могучие волки прерий бродят среди волков на равнинах вокруг NPC {npc:275789} и лагеря племени Галак к востоку.",
 
 	-- Step 32: The Ravaged Caravan
 	-- {zone:1456} Thunder Bluff
@@ -144,44 +141,57 @@ return {
 	-- {area:396} Winterhoof Water Well
 	["Back south-east to the {area:396}."] = "Назад на юго-восток сюда: {area:396}.",
 
-	-- Step 37: The Venture Co. Mine
+	-- Step 37: Galak centaurs
+	["Galak centaurs"] = "Кентавры из племени Галак",
+	-- {npc:275767} Herak the Pillager
+	["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "Кентавры из племени Галак стоят лагерем на равнинах к востоку от колодца; их ведет {npc:275767}.",
+
+	-- Step 38: The Venture Co. Mine
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
 	["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine."] = "Гоблины работают в шахте на холмах к северо-востоку от колодца. {quest:765} стоит в глубине шахты; его {item:281031} начинают задание {quest:98424}, а остальные страницы лежат в шахте.",
 
-	-- Step 38: Wildmane Water Well
+	-- Step 39: Wildmane Water Well
 	-- {zone:1456} Thunder Bluff · {area:398} Wildmane Water Well · {zone:1412} Mulgore
 	["Cross north-west past {zone:1456} to the {area:398} in the far north of {zone:1412}."] = "Идите на северо-запад мимо города {zone:1456} сюда: {area:398}, на дальнем севере края {zone:1412}.",
 
-	-- Step 39: Dangers of the Windfury
+	-- Step 40: Dangers of the Windfury
 	-- {area:819} Windfury Ridge
 	["The Windfury harpies hold {area:819}, north and west of the well."] = "Гарпии из стаи Ярости Ветра занимают место {area:819} к северу и западу от колодца.",
 
-	-- Step 40: Seer Wiserunner
+	-- Step 41: Seer Wiserunner
 	-- {npc:2984} Seer Wiserunner · {area:404} Bael'dun Digsite
 	["{npc:2984} stands at the edge of the {area:404}, south of the well."] = "{npc:2984} стоит на краю места {area:404}, к югу от колодца.",
 
-	-- Step 41: Dwarven Digging
-	-- {area:404} Bael'dun Digsite · {area:222} Bloodhoof Village
+	-- Step 42: Dwarven Digging
+	-- {area:404} Bael'dun Digsite
 	-- plural, as words: Prospector's Picks = {item:4702} Prospector's Pick
-	["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "Кирки геолога – у дворфов ({area:404}). Разбейте их в кузнице ({area:222}).",
+	["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "Кирки геолога – у дворфов ({area:404}). Разбейте их в кузнице дворфов на раскопках.",
+	-- {item:4703} Broken Tools
+	["{item:4703}, at the digsite forge"] = "{item:4703} – у кузницы на раскопках",
 
-	-- Step 42: Sharing the Land
+	-- Step 43: Sharing the Land
 	-- {area:818} Palemane Rock · {npc:272203} Perith Stormhoof
 	["The Palemane gnolls hold {area:818}, south of the digsite and west of Bloodhoof. {npc:272203} is held in their camp: lead him out."] = "Гноллы из стаи Бледногривов занимают место {area:818} к югу от раскопок и к западу от Деревни Кровавого Копыта. {npc:272203} в плену в их лагере: выведите его.",
 
-	-- Step 45: Red Rocks
+	-- Step 44: Bloodhoof Village
+	-- {npc:2993} Baine Bloodhoof · {npc:3057} Cairne Bloodhoof · {zone:1456} Thunder Bluff
+	["{npc:2993}, for {npc:3057} in {zone:1456}"] = "{npc:2993}, для {npc:3057} ({zone:1456})",
+	-- {npc:2948} Mull Thunderhorn · {zone:1456} Thunder Bluff
+	["{npc:2948}, for Hamuul in {zone:1456}"] = "{npc:2948}, для Хамуула ({zone:1456})",
+
+	-- Step 46: Red Rocks
 	-- {area:225} Red Rocks · {zone:1456} Thunder Bluff · {npc:3233} Lorekeeper Raintotem · {npc:2994} Ancestral Spirit
 	-- plural, as words: Bristleback Interlopers = {npc:3232} Bristleback Interloper
 	["Head north to {area:225}, east of {zone:1456}. {npc:3233} stands at the foot of the rocks; the Bristleback Interlopers dig at the burial ground and the {npc:2994} waits on top."] = "Идите на север сюда: {area:225}, к востоку от города {zone:1456}. {npc:3233} стоит у подножия скал; злоумышленники из племени Дыбогривов роются на кладбище, а {npc:2994} ждет наверху.",
-	-- {area:225} Red Rocks
+	-- {item:5203} Flatland Prowler Claw · {area:225} Red Rocks
 	-- plural, as words: Flatland Prowlers = {npc:3566} Flatland Prowler
-	["Flatland Prowlers roam the plains around {area:225}"] = "Хищники плоскогорья бродят по равнинам вокруг места {area:225}",
+	["{item:5203}: Flatland Prowlers roam the plains around {area:225}"] = "{item:5203}: хищники плоскогорья бродят по равнинам вокруг места {area:225}",
 
-	-- Step 46: Thunder Bluff
+	-- Step 47: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3057} Cairne Bloodhoof
 	["Ride a lift up to the mesas. {npc:2995} keeps the wind riders on the central rise; {npc:3057} stands in the great tent there."] = "Поднимитесь на подъемнике на плато. {npc:2995} присматривает за ветрокрылами на центральном холме; {npc:3057} стоит там в большом шатре.",
 
-	-- Step 47: Traditions of the Bluff
+	-- Step 48: Traditions of the Bluff
 	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
 	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068} просит тауренские благовония: купите четыре части у {npc:3014} (травница), {npc:3012} (товары для зачарования), персонажа {npc:3005} (товары для кожевников) и {npc:3027} (товары для кулинарии), затем соедините их в предмет {item:278078}.",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
@@ -193,7 +203,7 @@ return {
 	-- {item:278083} Ceremonial Flint and Tinder · {npc:3027} Naal Mistrunner
 	["{item:278083}, from {npc:3027}"] = "{item:278083}, у персонажа {npc:3027}",
 
-	-- Step 48: Hunter Rise
+	-- Step 49: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Use the {item:278078} at the ceremonial mat and burner on the south-facing cliff of {area:1641}."] = "Используйте предмет {item:278078} у церемониального коврика и курильницы на южном обрыве ({area:1641}).",
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -201,43 +211,49 @@ return {
 	-- {npc:3441} Melor Stonehoof · {quest:860} Sergra Darkthorn · {area:380} Crossroads
 	["{npc:3441}: for {quest:860} at the {area:380}"] = "{npc:3441}: для задания {quest:860} ({area:380})",
 
-	-- Step 50: Elder Rise
+	-- Step 51: Elder Rise
 	-- {npc:5769} Arch Druid Hamuul Runetotem · {npc:3448} Tonga Runetotem · {area:380} Crossroads
 	["{npc:5769}: for {npc:3448} at the {area:380}"] = "{npc:5769}: для персонажа {npc:3448} ({area:380})",
 
-	-- Step 52: Turak Runetotem
+	-- Step 53: Turak Runetotem
 	-- {npc:6746} Innkeeper Pala · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["{npc:6746} on the central rise sends you to {npc:3033} on {area:1639}."] = "{npc:6746} на центральном холме отправляет вас к NPC {npc:3033} ({area:1639}).",
 
-	-- Step 53: Moonglade
+	-- Step 54: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5930} Great Bear Spirit
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods."] = "Используйте {spell:18960}. {npc:11802} – здесь: {area:2361}; {quest:5930} – в северо-западных лесах.",
 
-	-- Step 54: Back to Thunder Bluff
+	-- Step 55: Back to Thunder Bluff
 	-- {area:222} Bloodhoof Village · {area:1639} Elder Rise
 	["Hearth to {area:222} and ride north to {area:1639}."] = "Камень возвращения: {area:222}, затем езжайте на север сюда: {area:1639}.",
 
-	-- Step 55: Yaw Sharpmane
+	-- Step 56: Yaw Sharpmane
 	-- {area:222} Bloodhoof Village · {item:15908} Taming Rod · {npc:2956} Adult Plainstrider · {npc:2959} Prairie Stalker
 	["Ride down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "Спуститесь сюда: {area:222} и приручите предметом {item:15908}: монстра {npc:2956} на равнинах, монстра {npc:2959} к северу от деревни и перепелятника к северо-западу.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Приручите его предметом {item:15908}",
 
-	-- Step 56: The Moonkin Stone
+	-- Step 57: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
 	-- {zone:1412} Mulgore · {item:15710} Cenarion Lunardust
 	["The stone stands in the pass out of {zone:1412}, on your way east. Use the {item:15710} there and defeat Lunaclaw."] = "Камень стоит на перевале из края {zone:1412}, по пути на восток. Используйте там предмет {item:15710} и одолейте Лунокогтя.",
 
-	-- Step 57: Crossroads
+	-- Step 58: Crossroads
 	-- {zone:1412} Mulgore · {area:380} Crossroads · {quest:860} Sergra Darkthorn · {npc:3448} Tonga Runetotem · {zone:1413} The Barrens
 	["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {quest:860} stands by the inn, {npc:3448} at the south gate. {zone:1413} guide starts here."] = "Покиньте край {zone:1412} через юго-восточный перевал и идите по дороге сюда: {area:380}. {quest:860} стоит у таверны, {npc:3448} – у южных ворот. Здесь начинается руководство: {zone:1413}.",
 
-	-- Step 58: Class turn-ins in Thunder Bluff
+	-- Step 59: Class turn-ins in Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Class turn-ins in {area:1638}"] = "Сдача классовых заданий: {area:1638}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {item:4851} lies on the ground in the camp."] = "К северу от святилища пасутся боевые вепри; дыбогривые свинобразы занимают ущелье к северо-востоку. {npc:8554} стоит в его восточной части, а {item:4851} лежит на земле в лагере.",
+	-- ["Flatland Prowlers roam the plains around {area:225}"] = "Хищники плоскогорья бродят по равнинам вокруг места {area:225}",
+	-- ["Galak centaurs and Prairie Wolf Alphas"] = "Кентавры Галак и могучие волки прерий",
+	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "Кентавры племени Галак стоят лагерем на равнинах к северу от места {area:821}; их ведет Херак. Среди волков бродят могучие волки прерий.",
+	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "Кирки геолога – у дворфов ({area:404}). Разбейте их в кузнице ({area:222}).",
+	-- ["The well lies north of the village. Well Stones sit around the well, {item:4809} lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for {quest:766} and {quest:761}."] = "Колодец – к северу от деревни. Камни колодца ({item:4808}) лежат вокруг него, {item:4809} – под деревьями рядом. По пути убивайте волков, пум, долгоногов и перепелятников для заданий {quest:766} и {quest:761}.",
 	-- ["The {area:380}"] = "{area:380}",
+	-- ["{npc:2991} sits by the tent on the camp's eastern edge; the {item:4755} stands next to her."] = "{npc:2991} сидит у шатра на восточном краю лагеря; {item:4755} стоит рядом с ней.",
 }

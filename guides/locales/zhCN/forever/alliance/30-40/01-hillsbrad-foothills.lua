@@ -7,12 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Menethil Harbor
-	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:2094} James Halloran · {npc:270844} Sylessa Duskwhisper
-	["{npc:2104} stands in {area:2103}; {npc:2094} and {npc:270844} stand together by the north gate."] = "{npc:2104}站在{area:2103}；{npc:2094}和{npc:270844}一起站在北门旁。",
+	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:2094} James Halloran
+	["{npc:2104} stands in {area:2103}; {npc:2094} stands by the north gate."] = "{npc:2104}站在{area:2103}；{npc:2094}站在北门旁。",
 	-- {npc:2104} Captain Stoutfist · {npc:270637} Howin Kindfeather
 	["{npc:2104}: for {npc:270637}"] = "{npc:2104}：交给{npc:270637}",
-	-- {npc:270844} Sylessa Duskwhisper · {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["{npc:270844}: for {npc:3649} in {area:442} (02-desolace)"] = "{npc:270844}：交给{area:442}的{npc:3649}（02-desolace）",
 
 	-- Step 2: Prospector Whelgar
 	-- {area:118} Whelgar's Excavation Site
@@ -35,9 +33,8 @@ return {
 
 	-- Step 6: Angerfang Encampment
 	-- {area:1036} Angerfang Encampment · {object:671518} Tattered Spellbook (no name in this language: may be words)
-	["South to the Dragonmaw's {area:1036}; the {object:671518} lies in the camp."] = "向南到龙喉的{area:1036}；{object:671518}在营地里。",
-	-- {quest:98221} From the Ashes
-	["Destroy the four sets of Attack Plans in the camp for {quest:98221}."] = "为{quest:98221}销毁营地里的四份进攻计划。",
+	["South to the Dragonmaw's {area:1036}: the first catapult stands on the way, and the {object:671518} lies in the camp."] = "向南到龙喉的{area:1036}：第一架投石车就在路上，{object:671518}在营地里。",
+	["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "下一步“击败纳克罗什”要你对抗一名精英酋长：跳过它。",
 	-- {object:671518} Tattered Spellbook (no name in this language: may be words) · {npc:2104} Captain Stoutfist
 	["{object:671518}: for {npc:2104}"] = "{object:671518}：交给{npc:2104}",
 
@@ -46,8 +43,8 @@ return {
 	["{npc:271462} stands in the south-eastern hills: use the {item:279996} beside it."] = "{npc:271462}站在东南方的山丘上：在它旁边使用{item:279996}。",
 
 	-- Step 8: Dragonmaw Gates
-	-- {area:1038} Dragonmaw Gates · {npc:271373} Subdued Dragonspawn · {npc:271338} Ados · {item:279996} Goaz Stone
-	["North-east to the {area:1038}: the {npc:271373} are held there, and {npc:271338} stands at the gates (use the {item:279996})."] = "向东北到{area:1038}：{npc:271373}被关押在那里，{npc:271338}站在大门旁（使用{item:279996}）。",
+	-- {area:1038} Dragonmaw Gates · {npc:271338} Ados · {item:279996} Goaz Stone
+	["North-east to the {area:1038}: {npc:271338} stands at the gates (use the {item:279996})."] = "",
 
 	-- Step 9: Whelps, raptors and Neru
 	-- {npc:271458} Neru
@@ -177,9 +174,14 @@ return {
 	["Level 30 and 32 spells"] = "30级和32级法术",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Destroy the four sets of Attack Plans in the camp for {quest:98221}."] = "为{quest:98221}销毁营地里的四份进攻计划。",
 	-- ["Fly to {zone:1453}"] = "飞往{zone:1453}",
 	-- ["Follow the road north-east into the {area:1025}: {npc:270637} camps beside it, {npc:1244} a short way east."] = "沿道路向东北进入{area:1025}：{npc:270637}在路旁扎营，{npc:1244}在东边不远处。",
 	-- ["Golm"] = "Golm",
+	-- ["North-east to the {area:1038}: the {npc:271373} are held there, and {npc:271338} stands at the gates (use the {item:279996})."] = "向东北到{area:1038}：{npc:271373}被关押在那里，{npc:271338}站在大门旁（使用{item:279996}）。",
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; Neru stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "大门西边的山丘上满是红色雏龙，{area:1025}满是{npc:271334}，北坡是刺喉龙；Neru站在东北方（使用{item:279996}）。\n{quest:98283}是精英：建议组队。",
+	-- ["South to the Dragonmaw's {area:1036}; the {object:671518} lies in the camp."] = "向南到龙喉的{area:1036}；{object:671518}在营地里。",
+	-- ["{npc:2104} stands in {area:2103}; {npc:2094} and {npc:270844} stand together by the north gate."] = "{npc:2104}站在{area:2103}；{npc:2094}和{npc:270844}一起站在北门旁。",
+	-- ["{npc:270844}: for {npc:3649} in {area:442} (02-desolace)"] = "{npc:270844}：交给{area:442}的{npc:3649}（02-desolace）",
 	-- ["{zone:1455} has no druid trainer: train with {npc:5504} in {zone:1453} before the tram."] = "{zone:1455}没有德鲁伊训练师：乘地铁前先在{zone:1453}找{npc:5504}学习。",
 }

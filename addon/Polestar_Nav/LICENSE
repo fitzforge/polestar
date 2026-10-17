@@ -1,16 +1,20 @@
 Polestar Nav (addon/Polestar_Nav)
 
-The walking router (Routing/PathGrid.lua, Routing/Path.lua,
-Routing/PathJobs.lua) and the walking map of Zephras Isle (Nav/Nav2991*.lua)
-are Shortest Path Forever's:
+Polestar's walking router started from Shortest Path Forever v1.16.0 by
+Cillian Berragan, with thanks; Polestar maintains it since 2026-10-16.
+Routing/PathGrid.lua, Routing/Path.lua and Routing/PathJobs.lua began as his
+files (commit b1ad5bd) and keep his copyright, with Polestar's changes since:
 Copyright (C) 2026 Cillian Berragan (cjber),
-https://github.com/cjber/shortest-path-forever
-The walking maps of Eastern Kingdoms and Kalimdor (Nav/Nav0*.lua,
-Nav/Nav1*.lua), the chokepoints (Nav/Chokepoints.lua), PACK.json, API.lua and
-the TOC are Polestar's: Copyright (c) 2026 The Polestar authors. The maps are
-written in his map format by a port of his map baker (tools/lib/nav/pack.js in
-Polestar's repository): Portions Copyright (C) 2026 Cillian Berragan
-(Shortest Path Forever, GPL-3.0-or-later); adapted for Polestar, 2026-10-15.
+https://github.com/cjber/shortest-path-forever;
+Polestar's changes Copyright (c) 2026 The Polestar authors.
+Routing/Costs.lua, the walking maps of Eastern Kingdoms, Kalimdor and
+Zephras Isle (Nav/Nav0*.lua, Nav/Nav1*.lua, Nav/Nav2991*.lua), the
+chokepoints (Nav/Chokepoints.lua),
+PACK.json, API.lua and the TOC are Polestar's: Copyright (c) 2026 The Polestar
+authors. The maps are written in a format grown from his by a port of his map baker
+(tools/lib/nav/pack.js in Polestar's repository): Portions Copyright (C) 2026
+Cillian Berragan (Shortest Path Forever, GPL-3.0-or-later); adapted for
+Polestar, 2026-10-15.
 
 This addon is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software

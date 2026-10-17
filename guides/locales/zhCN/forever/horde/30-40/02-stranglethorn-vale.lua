@@ -51,6 +51,11 @@ return {
 	-- plural, as words: Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
 	["Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it."] = "向西经过营地。荆棘谷迅猛龙（33-34级）在林间空地捕猎，血顶巨魔占据着海岸边的废墟：每个血顶巨魔都可能掉落獠牙。他们极少掉落{item:4614}：如果掉了，就阅读它。",
 
+	-- Step 11: Nesingwary's camp
+	-- {object:3202} Grom'gol
+	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
+	["The Shadowmaw Panthers come much later, by {object:3202}"] = "深喉猎豹要很久以后才会遇到，在{object:3202}附近",
+
 	-- Step 12: Elder tigers and Lashtail raptors
 	["Elder tigers and Lashtail raptors"] = "老年猛虎和鞭尾迅猛龙",
 	-- {object:3202} Grom'gol
@@ -140,50 +145,50 @@ return {
 	-- {object:3202} Grom'gol
 	["Ride back south to {object:3202}."] = "向南骑回{object:3202}。",
 
-	-- Step 33: Nesingwary's camp
-	["Follow the road north to the camp."] = "沿道路向北前往营地。",
-
-	-- Step 34: Green Hills pages
+	-- Step 33: Green Hills pages
 	["Green Hills pages"] = "荆棘谷的青山书页",
 	-- {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
 	["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters later in this guide."] = "{item:2755}的每一页从血顶巨魔和劈颅巨魔身上的掉率约为1%；留着拾取到的每一页，其余的去拍卖行找。{npc:716}会在本指南稍后收取各章节。",
 
-	-- Step 35: Shadowmaw panthers
+	-- Step 34: Shadowmaw panthers
 	["Shadowmaw panthers"] = "深喉猎豹",
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "深喉猎豹（37-38级）在莫什奥格山丘东边和东北方通往湖泊的丛林里潜行；它们会从潜行中发动攻击。沿途拾取你找到的每一页荆棘谷的青山。",
 
-	-- Step 36: Green Hills pages
+	-- Step 35: Green Hills pages
 	-- {item:2755} Green Hills of Stranglethorn
 	["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; take what drops and check the Auction House for the rest."] = "{item:2755}的每一页从血顶巨魔和劈颅巨魔身上的掉率约为1%；拿上掉落的，其余的去拍卖行找。",
 
-	-- Step 39: Jungle Stalkers
+	-- Step 38: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["Jungle Stalkers"] = "丛林捕猎者",
 	-- {object:3202} Grom'gol
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["The Jungle Stalkers (40-41) hunt the coast south of {object:3202}. They are well above you: pull one at a time and rest between fights."] = "丛林捕猎者（40-41级）在{object:3202}南边的海岸捕猎。它们比你高得多：一次引一只，战斗间隙休息。",
 
-	-- Step 41: Mistvale gorillas
+	-- Step 40: Mistvale gorillas
 	["Mistvale gorillas"] = "迷雾谷猩猩",
 	-- {area:35} Booty Bay · {area:1737} Mistvale Valley
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	["Take the road south towards {area:35}. The Elder Mistvale Gorillas (40-41) live in {area:1737}, east of the road; about one in twenty carries an aged sinew."] = "沿道路向南朝{area:35}前进。老迈的迷雾谷猩猩（40-41级）住在道路东边的{area:1737}；大约二十分之一带着成年大猩猩的肌腱。",
 
-	-- Step 42: Booty Bay
+	-- Step 41: Booty Bay
 	-- {area:35} Booty Bay
 	["Follow the road on south into {area:35}."] = "沿道路继续向南进入{area:35}。",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier"] = "{npc:2495}：之前收集的钳嘴鳄鱼的皮",
 
-	-- Step 44: Venture Co. camp
+	-- Step 43: Venture Co. camp
 	["Venture Co. camp"] = "风险投资公司营地",
 	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Ride north past Nesingwary's camp to the lake. The Venture Co. Geologists (34-36) work the camps along its western shore; they carry the Tumbled Crystals."] = "向北骑过奈辛瓦里的营地前往湖边。风险投资公司地质学家（34-36级）在湖西岸的营地里干活；他们携带打磨过的水晶。",
 
-	-- Step 45: Hearth to Booty Bay
+	-- Step 44: Hearth to Booty Bay
 	-- {area:35} Booty Bay
 	["Hearth to {area:35}"] = "用炉石回到{area:35}",
 	-- {area:272} Tarren Mill · {zone:1417} Arathi Highlands
 	["The next guide flies you north to {area:272} and into the {zone:1417}."] = "下一个指南会带你向北飞往{area:272}，进入{zone:1417}。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road north to the camp."] = "沿道路向北前往营地。",
 }

@@ -115,21 +115,51 @@ end
 
 -- The errors Polestar caught this session, for the report a player copies
 -- (UI/Report.lua): each message's first line with how often it came, oldest
--- first, the last few kept.
+-- first, the last few kept. seq, shared with the blocked calls below, says
+-- which came last, so the report lists the newest few of both.
 local MAX_ERRORS = 5
 local errors = {}
+local seq = 0
 function ns.NoteError(err)
 	local msg = tostring(err):match("^[^\n]*")
+	seq = seq + 1
 	for i = 1, #errors do
 		if errors[i].msg == msg then
-			errors[i].count = errors[i].count + 1
+			errors[i].count, errors[i].seq = errors[i].count + 1, seq
 			return
 		end
 	end
 	if #errors >= MAX_ERRORS then table.remove(errors, 1) end
-	errors[#errors + 1] = { msg = msg, count = 1 }
+	errors[#errors + 1] = { msg = msg, count = 1, seq = seq }
 end
 function ns.Errors() return errors end
+
+-- The protected calls the game blocked from Polestar this session
+-- (ADDON_ACTION_BLOCKED, ADDON_ACTION_FORBIDDEN: the addon blamed, then the
+-- function), for the report: taint is no Lua error, so without these a
+-- report on a broken gamepad or button reads "Errors: none". The last few,
+-- oldest first, each with the Polestar addon blamed, how often and when it
+-- last came.
+local MAX_BLOCKED = 5
+local blocked = {}
+function ns.NoteBlocked(addon, fn)
+	if type(addon) ~= "string" or not (addon == ADDON or addon:find("^Polestar_")) then return end
+	fn = tostring(fn or "?")
+	local at = date("%H:%M:%S")
+	seq = seq + 1
+	for i = 1, #blocked do
+		local e = blocked[i]
+		if e.addon == addon and e.fn == fn then
+			table.remove(blocked, i)
+			e.count, e.at, e.seq = e.count + 1, at, seq
+			blocked[#blocked + 1] = e
+			return
+		end
+	end
+	if #blocked >= MAX_BLOCKED then table.remove(blocked, 1) end
+	blocked[#blocked + 1] = { addon = addon, fn = fn, count = 1, at = at, seq = seq }
+end
+function ns.Blocked() return blocked end
 
 -- Run a callback; report its error without stopping the caller's loop.
 local function call(fn, ...)
@@ -456,6 +486,9 @@ local function onLogin()
 end
 
 ns.RegisterEvent("ADDON_LOADED", onAddonLoaded)
+local function onBlocked(_, addon, fn) ns.NoteBlocked(addon, fn) end
+ns.RegisterEvent("ADDON_ACTION_BLOCKED", onBlocked)
+ns.RegisterEvent("ADDON_ACTION_FORBIDDEN", onBlocked)
 ns.RegisterEvent("PLAYER_LOGIN", onLogin)
 
 ---------------------------------------------------------------------------

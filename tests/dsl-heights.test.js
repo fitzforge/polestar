@@ -2,7 +2,9 @@
 // Goal heights (tools/lib/dsl/heights.js, docs/GUIDE_FORMAT.md "Heights";
 // docs/NAV_QA.md Z3): a goal whose point stands for an NPC or object gets the
 // z of that entity's nearest CMaNGOS spawn (spawnz.json) on the same instance
-// map within 15 yards of the goal's world point; nothing else gets one.
+// map within 15 yards of the goal's world point; so do a smart target's
+// candidates (each its own NPC) and an NPC or object goal's spawn spots
+// (#180); nothing else gets one.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -11,7 +13,7 @@ const path = require('node:path');
 const { compile, guideText, DATA_DIR, GUIDES_DIR } = require('./helpers/dsl');
 const { loadData } = require('../tools/lib/dsl/data');
 const { worldPoint } = require('../tools/lib/dsl/heights');
-const { emitGuides } = require('../tools/lib/dsl/emit');
+const { emitGuides, emitClassTrainers } = require('../tools/lib/dsl/emit');
 const { polestar } = require('./helpers/cli');
 const { tmpdir } = require('./helpers/tmp');
 
@@ -65,6 +67,41 @@ test('Z3: an NPC goal with a spawn on its map within 15 yards gets that z; 20 ya
 	assert.equal(goals.find((g) => g.t === 'kill').z, 1, 'a kill at its spawn');
 });
 
+test('#180: a smart target\'s candidate on a spawn of its NPC gets that z; one with no spawn within 15 yards none', () => {
+	const src = guideText(['step Smart', '  buy 159 x5 nearest']);
+	const plain = compile(src).guides[0].steps[0].goals[0].candidates;
+	assert.deepEqual(plain.map((c) => c.npc), [152, 295]);
+	assert.ok(plain.every((c) => c.z === undefined), 'no spawnz.json: none');
+	const data = loadData(DATA_DIR);
+	const [danil, other] = plain.map((c) => worldPoint(data, c));
+	data.spawnz = { npc: { 152: [[danil.c, danil.wx + 4, danil.wy, 8.5]], 295: [[other.c, other.wx + 20, other.wy, 3]] }, object: {} };
+	const r = compile(src, data);
+	assert.deepEqual(r.errors, []);
+	const cands = r.guides[0].steps[0].goals[0].candidates;
+	assert.equal(cands[0].z, 8.5, 'Brother Danil: his spawn 4 yd off');
+	assert.equal(cands[1].z, undefined, 'a spawn 20 yd away is another one');
+	assert.match(emitGuides(r.guides.map((guide) => ({ guide }))), /\{ npc = 152, npcName = "Brother Danil", map = \d+, x = [\d.]+, y = [\d.]+, z = 8\.5, f = "e"/);
+});
+
+test('#180: an NPC goal\'s spawn spots get the z of a spawn of that NPC within 15 yards; a cluster\'s centre farther from both its spawns, a collect\'s spots none', () => {
+	const goals = compile(SRC, heightData()).guides[0].steps[0].goals;
+	const kill = goals.find((g) => g.t === 'kill');
+	const at = (x, y) => kill.spots.find((s) => s.x === x && s.y === y);
+	assert.equal(at(45.1, 33.9).z, 1, 'a lone spawn: its z');
+	assert.equal(at(52.3, 26.8).z, 1);
+	assert.equal(at(48.3, 31.8).z, undefined, 'the centre between two spawns some 30 yd apart: none');
+	const collect = goals.find((g) => g.t === 'collect');
+	assert.ok((collect.spots || []).every((s) => s.z === undefined));
+});
+
+test('#180: Core/ClassTrainers.lua carries a trainer\'s z (the reminder\'s and Nearby\'s walk), and its header then names classic-db', () => {
+	const khelden = { npc: 198, npcName: 'Khelden Bremen', map: 1429, x: 49.66, y: 39.4, f: 'e', faction: 'A', classes: ['MAGE'] };
+	const lua = emitClassTrainers([{ ...khelden, z: 57.25 }], {}, {});
+	assert.match(lua, /\{ npc = 198, npcName = "Khelden Bremen", map = 1429, x = 49\.66, y = 39\.4, z = 57\.25, f = "e", faction = "A"/);
+	assert.match(lua.split('\n')[0], /spawnz\.json \(CMaNGOS classic-db spawn heights/);
+	assert.doesNotMatch(emitClassTrainers([khelden], {}, {}).split('\n')[0], /classic-db/);
+});
+
 test('Z3: without spawnz.json no goal gets z', () => {
 	const r = compile(SRC);
 	assert.deepEqual(r.errors, []);
@@ -78,7 +115,7 @@ test('z is emitted right after y, deterministically', () => {
 	assert.match(a, /\{ t = "talk", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48\.92, y = 41\.61, z = 12\.3, f = "e"/);
 });
 
-test('compile reports how many NPC and object goals got z; LICENSE-DATA.txt then names classic-db', () => {
+test('compile reports how many NPC and object goals, candidates and spawn spots got z; LICENSE-DATA.txt then names classic-db', () => {
 	const data = tmpdir('polestar-heights-data-');
 	fs.cpSync(DATA_DIR, data, { recursive: true });
 	const outNone = tmpdir();
@@ -91,7 +128,7 @@ test('compile reports how many NPC and object goals got z; LICENSE-DATA.txt then
 	const outZ = tmpdir();
 	const some = polestar(['compile', '--guides', GUIDES_DIR, '--data', data, '--out', outZ]);
 	assert.equal(some.status, 0, some.stderr);
-	const m = /\nheights: (\d+) of (\d+) NPC or object goals got z \(spawnz\.json\)\n$/.exec(some.stdout);
+	const m = /\nheights: (\d+) of (\d+) NPC or object goals?, (\d+) of (\d+) smart-target candidates? and (\d+) of (\d+) spawn spots? got z \(spawnz\.json\)\n$/.exec(some.stdout);
 	assert.ok(m, some.stdout);
 	assert.ok(Number(m[1]) > 0 && Number(m[1]) < Number(m[2]), `${m[1]} of ${m[2]}`);
 	const notice = fs.readFileSync(path.join(outZ, 'LICENSE-DATA.txt'), 'utf8');

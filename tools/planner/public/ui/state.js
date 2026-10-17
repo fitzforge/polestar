@@ -26,8 +26,10 @@ export const S = {
 	changes: [],             // changes_list
 	lint: null,              // lint diagnostics (last run)
 	adding: false,           // the Add waypoint tool is armed
-	layers: { terrain: true, zoneArt: false, route: true, labels: true, spawns: true, grid: false, walkable: false, aids: false },
+	layers: { terrain: true, zoneArt: false, route: true, labels: true, spawns: true, grid: false, walkable: false, roads: false, hubs: false, aids: false },
 	routing: null,           // { pending, done } while the server routes the timeline's walks
+	roads: null,             // { [c]: ['col_row'] } (GET /nav/roads/index.json) when the roads layer is built
+	hubs: null,              // { [c]: [hub] } (GET /nav/hubs.json) when the hubs layer is built
 	aids: null,              // GET /nav/aids.json when the planner has arrow aids
 	extent: 'step',          // route drawn: 'step' (around the selected step) | 'guide' | 'route' (bird's-eye)
 	stepIndex: null,         // derived per timeline: see indexTimeline()

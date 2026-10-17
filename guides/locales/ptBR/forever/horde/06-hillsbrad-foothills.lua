@@ -8,7 +8,9 @@
 return {
 	-- Step 1: Tarren Mill
 	-- {area:272} Tarren Mill
-	["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Você chega vinculado à estalagem de {area:272}. Todos ficam em volta da praça da cidade.",
+	["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} é sua base neste guia: a pedra de regresso traz você de volta aqui duas vezes. Todos ficam em volta da praça da cidade.",
+	-- {npc:2388} Innkeeper Shay
+	["{npc:2388}: the last guide binds here, so this usually ticks at once"] = "{npc:2388}: o guia anterior vincula você aqui, então isto costuma ser marcado na hora",
 	-- {object:1763} WANTED
 	["The {object:1763} poster by the inn"] = "O cartaz {object:1763} perto da estalagem",
 	-- {quest:567} Dangerous!
@@ -36,41 +38,45 @@ return {
 	-- Step 5: Tarren Mill
 	-- {npc:2230} Umpi
 	["{npc:2230}, next to Lydon"] = "{npc:2230}, ao lado de Lindolfo",
+
+	-- Step 6: Stanley
+	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
+	["{npc:2274} is {npc:232}'s dog, at the northern farmhouse in {area:286}."] = "{npc:2274} é o cachorro de {npc:232}, na casa da fazenda ao norte, em {area:286}.",
+
+	-- Step 7: Peasants and skulls
+	["Peasants and skulls"] = "Camponeses e caveiras",
+	-- {area:287} Hillsbrad
+	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Os Camponeses trabalham nos campos ao sul das casas de fazenda. Todo humano de {area:287} derruba caveiras; os Camponeses derrubam com mais frequência.",
+	-- {item:3692} Hillsbrad Human Skull
+	["{item:3692}: the Peasants in the fields"] = "{item:3692}: os Camponeses de Eira dos Montes nos campos",
+
+	-- Step 8: Tarren Mill
 	-- {npc:2215} High Executor Darthalia · {npc:270438} Deathstalker Masoj
 	["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}: ordens para {npc:270438}, a caminho do Forte do Desterro",
 
-	-- Step 6: Syndicate camps
+	-- Step 9: Syndicate camps
 	["Syndicate camps"] = "Acampamentos da Camarilha",
 	-- {area:272} Tarren Mill · {area:275} Durnholde Keep
 	["From {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "De {area:272}, vá para sudeste pelas colinas no caminho até {area:275}. Ladinos e Vigias ocupam os acampamentos pelo caminho.",
 
-	-- Step 7: Durnholde Keep
+	-- Step 10: Durnholde Keep
 	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep
 	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Drull e {npc:2238} estão acorrentados nos prédios do pátio de {area:275}; abra as duas trancas.",
 	["Drull's ball and chain"] = "Bola e corrente de Drull",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Bola e corrente de {npc:2238}",
 
-	-- Step 8: Deathstalker Masoj
+	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
 	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj se esconde na encosta acima de {area:290}, ao sul do Forte do Desterro, no caminho até as flores.",
 
-	-- Step 9: Mudsnout Blossoms
+	-- Step 12: Mudsnout Blossoms
 	-- {item:3502} Mudsnout Blossoms
 	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "A sudoeste do Forte do Desterro, as {item:3502} crescem nas encostas acima do rio.",
 
-	-- Step 10: Tarren Mill
+	-- Step 13: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
 	["{npc:2055}, in the {zone:1458}"] = "{npc:2055}, em {zone:1458}",
-
-	-- Step 11: Stanley
-	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
-	["{npc:2274} is {npc:232}'s dog, at the northern farmhouse in {area:286}."] = "{npc:2274} é o cachorro de {npc:232}, na casa da fazenda ao norte, em {area:286}.",
-
-	-- Step 12: Peasants and skulls
-	["Peasants and skulls"] = "Camponeses e caveiras",
-	-- {area:287} Hillsbrad
-	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Os Camponeses trabalham nos campos ao sul das casas de fazenda. Todo humano de {area:287} derruba caveiras; os Camponeses derrubam com mais frequência.",
 
 	-- Step 14: The smithy
 	["The smithy"] = "A ferraria",
@@ -117,8 +123,8 @@ return {
 	["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "Siga a estrada para o sul até a escavação anã em {area:359}. {npc:3421} se esconde na borda sul da escavação; {object:3646} fica no fundo da escavação.",
 
 	-- Step 26: Great Lift
-	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift
-	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:1718}."] = "A sudoeste de Bael Modan, {npc:12576} espera no topo do {area:1718}.",
+	-- {npc:12576} Grish Longrunner · {area:485} Great Lift
+	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:485}."] = "A sudoeste de Bael Modan, {npc:12576} espera no topo do {area:485}.",
 
 	-- Step 27: Merchant Coast
 	-- {area:378} Camp Taurajo · {area:392} Ratchet · {quest:874} Mahren Skyseer
@@ -131,4 +137,7 @@ return {
 	-- Step 29: Ratchet
 	-- {npc:3442} Sputtervalve · {area:392} Ratchet
 	["{npc:3442}, by the docks in {area:392}"] = "{npc:3442}, perto das docas em {area:392}",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Você chega vinculado à estalagem de {area:272}. Todos ficam em volta da praça da cidade.",
 }

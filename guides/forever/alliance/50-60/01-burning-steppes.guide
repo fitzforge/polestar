@@ -41,6 +41,12 @@ levels 51-53
 zone Burning Steppes
 next forever/alliance/50-60/02-felwood
 
+# ---------------------------------------------------------------- Ironforge
+
+step Ironforge
+  zone Ironforge
+  sethome "Ironforge" npc 5111        -- Innkeeper Firebrew: the last guide binds here, so this usually ticks at once
+
 # ---------------------------------------------------------------- Azshara
 
 step Menethil Harbor
@@ -169,7 +175,7 @@ step Flame Crest
 
 step Thaurissan Relics
   tip The relics are the carved stones scattered through the Ruins of Thaurissan around Flame Crest: click them until the information is recovered.
-  complete 3701
+  interact 153556 quest 3701.1        -- Thaurissan Relic
 
 step The Tablet of the Seven
   tip Read the tablet in the Dark Iron camp among the ruins, south-west of Flame Crest, to copy the transcript.

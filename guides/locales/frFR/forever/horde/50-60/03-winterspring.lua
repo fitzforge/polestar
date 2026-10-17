@@ -9,6 +9,8 @@ return {
 	-- Step 1: Everlook
 	-- {area:2255} Everlook
 	["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255} est la ville gobeline à l'est de la vallée.",
+	-- {npc:11118} Innkeeper Vizzie
+	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118} : le guide précédent vous lie ici, cette étape se coche donc généralement aussitôt",
 	["Gregor's and Harlo's quests lead to other zones: keep them."] = "Les quêtes de Gregor et de Harlo mènent à d'autres zones : gardez-les.",
 
 	-- Step 2: Ice Thistle yetis

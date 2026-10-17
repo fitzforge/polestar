@@ -348,11 +348,15 @@ object's (its spawn, or your `@x,y` at it):
 - `buy`, `train`, `vendor`, `sethome`, `getfp` and `learn` naming an `npc`
   (a `sethome` also with the innkeeper the compiler names).
 
-`goto` and `explore` (places), `collect` (a farming spot among the item's
-sources), `use` and smart targets (`nearest`, class and profession trainers:
-the engine picks the NPC at runtime) never get one, nor does the arrow carry
-it to a spawn area other than the goal's own point. `compile` prints how many
-goals got one ("heights: N of M NPC or object goals got z"). In the game the
+The same rule gives a height, each from its own point, to the other spawn
+places of such a goal (`spots`: a place within 15 yards of one of its spawns;
+the centre of a camp farther from each gets none) and to every candidate of a
+smart target (`nearest`, class and profession trainers, by the candidate's
+own NPC), so the walk to the place or NPC the arrow picks ends on its floor
+too. `goto` and `explore` (places), `collect` (a farming spot among the
+item's sources, also `collect … nearest`'s farm spots) and `use` never get
+one. `compile` prints how many got one ("heights: N of M NPC or object goals,
+N of M smart-target candidates and N of M spawn spots got z"). In the game the
 walk is searched with the height and asked again without it when that finds
 no route or one ending more than 30 yards above or below it.
 
@@ -599,6 +603,16 @@ an `optional` one, one for other characters (`only`) or one on another map, a
 kill or drop whose target spawns nowhere in the data (an instance boss placed at
 its entrance), and gotos in steps with `fly` or `hearth`.
 
+A `goto` counts as done on arrival, once a later goal of its step is done,
+or, when only other gotos, notes and goals for other characters follow it in
+its step, once the next step for the character is done with a quest goal of
+it done: a cave's mouth in a step of its own no longer sends back a player who
+already did the work inside. The goto still holds when that next step has no
+quest goal (training, a level, travel), is for some classes or races only
+(`only`), was skipped, or was passed only because its quests are unavailable,
+when the quest goal done is itself `only`, and when `optional` goals follow
+the goto in its own step: that is where they are done.
+
 ### People and things: `talk`, `interact`, `use`
 
 ```
@@ -770,6 +784,23 @@ step Deputy Willem
 step Kobolds
   kill 6 x10 quest 7.1
   turnin 5261 optional                -- Eagan stands by the path
+```
+
+The turn-in, objectives and `complete` goals of a quest whose accepts in the
+guide are all `optional` apply only while the quest is in the log or handed
+in. A player who never took it doesn't see them. So a side quest's turn-in
+can have a step of its own, written without `optional`: the step holds and
+leads the arrow to the ender for a player who took the quest, and the guide
+passes it for everyone else.
+
+```
+step Murlocs
+  collect 780 quest 46
+  collect 247826 x1 optional          -- Croaky's Head: Croaky
+  accept 91740 optional
+
+step Ridgepoint Tower
+  turnin 91740                        -- only for players who took it
 ```
 
 **Leveling up before moving on.** `level <N>` holds its step until the

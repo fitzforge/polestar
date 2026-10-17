@@ -27,7 +27,7 @@ return {
 	-- {npc:2082} Gilshalan Windwalker
 	["{npc:2082}, on the tree's ramp"] = "{npc:2082} – на пандусе древа",
 	-- {npc:3595} Shanda
-	["{npc:3595}, inside the tree"] = "{npc:3595} – внутри древа",
+	["{npc:3595}: in at the tree's front entrance and up the ramp"] = "",
 	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {npc:3595} Shanda
 	["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}: примените «{spell:1259799}» и «Слиться с тенью», затем сдайте задание: {npc:3595}",
 	-- {npc:8583} Dirania Silvershine
@@ -50,7 +50,7 @@ return {
 	-- {npc:3594} Frahun Shadewhisper
 	["{npc:3594}, the rogue trainer"] = "{npc:3594} – учитель разбойников",
 	-- {npc:3595} Shanda
-	["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595} – учитель жрецов, внутри древа",
+	["{npc:3595}, the priest trainer: in at the tree's front entrance and up the ramp"] = "",
 	-- {npc:3597} Mardant Strongoak · {area:256} Aldrassil
 	["{npc:3597}, the druid trainer at {area:256}"] = "{npc:3597} – учитель друидов ({area:256})",
 
@@ -81,24 +81,22 @@ return {
 	-- {area:188} Shadowglen · {area:256} Aldrassil · {npc:6780} Porthannius · {area:186} Dolanaar
 	["Leave {area:188} by the path south-east of {area:256}: {npc:6780} stands beside it, where it goes down towards the road to {area:186}."] = "Покиньте долину ({area:188}) по тропе к юго-востоку от древа ({area:256}): {npc:6780} стоит рядом с ней, где она спускается к дороге на Доланаар ({area:186}).",
 
-	-- Step 12: Dolanaar
-	-- {area:188} Shadowglen · {area:186} Dolanaar
-	["Follow the road south-west out of {area:188} to {area:186}."] = "Идите по дороге на юго-запад: {area:188} → {area:186}.",
+	-- Step 12: Zenn Foulhoof
+	-- {area:188} Shadowglen · {npc:2150} Zenn Foulhoof · {area:186} Dolanaar
+	["Follow the road south-west out of {area:188}. {npc:2150} sits beside it just east of {area:186}."] = "Идите по дороге на юго-запад из {area:188}. {npc:2150} сидит у дороги чуть восточнее места {area:186}.",
+
+	-- Step 13: Dolanaar
 	-- {npc:265811} Lyreena Duskblade
 	["{npc:265811}, by the campfire"] = "{npc:265811} – у костра",
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515} – к югу от таверны",
 
-	-- Step 13: Zenn Foulhoof
-	-- {npc:2150} Zenn Foulhoof · {area:186} Dolanaar · {area:260} Starbreeze Village
-	["{npc:2150} sits by the road just east of {area:186}, on the way to {area:260}."] = "{npc:2150} сидит у дороги чуть восточнее места {area:186}, по пути сюда: {area:260}.",
-
 	-- Step 14: Zenn's Bidding and the Starbreeze moonwell
 	-- {quest:488} Zenn's Bidding
 	["{quest:488} and the Starbreeze moonwell"] = "{quest:488} и лунный колодец Деревни Звездного Ветра",
-	-- {area:260} Starbreeze Village
+	-- {area:186} Dolanaar · {area:260} Starbreeze Village
 	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "Вдоль дороги на восток живут ночные саблезубы, совы и чащобные тенетники. Лунный колодец – на западном краю деревни ({area:260}).",
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "Ночные саблезубы, совы и чащобные тенетники бродят по всей округе ({area:186}) и вдоль дороги на восток. Лунный колодец – на западном краю деревни ({area:260}).",
 	-- {item:5619} Jade Phial
 	["Use the {item:5619} at the moonwell"] = "Используйте {item:5619} у лунного колодца",
 	-- {npc:2150} Zenn Foulhoof
@@ -130,6 +128,8 @@ return {
 	["South of Zenn. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "К югу от Зенна. {npc:2080} ухаживает за своими саженцами на берегу; вокруг бродят плеточники-ростки и древесники, а среди них растут ростки ({quest:919}).",
 
 	-- Step 20: Dolanaar
+	-- {npc:2151} Moon Priestess Amara
+	["{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "{npc:2151} патрулирует дорогу к западу от деревни: если ее нет у стрелки, идите по дороге, пока не встретите ее.",
 	-- {npc:2151} Moon Priestess Amara
 	["{npc:2151}, on the road west of the village"] = "{npc:2151} – на дороге к западу от деревни",
 
@@ -316,7 +316,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Each of {npc:3601}'s quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "Каждое задание ({npc:3601}) дает вам предмет {item:15908}: примените его на названном звере, затем верните жезл ему ({area:186}). Чащобные тенетники ползают вокруг деревни, ночные саблезубы-охотники и совы-крикуны бродят по лесу к югу от нее.",
+	-- ["Follow the road south-west out of {area:188} to {area:186}."] = "Идите по дороге на юго-запад: {area:188} → {area:186}.",
+	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "Вдоль дороги на восток живут ночные саблезубы, совы и чащобные тенетники. Лунный колодец – на западном краю деревни ({area:260}).",
 	-- ["The {area:264}"] = "{area:264}",
 	-- ["{npc:11401}, in the Temple of the Moon: {spell:10797}"] = "{npc:11401} – в Храме Луны: {spell:10797}",
+	-- ["{npc:2150} sits by the road just east of {area:186}, on the way to {area:260}."] = "{npc:2150} сидит у дороги чуть восточнее места {area:186}, по пути сюда: {area:260}.",
+	-- ["{npc:3595}, inside the tree"] = "{npc:3595} – внутри древа",
+	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595} – учитель жрецов, внутри древа",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}: примените «{spell:1259799}» и «{spell:20580}», затем сдайте задание: {npc:3595}",
 }

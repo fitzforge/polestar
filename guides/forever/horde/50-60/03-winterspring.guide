@@ -59,6 +59,7 @@ next forever/horde/50-60/04-azshara
 
 step Everlook
   tip Everlook is the goblin town on the east side of the valley.
+  sethome "Everlook" npc 11118        -- Innkeeper Vizzie: the last guide binds here, so this usually ticks at once
   accept 6029                         -- Gregor Greystone
   accept 6030
   turnin 4808                         -- Felnok Steelspring

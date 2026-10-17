@@ -69,9 +69,14 @@ async function run(argv) {
 		const p = placeCounts(guides);
 		console.log(data && data.areas ? `areas: ${p.withArea} of ${plural(p.places, 'place goal')} got an area (AreaTable ${data.areas.build})` : 'areas: none (no cached Forever AreaTable in the sources beside the reference data; `data build` downloads it)');
 		console.log(data && data.flightNodes().length ? `nodes: ${p.withNode} of ${plural(p.getfp, 'getfp goal')} got a taxi node (travel.json)` : 'nodes: none (no travel.json in the reference data; `travel build` writes it)');
-		// Goal heights (tools/lib/dsl/heights.js): how many NPC and object goals got z.
+		// Heights (tools/lib/dsl/heights.js): how many NPC and object goals, smart-target
+		// candidates and those goals' spawn spots got z.
 		const h = heightCounts(guides);
-		console.log(data && data.spawnz ? `heights: ${h.withZ} of ${plural(h.eligible, 'NPC or object goal')} got z (spawnz.json)` : 'heights: none (no spawnz.json in the reference data; `data build` writes it)');
+		console.log(
+			data && data.spawnz
+				? `heights: ${h.withZ} of ${plural(h.eligible, 'NPC or object goal')}, ${h.candidatesWithZ} of ${plural(h.candidates, 'smart-target candidate')} and ${h.spotsWithZ} of ${plural(h.spots, 'spawn spot')} got z (spawnz.json)`
+				: 'heights: none (no spawnz.json in the reference data; `data build` writes it)',
+		);
 	}
 	return 0;
 }

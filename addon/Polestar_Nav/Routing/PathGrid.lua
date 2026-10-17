@@ -1,4 +1,9 @@
--- Polestar_Nav: Routing/PathGrid.lua from Shortest Path Forever (https://github.com/cjber/shortest-path-forever) at b1ad5bd4bf579c781937af0e25f5233cc94b3726, Copyright (C) 2026 Cillian Berragan, GPL-3.0-or-later. Modified for Polestar on 2026-10-16 by `node tools/polestar.js nav vendor`: the data global is PolestarPathData.
+-- Polestar's walking router. Started from Shortest Path Forever v1.16.0 (b1ad5bd) by Cillian Berragan (GPL-3.0-or-later); modified for Polestar since 2026-10-16.
+-- Routing/PathGrid.lua: Copyright (C) 2026 Cillian Berragan (https://github.com/cjber/shortest-path-forever); Polestar's
+-- changes Copyright (c) 2026 The Polestar authors. This program is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3
+-- of the License, or (at your option) any later version. It is distributed WITHOUT ANY WARRANTY; see the GNU General
+-- Public License in this folder's LICENSE.
 ---@class SPFNamespace
 local ns = select(2, ...)
 
@@ -8,6 +13,9 @@ local ns = select(2, ...)
 -- Coordinates are UnitPosition's frame (x north, y west).
 -- A cell holds its base surface and, where surfaces overlap (a tunnel under a mountain, a city under ruins, both
 -- ends of a lift), floors above or below it. A node is a local cell (the base surface) or C * C + a floor's index.
+-- A map of format 2 also carries a ground class byte per node (the class field, Routing/Costs.lua) and graph edges
+-- priced per profile with their yards (adjacent), and may carry the zone of each cluster's 16 x 16 chunks (the zone
+-- field, zoneAt); format 1 maps (0.2.4's) have no classes (class 0 everywhere) and one edge cost for every profile.
 -- This file holds the decoded maps, their memory ceilings, frame slicing and string-pulling; Path.lua searches them
 -- and PathJobs.lua schedules the searches.
 ---@class SPFPath
@@ -16,7 +24,8 @@ ns.Path = Path
 
 Path.budget = 2 -- milliseconds of path work, leaving headroom under the 3 ms frame ceiling
 Path.clusters = 64 -- secondary count ceiling per map (at least 4)
-Path.graphKB = 4096 -- decoded entrances/edges across all maps
+Path.graphKB = 4096 -- decoded entrances/edges across all maps while a search runs
+Path.graphRestKB = 4096 -- the same with no search queued (Idle trims to it)
 Path.cacheKB = 24576 -- decoded grids across all maps; active coroutine locals are additional
 Path.clock = debugprofilestop or function()
 	return os.clock() * 1000
@@ -26,9 +35,12 @@ local TILE = 1600 / 3
 local SNAP = 6 -- cells searched around an off-grid endpoint
 local ZTOL = 10 -- an endpoint stands on a surface within this height (yd)
 local CHECK = 64 -- expansions between clock reads
+local EDGE1, EDGE2 = 7, 14 -- symbols in a graph edge record of format 1 and format 2 (adjacent)
 
 local byte, floor, sqrt, huge, max, abs = string.byte, math.floor, math.sqrt, math.huge, math.max, math.abs
 local yield = coroutine.yield
+local Costs = ns.Costs -- Routing/Costs.lua loads first
+local Mult = Costs.Mult
 
 local B64 = {}
 do
@@ -85,9 +97,19 @@ end
 
 local states = {}
 
+-- A field's string for cluster key (k + 1), decoded on first use; nil when the map lacks it (format 1 has no class
+-- field) or the cluster has none.
 local function unpackField(data, field, key)
-	if data[field][key] or not data.packed then
-		return data[field][key]
+	local loose = data[field]
+	if loose == nil then
+		if not (data.packed and data.packed[field]) then
+			return nil
+		end
+		loose = {}
+		data[field] = loose
+	end
+	if loose[key] or not data.packed then
+		return loose[key]
 	end
 	local blocks = data.packed[field][key]
 	if not blocks then
@@ -104,8 +126,13 @@ local function unpackField(data, field, key)
 		chunks[i] = raw
 	end
 	local raw = table.concat(chunks)
-	data[field][key] = raw
+	loose[key] = raw
 	return raw
+end
+
+-- Does a map's data carry ground classes (format 2)?
+local function Classed(D)
+	return D.class ~= nil or (D.packed ~= nil and D.packed.class ~= nil)
 end
 
 local function State(map)
@@ -131,6 +158,8 @@ local function State(map)
 			cs = TILE / C,
 			swim = D.swim,
 			zstep = D.zstep,
+			classed = Classed(D), -- format 2: Path.lua prices steps by class (and style) and the heuristic by its least
+			zoned = D.zone ~= nil, -- the zone field: Path.lua prices a step into a zone by its caller's danger table
 			sizes = {},
 			used = {}, -- [k] = last use, for eviction
 			decoded = 0,
@@ -139,6 +168,7 @@ local function State(map)
 			z = {}, -- [k][node + 1] = height of a walkable node
 			at = {}, -- [k][node + 1] = a floor's local cell; [k][-(lc + 1)] = the cell's first floor node
 			links = {}, -- [k][node + 1] = { direction + 8 * (layer + 1), ... } steps besides the base grid's
+			cls = {}, -- [k][node + 1] = ground class byte (Routing/Costs.lua); ZERO for a cluster without classes
 			graphUsed = {},
 			graphSize = {},
 			nodes = {}, -- [k] = entrance ids (k * 4096 + i)
@@ -147,7 +177,7 @@ local function State(map)
 			ncomp = {},
 			ends = {}, -- bounded local connections, shared by successive endpoint batches
 			endCount = 0,
-			nadj = {}, -- [id] = { target, cost swimming, cost walking on water, ... }
+			nadj = {}, -- [id] = decoded edges, adjacent's layout (format 1: 3 values an edge, format 2: 5)
 		}
 		states[map] = st
 	end
@@ -319,6 +349,42 @@ local function decodeFloors(st, k, val, z, chunks)
 	return at, links
 end
 
+-- Every node of a cluster without classes (a format 1 map, or a format 2 cluster the field skips) is class 0. Shared
+-- and never written: a search reads it like a decoded class array.
+local ZERO = setmetatable({}, {
+	__index = function()
+		return 0
+	end,
+	__newindex = function()
+		error("PathGrid: the shared class-0 table is read-only")
+	end,
+})
+
+-- The class field of a cluster: one byte per node in node order, run-length like the grid field (a symbol >= 48
+-- repeats the previous value (symbol - 47) more times); nodes past its end (floors it does not cover) are class 0.
+local function decodeClasses(s, nodes)
+	local cls, n, value = {}, 0, 0
+	for i = 1, #s do
+		if i % 256 == 0 then
+			slice()
+		end
+		local sym = B64[byte(s, i)]
+		if sym < 48 then
+			value, n = sym, n + 1
+			cls[n] = value
+		else
+			for _ = 48, sym do
+				n = n + 1
+				cls[n] = value
+			end
+		end
+	end
+	for i = n + 1, nodes do
+		cls[i] = 0
+	end
+	return cls
+end
+
 local function decodeGrid(st, k)
 	Path.decodes = (Path.decodes or 0) + 1
 	local chunks = unpackField(st.D, "grid", k + 1)
@@ -334,6 +400,11 @@ local function decodeGrid(st, k)
 	end
 	local floors = unpackField(st.D, "floor", k + 1)
 	if st.D.packed and st.D.packed.floor[k + 1] and not floors then
+		st.val[k] = false
+		return false
+	end
+	local classes = st.classed and unpackField(st.D, "class", k + 1)
+	if st.classed and st.D.packed and st.D.packed.class and st.D.packed.class[k + 1] and not classes then
 		st.val[k] = false
 		return false
 	end
@@ -397,18 +468,18 @@ local function decodeGrid(st, k)
 	local z = {}
 	decodeHeights(st, val, z, height)
 	local at, links = decodeFloors(st, k, val, z, floors)
-	return val, m, z, at, links
+	return val, m, z, at, links, classes and decodeClasses(classes, #val) or ZERO
 end
 
 -- Lua 5.1 array slots occupy 16 bytes and grow by powers of two. Charge sparse floor/link hashes
 -- conservatively too; this is a memory ceiling across continents, not a cluster count estimate.
 local useClock, decodedKB, decodedCount = 0, 0, 0
-local function gridSize(val, at, links)
+local function gridSize(val, at, links, cls)
 	local capacity = 1
 	while capacity < #val do
 		capacity = capacity * 2
 	end
-	local bytes = capacity * 16 * 3 + 5 * 64
+	local bytes = capacity * 16 * (cls == ZERO and 3 or 4) + 5 * 64
 	for _ in pairs(at) do
 		bytes = bytes + 64
 	end
@@ -422,6 +493,7 @@ local function evict(st, oldest)
 	decodedKB, decodedCount = decodedKB - st.sizes[oldest], decodedCount - 1
 	st.sizes[oldest], st.used[oldest] = nil, nil
 	st.val[oldest], st.moves[oldest], st.z[oldest], st.at[oldest], st.links[oldest] = nil, nil, nil, nil, nil
+	st.cls[oldest] = nil
 	st.decoded = st.decoded - 1
 end
 
@@ -447,8 +519,8 @@ end
 local function grid(st, k)
 	local val = st.val[k]
 	if val == nil then
-		local m, z, at, links
-		val, m, z, at, links = decodeGrid(st, k)
+		local m, z, at, links, cls
+		val, m, z, at, links, cls = decodeGrid(st, k)
 		-- Decoding may yield; only complete grids are published to concurrent searches.
 		if st.val[k] ~= nil then
 			return grid(st, k)
@@ -456,13 +528,16 @@ local function grid(st, k)
 		if not val then
 			return false
 		end
-		local size = gridSize(val, at, links)
+		local size = gridSize(val, at, links, cls)
 		trim(st, size)
-		st.val[k], st.moves[k], st.z[k], st.at[k], st.links[k] = val, m, z, at, links
+		st.val[k], st.moves[k], st.z[k], st.at[k], st.links[k], st.cls[k] = val, m, z, at, links, cls
 		st.sizes[k], st.decoded, decodedKB = size, st.decoded + 1, decodedKB + size
 		decodedCount = decodedCount + 1
 		if st.D.packed then
 			st.D.grid[k + 1], st.D.height[k + 1], st.D.floor[k + 1] = nil, nil, nil
+			if st.D.class then
+				st.D.class[k + 1] = nil
+			end
 		end
 	end
 	if val then
@@ -470,6 +545,41 @@ local function grid(st, k)
 		st.used[k] = useClock
 	end
 	return val
+end
+
+-- The cluster Path.SurfacesAt reads (the player's, for Polestar's walking floor): never decoded by the read itself,
+-- only by Path.Prefetch's job under the frame budget (prefetch, run from PathJobs as a search is). The reader keeps
+-- at most one cluster: the one the player stands in, read last. A read of another decoded cluster makes it the
+-- reader's at once and evicts the old one unless a search has used it since (its use stamp moved: the search's now,
+-- Idle drops it later). A Prefetch that lands takes the slot only when its cluster is still the one read last (walked
+-- A to B and back to A before B landed: A stays, Idle drops B). Idle keeps the reader's cluster (the floor reads it
+-- again within a quarter second); Path.ReleaseSurfaces drops it when the caller stops reading (Walk.lua: no target, or
+-- no arrow update for 2 s).
+local reader = {} -- { st, k, use } the cluster kept; { wantSt, wantK } the cluster read last
+local function drop()
+	local st, k = reader.st, reader.k
+	if st and states[st.map] == st and st.used[k] ~= nil and st.used[k] == reader.use then
+		evict(st, k)
+	end
+	reader.st, reader.k, reader.use, reader.wantSt, reader.wantK = nil, nil, nil, nil, nil
+end
+-- Cluster k of st is the one read last (decoded or not).
+local function wantRead(st, k)
+	reader.wantSt, reader.wantK = st, k
+end
+-- Cluster k of st, decoded, is read: the reader's.
+local function keepRead(st, k)
+	if reader.st ~= st or reader.k ~= k then
+		drop()
+		reader.st, reader.k, reader.use = st, k, st.used[k]
+	end
+	reader.wantSt, reader.wantK = st, k
+end
+-- Path.Prefetch's job: decode cluster k of st (slicing under the job's deadline); the reader's if still read last.
+local function prefetch(st, k)
+	if grid(st, k) and reader.wantSt == st and reader.wantK == k then
+		keepRead(st, k)
+	end
 end
 
 -- A node's local cell.
@@ -482,8 +592,8 @@ local function cellOf(st, k, node)
 end
 
 local graphKB, graphClock = 0, 0
-local function trimGraphs()
-	while graphKB > Path.graphKB do
+local function trimGraphs(limit)
+	while graphKB > (limit or Path.graphKB) do
 		local owner, oldest, age = nil, nil, huge
 		for _, st in pairs(states) do
 			for k, used in pairs(st.graphUsed) do
@@ -532,9 +642,10 @@ local function decodeGraph(st, k)
 		degree[i + 1] = B64[byte(s, pos + 6)]
 		pos = pos + 7
 	end
+	local width = st.classed and EDGE2 or EDGE1
 	for i = 1, n do
 		st.nadj[ids[i]] = pos
-		pos = pos + degree[i] * 7
+		pos = pos + degree[i] * width
 	end
 	return ids
 end
@@ -557,19 +668,32 @@ local function metadata(st, id)
 end
 
 -- Most entrances in a visited cluster are never expanded. Decode their edges only when needed.
+-- graph[k + 1] is n(2) | n x [cell(3) layer(1) component(2) degree(1)] | the edges in node order, each an edge record:
+--   format 1 (7 symbols): cluster offset(1) ((dx + 1) * 3 + dy + 1), node(2), cost(2) swimming with water at swim,
+--     cost(2) walking on water, in running yards. Decoded: target, cost swimming, cost walking on water.
+--   format 2 (a map with the class field, 14 symbols): cluster offset(1), node(2), costAlliance(3), costHorde(3),
+--     costNone(3), yards(2): the edge's grid path priced under each profile's multipliers (Routing/Costs.lua, no
+--     profile for costNone, water at swim) and its walked length in yards. Decoded: target, costAlliance, costHorde,
+--     costNone, yards. This decoder is the layout's one definition: the packer writes what it reads.
 local function adjacent(st, id)
 	local adj = st.nadj[id]
 	if type(adj) == "number" then
 		local k, pos = floor(id / 4096), adj
 		local s = st.D.graph[k + 1]
 		adj = {}
-		for e = 1, B64[byte(s, 9 + (id % 4096) * 7)] do
+		local classed, n = st.classed, 0
+		for _ = 1, B64[byte(s, 9 + (id % 4096) * 7)] do
 			local offset = B64[byte(s, pos)]
 			local target = k + (floor(offset / 3) - 1) * st.ny + offset % 3 - 1
-			adj[e * 3 - 2] = target * 4096 + num(s, pos + 1, 2)
-			adj[e * 3 - 1] = num(s, pos + 3, 2)
-			adj[e * 3] = num(s, pos + 5, 2)
-			pos = pos + 7
+			adj[n + 1] = target * 4096 + num(s, pos + 1, 2)
+			if classed then
+				adj[n + 2], adj[n + 3], adj[n + 4] = num(s, pos + 3, 3), num(s, pos + 6, 3), num(s, pos + 9, 3)
+				adj[n + 5] = num(s, pos + 12, 2)
+				n, pos = n + 5, pos + EDGE2
+			else
+				adj[n + 2], adj[n + 3] = num(s, pos + 3, 2), num(s, pos + 5, 2)
+				n, pos = n + 3, pos + EDGE1
+			end
 		end
 		st.nadj[id] = adj
 		local capacity = 1
@@ -767,9 +891,76 @@ local function neighbour(st, k, node, gx, gy, dx, dy, water)
 	return nil
 end
 
+-- A node's class byte (0 on a map without classes), decoding its cluster again if it was evicted.
+local function classOf(st, k, node)
+	local cls = st.cls[k]
+	if not cls then
+		grid(st, k)
+		cls = st.cls[k]
+	end
+	return cls and cls[node + 1] or 0
+end
+
+-- The zone field (metadata zone[k + 1], format 2, optional; tools/lib/nav/pack.js HEADER): per cluster the uiMapID of
+-- each of its 16 x 16 chunks, read straight from the string (never decoded and kept: a cluster's search builds its
+-- chunk multipliers once, chunkDanger). Chunk q (0-based) of local cell lc.
+local function chunkOf(C, lc)
+	return floor(floor(lc / C) * 16 / C) * 16 + floor(lc % C * 16 / C)
+end
+
+-- The uiMapID of local cell lc of cluster k; nil in no zone, or on a map or cluster without the zone field.
+local function zoneAt(st, k, lc)
+	local s = st.D.zone and st.D.zone[k + 1]
+	if not s then
+		return nil
+	end
+	local q, i, n, value = chunkOf(st.C, lc), 1, -1, 0
+	while i <= #s do
+		local a = B64[byte(s, i)]
+		if a < 48 then
+			value, n, i = a * 64 + B64[byte(s, i + 1)], n + 1, i + 2
+		else
+			n, i = n + a - 47, i + 1
+		end
+		if n >= q then
+			return value ~= 0 and value or nil
+		end
+	end
+	return nil
+end
+
+-- The multiplier of a step into each chunk of cluster k (index q + 1) under danger ({ [uiMapID] = multiplier > 1 },
+-- Path.lua's weights); nil when no chunk of the cluster is dangerous (or it has no zone field).
+local function chunkDanger(st, k, danger)
+	local s = danger and st.D.zone and st.D.zone[k + 1]
+	if not s then
+		return nil
+	end
+	local out, any, n, value, i = {}, false, 0, 1, 1
+	while i <= #s do
+		local a, reps = B64[byte(s, i)], nil
+		if a < 48 then
+			local m = danger[a * 64 + B64[byte(s, i + 1)]]
+			value, any, reps, i = m or 1, any or m ~= nil, 1, i + 2
+		else
+			reps, i = a - 47, i + 1
+		end
+		for _ = 1, reps do
+			n = n + 1
+			out[n] = value
+		end
+	end
+	for q = n + 1, 256 do
+		out[q] = 1
+	end
+	return any and out or nil
+end
+
 -- Line of sight between two path entries, walking every cell the segment between their cell centres crosses and
--- following the surface from node to node, so it cannot jump between floors.
-local function sight(st, P, a, b, water)
+-- following the surface from node to node, so it cannot jump between floors. With limit (a map with classes), every
+-- node crossed must also cost no more than limit (Costs.Mult for profile in style, times dangerAt(k, node) when
+-- given: smooth's zone danger) and, unless hostileOK, carry no hub bit hb (the one hostile to profile; nil for none).
+local function sight(st, P, a, b, water, limit, profile, hb, hostileOK, style, dangerAt)
 	local ax, ay, bx, by = P.x[a], P.y[a], P.x[b], P.y[b]
 	local k, node = P.k[a], P.n[a]
 	local dx, dy = bx - ax, by - ay
@@ -792,6 +983,16 @@ local function sight(st, P, a, b, water)
 		if not k then
 			return false
 		end
+		if limit then
+			local c = classOf(st, k, node)
+			local m = Mult(c, profile, style)
+			if dangerAt then
+				m = m * dangerAt(k, node)
+			end
+			if m > limit or (hb and not hostileOK and c % (hb + hb) >= hb) then
+				return false
+			end
+		end
 		x, y = x + mx, y + my
 		ix, iy = ix + mx * sx, iy + my * sy
 	end
@@ -799,9 +1000,13 @@ local function sight(st, P, a, b, water)
 end
 
 -- Collapse a node path to its turns, then pull the string: from each anchor, jump to the furthest point in sight.
--- Water may only be crossed where the path itself swam.
-local function smooth(st, P)
-	local PX, PY, PW = P.x, P.y, P.w
+-- Water may only be crossed where the path itself swam. On a map with classes a straight segment replaces the path
+-- between two entries only over ground no costlier for profile in style (times the zone danger of danger, Path.lua's
+-- weights, when given) than the costliest node of that path stretch, and into a hub hostile to profile only where
+-- that stretch already entered one: the drawn line (and the hubs it reports) never cuts a road's bend, a hostile
+-- hub's rim or a dangerous zone's edge the cost-best path kept to.
+local function smooth(st, P, profile, style, danger)
+	local PX, PY, PW, PK, PN = P.x, P.y, P.w, P.k, P.n
 	local n = #PX
 	local keep = { 1 }
 	for i = 2, n - 1 do
@@ -812,12 +1017,50 @@ local function smooth(st, P)
 	if n > 1 then
 		keep[#keep + 1] = n
 	end
+	local classed = st.classed
+	profile = Costs.Profile(profile)
+	local hb = profile == "Horde" and Costs.HUB_ALLIANCE or profile == "Alliance" and Costs.HUB_HORDE or nil
+	-- A node's zone multiplier, each cluster's chunk multipliers built once (false: none dangerous).
+	local dangerAt
+	if classed and danger then
+		local chunks, C = {}, st.C
+		dangerAt = function(k, node)
+			local z = chunks[k]
+			if z == nil then
+				z = chunkDanger(st, k, danger) or false
+				chunks[k] = z
+			end
+			return z and z[chunkOf(C, cellOf(st, k, node)) + 1] or 1
+		end
+	end
 	local out, a = { keep[1] }, 1
 	while a < #keep do
 		local b = a + 1
+		-- The costliest node of the path after keep[a] up to keep[j], and whether it entered a hostile hub, grown with
+		-- j: the anchor's own node is never stepped into, by the path or by the straight segment (sight).
+		local limit, hostile, last
+		if classed then
+			limit, hostile, last = 0, false, keep[a]
+		end
 		for j = a + 2, #keep do
 			local p, q = keep[a], keep[j]
-			if not sight(st, P, p, q, PW[q] - PW[p] > 0) then
+			if classed then
+				for i = last + 1, q do
+					local c = classOf(st, PK[i], PN[i])
+					local m = Mult(c, profile, style)
+					if dangerAt then
+						m = m * dangerAt(PK[i], PN[i])
+					end
+					if m > limit then
+						limit = m
+					end
+					if hb and c % (hb + hb) >= hb then
+						hostile = true
+					end
+				end
+				last = q
+			end
+			if not sight(st, P, p, q, PW[q] - PW[p] > 0, limit, profile, hb, hostile, style, dangerAt) then
 				break
 			end
 			b = j
@@ -828,7 +1071,8 @@ local function smooth(st, P)
 	return out
 end
 
--- With no search queued, drop decoded grids and local trees; exact endpoint costs stay.
+-- With no search queued, drop decoded grids (but the one Path.SurfacesAt reads: the player's) and local trees and
+-- trim the decoded graph to its resting ceiling; exact endpoint costs stay.
 local function Idle()
 	for _, st in pairs(states) do
 		for _, entry in ipairs(st.endTrees or {}) do
@@ -836,22 +1080,33 @@ local function Idle()
 		end
 		st.endTrees = nil
 		for k in pairs(st.used) do
-			evict(st, k)
+			if reader.st == st and reader.k == k then
+				reader.use = st.used[k]
+			else
+				evict(st, k)
+			end
 		end
 		if st.D.packed then
 			st.D.grid, st.D.height, st.D.floor = {}, {}, {}
+			if st.classed then
+				st.D.class = {}
+			end
 		end
 	end
-	trimGraphs()
+	trimGraphs(math.min(Path.graphRestKB or Path.graphKB, Path.graphKB))
 end
 
 local function Reset()
 	for _, st in pairs(states) do
 		if st.D.packed then
 			st.D.graph, st.D.grid, st.D.height, st.D.floor = {}, {}, {}, {}
+			if st.classed then
+				st.D.class = {}
+			end
 		end
 	end
 	states = {}
+	reader.st, reader.k, reader.use = nil, nil, nil
 	decodedKB, decodedCount, graphKB = 0, 0, 0
 end
 
@@ -877,9 +1132,17 @@ ns.PathGrid = {
 	Deadline = Deadline,
 	Expansions = Expansions,
 	State = State,
+	Classed = Classed,
 	surface = surface,
 	grid = grid,
+	keepRead = keepRead,
+	wantRead = wantRead,
+	prefetch = prefetch,
+	dropRead = drop,
 	cellOf = cellOf,
+	chunkOf = chunkOf,
+	zoneAt = zoneAt,
+	chunkDanger = chunkDanger,
 	nodesOf = nodesOf,
 	metadata = metadata,
 	adjacent = adjacent,

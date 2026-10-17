@@ -75,6 +75,8 @@ return {
 	["{npc:345} (level 24) roots around the pen just west of {area:69}. Pull him away from the other boars and fight at full health."] = "{npc:345}(24레벨)는 {area:69} 바로 서쪽 우리에서 땅을 파헤칩니다. 다른 멧돼지들과 떨어뜨려 끌어온 뒤 생명력이 가득 찬 상태로 싸우세요.",
 
 	-- Step 12: Lakeshire
+	-- {npc:341} Foreman Oslow · {quest:89} The Everstill Bridge
+	["{npc:341}: after {quest:89}"] = "{npc:341}: {quest:89} 이후",
 	-- {npc:703} Lieutenant Fangore · {area:1000} Galardell Valley
 	["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "여관 옆 현상수배 게시판: {npc:703}, {area:1000}에 있음",
 
@@ -88,7 +90,8 @@ return {
 	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Blackrock Renegades = {npc:437} Blackrock Renegade
 	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake; Blackrock Renegades hold the mill itself."] = "거대한 타란툴라는 호수 북동쪽 방앗간 주변 비탈을 기어다니고, 검은바위부족 보초병은 방앗간 자체를 차지하고 있습니다.",
 	-- {item:3014} Battleworn Axe
-	["{item:3014}: any Blackrock orc"] = "{item:3014}: 아무 검은바위부족 오크",
+	-- plural, as words: Blackrock Renegades = {npc:437} Blackrock Renegade
+	["{item:3014}: the Blackrock Renegades at the mill"] = "{item:3014}: 방앗간의 검은바위부족 보초병",
 
 	-- Step 15: Galardell Valley
 	-- {npc:703} Lieutenant Fangore · {area:2099} Stonewatch Keep
@@ -119,4 +122,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bellygrub"] = "서리먹보",
+	-- ["{item:3014}: any Blackrock orc"] = "{item:3014}: 아무 검은바위부족 오크",
 }

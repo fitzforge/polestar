@@ -31,6 +31,8 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, in the port's tavern"] = "{npc:7881}，在港口的旅店裡",
 	["The Wanted poster beside him"] = "他旁邊的通緝告示",
+	-- {npc:7847} Caliph Scorpidsting · {area:976} Gadgetzan
+	["The same poster: {npc:7847} comes much later, after {area:976}"] = "同一張告示：{npc:7847}要很久以後才會出現，在{area:976}之後",
 
 	-- Step 6: Lost Rigger Cove
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
@@ -87,11 +89,7 @@ return {
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
 	["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}躲在山谷北端。帶他回家找他的妻子{npc:6015}，她在{area:977}東邊的水邊：他走得很慢，沙漠的野獸會攻擊他，所以要保住他的性命。",
 
-	-- Step 19: Steamwheedle Port
-	-- {npc:7882} Security Chief Bilgewhizzle
-	["The Wanted poster by {npc:7882}"] = "{npc:7882}旁邊的通緝告示",
-
-	-- Step 20: Gadgetzan
+	-- Step 19: Gadgetzan
 	-- {area:976} Gadgetzan
 	["Ride back west to {area:976}."] = "向西騎回{area:976}。",
 	-- {npc:11758} Andi Lynn
@@ -99,29 +97,30 @@ return {
 	-- {npc:7583} Sprinkle · {zone:1425} Hinterlands
 	["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "{npc:7583}的下一種材料生長在{zone:1425}，而路線不會再帶你回來：跳過。",
 
-	-- Step 21: Caliph Scorpidsting
+	-- Step 20: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "向東南騎往{area:985}。{npc:7847}站在南方廢土營地的中央：先清掉他周圍的敵人。",
 
-	-- Step 22: The Gaping Chasm
+	-- Step 21: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "向南騎過{area:1938}前往{area:981}，也就是哈札里的隧道；謝申克的設備在深處。",
 
-	-- Step 23: Gadgetzan
+	-- Step 22: Gadgetzan
 	-- {area:976} Gadgetzan
 	["Hearth to {area:976}."] = "用爐石回{area:976}。",
 	-- {zone:1457} Darnassus
 	["for {zone:1457}: the route takes you there at 47"] = "交給{zone:1457}：路線會在47級時帶你去那裡",
 
-	-- Step 24: Ironforge
+	-- Step 23: Ironforge
 	-- {area:976} Gadgetzan · {area:150} Menethil Harbor · {area:1537} Ironforge
 	["Fly from {area:976} to Theramore, take the boat to {area:150} and fly to {area:1537}. Train."] = "從{area:976}飛往塞拉摩，搭船前往{area:150}，再飛往{area:1537}。訓練。",
 
-	-- Step 25: Aerie Peak
+	-- Step 24: Aerie Peak
 	-- {area:348} Aerie Peak · {zone:1425} Hinterlands
 	["Fly to {area:348}. {zone:1425} guide starts here."] = "飛往{area:348}。{zone:1425}指南從這裡開始。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "飛往{area:348}。{zone:1425}指南從這裡開始。",
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "向南騎過{area:1938}前往{area:981}，也就是哈札里的隧道；謝申克的設備在深處。",
+	-- ["The Wanted poster by {npc:7882}"] = "{npc:7882}旁邊的通緝告示",
 }

@@ -48,8 +48,8 @@ return {
 	["The {object:19901} stands in the satyr camp of {area:430}, further east along the road."] = "Der {object:19901} steht im Satyrlager von {area:430}, weiter östlich an der Straße.",
 
 	-- Step 11: Forest Song
-	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind · {npc:221269} Maseara Autumnmoon
-	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} and {npc:221269} stand there."] = "{area:2358}, der Außenposten der Nachtelfen am Ostende der Straße: {npc:3848} und {npc:221269} stehen dort.",
+	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind
+	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358}, der Außenposten der Nachtelfen am Ostende der Straße: {npc:3848} steht dort.",
 
 	-- Step 12: Bottle of Disease
 	-- {area:2358} Forest Song
@@ -64,52 +64,49 @@ return {
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: für {npc:3961} in {area:415}",
 
-	-- Step 16: Xavian satyrs
-	-- {area:429} Xavian
-	["{area:429} satyrs"] = "Satyrn von {area:429}",
-	-- {area:429} Xavian
-	["Back west along the road to the satyr camps of {area:429}."] = "Zurück nach Westen über die Straße zu den Satyrlagern von {area:429}.",
-
-	-- Step 17: Insane druids
+	-- Step 16: Insane druids
 	["Insane druids"] = "Wahnsinnige Druiden",
 	-- {area:2358} Forest Song
 	["The three druids stand together at the Forsaken camp south of {area:2358}."] = "Die drei Druiden stehen zusammen im Lager der Verlassenen südlich von {area:2358}.",
 
-	-- Step 19: Night Run
+	-- Step 18: Night Run
 	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
 	["The second {object:19901} lies in the valley of {area:428}, on the way west."] = "Der zweite {object:19901} liegt im Tal {area:428}, auf dem Weg nach Westen.",
 
-	-- Step 21: Hidden Shrine
+	-- Step 20: Hidden Shrine
 	["The shrine sits on the hill just south-east of the moonwell; follow the winding path up."] = "Der Schrein liegt auf dem Hügel gleich südöstlich des Mondbrunnens; folge dem gewundenen Pfad hinauf.",
 
-	-- Step 24: Krolg
+	-- Step 23: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake
 	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, ein Furbolg, den die Verderbnis nicht berührt hat, sitzt südlich der Straße unterhalb vom {area:421}.",
 
-	-- Step 25: Ran Bloodtooth
+	-- Step 24: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
 	["{npc:3696} and his guards camp just east of {npc:3897}."] = "{npc:3696} und seine Wachen lagern gleich östlich von {npc:3897}.",
 
-	-- Step 30: Auberdine
+	-- Step 29: Auberdine
 	-- {area:150} Menethil Harbor · {area:442} Auberdine
 	["Take the boat to {area:150} from {area:442}'s docks."] = "{area:150}: Nimm das Boot vom Steg in {area:442}.",
 
-	-- Step 31: Glorin Steelbrow
+	-- Step 30: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
 	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217} steht im oberen Stockwerk der Burg von Menethil.",
 
-	-- Step 32: Waterlogged Chest
+	-- Step 31: Waterlogged Chest
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "Das Wrack der Flying Osprey liegt im seichten Wasser südlich der Burg.",
 
-	-- Step 33: Lightforge Ingots
+	-- Step 32: Lightforge Ingots
 	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
 	["Lightforge Ingots"] = "Lichtschmiedeblöcke",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "Die Murlocs der Blaukiemen am Strand südwestlich von Menethil tragen die Blöcke.",
 
-	-- Step 35: Deepwater Tavern
+	-- Step 34: Deepwater Tavern
 	-- {npc:5082} Vincent Hyal · {npc:4963} Mikhail · {npc:4962} Tapoke "Slim" Jahn · {npc:1480} Caitlin Grassman
 	["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}, {npc:4963} und {npc:4962} Jahn sind alle im Gasthaus von Menethil; Tapoke greift dich an, wenn du mit {npc:4963} sprichst, gibt aber auf, sobald er besiegt ist. {npc:1480} steht ein kurzes Stück nordöstlich des Gasthauses.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back west along the road to the satyr camps of {area:429}."] = "Zurück nach Westen über die Straße zu den Satyrlagern von {area:429}.",
 	-- ["Geltharis"] = "Geltharis",
+	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} and {npc:221269} stand there."] = "{area:2358}, der Außenposten der Nachtelfen am Ostende der Straße: {npc:3848} und {npc:221269} stehen dort.",
+	-- ["{area:429} satyrs"] = "Satyrn von {area:429}",
 }

@@ -51,6 +51,11 @@ return {
 	-- plural, as words: Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
 	["Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it."] = "Allez vers l'ouest après le camp. Les Raptors de Strangleronce (33-34) chassent dans les clairières, et les trolls Bloodscalp tiennent les ruines de la côte : chaque Bloodscalp peut lâcher une défense. Ils lâchent très rarement un {item:4614} : si vous en obtenez un, lisez-le.",
 
+	-- Step 11: Nesingwary's camp
+	-- {object:3202} Grom'gol (no name in this language: may be words)
+	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
+	["The Shadowmaw Panthers come much later, by {object:3202}"] = "Les Panthères Ombregueule viendront bien plus tard, près de {object:3202}",
+
 	-- Step 12: Elder tigers and Lashtail raptors
 	["Elder tigers and Lashtail raptors"] = "Anciens tigres et raptors flagellants",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -140,50 +145,50 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Ride back south to {object:3202}."] = "Retournez au sud jusqu'à {object:3202}.",
 
-	-- Step 33: Nesingwary's camp
-	["Follow the road north to the camp."] = "Suivez la route vers le nord jusqu'au camp.",
-
-	-- Step 34: Green Hills pages
+	-- Step 33: Green Hills pages
 	["Green Hills pages"] = "Pages des Vertes collines",
 	-- {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
 	["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters later in this guide."] = "Les pages de {item:2755} tombent à environ 1 % chacune sur les trolls Bloodscalp et Skullsplitter ; gardez chaque page ramassée et cherchez le reste à l'hôtel des ventes. {npc:716} prend les chapitres plus loin dans ce guide.",
 
-	-- Step 35: Shadowmaw panthers
+	-- Step 34: Shadowmaw panthers
 	["Shadowmaw panthers"] = "Panthères Ombregueule",
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "Les Panthères Ombregueule (37-38) rôdent dans la jungle à l'est des collines Mosh'Ogg et au nord-est vers le lac ; elles attaquent en camouflage. Ramassez chaque page des Vertes collines trouvée en chemin.",
 
-	-- Step 36: Green Hills pages
+	-- Step 35: Green Hills pages
 	-- {item:2755} Green Hills of Stranglethorn
 	["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; take what drops and check the Auction House for the rest."] = "Les pages de {item:2755} tombent à environ 1 % chacune sur les trolls Bloodscalp et Skullsplitter ; prenez ce qui tombe et cherchez le reste à l'hôtel des ventes.",
 
-	-- Step 39: Jungle Stalkers
+	-- Step 38: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["Jungle Stalkers"] = "Traqueurs de la jungle",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["The Jungle Stalkers (40-41) hunt the coast south of {object:3202}. They are well above you: pull one at a time and rest between fights."] = "Les Traqueurs de la jungle (40-41) chassent sur la côte au sud de {object:3202}. Ils sont bien au-dessus de votre niveau : attirez-les un par un et reposez-vous entre les combats.",
 
-	-- Step 41: Mistvale gorillas
+	-- Step 40: Mistvale gorillas
 	["Mistvale gorillas"] = "Gorilles de Valbrume",
 	-- {area:35} Booty Bay · {area:1737} Mistvale Valley
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	["Take the road south towards {area:35}. The Elder Mistvale Gorillas (40-41) live in {area:1737}, east of the road; about one in twenty carries an aged sinew."] = "Prenez la route vers le sud en direction de {area:35}. Les Anciens gorilles de Valbrume (40-41) vivent à {area:1737}, à l'est de la route ; environ un sur vingt porte un Tendon d'ancien gorille.",
 
-	-- Step 42: Booty Bay
+	-- Step 41: Booty Bay
 	-- {area:35} Booty Bay
 	["Follow the road on south into {area:35}."] = "Continuez la route vers le sud jusqu'à {area:35}.",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier"] = "{npc:2495} : les peaux de Gueule d'acier récupérées plus tôt",
 
-	-- Step 44: Venture Co. camp
+	-- Step 43: Venture Co. camp
 	["Venture Co. camp"] = "Camp de la KapitalRisk",
 	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Ride north past Nesingwary's camp to the lake. The Venture Co. Geologists (34-36) work the camps along its western shore; they carry the Tumbled Crystals."] = "Allez vers le nord après le camp de Nesingwary jusqu'au lac. Les Géologues de la KapitalRisk (34-36) travaillent dans les camps de sa rive ouest ; ils portent les Cristaux réduits.",
 
-	-- Step 45: Hearth to Booty Bay
+	-- Step 44: Hearth to Booty Bay
 	-- {area:35} Booty Bay
 	["Hearth to {area:35}"] = "Pierre de foyer vers {area:35}",
 	-- {area:272} Tarren Mill · {zone:1417} Arathi Highlands
 	["The next guide flies you north to {area:272} and into the {zone:1417}."] = "Le guide suivant vous emmène en vol au nord jusqu'à {area:272} et dans {zone:1417}.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road north to the camp."] = "Suivez la route vers le nord jusqu'au camp.",
 }

@@ -39,6 +39,15 @@ next forever/horde/02-the-barrens
 #   so the export's first mine visit is folded into the second.
 # - A Sacred Burial (833) and Rite of Wisdom (773) are done on one visit to
 #   Red Rocks instead of two.
+# - Baine's chain goes in the order the game offers it (Wowhead Forever's
+#   Series box; the quest data has no prerequisites for it, #112): Longwalker
+#   Malah (99079) on the first Bloodhoof visit, Grim Tidings (99081) from
+#   Malah, then Our Ancient Enemy (99101) and Drive Them Out (99080) when
+#   Grim Tidings is handed in, and The High Chieftain (99082) when Drive Them
+#   Out is. The Galak centaurs are killed on the walk from Morin Cloudstalker
+#   to the Venture Co. Mine instead of with Malah's visit. Thunderhorn's
+#   Report (98435) is taken when Wildmane Cleansing (760) is handed in, its
+#   only offer.
 # - Durotar is no longer visited: the older guide went on from the Crossroads
 #   to Razor Hill for Threat from Below (99048, 99049, 99051), Rezlak's
 #   Stormy Potential (97281, 97282), Lost But Not Forgotten (816), Burning
@@ -94,7 +103,8 @@ step Camp Narache
 
 step The Hunt Begins
   tip Plainstriders roam the grass all around the camp.
-  complete 747
+  collect 4739 quest 747.1            -- Plainstrider Meat
+  collect 4740 quest 747.2            -- Plainstrider Feather
 
 step Grull Hawkwind
   turnin 747
@@ -113,7 +123,7 @@ step Greatmother Hawkwind
   tip Greatmother Hawkwind sits by the tent on the camp's eastern edge; the Water Pitcher stands next to her.
   turnin 752
   accept 753
-  complete 753
+  collect 4755 quest 753.1            -- Water Pitcher
 
 step Chief Hawkwind
   turnin 753
@@ -122,7 +132,7 @@ step Chief Hawkwind
 step The Hunt Continues
   tip Antur Fallow stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to Grull.
   accept 1656                         -- Antur Fallow
-  complete 750
+  collect 4742 quest 750.1            -- Mountain Cougar Pelt
 
 step Grull Hawkwind
   turnin 750
@@ -144,9 +154,10 @@ step The shrine of An'she and Mu'sha
 
 step Brambleblade Ravine
   tip Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. Chief Sharptusk Thornmantle stands at its eastern end, and the Dirt-stained Map lies on the ground in the camp.
-  complete 780
-  complete 757
-  complete 3376
+  collect 4848 quest 780.1            -- Battleboar Snout
+  collect 4849 quest 780.2            -- Battleboar Flank
+  collect 4770 quest 757.1            -- Bristleback Belt
+  collect 10459 quest 3376.1          -- Chief Sharptusk Thornmantle's Head
   collect 4851
   accept 781
 
@@ -199,7 +210,8 @@ step Bloodhoof Village
 
 step Poison Water
   tip Prairie Wolves and Adult Plainstriders roam the plains around the village.
-  complete 748
+  collect 4758 quest 748.1            -- Prairie Wolf Paw
+  collect 4759 quest 748.2            -- Plainstrider Talon
 
 step Mull Thunderhorn
   turnin 748
@@ -216,23 +228,19 @@ step Mull Thunderhorn
 
 step Chakuyak and Thunderhorn Totem
   tip Chakuyak, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it.
-  complete 96130
-  complete 756
+  collect 270302 quest 96130.1        -- Chakuyak's Pelt
+  collect 4801 quest 756.1            -- Stalker Claws
+  collect 4802 quest 756.2            -- Cougar Claws
 
 step Back to Bloodhoof
   turnin 96130                        -- Yaw Sharpmane
   turnin 756                          -- Mull Thunderhorn
   accept 758
-  accept 99101                        -- Brave Wildrunner
-  turnin 99101                        -- Baine Bloodhoof
   accept 99079                        -- Brave Wildrunner
   accept 743                          -- Ruul Eagletalon
   accept 745                          -- Baine Bloodhoof
   accept 746
   accept 767
-  accept 99080
-  accept 99082                        -- Baine Bloodhoof, for Cairne in Thunder Bluff
-  accept 98435                        -- Mull Thunderhorn, for Hamuul in Thunder Bluff
   accept 761                          -- Harken Windtotem
 
 step Sparring Match
@@ -254,7 +262,8 @@ step Ahab Wheathoof
 step Thunderhorn Water Well
   tip The well lies north of the village. Well Stones sit around the well, Ambercorn lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for Mazzranache and Swoop Hunting.
   use 5415 quest 758.1 @44.6,45.4     -- Thunderhorn Cleansing Totem
-  complete 771
+  collect 4808 quest 771.1            -- Well Stone
+  collect 4809 quest 771.2            -- Ambercorn
   complete 99411
   collect 4804 quest 766.1 optional
   collect 4805 quest 766.2 optional
@@ -272,7 +281,7 @@ step Bloodhoof Village
 
 step Swoop Hunting
   tip Swoops glide over the plains all around Bloodhoof.
-  complete 761
+  collect 4769 quest 761.1            -- Trophy Swoop Quill
 
 step Morin Cloudstalker
   tip Morin camps by the Winterhoof Water Well south-east of Bloodhoof.
@@ -283,10 +292,9 @@ step Longwalker Malah
   turnin 99079
   accept 99081
 
-step Galak centaurs and Prairie Wolf Alphas
-  tip The Galak centaurs camp on the plains north of the Rolling Plains; Herak leads them. Prairie Wolf Alphas roam among the wolves.
-  complete 99080
-  complete 759
+step Prairie Wolf Alphas
+  tip Prairie Wolf Alphas roam among the wolves on the plains around Malah and the Galak camp to the east.
+  collect 4803 quest 759.1            -- Prairie Alpha Tooth
 
 step The Ravaged Caravan
   tip The wrecked caravan lies north-west of the centaurs, east of the road to Thunder Bluff.
@@ -297,12 +305,17 @@ step Bloodhoof Village
   turnin 761                          -- Harken Windtotem
   turnin 759                          -- Mull Thunderhorn
   accept 760
-  turnin 99080                        -- Baine Bloodhoof
   turnin 99081                        -- Brave Wildrunner
+  accept 99101                        -- Brave Wildrunner
+  turnin 99101                        -- Baine Bloodhoof
+  accept 99080
 
 step Mazzranache
   tip Finish the wolf heart, cougar femur, plainstrider scale and swoop gizzard on the plains around the village.
-  complete 766
+  collect 4804 quest 766.1            -- Prairie Wolf Heart
+  collect 4805 quest 766.2            -- Flatland Cougar Femur
+  collect 4806 quest 766.3            -- Plainstrider Scale
+  collect 4807 quest 766.4            -- Swoop Gizzard
 
 step Maur Raincaller
   turnin 766
@@ -312,6 +325,12 @@ step Morin Cloudstalker
   turnin 751
   accept 764
   accept 765
+
+step Galak centaurs
+  tip The Galak centaurs camp on the plains east of the well; Herak leads them.
+  kill 2967 quest 99080.1             -- Galak Centaur
+  kill 2968 quest 99080.2             -- Galak Outrunner
+  collect 286075 quest 99080.3        -- Herak's Head
 
 # ---------------------------------------------------------------- The Venture Co. Mine
 
@@ -332,7 +351,7 @@ step Wildmane Water Well
 
 step Dangers of the Windfury
   tip The Windfury harpies hold Windfury Ridge, north and west of the well.
-  complete 743
+  collect 4751 quest 743.1            -- Windfury Talon
 
 step Seer Wiserunner
   tip Seer Wiserunner stands at the edge of the Bael'dun Digsite, south of the well.
@@ -340,8 +359,8 @@ step Seer Wiserunner
   accept 773
 
 step Dwarven Digging
-  tip The dwarves of the Bael'dun Digsite carry the Prospector's Picks. Smash them at the forge in Bloodhoof Village.
-  complete 746
+  tip The dwarves of the Bael'dun Digsite carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite.
+  collect 4703 quest 746.1            -- Broken Tools, at the digsite forge
 
 step Sharing the Land
   tip The Palemane gnolls hold Palemane Rock, south of the digsite and west of Bloodhoof. Perith Stormhoof is held in their camp: lead him out.
@@ -350,11 +369,14 @@ step Sharing the Land
   complete 98430
 
 step Bloodhoof Village
-  accept 861                          -- Skorn Whitecloud
   turnin 743                          -- Ruul Eagletalon
   turnin 745                          -- Baine Bloodhoof
+  turnin 99080
+  accept 99082                        -- Baine Bloodhoof, for Cairne in Thunder Bluff
   turnin 746
   turnin 760                          -- Mull Thunderhorn
+  accept 98435                        -- Mull Thunderhorn, for Hamuul in Thunder Bluff
+  accept 861                          -- Skorn Whitecloud
   train class
 
 step Morin Cloudstalker
@@ -368,7 +390,7 @@ step Red Rocks
   complete 833
   turnin 833
   turnin 773
-  complete 861                        -- Flatland Prowlers roam the plains around Red Rocks
+  collect 5203 quest 861.1            -- Flatland Prowler Claw: Flatland Prowlers roam the plains around Red Rocks
   accept 775
 
 # ---------------------------------------------------------------- Thunder Bluff

@@ -498,3 +498,23 @@ test('the welcome turns its pages with LB / RB and starts on Next', () => {
 	`);
 	assert.deepEqual(out, { first: true, at: 1, at2: 2, at3: 1 });
 });
+
+test('the welcome\'s route style cards: the D-pad reaches them, A picks one, Y puts Balanced back', () => {
+	const [out] = run(`
+		UI.Welcome.Show("route")
+		stub.advance(0.3)
+		local card
+		for _ = 1, 20 do
+			local w = G.Focused(PolestarWelcome)
+			if w and w.psStyle == "roads" then card = w break end
+			stub.press("PADDDOWN")
+		end
+		stub.press("PAD1")
+		local picked = { Polestar.Get("nav.routeStyle"), card and card.psSelected or false }
+		stub.press("PAD4")
+		emit({ reached = card ~= nil, picked = picked, reset = Polestar.Get("nav.routeStyle") or "balanced",
+			balanced = PolestarWelcome.Styles[2].psSelected or false, roads = card and card.psSelected or false })
+	`);
+	assert.deepEqual(out, { reached: true, picked: ['roads', true], reset: 'balanced', balanced: true, roads: false },
+		'Y puts Balanced back and moves the pick to its card');
+});

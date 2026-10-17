@@ -19,7 +19,8 @@ next forever/alliance/30-40/01-hillsbrad-foothills
 # Darkshire -> fly to Menethil Harbor (hearth) -> the Third Fleet's wreck,
 # the Bluegill Raiders and the north coast -> Menethil -> the wreck ->
 # Menethil -> east: the dig, Sarltooth, the Dragonmaw ->
-# Menethil -> the Dragonmaw catapult -> hearth -> boat to Theramore -> the
+# Menethil -> the Angerfang Encampment's attack plans -> hearth -> Menethil
+# -> boat to Theramore -> the
 # Great Lift -> the Shimmering Flats -> hearth to Menethil, where
 # 30-40/01-hillsbrad-foothills picks up (the Forever Wetlands quests, then
 # the boat to Southshore).
@@ -48,6 +49,14 @@ next forever/alliance/30-40/01-hillsbrad-foothills
 #   here, between the Wetlands and the hearth, as before.
 # - Mirage Raceway: Zherin and Pozzik, first on the way in from the salt
 #   flats, before Fizzle, Wizzle and Kravel.
+# - Forever puts From the Ashes (98221) between War Banners (464) and
+#   Nek'rosh's Gambit (465): Captain Stoutfist offers 465 only once 98221 is
+#   handed in (issue #225, Lou-Saydus, in game). 98221 is taken when the
+#   banners are handed in and done on the trip east that used to light the
+#   catapult; 465 is taken when it is handed in after the hearth, and the
+#   catapult is lit on the Wetlands loop of 30-40/01-hillsbrad-foothills.
+#   The Attack Plans are not in the data: the step points at the camp's
+#   Tattered Spellbook (671518), the spot the data has inside the camp.
 #
 # Dropped for flow: A Noble Brew (335, 2450 XP): the Musquash Root sits in
 # the far south-east of the Wetlands, a long detour off the route, and the
@@ -240,17 +249,18 @@ step Dragonmaw camp
 step Captain Stoutfist
   tip Ride back west along the road to Menethil Harbor.
   turnin 464
-  accept 465
+  accept 98221                            -- From the Ashes: Nek'rosh's Gambit comes after it on Forever
 
-step Dragonmaw catapult
-  tip Ride east again; the catapult stands at the Dragonmaw camp south of the road.
-  turnin 465                              -- Dragonmaw Catapult
-  note The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it.
+step Angerfang Encampment
+  tip Ride east again to the Dragonmaw camp. The four sets of Attack Plans lie in the Angerfang Encampment; Chieftain Nek'rosh, an elite, stands in the camp too.
+  complete 98221 @53.5,54.5
 
 # ---------------------------------------------------------------- Thousand Needles
 
 step To Theramore
   hearth "Deepwater Tavern"
+  turnin 98221                            -- Captain Stoutfist, in Menethil Keep
+  accept 465                              -- For the Dragonmaw catapult, on the Wetlands loop of the next guide
   note Take the boat from Menethil's pier to Theramore Isle in Dustwallow Marsh.
 
 step Takar the Seer

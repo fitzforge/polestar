@@ -76,8 +76,10 @@ end
 function Compat.GetPlayerFacing() return nav.facing end
 function Compat.IsOnTaxi() return nav.taxi end
 function Compat.IsInInstance() return nav.instance end
+function Compat.IsIndoors() return nav.indoors end
 function Compat.GetMapName(map) return nav.maps[map] and nav.maps[map].name end
 function Compat.GetPlayerInfo() return { name = "Testchar", level = 10, faction = nav.faction } end
+function Compat.GetPlayerFaction() if nav.faction == "Alliance" or nav.faction == "Horde" then return nav.faction end end
 function Compat.GetItemCount(id) return nav.items[id] or 0 end
 function Compat.GetBindLocation() return nav.bind end
 function Compat.GetNpcID(unit) if unit == "npc" then return nav.npcUnit end end

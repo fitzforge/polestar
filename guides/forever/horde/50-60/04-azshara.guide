@@ -68,7 +68,7 @@ step Fly to Ratchet
 step Liv Rizzlefix
   tip Liv's workshop is at the north end of Ratchet's docks; Marvon's Chest stands inside it.
   turnin 4147
-  complete 3444                       -- Open Marvon's Chest for the Stone Circle
+  collect 10556 quest 3444.1          -- Stone Circle: Marvon's Chest
 
 step Islen Waterseer
   tip Islen camps on the shore just north of Ratchet.

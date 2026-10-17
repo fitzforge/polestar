@@ -9,6 +9,8 @@ return {
 	-- Step 1: Everlook
 	-- {area:2255} Everlook
 	["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255}은(는) 골짜기 동쪽의 고블린 마을입니다.",
+	-- {npc:11118} Innkeeper Vizzie
+	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
 	["Gregor's and Harlo's quests lead to other zones: keep them."] = "그레고르와 하를로의 퀘스트는 다른 지역으로 이어집니다. 보관하세요.",
 
 	-- Step 2: Ice Thistle yetis

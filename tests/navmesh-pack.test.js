@@ -12,7 +12,10 @@ const zlib = require('node:zlib');
 const { Scene, ADT } = require('./helpers/navscene');
 const { tmpdir } = require('./helpers/tmp');
 const { buildGrid } = require('../tools/lib/nav/grid/build');
-const { packNav, cellGridFromDir, buildHpa, encodeMaps, BLOCK_BYTES, PART_BYTES, ZQ } = require('../tools/lib/nav/pack');
+const { packNav, cellGridFromDir, buildHpa, encodeMaps, nodeClass, capitalAreas, readLayers, BLOCK_BYTES, PART_BYTES, ZQ } = require('../tools/lib/nav/pack');
+const Costs = require('../tools/lib/nav/costs');
+const { FLAG } = require('../tools/lib/nav/grid/format');
+const { runAddon, tocEntries, ADDONS } = require('./helpers/lua');
 const S = require('./helpers/spfnav');
 
 const CELL = ADT / 256;
@@ -32,6 +35,36 @@ async function packOf(scenes, cells = 128) {
 	const dir = await gridOf(...scenes);
 	const files = await packNav({ dir, cells, global: 'TestPathData' });
 	return { dir, files, D: S.loadPack(files, 0) };
+}
+
+// Ground for the classes, two tiles (col 32 west of col 33): in tile 32 a north-south road (local x 200-220), an
+// indoor floor plate at x 300-340 (indoor) and one at x 40-80 (indoor city: the city layer says the chunks west of
+// x 160 lie in a capital), a Horde hub over the east border; in tile 33 a gentle hill (35°), a steep one (48°) and
+// an Alliance hub over the west border. -> { dir, layers, a, b, hubs } (built once)
+let ground = null;
+const groundOf = () => (ground = ground || buildGround());
+async function buildGround() {
+	const a = new Scene({ col: 32 });
+	const b = new Scene({ col: 33, height: (x, y) => Math.max(0, 0.7 * (60 - Math.hypot(x - 300, y - 150)), 1.1 * (40 - Math.hypot(x - 380, y - 400))) });
+	a.floor(300, 60, 340, 100, 0.5).floor(40, 60, 80, 100, 0.5);
+	const dir = await gridOf(a, b);
+	const road = Buffer.alloc(256 * 256);
+	for (let j = 0; j < 256; j++) for (let i = Math.floor(200 / CELL); i < Math.ceil(220 / CELL); i++) road[j * 256 + i] = 255;
+	const tenth = (v) => Math.round(v * 10) / 10; // hubs.json's precision
+	const at = (s, x, y, r) => {
+		const w = s.world(x, y);
+		return [tenth(w.wx), tenth(w.wy), r];
+	};
+	const hubs = [
+		{ id: 'horde-camp', side: 'Horde', name: 'Mor\'shan "Camp"', areaId: 2357, disks: [at(a, 525, 300, 20), at(a, 520, 330, 12)] },
+		{ id: 'alliance-post', side: 'Alliance', name: 'Post', areaId: 87, disks: [at(b, 10, 150, 20)] },
+	];
+	const layers = {
+		roads: (c, col) => (col === 32 ? road : null),
+		hubs: { 0: hubs },
+		city: (c, wx, wy) => wy > a.west - 160,
+	};
+	return { dir, layers, a, b, hubs };
 }
 
 // The decoded cluster and node of a scene point (the base surface, or the surface nearest z).
@@ -149,7 +182,8 @@ test('pack: round trip through the decoder: cells, flags, heights, floors and gr
 			for (const e of graph) {
 				assert.ok(e.cell < cells * cells, `an entrance names its local cell (${e.cell})`);
 				assert.ok(S.surface(dc.C, dc.val, dc.z, dc.at, e.cell, e.layer, 0) !== null, 'an entrance stands on a surface');
-				for (const edge of e.edges) assert.ok(edge.costs[0] >= edge.costs[1] && edge.costs[1] > 0, 'swimming costs at least walking on water');
+				// No layers: no hub, so every profile prices an edge alike (maps format 2: Alliance, Horde, none).
+				for (const edge of e.edges) assert.ok(edge.costs[0] === edge.costs[2] && edge.costs[1] === edge.costs[2] && edge.costs[2] > 0 && edge.yards > 0, `one cost for every profile, and yards (${edge.costs}, ${edge.yards})`);
 			}
 		}
 		assert.ok(floors > 0, 'the platform is a floor');
@@ -175,6 +209,332 @@ test('pack: deterministic', async () => {
 	const one = await packNav({ dir, cells: 67 });
 	const two = await packNav({ dir, cells: 67 });
 	assert.deepEqual([...one.entries()], [...two.entries()]);
+	const g = await groundOf();
+	const three = await packNav({ dir: g.dir, cells: 128, layers: g.layers });
+	const four = await packNav({ dir: g.dir, cells: 128, layers: g.layers });
+	assert.deepEqual([...three.entries()], [...four.entries()], 'with the ground layers too');
+});
+
+test('pack: nodeClass: steep slope > indoor > road > gentle slope > normal; indoor in a capital is indoor city; hub bits on top', () => {
+	const { CLASS, SLOPE, HUB_ALLIANCE, HUB_HORDE } = Costs;
+	const steep = SLOPE.STEEP;
+	const gentle = SLOPE.GENTLE;
+	assert.equal(nodeClass({}), CLASS.NORMAL);
+	assert.equal(nodeClass({ tslope: steep, road: true }), CLASS.STEEP, 'a steep road stays steep');
+	assert.equal(nodeClass({ tslope: steep, surfaceFlags: FLAG.INDOOR }), CLASS.STEEP);
+	assert.equal(nodeClass({ surfaceFlags: FLAG.INDOOR, road: true }), CLASS.INDOOR, 'an indoor road is indoor');
+	assert.equal(nodeClass({ surfaceFlags: FLAG.INDOOR, areaCity: true }), CLASS.CITY, 'indoor in a capital is indoor city');
+	assert.equal(nodeClass({ areaCity: true }), CLASS.NORMAL, 'outdoors in a capital is plain ground');
+	assert.equal(nodeClass({ tslope: gentle, road: true }), CLASS.ROAD, 'a gentle road is a road (roads are graded)');
+	assert.equal(nodeClass({ tslope: gentle }), CLASS.GENTLE);
+	assert.equal(nodeClass({ tslope: gentle - 1 }), CLASS.NORMAL);
+	assert.equal(nodeClass({ tslope: steep - 1 }), CLASS.GENTLE);
+	assert.equal(nodeClass({ road: true, hubBits: HUB_ALLIANCE | HUB_HORDE | 64 }), CLASS.ROAD | HUB_ALLIANCE | HUB_HORDE, 'both hub bits, nothing else');
+});
+
+test('pack: costs.js is Routing/Costs.lua\'s table (the packer prices the graph as the router prices a step)', () => {
+	const [got] = runAddon({
+		addons: [{ name: 'Polestar_Nav', files: ['Routing/Costs.lua'] }],
+		script: `local K = Polestar_NavCosts
+local m = {}
+for c = 0, 31 do m[c + 1] = { K.Mult(c, "Alliance"), K.Mult(c, "Horde"), K.Mult(c, nil) } end
+emit({ class = K.CLASS, hubs = { K.HUB_ALLIANCE, K.HUB_HORDE }, hub = K.HUB, min = K.MIN, m = m })`,
+	}).emitted;
+	assert.deepEqual(got.class, Costs.CLASS);
+	assert.deepEqual(got.hubs, [Costs.HUB_ALLIANCE, Costs.HUB_HORDE]);
+	assert.equal(got.hub, Costs.HUB);
+	assert.equal(got.min, Costs.MIN);
+	for (let c = 0; c < 32; c++) assert.deepEqual(got.m[c], Costs.PROFILES.map((p) => Costs.mult(c, p)), `class byte ${c}`);
+});
+
+test('pack: capitalAreas: the AreaTable\'s capitals (Flags_0 & 0x100) and every area under one', () => {
+	const rows = [
+		{ ID: 1, ParentAreaID: 0, Flags_0: 65 }, // Dun Morogh
+		{ ID: 1519, ParentAreaID: 0, Flags_0: 312 }, // Stormwind City
+		{ ID: 1617, ParentAreaID: 1519, Flags_0: 1073741888 }, // Valley of Heroes
+		{ ID: 9, ParentAreaID: 1617, Flags_0: 0 },
+		{ ID: 809, ParentAreaID: 1, Flags_0: 1073741888 }, // Gates of Ironforge
+	];
+	assert.deepEqual([...capitalAreas(rows)].sort((a, b) => a - b), [9, 1519, 1617]);
+});
+
+test('pack: maps format 2: the class field round-trips through the router\'s decoder, hub bits on every cell a disk touches, the hubs in the metadata', async () => {
+	const { dir, layers, a, b, hubs } = await groundOf();
+	const files = await packNav({ dir, cells: 128, layers });
+	const { cg } = await cellGridFromDir({ dir, c: 0, C: 128, layers });
+	const meta = files.get('Nav0.lua');
+	assert.match(meta, /^\tformat = 2,$/m);
+	assert.match(meta, /^\tprofiles = \{ "Alliance", "Horde" \},$/m);
+	assert.match(meta, /^\tcounts = \{ graph = \d+, grid = \d+, height = \d+, floor = \d+, class = \d+ \},$/m);
+	assert.match(meta, /^\tpacked = \{ graph = \{\}, grid = \{\}, height = \{\}, floor = \{\}, class = \{\} \},$/m);
+	const D = S.loadPack(files, 0);
+	const keep = path.join(tmpdir('polestar-pack-ns-'), 'keep-ns.lua');
+	fs.writeFileSync(keep, 'local _, ns = ...\nstub.navNs = ns\n');
+	const nav = path.join(ADDONS, 'Polestar_Nav');
+	const mapFiles = [];
+	const out = tmpdir('polestar-pack-v2-');
+	for (const [name, text] of files) {
+		fs.writeFileSync(path.join(out, name), text);
+		mapFiles.push(path.join(out, name));
+	}
+	const [got] = runAddon({
+		stubs: ['stub_encoding.lua'],
+		before: mapFiles.map((f) => `dofile(${JSON.stringify(f)})`).join('\n'),
+		addons: [{ name: 'Polestar_Nav', files: [...tocEntries(nav).filter((f) => !f.endsWith('.xml')), path.relative(nav, keep)] }],
+		script: `local G = stub.navNs.PathGrid
+local D = PolestarPathData[0]
+local st = G.State(0)
+local out = { has = Polestar_NavEngine.HasData(0), format = D.format, profiles = D.profiles, hubs = D.hubs, clusters = {}, graph = {} }
+for k = 0, D.nx * D.ny - 1 do
+	local val = G.grid(st, k)
+	if val then
+		local cls = {}
+		for i = 1, #val do cls[i] = st.cls[k][i] end
+		out.clusters[#out.clusters + 1] = { k = k, cls = cls }
+	end
+	for _, id in ipairs(G.nodesOf(st, k)) do
+		local adj = {}
+		for i, v in ipairs(G.adjacent(st, id)) do adj[i] = v end
+		out.graph[#out.graph + 1] = { id = id, adj = adj }
+	end
+end
+emit(out)`,
+	}).emitted;
+	assert.equal(got.has, true, 'API.lua keeps the map: its counts hold the class field');
+	assert.equal(got.format, 2);
+	assert.deepEqual(got.profiles, ['Alliance', 'Horde']);
+	assert.deepEqual(got.hubs.map((h) => [h.id, h.side, h.name, h.areaId, h.disks]), hubs.map((h) => [h.id, h.side, h.name, h.areaId, h.disks]));
+	// The classes the router decodes are the packer's, node for node (base cells, then floors).
+	const NB = cg.GW * cg.GH;
+	const seen = new Set();
+	assert.equal(got.clusters.length, cg.clusters.size);
+	for (const { k, cls } of got.clusters) {
+		const cl = cg.clusters.get(k);
+		const want = [...cl.cls];
+		for (let f = cl.floorStart; f < cl.floorEnd; f++) want.push(cg.floorClass[f]);
+		assert.deepEqual(cls, want, `cluster ${k}: the router's classes`);
+		assert.deepEqual(S.decodeCluster(D, k).cls, want, `cluster ${k}: Node's decode agrees`);
+		want.forEach((c, i) => {
+			if (i < 128 * 128 ? cl.val[i] : true) seen.add(c & 7).add(c & 24);
+		});
+	}
+	for (const c of [1, 2, 3, 4, 5, 8, 16]) assert.ok(seen.has(c), `some node of class ${c} (seen ${[...seen].sort((x, y) => x - y)})`);
+	// Hub bits: a surface carries its side's bit exactly when its cell's square meets one of that side's disks.
+	const cs = ADT / 128;
+	const touches = (gx, gy, side) => hubs.filter((h) => h.side === side).some((h) => h.disks.some(([hx, hy, r]) => {
+		const x0 = cg.CX0 * ADT + gx * cs;
+		const y0 = cg.CY0 * ADT + gy * cs;
+		return Math.hypot(Math.max(x0 - hx, 0, hx - x0 - cs), Math.max(y0 - hy, 0, hy - y0 - cs)) <= r;
+	}));
+	let marked = 0;
+	for (const [k, cl] of cg.clusters) {
+		for (let l = 0; l < 128 * 128; l++) {
+			if (!cl.val[l]) continue;
+			const gx = Math.floor(k / cg.NY) * 128 + Math.floor(l / 128);
+			const gy = (k % cg.NY) * 128 + (l % 128);
+			assert.equal(!!(cl.cls[l] & 8), touches(gx, gy, 'Alliance'), `Alliance bit of ${gx},${gy}`);
+			assert.equal(!!(cl.cls[l] & 16), touches(gx, gy, 'Horde'), `Horde bit of ${gx},${gy}`);
+			if (cl.cls[l] & 24) marked++;
+		}
+	}
+	assert.ok(marked > 40, `hub cells (${marked})`);
+	// The router's decoded graph is the packer's: target, costAlliance, costHorde, costNone, yards per edge.
+	const ids = new Map(got.graph.map((g) => [g.id, g.adj]));
+	let edges = 0;
+	for (const k of cg.clusters.keys()) {
+		S.decodeGraph(D, k).forEach((e, i) => {
+			const want = e.edges.flatMap((x) => [(k + (Math.floor(x.offset / 3) - 1) * D.ny + (x.offset % 3) - 1) * 4096 + x.node, ...x.costs, x.yards]);
+			assert.deepEqual(ids.get(k * 4096 + i), want, `entrance ${k}:${i}`);
+			edges += e.edges.length;
+		});
+	}
+	assert.ok(edges > 0, 'a graph');
+});
+
+// The zone field's run-length (pack.js HEADER): a symbol < 48 starts a 2-symbol uiMapID, one >= 48 repeats the
+// previous one (symbol - 47) more times. -> 256 uiMapIDs by chunk (cx // 8) * 16 + (cy // 8) of the cluster's cells.
+function decodeZones(s) {
+	const B = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+	const out = [];
+	for (let i = 0; i < s.length; ) {
+		const a = B.indexOf(s[i]);
+		if (a < 48) {
+			out.push(a * 64 + B.indexOf(s[i + 1]));
+			i += 2;
+		} else {
+			for (let r = 47; r < a; r++) out.push(out[out.length - 1]);
+			i++;
+		}
+	}
+	return out;
+}
+
+test('pack: the zone field: each chunk\'s zone (its area up to a zone, as a uiMapID) in the cluster\'s own axes; a tile without areas writes none', async () => {
+	// Tile 32: Western Plaguelands (area 28, uiMap 1422) in its north half, Silverpine (130, 1421) in the south, and
+	// one chunk of Tirisfal (85, 1420) at its south-west corner (asymmetric: a flipped axis puts it elsewhere). Tile
+	// 33 (east of it) has no areas.
+	const span = ADT / 16;
+	const areaAt = (x, y) => (x < span && y > ADT - span ? 85 : y < ADT / 2 ? 28 : 130);
+	const a = new Scene({ col: 32, areas: areaAt });
+	const b = new Scene({ col: 33, areas: null });
+	const dir = await gridOf(a, b);
+	const UIMAP = { 28: 1422, 130: 1421, 85: 1420 };
+	const layers = { zone: (c, areaId) => UIMAP[areaId] || 0 };
+	const files = await packNav({ dir, cells: 128, layers });
+	const meta = files.get('Nav0.lua');
+	const D = S.loadPack(files, 0);
+	const zone = {};
+	for (const m of meta.matchAll(/^\t\t\[(\d+)\] = "([A-Za-z0-9+/]*)",$/gm)) zone[Number(m[1])] = m[2];
+	assert.match(meta, /^\tzone = \{$/m, 'the metadata carries the zone field');
+	const ka = S.locate(D, a.world(10, 10).wx, a.world(10, 10).wy).k;
+	const kb = S.locate(D, b.world(10, 10).wx, b.world(10, 10).wy).k;
+	assert.notEqual(ka, kb);
+	assert.deepEqual(Object.keys(zone).map(Number), [ka + 1], 'only the tile with areas has a zone string');
+	const z = decodeZones(zone[ka + 1]);
+	assert.equal(z.length, 256);
+	let corner = 0;
+	for (let cy = 0; cy < 16; cy++) {
+		for (let cx = 0; cx < 16; cx++) {
+			const [x, y] = [(cx + 0.5) * span, (cy + 0.5) * span];
+			const w = a.world(x, y);
+			const p = S.locate(D, w.wx, w.wy);
+			const q = Math.floor(Math.floor(p.lc / 128) / 8) * 16 + Math.floor((p.lc % 128) / 8);
+			assert.equal(z[q], UIMAP[areaAt(x, y)], `chunk at local ${x.toFixed(0)},${y.toFixed(0)} (cluster chunk ${q})`);
+			if (z[q] === 1420) corner++;
+		}
+	}
+	assert.equal(corner, 1, 'one Tirisfal chunk');
+	// Without the zone layer, or with no chunk in a zone, no field is written.
+	assert.doesNotMatch((await packNav({ dir, cells: 128 })).get('Nav0.lua'), /zone = /);
+	assert.doesNotMatch((await packNav({ dir, cells: 128, layers: { zone: () => 0 } })).get('Nav0.lua'), /zone = /);
+});
+
+test('pack: readLayers resolves a chunk\'s zone up its AreaTable parents to a zone of zones.json, with no map frame (Riverglades, a Forever zone)', async () => {
+	// Riverglades (area 16591, uiMap 2548) has no Era map frame; Sunnyglade (16723) is its subzone, Lakeshire (69) is
+	// Redridge's (44, 1433); area 7 is no zone's.
+	const areaAt = (x, y) => (y < ADT / 4 ? 16723 : y < ADT / 2 ? 16591 : x < ADT / 2 ? 69 : 7);
+	const dir = await gridOf(new Scene({ col: 32, areas: areaAt }));
+	const layerDir = tmpdir('polestar-pack-layers-');
+	fs.writeFileSync(path.join(layerDir, 'hubs.json'), '{}');
+	fs.mkdirSync(path.join(layerDir, 'roads'));
+	fs.writeFileSync(path.join(layerDir, 'roads', 'index.json'), '{}');
+	// Area 900 is a zones.json entry of another type (6, a battleground or instance-like map) inside Riverglades; 901
+	// lies in it: only a zone (type 3) counts, so both resolve to Riverglades, never to 2600.
+	const areaTable = [
+		{ ID: 16591, ParentAreaID: 0, Flags_0: 0 }, { ID: 16723, ParentAreaID: 16591, Flags_0: 0 },
+		{ ID: 44, ParentAreaID: 0, Flags_0: 0 }, { ID: 69, ParentAreaID: 44, Flags_0: 0 }, { ID: 7, ParentAreaID: 0, Flags_0: 0 },
+		{ ID: 900, ParentAreaID: 16591, Flags_0: 0 }, { ID: 901, ParentAreaID: 900, Flags_0: 0 },
+	];
+	const zones = {
+		1415: { id: 1415, name: 'Eastern Kingdoms', areaId: null, type: 2 },
+		1433: { id: 1433, name: 'Redridge Mountains', areaId: 44, type: 3 },
+		2548: { id: 2548, name: 'Riverglades', areaId: 16591, type: 3 },
+		2600: { id: 2600, name: 'Not a zone', areaId: 900, type: 6 },
+	};
+	const layers = readLayers({ dir: layerDir, areaTable, zones });
+	assert.equal(typeof layers.zone, 'function', 'readLayers gives the zone layer from the AreaTable and zones.json');
+	assert.deepEqual([16723, 16591, 69, 44, 7, 0, 900, 901].map((a) => layers.zone(0, a) || 0), [2548, 2548, 1433, 1433, 0, 0, 2548, 2548]);
+	const files = await packNav({ dir, cells: 128, layers });
+	const D = S.loadPack(files, 0);
+	const [, s] = /^\t\t\[\d+\] = "([A-Za-z0-9+/]*)",$/m.exec(files.get('Nav0.lua'));
+	const z = decodeZones(s);
+	for (const [x, y] of [[100, 50], [100, 200], [100, 400], [400, 400]]) {
+		const w = new Scene({ col: 32 }).world(x, y);
+		const p = S.locate(D, w.wx, w.wy);
+		const q = Math.floor(Math.floor(p.lc / 128) / 8) * 16 + Math.floor((p.lc % 128) / 8);
+		assert.equal(z[q], { 16723: 2548, 16591: 2548, 69: 1433, 7: 0 }[areaAt(x, y)], `local ${x},${y}`);
+	}
+});
+
+// The cost from node src to node dst on a decoded cluster, a step into node v costing length * cs * mult(class of
+// v), times swim in water (Routing/Path.lua search).
+function gridCost(dc, src, dst, mult, cs, swim) {
+	const g = new Map([[src, 0]]);
+	const heap = [[0, src]];
+	const push = (item) => {
+		let i = heap.push(item) - 1;
+		while (i > 0 && heap[(i - 1) >> 1][0] > heap[i][0]) {
+			[heap[i], heap[(i - 1) >> 1]] = [heap[(i - 1) >> 1], heap[i]];
+			i = (i - 1) >> 1;
+		}
+	};
+	const pop = () => {
+		const top = heap[0];
+		const last = heap.pop();
+		if (heap.length) {
+			heap[0] = last;
+			for (let i = 0; ; ) {
+				let m = i;
+				for (const c of [2 * i + 1, 2 * i + 2]) if (c < heap.length && heap[c][0] < heap[m][0]) m = c;
+				if (m === i) break;
+				[heap[i], heap[m]] = [heap[m], heap[i]];
+				i = m;
+			}
+		}
+		return top;
+	};
+	const done = new Set();
+	while (heap.length) {
+		const [d, u] = pop();
+		if (done.has(u)) continue;
+		if (u === dst) return d;
+		done.add(u);
+		for (const [v, len] of S.movesOf(dc, u)) {
+			const c = d + len * cs * mult(dc.cls[v]) * (dc.val[v] === 2 ? swim : 1);
+			if (!g.has(v) || c < g.get(v)) {
+				g.set(v, c);
+				push([c, v]);
+			}
+		}
+	}
+	return Infinity;
+}
+
+test('pack: per-profile graph costs are the local grid\'s costs under each profile, yards the walked length', async () => {
+	const { dir, layers } = await groundOf();
+	const D = S.loadPack(await packNav({ dir, cells: 128, layers }), 0);
+	const cs = ADT / 128;
+	const mults = Costs.PROFILES.map((p) => (c) => Costs.mult(c, p));
+	let intra = 0;
+	let inter = 0;
+	const differs = [false, false];
+	for (let k = 0; k < D.nx * D.ny; k++) {
+		const dc = S.decodeCluster(D, k);
+		if (!dc) continue;
+		const graph = S.decodeGraph(D, k);
+		const nodeOf = (e) => S.surface(dc.C, dc.val, dc.z, dc.at, e.cell, e.layer, 0);
+		for (const e of graph) {
+			const src = nodeOf(e);
+			for (const x of e.edges) {
+				const tk = k + (Math.floor(x.offset / 3) - 1) * D.ny + (x.offset % 3) - 1;
+				if (tk === k) {
+					// Dijkstra on the decoded cluster, a step into node v costing length * cs * mult(class of v) (x swim in water).
+					const dst = nodeOf(graph[x.node]);
+					mults.forEach((mult, p) => {
+						const cost = gridCost(dc, src, dst, mult, cs, D.swim);
+						assert.ok(Math.abs(cost - x.costs[p]) <= 0.5 + 1e-6, `cluster ${k}: edge cost ${x.costs[p]} under ${Costs.PROFILES[p]}, the grid's ${cost}`);
+					});
+					// Yards: the walked length of a way costing costNone, each yard costing MIN to the steepest class's.
+					assert.ok(x.yards <= x.costs[2] / Costs.MIN + 1 && x.yards >= x.costs[2] / (Math.max(...Costs.MULT) * D.swim) - 1, `yards ${x.yards} for cost ${x.costs[2]}`);
+					if (x.costs[0] > x.costs[2]) differs[0] = true;
+					if (x.costs[1] > x.costs[2]) differs[1] = true;
+					intra++;
+				} else {
+					// Across the border: one step into the target cluster's entrance.
+					const td = S.decodeCluster(D, tk);
+					const te = S.decodeGraph(D, tk)[x.node];
+					const v = S.surface(td.C, td.val, td.z, td.at, te.cell, te.layer, 0);
+					const len = Math.abs(x.yards - cs) < 0.5 ? 1 : Math.SQRT2;
+					mults.forEach((mult, p) => assert.equal(x.costs[p], Math.round(len * cs * mult(td.cls[v]) * (td.val[v] === 2 ? D.swim : 1)), `crossing cost under ${Costs.PROFILES[p]}`));
+					if (x.costs[0] > x.costs[2]) differs[0] = true;
+					if (x.costs[1] > x.costs[2]) differs[1] = true;
+					inter++;
+				}
+			}
+		}
+	}
+	assert.ok(intra > 10 && inter > 10, `edges inside (${intra}) and across (${inter}) clusters`);
+	assert.deepEqual(differs, [true, true], 'a Horde hub prices some Alliance edge higher, an Alliance hub some Horde edge');
 });
 
 test('pack: blocks fit the client\'s 16 KB inflate buffer, parts stay under 512 KB, a decoded cluster fits Path.cacheKB / 8 (C17)', async () => {
@@ -185,7 +545,9 @@ test('pack: blocks fit the client\'s 16 KB inflate buffer, parts stay under 512 
 	const { files, D } = await packOf([s], 128);
 	for (const [name, src] of files) {
 		assert.ok(Buffer.byteLength(src) <= PART_BYTES, `${name} within a part`);
-		for (const m of src.matchAll(/"([A-Za-z0-9+/=]{8,})"/g)) assert.ok(zlib.inflateSync(Buffer.from(m[1], 'base64')).length <= BLOCK_BYTES);
+		for (const line of src.matchAll(/^data\.packed\.\w+\[\d+\] = \{(.*)\}$/gm)) {
+			for (const m of line[1].matchAll(/"([A-Za-z0-9+/=]+)"/g)) assert.ok(zlib.inflateSync(Buffer.from(m[1], 'base64')).length <= BLOCK_BYTES);
+		}
 	}
 	assert.deepEqual([...files.keys()].slice(0, 2), ['Nav0.lua', 'Nav0_1.lua'], 'the metadata file first, then its parts');
 	assert.match(files.get('Nav0.lua'), /^TestPathData = TestPathData or \{\}$/m);
@@ -240,23 +602,76 @@ test('pack: a floor across a tile border is an entrance on its own cell and laye
 	}
 });
 
+test('pack: a road crossing a tile border is an entrance where it crosses, one per road, none added beside a chunk entrance (Fitz, Ratchet, 2026-10-16)', async () => {
+	// Two flat tiles (32 west of 33); the border's chunk entrances fall every ~13 cells (cells 19, 32, ..., 70 north
+	// of the tiles' south edge). Road A crosses at cells ~25-26, between two of them; road B at cells ~70, on one.
+	const a = new Scene({ col: 32 });
+	const b = new Scene({ col: 33 });
+	const dir = await gridOf(a, b);
+	const cellY = (gx) => ADT - (gx + 0.5) * (ADT / 128); // local y of cell row gx's centre
+	const road = Buffer.alloc(256 * 256);
+	for (const y of [cellY(25.5), cellY(70)]) for (let j = Math.floor((y - 4) / CELL); j < Math.ceil((y + 4) / CELL); j++) for (let i = 0; i < 256; i++) road[j * 256 + i] = 255;
+	const plain = (await cellGridFromDir({ dir, c: 0, C: 128 })).cg;
+	const { cg } = await cellGridFromDir({ dir, c: 0, C: 128, layers: { roads: () => road } });
+	const crossings = (g) => {
+		const out = new Map();
+		for (const [key, e] of buildHpa(g).edges) if (g.clusterOfCell(g.cellOf(e.a)) !== g.clusterOfCell(g.cellOf(e.b))) out.set(key, e);
+		return out;
+	};
+	const before = crossings(plain);
+	const after = crossings(cg);
+	const isRoad = (n) => (cg.nodeClass(n) & 7) === Costs.CLASS.ROAD;
+	const row = (n) => Math.floor(cg.cellOf(n) / cg.GH) % 128;
+	for (const [key, e] of before) assert.ok(after.has(key), `the chunk entrance at cell ${row(e.a)} stays`);
+	assert.ok(![...before.values()].some((e) => isRoad(e.a) && row(e.a) < 40), 'road A crosses away from every chunk entrance');
+	assert.ok([...before.values()].some((e) => isRoad(e.a) && isRoad(e.b) && Math.abs(row(e.a) - 70) <= 1), 'road B crosses on a chunk entrance');
+	const added = [...after].filter(([key]) => !before.has(key)).map(([, e]) => e);
+	assert.equal(added.length, 1, `one entrance added (at cells ${added.map((e) => row(e.a)).join(', ')})`);
+	assert.ok(isRoad(added[0].a) && isRoad(added[0].b), 'on the road on both sides');
+	assert.ok(Math.abs(row(added[0].a) - 25.5) <= 1.5, `in road A's crossing (cell ${row(added[0].a)})`);
+	assert.equal(row(added[0].a), row(added[0].b), 'the straight crossing');
+});
+
+test('pack: a dry strip crossing a tile border beside water is an entrance of its own when every chunk entrance there lies in the water (Fitz, Auberdine pier, 2026-10-17)', async () => {
+	// Two flat tiles (32 west of 33); along the border (40 yd each side) the ground drops 3 yd under water level with
+	// the land, but for a dry strip at cells 24-27 north of the tiles' south edge (a beach or a pier's root), between
+	// the chunk entrances at 19 and 32. Land and water are one region on each side, so the border's crossings are one
+	// group and his chunk entrances all fall in the water.
+	const cellY = (gx) => ADT - (gx + 0.5) * (ADT / 128); // local y of cell row gx's centre
+	const strip = [cellY(28) + 0.01, cellY(23) - 0.01]; // local y, north to south
+	const inStrip = (y) => y > strip[0] && y < strip[1];
+	const a = new Scene({ col: 32, height: (x, y) => (x > ADT - 40 && !inStrip(y) ? -3 : 0) });
+	const b = new Scene({ col: 33, height: (x, y) => (x < 40 && !inStrip(y) ? -3 : 0) });
+	for (const [s, x0, x1] of [[a, ADT - 40, ADT], [b, 0, 40]]) s.water(x0, 0, x1, strip[0], 0).water(x0, strip[1], x1, ADT, 0);
+	const { cg } = await cellGridFromDir({ dir: await gridOf(a, b), c: 0, C: 128 });
+	const dry = (e) => cg.nodeValue(e.a) === 1 && cg.nodeValue(e.b) === 1;
+	const row = (n) => Math.floor(cg.cellOf(n) / cg.GH) % 128;
+	const crossings = [...buildHpa(cg).edges.values()].filter((e) => cg.clusterOfCell(cg.cellOf(e.a)) !== cg.clusterOfCell(cg.cellOf(e.b)));
+	assert.ok(crossings.filter((e) => !dry(e)).length >= 8, 'the chunk entrances along the border, in the water');
+	const dryOnes = crossings.filter(dry);
+	assert.equal(dryOnes.length, 1, `one dry entrance (at cells ${dryOnes.map((e) => row(e.a)).join(', ')})`);
+	const [e] = dryOnes;
+	assert.ok(row(e.a) >= 24 && row(e.a) <= 27, `in the dry strip (cell ${row(e.a)})`);
+	assert.equal(row(e.a), row(e.b), 'the straight crossing');
+});
+
 test('pack: shipPack writes the files, PACK.json and Nav.xml; checkPack finds a changed, missing or unlisted file; the same date gives the same bytes', async () => {
 	const { shipPack, checkPack } = require('../tools/lib/nav/pack');
 	const dir = await gridOf(new Scene());
 	const out = path.join(tmpdir('polestar-pack-ship-'), 'Polestar_Nav');
 	fs.mkdirSync(path.join(out, 'Nav'), { recursive: true });
-	fs.writeFileSync(path.join(out, 'UPSTREAM.json'), JSON.stringify({ files: { 'Routing/Path.lua': 'x', 'Nav/Nav2991.lua': 'y' } }));
 	fs.writeFileSync(path.join(out, 'Nav', 'Nav0_9.lua'), 'stale\n');
+	fs.writeFileSync(path.join(out, 'Nav', 'Nav2991_1.lua'), 'his old map\n');
 	const files = await packNav({ dir, cells: 67, continents: [0], date: '2026-10-16' });
 	const res = shipPack(files, out);
-	assert.deepEqual(res.removed, ['Nav/Nav0_9.lua'], 'a part the pack no longer has');
+	assert.deepEqual(res.removed, ['Nav/Nav0_9.lua', 'Nav/Nav2991_1.lua'], 'parts the pack no longer has, of any map of ours (Zephras Isle too)');
 	const m = JSON.parse(fs.readFileSync(path.join(out, 'PACK.json'), 'utf8'));
 	assert.equal(m.cells, 67);
 	assert.equal(m.date, '2026-10-16');
 	assert.deepEqual(Object.keys(m.files), [...files.keys()].map((n) => `Nav/${n}`));
 	assert.match(fs.readFileSync(path.join(out, 'Nav', 'Nav0.lua'), 'utf8'), /^-- Generated by `node tools\/polestar\.js nav pack --cells 67` from the navigation grid \(.*\) on 2026-10-16\. Do not edit/);
 	const xml = fs.readFileSync(path.join(out, 'Nav', 'Nav.xml'), 'utf8');
-	assert.deepEqual([...xml.matchAll(/file="([^"]+)"/g)].map((x) => x[1]), [...files.keys(), 'Nav2991.lua'], 'ours, then the vendored maps');
+	assert.deepEqual([...xml.matchAll(/file="([^"]+)"/g)].map((x) => x[1]), [...files.keys()], 'the packed maps');
 	assert.deepEqual(checkPack(out), []);
 	fs.appendFileSync(path.join(out, 'Nav', 'Nav0.lua'), '-- edited\n');
 	fs.writeFileSync(path.join(out, 'Nav', 'Nav0_7.lua'), '\n');
@@ -280,5 +695,5 @@ test('pack: a tile the grid lists but cannot read (missing, truncated, another v
 	const raw = zlib.gunzipSync(fs.readFileSync(tile(older)));
 	raw.writeUInt32LE(2, 4); // the tile format's version
 	fs.writeFileSync(tile(older), zlib.gzipSync(raw));
-	await assert.rejects(packNav({ dir: older, cells: 67 }), /^Error: pack: tile 0\/33_32: nav tile version 2, expected 3$/);
+	await assert.rejects(packNav({ dir: older, cells: 67 }), /^Error: pack: tile 0\/33_32: nav tile version 2, expected 3 or 4$/);
 });

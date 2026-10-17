@@ -75,6 +75,8 @@ return {
 	["{npc:345} (level 24) roots around the pen just west of {area:69}. Pull him away from the other boars and fight at full health."] = "{npc:345} (уровень 24) роется в загоне чуть западнее места {area:69}. Выманите его от других кабанов и сражайтесь с полным здоровьем.",
 
 	-- Step 12: Lakeshire
+	-- {npc:341} Foreman Oslow · {quest:89} The Everstill Bridge
+	["{npc:341}: after {quest:89}"] = "{npc:341}: после задания {quest:89}",
 	-- {npc:703} Lieutenant Fangore · {area:1000} Galardell Valley
 	["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "Объявление о розыске у таверны: {npc:703}, {area:1000}",
 
@@ -88,7 +90,8 @@ return {
 	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Blackrock Renegades = {npc:437} Blackrock Renegade
 	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake; Blackrock Renegades hold the mill itself."] = "Крупные тарантулы ползают по склонам вокруг лесопилки к северо-востоку от озера; перебежчики из клана Черной Горы удерживают саму лесопилку.",
 	-- {item:3014} Battleworn Axe
-	["{item:3014}: any Blackrock orc"] = "{item:3014}: любой орк клана Черной Горы",
+	-- plural, as words: Blackrock Renegades = {npc:437} Blackrock Renegade
+	["{item:3014}: the Blackrock Renegades at the mill"] = "{item:3014}: перебежчики из клана Черной Горы на мельнице",
 
 	-- Step 15: Galardell Valley
 	-- {npc:703} Lieutenant Fangore · {area:2099} Stonewatch Keep
@@ -119,4 +122,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bellygrub"] = "Грубобрюх",
+	-- ["{item:3014}: any Blackrock orc"] = "{item:3014}: любой орк клана Черной Горы",
 }

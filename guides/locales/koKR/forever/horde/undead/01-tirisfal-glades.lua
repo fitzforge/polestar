@@ -150,8 +150,8 @@ return {
 	["Ask {npc:10666} for his report"] = "{npc:10666}에게 보고를 요청하세요",
 
 	-- Step 29: Calvin Montague
-	-- {npc:6784} Calvin Montague
-	["Walk on west to {npc:6784} and talk to him: he wants a duel."] = "서쪽의 {npc:6784}에게 가서 말을 거세요. 결투를 원합니다.",
+	-- {area:156} Solliden Farmstead · {npc:1519} Deathguard Simmer · {npc:6784} Calvin Montague
+	["Walk on west to the {area:156}. {npc:1519} stands at the farm; {npc:6784}, by the farmhouse, wants a duel: talk to him."] = "계속 서쪽의 {area:156}(으)로 가세요. {npc:1519}이(가) 농장에 있고, 농가 옆의 {npc:6784}이(가) 결투를 원합니다. 그에게 말을 거세요.",
 	-- {npc:6784} Calvin Montague
 	["Beat {npc:6784} in the duel"] = "결투에서 {npc:6784}을(를) 이기세요",
 
@@ -202,8 +202,6 @@ return {
 	-- Step 37: Deathguard Linnea
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart
 	["Follow the road south-east from {area:159} past the zeppelin towers. Linnea, Kristof and {npc:3549} camp by the road."] = "{area:159}에서 남동쪽 길을 따라 비행선 탑을 지나가세요. 리니아, 크리스토프, {npc:3549}이(가) 길가에서 야영합니다.",
-	-- {npc:1495} Deathguard Linnea · {npc:276020} Riptear
-	["{npc:1495}: {npc:276020}, an elite abomination in the east"] = "{npc:1495}: 동쪽의 정예 누더기골렘 {npc:276020}",
 	-- {npc:251001} Deathguard Kristof
 	["Ask {npc:251001} for his report"] = "{npc:251001}에게 보고를 요청하세요",
 
@@ -219,16 +217,12 @@ return {
 	["{item:2839}, a rare drop"] = "희귀 획득품 {item:2839}",
 	["Only if the letter dropped"] = "편지를 얻었을 때만",
 
-	-- Step 40: Deathguard Simmer
-	-- {area:156} Solliden Farmstead
-	["Walk south-west to the {area:156}; Simmer stands at the farm."] = "남서쪽 {area:156}(으)로 가세요. 죽음의경비병 시머가 농장에 있습니다.",
-
-	-- Step 41: Tirisfal Pumpkins
+	-- Step 40: Tirisfal Pumpkins
 	-- plural, as words: Tirisfal Pumpkins = {object:375} Tirisfal Pumpkin
 	["Tirisfal Pumpkins"] = "티리스팔 호박",
-	["The pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "호박은 솔리덴 농장 북서쪽, 붉은십자군이 차지한 들판에 자랍니다.",
+	["Walk south-west from the mills: the pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "방앗간에서 남서쪽으로 가세요. 호박은 솔리덴 농장 북서쪽, 붉은십자군이 차지한 들판에 자랍니다.",
 
-	-- Step 42: Crusader's Outpost
+	-- Step 41: Crusader's Outpost
 	["Crusader's Outpost"] = "붉은십자군 전초기지",
 	-- {npc:275954} Bareth Dawnstone
 	-- plural, as words: Scarlet Warriors = {npc:1535} Scarlet Warrior
@@ -236,22 +230,22 @@ return {
 	-- {npc:275954} Bareth Dawnstone
 	["Escort {npc:275954} out of the outpost"] = "{npc:275954}을(를) 전초기지 밖으로 호위하세요",
 
-	-- Step 43: Vile Fin shore
+	-- Step 42: Vile Fin shore
 	["Vile Fin shore"] = "썩은지느러미 물가",
 	["More Vile Fin murlocs walk the shore just north of the outpost."] = "전초기지 바로 북쪽 해안에도 썩은지느러미멀록이 더 있습니다.",
 
-	-- Step 44: Paladin: Whispering Forest
+	-- Step 43: Paladin: Whispering Forest
 	-- {area:16616} Whispering Forest
 	["Paladin: {area:16616}"] = "성기사: {area:16616}",
 	-- {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
 	["Head west into the {area:16616}; {npc:246389} and {npc:259190} camp at its edge."] = "서쪽 {area:16616}(으)로 가세요. {npc:246389}와(과) {npc:259190}이(가) 숲 가장자리에서 야영합니다.",
 
-	-- Step 45: Shadowvale
+	-- Step 44: Shadowvale
 	-- {area:16881} Shadowvale · {item:286269} Glowing Crystal Fragment
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
 	["{area:16881} is the hollow at the west edge of the glades. The Shadowvale Lurchers and Mystics drop the bones; the bottles lie on the ground among them, and the {item:286269} is at the south end."] = "{area:16881}은(는) 숲 서쪽 끝의 분지입니다. {npc:260428}와(과) 비술사가 뼈를 떨어뜨리고, 병은 그들 사이 땅에 놓여 있으며, {item:286269}은(는) 남쪽 끝에 있습니다.",
 
-	-- Step 48: Brill
+	-- Step 47: Brill
 	-- {npc:1560} Yvette Farthing
 	["{npc:1560}, in the inn"] = "여관 안의 {npc:1560}",
 	-- {npc:1931} Captured Scarlet Zealot
@@ -259,41 +253,41 @@ return {
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
 	["{npc:2128}: {npc:4568} in the {zone:1458} takes it"] = "{npc:2128}: {zone:1458}의 {npc:4568}에게 가져가세요",
 
-	-- Step 49: Ulag the Cleaver
+	-- Step 48: Ulag the Cleaver
 	-- {npc:1496} Deathguard Dillinger · {area:159} Brill · {npc:6390} Ulag the Cleaver
 	["{npc:1496} stands in {area:159}. {npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:1496}은(는) {area:159}에 있습니다. {npc:6390}은(는) 마을 바로 북쪽 언덕의 묘지에서 기다립니다. 문을 열고 그와 싸우십시오.",
 
-	-- Step 50: Carendin Halgar
+	-- Step 49: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "{area:159}에서 남쪽 {area:153}(으)로 가서 {zone:1458}(으)로 내려가세요. {npc:5675}은(는) {object:36082}에 있습니다. 붉은십자군 야영지는 폐허 바로 서쪽입니다.",
 
-	-- Step 51: Anastasia Hartwell
+	-- Step 50: Anastasia Hartwell
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "{area:159}에서 남쪽 {area:153}(으)로 가서 {zone:1458}(으)로 내려가세요. {npc:4568}은(는) {object:36082}에 있습니다. 붉은십자군 야영지는 폐허 바로 서쪽입니다.",
 
-	-- Step 52: The Scarlet camp
+	-- Step 51: The Scarlet camp
 	["The Scarlet camp"] = "붉은십자군 야영지",
 	-- {area:159} Brill · {npc:1662} Captain Perrine
 	["Follow the road south-west from {area:159} to the Scarlet Crusade camp. {npc:1662} stands at its south end; every Scarlet there can drop a ring."] = "{area:159}에서 남서쪽 길을 따라 붉은십자군 야영지로 가세요. {npc:1662}은(는) 남쪽 끝에 있으며, 그곳의 붉은십자군은 모두 반지를 떨어뜨릴 수 있습니다.",
 
-	-- Step 53: Perrine's Chest
+	-- Step 52: Perrine's Chest
 	-- {object:37098} Perrine's Chest · {npc:1662} Captain Perrine
 	["{object:37098} stands beside {npc:1662} at the camp's south end."] = "{object:37098}은(는) 야영지 남쪽 끝 {npc:1662} 옆에 있습니다.",
 
-	-- Step 55: Deathguard Terrence
+	-- Step 54: Deathguard Terrence
 	-- {area:159} Brill
 	["Take the road south-east out of {area:159}; Terrence stands on it short of the zeppelin towers."] = "남동쪽 길로 {area:159}을(를) 나가세요. 죽음의경비병 테렌스가 비행선 탑 조금 못 미쳐 서 있습니다.",
 
-	-- Step 56: Hadric Harlson
+	-- Step 55: Hadric Harlson
 	-- {npc:267009} Hadric Harlson · {npc:1495} Deathguard Linnea
 	["{npc:267009} stands at {npc:1495}'s camp."] = "{npc:267009}은(는) {npc:1495}의 야영지에 있습니다.",
 
-	-- Step 57: Balnir Farmstead
+	-- Step 56: Balnir Farmstead
 	-- {quest:96897} The Cult of the Damned
 	-- plural, as words: Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["{quest:96897} holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too."] = "{quest:96897}이(가) 야영지 바로 남동쪽 농장을 차지하고 있습니다. 괴저 수정 파편은 신도들 사이 땅에 놓여 있고, 신도들도 일부 지니고 있습니다.",
 
-	-- Step 58: Balnir graves
+	-- Step 57: Balnir graves
 	["Balnir graves"] = "발니르 농장 무덤",
 	-- {quest:99142} Tomb Weed
 	-- plural, as words: Bleeding Horrors = {npc:1529} Bleeding Horror · Wandering Spirits = {npc:1532} Wandering Spirit
@@ -301,63 +295,66 @@ return {
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "농장 정원의 {item:7227}",
 
-	-- Step 59: Captain Vachon
+	-- Step 58: Captain Vachon
 	-- {npc:1664} Captain Vachon
 	-- plural, as words: Scarlet Friars = {npc:1538} Scarlet Friar
 	["The Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them."] = "붉은십자군 수사가 무덤 바로 북동쪽에서 야영하며, {npc:1664}이(가) 그들 사이에 있습니다.",
 
-	-- Step 60: Vicious Night Web Spiders
+	-- Step 59: Vicious Night Web Spiders
 	-- plural, as words: Vicious Night Web Spiders = {npc:1555} Vicious Night Web Spider
 	["Vicious Night Web Spiders"] = "흉포한 검은그물거미",
-	-- {npc:276020} Riptear
-	["The spiders lurk in the woods at the far east end of the glades. {npc:276020}, a rogue abomination, wanders just north-west of them. {npc:276020} is elite: grouping up is advised."] = "거미는 숲 동쪽 맨 끝의 수풀에 숨어 있습니다. 떠돌이 누더기골렘 {npc:276020}이(가) 그 바로 북서쪽을 배회합니다. {npc:276020}은(는) 정예이니 파티를 권장합니다.",
-	-- {item:286326} Riptear's Heart · {npc:276020} Riptear
-	["{item:286326}, from {npc:276020}"] = "{npc:276020}에게서 {item:286326}",
+	["The spiders lurk in the woods at the far east end of the glades."] = "거미는 숲 동쪽 맨 끝의 수풀에 숨어 있습니다.",
 
-	-- Step 61: Hides for the Forsaken
+	-- Step 60: Hides for the Forsaken
 	-- plural, as words: Duskbats = {npc:1512} Duskbat
 	["Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way."] = "서쪽으로 돌아가는 길 내내 그늘박쥐와 암흑사냥개가 돌아다닙니다. 가는 길에 날개와 가죽을 마저 모으세요.",
 
-	-- Step 62: Deathguard Linnea's camp
+	-- Step 61: Deathguard Linnea's camp
 	-- {npc:1495} Deathguard Linnea
 	["{npc:1495}'s camp"] = "{npc:1495}의 야영지",
 
-	-- Step 63: Brill
+	-- Step 62: Brill
 	-- {npc:2211} Captured Mountaineer
 	["The {npc:2211}, in the town hall basement"] = "마을 회관 지하실의 {npc:2211}",
 
-	-- Step 64: Captain Melrache
+	-- Step 63: Captain Melrache
 	-- {area:159} Brill · {area:162} Brightwater Lake · {npc:1665} Captain Melrache · {area:459} Scarlet Watch Post
 	-- plural, as words: Scarlet Bodyguards = {npc:1660} Scarlet Bodyguard
 	["Follow the road north-east from {area:159} past {area:162}. {npc:1665} and his two Scarlet Bodyguards hold the Scarlet watchtower on the north-east coast, north of the {area:459}: pull the bodyguards first."] = "{area:159}에서 북동쪽 길을 따라 {area:162}을(를) 지나가세요. {npc:1665}와(과) 붉은십자군 경호원 2명이 {area:459} 북쪽, 북동쪽 해안의 붉은십자군 감시탑을 지킵니다. 경호원부터 끌어내세요.",
 
-	-- Step 65: Executor Zygand
+	-- Step 64: Executor Zygand
 	-- {area:159} Brill
 	["Back to {area:159}."] = "{area:159}(으)로 돌아가세요.",
 
-	-- Step 66: Leonid Barthalomew
+	-- Step 65: Leonid Barthalomew
 	-- {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker
 	["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp."] = "길을 따라 서쪽으로 {area:157}을(를) 지나 {area:16616}(으)로 가세요. 리어니드 바돌로매는 {npc:246389}의 야영지 바로 북쪽에 있습니다.",
 	-- {npc:246378} Danitha Morr
 	["Listen to Leonid and {npc:246378}, then talk to him again"] = "리어니드와 {npc:246378}의 대화를 들은 뒤 그에게 다시 말을 거세요",
 
-	-- Step 68: The Undercity
+	-- Step 67: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {item:6284} Runes of Summoning · {npc:4606} Aelthalyste · {object:36070} War Quarter · {npc:4568} Anastasia Hartwell
 	["{object:1661} is under the {area:153}, beside the zeppelin towers. {npc:5675} is in the {object:36082}: use the {item:6284} on the summoning circle beside him and defeat the voidwalker. {npc:4606} is in the {object:36070}. {npc:4568} is in the {object:36082} too."] = "{object:1661}은(는) 비행선 탑 옆 {area:153} 아래에 있습니다. {npc:5675}은(는) {object:36082}에 있습니다. 그 옆의 소환진에서 {item:6284}을(를) 사용하고 공허방랑자를 물리치세요. {npc:4606}은(는) {object:36070}에 있습니다. {npc:4568}도 {object:36082}에 있습니다.",
 
-	-- Step 69: Zeppelin to Durotar
+	-- Step 68: Zeppelin to Durotar
 	-- {zone:1411} Durotar
 	["Zeppelin to {zone:1411}"] = "비행선으로 {zone:1411}에 가기",
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1454} Orgrimmar · {object:3202} Grom'gol
 	["Walk south-east from {area:159} to the zeppelin towers outside the {area:153} and board the zeppelin to {zone:1454} (the other one goes to {object:3202})."] = "{area:159}에서 남동쪽으로 {area:153} 밖의 비행선 탑으로 가서 {zone:1454}행 비행선에 타세요(다른 하나는 {object:3202}(으)로 갑니다).",
 	["Zeppelin tower"] = "비행선 탑",
 
-	-- Step 70: The Crossroads
+	-- Step 69: The Crossroads
 	-- {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:815} Southfury River · {area:379} Far Watch Post · {area:380} The Crossroads
 	["The zeppelin lands at the tower just north-east of {zone:1454}'s main gate. Follow the road south into {zone:1411}, cross the {area:815} bridge below {area:379} and follow the road west to the {area:380}."] = "비행선은 {zone:1454} 정문 바로 북동쪽 탑에 내립니다. 길을 따라 남쪽 {zone:1411}(으)로 가서, {area:379} 아래 {area:815} 다리를 건넌 뒤 서쪽 길을 따라 {area:380}로 가세요.",
 	-- {npc:3615} Devrak
 	["{npc:3615}, the wind rider master"] = "와이번 조련사 {npc:3615}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "호박은 솔리덴 농장 북서쪽, 붉은십자군이 차지한 들판에 자랍니다.",
+	-- ["The spiders lurk in the woods at the far east end of the glades. {npc:276020}, a rogue abomination, wanders just north-west of them. {npc:276020} is elite: grouping up is advised."] = "거미는 숲 동쪽 맨 끝의 수풀에 숨어 있습니다. 떠돌이 누더기골렘 {npc:276020}이(가) 그 바로 북서쪽을 배회합니다. {npc:276020}은(는) 정예이니 파티를 권장합니다.",
 	-- ["The zeppelin lands at the tower just north-east of {zone:1454}'s main gate. Follow the road south into {zone:1411}, cross the {area:815} bridge below {area:379} and follow the road west to the {area:380}."] = "비행선은 {zone:1454} 정문 바로 북동쪽 탑에 내립니다. 길을 따라 남쪽 {zone:1411}(으)로 가서, {area:379} 아래 {area:815} 다리를 건넌 뒤 서쪽 길을 따라 {area:380}(으)로 가세요.",
+	-- ["Walk on west to {npc:6784} and talk to him: he wants a duel."] = "서쪽의 {npc:6784}에게 가서 말을 거세요. 결투를 원합니다.",
+	-- ["Walk south-west to the {area:156}; Simmer stands at the farm."] = "남서쪽 {area:156}(으)로 가세요. 죽음의경비병 시머가 농장에 있습니다.",
+	-- ["{item:286326}, from {npc:276020}"] = "{npc:276020}에게서 {item:286326}",
+	-- ["{npc:1495}: {npc:276020}, an elite abomination in the east"] = "{npc:1495}: 동쪽의 정예 누더기골렘 {npc:276020}",
 }

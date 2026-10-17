@@ -28,11 +28,13 @@ step Argent Dawn Commission (Alliance)
 
 step Argent Dawn Commission (Horde)
   only Horde
+  zone Tirisfal Glades
   tip The Argent Dawn starts out Neutral. Take the Commission from Argent Officer Garush at The Bulwark and wear it: in Classic, Scourgestones only drop while the Argent Dawn Commission trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains.
   accept 5405
   turnin 5405
 
 step Minion's Scourgestones to Friendly
+  zone Western Plaguelands
   tip Ghouls and skeletons all over Western Plaguelands drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at Chillwind Camp, Garush at The Bulwark, Duke Nicholas Zverenhoff at Light's Hope Chapel). Each turn-in also pays an Argent Dawn Valor Token for the Argent quartermasters.
   collect 12840 x20 optional @41.8,70.4
   talk 10840 only Alliance optional -- Argent Officer Pureheart, Chillwind Camp

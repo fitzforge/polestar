@@ -6,6 +6,9 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const zlib = require('node:zlib');
 const { Scene } = require('./helpers/navscene');
 const { rasterise } = require('../tools/lib/nav/grid/rasterise');
 const { buildSurfaces } = require('../tools/lib/nav/grid/surfaces');
@@ -13,7 +16,7 @@ const { linkTile, fallTarget } = require('../tools/lib/nav/grid/links');
 const { localComponents } = require('../tools/lib/nav/grid/regions');
 const { Space, inLinks, IN, isOpen } = require('../tools/lib/nav/grid/search');
 const { profileFor } = require('../tools/lib/nav/move');
-const { CELL, FLAG, CLS, LINK_SLOPE, NO_LINK, NO_COMP, FALL_MAX, encodeTile, decodeTile } = require('../tools/lib/nav/grid/format');
+const { CELL, FLAG, CLS, LINK_SLOPE, NO_LINK, NO_COMP, FALL_MAX, VERSION, encodeTile, decodeTile } = require('../tools/lib/nav/grid/format');
 
 const TAN = (deg) => Math.tan((deg * Math.PI) / 180);
 const E = 0; // direction east (format.js DIRS)
@@ -324,12 +327,59 @@ test('tile files round-trip', () => {
 	const t = linked(s);
 	const back = decodeTile(encodeTile(t));
 	for (const key of ['n', 'nComp', 'c', 'col', 'row']) assert.equal(back[key], t[key], key);
-	for (const key of ['count', 'z', 'ceil', 'flags', 'slope', 'areas', 'links', 'comp', 'fallFrom', 'fallTo']) {
+	for (const key of ['count', 'z', 'ceil', 'flags', 'slope', 'tslope', 'areas', 'links', 'comp', 'fallFrom', 'fallTo']) {
 		assert.deepEqual(Buffer.from(back[key].buffer, back[key].byteOffset, back[key].byteLength), Buffer.from(t[key].buffer, t[key].byteOffset, t[key].byteLength), key);
 	}
 	assert.deepEqual([...back.first], [...t.first]);
 	// Indoor floors keep their flag.
 	assert.ok(top(back, 110, 120).flags & FLAG.INDOOR);
+});
+
+test('terrain slope: each surface keeps its steepest terrain triangle (tslope), 0 on model surfaces; tile format 4 carries it', () => {
+	// A 45° terrain plane rising eastward; a flat WMO floor far above part of it.
+	const s = new Scene({ height: (x) => x * TAN(45) });
+	s.floor(100, 100, 200, 200, 1000, 1);
+	const t = linked(s);
+	assert.ok(t.tslope instanceof Uint8Array && t.tslope.length === t.n, 'one tslope per surface');
+	let terrain = 0;
+	for (let e = 0; e < t.n; e++) {
+		if (!(t.flags[e] & FLAG.TERRAIN)) continue;
+		assert.equal(t.tslope[e], 45, `terrain surface ${e}`);
+		terrain++;
+	}
+	assert.ok(terrain > 60000, `${terrain} terrain surfaces`);
+	const col = column(t, 150, 150);
+	assert.equal(col.length, 2, 'the plane and the floor');
+	assert.ok(col[1].flags & FLAG.WMO && Math.abs(col[1].z - 1000) < 0.01, 'the floor is the top');
+	assert.equal(t.tslope[col[1].e], 0, 'a flat WMO floor has no terrain slope');
+	assert.equal(t.tslope[col[0].e], 45, 'the plane under it does');
+	const gz = encodeTile(t);
+	assert.equal(VERSION, 4);
+	assert.equal(zlib.gunzipSync(gz).readUInt32LE(4), 4, 'written as format 4');
+	assert.deepEqual([...decodeTile(gz).tslope], [...t.tslope]);
+});
+
+test('tile files of format 3 still decode, with tslope null', () => {
+	const t = linked(new Scene({ height: (x, y) => Math.sin(x / 30) * 5 + y / 50 }).box(100, 100, 0, 120, 140, 6, 2));
+	// Format 3 is format 4 without the trailing tslope bytes.
+	const raw = zlib.gunzipSync(encodeTile(t));
+	const v3 = Buffer.from(raw.subarray(0, raw.length - t.n));
+	v3.writeUInt32LE(3, 4);
+	const back = decodeTile(zlib.gzipSync(v3));
+	assert.equal(back.tslope, null);
+	for (const key of ['z', 'slope', 'links']) assert.deepEqual([...back[key]], [...t[key]], key);
+	const v2 = Buffer.from(v3);
+	v2.writeUInt32LE(2, 4);
+	assert.throws(() => decodeTile(zlib.gzipSync(v2)), /^Error: nav tile version 2, expected 3 or 4$/);
+});
+
+const NAV3_TILE = path.join(__dirname, '..', 'data', 'local', 'nav3', 'tiles', '0', '23_54.nav.gz');
+test('real: a tile of the version 3 grid (data/local/nav3) decodes, with links and tslope null', { skip: fs.existsSync(NAV3_TILE) ? false : 'no data/local/nav3' }, () => {
+	const gz = fs.readFileSync(NAV3_TILE);
+	assert.equal(zlib.gunzipSync(gz).readUInt32LE(4), 3);
+	const t = decodeTile(gz);
+	assert.equal(t.tslope, null);
+	assert.ok(t.n > 0 && t.links.length === 8 * t.n && t.first[65536] === t.n);
 });
 
 test('WMO liquids: a canal swims, lava blocks its floor', () => {

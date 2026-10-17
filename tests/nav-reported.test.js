@@ -21,8 +21,9 @@ function world(map, x, y) {
 }
 
 // The engine's path from `from` to `to` (no heights: the client reports none),
-// as { points = { { x, y, z }, ... }, cost } or false when it finds none.
-function walk(from, to) {
+// as { points = { { x, y, z }, ... }, cost } or false when it finds none;
+// profile: "Alliance" | "Horde" (none by default).
+function walk(from, to, profile) {
 	assert.equal(from.c, to.c);
 	const [got] = runAddon({
 		stubs: ['stub_encoding.lua'],
@@ -37,7 +38,7 @@ Path.Find(${from.c}, { x = ${from.x}, y = ${from.y} }, { x = ${to.x}, y = ${to.y
 		got = { points = {}, cost = cost }
 		for i, p in ipairs(points) do got.points[i] = { p.x, p.y, p.z or false } end
 	end
-end)
+end${profile ? `, { profile = "${profile}" }` : ''})
 while #frames > 0 do table.remove(frames, 1)() end
 emit(got)`,
 	}).emitted;
@@ -77,4 +78,25 @@ test('Raptor Horns, the Barrens: the walk from 61.66,35.46 to 61.00,33.70 does n
 	const face = { x: from.x + ((to.x - from.x) * 8) / straight, y: from.y + ((to.y - from.y) * 8) / straight };
 	const off = offPath(pts, face);
 	assert.ok(off > 3, `the path passes ${off.toFixed(1)} yd from the face's middle (${pts.length} points, ${Math.round(got.cost)} yd)`);
+});
+
+// Fitz, 2026-10-16, Ratchet (The Barrens), Horde, heading for 54,51: the walk
+// left the north-east road, ran straight south along a line and turned 90
+// degrees west onto the main road instead of keeping to the north-east road
+// down to the junction. The tile border at y -3733.3 crosses both roads 35 yd
+// apart, and its one entrance there sat on the main road, so every walk off
+// the north-east road crossed the border along it. The 62 yd leg between two
+// spots on the north-east road either side of the border walked 91 yd.
+test('Ratchet, the Barrens: the 62 yd walk along the north-east road across the tile border (-913.3,-3749.2 to -935.1,-3692) stays on the road', { skip }, () => {
+	const from = { c: 1, x: -913.3, y: -3749.2 };
+	const to = { c: 1, x: -935.1, y: -3692 };
+	const got = walk(from, to, 'Horde');
+	assert.ok(got, 'the engine finds a walk');
+	const pts = got.points;
+	const last = pts[pts.length - 1];
+	assert.ok(Math.hypot(last[0] - to.x, last[1] - to.y) < 10, 'to the spot');
+	let yards = 0;
+	for (let i = 1; i < pts.length; i++) yards += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+	const straight = Math.hypot(to.x - from.x, to.y - from.y);
+	assert.ok(yards <= straight * 1.15, `the walk is ${yards.toFixed(1)} yd for ${straight.toFixed(1)} yd straight (${pts.length} points)`);
 });

@@ -181,17 +181,24 @@ local function packsLine()
 end
 
 -- The errors Polestar caught (ns.Errors), then with !BugGrabber installed the
--- ones it grabbed this session in Polestar's files: the newest few, each
--- with how often it came, its path from the AddOns folder.
+-- ones it grabbed this session in Polestar's files, and the protected calls
+-- the game blocked from Polestar (ns.Blocked; taint is no Lua error): the
+-- newest few of them all, each with how often it came, an error by its path
+-- from the AddOns folder, a blocked call by the Polestar addon blamed and
+-- when it last came. Polestar's own say which came last (seq); !BugGrabber's,
+-- whose order against them is unknown, count as the newest.
 local function errorLines(out)
 	local list, seen = {}, {}
-	local function add(msg, count)
+	local function add(msg, count, seq)
 		msg = tostring(msg):match("^[^\n]*"):gsub("^Interface[/\\]AddOns[/\\]", "")
 		if seen[msg] then return end
 		seen[msg] = true
-		list[#list + 1] = { msg = msg, count = count or 1 }
+		list[#list + 1] = { text = msg, count = count or 1, seq = seq or math.huge }
 	end
-	for _, e in ipairs(ns.Errors and ns.Errors() or {}) do add(e.msg, e.count) end
+	for _, e in ipairs(ns.Errors and ns.Errors() or {}) do add(e.msg, e.count, e.seq) end
+	for _, b in ipairs(ns.Blocked and ns.Blocked() or {}) do
+		list[#list + 1] = { text = L["blocked in %s: %s (%s)"]:format(b.addon, plain(b.fn), b.at), count = b.count, seq = b.seq }
+	end
 	local BG = BugGrabber
 	if type(BG) == "table" and type(BG.GetDB) == "function" then
 		local ok, db = pcall(BG.GetDB, BG)
@@ -209,9 +216,15 @@ local function errorLines(out)
 		out[#out + 1] = L["Errors: none"]
 		return
 	end
+	-- Sorted by seq; !BugGrabber's (no seq) keep the order they were added in.
+	for i = 1, #list do list[i].i = i end
+	table.sort(list, function(a, b)
+		if a.seq ~= b.seq then return a.seq < b.seq end
+		return a.i < b.i
+	end)
 	out[#out + 1] = L["Errors:"]
 	for i = max(1, #list - ERRORS_MAX + 1), #list do
-		out[#out + 1] = cut(("  %dx %s"):format(list[i].count, list[i].msg))
+		out[#out + 1] = cut(("  %dx %s"):format(list[i].count, list[i].text))
 	end
 end
 

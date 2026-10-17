@@ -148,6 +148,7 @@ step Mulgris Deepriver
   note Keep the branch: Nara Wildmane is in Thunder Bluff.
 
 step Tirion Fordring
+  zone Eastern Plaguelands
   tip Ride north along the eastern hills; Tirion lives in a small house by the Thondroril River, at the border with the Eastern Plaguelands.
   accept 5542
   accept 5543
@@ -155,6 +156,7 @@ step Tirion Fordring
   note Tirion's hunts are in the Eastern Plaguelands: keep them for later.
 
 step Kirsta Deepshadow
+  zone Western Plaguelands
   tip Ride west to the Northridge Lumber Camp; Kirsta hides on the hill north-east of it.
   accept 6004
 

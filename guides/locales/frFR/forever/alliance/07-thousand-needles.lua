@@ -149,14 +149,19 @@ return {
 	-- Step 28: Captain Stoutfist
 	-- {area:150} Menethil Harbor
 	["Ride back west along the road to {area:150}."] = "Revenez vers l'ouest le long de la route jusqu'à {area:150}.",
+	-- {quest:98221} From the Ashes · {quest:465} Nek'rosh's Gambit
+	["{quest:98221}: {quest:465} comes after it on Forever"] = "{quest:98221} : sur Forever, {quest:465} vient après",
 
-	-- Step 29: Dragonmaw catapult
-	["Dragonmaw catapult"] = "Catapulte Dragonmaw",
-	["Ride east again; the catapult stands at the Dragonmaw camp south of the road."] = "Chevauchez de nouveau vers l'est ; la catapulte se trouve au camp Dragonmaw au sud de la route.",
-	["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "L'étape suivante, Vaincre Nek'rosh, vous oppose à un chef élite : passez-la.",
+	-- Step 29: Angerfang Encampment
+	-- {area:1036} Angerfang Encampment · {npc:2091} Chieftain Nek'rosh
+	["Ride east again to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "Repartez vers l'est jusqu'au camp des Dragonmaw. Les quatre jeux de plans d'attaque se trouvent dans {area:1036} ; {npc:2091}, un élite, se tient aussi dans le camp.",
 
 	-- Step 30: To Theramore
 	["To Theramore"] = "Vers Theramore",
+	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
+	["{npc:2104}, in {area:2103}"] = "{npc:2104}, dans {area:2103}",
+	-- {zone:1437} Wetlands
+	["For the Dragonmaw catapult, on the {zone:1437} loop of the next guide"] = "Pour la catapulte des Dragonmaw, lors de la boucle des {zone:1437} du guide suivant",
 	-- {area:513} Theramore Isle · {zone:1445} Dustwallow Marsh
 	["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "Prenez le bateau du quai de Menethil pour {area:513}, dans {zone:1445}.",
 
@@ -194,5 +199,8 @@ return {
 	["Back to Menethil"] = "Retour à Menethil",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Dragonmaw catapult"] = "Catapulte Dragonmaw",
+	-- ["Ride east again; the catapult stands at the Dragonmaw camp south of the road."] = "Chevauchez de nouveau vers l'est ; la catapulte se trouve au camp Dragonmaw au sud de la route.",
 	-- ["Ride east to the ogre mound. {item:1349} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Chevauchez vers l'est jusqu'au tertre des ogres. {item:1349} se trouve dans le camp à son entrée ; des ogres Brisepoing la gardent.",
+	-- ["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "L'étape suivante, Vaincre Nek'rosh, vous oppose à un chef élite : passez-la.",
 }

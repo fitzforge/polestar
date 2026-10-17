@@ -132,7 +132,7 @@ test('the CLI writes byte-identical travel.json, TravelData.lua and FlightPaths.
 			const r = spawnSync(
 				process.execPath,
 				[
-					path.join(ROOT, 'tools', 'polestar.js'), 'travel', 'build', '--offline', '--shipped', 'none',
+					path.join(ROOT, 'tools', 'polestar.js'), 'travel', 'build', '--offline', '--shipped', 'none', '--grid', 'none',
 					'--data', path.join(FIX, 'data'), '--recordings', path.join(FIX, 'recordings'), '--sources', path.join(FIX, 'sources'),
 					'--json', path.join(dir, 'travel.json'), '--lua', path.join(dir, 'TravelData.lua'), '--flight-lua', path.join(dir, 'FlightPaths.lua'),
 				],
@@ -158,7 +158,7 @@ test('with --lua and no --flight-lua the CLI writes FlightPaths.lua beside it, n
 	const before = fs.readFileSync(committed, 'utf8');
 	try {
 		const r = spawnSync(process.execPath, [
-			path.join(ROOT, 'tools', 'polestar.js'), 'travel', 'build', '--offline', '--shipped', 'none',
+			path.join(ROOT, 'tools', 'polestar.js'), 'travel', 'build', '--offline', '--shipped', 'none', '--grid', 'none',
 			'--data', path.join(FIX, 'data'), '--recordings', path.join(FIX, 'recordings'), '--sources', path.join(FIX, 'sources'),
 			'--json', path.join(dir, 'travel.json'), '--lua', path.join(dir, 'TravelData.lua'), '--travel-addon', path.join(dir, 'PT'),
 		], { encoding: 'utf8' });
@@ -318,6 +318,41 @@ test('a Forever ship calling at three docks: one transport per dock pair, follow
 	assert.ok(none.warnings.includes('boat-tanaris-powderfuse: no WoW Forever client tables (offline), skipped'));
 });
 
+test('a ship stop in the water 12 yd off a pier gets a board point on the deck; a stop on dry ground gets none', async () => {
+	const { boardPoint } = require('../tools/lib/travel/transports');
+	const { Scene, ADT } = require('./helpers/navscene');
+	const { buildGrid } = require('../tools/lib/nav/grid/build');
+	const { openNav } = require('../tools/lib/nav/path');
+	// Land (z 2) west of x 200, the sea (bed -6, surface 0) east of it; a pier
+	// deck (z 2) out to x 262 along y 240..262, and a lone piling top (z 2)
+	// nearer the stop than the pier.
+	const s = new Scene({ height: (x) => (x < 200 ? 2 : -6) });
+	s.water(200, 0, ADT, ADT, 0, 2);
+	s.floor(190, 240, 262, 262, 2);
+	s.floor(280, 249, 283, 252, 2);
+	const dir = tmpdir('polestar-board-');
+	await buildGrid({
+		outDir: dir, workers: 0,
+		continents: [{ c: 0, name: 'test', tiles: [{ col: s.col, row: s.row }] }],
+		geometryJob: () => ({ geom: s.geom() }),
+	});
+	const nav = openNav({ dir });
+	const stop = s.world(274, 251);
+	const board = boardPoint(nav, stop);
+	assert.ok(board, 'a board point');
+	const local = { x: s.west - board.wy, y: s.north - board.wx };
+	assert.ok(local.x > 255 && local.x <= 262 && local.y > 240 && local.y < 262, `on the pier's tip: ${JSON.stringify(local)}`);
+	assert.ok(Math.abs(board.z - 2) < 0.5, `on the deck: z ${board.z}`);
+	assert.ok(Math.hypot(board.wx - stop.wx, board.wy - stop.wy) <= 30);
+	assert.equal(boardPoint(nav, s.world(100, 251)), null, 'a stop on dry ground (a platform) keeps its stop');
+	assert.equal(boardPoint(nav, s.world(400, 251)), null, 'nothing dry within 30 yd: none');
+
+	// Without a grid: no board points, one warning.
+	const { travel, warnings } = await buildTravel(opts());
+	assert.equal(warnings.filter((w) => /no navigation grid/.test(w)).length, 1, warnings.join('\n'));
+	assert.ok(travel.transports.every((t) => !t.a.board && !t.b.board));
+});
+
 test('the committed TravelData.lua has the Forever ships on their dock maps', () => {
 	const [ships] = runAddon({
 		stubs: ['stub_nav.lua'],
@@ -342,4 +377,42 @@ test('the committed TravelData.lua has the Forever ships on their dock maps', ()
 		assert.deepEqual(t.slice(0, 5), ends, id);
 		for (const secs of t.slice(5)) assert.ok(secs > 20 && secs < 600, `${id}: ${t.slice(5)} s`);
 	}
+});
+
+// Playtest: 14 of the 18 boat ends are ship stops in open water 12-14 yd off
+// a deck; the walk to the boat went into the water. Every boat end of the
+// shipped TravelData.lua is walked to on dry ground: its board point, within
+// 30 yd of the stop, else the stop itself (checked on the navigation grid
+// when data/local/nav4 is built).
+const GRID = path.join(ROOT, 'data', 'local', 'nav4');
+test('every boat end of the committed TravelData.lua is boarded on dry ground within 30 yd of its stop', () => {
+	const [ends] = runAddon({
+		stubs: ['stub_nav.lua'],
+		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Nav/Nav.xml'] }],
+		script: `
+			local out = {}
+			for _, t in ipairs(Polestar.Nav.GetTravelData().transports) do
+				if t.kind == "boat" then
+					for _, s in ipairs({ "a", "b" }) do
+						local e, b = t[s], t[s].board
+						out[#out + 1] = { id = t.id .. " " .. s, c = e.c, wx = e.wx, wy = e.wy, board = b and { c = b.c, wx = b.wx, wy = b.wy, z = b.z } or nil }
+					end
+				end
+			end
+			emit(out)`,
+	}).emitted;
+	assert.ok(ends.length >= 18, `${ends.length} boat ends`);
+	const boarded = ends.filter((e) => e.board);
+	assert.ok(boarded.length >= 14, `${boarded.length} boat ends with a board point`);
+	for (const e of boarded) {
+		assert.equal(e.board.c, e.c, e.id);
+		assert.equal(typeof e.board.z, 'number', `${e.id}: the deck's height`);
+		assert.ok(Math.hypot(e.board.wx - e.wx, e.board.wy - e.wy) <= 30, `${e.id}: within 30 yd of its stop`);
+	}
+	const { openNav } = require('../tools/lib/nav/path');
+	const nav = openNav({ dir: GRID });
+	if (!nav.available) return; // no grid built here: the ground is not checked
+	const { onDryGround } = require('../tools/lib/travel/transports');
+	const wet = ends.filter((e) => !onDryGround(nav, e.board || e)).map((e) => e.id);
+	assert.deepEqual(wet, [], 'walked to on dry ground');
 });

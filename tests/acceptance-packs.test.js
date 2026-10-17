@@ -290,9 +290,9 @@ test('the welcome greets a new character on a profile that saw the beta notice, 
 		local Wel = UI.Welcome
 		local first = PolestarWelcome ~= nil and PolestarWelcome:IsShown()
 		local pages = {}
-		for i = 1, 3 do
+		for i = 1, 4 do
 			pages[i] = select(4, Wel.Page())
-			if i < 3 then PolestarWelcome.Next:Click() end
+			if i < 4 then PolestarWelcome.Next:Click() end
 		end
 		local next = PolestarWelcome.Next:IsShown()
 		PolestarWelcome.Browse:Click()
@@ -303,7 +303,7 @@ test('the welcome greets a new character on a profile that saw the beta notice, 
 			seen = PolestarDB.welcomeSeen, char = PolestarCharDB.welcomeSeen, old = PolestarDB.betaNoticeSeen or false,
 			reopened = PolestarWelcome:IsShown(), title = select(4, Wel.Page()) })`, { saved });
 	assert.equal(out.first, true);
-	assert.deepEqual(out.pages, ['Hello, Testchar', 'Make it yours', out.guide], 'the last page names the suggested guide');
+	assert.deepEqual(out.pages, ['Hello, Testchar', 'Make it yours', 'Route style', out.guide], 'the last page names the suggested guide');
 	assert.equal(out.next, false, 'the last page has the guide buttons, not Next');
 	assert.equal(out.closed, true);
 	assert.equal(out.seen, 1);

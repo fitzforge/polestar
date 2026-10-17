@@ -11,10 +11,8 @@ return {
 	["From {zone:1455}'s {npc:1573}"] = "У NPC {npc:1573} ({zone:1455})",
 
 	-- Step 2: Auberdine
-	-- {area:442} Auberdine · {npc:3649} Thundris Windweaver
-	["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "Сядьте на корабль в порту (Гавань Менетилов). Цель: {area:442}. {npc:3649} стоит там ({area:442}) к северу от распорядителя полетов.",
-	-- {npc:3649} Thundris Windweaver · {item:279915} Nord'el
-	["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}: {item:279915} от Силессы (Гавань Менетилов)",
+	-- {area:442} Auberdine
+	["Take the boat to {area:442} from Menethil's docks."] = "Сядьте на корабль в порту (Гавань Менетилов). Цель: {area:442}.",
 
 	-- Step 3: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {area:1276} Talondeep Path
@@ -88,5 +86,7 @@ return {
 	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "Кентавры из племени Колкар бродят по равнинам вокруг места {area:609}; их уши – для NPC {npc:5752}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "Сядьте на корабль в порту (Гавань Менетилов). Цель: {area:442}. {npc:3649} стоит там ({area:442}) к северу от распорядителя полетов.",
 	-- ["The {area:1276}"] = "{area:1276}",
+	-- ["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}: {item:279915} от Силессы (Гавань Менетилов)",
 }

@@ -9,12 +9,13 @@ next forever/horde/07-ashenvale
 # consensus-horde-tauren, visits 10-12) and Era-baseline reference data;
 # not yet play-tested on Forever.
 #
-# Flow: Tarren Mill (arrive bound here) -> the hills west of town (bears,
-# creepers, lions) -> Hillsbrad Fields (farmers) -> Tarren Mill -> the
-# Syndicate camps, Durnholde Keep and the Mudsnout Blossoms -> hearth to
-# Tarren Mill -> Stanley and the southern fields (peasants, skulls) -> Tarren
-# Mill -> the smithy -> Tarren Mill -> the town hall -> hearth -> Azurelode
-# Mine -> Tarren Mill -> fly to the Undercity (Elixir of Agony, training) ->
+# Flow: Tarren Mill (bind again: the last guide binds here) -> the hills west of town (bears,
+# creepers, lions) -> Hillsbrad Fields (farmers) -> Tarren Mill -> Stanley
+# and the southern fields (peasants, skulls) -> Tarren Mill -> the Syndicate
+# camps, Durnholde Keep, Deathstalker Masoj and the Mudsnout Blossoms ->
+# hearth to Tarren Mill -> the smithy -> Tarren Mill -> the town hall ->
+# hearth -> Azurelode Mine -> Tarren Mill -> fly to the Undercity (Elixir of
+# Agony, training) ->
 # zeppelin to Orgrimmar (Hunters and Shamans train; Druids fly to Thunder
 # Bluff to train), fly to Camp Taurajo (bind) ->
 # Bael Modan (Tear of the Moons) -> Grish Longrunner at the Great Lift ->
@@ -31,6 +32,11 @@ next forever/horde/07-ashenvale
 #   used from the Mudsnout Blossoms and from the town hall.
 # - Time To Strike (494) is handed in on arrival (picked up at Southpoint
 #   Tower in the previous guide; the export picks it up in Tarren Mill).
+# - Stanley and the peasants (Battle of Hillsbrad part II, 528) come before
+#   the Durnholde trip: Darthalia offers Scout Support (98094) only once 528
+#   is handed in (#148, and a Wowhead Forever comment; the quest data has no
+#   prerequisite for it), and Masoj stands on that trip. Sim compare (Orc):
+#   +0.005 h to 26, -0.004 h to 30 against the old order.
 # - Free at Last (4904): the export picks it up from Lakota Windsong near the
 #   Great Lift; she is held captive on Darkcloud Pinnacle in Thousand
 #   Needles, so the next guide picks it up and escorts her in one go.
@@ -77,7 +83,8 @@ next forever/horde/07-ashenvale
 # ---------------------------------------------------------------- Tarren Mill
 
 step Tarren Mill
-  tip You arrive bound at the Tarren Mill inn. Everyone stands around the town square.
+  tip Tarren Mill is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square.
+  sethome "Tarren Mill" npc 2388      -- Innkeeper Shay: the last guide binds here, so this usually ticks at once
   turnin 493                          -- Apothecary Lydon
   turnin 494                          -- High Executor Darthalia
   accept 498                          -- Krusk
@@ -123,6 +130,22 @@ step Tarren Mill
   turnin 527                          -- High Executor Darthalia
   accept 528
   accept 546                          -- Deathguard Samsa
+
+# ---------------------------------------------------------------- West: Stanley, peasants and skulls
+
+step Stanley
+  tip Stanley is Farmer Ray's dog, at the northern farmhouse in Hillsbrad Fields.
+  turnin 502
+
+step Peasants and skulls
+  tip The Peasants work the fields south of the farmhouses. Every Hillsbrad human drops skulls; the Peasants drop them most often.
+  kill 2267 quest 528.1
+  collect 3692 quest 546.1 @30.3,40.3 -- Hillsbrad Human Skull: the Peasants in the fields
+
+step Tarren Mill
+  turnin 528                          -- High Executor Darthalia
+  accept 529
+  turnin 546                          -- Deathguard Samsa
   accept 98094 npc 2215               -- High Executor Darthalia: orders for Deathstalker Masoj, on the way to Durnholde
 
 # ---------------------------------------------------------------- East: Durnholde
@@ -151,22 +174,6 @@ step Tarren Mill
   turnin 498                          -- Krusk
   turnin 509                          -- Apothecary Lydon
   accept 513                          -- Master Apothecary Faranell, in the Undercity
-
-# ---------------------------------------------------------------- West: Stanley, peasants and skulls
-
-step Stanley
-  tip Stanley is Farmer Ray's dog, at the northern farmhouse in Hillsbrad Fields.
-  turnin 502
-
-step Peasants and skulls
-  tip The Peasants work the fields south of the farmhouses. Every Hillsbrad human drops skulls; the Peasants drop them most often.
-  kill 2267 quest 528.1
-  collect 3692 quest 546.1
-
-step Tarren Mill
-  turnin 528                          -- High Executor Darthalia
-  accept 529
-  turnin 546                          -- Deathguard Samsa
 
 # ---------------------------------------------------------------- Hillsbrad
 
@@ -249,10 +256,12 @@ step Tear of the Moons
   turnin 857
 
 step Great Lift
+  zone Thousand Needles
   tip South-west of Bael Modan, Grish Longrunner waits at the top of the Great Lift.
   turnin 5881                         -- Grish Longrunner
 
 step Merchant Coast
+  zone The Barrens
   tip Hearth to Camp Taurajo and fly to Ratchet. Mahren Skyseer camps on the shore north of Ratchet.
   hearth "Camp Taurajo"
   fly "Ratchet"

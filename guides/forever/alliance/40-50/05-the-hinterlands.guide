@@ -56,6 +56,7 @@ next forever/alliance/40-50/06-searing-gorge
 # ---------------------------------------------------------------- Aerie Peak
 
 step Aerie Peak
+  sethome "Aerie Peak" npc 7744       -- Innkeeper Thulfram: the last guide binds here, so this usually ticks at once
   accept 2877                         -- Fraggar Thundermantle
   accept 2989                         -- Gryphon Master Talonaxe
 
@@ -147,11 +148,13 @@ step Ironband's Excavation Site
   accept 704
 
 step The Uldaman dig
+  zone Badlands
   tip Ride south through the pass into the Badlands' northern edge: the Stonevault troggs dig outside Uldaman there. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself.
   collect 4610 quest 704              -- Carved Stone Urn
   collect 8047 quest 17               -- Magenta Fungus Cap
 
 step Ironband's Excavation Site
+  zone Loch Modan
   tip Ride back north to Ironband's camp.
   turnin 704                          -- Prospector Ironband
 

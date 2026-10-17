@@ -547,6 +547,7 @@ step Thunder Bluff
 
 step The Binding
   only Warlock
+  zone Orgrimmar
   tip Gan'rul Bloodeye stands in the Cleft of Shadow. Use Dogran's Pendant on the summoning circle there and defeat the succubus to bind her.
   turnin 1512
   accept 1513

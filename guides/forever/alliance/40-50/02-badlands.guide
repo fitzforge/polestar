@@ -127,7 +127,7 @@ step Menethil Harbor
   zone Wetlands
   tip Take the boat to Theramore from the far pier.
   fly "Menethil Harbor"
-  goto 4.7,63.8 "Boat to Theramore"
+  goto 5.13,63.61 "Boat to Theramore"
 
 step Theramore
   zone Dustwallow Marsh

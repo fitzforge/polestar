@@ -283,8 +283,9 @@ step Steelgrill's Depot
 
 step Boars and bears
   tip Crag Boars and Young Black Bears roam the fields around Kharanos and the depot.
-  complete 384
-  complete 317
+  collect 2886 quest 384.1                    -- Crag Boar Rib
+  collect 769 quest 317.1                     -- Chunk of Boar Meat
+  collect 6952 quest 317.2                    -- Thick Bear Fur
 
 step Kharanos
   turnin 384                                  -- Ragnar Thunderbrew
@@ -298,8 +299,8 @@ step Steelgrill's Depot
 
 step The Grizzled Den
   tip The Grizzled Den is the wendigo cave south-west of Kharanos. Flintfire's shipments lie on the cave floor.
-  complete 98321
-  complete 313
+  collect 280413 quest 98321.1                -- Flintfire's Shipment
+  collect 2671 quest 313.1                    -- Wendigo Mane
 
 step Mountaineer Gretchen
   turnin 98322                                -- Mountaineer Gretchen
@@ -322,8 +323,8 @@ step Kharanos and the depot
   accept 412                                  -- Razzle Sprysprocket, by the depot
 
 step Rumbleshot's Ammo
-  tip The ammo crate sits in the Frostmane camp on Shimmer Ridge; Hegnar Rumbleshot camps south of it, by the road to Coldridge.
-  complete 5541
+  tip The Ammo Crate sits next to Mountaineer Gretchen, south of the Grizzled Den; Hegnar Rumbleshot camps south-west of it, by the road to Coldridge.
+  collect 13850 quest 5541.1                  -- Rumbleshot's Ammo: the Ammo Crate
   turnin 5541                                 -- Hegnar Rumbleshot
 
 # ---------------------------------------------------------------- Brewnall Village
@@ -344,7 +345,8 @@ step Brewnall Village
 
 step Gnomes, bears and leopards
   tip Leper Gnomes around Brewnall and the Gnomeregan road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake.
-  complete 412
+  collect 3083 quest 412.1                    -- Restabilization Cog: Leper Gnomes
+  collect 3084 quest 412.2                    -- Gyromechanic Gear: Leper Gnomes
   kill 1196 quest 319                         -- Ice Claw Bear
   kill 1127 quest 319                         -- Elder Crag Boar
   kill 1201 quest 319                         -- Snow Leopard
@@ -354,7 +356,7 @@ step Rejold Barleybrew
   accept 320
 
 step Frosthowl
-  complete 98326
+  collect 280426 quest 98326.1                -- Sack of Fish
 
 # ---------------------------------------------------------------- Back to Kharanos
 
@@ -381,7 +383,7 @@ step Misty Pine Refuge
 
 step Firewood
   tip The firewood lies in the snow around the frozen lake by the refuge.
-  complete 99159
+  collect 286339 quest 99159.1                -- Mostly Dry Firewood
 
 step Father Gavin
   turnin 99159
@@ -391,7 +393,9 @@ step Father Gavin
 step The cold
   tip Minor Ice Elementals drift around the frozen lake by the refuge. The three rifles are in the snow around it.
   kill 276003 quest 99160                     -- Minor Ice Elemental
-  complete 99162
+  collect 286360 quest 99162.1                -- Stoneanvil's Rifle
+  collect 286359 quest 99162.2                -- Sunhammer's Rifle
+  collect 286358 quest 99162.3                -- Coalbeard's Rifle
 
 step Father Gavin
   turnin 99162
@@ -400,7 +404,7 @@ step Father Gavin
 
 step Avala's Core
   tip Avala's Core is by the frozen lake, among the ice elementals.
-  complete 99161
+  collect 286325 quest 99161.1                -- Avala's Core
 
 step Father Gavin
   turnin 99161
@@ -428,12 +432,12 @@ step Foreman Stonebrow and Quarrymaster Thesten
 
 step Stolen Blasting Powder
   tip Rockjaw Ambushers by Helm's Bed Lake, north of the quarry, and Rockjaw Backbreakers further east drop the Stolen Blasting Powder.
-  complete 95214
+  collect 267415 quest 95214.1                -- Stolen Blasting Powder
 
 step Leopards and boars
   tip Snow Leopards and boars roam the snow between the ranch and the quarry. Blacksmiths: Copper Bars come from smelting Copper Ore or the trade vendors.
-  complete 95212
-  complete 95217 optional
+  collect 267414 quest 95212.1                -- Pristine Leopard Pelt
+  collect 267416 quest 95217.1 optional       -- Toughened Boar Hide
 
 step Gol'Bolar Quarry
   turnin 95217 optional                       -- Frast Dokner
@@ -449,7 +453,7 @@ step North Gate Outpost
   accept 419                                  -- Pilot Hammerfoot
   turnin 419                                  -- A Dwarven Corpse
   accept 417
-  complete 417
+  collect 3183 quest 417.1                    -- Mangy Claw: Mangeclaw
   turnin 417                                  -- Pilot Hammerfoot
 
 step Hearth to Kharanos
@@ -477,7 +481,7 @@ step Taming the Beast
 
 step Shimmerweed
   tip Shimmerweed bushes grow on the hills around Brewnall Village.
-  complete 315
+  collect 2676 quest 315.1                    -- Shimmerweed
 
 step Brewnall Village
   turnin 98326                                -- Gretta Ganter
@@ -512,8 +516,8 @@ step Braldir Ashmantle
 step Fire Tar and the Reagent Pouch
   only Shaman
   tip Stonesplinter Seers (level 13) stand among the troggs in the south of Stonesplinter Valley, south of Braldir; Tunnel Rat Geomancers (level 12) work the Silver Stream Mine at the north end of the loch. The troggs come in packs and some throw from range: pull one at a time.
-  collect 6652 quest 94466.2                  -- Reagent Pouch: Stonesplinter Seers
-  collect 5026 quest 94466.1                  -- Fire Tar: Tunnel Rat Geomancers
+  collect 6652 quest 94466.1                  -- Reagent Pouch: Stonesplinter Seers
+  collect 5026 quest 94466.2                  -- Fire Tar: Tunnel Rat Geomancers
 
 step The Fire Spirit Stone
   only Shaman
@@ -558,7 +562,7 @@ step Earthseer Farsen
 step Tundra MacGrann
   tip Tundra MacGrann camps in Chill Breeze Valley, south of Brewnall. His meats are in the locker in Old Icebeard's cave to the north-east of his camp: grab them and leave quickly.
   accept 312                                  -- Tundra MacGrann
-  complete 312
+  collect 2667 quest 312.1                    -- MacGrann's Dried Meats: the meat locker
   turnin 312
 
 # ---------------------------------------------------------------- Ironforge

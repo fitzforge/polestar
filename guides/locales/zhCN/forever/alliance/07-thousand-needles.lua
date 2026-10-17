@@ -149,14 +149,19 @@ return {
 	-- Step 28: Captain Stoutfist
 	-- {area:150} Menethil Harbor
 	["Ride back west along the road to {area:150}."] = "沿道路向西骑回{area:150}。",
+	-- {quest:98221} From the Ashes · {quest:465} Nek'rosh's Gambit
+	["{quest:98221}: {quest:465} comes after it on Forever"] = "{quest:98221}：在Forever上，{quest:465}排在它之后",
 
-	-- Step 29: Dragonmaw catapult
-	["Dragonmaw catapult"] = "龙喉投石车",
-	["Ride east again; the catapult stands at the Dragonmaw camp south of the road."] = "再次向东骑行；投石车在道路南边的龙喉营地里。",
-	["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "下一步“击败纳克罗什”要你对抗一名精英酋长：跳过它。",
+	-- Step 29: Angerfang Encampment
+	-- {area:1036} Angerfang Encampment · {npc:2091} Chieftain Nek'rosh
+	["Ride east again to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "再次向东骑到龙喉营地。四份攻击计划在{area:1036}；精英{npc:2091}也站在营地里。",
 
 	-- Step 30: To Theramore
 	["To Theramore"] = "前往塞拉摩",
+	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
+	["{npc:2104}, in {area:2103}"] = "{npc:2104}，在{area:2103}",
+	-- {zone:1437} Wetlands
+	["For the Dragonmaw catapult, on the {zone:1437} loop of the next guide"] = "龙喉投石车在下一份指南的{zone:1437}路线中完成",
 	-- {area:513} Theramore Isle · {zone:1445} Dustwallow Marsh
 	["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "从米奈希尔的码头乘船前往{zone:1445}的{area:513}。",
 
@@ -194,5 +199,8 @@ return {
 	["Back to Menethil"] = "回到米奈希尔",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Dragonmaw catapult"] = "龙喉投石车",
+	-- ["Ride east again; the catapult stands at the Dragonmaw camp south of the road."] = "再次向东骑行；投石车在道路南边的龙喉营地里。",
 	-- ["Ride east to the ogre mound. {item:1349} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "向东骑行到沃古尔食人魔山。{item:1349}在入口处的营地里；裂拳食人魔守卫着它。",
+	-- ["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "下一步“击败纳克罗什”要你对抗一名精英酋长：跳过它。",
 }

@@ -8,7 +8,10 @@ const ADT = 1600 / 3;
 const QUAD = ADT / 128;
 
 class Scene {
-	constructor({ c = 0, col = 32, row = 32, height = () => 0, hole = () => false } = {}) {
+	// areas: the tile's 256 chunk area ids (index (j >> 4) * 16 + (i >> 4), j along local y, i along local x), a
+	// function (x, y) of a chunk's local centre, or null for none (the grid's areas are then 0); default area 1.
+	constructor({ c = 0, col = 32, row = 32, height = () => 0, hole = () => false, areas = undefined } = {}) {
+		this.areas = areas;
 		this.c = c;
 		this.col = col;
 		this.row = row;
@@ -86,9 +89,17 @@ class Scene {
 	geom() {
 		return {
 			c: this.c, col: this.col, row: this.row, tris: Float32Array.from(this.tris), kind: Uint8Array.from(this.kind),
-			areas: new Uint16Array(256).fill(1), liquid: this.liquid,
+			areas: this.chunkAreas(), liquid: this.liquid,
 			stats: { terrainTris: 0, wmo: 0, wmoTris: 0, m2: 0, m2Tris: 0, holes: 0, missing: [] },
 		};
+	}
+
+	chunkAreas() {
+		if (this.areas === null) return undefined;
+		if (this.areas === undefined) return new Uint16Array(256).fill(1);
+		if (typeof this.areas !== 'function') return Uint16Array.from(this.areas);
+		const span = ADT / 16;
+		return Uint16Array.from({ length: 256 }, (_, ch) => this.areas(((ch & 15) + 0.5) * span, ((ch >> 4) + 0.5) * span));
 	}
 }
 

@@ -31,6 +31,8 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, in the port's tavern"] = "{npc:7881}, 항구의 선술집 안",
 	["The Wanted poster beside him"] = "그 옆의 현상수배 포스터",
+	-- {npc:7847} Caliph Scorpidsting · {area:976} Gadgetzan
+	["The same poster: {npc:7847} comes much later, after {area:976}"] = "같은 현상수배 전단: {npc:7847}은(는) 훨씬 나중, {area:976} 이후에 나옵니다",
 
 	-- Step 6: Lost Rigger Cove
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
@@ -87,11 +89,7 @@ return {
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
 	["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "작은 거북 {npc:5955}은(는) 골짜기 북쪽 끝에 숨어 있습니다. {area:977} 바로 동쪽 물가에 있는 아내 {npc:6015}에게 데려다주십시오: 느리게 걷고 사막의 야수들이 노리니 살려 두십시오.",
 
-	-- Step 19: Steamwheedle Port
-	-- {npc:7882} Security Chief Bilgewhizzle
-	["The Wanted poster by {npc:7882}"] = "{npc:7882} 옆의 현상수배 포스터",
-
-	-- Step 20: Gadgetzan
+	-- Step 19: Gadgetzan
 	-- {area:976} Gadgetzan
 	["Ride back west to {area:976}."] = "서쪽 {area:976}(으)로 돌아가십시오.",
 	-- {npc:11758} Andi Lynn
@@ -99,29 +97,30 @@ return {
 	-- {npc:7583} Sprinkle · {zone:1425} Hinterlands
 	["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "{npc:7583}의 다음 재료는 {zone:1425}에서 자라고, 경로상 다시 가져오지 않습니다: 건너뛰십시오.",
 
-	-- Step 21: Caliph Scorpidsting
+	-- Step 20: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "남동쪽 {area:985}(으)로 가십시오. {npc:7847}은(는) 남쪽 사막유랑단 야영지 한가운데에 서 있습니다: 주변부터 정리하십시오.",
 
-	-- Step 22: The Gaping Chasm
+	-- Step 21: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "남쪽으로 {area:1938}을(를) 지나 하잘리 굴인 {area:981}으로 가십시오. 슈섕크의 측량 장비는 깊숙한 곳에 있습니다.",
 
-	-- Step 23: Gadgetzan
+	-- Step 22: Gadgetzan
 	-- {area:976} Gadgetzan
 	["Hearth to {area:976}."] = "귀환석으로 {area:976}에 가십시오.",
 	-- {zone:1457} Darnassus
 	["for {zone:1457}: the route takes you there at 47"] = "{zone:1457}용: 경로상 47레벨에 그곳에 갑니다",
 
-	-- Step 24: Ironforge
+	-- Step 23: Ironforge
 	-- {area:976} Gadgetzan · {area:150} Menethil Harbor · {area:1537} Ironforge
 	["Fly from {area:976} to Theramore, take the boat to {area:150} and fly to {area:1537}. Train."] = "{area:976}에서 테라모어 섬으로 날아가, 배를 타고 {area:150}(으)로 간 다음 {area:1537}(으)로 날아가십시오. 기술을 배우십시오.",
 
-	-- Step 25: Aerie Peak
+	-- Step 24: Aerie Peak
 	-- {area:348} Aerie Peak · {zone:1425} Hinterlands
 	["Fly to {area:348}. {zone:1425} guide starts here."] = "{area:348}(으)로 날아가십시오. {zone:1425} 가이드는 여기서 시작합니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "{area:348}(으)로 날아가십시오. {zone:1425} 가이드는 여기서 시작합니다.",
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "남쪽으로 {area:1938}을(를) 지나 하잘리 굴인 {area:981}(으)로 가십시오. 슈섕크의 측량 장비는 깊숙한 곳에 있습니다.",
+	-- ["The Wanted poster by {npc:7882}"] = "{npc:7882} 옆의 현상수배 포스터",
 }

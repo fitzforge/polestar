@@ -84,6 +84,7 @@ test('at its longest the report still fits one Discord message', () => {
 		local id = "test/" .. string.rep("long-", 20)
 		uistub.guides[id] = { id = id, pack = "guides", title = long, faction = "Alliance", minLevel = 1, maxLevel = 60, steps = { { title = long, goals = goals } } }
 		for i = 1, 6 do Polestar.NoteError("Interface/AddOns/Polestar/UI/" .. string.rep("Long", 12) .. i .. ".lua:1: " .. long) end
+		for i = 1, 4 do stub.fire("ADDON_ACTION_BLOCKED", "Polestar_" .. string.rep("Long", 10), string.rep("Protected", 8) .. i .. "()") end
 		uistub.setGuide(id, 1)
 		UI.ShowReport()
 		local F = PolestarReport
@@ -94,7 +95,8 @@ test('at its longest the report still fits one Discord message', () => {
 	assert.ok(out.text.startsWith(`**What went wrong:** ${'w'.repeat(250)}\n`), 'the description is kept whole');
 	assert.match(out.text, /^Step 1 of 1: Overlook/m);
 	assert.match(out.text, /^\.\.\. 3 more goals$/m, 'goals past the sixth are counted, not listed');
-	assert.equal((out.text.match(/^ {2}1x /gm) || []).length, 3, 'the newest three errors');
+	assert.equal((out.text.match(/^ {2}1x /gm) || []).length, 3, 'the newest three of the errors and blocked calls together');
+	assert.equal((out.text.match(/^ {2}1x blocked in Polestar_Long/gm) || []).length, 3, 'the blocked calls came last');
 });
 
 test('errors Polestar caught come with the report, counted, by their path from the AddOns folder; !BugGrabber adds the session\'s errors in Polestar\'s files', () => {
@@ -118,6 +120,28 @@ test('errors Polestar caught come with the report, counted, by their path from t
 	assert.deepEqual(errors, [
 		'  2x Polestar/UI/GuideFrame.lua:12: attempt to index a nil value',
 		'  3x Polestar/Nav/Arrow.lua:40: bad argument',
+	]);
+});
+
+test('actions the game blocked from Polestar (taint, no Lua error) come with the report: by the addon blamed, counted, newest time, sharing the newest three with the errors; other addons\' are left out', () => {
+	const [out] = run(`
+		Polestar.NoteError("Interface/AddOns/Polestar/UI/GuideFrame.lua:1: oldest")
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UseAction()")
+		stub.advance(5)
+		stub.fire("ADDON_ACTION_FORBIDDEN", "OtherAddon", "CastSpellByName()")
+		stub.fire("ADDON_ACTION_FORBIDDEN", "Polestar_Gamepad", "ClearOverrideBindings()")
+		Polestar.NoteError("Interface/AddOns/Polestar/Nav/Arrow.lua:2: between")
+		stub.fire("ADDON_ACTION_BLOCKED", "Polestar", "UseAction()")
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		emit({ text = PolestarReport.Box:GetText(), at = date("%H:%M:%S") })`);
+	const lines = out.text.split('\n');
+	assert.ok(!lines.includes('Errors: none'), out.text);
+	assert.ok(lines.includes('Errors:'), out.text);
+	assert.deepEqual(lines.filter((l) => l.startsWith('  ')), [
+		`  1x blocked in Polestar_Gamepad: ClearOverrideBindings() (${out.at})`,
+		'  1x Polestar/Nav/Arrow.lua:2: between',
+		`  2x blocked in Polestar: UseAction() (${out.at})`,
 	]);
 });
 

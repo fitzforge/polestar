@@ -31,6 +31,8 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, in the port's tavern"] = "{npc:7881}, в таверне порта",
 	["The Wanted poster beside him"] = "Плакат «Розыск!» рядом с ним",
+	-- {npc:7847} Caliph Scorpidsting · {area:976} Gadgetzan
+	["The same poster: {npc:7847} comes much later, after {area:976}"] = "То же объявление: {npc:7847} будет гораздо позже, после места {area:976}",
 
 	-- Step 6: Lost Rigger Cove
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
@@ -87,11 +89,7 @@ return {
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
 	["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Маленький черепах {npc:5955} прячется в северной части долины. Отведите его домой к жене ({npc:6015}), у воды чуть восточнее места {area:977}: он идет медленно, и звери пустыни нападают на него, так что берегите его.",
 
-	-- Step 19: Steamwheedle Port
-	-- {npc:7882} Security Chief Bilgewhizzle
-	["The Wanted poster by {npc:7882}"] = "Плакат «Розыск!» у NPC {npc:7882}",
-
-	-- Step 20: Gadgetzan
+	-- Step 19: Gadgetzan
 	-- {area:976} Gadgetzan
 	["Ride back west to {area:976}."] = "Езжайте обратно на запад в {area:976}.",
 	-- {npc:11758} Andi Lynn
@@ -99,29 +97,30 @@ return {
 	-- {npc:7583} Sprinkle · {zone:1425} Hinterlands
 	["{npc:7583}'s next ingredient grows in the {zone:1425}, and the route never brings it back: skip it."] = "Следующий ингредиент ({npc:7583}) растет здесь: {zone:1425}, а маршрут никогда не приводит его обратно: пропустите.",
 
-	-- Step 21: Caliph Scorpidsting
+	-- Step 20: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first."] = "Езжайте на юго-восток в {area:985}. {npc:7847} стоит в центре южного лагеря Скитальцев Пустыни: сначала зачистите все вокруг него.",
 
-	-- Step 22: The Gaping Chasm
+	-- Step 21: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "Езжайте на юг мимо места {area:1938} к месту {area:981} – туннелям Хаззали; снаряжение Холстомера лежит глубоко внутри.",
 
-	-- Step 23: Gadgetzan
+	-- Step 22: Gadgetzan
 	-- {area:976} Gadgetzan
 	["Hearth to {area:976}."] = "Используйте Камень возвращения: {area:976}.",
 	-- {zone:1457} Darnassus
 	["for {zone:1457}: the route takes you there at 47"] = "Для зоны {zone:1457}: маршрут приведет вас туда на 47-м уровне",
 
-	-- Step 24: Ironforge
+	-- Step 23: Ironforge
 	-- {area:976} Gadgetzan · {area:150} Menethil Harbor · {area:1537} Ironforge
 	["Fly from {area:976} to Theramore, take the boat to {area:150} and fly to {area:1537}. Train."] = "Летите из места {area:976} в Терамор, плывите на корабле в {area:150} и летите в {area:1537}. Обучитесь.",
 
-	-- Step 25: Aerie Peak
+	-- Step 24: Aerie Peak
 	-- {area:348} Aerie Peak · {zone:1425} Hinterlands
 	["Fly to {area:348}. {zone:1425} guide starts here."] = "Летите в {area:348}. Здесь начинается гайд по зоне {zone:1425}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "Летите в {area:348}. Здесь начинается гайд по зоне {zone:1425}.",
 	-- ["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside."] = "Езжайте на юг мимо места {area:1938} к месту {area:981}, туннелям Хаззали; снаряжение Холстомера лежит глубоко внутри.",
+	-- ["The Wanted poster by {npc:7882}"] = "Плакат «Розыск!» у NPC {npc:7882}",
 }

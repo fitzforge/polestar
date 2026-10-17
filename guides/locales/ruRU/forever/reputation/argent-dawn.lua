@@ -18,15 +18,15 @@ return {
 	-- Step 2: Argent Dawn Commission (Horde)
 	-- {quest:5401} Argent Dawn Commission
 	["{quest:5401} (Horde)"] = "{quest:5401} (Орда)",
-	-- {object:2160} The Argent Dawn · {npc:10839} Argent Officer Garush · {area:813} The Bulwark · {quest:5401} Argent Dawn Commission
-	["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:813} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}: начальная репутация – равнодушие. Возьмите жетон у NPC {npc:10839} ({area:813}) и наденьте: в Classic камни Плети падают, только пока надет аксессуар {quest:5401}. Бонус наследия Forever «Дипломат» ускоряет рост репутации.",
+	-- {object:2160} The Argent Dawn · {npc:10839} Argent Officer Garush · {area:152} The Bulwark · {quest:5401} Argent Dawn Commission
+	["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}: начальная репутация – равнодушие. Возьмите жетон у NPC {npc:10839} ({area:152}) и наденьте: в Classic камни Плети падают, только пока надет аксессуар {quest:5401}. Бонус наследия Forever «Дипломат» ускоряет рост репутации.",
 
 	-- Step 3: Minion's Scourgestones to Friendly
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
 	["Minion's Scourgestones to Friendly"] = "Камни приспешников Плети ({item:12840}) до уровня «Дружелюбие»",
-	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {area:813} The Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {item:12844} Argent Dawn Valor Token
+	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {area:152} The Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {item:12844} Argent Dawn Valor Token
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
-	["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:813}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "Вурдалаки и скелеты по всей зоне {zone:1422} примерно в половине случаев роняют: {item:12840}; здесь они встречаются густо. Сдавайте по 20 любому офицеру Серебряного Рассвета (Чистосердая – {area:3197}, Гаруш – {area:813}, {npc:11039} – {area:2268}). Каждая сдача также дает {item:12844} для интендантов Серебряного Рассвета.",
+	["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:152}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "Вурдалаки и скелеты по всей зоне {zone:1422} примерно в половине случаев роняют: {item:12840}; здесь они встречаются густо. Сдавайте по 20 любому офицеру Серебряного Рассвета (Чистосердая – {area:3197}, Гаруш – {area:152}, {npc:11039} – {area:2268}). Каждая сдача также дает {item:12844} для интендантов Серебряного Рассвета.",
 
 	-- Step 4: Invader's Scourgestones to Honored
 	-- plural, as words: Invader's Scourgestones = {item:12841} Invader's Scourgestone

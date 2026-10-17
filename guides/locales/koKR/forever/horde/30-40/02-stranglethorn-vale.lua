@@ -51,6 +51,11 @@ return {
 	-- plural, as words: Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
 	["Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it."] = "야영지를 지나 서쪽으로 가세요. 가시덤불랩터(33-34)는 빈터에서 사냥하고, 붉은머리부족 트롤은 해안의 폐허를 차지하고 있습니다. 붉은머리부족은 누구나 붉은머리부족의 어금니를 떨어뜨릴 수 있습니다. 이들은 {item:4614}을(를) 매우 드물게 떨어뜨립니다. 얻으면 읽으세요.",
 
+	-- Step 11: Nesingwary's camp
+	-- {object:3202} Grom'gol
+	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
+	["The Shadowmaw Panthers come much later, by {object:3202}"] = "그림자퓨마는 훨씬 나중에 {object:3202} 근처에서 나옵니다",
+
 	-- Step 12: Elder tigers and Lashtail raptors
 	["Elder tigers and Lashtail raptors"] = "덩치큰 호랑이와 채찍꼬리랩터",
 	-- {object:3202} Grom'gol
@@ -140,50 +145,50 @@ return {
 	-- {object:3202} Grom'gol
 	["Ride back south to {object:3202}."] = "남쪽의 {object:3202}(으)로 돌아가세요.",
 
-	-- Step 33: Nesingwary's camp
-	["Follow the road north to the camp."] = "길을 따라 북쪽의 야영지로 가세요.",
-
-	-- Step 34: Green Hills pages
+	-- Step 33: Green Hills pages
 	["Green Hills pages"] = "푸른 언덕의 쪽",
 	-- {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
 	["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters later in this guide."] = "{item:2755}의 쪽은 붉은머리부족과 백골가루부족 트롤에게서 각각 약 1% 확률로 떨어집니다. 얻은 쪽은 모두 보관하고 나머지는 경매장에서 찾아보세요. {npc:716}은(는) 이 가이드 후반에 장을 받습니다.",
 
-	-- Step 35: Shadowmaw panthers
+	-- Step 34: Shadowmaw panthers
 	["Shadowmaw panthers"] = "그림자퓨마",
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "그림자퓨마(37-38)는 모쉬오그일족 언덕 동쪽과 북동쪽 호수 방향 정글에 숨어 다니며, 은신 상태에서 공격합니다. 가는 길에 보이는 푸른 언덕의 쪽은 모두 챙기세요.",
 
-	-- Step 36: Green Hills pages
+	-- Step 35: Green Hills pages
 	-- {item:2755} Green Hills of Stranglethorn
 	["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; take what drops and check the Auction House for the rest."] = "{item:2755}의 쪽은 붉은머리부족과 백골가루부족 트롤에게서 각각 약 1% 확률로 떨어집니다. 떨어지는 것은 챙기고 나머지는 경매장에서 확인하세요.",
 
-	-- Step 39: Jungle Stalkers
+	-- Step 38: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["Jungle Stalkers"] = "줄무늬정글랩터",
 	-- {object:3202} Grom'gol
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["The Jungle Stalkers (40-41) hunt the coast south of {object:3202}. They are well above you: pull one at a time and rest between fights."] = "줄무늬정글랩터(40-41)는 {object:3202} 남쪽 해안에서 사냥합니다. 레벨이 훨씬 높으니 한 마리씩 끌어오고 전투 사이에 쉬세요.",
 
-	-- Step 41: Mistvale gorillas
+	-- Step 40: Mistvale gorillas
 	["Mistvale gorillas"] = "안개계곡고릴라",
 	-- {area:35} Booty Bay · {area:1737} Mistvale Valley
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	["Take the road south towards {area:35}. The Elder Mistvale Gorillas (40-41) live in {area:1737}, east of the road; about one in twenty carries an aged sinew."] = "길을 따라 남쪽 {area:35} 방향으로 가세요. 덩치큰 안개계곡고릴라(40-41)는 길 동쪽의 {area:1737}에 살며, 약 20마리 중 1마리가 덩치큰 고릴라의 힘줄을 지니고 있습니다.",
 
-	-- Step 42: Booty Bay
+	-- Step 41: Booty Bay
 	-- {area:35} Booty Bay
 	["Follow the road on south into {area:35}."] = "길을 따라 계속 남쪽의 {area:35}(으)로 가세요.",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier"] = "{npc:2495}: 앞서 모은 무쇠턱 악어 가죽",
 
-	-- Step 44: Venture Co. camp
+	-- Step 43: Venture Co. camp
 	["Venture Co. camp"] = "투자개발회사 야영지",
 	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Ride north past Nesingwary's camp to the lake. The Venture Co. Geologists (34-36) work the camps along its western shore; they carry the Tumbled Crystals."] = "네싱워리의 야영지를 지나 북쪽 호수로 가세요. 투자개발회사 지질학자(34-36)가 서쪽 호숫가의 야영지에서 일하며, 연마된 수정을 지니고 있습니다.",
 
-	-- Step 45: Hearth to Booty Bay
+	-- Step 44: Hearth to Booty Bay
 	-- {area:35} Booty Bay
 	["Hearth to {area:35}"] = "귀환석으로 {area:35}에 가기",
 	-- {area:272} Tarren Mill · {zone:1417} Arathi Highlands
 	["The next guide flies you north to {area:272} and into the {zone:1417}."] = "다음 가이드에서는 북쪽의 {area:272}(으)로 날아가 {zone:1417}(으)로 갑니다.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road north to the camp."] = "길을 따라 북쪽의 야영지로 가세요.",
 }

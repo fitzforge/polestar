@@ -162,8 +162,10 @@ return {
 	["{npc:1269}, by the depot"] = "{npc:1269}, 정거장 옆",
 
 	-- Step 29: Rumbleshot's Ammo
-	-- {area:802} Shimmer Ridge · {npc:1243} Hegnar Rumbleshot
-	["The ammo crate sits in the Frostmane camp on {area:802}; {npc:1243} camps south of it, by the road to Coldridge."] = "탄약 상자는 {area:802}의 서리갈기부족 야영지에 있습니다. {npc:1243}은(는) 그 남쪽, 눈마루 골짜기로 가는 길가에 진을 치고 있습니다.",
+	-- {object:176785} Ammo Crate · {npc:271546} Mountaineer Gretchen · {area:136} Grizzled Den · {npc:1243} Hegnar Rumbleshot
+	["The {object:176785} sits next to {npc:271546}, south of the {area:136}; {npc:1243} camps south-west of it, by the road to Coldridge."] = "{object:176785}은(는) {area:136} 남쪽의 {npc:271546} 옆에 있습니다. {npc:1243}은(는) 그 남서쪽, 눈마루 골짜기로 가는 길가에 진을 치고 있습니다.",
+	-- {item:13850} Rumbleshot's Ammo · {object:176785} Ammo Crate
+	["{item:13850}: the {object:176785}"] = "{item:13850}: {object:176785}",
 
 	-- Step 30: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
@@ -178,6 +180,12 @@ return {
 	-- {area:133} Gnomeregan
 	-- plural, as words: Leper Gnomes = {npc:1211} Leper Gnome · Ice Claw Bears = {npc:1196} Ice Claw Bear · Elder Crag Boars = {npc:1127} Elder Crag Boar · Snow Leopards = {npc:1201} Snow Leopard
 	["Leper Gnomes around Brewnall and the {area:133} road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake."] = "브루날 마을과 {area:133} 길 주변의 오염된 노움이 톱니와 기어를 지니고 있습니다. 얼음발톱흰곰, 덩치큰 멧돼지, 눈표범이 호수 주변 언덕을 돌아다닙니다.",
+	-- {item:3083} Restabilization Cog
+	-- plural, as words: Leper Gnomes = {npc:1211} Leper Gnome
+	["{item:3083}: Leper Gnomes"] = "{item:3083}: 오염된 노움",
+	-- {item:3084} Gyromechanic Gear
+	-- plural, as words: Leper Gnomes = {npc:1211} Leper Gnome
+	["{item:3084}: Leper Gnomes"] = "{item:3084}: 오염된 노움",
 
 	-- Step 35: Kharanos
 	-- {npc:1373} Jarven Thunderbrew · {item:2686} Thunder Ale · {npc:1247} Innkeeper Belm · {spell:8553} Barleybrew Scalder
@@ -322,6 +330,8 @@ return {
 	-- Step 68: Tundra MacGrann
 	-- {npc:1266} Tundra MacGrann · {area:801} Chill Breeze Valley · {npc:1271} Old Icebeard
 	["{npc:1266} camps in {area:801}, south of Brewnall. His meats are in the locker in {npc:1271}'s cave to the north-east of his camp: grab them and leave quickly."] = "{npc:1266}은(는) 브루날 마을 남쪽 {area:801}에 진을 치고 있습니다. 그의 고기는 야영지 북동쪽 {npc:1271}의 동굴 안 보관함에 있습니다. 챙겨서 빨리 나오세요.",
+	-- {item:2667} MacGrann's Dried Meats
+	["{item:2667}: the meat locker"] = "{item:2667}: 고기 저장고",
 
 	-- Step 69: The Tome of Divinity
 	-- {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1426} Dun Morogh
@@ -392,4 +402,5 @@ return {
 	-- ["Back to Gakin. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls. {zone:1436} is next, west of {area:87}."] = "가킨에게 돌아가세요. {object:2164} 지하실의 소환진에서 {item:6928}을(를) 사용하고 나타나는 공허방랑자를 물리치세요. 다음은 {area:87} 서쪽의 {zone:1436}입니다.",
 	-- ["Braldir gives you the {item:6636}. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the {npc:5893}, then place its {item:6655} in the {object:61934}, atop the Shrine of {object:148418}."] = "Braldir가 {item:6636}을(를) 줍니다. 그의 야영지 위 봉우리로 올라가 정령석 옆에서 삽타를 마시고 {npc:5893}을(를) 물리친 뒤, {object:148418} 제단 꼭대기의 {object:61934}에 {item:6655}을(를) 넣으세요.",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {quest:1688} (level 9) stands by its farmhouse."] = "정문으로 {zone:1453}을(를) 나가 남쪽으로 {area:87}까지 간 뒤, 길을 따라 동쪽으로 {area:62}까지 가세요. {quest:1688}(9레벨)은(는) 농가 옆에 서 있습니다.",
+	-- ["The ammo crate sits in the Frostmane camp on {area:802}; {npc:1243} camps south of it, by the road to Coldridge."] = "탄약 상자는 {area:802}의 서리갈기부족 야영지에 있습니다. {npc:1243}은(는) 그 남쪽, 눈마루 골짜기로 가는 길가에 진을 치고 있습니다.",
 }

@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Poisoned Water
 	-- {item:17310} Aspect of Neptulon · {zone:1423} Eastern Plaguelands · {item:17309} Discordant Bracers
-	["Use the {item:17310} on the poisoned water elementals of {zone:1423}, then loot their {item:17309} (12). Our data has no spawn points for those elementals."] = "Utilisez {item:17310} sur les élémentaires d'eau empoisonnés de {zone:1423}, puis prenez leurs {item:17309} (12). Nos données n'ont aucun point d'apparition pour ces élémentaires.",
+	["Use the {item:17310} on the poisoned water elementals of {zone:1423}, then loot their {item:17309} (12)."] = "Utilisez {item:17310} sur les élémentaires d'eau empoisonnés de {zone:1423}, puis prenez leurs {item:17309} (12).",
 
 	-- Step 4: Back to Duke Hydraxis
 	-- {npc:13278} Duke Hydraxis
@@ -56,5 +56,6 @@ return {
 	["Keep clearing the {area:2717} until Exalted."] = "Continuez à nettoyer {area:2717} jusqu'à Exalté.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Use the {item:17310} on the poisoned water elementals of {zone:1423}, then loot their {item:17309} (12). Our data has no spawn points for those elementals."] = "Utilisez {item:17310} sur les élémentaires d'eau empoisonnés de {zone:1423}, puis prenez leurs {item:17309} (12). Nos données n'ont aucun point d'apparition pour ces élémentaires.",
 	-- ["{npc:9816} in Upper {area:1583} drops the {quest:6821}. This needs a raid group."] = "{npc:9816}, dans la partie supérieure de {area:1583}, laisse {quest:6821}. Il faut un groupe de raid.",
 }

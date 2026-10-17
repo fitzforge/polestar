@@ -28,6 +28,10 @@ return {
 	["Cast {spell:18960}; {npc:11802} is in {area:2361}. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}."] = "Lanza {spell:18960}; {npc:11802} está en {area:2361}. Los Adornos de altar ({item:15877}) están en el fondo de {area:656} y desaparecen en minutos: nada con uno directo a {area:2362} en la orilla noroeste, úsalo allí y habla con {npc:11799}.",
 	-- {quest:6127} The Principal Source · {area:384} Dreadmist Peak
 	["{quest:6127}: {area:384}, next guide"] = "{quest:6127}: {area:384}, siguiente guía",
+	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
+	["{item:15877}, from a {object:177785} in the lake"] = "{item:15877}, de un {object:177785} en el lago",
+	-- {area:2362} Shrine of Remulos
+	["At the {area:2362}"] = "En el {area:2362}",
 	-- {npc:11799} Tajarri · {area:2362} Shrine of Remulos
 	["{npc:11799}, at the {area:2362}"] = "{npc:11799}, en {area:2362}",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven · {zone:1454} Orgrimmar
@@ -78,10 +82,11 @@ return {
 	-- {npc:1978} Deathstalker Erland · {npc:1950} Rane Yorick
 	["{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way."] = "{npc:1978} espera al noreste de la casa. Escóltalo de vuelta con {npc:1950}; los huargos atacan en el camino.",
 
-	-- Step 16: Worgs and murlocs
-	["Worgs and murlocs"] = "Huargos y múrlocs",
-	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg · Vile Fin Shredders = {npc:1767} Vile Fin Shredder
-	["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Los Huargos jaspeados ({npc:1766}) merodean las colinas alrededor de la casa. Luego camina al sur por la orilla del lago: los Machacadores Anca Vil ({npc:1767}) y Cazamareas de allí sueltan los ojos de múrloc.",
+	-- Step 16: Mottled Worgs
+	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
+	["Mottled Worgs"] = "Huargos jaspeados",
+	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
+	["Mottled Worgs prowl the hills around the house."] = "Los Huargos jaspeados merodean las colinas alrededor de la casa.",
 
 	-- Step 17: Hearth to the Sepulcher
 	-- {area:228} Sepulcher
@@ -91,11 +96,16 @@ return {
 	-- {object:1593} Corpse Laden Boat · {area:228} Sepulcher
 	["The {object:1593} lies at the ferry landing on the lake shore east of the {area:228}."] = "{object:1593} está en el embarcadero de la orilla del lago, al este de {area:228}.",
 
-	-- Step 20: The Ivar Patch
-	-- {quest:425} Ivar the Foul
-	["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "De nuevo al norte, a la casa de los Yorick. {quest:425} acecha a poca distancia al oeste.",
+	-- Step 20: Quinn Yorick
+	["North again to the Yoricks' house."] = "De nuevo al norte, a la casa de los Yorick.",
 
-	-- Step 21: Fenris Isle
+	-- Step 21: Vile Fin murlocs
+	["Vile Fin murlocs"] = "Múrlocs Anca Vil",
+	-- {area:172} Fenris Isle
+	-- plural, as words: Vile Fin Shredders = {npc:1767} Vile Fin Shredder
+	["Follow the lake shore south-east toward {area:172}: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "Sigue la orilla del lago hacia el sureste, rumbo a {area:172}: los Machacadores Anca Vil y Cazamareas Anca Vil de allí sueltan los ojos de múrloc.",
+
+	-- Step 22: Fenris Isle
 	-- {area:172} Fenris Isle · {area:235} Fenris Keep
 	["Follow the lake shore south-east and swim out to {area:172}. Rot Hide gnolls cover the island; every type drops ichor. Stay out of {area:235} on its north side unless you go for the optional niche: the gnolls there are level 18-22."] = "Sigue la orilla del lago al sureste y nada hasta {area:172}. Los gnolls Putrepellejo cubren la isla; todos los tipos sueltan icor. No entres en {area:235}, en el lado norte, salvo que vayas por la opción extra: los gnolls de allí son de nivel 18-22.",
 	-- {item:3317} A Talking Head
@@ -105,36 +115,24 @@ return {
 	-- {object:112888} Dusty Shelf
 	["{object:112888}, inside the keep"] = "{object:112888}, dentro de la fortaleza",
 
-	-- Step 22: Sepulcher
+	-- Step 23: Sepulcher
 	-- {area:228} Sepulcher
 	["Swim back and follow the road west to the {area:228}."] = "Nada de regreso y sigue el camino al oeste hasta {area:228}.",
+	-- {npc:1937} Apothecary Renferrel
+	["{npc:1937}: for Quinn, on the road north at the end"] = "{npc:1937}: para Quinn, en el camino al norte al final",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril
 	["{npc:2121}: {quest:516}, on the south loop"] = "{npc:2121}: {quest:516}, en el circuito sur",
-	-- {npc:1938} Dalar Dawnweaver · {quest:98298} Arugal's Folly
-	["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: acéptala si te la ofrece; puede seguir a su serie {quest:98298}, que la ruta no hace",
 
-	-- Step 23: Ambermill
+	-- Step 24: Ambermill
 	-- {area:233} Ambermill · {npc:2120} Archmage Ataeric
 	["South-east down the road to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Wizards and Watchers patrol the roads around it. Stay out of the middle, where {npc:2120} stands."] = "Al sureste por el camino hasta {area:233}. Los Protectores vigilan las afueras y los Magos el pueblo; ambos sueltan colgantes. Los Zahoríes y Vigías patrullan los caminos alrededor. No entres al centro, donde está {npc:2120}.",
 
-	-- Step 24: Moonrage Bloodhowlers
-	-- plural, as words: Moonrage Bloodhowlers = {npc:1924} Moonrage Bloodhowler
-	["Moonrage Bloodhowlers"] = "Aullasangres Furia Lunar ({npc:1924})",
-	-- {npc:1938} Dalar Dawnweaver · {quest:98298} Arugal's Folly · {area:233} Ambermill · {item:280375} Worgen Bits
-	["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "Solo si {npc:1938} te dio {quest:98298}: los Aullasangre merodean el bosque al suroeste de {area:233}, al este de Aldea Piroleña; sueltan {item:280375}.",
-
-	-- Step 25: The refugees
-	["The refugees"] = "Los refugiados",
-	-- {area:230} Greymane Wall
-	-- plural, as words: Haggard Refugees = {npc:2053} Haggard Refugee
-	["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "Los Refugiados enfermos y demacrados ({npc:2053}) deambulan por el camino al sur de Aldea Piroleña hacia {area:230}.",
-
-	-- Step 26: Beren's Peril
+	-- Step 25: Beren's Peril
 	-- {quest:516} Beren's Peril
 	-- plural, as words: Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
-	["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Al noreste de los refugiados, los Braceros Corvozarpa ({npc:1974}) y Guardianes rondan las ruinas de {quest:516} en el sureste del bosque.",
+	["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Al suroeste de Molino Ámbar, los braceros y guardianes Corvozarpa rondan las ruinas de {quest:516}, en el sureste del bosque.",
 
-	-- Step 28: Lordamere Lake shore
+	-- Step 27: Lordamere Lake shore
 	-- {area:1338} Lordamere Lake
 	["{area:1338} shore"] = "Orilla de {area:1338}",
 	-- {area:237} Decrepit Ferry · {area:228} Sepulcher
@@ -143,9 +141,13 @@ return {
 	-- {npc:1909} Vile Fin Lakestalker · {area:1338} Lordamere Lake · {zone:1421} Silverpine Forest
 	["grind on {npc:1909} at {area:1338}, {zone:1421}"] = "farmea {npc:1909} en {area:1338}, {zone:1421}",
 
-	-- Step 29: Apothecary Renferrel
+	-- Step 28: Apothecary Renferrel
 	-- {npc:2216} Apothecary Lydon · {area:272} Tarren Mill
 	["Keep it: {npc:2216} in {area:272}, a later guide"] = "Guárdala: {npc:2216} en {area:272}, en una guía posterior",
+
+	-- Step 29: The Ivar Patch
+	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
+	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Toma el camino al norte hacia {zone:1420}: la casa de los Yorick en {area:238} está de camino. {quest:425} acecha a poca distancia al oeste.",
 
 	-- Step 30: Brill
 	-- {zone:1420} Tirisfal Glades · {area:159} Brill · {npc:246152} Shari Stilwell
@@ -189,8 +191,17 @@ return {
 	["Speak with {npc:10540}, in Grommash Hold"] = "Habla con {npc:10540}, en la fortaleza de Thrall",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Moonrage Bloodhowlers"] = "Aullasangres Furia Lunar ({npc:1924})",
+	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Los Huargos jaspeados ({npc:1766}) merodean las colinas alrededor de la casa. Luego camina al sur por la orilla del lago: los Machacadores Anca Vil ({npc:1767}) y Cazamareas de allí sueltan los ojos de múrloc.",
+	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "De nuevo al norte, a la casa de los Yorick. {quest:425} acecha a poca distancia al oeste.",
 	-- ["North of the {area:228}. Nightlash haunts the {area:240}: kill it, then walk across the field."] = "Al norte de {area:228}. Latipesadilla ronda {area:240}: mátalo y luego cruza el campo.",
+	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Al noreste de los refugiados, los Braceros Corvozarpa ({npc:1974}) y Guardianes rondan las ruinas de {quest:516} en el sureste del bosque.",
+	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "Solo si {npc:1938} te dio {quest:98298}: los Aullasangre merodean el bosque al suroeste de {area:233}, al este de Aldea Piroleña; sueltan {item:280375}.",
+	-- ["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "Los Refugiados enfermos y demacrados ({npc:2053}) deambulan por el camino al sur de Aldea Piroleña hacia {area:230}.",
+	-- ["The refugees"] = "Los refugiados",
 	-- ["The {area:228}"] = "{area:228}",
 	-- ["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for {quest:30}."] = "{object:177790} está en la costa al oeste de {area:240}. Contiene {item:15882} para {quest:30}.",
+	-- ["Worgs and murlocs"] = "Huargos y múrlocs",
 	-- ["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228} es el pueblo cripta de los Renegados en medio del bosque. Todos los que necesitas están alrededor de la entrada de la cripta; {npc:2226}, el cuidador de murciélagos, está justo al este.",
+	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: acéptala si te la ofrece; puede seguir a su serie {quest:98298}, que la ruta no hace",
 }

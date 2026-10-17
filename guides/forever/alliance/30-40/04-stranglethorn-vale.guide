@@ -84,7 +84,7 @@ step Ajeck Rouack
 # ---------------------------------------------------------------- Rebel Camp
 
 step Rebel Camp
-  tip Take the road north; Private Thorsen stands on it, the camp sits in the hills to the west.
+  tip Take the road north; Private Thorsen patrols it, the camp sits in the hills to the west.
   accept 215                          -- Private Thorsen
   turnin 215                          -- Lieutenant Doren, in the hut
   accept 200
@@ -161,7 +161,7 @@ step Bloodscalp trolls
 step Nesingwary's Expedition
   turnin 195                          -- Hemet Nesingwary
   turnin 188                          -- Ajeck Rouack
-  complete 201                        -- Investigate the Camp: just look around the hunters' camp
+  complete 201 @35.65,10.59           -- Investigate the Camp: just look around the hunters' camp
 
 step Private Thorsen
   tip Thorsen patrols the road north of camp, toward the Rebel Camp.
@@ -194,7 +194,7 @@ step Booty Bay
 
 step The haunted island
   tip Follow the west coast north; the haunted island lies off the shore west of Nesingwary's camp. Just reach it.
-  complete 578
+  complete 578 @20.8,23.2
 
 step Nesingwary's Expedition
   tip Barnil collects the Green Hills of Stranglethorn: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go.
@@ -216,7 +216,10 @@ step Kurzen's Compound
 
 step The jungle ruins
   tip Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on Lake Nazferiti carries the Tumbled Crystals.
-  complete 207                        -- Kurzen's Mystery: four troll legends
+  collect 2005 quest 207.1            -- The First Troll Legend: Moon Over the Vale
+  collect 2006 quest 207.2            -- The Second Troll Legend: Gri'lek the Wanderer
+  collect 2007 quest 207.3            -- The Third Troll Legend: Fall of Gurubashi
+  collect 2008 quest 207.4            -- The Fourth Troll Legend: The Emperor's Tomb
   kill 684 quest 192                  -- Shadowmaw Panther
   collect 4106 quest 213              -- Tumbled Crystal
   complete 339                        -- Chapter I

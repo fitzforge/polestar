@@ -51,6 +51,10 @@ next forever/alliance/50-60/01-burning-steppes
 
 # ---------------------------------------------------------------- The way in
 
+step Thelsamar
+  zone Loch Modan
+  sethome "Stoutlager Inn" npc 6734   -- Innkeeper Hearthstove: the last guide hearths you here, so this usually ticks at once
+
 step Gadgetzan
   zone Tanaris
   tip From Thelsamar fly to Menethil Harbor, take the boat to Theramore and fly on to Gadgetzan. Torwa's first quest in the crater needs level 48: finish the level here if you are short.
@@ -261,7 +265,7 @@ step Krakle
 
 step Krakle's Thermometer
   tip Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vents near the top.
-  complete 974
+  interact 148503 quest 974.1         -- Fire Plume Ridge Hot Spot
 
 step Krakle
   turnin 974

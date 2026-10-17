@@ -7,6 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Everlook
+	-- {npc:11118} Innkeeper Vizzie
+	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
 	-- {npc:11629} Jessica Redpath · {area:2262} Darrowshire
 	["{npc:11629}: keep it for {area:2262}"] = "{npc:11629}: {area:2262}을(를) 위해 보관하세요",
 	-- {npc:10431} Gregor Greystone

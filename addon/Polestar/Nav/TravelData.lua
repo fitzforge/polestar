@@ -348,17 +348,18 @@ N.RegisterTravelData({
 		80,32,3149,
 		80,64,3960,
 	},
-	-- ends: name, continent, wx, wy, uiMapID, x, y, frame ("e" Era, "l" live), AreaTable area (its name in the client's language); seconds riding a->b, b->a and waiting at a, b
+	-- ends: name, continent, wx, wy, uiMapID, x, y, frame ("e" Era, "l" live), AreaTable area (its name in the client's language)
+	-- [, board = { wx, wy, z }: where a ship lying off its pier is boarded, on the deck]; seconds riding a->b, b->a and waiting at a, b
 	transports = {
 		{a={"Booty Bay",0,-14298.1,539.4,1434,26.35,73.56,"e",35},ab=124,b={"Ratchet",1,-985.3,-3796.6,1413,63.35,38.45,"e",392},ba=107,faction=3,id="boat-bootybay-ratchet",kind="boat",waitA=185,waitB=185},
-		{a={"Menethil Harbor",0,-3905.2,-585.8,1437,4.74,63.76,"e",150},ab=104,b={"Theramore",1,-4016.4,-4740.6,1445,71.73,56.66,"e",513},ba=106,faction=1,id="boat-menethil-theramore",kind="boat",waitA=175,waitB=175},
-		{a={"Menethil Harbor",0,-3709.5,-575.1,1437,4.49,56.66,"e",150},ab=142,b={"Southshore",0,-1102.6,-554.7,1424,50.67,70.44,"e",271},ba=224,faction=1,id="boat-menethil-southshore",kind="boat",waitA=253,waitB=253},
-		{a={"Southshore",0,-1102.6,-554.7,1424,50.67,70.44,"e",271},ab=85,b={"Auberdine",1,6406.2,823.1,1439,32.34,44.13,"e",442},ba=282,faction=1,id="boat-southshore-auberdine",kind="boat",waitA=253,waitB=253},
-		{a={"Menethil Harbor",0,-3709.5,-575.1,1437,4.49,56.66,"e",150},ab=287,b={"Auberdine",1,6406.2,823.1,1439,32.34,44.13,"e",442},ba=80,faction=1,id="boat-menethil-auberdine",kind="boat",waitA=253,waitB=253},
-		{a={"Stormwind Harbor",0,-8654.5,1344.4,1453,21.78,56.86,"l",17203},ab=60,b={"Auberdine",1,6548.3,942.2,1439,30.53,40.88,"e",442},ba=67,faction=1,id="boat-stormwind-auberdine",kind="boat",waitA=134,waitB=134},
+		{a={"Menethil Harbor",0,-3905.2,-585.8,1437,4.74,63.76,"e",150,{wx=-3901,wy=-596.9,z=5.4}},ab=104,b={"Theramore",1,-4016.4,-4740.6,1445,71.73,56.66,"e",513,{wx=-4007.3,wy=-4732.3,z=5.4}},ba=106,faction=1,id="boat-menethil-theramore",kind="boat",waitA=175,waitB=175},
+		{a={"Menethil Harbor",0,-3709.5,-575.1,1437,4.49,56.66,"e",150,{wx=-3717.7,wy=-584.4,z=4.9}},ab=142,b={"Southshore",0,-1102.6,-554.7,1424,50.67,70.44,"e",271,{wx=-1090.6,wy=-551,z=5.9}},ba=224,faction=1,id="boat-menethil-southshore",kind="boat",waitA=253,waitB=253},
+		{a={"Southshore",0,-1102.6,-554.7,1424,50.67,70.44,"e",271,{wx=-1090.6,wy=-551,z=5.9}},ab=85,b={"Auberdine",1,6406.2,823.1,1439,32.34,44.13,"e",442,{wx=6417.7,wy=819.8,z=5.9}},ba=282,faction=1,id="boat-southshore-auberdine",kind="boat",waitA=253,waitB=253},
+		{a={"Menethil Harbor",0,-3709.5,-575.1,1437,4.49,56.66,"e",150,{wx=-3717.7,wy=-584.4,z=4.9}},ab=287,b={"Auberdine",1,6406.2,823.1,1439,32.34,44.13,"e",442,{wx=6417.7,wy=819.8,z=5.9}},ba=80,faction=1,id="boat-menethil-auberdine",kind="boat",waitA=253,waitB=253},
+		{a={"Stormwind Harbor",0,-8654.5,1344.4,1453,21.78,56.86,"l",17203,{wx=-8651,wy=1332.3,z=5.6}},ab=60,b={"Auberdine",1,6548.3,942.2,1439,30.53,40.88,"e",442,{wx=6544.8,wy=930.2,z=5.9}},ba=67,faction=1,id="boat-stormwind-auberdine",kind="boat",waitA=134,waitB=134},
 		{a={"Steamwheedle Port",1,-6937.6,-4881.1,1446,67.57,23.1,"e",977},ab=77,b={"Powderfuse Port",0,-8193.3,-5741.6,2548,79.38,53.4,"l",16727},ba=75,faction=3,id="boat-tanaris-powderfuse",kind="boat",waitA=146,waitB=146},
-		{a={"Auberdine",1,6594.4,759.8,1439,33.31,39.82,"e",442},ab=92,b={"Rut'theran Village",1,8533.7,1025.1,1438,54.79,97.17,"e",702},ba=105,faction=1,id="boat-auberdine-ruttheran",kind="boat",waitA=168,waitB=168},
-		{a={"Feathermoon Stronghold",1,-4197.3,3286.6,1444,31.01,39.51,"e",1116},ab=60,b={"The Forgotten Coast",1,-4347.8,2444.4,1444,43.13,42.76,"e",1108},ba=137,faction=1,id="boat-feathermoon",kind="boat",waitA=169,waitB=169},
+		{a={"Auberdine",1,6594.4,759.8,1439,33.31,39.82,"e",442,{wx=6582.3,wy=761.5,z=5.9}},ab=92,b={"Rut'theran Village",1,8533.7,1025.1,1438,54.79,97.17,"e",702,{wx=8544.8,wy=1026,z=5.9}},ba=105,faction=1,id="boat-auberdine-ruttheran",kind="boat",waitA=168,waitB=168},
+		{a={"Feathermoon Stronghold",1,-4197.3,3286.6,1444,31.01,39.51,"e",1116,{wx=-4209.4,wy=3290.6,z=5.7}},ab=60,b={"The Forgotten Coast",1,-4347.8,2444.4,1444,43.13,42.76,"e",1108,{wx=-4346.9,wy=2430.2,z=5.9}},ba=137,faction=1,id="boat-feathermoon",kind="boat",waitA=169,waitB=169},
 		{a={"Orgrimmar",1,1331,-4649.6,1411,50.82,13.54,"e",1637},ab=131,b={"Undercity",0,2064,288.6,1420,60.74,58.87,"e",1497},ba=105,faction=2,id="zeppelin-orgrimmar-undercity",kind="zeppelin",waitA=188,waitB=188},
 		{a={"Orgrimmar",1,1354,-4642.7,1411,50.69,12.89,"e",1637},ab=78,b={"Grom'gol",0,-12441.2,215.2,1434,31.43,29.91,"e",117},ba=105,faction=2,id="zeppelin-orgrimmar-gromgol",kind="zeppelin",waitA=162,waitB=162},
 		{a={"Undercity",0,2054.7,241.6,1420,61.78,59.18,"e",1497},ab=96,b={"Grom'gol",0,-12417.8,208.2,1434,31.54,29.36,"e",117},ba=117,faction=2,id="zeppelin-undercity-gromgol",kind="zeppelin",waitA=177,waitB=177},

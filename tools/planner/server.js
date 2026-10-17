@@ -14,6 +14,9 @@
 //   GET  /nav/index.json               the navigation grid: { build, continents: { [c]: ['col_row'] } } (tiles built), or 404
 //   GET  /nav/tile/<c>/<col>_<row>.png the Walkable layer of an ADT tile (navpool.js walkable), 256x256
 //   GET  /nav/aids.json                the arrow aids (data/local/nav/aids.json) as world points (Workspace.navAids), or 404
+//   GET  /nav/roads/index.json         the roads layer (data/local/nav-layers/roads/index.json): { build, continents: { [c]: ['col_row'] } } (tiles with road), or 404
+//   GET  /nav/roads/tile/<c>/<col>_<row>.png  the Roads layer of an ADT tile (tools/lib/nav/layers/roads.js roadsPng), 256x256
+//   GET  /nav/hubs.json                the Hubs layer (data/local/nav-layers/hubs.json): { [c]: [{ id, side, name, areaId, disks: [[x, y, r]] }] }, or 404
 //   GET  /glyph/<name>.png?px=<24..256>  a Polestar glyph, white on transparent (default 96 px)
 //   GET  /emblem.png?px=               the Polestar emblem
 //   GET  /band.png, /band-stars.png    the night-sky header layers (1024x128)
@@ -43,6 +46,8 @@ const { PlannerError } = require('./workspace');
 const { version } = require('../../package.json');
 const glyphs = require('./glyphs');
 const { openIcons, keyOf, KINDS } = require('./icons');
+const roads = require('../lib/nav/layers/roads');
+const { HUBS_FILE } = require('../lib/nav/layers/hubs');
 
 const PUBLIC = path.join(__dirname, 'public');
 const TYPES = {
@@ -110,9 +115,11 @@ function staticFile(res, dir, rel, cache = 'no-cache', extra = {}, type = null) 
 }
 
 // opts: { port, host, workspace, artDir, icons (an openIcons() service;
-// default the local one under data/local/planner/icons), log } -> { server, url, port, close }
+// default the local one under data/local/planner/icons), roadsDir (the roads
+// layer, default data/local/nav-layers/roads), hubsFile (the hubs layer,
+// default data/local/nav-layers/hubs.json), log } -> { server, url, port, close }
 async function startServer(opts = {}) {
-	const { port = 8078, host = '127.0.0.1', workspace: ws, artDir = ws ? ws.artDir : null, icons = openIcons(), log = () => {} } = opts;
+	const { port = 8078, host = '127.0.0.1', workspace: ws, artDir = ws ? ws.artDir : null, icons = openIcons(), roadsDir = roads.ROADS_DIR, hubsFile = HUBS_FILE, log = () => {} } = opts;
 	if (!ws) throw new Error('startServer needs a workspace');
 	const art = artDir ? path.resolve(artDir) : null;
 	const clients = new Set();
@@ -198,6 +205,21 @@ async function startServer(opts = {}) {
 			const nav = ws.navRoutes();
 			const data = nav ? nav.walkable(Number(m[1]), Number(m[2]), Number(m[3])) : null;
 			return data ? send(res, 200, 'image/png', data, 'no-cache') : json(res, 404, { error: 'no such nav tile' });
+		}
+		if (pathname === '/nav/roads/index.json') {
+			const file = path.join(roadsDir, 'index.json');
+			return fs.existsSync(file) ? jsonFor(req, res, 200, JSON.parse(fs.readFileSync(file, 'utf8'))) : json(res, 404, { error: 'no roads layer: run node tools/polestar.js nav layers roads' });
+		}
+		if ((m = /^\/nav\/roads\/tile\/(\d+)\/(\d+)_(\d+)\.png$/.exec(pathname))) {
+			const w = roads.roadWeights(Number(m[1]), Number(m[2]), Number(m[3]), roadsDir);
+			return w ? send(res, 200, 'image/png', roads.roadsPng(w), 'no-cache') : json(res, 404, { error: 'no such roads tile' });
+		}
+		if (pathname === '/nav/hubs.json') {
+			if (!fs.existsSync(hubsFile)) return json(res, 404, { error: 'no hubs layer: run node tools/polestar.js nav layers hubs' });
+			const doc = JSON.parse(fs.readFileSync(hubsFile, 'utf8'));
+			const out = {};
+			for (const c of doc.maps || []) out[c] = doc[c] || [];
+			return jsonFor(req, res, 200, out);
 		}
 		return json(res, 404, { error: 'not found' });
 	}

@@ -20,9 +20,23 @@ next forever/alliance/03-darkshore
 # Deviations from the export:
 # - The simulator took Sentinel Hill's quests (102, 12, 153, 92742, 92744,
 #   92745) only on its second pass at 14.8 and then walked the north a
-#   second time; here they are taken on arrival and the north is one loop.
+#   second time; here they are taken on arrival and the north is one loop,
+#   except The State of the Mines (92745, Forever): Alba offers it only once
+#   Testing the Wells (92742) is handed in (#143; the quest data has no
+#   prerequisite for it). It is taken at the Sentinel Hill stop after the
+#   north loop, then Jangolode Mine's kobolds, the Gold Coast Quarry and the
+#   western farms, and handed in at the next stop, where Moonbrook
+#   Espionage (92747) follows. Measured with sim compare (hours to 20, Human
+#   / Dwarf / Night Elf / Skyborne, against the old impossible order): this
+#   way +0.03 / +0.03 / +0.03 / +0.03; handing the vials in from Molsen Farm
+#   in the middle of the loop instead +0.06 / +0.06 / +0.06 / +0.06.
 # - Harvesting the Harvesters (92910) starts from an item the Golems and
 #   Watchers drop: it is picked up on the farms rather than at Alexston.
+# - Left out: the second Harvesting the Harvesters (92911). Ozwin offers it
+#   only once 92910 is handed in (its text follows the assembly; #51, the
+#   quest data has no prerequisite for it), and the route does not come
+#   back to Saldean's after that; it also asks for Copper Modulators and a
+#   Crude Scope, Engineering parts.
 # - Left out: Continue to Stormwind (6281): the route accepts it but never
 #   turns it in. Of Mice and Milk (93928, re-checked on the 2026 refresh):
 #   the new route still accepts it and never turns it in; it ends at Hemet
@@ -51,8 +65,7 @@ next forever/alliance/03-darkshore
 #   the hill is walked down once.
 #
 # Optional: Furlbrow's Deed (184), only with the Westfall Deed from Elwynn's
-# Defias. The second Harvesting the Harvesters (92911) turn-in is optional:
-# reports say Ozwin also asks for engineering parts.
+# Defias.
 #
 # Class quests: Human Warriors take the Defensive Stance quests (1638, 1639,
 # 1640, 1665) and Human Priests hand in Desperate Prayer and Divine Grace
@@ -78,12 +91,17 @@ next forever/alliance/03-darkshore
 # see above) and its follow-up Explosive Consultation (92752), which only
 # leads back to Alba and the Deadmines.
 # Skyborne turn in Journey to Sentinel Hill (98021).
+# Alba Fairmoon's whole chain (92742, 92744, 92745, 92747, 92748, 92749,
+# 92750, 92751, 92752, 92753, 92819) is not for Humans on
+# Forever: Wowhead Forever lists Dwarf, Night Elf, Gnome and Skyborne (#144).
+# Its goals carry `only Dwarf,Gnome,NightElf,Skyborne`; the two mine steps,
+# which are only for 92745, carry it on the step.
 
 # ---------------------------------------------------------------- Sentinel Hill
 
 step Sentinel Hill
   zone Westfall
-  tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan and Alba Fairmoon on the south side of the hill, next to the inn and Thor the gryphon master.
+  tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan on the south side of the hill, next to the inn and Thor the gryphon master.
   accept 6181 only Human                      -- Quartermaster Lewis
   sethome "Sentinel Hill"
   getfp "Sentinel Hill"
@@ -92,9 +110,8 @@ step Sentinel Hill
   accept 102                                  -- Captain Danuvin
   turnin 6181 only Human                      -- Thor; skip the free flight it offers
   accept 153                                  -- Scout Galiaan
-  accept 92742                                -- Alba Fairmoon
-  accept 92744
-  accept 92745
+  accept 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon, beside Scout Galiaan
+  accept 92744 only Dwarf,Gnome,NightElf,Skyborne
 
 # ---------------------------------------------------------------- Saldean's and the Jansen Stead
 
@@ -104,16 +121,15 @@ step Saldean's Farm
   accept 9
   accept 22                                   -- Salma Saldean
   accept 92909                                -- Ozwin Ironsprocket
-  accept 92911
 
 step The Jansen Stead
-  tip Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go and fill the vial at the stead's well.
+  tip Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go.
   accept 36                                   -- Verna Furlbrow
   accept 151
   accept 64                                   -- Farmer Furlbrow
   accept 184 optional                         -- Only if you looted a Westfall Deed in Elwynn: right-click it
   turnin 184 optional
-  collect 254546 quest 92742.1 @56.6,18.6     -- Fill the vial at the well
+  collect 254546 quest 92742.1 @56.6,18.6 only Dwarf,Gnome,NightElf,Skyborne -- Fill the vial at the well
   collect 1528 quest 151                      -- Sacks of Oats
 
 step Saldean's Farm
@@ -125,11 +141,10 @@ step Saldean's Farm
 
 step Molsen Farm
   tip West of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks here: leave it alone. Keep killing Goretusks and Fleshrippers on every leg of this loop.
-  collect 254547 quest 92742.2 @46.1,38.2     -- Fill the vial at the farm's well
+  collect 254547 quest 92742.2 @46.1,38.2 only Dwarf,Gnome,NightElf,Skyborne -- Fill the vial at the farm's well
   kill 114 quest 9                            -- Harvest Watchers
   collect 255007 quest 92909.1
   collect 255010 quest 92909.2
-  collect 255007 quest 92911.1
   collect 732 quest 38.4                      -- Okra
   collect 255155                              -- Precessive Autocognition Assembly
   accept 92910
@@ -137,13 +152,8 @@ step Molsen Farm
   collect 731 quest 38.3                      -- Goretusk Snout
   collect 729 quest 38.1                      -- Stringy Vulture Meat: Fleshrippers
 
-step The Gold Coast Quarry
-  tip West of Molsen Farm, toward the coast. Riverpaw Miners work the quarry.
-  kill 1426 quest 92745.2                     -- Riverpaw Miners
-
 step Jangolode Mine
-  tip North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine, Kobold Diggers work inside. Furlbrow's Wardrobe stands by the ruined house east of the mine.
-  kill 1236 quest 92745.1                     -- Kobold Diggers
+  tip North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. Furlbrow's Wardrobe stands by the ruined house east of the mine.
   kill 504 quest 12
   kill 95 quest 12
   collect 841 quest 64                        -- Furlbrow's Wardrobe
@@ -151,7 +161,7 @@ step Jangolode Mine
 
 step The north coast
   tip Murloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time.
-  collect 254548 quest 92744                  -- Longshore Murloc Gills
+  collect 254548 quest 92744 only Dwarf,Gnome,NightElf,Skyborne -- Longshore Murloc Gills
   collect 730 quest 38.2                      -- Murloc Eye
 
 step The gnoll hills
@@ -168,18 +178,28 @@ step Saldean's Farm
   turnin 38
   turnin 92909                                -- Ozwin Ironsprocket
   turnin 92910
-  turnin 92911 optional                       -- Only if he takes the isosprings alone
 
 step Sentinel Hill
   turnin 109                                  -- Gryan Stoutmantle
   turnin 12
   accept 13
   turnin 102                                  -- Captain Danuvin
-  turnin 92742                                -- Alba Fairmoon
-  turnin 92744
-  turnin 92745
-  accept 92747                                -- Alba Fairmoon
+  turnin 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
+  turnin 92744 only Dwarf,Gnome,NightElf,Skyborne
+  accept 92745 only Dwarf,Gnome,NightElf,Skyborne
   vendor nearest
+
+# ---------------------------------------------------------------- The mines
+
+step Jangolode Mine
+  only Dwarf,Gnome,NightElf,Skyborne
+  tip Back north past Molsen Farm to the mine: Kobold Diggers work inside.
+  kill 1236 quest 92745.1                     -- Kobold Diggers
+
+step The Gold Coast Quarry
+  only Dwarf,Gnome,NightElf,Skyborne
+  tip South-west to the coast, west of Molsen Farm. Riverpaw Miners work the quarry.
+  kill 1426 quest 92745.2                     -- Riverpaw Miners
 
 # ---------------------------------------------------------------- West and south
 
@@ -192,6 +212,8 @@ step The western farms
 step Sentinel Hill
   turnin 13                                   -- Gryan Stoutmantle
   accept 14
+  turnin 92745 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
+  accept 92747 only Dwarf,Gnome,NightElf,Skyborne
   turnin 153                                  -- Scout Galiaan
 
 step Moonbrook and the Defias hills
@@ -199,14 +221,14 @@ step Moonbrook and the Defias hills
   kill 121 quest 14
   kill 449 quest 14
   kill 122 quest 14
-  collect 254676 quest 92747.1                -- Suspicious Industrial Supplies, from the crates around Moonbrook
+  collect 254676 quest 92747.1 only Dwarf,Gnome,NightElf,Skyborne -- Suspicious Industrial Supplies, from the crates around Moonbrook
 
 step Back to Sentinel Hill
   hearth "Sentinel Hill"                      -- Hearthstone on cooldown? Follow the road north-east.
   turnin 14                                   -- Gryan Stoutmantle
   accept 65                                   -- For Wiley the Black in Lakeshire, Redridge
-  turnin 92747                                -- Alba Fairmoon
-  accept 92748                                -- For Sprite Jumpsprocket in Stormwind's Dwarven District
+  turnin 92747 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
+  accept 92748 only Dwarf,Gnome,NightElf,Skyborne -- For Sprite Jumpsprocket in Stormwind's Dwarven District
   vendor nearest
 
 # ---------------------------------------------------------------- Stormwind and the boat
@@ -240,10 +262,10 @@ step Shaman training
 
 step Stormwind
   zone Stormwind City
-  tip Fly or ride to Stormwind. Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Park (Druids). Sprite Jumpsprocket works in the Dwarven District, Morgan Pestle in the Trade District.
+  tip Fly or ride to Stormwind. Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Park (Druids).
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 12, 14 and 16 spells
   buy 2449 x5 npc 1313 optional only NightElf,Druid -- Earthroot for Gathering the Cure (6123) in Darkshore: Maria Lumere, Alchemy Supplies; herbalists pick it there instead
-  turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
+  turnin 92748 only Dwarf,Gnome,NightElf,Skyborne -- Sprite Jumpsprocket, Dwarven District
   turnin 1861 only Mage choose 9513 7508      -- Jennea Cannon, Wizard's Sanctum: Mirror Lake
   turnin 61 only Human                        -- Morgan Pestle, Trade District
 
@@ -253,4 +275,4 @@ step Fishin' Time
   buy 6530 x3 npc 5494                        -- Nightcrawlers
   accept 95065                                -- Gilbert Gray
   turnin 95065
-  goto 21.8,56.9 "Boat to Auberdine" live
+  goto 22.71,56.69 "Boat to Auberdine" live

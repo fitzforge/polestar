@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Poisoned Water
 	-- {item:17310} Aspect of Neptulon · {zone:1423} Eastern Plaguelands · {item:17309} Discordant Bracers
-	["Use the {item:17310} on the poisoned water elementals of {zone:1423}, then loot their {item:17309} (12). Our data has no spawn points for those elementals."] = "对{zone:1423}中被污染的水元素使用{item:17310}，然后拾取它们的{item:17309}（12个）。我们的数据中没有这些元素的刷新点。",
+	["Use the {item:17310} on the poisoned water elementals of {zone:1423}, then loot their {item:17309} (12)."] = "对{zone:1423}中被污染的水元素使用{item:17310}，然后拾取它们的{item:17309}（12个）。",
 
 	-- Step 4: Back to Duke Hydraxis
 	-- {npc:13278} Duke Hydraxis
@@ -56,5 +56,6 @@ return {
 	["Keep clearing the {area:2717} until Exalted."] = "继续通关{area:2717}，直到崇拜。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Use the {item:17310} on the poisoned water elementals of {zone:1423}, then loot their {item:17309} (12). Our data has no spawn points for those elementals."] = "对{zone:1423}中被污染的水元素使用{item:17310}，然后拾取它们的{item:17309}（12个）。我们的数据中没有这些元素的刷新点。",
 	-- ["{npc:9816} in Upper {area:1583} drops the {quest:6821}. This needs a raid group."] = "{area:1583}上层的{npc:9816}掉落{quest:6821}。这需要团队。",
 }

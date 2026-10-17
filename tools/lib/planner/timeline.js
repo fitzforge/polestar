@@ -286,8 +286,11 @@ function network(travel, faction) {
 	const transports = (travel.transports || []).filter((t) => (t.faction & bit) !== 0 && t.a && t.b);
 	const rides = [];
 	for (const t of transports) {
-		rides.push({ kind: t.kind, from: t.a, to: t.b, ride: Number(t.ab) || 0, wait: Number(t.waitA) || 0 });
-		rides.push({ kind: t.kind, from: t.b, to: t.a, ride: Number(t.ba) || 0, wait: Number(t.waitB) || 0 });
+		// Walked to and from the deck where a ship lying off its pier is boarded (travel build's `board`).
+		const da = t.a.board ? { ...t.a, ...t.a.board } : t.a;
+		const db = t.b.board ? { ...t.b, ...t.b.board } : t.b;
+		rides.push({ kind: t.kind, from: da, to: db, ride: Number(t.ab) || 0, wait: Number(t.waitA) || 0 });
+		rides.push({ kind: t.kind, from: db, to: da, ride: Number(t.ba) || 0, wait: Number(t.waitB) || 0 });
 	}
 	const inns = travel.inns || [];
 	return (byFaction[faction] = { nodes, into, rides, inns, toDest: new Map() });

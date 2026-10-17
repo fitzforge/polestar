@@ -26,7 +26,7 @@ function partOf(map, wx, wy) {
 	return { k, file };
 }
 
-// Walks crossing several clusters (and part files, on his maps too): Stranglethorn's jungle to Goldshire,
+// Walks crossing several clusters (and part files): Stranglethorn's jungle to Goldshire,
 // the Crossroads to Camp Taurajo.
 const WALKS = {
 	0: [[-11920, -480], [-9444.062, 77.667]],

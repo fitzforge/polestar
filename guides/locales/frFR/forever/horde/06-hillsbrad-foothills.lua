@@ -8,7 +8,9 @@
 return {
 	-- Step 1: Tarren Mill
 	-- {area:272} Tarren Mill
-	["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Vous arrivez lié à l'auberge de {area:272}. Tout le monde se tient autour de la place du village.",
+	["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} est votre base pour ce guide : la pierre de foyer vous y ramène deux fois. Tout le monde se tient autour de la place du village.",
+	-- {npc:2388} Innkeeper Shay
+	["{npc:2388}: the last guide binds here, so this usually ticks at once"] = "{npc:2388} : le guide précédent vous lie ici, cette étape se coche donc généralement aussitôt",
 	-- {object:1763} WANTED
 	["The {object:1763} poster by the inn"] = "L'affiche {object:1763} près de l'auberge",
 	-- {quest:567} Dangerous!
@@ -36,41 +38,45 @@ return {
 	-- Step 5: Tarren Mill
 	-- {npc:2230} Umpi
 	["{npc:2230}, next to Lydon"] = "{npc:2230}, à côté de l'Apothicaire Lydon",
+
+	-- Step 6: Stanley
+	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
+	["{npc:2274} is {npc:232}'s dog, at the northern farmhouse in {area:286}."] = "{npc:2274} est le chien de {npc:232}, à la ferme du nord dans {area:286}.",
+
+	-- Step 7: Peasants and skulls
+	["Peasants and skulls"] = "Paysans et crânes",
+	-- {area:287} Hillsbrad
+	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Les Paysans d'Hillsbrad travaillent les champs au sud des fermes. Tous les humains de {area:287} lâchent des crânes ; les Paysans le plus souvent.",
+	-- {item:3692} Hillsbrad Human Skull
+	["{item:3692}: the Peasants in the fields"] = "{item:3692} : les Paysans d'Hillsbrad dans les champs",
+
+	-- Step 8: Tarren Mill
 	-- {npc:2215} High Executor Darthalia · {npc:270438} Deathstalker Masoj
 	["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215} : ordres pour {npc:270438}, sur la route de Fort-de-Durn",
 
-	-- Step 6: Syndicate camps
+	-- Step 9: Syndicate camps
 	["Syndicate camps"] = "Camps du Syndicat",
 	-- {area:272} Tarren Mill · {area:275} Durnholde Keep
 	["From {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Depuis {area:272}, allez au sud-est dans les collines en direction de {area:275}. Des Voleurs et des Sentinelles du Syndicat tiennent les camps en chemin.",
 
-	-- Step 7: Durnholde Keep
+	-- Step 10: Durnholde Keep
 	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep
 	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Drull et {npc:2238} sont enchaînés dans les bâtiments de la cour de {area:275} ; ouvrez les deux cadenas.",
 	["Drull's ball and chain"] = "Boulet et chaîne de Drull",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Boulet et chaîne de {npc:2238}",
 
-	-- Step 8: Deathstalker Masoj
+	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
 	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj se cache sur le flanc de colline au-dessus de {area:290}, au sud de Fort-de-Durn, en descendant vers les fleurs.",
 
-	-- Step 9: Mudsnout Blossoms
+	-- Step 12: Mudsnout Blossoms
 	-- {item:3502} Mudsnout Blossoms
 	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "Au sud-ouest de Fort-de-Durn, les {item:3502} poussent sur les collines au-dessus de la rivière.",
 
-	-- Step 10: Tarren Mill
+	-- Step 13: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
 	["{npc:2055}, in the {zone:1458}"] = "{npc:2055}, à {zone:1458}",
-
-	-- Step 11: Stanley
-	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
-	["{npc:2274} is {npc:232}'s dog, at the northern farmhouse in {area:286}."] = "{npc:2274} est le chien de {npc:232}, à la ferme du nord dans {area:286}.",
-
-	-- Step 12: Peasants and skulls
-	["Peasants and skulls"] = "Paysans et crânes",
-	-- {area:287} Hillsbrad
-	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Les Paysans d'Hillsbrad travaillent les champs au sud des fermes. Tous les humains de {area:287} lâchent des crânes ; les Paysans le plus souvent.",
 
 	-- Step 14: The smithy
 	["The smithy"] = "La forge",
@@ -117,8 +123,8 @@ return {
 	["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "Suivez la route vers le sud jusqu'au site de fouilles des nains à {area:359}. {npc:3421} se cache au bord sud des fouilles ; {object:3646} se trouve au fond de l'excavation.",
 
 	-- Step 26: Great Lift
-	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift
-	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:1718}."] = "Au sud-ouest de Bael Modan, {npc:12576} attend en haut de {area:1718}.",
+	-- {npc:12576} Grish Longrunner · {area:485} Great Lift
+	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:485}."] = "Au sud-ouest de Bael Modan, {npc:12576} attend en haut de {area:485}.",
 
 	-- Step 27: Merchant Coast
 	-- {area:378} Camp Taurajo · {area:392} Ratchet · {quest:874} Mahren Skyseer
@@ -137,5 +143,6 @@ return {
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: Poisons."] = "Seulement si Gallywix est tombé dans {zone:1413} (Mission : possible mais non probable) : {npc:2391} se trouve à {area:272}. Attendez près de lui pendant qu'il prépare le remède, puis prenez votre récompense : Poisons.",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: {spell:2842}."] = "Seulement si Gallywix est tombé dans {zone:1413} (Mission : possible mais non probable) : {npc:2391} se tient à {area:272}. Attendez à côté de lui pendant qu'il prépare le remède, puis prenez votre récompense : {spell:2842}.",
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {item:3564} is stacked beside it. {npc:2449} walks the street north of it."] = "La forge se trouve au centre du village de {area:287}. {npc:2404} et ses apprentis y travaillent ; le {item:3564} est empilé à côté. {npc:2449} arpente la rue au nord.",
+	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Vous arrivez lié à l'auberge de {area:272}. Tout le monde se tient autour de la place du village.",
 	-- ["{npc:2055}, in the {object:36072}"] = "{npc:2055}, dans {object:36072}",
 }

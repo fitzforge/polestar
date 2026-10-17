@@ -478,8 +478,8 @@ test('continentTiles: every MAID tile with a root ADT, from Map.csv WdtFileDataI
 	set(5, 5, [0, 0, 0, 0, 0, 0, 0, 300]); // a minimap block without terrain
 	const casc = fakeCasc(new Map([[9000, Buffer.concat([chunk('MVER', u32(18)), chunk('MPHD', Buffer.alloc(32)), chunk('MAIN', Buffer.alloc(64 * 64 * 8)), chunk('MAID', maid)])]]), TABLES);
 	assert.deepEqual(await continentTiles(casc, 0), [
-		{ col: 1, row: 2, root: 200, obj0: 0 },
-		{ col: 32, row: 48, root: 100, obj0: 101 },
+		{ col: 1, row: 2, root: 200, obj0: 0, tex0: 0 },
+		{ col: 32, row: 48, root: 100, obj0: 101, tex0: 103 },
 	]);
 	await assert.rejects(continentTiles(casc, 7), /Map 7/);
 });

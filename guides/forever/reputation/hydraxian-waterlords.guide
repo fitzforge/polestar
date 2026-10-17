@@ -29,8 +29,8 @@ step Dust Stormers and Desert Rumblers
 
 step Poisoned Water
   zone Eastern Plaguelands
-  tip Use the Aspect of Neptulon on the poisoned water elementals of Eastern Plaguelands, then loot their Discordant Bracers (12). Our data has no spawn points for those elementals.
-  complete 6804
+  tip Use the Aspect of Neptulon on the poisoned water elementals of Eastern Plaguelands, then loot their Discordant Bracers (12).
+  collect 17309 quest 6804.1          -- Discordant Bracers
 
 step Back to Duke Hydraxis
   zone Azshara

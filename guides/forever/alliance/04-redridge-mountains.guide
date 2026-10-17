@@ -21,6 +21,11 @@ next forever/alliance/05-duskwood
 #   here every quest but Fangore's is taken on arrival and Galardell is one
 #   trip. The Fangore poster (180, quest level 26) is red at 20: it is taken
 #   at the second Lakeshire stop, around 21, right before the trip east.
+# - Alther's Mill (98386, Forever) is taken from Foreman Oslow when The
+#   Everstill Bridge (89) is handed in, at the second Lakeshire stop: he
+#   offers it only then (two Wowhead Forever comments; the quest data has no
+#   prerequisite for it, #51). The tarantulas are still killed on the trip
+#   east.
 # - The Lakeshire flight path and hearth (listed at the end of Darkshore in
 #   the export) are taken on arrival. The Darkshire flight path and hearth
 #   the export lists at the end of this visit belong to the Duskwood guide.
@@ -113,7 +118,6 @@ step Lakeshire
   tip Cross the long bridge north into town. Foreman Oslow and Marshal Marris stand at the north end of the bridge, Bailiff Conacher in the town hall, Dockmaster Baren and Wiley the Black on the docks, Chef Breanna at the inn, Martie Jainrose in her garden at the west end.
   sethome "Lakeshire"
   accept 125                                  -- Foreman Oslow
-  accept 98386
   accept 20                                   -- Marshal Marris
   accept 91                                   -- Bailiff Conacher
   accept 150                                  -- Dockmaster Baren
@@ -150,6 +154,7 @@ step Deputy Feldon
 
 step Lakeshire
   turnin 89                                   -- Foreman Oslow
+  accept 98386                                -- Foreman Oslow: after The Everstill Bridge
   turnin 34                                   -- Martie Jainrose
   accept 180 lvl 21                           -- The Wanted poster by the inn: Lieutenant Fangore, in Galardell Valley
 
@@ -164,7 +169,7 @@ step Alther's Mill
   tip Greater Tarantulas crawl on the slopes around the mill north-east of the lake; Blackrock Renegades hold the mill itself.
   kill 505 quest 98386                        -- Greater Tarantula
   collect 1081 quest 92                       -- Crisp Spider Meat
-  collect 3014 quest 20                       -- Battleworn Axe: any Blackrock orc
+  collect 3014 quest 20 @55.9,43.6            -- Battleworn Axe: the Blackrock Renegades at the mill
 
 step Galardell Valley
   tip East past the mill and across the river. Shadowhide gnolls fill the valley; Lieutenant Fangore (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of Stonewatch Keep to the south: its orcs are elite.

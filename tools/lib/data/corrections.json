@@ -13,6 +13,28 @@
 			},
 			"note": "Trial of the Lake (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids: Wowhead Forever https://www.wowhead.com/forever/quest=29 lists Races [race=4], [race=95] (checked 2026-10-16). The merged data has races 8 (Night Elf only), while Trial of the Sea Lion (272) before it already has Skyborne, so Skyborne druids stopped halfway."
 		},
+		"425": {
+			"set": {
+				"pre": [
+					91921
+				],
+				"preAny": [
+					91921
+				]
+			},
+			"note": "Ivar the Foul (Silverpine, Rane Yorick) comes after Return to Quinn (Again) 91921 on Forever, not straight after Return to Quinn 430: a Wowhead Forever comment on https://www.wowhead.com/forever/quest=425 (2026-10-04: \"In Forever, you need to complete Return to Quinn (Again) before this is available\") and one on https://www.wowhead.com/forever/quest=91921 (\"Allows you to start quest Ivar the Foul\"), checked 2026-10-17. Issue #51. pfQuest and QuestieDB 1.0.5 have the Classic prerequisite 430."
+		},
+		"465": {
+			"set": {
+				"pre": [
+					98221
+				],
+				"preAny": [
+					98221
+				]
+			},
+			"note": "Nek'rosh's Gambit (Wetlands, Captain Stoutfist) comes after the Forever quest From the Ashes 98221, not straight after War Banners 464: issue #225 (Lou-Saydus, 2026-10-17, in game at level 29): Stoutfist did not offer 465 with 464 handed in and offered From the Ashes, \"the next quest in the chain after War Banners and before Nek'rosh's Gambit\". Wowhead Forever's quest list marks 465's description reworded. pfQuest and QuestieDB 1.0.5 have the Classic prerequisite 464."
+		},
 		"1501": {
 			"set": {
 				"races": 146
@@ -83,6 +105,67 @@
 			},
 			"note": "Emphasis on Sacrifice (Paladin charger) is for Human and Dwarf Paladins and starts at Lord Grayson Shadowbreaker: Wowhead Forever https://www.wowhead.com/forever/quest=7637 lists Races [race=1], [race=3] and Start npc=928 (checked 2026-10-16). Both races reach him by their own Lord Grayson Shadowbreaker quest: 7638 for Humans, 7670 for Dwarves, whose next is 7637 in the merged data. The compiled guide had only the Human's 7638 as its prerequisite, so a Dwarf read as lacking it."
 		},
+		"87760": {
+			"set": {
+				"pre": [
+					4722,
+					4723,
+					4725,
+					4727,
+					4728,
+					4730,
+					4731,
+					4732,
+					4733
+				],
+				"preAll": [
+					4722,
+					4723,
+					4725,
+					4727,
+					4728,
+					4730,
+					4731,
+					4732,
+					4733
+				],
+				"preAny": []
+			},
+			"note": "Holy Diver (Darkshore, Gwennyth Bly'Leggonde) is offered only once all nine Beached Sea Creature and Beached Sea Turtle quests are handed in: a Wowhead Forever comment on https://www.wowhead.com/forever/quest=87760 (2026-10-06: \"This quest only unlocks after you've completed all 9 beached sea creature quests\"), checked 2026-10-17. Issue #51. QuestieDB 1.0.5 has no prerequisite."
+		},
+		"88758": {
+			"set": {
+				"pre": [
+					88757
+				],
+				"preAny": [
+					88757
+				]
+			},
+			"note": "Sentiments of the Lost (Wetlands, Essene Villard) comes after Accessories of the Lost 88757: the quest chain on https://foreverchanges.pro/quest/88758, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists \"1. Hearts of the Lost; 2. Accessories of the Lost; 3. Sentiments of the Lost\", and its text (\"one last favor\") follows Essene's repacking. QuestieDB 1.0.5 has no prerequisite."
+		},
+		"91920": {
+			"set": {
+				"pre": [
+					430
+				],
+				"preAny": [
+					430
+				]
+			},
+			"note": "Wild Eyes (Silverpine, Quinn Yorick) comes after Return to Quinn 430: the quest chain on https://foreverchanges.pro/quest/91920, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists \"1. Lost Deathstalkers; 2. Wild Hearts; 3. Return to Quinn; 4. Wild Eyes; 5. Return to Quinn (Again)\", and its text opens \"the potion made no noticeable difference\". QuestieDB 1.0.5 has no prerequisite."
+		},
+		"91921": {
+			"set": {
+				"pre": [
+					91920
+				],
+				"preAny": [
+					91920
+				]
+			},
+			"note": "Return to Quinn (Again) (Silverpine, Apothecary Renferrel) comes after Wild Eyes 91920: the quest chain on https://foreverchanges.pro/quest/91921, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists it fifth, after Wild Eyes, and its text brings \"the new potion\". QuestieDB 1.0.5 has no prerequisite."
+		},
 		"92434": {
 			"set": {
 				"pre": [
@@ -105,11 +188,46 @@
 			},
 			"note": "Heart of Disruption (City of Dalaran, Alliance) has An Alarming Request 92432 as its breadcrumb: a Wowhead Forever comment on https://www.wowhead.com/forever/quest=92432 (2026-10-03, \"Leads To: Heart of Disruption\" quest=92458), checked 2026-10-15."
 		},
+		"92459": {
+			"set": {
+				"pre": [
+					92458
+				],
+				"preAny": [
+					92458
+				]
+			},
+			"note": "Friend of the Kirin Tor (Image of Archmage Modera) comes after Heart of Disruption 92458, the City of Dalaran quest: the quest chain on https://foreverchanges.pro/quest/92459, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists \"1. An Alarming Request; 2. Heart of Disruption; 3. Friend of the Kirin Tor\", and its text (\"The city is calming down ... Take this mote\") follows the dungeon. QuestieDB 1.0.5 has no prerequisite."
+		},
 		"92479": {
 			"set": {
 				"classes": 4
 			},
 			"note": "A Scribbled Letter is the Human Hunter letter: it ends at Tordrin Sternblade 248415 <Hunter Trainer> in Northshire (Wowhead Forever npc=248415, checked 2026-10-12). QuestieDB 1.0.5 has requiredClasses 1 (Warrior)."
+		},
+		"92742": {
+			"set": {
+				"races": 4294967372
+			},
+			"note": "Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92742 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
+		},
+		"92744": {
+			"set": {
+				"races": 4294967372
+			},
+			"note": "Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92744 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
+		},
+		"92745": {
+			"set": {
+				"pre": [
+					92742
+				],
+				"preAny": [
+					92742
+				],
+				"races": 4294967372
+			},
+			"note": "The State of the Mines (Westfall, Alba Fairmoon) is offered only after Testing the Wells 92742 is handed in: its text on https://www.wowhead.com/forever/quest=92745 opens \"The well samples you collected contain toxic metals!\" (checked 2026-10-16), and issue #143 (SouthernStyleSims) saw it in game: Alba did not offer it until another of her quests was turned in. Murloc Gills (92744) gets no link: nothing shows it gating or gated. QuestieDB 1.0.5 has no prerequisite. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92745 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92747": {
 			"set": {
@@ -118,9 +236,10 @@
 				],
 				"preAny": [
 					92745
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Moonbrook Espionage (92747) is step 4 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Testing the Wells (92742), Murloc Gills (92744) and The State of the Mines (92745) get no prerequisite links among themselves: a storyline box groups quests, it does not prove one gates the next, and the Westfall guide has taken all three from Alba at once since 0.2.0 with no 'Not offered' report. Add them only with in-game evidence (a recording of Alba's offer list)."
+			"note": "Moonbrook Espionage (92747) is step 4 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. The State of the Mines (92745) itself comes after Testing the Wells (92742), seen in game (issue #143; see its own entry); Murloc Gills (92744) has no link. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92747 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92748": {
 			"set": {
@@ -129,9 +248,10 @@
 				],
 				"preAny": [
 					92747
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Explosive Consultation (92748) is step 5 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it."
+			"note": "Explosive Consultation (92748) is step 5 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92748 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92749": {
 			"set": {
@@ -140,9 +260,10 @@
 				],
 				"preAny": [
 					92748
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "A Dynamite Plan (92749) is step 6 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it."
+			"note": "A Dynamite Plan (92749) is step 6 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92749 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92750": {
 			"set": {
@@ -151,9 +272,10 @@
 				],
 				"preAny": [
 					92749
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Detonation at a Distance (92750) is step 7 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it."
+			"note": "Detonation at a Distance (92750) is step 7 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92750 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92751": {
 			"set": {
@@ -162,9 +284,10 @@
 				],
 				"preAny": [
 					92750
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Detonation at a Distance (92751) is step 8 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it."
+			"note": "Detonation at a Distance (92751) is step 8 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92751 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92752": {
 			"set": {
@@ -173,9 +296,10 @@
 				],
 				"preAny": [
 					92751
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Explosive Consultation (92752) is step 9 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it."
+			"note": "Explosive Consultation (92752) is step 9 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92752 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92753": {
 			"set": {
@@ -184,9 +308,10 @@
 				],
 				"preAny": [
 					92752
-				]
+				],
+				"races": 4294967372
 			},
-			"note": "Destruction in Deadmines (92753) is step 10 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it."
+			"note": "Destruction in Deadmines (92753) is step 10 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15). QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92753 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
 		},
 		"92819": {
 			"set": {
@@ -195,9 +320,21 @@
 				],
 				"preAny": [
 					92753
+				],
+				"races": 4294967372
+			},
+			"note": "Destruction in Deadmines (92819) is step 11 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15); a Wowhead Forever comment on quest=92753 (2026-10-01) says to leave the Deadmines by the back door and continue with Alba Fairmoon at the exit. QuestieDB 1.0.5 has no chain links for it. Alba Fairmoon's Toxic Soil chain (Westfall) is not for Humans: Wowhead Forever https://www.wowhead.com/forever/quest=92819 lists Races [race=3], [race=4], [race=7], [race=95] (reqrace 4294967372, checked 2026-10-17); a Wowhead comment asks \"An entire dungeon questline for all alliance races except humans?\". The merged data has races 4294967373, which includes Human (issue #144)."
+		},
+		"92911": {
+			"set": {
+				"pre": [
+					92910
+				],
+				"preAny": [
+					92910
 				]
 			},
-			"note": "Destruction in Deadmines (92819) is step 11 of Alba Fairmoon's Westfall storyline \"Toxic Soil\" 92742 -> 92744 -> 92745 -> 92747 -> 92748 -> 92749 -> 92750 -> 92751 -> 92752 -> 92753 -> 92819 (foreverchanges.pro https://foreverchanges.pro/quest/92753 Storyline box, from Wowhead's Forever database, checked 2026-10-15); a Wowhead Forever comment on quest=92753 (2026-10-01) says to leave the Deadmines by the back door and continue with Alba Fairmoon at the exit. QuestieDB 1.0.5 has no chain links for it."
+			"note": "The second Harvesting the Harvesters 92911 (Westfall, Ozwin Ironsprocket) comes after the one started by the Precessive Autocognition Assembly, 92910: its text on https://www.wowhead.com/forever/quest=92911 opens \"I see... this gives me some insight into what makes those monsters tick\" and goes on \"I'll continue tinkering with the assembly you brought me\" (checked 2026-10-17). Issue #51. QuestieDB 1.0.5 has no prerequisite."
 		},
 		"94373": {
 			"set": {
@@ -351,6 +488,20 @@
 			},
 			"note": "Legging It (Durotar) lists the Ridgeshade Creepers first, then the Ridgeshade Lurkers: Wowhead Forever https://www.wowhead.com/forever/quest=96821, checked 2026-10-16. The merged data has the two the other way round, so `quest 96821.1` named the Lurkers."
 		},
+		"96899": {
+			"set": {
+				"pre": [
+					96897,
+					96898
+				],
+				"preAll": [
+					96897,
+					96898
+				],
+				"preAny": []
+			},
+			"note": "Bandarion Keep (Tirisfal, Hadric Harlson) is offered only after both The Cult of the Damned 96897 and Remnants of War 96898: a Wowhead Forever comment on https://www.wowhead.com/forever/quest=96899 (\"*beta* 96898 and 96897 must be completed first\"), and its text (\"You've done a great thing for the cause of the Argent Dawn here today...\") follows them (checked 2026-10-16). Issue #128 (whiteswag): Hadric did not offer it beside the two. QuestieDB 1.0.5 has no prerequisite."
+		},
 		"96984": {
 			"set": {
 				"breadcrumbs": [
@@ -426,6 +577,61 @@
 			},
 			"note": "Traditions of the Bluff (Thunder Bluff): Wowhead Forever https://www.wowhead.com/forever/quest=97485 lists \"Prepared Incense\" (item=278078, 1) and \"Spread incense\" (1, kill credit npc=269255 \"[DNT] Kill Credit: Spread Incense\", which has no spawns: https://www.wowhead.com/forever/npc=269255); item=278078 is used \"over the southern cliff of Hunter Rise\" (https://www.wowhead.com/forever/item=278078); a quest comment (2026-09-20) places the ceremonial site at Thunder Bluff 53.3,87.9. Checked 2026-10-13. The spread is an event at that site (no spawns for the credit NPC); Thunder Bluff's frame is the same in Era and Forever. QuestieDB 1.0.5 has no objectives."
 		},
+		"98094": {
+			"set": {
+				"pre": [
+					528
+				],
+				"preAny": [
+					528
+				]
+			},
+			"note": "Scout Support (Hillsbrad, High Executor Darthalia, for Deathstalker Masoj) is offered only after Battle of Hillsbrad part II 528: a Wowhead Forever comment on https://www.wowhead.com/forever/quest=98094 (\"Prerequisite is 528 (part II)\"), checked 2026-10-16. Issue #148 (Taako): Darthalia did not offer it with 527 turned in and 528 open. QuestieDB 1.0.5 has no prerequisite."
+		},
+		"98209": {
+			"set": {
+				"pre": [
+					98208
+				],
+				"preAny": [
+					98208
+				]
+			},
+			"note": "Bloom of the Heavens (98209, Sylessa Duskwhisper's delivery to Thundris Windweaver) comes after Bloom of the Heavens 98208, recovering Nord'el from the wreck south of Menethil: the quest chain on https://foreverchanges.pro/quest/98209, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists the two in that order, and its text asks you to deliver the Nord'el. QuestieDB 1.0.5 has no prerequisite."
+		},
+		"98297": {
+			"set": {
+				"pre": [
+					98291
+				],
+				"preAny": [
+					98291
+				]
+			},
+			"note": "Stopping the Cycle (Wetlands, Howin Kindfeather) is offered only after Death to the Dragonmaw 98291, also from Howin: two Wowhead Forever comments on https://www.wowhead.com/forever/quest=98297, checked by the maintainer on #51 (2026-10-16). 98291's Dragonmaw Reclaimer, Soulbinder and Infiltrator (271351, 271348, 271346) are elite on Wowhead Forever (their corrections in this file), so the simulator leaves 98291 out. QuestieDB 1.0.6 has no prerequisite."
+		},
+		"98298": {
+			"set": {
+				"pre": [
+					99
+				],
+				"preAny": [
+					99
+				]
+			},
+			"note": "The Forever Arugal's Folly 98298 (Silverpine, Dalar Dawnweaver) comes after the Classic one, 99: Wowhead Forever's Series box on https://www.wowhead.com/forever/quest=98298 lists 421, 422, 423, 424, 99 and then 98298 (checked 2026-10-17). Issue #51. QuestieDB 1.0.5 has no prerequisite."
+		},
+		"98386": {
+			"set": {
+				"pre": [
+					89
+				],
+				"preAny": [
+					89
+				]
+			},
+			"note": "Alther's Mill (Redridge, Foreman Oslow) is offered only after The Everstill Bridge 89 is handed in: two Wowhead Forever comments on https://www.wowhead.com/forever/quest=98386 (\"Seems to require The Everstill Bridge\", \"Acquired after turning in 89\"), checked 2026-10-16. Issue #126's report shows it not offered at the mill (\"[n/a] Kill Greater Tarantula\"). QuestieDB 1.0.5 has no prerequisite."
+		},
 		"98389": {
 			"set": {
 				"objectives": [
@@ -442,6 +648,28 @@
 				]
 			},
 			"note": "A Light in the Darkness (Tirisfal): Wowhead Forever https://www.wowhead.com/forever/quest=98389 lists \"Webbed Forsaken freed\" (6), credited by npc=271961 Webbed Forsaken, which is friendly to the Horde and has 8 map points in Night's Web Hollow (https://www.wowhead.com/forever/npc=271961), checked 2026-10-13. Encoded as an event and not a kill: freeing a friendly NPC is an interaction, not a fight. The position is the Webbed Forsaken spawn nearest the centroid of its 24 spawns in data/forever (Tirisfal 24.67,59.39, Era frame = Forever frame). QuestieDB 1.0.5 has no objectives."
+		},
+		"98418": {
+			"set": {
+				"pre": [
+					98417
+				],
+				"preAny": [
+					98417
+				]
+			},
+			"note": "Shared Fury (Ashenvale, Maseara Autumnmoon) comes after Vengeful Trail 98417: the quest chain on https://foreverchanges.pro/quest/98418, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists \"1. Vengeful Trail; 2. Shared Fury\", and its text reads from Kurothel's written words, the scroll Vengeful Trail finds. QuestieDB 1.0.5 has no prerequisite."
+		},
+		"98435": {
+			"set": {
+				"pre": [
+					760
+				],
+				"preAny": [
+					760
+				]
+			},
+			"note": "Thunderhorn's Report (Mulgore, Mull Thunderhorn) comes after Wildmane Cleansing 760: Wowhead Forever's Series box on https://www.wowhead.com/forever/quest=98435 lists \"1. Wildmane Cleansing; 2. Thunderhorn's Report\" (checked 2026-10-16). Issue #51. QuestieDB 1.0.5 has no prerequisite."
 		},
 		"98823": {
 			"set": {
@@ -477,6 +705,50 @@
 				]
 			},
 			"note": "Escaping Ban'ethil (Teldrassil) is an escort: Wowhead Forever https://www.wowhead.com/forever/quest=99053 lists one objective \"Escort Lynessa Duskblossom out of Ban'ethil\" (1) with no map point; a comment says it completes when she reaches the road (checked 2026-10-13). QuestieDB 1.0.5 has no objectives. No map point: the event runs where it starts (Sentinel Lynessa Duskblossom 275744)."
+		},
+		"99080": {
+			"set": {
+				"pre": [
+					99101
+				],
+				"preAny": [
+					99101
+				]
+			},
+			"note": "Drive Them Out (Mulgore, Baine Bloodhoof) comes after Our Ancient Enemy 99101: Wowhead Forever's Series box on https://www.wowhead.com/forever/quest=99080 lists \"1. Longwalker Malah; 2. Grim Tidings; 3. Our Ancient Enemy; 4. Drive Them Out; 5. The High Chieftain\" (checked 2026-10-16). Issue #112 (Kori): Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings. QuestieDB 1.0.5 has no prerequisite."
+		},
+		"99081": {
+			"set": {
+				"pre": [
+					99079
+				],
+				"preAny": [
+					99079
+				]
+			},
+			"note": "Grim Tidings (Mulgore, Malah Longwind) comes after Longwalker Malah 99079: Wowhead Forever's Series box on https://www.wowhead.com/forever/quest=99101 lists \"1. Longwalker Malah; 2. Grim Tidings; 3. Our Ancient Enemy; 4. Drive Them Out; 5. The High Chieftain\" (checked 2026-10-16). Issue #112 (Kori): Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings. QuestieDB 1.0.5 has no prerequisite."
+		},
+		"99082": {
+			"set": {
+				"pre": [
+					99080
+				],
+				"preAny": [
+					99080
+				]
+			},
+			"note": "The High Chieftain (Mulgore, Baine Bloodhoof) comes after Drive Them Out 99080: Wowhead Forever's Series box on https://www.wowhead.com/forever/quest=99082 lists \"1. Longwalker Malah; 2. Grim Tidings; 3. Our Ancient Enemy; 4. Drive Them Out; 5. The High Chieftain\" (checked 2026-10-16). Issue #112 (Kori): Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings. QuestieDB 1.0.5 has no prerequisite."
+		},
+		"99101": {
+			"set": {
+				"pre": [
+					99081
+				],
+				"preAny": [
+					99081
+				]
+			},
+			"note": "Our Ancient Enemy (Mulgore, Brave Wildrunner) comes after Grim Tidings 99081: Wowhead Forever's Series box on https://www.wowhead.com/forever/quest=99101 lists \"1. Longwalker Malah; 2. Grim Tidings; 3. Our Ancient Enemy; 4. Drive Them Out; 5. The High Chieftain\" (checked 2026-10-16). Issue #112 (Kori): Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings. QuestieDB 1.0.5 has no prerequisite."
 		},
 		"99123": {
 			"set": {
@@ -532,6 +804,17 @@
 				"classes": 2
 			},
 			"note": "The One That Got Away (Ephram Barbaro 259190, Bandarion Keep) is Paladin-only: Mike_'s in-game report (Discord, Polestar 0.2.3, Scourge Mage 11): Polestar marked it 'Not offered by Ephram Barbaro', which it does only when the giver's quest window opened without the quest; warcraft.wiki.gg https://warcraft.wiki.gg/wiki/Hilda_the_Breaker: Hilda the Breaker is a Forsaken paladin trainer at Bandarion Keep, the Undead Paladin hub (checked 2026-10-15). QuestieDB 1.0.5 has no class gate (classes null)."
+		},
+		"99156": {
+			"set": {
+				"pre": [
+					356
+				],
+				"preAny": [
+					356
+				]
+			},
+			"note": "The second Rear Guard Patrol (Tirisfal, Deathguard Linnea; Riptear) comes after the first, Rear Guard Patrol 356: Wowhead Forever's Series box on https://www.wowhead.com/forever/quest=99156 lists \"1. Rear Guard Patrol; 2. Rear Guard Patrol\" (checked 2026-10-16). Issue #51. QuestieDB 1.0.5 has no prerequisite."
 		}
 	},
 	"npcs": {

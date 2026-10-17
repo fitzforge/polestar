@@ -294,7 +294,7 @@ async function buildData(options = {}) {
 		sources.push({
 			name: 'Quest XP for quests QuestieDB lacks: wowforevertalents.com (Forever beta client quest cache), else foreverchanges.pro (Wowhead Forever database)',
 			url: `${WFT} ; ${FC}`,
-			revision: `${webxp.xp.size} quests; cache ${path.relative(root, webxp.file)}`,
+			revision: `${webxp.xp.size} quests; cache ${path.relative(root, webxp.file).split(path.sep).join('/')}`,
 			license: 'Public web pages; facts (XP numbers) only, used locally with permission',
 			copyright: null,
 		});
@@ -303,7 +303,7 @@ async function buildData(options = {}) {
 		sources.push({
 			name: 'Wowhead Forever database: zone quest lists (XP, levels, Forever change notes)',
 			url: WOWHEAD,
-			revision: `${wh.zl.rows.size} listed quests${wh.zl.fetchedAt ? ` read ${wh.zl.fetchedAt}` : ''}; cache ${path.relative(root, wh.zl.file)}`,
+			revision: `${wh.zl.rows.size} listed quests${wh.zl.fetchedAt ? ` read ${wh.zl.fetchedAt}` : ''}; cache ${path.relative(root, wh.zl.file).split(path.sep).join('/')}`,
 			license: 'Public web pages; facts (ids, XP, levels, instance categories, rewards) only, used locally',
 			copyright: null,
 		});

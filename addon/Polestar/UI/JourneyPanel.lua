@@ -19,7 +19,9 @@
 -- nav.journeyOpen = false, never in compact mode.
 --
 -- Reads Nav.GetRoute() (legs, current index; leg.kind, label, seconds,
--- yards, step, lift, side, transport, to), Nav.travel.Progress() for the
+-- yards, step, lift, side, transport, to, hubs: a walk entering the other
+-- faction's towns reads "Hostile town: <name>" under its step),
+-- Nav.travel.Progress() for the
 -- current leg and ns.Transit.NextDeparture for boats, zeppelins, the tram and
 -- lifts. Wakes on ROUTE_CHANGED, ROUTE_ADVANCED, NAV_TRANSIT,
 -- WAYPOINT_CHANGED and nav.* settings.
@@ -130,6 +132,14 @@ end
 
 local function glyphOf(leg)
 	return (leg.kind == "walk" and STEP_GLYPH[leg.step]) or GLYPH[leg.kind] or "icon-note"
+end
+
+-- "Hostile town: <names>" for a walk whose path enters the other faction's
+-- towns (leg.hubs, Nav.travel.HubText), else nil.
+local function hubText(leg)
+	if leg.kind ~= "walk" then return nil end
+	local T = ns.Nav and ns.Nav.travel
+	return T and T.HubText and T.HubText(leg) or nil
 end
 
 ---------------------------------------------------------------------------
@@ -436,7 +446,10 @@ local function fillStructure(legs, ci)
 		W.Color(r.Text, current and "text" or "textDim")
 		W.Color(r.Time, current and "text" or "textMuted")
 		W.Color(r.Num, current and "textDim" or "textMuted")
-		r.Sub:Hide() -- shown by the times once a departure is known
+		-- The line under the step: a ride's departure once known, a walk's hostile towns.
+		r.psHub = hubText(leg)
+		W.Color(r.Sub, r.psHub and "warning" or "textDim")
+		r.Sub:Hide()
 		r:SetHeight(ROW_H)
 		r:Show()
 	end
@@ -461,7 +474,7 @@ local function fillTimes()
 		local r = rows[i]
 		if r:IsShown() then
 			setTime(r.Time, view.secs[i])
-			if r.Sub:IsShown() then r.Sub:SetText(JP.DepartureText(i)) end
+			if r.Sub:IsShown() then r.Sub:SetText(view.dep[i] and JP.DepartureText(i) or r.psHub) end
 		end
 	end
 end
@@ -490,11 +503,12 @@ function JP.Refresh(force)
 	if changed then fillStructure(legs, ci) end
 	head.Icon:SetTexture(Theme.Media(open() and "chevron-up" or "chevron-down"))
 	JP.Compute(legs, ci)
-	-- The departure line only where a departure is known (none: no empty line).
+	-- The line under a step only where there is something to say: a known
+	-- departure, a walk's hostile towns (none: no empty line).
 	for i = 1, #rows do
 		local r = rows[i]
 		if r:IsShown() then
-			local want = view.dep[i] and true or false
+			local want = (view.dep[i] or r.psHub) and true or false
 			if r.Sub:IsShown() ~= want then
 				r.Sub:SetShown(want)
 				r:SetHeight(want and ROW_H + SUB_H or ROW_H)

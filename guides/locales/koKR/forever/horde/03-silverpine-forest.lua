@@ -28,6 +28,10 @@ return {
 	["Cast {spell:18960}; {npc:11802} is in {area:2361}. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있습니다. 제단 구슬은 {area:656} 바닥에 있으며 몇 분 안에 사라집니다. 하나를 들고 곧장 북서쪽 기슭의 {area:2362}까지 헤엄쳐 가서 사용하고 {npc:11799}에게 말을 거세요.",
 	-- {quest:6127} The Principal Source · {area:384} Dreadmist Peak
 	["{quest:6127}: {area:384}, next guide"] = "{quest:6127}: {area:384}, 다음 가이드",
+	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
+	["{item:15877}, from a {object:177785} in the lake"] = "호수 속 {object:177785}에서 얻는 {item:15877}",
+	-- {area:2362} Shrine of Remulos
+	["At the {area:2362}"] = "{area:2362}에서",
 	-- {npc:11799} Tajarri · {area:2362} Shrine of Remulos
 	["{npc:11799}, at the {area:2362}"] = "{npc:11799}, {area:2362}에서",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven · {zone:1454} Orgrimmar
@@ -78,10 +82,11 @@ return {
 	-- {npc:1978} Deathstalker Erland · {npc:1950} Rane Yorick
 	["{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way."] = "{npc:1978}은(는) 집 북동쪽에서 기다립니다. 그를 {npc:1950}에게 호위하세요. 가는 길에 늑대가 공격합니다.",
 
-	-- Step 16: Worgs and murlocs
-	["Worgs and murlocs"] = "늑대와 멀록",
-	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg · Vile Fin Shredders = {npc:1767} Vile Fin Shredder
-	["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "점박이 검은늑대가 집 주변 언덕을 배회합니다. 그런 다음 호숫가를 따라 남쪽으로 가세요. 그곳의 썩은지느러미멀록 갈퀴잡이와 바다사냥꾼이 멀록 눈알을 떨어뜨립니다.",
+	-- Step 16: Mottled Worgs
+	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
+	["Mottled Worgs"] = "점박이 검은늑대",
+	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
+	["Mottled Worgs prowl the hills around the house."] = "점박이 검은늑대가 집 주변 언덕을 배회합니다.",
 
 	-- Step 17: Hearth to the Sepulcher
 	-- {area:228} Sepulcher
@@ -91,11 +96,16 @@ return {
 	-- {object:1593} Corpse Laden Boat · {area:228} Sepulcher
 	["The {object:1593} lies at the ferry landing on the lake shore east of the {area:228}."] = "{object:1593}은(는) {area:228} 동쪽 호숫가의 나루터에 있습니다.",
 
-	-- Step 20: The Ivar Patch
-	-- {quest:425} Ivar the Foul
-	["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "다시 북쪽으로 요릭 가족 집에 가세요. {quest:425}은(는) 그 서쪽으로 조금 걸어간 곳에 숨어 있습니다.",
+	-- Step 20: Quinn Yorick
+	["North again to the Yoricks' house."] = "다시 북쪽으로 요릭 가족 집에 가세요.",
 
-	-- Step 21: Fenris Isle
+	-- Step 21: Vile Fin murlocs
+	["Vile Fin murlocs"] = "썩은지느러미멀록",
+	-- {area:172} Fenris Isle
+	-- plural, as words: Vile Fin Shredders = {npc:1767} Vile Fin Shredder
+	["Follow the lake shore south-east toward {area:172}: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "호숫가를 따라 남동쪽 {area:172} 방향으로 가세요. 그 길의 썩은지느러미멀록 갈퀴잡이와 썩은지느러미멀록 바다사냥꾼이 멀록 눈알을 떨어뜨립니다.",
+
+	-- Step 22: Fenris Isle
 	-- {area:172} Fenris Isle · {area:235} Fenris Keep
 	["Follow the lake shore south-east and swim out to {area:172}. Rot Hide gnolls cover the island; every type drops ichor. Stay out of {area:235} on its north side unless you go for the optional niche: the gnolls there are level 18-22."] = "호숫가를 따라 남동쪽으로 가서 {area:172}까지 헤엄쳐 가세요. 썩은가죽 놀이 섬을 뒤덮고 있으며, 모든 종류가 체액을 떨어뜨립니다. 선택 사항인 벽감에 가는 게 아니라면 섬 북쪽의 {area:235}에는 들어가지 마세요. 그곳의 놀은 18-22레벨입니다.",
 	-- {item:3317} A Talking Head
@@ -105,36 +115,24 @@ return {
 	-- {object:112888} Dusty Shelf
 	["{object:112888}, inside the keep"] = "{object:112888}, 성채 안",
 
-	-- Step 22: Sepulcher
+	-- Step 23: Sepulcher
 	-- {area:228} Sepulcher
 	["Swim back and follow the road west to the {area:228}."] = "헤엄쳐 돌아와 길을 따라 서쪽으로 {area:228}까지 가세요.",
+	-- {npc:1937} Apothecary Renferrel
+	["{npc:1937}: for Quinn, on the road north at the end"] = "{npc:1937}: 퀸을 위해, 마지막에 북쪽 길에서",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril
 	["{npc:2121}: {quest:516}, on the south loop"] = "{npc:2121}: {quest:516}, 남쪽 순환로에서",
-	-- {npc:1938} Dalar Dawnweaver · {quest:98298} Arugal's Folly
-	["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: 제안하면 받으세요. 경로에서 진행하지 않는 그의 {quest:98298} 연계 퀘스트 다음에 나올 수 있습니다",
 
-	-- Step 23: Ambermill
+	-- Step 24: Ambermill
 	-- {area:233} Ambermill · {npc:2120} Archmage Ataeric
 	["South-east down the road to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Wizards and Watchers patrol the roads around it. Stay out of the middle, where {npc:2120} stands."] = "길을 따라 남동쪽으로 {area:233}까지 내려가세요. 수호병이 외곽을, 마법사가 마을을 지키며 둘 다 펜던트를 떨어뜨립니다. 마술사와 파수꾼은 주변 길을 순찰합니다. {npc:2120}이(가) 서 있는 한가운데에는 들어가지 마세요.",
 
-	-- Step 24: Moonrage Bloodhowlers
-	-- plural, as words: Moonrage Bloodhowlers = {npc:1924} Moonrage Bloodhowler
-	["Moonrage Bloodhowlers"] = "달의분노일족 혈투사",
-	-- {npc:1938} Dalar Dawnweaver · {quest:98298} Arugal's Folly · {area:233} Ambermill · {item:280375} Worgen Bits
-	["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "{npc:1938}이(가) {quest:98298}을(를) 준 경우에만: 혈투사는 {area:233} 남서쪽, 장작나무 마을 동쪽 숲을 배회하며 {item:280375}을(를) 떨어뜨립니다.",
-
-	-- Step 25: The refugees
-	["The refugees"] = "피난민",
-	-- {area:230} Greymane Wall
-	-- plural, as words: Haggard Refugees = {npc:2053} Haggard Refugee
-	["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "병든 피난민과 초췌한 피난민이 장작나무 마을 남쪽 길을 따라 {area:230} 쪽으로 비틀거리며 걸어갑니다.",
-
-	-- Step 26: Beren's Peril
+	-- Step 25: Beren's Peril
 	-- {quest:516} Beren's Peril
 	-- plural, as words: Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
-	["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "피난민 북동쪽, 숲 남동쪽에 있는 {quest:516} 폐허에 까마귀발톱 노역꾼과 수호병이 출몰합니다.",
+	["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "앰버밀 남서쪽, 숲 남동부의 {quest:516} 폐허에 까마귀발톱 노역꾼과 수호병이 출몰합니다.",
 
-	-- Step 28: Lordamere Lake shore
+	-- Step 27: Lordamere Lake shore
 	-- {area:1338} Lordamere Lake
 	["{area:1338} shore"] = "{area:1338} 기슭",
 	-- {area:237} Decrepit Ferry · {area:228} Sepulcher
@@ -143,9 +141,13 @@ return {
 	-- {npc:1909} Vile Fin Lakestalker · {area:1338} Lordamere Lake · {zone:1421} Silverpine Forest
 	["grind on {npc:1909} at {area:1338}, {zone:1421}"] = "{zone:1421}의 {area:1338}에서 {npc:1909}을(를) 사냥하세요",
 
-	-- Step 29: Apothecary Renferrel
+	-- Step 28: Apothecary Renferrel
 	-- {npc:2216} Apothecary Lydon · {area:272} Tarren Mill
 	["Keep it: {npc:2216} in {area:272}, a later guide"] = "보관하세요: {area:272}의 {npc:2216}, 이후 가이드",
+
+	-- Step 29: The Ivar Patch
+	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
+	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "{zone:1420} 방향으로 길을 따라 북쪽으로 가세요. {area:238}의 요릭 가족 집이 가는 길에 있습니다. {quest:425}은(는) 그 서쪽으로 조금 걸어간 곳에 숨어 있습니다.",
 
 	-- Step 30: Brill
 	-- {zone:1420} Tirisfal Glades · {area:159} Brill · {npc:246152} Shari Stilwell
@@ -189,8 +191,17 @@ return {
 	["Speak with {npc:10540}, in Grommash Hold"] = "{npc:10540}에게 말을 거세요, 그롬마쉬 요새 안",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Moonrage Bloodhowlers"] = "달의분노일족 혈투사",
+	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "점박이 검은늑대가 집 주변 언덕을 배회합니다. 그런 다음 호숫가를 따라 남쪽으로 가세요. 그곳의 썩은지느러미멀록 갈퀴잡이와 바다사냥꾼이 멀록 눈알을 떨어뜨립니다.",
+	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "다시 북쪽으로 요릭 가족 집에 가세요. {quest:425}은(는) 그 서쪽으로 조금 걸어간 곳에 숨어 있습니다.",
 	-- ["North of the {area:228}. Nightlash haunts the {area:240}: kill it, then walk across the field."] = "{area:228} 북쪽입니다. 나이트래쉬가 {area:240}에 출몰합니다. 처치한 뒤 들판을 가로지르세요.",
+	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "피난민 북동쪽, 숲 남동쪽에 있는 {quest:516} 폐허에 까마귀발톱 노역꾼과 수호병이 출몰합니다.",
+	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "{npc:1938}이(가) {quest:98298}을(를) 준 경우에만: 혈투사는 {area:233} 남서쪽, 장작나무 마을 동쪽 숲을 배회하며 {item:280375}을(를) 떨어뜨립니다.",
+	-- ["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "병든 피난민과 초췌한 피난민이 장작나무 마을 남쪽 길을 따라 {area:230} 쪽으로 비틀거리며 걸어갑니다.",
+	-- ["The refugees"] = "피난민",
 	-- ["The {area:228}"] = "{area:228}",
 	-- ["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for {quest:30}."] = "{object:177790}은(는) {area:240} 서쪽 해안에 있습니다. 그 안에 {quest:30}을(를) 위한 {item:15882}이(가) 들어 있습니다.",
+	-- ["Worgs and murlocs"] = "늑대와 멀록",
 	-- ["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228}은(는) 숲 한가운데에 있는 포세이큰의 지하묘지 마을입니다. 필요한 사람은 모두 지하묘지 입구 주변에 서 있습니다. 박쥐 조련사 {npc:2226}은(는) 그 바로 동쪽에 있습니다.",
+	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: 제안하면 받으세요. 경로에서 진행하지 않는 그의 {quest:98298} 연계 퀘스트 다음에 나올 수 있습니다",
 }

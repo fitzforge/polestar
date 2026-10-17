@@ -370,15 +370,18 @@ step Back to Tarren Mill
 # ---------------------------------------------------------------- Valik, yetis, Dalaran
 
 step Henchman Valik
+  zone Alterac Mountains
   tip Follow the road north out of Tarren Mill into the Alterac foothills. Valik waits by the Syndicate camp; hand him the stout.
   accept 535
   turnin 535
 
 step Syndicate missives
+  zone Alterac Mountains
   tip The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one.
   collect 3601 quest 533
 
 step Helcular's Rod
+  zone Hillsbrad Foothills
   tip South-west, the Cave and Ferocious Yetis (30-31) fill the caves in the hills west of Tarren Mill; about one in sixteen carries the rod.
   collect 3708 quest 552
 

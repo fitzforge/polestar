@@ -8,7 +8,9 @@
 return {
 	-- Step 1: Tarren Mill
 	-- {area:272} Tarren Mill
-	["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "你抵達時綁定在{area:272}的旅店。所有人都站在鎮上廣場周圍。",
+	["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272}是本指南的據點：爐石會兩次帶你回到這裡。所有人都站在鎮上廣場周圍。",
+	-- {npc:2388} Innkeeper Shay
+	["{npc:2388}: the last guide binds here, so this usually ticks at once"] = "{npc:2388}：上一份指南在這裡綁定爐石，所以這一步通常會立即完成",
 	-- {object:1763} WANTED
 	["The {object:1763} poster by the inn"] = "旅店旁的{object:1763}海報",
 	-- {quest:567} Dangerous!
@@ -36,41 +38,45 @@ return {
 	-- Step 5: Tarren Mill
 	-- {npc:2230} Umpi
 	["{npc:2230}, next to Lydon"] = "{npc:2230}，在藥劑師林度恩旁邊",
+
+	-- Step 6: Stanley
+	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
+	["{npc:2274} is {npc:232}'s dog, at the northern farmhouse in {area:286}."] = "{npc:2274}是{npc:232}的狗，在{area:286}北邊的農舍。",
+
+	-- Step 7: Peasants and skulls
+	["Peasants and skulls"] = "農民與頭骨",
+	-- {area:287} Hillsbrad
+	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "希爾斯布萊德農民在農舍南邊的田裡工作。每個{area:287}的人類都會掉落頭骨；農民掉落最頻繁。",
+	-- {item:3692} Hillsbrad Human Skull
+	["{item:3692}: the Peasants in the fields"] = "{item:3692}：田裡的希爾斯布萊德農民",
+
+	-- Step 8: Tarren Mill
 	-- {npc:2215} High Executor Darthalia · {npc:270438} Deathstalker Masoj
 	["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}：給{npc:270438}的命令，在前往敦霍爾德城堡的路上",
 
-	-- Step 6: Syndicate camps
+	-- Step 9: Syndicate camps
 	["Syndicate camps"] = "辛迪加營地",
 	-- {area:272} Tarren Mill · {area:275} Durnholde Keep
 	["From {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "從{area:272}向東南進入通往{area:275}途中的丘陵。辛迪加盜賊和辛迪加衛士佔據沿途的營地。",
 
-	-- Step 7: Durnholde Keep
+	-- Step 10: Durnholde Keep
 	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep
 	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "德盧爾和{npc:2238}被鎖在{area:275}庭院的建築裡；打開兩把鎖。",
 	["Drull's ball and chain"] = "德盧爾的腳鐐",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "{npc:2238}的腳鐐",
 
-	-- Step 8: Deathstalker Masoj
+	-- Step 11: Deathstalker Masoj
 	-- {area:290} Dun Garok
 	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "亡靈哨兵馬索吉躲在敦霍爾德城堡南邊、{area:290}上方的山坡上，就在下山前往花叢的路上。",
 
-	-- Step 9: Mudsnout Blossoms
+	-- Step 12: Mudsnout Blossoms
 	-- {item:3502} Mudsnout Blossoms
 	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "在敦霍爾德城堡西南方，{item:3502}生長在河流上方的山坡上。",
 
-	-- Step 10: Tarren Mill
+	-- Step 13: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
 	["{npc:2055}, in the {zone:1458}"] = "{npc:2055}，在{zone:1458}",
-
-	-- Step 11: Stanley
-	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
-	["{npc:2274} is {npc:232}'s dog, at the northern farmhouse in {area:286}."] = "{npc:2274}是{npc:232}的狗，在{area:286}北邊的農舍。",
-
-	-- Step 12: Peasants and skulls
-	["Peasants and skulls"] = "農民與頭骨",
-	-- {area:287} Hillsbrad
-	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "希爾斯布萊德農民在農舍南邊的田裡工作。每個{area:287}的人類都會掉落頭骨；農民掉落最頻繁。",
 
 	-- Step 14: The smithy
 	["The smithy"] = "鐵匠鋪",
@@ -117,8 +123,8 @@ return {
 	["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "沿道路向南前往{area:359}的矮人挖掘場。{npc:3421}躲在挖掘場的南緣；{object:3646}在挖掘坑的底部。",
 
 	-- Step 26: Great Lift
-	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift
-	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:1718}."] = "在巴爾莫丹西南方，{npc:12576}在{area:1718}頂端等著。",
+	-- {npc:12576} Grish Longrunner · {area:485} Great Lift
+	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:485}."] = "在巴爾莫丹西南方，{npc:12576}在{area:485}頂端等著。",
 
 	-- Step 27: Merchant Coast
 	-- {area:378} Camp Taurajo · {area:392} Ratchet · {quest:874} Mahren Skyseer
@@ -136,4 +142,5 @@ return {
 	-- ["No Gallywix yet? The Class guide {spell:2842} (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "還沒打倒加里維克斯？職業指南{spell:2842}（部落）會從申蘇爾那裡重新跑這條任務鏈，並組隊對付加里維克斯。",
 	-- ["Only if Gallywix fell in the {zone:1413} (Mission: Possible But Not Probable): {npc:2391} stands in {area:272}. Wait beside him while he brews the cure, then take your reward: {spell:2842}."] = "只有在你已於{zone:1413}擊敗加里維克斯時（基本不可能的任務）：{npc:2391}站在{area:272}。在他旁邊等他調製解藥，然後領取獎勵：{spell:2842}。",
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {item:3564} is stacked beside it. {npc:2449} walks the street north of it."] = "鐵匠鋪位於{area:287}鎮中央。{npc:2404}和他的學徒在熔爐邊工作；{item:3564}堆在旁邊。{npc:2449}在鐵匠鋪北邊的街上走動。",
+	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "你抵達時綁定在{area:272}的旅店。所有人都站在鎮上廣場周圍。",
 }

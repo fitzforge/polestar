@@ -11,10 +11,8 @@ return {
 	["From {zone:1455}'s {npc:1573}"] = "从{zone:1455}的{npc:1573}处",
 
 	-- Step 2: Auberdine
-	-- {area:442} Auberdine · {npc:3649} Thundris Windweaver
-	["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "从米奈希尔港码头乘船前往{area:442}。{npc:3649}在{area:442}飞行管理员北边。",
-	-- {npc:3649} Thundris Windweaver · {item:279915} Nord'el
-	["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}：{item:279915}，来自米奈希尔港的Sylessa",
+	-- {area:442} Auberdine
+	["Take the boat to {area:442} from Menethil's docks."] = "从米奈希尔港码头乘船前往{area:442}。",
 
 	-- Step 3: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {area:1276} Talondeep Path
@@ -88,5 +86,7 @@ return {
 	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "科卡尔半人马在{area:609}周围的平原上游荡；它们的耳朵交给{npc:5752}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "从米奈希尔港码头乘船前往{area:442}。{npc:3649}在{area:442}飞行管理员北边。",
 	-- ["The {area:1276}"] = "{area:1276}",
+	-- ["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}：{item:279915}，来自米奈希尔港的Sylessa",
 }

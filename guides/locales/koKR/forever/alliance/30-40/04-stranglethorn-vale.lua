@@ -40,7 +40,7 @@ return {
 
 	-- Step 9: Rebel Camp
 	-- {npc:738} Private Thorsen
-	["Take the road north; {npc:738} stands on it, the camp sits in the hills to the west."] = "길을 따라 북쪽으로 가세요. {npc:738}은(는) 길 위에 서 있고, 야영지는 서쪽 언덕에 있습니다.",
+	["Take the road north; {npc:738} patrols it, the camp sits in the hills to the west."] = "길을 따라 북쪽으로 가세요. {npc:738}은(는) 길을 순찰하고, 야영지는 서쪽 언덕에 있습니다.",
 	-- {npc:469} Lieutenant Doren
 	["{npc:469}, in the hut"] = "{npc:469}, 오두막 안",
 
@@ -132,8 +132,6 @@ return {
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "북쪽과 중앙의 트롤 폐허를 한 바퀴 도세요. 폐허마다 트롤 전설이 새겨진 석판이 하나씩 있습니다. {npc:684}은(는) 그 주변 밀림에서 은신한 채 어슬렁거리고, {area:37}의 투자개발회사 야영지가 {item:4106}을(를) 가지고 있습니다.",
-	-- {quest:207} Kurzen's Mystery
-	["{quest:207}: four troll legends"] = "{quest:207}: 트롤 전설 4개",
 
 	-- Step 30: Rebel Camp
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
@@ -153,5 +151,7 @@ return {
 	["For Archmage Ansirem in {zone:1416}"] = "{zone:1416}의 대마법사 앤자이럼 룬위버에게",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Take the road north; {npc:738} stands on it, the camp sits in the hills to the west."] = "길을 따라 북쪽으로 가세요. {npc:738}은(는) 길 위에 서 있고, 야영지는 서쪽 언덕에 있습니다.",
 	-- ["{npc:2832}, in the {object:56910}"] = "{npc:2832}, {object:56910} 안",
+	-- ["{quest:207}: four troll legends"] = "{quest:207}: 트롤 전설 4개",
 }

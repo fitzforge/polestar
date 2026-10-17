@@ -12,10 +12,10 @@ next forever/horde/02-the-barrens
 # and accepts swapped within a Brill visit.
 #
 # Flow: Deathknell -> the road east past Calvin Montague and Gordo -> Brill
-# (bind) -> Doom Weed north of town -> west fields, Gordo, Calvin's duel ->
-# hearth -> the north: Rot Hide graveyards, Maggot Eye, the Vile Fin coast ->
-# Brill -> Deathguard Linnea's camp -> Brill -> west loop: Agamand Mills,
-# Solliden, the pumpkin fields, the Crusader's Outpost, the Whispering Forest
+# (bind) -> Doom Weed north of town -> west fields, Gordo, Simmer and Calvin's
+# duel at Solliden -> hearth -> the north: Rot Hide graveyards, Maggot Eye, the
+# Vile Fin coast -> Brill -> Deathguard Linnea's camp -> Brill -> west loop:
+# Agamand Mills, the pumpkin fields, the Crusader's Outpost, the Whispering Forest
 # and Shadowvale -> hearth -> Brill -> the Scarlet camp south of town -> Brill
 # -> east loop: Linnea's camp, the Balnir Farmstead cultists and graves,
 # Captain Vachon, the Vicious Night Web Spiders -> Linnea's camp -> Brill ->
@@ -24,10 +24,17 @@ next forever/horde/02-the-barrens
 #
 # Optional: A Letter Undelivered (361). A Letter to Yvette drops from the
 # Agamand Mills undead about one kill in 25-30, so its accept and turn-in never
-# block. Rear Guard Patrol (99156, Forever): Riptear, a level 13 elite
-# abomination, wanders the woods next to the Vicious Night Web Spiders of the
-# east loop; the quest is taken and handed in at Linnea's camp, which the route
-# visits before and after that loop.
+# block.
+#
+# Forever chains the quest data has no prerequisites for (#51, #128): Linnea
+# offers the second Rear Guard Patrol (99156) only once the first (356) is
+# handed in, and Hadric offers Bandarion Keep (96899) only once The Cult of
+# the Damned (96897) and Remnants of War (96898) are (Wowhead Forever's
+# Series box for 99156; a Wowhead comment and #128 for 96899). Bandarion Keep
+# is taken when those two are handed in after the east loop. Rear Guard
+# Patrol (99156) is left out: Riptear, a level 13 elite, wanders by the
+# spiders at the far east end of the loop, and handing 356 in first means a
+# walk back to the camp and out again (sim compare: +0.10 h to 20).
 #
 # Deviations from the export (same quest set apart from "Left out"):
 # - Patience (99141): the export accepts and turns it in on the spot; here the
@@ -48,6 +55,10 @@ next forever/horde/02-the-barrens
 #   murloc skins come from the west-loop shore, the wings and hides from the
 #   bats and darkhounds you pass anyway. Tomb Weed (99142) is taken from
 #   Holland at the 10.3 turn-in round (export: 12.0).
+# - Fields of Grief (365) is taken from Deathguard Simmer at the Solliden
+#   Farmstead when you walk past him to Calvin's duel, so the west loop goes
+#   from Agamand Mills straight to the pumpkin fields instead of down to the
+#   farm and back up.
 # - The export runs Brill -> spiders -> Brill -> Vachon -> Brill -> Melrache ->
 #   Brill -> cultists -> Agamand Mills -> hearth. Here everything east of Brill
 #   is one loop after the Scarlet camp, Melrache is one trip from Brill and the
@@ -287,7 +298,8 @@ step Gordo
   collect 286202 quest 99141.3 @43.1,54.7 -- Ask Gordo for his report
 
 step Calvin Montague
-  tip Walk on west to Calvin and talk to him: he wants a duel.
+  tip Walk on west to the Solliden Farmstead. Deathguard Simmer stands at the farm; Calvin, by the farmhouse, wants a duel: talk to him.
+  accept 365                          -- Deathguard Simmer
   accept 590
   complete 590 @38.2,56.8             -- Beat Calvin in the duel
   turnin 590
@@ -346,7 +358,6 @@ step Deathguard Linnea
   accept 360
   accept 356
   accept 97558                        -- Shelene Rhobart
-  accept 99156 optional               -- Deathguard Linnea: Riptear, an elite abomination in the east
   collect 286201 quest 99141.2 @65.2,60.3 -- Ask Deathguard Kristof for his report
 
 step Magistrate Sevren
@@ -367,12 +378,8 @@ step Agamand Mills
   collect 2839 optional               -- A Letter to Yvette, a rare drop
   accept 361 optional                 -- Only if the letter dropped
 
-step Deathguard Simmer
-  tip Walk south-west to the Solliden Farmstead; Simmer stands at the farm.
-  accept 365
-
 step Tirisfal Pumpkins
-  tip The pumpkins grow in the Scarlet-held fields north-west of Solliden.
+  tip Walk south-west from the mills: the pumpkins grow in the Scarlet-held fields north-west of Solliden.
   collect 2846 quest 365.1
 
 step Crusader's Outpost
@@ -474,7 +481,6 @@ step Hadric Harlson
   turnin 96895
   accept 96897
   accept 96898
-  accept 96899
 
 step Balnir Farmstead
   tip The Cult of the Damned holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
@@ -495,9 +501,8 @@ step Captain Vachon
   kill 1538 quest 371.2
 
 step Vicious Night Web Spiders
-  tip The spiders lurk in the woods at the far east end of the glades. Riptear, a rogue abomination, wanders just north-west of them. Riptear is elite: grouping up is advised.
+  tip The spiders lurk in the woods at the far east end of the glades.
   collect 2872 quest 369.1
-  collect 286326 quest 99156.1 optional -- Riptear's Heart, from Riptear
 
 step Hides for the Forsaken
   tip Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way.
@@ -507,9 +512,9 @@ step Hides for the Forsaken
 step Deathguard Linnea's camp
   turnin 356                          -- Deathguard Linnea
   turnin 97558                        -- Shelene Rhobart
-  turnin 99156 optional               -- Deathguard Linnea
   turnin 96897                        -- Hadric Harlson
   turnin 96898
+  accept 96899
 
 step Brill
   tip Back up the road to Brill.

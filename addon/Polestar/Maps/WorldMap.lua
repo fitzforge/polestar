@@ -43,6 +43,16 @@ function Maps.GetZoneLevels(uiMapID)
 	return v[1], v[2]
 end
 
+-- Every zone with a level range: for uiMapID, min, max in Maps.EachZoneLevels() do ... end
+function Maps.EachZoneLevels()
+	local id
+	return function()
+		local v
+		id, v = next(levels, id)
+		if id ~= nil then return id, v[1], v[2] end
+	end
+end
+
 -- Palette name for a zone's range seen from `level`: red well under it,
 -- amber just under, gold inside, green a little over, muted when trivial.
 function Maps.LevelColor(min, max, level)

@@ -52,9 +52,16 @@ levels 54-57
 zone Western Plaguelands
 next forever/alliance/50-60/05-silithus
 
+# ---------------------------------------------------------------- Light's Hope Chapel
+
+step Light's Hope Chapel
+  zone Eastern Plaguelands
+  sethome "Light's Hope Chapel" npc 16256 -- Jessica Chambers: the last guide binds here, so this usually ticks at once
+
 # ---------------------------------------------------------------- Chillwind Camp
 
 step Chillwind Camp
+  zone Western Plaguelands
   fly "Chillwind Camp"
   accept 5092                         -- Commander Ashlam Valorfist
   accept 5402                         -- Argent Officer Pureheart
@@ -257,12 +264,13 @@ step Kirsta Deepshadow
 
 step Hearthglen overlook
   tip Climb the hill west of Hearthglen to look down on the town.
-  complete 6025
+  complete 6025 @45.8,18.3
 
 step Kirsta Deepshadow
   turnin 6025
 
 step Tirion Fordring
+  zone Eastern Plaguelands
   tip Ride east to the border river: Tirion lives in a small hut on the bank.
   accept 5542
   accept 5543
@@ -271,6 +279,7 @@ step Tirion Fordring
 # ---------------------------------------------------------------- Gahrron's Withering
 
 step Gahrron's Withering cauldron
+  zone Western Plaguelands
   tip Ride south to Gahrron's Withering, where Cauldron Lord Soulwrath guards the cauldron.
   collect 13196 quest 5225.1          -- Gahrron's Withering Cauldron Key
   turnin 5225                         -- Scourge Cauldron
@@ -322,7 +331,7 @@ step Egan
   turnin 5281
 
 step Tirion Fordring
-  zone Western Plaguelands
+  zone Eastern Plaguelands
   tip Cross the river west to Tirion's hut.
   turnin 5543
   turnin 5544
@@ -332,6 +341,7 @@ step Tirion Fordring
   accept 5781 optional                -- Mercutio Filthgorger is elite: grouping up is advised
 
 step Davil's Libram
+  zone Western Plaguelands
   tip Davil's Libram lies in the town hall of Hearthglen, west of Tirion: the Scarlet guards stand close together.
   collect 12954 quest 5168.1          -- Davil's Libram
 

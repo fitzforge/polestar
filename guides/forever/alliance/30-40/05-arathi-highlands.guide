@@ -18,10 +18,12 @@
 #   in northern Stranglethorn, and it is handed in on the Swamp stop of
 #   40-50/01-stranglethorn-vale. The data has no objectives for it, so each
 #   catch is a check-off the player ticks.
-# - Friend of the Kirin Tor (92459): optional; the Image of Archmage Modera
-#   offers it on the An Alarming Request turn-in, and Archmage Celindra stands
-#   in the City of Dalaran a short walk east (data). Not on the consensus
-#   route; optional because the way into the city is unchecked.
+# - Left out: Friend of the Kirin Tor (92459): the Image of Archmage Modera
+#   offers it only after Heart of Disruption (92458), the City of Dalaran
+#   dungeon quest that An Alarming Request leads to (the quest chain
+#   foreverchanges.pro shows from Wowhead's Forever database, checked
+#   2026-10-17; its text, "the city is calming down ... take this mote",
+#   follows the dungeon). The data has no prerequisite.
 # - The Image of Archmage Modera stands just inside Silverpine Forest in the
 #   data: the turn-in now uses the data's position instead of typed Alterac
 #   coordinates.
@@ -225,7 +227,10 @@ step Doctor Draxlegauge
 
 step The wrecks
   tip The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.
-  complete 662
+  collect 4487 quest 662.1            -- Maiden's Folly Charts
+  collect 4489 quest 662.2            -- Maiden's Folly Log
+  collect 4488 quest 662.3            -- Spirit of Silverpine Charts
+  collect 4490 quest 662.4            -- Spirit of Silverpine Log
   collect 4492 quest 666              -- Elven Gem
   kill 2595 quest 664.1               -- Daggerspine Raider
   kill 2596 quest 664.2               -- Daggerspine Sorceress
@@ -288,7 +293,9 @@ step Witherbark Village
 
 step Stones of Binding
   tip Each key lies at one of the Highlands' standing-stone circles: east of the shards, near Refuge Pointe and in the west. The Stone of Inner Binding stands west of Refuge Pointe.
-  complete 651
+  collect 4483 quest 651.1            -- Burning Key: Stone of West Binding
+  collect 4484 quest 651.2            -- Cresting Key: Stone of East Binding
+  collect 4485 quest 651.3            -- Thundering Key: Stone of Outer Binding
   turnin 651                          -- Stone of Inner Binding
 
 step Refuge Pointe
@@ -323,18 +330,17 @@ step Crushridge ogres
 
 step Ruins of Alterac
   tip The tomes lie in the ruined keep west of Strahnbrad; Argus Shadow Mages hold the ruins.
-  complete 540
+  collect 3658 quest 540.1            -- Recovered Tome: Crushridge ogres
+  collect 3659 quest 540.2            -- Worn Leather Book: the Weathered Bookcase
   kill 2318 quest 537.1               -- Argus Shadow Mage
 
 step Dalaran
   tip South-west to the Kirin Tor camp on the lake shore west of Dalaran, just over the border into Silverpine Forest: the Image of Archmage Modera stands there. Archmage Ansirem stands south-east of it, by the dome.
   zone Silverpine Forest
   turnin 92432 "An Alarming Request"  -- Image of Archmage Modera
-  accept 92459 optional               -- Image of Archmage Modera: Friend of the Kirin Tor
   zone Alterac Mountains
   turnin 602                          -- Archmage Ansirem Runeweaver
   accept 603                          -- For Catelyn the Blade in Booty Bay: keep it
-  turnin 92459 optional               -- Archmage Celindra, in the City of Dalaran
 
 # ---------------------------------------------------------------- Southshore
 

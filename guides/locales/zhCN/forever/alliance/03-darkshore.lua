@@ -50,7 +50,10 @@ return {
 	-- Step 7: Ameth'Aran
 	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
 	["{npc:3639} stands at the north edge of the ruins. Cursed, Writhing and {npc:2178} haunt them; {npc:3667}'s ghost walks among them, {npc:270196} the owl circles east of them. The two tablets lie in the ruins; a {quest:4722} lies on the shore west of them."] = "{npc:3639}站在废墟北缘。被诅咒的贵族、挣扎的贵族和{npc:2178}在那里出没；{npc:3667}的鬼魂在它们中间游荡，猫头鹰{npc:270196}在它们东边盘旋。两块石板在废墟中；一只{quest:4722}躺在废墟西边的岸上。",
-	["Read both tablets"] = "阅读两块石板",
+	-- {object:17188} Lay of Ameth'Aran
+	["Read the {object:17188}"] = "阅读{object:17188}",
+	-- {object:17189} Fall of Ameth'Aran
+	["Read the {object:17189}"] = "阅读{object:17189}",
 	-- plural, as words: Highborne Relics = {item:5360} Highborne Relic
 	["Highborne Relics"] = "{item:5360}",
 
@@ -60,9 +63,9 @@ return {
 	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "爬上{area:447}东边的山脉；{object:175524}位于一处岩架上。",
 
 	-- Step 9: Bashal'Aran
-	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411
+	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "沿山丘向北。{npc:3650}在{quest:954}的废墟中等候；废墟里满是{npc:2190}和{npc:2189}，东缘是{npc:2212}。{quest:1001}立在废墟西边的路旁。",
+	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "沿山丘向北。{npc:3650}在{quest:954}的废墟中等候；废墟里满是野生劣魔和恶灵劣魔，东缘是戴瑟雷萨特。{quest:1001}立在废墟西边的路旁；去找它的路上，岸边躺着一只{quest:4723}。",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "{item:5336}",
 	-- {item:5338} Ancient Moonstone Seal
@@ -112,7 +115,8 @@ return {
 	-- Step 16: The southern beaches
 	["The southern beaches"] = "南部海滩",
 	-- {area:447} Ameth'Aran · {quest:4728} Beached Sea Creature · {area:450} Remtravel's Excavation
-	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "沿海岸向南经过{area:447}：一只{quest:4728}躺在古树之林西边的岸上，另一只在更南边的{area:450}附近。",
+	-- plural, as words: Greymist Oracles = {npc:2207} Greymist Oracle
+	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "沿海岸向南经过{area:447}：一只{quest:4728}躺在古树之林西边的岸上，另一只在更南边的{area:450}附近。更西南方的灰雾智者和灰雾潮行者（18-20级）之间还有三具遗骸：指南把它们留到最后一轮，那时你的等级更接近它们。",
 
 	-- Step 17: The Grove of the Ancients
 	-- {area:448} Grove of the Ancients
@@ -128,7 +132,7 @@ return {
 
 	-- Step 19: Cliffspring Falls
 	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
-	["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "沿山丘向北到{area:456}，再往上到瀑布。北岸还有三具搁浅的遗骸：在{area:443}附近、{quest:954}北边和{quest:954}西边。",
+	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "沿山丘向北到{area:456}，再往上到瀑布。北岸还有两具搁浅的遗骸：在{area:443}附近和{quest:954}北边。",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}，在瀑布处",
 	-- {item:15845} Filled Cliffspring Falls Sampler
@@ -148,7 +152,7 @@ return {
 	["The {area:443}"] = "{area:443}",
 	-- {npc:6667} Gelkak Gyromast
 	-- plural, as words: Giant Foreststriders = {npc:2323} Giant Foreststrider · Raging Reef Crawlers = {npc:2236} Raging Reef Crawler
-	["{npc:6667} hides on the little island off the ruins; Stormscale Beastmistresses walk the shore. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}躲在废墟外的小岛上；雷鳞兽王在岸边巡逻。钥匙碎片掉落自{npc:2323}（上段）、灰雾鱼人（中段）和{npc:2236}（下段）。",
+	["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}躲在废墟外的小岛上。钥匙碎片掉落自凶猛的森林陆行鸟（上段）、灰雾鱼人（中段）和狂暴暗礁蟹（下段）。",
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
 	["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}：在废墟西边、北部海岸外水下的{object:177792}",
 
@@ -206,7 +210,7 @@ return {
 	-- {npc:10323} Murkdeep
 	["{npc:10323}'s beach"] = "{npc:10323}的海滩",
 	-- {npc:10323} Murkdeep · {area:450} Remtravel's Excavation
-	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches south of {area:450}."] = "{npc:10323}在主宰之剑西边的海滩上扎营：击杀营火旁的鱼人；他会在第三波带着猎犬出现。{area:450}南边的海滩上还有三具搁浅的遗骸。",
+	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches west and south-west of {area:450}."] = "{npc:10323}在主宰之剑西边的海滩上扎营：击杀营火旁的鱼人；他会在第三波带着猎犬出现。{area:450}西边和西南边的海滩上还有三具搁浅的遗骸。",
 
 	-- Step 31: Prospector Remtravel
 	-- {area:450} Remtravel's Excavation · {npc:10323} Murkdeep
@@ -214,6 +218,8 @@ return {
 
 	-- Step 33: Auberdine
 	["Follow the road north."] = "沿道路向北。",
+	-- {quest:87760} Holy Diver · {npc:10219} Gwennyth Bly'Leggonde
+	["{quest:87760}: {npc:10219} offers it once all nine beached remains are handed in"] = "{quest:87760}：交齐全部九具搁浅的遗骸后，{npc:10219}会提供这个任务",
 	-- {item:15826} Curative Animal Salve
 	["She gives you the {item:15826}"] = "她会给你{item:15826}",
 
@@ -221,7 +227,7 @@ return {
 	["The naga"] = "纳迦",
 	-- {area:443} Ruins of Mathystra · {quest:951} Mathystra Relics
 	-- plural, as words: Stormscale Myrmidons = {npc:2181} Stormscale Myrmidon
-	["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them."] = "沿海岸向东北到{area:443}。{quest:951}散落在废墟中；{npc:2181}、雷鳞巫师和雷鳞战士占据着那里。",
+	["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "沿海岸向东北到{area:443}。{quest:951}散落在废墟中；雷鳞侍从、雷鳞巫师和雷鳞战士占据着那里，雷鳞兽王在岸边巡逻。",
 
 	-- Step 35: Back south
 	["Back south"] = "返回南方",
@@ -269,7 +275,14 @@ return {
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the boat to {zone:1453}."] = "乘传送门上去找{npc:4217}，然后飞回{area:442}乘船前往{zone:1453}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them."] = "沿海岸向东北到{area:443}。{quest:951}散落在废墟中；{npc:2181}、雷鳞巫师和雷鳞战士占据着那里。",
+	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "沿海岸向南经过{area:447}：一只{quest:4728}躺在古树之林西边的岸上，另一只在更南边的{area:450}附近。",
+	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "沿山丘向北到{area:456}，再往上到瀑布。北岸还有三具搁浅的遗骸：在{area:443}附近、{quest:954}北边和{quest:954}西边。",
+	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "沿山丘向北。{npc:3650}在{quest:954}的废墟中等候；废墟里满是{npc:2190}和{npc:2189}，东缘是{npc:2212}。{quest:1001}立在废墟西边的路旁。",
+	-- ["Read both tablets"] = "阅读两块石板",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "{npc:2232}在村子下方的岸边爬行；{quest:983}立在码头南边的海滩上。{npc:2185}在浅水中游动。{quest:4723}躺在村子南边的岸上。",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}：在废墟西边、北部海岸外水下的{object:177790}",
+	-- ["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches south of {area:450}."] = "{npc:10323}在主宰之剑西边的海滩上扎营：击杀营火旁的鱼人；他会在第三波带着猎犬出现。{area:450}南边的海滩上还有三具搁浅的遗骸。",
+	-- ["{npc:6667} hides on the little island off the ruins; Stormscale Beastmistresses walk the shore. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}躲在废墟外的小岛上；雷鳞兽王在岸边巡逻。钥匙碎片掉落自{npc:2323}（上段）、灰雾鱼人（中段）和{npc:2236}（下段）。",
 	-- ["{quest:1003} stands west of the Grove."] = "{quest:1003}立在古树之林西边。",
 }

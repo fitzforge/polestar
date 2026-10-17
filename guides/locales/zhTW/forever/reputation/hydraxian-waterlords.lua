@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Poisoned Water
 	-- {item:17310} Aspect of Neptulon · {zone:1423} Eastern Plaguelands · {item:17309} Discordant Bracers
-	["Use the {item:17310} on the poisoned water elementals of {zone:1423}, then loot their {item:17309} (12). Our data has no spawn points for those elementals."] = "對{zone:1423}中毒的水元素使用{item:17310}，然後拾取牠們的{item:17309}（12個）。我們的資料沒有這些水元素的重生點。",
+	["Use the {item:17310} on the poisoned water elementals of {zone:1423}, then loot their {item:17309} (12)."] = "對{zone:1423}中毒的水元素使用{item:17310}，然後拾取牠們的{item:17309}（12個）。",
 
 	-- Step 4: Back to Duke Hydraxis
 	-- {npc:13278} Duke Hydraxis
@@ -54,4 +54,7 @@ return {
 	["{faction:749} to Exalted"] = "{faction:749}到崇拜",
 	-- {area:2717} Molten Core
 	["Keep clearing the {area:2717} until Exalted."] = "繼續清{area:2717}直到崇拜。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Use the {item:17310} on the poisoned water elementals of {zone:1423}, then loot their {item:17309} (12). Our data has no spawn points for those elementals."] = "對{zone:1423}中毒的水元素使用{item:17310}，然後拾取牠們的{item:17309}（12個）。我們的資料沒有這些水元素的重生點。",
 }

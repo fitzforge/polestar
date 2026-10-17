@@ -7,6 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Everlook
+	-- {npc:11118} Innkeeper Vizzie
+	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: Der letzte Guide bindet dich hier, daher ist das meist sofort abgehakt",
 	-- {npc:11629} Jessica Redpath · {area:2262} Darrowshire
 	["{npc:11629}: keep it for {area:2262}"] = "{npc:11629}: für {area:2262} behalten",
 	-- {npc:10431} Gregor Greystone

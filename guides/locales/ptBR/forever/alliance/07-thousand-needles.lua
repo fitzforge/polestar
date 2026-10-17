@@ -149,14 +149,19 @@ return {
 	-- Step 28: Captain Stoutfist
 	-- {area:150} Menethil Harbor
 	["Ride back west along the road to {area:150}."] = "Volte para o oeste pela estrada até {area:150}.",
+	-- {quest:98221} From the Ashes · {quest:465} Nek'rosh's Gambit
+	["{quest:98221}: {quest:465} comes after it on Forever"] = "{quest:98221}: no Forever, {quest:465} vem depois dela",
 
-	-- Step 29: Dragonmaw catapult
-	["Dragonmaw catapult"] = "Catapulta Presa do Dragão",
-	["Ride east again; the catapult stands at the Dragonmaw camp south of the road."] = "Siga para o leste de novo; a catapulta fica no acampamento Presa do Dragão, ao sul da estrada.",
-	["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "A próxima etapa, Derrotar Nek'rosh, coloca você contra um chefe elite: pule-a.",
+	-- Step 29: Angerfang Encampment
+	-- {area:1036} Angerfang Encampment · {npc:2091} Chieftain Nek'rosh
+	["Ride east again to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "Cavalgue de novo para o leste até o acampamento dos Presa do Dragão. Os quatro conjuntos de planos de ataque estão em {area:1036}; {npc:2091}, um elite, também fica no acampamento.",
 
 	-- Step 30: To Theramore
 	["To Theramore"] = "Para Theramore",
+	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
+	["{npc:2104}, in {area:2103}"] = "{npc:2104}, em {area:2103}",
+	-- {zone:1437} Wetlands
+	["For the Dragonmaw catapult, on the {zone:1437} loop of the next guide"] = "Para a catapulta dos Presa do Dragão, na volta por {zone:1437} do próximo guia",
 	-- {area:513} Theramore Isle · {zone:1445} Dustwallow Marsh
 	["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "Pegue o barco no píer de Menethil até {area:513}, em {zone:1445}.",
 
@@ -192,4 +197,9 @@ return {
 
 	-- Step 36: Back to Menethil
 	["Back to Menethil"] = "De volta a Menethil",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Dragonmaw catapult"] = "Catapulta Presa do Dragão",
+	-- ["Ride east again; the catapult stands at the Dragonmaw camp south of the road."] = "Siga para o leste de novo; a catapulta fica no acampamento Presa do Dragão, ao sul da estrada.",
+	-- ["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "A próxima etapa, Derrotar Nek'rosh, coloca você contra um chefe elite: pule-a.",
 }

@@ -50,7 +50,10 @@ return {
 	-- Step 7: Ameth'Aran
 	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
 	["{npc:3639} stands at the north edge of the ruins. Cursed, Writhing and {npc:2178} haunt them; {npc:3667}'s ghost walks among them, {npc:270196} the owl circles east of them. The two tablets lie in the ruins; a {quest:4722} lies on the shore west of them."] = "{npc:3639} está en el borde norte de las ruinas. Altonatos malditos, Altonatos en pena y {npc:2178} las rondan; el fantasma de {npc:3667} camina entre ellos y la lechuza {npc:270196} vuela en círculos al este. Las dos tablillas están en las ruinas; {quest:4722} yace en la orilla al oeste de ellas.",
-	["Read both tablets"] = "Lee ambas tablillas",
+	-- {object:17188} Lay of Ameth'Aran
+	["Read the {object:17188}"] = "Lee {object:17188}",
+	-- {object:17189} Fall of Ameth'Aran
+	["Read the {object:17189}"] = "Lee {object:17189}",
 	-- plural, as words: Highborne Relics = {item:5360} Highborne Relic
 	["Highborne Relics"] = "Reliquias de Altonato",
 
@@ -60,9 +63,9 @@ return {
 	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Sube a las montañas al este de {area:447}; el {object:175524} está en una cornisa.",
 
 	-- Step 9: Bashal'Aran
-	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411
+	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "Ve al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino al oeste de las ruinas.",
+	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Ve al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino al oeste de las ruinas; un {quest:4723} yace en la orilla de camino hacia él.",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "Pendientes grell",
 	-- {item:5338} Ancient Moonstone Seal
@@ -112,7 +115,8 @@ return {
 	-- Step 16: The southern beaches
 	["The southern beaches"] = "Las playas del sur",
 	-- {area:447} Ameth'Aran · {quest:4728} Beached Sea Creature · {area:450} Remtravel's Excavation
-	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "Sigue la costa hacia el sur más allá de {area:447}: un {quest:4728} yace en la orilla al oeste del Páramo de los Ancianos y otro más al sur, cerca de {area:450}.",
+	-- plural, as words: Greymist Oracles = {npc:2207} Greymist Oracle
+	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Sigue la costa hacia el sur más allá de {area:447}: un {quest:4728} yace en la orilla al oeste del Páramo de los Ancianos y otro más al sur, cerca de {area:450}. Otros tres restos yacen más al suroeste entre oráculos Brumagris y cazamareas Brumagris (18-20): la guía los deja para la última vuelta, cuando estés más cerca de su nivel.",
 
 	-- Step 17: The Grove of the Ancients
 	-- {area:448} Grove of the Ancients
@@ -128,7 +132,7 @@ return {
 
 	-- Step 19: Cliffspring Falls
 	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
-	["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "Sigue las colinas hacia el norte hasta {area:456} y sube a las cascadas. Hay tres restos varados más en la costa norte: cerca de {area:443}, al norte de {quest:954} y al oeste de {quest:954}.",
+	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "Sigue las colinas hacia el norte hasta {area:456} y sube a las cascadas. Hay dos restos varados más en la costa norte: cerca de {area:443} y al norte de {quest:954}.",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}, en la cascada",
 	-- {item:15845} Filled Cliffspring Falls Sampler
@@ -148,7 +152,7 @@ return {
 	["The {area:443}"] = "{area:443}",
 	-- {npc:6667} Gelkak Gyromast
 	-- plural, as words: Giant Foreststriders = {npc:2323} Giant Foreststrider · Raging Reef Crawlers = {npc:2236} Raging Reef Crawler
-	["{npc:6667} hides on the little island off the ruins; Stormscale Beastmistresses walk the shore. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667} se esconde en la islita frente a las ruinas; las Stormscale Beastmistresses recorren la orilla. Las piezas de la llave las sueltan los zancudos del bosque gigantes (parte superior), los múrlocs Brumagris (parte central) y los reptadores de arrecife enfurecidos (parte inferior).",
+	["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667} se esconde en la islita frente a las ruinas. Las piezas de la llave las sueltan los zancudos del bosque gigantes (parte superior), los múrlocs Brumagris (parte central) y los reptadores de arrecife enfurecidos (parte inferior).",
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
 	["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}: {object:177792}, bajo el agua frente a la costa norte, al oeste de las ruinas",
 
@@ -206,7 +210,7 @@ return {
 	-- {npc:10323} Murkdeep
 	["{npc:10323}'s beach"] = "La playa de {npc:10323}",
 	-- {npc:10323} Murkdeep · {area:450} Remtravel's Excavation
-	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches south of {area:450}."] = "{npc:10323} acampa en la playa al oeste de la guja: mata a los múrlocs junto a la fogata; él llega en la tercera oleada con su perro. Hay tres restos varados en las playas al sur de {area:450}.",
+	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches west and south-west of {area:450}."] = "{npc:10323} acampa en la playa al oeste de la guja: mata a los múrlocs junto a la fogata; él llega en la tercera oleada con su perro. Hay tres restos varados en las playas al oeste y al suroeste de {area:450}.",
 
 	-- Step 31: Prospector Remtravel
 	-- {area:450} Remtravel's Excavation · {npc:10323} Murkdeep
@@ -214,6 +218,8 @@ return {
 
 	-- Step 33: Auberdine
 	["Follow the road north."] = "Sigue el camino al norte.",
+	-- {quest:87760} Holy Diver · {npc:10219} Gwennyth Bly'Leggonde
+	["{quest:87760}: {npc:10219} offers it once all nine beached remains are handed in"] = "{quest:87760}: {npc:10219} la ofrece cuando hayas entregado los nueve restos varados",
 	-- {item:15826} Curative Animal Salve
 	["She gives you the {item:15826}"] = "Ella te da el {item:15826}",
 
@@ -221,7 +227,7 @@ return {
 	["The naga"] = "Los naga",
 	-- {area:443} Ruins of Mathystra · {quest:951} Mathystra Relics
 	-- plural, as words: Stormscale Myrmidons = {npc:2181} Stormscale Myrmidon
-	["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them."] = "Sigue la costa al noreste hasta {area:443}. {quest:951} están entre las ruinas; las ocupan myrmidones, hechiceras y guerreros Escama Tormentosa.",
+	["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Sigue la costa al noreste hasta {area:443}. {quest:951} están entre las ruinas; las ocupan myrmidones, hechiceras y guerreros Escama Tormentosa, y las maestras de bestias Escama Tormentosa recorren la orilla.",
 
 	-- Step 35: Back south
 	["Back south"] = "De vuelta al sur",
@@ -269,7 +275,14 @@ return {
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the boat to {zone:1453}."] = "Toma el portal para subir con {npc:4217} y luego vuela de vuelta a {area:442} para tomar el barco a {zone:1453}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them."] = "Sigue la costa al noreste hasta {area:443}. {quest:951} están entre las ruinas; las ocupan myrmidones, hechiceras y guerreros Escama Tormentosa.",
+	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "Sigue la costa hacia el sur más allá de {area:447}: un {quest:4728} yace en la orilla al oeste del Páramo de los Ancianos y otro más al sur, cerca de {area:450}.",
+	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "Sigue las colinas hacia el norte hasta {area:456} y sube a las cascadas. Hay tres restos varados más en la costa norte: cerca de {area:443}, al norte de {quest:954} y al oeste de {quest:954}.",
+	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "Ve al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino al oeste de las ruinas.",
+	-- ["Read both tablets"] = "Lee ambas tablillas",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "Los Reptadores de marea ({npc:2232}) corretean por la orilla bajo el pueblo; {quest:983} está en la playa, justo al sur de los muelles. Los Trilladores de Costa Oscura ({npc:2185}) nadan en los bajíos. {quest:4723} yace en la orilla, justo al sur del pueblo.",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}: {object:177790}, bajo el agua frente a la costa norte, al oeste de las ruinas",
+	-- ["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches south of {area:450}."] = "{npc:10323} acampa en la playa al oeste de la guja: mata a los múrlocs junto a la fogata; él llega en la tercera oleada con su perro. Hay tres restos varados en las playas al sur de {area:450}.",
+	-- ["{npc:6667} hides on the little island off the ruins; Stormscale Beastmistresses walk the shore. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667} se esconde en la islita frente a las ruinas; las Stormscale Beastmistresses recorren la orilla. Las piezas de la llave las sueltan los zancudos del bosque gigantes (parte superior), los múrlocs Brumagris (parte central) y los reptadores de arrecife enfurecidos (parte inferior).",
 	-- ["{quest:1003} stands west of the Grove."] = "{quest:1003} está al oeste del Páramo de los Ancianos.",
 }

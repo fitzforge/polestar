@@ -20,7 +20,7 @@ const { checkLocation } = require('./places');
 const { blockingPrereqs } = require('../data/prereqs');
 const { clusterPoints, scaleOf } = require('../questdb/cluster');
 const { groupOf, isElite, hostileTo } = require('./group');
-const { goalHeight } = require('./heights');
+const { goalHeight, spotHeight } = require('./heights');
 const { goalArea, goalNode, goalInnkeeper } = require('./places');
 
 // A collect's sources are named only for an item that few creatures or
@@ -1363,8 +1363,10 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	setIf(goal, 'group', groupOf(goal, g.group, ctx.sides, data));
 	setIf(goal, 'only', onlyOf(g.only));
 	setIf(goal, 'note', g.note);
-	// The height of the NPC or object the goal's point stands for (heights.js).
+	// The height of the NPC or object the goal's point stands for, and of each
+	// of its spawn spots (heights.js).
 	setIf(goal, 'z', goalHeight(data, goal));
+	for (const s of goal.spots || []) setIf(s, 'z', spotHeight(data, goal, s));
 	// The area its place name stands for, and a getfp's or fly's taxi node
 	// (places.js), for the factions its races can be (a Tauren-only step: Horde).
 	setIf(goal, 'area', goalArea(data, goal));

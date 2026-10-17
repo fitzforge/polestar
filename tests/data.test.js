@@ -388,6 +388,17 @@ describe('fixture build', () => {
 		assert.equal(meta.counts.mapFrames, 4);
 	});
 
+	test('meta names a source cache with forward slashes on every system, as LICENSE-DATA.txt shows it', async () => {
+		const root = tmpdir('polestar-data-');
+		const sourcesDir = path.join(root, 'data', 'sources');
+		fs.cpSync(path.join(FIX, 'sources'), sourcesDir, { recursive: true });
+		fs.mkdirSync(path.join(sourcesDir, 'webxp'));
+		fs.writeFileSync(path.join(sourcesDir, 'webxp', 'quest-xp.json'), JSON.stringify({ 101: { wft: 450, fc: null } }));
+		const { read } = await fixtureBuild({ root, sourcesDir, webXp: true });
+		const xp = read('meta').sources.find((s) => s.name.startsWith('Quest XP'));
+		assert.equal(xp.revision, '1 quests; cache data/sources/webxp/quest-xp.json');
+	});
+
 	test('output is byte-for-byte deterministic', async () => {
 		const a = await fixtureBuild();
 		const b = await fixtureBuild();

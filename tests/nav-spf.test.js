@@ -1,6 +1,6 @@
 'use strict';
 // Walking paths (addon/Polestar/Nav/Walk.lua): the arrow follows the walking
-// engine vendored from Shortest Path Forever (addon/Polestar_Nav) instead of a
+// router started from Shortest Path Forever's (addon/Polestar_Nav) instead of a
 // straight line. A fake engine with deterministic callbacks stands in for
 // Polestar_NavEngine: the arrow follows the path's points, straying asks
 // again, a new target cancels the stale search, nothing is searched in
@@ -10,31 +10,69 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { runAddon } = require('./helpers/lua');
+const path = require('node:path');
+const { runAddon, ADDONS } = require('./helpers/lua');
 
 const NAV = { name: 'Polestar', files: ['Core/Init.lua', 'Nav/Nav.xml'] };
 
 // The fake engine, installed before the addon loads (Polestar_Nav's API.lua sets the same global).
+// The fifth argument is the waterWalking flag or opts { waterWalking, profile, style }
+// (Routing/Path.lua); a job keeps both. Answers carry job.yards (the drawn
+// line's length) and job.hubs (fake.hubs: the hostile towns it enters).
 const ENGINE = `
 fake = { calls = {}, avail = {} }
+local function opts(job, o)
+	job.opts = o
+	if type(o) == "table" then
+		job.waterWalking, job.profile = o.waterWalking, o.profile
+	else
+		job.waterWalking = o
+	end
+end
 Polestar_NavEngine = {
-	Find = function(map, from, to, callback, waterWalking)
+	Find = function(map, from, to, callback, o)
 		if fake.throw then error("boom") end
-		local job = { map = map, from = from, to = to, callback = callback, waterWalking = waterWalking }
+		local job = { map = map, from = from, to = to, callback = callback }
+		opts(job, o)
 		fake.calls[#fake.calls + 1] = job
 		return job
 	end,
 	Cancel = function(job) job.cancelled = true end,
 	Busy = function() return false end,
 	Available = function(c) return fake.avail[c] ~= false end,
+	-- The walkable surfaces under (x, y): fake.surfaces(map, x, y) -> { z, ..., [-i] = marks } (none without it;
+	-- marks as Path.SurfacesAt's: 2 indoor, 1 water, 0 when left out); nil while fake.undecoded (the cluster not
+	-- decoded: the router queues its decode), an error with fake.surfacesError. fake.reads counts the reads,
+	-- fake.releases Path.ReleaseSurfaces.
+	SurfacesAt = function(map, x, y, out)
+		if fake.surfacesError then error("bad cluster") end
+		if fake.undecoded then return nil end
+		fake.reads = (fake.reads or 0) + 1
+		local list = fake.surfaces and fake.surfaces(map, x, y) or {}
+		for i, z in ipairs(list) do out[i], out[-i] = z, list[-i] or 0 end
+		return #list
+	end,
+	ReleaseSurfaces = function() fake.releases = (fake.releases or 0) + 1 end,
 }
+fake.opts = opts
 function fake.last() return fake.calls[#fake.calls] end
--- Answer the last search with the path x1, y1, x2, y2, ... (UnitPosition frame).
-function fake.resolve(...)
-	local job, xy, points = fake.last(), { ... }, {}
+-- The path's length, as Find's job.yards gives it.
+local function length(points)
+	local yards = 0
+	for i = 2, #points do yards = yards + math.sqrt((points[i].x - points[i - 1].x) ^ 2 + (points[i].y - points[i - 1].y) ^ 2) end
+	return yards
+end
+-- Answer a search with the path x1, y1, x2, y2, ... (UnitPosition frame); its
+-- cost (100) is never its yards, as on format 2 maps.
+local function answer(job, xy)
+	local points = {}
 	for i = 1, #xy - 1, 2 do points[#points + 1] = { map = job.map, x = xy[i], y = xy[i + 1] } end
+	job.yards, job.hubs = length(points), fake.hubs or {}
 	job.callback(points, 100, job)
 end
+fake.answerXY = answer
+-- Answer the last search.
+function fake.resolve(...) answer(fake.last(), { ... }) end
 function fake.fail(reason)
 	local job = fake.last()
 	job.callback(nil, reason, job)
@@ -60,10 +98,13 @@ local function calls() return #fake.calls end
 `;
 
 // The planner's measures (Walk.Measure): the fake engine with Path.FindMany too.
-// settle(job, fn) answers a batch with fn(x, y) per target (a cost, or false).
+// settle(job, fn) answers a batch with fn(x, y) per target: a cost, or false,
+// and the yards along that walk (job.yards[i]; the cost when fn gives none,
+// as on a format 1 map).
 const MANY = `
-Polestar_NavEngine.FindMany = function(map, from, targets, callback, waterWalking, reverse)
-	local job = { many = true, map = map, from = from, targets = targets, callback = callback, waterWalking = waterWalking, reverse = reverse }
+Polestar_NavEngine.FindMany = function(map, from, targets, callback, o, reverse)
+	local job = { many = true, map = map, from = from, targets = targets, callback = callback, reverse = reverse }
+	fake.opts(job, o)
 	fake.calls[#fake.calls + 1] = job
 	return job
 end
@@ -74,16 +115,18 @@ function fake.of(many)
 	return out
 end
 function fake.settle(job, fn)
-	local costs = {}
-	for i, p in ipairs(job.targets) do costs[i] = fn(p.x, p.y) end
+	local costs, yards = {}, {}
+	for i, p in ipairs(job.targets) do
+		local c, y = fn(p.x, p.y)
+		costs[i] = c
+		if y == nil then y = c end
+		yards[i] = y
+	end
+	job.yards = yards
 	job.callback(costs, nil, job)
 end
 -- Answer one Path.Find with the path x1, y1, x2, y2, ...
-function fake.answer(job, ...)
-	local xy, points = { ... }, {}
-	for i = 1, #xy - 1, 2 do points[#points + 1] = { map = job.map, x = xy[i], y = xy[i + 1] } end
-	job.callback(points, 100, job)
-end
+function fake.answer(job, ...) fake.answerXY(job, { ... }) end
 `;
 
 function run(script, { engine = true, many = false } = {}) {
@@ -604,6 +647,21 @@ test('Z1: the Engine waypoint\'s height goes to the walking engine with the targ
 	assert.deepEqual(out.hand, [2, true, true], 'the same spot set by hand: searched again, without a height');
 });
 
+test('#180: a target set by hand at an NPC with its height (Nav.SetTarget\'s z: a class trainer, a goal\'s row) is searched with it', () => {
+	const [out] = run(`${Z_WAYPOINT}
+		local r = {}
+		nav.place(0, 0)
+		N.SetTarget(m, x, y, "Trainer", nil, "trainer", -66)
+		N.Sample()
+		r.withZ = { calls(), fake.last().to.z, select(4, N.GetTargetWorld()), N.GetTarget().z }
+		N.SetTarget(m, x, y, "Trainer", nil, "trainer", "high")
+		N.Sample()
+		r.bad = N.GetTarget().z == nil
+		emit(r)`);
+	assert.deepEqual(out.withZ, [1, -66, -66, -66]);
+	assert.equal(out.bad, true, 'only a number is a height');
+});
+
 test('Z2: a search with the height that fails is asked once more without it, and that answer stands', () => {
 	const [out] = run(`${Z_WAYPOINT}
 		local r = {}
@@ -1066,6 +1124,84 @@ test('review 4: after ROUTE_ADVANCED (off the boat) the arrow\'s own walk is sea
 	assert.deepEqual(out.then_, [-400, -400, -300], 'then Far Roost to the target');
 });
 
+test('a walk to a boat whose end has a board point is searched to the deck, with the deck\'s height; a later walk too', () => {
+	const [out] = run(`
+		N.RegisterTravelData({ build = "test",
+			taxi = {
+				{ 1, 1, 300, 0, 9001, 50, 20, 3, "Pier Roost, Farland" },
+				{ 2, 1, -400, 0, 9001, 50, 90, 3, "Far Roost, Farland" },
+			},
+			flights = { 1, 2, 800, 2, 1, 800 },
+			transports = {
+				{ id = "boat-test", kind = "boat", faction = 3, ab = 60, ba = 60, waitA = 30, waitB = 30,
+					a = { "Testshire Docks", 0, -900, 0, 9000, 50, 95, "e", nil, { wx = -890, wy = 10, z = 5.9 } },
+					b = { "Farland Pier", 1, 400, 0, 9001, 50, 10, "e", nil, { wx = 410, wy = 5, z = 4.5 } } },
+			},
+		}, true)
+		Polestar.CharState().flags.taxi = { [1] = true, [2] = true }
+		local r = {}
+		nav.place(-600, 0)
+		N.SetTarget(9001, 80, 90, "Target")
+		N.Sample()
+		local job = fake.of(false)[1]
+		r.arrow = { job and job.to.x, job and job.to.y, job and (job.to.z or "none") }
+		-- On Farland at Far Roost: fly to Pier Roost, then the later walk to the pier's deck.
+		fake.calls = {}
+		nav.place(-400, -20, 1)
+		N.SetTarget(9000, 60, 90, "Testshire")
+		N.Sample()
+		local legs, ci = N.GetRoute()
+		local kinds = {}
+		for i = ci, #legs do kinds[#kinds + 1] = legs[i].kind end
+		r.kinds = table.concat(kinds, " ")
+		fake.settle(fake.of(true)[1], function() return false end) -- measured: nothing found, straight as planned
+		fake.answer(fake.of(false)[1], -400, -20, -400, 0)
+		local later = fake.of(false)[2]
+		r.later = { later and later.to.x, later and later.to.y, later and (later.to.z or "none") }
+		emit(r)`, { many: true });
+	assert.deepEqual(out.arrow, [-890, 10, 5.9], 'the deck, not the ship\'s stop in the water under it');
+	assert.match(out.kinds, /^walk fly walk boat/);
+	assert.deepEqual(out.later, [410, 5, 4.5], 'the later walk from the flight master to the deck');
+});
+
+test('the walk off a boat whose end has a board point is searched and measured from the deck, with the deck\'s height', () => {
+	const [out] = run(`
+		N.RegisterTravelData({ build = "test",
+			taxi = {
+				{ 1, 1, 300, 0, 9001, 50, 20, 3, "Pier Roost, Farland" },
+				{ 2, 1, -400, 0, 9001, 50, 90, 3, "Far Roost, Farland" },
+			},
+			flights = { 1, 2, 800, 2, 1, 800 },
+			transports = {
+				{ id = "boat-test", kind = "boat", faction = 3, ab = 60, ba = 60, waitA = 30, waitB = 30,
+					a = { "Testshire Docks", 0, -900, 0, 9000, 50, 95, "e", nil, { wx = -890, wy = 10, z = 5.9 } },
+					b = { "Farland Pier", 1, 400, 0, 9001, 50, 10, "e", nil, { wx = 410, wy = 5, z = 4.5 } } },
+			},
+		}, true)
+		Polestar.CharState().flags.taxi = { [1] = true, [2] = true }
+		local r = {}
+		nav.place(-600, 0)
+		N.SetTarget(9001, 80, 90, "Target")
+		N.Sample()
+		local legs, ci = N.GetRoute()
+		local kinds = {}
+		for i = ci, #legs do kinds[#kinds + 1] = legs[i].kind end
+		r.kinds = table.concat(kinds, " ")
+		local batch = fake.of(true)[1]
+		r.measured = "none"
+		for _, p in ipairs(batch and batch.targets or {}) do
+			if p.x == 410 and p.y == 5 then r.measured = p.z or "no z" end
+		end
+		fake.settle(batch, function() return false end)
+		fake.answer(fake.of(false)[1], -600, 0, -890, 10)
+		local later = fake.of(false)[2]
+		r.later = later and { later.from.x, later.from.y, later.from.z or "none" }
+		emit(r)`, { many: true });
+	assert.match(out.kinds, /^walk boat walk/);
+	assert.deepEqual(out.later, [410, 5, 4.5], 'the walk off the boat starts on the far deck, at its height');
+	assert.equal(out.measured, 4.5, 'the measure into the target from the far deck carries its height');
+});
+
 test('review 5: the target\'s height goes with the measure (once more without it when it finds nothing) and with the last walk\'s search', () => {
 	const [out] = run(`${TERRAIN}
 		local r = {}
@@ -1237,4 +1373,914 @@ test('test gap: handed off to Shortest Path Forever, Refresh cancels the measure
 	assert.equal(out.measure, true);
 	assert.deepEqual(out.legFrom, [400, 300], 'the later walk was in flight');
 	assert.equal(out.leg, true);
+});
+
+// Pathing v2 (docs/ARCHITECTURE.md, "In-game walking routes"): searches are
+// priced for the player's faction; the router's cost chooses, its yards time
+// (on format 2 maps a road walk costs less than its yards, a steep one more);
+// hostile towns a walk enters are said; a later rule scales walk costs.
+
+test('profile: every search carries the player\'s faction as opts.profile; a neutral faction sends none and still routes', () => {
+	const [out] = run(`${TERRAIN}
+		local r = {}
+		nav.faction = "Horde"
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		local job = fake.of(false)[1]
+		r.horde = { job.profile or false, type(job.opts), job.waterWalking == true }
+		fake.resolve(0, 0, 100, -300, 0, -600)
+		r.hordeAim = aim()[1]
+		nav.faction = "Neutral"
+		target(0, -300)
+		N.Sample()
+		job = fake.of(false)[#fake.of(false)]
+		r.none = { job.profile or false, job.waterWalking == true }
+		fake.resolve(0, 0, 50, -150, 0, -300)
+		r.noneAim = aim()
+		nav.faction = "Alliance"
+		nav.place(900, 900)
+		target(0, 0)
+		N.Sample()
+		local many = fake.of(true)
+		r.batch = many[#many].profile or false
+		emit(r)`, { many: true });
+	assert.deepEqual(out.horde, ['Horde', 'table', false], 'the arrow\'s own walk: opts { waterWalking, profile }');
+	assert.equal(out.hordeAim, 'travel');
+	assert.deepEqual(out.none, [false, false], 'neutral or unread: no profile');
+	assert.deepEqual(out.noneAim, ['travel', 316, 50, -150], 'and it routes');
+	assert.equal(out.batch, 'Alliance', 'the planner\'s measure too');
+});
+
+test('cost and yards: the measure\'s cost picks the landing, its yards time the walk (a road walk costs less than its yards)', () => {
+	const [out] = run(`${TERRAIN}
+		nav.place(900, 900)
+		target(0, 0)
+		N.Sample()
+		-- Road Roost: 750 yd along a road, costing 600 (x0.8). Ridge Roost: 500 yd
+		-- over rough ground, costing 650. Flights are alike: the cheaper walk wins.
+		fake.settle(fake.of(true)[1], function(x, y)
+			if at(x, y, 0, -700) then return 600, 750 end
+			if at(x, y, 0, 300) then return 650, 500 end
+			local d = math.sqrt(x * x + y * y)
+			return math.floor(d * 1.3), math.floor(d)
+		end)
+		emit(route())`, { many: true });
+	assert.deepEqual(out, { lands: 'Road Roost, Testshire', yards: 750, seconds: 107, engine: 'cost' },
+		'chosen by cost (600 < 650), shown and timed by its 750 yards at 7 yd/s');
+});
+
+test('cost and yards: a searched walk is measured by the path\'s yards, never its cost', () => {
+	const [out] = run(`${CROSSING}
+		nav.place(900, 800)
+		target(600, -300)
+		N.Sample()
+		fake.settle(fake.of(true)[1], function(x, y) return math.floor(math.sqrt((x - 600) ^ 2 + (y + 300) ^ 2) * 1.1) end)
+		fake.answer(fake.of(false)[1], 900, 800, 900, 900)
+		fake.answer(fake.of(false)[2], 400, 300, 500, 300, 600, 20)
+		local legs, ci = N.GetRoute()
+		emit({ legs[ci].yards, legs[ci].seconds, legs[ci + 2].yards, legs[ci + 2].seconds })`, { many: true });
+	const path = 100 + Math.hypot(100, 280);
+	assert.deepEqual(out, [100, 14, Math.round(path), Math.round(path / 7)], 'the engine\'s cost (100 for each) is not a distance');
+});
+
+test('Travel.WalkCostHook: a registered rule scales a walk\'s cost, never its time', () => {
+	const [out] = run(`${TERRAIN}
+		local r = {}
+		nav.place(900, 900)
+		target(0, 0)
+		N.Sample()
+		r.before = route()
+		local seen = 0
+		T.WalkCostHook(function(leg, cost)
+			seen = seen + 1
+			if at(leg.from.wx, leg.from.wy, 0, 300) and at(leg.to.wx, leg.to.wy, 0, 0) then return cost * 4 end
+			return cost
+		end)
+		T.Replan()
+		r.after = route()
+		r.seen = seen > 0
+		emit(r)`, { many: true });
+	assert.deepEqual(out.before, { lands: 'Ridge Roost, Testshire', yards: 375, seconds: 54, engine: false });
+	assert.deepEqual(out.after, { lands: 'Road Roost, Testshire', yards: 875, seconds: 125, engine: false },
+		'the walk from Ridge Roost costs four times as much: the route lands at Road Roost, timed as before');
+	assert.equal(out.seen, true);
+});
+
+test('hostile towns: a walk whose path enters one carries it (leg.hubs); the arrow says "Hostile town: <name>" once, when the walk starts', () => {
+	const [out] = run(`${CROSSING}
+		local r = {}
+		nav.place(900, 800)
+		target(600, -300)
+		N.Sample()
+		fake.settle(fake.of(true)[1], function(x, y) return math.floor(math.sqrt((x - 600) ^ 2 + (y + 300) ^ 2) * 1.1) end)
+		fake.hubs = { { id = 12, name = "Southshore" } }
+		fake.answer(fake.of(false)[1], 900, 800, 900, 900)
+		fake.hubs = { { id = 13, name = "Tarren Mill" } }
+		fake.answer(fake.of(false)[2], 400, 300, 500, 300, 600, 20)
+		fake.hubs = nil
+		local legs, ci = N.GetRoute()
+		r.current = legs[ci].hubs and legs[ci].hubs[1].name or false
+		r.later = legs[ci + 2].hubs and legs[ci + 2].hubs[1].name or false
+		r.none = legs[ci + 1].hubs ~= nil
+		stub.advance(0.3)
+		r.said = N.arrow.labelText:GetText()
+		stub.advance(15)
+		r.after = N.arrow.labelText:GetText()
+		T.Replan()
+		stub.advance(0.3)
+		r.again = N.arrow.labelText:GetText()
+		emit(r)`, { many: true });
+	assert.equal(out.current, 'Southshore', 'the arrow\'s own walk');
+	assert.equal(out.later, 'Tarren Mill', 'a later walk, from its own search');
+	assert.equal(out.none, false, 'a flight has none');
+	assert.equal(out.said, 'Walk to the flight master\nHostile town: Southshore');
+	assert.equal(out.after, 'Walk to the flight master', 'said once, then the step alone');
+	assert.equal(out.again, 'Walk to the flight master', 'a fresh plan of the same walk does not say it again');
+});
+
+test('hostile towns: every piece of a split walk carries them, so the step after a chokepoint still says so', () => {
+	const [out] = run(`
+		fake.hubs = { { id = 12, name = "Southshore" } }
+		${SPLIT}
+		fake.hubs = nil
+		local T = N.travel
+		local legs, ci = N.GetRoute()
+		local first = T.HubText(legs[ci])
+		nav.place(0, -160)
+		N.Sample()
+		legs, ci = N.GetRoute()
+		emit({ first = first, ci = ci, after = T.HubText(legs[ci]) or false })`);
+	assert.equal(out.first, 'Hostile town: Southshore');
+	assert.ok(out.ci > 1, 'past the bridge');
+	assert.equal(out.after, 'Hostile town: Southshore');
+});
+
+test('hostile towns: a fresh search of the same walk with the same towns changes nothing (no ROUTE_CHANGED)', () => {
+	const [out] = run(`${CROSSING}
+		nav.place(900, 800)
+		target(600, -300)
+		N.Sample()
+		fake.settle(fake.of(true)[1], function(x, y) return math.floor(math.sqrt((x - 600) ^ 2 + (y + 300) ^ 2) * 1.1) end)
+		fake.hubs = { { id = 12, name = "Southshore" } }
+		fake.answer(fake.of(false)[1], 900, 800, 900, 900)
+		local changes = 0
+		Polestar.On("ROUTE_CHANGED", function() changes = changes + 1 end)
+		-- Stray, so the arrow searches again; back on the spot when the answer comes.
+		nav.place(950, 850)
+		N.Sample()
+		stub.advance(3)
+		N.Sample()
+		local finds = fake.of(false)
+		local again = finds[#finds]
+		nav.place(900, 800)
+		fake.hubs = { { id = 12, name = "Southshore" } } -- the same towns, a new table
+		fake.answer(again, 900, 800, 900, 900)
+		local legs, ci = N.GetRoute()
+		emit({ searches = #finds, changes = changes, hubs = N.travel.HubText(legs[ci]) })`, { many: true });
+	assert.ok(out.searches >= 3, 'searched again');
+	assert.equal(out.changes, 0);
+	assert.equal(out.hubs, 'Hostile town: Southshore');
+});
+
+test('hostile towns: the arrow says them once for a split walk, not again at each step', () => {
+	const [out] = run(`
+		fake.hubs = { { id = 12, name = "Southshore" } }
+		${SPLIT}
+		fake.hubs = nil
+		local function said() return (N.arrow.labelText:GetText() or ""):find("Hostile town", 1, true) ~= nil end
+		stub.advance(0.3)
+		local first = said()
+		stub.advance(10)
+		local quiet = said()
+		nav.place(0, -160)
+		N.Sample()
+		stub.advance(0.3)
+		local _, ci = N.GetRoute()
+		emit({ first = first, quiet = quiet, ci = ci, again = said() })`);
+	assert.equal(out.first, true, 'said as the walk starts');
+	assert.equal(out.quiet, false);
+	assert.ok(out.ci > 1, 'past the bridge');
+	assert.equal(out.again, false, 'not said again at the next step');
+});
+
+test('hostile towns: a walk that is the whole route (a target inside Southshore) says so once on the arrow too', () => {
+	const [out] = run(`
+		local r = {}
+		nav.place(0, 0)
+		target(0, -600, "Quest in Southshore")
+		N.Sample()
+		fake.hubs = { { id = 12, name = "Southshore" } }
+		fake.resolve(0, 0, 100, -100, 100, -500, 0, -600)
+		fake.hubs = nil
+		local legs = N.GetRoute()
+		r.nlegs = legs and #legs or 0
+		r.active = N.travel.Active()
+		stub.advance(0.3)
+		r.said = N.arrow.labelText:GetText()
+		stub.advance(15)
+		r.after = N.arrow.labelText:GetText()
+		N.travel.Replan()
+		stub.advance(0.3)
+		r.again = N.arrow.labelText:GetText()
+		emit(r)`);
+	assert.equal(out.nlegs, 1, 'a lone walk');
+	assert.equal(out.active, false, 'no route to follow');
+	assert.equal(out.said, 'Quest in Southshore\nHostile town: Southshore');
+	assert.equal(out.after, 'Quest in Southshore', 'said once, then the target alone');
+	assert.equal(out.again, 'Quest in Southshore', 'a fresh plan of the same walk does not say it again');
+});
+
+test('hostile towns: two towns of the same name are named once', () => {
+	const [out] = run(`
+		local hubs = { { id = "a", name = "Goldshire" }, { id = "b", name = "Lakeshire" }, { id = "c", name = "Goldshire" } }
+		emit(N.travel.HubText({ kind = "walk", hubs = hubs }))`);
+	assert.equal(out, 'Hostile town: Goldshire, Lakeshire');
+});
+
+test('hostile towns: each is named in the client\'s language by its area (Compat.GetAreaName), else by the packed name, a shown name once', () => {
+	const [out] = run(`
+		local de = { [271] = "S\\195\\188derstade", [272] = "Tarrens M\\195\\188hle" }
+		Polestar.Compat.GetAreaName = function(id) return de[id] end
+		local hubs = {
+			{ id = "a", name = "Southshore", areaId = 271 },
+			{ id = "b", name = "Hammerfall", areaId = 999 },
+			{ id = "c", name = "Tarren Mill", areaId = 272 },
+			{ id = "d", name = "Southshore copy", areaId = 271 },
+			{ id = "e", name = "Hammerfall" },
+		}
+		emit(N.travel.HubText({ kind = "walk", hubs = hubs }))`);
+	assert.equal(out, 'Hostile town: S\u00fcderstade, Hammerfall, Tarrens M\u00fchle');
+});
+
+// Route styles (nav.routeStyle): the saved style goes to every search as
+// opts.style; Routing/Costs.lua (Polestar_Nav, loaded here beside the fake
+// engine) reads anything but the three as Balanced.
+const COSTS = `
+local chunk = assert(loadfile(${JSON.stringify(path.join(ADDONS, 'Polestar_Nav', 'Routing', 'Costs.lua'))}))
+chunk("Polestar_Nav", {})
+local Costs = Polestar_NavCosts
+local function styles(jobs)
+	local out = {}
+	for i, job in ipairs(jobs) do out[i] = { job.opts.style or false, Costs.Style(job.opts.style) } end
+	return out
+end
+`;
+
+test('a saved route style that is none of the three walks as Balanced, without an error', () => {
+	const [out] = run(`${CROSSING}${COSTS}
+		local r = {}
+		Polestar.Set("nav.routeStyle", "Sideways")
+		nav.place(900, 800)
+		target(600, -300)
+		N.Sample()
+		fake.settle(fake.of(true)[1], function(x, y) return math.floor(math.sqrt((x - 600) ^ 2 + (y + 300) ^ 2) * 1.1) end)
+		fake.answer(fake.of(false)[1], 900, 800, 900, 900)
+		r.aim = aim()[1]
+		fake.answer(fake.of(false)[2], 400, 300, 500, 300, 600, 20)
+		r.drawn = lines()[3]
+		r.styles = styles(fake.calls)
+		emit(r)`, { many: true });
+	assert.deepEqual(out.styles, [['Sideways', 'balanced'], ['Sideways', 'balanced'], ['Sideways', 'balanced']],
+		'the measure, the arrow\'s own walk and the later walk carry the saved value, which the router reads as Balanced');
+	assert.equal(out.aim, 'travel', 'the arrow routes');
+	assert.deepEqual(out.drawn, ['walk', 3], 'and the later walk is drawn along its path');
+});
+
+test('changing the route style mid-walk drops the old lines, re-plans at once, and measures and searches every walk again in the new style', () => {
+	const [out] = run(`${CROSSING}${COSTS}
+		local r = {}
+		local changes = 0
+		Polestar.On("ROUTE_CHANGED", function() changes = changes + 1 end)
+		nav.place(900, 800)
+		target(600, -300)
+		N.Sample()
+		local measure = function(x, y) return math.floor(math.sqrt((x - 600) ^ 2 + (y + 300) ^ 2) * 1.1) end
+		fake.settle(fake.of(true)[1], measure)
+		fake.answer(fake.of(false)[1], 900, 800, 880, 850, 900, 900)
+		fake.answer(fake.of(false)[2], 400, 300, 500, 300, 600, 20)
+		r.before = { lines = lines(), calls = #fake.calls }
+		local seen, version = changes, T.version
+		local calls = #fake.calls
+		Polestar.Set("nav.routeStyle", "roads")
+		r.replanned = { changed = changes > seen, version = T.version > version }
+		r.lines = lines()
+		N.Sample()
+		local batch, own = fake.of(true)[2], fake.of(false)[3]
+		r.asked = { #fake.calls - calls, batch and batch.opts.style, own and own.opts.style, own and floor(own.to.x), own and floor(own.to.y) }
+		if batch then fake.settle(batch, measure) end
+		if own then fake.answer(own, 900, 800, 880, 850, 900, 900) end
+		local leg = fake.of(false)[4]
+		r.leg = leg and { leg.opts.style, floor(leg.from.x), floor(leg.from.y), floor(leg.to.x), floor(leg.to.y) } or false
+		r.straight = lines()[3]
+		if leg then fake.answer(leg, 400, 300, 450, 250, 600, 20) end
+		r.after = lines()
+		Polestar.Set("nav.routeStyle", "roads")
+		r.same = #fake.calls
+		emit(r)`, { many: true });
+	assert.deepEqual(out.before.lines.slice(0, 3), [['walk', 3], ['flight', 2], ['walk', 3]], 'Balanced: the arrow\'s walk and the later walk drawn along their paths');
+	assert.deepEqual(out.replanned, { changed: true, version: true }, 're-planned at once');
+	assert.deepEqual(out.lines.slice(0, 3), [['walk', 2], ['flight', 2], ['walk', 2]], 'no Balanced line stays: straight until the Roads paths are in');
+	assert.deepEqual(out.asked, [2, 'roads', 'roads', 900, 900], 'the walks into the target measured again and the arrow\'s own walk searched again, in Roads');
+	assert.deepEqual(out.leg, ['roads', 400, 300, 600, 20], 'the later walk searched again, in Roads');
+	assert.deepEqual(out.straight, ['walk', 2]);
+	assert.deepEqual(out.after.slice(0, 3), [['walk', 3], ['flight', 2], ['walk', 3]], 'drawn along the Roads paths');
+	assert.equal(out.same, 6, 'setting the same style again searches nothing');
+});
+
+// Zone danger (Nav/Danger.lua, Nav/Walk.lua): the zones the router's maps
+// carry (Path.ZoneAt, faked here by area: y >= 500 the player's and Home
+// Roost's, y < 0 the target's, else a zone without levels) and their level
+// ranges (Maps.GetZoneLevels, faked) at the player's level make the danger
+// table every search carries: a zone whose lowest level is at least the
+// player's + 4 costs x3, more than + 10 x20 (Ruling 35); the walk's own start and goal
+// zones never count.
+const DANGER = `
+local D = N.danger
+nav.level = 20
+Polestar.Compat.GetPlayerInfo = function() return { name = "Testchar", level = nav.level, faction = nav.faction } end
+local zoneLevels = { [1422] = { 51, 57 }, [1421] = { 10, 19 }, [1424] = { 20, 33 }, [1416] = { 30, 39 } }
+Polestar.Maps = Polestar.Maps or {}
+Polestar.Maps.GetZoneLevels = function(id) local v = id and zoneLevels[id] if v then return v[1], v[2] end end
+Polestar.Maps.EachZoneLevels = function()
+	local id
+	return function()
+		local v
+		id, v = next(zoneLevels, id)
+		if id ~= nil then return id, v[1], v[2] end
+	end
+end
+fake.zones = { home = 1421, target = 1424, between = 1497 }
+Polestar_NavEngine.ZoneAt = function(map, x, y)
+	if y >= 500 then return fake.zones.home elseif y < 0 then return fake.zones.target end
+	return fake.zones.between
+end
+-- A search's danger table, "uiMap=mult,..." by uiMapID (false: none).
+local function dz(job)
+	local t = job and job.opts and job.opts.danger
+	if type(t) ~= "table" then return false end
+	local ids = {}
+	for id, m in pairs(t) do ids[#ids + 1] = id .. "=" .. m end
+	table.sort(ids)
+	return table.concat(ids, ",")
+end
+local function sig(t, s)
+	return { dz({ opts = { danger = t } }), s }
+end
+`;
+
+test('zone danger: x3 from the player\'s level + 4, x20 above + 10; a zone without levels, or no level, is never dangerous', () => {
+	const [out] = run(`${DANGER}
+		local r = {}
+		zoneLevels = { [9001] = { 23, 30 }, [9002] = { 24, 30 }, [9003] = { 30, 40 }, [9004] = { 31, 40 } }
+		r.mult = { D.Mult(20, 9001), D.Mult(20, 9002), D.Mult(20, 9003), D.Mult(20, 9004), D.Mult(20, 1497), D.Mult(20, nil), D.Mult(nil, 9004) }
+		r.table = sig(D.Table(20, nil, nil))
+		r.none = sig(D.Table(40, nil, nil))
+		r.cached = D.Table(20, nil, nil) == D.Table(20, nil, nil)
+		emit(r)`, { many: true });
+	assert.deepEqual(out.mult, [1, 3, 3, 20, 1, 1, 1]);
+	assert.deepEqual(out.table, ['9002=3,9003=3,9004=20', '9002=3,9003=3,9004=20'], 'every zone above 1, and its signature');
+	assert.deepEqual(out.none, [false, ''], 'none: nil, an empty signature');
+	assert.equal(out.cached, true, 'kept per level and zone pair');
+});
+
+test('zone danger: at level 20 every search carries the zones far above (x20) and dangerous (x3), minus the walk\'s own start and goal zones', () => {
+	const [out] = run(`${CROSSING}${DANGER}
+		local r = {}
+		nav.place(900, 800)
+		target(600, -300)
+		N.Sample()
+		local batch, own = fake.of(true)[1], fake.of(false)[1]
+		r.batch, r.own = dz(batch), dz(own)
+		fake.settle(batch, function(x, y) return math.floor(math.sqrt((x - 600) ^ 2 + (y + 300) ^ 2) * 1.1) end)
+		fake.answer(own, 900, 800, 900, 900)
+		local leg = fake.of(false)[2]
+		r.leg = { dz(leg), floor(leg.from.x), floor(leg.from.y) }
+		-- Review focus 1: a goal inside a dangerous zone is walked to; its zone does not count.
+		fake.zones.target = 1416
+		target(600, -250)
+		N.Sample()
+		local many = fake.of(true)
+		r.inside = dz(many[#many])
+		r.unit = {
+			sig(D.Table(20, 1421, 1424)),
+			sig(D.Table(20, 1422, 1421)),
+			sig(D.Table(20, 1421, 1416)),
+			sig(D.Table(20, 1422, 1416)),
+			D.Mult(20, 1497),
+		}
+		emit(r)`, { many: true });
+	assert.equal(out.batch, '1416=3,1422=20', 'the measure into the target');
+	assert.equal(out.own, '1416=3,1422=20', 'the arrow\'s own walk');
+	assert.deepEqual(out.leg, ['1416=3,1422=20', 400, 300], 'a later walk, from a zone without levels');
+	assert.equal(out.inside, '1422=20', 'a target inside Alterac (dangerous) is measured without its own zone');
+	assert.deepEqual(out.unit, [
+		['1416=3,1422=20', '1416=3,1422=20'],
+		['1416=3', '1416=3'],
+		['1422=20', '1422=20'],
+		[false, ''],
+		1,
+	], 'the start\'s and the goal\'s zones never count; a zone without levels is absent');
+});
+
+test('zone danger: a level-up drops the walks, re-plans at once, and measures and searches every walk again with the new level\'s table', () => {
+	const [out] = run(`${CROSSING}${DANGER}
+		local r = {}
+		local changes = 0
+		Polestar.On("ROUTE_CHANGED", function() changes = changes + 1 end)
+		nav.place(900, 800)
+		target(600, -300)
+		N.Sample()
+		local measure = function(x, y) return math.floor(math.sqrt((x - 600) ^ 2 + (y + 300) ^ 2) * 1.1) end
+		fake.settle(fake.of(true)[1], measure)
+		fake.answer(fake.of(false)[1], 900, 800, 880, 850, 900, 900)
+		fake.answer(fake.of(false)[2], 400, 300, 500, 300, 600, 20)
+		r.before = { lines = lines(), danger = dz(fake.of(false)[2]) }
+		local seen, version, calls = changes, T.version, #fake.calls
+		-- PLAYER_LEVEL_UP's level stands while the client's still reads 20 (UnitLevel lags the event).
+		stub.fire("PLAYER_LEVEL_UP", 27)
+		r.replanned = { changed = changes > seen, version = T.version > version }
+		r.lines = lines()
+		N.Sample()
+		local batch, own = fake.of(true)[2], fake.of(false)[3]
+		r.asked = { #fake.calls - calls, dz(batch), dz(own), own and floor(own.to.x), own and floor(own.to.y) }
+		if batch then fake.settle(batch, measure) end
+		if own then fake.answer(own, 900, 800, 880, 850, 900, 900) end
+		local leg = fake.of(false)[4]
+		r.leg = leg and { dz(leg), floor(leg.from.x), floor(leg.from.y), floor(leg.to.x), floor(leg.to.y) } or false
+		if leg then fake.answer(leg, 400, 300, 450, 250, 600, 20) end
+		r.after = lines()
+		emit(r)`, { many: true });
+	assert.deepEqual(out.before.lines.slice(0, 3), [['walk', 3], ['flight', 2], ['walk', 3]], 'at 20: the walks drawn along their paths');
+	assert.equal(out.before.danger, '1416=3,1422=20');
+	assert.deepEqual(out.replanned, { changed: true, version: true }, 're-planned at once');
+	assert.deepEqual(out.lines.slice(0, 3), [['walk', 2], ['flight', 2], ['walk', 2]], 'no line priced at 20 stays: straight until the new paths are in');
+	assert.deepEqual(out.asked, [2, '1422=20', '1422=20', 900, 900], 'the walks into the target measured again and the arrow\'s own walk searched again, at 27 (Alterac no longer dangerous)');
+	assert.deepEqual(out.leg, ['1422=20', 400, 300, 600, 20], 'the later walk searched again at 27');
+	assert.deepEqual(out.after.slice(0, 3), [['walk', 3], ['flight', 2], ['walk', 3]], 'drawn along the new paths');
+});
+
+// The planner's straight estimates (Nav/Danger.lua Danger.Along, Nav/Travel.lua):
+// the zone every 100 yd along a straight walk (the middle of each 100 yd
+// piece), its share in a dangerous zone x3, in a far-above one x20; the
+// zones of its two ends never count, nor the player's and the target's.
+test('zone danger: Danger.Along samples a straight line every 100 yd, its ends\' zones never counting; without a table, Path.ZoneAt or length it is 1', () => {
+	const [out] = run(`${DANGER}
+		local r = {}
+		-- West of x = 100 zone a, to x = 700 zone b, east of it zone c. Each
+		-- layout is a new Path.ZoneAt: Danger keeps the zones it read per chunk
+		-- for one Path.ZoneAt (the maps' zones never change).
+		local asked = 0
+		local function layout(zb)
+			Polestar_NavEngine.ZoneAt = function(map, x, y)
+				asked = asked + 1
+				if x < 100 then return 1421 elseif x < 700 then return zb end
+				return 1424
+			end
+		end
+		layout(1422)
+		local far = { [1422] = 20, [1416] = 3 }
+		r.far = D.Along(far, 0, 0, 0, 1200, 0)
+		r.asked = asked
+		r.again = D.Along(far, 0, 0, 0, 1200, 0)
+		r.askedAgain = asked
+		layout(1416)
+		r.dangerous = D.Along(far, 0, 0, 0, 1200, 0)
+		layout(1422)
+		r.endsNever = D.Along({ [1421] = 20, [1422] = 20, [1424] = 20 }, 0, 0, 0, 1200, 0)
+		r.fromInside = D.Along(far, 0, 150, 0, 1350, 0)
+		r.noTable = D.Along(nil, 0, 0, 0, 1200, 0)
+		r.still = D.Along(far, 0, 300, 0, 300, 0)
+		r.level = D.Level()
+		stub.fire("PLAYER_LEVEL_UP", 23)
+		r.levelUp = D.Level()
+		Polestar_NavEngine.ZoneAt = nil
+		r.noZoneAt = D.Along(far, 0, 0, 0, 1200, 0)
+		emit(r)`, { many: true });
+	assert.equal(out.far, 0.5 * 20 + 0.5, 'half its 12 samples in a far-above zone');
+	assert.equal(out.dangerous, 0.5 * 3 + 0.5, 'half in a dangerous one');
+	assert.equal(out.endsNever, 0.5 * 20 + 0.5, 'the zones of its two ends never count');
+	assert.deepEqual([out.again, out.asked, out.askedAgain], [10.5, 14, 14], 'its two ends and 12 samples asked once; the same line again asks nothing');
+	assert.equal(out.fromInside, 1, 'a line from inside the far-above zone: its own start zone');
+	assert.equal(out.noTable, 1);
+	assert.equal(out.still, 1, 'no length');
+	assert.equal(out.noZoneAt, 1, 'no maps: today\'s estimate');
+	assert.deepEqual([out.level, out.levelUp], [20, 23], 'the level: the client\'s, or PLAYER_LEVEL_UP\'s when higher (one source for Walk and Travel)');
+});
+
+test('zone danger: the planner\'s straight walk 1200 yd through a zone far above costs t x 10.5, through a dangerous one t x 2, timed as before; the player\'s and target\'s zones never count; without Path.ZoneAt it is today\'s', () => {
+	const [out] = run(`${TERRAIN}${DANGER}
+		local r = {}
+		Polestar.CharState().flags.taxi = {}
+		-- Along the walk from (0, 1200) to (0, 0): the start's zone from y = 1100,
+		-- another to y = 500 (half the walk's 12 samples), the target's below.
+		-- A new Path.ZoneAt per layout (Danger keeps the zones per chunk for one).
+		local function layout(home, between, there)
+			Polestar_NavEngine.ZoneAt = function(map, x, y)
+				if y >= 1100 then return home elseif y > 500 then return between end
+				return there
+			end
+		end
+		local cost, secs
+		T.WalkCostHook(function(w, c)
+			if at(w.from.wx, w.from.wy, 0, 1200) and at(w.to.wx, w.to.wy, 0, 0) then cost, secs = c, w.seconds end
+			return c
+		end)
+		nav.place(0, 1200)
+		target(0, 0)
+		N.Sample()
+		local function ratio()
+			cost, secs = nil, nil
+			T.Replan()
+			if not cost then return false end
+			return { math.floor(cost / secs * 1000 + 0.5) / 1000, math.floor(secs * 1000 + 0.5) / 1000, route().seconds }
+		end
+		layout(1421, 1422, 1424)
+		r.far = ratio()
+		layout(1421, 1416, 1424)
+		r.dangerous = ratio()
+		layout(1421, 1497, 1424)
+		r.none = ratio()
+		layout(1422, 1422, 1416)
+		r.ends = ratio()
+		-- Routing turned off after the engine loaded (Nav.Path stays): today's estimate at once.
+		layout(1421, 1422, 1424)
+		Polestar.Set("nav.navRouting", false)
+		r.routingOff = ratio()
+		Polestar.Set("nav.navRouting", true)
+		r.routingOn = ratio()
+		Polestar_NavEngine.ZoneAt = nil
+		r.noZoneAt = ratio()
+		emit(r)`, { many: true });
+	const t = Math.round(1200 * 1.25 / 7 * 1000) / 1000;
+	assert.deepEqual(out.far, [10.5, t, 214], 't x (0.5 x 20 + 0.5), its time as before');
+	assert.deepEqual(out.dangerous, [2, t, 214], 't x (0.5 x 3 + 0.5)');
+	assert.deepEqual(out.none, [1, t, 214], 'a zone without levels');
+	assert.deepEqual(out.ends, [1, t, 214], 'the player\'s and the target\'s zones never count');
+	assert.deepEqual(out.noZoneAt, [1, t, 214], 'no maps: today\'s estimate');
+	assert.deepEqual([out.routingOff, out.routingOn], [[1, t, 214], [10.5, t, 214]], 'routing off: today\'s estimate; on again: priced again');
+});
+
+test('zone danger: on a continent with crossing data the straight walk from a flight master to the gate takes its share too', () => {
+	const [out] = run(`${CROSSING}${DANGER}
+		local r = {}
+		local at = function(x, y, ax, ay) return math.abs(x - ax) < 0.01 and math.abs(y - ay) < 0.01 end
+		-- A far-above band 450 < x < 550 north of y = 0: Gate Roost (400, 300) to
+		-- the gate (600, 20) is 344 yd, its 4 samples at x 425, 475, 525, 575.
+		Polestar_NavEngine.ZoneAt = function(map, x, y)
+			if x > 450 and x < 550 and y > 0 then return 1422 end
+			return 1497
+		end
+		local seen = {}
+		T.WalkCostHook(function(w, c)
+			if at(w.from.wx, w.from.wy, 400, 300) and at(w.to.wx, w.to.wy, 600, 20) then seen.gate = math.floor(c / w.seconds * 1000 + 0.5) / 1000 end
+			if at(w.from.wx, w.from.wy, 900, 800) and at(w.to.wx, w.to.wy, 900, 900) then seen.home = math.floor(c / w.seconds * 1000 + 0.5) / 1000 end
+			return c
+		end)
+		nav.place(900, 800)
+		target(600, -300)
+		N.Sample()
+		r.gate, r.home = seen.gate or false, seen.home or false
+		emit(r)`, { many: true });
+	assert.equal(out.gate, (2 * 20 + 2) / 4, 'half its samples in the band');
+	assert.equal(out.home, 1, 'the walk to Home Roost crosses none');
+});
+
+// The walking floor (#234, Ruling 36): Forever gives no player height, so
+// Walk follows the surface under the player (Path.SurfacesAt, faked here by
+// fake.surfaces) and starts the arrow's search, and the player's place in the
+// planner's measure, from it. Testshire's ground is at 40; the overhang tests
+// lay a rock top at 72 over x -10..10, y -40..-15.
+const FLOORS = `
+-- The arrow searches player to target (the planner, which re-plans on its own time, is off).
+if not KEEP_PLAN then Polestar.Set("nav.travel", false) end
+-- Walk from the player's spot to (x1, y1) in 2 yd steps 0.3 s apart, the arrow sampling each.
+local function walk(x1, y1)
+	local p = nav.player
+	local x0, y0, c = p.wx, p.wy, p.c
+	local n = math.max(1, math.ceil(math.sqrt((x1 - x0) ^ 2 + (y1 - y0) ^ 2) / 2))
+	for i = 1, n do
+		nav.place(x0 + (x1 - x0) * i / n, y0 + (y1 - y0) * i / n, c)
+		stub.advance(0.3)
+		N.Sample()
+	end
+end
+-- The height the next search starts from: a new target, asked from here ("none": no height).
+local goals = 0
+local function startZ()
+	goals = goals + 1
+	target(-500, 500 - goals * 10)
+	N.Sample()
+	local z = fake.last().from.z
+	if z == nil then return "none" end
+	return z
+end
+local function overhang(map, x, y)
+	if x >= -10 and x <= 10 and y <= -15 and y >= -40 then return { 40, 72 } end
+	return { 40 }
+end
+`;
+
+test('#234 floor: seeded where the cell has one surface, it stays on the ground under a rock top; a first cell with two stays unknown (today\'s search)', () => {
+	const [out] = run(`${FLOORS}
+		local r = {}
+		fake.surfaces = overhang
+		nav.place(0, 50)
+		r.seed = startZ()
+		walk(0, -25)
+		r.under = startZ()
+		-- Standing still nothing is read; moving, at most one read a 0.25 s.
+		local reads = fake.reads
+		for _ = 1, 10 do stub.advance(0.3) N.Sample() end
+		r.still = fake.reads - reads
+		reads = fake.reads
+		for i = 1, 10 do nav.place(0, -25 - i * 0.2) stub.advance(0.02) N.Sample() end
+		r.quick = fake.reads - reads
+		emit(r)`);
+	assert.equal(out.seed, 40, 'one surface: the floor is its height');
+	assert.equal(out.under, 40, 'under the rock top (40 and 72) the walk starts from the ground walked in on');
+	assert.equal(out.still, 0, 'standing still reads nothing');
+	assert.ok(out.quick <= 1, `${out.quick} reads in 0.2 s`);
+	const [first] = run(`${FLOORS}
+		fake.surfaces = overhang
+		nav.place(0, -25)
+		emit({ z = startZ() })`);
+	assert.equal(first.z, 'none', 'first seen under the rock: unknown, searched without a height as today');
+});
+
+test('#234 floor: climbs a ramp onto a bridge, falls off its side to the ground, and stays there under the bridge', () => {
+	const [out] = run(`${FLOORS}
+		local r = {}
+		-- A ramp from y -20 (40) to y -60 (60), a bridge at 60 over the ground from y -60 to -100 for x -6..6.
+		fake.surfaces = function(map, x, y)
+			if y <= -20 and y > -60 and x >= -6 and x <= 6 then return { 40 + (-20 - y) / 2 } end
+			if y <= -60 and y >= -100 and x >= -6 and x <= 6 then return { 40, 60 } end
+			return { 40 }
+		end
+		nav.place(0, 0)
+		r.seed = startZ()
+		walk(0, -80)
+		r.bridge = startZ()
+		walk(20, -80)
+		r.fell = startZ()
+		walk(0, -80)
+		r.under = startZ()
+		emit(r)`);
+	assert.deepEqual(out, { seed: 40, bridge: 60, fell: 40, under: 40 });
+});
+
+test('#234 floor: a jump of 30+ yd, another continent or a stale floor (no reading for 2 s while moving) is unknown again', () => {
+	const [out] = run(`${FLOORS}
+		local r = {}
+		fake.surfaces = overhang
+		nav.place(0, 50)
+		startZ()
+		walk(0, -12)
+		r.edge = startZ()
+		nav.place(0, 50)
+		stub.advance(0.3)
+		N.Sample()
+		nav.place(0, -25)
+		r.jump = startZ()
+		nav.place(0, 50)
+		startZ()
+		walk(0, -12)
+		nav.place(0, -13, 1)
+		N.SetTarget(9001, 50, 50, "Farland")
+		N.Sample()
+		nav.place(0, -15, 0)
+		r.continent = startZ()
+		nav.place(0, 50)
+		startZ()
+		walk(0, -12)
+		-- In an instance the arrow samples nothing: 3 s later, 8 yd on.
+		nav.instance = true
+		nav.place(0, -20)
+		stub.advance(3)
+		nav.instance = false
+		r.stale = startZ()
+		emit(r)`);
+	assert.deepEqual(out, { edge: 40, jump: 'none', continent: 'none', stale: 'none' });
+});
+
+test('#234 floor: a search with the tracked height that finds nothing is asked once more without it, and that answer stands', () => {
+	const [out] = run(`${FLOORS}
+		local r = {}
+		fake.surfaces = overhang
+		nav.place(0, 50)
+		r.z = startZ()
+		local n = calls()
+		fake.fail("unreachable")
+		r.retry = { calls() - n, fake.last().from.z == nil }
+		fake.resolve(0, 50, -500, 490)
+		r.aim = aim()[1]
+		r.calls = calls() - n
+		emit(r)`);
+	assert.equal(out.z, 40);
+	assert.deepEqual(out.retry, [1, true], 'once more, without the height');
+	assert.equal(out.aim, 'travel');
+	assert.equal(out.calls, 1, 'no third search');
+});
+
+test('#234 floor: the planner\'s measure takes the player\'s place at the tracked floor', () => {
+	const [out] = run(`KEEP_PLAN = true
+${TERRAIN}${FLOORS}
+		fake.surfaces = function() return { 40 } end
+		nav.place(900, 900)
+		-- A walk first (the arrow reads the floor), then the target the planner measures.
+		target(900, 850)
+		N.Sample()
+		target(0, 0)
+		N.Sample()
+		local many = fake.of(true)
+		local job = many[#many]
+		-- The player's place (Home Roost's flight master stands there too, without a height).
+		local z = "missing"
+		for _, p in ipairs(job.targets) do
+			if math.abs(p.x - 900) < 0.01 and math.abs(p.y - 900) < 0.01 and (z == "missing" or p.z) then z = p.z or "none" end
+		end
+		emit({ z = z })`, { many: true });
+	assert.equal(out.z, 40);
+});
+
+test('#234 floor: a lift resets it; off the lift, indoors, it seeds on the one indoor surface (the Undercity under Tirisfal\'s ground), never overriding a followed floor', () => {
+	const [out] = run(`${FLOORS}
+		local r = {}
+		-- A lift at (0, 0): the shaft holds the top (62, indoor) and the bottom (-41, indoor); the city
+		-- (-62, indoor) runs under Tirisfal's outdoor ground (64) for y < -20, and the city past y -40
+		-- under a second indoor level (6) as well.
+		local lift = Polestar.Transit.LiftNear
+		Polestar.Transit.LiftNear = function(c, x, y, yards)
+			if x * x + y * y <= (yards or 8) ^ 2 then return "lift-test", "Test lift" end
+		end
+		fake.surfaces = function(map, x, y)
+			if y > -12 then return { 62, -41, [-1] = 2, [-2] = 2 } end
+			if y > -20 then return { 64, -41, [-2] = 2 } end
+			if y > -40 then return { 64, -62, [-2] = 2 } end
+			return { 64, -62, 6, [-2] = 2, [-3] = 2 }
+		end
+		nav.indoors = true
+		nav.place(0, 30)
+		r.top = startZ()
+		walk(0, 0)
+		r.lift = startZ()
+		walk(0, -30)
+		r.city = startZ()
+		walk(0, -60)
+		r.followed = startZ()
+		-- Outdoors at the doorway for a moment: a followed floor stays.
+		nav.indoors = false
+		walk(0, -64)
+		r.doorway = startZ()
+		-- Without the client's indoor state, or with two indoor levels apart, it stays unknown.
+		nav.indoors = nil
+		nav.place(0, -30)
+		stub.advance(3)
+		r.unread = startZ()
+		nav.indoors = true
+		nav.place(0, -60)
+		stub.advance(3)
+		r.two = startZ()
+		Polestar.Transit.LiftNear = lift
+		emit(r)`);
+	assert.equal(out.top, 'none', 'the shaft\'s two landings: unknown');
+	assert.equal(out.lift, 'none', 'at the lift: unknown');
+	assert.equal(out.city, -62, 'off the lift, indoors: the one indoor surface under the outdoor ground');
+	assert.equal(out.followed, -62, 'followed past a second indoor level');
+	assert.equal(out.doorway, -62, 'the indoor state never overrides a followed floor');
+	assert.equal(out.unread, 'none');
+	assert.equal(out.two, 'none', 'two indoor surfaces apart: unknown');
+});
+
+test('#234 floor: while its cluster is decoding (Path.SurfacesAt nil) the floor is kept where it was read, used within 5 yd of there, lost past 30 yd, and followed again once the cluster is in; an error is unknown', () => {
+	const [out] = run(`${FLOORS}
+		local r = {}
+		fake.surfaces = overhang
+		nav.place(0, 50)
+		r.seed = startZ()
+		fake.undecoded = true
+		walk(0, 47)
+		r.near = startZ()
+		walk(0, 30)
+		r.far = startZ()
+		fake.undecoded = false
+		walk(0, -25)
+		r.under = startZ()
+		-- Reseeded at (0, 50), then 36 yd walked with the cluster still decoding: lost, so under the rock it is unknown.
+		nav.place(0, 50)
+		stub.advance(3)
+		startZ()
+		fake.undecoded = true
+		walk(0, 14)
+		fake.undecoded = false
+		nav.place(0, -20)
+		stub.advance(0.3) N.Sample()
+		r.lost = startZ()
+		nav.place(0, 50)
+		stub.advance(3)
+		startZ()
+		fake.surfacesError = true
+		walk(0, 45)
+		r.error = startZ()
+		emit(r)`);
+	assert.deepEqual(out, { seed: 40, near: 40, far: 'none', under: 40, lost: 'none', error: 'none' });
+});
+
+test('#234 floor: a goal\'s height off its floor is dropped keeping the tracked start; a tracked start that finds nothing is dropped keeping the goal\'s height', () => {
+	const [out] = run(`${FLOORS}
+		local r = {}
+		fake.surfaces = function() return { 40 } end
+		nav.place(0, 50)
+		startZ()
+		local m, x, y = nav.mapPoint(-500, 500)
+		local function ask()
+			local j = fake.last()
+			return { j.from.z or "none", j.to.z or "none" }
+		end
+		N.SetTarget(m, x, y, "Trainer", nil, "trainer", -66)
+		N.Sample()
+		r.first = ask()
+		-- Found, but its last engine point stands 100 yd above the goal.
+		local job, pts = fake.last(), {}
+		for i, p in ipairs({ { 0, 50, 40 }, { -400, 450, 34 }, { -500, 500, -66 } }) do pts[i] = { map = job.map, x = p[1], y = p[2], z = p[3] } end
+		job.callback(pts, 100, job)
+		r.offFloor = ask()
+		N.SetTarget(m, x, y, "Trainer 2", nil, "trainer", -60)
+		N.Sample()
+		fake.fail("unreachable")
+		r.startFailed = ask()
+		emit(r)`);
+	assert.deepEqual(out.first, [40, -66]);
+	assert.deepEqual(out.offFloor, [40, 'none'], 'off the goal\'s floor: the goal\'s height goes, the tracked start stays');
+	assert.deepEqual(out.startFailed, ['none', -60], 'nothing found: the tracked start goes, the goal\'s height stays');
+});
+
+test('#234 floor: the router may drop the floor\'s cluster when the target is cleared or the arrow has not updated for 2 s', () => {
+	const [out] = run(`${FLOORS}
+		local r = {}
+		fake.surfaces = function() return { 40 } end
+		nav.place(0, 50)
+		startZ()
+		fake.releases = 0
+		-- In an instance the arrow samples nothing (no Walk.Aim); the 1 s ticker refreshes.
+		nav.instance = true
+		stub.advance(1.5)
+		Polestar.Nav.Refresh()
+		r.fresh = fake.releases
+		stub.advance(1.6)
+		Polestar.Nav.Refresh()
+		r.stale = fake.releases
+		nav.instance = false
+		N.Sample()
+		N.ClearTarget()
+		r.cleared = fake.releases
+		emit(r)`);
+	assert.equal(out.fresh, 0, 'within 2 s of the arrow\'s last update: kept');
+	assert.equal(out.stale, 1, 'past 2 s: released once');
+	assert.ok(out.cleared >= 2, 'the target cleared: released');
+});
+
+test('#234 floor: a style change or a level-up clears the walk but keeps the floor\'s cluster (the arrow goes on)', () => {
+	const [out] = run(`${FLOORS}
+		fake.surfaces = function() return { 40 } end
+		nav.place(0, 50)
+		startZ()
+		fake.releases = 0
+		Polestar.Set("nav.routeStyle", "roads")
+		N.Sample()
+		stub.fire("PLAYER_LEVEL_UP", 11)
+		N.Sample()
+		emit({ releases = fake.releases, z = startZ() })`);
+	assert.deepEqual(out, { releases: 0, z: 40 });
+});
+
+test('#234 floor (Ruling 36b): a search sent without a height, then the floor found within 5 s, is asked once more with it, once', () => {
+	const [out] = run(`${FLOORS}
+		local r = {}
+		fake.surfaces = function() return { 40 } end
+		-- Arrived: the cluster still decoding when the target is set.
+		fake.undecoded = true
+		nav.place(0, 50)
+		r.first = startZ()
+		local n = calls()
+		fake.undecoded = false
+		for _ = 1, 10 do stub.advance(0.3) N.Sample() end
+		r.reasked = { calls() - n, fake.last().from.z or "none" }
+		walk(0, 30)
+		r.after = calls() - n
+		-- Past 5 s the floor found asks nothing.
+		fake.undecoded = true
+		nav.place(400, 400)
+		r.late = startZ()
+		n = calls()
+		stub.advance(6) N.Sample()
+		fake.undecoded = false
+		for _ = 1, 10 do stub.advance(0.3) N.Sample() end
+		r.lateCalls = calls() - n
+		emit(r)`);
+	assert.equal(out.first, 'none', 'searched at once, without a height');
+	assert.deepEqual(out.reasked, [1, 40], 'once more, from the floor');
+	assert.equal(out.after, 1, 'and not again');
+	assert.equal(out.late, 'none');
+	assert.equal(out.lateCalls, 0, 'a floor found more than 5 s after the search asks nothing');
 });

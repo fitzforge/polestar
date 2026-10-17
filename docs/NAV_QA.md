@@ -41,11 +41,11 @@ why it does not apply.
 | # | Bug | Upstream | Polestar |
 |---|---|---|---|
 | C1 | An arrow update queued before a cancel read a cleared path | Fixed 1.4.7 (#73) | Cancelling or replacing guidance between queued updates revives nothing: `tests/nav-prompts.test.js`, `tests/nav-spf.test.js` |
-| C2 | A cancelled search read cleared walking batches | Fixed 1.12.1 (#125) | A cancelled search never calls back: `tests/nav-spf.test.js`, `tests/nav-vendor.test.js` |
+| C2 | A cancelled search read cleared walking batches | Fixed 1.12.1 (#125) | A cancelled search never calls back: `tests/nav-spf.test.js`, `tests/nav-maps.test.js` |
 | C3 | Opening the world map from addon code tainted it: no map in combat, quest pins lost until a reload | Fixed 1.8.0 (#92) | `Compat.OpenWorldMap` only, never in combat, and a lint rejecting any other opener: `tests/compat.test.js` |
 | C4 | Map and minimap pins refreshed in combat | Fixed 1.4.6 (#71) | The route lines are Polestar's own frame on the map's canvas (nothing is acquired from the map), so they redraw and turn off in combat as out of it: `tests/nav-route-lines.test.js` |
 | C5 | Errors when the position or facing could not be read | Fixed 1.2.0 (#21), 1.15.0 | `Compat.GetPlayerUnitPosition()` is the one reader; unreadable values hide or skip with no error: `tests/nav-prompts.test.js`, `tests/nav-route-lines.test.js`, `tests/nav-transit.test.js` |
-| C6 | Stormwind walks started on the canal bed below the street and doubled back | Fixed 1.2.0 (#29, #41) | Stormwind's flight master to the Mage Quarter never reverses on a level street: `tests/nav-vendor.test.js` |
+| C6 | Stormwind walks started on the canal bed below the street and doubled back | Fixed 1.2.0 (#29, #41) | Stormwind's flight master to the Mage Quarter never reverses on a level street: `tests/nav-maps.test.js` |
 | C7 | Walks to a boat crossed the water at Auberdine | Fixed 1.11.1 (#120) | Polestar walks to its own dock points (`travel build`); in game, see below |
 | C8 | Walks to a zeppelin ended on the ground below the tower | Fixed 1.2.0 | Polestar walks to its own dock points; in game, see below |
 | C9 | Tram steps said "Walk to Unknown"; flight steps showed a wait; untimed boats said nothing useful | Fixed 1.2.0, #43 | Flights carry no wait; an untimed loop shows the expected wait as "about": `tests/nav-transit.test.js`, `tests/travel-transit.test.js`, `tests/ui-journey.test.js` |
@@ -56,7 +56,7 @@ why it does not apply.
 | C14 | Nearby services: a missing or unreadable database looked like "nothing here" | Fixed 1.8.2 (#96) | Each Codex failure has its own message: `tests/nav-journey.test.js` |
 | C15 | The other faction's boats and zeppelins still planned | Fixed 1.6.0 | Never planned: `tests/travel-transit.test.js` |
 | C16 | A speed change rebuilt the whole route graph in one frame | Fixed (#102) | Polestar's planner costs legs during each search, with the speed read for that plan, so a speed change rebuilds nothing; a plan is capped at 40 ms and 20,000 steps (`Nav/Travel.lua`, `MAX_MS`, `MAX_POPS`) |
-| C17 | The walking maps loaded at once, at startup (~11 MB, ~64 ms of work) | Fixed 1.9.0, 1.10.0 (#110) | `Polestar_Nav` loads on demand, out of combat; searches are sliced over frames within `Path.budget` (2 ms): `tests/nav-vendor.test.js`; a missing or unloadable map file drops that map whole (no data: the straight arrow, never a Lua error), and without the client's decoder every map: `tests/nav-load.test.js`, `tests/nav-e2e.test.js`; load time and memory in game, see below |
+| C17 | The walking maps loaded at once, at startup (~11 MB, ~64 ms of work) | Fixed 1.9.0, 1.10.0 (#110) | `Polestar_Nav` loads on demand, out of combat; searches are sliced over frames within `Path.budget` (2 ms): `tests/nav-maps.test.js`; a missing or unloadable map file drops that map whole (no data: the straight arrow, never a Lua error), and without the client's decoder every map: `tests/nav-load.test.js`, `tests/nav-e2e.test.js`; load time and memory in game, see below |
 
 Also noted while reading v1.15.0, none reported by players:
 
@@ -68,14 +68,16 @@ Also noted while reading v1.15.0, none reported by players:
   than two points (`UI/Strokes.lua:298`); Polestar's never does
   (`tests/nav-route-lines.test.js`).
 
-## Found while integrating (H1-H4)
+## Found while integrating (H1-H6)
 
 | # | Hazard | Polestar |
 |---|---|---|
-| H1 | Sharing an installed Shortest Path Forever's map tables: his engine trims and resets them while ours may be searching, which ends in a Lua error | Polestar always reads its own `PolestarPathData`: `tests/nav-vendor.test.js` |
+| H1 | Sharing an installed Shortest Path Forever's map tables: his engine trims and resets them while ours may be searching, which ends in a Lua error | Polestar always reads its own `PolestarPathData`: `tests/nav-maps.test.js` |
 | H2 | Polestar's own "Show on map" (Dungeons) used the global world map opener that C3 describes | Fixed through `Compat.OpenWorldMap`: `tests/compat.test.js`, `tests/ui-dungeons.test.js` |
 | H3 | Both addons installed, both guide at once: two arrows, two route lines, two journeys, two `/way` and TomTom answers, and its corpse run fought over | Polestar hands its target to Shortest Path Forever (`Nav/Handoff.lua`, `Nav.HandedOff()`): its own arrow, trail, route lines, journey steps, travel button, alerts, map clicks, TomTom stand-in, `/way`, mirrors and walking searches step aside, nothing is sent in combat or while dead, and a journey the player cleared or replaced is not sent again: `tests/nav-handoff.test.js`; in game, see below |
 | H4 | The planner priced every walk but the one the arrow is on as a straight line x1.25, so it could land at a flight point whose walk crossed a ridge, and drew that walk straight over it (Fitz: a marker near Astranaar, the route via Sun Rock Retreat) | The walks into the target are measured by one reversed `Path.FindMany` per target (from the target's height) and priced by it; the route is planned once more when it lands and changes only if it goes another way (crossings and chain waypoints included); every later walk is searched once after the arrow's own and drawn and priced along its path; hand-made walks and the walk on from a guide `goto` stay straight: `tests/nav-spf.test.js` ("terrain", "crossings", "later walks", "review 1-10", "test gap"), `tests/nav-e2e.test.js` (Ashenvale 40,70; Ashenvale 35,75, where the ridge makes Splintertree Post's walk 1.38 x straight) |
+| H5 | Handing off by default meant a player with both addons installed never saw Polestar guide; and with the hand-off off, a journey the player started in Shortest Path Forever ran beside Polestar's arrow, both guiding at once | The hand-off is an option, off by default ("Hand guiding to Shortest Path Forever"): Polestar guides, and steps aside exactly as when handing off while Shortest Path Forever runs a journey that is not Polestar's (`Active()` and no `CurrentStop("Polestar")`), guiding again when it ends; its API is never called in combat (the news waits for its end), and without `Subscribe` Nav's tick asks: `tests/nav-handoff.test.js` ("a fresh profile", "a journey the player starts", "without Subscribe (minor 0) his journey"); in game, see below |
+| H6 | A walk that must cross or end inside the other faction's town (a quest target in Southshore for a Horde character) gave no word of it | The router prices those towns x20 for the player's faction (`Compat.GetPlayerFaction`, opts.profile), so walks go round them; a walk whose path still enters one (`Find`'s `job.hubs`, each town with its area id) reads "Hostile town: <name>" under its journey step, the name in the client's language, and the arrow says it once as that walk starts: `tests/nav-spf.test.js` ("profile", "hostile towns"), `tests/nav-maps.test.js` ("Southshore"), `tests/ui-journey.test.js` ("hostile town"); in game, see below |
 
 ## Chokepoint steps (K1-K8)
 
@@ -124,9 +126,21 @@ What tests cannot prove, checked in the client before a release:
    platform.
 4. **Loading (C17):** `Polestar_Nav` loads after login without a hitch;
    note its memory with `/run UpdateAddOnMemoryUsage() print(GetAddOnMemoryUsage("Polestar_Nav"))`
-   (about 26,000 KB, in Stormwind and in Teldrassil alike).
-5. **Hand-off (H3):** with Shortest Path Forever installed, follow a few
+   (about 34,000 KB, in Stormwind and in Teldrassil alike).
+5. **Hand-off and yield (H3, H5):** with Shortest Path Forever installed and
+   a fresh profile, Polestar's arrow guides. Start a journey in Shortest Path
+   Forever (its map click): Polestar's arrow, lines and journey step aside
+   until it arrives or is cleared, then come back; a fight meanwhile calls
+   nothing. Turn on "Hand guiding to Shortest Path Forever" and follow a few
    guide steps (a pick-up, a kill area, a hand-in across a boat): only its
    arrow, line and journey show; the kill area stays held while you work it;
    clearing its journey sticks until the step changes; a fight and a death
-   send nothing; Polestar's option off brings Polestar's arrow back.
+   send nothing; a goal it finds no way to (its tracker: "No way there from
+   here.") brings Polestar's arrow back; the option off brings Polestar's
+   arrow back.
+6. **Hostile towns (H6):** a Horde character guided to a goal inside
+   Southshore (or an Alliance one to Tarren Mill): the journey's walk reads
+   "Hostile town: Southshore", the arrow says it once as the walk starts, and
+   walks elsewhere go round the other faction's towns. On a non-English
+   client (German: "Süderstade") the warning names the town in that
+   language, the client's own name for its area.

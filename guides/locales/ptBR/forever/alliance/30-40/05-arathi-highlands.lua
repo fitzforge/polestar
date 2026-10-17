@@ -169,14 +169,16 @@ return {
 	-- {area:280} Strahnbrad
 	-- plural, as words: Argus Shadow Mages = {npc:2318} Argus Shadow Mage
 	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins."] = "Os tomos estão na fortaleza em ruínas a oeste de {area:280}; Magos das Sombras Argus ocupam as ruínas.",
+	-- {item:3658} Recovered Tome
+	["{item:3658}: Crushridge ogres"] = "{item:3658}: ogros Massacrista",
+	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase
+	["{item:3659}: the {object:1760}"] = "{item:3659}: {object:1760}",
 
 	-- Step 44: Dalaran
 	-- {area:279} Dalaran · {zone:1421} Silverpine Forest · {npc:269127} Image of Archmage Modera
 	["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {zone:1421}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "Para sudoeste até o acampamento do Kirin Tor na margem do lago a oeste de {area:279}, logo depois da divisa com {zone:1421}: a {npc:269127} fica lá. O Arquimago Ansirem fica a sudeste dela, junto à cúpula.",
 	-- {npc:2542} Catelyn the Blade · {area:35} Booty Bay
 	["For {npc:2542} in {area:35}: keep it"] = "Para {npc:2542} em {area:35}: guarde-o",
-	-- {npc:252085} Archmage Celindra
-	["{npc:252085}, in the City of Dalaran"] = "{npc:252085}, na Cidade de Dalaran",
 
 	-- Step 45: Southshore
 	-- {item:2321} Fine Thread · {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance
@@ -190,4 +192,7 @@ return {
 
 	-- Step 48: Ironband's Excavation Site
 	["South-east along the loch to the dig site."] = "Para sudeste ao longo do lago até o sítio de escavação.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:252085}, in the City of Dalaran"] = "{npc:252085}, na Cidade de Dalaran",
 }

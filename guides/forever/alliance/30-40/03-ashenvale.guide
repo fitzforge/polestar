@@ -14,14 +14,18 @@
 # Added from the consensus Ashenvale visit (12, 28.9-30.0), all Forever:
 # - Seeking Caitlin (95737): Llana in Astranaar, handed to Caitlin Grassman
 #   at the Menethil stop that closes this guide.
-# - Shared Fury (98418): Maseara Autumnmoon in Forest Song; the satyrs are
-#   killed in Xavian between the second and third Forest Song stops, which
-#   the loop already makes.
 # - Gleaming Crescent Necklace (98027): the pendant lies north of Fallen Sky
 #   Lake, on the way to the Oracle; Maliynn takes it in Astranaar.
 # - Left out: Slowing the Orc Advance (86757): Shandrina sits at Mystral Lake,
 #   which this loop reaches only at its end, while the Horde grunts and
 #   scouts stand in the far east: a second crossing of the zone.
+# - Left out: Shared Fury (98418): Maseara Autumnmoon in Forest Song offers it
+#   only after Vengeful Trail (98417, a Vine-Wrapped Scroll found among the
+#   Satyrnaar satyrs west of Forest Song): the quest chain foreverchanges.pro
+#   shows from Wowhead's Forever database, checked 2026-10-17, and Shared
+#   Fury's text reads from Kurothel's written words. The data has no
+#   prerequisite and no spawn for the scroll, so the route cannot place
+#   Vengeful Trail.
 # Deviations from the simulator route (consensus, Alliance Human):
 # - Ashenvale runs as one west-to-east loop and back: the western quests are
 #   all taken on the first pass, Satyrnaar's soul and Geltharis are done
@@ -84,7 +88,7 @@ step Dartol's Rod
 
 step The Howling Vale
   tip Take the tunnel into the Howling Vale; the tome lies in the ruins at its west end.
-  complete 1022
+  interact 19027 quest 1022.1         -- Tome of Mel'Thandris
 
 step Shael'dryn
   turnin 1026
@@ -106,10 +110,9 @@ step Satyrnaar
   interact 20352 quest 1140.2         -- Circle of Imprisonment
 
 step Forest Song
-  tip Forest Song, the Night Elf outpost at the eastern end of the road: Kayneth Stillwind and Maseara Autumnmoon stand there.
+  tip Forest Song, the Night Elf outpost at the eastern end of the road: Kayneth Stillwind stands there.
   turnin 4581                         -- Kayneth Stillwind
   accept 1011
-  accept 98418                        -- Maseara Autumnmoon
 
 # ---------------------------------------------------------------- The south-east
 
@@ -130,19 +133,14 @@ step Kayneth Stillwind
   turnin 1011
   accept 1012
 
-step Xavian satyrs
-  tip Back west along the road to the satyr camps of Xavian.
-  kill 3755 quest 98418.1             -- Xavian Felsworn
-  kill 3757 quest 98418.2             -- Xavian Hellcaller
-  kill 3752 quest 98418.3             -- Xavian Rogue
-
 step Insane druids
   tip The three druids stand together at the Forsaken camp south of Forest Song.
-  complete 1012
+  kill 3940 quest 1012.1              -- Taneel Darkwood
+  kill 3941 quest 1012.2              -- Uthil Mooncall
+  kill 3942 quest 1012.3              -- Mavoris Cloudsbreak
 
 step Forest Song
   turnin 1012                         -- Kayneth Stillwind
-  turnin 98418                        -- Maseara Autumnmoon
 
 # ---------------------------------------------------------------- Night Run and the shrine
 

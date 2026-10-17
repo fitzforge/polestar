@@ -61,8 +61,8 @@ World of Warcraft (c) Blizzard Entertainment, Inc.
 
 World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, ChrRaces, ChrClasses, CharBaseInfo, Faction, Map, ItemSparse) via wago.tools
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-URL: https://wago.tools/db2?build=1.60.1.70425
-Revision: wow_classic_beta 1.60.1.70425
+URL: https://wago.tools/db2?build=1.60.1.70450
+Revision: wow_classic_beta 1.60.1.70450
 License: Blizzard Entertainment game client data; factual map geometry, names, item durations and race/class combinations only
 World of Warcraft (c) Blizzard Entertainment, Inc.
 

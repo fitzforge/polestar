@@ -29,8 +29,6 @@ return {
 	-- Step 5: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
 	["Liv's workshop is at the north end of {area:392}'s docks; {object:149036} stands inside it."] = "리브의 작업장은 {area:392} 부두 북쪽 끝에 있으며, {object:149036}은(는) 그 안에 있습니다.",
-	-- {object:149036} Marvon's Chest · {item:10556} Stone Circle
-	["Open {object:149036} for the {item:10556}"] = "{object:149036}을(를) 열어 {item:10556} 얻기",
 
 	-- Step 6: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -97,4 +95,7 @@ return {
 	-- Step 21: Prompt Potion Runner
 	-- {npc:11044} Doctor Martin Felben
 	["{npc:11044}, in the Apothecarium"] = "연금술 실험실의 {npc:11044}",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Open {object:149036} for the {item:10556}"] = "{object:149036}을(를) 열어 {item:10556} 얻기",
 }
