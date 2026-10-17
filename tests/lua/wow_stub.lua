@@ -1154,7 +1154,8 @@ local function encode(v, seen, out)
 	elseif t == "boolean" then out[#out + 1] = v and "true" or "false"
 	elseif t == "number" then
 		if v ~= v or v == math.huge or v == -math.huge then out[#out + 1] = "null"
-		elseif v == math.floor(v) and math.abs(v) < 2 ^ 53 then out[#out + 1] = string.format("%d", v)
+		-- "%.0f", not "%d": Lua 5.1 on Windows formats "%d" through a 32-bit long.
+		elseif v == math.floor(v) and math.abs(v) < 2 ^ 53 then out[#out + 1] = v == 0 and "0" or string.format("%.0f", v)
 		else out[#out + 1] = string.format("%.14g", v) end
 	elseif t == "string" then
 		out[#out + 1] = '"' .. v:gsub('[%z\1-\31"\\]', function(c) return escapes[c] or string.format("\\u%04x", c:byte()) end) .. '"'

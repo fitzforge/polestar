@@ -879,7 +879,8 @@ local function serialize(v, indent, seen)
 	if t == "string" then return format("%q", v) end
 	if t == "number" then
 		if v ~= v or v == math.huge or v == -math.huge then return "0" end
-		if v == math.floor(v) and math.abs(v) < 2 ^ 53 then return format("%d", v) end
+		-- "%.0f", not "%d": Lua 5.1 on Windows formats "%d" through a 32-bit long.
+		if v == math.floor(v) and math.abs(v) < 2 ^ 53 then return v == 0 and "0" or format("%.0f", v) end
 		return format("%.17g", v)
 	end
 	if t == "boolean" then return tostring(v) end
@@ -964,7 +965,8 @@ local function enc(v)
 		buf[n] = encString(v)
 	elseif t == "number" then
 		if v ~= v or v == huge or v == -huge then buf[n] = "null"
-		elseif v == floor(v) and v > -1e15 and v < 1e15 then buf[n] = format("%d", v)
+		-- "%.0f", not "%d", as in serialize().
+		elseif v == floor(v) and v > -1e15 and v < 1e15 then buf[n] = v == 0 and "0" or format("%.0f", v)
 		else buf[n] = format("%.10g", v) end
 	elseif t == "boolean" then
 		buf[n] = v and "true" or "false"

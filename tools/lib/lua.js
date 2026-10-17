@@ -40,7 +40,8 @@ const ENCODER = String.raw`
 local escapes = { ['"'] = '\\"', ['\\'] = '\\\\', ['\b'] = '\\b', ['\f'] = '\\f', ['\n'] = '\\n', ['\r'] = '\\r', ['\t'] = '\\t' }
 local function num(v)
   if v ~= v or v == math.huge or v == -math.huge then return "null" end
-  if v == math.floor(v) and math.abs(v) < 2^53 then return string.format("%d", v) end
+  -- "%.0f", not "%d": Lua 5.1 on Windows formats "%d" through a 32-bit long.
+  if v == math.floor(v) and math.abs(v) < 2^53 then return v == 0 and "0" or string.format("%.0f", v) end
   return string.format("%.17g", v)
 end
 local function str(s)
