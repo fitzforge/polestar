@@ -58,6 +58,10 @@ step Erion Shadewhisper (Dolanaar)
   tip At 16 Jannok Breezesong in Dolanaar sends you to Erion Shadewhisper in Darnassus.
   level 16
   accept 2259                                 -- Jannok Breezesong
+
+step Erion Shadewhisper
+  only NightElf
+  zone Darnassus
   turnin 2259                                 -- Erion Shadewhisper, Darnassus
   accept 2260
 

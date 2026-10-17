@@ -382,6 +382,7 @@ step Northridge Lumber Camp
   accept 6389
 
 step Tirion Fordring (optional)
+  zone Eastern Plaguelands
   tip Tirion lives in a small hut on the border river, north-east of the lumber camp. Hand in Of Forgotten Memories if you finished it.
   turnin 5781 optional
 

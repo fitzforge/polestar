@@ -76,12 +76,15 @@ next forever/horde/06-hillsbrad-foothills
 # ---------------------------------------------------------------- Mor'shan Rampart
 
 step Kadrak
-  zone Ashenvale
+  # The Mor'shan Rampart is in the Barrens (Wowhead Forever; AreaTable 1703):
+  # on Ashenvale's map the route sent you through the zone crossing past him (#246).
+  zone The Barrens
   tip From the Crossroads follow the road north. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale. Open the Bundle of Reports he gives you.
   turnin 6541                         -- Kadrak
   accept 6543
 
 step Warsong Scout
+  zone Ashenvale
   tip Keep north on the road. The Warsong Scout waits at the Warsong lumber camp, south of Splintertree.
   collect 16764 quest 6543.1 @71.05,68.36 -- Warsong Scout
 
@@ -130,6 +133,7 @@ step Zoram'gar Outpost
   turnin 6442                         -- Marukai
 
 step Back to Kadrak
+  zone The Barrens
   tip Fly to Splintertree Post and ride south down the road to the Mor'shan Rampart.
   fly "Splintertree Post"
   turnin 6543                         -- Kadrak

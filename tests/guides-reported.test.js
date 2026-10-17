@@ -16,7 +16,8 @@ const path = require('node:path');
 const { needs } = require('./helpers/data');
 const { compileSources, OFFICIAL_DIR } = require('../tools/lib/dsl/project');
 const { loadData } = require('../tools/lib/dsl/data');
-const { DATA } = require('../tools/lib/paths');
+const { DATA, SOURCES } = require('../tools/lib/paths');
+const { loadWowhead } = require('../tools/lib/codex/wowhead');
 const { runAddon } = require('./helpers/lua');
 const { writeTestPack } = require('./helpers/dsl');
 const { buildSimPack, playGuide, SIMULATE } = require('../tools/lib/playtest');
@@ -1139,4 +1140,67 @@ test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridg
 	} finally {
 		pack.dispose();
 	}
+});
+
+// --- A goal on a neighbour's map (#246): Kadrak stands at the Mor'shan
+// Rampart, in the Barrens (Wowhead Forever; AreaTable puts the Rampart, 1703,
+// under the Barrens), where the Barrens and Ashenvale maps overlap. The step's
+// `zone Ashenvale` put him on Ashenvale's map, so the travel planner took him
+// for a target in Ashenvale and sent players on the Gold Road through the
+// zone crossing to its Ashenvale end, 110 yd past him, and back.
+const STONETALON_HORDE = 'forever/horde/05-stonetalon-mountains.guide';
+
+test(`${STONETALON_HORDE}: #246: Kadrak's goals are on the Barrens' map, and the Ashenvale steps after them on Ashenvale's`, { skip }, () => {
+	const list = goals(STONETALON_HORDE);
+	const kadrak = [is('turnin', 6541), is('accept', 6543), is('turnin', 6543)].map((p, i) => list[at(list, `Kadrak goal ${i + 1}`, p)].goal);
+	for (const g of kadrak) assert.equal(g.map, 1413, `${g.t} ${g.quest} is on The Barrens (1413), not ${g.map}`);
+	const scout = list[at(list, 'the Warsong Scout Update', (g) => g.t === 'collect' && g.item === 16764)].goal;
+	assert.equal(scout.map, 1440, 'the Warsong Scout is still in Ashenvale');
+});
+
+// The same pattern everywhere: where the zone maps overlap, the data spawns an
+// NPC or object at one spot on both maps, and the step's zone picks the map.
+// A goal on the map of a zone Wowhead Forever does not list it in, while the
+// data has it at that spot on a map of one Wowhead lists, routes the player
+// standing beside it through the crossing to the other zone and back (the
+// travel planner takes the target's zone from its map). Drops count when no
+// dropper is listed in the goal's zone. Needs Wowhead Forever's list cache
+// (data/sources/wowhead/codex, `polestar codex build`).
+const NEIGHBOUR_MAP = new Set([
+	// The optional hand-in at Garush shares a step with the Alliance's at Pureheart in Western Plaguelands.
+	'forever/reputation/argent-dawn.guide talk npc 10839',
+]);
+const wowheadLists = fs.existsSync(path.join(SOURCES, 'wowhead', 'codex', 'lists', 'npc.json'));
+
+test('#246: no NPC or object goal is on a neighbouring zone\'s map where the two maps overlap', { skip: skip || (!wowheadLists && 'no Wowhead Forever list cache (data/sources/wowhead/codex/lists)') }, () => {
+	const wh = loadWowhead(SOURCES).listed;
+	data = data || loadData(DATA);
+	const area = (map) => data.zone(map) && data.zone(map).areaId;
+	const world = (map, x, y, f) => {
+		const fr = (f === 'e' ? data.mapFrames.era : data.mapFrames.forever || {})[map] || data.eraFrame(map);
+		return fr && { c: fr.c, wx: fr.top + ((fr.bottom - fr.top) * y) / 100, wy: fr.left + ((fr.right - fr.left) * x) / 100 };
+	};
+	const listedIn = (kind, id) => (wh[kind] && wh[kind][id] && wh[kind][id].location) || [];
+	const offenders = [];
+	for (const guide of allGuides()) {
+		for (const { step, goal } of goals(guide)) {
+			if (goal.map == null || goal.x == null) continue;
+			let sources = ['npc', 'object'].filter((k) => typeof goal[k] === 'number').map((k) => [k, goal[k]]);
+			if (!sources.length && goal.t === 'collect' && goal.item) {
+				const drops = (data.item(goal.item) || {}).drops || {};
+				sources = ['npc', 'object'].flatMap((k) => Object.keys(drops[k] || {}).map((id) => [k, Number(id)]));
+			}
+			const zone = area(goal.map);
+			if (!sources.length || sources.some(([k, id]) => listedIn(k, id).length === 0 || listedIn(k, id).includes(zone))) continue;
+			const points = [goal, ...(goal.spots || [])].map((p) => world(goal.map, p.x, p.y, goal.f)).filter(Boolean);
+			const elsewhere = sources.some(([k, id]) => data.spawns(k, id).some((s) => s.map !== goal.map && listedIn(k, id).includes(area(s.map))
+				&& s.pts.some((p) => {
+					const w = world(s.map, p[0], p[1], s.f);
+					return w && points.some((g) => g.c === w.c && Math.hypot(g.wx - w.wx, g.wy - w.wy) <= 60);
+				})));
+			const key = `${guide} ${goal.t} ${sources.length === 1 ? sources[0].join(' ') : `item ${goal.item}`}`;
+			if (elsewhere && !NEIGHBOUR_MAP.has(key)) offenders.push(`${key} (step ${step.title}, map ${goal.map})`);
+		}
+	}
+	assert.deepEqual([...new Set(offenders)], [], 'goals on the map of a zone Wowhead Forever does not place them in');
 });

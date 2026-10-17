@@ -237,6 +237,7 @@ step Snapjaws
   collect 3712 quest 555              -- Turtle Meat
 
 step Syndicate camp
+  zone Alterac Mountains
   tip The Syndicate camp sits on the Alterac border in northern Hillsbrad, west of Tarren Mill (Horde); the documents lie in the camp.
   kill 2241 quest 505.2               -- Syndicate Thief
   kill 2240 quest 505.1               -- Syndicate Footpad
@@ -244,6 +245,7 @@ step Syndicate camp
   accept 511 object 1738
 
 step Yeti cave
+  zone Hillsbrad Foothills
   tip The yetis live in the cave in the hills north of Southshore, on your way back south.
   collect 3720 quest 565.4            -- Yeti Fur
   note Bartolo also wants a Hillman's Cloak, a Bolt of Woolen Cloth and Fine Thread: crafted or bought; the cloak is turned in when you are back in Southshore later.

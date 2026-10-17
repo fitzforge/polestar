@@ -192,7 +192,7 @@ step Ironforge
 # ---------------------------------------------------------------- To the Plaguelands
 
 step Lieutenant Haggerdin
-  zone Hillsbrad Foothills
+  zone Alterac Mountains
   tip Fly to Southshore and ride north up the road toward Alterac: Haggerdin camps at Darrow Hill beside it.
   fly "Southshore"
   turnin 7261

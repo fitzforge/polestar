@@ -18,15 +18,15 @@ return {
 	-- Step 2: Argent Dawn Commission (Horde)
 	-- {quest:5401} Argent Dawn Commission
 	["{quest:5401} (Horde)"] = "{quest:5401}（部落）",
-	-- {object:2160} The Argent Dawn · {npc:10839} Argent Officer Garush · {area:813} The Bulwark · {quest:5401} Argent Dawn Commission
-	["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:813} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}初始為中立。向{area:813}的{npc:10839}領取委任狀並裝備：在經典版中，只有裝備{quest:5401}飾品時才會掉落天譴石。Forever的傳承外交官天賦可提高聲望獲取。",
+	-- {object:2160} The Argent Dawn · {npc:10839} Argent Officer Garush · {area:152} The Bulwark · {quest:5401} Argent Dawn Commission
+	["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}初始為中立。向{area:152}的{npc:10839}領取委任狀並裝備：在經典版中，只有裝備{quest:5401}飾品時才會掉落天譴石。Forever的傳承外交官天賦可提高聲望獲取。",
 
 	-- Step 3: Minion's Scourgestones to Friendly
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
 	["Minion's Scourgestones to Friendly"] = "爪牙的天譴石到友好",
-	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {area:813} The Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {item:12844} Argent Dawn Valor Token
+	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {area:152} The Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {item:12844} Argent Dawn Valor Token
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
-	["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:813}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "{zone:1422}各處的食屍鬼和骷髏約有一半機率掉落爪牙的天譴石；這一帶很密集。每次20個交給任一銀色黎明軍官（{area:3197}的普爾哈特、{area:813}的加魯什、{area:2268}的{npc:11039}）。每次繳交也會得到一個{item:12844}，可在銀色黎明軍需官處使用。",
+	["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:152}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "{zone:1422}各處的食屍鬼和骷髏約有一半機率掉落爪牙的天譴石；這一帶很密集。每次20個交給任一銀色黎明軍官（{area:3197}的普爾哈特、{area:152}的加魯什、{area:2268}的{npc:11039}）。每次繳交也會得到一個{item:12844}，可在銀色黎明軍需官處使用。",
 
 	-- Step 4: Invader's Scourgestones to Honored
 	-- plural, as words: Invader's Scourgestones = {item:12841} Invader's Scourgestone

@@ -251,12 +251,13 @@ step Zoram'gar Outpost
 # ---------------------------------------------------------------- Gloomrise, Mulgore
 
 step Thunder Bluff
-  zone Mulgore
+  zone Thunder Bluff
   tip Fly to Thunder Bluff if you know the flight path. If not, fly to Camp Taurajo, ride west into Mulgore past Bloodhoof Village to Thunder Bluff and take its flight path from Tal on the central rise.
   getfp "Thunder Bluff" npc 2995      -- Tal
   kill 3057 quest 93739.3 only Skyborne optional -- Speak with Cairne Bloodhoof, in Thunder Bluff: Exploring the Horde
 
 step The Earthen Ring
+  zone Mulgore
   tip Take a lift down from Thunder Bluff. The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury.
   accept 96241 @32.5,20.6 live        -- Mazu'kon
   accept 96260                        -- Yorn Grimtotem
@@ -289,10 +290,10 @@ step Brine
   accept 220                          -- for Islen Waterseer, south of Ratchet: next guide
 
 step The Great Lift
-  zone The Barrens
+  zone Thousand Needles
   tip Fly from Thunder Bluff to Camp Taurajo and take the road south to the Great Lift at the bottom of the Barrens.
   fly "Camp Taurajo"
-  goto 44.2,92.2 "The Great Lift"
+  goto 44.2,92.2 map 1413 "The Great Lift"
   accept 4542 npc 10079               -- Brave Moonhorn, at the top of the lift
 
 step Freewind Post

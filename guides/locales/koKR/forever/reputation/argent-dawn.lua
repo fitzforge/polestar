@@ -18,15 +18,15 @@ return {
 	-- Step 2: Argent Dawn Commission (Horde)
 	-- {quest:5401} Argent Dawn Commission
 	["{quest:5401} (Horde)"] = "{quest:5401} (호드)",
-	-- {object:2160} The Argent Dawn · {npc:10839} Argent Officer Garush · {area:813} The Bulwark · {quest:5401} Argent Dawn Commission
-	["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:813} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}은(는) 중립에서 시작합니다. {area:813}의 {npc:10839}에게서 위임장을 받아 착용하세요. 클래식에서는 {quest:5401} 장신구를 착용해야만 스컬지석이 떨어집니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
+	-- {object:2160} The Argent Dawn · {npc:10839} Argent Officer Garush · {area:152} The Bulwark · {quest:5401} Argent Dawn Commission
+	["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160}은(는) 중립에서 시작합니다. {area:152}의 {npc:10839}에게서 위임장을 받아 착용하세요. 클래식에서는 {quest:5401} 장신구를 착용해야만 스컬지석이 떨어집니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
 
 	-- Step 3: Minion's Scourgestones to Friendly
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
 	["Minion's Scourgestones to Friendly"] = "{item:12840}: 약간 우호적까지",
-	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {area:813} The Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {item:12844} Argent Dawn Valor Token
+	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {area:152} The Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {item:12844} Argent Dawn Valor Token
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
-	["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:813}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "{zone:1422} 곳곳의 구울과 해골이 절반 정도의 확률로 {item:12840}을(를) 떨어뜨립니다. 이 무리는 밀집해 있습니다. 20개씩 은빛장교에게 제출하세요({area:3197}의 퓨어하트, {area:813}의 가루쉬, {area:2268}의 {npc:11039}). 제출할 때마다 은빛 병참장교에게 쓸 {item:12844}도 받습니다.",
+	["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:152}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "{zone:1422} 곳곳의 구울과 해골이 절반 정도의 확률로 {item:12840}을(를) 떨어뜨립니다. 이 무리는 밀집해 있습니다. 20개씩 은빛장교에게 제출하세요({area:3197}의 퓨어하트, {area:152}의 가루쉬, {area:2268}의 {npc:11039}). 제출할 때마다 은빛 병참장교에게 쓸 {item:12844}도 받습니다.",
 
 	-- Step 4: Invader's Scourgestones to Honored
 	-- plural, as words: Invader's Scourgestones = {item:12841} Invader's Scourgestone
