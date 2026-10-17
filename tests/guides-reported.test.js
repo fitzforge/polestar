@@ -108,6 +108,12 @@ const CAVES = [
 	{ cave: 'Skull Rock', guide: DUROTAR, target: (g) => g.t === 'collect' && g.item === 4871, mouth: { map: 1411, x: 55, y: 10 } },
 	// The troll cave's mouth as marked in game (thmastin, PR #16); Wowhead's comments put it at 26,79.
 	{ cave: 'the Coldridge troll cave', guide: DUN_MOROGH, target: (g) => g.t === 'collect' && g.item === 2004, mouth: { map: 1426, x: 26.93, y: 80.03 } },
+	// The Grizzled Den's mouth as marked in game (thmastin); Flintfire's shipments lie inside.
+	{ cave: 'the Grizzled Den', guide: DUN_MOROGH, target: (g) => g.t === 'collect' && g.item === 280413, mouth: { map: 1426, x: 42.57, y: 54.68 } },
+	// Frosthowl, at the back of the same den, on the second visit from Brewnall.
+	{ cave: 'the Grizzled Den (Frosthowl)', guide: DUN_MOROGH, target: (g) => g.t === 'collect' && g.item === 280426, mouth: { map: 1426, x: 42.57, y: 54.68 } },
+	// Frostmane Hold's mouth as marked in game (thmastin); its Headhunters guard the way in.
+	{ cave: 'Frostmane Hold', guide: DUN_MOROGH, target: (g) => g.t === 'kill' && g.quest === 287, mouth: { map: 1426, x: 25.1, y: 50.94 } },
 	{ cave: 'the Jasperlode Mine', guide: ELWYNN, target: (g) => g.t === 'complete' && g.quest === 76, mouth: { map: 1429, x: 61.6, y: 54.1 } },
 	{ cave: 'Shadowthread Cave', guide: TELDRASSIL, target: (g) => g.t === 'collect' && g.item === 5167, mouth: { map: 1438, x: 57, y: 32 } },
 	{ cave: 'Fel Rock', guide: TELDRASSIL, target: (g) => g.t === 'collect' && g.item === 5221, mouth: { map: 1438, x: 54, y: 52 } },
@@ -219,6 +225,95 @@ test(`${DUN_MOROGH}: thmastin's report: The Adventurer is taken from Thalos at t
 	const give = at(list, 'turnin 96628 (The Adventurer)', is('turnin', 96628));
 	assert.equal(list[give].goal.npcName, 'Eric Brighthammer', 'turned in at Eric');
 	assert.ok(give < at(list, 'accept 96608 (The Great Outdoors)', is('accept', 96608)), 'before The Great Outdoors, which it leads to');
+});
+
+// --- Kharanos to Brewnall (thmastin, recorded runs): no NPC is walked away from and back to.
+
+const LETTERS = [3106, 3112, 3107, 3108, 3109, 3113, 3110, 98574, 98581, 3114, 3115];
+
+test(`${DUN_MOROGH}: thmastin's report: Sten's quests and the class letter are taken before Balir, then Anvilmar is entered once`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const balir = at(list, 'accept 170 (A New Threat, Balir)', is('accept', 170));
+	assert.ok(at(list, 'accept 233 (Coldridge Valley Mail Delivery, Sten)', is('accept', 233)) < balir, 'the mail delivery before Balir');
+	for (const q of LETTERS) {
+		const take = at(list, `accept ${q} (class letter)`, is('accept', q));
+		const give = at(list, `turnin ${q} (class letter)`, is('turnin', q));
+		assert.ok(take < balir && balir < give, `letter ${q}: taken from Sten before Balir, handed in inside after him`);
+		assert.equal(list[take].step, list[balir].step, `letter ${q} on the same visit`);
+	}
+});
+
+test(`${DUN_MOROGH}: thmastin's report: Bring Back the Mug is taken from Durnan with the Mornbrew, before Felix`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const mornbrew = at(list, 'turnin 3364 (Scalding Mornbrew Delivery)', is('turnin', 3364));
+	assert.equal(at(list, 'accept 3365 (Bring Back the Mug)', is('accept', 3365)), mornbrew + 1, 'Durnan\'s follow-up right after the Mornbrew');
+	assert.ok(mornbrew < at(list, 'turnin 3361 (A Refugee\'s Quandary, Felix)', is('turnin', 3361)), 'Felix after Durnan, at the door');
+});
+
+test(`${DUN_MOROGH}: thmastin's report: Kharanos is done outside first (Eric before Tharek), then the distillery, training last`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const eric = at(list, 'turnin 96628 (The Adventurer, Eric)', is('turnin', 96628));
+	const tharek = at(list, 'accept 400 (Tools for Steelgrill, Tharek)', is('accept', 400));
+	const tannok = at(list, 'turnin 2160 (Supplies to Tannok)', is('turnin', 2160));
+	assert.ok(eric < tharek && tharek < tannok, 'Eric\'s campfire, then Tharek\'s forge, then inside');
+	const inside = list.filter(({ step }) => step === list[tannok].step);
+	assert.equal(inside[inside.length - 1].goal.t, 'train', 'class training is the last goal of the distillery visit');
+	const bind = inside.find(({ goal }) => goal.t === 'sethome');
+	assert.ok(bind && located(bind), 'the bind leads to the innkeeper');
+});
+
+test(`${DUN_MOROGH}: thmastin's report: Camping 101: Cooking waits for the return to Kharanos, the lesson before the turn-in`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const lesson = at(list, 'train Cooking', (g) => g.t === 'train' && g.skillLine === 185);
+	const camping = at(list, 'turnin 96629 (Camping 101: Cooking)', is('turnin', 96629));
+	assert.ok(lesson < camping, 'Gremlock teaches Cooking before taking the quest');
+	assert.ok(at(list, 'Crag Boar Rib', (g) => g.t === 'collect' && g.item === 2886) < lesson, 'on the return with the ribs, not on arrival');
+	assert.equal(list[camping].step, list[at(list, 'turnin 384 (Beer Basted Boar Ribs)', is('turnin', 384))].step, 'on the same visit as the ribs');
+});
+
+test(`${DUN_MOROGH}: thmastin's report: The Reports is taken from Senir with Frostmane Hold and handed to the senator on the way to the tram`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const accept = at(list, 'accept 291 (The Reports)', is('accept', 291));
+	assert.equal(accept, at(list, 'turnin 287 (Frostmane Hold)', is('turnin', 287)) + 1, 'taken right after Frostmane Hold is handed in');
+	const turnin = at(list, 'turnin 291 (Senator Barin Redstone)', is('turnin', 291));
+	assert.ok(turnin > accept, 'handed in later');
+	assert.equal(list[turnin].step, list[at(list, 'goto Deeprun Tram', (g) => g.t === 'goto' && g.text === 'Deeprun Tram')].step, 'in the Deeprun Tram step');
+});
+
+test(`${DUN_MOROGH}: thmastin's report: kills on the way are counted on the way and finished after`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	for (const [quest, npc, along, name] of [
+		[99160, 276003, (g) => g.t === 'collect' && g.quest === 99162, "Rime's Wrath's elementals, with Treacherous Cold's rifles"],
+		[319, 1196, (g) => g.t === 'goto' && g.text === 'Frostmane Hold', "A Favor for Evershine's bears, on the walk to Frostmane Hold"],
+	]) {
+		const kills = list.filter(({ goal }) => (goal.t === 'kill' || goal.t === 'collect') && goal.quest === quest && goal.npc === npc);
+		const early = kills.find(({ goal }) => goal.optional);
+		assert.ok(early, `${name}: an optional kill goal`);
+		assert.equal(early.step, list[at(list, name, along)].step, `${name}: in that step`);
+		const later = kills.find(({ goal }) => !goal.optional);
+		assert.ok(later && later.step !== early.step && list.indexOf(later) > list.indexOf(early), `${name}: a required kill goal in a later step finishes it`);
+	}
+});
+
+test(`${DUN_MOROGH}: thmastin's report: Ammo for Rumbleshot is taken beside Beldin and handed in before the walk back to Kharanos`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	assert.equal(at(list, 'accept 5541 (Loslor Rudge)', is('accept', 5541)), at(list, 'turnin 400 (Beldin)', is('turnin', 400)) + 1, 'Loslor right after Beldin');
+	assert.ok(at(list, 'turnin 5541 (Hegnar Rumbleshot)', is('turnin', 5541)) < at(list, 'turnin 98321 (Tognus Flintfire)', is('turnin', 98321)), 'Hegnar before the walk back to Kharanos');
+});
+
+test(`${DUN_MOROGH}: thmastin's report: Gretchen comes first and the Grizzled Den is walked once for the shipments and Cornelius`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const shipments = at(list, "Flintfire's Shipment", (g) => g.t === 'collect' && g.item === 280413);
+	assert.ok(at(list, 'accept 98319 (Secure the Mountain, Gretchen)', is('accept', 98319)) < shipments, 'Gretchen before the den');
+	assert.equal(list[at(list, 'complete 98319 (Cornelius)', is('complete', 98319))].step, list[shipments].step, 'Cornelius on the same trip');
+});
+
+test(`${DUN_MOROGH}: thmastin's report: at Brewnall Gretta's dock comes first, and the village before Frostmane Hold`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const rejold = at(list, 'turnin 318 (Evershine, Rejold)', is('turnin', 318));
+	const village = list.filter(({ step }) => step === list[rejold].step);
+	assert.deepEqual([village[0].goal.t, village[0].goal.quest], ['accept', 98326], 'Gretta\'s Frosthowl first');
+	assert.ok(at(list, 'accept 319 (A Favor for Evershine)', is('accept', 319)) < at(list, 'Frostmane Headhunter', (g) => g.t === 'kill' && g.target === 'Frostmane Headhunter'), 'Evershine\'s animals are in the log on the way to the Hold');
 });
 
 // --- Darkshore (Wogi): a Human at 20 was sent to grey quests.

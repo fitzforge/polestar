@@ -14,7 +14,8 @@ next forever/alliance/02-westfall
 # Frostmane Hold -> back east to Kharanos and the depot -> Misty Pine
 # Refuge -> Amberstill Ranch and the
 # Gol'Bolar Quarry -> North Gate Outpost -> hearth to Kharanos -> Brewnall ->
-# South Gate Outpost -> Farsen above the quarry -> Old Icebeard's cave ->
+# Farsen above the quarry -> South Gate Outpost -> back to Mehr and Farsen ->
+# Old Icebeard's cave ->
 # Ironforge (training) and the tram to Stormwind.
 #
 # Order changes against the export:
@@ -57,12 +58,31 @@ next forever/alliance/02-westfall
 #   Kharanos, before the cooking lesson: on Forever he offers it to
 #   characters without Cooking too (seen in game; QuestieDB's Forever store
 #   lists no skill, only pfQuest's Classic data lists Cooking). Its Rhapsody
-#   Malt is bought from Innkeeper Belm in the same visit, and Maxan Anvol
-#   (beside Tannok) is taken before the walk out to the forge.
+#   Malt is bought from Innkeeper Belm in the same visit.
+# - Camping 101: Cooking (96629) and the Cooking lesson wait for the return
+#   with the ribs: on arrival a new character has spent its copper on class
+#   training (hit twice in play, noted in a recorded Dwarf Hunter run). The
+#   lesson comes before the turn-in, as in a recorded Dwarf Paladin run.
+# - Kharanos is done outside first: Senir, Eric's campfire (The Adventurer and
+#   The Great Outdoors) and Tharek's forge, then one visit inside the
+#   distillery, instead of in, out to the campfire and back in for Gremlock.
+# - Gretchen, at the mouth of the Grizzled Den, is visited first, so the den
+#   is entered once for the shipments, the manes and Cornelius.
+# - Rumbleshot's ammo is taken from the crate by Gretchen's camp (looted at
+#   44.1,57.0 in a recorded run) and handed to Hegnar before the walk back to
+#   Kharanos, instead of a second trip out.
+# - Brewnall's quests are taken before Frostmane Hold, so the bears, boars
+#   and leopards killed on the way to the Hold count toward "A Favor for
+#   Evershine" (319) instead of being wasted.
+# - Farsen's quests and Senator Mehr's "The Public Servant" (433) are taken
+#   on the walk east to the South Gate Outpost, so the Bonesnappers and Dark
+#   Iron Spies along the way count, and handed in on the way back west,
+#   instead of reaching the South Gate first and walking back east for the
+#   kills (played at level 11 in a recorded Dwarf Paladin run).
 #
-# Left out: "The Reports" (291) and "Stout to Kadrell" (414) are accepted by
-# the route but never turned in (the route goes to Westfall, not Ironforge's
-# senator or Loch Modan).
+# Left out: "Stout to Kadrell" (414) is never turned in (the route goes to
+# Westfall, not Loch Modan). "The Reports" (291) is handed to Senator Barin
+# Redstone on the way through Ironforge to the Deeprun Tram.
 # "The Adventurer" (96628) is taken from Thalos once "Senir's Observations"
 # (282) is handed in, and handed to Eric before "The Great Outdoors" (96608),
 # which it leads to: taken after it, Thalos no longer offers it.
@@ -91,7 +111,11 @@ next forever/alliance/02-westfall
 #   Grif Wildheart's taming quests (6064, 6084, 6085: Tame Beast) at
 #   Kharanos after the hearth; Training the Beast (6086) in Ironforge.
 # - Paladin (Dwarf): the Tome of Divinity quests (2999 to 1785, Redemption)
-#   at the end: Ironforge, Narm Faulk by Helm's Bed Lake, Ironforge.
+#   at the end: Ironforge, Narm Faulk by Helm's Bed Lake, then Thelsamar in
+#   Loch Modan for Honor Students (6387, 6391, 6388) and its flight back to
+#   Ironforge: about 70 seconds more than walking back up to the gates, for
+#   about 1,000 XP and the Thelsamar flight point (recorded Dwarf Paladin
+#   run). Return to Brock (6392) is left for a later visit to Loch Modan.
 # - Priest: Desperate Prayer (5637, Dwarf; handed in at the Cathedral of Light
 #   on arrival in Stormwind) and Confounding Flash (94824, Gnome; Ironforge) from
 #   Maxan Anvol in Kharanos.
@@ -134,30 +158,30 @@ step Young wolves
 
 step Anvilmar
   turnin 179                                  -- Sten Stoutarm
+  accept 233                                  -- Sten Stoutarm
   accept 3106 only Dwarf,Warrior              -- Sten Stoutarm: Simple Rune
   accept 3112 only Gnome,Warrior              -- Sten Stoutarm: Simple Memorandum
-  turnin 3106 only Dwarf,Warrior              -- Thran Khorman, the warrior trainer
-  turnin 3112 only Gnome,Warrior              -- Thran Khorman, the warrior trainer
   accept 3107 only Paladin                    -- Sten Stoutarm: Consecrated Rune
-  turnin 3107 only Paladin                    -- Bromos Grummner, the paladin trainer
   accept 3108 only Hunter                     -- Sten Stoutarm: a rune for Thorgas Grimson
-  turnin 3108 only Hunter                     -- Thorgas Grimson, the hunter trainer
   accept 3109 only Dwarf,Rogue                -- Sten Stoutarm: Encrypted Rune
   accept 3113 only Gnome,Rogue                -- Sten Stoutarm: Encrypted Memorandum
-  turnin 3109 only Dwarf,Rogue                -- Solm Hargrin, the rogue trainer
-  turnin 3113 only Gnome,Rogue                -- Solm Hargrin, the rogue trainer
   accept 3110 only Dwarf,Priest               -- Sten Stoutarm: Hallowed Rune
   accept 98574 only Gnome,Priest              -- Sten Stoutarm: Hallowed Memorandum
+  accept 98581 only Shaman                    -- Sten Stoutarm: read the Archaic Rune
+  accept 3114 only Mage                       -- Sten Stoutarm: Glyphic Memorandum
+  accept 3115 only Warlock                    -- Sten Stoutarm: Tainted Memorandum
+  accept 170                                  -- Balir Frosthammer, next to Sten
+  turnin 3106 only Dwarf,Warrior              -- Thran Khorman, the warrior trainer
+  turnin 3112 only Gnome,Warrior              -- Thran Khorman, the warrior trainer
+  turnin 3107 only Paladin                    -- Bromos Grummner, the paladin trainer
+  turnin 3108 only Hunter                     -- Thorgas Grimson, the hunter trainer
+  turnin 3109 only Dwarf,Rogue                -- Solm Hargrin, the rogue trainer
+  turnin 3113 only Gnome,Rogue                -- Solm Hargrin, the rogue trainer
   turnin 3110 only Dwarf,Priest               -- Branstock Khalder, the priest trainer
   turnin 98574 only Gnome,Priest              -- Branstock Khalder, the priest trainer
-  accept 98581 only Shaman                    -- Sten Stoutarm: read the Archaic Rune
   turnin 98581 only Shaman                    -- Teo Hammerstorm, inside Anvilmar
-  accept 3114 only Mage                       -- Sten Stoutarm: Glyphic Memorandum
   turnin 3114 only Mage                       -- Marryk Nurribit, the mage trainer, inside Anvilmar
-  accept 3115 only Warlock                    -- Sten Stoutarm: Tainted Memorandum
   turnin 3115 only Warlock                    -- Alamar Grimm, inside Anvilmar
-  accept 233
-  accept 170                                  -- Balir Frosthammer, next to Sten
   train class                                 -- Inside Anvilmar
 
 step The troggs
@@ -206,11 +230,11 @@ step Grelin Whitebeard
 step Anvilmar
   tip The Scalding Mornbrew lasts five minutes: go straight north to Durnan Furcutter inside Anvilmar.
   turnin 3364                                 -- Durnan Furcutter, inside Anvilmar
-  turnin 3361                                 -- Felix Whindlebolt
-  accept 3365
+  accept 3365                                 -- Durnan Furcutter
   train class                                 -- Level 4 spells, before Gozwin's camp
   turnin 1599 only Warlock                    -- Alamar Grimm: Summon Imp
   accept 94373 only Shaman                    -- Teo Hammerstorm, inside Anvilmar
+  turnin 3361                                 -- Felix Whindlebolt, at the door on the way out
 
 # The troll cave's mouth, marked in game at 26.93,80.03 (PR #16); Wowhead
 # Classic comments put it "@ 26, 79", Grik'nir "in the cave @ 30, 80"
@@ -253,33 +277,37 @@ step The tunnel
 # ---------------------------------------------------------------- Kharanos
 
 step Kharanos
-  tip Follow the road through the tunnel and north-east to Kharanos. Kill the Crag Boars on the way: their ribs drop before you have Ragnar's quest and count toward it. Senir, Eric and his campfire are outside the Thunderbrew Distillery. Tannok, Maxan and Ragnar are inside. Tharek Blackstone works the forge.
+  tip Follow the road through the tunnel and north-east to Kharanos. Kill the Crag Boars on the way: their ribs drop before you have Ragnar's quest and count toward it. Start outside: Senir and Eric's campfire are in front of the Thunderbrew Distillery.
   turnin 420                                  -- Senir Whitebeard
-  turnin 2160                                 -- Tannok Frosthammer, in the distillery
-  accept 99158                                -- Maxan Anvol, next to Tannok
-  accept 384                                  -- Ragnar Thunderbrew
-  sethome "Thunderbrew Distillery"
-  buy 2894 x1 npc 1247                        -- Rhapsody Malt, from Innkeeper Belm
-  train class
-  accept 400                                  -- Tharek Blackstone
   accept 98322                                -- Senir Whitebeard
 
 step The Great Outdoors
-  tip Sit by Eric's campfire (type /sit) and wait for the buff, then Gremlock Pilsnor in the distillery teaches you cooking.
+  tip Sit by Eric's campfire (type /sit) and wait for the buff.
   turnin 96628                                -- Eric Brighthammer: The Adventurer
   accept 96608                                -- Eric Brighthammer
   complete 96608
   turnin 96608
   accept 96629
-  complete 96629                              -- Speak with Gremlock Pilsnor
-  turnin 96629                                -- Gremlock Pilsnor
+
+step Tharek Blackstone
+  tip Tharek works the forge west of the distillery.
+  accept 400                                  -- Tharek Blackstone
+
+step Thunderbrew Distillery
+  tip Then go in: Tannok, the innkeeper, Maxan and Ragnar. Gremlock's Cooking lesson waits for the return with the ribs, when the copper is there for it.
+  turnin 2160                                 -- Tannok Frosthammer
+  sethome "Thunderbrew Distillery"
+  buy 2894 x1 npc 1247                        -- Rhapsody Malt, from Innkeeper Belm
+  accept 99158                                -- Maxan Anvol
+  accept 384                                  -- Ragnar Thunderbrew
+  train class                                 -- Last: some classes' trainers stand outside
 
 step Steelgrill's Depot
   tip Follow the road north-east from Kharanos to the depot below the Ironforge road.
   turnin 400                                  -- Beldin Steelgrill
+  accept 5541                                 -- Loslor Rudge, beside him
   accept 317                                  -- Pilot Bellowfiz
   accept 313                                  -- Pilot Stonegear
-  accept 5541                                 -- Loslor Rudge
 
 step Boars and bears
   tip Crag Boars and Young Black Bears roam the fields around Kharanos and the depot.
@@ -288,6 +316,10 @@ step Boars and bears
   collect 6952 quest 317.2                    -- Thick Bear Fur
 
 step Kharanos
+  tip Back in the distillery: Gremlock Pilsnor teaches Cooking, then the ribs go to Ragnar.
+  train Cooking                               -- Gremlock Pilsnor: Camping 101 asks you to learn it
+  complete 96629                              -- Speak with Gremlock Pilsnor
+  turnin 96629                                -- Gremlock Pilsnor
   turnin 384                                  -- Ragnar Thunderbrew
   accept 98321                                -- Tognus Flintfire
 
@@ -297,23 +329,27 @@ step Steelgrill's Depot
 
 # ---------------------------------------------------------------- The Grizzled Den
 
-step The Grizzled Den
-  tip The Grizzled Den is the wendigo cave south-west of Kharanos. Flintfire's shipments lie on the cave floor.
-  collect 280413 quest 98321.1                -- Flintfire's Shipment
-  collect 2671 quest 313.1                    -- Wendigo Mane
-
 step Mountaineer Gretchen
+  tip Gretchen camps just outside the Grizzled Den, the wendigo cave south-west of Kharanos.
   turnin 98322                                -- Mountaineer Gretchen
   accept 98319
+  goto 42.57,54.68 live "The Grizzled Den"
 
-step Mountaineer Cornelius
-  tip Cornelius is missing in the Grizzled Den: find him inside, then go back to Gretchen.
+step The Grizzled Den
+  tip Flintfire's shipments lie on the cave floor, and Mountaineer Cornelius is missing somewhere inside.
+  collect 280413 quest 98321.1                -- Flintfire's Shipment
+  collect 2671 quest 313.1                    -- Wendigo Mane
   goto 42.9,49.6 "Mountaineer Cornelius"
   complete 98319
 
 step Mountaineer Gretchen
   turnin 98319
   accept 98323
+
+step Rumbleshot's Ammo
+  tip The Ammo Crate sits next to Mountaineer Gretchen, south of the Grizzled Den; Hegnar Rumbleshot camps south-west of it, by the road to Coldridge.
+  collect 13850 quest 5541.1                  -- Rumbleshot's Ammo: the Ammo Crate
+  turnin 5541                                 -- Hegnar Rumbleshot
 
 step Kharanos and the depot
   turnin 98321                                -- Tognus Flintfire
@@ -322,26 +358,25 @@ step Kharanos and the depot
   turnin 313                                  -- Pilot Stonegear, at the depot
   accept 412                                  -- Razzle Sprysprocket, by the depot
 
-step Rumbleshot's Ammo
-  tip The Ammo Crate sits next to Mountaineer Gretchen, south of the Grizzled Den; Hegnar Rumbleshot camps south-west of it, by the road to Coldridge.
-  collect 13850 quest 5541.1                  -- Rumbleshot's Ammo: the Ammo Crate
-  turnin 5541                                 -- Hegnar Rumbleshot
-
 # ---------------------------------------------------------------- Brewnall Village
 
-step Frostmane Hold
-  tip Frostmane Hold is the troll cave in the hills west of Brewnall Village. Kill Headhunters at its mouth and walk through to its far end.
-  kill 1123 quest 287                         -- Frostmane Headhunter
-  goto 22.8,52.1 "Frostmane Hold"
-  complete 287
-
 step Brewnall Village
-  tip Brewnall Village sits on the lake north-west of Frostmane Hold.
+  tip Brewnall Village sits on the lake west of Kharanos. Gretta Ganter's dock is the first stop; Rejold and Marleth Barleybrew are in the village beyond it.
+  accept 98326                                -- Gretta Ganter, on the dock
   turnin 318                                  -- Rejold Barleybrew
   accept 315
   accept 319
   accept 310                                  -- Marleth Barleybrew
-  accept 98326                                -- Gretta Ganter
+  kill 1196 quest 319 optional                -- Ice Claw Bear, on the way to the Hold
+  kill 1127 quest 319 optional                -- Elder Crag Boar, on the way
+  kill 1201 quest 319 optional                -- Snow Leopard, on the way
+  goto 25.1,50.94 live "Frostmane Hold"
+
+step Frostmane Hold
+  tip Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for Rejold. Kill Headhunters at its mouth and walk through to its far end.
+  kill 1123 quest 287                         -- Frostmane Headhunter
+  goto 22.8,52.1 "Frostmane Hold"
+  complete 287
 
 step Gnomes, bears and leopards
   tip Leper Gnomes around Brewnall and the Gnomeregan road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake.
@@ -356,6 +391,7 @@ step Rejold Barleybrew
   accept 320
 
 step Frosthowl
+  goto 42.57,54.68 live "The Grizzled Den"
   collect 280426 quest 98326.1                -- Sack of Fish
 
 # ---------------------------------------------------------------- Back to Kharanos
@@ -369,6 +405,7 @@ step Kharanos
   turnin 310                                  -- The Unguarded Thunder Ale Barrel in the distillery
   accept 311
   turnin 287                                  -- Senir Whitebeard
+  accept 291                                  -- Senir Whitebeard: Senator Barin Redstone in Ironforge takes it
   train class
 
 step Steelgrill's Depot
@@ -390,12 +427,16 @@ step Father Gavin
   accept 99160
   accept 99162
 
-step The cold
-  tip Minor Ice Elementals drift around the frozen lake by the refuge. The three rifles are in the snow around it.
-  kill 276003 quest 99160                     -- Minor Ice Elemental
+step Treacherous Cold
+  tip The three rifles lie in the snow around the frozen lake by the refuge. Minor Ice Elementals drift around the lake and along the way: kill them as you go for Rime's Wrath.
   collect 286360 quest 99162.1                -- Stoneanvil's Rifle
   collect 286359 quest 99162.2                -- Sunhammer's Rifle
   collect 286358 quest 99162.3                -- Coalbeard's Rifle
+  kill 276003 quest 99160 optional            -- Minor Ice Elemental, on the way
+
+step Rime's Wrath
+  tip Finish off the Minor Ice Elementals around the small lake just west of the refuge if you are still short.
+  kill 276003 quest 99160 @56.37,44.73 live   -- Minor Ice Elemental, around the small lake
 
 step Father Gavin
   turnin 99162
@@ -488,13 +529,26 @@ step Brewnall Village
   turnin 311                                  -- Marleth Barleybrew
   turnin 315                                  -- Rejold Barleybrew
   accept 413
-  accept 415
-  turnin 415
 
 # ---------------------------------------------------------------- South Gate and Farsen
 
 step Steelgrill's Depot
   accept 96408                                -- Beldin Steelgrill
+
+step Earthseer Farsen
+  tip Farsen camps on the ridge overlooking the Gol'Bolar Quarry from the west. Talk to him for his farsight.
+  turnin 96408
+  accept 96392
+  turnin 96392
+  accept 96390
+  accept 433                                  -- Senator Mehr Stonehallow, in the quarry
+
+step Spies and Bonesnappers
+  tip Rockjaw Bonesnappers prowl the quarry and Helm's Bed Lake; Dark Iron Spies sneak around the lake shore, on the way east to the South Gate. One spy drops the Dark Iron Map.
+  kill 1117 quest 433                         -- Rockjaw Bonesnapper
+  kill 6123 quest 96390                       -- Dark Iron Spy
+  collect 274268                              -- Dark Iron Map
+  accept 96391
 
 step South Gate Outpost
   tip Follow the road all the way east to the South Gate Outpost at the Loch Modan tunnel.
@@ -535,21 +589,6 @@ step Back to Bruegs Kindleborn
   tip Back through the tunnel to Bruegs' cave above the farm.
   turnin 94468 reward 5176 263412             -- Bruegs Kindleborn: Searing Totem, your Fire Totem and the Totem of Charged Flames
 
-step Earthseer Farsen
-  tip Farsen camps on the ridge overlooking the Gol'Bolar Quarry from the west. Talk to him for his farsight.
-  turnin 96408
-  accept 96392
-  turnin 96392
-  accept 96390
-  accept 433                                  -- Senator Mehr Stonehallow, in the quarry
-
-step Spies and Bonesnappers
-  tip Rockjaw Bonesnappers prowl the quarry and Helm's Bed Lake; Dark Iron Spies sneak around the lake shore. One spy drops the Dark Iron Map.
-  kill 1117 quest 433                         -- Rockjaw Bonesnapper
-  kill 6123 quest 96390                       -- Dark Iron Spy
-  collect 274268                              -- Dark Iron Map
-  accept 96391
-
 step Senator Mehr Stonehallow
   turnin 433
 
@@ -560,7 +599,7 @@ step Earthseer Farsen
 # ---------------------------------------------------------------- Old Icebeard
 
 step Tundra MacGrann
-  tip Tundra MacGrann camps in Chill Breeze Valley, south of Brewnall. His meats are in the locker in Old Icebeard's cave to the north-east of his camp: grab them and leave quickly.
+  tip Tundra MacGrann camps in Chill Breeze Valley, south of Brewnall. His meats are in the locker in Old Icebeard's cave, north-east of his camp. Old Icebeard is an elite yeti: wait out of sight until he wanders off on his patrol, then take the meats and leave before he comes back. You don't need to fight him.
   accept 312                                  -- Tundra MacGrann
   collect 2667 quest 312.1                    -- MacGrann's Dried Meats: the meat locker
   turnin 312
@@ -570,7 +609,7 @@ step Tundra MacGrann
 step The Tome of Divinity
   only Paladin
   zone Ironforge
-  tip Follow the road up to Ironforge and take the Mystic Ward: Brandur Ironhammer, Tiza Battleforge and Muiredon Battleforge are in the Hall of Mysteries. John Turner, a beggar, wanders the city. He asks for ten Linen Cloth: the troggs and trolls of Dun Morogh drop it, and the Auction House sells it.
+  tip Follow the road up to Ironforge and take the Mystic Ward: Brandur Ironhammer, Tiza Battleforge and Muiredon Battleforge are in the Hall of Mysteries, Tiza and Muiredon on its upper floor: the stairs up start just north-east of Brandur. John Turner, a beggar, wanders the city. He asks for ten Linen Cloth: the troggs and trolls of Dun Morogh drop it, and the Auction House sells it.
   accept 2999                                 -- Brandur Ironhammer
   turnin 2999                                 -- Tiza Battleforge
   accept 1646                                 -- From the Tome of Divinity she gives you
@@ -589,11 +628,28 @@ step The Tome of Divinity
 step Narm Faulk
   only Paladin
   zone Dun Morogh
-  tip Ride back out of Ironforge and east along the road to Helm's Bed Lake. Narm Faulk lies dead by its shore: use the Symbol of Life on him. The Dark Iron Spies sneaking around the lake carry the script.
+  tip Head back out of Ironforge and east along the road to Helm's Bed Lake. Narm Faulk lies dead by its shore: use the Symbol of Life on him. The Dark Iron Spies sneaking around the lake carry the script.
   complete 1783                               -- Use the Symbol of Life on Narm Faulk
   turnin 1783                                 -- Narm Faulk
   accept 1784
   collect 6847 quest 1784.1                   -- Dark Iron Script: Dark Iron Spies
+
+step Honor Students
+  only Paladin
+  zone Loch Modan
+  tip Instead of walking back up to Ironforge, go east through the South Gate tunnel into Loch Modan and follow the road north to Thelsamar. Brock Stoneseeker stands on the east side of town, past the Stoutlager Inn; his errand pays for a flight back to Ironforge.
+  accept 6387                                 -- Brock Stoneseeker
+  turnin 6387                                 -- Thorgrum Borrelson, the gryphon master
+  accept 6391
+  getfp "Thelsamar"
+  fly "Ironforge"
+
+step Golnir Bouldertoe
+  only Paladin
+  zone Ironforge
+  turnin 6391                                 -- Golnir Bouldertoe, in the Great Forge
+  accept 6388
+  turnin 6388                                 -- Gryth Thurden, the gryphon master where you landed
 
 step Muiredon Battleforge
   only Paladin
@@ -614,6 +670,7 @@ step The Deeprun Tram
   zone Ironforge
   tip Follow the road up to Ironforge and train with your class trainer. The Deeprun Tram leaves from Tinker Town, in the east of the city. Ride it to Stormwind.
   train class
+  turnin 291                                  -- Senator Barin Redstone, in the High Seat with King Magni
   accept 97263 optional                       -- Misplaced Packages, by the mailbox in Tinker Town
   turnin 97263 optional                       -- Eldrun Stormbreaker, the shaman trainer, north of the Great Forge
   goto 78.0,51.4 "Deeprun Tram"
