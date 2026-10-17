@@ -161,8 +161,8 @@ step Royal Quarter
   note Good Luck Charm goes back to Janice Felstone in the Western Plaguelands: keep it.
 
 step Owen Thadd
-  accept 79095
-  turnin 79095
+  accept 79095 optional               -- Only with The Apothecary's Metaphysical Primer from Brill's alchemy shop in your bags (the Library Books guide)
+  turnin 79095 optional
 
 step Prompt Potion Runner
   accept 97891                        -- Alessandro Luca

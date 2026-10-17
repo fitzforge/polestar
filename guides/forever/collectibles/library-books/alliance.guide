@@ -1,0 +1,172 @@
+guide forever/collectibles/library-books/alliance
+title Library Books
+category Collectibles
+folder Library books
+keywords library, books, Garion Wendell, Friend of the Library, Greater Friend of the Library, Scholarly Pendant, Erudite's Amulet, Archmage Theocritus' Research Journal, Rumi of Gnomeregan, Bewitchments and Glamours, Archmage Antonidas, Runes of the Sorcerer-Kings, Baxtan, Arcanic Systems Manual, Secrets of the Dreamers, Fury of the Land, Crimes Against Anatomy, Goaz Scrolls, Geomancy, Defensive Magics 101, A Web of Lies, Mummies, RwlRwlRwlRwl!
+collects 203755, 208860, 209845, 203754, 209850, 208800, 209847, 209846, 209851, 209849, 209848, 215683, 215815, 215816, 215820, 215822
+reward item 277203 277204
+why A neck piece from Friend of the Library, for the books you hand Garion Wendell.
+faction Alliance
+levels 1-40
+zone Elwynn Forest
+
+# The library books Garion Wendell takes in Stormwind's Mage Quarter: each
+# book is an item looted from a book on a table or shelf, and Garion offers
+# its quest (same title as the book) while it is in your bags. Friend of the
+# Library (78150) follows the first books, Greater Friend of the Library
+# (79536, level 20; 82208, level 30) more of them.
+#
+# Sources: the quests, their faction and who takes them from data/forever
+# (Questie-Forever 1.0.6, as Polestar 0.2.5 shipped); the book items from the
+# Forever client 1.60.1.70450 (ItemSparse: every book is a unique, soulbound
+# item "a fine addition to any library's collection"). Where the books lie,
+# and how many books each reward asks for, come from a fan list compiled on
+# 2026-10-17 from beta guides (Zockify, Method, forg.gg, Warcraft Tavern);
+# only books several of them confirm in Forever are here. Not play-tested
+# with Polestar yet: refine the spots with Polestar_Recorder sessions.
+#
+# Left out:
+# - Sanguine Sorcery, Venomous Journeys, A Mind of Metal, Stonewrought
+#   Design, Conjurer's Codex, Necromancy 101, Undead Potatoes, A Study of
+#   the Light, Scourge: Undead Menace or Misunderstood?, The Knight and the
+#   Lady, The Liminal and the Arcane, Legends of the Tidesages, Everyday
+#   Etiquette, Northern Kalimdor, Ka-Boom!, Magma or Lava?, A Luddite's
+#   Guide and Ataeric: On Arcane Curiosities: not confirmed in Forever yet
+#   (Season of Discovery spots, or guides disagree).
+# - The Dalaran Digest, Vol. 23 (Silverpine) and Nar'thalas Almanac, Vol. 74
+#   (Darkshore): confirmed, but our data has no quest for them yet.
+# - Basilisks: Should Petrification be Feared? and Demons and You: our data
+#   has only Owen Thadd (Undercity) taking them; the Horde guide has them.
+# - The Lessons of Ta'zo lies in Orgrimmar; the Horde guide has it.
+# - The Apothecary's Metaphysical Primer is the Horde's counterpart of
+#   Theocritus' journal.
+#
+# The fan list counts 10 books for Friend of the Library, 20 for the first
+# Greater Friend and 25 for the second; the books here are 16, so the two
+# Greater Friend quests are optional.
+
+step Archmage Theocritus' Research Journal
+  tip The Tower of Azora, east of Goldshire across the lake: the journal lies on a table at the top of the stairs, on the third floor.
+  collect 203755 @65.4,70.1
+
+step Garion Wendell
+  zone Stormwind City
+  tip Garion Wendell, in the Mage Quarter, takes the library books: each one is a quest he offers while the book is in your bags.
+  accept 79092
+  turnin 79092 npc 211033
+
+step Rumi of Gnomeregan: The Collected Works
+  zone Westfall
+  tip Sentinel Hill's inn: the book lies on the table behind the innkeeper. Loch Modan's Thelsamar inn has another copy; you can hand in only one.
+  collect 208860 @52.7,53.8
+
+step Bewitchments and Glamours
+  tip Moonbrook, in the south of Westfall: on the bookshelf of the first house on the left, the one with the yellow roof.
+  collect 209845 @45.4,70.5
+
+step Archmage Antonidas: The Unabridged Autobiography
+  zone Ironforge
+  tip Ironforge's Hall of Explorers: the book lies on the centre table of the small back room.
+  collect 203754 @75.7,10.5
+
+step Runes of the Sorcerer-Kings
+  zone Loch Modan
+  tip Mo'grosh Stronghold in the north-east of Loch Modan: enter the middle ogre cave (its mouth is near 74.5,19.6) and take the left path to the back chamber. The ogres there are level 19-20 elites: bring friends.
+  collect 209850 @77.5,14.1 group
+
+step Baxtan: On Destructive Magics
+  zone The Barrens
+  tip Ratchet's engineering shop: upstairs, next to Gazlowe.
+  collect 208800 @62.7,36.3
+
+step Arcanic Systems Manual
+  tip The Sludge Fen oil rig in the far north of the Barrens: the manual lies on the chair behind Supervisor Lugwizzle in the control room.
+  collect 209847 @56.3,8.8
+
+step Secrets of the Dreamers
+  tip The cave in the hills above the Lushwater Oasis leads into the Cavern of Mists, outside the Wailing Caverns instance: the scrolls lie by a double column of rock. The point is the cave mouth.
+  collect 209846 @46.0,36.5
+
+step Fury of the Land
+  zone Stonetalon Mountains
+  tip Grimtotem Post in the south-east of Stonetalon: the scrolls lie on a barrel in the smaller hut.
+  collect 209851 @74.4,85.7
+
+step Crimes Against Anatomy
+  zone Duskwood
+  tip The crypt in Raven Hill Cemetery leads down into the catacombs; the book lies on the alchemy table in the last room. The undead there are level 27-28 and packed close.
+  collect 209849 @16.7,28.5
+
+step Goaz Scrolls
+  zone Wetlands
+  tip Whelgar's Excavation Site: the scrolls are inside an urn on the lowest level of the dig.
+  collect 209848 @33.6,47.9
+
+step Geomancy: The Stone-Cold Truth
+  zone Thousand Needles
+  tip Darkcloud Pinnacle: the path up starts near 31,37; the book is inside the largest Grimtotem hut on top.
+  collect 215683 @34.4,40.0
+
+step Garion Wendell
+  zone Stormwind City
+  tip Hand Garion every book you carry, then take Friend of the Library: a neck piece of your choice.
+  accept 78150 npc 211033
+  turnin 78150 npc 211033
+  accept 79093 npc 211033
+  turnin 79093 npc 211033
+  accept 78142 npc 211033
+  turnin 78142 npc 211033
+  accept 79091 npc 211033
+  turnin 79091 npc 211033
+  accept 78148
+  turnin 78148 npc 211033
+  accept 79097 npc 211033
+  turnin 79097 npc 211033
+  accept 78145 npc 211033
+  turnin 78145 npc 211033
+  accept 78143 npc 211033
+  turnin 78143 npc 211033
+  accept 78149 npc 211033
+  turnin 78149 npc 211033
+  accept 78147 npc 211033
+  turnin 78147 npc 211033
+  accept 78146 npc 211033
+  turnin 78146 npc 211033
+  accept 79947 npc 211033
+  turnin 79947 npc 211033
+
+step Defensive Magics 101
+  zone Alterac Mountains
+  tip Gallows' Corner, the ogre fortress in Alterac's middle: the book is inside the first tower.
+  collect 215815 @48.4,57.6
+
+step A Web of Lies: Debunking Myths and Legends
+  zone Arathi Highlands
+  tip Witherbark Village in the south-east of Arathi: on the east side, just outside a hut.
+  collect 215816 @73.6,65.2
+
+step Mummies: A Guide to the Unsavory Undead
+  zone Badlands
+  tip The crypt on the south side of the butte, by the skeletons; the path up starts near 56,45.
+  collect 215820 @56.7,39.7
+
+step RwlRwlRwlRwl!
+  zone Dustwallow Marsh
+  tip The murloc camp below Witch Hill: on the ground by the furnace at its east edge.
+  collect 215822 @57.1,20.8
+
+step Garion Wendell
+  zone Stormwind City
+  tip Hand Garion the last books. The Greater Friend of the Library quests are offered for more books than this guide has: take them if he offers them.
+  accept 79948 npc 211033
+  turnin 79948 npc 211033
+  accept 79949 npc 211033
+  turnin 79949 npc 211033
+  accept 79951 npc 211033
+  turnin 79951 npc 211033
+  accept 79952 npc 211033
+  turnin 79952 npc 211033
+  accept 79536 optional
+  turnin 79536 npc 211033 optional
+  accept 82208 optional
+  turnin 82208 npc 211033 optional

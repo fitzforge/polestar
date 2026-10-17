@@ -300,8 +300,8 @@ step Cathedral of Light
 step Mage Quarter
   tip Archmage Malin is in the Slaughtered Lamb; Garion Wendell near the canal; Connor Rivers south of the Mage Quarter.
   accept 690                          -- Archmage Malin
-  accept 79536                        -- Garion Wendell
-  turnin 79536
+  accept 79536 optional               -- Garion Wendell: only offered once you have handed in library books (the Library Books guide)
+  turnin 79536 optional
   accept 1301                         -- Connor Rivers
 
 step Elling Trias

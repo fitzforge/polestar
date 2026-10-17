@@ -1,0 +1,171 @@
+guide forever/collectibles/library-books/horde
+title Library Books
+category Collectibles
+folder Library books
+keywords library, books, Owen Thadd, Friend of the Library, Scholarly Pendant, Erudite's Amulet, The Apothecary's Metaphysical Primer, The Lessons of Ta'zo, Baxtan, Arcanic Systems Manual, Secrets of the Dreamers, Fury of the Land, Rumi of Gnomeregan, Bewitchments and Glamours, Crimes Against Anatomy, Goaz Scrolls, Geomancy, Defensive Magics 101, A Web of Lies, Basilisks, Mummies, RwlRwlRwlRwl!, Demons and You
+collects 208185, 207972, 208800, 209847, 209846, 209851, 208860, 209845, 209849, 209848, 215683, 215815, 215816, 213165, 215820, 215822, 215817
+reward item 277203 277204
+why A neck piece from Friend of the Library, for the books you hand Owen Thadd.
+faction Horde
+levels 1-40
+zone Tirisfal Glades
+
+# The library books Owen Thadd takes in the Undercity's Magic Quarter: each
+# book is an item looted from a book on a table or shelf, and Owen offers its
+# quest (same title as the book) while it is in your bags. Friend of the
+# Library (78150) follows the first books.
+#
+# Sources: the quests, their faction and who takes them from data/forever
+# (Questie-Forever 1.0.6, as Polestar 0.2.5 shipped); the book items from the
+# Forever client 1.60.1.70450 (ItemSparse: every book is a unique, soulbound
+# item "a fine addition to any library's collection"). Where the books lie,
+# and how many books Friend of the Library asks for, come from a fan list
+# compiled on 2026-10-17 from beta guides (Zockify, Method, forg.gg,
+# Warcraft Tavern); only books several of them confirm in Forever are here.
+# Not play-tested with Polestar yet: refine the spots with Polestar_Recorder
+# sessions.
+#
+# Left out:
+# - Sanguine Sorcery, Venomous Journeys, A Mind of Metal, Stonewrought
+#   Design, Conjurer's Codex, Necromancy 101, Undead Potatoes, A Study of
+#   the Light, Scourge: Undead Menace or Misunderstood?, The Knight and the
+#   Lady, The Liminal and the Arcane, Legends of the Tidesages, Everyday
+#   Etiquette, Northern Kalimdor, Ka-Boom!, Magma or Lava?, A Luddite's
+#   Guide and Ataeric: On Arcane Curiosities: not confirmed in Forever yet
+#   (Season of Discovery spots, or guides disagree).
+# - The Dalaran Digest, Vol. 23 (Silverpine) and Nar'thalas Almanac, Vol. 74
+#   (Darkshore): confirmed, but our data has no quest for them yet.
+# - Archmage Antonidas: The Unabridged Autobiography lies in Ironforge, and
+#   Archmage Theocritus' Research Journal and Runes of the Sorcerer-Kings are
+#   Alliance quests: the Alliance guide has them.
+# - Greater Friend of the Library: our data has only the Alliance quests
+#   (79536, 82208, from Garion Wendell).
+
+step The Apothecary's Metaphysical Primer
+  tip Brill's alchemy shop: the primer sits on the corner shelf next to Apothecary Johaan.
+  collect 208185
+
+step Owen Thadd
+  zone Undercity
+  tip Owen Thadd, in the Magic Quarter's inner ring, takes the library books: each one is a quest he offers while the book is in your bags.
+  accept 79095
+  turnin 79095 npc 211022
+
+step The Lessons of Ta'zo
+  zone Orgrimmar
+  tip The Valley of Spirits: the Mural of Ta'zo tablet near Darkbriar Lodge.
+  collect 207972 "The Lessons of Ta'zo" @38.7,78.4
+
+step Baxtan: On Destructive Magics
+  zone The Barrens
+  tip Ratchet's engineering shop: upstairs, next to Gazlowe.
+  collect 208800 @62.7,36.3
+
+step Arcanic Systems Manual
+  tip The Sludge Fen oil rig in the far north of the Barrens: the manual lies on the chair behind Supervisor Lugwizzle in the control room.
+  collect 209847 @56.3,8.8
+
+step Secrets of the Dreamers
+  tip The cave in the hills above the Lushwater Oasis leads into the Cavern of Mists, outside the Wailing Caverns instance: the scrolls lie by a double column of rock. The point is the cave mouth.
+  collect 209846 @46.0,36.5
+
+step Fury of the Land
+  zone Stonetalon Mountains
+  tip Grimtotem Post in the south-east of Stonetalon: the scrolls lie on a barrel in the smaller hut.
+  collect 209851 @74.4,85.7
+
+step Rumi of Gnomeregan: The Collected Works
+  zone Westfall
+  tip Sentinel Hill's inn, an Alliance town: the book lies on the table behind the innkeeper. Loch Modan's Thelsamar inn has another copy, deeper in Alliance land.
+  collect 208860 @52.7,53.8
+
+step Bewitchments and Glamours
+  tip Moonbrook, in the south of Westfall: on the bookshelf of the first house on the left, the one with the yellow roof.
+  collect 209845 @45.4,70.5
+
+step Crimes Against Anatomy
+  zone Duskwood
+  tip The crypt in Raven Hill Cemetery leads down into the catacombs; the book lies on the alchemy table in the last room. The undead there are level 27-28 and packed close.
+  collect 209849 @16.7,28.5
+
+step Goaz Scrolls
+  zone Wetlands
+  tip Whelgar's Excavation Site: the scrolls are inside an urn on the lowest level of the dig.
+  collect 209848 @33.6,47.9
+
+step Geomancy: The Stone-Cold Truth
+  zone Thousand Needles
+  tip Darkcloud Pinnacle: the path up starts near 31,37; the book is inside the largest Grimtotem hut on top.
+  collect 215683 @34.4,40.0
+
+step Owen Thadd
+  zone Undercity
+  tip Hand Owen every book you carry, then take Friend of the Library: a neck piece of your choice.
+  accept 78150 npc 211022
+  turnin 78150 npc 211022
+  accept 79094 npc 211022
+  turnin 79094 npc 211022
+  accept 79097 npc 211022
+  turnin 79097 npc 211022
+  accept 78145 npc 211022
+  turnin 78145 npc 211022
+  accept 78143 npc 211022
+  turnin 78143 npc 211022
+  accept 78149 npc 211022
+  turnin 78149 npc 211022
+  accept 79093 npc 211022
+  turnin 79093 npc 211022
+  accept 78142 npc 211022
+  turnin 78142 npc 211022
+  accept 78147 npc 211022
+  turnin 78147 npc 211022
+  accept 78146 npc 211022
+  turnin 78146 npc 211022
+  accept 79947 npc 211022
+  turnin 79947 npc 211022
+
+step Defensive Magics 101
+  zone Alterac Mountains
+  tip Gallows' Corner, the ogre fortress in Alterac's middle: the book is inside the first tower.
+  collect 215815 @48.4,57.6
+
+step A Web of Lies: Debunking Myths and Legends
+  zone Arathi Highlands
+  tip Witherbark Village in the south-east of Arathi: on the east side, just outside a hut.
+  collect 215816 @73.6,65.2
+
+step Basilisks: Should Petrification be Feared?
+  zone Stranglethorn Vale
+  tip The Crystalvein Mine: the notes lie on the wooden platform right of the entrance.
+  collect 213165
+
+step Mummies: A Guide to the Unsavory Undead
+  zone Badlands
+  tip The crypt on the south side of the butte, by the skeletons; the path up starts near 56,45.
+  collect 215820 @56.7,39.7
+
+step RwlRwlRwlRwl!
+  zone Dustwallow Marsh
+  tip The murloc camp below Witch Hill: on the ground by the furnace at its east edge.
+  collect 215822 @57.1,20.8
+
+step Demons and You
+  zone Desolace
+  tip Thunder Axe Fortress: the book lies on a bench inside the large inner building.
+  collect 215817 "Demons and You" @55.1,26.2
+
+step Owen Thadd
+  zone Undercity
+  tip Hand Owen the last books.
+  accept 79948 npc 211022
+  turnin 79948 npc 211022
+  accept 79949 npc 211022
+  turnin 79949 npc 211022
+  accept 79535 npc 211022
+  turnin 79535 npc 211022
+  accept 79951 npc 211022
+  turnin 79951 npc 211022
+  accept 79952 npc 211022
+  turnin 79952 npc 211022
+  accept 79950 npc 211022
+  turnin 79950 npc 211022
