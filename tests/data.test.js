@@ -13,7 +13,9 @@ const { buildMaps, frameFromAssignment } = require('../tools/lib/data/maps');
 const { parseCount, parseProgressText } = require('../tools/lib/data/objectives');
 const { reduceSpawns } = require('../tools/lib/data/spawns');
 const { buildData } = require('../tools/lib/data/build');
-const { checkLicense } = require('../tools/lib/data/pfquest');
+const { checkLicense, splitTable } = require('../tools/lib/data/pfquest');
+const { luaToJson } = require('../tools/lib/lua');
+const { loadWebXp } = require('../tools/lib/data/webxp');
 const { tmpdir } = require('./helpers/tmp');
 
 const FIX = path.join(__dirname, 'fixtures', 'data');
@@ -413,6 +415,33 @@ describe('fixture build', () => {
 		fs.writeFileSync(path.join(dir, 'LICENSE'), 'All rights reserved.\n');
 		assert.throws(() => checkLicense(dir), /not the MIT license/);
 		assert.equal(checkLicense(path.join(FIX, 'pfquest')).license, 'MIT');
+	});
+
+	test('loads a pfQuest table with more constants than LuaJIT allows one function', () => {
+		const dir = tmpdir('polestar-data-');
+		const lines = ['pfDB["units"]["data"] = {'];
+		for (let id = 1; id <= 70000; id++) lines.push(`  [${id}] = {`, `    ["coords"] = { { ${id % 100}.5, 20, 12, 300 } },`, '  },');
+		lines.push('}');
+		const split = splitTable(`${lines.join('\r\n')}\r\n`);
+		const file = path.join(dir, 'units.lua');
+		fs.writeFileSync(file, split);
+		const got = luaToJson({
+			files: [file],
+			prelude: 'pfDB = setmetatable({}, { __index = function(t, k) local v = {} rawset(t, k, v) return v end })',
+			expr: 'local n = 0 for _ in pairs(pfDB.units.data) do n = n + 1 end return { n, pfDB.units.data[1].coords[1][1], pfDB.units.data[70000].coords[1][4] }',
+		});
+		assert.deepEqual(got, [70000, 1.5, 300]);
+		assert.equal(splitTable('pfDB["meta"] = {\n}\n'), null);
+		assert.equal(splitTable('pfDB["units"]["enUS"] = {\n  [1] = [[a\n  [2] = b]],\n}\n'), null);
+	});
+
+	test('a quest XP site that never answers fails its lookups instead of stalling the build', { timeout: 5000 }, async () => {
+		const sourcesDir = tmpdir('polestar-data-');
+		const silent = (url, { signal } = {}) => new Promise((resolve, reject) => signal && signal.addEventListener('abort', () => reject(signal.reason)));
+		const r = await loadWebXp({ sourcesDir, ids: [101, 102], fetchImpl: silent, timeout: 50 });
+		assert.equal(r.xp.size, 0);
+		assert.match(r.warnings.join('\n'), /sitemap/);
+		assert.match(r.warnings.join('\n'), /quest 101 XP lookup/);
 	});
 });
 
