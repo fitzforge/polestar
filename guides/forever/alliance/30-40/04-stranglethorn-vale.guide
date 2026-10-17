@@ -161,7 +161,7 @@ step Bloodscalp trolls
 step Nesingwary's Expedition
   turnin 195                          -- Hemet Nesingwary
   turnin 188                          -- Ajeck Rouack
-  complete 201                        -- Investigate the Camp: just look around the hunters' camp
+  complete 201 @35.65,10.59           -- Investigate the Camp: just look around the hunters' camp
 
 step Private Thorsen
   tip Thorsen patrols the road north of camp, toward the Rebel Camp.

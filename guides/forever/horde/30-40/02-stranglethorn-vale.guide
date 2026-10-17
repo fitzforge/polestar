@@ -212,7 +212,7 @@ step Fly to Grom'gol
 
 step The camp by the river
   tip Krazek's missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp.
-  complete 201
+  complete 201 @35.65,10.59
   collect 4053 quest 575
 
 step Basilisks and the Bloodscalp village

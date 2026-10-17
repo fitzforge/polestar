@@ -864,23 +864,29 @@ test('every step with a quest objective to do has a goal the arrow can lead to',
 // A turn-in's place does not lead to the objective (Dun Morogh, Rumbleshot's
 // Ammo: the arrow sent players to Hegnar while the Ammo Crate stands by
 // Mountaineer Gretchen). When the data knows where every objective of a quest
-// is (an item that drops from a spawned NPC or object, or an object to use), a
-// bare `complete` is not enough: the step needs a placed goal of its own for
-// that quest (`collect <item> quest <id>.<n>`, `interact`) or a questless one
-// (`goto`, `use @x,y`).
+// is (an item that drops from a spawned NPC or object, an object to use, or a
+// place to reach: an area trigger with a position, like The Red Crystal's
+// "Locate the large, red crystal", #241), a bare `complete` is not enough: the
+// step needs a placed goal of its own for that quest (`collect <item> quest
+// <id>.<n>`, `interact`, `complete <id> @x,y`) or a questless one (`goto`,
+// `use @x,y`).
 const OBJECTIVE_WITHOUT_A_PLACE = new Set([
 	339, 340, 341, 342, // Green Hills of Stranglethorn: pages drop at random across the zone
 	96605, 96608, // The Great Outdoors: the campfire is built with a spell, not clicked
 	6134, // Ghost-o-plasm Round Up: the spectres come to the Ghost Magnets in the Kodo Graveyard, not their data spawn
+	1149, // Test of Faith: the leap is from the planks beside Dorn Plainstalker (54,41.5); the data's trigger lies at 26.4,32.9, far from him
+	1699, // The Rethban Gauntlet: the trigger is at the first fork inside the Rethban Caverns, and its mouth is not marked yet (tests/guides-caves.test.js)
 ]);
 
-test('Rumbleshot\'s Ammo: every objective the data can place has a goal of its own, not only the turn-in', { skip }, () => {
+test('Rumbleshot\'s Ammo, The Red Crystal: every objective the data can place has a goal of its own, not only the turn-in', { skip }, () => {
 	const placed = (g) => g.map != null && g.x != null;
 	const spawned = (x) => !!x && Object.keys(x.spawns || {}).length > 0;
 	const knownPlace = (o) =>
 		o.type === 'item'
 			? Object.keys(data.items[o.id]?.drops?.npc || {}).some((n) => spawned(data.npcs[n])) || Object.keys(data.items[o.id]?.drops?.object || {}).some((n) => spawned(data.objects[n]))
-			: o.type === 'object' && spawned(data.objects[o.id]);
+			: o.type === 'object'
+				? spawned(data.objects[o.id])
+				: o.type === 'event' && o.id != null && placed(o); // an area trigger; an escort's or a script's event has no id
 	const offenders = [];
 	for (const guide of allGuides()) {
 		compiled(guide).steps.forEach((step, i) => {
@@ -894,7 +900,18 @@ test('Rumbleshot\'s Ammo: every objective the data can place has a goal of its o
 			}
 		});
 	}
-	assert.deepEqual(offenders, [], 'objectives led to only by their turn-in');
+	assert.deepEqual(offenders, [], 'objectives led to only by their turn-in, or not at all');
+});
+
+test(`${DARKSHORE}: Twerkjob's report: The Red Crystal leads the arrow to the crystal on the eastern ridge (#241)`, { skip }, () => {
+	const list = goals(DARKSHORE);
+	const complete = list[at(list, 'complete 4811 (The Red Crystal)', is('complete', 4811))];
+	// The step's first placed goal for the quest, past its accept: where the arrow leads.
+	const lead = list.find(({ step, goal: g }) => step === complete.step && g.quest === 4811 && g.t !== 'accept' && g.t !== 'turnin' && located({ goal: g }));
+	assert.ok(lead, 'the red crystal step has a goal the arrow can lead to');
+	// "Locate the large, red crystal on Darkshore's eastern mountain range", the quest's area trigger.
+	const crystal = data.quests[4811].objectives.find((o) => o.type === 'event');
+	assert.ok(yards(lead.goal, crystal) < 30, `the arrow leads to the crystal (${lead.goal.x},${lead.goal.y})`);
 });
 
 test(`${DUN_MOROGH}: Rumbleshot's Ammo leads to the Ammo Crate by Mountaineer Gretchen, not to Hegnar`, { skip }, () => {
