@@ -100,6 +100,28 @@ git grep "accept 184"
 - When the guide is wrong because the data is (a giver, a spawn, a drop),
   fix the data in `tools/lib/data/corrections.json` too, so the simulator and
   the next route refresh see it.
+- `addon/Polestar_Guides/Guides.lua` comes from
+  `node tools/polestar.js compile`: commit the file it writes, never a hand
+  edit or a hunk spliced in from another compile. A spliced hunk can still be
+  valid Lua and load without an error while the game never sees its goals: a
+  goal left between a step's `title` and its `goals = {`, or a step's goals
+  left open so the next step becomes one of its goals. When your reference
+  data is older or newer than the branch's, a recompile also changes guides
+  you did not touch. Keep only your change by compiling the guides before and
+  after it with the same local data and merging the difference into the
+  committed file:
+
+  ```sh
+  tmp=$(mktemp -d)
+  git archive origin/next guides | tar -x -C "$tmp"   # the guides your change starts from (origin/hotfix/<version> for a patch fix)
+  node tools/polestar.js compile --guides "$tmp/guides" --out "$tmp/before"
+  node tools/polestar.js compile --out "$tmp/after"
+  git merge-file addon/Polestar_Guides/Guides.lua "$tmp/before/Guides.lua" "$tmp/after/Guides.lua"
+  ```
+
+  A conflict means your data differs from the branch's in the very lines
+  your change touches: rebuild the data and compile, or say so in the pull
+  request and leave Guides.lua to the maintainer.
 - Check your change:
 
   ```sh
