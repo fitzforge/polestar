@@ -6,12 +6,16 @@
 --   g.defineItem("item:1482", { equipLoc = "INVTYPE_WEAPONMAINHAND", classID = 2, subclassID = 7, minLevel = 19,
 --                stats = { ITEM_MOD_STRENGTH_SHORT = 5 } })  -- stats = what C_Item.GetItemStats returns (nil: uncached)
 --   g.equip(16, "item:1482")          -- fires PLAYER_EQUIPMENT_CHANGED
---   g.bag(0, 1, "item:2041")          -- fires BAG_UPDATE_DELAYED
+--   g.bag(0, 1, "item:2041")          -- updates the shown bag frames holding bag 0, fires BAG_UPDATE_DELAYED
 --   g.setSpecs({ { "Arms", 31 }, { "Fury", 5 }, { "Protection", 0 } })   -- talent tabs; fires PLAYER_TALENT_UPDATE
 --   g.secret["item:999"] = true       -- issecretvalue() is true for that value
 --   g.showTooltip(GameTooltip, link)  -- what TooltipDataHandler does: clear, post-calls; returns tooltip.lines
 --   g.rewards({ "item:1", "item:2" }, { fromLog = false })  -- reward panel with these choices, runs QuestInfo_Display
 --   GameTooltip:SetQuestItem("choice", i)  -- hovering a reward choice; returns tooltip.lines
+--   g.openBag(bag)                    -- shows that bag's frame (ContainerFrame<bag + 1>) and runs its UpdateItems
+--   g.openCombined()                  -- shows the combined backpack (ContainerFrameCombinedBags), bags 0-4
+--   g.closeBags()                     -- hides every bag frame
+--   g.bagButton(bag, slot, combined)  -- the item button that shows that slot
 
 local g = {
 	items = {},
@@ -32,12 +36,6 @@ function g.defineItem(link, def) g.items[link] = def end
 function g.equip(slot, link)
 	g.equipped[slot] = link
 	fire("PLAYER_EQUIPMENT_CHANGED", slot, link == nil)
-end
-
-function g.bag(b, slot, link)
-	g.bags[b] = g.bags[b] or {}
-	g.bags[b][slot] = link
-	fire("BAG_UPDATE_DELAYED")
 end
 
 function g.setSpecs(list)
@@ -190,4 +188,88 @@ function g.rewards(list, opts)
 	QuestInfo_Display()
 	fire("QUEST_COMPLETE")
 	stub.runTimers()
+end
+
+-- The client's bags (Blizzard_UIPanels_Game Mainline ContainerFrame.lua):
+-- ContainerFrame1-5 (bags 0-4) in ContainerFrameContainer.ContainerFrames and
+-- the combined backpack, ContainerFrameCombinedBags (bags 0-4 in one frame).
+-- Each holds Items (ContainerFrameItemButtonTemplate: GetBagID, and the slot
+-- as its ID), EnumerateValidItems and UpdateItems, which the client runs once
+-- a bag's items have loaded, on BAG_UPDATE and as the bag opens; here it
+-- reads each slot's link (g.shown[button]). Every frame starts hidden.
+local SLOTS = 16
+g.shown = setmetatable({}, { __mode = "k" })
+
+local function bagFrame(name, bags)
+	local f = CreateFrame("Frame", name, ContainerFrameContainer)
+	f.Items, f.bags = {}, bags
+	for _, bag in ipairs(bags) do
+		for slot = 1, SLOTS do
+			local b = CreateFrame("ItemButton", nil, f)
+			b.bagID = bag
+			b:SetID(slot)
+			function b:GetBagID() return self.bagID end
+			f.Items[#f.Items + 1] = b
+		end
+	end
+	function f:GetBagSize() return #self.Items end
+	function f:EnumerateValidItems()
+		local i = 0
+		return function()
+			i = i + 1
+			if i <= self:GetBagSize() then return i, self.Items[i] end
+		end
+	end
+	function f:UpdateItems()
+		for _, b in self:EnumerateValidItems() do g.shown[b] = C_Container.GetContainerItemLink(b:GetBagID(), b:GetID()) end
+	end
+	function f:ShowsBag(bag)
+		for _, b in ipairs(self.bags) do
+			if b == bag then return true end
+		end
+		return false
+	end
+	f:Hide()
+	return f
+end
+
+ContainerFrameContainer = CreateFrame("Frame", "ContainerFrameContainer", UIParent)
+ContainerFrameContainer.ContainerFrames = {}
+for bag = 0, 4 do
+	ContainerFrameContainer.ContainerFrames[bag + 1] = bagFrame("ContainerFrame" .. (bag + 1), { bag })
+end
+ContainerFrameCombinedBags = bagFrame("ContainerFrameCombinedBags", { 0, 1, 2, 3, 4 })
+ContainerFrameCombinedBags:SetParent(UIParent)
+
+function g.openBag(bag)
+	local f = ContainerFrameContainer.ContainerFrames[bag + 1]
+	f:Show()
+	f:UpdateItems()
+end
+
+function g.openCombined()
+	ContainerFrameCombinedBags:Show()
+	ContainerFrameCombinedBags:UpdateItems()
+end
+
+function g.closeBags()
+	for _, f in ipairs(ContainerFrameContainer.ContainerFrames) do f:Hide() end
+	ContainerFrameCombinedBags:Hide()
+end
+
+function g.bagButton(bag, slot, combined)
+	if combined then return ContainerFrameCombinedBags.Items[bag * SLOTS + slot] end
+	return ContainerFrameContainer.ContainerFrames[bag + 1].Items[slot]
+end
+
+-- A bag change: BAG_UPDATE updates the shown frames that hold the bag, then
+-- BAG_UPDATE_DELAYED.
+function g.bag(b, slot, link)
+	g.bags[b] = g.bags[b] or {}
+	g.bags[b][slot] = link
+	for _, f in ipairs(ContainerFrameContainer.ContainerFrames) do
+		if f:IsShown() and f:ShowsBag(b) then f:UpdateItems() end
+	end
+	if ContainerFrameCombinedBags:IsShown() then ContainerFrameCombinedBags:UpdateItems() end
+	fire("BAG_UPDATE_DELAYED")
 end

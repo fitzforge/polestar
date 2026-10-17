@@ -455,6 +455,8 @@ L["Upgrade threshold"] = "Порог улучшения"
 L["Smaller gains than this are not called upgrades."] = "Меньший прирост не считается улучшением."
 L["Pair with bag items"] = "Учитывать предметы в сумках"
 L["Against a worn two-hander, weigh a one-hander together with the best off-hand piece in your bags."] = "Против надетого двуручного оценивать одноручное вместе с лучшим предметом для левой руки из сумок."
+L["Upgrade arrows in bags"] = "Стрелки улучшений в сумках"
+L["A green arrow on each item in your bags that is an upgrade for your spec, in the game's bags and in Baganator."] = "Зеленая стрелка на каждом предмете в сумках, который является улучшением для вашей специализации, — в сумках игры и в Baganator."
 
 -- Maps/Maps.lua
 L["Rares & travel"] = "Редкие и перемещения"

@@ -4,6 +4,7 @@
 	<Script file="SpecData.lua"/>
 	<Script file="Gear.lua"/>
 	<Script file="Tooltip.lua"/>
+	<Script file="Bags.lua"/>
 	<Script file="Rewards.lua"/>
 	<Script file="Picks.lua"/>
 	<Script file="Options.lua"/>

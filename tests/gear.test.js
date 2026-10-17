@@ -331,6 +331,7 @@ test('options: the gear advice on Questing with the class spec dropdown, registe
 		'gear.enabled=toggle:help',
 		'gear.spec.WARRIOR=dropdown:help',
 		'gear.tooltip=toggle:help',
+		'gear.bagArrows=toggle:help',
 		'gear.rewards=toggle:help',
 		'gear.pickTooltip=toggle:help',
 	]);

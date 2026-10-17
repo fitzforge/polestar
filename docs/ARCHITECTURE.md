@@ -2530,6 +2530,34 @@ Quest markers); `guideHighlight` only restyles markers those layers draw.
 
 Gear's part in quest reward choices: QoL, "Quest reward marks".
 
+### Bag upgrade arrows — Gear/Bags.lua
+
+```lua
+Polestar.Gear.Bags.IsUpgrade(link) -> bool   -- what an arrow shows: Gear.IsUpgrade, with gear advice and gear.bagArrows on
+Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPDATED schedules it, at most every 0.2 s
+```
+
+- **The client's bags.** Each container frame's `UpdateItems` (Mainline
+  `ContainerFrame.lua`, which Forever loads) is post-hooked on the frame
+  itself: `ContainerFrameContainer.ContainerFrames` and
+  `ContainerFrameCombinedBags`. The mixin's functions are copied onto each
+  frame as it is made, so a hook on `ContainerFrameMixin` would miss them.
+  The arrow (`qol-upgrade`, success, 20px) is a texture on the item button,
+  top-left where the client's own unused `UpgradeIcon` sits, at OVERLAY
+  sublevel 3: over the icon overlays, under the search overlay, so a bag
+  search dims it with the icon. Textures only (the gamepad interface hooks
+  `CreateFrame`, not `CreateTexture`), and nothing is written into the
+  button's table: Bags.lua keeps the arrows by button. A closed bag is
+  repainted by the client's own update as it opens.
+- **Baganator.** A corner widget (`Baganator.API.RegisterCornerWidget`, id
+  `polestar_upgrade`, top-left at priority 1, the way Baganator shows Pawn's
+  arrow), registered as Bags.lua loads or on Baganator's `ADDON_LOADED`. New
+  verdicts ask it for an item-widget refresh (`RequestItemButtonsRefresh`).
+  Baganator also shows other characters' bags; the arrow there is this
+  character's verdict, as the tooltip line is.
+- Other bag addons draw their own buttons and get no arrow; the tooltip line
+  still shows on them.
+
 ## Maps — the world map
 
 Each feature is a setting on the Map page (Rares & travel, Zones), and none of

@@ -455,6 +455,8 @@ L["Upgrade threshold"] = "提升門檻"
 L["Smaller gains than this are not called upgrades."] = "低於此值的提升不算提升。"
 L["Pair with bag items"] = "與背包物品搭配"
 L["Against a worn two-hander, weigh a one-hander together with the best off-hand piece in your bags."] = "與身上的雙手武器比較時，將單手武器與背包中最好的副手一起計算。"
+L["Upgrade arrows in bags"] = "背包中的提升箭頭"
+L["A green arrow on each item in your bags that is an upgrade for your spec, in the game's bags and in Baganator."] = "在背包中每件對你專精有提升的物品上顯示綠色箭頭，適用於遊戲內建背包和 Baganator。"
 
 -- Maps/Maps.lua
 L["Rares & travel"] = "稀有與旅行"

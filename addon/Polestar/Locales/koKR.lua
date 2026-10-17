@@ -455,6 +455,8 @@ L["Upgrade threshold"] = "향상 기준"
 L["Smaller gains than this are not called upgrades."] = "이보다 작은 증가는 향상으로 치지 않습니다."
 L["Pair with bag items"] = "가방 아이템과 조합"
 L["Against a worn two-hander, weigh a one-hander together with the best off-hand piece in your bags."] = "양손 무기를 착용 중이면 한손 무기를 가방 속 최선의 보조장비와 함께 평가합니다."
+L["Upgrade arrows in bags"] = "가방에 향상 화살표 표시"
+L["A green arrow on each item in your bags that is an upgrade for your spec, in the game's bags and in Baganator."] = "가방에 있는 아이템 중 내 전문화의 향상인 아이템마다 녹색 화살표를 표시합니다. 게임 기본 가방과 Baganator 모두에서 작동합니다."
 
 -- Maps/Maps.lua
 L["Rares & travel"] = "희귀 및 이동"

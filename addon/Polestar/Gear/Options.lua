@@ -42,6 +42,8 @@ local function register()
 				help = L["Which levelling weights score your items. Automatic follows the talent tree with the most points."] },
 			{ kind = "toggle", key = "gear.tooltip", label = L["Tooltip comparison"], disabled = disabled,
 				help = L["Show on item tooltips how much better or worse an item is than what you wear."] },
+			{ kind = "toggle", key = "gear.bagArrows", label = L["Upgrade arrows in bags"], disabled = disabled,
+				help = L["A green arrow on each item in your bags that is an upgrade for your spec, in the game's bags and in Baganator."] },
 			{ kind = "toggle", key = "gear.rewards", label = L["Reward pick in the guide"], disabled = disabled,
 				help = L["Under a turn-in step, name the reward to take: an upgrade with its gain, else the best one you can use. The marks on the game's reward panel are under Quest rewards."] },
 			{ kind = "toggle", key = "gear.pickTooltip", label = L["Reward pick on tooltips"], disabled = disabled,

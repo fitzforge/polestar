@@ -116,6 +116,7 @@ never in saved variables.
 | `SpecData.lua` | `Gear` | Generated: stat weight bands per spec and level, racial gear traits |
 | `Gear.lua` | `Gear` | Upgrade advice: an item's score and whether it is an upgrade |
 | `Tooltip.lua` | `Gear` | Upgrade lines on item tooltips |
+| `Bags.lua` | `Gear.Bags` | The upgrade arrow on bag items, in the game's bags and Baganator |
 | `Rewards.lua` | `Gear` | Ranks quest reward choices |
 | `Picks.lua` | `Gear` | The reward to take at a turn-in, for the guide window and tooltips |
 | `Options.lua` | (registers options) | The Gear options page |

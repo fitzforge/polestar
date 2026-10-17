@@ -231,6 +231,8 @@ L["Upgrade threshold"] = "Umbral de mejora"
 L["Smaller gains than this are not called upgrades."] = "Las ganancias menores que esto no se consideran mejoras."
 L["Pair with bag items"] = "Combinar con objetos de las bolsas"
 L["Against a worn two-hander, weigh a one-hander together with the best off-hand piece in your bags."] = "Frente a un arma de dos manos equipada, evalúa un arma de una mano junto con la mejor pieza de mano izquierda de tus bolsas."
+-- L["Upgrade arrows in bags"] = ""
+-- L["A green arrow on each item in your bags that is an upgrade for your spec, in the game's bags and in Baganator."] = ""
 
 -- Gear/Tooltip.lua
 L["Polestar"] = "Polestar"

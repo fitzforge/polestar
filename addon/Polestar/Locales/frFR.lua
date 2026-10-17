@@ -456,6 +456,8 @@ L["Upgrade threshold"] = "Seuil d'amélioration"
 L["Smaller gains than this are not called upgrades."] = "Les gains plus faibles ne comptent pas comme améliorations."
 L["Pair with bag items"] = "Associer aux objets des sacs"
 L["Against a worn two-hander, weigh a one-hander together with the best off-hand piece in your bags."] = "Face à une arme à deux mains portée, évaluer une arme à une main avec la meilleure main gauche de vos sacs."
+-- L["Upgrade arrows in bags"] = ""
+-- L["A green arrow on each item in your bags that is an upgrade for your spec, in the game's bags and in Baganator."] = ""
 
 -- Maps/Maps.lua
 L["Rares & travel"] = "Rares et voyages"

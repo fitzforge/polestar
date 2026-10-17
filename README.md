@@ -308,6 +308,8 @@ arrow guides you there instead.
 - **On the game's reward panel** every choice that is an upgrade gets a green
   arrow, the one to take is framed, and a coin marks the one that sells for
   most. Turn-in goals name the best reward.
+- **In your bags** every item that is an upgrade gets the same green arrow,
+  in the game's bags and in Baganator.
 
 ### Lookup, Dungeons and Rares
 

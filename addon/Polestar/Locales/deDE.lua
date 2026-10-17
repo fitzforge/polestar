@@ -1447,6 +1447,8 @@ L["Upgrade threshold"] = "Upgrade-Schwelle"
 L["Smaller gains than this are not called upgrades."] = "Kleinere Gewinne als dieser gelten nicht als Upgrades."
 L["Pair with bag items"] = "Mit Taschengegenständen kombinieren"
 L["Against a worn two-hander, weigh a one-hander together with the best off-hand piece in your bags."] = "Wägt gegenüber einer getragenen Zweihandwaffe eine Einhandwaffe zusammen mit dem besten Schildhand-Teil in deinen Taschen ab."
+-- L["Upgrade arrows in bags"] = ""
+-- L["A green arrow on each item in your bags that is an upgrade for your spec, in the game's bags and in Baganator."] = ""
 
 -- The smaller files (Complete and the report texts stay English)
 L["Enter"] = "Betritt"
