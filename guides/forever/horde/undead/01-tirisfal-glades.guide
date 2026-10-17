@@ -223,9 +223,9 @@ step Marla's Grave
 step Executor Arren
   turnin 6395                         -- Novice Elreth
   turnin 381                          -- Executor Arren
+  accept 382
   turnin 91208 only Paladin           -- Aramis Hammerhand
   accept 91209 only Paladin
-  accept 382
 
 step Meven Korgal
   tip Meven Korgal stands at the south end of the Scarlet farm.
@@ -254,13 +254,13 @@ step Brill
   sethome "Gallows' End Tavern" npc 5688 -- Innkeeper Renee
   turnin 8                            -- Innkeeper Renee
   turnin 383                          -- Executor Zygand
-  turnin 91209 only Paladin           -- Shari Stilwell, the Paladin trainer
   accept 427
   accept 99134
   accept 99141
   accept 404                          -- Deathguard Dillinger
   collect 286200 quest 99141.1 @58.2,51.5 -- Ask Deathguard Dillinger for his report
   accept 86784                        -- Deathguard Bartholomew
+  turnin 91209 only Paladin           -- Shari Stilwell, the Paladin trainer
   train class                         -- The Brill trainers are in and around the inn
 
 step Discipline

@@ -3,8 +3,9 @@
 // route refresh cannot bring them back anywhere: a giver beside the spawn
 // passed by (#73), class letters handed in with nothing to train (#103),
 // "Click X" on something you cast or /sit at (#92, #100), a click hidden
-// behind the field goals it is done among (#102), and a bought item the route
-// never buys (#88). tests/guides-reported.test.js pins each report itself.
+// behind the field goals it is done among (#102), a bought item the route
+// never buys (#88), and a follow-up taken only after a walk to someone else
+// and back (#310). tests/guides-reported.test.js pins each report itself.
 // Every test names all its offenders as guide:line.
 //
 // Needs data/forever (node tools/polestar.js data build); skips without it.
@@ -330,6 +331,36 @@ test('a turn-in that needs an item only vendors sell has a buy for it, in its gu
 				if (p.length && p.every((x) => covered(x, o.id))) continue;
 				offenders.push(`${where(guide, goal)}: ${q.title} (${goal.quest}) needs ${it.name} (${o.id}), sold by ${it.vendors.length} vendor(s), and no buy comes before it${p.length ? ` here or in every guide leading in (${p.join(', ')})` : ''}`);
 			}
+		}
+	}
+	assert.deepEqual(offenders, []);
+});
+
+// --- 6. A follow-up is taken from the giver you just handed its prerequisite to (#310).
+
+// Givers this close stand together: walking between them is no detour.
+const FOLLOW_UP_YARDS = 30;
+
+test('a follow-up is taken right after its prerequisite is handed in to the same giver, not after a walk to someone else and back', { skip }, () => {
+	const { guides, data } = officialGuides();
+	// Every race, side and class the game has, to tell whether two goals are
+	// ever done by one character (a class letter between them is not).
+	const characters = Object.entries(data.races).flatMap(([race, sides]) =>
+		Object.keys(sides).flatMap((faction) => data.raceClasses(race, faction).map((cls) => who(race, faction, cls, 60))));
+	const offenders = [];
+	for (const guide of guides) {
+		for (const step of guide.steps) {
+			const people = step.goals.filter((g) => (g.t === 'accept' || g.t === 'turnin') && g.npc);
+			people.forEach((take, j) => {
+				if (take.t !== 'accept' || !located(take)) return;
+				const handed = people.slice(0, j).findIndex((g) => g.t === 'turnin' && g.npc === take.npc && (take.pre || []).includes(g.quest));
+				if (handed < 0) return;
+				const doers = characters.filter((c) => admits(step.only, c) && admits(take.only, c) && admits(people[handed].only, c));
+				const away = people.slice(handed + 1, j).filter((g) => g.npc !== take.npc && located(g) && yards(data, take, g) > FOLLOW_UP_YARDS && doers.some((c) => admits(g.only, c)));
+				if (!away.length) return;
+				offenders.push(`${where(guide, take)}: ${take.title} (${take.quest}) is taken after ${away.map((g) => `${g.t} ${g.quest} at ${g.npcName || g.npc}`).join(', ')}, ` +
+					`${Math.round(Math.max(...away.map((g) => yards(data, take, g))))} yd away; hand in ${people[handed].quest} and take it before leaving ${take.npcName || take.npc}`);
+			});
 		}
 	}
 	assert.deepEqual(offenders, []);

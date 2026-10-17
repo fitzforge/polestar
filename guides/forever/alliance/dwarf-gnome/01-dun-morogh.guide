@@ -134,6 +134,7 @@ step Young wolves
 
 step Anvilmar
   turnin 179                                  -- Sten Stoutarm
+  accept 233
   accept 3106 only Dwarf,Warrior              -- Sten Stoutarm: Simple Rune
   accept 3112 only Gnome,Warrior              -- Sten Stoutarm: Simple Memorandum
   turnin 3106 only Dwarf,Warrior              -- Thran Khorman, the warrior trainer
@@ -156,9 +157,8 @@ step Anvilmar
   turnin 3114 only Mage                       -- Marryk Nurribit, the mage trainer, inside Anvilmar
   accept 3115 only Warlock                    -- Sten Stoutarm: Tainted Memorandum
   turnin 3115 only Warlock                    -- Alamar Grimm, inside Anvilmar
-  accept 233
-  accept 170                                  -- Balir Frosthammer, next to Sten
   train class                                 -- Inside Anvilmar
+  accept 170                                  -- Balir Frosthammer, next to Sten
 
 step The troggs
   tip Rockjaw Troggs and Burly Rockjaw Troggs dig all over the valley floor south of Anvilmar.
@@ -206,8 +206,8 @@ step Grelin Whitebeard
 step Anvilmar
   tip The Scalding Mornbrew lasts five minutes: go straight north to Durnan Furcutter inside Anvilmar.
   turnin 3364                                 -- Durnan Furcutter, inside Anvilmar
-  turnin 3361                                 -- Felix Whindlebolt
   accept 3365
+  turnin 3361                                 -- Felix Whindlebolt
   train class                                 -- Level 4 spells, before Gozwin's camp
   turnin 1599 only Warlock                    -- Alamar Grimm: Summon Imp
   accept 94373 only Shaman                    -- Teo Hammerstorm, inside Anvilmar

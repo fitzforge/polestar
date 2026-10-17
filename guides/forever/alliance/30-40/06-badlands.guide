@@ -263,8 +263,8 @@ step Kormek's Hut
 step Nijel's Point
   tip Follow the road north to Nijel's Point.
   turnin 1466                         -- Kreldig Ungor
-  turnin 93224                        -- Captain Pentigast
   accept 1467                         -- for Roetten Stonehammer in Ironforge: keep it
+  turnin 93224                        -- Captain Pentigast
   turnin 261                          -- Brother Anton
   accept 1052                         -- for Raleigh the Devout in Southshore: keep it
 

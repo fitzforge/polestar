@@ -1102,6 +1102,19 @@ test('#171: every hearth is to an inn the guide binds at first', { skip }, () =>
 	assert.deepEqual(offenders, [], 'hearths to an inn the guide has not bound at');
 });
 
+// --- Northshire Abbey (Zepheriel, #310): Skirmish at Echo Ridge is taken from
+// Marshal McBride when Investigate Echo Ridge is handed in to him, not after
+// Brother Paxton in the library and a walk back.
+test(`${ELWYNN}: Zepheriel's report (#310): Skirmish at Echo Ridge is taken from McBride before Brother Paxton, with nobody between`, { skip }, () => {
+	const list = goals(ELWYNN);
+	const handed = at(list, 'turnin 15 (Investigate Echo Ridge)', is('turnin', 15));
+	const take = at(list, 'accept 21 (Skirmish at Echo Ridge)', is('accept', 21));
+	assert.ok(handed < take, 'Investigate Echo Ridge is handed in first');
+	assert.equal(list[take].goal.npc, list[handed].goal.npc, 'both at Marshal McBride');
+	assert.deepEqual(list.slice(handed + 1, take).filter(located).map(({ goal }) => `${goal.t} ${goal.quest} at ${goal.npcName || goal.npc}`), [], 'nobody else between them');
+	assert.ok(take < at(list, 'turnin 91743 (Rascally Rodents)', is('turnin', 91743)), 'Skirmish at Echo Ridge is taken before Brother Paxton');
+});
+
 // --- Croaky's Head (Syfin, #221): Croaky, a named elite, roams the murloc
 // shore south of the Eastvale bridge, where the second east loop collects the
 // Torn Murloc Fins. Its head starts Croaky's Head for Merell Ross at

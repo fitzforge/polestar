@@ -319,8 +319,8 @@ step Deeprun Tram
   zone Ironforge
   tip Take the Deeprun Tram from the Dwarven District to Ironforge.
   turnin 514                          -- Prospector Stormpike, Hall of Explorers
+  accept 525
   turnin 98313                        -- Historian Karnik, Hall of Explorers
   turnin 98300                        -- King Magni Bronzebeard, the High Seat
-  accept 525
   accept 1453                         -- Roetten Stonehammer
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- Level 30 and 32 spells
