@@ -54,7 +54,7 @@ never in saved variables.
 | 9 | Dungeons | `Dungeons/Dungeons.xml` | `Dungeons` | A quest journal per dungeon and raid, and the guide that picks up a dungeon's quests |
 | 10 | UI | `UI/UI.xml` | `UI` | The guide window, the hub and its Guides, Lookup and Dungeons sections, zone art, route choice, welcome, problem report, options |
 | 11 | Rares | `Rares/Rares.xml` | `Rares` | Rare NPCs and treasures: detection, pins, alerts and the hub's Rares section |
-| 12 | Talents | `Talents/Talents.xml` | `Talents` | Talent plans (Paladin for now): the hub's Talents section, marks and tooltip lines on the talent frame, a reminder when a point waits |
+| 12 | Talents | `Talents/Talents.xml` | `Talents` | Talent plans (Druid, Mage, Paladin, Rogue, Shaman, Warlock and Warrior for now): the hub's Talents section, marks and tooltip lines on the talent frame, a reminder when a point waits |
 
 `Bindings.xml` at the addon root declares the key bindings; it calls into
 `Core/Commands.lua`. Fonts are in `Media/Fonts`, textures in `Media/Nav` and

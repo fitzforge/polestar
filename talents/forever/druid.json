@@ -1,0 +1,974 @@
+{
+	"class": "DRUID",
+	"source": "ForeverDB through level 30, Polestar after",
+	"sourceUrl": "https://foreverdb.net/class/Druid/talents",
+	"credit": "Plans follow ForeverDB's Druid leveling builds (https://foreverdb.net/class/Druid/talents) through level 30 and were extended to 60 for Polestar. Notes rewritten for Polestar.",
+	"checkedOn": "WoW: Forever beta 1.60.1.70374",
+	"summary": "Level as Feral Combat: Cat Form for quick kills, Bear Form for tough pulls, and no drinking. Balance kills from range with roots and Starfire; Restoration heals any dungeon and quests slowly with Wrath.",
+	"order": [
+		"Balance",
+		"Feral Combat",
+		"Restoration"
+	],
+	"builds": [
+		{
+			"key": "balance",
+			"spec": "Balance",
+			"split": "31/0/20",
+			"link": "https://foreverdb.net/class/Druid/talents?lvl=60&t=3e3d75.5032223112301051--50501351",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Balance",
+					"talent": "Improved Wrath",
+					"rank": 1,
+					"note": "Improved Wrath first: a faster, cheaper Wrath is most of your early damage."
+				},
+				{
+					"level": 11,
+					"tree": "Balance",
+					"talent": "Improved Wrath",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Balance",
+					"talent": "Improved Wrath",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Balance",
+					"talent": "Improved Wrath",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Balance",
+					"talent": "Improved Wrath",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Balance",
+					"talent": "Moonglow",
+					"rank": 1,
+					"note": "Moonglow and Nature's Majesty: cheaper spells and more crit."
+				},
+				{
+					"level": 16,
+					"tree": "Balance",
+					"talent": "Moonglow",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Balance",
+					"talent": "Moonglow",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Balance",
+					"talent": "Nature's Majesty",
+					"rank": 1
+				},
+				{
+					"level": 19,
+					"tree": "Balance",
+					"talent": "Nature's Majesty",
+					"rank": 2
+				},
+				{
+					"level": 20,
+					"tree": "Balance",
+					"talent": "Nature's Splendor",
+					"rank": 1
+				},
+				{
+					"level": 21,
+					"tree": "Balance",
+					"talent": "Improved Entangling Roots",
+					"rank": 1,
+					"note": "Improved Entangling Roots holds a mob in place while you nuke it from range."
+				},
+				{
+					"level": 22,
+					"tree": "Balance",
+					"talent": "Improved Entangling Roots",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Balance",
+					"talent": "Improved Entangling Roots",
+					"rank": 3
+				},
+				{
+					"level": 24,
+					"tree": "Balance",
+					"talent": "Nature's Reach",
+					"rank": 1
+				},
+				{
+					"level": 25,
+					"tree": "Balance",
+					"talent": "Nature's Reach",
+					"rank": 2
+				},
+				{
+					"level": 26,
+					"tree": "Balance",
+					"talent": "Insect Swarm",
+					"rank": 1
+				},
+				{
+					"level": 27,
+					"tree": "Balance",
+					"talent": "Improved Starfire",
+					"rank": 1
+				},
+				{
+					"level": 28,
+					"tree": "Balance",
+					"talent": "Improved Starfire",
+					"rank": 2
+				},
+				{
+					"level": 29,
+					"tree": "Balance",
+					"talent": "Improved Starfire",
+					"rank": 3
+				},
+				{
+					"level": 30,
+					"tree": "Balance",
+					"talent": "Nature's Grace",
+					"rank": 1,
+					"note": "Nature's Grace speeds up your next spell after a crit."
+				},
+				{
+					"level": 31,
+					"tree": "Balance",
+					"talent": "Improved Moonfire",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Balance",
+					"talent": "Improved Moonfire",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Balance",
+					"talent": "Vengeance",
+					"rank": 1
+				},
+				{
+					"level": 34,
+					"tree": "Balance",
+					"talent": "Vengeance",
+					"rank": 2
+				},
+				{
+					"level": 35,
+					"tree": "Balance",
+					"talent": "Moonfury",
+					"rank": 1
+				},
+				{
+					"level": 36,
+					"tree": "Balance",
+					"talent": "Moonfury",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Balance",
+					"talent": "Moonfury",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Balance",
+					"talent": "Moonfury",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Balance",
+					"talent": "Moonfury",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Balance",
+					"talent": "Moonkin Form",
+					"rank": 1,
+					"note": "Moonkin Form is the capstone: armor and more free casts while you nuke."
+				},
+				{
+					"level": 41,
+					"tree": "Restoration",
+					"talent": "Nature's Focus",
+					"rank": 1,
+					"note": "The last 20 points go to Restoration: fewer interrupted casts, Naturalist's damage, regen while casting and stronger heals."
+				},
+				{
+					"level": 42,
+					"tree": "Restoration",
+					"talent": "Nature's Focus",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Restoration",
+					"talent": "Nature's Focus",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Restoration",
+					"talent": "Nature's Focus",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Restoration",
+					"talent": "Nature's Focus",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 4
+				},
+				{
+					"level": 50,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 5
+				},
+				{
+					"level": 51,
+					"tree": "Restoration",
+					"talent": "Reflection",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Restoration",
+					"talent": "Reflection",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Restoration",
+					"talent": "Reflection",
+					"rank": 3
+				},
+				{
+					"level": 54,
+					"tree": "Restoration",
+					"talent": "Gift of Nature",
+					"rank": 1
+				},
+				{
+					"level": 55,
+					"tree": "Restoration",
+					"talent": "Gift of Nature",
+					"rank": 2
+				},
+				{
+					"level": 56,
+					"tree": "Restoration",
+					"talent": "Gift of Nature",
+					"rank": 3
+				},
+				{
+					"level": 57,
+					"tree": "Restoration",
+					"talent": "Gift of Nature",
+					"rank": 4
+				},
+				{
+					"level": 58,
+					"tree": "Restoration",
+					"talent": "Gift of Nature",
+					"rank": 5
+				},
+				{
+					"level": 59,
+					"tree": "Restoration",
+					"talent": "Gift of the Earthmother",
+					"rank": 1
+				},
+				{
+					"level": 60,
+					"tree": "Restoration",
+					"talent": "Natural Shapeshifter",
+					"rank": 1
+				}
+			]
+		},
+		{
+			"key": "feral",
+			"spec": "Feral Combat",
+			"split": "0/31/20",
+			"link": "https://foreverdb.net/class/Druid/talents?lvl=60&t=3e3d75.-55200012020032012051-05503331",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Feral Combat",
+					"talent": "Ferocity",
+					"rank": 1,
+					"note": "Ferocity first: cheaper Claw, Rake and Maul in both forms."
+				},
+				{
+					"level": 11,
+					"tree": "Feral Combat",
+					"talent": "Ferocity",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Feral Combat",
+					"talent": "Ferocity",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Feral Combat",
+					"talent": "Ferocity",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Feral Combat",
+					"talent": "Ferocity",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Feral Combat",
+					"talent": "Heart of the Wild",
+					"rank": 1
+				},
+				{
+					"level": 16,
+					"tree": "Feral Combat",
+					"talent": "Heart of the Wild",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Feral Combat",
+					"talent": "Heart of the Wild",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Feral Combat",
+					"talent": "Heart of the Wild",
+					"rank": 4
+				},
+				{
+					"level": 19,
+					"tree": "Feral Combat",
+					"talent": "Heart of the Wild",
+					"rank": 5
+				},
+				{
+					"level": 20,
+					"tree": "Feral Combat",
+					"talent": "Savage Fury",
+					"rank": 1,
+					"note": "Savage Fury and Sharpened Claws add damage and crit in Cat and Bear Form."
+				},
+				{
+					"level": 21,
+					"tree": "Feral Combat",
+					"talent": "Savage Fury",
+					"rank": 2
+				},
+				{
+					"level": 22,
+					"tree": "Feral Combat",
+					"talent": "Sharpened Claws",
+					"rank": 1
+				},
+				{
+					"level": 23,
+					"tree": "Feral Combat",
+					"talent": "Sharpened Claws",
+					"rank": 2
+				},
+				{
+					"level": 24,
+					"tree": "Feral Combat",
+					"talent": "Feral Swiftness",
+					"rank": 1
+				},
+				{
+					"level": 25,
+					"tree": "Feral Combat",
+					"talent": "Feral Swiftness",
+					"rank": 2
+				},
+				{
+					"level": 26,
+					"tree": "Feral Combat",
+					"talent": "Predatory Strikes",
+					"rank": 1,
+					"note": "Predatory Strikes adds attack power in forms; it scales with your level, not your gear."
+				},
+				{
+					"level": 27,
+					"tree": "Feral Combat",
+					"talent": "Predatory Strikes",
+					"rank": 2
+				},
+				{
+					"level": 28,
+					"tree": "Feral Combat",
+					"talent": "Predatory Strikes",
+					"rank": 3
+				},
+				{
+					"level": 29,
+					"tree": "Feral Combat",
+					"talent": "Blood Frenzy",
+					"rank": 1
+				},
+				{
+					"level": 30,
+					"tree": "Feral Combat",
+					"talent": "Natural Instinct",
+					"rank": 1
+				},
+				{
+					"level": 31,
+					"tree": "Feral Combat",
+					"talent": "Blood Frenzy",
+					"rank": 2
+				},
+				{
+					"level": 32,
+					"tree": "Feral Combat",
+					"talent": "Leader of the Pack",
+					"rank": 1,
+					"note": "Leader of the Pack adds crit for you and your group."
+				},
+				{
+					"level": 33,
+					"tree": "Feral Combat",
+					"talent": "Natural Instinct",
+					"rank": 2
+				},
+				{
+					"level": 34,
+					"tree": "Feral Combat",
+					"talent": "Shredding Attacks",
+					"rank": 1
+				},
+				{
+					"level": 35,
+					"tree": "Feral Combat",
+					"talent": "Rend and Tear",
+					"rank": 1
+				},
+				{
+					"level": 36,
+					"tree": "Feral Combat",
+					"talent": "Rend and Tear",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Feral Combat",
+					"talent": "Rend and Tear",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Feral Combat",
+					"talent": "Rend and Tear",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Feral Combat",
+					"talent": "Rend and Tear",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Feral Combat",
+					"talent": "Berserk",
+					"rank": 1,
+					"note": "Berserk is the capstone: a cooldown that makes Primal Bite hit several targets."
+				},
+				{
+					"level": 41,
+					"tree": "Restoration",
+					"talent": "Furor",
+					"rank": 1,
+					"note": "The last 20 points go to Restoration: rage when you shift, Naturalist's damage, cheaper shifting and regen while casting."
+				},
+				{
+					"level": 42,
+					"tree": "Restoration",
+					"talent": "Furor",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Restoration",
+					"talent": "Furor",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Restoration",
+					"talent": "Furor",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Restoration",
+					"talent": "Furor",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 4
+				},
+				{
+					"level": 50,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 5
+				},
+				{
+					"level": 51,
+					"tree": "Restoration",
+					"talent": "Natural Shapeshifter",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Restoration",
+					"talent": "Natural Shapeshifter",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Restoration",
+					"talent": "Natural Shapeshifter",
+					"rank": 3
+				},
+				{
+					"level": 54,
+					"tree": "Restoration",
+					"talent": "Reflection",
+					"rank": 1
+				},
+				{
+					"level": 55,
+					"tree": "Restoration",
+					"talent": "Reflection",
+					"rank": 2
+				},
+				{
+					"level": 56,
+					"tree": "Restoration",
+					"talent": "Reflection",
+					"rank": 3
+				},
+				{
+					"level": 57,
+					"tree": "Restoration",
+					"talent": "Gift of the Earthmother",
+					"rank": 1
+				},
+				{
+					"level": 58,
+					"tree": "Restoration",
+					"talent": "Gift of Nature",
+					"rank": 1
+				},
+				{
+					"level": 59,
+					"tree": "Restoration",
+					"talent": "Gift of Nature",
+					"rank": 2
+				},
+				{
+					"level": 60,
+					"tree": "Restoration",
+					"talent": "Gift of Nature",
+					"rank": 3
+				}
+			]
+		},
+		{
+			"key": "restoration",
+			"spec": "Restoration",
+			"split": "20/0/31",
+			"link": "https://foreverdb.net/class/Druid/talents?lvl=60&t=3e3d75.553020311--5052030113113051",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Restoration",
+					"talent": "Nature's Focus",
+					"rank": 1,
+					"note": "Nature's Focus first: your casts go through while a mob hits you."
+				},
+				{
+					"level": 11,
+					"tree": "Restoration",
+					"talent": "Nature's Focus",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Restoration",
+					"talent": "Nature's Focus",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Restoration",
+					"talent": "Nature's Focus",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Restoration",
+					"talent": "Nature's Focus",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 1
+				},
+				{
+					"level": 16,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 4
+				},
+				{
+					"level": 19,
+					"tree": "Restoration",
+					"talent": "Naturalist",
+					"rank": 5
+				},
+				{
+					"level": 20,
+					"tree": "Restoration",
+					"talent": "Reflection",
+					"rank": 1,
+					"note": "Reflection keeps mana coming back while casting, so you rest less."
+				},
+				{
+					"level": 21,
+					"tree": "Restoration",
+					"talent": "Reflection",
+					"rank": 2
+				},
+				{
+					"level": 22,
+					"tree": "Restoration",
+					"talent": "Reflection",
+					"rank": 3
+				},
+				{
+					"level": 23,
+					"tree": "Restoration",
+					"talent": "Gift of the Earthmother",
+					"rank": 1
+				},
+				{
+					"level": 24,
+					"tree": "Restoration",
+					"talent": "Subtlety",
+					"rank": 1
+				},
+				{
+					"level": 25,
+					"tree": "Restoration",
+					"talent": "Improved Rejuvenation",
+					"rank": 1
+				},
+				{
+					"level": 26,
+					"tree": "Restoration",
+					"talent": "Improved Rejuvenation",
+					"rank": 2
+				},
+				{
+					"level": 27,
+					"tree": "Restoration",
+					"talent": "Improved Rejuvenation",
+					"rank": 3
+				},
+				{
+					"level": 28,
+					"tree": "Restoration",
+					"talent": "Swiftmend",
+					"rank": 1,
+					"note": "Swiftmend uses up a Rejuvenation or Regrowth for a big instant heal."
+				},
+				{
+					"level": 29,
+					"tree": "Restoration",
+					"talent": "Subtlety",
+					"rank": 2
+				},
+				{
+					"level": 30,
+					"tree": "Restoration",
+					"talent": "Nature's Swiftness",
+					"rank": 1
+				},
+				{
+					"level": 31,
+					"tree": "Restoration",
+					"talent": "Living Spirit",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Restoration",
+					"talent": "Living Spirit",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Restoration",
+					"talent": "Living Spirit",
+					"rank": 3
+				},
+				{
+					"level": 34,
+					"tree": "Restoration",
+					"talent": "Tranquil Spirit",
+					"rank": 1
+				},
+				{
+					"level": 35,
+					"tree": "Restoration",
+					"talent": "Improved Regrowth",
+					"rank": 1
+				},
+				{
+					"level": 36,
+					"tree": "Restoration",
+					"talent": "Improved Regrowth",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Restoration",
+					"talent": "Improved Regrowth",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Restoration",
+					"talent": "Improved Regrowth",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Restoration",
+					"talent": "Improved Regrowth",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Restoration",
+					"talent": "Wild Growth",
+					"rank": 1,
+					"note": "Wild Growth is the capstone: a heal over time on your whole group."
+				},
+				{
+					"level": 41,
+					"tree": "Balance",
+					"talent": "Improved Wrath",
+					"rank": 1,
+					"note": "The last 20 points go to Balance so you can still kill quest mobs: a faster, cheaper Wrath, roots and more crit."
+				},
+				{
+					"level": 42,
+					"tree": "Balance",
+					"talent": "Improved Wrath",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Balance",
+					"talent": "Improved Wrath",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Balance",
+					"talent": "Improved Wrath",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Balance",
+					"talent": "Improved Wrath",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Balance",
+					"talent": "Moonglow",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Balance",
+					"talent": "Moonglow",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Balance",
+					"talent": "Moonglow",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Balance",
+					"talent": "Nature's Majesty",
+					"rank": 1
+				},
+				{
+					"level": 50,
+					"tree": "Balance",
+					"talent": "Nature's Majesty",
+					"rank": 2
+				},
+				{
+					"level": 51,
+					"tree": "Balance",
+					"talent": "Nature's Splendor",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Balance",
+					"talent": "Improved Entangling Roots",
+					"rank": 1
+				},
+				{
+					"level": 53,
+					"tree": "Balance",
+					"talent": "Improved Entangling Roots",
+					"rank": 2
+				},
+				{
+					"level": 54,
+					"tree": "Balance",
+					"talent": "Improved Entangling Roots",
+					"rank": 3
+				},
+				{
+					"level": 55,
+					"tree": "Balance",
+					"talent": "Genesis",
+					"rank": 1
+				},
+				{
+					"level": 56,
+					"tree": "Balance",
+					"talent": "Genesis",
+					"rank": 2
+				},
+				{
+					"level": 57,
+					"tree": "Balance",
+					"talent": "Genesis",
+					"rank": 3
+				},
+				{
+					"level": 58,
+					"tree": "Balance",
+					"talent": "Genesis",
+					"rank": 4
+				},
+				{
+					"level": 59,
+					"tree": "Balance",
+					"talent": "Genesis",
+					"rank": 5
+				},
+				{
+					"level": 60,
+					"tree": "Balance",
+					"talent": "Insect Swarm",
+					"rank": 1
+				}
+			]
+		}
+	]
+}
