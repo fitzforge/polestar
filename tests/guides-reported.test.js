@@ -1102,6 +1102,14 @@ test('#171: every hearth is to an inn the guide binds at first', { skip }, () =>
 	assert.deepEqual(offenders, [], 'hearths to an inn the guide has not bound at');
 });
 
+// An Enticing Offer: the quest log lists the blood before the petals, so each
+// collect counts its own objective (Bashidian Twotao, #279).
+test(`${ELWYNN}: Bashidian Twotao's report (#279): the bait ingredients count their own objectives`, { skip }, () => {
+	const oi = (item) => goals(ELWYNN).find(({ goal }) => goal.t === 'collect' && goal.quest === 99130 && goal.item === item).goal.oi;
+	assert.equal(oi(286215), 1, 'Vial of Animal Blood is objective 1');
+	assert.equal(oi(286214), 2, 'Duskweed Petal is objective 2');
+});
+
 // --- Croaky's Head (Syfin, #221): Croaky, a named elite, roams the murloc
 // shore south of the Eastvale bridge, where the second east loop collects the
 // Torn Murloc Fins. Its head starts Croaky's Head for Merell Ross at

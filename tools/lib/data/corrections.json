@@ -763,6 +763,25 @@
 			},
 			"note": "Lost in the Shadows (Durotar) is an escort: Wowhead Forever https://www.wowhead.com/forever/quest=99123 lists one objective \"Escort Pal'juh out of Kolkar Crag.\" (1) with no map point (checked 2026-10-13). QuestieDB 1.0.5 has no objectives. No map point: the event runs where it starts (Pal'juh 275811)."
 		},
+		"99130": {
+			"set": {
+				"objectives": [
+					{
+						"type": "item",
+						"id": 286215,
+						"count": 6,
+						"text": "Vial of Animal Blood"
+					},
+					{
+						"type": "item",
+						"id": 286214,
+						"count": 18,
+						"text": "Duskweed Petal"
+					}
+				]
+			},
+			"note": "An Enticing Offer (Elwynn) needs 18 Duskweed Petals and 6 Vials of Animal Blood (Wowhead Forever https://www.wowhead.com/forever/quest=99130, checked 2026-10-17), and the client's quest log lists the blood first: issue #279 (Bashidian Twotao, 0.2.4, in game) shows the petal goal (objective 1) at 3/6 and the blood goal (objective 2) at 14/18. Wowhead lists the petals first, as the merged data does, so each goal counted the other's objective."
+		},
 		"99134": {
 			"set": {
 				"objectives": [
