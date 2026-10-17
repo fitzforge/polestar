@@ -103,7 +103,7 @@ function threadUrl(guild, thread, message) {
 function issueTitle(name) {
 	const t = String(name || '')
 		.replace(/```[\s\S]*$/, '')
-		.replace(/^\s*\*\*[^*\n]{1,60}:\*\*\s*/, '')
+		.replace(/^\s*\*\*[^*\n]{1,60}[:：]\*\*\s*/, '')
 		.replace(/\s+/g, ' ')
 		.trim() || 'Bug report from Discord';
 	return t.length > 200 ? t.slice(0, 197) + '...' : t;

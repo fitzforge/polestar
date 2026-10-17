@@ -13,10 +13,18 @@ const SEP = ' \u00b7 ';
 
 const LOCALE = /^([a-z]{2}[A-Z]{2}|\?)$/;
 const VERSION = /(\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?|dev)(?:\s+(\S.*))?$/;
-const GUIDE_ID = /\(([a-z0-9_-]+(?:\/[a-z0-9_.-]+)+)\)/i;
+// zhCN and zhTW write full-width colons and brackets (：（）) in their labels,
+// so every colon and bracket here takes either width.
+const GUIDE_ID = /[(（]([a-z0-9_-]+(?:\/[a-z0-9_.-]+)+)[)）]/i;
 const POSITION = /map (\d+) @(-?[\d.]+),(-?[\d.]+)/;
 const ERROR_LINE = /^\s+(\d+)x (.*)$/;
 const FENCE = /(^|\n)(`{3,})[^\n`]*\n([\s\S]*?)\n?\2(?=\n|$)/g;
+
+// Where a label's colon is in `s`, from `from` on: -1 when there is none.
+function colonAt(s, from = 0) {
+	const at = s.slice(from).search(/[:：]/);
+	return at === -1 ? -1 : from + at;
+}
 
 // Is this the report's first line: "Polestar 0.2.3 Beta · client 1.60.1 (70425) · enUS"?
 function isVersionsLine(line) {
@@ -26,7 +34,7 @@ function isVersionsLine(line) {
 
 // The description without the report's bold lead-in ("**What went wrong:** ").
 function cleanDescription(text) {
-	return text.replace(/^\s*\*\*[^*\n]{1,60}:\*\*\s*/, '').trim();
+	return text.replace(/^\s*\*\*[^*\n]{1,60}[:：]\*\*\s*/, '').trim();
 }
 
 function parseVersions(line, out) {
@@ -34,7 +42,7 @@ function parseVersions(line, out) {
 	const v = parts[0].match(VERSION);
 	out.version = v[1];
 	if (v[2]) out.stage = v[2].trim();
-	const client = parts[1].match(/(\d+(?:\.\d+)+)\s*\((\d+)\)/);
+	const client = parts[1].match(/(\d+(?:\.\d+)+)\s*[(（](\d+)[)）]/);
 	if (client) {
 		out.client = client[1];
 		out.build = client[2];
@@ -63,7 +71,7 @@ function parseDetails(lines) {
 		out.guideId = g.match(GUIDE_ID)[1];
 		const parts = g.split(SEP);
 		const head = parts[0];
-		const title = head.slice(head.indexOf(':') + 1, head.lastIndexOf('(')).trim();
+		const title = head.slice(colonAt(head) + 1, Math.max(head.lastIndexOf('('), head.lastIndexOf('（'))).trim();
 		if (title) out.guideTitle = title;
 		if (parts.length > 1) out.pack = parts.slice(1).join(SEP).replace(/^\S+\s+/, '');
 		i = guideAt + 1;
@@ -73,7 +81,7 @@ function parseDetails(lines) {
 			const parts2 = step.split(SEP);
 			out.step = Number(nums[0]);
 			out.stepCount = Number(nums[1]);
-			const colon = parts2[0].indexOf(':', parts2[0].indexOf(nums[1]));
+			const colon = colonAt(parts2[0], parts2[0].indexOf(nums[1]));
 			if (colon !== -1) out.stepTitle = parts2[0].slice(colon + 1).trim();
 			for (const p of parts2.slice(1)) {
 				const live = p.match(/\d+/);
@@ -92,7 +100,7 @@ function parseDetails(lines) {
 		const pos = out.where.match(POSITION);
 		if (pos) out.map = Number(pos[1]);
 		const head = out.where.split(SEP)[0];
-		const zone = head.slice(head.indexOf(':') + 1).trim();
+		const zone = head.slice(colonAt(head) + 1).trim();
 		if (zone) out.zone = zone;
 	}
 	// "Routes: balanced · real paths off": its label is in the client's

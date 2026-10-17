@@ -68,6 +68,36 @@ test('a translated report parses by shape, not by its words', () => {
 	assert.ok(I.labelsFor(r).includes('lua-error'));
 });
 
+test('a Chinese report, its labels in full-width colons and brackets, reads like any other', () => {
+	const zh = [
+		'**出了什么问题：** 箭头指向水里',
+		'```',
+		'Polestar 0.2.4 Beta · 客户端 1.60.1（70338） · zhCN',
+		'Human Warrior · 4级 · Alliance',
+		'指南：Elwynn Forest（forever/alliance/human/01-elwynn-forest）',
+		'步骤 3/8：Kobold Camp',
+		'[x] Accept Wolves Across the Border · quest 33 · npc 196 · map 1429 @48.20,40.00 live',
+		'[>] Kill Kobold Vermin 7/10 · quest 7 · npc 6 · map 1429 @47.60,35.10 live',
+		'箭头：Kill Kobold Vermin · 42 yd',
+		'位置：Elwynn Forest · map 1429 @47.00,35.00 live',
+		'路线：balanced',
+		'错误：',
+		'  1x Polestar/Nav/Arrow.lua:40: bad argument',
+		'```',
+	].join('\n');
+	const r = parseReport(zh);
+	assert.equal(r.description, '箭头指向水里', 'the lead-in goes, as in English');
+	const d = r.details;
+	assert.deepEqual([d.client, d.build, d.locale], ['1.60.1', '70338', 'zhCN']);
+	assert.equal(d.character, 'Human Warrior · 4级 · Alliance');
+	assert.deepEqual([d.guideTitle, d.guideId], ['Elwynn Forest', 'forever/alliance/human/01-elwynn-forest']);
+	assert.deepEqual([d.step, d.stepCount, d.stepTitle], [3, 8, 'Kobold Camp']);
+	assert.equal(d.arrow, '箭头：Kill Kobold Vermin · 42 yd', 'the goals are passed over, not read as the arrow or the place');
+	assert.deepEqual([d.zone, d.map, d.routes], ['Elwynn Forest', 1429, 'balanced']);
+	assert.ok(I.labelsFor(r).includes('guide:01-elwynn-forest'));
+	assert.equal(I.issueTitle('**出了什么问题：** 箭头指向水里 ``` Polestar'), '箭头指向水里');
+});
+
 test('a report with no guide open still finds the arrow and position lines', () => {
 	const r = parseReport('```\nPolestar dev · client 1.60.1 (70425) · enUS\nGuide: none open\nArrow: none\nWhere: Stormwind City · no position\nErrors: none\n```');
 	assert.equal(r.details.version, 'dev');
