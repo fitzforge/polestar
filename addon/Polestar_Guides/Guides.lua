@@ -2073,21 +2073,22 @@ do
 					note = "Ride back west along the road to Menethil Harbor.",
 					goals = {
 						{ t = "turnin", quest = 464, title = "War Banners", npc = 2104, npcName = "Captain Stoutfist", map = 1437, x = 9.86, y = 57.49, z = 26.8, f = "e" },
-						{ t = "accept", quest = 465, title = "Nek'rosh's Gambit", npc = 2104, npcName = "Captain Stoutfist", minLevel = 23, qlvl = 31, pre = { 464 }, preTitles = { [464] = "War Banners" }, map = 1437, x = 9.86, y = 57.49, z = 26.8, f = "e" },
+						{ t = "accept", quest = 98221, title = "From the Ashes", npc = 2104, npcName = "Captain Stoutfist", minLevel = 23, qlvl = 28, map = 1437, x = 9.86, y = 57.49, z = 26.8, f = "e", note = "From the Ashes: Nek'rosh's Gambit comes after it on Forever" },
 					},
 				},
 				{
-					title = "Dragonmaw catapult",
-					note = "Ride east again; the catapult stands at the Dragonmaw camp south of the road.",
+					title = "Angerfang Encampment",
+					note = "Ride east again to the Dragonmaw camp. The four sets of Attack Plans lie in the Angerfang Encampment; Chieftain Nek'rosh, an elite, stands in the camp too.",
 					goals = {
-						{ t = "turnin", quest = 465, title = "Nek'rosh's Gambit", object = 630696, objName = "Dragonmaw Catapult", map = 1437, x = 47.27, y = 47.18, f = "e", spots = { { x = 47.3, y = 47, r = 15, n = 2 } }, note = "Dragonmaw Catapult" },
-						{ t = "note", text = "The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it." },
+						{ t = "complete", quest = 98221, title = "From the Ashes", map = 1437, x = 53.5, y = 54.5, f = "e" },
 					},
 				},
 				{
 					title = "To Theramore",
 					goals = {
 						{ t = "hearth", location = "Deepwater Tavern" },
+						{ t = "turnin", quest = 98221, title = "From the Ashes", npc = 2104, npcName = "Captain Stoutfist", map = 1437, x = 9.86, y = 57.49, z = 26.8, f = "e", note = "Captain Stoutfist, in Menethil Keep" },
+						{ t = "accept", quest = 465, title = "Nek'rosh's Gambit", npc = 2104, npcName = "Captain Stoutfist", minLevel = 23, qlvl = 31, pre = { 98221 }, preTitles = { [98221] = "From the Ashes" }, map = 1437, x = 9.86, y = 57.49, z = 26.8, f = "e", note = "For the Dragonmaw catapult, on the Wetlands loop of the next guide" },
 						{ t = "note", text = "Take the boat from Menethil's pier to Theramore Isle in Dustwallow Marsh." },
 					},
 				},
@@ -2179,7 +2180,6 @@ do
 					title = "Menethil Harbor",
 					note = "Captain Stoutfist stands in Menethil Keep; James Halloran stands by the north gate.",
 					goals = {
-						{ t = "accept", quest = 98221, title = "From the Ashes", npc = 2104, npcName = "Captain Stoutfist", minLevel = 23, qlvl = 28, map = 1437, x = 9.86, y = 57.49, z = 26.8, f = "e", note = "Captain Stoutfist: From the Ashes" },
 						{ t = "accept", quest = 98230, title = "This Land Was Their Land", npc = 2104, npcName = "Captain Stoutfist", minLevel = 22, qlvl = 29, map = 1437, x = 9.86, y = 57.49, z = 26.8, f = "e", note = "Captain Stoutfist: for Howin Kindfeather" },
 						{ t = "accept", quest = 98072, title = "Crocs of the Sky", npc = 2094, npcName = "James Halloran", qlvl = 27, map = 1437, x = 8.55, y = 55.74, z = 10.1, f = "e", note = "James Halloran" },
 					},
@@ -2217,9 +2217,10 @@ do
 				},
 				{
 					title = "Angerfang Encampment",
-					note = "South to the Dragonmaw's Angerfang Encampment; the Tattered Spellbook lies in the camp.",
+					note = "South to the Dragonmaw's Angerfang Encampment: the first catapult stands on the way, and the Tattered Spellbook lies in the camp.",
 					goals = {
-						{ t = "note", text = "Destroy the four sets of Attack Plans in the camp for From the Ashes." },
+						{ t = "turnin", quest = 465, title = "Nek'rosh's Gambit", object = 1609, objName = "Dragonmaw Catapult", map = 1437, x = 47.46, y = 47.01, z = 51.9, f = "e", note = "Dragonmaw Catapult" },
+						{ t = "note", text = "The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it." },
 						{ t = "accept", quest = 98223, title = "Old Habits", object = 671518, objName = "Tattered Spellbook", minLevel = 23, qlvl = 31, map = 1437, x = 53.46, y = 54.52, f = "e", note = "Tattered Spellbook: for Captain Stoutfist" },
 					},
 				},
@@ -2287,7 +2288,6 @@ do
 					title = "Menethil Harbor",
 					note = "West along the road to Menethil.",
 					goals = {
-						{ t = "turnin", quest = 98221, title = "From the Ashes", npc = 2104, npcName = "Captain Stoutfist", map = 1437, x = 9.86, y = 57.49, z = 26.8, f = "e", note = "Captain Stoutfist" },
 						{ t = "turnin", quest = 98223, title = "Old Habits", npc = 2104, npcName = "Captain Stoutfist", map = 1437, x = 9.86, y = 57.49, z = 26.8, f = "e" },
 						{ t = "turnin", quest = 98072, title = "Crocs of the Sky", npc = 2094, npcName = "James Halloran", map = 1437, x = 8.55, y = 55.74, z = 10.1, f = "e", note = "James Halloran" },
 					},

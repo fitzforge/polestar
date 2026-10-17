@@ -23,7 +23,7 @@
 # dig, the Dragonmaw banners) and now ends on its hearth to Menethil; the
 # boat to Southshore, its flight path, bind and The Shamed Lieutenant (98219)
 # turn-in moved here.
-# - Added: From the Ashes (98221), This Land Was Their Land (98230), Crocs of
+# - Added: This Land Was Their Land (98230), Crocs of
 #   the Sky (98072), Understanding Our Present (98216), Gleaning Our Future
 #   (98310), For Further Study (98313, to Historian Karnik), Razormaw Needling
 #   (98245), Stopping the Cycle (98297), Word to Ironforge (98300, to King
@@ -46,9 +46,11 @@
 #   of the Sky, which is handed in back in Menethil, and it ends at Howin in
 #   the Green Belt: a second ride across the zone for 1200 XP. Horrors in the
 #   Highland (95646): its Highland Horror lives in the Excavation Site:
-#   Wetlands dungeon (dungeon journal). The Attack Plans of From the Ashes
-#   are not in the data: the step points at the Angerfang Encampment, where
-#   the data places the Tattered Spellbook.
+#   Wetlands dungeon (dungeon journal).
+# - Nek'rosh's Gambit (465) comes from 07-thousand-needles, which takes it
+#   after From the Ashes (98221, Forever puts it between War Banners and
+#   465; issue #225): the Dragonmaw catapult is lit on the way from Howin to
+#   the Angerfang Encampment.
 # Hillsbrad (consensus visit 15): added Hillsbrad's Hoard (98059, Forever): the
 # data has no bookkeeping table, so the step points at the town hall where
 # Magistrate Burnside and the councilmen stand; it is walked on the way back
@@ -91,7 +93,6 @@ next forever/alliance/30-40/02-desolace
 
 step Menethil Harbor
   tip Captain Stoutfist stands in Menethil Keep; James Halloran stands by the north gate.
-  accept 98221                        -- Captain Stoutfist: From the Ashes
   accept 98230                        -- Captain Stoutfist: for Howin Kindfeather
   accept 98072                        -- James Halloran
 
@@ -119,8 +120,9 @@ step The Green Belt
   accept 98283 optional               -- Rethiel the Greenwarden: Carnage, an elite raptor
 
 step Angerfang Encampment
-  tip South to the Dragonmaw's Angerfang Encampment; the Tattered Spellbook lies in the camp.
-  note Destroy the four sets of Attack Plans in the camp for From the Ashes.
+  tip South to the Dragonmaw's Angerfang Encampment: the first catapult stands on the way, and the Tattered Spellbook lies in the camp.
+  turnin 465                          -- Dragonmaw Catapult
+  note The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it.
   accept 98223 object 671518          -- Tattered Spellbook: for Captain Stoutfist
 
 step Golm
@@ -167,7 +169,6 @@ step Prospector Whelgar
 
 step Menethil Harbor
   tip West along the road to Menethil.
-  turnin 98221                        -- Captain Stoutfist
   turnin 98223
   turnin 98072                        -- James Halloran
 

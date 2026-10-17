@@ -402,6 +402,7 @@ const HILLSBRAD_ALLIANCE = 'forever/alliance/30-40/01-hillsbrad-foothills.guide'
 const ASHENVALE_30 = 'forever/alliance/30-40/03-ashenvale.guide';
 const ARATHI = 'forever/alliance/30-40/05-arathi-highlands.guide';
 const DARKSHORE = 'forever/alliance/03-darkshore.guide';
+const THOUSAND_NEEDLES = 'forever/alliance/07-thousand-needles.guide';
 
 test('Forever follow-ups are taken only once the quests before them are handed in', { skip }, () => {
 	for (const [guide, quest, after, optional] of [
@@ -427,6 +428,11 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[SILVERPINE, 425, [91921]],
 		[SILVERPINE, 98298, [99], true],
 		[WESTFALL, 92911, [92910], true],
+		// Lou-Saydus (#225): Forever puts From the Ashes between War Banners
+		// and Nek'rosh's Gambit, so Captain Stoutfist did not offer 465 when
+		// War Banners was handed in.
+		[THOUSAND_NEEDLES, 98221, [464]],
+		[THOUSAND_NEEDLES, 465, [98221]],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));
@@ -436,6 +442,18 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 			assert.ok(at(list, `${guide}: turnin ${pre}`, is('turnin', pre)) < take, `${guide}: ${quest} is taken after ${pre} is handed in`);
 		}
 	}
+});
+
+test(`${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in ${THOUSAND_NEEDLES}, is handed in on the Wetlands loop (#225)`, { skip }, () => {
+	const needles = goals(THOUSAND_NEEDLES);
+	assert.equal(needles.findIndex(({ goal }) => is('turnin', 465)(goal)), -1, 'the catapult is not lit in the guide that takes the quest');
+	const done = at(needles, 'complete 98221', is('complete', 98221));
+	assert.ok(located(needles[done]), 'the attack plans have a place');
+	const list = goals(HILLSBRAD_ALLIANCE);
+	assert.equal(list.findIndex(({ goal }) => is('accept', 98221)(goal)), -1, 'From the Ashes is not taken again');
+	const lit = at(list, 'turnin 465', is('turnin', 465));
+	assert.ok(at(list, 'turnin 98230', is('turnin', 98230)) < lit, 'after Howin');
+	assert.ok(lit < at(list, 'accept 98223', is('accept', 98223)), 'before the Tattered Spellbook');
 });
 
 // --- Westfall (#144): Alba Fairmoon's Toxic Soil chain is not for Humans on

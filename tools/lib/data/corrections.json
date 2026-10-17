@@ -12,6 +12,17 @@
 			},
 			"note": "Ivar the Foul (Silverpine, Rane Yorick) comes after Return to Quinn (Again) 91921 on Forever, not straight after Return to Quinn 430: a Wowhead Forever comment on https://www.wowhead.com/forever/quest=425 (2026-10-04: \"In Forever, you need to complete Return to Quinn (Again) before this is available\") and one on https://www.wowhead.com/forever/quest=91921 (\"Allows you to start quest Ivar the Foul\"), checked 2026-10-17. Issue #51. pfQuest and QuestieDB 1.0.5 have the Classic prerequisite 430."
 		},
+		"465": {
+			"set": {
+				"pre": [
+					98221
+				],
+				"preAny": [
+					98221
+				]
+			},
+			"note": "Nek'rosh's Gambit (Wetlands, Captain Stoutfist) comes after the Forever quest From the Ashes 98221, not straight after War Banners 464: issue #225 (Lou-Saydus, 2026-10-17, in game at level 29): Stoutfist did not offer 465 with 464 handed in and offered From the Ashes, \"the next quest in the chain after War Banners and before Nek'rosh's Gambit\". Wowhead Forever's quest list marks 465's description reworded. pfQuest and QuestieDB 1.0.5 have the Classic prerequisite 464."
+		},
 		"1501": {
 			"set": {
 				"races": 146
