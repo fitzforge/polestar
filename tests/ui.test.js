@@ -1085,6 +1085,27 @@ test('labels kept in tables are in the client language: the group line and the g
 	assert.equal(out.title, 'Start');
 });
 
+test('an escort quest\'s open goal says the NPC may have to respawn, in the dungeon colour, once per card; not once done or skipped', () => {
+	const [out] = run(`
+		local function line(goal, noEscort) return UI.GoalSubline(goal, nil, nil, nil, noEscort) or false end
+		local open = { t = "accept", quest = 309, status = "active", escort = true }
+		emit({
+			open = line(open),
+			again = line(open, true),
+			hex = Polestar.Theme.Hex("dungeon"),
+			done = line({ t = "accept", quest = 309, status = "done", escort = true }),
+			skipped = line({ t = "complete", quest = 309, status = "skipped", escort = true }),
+			plain = line({ t = "accept", quest = 7, status = "active" }),
+			starter = UI.ReadingGoal({ goals = { open } }, { t = "collect", status = "active", starterOf = 1 }).escort,
+		})`);
+	assert.equal(out.open, `|c${out.hex}Escort: if the NPC is not there, wait for it to respawn|r`);
+	assert.equal(out.again, false);
+	assert.equal(out.done, false);
+	assert.equal(out.skipped, false);
+	assert.equal(out.plain, false);
+	assert.equal(out.starter, true, 'an item-started escort reads as its accept, line included');
+});
+
 test('a collect whose line already names its source has no source line under it; author text keeps it', () => {
 	const [out] = run(`
 		local src = { name = "Grell", also = "Grellkin", kind = "npc", enemy = true }

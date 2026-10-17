@@ -797,6 +797,13 @@ the goal's field group) and the guide window says it under the goal
 advised"), once per card. The guide's `group = true` (some non-optional goal
 has `group`) is the guide menu's "Group" chip.
 
+Escort quests (GUIDE_FORMAT, "Escort quests"): `escort = true` on an escort
+quest's accept, `complete` and objective goals, derived by
+`tools/lib/dsl/escort.js`. Display only: the Engine carries it into the goal
+view as `escort` and the guide window says it under the goal
+(`UI.EscortLine`: "Escort: if the NPC is not there, wait for it to
+respawn"), once per card. Older Polestar ignores it.
+
 A guide's `reward` (format 2; GUIDE_FORMAT, `reward`) lists what its goal
 gives: `{ item, itemName, quality, choice }`, `{ spell, spellName }` or
 `{ text }`; its `why` is one line on why. Display only: the guide menu's
@@ -4320,6 +4327,8 @@ Kingdoms, 1 Kalimdor; 2991, 2997 for Forever's new islands): the `continentID`
 `C_Map.GetWorldPosFromMapPos` returns.
 
 Optional extras: quests `skill` (profession requirement), `event` (holiday),
+`escort` (true or false, only from corrections.json: whether it is an escort
+where its own text does not say so right; tools/lib/dsl/escort.js),
 `xpSamples` (how many recorded observations back `xp`); event objectives `map`,
 `f`, `x`, `y`; npcs `levelMax`, `rank`, `roles` (flightmaster, innkeeper,
 vendor, trainer, ...), `subName`; objects `roles` (herb, mine, chest, ...); items

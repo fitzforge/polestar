@@ -95,6 +95,27 @@ function groupData() {
 	return new Data({ quests, npcs, objects: base.objects, items, zones: base.zones, 'map-frames': base.mapFrames, meta: base.meta, instances }, { dir: base.dir });
 }
 
+// The fixture data plus escort quests (docs/GUIDE_FORMAT.md, "Escort
+// quests"), each given and taken back by Marshal McBride: 9700 says escort in
+// its event objective and also has a kill; 9701 has no objectives and says it
+// in its objective text (Forever's own escorts); 9702 is worded otherwise and
+// marked `escort` (a corrections.json fix); 9703 says escort in an objective
+// copied from another quest and is marked not one; 9704 is an event that is
+// no escort.
+function escortData() {
+	const base = fixtureData();
+	const quest = (id, title, objectives, more = {}) => ({ ...base.quests[7], id, title, pre: [], objectives, objectiveText: '', ...more });
+	const quests = {
+		...base.quests,
+		9700: quest(9700, 'The Vineyard Walk', [{ type: 'event', id: null, count: null, text: 'Escort Brother Danil to the vineyard' }, { type: 'kill', id: 6, count: 3, text: 'Kobold Vermin slain' }]),
+		9701: quest(9701, 'Out of the Abbey', [], { objectiveText: 'Escort Khelden Bremen out of the abbey, then tell Marshal McBride.' }),
+		9702: quest(9702, 'To the Road', [{ type: 'event', id: null, count: null, text: 'Protect Dermot Johns until you reach the road' }], { escort: true }),
+		9703: quest(9703, 'Lost Dermot', [{ type: 'event', id: null, count: null, text: 'Escort Dermot Johns to the road' }], { objectiveText: 'Find Dermot Johns.', escort: false }),
+		9704: quest(9704, 'The Vigil', [{ type: 'event', id: null, count: null, text: 'Keep the vigil at the abbey' }]),
+	};
+	return new Data({ quests, npcs: base.npcs, objects: base.objects, items: base.items, zones: base.zones, 'map-frames': base.mapFrames, meta: base.meta }, { dir: base.dir });
+}
+
 // Our pack's manifest (guides/pack.json).
 function ourManifest() {
 	return readManifest(OFFICIAL_DIR, { official: true }).manifest;
@@ -107,4 +128,4 @@ function writeTestPack(guides, data = fixtureData(), manifest = ourManifest()) {
 	return writePackInto(tmpdir(), { guides, manifest, data });
 }
 
-module.exports = { FIXTURES, DATA_DIR, GUIDES_DIR, fixtureData, groupData, guideText, lineOf, compile, plain, ourManifest, writeTestPack };
+module.exports = { FIXTURES, DATA_DIR, GUIDES_DIR, fixtureData, groupData, escortData, guideText, lineOf, compile, plain, ourManifest, writeTestPack };

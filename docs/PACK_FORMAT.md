@@ -380,6 +380,7 @@ The fields:
 | `candidates` | smart targets: `{ { npc, npcName, map, x, y, z, f, faction, races, classes, lvl, rate, spawns } }` (`z` optional, see `z`); Polestar picks the nearest usable one at runtime |
 | `rewards` | `{ choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (money in copper) |
 | `direct` | `true` on a `turnin`: the quest is handed in straight from the giver's window and never enters the quest log, so the goal needs no `accept` before it and carries no objectives. Polestar counts it done on the hand-in itself and stores that, so a repeatable stays done after a reload |
+| `escort` | `true` on the accept, `complete` and objective goals of an escort quest: the guide window says under the goal that the NPC may have to respawn (GUIDE_FORMAT.md, "Escort quests"). Older Polestar ignores it |
 | `group` | format 2: the goal needs a group, shown under it in the guide window: `{ kind = "elite", rank = 1 }` (rank 1 elite, 2 rare elite, 3 boss: "Elite: group advised"), `{ kind = "dungeon", name = "Dire Maul" }` ("Dungeon: Dire Maul"), `{ kind = "raid", name = "Molten Core" }` ("Raid: Molten Core"), `{ kind = "group", size = 3 }` ("Group of 3 advised"; without `size`, "Group advised"). The compiler derives it or takes the author's `group [N]` (GUIDE_FORMAT.md, "Group content"); Polestar shows nothing for a kind it does not know |
 
 Polestar 0.1.0 reads every verb above; 0.2.4 and later read the `group`

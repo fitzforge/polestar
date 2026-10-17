@@ -1799,6 +1799,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		-- Group content (compiled `group`: elite, dungeon, raid or an author's
 		-- group size); `group` above is the goal's field group.
 		party = type(goal.group) == "table" and type(goal.group.kind) == "string" and goal.group or nil,
+		-- An escort quest's accept or objective (compiled `escort`).
+		escort = goal.escort == true or nil,
 		-- A collect's source (compiled `from`); `inText`: the goal's text
 		-- already names it.
 		source = src,

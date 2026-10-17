@@ -1,5 +1,5 @@
 {
-	"_about": "Polestar's own fixes to the merged reference data (data build applies them after QuestieDB, before recordings). One entry per fact, with where the fact comes from. quests: `set` replaces fields. npcs/objects: `set` replaces fields (Forever elite and rare ranks, which QuestieDB's Forever store lacks); `addSpawns` adds { \"<uiMapID>\": { f, pts } } maps the entity lacks (an existing map is replaced). items: `removeDrops` { npc: [ids], object: [ids] } and `removeVendors` [ids] drop wrong sources the pfQuest/QuestieDB union kept. Documented in docs/ARCHITECTURE.md (Reference data, Sources and precedence).",
+	"_about": "Polestar's own fixes to the merged reference data (data build applies them after QuestieDB, before recordings). One entry per fact, with where the fact comes from. quests: `set` replaces fields; `escort` (true or false) exists only here, for an escort quest whose own text does not say escort or a quest whose text wrongly does (tools/lib/dsl/escort.js). npcs/objects: `set` replaces fields (Forever elite and rare ranks, which QuestieDB's Forever store lacks); `addSpawns` adds { \"<uiMapID>\": { f, pts } } maps the entity lacks (an existing map is replaced). items: `removeDrops` { npc: [ids], object: [ids] } and `removeVendors` [ids] drop wrong sources the pfQuest/QuestieDB union kept. Documented in docs/ARCHITECTURE.md (Reference data, Sources and precedence).",
 	"quests": {
 		"26": {
 			"set": {
@@ -34,6 +34,18 @@
 				]
 			},
 			"note": "Nek'rosh's Gambit (Wetlands, Captain Stoutfist) comes after the Forever quest From the Ashes 98221, not straight after War Banners 464: issue #225 (Lou-Saydus, 2026-10-17, in game at level 29): Stoutfist did not offer 465 with 464 handed in and offered From the Ashes, \"the next quest in the chain after War Banners and before Nek'rosh's Gambit\". Wowhead Forever's quest list marks 465's description reworded. pfQuest and QuestieDB 1.0.5 have the Classic prerequisite 464."
+		},
+		"660": {
+			"set": {
+				"escort": true
+			},
+			"note": "Hints of a New Plague? (Arathi Highlands; Kinelory gives it) is an escort: Wowhead Forever https://www.wowhead.com/forever/quest=660 reads \"Protect Kinelory until she returns to Quae\" (checked 2026-10-17), as quests.json does. No text says escort, and the compiler's escort rule (tools/lib/dsl/escort.js) needs the word escort in the quest's own text. QuestieDB 1.0.6 questFlags has PARTY_ACCEPT (2), as every Classic escort the rule finds does."
+		},
+		"994": {
+			"set": {
+				"escort": true
+			},
+			"note": "Escape Through Force (Darkshore; Volcor gives it) is an escort: Wowhead Forever https://www.wowhead.com/forever/quest=994 reads \"Protect Volcor until you reach the road\" (checked 2026-10-17), as quests.json does. No text says escort, and the compiler's escort rule (tools/lib/dsl/escort.js) needs the word escort in the quest's own text. QuestieDB 1.0.6 questFlags has PARTY_ACCEPT (2)."
 		},
 		"1501": {
 			"set": {
@@ -71,6 +83,18 @@
 			},
 			"note": "Investigate the Alchemist Shop (Horde mage robe chain) is open to Orc, Undead and Troll Mages: Wowhead Forever https://www.wowhead.com/forever/quest=1960 lists Races [race=2], [race=5], [race=8] (checked 2026-10-16). The merged data has races 144 (Undead and Troll), which leaves Orc mages out of the chain that 1961 (races 146) continues."
 		},
+		"4492": {
+			"set": {
+				"escort": false
+			},
+			"note": "Lost! (Un'Goro Crater; Spraggle Frock gives it, Ringo takes it) is not an escort: Wowhead Forever https://www.wowhead.com/forever/quest=4492 asks only to find Ringo at Fire Plume Ridge (checked 2026-10-17), as quests.json's objectiveText does. Its event objective \"Escort Ringo to Spraggle Frock at Marshal's Refuge\" is the next quest's, A Little Help From My Friends (4491, from Ringo), so the escort rule (tools/lib/dsl/escort.js) would label it. QuestieDB 1.0.6 questFlags 0 (4491: PARTY_ACCEPT 2)."
+		},
+		"4901": {
+			"set": {
+				"escort": true
+			},
+			"note": "Guardians of the Altar (Winterspring; Ranshalla gives it) is an escort: Wowhead Forever https://www.wowhead.com/forever/quest=4901 reads \"Protect Ranshalla while she attempts to reactivate the Altar of Elune\", lighting the torches in each cave on the way (checked 2026-10-17). No text says escort, and the compiler's escort rule (tools/lib/dsl/escort.js) needs the word escort in the quest's own text. QuestieDB 1.0.6 questFlags has PARTY_ACCEPT (2)."
+		},
 		"5061": {
 			"set": {
 				"races": 4294967304
@@ -94,6 +118,12 @@
 				"races": 4294967304
 			},
 			"note": "Power over Poison (Druid Cure Poison, Alliance) is open to Night Elf and Skyborne Druids: Wowhead Forever https://www.wowhead.com/forever/quest=6125 lists Races [race=4], [race=95] (checked 2026-10-16). The merged data has races 8 (Night Elf only), while 6121 and 6122 before it already have Skyborne."
+		},
+		"6641": {
+			"set": {
+				"escort": true
+			},
+			"note": "Vorsha the Lasher (Ashenvale; Muglash gives it) is an escort: Wowhead Forever https://www.wowhead.com/forever/quest=6641 reads \"Keep Muglash safe as he travels to the brazier\" (checked 2026-10-17), as quests.json does. No text says escort, and the compiler's escort rule (tools/lib/dsl/escort.js) needs the word escort in the quest's own text. QuestieDB 1.0.6 questFlags has PARTY_ACCEPT (2)."
 		},
 		"7637": {
 			"set": {

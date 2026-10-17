@@ -866,6 +866,7 @@ L["Shaman"] = "Chaman"
 L["Mage"] = "Mage"
 L["Warlock"] = "Démoniste"
 L["Druid"] = "Druide"
+-- L["Escort: if the NPC is not there, wait for it to respawn"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Lieu"

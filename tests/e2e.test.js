@@ -13,7 +13,7 @@ const { runAddon, ROOT } = require('./helpers/lua');
 const { compileSources } = require('../tools/lib/dsl/project');
 const { loadData } = require('../tools/lib/dsl/data');
 const { format } = require('../tools/lib/dsl/diag');
-const { writeTestPack, groupData } = require('./helpers/dsl');
+const { writeTestPack, groupData, escortData } = require('./helpers/dsl');
 
 const DATA = path.join(ROOT, 'tests', 'fixtures', 'dsl', 'data');
 
@@ -228,6 +228,85 @@ test('a compiled guide with group content shows the group line once per run and 
 		assert.deepEqual(out.kills, [{ sub: 'Group of 3 advised', coloured: true }, { sub: 'Elite: group advised', coloured: true }]);
 		assert.deepEqual(out.chips, { 'forever/class/hollow': 'Group', 'forever/alliance/human/01-northshire': false });
 		assert.deepEqual(out.details.slice(0, 2), ['Levels 1\u201360', 'Group']);
+	} finally {
+		fs.rmSync(dir, { recursive: true, force: true });
+	}
+});
+
+// Escort quests: the compiler marks an escort quest's accept and complete
+// (tools/lib/dsl/escort.js); the guide window says under the first one of the
+// card that the NPC may have to respawn, never under a turn-in.
+const ESCORT_GUIDE = `guide forever/class/escort
+title The Vineyard Walk
+category Class
+faction Alliance
+levels 1-60
+zone Elwynn Forest
+
+step Marshal McBride
+  accept 9700
+  accept 9704
+  accept 9701
+  complete 9700
+  complete 9701
+  turnin 9700
+  turnin 9701
+`;
+
+test('compiled escort quests say once per card, under the accepts and then the completes, that the NPC may have to respawn', () => {
+	const data = escortData();
+	const { guides, diag } = compileSources([{ file: 'e2e.guide', text: GUIDE }, { file: 'escort.guide', text: ESCORT_GUIDE }], data);
+	assert.deepEqual(diag.errors.map(format), []);
+	const { dir, scripts } = writeTestPack(guides, data);
+	try {
+		const loads = `do local ns = {}\n${scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n')}\nend`;
+		const { emitted } = runAddon({
+			stubs: ['stub_world.lua'],
+			before: `
+				local w = stub.world
+				w.addMap(1429, { name = "Elwynn Forest", c = 1415, left = 1535.4166, right = -1941.6666, top = 1300.0, bottom = -1060.4166 })
+				w.moveTo(1429, 48.5, 42.5)`,
+			addons: ['Polestar'],
+			script: `
+				${loads}
+				stub.login()
+				stub.advance(0.5)
+				local w, GF = stub.world, Polestar.UI.GuideFrame
+				local DUNGEON = "|c" .. Polestar.Theme.Hex("dungeon")
+				local function subs()
+					local out = {}
+					for _, r in ipairs(GF.rows) do
+						if r:IsShown() then
+							local sub = r.Sub:IsShown() and r.Sub:GetText() or ""
+							out[#out + 1] = { t = r.psGoal.t, quest = r.psGoal.quest, sub = sub:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""), coloured = sub:find(DUNGEON, 1, true) == 1 }
+						end
+					end
+					return out
+				end
+				Polestar.Engine.SetGuide("forever/class/escort")
+				stub.advance(0.5)
+				local before = subs()
+				w.accept(9700, { { text = "Escort Brother Danil to the vineyard", required = 1 }, { text = "Kobold Vermin slain: 0/3", required = 3 } }, "The Vineyard Walk")
+				w.accept(9704, { { text = "Keep the vigil at the abbey", required = 1 } }, "The Vigil")
+				w.accept(9701, {}, "Out of the Abbey")
+				stub.advance(0.5)
+				local accepted = subs()
+				w.finish(9700)
+				w.finish(9701)
+				stub.advance(0.5)
+				emit({ before = before, accepted = accepted, finished = subs() })`,
+		});
+		const [out] = emitted;
+		const LINE = 'Escort: if the NPC is not there, wait for it to respawn';
+		const row = (t, quest, sub) => ({ t, quest, sub: sub || '', coloured: Boolean(sub) });
+		// Once per card, under the first escort; not under The Vigil, an event.
+		assert.deepEqual(out.before, [row('accept', 9700, LINE), row('accept', 9704), row('accept', 9701)]);
+		// Accepted: the completes say it once, before the open objectives.
+		const objectives = 'Escort Brother Danil to the vineyard 0/1  ·  Kobold Vermin slain: 0/3';
+		assert.deepEqual(out.accepted, [row('complete', 9700, `${LINE}  ·  ${objectives}`), row('complete', 9701)]);
+		// The walks are over: nothing under the turn-ins.
+		assert.deepEqual(out.finished.map((r) => r.t), ['turnin', 'turnin']);
+		for (const r of out.finished) assert.equal(r.sub.includes('Escort'), false, `${r.t} ${r.quest}: ${r.sub}`);
 	} finally {
 		fs.rmSync(dir, { recursive: true, force: true });
 	}

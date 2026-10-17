@@ -374,7 +374,8 @@ end
 -- accent; the others sit in textDim.
 -- `noParty`: a row above already says the group line (UI.GoalSubline);
 -- `noMissing`: one already names who in the party lacks the goal's quest.
-local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing)
+-- `noEscort`: one already says the escort line.
+local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noEscort)
 	local sameGoal = sameStep and r.psGoal and r.psGoal.index == goal.index and r.psGoal.t == goal.t
 	r.psGoal = goal
 	local status = goal.status
@@ -392,7 +393,7 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing)
 	r.Text:SetText(UI.GoalLine(goal))
 	-- White while it is to be done; done and skipped goals step back.
 	W.Color(r.Text, (done or skipped) and "textMuted" or "text")
-	local sub = UI.GoalSubline(goal, person.Where:IsShown() and person.psPlace and person.psPlace.map or nil, noParty, noMissing)
+	local sub = UI.GoalSubline(goal, person.Where:IsShown() and person.psPlace and person.psPlace.map or nil, noParty, noMissing, noEscort)
 	r.Sub:SetText(sub or "")
 	r.Sub:SetShown(sub ~= nil)
 	-- An unavailable quest's reason is the point of the line: keep it readable.
@@ -1418,6 +1419,7 @@ local function fillCard(sameFocus)
 	-- goal that carries it, not under every goal of the same run.
 	local partySaid = {}
 	local missingSaid = {} -- quest -> a row already names who lacks it
+	local escortSaid = false -- a row already says the escort line
 	-- The current goal (the Engine's `current`: the first open blocking goal
 	-- of the focus, else its first open optional one) takes the accent; it
 	-- is the goal the arrow leads to. The header stands for its "Go to".
@@ -1427,8 +1429,10 @@ local function fillCard(sameFocus)
 		local pop = sameFocus and goal.status == "done" and r.psStatus and r.psStatus ~= "done" and r.psGoal and r.psGoal.index == goal.index
 		local isCurrent = view.current ~= nil and goal.index == view.current and goal.status == "active"
 		local party = UI.GroupLine(goal)
-		paintRow(r, goal, pop, sameFocus, isCurrent, party and partySaid[party], goal.quest and missingSaid[goal.quest])
+		local escort = UI.EscortLine(goal) ~= nil
+		paintRow(r, goal, pop, sameFocus, isCurrent, party and partySaid[party], goal.quest and missingSaid[goal.quest], escort and escortSaid)
 		if party then partySaid[party] = true end
+		if escort then escortSaid = true end
 		if goal.quest and goal.oi and goal.status ~= "skipped" then missingSaid[goal.quest] = true end
 		r.Mark:SetShown(goal.status ~= "done" and goal.status ~= "skipped" and isTarget(goal, t) and not person.Mark:IsShown())
 		r:Show()

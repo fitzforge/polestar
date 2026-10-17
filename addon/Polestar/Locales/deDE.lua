@@ -463,6 +463,7 @@ L["%s: pick it up"] = "%s: aufheben"
 L["%s: kill %s"] = "%s: töte %s"
 L["%s: from %s"] = "%s: von %s"
 L["Starts from %s"] = "Beginnt mit %s"
+-- L["Escort: if the NPC is not there, wait for it to respawn"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"

@@ -581,7 +581,7 @@ do
 						{ t = "turnin", quest = 948, title = "Onu", npc = 3616, npcName = "Onu", map = 1439, x = 43.55, y = 76.29, z = 52.8, f = "e" },
 						{ t = "accept", quest = 944, title = "The Master's Glaive", npc = 3616, npcName = "Onu", minLevel = 12, qlvl = 17, pre = { 948 }, preTitles = { [948] = "Onu" }, map = 1439, x = 43.55, y = 76.29, z = 52.8, f = "e" },
 						{ t = "accept", quest = 98013, title = "Swelling Forces", npc = 270269, npcName = "Arbal", minLevel = 12, qlvl = 20, map = 1439, x = 43.71, y = 76.49, f = "e" },
-						{ t = "accept", quest = 5321, title = "The Sleeper Has Awakened", npc = 11218, npcName = "Kerlonian Evershade", minLevel = 17, qlvl = 20, map = 1439, x = 44.4, y = 76.43, z = 51.6, f = "e", note = "{npc:11218}: his escort to {area:413} is done on the {zone:1440} leg" },
+						{ t = "accept", quest = 5321, title = "The Sleeper Has Awakened", npc = 11218, npcName = "Kerlonian Evershade", minLevel = 17, qlvl = 20, map = 1439, x = 44.4, y = 76.43, z = 51.6, f = "e", note = "{npc:11218}: his escort to {area:413} is done on the {zone:1440} leg", escort = true },
 					},
 				},
 				{
@@ -597,8 +597,8 @@ do
 						{ t = "accept", quest = 98042, title = "It's All Fun and Games Until...", object = 12666, objName = "Twilight Tome", minLevel = 12, qlvl = 17, map = 1439, x = 38.54, y = 86.05, z = 34.9, f = "e" },
 						{ t = "collect", quest = 98042, title = "It's All Fun and Games Until...", item = 279279, itemName = "Peerless Eye", count = 1, oi = 1, map = 1439, x = 38.47, y = 86.09, f = "e", spots = { { x = 38.2, y = 86.6, r = 45, n = 7 }, { x = 39.2, y = 85.8, r = 40, n = 6 }, { x = 39.2, y = 87.9, r = 40, n = 4 }, { x = 55.4, y = 35.9, r = 40, n = 1, alt = true }, { x = 56.4, y = 35.1, r = 40, n = 1, alt = true } }, spread = true, note = "{item:279279}: Twilight Disciples and Thugs" },
 						{ t = "accept", quest = 968, title = "The Powers Below", item = 5352, itemName = "Book: The Powers Below", minLevel = 10, qlvl = 20, optional = true, note = "Only if a Disciple or Thug dropped {item:5352}: right-click it" },
-						{ t = "accept", quest = 945, title = "Therylune's Escape", npc = 3584, npcName = "Therylune", minLevel = 10, qlvl = 18, map = 1439, x = 38.64, y = 87.33, z = 33.9, f = "e" },
-						{ t = "complete", quest = 945, title = "Therylune's Escape", note = "Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}" },
+						{ t = "accept", quest = 945, title = "Therylune's Escape", npc = 3584, npcName = "Therylune", minLevel = 10, qlvl = 18, map = 1439, x = 38.64, y = 87.33, z = 33.9, f = "e", escort = true },
+						{ t = "complete", quest = 945, title = "Therylune's Escape", note = "Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}", escort = true },
 					},
 				},
 				{
@@ -616,8 +616,8 @@ do
 					note = "{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil.",
 					goals = {
 						{ t = "turnin", quest = 729, title = "The Absent Minded Prospector", npc = 2917, npcName = "Prospector Remtravel", map = 1439, x = 35.73, y = 83.7, z = 18.5, f = "e" },
-						{ t = "accept", quest = 731, title = "The Absent Minded Prospector", npc = 2917, npcName = "Prospector Remtravel", minLevel = 15, qlvl = 20, pre = { 729 }, preTitles = { [729] = "The Absent Minded Prospector" }, map = 1439, x = 35.73, y = 83.7, z = 18.5, f = "e" },
-						{ t = "complete", quest = 731, title = "The Absent Minded Prospector" },
+						{ t = "accept", quest = 731, title = "The Absent Minded Prospector", npc = 2917, npcName = "Prospector Remtravel", minLevel = 15, qlvl = 20, pre = { 729 }, preTitles = { [729] = "The Absent Minded Prospector" }, map = 1439, x = 35.73, y = 83.7, z = 18.5, f = "e", escort = true },
+						{ t = "complete", quest = 731, title = "The Absent Minded Prospector", escort = true },
 					},
 				},
 				{
@@ -670,8 +670,8 @@ do
 					note = "{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out.",
 					goals = {
 						{ t = "turnin", quest = 993, title = "A Lost Master", npc = 3692, npcName = "Volcor", map = 1439, x = 45.01, y = 85.3, z = 69.7, f = "e" },
-						{ t = "accept", quest = 994, title = "Escape Through Force", npc = 3692, npcName = "Volcor", minLevel = 10, qlvl = 22, pre = { 993 }, closedBy = { 995 }, preTitles = { [993] = "A Lost Master", [995] = "Escape Through Stealth" }, map = 1439, x = 45.01, y = 85.3, z = 69.7, f = "e" },
-						{ t = "complete", quest = 994, title = "Escape Through Force" },
+						{ t = "accept", quest = 994, title = "Escape Through Force", npc = 3692, npcName = "Volcor", minLevel = 10, qlvl = 22, pre = { 993 }, closedBy = { 995 }, preTitles = { [993] = "A Lost Master", [995] = "Escape Through Stealth" }, map = 1439, x = 45.01, y = 85.3, z = 69.7, f = "e", escort = true },
+						{ t = "complete", quest = 994, title = "Escape Through Force", escort = true },
 						{ t = "kill", quest = 6124, title = "Curing the Sick", target = "Sickly Deer", npc = 12298, count = 10, oi = 1, map = 1439, x = 43.53, y = 83.42, z = 53.4, f = "e", spots = { { x = 43.5, y = 83.4, z = 53.4, r = 123, n = 1 }, { x = 39, y = 79.8, r = 207, n = 4 }, { x = 40.8, y = 70.8, r = 145, n = 4 }, { x = 43.5, y = 65.5, r = 123, n = 2 }, { x = 39.3, y = 58.9, r = 196, n = 4 }, { x = 40.7, y = 49.4, r = 155, n = 5 }, { x = 45.2, y = 50.1, r = 147, n = 4 }, { x = 46.7, y = 42.1, r = 167, n = 6 }, { x = 41.8, y = 38.5, r = 238, n = 6 }, { x = 49.9, y = 34.3, r = 149, n = 5 }, { x = 45.2, y = 25.7, r = 123, n = 3 }, { x = 36.5, y = 89.4, r = 173, n = 4 }, { x = 43.5, y = 77.8, r = 123, n = 2, alt = true }, { x = 41.9, y = 89.1, r = 123, n = 2, alt = true }, { x = 45.4, y = 32.3, r = 123, n = 3, alt = true }, { x = 49.4, y = 28.6, z = 38.5, r = 128, n = 3, alt = true } }, spread = true, only = { classes = { "DRUID" }, races = { "NightElf" } }, note = "{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}" },
 					},
 				},
@@ -944,8 +944,8 @@ do
 					title = "{npc:349}",
 					note = "Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way.",
 					goals = {
-						{ t = "accept", quest = 219, title = "Missing In Action", npc = 349, npcName = "Corporal Keeshan", minLevel = 19, qlvl = 25, map = 1433, x = 23.3, y = 12.55, z = 140 },
-						{ t = "complete", quest = 219, title = "Missing In Action" },
+						{ t = "accept", quest = 219, title = "Missing In Action", npc = 349, npcName = "Corporal Keeshan", minLevel = 19, qlvl = 25, map = 1433, x = 23.3, y = 12.55, z = 140, escort = true },
+						{ t = "complete", quest = 219, title = "Missing In Action", escort = true },
 					},
 				},
 				{
@@ -2276,7 +2276,7 @@ do
 					note = "North along the road to {area:205}. {npc:271460} stands in the ruins (use the {item:279996}); the {npc:271481} is held on the west side: lead it out to {npc:1072}.",
 					goals = {
 						{ t = "collect", quest = 98310, title = "Gleaning Our Future", item = 280396, itemName = "Heart of Modr", oi = 2, map = 1437, x = 50.51, y = 20.91, f = "e", spots = { { x = 50.5, y = 19.9, r = 28, n = 4 }, { x = 50.5, y = 17.7, r = 84, n = 15 }, { x = 50.7, y = 14.9, r = 48, n = 5 } }, from = "Modr", fromKind = "npc", fromId = 271460 },
-						{ t = "accept", quest = 87491, title = "Spark of Freedom", npc = 271481, npcName = "Captive Fire Elemental", minLevel = 27, qlvl = 32, map = 1437, x = 45.65, y = 16.6, f = "e" },
+						{ t = "accept", quest = 87491, title = "Spark of Freedom", npc = 271481, npcName = "Captive Fire Elemental", minLevel = 27, qlvl = 32, map = 1437, x = 45.65, y = 16.6, f = "e", escort = true },
 						{ t = "turnin", quest = 87491, title = "Spark of Freedom", npc = 1072, npcName = "Roggo Harlbarrow", map = 1437, x = 49.85, y = 18.09, z = 80.5, f = "e" },
 					},
 				},
@@ -2628,10 +2628,10 @@ do
 					title = "Escort {npc:5644}",
 					goals = {
 						{ t = "turnin", quest = 1439, title = "Search for Tyranis", npc = 5644, npcName = "Dalinda Malem", map = 1443, x = 54.86, y = 26.13, z = 139.6, f = "e" },
-						{ t = "accept", quest = 1440, title = "Return to Vahlarriel", npc = 5644, npcName = "Dalinda Malem", minLevel = 30, qlvl = 33, pre = { 1439 }, preTitles = { [1439] = "Search for Tyranis" }, map = 1443, x = 54.86, y = 26.13, z = 139.6, f = "e" },
+						{ t = "accept", quest = 1440, title = "Return to Vahlarriel", npc = 5644, npcName = "Dalinda Malem", minLevel = 30, qlvl = 33, pre = { 1439 }, preTitles = { [1439] = "Search for Tyranis" }, map = 1443, x = 54.86, y = 26.13, z = 139.6, f = "e", escort = true },
 						{ t = "goto", text = "Out of Thunder Axe Fortress", map = 1443, x = 58.3, y = 30.9, f = "e" },
 						{ t = "note", text = "Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide." },
-						{ t = "complete", quest = 1440, title = "Return to Vahlarriel" },
+						{ t = "complete", quest = 1440, title = "Return to Vahlarriel", escort = true },
 					},
 				},
 				{
@@ -2651,14 +2651,14 @@ do
 					title = "{npc:11625}",
 					note = "The Gizelton Caravan waits at {area:2407}.",
 					goals = {
-						{ t = "accept", quest = 5821, title = "Bodyguard for Hire", npc = 11625, npcName = "Cork Gizelton", minLevel = 30, qlvl = 35, map = 1443, x = 66.54, y = 37.51, f = "e", optional = true },
+						{ t = "accept", quest = 5821, title = "Bodyguard for Hire", npc = 11625, npcName = "Cork Gizelton", minLevel = 30, qlvl = 35, map = 1443, x = 66.54, y = 37.51, f = "e", optional = true, escort = true },
 					},
 				},
 				{
 					title = "Escort the caravan",
 					note = "Walk with the caravan south past {area:609}; Kolkar ambushers jump it on the way. Stay close until it stops at {area:2617}. The ambushers are 34-35 and come in waves: skip it if you are below 33.",
 					goals = {
-						{ t = "complete", quest = 5821, title = "Bodyguard for Hire", optional = true },
+						{ t = "complete", quest = 5821, title = "Bodyguard for Hire", optional = true, escort = true },
 					},
 				},
 				{
@@ -3421,8 +3421,8 @@ do
 					title = "{npc:5391}",
 					note = "{npc:5391} is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards.",
 					goals = {
-						{ t = "accept", quest = 1393, title = "Galen's Escape", npc = 5391, npcName = "Galen Goodward", minLevel = 30, qlvl = 38, map = 1435, x = 65.47, y = 18.16, z = 22.4, f = "e" },
-						{ t = "complete", quest = 1393, title = "Galen's Escape" },
+						{ t = "accept", quest = 1393, title = "Galen's Escape", npc = 5391, npcName = "Galen Goodward", minLevel = 30, qlvl = 38, map = 1435, x = 65.47, y = 18.16, z = 22.4, f = "e", escort = true },
+						{ t = "complete", quest = 1393, title = "Galen's Escape", escort = true },
 						{ t = "turnin", quest = 1393, title = "Galen's Escape", object = 32569, objName = "Galen's Strongbox", map = 1435, x = 47.81, y = 39.76, z = 22.4, f = "e" },
 					},
 				},
@@ -3548,14 +3548,14 @@ do
 						{ t = "turnin", quest = 663, title = "Land Ho!", npc = 2610, npcName = "Shakes O'Breen", map = 1417, x = 32.28, y = 81.38, z = 3.2, f = "e" },
 						{ t = "accept", quest = 662, title = "Deep Sea Salvage", npc = 2767, npcName = "First Mate Nilzlix", minLevel = 35, qlvl = 40, pre = { 663 }, preTitles = { [663] = "Land Ho!" }, map = 1417, x = 32.8, y = 81.48, z = 3.5, f = "e" },
 						{ t = "accept", quest = 664, title = "Drowned Sorrows", npc = 2769, npcName = "Captain Steelgut", minLevel = 35, qlvl = 40, pre = { 663 }, preTitles = { [663] = "Land Ho!" }, map = 1417, x = 34, y = 80.8, z = 9.3, f = "e" },
-						{ t = "accept", quest = 665, title = "Sunken Treasure", npc = 2768, npcName = "Professor Phizzlethorpe", minLevel = 35, qlvl = 40, pre = { 663 }, preTitles = { [663] = "Land Ho!" }, map = 1417, x = 33.87, y = 80.55, z = 9.1, f = "e" },
+						{ t = "accept", quest = 665, title = "Sunken Treasure", npc = 2768, npcName = "Professor Phizzlethorpe", minLevel = 35, qlvl = 40, pre = { 663 }, preTitles = { [663] = "Land Ho!" }, map = 1417, x = 33.87, y = 80.55, z = 9.1, f = "e", escort = true },
 					},
 				},
 				{
 					title = "Phizzlethorpe",
 					note = "Escort the professor to the beach north of the cove and guard him while he works; naga attack in waves.",
 					goals = {
-						{ t = "complete", quest = 665, title = "Sunken Treasure" },
+						{ t = "complete", quest = 665, title = "Sunken Treasure", escort = true },
 					},
 				},
 				{
@@ -3610,14 +3610,14 @@ do
 						{ t = "turnin", quest = 658, title = "Hints of a New Plague?", npc = 2712, npcName = "Quae", map = 1417, x = 60.18, y = 53.85, z = 32.9, f = "e" },
 						{ t = "accept", quest = 657, title = "Hints of a New Plague?", npc = 2712, npcName = "Quae", minLevel = 30, qlvl = 36, pre = { 658 }, preTitles = { [658] = "Hints of a New Plague?" }, map = 1417, x = 60.18, y = 53.85, z = 32.9, f = "e" },
 						{ t = "turnin", quest = 657, title = "Hints of a New Plague?", npc = 2713, npcName = "Kinelory", map = 1417, x = 60.24, y = 53.92, z = 32.3, f = "e" },
-						{ t = "accept", quest = 660, title = "Hints of a New Plague?", npc = 2713, npcName = "Kinelory", minLevel = 30, qlvl = 37, pre = { 657 }, preTitles = { [657] = "Hints of a New Plague?" }, map = 1417, x = 60.24, y = 53.92, z = 32.3, f = "e" },
+						{ t = "accept", quest = 660, title = "Hints of a New Plague?", npc = 2713, npcName = "Kinelory", minLevel = 30, qlvl = 37, pre = { 657 }, preTitles = { [657] = "Hints of a New Plague?" }, map = 1417, x = 60.24, y = 53.92, z = 32.3, f = "e", escort = true },
 					},
 				},
 				{
 					title = "{npc:2713}'s errand",
 					note = "Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way.",
 					goals = {
-						{ t = "complete", quest = 660, title = "Hints of a New Plague?" },
+						{ t = "complete", quest = 660, title = "Hints of a New Plague?", escort = true },
 					},
 				},
 				{
@@ -4045,8 +4045,8 @@ do
 					title = "{npc:12277}",
 					note = "{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.",
 					goals = {
-						{ t = "accept", quest = 6132, title = "Get Me Out of Here!", npc = 12277, npcName = "Melizza Brimbuzzle", minLevel = 34, qlvl = 39, map = 1443, x = 33.95, y = 53.5, z = 111.2, f = "e" },
-						{ t = "complete", quest = 6132, title = "Get Me Out of Here!", map = 1443, x = 40.1, y = 61.6, f = "e", note = "escort {npc:12277} back toward the graveyard" },
+						{ t = "accept", quest = 6132, title = "Get Me Out of Here!", npc = 12277, npcName = "Melizza Brimbuzzle", minLevel = 34, qlvl = 39, map = 1443, x = 33.95, y = 53.5, z = 111.2, f = "e", escort = true },
+						{ t = "complete", quest = 6132, title = "Get Me Out of Here!", map = 1443, x = 40.1, y = 61.6, f = "e", note = "escort {npc:12277} back toward the graveyard", escort = true },
 					},
 				},
 				{
@@ -4059,8 +4059,8 @@ do
 					title = "{quest:5943}",
 					note = "{npc:11626}'s caravan stops on the road east of {area:606}. Take the quest and walk with the kodos past the {area:602}, killing the demons that jump them; talk to {npc:11596} at his camp east of the {area:596} afterwards.",
 					goals = {
-						{ t = "accept", quest = 5943, title = "Gizelton Caravan", npc = 11626, npcName = "Rigger Gizelton", minLevel = 32, qlvl = 38, map = 1443, x = 45.4, y = 75.29, f = "e" },
-						{ t = "complete", quest = 5943, title = "Gizelton Caravan", map = 1443, x = 55.7, y = 67.8, f = "e" },
+						{ t = "accept", quest = 5943, title = "Gizelton Caravan", npc = 11626, npcName = "Rigger Gizelton", minLevel = 32, qlvl = 38, map = 1443, x = 45.4, y = 75.29, f = "e", escort = true },
+						{ t = "complete", quest = 5943, title = "Gizelton Caravan", map = 1443, x = 55.7, y = 67.8, f = "e", escort = true },
 						{ t = "turnin", quest = 5943, title = "Gizelton Caravan", npc = 11596, npcName = "Smeed Scrabblescrew", map = 1443, x = 60.86, y = 61.86, z = 61.4, f = "e" },
 					},
 				},
@@ -4183,8 +4183,8 @@ do
 					title = "\"Stinky\" Ignatz",
 					note = "Stinky waits west of the manor, in the marsh below {area:504}. Lead him to his Bogbean leaves and keep the swamp creatures off him.",
 					goals = {
-						{ t = "accept", quest = 1222, title = "Stinky's Escape", npc = 4880, npcName = "\"Stinky\" Ignatz", minLevel = 30, qlvl = 37, map = 1445, x = 46.88, y = 17.52, z = 35.4, f = "e" },
-						{ t = "complete", quest = 1222, title = "Stinky's Escape", map = 1445, x = 48.9, y = 24.6, f = "e" },
+						{ t = "accept", quest = 1222, title = "Stinky's Escape", npc = 4880, npcName = "\"Stinky\" Ignatz", minLevel = 30, qlvl = 37, map = 1445, x = 46.88, y = 17.52, z = 35.4, f = "e", escort = true },
+						{ t = "complete", quest = 1222, title = "Stinky's Escape", map = 1445, x = 48.9, y = 24.6, f = "e", escort = true },
 					},
 				},
 				{
@@ -4989,15 +4989,15 @@ do
 					note = "{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her.",
 					goals = {
 						{ t = "turnin", quest = 2844, title = "The Giant Guardian", npc = 7774, npcName = "Shay Leafrunner", map = 1444, x = 38.22, y = 10.3, z = 94.5, f = "e" },
-						{ t = "accept", quest = 2845, title = "Wandering Shay", npc = 7774, npcName = "Shay Leafrunner", minLevel = 44, qlvl = 49, pre = { 2844 }, preTitles = { [2844] = "The Giant Guardian" }, map = 1444, x = 38.22, y = 10.3, z = 94.5, f = "e" },
-						{ t = "collect", quest = 2845, title = "Wandering Shay", item = 9189, itemName = "Shay's Bell", count = 1, oi = 1, map = 1444, x = 38.25, y = 10.29, f = "e", from = "Shay's Chest", fromKind = "object", fromId = 144054 },
+						{ t = "accept", quest = 2845, title = "Wandering Shay", npc = 7774, npcName = "Shay Leafrunner", minLevel = 44, qlvl = 49, pre = { 2844 }, preTitles = { [2844] = "The Giant Guardian" }, map = 1444, x = 38.22, y = 10.3, z = 94.5, f = "e", escort = true },
+						{ t = "collect", quest = 2845, title = "Wandering Shay", item = 9189, itemName = "Shay's Bell", count = 1, oi = 1, map = 1444, x = 38.25, y = 10.29, f = "e", from = "Shay's Chest", fromKind = "object", fromId = 144054, escort = true },
 					},
 				},
 				{
 					title = "{npc:7774}'s escort",
 					note = "Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}.",
 					goals = {
-						{ t = "complete", quest = 2845, title = "Wandering Shay" },
+						{ t = "complete", quest = 2845, title = "Wandering Shay", escort = true },
 						{ t = "turnin", quest = 2845, title = "Wandering Shay", npc = 7765, npcName = "Rockbiter", map = 1444, x = 42.39, y = 22, z = 23.6, f = "e" },
 					},
 				},
@@ -5646,8 +5646,8 @@ do
 					title = "{npc:8284}",
 					note = "The dwarf stands by the road at the dig site. Follow him north along the road and fight off the {object:147516} ambushes. When it is over, read the {object:175704} he leaves on the road in {area:1959}.",
 					goals = {
-						{ t = "accept", quest = 3367, title = "Suntara Stones", npc = 8284, npcName = "Dorius Stonetender", minLevel = 40, qlvl = 48, map = 1427, x = 63.92, y = 60.99, z = 234.2, f = "e" },
-						{ t = "complete", quest = 3367, title = "Suntara Stones" },
+						{ t = "accept", quest = 3367, title = "Suntara Stones", npc = 8284, npcName = "Dorius Stonetender", minLevel = 40, qlvl = 48, map = 1427, x = 63.92, y = 60.99, z = 234.2, f = "e", escort = true },
+						{ t = "complete", quest = 3367, title = "Suntara Stones", escort = true },
 						{ t = "turnin", quest = 3367, title = "Suntara Stones", object = 175704, objName = "Singed Letter", map = 1427, x = 74.45, y = 19.29, z = 246.7, f = "e" },
 						{ t = "accept", quest = 3368, title = "Suntara Stones", object = 175704, objName = "Singed Letter", minLevel = 40, qlvl = 48, pre = { 3367 }, preTitles = { [3367] = "Suntara Stones" }, map = 1427, x = 74.45, y = 19.29, z = 246.7, f = "e", note = "For {npc:8256} in {zone:1455}, later" },
 					},
@@ -5907,14 +5907,14 @@ do
 					note = "{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater.",
 					goals = {
 						{ t = "turnin", quest = 4492, title = "Lost!", npc = 9999, npcName = "Ringo", map = 1449, x = 51.9, y = 49.85, z = -231.4, f = "e" },
-						{ t = "accept", quest = 4491, title = "A Little Help From My Friends", npc = 9999, npcName = "Ringo", minLevel = 50, qlvl = 55, pre = { 4492 }, preTitles = { [4492] = "Lost!" }, map = 1449, x = 51.9, y = 49.85, z = -231.4, f = "e" },
+						{ t = "accept", quest = 4491, title = "A Little Help From My Friends", npc = 9999, npcName = "Ringo", minLevel = 50, qlvl = 55, pre = { 4492 }, preTitles = { [4492] = "Lost!" }, map = 1449, x = 51.9, y = 49.85, z = -231.4, f = "e", escort = true },
 					},
 				},
 				{
 					title = "Escort {npc:9999}",
 					note = "Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him.",
 					goals = {
-						{ t = "complete", quest = 4491, title = "A Little Help From My Friends" },
+						{ t = "complete", quest = 4491, title = "A Little Help From My Friends", escort = true },
 					},
 				},
 				{
@@ -6468,8 +6468,8 @@ do
 						{ t = "collect", item = 13140, itemName = "Blood Red Key", map = 1448, x = 35.39, y = 57.85, f = "e", spots = { { x = 35.8, y = 56.9, r = 58, n = 5 }, { x = 37.6, y = 54.4, r = 63, n = 7 }, { x = 36.8, y = 52.5, r = 50, n = 7 }, { x = 38.4, y = 50.6, r = 33, n = 5 }, { x = 39.8, y = 49.3, r = 15, n = 2 }, { x = 36.2, y = 46.1, r = 15, n = 2 }, { x = 38, y = 46.6, r = 66, n = 11, alt = true }, { x = 40.3, y = 48.3, r = 55, n = 7, alt = true } }, optional = true, note = "{item:13140}, a rare drop" },
 						{ t = "accept", quest = 5202, title = "A Strange Red Key", item = 13140, itemName = "Blood Red Key", minLevel = 49, qlvl = 55, optional = true },
 						{ t = "turnin", quest = 5202, title = "A Strange Red Key", npc = 11016, npcName = "Captured Arko'narin", map = 1448, x = 36.21, y = 55.47, z = 319.1, f = "e", optional = true, note = "{npc:11016}, in {area:1770}" },
-						{ t = "accept", quest = 5203, title = "Rescue From Jaedenar", npc = 11016, npcName = "Captured Arko'narin", minLevel = 49, qlvl = 55, pre = { 5202 }, preTitles = { [5202] = "A Strange Red Key" }, map = 1448, x = 36.21, y = 55.47, z = 319.1, f = "e", optional = true },
-						{ t = "complete", quest = 5203, title = "Rescue From Jaedenar", optional = true, note = "Keep her alive until she is out of the cave" },
+						{ t = "accept", quest = 5203, title = "Rescue From Jaedenar", npc = 11016, npcName = "Captured Arko'narin", minLevel = 49, qlvl = 55, pre = { 5202 }, preTitles = { [5202] = "A Strange Red Key" }, map = 1448, x = 36.21, y = 55.47, z = 319.1, f = "e", optional = true, escort = true },
+						{ t = "complete", quest = 5203, title = "Rescue From Jaedenar", optional = true, note = "Keep her alive until she is out of the cave", escort = true },
 					},
 				},
 				{
@@ -7840,8 +7840,8 @@ do
 					title = "{npc:9598}",
 					note = "{npc:9598} waits in {area:1767}. Escort her out of the woods and keep her alive.",
 					goals = {
-						{ t = "accept", quest = 4261, title = "Ancient Spirit", npc = 9598, npcName = "Arei", minLevel = 49, qlvl = 56, pre = { 4442 }, preTitles = { [4442] = "Purified!" }, map = 1448, x = 49.57, y = 29.6, f = "e" },
-						{ t = "complete", quest = 4261, title = "Ancient Spirit" },
+						{ t = "accept", quest = 4261, title = "Ancient Spirit", npc = 9598, npcName = "Arei", minLevel = 49, qlvl = 56, pre = { 4442 }, preTitles = { [4442] = "Purified!" }, map = 1448, x = 49.57, y = 29.6, f = "e", escort = true },
+						{ t = "complete", quest = 4261, title = "Ancient Spirit", escort = true },
 					},
 				},
 				{
@@ -8065,8 +8065,8 @@ do
 					title = "{npc:10300}",
 					note = "Ride south to {area:2250}. Protect {npc:10300} while she lights the torches on the way to the {object:177404}.",
 					goals = {
-						{ t = "accept", quest = 4901, title = "Guardians of the Altar", npc = 10300, npcName = "Ranshalla", minLevel = 52, qlvl = 59, pre = { 979 }, preTitles = { [979] = "Find Ranshalla" }, map = 1452, x = 63.07, y = 59.48, z = 778.1, f = "e" },
-						{ t = "complete", quest = 4901, title = "Guardians of the Altar" },
+						{ t = "accept", quest = 4901, title = "Guardians of the Altar", npc = 10300, npcName = "Ranshalla", minLevel = 52, qlvl = 59, pre = { 979 }, preTitles = { [979] = "Find Ranshalla" }, map = 1452, x = 63.07, y = 59.48, z = 778.1, f = "e", escort = true },
+						{ t = "complete", quest = 4901, title = "Guardians of the Altar", escort = true },
 					},
 				},
 				{
@@ -10040,7 +10040,7 @@ do
 					title = "{area:262}",
 					note = "The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms.",
 					goals = {
-						{ t = "accept", quest = 99053, title = "Escaping Ban'ethil", npc = 275744, npcName = "Sentinel Lynessa Duskblossom", minLevel = 4, qlvl = 9, map = 1438, x = 44.68, y = 58.92, f = "e" },
+						{ t = "accept", quest = 99053, title = "Escaping Ban'ethil", npc = 275744, npcName = "Sentinel Lynessa Duskblossom", minLevel = 4, qlvl = 9, map = 1438, x = 44.68, y = 58.92, f = "e", escort = true },
 						{ t = "accept", quest = 2541, title = "The Sleeping Druid", npc = 7317, npcName = "Oben Rageclaw", minLevel = 3, qlvl = 8, map = 1438, x = 44.94, y = 61.59, z = 1280.4, f = "e" },
 						{ t = "collect", quest = 483, title = "The Relics of Wakening", item = 3405, itemName = "Raven Claw Talisman", oi = 1, map = 1438, x = 45.65, y = 57.44, f = "e", from = "Chest of the Raven Claw", fromKind = "object", fromId = 2740 },
 						{ t = "collect", quest = 483, title = "The Relics of Wakening", item = 3406, itemName = "Black Feather Quill", oi = 2, map = 1438, x = 43.7, y = 61.22, f = "e", from = "Chest of the Black Feather", fromKind = "object", fromId = 2739 },
@@ -10058,7 +10058,7 @@ do
 					note = "Escort {npc:275744} out of the barrow; {npc:2081} in {area:186} takes the report.",
 					goals = {
 						{ t = "goto", text = "{area:736}, outside the barrow", map = 1438, x = 46.4, y = 57.3, f = "e", r = 25, note = "Walk Lynessa out and keep her alive" },
-						{ t = "complete", quest = 99053, title = "Escaping Ban'ethil" },
+						{ t = "complete", quest = 99053, title = "Escaping Ban'ethil", escort = true },
 					},
 				},
 				{
@@ -19444,8 +19444,8 @@ do
 					goals = {
 						{ t = "accept", quest = 2766, title = "Find OOX-22/FE!", item = 8705, itemName = "OOX-22/FE Distress Beacon", minLevel = 40, qlvl = 45 },
 						{ t = "turnin", quest = 2766, title = "Find OOX-22/FE!", npc = 7807, npcName = "Homing Robot OOX-22/FE", map = 1444, x = 53.35, y = 55.7, z = 62.2, f = "e" },
-						{ t = "accept", quest = 2767, title = "Rescue OOX-22/FE!", npc = 7807, npcName = "Homing Robot OOX-22/FE", minLevel = 40, qlvl = 45, pre = { 2766 }, preTitles = { [2766] = "Find OOX-22/FE!" }, map = 1444, x = 53.35, y = 55.7, z = 62.2, f = "e" },
-						{ t = "complete", quest = 2767, title = "Rescue OOX-22/FE!", note = "Escort OOX-22/FE" },
+						{ t = "accept", quest = 2767, title = "Rescue OOX-22/FE!", npc = 7807, npcName = "Homing Robot OOX-22/FE", minLevel = 40, qlvl = 45, pre = { 2766 }, preTitles = { [2766] = "Find OOX-22/FE!" }, map = 1444, x = 53.35, y = 55.7, z = 62.2, f = "e", escort = true },
+						{ t = "complete", quest = 2767, title = "Rescue OOX-22/FE!", note = "Escort OOX-22/FE", escort = true },
 					},
 				},
 				{
@@ -19461,8 +19461,8 @@ do
 					goals = {
 						{ t = "accept", quest = 351, title = "Find OOX-17/TN!", item = 8623, itemName = "OOX-17/TN Distress Beacon", minLevel = 43, qlvl = 48 },
 						{ t = "turnin", quest = 351, title = "Find OOX-17/TN!", npc = 7784, npcName = "Homing Robot OOX-17/TN", map = 1446, x = 60.23, y = 64.72, z = 44.6, f = "e" },
-						{ t = "accept", quest = 648, title = "Rescue OOX-17/TN!", npc = 7784, npcName = "Homing Robot OOX-17/TN", minLevel = 43, qlvl = 48, pre = { 351 }, preTitles = { [351] = "Find OOX-17/TN!" }, map = 1446, x = 60.23, y = 64.72, z = 44.6, f = "e" },
-						{ t = "complete", quest = 648, title = "Rescue OOX-17/TN!", note = "Escort OOX-17/TN" },
+						{ t = "accept", quest = 648, title = "Rescue OOX-17/TN!", npc = 7784, npcName = "Homing Robot OOX-17/TN", minLevel = 43, qlvl = 48, pre = { 351 }, preTitles = { [351] = "Find OOX-17/TN!" }, map = 1446, x = 60.23, y = 64.72, z = 44.6, f = "e", escort = true },
+						{ t = "complete", quest = 648, title = "Rescue OOX-17/TN!", note = "Escort OOX-17/TN", escort = true },
 					},
 				},
 				{
@@ -19478,8 +19478,8 @@ do
 					goals = {
 						{ t = "accept", quest = 485, title = "Find OOX-09/HL!", item = 8704, itemName = "OOX-09/HL Distress Beacon", minLevel = 43, qlvl = 48 },
 						{ t = "turnin", quest = 485, title = "Find OOX-09/HL!", npc = 7806, npcName = "Homing Robot OOX-09/HL", map = 1425, x = 49.35, y = 37.66, z = 116.5, f = "e" },
-						{ t = "accept", quest = 836, title = "Rescue OOX-09/HL!", npc = 7806, npcName = "Homing Robot OOX-09/HL", minLevel = 43, qlvl = 48, pre = { 485 }, preTitles = { [485] = "Find OOX-09/HL!" }, map = 1425, x = 49.35, y = 37.66, z = 116.5, f = "e" },
-						{ t = "complete", quest = 836, title = "Rescue OOX-09/HL!", note = "Escort OOX-09/HL" },
+						{ t = "accept", quest = 836, title = "Rescue OOX-09/HL!", npc = 7806, npcName = "Homing Robot OOX-09/HL", minLevel = 43, qlvl = 48, pre = { 485 }, preTitles = { [485] = "Find OOX-09/HL!" }, map = 1425, x = 49.35, y = 37.66, z = 116.5, f = "e", escort = true },
+						{ t = "complete", quest = 836, title = "Rescue OOX-09/HL!", note = "Escort OOX-09/HL", escort = true },
 					},
 				},
 				{
@@ -22549,8 +22549,8 @@ do
 					title = "{quest:435}",
 					note = "{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way.",
 					goals = {
-						{ t = "accept", quest = 435, title = "Escorting Erland", npc = 1978, npcName = "Deathstalker Erland", minLevel = 10, qlvl = 11, map = 1421, x = 56.18, y = 9.18, z = 53.8, f = "e" },
-						{ t = "complete", quest = 435, title = "Escorting Erland" },
+						{ t = "accept", quest = 435, title = "Escorting Erland", npc = 1978, npcName = "Deathstalker Erland", minLevel = 10, qlvl = 11, map = 1421, x = 56.18, y = 9.18, z = 53.8, f = "e", escort = true },
+						{ t = "complete", quest = 435, title = "Escorting Erland", escort = true },
 					},
 				},
 				{
@@ -22824,8 +22824,8 @@ do
 					title = "{quest:898}",
 					note = "{npc:3465} is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to {area:392}.",
 					goals = {
-						{ t = "accept", quest = 898, title = "Free From the Hold", npc = 3465, npcName = "Gilthares Firebough", minLevel = 13, qlvl = 20, map = 1413, x = 61.96, y = 54.96, z = 61.8, f = "e" },
-						{ t = "complete", quest = 898, title = "Free From the Hold" },
+						{ t = "accept", quest = 898, title = "Free From the Hold", npc = 3465, npcName = "Gilthares Firebough", minLevel = 13, qlvl = 20, map = 1413, x = 61.96, y = 54.96, z = 61.8, f = "e", escort = true },
+						{ t = "complete", quest = 898, title = "Free From the Hold", escort = true },
 					},
 				},
 				{
@@ -23032,14 +23032,14 @@ do
 						{ t = "accept", quest = 858, title = "Ignition", npc = 3439, npcName = "Wizzlecrank's Shredder", minLevel = 13, qlvl = 18, map = 1413, x = 56.52, y = 7.45, z = 82.4, f = "e" },
 						{ t = "collect", quest = 858, title = "Ignition", item = 5050, itemName = "Ignition Key", count = 1, oi = 1, map = 1413, x = 56.27, y = 8.58, f = "e", from = "Supervisor Lugwizzle", fromKind = "npc", fromId = 3445 },
 						{ t = "turnin", quest = 858, title = "Ignition", npc = 3439, npcName = "Wizzlecrank's Shredder", map = 1413, x = 56.52, y = 7.45, z = 82.4, f = "e" },
-						{ t = "accept", quest = 863, title = "The Escape", npc = 3439, npcName = "Wizzlecrank's Shredder", minLevel = 13, qlvl = 18, pre = { 858 }, preTitles = { [858] = "Ignition" }, map = 1413, x = 56.52, y = 7.45, z = 82.4, f = "e" },
+						{ t = "accept", quest = 863, title = "The Escape", npc = 3439, npcName = "Wizzlecrank's Shredder", minLevel = 13, qlvl = 18, pre = { 858 }, preTitles = { [858] = "Ignition" }, map = 1413, x = 56.52, y = 7.45, z = 82.4, f = "e", escort = true },
 					},
 				},
 				{
 					title = "{quest:863}",
 					note = "Wizzlecrank drives his shredder out of the camp: stay with him and kill whatever attacks him. {npc:3442} takes it in {area:392}.",
 					goals = {
-						{ t = "complete", quest = 863, title = "The Escape" },
+						{ t = "complete", quest = 863, title = "The Escape", escort = true },
 					},
 				},
 				{
@@ -24080,7 +24080,7 @@ do
 						{ t = "accept", quest = 6563, title = "The Essence of Aku'Mai", npc = 12736, npcName = "Je'neu Sancrea", minLevel = 17, qlvl = 22, map = 1440, x = 11.56, y = 34.29, z = 6, f = "e" },
 						{ t = "accept", quest = 216, title = "Between a Rock and a Thistlefur", npc = 12757, npcName = "Karang Amakkar", minLevel = 21, qlvl = 24, map = 1440, x = 11.9, y = 34.54, z = 3.4, f = "e" },
 						{ t = "accept", quest = 6462, title = "Troll Charm", npc = 12721, npcName = "Mitsuwa", minLevel = 19, qlvl = 24, map = 1440, x = 11.65, y = 34.85, z = 6.4, f = "e" },
-						{ t = "accept", quest = 6641, title = "Vorsha the Lasher", npc = 12717, npcName = "Muglash", minLevel = 20, qlvl = 23, map = 1440, x = 12.06, y = 34.63, z = 3.9, f = "e", note = "{npc:12717}: starts his escort at once" },
+						{ t = "accept", quest = 6641, title = "Vorsha the Lasher", npc = 12717, npcName = "Muglash", minLevel = 20, qlvl = 23, map = 1440, x = 12.06, y = 34.63, z = 3.9, f = "e", note = "{npc:12717}: starts his escort at once", escort = true },
 					},
 				},
 				{
@@ -24088,7 +24088,7 @@ do
 					note = "{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead.",
 					goals = {
 						{ t = "goto", text = "Naga brazier", map = 1440, x = 9.6, y = 27.6, f = "e" },
-						{ t = "complete", quest = 6641, title = "Vorsha the Lasher" },
+						{ t = "complete", quest = 6641, title = "Vorsha the Lasher", escort = true },
 					},
 				},
 				{
@@ -24126,8 +24126,8 @@ do
 					note = "Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.",
 					goals = {
 						{ t = "collect", quest = 6462, title = "Troll Charm", item = 16602, itemName = "Troll Charm", count = 8, oi = 1, map = 1440, x = 39.88, y = 34.17, f = "e", spots = { { x = 40.3, y = 33.5, r = 42, n = 6 }, { x = 41.5, y = 34.9, r = 33, n = 5 }, { x = 40.6, y = 31.6, r = 34, n = 3 } }, from = "Troll Chest", fromKind = "object", fromId = 178144 },
-						{ t = "accept", quest = 6482, title = "Freedom to Ruul", npc = 12818, npcName = "Ruul Snowhoof", minLevel = 19, qlvl = 24, map = 1440, x = 41.53, y = 34.49, z = 159.9, f = "e" },
-						{ t = "complete", quest = 6482, title = "Freedom to Ruul" },
+						{ t = "accept", quest = 6482, title = "Freedom to Ruul", npc = 12818, npcName = "Ruul Snowhoof", minLevel = 19, qlvl = 24, map = 1440, x = 41.53, y = 34.49, z = 159.9, f = "e", escort = true },
+						{ t = "complete", quest = 6482, title = "Freedom to Ruul", escort = true },
 					},
 				},
 				{
@@ -24186,8 +24186,8 @@ do
 					title = "{quest:6544}",
 					note = "Keep east on the road. {npc:12858} waits south-west of the Warsong lumber camp. He and his grunts storm the {area:2360}: let them take aggro and stay with {npc:12858} until {npc:12860} is dead.",
 					goals = {
-						{ t = "accept", quest = 6544, title = "Torek's Assault", npc = 12858, npcName = "Torek", minLevel = 20, qlvl = 24, map = 1440, x = 68.34, y = 75.3, z = 107.9, f = "e" },
-						{ t = "complete", quest = 6544, title = "Torek's Assault" },
+						{ t = "accept", quest = 6544, title = "Torek's Assault", npc = 12858, npcName = "Torek", minLevel = 20, qlvl = 24, map = 1440, x = 68.34, y = 75.3, z = 107.9, f = "e", escort = true },
+						{ t = "complete", quest = 6544, title = "Torek's Assault", escort = true },
 					},
 				},
 				{
@@ -24396,8 +24396,8 @@ do
 					note = "Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.",
 					goals = {
 						{ t = "collect", quest = 5147, title = "WANTED: Arnak Grimtotem", item = 12884, itemName = "Arnak's Hoof", oi = 1, map = 1441, x = 38.1, y = 26.9, f = "e", from = "Arnak Grimtotem", fromKind = "npc", fromId = 10896 },
-						{ t = "accept", quest = 4904, title = "Free at Last", npc = 10646, npcName = "Lakota Windsong", minLevel = 25, qlvl = 29, map = 1441, x = 37.95, y = 26.45, z = 83.7, f = "e" },
-						{ t = "complete", quest = 4904, title = "Free at Last" },
+						{ t = "accept", quest = 4904, title = "Free at Last", npc = 10646, npcName = "Lakota Windsong", minLevel = 25, qlvl = 29, map = 1441, x = 37.95, y = 26.45, z = 83.7, f = "e", escort = true },
+						{ t = "complete", quest = 4904, title = "Free at Last", escort = true },
 					},
 				},
 				{
@@ -24417,8 +24417,8 @@ do
 					note = "West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.",
 					goals = {
 						{ t = "collect", quest = 4767, title = "Wind Rider", item = 12356, itemName = "Highperch Wyvern Egg", count = 10, oi = 1, map = 1441, x = 17.16, y = 40.79, f = "e", spots = { { x = 17.6, y = 41.6, r = 31, n = 3 }, { x = 11.7, y = 36.9, r = 49, n = 4 }, { x = 11.4, y = 33.7, r = 28, n = 3 } }, from = "Highperch Wyvern Egg", fromKind = "object", fromId = 175384 },
-						{ t = "accept", quest = 4770, title = "Homeward Bound", npc = 10427, npcName = "Pao'ka Swiftmountain", minLevel = 25, qlvl = 29, map = 1441, x = 17.89, y = 40.57, z = 48.8, f = "e" },
-						{ t = "complete", quest = 4770, title = "Homeward Bound" },
+						{ t = "accept", quest = 4770, title = "Homeward Bound", npc = 10427, npcName = "Pao'ka Swiftmountain", minLevel = 25, qlvl = 29, map = 1441, x = 17.89, y = 40.57, z = 48.8, f = "e", escort = true },
+						{ t = "complete", quest = 4770, title = "Homeward Bound", escort = true },
 					},
 				},
 				{
@@ -24603,14 +24603,14 @@ do
 					title = "Gizelton caravan",
 					note = "Follow the road south-west out of Sun Rock into {zone:1443} and on south past {area:608}. {npc:11625}'s kodo caravan waits by the road north of {area:609}; if it has already left, ride on.",
 					goals = {
-						{ t = "accept", quest = 5821, title = "Bodyguard for Hire", npc = 11625, npcName = "Cork Gizelton", minLevel = 30, qlvl = 35, map = 1443, x = 66.54, y = 37.51, f = "e", optional = true },
+						{ t = "accept", quest = 5821, title = "Bodyguard for Hire", npc = 11625, npcName = "Cork Gizelton", minLevel = 30, qlvl = 35, map = 1443, x = 66.54, y = 37.51, f = "e", optional = true, escort = true },
 					},
 				},
 				{
 					title = "{quest:5821}",
 					note = "The caravan rolls south past {area:609}. Kolkar raiders ambush it in waves: kill them before they reach {npc:11625}. It stops by {area:2617}, east of {area:597}.",
 					goals = {
-						{ t = "complete", quest = 5821, title = "Bodyguard for Hire", optional = true },
+						{ t = "complete", quest = 5821, title = "Bodyguard for Hire", optional = true, escort = true },
 					},
 				},
 				{
@@ -25527,14 +25527,14 @@ do
 						{ t = "turnin", quest = 663, title = "Land Ho!", npc = 2610, npcName = "Shakes O'Breen", map = 1417, x = 32.28, y = 81.38, z = 3.2, f = "e" },
 						{ t = "accept", quest = 662, title = "Deep Sea Salvage", npc = 2767, npcName = "First Mate Nilzlix", minLevel = 35, qlvl = 40, pre = { 663 }, preTitles = { [663] = "Land Ho!" }, map = 1417, x = 32.8, y = 81.48, z = 3.5, f = "e" },
 						{ t = "accept", quest = 664, title = "Drowned Sorrows", npc = 2769, npcName = "Captain Steelgut", minLevel = 35, qlvl = 40, pre = { 663 }, preTitles = { [663] = "Land Ho!" }, map = 1417, x = 34, y = 80.8, z = 9.3, f = "e" },
-						{ t = "accept", quest = 665, title = "Sunken Treasure", npc = 2768, npcName = "Professor Phizzlethorpe", minLevel = 35, qlvl = 40, pre = { 663 }, preTitles = { [663] = "Land Ho!" }, map = 1417, x = 33.87, y = 80.55, z = 9.1, f = "e" },
+						{ t = "accept", quest = 665, title = "Sunken Treasure", npc = 2768, npcName = "Professor Phizzlethorpe", minLevel = 35, qlvl = 40, pre = { 663 }, preTitles = { [663] = "Land Ho!" }, map = 1417, x = 33.87, y = 80.55, z = 9.1, f = "e", escort = true },
 					},
 				},
 				{
 					title = "{npc:2768}",
 					note = "Escort the professor down to the shore. Two Daggerspine naga ambush him on the way: stay close.",
 					goals = {
-						{ t = "complete", quest = 665, title = "Sunken Treasure" },
+						{ t = "complete", quest = 665, title = "Sunken Treasure", escort = true },
 					},
 				},
 				{
@@ -25898,8 +25898,8 @@ do
 					title = "Stinky Ignatz",
 					note = "Ride north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it.",
 					goals = {
-						{ t = "accept", quest = 1270, title = "Stinky's Escape", npc = 4880, npcName = "\"Stinky\" Ignatz", minLevel = 30, qlvl = 37, map = 1445, x = 46.88, y = 17.52, z = 35.4, f = "e" },
-						{ t = "complete", quest = 1270, title = "Stinky's Escape" },
+						{ t = "accept", quest = 1270, title = "Stinky's Escape", npc = 4880, npcName = "\"Stinky\" Ignatz", minLevel = 30, qlvl = 37, map = 1445, x = 46.88, y = 17.52, z = 35.4, f = "e", escort = true },
+						{ t = "complete", quest = 1270, title = "Stinky's Escape", escort = true },
 					},
 				},
 				{
@@ -25984,8 +25984,8 @@ do
 					title = "{npc:12277}",
 					note = "Ride north-east to the {area:607}. {npc:12277} is held in the Maraudine centaur camp; free her and escort her out east of the valley.",
 					goals = {
-						{ t = "accept", quest = 6132, title = "Get Me Out of Here!", npc = 12277, npcName = "Melizza Brimbuzzle", minLevel = 34, qlvl = 39, map = 1443, x = 33.95, y = 53.5, z = 111.2, f = "e" },
-						{ t = "complete", quest = 6132, title = "Get Me Out of Here!" },
+						{ t = "accept", quest = 6132, title = "Get Me Out of Here!", npc = 12277, npcName = "Melizza Brimbuzzle", minLevel = 34, qlvl = 39, map = 1443, x = 33.95, y = 53.5, z = 111.2, f = "e", escort = true },
+						{ t = "complete", quest = 6132, title = "Get Me Out of Here!", escort = true },
 					},
 				},
 				{
@@ -26000,8 +26000,8 @@ do
 					title = "{quest:5943}",
 					note = "{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice.",
 					goals = {
-						{ t = "accept", quest = 5943, title = "Gizelton Caravan", npc = 11626, npcName = "Rigger Gizelton", minLevel = 32, qlvl = 38, map = 1443, x = 45.4, y = 75.29, f = "e" },
-						{ t = "complete", quest = 5943, title = "Gizelton Caravan" },
+						{ t = "accept", quest = 5943, title = "Gizelton Caravan", npc = 11626, npcName = "Rigger Gizelton", minLevel = 32, qlvl = 38, map = 1443, x = 45.4, y = 75.29, f = "e", escort = true },
+						{ t = "complete", quest = 5943, title = "Gizelton Caravan", escort = true },
 					},
 				},
 				{
@@ -26430,8 +26430,8 @@ do
 					title = "{quest:1393}",
 					note = "{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him.",
 					goals = {
-						{ t = "accept", quest = 1393, title = "Galen's Escape", npc = 5391, npcName = "Galen Goodward", minLevel = 30, qlvl = 38, map = 1435, x = 65.47, y = 18.16, z = 22.4, f = "e" },
-						{ t = "complete", quest = 1393, title = "Galen's Escape" },
+						{ t = "accept", quest = 1393, title = "Galen's Escape", npc = 5391, npcName = "Galen Goodward", minLevel = 30, qlvl = 38, map = 1435, x = 65.47, y = 18.16, z = 22.4, f = "e", escort = true },
+						{ t = "complete", quest = 1393, title = "Galen's Escape", escort = true },
 					},
 				},
 				{
@@ -26820,8 +26820,8 @@ do
 					note = "Only with the distress beacon: the robot sits in a small cave on the north side of {area:1105}. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.",
 					goals = {
 						{ t = "turnin", quest = 2766, title = "Find OOX-22/FE!", npc = 7807, npcName = "Homing Robot OOX-22/FE", map = 1444, x = 53.35, y = 55.7, z = 62.2, f = "e", optional = true },
-						{ t = "accept", quest = 2767, title = "Rescue OOX-22/FE!", npc = 7807, npcName = "Homing Robot OOX-22/FE", minLevel = 40, qlvl = 45, pre = { 2766 }, preTitles = { [2766] = "Find OOX-22/FE!" }, map = 1444, x = 53.35, y = 55.7, z = 62.2, f = "e", optional = true },
-						{ t = "complete", quest = 2767, title = "Rescue OOX-22/FE!", optional = true },
+						{ t = "accept", quest = 2767, title = "Rescue OOX-22/FE!", npc = 7807, npcName = "Homing Robot OOX-22/FE", minLevel = 40, qlvl = 45, pre = { 2766 }, preTitles = { [2766] = "Find OOX-22/FE!" }, map = 1444, x = 53.35, y = 55.7, z = 62.2, f = "e", optional = true, escort = true },
+						{ t = "complete", quest = 2767, title = "Rescue OOX-22/FE!", optional = true, escort = true },
 					},
 				},
 				{
@@ -27300,8 +27300,8 @@ do
 					goals = {
 						{ t = "accept", quest = 351, title = "Find OOX-17/TN!", item = 8623, itemName = "OOX-17/TN Distress Beacon", minLevel = 43, qlvl = 48, optional = true },
 						{ t = "turnin", quest = 351, title = "Find OOX-17/TN!", npc = 7784, npcName = "Homing Robot OOX-17/TN", map = 1446, x = 60.23, y = 64.72, z = 44.6, f = "e", optional = true },
-						{ t = "accept", quest = 648, title = "Rescue OOX-17/TN!", npc = 7784, npcName = "Homing Robot OOX-17/TN", minLevel = 43, qlvl = 48, pre = { 351 }, preTitles = { [351] = "Find OOX-17/TN!" }, map = 1446, x = 60.23, y = 64.72, z = 44.6, f = "e", optional = true },
-						{ t = "complete", quest = 648, title = "Rescue OOX-17/TN!", optional = true },
+						{ t = "accept", quest = 648, title = "Rescue OOX-17/TN!", npc = 7784, npcName = "Homing Robot OOX-17/TN", minLevel = 43, qlvl = 48, pre = { 351 }, preTitles = { [351] = "Find OOX-17/TN!" }, map = 1446, x = 60.23, y = 64.72, z = 44.6, f = "e", optional = true, escort = true },
+						{ t = "complete", quest = 648, title = "Rescue OOX-17/TN!", optional = true, escort = true },
 					},
 				},
 				{
@@ -27586,8 +27586,8 @@ do
 						{ t = "interact", quest = 2995, title = "Lines of Communication", object = 144073, objName = "Highvale Report", oi = 3, map = 1425, x = 28.56, y = 46.05, z = 119.9, f = "e" },
 						{ t = "interact", quest = 2995, title = "Lines of Communication", object = 144072, objName = "Highvale Notes", oi = 2, map = 1425, x = 29.63, y = 48.66, z = 121.7, f = "e" },
 						{ t = "interact", quest = 2995, title = "Lines of Communication", object = 144071, objName = "Highvale Records", oi = 1, map = 1425, x = 31.99, y = 46.82, z = 123.4, f = "e" },
-						{ t = "accept", quest = 2742, title = "Rin'ji is Trapped!", npc = 7780, npcName = "Rin'ji", minLevel = 42, qlvl = 47, map = 1425, x = 30.73, y = 46.9, z = 122.6, f = "e" },
-						{ t = "complete", quest = 2742, title = "Rin'ji is Trapped!" },
+						{ t = "accept", quest = 2742, title = "Rin'ji is Trapped!", npc = 7780, npcName = "Rin'ji", minLevel = 42, qlvl = 47, map = 1425, x = 30.73, y = 46.9, z = 122.6, f = "e", escort = true },
+						{ t = "complete", quest = 2742, title = "Rin'ji is Trapped!", escort = true },
 					},
 				},
 				{
@@ -27688,8 +27688,8 @@ do
 					goals = {
 						{ t = "accept", quest = 485, title = "Find OOX-09/HL!", item = 8704, itemName = "OOX-09/HL Distress Beacon", minLevel = 43, qlvl = 48, optional = true },
 						{ t = "turnin", quest = 485, title = "Find OOX-09/HL!", npc = 7806, npcName = "Homing Robot OOX-09/HL", map = 1425, x = 49.35, y = 37.66, z = 116.5, f = "e", optional = true },
-						{ t = "accept", quest = 836, title = "Rescue OOX-09/HL!", npc = 7806, npcName = "Homing Robot OOX-09/HL", minLevel = 43, qlvl = 48, pre = { 485 }, preTitles = { [485] = "Find OOX-09/HL!" }, map = 1425, x = 49.35, y = 37.66, z = 116.5, f = "e", optional = true },
-						{ t = "complete", quest = 836, title = "Rescue OOX-09/HL!", optional = true },
+						{ t = "accept", quest = 836, title = "Rescue OOX-09/HL!", npc = 7806, npcName = "Homing Robot OOX-09/HL", minLevel = 43, qlvl = 48, pre = { 485 }, preTitles = { [485] = "Find OOX-09/HL!" }, map = 1425, x = 49.35, y = 37.66, z = 116.5, f = "e", optional = true, escort = true },
+						{ t = "complete", quest = 836, title = "Rescue OOX-09/HL!", optional = true, escort = true },
 					},
 				},
 				{
@@ -28315,14 +28315,14 @@ do
 					note = "{npc:9999} sits on the ridge, lost and exhausted.",
 					goals = {
 						{ t = "turnin", quest = 4492, title = "Lost!", npc = 9999, npcName = "Ringo", map = 1449, x = 51.9, y = 49.85, z = -231.4, f = "e" },
-						{ t = "accept", quest = 4491, title = "A Little Help From My Friends", npc = 9999, npcName = "Ringo", minLevel = 50, qlvl = 55, pre = { 4492 }, preTitles = { [4492] = "Lost!" }, map = 1449, x = 51.9, y = 49.85, z = -231.4, f = "e" },
+						{ t = "accept", quest = 4491, title = "A Little Help From My Friends", npc = 9999, npcName = "Ringo", minLevel = 50, qlvl = 55, pre = { 4492 }, preTitles = { [4492] = "Lost!" }, map = 1449, x = 51.9, y = 49.85, z = -231.4, f = "e", escort = true },
 					},
 				},
 				{
 					title = "Escort {npc:9999}",
 					note = "Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him.",
 					goals = {
-						{ t = "complete", quest = 4491, title = "A Little Help From My Friends" },
+						{ t = "complete", quest = 4491, title = "A Little Help From My Friends", escort = true },
 					},
 				},
 				{
@@ -28905,8 +28905,8 @@ do
 					goals = {
 						{ t = "accept", quest = 5202, title = "A Strange Red Key", item = 13140, itemName = "Blood Red Key", minLevel = 49, qlvl = 55, optional = true },
 						{ t = "turnin", quest = 5202, title = "A Strange Red Key", npc = 11016, npcName = "Captured Arko'narin", map = 1448, x = 36.21, y = 55.47, z = 319.1, f = "e", optional = true },
-						{ t = "accept", quest = 5203, title = "Rescue From Jaedenar", npc = 11016, npcName = "Captured Arko'narin", minLevel = 49, qlvl = 55, pre = { 5202 }, preTitles = { [5202] = "A Strange Red Key" }, map = 1448, x = 36.21, y = 55.47, z = 319.1, f = "e", optional = true },
-						{ t = "complete", quest = 5203, title = "Rescue From Jaedenar", optional = true },
+						{ t = "accept", quest = 5203, title = "Rescue From Jaedenar", npc = 11016, npcName = "Captured Arko'narin", minLevel = 49, qlvl = 55, pre = { 5202 }, preTitles = { [5202] = "A Strange Red Key" }, map = 1448, x = 36.21, y = 55.47, z = 319.1, f = "e", optional = true, escort = true },
+						{ t = "complete", quest = 5203, title = "Rescue From Jaedenar", optional = true, escort = true },
 					},
 				},
 				{
@@ -30860,9 +30860,9 @@ do
 						{ t = "interact", quest = 786, title = "Thwarting Kolkar Aggression", object = 3189, objName = "Attack Plan: Valley of Trials", oi = 1, map = 1411, x = 49.8, y = 81.3, z = 25.8, f = "e" },
 						{ t = "interact", quest = 786, title = "Thwarting Kolkar Aggression", object = 3190, objName = "Attack Plan: Sen'jin Village", oi = 2, map = 1411, x = 47.7, y = 77.3, z = 29.6, f = "e" },
 						{ t = "interact", quest = 786, title = "Thwarting Kolkar Aggression", object = 3192, objName = "Attack Plan: Orgrimmar", oi = 3, map = 1411, x = 46.2, y = 78.9, z = 29.3, f = "e" },
-						{ t = "accept", quest = 99123, title = "Lost in the Shadows", npc = 275811, npcName = "Pal'juh", minLevel = 4, qlvl = 8, map = 1411, x = 46.3, y = 78.7, f = "e" },
+						{ t = "accept", quest = 99123, title = "Lost in the Shadows", npc = 275811, npcName = "Pal'juh", minLevel = 4, qlvl = 8, map = 1411, x = 46.3, y = 78.7, f = "e", escort = true },
 						{ t = "goto", text = "{area:366}", area = 366, map = 1411, x = 46.3, y = 78.7, f = "e", note = "Free {npc:275811} and see her safely out of the crag" },
-						{ t = "complete", quest = 99123, title = "Lost in the Shadows" },
+						{ t = "complete", quest = 99123, title = "Lost in the Shadows", escort = true },
 					},
 				},
 				{
@@ -32697,8 +32697,8 @@ do
 					note = "The Palemane gnolls hold {area:818}, south of the digsite and west of Bloodhoof. {npc:272203} is held in their camp: lead him out.",
 					goals = {
 						{ t = "complete", quest = 745, title = "Sharing the Land" },
-						{ t = "accept", quest = 98430, title = "The Longwalkers", npc = 272203, npcName = "Perith Stormhoof", minLevel = 1, qlvl = 8, map = 1412, x = 33.13, y = 65.93 },
-						{ t = "complete", quest = 98430, title = "The Longwalkers" },
+						{ t = "accept", quest = 98430, title = "The Longwalkers", npc = 272203, npcName = "Perith Stormhoof", minLevel = 1, qlvl = 8, map = 1412, x = 33.13, y = 65.93, escort = true },
+						{ t = "complete", quest = 98430, title = "The Longwalkers", escort = true },
 					},
 				},
 				{
@@ -33271,9 +33271,9 @@ do
 					note = "Scarlet Warriors guard the outpost just west of the pumpkin fields. {npc:275954} is held inside: talk to him and stay with him until he is out.",
 					goals = {
 						{ t = "kill", quest = 427, title = "At War With The Scarlet Crusade", target = "Scarlet Warrior", npc = 1535, count = 10, oi = 1, map = 1420, x = 37.4, y = 47.71, z = 34, f = "e", spots = { { x = 36.8, y = 47.8, z = 34.5, r = 31, n = 3 }, { x = 33.7, y = 48.4, z = 36, r = 47, n = 6 }, { x = 33.3, y = 46, r = 26, n = 2 }, { x = 32, y = 50.5, r = 36, n = 4 }, { x = 31.6, y = 46.4, z = 37.2, r = 57, n = 9 }, { x = 30.4, y = 49.7, r = 56, n = 5 }, { x = 34.1, y = 51.4, z = 32.9, r = 15, n = 1, alt = true } } },
-						{ t = "accept", quest = 99144, title = "Seeking Refuge", npc = 275954, npcName = "Bareth Dawnstone", minLevel = 5, qlvl = 7, map = 1420, x = 31.96, y = 46.32, f = "e" },
+						{ t = "accept", quest = 99144, title = "Seeking Refuge", npc = 275954, npcName = "Bareth Dawnstone", minLevel = 5, qlvl = 7, map = 1420, x = 31.96, y = 46.32, f = "e", escort = true },
 						{ t = "goto", text = "Crusader's Outpost", map = 1420, x = 32, y = 46.3, f = "e", note = "Escort {npc:275954} out of the outpost" },
-						{ t = "complete", quest = 99144, title = "Seeking Refuge" },
+						{ t = "complete", quest = 99144, title = "Seeking Refuge", escort = true },
 					},
 				},
 				{

@@ -219,6 +219,7 @@ AND. `only Warrior,Paladin,Dwarf` = (Warrior or Paladin) and Dwarf.
 | Era frame flag `f = "e"` | when coordinates come from Era-frame data, or were typed in an `era` guide/goal |
 | spawn areas `spots` | every goal placed at an NPC or object that spawns at more than one place, and hand-placed `@x,y` goals whose target the data also knows: see "Spawn areas" below |
 | group content `group` | elite work, dungeon and raid quests and goals on an instance map: see "Group content" below |
+| escort `escort` | the accept, `complete` and objective goals of an escort quest: see "Escort quests" below |
 | height `z` | a goal at an NPC or object: the height of that NPC's or object's spawn (`spawnz.json`), so the walk ends on its floor: see "Heights" below |
 | place area `area` | `sethome`, `hearth`, `fly` and `getfp` (their location) and `goto` (its label): the AreaTable area of that name, so the goal completes and reads right on every client language: see "Places by ID" below |
 | taxi node `node` | `getfp`: its flight point's taxi node (`travel.json`): see "Places by ID" below |
@@ -417,6 +418,21 @@ The instances come from the Forever client's `Map.csv`, `AreaTable.csv` and
 (`data/sources/wago/<build>/` for `data/forever`; `data build` and `codex
 build` cache them). Without them only `group [N]` and elite work apply. The
 guide's `group = true` is set when any goal that is not `optional` has `group`.
+
+## Escort quests
+
+An escort quest's NPC walks off with whoever took the quest last and is gone
+until it respawns. The guide window says so under the quest's accept,
+`complete` and objective goals (once per card): "Escort: if the NPC is not
+there, wait for it to respawn". Its turn-in has no such line. The compiler
+writes `escort = true` on those goals (`tools/lib/dsl/escort.js`) when the
+quest's own words say escort: an `event` objective's text ("Escort Miran to
+the excavation site") or the quest's `objectiveText` ("Escort the captive
+fire elemental out of Dun Modr"). A quest's `escort` in `quests.json` wins,
+set by `tools/lib/data/corrections.json` with its source: `true` for an
+escort worded otherwise ("Protect Volcor until you reach the road"), `false`
+for a quest whose text wrongly says escort (Lost! 4492 carries the objective
+of the escort after it). There is no modifier: a wrong label is a data fix.
 
 ## Validation
 
