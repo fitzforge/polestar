@@ -221,15 +221,27 @@ them.
 
 ### From first guide to published
 
-| Step | Command | What it does |
-|---|---|---|
-| **1. Start** | `polestar new my-pack` | Writes `pack.json`, an example guide that already passes every check, a README for your players and the `LICENSE` you chose. In a clone of the public repository it also writes a GitHub workflow that checks every push. |
-| **2. Write** | `polestar find <text>` | Prints quest, NPC, object, item, inn and flight-point lines ready to paste. In the game, `/polestar where` prints where you stand as a guide line. |
-| **3. Check** | `polestar lint`<br>`polestar playtest` | `lint` checks every guide against the game's data. `playtest` plays each one to the end, for each race that can reach it and each class it has steps for. |
-| **4. Try** | `polestar play`<br>`polestar install` | `play` opens the real addon in your browser with your pack loaded. `install` copies it into the game's AddOns folder (restart the game the first time). |
-| **5. Build** | `polestar pack` | Writes `dist/<folder>-<version>.zip`, byte for byte reproducible. |
-| **6. Publish** | | Upload the zip as a new addon project on CurseForge, Wago or GitHub. On CurseForge and Wago, mark Polestar as a required dependency so addon apps install it too. With the template's workflow, a version tag on GitHub builds the zip and attaches it to a release. |
-| **7. Update** | `polestar pack` | Raise `version` in `pack.json`, build again and upload the new zip. |
+1. **Start**: `polestar new my-pack` writes `pack.json`, an example guide
+   that already passes every check, a README for your players and the
+   `LICENSE` you chose. In a clone of the public repository it also writes
+   a GitHub workflow that checks every push.
+2. **Write**: `polestar find <text>` prints quest, NPC, object, item, inn
+   and flight-point lines ready to paste. In the game, `/polestar where`
+   prints where you stand as a guide line.
+3. **Check**: `polestar lint` checks every guide against the game's data,
+   and `polestar playtest` plays each one to the end, for each race that
+   can reach it and each class it has steps for.
+4. **Try**: `polestar play` opens the real addon in your browser with your
+   pack loaded, and `polestar install` copies it into the game's AddOns
+   folder (restart the game the first time).
+5. **Build**: `polestar pack` writes `dist/<folder>-<version>.zip`, byte
+   for byte reproducible.
+6. **Publish**: upload the zip as a new addon project on CurseForge, Wago
+   or GitHub. On CurseForge and Wago, mark Polestar as a required
+   dependency so addon apps install it too. With the template's workflow, a
+   version tag on GitHub builds the zip and attaches it to a release.
+7. **Update**: raise `version` in `pack.json`, run `polestar pack` again and
+   upload the new zip.
 
 > [!NOTE]
 > An AI assistant can help you draft guides from your own material.
