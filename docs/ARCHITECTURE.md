@@ -768,7 +768,8 @@ data's places its alternatives (GUIDE_FORMAT, "Spawn areas"). `x`/`y` stay the
 default point. `z` (optional, 0.2.4) is the height of the NPC or object the
 goal's `x`/`y` stands for (the compiler's, from `spawnz.json`: GUIDE_FORMAT,
 "Heights"); the Engine puts it on the waypoint while the waypoint is that
-point (`posOf`: not a smart target's candidate, not a spot elsewhere), and the
+point (`posOf`: a smart target's candidate when it carries its own `z`,
+otherwise not a candidate, and not a spot elsewhere), and the
 walk to it is searched with it ("Walking paths" under Nav). Packs stay format
 2: an older Polestar ignores it.
 
@@ -922,7 +923,9 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
 
 #### Smart logic
 
-- **Candidate goals.** A compiled goal may carry `candidates = { { npc, npcName, map, x, y, f, faction = "A"|"H"|"AH", races?, classes? }, ... }`
+- **Candidate goals.** A compiled goal may carry `candidates = { { npc, npcName, map, x, y, z?, f, faction = "A"|"H"|"AH", races?, classes? }, ... }`
+  (`z` optional: the candidate's own spawn height, from `tools/lib/dsl/heights.js`
+  when its NPC spawns within 15 yards on that map; see GUIDE_FORMAT, "Heights")
   (from `train <Profession>`, `train class`, `buy … nearest`, `vendor nearest`, `sethome nearest`; see GUIDE_FORMAT).
   The Engine filters by the character's faction (and races/classes when given),
   then picks the cheapest by `Polestar.Nav.EstimateTravel(from, to)` seconds when
@@ -1933,7 +1936,8 @@ most every 2 s, the old path kept meanwhile); a failed search (`nodata`,
 or `Find` raising) is asked again only after 15 s and 25 yd. Nothing is
 asked for in combat (the engine's own queue waits out combat as well).
 The walk to the target's own point carries the target's height: the Engine
-waypoint's `z` (a guide goal at an NPC or object, Guide data), which
+waypoint's `z` (a guide goal at an NPC or object, or the chosen smart
+candidate's own, Guide data), which
 `Nav.GetTargetWorld()` returns fourth (a target set with `Nav.SetTarget` has
 none). It goes to `Path.Find` as `to.z`, so the path ends on that floor; a
 search with it that fails, or whose path's last engine point before the goal

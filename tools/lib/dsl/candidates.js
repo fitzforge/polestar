@@ -10,6 +10,8 @@
 // reachable, so the Engine can pick the nearest from wherever the player is;
 // MAX_PER_GROUP only guards against runaway data.
 
+const { entityHeight } = require('./heights');
+
 const CAP = 6; // kept for callers that ask for a hard per-group limit
 const HUB_YARDS = 250;
 const MAX_PER_GROUP = 120;
@@ -123,6 +125,8 @@ function buildCandidates(data, entries, opts) {
 			if (p.f) cand.f = p.f;
 			cand.faction = tag;
 			if (meta.classes && meta.classes.length) cand.classes = meta.classes;
+			const z = entityHeight(data, 'npc', id, p);
+			if (z !== undefined) cand.z = z;
 			const near = ref && w && w.c === ref.c;
 			all.push({ cand, c: w ? w.c : null, w, d: near ? Math.hypot(w.wx - ref.wx, w.wy - ref.wy) : null });
 		}

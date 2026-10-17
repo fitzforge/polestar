@@ -107,7 +107,7 @@ matches the walking maps' floors for 99.1% of them).
 |---|---|---|
 | Z1 | A guide goal at an NPC or object is searched with its height and ends on its floor; a point set by hand has no height | `tests/engine-heights.test.js`, `tests/nav-spf.test.js`, `tests/nav-e2e.test.js` |
 | Z2 | A search with the height that fails, or whose path ends more than 30 yards above or below it, is asked once more without it, and that answer stands | `tests/nav-spf.test.js` |
-| Z3 | Only a goal whose point stands for an NPC or object gets a height, from a spawn of that NPC or object on the same map within 15 yards; gotos, collect spots, exploration, smart targets and spawn places elsewhere get none | `tests/dsl-heights.test.js`, `tests/engine-heights.test.js` |
+| Z3 | Only a goal whose point stands for an NPC or object gets a height, from a spawn of that NPC or object on the same map within 15 yards; a smart target's candidate gets one from a spawn of its own NPC the same way, and the engine uses the chosen candidate's; gotos, collect spots, exploration and spawn places elsewhere get none | `tests/dsl-heights.test.js`, `tests/engine-heights.test.js`, `tests/issue-180-candidate-heights.test.js` |
 
 ## In game
 

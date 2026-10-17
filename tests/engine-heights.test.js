@@ -1,8 +1,9 @@
 'use strict';
 // Floors (docs/NAV_QA.md Z1, Z3): a compiled goal's `z` (the height of the
 // NPC or object its point stands for, docs/GUIDE_FORMAT.md) rides on the
-// Engine's waypoint while the waypoint is the goal's own point; a smart
-// target's candidate, a spawn area elsewhere and a goal without `z` carry none.
+// Engine's waypoint while the waypoint is the goal's own point, or when a
+// smart candidate carries its own `z`; a candidate without its own `z`, a
+// spawn area elsewhere and a goal without `z` remain heightless.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -47,7 +48,7 @@ ${GUIDE}
 	}).emitted;
 }
 
-test('Z1, Z3: the waypoint carries the goal\'s z at the goal\'s own point only', () => {
+test('Z1, Z3: the waypoint carries the goal\'s z at the goal\'s own point, or a candidate\'s own z', () => {
 	const [out] = run(`
 		E.SetGuide("test/z")
 		local function z() local wp = E.GetWaypoint(); return wp and (wp.z or "none") or "no waypoint" end
@@ -64,6 +65,6 @@ test('Z1, Z3: the waypoint carries the goal\'s z at the goal\'s own point only',
 	assert.equal(out.talk, -66, 'an NPC goal: its z');
 	assert.equal(out.spotHere, -40, 'a spawn area at the goal\'s own point keeps it');
 	assert.equal(out.spotElsewhere, 'none', 'another spawn area has none');
-	assert.equal(out.candidate, 'none', 'a smart target\'s candidate has none');
+	assert.equal(out.candidate, 'none', 'a smart candidate without its own z remains heightless');
 	assert.equal(out.goto, 'none', 'a goal without z has none');
 });
