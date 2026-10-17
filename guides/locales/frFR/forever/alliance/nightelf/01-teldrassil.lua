@@ -27,7 +27,7 @@ return {
 	-- {npc:2082} Gilshalan Windwalker
 	["{npc:2082}, on the tree's ramp"] = "{npc:2082}, sur la rampe de l'arbre",
 	-- {npc:3595} Shanda
-	["{npc:3595}, inside the tree"] = "{npc:3595}, dans l'arbre",
+	["{npc:3595}: in at the tree's front entrance and up the ramp"] = "",
 	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {npc:3595} Shanda
 	["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979} : lancez {spell:1259799} et Camouflage dans l'ombre, puis rendez-la à {npc:3595}",
 	-- {npc:8583} Dirania Silvershine
@@ -50,7 +50,7 @@ return {
 	-- {npc:3594} Frahun Shadewhisper
 	["{npc:3594}, the rogue trainer"] = "{npc:3594}, le maître des voleurs",
 	-- {npc:3595} Shanda
-	["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595}, la maîtresse des prêtres, dans l'arbre",
+	["{npc:3595}, the priest trainer: in at the tree's front entrance and up the ramp"] = "",
 	-- {npc:3597} Mardant Strongoak · {area:256} Aldrassil
 	["{npc:3597}, the druid trainer at {area:256}"] = "{npc:3597}, le maître des druides à {area:256}",
 
@@ -323,6 +323,8 @@ return {
 	-- ["The {area:264}"] = "{area:264}",
 	-- ["{npc:11401}, in the Temple of the Moon: {spell:10797}"] = "{npc:11401}, dans le temple de la Lune : {spell:10797}",
 	-- ["{npc:2150} sits by the road just east of {area:186}, on the way to {area:260}."] = "{npc:2150} est assis au bord de la route juste à l'est de {area:186}, en direction de {area:260}.",
+	-- ["{npc:3595}, inside the tree"] = "{npc:3595}, dans l'arbre",
+	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595}, la maîtresse des prêtres, dans l'arbre",
 	-- ["{npc:4217}: Bear Form"] = "{npc:4217} : Forme d'ours",
 	-- ["{npc:6089}: Defensive Stance"] = "{npc:6089} : Posture défensive",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979} : lancez {spell:1259799} et {spell:20580}, puis rendez-la à {npc:3595}",

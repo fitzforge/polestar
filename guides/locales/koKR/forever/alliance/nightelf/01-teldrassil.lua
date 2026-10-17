@@ -27,7 +27,7 @@ return {
 	-- {npc:2082} Gilshalan Windwalker
 	["{npc:2082}, on the tree's ramp"] = "나무 경사로의 {npc:2082}",
 	-- {npc:3595} Shanda
-	["{npc:3595}, inside the tree"] = "나무 안의 {npc:3595}",
+	["{npc:3595}: in at the tree's front entrance and up the ramp"] = "",
 	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {npc:3595} Shanda
 	["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}: {spell:1259799}와(과) 그림자 숨기를 시전한 뒤 {npc:3595}에게 완료하세요",
 	-- {npc:8583} Dirania Silvershine
@@ -50,7 +50,7 @@ return {
 	-- {npc:3594} Frahun Shadewhisper
 	["{npc:3594}, the rogue trainer"] = "도적 상급자 {npc:3594}",
 	-- {npc:3595} Shanda
-	["{npc:3595}, the priest trainer, inside the tree"] = "나무 안의 사제 상급자 {npc:3595}",
+	["{npc:3595}, the priest trainer: in at the tree's front entrance and up the ramp"] = "",
 	-- {npc:3597} Mardant Strongoak · {area:256} Aldrassil
 	["{npc:3597}, the druid trainer at {area:256}"] = "{area:256}의 드루이드 상급자 {npc:3597}",
 
@@ -321,5 +321,7 @@ return {
 	-- ["The {area:264}"] = "{area:264}",
 	-- ["{npc:11401}, in the Temple of the Moon: {spell:10797}"] = "달의 신전의 {npc:11401}: {spell:10797}",
 	-- ["{npc:2150} sits by the road just east of {area:186}, on the way to {area:260}."] = "{npc:2150}은(는) {area:260}(으)로 가는 길, {area:186} 바로 동쪽 길가에 앉아 있습니다.",
+	-- ["{npc:3595}, inside the tree"] = "나무 안의 {npc:3595}",
+	-- ["{npc:3595}, the priest trainer, inside the tree"] = "나무 안의 사제 상급자 {npc:3595}",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}: {spell:1259799}와(과) {spell:20580}을(를) 시전한 뒤 {npc:3595}에게 완료하세요",
 }

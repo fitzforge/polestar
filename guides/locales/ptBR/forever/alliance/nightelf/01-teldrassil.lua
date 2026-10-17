@@ -27,7 +27,7 @@ return {
 	-- {npc:2082} Gilshalan Windwalker
 	["{npc:2082}, on the tree's ramp"] = "{npc:2082}, na rampa da árvore",
 	-- {npc:3595} Shanda
-	["{npc:3595}, inside the tree"] = "{npc:3595}, dentro da árvore",
+	["{npc:3595}: in at the tree's front entrance and up the ramp"] = "",
 	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {npc:3595} Shanda
 	["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}: lance {spell:1259799} e Fusão Sombria e depois entregue a {npc:3595}",
 	-- {npc:8583} Dirania Silvershine
@@ -50,7 +50,7 @@ return {
 	-- {npc:3594} Frahun Shadewhisper
 	["{npc:3594}, the rogue trainer"] = "{npc:3594}, o instrutor de ladino",
 	-- {npc:3595} Shanda
-	["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595}, a instrutora de sacerdote, dentro da árvore",
+	["{npc:3595}, the priest trainer: in at the tree's front entrance and up the ramp"] = "",
 	-- {npc:3597} Mardant Strongoak · {area:256} Aldrassil
 	["{npc:3597}, the druid trainer at {area:256}"] = "{npc:3597}, o instrutor de druida em {area:256}",
 
@@ -319,4 +319,6 @@ return {
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "Sabres-da-noite, Corujas Estrígidas e Tocaieiras Lenhateia vivem ao longo da estrada para o leste. O poço lunar fica na borda oeste de {area:260}.",
 	-- ["The {area:264}"] = "{area:264}",
 	-- ["{npc:2150} sits by the road just east of {area:186}, on the way to {area:260}."] = "{npc:2150} fica junto à estrada, logo a leste de {area:186}, a caminho de {area:260}.",
+	-- ["{npc:3595}, inside the tree"] = "{npc:3595}, dentro da árvore",
+	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595}, a instrutora de sacerdote, dentro da árvore",
 }

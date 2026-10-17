@@ -151,7 +151,7 @@ step Back at Aldrassil
   accept 3120 only Druid                      -- Conservator Ilthalaine: Verdant Sigil
   accept 457                                  -- Conservator Ilthalaine
   accept 916                                  -- Gilshalan Windwalker, on the tree's ramp
-  accept 97979                                -- Shanda, inside the tree
+  accept 97979                                -- Shanda: in at the tree's front entrance and up the ramp
   note "The Goddess Provides: cast Elune's Light and Shadowmeld, then hand it back to Shanda"
   turnin 97979
   accept 4495                                 -- Dirania Silvershine, east of the tree
@@ -176,7 +176,7 @@ step Aldrassil
   turnin 3116 only Warrior                    -- Alyissia, the warrior trainer
   turnin 3117 only Hunter                     -- Ayanna Everstride, the hunter trainer
   turnin 3118 only Rogue                      -- Frahun Shadewhisper, the rogue trainer
-  turnin 3119 only Priest                     -- Shanda, the priest trainer, inside the tree
+  turnin 3119 only Priest                     -- Shanda, the priest trainer: in at the tree's front entrance and up the ramp
   turnin 3120 only Druid                      -- Mardant Strongoak, the druid trainer at Aldrassil
   train class
 
