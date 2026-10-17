@@ -1256,3 +1256,17 @@ test('#246: no NPC or object goal is on a neighbouring zone\'s map where the two
 	}
 	assert.deepEqual([...new Set(offenders)], [], 'goals on the map of a zone Wowhead Forever does not place them in');
 });
+
+// --- An Enticing Offer (Bashidian Twotao, #279): the game's quest log lists
+// the Vial of Animal Blood (6) first and the Duskweed Petals (18) second, the
+// other way round from QuestieDB. The guide's petal goal read the blood's
+// count and the blood goal the petals' (3/6 and 14/18). The order comes from
+// tools/lib/data/corrections.json.
+
+test(`${ELWYNN}: Bashidian Twotao's report (#279): the petal and blood goals of An Enticing Offer read their own objectives`, { skip }, () => {
+	const list = goals(ELWYNN);
+	const petal = list[at(list, 'the Duskweed Petal goal', (g) => g.t === 'collect' && g.quest === 99130 && g.item === 286214)].goal;
+	const blood = list[at(list, 'the Vial of Animal Blood goal', (g) => g.t === 'collect' && g.quest === 99130 && g.item === 286215)].goal;
+	assert.deepEqual([petal.oi, petal.count], [2, 18], 'the petals are objective 2, 18 of them');
+	assert.deepEqual([blood.oi, blood.count], [1, 6], 'the blood is objective 1, 6 of them');
+});
