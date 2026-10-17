@@ -84,7 +84,7 @@ step Ajeck Rouack
 # ---------------------------------------------------------------- Rebel Camp
 
 step Rebel Camp
-  tip Take the road north; Private Thorsen stands on it, the camp sits in the hills to the west.
+  tip Take the road north; Private Thorsen patrols it, the camp sits in the hills to the west.
   accept 215                          -- Private Thorsen
   turnin 215                          -- Lieutenant Doren, in the hut
   accept 200

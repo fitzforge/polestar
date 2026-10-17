@@ -267,6 +267,7 @@ step Lake Al'Ameth
   turnin 919
 
 step Dolanaar
+  tip Moon Priestess Amara patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her.
   turnin 87288                                -- Aldia
   turnin 4161                                 -- Zarrin
   turnin 476                                  -- Athridas Bearmantle
@@ -322,6 +323,7 @@ step Gnarlpine Hold
 # ---------------------------------------------------------------- Back to Dolanaar
 
 step Hearth to Dolanaar
+  tip Moon Priestess Amara patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her.
   hearth "Dolanaar"
   turnin 487                                  -- Moon Priestess Amara
   turnin 932                                  -- Tallonkai Swiftroot

@@ -3061,7 +3061,7 @@ do
 				},
 				{
 					title = "Rebel Camp",
-					note = "Take the road north; Private Thorsen stands on it, the camp sits in the hills to the west.",
+					note = "Take the road north; Private Thorsen patrols it, the camp sits in the hills to the west.",
 					goals = {
 						{ t = "accept", quest = 215, title = "Jungle Secrets", npc = 738, npcName = "Private Thorsen", minLevel = 30, qlvl = 33, map = 1434, x = 40.34, y = 8.44, f = "e", note = "Private Thorsen" },
 						{ t = "turnin", quest = 215, title = "Jungle Secrets", npc = 469, npcName = "Lieutenant Doren", map = 1434, x = 38.04, y = 3.01, z = 75.9, f = "e", note = "Lieutenant Doren, in the hut" },
@@ -9903,6 +9903,7 @@ do
 				},
 				{
 					title = "Dolanaar",
+					note = "Moon Priestess Amara patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her.",
 					goals = {
 						{ t = "turnin", quest = 87288, title = "Soft Saber Pelts", npc = 3608, npcName = "Aldia", map = 1438, x = 55.51, y = 57.15, z = 1327.7, f = "e", note = "Aldia" },
 						{ t = "turnin", quest = 4161, title = "Recipe of the Kaldorei", npc = 6286, npcName = "Zarrin", map = 1438, x = 57.12, y = 61.3, z = 1295.6, f = "e", profLine = 185, profName = "Cooking", profRank = 1, note = "Zarrin" },
@@ -9975,6 +9976,7 @@ do
 				},
 				{
 					title = "Hearth to Dolanaar",
+					note = "Moon Priestess Amara patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her.",
 					goals = {
 						{ t = "hearth", location = "Dolanaar" },
 						{ t = "turnin", quest = 487, title = "The Road to Darnassus", npc = 2151, npcName = "Moon Priestess Amara", map = 1438, x = 52.91, y = 57.2, f = "e", note = "Moon Priestess Amara" },
