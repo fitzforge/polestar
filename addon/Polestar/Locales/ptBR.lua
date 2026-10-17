@@ -1348,7 +1348,7 @@ L["Copy your report with Ctrl+C (Cmd+C on a Mac), switch to Discord and paste it
 L["Get the invite"] = "Pegar o convite"
 L["Report problems, ask for help and hear about new guides first. The invite is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open it in your browser."] = "Relate problemas, peça ajuda e saiba antes de novos guias. O convite já está selecionado: copie com Ctrl+C (Cmd+C no Mac) e abra no navegador."
 L["Report problems, ask for help and hear about new guides first."] = "Relate problemas, peça ajuda e saiba antes de novos guias."
--- L["blocked in %s: %s (%s)"] = ""
+L["blocked in %s: %s (%s)"] = "bloqueado em %s: %s (%s)"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desativado na lista de AddOns"

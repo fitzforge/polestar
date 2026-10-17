@@ -274,13 +274,13 @@ return {
 	["Murlocs and the Collector"] = "鱼人和收藏家",
 	-- {npc:473} Morgan the Collector · {area:62} Brackwell Pumpkin Patch · {npc:248278} Croaky
 	-- plural, as words: Murloc Foragers = {npc:46} Murloc Forager · Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "",
+	["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "鱼人觅食者和鱼人潜伏者遍布桥南边的河岸。迪菲亚成员{npc:473}在河西边的{area:62}巡逻。顺路杀完潜伏者和小森林熊。{npc:248278}也在鱼人河岸游荡：右键点击它掉落的头颅。{npc:248278}是精英：建议组队。",
 	-- plural, as words: Torn Murloc Fins = {item:780} Torn Murloc Fin
 	["Torn Murloc Fins"] = "{item:780}",
 
 	-- Step 58: Ridgepoint Tower
 	-- {npc:248277} Merell Ross · {area:798} Ridgepoint Tower
-	["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "",
+	["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277}在鱼人河岸东边的{area:798}站岗。之后向西北返回桥边。",
 
 	-- Step 61: Stone Cairn Lake
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard

@@ -101,11 +101,11 @@ return {
 
 	-- Step 23: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "",
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Suivez la route vers l'ouest à travers le nord de {zone:1443} jusqu'aux ruines d'{area:2405}. La tour d'{npc:11863} se dresse sur la colline, sur le chemin de l'épave.",
 
 	-- Step 24: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
-	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "",
+	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "Le coffre du navire échoué se trouve sur le rivage, juste à l'ouest de la tour d'{npc:11863}.",
 
 	-- Step 25: Lord Kragaru
 	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort

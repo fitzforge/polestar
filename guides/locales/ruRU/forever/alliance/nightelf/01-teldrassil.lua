@@ -83,7 +83,7 @@ return {
 
 	-- Step 12: Zenn Foulhoof
 	-- {area:188} Shadowglen · {npc:2150} Zenn Foulhoof · {area:186} Dolanaar
-	["Follow the road south-west out of {area:188}. {npc:2150} sits beside it just east of {area:186}."] = "",
+	["Follow the road south-west out of {area:188}. {npc:2150} sits beside it just east of {area:186}."] = "Идите по дороге на юго-запад из {area:188}. {npc:2150} сидит у дороги чуть восточнее места {area:186}.",
 
 	-- Step 13: Dolanaar
 	-- {npc:265811} Lyreena Duskblade
@@ -96,7 +96,7 @@ return {
 	["{quest:488} and the Starbreeze moonwell"] = "{quest:488} и лунный колодец Деревни Звездного Ветра",
 	-- {area:186} Dolanaar · {area:260} Starbreeze Village
 	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "",
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "Ночные саблезубы, совы и чащобные тенетники бродят по всей округе ({area:186}) и вдоль дороги на восток. Лунный колодец – на западном краю деревни ({area:260}).",
 	-- {item:5619} Jade Phial
 	["Use the {item:5619} at the moonwell"] = "Используйте {item:5619} у лунного колодца",
 	-- {npc:2150} Zenn Foulhoof

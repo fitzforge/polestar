@@ -101,11 +101,11 @@ return {
 
 	-- Step 23: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "",
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "길을 따라 {zone:1443} 북부를 가로질러 서쪽 {area:2405} 폐허로 가십시오. 난파선으로 가는 길에, 그곳 언덕 위에 {npc:11863}의 탑이 있습니다.",
 
 	-- Step 24: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
-	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "",
+	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "난파선의 궤짝은 {npc:11863}의 탑 바로 서쪽 해안에 있습니다.",
 
 	-- Step 25: Lord Kragaru
 	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort

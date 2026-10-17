@@ -83,7 +83,7 @@ return {
 
 	-- Step 12: Zenn Foulhoof
 	-- {area:188} Shadowglen · {npc:2150} Zenn Foulhoof · {area:186} Dolanaar
-	["Follow the road south-west out of {area:188}. {npc:2150} sits beside it just east of {area:186}."] = "",
+	["Follow the road south-west out of {area:188}. {npc:2150} sits beside it just east of {area:186}."] = "Suivez la route vers le sud-ouest hors de {area:188}. {npc:2150} est assis au bord, juste à l'est de {area:186}.",
 
 	-- Step 13: Dolanaar
 	-- {npc:265811} Lyreena Duskblade
@@ -96,7 +96,7 @@ return {
 	["{quest:488} and the Starbreeze moonwell"] = "{quest:488} et le puits de lune de la Brise-étoilée",
 	-- {area:186} Dolanaar · {area:260} Starbreeze Village
 	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "",
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "Les Sabres-de-nuit sauvages, les Hiboux Strigid et les Rôdeuses Tissebois rôdent tout autour de {area:186} et le long de la route vers l'est. Le puits de lune se trouve à la limite ouest de {area:260}.",
 	-- {item:5619} Jade Phial
 	["Use the {item:5619} at the moonwell"] = "Utilisez la {item:5619} au puits de lune",
 	-- {npc:2150} Zenn Foulhoof

@@ -101,11 +101,11 @@ return {
 
 	-- Step 23: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "",
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Siga a estrada para o oeste pelo norte de {zone:1443} até as ruínas de {area:2405}. A torre de {npc:11863} fica no morro dali, a caminho do naufrágio.",
 
 	-- Step 24: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
-	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "",
+	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "O baú do navio naufragado está na praia, logo a oeste da torre de {npc:11863}.",
 
 	-- Step 25: Lord Kragaru
 	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort

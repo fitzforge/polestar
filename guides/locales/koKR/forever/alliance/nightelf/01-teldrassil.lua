@@ -83,7 +83,7 @@ return {
 
 	-- Step 12: Zenn Foulhoof
 	-- {area:188} Shadowglen · {npc:2150} Zenn Foulhoof · {area:186} Dolanaar
-	["Follow the road south-west out of {area:188}. {npc:2150} sits beside it just east of {area:186}."] = "",
+	["Follow the road south-west out of {area:188}. {npc:2150} sits beside it just east of {area:186}."] = "{area:188}에서 남서쪽 길을 따라가세요. {npc:2150}은(는) {area:186} 바로 동쪽 길가에 앉아 있습니다.",
 
 	-- Step 13: Dolanaar
 	-- {npc:265811} Lyreena Duskblade
@@ -96,7 +96,7 @@ return {
 	["{quest:488} and the Starbreeze moonwell"] = "{quest:488}와(과) 별바람 마을 달샘",
 	-- {area:186} Dolanaar · {area:260} Starbreeze Village
 	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "",
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "흑호, 스트리기드 올빼미, 나무그물 늑대거미가 {area:186} 주변과 동쪽 길을 따라 돌아다닙니다. 달샘은 {area:260} 서쪽 끝에 있습니다.",
 	-- {item:5619} Jade Phial
 	["Use the {item:5619} at the moonwell"] = "달샘에서 {item:5619}을(를) 사용하세요",
 	-- {npc:2150} Zenn Foulhoof

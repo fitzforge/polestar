@@ -274,13 +274,13 @@ return {
 	["Murlocs and the Collector"] = "Murlocs e o Coletor",
 	-- {npc:473} Morgan the Collector · {area:62} Brackwell Pumpkin Patch · {npc:248278} Croaky
 	-- plural, as words: Murloc Foragers = {npc:46} Murloc Forager · Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "",
+	["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "Murlocs Colhedores e Murlocs Tocaieiros ocupam o rio ao sul da ponte. {npc:473}, um Défias, anda por {area:62}, a oeste dele. Termine os Predadores e Jovens Ursos da Floresta no caminho. {npc:248278} também ronda a margem dos murlocs: clique com o botão direito na cabeça que ele deixa cair. {npc:248278} é elite: é bom ir em grupo.",
 	-- plural, as words: Torn Murloc Fins = {item:780} Torn Murloc Fin
 	["Torn Murloc Fins"] = "Barbatanas Rasgadas de Murloc",
 
 	-- Step 58: Ridgepoint Tower
 	-- {npc:248277} Merell Ross · {area:798} Ridgepoint Tower
-	["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "",
+	["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277} fica de guarda em {area:798}, a leste da margem dos murlocs. Depois volte para o noroeste até a ponte.",
 
 	-- Step 61: Stone Cairn Lake
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
