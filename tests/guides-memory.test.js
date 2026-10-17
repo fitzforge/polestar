@@ -8,8 +8,8 @@
 // The budget guards the resident cost against a structural regression (a goal
 // key added to every goal, a table kept per step where one per guide would do).
 // It is not a figure to compare across machines: Lua 5.1 and LuaJIT account for
-// tables differently (the same pack weighs about 23.5 MiB under Lua 5.1 and
-// about 16.4 MiB under LuaJIT), so the budget leaves room for the larger of the
+// tables differently (the same pack weighs about 24.5 MiB under Lua 5.1 and
+// about 16.5 MiB under LuaJIT), so the budget leaves room for the larger of the
 // two plus the guides still to come. Issue #60.
 
 const { test } = require('node:test');
@@ -18,10 +18,11 @@ const { spawnSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 const { findLua } = require('../tools/lib/lua');
-const { ROOT } = require('./helpers/lua');
+const { runAddon, ROOT, ADDONS } = require('./helpers/lua');
 const { tmpdir } = require('./helpers/tmp');
 
 const PACK = path.join(ROOT, 'addon', 'Polestar_Guides', 'Guides.lua');
+const PACK_DIR = path.join(ADDONS, 'Polestar_Guides').replace(/\\/g, '/');
 const skip = !fs.existsSync(PACK) && 'addon/Polestar_Guides/Guides.lua not compiled (node tools/polestar.js compile)';
 
 // Resident KiB of the pack, and its guides, steps and goals, per faction.
@@ -105,4 +106,53 @@ test('the pack splits by faction, so one side plus the factionless guides is the
 		console.log(`guides pack, ${side} character: ${m.keptGuides} of ${m.guides} guides, resident ${(m.ownSide / 1024).toFixed(1)} of ${(m.all / 1024).toFixed(1)} MiB`);
 	}
 	console.log(`guides pack by faction: ${horde.none} factionless, ${horde.alliance} Alliance, ${horde.horde} Horde`);
+});
+
+// Issue #60, the load-time spike: registering a guide runs Guides.Validate
+// over every step and goal. The key lists those checks walk used to be table
+// literals inside their loops, so each of the pack's ~12,000 goals left a few
+// throwaway tables behind (about 3 MiB over a full registration). They are one
+// shared table now (`KEYS` in Core/Guides.lua), and validating allocates
+// almost nothing.
+//
+// Measured here on the validation alone, with the pack already loaded, so the
+// figure is not buried under what the Lua parser allocates for a 5.6 MB source
+// file. Before the change: 0.267 KiB per goal under Lua 5.1 and 0.243 under
+// LuaJIT. After: 0.000 and 0.011.
+const MAX_VALIDATE_KIB_PER_GOAL = 0.05;
+
+test('validating the registered guides allocates almost nothing per goal', { skip }, () => {
+	const { emitted } = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+		script: `
+			local dir = ${JSON.stringify(PACK_DIR)} .. "/"
+			for _, f in ipairs({ "Pack.lua", "MapFrames.lua", "Guides.lua" }) do
+				assert(loadfile(dir .. f))("Polestar_Guides", {})
+			end
+			local defs, goals = {}, 0
+			for _, header in ipairs(Polestar.Guides.List()) do
+				local g = Polestar.Guides.Get(header.id)
+				if g then
+					defs[#defs + 1] = g
+					for _, step in ipairs(g.steps) do goals = goals + #step.goals end
+				end
+			end
+			-- Nothing is freed while the collector is stopped, so what the
+			-- validation allocates is what it would have left as garbage.
+			collectgarbage("collect"); collectgarbage("collect")
+			collectgarbage("stop")
+			local base = collectgarbage("count")
+			for i = 1, #defs do assert(Polestar.Guides.Validate(defs[i]) == nil) end
+			local allocated = collectgarbage("count") - base
+			collectgarbage("restart")
+			emit({ kib = allocated, guides = #defs, goals = goals })
+		`,
+	});
+	const m = emitted[0];
+	assert.ok(m.guides > 200, `only ${m.guides} guides registered`);
+	assert.ok(m.goals > 10000, `only ${m.goals} goals`);
+	const perGoal = m.kib / m.goals;
+	assert.ok(perGoal <= MAX_VALIDATE_KIB_PER_GOAL, `${perGoal.toFixed(3)} KiB per goal over the ${MAX_VALIDATE_KIB_PER_GOAL} KiB budget`);
+	console.log(`guides pack: validating ${m.goals} goals allocates ${(m.kib / 1024).toFixed(2)} MiB, ${perGoal.toFixed(3)} KiB per goal under ${path.basename(findLua())}`);
 });
