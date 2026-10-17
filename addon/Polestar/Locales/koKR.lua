@@ -963,6 +963,8 @@ L["Write what went wrong, copy the report and paste it on the Polestar Discord."
 L["The guide moves on and remembers it. Undo in the banner, or go back to the step to unskip it."] = "가이드가 넘어가고 이를 기억합니다. 배너에서 되돌리거나, 그 단계로 돌아가 건너뛰기를 취소하십시오."
 L["Dismiss"] = "닫기"
 L["Guide progress"] = "가이드 진행"
+L["Do every step"] = "모든 단계 진행"
+L["Grey quests and the quests behind where you are in the guide too."] = "회색 퀘스트와 가이드에서 현재 위치보다 앞에 있는 퀘스트도 포함합니다."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"

@@ -267,6 +267,33 @@ test('reaching the target switches to the arrived state, with hysteresis and one
 // colour far away and the near colour on arrival (both styles, the ring),
 // the target's pin follows the arrow live, and a colour too dark to read as
 // the arrow's text is lifted for the text alone.
+// The catch-up (CATCH_UP from the guide window): an hourglass in the dial's
+// place that turns over, the dial and its text hidden; the arrow comes back.
+test('during the catch-up the arrow shows an hourglass turning over, then comes back', () => {
+	const { emitted } = runAddon({
+		stubs: ['stub_nav.lua'],
+		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Theme/Theme.xml', 'Nav/Nav.xml'] }],
+		login: true,
+		script: `${PRELUDE}
+		local function tex(t) return (t:GetTexture() or ""):match("([^\\\\]+)$") end
+		target(300, 400)
+		stub.advance(0.2)
+		Polestar.Fire("CATCH_UP", true)
+		local busy = { glass = A.glass:IsShown(), dial = A.dial:GetAlpha(), text = A.distText:GetAlpha(), tex = tex(A.glassBody), sand = tex(A.glassSand), busy = A.IsBusy() }
+		stub.advance(0.3)
+		local upright = A.glassBody:GetRotation()
+		stub.advance(0.35)
+		local turning = A.glassBody:GetRotation()
+		Polestar.Fire("CATCH_UP", false)
+		emit({ busy = busy, upright = upright, turning = turning, after = { glass = A.glass:IsShown(), dial = A.dial:GetAlpha(), text = A.distText:GetAlpha(), busy = A.IsBusy() } })`,
+	});
+	const [out] = emitted;
+	assert.deepEqual(out.busy, { glass: true, dial: 0, text: 0, tex: 'hourglass', sand: 'hourglass-sand', busy: true });
+	assert.equal(out.upright, 0, 'upright first');
+	assert.ok(out.turning > 0 && out.turning < Math.PI, `then turning over (${out.turning})`);
+	assert.deepEqual(out.after, { glass: false, dial: 1, text: 1, busy: false });
+});
+
 test("the skins' darts: the skin's arrow by default, accent far and arrival green within 40 m, Hearth's baked gold, then the ring and the check", () => {
 	const { emitted } = runAddon({
 		stubs: ['stub_nav.lua'],

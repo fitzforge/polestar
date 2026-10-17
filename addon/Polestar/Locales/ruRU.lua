@@ -963,6 +963,8 @@ L["Write what went wrong, copy the report and paste it on the Polestar Discord."
 L["The guide moves on and remembers it. Undo in the banner, or go back to the step to unskip it."] = "Гайд идет дальше и запоминает это. Отмените в баннере или вернитесь к шагу."
 L["Dismiss"] = "Закрыть"
 L["Guide progress"] = "Прогресс гайда"
+L["Do every step"] = "Выполнять все шаги"
+L["Grey quests and the quests behind where you are in the guide too."] = "Также серые задания и задания, оставшиеся позади в гайде."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"

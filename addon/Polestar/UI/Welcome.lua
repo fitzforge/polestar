@@ -661,9 +661,11 @@ PAGES[#PAGES + 1] = {
 
 local function startSuggested()
 	local G, E = ns.Guides, ns.Engine
-	local id = G and G.Suggest and G.Suggest()
+	local id = E and E.StartingGuide and E.StartingGuide() or (G and G.Suggest and G.Suggest())
 	close()
-	if id and E and E.OpenTab then
+	if id and E and E.StartGuide then
+		E.StartGuide()
+	elseif id and E and E.OpenTab then
 		E.OpenTab(id)
 	elseif id and E and E.SetGuide then
 		E.SetGuide(id)

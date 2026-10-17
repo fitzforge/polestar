@@ -488,6 +488,18 @@ function Engine.Unskip(i)
 	move(i)
 	return true
 end
+-- Every step: uistub.everyStep[id] = { on, mine } (default: a leveling guide, not set).
+uistub.everyStep = {}
+function Engine.GetEveryStep(id)
+	local e = uistub.everyStep[id]
+	if e then return e[1], e[2] end
+	return false, true
+end
+function Engine.SetEveryStep(id, on)
+	record("SetEveryStep", id, on)
+	uistub.everyStep[id] = { on and true or false, true }
+	return true
+end
 -- uistub.live: the live step when a test looks at another one (default: the step shown).
 function Engine.GetLiveStep() return uistub.live or current end
 function Engine.Prev() record("Prev"); if guide and current and current > 1 then move(current - 1) end end

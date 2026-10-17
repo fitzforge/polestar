@@ -1166,14 +1166,14 @@ local function setEmpty(kind)
 		empty.Title:SetText(L["No guides installed"])
 		empty.Text:SetText(L["Enable Polestar Guides or a community addon in the AddOns list on the character screen, then reload."])
 	elseif kind == "noguide" then
-		local id = G and G.Suggest and G.Suggest()
+		local id = E and E.StartingGuide and E.StartingGuide() or (G and G.Suggest and G.Suggest())
 		local suggested = id and G.Get(id)
 		empty.Title:SetText(L["No guide open"])
 		if suggested then
 			empty.Text:SetText(L["Suggested for you"] .. ": |c" .. Theme.Hex("text") .. suggested.title .. "|r")
 			W.SetButtonText(empty.Primary, L["Start guide"])
 			empty.Primary.psAction = function()
-				if E and E.OpenTab then E.OpenTab(id) elseif E and E.SetGuide then E.SetGuide(id) end
+				if E and E.StartGuide then E.StartGuide() elseif E and E.OpenTab then E.OpenTab(id) elseif E and E.SetGuide then E.SetGuide(id) end
 			end
 			empty.Primary:Show()
 			W.SetButtonText(empty.Secondary, L["Browse guides"])
@@ -1270,8 +1270,12 @@ local function navigatorFor(guide, index)
 	local E = Engine()
 	local count = guide and E.GetStepCount and E.GetStepCount() or 0
 	if guide then
-		nav.Steps.Count:SetText(string.format("%d / %d", index or count, count))
-		nav.Title:SetText(guide.title or guide.id)
+		-- While the catch-up shows the guides passed whole, the count and title
+		-- are its (GF.PlayCatchUp).
+		if GF.catchingUp ~= "guides" then
+			nav.Steps.Count:SetText(string.format("%d / %d", index or count, count))
+			nav.Title:SetText(guide.title or guide.id)
+		end
 		nav.psMeta = UI.GuideMeta(guide)
 	else
 		nav.Steps.Count:SetText("")
@@ -1290,6 +1294,7 @@ local function navigatorFor(guide, index)
 	else
 		nav.Title:SetPoint("LEFT", nav, "LEFT", PAD, 0)
 	end
+	if GF.catchingUp == "guides" then return end
 	local cw = max(floor(nav.Steps.Count:GetStringWidth() + 0.5), 40)
 	nav.Steps.Count:SetWidth(cw)
 	nav.Steps:SetWidth(24 + cw + 24)
@@ -1466,7 +1471,7 @@ function GF.Render()
 		GF.Layout()
 		return
 	end
-	local index = E.GetStepIndex and E.GetStepIndex()
+	local index = GF.catchUpIndex or (E.GetStepIndex and E.GetStepIndex())
 	navigatorFor(guide, index)
 	-- The undo goes once the step is no longer skipped (undone elsewhere).
 	local k = notices.stepSkip
@@ -1505,13 +1510,16 @@ function GF.Render()
 	showSteps(true)
 	GF.Layout()
 	GF.PaintProgress(shownGuide == guide.id)
-	if focusChanged and F:IsVisible() then
+	if focusChanged and F:IsVisible() and not GF.catchingUp then
 		-- The next person (or step) slides up 6px into place as it fades in.
 		Anim.To(card, "alpha", 0, 1, Anim.BASE, "out")
 		Anim.To(card, "offset", -6, 0, Anim.BASE, "out")
 	end
 	shownIndex, shownGuide, shownFocus = index, guide.id, focus
 end
+
+-- The step the window shows (the catch-up's while it goes over the steps).
+function GF.ShownStep() return shownIndex end
 
 -- STEP_UPDATED: same step, new goal status/progress. When the focus moved
 -- to the next person this re-renders (with the slide); otherwise rows are
@@ -2001,6 +2009,20 @@ end
 -- Menu
 ---------------------------------------------------------------------------
 
+-- The menu's "Do every step": a leveling guide leaves out grey quests and,
+-- when it catches up, what is too low behind the player; ticked, it does
+-- them all (Engine.SetEveryStep, per character). Ticked and off for a guide
+-- that already does every step (not a leveling guide, or its author's).
+function GF.EveryStepItem(E, guide)
+	local on, mine = false, false
+	if guide and E.GetEveryStep then on, mine = E.GetEveryStep(guide.id) end
+	return {
+		text = L["Do every step"], icon = "icon-complete", checked = on and true or false, disabled = not mine,
+		tip = L["Grey quests and the quests behind where you are in the guide too."],
+		onClick = function() E.SetEveryStep(guide.id, not on) end,
+	}
+end
+
 local function openMenu(button)
 	if W.MenuShown(button) then return W.HideMenu() end
 	local E = Engine()
@@ -2010,6 +2032,7 @@ local function openMenu(button)
 		{ text = L["Choose guide"], icon = "search", onClick = function() UI.ShowPicker() end },
 		{ text = L["Open in new tab"], icon = "plus", disabled = not (E and E.OpenTab), onClick = function() UI.ShowPicker({ newTab = true }) end },
 		{ text = L["Skip this step"], icon = "skip", disabled = not hasGuide, onClick = function() GF.SkipStep() end },
+		GF.EveryStepItem(E, hasGuide),
 		{ text = L["Report a problem"], icon = "bug", onClick = function() UI.ShowReport() end },
 		{ separator = true },
 		{ text = L["Compact mode"], icon = "compact", checked = compact(), onClick = function() ns.Set("ui.compact", not compact()) end },
@@ -2487,6 +2510,83 @@ ns.On("STEP_SKIPPED", function(_, to, skips)
 		notices.skipped = nil
 		if F:IsShown() and ns.IsLoggedIn() then GF.Layout() end
 	end)
+end)
+
+-- The catch-up (GUIDE_PLACED): once a guide is placed, the window goes over
+-- the steps before the one it resumes at, each shown in full (the card, the
+-- journey, what follows) one after another faster and faster, then the step
+-- placed. Guides passed whole go by first, by title. It plays whenever a
+-- guide is placed (game launch, /reload, a guide opened), from step 1. Not
+-- with reduced motion, the window hidden, or a single step to go over. A
+-- guide placed before the world is entered waits for it. Only the window moves: the Engine's step, the arrow and the
+-- automation stay on the step placed.
+local CATCH_GUIDE = 0.35 -- seconds per guide passed whole (at most 1.2 in all)
+GF.catchUpState = { entered = false }
+
+local function catchUpDone()
+	GF.catchingUp, GF.catchUpIndex = nil, nil
+	ns.Fire("CATCH_UP", false)
+	GF.Render()
+end
+
+function GF.PlayCatchUp(guideId, step, chain)
+	local cs = GF.catchUpState
+	if not cs.entered then
+		cs.queued = { guideId, step, chain }
+		return
+	end
+	local passed = chain and #chain or 0
+	if not (F and F:IsShown() and ns.IsLoggedIn()) or Anim.Reduced() then return end
+	-- A single step passed is no catch-up (the player's own first step).
+	if not step or (step <= 2 and passed == 0) then return end
+	local Count = nav.Steps.Count
+	-- CATCH_UP(true|false): the arrow shows an hourglass meanwhile (Nav/Arrow.lua).
+	ns.Fire("CATCH_UP", true)
+	local function roll()
+		GF.catchingUp = "steps"
+		local shown
+		Count.psOnValue = function(_, v)
+			local i = max(1, min(step - 1, floor(v)))
+			if i ~= shown then
+				shown = i
+				GF.catchUpIndex = i
+				GF.Render()
+			end
+		end
+		-- Slow at first, then faster: about 0.06 s a step, 2.5 s at most.
+		local dur = min(2.5, 0.5 + 0.06 * (step - 1))
+		Anim.To(Count, "value", 1, step - 0.001, dur, "in", catchUpDone)
+	end
+	if passed == 0 then return roll() end
+	-- The guides passed whole, each shown done.
+	GF.catchingUp = "guides"
+	local titles = {}
+	for i, id in ipairs(chain) do
+		local g = ns.Guides.Get(id)
+		titles[i] = { g and (g.title or g.id) or id, g and #g.steps or 0 }
+	end
+	Count.psOnValue = function(o, v)
+		local t = titles[min(passed, floor(v) + 1)]
+		nav.Title:SetText(t[1])
+		o:SetText(string.format("%d / %d", t[2], t[2]))
+	end
+	Anim.To(Count, "value", 0, passed - 0.001, min(1.2, CATCH_GUIDE * passed), "linear", function()
+		if step > 1 then return roll() end
+		catchUpDone()
+	end)
+end
+
+ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
+	local cs = GF.catchUpState
+	if cs.entered then return end
+	cs.entered = true
+	local q = cs.queued
+	cs.queued = nil
+	if q and F then GF.PlayCatchUp(q[1], q[2], q[3]) end
+end)
+
+ns.On("GUIDE_PLACED", function(guideId, step, chain)
+	if F then GF.PlayCatchUp(guideId, step, chain) end
 end)
 
 -- GUIDE_OUTLEVELED(guideId, suggestedId): the player has outgrown the guide

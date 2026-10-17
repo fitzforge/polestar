@@ -179,6 +179,37 @@ legIcon:SetSize(DIAL * 0.6, DIAL * 0.6)
 legIcon:SetPoint("CENTER")
 legIcon:Hide()
 
+-- The catch-up's hourglass (Arrow.SetBusy; Media/UI hourglass and
+-- hourglass-sand, tools/media/ui.js): while the guide window goes over the
+-- steps, it stands in the dial's place and turns over and over, the glass
+-- in text and its sand in the arrow's colour, with the text under the dial
+-- hidden.
+local HOURGLASS_HOLD, HOURGLASS_TURN = 0.45, 0.4 -- seconds upright, then turning over
+local glass = CreateFrame("Frame", nil, frame)
+glass:SetSize(DIAL, DIAL)
+glass:SetPoint("CENTER", dial, "CENTER")
+glass:Hide()
+local glassBody = glass:CreateTexture(nil, "ARTWORK", nil, 1)
+glassBody:SetTexture(UI_MEDIA .. "hourglass")
+glassBody:SetSize(DIAL * 0.8, DIAL * 0.8)
+glassBody:SetPoint("CENTER")
+local glassSand = glass:CreateTexture(nil, "ARTWORK")
+glassSand:SetTexture(UI_MEDIA .. "hourglass-sand")
+glassSand:SetAllPoints(glassBody)
+local glassTime = 0
+glass:SetScript("OnUpdate", function(_, elapsed)
+	glassTime = glassTime + elapsed
+	local c = glassTime % (HOURGLASS_HOLD + HOURGLASS_TURN)
+	local a = 0
+	if c > HOURGLASS_HOLD then
+		local p = (c - HOURGLASS_HOLD) / HOURGLASS_TURN
+		p = p < 0.5 and 4 * p * p * p or 1 - (2 - 2 * p) ^ 3 / 2
+		a = pi * p
+	end
+	glassBody:SetRotation(a)
+	glassSand:SetRotation(a)
+end)
+
 local distText = frame:CreateFontString(nil, "OVERLAY")
 distText:SetPoint("TOP", dial, "BOTTOM", 0, -2)
 distText:SetJustifyH("CENTER")
@@ -198,6 +229,7 @@ local Arrow = {
 	frame = frame, dial = dial, mover = mover, body = body, facet = facet, glow = glow, sheet = sheet, sheetSpec = sheetSpec,
 	ring = ring, halo = halo, legIcon = legIcon, distText = distText, labelText = labelText, etaText = etaText,
 	dart = dart, dartEdge = dartEdge, skinRing = skinRing, skinCheck = skinCheck, skinDisc = skinDisc,
+	glass = glass, glassBody = glassBody, glassSand = glassSand,
 }
 Nav.arrow = Arrow
 
@@ -659,6 +691,30 @@ function Arrow:Refresh()
 		end
 	end
 end
+
+-- The catch-up (the guide window's CATCH_UP): the hourglass in the dial's
+-- place, or the arrow back.
+function Arrow.SetBusy(on)
+	on = on and true or false
+	if on == glass:IsShown() then return end
+	if on then
+		glassTime = 0
+		glassBody:SetVertexColor(Nav.RGB("text"))
+		glassSand:SetVertexColor(Nav.RGB("arrow"))
+	end
+	glass:SetShown(on)
+	local a = on and 0 or 1
+	dial:SetAlpha(a)
+	distText:SetAlpha(a)
+	labelText:SetAlpha(a)
+	etaText:SetAlpha(a)
+end
+
+function Arrow.IsBusy()
+	return glass:IsShown()
+end
+
+ns.On("CATCH_UP", function(on) Arrow.SetBusy(on) end)
 
 function Arrow.GetMode()
 	return frame:IsShown() and mode or nil

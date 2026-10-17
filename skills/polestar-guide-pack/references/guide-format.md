@@ -37,6 +37,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `author <name>` | Default: `pack.json`'s author |
 | `version <N>` | A whole number, raised when the guide changes (default 1) |
 | `coords era` / `coords live` | The map frame of typed coordinates (default `era`) |
+| `skip none` | A leveling guide whose every step is done (no grey quest left out, nothing skipped when it catches up) |
 | `pitch <text>` | On a guide offered by a `next` choice: one line on its card (lint warns when missing) |
 | `pro <text>` / `con <text>` | Repeatable: one advantage or drawback per line under the pitch |
 

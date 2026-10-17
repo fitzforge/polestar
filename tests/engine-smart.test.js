@@ -193,8 +193,8 @@ test('Suggest prefers the current zone, then the nearest by travel; race chains 
 	assert.equal(home, 'test/silverpine');
 });
 
-test('GUIDE_OUTLEVELED fires once per guide when the level passes maxLevel + 2', () => {
-	const [out] = run({
+test('GUIDE_OUTLEVELED fires once per guide when the level passes maxLevel + 2, unless the guide catches up', () => {
+	const args = {
 		before: 'stub.world.level = 5',
 		guides: `
 			Polestar.RegisterGuide({ id = "test/low", pack = "test", title = "Low", faction = "Horde", minLevel = 1, maxLevel = 6, steps = { { goals = { { t = "level", level = 60 } } } } })
@@ -210,8 +210,12 @@ test('GUIDE_OUTLEVELED fires once per guide when the level passes maxLevel + 2',
 			w.setLevel(9); flush()
 			emit({ at7 = at7, fired = fired, guide = E.GetGuide().id })
 		`,
-	});
+	};
+	const [out] = run({ ...args, saved: { Polestar: 'PolestarDB = { schema = 1, settings = { behavior = { skipGrey = false } } }' } });
 	assert.deepEqual(out, { at7: 0, fired: ['test/low>test/mid'], guide: 'test/low' });
+	// A leveling guide that catches up (the default) manages itself: no banner.
+	const [catchesUp] = run(args);
+	assert.equal(Object.keys(catchesUp.fired).length, 0);
 });
 
 // Wogi's report: a Human at 20 in Darkshore (16-21) was sent to grey quests.
@@ -263,7 +267,7 @@ test('skipGrey skips grey accepts and their turn-ins unless a quest worth doing 
 		statuses: ['na', 'na', 'active', 'pending', 'na', 'pending', 'pending', 'pending', 'na', 'na', 'na'],
 		at: 3, accepted101: false, grey: true, byHand: ['done', 'pending'],
 	});
-	const [off] = run({ guides, script });
+	const [off] = run({ guides, saved: { Polestar: 'PolestarDB = { schema = 1, settings = { behavior = { skipGrey = false } } }' }, script });
 	assert.equal(off.statuses.filter((s) => s === 'na').length, 0, JSON.stringify(off.statuses));
 	assert.deepEqual([off.at, off.accepted101, off.grey], [1, true, false]);
 });
@@ -306,7 +310,7 @@ test('skipGrey: a grey accept kept for its chain names the nearest open quest it
 		// All grey: the chain is left out, nothing to explain.
 		{ level: 23, kept: false, text: false, skipped: true, accepts: ['skipped', 'skipped', 'skipped'] },
 	]);
-	const [off] = run({ guides, script });
+	const [off] = run({ guides, saved: { Polestar: 'PolestarDB = { schema = 1, settings = { behavior = { skipGrey = false } } }' }, script });
 	assert.deepEqual(off.map((r) => [r.kept, r.text, r.skipped]), [[false, false, false], [false, false, false], [false, false, false]]);
 });
 

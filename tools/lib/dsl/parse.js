@@ -25,7 +25,7 @@ const INT_RE = /^\d+$/;
 const NUM_RE = /^-?\d+(?:\.\d+)?$/;
 const COORD_RE = /^(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)$/;
 
-const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'class', 'next', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'author', 'version', 'coords', 'pitch', 'pro', 'con'];
+const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'class', 'next', 'category', 'folder', 'keywords', 'collects', 'reward', 'why', 'author', 'version', 'coords', 'skip', 'pitch', 'pro', 'con'];
 // Lines inside a step that are not goals.
 const STEP_KEYS = ['zone', 'only', 'tip'];
 
@@ -457,6 +457,15 @@ function parseHeader(guide, kw, line, lex, ln, err, warn) {
 				return;
 			}
 			h.version = Number(rest);
+			return;
+		case 'skip':
+			// `skip none`: every step is done, grey quests and what lies behind
+			// the player's progress included (the catch-up leaves nothing out).
+			if (rest.toLowerCase() !== 'none') {
+				err(ln, `skip takes none (\`skip none\`: every step is done), not "${rest}"`);
+				return;
+			}
+			h.skip = 'none';
 			return;
 		case 'coords': {
 			const c = rest.toLowerCase();

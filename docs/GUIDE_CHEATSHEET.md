@@ -34,6 +34,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `author <name>` | Credits a guide to someone other than the pack's author | `author Joe` |
 | `version <N>` | A whole number you raise when the guide changes (default 1) | `version 2` |
 | `coords era` / `coords live` | The map frame of the coordinates you type (default `era`; `record draft` writes `live`) | `coords live` |
+| `skip none` | A leveling guide whose every step is done: no grey quest is left out, and nothing behind the player when the guide catches up (other categories already do every step) | `skip none` |
 
 ## Steps and text
 

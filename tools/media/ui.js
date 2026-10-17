@@ -584,6 +584,25 @@ function engrave({ capH, bold, tracking, W = 256, H = 32 }) {
 const wordmark = () => engrave({ capH: 22, bold: 0.8, tracking: 0.15 });
 const wordmarkSmall = () => engrave({ capH: 15, bold: 0.6, tracking: 0.16 });
 
+// The catch-up's hourglass, in place of the arrow while the guide window goes
+// over the steps (Nav/Arrow.lua, Arrow.SetBusy): two white masks on a 64-unit
+// grid drawn at 128 px, the glass tinted in text and its sand in the accent.
+// Upright: sand left in the top bulb, a stream, a pile in the bottom one.
+const HG = 128 / 64;
+const hg = (pts) => pts.map(([x, y]) => [x * HG, y * HG]);
+function hourglass() {
+	const caps = [8, 56].map((y) => sdf.box(32 * HG, y * HG, 20 * HG, 3 * HG, 1.5 * HG));
+	const glass = sdf.polygon(hg([[16, 11], [48, 11], [48, 17], [35, 31], [35, 33], [48, 47], [48, 53], [16, 53], [16, 47], [29, 33], [29, 31], [16, 17]]));
+	const outline = (x, y) => Math.abs(glass(x, y)) - 1.5 * HG;
+	return new Canvas(128, 128).fill(sdf.union(...caps, outline), [1, 1, 1, 1]);
+}
+function hourglassSand() {
+	const top = sdf.polygon(hg([[23, 21], [41, 21], [33, 29], [31, 29]]));
+	const stream = sdf.segment(32 * HG, 31 * HG, 32 * HG, 44 * HG, 0.6 * HG);
+	const pile = sdf.polygon(hg([[20, 50], [44, 50], [32, 40]]));
+	return new Canvas(128, 128).fill(sdf.union(top, stream, pile), [1, 1, 1, 1]);
+}
+
 function generate(addonRoot) {
 	const dir = path.join(addonRoot, 'Media', 'UI');
 	const written = [];
@@ -592,6 +611,8 @@ function generate(addonRoot) {
 	written.push(glow().write(path.join(dir, 'glow.tga')));
 	written.push(shadow().write(path.join(dir, 'shadow.tga')));
 	written.push(white().write(path.join(dir, 'white.tga')));
+	written.push(hourglass().write(path.join(dir, 'hourglass.tga')));
+	written.push(hourglassSand().write(path.join(dir, 'hourglass-sand.tga')));
 	written.push(logo().write(path.join(dir, 'logo.tga')));
 	written.push(emblem().write(path.join(dir, 'emblem.tga')));
 	written.push(watermark().write(path.join(dir, 'watermark.tga')));

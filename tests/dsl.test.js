@@ -8,7 +8,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { parseGuide } = require('../tools/lib/dsl/parse');
 const { Diagnostics } = require('../tools/lib/dsl/diag');
-const { guideText, lineOf } = require('./helpers/dsl');
+const { guideText, lineOf, compile } = require('./helpers/dsl');
 const { needs } = require('./helpers/data');
 
 function parse(text) {
@@ -262,6 +262,21 @@ test('zone directives are sticky across later steps; the header zone applies bef
 		goals(ast).map((g) => g.zone.name || g.zone.map),
 		['Elwynn Forest', 'Stormwind City', 'Stormwind City', 1411],
 	);
+});
+
+test('skip none: a leveling guide does every step (everyStep); another word is an error, another category a warning', () => {
+	const ok = compile(guideText(['skip none', '', 'step S', '  level 2']));
+	assert.deepEqual(ok.errors, []);
+	assert.deepEqual(ok.warnings, []);
+	assert.equal(ok.guides[0].everyStep, true);
+	assert.equal(compile(guideText(['step S', '  level 2'])).guides[0].everyStep, undefined);
+
+	const bad = guideText(['skip grey', '', 'step S', '  level 2']);
+	assert.deepEqual(parse(bad).errors, [`${lineOf(bad, 'skip grey')}: skip takes none (\`skip none\`: every step is done), not "grey"`]);
+
+	const item = guideText(['category Collectibles', 'skip none', '', 'step S', '  level 2']);
+	const { warnings } = compile(item);
+	assert.deepEqual(warnings, [`test.guide:${lineOf(item, 'skip none')}: \`skip none\` is for leveling guides: a Collectibles guide already does every step`]);
 });
 
 test('folder and keywords: the folder is the rest of the line; keywords split on commas, repeats warn and drop', () => {

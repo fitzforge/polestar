@@ -1086,6 +1086,8 @@ L["Come back at level %d: the guide picks up by itself then."] = "Vuelve a nivel
 L["Not available yet"] = "Aún no disponible"
 L["Finish %s first: the guide picks up by itself then."] = "Termina %s primero: entonces la guía sigue sola."
 L["After the run: a guide to where this dungeon's quests are turned in, and the follow-ups there."] = "Al terminar el calabozo: una guía hasta donde se entregan sus misiones y las continuaciones de allí."
+-- L["Do every step"] = ""
+-- L["Grey quests and the quests behind where you are in the guide too."] = ""
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"

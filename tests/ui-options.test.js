@@ -296,7 +296,7 @@ test('built-in controls write settings and follow changes made elsewhere', () =>
 	assert.equal(out.scale, 1.25, 'slider values snap to the step');
 	assert.deepEqual(out.picked, [0.9, 0.3, 0.1]);
 	assert.equal(out.cancelled, false, 'cancel restores the previous value: no custom accent');
-	assert.equal(out.skipGrey, true);
+	assert.equal(out.skipGrey, false, 'on by default: the click turns it off');
 	assert.equal(out.tomtomArrow, false);
 	assert.equal(out.arrowStyle, '3D');
 });

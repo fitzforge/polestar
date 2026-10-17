@@ -344,6 +344,8 @@ L["Menu"] = "Menü"
 L["Write what went wrong, copy the report and paste it on the Polestar Discord."] = "Schreib, was schiefging, kopiere den Bericht und füge ihn im Polestar-Discord ein."
 L["The guide moves on and remembers it. Undo in the banner, or go back to the step to unskip it."] = "Der Guide geht weiter und merkt es sich. „Rückgängig“ im Banner, oder geh zum Schritt zurück, um ihn wieder aufzunehmen."
 L["Guide progress"] = "Guide-Fortschritt"
+-- L["Do every step"] = ""
+-- L["Grey quests and the quests behind where you are in the guide too."] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"

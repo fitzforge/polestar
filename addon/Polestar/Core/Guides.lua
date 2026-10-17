@@ -294,6 +294,7 @@ local function validate(def)
 	if def.category ~= nil and not isStr(def.category) then return "bad category" end
 	if def.pitch ~= nil and not isStr(def.pitch) then return "bad pitch" end
 	if def.folder ~= nil and not isStr(def.folder) then return "bad folder" end
+	if def.everyStep ~= nil and type(def.everyStep) ~= "boolean" then return "bad everyStep" end
 	if def.collects ~= nil then
 		if type(def.collects) ~= "table" then return "bad collects" end
 		for i = 1, #def.collects do
@@ -1028,6 +1029,20 @@ end
 -- The best leveling guide for the player: the first of Suggestions().
 function Guides.Suggest()
 	return Guides.Suggestions()[1]
+end
+
+-- The leveling guide a new character of the player's race and class starts
+-- with: the suggestion at level 1, from the suggestion source (ours where it
+-- has none). The catch-up opens it when no guide is open and goes through
+-- the guides from there to where the player is (Engine, login).
+function Guides.FirstGuide()
+	local p = {}
+	for k, v in pairs(ns.Compat.GetPlayerInfo()) do p[k] = v end
+	p.level = 1
+	local source = Guides.SuggestSource()
+	local fitting = rank(source, p, nil, nil)
+	if #fitting == 0 and source ~= "guides" then fitting = rank("guides", p, nil, nil) end
+	return fitting[1]
 end
 
 ns.OnLogin(function()

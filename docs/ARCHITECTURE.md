@@ -132,6 +132,8 @@ Messages:
 | `PLAYER_SKIPPED_STEP` | guideId, stepIndex | Engine, after `Skip()` (the window, the menu, `/polestar skip`): the guide window offers the undo |
 | `WAYPOINT_CHANGED` | waypoint or nil | Engine (and Nav when an override is set/cleared) |
 | `GUIDE_COMPLETED` | guideId | Engine |
+| `GUIDE_PLACED` | guideId, stepIndex or nil, `{ guideId, ... }` | Engine, active tab, once placement ends (see "Placement"): where the guide resumes, and the guides passed whole on the way; the guide window goes over the steps before it, titles and count rolling (`GF.PlayCatchUp`: whenever a guide is placed, at launch, /reload or opened, after `PLAYER_ENTERING_WORLD`) |
+| `CATCH_UP` | true \| false | Guide window, while its catch-up goes over the steps (`GF.PlayCatchUp`): the arrow shows an hourglass turning over in its dial's place (`Arrow.SetBusy`; Media/UI `hourglass`, `hourglass-sand`, tools/media/ui.js) |
 | `SETTING_CHANGED` | path, value | Core settings |
 | `TOGGLE_FRAME` / `SHOW_FRAME` / `HIDE_FRAME` | — | commands, keybinds → UI |
 | `SHOW_PICKER` | — | commands → UI |
@@ -169,7 +171,7 @@ the nearest 5, `opts.compact` writes yards from 1000 as "1.2k yd"
 keeps yards for whoever reads it.
 
 `PolestarDB = { schema = 1, settings = { [section] = { ... } }, packs = { [packId] = { off = true } }, welcomeSeen = 1, gamepad = { chords = { [action] = "PADRSHOULDER+PADDUP" } } }`
-`PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = true }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, flags = { fp = { [name] = true }, ... }, welcomeSeen = 0|1 }`
+`PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = true }, everyStep = { [guideId] = true }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, flags = { fp = { [name] = true }, ... }, welcomeSeen = 0|1 }`
 
 `packs[<id>].off` hides a pack's guides account-wide (the Community guides page's
 switch). `welcomeSeen` (UI/Welcome.lua) is the version of the welcome last
@@ -192,7 +194,8 @@ quest reopens its step (unless the player ticked it). `skipped` holds the
 steps the player skipped (step number) and the optional goals they skipped
 (`"s:g"`). `pins` is the step the player was looking at when it is not the
 live one (Prev/Next/Goto), `offers` the quests their giver did not offer
-(saved at logout, restored while the character is still that level). All of
+(saved at logout, restored while the character is still that level),
+`everyStep` the leveling guides the player set to every step. All of
 them are keyed by step position: `stepKeys` (a hash per step of its verbs and
 ids) lets a pack update carry them to the steps it kept (see "Placement").
 
@@ -919,6 +922,8 @@ Polestar.Guides.Suggest() -> id | nil       -- the first of Suggestions()
 
 Polestar.Engine.GetGuide() -> guide | nil
 Polestar.Engine.SetGuide(id)                -- persists CharState().guide, recomputes, fires GUIDE_CHANGED
+Polestar.Engine.GetEveryStep(id) -> on, changeable  -- every step done (not a leveling guide, `skip none`, or the player's choice)
+Polestar.Engine.SetEveryStep(id, on) -> ok          -- the player's choice for a leveling guide (CharState().everyStep); off places it again
 Polestar.Engine.GetStepIndex() -> i | nil
 Polestar.Engine.GetStepCount() -> n
 Polestar.Engine.GetStepView(i) -> view | nil
@@ -992,9 +997,14 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   open guide's follow-up once the player is within two levels of it.
 - **Out-levelled guides.** When the player's level exceeds the active guide's
   `maxLevel` by 2 or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
-  suggestedId)` once per guide per session; the UI offers the jump. Setting
-  `behavior.skipGrey` (default off) auto-skips `accept` goals for quests already
-  grey for the character, and with them the quests' turn-ins and objectives,
+  suggestedId)` once per guide per session; the UI offers the jump. Only for
+  a guide that does every step or with `behavior.skipGrey` off: a guide that
+  catches up manages itself (its quests turn grey and drop out as the player
+  levels, and it hands over to `next` once nothing worth doing is left). Setting
+  `behavior.skipGrey` (default on since the catch-up; leveling guides only, see
+  "Every step") auto-skips `accept` goals for quests already
+  grey for the character (and `turnin ... direct` goals, which the compiler
+  gives their quest's level too), and with them the quests' turn-ins and objectives,
   unless the quest is a prerequisite (`pre`, `preAll`) of a quest later in the
   guide or its chain that is not grey, directly or through other grey ones.
 - **Class-training reminder.** Class trainers ship in the core:
@@ -1333,6 +1343,55 @@ holds at its opening, see "Not yet available"):
   evidence), or a travel goal (goto, fly, hearth, explore) while the player
   stands within 150 yd of the start step's work. Soft goals passed are
   latched. Any other open goal holds the step.
+
+**The catch-up** (`Own.catchUp`, with `behavior.skipGrey` on, in a guide that
+does not do every step): before the start is worked out, the accepts behind
+the last quest progress that are more than 2 levels below the character
+(green or lower) and not taken yet are left out, unless a quest worth doing
+needs them first (`Own.needsFrom` down `pre`/`preAll`, over the guide and the
+guides after it: `Own.chainOf`). Worth doing: an accept that is not grey,
+behind the anchor only from 2 levels below up. A quest in the log goes by the
+same rules (`"log"`): left out while not done, kept once it only has to be
+handed in. Left out (`Own.leftOut[guideId]`, for the session; each
+placement works it out again), an accept no longer applies, with its turn-in
+and objectives; taking the quest by hand brings it back. In a guide the
+character is past (`maxLevel` + 2, as the out-levelled banner counts) going
+back is a detour: every grey or green accept not taken yet is left out,
+anywhere in the guide, unless at least `Own.CHAIN_WORTH` (3) accepts from
+yellow up need it down the chain (`Own.catchUpPast`); a quest in the log
+too, until it only has to be handed in. Grey accepts anywhere go by `behavior.skipGrey`'s own rule (greyNeed).
+Soft goals before the start also pass in a step before the last left-out or
+grey-skipped accept: the way to what was left out goes with it. A guide the
+character is past (an accept left out or grey-skipped, or `maxLevel`
+reached) with no start, no accept waiting for a level (a missing prerequisite
+is often a grey quest it left out, which never comes) and the quest log read
+passes whole (`Own.placedThrough`) and chains to `next`
+as a finished one does, even when the player opened it by hand (which clears
+its `completedFired`, so a guide passed earlier in the session chains again),
+unless every quest of it is done (`Own.allQuestsDone`): a guide all done that
+the player opens stays, finished (its travel passed too), for them to look
+at. Start guide (`Engine.StartGuide`: the guide window with no guide, the
+welcome) opens `StartingGuide()` for the player (`OpenTab(id, true, true)`,
+`autoChain`), so it goes on through such guides as the login's pick does. The next guide is
+placed the same way, even when it finished earlier in the session (another
+try): only a guide passed on the same run stops it (`Own.chainSeen`), against
+a loop of `next`. The picker's "done" check (`GetGuideState`) needs every
+quest the character can take in the guide turned in, so a guide the catch-up
+passed with grey quests never done is not checked. Where it offers
+a route choice, the catch-up takes the option with the most quest work done
+(`Own.likeliestRoute`, `Own.doneIn`), the recommended one among equals. With
+no tab open at login (`behavior.autoSelectGuide`), a character who did quests
+in their race's first guide (`Guides.FirstGuide()`: the suggestion at level
+1) starts there and goes through the guides to where they are; one with
+nothing done there gets `Guides.Suggest()`, as before. `GUIDE_PLACED(guideId, step, passed)` fires
+for the active tab once placement ends, with the guides passed whole.
+
+**Every step** (`Own.everyStep`): any guide but a leveling one (category
+`Leveling` or none) does every step: no grey quest is left out and nothing
+is caught up (an item, a mount, a reputation, a profession, a class chain is
+done whole). A leveling guide does too when its author writes `skip none`
+(compiled `everyStep = true`) or the player ticks "Do every step" in the
+guide window's menu (`Engine.SetEveryStep`, `CharState().everyStep[guideId]`).
 
 Ticks and stored check-offs keep counting. After placement soft steps hold
 as usual, so a quest taken out of order during play never jumps a training

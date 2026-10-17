@@ -87,7 +87,10 @@ test('turnin, complete and objective goals need an earlier accept in the guide',
 // Issue #108: quests handed in straight from the NPC's window, with no accept
 // (Distracting Jarven 308, the repeat cloth donations).
 test('#108: a `direct` turn-in needs no accept, and is checked for availability and prerequisites as an accept is', () => {
-	assert.deepEqual(compile(guideText(['step S', '  turnin 783 direct'])).errors, []);
+	const ok = compile(guideText(['step S', '  turnin 783 direct']));
+	assert.deepEqual(ok.errors, []);
+	// Its quest's level, as an accept's, for the engine's grey-quest skipping.
+	assert.equal(ok.guides[0].steps[0].goals[0].qlvl, 1);
 
 	// 9100 is Orc-only, so no character of this Alliance guide can be offered it.
 	const race = compile(guideText(['step S', '  turnin 9100 direct']));

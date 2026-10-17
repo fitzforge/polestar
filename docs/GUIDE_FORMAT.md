@@ -75,6 +75,7 @@ Every line before the first `step`.
 | `author` | no | default: the pack's author (`pack.json`) |
 | `version` | no | integer, default `1` |
 | `coords` | no | `era` (default) or `live`: the map frame of coordinates typed in this guide (`@x,y`, `goto`, `explore`). Era-frame ones compile with `f = "e"`; on a map without Era bounds they compile live. `record draft` writes `coords live`. |
+| `skip` | no | `skip none`: a leveling guide whose every step is to be done (every quest of a zone). Polestar then never leaves out its grey quests, nor what lies behind the player's progress when the guide catches up; compiles to `everyStep = true`. Guides of the other categories already do every step. |
 | `pitch` | no | one line selling the zone, shown on its card in the route choice window (required, as a warning, when the guide is a route option) |
 | `pro` / `con` | no | repeatable: one advantage / disadvantage per line, shown under the pitch. Keep them short, factual and true for every race that can choose the route. |
 

@@ -690,7 +690,7 @@ test('the header menu: picker, new tab, compact, transparent, lock; destructive 
 		menuPick("Options")
 		emit({ items = items, locked = Polestar.Get("ui.locked"), style = style, armed = armed, reset = lastCall("ResetProgress"),
 			picker = picker, options = PolestarOptions:IsShown(), pickerAfter = PolestarPicker:IsShown() })`);
-	assert.deepEqual(out.items, ['Choose guide', 'Open in new tab', 'Skip this step', 'Report a problem', 'Compact mode', 'Transparent', 'Lock window',
+	assert.deepEqual(out.items, ['Choose guide', 'Open in new tab', 'Skip this step', 'Do every step', 'Report a problem', 'Compact mode', 'Transparent', 'Lock window',
 		'Reset guide progress', 'Options', 'Hide window']);
 	assert.equal(out.locked, true);
 	assert.equal(out.style, 'transparent');
@@ -699,6 +699,41 @@ test('the header menu: picker, new tab, compact, transparent, lock; destructive 
 	assert.equal(out.picker, true);
 	assert.equal(out.options, true);
 	assert.equal(out.pickerAfter, false, 'one dialog at a time');
+});
+
+// The catch-up (GUIDE_PLACED): the window shows each step before the one
+// placed in turn, in full, then that one, whenever a guide is placed (launch,
+// /reload, a guide opened); not for a single step. The Engine's step never
+// moves.
+test('the catch-up shows every step up to the one placed, each time a guide is placed; Do every step in the menu', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 4)
+		local nav, Count = GF.parts.nav, GF.parts.nav.Steps.Count
+		Polestar.Fire("GUIDE_PLACED", uistub.elwynn, 4, {})
+		local rolling = { GF.catchingUp, GF.ShownStep() }
+		stub.advance(0.6)
+		GF.Render()
+		local mid = { count = Count:GetText(), shown = GF.ShownStep(), engine = Polestar.Engine.GetStepIndex() }
+		stub.advance(3)
+		local done = { GF.catchingUp or false, Count:GetText(), GF.parts.card:GetAlpha(), GF.ShownStep() }
+		Polestar.Fire("GUIDE_PLACED", uistub.elwynn, 4, {})
+		local again = GF.catchingUp ~= nil
+		stub.advance(3)
+		Polestar.Fire("GUIDE_PLACED", uistub.elwynn, 2, {})
+		local single = GF.catchingUp ~= nil
+		menuPick("Do every step")
+		emit({ rolling = rolling, mid = mid, done = done, again = again, single = single, set = lastCall("SetEveryStep") })`);
+	assert.deepEqual(out.rolling, ['steps', 1], 'it starts on step 1');
+	assert.ok(out.mid.shown >= 1 && out.mid.shown <= 3, `a step gone over is shown in full (${out.mid.shown})`);
+	assert.equal(out.mid.count, `${out.mid.shown} / ${out.done[1].split(' / ')[1]}`);
+	assert.equal(out.mid.engine, 4, 'the Engine stays on the step placed');
+	assert.equal(out.done[0], false);
+	assert.match(out.done[1], /^4 \/ \d+$/);
+	assert.equal(out.done[2], 1);
+	assert.equal(out.done[3], 4);
+	assert.equal(out.again, true, 'placed again (a reload, the guide opened again): it goes over the steps again');
+	assert.equal(out.single, false, 'a single step passed: nothing rolls');
+	assert.deepEqual(out.set, ['SetEveryStep', 'forever/alliance/human/01-elwynn-forest', true]);
 });
 
 test('profession, reputation and achievement goals: own colours, icons, progress bars', () => {

@@ -963,6 +963,8 @@ L["Write what went wrong, copy the report and paste it on the Polestar Discord."
 L["The guide moves on and remembers it. Undo in the banner, or go back to the step to unskip it."] = "La guía sigue adelante y lo recuerda. Deshaz desde el aviso, o vuelve al paso para dejar de omitirlo."
 L["Dismiss"] = "Descartar"
 L["Guide progress"] = "Progreso de la guía"
+L["Do every step"] = "Hacer todos los pasos"
+L["Grey quests and the quests behind where you are in the guide too."] = "También las misiones grises y las que quedan detrás de donde estás en la guía."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascensor a %s"

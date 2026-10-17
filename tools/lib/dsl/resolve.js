@@ -519,6 +519,10 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		});
 	}
 	setIf(guide, 'why', h.why);
+	if (h.skip === 'none') {
+		if (guide.category && guide.category !== 'Leveling') warn(ast.lines.skip, `\`skip none\` is for leveling guides: a ${guide.category} guide already does every step`);
+		guide.everyStep = true;
+	}
 	if (guide.category === 'Class') {
 		if (!h.reward) warn(ast.line, 'a Class guide needs `reward`: what its chain gives (`reward item <id>`, `reward spell <id> "Name"` or `reward text <words>`), shown in the guide menu');
 		if (!h.why) warn(ast.line, 'a Class guide needs `why`: one short line on why the chain is worth doing, shown in the guide menu');
@@ -1359,8 +1363,13 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	}
 	if (g.r !== undefined) goal.r = g.r;
 	if (g.optional) goal.optional = true;
-	// `turnin ... direct`: handed in from the giver's window with no accept.
-	if (g.direct) goal.direct = true;
+	// `turnin ... direct`: handed in from the giver's window with no accept;
+	// its quest's level, as an accept's, for the engine's grey-quest skipping.
+	if (g.direct) {
+		goal.direct = true;
+		const q = goal.quest !== undefined ? data.quest(goal.quest) : null;
+		if (q && Number(q.level) > 0) goal.qlvl = Number(q.level);
+	}
 	// Group content (group.js): the author's `group [N]`, else derived.
 	setIf(goal, 'group', groupOf(goal, g.group, ctx.sides, data));
 	setIf(goal, 'only', onlyOf(g.only));

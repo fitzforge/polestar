@@ -213,6 +213,12 @@ map. Renders of every window and state, drawn without the game, are in
   kills, loot, places reached, trainers visited, skills and reputation. Your
   place in a guide is recomputed from your quest log, so it survives lost
   saved variables.
+- **It catches up.** Open a guide on a character who already did part of
+  the route and it rolls through what is done to where you are: grey
+  quests are left out, and so are green ones behind your progress, unless a
+  later quest needs them; a guide you are past hands over to the next.
+  Item, mount, reputation, profession and class guides do every step, and
+  "Do every step" in the window's menu does the same for a leveling guide.
 - **A guide for where you are.** The window opens with a guide suggested for
   your race, class, level and location, and each guide hands over to the
   next one in its chain when you finish it.

@@ -963,6 +963,8 @@ L["Write what went wrong, copy the report and paste it on the Polestar Discord."
 L["The guide moves on and remembers it. Undo in the banner, or go back to the step to unskip it."] = "指南会继续并记住此操作。可在横幅中撤销，或返回该步骤取消跳过。"
 L["Dismiss"] = "关闭"
 L["Guide progress"] = "指南进度"
+L["Do every step"] = "完成所有步骤"
+L["Grey quests and the quests behind where you are in the guide too."] = "也包括灰色任务和指南中你当前位置之前的任务。"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
