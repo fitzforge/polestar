@@ -207,6 +207,36 @@ test('candidate sets keep one candidate per town on every map, nearest to the pr
 	for (const id of [90100, 190, 54]) assert.ok(ids.includes(id), `${id} missing from ${ids.join(',')}`);
 });
 
+test('a map without an Era frame keeps one candidate per town by its Forever frame: Shen\'dar\'s trainers next to Thendal Grove\'s (#299, #281)', () => {
+	const ZEPHRAS = 2521;
+	const { data } = dataWith((raw) => {
+		raw['map-frames.json'].forever = { [ZEPHRAS]: { c: 2991, left: 4231.25, right: -1331.25, top: 4956.25, bottom: 1247.917 } };
+		const npcs = raw['npcs.json'];
+		const npc = (id, name, faction, roles, x, y) => {
+			npcs[id] = { id, name, level: 10, faction, roles, spawns: { [ZEPHRAS]: { f: 'l', pts: [[x, y]] } } };
+		};
+		// The isle's three shaman trainers: Thendal Grove, Shen'dar Village (about 790 yd south) and Valanaar.
+		npc(251374, 'Windshaper Boro', 'H', [], 42.77, 23.58);
+		npc(254082, 'Aarnor Galestrike', 'H', [], 43.42, 45.01);
+		npc(252382, 'Sessaria Skystride', 'H', [], 58.33, 78.44);
+		// Two smiths a few yards apart in Shen'dar, one in Thendal Grove.
+		npc(90200, 'Shen Smith A', 'H', ['repair', 'vendor'], 44, 45);
+		npc(90201, 'Shen Smith B', 'H', ['repair', 'vendor'], 44.3, 45);
+		npc(90202, 'Grove Smith', 'H', ['repair', 'vendor'], 42, 24);
+	});
+	const g = goals(['guide t/s', 'title S', 'faction Horde', 'levels 1-60', 'zone Zephras Isle', '', 'step S', '  goto 45,45', '  train class', '  vendor nearest'], data).goals;
+	const shamans = g[1].candidates.filter((c) => c.map === ZEPHRAS && (c.classes || []).includes('SHAMAN')).map((c) => c.npc);
+	assert.deepEqual(shamans.sort(), [251374, 252382, 254082]);
+	const smiths = g[2].candidates.filter((c) => c.npc >= 90200 && c.npc <= 90202).map((c) => c.npc);
+	assert.equal(smiths.length, 2, smiths.join(','));
+	assert.ok(smiths.includes(90202), smiths.join(','));
+	// Without a Forever frame either, the map still keeps one per map.
+	delete data.mapFrames.forever;
+	data._classTrainers = undefined;
+	const bare = goals(['guide t/s', 'title S', 'faction Horde', 'levels 1-60', 'zone Zephras Isle', '', 'step S', '  goto 45,45', '  train class'], data).goals[1];
+	assert.equal(bare.candidates.filter((c) => c.map === ZEPHRAS && (c.classes || []).includes('SHAMAN')).length, 1);
+});
+
 test('accept goals carry the quest level and prerequisites for grey-quest skipping', () => {
 	const g = goals([...head('Alliance'), 'step S', '  accept 9500', '  accept 783 lvl 3']).goals;
 	assert.deepEqual([g[0].qlvl, g[0].pre, g[1].qlvl, g[1].pre, g[1].minLevel], [3, [9201, 783], 1, undefined, 3]);

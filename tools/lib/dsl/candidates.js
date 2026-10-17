@@ -6,7 +6,8 @@
 //
 // Sets keep one candidate per town (hub): per continent, faction tag and class
 // list, a candidate within HUB_YARDS of one already kept is dropped, nearest to
-// the reference point first when it is on that continent. Every town stays
+// the reference point first when it is on that continent. A map without an Era
+// frame (Zephras Isle) measures its towns apart by its Forever frame. Every town stays
 // reachable, so the Engine can pick the nearest from wherever the player is;
 // MAX_PER_GROUP only guards against runaway data. Each candidate carries the
 // height of its NPC's spawn there (`z`, heights.js) when spawnz.json has one.
@@ -28,6 +29,17 @@ function worldPos(data, map, x, y) {
 	const fr = data.eraFrame(map);
 	if (!fr) return null;
 	return { c: fr.c, wx: fr.top + ((fr.bottom - fr.top) * y) / 100, wy: fr.left + ((fr.right - fr.left) * x) / 100 };
+}
+
+// Yards between two points of one map without an Era frame, by the size of
+// its Forever frame (Zephras Isle); null when the map has neither frame.
+function localYards(data, map, a, b) {
+	const fr = ((data.mapFrames || {}).forever || {})[map];
+	if (!fr) return null;
+	const w = Math.abs(fr.right - fr.left);
+	const h = Math.abs(fr.bottom - fr.top);
+	if (!(w > 0 && h > 0)) return null;
+	return Math.hypot(((a.x - b.x) * w) / 100, ((a.y - b.y) * h) / 100);
 }
 
 // One point per map an npc spawns on: the spawn nearest that map's centroid.
@@ -154,7 +166,8 @@ function buildCandidates(data, entries, opts) {
 			if (hubs.length >= cap) break;
 			const sameHub = a.w && hubs.some((h) => h.w && h.w.c === a.w.c && Math.hypot(h.w.wx - a.w.wx, h.w.wy - a.w.wy) < HUB_YARDS);
 			if (sameHub) continue;
-			if (!a.w && hubs.some((h) => !h.w && h.cand.map === a.cand.map)) continue;
+			// No Era frame: one per town by the map's Forever frame, else one per map.
+			if (!a.w && hubs.some((h) => !h.w && h.cand.map === a.cand.map && !(localYards(data, a.cand.map, h.cand, a.cand) >= HUB_YARDS))) continue;
 			hubs.push(a);
 		}
 		kept.push(...hubs);
