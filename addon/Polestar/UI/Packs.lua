@@ -18,7 +18,7 @@ local floor, max, min, ipairs, tostring = math.floor, math.max, math.min, ipairs
 local SH = W.SHELL
 local PAD = 12 -- a row's inner inset, as a settings row's
 local SEP = "  \194\183  "
-local LINE1 = 40 -- the title line
+local LINE1 = 58 -- the title and credits lines
 
 -- An address as a link's text: without its scheme, cut to maxW.
 local function setLink(b, url, maxW)
@@ -224,42 +224,39 @@ end
 local function layoutRow(row, r, width)
 	row.psRecord = r
 	row:SetWidth(width)
-	local titleW = min(220, floor(width * 0.32))
-	local col = PAD + titleW + 16
-	local avail = width - col - PAD
+	-- The title, its credits under it, and below them the rest at full width.
+	local col = PAD
+	local avail = width - 2 * PAD
 	-- A refused pack keeps its id as given: escaped for display.
 	row.Title:SetText(r.title or ns.EscapeText(r.id))
 	row.Title:ClearAllPoints()
 	row.Title:SetPoint("TOPLEFT", row, "TOPLEFT", PAD, -13)
-	row.Title:SetWidth(titleW)
 
-	-- Line 1, right: the switch and the guide count, or Enable and reload.
-	local right
+	-- Right of the title and credits: the switch and the guide count, or
+	-- Enable and reload.
+	local reserve = 0
 	row.Switch:Hide(); row.Enable:Hide(); row.Count:Hide()
 	if switchable(r) then
 		row.Switch:ClearAllPoints()
-		row.Switch:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD + 4, -8)
+		row.Switch:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD + 4, -19)
 		row.Switch:Show()
 		row.Switch:Refresh()
 		row.Count:SetText(count(r.guideCount or 0, L["1 guide"], L["%d guides"]))
 		row.Count:ClearAllPoints()
 		row.Count:SetPoint("RIGHT", row.Switch, "LEFT", -10, 0)
 		row.Count:Show()
-		right = row.Count
+		reserve = row.Switch:GetWidth() + 10 + row.Count:GetStringWidth() + 12
 	elseif r.status == "disabled" and r.addon then
 		row.Enable:ClearAllPoints()
-		row.Enable:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD, -8)
+		row.Enable:SetPoint("TOPRIGHT", row, "TOPRIGHT", -PAD, -16)
 		row.Enable:Show()
-		right = row.Enable
+		reserve = row.Enable:GetWidth() + 12
 	end
+	row.Title:SetWidth(avail - reserve)
 	row.Credits:SetText(P.Credits(r))
 	row.Credits:ClearAllPoints()
-	row.Credits:SetPoint("TOPLEFT", row, "TOPLEFT", col, -15)
-	if right then
-		row.Credits:SetPoint("RIGHT", right, "LEFT", -12, 0)
-	else
-		row.Credits:SetWidth(avail)
-	end
+	row.Credits:SetPoint("TOPLEFT", row, "TOPLEFT", PAD, -35)
+	row.Credits:SetWidth(avail - reserve)
 	local y = LINE1
 
 	-- The website link, then the source on its own line, wrapped.

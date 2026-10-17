@@ -251,7 +251,7 @@ test('a refused pack\'s id and addon, kept as given, print literally in the row 
 });
 
 test('the source wraps on its own line under the website box, at the row\'s full width', () => {
-	const long = 'Written from my own play on a fresh character, every quest done in the order the route takes them';
+	const long = 'Written from my own play on a fresh character, every quest done in the order the route takes them, with the shortest walks between the givers and every flight path picked up on the way';
 	const [out] = run(`
 		openPage()
 		local row = rowOf("JoeAddon")
@@ -339,16 +339,19 @@ test('the website and the docs line are links that open the copy window; without
 	assert.deepEqual(without, { label: "Read more: docs/GUIDE_PACKS.md in Polestar's source", link: false });
 });
 
-test('a 64-character title is cut to its column, inside the row', () => {
+test('a 64-character title is cut before the guide count, inside the row; the credits sit under it', () => {
 	const long = 'A'.repeat(64);
 	const [out] = run(`
 		local view = openPage()
 		local row = rowOf("JoeAddon")
-		local _, _, _, x = row.Title:GetPoint(1)
-		emit({ text = row.Title:GetText(), width = row.Title:GetWidth(), x = x, row = row:GetWidth(),
-			credits = select(4, row.Credits:GetPoint(1)) })`,
+		local _, _, _, x, y = row.Title:GetPoint(1)
+		local _, _, _, cx, cy = row.Credits:GetPoint(1)
+		emit({ text = row.Title:GetText(), width = row.Title:GetWidth(), x = x, y = y, row = row:GetWidth(),
+			reserve = row.Switch:GetWidth() + 10 + row.Count:GetStringWidth(), cx = cx, cy = cy })`,
 	{ before: `JOE_TITLE = "${long}"` });
 	assert.equal(out.text.length, 64);
-	assert.ok(out.width > 0 && out.x + out.width < out.credits, `title box ${out.x}+${out.width} ends before the credits at ${out.credits}`);
-	assert.ok(out.x + out.width <= out.row);
+	assert.ok(out.width > 0 && out.x + out.width < out.row - 12 - out.reserve,
+		`title box ${out.x}+${out.width} ends before the count and switch (${out.reserve} from the right)`);
+	assert.equal(out.cx, out.x, 'the credits start under the title');
+	assert.ok(out.cy < out.y, 'below it');
 });
