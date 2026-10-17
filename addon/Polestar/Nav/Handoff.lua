@@ -336,18 +336,23 @@ Handoff.Sync = sync
 -- replaced)? Then it stays ended until Polestar's target changes. Does it
 -- still hold that stop but guide nothing (Active() false: its search found no
 -- way there, or its guidance was turned off in its tracker)? Then Polestar
--- guides that target until it guides again, and goes on guiding when that
--- journey ends, unless another journey replaced it. A corpse run is its own.
+-- guides that target, also after that journey ends, until it guides anything
+-- again (that journey, the player's own, another addon's or its corpse run):
+-- then Polestar steps aside. Never decided while dead or a ghost: the corpse
+-- run is its own.
 local function heard()
 	local A = api()
-	if not (A and live) then return end
-	local why = type(A.Ended) == "function" and A.Ended(OWNER)
-	if why or (type(A.CurrentStop) == "function" and A.CurrentStop(OWNER) == nil) then
-		live = false
-		if why == "replaced" then setUnguided(false) end
-		return
+	if not A then return end
+	if live then
+		local why = type(A.Ended) == "function" and A.Ended(OWNER)
+		if why or (type(A.CurrentStop) == "function" and A.CurrentStop(OWNER) == nil) then live = false end
 	end
-	if type(A.Active) == "function" and not dead() then setUnguided(not A.Active()) end
+	if type(A.Active) ~= "function" or not (live or unguided) then return end
+	if A.Active() then
+		setUnguided(false)
+	elseif live and not dead() then
+		setUnguided(true)
+	end
 end
 
 local function subscribe()
@@ -367,7 +372,7 @@ end
 
 -- Without Subscribe (minor 0): Nav's once-a-second tick asks instead.
 function Handoff:Refresh()
-	if live and not subscribed then heard() end
+	if (live or unguided) and not subscribed then heard() end
 end
 
 function Handoff:OnSettings()
@@ -398,9 +403,13 @@ end)
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 	if pending then sync() end
 end)
--- Dead or a ghost, nothing is sent; alive again, the target goes as it is.
+-- Dead or a ghost, nothing is sent; alive again, the target goes as it is,
+-- and whether it guides is asked again.
 for _, event in ipairs({ "PLAYER_DEAD", "PLAYER_ALIVE", "PLAYER_UNGHOST" }) do
-	ns.RegisterEvent(event, function() sync() end)
+	ns.RegisterEvent(event, function()
+		sync()
+		heard()
+	end)
 end
 
 if ns.RegisterOptions then

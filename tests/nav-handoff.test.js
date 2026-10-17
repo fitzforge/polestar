@@ -60,8 +60,9 @@ end
 // spf.clear(), spf.replace(owner) and spf.arrive() are the player, another
 // addon and the journey's end; spf.noWay() is its search finding no way to
 // the stop (the journey stays, unguided: Active() false, its tracker "No way
-// there from here."), spf.guide() its guidance on again; subscribers hear of
-// changes on the next frame.
+// there from here."), spf.guide() its guidance on again, spf.corpseRun(on)
+// its own corpse run guiding (Active() true whoever's journey waits behind
+// it); subscribers hear of changes on the next frame.
 const SPF = `
 spf = { calls = {}, ended = {}, subs = {}, journeys = true, guided = false }
 local A = { version = 1, minor = 1 }
@@ -129,7 +130,7 @@ function A.Cancel(owner)
 	spf.changed("ended")
 	return true
 end
-function A.Active() return spf.owner ~= nil and spf.guided end
+function A.Active() return spf.corpse or (spf.owner ~= nil and spf.guided) end
 function A.Ended(owner) return spf.ended[owner] end
 function A.Subscribe(cb)
 	if type(cb) ~= "function" then error("callback must be a function", 2) end
@@ -154,6 +155,10 @@ function spf.noWay()
 end
 function spf.guide()
 	if spf.owner then spf.guided = true end
+	spf.changed("active")
+end
+function spf.corpseRun(on)
+	spf.corpse = on
 	spf.changed("active")
 end
 function spf.routes()
@@ -599,6 +604,51 @@ test('dead or a ghost, its guiding nothing is its corpse run\'s business: Polest
 	`);
 	assert.deepEqual(out.dead, [true, false]);
 	assert.deepEqual(out.alive, [true, false, 1]);
+});
+
+test('no way, the journey cleared, then the player starts one in it: Polestar steps aside again', () => {
+	const [out] = run(`
+		nav.setWaypoint(copy(FARLAND))
+		spf.noWay()
+		stub.runTimers()
+		spf.clear()
+		stub.runTimers()
+		stub.advance(0.3)
+		local cleared = { N.HandedOff(), arrowShown() }
+		spf.replace("player")
+		stub.runTimers()
+		stub.advance(0.3)
+		emit({ cleared = cleared, player = { N.HandedOff(), arrowShown(), sent() } })
+	`);
+	assert.deepEqual(out.cleared, [false, true]);
+	assert.deepEqual(out.player, [true, false, 1], 'one arrow: its journey guides, Polestar\'s steps aside');
+});
+
+test('no way, then a death: its corpse run guides and Polestar\'s arrow steps aside; alive with still no way, Polestar guides', () => {
+	const [out] = run(`
+		nav.setWaypoint(copy(FARLAND))
+		spf.noWay()
+		stub.runTimers()
+		local noWay = { N.HandedOff(), arrowShown() }
+		stub.dead = true
+		stub.fire("PLAYER_DEAD")
+		N.SetTarget(9000, 20, 20, "Your corpse")
+		spf.corpseRun(true)
+		stub.runTimers()
+		stub.advance(0.3)
+		local dead = { N.HandedOff(), arrowShown() }
+		-- Back in the body: the corpse run ends; its journey to Polestar's stop resumes and still finds no way.
+		stub.dead = false
+		N.ReleaseTarget()
+		spf.corpseRun(false)
+		stub.fire("PLAYER_UNGHOST")
+		stub.runTimers()
+		stub.advance(0.3)
+		emit({ noWay = noWay, dead = dead, alive = { N.HandedOff(), arrowShown(), N.GetTarget().label, sent() } })
+	`);
+	assert.deepEqual(out.noWay, [false, true]);
+	assert.deepEqual(out.dead, [true, false], 'one arrow: its corpse run');
+	assert.deepEqual(out.alive, [false, true, 'Farland camp', 1]);
 });
 
 test('off by default (#235): with it installed Polestar guides and sends nothing; the option shows, off', () => {

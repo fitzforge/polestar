@@ -1659,10 +1659,11 @@ Polestar.Nav.handoff.Available() -> bool
   way, `StopGuide` in its `Journey.lua`, the tracker saying "No way there
   from here."; or its guidance turned off in its tracker): Polestar guides
   that target itself (`Nav.HandedOff()` false), leaving its journey in place
-  and sending nothing. It is read on `Subscribe`'s news (else Nav's tick),
-  never while dead or a ghost (its corpse run). When it guides again Polestar
-  steps aside; when that journey ends Polestar goes on guiding, unless
-  another journey replaced it; the next stop taken hands back.
+  and sending nothing. It is read on `Subscribe`'s news (else Nav's tick) and
+  at death and coming back; it is never set while dead or a ghost (its corpse
+  run). Polestar goes on guiding after that journey ends, and steps aside as
+  soon as it guides anything again (that journey, the player's own, another
+  addon's, its corpse run); the next stop taken hands back.
 - **Off.** Turning `nav.spfHandoff` off cancels the journey and Polestar
   guides again (`Polestar_Nav` loads then); on again sends the stop anew.
 - **Options and commands.** `Nav.HandoffOption(control)` wraps every option
