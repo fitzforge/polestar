@@ -51,6 +51,7 @@ test('a translated report parses by shape, not by its words', () => {
 		'[>] Sprich mit Rybrad · quest 400 · npc 1690 · map 1426 @46.82,52.36',
 		'Pfeil: Rybrad · 120 yd',
 		'Ort: Dun Morogh, Kharanos · map 1426 @46.00,52.00 live',
+		'Routen: roads · travel planner off',
 		'Fehler:',
 		'  3x Polestar/Nav/Arrow.lua:88: attempt to index nil',
 		'```',
@@ -62,6 +63,8 @@ test('a translated report parses by shape, not by its words', () => {
 	assert.deepEqual([r.details.step, r.details.stepCount, r.details.liveStep], [7, 40, undefined]);
 	assert.equal(r.details.zone, 'Dun Morogh, Kharanos');
 	assert.deepEqual(r.details.errors, [{ count: 3, message: 'Polestar/Nav/Arrow.lua:88: attempt to index nil' }]);
+	assert.equal(r.details.routes, 'roads · travel planner off', 'the route settings, found by their words under a translated label');
+	assert.match(I.issueBody({ report: r, reporter: 'x', guild: '1', thread: '2' }), /^\| Routes \| roads · travel planner off \|$/m);
 	assert.ok(I.labelsFor(r).includes('lua-error'));
 });
 
@@ -72,6 +75,7 @@ test('a report with no guide open still finds the arrow and position lines', () 
 	assert.equal(r.details.arrow, 'Arrow: none');
 	assert.equal(r.details.zone, 'Stormwind City');
 	assert.deepEqual(I.labelsFor(r), ['discord', 'triage', 'bug', 'locale:enUS']);
+	assert.equal(r.details.routes, undefined, 'a report from before the Routes line has none');
 });
 
 test('a post without a report is all description, other code blocks included', () => {

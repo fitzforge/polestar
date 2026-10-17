@@ -1357,6 +1357,7 @@ L["Get the invite"] = "获取邀请"
 L["Report problems, ask for help and hear about new guides first. The invite is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open it in your browser."] = "报告问题、寻求帮助，并第一时间获知新指南。邀请链接已为你选中：按 Ctrl+C（Mac 上为 Cmd+C）复制并在浏览器中打开。"
 L["Report problems, ask for help and hear about new guides first."] = "报告问题、寻求帮助，并第一时间获知新指南。"
 L["blocked in %s: %s (%s)"] = "在%s中被阻止：%s（%s）"
+L["Routes: %s"] = "路线：%s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "已在插件列表中关闭"

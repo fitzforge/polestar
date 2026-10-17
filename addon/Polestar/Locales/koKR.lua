@@ -1357,6 +1357,7 @@ L["Get the invite"] = "초대 링크 받기"
 L["Report problems, ask for help and hear about new guides first. The invite is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open it in your browser."] = "문제를 신고하고, 도움을 요청하고, 새 가이드 소식을 먼저 받으십시오. 초대 링크가 선택되어 있습니다: Ctrl+C(Mac은 Cmd+C)로 복사해 브라우저에서 여십시오."
 L["Report problems, ask for help and hear about new guides first."] = "문제를 신고하고, 도움을 요청하고, 새 가이드 소식을 먼저 받으십시오."
 L["blocked in %s: %s (%s)"] = "%s에서 차단됨: %s (%s)"
+L["Routes: %s"] = "경로: %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "애드온 목록에서 꺼짐"

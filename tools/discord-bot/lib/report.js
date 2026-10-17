@@ -95,6 +95,11 @@ function parseDetails(lines) {
 		const zone = head.slice(head.indexOf(':') + 1).trim();
 		if (zone) out.zone = zone;
 	}
+	// "Routes: balanced · real paths off": its label is in the client's
+	// language, its words are not (Report.lua routesLine), so the style word
+	// after the colon finds it. Older reports have no such line.
+	const routes = (lines[i + 2] || '').match(/[:：]\s*((?:fastest|balanced|roads)\b.*)$/);
+	if (routes) out.routes = routes[1].trim();
 	out.errors = [];
 	for (const l of lines) {
 		const e = l.match(ERROR_LINE);

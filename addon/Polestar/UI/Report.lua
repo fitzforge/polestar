@@ -168,6 +168,22 @@ local function playerLine()
 	return cut((L["Where: %s"]):format(place) .. SEP .. (where(map, x, y) or L["no position"]))
 end
 
+-- How the arrow is set to route, so a pathing report says which router and
+-- style it came from: the route style (nav.routeStyle) as its setting's own
+-- word, then only the settings that differ from the defaults (walking maps
+-- off, the travel planner off, guiding handed to Shortest Path Forever). The
+-- words stay English, like "yd": whoever fixes the bug reads them. After the
+-- Where line, so the bug bot still finds Arrow and Where by position.
+local function routesLine()
+	local style = ns.Get("nav.routeStyle")
+	local parts = { (style == "fastest" or style == "roads") and style or "balanced" }
+	if ns.Get("nav.navRouting") == false then parts[#parts + 1] = "real paths off" end
+	if ns.Get("nav.travel") == false then parts[#parts + 1] = "travel planner off" end
+	local N = ns.Nav
+	if N and N.HandedOff and N.HandedOff() then parts[#parts + 1] = "handed to Shortest Path Forever" end
+	return cut((L["Routes: %s"]):format(table.concat(parts, SEP)))
+end
+
 -- Other guide packs that are on, with their versions.
 local function packsLine()
 	local G = ns.Guides
@@ -234,6 +250,7 @@ function R.Details()
 	guideLines(out)
 	out[#out + 1] = arrowLine()
 	out[#out + 1] = playerLine()
+	out[#out + 1] = routesLine()
 	out[#out + 1] = packsLine()
 	errorLines(out)
 	local lines = {}

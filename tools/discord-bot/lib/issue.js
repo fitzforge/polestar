@@ -143,6 +143,7 @@ function summaryTable(d) {
 		rows.push(['Step', s]);
 	}
 	if (d.zone) rows.push(['Where', d.zone + (d.map ? ` · map ${d.map}` : '')]);
+	if (d.routes) rows.push(['Routes', d.routes]);
 	rows.push(['Errors', d.errors.length ? d.errors.map((e) => `${e.count}x ${e.message}`).join(' / ') : 'none']);
 	return ['| | |', '|---|---|', ...rows.map(([k, v]) => `| ${k} | ${cell(v)} |`)].join('\n');
 }

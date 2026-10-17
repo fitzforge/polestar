@@ -1398,6 +1398,7 @@ L["Errors:"] = "Fehler:"
 L["(not described)"] = "(nicht beschrieben)"
 L["What went wrong:"] = "Was ist schiefgelaufen:"
 L["blocked in %s: %s (%s)"] = "blockiert in %s: %s (%s)"
+L["Routes: %s"] = "Routen: %s"
 
 -- Maps/Instances.lua
 L["Instance history cleared."] = "Instanzverlauf gelöscht."

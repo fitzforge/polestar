@@ -62,6 +62,9 @@ test('the bug in the navigator reports the step on screen: the player\'s words, 
 	assert.ok(meat.startsWith('[ ] Kill Young Wolf for Tough Wolf Meat 3/8') && meat.includes('item 750'), meat);
 	assert.ok(lineWith(out.text, 'Arrow:').includes('42 yd'), out.text);
 	assert.ok(lineWith(out.text, 'Where:').includes('Elwynn Forest'), out.text);
+	const routes = lines.indexOf(lineWith(out.text, 'Routes:'));
+	assert.equal(lines[routes], 'Routes: balanced', 'the default route style, and nothing else when the rest is at its defaults');
+	assert.equal(routes, lines.indexOf(lineWith(out.text, 'Where:')) + 1, 'right after Where, so the bug bot still finds Arrow and Where by position');
 	const who = lineWith(out.text, 'Human Warrior');
 	assert.ok(who.includes('level 4') && who.includes('Alliance'), who);
 	const versions = lineWith(out.text, 'client ');
@@ -71,6 +74,30 @@ test('the bug in the navigator reports the step on screen: the player\'s words, 
 	assert.equal(out.copies, 1, 'one thing to copy in the window: the report (a member needs no invite)');
 	assert.deepEqual(out.invite, { shown: true, text: INVITE, focus: true }, 'Get the invite opens the invite on its own, selected');
 	assert.ok(out.boxH >= lines.length * 11, `the box holds every line (${out.boxH}px for ${lines.length})`);
+});
+
+test('the report says how the arrow routes: the route style, then only the routing settings turned away from their defaults', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local function routes()
+			UI.ShowReport()
+			for line in PolestarReport.Box:GetText():gmatch("[^\\n]+") do
+				if line:find("^Routes: ") then return line end
+			end
+		end
+		local r = {}
+		Polestar.Set("nav.routeStyle", "roads")
+		r.roads = routes()
+		Polestar.Set("nav.routeStyle", "fastest")
+		Polestar.Set("nav.navRouting", false)
+		Polestar.Set("nav.travel", false)
+		r.off = routes()
+		Polestar.Set("nav.routeStyle", "something old")
+		r.unknown = routes()
+		emit(r)`);
+	assert.equal(out.roads, 'Routes: roads');
+	assert.equal(out.off, 'Routes: fastest · real paths off · travel planner off');
+	assert.equal(out.unknown, 'Routes: balanced · real paths off · travel planner off', 'a style the router reads as Balanced is reported as Balanced');
 });
 
 test('at its longest the report still fits one Discord message', () => {

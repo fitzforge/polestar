@@ -1519,6 +1519,7 @@ L["Get the invite"] = "Conseguir la invitación"
 L["Report problems, ask for help and hear about new guides first. The invite is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open it in your browser."] = "Informa de problemas, pide ayuda y entérate primero de las guías nuevas. La invitación ya está seleccionada: cópiala con Ctrl+C (Cmd+C en Mac) y ábrela en tu navegador."
 L["Report problems, ask for help and hear about new guides first."] = "Informa de problemas, pide ayuda y entérate primero de las guías nuevas."
 L["blocked in %s: %s (%s)"] = "bloqueado en %s: %s (%s)"
+L["Routes: %s"] = "Rutas: %s"
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Justo aquí"

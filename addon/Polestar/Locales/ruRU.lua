@@ -1357,6 +1357,7 @@ L["Get the invite"] = "Получить приглашение"
 L["Report problems, ask for help and hear about new guides first. The invite is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open it in your browser."] = "Сообщайте о проблемах, просите помощи и первыми узнавайте о новых гайдах. Приглашение выделено: скопируйте его (Ctrl+C, на Mac Cmd+C) и откройте в браузере."
 L["Report problems, ask for help and hear about new guides first."] = "Сообщайте о проблемах, просите помощи и первыми узнавайте о новых гайдах."
 L["blocked in %s: %s (%s)"] = "заблокировано в %s: %s (%s)"
+L["Routes: %s"] = "Маршруты: %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "отключен в списке модификаций"
