@@ -30551,20 +30551,11 @@ do
 					goals = {
 						{ t = "kill", quest = 792, title = "Vile Familiars", target = "Vile Familiar", npc = 3101, count = 12, oi = 1, map = 1411, x = 44.51, y = 58.49, z = 56, f = "e", spots = { { x = 44.2, y = 58.4, r = 21, n = 2 }, { x = 44.7, y = 57.1, r = 44, n = 6 }, { x = 46.1, y = 57.3, r = 49, n = 6 }, { x = 45.5, y = 55.8, r = 37, n = 4 }, { x = 43.7, y = 54.1, r = 71, n = 15 } }, only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "DRUID" } } },
 						{ t = "collect", quest = 1485, title = "Vile Familiars", item = 6487, itemName = "Vile Familiar Head", count = 6, oi = 1, map = 1411, x = 44.51, y = 58.49, f = "e", spots = { { x = 44.2, y = 58.4, r = 21, n = 2 }, { x = 44.7, y = 57.1, r = 44, n = 6 }, { x = 46.1, y = 57.3, r = 49, n = 6 }, { x = 45.5, y = 55.8, r = 37, n = 4 }, { x = 43.7, y = 54.1, r = 71, n = 15 } }, only = { classes = { "WARLOCK" } }, from = "Vile Familiar", fromKind = "npc", fromId = 3101 },
-						{ t = "goto", text = "{area:365}", area = 365, map = 1411, x = 45, y = 56, f = "e" },
-					},
-				},
-				{
-					title = "{quest:6394}",
-					note = "Inside the cave, go straight on at the first split, then right and follow the stream on your left to the waterfall: the pick glows by the water, behind a column of rock.",
-					goals = {
-						{ t = "collect", quest = 6394, title = "Thazz'ril's Pick", item = 16332, itemName = "Thazz'ril's Pick", oi = 1, map = 1411, x = 43.7, y = 53.8, f = "e", from = "Thazz'ril's Pick", fromKind = "object", fromId = 178087 },
 					},
 				},
 				{
 					title = "Back at the Den",
 					goals = {
-						{ t = "turnin", quest = 6394, title = "Thazz'ril's Pick", npc = 11378, npcName = "Foreman Thazz'ril", map = 1411, x = 44.63, y = 68.65, z = 40.1, f = "e" },
 						{ t = "turnin", quest = 792, title = "Vile Familiars", npc = 3145, npcName = "Zureetha Fargaze", map = 1411, x = 42.85, y = 69.15, z = 38.2, f = "e", only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "DRUID" } } },
 						{ t = "turnin", quest = 1485, title = "Vile Familiars", npc = 5765, npcName = "Ruzan", map = 1411, x = 42.59, y = 69, z = 38.2, f = "e", only = { classes = { "WARLOCK" } } },
 						{ t = "accept", quest = 1499, title = "Vile Familiars", npc = 5765, npcName = "Ruzan", minLevel = 1, qlvl = 4, pre = { 1470, 1485 }, preTitles = { [1470] = "Piercing the Veil", [1485] = "Vile Familiars" }, map = 1411, x = 42.59, y = 69, z = 38.2, f = "e", only = { classes = { "WARLOCK" } } },
@@ -30587,6 +30578,13 @@ do
 					},
 				},
 				{
+					title = "{quest:6394}",
+					note = "Inside the cave, go straight on at the first split, then right and follow the stream on your left to the waterfall: the pick glows by the water, behind a column of rock.",
+					goals = {
+						{ t = "collect", quest = 6394, title = "Thazz'ril's Pick", item = 16332, itemName = "Thazz'ril's Pick", oi = 1, map = 1411, x = 43.7, y = 53.8, f = "e", from = "Thazz'ril's Pick", fromKind = "object", fromId = 178087 },
+					},
+				},
+				{
 					title = "{npc:3183}",
 					note = "Inside the cave, keep to the right wall all the way round, over the stream: {npc:3183} waits at the end.",
 					goals = {
@@ -30599,6 +30597,12 @@ do
 					only = { classes = { "SHAMAN" } },
 					goals = {
 						{ t = "collect", quest = 1516, title = "Call of Earth", item = 6640, itemName = "Felstalker Hoof", count = 2, oi = 1, map = 1411, x = 42.52, y = 53.5, f = "e", spots = { { x = 42.9, y = 53.2, r = 51, n = 5 }, { x = 44.1, y = 54.8, r = 61, n = 5 }, { x = 44.6, y = 52.8, r = 26, n = 3 }, { x = 45.4, y = 55.5, r = 15, n = 2 } }, from = "Felstalker", fromKind = "npc", fromId = 3102 },
+					},
+				},
+				{
+					title = "{npc:11378}",
+					goals = {
+						{ t = "turnin", quest = 6394, title = "Thazz'ril's Pick", npc = 11378, npcName = "Foreman Thazz'ril", map = 1411, x = 44.63, y = 68.65, z = 40.1, f = "e" },
 					},
 				},
 				{

@@ -104,7 +104,6 @@ test(`${DUROTAR}: Tom's report: the arrow's last waypoint before Kzan Thornslash
 const CAVES = [
 	// Thazz'ril's Pick and Yarrog Baneshadow: "Go in the cave (45 56)".
 	{ cave: 'the Burning Blade Coven (the pick)', guide: DUROTAR, target: (g) => g.t === 'collect' && g.item === 16332, mouth: { map: 1411, x: 45, y: 56 } },
-	{ cave: 'the Burning Blade Coven (Yarrog)', guide: DUROTAR, target: (g) => g.t === 'collect' && g.item === 4859, mouth: { map: 1411, x: 45, y: 56 } },
 	{ cave: 'Skull Rock', guide: DUROTAR, target: (g) => g.t === 'collect' && g.item === 4871, mouth: { map: 1411, x: 55, y: 10 } },
 	// The troll cave's mouth as marked in game (thmastin, PR #16); Wowhead's comments put it at 26,79.
 	{ cave: 'the Coldridge troll cave', guide: DUN_MOROGH, target: (g) => g.t === 'collect' && g.item === 2004, mouth: { map: 1426, x: 26.93, y: 80.03 } },
@@ -125,6 +124,21 @@ for (const c of CAVES) {
 		assert.deepEqual({ t, map, x, y }, { t: 'goto', ...c.mouth }, `the waypoint before "${list[i].step.title}" is the mouth`);
 	});
 }
+
+// --- Durotar (Gruko, #240): the Burning Blade Coven in one trip. Vile Familiars
+// is handed in and Burning Blade Medallion taken first, so Yarrog comes right
+// after Thazz'ril's Pick inside the cave instead of a walk back to the Den and in again.
+test(`${DUROTAR}: Gruko's report (#240): Thazz'ril's Pick and Yarrog are done on one trip into the Burning Blade Coven, for every class`, { skip }, () => {
+	const all = goals(DUROTAR);
+	for (const cls of ['WARRIOR', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK']) {
+		const list = all.filter(forClass(cls));
+		const pick = at(list, "Thazz'ril's Pick", (g) => g.t === 'collect' && g.item === 16332);
+		const yarrog = at(list, 'the Burning Blade Medallion', (g) => g.t === 'collect' && g.item === 4859);
+		assert.ok(at(list, 'accept 794 (Burning Blade Medallion)', is('accept', 794)) < pick, `${cls}: the Medallion is taken before the cave`);
+		assert.ok(pick < yarrog, `${cls}: the pick, then Yarrog`);
+		assert.deepEqual(list.slice(pick + 1, yarrog).filter(located).map(({ goal }) => `${goal.t} ${goal.quest || goal.text}`), [], `${cls}: nothing outside the cave between the pick and Yarrog`);
+	}
+});
 
 // --- The starting glens: one delivery quest no longer sends you off and back.
 

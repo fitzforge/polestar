@@ -28,6 +28,12 @@ next forever/horde/orc-troll/02-the-barrens
 #   Sarkoth: his slope is full of Scorpid Workers and cactuses. All three go
 #   back to the Den with Sarkoth (804); 0.01 h faster to 10 and 20 under the
 #   simulator than taking 789 and 4402 after Sarkoth.
+# - Vile Familiars (792; 1485/1499 for Warlocks) is handed in and Burning
+#   Blade Medallion (794) taken before the Burning Blade Coven, so Thazz'ril's
+#   Pick (6394) and Yarrog are done on one trip into the cave; the export goes
+#   in for the pick, back to the Den and in again for Yarrog. 37-50 s faster
+#   to 10 and 20 under the simulator (Orc; any class, Mage, Warlock, Shaman),
+#   which does not count the second walk through the cave.
 # - Legging It (96821) is taken at Sen'jin on the first visit: its spiders sit
 #   on the road north to Razor Hill, where Gar'Thok takes it.
 # - Rezlak's second pair (A Simmering Storm 97281, Stormy Potential 97282) and
@@ -182,22 +188,12 @@ step Foreman Thazz'ril
   turnin 5441
   accept 6394
 
-# The Burning Blade Coven's mouth: "Go in the cave (45 56) and stay right"
-# (https://www.wowhead.com/classic/quest=794, comments); the pick lies past the
-# first split, straight on, then right along the stream to the waterfall
-# (https://www.wowhead.com/classic/quest=6394, comments).
 step North end of the valley
   tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
-  goto 45.0,56.0 "Burning Blade Coven"
-
-step Thazz'ril's Pick
-  tip Inside the cave, go straight on at the first split, then right and follow the stream on your left to the waterfall: the pick glows by the water, behind a column of rock.
-  collect 16332 quest 6394.1 @43.7,53.8
 
 step Back at the Den
-  turnin 6394                         -- Foreman Thazz'ril
   turnin 792 only !Warlock            -- Zureetha Fargaze
   turnin 1485 only Warlock            -- Ruzan
   accept 1499 only Warlock
@@ -209,8 +205,16 @@ step Canaga Earthcaller
   tip Canaga stands just outside the Den.
   accept 1516                         -- Canaga Earthcaller
 
+# The Burning Blade Coven's mouth: "Go in the cave (45 56) and stay right"
+# (https://www.wowhead.com/classic/quest=794, comments); the pick lies past the
+# first split, straight on, then right along the stream to the waterfall
+# (https://www.wowhead.com/classic/quest=6394, comments).
 step Burning Blade Coven
   goto 45.0,56.0 "Burning Blade Coven"
+
+step Thazz'ril's Pick
+  tip Inside the cave, go straight on at the first split, then right and follow the stream on your left to the waterfall: the pick glows by the water, behind a column of rock.
+  collect 16332 quest 6394.1 @43.7,53.8
 
 step Yarrog Baneshadow
   tip Inside the cave, keep to the right wall all the way round, over the stream: Yarrog waits at the end.
@@ -220,6 +224,9 @@ step Felstalker hooves
   only Shaman
   tip Felstalkers roam the slope below the cave, on the valley's north side.
   collect 6640 quest 1516.1
+
+step Foreman Thazz'ril
+  turnin 6394
 
 step Zureetha Fargaze
   turnin 794
