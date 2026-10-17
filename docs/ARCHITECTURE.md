@@ -224,7 +224,9 @@ instance or on a map without a position it prints why instead.
 ```lua
 Polestar.SafeCall(fn, ...)    -- runs fn; an error is noted, then handed to the error handler
 Polestar.NoteError(err)       -- notes an error Polestar caught (SafeCall, Hooks' callbacks)
-Polestar.Errors() -> { { msg, count }, ... }   -- this session's, oldest first, the last 5 kept
+Polestar.Errors() -> { { msg, count, seq }, ... }   -- this session's, oldest first, the last 5 kept
+Polestar.NoteBlocked(addon, fn)   -- notes a protected call the game blocked from Polestar or Polestar_*
+Polestar.Blocked() -> { { addon, fn, count, at, seq }, ... }   -- this session's, oldest first, the last 5 kept
 Polestar.DiscordURL           -- the Polestar Discord's invite
 ```
 
@@ -233,7 +235,12 @@ runs through `SafeCall`, and Hooks' callbacks through their own `pcall`, so
 the errors Polestar catches are noted by their first line, counted, for the
 report a player copies (UI, "Reporting a problem"). Polestar never replaces
 the game's error handler: wrapping it would shift the stack the game and
-!BugGrabber show for every error.
+!BugGrabber show for every error. Taint is no Lua error: `ADDON_ACTION_BLOCKED`
+and `ADDON_ACTION_FORBIDDEN` (the addon blamed, then the function) go to
+`NoteBlocked`, which keeps those blaming Polestar or a `Polestar_*` addon
+with the addon, how often and the time it last came (`%H:%M:%S`), so a
+report on a broken gamepad or button does not read "Errors: none". `seq`,
+one counter for both lists, says which came last.
 
 ### Frames under the game's UI
 
@@ -3128,16 +3135,19 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   position when the player set it); where the player stands (zone, subzone,
   `map <id> @x,y live`); other guide packs that are on; and the errors
   (`Polestar.Errors()`, plus with !BugGrabber its errors this session in
-  Polestar's files, `BugGrabber:GetDB()`), the newest three, counted, by
-  their path from the AddOns folder. Every line is cut at 100 bytes, so at
-  its longest the report fits one Discord message (2000 characters). Under
-  it, Discord's mark, "Polestar on Discord" and "Get the invite", which opens
-  the invite (`Polestar.DiscordURL`) in the copy window: the game opens no
-  links for addons, so the report is the only text a member copies. What the
-  player typed stays while the window is reopened on the same step. The
-  hub's and the settings' sidebars carry the Discord's mark at the end of
-  the version line (`UI.Report.SidebarLink(shell)`), which opens the invite like
-  `/polestar discord` (`UI.ShowDiscord`, `SHOW_DISCORD`).
+  Polestar's files, `BugGrabber:GetDB()`) by their path from the AddOns
+  folder, and the calls the game blocked (`Polestar.Blocked()`) as "blocked
+  in <addon>: <function> (<time>)": the newest three of both together, by
+  `seq` (!BugGrabber's count as the newest), each counted. Every line is cut
+  at 100 bytes, so at its longest the report fits one Discord message (2000
+  characters). Under it, Discord's mark, "Polestar on Discord" and "Get the
+  invite", which opens the invite (`Polestar.DiscordURL`) in the copy
+  window: the game opens no links for addons, so the report is the only text
+  a member copies. What the player typed stays while the window is reopened
+  on the same step. The hub's and the settings' sidebars carry the Discord's
+  mark at the end of the version line (`UI.Report.SidebarLink(shell)`),
+  which opens the invite like `/polestar discord` (`UI.ShowDiscord`,
+  `SHOW_DISCORD`).
 - **Per-character UI state** in `CharState().ui`: `recentGuides` (ids, newest
   first, at most 10), `favoriteGuides` (id -> true), `pickerSelected` (id).
 
