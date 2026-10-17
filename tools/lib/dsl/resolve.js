@@ -1225,13 +1225,15 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			const kind = v === 'kill' ? 'kill' : v === 'collect' ? 'item' : v === 'interact' ? 'object' : null;
 			const id = v === 'kill' ? g.npc : v === 'interact' ? g.object : g.item;
 			// `quest Q.O` naming an objective of the same kind for another
-			// target: progress and count would follow that one.
+			// target: progress and count would follow that one. When the target
+			// is another objective of the quest, the index is swapped, which is
+			// always wrong: an error (#214 shipped two that a warning let pass).
 			const named = oi !== undefined && kind && id !== undefined ? data.questObjectives(g.quest)[oi - 1] : null;
 			if (named && named.kind === kind && named.id != null && named.id !== id) {
 				const right = objectiveFor(q, kind, id);
 				const noun = v === 'kill' ? 'npc' : v === 'interact' ? 'object' : 'item';
 				const own = right ? data.questObjectives(g.quest)[right - 1] : null;
-				warn(
+				(right ? err : warn)(
 					ln,
 					`${objectiveLabel(g.quest, named).replace(/^(\S+) = /, 'quest $1 is ')}, not this ${noun}${own ? `; ${own.name || `${noun} ${id}`} is ${g.quest}.${right}` : ''}`,
 					right ? `write \`quest ${g.quest}.${right}\`, or \`quest ${g.quest}\` to take the index from the ${noun}` : `its objectives: ${listed()}`,
