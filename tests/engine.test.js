@@ -706,6 +706,61 @@ test('a quest started by a dropped item is one line: the collect stands for it, 
 	assert.equal(out.taken.cFolded, true);
 });
 
+// Accepting an item-started quest uses up the item. A player who took the
+// quest before the guide reached its step (Ursangous met early, #309) never
+// had the item in the bags during that step, so nothing latched the collect.
+test('the collect of a quest\'s starting item is done once the quest is taken, though the item is gone', () => {
+	const guides = `
+		Polestar.RegisterGuide({ id = "test/paw", pack = "test", title = "Paw", faction = "Horde", minLevel = 20, maxLevel = 30, steps = {
+			{ title = "Ursangous", goals = {
+				{ t = "collect", item = 16303, itemName = "Ursangous's Paw", count = 1, map = 1429, x = 40, y = 65 },
+				{ t = "accept", quest = 23, title = "Ursangous's Paw", item = 16303, itemName = "Ursangous's Paw" },
+			} },
+			{ title = "Splintertree Post", goals = {
+				{ t = "turnin", quest = 23, title = "Ursangous's Paw", npc = 12696, npcName = "Senani Thunderheart", map = 1429, x = 73, y = 61 },
+			} },
+		} })
+	`;
+	const [out] = run({
+		guides,
+		before: 'stub.world.faction = "Horde"; stub.world.race = "Orc"; stub.world.class = "HUNTER"; stub.world.level = 27',
+		script: `
+			E.SetGuide("test/paw"); flush()
+			local r = { fresh = { E.GetStepIndex(), E.GetStepView(1).goals[1].status } }
+			stub.world.accept(23, {}); flush()
+			r.taken = { E.GetStepIndex(), E.GetStepView(1).goals[1].status }
+			emit(r)
+		`,
+	});
+	assert.deepEqual(out.fresh, [1, 'active'], 'neither the item nor the quest: get the item');
+	assert.deepEqual(out.taken, [2, 'done'], 'the quest in the log: on to its turn-in');
+});
+
+test('a taken quest does not count for other collects of its item', () => {
+	const PAW = 'item = 16303, itemName = "Paw"';
+	const cases = {
+		'two of the item': `{ t = "collect", ${PAW}, count = 2 }, { t = "accept", quest = 23, title = "Q", ${PAW} }`,
+		'a collect after the accept': `{ t = "accept", quest = 23, title = "Q", ${PAW} }, { t = "collect", ${PAW}, count = 1 }`,
+		"another class's accept": `{ t = "accept", quest = 23, title = "Q", ${PAW}, only = { classes = { "MAGE" } } }, { t = "collect", ${PAW}, count = 1 }, { t = "accept", quest = 2, title = "Q2", ${PAW} }`,
+	};
+	for (const [name, goals] of Object.entries(cases)) {
+		const [out] = run({
+			guides: `Polestar.RegisterGuide({ id = "test/paws", pack = "test", title = "Paws", faction = "Horde", minLevel = 20, maxLevel = 30, steps = {
+				{ title = "Paws", goals = { ${goals} } },
+				{ title = "Later", goals = { { t = "level", level = 60 } } },
+			} })`,
+			before: 'stub.world.faction = "Horde"; stub.world.race = "Orc"; stub.world.class = "HUNTER"; stub.world.level = 27',
+			script: `
+				E.SetGuide("test/paws"); flush()
+				stub.world.accept(23, {}); flush()
+				local v = E.GetStepView(1)
+				for _, gv in ipairs(v.goals) do if gv.t == "collect" then emit({ E.GetStepIndex(), gv.status }) end end
+			`,
+		});
+		assert.deepEqual(out, [1, 'active'], name);
+	}
+});
+
 // The game's objective names only the item ("Fel Moss: 0/8"); the goal line
 // says where it comes from.
 test('a collect with a known source names it: kill an enemy for the item, collect from a friend or an object', () => {

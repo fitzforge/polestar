@@ -1077,6 +1077,28 @@ local function exploredAt(goal)
 	return x and fn(goal.map, x, y) or false
 end
 
+-- Whether bag-count collect g of step s gets the one item that starts a
+-- quest: the next `accept Q item I` of that item in the step, before any
+-- other collect of it (the pairing GetStepView folds into one line), and that
+-- quest is in the log or done. Accepting uses the item up, and a player who
+-- took the quest before the route reached the step never held it there
+-- (#309). (On Own: the main chunk is at 200 locals.)
+function Own.starterTaken(s, g, goal)
+	if (goal.count or 1) ~= 1 then return false end
+	local goals = guide.steps[s].goals
+	for j = g + 1, #goals do
+		local a = goals[j]
+		if a.item == goal.item then
+			if a.t == "collect" and not a.quest then return false end
+			if a.t == "accept" and not a.npc and not a.object and goalApplies(a) then
+				local C = Compat()
+				return C.IsOnQuest(a.quest) or questDone(a.quest) or false
+			end
+		end
+	end
+	return false
+end
+
 -- done, cur, max[, label, kind] for goal g of step s. Notes are never done
 -- (and never block). A stored check-off (the player's tick, or a result the
 -- Engine latched) is done whatever the live state says.
@@ -1101,6 +1123,7 @@ goalDone = function(s, g, goal)
 		return false
 	elseif t == "collect" then
 		if goal.quest then return objectiveState(goal) end
+		if Own.starterTaken(s, g, goal) then return true end
 		return countState(goal)
 	elseif t == "buy" then
 		return countState(goal)
