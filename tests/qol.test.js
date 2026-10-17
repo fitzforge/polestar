@@ -1800,6 +1800,32 @@ test('death: as a ghost the arrow points at the faster choice; resurrection rele
 	assert.equal(out[4], true, 'no more targets after resurrection');
 });
 
+test('death: a ghost in the next zone is led to the corpse on its own zone map, not off the edge of theirs (#270)', () => {
+	const out = run(`
+		-- the corpse in 9000 (50, 80); the ghost 900 yd south in zone 9002, where
+		-- the client answers for the corpse off the map's top edge (50, -20)
+		QoL.SetData({ spiritHealers = {}, flightMasters = {} })
+		q.corpse = { 50, 80 }
+		q.player = { c = 0, wx = -1500, wy = 0 }
+		q.level = 30
+		q.ghost = true
+		stub.fire("PLAYER_ALIVE")
+		local t = q.nav.target
+		emit({ label = t.label, map = t.map, x = t.x, y = t.y, yards = QoL.GetDeathAdvice().corpseYards })
+		-- walking north into 9000 keeps the same spot
+		q.player = { c = 0, wx = -800, wy = 0 }
+		stub.advance(1.1)
+		t = q.nav.target
+		emit({ map = t.map, x = t.x, y = t.y })
+	`);
+	assert.equal(out[0].label, 'Your corpse');
+	assert.equal(out[0].map, 9000);
+	assert.ok(Math.abs(out[0].x - 50) < 1e-9 && Math.abs(out[0].y - 80) < 1e-9, `corpse at ${out[0].x}, ${out[0].y}`);
+	assert.ok(Math.abs(out[0].yards - 900) < 1e-9);
+	assert.equal(out[1].map, 9000);
+	assert.ok(Math.abs(out[1].x - 50) < 1e-9 && Math.abs(out[1].y - 80) < 1e-9);
+});
+
 test('death: in metres the advice gives the distances in metres', () => {
 	const [note] = run(`
 		Polestar.Set("nav.distanceUnit", "metres")

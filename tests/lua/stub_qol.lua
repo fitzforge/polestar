@@ -14,6 +14,9 @@
 --
 -- Map 9000 (continent 0) spans world wx 1000..-1000 (top..bottom) and
 -- wy 1000..-1000 (left..right): map (50, 50) is the origin, 1% = 20 yd.
+-- Zone 9002 lies south of it (wx -1000..-3000), and continent map 9100 holds
+-- both (9000 is its top half). Nav.journey.ZonePoint moves a 9100 point onto
+-- the zone under it.
 --
 --   local q = stub.qol
 --   q.step({ { t = "kill", target = "Kobold Vermin" }, { t = "use", item = 900, quest = 7, oi = 1 } })
@@ -36,7 +39,7 @@ local q = {
 	gossip = { options = {}, available = 0, active = {}, force = false },
 	taxiNodes = {},
 	ghost = false,
-	corpse = nil, -- { x, y } percent on map 9000
+	corpse = nil, -- { x, y } percent on map 9000 (any map answers, off its edge too)
 	runSpeed = 7,
 	player = { c = 0, wx = 0, wy = 0 },
 	npc = nil,
@@ -113,8 +116,12 @@ end
 
 C_DeathInfo = {}
 function C_DeathInfo.GetCorpseMapPosition(map)
-	if not q.corpse or map ~= 9000 then return nil end
-	return CreateVector2D(q.corpse[1] / 100, q.corpse[2] / 100)
+	if not q.corpse then return nil end
+	local C = Polestar.Compat
+	local c, wx, wy = C.MapToWorld(9000, q.corpse[1], q.corpse[2])
+	local x, y = C.WorldToMap(c, wx, wy, map)
+	if not x then return nil end
+	return CreateVector2D(x / 100, y / 100)
 end
 
 ---------------------------------------------------------------------------
@@ -588,6 +595,41 @@ function Pins.SetLayer(layer, pins, opts) q.pins[layer] = pins end
 function Pins.ClearLayer(layer) q.pins[layer] = nil end
 
 local MAP = { c = 0, top = 1000, bottom = -1000, left = 1000, right = -1000 }
+local MAPS = {
+	[9000] = MAP,
+	[9002] = { c = 0, top = -1000, bottom = -3000, left = 1000, right = -1000 },
+	[9100] = { c = 0, top = 1000, bottom = -3000, left = 1000, right = -1000 },
+}
+local ZONES = { 9000, 9002 }
+
+C_Map = C_Map or {}
+function C_Map.GetMapInfo(id)
+	if not MAPS[id] then return nil end
+	return { mapID = id, mapType = id == 9100 and 2 or 3, parentMapID = id == 9100 and 0 or 9100 }
+end
+
+local function mapToWorld(map, x, y)
+	local m = MAPS[map]
+	if not m then return nil end
+	return m.c, m.top + (m.bottom - m.top) * y / 100, m.left + (m.right - m.left) * x / 100
+end
+local function worldToMap(c, wx, wy, map)
+	local m = MAPS[map]
+	if not m or c ~= m.c then return nil end
+	return (wy - m.left) / (m.right - m.left) * 100, (wx - m.top) / (m.bottom - m.top) * 100
+end
+-- The zone whose map holds a world point: map, x, y.
+local function zoneAt(c, wx, wy)
+	for _, id in ipairs(ZONES) do
+		local x, y = worldToMap(c, wx, wy, id)
+		if x and x >= 0 and x <= 100 and y >= 0 and y <= 100 then return id, x, y end
+	end
+end
+Nav.journey = {}
+function Nav.journey.ZonePoint(map, x, y)
+	if map ~= 9100 then return map, x, y end
+	return zoneAt(mapToWorld(map, x, y))
+end
 
 function q.mapPoint(wx, wy)
 	return 9000, (wy - MAP.left) / (MAP.right - MAP.left) * 100, (wx - MAP.top) / (MAP.bottom - MAP.top) * 100
@@ -601,13 +643,10 @@ function stub.addonLoaded(name)
 		Polestar.Pins = Pins
 		local C = Polestar.Compat
 		function C.MapToWorld(map, x, y, frame)
-			if map ~= 9000 or frame == "e" then return nil end
-			return MAP.c, MAP.top + (MAP.bottom - MAP.top) * y / 100, MAP.left + (MAP.right - MAP.left) * x / 100
+			if frame == "e" then return nil end
+			return mapToWorld(map, x, y)
 		end
-		function C.WorldToMap(c, wx, wy, map)
-			if map ~= 9000 or c ~= MAP.c then return nil end
-			return (wy - MAP.left) / (MAP.right - MAP.left) * 100, (wx - MAP.top) / (MAP.bottom - MAP.top) * 100
-		end
+		C.WorldToMap = worldToMap
 		function C.GetPlayerWorldPosition()
 			local p = q.player
 			return p.c, p.wx, p.wy
@@ -615,8 +654,9 @@ function stub.addonLoaded(name)
 		function C.GetPlayerMapPosition()
 			local p = q.player
 			if p.c ~= MAP.c then return nil end
-			local _, x, y = q.mapPoint(p.wx, p.wy)
-			return 9000, x, y
+			local map, x, y = zoneAt(p.c, p.wx, p.wy)
+			if not map then map, x, y = q.mapPoint(p.wx, p.wy) end
+			return map, x, y
 		end
 		function C.GetPlayerInfo() return { name = "Testchar", level = q.level, faction = "Alliance" } end
 		function C.GetNpcID(unit) if unit == "npc" then return q.npc end end
