@@ -99,13 +99,13 @@ return {
 	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "Распорядитель полетов стоит у ворот ({area:514}); {npc:5083} и {npc:4964} – внутри цитадели.",
 	["for the Dustwallow loop in the next guide"] = "для круга по Пылевым топям в следующем гайде",
 
-	-- Step 23: Karnitol's Chest
-	-- {zone:1443} Desolace · {area:2405} Ethel Rethor
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Идите по дороге на запад через север зоны {zone:1443} к руинам ({area:2405}); сундук с разбитого корабля лежит на берегу чуть западнее.",
+	-- Step 23: Azore Aldamort
+	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "",
 
-	-- Step 24: Azore Aldamort
+	-- Step 24: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
-	["{npc:11863}'s tower stands on the hill east of the wreck."] = "Башня {npc:11863} стоит на холме к востоку от обломков корабля.",
+	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "",
 
 	-- Step 25: Lord Kragaru
 	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort
@@ -163,4 +163,8 @@ return {
 	-- Step 39: Fly to Theramore
 	["Fly to Theramore"] = "Лететь на остров Терамор",
 	["The next guide starts in Theramore."] = "Следующий гайд начинается на острове Терамор.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Идите по дороге на запад через север зоны {zone:1443} к руинам ({area:2405}); сундук с разбитого корабля лежит на берегу чуть западнее.",
+	-- ["{npc:11863}'s tower stands on the hill east of the wreck."] = "Башня {npc:11863} стоит на холме к востоку от обломков корабля.",
 }

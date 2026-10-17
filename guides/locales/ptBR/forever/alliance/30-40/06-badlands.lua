@@ -99,13 +99,13 @@ return {
 	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "O mestre de voo fica junto ao portão de {area:514}; {npc:5083} e {npc:4964} estão dentro da cidadela.",
 	["for the Dustwallow loop in the next guide"] = "para o circuito do Pântano Vadeoso no próximo guia",
 
-	-- Step 23: Karnitol's Chest
-	-- {zone:1443} Desolace · {area:2405} Ethel Rethor
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Siga a estrada para o oeste pelo norte de {zone:1443} até as ruínas de {area:2405}; o baú do navio naufragado está na praia logo a oeste delas.",
+	-- Step 23: Azore Aldamort
+	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "",
 
-	-- Step 24: Azore Aldamort
+	-- Step 24: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
-	["{npc:11863}'s tower stands on the hill east of the wreck."] = "A torre de {npc:11863} fica no morro a leste do naufrágio.",
+	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "",
 
 	-- Step 25: Lord Kragaru
 	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort
@@ -163,4 +163,8 @@ return {
 	-- Step 39: Fly to Theramore
 	["Fly to Theramore"] = "Voe para a Ilha Theramore",
 	["The next guide starts in Theramore."] = "O próximo guia começa na Ilha Theramore.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Siga a estrada para o oeste pelo norte de {zone:1443} até as ruínas de {area:2405}; o baú do navio naufragado está na praia logo a oeste delas.",
+	-- ["{npc:11863}'s tower stands on the hill east of the wreck."] = "A torre de {npc:11863} fica no morro a leste do naufrágio.",
 }

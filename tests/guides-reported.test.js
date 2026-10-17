@@ -566,6 +566,14 @@ test(`${TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to
 	assert.ok(take < at(list, 'turnin 96630 (Lyreena Duskblade in Dolanaar)', is('turnin', 96630)), 'before the first Dolanaar stop');
 });
 
+const BADLANDS = 'forever/alliance/30-40/06-badlands.guide';
+test(`${BADLANDS}: the same pattern as #89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it`, { skip }, () => {
+	const list = goals(BADLANDS);
+	const take = at(list, 'accept 6027 (Book of the Ancients)', is('accept', 6027));
+	assert.ok(at(list, 'accept 1454 (Nijel\'s Point)', is('accept', 1454)) < take, 'after Nijel\'s Point');
+	assert.ok(take < at(list, "turnin 1454 (Karnitol's Chest)", is('turnin', 1454)), 'before the chest');
+});
+
 // The same pattern elsewhere: a quest taken where the route already stands,
 // instead of on a walk back to its giver later.
 const STRANGLETHORN_HORDE = 'forever/horde/30-40/02-stranglethorn-vale.guide';

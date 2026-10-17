@@ -99,13 +99,13 @@ return {
 	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "Der Flugmeister steht am Tor von {area:514}; {npc:5083} und {npc:4964} sind in der Zitadelle.",
 	["for the Dustwallow loop in the next guide"] = "für die Runde durch die Marschen von Dustwallow im nächsten Guide",
 
-	-- Step 23: Karnitol's Chest
-	-- {zone:1443} Desolace · {area:2405} Ethel Rethor
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Folge der Straße nach Westen durch den Norden von {zone:1443} zu den Ruinen von {area:2405}; die Truhe des Schiffswracks liegt gleich westlich davon am Ufer.",
+	-- Step 23: Azore Aldamort
+	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "",
 
-	-- Step 24: Azore Aldamort
+	-- Step 24: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
-	["{npc:11863}'s tower stands on the hill east of the wreck."] = "{npc:11863}s Turm steht auf dem Hügel östlich des Wracks.",
+	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "",
 
 	-- Step 25: Lord Kragaru
 	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort
@@ -163,4 +163,8 @@ return {
 	-- Step 39: Fly to Theramore
 	["Fly to Theramore"] = "Flieg nach Theramore",
 	["The next guide starts in Theramore."] = "Der nächste Guide beginnt in Theramore.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Folge der Straße nach Westen durch den Norden von {zone:1443} zu den Ruinen von {area:2405}; die Truhe des Schiffswracks liegt gleich westlich davon am Ufer.",
+	-- ["{npc:11863}'s tower stands on the hill east of the wreck."] = "{npc:11863}s Turm steht auf dem Hügel östlich des Wracks.",
 }

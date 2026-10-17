@@ -99,13 +99,13 @@ return {
 	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "Le maître de vol se tient près de la porte de {area:514} ; {npc:5083} et {npc:4964} sont dans la citadelle.",
 	["for the Dustwallow loop in the next guide"] = "pour la boucle du marécage d'Âprefange, dans le guide suivant",
 
-	-- Step 23: Karnitol's Chest
-	-- {zone:1443} Desolace · {area:2405} Ethel Rethor
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Suivez la route vers l'ouest à travers le nord de {zone:1443} jusqu'aux ruines d'{area:2405} ; le coffre du navire échoué se trouve sur le rivage, juste à l'ouest.",
+	-- Step 23: Azore Aldamort
+	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "",
 
-	-- Step 24: Azore Aldamort
+	-- Step 24: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
-	["{npc:11863}'s tower stands on the hill east of the wreck."] = "La tour d'{npc:11863} se dresse sur la colline à l'est de l'épave.",
+	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "",
 
 	-- Step 25: Lord Kragaru
 	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort
@@ -165,5 +165,7 @@ return {
 	["The next guide starts in Theramore."] = "Le guide suivant commence à Theramore.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Suivez la route vers l'ouest à travers le nord de {zone:1443} jusqu'aux ruines d'{area:2405} ; le coffre du navire échoué se trouve sur le rivage, juste à l'ouest.",
 	-- ["{item:7337} Elementals roam south-east of Lotwil; Giant Buzzards and Elder Crag Coyotes share the plain to their west."] = "Les Elémentaires de roche ({item:7337}) rôdent au sud-est de Lotwil ; des Busards géants et des Anciens coyotes des rochers occupent la plaine à leur ouest.",
+	-- ["{npc:11863}'s tower stands on the hill east of the wreck."] = "La tour d'{npc:11863} se dresse sur la colline à l'est de l'épave.",
 }

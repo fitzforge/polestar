@@ -192,14 +192,14 @@ step Nijel's Point
   accept 1466
   accept 93224                        -- Captain Pentigast
 
+step Azore Aldamort
+  tip Follow the road west across the north of Desolace to the ruins of Ethel Rethor. Azore's tower stands on the hill there, on the way to the wreck.
+  accept 6027
+
 step Karnitol's Chest
-  tip Follow the road west across the north of Desolace to the ruins of Ethel Rethor; the wrecked ship's chest lies on the shore just west of them.
+  tip The wrecked ship's chest lies on the shore just west of Azore's tower.
   turnin 1454                         -- Karnitol's Chest
   accept 1455
-
-step Azore Aldamort
-  tip Azore's tower stands on the hill east of the wreck.
-  accept 6027
 
 step Lord Kragaru
   tip Lord Kragaru, a centaur chieftain, camps on the north-west coast, north of Azore's tower.

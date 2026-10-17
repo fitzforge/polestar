@@ -99,13 +99,13 @@ return {
 	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "飞行管理员站在{area:514}大门旁；{npc:5083}和{npc:4964}在城堡里。",
 	["for the Dustwallow loop in the next guide"] = "留给下一份指南的尘泥沼泽环线",
 
-	-- Step 23: Karnitol's Chest
-	-- {zone:1443} Desolace · {area:2405} Ethel Rethor
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "沿道路向西穿过{zone:1443}北部，到{area:2405}的废墟；失事船只的箱子在废墟西边的岸上。",
+	-- Step 23: Azore Aldamort
+	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "",
 
-	-- Step 24: Azore Aldamort
+	-- Step 24: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
-	["{npc:11863}'s tower stands on the hill east of the wreck."] = "{npc:11863}的塔在残骸东边的山丘上。",
+	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "",
 
 	-- Step 25: Lord Kragaru
 	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort
@@ -163,4 +163,8 @@ return {
 	-- Step 39: Fly to Theramore
 	["Fly to Theramore"] = "飞往塞拉摩岛",
 	["The next guide starts in Theramore."] = "下一份指南从塞拉摩岛开始。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "沿道路向西穿过{zone:1443}北部，到{area:2405}的废墟；失事船只的箱子在废墟西边的岸上。",
+	-- ["{npc:11863}'s tower stands on the hill east of the wreck."] = "{npc:11863}的塔在残骸东边的山丘上。",
 }
