@@ -140,6 +140,8 @@ return {
 
 	-- Step 21: Auberdine
 	["The WANTED poster"] = "通緝海報",
+	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell
+	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "",
 
 	-- Step 22: The bay wrecks
 	["The bay wrecks"] = "海灣沉船",
@@ -164,31 +166,37 @@ return {
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348}：暗灘狂熱者",
 
-	-- Step 25: The cave and the Den Mother
-	-- {npc:6788} Den Mother
-	["The cave and the {npc:6788}"] = "洞穴與{npc:6788}",
-	-- {item:5270} Death Cap · {npc:6788} Den Mother · {object:177624} Xabraxxis' Demon Bag
-	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
-	["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls; {object:177624} lies at the satyr camp north of her."] = "洞穴在瀑布南邊：粗柄蘑菇長滿整個洞穴，{item:5270}在最深處。{npc:6788}的巢穴在瀑布南邊的丘陵中；{object:177624}在她北邊的薩特營地。",
-	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
-	["Scaber Stalks"] = "粗柄蘑菇",
+	-- Step 25: The northern Blackwood camp
+	["The northern Blackwood camp"] = "",
+	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12355} Talisman of Corruption
+	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags, use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
+	["By the bonfire closest to the river: summons Xabraxxis"] = "",
 	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
 	["{item:12355}, in {object:177624}"] = "{item:12355}，在{object:177624}裡",
 
-	-- Step 27: Lunar Fungus and Earthroot
+	-- Step 26: The cave and the Den Mother
+	-- {npc:6788} Den Mother
+	["The cave and the {npc:6788}"] = "洞穴與{npc:6788}",
+	-- {item:5270} Death Cap · {npc:6788} Den Mother
+	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
+	["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls."] = "洞穴在瀑布南邊：粗柄蘑菇長滿整個洞穴，{item:5270}在最深處。{npc:6788}的巢穴在瀑布南邊的丘陵中。",
+	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
+	["Scaber Stalks"] = "粗柄蘑菇",
+
+	-- Step 28: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
 	["{item:15851} and {item:2449}"] = "{item:15851}與{item:2449}",
 	-- {area:442} Auberdine · {item:2449} Earthroot · {skill:182} Herbalism · {zone:1439} Darkshore · {zone:1453} Stormwind · {npc:1313} Maria Lumere
 	-- plural, as words: Lunar Fungal Blooms = {object:177750} Lunar Fungal Bloom
 	["The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else brings it from {zone:1453} ({npc:1313}) or the Auction House."] = "月光蘑菇花生長在{area:442}東邊不遠丘陵中的梟獸洞穴裡；那裡的梟獸脾氣暴躁。{item:2449}需要{skill:182}：草藥學家在{zone:1439}各處都能採到，其他人從{zone:1453}（{npc:1313}）或拍賣場帶來。",
 
-	-- Step 28: The Grove of the Ancients
+	-- Step 29: The Grove of the Ancients
 	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
 	["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "沿道路向南。{quest:948}是古樹之林的古樹；{npc:270269}和{npc:11218}睡在他旁邊。",
 	-- {npc:11218} Kerlonian Evershade · {area:413} Maestra's Post · {zone:1440} Ashenvale
 	["{npc:11218}: his escort to {area:413} is done on the {zone:1440} leg"] = "{npc:11218}：護送他到{area:413}的任務在{zone:1440}路段完成",
 
-	-- Step 29: The Master's Glaive
+	-- Step 30: The Master's Glaive
 	-- {object:10076} Scrying Bowl · {object:12666} Twilight Tome · {npc:3584} Therylune
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "月夜雄虎在月刃周圍的樹林中徘徊。{object:10076}和{object:12666}在坑底；{npc:3584}站在北側。",
@@ -206,42 +214,42 @@ return {
 	-- {zone:1440} Ashenvale
 	["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "護送她離開月刃；瑟瑞希爾在{zone:1440}接受繳交",
 
-	-- Step 30: Murkdeep's beach
+	-- Step 31: Murkdeep's beach
 	-- {npc:10323} Murkdeep
 	["{npc:10323}'s beach"] = "{npc:10323}的海灘",
 	-- {npc:10323} Murkdeep · {area:450} Remtravel's Excavation
 	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches west and south-west of {area:450}."] = "{npc:10323}在月刃西邊的海灘紮營：擊殺營火旁的魚人；他會在第三波帶著獵犬出現。{area:450}西邊和西南邊的海灘上還有三具擱淺的骨骸。",
 
-	-- Step 31: Prospector Remtravel
+	-- Step 32: Prospector Remtravel
 	-- {area:450} Remtravel's Excavation · {npc:10323} Murkdeep
 	["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil."] = "{area:450}位於{npc:10323}海灘南邊的海岸。在勘察員尋找化石時保護他。",
 
-	-- Step 33: Auberdine
+	-- Step 34: Auberdine
 	["Follow the road north."] = "沿道路向北。",
 	-- {quest:87760} Holy Diver · {npc:10219} Gwennyth Bly'Leggonde
 	["{quest:87760}: {npc:10219} offers it once all nine beached remains are handed in"] = "{quest:87760}：交齊全部九具擱淺的骨骸後，{npc:10219}會提供這個任務",
 	-- {item:15826} Curative Animal Salve
 	["She gives you the {item:15826}"] = "她會給你{item:15826}",
 
-	-- Step 34: The naga
+	-- Step 35: The naga
 	["The naga"] = "納迦",
 	-- {area:443} Ruins of Mathystra · {quest:951} Mathystra Relics
 	-- plural, as words: Stormscale Myrmidons = {npc:2181} Stormscale Myrmidon
 	["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "沿海岸向東北前往{area:443}。{quest:951}散落在廢墟中；雷鱗侍從、雷鱗巫師和雷鱗戰士佔據著廢墟，雷鱗獸王在岸邊走動。",
 
-	-- Step 35: Back south
+	-- Step 36: Back south
 	["Back south"] = "往南回去",
 	["Hearthstone on cooldown? Follow the coast road back south."] = "爐石在冷卻中？沿海岸道路往南回去。",
 	-- {npc:3616} Onu
 	["{npc:3616}, at the Grove"] = "{npc:3616}，在古樹之林",
 
-	-- Step 36: Volcor
+	-- Step 37: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive
 	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out."] = "{npc:3692}躲在{area:449}東邊的丘陵中。幫他回到道路上；他會一路戰鬥出去。",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
 	["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}：對牠們使用{item:15826}；牠們遍布整個{zone:1439}",
 
-	-- Step 37: Auberdine
+	-- Step 38: Auberdine
 	-- {npc:3694} Sentinel Selarin · {npc:3691} Raene Wolfrunner · {area:415} Astranaar · {zone:1440} Ashenvale
 	["{npc:3694}: for {npc:3691} in {area:415}, on the later {zone:1440} leg"] = "{npc:3694}：之後{zone:1440}路段時給{area:415}的{npc:3691}",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
@@ -249,28 +257,28 @@ return {
 	-- {zone:1453} Stormwind
 	["Boat to {zone:1453}"] = "搭船前往{zone:1453}",
 
-	-- Step 38: The Great Cat Spirit
+	-- Step 39: The Great Cat Spirit
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path there. Take the portal up to {npc:4217} in the {area:1658}."] = "夜精靈從{area:442}飛往{area:702}；天裔精靈從{area:442}碼頭搭船，並在那裡學習魯瑟蘭村的飛行路線。搭傳送門上到{area:1658}找{npc:4217}。",
 
-	-- Step 39: Dendrite Starblaze
+	-- Step 40: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}；如果還沒有那裡的飛行路線就學一下。",
 	-- {npc:11802} Dendrite Starblaze
 	["{npc:11802}: the welcome from Sheldras"] = "{npc:11802}：沙德拉斯·月樹的歡迎",
 
-	-- Step 40: The relics of the Barrow Dens
+	-- Step 41: The relics of the Barrow Dens
 	["The relics of the Barrow Dens"] = "怒風獸穴的聖物",
 	-- {quest:98394} The Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {area:493} Moonglade · {area:2363} Stormrage Barrow Dens
 	["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394}（夜精靈）和{npc:272054}（天裔精靈）在{area:493}南部等著。三件聖物在它們東邊的{area:2363}。最初幾週的回報指出，當另一名玩家正在拾取時，聖物不會給你任何東西：稍等一下再試。",
 
-	-- Step 41: Back to Dendrite Starblaze
+	-- Step 42: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "返回{npc:11802}",
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:702} Rut'theran Village · {area:442} Auberdine
 	["Back to {npc:11802} in {area:2361}, then fly to {area:702} (by way of {area:442})."] = "回到{area:2361}找{npc:11802}，然後飛往{area:702}（途經{area:442}）。",
 
-	-- Step 42: To Darnassus
+	-- Step 43: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1453} Stormwind
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the boat to {zone:1453}."] = "搭傳送門上去找{npc:4217}，然後飛回{area:442}搭船前往{zone:1453}。",
 
@@ -280,6 +288,7 @@ return {
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "沿丘陵向北到{area:456}，再往上到瀑布。北岸還有三具擱淺的骨骸：在{area:443}附近、{quest:954}北邊和{quest:954}西邊。",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "沿丘陵向北。{npc:3650}在{quest:954}的廢墟中等著；野生劣魔和惡靈劣魔遍布廢墟，戴瑟雷薩特在東緣。{quest:1001}站在廢墟西邊的路旁。",
 	-- ["Read both tablets"] = "閱讀兩塊石板",
+	-- ["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls; {object:177624} lies at the satyr camp north of her."] = "洞穴在瀑布南邊：粗柄蘑菇長滿整個洞穴，{item:5270}在最深處。{npc:6788}的巢穴在瀑布南邊的丘陵中；{object:177624}在她北邊的薩特營地。",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "潮行蟹在村子下方的海岸爬行；{quest:983}站在碼頭南邊不遠的海灘上。黑海岸蛇頸龍在淺水中游動。{quest:4723}在村子南邊不遠的岸上。",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}：廢墟西邊、北海岸外水下的{object:177790}",
 	-- ["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches south of {area:450}."] = "{npc:10323}在月刃西邊的海灘紮營：擊殺營火旁的魚人；他會在第三波帶著獵犬出現。{area:450}南邊的海灘上還有三具擱淺的骨骸。",

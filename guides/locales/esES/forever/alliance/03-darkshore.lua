@@ -140,6 +140,8 @@ return {
 
 	-- Step 21: Auberdine
 	["The WANTED poster"] = "El cartel de SE BUSCA",
+	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell
+	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "",
 
 	-- Step 22: The bay wrecks
 	["The bay wrecks"] = "Los pecios de la bahía",
@@ -164,31 +166,37 @@ return {
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic
 	["{item:5348}: Dark Strand Fanatics"] = "{item:5348}: Fanáticos de la Facción Oscura",
 
-	-- Step 25: The cave and the Den Mother
-	-- {npc:6788} Den Mother
-	["The cave and the {npc:6788}"] = "La cueva y la {npc:6788}",
-	-- {item:5270} Death Cap · {npc:6788} Den Mother · {object:177624} Xabraxxis' Demon Bag
-	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
-	["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls; {object:177624} lies at the satyr camp north of her."] = "La cueva está al sur de la cascada: los níscalos ({item:5271}) crecen por toda ella y el {item:5270}, al fondo del todo. La {npc:6788} tiene su guarida en las colinas al sur de la cascada; {object:177624} está en el campamento sátiro al norte de ella.",
-	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
-	["Scaber Stalks"] = "Níscalos",
+	-- Step 25: The northern Blackwood camp
+	["The northern Blackwood camp"] = "",
+	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12355} Talisman of Corruption
+	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags, use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
+	["By the bonfire closest to the river: summons Xabraxxis"] = "",
 	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
 	["{item:12355}, in {object:177624}"] = "{item:12355}, en {object:177624}",
 
-	-- Step 27: Lunar Fungus and Earthroot
+	-- Step 26: The cave and the Den Mother
+	-- {npc:6788} Den Mother
+	["The cave and the {npc:6788}"] = "La cueva y la {npc:6788}",
+	-- {item:5270} Death Cap · {npc:6788} Den Mother
+	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
+	["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls."] = "La cueva está al sur de la cascada: los níscalos ({item:5271}) crecen por toda ella y el {item:5270}, al fondo del todo. La {npc:6788} tiene su guarida en las colinas al sur de la cascada.",
+	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
+	["Scaber Stalks"] = "Níscalos",
+
+	-- Step 28: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
 	["{item:15851} and {item:2449}"] = "{item:15851} y {item:2449}",
 	-- {area:442} Auberdine · {item:2449} Earthroot · {skill:182} Herbalism · {zone:1439} Darkshore · {zone:1453} Stormwind · {npc:1313} Maria Lumere
 	-- plural, as words: Lunar Fungal Blooms = {object:177750} Lunar Fungal Bloom
 	["The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else brings it from {zone:1453} ({npc:1313}) or the Auction House."] = "Las Flores de hongo lunar crecen en las cuevas de los lechúcicos, en las colinas justo al este de {area:442}; los lechúcicos de allí son irritables. {item:2449} requiere {skill:182}: los herboristas la recogen por toda {zone:1439}; los demás la traen de {zone:1453} ({npc:1313}) o de la casa de subastas.",
 
-	-- Step 28: The Grove of the Ancients
+	-- Step 29: The Grove of the Ancients
 	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
 	["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "Sigue el camino hacia el sur. {quest:948} es el anciano del Páramo; {npc:270269} y {npc:11218} duermen a su lado.",
 	-- {npc:11218} Kerlonian Evershade · {area:413} Maestra's Post · {zone:1440} Ashenvale
 	["{npc:11218}: his escort to {area:413} is done on the {zone:1440} leg"] = "{npc:11218}: su escolta hasta {area:413} se hace en el tramo de {zone:1440}",
 
-	-- Step 29: The Master's Glaive
+	-- Step 30: The Master's Glaive
 	-- {object:10076} Scrying Bowl · {object:12666} Twilight Tome · {npc:3584} Therylune
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Los Señores Acechalunas merodean por el bosque alrededor de la guja. El {object:10076} y el {object:12666} están en el fondo del cráter; {npc:3584} está en su lado norte.",
@@ -206,42 +214,42 @@ return {
 	-- {zone:1440} Ashenvale
 	["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Escóltala fuera de la guja; la misión se entrega a Therysil en {zone:1440}",
 
-	-- Step 30: Murkdeep's beach
+	-- Step 31: Murkdeep's beach
 	-- {npc:10323} Murkdeep
 	["{npc:10323}'s beach"] = "La playa de {npc:10323}",
 	-- {npc:10323} Murkdeep · {area:450} Remtravel's Excavation
 	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches west and south-west of {area:450}."] = "{npc:10323} acampa en la playa al oeste de la guja: mata a los múrlocs de la hoguera; él llega en la tercera oleada con su perro. Hay tres restos varados en las playas al oeste y al suroeste de {area:450}.",
 
-	-- Step 31: Prospector Remtravel
+	-- Step 32: Prospector Remtravel
 	-- {area:450} Remtravel's Excavation · {npc:10323} Murkdeep
 	["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil."] = "{area:450} está en la costa al sur de la playa de {npc:10323}. Protege al prospector mientras busca el fósil.",
 
-	-- Step 33: Auberdine
+	-- Step 34: Auberdine
 	["Follow the road north."] = "Sigue el camino hacia el norte.",
 	-- {quest:87760} Holy Diver · {npc:10219} Gwennyth Bly'Leggonde
 	["{quest:87760}: {npc:10219} offers it once all nine beached remains are handed in"] = "{quest:87760}: {npc:10219} la ofrece cuando hayas entregado los nueve restos varados",
 	-- {item:15826} Curative Animal Salve
 	["She gives you the {item:15826}"] = "Te da el {item:15826}",
 
-	-- Step 34: The naga
+	-- Step 35: The naga
 	["The naga"] = "Los naga",
 	-- {area:443} Ruins of Mathystra · {quest:951} Mathystra Relics
 	-- plural, as words: Stormscale Myrmidons = {npc:2181} Stormscale Myrmidon
 	["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Sigue la costa hacia el noreste hasta las {area:443}. {quest:951}: están entre las ruinas, custodiadas por Myrmidones, Hechiceras y Guerreros Escama Tormentosa, y las Maestras de bestias Escama Tormentosa recorren la orilla.",
 
-	-- Step 35: Back south
+	-- Step 36: Back south
 	["Back south"] = "De vuelta al sur",
 	["Hearthstone on cooldown? Follow the coast road back south."] = "¿Piedra de hogar en reutilización? Vuelve al sur por el camino de la costa.",
 	-- {npc:3616} Onu
 	["{npc:3616}, at the Grove"] = "{npc:3616}, en el Páramo",
 
-	-- Step 36: Volcor
+	-- Step 37: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive
 	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out."] = "{npc:3692} se esconde en las colinas al este de {area:449}. Ayúdale a volver al camino; pelea mientras sale.",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
 	["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}: usa el {item:15826} con ellos; deambulan por toda {zone:1439}",
 
-	-- Step 37: Auberdine
+	-- Step 38: Auberdine
 	-- {npc:3694} Sentinel Selarin · {npc:3691} Raene Wolfrunner · {area:415} Astranaar · {zone:1440} Ashenvale
 	["{npc:3694}: for {npc:3691} in {area:415}, on the later {zone:1440} leg"] = "{npc:3694}: para {npc:3691} en {area:415}, en el tramo posterior de {zone:1440}",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
@@ -249,28 +257,28 @@ return {
 	-- {zone:1453} Stormwind
 	["Boat to {zone:1453}"] = "Barco a {zone:1453}",
 
-	-- Step 38: The Great Cat Spirit
+	-- Step 39: The Great Cat Spirit
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path there. Take the portal up to {npc:4217} in the {area:1658}."] = "Los elfos de la noche vuelan de {area:442} a {area:702}; los cielonatos toman el barco en el muelle de {area:442} y descubren allí la ruta de vuelo de Rut'theran. Toma el portal para subir hasta {npc:4217} en el {area:1658}.",
 
-	-- Step 39: Dendrite Starblaze
+	-- Step 40: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}; aprende allí la ruta de vuelo si no la tienes.",
 	-- {npc:11802} Dendrite Starblaze
 	["{npc:11802}: the welcome from Sheldras"] = "{npc:11802}: la bienvenida de Sheldras Moontree",
 
-	-- Step 40: The relics of the Barrow Dens
+	-- Step 41: The relics of the Barrow Dens
 	["The relics of the Barrow Dens"] = "Las reliquias del Túmulo de Tempestira",
 	-- {quest:98394} The Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {area:493} Moonglade · {area:2363} Stormrage Barrow Dens
 	["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394} (elfos de la noche) y el {npc:272054} (Cielonato) esperan en el sur de {area:493}. Las tres reliquias están en las {area:2363}, al este. Según informes de las primeras semanas, una reliquia no da botín mientras otro jugador la está despojando: espera un momento y vuelve a intentarlo.",
 
-	-- Step 41: Back to Dendrite Starblaze
+	-- Step 42: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "De vuelta con {npc:11802}",
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:702} Rut'theran Village · {area:442} Auberdine
 	["Back to {npc:11802} in {area:2361}, then fly to {area:702} (by way of {area:442})."] = "Vuelve con {npc:11802} en {area:2361} y luego vuela a {area:702} (pasando por {area:442}).",
 
-	-- Step 42: To Darnassus
+	-- Step 43: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1453} Stormwind
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the boat to {zone:1453}."] = "Toma el portal para subir hasta {npc:4217} y luego vuela de vuelta a {area:442} para tomar el barco a {zone:1453}.",
 
@@ -280,6 +288,7 @@ return {
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "Sigue las colinas hacia el norte hasta el {area:456} y sube hasta la cascada. Hay tres restos varados más en la orilla norte: cerca de las {area:443}, al norte de {quest:954} y al oeste de {quest:954}.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "Hacia el norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de Greles salvajes y Duendes viles, y los Sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino, al oeste de las ruinas.",
 	-- ["Read both tablets"] = "Lee las dos tablillas",
+	-- ["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls; {object:177624} lies at the satyr camp north of her."] = "La cueva está al sur de la cascada: los níscalos ({item:5271}) crecen por toda ella y el {item:5270}, al fondo del todo. La {npc:6788} tiene su guarida en las colinas al sur de la cascada; {object:177624} está en el campamento sátiro al norte de ella.",
 	-- ["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. {area:364} Mother lairs in the hills south of the falls; {object:177624} lies at the satyr camp north of her."] = "La cueva está al sur de la cascada: los Níscalos crecen por toda ella y la {item:5270}, al fondo del todo. La Madre del cubil tiene su guarida en las colinas al sur de la cascada ({area:364}); {object:177624} está en el campamento sátiro al norte de ella.",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "Los corremareas corretean por la orilla bajo el pueblo; {quest:983} está en la playa, justo al sur de los muelles. Los trilladores de la Costa Oscura ({npc:2185}) nadan en las aguas poco profundas. La {quest:4723} yace en la orilla, justo al sur del pueblo.",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. {zone:1439} Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "Los Corremareas corretean por la orilla bajo el pueblo; {quest:983} está en la playa, justo al sur de los muelles. Los Trilladores de la {zone:1439} nadan en las aguas poco profundas. La {quest:4723} yace en la orilla, justo al sur del pueblo.",

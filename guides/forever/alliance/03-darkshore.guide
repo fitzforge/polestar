@@ -15,7 +15,8 @@ next forever/alliance/04-redridge-mountains
 # Bashal'Aran, the Tower of Althalaxx -> hearth -> the Blackwood camp,
 # Ameth'Aran, the southern beaches, the Grove, the red crystal, Cliffspring
 # Falls, the northern beaches, Bashal'Aran -> Auberdine -> the bay wrecks, the
-# Ruins of Mathystra, the Tower, the cave, the Den Mother -> hearth -> the
+# Ruins of Mathystra, the Tower, the northern Blackwood camp, the cave, the
+# Den Mother -> hearth -> the
 # Grove, the Master's Glaive, Murkdeep's beach -> Auberdine -> the naga ->
 # hearth -> the Grove, Volcor -> Auberdine.
 #
@@ -54,6 +55,12 @@ next forever/alliance/04-redridge-mountains
 #   The three remains past Remtravel's Excavation (4731-4733) stay on the
 #   fourth loop: Greymist Oracles and Tidehunters (18-20) guard them, which
 #   the second loop reaches at about 18.
+# - The Blackwood Corrupted (4763, #302): the Empty Cleansing Bowl is filled
+#   at the Auberdine Moonwell right after Thundris gives the quest, and the
+#   three Blackwood samples, the bowl and the Talisman are a step of their
+#   own at the northern Blackwood camp, on the way from the Tower to the
+#   cave. The quest's only objective is the Talisman, but Xabraxxis comes
+#   only for the mixed bowl.
 #
 # Optional: The Family and the Fishing Pole (1141) needs Fishing.
 # Gyromast's Revenge (2078) ends with the Threshwackonator 4100, an elite: not
@@ -263,6 +270,7 @@ step Auberdine
   accept 6123 only NightElf,Druid
   turnin 4762                                 -- Thundris Windweaver
   accept 4763
+  collect 12347                               -- Filled Cleansing Bowl: fill the Empty Cleansing Bowl at the Auberdine Moonwell
   vendor nearest
 
 # ---------------------------------------------------------------- Third loop: the north
@@ -290,11 +298,18 @@ step The Tower of Althalaxx
   turnin 966
   accept 967
 
+step The northern Blackwood camp
+  tip The furbolg camp south of the Cliffspring River keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the Filled Cleansing Bowl in your bags, use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the Talisman of Corruption lies in his Demon Bag.
+  collect 12343                               -- Blackwood Nut Sample
+  collect 12341                               -- Blackwood Fruit Sample
+  collect 12342                               -- Blackwood Grain Sample
+  use 12347 quest 4763.1 @52.5,33.4           -- By the bonfire closest to the river: summons Xabraxxis
+  collect 12355 quest 4763                    -- Talisman of Corruption, in Xabraxxis' Demon Bag
+
 step The cave and the Den Mother
-  tip The cave lies south of the falls: Scaber Stalks grow all through it, the Death Cap at the very back. The Den Mother lairs in the hills south of the falls; Xabraxxis' Demon Bag lies at the satyr camp north of her.
+  tip The cave lies south of the falls: Scaber Stalks grow all through it, the Death Cap at the very back. The Den Mother lairs in the hills south of the falls.
   collect 5271 quest 947                      -- Scaber Stalks
   collect 5270 quest 947                      -- Death Cap
-  collect 12355 quest 4763                    -- Talisman of Corruption, in Xabraxxis' Demon Bag
   kill 6788 quest 2139                        -- Den Mother
 
 step Hearth to Auberdine
