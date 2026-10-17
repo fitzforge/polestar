@@ -1256,3 +1256,36 @@ test('#246: no NPC or object goal is on a neighbouring zone\'s map where the two
 	}
 	assert.deepEqual([...new Set(offenders)], [], 'goals on the map of a zone Wowhead Forever does not place them in');
 });
+
+// --- Raider's Bow (Lyngtoft, #289): the Durotar guide sent the arrow 124 yd
+// south-west of the bow, to where QuestieDB 1.0.5 had it; 1.0.6 moved it to
+// 59.4,56.4, where the player found it. A quest item that lies on the ground
+// at a few fixed spots is collected where one of them is: the arrow leads
+// within 1 map unit of its object's spawn.
+const AWAY_FROM_ITS_OBJECTS = new Set([
+	// Fish from pools: the schools drift along the shore, and the step points at a stretch of it.
+	'forever/professions/fishing.guide 16968',
+	'forever/professions/fishing.guide 16969',
+	'forever/professions/fishing.guide 16970',
+	// The data has the book at 14.0,24.2 (pfQuest and QuestieDB agree); the guide says the
+	// Terrordale inn at 17.4,31.1. Not checked in game yet; left for its own fix.
+	'forever/horde/50-60/01-un-goro-crater.guide 15884',
+]);
+test("#289: a quest item picked up from objects is collected at one of the objects' spawns", { skip }, () => {
+	data = data || loadData(DATA);
+	const offenders = [];
+	for (const guide of allGuides()) {
+		for (const { step, goal } of goals(guide)) {
+			if (goal.t !== 'collect' || goal.map == null || goal.x == null) continue;
+			const item = data.item(goal.item);
+			if (!item || !item.questItem || !item.drops) continue;
+			const objects = Object.keys(item.drops.object || {});
+			if (!objects.length || Object.keys(item.drops.npc || {}).length) continue;
+			const pts = objects.flatMap((id) => data.spawns('object', Number(id)).filter((s) => s.map === goal.map).flatMap((s) => s.pts));
+			if (!pts.length) continue;
+			const near = Math.min(...[goal, ...(goal.spots || [])].flatMap((g) => pts.map((p) => Math.hypot(p[0] - g.x, p[1] - g.y))));
+			if (near > 1 && !AWAY_FROM_ITS_OBJECTS.has(`${guide} ${goal.item}`)) offenders.push(`${guide} collect ${goal.item} @${goal.x},${goal.y} (step ${step.title}) is ${near.toFixed(2)} from its objects`);
+		}
+	}
+	assert.deepEqual(offenders, [], 'quest items collected away from the objects that hold them');
+});

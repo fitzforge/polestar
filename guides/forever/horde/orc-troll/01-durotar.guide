@@ -300,7 +300,7 @@ step Gar'Thok
 step Tiragarde Keep
   tip The keep stands on the coast south-east of Razor Hill. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the Canvas Scraps. Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope.
   collect 275716 quest 96822.2 @57.4,56.4
-  collect 275713 quest 96822.1 @57.3,57.9
+  collect 275713 quest 96822.1 @59.4,56.4
   collect 275717 quest 96822.3 @56.6,53.0
   kill 3128 quest 784.1
   kill 3129 quest 784.2
