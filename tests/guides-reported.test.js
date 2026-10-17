@@ -1256,3 +1256,18 @@ test('#246: no NPC or object goal is on a neighbouring zone\'s map where the two
 	}
 	assert.deepEqual([...new Set(offenders)], [], 'goals on the map of a zone Wowhead Forever does not place them in');
 });
+
+// --- The Warsong Reports (Hotline, #278): the Warsong Scout, Runner and
+// Outrider each give their update for a Warsong Report, which comes only out
+// of the Bundle of Reports Kadrak hands out. The Kadrak step holds until a
+// report is in the bags, so nobody reaches the scout with the bundle unopened.
+// (Idea and test from PRDesrochers on #293.)
+
+test('forever/horde/05-stonetalon-mountains.guide: Hotline\'s report (#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout', { skip }, () => {
+	const guide = 'forever/horde/05-stonetalon-mountains.guide';
+	const list = goals(guide);
+	const reports = at(list, 'the Warsong Reports', (g) => g.t === 'collect' && g.item === 16746 && !g.quest);
+	assert.equal(list[reports].goal.count || 1, 1, 'any report in the bags shows the bundle was opened');
+	assert.equal(list[reports].step, list[at(list, 'accept 6543', is('accept', 6543))].step, 'opened on the Kadrak step');
+	for (const update of [16764, 16765, 16763]) assert.ok(reports < at(list, `update ${update}`, (g) => g.t === 'collect' && g.item === update), `a report is in the bags before update ${update}`);
+});
