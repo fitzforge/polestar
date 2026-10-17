@@ -15,6 +15,7 @@ const { reduceSpawns } = require('../tools/lib/data/spawns');
 const { buildData } = require('../tools/lib/data/build');
 const { checkLicense, splitTable } = require('../tools/lib/data/pfquest');
 const { luaToJson } = require('../tools/lib/lua');
+const { loadWebXp } = require('../tools/lib/data/webxp');
 const { tmpdir } = require('./helpers/tmp');
 
 const FIX = path.join(__dirname, 'fixtures', 'data');
@@ -432,6 +433,15 @@ describe('fixture build', () => {
 		assert.deepEqual(got, [70000, 1.5, 300]);
 		assert.equal(splitTable('pfDB["meta"] = {\n}\n'), null);
 		assert.equal(splitTable('pfDB["units"]["enUS"] = {\n  [1] = [[a\n  [2] = b]],\n}\n'), null);
+	});
+
+	test('a quest XP site that never answers fails its lookups instead of stalling the build', { timeout: 5000 }, async () => {
+		const sourcesDir = tmpdir('polestar-data-');
+		const silent = (url, { signal } = {}) => new Promise((resolve, reject) => signal && signal.addEventListener('abort', () => reject(signal.reason)));
+		const r = await loadWebXp({ sourcesDir, ids: [101, 102], fetchImpl: silent, timeout: 50 });
+		assert.equal(r.xp.size, 0);
+		assert.match(r.warnings.join('\n'), /sitemap/);
+		assert.match(r.warnings.join('\n'), /quest 101 XP lookup/);
 	});
 });
 

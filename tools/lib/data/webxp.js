@@ -48,8 +48,10 @@ function parseFc(html) {
 	return c && int(c[1]) ? { xp: int(c[1]), chain: true } : null;
 }
 
-async function get(fetchImpl, url) {
-	const res = await fetchImpl(url, { headers: { 'user-agent': 'Mozilla/5.0 (polestar-data-build)' } });
+// A page that never answers fails its lookup after `timeout` ms, so a site
+// holding connections open cannot stall the build.
+async function get(fetchImpl, url, timeout = 30000) {
+	const res = await fetchImpl(url, { headers: { 'user-agent': 'Mozilla/5.0 (polestar-data-build)' }, signal: AbortSignal.timeout(timeout) });
 	if (res.status === 404) return null;
 	if (!res.ok) throw new Error(`GET ${url}: HTTP ${res.status}`);
 	return res.text();
@@ -67,7 +69,7 @@ async function pool(items, fn) {
 }
 
 // ids: quest ids wanting xp. -> { xp: Map<id, { xp, source }>, warnings, fetched }
-async function loadWebXp({ sourcesDir, ids, offline = false, fetchImpl = globalThis.fetch, log = () => {} }) {
+async function loadWebXp({ sourcesDir, ids, offline = false, fetchImpl = globalThis.fetch, timeout, log = () => {} }) {
 	const file = path.join(sourcesDir, 'webxp', 'quest-xp.json');
 	const cache = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
 	const warnings = [];
@@ -77,7 +79,7 @@ async function loadWebXp({ sourcesDir, ids, offline = false, fetchImpl = globalT
 		log(`looking up quest XP for ${todo.length} quests on wowforevertalents.com and foreverchanges.pro`);
 		let wftPages = new Map();
 		try {
-			const sm = await get(fetchImpl, `${WFT}/sitemap-0.xml`);
+			const sm = await get(fetchImpl, `${WFT}/sitemap-0.xml`, timeout);
 			for (const m of (sm || '').matchAll(/<loc>(https:\/\/wowforevertalents\.com\/quests\/[a-z0-9-]*-(\d+)\/)<\/loc>/g)) wftPages.set(Number(m[2]), m[1]);
 		} catch (err) {
 			warnings.push(`wowforevertalents.com sitemap: ${err.message}`);
@@ -89,10 +91,10 @@ async function loadWebXp({ sourcesDir, ids, offline = false, fetchImpl = globalT
 			try {
 				if (entry.wft === undefined && wftPages) {
 					const url = wftPages.get(id);
-					entry.wft = url ? parseWft((await get(fetchImpl, url)) || '') : null;
+					entry.wft = url ? parseWft((await get(fetchImpl, url, timeout)) || '') : null;
 				}
 				if (entry.fc === undefined) {
-					const html = await get(fetchImpl, `${FC}/quest/${id}`);
+					const html = await get(fetchImpl, `${FC}/quest/${id}`, timeout);
 					const r = html ? parseFc(html) : null;
 					entry.fc = r ? r.xp : null;
 					if (r && r.chain) entry.fcChain = true;
