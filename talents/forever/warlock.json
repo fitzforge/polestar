@@ -1,0 +1,974 @@
+{
+	"class": "WARLOCK",
+	"source": "ForeverDB through level 30, Polestar after",
+	"sourceUrl": "https://foreverdb.net/class/Warlock/talents",
+	"credit": "Plans follow ForeverDB's Warlock leveling builds (https://foreverdb.net/class/Warlock/talents) through level 30 and were extended to 60 for Polestar. Notes rewritten for Polestar.",
+	"checkedOn": "WoW: Forever beta 1.60.1.70374",
+	"summary": "Level as Affliction (instant Corruption, Siphon Life, drains) or Demonology (a tougher Voidwalker, Soul Link) for the fewest deaths. Destruction hits hardest with Conflagrate and Incinerate but needs more rest.",
+	"order": [
+		"Affliction",
+		"Demonology",
+		"Destruction"
+	],
+	"builds": [
+		{
+			"key": "affliction",
+			"spec": "Affliction",
+			"split": "31/20/0",
+			"link": "https://foreverdb.net/class/Warlock/talents?lvl=60&t=2040ae.20502323100211351-2051233001201",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 1,
+					"note": "Improved Corruption makes Corruption instant: the core of Affliction leveling."
+				},
+				{
+					"level": 11,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Affliction",
+					"talent": "Improved Life Tap",
+					"rank": 1
+				},
+				{
+					"level": 16,
+					"tree": "Affliction",
+					"talent": "Improved Life Tap",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Affliction",
+					"talent": "Improved Drains",
+					"rank": 1,
+					"note": "Improved Drains and Soul Harvest make Drain Life a heal and Drain Soul a mana return on kills."
+				},
+				{
+					"level": 18,
+					"tree": "Affliction",
+					"talent": "Improved Drains",
+					"rank": 2
+				},
+				{
+					"level": 19,
+					"tree": "Affliction",
+					"talent": "Improved Drains",
+					"rank": 3
+				},
+				{
+					"level": 20,
+					"tree": "Affliction",
+					"talent": "Soul Harvest",
+					"rank": 1
+				},
+				{
+					"level": 21,
+					"tree": "Affliction",
+					"talent": "Soul Harvest",
+					"rank": 2
+				},
+				{
+					"level": 22,
+					"tree": "Affliction",
+					"talent": "Improved Bane of Agony",
+					"rank": 1
+				},
+				{
+					"level": 23,
+					"tree": "Affliction",
+					"talent": "Improved Bane of Agony",
+					"rank": 2
+				},
+				{
+					"level": 24,
+					"tree": "Affliction",
+					"talent": "Amplify Curse",
+					"rank": 1
+				},
+				{
+					"level": 25,
+					"tree": "Affliction",
+					"talent": "Nightfall",
+					"rank": 1,
+					"note": "Nightfall gives an instant Shadow Bolt now and then while your damage over time ticks."
+				},
+				{
+					"level": 26,
+					"tree": "Affliction",
+					"talent": "Nightfall",
+					"rank": 2
+				},
+				{
+					"level": 27,
+					"tree": "Affliction",
+					"talent": "Fel Concentration",
+					"rank": 1
+				},
+				{
+					"level": 28,
+					"tree": "Affliction",
+					"talent": "Fel Concentration",
+					"rank": 2
+				},
+				{
+					"level": 29,
+					"tree": "Affliction",
+					"talent": "Fel Concentration",
+					"rank": 3
+				},
+				{
+					"level": 30,
+					"tree": "Affliction",
+					"talent": "Siphon Life",
+					"rank": 1,
+					"note": "Siphon Life adds another self-heal over time to the rotation."
+				},
+				{
+					"level": 31,
+					"tree": "Affliction",
+					"talent": "Soul Siphon",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Affliction",
+					"talent": "Soul Siphon",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Affliction",
+					"talent": "Soul Siphon",
+					"rank": 3
+				},
+				{
+					"level": 34,
+					"tree": "Affliction",
+					"talent": "Curse of Exhaustion",
+					"rank": 1
+				},
+				{
+					"level": 35,
+					"tree": "Affliction",
+					"talent": "Shadow Mastery",
+					"rank": 1,
+					"note": "Shadow Mastery adds damage to every Shadow spell."
+				},
+				{
+					"level": 36,
+					"tree": "Affliction",
+					"talent": "Shadow Mastery",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Affliction",
+					"talent": "Shadow Mastery",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Affliction",
+					"talent": "Shadow Mastery",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Affliction",
+					"talent": "Shadow Mastery",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Affliction",
+					"talent": "Wrack",
+					"rank": 1,
+					"note": "Wrack is the capstone: a strong channel that raises the damage the target takes from your other Shadow damage-over-time effects by 10%."
+				},
+				{
+					"level": 41,
+					"tree": "Demonology",
+					"talent": "Demonic Embrace",
+					"rank": 1,
+					"note": "The last 20 points go to Demonology: more Stamina, a tougher Voidwalker, quicker summons and Demonic Sacrifice."
+				},
+				{
+					"level": 42,
+					"tree": "Demonology",
+					"talent": "Demonic Embrace",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Demonology",
+					"talent": "Demonic Embrace",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Demonology",
+					"talent": "Demonic Embrace",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Demonology",
+					"talent": "Demonic Embrace",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Demonology",
+					"talent": "Improved Voidwalker",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Demonology",
+					"talent": "Improved Voidwalker",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Demonology",
+					"talent": "Improved Voidwalker",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Demonology",
+					"talent": "Improved Health Funnel",
+					"rank": 1
+				},
+				{
+					"level": 50,
+					"tree": "Demonology",
+					"talent": "Improved Health Funnel",
+					"rank": 2
+				},
+				{
+					"level": 51,
+					"tree": "Demonology",
+					"talent": "Demonic Sacrifice",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Demonology",
+					"talent": "Master Summoner",
+					"rank": 1
+				},
+				{
+					"level": 53,
+					"tree": "Demonology",
+					"talent": "Master Summoner",
+					"rank": 2
+				},
+				{
+					"level": 54,
+					"tree": "Demonology",
+					"talent": "Fel Vitality",
+					"rank": 1
+				},
+				{
+					"level": 55,
+					"tree": "Demonology",
+					"talent": "Fel Vitality",
+					"rank": 2
+				},
+				{
+					"level": 56,
+					"tree": "Demonology",
+					"talent": "Fel Vitality",
+					"rank": 3
+				},
+				{
+					"level": 57,
+					"tree": "Demonology",
+					"talent": "Fel Domination",
+					"rank": 1
+				},
+				{
+					"level": 58,
+					"tree": "Demonology",
+					"talent": "Demonic Aegis",
+					"rank": 1
+				},
+				{
+					"level": 59,
+					"tree": "Demonology",
+					"talent": "Demonic Aegis",
+					"rank": 2
+				},
+				{
+					"level": 60,
+					"tree": "Demonology",
+					"talent": "Unholy Power",
+					"rank": 1
+				}
+			]
+		},
+		{
+			"key": "demonology",
+			"spec": "Demonology",
+			"split": "20/31/0",
+			"link": "https://foreverdb.net/class/Warlock/talents?lvl=60&t=2040ae.205023231002-1050233201201011351",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Demonology",
+					"talent": "Demonic Embrace",
+					"rank": 1,
+					"note": "Demonic Embrace first: more Stamina means more Life Taps and fewer deaths."
+				},
+				{
+					"level": 11,
+					"tree": "Demonology",
+					"talent": "Demonic Embrace",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Demonology",
+					"talent": "Demonic Embrace",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Demonology",
+					"talent": "Demonic Embrace",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Demonology",
+					"talent": "Demonic Embrace",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Demonology",
+					"talent": "Improved Voidwalker",
+					"rank": 1,
+					"note": "Improved Voidwalker makes your tank pet hold mobs better and shield you."
+				},
+				{
+					"level": 16,
+					"tree": "Demonology",
+					"talent": "Improved Voidwalker",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Demonology",
+					"talent": "Improved Voidwalker",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Demonology",
+					"talent": "Demonic Aegis",
+					"rank": 1
+				},
+				{
+					"level": 19,
+					"tree": "Demonology",
+					"talent": "Demonic Aegis",
+					"rank": 2
+				},
+				{
+					"level": 20,
+					"tree": "Demonology",
+					"talent": "Demonic Sacrifice",
+					"rank": 1
+				},
+				{
+					"level": 21,
+					"tree": "Demonology",
+					"talent": "Fel Vitality",
+					"rank": 1
+				},
+				{
+					"level": 22,
+					"tree": "Demonology",
+					"talent": "Fel Vitality",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Demonology",
+					"talent": "Fel Vitality",
+					"rank": 3
+				},
+				{
+					"level": 24,
+					"tree": "Demonology",
+					"talent": "Improved Health Funnel",
+					"rank": 1
+				},
+				{
+					"level": 25,
+					"tree": "Demonology",
+					"talent": "Master Summoner",
+					"rank": 1
+				},
+				{
+					"level": 26,
+					"tree": "Demonology",
+					"talent": "Master Summoner",
+					"rank": 2
+				},
+				{
+					"level": 27,
+					"tree": "Demonology",
+					"talent": "Fel Domination",
+					"rank": 1
+				},
+				{
+					"level": 28,
+					"tree": "Demonology",
+					"talent": "Demonic Energies",
+					"rank": 1
+				},
+				{
+					"level": 29,
+					"tree": "Demonology",
+					"talent": "Demonic Energies",
+					"rank": 2
+				},
+				{
+					"level": 30,
+					"tree": "Demonology",
+					"talent": "Soul Link",
+					"rank": 1,
+					"note": "Soul Link shares your damage with your pet: with a Voidwalker you rarely die."
+				},
+				{
+					"level": 31,
+					"tree": "Demonology",
+					"talent": "Demonic Knowledge",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Demonology",
+					"talent": "Demonic Knowledge",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Demonology",
+					"talent": "Demonic Knowledge",
+					"rank": 3
+				},
+				{
+					"level": 34,
+					"tree": "Demonology",
+					"talent": "Improved Felhunter",
+					"rank": 1
+				},
+				{
+					"level": 35,
+					"tree": "Demonology",
+					"talent": "Master Demonologist",
+					"rank": 1
+				},
+				{
+					"level": 36,
+					"tree": "Demonology",
+					"talent": "Master Demonologist",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Demonology",
+					"talent": "Master Demonologist",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Demonology",
+					"talent": "Master Demonologist",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Demonology",
+					"talent": "Master Demonologist",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Demonology",
+					"talent": "Demonic Pact",
+					"rank": 1,
+					"note": "Demonic Pact is the capstone: you keep Demonic Sacrifice's effect when you summon another demon."
+				},
+				{
+					"level": 41,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 1,
+					"note": "The rest goes to Affliction: an instant Corruption, stronger drains and Life Tap, and Nightfall's free Shadow Bolts."
+				},
+				{
+					"level": 42,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Affliction",
+					"talent": "Improved Drains",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Affliction",
+					"talent": "Improved Drains",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Affliction",
+					"talent": "Improved Drains",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Affliction",
+					"talent": "Improved Life Tap",
+					"rank": 1
+				},
+				{
+					"level": 50,
+					"tree": "Affliction",
+					"talent": "Improved Life Tap",
+					"rank": 2
+				},
+				{
+					"level": 51,
+					"tree": "Affliction",
+					"talent": "Soul Harvest",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Affliction",
+					"talent": "Soul Harvest",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Affliction",
+					"talent": "Improved Bane of Agony",
+					"rank": 1
+				},
+				{
+					"level": 54,
+					"tree": "Affliction",
+					"talent": "Improved Bane of Agony",
+					"rank": 2
+				},
+				{
+					"level": 55,
+					"tree": "Affliction",
+					"talent": "Amplify Curse",
+					"rank": 1
+				},
+				{
+					"level": 56,
+					"tree": "Affliction",
+					"talent": "Nightfall",
+					"rank": 1
+				},
+				{
+					"level": 57,
+					"tree": "Affliction",
+					"talent": "Nightfall",
+					"rank": 2
+				},
+				{
+					"level": 58,
+					"tree": "Affliction",
+					"talent": "Fel Concentration",
+					"rank": 1
+				},
+				{
+					"level": 59,
+					"tree": "Affliction",
+					"talent": "Fel Concentration",
+					"rank": 2
+				},
+				{
+					"level": 60,
+					"tree": "Affliction",
+					"talent": "Fel Concentration",
+					"rank": 3
+				}
+			]
+		},
+		{
+			"key": "destruction",
+			"spec": "Destruction",
+			"split": "19/0/32",
+			"link": "https://foreverdb.net/class/Warlock/talents?lvl=60&t=2040ae.205023221002--0052305130121351",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Destruction",
+					"talent": "Bane",
+					"rank": 1,
+					"note": "Bane first: faster Shadow Bolts and Immolates."
+				},
+				{
+					"level": 11,
+					"tree": "Destruction",
+					"talent": "Bane",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Destruction",
+					"talent": "Bane",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Destruction",
+					"talent": "Bane",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Destruction",
+					"talent": "Bane",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Destruction",
+					"talent": "Cataclysm",
+					"rank": 1
+				},
+				{
+					"level": 16,
+					"tree": "Destruction",
+					"talent": "Cataclysm",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Destruction",
+					"talent": "Cataclysm",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Destruction",
+					"talent": "Molten Skin",
+					"rank": 1
+				},
+				{
+					"level": 19,
+					"tree": "Destruction",
+					"talent": "Molten Skin",
+					"rank": 2
+				},
+				{
+					"level": 20,
+					"tree": "Destruction",
+					"talent": "Shadowburn",
+					"rank": 1
+				},
+				{
+					"level": 21,
+					"tree": "Destruction",
+					"talent": "Ruin",
+					"rank": 1,
+					"note": "Ruin makes Destruction crits hit much harder."
+				},
+				{
+					"level": 22,
+					"tree": "Destruction",
+					"talent": "Ruin",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Destruction",
+					"talent": "Ruin",
+					"rank": 3
+				},
+				{
+					"level": 24,
+					"tree": "Destruction",
+					"talent": "Ruin",
+					"rank": 4
+				},
+				{
+					"level": 25,
+					"tree": "Destruction",
+					"talent": "Ruin",
+					"rank": 5
+				},
+				{
+					"level": 26,
+					"tree": "Destruction",
+					"talent": "Conflagrate",
+					"rank": 1,
+					"note": "Conflagrate turns your Immolate into burst damage; open with Immolate, then Conflagrate."
+				},
+				{
+					"level": 27,
+					"tree": "Destruction",
+					"talent": "Intensity",
+					"rank": 1
+				},
+				{
+					"level": 28,
+					"tree": "Destruction",
+					"talent": "Intensity",
+					"rank": 2
+				},
+				{
+					"level": 29,
+					"tree": "Destruction",
+					"talent": "Intensity",
+					"rank": 3
+				},
+				{
+					"level": 30,
+					"tree": "Destruction",
+					"talent": "Bane of Havoc",
+					"rank": 1
+				},
+				{
+					"level": 31,
+					"tree": "Destruction",
+					"talent": "Pyroclasm",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Destruction",
+					"talent": "Pyroclasm",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Destruction",
+					"talent": "Fire and Brimstone",
+					"rank": 1
+				},
+				{
+					"level": 34,
+					"tree": "Destruction",
+					"talent": "Fire and Brimstone",
+					"rank": 2
+				},
+				{
+					"level": 35,
+					"tree": "Destruction",
+					"talent": "Fire and Brimstone",
+					"rank": 3
+				},
+				{
+					"level": 36,
+					"tree": "Destruction",
+					"talent": "Shadow and Flame",
+					"rank": 1
+				},
+				{
+					"level": 37,
+					"tree": "Destruction",
+					"talent": "Shadow and Flame",
+					"rank": 2
+				},
+				{
+					"level": 38,
+					"tree": "Destruction",
+					"talent": "Shadow and Flame",
+					"rank": 3
+				},
+				{
+					"level": 39,
+					"tree": "Destruction",
+					"talent": "Shadow and Flame",
+					"rank": 4
+				},
+				{
+					"level": 40,
+					"tree": "Destruction",
+					"talent": "Shadow and Flame",
+					"rank": 5
+				},
+				{
+					"level": 41,
+					"tree": "Destruction",
+					"talent": "Incinerate",
+					"rank": 1,
+					"note": "Incinerate is the capstone: a strong Fire nuke, best on an Immolated target."
+				},
+				{
+					"level": 42,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 1,
+					"note": "The rest goes to Affliction: an instant Corruption, stronger drains and Life Tap, and Nightfall's free Shadow Bolts."
+				},
+				{
+					"level": 43,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 2
+				},
+				{
+					"level": 44,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 3
+				},
+				{
+					"level": 45,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 4
+				},
+				{
+					"level": 46,
+					"tree": "Affliction",
+					"talent": "Improved Corruption",
+					"rank": 5
+				},
+				{
+					"level": 47,
+					"tree": "Affliction",
+					"talent": "Improved Drains",
+					"rank": 1
+				},
+				{
+					"level": 48,
+					"tree": "Affliction",
+					"talent": "Improved Drains",
+					"rank": 2
+				},
+				{
+					"level": 49,
+					"tree": "Affliction",
+					"talent": "Improved Drains",
+					"rank": 3
+				},
+				{
+					"level": 50,
+					"tree": "Affliction",
+					"talent": "Improved Life Tap",
+					"rank": 1
+				},
+				{
+					"level": 51,
+					"tree": "Affliction",
+					"talent": "Improved Life Tap",
+					"rank": 2
+				},
+				{
+					"level": 52,
+					"tree": "Affliction",
+					"talent": "Soul Harvest",
+					"rank": 1
+				},
+				{
+					"level": 53,
+					"tree": "Affliction",
+					"talent": "Soul Harvest",
+					"rank": 2
+				},
+				{
+					"level": 54,
+					"tree": "Affliction",
+					"talent": "Improved Bane of Agony",
+					"rank": 1
+				},
+				{
+					"level": 55,
+					"tree": "Affliction",
+					"talent": "Improved Bane of Agony",
+					"rank": 2
+				},
+				{
+					"level": 56,
+					"tree": "Affliction",
+					"talent": "Amplify Curse",
+					"rank": 1
+				},
+				{
+					"level": 57,
+					"tree": "Affliction",
+					"talent": "Nightfall",
+					"rank": 1
+				},
+				{
+					"level": 58,
+					"tree": "Affliction",
+					"talent": "Nightfall",
+					"rank": 2
+				},
+				{
+					"level": 59,
+					"tree": "Affliction",
+					"talent": "Fel Concentration",
+					"rank": 1
+				},
+				{
+					"level": 60,
+					"tree": "Affliction",
+					"talent": "Fel Concentration",
+					"rank": 2
+				}
+			]
+		}
+	]
+}

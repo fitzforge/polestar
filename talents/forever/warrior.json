@@ -1,0 +1,984 @@
+{
+	"class": "WARRIOR",
+	"source": "ForeverDB's leveling builds, adapted to level 30",
+	"sourceUrl": "https://foreverdb.net/class/Warrior/talents",
+	"credit": "Builds adapted from ForeverDB's Warrior talent guides (https://foreverdb.net/class/Warrior/talents). Notes rewritten for Polestar.",
+	"checkedOn": "WoW: Forever beta 1.60.1.70374",
+	"summary": "Level as Arms with a two-hander (Mortal Strike, Sweeping Strikes) or Fury (Enrage, Death Wish, then Flurry and Bloodthirst with two weapons). Protection is slower alone but ready to tank any dungeon on the way.",
+	"order": [
+		"Arms",
+		"Fury",
+		"Protection"
+	],
+	"builds": [
+		{
+			"key": "arms",
+			"spec": "Arms",
+			"split": "31/20/0",
+			"link": "https://foreverdb.net/class/Warrior/talents?lvl=60&t=62fd33.32305013032015201-1505013005",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Arms",
+					"talent": "Improved Heroic Strike",
+					"rank": 1,
+					"note": "Improved Heroic Strike first: Heroic Strike is your main rage dump, and a cheaper one means more of them."
+				},
+				{
+					"level": 11,
+					"tree": "Arms",
+					"talent": "Improved Heroic Strike",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Arms",
+					"talent": "Improved Heroic Strike",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Arms",
+					"talent": "Deflection",
+					"rank": 1
+				},
+				{
+					"level": 14,
+					"tree": "Arms",
+					"talent": "Deflection",
+					"rank": 2
+				},
+				{
+					"level": 15,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 1,
+					"note": "Improved Tactical Mastery keeps rage when you swap stances, so Charge, Overpower and Battle Stance openers cost you nothing."
+				},
+				{
+					"level": 16,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 4
+				},
+				{
+					"level": 19,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 5
+				},
+				{
+					"level": 20,
+					"tree": "Arms",
+					"talent": "Anger Management",
+					"rank": 1,
+					"note": "Anger Management is a steady rage trickle in every fight; on Forever it also slows rage loss between pulls."
+				},
+				{
+					"level": 21,
+					"tree": "Arms",
+					"talent": "Improved Rend",
+					"rank": 1
+				},
+				{
+					"level": 22,
+					"tree": "Arms",
+					"talent": "Improved Rend",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Arms",
+					"talent": "Improved Rend",
+					"rank": 3
+				},
+				{
+					"level": 24,
+					"tree": "Arms",
+					"talent": "Deep Wounds",
+					"rank": 1,
+					"note": "Improved Rend and Deep Wounds turn your crits into bleeds; Deep Wounds also opens Impale."
+				},
+				{
+					"level": 25,
+					"tree": "Arms",
+					"talent": "Deep Wounds",
+					"rank": 2
+				},
+				{
+					"level": 26,
+					"tree": "Arms",
+					"talent": "Deep Wounds",
+					"rank": 3
+				},
+				{
+					"level": 27,
+					"tree": "Arms",
+					"talent": "Two-Handed Weapon Specialization",
+					"rank": 1
+				},
+				{
+					"level": 28,
+					"tree": "Arms",
+					"talent": "Two-Handed Weapon Specialization",
+					"rank": 2
+				},
+				{
+					"level": 29,
+					"tree": "Arms",
+					"talent": "Two-Handed Weapon Specialization",
+					"rank": 3
+				},
+				{
+					"level": 30,
+					"tree": "Arms",
+					"talent": "Impale",
+					"rank": 1
+				},
+				{
+					"level": 31,
+					"tree": "Arms",
+					"talent": "Impale",
+					"rank": 2
+				},
+				{
+					"level": 32,
+					"tree": "Arms",
+					"talent": "Sweeping Strikes",
+					"rank": 1,
+					"note": "Sweeping Strikes makes two-mob pulls quick; Weaponmaster then adds crit, armor penetration or extra attacks for your weapon type."
+				},
+				{
+					"level": 33,
+					"tree": "Arms",
+					"talent": "Weaponmaster",
+					"rank": 1
+				},
+				{
+					"level": 34,
+					"tree": "Arms",
+					"talent": "Weaponmaster",
+					"rank": 2
+				},
+				{
+					"level": 35,
+					"tree": "Arms",
+					"talent": "Weaponmaster",
+					"rank": 3
+				},
+				{
+					"level": 36,
+					"tree": "Arms",
+					"talent": "Weaponmaster",
+					"rank": 4
+				},
+				{
+					"level": 37,
+					"tree": "Arms",
+					"talent": "Weaponmaster",
+					"rank": 5
+				},
+				{
+					"level": 38,
+					"tree": "Arms",
+					"talent": "Improved Slam",
+					"rank": 1,
+					"note": "Improved Slam stops Slam from resetting your swing: a free hit between big two-hander swings."
+				},
+				{
+					"level": 39,
+					"tree": "Arms",
+					"talent": "Improved Slam",
+					"rank": 2
+				},
+				{
+					"level": 40,
+					"tree": "Arms",
+					"talent": "Mortal Strike",
+					"rank": 1,
+					"note": "Mortal Strike is the capstone and your hardest-hitting strike for the rest of the climb."
+				},
+				{
+					"level": 41,
+					"tree": "Fury",
+					"talent": "Cruelty",
+					"rank": 1,
+					"note": "The last 20 points go to Fury: Cruelty and Unbridled Wrath give more crit and more rage."
+				},
+				{
+					"level": 42,
+					"tree": "Fury",
+					"talent": "Cruelty",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Fury",
+					"talent": "Cruelty",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Fury",
+					"talent": "Cruelty",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Fury",
+					"talent": "Cruelty",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Fury",
+					"talent": "Unbridled Wrath",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Fury",
+					"talent": "Unbridled Wrath",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Fury",
+					"talent": "Unbridled Wrath",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Fury",
+					"talent": "Unbridled Wrath",
+					"rank": 4
+				},
+				{
+					"level": 50,
+					"tree": "Fury",
+					"talent": "Unbridled Wrath",
+					"rank": 5
+				},
+				{
+					"level": 51,
+					"tree": "Fury",
+					"talent": "Piercing Howl",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Fury",
+					"talent": "Blood Craze",
+					"rank": 1
+				},
+				{
+					"level": 53,
+					"tree": "Fury",
+					"talent": "Blood Craze",
+					"rank": 2
+				},
+				{
+					"level": 54,
+					"tree": "Fury",
+					"talent": "Blood Craze",
+					"rank": 3
+				},
+				{
+					"level": 55,
+					"tree": "Fury",
+					"talent": "Booming Voice",
+					"rank": 1
+				},
+				{
+					"level": 56,
+					"tree": "Fury",
+					"talent": "Enrage",
+					"rank": 1,
+					"note": "Enrage finishes the plan: a damage boost that is often up while you take hits."
+				},
+				{
+					"level": 57,
+					"tree": "Fury",
+					"talent": "Enrage",
+					"rank": 2
+				},
+				{
+					"level": 58,
+					"tree": "Fury",
+					"talent": "Enrage",
+					"rank": 3
+				},
+				{
+					"level": 59,
+					"tree": "Fury",
+					"talent": "Enrage",
+					"rank": 4
+				},
+				{
+					"level": 60,
+					"tree": "Fury",
+					"talent": "Enrage",
+					"rank": 5
+				}
+			]
+		},
+		{
+			"key": "fury",
+			"spec": "Fury",
+			"split": "17/34/0",
+			"link": "https://foreverdb.net/class/Warrior/talents?lvl=60&t=62fd33.32305013-05150135050010521",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Fury",
+					"talent": "Cruelty",
+					"rank": 1,
+					"note": "Cruelty first: more crit for every build, and the way into the Fury tree."
+				},
+				{
+					"level": 11,
+					"tree": "Fury",
+					"talent": "Cruelty",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Fury",
+					"talent": "Cruelty",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Fury",
+					"talent": "Cruelty",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Fury",
+					"talent": "Cruelty",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Fury",
+					"talent": "Unbridled Wrath",
+					"rank": 1,
+					"note": "Unbridled Wrath means more rage from every swing, which matters most with two fast weapons."
+				},
+				{
+					"level": 16,
+					"tree": "Fury",
+					"talent": "Unbridled Wrath",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Fury",
+					"talent": "Unbridled Wrath",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Fury",
+					"talent": "Unbridled Wrath",
+					"rank": 4
+				},
+				{
+					"level": 19,
+					"tree": "Fury",
+					"talent": "Unbridled Wrath",
+					"rank": 5
+				},
+				{
+					"level": 20,
+					"tree": "Fury",
+					"talent": "Piercing Howl",
+					"rank": 1,
+					"note": "Piercing Howl stops runners and lets you walk away from a bad pull."
+				},
+				{
+					"level": 21,
+					"tree": "Fury",
+					"talent": "Blood Craze",
+					"rank": 1
+				},
+				{
+					"level": 22,
+					"tree": "Fury",
+					"talent": "Blood Craze",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Fury",
+					"talent": "Blood Craze",
+					"rank": 3
+				},
+				{
+					"level": 24,
+					"tree": "Fury",
+					"talent": "Lingering Rage",
+					"rank": 1
+				},
+				{
+					"level": 25,
+					"tree": "Fury",
+					"talent": "Enrage",
+					"rank": 1,
+					"note": "Enrage raises your physical damage after you are hit, so it is often up while you take hits."
+				},
+				{
+					"level": 26,
+					"tree": "Fury",
+					"talent": "Enrage",
+					"rank": 2
+				},
+				{
+					"level": 27,
+					"tree": "Fury",
+					"talent": "Enrage",
+					"rank": 3
+				},
+				{
+					"level": 28,
+					"tree": "Fury",
+					"talent": "Enrage",
+					"rank": 4
+				},
+				{
+					"level": 29,
+					"tree": "Fury",
+					"talent": "Enrage",
+					"rank": 5
+				},
+				{
+					"level": 30,
+					"tree": "Fury",
+					"talent": "Death Wish",
+					"rank": 1,
+					"note": "Death Wish is a big cooldown for elites and a fear breaker; it also opens Flurry."
+				},
+				{
+					"level": 31,
+					"tree": "Fury",
+					"talent": "Dual Wield Specialization",
+					"rank": 1,
+					"note": "Dual Wield Specialization: more off-hand damage and rage now that you carry two weapons."
+				},
+				{
+					"level": 32,
+					"tree": "Fury",
+					"talent": "Dual Wield Specialization",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Fury",
+					"talent": "Dual Wield Specialization",
+					"rank": 3
+				},
+				{
+					"level": 34,
+					"tree": "Fury",
+					"talent": "Dual Wield Specialization",
+					"rank": 4
+				},
+				{
+					"level": 35,
+					"tree": "Fury",
+					"talent": "Dual Wield Specialization",
+					"rank": 5
+				},
+				{
+					"level": 36,
+					"tree": "Fury",
+					"talent": "Flurry",
+					"rank": 1
+				},
+				{
+					"level": 37,
+					"tree": "Fury",
+					"talent": "Flurry",
+					"rank": 2
+				},
+				{
+					"level": 38,
+					"tree": "Fury",
+					"talent": "Flurry",
+					"rank": 3
+				},
+				{
+					"level": 39,
+					"tree": "Fury",
+					"talent": "Flurry",
+					"rank": 4
+				},
+				{
+					"level": 40,
+					"tree": "Fury",
+					"talent": "Flurry",
+					"rank": 5
+				},
+				{
+					"level": 41,
+					"tree": "Fury",
+					"talent": "Bloodthirst",
+					"rank": 1,
+					"note": "Bloodthirst is the capstone: a strong instant attack and a little run speed between mobs."
+				},
+				{
+					"level": 42,
+					"tree": "Fury",
+					"talent": "Gore Drinker",
+					"rank": 1,
+					"note": "Gore Drinker turns your rage cooldowns into self-healing, so you rest less."
+				},
+				{
+					"level": 43,
+					"tree": "Fury",
+					"talent": "Gore Drinker",
+					"rank": 2
+				},
+				{
+					"level": 44,
+					"tree": "Arms",
+					"talent": "Improved Heroic Strike",
+					"rank": 1,
+					"note": "Spare points go to Arms for cheaper Heroic Strikes, stance-swap rage, Anger Management and Deep Wounds."
+				},
+				{
+					"level": 45,
+					"tree": "Arms",
+					"talent": "Improved Heroic Strike",
+					"rank": 2
+				},
+				{
+					"level": 46,
+					"tree": "Arms",
+					"talent": "Improved Heroic Strike",
+					"rank": 3
+				},
+				{
+					"level": 47,
+					"tree": "Arms",
+					"talent": "Deflection",
+					"rank": 1
+				},
+				{
+					"level": 48,
+					"tree": "Arms",
+					"talent": "Deflection",
+					"rank": 2
+				},
+				{
+					"level": 49,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 1
+				},
+				{
+					"level": 50,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 2
+				},
+				{
+					"level": 51,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 3
+				},
+				{
+					"level": 52,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 4
+				},
+				{
+					"level": 53,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 5
+				},
+				{
+					"level": 54,
+					"tree": "Arms",
+					"talent": "Anger Management",
+					"rank": 1
+				},
+				{
+					"level": 55,
+					"tree": "Arms",
+					"talent": "Improved Rend",
+					"rank": 1
+				},
+				{
+					"level": 56,
+					"tree": "Arms",
+					"talent": "Improved Rend",
+					"rank": 2
+				},
+				{
+					"level": 57,
+					"tree": "Arms",
+					"talent": "Improved Rend",
+					"rank": 3
+				},
+				{
+					"level": 58,
+					"tree": "Arms",
+					"talent": "Deep Wounds",
+					"rank": 1
+				},
+				{
+					"level": 59,
+					"tree": "Arms",
+					"talent": "Deep Wounds",
+					"rank": 2
+				},
+				{
+					"level": 60,
+					"tree": "Arms",
+					"talent": "Deep Wounds",
+					"rank": 3
+				}
+			]
+		},
+		{
+			"key": "protection",
+			"spec": "Protection",
+			"split": "10/0/41",
+			"link": "https://foreverdb.net/class/Warrior/talents?lvl=60&t=62fd33.32005--250533120331121351",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Protection",
+					"talent": "Shield Specialization",
+					"rank": 1,
+					"note": "Shield Specialization: more blocks, and on Forever each block also gives rage."
+				},
+				{
+					"level": 11,
+					"tree": "Protection",
+					"talent": "Shield Specialization",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Protection",
+					"talent": "Shield Specialization",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Protection",
+					"talent": "Shield Specialization",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Protection",
+					"talent": "Shield Specialization",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Protection",
+					"talent": "Improved Revenge",
+					"rank": 1,
+					"note": "Improved Revenge makes Revenge, which you can use after each block, a real damage hit."
+				},
+				{
+					"level": 16,
+					"tree": "Protection",
+					"talent": "Improved Revenge",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Protection",
+					"talent": "Improved Revenge",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Protection",
+					"talent": "Improved Bloodrage",
+					"rank": 1
+				},
+				{
+					"level": 19,
+					"tree": "Protection",
+					"talent": "Improved Bloodrage",
+					"rank": 2
+				},
+				{
+					"level": 20,
+					"tree": "Protection",
+					"talent": "Last Stand",
+					"rank": 1,
+					"note": "Last Stand is your emergency cooldown when a pull goes wrong."
+				},
+				{
+					"level": 21,
+					"tree": "Protection",
+					"talent": "Master of Defense",
+					"rank": 1
+				},
+				{
+					"level": 22,
+					"tree": "Protection",
+					"talent": "Master of Defense",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Protection",
+					"talent": "Anticipation",
+					"rank": 1
+				},
+				{
+					"level": 24,
+					"tree": "Protection",
+					"talent": "Anticipation",
+					"rank": 2
+				},
+				{
+					"level": 25,
+					"tree": "Protection",
+					"talent": "Anticipation",
+					"rank": 3
+				},
+				{
+					"level": 26,
+					"tree": "Protection",
+					"talent": "Vanguard",
+					"rank": 1,
+					"note": "Vanguard lets you Charge from Defensive Stance: no stance dance to open a pull."
+				},
+				{
+					"level": 27,
+					"tree": "Protection",
+					"talent": "Improved Sunder Armor",
+					"rank": 1
+				},
+				{
+					"level": 28,
+					"tree": "Protection",
+					"talent": "Improved Sunder Armor",
+					"rank": 2
+				},
+				{
+					"level": 29,
+					"tree": "Protection",
+					"talent": "Improved Sunder Armor",
+					"rank": 3
+				},
+				{
+					"level": 30,
+					"tree": "Protection",
+					"talent": "Concussion Blow",
+					"rank": 1,
+					"note": "Concussion Blow is a stun on demand, for an interrupt or to reach a runner."
+				},
+				{
+					"level": 31,
+					"tree": "Protection",
+					"talent": "Focused Rage",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Protection",
+					"talent": "Focused Rage",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Protection",
+					"talent": "Focused Rage",
+					"rank": 3
+				},
+				{
+					"level": 34,
+					"tree": "Protection",
+					"talent": "Anticipation",
+					"rank": 4
+				},
+				{
+					"level": 35,
+					"tree": "Protection",
+					"talent": "Anticipation",
+					"rank": 5
+				},
+				{
+					"level": 36,
+					"tree": "Protection",
+					"talent": "Bastion",
+					"rank": 1,
+					"note": "Bastion adds damage to everything you do with a shield on; it is what makes Protection level well."
+				},
+				{
+					"level": 37,
+					"tree": "Protection",
+					"talent": "Bastion",
+					"rank": 2
+				},
+				{
+					"level": 38,
+					"tree": "Protection",
+					"talent": "Bastion",
+					"rank": 3
+				},
+				{
+					"level": 39,
+					"tree": "Protection",
+					"talent": "Bastion",
+					"rank": 4
+				},
+				{
+					"level": 40,
+					"tree": "Protection",
+					"talent": "Bastion",
+					"rank": 5
+				},
+				{
+					"level": 41,
+					"tree": "Protection",
+					"talent": "Shield Slam",
+					"rank": 1,
+					"note": "Shield Slam is the capstone: a big hit that grows with your block value, and high threat for dungeons."
+				},
+				{
+					"level": 42,
+					"tree": "Protection",
+					"talent": "Defiance",
+					"rank": 1,
+					"note": "Defiance, Improved Thunder Clap and Improved Shield Wall round out the tank kit for dungeons."
+				},
+				{
+					"level": 43,
+					"tree": "Protection",
+					"talent": "Defiance",
+					"rank": 2
+				},
+				{
+					"level": 44,
+					"tree": "Protection",
+					"talent": "Defiance",
+					"rank": 3
+				},
+				{
+					"level": 45,
+					"tree": "Protection",
+					"talent": "Improved Thunder Clap",
+					"rank": 1
+				},
+				{
+					"level": 46,
+					"tree": "Protection",
+					"talent": "Improved Thunder Clap",
+					"rank": 2
+				},
+				{
+					"level": 47,
+					"tree": "Protection",
+					"talent": "Improved Thunder Clap",
+					"rank": 3
+				},
+				{
+					"level": 48,
+					"tree": "Protection",
+					"talent": "Improved Shield Wall",
+					"rank": 1
+				},
+				{
+					"level": 49,
+					"tree": "Protection",
+					"talent": "Improved Shield Wall",
+					"rank": 2
+				},
+				{
+					"level": 50,
+					"tree": "Protection",
+					"talent": "Improved Shield Bash",
+					"rank": 1
+				},
+				{
+					"level": 51,
+					"tree": "Arms",
+					"talent": "Improved Heroic Strike",
+					"rank": 1,
+					"note": "The last 10 points go to Arms: cheaper Heroic Strikes and Improved Tactical Mastery for swaps to Battle Stance."
+				},
+				{
+					"level": 52,
+					"tree": "Arms",
+					"talent": "Improved Heroic Strike",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Arms",
+					"talent": "Improved Heroic Strike",
+					"rank": 3
+				},
+				{
+					"level": 54,
+					"tree": "Arms",
+					"talent": "Deflection",
+					"rank": 1
+				},
+				{
+					"level": 55,
+					"tree": "Arms",
+					"talent": "Deflection",
+					"rank": 2
+				},
+				{
+					"level": 56,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 1
+				},
+				{
+					"level": 57,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 2
+				},
+				{
+					"level": 58,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 3
+				},
+				{
+					"level": 59,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 4
+				},
+				{
+					"level": 60,
+					"tree": "Arms",
+					"talent": "Improved Tactical Mastery",
+					"rank": 5
+				}
+			]
+		}
+	]
+}
