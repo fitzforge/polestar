@@ -3452,7 +3452,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (`live` unless in the Era frame) and `spot i of n` for the arrow's spawn
   spot; the arrow's target and distance (and "your own waypoint" with its
   position when the player set it); where the player stands (zone, subzone,
-  `map <id> @x,y live`); other packs that are on; and the errors
+  `map <id> @x,y live`); "Routes:" with the route style (`nav.routeStyle`:
+  `fastest`, `balanced` or `roads`, in English) and only the routing settings
+  away from their defaults (`real paths off`, `travel planner off`, `handed
+  to Shortest Path Forever`), after Where so the bug bot still finds Arrow and
+  Where by position and reads this line by its style word; other packs that
+  are on; and the errors
   (`Polestar.Errors()`, plus with !BugGrabber its errors this session in
   Polestar's files, `BugGrabber:GetDB()`) by their path from the AddOns
   folder, and the calls the game blocked (`Polestar.Blocked()`) as "blocked
