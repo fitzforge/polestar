@@ -124,7 +124,7 @@ function G.StartFocus()
 		ns.Print(L["Browsing the guide needs the game's gamepad interface (Options, Gamepad, Enable Gamepad UI), or Use with the keyboard and mouse on Polestar's Gamepad page with a gamepad plugged in."])
 		return false
 	end
-	if not ns.Get("ui.shown") then ns.Set("ui.shown", true) end
+	if not F:IsShown() then ns.Set("ui.shown", true) end
 	if ns.Get("ui.compact") then ns.Set("ui.compact", false) end
 	if not F:IsShown() then return false end
 	if not F.psFocusHooked then

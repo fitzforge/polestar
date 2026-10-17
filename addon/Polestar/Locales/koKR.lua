@@ -1616,6 +1616,8 @@ L["The skin's font"] = "스킨 글꼴"
 L["Skin"] = "스킨"
 L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = "Polestar 고유의 모습(기본), 후광(테두리 없이 부드러운 어두운 장막, Fira Sans), 화롯가(따뜻한 게임 색), 또는 게임 고유의 아트: WoW Forever, 블리자드, 클래식. 스타일, 간략 모드, 직접 고른 색은 모든 스킨에 적용됩니다."
 L["The skin's arrow"] = "스킨 화살표"
+-- L["In dungeons"] = ""
+-- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"

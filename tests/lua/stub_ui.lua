@@ -11,6 +11,7 @@
 --   uistub.goal(s, g)         the mutable goal table behind step s, goal g (active tab)
 --   uistub.update()           fire STEP_UPDATED for the current step
 --   uistub.guides             the sample guides, by id
+--   uistub.instance           the instance type the player is in ("party", "raid", ...); nil outside
 --   uistub.install({ noNav = true, noTabs = true })  leave Nav / the tabs API out
 
 uistub = { calls = {}, guides = {}, order = {} }
@@ -620,7 +621,7 @@ function Compat.IsOnQuest() return false end
 function Compat.IsQuestReadyForTurnIn() return false end
 function Compat.GetZoneText() return "Elwynn Forest", "" end
 function Compat.IsOnTaxi() return false end
-function Compat.IsInInstance() return false end
+function Compat.IsInInstance() return uistub.instance ~= nil, uistub.instance end
 function Compat.GetPlayerInfo() return uistub.player end
 function Compat.GetMapName(id) return MAPS[id] end
 function Compat.GetQuestTitle() return nil end

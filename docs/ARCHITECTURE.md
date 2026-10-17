@@ -646,7 +646,7 @@ Compat.IsOnTaxi()                      -> bool
 Compat.GetCurrentTaxiNode()            -> name of the open taxi map's node | nil
 Compat.GetNpcID(unit)                  -> number | nil   (from UnitGUID)
 Compat.InCombat()                      -> bool
-Compat.IsInInstance()                  -> bool
+Compat.IsInInstance()                  -> bool, instanceType ("party" | "raid" | "pvp" | ... inside)
 Compat.IsIndoors()                     -> bool | nil (the client's indoor state; nil without IsIndoors or when secret)
 Compat.IsShiftKeyDown()                -> bool
 Compat.AddOnPresent(name)              -> bool   (installed and enabled: loaded, or loadable after Polestar)

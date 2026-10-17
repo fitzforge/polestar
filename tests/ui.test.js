@@ -835,6 +835,139 @@ test('combat state is read at login, so a /reload mid-fight still fades or hides
 	assert.deepEqual(out, { hidden: true, shown: true });
 });
 
+// Through a loading screen into an instance of `kind` ("party", "raid",
+// "pvp", ...), or out of it with nil.
+const ENTER = `
+local function enter(kind)
+	uistub.instance = kind
+	stub.fire("PLAYER_ENTERING_WORLD", false, false)
+end
+`;
+
+test('in dungeons: by default the window stays; with Hide it hides in a dungeon and a raid and comes back on leaving, the show setting untouched', () => {
+	const [out] = run(`${ENTER}
+		uistub.setGuide(uistub.elwynn, 3)
+		enter("party")
+		local byDefault = F:IsShown()
+		enter(nil)
+		Polestar.Set("ui.instance", "hide")
+		local outside = F:IsShown()
+		enter("party")
+		local dungeon, stored = F:IsShown(), Polestar.Get("ui.shown")
+		enter(nil)
+		local left = F:IsShown()
+		enter("raid")
+		local raid = F:IsShown()
+		Polestar.Set("ui.instance", "show")
+		local turnedOff = F:IsShown()
+		emit({ byDefault = byDefault, outside = outside, dungeon = dungeon, stored = stored, left = left, raid = raid, turnedOff = turnedOff })`);
+	assert.deepEqual(out, { byDefault: true, outside: true, dungeon: false, stored: true, left: true, raid: false, turnedOff: true });
+});
+
+test('in dungeons: battlegrounds, arenas and scenarios are not dungeons, and the window stays', () => {
+	const [out] = run(`${ENTER}
+		Polestar.Set("ui.instance", "hide")
+		local shown = {}
+		for _, kind in ipairs({ "pvp", "arena", "scenario" }) do
+			enter(kind)
+			shown[#shown + 1] = F:IsShown()
+		end
+		emit(shown)`);
+	assert.deepEqual(out, [true, true, true]);
+});
+
+test('in dungeons: /polestar, the key binding or the minimap button opens the window there until you leave, and closes it again without turning it off', () => {
+	const [out] = run(`${ENTER}
+		Polestar.Set("ui.instance", "hide")
+		enter("party")
+		Polestar.Fire("TOGGLE_FRAME")
+		local opened, storedOpen = F:IsShown(), Polestar.Get("ui.shown")
+		enter("party")
+		local loadingScreen = F:IsShown()
+		Polestar.Fire("TOGGLE_FRAME")
+		local closed, storedClosed = F:IsShown(), Polestar.Get("ui.shown")
+		Polestar.Fire("TOGGLE_FRAME")
+		enter(nil)
+		local outside = F:IsShown()
+		enter("party")
+		local nextVisit = F:IsShown()
+		emit({ opened = opened, storedOpen = storedOpen, loadingScreen = loadingScreen, closed = closed,
+			storedClosed = storedClosed, outside = outside, nextVisit = nextVisit })`);
+	assert.deepEqual(out, { opened: true, storedOpen: true, loadingScreen: true, closed: false, storedClosed: true,
+		outside: true, nextVisit: false });
+});
+
+test('in dungeons: a guide picked there, /polestar show or the Show the window switch opens the window for the visit', () => {
+	const [out] = run(`${ENTER}
+		Polestar.Set("ui.instance", "hide")
+		enter("party")
+		Polestar.Fire("SHOW_FRAME")
+		local shown = F:IsShown()
+		enter(nil)
+		enter("party")
+		Polestar.Set("ui.shown", false)
+		Polestar.Set("ui.shown", true)
+		emit({ shown = shown, switched = F:IsShown() })`);
+	assert.deepEqual(out, { shown: true, switched: true });
+});
+
+test('in dungeons: a window hidden by hand stays hidden after leaving', () => {
+	const [out] = run(`${ENTER}
+		Polestar.Set("ui.instance", "hide")
+		Polestar.Fire("HIDE_FRAME")
+		enter("party")
+		enter(nil)
+		emit({ shown = F:IsShown(), stored = Polestar.Get("ui.shown") })`);
+	assert.deepEqual(out, { shown: false, stored: false });
+});
+
+test('in dungeons: a window off on the way in, opened and closed there with /polestar, stays off after leaving', () => {
+	const [out] = run(`${ENTER}
+		Polestar.Set("ui.instance", "hide")
+		Polestar.Fire("HIDE_FRAME")
+		enter("party")
+		Polestar.Fire("TOGGLE_FRAME")
+		local opened = F:IsShown()
+		Polestar.Fire("TOGGLE_FRAME")
+		local closed = F:IsShown()
+		enter(nil)
+		emit({ opened = opened, closed = closed, shown = F:IsShown(), stored = Polestar.Get("ui.shown") })`);
+	assert.deepEqual(out, { opened: true, closed: false, shown: false, stored: false });
+});
+
+test('in dungeons: a fight there does not bring the window back, and In combat still hides one opened by hand', () => {
+	const [out] = run(`${ENTER}
+		Polestar.Set("ui.instance", "hide")
+		Polestar.Set("ui.combat", "hide")
+		enter("party")
+		stub.fire("PLAYER_REGEN_DISABLED")
+		local fight = F:IsShown()
+		stub.fire("PLAYER_REGEN_ENABLED")
+		local afterFight = F:IsShown()
+		Polestar.Fire("TOGGLE_FRAME")
+		stub.fire("PLAYER_REGEN_DISABLED")
+		local openedFight = F:IsShown()
+		stub.fire("PLAYER_REGEN_ENABLED")
+		emit({ fight = fight, afterFight = afterFight, openedFight = openedFight, openedAfter = F:IsShown() })`);
+	assert.deepEqual(out, { fight: false, afterFight: false, openedFight: false, openedAfter: true });
+});
+
+test('in dungeons: a /reload inside still hides the window', () => {
+	const [out] = runAddon({
+		stubs: ['stub_ui.lua'],
+		addons: [{ name: 'Polestar', files: FILES }],
+		script: `uistub.install()
+			uistub.instance = "party"
+			Polestar.Set("ui.instance", "hide")
+			stub.login()
+			local hidden = not PolestarGuideFrame:IsShown()
+			uistub.instance = nil
+			stub.fire("PLAYER_ENTERING_WORLD", false, false)
+			emit({ hidden = hidden, shown = PolestarGuideFrame:IsShown() })`,
+	}).emitted;
+	assert.deepEqual(out, { hidden: true, shown: true });
+});
+
 test('an unavailable quest stays readable but muted, says why, and drops its counters and arrow mark', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)

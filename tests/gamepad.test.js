@@ -123,6 +123,18 @@ test('combat: the gamepad goes back to the game before the lockdown, nothing is 
 	assert.deepEqual(after, { focusing: false, owner: true, overrides: 11, blocked: 0 });
 });
 
+test('focus mode in a dungeon where the window waits hidden opens it there and starts', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Set("ui.instance", "hide")
+		uistub.instance = "party"
+		stub.fire("PLAYER_ENTERING_WORLD", false, false)
+		local hidden = not PolestarGuideFrame:IsShown()
+		emit({ hidden = hidden, started = G.StartFocus(), shown = PolestarGuideFrame:IsShown() })
+	`);
+	assert.deepEqual(out, { hidden: true, started: true, shown: true });
+});
+
 test('bindings change only out of combat: in a fight a button, a chord or an unbind is refused untouched, and works after it', () => {
 	const [fight, after] = run(`
 		pad.saved.N = "POLESTAR_TOGGLE"

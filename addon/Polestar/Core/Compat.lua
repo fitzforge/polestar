@@ -139,10 +139,12 @@ function Compat.InCombat()
 	return readable(UnitAffectingCombat and UnitAffectingCombat("player")) and true or false
 end
 
+-- -> inside, instanceType ("party", "raid", "pvp", ...; nil outside)
 function Compat.IsInInstance()
 	if not IsInInstance then return false end
-	local inside = IsInInstance()
-	return inside and true or false
+	local inside, kind = IsInInstance()
+	if not inside then return false end
+	return true, kind
 end
 
 -- The client's indoor state (the minimap's indoor zoom): true indoors, false

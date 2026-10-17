@@ -931,6 +931,8 @@ L["The skin's font"] = "Die Schrift des Designs"
 L["Skin"] = "Design"
 L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = "Polestars eigenes Aussehen (Standard), Halo (ohne Rahmen, ein weicher dunkler Schleier, Fira Sans), Herd (warme Farben des Spiels) oder die Grafik des Spiels selbst: WoW Forever, Blizzard und Classic. Stil, Kompaktmodus und die Farben, die du wählst, wirken in jedem Design."
 L["The skin's arrow"] = "Der Pfeil des Designs"
+-- L["In dungeons"] = ""
+-- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"

@@ -712,3 +712,18 @@ test('Distances: the arrow row picks yards or metres; right-click restores yards
 		{ between: 'Polestar.RegisterDefaults("nav", { distanceUnit = "yards" })' });
 	assert.deepEqual(out, { before: "Yards (the game's unit)", picked: 'metres', label: 'Metres', reset: 'yards' });
 });
+
+test('Guide, Window: In dungeons keeps the window or hides it in dungeons and raids; right-click restores Keep visible', () => {
+	const [out] = run(`
+		UI.ShowOptions("guide")
+		local row = O.Controls("guide")["ui.instance"]
+		local before = row.Button.Label:GetText()
+		row.Button:Click()
+		local choices = {}
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then choices[#choices + 1] = r.Text:GetText() end end
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Hide" then r:Click() end end
+		local picked = Polestar.Get("ui.instance")
+		row:Click("RightButton")
+		emit({ label = row.Label:GetText(), before = before, choices = choices, picked = picked, reset = Polestar.Get("ui.instance") })`);
+	assert.deepEqual(out, { label: 'In dungeons', before: 'Keep visible', choices: ['Keep visible', 'Hide'], picked: 'hide', reset: 'show' });
+});

@@ -85,6 +85,8 @@ local focusGroup -- the group on screen
 local shownIndex, shownGuide, shownFocus -- what the card shows, to tell a change from an update
 local tipOpen = false
 local inCombat = false
+local inInstance, openInside = false, false -- in a dungeon or raid; opened there by the player
+local shownOnEntry = false -- ui.shown when this visit began
 local state = "none" -- "steps" | "noguides" | "noguide" | "notyet" | "complete"
 local texts = {} -- every string the window draws, for transparent-mode outlines
 local chrome = {} -- frames that hide in transparent mode until hovered
@@ -1640,10 +1642,29 @@ local function targetAlpha()
 	return a
 end
 
+-- With ui.instance "hide", the window waits out a dungeon or raid until the
+-- player opens it there. Like combat it never writes ui.shown, so leaving
+-- brings back what the player had.
+local function hiddenInside()
+	return inInstance and not openInside and ns.Get("ui.instance") == "hide"
+end
+
 function GF.ApplyVisibility()
 	if not F then return end
-	local show = ns.Get("ui.shown") and not (inCombat and ns.Get("ui.combat") == "hide")
+	local show = ns.Get("ui.shown") and not (inCombat and ns.Get("ui.combat") == "hide") and not hiddenInside()
 	F:SetShown(show and true or false)
+end
+
+-- The toggle (/polestar, the key binding, the minimap button) inside, with
+-- ui.instance "hide" and the window on, now and on the way in: opens or
+-- closes it for this visit, ui.shown untouched. -> true when it did. A
+-- window that was off on the way in toggles ui.shown as anywhere else, so
+-- closing it there keeps it off after leaving.
+function GF.ToggleInside()
+	if not (inInstance and shownOnEntry and ns.Get("ui.instance") == "hide" and ns.Get("ui.shown")) then return false end
+	openInside = not openInside
+	GF.ApplyVisibility()
+	return true
 end
 
 function GF.ApplyAlpha(animate)
@@ -1720,7 +1741,12 @@ function GF.ApplyScale()
 end
 
 local APPLY = {
-	["ui.shown"] = function() GF.ApplyVisibility() end,
+	-- Shown inside (a guide picked, /polestar show, the switch): open for the visit.
+	["ui.shown"] = function()
+		if inInstance and ns.Get("ui.shown") then openInside = true end
+		GF.ApplyVisibility()
+	end,
+	["ui.instance"] = function() GF.ApplyVisibility() end,
 	["ui.scale"] = function() GF.ApplyScale() end,
 	["ui.opacity"] = function() GF.ApplyAlpha(false) end,
 	["ui.bgOpacity"] = function() GF.ApplyStyle() end,
@@ -2538,3 +2564,25 @@ ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 	GF.ApplyVisibility()
 	GF.ApplyAlpha(true)
 end)
+
+-- Dungeons and raids only: not battlegrounds, arenas or scenarios.
+local function instanceNow()
+	local C = ns.Compat
+	if not (C and C.IsInInstance) then return false end
+	local ok, inside, kind = pcall(C.IsInInstance)
+	return (ok and inside and (kind == "party" or kind == "raid")) and true or false
+end
+
+-- Every way in or out passes a loading screen, a /reload included. Going in
+-- or out ends a visit, so the next one starts hidden again.
+local function checkInstance()
+	local now = instanceNow()
+	if now ~= inInstance then
+		openInside = false
+		shownOnEntry = ns.Get("ui.shown") and true or false
+	end
+	inInstance = now
+	GF.ApplyVisibility()
+end
+ns.RegisterEvent("PLAYER_ENTERING_WORLD", checkInstance)
+ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", checkInstance)

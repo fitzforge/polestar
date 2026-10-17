@@ -1616,6 +1616,8 @@ L["The skin's font"] = "Шрифт оформления"
 L["Skin"] = "Оформление"
 L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = "Собственный вид Polestar (по умолчанию), Ореол (без рамки, мягкая темная вуаль, Fira Sans), Очаг (теплые цвета игры) или собственная графика игры: WoW Forever, Blizzard и Classic. Стиль, компактный режим и выбранные цвета работают в каждом оформлении."
 L["The skin's arrow"] = "Стрелка оформления"
+-- L["In dungeons"] = ""
+-- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"

@@ -1616,6 +1616,8 @@ L["The skin's font"] = "皮肤的字体"
 L["Skin"] = "皮肤"
 L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = "Polestar 自己的外观（默认）、光环（无边框，柔和的暗色薄纱，Fira Sans）、炉边（游戏的暖色调），或游戏自身的美术：WoW Forever、暴雪和经典。样式、紧凑模式和你选的颜色在每种皮肤中都有效。"
 L["The skin's arrow"] = "皮肤的箭头"
+-- L["In dungeons"] = ""
+-- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"

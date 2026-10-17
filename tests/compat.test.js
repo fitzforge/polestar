@@ -64,6 +64,15 @@ test('player positions: map percent, world position, nil in instances', () => {
 	assert.equal(out[5], true);
 });
 
+test('IsInInstance names the instance type inside ("party" for a dungeon) and nothing outside', () => {
+	const [out] = run(`
+		local outside = { C.IsInInstance() }
+		w.inInstance = true
+		emit({ outside = outside, inside = { C.IsInInstance() } })
+	`);
+	assert.deepEqual(out, { outside: [false], inside: [true, 'party'] });
+});
+
 test('quest objectives normalize to text/type/finished/numFulfilled/numRequired', () => {
 	const [out] = run(`
 		C_QuestLog.GetQuestObjectives = function(q)

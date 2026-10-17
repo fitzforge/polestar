@@ -1616,6 +1616,8 @@ L["The skin's font"] = "A fonte do tema"
 L["Skin"] = "Tema"
 L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."] = "O visual próprio do Polestar (padrão), Halo (sem moldura, um véu escuro suave, Fira Sans), Lareira (cores quentes do jogo) ou a arte do próprio jogo: WoW Forever, Blizzard e Classic. Estilo, modo compacto e as cores que você escolher funcionam em cada um."
 L["The skin's arrow"] = "A seta do tema"
+-- L["In dungeons"] = ""
+-- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso de raide"
