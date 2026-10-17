@@ -100,6 +100,7 @@ L["%s or %s"] = "%s 或 %s"
 L["Kill %s for %s"] = "为 %2$s 击杀 %1$s"
 L["Collect %s from %s"] = "从 %2$s 收集 %1$s"
 L["Riding"] = "骑术"
+-- L["Grey, kept: opens %s"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 会永久关闭 %s。"

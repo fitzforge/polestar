@@ -220,7 +220,8 @@ end
 
 -- Secondary line. An unavailable quest says why ("Needs level 14"); a farm
 -- spot names its mobs; a chosen candidate (trainer, vendor, inn, farm spot)
--- adds its zone; then the Engine's detail and the goal's own note.
+-- adds its zone; then the Engine's detail, the quest a kept grey accept
+-- opens and the goal's own note.
 function UI.GoalDetail(goal)
 	if goal.unavailable then
 		local why = goal.unavailableText
@@ -238,6 +239,7 @@ function UI.GoalDetail(goal)
 		local zone = UI.MapName(goal.map)
 		if zone and not (d and d:find(zone, 1, true)) then parts[#parts + 1] = zone end
 	end
+	if goal.keptGreyText then parts[#parts + 1] = goal.keptGreyText end
 	if goal.note then parts[#parts + 1] = goal.note end
 	if #parts == 0 then return nil end
 	return table.concat(parts, "  \194\183  ")
@@ -382,12 +384,14 @@ function UI.ReadingGoal(view, goal)
 	return setmetatable({
 		t = a.t, text = a.text, verb = a.verb, subject = a.subject, subjectKind = a.subjectKind,
 		quest = a.quest, note = a.note or false, optional = a.optional, progress = false, source = false, party = a.party,
+		keptGreyText = a.keptGreyText,
 	}, { __index = goal })
 end
 
 -- The one line under a goal in the reading flow, only when it changes what
 -- the player does: why a quest is unavailable, that the goal needs a group,
--- how to get the item a quest starts from, whom an item is got from, that an
+-- how to get the item a quest starts from, which later quest a grey accept
+-- "Skip grey quests" keeps opens, whom an item is got from, that an
 -- area objective's mobs are all over its area, which mobs a farm spot is,
 -- where a chosen trainer/vendor is, the open objectives of a quest to
 -- complete that has several, the goal's own note, and an open turn-in's
@@ -403,6 +407,8 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing)
 	if party then parts[#parts + 1] = party end
 	local starter = UI.StarterLine(goal)
 	if starter then parts[#parts + 1] = starter end
+	-- A grey accept "Skip grey quests" keeps, and the quest it opens.
+	if goal.keptGreyText and goal.status ~= "skipped" then parts[#parts + 1] = goal.keptGreyText end
 	local source = UI.SourceLine(goal)
 	if source then parts[#parts + 1] = source end
 	local area = UI.AreaLine(goal)

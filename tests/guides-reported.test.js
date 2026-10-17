@@ -200,8 +200,10 @@ test(`${DUN_MOROGH}: thmastin's report: The Adventurer is taken from Thalos at t
 // --- Darkshore (Wogi): a Human at 20 was sent to grey quests.
 
 // Darkshore and the guides after it, played by the Engine for a level-`level`
-// Human with "Skip grey quests" on: the accepts it leaves out as grey.
-function greySkippedInDarkshore(level) {
+// Human with "Skip grey quests" on: the accepts it leaves out as grey
+// (`skipped`), and each grey accept it keeps with the quest it says it opens
+// and that line (`kept`).
+function greyInDarkshore(level) {
 	data = data || loadData(DATA);
 	const files = ['03-darkshore', '04-redridge-mountains', '05-duskwood', '06-ashenvale', '07-thousand-needles']
 		.map((n) => path.join(OFFICIAL_DIR, 'forever/alliance', `${n}.guide`));
@@ -222,15 +224,18 @@ function greySkippedInDarkshore(level) {
 				stub.login(); stub.advance(0.5)
 				local E = Polestar.Engine
 				E.SetGuide("forever/alliance/03-darkshore")
-				local out = {}
+				local skipped, kept = {}, {}
 				for i = 1, #E.GetGuide().steps do
 					for _, g in ipairs(E.GetStepView(i).goals) do
-						if g.skippedGrey then out[#out + 1] = g.quest end
+						if g.skippedGrey then skipped[#skipped + 1] = g.quest end
+						if g.keptGrey then kept[tostring(g.quest)] = { g.keptGrey, g.keptGreyText } end
 					end
 				end
-				emit(out)`,
+				emit({ skipped = skipped, kept = kept })`,
 		});
-		return Object.values(emitted[0]); // an empty Lua table comes back as {}
+		// An empty Lua table comes back as {}.
+		const { skipped, kept } = emitted[0];
+		return { skipped: Object.values(skipped), kept };
 	} finally {
 		fs.rmSync(dir, { recursive: true, force: true });
 	}
@@ -240,10 +245,24 @@ test('forever/alliance/03-darkshore.guide: Wogi\'s report: with Skip grey quests
 	// At 20, quests of level 13 and below are grey. Buzzbox 827 (983, level
 	// 10) and Buzzbox 411 (1001, 12) open Buzzbox 323 and 525, and the first
 	// Washed Ashore (3524, 13) the second: they stay.
-	assert.deepEqual(greySkippedInDarkshore(20).sort((a, b) => a - b), [953, 954, 955, 956, 957, 958, 4722, 4723, 98025]);
+	assert.deepEqual(greyInDarkshore(20).skipped.sort((a, b) => a - b), [953, 954, 955, 956, 957, 958, 4722, 4723, 98025]);
 	// The simulator's Human reaches Darkshore at 16 to 18: Buzzbox 827 is
 	// already grey then, and stays for its chain.
-	assert.deepEqual(greySkippedInDarkshore(17), []);
+	assert.deepEqual(greyInDarkshore(17).skipped, []);
+});
+
+test('forever/alliance/03-darkshore.guide: XooVe\'s report (#216): a grey quest Skip grey quests keeps says which quest it opens', { skip }, () => {
+	// At 20 Buzzbox 323 (1002, level 14) is the nearest quest still worth
+	// doing that 827 and 411 lead to; at 22 only Buzzbox 525 (1003, 16) is.
+	const at20 = greyInDarkshore(20).kept;
+	assert.deepEqual(at20['983'], [1002, 'Grey, kept: opens Buzzbox 323']);
+	assert.deepEqual(at20['1001'], [1002, 'Grey, kept: opens Buzzbox 323']);
+	const at22 = greyInDarkshore(22).kept;
+	assert.deepEqual(at22['983'], [1003, 'Grey, kept: opens Buzzbox 525']);
+	// At 23 the whole chain is grey and left out: nothing kept says so.
+	const at23 = greyInDarkshore(23);
+	assert.equal(at23.kept['983'], undefined);
+	assert.ok(at23.skipped.includes(983));
 });
 
 // --- Tirisfal (a Scourge Priest): the guide sent them to turn in Discipline

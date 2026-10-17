@@ -101,6 +101,7 @@ L["%s or %s"] = "%s ou %s"
 L["Kill %s for %s"] = "Tuer %s pour %s"
 L["Collect %s from %s"] = "Ramasser %s sur %s"
 L["Riding"] = "Monte"
+-- L["Grey, kept: opens %s"] = ""
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Prendre %s ferme %s pour de bon."

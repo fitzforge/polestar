@@ -117,8 +117,9 @@ end
 -- every accept that is not grey at that level, and of every accept a needed
 -- quest's own accept is, down the chain (a grey Buzzbox 827 opens the Buzzbox
 -- quests that still give full experience). A quest's own turn-in and
--- objectives are not a need: they go with its accept. Cached per guide and
--- level.
+-- objectives are not a need: they go with its accept. Each needed quest maps
+-- to the accept that is not grey it leads to, the nearest down the chain
+-- (the first in guide order among equals). Cached per guide and level.
 local chainNeedsCache = setmetatable({}, { __mode = "k" })
 local function chainNeeds(g, level)
 	local byLevel = chainNeedsCache[g]
@@ -130,7 +131,7 @@ local function chainNeeds(g, level)
 	if set then return set end
 	local C = Compat()
 	-- Every accept down the chain: quest -> its prerequisite lists; open: the
-	-- quests whose accepts are not grey, needed as they are.
+	-- accepts that are not grey, needed as they are.
 	local pres, open = {}, {}
 	local seenIds, queue, head = {}, { g }, 1
 	while queue[head] and head <= 200 do
@@ -149,7 +150,7 @@ local function chainNeeds(g, level)
 						for _, key in ipairs({ "pre", "preAll" }) do
 							if type(goal[key]) == "table" then list[#list + 1] = goal[key] end
 						end
-						if not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) then open[#open + 1] = goal.quest end
+						if not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) then open[#open + 1] = goal end
 					end
 				end
 			end
@@ -159,16 +160,25 @@ local function chainNeeds(g, level)
 			end
 		end
 	end
+	-- Breadth first from every open accept at once: a quest's nearest open
+	-- accept is the one that reached it first.
 	set = {}
-	local walked = {}
-	while #open > 0 do
-		local q = table.remove(open)
-		if not walked[q] then
-			walked[q] = true
-			for _, list in ipairs(pres[q] or {}) do
-				for _, p in ipairs(list) do
-					set[p] = true
-					open[#open + 1] = p
+	local by, queue, head = {}, {}, 1
+	for _, goal in ipairs(open) do
+		if not by[goal.quest] then
+			by[goal.quest] = goal
+			queue[#queue + 1] = goal.quest
+		end
+	end
+	while queue[head] do
+		local q = queue[head]
+		head = head + 1
+		for _, list in ipairs(pres[q] or {}) do
+			for _, p in ipairs(list) do
+				if not set[p] then set[p] = by[q] end
+				if not by[p] then
+					by[p] = by[q]
+					queue[#queue + 1] = p
 				end
 			end
 		end
@@ -180,15 +190,18 @@ end
 -- behavior.skipGrey: an accept for a quest already grey for the character,
 -- not taken yet and not a prerequisite of a quest later in the guide or its
 -- chain, no longer applies (status "na", never blocks, never auto-accepted);
--- its turn-in and objectives go with it (orphaned).
-local function greySkipped(goal)
-	if goal.t ~= "accept" or not goal.qlvl or not ns.Get("behavior.skipGrey") then return false end
+-- its turn-in and objectives go with it (orphaned). greyNeed gives false for
+-- such an accept; for a grey accept that is not taken yet but kept, the open
+-- accept it leads to; nil when the setting is off or the accept is not grey
+-- and open.
+local function greyNeed(goal)
+	if goal.t ~= "accept" or not goal.qlvl or not ns.Get("behavior.skipGrey") then return nil end
 	local C = Compat()
 	local level = player.level or 1
-	if not C.IsQuestTrivial(tonumber(goal.qlvl), level) then return false end
+	if not C.IsQuestTrivial(tonumber(goal.qlvl), level) then return nil end
 	local q = goal.quest
-	if C.IsOnQuest(q) or questDone(q) then return false end
-	return not chainNeeds(guide, level)[q]
+	if C.IsOnQuest(q) or questDone(q) then return nil end
+	return chainNeeds(guide, level)[q] or false
 end
 
 -- Per guide: each goal's step index, and each quest's accept and turn-in
@@ -237,7 +250,7 @@ local function orphaned(goal)
 	local manual = ns.CharState().manual[guide.id]
 	for _, a in ipairs(l.accepts[q] or NONE) do
 		if a.s <= s and not (skipped and skipped[a.s]) and not (manual and manual[a.key])
-			and Guides.Matches(a.step.only, player) and Guides.Matches(a.goal.only, player) and not greySkipped(a.goal) then
+			and Guides.Matches(a.step.only, player) and Guides.Matches(a.goal.only, player) and greyNeed(a.goal) ~= false then
 			return false
 		end
 	end
@@ -261,7 +274,7 @@ local function goalApplies(goal)
 			if (rank or 0) < (goal.profRank or 1) then return false end
 		end
 	end
-	return not greySkipped(goal) and not orphaned(goal)
+	return greyNeed(goal) ~= false and not orphaned(goal)
 end
 
 -- The player's own word: goal skips, the current goal, header arrival, the
@@ -1711,6 +1724,9 @@ local function goalView(s, g, goal, stepStatus, group)
 	end
 	local unavail = status == "skipped" and unavailableFor(goal) or nil
 	local text, src = goalText(goal, verb, subject, detail)
+	local need = player and greyNeed(goal)
+	-- A grey accept "Skip grey quests" keeps: the open accept it leads to.
+	local opens = need or nil
 	return {
 		index = g,
 		group = group,
@@ -1738,7 +1754,9 @@ local function goalView(s, g, goal, stepStatus, group)
 		lvl = goal.candidates and chosen(goal) and chosen(goal).lvl or nil,
 		unavailable = unavail and unavail.reason or nil,
 		unavailableText = unavail and unavailableText(unavail) or nil,
-		skippedGrey = player and greySkipped(goal) or nil,
+		skippedGrey = need == false or nil,
+		keptGrey = opens and opens.quest or nil,
+		keptGreyText = opens and L["Grey, kept: opens %s"]:format(questTitle(opens)) or nil,
 		skillLine = goal.skillLine, spell = goal.spell, faction = goal.faction,
 		standing = goal.standing, standingName = goal.standing and standingName(goal.standing) or nil,
 		achievement = goal.achievement, criteria = goal.criteria,

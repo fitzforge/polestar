@@ -268,6 +268,48 @@ test('skipGrey skips grey accepts and their turn-ins unless a quest worth doing 
 	assert.deepEqual([off.at, off.accepted101, off.grey], [1, true, false]);
 });
 
+// #216 (XooVe): a grey accept the setting keeps names the nearest quest down
+// its chain that is still worth doing. The Darkshore Buzzbox chain, at its
+// real levels (10, 12, 14, 16): grey from 16, 18, 21 and 23.
+test('skipGrey: a grey accept kept for its chain names the nearest open quest it leads to', () => {
+	const guides = `
+		Polestar.RegisterGuide({ id = "test/buzz", pack = "test", title = "Buzzbox", faction = "Horde", minLevel = 16, maxLevel = 21, steps = {
+			{ goals = { { t = "accept", quest = 983, title = "Buzzbox 827", qlvl = 10 } } },
+			{ goals = { { t = "turnin", quest = 983, title = "Buzzbox 827" }, { t = "accept", quest = 1001, title = "Buzzbox 411", qlvl = 12, pre = { 983 } } } },
+			{ goals = { { t = "turnin", quest = 1001, title = "Buzzbox 411" }, { t = "accept", quest = 1002, title = "Buzzbox 323", qlvl = 14, pre = { 1001 } } } },
+			{ goals = { { t = "turnin", quest = 1002, title = "Buzzbox 323" }, { t = "accept", quest = 1003, title = "Buzzbox 525", qlvl = 16, pre = { 1002 } } } },
+			{ goals = { { t = "turnin", quest = 1003, title = "Buzzbox 525" } } },
+		} })
+	`;
+	const script = `
+		E.SetGuide("test/buzz")
+		local out = {}
+		for _, level in ipairs({ 20, 22, 23 }) do
+			stub.world.setLevel(level); flush()
+			local first = E.GetStepView(1).goals[1]
+			local accepts = {}
+			for i = 2, 4 do
+				local g = E.GetStepView(i).goals[2]
+				accepts[#accepts + 1] = g.keptGrey or (g.skippedGrey and "skipped") or "open"
+			end
+			out[#out + 1] = { level = level, kept = first.keptGrey or false, text = first.keptGreyText or false,
+				skipped = first.skippedGrey or false, accepts = accepts }
+		end
+		emit(out)
+	`;
+	const [on] = run({ guides, saved: { Polestar: 'PolestarDB = { schema = 1, settings = { behavior = { skipGrey = true } } }' }, script });
+	assert.deepEqual(on, [
+		// 1002 still worth doing: 827 and 411 lead to it.
+		{ level: 20, kept: 1002, text: 'Grey, kept: opens Buzzbox 323', skipped: false, accepts: [1002, 'open', 'open'] },
+		// Only 525 left: the grey chain before it names it.
+		{ level: 22, kept: 1003, text: 'Grey, kept: opens Buzzbox 525', skipped: false, accepts: [1003, 1003, 'open'] },
+		// All grey: the chain is left out, nothing to explain.
+		{ level: 23, kept: false, text: false, skipped: true, accepts: ['skipped', 'skipped', 'skipped'] },
+	]);
+	const [off] = run({ guides, script });
+	assert.deepEqual(off.map((r) => [r.kept, r.text, r.skipped]), [[false, false, false], [false, false, false], [false, false, false]]);
+});
+
 test('learn goals with candidates point at the nearest usable trainer and complete when the spell is known', () => {
 	const [out] = run({
 		guides: `

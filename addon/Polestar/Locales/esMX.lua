@@ -104,6 +104,7 @@ L["%s or %s"] = "%s o %s"
 L["Kill %s for %s"] = "Mata a %s para obtener %s"
 L["Collect %s from %s"] = "Consigue %s de %s"
 L["Riding"] = "Equitación"
+-- L["Grey, kept: opens %s"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Requiere Polestar %s o posterior."
