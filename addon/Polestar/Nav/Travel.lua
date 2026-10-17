@@ -314,7 +314,8 @@ end
 --       hearth = inn point or nil, hearthName = bind location, noHearth = true: leave it out,
 --       skip = { spells = { [id] = true }, transports = { [t] = true }, taxi = { [nodeID] = true },
 --         cross = { [crossing end] = true } }: left out for this target (skipped legs;
---         a skipped crossing end lets the start walk straight to its partner),
+--         a skipped crossing end lets a start nearer the partner than the ends
+--         are to each other walk straight to the partner),
 --       teleports = { { spell, name, to = point, cast, ready }, ... } or nil,
 --       departure = function(transport, side, after) -> wait, ride (seconds, from
 --         `after` seconds into the trip) or nil: the transports' average waits,
@@ -558,8 +559,10 @@ function Nav.PlanRoute(p)
 			if crossV[e] and not e.noCross then link(crossV[e], crossV[e.partner]) end
 		end
 		-- A start already on a crossing (walked past its near end, or that end
-		-- skipped) walks on to the far end, never back to the near one: the
-		-- ends can be hundreds of yards apart along a road.
+		-- skipped and still nearer the far end than the ends are to each other)
+		-- walks on to the far end, never back to the near one: the ends can be
+		-- hundreds of yards apart along a road. Farther off, the near end comes
+		-- first again, so a skip never sends anyone over the zone border elsewhere.
 		if not startIn then
 			local cross = skip and skip.cross
 			for _, e in ipairs(crossEnds) do
@@ -569,7 +572,7 @@ function Nav.PlanRoute(p)
 					local toE = yards(p.c, p.wx, p.wy, e.c, e.wx, e.wy)
 					local toF = yards(p.c, p.wx, p.wy, f.c, f.wx, f.wy)
 					local on = toE > e.r and toF < span and toE + toF <= span * ON_CROSSING
-					if on or (cross and cross[e]) then
+					if on or (cross and cross[e] and toF < span) then
 						link(1, crossV[f])
 						onCross[crossV[f]] = true
 					end
@@ -1718,7 +1721,8 @@ function Travel.SkipLeg()
 	if not leg then return false end
 	if not Travel.SkipReplans(leg) then
 		-- A crossing's near end: the plans for this target walk on from it, so
-		-- the next plan (moving on, a zone change) never sends you back to it.
+		-- the next plan (moving on, a zone change) near the crossing never sends
+		-- you back to it.
 		local nextLeg = legs[ci + 1]
 		local id, side = nextLeg and nextLeg.crossing, nextLeg and nextLeg.side
 		if leg.waypoint and id then
