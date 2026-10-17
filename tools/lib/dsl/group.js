@@ -13,6 +13,7 @@ const SOLO = require('../sim/solo');
 // side the goal applies to; a friendly one is a talk credit (Questie encodes
 // "listen to X" as a kill).
 const ELITE_RANKS = new Set([1, 2, 3]);
+const RARE_RANK = 4;
 const FRIENDLY_TO = { Alliance: ['A', 'AH'], Horde: ['H', 'AH'] };
 
 // Whether an npc of `faction` is hostile to one of `sides`.
@@ -22,6 +23,13 @@ function hostileTo(faction, sides) {
 
 function isElite(rank, faction, sides) {
 	return ELITE_RANKS.has(Number(rank)) && hostileTo(faction, sides);
+}
+
+// A rare (rank 4): one hostile mob standing among a camp's common ones. Not
+// group content (it is no elite), but where a collect would lead to it, see
+// the resolver's rareLeads.
+function isRare(rank, faction, sides) {
+	return Number(rank) === RARE_RANK && hostileTo(faction, sides);
 }
 
 // A `kill` of an elite, or a `collect` of an item whose every located dropper
@@ -74,4 +82,4 @@ function groupOf(goal, explicit, sides, data) {
 	return elite ? { kind: 'elite', rank: elite.rank } : null;
 }
 
-module.exports = { eliteWork, groupOf, isElite, hostileTo };
+module.exports = { eliteWork, groupOf, isElite, isRare, hostileTo };

@@ -1256,3 +1256,32 @@ test('#246: no NPC or object goal is on a neighbouring zone\'s map where the two
 	}
 	assert.deepEqual([...new Set(offenders)], [], 'goals on the map of a zone Wowhead Forever does not place them in');
 });
+
+// Avtom (#280): "Kill Ribchaser (rare) or Redridge Brute for Iron Pike" led to
+// the Redridge Mongrels' camp, where no Brute stands. Ribchaser, a rare, shares
+// the Mongrels' spawn points and drops the quest's Iron Pike and Iron Rivet at
+// 80%, the common Brutes, Mystics, Bashers and Drudgers at 65%: the highest
+// chance put the rare first and the arrow led to its camp. A rare is passed
+// over for the common droppers beside it, as elites are.
+
+test(`${REDRIDGE}: Avtom's report (#280): Iron Pike and Iron Rivet lead to the gnolls that drop them, not to the rare Ribchaser's camp among the Mongrels`, { skip }, () => {
+	const list = goals(REDRIDGE);
+	const ribchaser = 14271;
+	const camp = data.spawns('npc', ribchaser).filter((s) => s.map === 1433).flatMap((s) => s.pts);
+	assert.ok(camp.length, 'Ribchaser spawns in Redridge Mountains');
+	for (const item of [2856, 1013]) {
+		const i = at(list, `item ${item}`, (g) => g.t === 'collect' && g.quest === 89 && g.item === item);
+		const g = list[i].goal;
+		assert.notEqual(g.from, 'Ribchaser', `item ${item} names a common dropper, not the rare`);
+		assert.notEqual(g.fromAlso, 'Ribchaser');
+		assert.equal(g.fromRank, undefined, `item ${item} names a common dropper (rank ${g.fromRank})`);
+		const dropper = new Set(Object.keys(data.item(item).drops.npc).map(Number).filter((id) => id !== ribchaser));
+		const spawns = [...dropper].flatMap((id) => data.spawns('npc', id).filter((s) => s.map === 1433).flatMap((s) => s.pts));
+		const near = (a, pts, r) => pts.some(([x, y]) => yards({ map: 1433, x: a.x, y: a.y }, { map: 1433, x, y }) <= r);
+		const points = [g, ...(g.spots || []).filter((s) => !s.alt)];
+		for (const p of points) {
+			assert.ok(!near(p, camp, 60), `item ${item}: ${p.x},${p.y} is in Ribchaser's camp`);
+			assert.ok(near(p, spawns, 120), `item ${item}: ${p.x},${p.y} is by a common dropper`);
+		}
+	}
+});

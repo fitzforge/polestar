@@ -141,6 +141,51 @@ test('a collect that normal mobs drop leads to them, not into the camp of elites
 	assert.deepEqual([badge.from, badge.fromRank], ['Blackrock Sentry', 1]);
 });
 
+// A rare (rank 4, not elite) among the sources: Blackrock Stalker (rank 4) at
+// 50,50, Blackrock Grunts at 70,70. Item 95113 drops from the Stalker at 80%
+// and the Grunt at 65% (Iron Pike), 95114 only from the Stalker, 95115 from
+// the Stalker at 80% and the Grunt at 0.5%.
+function rareData() {
+	const base = eliteCampData();
+	const camp = (x, y) => [[x, y], [x + 0.3, y + 0.2], [x - 0.2, y + 0.3]];
+	const npcs = {
+		...base.npcs,
+		95052: { id: 95052, name: 'Blackrock Stalker', level: 25, rank: 4, faction: null, spawns: { 1429: { f: 'e', pts: camp(50, 50) } } },
+	};
+	const item = (id, name, npc) => ({ id, name, drops: { npc, object: {} }, vendors: [] });
+	const items = {
+		...base.items,
+		95113: item(95113, 'Orc Pike', { 95052: 80, 95051: 65 }),
+		95114: item(95114, 'Stalker Fang', { 95052: 80 }),
+		95115: item(95115, 'Orc Rivet', { 95052: 80, 95051: 0.5 }),
+	};
+	return new Data({ quests: base.quests, npcs, objects: base.objects, items, zones: base.zones, 'map-frames': base.mapFrames, meta: base.meta }, { dir: base.dir });
+}
+
+test('a collect that common mobs drop leads to them, not to the rare beside them that drops it at a higher chance (#280)', () => {
+	const data = rareData();
+	const goal = (...lines) => {
+		const r = compile(guideText(['step One', ...lines]), data);
+		assert.deepEqual(r.errors, [], r.text);
+		return plain(r.guides[0].steps[0].goals.at(-1));
+	};
+	const near = (s, x, y) => Math.abs(s.x - x) < 2 && Math.abs(s.y - y) < 2;
+	// The Stalker's 80% beats the Grunt's 65%, and the previous goal stands at the Stalker's camp: the Grunts still lead.
+	const pike = goal('  goto 50,51', '  collect 95113 x5');
+	assert.ok(near(pike, 70, 70), `the point is at the Grunts: ${pike.x},${pike.y}`);
+	// The Grunts' places (the camp, and the one among the Sentries), never the Stalker's.
+	assert.ok(pike.spots.length && pike.spots.every((s) => !near(s, 50, 50)), JSON.stringify(pike.spots));
+	assert.deepEqual([pike.from, pike.fromAlso, pike.fromRank], ['Blackrock Grunt', undefined, undefined]);
+	// An item only the rare drops still leads to it, and names it.
+	const fang = goal('  collect 95114 x1 optional');
+	assert.ok(near(fang, 50, 50), `the point is at the Stalker: ${fang.x},${fang.y}`);
+	assert.deepEqual([fang.from, fang.fromRank], ['Blackrock Stalker', 4]);
+	// A common dropper under 1% does not count: the rare stays the source.
+	const rivet = goal('  collect 95115 x1 optional');
+	assert.ok(near(rivet, 50, 50), `the point is at the Stalker: ${rivet.x},${rivet.y}`);
+	assert.equal(rivet.from, 'Blackrock Stalker');
+});
+
 test('kill goals carry the spawn areas of their mob, nearest to the chosen point first, every other place as an alternative; single spawns get none', () => {
 	// Camp Gnoll: two camps of three 140 yd apart (around 40,70 and 44,70) and a lone spawn at 42,74:
 	// seven spawns, more than six, so the arrow keeps to the camps and the lone one is an alternative.
