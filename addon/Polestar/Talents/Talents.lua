@@ -52,8 +52,19 @@ function T.Get(key) return ns.Get("talents." .. key) end
 
 local registry = {} -- class -> data
 
--- Builds.lua's compact rows -> records.
+local function playerClass()
+	local _, cls = UnitClass("player")
+	return cls
+end
+
+-- Builds.lua's compact rows -> records. Builds.lua registers every class;
+-- only the player's class is kept, so the other classes' plans (most of the
+-- file) are left to the garbage collector instead of being expanded and held
+-- for the session. When the client cannot name the class yet, every class is
+-- kept, as before.
 function T.Register(data)
+	local mine = playerClass()
+	if mine and data.class ~= mine then return end
 	for id, n in pairs(data.nodes) do
 		data.nodes[id] = { id = id, entry = n[1], max = n[2], spell = n[3], spec = n[4], row = n[5], col = n[6], name = n[7] }
 	end
@@ -63,11 +74,6 @@ function T.Register(data)
 		b.picks, b.data, b.specName = picks, data, L[data.specs[b.spec]]
 	end
 	registry[data.class] = data
-end
-
-local function playerClass()
-	local _, cls = UnitClass("player")
-	return cls
 end
 
 function T.Data(cls) return registry[cls or playerClass()] end

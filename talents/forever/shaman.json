@@ -1,0 +1,974 @@
+{
+	"class": "SHAMAN",
+	"source": "Polestar, with ForeverDB's talent data",
+	"sourceUrl": "https://foreverdb.net/class/Shaman/talents",
+	"credit": "Written for Polestar on Forever's tree (ForeverDB lists no Shaman builds yet). ForeverDB's Shaman talent page (https://foreverdb.net/class/Shaman/talents) is used only as a reference for Forever's changed and new talents; every pick is checked against Forever's own tree.",
+	"checkedOn": "WoW: Forever beta 1.60.1.70374",
+	"summary": "Level as Enhancement (Flurry, Stormstrike, Maelstrom Weapon) for steady melee with few rests, or Elemental (Lightning Overload, Lava Burst) to kill from range. Restoration heals dungeons well and levels slowly alone.",
+	"order": [
+		"Elemental",
+		"Enhancement",
+		"Restoration"
+	],
+	"builds": [
+		{
+			"key": "elemental",
+			"spec": "Elemental",
+			"split": "31/20/0",
+			"link": "https://foreverdb.net/class/Shaman/talents",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 1,
+					"note": "Concussion first: more damage from Lightning Bolt and Earth Shock, your two main spells."
+				},
+				{
+					"level": 11,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Elemental",
+					"talent": "Call of Flame",
+					"rank": 1
+				},
+				{
+					"level": 16,
+					"tree": "Elemental",
+					"talent": "Call of Flame",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Elemental",
+					"talent": "Call of Flame",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 1
+				},
+				{
+					"level": 19,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 2
+				},
+				{
+					"level": 20,
+					"tree": "Elemental",
+					"talent": "Elemental Focus",
+					"rank": 1,
+					"note": "Elemental Focus makes some casts free, which is the main mana saver for the early levels."
+				},
+				{
+					"level": 21,
+					"tree": "Elemental",
+					"talent": "Elemental Alacrity",
+					"rank": 1
+				},
+				{
+					"level": 22,
+					"tree": "Elemental",
+					"talent": "Elemental Alacrity",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Elemental",
+					"talent": "Elemental Alacrity",
+					"rank": 3
+				},
+				{
+					"level": 24,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 3
+				},
+				{
+					"level": 25,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 4
+				},
+				{
+					"level": 26,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 5
+				},
+				{
+					"level": 27,
+					"tree": "Elemental",
+					"talent": "Call of Thunder",
+					"rank": 1
+				},
+				{
+					"level": 28,
+					"tree": "Elemental",
+					"talent": "Eye of the Storm",
+					"rank": 1
+				},
+				{
+					"level": 29,
+					"tree": "Elemental",
+					"talent": "Eye of the Storm",
+					"rank": 2
+				},
+				{
+					"level": 30,
+					"tree": "Elemental",
+					"talent": "Eye of the Storm",
+					"rank": 3
+				},
+				{
+					"level": 31,
+					"tree": "Elemental",
+					"talent": "Lightning Overload",
+					"rank": 1,
+					"note": "Lightning Overload sometimes casts a second, smaller Lightning Bolt for free."
+				},
+				{
+					"level": 32,
+					"tree": "Elemental",
+					"talent": "Lightning Overload",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Elemental",
+					"talent": "Lightning Overload",
+					"rank": 3
+				},
+				{
+					"level": 34,
+					"tree": "Elemental",
+					"talent": "Elemental Reach",
+					"rank": 1
+				},
+				{
+					"level": 35,
+					"tree": "Elemental",
+					"talent": "Elemental Fury",
+					"rank": 1
+				},
+				{
+					"level": 36,
+					"tree": "Elemental",
+					"talent": "Elemental Fury",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Elemental",
+					"talent": "Elemental Fury",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Elemental",
+					"talent": "Elemental Fury",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Elemental",
+					"talent": "Elemental Fury",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Elemental",
+					"talent": "Lava Burst",
+					"rank": 1,
+					"note": "Lava Burst is the capstone: a big Fire nuke, best after Flame Shock."
+				},
+				{
+					"level": 41,
+					"tree": "Enhancement",
+					"talent": "Ancestral Knowledge",
+					"rank": 1,
+					"note": "The last 20 points go to Enhancement: more Intellect, more crit, a stronger Lightning Shield and cheaper Shocks."
+				},
+				{
+					"level": 42,
+					"tree": "Enhancement",
+					"talent": "Ancestral Knowledge",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Enhancement",
+					"talent": "Ancestral Knowledge",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Enhancement",
+					"talent": "Ancestral Knowledge",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Enhancement",
+					"talent": "Ancestral Knowledge",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Enhancement",
+					"talent": "Thundering Strikes",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Enhancement",
+					"talent": "Thundering Strikes",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Enhancement",
+					"talent": "Thundering Strikes",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Enhancement",
+					"talent": "Thundering Strikes",
+					"rank": 4
+				},
+				{
+					"level": 50,
+					"tree": "Enhancement",
+					"talent": "Thundering Strikes",
+					"rank": 5
+				},
+				{
+					"level": 51,
+					"tree": "Enhancement",
+					"talent": "Improved Lightning Shield",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Enhancement",
+					"talent": "Improved Lightning Shield",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Enhancement",
+					"talent": "Improved Lightning Shield",
+					"rank": 3
+				},
+				{
+					"level": 54,
+					"tree": "Enhancement",
+					"talent": "Shamanistic Focus",
+					"rank": 1
+				},
+				{
+					"level": 55,
+					"tree": "Enhancement",
+					"talent": "Guardian Totems",
+					"rank": 1
+				},
+				{
+					"level": 56,
+					"tree": "Enhancement",
+					"talent": "Guardian Totems",
+					"rank": 2
+				},
+				{
+					"level": 57,
+					"tree": "Enhancement",
+					"talent": "Improved Ghost Wolf",
+					"rank": 1
+				},
+				{
+					"level": 58,
+					"tree": "Enhancement",
+					"talent": "Improved Ghost Wolf",
+					"rank": 2
+				},
+				{
+					"level": 59,
+					"tree": "Enhancement",
+					"talent": "Earth's Grasp",
+					"rank": 1
+				},
+				{
+					"level": 60,
+					"tree": "Enhancement",
+					"talent": "Earth's Grasp",
+					"rank": 2
+				}
+			]
+		},
+		{
+			"key": "enhancement",
+			"spec": "Enhancement",
+			"split": "20/31/0",
+			"link": "https://foreverdb.net/class/Shaman/talents",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Enhancement",
+					"talent": "Thundering Strikes",
+					"rank": 1,
+					"note": "Thundering Strikes first: crit for spells and attacks, and the way into the tree."
+				},
+				{
+					"level": 11,
+					"tree": "Enhancement",
+					"talent": "Thundering Strikes",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Enhancement",
+					"talent": "Thundering Strikes",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Enhancement",
+					"talent": "Thundering Strikes",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Enhancement",
+					"talent": "Thundering Strikes",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Enhancement",
+					"talent": "Mental Dexterity",
+					"rank": 1,
+					"note": "Mental Dexterity turns your Intellect into attack power, so mana gear helps your melee too; it also opens Flurry."
+				},
+				{
+					"level": 16,
+					"tree": "Enhancement",
+					"talent": "Mental Dexterity",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Enhancement",
+					"talent": "Mental Dexterity",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Enhancement",
+					"talent": "Improved Ghost Wolf",
+					"rank": 1
+				},
+				{
+					"level": 19,
+					"tree": "Enhancement",
+					"talent": "Improved Ghost Wolf",
+					"rank": 2
+				},
+				{
+					"level": 20,
+					"tree": "Enhancement",
+					"talent": "Elemental Weapons",
+					"rank": 1
+				},
+				{
+					"level": 21,
+					"tree": "Enhancement",
+					"talent": "Elemental Weapons",
+					"rank": 2
+				},
+				{
+					"level": 22,
+					"tree": "Enhancement",
+					"talent": "Elemental Weapons",
+					"rank": 3
+				},
+				{
+					"level": 23,
+					"tree": "Enhancement",
+					"talent": "Shamanistic Focus",
+					"rank": 1
+				},
+				{
+					"level": 24,
+					"tree": "Enhancement",
+					"talent": "Improved Lightning Shield",
+					"rank": 1
+				},
+				{
+					"level": 25,
+					"tree": "Enhancement",
+					"talent": "Flurry",
+					"rank": 1,
+					"note": "Flurry speeds up your swings after a crit and is the core of Enhancement's damage."
+				},
+				{
+					"level": 26,
+					"tree": "Enhancement",
+					"talent": "Flurry",
+					"rank": 2
+				},
+				{
+					"level": 27,
+					"tree": "Enhancement",
+					"talent": "Flurry",
+					"rank": 3
+				},
+				{
+					"level": 28,
+					"tree": "Enhancement",
+					"talent": "Flurry",
+					"rank": 4
+				},
+				{
+					"level": 29,
+					"tree": "Enhancement",
+					"talent": "Flurry",
+					"rank": 5
+				},
+				{
+					"level": 30,
+					"tree": "Enhancement",
+					"talent": "Stormstrike",
+					"rank": 1,
+					"note": "Stormstrike is an instant strike that raises the damage your next spells do."
+				},
+				{
+					"level": 31,
+					"tree": "Enhancement",
+					"talent": "Mental Quickness",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Enhancement",
+					"talent": "Mental Quickness",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Enhancement",
+					"talent": "Improved Stormstrike",
+					"rank": 1
+				},
+				{
+					"level": 34,
+					"tree": "Enhancement",
+					"talent": "Improved Stormstrike",
+					"rank": 2
+				},
+				{
+					"level": 35,
+					"tree": "Enhancement",
+					"talent": "Maelstrom Weapon",
+					"rank": 1,
+					"note": "Maelstrom Weapon makes your next Lightning Bolt faster and cheaper as you hit."
+				},
+				{
+					"level": 36,
+					"tree": "Enhancement",
+					"talent": "Maelstrom Weapon",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Enhancement",
+					"talent": "Maelstrom Weapon",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Enhancement",
+					"talent": "Maelstrom Weapon",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Enhancement",
+					"talent": "Maelstrom Weapon",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Enhancement",
+					"talent": "Rage of the Farseer",
+					"rank": 1,
+					"note": "Rage of the Farseer is the capstone: a big attack-speed cooldown for elites and pulls."
+				},
+				{
+					"level": 41,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 1,
+					"note": "The last 20 points go to Elemental for stronger Shocks, cheaper casts and more crit from spells."
+				},
+				{
+					"level": 42,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 4
+				},
+				{
+					"level": 50,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 5
+				},
+				{
+					"level": 51,
+					"tree": "Elemental",
+					"talent": "Elemental Focus",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Elemental",
+					"talent": "Call of Flame",
+					"rank": 1
+				},
+				{
+					"level": 53,
+					"tree": "Elemental",
+					"talent": "Call of Flame",
+					"rank": 2
+				},
+				{
+					"level": 54,
+					"tree": "Elemental",
+					"talent": "Call of Flame",
+					"rank": 3
+				},
+				{
+					"level": 55,
+					"tree": "Elemental",
+					"talent": "Elemental Devastation",
+					"rank": 1
+				},
+				{
+					"level": 56,
+					"tree": "Elemental",
+					"talent": "Elemental Devastation",
+					"rank": 2
+				},
+				{
+					"level": 57,
+					"tree": "Elemental",
+					"talent": "Elemental Devastation",
+					"rank": 3
+				},
+				{
+					"level": 58,
+					"tree": "Elemental",
+					"talent": "Elemental Alacrity",
+					"rank": 1
+				},
+				{
+					"level": 59,
+					"tree": "Elemental",
+					"talent": "Elemental Alacrity",
+					"rank": 2
+				},
+				{
+					"level": 60,
+					"tree": "Elemental",
+					"talent": "Elemental Alacrity",
+					"rank": 3
+				}
+			]
+		},
+		{
+			"key": "restoration",
+			"spec": "Restoration",
+			"split": "20/0/31",
+			"link": "https://foreverdb.net/class/Shaman/talents",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Restoration",
+					"talent": "Totemic Focus",
+					"rank": 1,
+					"note": "Totemic Focus first: cheaper totems, which you drop on every pull while leveling."
+				},
+				{
+					"level": 11,
+					"tree": "Restoration",
+					"talent": "Totemic Focus",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Restoration",
+					"talent": "Totemic Focus",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Restoration",
+					"talent": "Totemic Focus",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Restoration",
+					"talent": "Totemic Focus",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Restoration",
+					"talent": "Mindfulness",
+					"rank": 1,
+					"note": "Mindfulness keeps half your mana regeneration going while casting."
+				},
+				{
+					"level": 16,
+					"tree": "Restoration",
+					"talent": "Mindfulness",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Restoration",
+					"talent": "Mindfulness",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Restoration",
+					"talent": "Improved Reincarnation",
+					"rank": 1
+				},
+				{
+					"level": 19,
+					"tree": "Restoration",
+					"talent": "Improved Reincarnation",
+					"rank": 2
+				},
+				{
+					"level": 20,
+					"tree": "Restoration",
+					"talent": "Water Shield",
+					"rank": 1
+				},
+				{
+					"level": 21,
+					"tree": "Restoration",
+					"talent": "Healing Focus",
+					"rank": 1
+				},
+				{
+					"level": 22,
+					"tree": "Restoration",
+					"talent": "Healing Focus",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Restoration",
+					"talent": "Healing Focus",
+					"rank": 3
+				},
+				{
+					"level": 24,
+					"tree": "Restoration",
+					"talent": "Ancestral Healing",
+					"rank": 1
+				},
+				{
+					"level": 25,
+					"tree": "Restoration",
+					"talent": "Restorative Totems",
+					"rank": 1
+				},
+				{
+					"level": 26,
+					"tree": "Restoration",
+					"talent": "Restorative Totems",
+					"rank": 2
+				},
+				{
+					"level": 27,
+					"tree": "Restoration",
+					"talent": "Restorative Totems",
+					"rank": 3
+				},
+				{
+					"level": 28,
+					"tree": "Restoration",
+					"talent": "Restorative Totems",
+					"rank": 4
+				},
+				{
+					"level": 29,
+					"tree": "Restoration",
+					"talent": "Restorative Totems",
+					"rank": 5
+				},
+				{
+					"level": 30,
+					"tree": "Restoration",
+					"talent": "Nature's Swiftness",
+					"rank": 1,
+					"note": "Nature's Swiftness makes one heal instant: your emergency button."
+				},
+				{
+					"level": 31,
+					"tree": "Restoration",
+					"talent": "Healing Way",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Restoration",
+					"talent": "Healing Way",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Restoration",
+					"talent": "Healing Way",
+					"rank": 3
+				},
+				{
+					"level": 34,
+					"tree": "Restoration",
+					"talent": "Mana Tide Totem",
+					"rank": 1
+				},
+				{
+					"level": 35,
+					"tree": "Restoration",
+					"talent": "Purification",
+					"rank": 1
+				},
+				{
+					"level": 36,
+					"tree": "Restoration",
+					"talent": "Purification",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Restoration",
+					"talent": "Purification",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Restoration",
+					"talent": "Purification",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Restoration",
+					"talent": "Purification",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Restoration",
+					"talent": "Riptide",
+					"rank": 1,
+					"note": "Riptide is the capstone: a quick heal with a heal over time for dungeons."
+				},
+				{
+					"level": 41,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 1,
+					"note": "The last 20 points go to Elemental, so your Lightning Bolts and Shocks still kill while you quest."
+				},
+				{
+					"level": 42,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Elemental",
+					"talent": "Concussion",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Elemental",
+					"talent": "Convection",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Elemental",
+					"talent": "Convection",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Elemental",
+					"talent": "Convection",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Elemental",
+					"talent": "Convection",
+					"rank": 4
+				},
+				{
+					"level": 50,
+					"tree": "Elemental",
+					"talent": "Convection",
+					"rank": 5
+				},
+				{
+					"level": 51,
+					"tree": "Elemental",
+					"talent": "Call of Flame",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Elemental",
+					"talent": "Call of Flame",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Elemental",
+					"talent": "Call of Flame",
+					"rank": 3
+				},
+				{
+					"level": 54,
+					"tree": "Elemental",
+					"talent": "Elemental Focus",
+					"rank": 1
+				},
+				{
+					"level": 55,
+					"tree": "Elemental",
+					"talent": "Elemental Alacrity",
+					"rank": 1
+				},
+				{
+					"level": 56,
+					"tree": "Elemental",
+					"talent": "Elemental Alacrity",
+					"rank": 2
+				},
+				{
+					"level": 57,
+					"tree": "Elemental",
+					"talent": "Elemental Alacrity",
+					"rank": 3
+				},
+				{
+					"level": 58,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 1
+				},
+				{
+					"level": 59,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 2
+				},
+				{
+					"level": 60,
+					"tree": "Elemental",
+					"talent": "Reverberation",
+					"rank": 3
+				}
+			]
+		}
+	]
+}

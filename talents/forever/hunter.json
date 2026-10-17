@@ -1,0 +1,972 @@
+{
+	"class": "HUNTER",
+	"source": "Polestar, with ForeverDB's builds to level 20",
+	"sourceUrl": "https://foreverdb.net/class/Hunter/talents",
+	"credit": "Beast Mastery and Marksmanship follow ForeverDB's Hunter builds (https://foreverdb.net/class/Hunter/talents) through level 20, its \"Pet damage for dungeons\" and \"Careful Aim dungeon shooter\", and were written for Polestar on Forever's tree after that. Survival is written for Polestar on Forever's tree throughout; no ForeverDB Survival build matches it. Every pick is checked against Forever's own tree. Notes rewritten for Polestar.",
+	"checkedOn": "WoW: Forever beta 1.60.1.70374",
+	"summary": "Level as Beast Mastery: your pet tanks and does much of the damage, so you rarely stop. Marksmanship hits harder from range with Careful Aim and Sniper Shot; Survival fights in melee with Predator's Edge and Lacerating Strikes.",
+	"order": [
+		"Beast Mastery",
+		"Marksmanship",
+		"Survival"
+	],
+	"builds": [
+		{
+			"key": "beastmastery",
+			"spec": "Beast Mastery",
+			"split": "31/20/0",
+			"link": "https://foreverdb.net/class/Hunter/talents",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Beast Mastery",
+					"talent": "Deadly Aspects",
+					"rank": 1,
+					"note": "Deadly Aspects first: more from Aspect of the Hawk while your pet holds the mob."
+				},
+				{
+					"level": 11,
+					"tree": "Beast Mastery",
+					"talent": "Deadly Aspects",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Beast Mastery",
+					"talent": "Deadly Aspects",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Beast Mastery",
+					"talent": "Deadly Aspects",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Beast Mastery",
+					"talent": "Deadly Aspects",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Beast Mastery",
+					"talent": "Focused Fire",
+					"rank": 1
+				},
+				{
+					"level": 16,
+					"tree": "Beast Mastery",
+					"talent": "Focused Fire",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Beast Mastery",
+					"talent": "Endurance Training",
+					"rank": 1
+				},
+				{
+					"level": 18,
+					"tree": "Beast Mastery",
+					"talent": "Endurance Training",
+					"rank": 2
+				},
+				{
+					"level": 19,
+					"tree": "Beast Mastery",
+					"talent": "Endurance Training",
+					"rank": 3
+				},
+				{
+					"level": 20,
+					"tree": "Beast Mastery",
+					"talent": "Unleashed Fury",
+					"rank": 1,
+					"note": "Unleashed Fury adds pet damage, and your pet is most of your damage."
+				},
+				{
+					"level": 21,
+					"tree": "Beast Mastery",
+					"talent": "Unleashed Fury",
+					"rank": 2
+				},
+				{
+					"level": 22,
+					"tree": "Beast Mastery",
+					"talent": "Unleashed Fury",
+					"rank": 3
+				},
+				{
+					"level": 23,
+					"tree": "Beast Mastery",
+					"talent": "Unleashed Fury",
+					"rank": 4
+				},
+				{
+					"level": 24,
+					"tree": "Beast Mastery",
+					"talent": "Unleashed Fury",
+					"rank": 5
+				},
+				{
+					"level": 25,
+					"tree": "Beast Mastery",
+					"talent": "Bestial Swiftness",
+					"rank": 1
+				},
+				{
+					"level": 26,
+					"tree": "Beast Mastery",
+					"talent": "Ferocity",
+					"rank": 1
+				},
+				{
+					"level": 27,
+					"tree": "Beast Mastery",
+					"talent": "Ferocity",
+					"rank": 2
+				},
+				{
+					"level": 28,
+					"tree": "Beast Mastery",
+					"talent": "Ferocity",
+					"rank": 3
+				},
+				{
+					"level": 29,
+					"tree": "Beast Mastery",
+					"talent": "Ferocity",
+					"rank": 4
+				},
+				{
+					"level": 30,
+					"tree": "Beast Mastery",
+					"talent": "Ferocity",
+					"rank": 5
+				},
+				{
+					"level": 31,
+					"tree": "Beast Mastery",
+					"talent": "Intimidation",
+					"rank": 1,
+					"note": "Intimidation stuns through your pet: a breather when a mob turns on you."
+				},
+				{
+					"level": 32,
+					"tree": "Beast Mastery",
+					"talent": "Spirit Bond",
+					"rank": 1
+				},
+				{
+					"level": 33,
+					"tree": "Beast Mastery",
+					"talent": "Spirit Bond",
+					"rank": 2
+				},
+				{
+					"level": 34,
+					"tree": "Beast Mastery",
+					"talent": "Endurance Training",
+					"rank": 4
+				},
+				{
+					"level": 35,
+					"tree": "Beast Mastery",
+					"talent": "Frenzy",
+					"rank": 1
+				},
+				{
+					"level": 36,
+					"tree": "Beast Mastery",
+					"talent": "Frenzy",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Beast Mastery",
+					"talent": "Frenzy",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Beast Mastery",
+					"talent": "Frenzy",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Beast Mastery",
+					"talent": "Frenzy",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Beast Mastery",
+					"talent": "Bestial Wrath",
+					"rank": 1,
+					"note": "Bestial Wrath is the capstone: your pet's big damage cooldown."
+				},
+				{
+					"level": 41,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 1,
+					"note": "The last 20 points go to Marksmanship: more crit, attack power from Intellect, a shorter Rapid Fire and harder ranged crits."
+				},
+				{
+					"level": 42,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 4
+				},
+				{
+					"level": 50,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 5
+				},
+				{
+					"level": 51,
+					"tree": "Marksmanship",
+					"talent": "Rapid Killing",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Marksmanship",
+					"talent": "Rapid Killing",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Marksmanship",
+					"talent": "Efficiency",
+					"rank": 1
+				},
+				{
+					"level": 54,
+					"tree": "Marksmanship",
+					"talent": "Efficiency",
+					"rank": 2
+				},
+				{
+					"level": 55,
+					"tree": "Marksmanship",
+					"talent": "Efficiency",
+					"rank": 3
+				},
+				{
+					"level": 56,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 1
+				},
+				{
+					"level": 57,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 2
+				},
+				{
+					"level": 58,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 3
+				},
+				{
+					"level": 59,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 4
+				},
+				{
+					"level": 60,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 5
+				}
+			]
+		},
+		{
+			"key": "marksmanship",
+			"spec": "Marksmanship",
+			"split": "20/31/0",
+			"link": "https://foreverdb.net/class/Hunter/talents",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 1,
+					"note": "Lethal Attacks first: crit for every shot."
+				},
+				{
+					"level": 11,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 1,
+					"note": "Careful Aim adds attack power from your Intellect."
+				},
+				{
+					"level": 16,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 4
+				},
+				{
+					"level": 19,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 5
+				},
+				{
+					"level": 20,
+					"tree": "Marksmanship",
+					"talent": "Rapid Killing",
+					"rank": 1
+				},
+				{
+					"level": 21,
+					"tree": "Marksmanship",
+					"talent": "Rapid Killing",
+					"rank": 2
+				},
+				{
+					"level": 22,
+					"tree": "Marksmanship",
+					"talent": "Improved Stings",
+					"rank": 1
+				},
+				{
+					"level": 23,
+					"tree": "Marksmanship",
+					"talent": "Improved Stings",
+					"rank": 2
+				},
+				{
+					"level": 24,
+					"tree": "Marksmanship",
+					"talent": "Improved Stings",
+					"rank": 3
+				},
+				{
+					"level": 25,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 1,
+					"note": "Mortal Shots makes your ranged crits hit much harder."
+				},
+				{
+					"level": 26,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 2
+				},
+				{
+					"level": 27,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 3
+				},
+				{
+					"level": 28,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 4
+				},
+				{
+					"level": 29,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 5
+				},
+				{
+					"level": 30,
+					"tree": "Marksmanship",
+					"talent": "Trueshot Aura",
+					"rank": 1
+				},
+				{
+					"level": 31,
+					"tree": "Marksmanship",
+					"talent": "Rapid Recuperation",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Marksmanship",
+					"talent": "Rapid Recuperation",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Marksmanship",
+					"talent": "Barrage",
+					"rank": 1
+				},
+				{
+					"level": 34,
+					"tree": "Marksmanship",
+					"talent": "Barrage",
+					"rank": 2
+				},
+				{
+					"level": 35,
+					"tree": "Marksmanship",
+					"talent": "Ranged Weapon Specialization",
+					"rank": 1
+				},
+				{
+					"level": 36,
+					"tree": "Marksmanship",
+					"talent": "Ranged Weapon Specialization",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Marksmanship",
+					"talent": "Ranged Weapon Specialization",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Marksmanship",
+					"talent": "Ranged Weapon Specialization",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Marksmanship",
+					"talent": "Ranged Weapon Specialization",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Marksmanship",
+					"talent": "Sniper Shot",
+					"rank": 1,
+					"note": "Sniper Shot is the capstone: a long-range opener that hits hard."
+				},
+				{
+					"level": 41,
+					"tree": "Beast Mastery",
+					"talent": "Deadly Aspects",
+					"rank": 1,
+					"note": "The last 20 points go to Beast Mastery: a stronger Aspect of the Hawk and a tougher, harder-hitting pet."
+				},
+				{
+					"level": 42,
+					"tree": "Beast Mastery",
+					"talent": "Deadly Aspects",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Beast Mastery",
+					"talent": "Deadly Aspects",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Beast Mastery",
+					"talent": "Deadly Aspects",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Beast Mastery",
+					"talent": "Deadly Aspects",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Beast Mastery",
+					"talent": "Endurance Training",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Beast Mastery",
+					"talent": "Endurance Training",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Beast Mastery",
+					"talent": "Endurance Training",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Beast Mastery",
+					"talent": "Endurance Training",
+					"rank": 4
+				},
+				{
+					"level": 50,
+					"tree": "Beast Mastery",
+					"talent": "Endurance Training",
+					"rank": 5
+				},
+				{
+					"level": 51,
+					"tree": "Beast Mastery",
+					"talent": "Focused Fire",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Beast Mastery",
+					"talent": "Focused Fire",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Beast Mastery",
+					"talent": "Unleashed Fury",
+					"rank": 1
+				},
+				{
+					"level": 54,
+					"tree": "Beast Mastery",
+					"talent": "Unleashed Fury",
+					"rank": 2
+				},
+				{
+					"level": 55,
+					"tree": "Beast Mastery",
+					"talent": "Unleashed Fury",
+					"rank": 3
+				},
+				{
+					"level": 56,
+					"tree": "Beast Mastery",
+					"talent": "Unleashed Fury",
+					"rank": 4
+				},
+				{
+					"level": 57,
+					"tree": "Beast Mastery",
+					"talent": "Unleashed Fury",
+					"rank": 5
+				},
+				{
+					"level": 58,
+					"tree": "Beast Mastery",
+					"talent": "Bestial Swiftness",
+					"rank": 1
+				},
+				{
+					"level": 59,
+					"tree": "Beast Mastery",
+					"talent": "Pathfinding",
+					"rank": 1
+				},
+				{
+					"level": 60,
+					"tree": "Beast Mastery",
+					"talent": "Pathfinding",
+					"rank": 2
+				}
+			]
+		},
+		{
+			"key": "survival",
+			"spec": "Survival",
+			"split": "0/20/31",
+			"link": "https://foreverdb.net/class/Hunter/talents",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Survival",
+					"talent": "Improved Tracking",
+					"rank": 1,
+					"note": "Improved Tracking first: keep tracking on for its bonus against the mobs you quest on."
+				},
+				{
+					"level": 11,
+					"tree": "Survival",
+					"talent": "Improved Tracking",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Survival",
+					"talent": "Improved Tracking",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Survival",
+					"talent": "Improved Tracking",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Survival",
+					"talent": "Improved Tracking",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Survival",
+					"talent": "Survivalist",
+					"rank": 1
+				},
+				{
+					"level": 16,
+					"tree": "Survival",
+					"talent": "Survivalist",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Survival",
+					"talent": "Survivalist",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Survival",
+					"talent": "Survivalist",
+					"rank": 4
+				},
+				{
+					"level": 19,
+					"tree": "Survival",
+					"talent": "Survivalist",
+					"rank": 5
+				},
+				{
+					"level": 20,
+					"tree": "Survival",
+					"talent": "Deterrence",
+					"rank": 1,
+					"note": "Deterrence is a dodge and parry cooldown for melee fights that go wrong."
+				},
+				{
+					"level": 21,
+					"tree": "Survival",
+					"talent": "Surefooted",
+					"rank": 1
+				},
+				{
+					"level": 22,
+					"tree": "Survival",
+					"talent": "Surefooted",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Survival",
+					"talent": "Surefooted",
+					"rank": 3
+				},
+				{
+					"level": 24,
+					"tree": "Survival",
+					"talent": "Savage Strikes",
+					"rank": 1
+				},
+				{
+					"level": 25,
+					"tree": "Survival",
+					"talent": "Savage Strikes",
+					"rank": 2
+				},
+				{
+					"level": 26,
+					"tree": "Survival",
+					"talent": "Counterattack",
+					"rank": 1
+				},
+				{
+					"level": 27,
+					"tree": "Survival",
+					"talent": "Predator's Edge",
+					"rank": 1
+				},
+				{
+					"level": 28,
+					"tree": "Survival",
+					"talent": "Predator's Edge",
+					"rank": 2
+				},
+				{
+					"level": 29,
+					"tree": "Survival",
+					"talent": "Predator's Edge",
+					"rank": 3
+				},
+				{
+					"level": 30,
+					"tree": "Survival",
+					"talent": "Expose Prey",
+					"rank": 1
+				},
+				{
+					"level": 31,
+					"tree": "Survival",
+					"talent": "Expose Prey",
+					"rank": 2
+				},
+				{
+					"level": 32,
+					"tree": "Survival",
+					"talent": "Predator's Edge",
+					"rank": 4
+				},
+				{
+					"level": 33,
+					"tree": "Survival",
+					"talent": "Predator's Edge",
+					"rank": 5
+				},
+				{
+					"level": 34,
+					"tree": "Survival",
+					"talent": "Strider Kick",
+					"rank": 1
+				},
+				{
+					"level": 35,
+					"tree": "Survival",
+					"talent": "Lightning Reflexes",
+					"rank": 1,
+					"note": "Lightning Reflexes adds Agility: more attack power, crit and dodge."
+				},
+				{
+					"level": 36,
+					"tree": "Survival",
+					"talent": "Lightning Reflexes",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Survival",
+					"talent": "Lightning Reflexes",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Survival",
+					"talent": "Lightning Reflexes",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Survival",
+					"talent": "Lightning Reflexes",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Survival",
+					"talent": "Lacerating Strikes",
+					"rank": 1,
+					"note": "Lacerating Strikes is the capstone: Mongoose Bite also makes the target bleed."
+				},
+				{
+					"level": 41,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 1,
+					"note": "The last 20 points go to Marksmanship: more crit, attack power from Intellect, a shorter Rapid Fire and harder ranged crits."
+				},
+				{
+					"level": 42,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Marksmanship",
+					"talent": "Lethal Attacks",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 4
+				},
+				{
+					"level": 50,
+					"tree": "Marksmanship",
+					"talent": "Careful Aim",
+					"rank": 5
+				},
+				{
+					"level": 51,
+					"tree": "Marksmanship",
+					"talent": "Rapid Killing",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Marksmanship",
+					"talent": "Rapid Killing",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Marksmanship",
+					"talent": "Efficiency",
+					"rank": 1
+				},
+				{
+					"level": 54,
+					"tree": "Marksmanship",
+					"talent": "Efficiency",
+					"rank": 2
+				},
+				{
+					"level": 55,
+					"tree": "Marksmanship",
+					"talent": "Efficiency",
+					"rank": 3
+				},
+				{
+					"level": 56,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 1
+				},
+				{
+					"level": 57,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 2
+				},
+				{
+					"level": 58,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 3
+				},
+				{
+					"level": 59,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 4
+				},
+				{
+					"level": 60,
+					"tree": "Marksmanship",
+					"talent": "Mortal Shots",
+					"rank": 5
+				}
+			]
+		}
+	]
+}

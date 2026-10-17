@@ -1,0 +1,978 @@
+{
+	"class": "ROGUE",
+	"source": "ForeverDB's leveling builds, adapted to level 30",
+	"sourceUrl": "https://foreverdb.net/class/Rogue/talents",
+	"credit": "Builds adapted from ForeverDB's Rogue talent guides (https://foreverdb.net/class/Rogue/talents). Notes rewritten for Polestar.",
+	"checkedOn": "WoW: Forever beta 1.60.1.70374",
+	"summary": "Level as Combat with a sword (Riposte, Blade Flurry, Adrenaline Rush) for the steadiest kills, or Assassination with daggers and poisons (Mutilate). Subtlety's Hemorrhage plan suits stealth openers and is slower solo.",
+	"order": [
+		"Assassination",
+		"Combat",
+		"Subtlety"
+	],
+	"builds": [
+		{
+			"key": "assassination",
+			"spec": "Assassination",
+			"split": "31/20/0",
+			"link": "https://foreverdb.net/class/Rogue/talents?lvl=60&t=15dcd1.02532010501501051-320333010005",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Assassination",
+					"talent": "Malice",
+					"rank": 1,
+					"note": "Malice first: crit for every attack and poison, and it opens Lethality."
+				},
+				{
+					"level": 11,
+					"tree": "Assassination",
+					"talent": "Malice",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Assassination",
+					"talent": "Malice",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Assassination",
+					"talent": "Malice",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Assassination",
+					"talent": "Malice",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Assassination",
+					"talent": "Ruthlessness",
+					"rank": 1,
+					"note": "Ruthlessness gives finishers a chance at a free combo point; Murder adds damage against humanoids and giants."
+				},
+				{
+					"level": 16,
+					"tree": "Assassination",
+					"talent": "Ruthlessness",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Assassination",
+					"talent": "Ruthlessness",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Assassination",
+					"talent": "Murder",
+					"rank": 1
+				},
+				{
+					"level": 19,
+					"tree": "Assassination",
+					"talent": "Murder",
+					"rank": 2
+				},
+				{
+					"level": 20,
+					"tree": "Assassination",
+					"talent": "Relentless Strikes",
+					"rank": 1,
+					"note": "Relentless Strikes refunds energy from finishers, so fights flow without waiting."
+				},
+				{
+					"level": 21,
+					"tree": "Assassination",
+					"talent": "Lethality",
+					"rank": 1
+				},
+				{
+					"level": 22,
+					"tree": "Assassination",
+					"talent": "Lethality",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Assassination",
+					"talent": "Lethality",
+					"rank": 3
+				},
+				{
+					"level": 24,
+					"tree": "Assassination",
+					"talent": "Lethality",
+					"rank": 4
+				},
+				{
+					"level": 25,
+					"tree": "Assassination",
+					"talent": "Lethality",
+					"rank": 5
+				},
+				{
+					"level": 26,
+					"tree": "Assassination",
+					"talent": "Cold Blood",
+					"rank": 1
+				},
+				{
+					"level": 27,
+					"tree": "Assassination",
+					"talent": "Improved Poisons",
+					"rank": 1,
+					"note": "Improved Poisons puts poisons on more often and makes charges last; take them as soon as you train poisons."
+				},
+				{
+					"level": 28,
+					"tree": "Assassination",
+					"talent": "Improved Poisons",
+					"rank": 2
+				},
+				{
+					"level": 29,
+					"tree": "Assassination",
+					"talent": "Improved Poisons",
+					"rank": 3
+				},
+				{
+					"level": 30,
+					"tree": "Assassination",
+					"talent": "Mutilate",
+					"rank": 1,
+					"note": "Mutilate is Forever's dual-wield dagger strike: two combo points a use, and more damage on poisoned targets."
+				},
+				{
+					"level": 31,
+					"tree": "Assassination",
+					"talent": "Remorseless Attacks",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Assassination",
+					"talent": "Remorseless Attacks",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Assassination",
+					"talent": "Improved Poisons",
+					"rank": 4
+				},
+				{
+					"level": 34,
+					"tree": "Assassination",
+					"talent": "Improved Poisons",
+					"rank": 5
+				},
+				{
+					"level": 35,
+					"tree": "Assassination",
+					"talent": "Seal Fate",
+					"rank": 1,
+					"note": "Seal Fate turns crits into extra combo points; with Malice and Lethality it is the core of the build."
+				},
+				{
+					"level": 36,
+					"tree": "Assassination",
+					"talent": "Seal Fate",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Assassination",
+					"talent": "Seal Fate",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Assassination",
+					"talent": "Seal Fate",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Assassination",
+					"talent": "Seal Fate",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Assassination",
+					"talent": "Venom",
+					"rank": 1,
+					"note": "Venom is the capstone: a finisher that strengthens your poisons for a while."
+				},
+				{
+					"level": 41,
+					"tree": "Combat",
+					"talent": "Improved Sinister Strike",
+					"rank": 1,
+					"note": "The last 20 points go to Combat: cheaper Sinister Strikes, a stronger Eviscerate, more hit and parry, Riposte and a stronger off-hand."
+				},
+				{
+					"level": 42,
+					"tree": "Combat",
+					"talent": "Improved Sinister Strike",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Combat",
+					"talent": "Improved Eviscerate",
+					"rank": 1
+				},
+				{
+					"level": 44,
+					"tree": "Combat",
+					"talent": "Improved Eviscerate",
+					"rank": 2
+				},
+				{
+					"level": 45,
+					"tree": "Combat",
+					"talent": "Improved Eviscerate",
+					"rank": 3
+				},
+				{
+					"level": 46,
+					"tree": "Combat",
+					"talent": "Precision",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Combat",
+					"talent": "Precision",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Combat",
+					"talent": "Precision",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Combat",
+					"talent": "Deflection",
+					"rank": 1
+				},
+				{
+					"level": 50,
+					"tree": "Combat",
+					"talent": "Deflection",
+					"rank": 2
+				},
+				{
+					"level": 51,
+					"tree": "Combat",
+					"talent": "Deflection",
+					"rank": 3
+				},
+				{
+					"level": 52,
+					"tree": "Combat",
+					"talent": "Riposte",
+					"rank": 1
+				},
+				{
+					"level": 53,
+					"tree": "Combat",
+					"talent": "Puncturing Wounds",
+					"rank": 1
+				},
+				{
+					"level": 54,
+					"tree": "Combat",
+					"talent": "Puncturing Wounds",
+					"rank": 2
+				},
+				{
+					"level": 55,
+					"tree": "Combat",
+					"talent": "Puncturing Wounds",
+					"rank": 3
+				},
+				{
+					"level": 56,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 1
+				},
+				{
+					"level": 57,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 2
+				},
+				{
+					"level": 58,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 3
+				},
+				{
+					"level": 59,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 4
+				},
+				{
+					"level": 60,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 5
+				}
+			]
+		},
+		{
+			"key": "combat",
+			"spec": "Combat",
+			"split": "20/31/0",
+			"link": "https://foreverdb.net/class/Rogue/talents?lvl=60&t=15dcd1.025322105-32033301000515221",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Combat",
+					"talent": "Improved Sinister Strike",
+					"rank": 1,
+					"note": "Improved Sinister Strike first: cheaper Sinister Strikes are the biggest early gain."
+				},
+				{
+					"level": 11,
+					"tree": "Combat",
+					"talent": "Improved Sinister Strike",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Combat",
+					"talent": "Improved Eviscerate",
+					"rank": 1
+				},
+				{
+					"level": 13,
+					"tree": "Combat",
+					"talent": "Improved Eviscerate",
+					"rank": 2
+				},
+				{
+					"level": 14,
+					"tree": "Combat",
+					"talent": "Improved Eviscerate",
+					"rank": 3
+				},
+				{
+					"level": 15,
+					"tree": "Combat",
+					"talent": "Precision",
+					"rank": 1,
+					"note": "Precision helps you hit more often; it also opens Dual Wield Specialization."
+				},
+				{
+					"level": 16,
+					"tree": "Combat",
+					"talent": "Precision",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Combat",
+					"talent": "Precision",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Combat",
+					"talent": "Deflection",
+					"rank": 1
+				},
+				{
+					"level": 19,
+					"tree": "Combat",
+					"talent": "Deflection",
+					"rank": 2
+				},
+				{
+					"level": 20,
+					"tree": "Combat",
+					"talent": "Deflection",
+					"rank": 3
+				},
+				{
+					"level": 21,
+					"tree": "Combat",
+					"talent": "Riposte",
+					"rank": 1,
+					"note": "Riposte follows each parry with a heavy strike that also disarms."
+				},
+				{
+					"level": 22,
+					"tree": "Combat",
+					"talent": "Puncturing Wounds",
+					"rank": 1
+				},
+				{
+					"level": 23,
+					"tree": "Combat",
+					"talent": "Puncturing Wounds",
+					"rank": 2
+				},
+				{
+					"level": 24,
+					"tree": "Combat",
+					"talent": "Puncturing Wounds",
+					"rank": 3
+				},
+				{
+					"level": 25,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 1
+				},
+				{
+					"level": 26,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 2
+				},
+				{
+					"level": 27,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 3
+				},
+				{
+					"level": 28,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 4
+				},
+				{
+					"level": 29,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 5
+				},
+				{
+					"level": 30,
+					"tree": "Combat",
+					"talent": "Blade Flurry",
+					"rank": 1,
+					"note": "Blade Flurry is faster attacks and cleave on demand; Hack and Slash then adds extra attacks with swords and axes."
+				},
+				{
+					"level": 31,
+					"tree": "Combat",
+					"talent": "Hack and Slash",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Combat",
+					"talent": "Hack and Slash",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Combat",
+					"talent": "Hack and Slash",
+					"rank": 3
+				},
+				{
+					"level": 34,
+					"tree": "Combat",
+					"talent": "Hack and Slash",
+					"rank": 4
+				},
+				{
+					"level": 35,
+					"tree": "Combat",
+					"talent": "Hack and Slash",
+					"rank": 5
+				},
+				{
+					"level": 36,
+					"tree": "Combat",
+					"talent": "Weapon Expertise",
+					"rank": 1
+				},
+				{
+					"level": 37,
+					"tree": "Combat",
+					"talent": "Weapon Expertise",
+					"rank": 2
+				},
+				{
+					"level": 38,
+					"tree": "Combat",
+					"talent": "Aggression",
+					"rank": 1
+				},
+				{
+					"level": 39,
+					"tree": "Combat",
+					"talent": "Aggression",
+					"rank": 2
+				},
+				{
+					"level": 40,
+					"tree": "Combat",
+					"talent": "Adrenaline Rush",
+					"rank": 1,
+					"note": "Adrenaline Rush is the capstone: double energy for 15 seconds, enough for a second mob."
+				},
+				{
+					"level": 41,
+					"tree": "Assassination",
+					"talent": "Malice",
+					"rank": 1,
+					"note": "The remaining points go to Assassination for crit, free combo points, energy refunds and Lethality."
+				},
+				{
+					"level": 42,
+					"tree": "Assassination",
+					"talent": "Malice",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Assassination",
+					"talent": "Malice",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Assassination",
+					"talent": "Malice",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Assassination",
+					"talent": "Malice",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Assassination",
+					"talent": "Ruthlessness",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Assassination",
+					"talent": "Ruthlessness",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Assassination",
+					"talent": "Ruthlessness",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Assassination",
+					"talent": "Murder",
+					"rank": 1
+				},
+				{
+					"level": 50,
+					"tree": "Assassination",
+					"talent": "Murder",
+					"rank": 2
+				},
+				{
+					"level": 51,
+					"tree": "Assassination",
+					"talent": "Relentless Strikes",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Assassination",
+					"talent": "Lethality",
+					"rank": 1
+				},
+				{
+					"level": 53,
+					"tree": "Assassination",
+					"talent": "Lethality",
+					"rank": 2
+				},
+				{
+					"level": 54,
+					"tree": "Assassination",
+					"talent": "Lethality",
+					"rank": 3
+				},
+				{
+					"level": 55,
+					"tree": "Assassination",
+					"talent": "Lethality",
+					"rank": 4
+				},
+				{
+					"level": 56,
+					"tree": "Assassination",
+					"talent": "Lethality",
+					"rank": 5
+				},
+				{
+					"level": 57,
+					"tree": "Assassination",
+					"talent": "Improved Slice and Dice",
+					"rank": 1
+				},
+				{
+					"level": 58,
+					"tree": "Assassination",
+					"talent": "Improved Slice and Dice",
+					"rank": 2
+				},
+				{
+					"level": 59,
+					"tree": "Assassination",
+					"talent": "Remorseless Attacks",
+					"rank": 1
+				},
+				{
+					"level": 60,
+					"tree": "Assassination",
+					"talent": "Remorseless Attacks",
+					"rank": 2
+				}
+			]
+		},
+		{
+			"key": "subtlety",
+			"spec": "Subtlety",
+			"split": "0/20/31",
+			"link": "https://foreverdb.net/class/Rogue/talents?lvl=60&t=15dcd1.-320333010005-5023003310013211501",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Subtlety",
+					"talent": "Opportunity",
+					"rank": 1,
+					"note": "Opportunity adds damage to Backstab, Ambush and Garrote, your stealth openers."
+				},
+				{
+					"level": 11,
+					"tree": "Subtlety",
+					"talent": "Opportunity",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Subtlety",
+					"talent": "Camouflage",
+					"rank": 1
+				},
+				{
+					"level": 13,
+					"tree": "Subtlety",
+					"talent": "Camouflage",
+					"rank": 2
+				},
+				{
+					"level": 14,
+					"tree": "Subtlety",
+					"talent": "Camouflage",
+					"rank": 3
+				},
+				{
+					"level": 15,
+					"tree": "Subtlety",
+					"talent": "Camouflage",
+					"rank": 4
+				},
+				{
+					"level": 16,
+					"tree": "Subtlety",
+					"talent": "Setup",
+					"rank": 1
+				},
+				{
+					"level": 17,
+					"tree": "Subtlety",
+					"talent": "Setup",
+					"rank": 2
+				},
+				{
+					"level": 18,
+					"tree": "Subtlety",
+					"talent": "Setup",
+					"rank": 3
+				},
+				{
+					"level": 19,
+					"tree": "Subtlety",
+					"talent": "Improved Ambush",
+					"rank": 1,
+					"note": "Improved Ambush and Initiative make the opener the fight: a likely crit and extra combo points."
+				},
+				{
+					"level": 20,
+					"tree": "Subtlety",
+					"talent": "Improved Ambush",
+					"rank": 2
+				},
+				{
+					"level": 21,
+					"tree": "Subtlety",
+					"talent": "Improved Ambush",
+					"rank": 3
+				},
+				{
+					"level": 22,
+					"tree": "Subtlety",
+					"talent": "Ghostly Strike",
+					"rank": 1
+				},
+				{
+					"level": 23,
+					"tree": "Subtlety",
+					"talent": "Initiative",
+					"rank": 1
+				},
+				{
+					"level": 24,
+					"tree": "Subtlety",
+					"talent": "Initiative",
+					"rank": 2
+				},
+				{
+					"level": 25,
+					"tree": "Subtlety",
+					"talent": "Initiative",
+					"rank": 3
+				},
+				{
+					"level": 26,
+					"tree": "Subtlety",
+					"talent": "Premeditation",
+					"rank": 1
+				},
+				{
+					"level": 27,
+					"tree": "Subtlety",
+					"talent": "Serrated Blades",
+					"rank": 1,
+					"note": "Serrated Blades ignores armor and is the way into Hemorrhage."
+				},
+				{
+					"level": 28,
+					"tree": "Subtlety",
+					"talent": "Serrated Blades",
+					"rank": 2
+				},
+				{
+					"level": 29,
+					"tree": "Subtlety",
+					"talent": "Serrated Blades",
+					"rank": 3
+				},
+				{
+					"level": 30,
+					"tree": "Subtlety",
+					"talent": "Hemorrhage",
+					"rank": 1,
+					"note": "Hemorrhage is your main builder from here, with any weapon, and it adds to Rupture damage."
+				},
+				{
+					"level": 31,
+					"tree": "Subtlety",
+					"talent": "Preparation",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Subtlety",
+					"talent": "Dirty Deeds",
+					"rank": 1
+				},
+				{
+					"level": 33,
+					"tree": "Subtlety",
+					"talent": "Dirty Deeds",
+					"rank": 2
+				},
+				{
+					"level": 34,
+					"tree": "Subtlety",
+					"talent": "Camouflage",
+					"rank": 5
+				},
+				{
+					"level": 35,
+					"tree": "Subtlety",
+					"talent": "Quietus",
+					"rank": 1,
+					"note": "Quietus adds damage to Hemorrhage and Ghostly Strike on a low-health target, finishing mobs sooner."
+				},
+				{
+					"level": 36,
+					"tree": "Subtlety",
+					"talent": "Quietus",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Subtlety",
+					"talent": "Quietus",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Subtlety",
+					"talent": "Quietus",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Subtlety",
+					"talent": "Quietus",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Subtlety",
+					"talent": "Thousand Cuts",
+					"rank": 1,
+					"note": "Thousand Cuts is the capstone: Rupture ticks make your next Hemorrhage cheaper."
+				},
+				{
+					"level": 41,
+					"tree": "Combat",
+					"talent": "Improved Sinister Strike",
+					"rank": 1,
+					"note": "The last 20 points go to Combat: cheaper Sinister Strikes, a stronger Eviscerate, more hit and parry, Riposte and a stronger off-hand."
+				},
+				{
+					"level": 42,
+					"tree": "Combat",
+					"talent": "Improved Sinister Strike",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Combat",
+					"talent": "Improved Eviscerate",
+					"rank": 1
+				},
+				{
+					"level": 44,
+					"tree": "Combat",
+					"talent": "Improved Eviscerate",
+					"rank": 2
+				},
+				{
+					"level": 45,
+					"tree": "Combat",
+					"talent": "Improved Eviscerate",
+					"rank": 3
+				},
+				{
+					"level": 46,
+					"tree": "Combat",
+					"talent": "Precision",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Combat",
+					"talent": "Precision",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Combat",
+					"talent": "Precision",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Combat",
+					"talent": "Deflection",
+					"rank": 1
+				},
+				{
+					"level": 50,
+					"tree": "Combat",
+					"talent": "Deflection",
+					"rank": 2
+				},
+				{
+					"level": 51,
+					"tree": "Combat",
+					"talent": "Deflection",
+					"rank": 3
+				},
+				{
+					"level": 52,
+					"tree": "Combat",
+					"talent": "Riposte",
+					"rank": 1
+				},
+				{
+					"level": 53,
+					"tree": "Combat",
+					"talent": "Puncturing Wounds",
+					"rank": 1
+				},
+				{
+					"level": 54,
+					"tree": "Combat",
+					"talent": "Puncturing Wounds",
+					"rank": 2
+				},
+				{
+					"level": 55,
+					"tree": "Combat",
+					"talent": "Puncturing Wounds",
+					"rank": 3
+				},
+				{
+					"level": 56,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 1
+				},
+				{
+					"level": 57,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 2
+				},
+				{
+					"level": 58,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 3
+				},
+				{
+					"level": 59,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 4
+				},
+				{
+					"level": 60,
+					"tree": "Combat",
+					"talent": "Dual Wield Specialization",
+					"rank": 5
+				}
+			]
+		}
+	]
+}

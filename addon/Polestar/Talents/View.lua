@@ -203,7 +203,7 @@ end
 
 local REASONS = {
 	off = L["Talent plans are turned off. Turn them on under Options > Questing > Talents."],
-	class = L["Talent plans cover the Paladin for now. More classes will follow."],
+	class = L["There is no talent plan for your class yet."],
 	noconfig = L["The talent tree is not loaded yet. It will be once you are in the world."],
 	notree = L["The talent tree is not loaded yet. It will be once you are in the world."],
 }

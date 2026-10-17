@@ -1,0 +1,972 @@
+{
+	"class": "PRIEST",
+	"source": "Polestar, with ForeverDB's talent data",
+	"sourceUrl": "https://foreverdb.net/class/Priest/talents",
+	"credit": "Written for Polestar on Forever's tree (ForeverDB lists no Priest builds yet). ForeverDB's Priest talent page (https://foreverdb.net/class/Priest/talents) is used only as a reference for Forever's changed and new talents; every pick is checked against Forever's own tree.",
+	"checkedOn": "WoW: Forever beta 1.60.1.70374",
+	"summary": "Level as Shadow (Spirit Tap, Mind Flay, Shadowform) for the fastest kills and least drinking. Discipline levels with Smite and Penance behind a strong shield; Holy is the dungeon healer and slower alone.",
+	"order": [
+		"Discipline",
+		"Holy",
+		"Shadow"
+	],
+	"builds": [
+		{
+			"key": "discipline",
+			"spec": "Discipline",
+			"split": "31/0/20",
+			"link": "https://foreverdb.net/class/Priest/talents",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Discipline",
+					"talent": "Power in Light",
+					"rank": 1,
+					"note": "Power in Light first: more Smite damage, your main attack as Discipline, on targets with your Holy Fire or Shadow Word: Pain."
+				},
+				{
+					"level": 11,
+					"tree": "Discipline",
+					"talent": "Power in Light",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Discipline",
+					"talent": "Power in Light",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Discipline",
+					"talent": "Power in Light",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Discipline",
+					"talent": "Power in Light",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Discipline",
+					"talent": "Improved Power Word: Shield",
+					"rank": 1,
+					"note": "Improved Power Word: Shield: a bigger shield is fewer interrupted casts and less healing."
+				},
+				{
+					"level": 16,
+					"tree": "Discipline",
+					"talent": "Improved Power Word: Shield",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Discipline",
+					"talent": "Improved Power Word: Shield",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Discipline",
+					"talent": "Twin Disciplines",
+					"rank": 1
+				},
+				{
+					"level": 19,
+					"tree": "Discipline",
+					"talent": "Twin Disciplines",
+					"rank": 2
+				},
+				{
+					"level": 20,
+					"tree": "Discipline",
+					"talent": "Mental Agility",
+					"rank": 1
+				},
+				{
+					"level": 21,
+					"tree": "Discipline",
+					"talent": "Mental Agility",
+					"rank": 2
+				},
+				{
+					"level": 22,
+					"tree": "Discipline",
+					"talent": "Mental Agility",
+					"rank": 3
+				},
+				{
+					"level": 23,
+					"tree": "Discipline",
+					"talent": "Meditation",
+					"rank": 1
+				},
+				{
+					"level": 24,
+					"tree": "Discipline",
+					"talent": "Meditation",
+					"rank": 2
+				},
+				{
+					"level": 25,
+					"tree": "Discipline",
+					"talent": "Meditation",
+					"rank": 3
+				},
+				{
+					"level": 26,
+					"tree": "Discipline",
+					"talent": "Soul Warding",
+					"rank": 1
+				},
+				{
+					"level": 27,
+					"tree": "Discipline",
+					"talent": "Mental Strength",
+					"rank": 1
+				},
+				{
+					"level": 28,
+					"tree": "Discipline",
+					"talent": "Mental Strength",
+					"rank": 2
+				},
+				{
+					"level": 29,
+					"tree": "Discipline",
+					"talent": "Mental Strength",
+					"rank": 3
+				},
+				{
+					"level": 30,
+					"tree": "Discipline",
+					"talent": "Penance",
+					"rank": 1,
+					"note": "Penance is a channelled burst of Holy damage or healing: use it on every mob."
+				},
+				{
+					"level": 31,
+					"tree": "Discipline",
+					"talent": "Renewed Hope",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Discipline",
+					"talent": "Renewed Hope",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Discipline",
+					"talent": "Renewed Hope",
+					"rank": 3
+				},
+				{
+					"level": 34,
+					"tree": "Discipline",
+					"talent": "Renewed Hope",
+					"rank": 4
+				},
+				{
+					"level": 35,
+					"tree": "Discipline",
+					"talent": "Renewed Hope",
+					"rank": 5
+				},
+				{
+					"level": 36,
+					"tree": "Discipline",
+					"talent": "Divine Aegis",
+					"rank": 1
+				},
+				{
+					"level": 37,
+					"tree": "Discipline",
+					"talent": "Divine Aegis",
+					"rank": 2
+				},
+				{
+					"level": 38,
+					"tree": "Discipline",
+					"talent": "Divine Aegis",
+					"rank": 3
+				},
+				{
+					"level": 39,
+					"tree": "Discipline",
+					"talent": "Inner Focus",
+					"rank": 1
+				},
+				{
+					"level": 40,
+					"tree": "Discipline",
+					"talent": "Power Infusion",
+					"rank": 1,
+					"note": "Power Infusion is the capstone: a damage and healing cooldown for you or an ally."
+				},
+				{
+					"level": 41,
+					"tree": "Shadow",
+					"talent": "Spirit Tap",
+					"rank": 1,
+					"note": "The last 20 points go to Shadow: Spirit Tap's regen after kills, a longer Shadow Word: Pain, Mind Flay and a quicker Mind Blast."
+				},
+				{
+					"level": 42,
+					"tree": "Shadow",
+					"talent": "Spirit Tap",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Shadow",
+					"talent": "Spirit Tap",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Shadow",
+					"talent": "Spirit Tap",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Shadow",
+					"talent": "Spirit Tap",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Shadow",
+					"talent": "Improved Shadow Word: Pain",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Shadow",
+					"talent": "Improved Shadow Word: Pain",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Shadow",
+					"talent": "Shadow Affinity",
+					"rank": 1
+				},
+				{
+					"level": 49,
+					"tree": "Shadow",
+					"talent": "Shadow Affinity",
+					"rank": 2
+				},
+				{
+					"level": 50,
+					"tree": "Shadow",
+					"talent": "Shadow Affinity",
+					"rank": 3
+				},
+				{
+					"level": 51,
+					"tree": "Shadow",
+					"talent": "Mind Flay",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Shadow",
+					"talent": "Improved Mind Flay",
+					"rank": 1
+				},
+				{
+					"level": 53,
+					"tree": "Shadow",
+					"talent": "Improved Mind Flay",
+					"rank": 2
+				},
+				{
+					"level": 54,
+					"tree": "Shadow",
+					"talent": "Improved Mind Blast",
+					"rank": 1
+				},
+				{
+					"level": 55,
+					"tree": "Shadow",
+					"talent": "Improved Mind Blast",
+					"rank": 2
+				},
+				{
+					"level": 56,
+					"tree": "Shadow",
+					"talent": "Improved Mind Blast",
+					"rank": 3
+				},
+				{
+					"level": 57,
+					"tree": "Shadow",
+					"talent": "Improved Mind Blast",
+					"rank": 4
+				},
+				{
+					"level": 58,
+					"tree": "Shadow",
+					"talent": "Improved Mind Blast",
+					"rank": 5
+				},
+				{
+					"level": 59,
+					"tree": "Shadow",
+					"talent": "Blackout",
+					"rank": 1
+				},
+				{
+					"level": 60,
+					"tree": "Shadow",
+					"talent": "Blackout",
+					"rank": 2
+				}
+			]
+		},
+		{
+			"key": "holy",
+			"spec": "Holy",
+			"split": "20/31/0",
+			"link": "https://foreverdb.net/class/Priest/talents",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Holy",
+					"talent": "Holy Specialization",
+					"rank": 1,
+					"note": "Holy Specialization first: more crits on Smite and on your heals."
+				},
+				{
+					"level": 11,
+					"tree": "Holy",
+					"talent": "Holy Specialization",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Holy",
+					"talent": "Holy Specialization",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Holy",
+					"talent": "Holy Specialization",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Holy",
+					"talent": "Holy Specialization",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Holy",
+					"talent": "Divine Fury",
+					"rank": 1,
+					"note": "Divine Fury speeds up Smite, Holy Fire and your big heals."
+				},
+				{
+					"level": 16,
+					"tree": "Holy",
+					"talent": "Divine Fury",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Holy",
+					"talent": "Divine Fury",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Holy",
+					"talent": "Divine Fury",
+					"rank": 4
+				},
+				{
+					"level": 19,
+					"tree": "Holy",
+					"talent": "Divine Fury",
+					"rank": 5
+				},
+				{
+					"level": 20,
+					"tree": "Holy",
+					"talent": "Holy Nova",
+					"rank": 1
+				},
+				{
+					"level": 21,
+					"tree": "Holy",
+					"talent": "Inspiration",
+					"rank": 1
+				},
+				{
+					"level": 22,
+					"tree": "Holy",
+					"talent": "Improved Renew",
+					"rank": 1
+				},
+				{
+					"level": 23,
+					"tree": "Holy",
+					"talent": "Improved Renew",
+					"rank": 2
+				},
+				{
+					"level": 24,
+					"tree": "Holy",
+					"talent": "Improved Renew",
+					"rank": 3
+				},
+				{
+					"level": 25,
+					"tree": "Holy",
+					"talent": "Searing Light",
+					"rank": 1
+				},
+				{
+					"level": 26,
+					"tree": "Holy",
+					"talent": "Searing Light",
+					"rank": 2
+				},
+				{
+					"level": 27,
+					"tree": "Holy",
+					"talent": "Improved Healing",
+					"rank": 1
+				},
+				{
+					"level": 28,
+					"tree": "Holy",
+					"talent": "Improved Healing",
+					"rank": 2
+				},
+				{
+					"level": 29,
+					"tree": "Holy",
+					"talent": "Improved Healing",
+					"rank": 3
+				},
+				{
+					"level": 30,
+					"tree": "Holy",
+					"talent": "Spirit of Redemption",
+					"rank": 1
+				},
+				{
+					"level": 31,
+					"tree": "Holy",
+					"talent": "Binding Heal",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Holy",
+					"talent": "Spiritual Guidance",
+					"rank": 1,
+					"note": "Spiritual Guidance adds 25% of your Spirit to your healing but only 8% to your damage: Spirit gear helps your heals most."
+				},
+				{
+					"level": 33,
+					"tree": "Holy",
+					"talent": "Spiritual Guidance",
+					"rank": 2
+				},
+				{
+					"level": 34,
+					"tree": "Holy",
+					"talent": "Spiritual Guidance",
+					"rank": 3
+				},
+				{
+					"level": 35,
+					"tree": "Holy",
+					"talent": "Spiritual Guidance",
+					"rank": 4
+				},
+				{
+					"level": 36,
+					"tree": "Holy",
+					"talent": "Spiritual Guidance",
+					"rank": 5
+				},
+				{
+					"level": 37,
+					"tree": "Holy",
+					"talent": "Spiritual Healing",
+					"rank": 1
+				},
+				{
+					"level": 38,
+					"tree": "Holy",
+					"talent": "Spiritual Healing",
+					"rank": 2
+				},
+				{
+					"level": 39,
+					"tree": "Holy",
+					"talent": "Spiritual Healing",
+					"rank": 3
+				},
+				{
+					"level": 40,
+					"tree": "Holy",
+					"talent": "Prayer of Mending",
+					"rank": 1,
+					"note": "Prayer of Mending is the capstone: a heal that jumps between your group as they take damage."
+				},
+				{
+					"level": 41,
+					"tree": "Discipline",
+					"talent": "Wand Specialization",
+					"rank": 1,
+					"note": "The last 20 points go to Discipline: a stronger wand, a bigger Power Word: Shield, Meditation's regen while casting and more Intellect."
+				},
+				{
+					"level": 42,
+					"tree": "Discipline",
+					"talent": "Wand Specialization",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Discipline",
+					"talent": "Twin Disciplines",
+					"rank": 1
+				},
+				{
+					"level": 44,
+					"tree": "Discipline",
+					"talent": "Twin Disciplines",
+					"rank": 2
+				},
+				{
+					"level": 45,
+					"tree": "Discipline",
+					"talent": "Twin Disciplines",
+					"rank": 3
+				},
+				{
+					"level": 46,
+					"tree": "Discipline",
+					"talent": "Improved Power Word: Shield",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Discipline",
+					"talent": "Improved Power Word: Shield",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Discipline",
+					"talent": "Improved Power Word: Shield",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Discipline",
+					"talent": "Martyrdom",
+					"rank": 1
+				},
+				{
+					"level": 50,
+					"tree": "Discipline",
+					"talent": "Martyrdom",
+					"rank": 2
+				},
+				{
+					"level": 51,
+					"tree": "Discipline",
+					"talent": "Meditation",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Discipline",
+					"talent": "Meditation",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Discipline",
+					"talent": "Meditation",
+					"rank": 3
+				},
+				{
+					"level": 54,
+					"tree": "Discipline",
+					"talent": "Inner Focus",
+					"rank": 1
+				},
+				{
+					"level": 55,
+					"tree": "Discipline",
+					"talent": "Mental Agility",
+					"rank": 1
+				},
+				{
+					"level": 56,
+					"tree": "Discipline",
+					"talent": "Mental Strength",
+					"rank": 1
+				},
+				{
+					"level": 57,
+					"tree": "Discipline",
+					"talent": "Mental Strength",
+					"rank": 2
+				},
+				{
+					"level": 58,
+					"tree": "Discipline",
+					"talent": "Mental Strength",
+					"rank": 3
+				},
+				{
+					"level": 59,
+					"tree": "Discipline",
+					"talent": "Mental Strength",
+					"rank": 4
+				},
+				{
+					"level": 60,
+					"tree": "Discipline",
+					"talent": "Soul Warding",
+					"rank": 1
+				}
+			]
+		},
+		{
+			"key": "shadow",
+			"spec": "Shadow",
+			"split": "20/0/31",
+			"link": "https://foreverdb.net/class/Priest/talents",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Shadow",
+					"talent": "Spirit Tap",
+					"rank": 1,
+					"note": "Spirit Tap first: after each kill your regen jumps, so you drink far less."
+				},
+				{
+					"level": 11,
+					"tree": "Shadow",
+					"talent": "Spirit Tap",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Shadow",
+					"talent": "Spirit Tap",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Shadow",
+					"talent": "Spirit Tap",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Shadow",
+					"talent": "Spirit Tap",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Shadow",
+					"talent": "Improved Shadow Word: Pain",
+					"rank": 1
+				},
+				{
+					"level": 16,
+					"tree": "Shadow",
+					"talent": "Improved Shadow Word: Pain",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Shadow",
+					"talent": "Shadow Affinity",
+					"rank": 1
+				},
+				{
+					"level": 18,
+					"tree": "Shadow",
+					"talent": "Shadow Affinity",
+					"rank": 2
+				},
+				{
+					"level": 19,
+					"tree": "Shadow",
+					"talent": "Shadow Affinity",
+					"rank": 3
+				},
+				{
+					"level": 20,
+					"tree": "Shadow",
+					"talent": "Mind Flay",
+					"rank": 1,
+					"note": "Mind Flay is your main damage and slow from here; Improved Mind Flay makes it hit harder."
+				},
+				{
+					"level": 21,
+					"tree": "Shadow",
+					"talent": "Improved Mind Flay",
+					"rank": 1
+				},
+				{
+					"level": 22,
+					"tree": "Shadow",
+					"talent": "Improved Mind Flay",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Shadow",
+					"talent": "Improved Mind Blast",
+					"rank": 1
+				},
+				{
+					"level": 24,
+					"tree": "Shadow",
+					"talent": "Improved Mind Blast",
+					"rank": 2
+				},
+				{
+					"level": 25,
+					"tree": "Shadow",
+					"talent": "Improved Mind Blast",
+					"rank": 3
+				},
+				{
+					"level": 26,
+					"tree": "Shadow",
+					"talent": "Improved Mind Blast",
+					"rank": 4
+				},
+				{
+					"level": 27,
+					"tree": "Shadow",
+					"talent": "Improved Mind Blast",
+					"rank": 5
+				},
+				{
+					"level": 28,
+					"tree": "Shadow",
+					"talent": "Vampiric Embrace",
+					"rank": 1,
+					"note": "Vampiric Embrace heals you from your Shadow damage."
+				},
+				{
+					"level": 29,
+					"tree": "Shadow",
+					"talent": "Shadow Weaving",
+					"rank": 1
+				},
+				{
+					"level": 30,
+					"tree": "Shadow",
+					"talent": "Shadow Weaving",
+					"rank": 2
+				},
+				{
+					"level": 31,
+					"tree": "Shadow",
+					"talent": "Shadow Weaving",
+					"rank": 3
+				},
+				{
+					"level": 32,
+					"tree": "Shadow",
+					"talent": "Devouring Contagion",
+					"rank": 1
+				},
+				{
+					"level": 33,
+					"tree": "Shadow",
+					"talent": "Devouring Contagion",
+					"rank": 2
+				},
+				{
+					"level": 34,
+					"tree": "Shadow",
+					"talent": "Shadow Focus",
+					"rank": 1
+				},
+				{
+					"level": 35,
+					"tree": "Shadow",
+					"talent": "Darkness",
+					"rank": 1
+				},
+				{
+					"level": 36,
+					"tree": "Shadow",
+					"talent": "Darkness",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Shadow",
+					"talent": "Darkness",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Shadow",
+					"talent": "Darkness",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Shadow",
+					"talent": "Darkness",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Shadow",
+					"talent": "Shadowform",
+					"rank": 1,
+					"note": "Shadowform is the capstone: more Shadow damage and less physical damage taken."
+				},
+				{
+					"level": 41,
+					"tree": "Discipline",
+					"talent": "Wand Specialization",
+					"rank": 1,
+					"note": "The last 20 points go to Discipline: a stronger wand, a bigger Power Word: Shield, Meditation's regen while casting and more Intellect."
+				},
+				{
+					"level": 42,
+					"tree": "Discipline",
+					"talent": "Wand Specialization",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Discipline",
+					"talent": "Twin Disciplines",
+					"rank": 1
+				},
+				{
+					"level": 44,
+					"tree": "Discipline",
+					"talent": "Twin Disciplines",
+					"rank": 2
+				},
+				{
+					"level": 45,
+					"tree": "Discipline",
+					"talent": "Twin Disciplines",
+					"rank": 3
+				},
+				{
+					"level": 46,
+					"tree": "Discipline",
+					"talent": "Improved Power Word: Shield",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Discipline",
+					"talent": "Improved Power Word: Shield",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Discipline",
+					"talent": "Improved Power Word: Shield",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Discipline",
+					"talent": "Martyrdom",
+					"rank": 1
+				},
+				{
+					"level": 50,
+					"tree": "Discipline",
+					"talent": "Martyrdom",
+					"rank": 2
+				},
+				{
+					"level": 51,
+					"tree": "Discipline",
+					"talent": "Meditation",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Discipline",
+					"talent": "Meditation",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Discipline",
+					"talent": "Meditation",
+					"rank": 3
+				},
+				{
+					"level": 54,
+					"tree": "Discipline",
+					"talent": "Inner Focus",
+					"rank": 1
+				},
+				{
+					"level": 55,
+					"tree": "Discipline",
+					"talent": "Mental Agility",
+					"rank": 1
+				},
+				{
+					"level": 56,
+					"tree": "Discipline",
+					"talent": "Mental Strength",
+					"rank": 1
+				},
+				{
+					"level": 57,
+					"tree": "Discipline",
+					"talent": "Mental Strength",
+					"rank": 2
+				},
+				{
+					"level": 58,
+					"tree": "Discipline",
+					"talent": "Mental Strength",
+					"rank": 3
+				},
+				{
+					"level": 59,
+					"tree": "Discipline",
+					"talent": "Mental Strength",
+					"rank": 4
+				},
+				{
+					"level": 60,
+					"tree": "Discipline",
+					"talent": "Soul Warding",
+					"rank": 1
+				}
+			]
+		}
+	]
+}

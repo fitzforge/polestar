@@ -3822,7 +3822,9 @@ Polestar.Talents.Show()                                     -- SHOW_TALENTS; /po
   `PLAYER_TALENT_UPDATE` and Gear's spec changes; `TALENTS_UPDATED` follows.
 - **Classes.** One plan file per class (`talents/forever/<class>.json`);
   `talents build` writes them all into `Builds.lua`, one `T.Register` per
-  class, sorted by class. The tool finds each class's tree by its class skill
+  class, sorted by class. `T.Register` keeps only the player's class
+  (`UnitClass("player")`): the other classes' plans are dropped unexpanded,
+  so a character holds one class's plans, not all nine. The tool finds each class's tree by its class skill
   line (`CLASSES` in `tools/lib/talents/build.js`) and leaves out a stray
   copy of a talent far off the grid (1.60.1.70374: Hunter node 104982,
   Lightning Reflexes again; Priest node 105865, Holy Specialization again).

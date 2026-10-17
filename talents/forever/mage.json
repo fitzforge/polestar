@@ -1,0 +1,977 @@
+{
+	"class": "MAGE",
+	"source": "Polestar, with ForeverDB's talent data",
+	"sourceUrl": "https://foreverdb.net/class/Mage/talents",
+	"credit": "Written for Polestar on Forever's tree (ForeverDB lists no Mage builds yet). ForeverDB's Mage talent page (https://foreverdb.net/class/Mage/talents) is used only as a reference for Forever's changed and new talents; every pick is checked against Forever's own tree.",
+	"checkedOn": "WoW: Forever beta 1.60.1.70374",
+	"summary": "Level as Frost (the safest: slows, freezes and Ice Barrier) or Fire (more damage, with Pyroblast openers and Blast Wave). Arcane builds around Arcane Blast and Arcane Power and wants more mana between pulls.",
+	"order": [
+		"Arcane",
+		"Fire",
+		"Frost"
+	],
+	"builds": [
+		{
+			"key": "arcane",
+			"spec": "Arcane",
+			"split": "31/0/20",
+			"link": "https://foreverdb.net/class/Mage/talents",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Arcane",
+					"talent": "Improved Channeling",
+					"rank": 1,
+					"note": "Improved Channeling first: Arcane Missiles, and later Arcane Blast, keep going when a mob hits you."
+				},
+				{
+					"level": 11,
+					"tree": "Arcane",
+					"talent": "Improved Channeling",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Arcane",
+					"talent": "Improved Channeling",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Arcane",
+					"talent": "Improved Channeling",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Arcane",
+					"talent": "Improved Channeling",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 1,
+					"note": "Arcane Concentration gives free casts now and then, and opens Arcane Meditation."
+				},
+				{
+					"level": 16,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 4
+				},
+				{
+					"level": 19,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 5
+				},
+				{
+					"level": 20,
+					"tree": "Arcane",
+					"talent": "Arcane Blast",
+					"rank": 1,
+					"note": "Arcane Blast is Forever's Arcane builder: each cast adds spell power for the next."
+				},
+				{
+					"level": 21,
+					"tree": "Arcane",
+					"talent": "Arcane Impact",
+					"rank": 1
+				},
+				{
+					"level": 22,
+					"tree": "Arcane",
+					"talent": "Arcane Impact",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Arcane",
+					"talent": "Arcane Impact",
+					"rank": 3
+				},
+				{
+					"level": 24,
+					"tree": "Arcane",
+					"talent": "Arcane Subtlety",
+					"rank": 1
+				},
+				{
+					"level": 25,
+					"tree": "Arcane",
+					"talent": "Arcane Meditation",
+					"rank": 1,
+					"note": "Arcane Meditation keeps mana coming back while you cast, so you drink less."
+				},
+				{
+					"level": 26,
+					"tree": "Arcane",
+					"talent": "Arcane Meditation",
+					"rank": 2
+				},
+				{
+					"level": 27,
+					"tree": "Arcane",
+					"talent": "Arcane Meditation",
+					"rank": 3
+				},
+				{
+					"level": 28,
+					"tree": "Arcane",
+					"talent": "Missile Barrage",
+					"rank": 1
+				},
+				{
+					"level": 29,
+					"tree": "Arcane",
+					"talent": "Arcane Subtlety",
+					"rank": 2
+				},
+				{
+					"level": 30,
+					"tree": "Arcane",
+					"talent": "Presence of Mind",
+					"rank": 1,
+					"note": "Presence of Mind makes one spell instant: an opener, or a finisher on a runner."
+				},
+				{
+					"level": 31,
+					"tree": "Arcane",
+					"talent": "Arcane Mind",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Arcane",
+					"talent": "Arcane Mind",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Arcane",
+					"talent": "Arcane Mind",
+					"rank": 3
+				},
+				{
+					"level": 34,
+					"tree": "Arcane",
+					"talent": "Arcane Mind",
+					"rank": 4
+				},
+				{
+					"level": 35,
+					"tree": "Arcane",
+					"talent": "Arcane Mind",
+					"rank": 5
+				},
+				{
+					"level": 36,
+					"tree": "Arcane",
+					"talent": "Arcane Instability",
+					"rank": 1
+				},
+				{
+					"level": 37,
+					"tree": "Arcane",
+					"talent": "Arcane Instability",
+					"rank": 2
+				},
+				{
+					"level": 38,
+					"tree": "Arcane",
+					"talent": "Arcane Instability",
+					"rank": 3
+				},
+				{
+					"level": 39,
+					"tree": "Arcane",
+					"talent": "Arcane Focus",
+					"rank": 1
+				},
+				{
+					"level": 40,
+					"tree": "Arcane",
+					"talent": "Arcane Power",
+					"rank": 1,
+					"note": "Arcane Power is the capstone: more damage for more mana, best with Presence of Mind on a tough target."
+				},
+				{
+					"level": 41,
+					"tree": "Frost",
+					"talent": "Improved Frostbolt",
+					"rank": 1,
+					"note": "The remaining 20 points go to Frost for a quicker Frostbolt, a shorter Frost Nova cooldown, longer slows and Ice Block."
+				},
+				{
+					"level": 42,
+					"tree": "Frost",
+					"talent": "Improved Frostbolt",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Frost",
+					"talent": "Improved Frostbolt",
+					"rank": 3
+				},
+				{
+					"level": 44,
+					"tree": "Frost",
+					"talent": "Improved Frostbolt",
+					"rank": 4
+				},
+				{
+					"level": 45,
+					"tree": "Frost",
+					"talent": "Improved Frostbolt",
+					"rank": 5
+				},
+				{
+					"level": 46,
+					"tree": "Frost",
+					"talent": "Improved Frost Nova",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Frost",
+					"talent": "Improved Frost Nova",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Frost",
+					"talent": "Permafrost",
+					"rank": 1
+				},
+				{
+					"level": 49,
+					"tree": "Frost",
+					"talent": "Permafrost",
+					"rank": 2
+				},
+				{
+					"level": 50,
+					"tree": "Frost",
+					"talent": "Permafrost",
+					"rank": 3
+				},
+				{
+					"level": 51,
+					"tree": "Frost",
+					"talent": "Frost Channeling",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Frost",
+					"talent": "Frost Channeling",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Frost",
+					"talent": "Frost Channeling",
+					"rank": 3
+				},
+				{
+					"level": 54,
+					"tree": "Frost",
+					"talent": "Piercing Ice",
+					"rank": 1
+				},
+				{
+					"level": 55,
+					"tree": "Frost",
+					"talent": "Piercing Ice",
+					"rank": 2
+				},
+				{
+					"level": 56,
+					"tree": "Frost",
+					"talent": "Piercing Ice",
+					"rank": 3
+				},
+				{
+					"level": 57,
+					"tree": "Frost",
+					"talent": "Ice Block",
+					"rank": 1
+				},
+				{
+					"level": 58,
+					"tree": "Frost",
+					"talent": "Arctic Reach",
+					"rank": 1
+				},
+				{
+					"level": 59,
+					"tree": "Frost",
+					"talent": "Arctic Reach",
+					"rank": 2
+				},
+				{
+					"level": 60,
+					"tree": "Frost",
+					"talent": "Ice Lance",
+					"rank": 1
+				}
+			]
+		},
+		{
+			"key": "fire",
+			"spec": "Fire",
+			"split": "20/31/0",
+			"link": "https://foreverdb.net/class/Mage/talents",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Fire",
+					"talent": "Improved Fireball",
+					"rank": 1,
+					"note": "Improved Fireball first: a faster Fireball is more damage every fight."
+				},
+				{
+					"level": 11,
+					"tree": "Fire",
+					"talent": "Improved Fireball",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Fire",
+					"talent": "Improved Fireball",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Fire",
+					"talent": "Improved Fireball",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Fire",
+					"talent": "Improved Fireball",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Fire",
+					"talent": "Ignite",
+					"rank": 1,
+					"note": "Ignite adds burn damage to every Fire crit."
+				},
+				{
+					"level": 16,
+					"tree": "Fire",
+					"talent": "Ignite",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Fire",
+					"talent": "Ignite",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Fire",
+					"talent": "Ignite",
+					"rank": 4
+				},
+				{
+					"level": 19,
+					"tree": "Fire",
+					"talent": "Ignite",
+					"rank": 5
+				},
+				{
+					"level": 20,
+					"tree": "Fire",
+					"talent": "Pyroblast",
+					"rank": 1,
+					"note": "Pyroblast is a big opener from range; cast it first, then Fireball."
+				},
+				{
+					"level": 21,
+					"tree": "Fire",
+					"talent": "Incineration",
+					"rank": 1
+				},
+				{
+					"level": 22,
+					"tree": "Fire",
+					"talent": "Incineration",
+					"rank": 2
+				},
+				{
+					"level": 23,
+					"tree": "Fire",
+					"talent": "Incineration",
+					"rank": 3
+				},
+				{
+					"level": 24,
+					"tree": "Fire",
+					"talent": "Impact",
+					"rank": 1
+				},
+				{
+					"level": 25,
+					"tree": "Fire",
+					"talent": "Master of Elements",
+					"rank": 1,
+					"note": "Master of Elements gives mana back on crits, so you rest less."
+				},
+				{
+					"level": 26,
+					"tree": "Fire",
+					"talent": "Master of Elements",
+					"rank": 2
+				},
+				{
+					"level": 27,
+					"tree": "Fire",
+					"talent": "Master of Elements",
+					"rank": 3
+				},
+				{
+					"level": 28,
+					"tree": "Fire",
+					"talent": "Heating Up",
+					"rank": 1
+				},
+				{
+					"level": 29,
+					"tree": "Fire",
+					"talent": "Impact",
+					"rank": 2
+				},
+				{
+					"level": 30,
+					"tree": "Fire",
+					"talent": "Critical Mass",
+					"rank": 1,
+					"note": "Critical Mass and Blast Wave: more crits, and an area attack and daze for when two mobs reach you."
+				},
+				{
+					"level": 31,
+					"tree": "Fire",
+					"talent": "Critical Mass",
+					"rank": 2
+				},
+				{
+					"level": 32,
+					"tree": "Fire",
+					"talent": "Critical Mass",
+					"rank": 3
+				},
+				{
+					"level": 33,
+					"tree": "Fire",
+					"talent": "Blast Wave",
+					"rank": 1
+				},
+				{
+					"level": 34,
+					"tree": "Fire",
+					"talent": "Impact",
+					"rank": 3
+				},
+				{
+					"level": 35,
+					"tree": "Fire",
+					"talent": "Fire Power",
+					"rank": 1
+				},
+				{
+					"level": 36,
+					"tree": "Fire",
+					"talent": "Fire Power",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Fire",
+					"talent": "Fire Power",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Fire",
+					"talent": "Fire Power",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Fire",
+					"talent": "Fire Power",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Fire",
+					"talent": "Combustion",
+					"rank": 1,
+					"note": "Combustion is the capstone: a crit cooldown for elites and big pulls."
+				},
+				{
+					"level": 41,
+					"tree": "Arcane",
+					"talent": "Wand Specialization",
+					"rank": 1,
+					"note": "The last 20 points go to Arcane: a stronger wand for finishing mobs, then Arcane Concentration's free casts and Arcane Meditation's regen while casting."
+				},
+				{
+					"level": 42,
+					"tree": "Arcane",
+					"talent": "Wand Specialization",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Arcane",
+					"talent": "Arcane Focus",
+					"rank": 1
+				},
+				{
+					"level": 44,
+					"tree": "Arcane",
+					"talent": "Arcane Focus",
+					"rank": 2
+				},
+				{
+					"level": 45,
+					"tree": "Arcane",
+					"talent": "Arcane Focus",
+					"rank": 3
+				},
+				{
+					"level": 46,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 4
+				},
+				{
+					"level": 50,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 5
+				},
+				{
+					"level": 51,
+					"tree": "Arcane",
+					"talent": "Arcane Subtlety",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Arcane",
+					"talent": "Arcane Subtlety",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Arcane",
+					"talent": "Arcane Resilience",
+					"rank": 1
+				},
+				{
+					"level": 54,
+					"tree": "Arcane",
+					"talent": "Arcane Resilience",
+					"rank": 2
+				},
+				{
+					"level": 55,
+					"tree": "Arcane",
+					"talent": "Magic Absorption",
+					"rank": 1
+				},
+				{
+					"level": 56,
+					"tree": "Arcane",
+					"talent": "Arcane Meditation",
+					"rank": 1
+				},
+				{
+					"level": 57,
+					"tree": "Arcane",
+					"talent": "Arcane Meditation",
+					"rank": 2
+				},
+				{
+					"level": 58,
+					"tree": "Arcane",
+					"talent": "Arcane Meditation",
+					"rank": 3
+				},
+				{
+					"level": 59,
+					"tree": "Arcane",
+					"talent": "Magic Absorption",
+					"rank": 2
+				},
+				{
+					"level": 60,
+					"tree": "Arcane",
+					"talent": "Arcane Shielding",
+					"rank": 1
+				}
+			]
+		},
+		{
+			"key": "frost",
+			"spec": "Frost",
+			"split": "20/0/31",
+			"link": "https://foreverdb.net/class/Mage/talents",
+			"picks": [
+				{
+					"level": 10,
+					"tree": "Frost",
+					"talent": "Improved Frostbolt",
+					"rank": 1,
+					"note": "Improved Frostbolt first: a faster Frostbolt is your main gain for the early levels."
+				},
+				{
+					"level": 11,
+					"tree": "Frost",
+					"talent": "Improved Frostbolt",
+					"rank": 2
+				},
+				{
+					"level": 12,
+					"tree": "Frost",
+					"talent": "Improved Frostbolt",
+					"rank": 3
+				},
+				{
+					"level": 13,
+					"tree": "Frost",
+					"talent": "Improved Frostbolt",
+					"rank": 4
+				},
+				{
+					"level": 14,
+					"tree": "Frost",
+					"talent": "Improved Frostbolt",
+					"rank": 5
+				},
+				{
+					"level": 15,
+					"tree": "Frost",
+					"talent": "Ice Shards",
+					"rank": 1,
+					"note": "Ice Shards makes Frost crits hit much harder."
+				},
+				{
+					"level": 16,
+					"tree": "Frost",
+					"talent": "Ice Shards",
+					"rank": 2
+				},
+				{
+					"level": 17,
+					"tree": "Frost",
+					"talent": "Ice Shards",
+					"rank": 3
+				},
+				{
+					"level": 18,
+					"tree": "Frost",
+					"talent": "Ice Shards",
+					"rank": 4
+				},
+				{
+					"level": 19,
+					"tree": "Frost",
+					"talent": "Ice Shards",
+					"rank": 5
+				},
+				{
+					"level": 20,
+					"tree": "Frost",
+					"talent": "Piercing Ice",
+					"rank": 1
+				},
+				{
+					"level": 21,
+					"tree": "Frost",
+					"talent": "Piercing Ice",
+					"rank": 2
+				},
+				{
+					"level": 22,
+					"tree": "Frost",
+					"talent": "Piercing Ice",
+					"rank": 3
+				},
+				{
+					"level": 23,
+					"tree": "Frost",
+					"talent": "Improved Frost Nova",
+					"rank": 1,
+					"note": "Improved Frost Nova and Ice Block are your escapes: freeze, step back, keep casting."
+				},
+				{
+					"level": 24,
+					"tree": "Frost",
+					"talent": "Improved Frost Nova",
+					"rank": 2
+				},
+				{
+					"level": 25,
+					"tree": "Frost",
+					"talent": "Ice Block",
+					"rank": 1
+				},
+				{
+					"level": 26,
+					"tree": "Frost",
+					"talent": "Shatter",
+					"rank": 1,
+					"note": "Shatter adds a large crit chance against frozen targets: Frost Nova, then Frostbolt or Ice Lance."
+				},
+				{
+					"level": 27,
+					"tree": "Frost",
+					"talent": "Shatter",
+					"rank": 2
+				},
+				{
+					"level": 28,
+					"tree": "Frost",
+					"talent": "Shatter",
+					"rank": 3
+				},
+				{
+					"level": 29,
+					"tree": "Frost",
+					"talent": "Permafrost",
+					"rank": 1
+				},
+				{
+					"level": 30,
+					"tree": "Frost",
+					"talent": "Cold Snap",
+					"rank": 1
+				},
+				{
+					"level": 31,
+					"tree": "Frost",
+					"talent": "Frost Channeling",
+					"rank": 1
+				},
+				{
+					"level": 32,
+					"tree": "Frost",
+					"talent": "Frost Channeling",
+					"rank": 2
+				},
+				{
+					"level": 33,
+					"tree": "Frost",
+					"talent": "Frost Channeling",
+					"rank": 3
+				},
+				{
+					"level": 34,
+					"tree": "Frost",
+					"talent": "Ice Lance",
+					"rank": 1
+				},
+				{
+					"level": 35,
+					"tree": "Frost",
+					"talent": "Winter's Chill",
+					"rank": 1
+				},
+				{
+					"level": 36,
+					"tree": "Frost",
+					"talent": "Winter's Chill",
+					"rank": 2
+				},
+				{
+					"level": 37,
+					"tree": "Frost",
+					"talent": "Winter's Chill",
+					"rank": 3
+				},
+				{
+					"level": 38,
+					"tree": "Frost",
+					"talent": "Winter's Chill",
+					"rank": 4
+				},
+				{
+					"level": 39,
+					"tree": "Frost",
+					"talent": "Winter's Chill",
+					"rank": 5
+				},
+				{
+					"level": 40,
+					"tree": "Frost",
+					"talent": "Ice Barrier",
+					"rank": 1,
+					"note": "Ice Barrier is the capstone: an absorb shield that also stops pushback while you cast."
+				},
+				{
+					"level": 41,
+					"tree": "Arcane",
+					"talent": "Wand Specialization",
+					"rank": 1,
+					"note": "The last 20 points go to Arcane: a stronger wand for finishing mobs, then Arcane Concentration's free casts and Arcane Meditation's regen while casting."
+				},
+				{
+					"level": 42,
+					"tree": "Arcane",
+					"talent": "Wand Specialization",
+					"rank": 2
+				},
+				{
+					"level": 43,
+					"tree": "Arcane",
+					"talent": "Arcane Focus",
+					"rank": 1
+				},
+				{
+					"level": 44,
+					"tree": "Arcane",
+					"talent": "Arcane Focus",
+					"rank": 2
+				},
+				{
+					"level": 45,
+					"tree": "Arcane",
+					"talent": "Arcane Focus",
+					"rank": 3
+				},
+				{
+					"level": 46,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 1
+				},
+				{
+					"level": 47,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 2
+				},
+				{
+					"level": 48,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 3
+				},
+				{
+					"level": 49,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 4
+				},
+				{
+					"level": 50,
+					"tree": "Arcane",
+					"talent": "Arcane Concentration",
+					"rank": 5
+				},
+				{
+					"level": 51,
+					"tree": "Arcane",
+					"talent": "Arcane Subtlety",
+					"rank": 1
+				},
+				{
+					"level": 52,
+					"tree": "Arcane",
+					"talent": "Arcane Subtlety",
+					"rank": 2
+				},
+				{
+					"level": 53,
+					"tree": "Arcane",
+					"talent": "Arcane Resilience",
+					"rank": 1
+				},
+				{
+					"level": 54,
+					"tree": "Arcane",
+					"talent": "Arcane Resilience",
+					"rank": 2
+				},
+				{
+					"level": 55,
+					"tree": "Arcane",
+					"talent": "Magic Absorption",
+					"rank": 1
+				},
+				{
+					"level": 56,
+					"tree": "Arcane",
+					"talent": "Arcane Meditation",
+					"rank": 1
+				},
+				{
+					"level": 57,
+					"tree": "Arcane",
+					"talent": "Arcane Meditation",
+					"rank": 2
+				},
+				{
+					"level": 58,
+					"tree": "Arcane",
+					"talent": "Arcane Meditation",
+					"rank": 3
+				},
+				{
+					"level": 59,
+					"tree": "Arcane",
+					"talent": "Magic Absorption",
+					"rank": 2
+				},
+				{
+					"level": 60,
+					"tree": "Arcane",
+					"talent": "Arcane Shielding",
+					"rank": 1
+				}
+			]
+		}
+	]
+}
