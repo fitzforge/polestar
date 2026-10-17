@@ -32,6 +32,11 @@ next forever/alliance/03-darkshore
 #   in the middle of the loop instead +0.06 / +0.06 / +0.06 / +0.06.
 # - Harvesting the Harvesters (92910) starts from an item the Golems and
 #   Watchers drop: it is picked up on the farms rather than at Alexston.
+#   It is optional (#298): the Precessive Autocognition Assembly drops about
+#   once in 900 kills (Wowhead Forever item=255155: 161 of 187,474 Harvest
+#   Watchers, 54 of 46,307 Rusty Harvest Golems, checked 2026-10-17), so
+#   the farm step does not wait for it. The turn-in at Saldean's is plain:
+#   it holds only a player who took the quest.
 # - Left out: the second Harvesting the Harvesters (92911). Ozwin offers it
 #   only once 92910 is handed in (its text follows the assembly; #51, the
 #   quest data has no prerequisite for it), and the route does not come
@@ -146,8 +151,8 @@ step Molsen Farm
   collect 255007 quest 92909.1
   collect 255010 quest 92909.2
   collect 732 quest 38.4                      -- Okra
-  collect 255155                              -- Precessive Autocognition Assembly
-  accept 92910
+  collect 255155 optional                     -- Precessive Autocognition Assembly
+  accept 92910 optional
   collect 723 quest 22                        -- Goretusk Liver
   collect 731 quest 38.3                      -- Goretusk Snout
   collect 729 quest 38.1                      -- Stringy Vulture Meat: Fleshrippers

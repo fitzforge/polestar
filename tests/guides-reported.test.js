@@ -1256,3 +1256,64 @@ test('#246: no NPC or object goal is on a neighbouring zone\'s map where the two
 	}
 	assert.deepEqual([...new Set(offenders)], [], 'goals on the map of a zone Wowhead Forever does not place them in');
 });
+
+// --- Harvesting the Harvesters (Smuve, #298): the Precessive Autocognition
+// Assembly that starts it drops about once in 900 kills of the Molsen Farm
+// golems and watchers (Wowhead Forever item=255155: 161 of 187,474 Harvest
+// Watchers, 54 of 46,307 Rusty Harvest Golems, checked 2026-10-17). The loot
+// and the accept are optional goals of the farm step, so it does not wait for
+// a drop most players never see; the turn-in at Saldean's Farm is plain and
+// holds only a player who looted it.
+
+test(`${WESTFALL}: Smuve's report (#298): the Molsen Farm step does not wait for the Precessive Autocognition Assembly; with one, it is handed in at Saldean's`, { skip }, () => {
+	const pack = buildSimPack([WESTFALL]);
+	try {
+		const g = pack.guides[0];
+		// The simulated player kills the farm's golems for Ozwin's parts (92909).
+		// Without the Assembly it never drops; with it, it is looted and
+		// right-clicked there. Recorded: the farm step's goals for the Assembly
+		// and its quest, and where Harvesting the Harvesters is handed in.
+		const watch = (assembly) => `
+			local E, w = Polestar.Engine, stub.world
+			local farm, turnedIn = false, false
+			local addItem, progress, turnIn = w.addItem, w.progress, w.turnIn
+			w.addItem = function(item, ...)
+				if item == 255155 and not ${assembly} then return end
+				return addItem(item, ...)
+			end
+			w.progress = function(q, ...)
+				if q == 92909 and not farm then
+					farm = {}
+					if ${assembly} then
+						addItem(255155, 1)
+						w.accept(92910, {}, "Harvesting the Harvesters")
+						stub.advance(0.6)
+					end
+					for _, v in ipairs(E.GetStepView(E.GetStepIndex()).goals) do
+						if v.quest == 92910 or v.item == 255155 then farm[#farm + 1] = v.t .. " " .. tostring(v.optional) end
+					end
+				end
+				return progress(q, ...)
+			end
+			w.turnIn = function(q, ...)
+				if q == 92910 then
+					turnedIn = E.GetStepView(E.GetStepIndex()).title
+					if not w.log[q] then return end
+				end
+				return turnIn(q, ...)
+			end
+			${SIMULATE}
+			emit({ farm = farm, turnedIn = turnedIn, done = C_QuestLog.IsQuestFlaggedCompleted(92910) })`;
+		for (const assembly of [false, true]) {
+			const [out, got] = playGuide(pack, g, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', script: watch(assembly) });
+			const who = assembly ? 'with the Assembly' : 'without the Assembly';
+			assert.equal(out.stuck, undefined, `${who}: not stuck: ${JSON.stringify(out.stuck)}`);
+			assert.ok(out.done, `${who}: plays to the end`);
+			assert.deepEqual(got.farm, ['collect true', 'accept true'], `${who}: the Assembly and its accept are optional goals of the farm step`);
+			assert.equal(got.done, assembly, `${who}: Harvesting the Harvesters ${assembly ? 'is' : 'is not'} handed in`);
+			assert.equal(got.turnedIn, assembly ? "Saldean's Farm" : false, `${who}: ${assembly ? "handed in at the Saldean's Farm step" : 'nothing is handed in'}`);
+		}
+	} finally {
+		pack.dispose();
+	}
+});
