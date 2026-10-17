@@ -2495,8 +2495,12 @@ gets a 16px objective icon (14–20) 3px left of the health bar the player
 sees: EllesmereUI Nameplates' unit frame, Plater/ElvUI/oUF, KuiNameplates or
 Threat Plates when present, else the shown child of the base plate holding
 the largest status bar, else Blizzard's health bar, else the plate itself;
-parented to that frame so it follows its fading and scaling. Every access is
-guarded; `Quests.NameplateIcon(unit)` returns the icon (tests).
+parented to that frame so it follows its fading and scaling. Beside it, left,
+a font string of the icon frame (`.count`) shows the progress of the open
+objectives with a count above 1 (`Q.ProgressText`, by quest, joined with
+" · "), re-read on every `QUESTDB_UPDATED`; hidden when none has one. Every
+access is guarded; `Quests.NameplateIcon(unit)` returns the icon and
+`Quests.NameplateCount(unit)` the progress shown (tests).
 
 Settings (`qol.*`, Questing → Quests; the markers under Map → Guide & quests →
 Quest markers): `questDB`, `availableQuests`,

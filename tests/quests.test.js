@@ -620,6 +620,46 @@ emit(Q.NameplateIcons())
 	assert.deepEqual(done, {}, 'empty');
 });
 
+test('nameplate icons carry the progress of the objectives still open, live, beside the icon', () => {
+	const [both, live, oneLeft, gone, single] = run(`
+Polestar.Set("qol.nameplateIcons", true)
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+w.accept(7, { { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } })
+w.progress(7, 1, 3)
+w.progress(60, 1, 1)
+stub.advance(0.3)
+sq.addPlate("nameplate1", 6)
+local function count(unit)
+	local f = Q.NameplateIcon(unit)
+	local fs = f and f.count
+	if not (fs and fs:IsShown() and f:IsShown()) then return nil end
+	local point, rel, relPoint = fs:GetPoint(1)
+	return { text = fs:GetText(), api = Q.NameplateCount(unit), at = point .. " " .. (rel == f and "icon" or "?") .. " " .. relPoint }
+end
+emit(count("nameplate1"))
+w.progress(7, 1, 4)                 -- a kill: the plate reads it on the next update
+stub.advance(0.3)
+emit(count("nameplate1"))
+w.progress(7, 1, 10)                -- 7 done: only the candles are left
+stub.advance(0.3)
+emit(count("nameplate1"))
+w.progress(60, 1, 8)
+stub.advance(0.3)
+emit({ Q.NameplateIcons(), count("nameplate1") == nil, Q.NameplateCount("nameplate1") == nil })
+-- A one-off objective has no count to show: the icon alone, no stale text
+-- from the frame's last plate.
+w.turnIn(7); w.turnIn(60)
+w.accept(7, { { text = "Kobold Vermin slain: 0/1", type = "monster", required = 1 } })
+stub.advance(0.3)
+emit({ Q.NameplateIcons(), count("nameplate1") == nil })
+`, { setup: 'w.complete({ 783 }); w.setLevel(4)' });
+	assert.deepEqual(both, { text: '3/10 · 1/8', api: '3/10 · 1/8', at: 'RIGHT icon LEFT' }, 'quest 7 then quest 60, left of the icon');
+	assert.equal(live.text, '4/10 · 1/8');
+	assert.equal(oneLeft.text, '1/8');
+	assert.deepEqual(gone, [{}, true, true], 'all done: no icon, no count');
+	assert.deepEqual(single, [['nameplate1'], true]);
+});
+
 test('nameplate icons sit beside the health bar the player sees, above the frame that draws it', () => {
 	const [eui, out] = run(`
 Polestar.Set("qol.nameplateIcons", true)

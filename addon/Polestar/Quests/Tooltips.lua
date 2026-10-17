@@ -155,6 +155,32 @@ local function needsKill(npcID)
 	return false
 end
 
+-- The counts of the objectives the mob is still needed for, by quest:
+-- "3/10", or "3/10 · 1/8" when it counts for two. Nil when none has a
+-- count to show (a single kill or item: the icon says it all).
+local COUNT_SEP = " \194\183 "
+local function byQuest(a, b)
+	if a.q ~= b.q then return a.q < b.q end
+	return a.id < b.id
+end
+
+local function countText(npcID)
+	local list = npcID and Q.ObjectivesForNpc(npcID)
+	if not list then return nil end
+	local open
+	for i = 1, #list do
+		local o = list[i]
+		if not o.done and not o.entry.ready and (o.max or 0) > 1 then
+			open = open or {}
+			open[#open + 1] = o
+		end
+	end
+	if not open then return nil end
+	table.sort(open, byQuest)
+	for i = 1, #open do open[i] = Q.ProgressText(open[i]) end
+	return table.concat(open, COUNT_SEP)
+end
+
 local function plateFor(unit)
 	if not (C_NamePlate and C_NamePlate.GetNamePlateForUnit) then return nil end
 	local ok, plate = pcall(C_NamePlate.GetNamePlateForUnit, unit)
@@ -171,6 +197,7 @@ end
 local ICON_SIZE, ICON_MIN, ICON_MAX = 16, 14, 20
 local ICON_GAP = 3 -- px between the icon and the left end of the bar
 local ICON_LIFT = 5 -- frame levels above the frame the icon sits on
+local COUNT_GAP = 2 -- px between the progress and the icon
 local isIcon = setmetatable({}, { __mode = "k" })
 
 -- Shown and readable: forbidden frames (protected plates) are skipped.
@@ -303,6 +330,19 @@ local function acquire(plate, unit)
 		f = CreateFrame("Frame")
 		f.tex = f:CreateTexture(nil, "OVERLAY")
 		f.tex:SetAllPoints(f)
+		-- The progress, left of the icon: a region of our own frame, so it
+		-- follows the plate's fading and scaling with the icon.
+		local fs = f:CreateFontString(nil, "OVERLAY")
+		local T = ns.Theme
+		if T and T.Font then
+			T.Font(fs, "small")
+			T.SetOutline(fs, true)
+		else
+			fs:SetFontObject("GameFontHighlightSmall")
+		end
+		fs:SetPoint("RIGHT", f, "LEFT", -COUNT_GAP, 0)
+		fs:SetWordWrap(false)
+		f.count = fs
 		isIcon[f] = true
 	end
 	local ok, replaced = place(f, plate, unit)
@@ -354,6 +394,16 @@ local function updatePlate(unit)
 	local c = Q.Color(o.kind == 1 and "danger" or "item")
 	f.tex:SetTexture(ns.Theme and ns.Theme.Media and ns.Theme.Media(style) or style)
 	f.tex:SetVertexColor(c.r, c.g, c.b, c.a)
+	local text = countText(npc)
+	if text then
+		local tc = Q.Color("text")
+		f.count:SetTextColor(tc.r, tc.g, tc.b, tc.a or 1)
+		f.count:SetText(text)
+		f.count:Show()
+	else
+		f.count:SetText("")
+		f.count:Hide()
+	end
 	f:Show()
 end
 
@@ -399,6 +449,13 @@ end
 -- The icon frame on a unit's nameplate, or nil (tests, debugging).
 function Q.NameplateIcon(unit)
 	return icons[unit]
+end
+
+-- The progress beside that icon ("3/10"), or nil (tests, debugging).
+function Q.NameplateCount(unit)
+	local f = icons[unit]
+	if not (f and f:IsShown() and f.count:IsShown()) then return nil end
+	return f.count:GetText()
 end
 
 local function refreshAll()

@@ -60,7 +60,7 @@ Q.OPTIONS = {
 			{ kind = "toggle", key = "qol.questTooltips", label = L["Quest tooltips"], disabled = dbOff,
 				help = L["Name the quests a mob, item or object is for, with your progress."] },
 			{ kind = "toggle", key = "qol.nameplateIcons", label = L["Nameplate icons"], disabled = dbOff,
-				help = L["Show a quest icon on nameplates of mobs you still need."] },
+				help = L["Show a quest icon and your progress, like 3/10, on nameplates of mobs you still need."] },
 			{ kind = "toggle", key = "qol.questLevels", label = L["Quest levels"],
 				help = L["Show quest levels, like [12], wherever the game lists quests without them."] },
 		},

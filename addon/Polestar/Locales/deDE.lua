@@ -1316,7 +1316,7 @@ L["While a guide runs, fade every quest marker that is not part of its current s
 L["Quest tooltips"] = "Quest-Tooltips"
 L["Name the quests a mob, item or object is for, with your progress."] = "Nennt die Quests, für die ein Mob, Gegenstand oder Objekt gebraucht wird, mit deinem Fortschritt."
 L["Nameplate icons"] = "Namensplaketten-Symbole"
-L["Show a quest icon on nameplates of mobs you still need."] = "Zeigt ein Quest-Symbol auf den Namensplaketten von Mobs, die du noch brauchst."
+L["Show a quest icon and your progress, like 3/10, on nameplates of mobs you still need."] = "Zeigt ein Quest-Symbol mit deinem Fortschritt, etwa 3/10, auf den Namensplaketten von Mobs, die du noch brauchst."
 L["Quest levels"] = "Quest-Stufen"
 L["Show quest levels, like [12], wherever the game lists quests without them."] = "Zeigt Quest-Stufen wie [12] überall, wo das Spiel Quests ohne sie auflistet."
 L["Quest database is off."] = "Die Quest-Datenbank ist aus."
