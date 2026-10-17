@@ -14,7 +14,7 @@ next forever/horde/04-the-barrens
 # and back -> north loop: the Dead Field, Malden's Orchard, Erland's escort,
 # worg hearts -> hearth -> the Decrepit Ferry and back -> north again: Quinn,
 # the murloc eyes on the shore, then Fenris Isle -> the Sepulcher -> south
-# loop: Ambermill, the refugees, Beren's Peril -> hearth -> grind to 19 on the
+# loop: Ambermill, Beren's Peril -> hearth -> grind to 19 on the
 # lake shore -> Quinn and Ivar the Foul on the road north -> zeppelin to
 # Orgrimmar: the city's own quests, training. The guide ends in Orgrimmar, in
 # the Valley of Wisdom; the next one flies to Ratchet from Doras in the Valley
@@ -29,13 +29,13 @@ next forever/horde/04-the-barrens
 # - The Orgrimmar flight path is taken on the first pass through the city at
 #   16.6 (the export takes it at 19).
 # - Ambermill Investigations (479) is done on the one southern loop with
-#   Watching the Roads and Stop the Spread, not on its own trip.
+#   Watching the Roads, not on its own trip.
 # - The grind to 19 uses the Vile Fin Lakestalkers on Silverpine's own shore
 #   of Lordamere Lake, a short walk from the Sepulcher; the export's camp is
 #   the same murlocs across the lake by Dalaran, in Alterac Mountains.
 # - Added from the new consensus route: Beren's Peril (516, Shadow Priest
-#   Allister): its Ravenclaw undead (19-20) stand just north-east of the
-#   refugees, so it rides on the south loop and the hearth back; the export
+#   Allister): its Ravenclaw undead (19-20) stand just south-west of
+#   Ambermill, so it rides on the south loop and the hearth back; the export
 #   does it on a second Silverpine visit at about 21, which this route does
 #   not make. Its XP shortens the lake-shore grind.
 # - Not taken: the Offering Stone quests at Beren's Peril (95883-95885, Forever)
@@ -49,7 +49,11 @@ next forever/horde/04-the-barrens
 #
 # Left out: the Forever Arugal's Folly (98298): Dalar offers it only after
 # the Classic Arugal's Folly series (421-424, 99; Wowhead Forever's Series
-# box, #51), which the route does not run.
+# box, #51), which the route does not run. Stop the Spread (98299, Forever):
+# Dalar did not offer it to an Undead at 19 (#161) or a Tauren at 21 (#229)
+# on this route, though the data gives it to every Horde race from level 9
+# with no prerequisite; one Wowhead Forever comment asks for the quest before
+# it. Its refugees step goes with it.
 #
 # Quinn's potions run Wild Hearts (429) -> Return to Quinn (430) -> Wild Eyes
 # (91920, Forever) -> Return to Quinn (Again) (91921, Forever): the quest
@@ -261,7 +265,6 @@ step The Sepulcher
   accept 91921                        -- Apothecary Renferrel: for Quinn, on the road north at the end
   accept 95981                        -- Shadow Priest Allister
   accept 516                          -- Shadow Priest Allister: Beren's Peril, on the south loop
-  accept 98299
 
 # ---------------------------------------------------------------- South loop
 
@@ -271,13 +274,8 @@ step Ambermill
   kill 1889 quest 95981.2
   kill 1888 quest 95981.1
 
-step The refugees
-  tip The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the Greymane Wall.
-  kill 2054 quest 98299.2
-  kill 2053 quest 98299.1
-
 step Beren's Peril
-  tip North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of Beren's Peril in the south-east of the forest.
+  tip South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of Beren's Peril in the south-east of the forest.
   kill 1974 quest 516.1
   kill 1973 quest 516.2
 
@@ -285,7 +283,6 @@ step Hearth to the Sepulcher
   hearth "The Sepulcher"
   turnin 479                          -- Shadow Priest Allister
   turnin 95981
-  turnin 98299
   turnin 516
 
 step Lordamere Lake shore

@@ -506,6 +506,17 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 	}
 });
 
+// --- Silverpine (Wyatt R, #161; Rupert, #229): Dalar Dawnweaver did not offer
+// Stop the Spread to an Undead at 19 or a Tauren at 21 on the route, though
+// the data gives it to every Horde race with no prerequisite.
+
+test(`Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or the refugees for Stop the Spread (#229, #161)`, { skip }, () => {
+	for (const guide of allGuides()) {
+		const asked = goals(guide).filter(({ goal }) => goal.quest === 98299);
+		assert.deepEqual(asked.map(({ goal }) => goal.t), [], `${guide} has no goal for 98299`);
+	}
+});
+
 test(`${HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in ${THOUSAND_NEEDLES}, is handed in on the Wetlands loop (#225)`, { skip }, () => {
 	const needles = goals(THOUSAND_NEEDLES);
 	assert.equal(needles.findIndex(({ goal }) => is('turnin', 465)(goal)), -1, 'the catapult is not lit in the guide that takes the quest');

@@ -127,18 +127,12 @@ return {
 	-- {area:233} Ambermill · {npc:2120} Archmage Ataeric
 	["South-east down the road to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Wizards and Watchers patrol the roads around it. Stay out of the middle, where {npc:2120} stands."] = "Die Straße nach Südosten hinunter nach {area:233}. Beschützer von Dalaran bewachen den Ortsrand und Magier von Dalaran den Ort; beide lassen Anhänger fallen. Hexer und Behüter von Dalaran patrouillieren auf den Straßen ringsum. Meide die Mitte, wo {npc:2120} steht.",
 
-	-- Step 25: The refugees
-	["The refugees"] = "Die Flüchtlinge",
-	-- {area:230} Greymane Wall
-	-- plural, as words: Haggard Refugees = {npc:2053} Haggard Refugee
-	["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "Die Kränklichen und Hageren Flüchtlinge schlurfen die Straße südlich von Pyrewood entlang in Richtung Wall ({area:230}).",
-
-	-- Step 26: Beren's Peril
+	-- Step 25: Beren's Peril
 	-- {quest:516} Beren's Peril
 	-- plural, as words: Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
-	["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Nordöstlich der Flüchtlinge spuken die Zwangsarbeiter und Wächter von Rabenklaue in den Ruinen von {quest:516} im Südosten des Waldes.",
+	["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "",
 
-	-- Step 28: Lordamere Lake shore
+	-- Step 27: Lordamere Lake shore
 	-- {area:1338} Lordamere Lake
 	["{area:1338} shore"] = "Ufer: {area:1338}",
 	-- {area:237} Decrepit Ferry · {area:228} Sepulcher
@@ -147,41 +141,41 @@ return {
 	-- {npc:1909} Vile Fin Lakestalker · {area:1338} Lordamere Lake · {zone:1421} Silverpine Forest
 	["grind on {npc:1909} at {area:1338}, {zone:1421}"] = "{npc:1909} grinden: {area:1338}, {zone:1421}",
 
-	-- Step 29: Apothecary Renferrel
+	-- Step 28: Apothecary Renferrel
 	-- {npc:2216} Apothecary Lydon · {area:272} Tarren Mill
 	["Keep it: {npc:2216} in {area:272}, a later guide"] = "Behalte sie: {npc:2216} in {area:272}, ein späterer Guide",
 
-	-- Step 30: The Ivar Patch
+	-- Step 29: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
 	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "",
 
-	-- Step 31: Brill
+	-- Step 30: Brill
 	-- {zone:1420} Tirisfal Glades · {area:159} Brill · {npc:246152} Shari Stilwell
 	["Follow the road north out of Silverpine into {zone:1420} and on to {area:159}: {npc:246152} trains Paladins there. The zeppelin towers are a short walk south down the road."] = "Folge der Straße nach Norden aus dem Silberwald nach {zone:1420} und weiter nach {area:159}: {npc:246152} bildet dort Paladine aus. Die Zeppelintürme liegen ein kurzes Stück die Straße hinunter nach Süden.",
 
-	-- Step 32: Zeppelin to Orgrimmar
+	-- Step 31: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zeppelin nach {zone:1454}",
 	-- {zone:1420} Tirisfal Glades · {area:153} Ruins of Lordaeron · {zone:1454} Orgrimmar
 	["Follow the road north out of Silverpine into {zone:1420} and east to the zeppelin towers outside the {area:153}. Take the zeppelin to {zone:1454}."] = "Folge der Straße nach Norden aus dem Silberwald nach {zone:1420} und nach Osten zu den Zeppelintürmen vor den {area:153}. Nimm den Zeppelin nach {zone:1454}.",
 
-	-- Step 33: Valley of Strength
+	-- Step 32: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength · {object:173016} Borstan's Firepit
 	["Walk in through the main gate. {npc:268701} stands in the {object:172982}; {object:173016} is a few steps north."] = "Geh durch das Haupttor hinein. {npc:268701} steht im {object:172982}; {object:173016} ist ein paar Schritte nördlich.",
 
-	-- Step 34: Cleft of Shadow
+	-- Step 33: Cleft of Shadow
 	-- {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:3216} Neeru Fireblade
 	["The {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end."] = "{object:172960} ist die Schlucht unter dem {object:172982}; {npc:3216} steht an ihrem hinteren Ende.",
 
-	-- Step 35: The Drag
+	-- Step 34: The Drag
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
 	["{npc:3348} and {npc:3347} run the alchemy shop in the Drag; {npc:11046} is next door."] = "{npc:3348} und {npc:3347} führen den Alchemieladen in der Gasse; {npc:11046} ist nebenan.",
 
-	-- Step 36: Valley of Honor
+	-- Step 35: Valley of Honor
 	-- {object:172958} Valley of Honor
 	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "Rohrkolben und Speergras wachsen am Wasser im {object:172958}, östlich der Gasse.",
 
-	-- Step 38: Valley of Wisdom
+	-- Step 37: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {npc:3310} Doras · {object:172982} Valley of Strength
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
 	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at {npc:3310}, the wind rider master in the {object:172982}."] = "{npc:268684} und {npc:268682} sitzen hinter Grommash Hold im {object:172957}; die Glatten Felsen liegen um sie herum. Trainiere, solange du in der Stadt bist (Druiden und Paladine haben hier keinen Lehrer). Der nächste Guide beginnt bei {npc:3310}, dem Windreitermeister im {object:172982}.",
@@ -201,7 +195,10 @@ return {
 	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Scheckige Worgs streifen durch die Hügel um das Haus. Geh dann am Seeufer entlang nach Süden: Die Schredder und Gezeitenjäger der Finsterflossen dort lassen die Murlocaugen fallen.",
 	-- ["North again to the Yoricks' house. {quest:425} lurks a short walk west of it."] = "Wieder nach Norden zum Haus der Yoricks. {quest:425} lauert ein kurzes Stück westlich davon.",
 	-- ["North of the {area:228}. Nightlash haunts the {area:240}: kill it, then walk across the field."] = "Nördlich vom Grabmal ({area:228}). Nachtseele spukt auf dem Feld ({area:240}): Töte sie und geh dann über das Feld.",
+	-- ["North-east of the refugees, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Nordöstlich der Flüchtlinge spuken die Zwangsarbeiter und Wächter von Rabenklaue in den Ruinen von {quest:516} im Südosten des Waldes.",
 	-- ["Only if {npc:1938} gave you {quest:98298}: the Bloodhowlers prowl the woods south-west of {area:233}, east of Pyrewood; they drop the {item:280375}."] = "Nur wenn {npc:1938} dir {quest:98298} gegeben hat: Die Blutheuler streifen durch die Wälder südwestlich von {area:233}, östlich von Pyrewood; sie lassen {item:280375} fallen.",
+	-- ["The Sickly and Haggard Refugees shamble along the road south of Pyrewood toward the {area:230}."] = "Die Kränklichen und Hageren Flüchtlinge schlurfen die Straße südlich von Pyrewood entlang in Richtung Wall ({area:230}).",
+	-- ["The refugees"] = "Die Flüchtlinge",
 	-- ["The {area:228}"] = "{area:228}",
 	-- ["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for {quest:30}."] = "Die {object:177790} liegt an der Küste westlich vom Todesfeld ({area:240}). Sie enthält den {item:15882} für {quest:30}.",
 	-- ["Worgs and murlocs"] = "Worgs und Murlocs",
