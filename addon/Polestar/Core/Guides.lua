@@ -167,10 +167,23 @@ for verb, rules in pairs(REQUIRED) do
 	REQUIRED_ORDER[verb] = fields
 end
 
+-- The key lists the checks below walk, at file scope: as literals inside the
+-- loops they were one throwaway table per goal, per step and per guide, and
+-- registering the 220 guides walks about 12,000 goals (#60). One table, so the
+-- chunk stays well inside Lua 5.1's cap on locals.
+local KEYS = {
+	only = { "classes", "races", "factions" },
+	goalNumbers = { "skillLine", "untilSkill", "criteria", "level", "profLine", "profRank" },
+	goalRanks = { "rank", "qlvl" },
+	rewardLists = { "items", "choices" },
+	guideMaps = { "names", "written" },
+	guideLists = { "races", "classes", "nextChoices", "pros", "cons", "keywords" },
+}
+
 local function checkOnly(only)
 	if only == nil then return true end
 	if type(only) ~= "table" then return false end
-	for _, key in ipairs({ "classes", "races", "factions" }) do
+	for _, key in ipairs(KEYS.only) do
 		local list = only[key]
 		if list ~= nil then
 			if type(list) ~= "table" then return false end
@@ -201,7 +214,7 @@ local function checkGoal(goal)
 	if goal.count ~= nil and not isNum(goal.count) then return "bad count" end
 	if goal.text ~= nil and type(goal.text) ~= "string" then return "bad text" end
 	if goal.t == "rep" and (goal.standing < 1 or goal.standing > 8) then return "standing outside 1-8" end
-	for _, key in ipairs({ "skillLine", "untilSkill", "criteria", "level", "profLine", "profRank" }) do
+	for _, key in ipairs(KEYS.goalNumbers) do
 		if goal[key] ~= nil and not isNum(goal[key]) then return "bad " .. key end
 	end
 	if goal.profName ~= nil and not isStr(goal.profName) then return "bad profName" end
@@ -244,7 +257,7 @@ local function checkGoal(goal)
 	if goal.fromFaction ~= nil and goal.fromFaction ~= "A" and goal.fromFaction ~= "H" and goal.fromFaction ~= "AH" then
 		return "bad fromFaction"
 	end
-	for _, key in ipairs({ "rank", "qlvl" }) do
+	for _, key in ipairs(KEYS.goalRanks) do
 		if goal[key] ~= nil and not isNum(goal[key]) and not isStr(goal[key]) then return "bad " .. key end
 	end
 	if goal.pre ~= nil and type(goal.pre) ~= "table" then return "bad pre" end
@@ -254,7 +267,7 @@ local function checkGoal(goal)
 		local r = goal.rewards
 		if type(r) ~= "table" then return "bad rewards" end
 		if (r.xp ~= nil and not isNum(r.xp)) or (r.money ~= nil and not isNum(r.money)) then return "bad rewards" end
-		for _, key in ipairs({ "items", "choices" }) do
+		for _, key in ipairs(KEYS.rewardLists) do
 			local list = r[key]
 			if list ~= nil then
 				if type(list) ~= "table" then return "bad rewards" end
@@ -296,7 +309,7 @@ local function validate(def)
 		end
 	end
 	if def.why ~= nil and not isStr(def.why) then return "bad why" end
-	for _, key in ipairs({ "names", "written" }) do
+	for _, key in ipairs(KEYS.guideMaps) do
 		local map = def[key]
 		if map ~= nil then
 			if type(map) ~= "table" then return "bad " .. key end
@@ -305,7 +318,7 @@ local function validate(def)
 			end
 		end
 	end
-	for _, key in ipairs({ "races", "classes", "nextChoices", "pros", "cons", "keywords" }) do
+	for _, key in ipairs(KEYS.guideLists) do
 		local list = def[key]
 		if list ~= nil then
 			if type(list) ~= "table" then return "bad " .. key end

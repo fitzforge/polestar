@@ -1,20 +1,29 @@
--- Hand-off to Shortest Path Forever: with it installed (and nav.spfHandoff
--- on, the default), it guides to Polestar's target and Polestar's own
--- guidance steps aside, so the two never guide at once. Contract:
--- docs/ARCHITECTURE.md, "Hand-off to Shortest Path Forever".
+-- Shortest Path Forever beside Polestar: the two never guide at once.
+-- Contract: docs/ARCHITECTURE.md, "Hand-off to Shortest Path Forever".
+--
+--   Hand-off (nav.spfHandoff on; an option, off by default): with it
+--   installed, it guides to Polestar's target and Polestar's own guidance
+--   steps aside.
+--   Yield (the option off, the default): Polestar guides, and steps aside
+--   the same way while Shortest Path Forever runs a journey that is not
+--   Polestar's (one the player started there, or another addon's); when that
+--   journey ends Polestar guides again. Its API is never called in combat:
+--   news that comes then is looked at when combat ends.
 --
 -- Shortest Path Forever by Cillian Berragan (GPL-3.0-or-later,
 -- https://github.com/cjber/shortest-path-forever) is driven only through its
 -- public API, ShortestPathForever.API (version 1; minor 1 adds Subscribe),
 -- each function checked before it is called.
 --
---   Nav.HandedOff() -> bool   the one predicate every guidance surface checks:
---       the arrow, the trail and transport alerts; the travel planner, which
---       then plans no route, so no route lines, journey steps or travel
---       button; the walking engine (Nav/Walk.lua neither loads Polestar_Nav
---       nor searches); map clicks, the TomTom stand-in and /way
---       (Nav/Journey.lua); and the TomTom and Blizzard waypoint mirrors
---       (Nav/Bridges.lua). Pins, the guide window and everything else stay.
+--   Nav.HandedOff() -> bool   the one predicate every guidance surface checks
+--       (handed off, or yielding): the arrow, the trail and transport alerts;
+--       the travel planner, which then plans no route, so no route lines,
+--       journey steps or travel button; the walking engine (Nav/Walk.lua
+--       neither loads Polestar_Nav nor searches); map clicks, the TomTom
+--       stand-in and /way (Nav/Journey.lua); and the TomTom and Blizzard
+--       waypoint mirrors (Nav/Bridges.lua). Pins, the guide window and
+--       everything else stay.
+--   Handoff.Yielding() -> bool   stepping aside for a journey not Polestar's
 --
 -- The target goes as one stop, owner "Polestar": its live map point, its
 -- label as the title, a stop kind (the goal's verb, a hand-set target's
@@ -27,8 +36,9 @@
 -- refused in combat (or without a position: an instance, a loading screen)
 -- waits for combat's end or the world; one refused otherwise (Journeys off in
 -- Shortest Path Forever, a point it cannot place) lets Polestar guide that
--- target itself. While the player is dead or a ghost nothing is sent: it
--- guides corpse runs itself.
+-- target itself, and so does a stop it took but guides nothing to (its search
+-- found no way there): Polestar guides until it guides again. While the
+-- player is dead or a ghost nothing is sent: it guides corpse runs itself.
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -40,7 +50,7 @@ local format, concat = string.format, table.concat
 local Handoff = {}
 Nav.handoff = Handoff
 
-ns.RegisterDefaults("nav", { spfHandoff = true })
+ns.RegisterDefaults("nav", { spfHandoff = false })
 
 local OWNER = "Polestar"
 local PLACE = 15 -- yards: a target this close to a flight master, inn or portal stands at it
@@ -77,22 +87,100 @@ local function engaged()
 end
 
 local refused = false -- it refused the last stop: Polestar guides that target itself
+local unguided = false -- it holds Polestar's stop but guides nothing (no way there): Polestar guides it
 local refusedKey      -- the stop (or target) refused, not offered again until it changes or the world reloads
 local sentKey         -- the stop it last took, kept after its journey ends: never sent twice
 local live = false    -- that journey still runs, as far as Polestar knows
 local pending = false -- a stop waits for combat's end or a position
 local worldUp = false -- PLAYER_ENTERING_WORLD seen: nothing is sent before
 local subscribed = false
+local subscribeOwed = false -- Subscribe waits for combat's end
 local wasEngaged
+local yielding = false -- the option off: a journey not Polestar's runs in it, so Polestar steps aside
+local lookOwed = false -- news of its journeys came in combat: looked at when combat ends
+local leftoverDone, leftoverOwed = false, false -- a 0.2.4 journey's cancel (cancelLeftover): done, or owed to combat's end
 
 function Nav.HandedOff()
-	return not refused and engaged()
+	if engaged() then return not refused and not unguided end
+	return yielding
+end
+
+function Handoff.Yielding()
+	return yielding and not engaged()
 end
 
 local function inCombat()
 	local C = ns.Compat
 	if C and C.InCombat then return C.InCombat() end
 	return InCombatLockdown ~= nil and InCombatLockdown() and true or false
+end
+
+-- Polestar steps aside for a journey that is not its own, or comes back:
+-- every guidance surface hears it (Nav.Reapply), the TomTom stand-in too.
+local function setYielding(on)
+	if yielding == on then return end
+	yielding = on
+	Nav.Reapply()
+	local J = Nav.journey
+	if J and J.RefreshTomTom then J.RefreshTomTom() end
+end
+
+-- With the option off: does Shortest Path Forever run a journey that is not
+-- Polestar's (Active, and no current stop of Polestar's)? Never asked in
+-- combat: the question waits for its end. While a leftover journey's cancel,
+-- or the cancel of Polestar's journey after the hand-off was turned off,
+-- waits for it too, that journey may still guide: Polestar steps aside.
+local function look()
+	local A = api()
+	if not A or engaged() then
+		lookOwed = false
+		setYielding(false)
+		return
+	end
+	if leftoverOwed or (live and pending and not unguided) then
+		lookOwed = true
+		setYielding(true)
+		return
+	end
+	if inCombat() then
+		lookOwed = true
+		return
+	end
+	lookOwed = false
+	local on = false
+	if type(A.Active) == "function" then
+		local ok, active = pcall(A.Active)
+		if ok and active then
+			local mine = false
+			if type(A.CurrentStop) == "function" then
+				local ok2, stop = pcall(A.CurrentStop, OWNER)
+				mine = ok2 and stop ~= nil
+			end
+			on = not mine
+		end
+	end
+	setYielding(on)
+end
+
+-- A journey of Polestar's left running in Shortest Path Forever from when
+-- handing off was on (0.2.4's default): with the option off it is cancelled
+-- once, at the first PLAYER_ENTERING_WORLD (or when combat ends), so the two
+-- never guide at once. With the option on it stays: the hand-off takes it.
+local function cancelLeftover()
+	if leftoverDone then return end
+	local A = api()
+	if not A or engaged() then
+		leftoverDone, leftoverOwed = true, false
+		return
+	end
+	if inCombat() then
+		leftoverOwed = true
+		return
+	end
+	leftoverDone, leftoverOwed = true, false
+	if type(A.CurrentStop) ~= "function" then return end
+	local ok, stop = pcall(A.CurrentStop, OWNER)
+	if ok and stop ~= nil then pcall(A.Cancel, OWNER) end
 end
 
 local function dead()
@@ -270,16 +358,27 @@ end
 
 -- Polestar's own guidance comes back (or steps aside again) for the same target.
 local function setRefused(on)
-	if refused == on then return end
-	refused = on
+	if refused == on and not unguided then return end
+	refused, unguided = on, false
+	Nav.Reapply()
+end
+
+local function setUnguided(on)
+	if unguided == on then return end
+	unguided = on
 	Nav.Reapply()
 end
 
 local function step(force)
 	local A = api()
 	if not engaged() then
+		-- Its journey of ours is cancelled when combat ends (PLAYER_REGEN_ENABLED).
+		if live and inCombat() then
+			pending = true
+			return
+		end
 		cancel(A)
-		sentKey, pending, refusedKey, refused = nil, false, nil, false
+		sentKey, pending, refusedKey, refused, unguided = nil, false, nil, false, false
 		return
 	end
 	if not worldUp or dead() then return end
@@ -324,19 +423,40 @@ local function sync(force)
 end
 Handoff.Sync = sync
 
--- Its guidance changed: has the journey Polestar sent ended (arrived, cleared,
--- replaced)? Then it stays ended until Polestar's target changes.
+-- Its guidance changed. Handing off: has the journey Polestar sent ended
+-- (arrived, cleared, replaced)? Then it stays ended until Polestar's target
+-- changes. Does it still hold that stop but guide nothing (Active() false: its
+-- search found no way there, or its guidance was turned off in its tracker)?
+-- Then Polestar guides that target, also after that journey ends, until it
+-- guides anything again (that journey, the player's own, another addon's or
+-- its corpse run): then Polestar steps aside. Never decided while dead or a
+-- ghost: the corpse run is its own. Not handing off: does a journey not
+-- Polestar's run (look)?
 local function heard()
+	if not engaged() then return look() end
 	local A = api()
-	if not (A and live) then return end
-	local why = type(A.Ended) == "function" and A.Ended(OWNER)
-	if why or (type(A.CurrentStop) == "function" and A.CurrentStop(OWNER) == nil) then live = false end
+	if not A then return end
+	if live then
+		local why = type(A.Ended) == "function" and A.Ended(OWNER)
+		if why or (type(A.CurrentStop) == "function" and A.CurrentStop(OWNER) == nil) then live = false end
+	end
+	if type(A.Active) ~= "function" or not (live or unguided) then return end
+	if A.Active() then
+		setUnguided(false)
+	elseif live and not dead() then
+		setUnguided(true)
+	end
 end
 
 local function subscribe()
 	if subscribed then return end
 	local A = api()
 	if not (A and type(A.Subscribe) == "function") then return end
+	if inCombat() then
+		subscribeOwed = true
+		return
+	end
+	subscribeOwed = false
 	subscribed = pcall(A.Subscribe, heard) and true or false
 end
 
@@ -350,7 +470,11 @@ end
 
 -- Without Subscribe (minor 0): Nav's once-a-second tick asks instead.
 function Handoff:Refresh()
-	if live and not subscribed then heard() end
+	if engaged() then
+		if (live or unguided) and not subscribed then heard() end
+	elseif (not subscribed or lookOwed) and worldUp then
+		look()
+	end
 end
 
 function Handoff:OnSettings()
@@ -361,8 +485,11 @@ function Handoff:OnSettings()
 	if now then
 		sentKey, refusedKey, refused = nil, nil, false
 		subscribe()
+		setYielding(false)
 	else
 		sync()
+		subscribe()
+		look()
 	end
 	Nav.Reapply()
 end
@@ -372,26 +499,37 @@ Nav.RegisterModule(Handoff)
 ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
 	worldUp = true
 	wasEngaged = engaged()
-	if wasEngaged then subscribe() end
+	subscribe()
 	sync(true)
+	if not wasEngaged then
+		cancelLeftover()
+		look()
+	end
 end)
 ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", function()
 	if pending or refused then sync(true) end
 end)
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
+	if subscribeOwed then subscribe() end
 	if pending then sync() end
+	if leftoverOwed then cancelLeftover() end
+	if lookOwed then look() end
 end)
--- Dead or a ghost, nothing is sent; alive again, the target goes as it is.
+-- Dead or a ghost, nothing is sent; alive again, the target goes as it is,
+-- and whether it guides is asked again.
 for _, event in ipairs({ "PLAYER_DEAD", "PLAYER_ALIVE", "PLAYER_UNGHOST" }) do
-	ns.RegisterEvent(event, function() sync() end)
+	ns.RegisterEvent(event, function()
+		sync()
+		heard()
+	end)
 end
 
 if ns.RegisterOptions then
 	local ok, err = ns.RegisterOptions({
 		page = L["Integrations"], section = "Shortest Path Forever",
 		controls = {
-			{ kind = "toggle", key = "nav.spfHandoff", label = L["Guide with Shortest Path Forever when it's installed"],
-				help = L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."],
+			{ kind = "toggle", key = "nav.spfHandoff", label = L["Hand guiding to Shortest Path Forever"],
+				help = L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay. Off: Polestar guides, and steps aside only while a journey you started in Shortest Path Forever runs."],
 				needs = Handoff.Available },
 		},
 	})

@@ -70,10 +70,10 @@ return {
 	["Keep the branch: {npc:5770} is in {zone:1456}."] = "Guarde o galho: {npc:5770} está em {zone:1456}.",
 
 	-- Step 14: Tirion Fordring
-	-- {area:2620} Thondroril River · {zone:1423} Eastern Plaguelands
-	["Ride north along the eastern hills; Tirion lives in a small house by the {area:2620}, at the border with the {zone:1423}."] = "Cavalgue para o norte pelas colinas do leste; Tirion mora numa casinha junto a {area:2620}, na fronteira com {zone:1423}.",
-	-- {zone:1423} Eastern Plaguelands
-	["Tirion's hunts are in the {zone:1423}: keep them for later."] = "As caçadas de Tirion ficam em {zone:1423}: guarde-as para depois.",
+	-- {npc:1855} Tirion Fordring · {area:2619} Thondroril River · {zone:1423} Eastern Plaguelands
+	["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "Cavalgue para o norte pelas colinas do leste; {npc:1855} mora numa casinha junto a {area:2619}, na fronteira com {zone:1423}.",
+	-- {npc:1855} Tirion Fordring · {zone:1423} Eastern Plaguelands
+	["{npc:1855}'s hunts are in the {zone:1423}: keep them for later."] = "As caçadas de {npc:1855} ficam em {zone:1423}: guarde-as para depois.",
 
 	-- Step 15: Kirsta Deepshadow
 	-- {area:192} Northridge Lumber Camp · {npc:11610} Kirsta Deepshadow

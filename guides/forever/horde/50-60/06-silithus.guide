@@ -269,6 +269,7 @@ step Davil's Libram
   collect 12954 quest 5168.1
 
 step Tirion Fordring
+  zone Eastern Plaguelands
   tip Ride east to Tirion's hut by the Thondroril River and hear him out.
   turnin 5543
   turnin 5544
@@ -279,6 +280,7 @@ step Tirion Fordring
   accept 5781
 
 step Redpath's Shield
+  zone Western Plaguelands
   tip The shield lies at Gahrron's Withering, south of Tirion's hut.
   collect 12955 quest 5168.2
 
@@ -311,12 +313,13 @@ step Nathanos Blightcaller
   note Nathanos' errands are not on this route. Skip them.
 
 step Tirion Fordring
-  zone Western Plaguelands
+  zone Eastern Plaguelands
   tip Ride north-west to Tirion's hut.
   turnin 5781
   note Tirion's next task, Of Lost Honor, is not on this route. Skip it.
 
 step Chromie
+  zone Western Plaguelands
   tip Ride south-west to Chromie in Andorhal.
   turnin 4971
   turnin 5941

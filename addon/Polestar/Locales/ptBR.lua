@@ -180,7 +180,8 @@ L["Greyed out while Shortest Path Forever guides: it does this itself."] = "Desa
 L["Waypoint arrow: show, hide, reset"] = "Seta do ponto de rota: mostrar, ocultar, redefinir"
 L["Usage: /polestar way <x> <y> [label]"] = "Uso: /polestar way <x> <y> [rótulo]"
 L["Point the arrow at x y on your current map (no argument clears it)"] = "Apontar a seta para x y no mapa atual (sem argumento, limpa)"
-L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Integrações) para usar a seta do Polestar."
+L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."] = "O Shortest Path Forever está guiando uma jornada própria. A seta do Polestar volta quando ela terminar."
+L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Passar a guia ao Shortest Path Forever\" (Opções, Integrações) para usar a seta do Polestar."
 
 -- Nav/Arrow.lua
 L["Search here"] = "Procure aqui"
@@ -266,6 +267,7 @@ L["Take %s"] = "Pegue %s"
 L["Take the lift"] = "Pegue o elevador"
 L["No route: walk straight to the target."] = "Sem rota: vá direto até o alvo."
 L["Show the travel route to the current target"] = "Mostrar a rota de viagem até o alvo atual"
+L["Hostile town: %s"] = "Cidade hostil: %s"
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -285,6 +287,11 @@ L["Let other addons set waypoints"] = "Deixar outros addons definirem pontos de 
 L["Without TomTom installed, waypoints other addons set through TomTom, and /way, point Polestar's arrow. Addons that expect TomTom's own settings may not work with it on."] = "Sem o TomTom instalado, pontos de rota que outros addons definem via TomTom, e o /way, apontam a seta do Polestar. Addons que esperam as configurações do próprio TomTom podem não funcionar com isso ativado."
 L["Follow TomTom's arrow"] = "Seguir a seta do TomTom"
 L["With TomTom installed, the arrow goes wherever TomTom's arrow points, routed like any goal."] = "Com o TomTom instalado, a seta vai aonde a seta do TomTom apontar, com rota como qualquer objetivo."
+L["Route style"] = "Estilo de rota"
+L["Fastest: the shortest walk, over hills and across fields. Balanced: roads that aren't much longer, and round hills. Roads: stays on roads even when they're longer; the safest way, not the quickest."] = "Mais rápida: o caminho mais curto, por colinas e atravessando campos. Equilibrada: estradas não muito mais longas, contornando colinas. Estradas: fica nas estradas mesmo quando são mais longas; o caminho mais seguro, não o mais rápido."
+L["Fastest"] = "Mais rápida"
+L["Balanced"] = "Equilibrada"
+L["Roads"] = "Estradas"
 
 -- Nav/Nearby.lua
 L["Profession trainer"] = "Instrutor de profissão"
@@ -346,10 +353,6 @@ L["Flash the taskbar icon"] = "Piscar o ícone na barra de tarefas"
 L["The game's icon flashes while the game is in the background."] = "O ícone do jogo pisca enquanto o jogo está em segundo plano."
 L["Show a sample alert"] = "Mostrar alerta de exemplo"
 L["See the banner and hear the boat's bell."] = "Veja o aviso e ouça o sino do barco."
-
--- Nav/Handoff.lua
-L["Guide with Shortest Path Forever when it's installed"] = "Guiar com Shortest Path Forever quando instalado"
-L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "A seta, a rota e a jornada do Shortest Path Forever levam você a cada objetivo. A seta do Polestar, linhas de rota, etapas da jornada, botão de viagem, alertas de transporte, cliques no mapa e /way saem de cena; a janela do guia e os marcadores no mapa ficam."
 
 -- Quests/Tracker.lua
 L["Done"] = "Feito"
@@ -1313,6 +1316,11 @@ L["Feedback, bug reports and news"] = "Opiniões, relatos de bugs e novidades"
 L["Guides made by other players for Polestar, not our own routes: each community addon is installed like any other addon. Its guides appear in %s under Community guides, credited to their author, who supports them. More in Options > Community guides."] = "Guias feitos por outros jogadores para o Polestar, não nossas rotas: cada addon da comunidade é instalado como qualquer outro addon. Os guias aparecem em %s em Guias da comunidade, creditados ao autor, que dá suporte a eles. Mais em Opções > Guias da comunidade."
 L["Back"] = "Voltar"
 L["Pages"] = "Páginas"
+L["The shortest walk. Cuts across fields and goes straight over hills."] = "O caminho mais curto. Corta pelos campos e sobe direto pelas colinas."
+L["Takes roads when they aren't much longer, and goes round steep hills."] = "Usa estradas quando não são muito mais longas e contorna colinas íngremes."
+L["Stays on roads, even when it's longer. Slower, but easy to follow."] = "Fica nas estradas, mesmo quando é mais longe. Mais lenta, mas fácil de seguir."
+L["How the arrow walks you. You can change it any time in Options."] = "Como a seta guia você. Dá para mudar a qualquer momento em Opções."
+L["Every style keeps you out of the other faction's towns and away from zones far above your level."] = "Todo estilo mantém você fora das cidades da outra facção e longe de zonas muito acima do seu nível."
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Já selecionado: copie com Ctrl+C (Cmd+C no Mac) e aperte Esc."
@@ -1348,7 +1356,7 @@ L["Copy your report with Ctrl+C (Cmd+C on a Mac), switch to Discord and paste it
 L["Get the invite"] = "Pegar o convite"
 L["Report problems, ask for help and hear about new guides first. The invite is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open it in your browser."] = "Relate problemas, peça ajuda e saiba antes de novos guias. O convite já está selecionado: copie com Ctrl+C (Cmd+C no Mac) e abra no navegador."
 L["Report problems, ask for help and hear about new guides first."] = "Relate problemas, peça ajuda e saiba antes de novos guias."
--- L["blocked in %s: %s (%s)"] = ""
+L["blocked in %s: %s (%s)"] = "bloqueado em %s: %s (%s)"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desativado na lista de AddOns"
@@ -1919,6 +1927,13 @@ L["Pursuit of Justice adds run speed. Champion of the Light is left out while th
 L["Twist of Light makes swapping seals cheaper and adds seal echoes; it is Forever's seal-twisting talent."] = "Torção da Luz deixa a troca de selos mais barata e adiciona ecos de selo; é o talento de alternância de selos do Forever."
 L["Spare points go to Divine Strength and Holy's Improved Seals for damage, then Deflection for survival."] = "Pontos extras vão para Força Divina e Selos Aprimorados do Sagrado para dano, depois Deflexão para sobrevivência."
 
+-- Nav/Handoff.lua
+L["Hand guiding to Shortest Path Forever"] = "Passar a guia ao Shortest Path Forever"
+L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay. Off: Polestar guides, and steps aside only while a journey you started in Shortest Path Forever runs."] = "A seta, a rota e a jornada do Shortest Path Forever levam você a cada objetivo. A seta do Polestar, linhas de rota, etapas da jornada, botão de viagem, alertas de transporte, cliques no mapa e /way saem de cena; a janela do guia e os marcadores no mapa ficam. Desligado: o Polestar guia e só sai de cena durante uma jornada iniciada no Shortest Path Forever."
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."
+-- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Integrações) para usar a seta do Polestar."
+-- L["Guide with Shortest Path Forever when it's installed"] = "Guiar com Shortest Path Forever quando instalado"
+-- L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "A seta, a rota e a jornada do Shortest Path Forever levam você a cada objetivo. A seta do Polestar, linhas de rota, etapas da jornada, botão de viagem, alertas de transporte, cliques no mapa e /way saem de cena; a janela do guia e os marcadores no mapa ficam."
 -- L["Browsing the guide needs a gamepad: turn it on in the game's options and plug one in."] = "Navegar pelo guia requer um controle: ative-o nas opções do jogo e conecte um."

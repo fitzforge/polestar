@@ -121,22 +121,36 @@ async function transportTravel(casc) {
 	return out;
 }
 
-// -> [{ col, row, root, obj0 }] of every tile of continent (Map ID) c, from
-// Map.csv WdtFileDataID and the WDT's MAID (8 u32 per tile, index row * 64 +
-// col: root, obj0, obj1, tex0, lod, map texture, map normal, minimap).
-async function continentTiles(casc, c) {
+// The top-level chunks of continent (Map ID) c's WDT, from Map.csv WdtFileDataID.
+async function continentWdt(casc, c) {
 	const row = (await wagoTable(casc, 'Map')).find((r) => num(r.ID) === c);
 	if (!row) throw new Error(`Map ${c}: not in Map.csv (${casc.build})`);
 	const wdt = num(row.WdtFileDataID);
 	if (!wdt) throw new Error(`Map ${c} (${row.MapName_lang}): no WdtFileDataID`);
-	const maid = chunks(await casc.get(wdt)).find((x) => x.tag === 'MAID');
-	if (!maid || maid.data.length < GRID * GRID * 32) throw new Error(`Map ${c}: WDT ${wdt} has no full MAID`);
+	return { fdid: wdt, chunks: chunks(await casc.get(wdt)) };
+}
+
+// -> [{ col, row, root, obj0, tex0 }] of every tile of continent (Map ID) c,
+// from the WDT's MAID (8 u32 per tile, index row * 64 + col: root, obj0,
+// obj1, tex0, lod, map texture, map normal, minimap).
+async function continentTiles(casc, c) {
+	const { fdid, chunks: top } = await continentWdt(casc, c);
+	const maid = top.find((x) => x.tag === 'MAID');
+	if (!maid || maid.data.length < GRID * GRID * 32) throw new Error(`Map ${c}: WDT ${fdid} has no full MAID`);
 	const out = [];
 	for (let i = 0; i < GRID * GRID; i++) {
 		const root = maid.data.readUInt32LE(i * 32);
-		if (root) out.push({ col: i % GRID, row: Math.floor(i / GRID), root, obj0: maid.data.readUInt32LE(i * 32 + 4) });
+		if (root) out.push({ col: i % GRID, row: Math.floor(i / GRID), root, obj0: maid.data.readUInt32LE(i * 32 + 4), tex0: maid.data.readUInt32LE(i * 32 + 12) });
 	}
 	return out;
+}
+
+// -> the MPHD flags of continent c's WDT (0x4 | 0x80: 8-bit 'big' alpha maps).
+async function continentFlags(casc, c) {
+	const { fdid, chunks: top } = await continentWdt(casc, c);
+	const mphd = top.find((x) => x.tag === 'MPHD');
+	if (!mphd || mphd.data.length < 4) throw new Error(`Map ${c}: WDT ${fdid} has no MPHD`);
+	return mphd.data.readUInt32LE(0);
 }
 
 // Growable triangle soup: 9 floats and a kind per triangle.
@@ -279,4 +293,4 @@ async function tileGeometry(casc, { c, col, row, root, obj0 }, { cache = new Map
 	};
 }
 
-module.exports = { continentTiles, tileGeometry, liquidInfo, transportTravel, KIND, LIQUID };
+module.exports = { continentTiles, continentFlags, tileGeometry, liquidInfo, transportTravel, KIND, LIQUID };

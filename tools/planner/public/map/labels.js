@@ -14,6 +14,9 @@ const STYLE = `
 .mv-pill { background: var(--panel); color: var(--text); border: 1px solid var(--border); padding: 2px 7px 3px; font-size: 12px; }
 .mv-handle { border-color: var(--focus); font-weight: 600; }
 .mv-aid { color: var(--nav-aid); font-size: 11px; text-shadow: var(--text-on-art), 0 0 6px var(--shade); }
+.mv-hub { font-size: 11px; font-weight: 600; text-shadow: var(--text-on-art), 0 0 6px var(--shade); }
+.mv-hub.alliance { color: var(--npc); }
+.mv-hub.horde { color: var(--danger); }
 .mv-add { position: absolute; left: -11px; top: -11px; width: 22px; height: 22px; border-radius: 50%;
 	background: var(--scrim); border: 1.5px solid var(--accent); will-change: transform; }
 .mv-add::after { content: ''; position: absolute; inset: 3px; background: var(--accent);

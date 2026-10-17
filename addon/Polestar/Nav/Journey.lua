@@ -767,6 +767,9 @@ if ns.RegisterOptions then
 		controls = {
 			Nav.HandoffOption({ kind = "toggle", key = "nav.mapPlan", label = L["Shift-click a map to go there"],
 				help = L["Shift-click the world map or minimap and the arrow takes you there; Alt-click works over map icons. Click the spot again to clear it."] }),
+			Nav.HandoffOption({ kind = "dropdown", key = "nav.routeStyle", label = L["Route style"],
+				help = L["Fastest: the shortest walk, over hills and across fields. Balanced: roads that aren't much longer, and round hills. Roads: stays on roads even when they're longer; the safest way, not the quickest."],
+				choices = { { value = "fastest", label = L["Fastest"] }, { value = "balanced", label = L["Balanced"] }, { value = "roads", label = L["Roads"] } } }),
 		},
 	})
 	if not ok and geterrorhandler then geterrorhandler()(err) end

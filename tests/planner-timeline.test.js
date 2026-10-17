@@ -354,6 +354,24 @@ test('a flight follows its taxi path points and keeps the flight time', () => {
 	assert.strictEqual(straight.track.m.filter((v) => v === MODES.fly).length, 1);
 });
 
+test('a boat whose ends have board points is walked to and from the decks, not the ships\' stops in the water', () => {
+	const geo = new Geo(fixtureData().mapFrames, fixtureData().zones);
+	const home = geo.toWorld(1429, 48, 42, 'e');
+	const far = geo.toWorld(1429, 52, 90, 'e');
+	const end = (name, w, dx) => ({ name, c: w.c, wx: w.wx, wy: w.wy, map: 1429, x: 0, y: 0, f: 'e', board: { wx: w.wx + dx, wy: w.wy, z: 5.9 } });
+	const travel = {
+		taxi: { nodes: [], legs: [] },
+		transports: [{ id: 'boat-test', kind: 'boat', faction: 3, ab: 1, ba: 1, waitA: 0, waitB: 0, a: end('Near Pier', home, 12), b: end('Far Pier', far, -12) }],
+	};
+	const tl = play(['step Sail', '  goto 48.0,42.0', '  goto 52.0,90.0'], { travel, strict: false });
+	assert.ok(tl.events.some((e) => e.type === 'boat'), 'the boat is taken');
+	const { x, y, m } = tl.track;
+	const near = (k, p) => Math.abs(x[k] - p.wx) < 0.2 && Math.abs(y[k] - p.wy) < 0.2;
+	const boat = m.findIndex((v) => v === MODES.boat);
+	assert.ok(near(boat, travel.transports[0].b.board), `lands on the far deck: ${x[boat]}, ${y[boat]}`);
+	assert.ok(near(boat - 1, travel.transports[0].a.board), `boards from the near deck: ${x[boat - 1]}, ${y[boat - 1]}`);
+});
+
 test('the Dwarf chain plays from Dun Morogh to level 55 or more', { skip: needs('quests.json', 'npcs.json', 'objects.json', 'items.json', 'zones.json', 'map-frames.json', 'travel.json') }, () => {
 	const { compileProject } = require('../tools/lib/dsl/project');
 	const root = path.join(__dirname, '..');

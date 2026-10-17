@@ -176,8 +176,20 @@ local lastDist, closeSpeed = nil, 0
 local pulse = 0
 local showEta = true
 local routeSeen = -1  -- Travel.version the label shows; -1 = the target's own label
+local loneSeen = -1   -- Travel.version a lone walk's warning was last asked for
+local WARN_SECONDS = 8 -- a walk's "Hostile town" warning stays under its step this long
+local warning, warnUntil -- the warning being said (Travel.TakeWarning) and until when (GetTime)
 local style = "3d"    -- nav.arrowStyle
 local shownFrame = -1 -- sheet frame on screen (-1 = none yet)
+
+-- The route's label line: the current leg's instruction, and under it the
+-- walk's "Hostile town" warning while it is being said.
+local function routeLabel(T)
+	local text = T.CurrentLabel() or ""
+	if not warning then return text end
+	return text ~= "" and (text .. "\n" .. warning) or warning
+end
+
 local tintR, tintG, tintB = Nav.RGB("arrow")
 
 -- The ETA / secondary line: text at 80%, a step behind the distance.
@@ -268,7 +280,7 @@ local function setMode(m)
 		distText:SetTextColor(Nav.RGB("text"))
 		etaColor()
 		local T = Nav.travel
-		if T and T.Active() then labelText:SetText(T.CurrentLabel() or "") end
+		if T and T.Active() then labelText:SetText(routeLabel(T)) end
 	end
 end
 
@@ -314,18 +326,38 @@ local function showSeconds(secs)
 end
 
 -- The label line follows the route: the current leg's instruction while a
--- route is active, the target's label otherwise.
+-- route is active, the target's label otherwise. A walk entering the other
+-- faction's towns says so once, as it starts (Travel.TakeWarning), for
+-- WARN_SECONDS: under the step, or under the target's label when the walk
+-- is the whole route.
 local function syncLabel(T, routed)
+	local leg = not routed and T ~= nil and T.CurrentLeg and T.CurrentLeg()
+	local lone = leg and leg.kind == "walk" or false
+	if warning and (not (routed or lone) or GetTime() >= warnUntil) then
+		warning = nil
+		routeSeen = -2
+	end
 	if routed then
 		if T.version ~= routeSeen then
 			routeSeen = T.version
-			labelText:SetText(T.CurrentLabel() or "")
+			local w = T.TakeWarning and T.TakeWarning()
+			if w then warning, warnUntil = w, GetTime() + WARN_SECONDS end
+			labelText:SetText(routeLabel(T))
 			if mode == "instruction" then mode = nil end
 		end
-	elseif routeSeen ~= -1 then
+		return
+	end
+	if lone and T.version ~= loneSeen then
+		loneSeen = T.version
+		local w = T.TakeWarning and T.TakeWarning()
+		if w then warning, warnUntil, routeSeen = w, GetTime() + WARN_SECONDS, -2 end
+	end
+	if routeSeen ~= -1 then
 		routeSeen = -1
 		local target = Nav.GetTarget()
-		labelText:SetText(target and target.label or "")
+		local text = target and target.label or ""
+		if warning then text = text ~= "" and (text .. "\n" .. warning) or warning end
+		labelText:SetText(text)
 	end
 end
 
@@ -509,7 +541,7 @@ end
 
 function Arrow:OnTarget(target)
 	labelText:SetText(target and target.label or "")
-	mode, hasAngle, routeSeen = nil, false, -1
+	mode, hasAngle, routeSeen, loneSeen, warning = nil, false, -1, -1, nil
 	self:Refresh()
 end
 

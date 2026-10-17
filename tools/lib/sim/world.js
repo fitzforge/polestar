@@ -442,10 +442,13 @@ function buildWorld(data, opts = {}) {
 	const rides = [];
 	for (const t of travel.transports || []) {
 		if (!(t.faction & fbit)) continue;
+		// The dock: the deck where a ship lying off its pier is boarded (travel build's `board`), else the stop.
+		const da = t.a.board || t.a;
+		const db = t.b.board || t.b;
 		const a = nodes.length;
-		nodes.push({ kind: 'dock', name: `${t.a.name} (${t.kind})`, pt: addPoint(t.a.c, t.a.wx, t.a.wy, t.a.map) });
+		nodes.push({ kind: 'dock', name: `${t.a.name} (${t.kind})`, pt: addPoint(t.a.c, da.wx, da.wy, t.a.map) });
 		const b = nodes.length;
-		nodes.push({ kind: 'dock', name: `${t.b.name} (${t.kind})`, pt: addPoint(t.b.c, t.b.wx, t.b.wy, t.b.map) });
+		nodes.push({ kind: 'dock', name: `${t.b.name} (${t.kind})`, pt: addPoint(t.b.c, db.wx, db.wy, t.b.map) });
 		rides.push([a, b, t.ab, t.waitA || 0, t.id]);
 		rides.push([b, a, t.ba, t.waitB || 0, t.id]);
 	}

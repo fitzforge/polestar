@@ -76,8 +76,8 @@ Good to know:
 - **Updating:** delete the old Polestar folders, then unzip the new release
   the same way.
 - **Memory:** the arrow's walking routes (`Polestar_Nav`) load after login,
-  never in combat: about 26 MB for the walking maps, and while a walk is being
-  searched up to about 54 MB more for the stretch of map it crosses, released
+  never in combat: about 34 MB for the walking maps, and while a walk is being
+  searched up to about 45 MB more for the stretch of map it crosses, released
   when the search ends. **Walk real paths** (Options, Arrow & routes) off
   never loads them.
 - **Optional:** `Polestar_Recorder-<version>.zip` from the same release
@@ -101,8 +101,8 @@ starting zone (Zephras Isle for the Skyborne included), 62 class guides for
 every class's quest chains, the twelve professions from 1 to 300, 17
 reputations, 7 exploration guides, the Legacy challenges and 64 collectible
 guides, one per mount and per pet. Around the guides it adds a 3D waypoint
-arrow that walks real paths (on Polestar's walking maps, with Shortest Path
-Forever's routing engine by Cillian Berragan) and a travel planner, quest
+arrow that walks real paths (on Polestar's walking maps, with a router that
+started from Shortest Path Forever's by Cillian Berragan) and a travel planner, quest
 markers on the map, an upgrade indicator on item tooltips, a search for where
 any item, mount or pet comes from, a dungeon quest journal, rare alerts and
 the quality-of-life helpers a long leveling session needs. Its interface is
@@ -118,8 +118,9 @@ Other people can publish their own guides for Polestar as community
 addons: separate addons, made and supported by their authors
 ([Community guides](#community-guides)). Each new character's first login opens a short
 welcome: a hello and what Polestar does; on the account's first character,
-quest automation, the guide at login and the colour scheme; then the guide
-Polestar suggests for that character, the Discord and community guides
+quest automation, the guide at login and the colour scheme, then the route
+style (Fastest, Balanced or Roads, with a line on what each does); then the
+guide Polestar suggests for that character, the Discord and community guides
 (`/polestar welcome` shows it again).
 
 > [!NOTE]
@@ -261,13 +262,23 @@ maps of the continents from the game client and wrote a router that finds a
 route over them a couple of milliseconds at a time, so the game never
 stutters. It is beautiful work, and he generously said yes when we asked to
 use it. Polestar's travel planner still picks the flights, boats and
-Hearthstone; his router walks every leg between them.
+Hearthstone; the router that started from his walks every leg between them.
+It keeps to roads where they are not much longer, round steep slopes, and out
+of the other faction's towns; when a walk must enter one (a quest inside
+Southshore for a Horde character), the arrow says "Hostile town: Southshore"
+once as the walk starts, and the walk's journey step reads the same when the
+route has more steps. **Route style** (Options, Guide, Arrow & routes) picks
+how it walks: Fastest takes the shortest way over hills and across fields,
+Balanced (the default) keeps to roads that aren't much longer and goes round
+hills, and Roads stays on roads even when they're longer. Every style keeps
+out of the other faction's towns.
 
-His pathing ships with Polestar as the `Polestar_Nav` folder: his router,
-copied from his repository with only mechanical changes, runs on Polestar's
-own walking maps of Eastern Kingdoms and Kalimdor, made from the game's
-geometry in his map format by a port of his map baker, and on his map of
-Zephras Isle (GPL-3.0-or-later; what came from where is in
+The router ships with Polestar as the `Polestar_Nav` folder. Polestar's
+walking router started from Shortest Path Forever v1.16.0 by Cillian
+Berragan, with thanks; Polestar maintains it since 2026-10-16. It runs on
+Polestar's own walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle,
+made from the game's geometry in a format grown from his by a port of his map
+baker (GPL-3.0-or-later; what came from where is in
 [addon/Polestar_Nav/CREDITS.md](addon/Polestar_Nav/CREDITS.md)).
 **Walk real paths** (Options, Arrow & routes) turns it off. If you like it, try
 his addon:
@@ -275,16 +286,20 @@ his addon:
 plans whole journeys with flights, boats, zeppelins, portals and live
 departure times.
 
-**Works with Shortest Path Forever.** With it installed, Polestar hands it
-the route: each goal goes to Shortest Path Forever, whose arrow, route and
-journey take you there, and Polestar's own arrow, route lines, journey steps,
-travel button, transport alerts, map clicks and `/way` step aside, so the two
-never guide at once (Polestar's walking maps are not even loaded). The guide
-window and the map pins stay. A kill or collect area is handed over as an
-area, so it holds you there until the goal is done; if you clear or replace
-the journey, Polestar leaves it be until the guide moves on. **Guide with
-Shortest Path Forever when it's installed** (Options, Integrations) turns
-it off.
+**Shortest Path Forever: an option.** With it installed, Polestar still
+guides by default. **Hand guiding to Shortest Path Forever** (Options,
+Integrations) hands it the route instead: each goal goes to Shortest Path
+Forever, whose arrow, route and journey take you there, and Polestar's own
+arrow, route lines, journey steps, travel button, transport alerts, map
+clicks and `/way` step aside, so the two never guide at once (Polestar's
+walking maps are not even loaded). The guide window and the map pins stay. A
+kill or collect area is handed over as an area, so it holds you there until
+the goal is done; if you clear or replace the journey, Polestar leaves it be
+until the guide moves on. With the option off, a journey you start in
+Shortest Path Forever itself still wins: Polestar steps aside the same way
+while it runs, and guides again when it ends. If Shortest Path Forever
+finds no way to a goal, or turns its journeys off, Polestar's own arrow
+guides you there instead.
 
 ### Quests and the map
 
@@ -823,7 +838,7 @@ the new zones ([docs/SIMULATION.md](docs/SIMULATION.md), "Refresh").
 | [`addon/Polestar`](addon/Polestar) | The addon: engine, navigation, UI, modules, textures drawn in code ([addon/README.md](addon/README.md); every addon: [docs/ARCHITECTURE.md, "Overview"](docs/ARCHITECTURE.md#overview)) |
 | [`addon/Polestar_Guides`](addon/Polestar_Guides) | The compiled guides (generated by `compile`) |
 | [`addon/Polestar_ItemDB`](addon/Polestar_ItemDB) | Item stats for gear advice: `Items.lua` from `itemdb build`, `Forever.lua` from `gear build` |
-| [`addon/Polestar_Nav`](addon/Polestar_Nav) | The arrow's walking routes: Shortest Path Forever's router by Cillian Berragan (GPL-3.0-or-later), vendored by `nav vendor`, on Polestar's walking maps of Eastern Kingdoms and Kalimdor in his format (`nav pack`) and his map of Zephras Isle ([CREDITS.md](addon/Polestar_Nav/CREDITS.md)) |
+| [`addon/Polestar_Nav`](addon/Polestar_Nav) | The arrow's walking routes: Polestar's walking router, started from Shortest Path Forever's by Cillian Berragan (GPL-3.0-or-later), on Polestar's walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle, grown from his format (`nav pack`; [CREDITS.md](addon/Polestar_Nav/CREDITS.md)) |
 | [`addon/Polestar_Recorder`](addon/Polestar_Recorder) | The optional session recorder |
 | [`guides/forever`](guides/forever) | The guide sources: leveling, professions, reputation, exploration, Legacy, collectibles |
 | [`tools`](tools) | The command line (`polestar.js`), the guide compiler, the simulator, data importers, texture and preview renderers, the playground ([tools/README.md](tools/README.md)) |
@@ -885,10 +900,11 @@ CurseForge avatar are drawn by [`tools/readme`](tools/readme) from the same sour
 Marcellus (SIL Open Font License 1.1) for the banner's lines; the CurseForge
 button's anvil is the CurseForge mark from simple-icons (CC0 1.0).
 
-The walking router in `Polestar_Nav` and its map of Zephras Isle are Shortest
-Path Forever's, by Cillian Berragan, and its maps of Eastern Kingdoms and
-Kalimdor are Polestar's, written in his format by a port of his baker; all of
-it is under the GPL version 3 or later, used with his permission
+The walking router in `Polestar_Nav` started from Shortest Path Forever's, by
+Cillian Berragan, and keeps his copyright in the files that began as his; its
+maps of Eastern Kingdoms, Kalimdor and Zephras Isle are Polestar's, written in
+a format grown from his by a port of his baker; all of it is under
+the GPL version 3 or later, used with his permission
 (see [Pathing by Shortest Path Forever](#pathing-by-shortest-path-forever));
 the guide-pack permission below does not cover them.
 

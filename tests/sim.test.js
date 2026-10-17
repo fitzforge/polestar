@@ -572,3 +572,14 @@ test('robustness summary: win rates, intervals, flip correlations', () => {
 	assert.ok(r.flips[0].rhoDiff > 0.99);
 	assert.ok(Math.abs(spearman([1, 2, 3], [3, 2, 1]) + 1) < 1e-12);
 });
+
+test('a transport end with a board point (a ship lying off its pier) has its dock node on the deck', () => {
+	const d = syn.makeRulesData();
+	const t = d.travel.transports.find((x) => x.id === 'zeppelin-test');
+	t.kind = 'boat';
+	t.a.board = { wx: 912, wy: -100, z: 5.9 };
+	const w = buildWorld(d, { faction: 'Horde', bandWidth: 5, extraStarts: syn.RULES_START });
+	const dock = (name) => w.points[w.nodes.find((n) => n.kind === 'dock' && n.name.startsWith(name)).pt];
+	assert.deepEqual([0, 2, 3].map((i) => dock('Testvale tower')[i]), [1, 912, -100], 'walked to the deck');
+	assert.deepEqual([0, 2, 3].map((i) => dock('Farcoast tower')[i]), [0, 900, -100], 'no board point: the stop');
+});

@@ -26,6 +26,11 @@ next forever/alliance/02-westfall
 # each offered once the one before is done. Rough Wolf Pelts (91751) is for
 # skinners: the pelts are skinned. Furlbrow's Deed (184) is optional: the
 # Westfall Deed is a rare drop from the Defias; it is turned in in Westfall.
+# Croaky's Head (91740) is optional: Croaky, an elite, roams the murloc shore
+# south of the bridge where the second east loop takes the Torn Murloc Fins;
+# the head goes to Merell Ross at Ridgepoint Tower, a short way east. That
+# step's turn-in is plain: the guide stops there only for players who took
+# the quest, and passes it for everyone else.
 #
 # Changes to the simulator's order:
 # - The Adventurer (96627) is taken from Marshal McBride with Report to
@@ -100,13 +105,12 @@ next forever/alliance/02-westfall
 # Left out: An Enchanting Lesson (91753, it needs Enchanting to disenchant
 # the effigies). Rare Books (91777, after Book Return) wants two books from
 # the Jasperlode Mine taken to Brother Paxton in Northshire, off the route.
-# Elmpaw's Head (91746) and Croaky's Head (91740) start from the heads of
-# two named mobs that roam north-east and south-east Elwynn, off the route;
-# Croaky's goes to Ridgepoint Tower. The simulator's Stormwind stop at 6 is
-# for Jennea Cannon's book quests (84397, 84398, 84399, 84402: each needs a
-# book that has no known source, and Wowhead lists them at level 60) and
-# three level 2 deliveries (332, 333, 334): not worth the walk without the
-# books.
+# Elmpaw's Head (91746) starts from the head of Elmpaw, a named elite that
+# roams north-east Elwynn, off the route. The simulator's Stormwind stop at
+# 6 is for Jennea Cannon's book quests (84397, 84398, 84399, 84402: each
+# needs a book that has no known source, and Wowhead lists them at level 60)
+# and three level 2 deliveries (332, 333, 334): not worth the walk without
+# the books.
 
 # ---------------------------------------------------------------- Northshire Valley
 
@@ -485,11 +489,17 @@ step Guard Thomas
   accept 46
 
 step Murlocs and the Collector
-  tip Murloc Foragers and Lurkers line the river south of the bridge. Morgan the Collector, a Defias, walks the Brackwell Pumpkin Patch west of it. Finish the Prowlers and Young Forest Bears on the way.
+  tip Murloc Foragers and Lurkers line the river south of the bridge. Morgan the Collector, a Defias, walks the Brackwell Pumpkin Patch west of it. Finish the Prowlers and Young Forest Bears on the way. Croaky roams the murloc shore too: right-click the head it drops. Croaky is elite: grouping up is advised.
   collect 780 quest 46                        -- Torn Murloc Fins
   collect 2239 quest 147                      -- The Collector's Ring: Morgan the Collector
   kill 118 quest 52                           -- Prowler
   kill 822 quest 52                           -- Young Forest Bear
+  collect 247826 x1 optional                  -- Croaky's Head: Croaky
+  accept 91740 optional
+
+step Ridgepoint Tower
+  tip Merell Ross keeps watch at Ridgepoint Tower, east of the murloc shore. Then head north-west back to the bridge.
+  turnin 91740                                -- Merell Ross
 
 step Guard Thomas
   turnin 46

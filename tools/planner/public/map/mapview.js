@@ -8,8 +8,10 @@
 //   map.fitWorld(c, [[wx, wy], ...], { padding });
 //   map.toScreen(c, wx, wy)          // { x, y } CSS px in the canvas | null (continent not shown)
 //   map.toWorld(sx, sy)              // { c, wx, wy }
-//   map.setLayer(name, on);          // terrain, zoneArt, route, labels, spawns, grid, walkable, aids
+//   map.setLayer(name, on);          // terrain, zoneArt, route, labels, spawns, grid, walkable, roads, hubs, aids
 //   map.setNav({ tiles } | null);     // the Walkable layer's tiles: { [c]: ['col_row'] } (GET /nav/index.json)
+//   map.setRoads({ tiles } | null);   // the Roads layer's tiles: { [c]: ['col_row'] } (GET /nav/roads/index.json)
+//   map.setHubs(hubs | null);         // the Hubs layer (GET /nav/hubs.json): { [c]: [{ id, side, name, disks: [[x, y, r]] }] }
 //   map.setAids(aids | null);         // the arrow aids (GET /nav/aids.json): crossings, chains
 //   map.setRoute([{ c, pts /* Float32Array wx,wy,... */, mode, step, state }]);
 //   map.setScene({ areas, dots, markers, rings });
@@ -46,8 +48,10 @@
 // everything. stats: { path: 's3tc' | 'worker' | null, frameMs (CPU, EMA),
 // tiles }. Constructor options: artBase ('/art'), c (initial continent, 0),
 // compressed (false forces the worker path). Layers default on except
-// zoneArt, grid, walkable and aids; the grid is drawn whenever there is no
-// terrain art. The Walkable layer draws under the route from WALKABLE_ZOOM;
+// zoneArt, grid, walkable, roads, hubs and aids; the grid is drawn whenever there is no
+// terrain art. The Walkable and Roads layers draw under the route from WALKABLE_ZOOM;
+// the Hubs layer under the route too: each hub's disks as translucent circles
+// in its side's colour (Alliance npc blue, Horde danger red), its name at its first disk;
 // the aids draw over it: a crossing as its two ends' rings joined by a long
 // dash, its caption at its middle; a chain as a line through its nodes'
 // rings, its name at its first node and the node captions.
@@ -92,8 +96,10 @@ export class MapView {
 		this.opts = opts;
 		this.artBase = (opts.artBase ?? '/art').replace(/\/$/, '');
 		this.listeners = {};
-		this.layers = { terrain: true, zoneArt: false, route: true, labels: true, spawns: true, grid: false, walkable: false, aids: false };
+		this.layers = { terrain: true, zoneArt: false, route: true, labels: true, spawns: true, grid: false, walkable: false, roads: false, hubs: false, aids: false };
 		this.navTiles = null;
+		this.roadTiles = null;
+		this.hubs = null;
 		this.aids = null;
 		this.mode = 'continent';
 		this.c = Number(opts.c ?? 0);
@@ -177,6 +183,7 @@ export class MapView {
 		this.preview.setColors(this.colors);
 		this.preview.styles.style[8] = 3.25;
 		this.walkable = this.navTiles ? new WalkableTiles(gl, { tiles: this.navTiles, onChange: () => this.requestRender() }) : null;
+		this.roads = this.roadTiles ? new WalkableTiles(gl, { base: '/nav/roads', tiles: this.roadTiles, onChange: () => this.requestRender() }) : null;
 		// the arrow aids: crossings as boat-like long dashes, chains as solid lines, in the aid colour
 		this.aidRoute = new RouteLayer(gl);
 		const aid = this.colors.aid;
@@ -184,7 +191,7 @@ export class MapView {
 		this.circles = new CircleProgram(gl);
 		this.inst = {
 			areas: this.circles.instances(), rings: this.circles.instances(), dots: this.circles.instances(),
-			handles: this.circles.instances(), aidRings: this.circles.instances(),
+			handles: this.circles.instances(), aidRings: this.circles.instances(), hubDisks: this.circles.instances(),
 		};
 		this.inst.pinRings = this.circles.instances();
 		this.markers = new MarkerLayer(gl);
@@ -355,6 +362,20 @@ export class MapView {
 		this.requestRender();
 	}
 
+	setRoads(roads) {
+		this.roadTiles = roads?.tiles || null;
+		this.roads?.dispose();
+		this.roads = this.gl && this.roadTiles ? new WalkableTiles(this.gl, { base: '/nav/roads', tiles: this.roadTiles, onChange: () => this.requestRender() }) : null;
+		this.requestRender();
+	}
+
+	setHubs(hubs) {
+		this.hubs = hubs || null;
+		this._dirty = true;
+		this._overlayDirty = true;
+		this.requestRender();
+	}
+
 	setAids(aids) {
 		this.aids = aids || null;
 		this._dirty = true;
@@ -414,6 +435,7 @@ export class MapView {
 		this.terrain?.dispose();
 		this.zoneArt?.dispose();
 		this.walkable?.dispose();
+		this.roads?.dispose();
 		this.overlay?.dispose();
 		this.listeners = {};
 	}
@@ -680,7 +702,9 @@ export class MapView {
 		if (this.zoneArt && this.layers.zoneArt) more = this.zoneArt.draw(f, this.quad) || more;
 		if (this.layers.grid || !this.terrain || !this.layers.terrain) this.grid.draw(f);
 		if (this.walkable && this.layers.walkable) more = this.walkable.draw(f, this.quad) || more;
+		if (this.roads && this.layers.roads) more = this.roads.draw(f, this.quad) || more;
 		this.circles.drawUnion(f, this.inst.areas);
+		if (this.hubs && this.layers.hubs) this.circles.draw(f, this.inst.hubDisks);
 		if (this.layers.route) this.route.draw(f);
 		if (this.legShown) this.preview.draw(f);
 		if (this.aids && this.layers.aids) {
@@ -790,6 +814,7 @@ export class MapView {
 		this.inst.pinRings.set(rings, kr / CIRCLE_STRIDE);
 		this._rebuildHandles();
 		this._rebuildAids();
+		this._rebuildHubs();
 	}
 
 	// The arrow aids: crossing ends and chain nodes as rings of their radius
@@ -818,6 +843,21 @@ export class MapView {
 			k = circle(d, k, -p.wy + o.ox, -p.wx + o.oy, p.r || 0, 0, pm(aid, 0.1), pm(aid, 0.9), 1.5, 0, 0, 4);
 		}
 		this.inst.aidRings.set(d, k / CIRCLE_STRIDE);
+	}
+
+	// The hostile hubs: every disk of a hub as a translucent circle in its side's colour.
+	_rebuildHubs() {
+		const list = [];
+		for (const [c, hubs] of Object.entries(this.hubs || {})) if (Array.isArray(hubs)) for (const h of hubs) list.push([Number(c), h]);
+		const d = new Float32Array(Math.max(1, list.reduce((n, [, h]) => n + h.disks.length, 0)) * CIRCLE_STRIDE);
+		let k = 0;
+		for (const [c, h] of list) {
+			const o = this._off(c);
+			if (!o) continue;
+			const col = this.token(h.side === 'Horde' ? 'danger' : 'npc');
+			for (const [x, y, r] of h.disks) k = circle(d, k, -y + o.ox, -x + o.oy, r, 0, pm(col, 0.12), pm(col, 0.45), 1, 0, 0, 4);
+		}
+		this.inst.hubDisks.set(d, k / CIRCLE_STRIDE);
 	}
 
 	_handleAt(h) {
@@ -882,6 +922,16 @@ export class MapView {
 			const p = this.toScreen(h.c, h.wx, h.wy);
 			if (!p) continue;
 			items.push({ key: `h:${h.id}`, text: h.label, cls: 'mv-pill mv-handle', x: p.x, y: p.y, anchor: 'pin', r: 12, collide: true });
+		}
+		if (this.hubs && this.layers.hubs) {
+			for (const [c, hubs] of Object.entries(this.hubs)) {
+				if (!Array.isArray(hubs)) continue;
+				for (const h of hubs) {
+					const [x, y] = h.disks[0];
+					const p = this.toScreen(Number(c), x, y);
+					if (p) items.push({ key: `hub:${h.id}`, text: h.name, cls: `mv-hub ${h.side === 'Horde' ? 'horde' : 'alliance'}`, x: p.x, y: p.y, anchor: 'pin', r: 8, collide: true });
+				}
+			}
 		}
 		if (this.aids && this.layers.aids) {
 			const at = (c, wx, wy, key, text) => {
@@ -963,6 +1013,7 @@ export class MapView {
 			this.terrain?.dispose();
 			this.zoneArt?.dispose();
 			this.walkable?.dispose();
+			this.roads?.dispose();
 			this._initGL();
 			this.requestRender();
 		});

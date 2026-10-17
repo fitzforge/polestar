@@ -176,10 +176,11 @@ local function goalTooltip(row)
 	W.Tooltip(row, tooltipAnchor(), goal.text or "", lines)
 end
 
+-- `p`: a goal's or group's place from the step view, its height `z` included.
 local function pointAt(p, label)
 	local nav = ns.Nav
 	if p and p.x and p.map and nav and nav.SetTarget then
-		nav.SetTarget(p.map, p.x, p.y, label, p.f)
+		nav.SetTarget(p.map, p.x, p.y, label, p.f, nil, p.z)
 		GF.UpdateTargets()
 	end
 end
@@ -887,7 +888,7 @@ function GF.TakeBanner()
 		notices.train = nil
 		local t, nav2 = n.trainer, ns.Nav
 		if t and t.map and t.x and nav2 and nav2.SetTarget then
-			nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Class trainer"], t.f, "trainer")
+			nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Class trainer"], t.f, "trainer", t.z)
 		end
 	end
 	GF.Layout()

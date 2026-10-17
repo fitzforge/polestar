@@ -156,7 +156,7 @@ local function updateGoals(world)
 					tip:AddLine(L["Click to point the arrow here"], 0.7, 0.7, 0.7)
 				end,
 				onClick = function(button)
-					if button == "LeftButton" then Nav.SetTarget(goal.map, goal.x, goal.y, text, goal.f) end
+					if button == "LeftButton" then Nav.SetTarget(goal.map, goal.x, goal.y, text, goal.f, nil, goal.z) end
 				end,
 			}
 		end

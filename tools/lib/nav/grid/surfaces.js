@@ -9,7 +9,11 @@
 // block their floor at any depth. Fatigue water (MH2O's deep quads,
 // geom/mh2o.js) is a swim surface that is BLOCKED (SWIM | BLOCKED): never
 // swum, by the route search or the packed maps (decided 2026-10-15, the
-// owner: never route across open sea).
+// owner: never route across open sea). Each entry keeps the steepest
+// terrain triangle of its span (`tslope`) when its surface is terrain, 0 on
+// model and swim surfaces (the walking maps' slope classes; decided
+// 2026-10-16: column-to-column gradients 2.08 yd apart read 32-60° on a face
+// of 51-56° triangles, Raptor Horns in the Barrens).
 
 const {
 	COLUMNS, WALK_MAX, CLIMB_MAX, AGENT_HEIGHT, SWIM_DEPTH, FLAG, MAX_LAYERS,
@@ -33,6 +37,7 @@ function buildSurfaces(hf, geom) {
 	let ceil = new Float32Array(cap);
 	let flags = new Uint8Array(cap);
 	let slope = new Uint8Array(cap);
+	let tslope = new Uint8Array(cap);
 	let n = 0;
 	let dropped = 0;
 	let walkable = 0;
@@ -43,6 +48,7 @@ function buildSurfaces(hf, geom) {
 	const cc = new Float32Array(256);
 	const cf = new Uint8Array(256);
 	const cs = new Uint8Array(256);
+	const ct = new Uint8Array(256);
 	for (let k = 0; k < COLUMNS; k++) {
 		let m = 0;
 		let firstBottom = Infinity;
@@ -60,6 +66,7 @@ function buildSurfaces(hf, geom) {
 			cc[m] = gap;
 			cf[m] = f;
 			cs[m] = sl;
+			ct[m] = hf.kind[s] === 0 ? hf.tslope[s] : 0;
 			m++;
 		}
 		const apply = (type, lz, deep = 0) => {
@@ -77,6 +84,7 @@ function buildSurfaces(hf, geom) {
 				if (lz - cz[e] >= SWIM_DEPTH) {
 					cz[e] = lz;
 					cs[e] = 0;
+					ct[e] = 0;
 					cf[e] = (cf[e] & (FLAG.INDOOR | FLAG.WMO | FLAG.M2 | FLAG.TERRAIN)) | FLAG.SWIM | (type === LIQUID.OCEAN ? FLAG.OCEAN : 0) | (deep ? FLAG.BLOCKED : 0);
 				}
 			} else if (m === 0 || lz < firstBottom) {
@@ -86,11 +94,13 @@ function buildSurfaces(hf, geom) {
 					cc[x] = cc[x - 1];
 					cf[x] = cf[x - 1];
 					cs[x] = cs[x - 1];
+					ct[x] = ct[x - 1];
 				}
 				cz[0] = lz;
 				cc[0] = m ? firstBottom : Infinity;
 				cf[0] = FLAG.SWIM | (type === LIQUID.OCEAN ? FLAG.OCEAN : 0) | (deep ? FLAG.BLOCKED : 0);
 				cs[0] = 0;
+				ct[0] = 0;
 				m++;
 			}
 		};
@@ -114,12 +124,14 @@ function buildSurfaces(hf, geom) {
 			ceil = grow(Float32Array, ceil);
 			flags = grow(Uint8Array, flags);
 			slope = grow(Uint8Array, slope);
+			tslope = grow(Uint8Array, tslope);
 		}
 		for (let x = 0; x < m; x++) {
 			z[n] = cz[x];
 			ceil[n] = cc[x];
 			flags[n] = cf[x];
 			slope[n] = cs[x];
+			tslope[n] = ct[x];
 			if (!(cf[x] & FLAG.BLOCKED)) walkable++;
 			if (cf[x] & FLAG.SWIM) swim++;
 			n++;
@@ -130,7 +142,7 @@ function buildSurfaces(hf, geom) {
 	if (geom.areas) areas.set(geom.areas);
 	const tile = {
 		c: geom.c, col: geom.col, row: geom.row, n, count,
-		z: z.slice(0, n), ceil: ceil.slice(0, n), flags: flags.slice(0, n), slope: slope.slice(0, n), areas,
+		z: z.slice(0, n), ceil: ceil.slice(0, n), flags: flags.slice(0, n), slope: slope.slice(0, n), tslope: tslope.slice(0, n), areas,
 		walls: hf.walls(),
 	};
 	let first = 0;

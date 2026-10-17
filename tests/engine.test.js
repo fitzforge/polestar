@@ -229,6 +229,96 @@ test('goto is done once a later goal in its step is done, without arriving', () 
 	assert.deepEqual(out, { index: 4, goto: 'done', s3: 'done' });
 });
 
+test('a goto that leads into the next step is done once that step\'s quest work is, so work done ahead never sends the player back to the cave mouth (#240)', () => {
+	// Durotar's Burning Blade Coven: the mouth in a step of its own, then the
+	// Medallion inside. Gruko had the Medallion already and was sent back to
+	// the mouth. A mouth ending a step of other work counts the same way; a
+	// goto ahead of a step with no quest work (training, a level) still holds,
+	// and so does one with optional work after it in its own step (the
+	// Wailing Caverns mound), which is where that work is.
+	const COVEN = `
+Polestar.RegisterGuide({ id = "test/coven", pack = "test", title = "Coven", zone = 1429, steps = {
+	{ title = "Zureetha", goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 48.9, y = 41.6 } } },
+	{ title = "Burning Blade Coven", goals = { { t = "goto", map = 1429, x = 20, y = 20, text = "Burning Blade Coven" } } },
+	{ title = "Yarrog", goals = { { t = "kill", target = "Kobold Vermin", npc = 6, count = 10, quest = 7, oi = 1, map = 1429, x = 22, y = 18 } } },
+	{ title = "Familiars", goals = {
+		{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, map = 1429, x = 48.2, y = 42.0 },
+		{ t = "goto", map = 1429, x = 20, y = 20, text = "Burning Blade Coven" },
+	} },
+	{ title = "Pick", goals = { { t = "turnin", quest = 783, title = "A Threat Within", npc = 197, map = 1429, x = 22, y = 18 } } },
+	{ title = "Trainer", goals = { { t = "goto", map = 1429, x = 80, y = 80, text = "Trainer" } } },
+	{ title = "Level", goals = { { t = "level", level = 1 } } },
+	{ title = "Mound", goals = {
+		{ t = "goto", map = 1429, x = 60, y = 60, text = "Mound" },
+		{ t = "kill", target = "Defias Bandit", npc = 116, map = 1429, x = 60, y = 60, optional = true },
+	} },
+	{ title = "Regthar", goals = { { t = "turnin", quest = 783, title = "A Threat Within", npc = 197, map = 1429, x = 62, y = 60 } } },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+`;
+	const [out] = run({
+		guides: COVEN,
+		script: `
+			local w = stub.world
+			E.SetGuide("test/coven"); flush()
+			w.accept(7, { 10 }); flush()
+			local mouth = E.GetStepIndex()
+			w.progress(7, 1, 10); flush()
+			local medallion = { index = E.GetStepIndex(), goto = E.GetStepView(2).goals[1].status }
+			w.accept(783, {}); flush()
+			local familiars = E.GetStepIndex()
+			w.turnIn(783); flush()
+			emit({ mouth = mouth, medallion = medallion, familiars = familiars, trainer = E.GetStepIndex(),
+				mound = E.GetStepView(8).goals[1].status })
+		`,
+	});
+	assert.deepEqual(out, {
+		mouth: 2, // the Medallion not yet in the bags: the mouth holds
+		medallion: { index: 4, goto: 'done' },
+		familiars: 4,
+		trainer: 6,
+		mound: 'pending',
+	});
+});
+
+test('a goto ahead of a step done only through class quests, a skipped step or unavailable quests still holds (#240)', () => {
+	// What counts as the player having been through the next step is what
+	// placement counts (anchorStep): its own quest work. A Warrior who took The
+	// Islander anywhere is not in Orgrimmar (Arathi's zeppelin, Sorek's accept
+	// `only Warrior`); a step the player skipped or one whose only quest the
+	// giver will never offer proves nothing either. The last pair is the control.
+	const STEPS = `
+Polestar.RegisterGuide({ id = "test/evidence", pack = "test", title = "Evidence", zone = 1429, steps = {
+	{ title = "Hold", goals = { { t = "level", level = 60 } } },
+	{ title = "Zeppelin", goals = { { t = "goto", map = 1429, x = 20, y = 20, text = "Zeppelin" } } },
+	{ title = "Sorek", goals = { { t = "turnin", quest = 783, title = "A Threat Within", npc = 197, map = 1429, x = 22, y = 20, only = { classes = { "WARRIOR" } } } } },
+	{ title = "Path", goals = { { t = "goto", map = 1429, x = 30, y = 20, text = "Path" } } },
+	{ title = "Warrior trainer", only = { classes = { "WARRIOR" } }, goals = { { t = "turnin", quest = 783, title = "A Threat Within", npc = 197, map = 1429, x = 32, y = 20 } } },
+	{ title = "Cave", goals = { { t = "goto", map = 1429, x = 40, y = 20, text = "Cave" } } },
+	{ title = "Skipped", goals = { { t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 42, y = 20 } } },
+	{ title = "Dock", goals = { { t = "goto", map = 1429, x = 50, y = 20, text = "Dock" } } },
+	{ title = "Closed", goals = { { t = "accept", quest = 60, title = "Kobold Candles", npc = 253, map = 1429, x = 52, y = 20, closedBy = { 783 } } } },
+	{ title = "Mouth", goals = { { t = "goto", map = 1429, x = 60, y = 20, text = "Mouth" } } },
+	{ title = "Inside", goals = { { t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 62, y = 20 } } },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+`;
+	const [out] = run({
+		guides: STEPS,
+		script: `
+			local w = stub.world
+			E.SetGuide("test/evidence"); flush()
+			E.Goto(7); E.Skip(); flush()
+			w.accept(783, {}); w.turnIn(783); w.accept(7, {}); w.turnIn(7); flush()
+			emit({ skipped = PolestarCharDB.skipped["test/evidence"][7] == true,
+				gotos = { E.GetStepView(2).goals[1].status, E.GetStepView(4).goals[1].status, E.GetStepView(6).goals[1].status,
+				E.GetStepView(8).goals[1].status, E.GetStepView(10).goals[1].status } })
+		`,
+	});
+	assert.equal(out.skipped, true, 'the turn-in after the cave was skipped');
+	assert.deepEqual(out.gotos.map((st) => st === 'done'), [false, false, false, false, true], 'only the goto ahead of quest work everyone does is done');
+});
+
 test('a kill goal with spawn areas points at the area nearest the player, switching only once another is clearly nearer', () => {
 	// Elwynn here is 30 yd per map percent across: the two areas are 600 yd apart, radius 30.
 	const SPOTS = `

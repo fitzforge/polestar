@@ -70,10 +70,10 @@ return {
 	["Keep the branch: {npc:5770} is in {zone:1456}."] = "가지를 보관하세요: {npc:5770}은(는) {zone:1456}에 있습니다.",
 
 	-- Step 14: Tirion Fordring
-	-- {area:2620} Thondroril River · {zone:1423} Eastern Plaguelands
-	["Ride north along the eastern hills; Tirion lives in a small house by the {area:2620}, at the border with the {zone:1423}."] = "동쪽 언덕을 따라 북쪽으로 가세요. 티리온은 {zone:1423}와(과)의 경계, {area:2620} 옆의 작은 집에 삽니다.",
-	-- {zone:1423} Eastern Plaguelands
-	["Tirion's hunts are in the {zone:1423}: keep them for later."] = "티리온의 사냥은 {zone:1423}에서 합니다. 나중을 위해 보관하세요.",
+	-- {npc:1855} Tirion Fordring · {area:2619} Thondroril River · {zone:1423} Eastern Plaguelands
+	["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "동쪽 언덕을 따라 북쪽으로 가세요. {npc:1855}은(는) {zone:1423}와(과)의 경계, {area:2619} 옆의 작은 집에 삽니다.",
+	-- {npc:1855} Tirion Fordring · {zone:1423} Eastern Plaguelands
+	["{npc:1855}'s hunts are in the {zone:1423}: keep them for later."] = "{npc:1855}의 사냥은 {zone:1423}에서 합니다. 나중을 위해 보관하세요.",
 
 	-- Step 15: Kirsta Deepshadow
 	-- {area:192} Northridge Lumber Camp · {npc:11610} Kirsta Deepshadow

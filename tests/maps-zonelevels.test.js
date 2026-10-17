@@ -88,13 +88,23 @@ test('the generated Lua registers the ranges and the addon colours them for the 
 				assert(loadfile(${JSON.stringify(file)}))("Polestar", Polestar)
 				local M = Polestar.Maps
 				local lo, hi = M.GetZoneLevels(1)
+				local each, agree = {}, true
+				for id, a, b in M.EachZoneLevels() do
+					each[#each + 1] = id
+					local x, y = M.GetZoneLevels(id)
+					if x ~= a or y ~= b then agree = false end
+				end
+				table.sort(each)
+				local hasTwo = false
+				for _, id in ipairs(each) do if id == 2 then hasTwo = true end end
 				emit({ lo = lo, hi = hi, none = M.GetZoneLevels(2) or false, text = M.FormatLevels(lo, hi),
 					colors = { M.LevelColor(lo, hi, 5), M.LevelColor(lo, hi, 9), M.LevelColor(lo, hi, 12),
-						M.LevelColor(lo, hi, 22), M.LevelColor(lo, hi, 40) } })`,
+						M.LevelColor(lo, hi, 22), M.LevelColor(lo, hi, 40) }, hasOne = each[1] == 1, hasTwo = hasTwo, agree = agree })`,
 		}).emitted;
 		assert.deepEqual(out, {
 			lo: 10, hi: 19, none: false, text: '10–19',
 			colors: ['danger', 'warning', 'quest', 'success', 'textMuted'],
+			hasOne: true, hasTwo: false, agree: true,
 		});
 	} finally {
 		fs.rmSync(file, { force: true });

@@ -20,7 +20,7 @@ const { checkLocation } = require('./places');
 const { blockingPrereqs } = require('../data/prereqs');
 const { clusterPoints, scaleOf } = require('../questdb/cluster');
 const { groupOf, isElite, hostileTo } = require('./group');
-const { goalHeight } = require('./heights');
+const { goalHeight, spotHeight } = require('./heights');
 const { goalArea, goalNode, goalInnkeeper } = require('./places');
 
 // A collect's sources are named only for an item that few creatures or
@@ -1225,13 +1225,15 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			const kind = v === 'kill' ? 'kill' : v === 'collect' ? 'item' : v === 'interact' ? 'object' : null;
 			const id = v === 'kill' ? g.npc : v === 'interact' ? g.object : g.item;
 			// `quest Q.O` naming an objective of the same kind for another
-			// target: progress and count would follow that one.
+			// target: progress and count would follow that one. When the target
+			// is another objective of the quest, the index is swapped, which is
+			// always wrong: an error (#214 shipped two that a warning let pass).
 			const named = oi !== undefined && kind && id !== undefined ? data.questObjectives(g.quest)[oi - 1] : null;
 			if (named && named.kind === kind && named.id != null && named.id !== id) {
 				const right = objectiveFor(q, kind, id);
 				const noun = v === 'kill' ? 'npc' : v === 'interact' ? 'object' : 'item';
 				const own = right ? data.questObjectives(g.quest)[right - 1] : null;
-				warn(
+				(right ? err : warn)(
 					ln,
 					`${objectiveLabel(g.quest, named).replace(/^(\S+) = /, 'quest $1 is ')}, not this ${noun}${own ? `; ${own.name || `${noun} ${id}`} is ${g.quest}.${right}` : ''}`,
 					right ? `write \`quest ${g.quest}.${right}\`, or \`quest ${g.quest}\` to take the index from the ${noun}` : `its objectives: ${listed()}`,
@@ -1363,8 +1365,10 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	setIf(goal, 'group', groupOf(goal, g.group, ctx.sides, data));
 	setIf(goal, 'only', onlyOf(g.only));
 	setIf(goal, 'note', g.note);
-	// The height of the NPC or object the goal's point stands for (heights.js).
+	// The height of the NPC or object the goal's point stands for, and of each
+	// of its spawn spots (heights.js).
 	setIf(goal, 'z', goalHeight(data, goal));
+	for (const s of goal.spots || []) setIf(s, 'z', spotHeight(data, goal, s));
 	// The area its place name stands for, and a getfp's or fly's taxi node
 	// (places.js), for the factions its races can be (a Tauren-only step: Horde).
 	setIf(goal, 'area', goalArea(data, goal));

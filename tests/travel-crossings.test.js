@@ -146,7 +146,7 @@ test('the local crossings file builds Polestar_Travel (never TravelData.lua), an
 
 		// The CLI writes the addon where it is told and reports the counts.
 		const cli = spawnSync(process.execPath, [
-			path.join(ROOT, 'tools', 'polestar.js'), 'travel', 'build', '--offline', '--shipped', 'none', '--data', path.join(FIX, 'data'), '--recordings', path.join(FIX, 'recordings'),
+			path.join(ROOT, 'tools', 'polestar.js'), 'travel', 'build', '--offline', '--shipped', 'none', '--grid', 'none', '--data', path.join(FIX, 'data'), '--recordings', path.join(FIX, 'recordings'),
 			'--sources', path.join(FIX, 'sources'), '--crossings', CROSSINGS, '--json', path.join(dir, 'cli.json'), '--lua', path.join(dir, 'Cli.lua'),
 			'--travel-addon', path.join(dir, 'CliTravel'),
 		], { encoding: 'utf8' });

@@ -15,7 +15,8 @@
 --       read as nothing: a broken install), else Data.Pack's reason ("interface_version", "error"...)
 --   Nearby.Go(kind, line) -> true | false   points the arrow there, says so in one line
 --   Nearby.Rank(places, here, estimate) -> place, seconds   pure, for the tests
---   place = { id, name, map, x, y, f }
+--   place = { id, name, map, x, y, f, z? }   z: the class trainer's height (Core/ClassTrainers.lua);
+--           the Codex's places carry none
 --
 -- Data: the Codex's NPC roles (Polestar_Codex, loaded on demand, never in
 -- combat), faction-filtered, outside instances; profession trainers by skill
@@ -244,7 +245,7 @@ function Nearby.Find(key, line)
 		local E = ns.Engine
 		local t = E and E.NearestClassTrainer and E.NearestClassTrainer()
 		if t then
-			local place = { id = t.npc, name = t.npcName, map = t.map, x = t.x, y = t.y, f = t.f }
+			local place = { id = t.npc, name = t.npcName, map = t.map, x = t.x, y = t.y, f = t.f, z = t.z }
 			return place, estimate(place)
 		end
 	end
@@ -286,7 +287,7 @@ function Nearby.Go(key, line)
 		end
 		return false
 	end
-	if not Nav.SetTarget(place.map, place.x, place.y, place.name, place.f, BY_KEY[key].stop) then return false end
+	if not Nav.SetTarget(place.map, place.x, place.y, place.name, place.f, BY_KEY[key].stop, place.z) then return false end
 	local zone = ns.Compat.GetMapName(place.map) or "?"
 	local Q = ns.QoL
 	local time = seconds and Q and Q.Duration and Q.Duration(seconds)

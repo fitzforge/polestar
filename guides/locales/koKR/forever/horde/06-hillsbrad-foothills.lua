@@ -123,8 +123,8 @@ return {
 	["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "길을 따라 남쪽의 {area:359} 드워프 발굴지로 가세요. {npc:3421}은(는) 발굴지 남쪽 가장자리에 숨어 있고, {object:3646}은(는) 발굴 구덩이 바닥에 있습니다.",
 
 	-- Step 26: Great Lift
-	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift
-	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:1718}."] = "바엘 모단 남서쪽, {area:1718} 꼭대기에서 {npc:12576}이(가) 기다립니다.",
+	-- {npc:12576} Grish Longrunner · {area:485} Great Lift
+	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:485}."] = "바엘 모단 남서쪽, {area:485} 꼭대기에서 {npc:12576}이(가) 기다립니다.",
 
 	-- Step 27: Merchant Coast
 	-- {area:378} Camp Taurajo · {area:392} Ratchet · {quest:874} Mahren Skyseer

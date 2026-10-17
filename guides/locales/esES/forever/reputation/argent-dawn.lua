@@ -18,15 +18,15 @@ return {
 	-- Step 2: Argent Dawn Commission (Horde)
 	-- {quest:5401} Argent Dawn Commission
 	["{quest:5401} (Horde)"] = "{quest:5401} (Horda)",
-	-- {object:2160} The Argent Dawn · {npc:10839} Argent Officer Garush · {area:813} The Bulwark · {quest:5401} Argent Dawn Commission
-	["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:813} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160} empieza en Neutral. Acepta la Comisión de {npc:10839} en {area:813} y llévala puesta: en Classic, las Piedras de la Plaga solo caen mientras llevas equipado el abalorio de {quest:5401}. La ventaja de Legado Diplomático de Forever aumenta la reputación obtenida.",
+	-- {object:2160} The Argent Dawn · {npc:10839} Argent Officer Garush · {area:152} The Bulwark · {quest:5401} Argent Dawn Commission
+	["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160} empieza en Neutral. Acepta la Comisión de {npc:10839} en {area:152} y llévala puesta: en Classic, las Piedras de la Plaga solo caen mientras llevas equipado el abalorio de {quest:5401}. La ventaja de Legado Diplomático de Forever aumenta la reputación obtenida.",
 
 	-- Step 3: Minion's Scourgestones to Friendly
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
 	["Minion's Scourgestones to Friendly"] = "Piedras de la Plaga de esbirro hasta Amistoso",
-	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {area:813} The Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {item:12844} Argent Dawn Valor Token
+	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {area:152} The Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {item:12844} Argent Dawn Valor Token
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
-	["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:813}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "Necrófagos y esqueletos por todas {zone:1422} sueltan Piedras de la Plaga de esbirro aproximadamente la mitad de las veces; esta zona está muy poblada. Entrégalas de 20 en 20 a cualquier oficial Argenta (Purocorazón en {area:3197}, Garush en {area:813}, {npc:11039} en {area:2268}). Cada entrega también da una {item:12844} para los intendentes Argenta.",
+	["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:152}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "Necrófagos y esqueletos por todas {zone:1422} sueltan Piedras de la Plaga de esbirro aproximadamente la mitad de las veces; esta zona está muy poblada. Entrégalas de 20 en 20 a cualquier oficial Argenta (Purocorazón en {area:3197}, Garush en {area:152}, {npc:11039} en {area:2268}). Cada entrega también da una {item:12844} para los intendentes Argenta.",
 
 	-- Step 4: Invader's Scourgestones to Honored
 	-- plural, as words: Invader's Scourgestones = {item:12841} Invader's Scourgestone

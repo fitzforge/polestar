@@ -397,10 +397,11 @@ function twoItemData() {
 	return new Data({ quests, npcs: base.npcs, objects: base.objects, items, zones: base.zones, 'map-frames': base.mapFrames, meta: base.meta }, { dir: base.dir });
 }
 
-test('an objective index that names another item warns and says which index is the item\'s', () => {
+test('an objective index that names another objective of the quest is an error that says which index is the item\'s', () => {
 	const src = guideText(['step S', '  accept 9700', '  collect 95101 quest 9700.1', '  collect 95100 quest 9700.1', '  turnin 9700']);
 	const r = compile(src, twoItemData());
-	const d = r.diag.warnings.filter((x) => /9700\.1 is/.test(x.message));
+	assert.equal(r.diag.warnings.filter((x) => /9700\.1 is/.test(x.message)).length, 0, 'a swapped index is not only a warning');
+	const d = r.diag.errors.filter((x) => /9700\.1 is/.test(x.message));
 	assert.equal(d.length, 1, 'only the line whose item is not objective 1');
 	assert.equal(d[0].line, lineOf(src, '  collect 95101 quest 9700.1'));
 	assert.equal(d[0].message, 'quest 9700.1 is collect Elite Tusk x6, not this item; Kobold Tusk is 9700.2');

@@ -16,7 +16,8 @@ const path = require('node:path');
 const { needs } = require('./helpers/data');
 const { compileSources, OFFICIAL_DIR } = require('../tools/lib/dsl/project');
 const { loadData } = require('../tools/lib/dsl/data');
-const { DATA } = require('../tools/lib/paths');
+const { DATA, SOURCES } = require('../tools/lib/paths');
+const { loadWowhead } = require('../tools/lib/codex/wowhead');
 const { runAddon } = require('./helpers/lua');
 const { writeTestPack } = require('./helpers/dsl');
 const { buildSimPack, playGuide, SIMULATE } = require('../tools/lib/playtest');
@@ -47,10 +48,10 @@ function compiled(guide) {
 function goals(guide) {
 	return compiled(guide).steps.flatMap((step, s) => step.goals.map((goal) => ({ step, goal, s: s + 1 })));
 }
-// Every guide of ours, as paths relative to guides/.
+// Every guide of ours, as paths relative to guides/ with forward slashes.
 function allGuides() {
 	const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(dir, e.name)) : e.name.endsWith('.guide') ? [path.join(dir, e.name)] : []));
-	return walk(path.join(OFFICIAL_DIR, 'forever')).map((file) => path.relative(OFFICIAL_DIR, file));
+	return walk(path.join(OFFICIAL_DIR, 'forever')).map((file) => path.relative(OFFICIAL_DIR, file).split(path.sep).join('/'));
 }
 
 // Index of the first goal matching, asserted present.
@@ -104,7 +105,6 @@ test(`${DUROTAR}: Tom's report: the arrow's last waypoint before Kzan Thornslash
 const CAVES = [
 	// Thazz'ril's Pick and Yarrog Baneshadow: "Go in the cave (45 56)".
 	{ cave: 'the Burning Blade Coven (the pick)', guide: DUROTAR, target: (g) => g.t === 'collect' && g.item === 16332, mouth: { map: 1411, x: 45, y: 56 } },
-	{ cave: 'the Burning Blade Coven (Yarrog)', guide: DUROTAR, target: (g) => g.t === 'collect' && g.item === 4859, mouth: { map: 1411, x: 45, y: 56 } },
 	{ cave: 'Skull Rock', guide: DUROTAR, target: (g) => g.t === 'collect' && g.item === 4871, mouth: { map: 1411, x: 55, y: 10 } },
 	// The troll cave's mouth as marked in game (thmastin, PR #16); Wowhead's comments put it at 26,79.
 	{ cave: 'the Coldridge troll cave', guide: DUN_MOROGH, target: (g) => g.t === 'collect' && g.item === 2004, mouth: { map: 1426, x: 26.93, y: 80.03 } },
@@ -125,6 +125,21 @@ for (const c of CAVES) {
 		assert.deepEqual({ t, map, x, y }, { t: 'goto', ...c.mouth }, `the waypoint before "${list[i].step.title}" is the mouth`);
 	});
 }
+
+// --- Durotar (Gruko, #240): the Burning Blade Coven in one trip. Vile Familiars
+// is handed in and Burning Blade Medallion taken first, so Yarrog comes right
+// after Thazz'ril's Pick inside the cave instead of a walk back to the Den and in again.
+test(`${DUROTAR}: Gruko's report (#240): Thazz'ril's Pick and Yarrog are done on one trip into the Burning Blade Coven, for every class`, { skip }, () => {
+	const all = goals(DUROTAR);
+	for (const cls of ['WARRIOR', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK']) {
+		const list = all.filter(forClass(cls));
+		const pick = at(list, "Thazz'ril's Pick", (g) => g.t === 'collect' && g.item === 16332);
+		const yarrog = at(list, 'the Burning Blade Medallion', (g) => g.t === 'collect' && g.item === 4859);
+		assert.ok(at(list, 'accept 794 (Burning Blade Medallion)', is('accept', 794)) < pick, `${cls}: the Medallion is taken before the cave`);
+		assert.ok(pick < yarrog, `${cls}: the pick, then Yarrog`);
+		assert.deepEqual(list.slice(pick + 1, yarrog).filter(located).map(({ goal }) => `${goal.t} ${goal.quest || goal.text}`), [], `${cls}: nothing outside the cave between the pick and Yarrog`);
+	}
+});
 
 // --- The starting glens: one delivery quest no longer sends you off and back.
 
@@ -373,9 +388,11 @@ test(`${DUROTAR}: AndarKerran's report: A Pain in the Neck is not offered to a T
 	]);
 	// Hidden ("na", like another class's goals), not offered and then skipped.
 	assert.deepEqual(painInTheNeck(), ['accept na', 'complete na', 'turnin na']);
-	const offered = ['accept pending', 'complete pending', 'turnin pending'];
+	// An enchanter is offered it. Its accept is optional, so the complete and
+	// the turn-in are theirs only once they take it (#221).
+	const offered = ['accept pending', 'complete na', 'turnin na'];
 	assert.deepEqual(painInTheNeck({ skills: 'w.skills[333] = { name = "Enchanting", rank = 1, maxRank = 75 }' }), offered);
-	// Learning Enchanting during the session brings them back.
+	// Learning Enchanting during the session brings the accept back.
 	assert.deepEqual(painInTheNeck({ after: 'stub.world.learnSkill(333, "Enchanting", 1, 75)' }), offered);
 });
 
@@ -448,13 +465,14 @@ test(`${BARRENS}: Fitz's report: Jorn Skyseer is passed by while The Angry Scyth
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),
 // Bandarion Keep (whiteswag, #128) and Linnea's second Rear Guard Patrol (#51)
 // in Tirisfal, Alther's Mill in Redridge (#126's report), The State of the
-// Mines in Westfall (SouthernStyleSims, #143) and Scout Support in Hillsbrad
-// (Taako, #148). The #128 sweep against the Forever quest chains found Quinn's
-// potions in Silverpine (Wild Eyes and Return to Quinn (Again) after Return
-// to Quinn) and, at 30-40, Bloom of the Heavens, Sentiments of the Lost,
-// Shared Fury and Friend of the Kirin Tor, each taken without the part before
-// it. Each accept comes after every quest it follows is handed in; the
-// optional ones may be left out, never taken early.
+// Mines in Westfall (SouthernStyleSims, #143), Scout Support in Hillsbrad
+// (Taako, #148) and Stopping the Cycle in the Wetlands (#51). The #128 sweep
+// against the Forever quest chains found Quinn's potions in Silverpine (Wild
+// Eyes and Return to Quinn (Again) after Return to Quinn) and, at 30-40, Bloom
+// of the Heavens, Sentiments of the Lost, Shared Fury and Friend of the Kirin
+// Tor, each taken without the part before it. Each accept comes after every
+// quest it follows is handed in; the optional ones may be left out, never
+// taken early.
 
 const WESTFALL = 'forever/alliance/02-westfall.guide';
 const REDRIDGE = 'forever/alliance/04-redridge-mountains.guide';
@@ -482,6 +500,7 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[SILVERPINE, 91921, [91920], true],
 		[HILLSBRAD_ALLIANCE, 98209, [98208], true],
 		[HILLSBRAD_ALLIANCE, 88758, [88757], true],
+		[HILLSBRAD_ALLIANCE, 98297, [98291], true],
 		[ASHENVALE_30, 98418, [98417], true],
 		[ARATHI, 92459, [92458], true],
 		// The #51 sweep: Holy Diver after all nine beached remains, Ivar the
@@ -555,6 +574,21 @@ test(`${DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is t
 	const handIn = at(list, 'turnin 4723', is('turnin', 4723));
 	assert.equal(list[handIn].step, list[at(list, 'turnin 4722', is('turnin', 4722))].step, 'handed in with 4722');
 	assert.ok(handIn < at(list, 'accept 4728', is('accept', 4728)), 'before the second loop');
+});
+
+test(`${TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to Dolanaar that passes Zenn (#89)`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const take = at(list, "accept 488 (Zenn's Bidding)", is('accept', 488));
+	assert.ok(at(list, 'accept 2159 (Porthannius, leaving Shadowglen)', is('accept', 2159)) < take, 'after Porthannius');
+	assert.ok(take < at(list, 'turnin 96630 (Lyreena Duskblade in Dolanaar)', is('turnin', 96630)), 'before the first Dolanaar stop');
+});
+
+const BADLANDS = 'forever/alliance/30-40/06-badlands.guide';
+test(`${BADLANDS}: the same pattern as #89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it`, { skip }, () => {
+	const list = goals(BADLANDS);
+	const take = at(list, 'accept 6027 (Book of the Ancients)', is('accept', 6027));
+	assert.ok(at(list, 'accept 1454 (Nijel\'s Point)', is('accept', 1454)) < take, 'after Nijel\'s Point');
+	assert.ok(take < at(list, "turnin 1454 (Karnitol's Chest)", is('turnin', 1454)), 'before the chest');
 });
 
 // The same pattern elsewhere: a quest taken where the route already stands,
@@ -1066,4 +1100,159 @@ test('#171: every hearth is to an inn the guide binds at first', { skip }, () =>
 		}
 	}
 	assert.deepEqual(offenders, [], 'hearths to an inn the guide has not bound at');
+});
+
+// --- Croaky's Head (Syfin, #221): Croaky, a named elite, roams the murloc
+// shore south of the Eastvale bridge, where the second east loop collects the
+// Torn Murloc Fins. Its head starts Croaky's Head for Merell Ross at
+// Ridgepoint Tower, a short way east. The loot and the accept are optional
+// goals of the murloc step; the turn-in is a plain goal of a Ridgepoint Tower
+// step, which holds only a player who took the quest (an optional accept
+// vouches for nobody who did not).
+
+test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head`, { skip }, () => {
+	const pack = buildSimPack([ELWYNN]);
+	try {
+		const g = pack.guides[0];
+		data = data || loadData(DATA);
+		const [x, y] = data.npcs[248277].spawns[1429].pts[0];
+		// Recorded from the simulated player's own actions, once the engine has
+		// settled: the first Torn Murloc Fin (the murloc step is live; with the
+		// head, it is looted and right-clicked there), and any hand-in of
+		// Croaky's Head (the step it is handed in from, and where the arrow
+		// leads). The game takes no turn-in for a quest the player does not hold.
+		const watch = (head) => `
+			local E, w = Polestar.Engine, stub.world
+			local murlocs, ridge = false, false
+			local progress, turnIn = w.progress, w.turnIn
+			w.progress = function(q, ...)
+				if q == 46 and not murlocs then
+					murlocs = {}
+					if ${head} then
+						w.addItem(247826, 1)
+						w.accept(91740, {}, "Croaky's Head")
+						stub.advance(0.6)
+					end
+					for _, v in ipairs(E.GetStepView(E.GetStepIndex()).goals) do
+						if v.quest == 91740 or v.item == 247826 then murlocs[#murlocs + 1] = v.t .. " " .. tostring(v.optional) end
+					end
+				end
+				return progress(q, ...)
+			end
+			w.turnIn = function(q, ...)
+				if q == 91740 then
+					local i, wp = E.GetStepIndex(), E.GetWaypoint()
+					ridge = { title = E.GetStepView(i).title, status = E.GetStepView(i).goals[1].status, wp = wp and { map = wp.map, x = wp.x, y = wp.y } or false }
+					if not w.log[q] then return end
+				end
+				return turnIn(q, ...)
+			end
+			${SIMULATE}
+			local view
+			for i, s in ipairs(SIM_GUIDE.steps) do if s.title == "Ridgepoint Tower" then view = E.GetStepView(i).goals[1].status end end
+			emit({ murlocs = murlocs, ridge = ridge, later = view or false, done = C_QuestLog.IsQuestFlaggedCompleted(91740) })`;
+		for (const head of [false, true]) {
+			const [out, got] = playGuide(pack, g, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', script: watch(head) });
+			const who = head ? 'with the head' : 'without the head';
+			assert.equal(out.stuck, undefined, `${who}: not stuck: ${JSON.stringify(out.stuck)}`);
+			assert.ok(out.done, `${who}: plays to the end`);
+			assert.deepEqual(got.murlocs, ['collect true', 'accept true'], `${who}: the head and its accept are optional goals of the murloc step`);
+			assert.equal(got.done, head, `${who}: Croaky's Head ${head ? 'is' : 'is not'} handed in`);
+			if (head) {
+				assert.equal(got.ridge && got.ridge.title, 'Ridgepoint Tower', 'with the head: handed in at the Ridgepoint Tower step');
+				assert.equal(got.ridge.status, 'active', 'the turn-in holds the step');
+				assert.ok(got.ridge.wp && yards(got.ridge.wp, { map: 1429, x, y }) <= 5, `the arrow leads to Merell Ross at Ridgepoint Tower: ${JSON.stringify(got.ridge.wp)}`);
+				assert.equal(got.later, 'done');
+			} else {
+				assert.equal(got.ridge, false, 'without the head: Ridgepoint Tower is passed, nothing is handed in there');
+				assert.equal(got.later, 'na', "without the head: the turn-in is not this player's");
+			}
+		}
+	} finally {
+		pack.dispose();
+	}
+});
+
+// --- A goal on a neighbour's map (#246): Kadrak stands at the Mor'shan
+// Rampart, in the Barrens (Wowhead Forever; AreaTable puts the Rampart, 1703,
+// under the Barrens), where the Barrens and Ashenvale maps overlap. The step's
+// `zone Ashenvale` put him on Ashenvale's map, so the travel planner took him
+// for a target in Ashenvale and sent players on the Gold Road through the
+// zone crossing to its Ashenvale end, 110 yd past him, and back.
+const STONETALON_HORDE = 'forever/horde/05-stonetalon-mountains.guide';
+
+test(`${STONETALON_HORDE}: #246: Kadrak's goals are on the Barrens' map, and the Ashenvale steps after them on Ashenvale's`, { skip }, () => {
+	const list = goals(STONETALON_HORDE);
+	const kadrak = [is('turnin', 6541), is('accept', 6543), is('turnin', 6543)].map((p, i) => list[at(list, `Kadrak goal ${i + 1}`, p)].goal);
+	for (const g of kadrak) assert.equal(g.map, 1413, `${g.t} ${g.quest} is on The Barrens (1413), not ${g.map}`);
+	const scout = list[at(list, 'the Warsong Scout Update', (g) => g.t === 'collect' && g.item === 16764)].goal;
+	assert.equal(scout.map, 1440, 'the Warsong Scout is still in Ashenvale');
+});
+
+// Tirion's quests have two givers in the data: Tirion Fordring (1855) at his
+// hut on the Thondroril, and Lord Tirion Fordring (12126), who stands in
+// Hearthglen only during the In Dreams event. On Western Plaguelands' map the
+// compiler picked the one spawned there, 12126, and sent players into the
+// Scarlet town (the Alliance Western Plaguelands and Horde Felwood guides).
+test('#246: every goal with Tirion leads to Tirion Fordring at his hut, never to Lord Tirion Fordring in Hearthglen', { skip }, () => {
+	const tirion = [5542, 5543, 5544, 5742, 5781];
+	const found = [];
+	for (const guide of allGuides()) {
+		for (const { step, goal } of goals(guide)) {
+			if (!tirion.includes(goal.quest) || !['accept', 'turnin'].includes(goal.t)) continue;
+			found.push(`${guide} ${goal.t} ${goal.quest}`);
+			const picked = { npc: goal.npc, map: goal.map };
+			assert.deepEqual(picked, { npc: 1855, map: 1423 }, `${guide} (step ${step.title}) ${goal.t} ${goal.quest}: Tirion Fordring on the Eastern Plaguelands' map`);
+		}
+	}
+	for (const guide of ['forever/alliance/50-60/04-western-plaguelands.guide', 'forever/horde/50-60/02-felwood.guide']) {
+		for (const q of [5542, 5543, 5544]) assert.ok(found.includes(`${guide} accept ${q}`), `${guide} takes ${q} from Tirion`);
+	}
+});
+
+// The same pattern everywhere: where the zone maps overlap, the data spawns an
+// NPC or object at one spot on both maps, and the step's zone picks the map.
+// A goal on the map of a zone Wowhead Forever does not list it in, while the
+// data has it at that spot on a map of one Wowhead lists, routes the player
+// standing beside it through the crossing to the other zone and back (the
+// travel planner takes the target's zone from its map). Drops count when no
+// dropper is listed in the goal's zone. Needs Wowhead Forever's list cache
+// (data/sources/wowhead/codex, `polestar codex build`).
+const NEIGHBOUR_MAP = new Set([
+	// The optional hand-in at Garush shares a step with the Alliance's at Pureheart in Western Plaguelands.
+	'forever/reputation/argent-dawn.guide talk npc 10839',
+]);
+const wowheadLists = fs.existsSync(path.join(SOURCES, 'wowhead', 'codex', 'lists', 'npc.json'));
+
+test('#246: no NPC or object goal is on a neighbouring zone\'s map where the two maps overlap', { skip: skip || (!wowheadLists && 'no Wowhead Forever list cache (data/sources/wowhead/codex/lists)') }, () => {
+	const wh = loadWowhead(SOURCES).listed;
+	data = data || loadData(DATA);
+	const area = (map) => data.zone(map) && data.zone(map).areaId;
+	const world = (map, x, y, f) => {
+		const fr = (f === 'e' ? data.mapFrames.era : data.mapFrames.forever || {})[map] || data.eraFrame(map);
+		return fr && { c: fr.c, wx: fr.top + ((fr.bottom - fr.top) * y) / 100, wy: fr.left + ((fr.right - fr.left) * x) / 100 };
+	};
+	const listedIn = (kind, id) => (wh[kind] && wh[kind][id] && wh[kind][id].location) || [];
+	const offenders = [];
+	for (const guide of allGuides()) {
+		for (const { step, goal } of goals(guide)) {
+			if (goal.map == null || goal.x == null) continue;
+			let sources = ['npc', 'object'].filter((k) => typeof goal[k] === 'number').map((k) => [k, goal[k]]);
+			if (!sources.length && goal.t === 'collect' && goal.item) {
+				const drops = (data.item(goal.item) || {}).drops || {};
+				sources = ['npc', 'object'].flatMap((k) => Object.keys(drops[k] || {}).map((id) => [k, Number(id)]));
+			}
+			const zone = area(goal.map);
+			if (!sources.length || sources.some(([k, id]) => listedIn(k, id).length === 0 || listedIn(k, id).includes(zone))) continue;
+			const points = [goal, ...(goal.spots || [])].map((p) => world(goal.map, p.x, p.y, goal.f)).filter(Boolean);
+			const elsewhere = sources.some(([k, id]) => data.spawns(k, id).some((s) => s.map !== goal.map && listedIn(k, id).includes(area(s.map))
+				&& s.pts.some((p) => {
+					const w = world(s.map, p[0], p[1], s.f);
+					return w && points.some((g) => g.c === w.c && Math.hypot(g.wx - w.wx, g.wy - w.wy) <= 60);
+				})));
+			const key = `${guide} ${goal.t} ${sources.length === 1 ? sources[0].join(' ') : `item ${goal.item}`}`;
+			if (elsewhere && !NEIGHBOUR_MAP.has(key)) offenders.push(`${key} (step ${step.title}, map ${goal.map})`);
+		}
+	}
+	assert.deepEqual([...new Set(offenders)], [], 'goals on the map of a zone Wowhead Forever does not place them in');
 });

@@ -295,3 +295,19 @@ test('C3 (NAV_QA): no addon code outside Core/Compat.lua opens or moves the worl
 	walk(ADDONS);
 	assert.deepEqual(found, []);
 });
+
+test('IsIndoors: the client\'s indoor state; nil without IsIndoors or when it errors', () => {
+	const [out] = run(`
+		local r = {}
+		IsIndoors = function() return 1 end
+		r.inside = C.IsIndoors()
+		IsIndoors = function() return nil end
+		r.outside = C.IsIndoors()
+		IsIndoors = function() error("no") end
+		r.err = C.IsIndoors() == nil
+		IsIndoors = nil
+		r.none = C.IsIndoors() == nil
+		emit(r)
+	`);
+	assert.deepEqual(out, { inside: true, outside: false, err: true, none: true });
+});

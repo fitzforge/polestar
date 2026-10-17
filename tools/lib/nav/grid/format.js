@@ -40,6 +40,8 @@
 //      u8[n]         flags (FLAG)
 //      u8[n]         slope, degrees
 //      u8[8n]        links: per entry, per direction DIRS[d]: NO_LINK or (cls << 5) | layer [links]
+//      u8[n]         tslope, degrees: the steepest terrain triangle of the entry's span, 0 on
+//                    model and swim surfaces (surfaces.js) [version 4; version 3 ends before it]
 //
 // WALLS (gzip; little-endian): model triangles of WALL_MIN or steeper, kept
 // as the z ranges where they cross each column's four half-lines (from the
@@ -157,7 +159,8 @@ const FALL_SLIDE = 12; // cells a fall may carry in all, sliding over unstable g
 const RUN_MAX = 32; // border columns per abstract entrance at most
 const REF_PROFILES = ['foot', 'mount'];
 
-const VERSION = 3; // TILE; 3: fatigue water is blocked (surfaces.js)
+const VERSION = 4; // TILE; 4: tslope (surfaces.js); 3: fatigue water is blocked (surfaces.js)
+const TILE_VERSIONS = [3, 4]; // TILE versions decodeTile reads (version 3: tslope null)
 const WALLS_VERSION = 1;
 const GRAPH_VERSION = 5; // 5: slope links are no lift rides (CODE_LIFT); 4: move.js costs of 2026-10-15 (fall comfort, slope x2 / x4 / x10)
 const MAGIC_TILE = 0x564e4150; // 'PNAV'
@@ -195,14 +198,15 @@ function firstOf(count) {
 	return first;
 }
 
-// tile: { c, col, row, n, count, z, ceil, flags, slope, areas, links?, comp?, nComp?, fallFrom?, fallTo? } -> gzip Buffer
+// tile: { c, col, row, n, count, z, ceil, flags, slope, tslope, areas, links?, comp?, nComp?, fallFrom?, fallTo? } -> gzip Buffer
 function encodeTile(t) {
 	const hasLinks = !!t.links;
 	const n = t.n;
 	const m = hasLinks ? t.fallFrom.length : 0;
 	let size = 32 + 512 + COLUMNS + 8 * n;
 	if (hasLinks) size += 4 * n + 4 * m + align4(2 * m);
-	size += 2 * n + (hasLinks ? 8 * n : 0);
+	size += 2 * n + (hasLinks ? 8 * n : 0) + n;
+	if (!t.tslope || t.tslope.length !== n) throw new Error(`nav tile ${t.c} ${tileKey(t.col, t.row)}: no tslope (a version 3 tile is never written)`);
 	const buf = Buffer.alloc(size);
 	const dv = new DataView(buf.buffer, buf.byteOffset, buf.byteLength);
 	dv.setUint32(0, MAGIC_TILE, true);
@@ -233,6 +237,7 @@ function encodeTile(t) {
 	put(t.flags);
 	put(t.slope);
 	if (hasLinks) put(t.links);
+	put(t.tslope);
 	return zlib.gzipSync(buf, { level: 6 });
 }
 
@@ -250,7 +255,8 @@ function decodeTile(gz) {
 	const base = buf.byteOffset;
 	const dv = new DataView(ab, base, buf.byteLength);
 	if (dv.getUint32(0, true) !== MAGIC_TILE) throw new Error('not a nav tile');
-	if (dv.getUint32(4, true) !== VERSION) throw new Error(`nav tile version ${dv.getUint32(4, true)}, expected ${VERSION}`);
+	const version = dv.getUint32(4, true);
+	if (!TILE_VERSIONS.includes(version)) throw new Error(`nav tile version ${version}, expected ${TILE_VERSIONS.join(' or ')}`);
 	const n = dv.getUint32(16, true);
 	const m = dv.getUint32(20, true);
 	const hasLinks = (dv.getUint32(28, true) & 1) === 1;
@@ -275,6 +281,7 @@ function decodeTile(gz) {
 	t.flags = take(Uint8Array, n);
 	t.slope = take(Uint8Array, n);
 	if (hasLinks) t.links = take(Uint8Array, 8 * n);
+	t.tslope = version >= 4 ? take(Uint8Array, n) : null;
 	t.first = firstOf(t.count);
 	return t;
 }
@@ -461,6 +468,6 @@ function decodeGraph(gz) {
 module.exports = {
 	ADT, TILE_CELLS, CELL, COLUMNS, GENTLE_MAX, WALK_MAX, STEEP_MAX, CLIMB_MAX, STAIR_MAX, WALL_MIN, HALF, AGENT_HEIGHT, STEP, JUMP, SWIM_DEPTH, SAFE_FALL, FALL_MAX, FALL_MAX_WATER,
 	MERGE_TOP, STABLE_CELLS, LIFT_RADIUS, LIFT_REACH, LIFT_MIN, LIFT_FIT, LIFT_OPEN, LINK_SLOPE, CODE_LIFT, FALL_SLIDE,
-	FLAG, CLS, CLS_NAMES, NO_LINK, NO_COMP, MAX_LAYERS, DIRS, FALL_REACH, RUN_MAX, REF_PROFILES, VERSION, GRAPH_VERSION, CONSTANTS,
+	FLAG, CLS, CLS_NAMES, NO_LINK, NO_COMP, MAX_LAYERS, DIRS, FALL_REACH, RUN_MAX, REF_PROFILES, VERSION, TILE_VERSIONS, GRAPH_VERSION, CONSTANTS,
 	tileKey, cellCentre, cellOf, firstOf, encodeTile, decodeTile, encodeGraph, decodeGraph, wallIndex, wallBlocks, encodeWalls, decodeWalls,
 };

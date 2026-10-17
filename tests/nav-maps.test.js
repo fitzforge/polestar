@@ -1,67 +1,70 @@
 'use strict';
-// addon/Polestar_Nav: Shortest Path Forever's walking router (by Cillian
-// Berragan, GPL-3.0-or-later), vendored by `nav vendor` (tools/lib/nav/vendor.js),
-// with his map of Zephras Isle and Polestar's own maps of Eastern Kingdoms
-// and Kalimdor in his format (`nav pack`, tools/lib/nav/pack.js). The
-// vendored files match UPSTREAM.json and the transform, the packed ones
-// PACK.json, the transform is idempotent, and the addon loads and finds real
-// walking routes on its own PolestarPathData. Checks from docs/NAV_QA.md
-// name their row (C2, C6, C17, and the shared-tables hazard at its top).
+// addon/Polestar_Nav: Polestar's walking router (Routing/, started from
+// Shortest Path Forever v1.16.0 by Cillian Berragan, GPL-3.0-or-later, and
+// Polestar's since 2026-10-16) and Polestar's walking maps of Eastern
+// Kingdoms, Kalimdor and Zephras Isle (maps format 2, `nav pack`,
+// tools/lib/nav/pack.js). The maps match PACK.json, the router keeps his
+// copyright and the GPL notice, and the addon loads and finds real walking
+// routes on its own PolestarPathData. Checks from docs/NAV_QA.md name their
+// row (C2, C6, C17, and the shared-tables hazard at its top).
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { spawnSync } = require('node:child_process');
-const { runAddon, xmlFiles, ADDONS } = require('./helpers/lua');
-const { quiet } = require('./helpers/cli');
+const { runAddon, xmlFiles, tocEntries, ADDONS } = require('./helpers/lua');
 const { tmpdir } = require('./helpers/tmp');
+const { quiet } = require('./helpers/cli');
 const { ROOT } = require('../tools/lib/paths');
-const { transform, vendor, checkVendored, navXml, REPO } = require('../tools/lib/nav/vendor');
-const { checkPack } = require('../tools/lib/nav/pack');
+const { checkPack, navXml } = require('../tools/lib/nav/pack');
 const { releaseAddons } = require('../tools/lib/dsl/project');
 const nav = require('../tools/commands/nav');
 
 const NAV = path.join(ADDONS, 'Polestar_Nav');
-const manifest = () => JSON.parse(fs.readFileSync(path.join(NAV, 'UPSTREAM.json'), 'utf8'));
 const packManifest = () => JSON.parse(fs.readFileSync(path.join(NAV, 'PACK.json'), 'utf8'));
 
-test('the vendored files match UPSTREAM.json and the transform', () => {
-	const m = manifest();
-	assert.equal(m.repo, REPO);
-	assert.match(m.commit, /^[0-9a-f]{40}$/);
-	assert.match(m.version, /^\d+\.\d+\.\d+/);
-	assert.match(m.vendored, /^\d{4}-\d\d-\d\d$/);
-	assert.deepEqual(Object.keys(m.files), ['Routing/PathGrid.lua', 'Routing/Path.lua', 'Routing/PathJobs.lua', 'Nav/Nav2991.lua', 'Nav/Nav2991_1.lua'], 'his router and his map of Zephras Isle; maps 0 and 1 are ours');
-	assert.deepEqual(checkVendored(NAV), []);
-	for (const rel of Object.keys(m.files)) {
-		const text = fs.readFileSync(path.join(NAV, rel), 'utf8');
-		assert.doesNotMatch(text, /ShortestPathForeverPathData/, `${rel} still names the upstream data global`);
-		assert.ok(text.includes(m.commit), `${rel} names the upstream commit`);
-		// GPLv3 section 5a (review P3-15, security L12): his copyright and a dated notice of the change.
-		assert.ok(text.includes('Copyright (C) 2026 Cillian Berragan') && text.includes(`Modified for Polestar on ${m.vendored}`), `${rel} carries the dated notice`);
+test('the walking router is Polestar\'s, started from his: his three files keep his copyright and the GPL notice under the header, and Costs.lua is Polestar\'s', () => {
+	const header = 'Polestar\'s walking router. Started from Shortest Path Forever v1.16.0 (b1ad5bd) by Cillian Berragan (GPL-3.0-or-later); modified for Polestar since 2026-10-16.';
+	for (const name of ['PathGrid.lua', 'Path.lua', 'PathJobs.lua']) {
+		const text = fs.readFileSync(path.join(NAV, 'Routing', name), 'utf8');
+		const lines = text.split('\n');
+		assert.equal(lines[0], `-- ${header}`, `${name}: the header`);
+		const notice = lines.slice(1, 6).map((l) => l.replace(/^-- /, '')).join(' ');
+		assert.ok(notice.startsWith(`Routing/${name}: Copyright (C) 2026 Cillian Berragan (https://github.com/cjber/shortest-path-forever)`), `${name}: his copyright`);
+		assert.match(notice, /GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or \(at your option\) any later version\./, `${name}: the GPL notice`);
+		assert.doesNotMatch(text, /ShortestPathForeverPathData/, `${name}: reads only PolestarPathData`);
+	}
+	const costs = fs.readFileSync(path.join(NAV, 'Routing', 'Costs.lua'), 'utf8');
+	assert.match(costs, /^-- Copyright \(c\) 2026 The Polestar authors\. GPL-3\.0-or-later/m);
+	const license = fs.readFileSync(path.join(NAV, 'LICENSE'), 'utf8').replace(/\s+/g, ' ');
+	assert.match(license, /Polestar's walking router started from Shortest Path Forever v1\.16\.0 by Cillian Berragan, with thanks; Polestar maintains it since 2026-10-16/);
+	assert.match(license, /Routing\/PathGrid\.lua, Routing\/Path\.lua and Routing\/PathJobs\.lua .*Copyright \(C\) 2026 Cillian Berragan/);
+	for (const doc of [path.join(NAV, 'CREDITS.md'), path.join(ROOT, 'LICENSE'), path.join(ROOT, 'THIRD_PARTY.md'), path.join(ROOT, 'README.md')]) {
+		assert.match(fs.readFileSync(doc, 'utf8').replace(/\s+/g, ' '), /Polestar's walking router started from Shortest Path Forever v1\.16\.0 by Cillian Berragan, with thanks; Polestar maintains it since 2026-10-16/, path.relative(ROOT, doc));
 	}
 });
 
-test('nav check passes on the committed folder: the vendored files and the packed maps', async () => {
+test('nav check passes on the committed folder: the maps match PACK.json, and nothing of his maps is left', async () => {
 	const { result, out } = await quiet(() => nav.run(['check']));
 	assert.equal(result, 0, out);
-	assert.match(out, /match UPSTREAM\.json and the packed maps PACK\.json/);
+	assert.match(out, /the walking maps match PACK\.json/);
+	assert.equal(fs.existsSync(path.join(NAV, 'UPSTREAM.json')), false, 'no vendored maps to track');
 	assert.deepEqual(checkPack(NAV), []);
 	assert.equal(fs.readFileSync(path.join(NAV, 'Nav', 'Nav.xml'), 'utf8'), navXml(NAV));
 });
 
-test('the packed maps of Eastern Kingdoms and Kalimdor: PACK.json names the grid, the cells and every file; their headers name the command, the grid and the date and credit his format', () => {
+test('the walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle: PACK.json names the grid, the cells, the format and every file; their headers name the command, the grid and the date and credit his format', () => {
 	const p = packManifest();
 	assert.equal(p.generator, 'node tools/polestar.js nav pack');
 	assert.equal(p.cells, 128);
 	assert.match(p.date, /^\d{4}-\d\d-\d\d$/);
 	assert.match(p.grid.build, /^\d+\.\d+\.\d+\.\d+$/);
-	assert.deepEqual(Object.keys(p.maps), ['0', '1']);
+	assert.deepEqual(Object.keys(p.maps), ['0', '1', '2991']);
+	assert.equal(p.format, 2);
 	const names = Object.keys(p.files).map((rel) => rel.slice(4));
-	assert.deepEqual(names.filter((n) => !/^Nav[01](_\d+)?\.lua$/.test(n)), ['Chokepoints.lua']);
+	assert.deepEqual(names.filter((n) => !/^Nav(0|1|2991)(_\d+)?\.lua$/.test(n)), ['Chokepoints.lua']);
 	const scripts = xmlFiles(path.join(NAV, 'Nav', 'Nav.xml')).map((f) => path.basename(f));
-	assert.deepEqual(scripts, [...names.filter((n) => n !== 'Chokepoints.lua'), 'Nav2991.lua', 'Nav2991_1.lua', 'Chokepoints.lua'], 'ours, his Zephras Isle, then the chokepoints');
+	assert.deepEqual(scripts, [...names.filter((n) => n !== 'Chokepoints.lua'), 'Chokepoints.lua'], 'the maps, then the chokepoints');
 	for (const n of names) {
 		const text = fs.readFileSync(path.join(NAV, 'Nav', n), 'utf8');
 		const first = text.slice(0, text.indexOf('\n'));
@@ -69,189 +72,10 @@ test('the packed maps of Eastern Kingdoms and Kalimdor: PACK.json names the grid
 		assert.doesNotMatch(text, /ShortestPathForeverPathData/);
 	}
 	const meta = fs.readFileSync(path.join(NAV, 'Nav', 'Nav0.lua'), 'utf8');
-	assert.match(meta, /^-- written by tools\/lib\/nav\/pack\.js, a port of his tools\/baker\/gen_nav\.py and tools\/pack_nav\.py, used with his permission\.$/m);
+	assert.match(meta, /^-- a port of his tools\/baker\/gen_nav\.py and tools\/pack_nav\.py, used with his permission\.$/m);
+	for (const map of [0, 1, 2991]) assert.match(fs.readFileSync(path.join(NAV, 'Nav', `Nav${map}.lua`), 'utf8'), /^\tformat = 2,$/m, `map ${map}: maps format 2`);
 	assert.match(meta, /^-- Portions Copyright \(C\) 2026 Cillian Berragan \(Shortest Path Forever, GPL-3\.0-or-later\); adapted for Polestar, 2026-10-15\.$/m, 'his notice on one line');
 	assert.match(meta, /^\tcells = 128,$/m);
-});
-
-const ROUTING = '---@class SPFNamespace\nlocal ns = select(2, ...)\nlocal function Data(map)\n\treturn ShortestPathForeverPathData and ShortestPathForeverPathData[map]\nend\n';
-const MAP = '-- Generated by tools/baker/gen_nav.py — do not edit.\nShortestPathForeverPathData = ShortestPathForeverPathData or {}\n\n-- stylua: ignore\nShortestPathForeverPathData[7] = {\n\tcx0 = -3,\n\tcy0 = 2,\n\tnx = 2,\n\tny = 1,\n\tcells = 67,\n\tswim = 3.000000,\n\tzstep = 2,\n\tgraph = {},\n\tgrid = {},\n\theight = {},\n\tfloor = {},\n\tcounts = { graph = 2, grid = 2, height = 1, floor = 0 },\n\tpacked = { graph = {}, grid = {}, height = {}, floor = {} },\n}\n';
-const PART = '-- Generated by tools/pack_nav.py; compressed terrain for on-demand decoding.\n---@type SPFNavData\nlocal data = ShortestPathForeverPathData[7]\n-- stylua: ignore start\ndata.packed.graph[1] = {"eNoBAAA="}\ndata.packed.grid[1] = {"eNpLBAA=","eNo="}\ndata.packed.graph[2] = {"eNpLTAQA"}\ndata.packed.grid[2] = {"eA=="}\ndata.packed.height[1] = {"eNpLTE"}\n-- stylua: ignore end\n';
-const XML = '<Ui xmlns="http://www.blizzard.com/wow/ui/">\n\t<Script file="Nav0.lua"/>\n\t<Script file="Nav7.lua"/>\n\t<Script file="Nav7_1.lua"/>\n</Ui>\n';
-
-test('the transform renames only the data global, adds a header line, and is idempotent', () => {
-	const commit = 'a'.repeat(40);
-	const D = '2026-10-15';
-	const routing = transform('Routing/PathGrid.lua', ROUTING, commit, D);
-	assert.equal(routing.split('\n').length, ROUTING.split('\n').length + 1, 'one line added');
-	assert.match(routing, /^-- Polestar_Nav: Routing\/PathGrid\.lua from Shortest Path Forever \(https:\/\/github\.com\/cjber\/shortest-path-forever\) at a{40}, Copyright \(C\) 2026 Cillian Berragan, GPL-3\.0-or-later\. Modified for Polestar on 2026-10-15 by `node tools\/polestar\.js nav vendor`: the data global is PolestarPathData\.\n/);
-	assert.equal(routing.slice(routing.indexOf('\n') + 1), ROUTING.replaceAll('ShortestPathForeverPathData', 'PolestarPathData'));
-	const map = transform('Nav/Nav7.lua', MAP, commit, D);
-	assert.equal(map.split('\n').slice(1).join('\n'), MAP.replaceAll('ShortestPathForeverPathData', 'PolestarPathData'));
-	for (const [rel, text] of [['Routing/PathGrid.lua', routing], ['Nav/Nav7.lua', map]]) {
-		assert.equal(transform(rel, text, commit, D), text, `${rel}: applying it again changes nothing`);
-	}
-	// A newer commit or date replaces the header instead of stacking another.
-	assert.equal(transform('Nav/Nav7.lua', map, 'b'.repeat(40), '2027-01-02'), transform('Nav/Nav7.lua', MAP, 'b'.repeat(40), '2027-01-02'));
-	assert.throws(() => transform('Nav/Nav7.lua', MAP, commit, 'today'), /date must be YYYY-MM-DD/);
-});
-
-// A minimal Shortest Path Forever checkout whose Nav.xml lists `scripts`
-// (each written from `maps`, by name, else MAP).
-function fakeCheckout(scripts, maps = {}) {
-	const src = tmpdir();
-	fs.mkdirSync(path.join(src, 'Routing'));
-	fs.mkdirSync(path.join(src, 'Nav'));
-	for (const f of ['PathGrid.lua', 'Path.lua', 'PathJobs.lua']) fs.writeFileSync(path.join(src, 'Routing', f), ROUTING);
-	fs.writeFileSync(path.join(src, 'Nav', 'Nav.xml'), `<Ui xmlns="http://www.blizzard.com/wow/ui/">\n${scripts.map((s) => `\t<Script file="${s}"/>\n`).join('')}</Ui>\n`);
-	for (const s of scripts) if (/^Nav\w*\.lua$/.test(s)) fs.writeFileSync(path.join(src, 'Nav', s), maps[s] || MAP);
-	return src;
-}
-
-const META = { commit: 'c'.repeat(40), version: '9.9.9' };
-
-test('nav vendor copies a checkout\'s router and the maps we do not pack, removes only files the previous UPSTREAM.json listed, keeps ours, and a changed file fails the check', () => {
-	const out = path.join(tmpdir(), 'Polestar_Nav');
-	const first = vendor(fakeCheckout(['Nav0.lua', 'Nav7.lua', 'Nav7_1.lua', 'Nav9.lua'], { 'Nav7_1.lua': PART }), out, META, '2026-10-15');
-	assert.deepEqual(first.removed, []);
-	assert.equal(fs.existsSync(path.join(out, 'Nav', 'Nav0.lua')), false, 'his map 0 is not taken: map 0 is ours');
-	// Polestar's own files in the folder, inside Nav/ and beside it: API.lua, a non-vendored map, and what `nav pack` writes.
-	fs.writeFileSync(path.join(out, 'API.lua'), '-- ours\n');
-	fs.writeFileSync(path.join(out, 'Nav', 'Nav8.lua'), '-- ours, not vendored\n');
-	fs.writeFileSync(path.join(out, 'Nav', 'Nav0.lua'), 'ours\n');
-	fs.writeFileSync(path.join(out, 'Nav', 'Nav0_1.lua'), 'ours\n');
-	fs.writeFileSync(path.join(out, 'Nav', 'Chokepoints.lua'), 'ours\n');
-	fs.writeFileSync(path.join(out, 'PACK.json'), JSON.stringify({ files: { 'Nav/Nav0.lua': 'x', 'Nav/Nav0_1.lua': 'z', 'Nav/Chokepoints.lua': 'y' } }));
-	// An UPSTREAM.json from before `nav pack` listed his maps 0 and 1 and Nav.xml: they are ours now and must survive.
-	const um = JSON.parse(fs.readFileSync(path.join(out, 'UPSTREAM.json'), 'utf8'));
-	um.files['Nav/Nav0.lua'] = 'old';
-	um.files['Nav/Nav0_1.lua'] = 'old';
-	um.files['Nav/Nav.xml'] = 'old';
-	fs.writeFileSync(path.join(out, 'UPSTREAM.json'), JSON.stringify(um));
-	const src = fakeCheckout(['Nav0.lua', 'Nav7.lua', 'Nav7_1.lua'], { 'Nav7_1.lua': PART });
-	const res = vendor(src, out, META, '2026-10-15');
-	assert.deepEqual(res.removed, ['Nav/Nav9.lua'], 'only the file the previous UPSTREAM.json listed, still his, and upstream dropped');
-	assert.equal(fs.existsSync(path.join(out, 'Nav', 'Nav9.lua')), false);
-	assert.equal(fs.readFileSync(path.join(out, 'API.lua'), 'utf8'), '-- ours\n', 'a file beside the vendored ones survives');
-	assert.equal(fs.readFileSync(path.join(out, 'Nav', 'Nav8.lua'), 'utf8'), '-- ours, not vendored\n', 'a non-vendored file in Nav/ survives');
-	for (const f of ['Nav0.lua', 'Nav0_1.lua', 'Chokepoints.lua']) assert.equal(fs.readFileSync(path.join(out, 'Nav', f), 'utf8'), 'ours\n', `the packed ${f} survives, though an old UPSTREAM.json listed it`);
-	assert.ok(fs.existsSync(path.join(out, 'PACK.json')), 'PACK.json survives');
-	fs.rmSync(path.join(out, 'Nav', 'Nav8.lua'));
-	fs.rmSync(path.join(out, 'Nav', 'Nav0_1.lua'));
-	fs.writeFileSync(path.join(out, 'PACK.json'), JSON.stringify({ files: { 'Nav/Nav0.lua': 'x', 'Nav/Chokepoints.lua': 'y' } }));
-	fs.writeFileSync(path.join(out, 'Nav', 'Nav.xml'), navXml(out));
-	const m = JSON.parse(fs.readFileSync(path.join(out, 'UPSTREAM.json'), 'utf8'));
-	assert.deepEqual({ ...m, files: Object.keys(m.files) }, { repo: REPO, commit: 'c'.repeat(40), version: '9.9.9', vendored: '2026-10-15', files: ['Routing/PathGrid.lua', 'Routing/Path.lua', 'Routing/PathJobs.lua', 'Nav/Nav7.lua', 'Nav/Nav7_1.lua'] });
-	assert.deepEqual(xmlFiles(path.join(out, 'Nav', 'Nav.xml')).map((f) => path.basename(f)), ['Nav0.lua', 'Nav7.lua', 'Nav7_1.lua', 'Chokepoints.lua']);
-	assert.doesNotMatch(fs.readFileSync(path.join(out, 'Nav', 'Nav.xml'), 'utf8').match(/<!--([^\n]*)-->/)[1], /--/, 'a well-formed XML comment');
-	assert.deepEqual(checkVendored(out), []);
-	// Vendoring the same commit again writes the same bytes.
-	const before = fs.readFileSync(path.join(out, 'Nav', 'Nav7.lua'), 'utf8');
-	vendor(src, out, META, '2026-10-15');
-	assert.equal(fs.readFileSync(path.join(out, 'Nav', 'Nav7.lua'), 'utf8'), before);
-	fs.appendFileSync(path.join(out, 'Routing', 'Path.lua'), '-- edited\n');
-	fs.writeFileSync(path.join(out, 'Nav', 'Extra.lua'), '\n');
-	assert.deepEqual(checkVendored(out), ['Routing/Path.lua differs from UPSTREAM.json', 'Nav/Extra.lua is not listed in UPSTREAM.json']);
-	assert.deepEqual(checkPack(out), ['Nav/Nav0.lua differs from PACK.json', 'Nav/Chokepoints.lua differs from PACK.json'], 'ours are the pack check\'s');
-	assert.throws(() => vendor(tmpdir(), out, { commit: 'c', version: null }), /no Nav\/Nav\.xml: not a Shortest Path Forever checkout/);
-});
-
-test('nav vendor refuses an --out that is not a Polestar_Nav folder (files but no UPSTREAM.json, or a broken one) and touches nothing; a new empty folder is fine', () => {
-	const src = fakeCheckout(['Nav7.lua']);
-	const other = tmpdir();
-	fs.mkdirSync(path.join(other, 'Nav'));
-	fs.writeFileSync(path.join(other, 'Nav', 'Nav9.lua'), 'someone else\'s\n');
-	fs.writeFileSync(path.join(other, 'notes.txt'), 'keep\n');
-	assert.throws(() => vendor(src, other, META, '2026-10-15'), /is not a Polestar_Nav folder \(no UPSTREAM\.json\) and is not empty/);
-	assert.deepEqual(fs.readdirSync(other).sort(), ['Nav', 'notes.txt']);
-	assert.deepEqual(fs.readdirSync(path.join(other, 'Nav')), ['Nav9.lua'], 'nothing removed or written');
-	fs.writeFileSync(path.join(other, 'UPSTREAM.json'), '{ broken');
-	assert.throws(() => vendor(src, other, META, '2026-10-15'), /UPSTREAM\.json is not valid JSON .*cannot tell which files the last vendoring wrote/);
-	fs.writeFileSync(path.join(other, 'UPSTREAM.json'), '{ "commit": "x" }');
-	assert.throws(() => vendor(src, other, META, '2026-10-15'), /UPSTREAM\.json has no files list/);
-	assert.deepEqual(fs.readdirSync(path.join(other, 'Nav')), ['Nav9.lua']);
-	const empty = tmpdir();
-	vendor(src, empty, META, '2026-10-15');
-	assert.deepEqual(checkVendored(empty), []);
-});
-
-// A git checkout of fakeCheckout's files, committed, with `origin` set.
-function gitCheckout(origin) {
-	const src = fakeCheckout(['Nav7.lua']);
-	const git = (...args) => {
-		const r = spawnSync('git', ['-C', src, '-c', 'user.name=Test', '-c', 'user.email=test@example.invalid', '-c', 'commit.gpgsign=false', ...args], { encoding: 'utf8' });
-		assert.equal(r.status, 0, r.stderr);
-		return r.stdout.trim();
-	};
-	git('init', '-q');
-	git('add', '-A');
-	git('commit', '-q', '-m', 'upstream');
-	if (origin) git('remote', 'add', 'origin', origin);
-	return { src, head: git('rev-parse', 'HEAD') };
-}
-
-test('nav vendor refuses a checkout with uncommitted or untracked changes, or whose origin is not Shortest Path Forever', async () => {
-	const vendorCli = (src) => {
-		const out = path.join(tmpdir(), 'Polestar_Nav');
-		return quiet(() => nav.run(['vendor', src, '--out', out, '--date', '2026-10-15'])).then((r) => ({ ...r, dir: out }));
-	};
-	for (const url of ['https://github.com/cjber/shortest-path-forever', 'https://github.com/cjber/shortest-path-forever.git',
-		'git@github.com:cjber/shortest-path-forever.git', 'ssh://git@github.com/cjber/shortest-path-forever']) {
-		const { src, head } = gitCheckout(url);
-		const r = await vendorCli(src);
-		assert.equal(r.result, 0, `${url}: ${r.out}`);
-		assert.equal(JSON.parse(fs.readFileSync(path.join(r.dir, 'UPSTREAM.json'), 'utf8')).commit, head);
-	}
-	for (const url of [null, 'https://github.com/someone/shortest-path-forever', 'https://gitlab.com/cjber/shortest-path-forever',
-		'https://github.com/cjber/shortest-path-forever-fork', '/tmp/shortest-path-forever']) {
-		const r = await vendorCli(gitCheckout(url).src);
-		assert.equal(r.result, 1, String(url));
-		assert.match(r.out, url ? /origin is ".*", not https:\/\/github\.com\/cjber\/shortest-path-forever: vendor only from a clone/ : /origin is not set/, String(url));
-		assert.equal(fs.existsSync(r.dir), false, `${url}: nothing written`);
-	}
-	const modified = gitCheckout('https://github.com/cjber/shortest-path-forever');
-	fs.appendFileSync(path.join(modified.src, 'Routing', 'Path.lua'), '-- local edit\n');
-	const untracked = gitCheckout('https://github.com/cjber/shortest-path-forever');
-	fs.writeFileSync(path.join(untracked.src, 'Nav', 'Nav8.lua'), MAP);
-	for (const { src } of [modified, untracked]) {
-		const r = await vendorCli(src);
-		assert.equal(r.result, 1);
-		assert.match(r.out, /has uncommitted or untracked changes \(git status --porcelain is not empty\): vendor only a clean checkout/);
-		assert.equal(fs.existsSync(r.dir), false, 'nothing written');
-	}
-});
-
-test('security L8: nav vendor takes only Nav<name>.lua map files from Nav.xml; a path out of Nav/ stops it before anything is read or written', () => {
-	const victim = path.join(tmpdir(), 'secret.lua');
-	fs.writeFileSync(victim, 'secret\n');
-	for (const bad of [`..\\..\\${path.basename(victim)}`, '../../secret.lua', 'Sub/Nav1.lua', 'Nav1.lua.bak', 'nav1.lua', 'Nav 1.lua', 'Init.lua']) {
-		const src = fakeCheckout(['Nav7.lua', bad]);
-		const out = path.join(tmpdir(), 'Polestar_Nav');
-		assert.throws(() => vendor(src, out, { commit: 'c'.repeat(40), version: null }, '2026-10-15'), /lists files that are not map files/, bad);
-		assert.equal(fs.existsSync(out), false, `${bad}: nothing written`);
-	}
-	assert.equal(fs.readFileSync(victim, 'utf8'), 'secret\n');
-	// UPSTREAM.json naming a path outside the folder is refused by the check too.
-	const out = path.join(tmpdir(), 'Polestar_Nav');
-	vendor(fakeCheckout(['Nav7.lua']), out, { commit: 'c'.repeat(40), version: null }, '2026-10-15');
-	const file = path.join(out, 'UPSTREAM.json');
-	const m = JSON.parse(fs.readFileSync(file, 'utf8'));
-	m.files['Nav/../../secret.lua'] = 'x';
-	fs.writeFileSync(file, JSON.stringify(m));
-	assert.deepEqual(checkVendored(out), ['Nav/../../secret.lua in UPSTREAM.json is not a vendored path']);
-});
-
-test('review P3-16: nav check on a folder without UPSTREAM.json (or with a broken one) says so instead of throwing ENOENT', async () => {
-	const out = path.join(tmpdir(), 'Polestar_Nav');
-	fs.mkdirSync(out);
-	const missing = await quiet(() => nav.run(['check', '--out', out]));
-	assert.equal(missing.result, 1);
-	assert.match(missing.out, /^nav check: .*UPSTREAM\.json is missing: run `node tools\/polestar\.js nav vendor <checkout>`$/m);
-	assert.doesNotMatch(missing.out, /ENOENT/);
-	fs.writeFileSync(path.join(out, 'UPSTREAM.json'), '{ broken');
-	assert.match((await quiet(() => nav.run(['check', '--out', out]))).out, /UPSTREAM\.json is not valid JSON/);
-	fs.writeFileSync(path.join(out, 'UPSTREAM.json'), '{ "files": {} }');
-	assert.match((await quiet(() => nav.run(['check', '--out', out]))).out, /lacks commit, vendored \(YYYY-MM-DD\) or files/);
 });
 
 test('security L12 / review P3-15: the LICENSE shipped in Polestar/ names Cillian Berragan\'s copyright and every file that says it adapts his code', () => {
@@ -455,10 +279,56 @@ emit({ frames = n, cost = got.cost, syncCost = syncCost, points = #got.points, s
 	assert.equal(got.points, got.syncPoints);
 	const toc = fs.readFileSync(path.join(NAV, 'Polestar_Nav.toc'), 'utf8');
 	assert.match(toc, /^## LoadOnDemand: 1$/m, 'not loaded at startup');
-	assert.equal(fs.readFileSync(path.join(NAV, 'Routing', 'PathGrid.lua'), 'utf8').match(/^Path\.budget = (\d+)/m)[1], '2', 'the 2 ms frame budget is upstream\'s');
-	// API.lua's ceilings for Polestar's 4.17 yd maps (docs/ARCHITECTURE.md, "In-game walking routes": Memory), his files untouched.
-	assert.deepEqual([got.cacheKB, got.graphKB], [48 * 1024, 6 * 1024]);
+	assert.equal(fs.readFileSync(path.join(NAV, 'Routing', 'PathGrid.lua'), 'utf8').match(/^Path\.budget = (\d+)/m)[1], '2', 'the 2 ms frame budget, as in Shortest Path Forever');
+	// API.lua's ceilings for Polestar's 4.17 yd maps format 2 (measured on the eval corpus's longest walks: 40.9 MB of grids, 15.7 MB of graph).
+	assert.deepEqual([got.cacheKB, got.graphKB], [48 * 1024, 16 * 1024]);
 	assert.match(fs.readFileSync(path.join(NAV, 'Routing', 'PathGrid.lua'), 'utf8'), /^Path\.cacheKB = 24576 /m);
+});
+
+test('memory at rest: a search may decode graph up to Path.graphKB, Idle trims it to Path.graphRestKB (0.2.4\'s 6 MB)', () => {
+	const keep = path.join(tmpdir('polestar-nav-rest-'), 'keep-ns.lua');
+	fs.writeFileSync(keep, 'local _, ns = ...\nstub.navNs = ns\n');
+	const [got] = runAddon({
+		stubs: ['stub_encoding.lua'],
+		addons: [{ name: 'Polestar_Nav', files: [...tocEntries(NAV), path.relative(NAV, keep)] }],
+		script: `local Path, G = Polestar_NavEngine, stub.navNs.PathGrid
+local function kb() local i = 1 while true do local k, v = debug.getupvalue(G.Reset, i) if k == "graphKB" then return v end i = i + 1 end end
+local rest = Path.graphRestKB
+Path.graphRestKB = 512
+-- The Hinterlands, a 6,850 yd walk (the eval corpus's lost|1423 route).
+local pts = Path.FindSync(0, { x = 3089.7, y = -2647.7 }, { x = 3079.3, y = -2755.7 })
+local searching = kb()
+G.Idle()
+emit({ found = pts ~= nil, searching = searching, resting = kb(), rest = rest, ceiling = Path.graphKB })`,
+	}).emitted;
+	assert.equal(got.found, true);
+	assert.deepEqual([got.rest, got.ceiling], [6 * 1024, 16 * 1024], 'API.lua\'s ceilings');
+	assert.ok(got.searching > 512, `the search decoded ${got.searching} KB of graph`);
+	assert.ok(got.resting <= 512, `Idle leaves ${got.resting} KB (want <= 512)`);
+});
+
+test('nav pack refuses a grid without the slope per surface (grid format 3 or older) and says to rebuild it', async () => {
+	const dir = tmpdir('polestar-nav-grid3-');
+	fs.writeFileSync(path.join(dir, 'index.json'), JSON.stringify({ version: 3, continents: {} }));
+	const { result, out } = await quiet(() => nav.run(['pack', '--dir', dir, '--out', tmpdir('polestar-nav-out-')]));
+	assert.equal(result, 1);
+	assert.match(out, /grid format 3, without the slope per surface .*rebuild it with `node tools\/polestar\.js nav build` \(grid format 4/);
+});
+
+test('nav aids writes aids.json in its grid\'s folder: --dir without --out never overwrites data/local/nav/aids.json', () => {
+	const dir = tmpdir('polestar-nav-aids-');
+	assert.equal(nav.aidsOut({ dir }), path.join(dir, 'aids.json'));
+	assert.equal(nav.aidsOut({}), path.join(ROOT, 'data', 'local', 'nav', 'aids.json'));
+	assert.equal(nav.aidsOut({ dir, out: path.join(dir, 'x.json') }), path.join(dir, 'x.json'));
+});
+
+test('nav layers roads refuses --allowlist with --c: the allowlist is rewritten from both maps\' textures or not at all', async () => {
+	const file = path.join(ROOT, 'tools', 'lib', 'nav', 'layers', 'road-textures.json');
+	const before = fs.readFileSync(file, 'utf8');
+	const { result, out } = await quiet(() => nav.run(['layers', 'roads', '--allowlist', '--c', '0', '--offline']));
+	assert.equal(result, 2);
+	assert.match(out, /--allowlist .*--c/);
+	assert.equal(fs.readFileSync(file, 'utf8'), before);
 });
 
 test('Polestar_Nav ships in the release, credits Shortest Path Forever and carries the GPL', () => {
@@ -473,8 +343,7 @@ test('Polestar_Nav ships in the release, credits Shortest Path Forever and carri
 	assert.match(license, /https:\/\/github\.com\/cjber\/shortest-path-forever/);
 	assert.match(license, /GNU GENERAL PUBLIC LICENSE\s+Version 3, 29 June 2007/);
 	const credits = fs.readFileSync(path.join(NAV, 'CREDITS.md'), 'utf8');
-	const m = manifest();
-	assert.ok(credits.includes(m.commit) && credits.includes(`Version ${m.version}`), 'CREDITS.md names the vendored version and commit');
+	assert.ok(credits.includes('b1ad5bd') && credits.includes('Version 1.16.0'), 'CREDITS.md names the version and commit the router started from');
 });
 
 // Polestar's maps on the engine, on routes where Shortest Path Forever's own maps cut the Razor Hill inn's
@@ -522,6 +391,25 @@ test('Polestar\'s maps on the engine: the Razor Hill inn is left by its door, th
 	assert.ok((top + bottom) / 7 + 12 < walk / 7, `by the lift ${((top + bottom) / 7 + 12).toFixed(0)} s, walking round ${(walk / 7).toFixed(0)} s`);
 	assert.deepEqual(got.sea, { found: false, why: 'unreachable' }, 'fatigue water is no surface: no swim to Teldrassil');
 	assert.ok(got.coast.found && got.coast.cost > 0, 'the walk along the Merchant Coast still routes');
+});
+
+// Ruling 30: the hostile town's AreaTable id rides with the walk, so the warning can name it in the client's
+// language. Southshore is area 271 (hubs.json's alliance-southshore; AreaTable 1.60.1.70425: 271,Southshore).
+test('a Horde walk into Southshore on the shipped maps reports the town with its area id (job.hubs)', () => {
+	const [got] = runAddon({
+		stubs: ['stub_encoding.lua'],
+		addons: ['Polestar_Nav'],
+		script: `
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local got = {}
+Path.Find(0, { x = -500, y = -560 }, { x = -850, y = -540 }, function(points, cost, job) got.found, got.hubs = points ~= nil, job and job.hubs end, { profile = "Horde" })
+while #frames > 0 do table.remove(frames, 1)() end
+emit(got)`,
+	}).emitted;
+	assert.equal(got.found, true);
+	assert.deepEqual(got.hubs, [{ id: 'alliance-southshore', name: 'Southshore', areaId: 271 }]);
 });
 
 test('the packed maps decode with the engine\'s logic: every entrance names a cell of its cluster (SpfUpstream: floor entrances)', () => {

@@ -11,8 +11,9 @@ const path = require('node:path');
 const { tocEntries, xmlFiles, ADDONS, ROOT } = require('./helpers/lua');
 
 const ALLOWED_GLOBAL = /^(Polestar|PolestarDB|PolestarCharDB|PolestarRecorderDB|PolestarRecorder_Command|Polestar_NavEngine|PolestarPathData|PolestarNavChokepoints|SLASH_POLESTAR\d+|SLASH_POLESTARREC\d+|SLASH_POLESTARWAY\d+|BINDING_HEADER_POLESTAR|BINDING_NAME_POLESTAR_\w+)$/;
-// Globals one file may write: the TomTom stand-in owns `TomTom` while TomTom is not installed.
-const FILE_GLOBALS = { 'addon/Polestar/Nav/Journey.lua': new Set(['TomTom']) };
+// Globals one file may write: the TomTom stand-in owns `TomTom` while TomTom is not installed; the walking router's
+// cost table is `Polestar_NavCosts` (tools and the eval harness read it).
+const FILE_GLOBALS = { 'addon/Polestar/Nav/Journey.lua': new Set(['TomTom']), 'addon/Polestar_Nav/Routing/Costs.lua': new Set(['Polestar_NavCosts']) };
 
 function luac() {
 	for (const bin of [process.env.LUAC, 'luac5.1', 'luac'].filter(Boolean)) {

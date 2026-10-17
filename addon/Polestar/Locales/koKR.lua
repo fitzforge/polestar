@@ -180,7 +180,8 @@ L["Greyed out while Shortest Path Forever guides: it does this itself."] = "Shor
 L["Waypoint arrow: show, hide, reset"] = "경유지 화살표: 표시, 숨기기, 초기화"
 L["Usage: /polestar way <x> <y> [label]"] = "사용법: /polestar way <x> <y> [이름]"
 L["Point the arrow at x y on your current map (no argument clears it)"] = "현재 지도의 x y를 화살표로 가리킴 (인수 없으면 지움)"
-L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever가 안내 중입니다. Polestar의 화살표를 사용하려면 \"설치 시 Shortest Path Forever로 가이드\"(옵션, 연동)를 끄세요."
+L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."] = "Shortest Path Forever가 자체 여정을 안내 중입니다. 여정이 끝나면 Polestar의 화살표가 돌아옵니다."
+L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever가 안내 중입니다. Polestar의 화살표를 사용하려면 \"Shortest Path Forever에 안내 맡기기\"(설정, 연동)를 끄세요."
 
 -- Nav/Arrow.lua
 L["Search here"] = "여기서 찾기"
@@ -266,6 +267,7 @@ L["Take %s"] = "타기: %s"
 L["Take the lift"] = "승강기 타기"
 L["No route: walk straight to the target."] = "경로 없음: 목표까지 곧장 걸어가십시오."
 L["Show the travel route to the current target"] = "현재 목표까지의 이동 경로 표시"
+L["Hostile town: %s"] = "적대 마을: %s"
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -285,6 +287,11 @@ L["Let other addons set waypoints"] = "다른 애드온의 경유지 설정 허�
 L["Without TomTom installed, waypoints other addons set through TomTom, and /way, point Polestar's arrow. Addons that expect TomTom's own settings may not work with it on."] = "TomTom이 없을 때 다른 애드온이 TomTom으로 설정한 경유지와 /way가 Polestar 화살표를 움직입니다. TomTom 자체 설정을 기대하는 애드온은 이 옵션을 켜면 작동하지 않을 수 있습니다."
 L["Follow TomTom's arrow"] = "TomTom 화살표 따르기"
 L["With TomTom installed, the arrow goes wherever TomTom's arrow points, routed like any goal."] = "TomTom이 있으면 화살표가 TomTom 화살표가 가리키는 곳으로, 다른 목표처럼 경로를 따라 안내합니다."
+L["Route style"] = "경로 방식"
+L["Fastest: the shortest walk, over hills and across fields. Balanced: roads that aren't much longer, and round hills. Roads: stays on roads even when they're longer; the safest way, not the quickest."] = "최단: 언덕을 넘고 들판을 가로지르는 가장 짧은 길. 균형: 크게 길지 않은 도로를 따르고 언덕은 돌아갑니다. 도로: 더 길어도 도로를 따릅니다. 가장 빠르지는 않지만 가장 안전한 길입니다."
+L["Fastest"] = "최단"
+L["Balanced"] = "균형"
+L["Roads"] = "도로"
 
 -- Nav/Nearby.lua
 L["Profession trainer"] = "기술 전문가"
@@ -346,10 +353,6 @@ L["Flash the taskbar icon"] = "작업 표시줄 아이콘 깜빡임"
 L["The game's icon flashes while the game is in the background."] = "게임이 백그라운드일 때 게임 아이콘이 깜빡입니다."
 L["Show a sample alert"] = "알림 미리보기"
 L["See the banner and hear the boat's bell."] = "배너를 보고 배의 종소리를 듣습니다."
-
--- Nav/Handoff.lua
-L["Guide with Shortest Path Forever when it's installed"] = "설치 시 Shortest Path Forever로 가이드"
-L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "Shortest Path Forever의 화살표, 경로, 여정이 각 목표로 안내합니다. Polestar의 화살표, 경로선, 여정 단계, 이동 버튼, 교통수단 알림, 지도 클릭, /way는 물러나고 가이드 창과 지도 핀은 남습니다."
 
 -- Quests/Tracker.lua
 L["Done"] = "완료"
@@ -1313,6 +1316,11 @@ L["Feedback, bug reports and news"] = "의견, 버그 신고, 소식"
 L["Guides made by other players for Polestar, not our own routes: each community addon is installed like any other addon. Its guides appear in %s under Community guides, credited to their author, who supports them. More in Options > Community guides."] = "다른 플레이어가 Polestar용으로 만든 가이드이며, 우리 경로가 아닙니다. 커뮤니티 애드온은 다른 애드온처럼 설치합니다. 가이드는 %s의 커뮤니티 가이드 아래에 작성자 이름과 함께 표시되며, 작성자가 지원합니다. 자세한 내용은 설정 > 커뮤니티 가이드."
 L["Back"] = "뒤로"
 L["Pages"] = "페이지"
+L["The shortest walk. Cuts across fields and goes straight over hills."] = "가장 짧은 길입니다. 들판을 가로지르고 언덕을 곧장 넘어갑니다."
+L["Takes roads when they aren't much longer, and goes round steep hills."] = "많이 멀지 않으면 도로를 타고, 가파른 언덕은 돌아갑니다."
+L["Stays on roads, even when it's longer. Slower, but easy to follow."] = "더 멀어도 도로를 따라갑니다. 느리지만 따라가기 쉽습니다."
+L["How the arrow walks you. You can change it any time in Options."] = "화살표가 길을 안내하는 방식입니다. 설정에서 언제든 바꿀 수 있습니다."
+L["Every style keeps you out of the other faction's towns and away from zones far above your level."] = "모든 방식은 상대 진영의 마을과 레벨보다 훨씬 높은 지역을 피합니다."
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "선택되어 있습니다: Ctrl+C(Mac은 Cmd+C)로 복사한 뒤 Esc를 누르십시오."
@@ -1348,7 +1356,7 @@ L["Copy your report with Ctrl+C (Cmd+C on a Mac), switch to Discord and paste it
 L["Get the invite"] = "초대 링크 받기"
 L["Report problems, ask for help and hear about new guides first. The invite is selected for you: copy it with Ctrl+C (Cmd+C on a Mac) and open it in your browser."] = "문제를 신고하고, 도움을 요청하고, 새 가이드 소식을 먼저 받으십시오. 초대 링크가 선택되어 있습니다: Ctrl+C(Mac은 Cmd+C)로 복사해 브라우저에서 여십시오."
 L["Report problems, ask for help and hear about new guides first."] = "문제를 신고하고, 도움을 요청하고, 새 가이드 소식을 먼저 받으십시오."
--- L["blocked in %s: %s (%s)"] = ""
+L["blocked in %s: %s (%s)"] = "%s에서 차단됨: %s (%s)"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "애드온 목록에서 꺼짐"
@@ -1919,6 +1927,13 @@ L["Pursuit of Justice adds run speed. Champion of the Light is left out while th
 L["Twist of Light makes swapping seals cheaper and adds seal echoes; it is Forever's seal-twisting talent."] = "빛의 비틀림은 문장 교체 비용을 줄이고 문장 메아리를 더합니다. Forever의 문장 비틀기 특성입니다."
 L["Spare points go to Divine Strength and Holy's Improved Seals for damage, then Deflection for survival."] = "남는 포인트는 피해를 위해 신성한 힘과 신성의 향상된 문장에, 그다음 생존을 위해 굴절에 투자합니다."
 
+-- Nav/Handoff.lua
+L["Hand guiding to Shortest Path Forever"] = "Shortest Path Forever에 안내 맡기기"
+L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay. Off: Polestar guides, and steps aside only while a journey you started in Shortest Path Forever runs."] = "Shortest Path Forever의 화살표, 경로, 여정이 각 목표로 안내합니다. Polestar의 화살표, 경로선, 여정 단계, 이동 버튼, 교통수단 알림, 지도 클릭, /way는 물러나고 가이드 창과 지도 핀은 남습니다. 끄면: Polestar가 안내하며, Shortest Path Forever에서 시작한 여정이 진행되는 동안에만 물러납니다."
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
+-- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever가 안내 중입니다. Polestar의 화살표를 사용하려면 \"설치 시 Shortest Path Forever로 가이드\"(옵션, 연동)를 끄세요."
+-- L["Guide with Shortest Path Forever when it's installed"] = "설치 시 Shortest Path Forever로 가이드"
+-- L["Shortest Path Forever's arrow, route and journey take you to each goal. Polestar's arrow, route lines, journey steps, travel button, transport alerts, map clicks and /way step aside; the guide window and map pins stay."] = "Shortest Path Forever의 화살표, 경로, 여정이 각 목표로 안내합니다. Polestar의 화살표, 경로선, 여정 단계, 이동 버튼, 교통수단 알림, 지도 클릭, /way는 물러나고 가이드 창과 지도 핀은 남습니다."
 -- L["Browsing the guide needs a gamepad: turn it on in the game's options and plug one in."] = "가이드 탐색에는 게임패드가 필요합니다. 게임 설정에서 켜고 게임패드를 연결하십시오."

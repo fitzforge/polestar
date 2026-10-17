@@ -272,20 +272,24 @@ return {
 
 	-- Step 57: Murlocs and the Collector
 	["Murlocs and the Collector"] = "魚人與收藏家",
-	-- {npc:473} Morgan the Collector · {area:62} Brackwell Pumpkin Patch
+	-- {npc:473} Morgan the Collector · {area:62} Brackwell Pumpkin Patch · {npc:248278} Croaky
 	-- plural, as words: Murloc Foragers = {npc:46} Murloc Forager · Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "魚人強盜和魚人潛伏者分布在橋南邊的河岸。迪菲亞的{npc:473}在橋西邊的{area:62}走動。沿途把覓食的灰狼和小森林熊殺完。",
+	["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "魚人強盜和魚人潛伏者分布在橋南邊的河岸。迪菲亞的{npc:473}在橋西邊的{area:62}走動。沿途把覓食的灰狼和小森林熊殺完。{npc:248278}也在魚人河岸遊蕩：右鍵點擊牠掉落的頭顱。{npc:248278}是精英：建議組隊。",
 	-- plural, as words: Torn Murloc Fins = {item:780} Torn Murloc Fin
 	["Torn Murloc Fins"] = "破損的魚人鱗片",
 
-	-- Step 60: Stone Cairn Lake
+	-- Step 58: Ridgepoint Tower
+	-- {npc:248277} Merell Ross · {area:798} Ridgepoint Tower
+	["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277}在魚人河岸東邊的{area:798}站崗。之後往西北回到橋邊。",
+
+	-- Step 61: Stone Cairn Lake
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake."] = "在伐木場東北方。迪菲亞流浪巫師在湖岸邊紮營。",
 
-	-- Step 61: The Tower of Azora
+	-- Step 62: The Tower of Azora
 	["Follow the hills south to the tower, on the road west."] = "沿著山丘向南走到塔，在往西的路上。",
 
-	-- Step 62: Goldshire
+	-- Step 63: Goldshire
 	-- {area:87} Goldshire
 	["Follow the road west back to {area:87}."] = "沿著道路向西回到{area:87}。",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
@@ -297,7 +301,7 @@ return {
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
 	["{npc:328}: {npc:5497} in {zone:1453} takes it"] = "{npc:328}：由{zone:1453}的{npc:5497}接收",
 
-	-- Step 63: Taming the Beast
+	-- Step 64: Taming the Beast
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
 	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507}和{area:87}的訓練師們站在一起。她的每個任務都會給你一根{item:15908}：對她指定的野獸使用，然後把馴獸棒帶回給她。石皮野豬和小森林熊在{area:64}南邊的山丘遊蕩，森林灰狼在{area:18}東邊的樹林裡。",
@@ -310,34 +314,34 @@ return {
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}，在她旁邊：{spell:5149}",
 
-	-- Step 64: Jennea Cannon
+	-- Step 65: Jennea Cannon
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["Follow the road north from {area:87} into {zone:1453}. {npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "沿著道路從{area:87}向北進入{zone:1453}。{npc:5497}站在{object:2101}的高塔裡；她會給你一個瓶子，用於{quest:1861}瀑布。",
 
-	-- Step 65: Mirror Lake
+	-- Step 66: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "從正門離開{zone:1453}。{quest:1861}瀑布在城門西南方，位於往西前往{zone:1436}的路上：在瀑布底部裝滿{item:7207}。",
 
-	-- Step 66: Gakin the Darkbinder
+	-- Step 67: Gakin the Darkbinder
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["Follow the road north from {area:87} into {zone:1453}. {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "沿著道路從{area:87}向北進入{zone:1453}。{npc:6122}在{object:2101}的{object:2164}地下室等候。",
 
-	-- Step 67: Surena Caledon
+	-- Step 68: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Ride back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "騎馬穿過{area:87}，沿著道路向東前往{area:62}。{npc:881}（等級9）站在農舍旁。",
 
-	-- Step 68: The Binding
+	-- Step 69: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "回到{npc:6122}那裡。在{object:2164}地下室的召喚法陣使用{item:6928}，擊敗被召喚出的虛空行者。",
 	["Subdue the voidwalker"] = "制服虛空行者",
 
-	-- Step 69: The Tome of Divinity
+	-- Step 70: The Tome of Divinity
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6171} Duthorian Rall · {npc:6173} Gazin Tenorm · {npc:6174} Stephanie Turner · {object:2100} Old Town · {item:2589} Linen Cloth
 	["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "沿著道路從{area:87}向北進入{zone:1453}。{npc:6171}和{npc:6173}在光明大教堂裡；{npc:6174}站在{object:2100}，向你要十塊{item:2589}（人型生物會掉落；拍賣場也有賣）。",
 	-- {quest:2998} Tome of Divinity
 	["From the {quest:2998} he gives you"] = "來自他給你的{quest:2998}",
 
-	-- Step 70: Henze Faulk
+	-- Step 71: Henze Faulk
 	-- {area:87} Goldshire · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["Ride back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "騎馬穿過{area:87}，向東前往{area:86}。{npc:6172}躺在湖的南邊：對他使用{item:6866}。他周圍的迪菲亞流浪巫師身上帶著{item:6846}。",
@@ -347,16 +351,17 @@ return {
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}：迪菲亞流浪巫師",
 
-	-- Step 71: Gazin Tenorm
+	-- Step 72: Gazin Tenorm
 	["Back to the Cathedral of Light."] = "回到光明大教堂。",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}：救贖",
 
-	-- Step 72: Sentinel Hill
+	-- Step 73: Sentinel Hill
 	-- {zone:1436} Westfall · {area:108} Sentinel Hill
 	["Follow the road west past Westbrook into {zone:1436}, then south along it to {area:108}. Thor, the gryphon master, stands on the hill."] = "沿著道路向西經過西泉要塞進入{zone:1436}，再沿路向南前往{area:108}。獅鷲管理員索爾站在山丘上。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "魚人強盜和魚人潛伏者分布在橋南邊的河岸。迪菲亞的{npc:473}在橋西邊的{area:62}走動。沿途把覓食的灰狼和小森林熊殺完。",
 	-- ["Ride back out through {area:87} and east along the road to the {area:62}. {quest:1688} (level 9) stands by its farmhouse."] = "騎馬穿過{area:87}，沿著道路向東前往{area:62}。{quest:1688}（等級9）站在農舍旁。",
 	-- ["{area:57}'s mouth"] = "{area:57}入口",
 	-- ["{item:1006}: Princess"] = "{item:1006}：公主",

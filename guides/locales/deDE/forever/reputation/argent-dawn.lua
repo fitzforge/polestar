@@ -18,15 +18,15 @@ return {
 	-- Step 2: Argent Dawn Commission (Horde)
 	-- {quest:5401} Argent Dawn Commission
 	["{quest:5401} (Horde)"] = "{quest:5401} (Horde)",
-	-- {object:2160} The Argent Dawn · {npc:10839} Argent Officer Garush · {area:813} The Bulwark · {quest:5401} Argent Dawn Commission
-	["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:813} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "Bei {object:2160} beginnst du neutral. Hol dir die Ernennung bei {npc:10839} am {area:813} und leg sie an: In Classic fallen Geißelsteine nur, solange das Schmuckstück aus {quest:5401} angelegt ist. Der Vermächtnis-Vorteil „Diplomat“ von Forever erhöht den Rufgewinn.",
+	-- {object:2160} The Argent Dawn · {npc:10839} Argent Officer Garush · {area:152} The Bulwark · {quest:5401} Argent Dawn Commission
+	["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "Bei {object:2160} beginnst du neutral. Hol dir die Ernennung bei {npc:10839} am {area:152} und leg sie an: In Classic fallen Geißelsteine nur, solange das Schmuckstück aus {quest:5401} angelegt ist. Der Vermächtnis-Vorteil „Diplomat“ von Forever erhöht den Rufgewinn.",
 
 	-- Step 3: Minion's Scourgestones to Friendly
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
 	["Minion's Scourgestones to Friendly"] = "Geißelsteine des Dieners bis Freundlich",
-	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {area:813} The Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {item:12844} Argent Dawn Valor Token
+	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {area:152} The Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {item:12844} Argent Dawn Valor Token
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
-	["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:813}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "Ghule und Skelette überall in den {zone:1422} lassen in etwa jedem zweiten Fall Geißelsteine des Dieners fallen; hier stehen sie dicht. Gib sie zu je 20 bei einem beliebigen Argentumoffizier ab (Argentumoffizier Pureheart im {area:3197}, Argentumoffizier Garush am {area:813}, {npc:11039} in der {area:2268}). Jede Abgabe bringt auch ein {item:12844} für die Rüstmeister der Argentumdämmerung.",
+	["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:152}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "Ghule und Skelette überall in den {zone:1422} lassen in etwa jedem zweiten Fall Geißelsteine des Dieners fallen; hier stehen sie dicht. Gib sie zu je 20 bei einem beliebigen Argentumoffizier ab (Argentumoffizier Pureheart im {area:3197}, Argentumoffizier Garush am {area:152}, {npc:11039} in der {area:2268}). Jede Abgabe bringt auch ein {item:12844} für die Rüstmeister der Argentumdämmerung.",
 
 	-- Step 4: Invader's Scourgestones to Honored
 	-- plural, as words: Invader's Scourgestones = {item:12841} Invader's Scourgestone

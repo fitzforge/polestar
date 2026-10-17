@@ -36,6 +36,8 @@ built, never packaged).
   --recordings <dir>   data/recordings
   --sources <dir>      data/sources (wago cache)
   --shipped <file>     the shipped crossings file (default: tools/lib/travel/crossings.json; "none" to leave it out)
+  --grid <dir>         the navigation grid (default: data/local/nav4; "none" to leave it out): a ship's end
+                       lying in the water gets a board point, the nearest dry deck within 30 yd; without a grid, none
   --crossings <file>   the local crossings file (default: <data>/../local/crossings.json)
   --travel-addon <dir> Polestar_Travel output (default: addon/Polestar_Travel)
   --json <file>        travel.json output (default: <data>/travel.json)
@@ -102,6 +104,7 @@ async function build(rest) {
 			recordings: { type: 'string' },
 			sources: { type: 'string' },
 			shipped: { type: 'string' },
+			grid: { type: 'string' },
 			crossings: { type: 'string' },
 			'travel-addon': { type: 'string' },
 			json: { type: 'string' },
@@ -116,6 +119,7 @@ async function build(rest) {
 		sourcesDir: path.resolve(values.sources || SOURCES),
 		...(values.shipped ? { shippedFile: values.shipped === 'none' ? null : path.resolve(values.shipped) } : {}),
 		...(values.crossings ? { crossingsFile: path.resolve(values.crossings) } : {}),
+		gridDir: values.grid === 'none' ? null : path.resolve(values.grid || path.join(ROOT, 'data', 'local', 'nav4')),
 		build: values.build,
 		foreverBuild: values['forever-build'],
 		offline: values.offline,

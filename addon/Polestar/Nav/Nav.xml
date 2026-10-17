@@ -6,6 +6,7 @@
 	<Script file="Layers.lua"/>
 	<Script file="Bridges.lua"/>
 	<Script file="Transit.lua"/>
+	<Script file="Danger.lua"/>
 	<Script file="Travel.lua"/>
 	<Script file="Walk.lua"/>
 	<Script file="TravelData.lua"/>

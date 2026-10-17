@@ -56,11 +56,19 @@ function Compat.Now()
 	return time and time() or 0
 end
 
+-- The player's faction: "Alliance", "Horde", or nil (neutral, unread or secret).
+-- Compat's one reader of UnitFactionGroup; the walking router prices the
+-- other faction's towns by it (Nav/Walk.lua).
+function Compat.GetPlayerFaction()
+	local faction = readable(UnitFactionGroup and UnitFactionGroup("player"))
+	if faction == "Alliance" or faction == "Horde" then return faction end
+	return nil
+end
+
 function Compat.GetPlayerInfo()
 	local _, race = UnitRace("player")
 	local _, class = UnitClass("player")
-	local faction = readable(UnitFactionGroup and UnitFactionGroup("player"))
-	if faction ~= "Alliance" and faction ~= "Horde" then faction = "Neutral" end
+	local faction = Compat.GetPlayerFaction() or "Neutral"
 	return {
 		name = readable(UnitName("player")),
 		realm = GetRealmName and GetRealmName() or nil,
@@ -94,11 +102,6 @@ end
 
 function Compat.IsOnTaxi()
 	return readable(UnitOnTaxi and UnitOnTaxi("player")) and true or false
-end
-
--- Inside a building, cave or mine (where the client allows no mount).
-function Compat.IsIndoors()
-	return readable(IsIndoors and IsIndoors()) and true or false
 end
 
 -- The player's world position from UnitPosition: wx (north), wy (west), z
@@ -139,6 +142,16 @@ end
 function Compat.IsInInstance()
 	if not IsInInstance then return false end
 	local inside = IsInInstance()
+	return inside and true or false
+end
+
+-- The client's indoor state (the minimap's indoor zoom): true indoors, false
+-- outdoors, nil when the client lacks IsIndoors, it errors, or keeps it secret.
+-- Nav/Walk.lua seeds the walking floor with it.
+function Compat.IsIndoors()
+	if not IsIndoors then return nil end
+	local ok, inside = pcall(IsIndoors)
+	if not ok or (inside ~= nil and readable(inside) == nil) then return nil end
 	return inside and true or false
 end
 

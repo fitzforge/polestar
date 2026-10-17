@@ -264,3 +264,21 @@ test('review P3-11: at the dock, a boat leaving within the boarding window shows
 	assert.equal(docked.rows[0].time, '2:08');
 	assert.equal(away.rows[0].sub, 'leaves in 10:00 \u00b7 ride 2:00');
 });
+
+test('a walk that enters a hostile town says so under its step: "Hostile town: Southshore"', () => {
+	const [s] = run(`
+		-- Travel.HubText's wording (the panel asks Nav.travel for it).
+		Polestar.Nav.travel.HubText = function(leg)
+			local names = {}
+			for _, h in ipairs(leg.hubs or {}) do names[#names + 1] = h.name end
+			return #names > 0 and ("Hostile town: " .. table.concat(names, ", ")) or nil
+		end
+		R.legs[3].hubs = { { id = 12, name = "Southshore" } }
+		R.legs[1].hubs = { { id = 13, name = "Tarren Mill" }, { id = 14, name = "Hammerfall" } }
+		Polestar.Fire("ROUTE_CHANGED", R.legs)
+		emit(shot())`);
+	assert.equal(s.rows[2].sub, 'Hostile town: Southshore');
+	assert.equal(s.rows[0].sub, 'Hostile town: Tarren Mill, Hammerfall');
+	assert.equal(s.rows[1].sub, 'leaves in about 0:15 \u00b7 ride 0:10', 'a ride keeps its departure line');
+	assert.ok(s.rows[2].h > 24, 'the warning has its own line');
+});

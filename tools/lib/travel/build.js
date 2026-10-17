@@ -20,6 +20,7 @@ const { header } = require('../generated');
 const { loadTravelTables } = require('./sources');
 const { buildTaxi, TRACK_TOLERANCE } = require('./taxi');
 const { buildTransports } = require('./transports');
+const { openNav } = require('../nav/path');
 const { buildTimetables } = require('./timetable');
 const { loadClassicDb } = require('./cmangos');
 const { buildInns } = require('./inns');
@@ -85,10 +86,11 @@ function emitLua(t) {
 	lines.push('\tflights = {');
 	for (const l of t.taxi.legs) lines.push(`\t\t${l.from},${l.to},${l.yards},`);
 	lines.push('\t},');
-	lines.push('\t-- ends: name, continent, wx, wy, uiMapID, x, y, frame ("e" Era, "l" live), AreaTable area (its name in the client\'s language); seconds riding a->b, b->a and waiting at a, b');
+	lines.push('\t-- ends: name, continent, wx, wy, uiMapID, x, y, frame ("e" Era, "l" live), AreaTable area (its name in the client\'s language)');
+	lines.push('\t-- [, board = { wx, wy, z }: where a ship lying off its pier is boarded, on the deck]; seconds riding a->b, b->a and waiting at a, b');
 	lines.push('\ttransports = {');
 	for (const tr of t.transports) {
-		const end = (e) => [e.name, e.c, e.wx, e.wy, e.map, e.x, e.y, e.f, e.area];
+		const end = (e) => [e.name, e.c, e.wx, e.wy, e.map, e.x, e.y, e.f, e.area, ...(e.board ? [e.board] : [])];
 		lines.push(`\t\t${luaVal({ id: tr.id, kind: tr.kind, faction: tr.faction, a: end(tr.a), b: end(tr.b), ab: tr.ab, ba: tr.ba, waitA: tr.waitA, waitB: tr.waitB })},`);
 	}
 	lines.push('\t},');
@@ -202,13 +204,16 @@ function emitFlightLua(build, legs) {
 // shippedFile: the shipped crossings file (default SHIPPED_CROSSINGS,
 // committed); absent -> no shipped crossings. crossingsFile: the optional
 // local crossings file (default data/local/crossings.json next to dataDir);
-// absent -> no Polestar_Travel output.
+// absent -> no Polestar_Travel output. gridDir: the navigation grid
+// (tools/lib/nav, `nav build`) the transports' board points come from;
+// absent -> none, with a warning.
 async function buildTravel({
 	dataDir = DATA,
 	recordingsDir = path.join(ROOT, 'data', 'recordings'),
 	sourcesDir = SOURCES,
 	shippedFile = SHIPPED_CROSSINGS,
 	crossingsFile = path.join(dataDir, '..', 'local', 'crossings.json'),
+	gridDir = null,
 	build,
 	foreverBuild,
 	offline = false,
@@ -250,6 +255,8 @@ async function buildTravel({
 	}
 
 	const taxi = buildTaxi({ tables: src.tables, frames, npcs, liveFrames });
+	const nav = gridDir ? openNav({ dir: gridDir }) : null;
+	const gridWarnings = nav && nav.available ? [] : [`no navigation grid${gridDir ? ` at ${gridDir}` : ''}: the transports get no board points (\`nav build\`, or --grid)`];
 	const tr = buildTransports({
 		tables: src.tables,
 		foreverTables: forever && forever.tables,
@@ -259,6 +266,7 @@ async function buildTravel({
 		npcs,
 		objects,
 		liveFrames,
+		nav: nav && nav.available ? nav : null,
 	});
 	const transit = buildTimetables({
 		tables: src.tables,
@@ -278,7 +286,7 @@ async function buildTravel({
 	const local = readCrossingsFile(crossingsFile, frames);
 	const shipped = readCrossingsFile(shippedFile, frames);
 	const shippedSource = shipped ? JSON.parse(fs.readFileSync(shippedFile, 'utf8')).source || path.basename(shippedFile) : null;
-	const warnings = [...src.warnings, ...(forever ? forever.warnings : []), ...(transitTables ? transitTables.warnings : []), ...transitWarnings, ...taxi.warnings, ...tr.warnings, ...transit.warnings, ...areaWarnings, ...inns.warnings, ...paths.warnings];
+	const warnings = [...src.warnings, ...(forever ? forever.warnings : []), ...(transitTables ? transitTables.warnings : []), ...transitWarnings, ...taxi.warnings, ...gridWarnings, ...tr.warnings, ...transit.warnings, ...areaWarnings, ...inns.warnings, ...paths.warnings];
 
 	const sources = [{ name: 'Blizzard Classic Era client tables (wago.tools)', build: src.build, tables: Object.keys(src.urls), urls: src.urls }];
 	if (forever) sources.push({ name: 'WoW Forever client tables (wago.tools)', build: forever.build, tables: Object.keys(forever.urls), urls: forever.urls, use: 'ship loops Forever added' });

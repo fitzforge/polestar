@@ -1,8 +1,8 @@
 'use strict';
-// Our navigation grid in Shortest Path Forever's walking-map format, so his
-// in-game engine (Routing/PathGrid.lua, Path.lua, PathJobs.lua) runs on it
-// unchanged (docs/ARCHITECTURE.md, "Navigation grid", "Packing for the
-// in-game engine").
+// Our navigation grid as Polestar's walking maps (format 2), the maps of
+// Polestar's walking router (Routing/PathGrid.lua, Path.lua, PathJobs.lua),
+// grown from Shortest Path Forever's walking-map format (docs/ARCHITECTURE.md,
+// "Navigation grid", "Packing for the in-game engine").
 //
 // Ported from Shortest Path Forever v1.15.0 by Cillian Berragan
 // (github.com/cjber/shortest-path-forever, GPL-3.0-or-later, used with his
@@ -12,21 +12,61 @@
 // Portions Copyright (C) 2026 Cillian Berragan (Shortest Path Forever, GPL-3.0-or-later); adapted for Polestar, 2026-10-15.
 //
 //   const { packNav, shipPack, checkPack } = require('tools/lib/nav/pack');
-//   const files = await packNav({ dir, cells = 128, continents, places, date, log });
+//   const files = await packNav({ dir, cells = 128, continents, places, layers, date, log });
 //   // files: Map 'Nav0.lua' | 'Nav0_1.lua' | ... | 'Chokepoints.lua' -> Lua source, in load order;
 //   // files.manifest: PACK.json without hashes; files.timing: seconds and memory per map
 //   shipPack(files, 'addon/Polestar_Nav');   // Nav/<files>, PACK.json, Nav/Nav.xml
 //   checkPack('addon/Polestar_Nav');         // -> [problem, ...], [] when it matches PACK.json
+//   readLayers({ dir, areaTable, zoneAt })   // the ground layers of `nav layers` for packNav's layers
 //
 // Three stages, each usable on its own so another surface source can feed
 // the same encoder:
 //   cellGrid(source, C)  our grid -> cells: per SPF cell its surfaces (the
-//                        base one and floors) and which neighbouring
-//                        surfaces a link joins (a CellGrid, below)
-//   encodeMaps(cg)       CellGrid -> HPA* graph and the four per-cluster
-//                        strings (graph, grid, height, floor)
+//                        base one and floors), their ground classes, and
+//                        which neighbouring surfaces a link joins (a CellGrid)
+//   buildHpa(cg)         the HPA* graph, each edge priced per profile
+//   encodeMaps(cg, hpa)  -> the five per-cluster strings (graph, grid,
+//                        height, floor, class) and the zone field's
 //   packFiles(...)       strings -> NavN.lua (metadata) + NavN_i.lua parts
 //                        of zlib-compressed, base64 blocks
+//
+// Ground classes (maps format 2, decided 2026-10-16 in the pathing v2
+// design, its section 1): each surface carries a class
+// byte (nodeClass; Routing/Costs.lua and its copy costs.js price it): steep
+// slope when its steepest terrain triangle (the grid's tslope, over its
+// columns) is from SLOPE.STEEP degrees, else indoor when most of its entries
+// are FLAG.INDOOR (indoor city in a capital: the chunk's area or the zone map
+// around it, readLayers), else road when any of its columns is road (the
+// roads layer through roadmask.js), else gentle slope from SLOPE.GENTLE; and
+// a hub bit for each side whose hub disk touches the cell (markHubs). A graph
+// edge carries the cost of its grid path under each profile (Alliance, Horde,
+// none: a step costs its length times the class's multiplier, times swim in
+// water) and its yards.
+//
+// Zones (decided 2026-10-17, the zone danger design): each cluster carries
+// the zone of its 16 x 16 chunks (the grid's chunk area, up its AreaTable
+// parents to a zone of zones.json, as its uiMapID, no map frame needed:
+// zoneAreas, through readLayers) in the
+// metadata's zone field; the router prices a step into a zone its caller
+// marks dangerous (Routing/Path.lua). Nothing else depends on it: every other
+// field is the same bytes with or without zones.
+//
+// Entrances (his rule, plus roads decided 2026-10-16, Ruling 31). A cluster
+// border's crossings are grouped by the region on each side; his rule puts
+// one entrance in every run of ENTRANCE_YD-in-cells crossings, at its middle
+// (a straight crossing first). Every walk across the border goes through an
+// entrance, so a road crossing it between two of them was walked off: Fitz
+// at Ratchet, where the border crosses the north-east road 35 yd from the
+// main road and the one entrance sat on the main road, saw his walk leave
+// the road along the border. So each run of road crossings (both cells road)
+// gets an entrance of its own at its middle, unless one of his lies within
+// ROAD_NEAR_YD of the run. Dry ground too (Ruling 37, 2026-10-17): a region
+// holds land and the water it wades into, so his entrance can fall in the
+// water beside a beach or a pier's root, and every walk across that border
+// swam (Fitz at Auberdine, where the pier's beach crosses x = 6400 and walks
+// to the boats swam 200 yd across the bay). So each run of dry crossings
+// (both cells ground, value 1) that no entrance crosses dry gets one at its
+// middle.
 //
 // Cells (decided here). SPF's cluster is one ADT tile cut into C x C cells
 // (C = `cells`), x north, y west; our tile is 256 x 256 columns (format.js),
@@ -47,9 +87,9 @@
 // flags (an orthogonal step with no link is closed; a diagonal with a link
 // whose L-shaped detours are closed is opened explicitly), every pair with
 // a floor to the floor links. Falls (one way down) and lifts (SPF keeps
-// lifts outside the grid, in its transport data) are left out; slope costs
-// have no place in the format (a step costs its length, water `swim` times
-// that). Fatigue water is no surface of our grid (SWIM | BLOCKED,
+// lifts outside the grid, in its transport data) are left out; a step costs
+// its length times its ground class's multiplier (water `swim` times that).
+// Fatigue water is no surface of our grid (SWIM | BLOCKED,
 // grid/surfaces.js), so no route here crosses open sea.
 // Faces (decided 2026-10-16). His steps are two-way and cost their flat
 // length, so a face packed as steps is a straight line up it. Forever's
@@ -76,9 +116,9 @@
 //   instead cut off 84 guide goals (roads up to Ironforge and Stormwind's
 //   canals among them): steep triangles are common on ground players
 //   cross, a bridge between two places is not a face to avoid.
-// A route down a face goes round too, a little longer; slopes under 50°
-// still cost their flat length (a height-aware step cost is his engine's to
-// add).
+// A route down a face goes round too, a little longer; slopes under 50° are
+// priced by their class (gentle, steep), so a walk goes round a hill when
+// that is not much longer.
 
 const crypto = require('node:crypto');
 const fs = require('node:fs');
@@ -86,11 +126,18 @@ const path = require('node:path');
 const zlib = require('node:zlib');
 const { header } = require('../generated');
 const { ADT, TILE_CELLS, CELL, NO_LINK, NO_COMP, DIRS, FLAG, CLS, STEP, JUMP, WALK_MAX, STEEP_MAX, decodeTile, tileKey } = require('./grid/format');
+const Costs = require('./costs');
 
+const { CLASS, HUB_ALLIANCE, HUB_HORDE, SLOPE, PROFILES } = Costs;
+// Per profile (Costs.PROFILES), the multiplier of every class byte (5 bits).
+const MULTS = PROFILES.map((p) => Float64Array.from({ length: 32 }, (_, c) => Costs.mult(c, p)));
 const T = ADT;
 const SWIM = 3.0; // gen_nav.py: a swum yard counts as three running ones
-const WEIGHTS = [SWIM, 1.0]; // every graph edge carries one cost per weight: swimming, walking on water
+const COST_MAX = 64 ** 3 - 1; // a graph edge's cost per profile: 3 symbols (a hostile hub's x20 passes 4095)
+const YARDS_MAX = 64 ** 2 - 1; // its yards: 2 symbols
+const AREA_CAPITAL = 0x100; // AreaTable Flags_0: a capital city (layers/hubs.js); 0x138 on the six capitals
 const ENTRANCE_YD = (20 * T) / 67; // gen_nav.py's 20-cell entrance runs at 67 cells, in yards
+const ROAD_NEAR_YD = 8; // a road crossing a border gets its own entrance unless a chunk entrance is this near its run
 const PRUNE = 1.02; // drop an intra edge when a two-hop path is within 2% (and both hops are shorter: never cuts a region)
 const ZQ = 2; // base heights are stored to this step (yd)
 const MIN_REGION = 1000; // walkable surfaces a region needs to be packed (path.js SNAP_REGION)
@@ -108,7 +155,68 @@ const SDY = [0, 0, 1, -1, 1, -1, 1, -1];
 const OPP = [1, 0, 3, 2, 7, 6, 5, 4];
 const DIR_OF = new Int8Array(9).fill(-1); // [(dx + 1) * 3 + dy + 1]
 for (let d = 0; d < 8; d++) DIR_OF[(SDX[d] + 1) * 3 + SDY[d] + 1] = d;
-const NAMES = { 0: 'Eastern Kingdoms', 1: 'Kalimdor' };
+const NAMES = { 0: 'Eastern Kingdoms', 1: 'Kalimdor', 2991: 'Zephras Isle' };
+
+// A node's ground class byte (Routing/Costs.lua): the base class by precedence steep slope > indoor > road >
+// gentle slope > normal (a road is graded, so it beats a gentle slope; a steep road stays steep), indoor in a
+// capital being indoor city, plus its hub bits. surfaceFlags: the node's FLAG bits (INDOOR when most of it is
+// indoors, SWIM when it is water); tslope: its steepest terrain triangle (degrees); road: any of its columns is
+// road (never on water: a road's texture under a ford or a bridge's river is no road to swim); areaCity: it lies
+// in a capital; hubBits: HUB_ALLIANCE | HUB_HORDE.
+function nodeClass({ surfaceFlags = 0, tslope = 0, road = false, areaCity = false, hubBits = 0 }) {
+	let base = CLASS.NORMAL;
+	if (tslope >= SLOPE.STEEP) base = CLASS.STEEP;
+	else if (surfaceFlags & FLAG.INDOOR) base = areaCity ? CLASS.CITY : CLASS.INDOOR;
+	else if (road && !(surfaceFlags & FLAG.SWIM)) base = CLASS.ROAD;
+	else if (tslope >= SLOPE.GENTLE) base = CLASS.GENTLE;
+	return base | (hubBits & (HUB_ALLIANCE | HUB_HORDE));
+}
+
+// The capitals' area ids from AreaTable rows: an area flagged AREA_CAPITAL and every area under one.
+function capitalAreas(areaTable) {
+	const parent = new Map();
+	const capital = new Set();
+	for (const r of areaTable) {
+		parent.set(Number(r.ID), Number(r.ParentAreaID) || 0);
+		if (Number(r.Flags_0) & AREA_CAPITAL) capital.add(Number(r.ID));
+	}
+	const out = new Set();
+	for (const id of parent.keys()) {
+		for (let cur = id, n = 0; cur && n < 8; cur = parent.get(cur) || 0, n++) {
+			if (capital.has(cur)) {
+				out.add(id);
+				break;
+			}
+		}
+	}
+	return out;
+}
+
+// The zone of each AreaTable area (rows: ID, ParentAreaID) by zones.json (its zones, type 3, with an areaId): the
+// uiMapID of the first area up its ParentAreaID chain that is a zone's area, else 0. Entries of other types
+// (battlegrounds, Darkspear Islands) never count. No map frame is needed, so a Forever zone without an Era frame
+// (Riverglades, Zephras Isle) resolves too. -> (c, areaId) -> uiMapID (0 for none)
+function zoneAreas({ areaTable, zones }) {
+	const parent = new Map();
+	for (const r of areaTable) parent.set(Number(r.ID), Number(r.ParentAreaID) || 0);
+	const byArea = new Map();
+	for (const z of Object.values(zones)) if (z && z.type === 3 && z.areaId) byArea.set(Number(z.areaId), Number(z.id));
+	const memo = new Map();
+	return (c, areaId) => {
+		const id = Number(areaId) || 0;
+		if (!memo.has(id)) {
+			let out = 0;
+			for (let cur = id, n = 0; cur && n < 8; cur = parent.get(cur) || 0, n++) {
+				if (byArea.has(cur)) {
+					out = byArea.get(cur);
+					break;
+				}
+			}
+			memo.set(id, out);
+		}
+		return memo.get(id);
+	};
+}
 
 function enc(v, width) {
 	if (!(v >= 0 && v < 64 ** width && Number.isInteger(v))) throw new Error(`pack: ${v} does not fit ${width} base64 digits`);
@@ -158,9 +266,12 @@ async function readRegions(file) {
 //   clusters: Map k -> { val: Uint8Array(C²) (0 blocked, 1 ground, 2 water),
 //     zq: Int16Array(C²) (base height / ZQ, rounded), mask: Uint8Array(C²)
 //     (bit d: the base surface joins the neighbour's base in SPF direction d),
+//     cls: Uint8Array(C²) (the base surface's ground class byte, nodeClass),
 //     floorStart, floorEnd (its floors, contiguous, by cell then height) }
-//   floorCell, floorVal, floorZ, floorLayer: per floor (layer 1 = lowest)
+//   floorCell, floorVal, floorZ, floorLayer, floorClass: per floor (layer 1 = lowest)
 //   links: (a, b) node pairs, either a floor, both ways (Int32Array pairs, sorted, unique)
+// Every CellGrid carries classes (format 2); a map whose clusters lack `cls`
+// (a hand-made one, tests) is written without them (format 1) and no graph.
 class CellGrid {
 	constructor({ C, NX, NY, CX0, CY0 }) {
 		Object.assign(this, { C, NX, NY, CX0, CY0, GW: NX * C, GH: NY * C });
@@ -169,6 +280,7 @@ class CellGrid {
 		this.floorVal = [];
 		this.floorZ = [];
 		this.floorLayer = [];
+		this.floorClass = [];
 		this.floorAt = new Map(); // base cell -> its first floor
 		this.pairs = []; // a, b, ... (unsorted; finish() sorts into links)
 	}
@@ -177,20 +289,38 @@ class CellGrid {
 		let cl = this.clusters.get(k);
 		if (!cl) {
 			const C2 = this.C * this.C;
-			cl = { val: new Uint8Array(C2), zq: new Int16Array(C2), mask: new Uint8Array(C2), flags: new Uint8Array(C2), floorStart: 0, floorEnd: 0 };
+			cl = { val: new Uint8Array(C2), zq: new Int16Array(C2), mask: new Uint8Array(C2), flags: new Uint8Array(C2), cls: new Uint8Array(C2), floorStart: 0, floorEnd: 0 };
 			this.clusters.set(k, cl);
 		}
 		return cl;
 	}
 
-	addFloor(cell, val, z) {
+	addFloor(cell, val, z, cls = 0) {
 		const f = this.floorCell.length;
 		if (!this.floorAt.has(cell)) this.floorAt.set(cell, f);
 		this.floorLayer.push(f - this.floorAt.get(cell) + 1);
 		this.floorCell.push(cell);
 		this.floorVal.push(val);
 		this.floorZ.push(z);
+		this.floorClass.push(cls);
 		return this.GW * this.GH + f;
+	}
+
+	// The ground class byte of node n (nodeClass); 0 without classes.
+	nodeClass(n) {
+		const NB = this.GW * this.GH;
+		if (n >= NB) return this.floorClass[n - NB] || 0;
+		if (!this.at(Math.floor(n / this.GH), n % this.GH)) return 0;
+		return this.hit.cls ? this.hit.cls[this.hitL] : 0;
+	}
+
+	// ORs hub bits into every surface of global cell (gx, gy).
+	addHub(gx, gy, bits) {
+		if (!this.at(gx, gy)) return;
+		if (this.hit.val[this.hitL]) this.hit.cls[this.hitL] |= bits;
+		const c = gx * this.GH + gy;
+		const f0 = this.floorAt.get(c);
+		if (f0 !== undefined) for (let f = f0; f < this.floorCell.length && this.floorCell[f] === c; f++) this.floorClass[f] |= bits;
 	}
 
 	cellOf(n) {
@@ -406,7 +536,13 @@ class Faces {
 }
 
 // source: { tiles: [{ col, row, tile }] or a loader, regions } — see cellGridFromDir.
-function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
+// layers (each optional): roads(c, col, row) -> the tile's road columns (65536 bytes, j * 256 + i, nonzero: road;
+// cellGridFromDir derives them from the layer's weights) or null;
+// hubs: { [c]: [{ id, side, name, areaId, disks: [[x, y, r]] }] } (hubs.json's); city(c, x, y, areaId) -> whether a
+// chunk (its centre, its area) lies in a capital; zone(c, areaId) -> the uiMapID of the zone a chunk's area lies in
+// (0 or null for none: the cluster's cl.zone, the zone field). The ground classes (nodeClass) come from these and
+// the grid's flags and tslope.
+function cellGrid({ tiles, loadTile, regions, C, c = 0, layers = {}, log = () => {} }) {
 	const rows = tiles.map((t) => t.row);
 	const cols = tiles.map((t) => t.col);
 	const maxRow = Math.max(...rows);
@@ -443,6 +579,26 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 		const cl = cg.cluster(k);
 		cl.floorStart = cg.floorCell.length;
 		const { n, first, z, flags, links, comp } = t;
+		const tslope = t.tslope || new Uint8Array(n);
+		const roads = layers.roads ? layers.roads(c, meta.col, meta.row) : null;
+		// Per chunk (16 x 16 columns): in a capital (by its area or the zone around its centre).
+		const city = new Uint8Array(256);
+		if (layers.city) {
+			for (let ch = 0; ch < 256; ch++) {
+				const wx = (32 - meta.row) * T - ((ch >> 4) * 16 + 8) * CELL;
+				const wy = (32 - meta.col) * T - ((ch & 15) * 16 + 8) * CELL;
+				city[ch] = layers.city(c, wx, wy, t.areas[ch]) ? 1 : 0;
+			}
+		}
+		// Per chunk in the cluster's own axes (q = (cx // 8) * 16 + (cy // 8) at 128 cells; x and y run against the
+		// grid's j and i, so chunk q is the grid's 255 - q): its zone's uiMapID (layers.zone), 0 for none. A tile with
+		// no chunk in a zone has none (the zone field skips it).
+		if (layers.zone && t.areas) {
+			const zone = new Uint16Array(256);
+			let any = false;
+			for (let q = 0; q < 256; q++) any = (zone[q] = Number(layers.zone(c, t.areas[255 - q])) || 0) !== 0 || any;
+			if (any) cl.zone = zone;
+		}
 		const terr = (e) => (flags[e] & (FLAG.TERRAIN | FLAG.WMO | FLAG.M2)) === FLAG.TERRAIN;
 		// A terrain link touching terrain the client slides off, inside a run of such columns (along the link's
 		// direction, following links) that rises more than JUMP: a face link (Faces).
@@ -575,7 +731,8 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 					}
 				}
 			}
-			// Pieces: entries, swim entries, the entry nearest the centre, region size.
+			// Pieces: entries, swim entries, the entry nearest the centre, region size; for the ground class its
+			// indoor and road entries and steepest terrain triangle (tslope).
 			const pieces = new Map();
 			for (let a = 0; a < m; a++) {
 				const r = find(a);
@@ -583,17 +740,21 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 				const kk = ents[2 * a + 1];
 				let p = pieces.get(r);
 				if (!p) {
-					p = { root: r, count: 0, wet: 0, rep: -1, d2: Infinity, size: 0, joined: 0, members: [] };
+					p = { root: r, count: 0, wet: 0, rep: -1, repK: -1, d2: Infinity, size: 0, joined: 0, members: [], indoor: 0, road: 0, tslope: 0 };
 					pieces.set(r, p);
 				}
 				p.count++;
 				p.members.push(e);
 				if (flags[e] & FLAG.SWIM) p.wet++;
+				if (flags[e] & FLAG.INDOOR) p.indoor++;
+				if (roads && roads[kk]) p.road++;
+				if (tslope[e] > p.tslope) p.tslope = tslope[e];
 				p.joined |= joined[e];
 				const d2 = off[255 - (kk >> 8)] ** 2 + off[255 - (kk & 255)] ** 2;
 				if (d2 < p.d2 || (d2 === p.d2 && z[e] > z[p.rep])) {
 					p.d2 = d2;
 					p.rep = e;
+					p.repK = kk;
 				}
 				p.size = Math.max(p.size, regions.regionSize[regions.region[base + comp[e]]]);
 			}
@@ -606,6 +767,12 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 			for (const p of list) {
 				p.z = z[p.rep];
 				p.val = p.wet * 2 > p.count ? 2 : 1;
+				p.cls = nodeClass({
+					surfaceFlags: (p.indoor * 2 > p.count ? FLAG.INDOOR : 0) | (p.val === 2 ? FLAG.SWIM : 0),
+					tslope: p.tslope,
+					road: p.road > 0,
+					areaCity: city[(p.repK >> 12) * 16 + ((p.repK & 255) >> 4)] === 1,
+				});
 			}
 			const water = Math.max(-Infinity, ...list.filter((p) => p.val === 2).map((p) => p.z));
 			list = list.filter((p) => p.z >= water - STEP);
@@ -617,9 +784,10 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 			const cell = gx * GH + gy;
 			cl.val[lc] = bottom.val;
 			cl.zq[lc] = Math.round(bottom.z / ZQ);
+			cl.cls[lc] = bottom.cls;
 			for (const e of bottom.members) node[e] = cell;
 			for (const p of rest) {
-				const f = cg.addFloor(cell, p.val, p.z);
+				const f = cg.addFloor(cell, p.val, p.z, p.cls);
 				for (const e of p.members) node[e] = f;
 			}
 			packed += list.length;
@@ -669,12 +837,43 @@ function cellGrid({ tiles, loadTile, regions, C, log = () => {} }) {
 		else faces.join(cross[x], b);
 	}
 	const opened = faces.bridge();
+	const hubCells = markHubs(cg, (layers.hubs && layers.hubs[c]) || []);
 	cg.finish();
-	log(`cells ${C}: ${cg.clusters.size} clusters, surfaces ${packed} (floors ${cg.floorCell.length}), dropped small-region entries ${dropped}, face links ${faces.count} (opened as the only way in ${opened})`);
+	log(`cells ${C}: ${cg.clusters.size} clusters, surfaces ${packed} (floors ${cg.floorCell.length}), dropped small-region entries ${dropped}, face links ${faces.count} (opened as the only way in ${opened}), hub cells ${hubCells}`);
 	return cg;
 }
 
-async function cellGridFromDir({ dir, c, C, log }) {
+// The hub bits: every cell a hub's disk touches (the disk reaches the cell's
+// square, not only its centre), on every surface of the cell, so the router's
+// hub report (a drawn segment crossing a disk) never names a hub the cells
+// priced as open ground. -> cells marked (a cell under disks of both sides counts twice).
+function markHubs(cg, hubs) {
+	const cs = T / cg.C;
+	const x0 = cg.CX0 * T;
+	const y0 = cg.CY0 * T;
+	let marked = 0;
+	for (const hub of hubs) {
+		const bits = hub.side === 'Alliance' ? HUB_ALLIANCE : hub.side === 'Horde' ? HUB_HORDE : 0;
+		if (!bits) continue;
+		const cells = new Set();
+		for (const [hx, hy, r] of hub.disks) {
+			for (let gx = Math.floor((hx - r - x0) / cs); gx <= Math.floor((hx + r - x0) / cs); gx++) {
+				const dx = Math.max(x0 + gx * cs - hx, 0, hx - (x0 + (gx + 1) * cs));
+				for (let gy = Math.floor((hy - r - y0) / cs); gy <= Math.floor((hy + r - y0) / cs); gy++) {
+					const dy = Math.max(y0 + gy * cs - hy, 0, hy - (y0 + (gy + 1) * cs));
+					if (dx * dx + dy * dy <= r * r && gx >= 0 && gy >= 0 && gx < cg.GW && gy < cg.GH) cells.add(gx * cg.GH + gy);
+				}
+			}
+		}
+		for (const cell of cells) cg.addHub(Math.floor(cell / cg.GH), cell % cg.GH, bits);
+		marked += cells.size;
+	}
+	return marked;
+}
+
+// layers.roads here are the roads layer's raw weights: the road columns cellGrid sees come from roadmask.js
+// (hysteresis, gap bridging over ground our grid walks). -> { cg, index, roads: roadMask's stats or null }
+async function cellGridFromDir({ dir, c, C, layers = {}, log = () => {} }) {
 	const index = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'));
 	const cont = index.continents[c];
 	if (!cont) throw new Error(`pack: no continent ${c} in ${dir}`);
@@ -695,7 +894,16 @@ async function cellGridFromDir({ dir, c, C, log }) {
 		if (!t.links) throw new Error(`pack: tile ${key}: not linked (rerun \`node tools/polestar.js nav build\`)`);
 		return t;
 	};
-	return { cg: cellGrid({ tiles, loadTile, regions, C, log }), index };
+	let roads = null;
+	let classLayers = layers;
+	if (layers.roads) {
+		const { roadMask } = require('./roadmask');
+		const { openNav } = require('./path');
+		const masks = roadMask({ c, tiles: cont.tiles, weights: (col, row) => layers.roads(c, col, row), nav: openNav({ dir, cacheTiles: 16 }), log });
+		roads = masks.stats;
+		classLayers = { ...layers, roads: (cc, col, row) => masks.get(tileKey(col, row)) || null };
+	}
+	return { cg: cellGrid({ tiles, loadTile, regions, C, c, layers: classLayers, log }), index, roads };
 }
 
 // Per cluster: the local moves of every node (gen_nav.py moves(): the base
@@ -721,6 +929,9 @@ function clusterMoves(cg, k) {
 	const value = new Uint8Array(N);
 	value.set(cl.val);
 	for (let f = 0; f < nf; f++) value[C * C + f] = cg.floorVal[cl.floorStart + f];
+	const cls = new Uint8Array(N); // ground class bytes (0 on a map without classes)
+	if (cl.cls) cls.set(cl.cls);
+	for (let f = 0; f < nf; f++) cls[C * C + f] = cg.floorClass[cl.floorStart + f] || 0;
 	// gen_nav.py step_ok / diag_ok inside the cluster (PathGrid.lua decodeGrid's moves).
 	const { val, flags } = cl;
 	const step = (x, y, dx, dy) => {
@@ -765,15 +976,24 @@ function clusterMoves(cg, k) {
 		}
 		off[l + 1] = to.length;
 	}
-	return { N, value, off, to: Int32Array.from(to), len: Float64Array.from(len), local, global };
+	return { N, value, cls, off, to: Int32Array.from(to), len: Float64Array.from(len), local, global };
 }
 
-// gen_nav.py grid_hpa: regions per cluster, entrances per border group every
-// ENTRANCE_YD, intra-cluster edges by Dijkstra per weight, pruned.
+// gen_nav.py grid_hpa: regions per cluster, entrances per border group (the crossings between one region on
+// each side) every `run` crossings (ENTRANCE_YD in cells; a cell crosses straight and both ways diagonally, so on
+// open ground that is an entrance about every ENTRANCE_YD / 3), plus one on each road crossing the border away
+// from those and one on each dry run of crossings none of them crosses dry (Polestar's, 2026-10-16 and -17),
+// intra-cluster edges by Dijkstra per profile, pruned.
+// An edge is { a, b, ab, ba, yab, yba }: ab the costs from a to b (Costs.PROFILES order: Alliance, Horde, none),
+// each priced as the router prices a grid step (its length times Costs.mult of the node it enters, times SWIM in
+// water), ba the way back, yab and yba the yards walked along the cost-best way with no profile.
 function buildHpa(cg, log = () => {}) {
 	const { C, NX, NY, GH } = cg;
 	const CS = T / C;
 	const run = Math.max(1, Math.round(ENTRANCE_YD / CS));
+	const near = Math.max(1, Math.round(ROAD_NEAR_YD / CS));
+	const isRoad = (n) => (cg.nodeClass(n) & 7) === CLASS.ROAD;
+	const isDry = (c) => cg.nodeValue(c[2]) === 1 && cg.nodeValue(c[3]) === 1; // a crossing with ground on both sides
 	const ks = [...cg.clusters.keys()].sort((a, b) => a - b);
 	const moves = new Map();
 	const region = new Map(); // k -> Int32Array local -> region (local root)
@@ -851,39 +1071,91 @@ function buildHpa(cg, log = () => {}) {
 					push(`${regionOf(u)},${regionOf(w)}`, [t, Number(wx !== ux && wy !== uy), u, w]);
 				}
 			}
+			// A group's entrances: one per chunk of `run` crossings, at its middle (a straight crossing first), then one
+			// per run of road crossings (both cells road, along the border without a gap) that no chunk entrance lies
+			// within `near` cells of: a road crossing the border far from the chunk's middle otherwise sends every walk
+			// along it out along the border to that entrance (Fitz at Ratchet, 2026-10-16). Then one per run of dry
+			// crossings (both cells ground, no swim surface) that no entrance so far crosses dry: a group holds land and
+			// the water it wades into, so a chunk's middle can fall in the water beside a beach or a pier's root, and
+			// every walk across that border swam to it (Fitz at Auberdine's pier, 2026-10-17, Ruling 37).
+			const pick = (list) => {
+				const mid = list[list.length >> 1][0];
+				let best = list[0];
+				for (const c of list) if (c[1] < best[1] || (c[1] === best[1] && Math.abs(c[0] - mid) < Math.abs(best[0] - mid))) best = c;
+				return best;
+			};
+			const place = ([, diagonal, u, v]) => {
+				const len = CS * (diagonal ? Math.SQRT2 : 1);
+				const into = (w) => MULTS.map((mt) => len * mt[cg.nodeClass(w)] * (cg.nodeValue(w) === 2 ? SWIM : 1));
+				edges.set(`${u},${v}`, { a: u, b: v, ab: into(v), ba: into(u), yab: len, yba: len });
+				addNode(u);
+				addNode(v);
+			};
 			for (const crossings of groups.values()) {
 				crossings.sort((a, b) => a[0] - b[0] || a[1] - b[1] || a[2] - b[2] || a[3] - b[3]);
+				const placed = [];
 				for (let i = 0; i < crossings.length; i += run) {
-					const chunk = crossings.slice(i, i + run);
-					const mid = chunk[chunk.length >> 1][0];
-					let best = chunk[0];
-					for (const c of chunk) if (c[1] < best[1] || (c[1] === best[1] && Math.abs(c[0] - mid) < Math.abs(best[0] - mid))) best = c;
-					const [, diagonal, u, v] = best;
-					const wet = ((cg.nodeValue(u) === 2) + (cg.nodeValue(v) === 2)) / 2;
-					edges.set(`${u},${v}`, [u, v, WEIGHTS.map((w) => CS * (diagonal ? Math.SQRT2 : 1) * (1 + (w - 1) * wet))]);
-					addNode(u);
-					addNode(v);
+					const best = pick(crossings.slice(i, i + run));
+					placed.push(best);
+					place(best);
+				}
+				const roads = crossings.filter((c) => isRoad(c[2]) && isRoad(c[3]));
+				const onRoads = [];
+				for (let i = 0; i < roads.length; ) {
+					let j = i + 1;
+					while (j < roads.length && roads[j][0] - roads[j - 1][0] <= 1) j++;
+					const t0 = roads[i][0] - near;
+					const t1 = roads[j - 1][0] + near;
+					if (!placed.some((c) => c[0] >= t0 && c[0] <= t1)) {
+						const best = pick(roads.slice(i, j));
+						onRoads.push(best);
+						place(best);
+					}
+					i = j;
+				}
+				placed.push(...onRoads);
+				const drys = crossings.filter(isDry);
+				for (let i = 0; i < drys.length; ) {
+					let j = i + 1;
+					while (j < drys.length && drys[j][0] - drys[j - 1][0] <= 1) j++;
+					const t0 = drys[i][0];
+					const t1 = drys[j - 1][0];
+					if (!placed.some((c) => isDry(c) && c[0] >= t0 && c[0] <= t1)) place(pick(drys.slice(i, j)));
+					i = j;
 				}
 			}
 		}
 	}
 	const inter = edges.size;
-	// Intra-cluster edges.
+	// Intra-cluster edges: per entrance a Dijkstra per profile, the hostile profiles only where the cluster holds a
+	// hub hostile to them (elsewhere they price as no profile).
 	const heap = new Heap();
+	const NONE = PROFILES.length - 1;
 	for (const k of [...nodes.keys()].sort((a, b) => a - b)) {
 		const mv = moves.get(k);
 		const el = [...nodes.get(k)].sort((a, b) => a - b);
 		const n = el.length;
 		const target = new Int32Array(mv.N).fill(-1);
 		el.forEach((g, i) => (target[mv.local(g)] = i));
-		const dists = WEIGHTS.map(() => new Float64Array(n * n).fill(Infinity));
+		let hubBits = 0;
+		for (let l = 0; l < mv.N; l++) hubBits |= mv.cls[l];
+		const priced = PROFILES.map((p, i) => i === NONE || !!(hubBits & (p === 'Alliance' ? HUB_HORDE : HUB_ALLIANCE)));
+		const dists = PROFILES.map(() => null);
+		const yards = new Float64Array(n * n).fill(Infinity);
 		const gd = new Float64Array(mv.N);
-		WEIGHTS.forEach((w, mode) => {
-			const D = dists[mode];
+		const gy = new Float64Array(mv.N);
+		for (let p = NONE; p >= 0; p--) {
+			if (!priced[p]) {
+				dists[p] = dists[NONE];
+				continue;
+			}
+			const D = (dists[p] = new Float64Array(n * n).fill(Infinity));
+			const mt = MULTS[p];
 			for (let s = 0; s < n; s++) {
 				gd.fill(Infinity);
 				const src = mv.local(el[s]);
 				gd[src] = 0;
+				gy[src] = 0;
 				heap.clear();
 				heap.push(0, src);
 				let left = n - 1;
@@ -894,33 +1166,40 @@ function buildHpa(cg, log = () => {}) {
 					const tu = target[u];
 					if (u !== src && tu >= 0 && D[s * n + tu] === Infinity) {
 						D[s * n + tu] = du;
+						if (p === NONE) yards[s * n + tu] = gy[u];
 						left--;
 					}
 					for (let q = mv.off[u]; q < mv.off[u + 1]; q++) {
 						const v = mv.to[q];
-						const c = du + mv.len[q] * CS * (mv.value[v] === 2 ? w : 1);
+						const step = mv.len[q] * CS;
+						const c = du + step * mt[mv.cls[v]] * (mv.value[v] === 2 ? SWIM : 1);
 						if (c < gd[v]) {
 							gd[v] = c;
+							gy[v] = gy[u] + step;
 							heap.push(c, v);
 						}
 					}
 				}
 			}
+		}
+		const tables = [...new Set(dists)];
+		// The way from a to b goes when no table keeps it: in each, a detour via some x within PRUNE whose legs are
+		// both shorter than the edge (a detour never prunes the edges it rests on: two entrances a few yards apart at
+		// the far end of a long walk would otherwise prune each other's edge to it).
+		const pruned = (a, b) => tables.every((D) => {
+			const d = D[a * n + b];
+			for (let x = 0; x < n; x++) if (x !== a && x !== b && D[a * n + x] < d && D[x * n + b] < d && D[a * n + x] + D[x * n + b] <= d * PRUNE) return true;
+			return false;
 		});
 		for (let a = 0; a < n; a++) {
 			for (let b = a + 1; b < n; b++) {
-				if (dists[0][a * n + b] === Infinity) continue;
-				const ds = dists.map((D) => D[a * n + b]);
-				let pruned = true;
-				for (let mode = 0; mode < WEIGHTS.length && pruned; mode++) {
-					const D = dists[mode];
-					let any = false;
-					// Both legs shorter than the edge: a detour never prunes the edges it rests on (two entrances a few
-					// yards apart at the far end of a long walk would otherwise prune each other's edge to it).
-					for (let x = 0; x < n && !any; x++) if (x !== a && x !== b && D[a * n + x] < ds[mode] && D[x * n + b] < ds[mode] && D[a * n + x] + D[x * n + b] <= ds[mode] * PRUNE) any = true;
-					pruned = any;
-				}
-				if (!pruned) edges.set(`${el[a]},${el[b]}`, [el[a], el[b], ds]);
+				if (dists[NONE][a * n + b] === Infinity || dists[NONE][b * n + a] === Infinity) continue;
+				if (pruned(a, b) && pruned(b, a)) continue;
+				edges.set(`${el[a]},${el[b]}`, {
+					a: el[a], b: el[b],
+					ab: dists.map((D) => D[a * n + b]), ba: dists.map((D) => D[b * n + a]),
+					yab: yards[a * n + b], yba: yards[b * n + a],
+				});
 			}
 		}
 	}
@@ -991,6 +1270,21 @@ function runLength(vals) {
 	return out;
 }
 
+// The zone field of a cluster (HEADER): its 256 chunk uiMapIDs, each a 2-symbol number (under 48 * 64, so its first
+// symbol is under 48), a symbol >= 48 repeating the previous one (symbol - 47) more times.
+function encodeZones(vals) {
+	let out = '';
+	for (let i = 0; i < vals.length; ) {
+		let j = i + 1;
+		while (j < vals.length && vals[j] === vals[i]) j++;
+		if (!(vals[i] < 48 * 64)) throw new Error(`pack: zone ${vals[i]} does not fit the zone field`);
+		out += enc(vals[i], 2);
+		for (let r = j - i - 1; r > 0; r -= 16) out += B64[48 + Math.min(r, 16) - 1];
+		i = j;
+	}
+	return out;
+}
+
 // gen_nav.py encode_heights.
 function encodeHeights(cl, C) {
 	const q = new Int32Array(C * C);
@@ -1025,11 +1319,15 @@ function encodeHeights(cl, C) {
 	return out;
 }
 
-// gen_nav.py encode_map + encode_floors: CellGrid + HPA -> strings per cluster (0-based k).
+// gen_nav.py encode_map + encode_floors: CellGrid + HPA -> strings per cluster (0-based k). A CellGrid with
+// ground classes (cluster.cls) gives maps format 2: the class field and the graph's per-profile edge records
+// (Routing/PathGrid.lua adjacent); one without (a hand-made map) format 1 with no graph.
 function encodeMaps(cg, hpa) {
 	const { C, NY, GH } = cg;
 	const NB = cg.GW * GH;
 	const { nodes, edges } = hpa;
+	const classed = [...cg.clusters.values()].every((cl) => cl.cls);
+	if (!classed && edges.size) throw new Error('pack: a graph needs ground classes (maps format 2)');
 	const all = [...nodes.values()].flatMap((s) => [...s]).sort((a, b) => a - b);
 	const parent = new Map(all.map((c) => [c, c]));
 	const find = (x) => {
@@ -1039,7 +1337,7 @@ function encodeMaps(cg, hpa) {
 		}
 		return x;
 	};
-	for (const [a, b] of [...edges.values()].sort((p, q) => p[0] - q[0] || p[1] - q[1])) parent.set(find(a), find(b));
+	for (const { a, b } of [...edges.values()].sort((p, q) => p.a - q.a || p.b - q.b)) parent.set(find(a), find(b));
 	// Component ids (2 digits, < 4096) by size, largest first; past 4094 the
 	// smallest share 4095 (decided 2026-10-15: Kalimdor has 4,346 at 67 cells,
 	// most of them islets of a few entrances; a shared id only costs the
@@ -1058,11 +1356,11 @@ function encodeMaps(cg, hpa) {
 		cs.forEach((c, i) => local.set(c, i));
 	}
 	const nbrs = new Map();
-	for (const [a, b, d] of edges.values()) {
-		if (!nbrs.has(a)) nbrs.set(a, []);
-		if (!nbrs.has(b)) nbrs.set(b, []);
-		nbrs.get(a).push([b, d]);
-		nbrs.get(b).push([a, d]);
+	for (const e of edges.values()) {
+		if (!nbrs.has(e.a)) nbrs.set(e.a, []);
+		if (!nbrs.has(e.b)) nbrs.set(e.b, []);
+		nbrs.get(e.a).push([e.b, e.ab, e.yab]);
+		nbrs.get(e.b).push([e.a, e.ba, e.yba]);
 	}
 	const lcell = (c) => {
 		if (c >= NB) {
@@ -1111,8 +1409,10 @@ function encodeMaps(cg, hpa) {
 	const grids = new Map();
 	const heights = new Map();
 	const floors = new Map();
+	const classes = new Map();
 	let clamped = 0;
 	let maxDegree = 0;
+	const NONE = PROFILES.length - 1;
 	for (const k of [...cg.clusters.keys()].sort((a, b) => a - b)) {
 		const kx = Math.floor(k / NY);
 		const ky = k % NY;
@@ -1123,21 +1423,26 @@ function encodeMaps(cg, hpa) {
 			let rec = enc(cs.length, 2);
 			let erec = '';
 			for (const c of cs) {
-				const list = (nbrs.get(c) || []).sort((p, q) => p[0] - q[0] || p[1][0] - q[1][0] || p[1][1] - q[1][1]);
+				const list = (nbrs.get(c) || []).sort((p, q) => p[0] - q[0] || p[1][NONE] - q[1][NONE] || p[2] - q[2]);
 				maxDegree = Math.max(maxDegree, list.length);
 				if (list.length >= 64) throw new Error(`pack: entrance ${c} has ${list.length} edges (at most 63)`);
 				// The entrance's local cell (a floor's own cell, gen_nav.py lcell(cell_of(c))) and its layer.
 				rec += enc(lcell(cg.cellOf(c)), 3) + enc(layerOf(c), 1) + enc(comp.get(c), 2) + enc(list.length, 1);
-				for (const [m, d] of list) {
+				// Its edges (adjacent's format 2 record): cluster offset(1), node(2), costAlliance(3), costHorde(3),
+				// costNone(3), yards(2).
+				for (const [m, costs, yd] of list) {
 					const km = cg.clusterOfCell(cg.cellOf(m));
 					const dx = Math.floor(km / NY) - kx;
 					const dy = (km % NY) - ky;
 					erec += enc((dx + 1) * 3 + dy + 1, 1) + enc(local.get(m), 2);
-					for (const w of d) {
+					for (const w of costs) {
 						const r = Math.round(w);
-						if (r > 4095) clamped++;
-						erec += enc(Math.min(r, 4095), 2);
+						if (r > COST_MAX) clamped++;
+						erec += enc(Math.min(r, COST_MAX), 3);
 					}
+					const y = Math.round(yd);
+					if (y > YARDS_MAX) clamped++;
+					erec += enc(Math.min(y, YARDS_MAX), 2);
 				}
 			}
 			graph.set(k, rec + erec);
@@ -1151,6 +1456,14 @@ function encodeMaps(cg, hpa) {
 		if (any) {
 			grids.set(k, runLength(vals));
 			heights.set(k, encodeHeights(cl, C));
+		}
+		if (classed) {
+			const nf = cl.floorEnd - cl.floorStart;
+			const cv = new Array(C * C + nf);
+			let nonzero = false;
+			for (let l = 0; l < C * C; l++) nonzero = (cv[l] = cl.cls[l]) !== 0 || nonzero;
+			for (let f = 0; f < nf; f++) nonzero = (cv[C * C + f] = cg.floorClass[cl.floorStart + f]) !== 0 || nonzero;
+			if (nonzero) classes.set(k, runLength(cv));
 		}
 		const linked = cg.linkedOf.get(k) || [];
 		if (cl.floorEnd > cl.floorStart || linked.length) {
@@ -1184,15 +1497,21 @@ function encodeMaps(cg, hpa) {
 			floors.set(k, out);
 		}
 	}
-	return { graph, grid: grids, height: heights, floor: floors, components: roots.size, clamped, maxDegree };
+	// The zone field (maps format 2 only): clusters whose chunks lie in a zone (cellGrid's cl.zone).
+	const zones = new Map();
+	for (const k of [...cg.clusters.keys()].sort((a, b) => a - b)) if (cg.clusters.get(k).zone) zones.set(k, encodeZones(cg.clusters.get(k).zone));
+	return { graph, grid: grids, height: heights, floor: floors, class: classed ? classes : undefined, zone: classed ? zones : undefined, components: roots.size, clamped, maxDegree };
 }
 
 const HEADER = [
 	'-- UnitPosition\'s frame (x north, y west). Cluster k (0-based) is the ADT tile x in [(cx0 + k // ny) T, +T),',
 	'-- y in [(cy0 + k % ny) T, +T), T = 1600 / 3, cut into cells x cells cells, x-major. Base64 (A-Za-z0-9+/).',
 	'-- graph[k + 1]: n(2) | n x [cell(3) layer(1) component(2) degree(1)] | edges in node order [cluster offset(1):',
-	'--   (dx + 1) * 3 + dy + 1, node(2), cost(2) swimming with water at swim, cost(2) walking on water, both in',
-	'--   running yards]. grid[k + 1]: per cell value * 16 + flags, where value 0 blocked, 1 ground, 2 water;',
+	'--   (dx + 1) * 3 + dy + 1, node(2), costAlliance(3), costHorde(3), costNone(3), yards(2)]: an edge\'s cost under',
+	'--   each profile (Routing/Costs.lua; water at swim) in running yards, and the yards walked along the cost-best way',
+	'--   with no profile (one value for every profile: a walk round a hostile hub inside a cluster is longer than its',
+	'--   yards say; Routing/PathGrid.lua adjacent). grid[k + 1]: per cell value * 16 + flags, where value 0 blocked,',
+	'--   1 ground, 2 water;',
 	'--   flags 1/2 close the step to the +x/+y neighbour, 4/8 open the +x+y/+x-y',
 	'--   diagonal (otherwise a diagonal is open when either L-shaped detour is). A symbol >= 48 repeats the',
 	'--   previous cell (symbol - 47) more times. Nodes are local cells, then floors from cells * cells on.',
@@ -1205,21 +1524,41 @@ const HEADER = [
 	'--   the rest: a floor\'s links to another surface, and a base cell\'s links to floors across the cluster border',
 	'--   (inside the cluster they are the reverse of the floors\' own). Layer 0 is the base surface, i the cell\'s ith',
 	'--   floor from the bottom; directions 0-7 are +x, -x, +y, -y, +x+y, +x-y, -x+y, -x-y.',
+	'-- class[k + 1]: per node in node order its ground class byte (Routing/Costs.lua: bits 0-2 the base class,',
+	'--   bit 3 inside an Alliance hub, bit 4 inside a Horde hub), run-length as the grid field; nodes past the end',
+	'--   are class 0, and so is every node of a cluster without one. hubs: the hostile hubs, for the router\'s report:',
+	'--   { id, side, name (English), areaId (AreaTable: the town in the client\'s language), disks = { { x, y, r } } }.',
+	'-- zone[k + 1] (format 2, optional, not packed): the zone of each of the cluster\'s 16 x 16 chunks (cells / 16 cells',
+	'--   square; chunk (x // (cells / 16)) * 16 + y // (cells / 16) of its local cell x, y) as its uiMapID, 0 for none:',
+	'--   a 2-symbol number, a symbol >= 48 repeating the previous one (symbol - 47) more times. A cluster without one',
+	'--   lies in no zone; the router prices a step into a zone by its caller\'s danger table (Routing/Path.lua).',
 	'-- Packed (pack_nav.py\'s layout): data.packed.<field>[k + 1] = { base64(zlib(16 KB block)), ... } in the parts.',
 ];
 
 const FIELDS = ['graph', 'grid', 'height', 'floor'];
+const CLASS_FIELDS = [...FIELDS, 'class'];
 const PART_NOTE = '-- Compressed terrain for on-demand decoding (Shortest Path Forever\'s pack_nav.py layout).';
 const CREDIT = [
-	'-- The navigation grid in Shortest Path Forever\'s walking-map format (github.com/cjber/shortest-path-forever),',
-	'-- written by tools/lib/nav/pack.js, a port of his tools/baker/gen_nav.py and tools/pack_nav.py, used with his permission.',
+	'-- Polestar\'s walking maps (format 2: ground classes and per-faction costs) of the navigation grid, written by',
+	'-- tools/lib/nav/pack.js, started from Shortest Path Forever\'s walking-map format (github.com/cjber/shortest-path-forever):',
+	'-- a port of his tools/baker/gen_nav.py and tools/pack_nav.py, used with his permission.',
 	'-- Portions Copyright (C) 2026 Cillian Berragan (Shortest Path Forever, GPL-3.0-or-later); adapted for Polestar, 2026-10-15.',
 ];
 
+// A Lua string literal.
+const luaStr = (s) => `"${String(s).replace(/[\\"]/g, (ch) => `\\${ch}`).replace(/\n/g, '\\n')}"`;
+
 // One map's strings -> its metadata file and parts (pack_nav.py write_bundle);
-// `gen` is the generated-file header line.
-function packFiles({ map, cg, maps, global, gen }) {
+// `gen` is the generated-file header line. Maps format 2 (maps.class set)
+// carry format = 2, the profiles, the hubs ([{ id, side, name, areaId, disks }]), the class field and, when a
+// cluster lies in a zone (maps.zone), the zone field in the metadata itself.
+function packFiles({ map, cg, maps, global, gen, hubs = [] }) {
 	const files = [];
+	const classed = maps.class !== undefined;
+	const fields = classed ? CLASS_FIELDS : FIELDS;
+	const hubLines = hubs
+		.filter((h) => h.side === 'Alliance' || h.side === 'Horde')
+		.map((h) => `\t\t{ id = ${luaStr(h.id)}, side = ${luaStr(h.side)}, name = ${luaStr(h.name)}, areaId = ${Number(h.areaId) || 0}, disks = { ${h.disks.map(([x, y, r]) => `{ ${x}, ${y}, ${r} }`).join(', ')} } },`);
 	const meta = [
 		gen,
 		...CREDIT,
@@ -1230,6 +1569,7 @@ function packFiles({ map, cg, maps, global, gen }) {
 		'---@type SPFNavData',
 		'-- stylua: ignore',
 		`${global}[${map}] = {`,
+		...(classed ? ['\tformat = 2,', '\tprofiles = { "Alliance", "Horde" },'] : []),
 		`\tcx0 = ${cg.CX0},`,
 		`\tcy0 = ${cg.CY0},`,
 		`\tnx = ${cg.NX},`,
@@ -1237,12 +1577,15 @@ function packFiles({ map, cg, maps, global, gen }) {
 		`\tcells = ${cg.C},`,
 		`\tswim = ${SWIM.toFixed(6)},`,
 		`\tzstep = ${ZQ},`,
+		...(classed ? (hubLines.length ? ['\thubs = {', ...hubLines, '\t},'] : ['\thubs = {},']) : []),
 		'\tgraph = {},',
 		'\tgrid = {},',
 		'\theight = {},',
 		'\tfloor = {},',
-		`\tcounts = { ${FIELDS.map((f) => `${f} = ${maps[f].size}`).join(', ')} },`,
-		'\tpacked = { graph = {}, grid = {}, height = {}, floor = {} },',
+		...(classed ? ['\tclass = {},'] : []),
+		...(classed && maps.zone && maps.zone.size ? ['\tzone = {', ...[...maps.zone].sort((p, q) => p[0] - q[0]).map(([k, s]) => `\t\t[${k + 1}] = "${s}",`), '\t},'] : []),
+		`\tcounts = { ${fields.map((f) => `${f} = ${maps[f].size}`).join(', ')} },`,
+		`\tpacked = { ${fields.map((f) => `${f} = {}`).join(', ')} },`,
 		'}',
 		'',
 	].join('\n');
@@ -1250,10 +1593,10 @@ function packFiles({ map, cg, maps, global, gen }) {
 	const header = `${gen}\n${PART_NOTE}\n---@type SPFNavData\nlocal data = ${global}[${map}]\n-- stylua: ignore start\n`;
 	let part = 1;
 	let content = header;
-	const keys = [...new Set(FIELDS.flatMap((f) => [...maps[f].keys()]))].sort((a, b) => a - b);
+	const keys = [...new Set(fields.flatMap((f) => [...maps[f].keys()]))].sort((a, b) => a - b);
 	let packedBytes = 0;
 	for (const k of keys) {
-		for (const field of FIELDS) {
+		for (const field of fields) {
 			const raw = maps[field].get(k);
 			if (raw === undefined) continue;
 			const buf = Buffer.from(raw, 'ascii');
@@ -1277,26 +1620,75 @@ function packFiles({ map, cg, maps, global, gen }) {
 	return { files, packedBytes };
 }
 
+// Surfaces per base class, and in a hub of each side, for PACK.json.
+function classCounts(cg) {
+	const out = { normal: 0, road: 0, gentle: 0, steep: 0, indoor: 0, city: 0, allianceHub: 0, hordeHub: 0 };
+	const names = ['normal', 'road', 'gentle', 'steep', 'indoor', 'city'];
+	const count = (b) => {
+		out[names[b & 7] || 'normal']++;
+		if (b & HUB_ALLIANCE) out.allianceHub++;
+		if (b & HUB_HORDE) out.hordeHub++;
+	};
+	for (const cl of cg.clusters.values()) for (let l = 0; l < cl.val.length; l++) if (cl.val[l]) count(cl.cls[l]);
+	for (const b of cg.floorClass) count(b);
+	return out;
+}
+
+// Whether a chunk lies in a capital (cellGrid's layers.city): its area is one (capitalAreas of the AreaTable rows)
+// or the zone map around it is (zoneAt(c, x, y) -> area id, optional: Ironforge's and the Undercity's chunks under
+// their WMOs carry Dun Morogh's and Tirisfal's areas). -> city(c, x, y, areaId)
+function cityTest({ areaTable, zoneAt = null }) {
+	const capitals = capitalAreas(areaTable);
+	return (c, x, y, areaId) => capitals.has(areaId) || (!!zoneAt && capitals.has(Number(zoneAt(c, x, y)) || 0));
+}
+
+// The ground layers of `nav layers` (data/local/nav-layers) for packNav: the roads layer
+// (roads/<c>/<col>_<row>.bin, absent tiles and maps none), hubs.json, and the capitals (cityTest); with zones
+// (zones.json) the chunks' zones for the zone field (zoneAreas over the same AreaTable).
+function readLayers({ dir, areaTable, zoneAt = null, zones = null }) {
+	const hubsFile = path.join(dir, 'hubs.json');
+	if (!fs.existsSync(hubsFile)) throw new Error(`pack: no hubs layer at ${hubsFile} (node tools/polestar.js nav layers hubs)`);
+	if (!fs.existsSync(path.join(dir, 'roads', 'index.json'))) throw new Error(`pack: no roads layer under ${path.join(dir, 'roads')} (node tools/polestar.js nav layers roads)`);
+	const doc = JSON.parse(fs.readFileSync(hubsFile, 'utf8'));
+	const hubs = {};
+	for (const [key, list] of Object.entries(doc)) if (/^\d+$/.test(key) && Array.isArray(list)) hubs[key] = list;
+	const city = cityTest({ areaTable, zoneAt });
+	return {
+		roads: (c, col, row) => {
+			const file = path.join(dir, 'roads', String(c), `${tileKey(col, row)}.bin`);
+			if (!fs.existsSync(file)) return null;
+			const b = fs.readFileSync(file);
+			if (b.length !== TILE_CELLS * TILE_CELLS) throw new Error(`pack: ${file} holds ${b.length} bytes, not ${TILE_CELLS * TILE_CELLS}`);
+			return b;
+		},
+		hubs,
+		city,
+		...(zones ? { zone: zoneAreas({ areaTable, zones }) } : {}),
+	};
+}
+
 // The pack: every continent of the grid (or `continents`) -> files.
 // places: { aids, lifts, geo, areas } (chokepoints.js) adds Chokepoints.lua.
-// date (YYYY-MM-DD) goes into the generated-file headers; the same grid,
-// cells and date give the same bytes. -> Map name -> Lua source, in load
-// order, with .manifest (PACK.json's content without the hashes: grid,
-// cells, date, per map its counts and sizes) and .log (timings, memory).
-async function packNav({ dir, cells = 128, continents, global = 'PolestarPathData', places = null, date = new Date().toISOString().slice(0, 10), log = () => {} }) {
+// layers: the ground layers (cellGrid: roads, hubs, city); without them no
+// node is road, in a hub or in a capital. date (YYYY-MM-DD) goes into the
+// generated-file headers; the same grid, layers, cells and date give the same
+// bytes. -> Map name -> Lua source, in load order, with .manifest (PACK.json's
+// content without the hashes: grid, cells, date, per map its counts and
+// sizes) and .log (timings, memory).
+async function packNav({ dir, cells = 128, continents, global = 'PolestarPathData', places = null, layers = {}, date = new Date().toISOString().slice(0, 10), log = () => {} }) {
 	if (!/^\d{4}-\d\d-\d\d$/.test(String(date))) throw new Error(`pack: date must be YYYY-MM-DD, got ${date}`);
 	const index = JSON.parse(fs.readFileSync(path.join(dir, 'index.json'), 'utf8'));
 	const list = (continents || Object.keys(index.continents).map(Number)).slice().sort((a, b) => a - b);
 	const files = new Map();
 	const grid = { product: index.product || null, build: index.build || null, builtAt: index.builtAt || null, version: index.version };
-	const manifest = { generator: 'node tools/polestar.js nav pack', grid, cells, date, maps: {} };
+	const manifest = { generator: 'node tools/polestar.js nav pack', format: 2, grid, cells, date, maps: {} };
 	const timing = {};
 	const source = `the navigation grid (${grid.product} ${grid.build}, built ${String(grid.builtAt).slice(0, 10)}) on ${date}`;
 	const gen = header('lua', `nav pack --cells ${cells}`, source);
 	const byMap = {};
 	for (const c of list) {
 		const t0 = Date.now();
-		const { cg } = await cellGridFromDir({ dir, c, C: cells, log });
+		const { cg, roads } = await cellGridFromDir({ dir, c, C: cells, layers, log });
 		const hpa = buildHpa(cg, log);
 		const maps = encodeMaps(cg, hpa);
 		const m = {};
@@ -1306,12 +1698,14 @@ async function packNav({ dir, cells = 128, continents, global = 'PolestarPathDat
 			byMap[c] = chokepoints({ nav: openNav({ dir, cacheTiles: 16 }), c, aids: places.aids, lifts: (places.lifts || {})[c] || [], geo: places.geo, areas: places.areas });
 			m.chokepoints = byMap[c].length;
 		}
-		const { files: out, packedBytes } = packFiles({ map: c, cg, maps, global, gen });
+		const hubs = (layers.hubs && layers.hubs[c]) || [];
+		const { files: out, packedBytes } = packFiles({ map: c, cg, maps, global, gen, hubs });
 		for (const [name, content] of out) files.set(name, content);
-		const raw = FIELDS.reduce((s, f) => s + [...maps[f].values()].reduce((a, v) => a + v.length, 0), 0);
+		const raw = CLASS_FIELDS.reduce((s, f) => s + [...maps[f].values()].reduce((a, v) => a + v.length, 0), 0);
 		Object.assign(m, {
 			clusters: cg.clusters.size, floors: cg.floorCell.length, nodes: [...hpa.nodes.values()].reduce((s, x) => s + x.size, 0), edges: hpa.edges.size,
 			components: maps.components, clampedCosts: maps.clamped, maxDegree: maps.maxDegree, rawBytes: raw, packedBytes, files: out.length,
+			hubs: hubs.length, classes: classCounts(cg), ...(roads ? { roads } : {}),
 		});
 		manifest.maps[c] = m;
 		timing[c] = { seconds: (Date.now() - t0) / 1000, peakRssMB: Math.round(process.resourceUsage().maxRSS / 1024) };
@@ -1325,20 +1719,38 @@ async function packNav({ dir, cells = 128, continents, global = 'PolestarPathDat
 
 const sha256 = (text) => crypto.createHash('sha256').update(text).digest('hex');
 const PACK_JSON = 'PACK.json';
+// The maps `nav pack` writes: Eastern Kingdoms, Kalimdor, Zephras Isle (every map of Polestar_Nav).
+const MAPS = [0, 1, 2991];
 // Files of ours in an addon's Nav/: our maps' files and the chokepoints.
-const ownFile = (name, maps) => name === 'Chokepoints.lua' || maps.some((m) => new RegExp(`^Nav${m}(_\\d+)?\\.lua$`).test(name));
+const ownFile = (name) => name === 'Chokepoints.lua' || MAPS.some((m) => new RegExp(`^Nav${m}(_\\d+)?\\.lua$`).test(name));
+
+// Nav/Nav.xml of an addon folder: the files of its PACK.json, in its order, the chokepoints last.
+function navXml(addonDir) {
+	let ours = [];
+	try {
+		ours = Object.keys(JSON.parse(fs.readFileSync(path.join(addonDir, PACK_JSON), 'utf8')).files || {}).filter((rel) => rel.startsWith('Nav/')).map((rel) => rel.slice(4));
+	} catch {
+		ours = [];
+	}
+	const scripts = [...ours.filter((n) => n !== 'Chokepoints.lua'), ...ours.filter((n) => n === 'Chokepoints.lua')];
+	return [
+		'<Ui xmlns="http://www.blizzard.com/wow/ui/">',
+		'\t<!-- Written by node tools/polestar.js nav pack: Polestar\'s walking maps (PACK.json), then the chokepoints. -->',
+		...scripts.map((n) => `\t<Script file="${n}"/>`),
+		'</Ui>',
+		'',
+	].join('\n');
+}
 
 // Writes a pack (packNav's files) into an addon folder: Nav/<files>, PACK.json
 // (its manifest with the sha256 of every file, in load order), and Nav/Nav.xml
-// (vendor.js navXml: our files, then the vendored maps). Our files the new
-// pack has no more are removed. -> { written, removed }
+// (navXml). Our files the new pack has no more are removed. -> { written, removed }
 function shipPack(files, addonDir) {
-	const { navXml, OWN_MAPS } = require('./vendor');
 	const navDir = path.join(addonDir, 'Nav');
 	fs.mkdirSync(navDir, { recursive: true });
 	const removed = [];
 	for (const name of fs.readdirSync(navDir)) {
-		if (ownFile(name, OWN_MAPS) && !files.has(name)) {
+		if (ownFile(name) && !files.has(name)) {
 			fs.rmSync(path.join(navDir, name));
 			removed.push(`Nav/${name}`);
 		}
@@ -1357,7 +1769,6 @@ function shipPack(files, addonDir) {
 // and unlisted files of ours, and a Nav.xml that is not navXml's. [] when it
 // matches; a missing or unreadable PACK.json is the one problem reported.
 function checkPack(addonDir) {
-	const { navXml, OWN_MAPS } = require('./vendor');
 	const file = path.join(addonDir, PACK_JSON);
 	if (!fs.existsSync(file)) return [`${file} is missing: run \`node tools/polestar.js nav pack\``];
 	let manifest;
@@ -1370,7 +1781,7 @@ function checkPack(addonDir) {
 	const problems = [];
 	for (const [rel, want] of Object.entries(manifest.files)) {
 		const name = rel.startsWith('Nav/') ? rel.slice(4) : '';
-		if (!ownFile(name, OWN_MAPS)) {
+		if (!ownFile(name)) {
 			problems.push(`${rel} in PACK.json is not a packed file`);
 			continue;
 		}
@@ -1380,14 +1791,15 @@ function checkPack(addonDir) {
 	}
 	const navDir = path.join(addonDir, 'Nav');
 	for (const name of fs.existsSync(navDir) ? fs.readdirSync(navDir) : []) {
-		if (ownFile(name, OWN_MAPS) && !(`Nav/${name}` in manifest.files)) problems.push(`Nav/${name} is not listed in PACK.json`);
+		if (ownFile(name) && !(`Nav/${name}` in manifest.files)) problems.push(`Nav/${name} is not listed in PACK.json`);
 	}
 	const xml = path.join(navDir, 'Nav.xml');
-	if (!fs.existsSync(xml) || fs.readFileSync(xml, 'utf8') !== navXml(addonDir)) problems.push('Nav/Nav.xml does not list the packed and vendored maps (rerun `nav pack`)');
+	if (!fs.existsSync(xml) || fs.readFileSync(xml, 'utf8') !== navXml(addonDir)) problems.push('Nav/Nav.xml does not list the packed maps (rerun `nav pack`)');
 	return problems;
 }
 
 module.exports = {
-	SWIM, WEIGHTS, ZQ, MIN_REGION, BLOCK_BYTES, PART_BYTES, B64, SDX, SDY, OPP, PACK_JSON,
+	SWIM, ZQ, MIN_REGION, BLOCK_BYTES, PART_BYTES, B64, SDX, SDY, OPP, PACK_JSON, MAPS, COST_MAX, YARDS_MAX, AREA_CAPITAL,
 	CellGrid, cellGrid, cellGridFromDir, readRegions, buildHpa, encodeMaps, packFiles, packNav, shipPack, checkPack,
+	nodeClass, capitalAreas, zoneAreas, cityTest, readLayers, markHubs, navXml, encodeZones,
 };

@@ -391,6 +391,49 @@ test('the Hearthstone coming off cooldown mid-ride does not re-plan from the boa
 	assert.equal(out.leg, 1);
 });
 
+// Playtest: at Auberdine the walk to the boat ended at the ship's stop, in
+// the water off the pier, and swam. An end with a board point (TravelData's
+// 10th field, after the area: the deck, from the navigation grid) is the dock: the walk ends
+// there, with its height, and boarding, leaving and arrival measure from it.
+// The board points here lie 70 yd off their stops (real ones are 12-14 yd),
+// past BOARD (60 yd), so measuring from the stop shows.
+test('a boat end with a board point: the walk ends on the deck, and arriving there boards', () => {
+	const [out] = run(`
+		N.RegisterTravelData({ build = "test", taxi = {}, flights = {}, inns = {},
+			transports = { { id = "boat-test", kind = "boat", faction = 3, ab = 60, ba = 60, waitA = 30, waitB = 30,
+				a = { "Testshire Docks", 0, -900, 0, 9000, 50, 95, "e", nil, { wx = -900, wy = 70, z = 5.9 } },
+				b = { "Farland Pier", 1, 400, 0, 9001, 50, 10, "e", nil, { wx = 400, wy = 70, z = 4.5 } } } } }, true)
+		local function at(p) return p and { p.c, p.wx, p.wy, p.z or "none" } end
+		local r = {}
+		nav.place(0, 0, 1)                               -- Farland, continent 1
+		target(-800, 100, "Docks quest")
+		stub.advance(0.2)
+		local legs = N.GetRoute()
+		r.route = route()
+		r.walkTo, r.rideFrom, r.rideTo = at(legs[1].to), at(legs[2].from), at(legs[2].to)
+		r.stop = at(N.GetTravelData().transports[1].b)
+		nav.place(400, 70, 1)                            -- on the deck at the board point (70 yd from the stop)
+		stub.advance(0.2)
+		r.atDeck = { (select(2, N.GetRoute())), route()[1] }
+		nav.place(250, 70, 1)                            -- sailing away: 150 yd from the deck
+		stub.advance(0.2)
+		stub.advance(1.2)
+		r.sailing = { (select(2, N.GetRoute())), route()[1] }
+		nav.place(-900, 70)                              -- landed on the Testshire deck
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		stub.advance(1.2)
+		r.landed = route()
+		emit(r)`);
+	assert.deepEqual(out.route, ['walk|Walk to the boat', 'boat|Take the boat to Testshire Docks', 'walk|Docks quest']);
+	assert.deepEqual(out.walkTo, [1, 400, 70, 4.5], 'the walk ends at the board point, with its height');
+	assert.deepEqual(out.rideFrom, [1, 400, 70, 4.5], 'the ride is boarded there');
+	assert.deepEqual(out.rideTo, [0, -900, 70, 5.9], 'and arrives at the far deck');
+	assert.deepEqual(out.stop, [1, 400, 0, 'none'], 'the transport end stays the ship\'s stop');
+	assert.deepEqual(out.atDeck, [2, 'boat|Take the boat to Testshire Docks'], 'at the deck: the ride');
+	assert.deepEqual(out.sailing, [2, 'boat|Take the boat to Testshire Docks'], 'boarded at the deck: sailing away is the ride, no new plan');
+	assert.deepEqual(out.landed, ['walk|Docks quest']);
+});
+
 // Igotthis rode the Deeprun Tram toward Duskwood and the arrow vanished: the
 // tram is a map of its own (Map 369, no UiMap), so the client gives no player
 // position on the ride. The arrow keeps the ride's caption and glyph, and

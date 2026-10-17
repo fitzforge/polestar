@@ -18,15 +18,15 @@ return {
 	-- Step 2: Argent Dawn Commission (Horde)
 	-- {quest:5401} Argent Dawn Commission
 	["{quest:5401} (Horde)"] = "{quest:5401} (Horda)",
-	-- {object:2160} The Argent Dawn · {npc:10839} Argent Officer Garush · {area:813} The Bulwark · {quest:5401} Argent Dawn Commission
-	["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:813} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160} começa em Neutro. Pegue a Ordem com {npc:10839} em {area:813} e equipe-a: no Classic, Pedras do Flagelo só caem enquanto o berloque {quest:5401} estiver equipado. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
+	-- {object:2160} The Argent Dawn · {npc:10839} Argent Officer Garush · {area:152} The Bulwark · {quest:5401} Argent Dawn Commission
+	["{object:2160} starts out Neutral. Take the Commission from {npc:10839} at {area:152} and wear it: in Classic, Scourgestones only drop while the {quest:5401} trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains."] = "{object:2160} começa em Neutro. Pegue a Ordem com {npc:10839} em {area:152} e equipe-a: no Classic, Pedras do Flagelo só caem enquanto o berloque {quest:5401} estiver equipado. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
 
 	-- Step 3: Minion's Scourgestones to Friendly
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
 	["Minion's Scourgestones to Friendly"] = "Pedras do Flagelo do Lacaio até Amistoso",
-	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {area:813} The Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {item:12844} Argent Dawn Valor Token
+	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp · {area:152} The Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {item:12844} Argent Dawn Valor Token
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone
-	["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:813}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "Carniçais e esqueletos por todas as {zone:1422} deixam cair Pedras do Flagelo do Lacaio cerca de metade das vezes; este agrupamento é denso. Entregue-as de 20 em 20 a qualquer Oficial Argênteo (Cândida em {area:3197}, Garush em {area:813}, {npc:11039} em {area:2268}). Cada entrega também rende um {item:12844} para os intendentes da Aurora Argêntea.",
+	["Ghouls and skeletons all over {zone:1422} drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at {area:3197}, Garush at {area:152}, {npc:11039} at {area:2268}). Each turn-in also pays an {item:12844} for the Argent quartermasters."] = "Carniçais e esqueletos por todas as {zone:1422} deixam cair Pedras do Flagelo do Lacaio cerca de metade das vezes; este agrupamento é denso. Entregue-as de 20 em 20 a qualquer Oficial Argênteo (Cândida em {area:3197}, Garush em {area:152}, {npc:11039} em {area:2268}). Cada entrega também rende um {item:12844} para os intendentes da Aurora Argêntea.",
 
 	-- Step 4: Invader's Scourgestones to Honored
 	-- plural, as words: Invader's Scourgestones = {item:12841} Invader's Scourgestone

@@ -6,6 +6,8 @@
 //   const nav = openNav({ dir: 'data/local/nav', cacheTiles = 256 });
 //   nav.available                 false without a build (every call then answers null / { ok: false })
 //   nav.index                     index.json (format.js), or null
+//   Reads grids of tile versions 3 and 4 (format.js TILE_VERSIONS; a version
+//   3 tile's tslope is null).
 //
 //   nav.snap({ c, wx, wy, z?, prefer = 'any', radius = 20 })
 //     -> { c, wx, wy, z, tile: { col, row }, cell: { i, j }, layer, entry, region, flags } | null
@@ -367,6 +369,20 @@ class Nav {
 		if (sa < 0 || sb < 0) return false;
 		const r = this.lineCost(space, sa, A.entry, A.cell.j * 256 + A.cell.i, sb, B.entry, B.cell.j * 256 + B.cell.i, profileFor({}));
 		return r.ok;
+	}
+
+	// The straight line between two points as los walks it, cut where its link class changes: null when it is no
+	// straight walkable line, else lineCost's runs ([{ cls, seconds, t, z }]; cls CLS.SWIM where it swims).
+	lineRuns(a, b) {
+		const A = this.ensureSnapped(a);
+		const B = this.ensureSnapped(b);
+		if (!A || !B || A.c !== B.c) return null;
+		const space = new Space(this.tilesBetween(A, B));
+		const sa = space.slot(A.tile.col, A.tile.row);
+		const sb = space.slot(B.tile.col, B.tile.row);
+		if (sa < 0 || sb < 0) return null;
+		const r = this.lineCost(space, sa, A.entry, A.cell.j * 256 + A.cell.i, sb, B.entry, B.cell.j * 256 + B.cell.i, profileFor({}), true);
+		return r.ok ? r.runs : null;
 	}
 
 	// The tiles a straight line between two snapped points crosses (bounding box).
@@ -999,4 +1015,4 @@ function openNav(opts = {}) {
 	return new Nav(opts);
 }
 
-module.exports = { openNav, Nav, SIMPLIFY };
+module.exports = { openNav, Nav, SIMPLIFY, SNAP_REGION };

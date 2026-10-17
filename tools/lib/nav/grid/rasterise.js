@@ -23,6 +23,8 @@
 // rasterise({ tris, kind }, { col, row }) -> Heightfield
 //   head: Int32Array(COLUMNS) first span of each column (ascending z), -1 none
 //   next, smin, smax, slope (Uint8, degrees), kind (Uint8) per span
+//   tslope (Uint8, degrees) per span: the steepest terrain triangle merged
+//     into it (0 when none)
 //   walls(): the walls (format.js WALLS), merged per half-line
 
 const { ADT, CELL, TILE_CELLS, COLUMNS, MERGE_TOP, WALK_MAX, WALL_MIN, HALF, wallIndex } = require('./format');
@@ -73,6 +75,7 @@ class Heightfield {
 		this.smax = copy(Float32Array, this.smax);
 		this.slope = copy(Uint8Array, this.slope);
 		this.kind = copy(Uint8Array, this.kind);
+		this.tslope = copy(Uint8Array, this.tslope);
 		this.cap = cap;
 	}
 
@@ -91,11 +94,13 @@ class Heightfield {
 		this.free = s;
 	}
 
-	// Adds [lo, hi] to column k, merging every span it overlaps.
-	add(k, lo, hi, slope, kind) {
+	// Adds [lo, hi] to column k, merging every span it overlaps; tslope: the
+	// triangle's slope when it is terrain, else 0.
+	add(k, lo, hi, slope, kind, tslope = 0) {
 		let topZ = hi;
 		let topSlope = slope;
 		let topKind = kind;
+		let tmax = tslope;
 		let prev = -1;
 		let cur = this.head[k];
 		while (cur !== -1) {
@@ -106,6 +111,7 @@ class Heightfield {
 				continue;
 			}
 			const cz = this.smax[cur];
+			if (this.tslope[cur] > tmax) tmax = this.tslope[cur];
 			if (Math.abs(cz - topZ) <= MERGE_TOP) {
 				if (this.slope[cur] < topSlope) {
 					topSlope = this.slope[cur];
@@ -130,6 +136,7 @@ class Heightfield {
 		this.smax[s] = hi;
 		this.slope[s] = topSlope;
 		this.kind[s] = topKind;
+		this.tslope[s] = tmax;
 		if (prev === -1) {
 			this.next[s] = this.head[k];
 			this.head[k] = s;
@@ -371,7 +378,7 @@ function rasterise(geom, { col, row }) {
 						if (z > hi) hi = z;
 					}
 				}
-				hf.add(y * TILE_CELLS + x, lo, hi, slope, kd);
+				hf.add(y * TILE_CELLS + x, lo, hi, slope, kd, kd === 0 ? slope : 0);
 			}
 		}
 	}

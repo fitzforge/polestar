@@ -1,11 +1,12 @@
 'use strict';
 // The welcome (addon/Polestar/UI/Welcome.lua) against the real Core + Theme +
 // UI manifests and the fake Engine of tests/lua/stub_ui.lua: once per new
-// character (PolestarCharDB.welcomeSeen = 1), with setup only while the
-// account has not had one (PolestarDB.welcomeSeen = 1); never in combat,
-// never during a cinematic, never over the route choice; three pages
-// (welcome, setup, start; two for a later character) with step dots; setup
-// choices that write their settings, the scheme cards applying live; a start
+// character (PolestarCharDB.welcomeSeen = 1), with setup and the route
+// style only while the account has not had one (PolestarDB.welcomeSeen = 1);
+// never in combat, never during a cinematic, never over the route choice;
+// four pages (welcome, setup, route, start; two for a later character) with
+// step dots; setup choices that write their settings, the scheme cards
+// applying live; the route style's cards setting nav.routeStyle; a start
 // page that names the suggested guide for the character, the beta callout
 // while the routes are in beta, the Discord invite and guide packs; opened
 // from About and by /polestar welcome.
@@ -43,7 +44,7 @@ local Wel = Polestar.UI.Welcome
 function shown() return PolestarWelcome ~= nil and PolestarWelcome:IsShown() end
 function title() return (select(4, Wel.Page())) end
 function key() return (Wel.Page()) end
--- "2 of 3": the page's place, as the step dots show it.
+-- "2 of 4": the page's place, as the step dots show it.
 function step() local _, at, n = Wel.Page(); return at .. " of " .. n end
 -- The dots: how many show, which one is the accent capsule.
 function dots()
@@ -81,7 +82,7 @@ test('a new character sees the welcome once, shortly after login; opening it mar
 		PolestarWelcome.Skip:Click()
 		emit({ atLogin = atLogin, after = after, first = first, at = at, open = open, closed = not shown(),
 			char = PolestarCharDB.welcomeSeen, account = PolestarDB.welcomeSeen })`);
-	assert.deepEqual(out, { atLogin: false, after: true, first: 'Hello, Testchar', at: { step: '1 of 3', dots: '3:1' },
+	assert.deepEqual(out, { atLogin: false, after: true, first: 'Hello, Testchar', at: { step: '1 of 4', dots: '4:1' },
 		open: { char: 1, account: false }, closed: true, char: 1, account: 1 },
 	'a reload or logout with it still up does not show it again');
 });
@@ -98,7 +99,7 @@ test('a later login of a character that has seen it does not show it', () => {
 	assert.equal(out.shown, false);
 });
 
-test('a new character on an account that has had its welcome gets it without setup; /polestar welcome shows every page', () => {
+test('a new character on an account that has had its welcome gets it without setup or the route style; /polestar welcome shows every page', () => {
 	const [out] = run(`
 		stub.advance(3)
 		local login = titles()
@@ -108,8 +109,8 @@ test('a new character on an account that has had its welcome gets it without set
 		emit({ login = login, loginDots = loginDots, asked = asked, askedDots = dots(), char = PolestarCharDB.welcomeSeen })`, { saved: ACCOUNT_SEEN });
 	assert.deepEqual(out.login, ['Hello, Testchar', 'Elwynn Forest']);
 	assert.equal(out.loginDots, '2:2');
-	assert.deepEqual(out.asked, ['Hello, Testchar', 'Make it yours', 'Elwynn Forest']);
-	assert.equal(out.askedDots, '3:3');
+	assert.deepEqual(out.asked, ['Hello, Testchar', 'Make it yours', 'Route style', 'Elwynn Forest']);
+	assert.equal(out.askedDots, '4:4');
 	assert.equal(out.char, 1);
 });
 
@@ -225,9 +226,9 @@ test('the intro cinematic does not use it up: closed as the cinematic starts, it
 		emit({ before = before, during = during, after = shown(), step = step(), key = key(),
 			account = PolestarDB.welcomeSeen or false })`, { before: CINEMATIC });
 	assert.deepEqual(out, {
-		before: { shown: true, step: '2 of 3' },
+		before: { shown: true, step: '2 of 4' },
 		during: { shown: false, account: false },
-		after: true, step: '2 of 3', key: 'setup', account: false,
+		after: true, step: '2 of 4', key: 'setup', account: false,
 	});
 });
 
@@ -269,35 +270,37 @@ test('it never opens over the route choice: it waits for that window to close, a
 	assert.equal(out.step, '2 of 2', 'with the pages it started with');
 });
 
-test('three pages with Next and Back and the step dots; the last page holds the guide buttons', () => {
+test('four pages with Next and Back and the step dots; the last page holds the guide buttons', () => {
 	const [out] = run(`
 		Wel.Show()
 		local F = PolestarWelcome
 		local keys, steps, marks, buttons = {}, {}, {}, {}
-		for i = 1, 3 do
+		for i = 1, 4 do
 			keys[i], steps[i], marks[i] = key(), step(), dots()
 			buttons[i] = { skip = F.Skip:IsShown(), back = F.Back:IsShown(), next = F.Next:IsShown(),
 				start = F.Start:IsShown(), browse = F.Browse:IsShown() }
-			if i < 3 then F.Next:Click() end
+			if i < 4 then F.Next:Click() end
 		end
 		local height = F:GetHeight()
 		F.Back:Click()
 		local back = { key = key(), height = F:GetHeight() }
 		F.Back:Click()
 		F.Back:Click()
+		F.Back:Click()
 		local first = key()
 		stub.advance(1)
 		emit({ keys = keys, steps = steps, marks = marks, buttons = buttons, height = height, back = back, first = first,
 			idle = Polestar.Anim.Active() })`);
-	assert.deepEqual(out.keys, ['welcome', 'setup', 'start']);
-	assert.deepEqual(out.steps, ['1 of 3', '2 of 3', '3 of 3']);
-	assert.deepEqual(out.marks, ['3:1', '3:2', '3:3'], 'the current page is the accent capsule');
+	assert.deepEqual(out.keys, ['welcome', 'setup', 'route', 'start']);
+	assert.deepEqual(out.steps, ['1 of 4', '2 of 4', '3 of 4', '4 of 4']);
+	assert.deepEqual(out.marks, ['4:1', '4:2', '4:3', '4:4'], 'the current page is the accent capsule');
 	assert.deepEqual(out.buttons, [
 		{ skip: true, back: false, next: true, start: false, browse: false },
 		{ skip: true, back: true, next: true, start: false, browse: false },
+		{ skip: true, back: true, next: true, start: false, browse: false },
 		{ skip: false, back: true, next: false, start: true, browse: true },
 	]);
-	assert.deepEqual(out.back, { key: 'setup', height: out.height }, 'the window keeps its height between pages');
+	assert.deepEqual(out.back, { key: 'route', height: out.height }, 'the window keeps its height between pages');
 	assert.equal(out.first, 'welcome', 'Back stops at the first page');
 	assert.equal(out.idle, 0, 'nothing runs per frame once it has settled');
 });
@@ -413,6 +416,46 @@ test('right-clicking the quest automation switch puts accepting and turning in b
 	assert.deepEqual(out.again, [true, true, true], 'from the defaults, right-click leaves them as they are');
 });
 
+test('the route page: three styles with what each does, Balanced picked on a fresh account; a click sets nav.routeStyle, right-click puts Balanced back, Options moves the pick', () => {
+	const [out] = run(`
+		Wel.Show("route")
+		local get = Polestar.Get
+		local F = PolestarWelcome
+		local function pick()
+			local on
+			for _, c in ipairs(F.Styles) do if c.psSelected then on = c.Name:GetText() end end
+			return on
+		end
+		local cards = {}
+		for i, c in ipairs(F.Styles) do
+			cards[i] = { c.Name:GetText(), c.Desc:GetText(), c.psChip and c.psChip:IsShown() and c.psChip.Text:GetText() or false }
+		end
+		local fresh = pick()
+		F.Styles[3]:Click()
+		local roads = { get("nav.routeStyle"), pick() }
+		F.Styles[3]:Click("RightButton")
+		local reset = { get("nav.routeStyle") or "balanced", pick() }
+		Polestar.Set("nav.routeStyle", "fastest")
+		local options = pick()
+		local route = F.pages.route
+		local function said(w) return w ~= nil and w:IsShown() and (w:GetText() or "") ~= "" end
+		emit({ title = title(), note = said(route.Hero.Sub), foot = said(route.Foot),
+			cards = cards, fresh = fresh, roads = roads, reset = reset, options = options,
+			fits = F.pages.route:GetHeight() <= F.pages.setup:GetHeight() })`);
+	assert.ok(out.title, 'the page has a title');
+	assert.equal(out.note, true, 'the note under the title');
+	assert.equal(out.foot, true, 'the footnote under the cards');
+	assert.equal(out.cards.length, 3, 'three cards');
+	for (const [name, desc] of out.cards) assert.ok(name && desc, `${name}: a name and a description`);
+	assert.equal(new Set(out.cards.map((c) => c[1])).size, 3, 'three different descriptions');
+	assert.deepEqual(out.cards.filter((c) => c[2]).map((c) => c[0]), ['Balanced'], 'the Recommended chip on Balanced only');
+	assert.equal(out.fresh, 'Balanced', 'Balanced is picked on a fresh account');
+	assert.deepEqual(out.roads, ['roads', 'Roads'], 'a click sets the style and moves the pick');
+	assert.deepEqual(out.reset, ['balanced', 'Balanced'], 'right-click puts Balanced back');
+	assert.equal(out.options, 'Fastest', 'a style changed in Options moves the pick');
+	assert.equal(out.fits, true, 'the route page fits in the window setup sizes');
+});
+
 test('the start page: Start guide opens the suggested guide, Browse guides opens the picker, both close it', () => {
 	const [out] = run(`
 		Wel.Show("start")
@@ -441,13 +484,13 @@ test('the start page: Start guide opens the suggested guide, Browse guides opens
 
 test('Show takes a page by key or by number among the pages shown', () => {
 	const [out] = run(`
-		Wel.Show(3)
-		local three = key()
+		Wel.Show(4)
+		local four = key()
 		Wel.Show("setup")
 		local setup = key()
 		Wel.Show("beta")
-		emit({ three = three, setup = setup, unknown = key() })`);
-	assert.deepEqual(out, { three: 'start', setup: 'setup', unknown: 'welcome' });
+		emit({ four = four, setup = setup, unknown = key() })`);
+	assert.deepEqual(out, { four: 'start', setup: 'setup', unknown: 'welcome' });
 });
 
 test('About and /polestar welcome reopen it on its first page', () => {
@@ -461,5 +504,5 @@ test('About and /polestar welcome reopen it on its first page', () => {
 		PolestarWelcome:Hide()
 		SlashCmdList.POLESTAR("welcome")
 		emit({ about = about, command = shown(), title = title() })`);
-	assert.deepEqual(out, { about: { shown: true, title: 'Hello, Testchar', step: '1 of 3' }, command: true, title: 'Hello, Testchar' });
+	assert.deepEqual(out, { about: { shown: true, title: 'Hello, Testchar', step: '1 of 4' }, command: true, title: 'Hello, Testchar' });
 });

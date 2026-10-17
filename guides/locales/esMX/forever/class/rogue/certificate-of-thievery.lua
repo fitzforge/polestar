@@ -22,19 +22,19 @@ return {
 	-- {npc:3599} Jannok Breezesong · {area:186} Dolanaar · {quest:2259} Erion Shadewhisper · {zone:1457} Darnassus
 	["At 16 {npc:3599} in {area:186} sends you to {quest:2259} in {zone:1457}."] = "A nivel 16, {npc:3599}, en {area:186}, te envía con {quest:2259} en {zone:1457}.",
 
-	-- Step 5: Renzik "The Shiv"
+	-- Step 6: Renzik "The Shiv"
 	-- {npc:6946} Renzik "The Shiv" · {npc:332} Master Mathias Shaw · {quest:2300} SI:7 · {object:2100} Old Town · {area:2257} Deeprun Tram · {zone:1455} Ironforge · {area:442} Auberdine · {area:17203} Stormwind Harbor
 	["{npc:6946} stands beside {npc:332} at {quest:2300} in {object:2100}. Dwarves and Gnomes take the {area:2257} from {zone:1455}; Night Elves take the boat from {area:442} to {area:17203}."] = "{npc:6946} está junto a {npc:332} en {quest:2300}, en {object:2100}. Los enanos y gnomos toman el {area:2257} desde {zone:1455}; los elfos de la noche toman el barco de {area:442} a {area:17203}.",
 
-	-- Step 6: Lucius
+	-- Step 7: Lucius
 	-- {zone:1429} Elwynn Forest · {area:69} Lakeshire · {npc:6966} Lucius · {item:5060} Thieves' Tools
 	["Ride east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} waits on the west side of {area:69} and gives you {item:5060}."] = "Cabalga hacia el este por {zone:1429} hasta las Montañas Crestagrana, o vuela a {area:69}. {npc:6966} espera en el lado oeste de {area:69} y te da {item:5060}.",
 
-	-- Step 7: Alther's Mill
+	-- Step 8: Alther's Mill
 	-- {quest:2282} Alther's Mill · {area:69} Lakeshire · {object:121264} Lucius's Lockbox
 	["{quest:2282} stands east of {area:69}, up off the road. Open {object:121264} there."] = "{quest:2282} está al este de {area:69}, arriba, fuera del camino. Abre ahí {object:121264}.",
 
-	-- Step 8: Back to Lucius
+	-- Step 9: Back to Lucius
 	-- {npc:6966} Lucius
 	["Back to {npc:6966}"] = "Regresa con {npc:6966}",
 

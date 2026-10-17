@@ -516,8 +516,8 @@ step Braldir Ashmantle
 step Fire Tar and the Reagent Pouch
   only Shaman
   tip Stonesplinter Seers (level 13) stand among the troggs in the south of Stonesplinter Valley, south of Braldir; Tunnel Rat Geomancers (level 12) work the Silver Stream Mine at the north end of the loch. The troggs come in packs and some throw from range: pull one at a time.
-  collect 6652 quest 94466.1                  -- Reagent Pouch: Stonesplinter Seers
-  collect 5026 quest 94466.2                  -- Fire Tar: Tunnel Rat Geomancers
+  collect 6652 quest 94466.2                  -- Reagent Pouch: Stonesplinter Seers
+  collect 5026 quest 94466.1                  -- Fire Tar: Tunnel Rat Geomancers
 
 step The Fire Spirit Stone
   only Shaman

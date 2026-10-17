@@ -256,10 +256,12 @@ step Tear of the Moons
   turnin 857
 
 step Great Lift
+  zone Thousand Needles
   tip South-west of Bael Modan, Grish Longrunner waits at the top of the Great Lift.
   turnin 5881                         -- Grish Longrunner
 
 step Merchant Coast
+  zone The Barrens
   tip Hearth to Camp Taurajo and fly to Ratchet. Mahren Skyseer camps on the shore north of Ratchet.
   hearth "Camp Taurajo"
   fly "Ratchet"

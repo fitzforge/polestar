@@ -9,7 +9,7 @@
 // character in Goldshire is guided to the Fargodeep Mine; the engine's path
 // must come back through Nav/Walk.lua, Nav/Travel.lua and Nav.Sample to the
 // arrow. Every other arrow test fakes the engine (tests/nav-spf.test.js) and
-// the other real-engine tests call it directly (tests/nav-vendor.test.js): a
+// the other real-engine tests call it directly (tests/nav-maps.test.js): a
 // frame mismatch between the two (north/west swapped, a uiMapID for the
 // instance id, a dropped height) passes those and fails only here. Checks
 // name their docs/NAV_QA.md rows.
@@ -31,7 +31,7 @@ function skipReason() {
 	}
 	const data = needs('map-frames.json', 'zones.json');
 	if (data) return data;
-	if (!fs.existsSync(path.join(ADDONS, 'Polestar_Nav', 'Nav', 'Nav.xml'))) return 'addon/Polestar_Nav has no walking maps (node tools/polestar.js nav pack and nav vendor)';
+	if (!fs.existsSync(path.join(ADDONS, 'Polestar_Nav', 'Nav', 'Nav.xml'))) return 'addon/Polestar_Nav has no walking maps (node tools/polestar.js nav pack)';
 	if (!fs.existsSync(path.join(ADDONS, 'Polestar_Guides', 'MapFrames.lua'))) return 'addon/Polestar_Guides/MapFrames.lua not built (node tools/polestar.js compile)';
 	return false;
 }
@@ -72,12 +72,13 @@ local w, N, C = stub.world, Polestar.Nav, Polestar.Compat
 local E = Polestar_NavEngine
 local floor, sqrt = math.floor, math.sqrt
 local function r1(v) return v and floor(v * 10 + 0.5) / 10 end
--- Every search the arrow asks for, with what it was asked and what came back.
+-- Every search the arrow asks for, with what it was asked (style: its opts.style; opts: the whole) and what came back.
 local finds = {}
 if E then -- nil when Polestar_Nav was not loaded (routing off)
 	local realFind = E.Find
 	E.Find = function(map, from, to, callback, water)
-		local rec = { map = map, from = { from.x, from.y, from.z }, to = { to.x, to.y, to.z }, at = GetTime(), combat = InCombatLockdown() and true or false }
+		local rec = { map = map, from = { from.x, from.y, from.z }, to = { to.x, to.y, to.z }, at = GetTime(), combat = InCombatLockdown() and true or false,
+			style = type(water) == "table" and water.style or nil, opts = type(water) == "table" and water or nil }
 		finds[#finds + 1] = rec
 		return realFind(map, from, to, function(points, cost, job)
 			rec.points, rec.cost, rec.done = points, cost, true
@@ -123,7 +124,7 @@ local function offPath(points, x, y)
 	end
 	return best
 end
-local GOLDSHIRE = { -9444.062, 77.667, 57.353 } -- UnitPosition in front of the Lion's Pride Inn (tests/nav-vendor.test.js)
+local GOLDSHIRE = { -9444.062, 77.667, 57.353 } -- UnitPosition in front of the Lion's Pride Inn (tests/nav-maps.test.js)
 local LOWER_MOUTH = { -9791.249, 164.438, 27.373 } -- the Fargodeep Mine's lower mouth, likewise
 -- Goldshire, guided to the Fargodeep Mine (Elwynn, Era 39.5,82.4); frames run until the path is in.
 local function guide(map, x, y, label)
@@ -215,7 +216,13 @@ test('a: Polestar\'s world frame is the engine\'s: known UnitPosition spots and 
 	assert.ok(out.points >= 3 && Math.abs(out.secondZ - 57) < 15, `a ${out.points}-point path on the ground (z ${out.secondZ})`);
 });
 
-test('b, e, f: the arrow aims at the engine path\'s next point; the route lines and the journey carry the same path', { skip }, (t) => {
+// The Fargodeep Mine's lower mouth in Polestar_Nav's Chokepoints.lua: the walk
+// from Goldshire into the mine is split there (a named cave step), the walk to
+// the mouth first, then the mine itself (Ruling 26 of pathing v2: the format 2
+// path passes within the mouth's 10 yd).
+const FARGODEEP_MOUTH = [-9842.4, 135.3, 10];
+
+test('b, e, f: the arrow aims at the engine path\'s next point; the route lines and the journey carry the same path, split at the mine\'s mouth', { skip }, (t) => {
 	const out = run(t, `
 		local r = {}
 		place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
@@ -228,28 +235,38 @@ test('b, e, f: the arrow aims at the engine path\'s next point; the route lines 
 		r.path = { length = length(pts), straight = dist(GOLDSHIRE[1], GOLDSHIRE[2], tx, ty), endGap = dist(pts[#pts].x, pts[#pts].y, tx, ty) }
 		r.left = { walk = N.walk.Left(0, tx, ty), along = length(pts) }
 		r.shown = { text = N.arrow.distText:GetText(), want = Polestar.FormatDistance(floor(a.dist + 0.5)), visible = PolestarNavArrow:IsShown() }
-		-- e: the route lines' walk leg is the engine's path, the player first.
+		-- e: the route lines' walk legs are the engine's path, the player first:
+		-- every path point, in order, along the pieces' points (the mouth between them).
 		local g = N.GetRouteGeometry()
-		local walk
-		for _, leg in ipairs(g.legs) do if leg.kind == "walk" and leg.current then walk = leg end end
-		local same = #walk.pts == #pts
-		for i, p in ipairs(walk.pts) do
-			if not pts[i] or p[1] ~= 0 or p[2] ~= pts[i].x or p[3] ~= pts[i].y then same = false end
+		local along, walks, current = {}, 0, nil
+		for _, leg in ipairs(g.legs) do
+			if leg.kind == "walk" then
+				walks = walks + 1
+				if leg.current then current = leg end
+				for _, p in ipairs(leg.pts) do along[#along + 1] = p end
+			end
 		end
-		r.geometry = { legs = #g.legs, n = #walk.pts, same = same, first = dist(walk.pts[1][2], walk.pts[1][3], GOLDSHIRE[1], GOLDSHIRE[2]) }
+		local k, inOrder = 1, true
+		for _, p in ipairs(pts) do
+			while along[k] and not (along[k][1] == 0 and along[k][2] == p.x and along[k][3] == p.y) do k = k + 1 end
+			if not along[k] then inOrder = false break end
+		end
+		r.geometry = { legs = #g.legs, walks = walks, inOrder = inOrder, first = dist(current.pts[1][2], current.pts[1][3], GOLDSHIRE[1], GOLDSHIRE[2]) }
 		-- f: the journey's legs.
 		local legs, ci = N.GetRoute()
 		local T = N.travel
-		local list, finite, sum = {}, true, 0
+		local list, finite, sum, yards = {}, true, 0, 0
 		for i = ci, #legs do
 			local l = legs[i]
 			list[#list + 1] = { l.kind, l.label, l.seconds, l.yards }
 			if l.seconds ~= l.seconds or l.seconds == math.huge or l.yards ~= l.yards then finite = false end
-			sum = sum + l.seconds
+			sum, yards = sum + l.seconds, yards + l.yards
 		end
 		local ps, py = T.Progress()
-		r.journey = { legs = list, finite = finite, sum = sum, total = legs[ci].seconds + legs[ci].rest, progress = { ps, py }, remaining = T.Remaining(a.dist, true), speed = py and ps and py / ps,
-			yards = legs[ci].yards, seconds = legs[ci].seconds, straight = { legs[ci].straightYards, legs[ci].straightSeconds } }
+		local first = legs[ci]
+		r.first = { step = first.step, choke = first.choke and first.choke.name, mouth = dist(first.to.wx, first.to.wy, ${FARGODEEP_MOUTH[0]}, ${FARGODEEP_MOUTH[1]}), tail = first.tail }
+		r.journey = { legs = list, finite = finite, sum = sum, yards = yards, total = first.seconds + first.rest, progress = { ps, py }, remaining = T.Remaining(a.dist, true), speed = py and ps and py / ps,
+			whole = first.parent and first.parent.leg.yards }
 		r.finds = #finds
 		emit(r)`);
 	// b
@@ -259,32 +276,38 @@ test('b, e, f: the arrow aims at the engine path\'s next point; the route lines 
 	assert.ok(out.aim.toTarget > 50, `the aimed point is ${out.aim.toTarget.toFixed(0)} yd short of the target`);
 	assert.ok(out.aim.off < 1e-6, 'and on the path');
 	assert.ok(out.path.endGap < 10, `the path ends ${out.path.endGap.toFixed(1)} yd from the target`);
-	assert.ok(Math.abs(out.aim.dist - out.path.length) < 0.5, `the arrow shows the path's length (${out.aim.dist.toFixed(1)} vs ${out.path.length.toFixed(1)})`);
+	// The walk is split at the mine's mouth: the first piece ends there.
+	assert.equal(out.first.step, 'cave');
+	assert.equal(out.first.choke, 'Fargodeep Mine');
+	assert.ok(out.first.mouth <= FARGODEEP_MOUTH[2], `the first piece ends ${out.first.mouth.toFixed(1)} yd from the mine's mouth`);
+	assert.ok(Math.abs(out.aim.dist - (out.path.length - out.first.tail)) < 0.5,
+		`the arrow shows the path's length to the mouth (${out.aim.dist.toFixed(1)} vs ${out.path.length.toFixed(1)} less ${out.first.tail.toFixed(1)} after it)`);
 	assert.ok(out.path.length >= out.path.straight, `path ${out.path.length.toFixed(0)} yd, straight ${out.path.straight.toFixed(0)} yd`);
-	assert.ok(Math.abs(out.left.walk - out.path.length) < 0.5, 'Walk.Left is the path left');
-	assert.equal(out.shown.text, out.shown.want, 'the arrow\'s distance text is that path length');
+	assert.ok(Math.abs(out.left.walk - out.path.length) < 0.5, 'Walk.Left is the whole path left');
+	assert.equal(out.shown.text, out.shown.want, 'the arrow\'s distance text is that length');
 	// e
-	assert.equal(out.geometry.same, true, 'the walk leg\'s points are the engine\'s path, point for point');
+	assert.equal(out.geometry.walks, 2, 'two walk pieces on the route lines');
+	assert.equal(out.geometry.inOrder, true, 'their points carry the engine\'s path, point for point, in order');
 	assert.ok(out.geometry.first < 0.01, 'starting where the player stands');
 	// f (K1, K6, K7)
 	assert.equal(out.finds, 1);
-	assert.ok(out.journey.legs.length >= 1);
+	assert.equal(out.journey.legs.length, 2, 'the walk to the mouth, then the mine');
 	for (const [kind, label, seconds, yards] of out.journey.legs) {
 		assert.ok(typeof label === 'string' && label !== '' && label !== 'Unknown', `K1: the ${kind} leg is named (${label})`);
 		assert.ok(Number.isFinite(seconds) && Number.isFinite(yards), `K7: finite (${seconds} s, ${yards} yd)`);
 	}
 	assert.equal(out.journey.finite, true);
-	assert.equal(out.journey.sum, out.journey.total, 'K6: the legs\' times add up to the walk\'s');
+	assert.equal(out.journey.sum, out.journey.total, 'K6: the pieces\' times add up to the walk\'s');
 	assert.ok(out.journey.progress.every(Number.isFinite), 'K7: the walk\'s progress is finite');
-	assert.ok(Math.abs(out.journey.progress[1] - out.path.length) < 0.5, 'and measured along the engine\'s path');
+	assert.ok(Math.abs(out.journey.progress[1] - (out.path.length - out.first.tail)) < 0.5, 'and measured along the engine\'s path to the mouth');
 	assert.ok(Number.isFinite(out.journey.remaining));
-	// f: once the path is in, the walk leg is measured along it, at the planner's 7 yd/s.
-	assert.ok(Math.abs(out.journey.yards - out.path.length) <= 1, `the walk leg is ${out.journey.yards} yd, the path ${out.path.length.toFixed(1)} yd`);
-	assert.ok(Math.abs(out.journey.seconds - out.journey.yards / 7) <= 1, `${out.journey.seconds} s for ${out.journey.yards} yd`);
-	assert.ok(out.journey.straight[0] > out.journey.yards, `its straight estimate (${out.journey.straight[0]} yd) is kept for when the path goes`);
+	// f: once the path is in, the whole walk is measured along it (the sum of its pieces), at the planner's 7 yd/s.
+	assert.ok(Math.abs(out.journey.yards - out.path.length) <= 1, `the pieces add up to ${out.journey.yards} yd, the path ${out.path.length.toFixed(1)} yd`);
+	assert.ok(Math.abs(out.journey.sum - out.journey.yards / 7) <= 1, `${out.journey.sum} s for ${out.journey.yards} yd`);
+	assert.ok(out.journey.whole > out.journey.yards, `the walk's straight estimate (${out.journey.whole} yd) stays on the whole walk`);
 });
 
-test('second review: after the path arrives the arrow, the panel\'s leg time and the header total agree', { skip }, (t) => {
+test('second review: after the path arrives the arrow, the panel\'s step times and the header total agree (the walk split at the mine\'s mouth)', { skip }, (t) => {
 	const out = run(t, `
 		place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
 		guide()
@@ -293,9 +316,13 @@ test('second review: after the path arrives the arrow, the panel\'s leg time and
 		local legs, ci = N.GetRoute()
 		local T = N.travel
 		local view = Polestar.UI.JourneyPanel.Compute(legs, ci)
-		emit({ arrow = T.Remaining(a.dist, true), leg = view.secs[1], header = view.total, planned = legs[ci].seconds + legs[ci].rest })`);
+		local steps = 0
+		for i = 1, view.n do steps = steps + view.secs[i] end
+		emit({ arrow = T.Remaining(a.dist, true), n = view.n, leg = view.secs[1], rest = legs[ci].rest, steps = steps, header = view.total, planned = legs[ci].seconds + legs[ci].rest })`);
+	assert.equal(out.n, 2, 'the walk to the mouth, then the mine');
 	assert.ok(Math.abs(out.arrow - out.header) <= 1, `arrow ${out.arrow} s, header ${out.header} s`);
-	assert.ok(Math.abs(out.leg - out.header) <= 1, `leg ${out.leg} s, header ${out.header} s`);
+	assert.equal(out.steps, out.header, `the steps add up to the header (${out.steps} s, ${out.header} s)`);
+	assert.ok(Math.abs(out.leg + out.rest - out.header) <= 1, `the current step and the rest after it (${out.leg} + ${out.rest} s), header ${out.header} s`);
 	assert.ok(Math.abs(out.planned - out.header) <= 1, `the legs' planned times (${out.planned} s) and the header (${out.header} s)`);
 });
 
@@ -308,11 +335,20 @@ test('Z1: a height of 0 from UnitPosition is no height: the walk to Mebok Mizzyr
 		local c, sx, sy = C.MapToWorld(1413, 63.07, 37.08, "e")
 		place(1413, sx, sy, 0)
 		local f = guide(1413, 62.37, 37.62, "Mebok Mizzyrix")
+		-- The first search goes before the player's cluster is decoded (no height); once the floor reads
+		-- the ground it is asked once more from there (Ruling 36b).
+		for _ = 1, 100 do
+			local last = finds[#finds]
+			if last.done and last.from[3] then f = last break end
+			stub.advance(0.05)
+			aim()
+		end
 		local east = 0
 		for _, p in ipairs(f.points) do if sy - p.y > east then east = sy - p.y end end
 		emit({ c = c, z = f.from[3], east = east, n = #f.points })`);
 	assert.equal(out.c, 1);
-	assert.equal(out.z, undefined, 'searched without a height');
+	// Never the 0 as a height: the ground under the player (z 12), which the walking floor (#234) reads there (one surface).
+	assert.ok(Math.abs(out.z - 12) <= 3, `searched from the ground's height (${out.z})`);
 	assert.ok(out.east < 3, `no point of the path is east of the player, towards the harbour (${out.east.toFixed(1)} yd east, ${out.n} points)`);
 });
 
@@ -368,9 +404,16 @@ test('c: walking the path point by point advances the aim, never asks the engine
 		end
 		local distinct = {}
 		for _, i in ipairs(seen) do if distinct[#distinct] ~= i then distinct[#distinct + 1] = i end end
-		emit({ n = #pts, distinct = distinct, backwards = backwards, finds = #finds, steps = steps, final = aim().state, states = states })`);
+		-- The first step's spot: the path's second point (the start cell's centre)
+		-- may lie within Walk.lua's POINT_REACH (5 yd) of it, and count as passed.
+		local a1, b1 = pts[1], pts[2]
+		local n1 = math.max(1, math.ceil(dist(a1.x, a1.y, b1.x, b1.y) / 4))
+		local gap = dist(a1.x + (b1.x - a1.x) / n1, a1.y + (b1.y - a1.y) / n1, b1.x, b1.y)
+		emit({ n = #pts, distinct = distinct, gap = gap, backwards = backwards, finds = #finds, steps = steps, final = aim().state, states = states })`);
 	assert.equal(out.backwards, 0, 'the aimed point never goes back');
-	assert.deepEqual(out.distinct, Array.from({ length: out.n - 1 }, (_, i) => i + 2), `the aim went through every point after the first, in order, to the last (of ${out.n})`);
+	const from = out.gap <= 5 ? 3 : 2;
+	assert.deepEqual(out.distinct, Array.from({ length: out.n - from + 1 }, (_, i) => i + from),
+		`the aim went through every point after the first (the second passed on the first step when within 5 yd: ${out.gap.toFixed(1)} yd), in order, to the last (of ${out.n})`);
 	assert.equal(out.finds, 1, `${out.steps} steps along the path, no new search`);
 	assert.equal(out.final, 'arrived');
 });
@@ -459,6 +502,9 @@ test('Z1: a guide goal at Andron Gant (Undercity, Rogues\' Quarter) is walked to
 	const out = run(t, `
 		local r = {}
 		local ANDRON = { 1389.34, 347.315, -65.96 } -- his CMaNGOS spawn; the guides' 54.81,76.33 (Era) on the Undercity's map
+		-- His quests are the Horde's: Undercity is the player's own capital (an
+		-- Alliance profile prices it as a hostile town, x20, and walks elsewhere).
+		w.faction = "Horde"
 		-- The walk itself, from Brill: without route planning the arrow searches player to target
 		-- (with it, Undercity's entrance chain takes the last stretch straight).
 		Polestar.Set("nav.travel", false)
@@ -599,7 +645,7 @@ test('a corrupted grid block of the map leaves the straight arrow for that walk,
 	assert.ok(out.toTarget < 1, `the arrow points at the goal itself (${out.toTarget})`);
 });
 
-test('every one of the 49 zones the guides walk in routes on the shipped maps (one walk between two of its located goals, 80-400 yd apart), and Zephras Isle on his', { skip }, () => {
+test('every one of the 49 zones the guides walk in routes on the shipped maps (one walk between two of its located goals, 80-400 yd apart), and Zephras Isle too', { skip }, () => {
 	const { Geo } = require('../tools/lib/planner/geo');
 	const geo = new Geo(JSON.parse(fs.readFileSync(path.join(DATA, 'map-frames.json'), 'utf8')), JSON.parse(fs.readFileSync(path.join(DATA, 'zones.json'), 'utf8')));
 	const src = fs.readFileSync(path.join(ADDONS, 'Polestar_Guides', 'Guides.lua'), 'utf8');
@@ -650,7 +696,7 @@ emit(out)`,
 	assert.deepEqual(zones.map((z) => z.map), ZONES, 'the zones tested');
 	assert.equal(out.n, ZONES.length);
 	assert.deepEqual(Object.values(out.failed), [], 'every zone routes');
-	assert.ok(typeof out.zephras === 'number' && out.zephras > 100, `Zephras Isle routes on his map (${out.zephras})`);
+	assert.ok(typeof out.zephras === 'number' && out.zephras > 100, `Zephras Isle routes on its map (${out.zephras})`);
 });
 
 // Fitz, 2026-10-16: a map marker near Astranaar; the route landed at a flight
@@ -785,4 +831,256 @@ test('Ashenvale west of Astranaar: where a ridge makes the straight choice\'s me
 		if (ratio <= 1.25) assert.equal(c.after, c.before, `${c.at}: no ridge (${ratio.toFixed(2)} x), the same landing`);
 	}
 	assert.ok(ridges >= 1, 'a ridge makes one straight choice\'s walk dearer than straight x1.25, and the measured route lands elsewhere');
+});
+
+// Route styles (nav.routeStyle, Nav/Walk.lua): the corpus route
+// road-goldshire-sentinelhill (tools/lib/nav/eval/routes.json) walked by the
+// arrow in Balanced, then switched to Roads mid-walk. The road share is
+// nav eval's offRoad (8 yd of a road column of data/local/nav-layers/roads),
+// checked only where that layer is built, against the spec's acceptance for
+// this route (off road at most 0.2; on the shipped maps Roads is about 89%
+// on road, Balanced about 45%).
+test('route styles: Goldshire to Sentinel Hill keeps to the road with Roads and cuts across with Balanced; switching mid-walk searches again', { skip }, (t) => {
+	const out = run(t, `
+		-- The whole walk is the arrow's (the corpus route): the planner, which walks
+		-- the Elwynn-Westfall crossing by hand, is off.
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("nav.routeStyle", "balanced")
+		w.moveTo(1429, 42, 65)
+		w.z = nil
+		N.SetTarget(1436, 56.5, 47.5, "Sentinel Hill")
+		local target = N.GetTarget()
+		local _, tx, ty = N.GetTargetWorld()
+		-- The arrow's own walk to the target, once a search after the first 'after' is in.
+		local function settle(after)
+			for _ = 1, 600 do
+				aim()
+				local f = finds[#finds]
+				if #finds > after and f.done and dist(f.to[1], f.to[2], tx, ty) < 1 then return f end
+				stub.advance(0.05)
+			end
+		end
+		local function line(f)
+			local pts = {}
+			for i, p in ipairs(f.points or {}) do pts[i] = { p.x, p.y, p.z or false } end
+			return pts
+		end
+		local function drawn()
+			local n, legs = 0, N.GetRouteGeometry().legs
+			for _, leg in ipairs(legs) do if leg.kind == "walk" then n = n + #leg.pts end end
+			return { points = n, legs = #legs }
+		end
+		local r = {}
+		local bal = settle(0)
+		assert(bal, "the Balanced walk is never in")
+		r.balanced = { style = bal.style or false, map = bal.map, pts = line(bal), drawn = drawn() }
+		local before = #finds
+		Polestar.Set("nav.routeStyle", "roads")
+		aim()
+		r.switched = { drawn = drawn(), sameTarget = N.GetTarget() == target }
+		local road = settle(before)
+		r.roads = road and { style = road.style or false, map = road.map, pts = line(road), from = dist(road.from[1], road.from[2], bal.from[1], bal.from[2]), drawn = drawn() } or false
+		r.sameTarget = N.GetTarget() == target
+		emit(r)`, { shipped: true });
+	const { metrics, loadLayers, lineLength } = require('../tools/lib/nav/eval/metrics');
+	assert.equal(out.balanced.style, 'balanced', 'the Balanced walk is searched in Balanced');
+	assert.ok(out.roads, 'the switch searched the walk again');
+	assert.equal(out.roads.style, 'roads', 'in Roads');
+	const pts = (rec) => rec.pts.map(([x, y, z]) => [x, y, z === false ? null : z]);
+	const balanced = pts(out.balanced);
+	const roads = pts(out.roads);
+	assert.ok(out.sameTarget && out.switched.sameTarget, 'without a new target');
+	assert.ok(out.roads.from < 1, 'from where the player stands');
+	assert.ok(out.balanced.drawn.points > 2 * out.balanced.drawn.legs, 'the Balanced walk is drawn along its path');
+	assert.equal(out.switched.drawn.points, 2 * out.switched.drawn.legs, 'the switch drops the Balanced line at once: straight until the Roads walk is in');
+	assert.notDeepEqual(roads, balanced, 'the Roads walk differs from the Balanced one');
+	const lb = lineLength(balanced);
+	const lr = lineLength(roads);
+	t.diagnostic(`Balanced ${lb.toFixed(0)} yd, Roads ${lr.toFixed(0)} yd`);
+	assert.ok(lr > lb, `the Roads walk (${lr.toFixed(0)} yd) is longer than the Balanced one (${lb.toFixed(0)} yd)`);
+	const { roads: layer } = loadLayers();
+	if (!layer) {
+		t.diagnostic('no data/local/nav-layers/roads: the road share is not checked');
+		return;
+	}
+	const onRoad = (line, map) => 1 - metrics({ ok: true, pts: line, map }, { layers: { roads: layer } }).offRoad;
+	const sr = onRoad(roads, out.roads.map);
+	const sb = onRoad(balanced, out.balanced.map);
+	t.diagnostic(`on road: Balanced ${(sb * 100).toFixed(1)}%, Roads ${(sr * 100).toFixed(1)}%`);
+	assert.ok(sr >= 0.8, `the Roads walk keeps ${(sr * 100).toFixed(1)}% of its length within 8 yd of a road (off road at most 0.2)`);
+	assert.ok(sb < sr, `the Balanced walk's road share (${(sb * 100).toFixed(1)}%) is lower`);
+});
+
+// Zone danger (#195, Nav/Danger.lua, Nav/Walk.lua): a level 20 Horde
+// character in Tirisfal (75.92,68.39, the live frame) walking to the Spring
+// Well (Hillsbrad 62.18,20.79, the guides' Era frame). Without danger the
+// router's way runs through Western Plaguelands (uiMap 1422, 51+); with the
+// addon's danger table the drawn walk keeps out of it, sampled every 20 yd
+// with Path.ZoneAt.
+test('zone danger (#195): Tirisfal to the Spring Well at level 20 as Horde walks no yard of Western Plaguelands', { skip }, (t) => {
+	const out = run(t, `
+		Polestar.Set("nav.travel", false)
+		w.setLevel(20)
+		w.faction = "Horde"
+		w.moveTo(1420, 75.92, 68.39)
+		w.z = nil
+		N.SetTarget(1424, 62.18, 20.79, "The Spring Well", "e")
+		local _, tx, ty = N.GetTargetWorld()
+		local f
+		for _ = 1, 1200 do
+			aim()
+			local last = finds[#finds]
+			if last and last.done and dist(last.to[1], last.to[2], tx, ty) < 1 then f = last break end
+			stub.advance(0.05)
+		end
+		assert(f and f.points and #f.points > 1, "the walk is never in")
+		-- Yards of a line, and of it in zone 1422 (sampled every 20 yd).
+		local function measure(map, pts)
+			local yards, wpl = 0, 0
+			for i = 2, #pts do
+				local ax, ay, bx, by = pts[i - 1][1], pts[i - 1][2], pts[i][1], pts[i][2]
+				local d = dist(ax, ay, bx, by)
+				yards = yards + d
+				local n = math.max(1, math.ceil(d / 20))
+				for k = 0, n - 1 do
+					local s = (k + 0.5) / n
+					if E.ZoneAt(map, ax + (bx - ax) * s, ay + (by - ay) * s) == 1422 then wpl = wpl + d / n end
+				end
+			end
+			return { yards = floor(yards + 0.5), wpl = floor(wpl + 0.5) }
+		end
+		local drawn = {}
+		for _, leg in ipairs(N.GetRouteGeometry().legs) do
+			if leg.kind == "walk" then
+				for _, p in ipairs(leg.pts) do drawn[#drawn + 1] = { p[2], p[3] } end
+			end
+		end
+		local o = f.opts or {}
+		local danger = {}
+		for id, m in pairs(o.danger or {}) do danger[#danger + 1] = id .. "=" .. m end
+		table.sort(danger)
+		local r = { map = f.map, profile = o.profile or false, danger = table.concat(danger, ","),
+			startZone = E.ZoneAt(f.map, f.from[1], f.from[2]) or false, goalZone = E.ZoneAt(f.map, tx, ty) or false }
+		local line = {}
+		for i, p in ipairs(f.points) do line[i] = { p.x, p.y } end
+		r.after = measure(f.map, line)
+		r.drawn = measure(f.map, drawn)
+		-- The same walk without danger: what #195 reported.
+		local pts = E.FindSync(f.map, { x = f.from[1], y = f.from[2], z = f.from[3] }, { x = f.to[1], y = f.to[2], z = f.to[3] }, { profile = o.profile, style = o.style })
+		local before = {}
+		for i, p in ipairs(pts or {}) do before[i] = { p.x, p.y } end
+		r.before = measure(f.map, before)
+		emit(r)`, { shipped: true });
+	t.diagnostic(`without danger ${out.before.yards} yd (${out.before.wpl} in Western Plaguelands); with it ${out.after.yards} yd (${out.after.wpl})`);
+	assert.equal(out.profile, 'Horde');
+	assert.equal(out.startZone, 1420, 'the walk starts in Tirisfal');
+	assert.equal(out.goalZone, 1424, 'and ends in Hillsbrad');
+	assert.match(out.danger, /(^|,)1422=20(,|$)/, 'Western Plaguelands is far above level 20 (x20)');
+	assert.ok(out.before.wpl > 0, 'without danger the walk crosses Western Plaguelands (#195)');
+	assert.equal(out.after.wpl, 0, 'with it the searched walk keeps out');
+	assert.equal(out.drawn.wpl, 0, 'and so does the drawn line');
+	assert.ok(out.drawn.yards > 0);
+});
+
+// The walking floor (#234, Ruling 36). Forever's UnitPosition gives no height
+// (z 0), so a search from the player started on whichever surface near them
+// was cheapest: at the Den's camp in the Valley of Trials (the reporter's
+// 42.9,67.6) the rock top over the Den (z 73), whence Fastest crossed the hill
+// to Hana'zua through the pass. Walk now follows the surface under the player
+// (Path.SurfacesAt) and starts the search from it. FLOOR_WALK walks the
+// player in 2 yd steps 0.3 s apart to each point of a list, the arrow sampling
+// each step, with UnitPosition's z 0.
+const FLOOR_WALK = `
+local function walkTo(map, pts)
+	local _, x0, y0 = C.GetPlayerWorldPosition()
+	for _, p in ipairs(pts) do
+		local n = math.max(1, math.ceil(dist(x0, y0, p[1], p[2]) / 2))
+		for i = 1, n do
+			place(map, x0 + (p[1] - x0) * i / n, y0 + (p[2] - y0) * i / n, 0)
+			stub.advance(0.3)
+			aim()
+		end
+		x0, y0 = p[1], p[2]
+	end
+end
+-- The arrow's walk to (map, wx, wy) at height z, once its search is in.
+local function walkFor(map, wx, wy, label, z)
+	local c = C_Map.GetWorldPosFromMapPos(map, CreateVector2D(0.5, 0.5))
+	local x, y = C.WorldToMap(c, wx, wy, map)
+	local before = #finds
+	N.SetTarget(map, x, y, label, nil, "npc", z)
+	for _ = 1, 1200 do
+		aim()
+		local f = finds[#finds]
+		if #finds > before and f.done and dist(f.to[1], f.to[2], wx, wy) < 1 then return f end
+		stub.advance(0.05)
+	end
+end
+-- The highest point of a search's line within r yd of (x, y).
+local function highest(f, x, y, r)
+	local top = -math.huge
+	for _, p in ipairs(f.points or {}) do
+		if p.z and dist(p.x, p.y, x, y) <= r and p.z > top then top = p.z end
+	end
+	return top
+end
+`;
+const DEN = [-574.567, -4230.838]; // the reporter's spot at the Den's camp (ground z 39.2, the rock top 73 within a cell)
+const HANAZUA = [-397.8, -4109, 50.3];
+
+for (const style of ['fastest', 'balanced']) {
+	test(`#234 floor (${style}): at the Den's camp, walked in from the valley floor, the walk to Hana'zua never starts on the rock top; with no walking history it is searched as before, without a height`, { skip }, (t) => {
+		const out = run(t, `${FLOOR_WALK}
+			Polestar.Set("nav.travel", false)
+			Polestar.Set("nav.routeStyle", "${style}")
+			w.setLevel(3)
+			w.faction = "Horde"
+			local r = {}
+			-- No history: standing at the camp from the first sample.
+			place(1411, ${DEN[0]}, ${DEN[1]}, 0)
+			local f = walkFor(1411, ${HANAZUA[0]}, ${HANAZUA[1]}, "Hana'zua", ${HANAZUA[2]})
+			r.fresh = { z = f.from[3] or false, top = highest(f, ${DEN[0]}, ${DEN[1]}, 60), yards = floor(length(f.points)) }
+			-- Walked in: from 42 yd out on the valley floor (one surface, z 38), a walk the arrow follows.
+			N.SetTarget(1411, 30, 70, "Valley")
+			place(1411, ${DEN[0]} - 30, ${DEN[1]} - 30, 0)
+			stub.advance(3)
+			aim()
+			walkTo(1411, { { ${DEN[0]}, ${DEN[1]} } })
+			f = walkFor(1411, ${HANAZUA[0]}, ${HANAZUA[1]}, "Hana'zua", ${HANAZUA[2]})
+			r.walked = { z = f.from[3] or false, top = highest(f, ${DEN[0]}, ${DEN[1]}, 60), yards = floor(length(f.points)) }
+			emit(r)`, { shipped: true });
+		t.diagnostic(`${style}: no history ${out.fresh.yards} yd (highest within 60 yd of the start ${out.fresh.top}); walked in ${out.walked.yards} yd (${out.walked.top}), from z ${out.walked.z}`);
+		assert.equal(out.fresh.z, false, 'no walking history: searched without a height, as before');
+		assert.ok(Math.abs(out.walked.z - 39.2) <= 3, `walked in: searched from the camp's ground (${out.walked.z})`);
+		assert.ok(out.walked.top <= 55, `and the drawn line never stands on the rock top (highest within 60 yd: ${out.walked.top})`);
+	});
+}
+
+// The pattern sweep's worst Undercity start (hop|forever/class/rogue/
+// plundering-the-plunderers|17, real z -62.2, its column -62/5/63): a player
+// who rode the south lift down (the floor unknown at a lift) and walked to it
+// along the router's own way, indoors (IsIndoors), keeps the lower level.
+test('#234 floor: off the Undercity\'s south lift, indoors, the walk to the plundering start keeps the lower level, and the search from there starts on it', { skip }, (t) => {
+	const out = run(t, `${FLOOR_WALK}
+		Polestar.Set("nav.travel", false)
+		w.setLevel(16)
+		w.faction = "Horde"
+		IsIndoors = function() return 1 end
+		local START = { 1435.6, 72, -62.2 }
+		local LIFT = { 1544.2, 240.8, -41 }
+		local way = E.FindSync(0, { x = LIFT[1], y = LIFT[2], z = LIFT[3] }, { x = START[1], y = START[2], z = START[3] }, { profile = "Horde" })
+		local pts = {}
+		for i = 2, #way do pts[#pts + 1] = { way[i].x, way[i].y } end
+		place(1420, LIFT[1], LIFT[2], 0)
+		local f = walkFor(1420, START[1], START[2], "The plundering start")
+		local r = { atLift = f.from[3] or false }
+		walkTo(1420, pts)
+		f = walkFor(1420, -160.1, 774.2, "The plundering goal")
+		local first = f.points and f.points[2]
+		r.walked = { z = f.from[3] or false, top = highest(f, START[1], START[2], 60), yards = floor(length(f.points or {})), second = first and first.z or false }
+		emit(r)`, { shipped: true });
+	t.diagnostic(`at the lift ${out.atLift}; walked in: from z ${out.walked.z}, highest within 60 yd ${out.walked.top}, ${out.walked.yards} yd`);
+	assert.equal(out.atLift, false, 'at the lift the floor is unknown');
+	assert.ok(Math.abs(out.walked.z - -62.2) <= 3, `searched from the lower level (${out.walked.z})`);
+	assert.ok(out.walked.top < -20, `the drawn line's first 60 yd stay down there (highest ${out.walked.top})`);
 });

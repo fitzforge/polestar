@@ -599,6 +599,17 @@
 			},
 			"note": "Bloom of the Heavens (98209, Sylessa Duskwhisper's delivery to Thundris Windweaver) comes after Bloom of the Heavens 98208, recovering Nord'el from the wreck south of Menethil: the quest chain on https://foreverchanges.pro/quest/98209, which for quests new in Forever comes from Wowhead's Forever database (checked 2026-10-17) lists the two in that order, and its text asks you to deliver the Nord'el. QuestieDB 1.0.5 has no prerequisite."
 		},
+		"98297": {
+			"set": {
+				"pre": [
+					98291
+				],
+				"preAny": [
+					98291
+				]
+			},
+			"note": "Stopping the Cycle (Wetlands, Howin Kindfeather) is offered only after Death to the Dragonmaw 98291, also from Howin: two Wowhead Forever comments on https://www.wowhead.com/forever/quest=98297, checked by the maintainer on #51 (2026-10-16). 98291's Dragonmaw Reclaimer, Soulbinder and Infiltrator (271351, 271348, 271346) are elite on Wowhead Forever (their corrections in this file), so the simulator leaves 98291 out. QuestieDB 1.0.6 has no prerequisite."
+		},
 		"98298": {
 			"set": {
 				"pre": [

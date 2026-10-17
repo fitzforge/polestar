@@ -25,10 +25,16 @@
 // - An end is placed on its map's Era frame (f "e") unless Forever redrew that
 //   map (its live frame differs, e.g. Stormwind with the harbor) or Forever
 //   added it (the Riverglades): then on the live frame (f "l").
+// - A ship's stop is where the ship lies, often in open water a few yards off
+//   its pier. Where an end's point is not on dry walkable ground, it gets a
+//   board point: where passengers walk to and board (boardPoint, from the
+//   navigation grid; none without a grid).
 
 const { round, dist2d, isJump } = require('./geo');
 const { spawnPoints, indexByName } = require('./entities');
 const { pathPoints } = require('./taxi');
+const { FLAG, TILE_CELLS, CELL, cellOf, cellCentre } = require('../nav/grid/format');
+const { SNAP_REGION } = require('../nav/path');
 
 // Estimates, not client data: transports carry their speed in server-side
 // gameobject data. 30 yd/s matches the common Classic transport speed.
@@ -37,6 +43,7 @@ const LOAD_SECONDS = 10;
 const TRAM_WAIT = 30; // two trams shuttle continuously
 const ANCHOR_YARDS = 120;
 const STOP_MERGE_YARDS = 40;
+const BOARD_YARDS = 30; // a board point is at most this far from its end's stop
 
 const A = 1;
 const H = 2;
@@ -259,9 +266,69 @@ function pickStop(stops, end, frames, liveFrames, anchorInfo) {
 	return cands.reduce((best, s) => (dist2d(s, ref) < dist2d(best, ref) ? s : best));
 }
 
+// The dry surfaces of one grid column: walkable (not swum, not blocked) and
+// above the column's water surface when it has one -> entry indices.
+function drySurfaces(t, k) {
+	let water = -Infinity;
+	for (let e = t.first[k]; e < t.first[k + 1]; e++) if (t.flags[e] & FLAG.SWIM && t.z[e] > water) water = t.z[e];
+	const out = [];
+	for (let e = t.first[k]; e < t.first[k + 1]; e++) {
+		if (!(t.flags[e] & (FLAG.SWIM | FLAG.BLOCKED)) && t.z[e] > water) out.push(e);
+	}
+	return out;
+}
+
+// Whether a point's grid column holds a dry surface.
+function onDryGround(nav, { c, wx, wy }) {
+	const at = cellOf(wx, wy);
+	const t = nav.tile(c, at.col, at.row);
+	return !!t && drySurfaces(t, at.j * TILE_CELLS + at.i).length > 0;
+}
+
+// Where passengers board when an end's point (a ship's stop) is not on dry
+// ground: the nearest dry surface within BOARD_YARDS, of a region of at least
+// SNAP_REGION surfaces and open both ways (path.js's snap rules: not a
+// piling or a pocket under a floor); at equal distance the larger region
+// (the one the grid connects to the town), then the lower surface.
+// nav: tools/lib/nav/path.js openNav. -> { wx, wy, z } (the column's
+// centre), or null: the point is on dry ground, or nothing qualifies.
+function boardPoint(nav, end) {
+	if (onDryGround(nav, end)) return null;
+	const { c, wx, wy } = end;
+	const at = cellOf(wx, wy);
+	const R = Math.ceil(BOARD_YARDS / CELL);
+	let best = null;
+	for (let dj = -R; dj <= R; dj++) {
+		for (let di = -R; di <= R; di++) {
+			const gi = at.col * TILE_CELLS + at.i + di;
+			const gj = at.row * TILE_CELLS + at.j + dj;
+			const col = Math.floor(gi / TILE_CELLS);
+			const row = Math.floor(gj / TILE_CELLS);
+			const i = gi - col * TILE_CELLS;
+			const j = gj - row * TILE_CELLS;
+			const ctr = cellCentre(col, row, i, j);
+			const d = Math.hypot(ctr.wx - wx, ctr.wy - wy);
+			if (d > BOARD_YARDS) continue;
+			const t = nav.tile(c, col, row);
+			if (!t) continue;
+			const k = j * TILE_CELLS + i;
+			for (const e of drySurfaces(t, k)) {
+				const size = nav.regionSize(c, col, row, e);
+				if ((size !== null && size < SNAP_REGION) || !nav.isOpen(t, k, e)) continue;
+				const s = size === null ? 0 : size;
+				const z = t.z[e];
+				if (!best || d < best.d || (d === best.d && (s > best.s || (s === best.s && z < best.z)))) best = { d, s, z, wx: ctr.wx, wy: ctr.wy };
+			}
+		}
+	}
+	return best && { wx: round(best.wx, 1), wy: round(best.wy, 1), z: round(best.z, 1) };
+}
+
 // foreverTables: the Forever client's { TaxiPathNode } for `client: 'forever'`
 // ships (null when unavailable: those are skipped with `foreverError`).
-function buildTransports({ tables, foreverTables = null, foreverBuild = null, foreverError = 'not loaded', frames, npcs, objects, liveFrames = new Map() }) {
+// nav: the navigation grid (path.js openNav) for the ends' board points;
+// null: none.
+function buildTransports({ tables, foreverTables = null, foreverBuild = null, foreverError = 'not loaded', frames, npcs, objects, liveFrames = new Map(), nav = null }) {
 	const warnings = [];
 	const indexes = { npcs: indexByName(npcs), objects: indexByName(objects) };
 	const points = { era: pathPoints(tables.TaxiPathNode), forever: foreverTables ? pathPoints(foreverTables.TaxiPathNode) : null };
@@ -333,6 +400,13 @@ function buildTransports({ tables, foreverTables = null, foreverBuild = null, fo
 			warnings.push(`${t.id}: an end could not be placed, skipped`);
 			continue;
 		}
+		if (nav) {
+			for (const e of [a, b]) {
+				const board = boardPoint(nav, e);
+				if (board) e.board = board;
+				else if (!onDryGround(nav, e)) warnings.push(`${t.id}: the ${e.name} end is not on dry ground and has no dry ground within ${BOARD_YARDS} yd`);
+			}
+		}
 		out.push({
 			id: t.id,
 			kind: t.kind,
@@ -350,4 +424,4 @@ function buildTransports({ tables, foreverTables = null, foreverBuild = null, fo
 	return { transports: out, warnings };
 }
 
-module.exports = { buildTransports, inZone, TRANSPORTS, TRANSPORT_SPEED, LOAD_SECONDS, ANCHOR_YARDS };
+module.exports = { buildTransports, boardPoint, onDryGround, inZone, TRANSPORTS, TRANSPORT_SPEED, LOAD_SECONDS, ANCHOR_YARDS, BOARD_YARDS };
