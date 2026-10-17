@@ -14,9 +14,7 @@ built from a pack: a folder with a `pack.json` and `.guide` files.
 > authors. This page is the full handbook; the exact files the tools write
 > are in [PACK_FORMAT.md](PACK_FORMAT.md).
 
-**On this page**
-
-| | |
+| On this page | |
 |---|---|
 | **Get going** | [Setup](#setup) · [A first pack in 15 minutes](#a-first-pack-in-15-minutes) |
 | **Write guides** | [By playing](#by-playing) · [From the simulator](#from-the-simulator) · [By hand](#by-hand) · [With an AI assistant](#with-an-ai-assistant) |
