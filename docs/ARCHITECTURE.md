@@ -1151,7 +1151,10 @@ the same person never splits that person's group.
   cycled spot or candidate) while it is open, else the current goal's own
   place (its coordinates, its spawn area, the source of its item), else the
   header's, else the focus group's first open located goal (blocking, then
-  optional, then notes); nil on a done step (no focus). Reaching the place of
+  optional, then notes), else a quest's current goal at the place of the
+  focus group (a goto already reached) or of the nearest group before it for
+  the same quest (the giver of a bare `complete`), never of a later group;
+  nil on a done step (no focus). Reaching the place of
   any other goal of the step arrives at its header. A focus change fires
   `STEP_UPDATED(step)` and `WAYPOINT_CHANGED` like any other progress.
 - Out-of-order play still counts: finishing a later person's goals marks that

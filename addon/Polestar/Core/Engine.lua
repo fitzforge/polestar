@@ -1835,8 +1835,14 @@ end
 -- objective's waypoint also carries `search` (Nav never says arrived),
 -- `spots` (the goal's list, for the map marks) and `spot` (its index).
 -- `z`: the goal's height at that point (posOf), for the walking engine's floor.
-local function waypointOf(g, goal)
-	local map, x, y, f, area, z = posOf(goal)
+-- `at`: a group (stepGroups) whose place stands in for the goal's own.
+local function waypointOf(g, goal, at)
+	local map, x, y, f, area, z
+	if at then
+		map, x, y, f, z = at.map, at.x, at.y, at.f, at.z
+	else
+		map, x, y, f, area, z = posOf(goal)
+	end
 	if not (map and x and y) or not goalApplies(goal) or unavailableFor(goal) or Own.goalSkipped(current, g)
 		or goalDone(current, g, goal) then return nil end
 	local verb, subject, _, detail = describe(goal)
@@ -1898,13 +1904,23 @@ function Own.headerOf(s, grp, after)
 	return nil
 end
 
+-- Whether group grp holds a goal for quest q.
+function Own.dealsWith(grp, goals, q)
+	for _, g in ipairs(grp.goals) do
+		if goals[g].quest == q then return true end
+	end
+	return false
+end
+
 -- The arrow's goal: the one the player chose in the current step (a row
 -- click, the next spot), while it is open; else the current goal's own place;
 -- else the header's; else the focus group's first open located goal
--- (blocking, then optional, then notes). The arrow only ever points at a goal
--- the guide window shows. A done step (no focus, e.g. viewed with Prev) has
--- nothing to point at, even when optional goals are left open; nor has a
--- Class guide the character cannot start yet (Own.startGate), on its live step.
+-- (blocking, then optional, then notes); else, for a quest's current goal,
+-- the place of the focus group or of the nearest group before it for that
+-- quest. The arrow only ever points at a goal the guide window shows. A done
+-- step (no focus, e.g. viewed with Prev) has nothing to point at, even when
+-- optional goals are left open; nor has a Class guide the character cannot
+-- start yet (Own.startGate), on its live step.
 local function findWaypoint()
 	if not current or (current == computed and Own.startGate(guide)) then return nil end
 	local goals = guide.steps[current].goals
@@ -1931,6 +1947,20 @@ local function findWaypoint()
 				wp = waypointOf(g, goal)
 				if wp then return wp end
 			end
+		end
+	end
+	-- Nothing open in the focus group has a place (a bare `complete` after its
+	-- giver's goals, #256): a quest's goal takes the place of its group's work
+	-- (a goto already reached), else of the nearest group before it that
+	-- deals with the same quest (the giver, an escort's start). Never a later
+	-- group's: the window does not show it yet, and a turn-in's place does not
+	-- lead to the objective.
+	local quest = cg and goals[cg].quest
+	if quest then
+		if grp.map then return waypointOf(cg, goals[cg], grp) end
+		for i = focus - 1, 1, -1 do
+			local before = groups[i]
+			if before.map and Own.dealsWith(before, goals, quest) then return waypointOf(cg, goals[cg], before) end
 		end
 	end
 	return nil

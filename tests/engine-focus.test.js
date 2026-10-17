@@ -258,6 +258,59 @@ test('the waypoint never leaves the focus group: an unlocated focus points nowhe
 	assert.deepEqual(split, { focus: 1, wp: false });
 });
 
+// #256: a bare `complete` after its giver's goals is a group of its own with
+// no place. The arrow leads to the place of its group's work (a goto already
+// reached), else to the group before it for the same quest (the giver), and
+// never to a later group (the turn-in).
+test('a bare complete leads to its group\'s place, else to its giver before it, never to the turn-in', () => {
+	const guides = `
+		Polestar.RegisterGuide({ id = "test/cp", pack = "test", title = "Complete", faction = "Horde", minLevel = 1, maxLevel = 60, steps = {
+			{ title = "Shenthul", goals = {
+				{ t = "accept", quest = 2460, title = "The Shattered Salute", npc = 3401, npcName = "Shenthul", map = 1413, x = 43.0, y = 53.0 },
+				{ t = "complete", quest = 2460, title = "The Shattered Salute" },
+				{ t = "turnin", quest = 2460, title = "The Shattered Salute", npc = 3401, npcName = "Shenthul", map = 1413, x = 43.0, y = 53.0 },
+			} },
+			{ title = "Eastern Pylon", goals = {
+				{ t = "goto", map = 1413, x = 60.0, y = 40.0, text = "Eastern Pylon" },
+				{ t = "complete", quest = 4287, title = "The Eastern Pylon" },
+				{ t = "turnin", quest = 4287, title = "The Eastern Pylon", npc = 9117, npcName = "J.D. Collie", map = 1413, x = 70.0, y = 70.0 },
+			} },
+			{ title = "Elsewhere", goals = {
+				{ t = "accept", quest = 4289, title = "The Northern Pylon", npc = 9117, npcName = "J.D. Collie", map = 1413, x = 70.0, y = 70.0 },
+				{ t = "complete", quest = 4288, title = "The Western Pylon" },
+				{ t = "turnin", quest = 4288, title = "The Western Pylon", npc = 9117, npcName = "J.D. Collie", map = 1413, x = 70.0, y = 70.0 },
+			} },
+		} })
+	`;
+	const [out] = run({
+		guides,
+		before: 'stub.world.onQuest(2460, { 1 }); stub.world.onQuest(4287, { 1 }); stub.world.onQuest(4288, { 1 }); stub.world.onQuest(4289, {})',
+		script: `
+			E.SetGuide("test/cp")
+			local function wp()
+				local p = E.GetWaypoint()
+				return p and { p.stepIndex, p.goalIndex, p.kind, p.x, p.y } or false
+			end
+			local r = { salute = wp() }
+			E.Skip(); flush()
+			r.pylon = wp()
+			stub.world.moveTo(1413, 60, 40); flush()
+			r.reached = wp()
+			E.Skip(); flush()
+			r.elsewhere = wp()
+			emit(r)
+		`,
+	});
+	// The salute is done beside Shenthul: the arrow stays on him.
+	assert.deepEqual(out.salute, [1, 2, 'complete', 43, 53]);
+	// The goto leads first; once reached, the pylon's complete keeps its place.
+	assert.deepEqual(out.pylon, [2, 1, 'goto', 60, 40]);
+	assert.deepEqual(out.reached, [2, 2, 'complete', 60, 40]);
+	// Only another quest's giver before the complete: no arrow, rather than
+	// that giver or the turn-in.
+	assert.equal(out.elsewhere, false);
+});
+
 test('smart candidates group by the chosen NPC', () => {
 	const guides = `
 		Polestar.RegisterGuide({ id = "test/sm", pack = "test", title = "Smart", faction = "Horde", minLevel = 1, maxLevel = 60, steps = { { goals = {
