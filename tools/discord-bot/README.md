@@ -35,10 +35,11 @@ sequenceDiagram
 ## What an issue holds
 
 The post's title, then "Reported by *name* on Discord" with a link to the
-thread and the post's forum tags, the player's words, a table read from the
-report (version, client and locale, character, guide, step and the step the
-guide is really at, zone and map, errors), the whole report folded under
-"Full report", and the screenshots.
+thread and the post's forum tags, the player's words (with the lines the
+report sets under them, the right spot and the other addons), a table read
+from the report's details (version, client and locale, character, guide,
+step and the step the guide is really at, zone and map, errors), the details
+folded under "Full report", and the screenshots.
 
 Labels: `discord`, `triage` and `bug` on every one, then from the report
 `v0.2.3`, `guide:01-elwynn-forest`, `locale:enUS` and `lua-error` when it

@@ -1,32 +1,41 @@
 -- Report a problem: the window behind the guide window's bug button (in the
 -- navigator, beside Skip and the menu), its menu entry and /polestar report.
--- The player says what went wrong; the window sets that above everything a
+-- The player says what went wrong; the report sets that above everything a
 -- fix needs, taken when the window opens: the guide and the step on screen
 -- with every goal's state, ids and position, the arrow, where the player
--- stands, the versions, other packs and the errors Polestar caught. One
--- report, selected for copying, sized to stay inside one Discord message,
--- and under it where to paste it: the Polestar Discord, with "Get the
--- invite" for a player not in it yet. UI.ShowDiscord: the invite alone
+-- stands, the versions, other packs and addons and the errors Polestar
+-- caught. "Mark the right spot" adds where the step should have sent the
+-- player, marked from a bar while the window steps aside. Then the way to
+-- send it, the Polestar Discord's #bugs, whose bot files each post as a
+-- GitHub issue: "Copy report" shows the report, selected, sized to stay
+-- inside one Discord message, and "Get the invite" is for a player not in it
+-- yet. Last, for a player with a GitHub account, "Open on GitHub" gives a
+-- link that opens a new issue with the report, its title, the version and
+-- the addons filled in (R.IssueURL). UI.ShowDiscord: the invite alone
 -- (ns.DiscordURL), in the copy window with Discord's mark (that button, the
 -- sidebars' Discord mark, /polestar discord).
 --
 -- The game gives addons no clipboard and opens no links (LaunchURL is
 -- Blizzard's alone): everything to take away sits in a read-only copy box,
--- selected for Ctrl+C, and a member copies only the report.
+-- selected for Ctrl+C: the issue link, or the report for Discord.
 -- Built on first use; colours are Theme tokens only.
 
 local ADDON, ns = ...
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
 local L = ns.L
-local floor, max, ipairs, tostring, type, pcall = math.floor, math.max, ipairs, tostring, type, pcall
+local floor, max, min, ipairs, pairs, tostring, type, pcall = math.floor, math.max, math.min, ipairs, pairs, tostring, type, pcall
 
 local R = {}
 UI.Report = R
 
--- A Discord message holds 2000 characters. The description, every detail
--- line and the number of goals and errors are capped so that the whole
--- report, at its longest, stays under it (in bytes, which count no fewer).
+-- A Discord message holds 2000 characters. The description, the detail
+-- lines and the number of goals and errors are capped; when the report is
+-- still longer, R.Text shortens its Addons line, which the Discord bot
+-- quotes but does not read.
 R.DESC_MAX = 250
+-- Fewer letters than this say nothing a fix can go on: the report waits.
+R.DESC_MIN = 5
+R.TEXT_MAX = 2000
 local LINE_MAX = 100
 local GOALS_MAX = 6
 local ERRORS_MAX = 3
@@ -50,6 +59,11 @@ local function cut(s, n)
 	n = n or LINE_MAX
 	if #s <= n then return s end
 	return (s:sub(1, n - 3):gsub("[\192-\255][\128-\191]*$", "")) .. "..."
+end
+
+-- s on one line, for a field GitHub shows as one.
+local function oneLine(s)
+	return (s:gsub("%s+", " "))
 end
 
 -- A position as a guide writes it: the map, then `@x,y`, marked `live`
@@ -82,14 +96,17 @@ local function goalLine(gv, raw, isCurrent, wp)
 	return cut(table.concat(parts, SEP))
 end
 
+local function polestarVersion()
+	return tostring(ns.version or "dev") .. (ns.stage and (" " .. ns.stage) or "")
+end
+
 local function versions()
 	local v, build = "?", "?"
 	if GetBuildInfo then
 		local a, b = GetBuildInfo()
 		v, build = tostring(a or "?"), tostring(b or "?")
 	end
-	local polestar = tostring(ns.version or "dev") .. (ns.stage and (" " .. ns.stage) or "")
-	return cut((L["Polestar %s"]):format(polestar) .. SEP .. (L["client %s (%s)"]):format(v, build) .. SEP .. (GetLocale and GetLocale() or "?"))
+	return cut((L["Polestar %s"]):format(polestarVersion()) .. SEP .. (L["client %s (%s)"]):format(v, build) .. SEP .. (GetLocale and GetLocale() or "?"))
 end
 
 local function character()
@@ -102,26 +119,45 @@ local function character()
 	return cut(table.concat({ tostring(p.race or "?") .. " " .. class, level, tostring(p.faction or "?") }, SEP))
 end
 
-local function guideLines(out)
+-- The guide on screen, its title as it reads, its step count and the step
+-- on screen: its index and its view, nil past the last step.
+local function onScreen()
 	local E = ns.Engine
 	local guide = E and E.GetGuide and E.GetGuide()
+	if not guide then return {} end
+	local index = E.GetStepIndex and E.GetStepIndex()
+	return { guide = guide, title = plain(guide.title or guide.id), index = index,
+		view = index and E.GetStepView and E.GetStepView(index), count = E.GetStepCount and E.GetStepCount() or 0 }
+end
+
+-- "Step 3 of 8 · Kobold Camp · Elwynn Forest": what the report is about.
+local function context(on)
+	if not on.guide then return L["No guide open"] end
+	local parts = {}
+	if on.view then
+		parts[#parts + 1] = (L["Step %d of %d"]):format(on.index, on.count)
+		if on.view.title and on.view.title ~= "" then parts[#parts + 1] = plain(on.view.title) end
+	end
+	parts[#parts + 1] = on.title
+	return table.concat(parts, UI_SEP)
+end
+
+local function guideLines(d, on)
+	local out, E, guide, index, view = d.lines, ns.Engine, on.guide, on.index, on.view
 	if not guide then
 		out[#out + 1] = L["Guide: none open"]
 		return
 	end
 	local G = ns.Guides
 	local pack = guide.pack and G and G.Pack and G.Pack(guide.pack)
-	local line = (L["Guide: %s (%s)"]):format(plain(guide.title or guide.id), tostring(guide.id))
+	local line = (L["Guide: %s (%s)"]):format(on.title, tostring(guide.id))
 	if pack then line = line .. SEP .. (L["pack %s"]):format(plain(pack.title or pack.id) .. (pack.version and (" " .. plain(pack.version)) or "")) end
 	out[#out + 1] = cut(line)
-	local index = E.GetStepIndex and E.GetStepIndex()
-	local view = index and E.GetStepView and E.GetStepView(index)
 	if not view then
 		out[#out + 1] = L["Step: none, the guide is complete"]
 		return
 	end
-	local count = E.GetStepCount and E.GetStepCount() or 0
-	local step = (L["Step %d of %d: %s"]):format(index, count, plain(view.title or ""))
+	local step = (L["Step %d of %d: %s"]):format(index, on.count, plain(view.title or ""))
 	if view.skipped then step = step .. SEP .. L["skipped"] end
 	local live = E.GetLiveStep and E.GetLiveStep()
 	if live and live ~= index then
@@ -132,13 +168,14 @@ local function guideLines(out)
 	out[#out + 1] = cut(step)
 	local wp = E.GetWaypoint and E.GetWaypoint()
 	local raws = guide.steps and guide.steps[index] and guide.steps[index].goals or {}
-	for g, gv in ipairs(view.goals or {}) do
-		if g > GOALS_MAX then
-			out[#out + 1] = (L["... %d more goals"]):format(#view.goals - GOALS_MAX)
-			break
-		end
-		out[#out + 1] = goalLine(gv, raws[g], view.current == g, wp)
+	local goals = view.goals or {}
+	local shown = min(#goals, GOALS_MAX)
+	d.goals = { first = #out + 1, last = #out + shown, more = #goals - shown }
+	for g = 1, shown do
+		if view.current == g then d.goals.current = #out + 1 end
+		out[#out + 1] = goalLine(goals[g], raws[g], view.current == g, wp)
 	end
+	if d.goals.more > 0 then out[#out + 1] = (L["... %d more goals"]):format(d.goals.more) end
 end
 
 local function arrowLine()
@@ -196,6 +233,45 @@ local function packsLine()
 	return cut((L["Packs: %s"]):format(table.concat(list, ", ")))
 end
 
+-- Words in an addon's folder name that mark one whose arrows, quest lines or
+-- map pins can look like Polestar's (Questie, TomTom, other guides).
+local SUSPECT = { "quest", "guide", "map", "tomtom", "arrow", "waypoint", "nav", "route" }
+
+local function suspect(name)
+	local n = name:lower()
+	for _, w in ipairs(SUSPECT) do
+		if n:find(w, 1, true) then return true end
+	end
+	return false
+end
+
+-- The other addons that are loaded, "name version" each (`withVersions`)
+-- or names only: quest, map and guide addons first, then A to Z, so a list
+-- cut short keeps the ones most likely to be the cause.
+local function otherAddons(withVersions)
+	local A = C_AddOns or {}
+	local count = A.GetNumAddOns or GetNumAddOns
+	local info = A.GetAddOnInfo or GetAddOnInfo
+	local loaded = A.IsAddOnLoaded or IsAddOnLoaded
+	local meta = A.GetAddOnMetadata or GetAddOnMetadata
+	local list = {}
+	if not (count and info and loaded) then return list end
+	for i = 1, count() do
+		local name = info(i)
+		if type(name) == "string" and not name:find("^Polestar") and loaded(name) then
+			local v = withVersions and meta and meta(name, "Version")
+			list[#list + 1] = { name = name, first = suspect(name),
+				text = (type(v) == "string" and v ~= "") and (name .. " " .. plain(v)) or name }
+		end
+	end
+	table.sort(list, function(a, b)
+		if a.first ~= b.first then return a.first end
+		return a.name:lower() < b.name:lower()
+	end)
+	for i, a in ipairs(list) do list[i] = a.text end
+	return list
+end
+
 -- The errors Polestar caught (ns.Errors), then with !BugGrabber installed the
 -- ones it grabbed this session in Polestar's files, and the protected calls
 -- the game blocked from Polestar (ns.Blocked; taint is no Lua error): the
@@ -244,33 +320,218 @@ local function errorLines(out)
 	end
 end
 
--- The report's details, one line each, as they stand now.
+-- The report's details, taken once when the window opens: the issue link
+-- and the report for Discord are made from them alone, so they say the
+-- same whatever the guide does while the window is open.
+--   lines     one fact each, in the order the Discord bot reads them
+--   key       the guide and the step, to tell a report on another step
+--   context   the line under the window's title
+--   goals     where the step's goal lines sit in `lines`: first, last, the
+--             arrow's (current), and how many more were not listed
+--   names     the other addons' names, for the report's Addons line
+--   addons    the other addons with their versions, for the issue's field
+--   issue     on a step, the facts a "Wrong step" issue names: the guide's
+--             title, the step's index and title, the character
 function R.Details()
-	local out = { versions(), character() }
-	guideLines(out)
+	local on = onScreen()
+	local who = character()
+	local d = { lines = { versions(), who }, context = context(on), names = otherAddons(), addons = otherAddons(true),
+		key = tostring(on.guide and on.guide.id) .. ":" .. tostring(on.index) }
+	local out = d.lines
+	guideLines(d, on)
 	out[#out + 1] = arrowLine()
 	out[#out + 1] = playerLine()
 	out[#out + 1] = routesLine()
 	out[#out + 1] = packsLine()
 	errorLines(out)
-	local lines = {}
-	for i = 1, #out do
-		if out[i] then lines[#lines + 1] = out[i] end
+	if on.view then
+		d.issue = { guide = oneLine(on.title), index = on.index, step = oneLine(plain(on.view.title or "")), character = who }
 	end
-	return lines
+	return d
 end
 
--- The report to paste: what went wrong, in the player's words, then the
--- details as a code block (Discord keeps their lines and spacing). The bug
--- bot reads this layout back (tools/discord-bot/lib/report.js): the first
+-- What the player typed, trimmed, or "(not described)".
+-- s without the spaces around it: ASCII ones, and the no-break space and the
+-- ideographic space (U+3000) a Chinese, Japanese or Korean input method types.
+local function trimmed(s)
+	local prev
+	s = tostring(s or "")
+	repeat
+		prev = s
+		s = s:gsub("^%s+", ""):gsub("%s+$", "")
+		s = s:gsub("^\194\160", ""):gsub("\194\160$", "")
+		s = s:gsub("^\227\128\128", ""):gsub("\227\128\128$", "")
+	until s == prev
+	return s
+end
+
+local function described(description)
+	local desc = trimmed(description)
+	return desc ~= "" and desc or L["(not described)"]
+end
+
+local function bold(label, s)
+	return "**" .. label .. "** " .. s
+end
+
+-- The report to paste: what went wrong, in the player's words, the right
+-- spot when the player marked one and the other addons (`names`, when
+-- given) as bold lines a reader sees at once, then the details as a code
+-- block (Discord keeps their lines and spacing). The bug bot reads this
+-- layout back (tools/discord-bot/lib/report.js): everything above the code
+-- block is the description it quotes in the issue; in the block, the first
 -- line's shape, the guide line's "(id)", the order of the lines.
-function R.Text(description, details)
-	local desc = tostring(description or ""):match("^%s*(.-)%s*$")
-	if desc == "" then desc = L["(not described)"] end
-	local out = { "**" .. L["What went wrong:"] .. "** " .. desc, "```" }
-	for _, line in ipairs(details or R.Details()) do out[#out + 1] = line end
+local function text(description, lines, spot, names)
+	local out = { bold(L["What went wrong:"], described(description)) }
+	if spot then out[#out + 1] = bold(L["Right spot:"], cut(table.concat(spot, SEP))) end
+	if names then out[#out + 1] = bold(L["Addons:"], names) end
+	out[#out + 1] = "```"
+	for _, line in ipairs(lines) do out[#out + 1] = line end
 	out[#out + 1] = "```"
 	return table.concat(out, "\n")
+end
+
+-- Characters as Discord counts them, like JavaScript: one each, two past
+-- U+FFFF. Not bytes: a Chinese report of 1200 characters is 2500 bytes.
+local function length(s)
+	local _, chars = s:gsub("[^\128-\191]", "")
+	local _, astral = s:gsub("[\240-\247]", "")
+	return chars + astral
+end
+
+-- With no other addons there is no Addons line.
+function R.Text(description, details, spot)
+	local names = #details.names > 0 and cut(table.concat(details.names, ", ")) or nil
+	local report = text(description, details.lines, spot, names)
+	local n = names and #names or 0
+	while length(report) > R.TEXT_MAX and n > 0 do
+		n = n - (length(report) - R.TEXT_MAX)
+		-- Shorter than 20 bytes it names hardly an addon: the line goes.
+		if n < 20 then n = 0 end
+		report = text(description, details.lines, spot, n > 0 and cut(names, n) or nil)
+	end
+	return report
+end
+
+local function encode(s)
+	return (tostring(s):gsub("[^%w%-%._~]", function(c) return ("%%%02X"):format(c:byte()) end))
+end
+
+-- GitHub answers a longer link with an error: measured on 2026-10-16, a
+-- link of 6400 characters opened the form (signed out too, through the
+-- sign-in page) and one of 6700 did not.
+R.LINK_MAX = 6000
+
+local function addonsHead(n)
+	return ("The player has %d other addons on. The ones that fit in the link, quest, map and guide addons first:"):format(n)
+end
+
+-- The addons field: every addon when they fit in `room` characters of the
+-- link, else a line that counts them and as many as fit, in their order.
+local function addonsField(list, room)
+	local all = table.concat(list, "\n")
+	if #encode(all) <= room then return all end
+	local head = addonsHead(#list)
+	local used = #encode(head)
+	if used > room then return nil end
+	local lines = { head }
+	for _, a in ipairs(list) do
+		used = used + #encode("\n" .. a)
+		if used > room then break end
+		lines[#lines + 1] = a
+	end
+	return table.concat(lines, "\n")
+end
+
+-- The longest start of s whose encoding fits in `room` characters, never
+-- cut inside a character.
+local function fitEncoded(s, room)
+	local used, n = 0, 0
+	for i = 1, #s do
+		used = used + (s:sub(i, i):find("^[%w%-%._~]$") and 1 or 3)
+		if used > room then break end
+		n = i
+	end
+	if n == #s then return s end
+	return (s:sub(1, n):gsub("[\192-\255][\128-\191]*$", ""))
+end
+
+-- The details without the last n goals other than the arrow's, and one line
+-- that counts every goal not listed.
+local function withoutGoals(details, n)
+	local g, out, gone, left = details.goals, {}, {}, n
+	for i = g.last, g.first, -1 do
+		if left == 0 then break end
+		if i ~= g.current then gone[i], left = true, left - 1 end
+	end
+	local moreAt = g.more > 0 and g.last + 1
+	for i, line in ipairs(details.lines) do
+		if not gone[i] and i ~= moreAt then out[#out + 1] = line end
+		if i == g.last then out[#out + 1] = ("... %d goals left out to fit the link"):format(n + g.more) end
+	end
+	return out
+end
+
+-- The report for the issue's own field, encoded, in `room` characters of
+-- the link. A CJK report encodes to three times the characters of an
+-- English one, so goals after the arrow's go first, then the report is cut
+-- with its code block still closed.
+-- The addons have their own field: in the body they would only take room.
+local function bodyField(description, details, spot, room)
+	local report = text(description, details.lines, spot)
+	local g = details.goals
+	local droppable = g and (g.last - g.first + 1 - (g.current and 1 or 0)) or 0
+	for n = 1, droppable do
+		if #encode(report) <= room then break end
+		report = text(description, withoutGoals(details, n), spot)
+	end
+	if #encode(report) > room then
+		local close = "...\n```"
+		report = fitEncoded(report:sub(1, -5), room - #encode(close)) .. close
+	end
+	return encode(report)
+end
+
+-- A link that opens a new issue on Polestar's GitHub with the report in
+-- it: GitHub fills the title and the issue form's fields (by their ids in
+-- .github/ISSUE_TEMPLATE) from the link's query. A "Wrong step" issue when
+-- the player marked the right spot on a step (`spot`, ns.WhereLines, for
+-- that form's own field), a "Bug report" otherwise: only the fields the
+-- form has are sent.
+-- The short fields come first, each bounded; the report gets the room they
+-- leave, less the addons field's count line, and the addons what is left.
+function R.IssueURL(description, details, spot)
+	local issue = spot and details.issue
+	local title
+	if issue then
+		title = ("Wrong step: %s, step %d"):format(cut(issue.guide, 80), issue.index)
+	else
+		title = "Bug: " .. cut(oneLine(described(description):match("^[^\n]*")), 80)
+	end
+	local fields = {
+		{ "template", issue and "wrong-step.yml" or "bug-report.yml" },
+		{ "title", title },
+		{ "version", polestarVersion() },
+	}
+	local body, bodySpot = "steps", spot
+	if issue then
+		body, bodySpot = "wrong", nil
+		fields[#fields + 1] = { "guide", cut(issue.guide) }
+		fields[#fields + 1] = { "step", cut(issue.index .. ": " .. issue.step) }
+		fields[#fields + 1] = { "character", issue.character }
+		fields[#fields + 1] = { "where", table.concat(spot, "\n") }
+	end
+	local query = {}
+	for _, f in ipairs(fields) do
+		if f[2] and f[2] ~= "" then query[#query + 1] = f[1] .. "=" .. encode(f[2]) end
+	end
+	local url = ns.IssueURL .. "?" .. table.concat(query, "&")
+	local list = details.addons
+	local reserve = #list > 0 and #"&addons=" + #encode(addonsHead(#list)) or 0
+	url = url .. "&" .. body .. "=" .. bodyField(description, details, bodySpot, R.LINK_MAX - #url - #body - 2 - reserve)
+	local addons = addonsField(list, R.LINK_MAX - #url - #"&addons=")
+	if addons and addons ~= "" then url = url .. "&addons=" .. encode(addons) end
+	return url
 end
 
 ---------------------------------------------------------------------------
@@ -299,14 +560,13 @@ local function layout()
 	put(F.DescLabel, PAD, y)
 	y = y + F.DescLabel:GetStringHeight() + 6
 	put(F.Desc, PAD, y)
-	y = y + F.Desc:GetHeight() + 16
-	-- "Your report" and Select report share a row, the label on its middle.
-	put(F.Select, WIDTH - PAD - F.Select:GetWidth(), y)
-	F.BoxLabel:ClearAllPoints()
-	F.BoxLabel:SetPoint("LEFT", F, "TOPLEFT", PAD, -(y + 14))
-	y = y + 28 + 8
-	put(F.Box, PAD, y)
-	y = y + F.Box:GetHeight() + 16
+	y = y + F.Desc:GetHeight() + 12
+	put(F.SpotNote, PAD, y)
+	y = y + F.SpotNote:GetStringHeight() + 8
+	put(F.Mark, PAD, y)
+	F.Clear:ClearAllPoints()
+	F.Clear:SetPoint("LEFT", F.Mark, "RIGHT", 8, 0)
+	y = y + F.Mark:GetHeight() + 16
 	put(F.Rule, PAD, y)
 	y = y + 1 + 16
 	-- The mark's ink starts 2px into its texture and 5px down.
@@ -315,46 +575,151 @@ local function layout()
 	y = y + F.DiscordTitle:GetStringHeight() + 4
 	put(F.DiscordNote, TEXT_X, y)
 	y = y + F.DiscordNote:GetStringHeight() + 10
-	put(F.Invite, TEXT_X, y)
-	y = y + F.Invite:GetHeight()
+	put(F.Copy, TEXT_X, y)
+	F.Invite:ClearAllPoints()
+	F.Invite:SetPoint("LEFT", F.Copy, "RIGHT", 8, 0)
+	y = y + F.Copy:GetHeight()
+	if F.Box:IsShown() then
+		y = y + 12
+		put(F.Box, PAD, y)
+		y = y + F.Box:GetHeight()
+	end
+	y = y + 16
+	put(F.GitHubRule, PAD, y)
+	y = y + 1 + 12
+	-- One row: the note beside its button, centred on each other.
+	local bw = F.GitHub:GetWidth()
+	F.GitHubNote:SetWidth(BOX_W - bw - 12)
+	local nh, bh = F.GitHubNote:GetStringHeight(), F.GitHub:GetHeight()
+	local row = max(nh, bh)
+	put(F.GitHubNote, PAD, y + floor((row - nh) / 2 + 0.5))
+	put(F.GitHub, WIDTH - PAD - bw, y + floor((row - bh) / 2 + 0.5))
+	y = y + row
 	F:SetHeight(floor(y + PAD + 0.5))
+end
+
+local function showSpot()
+	if F.spot then
+		F.SpotNote:SetText((L["Right spot marked: %s"]):format(table.concat(F.spot, SEP)))
+		W.SetButtonText(F.Mark, L["Mark again"])
+		F.Clear:Show()
+	else
+		F.Clear:Hide()
+		F.SpotNote:SetText(L["Optional: is the step sending you to the wrong place? Mark the right spot and it goes in your report."])
+		W.SetButtonText(F.Mark, L["Mark the right spot"])
+	end
+end
+
+-- Whether the player said what went wrong: Copy report and Open on GitHub
+-- wait for it, so no report goes out "(not described)". Characters, one
+-- each: not Discord's count, where an emoji is two.
+local function saidEnough()
+	local _, chars = trimmed(F.Desc:GetText()):gsub("[^\128-\191]", "")
+	return chars >= R.DESC_MIN
+end
+
+local function gate()
+	local ok = saidEnough()
+	for _, b in ipairs({ F.Copy, F.GitHub }) do
+		b:SetEnabled(ok)
+		b:SetAlpha(ok and 1 or 0.5)
+		b.psTip = not ok and L["Say what went wrong first."] or nil
+		if ok then W.HideTooltip(b) end
+	end
+	if not ok then F.Box:Hide() end
+	return ok
 end
 
 -- The report box is as tall as its text, so it is read whole and copied
 -- whole: measured in its own font at its inner width.
 local function compose()
-	local text = R.Text(F.Desc:GetText(), F.details)
-	W.SetCopyText(F.Box, text)
-	F.Measure:SetText(text)
+	showSpot()
+	gate()
+	local report = R.Text(F.Desc:GetText(), F.details, F.spot)
+	W.SetCopyText(F.Box, report)
+	F.Measure:SetText(report)
 	F.Box:SetHeight(floor(F.Measure:GetStringHeight() + 16 + 0.5))
 	layout()
 end
 
-local function selectReport()
+-- The report for Discord, shown under its buttons only when asked for.
+local function copyReport()
+	if not gate() then return end
+	F.Box:Show()
+	layout()
 	F.Box:SetFocus()
 	F.Box:HighlightText()
 end
 
--- "Step 3 of 8 · Kobold Camp · Elwynn Forest": what the report is about.
-local function context()
-	local E = ns.Engine
-	local guide = E and E.GetGuide and E.GetGuide()
-	if not guide then return L["No guide open"] end
-	local index = E.GetStepIndex and E.GetStepIndex()
-	local view = index and E.GetStepView and E.GetStepView(index)
-	local parts = {}
-	if view then
-		parts[#parts + 1] = (L["Step %d of %d"]):format(index, E.GetStepCount and E.GetStepCount() or 0)
-		if view.title and view.title ~= "" then parts[#parts + 1] = plain(view.title) end
-	end
-	parts[#parts + 1] = plain(guide.title or guide.id)
-	return table.concat(parts, UI_SEP)
+local function openGitHub()
+	if not gate() then return end
+	UI.ShowCopy(L["Open on GitHub"], R.IssueURL(F.Desc:GetText(), F.details, F.spot), {
+		hint = L["The link is selected for you: copy it with Ctrl+C (Cmd+C on a Mac), paste it in your browser's address bar, check the form and press Create."],
+	})
 end
 
-local function stepKey()
-	local E = ns.Engine
-	local guide = E and E.GetGuide and E.GetGuide()
-	return tostring(guide and guide.id) .. ":" .. tostring(E and E.GetStepIndex and E.GetStepIndex())
+---------------------------------------------------------------------------
+-- Marking the right spot: the window steps aside for a bar while the player
+-- walks there; the report it took when it opened is kept, so walking about
+-- changes nothing in it.
+---------------------------------------------------------------------------
+
+local MARK_W = 360
+local M
+
+local function backToReport()
+	M:Hide()
+	compose()
+	F:Show()
+	F:Raise()
+end
+
+local function markHere()
+	local lines = ns.WhereLines()
+	if not lines then
+		M.Note:SetText(L["No position here: the game gives none in instances and on some maps."])
+		return
+	end
+	F.spot = lines
+	backToReport()
+end
+
+local function buildMark()
+	M = CreateFrame("Frame", "PolestarMark", UIParent)
+	M:SetFrameStrata("DIALOG")
+	M:SetToplevel(true)
+	M:SetClampedToScreen(true)
+	M:EnableMouse(true)
+	M:SetMovable(true)
+	M:RegisterForDrag("LeftButton")
+	M:SetScript("OnDragStart", M.StartMoving)
+	M:SetScript("OnDragStop", M.StopMovingOrSizing)
+	M:SetWidth(MARK_W)
+	M:SetPoint("TOP", UIParent, "TOP", 0, -120)
+	M:Hide()
+	Theme.Skin(M, "window")
+	M.Title = W.Text(M, "heading", "text")
+	M.Title:SetPoint("TOPLEFT", M, "TOPLEFT", PAD, -PAD)
+	M.Title:SetText(L["Mark the right spot"])
+	M.Note = W.Text(M, "note", "textDim")
+	M.Note:SetPoint("TOPLEFT", M.Title, "BOTTOMLEFT", 0, -6)
+	M.Note:SetWidth(MARK_W - PAD * 2)
+	M.Note:SetJustifyH("LEFT")
+	M.Note:SetWordWrap(true)
+	M.Here = W.Button(M, L["Mark here"], markHere, { primary = true })
+	M.Here:SetPoint("TOPLEFT", M.Note, "BOTTOMLEFT", 0, -12)
+	M.Cancel = W.Button(M, L["Cancel"], backToReport)
+	M.Cancel:SetPoint("LEFT", M.Here, "RIGHT", 8, 0)
+	if ns.Gamepad and ns.Gamepad.Register then ns.Gamepad.Register(M, { back = backToReport }) end
+end
+
+local function startMark()
+	if not M then buildMark() end
+	M.Note:SetText(L["Walk to where the step should have sent you: the NPC, the object or the mobs as you found them. Then press Mark here. Your report is kept while you walk."])
+	M:SetHeight(floor(PAD + M.Title:GetStringHeight() + 6 + M.Note:GetStringHeight() + 12 + M.Here:GetHeight() + PAD + 0.5))
+	F:Hide()
+	M:Show()
+	M:Raise()
 end
 
 -- The description: the copy box's well and border, editable, its
@@ -379,7 +744,6 @@ local function textArea()
 	e:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
 	e:SetScript("OnEditFocusLost", function(self) Theme.SetFocused(self, false) end)
 	e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
-	e:SetScript("OnTabPressed", selectReport)
 	e:SetScript("OnTextChanged", function(self)
 		self.Placeholder:SetShown((self:GetText() or "") == "")
 		if F.details then compose() end
@@ -427,11 +791,19 @@ local function build()
 	F.DescLabel = W.Text(F, "label", "text")
 	F.DescLabel:SetText(L["What went wrong?"])
 	F.Desc = textArea()
+	F.SpotNote = W.Text(F, "note", "textDim")
+	F.SpotNote:SetWidth(BOX_W)
+	F.SpotNote:SetJustifyH("LEFT")
+	F.SpotNote:SetWordWrap(true)
+	F.Mark = W.Button(F, L["Mark the right spot"], startMark)
+	F.Clear = W.Button(F, L["Clear mark"], function()
+		F.spot = nil
+		compose()
+	end)
+	F.Clear:Hide()
 
-	F.BoxLabel = W.Text(F, "label", "text")
-	F.BoxLabel:SetText(L["Your report"])
-	F.Select = W.Button(F, L["Select report"], selectReport, { primary = true })
 	F.Box = W.CopyBox(F, { lines = 2 })
+	F.Box:Hide()
 	Theme.Font(F.Box, "small")
 	F.Box:SetWidth(BOX_W)
 	F.Box:SetScript("OnTabPressed", function() F.Desc:SetFocus() end)
@@ -450,24 +822,43 @@ local function build()
 	F.Logo = W.Tex(F, "ARTWORK", "discord", "discord")
 	F.Logo:SetSize(LOGO, LOGO)
 	F.DiscordTitle = W.Text(F, "heading", "text")
-	F.DiscordTitle:SetText(L["Polestar on Discord"])
+	F.DiscordTitle:SetText(L["Report it on Discord"])
 	F.DiscordNote = W.Text(F, "note", "textDim")
 	F.DiscordNote:SetWidth(WIDTH - TEXT_X - PAD)
 	F.DiscordNote:SetJustifyH("LEFT")
 	F.DiscordNote:SetWordWrap(true)
-	F.DiscordNote:SetText(L["Copy your report with Ctrl+C (Cmd+C on a Mac), switch to Discord and paste it in the Polestar server. Not in it yet? Get the invite once and open it in your browser."])
+	F.DiscordNote:SetText(L["1. Press Copy report, then Ctrl+C (Cmd+C on a Mac).\n2. In the Polestar Discord, open #bugs and press New Post. Not in it yet? Get the invite.\n3. Paste the report, give it a short title and post it. A bot files it for the developers and tells you in your thread when it's fixed."])
+	F.Copy = W.Button(F, L["Copy report"], copyReport, { primary = true })
 	-- The game opens no links, so the invite is one more copy: only for a
 	-- player who has not joined yet, in the copy window, never here beside
 	-- the report.
 	F.Invite = W.Button(F, L["Get the invite"], function() UI.ShowDiscord() end)
 
+	-- GitHub, for a player who has an account: the same report in a filled-in
+	-- issue (R.IssueURL).
+	F.GitHubRule = W.Divider(F)
+	F.GitHubRule:SetWidth(BOX_W)
+	F.GitHubNote = W.Text(F, "note", "textDim")
+	F.GitHubNote:SetJustifyH("LEFT")
+	F.GitHubNote:SetWordWrap(true)
+	F.GitHubNote:SetText(L["Have a GitHub account? Open the issue there with everything filled in."])
+	F.GitHub = W.Button(F, L["Open on GitHub"], openGitHub)
+	-- Their tooltip says why they wait, so it shows while they are disabled.
+	for _, b in ipairs({ F.Copy, F.GitHub }) do
+		if b.SetMotionScriptsWhileDisabled then b:SetMotionScriptsWhileDisabled(true) end
+	end
+
 	F:SetScript("OnShow", function(self) Anim.To(self, "alpha", 0, 1, Anim.FAST, "out") end)
 	ns.CloseOnEscape("PolestarReport")
-	-- A gamepad (UI/Gamepad.lua) starts on "Select report".
+	-- A gamepad (UI/Gamepad.lua) starts on "Copy report".
 	if ns.Gamepad and ns.Gamepad.Register then
 		ns.Gamepad.Register(F, {
 			initial = function(rows)
-				for i, w in ipairs(rows) do if w == F.Select then return i end end
+				-- Copy report while it waits is left out of the rows: then Mark,
+				-- never the first row, the ✕.
+				for _, want in ipairs({ F.Copy, F.Mark }) do
+					for i, w in ipairs(rows) do if w == want then return i end end
+				end
 			end,
 		})
 	end
@@ -476,13 +867,25 @@ end
 -- Opens the window on the step on screen. The details are taken now; what
 -- the player typed stays while it is the same step.
 function UI.ShowReport()
+	-- Opened again while the player walks to mark the right spot (the bug
+	-- button, the menu, /polestar report): back to the report they started,
+	-- not a new one about wherever the guide is now.
+	if M and M:IsShown() then
+		backToReport()
+		F.Desc:SetFocus()
+		return
+	end
 	if not F then build() end
-	local key = stepKey()
 	F.details = R.Details()
-	if key ~= F.key then F.Desc:SetText("") end
-	F.key = key
+	if F.details.key ~= F.key then
+		F.Desc:SetText("")
+		F.spot = nil
+	end
+	if M then M:Hide() end
+	F.key = F.details.key
 	F.Desc.Placeholder:SetShown((F.Desc:GetText() or "") == "")
-	F.Context:SetText(context())
+	F.Context:SetText(F.details.context)
+	F.Box:Hide()
 	compose()
 	F:Show()
 	F:Raise()

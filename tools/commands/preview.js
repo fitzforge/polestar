@@ -929,7 +929,7 @@ Polestar.UI.Picker.Select("forever/class/warlock/incubus-horde")`),
 	},
 	{
 		file: 'report.svg',
-		title: 'Report a problem (the guide window\'s bug button): what went wrong, the report to copy, the Polestar Discord; the invite on its own (the sidebar\'s Discord mark)',
+		title: 'Report a problem (the guide window\'s bug button): what went wrong, the right spot to mark, the report for the Polestar Discord, or a filled-in issue on GitHub; the invite on its own (the sidebar\'s Discord mark)',
 		panels: [
 			{
 				roots: ['PolestarReport'],

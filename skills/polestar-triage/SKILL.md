@@ -44,7 +44,7 @@ and note what you found:
 | Already fixed | `git log --oneline -S "<quest id>" -- guides/`, CHANGELOG.md since their version, and `changes/` (fixes merged but not released yet). Compare the fix commit's date with the report's, and check which release carries it with `git tag --contains <commit>` (plain `vX.Y.Z` tags only; `-rc` and `-test` tags are candidates). An unreleased fix on `next` or a `hotfix/` branch still counts as fixed. |
 | Old or mixed install | A version older than the latest release; addon folders from two versions; `Polestar_Guides` missing. |
 | The step was misread | Read the step on the version they run: `git show v<version>:<guide file>`. |
-| Another addon | Quest arrows, waypoints or objective text that Polestar does not draw (Questie, TomTom, other guide addons). The report's "Other addons" field lists them. |
+| Another addon | Quest arrows, waypoints or objective text that Polestar does not draw (Questie, TomTom, other guide addons). The report's "Other addons" field lists them; an issue the bot filed from Discord has them in its "**Addons:**" line, under the player's words. |
 | Classic, not Forever | Forever moved givers, changed prerequisites and levels, and added quests. What a quest does on Classic proves nothing here. |
 | Character state | A quest skipped earlier, an abandoned chain, a race or class the step is not for (`only` lines), a step the guide skipped or is looking ahead to. |
 | The world, not the guide | An NPC that was dead, despawned or busy in an event, or a mob camp cleared by other players, while the data puts it where the guide says. The data's spawn and the reporter's `/polestar where` line settle where; only the game settles when. |

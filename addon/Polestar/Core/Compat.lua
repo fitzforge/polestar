@@ -530,6 +530,24 @@ function Compat.GetPlayerMapPosition()
 	return map, x * 100, y * 100
 end
 
+-- Where the player stands, as guide lines ready to paste into a step: the
+-- map (`zone map <uiMapID>`) and a goal there (`goto x,y live`, two decimals
+-- like the compiler writes), then `x,y live` for the hint; nil where the
+-- game gives no position. The client reports live-frame coordinates, and
+-- typed coordinates are read in the Era frame unless marked, so the goal
+-- modifier `live` goes with them (Forever moved some zones). /polestar where
+-- and the report window's right spot (UI/Report.lua).
+-- Not in the Compat table: it reads ns.Compat at the call, so a test's fake
+-- Compat gives it the position.
+function ns.WhereLines()
+	local C = ns.Compat
+	local map, x, y
+	if C and C.GetPlayerMapPosition then map, x, y = C.GetPlayerMapPosition() end
+	if not (map and x and y) then return nil end
+	local xy = ("%.2f,%.2f live"):format(x, y)
+	return { ("zone map %d"):format(map), "goto " .. xy }, xy
+end
+
 local function liveToWorld(map, x, y)
 	if not (C_Map and C_Map.GetWorldPosFromMapPos) then return nil end
 	local c, pos = C_Map.GetWorldPosFromMapPos(map, vec(x / 100, y / 100))

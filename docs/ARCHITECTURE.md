@@ -3518,8 +3518,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `UI.ShowReport()` or `SHOW_REPORT`): the guide window's bug (in the
   navigator while a guide is open), its menu's "Report a problem" and
   `/polestar report` open it on the step on screen. The player types what
-  went wrong (250 letters); the report box holds `UI.Report.Text(description,
-  details)`: their words after "**What went wrong:**", then
+  went wrong (250 letters); the report is `UI.Report.Text(description,
+  details, spot)`: their words after "**What went wrong:**", then as bold
+  lines under it the right spot when one is marked ("**Right spot:**") and
+  the other addons that are loaded, names only, quest, map and guide addons
+  first, then A to Z ("**Addons:**", left out when there are none), then
   `UI.Report.Details()` in a code block, one fact a line, taken when the
   window opens: Polestar's version and stage, the client build and locale;
   race, class, level (XP %) and faction (never the name or realm); the guide
@@ -3541,16 +3544,45 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   Polestar's files, `BugGrabber:GetDB()`) by their path from the AddOns
   folder, and the calls the game blocked (`Polestar.Blocked()`) as "blocked
   in <addon>: <function> (<time>)": the newest three of both together, by
-  `seq` (!BugGrabber's count as the newest), each counted. Every line is cut
-  at 100 bytes, so at its longest the report fits one Discord message (2000
-  characters). Under it, Discord's mark, "Polestar on Discord" and "Get the
-  invite", which opens the invite (`Polestar.DiscordURL`) in the copy
-  window: the game opens no links for addons, so the report is the only text
-  a member copies. What the player typed stays while the window is reopened
-  on the same step. The hub's and the settings' sidebars carry the Discord's
-  mark at the end of the version line (`UI.Report.SidebarLink(shell)`),
-  which opens the invite like `/polestar discord` (`UI.ShowDiscord`,
-  `SHOW_DISCORD`).
+  `seq` (!BugGrabber's count as the newest), each counted. Above the code
+  block, under the player's words, bold lines for the right spot when one
+  is marked and the other addons that are loaded (quest, map and guide
+  addons first, then A to Z). Every line is cut at 100 bytes, and when the
+  report is still longer than one Discord message (2000 characters) the
+  Addons line is shortened, then dropped, never a line the bot reads. The
+  Discord bot (`tools/discord-bot`) takes the code block for the details
+  and everything above it, the bold lines included, as the description it
+  quotes in the issue.
+  "Mark the right spot" hides the window behind a bar (`PolestarMark`) while
+  the player walks to where the step should have sent them; "Mark here"
+  keeps `ns.WhereLines()` as the right spot, and "Clear mark" takes it out.
+  Under it, the way to send the report: Discord's mark, "Report it on
+  Discord", three numbered lines (press Copy report then Ctrl+C, open #bugs
+  and press New Post, paste and post: the bot files it), "Copy report",
+  which shows the report box under it selected, and "Get the invite", which
+  opens the invite (`Polestar.DiscordURL`) in the copy window. Last, for a
+  player with a GitHub account, "Open on GitHub" opens in the copy window a
+  link to a new issue on Polestar's GitHub,
+  `UI.Report.IssueURL(description, details, spot)`, whose query fills the
+  issue form's fields by their ids: a "Wrong step" issue (`wrong-step.yml`:
+  title, guide, step, character, the right spot, the report) when the
+  player marked a spot, a "Bug report" (`bug-report.yml`) otherwise, both
+  with the version and the addons. The report in the issue leaves out the
+  Addons line and, in a Wrong step issue, the Right spot line: each has its
+  own field. The whole link stays under `UI.Report.LINK_MAX` (GitHub
+  refuses one much longer): the report loses goals after the arrow's, then
+  is cut, and the addons field lists as many as fit after a line that
+  counts them. Copy report and Open on GitHub wait until the description
+  holds `UI.Report.DESC_MIN` characters. The game opens no links and has no
+  clipboard for addons, so every text to take away is selected for Ctrl+C.
+  A gamepad starts on "Copy report", or on "Mark the right spot" while it
+  waits. The details, the issue's fields and the right spot are taken when
+  the window opens or the spot is marked, so the guide moving on changes
+  neither. What the player typed and the right spot stay while the window
+  is reopened on the same step. The hub's and the settings' sidebars carry
+  the Discord's mark at the end of the version line
+  (`UI.Report.SidebarLink(shell)`), which opens the invite like
+  `/polestar discord` (`UI.ShowDiscord`, `SHOW_DISCORD`).
 - **Per-character UI state** in `CharState().ui`: `recentGuides` (ids, newest
   first, at most 10), `favoriteGuides` (id -> true), `pickerSelected` (id).
 

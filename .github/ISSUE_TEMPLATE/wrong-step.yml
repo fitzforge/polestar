@@ -1,3 +1,5 @@
+# The report window's "Open on GitHub" fills these fields by their ids
+# (addon/Polestar/UI/Report.lua, R.IssueURL): rename one there too.
 name: Wrong step
 description: A guide step that is wrong, never checks off or sends you the long way.
 title: "Wrong step: <guide>, step <number>"
