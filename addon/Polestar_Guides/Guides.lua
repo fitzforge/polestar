@@ -10040,7 +10040,6 @@ do
 					title = "{area:262}",
 					note = "The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms.",
 					goals = {
-						{ t = "accept", quest = 99053, title = "Escaping Ban'ethil", npc = 275744, npcName = "Sentinel Lynessa Duskblossom", minLevel = 4, qlvl = 9, map = 1438, x = 44.68, y = 58.92, f = "e" },
 						{ t = "accept", quest = 2541, title = "The Sleeping Druid", npc = 7317, npcName = "Oben Rageclaw", minLevel = 3, qlvl = 8, map = 1438, x = 44.94, y = 61.59, z = 1280.4, f = "e" },
 						{ t = "collect", quest = 483, title = "The Relics of Wakening", item = 3405, itemName = "Raven Claw Talisman", oi = 1, map = 1438, x = 45.65, y = 57.44, f = "e", from = "Chest of the Raven Claw", fromKind = "object", fromId = 2740 },
 						{ t = "collect", quest = 483, title = "The Relics of Wakening", item = 3406, itemName = "Black Feather Quill", oi = 2, map = 1438, x = 43.7, y = 61.22, f = "e", from = "Chest of the Black Feather", fromKind = "object", fromId = 2739 },
@@ -10057,6 +10056,7 @@ do
 					title = "{quest:99053}",
 					note = "Escort {npc:275744} out of the barrow; {npc:2081} in {area:186} takes the report.",
 					goals = {
+						{ t = "accept", quest = 99053, title = "Escaping Ban'ethil", npc = 275744, npcName = "Sentinel Lynessa Duskblossom", minLevel = 4, qlvl = 9, map = 1438, x = 44.68, y = 58.92, f = "e" },
 						{ t = "goto", text = "{area:736}, outside the barrow", map = 1438, x = 46.4, y = 57.3, f = "e", r = 25, note = "Walk Lynessa out and keep her alive" },
 						{ t = "complete", quest = 99053, title = "Escaping Ban'ethil" },
 					},

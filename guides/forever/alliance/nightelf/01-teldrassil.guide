@@ -26,7 +26,9 @@ next forever/alliance/02-westfall
 #   yards to Tarindrella either way), without passing him by.
 # - The Relics of Wakening (483) is done on the one trip into Ban'ethil
 #   Barrow Den with Oben Rageclaw and Lynessa: Starbreeze (475, 476) and the
-#   dresser (2438) come before the west loop instead of after it.
+#   dresser (2438) come before the west loop instead of after it. Lynessa's
+#   escort, Escaping Ban'ethil (99053), is taken last, once the rest of the
+#   den is done: taken first, she sets off before it is (Pynte, #334).
 # - Timberling Seeds and Sprouts (918, 919) are taken and done on the first
 #   visit to Denalan, with the lasher fronds, instead of a later trip.
 # - The Glowing Fruit (930) waits for the last lake visit (931, 2399), and
@@ -312,7 +314,6 @@ step The road to Darnassus
 
 step Ban'ethil Barrow Den
   tip The barrow is south of the road. Sentinel Lynessa Duskblossom is held inside, Oben Rageclaw sleeps in its depths, and the four relic chests sit in the lower rooms.
-  accept 99053                                -- Sentinel Lynessa Duskblossom
   accept 2541                                 -- Oben Rageclaw
   collect 3405 quest 483.1
   collect 3406 quest 483.2
@@ -326,6 +327,7 @@ step Ban'ethil Barrow Den
 
 step Escaping Ban'ethil
   tip Escort Sentinel Lynessa Duskblossom out of the barrow; Sentinel Kyra Starsong in Dolanaar takes the report.
+  accept 99053                                -- Sentinel Lynessa Duskblossom
   goto 46.4,57.3 "Ban'ethil Hollow, outside the barrow" r 25 -- Walk Lynessa out and keep her alive
   complete 99053
 

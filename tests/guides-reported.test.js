@@ -709,6 +709,17 @@ test(`${TELDRASSIL}: Pynte's report: each class's sigil is handed to its trainer
 	}
 });
 
+// Escaping Ban'ethil is an escort: taken first, Lynessa sets off before the
+// den is done. It is taken once the relics and The Sleeping Druid's chain are.
+test(`${TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relics and The Sleeping Druid's chain (#334)`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const escort = at(list, "accept 99053 (Escaping Ban'ethil)", is('accept', 99053));
+	assert.ok(at(list, 'accept 2541 (The Sleeping Druid)', is('accept', 2541)) < escort, 'The Sleeping Druid is taken first');
+	assert.ok(at(list, 'turnin 2561 (Druid of the Claw)', is('turnin', 2561)) < escort, 'the chain is handed in before the escort');
+	for (const item of [3405, 3406, 3407, 3408]) assert.ok(at(list, `relic ${item}`, (g) => g.t === 'collect' && g.item === item) < escort, `relic ${item} before the escort`);
+	assert.ok(escort < at(list, 'complete 99053', is('complete', 99053)), 'taken before the walk out');
+});
+
 // --- Darkshire (Yendi, 0.2.3): part 1 of Look to the Stars needs a Bronze Tube.
 
 const NEEDLES = 'forever/alliance/07-thousand-needles.guide';
