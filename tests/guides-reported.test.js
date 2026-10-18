@@ -197,6 +197,18 @@ test(`${TIRISFAL}: Mike_'s report: only Paladins are sent to Hilda the Breaker a
 	}
 });
 
+// MadReign_Ltd (CurseForge, Paladin 12, 0.2.5): Hilda and Ephram offer them only once A Righteous Cause is in.
+test(`${TIRISFAL}: MadReign_Ltd's report: a Paladin takes Hilda's and Ephram's quests after A Righteous Cause is handed in`, { skip }, () => {
+	const paladin = goals(TIRISFAL).filter(forClass('PALADIN'));
+	const cause = at(paladin, 'turnin 96896 (A Righteous Cause)', is('turnin', 96896));
+	for (const q of [99152, 99153]) {
+		const take = at(paladin, `accept ${q}`, is('accept', q));
+		assert.ok(cause < take, `${q} is taken after A Righteous Cause is handed in`);
+		const work = at(paladin, `the objective of ${q}`, (g) => g.t === 'collect' && g.quest === q);
+		assert.ok(take < work && work < at(paladin, `turnin ${q}`, is('turnin', q)), `${q}: accept, objective, turn-in`);
+	}
+});
+
 // --- Coldridge Valley (thmastin, PR #16): the valley is never walked back to.
 
 test(`${DUN_MOROGH}: thmastin's report: Grik'nir comes after Anvilmar, and the journal and Nori's mug are handed in on one camp visit`, { skip }, () => {

@@ -795,15 +795,29 @@
 		},
 		"99152": {
 			"set": {
-				"classes": 2
+				"classes": 2,
+				"pre": [
+					96896
+				],
+				"preAll": [
+					96896
+				],
+				"preAny": []
 			},
-			"note": "As Above, So Below (Hilda the Breaker 246389, Bandarion Keep) is Paladin-only: Mike_'s in-game report (Discord, Polestar 0.2.3, Scourge Mage 11): Polestar marked it 'Not offered by Hilda the Breaker', which it does only when the giver's quest window opened without the quest; warcraft.wiki.gg https://warcraft.wiki.gg/wiki/Hilda_the_Breaker: Hilda the Breaker is a Forsaken paladin trainer at Bandarion Keep, the Undead Paladin hub (checked 2026-10-15). QuestieDB 1.0.5 has no class gate (classes null)."
+			"note": "As Above, So Below (Hilda the Breaker 246389, Bandarion Keep) is Paladin-only: Mike_'s in-game report (Discord, Polestar 0.2.3, Scourge Mage 11): Polestar marked it 'Not offered by Hilda the Breaker', which it does only when the giver's quest window opened without the quest; warcraft.wiki.gg https://warcraft.wiki.gg/wiki/Hilda_the_Breaker: Hilda the Breaker is a Forsaken paladin trainer at Bandarion Keep, the Undead Paladin hub (checked 2026-10-15). QuestieDB 1.0.5 has no class gate (classes null). Offered only after A Righteous Cause 96896 (Leonid Barthalomew): MadReign_Ltd's in-game report (CurseForge comments, Polestar 0.2.5, Paladin 12, 2026-10-17): not offered at the guide's step, offered once the Leonid and Danitha Morr quests were done. QuestieDB 1.0.6 has no prerequisite."
 		},
 		"99153": {
 			"set": {
-				"classes": 2
+				"classes": 2,
+				"pre": [
+					96896
+				],
+				"preAll": [
+					96896
+				],
+				"preAny": []
 			},
-			"note": "The One That Got Away (Ephram Barbaro 259190, Bandarion Keep) is Paladin-only: Mike_'s in-game report (Discord, Polestar 0.2.3, Scourge Mage 11): Polestar marked it 'Not offered by Ephram Barbaro', which it does only when the giver's quest window opened without the quest; warcraft.wiki.gg https://warcraft.wiki.gg/wiki/Hilda_the_Breaker: Hilda the Breaker is a Forsaken paladin trainer at Bandarion Keep, the Undead Paladin hub (checked 2026-10-15). QuestieDB 1.0.5 has no class gate (classes null)."
+			"note": "The One That Got Away (Ephram Barbaro 259190, Bandarion Keep) is Paladin-only: Mike_'s in-game report (Discord, Polestar 0.2.3, Scourge Mage 11): Polestar marked it 'Not offered by Ephram Barbaro', which it does only when the giver's quest window opened without the quest; warcraft.wiki.gg https://warcraft.wiki.gg/wiki/Hilda_the_Breaker: Hilda the Breaker is a Forsaken paladin trainer at Bandarion Keep, the Undead Paladin hub (checked 2026-10-15). QuestieDB 1.0.5 has no class gate (classes null). Offered only after A Righteous Cause 96896 (Leonid Barthalomew): MadReign_Ltd's in-game report (CurseForge comments, Polestar 0.2.5, Paladin 12, 2026-10-17): not offered at the guide's step, offered once the Leonid and Danitha Morr quests were done. QuestieDB 1.0.6 has no prerequisite."
 		},
 		"99156": {
 			"set": {
