@@ -100,8 +100,11 @@ the issue first. CONTRIBUTING.md, "Before you start", is the long form.
   from `polestar media`, `docs/preview/` from `polestar preview`, the locale
   files from `polestar i18n sync`. `tools/README.md` lists every generated
   file with its command.
-- **Code**: keep `npm test` green. Behaviour changes come with a test that
-  fails before the change and passes after it.
+- **Code**: run only the tests for what you changed:
+  `node --test tests/<file>.test.js`. You don't need the whole suite; CI
+  runs it on your pull request and tells you if anything else broke.
+  Behaviour changes come with a test that fails before the change and
+  passes after it.
 - **No reference data?** `data/forever/` is built on the contributor's
   machine from the game client and is not in the repository. If you cannot
   build it, say in the pull request which checks you could not run. Never

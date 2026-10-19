@@ -162,10 +162,13 @@ git grep "accept 184"
   ```sh
   node tools/polestar.js lint                       # every compile check, writes nothing
   node tools/polestar.js playtest --filter westfall  # play the matching guides to the end for every class
+  node --test tests/guides-reported.test.js          # or tests/guides-caves.test.js for a cave mouth
   ```
 
   `--filter` plays only the guides whose file or id contains its text;
-  `--class Warrior` narrows it to one class.
+  `--class Warrior` narrows it to one class. You don't need to run the
+  whole test suite; GitHub runs it on your pull request and tells you if
+  anything else broke.
 
 Both need the reference data (below). If you cannot build it, send the fix
 anyway: describe what you changed and why, say that you could not run the
@@ -192,18 +195,21 @@ command.
 
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) explains how the addon and the
   tools fit together; [docs/README.md](docs/README.md) maps every document.
-- Keep the suite green:
+- Run the tests for what you changed. You don't need to run the whole
+  test suite; GitHub runs it on your pull request and tells you if
+  anything else broke. For a change to a source file in `tools/` or
+  `addon/`, run its matching test file:
 
   ```sh
-  npm test        # the same as: node --test "tests/**/*.test.js"
+  node --test tests/foo.test.js
   ```
 
-  A few tests skip when the reference data or the game client is missing.
-  [tests/README.md](tests/README.md) describes the suite, and
-  [docs/SUITE.md](docs/SUITE.md) what is in and out of scope. CI runs
-  `npm test` on every pull request, then fails when the textures in
-  `addon/Polestar/Media` differ from what `node tools/polestar.js media`
-  builds: after changing `tools/media`, run it and commit the textures.
+  [tests/README.md](tests/README.md) describes the suite and
+  [docs/SUITE.md](docs/SUITE.md) what is in and out of scope. A few
+  tests skip when the reference data or the game client is missing.
+  CI runs the full suite on every pull request, then checks the
+  textures in `addon/Polestar/Media`; after changing `tools/media`,
+  run `node tools/polestar.js media` and commit the textures.
 - For UI changes, `node tools/polestar.js preview` renders the guide window,
   menu and options to `docs/preview/*.svg`; look at them before and after,
   and commit them with the change: CI renders them again and fails when they

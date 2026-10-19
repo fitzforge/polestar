@@ -93,9 +93,11 @@ should fail on the old guide and pass on the fixed one.
 polestar lint
 polestar playtest --filter <guide file or id>
 polestar compile                            # rewrites addon/Polestar_Guides/Guides.lua
-node --test tests/guides-reported.test.js
-npm test
+node --test tests/guides-reported.test.js  # or tests/guides-caves.test.js for a cave mouth
 ```
+
+You don't need to run the whole suite; GitHub runs it on your pull request
+and tells you if anything else broke.
 
 Commit the recompiled `addon/Polestar_Guides/` with the fix. Lint and
 playtest must pass, and so must every class playtest plays.

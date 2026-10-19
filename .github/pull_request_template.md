@@ -16,8 +16,10 @@
 
 ## Checks
 
-- [ ] `npm test`
-- [ ] `node tools/polestar.js lint` and `playtest --filter <guide>` (guide changes)
-- [ ] Not run, and why:
+- [ ] I ran the tests for what I changed — `node --test tests/<file>.test.js`; for a guide change, also `node tools/polestar.js lint` and `playtest --filter <guide>` (if I could not run them, I've said so above)
 - [ ] A changelog fragment in `changes/` (`node tools/polestar.js changelog add`), crediting the reporter
-- [ ] An AI agent wrote or helped with this
+- [ ] An AI agent wrote or helped with this — **Model and tool:**
+
+## Maintainer review
+
+<!-- Safety read of the full diff before running any code (CONTRIBUTING.md, "How a pull request is reviewed"), pattern sweep across guides, release scope. -->
