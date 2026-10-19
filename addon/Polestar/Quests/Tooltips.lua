@@ -312,6 +312,7 @@ local function place(f, plate, unit)
 		f:SetFrameStrata(ref:GetFrameStrata())
 		f:SetFrameLevel(ref:GetFrameLevel() + ICON_LIFT)
 	end)
+	f._hasBar = bar ~= nil
 	if ok or owner == plate then return ok, ok and replaced end
 	ok = pcall(function()
 		f:SetParent(plate)
@@ -319,6 +320,7 @@ local function place(f, plate, unit)
 		f:SetSize(ICON_SIZE, ICON_SIZE)
 		f:SetPoint("BOTTOM", plate, "TOP", 0, -2)
 	end)
+	f._hasBar = false
 	return ok, false
 end
 
@@ -395,10 +397,19 @@ local function updatePlate(unit)
 		or "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8"
 	f.tex:SetTexture(skullTex)
 	f.tex:SetVertexColor(1, 1, 1, 1)
-	-- The client shows the objective count in the nameplate name; hide ours to
-	-- avoid the duplicate.
-	f.count:SetText("")
-	f.count:Hide()
+	-- Show our count only when the icon is beside a health bar (left of bar,
+	-- below the name): in the no-bar fallback the icon sits near the nameplate
+	-- name and the count would overlap it.
+	local text = f._hasBar and countText(npc) or nil
+	if text then
+		local tc = Q.Color("text")
+		f.count:SetTextColor(tc.r, tc.g, tc.b, tc.a or 1)
+		f.count:SetText(text)
+		f.count:Show()
+	else
+		f.count:SetText("")
+		f.count:Hide()
+	end
 	f:Show()
 end
 
