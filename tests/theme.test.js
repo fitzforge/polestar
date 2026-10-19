@@ -718,3 +718,85 @@ test('skins: on Forever the guide strip marks the active tab with the selected-r
 	assert.ok(out.options.every((t) => t.lit === false && t.outline), 'outline tabs');
 	assert.ok(out.options.some((t) => t.outline === 'atlas:Options_Tab_Active_Middle'), 'the active one in the active outline');
 });
+// #306: The WoW Forever guide window's slim border used sliced(UI-HUD-ActionBar-
+// Frame) with margins {16,20,16,20} and out={3,3,3,3}, which put 13–17 px of
+// semi-transparent frame art inside the window over the tab strip and content
+// edges. The nine individual NineSlice atlas pieces contain only their own art
+// and land exactly at the window edge with no inner overlap.
+test('skins: Forever guide window border uses NineSlice pieces that do not bleed inside the window (#306)', () => {
+	const [out] = run(`
+		local GF = Polestar.UI.GuideFrame
+		Polestar.Set("ui.skin", "forever")
+		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
+		-- The guide window frame is PolestarGuideFrame; after painting it gets the
+		-- slim nine-slice stored under psSkin.kit.slim.
+		local f = PolestarGuideFrame
+		local slim = f.psSkin and f.psSkin.kit and f.psSkin.kit.slim
+		local names = {}
+		for i = 1, 9 do names[i] = slim and slim[i] and slim[i].texture or false end
+		emit({ names = names, count = slim and #slim or 0 })`, {
+		before: `C_Texture = { GetAtlasInfo = function(name)
+			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 17, height = 16 }
+		end }`,
+	});
+	assert.equal(out.count, 9, 'nine slim pieces');
+	assert.equal(out.names[0], 'atlas:UI-HUD-ActionBar-Frame-NineSlice-CornerTopLeft', 'TL corner piece');
+	assert.equal(out.names[1], 'atlas:_UI-HUD-ActionBar-Frame-NineSlice-EdgeTop', 'top edge piece');
+	assert.equal(out.names[2], 'atlas:UI-HUD-ActionBar-Frame-NineSlice-CornerTopRight', 'TR corner piece');
+	assert.equal(out.names[4], false, 'center suppressed (no inner fill)');
+	assert.equal(out.names[8], 'atlas:UI-HUD-ActionBar-Frame-NineSlice-CornerBottomRight', 'BR corner piece');
+});
+
+// #306: KitStatus was calling SetStatusBarTexture(file) + SetTexCoord to point
+// at an atlas piece. The StatusBar engine computes fill by scaling the right
+// texcoord as (l + (r-l)*frac); with l,r being the atlas piece's tiny fraction
+// of the full file, even 100 % shows a sliver. SetStatusBarAtlas tells the
+// engine the fill is an atlas piece and fills the piece proportionally.
+test('skins: Forever progress bar uses SetStatusBarAtlas so the fill shows correctly (#306)', () => {
+	const [out] = run(`
+		local GF = Polestar.UI.GuideFrame
+		Polestar.Set("ui.skin", "forever")
+		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
+		GF.PaintProgress(true)
+		local foot = GF.parts.foot
+		local b = rawget(foot, "Status")
+		emit({ atlas = b and b.barTexture and b.barTexture.atlas or false })`, {
+		before: `C_Texture = { GetAtlasInfo = function(name)
+			return { file = "atlas:" .. name, leftTexCoord = 0.1, rightTexCoord = 0.2, topTexCoord = 0, bottomTexCoord = 0.05, width = 100, height = 14 }
+		end }`,
+	});
+	assert.equal(out.atlas, 'Legacy-Progressbar-Fill', 'SetStatusBarAtlas used for fill');
+});
+
+// #306: The hover plates (plateLit, cardLit, navHover) were opaque BLEND
+// textures in HIGHLIGHT layer that covered the button's icon and label.
+// ADD blend mode brightens without hiding content.
+test('skins: Forever hover plates use ADD blend mode so button content stays visible (#306)', () => {
+	const [out] = run(`
+		local GF = Polestar.UI.GuideFrame
+		Polestar.Set("ui.skin", "forever")
+		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
+		-- icon button plate hover (plateLit) — nav.Prev is framed "red" in the atlas skin
+		local navPrev = GF.parts.nav.Prev
+		local pl = navPrev.psSkin and navPrev.psSkin.kit and navPrev.psSkin.kit.plateLit
+		-- card hover: paint a button directly with the skin's paint fn
+		local cardBtn = CreateFrame("Button")
+		T.SKIN_PAINT.forever.button(cardBtn)
+		local cl = cardBtn.psSkin and cardBtn.psSkin.kit and cardBtn.psSkin.kit.cardLit
+		-- nav row hover: call KitRowLit on a test frame
+		local navRow = CreateFrame("Button")
+		T.KitRowLit(navRow, true, "navLit", 0)
+		local hv = navRow.psSkin and navRow.psSkin.kit and navRow.psSkin.kit.navLitHover
+		emit({
+			plateLit = pl and pl.blend or false,
+			cardLit = cl and cl[2] and cl[2].blend or false,
+			navHover = hv and hv.blend or false,
+		})`, {
+		before: `C_Texture = { GetAtlasInfo = function(name)
+			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 187, height = 21 }
+		end }`,
+	});
+	assert.equal(out.plateLit, 'ADD', 'plateLit blend mode is ADD');
+	assert.equal(out.cardLit, 'ADD', 'cardLit blend mode is ADD');
+	assert.equal(out.navHover, 'ADD', 'navHover blend mode is ADD');
+});

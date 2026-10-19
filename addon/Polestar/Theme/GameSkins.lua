@@ -66,6 +66,26 @@ local INSET = { "UI-Frame-InnerTopLeft", "_UI-Frame-InnerTopTile", "UI-Frame-Inn
 local TOOLTIP_NINE = { "Tooltip-NineSlice-CornerTopLeft", "_Tooltip-NineSlice-EdgeTop", "Tooltip-NineSlice-CornerTopRight",
 	"!Tooltip-NineSlice-EdgeLeft", false, "!Tooltip-NineSlice-EdgeRight",
 	"Tooltip-NineSlice-CornerBottomLeft", "_Tooltip-NineSlice-EdgeBottom", "Tooltip-NineSlice-CornerBottomRight" }
+-- The micro menu box's bronze frame, split into its actual NineSlice atlas
+-- pieces (UI-HUD-ActionBar-Frame-NineSlice-*). Using the individual pieces
+-- instead of sliced(UI-HUD-ActionBar-Frame) avoids the full-frame art's
+-- inner semi-transparent margins (16 left/right, 20 top/bottom at 1x)
+-- bleeding inside the guide window (#306).
+-- Sizes at 1x; GetAtlasInfo returns 2x. Out: each piece sized to its art.
+local SLIM = {
+	"UI-HUD-ActionBar-Frame-NineSlice-CornerTopLeft",
+	"_UI-HUD-ActionBar-Frame-NineSlice-EdgeTop",
+	"UI-HUD-ActionBar-Frame-NineSlice-CornerTopRight",
+	"!UI-HUD-ActionBar-Frame-NineSlice-EdgeLeft",
+	false,
+	"!UI-HUD-ActionBar-Frame-NineSlice-EdgeRight",
+	"UI-HUD-ActionBar-Frame-NineSlice-CornerBottomLeft",
+	"_UI-HUD-ActionBar-Frame-NineSlice-EdgeBottom",
+	"UI-HUD-ActionBar-Frame-NineSlice-CornerBottomRight"
+}
+local SLIM_SIZE = { {17,16},{16,16},{22,16}, {17,16},false,{22,16}, {17,23},{16,23},{22,23} }
+local SLIM_OUT  = { 17, 16, 22, 23 }
+
 
 -- The parts both atlas looks share (the Settings panel's controls).
 local function settingsParts(k)
@@ -97,7 +117,7 @@ local KITS = {
 		metalOut = { 8, 16, 2, 8 },
 		metalSize = { { 95, 95 }, { 128, 95 }, { 95, 95 }, { 95, 128 }, false, { 95, 128 }, { 95, 100 }, { 128, 100 }, { 95, 100 } },
 		closeSize = 28, closeAt = { 0, 3 },
-		slim = "UI-HUD-ActionBar-Frame",
+		slim = SLIM, slimOut = SLIM_OUT, slimSize = SLIM_SIZE,
 		card = "common-button-list-small", cardHover = "common-button-list-small-hover", cardSelected = "common-button-list-small-selected",
 		rowLit = "common-button-list-small-selected",
 		status = { bg = "Legacy-Progressbar-BG", fill = "Legacy-Progressbar-Fill", frame = "Legacy-Progressbar-Frame" },
@@ -549,14 +569,15 @@ end
 local GUIDE = {
 	forever = function(f, kit)
 		body(f, 0, 0, 0, 0.96 * opacity(f), 3)
-		-- The micro menu box's bronze line (55 units, its chamfered corners
-		-- 12), the line 3 units in from the art's edge: laid 3 out so it runs
-		-- on the window's edge. Its filled middle is left out: the body is
-		-- the window's own.
+		-- The micro menu box's bronze border, assembled from its nine individual
+		-- NineSlice atlas pieces so each piece covers only its own art and does
+		-- not extend inside the window (sliced(UI-HUD-ActionBar-Frame) had 16–20
+		-- unit margins that bled inward and appeared as a semi-transparent inner
+		-- border over the tab strip and content edges, #306).
 		local o = child(f, "edge", 6)
 		o:EnableMouse(false)
 		o:SetAllPoints(f)
-		sliced(f, "slim", kit, kit.slim, o, { 3, 3, 3, 3 }, "BORDER", 0, true)
+		nine(f, "slim", kit, kit.slim, o, kit.slimOut, "BORDER", 0, kit.slimSize)
 	end,
 	blizzard = function(f)
 		local a = opacity(f)
@@ -678,7 +699,10 @@ end
 local function card(f, kit, selected)
 	if kit.card then
 		sliced(f, "card", kit, selected and kit.cardSelected or kit.card, f, nil, "BACKGROUND", -6)
-		sliced(f, "cardLit", kit, kit.cardHover, f, nil, "HIGHLIGHT", 0)
+		-- ADD blend: the hover art brightens rather than covering icons and labels
+		-- (#306).
+		local lp = sliced(f, "cardLit", kit, kit.cardHover, f, nil, "HIGHLIGHT", 0)
+		for i = 1, 9 do if lp[i] then lp[i]:SetBlendMode("ADD") end end
 		return
 	end
 	if kit.source == "file" then
@@ -725,7 +749,8 @@ local function field(f, kit)
 		return
 	end
 	sliced(f, "dd", kit, kit.dropdown, f, { 7, 7, 7, 7 }, "BACKGROUND", -6)
-	sliced(f, "ddLit", kit, kit.dropdownLit, f, { 7, 7, 7, 7 }, "HIGHLIGHT", 0)
+	local dp = sliced(f, "ddLit", kit, kit.dropdownLit, f, { 7, 7, 7, 7 }, "HIGHLIGHT", 0)
+	for i = 1, 9 do if dp[i] then dp[i]:SetBlendMode("ADD") end end
 	local arrow = tex(f, "ddArrow", "HIGHLIGHT", 1)
 	draw(arrow, kit, kit.dropdownArrow)
 	arrow:ClearAllPoints()
@@ -897,6 +922,7 @@ function Theme.KitIconButton(b)
 	local hl = tex(b, "plateLit", "HIGHLIGHT")
 	draw(hl, kit, kit.plateHover)
 	hl:SetAllPoints(b)
+	hl:SetBlendMode("ADD")  -- ADD: hover brightens without hiding the icon (#306)
 	b.Icon:SetAlpha(1)
 	return true
 end
@@ -1050,6 +1076,7 @@ function Theme.KitRowLit(r, shown, key, inset)
 	if key == "navLit" and kit.navHover then
 		local hv = tex(r, key .. "Hover", "HIGHLIGHT", 0)
 		draw(hv, kit, kit.navHover)
+		hv:SetBlendMode("ADD")  -- ADD: hover brightens without covering labels (#306)
 		hv:ClearAllPoints()
 		hv:SetPoint("LEFT", r, "LEFT", inset or 4, 0)
 		hv:SetPoint("RIGHT", r, "RIGHT", -(inset or 4), 0)
@@ -1131,8 +1158,18 @@ function Theme.KitStatus(b)
 	if not kit then return false end
 	local fill = b:GetStatusBarTexture()
 	if kit.source == "atlas" then
-		local f, l, r, tp, bt = region(kit, kit.status.fill)
-		if f then b:SetStatusBarTexture(f); fill = b:GetStatusBarTexture(); fill:SetTexCoord(l, r, tp, bt) end
+		-- SetStatusBarAtlas tells the bar the fill is an atlas piece; the engine
+		-- then fills the piece proportionally. SetStatusBarTexture + SetTexCoord
+		-- breaks because the bar recomputes the right texcoord as a fraction of
+		-- the full atlas file, not of the piece, so the fill is nearly invisible
+		-- at any percentage (#306).
+		if b.SetStatusBarAtlas then
+			b:SetStatusBarAtlas(kit.status.fill)
+		else
+			local f, l, r, tp, bt = region(kit, kit.status.fill)
+			if f then b:SetStatusBarTexture(f); b:GetStatusBarTexture():SetTexCoord(l, r, tp, bt) end
+		end
+		fill = b:GetStatusBarTexture()
 		fill:SetVertexColor(1, 1, 1, 1)
 		draw(b.Bg, kit, kit.status.bg)
 		local o = child(b, "statusFrame", 2)

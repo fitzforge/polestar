@@ -358,6 +358,10 @@ function Methods.GetStatusBarTexture(self)
 	return self.barTexture
 end
 function Methods.SetStatusBarColor(self, r, g, b, a) self.barColor = { r, g, b, a or 1 } end
+function Methods.SetStatusBarAtlas(self, name)
+	self.barTexture = self.barTexture or NewObject("Texture", nil, self)
+	self.barTexture.atlas = name
+end
 function Methods.SetFocus(self) stub.focus = self end
 function Methods.ClearFocus(self) if stub.focus == self then stub.focus = nil end end
 function Methods.HasFocus(self) return stub.focus == self end
