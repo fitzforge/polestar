@@ -694,6 +694,7 @@ end
 ---------------------------------------------------------------------------
 
 function Theme.Media(name)
+	if name == "icon-skull" then return "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8" end
 	return MEDIA .. "UI\\" .. name
 end
 

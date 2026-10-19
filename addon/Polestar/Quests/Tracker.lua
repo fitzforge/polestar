@@ -43,8 +43,10 @@ local KIND_KILL, KIND_ITEM, KIND_OBJECT, KIND_EVENT = 1, 2, 3, 4
 -- the minimap; rank picks the glyph when objectives of several kinds share
 -- one spawn cluster.
 local STYLE = {
-	kill = { icon = "icon-kill", color = "danger", size = 16, mini = 14, priority = 2, area = true, rank = 4 },
+	kill = { icon = "icon-skull", color = "white", size = 16, mini = 14, priority = 2, area = true, rank = 5 },
+	skull = { icon = "icon-skull", color = "white", size = 16, mini = 14, priority = 2, area = true, rank = 5 },
 	collect = { icon = "icon-collect", color = "item", size = 16, mini = 14, priority = 2, area = true, rank = 2 },
+	gear = { icon = "gear", color = "item", size = 16, mini = 14, priority = 2, area = true, rank = 2 },
 	vendor = { icon = "icon-vendor", color = "item", size = 16, mini = 14, priority = 2, rank = 1 },
 	interact = { icon = "icon-interact", color = "place", size = 16, mini = 14, priority = 2, area = true, rank = 3 },
 	event = { icon = "icon-explore", color = "place", size = 16, mini = 14, priority = 2 },
@@ -63,7 +65,7 @@ Q.STYLE, Q.FOCUS_SCALE, Q.DIM_ALPHA, Q.MIN_AREA = STYLE, FOCUS_SCALE, DIM_ALPHA,
 local FALLBACK_COLORS = {
 	danger = { 0.96, 0.45, 0.45, 1 }, item = { 0.78, 0.68, 1, 1 }, place = { 0.96, 0.68, 0.52, 1 },
 	quest = { 1, 0.84, 0.45, 1 }, textDim = { 0.765, 0.793, 0.868, 1 }, success = { 0.42, 0.85, 0.6, 1 }, text = { 0.969, 0.973, 0.992, 1 },
-	accent = { 0.902, 0.729, 0.4, 1 },
+	accent = { 0.902, 0.729, 0.4, 1 }, white = { 1, 1, 1, 1 },
 }
 
 local colors = {} -- name -> { r, g, b, a }, refreshed on theme change
@@ -648,17 +650,17 @@ local function objectivePins(e, byKey)
 		local o = e.objs[i]
 		if not o.done then
 			if o.kind == KIND_KILL then
-				spawnPins(LAYER_OBJECTIVES, "objective", "kill", o.id, o, byKey)
+				spawnPins(LAYER_OBJECTIVES, "objective", "skull", o.id, o, byKey)
 			elseif o.kind == KIND_OBJECT then
-				spawnPins(LAYER_OBJECTIVES, "objective", "interact", -o.id, o, byKey)
+				spawnPins(LAYER_OBJECTIVES, "objective", "gear", -o.id, o, byKey)
 			elseif o.kind == KIND_ITEM then
 				local ir = Q.ItemRecord(o.id)
 				if ir then
 					local nd = ir[2] or 0
-					for k = 1, nd do spawnPins(LAYER_OBJECTIVES, "objective", "collect", ir[1 + 2 * k], o, byKey) end
+					for k = 1, nd do spawnPins(LAYER_OBJECTIVES, "objective", "skull", ir[1 + 2 * k], o, byKey) end
 					local j = 3 + 2 * nd
 					local no = ir[j] or 0
-					for k = 1, no do spawnPins(LAYER_OBJECTIVES, "objective", "collect", -ir[j + 2 * k - 1], o, byKey) end
+					for k = 1, no do spawnPins(LAYER_OBJECTIVES, "objective", "gear", -ir[j + 2 * k - 1], o, byKey) end
 					for k = j + 2 * no + 1, #ir do spawnPins(LAYER_OBJECTIVES, "objective", "vendor", ir[k], o, byKey) end
 				end
 			elseif o.kind == KIND_EVENT and ev and o.id and o.id > 0 then

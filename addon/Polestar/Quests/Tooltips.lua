@@ -390,20 +390,15 @@ local function updatePlate(unit)
 			end)
 		end
 	end
-	local style = o.kind == 1 and "icon-kill" or "icon-collect"
-	local c = Q.Color(o.kind == 1 and "danger" or "item")
-	f.tex:SetTexture(ns.Theme and ns.Theme.Media and ns.Theme.Media(style) or style)
-	f.tex:SetVertexColor(c.r, c.g, c.b, c.a)
-	local text = countText(npc)
-	if text then
-		local tc = Q.Color("text")
-		f.count:SetTextColor(tc.r, tc.g, tc.b, tc.a or 1)
-		f.count:SetText(text)
-		f.count:Show()
-	else
-		f.count:SetText("")
-		f.count:Hide()
-	end
+	-- All objectives on nameplates are mobs to kill or loot: show the game's skull.
+	local skullTex = ns.Theme and ns.Theme.Media and ns.Theme.Media("icon-skull")
+		or "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8"
+	f.tex:SetTexture(skullTex)
+	f.tex:SetVertexColor(1, 1, 1, 1)
+	-- The client shows the objective count in the nameplate name; hide ours to
+	-- avoid the duplicate.
+	f.count:SetText("")
+	f.count:Hide()
 	f:Show()
 end
 
