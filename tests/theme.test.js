@@ -718,3 +718,62 @@ test('skins: on Forever the guide strip marks the active tab with the selected-r
 	assert.ok(out.options.every((t) => t.lit === false && t.outline), 'outline tabs');
 	assert.ok(out.options.some((t) => t.outline === 'atlas:Options_Tab_Active_Middle'), 'the active one in the active outline');
 });
+// #306: three Forever-skin guide-window bugs confirmed in game by Fitz (rc1).
+// (a) Inner border / tab-strip strip: sliced(UI-HUD-ActionBar-Frame) margins
+//     {16,20,16,20} with out={3,3,3,3} bleed 13-17 px inside the window.
+//     Body raised to BORDER 1 covers the bleed; the bronze line (3 px above
+//     f.top, outside the body) is unaffected.
+// (b) Progress bar no fill: Legacy-Progressbar-Frame margins {33,11,33,13}
+//     placed with old offsets (+6/-7) left only ~1 px of ARTWORK-free centre;
+//     new offsets (+11/-13) match the margins so the full bar height is centre.
+// (c) Hover plates covering button content: plateLit, cardLit, navHover were
+//     HIGHLIGHT BLEND (opaque); changed to ADD so hover brightens without hiding.
+test('skins: Forever guide window body is above the slim, status-art surrounds the bar, hover plates use ADD (#306)', () => {
+	const [out] = run(`
+		local GF = Polestar.UI.GuideFrame
+		Polestar.Set("ui.skin", "forever")
+		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
+		GF.PaintProgress(true)
+
+		-- (a) body draw layer above slim
+		local f = PolestarGuideFrame
+		local bg = f.psSkin and f.psSkin.bg
+		local bgLayer = bg and bg.layer or false
+		local bgSub   = bg and bg.sublayer or false
+
+		-- (b) status-art host frame offsets
+		local foot = GF.parts.foot
+		local b = rawget(foot, "Status")
+		local o = b and b.psSkin and b.psSkin.kit and b.psSkin.kit.statusFrame
+		local oTop = o and select(5, o:GetPoint(1)) or false   -- y offset of TOPLEFT
+		local oBot = o and select(5, o:GetPoint(2)) or false   -- y offset of BOTTOMRIGHT
+
+		-- (c) hover blend mode
+		local cardBtn = CreateFrame("Button")
+		T.SKIN_PAINT.forever.button(cardBtn)
+		local cl = cardBtn.psSkin and cardBtn.psSkin.kit and cardBtn.psSkin.kit.cardLit
+		local navRow = CreateFrame("Button")
+		T.KitRowLit(navRow, true, "navLit", 0)
+		local hv = navRow.psSkin and navRow.psSkin.kit and navRow.psSkin.kit.navLitHover
+		local pl = GF.parts.nav.Prev.psSkin and GF.parts.nav.Prev.psSkin.kit and GF.parts.nav.Prev.psSkin.kit.plateLit
+
+		emit({ bgLayer = bgLayer, bgSub = bgSub,
+			oTop = oTop, oBot = oBot,
+			cardBlend = cl and cl[2] and cl[2].blend or false,
+			navBlend  = hv and hv.blend or false,
+			platBlend = pl and pl.blend or false })`, {
+		before: `C_Texture = { GetAtlasInfo = function(name)
+			return { file = "atlas:" .. name, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1, width = 110, height = 110 }
+		end }`,
+	});
+	// (a)
+	assert.equal(out.bgLayer, 'BORDER', 'body is in BORDER layer');
+	assert.equal(out.bgSub,   1,        'body sub-level 1 > slim sub-level 0');
+	// (b) Legacy-Progressbar-Frame margins top=11, bottom=13
+	assert.equal(out.oTop,  11, 'statusArt top margin outside bar');
+	assert.equal(out.oBot, -13, 'statusArt bottom margin outside bar');
+	// (c)
+	assert.equal(out.cardBlend, 'ADD', 'cardLit ADD');
+	assert.equal(out.navBlend,  'ADD', 'navHover ADD');
+	assert.equal(out.platBlend, 'ADD', 'plateLit ADD');
+});

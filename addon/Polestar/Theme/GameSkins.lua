@@ -548,11 +548,17 @@ end
 -- The guide window (and the toasts, psLight).
 local GUIDE = {
 	forever = function(f, kit)
-		body(f, 0, 0, 0, 0.96 * opacity(f), 3)
+		-- Body at BORDER sublevel 1 so it renders above the slim (BORDER 0).
+		-- sliced(UI-HUD-ActionBar-Frame) with out={3,3,3,3} and its GameArtSlice
+		-- margins {16,20,16,20} put 13–17 px of the art inside the window (the
+		-- inner semi-transparent gradient of the frame art, not the bronze line).
+		-- The body at BORDER 1 covers those inner portions; the outer 3 px where
+		-- the bronze line sits are above f's top and are not covered (#306).
+		local bg = body(f, 0, 0, 0, 0.96 * opacity(f))
+		bg:SetDrawLayer("BORDER", 1)
 		-- The micro menu box's bronze line (55 units, its chamfered corners
 		-- 12), the line 3 units in from the art's edge: laid 3 out so it runs
-		-- on the window's edge. Its filled middle is left out: the body is
-		-- the window's own.
+		-- on the window's edge. Its filled middle is left out.
 		local o = child(f, "edge", 6)
 		o:EnableMouse(false)
 		o:SetAllPoints(f)
@@ -678,7 +684,8 @@ end
 local function card(f, kit, selected)
 	if kit.card then
 		sliced(f, "card", kit, selected and kit.cardSelected or kit.card, f, nil, "BACKGROUND", -6)
-		sliced(f, "cardLit", kit, kit.cardHover, f, nil, "HIGHLIGHT", 0)
+		local lp = sliced(f, "cardLit", kit, kit.cardHover, f, nil, "HIGHLIGHT", 0)
+		for i = 1, 9 do if lp[i] then lp[i]:SetBlendMode("ADD") end end
 		return
 	end
 	if kit.source == "file" then
@@ -725,7 +732,8 @@ local function field(f, kit)
 		return
 	end
 	sliced(f, "dd", kit, kit.dropdown, f, { 7, 7, 7, 7 }, "BACKGROUND", -6)
-	sliced(f, "ddLit", kit, kit.dropdownLit, f, { 7, 7, 7, 7 }, "HIGHLIGHT", 0)
+	local dp = sliced(f, "ddLit", kit, kit.dropdownLit, f, { 7, 7, 7, 7 }, "HIGHLIGHT", 0)
+	for i = 1, 9 do if dp[i] then dp[i]:SetBlendMode("ADD") end end
 	local arrow = tex(f, "ddArrow", "HIGHLIGHT", 1)
 	draw(arrow, kit, kit.dropdownArrow)
 	arrow:ClearAllPoints()
@@ -897,6 +905,7 @@ function Theme.KitIconButton(b)
 	local hl = tex(b, "plateLit", "HIGHLIGHT")
 	draw(hl, kit, kit.plateHover)
 	hl:SetAllPoints(b)
+	hl:SetBlendMode("ADD")
 	b.Icon:SetAlpha(1)
 	return true
 end
@@ -1050,6 +1059,7 @@ function Theme.KitRowLit(r, shown, key, inset)
 	if key == "navLit" and kit.navHover then
 		local hv = tex(r, key .. "Hover", "HIGHLIGHT", 0)
 		draw(hv, kit, kit.navHover)
+		hv:SetBlendMode("ADD")
 		hv:ClearAllPoints()
 		hv:SetPoint("LEFT", r, "LEFT", inset or 4, 0)
 		hv:SetPoint("RIGHT", r, "RIGHT", -(inset or 4), 0)
@@ -1138,8 +1148,13 @@ function Theme.KitStatus(b)
 		local o = child(b, "statusFrame", 2)
 		o:EnableMouse(false)
 		o:ClearAllPoints()
-		o:SetPoint("TOPLEFT", b, "TOPLEFT", -7, 6)
-		o:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 7, -7)
+		-- Legacy-Progressbar-Frame has GameArtSlice margins {33,11,33,13}: the top
+		-- border is 11 units and the bottom is 13 units. Position the host so those
+		-- margins land outside the bar, giving the bar's full height as the visible
+		-- center. The old offsets (+6/-7) left only ~1 px of centre; the fill was
+		-- almost entirely blocked by the ARTWORK-layer frame pieces (#306).
+		o:SetPoint("TOPLEFT", b, "TOPLEFT", -7, 11)
+		o:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 7, -13)
 		sliced(b, "statusArt", kit, kit.status.frame, o, nil, "ARTWORK", 0, true)
 	elseif kit.source == "retail" then
 		b:SetStatusBarTexture(CLASSIC.statusFill[1])
