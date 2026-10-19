@@ -271,7 +271,7 @@ step Walton
   accept 95621
 
 step Trouble in the Valley
-  tip Corporal Adamore and his marines hold the wrecked caravan south of Walton.
+  tip Corporal Adamore and his marines hold the wrecked caravan south of Walton. The marines are linked: pulling one calls the rest. Pull from the edge and run; they leash short, so you can thin the camp one at a time before tackling the Corporal.
   collect 270151 quest 95621.1 @41.8,15.6
 
 step Walton
