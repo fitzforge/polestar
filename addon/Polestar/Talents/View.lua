@@ -5,7 +5,9 @@
 -- Tabs: one per spec (the sidebar index). Under them two panes on the guide
 -- menu's grid, as Rares: the plan (left, its picks in order, numbered, in
 -- bands of ten; learned picks muted, the next one marked) and the plan's
--- page (right, on the panel ground): where you stand, "Follow this plan" /
+-- page (right, on the panel ground): where you stand, the mini talent tree
+-- with its pick stepper (Tree.lua; the list's row for the stepper's pick is
+-- marked, and a click on a row steps there), "Follow this plan" /
 -- "Follow my spec", the plan's notes (at approximate levels: points can come
 -- earlier than one a level), and its source. Talent names are the client's
 -- on every tab, not only the followed plan's.
@@ -36,7 +38,8 @@ local TV = {}
 UI.TalentsSection = TV
 
 local tab -- the spec index shown; nil: the followed plan's
-local root, shellRef, list, detail
+local root, shellRef, list, detail, tree
+local stepped = {} -- plan key -> the stepper's pick, once moved; reset on reopening
 local rows, bands, heads, notes = {}, {}, {}, {}
 local shown = {}
 
@@ -62,6 +65,8 @@ local function row(i)
 	r.Sub = W.Text(r, "small", "textMuted")
 	r.Sub:SetJustifyH("RIGHT")
 	r.Sub:SetPoint("RIGHT", r, "RIGHT", -10, 0)
+	r:EnableMouse(true)
+	r:SetScript("OnMouseUp", function(self) if self.psPick and TV.StepTo then TV.StepTo(self.psPick.order) end end)
 	rows[i] = r
 	return r
 end
@@ -174,6 +179,16 @@ local function writer()
 		w.y = w.y - 6 - n:GetStringHeight() - 10
 		shown.notes[#shown.notes + 1] = text
 	end
+	function w.tree(o)
+		tree = tree or T.Tree.Create(d.Body)
+		tree:ClearAllPoints()
+		tree:SetPoint("TOPLEFT", d.Body, "TOPLEFT", DPAD, w.y - 10)
+		tree:SetWidth(w.width)
+		T.Tree.Set(tree, o)
+		tree:Show()
+		w.y = w.y - 10 - tree:GetHeight() - 6
+		shown.tree = tree.psShown
+	end
 	return w
 end
 
@@ -181,6 +196,7 @@ local function hideAll()
 	for _, t in ipairs({ rows, bands, heads, notes }) do
 		for _, r in ipairs(t) do r:Hide() end
 	end
+	if tree then tree:Hide() end
 end
 
 -- Where the player stands on the plan they follow.
@@ -210,7 +226,7 @@ local REASONS = {
 
 -- c: the current state when this is the followed plan (progress marks);
 -- valid: the live tree's names, for every plan.
-local function renderList(build, c, valid)
+local function renderList(build, c, valid, cursor)
 	local s = c and c.state
 	local y, nr, nb = 0, 0, 0
 	local lastBand
@@ -235,11 +251,12 @@ local function renderList(build, c, valid)
 		local n = build.data.nodes[p.node]
 		local done = s and (p.order < (s.next and s.next.order or math.huge))
 		local isNext = s and s.next == p
-		r.Selected:SetShown(isNext or false)
-		r.Bar:SetShown(isNext or false)
+		local here = cursor == p.order
+		r.Selected:SetShown(here)
+		r.Bar:SetShown(here)
 		r.Level:SetText(tostring(p.order))
 		r.Title:SetText(T.NodeName(build.data, p.node, valid))
-		W.Color(r.Title, isNext and "accent" or (done and "textMuted" or "text"))
+		W.Color(r.Title, (isNext or here) and "accent" or (done and "textMuted" or "text"))
 		r.Sub:SetText(format("%d/%d", p.rank, n.max))
 		r.Title:SetWidth(max(40, min(LIST_W - ROW_X * 2 - TEXT_X - 50, floor(r.Title:GetStringWidth() + 1))))
 		r.psPick = p
@@ -251,6 +268,7 @@ local function renderList(build, c, valid)
 	list.Empty:SetShown(nr == 0)
 	W.SetScrollContent(list.Scroll, y + 16)
 	shown.rows = nr
+	shown.cursorRow = cursor
 	shown.titles = {}
 	for i = 1, nr do shown.titles[i] = rows[i].Title:GetText() end
 end
@@ -293,7 +311,9 @@ function TV.Render()
 		W.ShellTitle(shellRef, L["Talents"], format(L["%s plan for %s"], followed.specName, UnitClass("player") or "")
 			.. (c and c.state and (DOT .. format(L["%d of %d picks"], c.state.done, c.state.total)) or ""))
 	end
-	renderList(build, mine and c and c.state and c or nil, c and c.valid)
+	local state = mine and c and c.state or nil
+	local cursor = stepped[build.key] or T.Tree.DefaultCursor(build, state)
+	renderList(build, state and c or nil, c and c.valid, cursor)
 	w.title(format(L["%s plan"], build.specName), build.split .. DOT .. format(L["%d picks, in order"], #build.picks))
 	shown.spec, shown.followed, shown.mine = build.specName, followed.specName, mine
 	if reason == "stale" then
@@ -311,13 +331,17 @@ function TV.Render()
 		shown.status = reason
 	end
 	if data.summary and mine then w.note(data.summary) end
+	w.tree({ data = data, build = build, valid = c and c.valid, state = state, mine = mine, cursor = cursor,
+		onStep = function(n) stepped[build.key] = n; TV.Render(); TV.RevealRow(n) end })
 	w.head(L["Notes"])
 	-- Keyed by the level the source plan reaches them at; shown as a rough
 	-- guide only, since points can come sooner.
 	local lvs = {}
 	for lv in pairs(build.notes) do lvs[#lvs + 1] = lv end
 	table.sort(lvs)
-	for _, lv in ipairs(lvs) do w.note(format(L["Around level %d: %s"], lv, build.notes[lv]), "text") end
+	-- Notes the stepper has reached in full colour, later ones dimmed.
+	local reached = cursor > 0 and T.Tree.ApproxLevel(cursor) or 0
+	for _, lv in ipairs(lvs) do w.note(format(L["Around level %d: %s"], lv, build.notes[lv]), lv <= reached and "text" or "textMuted") end
 	w.head(L["Source"])
 	w.note(format(L["Picks from %s (%s), checked against the game's talent tree; notes in Polestar's words."], data.source, data.url))
 	local choice = T.Choice()
@@ -368,10 +392,28 @@ function TV.FollowSpec()
 	T.Choose("auto")
 end
 
+-- Step the tree to pick n of the plan shown (a click on a list row).
+function TV.StepTo(n)
+	if tree and tree:IsShown() and tree.psBuild then T.Tree.Step(tree, n - (tree.psCursor or 0)) end
+end
+
+-- Scroll the list so pick n's row is in view.
+function TV.RevealRow(n)
+	local r
+	for _, row in ipairs(rows) do if row:IsShown() and row.psPick and row.psPick.order == n then r = row end end
+	if not (r and list.Scroll.GetVerticalScroll) then return end
+	local top = -select(5, r:GetPoint(1))
+	local view, at = list.Scroll:GetHeight(), list.Scroll:GetVerticalScroll()
+	if top < at then W.ScrollTo(list.Scroll, max(0, top - HEAD_H))
+	elseif top + ROW_H > at + view then W.ScrollTo(list.Scroll, top + ROW_H - view + 8) end
+end
+
 function TV.Shown() return shown end
+function TV.TreeFrame() return tree end
 TV.rows = rows
 
 function TV.Show()
+	for k in pairs(stepped) do stepped[k] = nil end
 	local P = UI.Picker
 	if UI.ShowPicker then UI.ShowPicker() end
 	if P and P.ShowSection then P.ShowSection("Talents") end

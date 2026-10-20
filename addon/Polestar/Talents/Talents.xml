@@ -3,5 +3,6 @@
 	<Script file="Builds.lua"/>
 	<Script file="Overlay.lua"/>
 	<Script file="Options.lua"/>
+	<Script file="Tree.lua"/>
 	<Script file="View.lua"/>
 </Ui>
