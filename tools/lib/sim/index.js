@@ -48,11 +48,11 @@ function normFaction(f) {
 async function loadWorld(o) {
 	const opts = { ...DEFAULTS, ...o };
 	const questXp = await loadQuestXp({ sourcesDir: opts.sourcesDir, offline: opts.offline, log: opts.log });
-	const world = getWorld({ dataDir: opts.dataDir, sourcesDir: opts.sourcesDir, simDir: opts.simDir, faction: opts.faction, rebuild: opts.rebuild, questXp, log: opts.log, bandWidth: opts.bandWidth, maxOpen: opts.maxOpen, extraStarts: opts.extraStarts });
+	const world = getWorld({ dataDir: opts.dataDir, sourcesDir: opts.sourcesDir, simDir: opts.simDir, faction: opts.faction, rebuild: opts.rebuild, questXp, log: opts.log, bandWidth: opts.bandWidth, maxOpen: opts.maxOpen, extraStarts: opts.extraStarts, variant: opts.variant });
 	// Routed walks (sim walks), unless --no-walks: the straight line × detour then.
 	if (opts.walks !== false) attachWalks(world, opts.simDir, { log: opts.log });
 	else world.walks = null;
-	return { world, worldFile: worldFile(opts.simDir, opts.faction) };
+	return { world, worldFile: worldFile(opts.simDir, opts.faction, opts.variant) };
 }
 
 // Parameters for a class under an objective (params.js OBJECTIVES) and

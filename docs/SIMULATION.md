@@ -114,7 +114,8 @@ Outputs: `data/sim/` and `data/bench/` (both gitignored).
   landmass, as the faction (its hostile towns cost more) in the arrow's
   default route style (balanced): one `Path.FindMany` search per point,
   on worker threads (about 10 min per faction on 15 workers), into
-  `data/sim/walks-<faction>.json`. A walk between two of those points is
+  `data/sim/walks-<faction>.json` (the group world, `--elites`, has its own
+  points: `walks-<faction>-group.json`). A walk between two of those points is
   then the routed yards × `routeMul` (prior 1 ± 0.05: a player strays a
   little from the drawn line), and so are the walks to and from
   transport nodes, between nodes, and the order of a package's steps; a
@@ -330,6 +331,130 @@ writes `horde-orc-any-smooth-g6.json`, and `robust`, `compare` and
 `consensus` with the same `--tag` read and write that variant. Results
 record `overrides` and `tag`.
 
+### Party (`--party N`)
+
+`sim run --party 3` (also `robust`, `compare`, `consensus`) scores a party
+of N players (1-5) levelling together, every one doing the route. Results
+get the tag `party<N>` unless `--tag` names another. The model (params.js,
+run.js `partyFactors`):
+
+- **Group XP:** a kill's XP times Classic's group bonus (1, 1, 1.166, 1.3,
+  1.4 for 1-5 players, `GROUP_BONUS`) is split among the party, equal levels
+  assumed: each member gets bonus / N of the solo value. Quest XP is not
+  split: every member hands the quest in.
+- **Kill speed:** the party kills `1 + (N - 1) × partyDps` times as fast as
+  one player (prior 0.8: overkill, tagging, pulling). The walk between mobs
+  is not shared, nor is grinding's.
+- **Kill credit** is shared: a kill objective needs its count once for the
+  party. **Drops** are per member: an objective drop needs
+  `1 + (N - 1) × (1 - partyDrops)` times the kills (prior 0.5, wide; how
+  Forever shares quest drops in a party is to be checked in the game).
+- **Dungeons:** a full party of 5 needs `premadeFormUp` minutes (prior 5) to
+  walk in together instead of `dungeonFormUp` to find a group; a smaller
+  party finds the rest, in between. The dungeon's XP stays shared by five.
+
+`partySize` 1 is the solo model, unchanged.
+
+**Dungeon mob XP.** Forever cut the XP dungeon mobs give during the beta
+("brought way down", September 2026) and raised it about 20% on 8 October,
+without a figure; `dungeonMobXp` (prior 0.6, 0.2 to 1) scales the trash and
+boss XP of a run. Dungeon quests keep Forever's own quest XP.
+
+**Dungeon gear.** A dungeon run's boss loot and quest rewards make the
+character kill faster for a while: after a run, kill time (quest kills and
+the killing share of grinding) is `dungeonGear` shorter (prior 5%, sd 4%,
+0 to 20%) until `gearLife` levels past the dungeon's top level (or past the
+character's level, if lower; prior 3, 1 to 7), when questing's own rewards
+have caught up. A dungeon run far above its levels gives gear already
+outlevelled, and a later run that lasts longer starts the window again.
+Quest rewards along the solo route are in the calibrated kill times already,
+so only dungeons get the bonus.
+
+The priors come from Polestar's own gear scores (Gear.lua's rules and each
+class's default-spec weights, items from Polestar_ItemDB): for each dungeon
+and class, the best set from Horde quest rewards up to the dungeon's middle
+level against that set plus the dungeon's quest rewards and its boss loot
+(one item per boss from its DungeonJournal list, won half the time when
+usable), with kill time falling by 1 - 1 / (1 + f × gain), f the share of
+damage that scales with gear (0.5 melee, 0.25 casters). Means over classes
+(2026-10-19): Wailing Caverns 10%, Blackfathom Deeps 5% (more if its loot
+without stats is as good), Shadowfang Keep, Gnomeregan and Razorfen Kraul
+4-5%, Ragefire Chasm 3%, Deadmines, the Stockade and Scarlet Monastery 1-2%;
+melee about twice casters. Questing catches up in 1-5 levels. The four
+Forever dungeons' loot has almost no fixed stats yet (it scales), so they
+take the global prior. `sim weave --draws` shows how much the answer rests on it.
+
+**Elite quests (`--elites`).** The solo filter drops quests with elite kill
+objectives and items that only elites or mobs 5+ levels above the quest drop
+(`elite` in `sim world`'s exclusions). `--elites` builds the group world
+instead (`data/sim/world-<faction>-group.json`, its own data hash), which
+keeps them and marks them `elite`; their elite kills cost `eliteTime` and
+give twice the XP, as before. Results get the tag `elites` (`party3-elites`
+with `--party 3`). A guide puts such a quest behind `when group <quest>`,
+so the player chooses it. Comparing `--party 3` with `--party 3 --elites` tells
+whether a party gains from them. The hand-written exclusions in `solo.js`
+stay excluded.
+
+### Weave (`sim weave`)
+
+`sim weave --faction F [--race R] [--class C] [--party N] [--elites]` asks
+what each dungeon is worth on a route that is already searched: it reads the
+`sim run` result with the same options (`--party 3` reads the `party3`
+result), takes today's parameters (`--param` sets one; a dungeon parameter
+added since the search counts), replays its route in the dungeon family (followed as a plan:
+an under-levelled package is caught up by grinding) and tries each dungeon's
+package at every place in it. The place with the shortest time to 60 is the
+dungeon's spot (a place where it is not run, under its level gate or out
+of reach, does not count; a dungeon no place runs is "not run"), and the
+difference to the route alone is what the dungeon
+saves or costs for that character and party. Then it adds the dungeons that
+save time, best first, each at its best spot in the route as it stands, while
+one still saves more than a second: the recommended set.
+
+The route around a dungeon stays as searched, so a weave is a lower bound on
+what a dungeon search could find; it is what a guide with `when dungeon`
+steps offers, the solo route with the run where the steps put it. Output:
+`data/sim/weave/<faction>-<race>-<class>[-<tag>].json` (per dungeon: levels,
+quests, spot, the level it is run at, seconds and delta; the recommended set
+and its time) and a table.
+
+`--draws K` adds how sure that is: K parameter draws from the result's
+priors, each dungeon at the spot the mean parameters gave it (the spot a guide
+ships), against the route alone under the same draw. Per dungeon: the mean,
+the 90% interval, the share of draws where it saves time, and the three
+parameters that move it most (Spearman correlation with the delta).
+
+### Elite quests in the guides (`sim elites`)
+
+`sim elites --faction F [--race R] [--class C] --party N [--min M] [--apply]`
+asks which elite quests pay for a party, and drafts them into our leveling
+guides behind `when group <quest>` (docs/GUIDE_FORMAT.md, "Group quests"),
+every step of a block for the elite quest it is for, so the guide asks once
+and the solo route stays as it is. It reads the group world's result (`sim run
+--party N --elites`) and scores its route with each elite quest left out of
+the world (and with it what only that quest opens): what the party loses
+without the quest is what it saves. Those saving more than M minutes
+(default 5) are drafted.
+
+A quest's chain is what lint asks of it (validate.js): every blocking
+prerequisite, one of an any-of group, those the route has not turned in
+before that place; a quest for other races, or one needing a quest the guides
+turn in elsewhere on the route, is no chain there. It goes after the first
+step of the faction's Leveling guides (levels within 2 under and 4 over the
+chain's) that visits the first giver (a goal at that NPC or object, or within
+3 map percent) with the chain open: an accept step at the giver, a step for
+the objectives with the elite tip, the turn-in at the ender, steps at the same
+NPC merged. A quest started by an item, or whose giver no guide visits at its
+level, is left out with its reason. Output:
+`data/sim/elites/<result>.guide-draft`.
+
+`--apply` writes the drafts into the guide files, then lints: a block lint
+reports anything in (another zone's map, a missing spawn) is taken out again,
+with lint's message as its reason, and new diagnostics outside the blocks are
+printed. What is left is a draft for an author: `playtest --group do`
+plays it, and a note telling solo players to leave a quest the block now
+takes gets its own step with `when !group <quest>`.
+
 ## 3. Route evaluation and search
 
 - A **route** is an ordered list of packages starting at the race's start zone
@@ -367,7 +492,18 @@ record `overrides` and `tag`.
 - From quest data: quests.json rewards against the QuestXP-table estimate
   (`questEstScale`) and Forever-observed rewards from the installed
   ForeverDungeonJournal (`--fdj <dir>`; `questXpScale`).
-- From recordings (data/recordings): kill rates (`killSec1`, `killSec60`).
+- From recordings (data/recordings): kill rates (`killSec1`, `killSec60`),
+  and dungeon runs from the Recorder's `enter` and `leave` (with the party's
+  size and the character's level at the run): a leave and an enter into the
+  same dungeon within 15 minutes (a corpse run) are one run, a run with no
+  leave (a logout inside) or over 4 hours is dropped. The clear time is fitted
+  to the model of evaluate.js, `dungeonRunLow` at level 15 to `dungeonRunHigh`
+  at 55, by least squares when the runs' levels spread over 10 or more, else
+  as the priors scaled by the median ratio of the runs to them (sd half the
+  prior's, a quarter from 10 runs). `premadeFormUp` is the median of the
+  minutes from the last quest event outside to entering, for parties of 2 or
+  more, from 3 such runs. Group finding (`dungeonFormUp`) and the dungeons'
+  own XP stay priors: a recording does not show them.
 - `extraKill` (incidental kill XP, the main unobserved XP source) is a fixed
   prior in params.js (0.043 ± 0.038, fitted 2026-10-12 against level
   checkpoints).
@@ -410,7 +546,8 @@ Only the fitted parameter values are kept (data/sim/params.json).
 ```
 sim world   [--faction F] [--rebuild]               build/cache the world model (data/sim/world-<faction>.json)
 sim walks   [--faction F] [--radius Y] [--workers W]  route the world's walks with the walking router
-            (data/sim/walks-<faction>.json; run, robust, compare, bench and consensus use them)
+            (data/sim/walks-<faction>.json, with --elites walks-<faction>-group.json;
+             run, robust, compare, bench and consensus use them)
 sim calibrate [--fdj DIR]                            fit parameters to quest data and recordings
 sim run     --faction F [--race R] [--class C] [--paths N] [--workers W] [--seed S] [--dungeons]
             [--jobs J] [--anneal A] [--max-paths M] [--objective time|smooth] [--param K=V ...] [--tag T]

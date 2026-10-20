@@ -5272,9 +5272,13 @@ Finds (`Finds.lua`), for what the client tables cannot give the Codex:
   the dead target), each corpse or object once per session; `q` marks quest
   items, `gather` (`herb`, `mine`, `skin`) a window a gathering cast opened.
   Fishing is left out.
-- `enter {inst, instName, instType, diff, map, x, y}`: zoning into a dungeon
-  or raid (`GetInstanceInfo`), with the last outdoor position (taken at
-  `PLAYER_LEAVING_WORLD`) as the entrance.
+- `enter {inst, instName, instType, diff, party, lvl, map, x, y}`: zoning
+  into a dungeon or raid (`GetInstanceInfo`), with the last outdoor position
+  (taken at `PLAYER_LEAVING_WORLD`) as the entrance, the players in the group
+  (`party`, 1 alone) and the character's level.
+- `leave {inst, party}`: zoning out of it (or straight into another). With
+  `enter`, `sim calibrate` times dungeon runs (docs/SIMULATION.md,
+  "Calibration").
 - `encounter {enc, encName, diff, size, ok, inst, npcs, map, x, y}`:
   `ENCOUNTER_END`; `npcs` are the bosses its `encounterUnitStatus` lists,
   else the creatures that died since `ENCOUNTER_START`.

@@ -399,6 +399,24 @@ test('dungeons: only in the dungeon family; a run gives party-shared elite XP an
 	assert.deepEqual(Array.from(seq.kind), [0, 4, 2]);
 });
 
+test('dungeon gear: after a run, kills and grinding are dungeonGear faster for gearLife levels; without it, nothing changes', () => {
+	const at = (gear, life) => {
+		const { run, ev } = setup({ family: 'dungeons', params: { gateGap: 10, dungeonGear: gear, gearLife: life }, rules: false });
+		const r = ev.evaluate([pkg(run, 'Farfield 6-10'), pkg(run, 'Dungeon: Test Hollow')], { detail: true });
+		return { r, gearUntil: ev.gearUntil };
+	};
+	const none = at(0, 8);
+	const some = at(0.2, 8);
+	assert.equal(none.gearUntil, 0);
+	// The run is at level 6 or above (the dungeon's minimum): the gear lasts 8 levels past it.
+	assert.ok(some.gearUntil >= 6 + 8, `gear until ${some.gearUntil}`);
+	// The packages before the run are not touched; the grind to 60 after it is faster.
+	assert.deepEqual(some.r.perPackage.map((x) => x.leave), none.r.perPackage.map((x) => x.leave));
+	assert.ok(some.r.seconds < none.r.seconds);
+	// Gear that is outlevelled at once changes nothing.
+	assert.equal(at(0.2, 0).r.seconds, none.r.seconds);
+});
+
 // ---------------------------------------------------------------- starts and travel safety
 
 test('Zephras Isle is Skyborne-only: its quests are closed to other races, its exit is one way', () => {
@@ -582,4 +600,52 @@ test('a transport end with a board point (a ship lying off its pier) has its doc
 	const dock = (name) => w.points[w.nodes.find((n) => n.kind === 'dock' && n.name.startsWith(name)).pt];
 	assert.deepEqual([0, 2, 3].map((i) => dock('Testvale tower')[i]), [1, 912, -100], 'walked to the deck');
 	assert.deepEqual([0, 2, 3].map((i) => dock('Farcoast tower')[i]), [0, 900, -100], 'no board point: the stop');
+});
+
+test('party: group XP bonus split per member, kills faster by partyDps per extra member; solo is unchanged', () => {
+	const { partyFactors, GROUP_BONUS, MOBL } = require('../tools/lib/sim/run');
+	assert.deepEqual(GROUP_BONUS.slice(1), [1, 1, 1.166, 1.3, 1.4]);
+	assert.deepEqual(partyFactors(params()), { n: 1, xp: 1, speed: 1 });
+	const three = partyFactors(params({ partySize: 3, partyDps: 0.8 }));
+	assert.equal(three.n, 3);
+	assert.ok(Math.abs(three.xp - 1.166 / 3) < 1e-12);
+	assert.ok(Math.abs(three.speed - 2.6) < 1e-12);
+	const { run } = setup();
+	const solo = makeTables(run, params());
+	const party = makeTables(run, params({ partySize: 3, partyDps: 0.8 }));
+	const i = 10 * MOBL + 10; // level 10 against a level 10 mob
+	assert.ok(Math.abs(party.killT[i] - solo.killT[i] / 2.6) < 1e-9);
+	assert.ok(Math.abs(party.killX[i] - (solo.killX[i] * 1.166) / 3) < 1e-9);
+	assert.ok(party.grindRate[10] < ((solo.grindRate[10] * 1.166) / 3) * 2.6 + 1e-9, 'grinding: the walk between mobs is not shared');
+});
+
+test('a result saved before a parameter was added still evaluates: the missing one is at its prior\'s mean', () => {
+	const { run } = setup();
+	const full = params({ partySize: 3 });
+	const old = { ...full };
+	delete old.partyDrops;
+	delete old.premadeFormUp;
+	delete old.dungeonMobXp;
+	const route = run.packages.map((_, i) => i);
+	const a = new Evaluator(run, makeTables(run, full)).evaluate(route);
+	const b = new Evaluator(run, makeTables(run, old)).evaluate(route);
+	const t = makeTables(run, old);
+	for (const k of ['partyDrops', 'premadeFormUp', 'dungeonMobXp']) assert.equal(t.p[k], full[k], k);
+	assert.ok(Number.isFinite(b.seconds));
+	assert.equal(b.seconds, a.seconds);
+	assert.equal(old.partyDrops, undefined, 'the saved params are not changed');
+});
+
+test('party: a full premade party walks into a dungeon without finding a group; a smaller one finds the rest', () => {
+	const time = (over) => {
+		const { run, ev } = setup({ family: 'dungeons', params: { gateGap: 10, ...over }, rules: false });
+		const r = ev.evaluate([pkg(run, 'Farfield 6-10'), pkg(run, 'Dungeon: Test Hollow')], { detail: true });
+		return r.perPackage[1].dungeon;
+	};
+	const solo = time({});
+	const five = time({ partySize: 5 });
+	const three = time({ partySize: 3 });
+	const p = params();
+	assert.ok(Math.abs(solo - five - (p.dungeonFormUp - p.premadeFormUp) * 60) < 1e-6);
+	assert.ok(Math.abs(three - five - ((p.dungeonFormUp - p.premadeFormUp) * 60) / 2) < 1e-6);
 });
