@@ -114,6 +114,23 @@ test('a pasted string shows its preview before anything is saved; Import saves i
 	assert.ok(menu.entries > 0);
 });
 
+test('a paste comes in one character at a time and is read on the next frame; the box keeps only its beginning', () => {
+	const s = string();
+	const [during, after] = run(`
+		IV.Show()
+		local box = IV.parts.Box
+		local text = ${str(s)}
+		for i = 1, #text do box:GetScript("OnChar")(box, text:sub(i, i)) end
+		box:GetScript("OnTextChanged")(box, true)
+		emit({ preview = IV.Shown().preview or false })
+		stub.advance(0.02)
+		emit({ preview = IV.Shown().preview, box = box:GetText() })
+	`);
+	assert.equal(during.preview, false, 'nothing read while the paste comes in');
+	assert.match(after.preview, /^Cozy Sleeping Bag/);
+	assert.equal(after.box, `${s.slice(0, 40)}… (${Math.ceil(s.length / 1024)} KB)`);
+});
+
 test('a refused string shows why and saves nothing; the same string again says it is already imported; a newer one offers Update', () => {
 	const p = JSON.parse(JSON.stringify(require('../tools/lib/pack/importstring').decodeImport(string())));
 	p.guide.version = 4;

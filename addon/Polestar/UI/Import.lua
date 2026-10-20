@@ -139,10 +139,38 @@ end
 -- Building
 ---------------------------------------------------------------------------
 
+-- An edit box lays out its whole text, which freezes the game for a string of
+-- hundreds of kilobytes. The box holds little; a paste's characters come one
+-- by one in the same frame (OnChar) and are joined on the next.
+local PASTE_BOX_BYTES = 2500
+local PASTE_MIN = 20
+
 local function pasteBox(parent)
 	local e = CreateFrame("EditBox", nil, parent)
 	e:SetAutoFocus(false)
 	e:SetMaxLetters(0)
+	e:SetMaxBytes(PASTE_BOX_BYTES)
+	local parts, count, at = {}, 0, nil
+	e:SetScript("OnChar", function(self, c)
+		local now = GetTime()
+		if now ~= at then
+			at, parts, count = now, {}, 0
+			self:SetScript("OnUpdate", function(box)
+				box:SetScript("OnUpdate", nil)
+				if count < PASTE_MIN then
+					IV.Check(box:GetText())
+					return
+				end
+				local pasted = table.concat(parts, "", 1, count)
+				parts, count = {}, 0
+				box:SetText(format("%s\226\128\166 (%d KB)", pasted:gsub("%s", ""):sub(1, 40), math.ceil(#pasted / 1024)))
+				box:ClearFocus()
+				IV.Check(pasted)
+			end)
+		end
+		count = count + 1
+		parts[count] = c
+	end)
 	Theme.Font(e, "label")
 	W.Color(e, "text")
 	e:SetHeight(30)
@@ -161,7 +189,7 @@ local function pasteBox(parent)
 	end)
 	e:SetScript("OnTextChanged", function(self, userInput)
 		self.Hint:SetShown(self:GetText() == "")
-		if userInput then IV.Check(self:GetText()) end
+		if userInput and at ~= GetTime() then IV.Check(self:GetText()) end
 	end)
 	return e
 end
