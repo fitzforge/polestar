@@ -4,7 +4,8 @@
 --
 -- Tabs: one per spec (the sidebar index). Under them two panes on the guide
 -- menu's grid, as Rares: the plan (left, its picks in order, numbered, in
--- bands of ten; learned picks muted, the next one marked) and the plan's
+-- bands of ten; learned picks muted, the next one in accent, the stepper's
+-- pick marked) and the plan's
 -- page (right, on the panel ground): where you stand, the mini talent tree
 -- with its pick stepper (Tree.lua; the list's row for the stepper's pick is
 -- marked, and a click on a row steps there), "Follow this plan" /
@@ -66,7 +67,9 @@ local function row(i)
 	r.Sub:SetJustifyH("RIGHT")
 	r.Sub:SetPoint("RIGHT", r, "RIGHT", -10, 0)
 	r:EnableMouse(true)
-	r:SetScript("OnMouseUp", function(self) if self.psPick and TV.StepTo then TV.StepTo(self.psPick.order) end end)
+	r:SetScript("OnMouseUp", function(self, button)
+		if button == "LeftButton" and self.psPick and TV.StepTo then TV.StepTo(self.psPick.order) end
+	end)
 	rows[i] = r
 	return r
 end
@@ -87,6 +90,11 @@ function TV.Build(parent, shell)
 	shellRef = shell
 	root = CreateFrame("Frame", nil, parent)
 	root:SetAllPoints(parent)
+	-- Closing the hub or leaving the section puts the stepper back where
+	-- each plan opens.
+	local function reset() for k in pairs(stepped) do stepped[k] = nil end end
+	root:SetScript("OnHide", reset)
+	if shell and shell.HookScript then shell:HookScript("OnHide", reset) end
 	list = CreateFrame("Frame", nil, root)
 	list:SetPoint("TOPLEFT", root, "TOPLEFT", 0, 0)
 	list:SetPoint("BOTTOMLEFT", root, "BOTTOMLEFT", 0, 0)
@@ -196,7 +204,6 @@ local function hideAll()
 	for _, t in ipairs({ rows, bands, heads, notes }) do
 		for _, r in ipairs(t) do r:Hide() end
 	end
-	if tree then tree:Hide() end
 end
 
 -- Where the player stands on the plan they follow.
@@ -293,6 +300,7 @@ function TV.Render()
 	if not data or reason == "off" then
 		reason = reason or "class"
 		if shellRef then W.ShellTitle(shellRef, L["Talents"], L["A talent plan, pick by pick"]) end
+		if tree then tree:Hide() end
 		renderList({ picks = {} }, nil)
 		list.Empty:SetText(L["No plan for this character."])
 		w.title(L["Talents"])

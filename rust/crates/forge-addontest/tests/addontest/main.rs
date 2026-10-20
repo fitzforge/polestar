@@ -219,6 +219,8 @@ mod syntax;
 mod talents;
 #[path = "talents-tree-ahead.rs"]
 mod talents_tree_ahead;
+#[path = "talents-tree-stepper.rs"]
+mod talents_tree_stepper;
 mod theme;
 mod travel;
 #[path = "travel-build.rs"]

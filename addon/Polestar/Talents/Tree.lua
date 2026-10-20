@@ -50,15 +50,13 @@ end
 -- The level a pick roughly lands at, one point a level from the first.
 function MT.ApproxLevel(order) return order + T.FIRST_LEVEL - 1 end
 
--- The cursor a plan opens at: on the followed plan, the pick the next point
--- goes to (or the last learned one when none waits); on another, the whole
--- plan.
+-- The cursor a plan opens at: on the followed plan, its next pick (the whole
+-- plan once complete); on another, the whole plan.
 function MT.DefaultCursor(build, state)
 	local total = #build.picks
 	if not state then return total end
-	local s = state
-	if s.next and (s.unspent or 0) > 0 then return s.next.order end
-	return min(total, s.done)
+	if state.next then return state.next.order end
+	return total
 end
 
 -- A line in a palette colour (W.Color colours textures and text only).
@@ -203,16 +201,15 @@ function MT.Create(parent)
 	return t
 end
 
--- Move the cursor by delta picks (clamped to 0..#picks), redraw, and tell
--- the page.
+-- Move the cursor by delta picks (clamped to 0..#picks) and tell the page,
+-- which redraws the tree; without a page to tell, redraw it here.
 function MT.Step(t, delta)
 	local b = t.psBuild
 	if not b then return end
 	local n = max(0, min(#b.picks, (t.psCursor or 0) + delta))
 	if n == t.psCursor then return end
 	t.psCursor = n
-	MT.Draw(t)
-	if t.psOnStep then t.psOnStep(n) end
+	if t.psOnStep then t.psOnStep(n) else MT.Draw(t) end
 end
 
 function MT.Set(t, o)
