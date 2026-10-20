@@ -5,11 +5,10 @@
 -- Tabs: one per spec (the sidebar index). Under them two panes on the guide
 -- menu's grid, as Rares: the plan (left, its picks in order, numbered, in
 -- bands of ten; learned picks muted, the next one in accent, the stepper's
--- pick marked) and the plan's
--- page (right, on the panel ground): where you stand, the mini talent tree
--- with its pick stepper (Tree.lua; the list's row for the stepper's pick is
--- marked, and a click on a row steps there), "Follow this plan" /
--- "Follow my spec", the plan's notes (at approximate levels: points can come
+-- pick marked, and a click on a row steps there) and the plan's page (right,
+-- on the panel ground): where you stand, the mini talent tree with its pick
+-- stepper (Tree.lua), "Follow this plan" / "Follow my spec", the plan's notes
+-- (dimmed past the stepper's level; at approximate levels: points can come
 -- earlier than one a level), and its source. Talent names are the client's
 -- on every tab, not only the followed plan's.
 --
@@ -91,7 +90,8 @@ function TV.Build(parent, shell)
 	root = CreateFrame("Frame", nil, parent)
 	root:SetAllPoints(parent)
 	-- Closing the hub or leaving the section puts the stepper back where
-	-- each plan opens.
+	-- each plan opens. The client runs root's OnHide for both; the hub's own
+	-- hook also covers clients and harnesses that do not pass it down.
 	local function reset() for k in pairs(stepped) do stepped[k] = nil end end
 	root:SetScript("OnHide", reset)
 	if shell and shell.HookScript then shell:HookScript("OnHide", reset) end
@@ -412,6 +412,7 @@ function TV.RevealRow(n)
 	if not (r and list.Scroll.GetVerticalScroll) then return end
 	local top = -select(5, r:GetPoint(1))
 	local view, at = list.Scroll:GetHeight(), list.Scroll:GetVerticalScroll()
+	if view <= 0 then return end -- not laid out yet
 	if top < at then W.ScrollTo(list.Scroll, max(0, top - HEAD_H))
 	elseif top + ROW_H > at + view then W.ScrollTo(list.Scroll, top + ROW_H - view + 8) end
 end

@@ -50,11 +50,13 @@ end
 -- The level a pick roughly lands at, one point a level from the first.
 function MT.ApproxLevel(order) return order + T.FIRST_LEVEL - 1 end
 
--- The cursor a plan opens at: on the followed plan, its next pick (the whole
--- plan once complete); on another, the whole plan.
+-- The cursor a plan opens at: on the followed plan, its next pick (before the
+-- first while the game grants no point yet; the whole plan once complete); on
+-- another, the whole plan.
 function MT.DefaultCursor(build, state)
 	local total = #build.picks
 	if not state then return total end
+	if state.status == "early" then return 0 end
 	if state.next then return state.next.order end
 	return total
 end
