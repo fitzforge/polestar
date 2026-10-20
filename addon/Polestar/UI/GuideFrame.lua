@@ -803,12 +803,13 @@ end
 -- it; looked at with ‹ ›: back to the live step); then the out-levelled offer
 -- (while its guide is active), then the training reminder, the riding one,
 -- then a Class guide that just opened (QoL/ClassQuests.lua), then a dungeon
--- that pays for the party (Dungeons/Advice.lua). Taking or dismissing one
--- lets the next through.
+-- that pays for the party (Dungeons/Advice.lua), then the party leader's
+-- route (Quests/PartyRoute.lua). Taking or dismissing one lets the next
+-- through.
 ---------------------------------------------------------------------------
 
 local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-local notices = { stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeon = nil }
+local notices = { stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeon = nil, partyRoute = nil }
 GF.notices = notices
 
 -- The step on screen when it is not the live step: { guideId, index, live,
@@ -849,6 +850,7 @@ local function bannerNotice()
 	if notices.riding then return "riding", notices.riding end
 	if notices.classQuest then return "classQuest", notices.classQuest end
 	if notices.dungeon then return "dungeon", notices.dungeon end
+	if notices.partyRoute then return "partyRoute", notices.partyRoute end
 	return nil
 end
 GF.BannerNotice = bannerNotice
@@ -1018,6 +1020,25 @@ function GF.LayoutBanner(width)
 		local w = placeLink(banner.Jump, L["Pick up its quests"], 0, -4)
 		placeLink(banner.Later, L["Later"], w + 10, -4)
 		banner.Close:Show()
+	elseif kind == "partyRoute" then
+		banner.Icon:SetTexture(Theme.Media("icon-goto"))
+		local lines = { string.format(L["%s leads the party."], n.leader or "") }
+		local doN, skipN = 0, 0
+		for _, a in pairs(n.answers or {}) do
+			if a == "do" then doN = doN + 1 else skipN = skipN + 1 end
+		end
+		if doN + skipN > 0 then lines[#lines + 1] = string.format(L["Group quests: %d with the group, %d skipped."], doN, skipN) end
+		local names, N = {}, ns.Names
+		for _, map in ipairs(n.maps or {}) do
+			names[#names + 1] = (N and N.Instance and N.Instance(map)) or tostring(map)
+		end
+		if #names > 0 then lines[#lines + 1] = string.format(L["Dungeons: %s."], table.concat(names, ", ")) end
+		if doN + skipN == 0 and #names == 0 then lines[#lines + 1] = L["No group quests or dungeons."] end
+		lines[#lines + 1] = L["Take the same route?"]
+		banner.Text:SetText(table.concat(lines, "\n"))
+		placeLink(banner.Jump, L["Take it"], 0, -4)
+		banner.Later:Hide()
+		banner.Close:Show()
 	end
 	local h = floor(9 + banner.Text:GetStringHeight() + 4 + 18 + 9 + 0.5)
 	banner:SetHeight(h)
@@ -1072,6 +1093,10 @@ function GF.TakeBanner()
 		notices.dungeon = nil
 		local D = ns.Dungeons
 		if D and D.ResolveAdvice then D.ResolveAdvice(n, true) end
+	elseif kind == "partyRoute" then
+		notices.partyRoute = nil
+		local PR = ns.PartyRoute
+		if PR and PR.Take then PR.Take(n) end
 	end
 	GF.Layout()
 end
@@ -3048,6 +3073,14 @@ end)
 ns.On("DUNGEON_ADVICE", function(notice)
 	if not F then return end
 	notices.dungeon = notice
+	if ns.IsLoggedIn() then GF.Layout() end
+end)
+
+-- PARTY_ROUTE(route): the party leader shared a route that differs from
+-- ours; offer to take it until taken or dismissed (a newer one replaces it).
+ns.On("PARTY_ROUTE", function(route)
+	if not F then return end
+	notices.partyRoute = route
 	if ns.IsLoggedIn() then GF.Layout() end
 end)
 

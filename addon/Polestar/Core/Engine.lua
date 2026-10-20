@@ -4063,16 +4063,21 @@ end
 -- The dungeons the player runs in leveling guides (`when dungeon`, the
 -- Options' "Dungeons in leveling guides"): CharState().dungeons[map] = true,
 -- by the instance's Map id; none by default, so the solo route is the
--- default. A change re-evaluates the guides at once; a step the route has
--- passed keeps its stored outcome (Own.latchWhen).
+-- default. A change re-evaluates the guides at once and fires
+-- DUNGEONS_CHOSEN (map, on); a step the route has passed keeps its stored
+-- outcome (Own.latchWhen).
 function Engine.DungeonChosen(map)
 	return ns.CharState().dungeons[map] == true
 end
 
 function Engine.ChooseDungeon(map, on)
 	if type(map) ~= "number" then return end
-	ns.CharState().dungeons[map] = on and true or nil
+	local dungeons = ns.CharState().dungeons
+	on = on and true or nil
+	if dungeons[map] == on then return end
+	dungeons[map] = on
 	requestUpdate()
+	ns.Fire("DUNGEONS_CHOSEN", map, on == true)
 end
 
 -- The group quest the live step waits on (`when group`, unanswered): its
@@ -4117,13 +4122,17 @@ end
 
 -- The player's answer for group quest q: "do", "skip", or nil to ask again.
 -- Per character, for every guide (CharState().groupQuests); a quest not
--- answered takes behavior.groupQuests ("do", "skip"; "ask": nil).
+-- answered takes behavior.groupQuests ("do", "skip"; "ask": nil). A new
+-- answer fires GROUP_ANSWERED (q, answer) (Quests/PartyRoute.lua shares it).
 function Engine.GroupAnswer(q) return Own.groupAnswer(q) end
 
 function Engine.AnswerGroup(q, answer)
 	if type(q) ~= "number" or (answer ~= nil and answer ~= "do" and answer ~= "skip") then return end
-	ns.CharState().groupQuests[q] = answer
+	local answers = ns.CharState().groupQuests
+	if answers[q] == answer then return end
+	answers[q] = answer
 	requestUpdate()
+	ns.Fire("GROUP_ANSWERED", q, answer)
 end
 
 -- The active tab's finished guide when its route choice waits for the

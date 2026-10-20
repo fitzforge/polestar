@@ -3319,6 +3319,32 @@ flight timer and the instance tracker are set under Quality of Life.
   (`Polestar.Dungeons.Open(key)`); with the Dungeons module off, or on
   Shift-click, it sets a Nav waypoint.
 
+### Party route — Quests/PartyRoute.lua
+
+The party leader's route choices, so a party takes one route: the answers at
+group quests (`when group`; `Engine.GroupAnswer`, so an answer for all,
+`behavior.groupQuests` "do" or "skip", counts at every group quest of the
+leader's guides; a quest the leader has not answered is left out) and the
+dungeons chosen for leveling guides (`CharState().dungeons`, by Map id).
+Hidden addon messages on Party's prefix, to the party only (never a raid), as
+Party.lua's rules have it: `R2|<serial>|<parts>|33,36`, then that many
+`R2A|<serial>|<i>|783d,91752s` parts, each at most `Party.MAX_BYTES`; sent by
+the leader with `party.routeShare` on (off by default) a second after
+`GROUP_ANSWERED` (Engine.AnswerGroup), `DUNGEONS_CHOSEN`
+(Engine.ChooseDungeon) or a change to `behavior.groupQuests`, after the
+roster changes, and when asked; `R2Q|` asks the leader (a member three
+seconds after joining or a login in a party, and on `PARTY_LEADER_CHANGED`).
+`Party.Decode` refuses all three. A member takes a route only from the unit
+the client names leader (`UnitIsGroupLeader`), once every part of its serial
+has come, and does nothing when it changes nothing; else
+`party.routeFollow`: "ask" (default) fires `PARTY_ROUTE`, once per leader and
+route, for the guide window's banner, whose "Take it" calls `PartyRoute.Take`
+(each of the leader's answers, per character; every dungeon as the leader has
+it: on when listed, off when not; the member's own answer for all and its
+answers at quests the leader left open stay); "follow" takes it at once;
+"off" ignores it. Both settings sit in Party's section (Questing, Quests,
+Party).
+
 ## QoL — quality-of-life helpers
 
 ### Quest reward marks — QoL, reads Gear
