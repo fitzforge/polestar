@@ -68,7 +68,7 @@ local type, pairs, ipairs, pcall, tostring = type, pairs, ipairs, pcall, tostrin
 local find, lower, format, gsub = string.find, string.lower, string.format, string.gsub
 local sort = table.sort
 
-ns.RegisterDefaults("dungeons", { enabled = true })
+ns.RegisterDefaults("dungeons", { enabled = true, advice = "ask" }) -- advice: "ask" | "open" | "off" (Advice.lua)
 
 local function enabled() return ns.Get("dungeons.enabled") and true or false end
 Dungeons.IsEnabled = enabled
@@ -415,7 +415,12 @@ if ns.RegisterOptions then
 		{ 429, "Dire Maul" }, { 289, "Scholomance" }, { 329, "Stratholme" },
 	}
 	Dungeons.ROUTE = ROUTE
-	local controls = {}
+	-- First the offer of a dungeon that pays for the player's party (Advice.lua).
+	local controls = {
+		{ kind = "dropdown", key = "dungeons.advice", label = L["Suggest dungeons"],
+			help = L["When you reach a dungeon that gets a party of your size to 60 sooner, by Polestar's route simulator, the guide window offers to pick up its quests."],
+			choices = { { value = "ask", label = L["Ask me"] }, { value = "open", label = L["Open the pick-up guide"] }, { value = "off", label = L["Off"] } } },
+	}
 	for _, d in ipairs(ROUTE) do
 		local map, name = d[1], d[2]
 		controls[#controls + 1] = { kind = "toggle",

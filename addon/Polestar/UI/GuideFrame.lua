@@ -802,12 +802,13 @@ end
 -- screen); the step on screen when it is not the live one (skipped: unskip
 -- it; looked at with ‹ ›: back to the live step); then the out-levelled offer
 -- (while its guide is active), then the training reminder, the riding one,
--- then a Class guide that just opened (QoL/ClassQuests.lua). Taking or
--- dismissing one lets the next through.
+-- then a Class guide that just opened (QoL/ClassQuests.lua), then a dungeon
+-- that pays for the party (Dungeons/Advice.lua). Taking or dismissing one
+-- lets the next through.
 ---------------------------------------------------------------------------
 
 local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-local notices = { stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil }
+local notices = { stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeon = nil }
 GF.notices = notices
 
 -- The step on screen when it is not the live step: { guideId, index, live,
@@ -847,6 +848,7 @@ local function bannerNotice()
 	if notices.train then return "train", notices.train end
 	if notices.riding then return "riding", notices.riding end
 	if notices.classQuest then return "classQuest", notices.classQuest end
+	if notices.dungeon then return "dungeon", notices.dungeon end
 	return nil
 end
 GF.BannerNotice = bannerNotice
@@ -1006,6 +1008,16 @@ function GF.LayoutBanner(width)
 		local w = placeLink(banner.Jump, L["Open in a tab"], 0, -4)
 		placeLink(banner.Later, L["Later"], w + 10, -4)
 		banner.Close:Show()
+	elseif kind == "dungeon" then
+		banner.Icon:SetTexture(Theme.Media("icon-kill"))
+		local pct = floor((n.pays or 0) * 100 + 0.5)
+		local body = (n.size or 1) > 1
+			and string.format(L["A party of %d reaches 60 about %d min sooner with it (in %d%% of the simulator's runs)."], n.size, n.minutes or 0, pct)
+			or string.format(L["Alone, you reach 60 about %d min sooner with it (in %d%% of the simulator's runs)."], n.minutes or 0, pct)
+		banner.Text:SetText(string.format(L["Dungeon: %s"], n.name or "") .. "\n" .. body)
+		local w = placeLink(banner.Jump, L["Pick up its quests"], 0, -4)
+		placeLink(banner.Later, L["Later"], w + 10, -4)
+		banner.Close:Show()
 	end
 	local h = floor(9 + banner.Text:GetStringHeight() + 4 + 18 + 9 + 0.5)
 	banner:SetHeight(h)
@@ -1056,6 +1068,10 @@ function GF.TakeBanner()
 		if E and E.OpenTab then E.OpenTab(n.guideId) end
 		local CQ = ns.QoL and ns.QoL.ClassQuests
 		if CQ and CQ.Resolve then CQ.Resolve(n.guideId) end
+	elseif kind == "dungeon" then
+		notices.dungeon = nil
+		local D = ns.Dungeons
+		if D and D.ResolveAdvice then D.ResolveAdvice(n, true) end
 	end
 	GF.Layout()
 end
@@ -1090,6 +1106,10 @@ function GF.DismissBanner(later)
 		notices.classQuest = nil
 		local CQ = ns.QoL and ns.QoL.ClassQuests
 		if CQ and CQ.Resolve then CQ.Resolve(n.guideId, later == true) end
+	elseif kind == "dungeon" then
+		notices.dungeon = nil
+		local D = ns.Dungeons
+		if D and D.ResolveAdvice then D.ResolveAdvice(n, false, later == true) end
 	elseif kind then
 		notices[kind] = nil
 	end
@@ -3020,6 +3040,14 @@ end)
 ns.On("CLASS_QUEST_READY", function(notice)
 	if not F then return end
 	notices.classQuest = notice
+	if ns.IsLoggedIn() then GF.Layout() end
+end)
+
+-- DUNGEON_ADVICE(notice): a dungeon that gets the player's party to 60
+-- sooner; offer its pick-up guide until taken or dismissed.
+ns.On("DUNGEON_ADVICE", function(notice)
+	if not F then return end
+	notices.dungeon = notice
 	if ns.IsLoggedIn() then GF.Layout() end
 end)
 

@@ -28,6 +28,9 @@ const usage = `usage: node tools/polestar.js sim <command> [options]
               --elites route (more than M minutes, default 5), and draft \`when group\` steps for the
               ones our guides lack, placed where a guide visits the giver (data/sim/elites/); --apply
               writes them into the guide files and takes out any block lint reports in
+  sim advice  [--lua <file>]   what each dungeon is worth to a party of 1 to 5, from the weaves in
+              data/sim/weave/ (run \`sim weave --party N --draws K\` per start race), for the addon's
+              dungeon offer (addon/Polestar/Dungeons/AdviceData.lua)
 
 Without --race, run/robust/compare/bench cover every start of the faction
 (Horde: Orc, Tauren, Undead, Skyborne; Alliance: Human, Dwarf, NightElf,
@@ -74,7 +77,7 @@ options:
   --offline          never download the QuestXP table
   --quiet            less output`;
 
-const VALUE = new Set(['faction', 'race', 'class', 'paths', 'workers', 'seed', 'draws', 'top', 'result', 'out', 'data', 'sim', 'fdj', 'guides', 'pack', 'to', 'band', 'jobs', 'anneal', 'max-paths', 'evals', 'radius', 'objective', 'param', 'tag', 'party']);
+const VALUE = new Set(['faction', 'race', 'class', 'paths', 'workers', 'seed', 'draws', 'top', 'result', 'out', 'data', 'sim', 'fdj', 'guides', 'pack', 'to', 'band', 'jobs', 'anneal', 'max-paths', 'evals', 'radius', 'objective', 'param', 'tag', 'party', 'lua']);
 const REPEAT = new Set(['param']);
 const FLAGS = new Set(['rebuild', 'offline', 'quiet', 'help', 'dungeons', 'with-optional', 'no-walks', 'elites', 'apply']);
 
@@ -235,6 +238,7 @@ async function run(argv) {
 		if (cmd === 'consensus') return await require('../lib/sim/consensus').command(args, o);
 		if (cmd === 'weave') return await require('../lib/sim/weave').command(args, o);
 		if (cmd === 'elites') return await require('../lib/sim/elites').command(args, o);
+		if (cmd === 'advice') return require('../lib/sim/advice').command(args, o);
 		console.error(`unknown sim command "${cmd}"\n\n${usage}`);
 		return 2;
 	} catch (err) {

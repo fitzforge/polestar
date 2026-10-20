@@ -3597,6 +3597,23 @@ hand-in guide). It is a Lookup planner kind
 ADDON_LOADED like Lookup's own; it is gated by `dungeons.enabled`, not
 `lookup.enabled`.
 
+The dungeon offer (`addon/Polestar/Dungeons/Advice.lua`) brings the pick-up
+guide to the player when a dungeon pays: `AdviceData.lua` (written by `sim
+advice` from the simulator's weaves, docs/SIMULATION.md, "Dungeon advice")
+holds per faction and party size each dungeon's run level, the minutes it
+saves to 60 and the share of parameter draws where it does.
+`Dungeons.AdviceDue()` picks the first dungeon, most minutes first, that saves
+at least 5 minutes in at least half the draws for the party's size
+(`Dungeons.PartySize`: 1 alone, a raid counts as 5), at or above its run level
+and not outlevelled (the summary's `maxLevel`), and not already offered
+(`CharState().flags.dungeonOffered[key]`: true, or the level "Later" was
+clicked at). `Dungeons.CheckAdvice` (level-up, `GROUP_ROSTER_UPDATE`, login)
+fires `DUNGEON_ADVICE`, and the guide window's banner offers "Pick up its
+quests" (`Dungeons.PickUp`, and `Engine.ChooseDungeon(map, true)` for guides
+with `when dungeon` steps), "Later" or dismiss (`Dungeons.ResolveAdvice`).
+`dungeons.advice` (Options, Discovery, Dungeons, "Suggest dungeons"): "ask",
+"open" (the pick-up guide opens by itself) or "off".
+
 The hand-in guide is the run's other half (`addon/Polestar/Dungeons/Handin.lua`,
 planner kind `handin`, `lookup/handin/<key>`, `Dungeons.HandIn(key)`).
 `Dungeons.HandinPlan(key)` sorts the page's quests in the log: `hand`

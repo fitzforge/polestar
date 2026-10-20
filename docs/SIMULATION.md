@@ -424,6 +424,22 @@ ships), against the route alone under the same draw. Per dungeon: the mean,
 the 90% interval, the share of draws where it saves time, and the three
 parameters that move it most (Spearman correlation with the delta).
 
+### Dungeon advice (`sim advice`)
+
+`sim advice` turns the weaves into what the addon offers in game
+(addon/Polestar/Dungeons/AdviceData.lua; Dungeons/Advice.lua shows it,
+docs/ARCHITECTURE.md). It reads every plain weave in `data/sim/weave/`
+(`<faction>-<race>-<class>-party<N>.json`, no other tag: run `sim weave
+--party N --draws K` for each start race and party size first) and writes, per
+faction and party size, each dungeon's key (dungeons.json), the level it is run
+at (the median over the races), the minutes it saves to 60 at the mean
+parameters (the mean over the races; negative: it costs time) and the share of
+draws where it saves time (without draws: 1 or 0). The mean of a dungeon's
+draws is not used for the minutes: a few draws where the run goes badly pull
+it far from the typical case. The addon offers a dungeon that saves at least 5
+minutes in at least half the draws for the player's party size, from the level
+it is run at until it is outlevelled.
+
 ### Elite quests in the guides (`sim elites`)
 
 `sim elites --faction F [--race R] [--class C] --party N [--min M] [--apply]`
