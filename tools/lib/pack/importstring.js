@@ -29,7 +29,7 @@ const PREFIX = '!PS1!';
 // holds the two equal): the whole string, the steps of its guide, the
 // payload once decompressed (bytes), and any one text or object key in it
 // (bytes).
-const LIMITS = { length: 50000, steps: 60, payload: 262144, text: 4096, names: 128, goals: 100, candidates: 128 };
+const LIMITS = { length: 500000, steps: 2000, payload: 2097152, text: 4096, names: 128, goals: 100, candidates: 128 };
 
 // The first text or key in v longer than LIMITS.text, as the addon names it
 // (`guide.steps[2].note`), or null.

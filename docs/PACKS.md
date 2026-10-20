@@ -342,8 +342,8 @@ race, another level range).
 
 ### One guide as an import string
 
-A single small guide (a quest chain, an item, a mount, an errand) can go to
-players as one line of text instead of a zip. They paste it on Polestar's
+A single guide (a quest chain, an item, a mount, an errand, up to a whole
+leveling route) can go to players as one line of text instead of a zip. They paste it on Polestar's
 Import page (`/polestar import`, or **Import** above Options in the hub);
 nothing to install, no restart.
 
@@ -360,9 +360,9 @@ Share the line in `cozy.txt` on Discord, GitHub, a forum or your listing.
   author is the guide's `author`, else the pack's.
 - `export` lints the pack first and refuses a guide with errors. It prints
   only the string on stdout.
-- Limits: 60 steps, 100 goals per step, 128 candidates per goal, 50,000
-  characters for the string. A bigger guide, or a set of guides, is a
-  community addon.
+- Limits: 2,000 steps, 100 goals per step, 128 candidates per goal, 2 MB of
+  guide data and 500,000 characters for the string: a whole leveling route
+  fits. A set of guides is a community addon.
 - A `next` or route choice may lead only to one of Polestar's guides or a
   guide the player has already imported; `export` names the guides to import
   first.
@@ -449,8 +449,8 @@ messages, and nothing is saved:
 |---|---|
 | This is not a Polestar import string. / This import string is damaged or incomplete. Copy the whole string again. | the player copied part of the line, or something else: copy the whole line again (spaces and line breaks in it are fine; Polestar drops them) |
 | This import string needs a newer Polestar. / This import string holds a field Polestar does not read (<field>). It may need a newer Polestar. | the player updates Polestar; if they already have the latest, rebuild the string with an updated clone |
-| This import string is too long: Polestar reads up to 50000 characters. / This import string holds too much: Polestar reads up to 256 KB of guide data. | split the guide, or publish it as a community addon |
-| Its guide has <n> steps; an import string holds 60 at most. A bigger guide comes as a community addon. / Its guide has <n> goals in step <s>; an import string holds 100 per step at most. / Its guide has <n> candidates in a goal; an import string holds 128 per goal at most. | shorten the guide or the step, or publish a community addon |
+| This import string is too long: Polestar reads up to 500000 characters. / This import string holds too much: Polestar reads up to 2048 KB of guide data. | split the guide, or publish it as a community addon |
+| Its guide has <n> steps; an import string holds 2000 at most. A bigger guide comes as a community addon. / Its guide has <n> goals in step <s>; an import string holds 100 per step at most. / Its guide has <n> candidates in a goal; an import string holds 128 per goal at most. | shorten the guide or the step, or publish a community addon |
 | This import string holds a text longer than Polestar reads (<field>): 4096 characters at most. | shorten that tip or text |
 | Its guide id <id> must start with its author's own id, as in yendi/cozy-sleeping-bag. | start the guide id with your pack id and export again |
 | Guides under <id>/ come from the community addon <addon>, which is installed. | that id belongs to an installed addon: pick a pack id of your own |

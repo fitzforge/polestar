@@ -117,8 +117,8 @@ Read it before writing a guide.
 
    Raise `version` in `pack.json` for each release.
 
-   **One small guide** (a quest chain, an item, a mount, an errand; at most
-   60 steps) can go out as an import string instead, a line players paste
+   **One guide** (a quest chain, an item, a mount, an errand, or a whole
+   leveling route of up to 2,000 steps) can go out as an import string instead, a line players paste
    on Polestar's Import page (`/polestar import`) with nothing to install:
 
    ```sh

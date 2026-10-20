@@ -48,7 +48,7 @@ local PACK = "imported"
 -- candidates per goal (limits from the largest our own compiler emits; large
 -- enough that our own guides are never refused, tight enough to prevent
 -- route-planner blow-up from imported strings).
-local LIMITS = { length = 50000, steps = 60, payload = 262144, text = 4096, names = 128, goals = 100, candidates = 128 }
+local LIMITS = { length = 500000, steps = 2000, payload = 2097152, text = 4096, names = 128, goals = 100, candidates = 128 }
 Import.LIMITS = LIMITS
 
 ns.RegisterPack({ id = PACK, imported = true, title = L["Imported"] })

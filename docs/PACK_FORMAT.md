@@ -585,7 +585,7 @@ Nothing in a string is ever run: the reader never hands its text to
 
 Then the guide meets the rules above, as a community addon's would, plus:
 
-- at most 50,000 characters in the string, 256 KB of payload, 60 steps,
+- at most 500,000 characters in the string, 2 MB of payload, 2,000 steps,
   and 4,096 bytes in any one text or key (a longer one is refused, naming
   it, before any text is filled in; `export` refuses it too);
 - its id is `<author>/<name>`, under no reserved id and no id of a

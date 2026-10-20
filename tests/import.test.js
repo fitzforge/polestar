@@ -209,7 +209,7 @@ test('a damaged, truncated, oversized, foreign or code-carrying string is refuse
 	`);
 	const r = out.reasons;
 	for (const name of ['tampered', 'truncated', 'checksum']) assert.match(r[name], /damaged or incomplete/, name);
-	assert.match(r.oversized, /too long: Polestar reads up to 50000 characters/);
+	assert.match(r.oversized, new RegExp(`too long: Polestar reads up to ${LIMITS.length} characters`));
 	assert.match(r.notOurs, /not a Polestar import string/);
 	assert.match(r.newer, /needs a newer Polestar/);
 	assert.match(r.newerFormat, /needs a newer Polestar/);
@@ -221,6 +221,20 @@ test('a damaged, truncated, oversized, foreign or code-carrying string is refuse
 	assert.match(r.badType, /does not read \(guide\.steps\)/);
 	assert.equal(out.imports, true, 'PolestarDB.imports never made');
 	assert.equal(out.registered, true);
+});
+
+test('a whole leveling route goes in as one string: 1,200 steps, 600 KB of guide data', () => {
+	const route = payload();
+	const step = route.guide.steps[0];
+	route.guide.steps = Array.from({ length: 1200 }, (_, i) => ({ ...step, note: `Step ${i + 1}: ${'n'.repeat(480)}` }));
+	assert.ok(Buffer.byteLength(JSON.stringify(route)) > 600000);
+	const [out] = run(`
+		local info, why = I.Preview(${str(encodeImport(route))})
+		assert(info, why)
+		assert(I.Save(info.entry))
+		emit({ steps = info.steps, registered = #G.Get(${str(ID)}).steps })
+	`);
+	assert.deepEqual(out, { steps: 1200, registered: 1200 });
 });
 
 test('the guide must fit the caps and the id rules, and lead only to Polestar\'s guides or imported ones', () => {
@@ -250,7 +264,7 @@ test('the guide must fit the caps and the id rules, and lead only to Polestar\'s
 		out.toOursAfter = why(${str(encodeImport(toOurs))})
 		emit(out)
 	`);
-	assert.match(out.long, /has 61 steps; an import string holds 60 at most/);
+	assert.match(out.long, new RegExp(`has ${LIMITS.steps + 1} steps; an import string holds ${LIMITS.steps} at most`));
 	assert.match(out.ours, /must start with its author's own id/);
 	assert.match(out.bare, /must start with its author's own id/);
 	assert.match(out.leads, /leads on to bob\/goldshire.*import that guide first/);
@@ -382,7 +396,7 @@ test('a payload over the cap is refused with its own message', () => {
 	const big = envelope(`{"format":3,"license":"MIT","guide":{"id":"yendi/x","title":"${' '.repeat(LIMITS.payload)}"}}`);
 	assert.ok(big.length < LIMITS.length, 'the string itself is short');
 	const [out] = run(`local info, why = I.Preview(${str(big)}) emit({ why = why })`);
-	assert.equal(out.why, 'This import string holds too much: Polestar reads up to 256 KB of guide data.');
+	assert.equal(out.why, `This import string holds too much: Polestar reads up to ${LIMITS.payload / 1024} KB of guide data.`);
 });
 
 test('a string adds Era frames only for the maps its guide uses, and never over a frame someone registered', () => {

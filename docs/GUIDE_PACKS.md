@@ -130,9 +130,10 @@ guides from different addons in different tabs.
 
 ### One guide from a string
 
-A small guide, such as a quest chain, an item, a mount or an errand, can
-come as an **import string** instead of an addon: one line of text its
-author shares on Discord, GitHub or a forum. Nothing to install.
+A single guide, such as a quest chain, an item, a mount, an errand or a
+whole leveling route made in another tool, can come as an **import string**
+instead of an addon: one line of text its author shares on Discord, GitHub
+or a forum. Nothing to install.
 
 1. Open **Import** at the foot of the hub's left rail, just above Options
    (`/polestar import`).
@@ -337,18 +338,18 @@ Polestar reads both.
 
 ### Import strings
 
-A single small guide can go to players as one line of text instead of an
-addon: they paste it on Polestar's Import page (`/polestar import`). Use it
-for a quest chain, an item, a mount, an errand; a route or a set of guides is
-a community addon.
+A single guide can go to players as one line of text instead of an addon:
+they paste it on Polestar's Import page (`/polestar import`). Use it for a
+quest chain, an item, a mount, an errand, or one leveling route made in
+another tool; a set of guides is a community addon.
 
 | | Import string | Community addon |
 |---|---|---|
-| **For** | one small guide | a whole route or a set of guides |
+| **For** | one guide, up to a whole leveling route | a set of guides |
 | **You run** | `polestar export <file.guide>` | `polestar pack` |
 | **Players** | paste it on the Import page | install it, then restart the game |
 | **Updates** | raise the guide's `version` and share the new string: players press Update | raise `version` in `pack.json` and upload the new zip |
-| **Size** | one guide of at most 60 steps (and 50,000 characters) | no limit |
+| **Size** | one guide of at most 2,000 steps (and 500,000 characters): a whole leveling route fits | no limit |
 
 ```sh
 polestar lint && polestar playtest       # the same checks as for an addon

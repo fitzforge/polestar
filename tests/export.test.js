@@ -77,7 +77,7 @@ test('importString refuses Polestar\'s own guides and guides over the step cap',
 	const steps = Array.from({ length: LIMITS.steps + 1 }, (_, i) => `step Step ${i + 1}\n  level ${(i % 59) + 2}\n`).join('\n');
 	const long = compile({ 'b.guide': `guide yendi/long\ntitle Long\nlevels 1-60\nzone Elwynn Forest\n\n${steps}` }, data, { pack: 'yendi' });
 	assert.deepEqual(long.errors, []);
-	assert.match(importString(long.guides[0], { manifest: { id: 'yendi', license: 'MIT' }, data }).error, /61 steps; an import string holds a guide of 60 steps at most/);
+	assert.match(importString(long.guides[0], { manifest: { id: 'yendi', license: 'MIT' }, data }).error, new RegExp(`${LIMITS.steps + 1} steps; an import string holds a guide of ${LIMITS.steps} steps at most`));
 	const ok = importString(compile({ 'c.guide': GUIDE('yendi/ok') }, data, { pack: 'yendi' }).guides[0], { manifest: { id: 'yendi', license: 'MIT' }, data });
 	const back = decodeImport(ok.text);
 	assert.equal(back.license, 'MIT');
@@ -151,5 +151,5 @@ test('importString refuses a text over the cap and a payload over the cap, as th
 	const steps = Array.from({ length: LIMITS.steps }, () => ({ note: 'n'.repeat(4000), goals: [{ t: 'note', text: 't'.repeat(1000) }] }));
 	const big = { id: 'yendi/big', title: 'Big', steps };
 	const r = importString(big, { manifest, data: null });
-	assert.match(r.error, /bytes of guide data; Polestar reads 262144 at most/);
+	assert.match(r.error, new RegExp(`bytes of guide data; Polestar reads ${LIMITS.payload} at most`));
 });
