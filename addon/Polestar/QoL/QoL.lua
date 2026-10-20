@@ -64,6 +64,7 @@ local defaults = {
 	fastLoot = true,
 	hideErrors = false,      -- combat error spam ("Not enough rage", "Out of range")
 	autoReleasePvP = false,  -- release at once in battlegrounds
+	hideQuestTracker = false, -- the game's objective tracker, as Questie can
 	declineDuels = false,    -- friends and guild excepted
 	declineGuildInvites = false,
 	declinePartyStrangers = false,

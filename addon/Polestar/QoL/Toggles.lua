@@ -18,6 +18,13 @@
 --   autoReleasePvP    in a battleground (C_PvP.IsBattleground), release at
 --                     PLAYER_DEAD unless a self-resurrection or a resurrection
 --                     offer is there, or Hardcore is on. Shift: stay.
+--   hideQuestTracker  hides the game's objective tracker (ObjectiveTrackerFrame,
+--                     Blizzard_ObjectiveTracker) and hides it again each time
+--                     the game shows it, as Questie does on Forever. Turning
+--                     the setting off hands the frame back to the game's own
+--                     Update, which shows it only when it has something to show.
+--                     A tracker made protected by another addon waits for the
+--                     end of combat.
 --
 -- One GOSSIP_SHOW handler serves the flight master helper first, then the
 -- bind helper (Bind.lua), then skipGossip.
@@ -179,4 +186,42 @@ end
 
 QoL.WhileOn("autoReleasePvP", "PLAYER_DEAD", function()
 	if Toggles.ReleaseInPvP() and RepopMe then RepopMe() end
+end)
+
+---------------------------------------------------------------------------
+-- The game's quest tracker
+---------------------------------------------------------------------------
+
+local trackerHidden, trackerHooked = false, false
+
+local function applyTracker()
+	local f = ObjectiveTrackerFrame
+	if not (f and f.Hide) then return end
+	-- Not with the gamepad interface (ns.GamepadUI): its HUD navigation starts
+	-- at the tracker (Blizzard_Gamepad GamepadHudMode.lua).
+	if QoL.On("hideQuestTracker") and not ns.GamepadUI() then
+		if not trackerHooked then
+			trackerHooked = true
+			f:HookScript("OnShow", function() if trackerHidden then Toggles.ApplyTracker() end end)
+		end
+		trackerHidden = true
+		if f:IsShown() then f:Hide() end
+	elseif trackerHidden then
+		trackerHidden = false
+		if f.Update then f:Update() else f:Show() end
+	end
+end
+
+function Toggles.ApplyTracker()
+	local f = ObjectiveTrackerFrame
+	if f and f.IsProtected and f:IsProtected() then
+		QoL.Secure("hideQuestTracker", applyTracker)
+	else
+		applyTracker()
+	end
+end
+
+ns.OnLogin(Toggles.ApplyTracker)
+ns.On("SETTING_CHANGED", function(path)
+	if path == "qol.hideQuestTracker" or path == "qol" or path == "" then Toggles.ApplyTracker() end
 end)

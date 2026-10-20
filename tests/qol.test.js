@@ -57,7 +57,7 @@ test('options: every qol setting is registered, on Questing or Quality of Life, 
 			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
 			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals", "trainAll",
-			"rewardEquip", "autoBind" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
+			"rewardEquip", "autoBind", "hideQuestTracker" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
 		emit(keys)
 	`);
 	const registered = new Set(specs.filter((c) => c.key).map((c) => c.key.replace(/^qol\./, '')));
@@ -72,6 +72,7 @@ test('options: every qol setting is registered, on Questing or Quality of Life, 
 	assert.equal(defaults.trainAll, false, 'learning at trainers is off by default');
 	assert.equal(defaults.rewardEquip, false, 'wearing rewards is off by default');
 	assert.equal(defaults.autoBind, false, 'binding the Hearthstone is off by default');
+	assert.equal(defaults.hideQuestTracker, false, 'the game\'s quest tracker shows by default');
 	assert.equal(defaults.sellJunk, true);
 });
 
@@ -2480,6 +2481,55 @@ test('hide combat errors: turns the spam types off through UIErrorsFrame, and ba
 	assert.deepEqual(out[0], { rage: false, range: false, cd: false, busy: true, full: false }, 'off by default: nothing changed');
 	assert.deepEqual(out[1], { rage: true, range: true, cd: true, busy: true, full: false }, 'inventory full still shows');
 	assert.deepEqual(out[2], { rage: false, range: false, cd: false, busy: true, full: false }, 'Blizzard\'s own blacklist entry is kept');
+});
+
+// The game's objective tracker: Update shows it when it has contents, as
+// Blizzard_ObjectiveTrackerContainer.lua does.
+const TRACKER = `
+	local f = CreateFrame("Frame", "ObjectiveTrackerFrame", UIParent)
+	f.updates, f.hasContents, f.protected = 0, true, false
+	function f:Update() self.updates = self.updates + 1; if self.hasContents then self:Show() else self:Hide() end end
+	function f:IsProtected() return self.protected end
+`;
+
+test('hide quest tracker: hides the game\'s tracker and keeps it hidden; off hands it back to the game', () => {
+	const out = run(`
+		local f = ObjectiveTrackerFrame
+		emit({ shown = f:IsShown(), updates = f.updates })
+		set("hideQuestTracker", true)
+		emit(f:IsShown())
+		f:Update()                            -- a quest update shows it again
+		emit(f:IsShown())
+		set("hideQuestTracker", false)
+		emit({ shown = f:IsShown(), updates = f.updates })
+		f.hasContents = false
+		set("hideQuestTracker", true)
+		set("hideQuestTracker", false)
+		emit(f:IsShown())                     -- nothing to track: the game keeps it hidden
+	`, { before: TRACKER });
+	assert.deepEqual(out[0], { shown: true, updates: 0 }, 'off by default: untouched');
+	assert.equal(out[1], false);
+	assert.equal(out[2], false, 'hidden again when the game shows it');
+	assert.deepEqual(out[3], { shown: true, updates: 2 }, 'off: the game\'s Update decides');
+	assert.equal(out[4], false);
+});
+
+test('hide quest tracker: a protected tracker waits for the end of combat; the gamepad interface keeps it', () => {
+	const out = run(`
+		local f = ObjectiveTrackerFrame
+		f.protected = true
+		q.combat(true)
+		set("hideQuestTracker", true)
+		emit(f:IsShown())
+		q.combat(false)
+		emit(f:IsShown())
+		set("hideQuestTracker", false)
+		f.protected = false
+		Polestar.GamepadUI = function() return true end
+		set("hideQuestTracker", true)
+		emit(f:IsShown())
+	`, { before: TRACKER });
+	assert.deepEqual(out, [true, false, true]);
 });
 
 test('release in battlegrounds: only in a battleground, never with a self-res, an offer, Hardcore or Shift', () => {

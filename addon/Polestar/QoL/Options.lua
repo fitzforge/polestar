@@ -79,6 +79,11 @@ register(QUESTING, L["Quests"], L["Faster questing"], {
 		help = help("hideErrors", L["Hides \"Not enough rage\", \"Out of range\" and cooldown messages. Other errors still show."]) },
 })
 
+register(QUESTING, L["Quests"], L["Tooltips and quest log"], {
+	{ kind = "toggle", key = "qol.hideQuestTracker", label = L["Hide the game's quest tracker"],
+		help = L["Hides the game's tracker on the right of the screen, with its quests, achievements and professions, as Questie can. Not with the gamepad interface."] },
+})
+
 register(QOL, L["Travel"], L["Flight masters"], {
 	{ kind = "toggle", key = "qol.flightAutoOpen", label = L["Open the flight map"],
 		help = L["Talking to a flight master opens the map directly. Hold Shift for the gossip."] },
