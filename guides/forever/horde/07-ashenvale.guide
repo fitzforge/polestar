@@ -359,6 +359,44 @@ step Whitereach Post
   complete 4966                       -- Kill the Galak Assassin that comes for Kanati
   turnin 4966
 
+# Group quests (sim elites): Hypercapacitor Gizmo, about 8 min saved for a party
+step Hypercapacitor Gizmo
+  when group 5151
+  accept 5151
+
+step Hypercapacitor Gizmo
+  when group 5151
+  tip Enraged Panther is elite: grouping up is advised.
+  collect 12946 quest 5151.1
+
+step Hypercapacitor Gizmo
+  when group 5151
+  turnin 5151
+
+# Group quests (sim elites): Arikara, about 5 min saved for a party
+step Sacred Fire
+  when group 5088
+  accept 5062
+
+step Sacred Fire
+  when group 5088
+  collect 12732 quest 5062.1
+
+step Sacred Fire
+  when group 5088
+  turnin 5062
+  accept 5088
+
+step Arikara
+  when group 5088
+  tip Arikara is elite: grouping up is advised.
+  collect 12925 quest 5088.1
+  interact 175944 quest 5088.2
+
+step Arikara
+  when group 5088
+  turnin 5088
+
 step Highperch
   tip West of Whitereach the wyverns nest on the Highperch cliffs; the eggs lie in the nests. Pao'ka Swiftmountain waits on the east side of the nesting grounds: free him and keep him alive on the walk back to Whitereach Post.
   collect 12356 quest 4767

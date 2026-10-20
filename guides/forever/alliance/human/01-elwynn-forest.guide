@@ -20,9 +20,10 @@ next forever/alliance/02-westfall
 # Stoutmantle, 109), then into Westfall (02-westfall takes the farms on the
 # way down and the Sentinel Hill flight path, #416).
 #
-# Optional extras: The Big Picture (91752, Shinyfinder Narf is elite) and
+# Group quests (`when group 91752`): The Big Picture (91752, Shinyfinder Narf is elite) and
 # what follows it: Follow That Kobold! (91758), Shhh! We're Hunting Kobolds
-# (91772) and Book Return (91775, Nimsy is elite). The Northshire book chain
+# (91772), asked once for the chain; Book Return (91775, Nimsy is elite,
+# `when group 91775`). The Northshire book chain
 # runs Nibbled-On Book (91741, a Kobold Vermin drop) -> Book Inventory (92124)
 # -> Rascally Rodents (91743) -> Mining Consultant (91745) -> The Big Picture,
 # each offered once the one before is done. Rough Wolf Pelts (91751) is for
@@ -210,12 +211,15 @@ step Milly Osworth
 step Kelsey Fargo
   tip She stands outside the mine entrance. Shinyfinder Narf, inside, is elite: grouping up is advised.
   turnin 91745
-  accept 91752 optional
+
+step Kelsey Fargo
+  when group 91752
+  accept 91752
 
 step Inside Echo Ridge Mine
   tip Kobold Laborers work the tunnels inside the mine. Shinyfinder Narf waits down the second turn on the right.
   kill 80 quest 21                            -- Kobold Laborer
-  collect 247886 quest 91752 optional         -- Shinyfinder Narf
+  collect 247886 quest 91752                  -- Shinyfinder Narf
 
 step Northshire Abbey
   tip Tordrin Sternblade stands behind the Abbey, by the stables.
@@ -224,12 +228,15 @@ step Northshire Abbey
   turnin 21                                   -- Marshal McBride
   accept 54
   accept 96627
-  turnin 91752 optional
-  accept 91758 optional
-  turnin 91758 optional                       -- Tordrin Sternblade
-  accept 91772 optional                       -- his kobold tracker shows the kobolds to click on the road to Goldshire
   accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
   train class
+
+step Northshire Abbey
+  when group 91752
+  turnin 91752
+  accept 91758
+  turnin 91758                                -- Tordrin Sternblade
+  accept 91772 optional                       -- his kobold tracker shows the kobolds to click on the road to Goldshire
 
 # ---------------------------------------------------------------- Goldshire and Crystal Lake
 
@@ -237,12 +244,18 @@ step Goldshire
   tip Follow the road south out of the valley to Goldshire. Innkeeper Farley is in the Lion's Pride Inn; Marshal Dughan stands outside the smithy across the road, William Pestle at the inn's front and Remy "Two Times" by the road south of it.
   turnin 2158                                 -- Innkeeper Farley
   sethome "Goldshire" npc 295
-  turnin 91772 optional                       -- Marshal Dughan
   turnin 54
   accept 62
-  accept 91775 optional
   accept 60                                   -- William Pestle
   accept 47                                   -- Remy "Two Times"
+
+step Goldshire
+  when group 91752
+  turnin 91772 optional                       -- Marshal Dughan
+
+step Goldshire
+  when group 91775
+  accept 91775
 
 step The lake shore
   tip Sam Sarsaparilla camps north-east of the inn; Helene Peltskinner, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town.
@@ -293,8 +306,8 @@ step The Fargodeep Mine
   complete 62 @40.6,82.3                      -- Walk through the mine
   collect 773 quest 47                        -- Gold Dust
   collect 772 quest 60                        -- Large Candles
-  collect 248001 quest 91775 optional         -- Lost Books: Kobold Miners and Tunnelers
-  collect 248002 quest 91775 optional         -- Fun with Elementals: Nimsy
+  collect 248001 quest 91775                  -- Lost Books: Kobold Miners and Tunnelers
+  collect 248002 quest 91775                  -- Fun with Elementals: Nimsy
 
 step Bait ingredients
   tip Overgrown Duskweed grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.
@@ -357,13 +370,16 @@ step Goldshire
   turnin 40                                   -- Marshal Dughan
   accept 35
   turnin 62                                   -- Marshal Dughan
-  turnin 91775 optional
   accept 76
   turnin 60                                   -- William Pestle
   accept 61                                   -- Morgan Pestle in Stormwind takes it (02-westfall)
   turnin 107
   accept 112
   train class
+
+step Goldshire
+  when group 91775
+  turnin 91775
 
 # ---------------------------------------------------------------- The east
 

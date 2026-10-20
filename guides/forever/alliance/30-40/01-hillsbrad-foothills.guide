@@ -129,8 +129,21 @@ step The Green Belt
 step Angerfang Encampment
   tip South to the Dragonmaw's Angerfang Encampment: the first catapult stands on the way, and the Tattered Spellbook lies in the camp.
   turnin 465                          -- Dragonmaw Catapult
-  note The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it.
   accept 98223 object 671518          -- Tattered Spellbook: for Captain Stoutfist
+
+# Group quests (sim elites): Defeat Nek'rosh, about 6 min saved for a party
+step Defeat Nek'rosh
+  when group 474
+  accept 474
+
+step Defeat Nek'rosh
+  when group 474
+  tip Chieftain Nek'rosh is elite: grouping up is advised.
+  collect 3625 quest 474.1
+
+step Defeat Nek'rosh
+  when group 474
+  turnin 474
 
 step Golm
   tip Golm stands in the south-eastern hills: use the Goaz Stone beside it.
@@ -161,6 +174,20 @@ step Dun Modr
   collect 280396 quest 98310.2        -- Heart of Modr
   accept 87491                        -- Captive Fire Elemental
   turnin 87491                        -- Roggo Harlbarrow
+
+# Group quests (sim elites): A Grim Task, about 8 min saved for a party
+step A Grim Task
+  when group 304
+  accept 304
+
+step A Grim Task
+  when group 304
+  tip Balgaras the Foul is elite: grouping up is advised.
+  collect 3639 quest 304.1
+
+step A Grim Task
+  when group 304
+  turnin 304
 
 step The Villards
   tip Comar Villard waits north of Dun Modr by the Thandol Span; Essene a short walk further north-east.

@@ -136,6 +136,20 @@ step Lakeshire
   accept 92                                   -- Chef Breanna
   accept 34                                   -- Martie Jainrose
 
+# Group quests (sim elites): Wanted: Gath'Ilzogg, about 5 min saved for a party
+step Wanted: Gath'Ilzogg
+  when group 169
+  accept 169
+
+step Wanted: Gath'Ilzogg
+  when group 169
+  tip Gath'Ilzogg is elite: grouping up is advised.
+  collect 3633 quest 169.1
+
+step Wanted: Gath'Ilzogg
+  when group 169
+  turnin 169
+
 step Sunken Chest
   tip Swim east from the bridge into Lake Everstill; the chest lies on the lake bed.
   collect 1309 quest 125                      -- Oslow's Toolbox
@@ -199,6 +213,20 @@ step Back to Lakeshire
   turnin 91                                   -- Bailiff Conacher
   turnin 180                                  -- Magistrate Solomon, in the town hall
   vendor nearest
+
+# Group quests (sim elites): Tharil'zun, about 6 min saved for a party
+step Tharil'zun
+  when group 19
+  accept 19
+
+step Tharil'zun
+  when group 19
+  tip Tharil'zun is elite: grouping up is advised.
+  collect 1260 quest 19.1
+
+step Tharil'zun
+  when group 19
+  turnin 19
 
 # ---------------------------------------------------------------- Render's Valley
 

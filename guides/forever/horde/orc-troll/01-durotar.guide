@@ -65,9 +65,9 @@ next forever/horde/orc-troll/02-the-barrens
 # - A Pain in the Neck (96873) is for enchanters: Pa'zula's Luminous Residue
 #   comes from disenchanting the Hexed Pendants the Echo Isles trolls drop.
 #   Taken at Sen'jin, done on the isles and handed in on the way back.
-# - Threat from Below (99052, Forever, optional): Orgnil's last naga quest,
-#   Aggor the Young on the north coast. Aggor is elite, so the simulator
-#   leaves it out; it is offered at the last Razor Hill stop for groups.
+# - Threat from Below (99052, Forever, `when group`): Orgnil's last naga
+#   quest, Aggor the Young on the north coast. Aggor is elite, so the
+#   simulator leaves it out; the guide asks at the last Razor Hill stop.
 #
 # Class quests: Warlocks do Ruzan's Vile Familiars (1485, 1499) instead of
 # Zureetha's. Shamans take Call of Earth (1516-1518) from Canaga Earthcaller
@@ -519,14 +519,20 @@ step Spitelash naga
 step Razor Hill
   tip Back to Razor Hill.
   turnin 99051                        -- Orgnil Soulscar
-  accept 99052 optional               -- Orgnil Soulscar: Aggor the Young, an elite sea giant
   turnin 6083 only Hunter             -- Thotar
   accept 6082 only Hunter
 
+step Razor Hill
+  when group 99052
+  accept 99052                        -- Orgnil Soulscar: Aggor the Young, an elite sea giant
+
 step Aggor the Young
   tip Aggor the Young, a young sea giant, walks Durotar's north coast, north of the naga beach. Aggor the Young is elite: grouping up is advised.
-  collect 286009 quest 99052.1 optional -- Aggor's Belt
-  turnin 99052 optional               -- Orgnil Soulscar, back in Razor Hill
+  collect 286009 quest 99052.1            -- Aggor's Belt
+
+step Aggor the Young
+  when group 99052
+  turnin 99052                        -- Orgnil Soulscar, back in Razor Hill
 
 step Armored Scorpid
   only Hunter

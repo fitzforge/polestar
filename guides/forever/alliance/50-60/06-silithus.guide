@@ -150,6 +150,21 @@ step Marshal's Refuge
   accept 3961
   turnin 3961                         -- Linken, at the back of the refuge
 
+# Group quests (sim elites): It's Dangerous to Go Alone, about 13 min saved for a party
+step It's Dangerous to Go Alone
+  when group 3962
+  accept 3962
+
+step It's Dangerous to Go Alone
+  when group 3962
+  tip Blazerunner is elite: grouping up is advised.
+  kill 9376 quest 3962.1
+  collect 11179 quest 3962.2
+
+step It's Dangerous to Go Alone
+  when group 3962
+  turnin 3962
+
 # ---------------------------------------------------------------- Silithus
 
 step Into Silithus

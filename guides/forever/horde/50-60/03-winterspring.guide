@@ -69,6 +69,40 @@ step Everlook
   accept 6603                         -- Meggi Peppinrocker
   note Gregor's and Harlo's quests lead to other zones: keep them.
 
+# Group quests (sim elites): Shy-Rotam, about 17 min saved for a party
+step Ursius of the Shardtooth
+  when group 5056
+  accept 5054
+
+step Ursius of the Shardtooth
+  when group 5056
+  tip Ursius is elite: grouping up is advised.
+  kill 10806 quest 5054.1
+
+step Ursius of the Shardtooth
+  when group 5056
+  turnin 5054
+  accept 5055
+
+step Brumeran of the Chillwind
+  when group 5056
+  tip Brumeran is elite: grouping up is advised.
+  kill 10807 quest 5055.1
+
+step Brumeran of the Chillwind
+  when group 5056
+  turnin 5055
+  accept 5056
+
+step Shy-Rotam
+  when group 5056
+  tip Shy-Rotam is elite: grouping up is advised.
+  kill 10737 quest 5056.1
+
+step Shy-Rotam
+  when group 5056
+  turnin 5056
+
 step Ice Thistle yetis
   tip The yeti hills start just south-east of Everlook. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in.
   collect 12366 quest 3783

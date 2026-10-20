@@ -168,6 +168,20 @@ step Ratchet
   accept 887                          -- Gazlowe
   turnin 1492                         -- Wharfmaster Dizzywig, on the dock
 
+# Group quests (sim elites): Trouble at the Docks, about 8 min saved for a party
+step Trouble at the Docks
+  when group 959
+  accept 959
+
+step Trouble at the Docks
+  when group 959
+  tip Mad Magglish is elite: grouping up is advised.
+  collect 5334 quest 959.1
+
+step Trouble at the Docks
+  when group 959
+  turnin 959
+
 step Southsea beach
   tip The pirates camp on the beach south of Ratchet. The piles of complicated parts lie in the sand among them.
   kill 3381 quest 887.1

@@ -329,6 +329,35 @@ step Rebel Camp
   kill 217588                         -- Arbor Tarantula: catch it, for My Little Friends
   turnin 622                          -- Corporal Kaleb
 
+# Group quests (sim elites): Mai'Zoth, about 6 min saved for a party
+step Colonel Kurzen
+  when group 206
+  accept 202
+
+step Colonel Kurzen
+  when group 206
+  tip Colonel Kurzen is elite: grouping up is advised.
+  kill 939 quest 202.1
+  kill 978 quest 202.2
+  collect 3615 quest 202.3
+
+step Colonel Kurzen
+  when group 206
+  turnin 202
+
+step Mai'Zoth
+  when group 206
+  accept 206
+
+step Mai'Zoth
+  when group 206
+  tip Mai'Zoth is elite: grouping up is advised.
+  collect 3616 quest 206.1
+
+step Mai'Zoth
+  when group 206
+  turnin 206
+
 step Booty Bay
   hearth "Booty Bay"
   turnin 611                          -- Baron Revilgaz

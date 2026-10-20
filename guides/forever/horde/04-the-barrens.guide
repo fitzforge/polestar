@@ -54,7 +54,8 @@ next forever/horde/05-stonetalon-mountains
 #   coast; Tatternack Steelforge, at the north edge of Camp Taurajo, last;
 #   Gann Stonespire's two quests in one visit before Sulhasa.
 #
-# Optional: WANTED: Bruuz (92706): Bruuz is elite, grouping up is advised.
+# Group quest: WANTED: Bruuz (92706): Bruuz is elite, so the guide asks
+# (`when group 92706`).
 # Owatanka (884), Lakota'mani (883), The Harvester (897) and Washte Pawne
 # (885) start from the drops of rare spawns: take them if you meet one. The
 # Rogue's Mission: Possible But Not Probable (2478): Gallywix is elite.
@@ -118,14 +119,17 @@ step Ratchet
   zone The Barrens
   accept 1483                         -- Sputtervalve, beside the wind rider master. Keep it: Ziz Fizziks is in Stonetalon, later
   accept 895                          -- WANTED poster
-  accept 92706 optional               -- WANTED poster
   accept 865                          -- Mebok Mizzyrix
   accept 891                          -- Captain Thalo'thas Brightsun
   accept 896                          -- Wharfmaster Dizzywig, on the dock
 
+step Ratchet
+  when group 92706
+  accept 92706                        -- WANTED poster
+
 step Bruuz
   tip Bruuz swims in the harbour just off Ratchet's docks. Bruuz is elite: grouping up is advised.
-  collect 253710 quest 92706.1 optional @63.7,38.7
+  collect 253710 quest 92706.1 @63.7,38.7
 
 step Baron Longshore
   tip The pirates camp on the beach south of Ratchet; Baron Longshore stands at its southern end.
@@ -147,7 +151,10 @@ step Ratchet
   turnin 898                          -- Captain Thalo'thas Brightsun
   turnin 891
   turnin 895                          -- Gazlowe
-  turnin 92706 optional
+
+step Ratchet
+  when group 92706
+  turnin 92706
 
 # ---------------------------------------------------------------- The Crossroads
 
@@ -345,6 +352,21 @@ step Camp Taurajo
   accept 1824 only Warrior
   accept 893                          -- Tatternack Steelforge, at the north edge of the camp
 
+# Group quests (sim elites): Wrongly Blamed, Justly Corrected, about 7 min saved for a party
+step Wrongly Blamed, Justly Corrected
+  when group 97250
+  accept 97250
+
+step Wrongly Blamed, Justly Corrected
+  when group 97250
+  tip Outraged Pillager is elite: grouping up is advised.
+  kill 268622 quest 97250.1
+  kill 268623 quest 97250.2
+
+step Wrongly Blamed, Justly Corrected
+  when group 97250
+  turnin 97250
+
 step Bristleback camps
   tip The Bristleback quilboar camps spread over the plains north of Camp Taurajo, either side of the Gold Road. Every Bristleback drops a tusk; Mankrik's wife lies at the north edge. Keep one Blood Shard. Lakota'mani, a grey kodo, sometimes wanders here: his hoof starts a quest.
   collect 5085 quest 899.1
@@ -386,6 +408,20 @@ step Ratchet
   turnin 863                          -- Sputtervalve
   turnin 865                          -- Mebok Mizzyrix
   vendor nearest
+
+# Group quests (sim elites): Smart Drinks, about 7 min saved for a party
+step Smart Drinks
+  when group 1491
+  accept 1491
+
+step Smart Drinks
+  when group 1491
+  tip Devouring Ectoplasm is elite: grouping up is advised.
+  collect 6464 quest 1491.1
+
+step Smart Drinks
+  when group 1491
+  turnin 1491
 
 step Ishamuhale
   tip Ishamuhale, a big Sunscale raptor, hunts the plains north of the road from Ratchet to the Crossroads.

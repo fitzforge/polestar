@@ -143,6 +143,20 @@ step Winterfall Runners
   turnin 5087 optional                -- Donova Snowden
   note Donova next sends you after High Chief Winterfall, an elite in his cave. Skip it.
 
+# Group quests (sim elites): High Chief Winterfall, about 18 min saved for a party
+step High Chief Winterfall
+  when group 5121
+  accept 5121
+
+step High Chief Winterfall
+  when group 5121
+  tip High Chief Winterfall is elite: grouping up is advised.
+  kill 10738 quest 5121.1
+
+step High Chief Winterfall
+  when group 5121
+  turnin 5121
+
 step Everlook
   tip Ride east along the road to Everlook.
   turnin 5163                         -- Umi Rumplesnicker

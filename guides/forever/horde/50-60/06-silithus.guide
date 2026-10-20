@@ -96,6 +96,20 @@ step Cenarion Hold
   accept 8284                         -- Geologist Larksbane
   accept 9416                         -- Scout Bloodfist
 
+# Group quests (sim elites): Wanted - Deathclasp, Terror of the Sands, about 19 min saved for a party
+step Wanted - Deathclasp, Terror of the Sands
+  when group 8283
+  accept 8283
+
+step Wanted - Deathclasp, Terror of the Sands
+  when group 8283
+  tip Deathclasp is elite: grouping up is advised.
+  collect 20385 quest 8283.1
+
+step Wanted - Deathclasp, Terror of the Sands
+  when group 8283
+  turnin 8283
+
 step Dredge and scorpids
   tip Dredge Strikers, Stonelash Scorpids and Sand Skitterers share the sands just north of the hold.
   kill 11740 quest 8280.1

@@ -194,6 +194,20 @@ step Camp Mojache
   accept 3063                           -- Talo Thornhoof
   accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar, around level 50
 
+# Group quests (sim elites): Dark Heart, about 14 min saved for a party
+step Dark Heart
+  when group 3062
+  accept 3062
+
+step Dark Heart
+  when group 3062
+  tip Edana Hatetalon is elite: grouping up is advised.
+  collect 9528 quest 3062.1
+
+step Dark Heart
+  when group 3062
+  turnin 3062
+
 step Sprite darters and forest walkers
   tip The sprite darters flit over the grove just west of the camp and carry the Encrusted Minerals; the Wandering Forest Walkers, a little further west, carry the Splintered Logs.
   collect 9589 quest 3128.2

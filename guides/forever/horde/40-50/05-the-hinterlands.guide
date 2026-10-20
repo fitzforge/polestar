@@ -153,6 +153,25 @@ step The Atal'ai Exile
   tip South-west again, the exile hides by the ruins of Shadra'Alor.
   turnin 1429                           -- Atal'ai Exile
 
+# Group quests (sim elites): The Temple of Atal'Hakkar, about 6 min saved for a party
+step Return to Fel'Zerul
+  when group 1445
+  accept 1444
+
+step Return to Fel'Zerul
+  when group 1445
+  turnin 1444
+  accept 1445
+
+step The Temple of Atal'Hakkar
+  when group 1445
+  tip Cursed Atal'ai is elite: grouping up is advised.
+  collect 6181 quest 1445.1
+
+step The Temple of Atal'Hakkar
+  when group 1445
+  turnin 1445
+
 # ---------------------------------------------------------------- Revantusk Village
 
 step Revantusk Village
@@ -170,6 +189,35 @@ step Revantusk Village
   accept 7849
   accept 7815                           -- Katoom the Angler
   getfp "Revantusk Village" npc 4314    -- Gorkas
+
+# Group quests (sim elites): Wanted: Vile Priestess Hexx and Her Minions, about 37 min saved for a party
+step Wanted: Vile Priestess Hexx and Her Minions
+  when group 7861
+  accept 7861
+
+step Wanted: Vile Priestess Hexx and Her Minions
+  when group 7861
+  tip Vile Priestess Hexx is elite: grouping up is advised.
+  kill 7995 quest 7861.1
+  kill 2648 quest 7861.2
+
+step Wanted: Vile Priestess Hexx and Her Minions
+  when group 7861
+  turnin 7861
+
+# Group quests (sim elites): Gammerita, Mon!, about 11 min saved for a party
+step Gammerita, Mon!
+  when group 7816
+  accept 7816
+
+step Gammerita, Mon!
+  when group 7816
+  tip Gammerita is elite: grouping up is advised.
+  collect 19023 quest 7816.1
+
+step Gammerita, Mon!
+  when group 7816
+  turnin 7816
 
 # ---------------------------------------------------------------- The north coast
 
@@ -244,6 +292,20 @@ step Jintha'Alor
   collect 19071 quest 7850.1
   turnin 7845                           -- Elder Torntusk, at the top of Jintha'Alor
   note His next request, going on to the Altar of Zul, is for a group.
+
+# Group quests (sim elites): Recover the Key!, about 21 min saved for a party
+step Recover the Key!
+  when group 7846
+  accept 7846
+
+step Recover the Key!
+  when group 7846
+  tip Hitah'ya the Keeper is elite: grouping up is advised.
+  collect 19064 quest 7846.1
+
+step Recover the Key!
+  when group 7846
+  turnin 7846
 
 step Revantusk Village
   turnin 7815                           -- Katoom the Angler
