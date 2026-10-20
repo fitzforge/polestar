@@ -639,6 +639,11 @@ local function tabMenu(self)
 	local i = self.psIndex
 	local tabs = tabsOf(E) or {}
 	W.ShowMenu(self, {
+		-- The picker loads into the active tab, so this tab becomes the active one first.
+		{ text = L["Choose guide"], icon = "search", onClick = function()
+			if E.SelectTab and not self.psActive then E.SelectTab(i) end
+			UI.ShowPicker()
+		end },
 		{ text = L["Close tab"], icon = "close", onClick = function() E.CloseTab(i) end },
 		{ text = L["Move left"], icon = "chevron-left", disabled = i <= 1, onClick = function() E.MoveTab(i, i - 1) end },
 		{ text = L["Move right"], icon = "chevron-right", disabled = i >= #tabs, onClick = function() E.MoveTab(i, i + 1) end },

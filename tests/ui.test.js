@@ -624,6 +624,17 @@ test('tab strip: one tab per open guide; select, close, move, and + opens the pi
 	assert.equal(out.pickerNewTab, true);
 });
 
+test('a tab\'s right-click menu has Choose guide: it makes that tab active and opens the picker to replace its guide', () => {
+	const [out] = run(`
+		uistub.openTabs(TABS, 1)
+		stub.RunScript(shownTabs()[3], "OnClick", "RightButton")
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Choose guide" then r:Click() end end
+		emit({ select = lastCall("SelectTab"), picker = PolestarPicker:IsShown(), newTab = Polestar.UI.Picker.IsNewTabMode() })`);
+	assert.deepEqual(out.select, ['SelectTab', 3]);
+	assert.equal(out.picker, true);
+	assert.equal(out.newTab, false, 'the picked guide replaces the tab\'s guide instead of opening another tab');
+});
+
 test('a narrow tab truncates its title and keeps its level range whole, also with the close button shown', () => {
 	const [out] = run(`
 		Polestar.Set("ui.width", 300)
