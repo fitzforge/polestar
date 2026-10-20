@@ -135,7 +135,7 @@ end
 --   points yet) | "offplan" | "complete" | "behind" (a point to spend: take
 --   the next pick) | "onplan" (waiting for the next point)
 function T.State(build, ranks, level, granted)
-	local s = { done = 0, total = #build.picks, offPlan = {}, nodeNext = {}, spent = 0, level = level }
+	local s = { done = 0, total = #build.picks, offPlan = {}, nodeNext = {}, spent = 0, level = level, ranks = ranks }
 	local planned = {}
 	for _, p in ipairs(build.picks) do planned[p.node] = max(planned[p.node] or 0, p.rank) end
 	local off = false

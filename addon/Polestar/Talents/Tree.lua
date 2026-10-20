@@ -11,7 +11,8 @@
 --
 -- The talent with the cursor's pick is ringed and numbered. Ranks spent
 -- outside the plan (the followed plan only: state.offPlan) carry the same
--- flag as on the talent frame. Hover a talent for its spell and its picks;
+-- flag as on the talent frame. On the followed plan, a rank the game has not
+-- learned yet is drawn muted (ahead). Hover a talent for its spell and its picks;
 -- click it to step to its last pick. The mouse wheel over the tree steps too.
 -- Points can come sooner than one a level, so the level beside a pick is
 -- shown as approximate, as the plan's notes are.
@@ -248,6 +249,8 @@ function MT.Draw(t)
 	local ranks = MT.RanksAt(build, cursor)
 	local pick = build.picks[cursor]
 	local off = t.psMine and t.psState and t.psState.offPlan or {}
+	-- The followed plan's learned ranks: a higher rank at the cursor is ahead.
+	local learned = t.psMine and t.psState and t.psState.ranks
 	local total = #build.picks
 
 	t.Count:SetText(format("%d / %d", cursor, total))
@@ -309,7 +312,7 @@ function MT.Draw(t)
 	local ids = {}
 	for id in pairs(data.nodes) do ids[#ids + 1] = id end
 	table.sort(ids)
-	local nc = 0
+	local nc, na = 0, 0
 	for _, id in ipairs(ids) do
 		local n = data.nodes[id]
 		nc = nc + 1
@@ -320,15 +323,19 @@ function MT.Draw(t)
 		c:ClearAllPoints()
 		c:SetPoint("CENTER", t.Grid, "TOPLEFT", x, y)
 		local r = ranks[id] or 0
+		local ahead = learned and r > (learned[id] or 0) or false
+		c.psAhead = ahead
+		if ahead then na = na + 1 end
 		local isCursor = pick and pick.node == id
 		local icon = ns.Compat and ns.Compat.SpellIcon and ns.Compat.SpellIcon(n.spell)
 		c.Icon:SetTexture(icon or Theme.Media("white"))
 		if not icon then W.Color(c.Icon, "ink", 0.06) else W.Uncolor(c.Icon); c.Icon:SetVertexColor(1, 1, 1, 1) end
 		c.Icon:SetDesaturated(r == 0)
-		c.Icon:SetAlpha(r > 0 and 1 or 0.35)
+		c.Icon:SetAlpha(r > 0 and (ahead and 0.6 or 1) or 0.35)
 		W.Color(c.Well, "shade", 0.6)
-		-- The edge: full ranks gold, part ranks green, none a faint hairline.
-		if r >= n.max then W.Color(c.Edge, "accent")
+		-- The edge: ahead muted, full ranks gold, part ranks green, none a faint hairline.
+		if ahead then W.Color(c.Edge, "textMuted")
+		elseif r >= n.max then W.Color(c.Edge, "accent")
 		elseif r > 0 then W.Color(c.Edge, "success")
 		else W.Color(c.Edge, "ink", 0.14) end
 		c.Ring:SetShown(isCursor or false)
@@ -337,7 +344,7 @@ function MT.Draw(t)
 		c.RankBack:SetShown(r > 0)
 		if r > 0 then
 			c.Rank:SetText(format("%d/%d", r, n.max))
-			W.Color(c.Rank, r >= n.max and "accent" or "success")
+			W.Color(c.Rank, ahead and "textMuted" or (r >= n.max and "accent" or "success"))
 			W.Color(c.RankBack, "shade", 0.85)
 		end
 		c.Order:SetShown(isCursor or false)
@@ -350,7 +357,7 @@ function MT.Draw(t)
 		c:Show()
 	end
 	for i = nc + 1, #t.cells do t.cells[i]:Hide() end
-	t.psShown = { cursor = cursor, total = total, picked = MT.Count(ranks), lines = nl, cells = nc, points = points }
+	t.psShown = { cursor = cursor, total = total, picked = MT.Count(ranks), lines = nl, cells = nc, points = points, ahead = na }
 end
 
 function MT.Count(ranks)

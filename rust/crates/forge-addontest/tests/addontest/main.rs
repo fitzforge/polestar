@@ -217,6 +217,8 @@ mod riding;
 mod route_plan;
 mod syntax;
 mod talents;
+#[path = "talents-tree-ahead.rs"]
+mod talents_tree_ahead;
 mod theme;
 mod travel;
 #[path = "travel-build.rs"]
