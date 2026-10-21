@@ -129,9 +129,14 @@ const STARTS = {
 	Alliance: { Human: [783, 'Elwynn Forest'], Dwarf: [179, 'Dun Morogh'], Gnome: [179, 'Dun Morogh'], NightElf: [456, 'Teldrassil'], Skyborne: SKYBORNE_START },
 };
 
-function dataHash(dataDir, sourcesDir = null) {
+// The group world (--elites) hashes its variant too (and the variant's own
+// version), so its results never replay on the solo world or vice versa.
+const VARIANT_VERSION = { group: 1 };
+
+function dataHash(dataDir, sourcesDir = null, variant = 'solo') {
 	const h = crypto.createHash('sha1');
 	h.update(`builder:${BUILDER_VERSION}\n`);
+	if (variant && variant !== 'solo') h.update(`variant:${variant}:${VARIANT_VERSION[variant] || 0}\n`);
 	for (const f of ['meta.json', 'travel.json', 'trainers.json', 'dungeons.json']) {
 		const file = path.join(dataDir, f);
 		h.update(`${f}:`);
@@ -279,6 +284,11 @@ function buildWorld(data, opts = {}) {
 	const faction = opts.faction;
 	if (!FACTION_RACES[faction]) throw new Error(`faction must be Alliance or Horde (got ${faction})`);
 	const bandWidth = opts.bandWidth || 5;
+	// The group world (docs/SIMULATION.md "Party") keeps elite quests, marked
+	// `elite`: elite kill objectives, items only elites or mobs 5+ levels
+	// above drop, quest-starting items from such mobs. A guide puts them
+	// behind `when group <quest>`, so the player chooses them.
+	const keepElite = opts.variant === 'group';
 	const maxOpen = opts.maxOpen || MAX_OPEN;
 	const warnings = [];
 	const frames = (data['map-frames'] && data['map-frames'].era) || {};
@@ -541,8 +551,9 @@ function buildWorld(data, opts = {}) {
 			}
 		}
 		const exInst = () => ex(`${inst} quest (instance area or dungeons.json)`, inst);
-		// Droppers a solo character farms: not elite, under quest level + 5.
-		const soloDropper = (e) => !strict || !(ELITE_RANKS.has(e.raw.rank) || npcLevel(e.raw, 0) >= level + SOLO.HIGH_DROPPER);
+		// Droppers a solo character farms: not elite, under quest level + 5
+		// (any in the group world).
+		const soloDropper = (e) => !strict || keepElite || !(ELITE_RANKS.has(e.raw.rank) || npcLevel(e.raw, 0) >= level + SOLO.HIGH_DROPPER);
 		const start = raw.start || {};
 		const end = raw.end || {};
 		// Giver. One standing in several places (Minor Manifestation of
@@ -718,7 +729,7 @@ function buildWorld(data, opts = {}) {
 				}
 				if (e.raw.faction && !e.friendly && talk) continue;
 				const el = ELITE_RANKS.has(e.raw.rank) ? 1 : 0;
-				if (el && strict) {
+				if (el && strict && !keepElite) {
 					missing = `elite kill objective npc ${o.id}`;
 					missingCat = 'elite';
 					break;
@@ -894,7 +905,7 @@ function buildWorld(data, opts = {}) {
 			zone: P(giver).map,
 			breadcrumb: !objs.length,
 			escort: escort && objs.some((o) => o && o.type === 'event'),
-			elite,
+			elite: elite || (keepElite && !!accept && accept.work[0][0] === 'kill' && accept.work[0][3] === 1),
 			gName, eName, gPos, ePos,
 		};
 		if (gAlt) q.gAlt = gAlt;
@@ -1387,8 +1398,9 @@ function buildWorld(data, opts = {}) {
 	};
 }
 
-function worldFile(simDir, faction) {
-	return path.join(simDir, `world-${String(faction).toLowerCase()}.json`);
+function worldFile(simDir, faction, variant = 'solo') {
+	const v = variant && variant !== 'solo' ? `-${variant}` : '';
+	return path.join(simDir, `world-${String(faction).toLowerCase()}${v}.json`);
 }
 
 // sourcesDir (data/sources): the cached Forever client tables give the
@@ -1405,19 +1417,24 @@ function loadSimData(dataDir, sourcesDir = null) {
 
 // Cached world, rebuilt when the reference data (meta/travel/trainers/
 // dungeons, the client instance tables) or the builder changed.
-// opts: { dataDir, sourcesDir, simDir, faction, rebuild, questXp, log, bandWidth, maxOpen }
+// opts: { dataDir, sourcesDir, simDir, faction, rebuild, questXp, log, bandWidth, maxOpen, variant }
+// variant: 'solo' (default) or 'group' (keeps elite quests; its own file).
 function getWorld(opts) {
-	const file = worldFile(opts.simDir, opts.faction);
-	const hash = dataHash(opts.dataDir, opts.sourcesDir);
+	const file = worldFile(opts.simDir, opts.faction, opts.variant);
+	const hash = dataHash(opts.dataDir, opts.sourcesDir, opts.variant);
 	if (!opts.rebuild && fs.existsSync(file)) {
 		const w = JSON.parse(fs.readFileSync(file, 'utf8'));
-		if (w.dataHash === hash && w.bandWidth === (opts.bandWidth || 5) && w.maxOpen === (opts.maxOpen || MAX_OPEN)) return w;
+		if (w.dataHash === hash && w.bandWidth === (opts.bandWidth || 5) && w.maxOpen === (opts.maxOpen || MAX_OPEN)) {
+			w.variant = opts.variant || 'solo';
+			return w;
+		}
 	}
 	if (opts.log) opts.log(`building world model for ${opts.faction}...`);
 	const data = opts.data || loadSimData(opts.dataDir, opts.sourcesDir);
 	if (!data.questAreas && opts.log) opts.log('  warning: no cached Forever Map/AreaTable: the solo filter knows instances from dungeons.json only');
-	const w = buildWorld(data, { faction: opts.faction, bandWidth: opts.bandWidth, maxOpen: opts.maxOpen, extraStarts: opts.extraStarts });
+	const w = buildWorld(data, { faction: opts.faction, bandWidth: opts.bandWidth, maxOpen: opts.maxOpen, extraStarts: opts.extraStarts, variant: opts.variant });
 	w.dataHash = hash;
+	w.variant = opts.variant || 'solo';
 	w.questXp = opts.questXp;
 	fs.mkdirSync(opts.simDir, { recursive: true });
 	fs.writeFileSync(`${file}.tmp`, JSON.stringify(w));

@@ -107,7 +107,10 @@ function buildSimPack(files, data) {
 // With `handOver` (the guide ids g's `next` offers), the engine moves on by
 // itself when g ends (autoNextGuide, the recommended route) and a second
 // value says where it landed: { guide, registered: [bool per id], step, open }.
-function playGuide(pack, g, { race, faction, cls, stubs = [], before = '', script = null, handOver = null }) {
+// `groups`: the answer at every group quest (`when group`), "skip" (the solo
+// route) or "do", as behavior.groupQuests sets it in game; never "ask", which
+// would hold the play at the first one.
+function playGuide(pack, g, { race, faction, cls, stubs = [], before = '', script = null, handOver = null, groups = 'skip' }) {
 	const raceName = race === 'Scourge' ? 'Undead' : race;
 	const first = g.steps.flatMap((s) => s.goals).find((x) => x.map && x.x != null);
 	const home = g.category && g.category !== 'Leveling' ? HOME[race] : null;
@@ -129,6 +132,7 @@ function playGuide(pack, g, { race, faction, cls, stubs = [], before = '', scrip
 			stub.login()
 			stub.fire("QUEST_LOG_UPDATE") -- the client fills the quest log right after login
 			Polestar.Set("behavior.autoNextGuide", ${handOver ? 'true' : 'false'})
+			Polestar.Set("behavior.groupQuests", ${luaValue(groups)})
 			${handOver ? 'Polestar.Set("behavior.routeChoice", "recommended")' : ''}
 			Polestar.Engine.SetGuide(${luaValue(g.id)})
 			SIM_GUIDE = Polestar.Engine.GetGuide() -- a hand-over may replace it before SIMULATE starts
@@ -382,7 +386,13 @@ function onlyFits(only, { race, faction, cls }) {
 // g only to hand in (no other goal of it in g): in the log, ready, on
 // arrival. The engine passes by an accept whose prerequisite is missing
 // (issue #70).
-function chainDone(guides, g, persona) {
+// A step's `when group` predicates with every group quest answered `groups`
+// ("do" or "skip"); its other predicates are left to the play.
+function groupsFit(when, groups) {
+	return !(when || []).some((p) => p.k === 'group' && (groups === 'do') === !!p.neg);
+}
+
+function chainDone(guides, g, persona, groups = 'skip') {
 	const into = new Map();
 	for (const from of guides) {
 		for (const to of from.nextChoices || (from.next ? [from.next] : [])) into.set(to, [...(into.get(to) || []), from]);
@@ -396,7 +406,7 @@ function chainDone(guides, g, persona) {
 		if (seen.has(from.id)) continue;
 		seen.add(from.id);
 		for (const s of from.steps) {
-			if (!onlyFits(s.only, persona)) continue;
+			if (!onlyFits(s.only, persona) || !groupsFit(s.when, groups)) continue;
 			for (const x of s.goals) {
 				if (!x.quest || !onlyFits(x.only, persona)) continue;
 				if (x.t === 'turnin') turned.add(x.quest);
@@ -444,7 +454,7 @@ function playData(dir, diag) {
 // -> { results, diag, played, dataMissing }: no results when the pack has
 // errors; missing reference data (dataMissing) is the only error then
 // (nothing is compiled without it).
-function playtest({ dir, manifest, official = false, filter = null, classes = null, dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null }) {
+function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null }) {
 	const dataDiag = new Diagnostics();
 	data = data || playData(dataDir, dataDiag);
 	const contextData = official ? null : contextDataDir && path.resolve(contextDataDir) !== path.resolve(dataDir) ? playData(contextDataDir, dataDiag) : data;
@@ -496,12 +506,12 @@ function playtest({ dir, manifest, official = false, filter = null, classes = nu
 			personas = [...personas, ...classPersonas(data, g, personas)];
 			for (const { race, faction } of personas) {
 				for (const cls of classesFor(data, g, race, faction, classes)) {
-					const pre = chainDone(chained, g, { race, faction, cls });
+					const pre = chainDone(chained, g, { race, faction, cls }, groups);
 					const before = [
 						pre.done.length ? `w.complete(${luaValue(pre.done)})` : '',
 						...pre.carried.map((q) => `w.onQuest(${q}, {})`),
 					].join('\n');
-					const [out, hand] = playGuide(sim, g, { race, faction, cls, handOver, before });
+					const [out, hand] = playGuide(sim, g, { race, faction, cls, handOver, before, groups });
 					const { stuck, problems } = outcome(out, handOver, hand, { race, faction, cls });
 					const r = { guide: g.id, race, faction, cls, ok: !stuck && !problems.length, stuck, problems, landed: hand ? hand.guide || null : null };
 					results.push(r);

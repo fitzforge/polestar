@@ -12,7 +12,7 @@ const STEP_KEYS = ['title', 'note', 'image', 'label', 'only', 'when', 'along', '
 // A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 const IMAGE_KEYS = ['file', 'w', 'h'];
 // A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
-const WHEN_KEYS = ['k', 'neg', 'op', 'n', 'frac', 'q', 'item', 'name', 'label', 'area', 'map', 'minLevel', 'pre', 'preAll', 'closedBy'];
+const WHEN_KEYS = ['k', 'neg', 'op', 'n', 'frac', 'q', 'item', 'spell', 'name', 'label', 'area', 'map', 'skillLine', 'minLevel', 'pre', 'preAll', 'closedBy'];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a

@@ -160,6 +160,8 @@ class Evaluator {
 		this.xpDungeon = 0;
 		this.dungeonSec = 0;
 		this.dungeonsRun = 0;
+		this.gearBonus = 0;
+		this.gearUntil = 0;
 		this.homeLeft = r.homeCount || 0;
 		this.unreachable = 0;
 		this.riskCrossings = 0;
@@ -185,7 +187,7 @@ class Evaluator {
 			bind: this.bind, hearthReady: this.hearthReady, xpQuest: this.xpQuest, xpKill: this.xpKill, xpGrind: this.xpGrind,
 			travelSec: this.travelSec, grindSec: this.grindSec, questsDone: this.questsDone, finished: this.finished,
 			infeasible: this.infeasible, hearths: this.hearths, flights: this.flights, levelFrom: this.level,
-			xpDungeon: this.xpDungeon, dungeonSec: this.dungeonSec, dungeonsRun: this.dungeonsRun,
+			xpDungeon: this.xpDungeon, dungeonSec: this.dungeonSec, dungeonsRun: this.dungeonsRun, gearBonus: this.gearBonus, gearUntil: this.gearUntil,
 			homeLeft: this.homeLeft, unreachable: this.unreachable, riskCrossings: this.riskCrossings, steps: this.steps, catchUpSec: this.catchUpSec,
 			zoneChanges: this.zoneChanges, zoneReturns: this.zoneReturns, spotReturns: this.spotReturns, sharedKills: this.sharedKills,
 			areaId: this.areaId, areaPt: this.areaPt, open: this.open, logPeak: this.logPeak, u: this.uLen,
@@ -228,6 +230,8 @@ class Evaluator {
 		this.xpDungeon = s.xpDungeon;
 		this.dungeonSec = s.dungeonSec;
 		this.dungeonsRun = s.dungeonsRun;
+		this.gearBonus = s.gearBonus;
+		this.gearUntil = s.gearUntil;
 		this.homeLeft = s.homeLeft;
 		this.unreachable = s.unreachable;
 		this.riskCrossings = s.riskCrossings;
@@ -370,7 +374,9 @@ class Evaluator {
 			const target = this.level < level ? LEVEL_XP[this.level] : xpInto;
 			const need = target - this.xp;
 			if (need <= 0) break;
-			const sec = need / g[this.level];
+			let sec = need / g[this.level];
+			// Dungeon gear kills faster: the killing share of grinding.
+			if (this.level < this.gearUntil) sec *= 1 - this.gearBonus * this.t.grindKill[this.level];
 			this.time += sec;
 			this.grindSec += sec;
 			this.xpGrind += need;
@@ -502,7 +508,9 @@ class Evaluator {
 			const kind = r.wKind[w];
 			if (kind === W_KILL) {
 				let n = r.wCount[w] * (1 + p.extraKill);
-				if (r.wDrop[w]) n /= p.dropMul;
+				// A drop: in a party, each member needs his own; partyDrops of
+				// them come off the same kill.
+				if (r.wDrop[w]) n = (n * (1 + (t.party.n - 1) * (1 - p.partyDrops))) / p.dropMul;
 				// Kills already credited by another quest's (shareKills).
 				const had = this.killed[w];
 				const base = had > 0 || r.wShare0[w] < r.wShare1[w] ? this.killsFor(w) : 0;
@@ -517,7 +525,7 @@ class Evaluator {
 				while (n > 0 && !this.finished) {
 					const L = this.level;
 					const xpPer = t.killX[L * MOBL + M] * (elite ? 2 : 1);
-					const tPer = t.killT[L * MOBL + M] * (elite ? p.eliteTime : 1) + walk;
+					const tPer = t.killT[L * MOBL + M] * (elite ? p.eliteTime : 1) * (L < this.gearUntil ? 1 - this.gearBonus : 1) + walk;
 					if (xpPer <= 0) {
 						this.time += n * tPer;
 						break;
@@ -667,14 +675,19 @@ class Evaluator {
 		if (this.level < dg.min) this.grindTo(dg.min);
 		const mid = (dg.min + dg.max) / 2;
 		const runMin = p.dungeonRunLow + ((p.dungeonRunHigh - p.dungeonRunLow) * Math.max(0, Math.min(1, (mid - 15) / 40)));
-		this.time += (p.dungeonFormUp + runMin) * 60;
-		this.dungeonSec += (p.dungeonFormUp + runMin) * 60;
+		// A party brings its own players: the rest of the five are found as
+		// before, a full party only walks in together.
+		const n = this.t.party.n;
+		const formUp = n >= 5 ? p.premadeFormUp : p.premadeFormUp + ((p.dungeonFormUp - p.premadeFormUp) * (5 - n)) / 4;
+		this.time += (formUp + runMin) * 60;
+		this.dungeonSec += (formUp + runMin) * 60;
 		const trashLevel = Math.max(1, Math.round(mid));
 		let xp = p.dungeonTrash * mobXp(this.level, trashLevel, true);
 		for (let i = 0; i < dg.bosses.length; i++) xp += mobXp(this.level, dg.bosses[i], true);
 		// Bosses without a known level count at the dungeon's top level.
 		for (let i = dg.bosses.length; i < dg.bossCount; i++) xp += mobXp(this.level, dg.max, true);
-		xp *= p.partyShare;
+		// Forever cut dungeon mob XP (by how much it did not say): dungeonMobXp.
+		xp *= p.partyShare * p.dungeonMobXp;
 		this.xpKill += xp;
 		this.xpDungeon += xp;
 		this.set1(J_DUNGEON, this.dungeonDone, d);
@@ -684,6 +697,16 @@ class Evaluator {
 			for (let t = r.qTask0[qi]; t < r.qTask1[qi]; t++) if (!this.taskDone[t]) this.set1(J_TASK, this.taskDone, t);
 		}
 		this.dungeonsRun++;
+		// Its gear (boss loot, quest rewards) kills dungeonGear faster until
+		// questing's rewards catch up, gearLife levels past the dungeon's own
+		// top level: a dungeon run far above it gives gear already outlevelled.
+		if (p.dungeonGear > 0) {
+			const until = Math.min(this.level, dg.max) + p.gearLife;
+			if (until > this.level && (until > this.gearUntil || p.dungeonGear > this.gearBonus)) {
+				this.gearBonus = p.dungeonGear;
+				this.gearUntil = until;
+			}
+		}
 		this.gain(xp);
 		return true;
 	}

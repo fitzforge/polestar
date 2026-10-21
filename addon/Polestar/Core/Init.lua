@@ -460,6 +460,8 @@ function ns.CharState()
 	if type(s.when) ~= "table" then s.when = {} end
 	-- Map id -> true: the dungeons the player chose to run in leveling guides (`when dungeon`; Engine.ChooseDungeon).
 	if type(s.dungeons) ~= "table" then s.dungeons = {} end
+	-- Quest id -> "do" | "skip": the player's answer at a group quest in leveling guides (`when group`; Engine.AnswerGroup).
+	if type(s.groupQuests) ~= "table" then s.groupQuests = {} end
 	if type(s.flags) ~= "table" then s.flags = {} end
 	return s
 end

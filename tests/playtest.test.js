@@ -52,6 +52,20 @@ test('a guide starts with the prerequisites its accepts need that the guides cha
 	assert.deepEqual(chainDone(guides, a, { race: 'Human', faction: 'Alliance', cls: 'DRUID' }), { done: [], carried: [] });
 });
 
+test('the chain credits a turn-in behind `when group` only when the play answers do; `when !group` only when it skips', () => {
+	const a = { id: 'a', next: 'b', steps: [{ goals: [{ t: 'turnin', quest: 10 }] }, { when: [{ k: 'group', q: 11 }], goals: [{ t: 'turnin', quest: 11 }] }, { when: [{ k: 'group', q: 11, neg: true }], goals: [{ t: 'turnin', quest: 12 }] }] };
+	const b = { id: 'b', steps: [{ goals: [{ t: 'accept', quest: 20, pre: [10] }, { t: 'accept', quest: 21, pre: [11] }, { t: 'accept', quest: 22, pre: [12] }] }] };
+	const who = { race: 'Human', faction: 'Alliance', cls: 'WARRIOR' };
+	assert.deepEqual(chainDone([a, b], b, who), { done: [10, 12], carried: [] }, 'skip by default');
+	assert.deepEqual(chainDone([a, b], b, who, 'do'), { done: [10, 11], carried: [] });
+});
+
+test('--group takes do or skip; anything else is refused', async () => {
+	const bad = await quiet(() => cmd.run(['--group', 'maybe']));
+	assert.equal(bad.result, 2);
+	assert.match(bad.out, /--group must be do or skip/);
+});
+
 test('a stuck step is reported with guide, step, title and class; exit 1', { skip }, async () => {
 	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'stuck')]));
 	assert.equal(result, 1);

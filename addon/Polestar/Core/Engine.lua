@@ -37,6 +37,8 @@ ns.RegisterDefaults("behavior", {
 	closeSkipped = true, -- close the quest window the game opens after an auto accept/turn-in when it shows only quests the guide skips (Automation.lua)
 	routeChoice = "ask", -- "ask" | "recommended": what happens where a guide offers several next zones
 	trainReminder = "2", -- "2" | "1" | "off": remind to visit the class trainer every 2 levels, every level, never
+	offerClassQuests = true, -- offer a Class guide in a tab when it opens for the character (QoL/ClassQuests.lua)
+	groupQuests = "ask", -- "ask" | "do" | "skip": the answer at a group quest (`when group`) the player has not answered (Own.groupAnswer)
 	suggestFrom = "guides", -- pack id the suggestions come from (Guides.SuggestSource); ours fill in
 })
 
@@ -480,6 +482,64 @@ function Own.levelReached(level, frac)
 	return max > 0 and (player.xp or 0) / max >= frac
 end
 
+-- `when upgrade`: Polestar's gear advice (Gear.IsUpgrade: wearable now and at
+-- least the "minimum upgrade" better than what is worn) rates the item an
+-- upgrade. When it cannot judge (gear advice off, the item's stats or the
+-- spec's weights unknown) the item counts as one, so the step is shown and
+-- the player decides.
+function Own.isUpgrade(item)
+	local G, link = ns.Gear, "item:" .. item
+	if not (G and G.IsEnabled and G.IsEnabled() and G.CompareToEquipped(link)) then return true end
+	return G.IsUpgrade(link) and true or false
+end
+
+-- `when cooldown`: the item or spell is cooling down, the global cooldown
+-- (1.5 s or less) aside. A cooldown runs out without an event, so one that
+-- holds asks for an update when it ends; one starting comes with
+-- BAG_UPDATE_COOLDOWN or SPELL_UPDATE_COOLDOWN, heard once a guide has asked.
+function Own.onCooldown(p)
+	Own.cooldownAsked = true
+	local C = Compat()
+	local start, duration
+	if p.item then start, duration = C.GetItemCooldown(p.item) else start, duration = C.GetSpellCooldown(p.spell) end
+	if duration <= 1.5 then return false end
+	local ends, now = start + duration, GetTime()
+	if ends <= now then return false end
+	local wake = Own.cooldownWake
+	if not (wake and wake > now and wake <= ends) then
+		Own.cooldownWake = ends
+		C_Timer.After(ends - now, function()
+			if Own.cooldownWake == ends then Own.cooldownWake = nil end
+			Engine.RequestUpdate()
+		end)
+	end
+	return true
+end
+
+-- `when group <quest>`: the player's answer to "do this group quest?",
+-- per character (CharState().groupQuests[q]: "do" or "skip"; Engine.AnswerGroup),
+-- else the answer for every group quest (behavior.groupQuests "do" or "skip";
+-- "ask": none, so the route asks). Never guessed from the quest log: a solo
+-- alternative (`when !group`) may be for a quest the player already has.
+function Own.groupAnswer(q)
+	local answer = ns.CharState().groupQuests[q]
+	if answer ~= nil then return answer end
+	local all = ns.Get("behavior.groupQuests")
+	if all == "do" or all == "skip" then return all end
+	return nil
+end
+
+-- The quest of the first unanswered `group` predicate of a step, or nil. Such
+-- a step applies but is not done (stepDone), so the route waits there until
+-- the player answers; an along step never waits (the route passes over it).
+function Own.groupPending(step)
+	if step.along or not step.when then return nil end
+	for _, p in ipairs(step.when) do
+		if p.k == "group" and Own.groupAnswer(p.q) == nil then return p.q end
+	end
+	return nil
+end
+
 function Own.predicateHolds(p)
 	local C, k, ok = Compat(), p.k, false
 	if k == "level" then
@@ -509,6 +569,8 @@ function Own.predicateHolds(p)
 		ok = Own.availableNow(p)
 	elseif k == "has" then
 		ok = (C.GetItemCount(p.item) or 0) >= (p.n or 1)
+	elseif k == "upgrade" then
+		ok = Own.isUpgrade(p.item)
 	elseif k == "zone" or k == "subzone" then
 		local zone, sub = C.GetZoneText()
 		ok = Own.samePlace(k == "zone" and zone or sub, p)
@@ -518,6 +580,16 @@ function Own.predicateHolds(p)
 		ok = p.map ~= nil and Engine.DungeonChosen(p.map)
 	elseif k == "done" then
 		ok = Own.labelDone(p.label)
+	elseif k == "skill" then
+		-- Not learned reads as rank 0, so `!skill Herbalism 1` is "has no Herbalism".
+		ok = (C.GetSkillRank and C.GetSkillRank(p.skillLine or p.name) or 0) >= p.n
+	elseif k == "cooldown" then
+		ok = Own.onCooldown(p)
+	elseif k == "group" then
+		local answer = Own.groupAnswer(p.q)
+		-- Unanswered: the step applies either way, and waits (Own.groupPending).
+		if answer == nil then return true end
+		ok = answer == "do"
 	end
 	if p.neg then return not ok end
 	return ok
@@ -1626,6 +1698,7 @@ end
 
 local function stepDone(s)
 	if guide.steps[s].along then return true end -- the route passes over it (Own.alongListed)
+	if Own.groupPending(guide.steps[s]) then return false end -- waits for the player's answer
 	return Own.goalsDone(s)
 end
 
@@ -3990,16 +4063,76 @@ end
 -- The dungeons the player runs in leveling guides (`when dungeon`, the
 -- Options' "Dungeons in leveling guides"): CharState().dungeons[map] = true,
 -- by the instance's Map id; none by default, so the solo route is the
--- default. A change re-evaluates the guides at once; a step the route has
--- passed keeps its stored outcome (Own.latchWhen).
+-- default. A change re-evaluates the guides at once and fires
+-- DUNGEONS_CHOSEN (map, on); a step the route has passed keeps its stored
+-- outcome (Own.latchWhen).
 function Engine.DungeonChosen(map)
 	return ns.CharState().dungeons[map] == true
 end
 
 function Engine.ChooseDungeon(map, on)
 	if type(map) ~= "number" then return end
-	ns.CharState().dungeons[map] = on and true or nil
+	local dungeons = ns.CharState().dungeons
+	on = on and true or nil
+	if dungeons[map] == on then return end
+	dungeons[map] = on
 	requestUpdate()
+	ns.Fire("DUNGEONS_CHOSEN", map, on == true)
+end
+
+-- The group quest the live step waits on (`when group`, unanswered): its
+-- quest id and title (the step's goal for it, else the guide's accept, else
+-- the step's title), or nil.
+function Engine.GroupQuestion()
+	local step = guide and computed and guide.steps[computed]
+	local q = step and Own.groupPending(step)
+	if not q then return nil end
+	for _, goal in ipairs(step.goals) do
+		if goal.quest == q and goal.title then return q, goal.title end
+	end
+	local a = layoutOf(guide).accepts[q]
+	return q, (a and a[1].goal.title) or step.title
+end
+
+-- The group quests (`when group`) of the guides for this character (the
+-- guide's faction, races and classes, the step's `only`): { { quest, title } },
+-- each quest once, in guide and step order. For the Options list.
+function Engine.GroupQuests()
+	if not player then refreshPlayer() end
+	local out, seen = {}, {}
+	for _, h in ipairs(Guides.List()) do
+		local g = Guides.Get(h.id)
+		if g and Guides.GuideMatches(g, player) then
+			for _, step in ipairs(g.steps) do
+				for _, p in ipairs(Guides.Matches(step.only, player) and step.when or NONE) do
+					if p.k == "group" and not seen[p.q] then
+						seen[p.q] = true
+						local title
+						for _, goal in ipairs(step.goals) do
+							if goal.quest == p.q and goal.title then title = goal.title break end
+						end
+						out[#out + 1] = { quest = p.q, title = title or step.title }
+					end
+				end
+			end
+		end
+	end
+	return out
+end
+
+-- The player's answer for group quest q: "do", "skip", or nil to ask again.
+-- Per character, for every guide (CharState().groupQuests); a quest not
+-- answered takes behavior.groupQuests ("do", "skip"; "ask": nil). A new
+-- answer fires GROUP_ANSWERED (q, answer) (Quests/PartyRoute.lua shares it).
+function Engine.GroupAnswer(q) return Own.groupAnswer(q) end
+
+function Engine.AnswerGroup(q, answer)
+	if type(q) ~= "number" or (answer ~= nil and answer ~= "do" and answer ~= "skip") then return end
+	local answers = ns.CharState().groupQuests
+	if answers[q] == answer then return end
+	answers[q] = answer
+	requestUpdate()
+	ns.Fire("GROUP_ANSWERED", q, answer)
 end
 
 -- The active tab's finished guide when its route choice waits for the
@@ -4453,6 +4586,20 @@ end
 -- The quest database says which quest collects count the bags (Own.bagCollect).
 ns.On("QUESTDB_LOADED", onUpdateEvent)
 
+-- New gear verdicts (equipment, spec, level, item data): `when upgrade`.
+ns.On("GEAR_UPDATED", onUpdateEvent)
+
+-- A new answer for every group quest (`when group`, Own.groupAnswer).
+ns.On("SETTING_CHANGED", function(path)
+	if path == "behavior.groupQuests" then requestUpdate() end
+end)
+
+-- An item or spell going on cooldown: `when cooldown` (Own.onCooldown), once a
+-- guide has asked, since SPELL_UPDATE_COOLDOWN comes with every cast.
+for _, event in ipairs({ "BAG_UPDATE_COOLDOWN", "SPELL_UPDATE_COOLDOWN" }) do
+	ns.RegisterEvent(event, function() if Own.cooldownAsked then requestUpdate() end end)
+end
+
 -- Where the player is changed enough to re-pick candidates: a zone change or
 -- landing (control comes back after a flight).
 local function onContextEvent()
@@ -4725,8 +4872,10 @@ local function wantsFrom(from, verb, questID, span)
 	for s = from, #steps do
 		local step = steps[s]
 		if stepApplies(step) then
+			-- A group quest the player has not answered for yet is not taken or handed in for them.
+			local waits = Own.groupPending(step)
 			for g, goal in ipairs(step.goals) do
-				if matchesVerb(goal, verb) and goal.quest == questID and goalApplies(goal)
+				if matchesVerb(goal, verb) and goal.quest == questID and questID ~= waits and goalApplies(goal)
 					and not (verb == "direct" and goalDone(s, g, goal)) then
 					return true
 				end

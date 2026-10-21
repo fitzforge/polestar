@@ -47,6 +47,15 @@
   "name": "Earthroot",
   "vendors": []
  },
+ "2488": {
+  "drops": {
+   "npc": {},
+   "object": {}
+  },
+  "id": 2488,
+  "name": "Gladius",
+  "vendors": []
+ },
  "2581": {
   "drops": {
    "npc": {},

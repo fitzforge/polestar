@@ -1084,6 +1084,12 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   `train` goal (an npc in the registry or `train class`). The UI shows a slim
   banner with Show (temporary `Nav.SetTarget`) and Later, cleared by
   `CLASS_TRAINED`; Options → Guide → Automation → "Trainer reminders".
+  With `behavior.offerClassQuests` (default on; QoL/ClassQuests.lua), a
+  Class guide that opens for the character (`GuideMatches`, its gate gone,
+  `Engine.StartGate`, nothing of it under way) fires `CLASS_QUEST_READY`
+  on level-up, a turn-in or login, and the banner offers it in a tab (Later:
+  again at a higher level; dismissed: never; `CharState().flags.classOffered`),
+  one at a time; Options → Guide → Automation → "Offer class quests".
 - **Conditions checked during play.** A step with `when` (format 4;
   GUIDE_FORMAT, "Conditions checked during play") applies only while every
   predicate holds (`Own.whenFails`, `Own.predicateHolds`): the level, quests
@@ -1094,7 +1100,23 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   else as written), the dungeons the player chose to run
   (`Engine.DungeonChosen(map)`: `CharState().dungeons[map]`, set by
   `Engine.ChooseDungeon(map, on)` from the Options' "Dungeons in leveling
-  guides", none by default; a predicate without `map` never holds). `stepApplies` reads them, so such a step counts as one
+  guides", none by default; a predicate without `map` never holds),
+  Polestar's gear advice on an item (`Own.isUpgrade`: `Gear.IsUpgrade`,
+  counted as an upgrade when the advice is off or cannot judge the item), a
+  profession's rank (`Compat.GetSkillRank` by skill line, else by name; not
+  learned is 0), and an item or spell on cooldown (`Own.onCooldown`: longer
+  than the global cooldown and not run out; it times an update for when it
+  ends, and `BAG_UPDATE_COOLDOWN`/`SPELL_UPDATE_COOLDOWN` update once a guide
+  has asked), and the player's answer at a group quest (`Own.groupAnswer`:
+  `CharState().groupQuests[q]`, "do" or "skip", set by `Engine.AnswerGroup`
+  from the guide window's banner or Options, Discovery, Group quests;
+  `Engine.GroupQuests` lists a character's; a quest not answered takes
+  `behavior.groupQuests`, "do" or "skip" for all of them, or "ask", none,
+  re-evaluated on `SETTING_CHANGED`; Options, Guide, Automation, "Group
+  quests", shown while `GroupQuests` lists one). An unanswered `group` predicate
+  holds and `stepDone` is false while `Own.groupPending` names its quest (not
+  on an along step), so the route waits at the step; `Engine.GroupQuestion`
+  gives the banner the quest, and `wantsFrom` keeps automation off it. `stepApplies` reads them, so such a step counts as one
   for other characters while they fail, and a turn-in whose only accept sits
   there goes with it (`orphaned`). When the route moves past a step
   (`latchPassed`), its outcome is stored per character (`Own.latchWhen`): a
@@ -1108,7 +1130,7 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   `ResetProgress` forgets them; a pack update moves them with the steps
   (`Own.remap`). The live state they read already re-evaluates the guide
   (quest log, `BAG_UPDATE_DELAYED`, zone changes, `PLAYER_LEVEL_UP`,
-  `PLAYER_XP_UPDATE`, `HEARTHSTONE_BOUND`, `PLAYER_MONEY`), and `Engine.ChooseDungeon`
+  `PLAYER_XP_UPDATE`, `HEARTHSTONE_BOUND`, `PLAYER_MONEY`, `GEAR_UPDATED`), and `Engine.ChooseDungeon`
   asks for an update itself. A `level` predicate with `frac`
   (`when level>=12.5`) compares the level plus the share of it done
   (XP / XPMax) with `n + frac`.
@@ -3297,6 +3319,35 @@ flight timer and the instance tracker are set under Quality of Life.
   (`Polestar.Dungeons.Open(key)`); with the Dungeons module off, or on
   Shift-click, it sets a Nav waypoint.
 
+### Party route — Quests/PartyRoute.lua
+
+The party leader's route choices, so a party takes one route: the answers at
+group quests (`when group`; `Engine.GroupAnswer`, so an answer for all,
+`behavior.groupQuests` "do" or "skip", counts at every group quest of the
+leader's guides; a quest the leader has not answered is left out) and the
+dungeons chosen for leveling guides (`CharState().dungeons`, by Map id).
+Hidden addon messages on Party's prefix, to the party only (never a raid), as
+Party.lua's rules have it: `R2|<serial>|<parts>|33,36`, then that many
+`R2A|<serial>|<i>|783d,91752s` parts, each at most `Party.MAX_BYTES`; sent by
+the leader with `party.routeShare` on (off by default) a second after
+`GROUP_ANSWERED` (Engine.AnswerGroup), `DUNGEONS_CHOSEN`
+(Engine.ChooseDungeon) or a change to `behavior.groupQuests`, when someone
+joins (the party grew), when the player becomes leader, and when asked;
+`R2Q|` asks the leader, sent only by a member with `party.routeFollow`
+"follow" ("Take it"; three seconds after joining or a login in a party, and on
+`PARTY_LEADER_CHANGED`). With the defaults a member only listens and sends
+nothing.
+`Party.Decode` refuses all three. A member takes a route only from the unit
+the client names leader (`UnitIsGroupLeader`), once every part of its serial
+has come, and does nothing when it changes nothing; else
+`party.routeFollow`: "ask" (default) fires `PARTY_ROUTE`, once per leader and
+route, for the guide window's banner, whose "Take it" calls `PartyRoute.Take`
+(each of the leader's answers, per character; every dungeon as the leader has
+it: on when listed, off when not; the member's own answer for all and its
+answers at quests the leader left open stay); "follow" takes it at once;
+"off" ignores it. Both settings sit in Party's section (Questing, Quests,
+Party).
+
 ## QoL — quality-of-life helpers
 
 ### Quest reward marks — QoL, reads Gear
@@ -3574,6 +3625,29 @@ hand-in guide). It is a Lookup planner kind
 "lookup") and opens it in a new tab, and a saved tab of it is rebuilt at
 ADDON_LOADED like Lookup's own; it is gated by `dungeons.enabled`, not
 `lookup.enabled`.
+
+The dungeon offer (`addon/Polestar/Dungeons/Advice.lua`) brings the pick-up
+guide to the player when a dungeon pays: `AdviceData.lua` (written by `sim
+advice` from the simulator's weaves, docs/SIMULATION.md, "Dungeon advice")
+holds per faction and party size each dungeon's run level, the minutes it
+saves to 60 and the share of parameter draws where it does.
+`Dungeons.AdviceDue()` picks the first dungeon, most minutes first, that saves
+at least 5 minutes in at least half the draws for the party's size
+(`Dungeons.PartySize`: 1 alone, a raid counts as 5), at or above its run level
+and not outlevelled (the summary's `maxLevel`), and not already offered
+(`CharState().flags.dungeonOffered[key]`: true, or the level "Later" was
+clicked at). `Dungeons.CheckAdvice` (level-up, `GROUP_ROSTER_UPDATE`, login)
+fires `DUNGEON_ADVICE`, and the guide window's banner offers "Pick up its
+quests" (`Dungeons.PickUp`, and `Engine.ChooseDungeon(map, true)` for guides
+with `when dungeon` steps), "Later" or dismiss (`Dungeons.ResolveAdvice`).
+`dungeons.advice` (Options, Discovery, Dungeons, "Suggest dungeons"): "ask",
+"open" (the pick-up guide opens by itself) or "off".
+`dungeons.adviceWhich` ("Which dungeons"): "pays" (default) or "all", which,
+after the dungeons that pay, offers each other dungeon (`Dungeons.List`, kind
+"dungeon") while the character is in its minLevel to maxLevel, in level
+order, as a notice with `any = true` ("Levels 18 to 26. Pick up its quests
+for a guided route to it, or keep levelling."); such a notice is always
+asked, even with "open".
 
 The hand-in guide is the run's other half (`addon/Polestar/Dungeons/Handin.lua`,
 planner kind `handin`, `lookup/handin/<key>`, `Dungeons.HandIn(key)`).
@@ -5250,9 +5324,13 @@ Finds (`Finds.lua`), for what the client tables cannot give the Codex:
   the dead target), each corpse or object once per session; `q` marks quest
   items, `gather` (`herb`, `mine`, `skin`) a window a gathering cast opened.
   Fishing is left out.
-- `enter {inst, instName, instType, diff, map, x, y}`: zoning into a dungeon
-  or raid (`GetInstanceInfo`), with the last outdoor position (taken at
-  `PLAYER_LEAVING_WORLD`) as the entrance.
+- `enter {inst, instName, instType, diff, party, lvl, map, x, y}`: zoning
+  into a dungeon or raid (`GetInstanceInfo`), with the last outdoor position
+  (taken at `PLAYER_LEAVING_WORLD`) as the entrance, the players in the group
+  (`party`, 1 alone) and the character's level.
+- `leave {inst, party}`: zoning out of it (or straight into another). With
+  `enter`, `sim calibrate` times dungeon runs (docs/SIMULATION.md,
+  "Calibration").
 - `encounter {enc, encName, diff, size, ok, inst, npcs, map, x, y}`:
   `ENCOUNTER_END`; `npcs` are the bosses its `encounterUnitStatus` lists,
   else the creatures that died since `ENCOUNTER_START`.

@@ -30,7 +30,8 @@ Read it before writing a guide.
   for `goto` and `explore`, or for a place the data does not know.
 - **Routes a player can do alone.** A leveling guide never requires an elite,
   a dungeon or a group quest: lint stops required elite work. Group content
-  goes in as an `optional` goal with the tip `<Name> is elite: grouping up is
+  goes in behind `when group <quest>` on its accept step (the player chooses
+  it) or as an `optional` goal, with the tip `<Name> is elite: grouping up is
   advised.`
 - **The author's own material only.** Write from the author's notes, routes
   they played (`polestar record`) or guides they wrote. Never copy text, step

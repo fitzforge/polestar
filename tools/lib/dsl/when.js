@@ -13,23 +13,29 @@
 //   [!]turnedin <quest>                       the quest is handed in
 //   [!]available <quest>                      the quest can be taken now
 //   [!]has <item> [xN]                        the bags hold N (default 1) or more
+//   [!]upgrade <item>                         Polestar's gear advice rates the item an upgrade
 //   [!]zone "<Name>"  [!]subzone "<Name>"     the zone or subzone text reads so
 //   [!]bound "<Location>"                     the hearthstone is bound there
 //   [!]dungeon "<Name>"                       the player chose to run that dungeon
 //   money<A  money<=A  money>A  money>=A     the character's money; A as copper or 1g50s / 7s / 25c
 //   [!]done <label>                           the step so labelled was completed, not skipped
-// value = { k, neg?, op?, n?, frac?, q?, item?, name?, label? }; `q` is a list for onquest.
+//   [!]skill <Profession> <N>                 the profession's skill rank is N or more
+//   [!]cooldown item <item>                   the item (or spell) is on cooldown, the global
+//   [!]cooldown spell <spell>                 cooldown aside
+//   [!]group <quest>                          the player chose to do that group quest (! to skip it);
+//                                             the route waits at the step until they answer
+// value = { k, neg?, op?, n?, frac?, q?, item?, spell?, name?, label? }; `q` is a list for onquest.
 
 const { levelPoint } = require('../game/xp');
 const { readMoney } = require('./money');
 
 const INT_RE = /^\d+$/;
-const KINDS = ['level', 'money', 'onquest', 'complete', 'turnedin', 'available', 'has', 'zone', 'subzone', 'bound', 'dungeon', 'done'];
+const KINDS = ['level', 'money', 'onquest', 'complete', 'turnedin', 'available', 'has', 'upgrade', 'zone', 'subzone', 'bound', 'dungeon', 'done', 'skill', 'cooldown', 'group'];
 // A step label, as parse.js reads `label <name>`.
 const LABEL_RE = /^[A-Za-z0-9_-]+$/;
-const QUEST_ONE = new Set(['complete', 'turnedin', 'available']);
+const QUEST_ONE = new Set(['complete', 'turnedin', 'available', 'group']);
 const PLACE = new Set(['zone', 'subzone', 'bound']);
-const USAGE = `predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]zone "<Name>", [!]subzone "<Name>", [!]bound "<Location>", [!]dungeon "<Name>", [!]done <label>`;
+const USAGE = `predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone "<Name>", [!]subzone "<Name>", [!]bound "<Location>", [!]dungeon "<Name>", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>`;
 
 // A name written quoted or bare: `"Razor Hill"` or `Razor Hill`.
 function nameOf(text) {
@@ -88,9 +94,28 @@ function parseWhen(rest) {
 		value.n = n;
 		return { value };
 	}
+	if (kind === 'upgrade') {
+		if (!INT_RE.test(args) || Number(args) <= 0) return { error: '`upgrade` needs one item id: upgrade <item>' };
+		value.item = Number(args);
+		return { value };
+	}
 	if (kind === 'done') {
 		if (!LABEL_RE.test(args)) return { error: '`done` needs a step label: done <label>' };
 		value.label = args;
+		return { value };
+	}
+	if (kind === 'skill') {
+		const s = /^(?:"((?:[^"\\]|\\.)*)"|([^"]+?))\s+(\d+)$/.exec(args);
+		const name = s && (s[1] !== undefined ? s[1].replace(/\\(["\\])/g, '$1') : s[2]).trim();
+		if (!name || Number(s[3]) < 1) return { error: '`skill` needs a profession and a rank of 1 or more: skill <Profession> <N>' };
+		value.name = name;
+		value.n = Number(s[3]);
+		return { value };
+	}
+	if (kind === 'cooldown') {
+		const c = /^(item|spell)\s+(\d+)$/i.exec(args);
+		if (!c || Number(c[2]) <= 0) return { error: '`cooldown` needs an item or spell id: cooldown item <item> or cooldown spell <spell>' };
+		value[c[1].toLowerCase()] = Number(c[2]);
 		return { value };
 	}
 	// zone, subzone, bound, dungeon

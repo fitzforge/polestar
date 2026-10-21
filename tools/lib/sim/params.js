@@ -49,7 +49,17 @@ const PRIORS = {
 	dungeonRunHigh: [60, 15, 25, 120, 'minutes per dungeon clear at dungeon level 55'],
 	dungeonFormUp: [15, 8, 2, 45, 'minutes to form a group and reach the instance portal'],
 	dungeonTrash: [70, 20, 25, 150, 'elite trash kills per clear (DungeonJournal has no trash counts)'],
+	dungeonMobXp: [0.6, 0.2, 0.2, 1, 'share of Classic\'s XP a dungeon mob gives in Forever (cut sharply in the beta, then raised about 20% on 8 Oct 2026; no figure published)'],
 	partyShare: [0.28, 0, 0.28, 0.28, 'share of solo kill XP each of 5 party members gets (Classic: 1.4 / 5)'],
+	// A party levelling together (`sim run --party N`, docs/SIMULATION.md "Party").
+	partySize: [1, 0, 1, 5, 'players levelling together, all doing the route (set by --party; 1 = solo)'],
+	partyDps: [0.8, 0.12, 0.4, 1, 'kill speed each party member past the first adds, as a share of one player\'s (overkill, tagging, pulling)'],
+	partyDrops: [0.5, 0.3, 0, 1, 'share of a quest\'s objective drops each member loots for themselves from a kill (1: every member gets one per kill, 0: one per kill for the party)'],
+	// Dungeon gear (docs/SIMULATION.md, "Dungeon gear"): from Polestar's gear
+	// scores of boss loot against quest rewards; wide, as loot coverage is low.
+	dungeonGear: [0.05, 0.04, 0, 0.2, 'share of kill time a dungeon run\'s gear (boss loot, quest rewards) takes off'],
+	gearLife: [3, 2, 1, 7, 'levels past the dungeon\'s top level until questing\'s rewards catch up with its gear'],
+	premadeFormUp: [5, 3, 1, 20, 'minutes a premade party needs to reach a dungeon portal together (no group finding)'],
 	restedShare: [0, 0, 0, 1, 'share of kill XP doubled by rested XP (optional)'],
 };
 
@@ -156,6 +166,18 @@ function means(eff) {
 	return p;
 }
 
+// p with every parameter it lacks at its prior's mean: a result saved before
+// a parameter was added still evaluates (a missing one would be NaN).
+function complete(p) {
+	let out = p;
+	for (const k of NAMES) {
+		if (p[k] != null) continue;
+		if (out === p) out = { ...p };
+		out[k] = PRIORS[k][0];
+	}
+	return out;
+}
+
 // One draw from the (calibrated) priors.
 function sample(eff, rng) {
 	const p = {};
@@ -177,5 +199,5 @@ function draws(eff, k, seed) {
 }
 
 module.exports = {
-	PRIORS, NAMES, CLASS_FACTOR, OBJECTIVES, objectiveName, parseOverrides, tagName, priorTable, paramsFile, loadParamsFile, saveParamsFile, effective, means, sample, draws,
+	PRIORS, NAMES, CLASS_FACTOR, OBJECTIVES, objectiveName, parseOverrides, tagName, priorTable, paramsFile, loadParamsFile, saveParamsFile, effective, means, complete, sample, draws,
 };

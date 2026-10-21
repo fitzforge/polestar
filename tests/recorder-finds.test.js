@@ -139,9 +139,14 @@ test('instance entrances keep the last outdoor position; encounters name their b
 		stub.fire("ENCOUNTER_END", 1737, "Cookie", 1, 5, 0, {})
 		stub.world.loot = { { name = "Cruel Barb", item = 5191, src = { boss, 1 } } }
 		stub.fire("LOOT_OPENED", false, false)
-		emit({ enter = events("enter"), encounter = events("encounter"), slain = events("slain"), drop = events("drop") })`);
+		stub.world.instance = nil
+		stub.moveTo(42.5, 71.8, 1429)
+		stub.fire("PLAYER_ENTERING_WORLD", false, false)
+		emit({ enter = events("enter"), leave = events("leave"), encounter = events("encounter"), slain = events("slain"), drop = events("drop") })`);
 
-	assert.deepEqual(out.enter, [{ e: 'enter', inst: 36, instName: 'Deadmines', instType: 'party', diff: 1, map: 1429, x: 42.5, y: 71.8 }]);
+	assert.deepEqual(out.enter, [{ e: 'enter', inst: 36, instName: 'Deadmines', instType: 'party', diff: 1, party: 1, lvl: out.enter[0].lvl, map: 1429, x: 42.5, y: 71.8 }]);
+	assert.equal(typeof out.enter[0].lvl, 'number', 'the character\'s level at the run');
+	assert.deepEqual(out.leave, [{ e: 'leave', inst: 36, party: 1 }]);
 	assert.deepEqual(out.encounter, [
 		{ e: 'encounter', enc: 1736, encName: 'Edwin VanCleef', diff: 1, size: 5, ok: true, inst: 36, npcs: [639], map: 1453, x: 10, y: 10 },
 		{ e: 'encounter', enc: 1737, encName: 'Cookie', diff: 1, size: 5, ok: false, inst: 36, npcs: [645], map: 1453, x: 10, y: 10 },

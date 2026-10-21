@@ -1326,6 +1326,31 @@ test('a quest started by a dropped item reads as one line, the quest; the Go to 
 	assert.deepEqual(out.held, ['Runed Scroll: in your bags, right-click it  \u00b7  Keep it: Kadrak']);
 });
 
+// `when group` (Engine.GroupQuestion): the banner asks at the group quest the
+// live step waits on; Skip it is the default (the accent link, the gamepad's
+// first focus), Do it with a group the other answer; it cannot be dismissed.
+test('a group quest banner asks Skip it or Do it with a group, and cannot be dismissed', () => {
+	const ask = `
+		uistub.groupQuestion = { quest = 6284, title = "Arachnophobia" }
+		uistub.openTabs(TABS, 1)
+		local B = GF.parts.banner
+		local shown = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText(), B.Later:IsShown() and B.Later.Label:GetText(), B.Close:IsShown(), B.Jump.psDefault == true }
+		GF.DismissBanner()
+		local kept = B:IsShown()`;
+	const [skip] = run(`${ask}
+		B.Jump:Click()
+		emit({ shown = shown, kept = kept, call = lastCall("AnswerGroup"), after = B:IsShown(), flag = B.Jump.psDefault or false })`);
+	assert.deepEqual(skip.shown, [true, 'Group quest: Arachnophobia\nIt needs a group. Skip it and the guide keeps to the solo route.', 'Skip it', 'Do it with a group', false, true]);
+	assert.equal(skip.kept, true, 'dismissing does not answer');
+	assert.deepEqual(skip.call, ['AnswerGroup', 6284, 'skip']);
+	assert.equal(skip.after, false);
+	assert.equal(skip.flag, false, 'no default mark once answered');
+	const [group] = run(`${ask}
+		B.Later:Click()
+		emit({ call = lastCall("AnswerGroup"), after = B:IsShown() })`);
+	assert.deepEqual(group, { call: ['AnswerGroup', 6284, 'do'], after: false });
+});
+
 test('TRAIN_DUE shows a training banner after the out-levelled offer; Show points the arrow, Later dismisses', () => {
 	const [out] = run(`
 		uistub.openTabs(TABS, 1)

@@ -73,7 +73,32 @@ function followProblem(g, other, data) {
 const eliteReported = new WeakSet();
 
 function eliteTip(target) {
-	return `in a Leveling guide make the goal \`optional\` with the tip "${target} is elite: grouping up is advised."`;
+	return `in a Leveling guide put the goal in a step with \`when group <quest>\` (the player chooses it) or make it \`optional\`, with the tip "${target} is elite: grouping up is advised."`;
+}
+
+// A step the route takes only for a player who chose to do a group quest
+// (a `when group <quest>`, not `!group`).
+function groupStep(step) {
+	return (step.when || []).some((p) => p.k === 'group' && !p.neg);
+}
+
+// The quests of g the player takes only by choosing a group quest: every
+// accept of them in g sits in a group step, so their turn-ins and objectives
+// go with it when the player skips (orphaned).
+function groupQuestsOf(g) {
+	const only = new Map();
+	for (const step of g.steps) {
+		for (const goal of step.goals) {
+			if (goal.t === 'accept' && goal.quest !== undefined) only.set(goal.quest, only.get(goal.quest) !== false && groupStep(step));
+		}
+	}
+	return new Set([...only].filter(([, yes]) => yes).map(([q]) => q));
+}
+
+// A goal for a party, not solo leveling: in a group step, or for a quest the
+// player takes only by choosing a group quest. Elite work belongs there.
+function partyWork(step, goal, chosen) {
+	return groupStep(step) || (goal.quest !== undefined && chosen.has(goal.quest));
 }
 
 // Our house rules: errors in our pack, warnings in every other.
@@ -555,10 +580,11 @@ function validateGuides(guides, data, diag) {
 		}
 		const gl = guideLayer(g);
 		const leveling = g.category === 'Leveling';
+		const chosen = groupQuestsOf(g);
 		for (const { step, goal } of goalsOf(g)) {
 			const ln = goal._line;
 			const q = goal.quest !== undefined ? data.quest(goal.quest) : null;
-			if (leveling && !goal.optional) {
+			if (leveling && !goal.optional && !partyWork(step, goal, chosen)) {
 				const elite = eliteGoal(goal, applicable([gl, step._only, goal._only]).factions, data);
 				if (elite) {
 					houseRule(diag, g)(file, ln, elite);
@@ -731,9 +757,10 @@ function validateSoloPolicy(guides, excluded, diag) {
 	for (const g of guides) {
 		if (g.category !== 'Leveling') continue;
 		const gl = guideLayer(g);
+		const chosen = groupQuestsOf(g);
 		for (const step of g.steps) {
 			for (const goal of step.goals) {
-				if (goal.optional || goal.quest === undefined || !SOLO_GOALS.has(goal.t) || eliteReported.has(goal)) continue;
+				if (goal.optional || partyWork(step, goal, chosen) || goal.quest === undefined || !SOLO_GOALS.has(goal.t) || eliteReported.has(goal)) continue;
 				for (const side of applicable([gl, step._only, goal._only]).factions) {
 					const e = excluded[side] && excluded[side].get(goal.quest);
 					const why = e && soloExclusion(e);

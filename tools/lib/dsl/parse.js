@@ -332,6 +332,7 @@ function parseGuide(text, file, diag) {
 				}
 				const w = parseWhen(line.slice(toks[3].start, lex.end));
 				if (w.error) err(ln, `\`skipto\`: ${w.error}`, w.hint);
+				else if (w.value.k === 'group') err(ln, '`skipto` cannot wait for an answer: `group` asks the player at a step', 'put `when group <quest>` on the steps of that quest instead');
 				else (step.skipto ||= []).push({ to: toks[1].text, when: { ...w.value, line: ln }, line: ln });
 			} else if (kw === 'image') {
 				parseImage(step, toks, ln, err);

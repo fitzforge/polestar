@@ -11,6 +11,8 @@ const { compileRun, makeTables } = require('../tools/lib/sim/run');
 const { Evaluator } = require('../tools/lib/sim/evaluate');
 const { effective, means } = require('../tools/lib/sim/params');
 const solo = require('../tools/lib/sim/solo');
+const os = require('node:os');
+const path = require('node:path');
 const syn = require('./fixtures/sim/synthetic');
 
 const { VALE, FIELD } = syn;
@@ -103,6 +105,26 @@ test('solo filter: instance areas (dungeon, raid, PvP), elite targets, elite or 
 	assert.deepEqual(w.solo.counts, { dungeon: 1, raid: 1, pvp: 1, elite: 4, rareDrop: 2, reputation: 2, repeatable: 1 });
 	// The base quests are untouched.
 	for (const id of [501, 502, 503, 504, 505]) assert.ok(has(w, id), `base quest ${id}`);
+});
+
+test('group world (--elites): elite targets, elite or high droppers and elite-dropped starts stay in, elite fights marked; instances and rare drops still out', () => {
+	const w = buildWorld(data(), { faction: 'Horde', bandWidth: 5, extraStarts: syn.START, overrides: OVR, variant: 'group' });
+	for (const id of [904, 905, 906, 918]) assert.ok(has(w, id), `quest ${id} kept`);
+	// An elite fight marks the quest, also the one that drops its starting
+	// item (918: the party kills the elite to take it); a mob 5+ levels above
+	// (906) is no elite fight.
+	for (const id of [904, 905, 918]) assert.equal(w.quests.find((q) => q.id === id).elite, true, `quest ${id} marked elite`);
+	assert.equal(w.quests.find((q) => q.id === 906).elite, false);
+	assert.equal(why(w, 901).category, 'dungeon');
+	assert.equal(why(w, 908).category, 'rareDrop');
+	assert.equal(w.solo.counts.elite, 0);
+	// Its own cache file and data hash: solo results never replay on it.
+	const { worldFile, dataHash } = require('../tools/lib/sim/world');
+	assert.match(worldFile('/sim', 'Horde', 'group'), /world-horde-group\.json$/);
+	assert.match(worldFile('/sim', 'Horde'), /world-horde\.json$/);
+	const dir = path.join(os.tmpdir(), 'ps-hash-none'); // no data there: the hash still differs by variant
+	assert.notEqual(dataHash(dir, null, 'group'), dataHash(dir, null));
+	assert.equal(dataHash(dir, null, 'solo'), dataHash(dir, null));
 });
 
 test('solo filter: repeatables count once; without a reward they are dropped unless another quest needs them (then no XP)', () => {
