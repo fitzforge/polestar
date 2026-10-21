@@ -146,3 +146,18 @@ test('the gated guide is offered once its gate opens; nothing with the setting o
 	assert.equal(opened, 'c/air');
 	assert.equal(off, 2);
 });
+
+test('the guides put off or dismissed, still open and not started, are passed: the + button can add them back', () => {
+	const [none, passed, under] = runQoL(`
+		q.level = 20
+		emit(#CQ.Passed())
+		CQ.Resolve("c/fire")
+		local ids = {}
+		for _, g in ipairs(CQ.Passed()) do ids[#ids + 1] = g.id end
+		emit(ids)
+		inLog[1] = true
+		emit(#CQ.Passed())`);
+	assert.equal(none, 0, 'nothing offered yet');
+	assert.deepEqual(passed, ['c/fire']);
+	assert.equal(under, 0, 'started: no longer passed');
+});

@@ -3345,6 +3345,21 @@ answers at quests the leader left open stay); "follow" takes it at once;
 "off" ignores it. Both settings sit in Party's section (Questing, Quests,
 Party).
 
+### Add back — Quests/AddBack.lua
+
+What the player turned down, to put back on the route from the guide
+window's "+" button (left of Nearby services, while a guide is loaded and
+`ui.addBackButton` is on: Options, Guide, Window, What it shows):
+`AddBack.Items()` lists the group quests answered "skip" and not turned in
+(`Engine.GroupQuests`, `Engine.GroupAnswer`), the dungeons of kind "dungeon"
+in the character's minLevel to maxLevel that are off (`Dungeons.List`,
+`Engine.DungeonChosen`), and the Class guides offered and put off or dismissed,
+still open and not started (`ClassQuests.Passed`). `AddBack.Add(item)`
+answers the quest "do" (`Engine.AnswerGroup`), turns the dungeon on and opens
+its pick-up guide (`Engine.ChooseDungeon`, `Dungeons.PickUp`), or opens the
+Class guide in a tab (`Engine.OpenTab`). A step the route has passed keeps
+its outcome (`Own.latchWhen`).
+
 ## QoL — quality-of-life helpers
 
 ### Quest reward marks — QoL, reads Gear

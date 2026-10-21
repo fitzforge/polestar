@@ -6,4 +6,5 @@
 	<Script file="Options.lua"/>
 	<Script file="Party.lua"/>
 	<Script file="PartyRoute.lua"/>
+	<Script file="AddBack.lua"/>
 </Ui>

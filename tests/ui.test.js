@@ -851,7 +851,7 @@ test('the header carries Nearby services between Skip and the bug: its menu poin
 		local function relOf(f) local _, rel = f:GetPoint(1) return rel end
 		local noGuide = { shown = B:IsShown(), rel = relOf(B) == nav.Menu }
 		uistub.setGuide(uistub.elwynn, 3)
-		local order = { skip = relOf(nav.Skip) == B, nearby = relOf(B) == nav.Report, report = relOf(nav.Report) == nav.Menu }
+		local order = { skip = relOf(nav.Skip) == nav.Add, add = relOf(nav.Add) == B, nearby = relOf(B) == nav.Report, report = relOf(nav.Report) == nav.Menu }
 		B:Click()
 		local items = texts()
 		for _, r in ipairs(rows()) do if r.Text:GetText() == "Mining trainer" then r:Click() end end
@@ -868,14 +868,14 @@ test('the header carries Nearby services between Skip and the bug: its menu poin
 		Polestar.Set("nav.nearbyButton", false)
 		local off = B:IsShown()
 		-- Off, Skip moves up to the bug, and stays there on the next step.
-		local skipOff = { now = relOf(nav.Skip) == nav.Report }
+		local skipOff = { now = relOf(nav.Add) == nav.Report and relOf(nav.Skip) == nav.Add }
 		uistub.setGuide(uistub.elwynn, 4)
-		skipOff.nextStep = relOf(nav.Skip) == nav.Report
+		skipOff.nextStep = relOf(nav.Add) == nav.Report
 		Polestar.Set("nav.nearbyButton", true)
-		skipOff.backOn = relOf(nav.Skip) == B
+		skipOff.backOn = relOf(nav.Add) == B
 		emit({ noGuide = noGuide, order = order, items = items, mining = mining, inn = inn, enabledInCombat = disabled, off = off, skipOff = skipOff })`);
 	assert.deepEqual(out.noGuide, { shown: true, rel: true }, 'without a guide it sits by the menu');
-	assert.deepEqual(out.order, { skip: true, nearby: true, report: true }, 'Skip, Nearby, the bug, the menu');
+	assert.deepEqual(out.order, { skip: true, add: true, nearby: true, report: true }, 'Skip, the add-back +, Nearby, the bug, the menu');
 	assert.deepEqual(out.items, ['Vendor', 'Innkeeper', 'Mining trainer', 'Weapon master  \u203a', 'Bank']);
 	assert.deepEqual(out.mining, ['NearbyGo', 'trainer', 186]);
 	assert.deepEqual(out.inn, ['NearbyGo', 'innkeeper']);

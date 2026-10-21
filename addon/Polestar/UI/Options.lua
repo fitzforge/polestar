@@ -182,6 +182,8 @@ local BUILTIN = {
 			disabled = function() return not ns.Get("ui.showNotes") end },
 		{ kind = "slider", key = "ui.upcoming", label = L["Upcoming steps"], min = 0, max = 6, step = 1, format = "%d", help = L["How many steps the Up next list holds; 0 turns it off."] },
 		{ kind = "toggle", key = "ui.upcomingOpen", label = L["Expand Up next"], help = L["Start with the upcoming steps listed instead of collapsed."] },
+		{ kind = "toggle", key = "ui.addBackButton", label = L["Add back button"],
+			help = L["A + in the header lists the group quests you skipped, the dungeons in your levels that are not on, and the class quests you put off, to put one back on the route."] },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Combat"], controls = {
 		{ kind = "dropdown", key = "ui.combat", label = L["In combat"], help = L["What the window does while you fight."],

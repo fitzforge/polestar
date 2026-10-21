@@ -1574,8 +1574,15 @@ end
 -- Skip sits left of the Nearby services button, or of the bug when that
 -- button is off (nav.nearbyButton).
 local function anchorSkip()
+	local right = nav.Nearby:IsShown() and nav.Nearby or nav.Report
+	local add = rawget(nav, "Add")
+	if add then
+		add:ClearAllPoints()
+		add:SetPoint("RIGHT", right, "LEFT", 0, 0)
+		if add:IsShown() then right = add end
+	end
 	nav.Skip:ClearAllPoints()
-	nav.Skip:SetPoint("RIGHT", nav.Nearby:IsShown() and nav.Nearby or nav.Report, "LEFT", -2, 0)
+	nav.Skip:SetPoint("RIGHT", right, "LEFT", -2, 0)
 end
 
 local function navigatorFor(guide, index)
@@ -1598,6 +1605,7 @@ local function navigatorFor(guide, index)
 	W.SetIconState(nav.Next, false, guide ~= nil and index ~= nil)
 	GF.PaintSkip(guide ~= nil, guide ~= nil and index ~= nil)
 	nav.Report:SetShown(guide ~= nil)
+	if rawget(nav, "Add") then nav.Add:SetShown(guide ~= nil and ns.Get("ui.addBackButton") ~= false) end
 	nav.Nearby:ClearAllPoints()
 	nav.Nearby:SetPoint("RIGHT", guide and nav.Report or nav.Menu, "LEFT", 0, 0)
 	anchorSkip()
@@ -2126,6 +2134,7 @@ local APPLY = {
 	["ui.notesOpen"] = function() tipOpen = ns.Get("ui.notesOpen") and true or false; GF.Render() end,
 	["ui.combat"] = function() GF.ApplyVisibility(); GF.ApplyAlpha(false) end,
 	["ui.font"] = function() GF.Layout() end,
+	["ui.addBackButton"] = function() GF.Render() end,
 	["nav.nearbyButton"] = function()
 		nav.Nearby:SetShown(ns.Get("nav.nearbyButton") ~= false)
 		anchorSkip()
@@ -2234,9 +2243,9 @@ function GF.ApplySkin()
 	nav.Steps.Count:SetPoint("LEFT", nav.Prev, "RIGHT", gap, 0)
 	nav.Next:SetPoint("LEFT", nav.Steps.Count, "RIGHT", gap, 0)
 	local iw, ih, ig = Theme.Metric("guideIconBtnW", 24), Theme.Metric("guideIconBtnH", 24), Theme.Metric("guideIcon", 14)
-	-- The icon buttons right of Skip: the bug, the menu and, where it is built,
+	-- The icon buttons right of Skip: the bug, the menu, the add-back + and, where it is built,
 	-- the Nearby services button.
-	for _, key in ipairs({ "Menu", "Report", "Nearby" }) do
+	for _, key in ipairs({ "Menu", "Report", "Nearby", "Add" }) do
 		local b = rawget(nav, key)
 		if b then
 			b:SetSize(iw, ih)
@@ -2420,6 +2429,29 @@ local function openMenu(button)
 	})
 end
 
+-- Add back (Quests/AddBack.lua): the group quests skipped, the dungeons in
+-- range that are off and the Class guides put off, each a row that puts it
+-- back on the route; one heading per kind.
+local ADD_HEADINGS = { group = L["Group quests"], dungeon = L["Dungeons"], class = L["Class quests"] }
+
+local function openAddBack(button)
+	if W.MenuShown(button) then return W.HideMenu() end
+	local AB = ns.AddBack
+	local items, last = {}, nil
+	for _, it in ipairs(AB and AB.Items() or {}) do
+		if it.kind ~= last then
+			if last then items[#items + 1] = { separator = true } end
+			items[#items + 1] = { text = ADD_HEADINGS[it.kind], disabled = true }
+			last = it.kind
+		end
+		local text = it.kind == "dungeon" and string.format(L["%s (levels %d to %d)"], it.title, it.minLevel or 0, it.maxLevel or 0) or it.title
+		items[#items + 1] = { text = text, icon = "plus", onClick = function() AB.Add(it) end }
+	end
+	if #items == 0 then items[1] = { text = L["Nothing skipped to add back"], disabled = true } end
+	W.ShowMenu(button, items, { wide = true })
+end
+GF.OpenAddBack = openAddBack
+
 -- Nearby services (Nav/Nearby.lua): the nearest vendor, repair, inn, flight
 -- master or trainer, as the arrow's target. Looked up after combat only.
 local openNearby
@@ -2579,6 +2611,11 @@ local function build()
 	nav.Nearby:SetPoint("RIGHT", nav.Report, "LEFT", 0, 0)
 	nav.Nearby:SetShown(ns.Get("nav.nearbyButton") ~= false)
 	GF.nearbyButton = nav.Nearby
+	-- Add back: left of Nearby services, while a guide is loaded.
+	nav.Add = W.IconButton(nav, "plus", 24, L["Add to the route"], openAddBack)
+	nav.Add.psTipLines = { L["Group quests you skipped, dungeons in your levels and class quests you put off: put one back on the route."] }
+	nav.Add:Hide()
+	GF.addBackButton = nav.Add
 	-- Skip: the 11px skip glyph and a Small label, a ghost button left of the
 	-- bug.
 	local skip = CreateFrame("Button", nil, nav)
@@ -2620,11 +2657,11 @@ local function build()
 		GF.HoverIn()
 	end)
 	countHit:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
-	for _, b in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
+	for _, b in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.Add, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
 	-- Transparent chrome: the step number fades with its chevrons (nav.Steps
 	-- holds all three) and the title with them; a lone "3 / 8" over the world
 	-- would read as a stray number. Progress stays readable in the foot.
-	for _, c in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.Skip, nav.Steps, nav.Title }) do chrome[#chrome + 1] = c end
+	for _, c in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.Add, nav.Skip, nav.Steps, nav.Title }) do chrome[#chrome + 1] = c end
 
 	-- Body
 	body = CreateFrame("Frame", nil, F)

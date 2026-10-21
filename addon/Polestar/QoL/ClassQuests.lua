@@ -3,7 +3,7 @@
 -- on) and nothing of it is under way, fires CLASS_QUEST_READY so the guide
 -- window's banner offers to open it in a tab. One guide at a time; taking or
 -- dismissing it lets the next through. Off with Options, Guide, Automation,
--- Route extras, "Offer class quests" (behavior.offerClassQuests).
+-- Guides, "Offer class quests" (behavior.offerClassQuests).
 --
 -- Per-character state in CharState().flags.classOffered (guide id ->):
 --   true    offered and taken, or dismissed: never again
@@ -11,6 +11,8 @@
 --
 -- Public API:
 --   ClassQuests.Ready()        the guides that can be offered now, in list order
+--   ClassQuests.Passed()       the open guides the banner offered and the player
+--                              dismissed or put off, not started (Quests/AddBack.lua)
 --   ClassQuests.Check()        offer the first of them (PLAYER_LEVEL_UP,
 --                              QUEST_TURNED_IN, login)
 --   ClassQuests.Resolve(id, later)  called by GuideFrame on take, Later or dismiss
@@ -42,7 +44,9 @@ end
 -- The pending notice: its guide id, so a level-up does not offer it twice.
 local pending
 
-function ClassQuests.Ready()
+-- The Class guides open for the character, not started: those offered
+-- before (passed = true) or those due now (passed = false).
+local function open(passed)
 	local G, E, C = ns.Guides, ns.Engine, ns.Compat
 	if not (G and G.List and G.Get and G.GuideMatches and E and E.StartGate and E.GetGuideState) then return {} end
 	local ok, player = pcall(C.GetPlayerInfo)
@@ -53,6 +57,7 @@ function ClassQuests.Ready()
 	for _, h in ipairs(G.List()) do
 		local v = seen[h.id]
 		local due = v == nil or (type(v) == "number" and level > v)
+		if passed then due = v ~= nil end
 		if h.category == "Class" and due and G.GuideMatches(h, player) and E.GetGuideState(h.id) == "new" then
 			local g = G.Get(h.id)
 			if g and not E.StartGate(h.id) and not underWay(g) then out[#out + 1] = g end
@@ -60,6 +65,9 @@ function ClassQuests.Ready()
 	end
 	return out
 end
+
+function ClassQuests.Ready() return open(false) end
+function ClassQuests.Passed() return open(true) end
 
 function ClassQuests.Check()
 	if not ns.Get("behavior.offerClassQuests") or pending then return end
