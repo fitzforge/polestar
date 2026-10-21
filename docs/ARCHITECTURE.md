@@ -3331,9 +3331,12 @@ Party.lua's rules have it: `R2|<serial>|<parts>|33,36`, then that many
 `R2A|<serial>|<i>|783d,91752s` parts, each at most `Party.MAX_BYTES`; sent by
 the leader with `party.routeShare` on (off by default) a second after
 `GROUP_ANSWERED` (Engine.AnswerGroup), `DUNGEONS_CHOSEN`
-(Engine.ChooseDungeon) or a change to `behavior.groupQuests`, after the
-roster changes, and when asked; `R2Q|` asks the leader (a member three
-seconds after joining or a login in a party, and on `PARTY_LEADER_CHANGED`).
+(Engine.ChooseDungeon) or a change to `behavior.groupQuests`, when someone
+joins (the party grew), when the player becomes leader, and when asked;
+`R2Q|` asks the leader, sent only by a member with `party.routeFollow`
+"follow" ("Take it"; three seconds after joining or a login in a party, and on
+`PARTY_LEADER_CHANGED`). With the defaults a member only listens and sends
+nothing.
 `Party.Decode` refuses all three. A member takes a route only from the unit
 the client names leader (`UnitIsGroupLeader`), once every part of its serial
 has come, and does nothing when it changes nothing; else

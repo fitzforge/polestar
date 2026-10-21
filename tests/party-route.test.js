@@ -85,8 +85,40 @@ test('party route: the leader sends the choices when they change and when asked;
 		emit(texts())`, { saved: SHARE });
 	assert.deepEqual(changed, ['R2|2|1|33', 'R2A|2|1|7d'], 'one route for both changes (route 1 went out at the join)');
 	assert.deepEqual(asked, ['R2|3|1|33', 'R2A|3|1|7d']);
-	assert.deepEqual(notLeading, ['R2Q|'], 'a member asks the new leader instead');
+	assert.equal(Object.keys(notLeading).length, 0, 'a member on the default sends nothing, not even a request');
 	assert.equal(Object.keys(off).length, 0);
+});
+
+test('party route: only a member who picked "Take it" asks for the route; the leader resends when someone joins, not on every roster update', () => {
+	const [asksOnLead, asksOnJoin, onlineChange, joined] = run(`
+		Polestar.Set("party.routeFollow", "follow")
+		p.join("Ana")
+		p.sent = {}
+		p.lead("Ana")
+		stub.advance(2)
+		emit(texts())
+		p.disband()
+		p.sent = {}
+		p.join("Ana")
+		p.lead("Ana")
+		stub.advance(5)
+		emit(texts())
+		p.lead()
+		Polestar.Set("party.routeShare", true)
+		stub.advance(2)
+		p.sent = {}
+		p.connect("Ana", false)
+		p.connect("Ana", true)
+		stub.fire("GROUP_ROSTER_UPDATE")
+		stub.advance(2)
+		emit(texts())
+		p.join("Ben")
+		stub.advance(2)
+		emit(#texts())`);
+	assert.deepEqual(asksOnLead, ['R2Q|'], 'a member with "Take it" asks the new leader');
+	assert.ok(asksOnJoin.includes('R2Q|'), 'and asks after joining');
+	assert.equal(Object.keys(onlineChange).length, 0, 'a roster update with nobody new sends nothing');
+	assert.ok(joined > 0, 'someone new joined: the leader sends the route');
 });
 
 test('party route: the answer for all group quests counts as an answer at each; a quest answered one by one keeps its own', () => {
@@ -98,7 +130,7 @@ test('party route: the answer for all group quests counts as an answer at each; 
 	assert.deepEqual(mine, ['7do', '8skip']);
 });
 
-test('party route: a member asks after joining; the leader\'s differing route is offered once it has every part; a member\'s is ignored', () => {
+test('party route: a member hears the leader on joining; the leader\'s differing route is offered once it has every part; a member\'s is ignored', () => {
 	const [askedOnJoin, partial, offered, again, fromMember, same] = run(`
 		p.join("Ana")
 		p.lead("Ana")
@@ -122,7 +154,7 @@ test('party route: a member asks after joining; the leader\'s differing route is
 		p.receive("Ana-TestRealm", "R2|6|1|")
 		p.receive("Ana-TestRealm", "R2A|6|1|7d")
 		emit(#routes)`);
-	assert.equal(askedOnJoin, 'R2Q|');
+	assert.equal(askedOnJoin, false, 'a member on the default does not ask');
 	assert.equal(partial, 0, 'nothing until every part has come');
 	assert.deepEqual(offered, { n: 1, leader: 'Ana', a7: 'do', a8: 'skip', maps: [33] });
 	assert.equal(again, 1, 'the same route, sent again, is offered once');
