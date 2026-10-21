@@ -12,6 +12,12 @@
 --   "ask"   the guide window offers it (default)
 --   "open"  the pick-up guide opens in a tab by itself
 --   "off"   never
+-- and "Which dungeons" (dungeons.adviceWhich):
+--   "pays"  only those (default)
+--   "all"   also, after those, every other dungeon in the character's level
+--           range (Dungeons.List: minLevel to maxLevel), in level order, as a
+--           fork in the road: its pick-up guide, or keep levelling; always
+--           asked, even with "open"
 --
 -- Per-character state in CharState().flags.dungeonOffered (key ->):
 --   true    taken or dismissed: never again
@@ -21,7 +27,7 @@
 --   Dungeons.Advice(faction, size) -> { { key, level, minutes, pays }, ... } (most minutes first)
 --   Dungeons.PartySize() -> 1..5                the player's party, 1 alone (a raid: 5)
 --   Dungeons.AdviceDue() -> notice | nil        the dungeon to offer now
---       notice = { key, name, map, size, minutes, pays }
+--       notice = { key, name, map, size, minutes, pays } ; "all": { key, name, map, size, any = true, minLevel, maxLevel }
 --   Dungeons.CheckAdvice()                      offer it (level-up, party change, login)
 --   Dungeons.ResolveAdvice(key, take, later)    GuideFrame, on take, Later or dismiss
 
@@ -78,6 +84,14 @@ function Dungeons.AdviceDue()
 			end
 		end
 	end
+	if ns.Get("dungeons.adviceWhich") ~= "all" then return nil end
+	for _, d in ipairs(Dungeons.List()) do
+		local v = seen[d.key]
+		local due = v == nil or (type(v) == "number" and level > v)
+		if due and d.kind == "dungeon" and d.minLevel and level >= d.minLevel and level <= (d.maxLevel or 60) then
+			return { key = d.key, name = d.name or d.key, map = d.map, size = size, any = true, minLevel = d.minLevel, maxLevel = d.maxLevel }
+		end
+	end
 	return nil
 end
 
@@ -91,7 +105,9 @@ function Dungeons.CheckAdvice()
 	if pending then return end
 	local n = Dungeons.AdviceDue()
 	if not n then return end
-	if ns.Get("dungeons.advice") == "open" then
+	-- "Open the pick-up guide" opens only a dungeon that pays; one merely in
+	-- range is always a question.
+	if ns.Get("dungeons.advice") == "open" and not n.any then
 		offered()[n.key] = true
 		take(n)
 		return

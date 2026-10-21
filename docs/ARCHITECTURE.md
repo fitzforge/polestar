@@ -3639,6 +3639,12 @@ quests" (`Dungeons.PickUp`, and `Engine.ChooseDungeon(map, true)` for guides
 with `when dungeon` steps), "Later" or dismiss (`Dungeons.ResolveAdvice`).
 `dungeons.advice` (Options, Discovery, Dungeons, "Suggest dungeons"): "ask",
 "open" (the pick-up guide opens by itself) or "off".
+`dungeons.adviceWhich` ("Which dungeons"): "pays" (default) or "all", which,
+after the dungeons that pay, offers each other dungeon (`Dungeons.List`, kind
+"dungeon") while the character is in its minLevel to maxLevel, in level
+order, as a notice with `any = true` ("Levels 18 to 26. Pick up its quests
+for a guided route to it, or keep levelling."); such a notice is always
+asked, even with "open".
 
 The hand-in guide is the run's other half (`addon/Polestar/Dungeons/Handin.lua`,
 planner kind `handin`, `lookup/handin/<key>`, `Dungeons.HandIn(key)`).

@@ -28,17 +28,21 @@ ${script}`,
 }
 
 test('DUNGEON_ADVICE shows the dungeon, what it saves the party and how sure that is', () => {
-	const [party, alone] = runUI(`
+	const [party, alone, any] = runUI(`
 		Polestar.Fire("DUNGEON_ADVICE", { key = "shadowfang-keep", name = "Shadowfang Keep", size = 3, minutes = 19, pays = 0.7 })
 		emit({ text = B.Text:GetText(), jump = B.Jump.Label:GetText(), later = B.Later:IsShown(), close = B.Close:IsShown() })
 		B.Close:Click()
 		Polestar.Fire("DUNGEON_ADVICE", { key = "city-of-dalaran", name = "City of Dalaran", size = 1, minutes = 7, pays = 0.51 })
+		emit(B.Text:GetText())
+		B.Close:Click()
+		Polestar.Fire("DUNGEON_ADVICE", { key = "deadmines", name = "The Deadmines", size = 3, any = true, minLevel = 18, maxLevel = 26 })
 		emit(B.Text:GetText())`);
 	assert.equal(party.text, "Dungeon: Shadowfang Keep\nA party of 3 reaches 60 about 19 min sooner with it (in 70% of the simulator's runs).");
 	assert.equal(party.jump, 'Pick up its quests');
 	assert.equal(party.later, true);
 	assert.equal(party.close, true);
 	assert.equal(alone, "Dungeon: City of Dalaran\nAlone, you reach 60 about 7 min sooner with it (in 51% of the simulator's runs).");
+	assert.equal(any, 'Dungeon: The Deadmines\nLevels 18 to 26. Pick up its quests for a guided route to it, or keep levelling.');
 });
 
 test('the banner takes the dungeon, asks again later, or is dismissed for good', () => {
@@ -143,6 +147,33 @@ test('taking it opens the pick-up guide and turns the dungeon on; Later asks aga
 	assert.equal(later, 2, 'Shadowfang at 25, then Later');
 	assert.equal(again, 3, 'again at 26');
 	assert.equal(gone, 3, 'dismissed for good');
+});
+
+test('"Every dungeon in range" also offers, after those that pay, each other dungeon in its levels; it is always asked', () => {
+	const [pays, any, open, high] = run(`
+		D.List = function() return {
+			{ key = "ragefire-chasm", name = "Ragefire Chasm", kind = "dungeon", map = 389, minLevel = 13, maxLevel = 18 },
+			{ key = "deadmines", name = "The Deadmines", kind = "dungeon", map = 36, minLevel = 18, maxLevel = 26 },
+			{ key = "molten-core", name = "Molten Core", kind = "raid", map = 409, minLevel = 18, maxLevel = 60 },
+		} end
+		members = 3
+		q.level = 21
+		emit(D.AdviceDue().key)
+		Polestar.Set("dungeons.adviceWhich", "all")
+		D.ResolveAdvice(D.AdviceDue(), false, false)
+		local n = D.AdviceDue()
+		emit({ key = n.key, any = n.any, minLevel = n.minLevel, maxLevel = n.maxLevel })
+		Polestar.Set("dungeons.advice", "open")
+		levelUp(22)
+		emit({ offers = #offers, last = offers[#offers].key, picked = #picked })
+		q.level = 27
+		D.ResolveAdvice(offers[#offers], false, false)
+		emit(picked[#picked] or false)`);
+	assert.equal(pays, 'ruins-of-lordaeron', 'what pays comes first');
+	assert.deepEqual(any, { key: 'deadmines', any: true, minLevel: 18, maxLevel: 26 }, 'Ragefire (to 18) is outlevelled; a raid is never offered');
+	assert.equal(open.last, 'deadmines', 'asked, not opened, with "Open the pick-up guide"');
+	assert.equal(open.picked, 0);
+	assert.equal(high, 'shadowfang-keep', 'dismissing The Deadmines at 27 lets Shadowfang Keep through, which pays and so opens by itself');
 });
 
 test('"Open the pick-up guide" opens it by itself; "Off" offers nothing', () => {

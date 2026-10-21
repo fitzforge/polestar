@@ -68,7 +68,7 @@ local type, pairs, ipairs, pcall, tostring = type, pairs, ipairs, pcall, tostrin
 local find, lower, format, gsub = string.find, string.lower, string.format, string.gsub
 local sort = table.sort
 
-ns.RegisterDefaults("dungeons", { enabled = true, advice = "ask" }) -- advice: "ask" | "open" | "off" (Advice.lua)
+ns.RegisterDefaults("dungeons", { enabled = true, advice = "ask", adviceWhich = "pays" }) -- advice: "ask" | "open" | "off"; adviceWhich: "pays" | "all" (Advice.lua)
 
 local function enabled() return ns.Get("dungeons.enabled") and true or false end
 Dungeons.IsEnabled = enabled
@@ -420,6 +420,9 @@ if ns.RegisterOptions then
 		{ kind = "dropdown", key = "dungeons.advice", label = L["Suggest dungeons"],
 			help = L["When you reach a dungeon that gets a party of your size to 60 sooner, by Polestar's route simulator, the guide window offers to pick up its quests."],
 			choices = { { value = "ask", label = L["Ask me"] }, { value = "open", label = L["Open the pick-up guide"] }, { value = "off", label = L["Off"] } } },
+		{ kind = "dropdown", key = "dungeons.adviceWhich", label = L["Which dungeons"],
+			help = L["Only those that pay: the dungeons the simulator found worth it for your party. Every dungeon in range: also each other dungeon when you reach its levels, so you can pick up its quests or keep levelling."],
+			choices = { { value = "pays", label = L["Only those that pay"] }, { value = "all", label = L["Every dungeon in range"] } } },
 	}
 	for _, d in ipairs(ROUTE) do
 		local map, name = d[1], d[2]

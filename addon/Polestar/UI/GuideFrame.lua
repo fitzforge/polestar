@@ -1013,7 +1013,8 @@ function GF.LayoutBanner(width)
 	elseif kind == "dungeon" then
 		banner.Icon:SetTexture(Theme.Media("icon-kill"))
 		local pct = floor((n.pays or 0) * 100 + 0.5)
-		local body = (n.size or 1) > 1
+		local body = n.any and string.format(L["Levels %d to %d. Pick up its quests for a guided route to it, or keep levelling."], n.minLevel or 0, n.maxLevel or 0)
+			or (n.size or 1) > 1
 			and string.format(L["A party of %d reaches 60 about %d min sooner with it (in %d%% of the simulator's runs)."], n.size, n.minutes or 0, pct)
 			or string.format(L["Alone, you reach 60 about %d min sooner with it (in %d%% of the simulator's runs)."], n.minutes or 0, pct)
 		banner.Text:SetText(string.format(L["Dungeon: %s"], n.name or "") .. "\n" .. body)
