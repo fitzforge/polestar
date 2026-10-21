@@ -1077,6 +1077,20 @@ test('merchant: sells only grey items with a vendor price and prints the total',
 	assert.equal(msg, true);
 });
 
+test('merchant: a grey item a quest still needs is not sold', () => {
+	const [sold, left] = run(`${BAGS}
+		Polestar.QuestDB = { IsItemNeeded = function(id) return id == 5 end }
+		q.openMerchant()
+		stub.advance(2)
+		emit(q.sold)
+		local left = {}
+		for bag = 0, 1 do for slot, s in pairs(q.bags[bag].slots) do left[#left + 1] = s.itemID end end
+		emit(left)
+	`);
+	assert.deepEqual([...sold].sort(), [1, 1, 1, 1, 1]);
+	assert.ok(left.includes(5), 'item 5 stays in the bags');
+});
+
 test('merchant: a slot changed between ticks is re-checked and never sold', () => {
 	const [used, ids] = run(`${BAGS}
 		q.bags[1].size = 12
