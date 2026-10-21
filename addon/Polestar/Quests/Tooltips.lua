@@ -17,7 +17,7 @@ local ADDON, ns = ...
 
 local Q = ns.QuestDB
 local L = ns.L
-local type, pairs = type, pairs
+local type, pairs, ipairs = type, pairs, ipairs
 
 local function tooltipsOn()
 	return Q.IsRunning() and ns.Get("qol.questTooltips")
@@ -87,6 +87,62 @@ local function addStartLines(tt, itemID)
 	return added
 end
 
+-- Quests the running guide still has ahead (this step on) that the player has
+-- neither accepted nor handed in, by the items their objectives ask for: the
+-- log index above only knows quests already accepted. Built on first use,
+-- dropped when the step, the guide or the database changes.
+local ahead
+local function questsAhead()
+	if ahead then return ahead end
+	ahead = {}
+	local E = ns.Engine
+	local guide = E and E.GetGuide and E.GetGuide()
+	local steps = guide and type(guide.steps) == "table" and guide.steps
+	if not steps then return ahead end
+	local C, seen = ns.Compat, {}
+	for s = E.GetStepIndex() or 1, #steps do
+		local goals = type(steps[s]) == "table" and steps[s].goals
+		for g = 1, goals and #goals or 0 do
+			local q = goals[g].quest
+			if type(q) == "number" and not seen[q] then
+				seen[q] = true
+				local rec = not C.IsQuestCompleted(q) and not C.IsOnQuest(q) and Q.GetQuest(q)
+				for _, o in ipairs(rec and rec.objectives or {}) do
+					if o.kind == "item" and o.id then
+						local list = ahead[o.id]
+						if not list then
+							list = {}
+							ahead[o.id] = list
+						end
+						list[#list + 1] = { q = q, n = o.count or 1 }
+					end
+				end
+			end
+		end
+	end
+	return ahead
+end
+
+-- Whether the running guide has a quest ahead that wants item itemID.
+function Q.IsItemNeededAhead(itemID)
+	return questsAhead()[itemID] ~= nil
+end
+
+local function addAheadLines(tt, itemID)
+	local list = questsAhead()[itemID]
+	if not list then return 0 end
+	local qc, dim = Q.Color("quest"), Q.Color("textDim")
+	for i = 1, #list do
+		local e = list[i]
+		addLine(tt, (Q.GetQuestTitle(e.q) or tostring(e.q)) .. ":", L["0/%d (not accepted)"]:format(e.n), qc, dim)
+	end
+	return #list
+end
+
+ns.On("STEP_CHANGED", function() ahead = nil end)
+ns.On("GUIDE_CHANGED", function() ahead = nil end)
+ns.On("QUESTDB_UPDATED", function() ahead = nil end)
+
 -- Public so other tooltip paths (and tests) can ask for the same lines.
 function Q.AddUnitLines(tt, npcID)
 	if not (npcID and tooltipsOn()) then return 0 end
@@ -95,7 +151,7 @@ end
 
 function Q.AddItemLines(tt, itemID)
 	if not (itemID and tooltipsOn()) then return 0 end
-	return addObjectiveLines(tt, Q.ObjectivesForItem(itemID), 2, itemID) + addStartLines(tt, itemID)
+	return addObjectiveLines(tt, Q.ObjectivesForItem(itemID), 2, itemID) + addAheadLines(tt, itemID) + addStartLines(tt, itemID)
 end
 
 function Q.AddObjectLines(tt, objectID, name)

@@ -496,6 +496,37 @@ emit(sq.hoverUnit(6, true))         -- GUID is a secret value (combat): no lines
 	assert.deepEqual(secret, ['?']);
 });
 
+// An item a quest still needs is marked in the bags and named on its tooltip
+// until the quest is handed in: through the log, and (not accepted yet) through
+// the running guide's steps from the current one on.
+test('an item a quest needs is flagged while the quest is in the log or ahead in the guide', () => {
+	const [ahead, accepted, done, noGuide, off] = run(`
+local E = Polestar.Engine
+local function guideAhead() E.GetGuide = function() return { id = "test", steps = { { goals = { { t = "accept", quest = 60 } } } } } end end
+guideAhead()
+E.GetStepIndex = function() return 1 end
+Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3)
+emit({ Q.IsItemNeeded(772), sq.hoverItem(772) })
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+emit({ Q.IsItemNeeded(772), sq.hoverItem(772) })
+w.turnIn(60); stub.advance(0.3)
+emit({ Q.IsItemNeeded(772), sq.hoverItem(772) })
+E.GetGuide = function() return nil end
+Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3)
+emit({ Q.IsItemNeeded(772) })
+Polestar.Set("qol.questBagMarks", false)
+guideAhead()
+Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3)
+emit({ Q.IsItemNeeded(772) })
+`, { setup: 'w.complete({ 783 })' });
+	assert.deepEqual(ahead, [true, ['?', 'Kobold Candles: | 0/8 (not accepted)']]);
+	assert.deepEqual(accepted, [true, ['?', 'Kobold Candles: | 0/8']]);
+	assert.deepEqual(done, [false, ['?']]);
+	assert.deepEqual(noGuide, [false]);
+	assert.deepEqual(off, [false], 'qol.questBagMarks off: nothing flagged');
+});
+
 test('object tooltips by id or, without one, by name', () => {
 	const [byId, byName] = run(`
 w.accept(18, { { text = "Bundle of Wood: 0/1", type = "object", required = 1 } })
@@ -907,7 +938,7 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 });
 
 test('the database loads on demand: not while every quest feature is off, at once when one turns on', () => {
-	const allOff = '{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, nameplateIcons = false }';
+	const allOff = '{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, nameplateIcons = false }';
 	const [before, after] = run(`
 emit({ Q.IsLoaded(), sq.loadCalls, Q.IsRunning() })
 Polestar.Set("qol.questTooltips", true)

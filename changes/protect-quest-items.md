@@ -1,5 +1,7 @@
 ---
 section: players
 ---
-- Items a quest still needs are marked in your bags and warned about before
-  you delete them, until you hand the quest in (thanks jaff).
+- Items a quest still needs get a yellow "?" in your bags, and their tooltip
+  names the quest, until you hand it in. That covers quests in your log and
+  quests your guide has ahead that you have not accepted yet (thanks jaff).
+  The mark has its own setting, "Quest marks in bags".

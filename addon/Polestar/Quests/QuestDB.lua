@@ -24,6 +24,7 @@ ns.RegisterDefaults("qol", {
 	lowLevelQuests = false, -- include grey (trivial) quests among available ones
 	questLevelWindow = 5, -- available quests up to this many levels above yours (10: any)
 	questTooltips = true, -- quest lines on unit, item and object tooltips
+	questBagMarks = true, -- a quest mark on bag items a quest in your log still needs
 	nameplateIcons = false, -- quest icon on nameplates of objective mobs
 	questLevels = true, -- "[12]" before quest titles the client lists without a level (gossip, greeting, details)
 	guideHighlight = true, -- the active guide step's quests stand out on the maps
@@ -498,7 +499,7 @@ end
 ---------------------------------------------------------------------------
 
 -- Features that need the database; with all of them off it never loads.
-local NEEDS = { "mapObjectives", "minimapObjectives", "availableQuests", "turnInMarkers", "questTooltips", "nameplateIcons" }
+local NEEDS = { "mapObjectives", "minimapObjectives", "availableQuests", "turnInMarkers", "questTooltips", "questBagMarks", "nameplateIcons" }
 
 function Q.IsWanted()
 	if not ns.Get("qol.questDB") then return false end

@@ -2,6 +2,7 @@
 	<Script file="QuestDB.lua"/>
 	<Script file="Tracker.lua"/>
 	<Script file="Tooltips.lua"/>
+	<Script file="BagMarks.lua"/>
 	<Script file="QuestLevels.lua"/>
 	<Script file="Options.lua"/>
 	<Script file="Party.lua"/>

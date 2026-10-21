@@ -59,6 +59,8 @@ Q.OPTIONS = {
 		controls = {
 			{ kind = "toggle", key = "qol.questTooltips", label = L["Quest tooltips"], disabled = dbOff,
 				help = L["Name the quests a mob, item or object is for, with your progress."] },
+			{ kind = "toggle", key = "qol.questBagMarks", label = L["Quest marks in bags"], disabled = dbOff,
+				help = L["Mark bag items a quest in your log still needs, until you hand the quest in."] },
 			{ kind = "toggle", key = "qol.nameplateIcons", label = L["Nameplate icons"], disabled = dbOff,
 				help = L["Show a quest icon and your progress, like 3/10, on nameplates of mobs you still need."] },
 			{ kind = "toggle", key = "qol.questLevels", label = L["Quest levels"],
