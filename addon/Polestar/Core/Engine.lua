@@ -3625,6 +3625,16 @@ function ns.RegisterClassTrainerIds(byClass)
 	end
 end
 
+-- The spells each class learns at a trainer (Core/ClassSpells.lua):
+-- { CLASS = { { spell, level, rank it replaces or 0, race mask or 0 }, ... } },
+-- kept on classTrainers (this file has no locals to spare).
+function ns.RegisterClassSpells(byClass)
+	if type(byClass) == "table" then classTrainers.spells = byClass end
+end
+
+-- A class's trainer spells (that list), or nil.
+function Engine.ClassSpells(class) return classTrainers.spells and classTrainers.spells[class] or nil end
+
 -- The best class trainer for the character from where they stand, or nil;
 -- its npcName in the client's language where Names has it.
 function Engine.NearestClassTrainer()
