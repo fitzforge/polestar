@@ -42,6 +42,8 @@ local function titlesFor(itemID)
 	return out
 end
 
+Q.ItemNeededTitles = titlesFor
+
 local function warn(which)
 	if not (DELETE[which] and isOn()) then return end
 	local id = cursorItem()

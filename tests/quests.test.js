@@ -569,6 +569,55 @@ emit(show("DELETE_ITEM"))
 	assert.deepEqual(off, ['Do you want to destroy X?', 100], 'qol.questDeleteWarning off');
 });
 
+// At a vendor, a sale that takes a quest item out of the bags raises a
+// buy-back question; nothing is bought until the dialog is accepted.
+test('selling an item a quest needs offers the buyback, and buys it back only when accepted', () => {
+	const [before, shown, boughtAsked, afterAccept, afterNoMoney] = run(`
+local bag = { { itemID = 772, stackCount = 8 }, { itemID = 5, stackCount = 3 } }
+Polestar.QoL = { Client = {
+	NumBags = function() return 0 end,
+	NumSlots = function() return #bag end,
+	SlotInfo = function(_, slot) return bag[slot] end,
+} }
+local shown, bought, money = {}, {}, 1000
+StaticPopupDialogs = {}
+StaticPopup_Show = function(which, text, _, data) shown[#shown + 1] = { which, (text:gsub("|c%x+|Hitem[^|]*|h", ""):gsub("|h|r", "")), data } end
+local buyback = {}
+GetNumBuybackItems = function() return #buyback end
+GetBuybackItemLink = function(i) return buyback[i].link end
+GetBuybackItemInfo = function(i) return "x", "icon", buyback[i].price end
+BuybackItem = function(i) bought[#bought + 1] = i end
+GetMoney = function() return money end
+GetCoinTextureString = function(c) return c .. "c" end
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+Q.SellWarningOpen(true)
+emit(#shown)
+bag[1] = nil                         -- the candles are sold
+buyback[1] = { link = "|cffffffff|Hitem:772::::::::|h[Large Candle]|h|r", price = 24 }
+Q.CheckSold()
+emit(shown)
+local data = shown[1] and shown[1][3]
+emit(#bought)                        -- asked, not bought
+StaticPopupDialogs.POLESTAR_QUEST_BUYBACK.OnAccept(nil, data)
+emit(bought)
+money = 5
+shown[1] = nil
+StaticPopupDialogs.POLESTAR_QUEST_BUYBACK.OnAccept(nil, data)
+emit(bought)
+`, { setup: 'w.complete({ 783 })' });
+	assert.equal(before, 0, 'nothing asked while the bags are unchanged');
+	assert.equal(shown.length, 1);
+	assert.equal(shown[0][0], 'POLESTAR_QUEST_BUYBACK');
+	assert.equal(shown[0][2], 772);
+	assert.match(shown[0][1], /Large Candle/);
+	assert.match(shown[0][1], /Kobold Candles/);
+	assert.match(shown[0][1], /24c/);
+	assert.equal(boughtAsked, 0, 'asking buys nothing');
+	assert.deepEqual(afterAccept, [1], 'accept buys the buyback entry back');
+	assert.deepEqual(afterNoMoney, [1], 'too little money: no second buyback');
+});
+
 test('object tooltips by id or, without one, by name', () => {
 	const [byId, byName] = run(`
 w.accept(18, { { text = "Bundle of Wood: 0/1", type = "object", required = 1 } })
@@ -980,7 +1029,7 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 });
 
 test('the database loads on demand: not while every quest feature is off, at once when one turns on', () => {
-	const allOff = '{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questDeleteWarning = false, nameplateIcons = false }';
+	const allOff = '{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questDeleteWarning = false, questSellWarning = false, nameplateIcons = false }';
 	const [before, after] = run(`
 emit({ Q.IsLoaded(), sq.loadCalls, Q.IsRunning() })
 Polestar.Set("qol.questTooltips", true)

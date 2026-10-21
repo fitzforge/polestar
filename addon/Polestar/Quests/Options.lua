@@ -63,6 +63,8 @@ Q.OPTIONS = {
 				help = L["Mark bag items a quest in your log still needs, until you hand the quest in."] },
 			{ kind = "toggle", key = "qol.questDeleteWarning", label = L["Warn before deleting quest items"], disabled = dbOff,
 				help = L["Add a line to the delete confirmation when a quest still needs the item."] },
+			{ kind = "toggle", key = "qol.questSellWarning", label = L["Offer to buy back quest items"], disabled = dbOff,
+				help = L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] },
 			{ kind = "toggle", key = "qol.nameplateIcons", label = L["Nameplate icons"], disabled = dbOff,
 				help = L["Show a quest icon and your progress, like 3/10, on nameplates of mobs you still need."] },
 			{ kind = "toggle", key = "qol.questLevels", label = L["Quest levels"],
