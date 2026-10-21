@@ -9,14 +9,18 @@
 -- (party.routeFollow: "ask" | "follow" | "off").
 --
 -- Rules as Party.lua's: hidden addon messages to the party only (never chat,
--- never a raid), sent when a choice changes and when asked, never on a timer.
+-- never a raid), sent when a choice changes, when someone joins and when
+-- asked, never on a timer. Only a player who turned something on sends: the
+-- leader with party.routeShare, a member asking for the route only with
+-- party.routeFollow "follow" ("Take it"). With the defaults a member only
+-- listens and sends nothing.
 --
 -- Messages (prefix Party.PREFIX, PARTY), each at most Party.MAX_BYTES:
 --   "R2|7|2|33,36"       a route: its serial (1-999), how many answer parts
 --                        follow, the dungeons chosen (comma-separated, may be empty)
 --   "R2A|7|1|783d,91752s" answer part 1 of route 7: quest id + d (do) or s (skip)
---   "R2Q|"               asks the leader for theirs (a member after joining,
---                        a login or reload, or a new leader)
+--   "R2Q|"               asks the leader for theirs (a member with "Take it",
+--                        after joining, a login or reload, or a new leader)
 -- A route counts once every part of its serial has arrived. Party.Decode
 -- refuses all three, so quest progress never reads them.
 --
@@ -263,19 +267,24 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 end
 
 -- A member asks the leader for the route: after joining, a login or reload
--- in a party, or a new leader.
-local wasGrouped = false
+-- in a party, or a new leader. Only with "Take it": a member on the default
+-- ("Ask me") sends nothing and hears the leader's route when it changes, when
+-- someone joins and when the lead changes.
+local wasGrouped, lastSize = false, 0
 local function ask()
-	if grouped() and not leading() and ns.Get("party.routeFollow") ~= "off" then send(PartyRoute.ASK) end
+	if grouped() and not leading() and ns.Get("party.routeFollow") == "follow" then send(PartyRoute.ASK) end
 end
 
 local function onRoster()
 	local now = grouped()
+	local size = now and GetNumGroupMembers and GetNumGroupMembers() or 0
 	if now and not wasGrouped then C_Timer.After(3, ask) end
 	if not now then asked, incoming = nil, nil end
 	wasGrouped = now
-	-- Someone joined our party: the leader's next send reaches them too.
-	shareSoon()
+	-- Someone joined our party: the leader sends the route so it reaches them
+	-- (not on every roster update: online changes and the like send nothing).
+	if size > lastSize then shareSoon() end
+	lastSize = size
 end
 
 ---------------------------------------------------------------------------
@@ -286,8 +295,12 @@ ns.OnLogin(function()
 	if C_ChatInfo and C_ChatInfo.RegisterAddonMessagePrefix then C_ChatInfo.RegisterAddonMessagePrefix(Party.PREFIX) end
 	ns.RegisterEvent("CHAT_MSG_ADDON", onAddonMessage)
 	ns.RegisterEvent("GROUP_ROSTER_UPDATE", onRoster)
-	ns.RegisterEvent("PARTY_LEADER_CHANGED", function() incoming = nil; C_Timer.After(1, ask) end)
+	ns.RegisterEvent("PARTY_LEADER_CHANGED", function()
+		incoming = nil
+		C_Timer.After(1, function() ask(); shareSoon() end)
+	end)
 	wasGrouped = grouped()
+	lastSize = wasGrouped and GetNumGroupMembers and GetNumGroupMembers() or 0
 	if wasGrouped then C_Timer.After(3, ask) end
 end)
 
