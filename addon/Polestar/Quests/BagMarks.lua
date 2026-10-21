@@ -1,7 +1,8 @@
--- A quest mark on bag items a quest in your log still needs, so a Murloc Eye
--- is not deleted or sold before the hand-in. It reads the same per-item index
--- the item tooltip does (Q.ObjectivesForItem, quests in the log only), so the
--- mark goes once the quest is handed in or abandoned.
+-- A quest mark on bag items a quest still needs, so a Murloc Eye is not
+-- deleted or sold before the hand-in: a quest in your log (Q.ObjectivesForItem,
+-- the index the item tooltip reads) or one the running guide has ahead that you
+-- have not accepted (Q.IsItemNeededAhead). It goes once the quest is handed in.
+-- Abandoning a quest keeps it, as the quest is ahead in the guide again.
 --
 -- Three bag views (qol.questBagMarks), the way Gear/Bags.lua draws its
 -- arrows: the client's bags, where each container frame's UpdateItems is
