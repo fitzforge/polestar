@@ -3,8 +3,9 @@
 -- here from the key binding until the player picks a section): your journey
 -- at a glance, from data the other modules already keep.
 --
--- Header: "Your journey", the character ("Level 18 · Alliance Mage ·
--- Darkshore") beside the faction's crest. Footer: the wordmark and "A
+-- Header: the character's bust (their 3D model, head and shoulders, with the
+-- faction's crest on its corner), then "<name>'s journey" and the character
+-- ("Level 18 · Alliance Mage · Darkshore"). Footer: the wordmark and "A
 -- community project", the version with its stage chip, the Discord link
 -- (what the sidebar holds on the other sections).
 --
@@ -56,7 +57,7 @@ local TRAIN_AHEAD = 15 -- steps searched for the guide's class training
 local HV = {}
 UI.HomeSection = HV
 
-local root, hub, page, foot, crest
+local root, hub, page, foot, crest, bust
 local cards = {}
 local shown = {}
 
@@ -934,11 +935,64 @@ end
 ---------------------------------------------------------------------------
 
 local CREST = { Alliance = "Interface\\Timer\\Alliance-Logo", Horde = "Interface\\Timer\\Horde-Logo" }
+local BUST = 76 -- the character's portrait frame left of the title
+local BUST_GAP = 18 -- between the frame and the title
+local BUST_FACING = -0.4 -- turned a little toward the title: three-quarter view
+local BUST_ZOOM = 0.85 -- head and shoulders (1 is the face alone, lower pulls back to the whole body)
 
 local function placeHeader(on)
 	if not hub then return end
-	hub.Title:SetPoint("TOPLEFT", hub.Header, "TOPLEFT", SH.pad + (on and 52 or 0), -32)
+	hub.Title:SetPoint("TOPLEFT", hub.Header, "TOPLEFT", SH.pad + (on and (BUST + BUST_GAP) or 0), -32)
+	if bust then bust.Frame:SetShown(on) end
 	if crest then crest:SetShown(on) end
+end
+
+-- The character as the game draws them, head and shoulders in their gear (a
+-- PlayerModel at portrait zoom), in a portrait frame: a panel with a border,
+-- so the model's square edge is the frame's and never cuts the art on the
+-- band. The flat portrait where a model cannot be made. A model forgets its
+-- unit while hidden, so it is set again each time it shows.
+local function paintBust()
+	if not bust then return end
+	if bust.psFlat then
+		if SetPortraitTexture then SetPortraitTexture(bust.Tex, "player") end
+		return
+	end
+	bust:ClearModel()
+	bust:SetUnit("player")
+	bust:SetPortraitZoom(BUST_ZOOM)
+	bust:SetFacing(BUST_FACING)
+end
+
+local function buildBust()
+	local frame = CreateFrame("Frame", nil, hub.Header)
+	frame:SetSize(BUST, BUST)
+	-- Centred on the title and subtitle's block.
+	frame:SetPoint("TOPLEFT", hub.Header, "TOPLEFT", SH.pad, -(112 - BUST) / 2)
+	Theme.Skin(frame, "panel")
+	Theme.Border(frame, Theme.Color("border"))
+	local ok, m = pcall(CreateFrame, "PlayerModel", nil, frame)
+	if ok and m and m.SetUnit then
+		bust = m
+		bust:SetScript("OnShow", paintBust)
+	else
+		bust = CreateFrame("Frame", nil, frame)
+		bust.psFlat = true
+		bust.Tex = bust:CreateTexture(nil, "ARTWORK")
+		bust.Tex:SetAllPoints(bust)
+	end
+	bust.Frame = frame
+	bust:SetPoint("TOPLEFT", frame, "TOPLEFT", 1, -1)
+	bust:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -1, 1)
+	-- The faction's crest on the frame's lower corner, half outside it, clear
+	-- of the face.
+	local badge = CreateFrame("Frame", nil, frame)
+	badge:SetSize(26, 26)
+	badge:SetPoint("CENTER", frame, "BOTTOMRIGHT", -2, 2)
+	badge:SetFrameLevel(bust:GetFrameLevel() + 2)
+	crest = badge:CreateTexture(nil, "OVERLAY")
+	crest:SetAllPoints(badge)
+	paintBust()
 end
 
 local function renderHeader()
@@ -952,12 +1006,10 @@ local function renderHeader()
 	local here = ns.PlayerPoint and ns.PlayerPoint()
 	local zone = here and UI.MapName(here.map)
 	if zone then parts[#parts + 1] = zone end
-	W.ShellTitle(hub, L["Your journey"], table.concat(parts, DOT))
-	if not crest then
-		crest = hub.Header:CreateTexture(nil, "ARTWORK")
-		crest:SetSize(44, 44)
-		crest:SetPoint("TOPLEFT", hub.Header, "TOPLEFT", SH.pad - 4, -26)
-	end
+	-- "Thalindra's journey"; "Your journey" while the name cannot be read.
+	local name = type(info.name) == "string" and info.name ~= "" and info.name or nil
+	W.ShellTitle(hub, name and format(L["%s's journey"], name) or L["Your journey"], table.concat(parts, DOT))
+	if not bust then buildBust() end
 	local file = CREST[info.faction or ""]
 	if file then
 		crest:SetTexture(file)
@@ -1037,8 +1089,10 @@ function HV.Build(parent, shell)
 	page.Scroll:SetPoint("TOPLEFT", page, "TOPLEFT", 0, 0)
 	page.Scroll:SetPoint("BOTTOMRIGHT", page, "BOTTOMRIGHT", 0, 0)
 	buildCards()
-	root:SetScript("OnShow", function() placeHeader(true) end)
-	root:SetScript("OnHide", function() placeHeader(false) end)
+	-- The section's own frame, which the hub shows and hides: the title and
+	-- the bust follow it.
+	parent:HookScript("OnShow", function() placeHeader(true) end)
+	parent:HookScript("OnHide", function() placeHeader(false) end)
 	return root
 end
 
@@ -1101,6 +1155,7 @@ function HV.Render()
 end
 
 function HV.Shown() return shown end
+function HV.Bust() return bust, crest end
 function HV.Cards() return cards end
 function HV.Footer() return foot end
 
@@ -1117,6 +1172,12 @@ end
 for _, ev in ipairs({ "TALENTS_UPDATED", "TABS_CHANGED", "CLASS_TRAINED", "RARE_NEARBY" }) do ns.On(ev, refresh) end
 ns.RegisterEvent("PLAYER_LEVEL_UP", refresh)
 ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", refresh)
+-- New gear or a new look: the bust shows it.
+local function repaintBust(_, unit)
+	if (unit == nil or unit == "player") and bust and bust:IsVisible() then paintBust() end
+end
+ns.RegisterEvent("UNIT_MODEL_CHANGED", repaintBust)
+ns.RegisterEvent("PLAYER_EQUIPMENT_CHANGED", function() repaintBust() end)
 Theme.OnChanged(function() if root and root:IsVisible() then HV.Render() end end)
 
 if UI.RegisterSection then

@@ -64,7 +64,7 @@ test('the menu toggle opens Home; Choose a guide opens the guide list; once a se
 		Polestar.Fire("TOGGLE_PICKER")
 		r.kept = P.Section()
 		emit(r)`);
-	assert.deepEqual(out, { first: 'Home', title: 'Your journey', choose: 'Guides', kept: 'Lookup' });
+	assert.deepEqual(out, { first: 'Home', title: "Testchar's journey", choose: 'Guides', kept: 'Lookup' });
 });
 
 test('Home has no sidebar: the page runs from the rail to the edge, the brand, version and Discord in its footer; other sections keep the sidebar', () => {
@@ -279,6 +279,47 @@ test('Class training: what the next level with new spells brings, ranks chained 
 		emit({ status = c.Status:GetText(), soon = c.Last:GetText() })`);
 	// Corruption 1 now; at 10 Immolate 2 (rank 1 known) and Drain Soul; Shadow Bolt 3 at 12 is later.
 	assert.deepEqual(out, { status: '1 spell to train', soon: 'At level 10: Immolate, Drain Soul' });
+});
+
+// The header: the character's bust (a PlayerModel, head and shoulders) left
+// of the title, the faction's crest on its corner; both gone off Home.
+test('the title is the character\'s journey, or "Your journey" while the name cannot be read', () => {
+	const [out] = run(`
+		H.Show()
+		local named = PolestarPicker.Title:GetText()
+		uistub.player.name = ""
+		P.Render()
+		emit({ named = named, unnamed = PolestarPicker.Title:GetText() })`);
+	assert.deepEqual(out, { named: "Testchar's journey", unnamed: 'Your journey' });
+});
+
+test('the header shows the character\'s bust in a portrait frame left of the title, the crest on its corner, only on Home', () => {
+	const [out] = run(`
+		-- The title's TOPLEFT as the game keeps it: the last one set (SetPoint
+		-- replaces a point; this stub appends).
+		local function titleX()
+			local T, x = PolestarPicker.Title, nil
+			for i = 1, T:GetNumPoints() do
+				local p, _, _, px = T:GetPoint(i)
+				if p == "TOPLEFT" then x = px end
+			end
+			return x
+		end
+		H.Show()
+		local bust, crest = H.Bust()
+		local tx = titleX()
+		local frame = bust.Frame
+		local r = { kind = bust:GetObjectType(), inFrame = bust:GetParent() == frame, shown = frame:IsShown(),
+			crestOnFrame = crest:GetParent():GetParent() == frame, titleX = tx, width = frame:GetWidth() }
+		P.ShowSection("Guides")
+		r.off = { frame:IsShown(), crest:IsShown(), titleX() }
+		emit(r)`);
+	assert.equal(out.kind, 'PlayerModel');
+	assert.equal(out.inFrame, true, 'the model sits in its portrait frame');
+	assert.equal(out.shown, true);
+	assert.equal(out.crestOnFrame, true);
+	assert.equal(out.titleX, 32 + out.width + 18, 'the title moves right of the portrait');
+	assert.deepEqual(out.off, [false, false, 32]);
 });
 
 // The game menu (Escape) builds its buttons on each show (GameMenuFrameMixin:
