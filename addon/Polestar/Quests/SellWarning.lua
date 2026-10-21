@@ -27,7 +27,7 @@ local open = false
 local snap -- itemID -> count in the bags, for items a quest needs
 
 local function isOn()
-	return Q.IsRunning() and ns.Get("qol.questSellWarning") and true or false
+	return Q.IsRunning() and ns.Get("qol.questSellWarning") and not ns.GamepadUI()
 end
 
 -- QoL loads after Quests, so its client helpers are looked up on use.

@@ -1,7 +1,8 @@
 -- A line on the game's delete confirmation when the item on the cursor is one
--- a quest still needs (while the quest database runs): "Needed for: Stocking Jetsteam".
--- The delete itself is the game's: this only adds
--- text to the dialog it already shows.
+-- a quest still needs: "Needed for: Stocking Jetsteam". The delete itself is
+-- the game's: this only adds text to the dialog it already shows, while the
+-- quest database runs and never with the gamepad interface, whose focus owns
+-- the game's dialogs.
 --
 -- StaticPopup_Show is post-hooked with hooksecurefunc, which never taints the
 -- caller and cannot block or change the call; it runs after the dialog is up,
@@ -19,7 +20,7 @@ local type, pcall = type, pcall
 local DELETE = { DELETE_ITEM = true, DELETE_GOOD_ITEM = true, DELETE_QUEST_ITEM = true, DELETE_GOOD_QUEST_ITEM = true }
 
 local function isOn()
-	return Q.IsRunning() and true or false
+	return Q.IsRunning() and not ns.GamepadUI()
 end
 
 local function cursorItem()
