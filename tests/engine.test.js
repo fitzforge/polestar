@@ -1200,6 +1200,67 @@ test('Hotline\'s report (#576): a hearth step while the Hearthstone waits says h
 	assert.deepEqual(out.unknown, { line: 'Hearthstone ready in 10 min', arrow: false });
 });
 
+test('a hearth step whose Hearthstone is bound at another inn says so and walks the arrow to its inn; bound there, it is as before (#667)', () => {
+	const [out] = run({
+		guides: `
+			Polestar.RegisterGuide({ id = "test/hearth-bound", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" } } },
+				{ goals = { { t = "hearth", location = "Nowhere Inn" } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		`,
+		before: 'w.setZone("Stormwind City", "Trade District"); w.bind("Kharanos")',
+		script: `
+			local w = stub.world
+			-- The Hearthstone (QoL/Hearth.lua) and the inns (Nav/Travel.lua), as the test sets them.
+			local hs = { have = true, remaining = 0 }
+			local goldshire = { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 }
+			local kharanos = { map = 1426, x = 47.4, y = 52.4, f = "w", npc = 1247 }
+			local bound = kharanos
+			Polestar.QoL = Polestar.QoL or {}
+			Polestar.QoL.GetHearth = function() return hs end
+			Polestar.Nav = Polestar.Nav or {}
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return goldshire end
+			end
+			Polestar.Nav.BoundInn = function() return bound end
+			local function changed() Polestar.Fire("QOL_HEARTH_CHANGED"); flush() end
+			local function state()
+				local g, wp = E.GetStepView(E.GetStepIndex()).goals[1], E.GetWaypoint()
+				return { line = g.hearthText or false, arrow = wp and { wp.map, wp.x, wp.y, wp.label } or false }
+			end
+			E.SetGuide("test/hearth-bound"); flush()
+			local r = { elsewhere = state() }
+			-- on cooldown too: where it is bound comes first
+			hs.remaining = 600; changed()
+			r.cooling = state()
+			-- bound at the step's inn: the cooldown as before, then nothing
+			bound = goldshire; w.bind("Goldshire"); stub.fire("HEARTHSTONE_BOUND"); flush()
+			r.rebound = state()
+			hs.remaining = 0; changed()
+			r.ready = state()
+			-- the bound inn unknown to the data: never reads as elsewhere
+			bound = nil; w.bind("Kharanos"); changed()
+			r.unknownBound = state()
+			-- bound elsewhere, walking into the inn's town checks the step off
+			bound = kharanos; changed()
+			w.setZone("Elwynn Forest", "Goldshire"); flush()
+			r.walked = E.GetStepIndex()
+			-- a step inn the data does not know: nothing
+			r.unknownInn = state()
+			emit(r)
+		`,
+	});
+	const walk = [1429, 43.8, 65.8, 'Walk to Goldshire'];
+	assert.deepEqual(out.elsewhere, { line: 'Your Hearthstone is bound to Kharanos, not Goldshire: walk to the inn', arrow: walk });
+	assert.deepEqual(out.cooling, { line: 'Your Hearthstone is bound to Kharanos, not Goldshire: walk to the inn', arrow: walk });
+	assert.deepEqual(out.rebound, { line: 'Hearthstone ready in 10 min: walk to the inn, or wait for it', arrow: walk });
+	assert.deepEqual(out.ready, { line: false, arrow: false }, 'bound at its inn and ready: the hearth step as before');
+	assert.deepEqual(out.unknownBound, { line: false, arrow: false });
+	assert.equal(out.walked, 2, 'arriving in Goldshire on foot checks the hearth off');
+	assert.deepEqual(out.unknownInn, { line: false, arrow: false });
+});
+
 test('a flight that lands while the player looks ahead at another step still counts for its own step (#362)', () => {
 	const [out] = run({
 		guides: LANDED,
