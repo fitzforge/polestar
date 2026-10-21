@@ -2076,6 +2076,18 @@ function DS.Nav()
 	return items, (filter == "" and defaultBand(plevel)) or nil
 end
 
+-- The dungeons for the player's level and own faction, in level order (the
+-- guide menu's Home names the first).
+function DS.ForYou()
+	local Dg = D()
+	if not (Dg and Dg.IsEnabled() and Dg.Load()) then return {} end
+	local plevel, f, out = playerLevel(), UI.PlayerFaction() or "All", {}
+	for _, d in ipairs(list()) do
+		if forYouAs(d, plevel, f) then out[#out + 1] = d end
+	end
+	return out
+end
+
 function DS.SetBand(key)
 	band = key
 	page = nil

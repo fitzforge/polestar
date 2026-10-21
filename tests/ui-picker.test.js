@@ -159,11 +159,12 @@ test('left pane: the rail holds the sections and Options; the sidebar holds the 
 		for i, s in ipairs(P.Sections()) do sections[i] = s.label or s.key end
 		emit({ cats = P.categories, labels = labels, rail = rail, sections = sections, icon = icon, r = r, options = PolestarOptions:IsShown(), picker = PolestarPicker:IsShown() })`);
 	assert.deepEqual(out.cats, ['All', 'Leveling', 'Professions', 'Reputation', 'Exploration', 'Legacy', 'Collectibles', 'Favorites'], 'dungeons have their own section, not a category');
-	// Sections (Guides built in, then the registered ones by order) are on the rail, Options at its foot.
-	assert.equal(out.sections[0], 'Guides');
-	assert.equal(out.sections[1], 'Lookup');
+	// Sections (Home first, Guides built in, then the registered ones by order) are on the rail, Options at its foot.
+	assert.equal(out.sections[0], 'Home');
+	assert.equal(out.sections[1], 'Guides');
+	assert.equal(out.sections[2], 'Lookup');
 	// Import is a foot section: above Options, not among the sections at the top.
-	assert.deepEqual(out.rail, ['Options', 'Import', 'Guides*', ...out.sections.slice(1).filter((s) => s !== 'Import')]);
+	assert.deepEqual(out.rail, ['Options', 'Import', 'Home', 'Guides*', ...out.sections.slice(2).filter((s) => s !== 'Import')]);
 	assert.deepEqual(out.labels, ['All guides 13', 'Leveling 6', 'Professions 3', 'Reputation 1', 'Exploration 1', 'Legacy 1', 'Collectibles 1', 'Favourites 0']);
 	assert.match(out.icon, /\\star$/);
 	assert.deepEqual(out.r, {
@@ -189,7 +190,7 @@ test('the sidebar is one compact block on one edge: the lockup (wordmark, taglin
 		local navFirst = F.navButtons[1]
 		emit({ wordmark = pt(F.Wordmark), tagline = pt(F.Tagline), search = pt(F.Search), navTop = F.psNavTop, navX = select(4, navFirst.Icon:GetPoint(1)),
 			status = pt(F.Status), optLabelBottom = optY + opt:GetHeight() + iconY - opt.Icon:GetHeight() + labelY - opt.Label:GetStringHeight(),
-			emblem = pt(F.Emblem), firstRail = (function() for _, b in ipairs(F.railButtons) do if b:IsShown() and b.psKey == "Guides" then local _, _, _, _, y = b:GetPoint(1); return -y end end end)() })`);
+			emblem = pt(F.Emblem), firstRail = (function() for _, b in ipairs(F.railButtons) do if b:IsShown() and b.psKey == "Home" then local _, _, _, _, y = b:GetPoint(1); return -y end end end)() })`);
 	const edge = 24;
 	assert.deepEqual(out.wordmark, ['TOPLEFT', edge - 2, -22], 'the wordmark\'s ink (2px into its box) sits on the sidebar edge');
 	assert.deepEqual(out.tagline, ['TOPLEFT', edge, -52], 'the tagline under the wordmark, on the same edge');
