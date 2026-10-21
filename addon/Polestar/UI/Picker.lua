@@ -89,7 +89,7 @@ local visibleIds = {} -- guide ids in the middle pane, top to bottom (arrow keys
 
 local FACTIONS = { "Alliance", "Horde", "All" }
 local VIEWS = { "home", "browse", "current", "recent" }
-local VIEW_LABEL = { home = L["Home"], browse = L["Browse"], current = L["Current"], recent = L["Recent"] }
+local VIEW_LABEL = { home = L["Guides"], browse = L["Browse"], current = L["Current"], recent = L["Recent"] }
 
 -- The guide format's categories, in the order players look for them.
 local CATEGORIES = { "Leveling", "Class", "Professions", "Reputation", "Exploration", "Legacy", "Collectibles", "Miscellaneous" }

@@ -3920,7 +3920,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   Delete with a second click to confirm), then "Want more than one guide?"
   (community addons in three steps and the GUIDE_PACKS.md link).
 - **Guide menu** (the Guides section): three panes. Left: the categories with
-  counts. Middle: Home (continue and suggested), Browse, Current (open tabs),
+  counts. Middle: Guides (continue and suggested; the view was called Home before the Home section), Browse, Current (open tabs),
   Recent tabs over one line per guide,
   `Title (min–max)`, in folders (a guide's `folder` when set, else leveling by
   faction and band, other guides by category); search also matches `folder`

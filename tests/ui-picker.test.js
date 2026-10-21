@@ -170,7 +170,7 @@ test('left pane: the rail holds the sections and Options; the sidebar holds the 
 	assert.deepEqual(out.r, {
 		view: 'browse', category: 'Professions', title: 'Professions', folders: ['Professions 3'],
 		lines: ['Cooking 1-300 (5\u201360)', 'First Aid 1-300 (5\u201360)', 'Tailoring 1-300 (5\u201360)'], navOn: true, tabOn: false, browseOn: true,
-		tabs: ['Home', 'Browse', 'Current', 'Recent'], footer: false, subtitle: 'Alliance  \u00b7  3 guides',
+		tabs: ['Guides', 'Browse', 'Current', 'Recent'], footer: false, subtitle: 'Alliance  \u00b7  3 guides',
 		home: { view: 'home', homeOn: true }, back: { view: 'browse', category: 'Professions', browseOn: true },
 	});
 	assert.equal(out.options, true);
