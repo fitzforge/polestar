@@ -3903,6 +3903,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `UI.GearPick.PickFor` pick is an upgrade) and Rares nearby (the Codex's
   rares spawning in the player's zone). A card with nothing to say is left
   out and the rest close up.
+- **Game menu** (`UI/GameMenu.lua`): a "Polestar" button at the end of the
+  Escape menu, added in a `hooksecurefunc` post-hook of
+  `GameMenuFrame:InitButtons` through `AddButton`; it opens Home. A client
+  without that menu gets no button.
 - **Import** (`UI/Import.lua`, a foot section, order 90; `/polestar import`
   and `SHOW_IMPORT` open it). The two ways to bring someone else's guides
   into Polestar side by side (an import string for one small guide, a

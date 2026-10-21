@@ -10,6 +10,7 @@
 	<Script file="LevelTip.lua"/>
 	<Script file="Picker.lua"/>
 	<Script file="Home.lua"/>
+	<Script file="GameMenu.lua"/>
 	<Script file="QuestLinks.lua"/>
 	<Script file="Lookup.lua"/>
 	<Script file="Dungeons.lua"/>

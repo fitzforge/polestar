@@ -125,6 +125,7 @@ const ALLOWED = {
 	'Polestar/Nav/Nearby.lua': [3, 'the tracking menus, not with the gamepad interface'],
 	'Polestar/Maps/Services.lua': [3, 'the service tracking menus, not with the gamepad interface'],
 	'Polestar/UI/QuestLinks.lua': [3, 'the quest menus, not with the gamepad interface'],
+	'Polestar/UI/GameMenu.lua': [1, 'closing the game menu from its Polestar button, which is not added with the gamepad interface'],
 	'Polestar/QoL/QoL.lua': [2, "dialogs closed for the player (QoL.ClosePopup), never with the gamepad interface (its focus owns them)"],
 	'Polestar/QoL/Toggles.lua': [3, 'the error-message setting, which does nothing with the gamepad interface'],
 	'Polestar/UI/Options.lua': [2, "closing the game's Settings panel, never with the gamepad interface or in combat"],

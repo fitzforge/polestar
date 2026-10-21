@@ -214,3 +214,62 @@ test('Class training lists the spells to train: up to the level, not known, the 
 	assert.deepEqual(out, { status: '3 spells to train', icons: [172, 707, 705], spells: 'Corruption, Immolate, Shadow Bolt' });
 	assert.deepEqual(none, { status: 'Class skills up to date', spells: '', icon: false });
 });
+
+// The game menu (Escape) builds its buttons on each show (GameMenuFrameMixin:
+// InitButtons -> AddButton, laid out by layoutIndex, AddSection's 20px as the
+// next button's topPadding); Polestar adds one, its own block under Options.
+test('the game menu gets a Polestar button under Options, in its own block, added before InitButtons ends, that opens the hub at Home; none without that menu', () => {
+	const MENU = `GAMEMENU_OPTIONS, ADDONS, RETURN_TO_GAME = "Options", "AddOns", "Return to Game"
+GameMenuFrame = { buttons = {} }
+function GameMenuFrame:AddButton(text, fn)
+	local b = { text = text, fn = fn, layoutIndex = self.next, topPadding = self.section }
+	function b:GetText() return self.text end
+	self.next, self.section = self.next + 1, nil
+	self.buttons[#self.buttons + 1] = b
+	return b
+end
+function GameMenuFrame:AddSection() self.section = 20 end
+function GameMenuFrame:MarkDirty() self.dirty = true end
+function GameMenuFrame:AddCloseButton(text) self:AddSection(); return self:AddButton(text, function() end) end
+function GameMenuFrame:InitButtons()
+	self.buttons, self.next, self.section, self.dirty = {}, 1, nil, false
+	self:AddButton(GAMEMENU_OPTIONS, function() end)
+	self:AddSection()
+	self:AddButton(ADDONS, function() end)
+	self:closeButtonCall()
+	-- What a skinning addon's InitButtons post-hook would see.
+	self.seen = #self.buttons
+end
+function GameMenuFrame:closeButtonCall() self.closeButton = self:AddCloseButton(RETURN_TO_GAME) end
+HideUIPanel = function(f) f.hidden = true end`;
+	const [out] = runAddon({
+		stubs: ['stub_ui.lua'],
+		before: MENU,
+		addons: [{ name: 'Polestar', files: FILES }],
+		script: `uistub.install()\nstub.login()
+			local UI, P = Polestar.UI, Polestar.UI.Picker
+			P.ShowSection("Lookup")
+			GameMenuFrame:InitButtons()
+			GameMenuFrame:InitButtons()
+			local list = {}
+			for _, b in ipairs(GameMenuFrame.buttons) do list[#list + 1] = b end
+			table.sort(list, function(a, b) return a.layoutIndex < b.layoutIndex end)
+			local order, ours = {}, nil
+			for i, b in ipairs(list) do
+				local plain = b.text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+				order[i] = (b.topPadding and "| " or "") .. plain
+				if plain == "Polestar" then ours = b end
+			end
+			ours.fn()
+			emit({ order = order, count = #GameMenuFrame.buttons, seen = GameMenuFrame.seen, close = GameMenuFrame.closeButton.text, dirty = GameMenuFrame.dirty, hidden = GameMenuFrame.hidden or false,
+				shown = PolestarPicker:IsShown(), section = P.Section() })`,
+	}).emitted;
+	assert.deepEqual(out, {
+		// Added while InitButtons runs, so a later InitButtons hook sees all four;
+		// the close button stays the menu's.
+		order: ['Options', '| Polestar', '| AddOns', '| Return to Game'], count: 4, seen: 4, close: 'Return to Game', dirty: true,
+		hidden: true, shown: true, section: 'Home',
+	});
+	const [none] = run('emit({ installed = UI.GameMenu.installed or false })');
+	assert.deepEqual(none, { installed: false });
+});
