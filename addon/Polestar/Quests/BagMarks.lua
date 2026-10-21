@@ -3,6 +3,8 @@
 -- the index the item tooltip reads) or one the running guide has ahead that you
 -- have not accepted (Q.IsItemNeededAhead). It goes once the quest is handed in.
 -- Abandoning a quest keeps it, as the quest is ahead in the guide again.
+-- So does a guide that has gone past every step for a quest you never accepted:
+-- nothing ahead needs the item, and the mark clears.
 --
 -- Three bag views (qol.questBagMarks), the way Gear/Bags.lua draws its
 -- arrows: the client's bags, where each container frame's UpdateItems is
