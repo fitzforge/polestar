@@ -1902,6 +1902,7 @@ end
 -- opts: { newTab = true } when loading should open a new tab.
 function UI.ShowPicker(opts)
 	if not win then build() end
+	local before = section
 	newTabMode = type(opts) == "table" and opts.newTab and true or false
 	-- Opened as a whole (the key binding): at the home section until the
 	-- player picks one. Opened to choose a guide (opts.section = "Guides"):
@@ -1914,6 +1915,12 @@ function UI.ShowPicker(opts)
 		for _, s in ipairs(sections) do
 			if s.home then section = s.key break end
 		end
+	end
+	-- Match ShowSection's search reset without marking a section as picked.
+	-- Keep searches staged in the destination before opening (quest links).
+	if section ~= before then
+		query, questContext = "", nil
+		win.Search:SetText("")
 	end
 	-- Remember the last selection; without one, start on the open guide or
 	-- the suggestion.

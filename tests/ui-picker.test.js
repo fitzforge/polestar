@@ -520,6 +520,64 @@ test('from the guide window\'s +, loading opens a new tab; faction buttons write
 	assert.deepEqual(plain, { newTab: false, load: 'Load guide', primary: true });
 });
 
+for (const newTab of [false, true]) {
+	for (const hidden of [false, true]) {
+		test(`${newTab ? '+' : 'Choose guide'} clears Lookup search with the hub ${hidden ? 'hidden' : 'open'}`, () => {
+			const [out] = run(`
+				uistub.openTabs(TABS, 1)
+				UI.ShowLookup({ query = "saber" })
+				local lookup = P.Query()
+				-- The client also fires this callback for programmatic text changes.
+				local box, setText = P.search, P.search.SetText
+				box.SetText = function(self, text)
+					setText(self, text)
+					stub.RunScript(self, "OnTextChanged", false)
+				end
+				if ${hidden} then PolestarPicker:Hide() end
+				local first, render = nil, P.Render
+				P.Render = function(...)
+					if not first and PolestarPicker:IsShown() then first = { P.Section(), P.Query() } end
+					return render(...)
+				end
+				local GF = UI.GuideFrame
+				if ${newTab} then
+					GF.parts.strip.Add:Click()
+				else
+					GF.menuButton:Click()
+					for _, r in ipairs(PolestarMenu.rows) do
+						if r:IsShown() and r.Text:GetText() == "Choose guide" then r:Click(); break end
+					end
+				end
+				local r = { lookup = lookup, first = first, section = P.Section(), query = P.Query(),
+					search = P.search:GetText(), newTab = P.IsNewTabMode(), lookupQuery = UI.Lookup.Query() }
+				P.Select("forever/alliance/02-westfall")
+				P.LoadSelected()
+				r.loaded = lastCall("${newTab ? 'OpenTab' : 'SetGuide'}")
+				emit(r)`);
+			assert.deepEqual(out, {
+				lookup: 'saber', first: ['Guides', ''], section: 'Guides', query: '', search: '',
+				newTab, lookupQuery: 'saber', loaded: [newTab ? 'OpenTab' : 'SetGuide', 'forever/alliance/02-westfall'],
+			});
+		});
+	}
+}
+
+test('explicit destinations preserve the menu policy before and after a section is picked', () => {
+	const [out] = run(`
+		UI.ShowPicker({ section = "Lookup" })
+		P.SetQuery("saber")
+		UI.ShowPicker({ section = "Guides" })
+		PolestarPicker:Hide()
+		Polestar.Bindings.Menu()
+		local initial = P.Section()
+		P.ShowSection("Lookup")
+		UI.ShowPicker({ section = "Guides" })
+		PolestarPicker:Hide()
+		Polestar.Bindings.Menu()
+		emit({ initial = initial, picked = P.Section() })`);
+	assert.deepEqual(out, { initial: 'Home', picked: 'Guides' });
+});
+
 test('Home: Continue cards for the open tabs and the suggested guides; a card selects, a double-click continues', () => {
 	const [out] = run(`
 		uistub.player.level = 10

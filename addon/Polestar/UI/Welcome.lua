@@ -670,7 +670,7 @@ local function startSuggested()
 	elseif id and E and E.SetGuide then
 		E.SetGuide(id)
 	else
-		UI.ShowPicker()
+		UI.ShowPicker({ section = "Guides" })
 		return
 	end
 	ns.Fire("SHOW_FRAME")
@@ -732,7 +732,7 @@ PAGES[#PAGES + 1] = {
 		F.Start = W.Button(F.Foot, L["Start guide"], startSuggested, { primary = true })
 		F.Browse = W.Button(F.Foot, L["Browse guides"], function()
 			close()
-			UI.ShowPicker()
+			UI.ShowPicker({ section = "Guides" })
 		end)
 	end,
 	layout = function(p, h)
