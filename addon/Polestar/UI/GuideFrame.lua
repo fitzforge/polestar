@@ -690,7 +690,7 @@ local function tabMenu(self)
 		-- The picker loads into the active tab, so this tab becomes the active one first.
 		{ text = L["Choose guide"], icon = "search", onClick = function()
 			if E.SelectTab and not self.psActive then E.SelectTab(i) end
-			UI.ShowPicker()
+			UI.ShowPicker({ section = "Guides" })
 		end },
 		{ text = L["Close tab"], icon = "close", onClick = function() E.CloseTab(i) end },
 		{ text = L["Move left"], icon = "chevron-left", disabled = i <= 1, onClick = function() E.MoveTab(i, i - 1) end },
@@ -1506,12 +1506,12 @@ local function setEmpty(kind)
 			end
 			empty.Primary:Show()
 			W.SetButtonText(empty.Secondary, L["Browse guides"])
-			empty.Secondary.psAction = function() UI.ShowPicker() end
+			empty.Secondary.psAction = function() UI.ShowPicker({ section = "Guides" }) end
 			empty.Secondary:Show()
 		else
 			empty.Text:SetText(L["Pick a guide to start."])
 			W.SetButtonText(empty.Primary, L["Choose a guide"])
-			empty.Primary.psAction = function() UI.ShowPicker() end
+			empty.Primary.psAction = function() UI.ShowPicker({ section = "Guides" }) end
 			empty.Primary:Show()
 		end
 	elseif kind == "notyet" then
@@ -1534,7 +1534,7 @@ local function setEmpty(kind)
 		end
 		empty.Text:SetText(table.concat(lines, "\n"))
 		W.SetButtonText(empty.Primary, L["Choose a guide"])
-		empty.Primary.psAction = function() UI.ShowPicker() end
+		empty.Primary.psAction = function() UI.ShowPicker({ section = "Guides" }) end
 		empty.Primary:Show()
 	elseif kind == "complete" then
 		glyph, color = "check", "success"
@@ -1553,7 +1553,7 @@ local function setEmpty(kind)
 			empty.Primary.psAction = function() UI.ShowRouteChoice(choiceFrom) end
 			empty.Primary:Show()
 			W.SetButtonText(empty.Secondary, L["Browse guides"])
-			empty.Secondary.psAction = function() UI.ShowPicker() end
+			empty.Secondary.psAction = function() UI.ShowPicker({ section = "Guides" }) end
 			empty.Secondary:Show()
 		elseif afterRun then
 			-- A dungeon's pick-up guide ends at the entrance; after the run
@@ -1563,7 +1563,7 @@ local function setEmpty(kind)
 			empty.Primary.psAction = function() UI.DungeonsSection.HandIn(afterRun) end
 			empty.Primary:Show()
 			W.SetButtonText(empty.Secondary, L["Choose a guide"])
-			empty.Secondary.psAction = function() UI.ShowPicker() end
+			empty.Secondary.psAction = function() UI.ShowPicker({ section = "Guides" }) end
 			empty.Secondary:Show()
 		elseif nextGuide then
 			empty.Text:SetText(L["Up next"] .. ": |c" .. Theme.Hex("text") .. nextGuide.title .. "|r")
@@ -1571,12 +1571,12 @@ local function setEmpty(kind)
 			empty.Primary.psAction = function() E.SetGuide(nextGuide.id) end
 			empty.Primary:Show()
 			W.SetButtonText(empty.Secondary, L["Browse guides"])
-			empty.Secondary.psAction = function() UI.ShowPicker() end
+			empty.Secondary.psAction = function() UI.ShowPicker({ section = "Guides" }) end
 			empty.Secondary:Show()
 		else
 			empty.Text:SetText(L["Nice work. Pick your next guide to keep going."])
 			W.SetButtonText(empty.Primary, L["Choose a guide"])
-			empty.Primary.psAction = function() UI.ShowPicker() end
+			empty.Primary.psAction = function() UI.ShowPicker({ section = "Guides" }) end
 			empty.Primary:Show()
 		end
 	end
@@ -2428,7 +2428,7 @@ local function openMenu(button)
 	local hasGuide = E and E.GetGuide and E.GetGuide()
 	local clear = transparent()
 	W.ShowMenu(button, {
-		{ text = L["Choose guide"], icon = "search", onClick = function() UI.ShowPicker() end },
+		{ text = L["Choose guide"], icon = "search", onClick = function() UI.ShowPicker({ section = "Guides" }) end },
 		{ text = L["Open in new tab"], icon = "plus", disabled = not (E and E.OpenTab), onClick = function() UI.ShowPicker({ newTab = true }) end },
 		{ text = L["Skip this step"], icon = "skip", disabled = not hasGuide, onClick = function() GF.SkipStep() end },
 		{ text = L["Report a problem"], icon = "bug", onClick = function() UI.ShowReport() end },
