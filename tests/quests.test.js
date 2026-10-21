@@ -531,7 +531,7 @@ emit({ Q.IsItemNeeded(772) })
 // cursor is one a quest in the log still needs, and the dialog grows by the
 // lines added.
 test('the delete confirmation names the quest that still needs the item', () => {
-	const [needed, other, handedIn, off] = run(`
+	const [needed, other, handedIn] = run(`
 local cursor = 772
 GetCursorInfo = function() return "item", cursor end
 local function popup()
@@ -558,15 +558,10 @@ emit(show("DELETE_ITEM"))
 cursor = 772
 w.turnIn(60); stub.advance(0.3)
 emit(show("DELETE_GOOD_ITEM"))
-w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
-stub.advance(0.3)
-Polestar.Set("qol.questDeleteWarning", false)
-emit(show("DELETE_ITEM"))
 `, { setup: 'w.complete({ 783 })' });
 	assert.deepEqual(needed, ['Do you want to destroy X?//Needed for: Kobold Candles', 124]);
 	assert.deepEqual(other, ['Do you want to destroy X?', 100], 'an item no quest needs: dialog untouched');
 	assert.deepEqual(handedIn, ['Do you want to destroy X?', 100], 'quest handed in: dialog untouched');
-	assert.deepEqual(off, ['Do you want to destroy X?', 100], 'qol.questDeleteWarning off');
 });
 
 // At a vendor, a sale that takes a quest item out of the bags raises a
@@ -1029,7 +1024,7 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 });
 
 test('the database loads on demand: not while every quest feature is off, at once when one turns on', () => {
-	const allOff = '{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questDeleteWarning = false, questSellWarning = false, nameplateIcons = false }';
+	const allOff = '{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questSellWarning = false, nameplateIcons = false }';
 	const [before, after] = run(`
 emit({ Q.IsLoaded(), sq.loadCalls, Q.IsRunning() })
 Polestar.Set("qol.questTooltips", true)

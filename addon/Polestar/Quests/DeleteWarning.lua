@@ -1,5 +1,5 @@
 -- A line on the game's delete confirmation when the item on the cursor is one
--- a quest still needs (qol.questDeleteWarning): "Needed for: Stocking Jetsteam".
+-- a quest still needs (while the quest database runs): "Needed for: Stocking Jetsteam".
 -- The delete itself is the game's: this only adds
 -- text to the dialog it already shows.
 --
@@ -19,7 +19,7 @@ local type, pcall = type, pcall
 local DELETE = { DELETE_ITEM = true, DELETE_GOOD_ITEM = true, DELETE_QUEST_ITEM = true, DELETE_GOOD_QUEST_ITEM = true }
 
 local function isOn()
-	return Q.IsRunning() and ns.Get("qol.questDeleteWarning") and true or false
+	return Q.IsRunning() and true or false
 end
 
 local function cursorItem()
