@@ -995,6 +995,9 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 					if (haveItems && !data.item(p.item)) warn(p.line, `item ${p.item} is not in data (new Forever content?)`);
 				} else w.spell = p.spell;
 				break;
+			case 'knows':
+				w.spell = p.spell;
+				break;
 			case 'dungeon': {
 				w.name = p.name;
 				const run = dungeonNamed(data, p.name);
@@ -1028,7 +1031,7 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 	const key = (p) => JSON.stringify({ ...p, neg: undefined, line: undefined });
 	for (const p of list) {
 		if (p.k !== 'level' && list.some((o) => o !== p && !!o.neg !== !!p.neg && key(o) === key(p))) {
-			warn(p.line, `the step asks for \`${p.k}\` and \`!${p.k}\` of the same ${p.k === 'has' || p.k === 'upgrade' ? 'item' : p.k === 'onquest' || p.k === 'complete' || p.k === 'turnedin' || p.k === 'available' || p.k === 'group' ? 'quest' : p.k === 'dungeon' ? 'dungeon' : p.k === 'done' ? 'step' : p.k === 'skill' ? 'profession and rank' : p.k === 'cooldown' ? (p.item ? 'item' : 'spell') : 'place'}: no character sees it`);
+			warn(p.line, `the step asks for \`${p.k}\` and \`!${p.k}\` of the same ${p.k === 'has' || p.k === 'upgrade' ? 'item' : p.k === 'onquest' || p.k === 'complete' || p.k === 'turnedin' || p.k === 'available' || p.k === 'group' ? 'quest' : p.k === 'dungeon' ? 'dungeon' : p.k === 'done' ? 'step' : p.k === 'skill' ? 'profession and rank' : p.k === 'cooldown' ? (p.item ? 'item' : 'spell') : p.k === 'knows' ? 'spell' : 'place'}: no character sees it`);
 			break;
 		}
 	}

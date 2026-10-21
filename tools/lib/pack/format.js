@@ -8,7 +8,7 @@ const { header } = require('../generated');
 // adds `group` (docs/PACK_FORMAT.md, "Format 2"); format 4 adds a step's
 // `when`, `label` and `along`, a level goal's `frac` and a `next` option's
 // `when` (`nextWhen`); format 5 adds the `money`, `task`, `enter`, `cast`, `abandon` and `destroy` goals, the
-// `money`, `dungeon`, `upgrade`, `done`, `skill`, `cooldown` and `group` when predicates and a step's `skipto`; a pack is written in the first format its guides
+// `money`, `dungeon`, `upgrade`, `done`, `skill`, `cooldown`, `group` and `knows` when predicates and a step's `skipto`; a pack is written in the first format its guides
 // need (formatFor): a pack without any stays readable by Polestar 0.2.5.
 const FORMAT = 3;
 const WHEN_FORMAT = 4;
@@ -23,19 +23,19 @@ const usesAlong = (s) => s.label !== undefined || s.along !== undefined;
 const usesLevelFrac = (g) => (g.steps || []).some((s) => (s.goals || []).some((goal) => goal.t === 'level' && goal.frac));
 
 // The `money`, `task`, `enter`, `cast`, `abandon` and `destroy` goals, the `money`, `dungeon`, `upgrade`, `done`,
-// `skill`, `cooldown` and `group` when predicates (on a step or a `next` option) and a
+// `skill`, `cooldown`, `group` and `knows` when predicates (on a step or a `next` option) and a
 // step's `skipto` need format 5: a 0.2.6 client would accept a format-4 pack
 // but refuse these with "unknown verb" or "bad when" rather than "needs
 // Polestar 0.3.0", and would never take a `skipto` jump.
 const MONEY_TASK_VERBS = new Set(['money', 'task', 'enter', 'cast', 'abandon', 'destroy']);
-const FORMAT5_WHEN = new Set(['money', 'dungeon', 'upgrade', 'done', 'skill', 'cooldown', 'group']);
+const FORMAT5_WHEN = new Set(['money', 'dungeon', 'upgrade', 'done', 'skill', 'cooldown', 'group', 'knows']);
 const needs5 = (list) => (list || []).some((p) => FORMAT5_WHEN.has(p.k));
 const usesMoneyTask = (g) => (g.steps || []).some((s) =>
 	(s.goals || []).some((goal) => MONEY_TASK_VERBS.has(goal.t)) || needs5(s.when) || (Array.isArray(s.skipto) && s.skipto.length)) ||
 	Object.values(g.nextWhen || {}).some(needs5);
 
 // The format a pack's compiled guides need: MONEY_TASK_FORMAT when a guide
-// uses money/task/enter/cast/abandon/destroy goals, a money, dungeon, upgrade, done, skill, cooldown or group when predicate or a
+// uses money/task/enter/cast/abandon/destroy goals, a money, dungeon, upgrade, done, skill, cooldown, group or knows when predicate or a
 // `skipto`, WHEN_FORMAT when a step
 // has `when`, `label` or `along`, a level goal has `frac`, or a `next`
 // option has `when` (`nextWhen`), else FORMAT.

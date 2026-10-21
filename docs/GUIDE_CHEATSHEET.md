@@ -171,6 +171,7 @@ the outcome stays.
 | `when done <label>` | the labelled step of this guide was completed, not skipped or jumped over; not on a `next` line (needs Polestar 0.3.0) | `when done camp` |
 | `when skill <Profession> <N>` | the profession's rank is N or more; not learned counts as 0 (needs Polestar 0.3.0) | `when !skill Cooking 50` |
 | `when cooldown item <item>` / `when cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside (needs Polestar 0.3.0) | `when !cooldown item 6948` |
+| `when knows <spell>` | the character knows the spell (spellbook or recipe; needs Polestar 0.3.0) | `when !knows 100` |
 | `when group <quest>` | the player chose to do that group quest; unanswered, the route waits and asks "Skip it" or "Do it with a group"; `!group` is the solo way; not on `next` or `skipto` (needs Polestar 0.3.0) | `when group 7` |
 
 ## Route choices and optional steps
