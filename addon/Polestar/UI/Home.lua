@@ -230,35 +230,44 @@ local function hideTip()
 	if GameTooltip then GameTooltip:Hide() end
 end
 
-local function cardEnter(self)
+-- An icon tile (a spell, an item) lights its border in the accent while
+-- hovered, over the skin's faint wash, which a busy icon hides.
+local function iconEnter(tip)
+	return function(self)
+		Theme.Border(self, Theme.Accent())
+		tip(self)
+	end
+end
+
+local function iconLeave(self)
+	Theme.Border(self, Theme.Color("border"))
+	hideTip()
+end
+
+local function headEnter(self)
 	self.Hover:Show()
-	W.Color(self.Head.Chevron, "text")
+	W.Color(self.Chevron, "text")
 end
 
-local function cardLeave(self)
+local function headLeave(self)
 	self.Hover:Hide()
-	W.Color(self.Head.Chevron, "textMuted")
+	W.Color(self.Chevron, "textMuted")
 end
 
-local function cardClick(self)
-	if self.psOpen then self.psOpen(self) end
+local function headClick(self)
+	local c = self:GetParent()
+	if c.psOpen then c.psOpen(c) end
 end
 
--- A card: a panel with a heading row (accent glyph, title, chevron); a click
--- anywhere on it but its own buttons opens where it leads (c.psOpen(c)).
+-- A card: a panel with a heading row (accent glyph, title, chevron), the one
+-- part of it that is a link: only it lights up on hover, and a click on it
+-- opens where the card leads (c.psOpen(c)). The card's own buttons and icons
+-- light up on their own; the rest of it is still.
 local function card(key, icon, title, onOpen)
-	local c = CreateFrame("Button", nil, page.Scroll.Child)
+	local c = CreateFrame("Frame", nil, page.Scroll.Child)
 	Theme.Skin(c, "panel")
 	c.psKey, c.psOpen = key, onOpen
-	c.Hover = W.Tex(c, "BORDER")
-	c.Hover:SetPoint("TOPLEFT", c, "TOPLEFT", 1, -1)
-	c.Hover:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", -1, 1)
-	W.Painter(c.Hover, function(t) t:SetVertexColor(Theme.Wash("hover")) end)
-	c.Hover:Hide()
-	c:SetScript("OnEnter", cardEnter)
-	c:SetScript("OnLeave", cardLeave)
-	c:SetScript("OnClick", cardClick)
-	local head = CreateFrame("Frame", nil, c)
+	local head = CreateFrame("Button", nil, c)
 	head:SetHeight(HEAD_H)
 	head:SetPoint("TOPLEFT", c, "TOPLEFT", 0, 0)
 	head:SetPoint("TOPRIGHT", c, "TOPRIGHT", 0, 0)
@@ -271,6 +280,14 @@ local function card(key, icon, title, onOpen)
 	head.Chevron = W.Tex(head, "ARTWORK", "chevron-right", "textMuted")
 	head.Chevron:SetSize(12, 12)
 	head.Chevron:SetPoint("RIGHT", head, "RIGHT", -CP, 0)
+	head.Hover = W.Tex(head, "BACKGROUND")
+	head.Hover:SetPoint("TOPLEFT", head, "TOPLEFT", 1, -1)
+	head.Hover:SetPoint("BOTTOMRIGHT", head, "BOTTOMRIGHT", -1, 0)
+	W.Painter(head.Hover, function(t) t:SetVertexColor(Theme.Wash("hover")) end)
+	head.Hover:Hide()
+	head:SetScript("OnEnter", headEnter)
+	head:SetScript("OnLeave", headLeave)
+	head:SetScript("OnClick", headClick)
 	c.Head = head
 	c.Rule = W.Divider(c)
 	c.Rule:SetPoint("TOPLEFT", c, "TOPLEFT", CP, -HEAD_H)
@@ -375,8 +392,8 @@ local function buildCards()
 		b.Icon:SetPoint("TOPLEFT", b, "TOPLEFT", 1, -1)
 		b.Icon:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -1, 1)
 		b.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-		b:SetScript("OnEnter", spellTip)
-		b:SetScript("OnLeave", hideTip)
+		b:SetScript("OnEnter", iconEnter(spellTip))
+		b:SetScript("OnLeave", iconLeave)
 		build.Icons[i] = b
 	end
 	build.Next = line(build, "label", "text", HEAD_H + 124)
@@ -435,8 +452,8 @@ local function buildCards()
 		b.Icon:SetPoint("TOPLEFT", b, "TOPLEFT", 1, -1)
 		b.Icon:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -1, 1)
 		b.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-		b:SetScript("OnEnter", spellTip)
-		b:SetScript("OnLeave", hideTip)
+		b:SetScript("OnEnter", iconEnter(spellTip))
+		b:SetScript("OnLeave", iconLeave)
 		tr.Icons[i] = b
 	end
 	tr.Spells = line(tr, "small", "textDim", HEAD_H + 96)
@@ -459,8 +476,8 @@ local function buildCards()
 	gear.Item.Icon:SetPoint("TOPLEFT", gear.Item, "TOPLEFT", 1, -1)
 	gear.Item.Icon:SetPoint("BOTTOMRIGHT", gear.Item, "BOTTOMRIGHT", -1, 1)
 	gear.Item.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-	gear.Item:SetScript("OnEnter", itemTip)
-	gear.Item:SetScript("OnLeave", hideTip)
+	gear.Item:SetScript("OnEnter", iconEnter(itemTip))
+	gear.Item:SetScript("OnLeave", iconLeave)
 	gear.Name = line(gear, "body", "item", HEAD_H + 14, CP + 52)
 	gear.Gain = line(gear, "small", "success", HEAD_H + 34, CP + 52)
 	gear.From = line(gear, "small", "textDim", HEAD_H + 64)

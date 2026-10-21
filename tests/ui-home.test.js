@@ -236,7 +236,7 @@ test('Next level: share of the level, about how many guide quests are left to it
 	assert.deepEqual(capped, { shown: false, bar: false }, 'nothing at the level cap');
 });
 
-test('a short last line of cards widens to the page; a click anywhere on a card opens where it leads', () => {
+test('a short last line of cards widens to the page; only the heading row is a link: it lights up and opens, the rest of the card is still', () => {
 	const [out] = run(`
 		uistub.player.level = 10
 		Polestar.CharState().classTrainLevel = 10
@@ -246,13 +246,20 @@ test('a short last line of cards widens to the page; a click anywhere on a card 
 		local r = { hero = c.hero:GetWidth(), next = c.next:GetWidth(), trainer = c.trainer:GetWidth() }
 		local opened
 		P.ShowSection = function(key) opened = key end
-		stub.RunScript(c.next, "OnClick", "LeftButton")
+		r.bodyClicks = c.next:GetScript("OnClick") ~= nil
+		r.bodyHover = c.next:GetScript("OnEnter") ~= nil
+		stub.RunScript(c.next.Head, "OnEnter")
+		r.lit = c.next.Head.Hover:IsShown()
+		stub.RunScript(c.next.Head, "OnLeave")
+		r.out = c.next.Head.Hover:IsShown()
+		stub.RunScript(c.next.Head, "OnClick", "LeftButton")
 		r.opened = opened
 		emit(r)`);
 	// Two cards: each half the hero's width less half a gap.
 	assert.equal(out.next, out.trainer);
 	assert.equal(out.next, Math.floor((out.hero - 12) / 2));
 	assert.equal(out.opened, 'Guides', 'Up next opens the guide list at the next guide');
+	assert.deepEqual([out.bodyClicks, out.bodyHover, out.lit, out.out], [false, false, true, false]);
 });
 
 test('Class training: what the next level with new spells brings, ranks chained through what can be learned now', () => {
