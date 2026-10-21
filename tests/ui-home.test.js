@@ -215,6 +215,65 @@ test('Class training lists the spells to train: up to the level, not known, the 
 	assert.deepEqual(none, { status: 'Class skills up to date', spells: '', icon: false });
 });
 
+// The quick wins: the way to the next level in the hero, a short last line
+// of cards widened to the page, a click anywhere on a card, and what the next
+// level with new spells brings.
+test('Next level: share of the level, about how many guide quests are left to it, rested XP, and a bar', () => {
+	const [out, capped] = run(`
+		uistub.player.level, uistub.player.xp, uistub.player.xpMax = 18, 6200, 10000
+		GetXPExhaustion = function() return 1200 end
+		Polestar.Levels = Polestar.Levels or {}
+		Polestar.Levels.ForGuide = function() return { xp = 9000, levels = 0.9, quests = 6, questXP = 3000, unknown = 0, kills = 0 } end
+		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
+		H.Show()
+		local s = H.Cards().hero.Level
+		emit({ value = s.Value:GetText(), bar = s.Bar:IsShown(), label = s.Label:GetText() })
+		uistub.player.xpMax = 0
+		P.Render()
+		emit({ shown = s.Value:IsShown(), bar = s.Bar:IsShown() })`);
+	// 3,800 XP to go at 500 a quest: 8 quests.
+	assert.deepEqual(out, { value: '62% to 19  ·  about 8 quests  ·  1,200 rested', bar: true, label: 'Next level' });
+	assert.deepEqual(capped, { shown: false, bar: false }, 'nothing at the level cap');
+});
+
+test('a short last line of cards widens to the page; a click anywhere on a card opens where it leads', () => {
+	const [out] = run(`
+		uistub.player.level = 10
+		Polestar.CharState().classTrainLevel = 10
+		Polestar.Engine.NearestClassTrainer = function() return { npcName = "Khelden Bremen", map = 1429, x = 49.66, y = 39.4 } end
+		H.Show()
+		local c = H.Cards()
+		local r = { hero = c.hero:GetWidth(), next = c.next:GetWidth(), trainer = c.trainer:GetWidth() }
+		local opened
+		P.ShowSection = function(key) opened = key end
+		stub.RunScript(c.next, "OnClick", "LeftButton")
+		r.opened = opened
+		emit(r)`);
+	// Two cards: each half the hero's width less half a gap.
+	assert.equal(out.next, out.trainer);
+	assert.equal(out.next, Math.floor((out.hero - 12) / 2));
+	assert.equal(out.opened, 'Guides', 'Up next opens the guide list at the next guide');
+});
+
+test('Class training: what the next level with new spells brings, ranks chained through what can be learned now', () => {
+	const [out] = run(`
+		uistub.player.level, uistub.player.class = 9, "WARLOCK"
+		Polestar.CharState().classTrainLevel = 8
+		local NAMES = { [172] = "Corruption", [707] = "Immolate", [1120] = "Drain Soul", [6222] = "Corruption", [705] = "Shadow Bolt" }
+		C_Spell = C_Spell or {}
+		C_Spell.GetSpellName = function(id) return NAMES[id] end
+		IsPlayerSpell = function(id) return id == 348 end
+		Polestar.Engine.NearestClassTrainer = function() return { npcName = "Drusilla La Salle", map = 1429, x = 49.87, y = 42.65 } end
+		Polestar.Engine.ClassSpells = function() return {
+			{ 348, 1, 0, 0 }, { 172, 4, 0, 0 }, { 707, 10, 348, 0 }, { 1120, 10, 0, 0 }, { 705, 12, 695, 0 }, { 6222, 14, 172, 0 },
+		} end
+		H.Show()
+		local c = H.Cards().trainer
+		emit({ status = c.Status:GetText(), soon = c.Last:GetText() })`);
+	// Corruption 1 now; at 10 Immolate 2 (rank 1 known) and Drain Soul; Shadow Bolt 3 at 12 is later.
+	assert.deepEqual(out, { status: '1 spell to train', soon: 'At level 10: Immolate, Drain Soul' });
+});
+
 // The game menu (Escape) builds its buttons on each show (GameMenuFrameMixin:
 // InitButtons -> AddButton, laid out by layoutIndex, AddSection's 20px as the
 // next button's topPadding); Polestar adds one, its own block under Options.

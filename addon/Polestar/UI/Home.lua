@@ -42,7 +42,7 @@ local GAP = 12 -- between cards
 local EDGE = 16 -- the cards' inset in the page
 local CP = 16 -- inside a card
 local HEAD_H = 40 -- a card's heading row
-local HERO_H = 188
+local HERO_H = 216
 -- Every card under the hero is as tall as the tallest content (the build's
 -- last line), so a line stays even when a card drops out and the rest close up.
 local CARD_H = 212
@@ -230,13 +230,35 @@ local function hideTip()
 	if GameTooltip then GameTooltip:Hide() end
 end
 
--- A card: a panel with a heading row (accent glyph, title, chevron) that
--- opens where the card leads.
+local function cardEnter(self)
+	self.Hover:Show()
+	W.Color(self.Head.Chevron, "text")
+end
+
+local function cardLeave(self)
+	self.Hover:Hide()
+	W.Color(self.Head.Chevron, "textMuted")
+end
+
+local function cardClick(self)
+	if self.psOpen then self.psOpen(self) end
+end
+
+-- A card: a panel with a heading row (accent glyph, title, chevron); a click
+-- anywhere on it but its own buttons opens where it leads (c.psOpen(c)).
 local function card(key, icon, title, onOpen)
-	local c = CreateFrame("Frame", nil, page.Scroll.Child)
+	local c = CreateFrame("Button", nil, page.Scroll.Child)
 	Theme.Skin(c, "panel")
-	c.psKey = key
-	local head = CreateFrame("Button", nil, c)
+	c.psKey, c.psOpen = key, onOpen
+	c.Hover = W.Tex(c, "BORDER")
+	c.Hover:SetPoint("TOPLEFT", c, "TOPLEFT", 1, -1)
+	c.Hover:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", -1, 1)
+	W.Painter(c.Hover, function(t) t:SetVertexColor(Theme.Wash("hover")) end)
+	c.Hover:Hide()
+	c:SetScript("OnEnter", cardEnter)
+	c:SetScript("OnLeave", cardLeave)
+	c:SetScript("OnClick", cardClick)
+	local head = CreateFrame("Frame", nil, c)
 	head:SetHeight(HEAD_H)
 	head:SetPoint("TOPLEFT", c, "TOPLEFT", 0, 0)
 	head:SetPoint("TOPRIGHT", c, "TOPRIGHT", 0, 0)
@@ -249,13 +271,6 @@ local function card(key, icon, title, onOpen)
 	head.Chevron = W.Tex(head, "ARTWORK", "chevron-right", "textMuted")
 	head.Chevron:SetSize(12, 12)
 	head.Chevron:SetPoint("RIGHT", head, "RIGHT", -CP, 0)
-	head.Hover = W.Tex(head, "BACKGROUND")
-	head.Hover:SetAllPoints(head)
-	W.Painter(head.Hover, function(t) t:SetVertexColor(Theme.Wash("hover")) end)
-	head.Hover:Hide()
-	head:SetScript("OnEnter", function(self) self.Hover:Show(); W.Color(self.Chevron, "text") end)
-	head:SetScript("OnLeave", function(self) self.Hover:Hide(); W.Color(self.Chevron, "textMuted") end)
-	head:SetScript("OnClick", function() if onOpen then onOpen() end end)
 	c.Head = head
 	c.Rule = W.Divider(c)
 	c.Rule:SetPoint("TOPLEFT", c, "TOPLEFT", CP, -HEAD_H)
@@ -280,10 +295,11 @@ local function footButton(c, text, onClick)
 	return b
 end
 
--- One of the hero's stats: a glyph, a label over a value (placed by
--- placeStats, the shown ones from the top).
-local function stat(c, icon, label)
+-- One of the hero's stats: a glyph, a label over a value, and with `bar` a
+-- progress line under it (placed by placeStats, the shown ones from the top).
+local function stat(c, icon, label, bar)
 	local s = {}
+	if bar then s.Bar = W.ProgressLine(c, 2) end
 	s.Glyph = W.Tex(c, "ARTWORK", icon, "accent")
 	s.Glyph:SetSize(16, 16)
 	s.Label = W.Text(c, "small", "textDim")
@@ -305,6 +321,12 @@ local function placeStats(c, list)
 			s.Value:ClearAllPoints()
 			s.Value:SetPoint("TOPLEFT", c, "TOPRIGHT", -STATS_W + 28, -(y + 16))
 			s.Value:SetPoint("RIGHT", c, "RIGHT", -CP, 0)
+			if s.Bar then
+				s.Bar:ClearAllPoints()
+				s.Bar:SetPoint("TOPLEFT", c, "TOPRIGHT", -STATS_W + 28, -(y + 34))
+				s.Bar:SetPoint("RIGHT", c, "RIGHT", -CP, 0)
+				y = y + 6
+			end
 			y = y + 38
 		end
 	end
@@ -312,7 +334,7 @@ end
 
 local function buildCards()
 	-- The guide to continue.
-	local hero = card("hero", "icon-level", L["Continue leveling"], function() showGuide(hero.psGuide and hero.psGuide.id) end)
+	local hero = card("hero", "icon-level", L["Continue leveling"], function(c) showGuide(c.psGuide and c.psGuide.id) end)
 	hero.Art = ZoneArt.Create(hero, 116, 112, "panel")
 	hero.Art:SetPoint("TOPLEFT", hero, "TOPLEFT", CP, -(HEAD_H + 12))
 	hero.Art.Rule:Hide()
@@ -329,6 +351,7 @@ local function buildCards()
 	hero.Estimate = stat(hero, "icon-level", L["Estimated to finish"])
 	hero.Left = stat(hero, "icon-turnin", L["Remaining"])
 	hero.Then = stat(hero, "icon-goto", L["Then"])
+	hero.Level = stat(hero, "icon-skill", L["Next level"], true)
 	hero.Go = W.Button(hero, L["Continue guide"], function() load(hero.psGuide, hero.psTab, hero.psIndex) end, { primary = true, height = 28 })
 	hero.Go:SetPoint("BOTTOMLEFT", hero, "BOTTOMLEFT", tx, CP)
 	hero.Go:SetWidth(200)
@@ -387,7 +410,7 @@ local function buildCards()
 	dun.Count = line(dun, "small", "textMuted", HEAD_H + 142)
 
 	-- Up next.
-	local nxt = card("next", "icon-goto", L["Up next"], function() showGuide(nxt.psGuide and nxt.psGuide.id) end)
+	local nxt = card("next", "icon-goto", L["Up next"], function(c) showGuide(c.psGuide and c.psGuide.id) end)
 	nxt.Art = ZoneArt.Create(nxt, 56, 56, "panel")
 	nxt.Art:SetPoint("TOPLEFT", nxt, "TOPLEFT", CP, -(HEAD_H + 12))
 	nxt.Art.Rule:Hide()
@@ -424,7 +447,7 @@ local function buildCards()
 			nav.SetTarget(t.map, t.x, t.y, t.npcName or L["Class trainer"], t.f, "trainer", t.z)
 		end
 	end)
-	tr.Head:SetScript("OnClick", function() tr.Go:Click() end)
+	tr.psOpen = function() tr.Go:Click() end
 
 	-- The next quest reward that is an upgrade.
 	local gear = card("gear", "icon-use", L["Quest reward upgrade"], nil)
@@ -445,7 +468,7 @@ local function buildCards()
 	gear.Go = footButton(gear, L["View in Lookup"], function()
 		if gear.psItemId and UI.ShowLookup then UI.ShowLookup({ kind = "item", id = gear.psItemId }) end
 	end)
-	gear.Head:SetScript("OnClick", function() gear.Go:Click() end)
+	gear.psOpen = function() gear.Go:Click() end
 
 	-- Rares in this zone.
 	local rares = card("rares", "icon-kill", L["Rares nearby"], function()
@@ -471,6 +494,25 @@ local function setStat(s, value, color)
 	s.Glyph:SetShown(on)
 	s.Label:SetShown(on)
 	s.Value:SetShown(on)
+	if s.Bar then s.Bar:SetShown(on) end
+end
+
+-- The character's way to the next level: share of the level done, about how
+-- many of the guide's quests are left to it (its average quest XP, from
+-- Levels.ForGuide), and rested XP. -> text, fraction | nil at the level cap.
+local function levelText(xp)
+	local info = playerInfo()
+	local cur, need = tonumber(info.xp) or 0, tonumber(info.xpMax) or 0
+	if need <= 0 or not info.level then return nil end
+	local frac = min(1, cur / need)
+	local parts = { format(L["%d%% to %d"], floor(frac * 100), info.level + 1) }
+	if xp and (xp.quests or 0) > 0 and (xp.questXP or 0) > 0 then
+		local n = math.ceil((need - cur) / (xp.questXP / xp.quests))
+		parts[#parts + 1] = n == 1 and L["about 1 quest"] or format(L["about %d quests"], n)
+	end
+	local rested = GetXPExhaustion and tonumber(GetXPExhaustion())
+	if rested and rested > 0 then parts[#parts + 1] = format(L["%s rested"], thousands(rested)) end
+	return table.concat(parts, DOT), frac
 end
 
 local function fillHero(c, g, t, index, byId)
@@ -480,7 +522,7 @@ local function fillHero(c, g, t, index, byId)
 		c.Step:SetText(L["Pick a guide to start your journey."])
 		c.Next:SetText("")
 		c.Bar:Hide()
-		for _, s in ipairs({ c.Estimate, c.Left, c.Then }) do setStat(s, nil) end
+		for _, s in ipairs({ c.Estimate, c.Left, c.Then, c.Level }) do setStat(s, nil) end
 		ZoneArt.Paint(c.Art, nil, nil, nil, 1)
 		W.SetButtonText(c.Go, L["Choose a guide"])
 		c.Go:SetScript("OnClick", function() showGuide(nil) end)
@@ -526,7 +568,10 @@ local function fillHero(c, g, t, index, byId)
 	end
 	local n = nextGuide(g, byId)
 	setStat(c.Then, n and ((n.title or n.id) .. " " .. rangeText(n.minLevel, n.maxLevel)) or nil)
-	placeStats(c, { c.Estimate, c.Left, c.Then })
+	local lv, frac = levelText(xp)
+	setStat(c.Level, lv)
+	if lv then W.SetProgress(c.Level.Bar, frac, STATS_W - 28 - CP) end
+	placeStats(c, { c.Estimate, c.Left, c.Then, c.Level })
 	return true
 end
 
@@ -708,14 +753,24 @@ local function spellsToTrain(Eng, info)
 		local _, _, id = UnitRace("player")
 		if type(id) == "number" and id > 0 then raceBit = bit.lshift(1, id - 1) end
 	end
-	local out = {}
+	-- Now: the spells it can learn. Then: those of the next level that has
+	-- any, whose rank before is known or learnable by then. -> now, then, its level
+	local out, soon, soonLevel, open = {}, {}, nil, {}
 	for _, r in ipairs(list) do
 		local id, lv, prev, races = r[1], r[2], r[3], r[4]
-		if lv > info.level then break end
+		if soonLevel and lv > soonLevel then break end
 		local forRace = races == 0 or races == -1 or not raceBit or bit.band(races, raceBit) ~= 0
-		if forRace and not talent[id] and not knows(id) and (prev == 0 or knows(prev)) then out[#out + 1] = id end
+		if forRace and not talent[id] and not knows(id) and (prev == 0 or knows(prev) or open[prev]) then
+			if lv <= info.level then
+				out[#out + 1] = id
+				open[id] = true
+			else
+				soonLevel = lv
+				soon[#soon + 1] = id
+			end
+		end
 	end
-	return out
+	return out, soon, soonLevel
 end
 
 -- Class training: the spells waiting at the trainer, and where to go: the
@@ -728,7 +783,7 @@ local function fillTrainer(c)
 	local info = playerInfo()
 	local level = info.level
 	local last = tonumber(ns.CharState().classTrainLevel)
-	local spells = spellsToTrain(Eng, info)
+	local spells, soon, soonLevel = spellsToTrain(Eng, info)
 	local goal, ahead = guideTraining(Eng)
 	local t
 	if goal then
@@ -784,7 +839,17 @@ local function fillTrainer(c)
 	local text = table.concat(names, ", ")
 	if more > 0 and text ~= "" then text = format(L["%s and %d more"], text, more) end
 	c.Spells:SetText(text)
-	c.Last:SetText(last and format(L["Last trained at level %d"], last) or "")
+	-- What the next level with new spells brings; without the spell list,
+	-- when the character last trained.
+	if soonLevel then
+		local next = {}
+		for i = 1, min(3, #soon) do next[#next + 1] = spellName(soon[i]) end
+		local list = table.concat(next, ", ")
+		if #soon > #next then list = format(L["%s and %d more"], list, #soon - #next) end
+		c.Last:SetText(format(L["At level %d: %s"], soonLevel, list))
+	else
+		c.Last:SetText(last and not spells and format(L["Last trained at level %d"], last) or "")
+	end
 	return true
 end
 
@@ -984,27 +1049,36 @@ function HV.Render()
 		build = fillBuild, dungeons = fillDungeons, next = function(c) return fillNext(c, g, byId) end,
 		trainer = fillTrainer, gear = fillGear, rares = fillRares,
 	}
-	-- PER to a line, in order.
-	local col = 0
+	-- Which cards have something to show, then PER to a line in order; a
+	-- last line with fewer widens them to the page's width (filled again at
+	-- that width: icons and art fit to it).
+	local list = {}
 	for _, key in ipairs(ORDER) do
 		local c = cards[key]
 		c:SetSize(each, CARD_H)
 		local ok, has = pcall(FILL[key], c)
-		if ok and has then
-			c:ClearAllPoints()
-			c:SetPoint("TOPLEFT", page.Scroll.Child, "TOPLEFT", EDGE + col * (each + GAP), -y)
-			c:Show()
-			shown[key] = true
-			col = col + 1
-			if col == PER then
-				y = y + CARD_H + GAP
-				col = 0
-			end
-		else
-			c:Hide()
-		end
+		if ok and has then list[#list + 1] = key else c:Hide() end
 	end
-	if col > 0 then y = y + CARD_H + GAP end
+	local lastLine = #list - (#list - 1) % PER
+	for i, key in ipairs(list) do
+		local c = cards[key]
+		local col = (i - 1) % PER
+		local w = each
+		if i >= lastLine then
+			local k = #list - lastLine + 1
+			w = floor((full - GAP * (k - 1)) / k)
+		end
+		if w ~= each then
+			c:SetSize(w, CARD_H)
+			c.psPainted = nil
+			pcall(FILL[key], c)
+		end
+		c:ClearAllPoints()
+		c:SetPoint("TOPLEFT", page.Scroll.Child, "TOPLEFT", EDGE + col * (w + GAP), -y)
+		c:Show()
+		shown[key] = true
+		if col == PER - 1 or i == #list then y = y + CARD_H + GAP end
+	end
 	W.SetScrollContent(page.Scroll, y + 4)
 	shown.guide = g and g.id or nil
 end
