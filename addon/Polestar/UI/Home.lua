@@ -1030,7 +1030,7 @@ Theme.OnChanged(function() if root and root:IsVisible() then HV.Render() end end
 
 if UI.RegisterSection then
 	UI.RegisterSection({
-		key = "Home", label = L["Home"], icon = "emblem", order = 5,
+		key = "Home", label = L["Home"], icon = "home", order = 5,
 		home = true, bare = true,
 		build = HV.Build, render = HV.Render,
 	})
