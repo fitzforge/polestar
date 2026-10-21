@@ -10,6 +10,7 @@ const { mobXp } = require('../game/xp');
 const { CLASSES, ALL_CLASSES, RACE_BY_FILE, FACTION_RACES, SKYBORNE_BIT, hasBit, raceLabel, classLabel } = require('../game/races');
 const { planOrder } = require('./tour');
 const { ISLE_MAPS, ISLANDS, MAX_OPEN } = require('./world');
+const { complete } = require('./params');
 
 // Mask bits by the names runs use ("Undead", "Warrior"): the Era races, every class.
 const RACE_BITS = {};
@@ -508,14 +509,31 @@ function compileRun(world, { race, cls = null, raceBits = {}, family = 'solo' } 
 	};
 }
 
-// Parameter-dependent tables for a run.
-function makeTables(run, p) {
+// Classic's group XP bonus: a kill's XP times this is split among the party
+// (by level; equal levels assumed). Index = party size.
+const GROUP_BONUS = [1, 1, 1, 1.166, 1.3, 1.4];
+
+// A party of p.partySize: each kill gives a member bonus / size of the solo
+// XP, and the party kills 1 + partyDps per extra member times as fast
+// (docs/SIMULATION.md, "Party"). { xp, speed }; solo: { 1, 1 }.
+function partyFactors(p) {
+	const n = Math.max(1, Math.min(5, Math.round(p.partySize || 1)));
+	return { n, xp: GROUP_BONUS[n] / n, speed: 1 + (n - 1) * p.partyDps };
+}
+
+// Parameter-dependent tables for a run (a parameter p lacks, as in a result
+// saved before it was added, at its prior's mean).
+function makeTables(run, params) {
+	const p = complete(params);
+	const party = partyFactors(p);
 	const t = {
 		p,
+		party,
 		killT: new Float64Array(61 * MOBL),
 		killX: new Float64Array(61 * MOBL),
 		qFull: new Float64Array(run.Q),
 		grindRate: new Float64Array(62),
+		grindKill: new Float64Array(62),
 		detour: (c) => (c === 0 ? p.detour0 : c === 1 ? p.detour1 : (p.detour0 + p.detour1) / 2),
 	};
 	for (let L = 1; L <= 60; L++) {
@@ -523,16 +541,20 @@ function makeTables(run, p) {
 		for (let M = 0; M < MOBL; M++) {
 			const d = M - L;
 			const f = d >= 0 ? 1 + p.killUp * d : Math.max(0.5, 1 + p.killDown * d);
-			t.killT[L * MOBL + M] = base * f * p.classFactor;
-			t.killX[L * MOBL + M] = mobXp(L, M) * (1 + p.restedShare);
+			t.killT[L * MOBL + M] = (base * f * p.classFactor) / party.speed;
+			t.killX[L * MOBL + M] = mobXp(L, M) * (1 + p.restedShare) * party.xp;
 		}
 		// Grinding: best of mobs at Δ = 0..+2, with the camp spacing of that level.
+		// grindKill: the share of that time spent killing (dungeon gear speeds it).
 		let best = 0;
 		for (let d = 0; d <= 2; d++) {
 			const M = Math.min(MOBL - 1, L + d);
 			const sec = t.killT[L * MOBL + M] + (run.grindSpacing[Math.min(run.grindSpacing.length - 1, M)] * p.spacing) / p.runSpeed;
 			const rate = t.killX[L * MOBL + M] / sec;
-			if (rate > best) best = rate;
+			if (rate > best) {
+				best = rate;
+				t.grindKill[L] = t.killT[L * MOBL + M] / sec;
+			}
 		}
 		t.grindRate[L] = best * p.grindEff;
 	}
@@ -549,5 +571,5 @@ function makeTables(run, p) {
 }
 
 module.exports = {
-	compileRun, makeTables, K_ACCEPT, K_TASK, K_TURNIN, K_GRIND, K_DUNGEON, W_KILL, W_USE, W_ESCORT, W_BUY, NEAR_K, MOBL, SHARE_R,
+	compileRun, makeTables, partyFactors, GROUP_BONUS, K_ACCEPT, K_TASK, K_TURNIN, K_GRIND, K_DUNGEON, W_KILL, W_USE, W_ESCORT, W_BUY, NEAR_K, MOBL, SHARE_R,
 };

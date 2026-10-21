@@ -182,6 +182,8 @@ local BUILTIN = {
 			disabled = function() return not ns.Get("ui.showNotes") end },
 		{ kind = "slider", key = "ui.upcoming", label = L["Upcoming steps"], min = 0, max = 6, step = 1, format = "%d", help = L["How many steps the Up next list holds; 0 turns it off."] },
 		{ kind = "toggle", key = "ui.upcomingOpen", label = L["Expand Up next"], help = L["Start with the upcoming steps listed instead of collapsed."] },
+		{ kind = "toggle", key = "ui.addBackButton", label = L["Add back button"],
+			help = L["A + in the header lists the group quests you skipped, the dungeons in your levels that are not on, and the class quests you put off, to put one back on the route."] },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Combat"], controls = {
 		{ kind = "dropdown", key = "ui.combat", label = L["In combat"], help = L["What the window does while you fight."],
@@ -231,6 +233,12 @@ local BUILTIN = {
 		{ kind = "toggle", key = "behavior.closeSkipped", label = L["Close offers the guide skips"], help = L["After Polestar accepts or turns in a quest, closes the quest window the NPC opens next when the guide skips its quests. Hold Shift to keep it open."] },
 		{ kind = "toggle", key = "behavior.warnClosing", label = L["Warn about missable quests"], help = L["Before you take a quest that closes another for good, says which in chat and leaves the accept to you."] },
 		{ kind = "toggle", key = "behavior.skipGrey", label = L["Skip grey quests"], help = L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] },
+		-- The answer at a group quest (`when group`) not answered one by one
+		-- (Discovery > Group quests): ask at each, or do or skip them all.
+		{ kind = "dropdown", key = "behavior.groupQuests", label = L["Group quests"],
+			help = L["Elite and escort quests the guides mark for a group. Ask at each, or answer them all: with a group (a party levelling together) or skip them (solo). Discovery, Group quests changes one."],
+			choices = { { value = "ask", label = L["Ask me at each"] }, { value = "do", label = L["Do them with a group"] }, { value = "skip", label = L["Skip them"] } },
+			needs = function() local E = ns.Engine; return E and E.GroupQuests and #E.GroupQuests() > 0 end },
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
 		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."] },
@@ -239,6 +247,8 @@ local BUILTIN = {
 			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
 		{ kind = "dropdown", key = "behavior.trainReminder", label = L["Trainer reminders"], help = L["A note in the guide window, with the nearest trainer of your class, when new skills are waiting."],
 			choices = { { value = "2", label = L["Every 2 levels"] }, { value = "1", label = L["Every level"] }, { value = "off", label = L["Off"] } } },
+		{ kind = "toggle", key = "behavior.offerClassQuests", label = L["Offer class quests"],
+			help = L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] },
 		{ kind = "button", icon = "reset", label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide."], confirm = true,
 			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
 			needs = function() return ns.Engine and ns.Engine.ResetProgress end },

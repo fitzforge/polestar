@@ -685,6 +685,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			if (!p) continue;
 			// `done` names a step of the guide being played; the options are also listed from other guides.
 			if (p.k === 'done') err(p.line, '`done` checks a step of the guide being played: it cannot decide a `next` option', 'use a predicate on the character, such as `turnedin <quest>`');
+			else if (p.k === 'group') err(p.line, '`group` asks the player at a step of the guide: it cannot decide a `next` option', 'put `when group <quest>` on the steps of that quest');
 			else guide.nextWhen[id] = resolveWhen([p], endZone ? endZone.id : null, null, data, warn);
 		}
 	}
@@ -908,13 +909,14 @@ function acceptGate(q, id, data) {
 }
 
 // A step's `when` predicates (tools/lib/dsl/when.js) as the engine reads them
-// (docs/PACK_FORMAT.md, "Format 4"): quest and item ids checked against the
-// data; `available` with what an accept of the quest waits on (minLevel,
+// (docs/PACK_FORMAT.md, "Format 4"): quest and item ids (`has`, `upgrade`)
+// checked against the data; `available` with what an accept of the quest waits on (minLevel,
 // pre, preAll, closedBy); a zone, subzone or bind location with its area
 // (places.js, "Places by ID"), the subzone looked up in the step's zone; a
 // dungeon with its Map.csv id (group.js dungeonNamed), the key of the
-// player's choice. `levels`: the guide's [min, max], to warn about a step no
-// character in that range sees.
+// player's choice; a profession with its skill line (`skill`); a `cooldown`
+// item checked against the data; a `group` quest checked as one. `levels`: the
+// guide's [min, max], to warn about a step no character in that range sees.
 function resolveWhen(list, zoneId, levels, data, warn) {
 	if (!list || !list.length) return undefined;
 	const haveQuests = Object.keys(data.quests || {}).length > 0;
@@ -936,7 +938,8 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 			case 'onquest':
 			case 'complete':
 			case 'turnedin':
-			case 'available': {
+			case 'available':
+			case 'group': {
 				w.q = Array.isArray(p.q) ? p.q.slice() : p.q;
 				for (const id of [].concat(p.q)) {
 					if (haveQuests && !data.quest(id)) warn(p.line, `quest ${id} is not in data (new Forever content?)`);
@@ -956,6 +959,10 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 				w.n = p.n;
 				if (haveItems && !data.item(p.item)) warn(p.line, `item ${p.item} is not in data (new Forever content?)`);
 				break;
+			case 'upgrade':
+				w.item = p.item;
+				if (haveItems && !data.item(p.item)) warn(p.line, `item ${p.item} is not in data (new Forever content?)`);
+				break;
 			case 'zone': {
 				w.name = p.name;
 				const found = data.zoneNamed(p.name);
@@ -973,6 +980,20 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 			}
 			case 'done':
 				w.label = p.label;
+				break;
+			case 'skill': {
+				const prof = data.professionNamed(p.name);
+				w.name = prof ? String(prof.name) : p.name;
+				if (prof) w.skillLine = prof.id;
+				else warn(p.line, `profession "${p.name}" is not in data: the predicate reads the skill by that name, in English only`);
+				w.n = p.n;
+				break;
+			}
+			case 'cooldown':
+				if (p.item) {
+					w.item = p.item;
+					if (haveItems && !data.item(p.item)) warn(p.line, `item ${p.item} is not in data (new Forever content?)`);
+				} else w.spell = p.spell;
 				break;
 			case 'dungeon': {
 				w.name = p.name;
@@ -1007,7 +1028,7 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 	const key = (p) => JSON.stringify({ ...p, neg: undefined, line: undefined });
 	for (const p of list) {
 		if (p.k !== 'level' && list.some((o) => o !== p && !!o.neg !== !!p.neg && key(o) === key(p))) {
-			warn(p.line, `the step asks for \`${p.k}\` and \`!${p.k}\` of the same ${p.k === 'has' ? 'item' : p.k === 'onquest' || p.k === 'complete' || p.k === 'turnedin' || p.k === 'available' ? 'quest' : p.k === 'dungeon' ? 'dungeon' : p.k === 'done' ? 'step' : 'place'}: no character sees it`);
+			warn(p.line, `the step asks for \`${p.k}\` and \`!${p.k}\` of the same ${p.k === 'has' || p.k === 'upgrade' ? 'item' : p.k === 'onquest' || p.k === 'complete' || p.k === 'turnedin' || p.k === 'available' || p.k === 'group' ? 'quest' : p.k === 'dungeon' ? 'dungeon' : p.k === 'done' ? 'step' : p.k === 'skill' ? 'profession and rank' : p.k === 'cooldown' ? (p.item ? 'item' : 'spell') : 'place'}: no character sees it`);
 			break;
 		}
 	}

@@ -851,7 +851,7 @@ test('the header carries Nearby services between Skip and the bug: its menu poin
 		local function relOf(f) local _, rel = f:GetPoint(1) return rel end
 		local noGuide = { shown = B:IsShown(), rel = relOf(B) == nav.Menu }
 		uistub.setGuide(uistub.elwynn, 3)
-		local order = { skip = relOf(nav.Skip) == B, nearby = relOf(B) == nav.Report, report = relOf(nav.Report) == nav.Menu }
+		local order = { skip = relOf(nav.Skip) == nav.Add, add = relOf(nav.Add) == B, nearby = relOf(B) == nav.Report, report = relOf(nav.Report) == nav.Menu }
 		B:Click()
 		local items = texts()
 		for _, r in ipairs(rows()) do if r.Text:GetText() == "Mining trainer" then r:Click() end end
@@ -868,14 +868,14 @@ test('the header carries Nearby services between Skip and the bug: its menu poin
 		Polestar.Set("nav.nearbyButton", false)
 		local off = B:IsShown()
 		-- Off, Skip moves up to the bug, and stays there on the next step.
-		local skipOff = { now = relOf(nav.Skip) == nav.Report }
+		local skipOff = { now = relOf(nav.Add) == nav.Report and relOf(nav.Skip) == nav.Add }
 		uistub.setGuide(uistub.elwynn, 4)
-		skipOff.nextStep = relOf(nav.Skip) == nav.Report
+		skipOff.nextStep = relOf(nav.Add) == nav.Report
 		Polestar.Set("nav.nearbyButton", true)
-		skipOff.backOn = relOf(nav.Skip) == B
+		skipOff.backOn = relOf(nav.Add) == B
 		emit({ noGuide = noGuide, order = order, items = items, mining = mining, inn = inn, enabledInCombat = disabled, off = off, skipOff = skipOff })`);
 	assert.deepEqual(out.noGuide, { shown: true, rel: true }, 'without a guide it sits by the menu');
-	assert.deepEqual(out.order, { skip: true, nearby: true, report: true }, 'Skip, Nearby, the bug, the menu');
+	assert.deepEqual(out.order, { skip: true, add: true, nearby: true, report: true }, 'Skip, the add-back +, Nearby, the bug, the menu');
 	assert.deepEqual(out.items, ['Vendor', 'Innkeeper', 'Mining trainer', 'Weapon master  \u203a', 'Bank']);
 	assert.deepEqual(out.mining, ['NearbyGo', 'trainer', 186]);
 	assert.deepEqual(out.inn, ['NearbyGo', 'innkeeper']);
@@ -1324,6 +1324,31 @@ test('a quest started by a dropped item reads as one line, the quest; the Go to 
 	assert.equal(out.header, 'Field of Giants');
 	assert.equal(out.headerMark, true, 'the arrow on the Go to marks the header');
 	assert.deepEqual(out.held, ['Runed Scroll: in your bags, right-click it  \u00b7  Keep it: Kadrak']);
+});
+
+// `when group` (Engine.GroupQuestion): the banner asks at the group quest the
+// live step waits on; Skip it is the default (the accent link, the gamepad's
+// first focus), Do it with a group the other answer; it cannot be dismissed.
+test('a group quest banner asks Skip it or Do it with a group, and cannot be dismissed', () => {
+	const ask = `
+		uistub.groupQuestion = { quest = 6284, title = "Arachnophobia" }
+		uistub.openTabs(TABS, 1)
+		local B = GF.parts.banner
+		local shown = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText(), B.Later:IsShown() and B.Later.Label:GetText(), B.Close:IsShown(), B.Jump.psDefault == true }
+		GF.DismissBanner()
+		local kept = B:IsShown()`;
+	const [skip] = run(`${ask}
+		B.Jump:Click()
+		emit({ shown = shown, kept = kept, call = lastCall("AnswerGroup"), after = B:IsShown(), flag = B.Jump.psDefault or false })`);
+	assert.deepEqual(skip.shown, [true, 'Group quest: Arachnophobia\nIt needs a group. Skip it and the guide keeps to the solo route.', 'Skip it', 'Do it with a group', false, true]);
+	assert.equal(skip.kept, true, 'dismissing does not answer');
+	assert.deepEqual(skip.call, ['AnswerGroup', 6284, 'skip']);
+	assert.equal(skip.after, false);
+	assert.equal(skip.flag, false, 'no default mark once answered');
+	const [group] = run(`${ask}
+		B.Later:Click()
+		emit({ call = lastCall("AnswerGroup"), after = B:IsShown() })`);
+	assert.deepEqual(group, { call: ['AnswerGroup', 6284, 'do'], after: false });
 });
 
 test('TRAIN_DUE shows a training banner after the out-levelled offer; Show points the arrow, Later dismisses', () => {

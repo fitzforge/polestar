@@ -206,7 +206,7 @@ end
 -- A step's `when` (format 4): predicates, each { k, neg?, ... } by kind
 -- (docs/PACK_FORMAT.md, "Format 4"); Engine.lua (Own.whenFails) reads them.
 local WHEN_OPS = { ["<"] = true, ["<="] = true, [">"] = true, [">="] = true }
-local WHEN_QUEST = { complete = true, turnedin = true, available = true }
+local WHEN_QUEST = { complete = true, turnedin = true, available = true, group = true }
 local WHEN_PLACE = { zone = true, subzone = true, bound = true }
 -- A point inside a level (format 4): the share of it done, strictly between 0 and 1.
 local function isFrac(v) return isNum(v) and v > 0 and v < 1 end
@@ -229,13 +229,19 @@ local function checkWhen(list)
 			end
 		elseif WHEN_QUEST[k] then
 			if not isNum(p.q) then return false end
-		elseif k == "has" then
+		elseif k == "has" or k == "upgrade" then
 			if not isNum(p.item) then return false end
 		elseif k == "dungeon" then
 			if not (isStr(p.name) and (p.map == nil or isNum(p.map))) then return false end
 		elseif k == "done" then
 			-- A step label (format 5); validate checks it names a step of the guide.
 			if not isStr(p.label) then return false end
+		elseif k == "skill" then
+			-- A profession by name, with its skill line when the compiler knew it (format 5).
+			if not (isStr(p.name) and isNum(p.n) and (p.skillLine == nil or isNum(p.skillLine))) then return false end
+		elseif k == "cooldown" then
+			-- One item or one spell (format 5).
+			if not ((isNum(p.item) and p.spell == nil) or (isNum(p.spell) and p.item == nil)) then return false end
 		elseif not (WHEN_PLACE[k] and isStr(p.name)) then
 			return false
 		end
@@ -410,9 +416,10 @@ local function validate(def)
 				if def.nextChoices[i] == id then listed = true end
 			end
 			if not (listed and list ~= nil and checkWhen(list)) then return "bad nextWhen" end
-			-- `done` checks a step of the guide being played, not of the one offering the option.
+			-- `done` checks a step of the guide being played, not of the one offering the option;
+			-- `group` asks the player at a step, and a hand-off has none.
 			for i = 1, #list do
-				if list[i].k == "done" then return "bad nextWhen" end
+				if list[i].k == "done" or list[i].k == "group" then return "bad nextWhen" end
 			end
 		end
 	end
@@ -445,7 +452,7 @@ local function validate(def)
 			if type(step.skipto) ~= "table" or #step.skipto == 0 then return ("step %d: bad skipto"):format(s) end
 			for _, k in ipairs(step.skipto) do
 				if type(k) ~= "table" or not (isStr(k.to) and (labelAt[k.to] or 0) > s) or type(k.when) ~= "table"
-					or not checkWhen({ k.when }) then
+					or not checkWhen({ k.when }) or k.when.k == "group" then
 					return ("step %d: bad skipto"):format(s)
 				end
 			end

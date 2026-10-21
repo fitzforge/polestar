@@ -68,7 +68,7 @@ local type, pairs, ipairs, pcall, tostring = type, pairs, ipairs, pcall, tostrin
 local find, lower, format, gsub = string.find, string.lower, string.format, string.gsub
 local sort = table.sort
 
-ns.RegisterDefaults("dungeons", { enabled = true })
+ns.RegisterDefaults("dungeons", { enabled = true, advice = "ask", adviceWhich = "pays" }) -- advice: "ask" | "open" | "off"; adviceWhich: "pays" | "all" (Advice.lua)
 
 local function enabled() return ns.Get("dungeons.enabled") and true or false end
 Dungeons.IsEnabled = enabled
@@ -415,7 +415,15 @@ if ns.RegisterOptions then
 		{ 429, "Dire Maul" }, { 289, "Scholomance" }, { 329, "Stratholme" },
 	}
 	Dungeons.ROUTE = ROUTE
-	local controls = {}
+	-- First the offer of a dungeon that pays for the player's party (Advice.lua).
+	local controls = {
+		{ kind = "dropdown", key = "dungeons.advice", label = L["Suggest dungeons"],
+			help = L["When you reach a dungeon that gets a party of your size to 60 sooner, by Polestar's route simulator, the guide window offers to pick up its quests."],
+			choices = { { value = "ask", label = L["Ask me"] }, { value = "open", label = L["Open the pick-up guide"] }, { value = "off", label = L["Off"] } } },
+		{ kind = "dropdown", key = "dungeons.adviceWhich", label = L["Which dungeons"],
+			help = L["Only those that pay: the dungeons the simulator found worth it for your party. Every dungeon in range: also each other dungeon when you reach its levels, so you can pick up its quests or keep levelling."],
+			choices = { { value = "pays", label = L["Only those that pay"] }, { value = "all", label = L["Every dungeon in range"] } } },
+	}
 	for _, d in ipairs(ROUTE) do
 		local map, name = d[1], d[2]
 		controls[#controls + 1] = { kind = "toggle",
@@ -426,4 +434,25 @@ if ns.RegisterOptions then
 	end
 	ok, err = ns.RegisterOptions({ page = L["Discovery"], tab = L["Dungeons"], section = L["Dungeons in leveling guides"], controls = controls })
 	if not ok and geterrorhandler then geterrorhandler()(err) end
+
+	-- The group quests of this character's guides (`when group`), one toggle
+	-- each: on, do it with a group; off, skip it (or not answered yet: the
+	-- guide asks when it gets there). Per character (Engine.AnswerGroup). Read
+	-- at login, once the guides are registered; none: no tab.
+	ns.OnLogin(function()
+		local E = ns.Engine
+		local list = E and E.GroupQuests and E.GroupQuests() or {}
+		if #list == 0 then return end
+		local quests = {}
+		for _, gq in ipairs(list) do
+			local q = gq.quest
+			quests[#quests + 1] = { kind = "toggle",
+				label = function() return ns.Names and ns.Names.Quest and ns.Names.Quest(q) or gq.title or ("#" .. q) end,
+				help = L["Off: the guide skips this group quest and keeps to the solo route. Until you choose, it asks when it gets there."],
+				get = function() return E.GroupAnswer(q) == "do" end,
+				set = function(on) E.AnswerGroup(q, on and "do" or "skip") end }
+		end
+		local done, why = ns.RegisterOptions({ page = L["Discovery"], tab = L["Group quests"], section = L["Group quests in leveling guides"], controls = quests })
+		if not done and geterrorhandler then geterrorhandler()(why) end
+	end)
 end

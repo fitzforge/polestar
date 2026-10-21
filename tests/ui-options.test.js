@@ -794,3 +794,23 @@ test('Discovery, Dungeons: a toggle per Classic dungeon for leveling guides, all
 	assert.deepEqual(out.reset, { rfc: false, chosen: false, saved: {} }, 'Reset page turns the choices off too');
 	assert.equal(out.account, false, 'the choice is per character, never an account setting');
 });
+
+// Guide, Automation: the answer for every group quest (`when group`), shown
+// once a guide for the character has one; and the offer of a Class guide
+// when it opens (QoL/ClassQuests.lua), always there.
+test('Guide, Automation: an answer for all group quests while a guide has one; the class-quest offer', () => {
+	const [none] = run(`
+		UI.ShowOptions("guide")
+		O.Select("guide", "Automation")
+		local c = O.Controls("guide", "Automation")
+		emit({ group = c["behavior.groupQuests"] ~= nil, offer = c["behavior.offerClassQuests"] ~= nil })`);
+	assert.deepEqual(none, { group: false, offer: true }, 'no group-quest answer while no guide has a group quest');
+	const [out] = run(`
+		uistub.groupQuests = { { quest = 7, title = "Kobold Camp Cleanup" } }
+		UI.ShowOptions("guide")
+		O.Select("guide", "Automation")
+		local c = O.Controls("guide", "Automation")
+		local dd = c["behavior.groupQuests"]
+		emit({ shown = dd ~= nil, label = dd and dd.Button.Label:GetText() or false, value = Polestar.Get("behavior.groupQuests") })`);
+	assert.deepEqual(out, { shown: true, label: 'Ask me at each', value: 'ask' });
+});

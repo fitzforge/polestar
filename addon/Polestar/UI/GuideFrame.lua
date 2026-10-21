@@ -795,16 +795,21 @@ function GF.RenderTabs()
 end
 
 ---------------------------------------------------------------------------
--- Banners: the step the player just skipped, with its undo; why the guide
+-- Banners: the group quest the live step waits on (`when group`: Skip it,
+-- the default, or Do it with a group; it cannot be dismissed); the step the
+-- player just skipped, with its undo; why the guide
 -- just moved past a quest (while that step's guide and next step are on
 -- screen); the step on screen when it is not the live one (skipped: unskip
 -- it; looked at with ‹ ›: back to the live step); then the out-levelled offer
--- (while its guide is active), then the training reminder. Taking or
--- dismissing one lets the next through.
+-- (while its guide is active), then the training reminder, the riding one,
+-- then a Class guide that just opened (QoL/ClassQuests.lua), then a dungeon
+-- that pays for the party (Dungeons/Advice.lua), then the party leader's
+-- route (Quests/PartyRoute.lua). Taking or dismissing one lets the next
+-- through.
 ---------------------------------------------------------------------------
 
 local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-local notices = { stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil }
+local notices = { stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeon = nil, partyRoute = nil }
 GF.notices = notices
 
 -- The step on screen when it is not the live step: { guideId, index, live,
@@ -830,6 +835,9 @@ local function bannerNotice()
 	-- On the way to a nearby service (Nav/Nearby.lua): the way back first.
 	local t = nearbyTrip()
 	if t then return "trip", t end
+	local gq, gtitle
+	if E and E.GroupQuestion then gq, gtitle = E.GroupQuestion() end
+	if gq then return "group", { quest = gq, title = gtitle } end
 	local k = notices.stepSkip
 	if k and g ~= nil and g.id == k.guideId and (not view or view.index ~= k.step) then return "stepSkip", k end
 	local s = notices.skipped
@@ -840,6 +848,9 @@ local function bannerNotice()
 	if o and g ~= nil and g.id == o.guideId then return "outlevel", o end
 	if notices.train then return "train", notices.train end
 	if notices.riding then return "riding", notices.riding end
+	if notices.classQuest then return "classQuest", notices.classQuest end
+	if notices.dungeon then return "dungeon", notices.dungeon end
+	if notices.partyRoute then return "partyRoute", notices.partyRoute end
 	return nil
 end
 GF.BannerNotice = bannerNotice
@@ -887,6 +898,7 @@ end
 function GF.LayoutBanner(width)
 	local kind, n = bannerNotice()
 	banner.psKind = kind
+	banner.Jump.psDefault = kind == "group" or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 	banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
 	banner.Later:Hide()
 	if kind == "skipped" then
@@ -901,6 +913,13 @@ function GF.LayoutBanner(width)
 		local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
 		banner:SetHeight(h)
 		return h
+	elseif kind == "group" then
+		banner.Icon:SetTexture(Theme.Media("icon-kill"))
+		banner.Text:SetText(string.format(L["Group quest: %s"], n.title or "") .. "\n" .. L["It needs a group. Skip it and the guide keeps to the solo route."])
+		-- Skip is the default answer: the accent link, the banner's main action.
+		local w = placeLink(banner.Jump, L["Skip it"], 0, -4)
+		placeLink(banner.Later, L["Do it with a group"], w + 10, -4)
+		banner.Close:Hide()
 	elseif kind == "stepSkip" then
 		banner.Icon:SetTexture(Theme.Media("skip"))
 		local what = string.format(L["Step %d"], n.step)
@@ -984,6 +1003,43 @@ function GF.LayoutBanner(width)
 		end
 		banner.Later:Hide()
 		banner.Close:Show()
+	elseif kind == "classQuest" then
+		banner.Icon:SetTexture(Theme.Media("icon-train"))
+		local title = string.format(L["Class quest ready: %s"], n.title or "")
+		banner.Text:SetText(n.why and (title .. "\n" .. n.why) or title)
+		local w = placeLink(banner.Jump, L["Open in a tab"], 0, -4)
+		placeLink(banner.Later, L["Later"], w + 10, -4)
+		banner.Close:Show()
+	elseif kind == "dungeon" then
+		banner.Icon:SetTexture(Theme.Media("icon-kill"))
+		local pct = floor((n.pays or 0) * 100 + 0.5)
+		local body = n.any and string.format(L["Levels %d to %d. Pick up its quests for a guided route to it, or keep levelling."], n.minLevel or 0, n.maxLevel or 0)
+			or (n.size or 1) > 1
+			and string.format(L["A party of %d reaches 60 about %d min sooner with it (in %d%% of the simulator's runs)."], n.size, n.minutes or 0, pct)
+			or string.format(L["Alone, you reach 60 about %d min sooner with it (in %d%% of the simulator's runs)."], n.minutes or 0, pct)
+		banner.Text:SetText(string.format(L["Dungeon: %s"], n.name or "") .. "\n" .. body)
+		local w = placeLink(banner.Jump, L["Pick up its quests"], 0, -4)
+		placeLink(banner.Later, L["Later"], w + 10, -4)
+		banner.Close:Show()
+	elseif kind == "partyRoute" then
+		banner.Icon:SetTexture(Theme.Media("icon-goto"))
+		local lines = { string.format(L["%s leads the party."], n.leader or "") }
+		local doN, skipN = 0, 0
+		for _, a in pairs(n.answers or {}) do
+			if a == "do" then doN = doN + 1 else skipN = skipN + 1 end
+		end
+		if doN + skipN > 0 then lines[#lines + 1] = string.format(L["Group quests: %d with the group, %d skipped."], doN, skipN) end
+		local names, N = {}, ns.Names
+		for _, map in ipairs(n.maps or {}) do
+			names[#names + 1] = (N and N.Instance and N.Instance(map)) or tostring(map)
+		end
+		if #names > 0 then lines[#lines + 1] = string.format(L["Dungeons: %s."], table.concat(names, ", ")) end
+		if doN + skipN == 0 and #names == 0 then lines[#lines + 1] = L["No group quests or dungeons."] end
+		lines[#lines + 1] = L["Take the same route?"]
+		banner.Text:SetText(table.concat(lines, "\n"))
+		placeLink(banner.Jump, L["Take it"], 0, -4)
+		banner.Later:Hide()
+		banner.Close:Show()
 	end
 	local h = floor(9 + banner.Text:GetStringHeight() + 4 + 18 + 9 + 0.5)
 	banner:SetHeight(h)
@@ -998,6 +1054,8 @@ function GF.TakeBanner()
 	local E = Engine()
 	if kind == "trip" then
 		ns.Nav.nearby.EndTrip()
+	elseif kind == "group" then
+		if E and E.AnswerGroup then E.AnswerGroup(n.quest, "skip") end
 	elseif kind == "stepSkip" then
 		notices.stepSkip = nil
 		if E and E.Unskip then E.Unskip(n.step) end
@@ -1027,21 +1085,57 @@ function GF.TakeBanner()
 		end
 		local R = ns.QoL and ns.QoL.Riding
 		if R and R.OnResolve then R.OnResolve(n.tier) end
+	elseif kind == "classQuest" then
+		notices.classQuest = nil
+		if E and E.OpenTab then E.OpenTab(n.guideId) end
+		local CQ = ns.QoL and ns.QoL.ClassQuests
+		if CQ and CQ.Resolve then CQ.Resolve(n.guideId) end
+	elseif kind == "dungeon" then
+		notices.dungeon = nil
+		local D = ns.Dungeons
+		if D and D.ResolveAdvice then D.ResolveAdvice(n, true) end
+	elseif kind == "partyRoute" then
+		notices.partyRoute = nil
+		local PR = ns.PartyRoute
+		if PR and PR.Take then PR.Take(n) end
 	end
 	GF.Layout()
 end
 
+-- The banner's second action: Do it with a group for a group quest, else
+-- Later (dismiss; a Class guide: until a higher level).
+function GF.LaterBanner()
+	local kind, n = bannerNotice()
+	local E = Engine()
+	if kind == "group" then
+		if E and E.AnswerGroup then E.AnswerGroup(n.quest, "do") end
+		GF.Layout()
+	else
+		GF.DismissBanner(true)
+	end
+end
+
 -- Dismiss the visible notice (training: until the next due level; a step on
--- screen that is not the live one: until another step is).
-function GF.DismissBanner()
+-- screen that is not the live one: until another step is; a Class guide: for
+-- good, or with `later` (the Later link) until a higher level).
+function GF.DismissBanner(later)
 	local kind, n = bannerNotice()
 	if kind == "trip" then
 		ns.Nav.nearby.EndTrip()
-	elseif kind == "away" then
+	elseif kind == "away" or kind == "group" then
+		-- a group quest is answered, never dismissed
 	elseif kind == "riding" then
 		local R = ns.QoL and ns.QoL.Riding
 		if R and R.OnResolve then R.OnResolve(n.tier) end
 		notices.riding = nil
+	elseif kind == "classQuest" then
+		notices.classQuest = nil
+		local CQ = ns.QoL and ns.QoL.ClassQuests
+		if CQ and CQ.Resolve then CQ.Resolve(n.guideId, later == true) end
+	elseif kind == "dungeon" then
+		notices.dungeon = nil
+		local D = ns.Dungeons
+		if D and D.ResolveAdvice then D.ResolveAdvice(n, false, later == true) end
 	elseif kind then
 		notices[kind] = nil
 	end
@@ -1282,6 +1376,7 @@ function GF.Layout()
 		banner:Show()
 	else
 		banner:Hide()
+		banner.Jump.psDefault = nil
 	end
 	if state == "steps" then
 		local h = layoutCard(width)
@@ -1479,8 +1574,15 @@ end
 -- Skip sits left of the Nearby services button, or of the bug when that
 -- button is off (nav.nearbyButton).
 local function anchorSkip()
+	local right = nav.Nearby:IsShown() and nav.Nearby or nav.Report
+	local add = rawget(nav, "Add")
+	if add then
+		add:ClearAllPoints()
+		add:SetPoint("RIGHT", right, "LEFT", 0, 0)
+		if add:IsShown() then right = add end
+	end
 	nav.Skip:ClearAllPoints()
-	nav.Skip:SetPoint("RIGHT", nav.Nearby:IsShown() and nav.Nearby or nav.Report, "LEFT", -2, 0)
+	nav.Skip:SetPoint("RIGHT", right, "LEFT", -2, 0)
 end
 
 local function navigatorFor(guide, index)
@@ -1503,6 +1605,7 @@ local function navigatorFor(guide, index)
 	W.SetIconState(nav.Next, false, guide ~= nil and index ~= nil)
 	GF.PaintSkip(guide ~= nil, guide ~= nil and index ~= nil)
 	nav.Report:SetShown(guide ~= nil)
+	if rawget(nav, "Add") then nav.Add:SetShown(guide ~= nil and ns.Get("ui.addBackButton") ~= false) end
 	nav.Nearby:ClearAllPoints()
 	nav.Nearby:SetPoint("RIGHT", guide and nav.Report or nav.Menu, "LEFT", 0, 0)
 	anchorSkip()
@@ -2031,6 +2134,7 @@ local APPLY = {
 	["ui.notesOpen"] = function() tipOpen = ns.Get("ui.notesOpen") and true or false; GF.Render() end,
 	["ui.combat"] = function() GF.ApplyVisibility(); GF.ApplyAlpha(false) end,
 	["ui.font"] = function() GF.Layout() end,
+	["ui.addBackButton"] = function() GF.Render() end,
 	["nav.nearbyButton"] = function()
 		nav.Nearby:SetShown(ns.Get("nav.nearbyButton") ~= false)
 		anchorSkip()
@@ -2139,9 +2243,9 @@ function GF.ApplySkin()
 	nav.Steps.Count:SetPoint("LEFT", nav.Prev, "RIGHT", gap, 0)
 	nav.Next:SetPoint("LEFT", nav.Steps.Count, "RIGHT", gap, 0)
 	local iw, ih, ig = Theme.Metric("guideIconBtnW", 24), Theme.Metric("guideIconBtnH", 24), Theme.Metric("guideIcon", 14)
-	-- The icon buttons right of Skip: the bug, the menu and, where it is built,
+	-- The icon buttons right of Skip: the bug, the menu, the add-back + and, where it is built,
 	-- the Nearby services button.
-	for _, key in ipairs({ "Menu", "Report", "Nearby" }) do
+	for _, key in ipairs({ "Menu", "Report", "Nearby", "Add" }) do
 		local b = rawget(nav, key)
 		if b then
 			b:SetSize(iw, ih)
@@ -2325,6 +2429,29 @@ local function openMenu(button)
 	})
 end
 
+-- Add back (Quests/AddBack.lua): the group quests skipped, the dungeons in
+-- range that are off and the Class guides put off, each a row that puts it
+-- back on the route; one heading per kind.
+local ADD_HEADINGS = { group = L["Group quests"], dungeon = L["Dungeons"], class = L["Class quests"] }
+
+local function openAddBack(button)
+	if W.MenuShown(button) then return W.HideMenu() end
+	local AB = ns.AddBack
+	local items, last = {}, nil
+	for _, it in ipairs(AB and AB.Items() or {}) do
+		if it.kind ~= last then
+			if last then items[#items + 1] = { separator = true } end
+			items[#items + 1] = { text = ADD_HEADINGS[it.kind], disabled = true }
+			last = it.kind
+		end
+		local text = it.kind == "dungeon" and string.format(L["%s (levels %d to %d)"], it.title, it.minLevel or 0, it.maxLevel or 0) or it.title
+		items[#items + 1] = { text = text, icon = "plus", onClick = function() AB.Add(it) end }
+	end
+	if #items == 0 then items[1] = { text = L["Nothing skipped to add back"], disabled = true } end
+	W.ShowMenu(button, items, { wide = true })
+end
+GF.OpenAddBack = openAddBack
+
 -- Nearby services (Nav/Nearby.lua): the nearest vendor, repair, inn, flight
 -- master or trainer, as the arrow's target. Looked up after combat only.
 local openNearby
@@ -2484,6 +2611,11 @@ local function build()
 	nav.Nearby:SetPoint("RIGHT", nav.Report, "LEFT", 0, 0)
 	nav.Nearby:SetShown(ns.Get("nav.nearbyButton") ~= false)
 	GF.nearbyButton = nav.Nearby
+	-- Add back: left of Nearby services, while a guide is loaded.
+	nav.Add = W.IconButton(nav, "plus", 24, L["Add to the route"], openAddBack)
+	nav.Add.psTipLines = { L["Group quests you skipped, dungeons in your levels and class quests you put off: put one back on the route."] }
+	nav.Add:Hide()
+	GF.addBackButton = nav.Add
 	-- Skip: the 11px skip glyph and a Small label, a ghost button left of the
 	-- bug.
 	local skip = CreateFrame("Button", nil, nav)
@@ -2525,11 +2657,11 @@ local function build()
 		GF.HoverIn()
 	end)
 	countHit:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
-	for _, b in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
+	for _, b in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.Add, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
 	-- Transparent chrome: the step number fades with its chevrons (nav.Steps
 	-- holds all three) and the title with them; a lone "3 / 8" over the world
 	-- would read as a stray number. Progress stays readable in the foot.
-	for _, c in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.Skip, nav.Steps, nav.Title }) do chrome[#chrome + 1] = c end
+	for _, c in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.Add, nav.Skip, nav.Steps, nav.Title }) do chrome[#chrome + 1] = c end
 
 	-- Body
 	body = CreateFrame("Frame", nil, F)
@@ -2683,7 +2815,7 @@ local function build()
 	banner.Later:SetHeight(18)
 	banner.Later.Label = T(banner.Later, "label", "textDim")
 	banner.Later.Label:SetPoint("LEFT", banner.Later, "LEFT", 0, 0)
-	banner.Later:SetScript("OnClick", function() GF.DismissBanner() end)
+	banner.Later:SetScript("OnClick", function() GF.LaterBanner() end)
 	banner.Later:SetScript("OnEnter", function(self) W.Color(self.Label, "text"); GF.HoverIn() end)
 	banner.Later:SetScript("OnLeave", function(self) W.Color(self.Label, "textDim") end)
 	-- A 12px glyph in a 24px target, centred where the old 18px one sat.
@@ -2963,6 +3095,30 @@ end)
 ns.On("RIDING_DUE", function(notice)
 	if not F then return end
 	notices.riding = notice
+	if ns.IsLoggedIn() then GF.Layout() end
+end)
+
+-- CLASS_QUEST_READY(notice): a Class guide this character can start now;
+-- offer it in a tab until taken or dismissed.
+ns.On("CLASS_QUEST_READY", function(notice)
+	if not F then return end
+	notices.classQuest = notice
+	if ns.IsLoggedIn() then GF.Layout() end
+end)
+
+-- DUNGEON_ADVICE(notice): a dungeon that gets the player's party to 60
+-- sooner; offer its pick-up guide until taken or dismissed.
+ns.On("DUNGEON_ADVICE", function(notice)
+	if not F then return end
+	notices.dungeon = notice
+	if ns.IsLoggedIn() then GF.Layout() end
+end)
+
+-- PARTY_ROUTE(route): the party leader shared a route that differs from
+-- ours; offer to take it until taken or dismissed (a newer one replaces it).
+ns.On("PARTY_ROUTE", function(route)
+	if not F then return end
+	notices.partyRoute = route
 	if ns.IsLoggedIn() then GF.Layout() end
 end)
 

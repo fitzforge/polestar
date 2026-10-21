@@ -139,6 +139,17 @@ function Compat.GetSpellCooldown(spellID)
 	return start, duration
 end
 
+-- An item's cooldown, as Compat.GetSpellCooldown.
+function Compat.GetItemCooldown(itemID)
+	local fn = (C_Container and C_Container.GetItemCooldown) or GetItemCooldown
+	if not fn then return 0, 0 end
+	local ok, start, duration = pcall(fn, itemID)
+	if not ok then return 0, 0 end
+	start, duration = readable(start), readable(duration)
+	if type(start) ~= "number" or type(duration) ~= "number" then return 0, 0 end
+	return start, duration
+end
+
 function Compat.InCombat()
 	if InCombatLockdown and InCombatLockdown() then return true end
 	return readable(UnitAffectingCombat and UnitAffectingCombat("player")) and true or false

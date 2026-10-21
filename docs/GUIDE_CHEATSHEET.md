@@ -160,10 +160,14 @@ the outcome stays.
 | `when turnedin <quest>` | the quest is handed in | `when !turnedin 9201` |
 | `when available <quest>` | the quest can be taken now | `when available 9200` |
 | `when has <item> [xN]` | the bags hold N or more | `when !has 159 x5` |
+| `when upgrade <item>` | Polestar's gear advice rates the item an upgrade now (an item it cannot judge counts as one; needs Polestar 0.3.0) | `when upgrade 2488` |
 | `when zone "<Name>"` / `when subzone "<Name>"` | the player is there | `when subzone "Goldshire"` |
 | `when bound "<Location>"` | the hearthstone is bound there | `when !bound "Goldshire"` |
 | `when dungeon "<Name>"` | the player chose to run that dungeon (Options, Discovery, Dungeons; all off at first); `!dungeon` is the route without it (needs Polestar 0.3.0) | `when dungeon "Ragefire Chasm"` |
 | `when done <label>` | the labelled step of this guide was completed, not skipped or jumped over; not on a `next` line (needs Polestar 0.3.0) | `when done camp` |
+| `when skill <Profession> <N>` | the profession's rank is N or more; not learned counts as 0 (needs Polestar 0.3.0) | `when !skill Cooking 50` |
+| `when cooldown item <item>` / `when cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside (needs Polestar 0.3.0) | `when !cooldown item 6948` |
+| `when group <quest>` | the player chose to do that group quest; unanswered, the route waits and asks "Skip it" or "Do it with a group"; `!group` is the solo way; not on `next` or `skipto` (needs Polestar 0.3.0) | `when group 7` |
 
 ## Route choices and optional steps
 

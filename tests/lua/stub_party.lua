@@ -16,6 +16,7 @@
 --   p.connect("Ana", false)          -- UNIT_CONNECTION: offline / back online
 --   p.questLogChanged("Ana")          -- UNIT_QUEST_LOG_CHANGED for her unit
 --   p.secretNames = true              -- UnitName gives party units' names as secret values
+--   p.lead("Ana")                     -- she leads the party (PARTY_LEADER_CHANGED); p.lead() the player
 
 local party = { members = {}, sent = {}, result = 0, onQuest = {}, inRaid = false, prefixes = {} }
 stub.party = party
@@ -74,6 +75,19 @@ function party.questLogChanged(name)
 end
 
 UNKNOWNOBJECT = "Unknown"
+
+-- Who leads: a member's name, or nil for the player.
+function party.lead(name)
+	party.leader = name
+	stub.fire("PARTY_LEADER_CHANGED")
+end
+
+function UnitIsGroupLeader(unit)
+	if #party.members == 0 then return false end
+	if unit == "player" then return party.leader == nil end
+	local m = memberOf(unit)
+	return m ~= nil and party.leader == m.name
+end
 
 function IsInGroup() return #party.members > 0 end
 function IsInRaid() return party.inRaid end

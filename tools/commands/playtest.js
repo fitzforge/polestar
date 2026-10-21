@@ -32,13 +32,15 @@ pack does not compile.
 options:
   --filter <text>       play only the guides whose file or id contains it
   --class <c>           play only this class (e.g. Warrior), in every guide
+  --group do|skip       the answer at every group quest (when group): skip
+                        (the default, the solo route) or do (with a group)
   <dir>, --pack <dir>   the pack folder (holding pack.json)
   --data <dir>          reference data (default data/forever/)
   --context <dir>       our guides, loaded beside another pack (default guides/)
   --context-data <dir>  reference data for the context (default data/forever/)`;
 
 async function run(argv) {
-	const { opts, positional, error } = parseArgs(argv, { options: ['--filter', '--class', '--pack', '--data', '--context', '--context-data'] });
+	const { opts, positional, error } = parseArgs(argv, { options: ['--filter', '--class', '--group', '--pack', '--data', '--context', '--context-data'] });
 	if (opts.help) {
 		console.log(usage);
 		return 0;
@@ -48,7 +50,8 @@ async function run(argv) {
 	const problem =
 		error ||
 		arg.error ||
-		(opts.class && !cls && `--class must be one of ${CLASSES.map((c) => c[0] + c.slice(1).toLowerCase()).join(', ')}`);
+		(opts.class && !cls && `--class must be one of ${CLASSES.map((c) => c[0] + c.slice(1).toLowerCase()).join(', ')}`) ||
+		(opts.group && opts.group !== 'do' && opts.group !== 'skip' && '--group must be do or skip');
 	const pack = problem ? null : commandPack({ ...opts, pack: arg.pack });
 	if (!pack || pack.error) {
 		console.error(`${problem || pack.error}\n\n${usage}`);
@@ -73,6 +76,7 @@ async function run(argv) {
 		official: pack.official,
 		filter: opts.filter || null,
 		classes: cls ? [cls] : null,
+		groups: opts.group || 'skip',
 		dataDir: resolvePath(opts.data, 'data/forever', ROOT),
 		...(pack.official ? {} : { contextDir: pack.contextDir, contextDataDir: pack.contextDataDir }),
 		onResult: (r) => {

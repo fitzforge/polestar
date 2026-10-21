@@ -512,7 +512,7 @@ function eliteData() {
 	return new Data({ quests, npcs, objects: base.objects, items, zones: base.zones, 'map-frames': base.mapFrames, meta: base.meta }, { dir: base.dir });
 }
 
-const ELITE_TIP = (target) => `in a Leveling guide make the goal \`optional\` with the tip "${target} is elite: grouping up is advised."`;
+const ELITE_TIP = (target) => `in a Leveling guide put the goal in a step with \`when group <quest>\` (the player chooses it) or make it \`optional\`, with the tip "${target} is elite: grouping up is advised."`;
 
 test('elite work in a Leveling guide: killing a hostile elite is an error unless optional or friendly', () => {
 	const data = eliteData();
@@ -559,6 +559,23 @@ test('solo policy: goals on quests the simulator excludes are errors when elite,
 	]);
 	// Other categories than Leveling are not solo routes.
 	assert.deepEqual(check(guideText(['guide t/p', 'title P', 'faction Alliance', 'category Professions', '', 'step S', '  accept 7'])), []);
+});
+
+test('elite work behind `when group`: a group step, and the quests accepted only in one, are a party\'s work, not solo leveling', () => {
+	const { validateSoloPolicy } = require('../tools/lib/dsl/validate');
+	const excluded = { Alliance: new Map([[7, { id: 7, title: 'Kobold Camp Cleanup', reason: 'elite kill objective npc 95003', category: 'elite' }]]) };
+	const check = (lines) => {
+		const src = guideText(lines);
+		const r = compile(src, eliteData());
+		validateSoloPolicy(r.guides, excluded, r.diag);
+		return r.diag.sorted().filter((d) => /elite/.test(d.message)).map((d) => d.line - lineOf(src, lines[0]));
+	};
+	// The accept in a group step: its objectives elsewhere go with it when the player skips.
+	assert.deepEqual(check(['step A', '  when group 7', '  accept 7', '', 'step B', '  kill 95003 quest 7', '  kill 95003', '  turnin 7']), [6], 'only the kill for no quest');
+	// A `!group` step is the solo route: no exemption.
+	assert.deepEqual(check(['step A', '  when !group 7', '  accept 7', '  kill 95003 quest 7']), [2, 3]);
+	// Accepted outside a group step too: still solo work.
+	assert.deepEqual(check(['step A', '  when group 7', '  accept 7', '', 'step B', '  accept 7', '  kill 95003 quest 7']), [5, 6]);
 });
 
 test('#108: solo policy: a `direct` turn-in of a repeatable is no grind; it does not need `optional`', () => {

@@ -52,8 +52,12 @@ local function itemRow(w)
 	return goal.item == b.itemID or goal.t == "use"
 end
 
--- The first open goal, else the first goal, else the first line.
+-- A line marked the default answer (the banner's Skip it at a group quest),
+-- else the first open goal, else the first goal, else the first line.
 local function firstOpen(rows)
+	for i, w in ipairs(rows) do
+		if w.psDefault then return i end
+	end
 	for i, w in ipairs(rows) do
 		local g = w.psGoal
 		if g and g.status ~= "done" and g.status ~= "skipped" then return i end
