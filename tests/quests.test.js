@@ -527,6 +527,48 @@ emit({ Q.IsItemNeeded(772) })
 	assert.deepEqual(off, [false], 'qol.questBagMarks off: nothing flagged');
 });
 
+// The delete confirmation gets "Needed for: <Quest>" while the item on the
+// cursor is one a quest in the log still needs, and the dialog grows by the
+// lines added.
+test('the delete confirmation names the quest that still needs the item', () => {
+	const [needed, other, handedIn, off] = run(`
+local cursor = 772
+GetCursorInfo = function() return "item", cursor end
+local function popup()
+	local text = { s = "Do you want to destroy X?", lines = 1 }
+	function text:GetText() return self.s end
+	function text:SetText(v) self.s = v; self.lines = 3 end
+	function text:GetStringHeight() return self.lines * 12 end
+	local dialog = { text = text, h = 100 }
+	function dialog:GetHeight() return self.h end
+	function dialog:SetHeight(h) self.h = h end
+	StaticPopup_FindVisible = function() return dialog end
+	return dialog
+end
+local function show(which)
+	local d = popup()
+	Q.AddDeleteWarning(which)
+	return { (d.text.s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\\n", "/")), d.h }
+end
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+emit(show("DELETE_ITEM"))
+cursor = 1972
+emit(show("DELETE_ITEM"))
+cursor = 772
+w.turnIn(60); stub.advance(0.3)
+emit(show("DELETE_GOOD_ITEM"))
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+Polestar.Set("qol.questDeleteWarning", false)
+emit(show("DELETE_ITEM"))
+`, { setup: 'w.complete({ 783 })' });
+	assert.deepEqual(needed, ['Do you want to destroy X?//Needed for: Kobold Candles', 124]);
+	assert.deepEqual(other, ['Do you want to destroy X?', 100], 'an item no quest needs: dialog untouched');
+	assert.deepEqual(handedIn, ['Do you want to destroy X?', 100], 'quest handed in: dialog untouched');
+	assert.deepEqual(off, ['Do you want to destroy X?', 100], 'qol.questDeleteWarning off');
+});
+
 test('object tooltips by id or, without one, by name', () => {
 	const [byId, byName] = run(`
 w.accept(18, { { text = "Bundle of Wood: 0/1", type = "object", required = 1 } })
@@ -938,7 +980,7 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 });
 
 test('the database loads on demand: not while every quest feature is off, at once when one turns on', () => {
-	const allOff = '{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, nameplateIcons = false }';
+	const allOff = '{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questDeleteWarning = false, nameplateIcons = false }';
 	const [before, after] = run(`
 emit({ Q.IsLoaded(), sq.loadCalls, Q.IsRunning() })
 Polestar.Set("qol.questTooltips", true)

@@ -128,6 +128,11 @@ function Q.IsItemNeededAhead(itemID)
 	return questsAhead()[itemID] ~= nil
 end
 
+-- The ahead list for an item: { { q = quest id, n = count }, ... } or nil.
+function Q.ItemAheadList(itemID)
+	return questsAhead()[itemID]
+end
+
 local function addAheadLines(tt, itemID)
 	local list = questsAhead()[itemID]
 	if not list then return 0 end
