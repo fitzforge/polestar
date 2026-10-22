@@ -1782,7 +1782,7 @@ L["Thrown"] = "Wurfwaffen"
 L["Weapon master (%s)"] = "Waffenmeister (%s)"
 L["At %s: the arrow is back on the guide."] = "Bei %s: Der Pfeil zeigt wieder auf den Guide."
 L["The arrow is back on the guide."] = "Der Pfeil zeigt wieder auf den Guide."
-L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"] = "Verwendung: /polestar near trainer [Beruf] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"
+L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"] = "Verwendung: /polestar near trainer [Beruf] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"
 L["Nearby services button"] = "Knopf für Dienste in der Nähe"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "Ein Knopf in der Kopfzeile des Guide-Fensters, links vom Menü, findet den nächsten Händler, Reparaturhändler, das nächste Gasthaus, den nächsten Flugmeister oder Lehrer und richtet den Pfeil dorthin."
 

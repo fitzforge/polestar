@@ -356,7 +356,7 @@ L["Thrown"] = "Метательное оружие"
 L["Weapon master (%s)"] = "Мастер оружия (%s)"
 L["At %s: the arrow is back on the guide."] = "%s: стрелка снова ведет по гайду."
 L["The arrow is back on the guide."] = "Стрелка снова ведет по гайду."
-L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"] = "Использование: /polestar near trainer [профессия] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"
+L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"] = "Использование: /polestar near trainer [профессия] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"
 L["Nearby services button"] = "Кнопка «Услуги поблизости»"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "Кнопка в заголовке окна гайда, слева от меню, находит ближайшего торговца, ремонт, трактир, распорядителя полетов или учителя и направляет туда стрелку."
 

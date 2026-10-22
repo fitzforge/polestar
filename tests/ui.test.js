@@ -801,6 +801,40 @@ test('a goal with alternative trainers shows where it is and cycles to the next'
 	assert.equal(out.alone, 'Elwynn Forest', 'without a person above, the goal names its zone');
 });
 
+// Vendor is a page too (Nearby.VendorPage): what to buy, each to its nearest
+// seller; Back returns to the services.
+test('the Nearby menu opens the vendor page: a pick goes to the nearest seller of it, Back returns', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local B = GF.nearbyButton
+		local function rows()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r end end
+			return out
+		end
+		local function pick(text)
+			for _, r in ipairs(rows()) do if r.Text:GetText() == text then r:Click() return r end end
+		end
+		B:Click()
+		pick("Vendor  \\226\\128\\186")
+		local page = {}
+		for _, r in ipairs(rows()) do page[#page + 1] = r.Text:GetText() end
+		pick("Arrows")
+		local go = lastCall("NearbyGo")
+		B:Click()
+		pick("Vendor  \\226\\128\\186")
+		pick("Nearest")
+		local nearest = lastCall("NearbyGo")
+		B:Click()
+		pick("Vendor  \\226\\128\\186")
+		pick("Back")
+		emit({ page = page, go = go, nearest = nearest, back = rows()[1].Text:GetText() })`);
+	assert.deepEqual(out.page, ['Back', 'Nearest', 'Food & drink', 'Arrows']);
+	assert.deepEqual(out.go, ['NearbyGo', 'arrows']);
+	assert.deepEqual(out.nearest, ['NearbyGo', 'vendor']);
+	assert.equal(out.back, 'Vendor  \u203a');
+});
+
 test('the Nearby menu opens a page of weapons: known ones and those not yet at this level are off, a pick goes to the master, Back returns', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
@@ -829,7 +863,7 @@ test('the Nearby menu opens a page of weapons: known ones and those not yet at t
 	assert.deepEqual(out.page, [['Back', false], ['Swords', false], ['Daggers (known)', true], ['Polearms (from level 20)', true]]);
 	assert.equal(out.stillOpen, true, 'a weapon already known does nothing');
 	assert.deepEqual(out.go, ['NearbyGo', 'weapon', 43]);
-	assert.equal(out.back, 'Vendor', 'Back shows the services again');
+	assert.equal(out.back, 'Vendor  \u203a', 'Back shows the services again');
 });
 
 test('on the way to a nearby service, a banner and the Nearby menu offer the way back to the guide', () => {
@@ -937,7 +971,7 @@ test('the header carries Nearby services between Skip and the bug: its menu poin
 		emit({ noGuide = noGuide, order = order, items = items, mining = mining, inn = inn, enabledInCombat = disabled, off = off, skipOff = skipOff })`);
 	assert.deepEqual(out.noGuide, { shown: true, rel: true }, 'without a guide it sits by the menu');
 	assert.deepEqual(out.order, { skip: true, nearby: true, report: true }, 'Skip, Nearby, the bug, the menu');
-	assert.deepEqual(out.items, ['Vendor', 'Innkeeper', 'Mining trainer', 'Weapon master  \u203a', 'Bank']);
+	assert.deepEqual(out.items, ['Vendor  \u203a', 'Innkeeper', 'Mining trainer', 'Weapon master  \u203a', 'Bank']);
 	assert.deepEqual(out.mining, ['NearbyGo', 'trainer', 186]);
 	assert.deepEqual(out.inn, ['NearbyGo', 'innkeeper']);
 	assert.equal(out.enabledInCombat, 0, 'in combat every entry is off');

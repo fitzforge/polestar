@@ -356,7 +356,7 @@ L["Thrown"] = "投掷武器"
 L["Weapon master (%s)"] = "武器大师（%s）"
 L["At %s: the arrow is back on the guide."] = "已到达%s：箭头重新指向指南。"
 L["The arrow is back on the guide."] = "箭头重新指向指南。"
-L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"] = "用法：/polestar near trainer [专业] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"
+L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"] = "用法：/polestar near trainer [专业] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"
 L["Nearby services button"] = "附近服务按钮"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "指南窗口标题栏中、菜单左侧的按钮，可找到最近的商人、修理、旅店、飞行管理员或训练师，并让箭头指向那里。"
 

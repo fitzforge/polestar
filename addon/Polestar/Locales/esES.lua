@@ -356,7 +356,7 @@ L["Thrown"] = "Armas arrojadizas"
 L["Weapon master (%s)"] = "Maestro de armas (%s)"
 L["At %s: the arrow is back on the guide."] = "En %s: la flecha vuelve a la guía."
 L["The arrow is back on the guide."] = "La flecha vuelve a la guía."
-L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"] = "Uso: /polestar near trainer [profesión] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"
+L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"] = "Uso: /polestar near trainer [profesión] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"
 L["Nearby services button"] = "Botón de servicios cercanos"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "Un botón en la cabecera de la ventana de la guía, a la izquierda del menú, busca el vendedor, la reparación, la posada, el maestro de vuelo o el instructor más cercano y lleva la flecha allí."
 

@@ -356,7 +356,7 @@ L["Thrown"] = "투척 무기"
 L["Weapon master (%s)"] = "무기 전문가 (%s)"
 L["At %s: the arrow is back on the guide."] = "%s 도착: 화살표가 다시 가이드를 따릅니다."
 L["The arrow is back on the guide."] = "화살표가 다시 가이드를 따릅니다."
-L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"] = "사용법: /polestar near trainer [전문 기술] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"
+L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"] = "사용법: /polestar near trainer [전문 기술] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"
 L["Nearby services button"] = "주변 시설 버튼"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "가이드 창 머리글의 메뉴 왼쪽에 있는 버튼으로, 가장 가까운 상인, 수리, 여관, 비행 조련사 또는 전문가를 찾아 화살표가 그곳을 가리키게 합니다."
 

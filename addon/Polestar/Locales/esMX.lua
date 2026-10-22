@@ -1848,7 +1848,7 @@ L["The world map's and minimap's tracking menus find the nearest trainer, vendor
 -- L["Weapon master (%s)"] = ""
 -- L["At %s: the arrow is back on the guide."] = ""
 -- L["The arrow is back on the guide."] = ""
-L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"] = "Uso: /polestar near trainer [profesión] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"
+L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"] = "Uso: /polestar near trainer [profesión] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"
 -- L["Nearby services button"] = ""
 -- L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = ""
 
