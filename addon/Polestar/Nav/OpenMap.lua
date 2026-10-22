@@ -22,6 +22,9 @@
 --   OpenMap.ViewRect(view) -> x0, y0, x1, y1  what the map's scroll frame shows, host percent
 --   OpenMap.ViewMoved(view, rect) -> bool     the view left rect = { x0, y0, x1, y1 } (a pan or a zoom)
 --   OpenMap.Level(level) -> level             at least one above OpenMap's art
+--   OpenMap.Draws(kind) -> bool               OpenMap shows its own icons of a kind ("dungeons", "boats",
+--       "zeppelins", "flight", "innkeeper"): Polestar leaves its own out on the stitched map then
+--   OpenMap.DrawsKey() -> string              all of those at once, to tell when one changed
 --   OpenMap.Show(c, wx, wy, zoom) -> bool     glide the stitched view to a world point
 --   OpenMap.OnChange(fn)                      fn() when the stitched map comes or goes, or OpenMap loads
 --   OpenMap.Toggle(spec)                      a switch in OpenMap's menu, Polestar's section:
@@ -179,6 +182,37 @@ function OpenMap.Level(level)
 		if ok and type(top) == "number" and top + 1 > level then return top + 1 end
 	end
 	return level
+end
+
+-- OpenMap's own icon switches, read from its saved settings (OpenMapDB, its
+-- "worldmap" module): only read, never written. OpenMap's API has no call
+-- for them; a missing table or key reads as off.
+local DRAWS = {
+	dungeons = function(db) return db.icons end,
+	boats = function(db) return db.boats end,
+	zeppelins = function(db) return db.zeppelins end,
+	flight = function(db) return db.flight end,
+	innkeeper = function(db) return type(db.townsfolk) == "table" and db.townsfolk.innkeeper end,
+}
+local DRAW_ORDER = { "dungeons", "boats", "zeppelins", "flight", "innkeeper" }
+
+local function worldmapDB()
+	local db = _G.OpenMapDB
+	db = type(db) == "table" and db.worldmap
+	return type(db) == "table" and db or nil
+end
+
+function OpenMap.Draws(kind)
+	local read, db = DRAWS[kind], worldmapDB()
+	if not (read and db and OpenMap.API()) then return false end
+	local ok, on = pcall(read, db)
+	return ok and on and true or false
+end
+
+function OpenMap.DrawsKey()
+	local key = ""
+	for _, kind in ipairs(DRAW_ORDER) do key = key .. (OpenMap.Draws(kind) and "1" or "0") end
+	return key
 end
 
 -- A world point as OpenMap's u, v, through the world map's child on its continent.

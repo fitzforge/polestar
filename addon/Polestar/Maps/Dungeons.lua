@@ -90,7 +90,7 @@ function Maps.BuildDungeonPins(o)
 		if type(e) == "table" and e.map and e.x and e.y then
 			pins[#pins + 1] = {
 				map = e.map, x = e.x, y = e.y, f = e.f,
-				icon = rec.kind == "raid" and "game-raid" or "game-dungeon", size = 24, color = color, priority = 2,
+				icon = rec.kind == "raid" and "game-raid" or "game-dungeon", size = 24, color = color, priority = 2, omKind = "dungeons",
 				key = rec.key, page = page,
 				tooltip = tooltip(rec, page),
 				onClick = function(button)

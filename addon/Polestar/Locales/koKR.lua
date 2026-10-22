@@ -553,8 +553,8 @@ L["Clear instance history"] = "인스턴스 기록 삭제"
 L["Forgets recorded entries and runs (the server's own limit is not affected)."] = "기록된 입장과 회차를 지웁니다 (서버 자체 제한에는 영향 없음)."
 L["Minimap button"] = "미니맵 버튼"
 L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "미니맵 가장자리에 있는 Polestar 버튼입니다. 클릭하면 가이드를 표시하거나 숨기고, 우클릭하면 설정, 드래그하면 이동합니다."
--- L["With OpenMap, switch it in OpenMap's menu."] = ""
 -- L["Your faction's and neutral flight masters; the ones you have not discovered yet are faded. The tooltip lists destinations and flight times."] = ""
+-- L["With OpenMap, switch it in OpenMap's menu. Where OpenMap shows its own icons of the same kind, Polestar's leave them be; switch OpenMap's off to see Polestar's."] = ""
 
 -- Maps/WorldMap.lua
 L["Player"] = "플레이어"
@@ -1767,6 +1767,7 @@ L["Celebrating the supporters and contributors behind Polestar."] = "Polestar를
 -- L["Each leg of the route says what it is, how far and how long, at its middle on the world map."] = ""
 -- L["The goals of the next five steps after this one, joined by a faint line and numbered by step, on the world map."] = ""
 -- L["Every flight you know and every boat, zeppelin and tram you can ride, faintly, under the route on the world map."] = ""
+-- L["A walk's label on the world map also says how long it takes."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -2521,6 +2522,7 @@ L["No names here yet."] = "아직 이름이 없습니다."
 -- L["No quests for this dungeon."] = ""
 -- L["Attunement: %s"] = ""
 -- L["Full page: /polestar dungeons %s"] = ""
+-- L["Walking time on labels"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."

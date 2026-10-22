@@ -448,8 +448,8 @@ L["Clear instance history"] = "Borrar historial de estancias"
 L["Forgets recorded entries and runs (the server's own limit is not affected)."] = "Olvida las entradas y recorridos registrados (el límite del servidor no cambia)."
 L["Minimap button"] = "Botón del minimapa"
 L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Un botón de Polestar en el borde del minimapa. Haz clic para mostrar u ocultar la guía, clic derecho para los ajustes, arrastra para moverlo."
--- L["With OpenMap, switch it in OpenMap's menu."] = ""
 -- L["Your faction's and neutral flight masters; the ones you have not discovered yet are faded. The tooltip lists destinations and flight times."] = ""
+-- L["With OpenMap, switch it in OpenMap's menu. Where OpenMap shows its own icons of the same kind, Polestar's leave them be; switch OpenMap's off to see Polestar's."] = ""
 
 -- Maps/TravelPins.lua
 L["Flight master, known"] = "Maestro de vuelo, conocido"
@@ -1514,6 +1514,7 @@ L["Celebrating the supporters and contributors behind Polestar."] = "Un homenaje
 -- L["Each leg of the route says what it is, how far and how long, at its middle on the world map."] = ""
 -- L["The goals of the next five steps after this one, joined by a faint line and numbered by step, on the world map."] = ""
 -- L["Every flight you know and every boat, zeppelin and tram you can ride, faintly, under the route on the world map."] = ""
+-- L["A walk's label on the world map also says how long it takes."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
@@ -2520,6 +2521,7 @@ L["No names here yet."] = "Aún no hay nombres."
 -- L["No quests for this dungeon."] = ""
 -- L["Attunement: %s"] = ""
 -- L["Full page: /polestar dungeons %s"] = ""
+-- L["Walking time on labels"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."

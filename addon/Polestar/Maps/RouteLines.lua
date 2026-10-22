@@ -206,8 +206,11 @@ local function legLabels()
 	end
 end
 
--- The steps after the target: each one's first goal with a place, from the
--- route's end on, as a "preview" path, its points numbered by step.
+-- The steps after the target: for each, of its open goals with a place, the
+-- one nearest the point before (the route's end, then the step before's),
+-- as a "preview" path labelled by step. A step whose goals are all done, or
+-- have no place, is left out.
+local DONE = { done = true, complete = true, completed = true, skipped = true }
 local function stepPreview()
 	local E, C = ns.Engine, ns.Compat
 	if not (goalC and E and E.GetStepIndex and E.GetStepView and C and C.MapToWorld) then return end
@@ -217,15 +220,21 @@ local function stepPreview()
 	local last = (E.GetStepCount and E.GetStepCount() or index + PREVIEW_STEPS)
 	for i = index + 1, math.min(last, index + PREVIEW_STEPS) do
 		local view = E.GetStepView(i)
+		local from = pts[#pts]
+		local best, bestD
 		for _, goal in ipairs(view and view.goals or {}) do
-			if goal.map and goal.x and goal.y then
+			if goal.map and goal.x and goal.y and not DONE[goal.status] then
 				local c, wx, wy = C.MapToWorld(goal.map, goal.x, goal.y, goal.f)
 				if c then
-					pts[#pts + 1] = { c, wx, wy }
-					addLabel(c, wx, wy, tostring(i), "preview")
+					-- Another continent counts as far past anything on this one.
+					local d = c == from[1] and (wx - from[2]) ^ 2 + (wy - from[3]) ^ 2 or math.huge
+					if not best or d < bestD then best, bestD = { c, wx, wy }, d end
 				end
-				break
 			end
+		end
+		if best then
+			pts[#pts + 1] = best
+			addLabel(best[1], best[2], best[3], format(L["Step %d"], i), "preview")
 		end
 	end
 	if #pts >= 2 then paths[#paths + 1] = Strokes.Path("preview", pts, true) end

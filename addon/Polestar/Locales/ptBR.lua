@@ -553,8 +553,8 @@ L["Clear instance history"] = "Limpar histórico de instâncias"
 L["Forgets recorded entries and runs (the server's own limit is not affected)."] = "Esquece entradas e incursões gravadas (o limite do próprio servidor não é afetado)."
 L["Minimap button"] = "Botão do minimapa"
 L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Um botão do Polestar na borda do minimapa. Clique para mostrar ou ocultar o guia, clique com o botão direito para as configurações, arraste para movê-lo."
--- L["With OpenMap, switch it in OpenMap's menu."] = ""
 -- L["Your faction's and neutral flight masters; the ones you have not discovered yet are faded. The tooltip lists destinations and flight times."] = ""
+-- L["With OpenMap, switch it in OpenMap's menu. Where OpenMap shows its own icons of the same kind, Polestar's leave them be; switch OpenMap's off to see Polestar's."] = ""
 
 -- Maps/WorldMap.lua
 L["Player"] = "Jogador"
@@ -1767,6 +1767,7 @@ L["Celebrating the supporters and contributors behind Polestar."] = "Uma homenag
 -- L["Each leg of the route says what it is, how far and how long, at its middle on the world map."] = ""
 -- L["The goals of the next five steps after this one, joined by a faint line and numbered by step, on the world map."] = ""
 -- L["Every flight you know and every boat, zeppelin and tram you can ride, faintly, under the route on the world map."] = ""
+-- L["A walk's label on the world map also says how long it takes."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
@@ -2521,6 +2522,7 @@ L["No names here yet."] = "Nenhum nome ainda."
 -- L["No quests for this dungeon."] = ""
 -- L["Attunement: %s"] = ""
 -- L["Full page: /polestar dungeons %s"] = ""
+-- L["Walking time on labels"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."

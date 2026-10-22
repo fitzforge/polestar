@@ -543,6 +543,42 @@ test('OpenMap: pins on every continent show across the stitched world, above its
 	assert.equal(out.writes, 0, 'nothing written into the map');
 });
 
+test('OpenMap: an icon OpenMap draws itself steps aside on its map while OpenMap shows its own, and comes back when switched off there', () => {
+	const [out] = run(`${OPENMAP}
+		Polestar.Set("nav.travel", false)
+		nav.place(0, 0)
+		OpenMapDB = { worldmap = { icons = true, boats = false } }
+		Pins.SetLayer("test.kinds", {
+			{ c = 0, wx = 0, wy = 0, icon = "icon-goto", tooltip = "Dungeon", omKind = "dungeons" },
+			{ c = 0, wx = 100, wy = 0, icon = "icon-goto", tooltip = "Dock", omKind = "boats" },
+			{ c = 0, wx = 200, wy = 0, icon = "icon-goto", tooltip = "Guide" },
+		})
+		local function shown()
+			local out = {}
+			for _, f in ipairs(Pins.GetWorldFrames("pins")) do
+				local d = Pins.WorldPinOf(f)
+				if d and d.pin.tooltip then out[#out + 1] = d.pin.tooltip end
+			end
+			table.sort(out)
+			return out
+		end
+		nav.showWorldMap(947)
+		local r = { both = shown() }
+		OpenMapDB.worldmap.icons = false                  -- switched off in OpenMap's menu
+		stub.advance(1)
+		stub.runMapFrame(WorldMapFrame, 0)
+		r.ours = shown()
+		OM.stitched = false                               -- Blizzard's own map: Polestar's all show
+		OpenMapDB.worldmap.icons = true
+		OM.callbacks.OpenMap_StitchedChanged(false)
+		nav.showWorldMap(9000)
+		r.plain = shown()
+		emit(r)`);
+	assert.deepEqual(out.both, ['Dock', 'Guide'], 'OpenMap shows dungeons: Polestar\'s steps aside');
+	assert.deepEqual(out.ours, ['Dock', 'Dungeon', 'Guide'], 'OpenMap\'s off: Polestar\'s back');
+	assert.deepEqual(out.plain, ['Dock', 'Dungeon', 'Guide'], 'Blizzard\'s own map: every Polestar icon');
+});
+
 test('OpenMap: its menu has a switch for the dots (nav.openmapDots), and Polestar\'s trail setting still rules', () => {
 	const [out] = run(`${OPENMAP}
 		Polestar.Set("nav.travel", false)

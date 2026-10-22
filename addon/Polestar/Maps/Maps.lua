@@ -81,7 +81,7 @@ function Maps.LayerToggle(c)
 	c.set = function(on) ns.Set(c.key, on and true or false) end
 	local own = c.disabled
 	c.disabled = function() return openMapLoaded() or (own and own()) or false end
-	c.help = c.help .. " " .. L["With OpenMap, switch it in OpenMap's menu."]
+	c.help = c.help .. " " .. L["With OpenMap, switch it in OpenMap's menu. Where OpenMap shows its own icons of the same kind, Polestar's leave them be; switch OpenMap's off to see Polestar's."]
 	return c
 end
 

@@ -297,7 +297,8 @@ test('world map shows the final target pin plus the route waypoints', () => {
 		emit(r)`);
 	assert.deepEqual(out, [
 		['nav.target', 'Kobolds', '1380 yd', 22.4],
-		['nav.route', 'Fly to East Hold', 'Travel route, step 1/3', 14.4],
+		// The stop where the flight starts shows the flight master's icon, at 22 (x 0.9, the layer's scale).
+		['nav.route', 'Fly to East Hold', 'Travel route, step 1/3', 19.8],
 		['nav.route', 'Kobolds', 'Travel route, step 2/3', 14.4],
 	]);
 });

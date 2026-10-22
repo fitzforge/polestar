@@ -553,8 +553,8 @@ L["Clear instance history"] = "清除副本记录"
 L["Forgets recorded entries and runs (the server's own limit is not affected)."] = "清除已记录的进入和进度（不影响服务器自身的限制）。"
 L["Minimap button"] = "小地图按钮"
 L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "小地图边缘的 Polestar 按钮。左键点击显示或隐藏指南，右键点击打开设置，拖动可移动。"
--- L["With OpenMap, switch it in OpenMap's menu."] = ""
 -- L["Your faction's and neutral flight masters; the ones you have not discovered yet are faded. The tooltip lists destinations and flight times."] = ""
+-- L["With OpenMap, switch it in OpenMap's menu. Where OpenMap shows its own icons of the same kind, Polestar's leave them be; switch OpenMap's off to see Polestar's."] = ""
 
 -- Maps/WorldMap.lua
 L["Player"] = "玩家"
@@ -1767,6 +1767,7 @@ L["Celebrating the supporters and contributors behind Polestar."] = "致敬支�
 -- L["Each leg of the route says what it is, how far and how long, at its middle on the world map."] = ""
 -- L["The goals of the next five steps after this one, joined by a faint line and numbered by step, on the world map."] = ""
 -- L["Every flight you know and every boat, zeppelin and tram you can ride, faintly, under the route on the world map."] = ""
+-- L["A walk's label on the world map also says how long it takes."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -2521,6 +2522,7 @@ L["No names here yet."] = "暂无名单。"
 -- L["No quests for this dungeon."] = ""
 -- L["Attunement: %s"] = ""
 -- L["Full page: /polestar dungeons %s"] = ""
+-- L["Walking time on labels"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"

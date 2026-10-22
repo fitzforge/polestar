@@ -1003,6 +1003,7 @@ L["Celebrating the supporters and contributors behind Polestar."] = "Wir feiern 
 -- L["Each leg of the route says what it is, how far and how long, at its middle on the world map."] = ""
 -- L["The goals of the next five steps after this one, joined by a faint line and numbered by step, on the world map."] = ""
 -- L["Every flight you know and every boat, zeppelin and tram you can ride, faintly, under the route on the world map."] = ""
+-- L["A walk's label on the world map also says how long it takes."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -1404,8 +1405,8 @@ L["Clear instance history"] = "Instanzverlauf löschen"
 L["Forgets recorded entries and runs (the server's own limit is not affected)."] = "Vergisst aufgezeichnete Eintritte und Durchläufe (die eigene Grenze des Servers bleibt unberührt)."
 L["Minimap button"] = "Minikarten-Button"
 L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Ein Polestar-Button am Rand der Minikarte. Klicke, um den Guide ein- oder auszublenden, Rechtsklick für die Einstellungen, ziehen zum Verschieben."
--- L["With OpenMap, switch it in OpenMap's menu."] = ""
 -- L["Your faction's and neutral flight masters; the ones you have not discovered yet are faded. The tooltip lists destinations and flight times."] = ""
+-- L["With OpenMap, switch it in OpenMap's menu. Where OpenMap shows its own icons of the same kind, Polestar's leave them be; switch OpenMap's off to see Polestar's."] = ""
 
 -- Quests/Options.lua
 L["Any level"] = "Jede Stufe"
@@ -2496,6 +2497,7 @@ L["No names here yet."] = "Noch keine Namen."
 -- L["No quests for this dungeon."] = ""
 -- L["Attunement: %s"] = ""
 -- L["Full page: /polestar dungeons %s"] = ""
+-- L["Walking time on labels"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

@@ -16,7 +16,9 @@
 --   filled softly with a rim in the pin's colour, drawn like area), areaOnly (true: only the
 --   area or hull draws, no pin), backdrop (true: icon pins sit on a dark
 --   Theme "scrim" disc), ring ({ r, g, b, a }: a thin circle around the pin), shine (a media name: an
---   untinted highlight layer drawn over the icon, for icons with their light painted apart), minimapSize
+--   untinted highlight layer drawn over the icon, for icons with their light painted apart), omKind
+--   (an icon OpenMap also draws: "dungeons", "boats", "zeppelins", "flight", "innkeeper"; left out
+--   on its stitched map while OpenMap shows its own, Nav/OpenMap.lua Draws), minimapSize
 --   (size on the minimap instead of size).
 --   Pins.SetTrail(runs, opts)          the travel route's dots; runs = { { live = true, point, ... }, ... },
 --                                      point = { c, wx, wy }; opts = { world = true, minimap = true, color }
@@ -729,6 +731,7 @@ do
 	local wRect = { 0, 0, 100, 100 }
 	local PIN_MARGIN = 0.25  -- of the view's size: pins placed past its edges, so a pan seldom redraws
 	local PIN_REDRAW = 0.15  -- of the view's size: a pan or zoom this far redraws them
+	local drawsKey, drawsAt = nil, 0 -- OpenMap's own icon switches as last drawn for (OpenMap.DrawsKey)
 
 	-- Centre frame f on (x, y), percent of the viewed map, at scale s.
 	local function placeAt(f, x, y, s)
@@ -977,6 +980,7 @@ do
 			wRect[1], wRect[2], wRect[3], wRect[4] = 0, 0, 100, 100
 		end
 		local rx0, ry0, rx1, ry1 = wRect[1], wRect[2], wRect[3], wRect[4]
+		drawsKey = wStitched and OM.DrawsKey() or nil
 		if mapID then
 			viewMap(mapID)
 			local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(mapID)
@@ -991,9 +995,10 @@ do
 					local first = n + 1
 					for i = 1, #pins do
 						local p = pins[i]
-						local fit = wStitched and layer.c[i] and OM.Fit(mapID, layer.c[i]) or nil
-						if type(p.hull) == "table" then hulls = hullOn(p, layer, i, hulls, blobLevel, fit) end
-						if not (p.areaOnly and not p.area) then
+						local skip = wStitched and p.omKind and OM.Draws(p.omKind)
+						local fit = not skip and wStitched and layer.c[i] and OM.Fit(mapID, layer.c[i]) or nil
+						if not skip and type(p.hull) == "table" then hulls = hullOn(p, layer, i, hulls, blobLevel, fit) end
+						if not skip and not (p.areaOnly and not p.area) then
 							local x, y
 							if p.map == mapID and p.x and p.y and not p.f then
 								x, y = p.x, p.y
@@ -1266,6 +1271,15 @@ do
 	-- pins once the view has moved a good way off what they were drawn for.
 	function world.followView()
 		if wStitched then
+			-- A switch flipped in OpenMap's menu: which of Polestar's icons stand in changes.
+			local now = GetTime and GetTime() or 0
+			if now - drawsAt >= 0.5 then
+				drawsAt = now
+				if ns.OpenMap.DrawsKey() ~= drawsKey then
+					world.redraw()
+					return
+				end
+			end
 			local x0, y0, x1, y1 = ns.OpenMap.ViewRect(wView)
 			local w, h = x1 - x0, y1 - y0
 			local dw, dh = (wRect[3] - wRect[1]) / (1 + 2 * PIN_MARGIN), (wRect[4] - wRect[2]) / (1 + 2 * PIN_MARGIN)

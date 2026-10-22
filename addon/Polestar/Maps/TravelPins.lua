@@ -20,8 +20,8 @@ local type, ipairs, lower, format = type, ipairs, string.lower, string.format
 -- Pins show the client's own icons, scaled (Media/UI/game-*.tga), untinted;
 -- the tram, which has none, is Polestar's drawing in a scheme colour.
 local KIND = {
-	boat = { label = L["Boat to %s"], icon = "game-boat", size = 28 },
-	zeppelin = { label = L["Zeppelin to %s"], icon = "game-zeppelin", size = 28 },
+	boat = { label = L["Boat to %s"], icon = "game-boat", size = 28, omKind = "boats" },
+	zeppelin = { label = L["Zeppelin to %s"], icon = "game-zeppelin", size = 28, omKind = "zeppelins" },
 	tram = { label = L["Deeprun Tram to %s"], color = "object", icon = "map-tram", shine = "map-tram-shine", size = 24 },
 }
 local FLIGHT = { "game-flight-alliance", "game-flight-horde", "game-flight-neutral" } -- by node faction
@@ -130,7 +130,7 @@ function Maps.BuildTravelPins(o)
 			local isKnown = known[node.id] and true or false
 			local p = pinAt(node, FLIGHT[node.faction] or FLIGHT[3], 24, isKnown and WHITE or FADED,
 				taxiTooltip(node, data, faction, known), isKnown and 2 or 3)
-			p.nodeID, p.known = node.id, isKnown
+			p.nodeID, p.known, p.omKind = node.id, isKnown, "flight"
 			taxi[#taxi + 1] = p
 		end
 	end
@@ -139,9 +139,9 @@ function Maps.BuildTravelPins(o)
 			local kind = KIND[t.kind] or KIND.boat
 			local col = kind.color and color(kind.color) or WHITE
 			local a = pinAt(t.a, kind.icon, kind.size, col, dockTooltip(t, t.a, t.b, t.ab, t.waitB, t.waitA), 1)
-			a.transport, a.dest, a.shine = t.id, t.b.name, kind.shine
+			a.transport, a.dest, a.shine, a.omKind = t.id, t.b.name, kind.shine, kind.omKind
 			local b = pinAt(t.b, kind.icon, kind.size, col, dockTooltip(t, t.b, t.a, t.ba, t.waitA, t.waitB), 1)
-			b.transport, b.dest, b.shine = t.id, t.a.name, kind.shine
+			b.transport, b.dest, b.shine, b.omKind = t.id, t.a.name, kind.shine, kind.omKind
 			docks[#docks + 1] = a
 			docks[#docks + 1] = b
 		end
@@ -155,7 +155,7 @@ function Maps.BuildTravelPins(o)
 			end
 		end
 		local p = pinAt(inn, "game-inn", bound and 22 or 18, WHITE, innTooltip(inn, bound), bound and 2 or 0)
-		p.glow, p.bound = bound or nil, bound
+		p.glow, p.bound, p.omKind = bound or nil, bound, "innkeeper"
 		inns[#inns + 1] = p
 	end
 	return taxi, docks, inns

@@ -639,15 +639,20 @@ test('steps ahead: the next steps\' goals join the route\'s end in a preview pat
 	const [out] = painted(`
 		Polestar.Set("nav.travel", false)
 		nav.place(0, 0)
-		local goals = { [4] = { nav.mapPoint(0, -800) }, [5] = { nav.mapPoint(200, -800) }, [6] = {} }
+		local function goal(wx, wy, status)
+			local m, x, y = nav.mapPoint(wx, wy)
+			return { map = m, x = x, y = y, status = status or "pending" }
+		end
+		-- Step 4: a far goal listed first, the near one second; step 5's near goal is done.
+		local goals = {
+			[4] = { goal(900, 900), goal(0, -800) },
+			[5] = { goal(0, -700, "done"), goal(200, -800) },
+			[6] = {},
+		}
 		Polestar.Engine = {
 			GetStepIndex = function() return 3 end,
 			GetStepCount = function() return 6 end,
-			GetStepView = function(i)
-				local g = goals[i]
-				if not (g and g[1]) then return { goals = {} } end
-				return { goals = { { map = g[1], x = g[2], y = g[3], status = "pending" } } }
-			end,
+			GetStepView = function(i) return { goals = goals[i] or {} } end,
 		}
 		target(0, -600)
 		nav.showWorldMap(9000)
@@ -656,18 +661,21 @@ test('steps ahead: the next steps\' goals join the route\'s end in a preview pat
 		local last = paths[#paths]
 		local nums = {}
 		for _, f in ipairs(worldPin().tags or {}) do
-			if f:IsShown() and f.text:GetText():match("^%d+$") then nums[#nums + 1] = f.text:GetText() end
+			if f:IsShown() and f.text:GetText():match("^Step %d+$") then nums[#nums + 1] = f.text:GetText() end
 		end
 		table.sort(nums)
-		local r = { kind = last.kind, n = last.n, later = last.later, nums = nums }
+		local r = { kind = last.kind, n = last.n, later = last.later, nums = nums,
+			p2 = { last.x[2], last.y[2] }, p3 = { last.x[3], last.y[3] } }
 		Polestar.Set("nav.stepPreview", false)
 		r.offKinds = {}
 		for _, p in ipairs(R.GetPaths()) do r.offKinds[#r.offKinds + 1] = p.kind end
 		emit(r)`);
 	assert.equal(out.kind, 'preview');
-	assert.equal(out.n, 3, 'the target, then steps 4 and 5 (6 has no place)');
+	assert.equal(out.n, 3, 'the target, then steps 4 and 5 (6 has no goal)');
 	assert.equal(out.later, true, 'faint');
-	assert.deepEqual(out.nums, ['4', '5']);
+	assert.deepEqual(out.nums, ['Step 4', 'Step 5']);
+	assert.ok(Math.abs(out.p2[0]) < 1 && Math.abs(out.p2[1] + 800) < 1, `step 4: the nearer goal (${out.p2})`);
+	assert.ok(Math.abs(out.p3[0] - 200) < 1 && Math.abs(out.p3[1] + 800) < 1, `step 5: the open goal (${out.p3})`);
 	assert.ok(!out.offKinds.includes('preview'));
 });
 

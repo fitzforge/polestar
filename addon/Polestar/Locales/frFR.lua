@@ -554,8 +554,8 @@ L["Clear instance history"] = "Effacer l'historique des instances"
 L["Forgets recorded entries and runs (the server's own limit is not affected)."] = "Oublie les entrées et passages enregistrés (la limite du serveur n'est pas affectée)."
 L["Minimap button"] = "Bouton de la minicarte"
 L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Un bouton Polestar au bord de la minicarte. Cliquez pour afficher ou masquer le guide, clic droit pour les réglages, faites-le glisser pour le déplacer."
--- L["With OpenMap, switch it in OpenMap's menu."] = ""
 -- L["Your faction's and neutral flight masters; the ones you have not discovered yet are faded. The tooltip lists destinations and flight times."] = ""
+-- L["With OpenMap, switch it in OpenMap's menu. Where OpenMap shows its own icons of the same kind, Polestar's leave them be; switch OpenMap's off to see Polestar's."] = ""
 
 -- Maps/WorldMap.lua
 L["Player"] = "Joueur"
@@ -1768,6 +1768,7 @@ L["Celebrating the supporters and contributors behind Polestar."] = "Hommage aux
 -- L["Each leg of the route says what it is, how far and how long, at its middle on the world map."] = ""
 -- L["The goals of the next five steps after this one, joined by a faint line and numbered by step, on the world map."] = ""
 -- L["Every flight you know and every boat, zeppelin and tram you can ride, faintly, under the route on the world map."] = ""
+-- L["A walk's label on the world map also says how long it takes."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -2522,6 +2523,7 @@ L["No names here yet."] = "Aucun nom pour l'instant."
 -- L["No quests for this dungeon."] = ""
 -- L["Attunement: %s"] = ""
 -- L["Full page: /polestar dungeons %s"] = ""
+-- L["Walking time on labels"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
