@@ -597,6 +597,22 @@ emit(out)
 	}
 });
 
+// Nearby services' vendors by what they sell (Nav/Nearby.lua): every NPC an
+// item lists as its vendor gets a "sells:" role from the item's class.
+test('mergeCodex tags vendors by what they sell: food, arrows, bullets, bows and guns', () => {
+	const { sellsRole } = require('../tools/lib/codex/build');
+	assert.deepEqual([[0, 5], [6, 2], [6, 3], [2, 2], [2, 18], [2, 3], [2, 16], [0, 0], [15, 5]].map(([c, s]) => sellsRole(c, s)),
+		['sells:food', 'sells:arrows', 'sells:bullets', 'sells:ranged', 'sells:ranged', 'sells:ranged', null, null, null]);
+	const inputs = syntheticInputs();
+	const sold = { 2512: [6, 2, 'Rough Arrow'], 2519: [6, 3, 'Heavy Shot'], 2504: [2, 2, 'Worn Shortbow'], 159: [0, 5, 'Refreshing Spring Water'] };
+	for (const [id, [classId, subclassId, name]] of Object.entries(sold)) {
+		inputs.forever.items[id] = { id: Number(id), name, drops: { npc: {}, object: {} }, vendors: [4730], source: ['pfquest'] };
+		inputs.client.items[id] = { name, classId, subclassId, inventoryType: 0, quality: 1, buyPrice: 10 };
+	}
+	const n = mergeCodex(inputs).npcs;
+	assert.deepEqual(n[4730].roles, ['sells:arrows', 'sells:bullets', 'sells:food', 'sells:ranged', 'vendor']);
+});
+
 test('mergeCodex builds npcs, rares, instances, quests, spells and frames', () => {
 	const codex = mergeCodex(syntheticInputs());
 	const n = codex.npcs;

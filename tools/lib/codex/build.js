@@ -80,7 +80,18 @@ const CAP = { drop: 10, object: 6, vendor: 10, container: 6 };
 const WORLD_DROP_NPCS = 12;
 // Spawns: clusters per map, maps per entity.
 const SPAWN = { radius: 3, perMap: 5, maps: 4 };
-const SERVICE_ROLES = new Set(['vendor', 'repair', 'innkeeper', 'banker', 'auctioneer', 'flightmaster', 'battlemaster', 'spirithealer', 'stablemaster', 'trainer', 'weapon']);
+const SERVICE_ROLES = new Set(['vendor', 'repair', 'innkeeper', 'banker', 'auctioneer', 'flightmaster', 'battlemaster', 'spirithealer', 'stablemaster', 'trainer', 'weapon',
+	'sells:food', 'sells:arrows', 'sells:bullets', 'sells:ranged']);
+// What a vendor sells, by the item's class and subclass (Item.csv), for
+// Nav/Nearby.lua's kinds: food & drink (consumable 0/5), arrows and bullets
+// (projectile 6/2, 6/3), bows, crossbows and guns (weapon 2/2, 2/18, 2/3).
+function sellsRole(classId, subclassId) {
+	if (classId === 0 && subclassId === 5) return 'sells:food';
+	if (classId === 6 && subclassId === 2) return 'sells:arrows';
+	if (classId === 6 && subclassId === 3) return 'sells:bullets';
+	if (classId === 2 && (subclassId === 2 || subclassId === 3 || subclassId === 18)) return 'sells:ranged';
+	return null;
+}
 // Loot listed on a rare NPC or treasure (Codex.Loot; the Rares view picks its
 // signature drop from it): its own drops (items nothing else drops or holds)
 // first, then best-known chance. A rare's candidates run to hundreds (the
@@ -782,6 +793,16 @@ function mergeCodex(inputs) {
 		if (npcs[npc] && npcs[npc].rare && key && !rareLoot[npc] && !npcs[npc].spawns.length) {
 			npcs[npc].rare = false;
 			if (npcRoles[npc]) npcRoles[npc].delete('rare');
+		}
+	}
+	// Vendors by what they sell (sellsRole): every NPC an item lists as its
+	// vendor, from the client's item class.
+	if (cl) {
+		for (const [id, it] of Object.entries(fv.items || {})) {
+			const c = cl.items[id];
+			const role = c && sellsRole(c.classId, c.subclassId);
+			if (!role) continue;
+			for (const npc of it.vendors || []) addRole(npc, role);
 		}
 	}
 	for (const [id, set] of Object.entries(npcRoles)) {
@@ -1725,4 +1746,4 @@ function writeParity(ours, theirs, dir, verify = null) {
 	return { report, files };
 }
 
-module.exports = { buildCodex, loadInputs, mergeCodex, clientFacts, curatedRepGates, loadRepGateTable, cluster, slug, writeParity, pickForeverBuild, TABLES };
+module.exports = { sellsRole, buildCodex, loadInputs, mergeCodex, clientFacts, curatedRepGates, loadRepGateTable, cluster, slug, writeParity, pickForeverBuild, TABLES };

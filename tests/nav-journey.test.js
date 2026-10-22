@@ -699,6 +699,54 @@ test("nearby: weapon masters: the class's weapons a master of its side teaches, 
 	assert.equal(out.none, 0, 'no gear tables: no weapons');
 });
 
+// Vendors by what they sell (the Codex's "sells:" roles): the vendor's page
+// lists what this character can use; a profession trainer the data also
+// lists as a vendor is no vendor to send anyone to (Fanorran Stilloak in
+// Shadowglen, a Junior Mining Trainer); the target names the NPC's title.
+test('nearby: the vendor page: food and drink, arrows, bullets, bows and guns by class; trainers are no vendors; the title is named', () => {
+	const [out] = run(CODEX + `
+		npcs[7] = { id = 7, name = "Keina", subName = "Bowyer", faction = "A", spawns = { { map = 9000, x = 62, y = 50 } } }
+		npcs[8] = { id = 8, name = "Fanorran", subName = "Junior Mining Trainer", faction = "A", spawns = { { map = 9000, x = 50.5, y = 50 } } }
+		npcs[9] = { id = 9, name = "Dellylah", subName = "Food & Drink Vendor", faction = "A", spawns = { { map = 9000, x = 65, y = 50 } } }
+		npcs[1].subName = "Blacksmith"
+		roles.vendor = { 1, 5, 7, 8, 9 }
+		roles.trainer = { 6, 8 }
+		roles["sells:arrows"] = { 7 }
+		roles["sells:ranged"] = { 7 }
+		roles["sells:food"] = { 8, 9 }
+		local C = Polestar.Compat
+		local info = { name = "Testchar", level = 12, faction = "Alliance", class = "HUNTER" }
+		C.GetPlayerInfo = function() return info end
+		C.GetSkillRank = function() return nil end
+		Polestar.Gear = { PROFICIENCY = { HUNTER = { weapons = { [2] = true, [3] = true, [18] = true } }, MAGE = { weapons = { [10] = true, [15] = true } } } }
+		local function page()
+			local out = {}
+			for _, e in ipairs(Near.MenuItems()) do
+				if e.page then for _, p in ipairs(e.page) do out[#out + 1] = p.key end end
+			end
+			return out
+		end
+		local hunter = page()
+		Near.Go("vendor")
+		local vendor = label()
+		Near.Go("arrows")
+		local arrows = { label(), said("Nearest arrows: Keina (Bowyer)") }
+		Near.Command("food")
+		local food = label()
+		Near.Command("bow")
+		local bow = label()
+		info.class = "MAGE"
+		emit({ hunter = hunter, mage = page(), vendor = vendor, arrows = arrows, food = food, bow = bow, bullets = Near.Go("bullets") })
+	`);
+	assert.deepEqual(out.hunter, ['vendor', 'food', 'arrows', 'bullets', 'ranged'], 'Nearest first, then what a hunter can use');
+	assert.deepEqual(out.mage, ['vendor', 'food'], 'a mage uses no bow, gun or crossbow');
+	assert.equal(out.vendor, 'Near Smith (Blacksmith)', 'Fanorran is nearer, but a trainer');
+	assert.deepEqual(out.arrows, ['Keina (Bowyer)', true]);
+	assert.equal(out.food, 'Dellylah (Food & Drink Vendor)', 'a trainer the data lists as selling food is left out too');
+	assert.equal(out.bow, 'Keina (Bowyer)');
+	assert.equal(out.bullets, false, 'nobody sells bullets here');
+});
+
 test("nearby: the guide window's list puts the everyday services first, then a trainer for each profession the character has", () => {
 	const [mining, none] = run(CODEX + `
 		local function texts()
