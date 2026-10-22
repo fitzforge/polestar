@@ -380,11 +380,21 @@ function Dungeons.GuideTo(key)
 end
 
 -- Through Compat.OpenWorldMap: the client's C_Map opener, never in combat
--- (the global OpenWorldMap taints the map: NAV_QA C3).
+-- (the global OpenWorldMap taints the map: NAV_QA C3). On OpenMap's
+-- stitched map the view then glides onto the entrance (Nav/OpenMap.lua).
 function Dungeons.ShowOnMap(key)
-	local map = Dungeons.Entrance(key)
+	local map, x, y, f = Dungeons.Entrance(key)
 	if not map then return false end
-	return ns.Compat.OpenWorldMap(map)
+	local opened = ns.Compat.OpenWorldMap(map)
+	local C, OM = ns.Compat, ns.OpenMap
+	if opened and OM and C.MapToWorld and x and y then
+		local c, wx, wy = C.MapToWorld(map, x, y, f)
+		if c and C_Timer and C_Timer.After then
+			-- The stitched view settles on the map first, then glides.
+			C_Timer.After(0, function() OM.Show(c, wx, wy) end)
+		end
+	end
+	return opened
 end
 
 ns.RegisterCommand("dungeons", function(rest)

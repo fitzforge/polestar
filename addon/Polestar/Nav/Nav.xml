@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Nav.lua"/>
 	<Script file="MapCanvas.lua"/>
+	<Script file="OpenMap.lua"/>
 	<Script file="Pins.lua"/>
 	<Script file="Arrow.lua"/>
 	<Script file="Layers.lua"/>

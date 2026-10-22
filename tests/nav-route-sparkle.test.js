@@ -212,7 +212,10 @@ test('the sparkles drift toward the goal while they flow, and hold still at no f
 test('OpenMap\'s stitched world map places the sparkles through its API, above its art', () => {
 	const before = `
 _G.OpenMapAPI = {
+	major = 1,
 	IsStitched = function() return stub.stitched end,
+	WorldFromMap = function() end,
+	MapFromWorld = function() end,
 	-- A stitched world 4000 yd across on the canvas: u east (from wy), v south (from wx).
 	CanvasFromWorldPos = function(c, wx, wy) stub.asked = (stub.asked or 0) + 1; return (2000 - wy) / 4000, (2000 - wx) / 4000 end,
 	ArtTopLevel = function() return 700 end,

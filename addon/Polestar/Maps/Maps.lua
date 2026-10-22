@@ -31,6 +31,10 @@ ns.RegisterDefaults("maps", {
 	dockPins = false,       -- boats, zeppelins, tram
 	innPins = false,        -- inns
 	travelMinimap = false,  -- travel icons on the minimap too
+	-- With OpenMap loaded the map's icon layers are its menu's to switch
+	-- (Maps/OpenMapLink.lua), on until switched off there (Maps.LayerOn).
+	omDungeonPins = true, omTaxiPins = true, omDockPins = true, omInnPins = true,
+	omServicePins = true, omTravelNetwork = true,
 	flightTimer = true,
 	instances = true,       -- record instance entries and runs
 	instanceDisplay = false, -- compact tracker on screen, opt in
@@ -43,6 +47,43 @@ ns.RegisterDefaults("maps", {
 ---------------------------------------------------------------------------
 -- Shared helpers
 ---------------------------------------------------------------------------
+
+-- An icon layer's switch: its own setting, or with OpenMap loaded the
+-- switch in OpenMap's menu (maps.om<Name>, Maps/OpenMapLink.lua).
+local OM_KEY = {
+	["maps.dungeonPins"] = "maps.omDungeonPins", ["maps.taxiPins"] = "maps.omTaxiPins",
+	["maps.dockPins"] = "maps.omDockPins", ["maps.innPins"] = "maps.omInnPins",
+	["maps.servicePins"] = "maps.omServicePins", ["maps.travelNetwork"] = "maps.omTravelNetwork",
+}
+Maps.OM_KEY = OM_KEY
+
+local function openMapLoaded()
+	local OM = ns.OpenMap
+	return OM and OM.API() ~= nil or false
+end
+Maps.OpenMapLoaded = openMapLoaded
+
+function Maps.LayerOn(key)
+	local om = OM_KEY[key]
+	if om and openMapLoaded() then return ns.Get(om) and true or false end
+	return ns.Get(key) and true or false
+end
+
+-- Whether a settings path switches the layer `key` (its own or OpenMap's).
+function Maps.LayerPath(path, key)
+	return path == key or path == OM_KEY[key]
+end
+
+-- An options toggle for an icon layer: with OpenMap loaded it shows ticked
+-- and greyed, and says the switch is in OpenMap's menu.
+function Maps.LayerToggle(c)
+	c.get = function() return openMapLoaded() or ns.Get(c.key) and true or false end
+	c.set = function(on) ns.Set(c.key, on and true or false) end
+	local own = c.disabled
+	c.disabled = function() return openMapLoaded() or (own and own()) or false end
+	c.help = c.help .. " " .. L["With OpenMap, switch it in OpenMap's menu."]
+	return c
+end
 
 -- 75 -> "1:15", 3725 -> "1:02:05".
 function Maps.FormatTime(seconds)
@@ -194,14 +235,14 @@ end
 register({
 	page = MAP, tab = L["Rares & travel"], section = L["Dungeons and travel"],
 	controls = {
-		{ kind = "toggle", key = "maps.dungeonPins", label = L["Dungeon entrances"],
-			help = L["Marks each dungeon entrance with its level range. Click to open the dungeon's guide, or to set a waypoint when there is none; Shift-click always sets a waypoint. Needs the Codex pack."] },
-		{ kind = "toggle", key = "maps.taxiPins", label = L["Flight masters"],
-			help = L["Your faction's and neutral flight masters: green when known, amber when not yet discovered. The tooltip lists destinations and flight times."] },
-		{ kind = "toggle", key = "maps.dockPins", label = L["Boats and zeppelins"],
-			help = L["Docks, zeppelin towers and the Deeprun Tram, with where they go."] },
-		{ kind = "toggle", key = "maps.innPins", label = L["Inns"],
-			help = L["Innkeepers; the one your Hearthstone is bound to is marked."] },
+		Maps.LayerToggle({ kind = "toggle", key = "maps.dungeonPins", label = L["Dungeon entrances"],
+			help = L["Marks each dungeon entrance with its level range. Click to open the dungeon's guide, or to set a waypoint when there is none; Shift-click always sets a waypoint. Needs the Codex pack."] }),
+		Maps.LayerToggle({ kind = "toggle", key = "maps.taxiPins", label = L["Flight masters"],
+			help = L["Your faction's and neutral flight masters; the ones you have not discovered yet are faded. The tooltip lists destinations and flight times."] }),
+		Maps.LayerToggle({ kind = "toggle", key = "maps.dockPins", label = L["Boats and zeppelins"],
+			help = L["Docks, zeppelin towers and the Deeprun Tram, with where they go."] }),
+		Maps.LayerToggle({ kind = "toggle", key = "maps.innPins", label = L["Inns"],
+			help = L["Innkeepers; the one your Hearthstone is bound to is marked."] }),
 		{ kind = "toggle", key = "maps.travelMinimap", label = L["Travel icons on the minimap"],
 			help = L["Shows the flight masters, docks and inns turned on here on the minimap as well."] },
 	},

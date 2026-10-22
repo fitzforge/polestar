@@ -162,6 +162,61 @@ test('every buffer is bounded: a pool never grows past its limit', () => {
 	assert.equal(out.cap, out.limit, 'a buffer never asks for more than the limit');
 });
 
+test('OpenMap\'s stitched map: each continent placed by its own fit, drawn as far as the view shows, a crossing between continents', () => {
+	const [out] = strokes(`
+		local buf = S.New()
+		-- Continent 0 as the map's fraction (fx = wy / 1000); continent 1 one map to the right.
+		local fits = { [0] = { ub = 1 / 1000, uc = 0, va = 1 / 1000, vc = 0 }, [1] = { ub = 1 / 1000, uc = 1, va = 1 / 1000, vc = 0 } }
+		local walk = path("walk", { { 800, 500 }, { 1600, 500 } })    -- runs off the map's right edge
+		local boat = S.Path("boat", { { 0, 300, 900 }, { 1, 300, 200 } }) -- from continent 0 to continent 1
+		local within = view({ fits = fits, c = false })
+		S.Map(buf, { walk }, within)
+		local r = { map = list(buf) }
+		S.Map(buf, { walk }, view({ fits = fits, c = false, clip = { 0, 0, 2, 1 } }))
+		r.view = list(buf)
+		S.Map(buf, { boat }, view({ fits = fits, c = false, clip = { 0, 0, 2, 1 } }))
+		r.boat = list(buf)
+		emit(r)`);
+	const maxX = (l) => Math.max(...l.map((s) => s.x));
+	assert.ok(out.map.length > 0 && maxX(out.map) <= 1000, 'no clip given: the map itself');
+	assert.ok(maxX(out.view) > 1500, `the view runs on past the map (to ${maxX(out.view)})`);
+	assert.ok(out.view.length > out.map.length);
+	assert.ok(out.boat.length > 0 && out.boat.every((s) => s.color === 'boat'), 'the crossing joins the continents');
+	assert.ok(maxX(out.boat) > 1100 && Math.min(...out.boat.map((s) => s.x)) < 950, 'from one continent to the other');
+});
+
+test('flow: the breadcrumbs move on along the walk with the phase, glints run along a ride, dim fades everything', () => {
+	const [out] = strokes(`
+		local buf = S.New()
+		local walk = path("walk", { { 100, 500 }, { 600, 500 } })
+		local ride = path("tram", { { 100, 700 }, { 600, 700 } })
+		local GLINT = { 1, 1, 1 }
+		local function dots(v)
+			S.Map(buf, { walk }, v)
+			local xs = {}
+			for _, s in ipairs(list(buf)) do if s.dot then xs[#xs + 1] = s.x end end
+			return xs
+		end
+		local r = { still = dots(view()), half = dots(view({ phase = 0.5 })) }
+		S.Map(buf, { ride }, view({ phase = 0.25, glint = GLINT }))
+		local glints, line = 0, 0
+		for i = 1, buf.n do
+			if buf.color[i] == GLINT then glints = glints + 1 elseif not buf.dot[i] then line = line + 1 end
+		end
+		r.glints, r.line = glints, line
+		S.Map(buf, { ride }, view())
+		r.plain = buf.n
+		S.Map(buf, { ride }, view({ dim = 0.35 }))
+		r.dimAlpha = buf.alpha[1]
+		emit(r)`);
+	assert.equal(out.still.length, out.half.length);
+	assert.ok(out.half.every((x, i) => Math.abs(x - out.still[i] - 4.5) < 1e-6), 'half a spacing (9 px) on, toward the walk\'s end');
+	assert.equal(out.line, 1, 'the ride is still one line');
+	assert.ok(out.glints >= 10, `${out.glints} glints along 500 px`);
+	assert.equal(out.plain, 1, 'no flow: no glints');
+	assert.ok(Math.abs(out.dimAlpha - 0.35) < 1e-9);
+});
+
 test('redrawing reuses the buffer: no table is allocated per draw', () => {
 	const [out] = strokes(`
 		local buf = S.New()
@@ -555,3 +610,105 @@ test('the committed FlightPaths.lua holds the real network\'s tracks (not a test
 	assert.ok(out.pairs > 200, `${out.pairs} tracks`);
 	assert.ok(out.stormwindToSentinel >= 6, 'Stormwind to Sentinel Hill has its bends');
 });
+
+test('labels: each leg says what it is and how far at its middle; off hides them', () => {
+	const [out] = painted(`
+		Polestar.Set("nav.travel", false)
+		nav.place(0, 0)
+		target(0, -600)
+		nav.showWorldMap(9000)
+		stub.advance(0.3)
+		local function tags()
+			local out = {}
+			for _, f in ipairs(worldPin() and worldPin().tags or {}) do
+				if f:IsShown() then out[#out + 1] = f.text:GetText() end
+			end
+			return out
+		end
+		local r = { on = tags() }
+		Polestar.Set("nav.lineLabels", false)
+		stub.advance(0.3)
+		r.off = tags()
+		emit(r)`);
+	assert.equal(out.on.length, 1);
+	assert.match(out.on[0], /yd/, out.on[0]);
+	assert.equal(Object.keys(out.off).length, 0, 'off: no tags');
+});
+
+test('steps ahead: the next steps\' goals join the route\'s end in a preview path, numbered by step', () => {
+	const [out] = painted(`
+		Polestar.Set("nav.travel", false)
+		nav.place(0, 0)
+		local goals = { [4] = { nav.mapPoint(0, -800) }, [5] = { nav.mapPoint(200, -800) }, [6] = {} }
+		Polestar.Engine = {
+			GetStepIndex = function() return 3 end,
+			GetStepCount = function() return 6 end,
+			GetStepView = function(i)
+				local g = goals[i]
+				if not (g and g[1]) then return { goals = {} } end
+				return { goals = { { map = g[1], x = g[2], y = g[3], status = "pending" } } }
+			end,
+		}
+		target(0, -600)
+		nav.showWorldMap(9000)
+		stub.advance(0.3)
+		local paths = R.GetPaths()
+		local last = paths[#paths]
+		local nums = {}
+		for _, f in ipairs(worldPin().tags or {}) do
+			if f:IsShown() and f.text:GetText():match("^%d+$") then nums[#nums + 1] = f.text:GetText() end
+		end
+		table.sort(nums)
+		local r = { kind = last.kind, n = last.n, later = last.later, nums = nums }
+		Polestar.Set("nav.stepPreview", false)
+		r.offKinds = {}
+		for _, p in ipairs(R.GetPaths()) do r.offKinds[#r.offKinds + 1] = p.kind end
+		emit(r)`);
+	assert.equal(out.kind, 'preview');
+	assert.equal(out.n, 3, 'the target, then steps 4 and 5 (6 has no place)');
+	assert.equal(out.later, true, 'faint');
+	assert.deepEqual(out.nums, ['4', '5']);
+	assert.ok(!out.offKinds.includes('preview'));
+});
+
+test('the travel network: known flights and rides this character may use, faint, on their own frame', () => {
+	const [out] = runAddon({
+		stubs: ['stub_nav.lua'],
+		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Nav/Nav.xml', 'Maps/FlightPaths.lua', 'Maps/RouteStrokes.lua', 'Maps/RouteLines.lua'] }],
+		login: true,
+		script: `
+local N, R, nav = Polestar.Nav, Polestar.RouteLines, stub.nav
+WorldMapFrame:GetCanvas():SetSize(1000, 1000)
+local function node(id, wx, wy, faction) return { id = id, c = 0, wx = wx, wy = wy, faction = faction } end
+local a, b, c, h = node(1, 0, 0, 3), node(2, 0, -600, 3), node(3, 400, -600, 3), node(4, 400, 0, 2)
+local data = {
+	taxi = { a, b, c, h }, taxiById = { [1] = a, [2] = b, [3] = c, [4] = h },
+	flights = { [1] = { 2, 60, 3, 90, 4, 50 }, [2] = { 1, 60 }, [3] = { 1, 90 }, [4] = { 1, 50 } },
+	transports = { { id = "t", kind = "boat", faction = 3, a = { c = 0, wx = -400, wy = 0 }, b = { c = 0, wx = -400, wy = -600 } } },
+}
+N.GetTravelData = function() return data end
+N.GetKnownTaxiNodes = function() return { [1] = true, [2] = true, [4] = true } end
+Polestar.Maps = {
+	Faction = function() return 1 end,
+	Allowed = function(mask, faction) return mask == 3 or (faction ~= 0 and mask == faction) end,
+	LayerOn = function(key) return Polestar.Get(key) and true or false end,
+}
+Polestar.Set("maps.travelNetwork", true)
+nav.showWorldMap(9000)
+stub.advance(0.3)
+local buf, paths = R.GetNetwork()
+local kinds = {}
+for _, p in ipairs(paths) do kinds[#kinds + 1] = p.kind end
+local maxAlpha = 0
+for i = 1, buf.n do if buf.alpha[i] > maxAlpha then maxAlpha = buf.alpha[i] end end
+local r = { kinds = kinds, strokes = buf.n, alpha = maxAlpha }
+Polestar.Set("maps.travelNetwork", false)
+r.off = #select(2, R.GetNetwork())
+emit(r)`,
+	}).emitted;
+	assert.deepEqual(out.kinds, ['flight', 'boat'], 'a-b only: c unknown, h the other faction\'s');
+	assert.ok(out.strokes > 0);
+	assert.ok(out.alpha <= 0.35 + 1e-9, 'faint');
+	assert.equal(out.off, 0);
+});
+

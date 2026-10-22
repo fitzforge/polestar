@@ -17,11 +17,15 @@ local L = ns.L
 
 local type, ipairs, lower, format = type, ipairs, string.lower, string.format
 
+-- Pins show the client's own icons, scaled (Media/UI/game-*.tga), untinted;
+-- the tram, which has none, is Polestar's drawing in a scheme colour.
 local KIND = {
-	boat = { label = L["Boat to %s"], color = "npc" },
-	zeppelin = { label = L["Zeppelin to %s"], color = "place" },
-	tram = { label = L["Deeprun Tram to %s"], color = "object" },
+	boat = { label = L["Boat to %s"], icon = "game-boat", size = 28 },
+	zeppelin = { label = L["Zeppelin to %s"], icon = "game-zeppelin", size = 28 },
+	tram = { label = L["Deeprun Tram to %s"], color = "object", icon = "map-tram", shine = "map-tram-shine", size = 24 },
 }
+local FLIGHT = { "game-flight-alliance", "game-flight-horde", "game-flight-neutral" } -- by node faction
+local WHITE, FADED = { 1, 1, 1, 1 }, { 1, 1, 1, 0.55 } -- undiscovered flight masters fade
 
 -- Names to show, in the client's language (Nav/Travel.lua: by area and node
 -- id), else the data's English.
@@ -121,11 +125,10 @@ function Maps.BuildTravelPins(o)
 	local data, faction, known = o.data, o.faction or 0, o.known or {}
 	local taxi, docks, inns = {}, {}, {}
 	if type(data) ~= "table" then return taxi, docks, inns end
-	local knownCol, unknownCol = color("success"), color("warning")
 	for _, node in ipairs(data.taxi or {}) do
 		if Maps.Allowed(node.faction, faction) then
 			local isKnown = known[node.id] and true or false
-			local p = pinAt(node, "icon-fly", isKnown and 14 or 15, isKnown and knownCol or unknownCol,
+			local p = pinAt(node, FLIGHT[node.faction] or FLIGHT[3], 24, isKnown and WHITE or FADED,
 				taxiTooltip(node, data, faction, known), isKnown and 2 or 3)
 			p.nodeID, p.known = node.id, isKnown
 			taxi[#taxi + 1] = p
@@ -133,11 +136,12 @@ function Maps.BuildTravelPins(o)
 	end
 	for _, t in ipairs(data.transports or {}) do
 		if Maps.Allowed(t.faction, faction) then
-			local col = color((KIND[t.kind] or KIND.boat).color)
-			local a = pinAt(t.a, "icon-boat", 15, col, dockTooltip(t, t.a, t.b, t.ab, t.waitB, t.waitA), 1)
-			a.transport, a.dest = t.id, t.b.name
-			local b = pinAt(t.b, "icon-boat", 15, col, dockTooltip(t, t.b, t.a, t.ba, t.waitA, t.waitB), 1)
-			b.transport, b.dest = t.id, t.a.name
+			local kind = KIND[t.kind] or KIND.boat
+			local col = kind.color and color(kind.color) or WHITE
+			local a = pinAt(t.a, kind.icon, kind.size, col, dockTooltip(t, t.a, t.b, t.ab, t.waitB, t.waitA), 1)
+			a.transport, a.dest, a.shine = t.id, t.b.name, kind.shine
+			local b = pinAt(t.b, kind.icon, kind.size, col, dockTooltip(t, t.b, t.a, t.ba, t.waitA, t.waitB), 1)
+			b.transport, b.dest, b.shine = t.id, t.a.name, kind.shine
 			docks[#docks + 1] = a
 			docks[#docks + 1] = b
 		end
@@ -150,7 +154,7 @@ function Maps.BuildTravelPins(o)
 				if lower(n) == bind then bound = true end
 			end
 		end
-		local p = pinAt(inn, "icon-hearth", bound and 14 or 12, color(bound and "success" or "quest"), innTooltip(inn, bound), bound and 2 or 0)
+		local p = pinAt(inn, "game-inn", bound and 22 or 18, WHITE, innTooltip(inn, bound), bound and 2 or 0)
 		p.glow, p.bound = bound or nil, bound
 		inns[#inns + 1] = p
 	end
@@ -182,7 +186,7 @@ function Maps.RefreshTravelPins()
 	}) }
 	local opts = { world = true, minimap = ns.Get("maps.travelMinimap") and true or false, edge = false }
 	for i, layer in ipairs(LAYERS) do
-		if ns.Get(layer.key) and #built[i] > 0 then
+		if Maps.LayerOn(layer.key) and #built[i] > 0 then
 			Pins.SetLayer(layer.name, built[i], opts)
 		else
 			Pins.ClearLayer(layer.name)
@@ -200,7 +204,8 @@ local function queue()
 	end
 end
 
-local WATCH = { ["maps.taxiPins"] = true, ["maps.dockPins"] = true, ["maps.innPins"] = true, ["maps.travelMinimap"] = true, ["maps"] = true, [""] = true }
+local WATCH = { ["maps.taxiPins"] = true, ["maps.dockPins"] = true, ["maps.innPins"] = true,
+	["maps.omTaxiPins"] = true, ["maps.omDockPins"] = true, ["maps.omInnPins"] = true, ["maps.travelMinimap"] = true, ["maps"] = true, [""] = true }
 
 ns.On("SETTING_CHANGED", function(path)
 	if WATCH[path] and ns.IsLoggedIn() then queue() end
