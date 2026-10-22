@@ -1,23 +1,27 @@
--- Home, the hub's first section (UI.RegisterSection, order 5, `bare`: no
--- sidebar, the page runs from the rail to the window's edge; the hub opens
+-- Home, the hub's first section (UI.RegisterSection, order 5; the hub opens
 -- here from the key binding until the player picks a section): your journey
--- at a glance, from data the other modules already keep.
+-- at a glance, from data the other modules already keep. It sits in the
+-- shell like every section: the sidebar keeps the lockup, the version and
+-- the Discord link, with the character panel between them.
 --
--- Header: the character's bust (their 3D model, head and shoulders, with the
--- faction's crest on its corner), then "<name>'s journey" and the character
--- ("Level 18 · Alliance Mage · Darkshore"). Footer: the wordmark and "A
--- community project", the version with its stage chip, the Discord link
--- (what the sidebar holds on the other sections).
+-- Header: "Home" at 32/32, what the page is for under it. The sidebar is the character's: their
+-- name, level, race and class, the way to the next level, and their talent
+-- plan, zone and gold.
 --
--- Body, scrolling, on cards: the guide to continue across the top (the
--- active tab's guide, else the suggestion: zone art, step, progress, the
--- next step; then Levels.ForGuide's estimate, the quests and kills left and
--- where it leads, and Continue), then three to a line:
+-- Body, scrolling, in blocks: each a heading and its hairline (the heading
+-- opens where the block leads): a tile, the thing's name, its facts and a
+-- button, as one row of the page. The
+-- guide to continue across the top (the active tab's guide, else the
+-- suggestion): its zone painting with the title and level range on it,
+-- Continue, the guide's progress along the painting's foot, then what is
+-- left (the next step, the quests and kills, where it leads,
+-- Levels.ForGuide's estimate). Then two to a
+-- line:
 --   Leveling build     the talent plan the player picked: class, spec, picks
 --                      taken, the next picks' spell icons, the next pick;
 --                      before level 10, when the first point comes. None
 --                      picked yet: the class's plans, a button each to pick
---   Dungeons           the first of Dungeons.ForYou with its entrance painted
+--   Dungeons           the first of Dungeons.ForYou, a button to its page
 --   Up next            where the guide leads (`next`, route choices)
 --   Class training     the guide's own class training step when one comes in
 --                      the next 15 steps, at the trainer it picked; else new
@@ -27,7 +31,7 @@
 --   upgrade            whose reward pick is an upgrade (UI.GearPick.PickFor:
 --                      ItemDB's reward choices ranked by the spec's weights)
 --   Rares nearby       the rares the Codex places in the player's zone
--- A card with nothing to say is left out and the rest close up.
+-- A block with nothing to say is left out and the rest close up.
 
 local ADDON, ns = ...
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
@@ -39,17 +43,16 @@ if not (W and W.SHELL and ZoneArt) then return end
 
 local SH = W.SHELL
 local DOT = "  \194\183  "
-local GAP = 12 -- between cards
-local EDGE = 16 -- the cards' inset in the page
-local CP = 16 -- inside a card
-local HEAD_H = 40 -- a card's heading row
-local HERO_H = 216
--- Every card under the hero is as tall as the tallest content (the build's
--- last line), so a line stays even when a card drops out and the rest close up.
-local CARD_H = 212
-local PER = 3 -- cards to a line under the hero
-local STATS_W = 340 -- the hero's stats column, right
-local ICON = 32 -- a talent icon
+-- The Dungeons section's grid: card grounds 12px outside the 32 text edge,
+-- 16px apart, two to a line.
+local EDGE = SH.pad - 12 -- a block's left edge in the page
+local GAP = 16 -- between blocks
+local IN = 12 -- a block's text edge, inside it (the page's 32 edge)
+local HEAD_H = 44 -- a block's heading row (W.SectionHeader's)
+local TOP = HEAD_H + 12 -- a block's content, under its heading
+local ART_H = 132 -- the hero's painting
+local PER = 2 -- blocks to a line under the hero
+local ICON = 32 -- a talent or spell icon
 local SIDE_LETTER = { Alliance = "A", Horde = "H" }
 local GEAR_AHEAD = 40 -- steps searched for a reward upgrade
 local TRAIN_AHEAD = 15 -- steps searched for the guide's class training
@@ -57,7 +60,7 @@ local TRAIN_AHEAD = 15 -- steps searched for the guide's class training
 local HV = {}
 UI.HomeSection = HV
 
-local root, hub, page, foot, crest, bust
+local root, hub, page
 local cards = {}
 local shown = {}
 
@@ -260,39 +263,36 @@ local function headClick(self)
 	if c.psOpen then c.psOpen(c) end
 end
 
--- A card: a panel with a heading row (accent glyph, title, chevron), the one
--- part of it that is a link: only it lights up on hover, and a click on it
--- opens where the card leads (c.psOpen(c)). The card's own buttons and icons
--- light up on their own; the rest of it is still.
-local function card(key, icon, title, onOpen)
+-- A block: a heading and its hairline (W.SectionHeader's make) with a
+-- chevron at its end, then what the block holds on the window ground. The
+-- heading is the block's link: only it lights up under the cursor, and a
+-- click on it opens where the block leads (c.psOpen(c)). The block's own
+-- cards, buttons and icons answer on their own; the rest of it is still.
+local function block(key, title, onOpen)
 	local c = CreateFrame("Frame", nil, page.Scroll.Child)
-	Theme.Skin(c, "panel")
 	c.psKey, c.psOpen = key, onOpen
 	local head = CreateFrame("Button", nil, c)
 	head:SetHeight(HEAD_H)
 	head:SetPoint("TOPLEFT", c, "TOPLEFT", 0, 0)
 	head:SetPoint("TOPRIGHT", c, "TOPRIGHT", 0, 0)
-	head.Glyph = W.Tex(head, "ARTWORK", icon, "accent")
-	head.Glyph:SetSize(16, 16)
-	head.Glyph:SetPoint("LEFT", head, "LEFT", CP, 0)
-	head.Text = W.Text(head, "heading", "text")
-	head.Text:SetText(title)
-	head.Text:SetPoint("LEFT", head.Glyph, "RIGHT", 8, 0)
-	head.Chevron = W.Tex(head, "ARTWORK", "chevron-right", "textMuted")
-	head.Chevron:SetSize(12, 12)
-	head.Chevron:SetPoint("RIGHT", head, "RIGHT", -CP, 0)
 	head.Hover = W.Tex(head, "BACKGROUND")
-	head.Hover:SetPoint("TOPLEFT", head, "TOPLEFT", 1, -1)
-	head.Hover:SetPoint("BOTTOMRIGHT", head, "BOTTOMRIGHT", -1, 0)
+	head.Hover:SetPoint("TOPLEFT", head, "TOPLEFT", 0, -6)
+	head.Hover:SetPoint("BOTTOMRIGHT", head, "BOTTOMRIGHT", 0, 2)
 	W.Painter(head.Hover, function(t) t:SetVertexColor(Theme.Wash("hover")) end)
 	head.Hover:Hide()
+	head.Text = W.Text(head, "heading", "text")
+	head.Text:SetText(title)
+	head.Text:SetPoint("BOTTOMLEFT", head, "BOTTOMLEFT", IN, 10)
+	head.Chevron = W.Tex(head, "ARTWORK", "chevron-right", "textMuted")
+	head.Chevron:SetSize(12, 12)
+	head.Chevron:SetPoint("BOTTOMRIGHT", head, "BOTTOMRIGHT", -IN, 11)
+	head.Rule = W.Divider(head)
+	head.Rule:SetPoint("LEFT", head.Text, "RIGHT", 12, 0)
+	head.Rule:SetPoint("RIGHT", head.Chevron, "LEFT", -8, 0)
 	head:SetScript("OnEnter", headEnter)
 	head:SetScript("OnLeave", headLeave)
 	head:SetScript("OnClick", headClick)
 	c.Head = head
-	c.Rule = W.Divider(c)
-	c.Rule:SetPoint("TOPLEFT", c, "TOPLEFT", CP, -HEAD_H)
-	c.Rule:SetPoint("TOPRIGHT", c, "TOPRIGHT", -CP, -HEAD_H)
 	cards[key] = c
 	return c
 end
@@ -301,204 +301,236 @@ local function line(c, role, color, y, x, right)
 	local fs = W.Text(c, role, color)
 	fs:SetJustifyH("LEFT")
 	fs:SetWordWrap(false)
-	fs:SetPoint("TOPLEFT", c, "TOPLEFT", x or CP, -y)
-	fs:SetPoint("RIGHT", c, "RIGHT", -(right or CP), 0)
+	fs:SetPoint("TOPLEFT", c, "TOPLEFT", x or IN, -y)
+	fs:SetPoint("RIGHT", c, "RIGHT", -(right or IN), 0)
 	return fs
 end
 
-local function footButton(c, text, onClick)
-	local b = W.Button(c, text, onClick, { height = 26 })
-	b:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", CP, CP)
-	b:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", -CP, CP)
+-- A button on the block's text edge, as wide as its label.
+local function action(c, text, y, onClick)
+	local b = W.Button(c, text, onClick)
+	b:SetPoint("TOPLEFT", c, "TOPLEFT", IN, -y)
 	return b
 end
 
--- One of the hero's stats: a glyph, a label over a value, and with `bar` a
--- progress line under it (placed by placeStats, the shown ones from the top).
-local function stat(c, icon, label, bar)
+local function iconTile(parent, size, tip)
+	local b = CreateFrame("Button", nil, parent)
+	b:SetSize(size, size)
+	Theme.Skin(b, "button")
+	b.Icon = b:CreateTexture(nil, "ARTWORK")
+	b.Icon:SetPoint("TOPLEFT", b, "TOPLEFT", 1, -1)
+	b.Icon:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -1, 1)
+	b.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	b:SetScript("OnEnter", iconEnter(tip))
+	b:SetScript("OnLeave", iconLeave)
+	return b
+end
+
+-- Names on a painting take the text-on-art shadow.
+local function onArt(fs)
+	W.Painter(fs, function(t)
+		local r, g, b = Theme.Color("shade")
+		t:SetShadowOffset(0, -1)
+		t:SetShadowColor(r, g, b, 0.85)
+	end)
+	return fs
+end
+
+-- One of the hero's facts: a glyph, a label over a value (placed by
+-- placeStats, the shown ones left to right).
+local function stat(c, icon, label)
 	local s = {}
-	if bar then s.Bar = W.ProgressLine(c, 2) end
-	s.Glyph = W.Tex(c, "ARTWORK", icon, "accent")
+	s.Glyph = W.Tex(c, "ARTWORK", icon, "textDim")
 	s.Glyph:SetSize(16, 16)
-	s.Label = W.Text(c, "small", "textDim")
+	s.Label = W.Text(c, "small", "textMuted")
 	s.Label:SetText(label)
 	s.Value = W.Text(c, "body", "text")
 	s.Value:SetWordWrap(false)
 	s.Value:SetJustifyH("LEFT")
+	s.Split = W.Divider(c, true)
 	return s
 end
 
-local function placeStats(c, list)
-	local y = HEAD_H + 12
+-- The facts in a row under the painting, each as wide as its label or value
+-- and 24px apart with a hairline between; the last takes what is left.
+local STAT_Y = ART_H + 3 + 16
+local STAT_H = 36
+local function placeStats(c, list, cardW)
+	local x, width = IN, cardW - IN * 2
+	local on = {}
 	for _, s in ipairs(list) do
-		if s.Value:IsShown() then
-			s.Glyph:ClearAllPoints()
-			s.Glyph:SetPoint("TOPLEFT", c, "TOPRIGHT", -STATS_W, -(y + 6))
-			s.Label:ClearAllPoints()
-			s.Label:SetPoint("TOPLEFT", c, "TOPRIGHT", -STATS_W + 28, -y)
-			s.Value:ClearAllPoints()
-			s.Value:SetPoint("TOPLEFT", c, "TOPRIGHT", -STATS_W + 28, -(y + 16))
-			s.Value:SetPoint("RIGHT", c, "RIGHT", -CP, 0)
-			if s.Bar then
-				s.Bar:ClearAllPoints()
-				s.Bar:SetPoint("TOPLEFT", c, "TOPRIGHT", -STATS_W + 28, -(y + 34))
-				s.Bar:SetPoint("RIGHT", c, "RIGHT", -CP, 0)
-				y = y + 6
-			end
-			y = y + 38
+		s.Split:Hide()
+		if s.Value:IsShown() then on[#on + 1] = s end
+	end
+	for i, s in ipairs(on) do
+		local w = max(s.Label:GetStringWidth(), s.Value:GetStringWidth()) + 24
+		if i == #on then w = max(40, IN + width - x) end
+		s.Glyph:ClearAllPoints()
+		s.Glyph:SetPoint("TOPLEFT", c, "TOPLEFT", x, -(STAT_Y + 1))
+		s.Label:ClearAllPoints()
+		s.Label:SetPoint("TOPLEFT", c, "TOPLEFT", x + 24, -STAT_Y)
+		s.Value:ClearAllPoints()
+		s.Value:SetPoint("TOPLEFT", c, "TOPLEFT", x + 24, -(STAT_Y + 17))
+		s.Value:SetWidth(max(16, w - 24))
+		x = x + w + 24
+		if i < #on then
+			s.Split:ClearAllPoints()
+			s.Split:SetPoint("TOPLEFT", c, "TOPLEFT", x - 12, -STAT_Y)
+			s.Split:SetHeight(STAT_H)
+			s.Split:Show()
 		end
 	end
 end
 
+-- A painted block: the zone's painting with the name in Display and a Small
+-- line on its fade and the block's button at its right, then a row of facts
+-- (stat) under it. On a card (the control ground with a hairline, the
+-- painting inset 1px), or with `bare` straight on the window ground, fading
+-- into it. The caller paints it (paintArt) and fills it.
+local function artCard(c, label, onClick, primary, bare)
+	local inset = bare and 0 or 1
+	local k = CreateFrame("Frame", nil, c)
+	k:SetHeight(STAT_Y + STAT_H + (bare and 4 or 14))
+	k:SetPoint("TOPLEFT", c, "TOPLEFT", 0, -TOP)
+	k:SetPoint("TOPRIGHT", c, "TOPRIGHT", 0, -TOP)
+	if not bare then Theme.Skin(k, "button") end
+	c.Card, c.psInset = k, inset
+	c.Art = ZoneArt.Create(k, 100, ART_H, bare and "bg" or "panelAlt")
+	c.Art:SetPoint("TOPLEFT", k, "TOPLEFT", inset, -inset)
+	if bare then c.Art.Rule:Hide() end
+	local over = c.Art.Over
+	c.Name = onArt(W.Text(over, "display", "text"))
+	c.Name:SetJustifyH("LEFT")
+	c.Name:SetWordWrap(false)
+	c.Name:SetPoint("BOTTOMLEFT", c.Art, "BOTTOMLEFT", IN - inset, 36)
+	c.Range = W.Chip(over)
+	c.Range:SetPoint("LEFT", c.Name, "RIGHT", 10, 0)
+	c.Range:Hide()
+	c.Step = onArt(W.Text(over, "small", "textDim"))
+	c.Step:SetJustifyH("LEFT")
+	c.Step:SetWordWrap(false)
+	c.Step:SetPoint("BOTTOMLEFT", c.Art, "BOTTOMLEFT", IN - inset, 16)
+	c.Go = W.Button(over, label, onClick, { primary = primary })
+	c.Go:SetPoint("BOTTOMRIGHT", c.Art, "BOTTOMRIGHT", -(IN - inset), 14)
+	c.Step:SetPoint("RIGHT", c.Go, "LEFT", -16, 0)
+	c.psH = TOP + k:GetHeight()
+	return k
+end
+
 local function buildCards()
 	-- The guide to continue.
-	local hero = card("hero", "icon-level", L["Continue leveling"], function(c) showGuide(c.psGuide and c.psGuide.id) end)
-	hero.Art = ZoneArt.Create(hero, 116, 112, "panel")
-	hero.Art:SetPoint("TOPLEFT", hero, "TOPLEFT", CP, -(HEAD_H + 12))
+	local hero = block("hero", L["Continue leveling"], function(c) showGuide(c.psGuide and c.psGuide.id) end)
+	local k = artCard(hero, L["Continue guide"], function() load(hero.psGuide, hero.psTab, hero.psIndex) end, true)
 	hero.Art.Rule:Hide()
-	local tx, right = CP + 116 + 20, STATS_W + 24
-	hero.Name = line(hero, "display", "text", HEAD_H + 16, tx, right)
-	hero.Step = line(hero, "small", "textDim", HEAD_H + 46, tx, right)
-	hero.Bar = W.ProgressLine(hero, 4)
-	hero.Bar:SetPoint("TOPLEFT", hero, "TOPLEFT", tx, -(HEAD_H + 68))
-	hero.Bar:SetPoint("RIGHT", hero, "RIGHT", -right, 0)
-	hero.Next = line(hero, "label", "text", HEAD_H + 86, tx, right)
-	hero.Split = W.Divider(hero, true)
-	hero.Split:SetPoint("TOPLEFT", hero, "TOPRIGHT", -(STATS_W + 12), -(HEAD_H + 12))
-	hero.Split:SetPoint("BOTTOMLEFT", hero, "BOTTOMRIGHT", -(STATS_W + 12), CP)
-	hero.Estimate = stat(hero, "icon-level", L["Estimated to finish"])
-	hero.Left = stat(hero, "icon-turnin", L["Remaining"])
-	hero.Then = stat(hero, "icon-goto", L["Then"])
-	hero.Level = stat(hero, "icon-skill", L["Next level"], true)
-	hero.Go = W.Button(hero, L["Continue guide"], function() load(hero.psGuide, hero.psTab, hero.psIndex) end, { primary = true, height = 28 })
-	hero.Go:SetPoint("BOTTOMLEFT", hero, "BOTTOMLEFT", tx, CP)
-	hero.Go:SetWidth(200)
+	-- The guide's progress, edge to edge along the painting's foot.
+	hero.Bar = W.ProgressLine(k, 3)
+	hero.Bar:SetPoint("TOPLEFT", k, "TOPLEFT", 1, -(ART_H + 1))
+	hero.Bar:SetPoint("TOPRIGHT", k, "TOPRIGHT", -1, -(ART_H + 1))
+	hero.Next = stat(k, "icon-note", L["Next step"])
+	hero.Left = stat(k, "icon-turnin", L["Remaining"])
+	hero.Then = stat(k, "icon-goto", L["Then"])
+	hero.Estimate = stat(k, "icon-level", L["Estimated to finish"])
 
 	-- Leveling build.
-	local build = card("build", "icon-learn", L["Leveling build"], function() if UI.TalentsSection then UI.TalentsSection.Show() end end)
+	local build = block("build", L["Leveling build"], function() if UI.TalentsSection then UI.TalentsSection.Show() end end)
 	build.Class = build:CreateTexture(nil, "ARTWORK")
-	build.Class:SetSize(40, 40)
-	build.Class:SetPoint("TOPLEFT", build, "TOPLEFT", CP, -(HEAD_H + 12))
-	build.Spec = line(build, "title", "text", HEAD_H + 14, CP + 52)
-	build.Picks = line(build, "small", "textDim", HEAD_H + 36, CP + 52)
-	build.Label = line(build, "small", "textMuted", HEAD_H + 64)
+	build.Class:SetSize(36, 36)
+	build.Class:SetPoint("TOPLEFT", build, "TOPLEFT", IN, -TOP)
+	build.Spec = line(build, "title", "text", TOP + 1, IN + 48)
+	build.Picks = line(build, "small", "textDim", TOP + 21, IN + 48)
+	build.Label = line(build, "small", "textMuted", TOP + 52)
 	build.Label:SetText(L["Next in your plan"])
 	build.Icons = {}
 	for i = 1, 6 do
-		local b = CreateFrame("Button", nil, build)
-		b:SetSize(ICON, ICON)
-		b:SetPoint("TOPLEFT", build, "TOPLEFT", CP + (i - 1) * (ICON + 6), -(HEAD_H + 82))
-		Theme.Skin(b, "button")
-		b.Icon = b:CreateTexture(nil, "ARTWORK")
-		b.Icon:SetPoint("TOPLEFT", b, "TOPLEFT", 1, -1)
-		b.Icon:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -1, 1)
-		b.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-		b:SetScript("OnEnter", iconEnter(spellTip))
-		b:SetScript("OnLeave", iconLeave)
+		local b = iconTile(build, ICON, spellTip)
+		b:SetPoint("TOPLEFT", build, "TOPLEFT", IN + (i - 1) * (ICON + 8), -(TOP + 70))
 		build.Icons[i] = b
 	end
-	build.Next = line(build, "label", "text", HEAD_H + 124)
-	build.When = line(build, "small", "textDim", HEAD_H + 142)
-	-- No plan picked yet: one button per plan for the class, to follow it.
-	build.Ask = line(build, "small", "textDim", HEAD_H + 36, CP + 52)
+	build.Next = line(build, "label", "text", TOP + 114)
+	build.When = line(build, "small", "textDim", TOP + 132)
+	-- No plan picked yet: a button per plan for the class, to follow it.
+	build.Ask = line(build, "small", "textDim", TOP + 21, IN + 48)
 	build.Ask:SetText(L["Polestar then names each point to spend."])
 	build.Choices = {}
 	for i = 1, 3 do
-		local b = W.Button(build, "", function(self)
+		build.Choices[i] = W.Button(build, "", function(self)
 			local T = ns.Talents
 			if T and T.Choose and self.psKey then T.Choose(self.psKey) end
-		end, { height = 26 })
-		b:SetPoint("BOTTOMLEFT", build, "BOTTOMLEFT", CP, CP + (3 - i) * 30)
-		b:SetPoint("BOTTOMRIGHT", build, "BOTTOMRIGHT", -CP, CP + (3 - i) * 30)
-		build.Choices[i] = b
+		end)
 	end
+	build.psH = TOP + 150
 
-	-- Dungeons for your level.
-	local dun = card("dungeons", "icon-dungeon", L["Dungeons for your level"], function()
+	-- Dungeons for your level: the first, its entrance painted bare on the
+	-- page, a button to its page.
+	local dun = block("dungeons", L["Dungeons for your level"], function()
 		local DS = UI.DungeonsSection
 		if DS then DS.Show(); DS.SetBand("level") end
 	end)
-	dun.Art = ZoneArt.Create(dun, 100, 72, "panel")
-	dun.Art:SetPoint("TOPLEFT", dun, "TOPLEFT", 1, -(HEAD_H + 1))
-	dun.Art:SetPoint("TOPRIGHT", dun, "TOPRIGHT", -1, -(HEAD_H + 1))
-	dun.Art.Rule:Hide()
-	dun.Name = line(dun, "title", "text", HEAD_H + 84)
-	dun.Facts = line(dun, "small", "textDim", HEAD_H + 106)
-	dun.Quests = line(dun, "small", "textDim", HEAD_H + 124)
-	dun.Count = line(dun, "small", "textMuted", HEAD_H + 142)
+	local dk = artCard(dun, L["Open dungeon"], function()
+		local DS = UI.DungeonsSection
+		if DS and DS.Open and dun.psDungeon then DS.Show(); DS.Open(dun.psDungeon) end
+	end, false, true)
+	dun.Count = dun.Step
+	dun.Levels = stat(dk, "icon-level", L["Levels"])
+	dun.Zone = stat(dk, "icon-goto", L["Zone"])
+	dun.Quests = stat(dk, "icon-turnin", L["Quests"])
 
-	-- Up next.
-	local nxt = card("next", "icon-goto", L["Up next"], function(c) showGuide(c.psGuide and c.psGuide.id) end)
-	nxt.Art = ZoneArt.Create(nxt, 56, 56, "panel")
-	nxt.Art:SetPoint("TOPLEFT", nxt, "TOPLEFT", CP, -(HEAD_H + 12))
-	nxt.Art.Rule:Hide()
-	nxt.Name = line(nxt, "title", "text", HEAD_H + 18, CP + 68)
-	nxt.Levels = line(nxt, "small", "textDim", HEAD_H + 40, CP + 68)
-	nxt.Quests = line(nxt, "small", "textDim", HEAD_H + 80)
-	nxt.Go = footButton(nxt, L["Preview route"], function() showGuide(nxt.psGuide and nxt.psGuide.id) end)
+	-- Up next: where the guide leads, its painting bare on the page, a button
+	-- that shows it in the guide list.
+	local nxt = block("next", L["Up next"], function(c) showGuide(c.psGuide and c.psGuide.id) end)
+	local nk = artCard(nxt, L["Preview route"], function() showGuide(nxt.psGuide and nxt.psGuide.id) end, false, true)
+	nxt.Levels = stat(nk, "icon-level", L["Levels"])
+	nxt.Quests = stat(nk, "icon-turnin", L["Quests"])
 
 	-- Class training.
-	local tr = card("trainer", "icon-train", L["Class training"], nil)
-	tr.Status = line(tr, "body", "text", HEAD_H + 14)
-	tr.Place = line(tr, "small", "textDim", HEAD_H + 36)
+	local tr = block("trainer", L["Class training"], nil)
+	tr.Status = line(tr, "body", "text", TOP)
+	tr.Place = line(tr, "small", "textDim", TOP + 20)
 	-- The spells waiting, as their icons (the game's tooltip on hover), and
 	-- their names under them.
 	tr.Icons = {}
 	for i = 1, 8 do
-		local b = CreateFrame("Button", nil, tr)
-		b:SetSize(ICON, ICON)
-		b:SetPoint("TOPLEFT", tr, "TOPLEFT", CP + (i - 1) * (ICON + 6), -(HEAD_H + 58))
-		Theme.Skin(b, "button")
-		b.Icon = b:CreateTexture(nil, "ARTWORK")
-		b.Icon:SetPoint("TOPLEFT", b, "TOPLEFT", 1, -1)
-		b.Icon:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -1, 1)
-		b.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-		b:SetScript("OnEnter", iconEnter(spellTip))
-		b:SetScript("OnLeave", iconLeave)
+		local b = iconTile(tr, ICON, spellTip)
+		b:SetPoint("TOPLEFT", tr, "TOPLEFT", IN + (i - 1) * (ICON + 8), -(TOP + 44))
 		tr.Icons[i] = b
 	end
-	tr.Spells = line(tr, "small", "textDim", HEAD_H + 96)
-	tr.Last = line(tr, "small", "textMuted", HEAD_H + 114)
-	tr.Go = footButton(tr, L["Guide me"], function()
+	tr.Spells = line(tr, "small", "textDim", TOP + 86)
+	tr.Last = line(tr, "small", "textMuted", TOP + 104)
+	tr.Go = action(tr, L["Guide me"], TOP + 126, function()
 		local t, nav = tr.psTrainer, ns.Nav
 		if t and t.map and t.x and nav and nav.SetTarget then
 			nav.SetTarget(t.map, t.x, t.y, t.npcName or L["Class trainer"], t.f, "trainer", t.z)
 		end
 	end)
 	tr.psOpen = function() tr.Go:Click() end
+	tr.psH = TOP + 154
 
 	-- The next quest reward that is an upgrade.
-	local gear = card("gear", "icon-use", L["Quest reward upgrade"], nil)
-	gear.Item = CreateFrame("Button", nil, gear)
-	gear.Item:SetSize(40, 40)
-	gear.Item:SetPoint("TOPLEFT", gear, "TOPLEFT", CP, -(HEAD_H + 12))
-	Theme.Skin(gear.Item, "button")
-	gear.Item.Icon = gear.Item:CreateTexture(nil, "ARTWORK")
-	gear.Item.Icon:SetPoint("TOPLEFT", gear.Item, "TOPLEFT", 1, -1)
-	gear.Item.Icon:SetPoint("BOTTOMRIGHT", gear.Item, "BOTTOMRIGHT", -1, 1)
-	gear.Item.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-	gear.Item:SetScript("OnEnter", iconEnter(itemTip))
-	gear.Item:SetScript("OnLeave", iconLeave)
-	gear.Name = line(gear, "body", "item", HEAD_H + 14, CP + 52)
-	gear.Gain = line(gear, "small", "success", HEAD_H + 34, CP + 52)
-	gear.From = line(gear, "small", "textDim", HEAD_H + 64)
-	gear.When = line(gear, "small", "textMuted", HEAD_H + 82)
-	gear.Go = footButton(gear, L["View in Lookup"], function()
+	local gear = block("gear", L["Quest reward upgrade"], nil)
+	gear.Item = iconTile(gear, 36, itemTip)
+	gear.Item:SetPoint("TOPLEFT", gear, "TOPLEFT", IN, -TOP)
+	gear.Name = line(gear, "body", "item", TOP + 1, IN + 48)
+	gear.Gain = line(gear, "small", "success", TOP + 21, IN + 48)
+	gear.From = line(gear, "small", "textDim", TOP + 52)
+	gear.When = line(gear, "small", "textMuted", TOP + 70)
+	gear.Go = action(gear, L["View in Lookup"], TOP + 94, function()
 		if gear.psItemId and UI.ShowLookup then UI.ShowLookup({ kind = "item", id = gear.psItemId }) end
 	end)
 	gear.psOpen = function() gear.Go:Click() end
+	gear.psH = TOP + 122
 
 	-- Rares in this zone.
-	local rares = card("rares", "icon-kill", L["Rares nearby"], function()
+	local rares = block("rares", L["Rares nearby"], function()
 		if ns.Rares and ns.Rares.Show then ns.Rares.Show() end
 	end)
-	rares.Name = line(rares, "body", "rare", HEAD_H + 14)
-	rares.Facts = line(rares, "small", "textDim", HEAD_H + 34)
-	rares.Count = line(rares, "small", "textMuted", HEAD_H + 54)
-	rares.Go = footButton(rares, L["Open Rares"], function()
+	rares.Name = line(rares, "body", "rare", TOP)
+	rares.Facts = line(rares, "small", "textDim", TOP + 20)
+	rares.Count = line(rares, "small", "textMuted", TOP + 38)
+	rares.Go = action(rares, L["Open Rares"], TOP + 62, function()
 		local R = ns.Rares
 		if R and R.Show then R.Show(rares.psRare and "rare", rares.psRare) end
 	end)
+	rares.psH = TOP + 90
 end
 
 ---------------------------------------------------------------------------
@@ -513,42 +545,65 @@ local function setStat(s, value, color)
 	s.Label:SetShown(on)
 	s.Value:SetShown(on)
 	if s.Bar then s.Bar:SetShown(on) end
+	if s.Split and not on then s.Split:Hide() end
 end
 
 -- The character's way to the next level: share of the level done, about how
 -- many of the guide's quests are left to it (its average quest XP, from
--- Levels.ForGuide), and rested XP. -> text, fraction | nil at the level cap.
+-- Levels.ForGuide), and rested XP. -> share text, the rest, fraction | nil
+-- at the level cap.
 local function levelText(xp)
 	local info = playerInfo()
 	local cur, need = tonumber(info.xp) or 0, tonumber(info.xpMax) or 0
 	if need <= 0 or not info.level then return nil end
 	local frac = min(1, cur / need)
-	local parts = { format(L["%d%% to %d"], floor(frac * 100), info.level + 1) }
+	local share = format(L["%d%% to %d"], floor(frac * 100), info.level + 1)
+	local parts = {}
 	if xp and (xp.quests or 0) > 0 and (xp.questXP or 0) > 0 then
 		local n = math.ceil((need - cur) / (xp.questXP / xp.quests))
 		parts[#parts + 1] = n == 1 and L["about 1 quest"] or format(L["about %d quests"], n)
 	end
 	local rested = GetXPExhaustion and tonumber(GetXPExhaustion())
 	if rested and rested > 0 then parts[#parts + 1] = format(L["%s rested"], thousands(rested)) end
-	return table.concat(parts, DOT), frac
+	return share, table.concat(parts, DOT), frac
+end
+
+-- A painting as wide as its card, painted again when the place or the width
+-- changes.
+local function paintArt(c, art, key, uiMapID, x, y, index)
+	local w = c:GetWidth() - (c.psInset or 1) * 2
+	local mark = tostring(key) .. "@" .. w
+	if c.psPainted == mark then return end
+	art:SetWidth(w)
+	art.psW = w
+	c.psArt = ZoneArt.Paint(art, uiMapID, x, y, index)
+	c.psPainted = mark
 end
 
 local function fillHero(c, g, t, index, byId)
 	c.psGuide, c.psTab, c.psIndex = g, t, index
 	if not g then
 		c.Name:SetText(L["No guide yet"])
+		c.Range:Hide()
 		c.Step:SetText(L["Pick a guide to start your journey."])
-		c.Next:SetText("")
-		c.Bar:Hide()
-		for _, s in ipairs({ c.Estimate, c.Left, c.Then, c.Level }) do setStat(s, nil) end
-		ZoneArt.Paint(c.Art, nil, nil, nil, 1)
+		W.SetProgress(c.Bar, 0)
+		for _, s in ipairs({ c.Next, c.Left, c.Then, c.Estimate }) do setStat(s, nil) end
+		placeStats(c.Card, { c.Next, c.Left, c.Then, c.Estimate }, c:GetWidth())
+		paintArt(c, c.Art, "none", nil, nil, nil, 1)
 		W.SetButtonText(c.Go, L["Choose a guide"])
 		c.Go:SetScript("OnClick", function() showGuide(nil) end)
 		return true
 	end
 	c.Go:SetScript("OnClick", function() load(c.psGuide, c.psTab, c.psIndex) end)
-	local range = rangeText(g.minLevel, g.maxLevel)
-	c.Name:SetText((g.title or g.id) .. (range ~= "" and ("  |c" .. Theme.Hex("textMuted") .. range .. "|r") or ""))
+	c.Name:SetText(g.title or g.id)
+	-- The level range: the fact that decides the guide, on an accent chip.
+	local range = UI.LevelRange(g.minLevel, g.maxLevel)
+	if range then
+		W.SetChip(c.Range, range, "accent")
+		c.Range:Show()
+	else
+		c.Range:Hide()
+	end
 	local total = t and (t.total or t.stepCount) or 0
 	local frac = (t and total > 0) and (t.done or 0) / total or 0
 	if t and t.complete then
@@ -558,22 +613,13 @@ local function fillHero(c, g, t, index, byId)
 	else
 		c.Step:SetText(L["Not started"])
 	end
-	c.Bar:Show()
-	W.SetProgress(c.Bar, frac, c:GetWidth() - (CP + 116 + 20) - (STATS_W + 24))
-	local nextTitle = t and nextStepTitle(g, t, index)
-	c.Next:SetText(nextTitle and ("|c" .. Theme.Hex("accent") .. L["Next:"] .. "|r  " .. nextTitle) or "")
+	W.SetProgress(c.Bar, frac, c:GetWidth() - 2)
 	W.SetButtonText(c.Go, t and L["Continue guide"] or L["Load guide"])
-	if c.psPainted ~= g.id then
-		c.psArt = ZoneArt.Paint(c.Art, g.zone, nil, nil, 1)
-		c.psPainted = g.id
-	end
-	-- The stats: what is left of the guide for this character.
+	paintArt(c, c.Art, g.id, g.zone, nil, nil, 1)
+	-- The facts: what is left of the guide for this character.
+	setStat(c.Next, t and nextStepTitle(g, t, index) or nil)
 	local xp = guideXP(g.id)
-	if xp and not xp.maxed and (xp.xp or 0) > 0 then
-		setStat(c.Estimate, format(L["+%.1f levels (%s XP)"], xp.levels or 0, thousands(xp.xp)), "accent")
-	else
-		setStat(c.Estimate, nil)
-	end
+	c.psXP = xp
 	if xp then
 		-- Quests with no XP known still have to be done.
 		local q = (xp.quests or 0) + (xp.unknown or 0)
@@ -586,10 +632,12 @@ local function fillHero(c, g, t, index, byId)
 	end
 	local n = nextGuide(g, byId)
 	setStat(c.Then, n and ((n.title or n.id) .. " " .. rangeText(n.minLevel, n.maxLevel)) or nil)
-	local lv, frac = levelText(xp)
-	setStat(c.Level, lv)
-	if lv then W.SetProgress(c.Level.Bar, frac, STATS_W - 28 - CP) end
-	placeStats(c, { c.Estimate, c.Left, c.Then, c.Level })
+	if xp and not xp.maxed and (xp.xp or 0) > 0 then
+		setStat(c.Estimate, format(L["+%.1f levels (%s XP)"], xp.levels or 0, thousands(xp.xp)))
+	else
+		setStat(c.Estimate, nil)
+	end
+	placeStats(c.Card, { c.Next, c.Left, c.Then, c.Estimate }, c:GetWidth())
 	return true
 end
 
@@ -612,14 +660,17 @@ local function fillChoice(c, T)
 	showPicked(c, false)
 	c.Class:SetShown(classIcon(c.Class, playerInfo().class))
 	c.Spec:SetText(L["Pick a leveling build"])
-	local n = min(#data.builds, #c.Choices)
-	-- The buttons stand at the card's foot, the first of n at the top.
+	-- The buttons in a row on the text edge, under the ask.
+	local x = IN
 	for i, b in ipairs(c.Choices) do
-		local plan = data.builds[i - (#c.Choices - n)]
+		local plan = data.builds[i]
 		if plan then
 			b.psKey = plan.key
 			W.SetButtonText(b, plan.specName or plan.key)
 			b.psTip = plan.split and format(L["%s plan (%s)"], plan.specName or plan.key, plan.split) or nil
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", c, "TOPLEFT", x, -(TOP + 52))
+			x = x + b:GetWidth() + 8
 			b:Show()
 		else
 			b:Hide()
@@ -642,7 +693,7 @@ local function fillBuild(c)
 	c.Picks:SetText(format(L["%d of %d picks taken"], s.done, s.total))
 	-- The next distinct talents of the plan, from the first not met.
 	local picks, seen, n, first = cur.build.picks or {}, {}, 0, nil
-	local room = floor((c:GetWidth() - CP * 2 + 6) / (ICON + 6))
+	local room = floor((c:GetWidth() - IN * 2 + 8) / (ICON + 8))
 	for i, p in ipairs(picks) do
 		if n >= min(room, #c.Icons) then break end
 		if i > s.done and not seen[p.node] then
@@ -666,7 +717,7 @@ local function fillBuild(c)
 	if s.status == "complete" then
 		c.Next:SetText(L["Talent plan complete"])
 	elseif s.next then
-		c.Next:SetText("|c" .. Theme.Hex("accent") .. L["Next talent:"] .. "|r  " .. T.PickText(cur.data, s.next, cur.valid))
+		c.Next:SetText("|c" .. Theme.Hex("textDim") .. L["Next talent:"] .. "|r  " .. T.PickText(cur.data, s.next, cur.valid))
 		if s.status == "early" then
 			-- No point yet: say when the first one comes.
 			c.When:SetText(format(L["Your first talent point comes at level %d"], T.FIRST_LEVEL or 10))
@@ -683,27 +734,30 @@ local function fillBuild(c)
 	return true
 end
 
+-- The name sits over the Small line on a painting, or in its place when
+-- there is none.
+local function placeName(c)
+	local sub = (c.Step:GetText() or "") ~= ""
+	c.Name:SetPoint("BOTTOMLEFT", c.Art, "BOTTOMLEFT", IN - c.psInset, sub and 36 or 20)
+end
+
 local function fillDungeons(c)
 	local DS = UI.DungeonsSection
 	local list = DS and DS.ForYou and DS.ForYou() or {}
 	local d = list[1]
 	if not d then return false end
+	c.psDungeon = d.key
 	c.Name:SetText(d.name)
-	local facts = {}
-	local lv = UI.LevelRange(d.minLevel, d.maxLevel)
-	if lv then facts[#facts + 1] = lv end
-	if d.zoneName then facts[#facts + 1] = d.zoneName end
-	c.Facts:SetText(table.concat(facts, DOT))
+	c.Count:SetText(#list == 1 and L["1 dungeon for your level"] or format(L["%d dungeons for your level"], #list))
+	placeName(c)
+	setStat(c.Levels, UI.LevelRange(d.minLevel, d.maxLevel))
+	setStat(c.Zone, d.zoneName)
 	local q = d.quests or {}
 	local nq = q[SIDE_LETTER[UI.PlayerFaction() or ""] or ""] or max(q.A or 0, q.H or 0)
-	c.Quests:SetText(nq == 1 and L["1 quest"] or format(L["%d quests"], nq))
-	c.Count:SetText(#list == 1 and L["1 dungeon for your level"] or format(L["%d dungeons for your level"], #list))
-	if c.psPainted ~= d.key then
-		local e = d.entrance
-		c.Art.psW = c:GetWidth() - 2
-		c.psArt = ZoneArt.Paint(c.Art, e and e.map or d.zone, e and e.x, e and e.y, 2)
-		c.psPainted = d.key
-	end
+	setStat(c.Quests, nq == 1 and L["1 quest"] or format(L["%d quests"], nq))
+	placeStats(c.Card, { c.Levels, c.Zone, c.Quests }, c:GetWidth())
+	local e = d.entrance
+	paintArt(c, c.Art, d.key, e and e.map or d.zone, e and e.x, e and e.y, 2)
 	return true
 end
 
@@ -712,15 +766,14 @@ local function fillNext(c, g, byId)
 	local n, choice = nextGuide(g, byId)
 	if not n then return false end
 	c.psGuide = n
-	c.Name:SetText(choice and format(L["%s or another route"], n.title or n.id) or (n.title or n.id))
-	local lv = UI.LevelRange(n.minLevel, n.maxLevel)
-	c.Levels:SetText(lv and format(L["Levels %s"], lv) or "")
+	c.Name:SetText(n.title or n.id)
+	c.Step:SetText(choice and L["One of the routes on from here"] or "")
+	placeName(c)
+	setStat(c.Levels, UI.LevelRange(n.minLevel, n.maxLevel))
 	local q = guideQuests(n)
-	c.Quests:SetText(q == 0 and "" or q == 1 and L["1 quest planned"] or format(L["%d quests planned"], q))
-	if c.psPainted ~= n.id then
-		c.psArt = ZoneArt.Paint(c.Art, n.zone, nil, nil, 3)
-		c.psPainted = n.id
-	end
+	setStat(c.Quests, q > 0 and (q == 1 and L["1 quest planned"] or format(L["%d quests planned"], q)) or nil)
+	placeStats(c.Card, { c.Levels, c.Quests }, c:GetWidth())
+	paintArt(c, c.Art, n.id, n.zone, nil, nil, 3)
 	return true
 end
 
@@ -837,7 +890,7 @@ local function fillTrainer(c)
 	local zone = t.map and UI.MapName(t.map) or nil
 	c.Place:SetText(t.npcName and zone and (t.npcName .. ", " .. zone) or t.npcName or zone or "")
 	-- The spells: as many icons as fit, the names of the first few.
-	local room = min(#c.Icons, floor((c:GetWidth() - CP * 2 + 6) / (ICON + 6)))
+	local room = min(#c.Icons, floor((c:GetWidth() - IN * 2 + 8) / (ICON + 8)))
 	local names = {}
 	for i, b in ipairs(c.Icons) do
 		local id = spells and spells[i]
@@ -931,137 +984,191 @@ local function fillRares(c)
 end
 
 ---------------------------------------------------------------------------
--- Header and footer
+-- Header and the character panel
 ---------------------------------------------------------------------------
 
-local CREST = { Alliance = "Interface\\Timer\\Alliance-Logo", Horde = "Interface\\Timer\\Horde-Logo" }
-local BUST = 76 -- the character's portrait frame left of the title
-local BUST_GAP = 18 -- between the frame and the title
-local BUST_FACING = -0.4 -- turned a little toward the title: three-quarter view
-local BUST_ZOOM = 0.85 -- head and shoulders (1 is the face alone, lower pulls back to the whole body)
+-- The sidebar on Home is the character's, not an index: under the lockup,
+-- from where the navigation starts on other sections (level with the rail's
+-- first section), their name and who they are, the way to the next level,
+-- then a few facts as rows (the talent plan, where they are, their gold),
+-- and under "Time" the XP tracker's clock (QoL.GetXPStats: this session,
+-- this level, the pace and the time to level; gone while the tracker is
+-- off), kept current every 15 seconds while it shows. Nothing in it is a
+-- control.
+local NAME_Y = 8 -- the name, a little under that line
+local FACT_H = 32
+local TICK = 15 -- seconds between the clock's updates while Home shows
 
-local function placeHeader(on)
-	if not hub then return end
-	hub.Title:SetPoint("TOPLEFT", hub.Header, "TOPLEFT", SH.pad + (on and (BUST + BUST_GAP) or 0), -32)
-	if bust then bust.Frame:SetShown(on) end
-	if crest then crest:SetShown(on) end
+local panel
+
+local tick
+local function showPanel(on)
+	if panel then panel:SetShown(on) end
+	tick(on)
 end
 
--- The character as the game draws them, head and shoulders in their gear (a
--- PlayerModel at portrait zoom), in a portrait frame: a panel with a border,
--- so the model's square edge is the frame's and never cuts the art on the
--- band. The flat portrait where a model cannot be made. A model forgets its
--- unit while hidden, so it is set again each time it shows.
-local function paintBust()
-	if not bust then return end
-	if bust.psFlat then
-		if SetPortraitTexture then SetPortraitTexture(bust.Tex, "player") end
-		return
+local function fact(y, label)
+	local r = {}
+	r.Label = W.Text(panel, "small", "textDim")
+	r.Label:SetText(label)
+	r.Label:SetPoint("LEFT", panel, "TOPLEFT", 0, -(y + FACT_H / 2))
+	r.Value = W.Text(panel, "label", "text")
+	r.Value:SetJustifyH("RIGHT")
+	r.Value:SetWordWrap(false)
+	r.Value:SetPoint("RIGHT", panel, "TOPRIGHT", 0, -(y + FACT_H / 2))
+	r.Value:SetPoint("LEFT", r.Label, "RIGHT", 12, 0)
+	r.Rule = W.Divider(panel)
+	r.Rule:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -(y + FACT_H))
+	r.Rule:SetPoint("TOPRIGHT", panel, "TOPRIGHT", 0, -(y + FACT_H))
+	return r
+end
+
+local function buildPanel()
+	local side = hub.Sidebar
+	panel = CreateFrame("Frame", nil, side)
+	panel:SetPoint("TOPLEFT", side, "TOPLEFT", SH.side, -(hub.psNavTop or SH.header + 12))
+	panel:SetPoint("BOTTOMRIGHT", side, "BOTTOMRIGHT", -SH.side, SH.footer)
+	local y = NAME_Y
+	panel.Name = W.Text(panel, "title", "text")
+	panel.Name:SetJustifyH("LEFT")
+	panel.Name:SetWordWrap(false)
+	panel.Name:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -y)
+	panel.Name:SetPoint("RIGHT", panel, "RIGHT", 0, 0)
+	panel.Who = W.Text(panel, "small", "textDim")
+	panel.Who:SetJustifyH("LEFT")
+	panel.Who:SetWordWrap(false)
+	panel.Who:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -(y + 22))
+	panel.Who:SetPoint("RIGHT", panel, "RIGHT", 0, 0)
+	-- The way to the next level: its share over a progress line, the rest
+	-- (quests to it, rested XP) under it.
+	y = y + 52
+	local lv = {}
+	lv.Label = W.Text(panel, "small", "textMuted")
+	lv.Label:SetText(L["Next level"])
+	lv.Label:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -y)
+	lv.Value = W.Text(panel, "number", "text")
+	lv.Value:SetJustifyH("RIGHT")
+	lv.Value:SetPoint("TOPRIGHT", panel, "TOPRIGHT", 0, -y)
+	lv.Bar = W.ProgressLine(panel, 2)
+	lv.Bar:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -(y + 20))
+	lv.Bar:SetPoint("TOPRIGHT", panel, "TOPRIGHT", 0, -(y + 20))
+	lv.Note = W.Text(panel, "small", "textDim")
+	lv.Note:SetJustifyH("LEFT")
+	lv.Note:SetWordWrap(false)
+	lv.Note:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -(y + 30))
+	lv.Note:SetPoint("RIGHT", panel, "RIGHT", 0, 0)
+	panel.Level = lv
+	y = y + 56
+	panel.Plan = fact(y, L["Talent plan"])
+	panel.Zone = fact(y + FACT_H, L["Zone"])
+	W.Color(panel.Zone.Value, "place")
+	panel.Gold = fact(y + FACT_H * 2, L["Gold"])
+	panel.TimeHead = W.Text(panel, "small", "textMuted")
+	panel.TimeHead:SetText(L["Time"])
+	panel.Session = fact(0, L["This session"])
+	panel.ThisLevel = fact(0, L["This level"])
+	panel.Rate = fact(0, L["XP per hour"])
+	panel.ToLevel = fact(0, L["Time to level"])
+	panel.Times = { panel.Session, panel.ThisLevel, panel.Rate, panel.ToLevel }
+end
+
+-- Facts in rows from y down; one with nothing to say is left out and the
+-- rest close up. -> the line under the last
+local function placeFacts(list, y)
+	for _, r in ipairs(list) do
+		local on = (r.Value:GetText() or "") ~= ""
+		r.Label:SetShown(on)
+		r.Value:SetShown(on)
+		r.Rule:SetShown(on)
+		r.Label:SetPoint("LEFT", panel, "TOPLEFT", 0, -(y + FACT_H / 2))
+		r.Value:SetPoint("RIGHT", panel, "TOPRIGHT", 0, -(y + FACT_H / 2))
+		r.Rule:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -(y + FACT_H))
+		r.Rule:SetPoint("TOPRIGHT", panel, "TOPRIGHT", 0, -(y + FACT_H))
+		if on then y = y + FACT_H end
 	end
-	bust:ClearModel()
-	bust:SetUnit("player")
-	bust:SetPortraitZoom(BUST_ZOOM)
-	bust:SetFacing(BUST_FACING)
+	return y
 end
 
-local function buildBust()
-	local frame = CreateFrame("Frame", nil, hub.Header)
-	frame:SetSize(BUST, BUST)
-	-- Centred on the title and subtitle's block.
-	frame:SetPoint("TOPLEFT", hub.Header, "TOPLEFT", SH.pad, -(112 - BUST) / 2)
-	Theme.Skin(frame, "panel")
-	Theme.Border(frame, Theme.Color("border"))
-	local ok, m = pcall(CreateFrame, "PlayerModel", nil, frame)
-	if ok and m and m.SetUnit then
-		bust = m
-		bust:SetScript("OnShow", paintBust)
-	else
-		bust = CreateFrame("Frame", nil, frame)
-		bust.psFlat = true
-		bust.Tex = bust:CreateTexture(nil, "ARTWORK")
-		bust.Tex:SetAllPoints(bust)
+-- The clock, from the XP tracker: this session and this level, then the
+-- pace and the time to level once there is one. Nothing at the level cap
+-- but the session.
+local function fillTime()
+	for _, r in ipairs(panel.Times) do r.Value:SetText("") end
+	local QoL = ns.QoL
+	local st = QoL and QoL.GetXPStats and QoL.GetXPStats()
+	if not (st and QoL.Duration) then return end
+	panel.Session.Value:SetText(QoL.Duration(st.sessionSeconds))
+	if st.maxed then return end
+	panel.ThisLevel.Value:SetText(QoL.Duration(st.levelSeconds))
+	if (st.rate or 0) > 0 and st.timeToLevel then
+		local short = QoL.XP and QoL.XP.Short
+		panel.Rate.Value:SetText(format(L["%s XP/h"], short and short(st.rate) or thousands(st.rate)))
+		panel.ToLevel.Value:SetText(QoL.Duration(st.timeToLevel))
 	end
-	bust.Frame = frame
-	bust:SetPoint("TOPLEFT", frame, "TOPLEFT", 1, -1)
-	bust:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -1, 1)
-	-- The faction's crest on the frame's lower corner, half outside it, clear
-	-- of the face.
-	local badge = CreateFrame("Frame", nil, frame)
-	badge:SetSize(26, 26)
-	badge:SetPoint("CENTER", frame, "BOTTOMRIGHT", -2, 2)
-	badge:SetFrameLevel(bust:GetFrameLevel() + 2)
-	crest = badge:CreateTexture(nil, "OVERLAY")
-	crest:SetAllPoints(badge)
-	paintBust()
 end
 
-local function renderHeader()
+local function layoutPanel()
+	local y = placeFacts({ panel.Plan, panel.Zone, panel.Gold }, panel.psFactsY or 0)
+	fillTime()
+	local any = false
+	for _, r in ipairs(panel.Times) do
+		if (r.Value:GetText() or "") ~= "" then any = true end
+	end
+	panel.TimeHead:SetShown(any)
+	panel.TimeHead:ClearAllPoints()
+	panel.TimeHead:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -(y + 20))
+	placeFacts(panel.Times, any and y + 34 or y)
+end
+
+-- The clock ticks only while Home shows.
+local ticker
+function tick(on)
+	if ticker then ticker:Cancel() ticker = nil end
+	if on and C_Timer and C_Timer.NewTicker then
+		ticker = C_Timer.NewTicker(TICK, function() if panel and panel:IsVisible() then layoutPanel() end end)
+	end
+end
+
+local function renderPanel(xp)
+	if not panel then buildPanel() end
 	local info = playerInfo()
-	local parts = {}
-	if info.level then parts[#parts + 1] = format(L["Level %d"], info.level) end
+	panel.Name:SetText(type(info.name) == "string" and info.name or "")
 	local who = {}
-	if info.faction and info.faction ~= "Neutral" then who[#who + 1] = ns.FactionName(info.faction) end
+	if info.level then who[#who + 1] = format(L["Level %d"], info.level) end
+	local race = UnitRace and UnitRace("player") -- its name, as the game shows it
+	if type(race) == "string" and race ~= "" then who[#who + 1] = race end
 	if info.class then who[#who + 1] = UI.ClassName(info.class) end
-	if #who > 0 then parts[#parts + 1] = table.concat(who, " ") end
+	panel.Who:SetText(table.concat(who, " "))
+	-- At the level cap the next level's lines go and the facts move up.
+	local lv = panel.Level
+	local share, rest, frac = levelText(xp)
+	for _, r in ipairs({ lv.Label, lv.Value, lv.Bar, lv.Note }) do r:SetShown(share ~= nil) end
+	if share then
+		lv.Value:SetText(share)
+		lv.Note:SetText(rest)
+		W.SetProgress(lv.Bar, frac, (hub.psSidebar or SH.sidebar) - SH.side * 2)
+	end
+	-- The facts: the talent plan followed, where the character is, their gold.
+	local T = ns.Talents
+	local plan
+	if T and T.Choice and T.Choice() ~= "auto" and T.Current then
+		local ok, cur = pcall(T.Current)
+		plan = ok and cur and cur.build and cur.build.specName or nil
+	end
+	panel.Plan.Value:SetText(plan or L["None yet"])
+	W.Color(panel.Plan.Value, plan and "text" or "textMuted")
 	local here = ns.PlayerPoint and ns.PlayerPoint()
-	local zone = here and UI.MapName(here.map)
-	if zone then parts[#parts + 1] = zone end
-	-- "Thalindra's journey"; "Your journey" while the name cannot be read.
-	local name = type(info.name) == "string" and info.name ~= "" and info.name or nil
-	W.ShellTitle(hub, name and format(L["%s's journey"], name) or L["Your journey"], table.concat(parts, DOT))
-	if not bust then buildBust() end
-	local file = CREST[info.faction or ""]
-	if file then
-		crest:SetTexture(file)
-		crest:SetTexCoord(0, 1, 0, 1)
-		crest:SetVertexColor(1, 1, 1, 1)
-	else
-		crest:SetTexture(Theme.Media("emblem"))
-		W.Color(crest, "accent")
-	end
-	placeHeader(true)
+	panel.Zone.Value:SetText(here and UI.MapName(here.map) or "")
+	local copper = GetMoney and tonumber(GetMoney())
+	panel.Gold.Value:SetText(copper and ns.MoneyText and ns.MoneyText(copper) or "")
+	panel.psFactsY = NAME_Y + (share and 108 or 52)
+	layoutPanel()
+	showPanel(true)
 end
 
--- The footer bar: the brand on the left, version and Discord on the right.
--- The wordmark's ink starts 2px into its box and fills rows 7-24 of its 32
--- (as in the sidebar's lockup).
-local function buildFooter()
-	foot = CreateFrame("Frame", nil, root)
-	foot:SetHeight(SH.footer)
-	foot:SetPoint("BOTTOMLEFT", root, "BOTTOMLEFT", 0, 0)
-	foot:SetPoint("BOTTOMRIGHT", root, "BOTTOMRIGHT", 0, 0)
-	W.Fill(foot, "footer")
-	local rule = W.Divider(foot)
-	rule:SetPoint("TOPLEFT", foot, "TOPLEFT", 0, 0)
-	rule:SetPoint("TOPRIGHT", foot, "TOPRIGHT", 0, 0)
-	foot.Wordmark = W.Tex(foot, "ARTWORK", "wordmark-small", "text")
-	foot.Wordmark:SetSize(256, 32)
-	foot.Wordmark:SetPoint("TOPLEFT", foot, "TOPLEFT", SH.pad - 2, -3)
-	foot.Tagline = W.Text(foot, "small", "textDim")
-	foot.Tagline:SetText(L["A community project"])
-	foot.Tagline:SetPoint("TOPLEFT", foot, "TOPLEFT", SH.pad, -32)
-	foot.Discord = W.IconButton(foot, "discord", 28, nil, function() if UI.ShowDiscord then UI.ShowDiscord() end end, 20)
-	W.Color(foot.Discord.Icon, "discord")
-	foot.Discord:SetScript("OnEnter", function(self)
-		W.Tooltip(self, "ANCHOR_LEFT", L["Polestar on Discord"], { L["Report problems, ask for help and hear about new guides first."] })
-	end)
-	foot.Discord:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
-	foot.Discord:SetPoint("RIGHT", foot, "RIGHT", -(SH.pad - 6), 0)
-	foot.Stage = W.Chip(foot)
-	foot.Stage:SetPoint("RIGHT", foot.Discord, "LEFT", -12, 0)
-	foot.Version = W.Text(foot, "small", "textMuted")
-	foot.Version:SetJustifyH("RIGHT")
-end
-
-local function renderFooter()
-	foot.Version:SetText(L["Version"] .. " " .. tostring(ns.version or "dev"))
-	local w = W.SetStageChip(foot.Stage)
-	foot.Version:ClearAllPoints()
-	if w > 0 then
-		foot.Version:SetPoint("RIGHT", foot.Stage, "LEFT", -8, 0)
-	else
-		foot.Version:SetPoint("RIGHT", foot.Discord, "LEFT", -12, 0)
-	end
+-- The title at 32/32: "Home", and what the page is for under it.
+local function renderHeader()
+	W.ShellTitle(hub, L["Home"], L["Your journey at a glance, and what comes next."])
 end
 
 ---------------------------------------------------------------------------
@@ -1070,10 +1177,10 @@ end
 
 local ORDER = { "build", "dungeons", "next", "trainer", "gear", "rares" }
 
--- The page's width: the window less the rail (anchored frames have no width
--- before the first layout).
+-- The page's width: the main column (anchored frames have no width before
+-- the first layout).
 local function pageWidth()
-	return hub:GetWidth() - (hub.psRail or SH.rail) - 2
+	return hub:GetWidth() - (hub.psRail or SH.rail) - (hub.psSidebar or SH.sidebar) - 2
 end
 
 function HV.Build(parent, shell)
@@ -1081,18 +1188,16 @@ function HV.Build(parent, shell)
 	hub = shell
 	root = CreateFrame("Frame", nil, parent)
 	root:SetAllPoints(parent)
-	buildFooter()
 	page = CreateFrame("Frame", nil, root)
-	page:SetPoint("TOPLEFT", root, "TOPLEFT", 0, 0)
-	page:SetPoint("BOTTOMRIGHT", foot, "TOPRIGHT", 0, 0)
+	page:SetAllPoints(root)
 	page.Scroll = W.Scroll(page)
 	page.Scroll:SetPoint("TOPLEFT", page, "TOPLEFT", 0, 0)
 	page.Scroll:SetPoint("BOTTOMRIGHT", page, "BOTTOMRIGHT", 0, 0)
 	buildCards()
-	-- The section's own frame, which the hub shows and hides: the title and
-	-- the bust follow it.
-	parent:HookScript("OnShow", function() placeHeader(true) end)
-	parent:HookScript("OnHide", function() placeHeader(false) end)
+	-- The section's own frame, which the hub shows and hides: the character
+	-- panel in the sidebar follows it.
+	parent:HookScript("OnShow", function() showPanel(true) end)
+	parent:HookScript("OnHide", function() showPanel(false) end)
 	return root
 end
 
@@ -1103,34 +1208,35 @@ function HV.Render()
 	local tabs, active = tabsInfo()
 	local g, t, index = featuredGuide(byId, tabs, active)
 	renderHeader()
-	renderFooter()
 	local width = pageWidth()
 	page.Scroll.Child:SetWidth(width)
 	local full = width - EDGE * 2
 	local each = floor((full - GAP * (PER - 1)) / PER)
-	local y = 16
+	local y = 4
 	local hero = cards.hero
-	hero:SetSize(full, HERO_H)
+	hero:SetSize(full, hero.psH)
 	hero:ClearAllPoints()
 	hero:SetPoint("TOPLEFT", page.Scroll.Child, "TOPLEFT", EDGE, -y)
 	fillHero(hero, g, t, index, byId)
+	renderPanel(g and hero.psXP or nil)
 	shown.hero = true
-	y = y + HERO_H + GAP
+	y = y + hero.psH + 8
 	local FILL = {
 		build = fillBuild, dungeons = fillDungeons, next = function(c) return fillNext(c, g, byId) end,
 		trainer = fillTrainer, gear = fillGear, rares = fillRares,
 	}
-	-- Which cards have something to show, then PER to a line in order; a
-	-- last line with fewer widens them to the page's width (filled again at
-	-- that width: icons and art fit to it).
+	-- Which blocks have something to show, then PER to a line in order, the
+	-- line as tall as its tallest; a last line with fewer widens them to the
+	-- page's width (filled again at that width: icons and art fit to it).
 	local list = {}
 	for _, key in ipairs(ORDER) do
 		local c = cards[key]
-		c:SetSize(each, CARD_H)
+		c:SetSize(each, c.psH)
 		local ok, has = pcall(FILL[key], c)
 		if ok and has then list[#list + 1] = key else c:Hide() end
 	end
 	local lastLine = #list - (#list - 1) % PER
+	local lineH = 0
 	for i, key in ipairs(list) do
 		local c = cards[key]
 		local col = (i - 1) % PER
@@ -1140,24 +1246,26 @@ function HV.Render()
 			w = floor((full - GAP * (k - 1)) / k)
 		end
 		if w ~= each then
-			c:SetSize(w, CARD_H)
-			c.psPainted = nil
+			c:SetSize(w, c.psH)
 			pcall(FILL[key], c)
 		end
 		c:ClearAllPoints()
 		c:SetPoint("TOPLEFT", page.Scroll.Child, "TOPLEFT", EDGE + col * (w + GAP), -y)
 		c:Show()
 		shown[key] = true
-		if col == PER - 1 or i == #list then y = y + CARD_H + GAP end
+		lineH = max(lineH, c.psH)
+		if col == PER - 1 or i == #list then
+			y = y + lineH + 8
+			lineH = 0
+		end
 	end
-	W.SetScrollContent(page.Scroll, y + 4)
+	W.SetScrollContent(page.Scroll, y + 16)
 	shown.guide = g and g.id or nil
 end
 
 function HV.Shown() return shown end
-function HV.Bust() return bust, crest end
+function HV.Panel() return panel end
 function HV.Cards() return cards end
-function HV.Footer() return foot end
 
 function HV.Show()
 	local P = UI.Picker
@@ -1170,20 +1278,18 @@ local function refresh()
 	if root and root:IsVisible() and P and P.Render then P.Render() end
 end
 for _, ev in ipairs({ "TALENTS_UPDATED", "TABS_CHANGED", "CLASS_TRAINED", "RARE_NEARBY" }) do ns.On(ev, refresh) end
+-- XP gained: the clock's pace and time to level move with it.
+ns.On("QOL_XP_UPDATED", function() if panel and panel:IsVisible() then layoutPanel() end end)
 ns.RegisterEvent("PLAYER_LEVEL_UP", refresh)
 ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", refresh)
--- New gear or a new look: the bust shows it.
-local function repaintBust(_, unit)
-	if (unit == nil or unit == "player") and bust and bust:IsVisible() then paintBust() end
-end
-ns.RegisterEvent("UNIT_MODEL_CHANGED", repaintBust)
-ns.RegisterEvent("PLAYER_EQUIPMENT_CHANGED", function() repaintBust() end)
 Theme.OnChanged(function() if root and root:IsVisible() then HV.Render() end end)
 
 if UI.RegisterSection then
 	UI.RegisterSection({
 		key = "Home", label = L["Home"], icon = "home", order = 5,
-		home = true, bare = true,
+		home = true,
+		-- No index: the sidebar holds the character panel.
+		nav = function() return {}, nil end,
 		build = HV.Build, render = HV.Render,
 	})
 end

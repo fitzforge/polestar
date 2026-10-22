@@ -1381,6 +1381,18 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 				script: dungeonsScene(`${TABS}
 ${HOME_TALENTS}(20, 10, 11)
 Polestar.CharState().classTrainLevel = 18
+uistub.player.xp, uistub.player.xpMax = 6200, 10000
+GetXPExhaustion = function() return 1200 end
+-- The XP tracker's clock, as an hour's play would leave it.
+Polestar.QoL = Polestar.QoL or {}
+Polestar.QoL.GetXPStats = function()
+	return { sessionSeconds = 4380, levelSeconds = 2460, rate = 12400, timeToLevel = 1110, maxed = false }
+end
+Polestar.QoL.Duration = Polestar.QoL.Duration or function(s)
+	s = math.floor(s + 0.5)
+	if s >= 3600 then return string.format("%dh %02dm", math.floor(s / 3600), math.floor(s / 60) % 60) end
+	return string.format("%dm", math.floor(s / 60))
+end
 Polestar.Engine.NearestClassTrainer = function()
 	return { npc = 3033, npcName = "Turak Runetotem", map = 1456, x = 76.48, y = 27.22, f = "e" }
 end

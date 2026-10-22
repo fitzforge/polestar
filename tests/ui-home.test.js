@@ -1,9 +1,9 @@
 'use strict';
 // Home, the hub's first section (addon/Polestar/UI/Home.lua), against the
 // fake Engine and sample guides of tests/lua/stub_ui.lua: the menu toggle
-// opens it and "Choose a guide" opens the guide list; it has no sidebar, the
-// brand sits in its footer; its cards come from the other modules' data and
-// close up when one has nothing to say.
+// opens it and "Choose a guide" opens the guide list; it sits in the shell
+// like every section, the sidebar and all; its blocks come
+// from the other modules' data and close up when one has nothing to say.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -64,30 +64,62 @@ test('the menu toggle opens Home; Choose a guide opens the guide list; once a se
 		Polestar.Fire("TOGGLE_PICKER")
 		r.kept = P.Section()
 		emit(r)`);
-	assert.deepEqual(out, { first: 'Home', title: "Testchar's journey", choose: 'Guides', kept: 'Lookup' });
+	assert.deepEqual(out, { first: 'Home', title: 'Home', choose: 'Guides', kept: 'Lookup' });
 });
 
-test('Home has no sidebar: the page runs from the rail to the edge, the brand, version and Discord in its footer; other sections keep the sidebar', () => {
+test('Home keeps the shell: the sidebar with the brand, no index rows, the character panel in their place; other sections keep their rows', () => {
 	const [out] = run(`
+		uistub.player.xp, uistub.player.xpMax = 6200, 10000
+		GetXPExhaustion = function() return 1200 end
+		GetMoney = function() return 123456 end
 		H.Show()
-		local F, foot = PolestarPicker, H.Footer()
+		local F = PolestarPicker
 		local _, rel = F.Main:GetPoint(1)
-		local r = { sidebar = F.Sidebar:IsShown(), mainAfterRail = rel == F.Rail, tagline = foot.Tagline:GetText(),
-			version = foot.Version:GetText(), discord = foot.Discord:IsShown(), heroW = H.Cards().hero:GetWidth() }
+		local rows = 0
+		for _, b in ipairs(F.navButtons or {}) do if b:IsShown() then rows = rows + 1 end end
+		local p = H.Panel()
+		local r = { sidebar = F.Sidebar:IsShown(), mainAfterSidebar = rel == F.Sidebar, rows = rows, panel = p:IsShown(),
+			inSidebar = p:GetParent() == F.Sidebar, name = p.Name:GetText(), level = p.Level.Value:GetText(),
+			note = p.Level.Note:GetText(), bar = p.Level.Bar:IsShown(), gold = p.Gold.Value:IsShown(),
+			subtitle = F.Subtitle:IsShown() }
 		P.ShowSection("Guides")
-		local _, rel2 = F.Main:GetPoint(1)
-		r.guides = { F.Sidebar:IsShown(), rel2 == F.Sidebar }
+		local after = 0
+		for _, b in ipairs(F.navButtons) do if b:IsShown() then after = after + 1 end end
+		r.off = { p:IsShown(), after > 0 }
 		emit(r)`);
-	assert.equal(out.sidebar, false);
-	assert.equal(out.mainAfterRail, true);
-	assert.equal(out.tagline, 'A community project');
-	assert.match(out.version, /^Version /);
-	assert.equal(out.discord, true);
-	assert.ok(out.heroW > 1000, `the hero spans the window (${out.heroW})`);
-	assert.deepEqual(out.guides, [true, true]);
+	assert.deepEqual(out, { sidebar: true, mainAfterSidebar: true, rows: 0, panel: true, inSidebar: true, name: 'Testchar',
+		level: '62% to 5', note: '1,200 rested', bar: true, gold: true, subtitle: true, off: [false, true] });
 });
 
-test('Home: the guide to continue with what is left of it, then the chosen talent plan, dungeons, where the guide leads and class training, three to a line', () => {
+// The clock comes from the XP tracker (QoL.GetXPStats, nil while it is off).
+test('the character panel\'s Time: this session, this level, XP per hour and time to level; gone while the tracker is off', () => {
+	const [on, slow, off] = run(`
+		local st = { sessionSeconds = 3900, levelSeconds = 1500, rate = 12300, timeToLevel = 2700, maxed = false }
+		Polestar.QoL = {
+			GetXPStats = function() return st end,
+			Duration = function(s) return s .. "s" end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end },
+		}
+		H.Show()
+		local p = H.Panel()
+		local function rows()
+			local out = {}
+			for _, r in ipairs(p.Times) do out[#out + 1] = r.Value:IsShown() and r.Value:GetText() or false end
+			return { head = p.TimeHead:IsShown(), rows = out }
+		end
+		emit(rows())
+		st.rate, st.timeToLevel = 0, nil
+		P.Render()
+		emit(rows())
+		Polestar.QoL.GetXPStats = function() return nil end
+		P.Render()
+		emit(rows())`);
+	assert.deepEqual(on, { head: true, rows: ['3900s', '1500s', '12.3k XP/h', '2700s'] });
+	assert.deepEqual(slow, { head: true, rows: ['3900s', '1500s', false, false] }, 'no pace yet: no rate, no time to level');
+	assert.deepEqual(off, { head: false, rows: [false, false, false, false] });
+});
+
+test('Home: the guide to continue with what is left of it, then the chosen talent plan, dungeons, where the guide leads and class training, two to a line', () => {
 	const [out] = run(`
 		fakeTalents("balance", "behind")
 		fakeWorld(20, 18)
@@ -95,28 +127,28 @@ test('Home: the guide to continue with what is left of it, then the chosen talen
 		H.Show()
 		local c = H.Cards()
 		local strip = function(s) return (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
-		local r = { cards = shownCards(), subtitle = PolestarPicker.Subtitle:GetText(),
-			hero = { strip(c.hero.Name:GetText()), c.hero.Step:GetText(), c.hero.Go.Label:GetText(), c.hero.Then.Value:GetText() },
+		local r = { cards = shownCards(), who = H.Panel().Who:GetText(),
+			hero = { strip(c.hero.Name:GetText()), c.hero.Range.Text:GetText(), c.hero.Step:GetText(), c.hero.Go.Label:GetText(), c.hero.Then.Value:GetText(), c.hero.Next.Value:GetText() },
 			build = { c.build.Spec:GetText(), c.build.When:GetText(), c.build.Icons[1].psSpell, c.build.Icons[2].psSpell, c.build.Icons[3]:IsShown() },
-			dungeons = { c.dungeons.Name:GetText(), c.dungeons.Quests:GetText(), c.dungeons.Count:GetText() },
+			dungeons = { c.dungeons.Name:GetText(), c.dungeons.Quests.Value:GetText(), c.dungeons.Count:GetText() },
 			nxt = c.next.Name:GetText(),
 			trainer = { c.trainer.Status:GetText(), c.trainer.Place:GetText(), c.trainer.Last:GetText() } }
 		local _, _, _, bx, by = c.build:GetPoint(1)
 		local _, _, _, dx, dy = c.dungeons:GetPoint(1)
 		local _, _, _, nx, ny = c.next:GetPoint(1)
 		local _, _, _, tx, ty = c.trainer:GetPoint(1)
-		r.grid = { by == dy and dy == ny, bx < dx and dx < nx, ty < by, tx == bx }
+		r.grid = { by == dy, bx < dx, ny < by and ny == ty, nx == bx and tx > nx }
 		Polestar.Nav = { SetTarget = function(map, x, y, label) r.target = { map, label } end }
 		c.trainer.Go:Click()
 		emit(r)`);
 	assert.deepEqual(out.cards, ['hero', 'build', 'dungeons', 'next', 'trainer']);
-	assert.match(out.subtitle, /^Level 20/);
-	assert.deepEqual(out.hero, ['Elwynn Forest  (1–13)', 'Step 3 of 8  ·  29% complete', 'Continue guide', 'Westfall (12–17)']);
+	assert.match(out.who, /^Level 20 /);
+	assert.deepEqual(out.hero, ['Elwynn Forest', '1–13', 'Step 3 of 8  ·  29% complete', 'Continue guide', 'Westfall (12–17)', 'Kobold Camp']);
 	assert.deepEqual(out.build, ['Balance', '1 point to spend', 16814, 16845, false]);
 	assert.deepEqual(out.dungeons, ['The Deadmines', '5 quests', '1 dungeon for your level']);
 	assert.equal(out.nxt, 'Westfall');
 	assert.deepEqual(out.trainer, ['New abilities available', 'Khelden Bremen, Elwynn Forest', 'Last trained at level 18']);
-	assert.deepEqual(out.grid, [true, true, true, true], 'build, dungeons and up next share a line; training starts the next');
+	assert.deepEqual(out.grid, [true, true, true, true], 'build and dungeons share a line; up next and training the next');
 	assert.deepEqual(out.target, [1429, 'Khelden Bremen']);
 });
 
@@ -218,7 +250,7 @@ test('Class training lists the spells to train: up to the level, not known, the 
 // The quick wins: the way to the next level in the hero, a short last line
 // of cards widened to the page, a click anywhere on a card, and what the next
 // level with new spells brings.
-test('Next level: share of the level, about how many guide quests are left to it, rested XP, and a bar', () => {
+test('Next level, in the character panel: share of the level, about how many guide quests are left to it, rested XP, and a bar', () => {
 	const [out, capped] = run(`
 		uistub.player.level, uistub.player.xp, uistub.player.xpMax = 18, 6200, 10000
 		GetXPExhaustion = function() return 1200 end
@@ -226,24 +258,24 @@ test('Next level: share of the level, about how many guide quests are left to it
 		Polestar.Levels.ForGuide = function() return { xp = 9000, levels = 0.9, quests = 6, questXP = 3000, unknown = 0, kills = 0 } end
 		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
 		H.Show()
-		local s = H.Cards().hero.Level
-		emit({ value = s.Value:GetText(), bar = s.Bar:IsShown(), label = s.Label:GetText() })
+		local s = H.Panel().Level
+		emit({ value = s.Value:GetText(), note = s.Note:GetText(), bar = s.Bar:IsShown(), label = s.Label:GetText() })
 		uistub.player.xpMax = 0
 		P.Render()
 		emit({ shown = s.Value:IsShown(), bar = s.Bar:IsShown() })`);
 	// 3,800 XP to go at 500 a quest: 8 quests.
-	assert.deepEqual(out, { value: '62% to 19  ·  about 8 quests  ·  1,200 rested', bar: true, label: 'Next level' });
+	assert.deepEqual(out, { value: '62% to 19', note: 'about 8 quests  ·  1,200 rested', bar: true, label: 'Next level' });
 	assert.deepEqual(capped, { shown: false, bar: false }, 'nothing at the level cap');
 });
 
-test('a short last line of cards widens to the page; only the heading row is a link: it lights up and opens, the rest of the card is still', () => {
+test('a short last line of blocks widens to the page; the heading is the block\'s link: it lights up and opens; Preview route does the same', () => {
 	const [out] = run(`
-		uistub.player.level = 10
-		Polestar.CharState().classTrainLevel = 10
-		Polestar.Engine.NearestClassTrainer = function() return { npcName = "Khelden Bremen", map = 1429, x = 49.66, y = 39.4 } end
+		fakeTalents("balance", "behind")
+		fakeWorld(20, 18)
+		UI.DungeonsSection.ForYou = function() return {} end
 		H.Show()
 		local c = H.Cards()
-		local r = { hero = c.hero:GetWidth(), next = c.next:GetWidth(), trainer = c.trainer:GetWidth() }
+		local r = { hero = c.hero:GetWidth(), build = c.build:GetWidth(), trainer = c.trainer:GetWidth() }
 		local opened
 		P.ShowSection = function(key) opened = key end
 		r.bodyClicks = c.next:GetScript("OnClick") ~= nil
@@ -254,11 +286,15 @@ test('a short last line of cards widens to the page; only the heading row is a l
 		r.out = c.next.Head.Hover:IsShown()
 		stub.RunScript(c.next.Head, "OnClick", "LeftButton")
 		r.opened = opened
+		opened = nil
+		c.next.Go:Click()
+		r.card = opened
 		emit(r)`);
-	// Two cards: each half the hero's width less half a gap.
-	assert.equal(out.next, out.trainer);
-	assert.equal(out.next, Math.floor((out.hero - 12) / 2));
+	// Three blocks: the build and up next, then training alone across the page.
+	assert.equal(out.build, Math.floor((out.hero - 16) / 2));
+	assert.equal(out.trainer, out.hero);
 	assert.equal(out.opened, 'Guides', 'Up next opens the guide list at the next guide');
+	assert.equal(out.card, 'Guides', 'and so does Preview route');
 	assert.deepEqual([out.bodyClicks, out.bodyHover, out.lit, out.out], [false, false, true, false]);
 });
 
@@ -281,45 +317,11 @@ test('Class training: what the next level with new spells brings, ranks chained 
 	assert.deepEqual(out, { status: '1 spell to train', soon: 'At level 10: Immolate, Drain Soul' });
 });
 
-// The header: the character's bust (a PlayerModel, head and shoulders) left
-// of the title, the faction's crest on its corner; both gone off Home.
-test('the title is the character\'s journey, or "Your journey" while the name cannot be read', () => {
+test('the header: "Home" and what the page is for', () => {
 	const [out] = run(`
 		H.Show()
-		local named = PolestarPicker.Title:GetText()
-		uistub.player.name = ""
-		P.Render()
-		emit({ named = named, unnamed = PolestarPicker.Title:GetText() })`);
-	assert.deepEqual(out, { named: "Testchar's journey", unnamed: 'Your journey' });
-});
-
-test('the header shows the character\'s bust in a portrait frame left of the title, the crest on its corner, only on Home', () => {
-	const [out] = run(`
-		-- The title's TOPLEFT as the game keeps it: the last one set (SetPoint
-		-- replaces a point; this stub appends).
-		local function titleX()
-			local T, x = PolestarPicker.Title, nil
-			for i = 1, T:GetNumPoints() do
-				local p, _, _, px = T:GetPoint(i)
-				if p == "TOPLEFT" then x = px end
-			end
-			return x
-		end
-		H.Show()
-		local bust, crest = H.Bust()
-		local tx = titleX()
-		local frame = bust.Frame
-		local r = { kind = bust:GetObjectType(), inFrame = bust:GetParent() == frame, shown = frame:IsShown(),
-			crestOnFrame = crest:GetParent():GetParent() == frame, titleX = tx, width = frame:GetWidth() }
-		P.ShowSection("Guides")
-		r.off = { frame:IsShown(), crest:IsShown(), titleX() }
-		emit(r)`);
-	assert.equal(out.kind, 'PlayerModel');
-	assert.equal(out.inFrame, true, 'the model sits in its portrait frame');
-	assert.equal(out.shown, true);
-	assert.equal(out.crestOnFrame, true);
-	assert.equal(out.titleX, 32 + out.width + 18, 'the title moves right of the portrait');
-	assert.deepEqual(out.off, [false, false, 32]);
+		emit({ title = PolestarPicker.Title:GetText(), subtitle = PolestarPicker.Subtitle:GetText() })`);
+	assert.deepEqual(out, { title: 'Home', subtitle: 'Your journey at a glance, and what comes next.' });
 });
 
 // The game menu (Escape) builds its buttons on each show (GameMenuFrameMixin:

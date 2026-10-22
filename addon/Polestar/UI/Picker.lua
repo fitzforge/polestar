@@ -1376,8 +1376,6 @@ end
 --     onNav = fn(key),                 -- with nav: set the state, then UI.Picker.Render()
 --     search = fn(text), enter = fn(), step = fn(delta), -- optional: the hub search drives it
 --     searchPlaceholder = "...",       -- optional; or a list of wordings, longest first (the first that fits shows)
---     bare = true,                     -- optional: no sidebar; the section's header and frame run from the
---                                      -- rail to the window's edge, and it draws the brand itself
 --     home = true,                     -- optional: the hub opens here (UI.ShowPicker({ home = true })) until
 --                                      -- the player picks a section
 --   })
@@ -1438,29 +1436,15 @@ end
 -- The hub's search wordings, longest first: the box shows the first that fits.
 local HUB_SEARCH = { L["Search guides, items, NPCs"], L["Search guides, items"], L["Search"] }
 
-local function buildSection(s)
-	if s.psFrame then return end
-	local f = CreateFrame("Frame", nil, win.Main)
-	s.psFrame = f
-	s.build(f, win)
-end
-
 local function sectionLayout(s)
 	local on = s ~= nil
-	local bare = on and s.bare or false
-	if on then buildSection(s) end
 	details:SetShown(not on)
 	win.Content:SetShown(not on)
 	for _, b in ipairs(segButtons) do b:SetShown(not on) end
-	-- A bare section has no sidebar: the main column starts at the rail.
-	win.Sidebar:SetShown(not bare)
-	win.Main:ClearAllPoints()
-	win.Main:SetPoint("TOPLEFT", bare and win.Rail or win.Sidebar, "TOPRIGHT", 0, 0)
-	win.Main:SetPoint("BOTTOMRIGHT", win, "BOTTOMRIGHT", -1, 1)
 	win.Header:ClearAllPoints()
 	win.Header:SetPoint("TOPLEFT", win.Main, "TOPLEFT", 0, 0)
 	win.Header:SetPoint("TOPRIGHT", win.Main, "TOPRIGHT", on and 0 or -DETAIL_W, 0)
-	win.Band:SetTexCoord(Theme.BandCoords(on and (MID_W + DETAIL_W + (bare and SIDE_W + 2 or 0)) or MID_W, SH.header))
+	win.Band:SetTexCoord(Theme.BandCoords(on and (MID_W + DETAIL_W) or MID_W, SH.header))
 	win.Close:SetParent(on and win.Header or details.Art.Over)
 	win.Close:ClearAllPoints()
 	win.Close:SetPoint("TOPRIGHT", on and win.Header or details.Art, "TOPRIGHT", -12, -12)
@@ -1471,7 +1455,11 @@ local function sectionLayout(s)
 end
 
 local function renderSection(s)
-	buildSection(s)
+	if not s.psFrame then
+		local f = CreateFrame("Frame", nil, win.Main)
+		s.psFrame = f
+		s.build(f, win)
+	end
 	for _, o in ipairs(sections) do
 		if o.psFrame then o.psFrame:SetShown(o == s) end
 	end

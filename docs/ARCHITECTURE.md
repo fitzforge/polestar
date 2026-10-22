@@ -3876,23 +3876,31 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   A section registered with `foot = true` sits at the rail's foot, above
   Options, instead of among the sections (`P.FootItems(onOptions)`: Options,
   then each foot section, from the bottom up).
-- **Home** (`UI/Home.lua`, the hub section "Home", order 5, `home` and
-  `bare`; `UI.HomeSection.Show()`). The menu key binding (`TOGGLE_PICKER`)
+- **Home** (`UI/Home.lua`, the hub section "Home", order 5, `home`;
+  `UI.HomeSection.Show()`). The menu key binding (`TOGGLE_PICKER`)
   opens the hub here until the player picks a section; "Choose a guide"
   (`SHOW_PICKER`, the guide window's buttons, new-tab mode) opens Guides
-  (`UI.ShowPicker({ section = "Guides" })`). A bare section has no sidebar:
-  the main column starts at the rail, and Home draws the wordmark, the
-  version with its stage chip and the Discord link in its own 56px footer.
-  Header: "Your journey", the character (level, faction and class, zone)
-  beside the faction's crest. Cards, from data other modules keep, the hero
-  across the page and three to a line under it: the guide to continue (the
-  active tab's, else `Guides.Suggest`: zone art, step and progress, the next
-  step, `Levels.ForGuide`'s levels and XP, quests and kills left, where it
-  leads), Leveling build (the plan the player picked: the next picks' spell
-  icons, points to spend, before level 10 when the first point comes; none
-  picked yet, `Talents.Choice() == "auto"`: the class's plans, a button each
-  that calls `Talents.Choose`), Dungeons (`DungeonsSection.ForYou()`), Up next,
-  Class training (the spells to train: `Engine.ClassSpells(class)` from the
+  (`UI.ShowPicker({ section = "Guides" })`). It keeps the shell's sidebar
+  (lockup, version, Discord) but no index rows (`nav` returns none): in
+  their place the character panel, the character's name, level, race and
+  class, the way to the next level (share, about how many guide quests,
+  rested XP), the talent plan, zone and gold, and under "Time" the XP
+  tracker's clock (`QoL.GetXPStats`: this session, this level, XP per hour,
+  time to level; gone while the tracker is off, refreshed on
+  `QOL_XP_UPDATED` and every 15 seconds while Home shows). Header: "Home"
+  and one line on what the page is for. Blocks, from data other modules
+  keep, each a heading and its hairline (the heading opens where the block
+  leads), the guide to continue across the page and two to a line under it:
+  the guide to continue on a card (the active tab's, else `Guides.Suggest`:
+  zone painting with the title, level range and Continue, the progress along
+  its foot, then the next step, quests and kills left, where it leads and
+  `Levels.ForGuide`'s levels and XP), Leveling build (the plan the player
+  picked: the next picks' spell icons, points to spend, before level 10 when
+  the first point comes; none picked yet, `Talents.Choice() == "auto"`: the
+  class's plans, a button each that calls `Talents.Choose`), Dungeons
+  (`DungeonsSection.ForYou()`'s first, its entrance painted on the page, Open
+  dungeon), Up next (its zone painted on the page, Preview route), Class
+  training (the spells to train: `Engine.ClassSpells(class)` from the
   generated `Core/ClassSpells.lua` (`trainers spells`: the Forever client's
   SkillLineAbility on the class specialisation lines, learned at a trainer,
   with SpellLevels' level), those at or under the level, for the race, not
@@ -3901,7 +3909,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `Engine.NearestClassTrainer()`; Guide me points the arrow there), Quest reward
   upgrade (the first turn-in in the active guide's next 40 steps whose
   `UI.GearPick.PickFor` pick is an upgrade) and Rares nearby (the Codex's
-  rares spawning in the player's zone). A card with nothing to say is left
+  rares spawning in the player's zone). A block with nothing to say is left
   out and the rest close up.
 - **Game menu** (`UI/GameMenu.lua`): a "Polestar" button at the end of the
   Escape menu, added in a `hooksecurefunc` post-hook of
