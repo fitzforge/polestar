@@ -564,6 +564,219 @@ test('search: a keystroke costs a few scans of the names and grows linearly from
 // Hooks
 // ---------------------------------------------------------------------------
 
+test('hooks: simulated clears dispatch existing scripts and hooks on both item frames', () => {
+	const out = run(`
+		for _, tt in ipairs({ GameTooltip, ItemRefTooltip }) do
+			local events = {}
+			tt:SetScript("OnTooltipCleared", function(self) events[#events + 1] = "script:" .. #self.lines end)
+			tt:HookScript("OnTooltipCleared", function(self) events[#events + 1] = "hook:" .. #self.lines end)
+			tt:AddLine("Old client line")
+			tt:ClearLines()
+			tt:AddLine("Another client line")
+			tt:SetOwner(UIParent)
+			emit(events)
+		end
+	`, { withPack: false });
+	assert.deepEqual(out, Array.from({ length: 2 }, () => ['script:0', 'hook:0', 'script:0', 'hook:0']));
+});
+
+const TOOLTIP_REBUILD_CASES = [
+	{ name: 'item on GameTooltip', frame: 'GameTooltip', register: 'ItemLines', show: 'lookuprt.showItem(tt, 1234, "item:1234")' },
+	{ name: 'item on ItemRefTooltip', frame: 'ItemRefTooltip', register: 'ItemLines', show: 'lookuprt.showItem(tt, 1234, "item:1234")' },
+	{ name: 'unit', frame: 'GameTooltip', register: 'UnitLines', show: 'lookuprt.showUnit(tt, "mouseover")', setup: 'lookuprt.units.mouseover = { guid = "Creature-0-1-0-1-1234-00000001" }' },
+	{ name: 'object', frame: 'GameTooltip', register: 'ObjectLines', show: 'lookuprt.showObject(tt, { id = 1234, lines = { { leftText = "Synthetic object" } } })' },
+];
+
+test('hooks: clear hooks install once per frame, preserve handlers and survive registration changes', () => {
+	const [items, object] = run(`
+		local H, installs, clears = Polestar.Hooks, {}, {}
+		local function annotation(tt) H.AddLine(tt, "Annotation") end
+		H.ItemLines("installation-test", annotation)
+		for _, tt in ipairs({ GameTooltip, ItemRefTooltip }) do
+			local name, hook = tt:GetName(), tt.HookScript
+			installs[name], clears[name] = 0, 0
+			tt:SetScript("OnTooltipCleared", function() clears[name] = clears[name] + 1 end)
+			tt.HookScript = function(self, event, fn)
+				if event == "OnTooltipCleared" then installs[name] = installs[name] + 1 end
+				return hook(self, event, fn)
+			end
+			-- HookScript can still work when support introspection is absent.
+			if tt == ItemRefTooltip then tt.HasScript = false end
+			for i = 1, 3 do
+				tt:ClearLines(); tt:AddLine("Client")
+				lookuprt.showItem(tt, 1234, "item:1234")
+				lookuprt.showItem(tt, 1234, "item:1234")
+				H.ItemLines("installation-test", nil)
+				H.ItemLines("installation-test", annotation)
+			end
+		end
+		emit({ installs = installs, clears = clears, game = GameTooltip.lines, ref = ItemRefTooltip.lines })
+		H.ObjectLines("installation-test", annotation)
+		GameTooltip:ClearLines(); GameTooltip:AddLine("Client")
+		lookuprt.showObject(GameTooltip, { id = 1234 })
+		lookuprt.showObject(GameTooltip, { id = 1234 })
+		emit({ installs = installs, clears = clears, game = GameTooltip.lines, ref = ItemRefTooltip.lines })
+	`, { withPack: false });
+	const expected = { installs: { GameTooltip: 1, ItemRefTooltip: 1 }, clears: { GameTooltip: 3, ItemRefTooltip: 3 }, game: ['Client', 'Annotation'], ref: ['Client', 'Annotation'] };
+	assert.deepEqual(items, expected);
+	assert.deepEqual(object, { ...expected, clears: { GameTooltip: 4, ItemRefTooltip: 3 } });
+});
+
+for (const failure of ['missing', 'unsupported', 'HasScript', 'HookScript']) {
+	test(`hooks: ${failure} clear-hook API preserves annotations without retrying or noisy diagnostics`, () => {
+		const [out] = run(`
+			local H, tt, checks, attempts, calls, handlerCalls = Polestar.Hooks, GameTooltip, 0, 0, 0, 0
+			local messages = #stub.messages
+			geterrorhandler = function() return function() handlerCalls = handlerCalls + 1 end end
+			tt.HasScript = function()
+				checks = checks + 1
+				if "${failure}" == "HasScript" then error("synthetic HasScript failure", 0) end
+				return "${failure}" ~= "unsupported"
+			end
+			tt.HookScript = function()
+				attempts = attempts + 1
+				error("synthetic HookScript failure", 0)
+			end
+			if "${failure}" == "missing" then tt.HookScript = false end
+			H.ItemLines("failure-test", function(tip) calls = calls + 1; H.AddLine(tip, "Annotation") end)
+			for i = 1, 2 do
+				tt:ClearLines(); tt:AddLine("Client")
+				for j = 1, 3 do lookuprt.showItem(tt, 1234, "item:1234") end
+			end
+			local errors = Polestar.Errors()
+			emit({ checks = checks, attempts = attempts, calls = calls, lines = tt.lines,
+				errors = #errors, error = errors[1] and { msg = errors[1].msg, count = errors[1].count } or false,
+				handlerCalls = handlerCalls, messages = #stub.messages - messages })
+		`, { withPack: false });
+		const throws = failure === 'HasScript' || failure === 'HookScript';
+		assert.deepEqual(out, {
+			checks: failure === 'missing' ? 0 : 1, attempts: failure === 'HookScript' ? 1 : 0,
+			calls: 2, lines: ['Client', 'Annotation'], errors: throws ? 1 : 0,
+			error: throws ? { msg: `synthetic ${failure} failure`, count: 1 } : false,
+			handlerCalls: 0, messages: 0,
+		});
+	});
+}
+
+for (const [frame, kind] of [['GameTooltip', 'Item'], ['ItemRefTooltip', 'Item'], ['GameTooltip', 'Unit']]) {
+	test(`hooks: processor-unavailable ${kind.toLowerCase()} fallback on ${frame} restores annotations once per clear`, () => {
+		const [initial, rebuilt] = run(`
+			local H, tt, calls = Polestar.Hooks, ${frame}, 0
+			lookuprt.units.mouseover = { guid = "Creature-0-1-0-1-1234-00000001" }
+			GameTooltip.GetUnit = function() return "Synthetic unit", "mouseover" end
+			tt.link = "item:1234"
+			H.${kind}Lines("fallback-test", function(tip) calls = calls + 1; H.AddLine(tip, "Annotation") end)
+			for n = 1, 2 do
+				tt:ClearLines()
+				for i = 1, n do tt:AddLine("Client " .. i) end
+				stub.RunScript(tt, "OnTooltipSet${kind}")
+				stub.RunScript(tt, "OnTooltipSet${kind}")
+				emit({ lines = tt.lines, calls = calls, hooks = #tt.hooks.OnTooltipCleared })
+			end
+		`, { withPack: false, setup: 'TooltipDataProcessor = nil' });
+		assert.deepEqual(initial, { lines: ['Client 1', 'Annotation'], calls: 1, hooks: 1 });
+		assert.deepEqual(rebuilt, { lines: ['Client 1', 'Client 2', 'Annotation'], calls: 2, hooks: 1 });
+	});
+}
+
+for (const scenario of TOOLTIP_REBUILD_CASES) {
+	test(`hooks: ${scenario.name} repeated and appended callbacks keep annotations once without clearing`, () => {
+		const [repeated, appended] = run(`
+			${scenario.setup || ''}
+			local tt, H, calls, clears = ${scenario.frame}, Polestar.Hooks, 0, 0
+			tt:HookScript("OnTooltipCleared", function() clears = clears + 1 end)
+			H.${scenario.register}("rebuild-test", function(tip) calls = calls + 1; H.AddLine(tip, "Annotation") end)
+			tt:ClearLines()
+			tt:AddLine("Client 1")
+			${scenario.show}
+			${scenario.show}
+			emit({ lines = tt.lines, calls = calls, clears = clears })
+			tt:AddLine("Appended client line")
+			${scenario.show}
+			${scenario.show}
+			emit({ lines = tt.lines, calls = calls, clears = clears })
+		`, { withPack: false });
+		assert.deepEqual(repeated, { lines: ['Client 1', 'Annotation'], calls: 1, clears: 1 });
+		assert.deepEqual(appended, { lines: ['Client 1', 'Annotation', 'Appended client line'], calls: 1, clears: 1 });
+	});
+
+	for (const clientLines of [2, 3]) {
+		const relation = clientLines === 2 ? 'equal' : 'greater';
+		test(`hooks: ${scenario.name} restores annotations after a same-subject clear/rebuild with ${relation} line count (#673)`, () => {
+			const [initial, rebuilt, repeated] = run(`
+				${scenario.setup || ''}
+				local tt, H, calls, clears = ${scenario.frame}, Polestar.Hooks, 0, 0
+				tt:HookScript("OnTooltipCleared", function() clears = clears + 1 end)
+				H.${scenario.register}("rebuild-test", function(tip) calls = calls + 1; H.AddLine(tip, "Annotation") end)
+				tt:ClearLines()
+				tt:AddLine("Client 1")
+				${scenario.show}
+				emit({ lines = tt.lines, calls = calls, clears = clears })
+				tt:ClearLines()
+				for i = 1, ${clientLines} do tt:AddLine("Client " .. i) end
+				${scenario.show}
+				emit({ lines = tt.lines, calls = calls, clears = clears })
+				${scenario.show}
+				emit({ lines = tt.lines, calls = calls, clears = clears })
+			`, { withPack: false });
+			assert.deepEqual(initial, { lines: ['Client 1', 'Annotation'], calls: 1, clears: 1 });
+			const expected = { lines: [...Array.from({ length: clientLines }, (_, i) => `Client ${i + 1}`), 'Annotation'], calls: 2, clears: 2 };
+			assert.deepEqual(rebuilt, expected, 'a clear removed annotations even though the rebuilt line count is not smaller');
+			assert.deepEqual(repeated, expected, 'a repeated callback on the rebuilt tooltip must not add another annotation');
+		});
+	}
+}
+
+test('hooks: item frames keep independent annotation state when one is cleared', () => {
+	const [initial, refreshed] = run(`
+		local H, calls = Polestar.Hooks, { game = 0, ref = 0 }
+		H.ItemLines("independent-test", function(tt)
+			local key = tt == GameTooltip and "game" or "ref"
+			calls[key] = calls[key] + 1
+			H.AddLine(tt, "Annotation")
+		end)
+		for _, tt in ipairs({ GameTooltip, ItemRefTooltip }) do
+			tt:ClearLines(); tt:AddLine("Client 1")
+			lookuprt.showItem(tt, 1234, "item:1234")
+			lookuprt.showItem(tt, 1234, "item:1234")
+		end
+		emit({ game = GameTooltip.lines, ref = ItemRefTooltip.lines, calls = calls })
+		GameTooltip:ClearLines(); GameTooltip:AddLine("Replacement client line")
+		lookuprt.showItem(GameTooltip, 1234, "item:1234")
+		lookuprt.showItem(ItemRefTooltip, 1234, "item:1234")
+		emit({ game = GameTooltip.lines, ref = ItemRefTooltip.lines, calls = calls })
+	`, { withPack: false });
+	assert.deepEqual(initial, { game: ['Client 1', 'Annotation'], ref: ['Client 1', 'Annotation'], calls: { game: 1, ref: 1 } });
+	assert.deepEqual(refreshed, { game: ['Replacement client line', 'Annotation'], ref: ['Client 1', 'Annotation'], calls: { game: 2, ref: 1 } });
+});
+
+test('hooks: a reused tooltip dispatches annotations for changed subjects and kinds', () => {
+	const out = run(`
+		local H, tt = Polestar.Hooks, GameTooltip
+		H.ItemLines("transition-test", function(tip, _, id) H.AddLine(tip, "Item " .. id) end)
+		H.ObjectLines("transition-test", function(tip, id) H.AddLine(tip, "Object " .. id) end)
+		local function clientLines(n)
+			tt:ClearLines()
+			for i = 1, n do tt:AddLine("Client " .. i) end
+		end
+		clientLines(1)
+		lookuprt.showItem(tt, 1234, nil); lookuprt.showItem(tt, 1234, nil); emit(tt.lines)
+		clientLines(2)
+		lookuprt.showItem(tt, 1235, nil); lookuprt.showItem(tt, 1235, nil); emit(tt.lines)
+		-- Same numeric key, different annotation kind, on the same frame.
+		clientLines(3)
+		lookuprt.showObject(tt, { id = 1235 }); lookuprt.showObject(tt, { id = 1235 }); emit(tt.lines)
+		clientLines(4)
+		lookuprt.showItem(tt, 1235, nil); lookuprt.showItem(tt, 1235, nil); emit(tt.lines)
+	`, { withPack: false });
+	assert.deepEqual(out, [
+		['Client 1', 'Item 1234'],
+		['Client 1', 'Client 2', 'Item 1235'],
+		['Client 1', 'Client 2', 'Client 3', 'Object 1235'],
+		['Client 1', 'Client 2', 'Client 3', 'Client 4', 'Item 1235'],
+	]);
+});
+
 test('hooks: item lines once per tooltip show, in order, errors isolated, forbidden and secret skipped', () => {
 	const [once, cleared, forbidden, secret, other, ref, replaced] = run(`
 		local H = Polestar.Hooks
