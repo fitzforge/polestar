@@ -335,6 +335,12 @@ sets how carefully the work is re-verified. Pull requests from smaller or
 unnamed models have their claims, generated files and tests re-run before
 merge; pull requests that leave the line blank are treated the same way.
 
+**Copilot's comments:** GitHub Copilot reviews each pull request into `next`
+automatically, as a quick first pass. Its comments are suggestions: fix what
+is right, and feel free to resolve the rest with a short reply. It knows code,
+not the game, so it can't tell whether a quest, NPC or route is right. The
+maintainer's review above is what decides.
+
 ## Licence
 
 Contributions to Polestar are under GPL-3.0 ([LICENSE](LICENSE)). Community
