@@ -11,25 +11,36 @@ local type, ipairs, pairs = type, ipairs, pairs
 local LAYER = "maps.services"
 
 -- `on`: the lean set a player gets when turning the layer on; the rest are opt-in.
+-- `glyph`: the map mark (Media/Map/icon-<glyph>); `icon` is its texture, for menus.
 local CATEGORIES = {
-	{ key = "repair", label = L["Repair"], texture = "Repair" },
-	{ key = "mailbox", label = L["Mailboxes"], texture = "Mailbox", on = true },
-	{ key = "class", label = L["Class trainers"], texture = "Class", on = true },
-	{ key = "weapon", label = L["Weapon masters"], icon = "icon-train" },
-	{ key = "auctioneer", label = L["Auctioneers"], texture = "Auctioneer" },
-	{ key = "banker", label = L["Bankers"], icon = "Interface\\Icons\\INV_Misc_TreasureChest01a" },
-	{ key = "battlemaster", label = L["Battlemasters"], texture = "BattleMaster" },
-	{ key = "spirithealer", label = L["Spirit healers"], icon = "Interface\\Icons\\Spell_Holy_GuardianSpirit" },
-	{ key = "stablemaster", label = L["Stable masters"], texture = "StableMaster" },
-	{ key = "trainer", label = L["Profession trainers"], texture = "Profession" },
-	{ key = "vendor", label = L["Vendors"], texture = "Banker" },
+	{ key = "repair", label = L["Repair"], glyph = "repair" },
+	{ key = "mailbox", label = L["Mailboxes"], glyph = "mailbox", on = true },
+	{ key = "class", label = L["Class trainers"], glyph = "trainer-class", on = true },
+	{ key = "weapon", label = L["Weapon masters"], glyph = "trainer-weapon" },
+	{ key = "auctioneer", label = L["Auctioneers"], glyph = "auction" },
+	{ key = "banker", label = L["Bankers"], glyph = "bank" },
+	{ key = "battlemaster", label = L["Battlemasters"], glyph = "battlemaster" },
+	{ key = "spirithealer", label = L["Spirit healers"], glyph = "ankh" },
+	{ key = "stablemaster", label = L["Stable masters"], glyph = "stable" },
+	{ key = "trainer", label = L["Profession trainers"], glyph = "trainer-profession" },
+	{ key = "vendor", label = L["Vendors"], glyph = "vendor" },
 }
 Maps.ServiceCategories = CATEGORIES
+local MAP_MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Map\\"
 local filters = {}
 for _, category in ipairs(CATEGORIES) do
 	filters[category.key] = category.on == true
-	category.icon = category.icon or ("Interface\\Minimap\\Tracking\\" .. category.texture)
-	if not category.icon:find("[\\/]") then category.icon = ns.Theme.Media(category.icon) end
+	category.mark = "map:" .. category.glyph
+	category.icon = MAP_MEDIA .. "icon-" .. category.glyph
+end
+
+-- A category's glyph in a menu line, in the NPC colour (the map marks are white masks).
+function Maps.ServiceIcon(category, size)
+	local T = ns.Theme
+	local r, g, b = 0.58, 0.79, 1
+	if T and T.Color then r, g, b = T.Color("npc") end
+	return string.format("|T%s:%d:%d:0:0:64:64:0:64:0:64:%d:%d:%d|t", category.icon, size or 16, size or 16,
+		math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5))
 end
 ns.RegisterDefaults("maps", { servicePins = false, serviceMinimap = false, serviceFilters = filters })
 
@@ -61,6 +72,10 @@ local function rgb(key)
 	if ns.Theme and ns.Theme.Color then return ns.Theme.Color(key) end
 	return 1, 1, 1
 end
+Maps.ServiceColor = function()
+	local r, g, b = rgb("npc")
+	return { r, g, b, 1 }
+end
 
 -- One icon per NPC and spawn, using the first enabled service it offers.
 -- Its tooltip keeps the other roles, so a repair vendor needs only one pin.
@@ -79,6 +94,7 @@ function Maps.BuildServicePins(records)
 	end
 	local info = ns.Compat.GetPlayerInfo and ns.Compat.GetPlayerInfo() or {}
 	local faction = info.faction == "Alliance" and "A" or info.faction == "Horde" and "H" or nil
+	local color = Maps.ServiceColor()
 	for _, record in ipairs(records or {}) do
 		if record.faction == nil or record.faction == "AH" or (faction and record.faction == faction) then
 			local roles, selected, labels = rolesOf(record), nil, {}
@@ -102,8 +118,8 @@ function Maps.BuildServicePins(records)
 							local name = record.name or tostring(record.id)
 							local p = { id = record.id, kind = record.kind or "npc", category = selected.key,
 								name = name, subName = record.subName,
-								map = map, x = x, y = y, f = spawn.f, icon = selected.icon,
-								size = 16, color = { 1, 1, 1, 1 }, backdrop = true, priority = 1 }
+								map = map, x = x, y = y, f = spawn.f, icon = selected.mark, menuIcon = selected.icon,
+								size = 16, color = color, priority = 1 }
 							p.tooltip = function(tip)
 								tip:SetText(name, rgb("text"))
 								if record.subName and record.subName ~= "" then tip:AddLine(record.subName, rgb("textDim")) end

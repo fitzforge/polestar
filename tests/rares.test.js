@@ -419,7 +419,7 @@ local list = {
 }
 local function sum(pins)
 	local out = {}
-	for i, p in ipairs(pins) do out[i] = { p.id, p.map, p.x, p.f or false, p.icon, p.ring and true or false, p.glow or false, p.priority } end
+	for i, p in ipairs(pins) do out[i] = { p.id, p.map, p.x, p.f or false, p.icon, p.ring and true or false, p.ring2 and true or false, p.glow or false, p.priority } end
 	return out
 end
 local base = { kind = "rare", list = list, level = 20, now = 100000,
@@ -431,17 +431,17 @@ local tre = R.BuildPins({ kind = "treasure", list = { { kind = "treasure", id = 
 emit({ all = sum(all), grey = sum(grey), greyLevel = { R.GreyLevel(5), R.GreyLevel(20), R.GreyLevel(45), R.GreyLevel(60) },
 	treasure = { tre[1].icon, tre[1].kind, tre[1].key, tre[1].size }, color = all[1].color, tip = type(all[1].tooltip) })`);
 	assert.deepEqual(out.all, [
-		[1, 1429, 10, false, 'qol-target', false, false, 2],
-		[2, 1429, 20, 'e', 'qol-target', false, false, 2],
-		[2, 1429, 40, false, 'qol-target', false, false, 2],
-		[2, 1436, 20, false, 'qol-target', false, false, 2],
-		[3, 1429, 50, false, 'qol-target', false, false, 2],
-		[4, 1429, 60, false, 'qol-target', true, false, 3],
-		[6, 1429, 70, false, 'qol-target', false, true, 4],
+		[1, 1429, 10, false, 'map:rare', false, false, false, 2],
+		[2, 1429, 20, 'e', 'map:rare', false, false, false, 2],
+		[2, 1429, 40, false, 'map:rare', false, false, false, 2],
+		[2, 1436, 20, false, 'map:rare', false, false, false, 2],
+		[3, 1429, 50, false, 'map:rare', false, false, false, 2],
+		[4, 1429, 60, false, 'map:rare', true, false, false, 3],
+		[6, 1429, 70, false, 'map:rare', false, true, false, 4],
 	]);
 	assert.deepEqual(out.grey.map((p) => p[0]), [2, 2, 2, 3, 4, 6], 'level 3 is grey at 20 (grey up to 13)');
 	assert.deepEqual(out.greyLevel, [0, 13, 35, 51]);
-	assert.deepEqual(out.treasure, ['icon-treasure', 'treasure', 'treasure:2843', 13]);
+	assert.deepEqual(out.treasure, ['map:treasure', 'treasure', 'treasure:2843', 13]);
 	assert.equal(out.tip, 'function');
 });
 

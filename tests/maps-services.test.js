@@ -244,25 +244,25 @@ test('the records kept for filter changes are slim and friendly only', () => {
   assert.deepEqual(out, { fields: ['faction', 'id', 'name', 'roles', 'spawns', 'subName'], shared: false, enemy: true, hostileBox: true, box: 'object' });
 });
 
-test('services are opt-in with a lean category set, leave flight masters and inns to the travel layers, and use the native bag for vendors and a distinct chest for bankers', () => {
+test('services are opt-in with a lean category set, leave flight masters and inns to the travel layers, and give each category its own map glyph', () => {
   const [out, weapon] = run(`
     local icons,on={},{}
     for _,category in ipairs(M.ServiceCategories) do
-      icons[category.key]=category.icon
+      icons[category.key]=category.mark
       if Polestar.Get("maps.serviceFilters."..category.key) then on[#on+1]=category.key end
     end
     emit({enabled=Polestar.Get("maps.servicePins"),on=on,inn=icons.innkeeper==nil,flight=icons.flightmaster==nil,
       vendor=icons.vendor,banker=icons.banker,reads=__reads})
-    emit(icons.weapon)
+    emit(M.ServiceCategories[4].icon)
   `, { enabled: null, settings: '' });
-  assert.ok(weapon.includes('AddOns') && weapon.endsWith('icon-train'));
+  assert.ok(weapon.includes('AddOns') && weapon.endsWith('icon-trainer-weapon'), weapon);
   assert.deepEqual(out, {
     enabled: false,
     on: ['mailbox', 'class'],
     inn: true,
     flight: true,
-    vendor: 'Interface\\Minimap\\Tracking\\Banker',
-    banker: 'Interface\\Icons\\INV_Misc_TreasureChest01a',
+    vendor: 'map:vendor',
+    banker: 'map:bank',
     reads: 0,
   });
 });
@@ -304,7 +304,7 @@ test('only city services share a region-map stack; nearby country services, ques
     local lines={}
     f.data.pin.tooltip({SetText=function(_,s) lines[#lines+1]=s end,AddLine=function(_,s) lines[#lines+1]=s end})
     local out={frames=#P.GetWorldFrames(),city=f.data.pin.city,count=f.data.pin.count,
-      icons=#f.data.pin.stack,badge=f.count~=nil,raw=#P.GetLayer("maps.services"),
+      icons=#f.data.pin.stack,badge=f.data.pin.badge,raw=#P.GetLayer("maps.services"),
       minimap=#P.GetMinimapFrames("maps.services"),lines=lines}
     WorldMapFrame.ScrollContainer.currentScale=6
     WorldMapFrame.ScrollContainer.zoomPercent=1
@@ -316,7 +316,7 @@ test('only city services share a region-map stack; nearby country services, ques
     out.decorationsHidden=not f.stackIcons[1]:IsShown()
     emit(out)
   `);
-  assert.deepEqual([out.frames,out.city,out.count,out.icons,out.badge,out.raw,out.minimap], [5,9002,3,3,false,6,6]);
+  assert.deepEqual([out.frames,out.city,out.count,out.icons,out.badge,out.raw,out.minimap], [5,9002,3,3,3,6,6]);
   assert.equal(out.lines[0],'Test City');
   assert.ok(out.lines.includes('3 service points'));
   assert.ok(out.lines.includes('Click to expand'));

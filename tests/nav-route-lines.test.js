@@ -410,7 +410,7 @@ test('a multi-point boat draws straight along its points and never wraps to its 
 	assert.ok(near(out[1].x, 300) && near(out[1].y, 200));
 });
 
-test('NAV_QA K8: a chokepoint stop wears its glyph; a hand-made stop (no choke) keeps the plain disc', () => {
+test('NAV_QA K8: a chokepoint stop wears its passage glyph; a hand-made stop (no choke) the stop glyph', () => {
 	const [out] = painted(`
 		local function pt(wx, wy) return { c = 0, wx = wx, wy = wy } end
 		local legs = {
@@ -426,16 +426,14 @@ test('NAV_QA K8: a chokepoint stop wears its glyph; a hand-made stop (no choke) 
 		for i, p in ipairs(Pins.GetLayer("nav.route") or {}) do
 			GameTooltip.lines = {}
 			p.tooltip(GameTooltip)
-			out[i] = { icon = p.icon or false, backdrop = p.backdrop or false, tip = GameTooltip.lines }
+			out[i] = { icon = p.icon or false, tip = GameTooltip.lines }
 		end
 		emit(out)`);
 	assert.equal(out.length, 3);
-	assert.equal(out[0].icon, 'icon-bridge');
-	assert.equal(out[0].backdrop, true);
+	assert.equal(out[0].icon, 'map:bridge');
 	assert.ok(out[0].tip.includes('Lakeshire bridge'), 'the chokepoint is named in the tooltip');
-	assert.equal(out[1].icon, 'icon-cave', 'a tunnel wears the cave glyph; no name, no extra line');
-	assert.equal(out[2].icon, false, 'no choke: the plain disc');
-	assert.equal(out[2].backdrop, false);
+	assert.equal(out[1].icon, 'map:cave', 'a tunnel wears the cave glyph; no name, no extra line');
+	assert.equal(out[2].icon, 'map:stop', 'no choke: the stop glyph');
 });
 
 test('review P3-8: Blizzard_WorldMap loading after login draws the route lines on the map', () => {

@@ -118,10 +118,10 @@ emit(kinds("quests.available"))
 	assert.deepEqual(lowLevel, [7, 10, 16, 18, 33, 60]);
 	assert.deepEqual(reasons, ['eligibility', 'eligibility', 'eligibility', 'eligibility', 'exclusive', 'prerequisite']);
 	assert.deepEqual(markers, [
-		'Eagan Peltskinner@48.9,40.2:icon-accept',
-		'Marshal McBride@48.9,41.6:icon-accept',
-		'Wanted Poster@50,50:icon-accept',
-		'William Pestle@43.3,65.7:icon-accept',
+		'Eagan Peltskinner@48.9,40.2:map:quest-available',
+		'Marshal McBride@48.9,41.6:map:quest-available',
+		'Wanted Poster@50,50:map:quest-available',
+		'William Pestle@43.3,65.7:map:quest-available',
 	]);
 });
 
@@ -239,14 +239,14 @@ stub.advance(0.3)
 emit({ sq.pins.layers["quests.objectives"] == nil, sq.pins.layers["quests.turnin"] == nil })
 `, { setup: 'w.complete({ 783 })' });
 	assert.deepEqual(accepted, [
-		'Kobold Vermin@47.8,35.8:icon-skull',
-		'Kobold Vermin@50.3,35.8:icon-skull',
-		'Kobold Vermin@70.3,70.2:icon-skull',
+		'Kobold Vermin@47.8,35.8:map:kill',
+		'Kobold Vermin@50.3,35.8:map:kill',
+		'Kobold Vermin@70.3,70.2:map:kill',
 	]);
 	assert.deepEqual(tooltip, ['Kobold Vermin', 'Kobold Camp Cleanup', '  Kobold Vermin: 0/10']);
 	assert.deepEqual(partial, ['Kobold Vermin', 'Kobold Camp Cleanup', '  Kobold Vermin: 4/10']);
 	assert.deepEqual(ready[0], {}, 'no objective markers once complete');
-	assert.deepEqual(ready[1], ['Marshal McBride@48.9,41.6:icon-turnin']);
+	assert.deepEqual(ready[1], ['Marshal McBride@48.9,41.6:map:quest-turnin']);
 	assert.deepEqual(ready[2], { world: true, minimap: true, edge: false, scale: 1 });
 	assert.deepEqual(gone, [true, true]);
 });
@@ -309,9 +309,9 @@ emit({ prog(9500, 6), prog(9500, 9500) })
 	assert.deepEqual(exact[0], '0/8', '"Kobold Vermin" is not read from the Runt line');
 	assert.deepEqual(exact[1], '5/5 done');
 	assert.deepEqual(exact[2], [
-		'Kobold Vermin@47.8,35.8:icon-skull',
-		'Kobold Vermin@50.3,35.8:icon-skull',
-		'Kobold Vermin@70.3,70.2:icon-skull',
+		'Kobold Vermin@47.8,35.8:map:kill',
+		'Kobold Vermin@50.3,35.8:map:kill',
+		'Kobold Vermin@70.3,70.2:map:kill',
 	], 'the unfinished objective keeps its markers; the finished Runts have none');
 	assert.deepEqual(later, ['4/8', '5/5 done'], 'repeated scans keep the assignment');
 	assert.deepEqual(substring, ['2/8', '1/5'], 'the longer name claims its line before the shorter one can');
@@ -419,16 +419,16 @@ emit(kinds("quests.objectives"))
 emit(#Q.GetMarkers(1429, "objectives"))
 `, { setup: 'w.complete({ 783 }); w.setLevel(4)' });
 	// Kobold Vermin is killed for 7 and drops candles for 60: one pin per
-	// cluster with both objectives, under the kill glyph (the higher rank).
+	// cluster with both objectives, under the kill glyph (the higher rank than loot).
 	assert.deepEqual(candles, [
-		'Candle Crate:gear:1',
-		'Kobold Miner:icon-skull:1',
-		'Kobold Vermin:icon-skull:2',
-		'Kobold Vermin:icon-skull:2',
-		'Kobold Vermin:icon-skull:2',
-		'William Pestle:icon-vendor:1',
+		'Candle Crate:map:use:1',
+		'Kobold Miner:map:loot:1',
+		'Kobold Vermin:map:kill:2',
+		'Kobold Vermin:map:kill:2',
+		'Kobold Vermin:map:kill:2',
+		'William Pestle:map:vendor:1',
 	]);
-	assert.deepEqual(wood, ['Bundle of Wood@30.2,30.1:gear', 'Gathering Wood@40.5,70.3:icon-explore']);
+	assert.deepEqual(wood, ['Bundle of Wood@30.2,30.1:map:use', 'Gathering Wood@40.5,70.3:map:explore']);
 	assert.equal(mapIndex, 2);
 });
 
@@ -453,8 +453,8 @@ for _, p in ipairs(layer("quests.objectives")) do
 	if p.header == "Kobold Vermin" then emit(sq.pinTooltip(p)) break end
 end
 `, { setup: 'w.complete({ 783 }); w.setLevel(4)' });
-	assert.deepEqual(shared, ['icon-skull:2', 'icon-skull:2', 'icon-skull:2']);
-	assert.deepEqual(after, ['icon-skull:1', 'icon-skull:1', 'icon-skull:1'], 'the skull glyph stays for NPC candle drops; the done kill quest is gone');
+	assert.deepEqual(shared, ['map:kill:2', 'map:kill:2', 'map:kill:2']);
+	assert.deepEqual(after, ['map:loot:1', 'map:loot:1', 'map:loot:1'], 'the loot glyph for NPC candle drops; the done kill quest is gone');
 	assert.ok(tip.some((l) => /Kobold Candles/.test(l)) && !tip.some((l) => /Kobold Camp Cleanup/.test(l)), JSON.stringify(tip));
 });
 
@@ -859,7 +859,7 @@ local function look(name)
 	local out = {}
 	for _, p in ipairs(layer(name)) do
 		local accent = Q.Color("accent")
-		out[#out + 1] = { h = p.header, area = p.area and true or false, radius = p.radius, ring = p.ring == accent, back = p.backdrop == true,
+		out[#out + 1] = { h = p.header, area = p.area and true or false, radius = p.radius, ring = p.ring == accent, mark = p.icon:sub(1, 4) == "map:",
 			size = p.size, mini = p.minimapSize, a = p.color[4], focus = p.focus or "none" }
 	end
 	table.sort(out, function(a, b) if a.h ~= b.h then return a.h < b.h end return (a.radius or 0) < (b.radius or 0) end)
@@ -886,8 +886,8 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 	const S = { kill: 16, killMini: 14, turnin: 18, available: 16 };
 	// Kobold Vermin: two camps spread over yards (areas), one tight pair (none).
 	assert.equal(areas.length, 3);
-	assert.ok(areas.every((p) => p.h === 'Kobold Vermin' && p.focus === 'none' && !p.ring && p.back && p.size === S.kill && p.mini === S.killMini),
-		'glyph on its dark disc, 16 px on the world map, 14 on the minimap');
+	assert.ok(areas.every((p) => p.h === 'Kobold Vermin' && p.focus === 'none' && !p.ring && p.mark && p.size === S.kill && p.mini === S.killMini),
+		'a map mark (glyph in its medallion), 16 px on the world map, 14 on the minimap');
 	assert.ok(areas.filter((p) => p.area).length >= 1, 'spread clusters get an area');
 	assert.ok(areas.every((p) => p.area === (p.radius !== undefined)), 'area only where the cluster radius reaches MIN_AREA');
 	assert.ok(noAreas.every((p) => !p.area), 'qol.objectiveAreas off: no areas');
@@ -900,7 +900,7 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 	const [dObj, dTurn, dAvail] = dim;
 	assert.ok(dAvail.length > 0 && off[0].length === 3 && off[1].length > 0);
 	assert.ok(dObj.every((p) => p.focus === 'focus' && p.a === 1));
-	assert.ok(dTurn.every((p) => p.focus === 'dim' && p.back && Math.abs(p.a - 0.6) < 1e-9), 'qol.guideDim: everything else recedes to 0.6');
+	assert.ok(dTurn.every((p) => p.focus === 'dim' && p.mark && Math.abs(p.a - 0.6) < 1e-9), 'qol.guideDim: everything else recedes to 0.6');
 	assert.ok(dAvail.every((p) => p.focus === 'dim'));
 	assert.ok(off[0].every((p) => p.focus === 'none' && !p.ring) && off[1].every((p) => p.focus === 'none' && p.a === 1), 'no guide: plain look');
 	assert.equal(noTurnIn, true, 'qol.turnInMarkers off clears the turn-in layer');

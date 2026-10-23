@@ -2124,12 +2124,29 @@ Polestar.Pins.SetLayer(layer, pins, opts)   -- replace a layer; opts = { world =
                                             --   minimapAreas = false, minMapType = nil, worldLayout = nil }
 Polestar.Pins.ClearLayer(layer)
 Polestar.Pins.SetLayerVisible(layer, visible)
--- pin = { map, x, y, f, icon (Theme.Media name or texture path), size, minimapSize, color = { r, g, b, a },
---         tooltip = string | function(tooltip), onClick = function(button, owner), priority,
+-- pin = { map, x, y, f, icon (Theme.Media name, texture path, or "map:<name>": a map mark), size, minimapSize,
+--         color = { r, g, b, a }, tooltip = string | function(tooltip), onClick = function(button, owner), priority,
 --         glow (soft halo), ring = { r, g, b } (ring round the disc), backdrop (scrim disc), area (yards),
 --         hull = { wx1, wy1, ... } (a convex region in world yards on the pin's continent `c`),
---         areaOnly (only the area or hull draws, no pin) }
+--         areaOnly (only the area or hull draws, no pin),
+--         map marks only: ring2 = { r, g, b } (dashed ring further out), badge = n | "?" (accent capsule,
+--         top right), state = "focus" | "dim", medal = false (the glyph alone), medalSize (px) }
 ```
+
+Map marks (`icon = "map:<name>"`) are the map's own glyph family: white masks
+in `Media/Map/icon-<name>` (`tools/media/map.js`, 64 px over 27 units of a
+24-unit grid, a relief and a black contour baked in, so the tint keeps both),
+drawn at 27/24 of the mark's size, tinted with the pin's colour. Each sits in
+a medallion 1.4 times the mark (rounded to even), the one untinted piece: the
+icon pack's (`nav.mapIcons`; `Pins.IconPack()`: "skin", the default, takes
+Polestar's, Halo's, or Hearth's for Hearth and the game's looks; "bare"
+draws no medallion). The kit is tinted too: `ring` 5 px and `ring2` 11 px
+wider than the medallion, the glow 2.3 times it (only where a pin asks:
+the guide's target, a focused quest turn-in), the badge 14 px high. A mark
+clamped to the minimap's rim keeps medallion and glyph, its medallion at the
+rim, the edge pointer on its side toward the target. A city group of services
+(`Maps/ServiceClusters.lua`) is one 30 px medallion with up to three glyphs at
+0.4 of it and a badge with its count.
 
 Pins are drawn on the world map for the map being viewed (converted through Compat
 for other maps). Optional `worldLayout(projected, view)` receives this layer's

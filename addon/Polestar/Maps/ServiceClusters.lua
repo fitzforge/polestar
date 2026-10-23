@@ -30,7 +30,7 @@ local function choose(group, owner)
 		for i = (page - 1) * PAGE + 1, math.min(page * PAGE, #members) do
 			local pin = members[i]
 			items[#items + 1] = {
-				text = "|T" .. pin.icon .. ":16|t " .. pin.name .. "  |cffaaaaaa" .. Maps.FormatCoords(pin.x, pin.y) .. "|r",
+				text = Maps.ServiceIcon(category) .. " " .. pin.name .. "  |cffaaaaaa" .. Maps.FormatCoords(pin.x, pin.y) .. "|r",
 				tip = pin.subName,
 				onClick = function() pin.onClick("LeftButton") end,
 			}
@@ -44,7 +44,7 @@ local function choose(group, owner)
 		for _, category in ipairs(Maps.ServiceCategories) do
 			local members = group.categories[category.key]
 			if members then
-				items[#items + 1] = { text = "|T" .. category.icon .. ":16|t " .. category.label .. " (" .. #members .. ")",
+				items[#items + 1] = { text = Maps.ServiceIcon(category) .. " " .. category.label .. " (" .. #members .. ")",
 					onClick = function() list(category, 1) end }
 			end
 		end
@@ -63,9 +63,13 @@ local function detailOf(map, region)
 	end
 end
 
+-- A group: a 30 px medallion with up to three of its services' glyphs and a
+-- badge with how many service points it holds.
+local GROUP_MEDAL = 30
 local function pile(members, detail)
 	local group = { members = members, categories = {}, count = #members, stack = {},
-		size = 30, color = { 1, 1, 1, 1 }, backdrop = true, priority = 1 }
+		size = GROUP_MEDAL / 1.4, medalSize = GROUP_MEDAL, badge = #members,
+		color = Maps.ServiceColor(), priority = 1 }
 	for _, d in ipairs(members) do
 		local p = d.pin
 		local category = group.categories[p.category]
@@ -77,7 +81,7 @@ local function pile(members, detail)
 		local entries = group.categories[category.key]
 		if entries then
 			services[#services + 1] = category.label .. " (" .. #entries .. ")"
-			if #group.stack < 3 then group.stack[#group.stack + 1] = category.icon end
+			if #group.stack < 3 then group.stack[#group.stack + 1] = category.mark end
 			table.sort(entries, function(a, b)
 				if a.name ~= b.name then return a.name < b.name end
 				if a.map ~= b.map then return a.map < b.map end

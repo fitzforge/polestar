@@ -907,7 +907,8 @@ test('minimap projection honours view radius, rotation and clamps to the rim', (
 	near(out.rotWest.x, 0); near(out.rotWest.y, 100 * s);
 	near(out.rotNorth.x, 100 * s); near(out.rotNorth.y, 0);
 	// Out of range: pinned to the rim, pointer turned outward (east = -90 degrees).
-	const limit = 70 - 14 * 1.4 * 0.35;
+	// The target is a map mark: its medallion (1.4 times the mark) stops at the rim.
+	const limit = 70 - 14 * 1.4 * 1.4 * 0.5;
 	near(out.farEast.x, limit); near(out.farEast.y, 0);
 	assert.equal(out.farEast.edge, true);
 	near(out.farEast.edgeRot, -PI / 2);

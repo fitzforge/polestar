@@ -348,6 +348,12 @@ local BUILTIN = {
 			shown = function() return Theme.Color("arrowNear") end,
 			source = function() return L["Jade"] end },
 	} },
+	{ page = LOOK, tab = L["Arrow"], section = L["Map icons"], controls = {
+		{ kind = "dropdown", key = "nav.mapIcons", label = L["Icon pack"],
+			help = L["The medallion under every mark on the world map and the minimap. The skin's: Polestar's, Halo's, or Hearth's for Hearth and the game's own looks. Glyphs only: no medallion."],
+			choices = { { value = "skin", label = L["The skin's icons"] }, { value = "polestar", label = L["Polestar"] },
+				{ value = "halo", label = L["Halo"] }, { value = "hearth", label = L["Hearth"] }, { value = "bare", label = L["Glyphs only"] } } },
+	} },
 
 	-- Everything Polestar draws on the world map and the minimap, in one
 	-- place. The sections are declared here, in this order; the Quests,

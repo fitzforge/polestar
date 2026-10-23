@@ -38,24 +38,26 @@ Q.LAYERS = { objectives = LAYER_OBJECTIVES, turnin = LAYER_TURNIN, available = L
 
 local KIND_KILL, KIND_ITEM, KIND_OBJECT, KIND_EVENT = 1, 2, 3, 4
 
--- Marker look: Theme glyph and colour per kind, on a dark disc (Pins
--- `backdrop`) so it reads over any map art; size on the world map, mini on
--- the minimap; rank picks the glyph when objectives of several kinds share
--- one spawn cluster.
+-- Marker look: map mark and colour per kind, in the skin's medallion so it
+-- reads over any map art; size on the world map, mini on the minimap; rank
+-- picks the glyph when objectives of several kinds share one spawn cluster.
+-- skull: a mob to kill; loot: a mob that drops a quest item.
 local STYLE = {
-	kill = { icon = "icon-skull", color = "white", size = 16, mini = 14, priority = 2, area = true, rank = 5 },
-	skull = { icon = "icon-skull", color = "white", size = 16, mini = 14, priority = 2, area = true, rank = 5 },
-	collect = { icon = "icon-collect", color = "item", size = 16, mini = 14, priority = 2, area = true, rank = 2 },
-	gear = { icon = "gear", color = "item", size = 16, mini = 14, priority = 2, area = true, rank = 2 },
-	vendor = { icon = "icon-vendor", color = "item", size = 16, mini = 14, priority = 2, rank = 1 },
-	interact = { icon = "icon-interact", color = "place", size = 16, mini = 14, priority = 2, area = true, rank = 3 },
-	event = { icon = "icon-explore", color = "place", size = 16, mini = 14, priority = 2 },
-	turnin = { icon = "icon-turnin", color = "quest", size = 18, mini = 16, priority = 3 },
-	available = { icon = "icon-accept", color = "quest", size = 16, mini = 14, priority = 1 },
+	kill = { icon = "map:kill", color = "danger", size = 16, mini = 14, priority = 2, area = true, rank = 5 },
+	skull = { icon = "map:kill", color = "danger", size = 16, mini = 14, priority = 2, area = true, rank = 5 },
+	loot = { icon = "map:loot", color = "item", size = 16, mini = 14, priority = 2, area = true, rank = 4 },
+	collect = { icon = "map:loot", color = "item", size = 16, mini = 14, priority = 2, area = true, rank = 2 },
+	gear = { icon = "map:use", color = "item", size = 16, mini = 14, priority = 2, area = true, rank = 2 },
+	vendor = { icon = "map:vendor", color = "item", size = 16, mini = 14, priority = 2, rank = 1 },
+	interact = { icon = "map:use", color = "place", size = 16, mini = 14, priority = 2, area = true, rank = 3 },
+	event = { icon = "map:explore", color = "place", size = 16, mini = 14, priority = 2 },
+	turnin = { icon = "map:quest-turnin", color = "quest", size = 18, mini = 16, priority = 3 },
+	available = { icon = "map:quest-available", color = "quest", size = 16, mini = 14, priority = 1 },
 }
 -- The active guide step's quests: the same glyph x FOCUS_SCALE, circled in
--- the accent, on top. Others, while a guide runs and qol.guideDim is on: the
--- same look at DIM_ALPHA (receding, still legible on its disc).
+-- the accent, on top (a turn-in also glows). Others, while a guide runs and
+-- qol.guideDim is on: the same look at DIM_ALPHA (receding, still legible in
+-- its medallion).
 local FOCUS_SCALE, FOCUS_PRIORITY, DIM_ALPHA = 1.3, 3, 0.6
 -- Spawn clusters tighter than this (yards) get no area: a single spawn point.
 local MIN_AREA = 12
@@ -624,10 +626,11 @@ local function stylePin(pin, areas, highlight, dim)
 	local focus = focusWith(pin, highlight, dim)
 	local k = focus == "focus" and FOCUS_SCALE or 1
 	pin.focus = focus
-	pin.icon, pin.backdrop = s.icon, true
+	pin.icon = s.icon
 	pin.size, pin.minimapSize = s.size * k, s.mini * k
 	pin.priority = s.priority + (focus == "focus" and FOCUS_PRIORITY or 0)
 	pin.ring = focus == "focus" and color("accent") or nil
+	pin.glow = focus == "focus" and pin.style == "turnin" or nil
 	pin.color = focus == "dim" and dimColor(s.color) or color(s.color)
 	pin.area = areas and pin.radius or nil
 end
@@ -657,7 +660,7 @@ local function objectivePins(e, byKey)
 				local ir = Q.ItemRecord(o.id)
 				if ir then
 					local nd = ir[2] or 0
-					for k = 1, nd do spawnPins(LAYER_OBJECTIVES, "objective", "skull", ir[1 + 2 * k], o, byKey) end
+					for k = 1, nd do spawnPins(LAYER_OBJECTIVES, "objective", "loot", ir[1 + 2 * k], o, byKey) end
 					local j = 3 + 2 * nd
 					local no = ir[j] or 0
 					for k = 1, no do spawnPins(LAYER_OBJECTIVES, "objective", "gear", -ir[j + 2 * k - 1], o, byKey) end

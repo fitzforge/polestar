@@ -508,6 +508,53 @@ test('icon pins may sit on a dark disc, carry a ring, and take their own minimap
 	assert.deepEqual(out.world.map((f) => [f.w, f.back, f.mark]), [[20, false, false], [20, true, true]], 'size on the world map');
 });
 
+test('map marks sit in the icon pack\'s medallion, with their ring, dashed ring, badge and states', () => {
+	const [out] = run(`
+		nav.viewRadius = 200
+		local function look(f)
+			local m = f.medal:IsShown() and f.medal.texture:match("medallion%-(%a+)$") or false
+			return { w = f.width, medal = m, medalW = f.medal.width, glyph = f.icon.texture:match("icon%-[%a-]+$"),
+				glyphW = f.icon.width, ring = f.mark:IsShown() and f.mark.width or false,
+				ring2 = f.ring2:IsShown() and f.ring2.width or false, glow = f.glow:IsShown() and f.glow.width or false,
+				badge = f.badge.text:IsShown() and f.badge.text:GetText() or false, a = f.icon.vertexColor[4],
+				back = f.back:IsShown() }
+		end
+		local function draw(pins, opts)
+			Pins.SetLayer("marks", pins, opts)
+			stub.advance(0.3)
+			local r = {}
+			for _, f in ipairs(Pins.GetMinimapFrames("marks")) do r[#r + 1] = look(f) end
+			table.sort(r, function(a, b) return a.w < b.w end)
+			return r
+		end
+		local r = {}
+		r.plain = draw({ at(20, 20, { icon = "map:kill", size = 16, backdrop = true }) })[1]
+		r.kit = draw({ at(20, 20, { icon = "map:rare", size = 15, ring = { 1, 0.5, 0.3, 1 }, ring2 = { 1, 0.5, 0.3, 1 }, glow = true, badge = "?" }) })[1]
+		r.focus = draw({ at(20, 20, { icon = "map:quest-turnin", size = 20, state = "focus" }) })[1]
+		r.dim = draw({ at(20, 20, { icon = "map:quest-available", size = 16, state = "dim" }) })[1]
+		r.spot = draw({ at(20, 20, { icon = "map:pin-small", size = 9, medal = false }) })[1]
+		Polestar.Set("nav.mapIcons", "halo")
+		r.halo = draw({ at(20, 20, { icon = "map:kill", size = 16 }) })[1]
+		Polestar.Set("nav.mapIcons", "bare")
+		r.bare = draw({ at(20, 20, { icon = "map:kill", size = 16 }) })[1]
+		Polestar.Set("nav.mapIcons", "skin")
+		r.edge = draw({ at(0, -900, { icon = "map:kill", size = 16, ring = { 1, 1, 1, 1 }, badge = 3 }) }, { edge = true })[1]
+		local f = Pins.GetMinimapFrames("marks")[1]
+		r.edge.pointer = f.edge:IsShown()
+		emit(r)`);
+	assert.deepEqual(out.plain, { w: 16, medal: 'polestar', medalW: 22, glyph: 'icon-kill', glyphW: 18, ring: false, ring2: false, glow: false, badge: false, a: 1, back: false },
+		'the glyph (27/24 of the mark, for its contour) in a medallion 1.4 times the mark, rounded to even; no scrim disc');
+	assert.deepEqual([out.kit.medalW, out.kit.ring, out.kit.ring2, out.kit.glow, out.kit.badge], [22, 27, 33, 50.6, '?'],
+		'ring 5 px and dashed ring 11 px wider than the medallion, glow 2.3 times it, the badge');
+	assert.deepEqual([out.focus.w, out.focus.ring], [26, 2 * Math.round(26 * 1.4 / 2) + 5], 'focus: 1.3 times the size, in an accent ring');
+	assert.equal(out.dim.a, 0.6, 'dim: the whole mark at 60%');
+	assert.equal(out.spot.medal, false, 'medal = false: the glyph alone');
+	assert.equal(out.halo.medal, 'halo', 'nav.mapIcons picks the medallion');
+	assert.equal(out.bare.medal, false, 'glyphs only: no medallion');
+	assert.deepEqual([out.edge.medal, out.edge.glyph, out.edge.pointer, out.edge.ring, out.edge.badge], ['polestar', 'icon-kill', true, false, false],
+		'clamped to the rim: medallion, glyph and pointer; no ring or badge');
+});
+
 test('minimap pins follow a rotating minimap, priority stacks, tooltips and clicks work', () => {
 	const [out] = run(`
 		nav.viewRadius = 200

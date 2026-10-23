@@ -62,7 +62,7 @@ local function updateTarget(world, minimap)
 	-- The target wears the arrow's colour (Theme "arrow": the accent unless
 	-- the player picked their own), so map and arrow agree.
 	Pins.SetLayer(TARGET, {
-		{ map = target.map, x = target.x, y = target.y, f = target.f, color = color("arrow"), glow = true,
+		{ map = target.map, x = target.x, y = target.y, f = target.f, color = color("arrow"), glow = true, icon = "map:target",
 			area = area, tooltip = targetTooltip, priority = 100 },
 	}, { world = world, minimap = minimap, edge = true, scale = 1.4, minimapAreas = true })
 end
@@ -83,8 +83,8 @@ local function updateSpots(world)
 		if i ~= target.spot then
 			local alt = s.alt
 			pins[#pins + 1] = {
-				map = target.map, x = s.x, y = s.y, f = target.f, color = { r, g, b, alt and 0.5 or 0.75 },
-				size = alt and 7 or 9, priority = alt and 15 or 20,
+				map = target.map, x = s.x, y = s.y, f = target.f, color = { r, g, b, alt and 0.5 or 0.8 },
+				icon = "map:pin-small", medal = false, size = alt and 7 or 9, priority = alt and 15 or 20,
 				tooltip = function(tip)
 					tip:SetText(label or "")
 					tip:AddLine(format(L["Spot %d of %d"], i, n), 0.7, 0.7, 0.7)
@@ -101,10 +101,10 @@ local function updateSpots(world)
 end
 
 -- A leg that ends at a chokepoint (leg.choke = { kind, name }, Travel.lua)
--- marks it with its glyph; other stops are plain discs.
+-- marks it with its passage glyph; other stops with the stop glyph.
 local CHOKE_ICON = {
-	lift = "icon-lift", gate = "icon-gate", building = "icon-gate", bridge = "icon-bridge",
-	cave = "icon-cave", tunnel = "icon-cave", pass = "icon-pass",
+	lift = "map:elevator", gate = "map:portal", building = "map:portal", bridge = "map:bridge",
+	cave = "map:cave", tunnel = "map:cave", pass = "map:pass",
 }
 
 local function updateRoute(world)
@@ -122,7 +122,7 @@ local function updateRoute(world)
 		local step = format(L["Travel route, step %s"], i .. "/" .. #legs)
 		pins[#pins + 1] = {
 			c = to.c, wx = to.wx, wy = to.wy, color = color("arrow"), priority = 50,
-			icon = icon, backdrop = icon and true or nil,
+			icon = icon or "map:stop", size = not icon and 15 or nil,
 			label = nextLeg.label, step = i,
 			tooltip = function(tip)
 				tip:SetText(nextLeg.label or "")
@@ -149,7 +149,7 @@ local function updateGoals(world)
 			and not (target and target.map == goal.map and target.x == goal.x and target.y == goal.y) then
 			local text = goal.text
 			pins[#pins + 1] = {
-				map = goal.map, x = goal.x, y = goal.y, f = goal.f, color = color("place"), priority = 10,
+				map = goal.map, x = goal.x, y = goal.y, f = goal.f, color = color("place"), priority = 10, icon = "map:pin",
 				label = text,
 				tooltip = function(tip)
 					tip:SetText(text or "")

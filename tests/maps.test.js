@@ -59,12 +59,12 @@ test('pin layers come from the travel data: own-faction and neutral flight maste
 		local P = Polestar.Pins
 		local taxi = {}
 		for _, p in ipairs(P.GetLayer("maps.taxi")) do
-			taxi[#taxi + 1] = { id = p.nodeID, known = p.known, icon = p.icon, c = p.c, wx = p.wx, wy = p.wy }
+			taxi[#taxi + 1] = { id = p.nodeID, known = p.known, icon = p.icon, badge = p.badge or false, c = p.c, wx = p.wx, wy = p.wy }
 		end
 		local docks = {}
 		for _, p in ipairs(P.GetLayer("maps.docks")) do docks[#docks + 1] = p.transport .. ">" .. p.dest end
 		local inns = {}
-		for _, p in ipairs(P.GetLayer("maps.inns")) do inns[#inns + 1] = { bound = p.bound, glow = p.glow or false, icon = p.icon } end
+		for _, p in ipairs(P.GetLayer("maps.inns")) do inns[#inns + 1] = { bound = p.bound, ring = p.ring ~= nil, glow = p.glow or false, icon = p.icon, size = p.size } end
 		local g = { Polestar.Theme.Color("success") }
 		local a = { Polestar.Theme.Color("warning") }
 		local layer = P.GetLayer("maps.taxi")
@@ -73,12 +73,15 @@ test('pin layers come from the travel data: own-faction and neutral flight maste
 			unknownColor = layer[2].color[1] == a[1] and layer[2].color[2] == a[2],
 			minimap = #P.GetMinimapFrames("maps.taxi") })`, { travelPins: true });
 	assert.deepEqual(out.taxi, [
-		{ id: 1, known: true, icon: 'icon-fly', c: 0, wx: 0, wy: 800 },
-		{ id: 2, known: false, icon: 'icon-fly', c: 0, wx: 0, wy: -800 },
-		{ id: 3, known: false, icon: 'icon-fly', c: 0, wx: 600, wy: 0 },
+		{ id: 1, known: true, icon: 'map:flightmaster', badge: false, c: 0, wx: 0, wy: 800 },
+		{ id: 2, known: false, icon: 'map:flightmaster', badge: '?', c: 0, wx: 0, wy: -800 },
+		{ id: 3, known: false, icon: 'map:flightmaster', badge: '?', c: 0, wx: 600, wy: 0 },
 	], 'the Horde-only Red Fort is left out');
 	assert.deepEqual(out.docks, ['boat-west>Far Isle', 'boat-west>West Dock'], 'the Horde zeppelin is left out');
-	assert.deepEqual(out.inns, [{ bound: true, glow: true, icon: 'icon-hearth' }, { bound: false, glow: false, icon: 'icon-hearth' }]);
+	assert.deepEqual(out.inns, [
+		{ bound: true, ring: true, glow: false, icon: 'map:inn', size: 16 },
+		{ bound: false, ring: false, glow: false, icon: 'map:inn', size: 12 },
+	], 'the bound inn: larger and circled, no glow');
 	assert.equal(out.knownColor, true);
 	assert.equal(out.unknownColor, true);
 	assert.equal(out.minimap, 0, 'minimap travel icons are off by default');

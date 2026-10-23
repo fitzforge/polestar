@@ -278,7 +278,7 @@ test('dungeon pins: the Codex loads only when the world map opens, one pin per k
 		emit({ atLogin = atLogin, loads = CODEX_LOADS, keys = keys, color = color, off = off })`, DUNGEON_PINS);
 	assert.deepEqual(out.atLogin, { loads: 0, layer: false }, 'nothing loads at login');
 	assert.equal(out.loads, 1);
-	assert.deepEqual(out.keys, ['deadmines@42.5,71.7:icon-dungeon', 'hall-of-thanes@10,20:icon-dungeon']);
+	assert.deepEqual(out.keys, ['deadmines@42.5,71.7:map:dungeon', 'hall-of-thanes@10,20:map:dungeon']);
 	assert.equal(out.color, true);
 	assert.equal(out.off, true);
 });
