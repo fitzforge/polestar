@@ -271,15 +271,15 @@ test('dungeon pins: the Codex loads only when the world map opens, one pin per k
 		local layer = P.GetLayer("maps.dungeons")
 		local keys = {}
 		for _, p in ipairs(layer) do keys[#keys + 1] = p.key .. "@" .. p.x .. "," .. p.y .. ":" .. p.icon end
-		local r, g, b = Polestar.Theme.Color("dungeon")
-		local color = layer[1].color[1] == r and layer[1].color[2] == g and layer[1].color[3] == b
+		local c = layer[1].color
+		local untinted = c[1] == 1 and c[2] == 1 and c[3] == 1
 		Polestar.Set("maps.dungeonPins", false)
 		local off = P.GetLayer("maps.dungeons") == nil
-		emit({ atLogin = atLogin, loads = CODEX_LOADS, keys = keys, color = color, off = off })`, DUNGEON_PINS);
+		emit({ atLogin = atLogin, loads = CODEX_LOADS, keys = keys, untinted = untinted, off = off })`, DUNGEON_PINS);
 	assert.deepEqual(out.atLogin, { loads: 0, layer: false }, 'nothing loads at login');
 	assert.equal(out.loads, 1);
-	assert.deepEqual(out.keys, ['deadmines@42.5,71.7:icon-dungeon', 'hall-of-thanes@10,20:icon-dungeon']);
-	assert.equal(out.color, true);
+	assert.deepEqual(out.keys, ['deadmines@42.5,71.7:game-dungeon', 'hall-of-thanes@10,20:game-dungeon']);
+	assert.equal(out.untinted, true, 'the client\'s own art is drawn untinted');
 	assert.equal(out.off, true);
 });
 

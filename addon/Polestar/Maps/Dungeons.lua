@@ -84,14 +84,13 @@ function Maps.BuildDungeonPins(o)
 	if type(o) ~= "table" or type(o.instances) ~= "table" then return pins end
 	local page = o.page and true or false
 	local open = o.open or openPage
-	local r, g, b = rgb("dungeon")
-	local color = { r, g, b, 1 }
+	local color = { 1, 1, 1, 1 } -- the client's own art, untinted
 	for _, rec in ipairs(o.instances) do
 		local e = type(rec) == "table" and rec.entrance
 		if type(e) == "table" and e.map and e.x and e.y then
 			pins[#pins + 1] = {
 				map = e.map, x = e.x, y = e.y, f = e.f,
-				icon = "icon-dungeon", size = 16, color = color, priority = 2,
+				icon = rec.kind == "raid" and "game-raid" or "game-dungeon", size = 24, color = color, priority = 2, omKind = "dungeons",
 				key = rec.key, page = page,
 				tooltip = tooltip(rec, page),
 				onClick = function(button)
@@ -127,7 +126,7 @@ end
 function Maps.RefreshDungeonPins()
 	local Pins = ns.Pins
 	if not (Pins and Pins.SetLayer) then return end
-	local list = ns.Get("maps.dungeonPins") and codexInstances()
+	local list = Maps.LayerOn("maps.dungeonPins") and codexInstances()
 	local pins = list and Maps.BuildDungeonPins({ instances = list, page = canOpen() })
 	if pins and #pins > 0 then
 		Pins.SetLayer(LAYER, pins, { world = true, minimap = false, edge = false })
@@ -138,7 +137,7 @@ end
 
 -- The world map opened: load the Codex the first time pins are wanted.
 local function onMapShown()
-	if not ns.Get("maps.dungeonPins") then return end
+	if not Maps.LayerOn("maps.dungeonPins") then return end
 	local X = ns.Codex
 	if X and X.IsLoaded and not X.IsLoaded() and X.Load then X.Load() end -- fires CODEX_LOADED
 end
@@ -162,8 +161,8 @@ ns.On("CODEX_LOADED", Maps.RefreshDungeonPins)
 
 ns.On("SETTING_CHANGED", function(path)
 	if not ns.IsLoggedIn() then return end
-	if path == "maps.dungeonPins" or path == "maps" or path == "" then
-		if ns.Get("maps.dungeonPins") and WorldMapFrame and WorldMapFrame:IsShown() then onMapShown() end
+	if Maps.LayerPath(path, "maps.dungeonPins") or path == "maps" or path == "" then
+		if Maps.LayerOn("maps.dungeonPins") and WorldMapFrame and WorldMapFrame:IsShown() then onMapShown() end
 		Maps.RefreshDungeonPins()
 	end
 end)

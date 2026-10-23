@@ -49,7 +49,7 @@ local CURVE_STEPS = 12
 
 Strokes.THICKNESS, Strokes.DOT, Strokes.RIM, Strokes.SPACING = THICKNESS, DOT, RIM, SPACING
 Strokes.SMALL_DOT, Strokes.SMALL_SPACING, Strokes.STOP_GAP = SMALL_DOT, SMALL_SPACING, STOP_GAP
-Strokes.LATER_ALPHA, Strokes.DOT_ART, Strokes.LIMIT = LATER_ALPHA, DOT_ART, LIMIT
+Strokes.LATER_ALPHA, Strokes.DOT_ART, Strokes.LIMIT, Strokes.BOW = LATER_ALPHA, DOT_ART, LIMIT, BOW
 
 -- Strokes in drawing order, as parallel arrays 1..n, in the view's own units
 -- with x right and y up from its top left (TOPLEFT offsets). A redraw
@@ -131,7 +131,12 @@ end
 
 local out, limit
 local scale, width, height, dot, spacing, walked
-local fade
+local fade, dim
+-- Flow (view.phase, 0..1 of a spacing): breadcrumbs sit that far on along a
+-- walk, and glints (view.glint: their colour) run along every ride, GLINT
+-- pixels apart, carried across its bends as the breadcrumbs are.
+local phase, glint, glided = 0, nil, 0
+local GLINT = 46
 -- Stop marks as x, y and reach, flat; near holds those the segment in hand passes.
 local circles, circleCount, near = {}, 0, {}
 
@@ -139,7 +144,7 @@ local function Begin(buffer, viewScale, small)
 	out, scale, limit = buffer, viewScale, buffer.limit or LIMIT
 	out.n = 0
 	dot, spacing = small and SMALL_DOT or DOT, small and SMALL_SPACING or SPACING
-	walked, fade, circleCount = 0, 1, 0
+	walked, fade, circleCount, glided = 0, 1, 0, 0
 end
 
 local function Stroke(x1, y1, x2, y2, color, isDot)
@@ -156,7 +161,7 @@ local function Stroke(x1, y1, x2, y2, color, isDot)
 	out.x1[n], out.y1[n], out.x2[n], out.y2[n], out.ux[n], out.uy[n] = x1, y1, x2, y2, ux, uy
 	out.width[n] = (isDot and dot * DOT_ART or THICKNESS) / scale
 	out.under[n] = (isDot and (dot + RIM * 2) * DOT_ART or UNDER_THICKNESS) / scale
-	out.alpha[n], out.color[n], out.dot[n] = fade, color, isDot or false
+	out.alpha[n], out.color[n], out.dot[n] = fade * dim, color, isDot or false
 end
 
 -- Clip segments, not vertices: a line can cross a zone with both ends outside it.
@@ -212,7 +217,19 @@ local function Segment(x1, y1, x2, y2, low, high, color, dashed)
 	if length == 0 then return end
 	if not dashed then
 		walked = 0
-		if low then Stroke(x1 + low * dx, y1 + low * dy, x1 + high * dx, y1 + high * dy, color) end
+		local start = glided
+		glided = start + length
+		if not low then return end
+		Stroke(x1 + low * dx, y1 + low * dy, x1 + high * dx, y1 + high * dy, color)
+		if glint then
+			local half = dot * DOT_ART / 2 / length
+			local shift = phase * GLINT
+			local first = ceil((start + low * length - shift - 0.001) / GLINT) * GLINT + shift - start
+			for distance = first, high * length - 0.001, GLINT do
+				local t = distance / length
+				Stroke(x1 + (t - half) * dx, y1 + (t - half) * dy, x1 + (t + half) * dx, y1 + (t + half) * dy, glint, true)
+			end
+		end
 		return
 	end
 	local start = walked
@@ -222,7 +239,8 @@ local function Segment(x1, y1, x2, y2, low, high, color, dashed)
 	-- fits. A dot on a joint belongs to the later segment: both ends share a
 	-- tolerance, so rounding in the running total cannot push it out of both.
 	local half = dot * DOT_ART / 2 / length
-	local first = ceil((start + low * length - 0.001) / spacing) * spacing - start
+	local shift = phase * spacing
+	local first = ceil((start + low * length - shift - 0.001) / spacing) * spacing + shift - start
 	local count = Near(x1, y1, x2, y2)
 	for distance = first, high * length - 0.001, spacing do
 		local t = distance / length
@@ -232,13 +250,17 @@ local function Segment(x1, y1, x2, y2, low, high, color, dashed)
 	end
 end
 
--- A line between two map fractions, clipped to the map.
+-- What the world map shows, in map fractions: the map itself, or on OpenMap's
+-- stitched map the view (view.clip).
+local clipX0, clipY0, clipX1, clipY1 = 0, 0, 1, 1
+
+-- A line between two map fractions, clipped to what shows.
 local function Line(x1, y1, x2, y2, color, dashed)
 	local reach = dot / 2 + RIM
 	local mx = dashed and reach / scale / width or 0
 	local my = dashed and reach / scale / height or 0
-	local low, high = ClipAxis(x1, x2 - x1, 0, 1, mx, 1 - mx)
-	if low then low, high = ClipAxis(y1, y2 - y1, low, high, my, 1 - my) end
+	local low, high = ClipAxis(x1, x2 - x1, 0, 1, clipX0 + mx, clipX1 - mx)
+	if low then low, high = ClipAxis(y1, y2 - y1, low, high, clipY0 + my, clipY1 - my) end
 	Segment(x1 * width, -y1 * height, x2 * width, -y2 * height, low, high, color, dashed)
 end
 
@@ -270,14 +292,29 @@ end
 --            small                  a continent map: smaller dots
 --            marks, markCount       stop marks, flat { fx, fy, radius (units), ... }
 --            colors = { [kind] = { r, g, b } },
---            from, fromIndex        the live start (see Strokes.Live): nil = from the first point }
+--            from, fromIndex        the live start (see Strokes.Live): nil = from the first point
+--            fits                   OpenMap's stitched map: { [continent] = { ub, uc, va, vc } },
+--                                   fx = ub * wy + uc, fy = va * wx + vc, every continent it places
+--                                   (c, left, top, kx, ky are then unused)
+--            clip                   { x0, y0, x1, y1 } map fractions to draw within (default 0, 0, 1, 1)
+--            phase, glint           flow: 0..1 of a spacing on, and the glints' colour (nil: none)
+--            dim                    every stroke's alpha times this (default 1) }
 ---------------------------------------------------------------------------
 
-local vc, vLeft, vTop, vKx, vKy
+local vc, vLeft, vTop, vKx, vKy, vFits
 
 local function position(c, wx, wy)
+	if vFits then
+		local f = vFits[c]
+		if not f then return nil end
+		return f.ub * wy + f.uc, f.va * wx + f.vc
+	end
 	if c ~= vc then return nil end
 	return (wy - vLeft) * vKx, (wx - vTop) * vKy
+end
+Strokes.MapPosition = function(view, c, wx, wy)
+	vc, vLeft, vTop, vKx, vKy, vFits = view.c, view.left, view.top, view.kx, view.ky, view.fits
+	return position(c, wx, wy)
 end
 
 local MapLine = Line
@@ -285,8 +322,15 @@ local MapLine = Line
 function Strokes.Map(buffer, paths, view)
 	Begin(buffer, view.scale, view.small)
 	width, height = view.width, view.height
-	vc, vLeft, vTop, vKx, vKy = view.c, view.left, view.top, view.kx, view.ky
-	if not (vc and width > 0 and height > 0) then return end
+	vc, vLeft, vTop, vKx, vKy, vFits = view.c, view.left, view.top, view.kx, view.ky, view.fits
+	phase, glint, dim = view.phase or 0, view.glint, view.dim or 1
+	local clip = view.clip
+	if clip then
+		clipX0, clipY0, clipX1, clipY1 = clip[1], clip[2], clip[3], clip[4]
+	else
+		clipX0, clipY0, clipX1, clipY1 = 0, 0, 1, 1
+	end
+	if not ((vc or vFits) and width > 0 and height > 0) then return end
 	local marks = view.marks
 	for i = 1, (view.markCount or 0) * 3, 3 do
 		Circle(marks[i] * width, -marks[i + 1] * height, marks[i + 2])
@@ -298,8 +342,8 @@ function Strokes.Map(buffer, paths, view)
 		local color = colors[kind]
 		if color and kind ~= "hearth" then
 			fade = path.later and LATER_ALPHA or 1
-			walked = 0
-			local dashed = kind == "walk"
+			walked, glided = 0, 0
+			local dashed = kind == "walk" or kind == "preview"
 			local first = 1
 			local px, py, pc
 			if p == 1 and view.from then
@@ -327,7 +371,7 @@ function Strokes.Map(buffer, paths, view)
 			end
 		end
 	end
-	fade = 1
+	fade, glint, phase = 1, nil, 0
 end
 
 ---------------------------------------------------------------------------
@@ -376,6 +420,7 @@ end
 
 function Strokes.Minimap(buffer, paths, view)
 	Begin(buffer, view.scale)
+	dim, glint, phase = 1, nil, 0
 	local x, y, c, radius, facing = view.x, view.y, view.c, view.radius, view.facing
 	width, height = view.width, view.height
 	local border = UNDER_THICKNESS / scale
@@ -397,7 +442,8 @@ function Strokes.Minimap(buffer, paths, view)
 		local path = paths[p]
 		local kind = path.kind
 		local color = colors[kind]
-		if color and kind ~= "hearth" then
+		-- The step preview is the world map's alone.
+		if color and kind ~= "hearth" and kind ~= "preview" then
 			fade = path.later and LATER_ALPHA or 1
 			walked = 0
 			local dashed = kind == "walk"

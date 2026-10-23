@@ -131,7 +131,7 @@ local refresh, step
 local function publish()
 	Maps.HideServiceMenu()
 	if not (ns.Pins and ns.Pins.SetLayer) then return end
-	if not ns.Get("maps.servicePins") or not records then ns.Pins.ClearLayer(LAYER); return end
+	if not Maps.LayerOn("maps.servicePins") or not records then ns.Pins.ClearLayer(LAYER); return end
 	ns.Pins.SetLayer(LAYER, Maps.BuildServicePins(records), {
 		world = true, minimap = ns.Get("maps.serviceMinimap") == true, edge = false,
 		minMapType = Enum and Enum.UIMapType and Enum.UIMapType.Zone or 3,
@@ -152,7 +152,7 @@ local function schedule()
 end
 
 step = function()
-	if not job or not ns.Get("maps.servicePins") or inCombat() then return end
+	if not job or not Maps.LayerOn("maps.servicePins") or inCombat() then return end
 	local current = job
 	for _ = 1, 100 do
 		local source = current.sources[current.source]
@@ -175,7 +175,7 @@ end
 
 refresh = function()
 	if not ns.IsLoggedIn() or loading then return end
-	if not ns.Get("maps.servicePins") then publish(); return end
+	if not Maps.LayerOn("maps.servicePins") then publish(); return end
 	if records then publish(); return end
 	-- Not before the world map has opened, unless minimap icons are on.
 	if not (wanted or ns.Get("maps.serviceMinimap")) then return end
@@ -226,21 +226,21 @@ end
 Maps.AddServiceMenu = addMenu
 
 local controls = {
-	{ kind = "toggle", key = "maps.servicePins", label = L["Show NPC services"],
-		help = L["Marks friendly service NPCs and mailboxes on zone and city maps using Polestar's bundled Codex. Click an individual icon to set a waypoint, or a city group to choose an NPC and destination; choose categories here or in the map's tracking menu. Flight masters and inns have their own toggles under Dungeons and travel."] },
+	Maps.LayerToggle({ kind = "toggle", key = "maps.servicePins", label = L["Show NPC services"],
+		help = L["Marks friendly service NPCs and mailboxes on zone and city maps using Polestar's bundled Codex. Click an individual icon to set a waypoint, or a city group to choose an NPC and destination; choose categories here or in the map's tracking menu. Flight masters and inns have their own toggles under Dungeons and travel."] }),
 	{ kind = "toggle", key = "maps.serviceMinimap", label = L["Service icons on the minimap"],
 		help = L["Shows the enabled NPC service categories on the minimap as well."],
-		disabled = function() return not ns.Get("maps.servicePins") end },
+		disabled = function() return not Maps.LayerOn("maps.servicePins") end },
 }
 for _, category in ipairs(CATEGORIES) do
 	controls[#controls + 1] = { kind = "toggle", key = "maps.serviceFilters." .. category.key, label = category.label,
 		help = category.key == "class" and L["Shows trainers for your character's class."] or L["Shows this service category on the map."],
-		disabled = function() return not ns.Get("maps.servicePins") end }
+		disabled = function() return not Maps.LayerOn("maps.servicePins") end }
 end
 ns.RegisterOptions({ page = L["Map"], tab = L["Rares & travel"], section = L["NPC services"], controls = controls })
 
 ns.On("SETTING_CHANGED", function(path)
-	if path == "" or path == "maps" or path == "maps.servicePins" or path == "maps.serviceMinimap"
+	if path == "" or path == "maps" or Maps.LayerPath(path, "maps.servicePins") or path == "maps.serviceMinimap"
 		or path == "maps.serviceFilters" or (type(path) == "string" and path:sub(1, 20) == "maps.serviceFilters.") then refresh() end
 end)
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", refresh)

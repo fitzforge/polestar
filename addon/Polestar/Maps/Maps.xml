@@ -16,4 +16,5 @@
 	<Script file="RouteLines.lua"/>
 	<Script file="FlightTimer.lua"/>
 	<Script file="Instances.lua"/>
+	<Script file="OpenMapLink.lua"/>
 </Ui>

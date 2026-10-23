@@ -65,22 +65,19 @@ test('pin layers come from the travel data: own-faction and neutral flight maste
 		for _, p in ipairs(P.GetLayer("maps.docks")) do docks[#docks + 1] = p.transport .. ">" .. p.dest end
 		local inns = {}
 		for _, p in ipairs(P.GetLayer("maps.inns")) do inns[#inns + 1] = { bound = p.bound, glow = p.glow or false, icon = p.icon } end
-		local g = { Polestar.Theme.Color("success") }
-		local a = { Polestar.Theme.Color("warning") }
 		local layer = P.GetLayer("maps.taxi")
 		emit({ taxi = taxi, docks = docks, inns = inns,
-			knownColor = layer[1].color[1] == g[1] and layer[1].color[2] == g[2],
-			unknownColor = layer[2].color[1] == a[1] and layer[2].color[2] == a[2],
+			knownAlpha = layer[1].color[4], unknownAlpha = layer[2].color[4],
 			minimap = #P.GetMinimapFrames("maps.taxi") })`, { travelPins: true });
 	assert.deepEqual(out.taxi, [
-		{ id: 1, known: true, icon: 'icon-fly', c: 0, wx: 0, wy: 800 },
-		{ id: 2, known: false, icon: 'icon-fly', c: 0, wx: 0, wy: -800 },
-		{ id: 3, known: false, icon: 'icon-fly', c: 0, wx: 600, wy: 0 },
+		{ id: 1, known: true, icon: 'game-flight-alliance', c: 0, wx: 0, wy: 800 },
+		{ id: 2, known: false, icon: 'game-flight-alliance', c: 0, wx: 0, wy: -800 },
+		{ id: 3, known: false, icon: 'game-flight-neutral', c: 0, wx: 600, wy: 0 },
 	], 'the Horde-only Red Fort is left out');
 	assert.deepEqual(out.docks, ['boat-west>Far Isle', 'boat-west>West Dock'], 'the Horde zeppelin is left out');
-	assert.deepEqual(out.inns, [{ bound: true, glow: true, icon: 'icon-hearth' }, { bound: false, glow: false, icon: 'icon-hearth' }]);
-	assert.equal(out.knownColor, true);
-	assert.equal(out.unknownColor, true);
+	assert.deepEqual(out.inns, [{ bound: true, glow: true, icon: 'game-inn' }, { bound: false, glow: false, icon: 'game-inn' }]);
+	assert.equal(out.knownAlpha, 1, 'a known flight master is drawn whole');
+	assert.ok(out.unknownAlpha < 1, 'an undiscovered one fades');
 	assert.equal(out.minimap, 0, 'minimap travel icons are off by default');
 });
 

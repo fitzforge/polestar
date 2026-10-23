@@ -2220,6 +2220,62 @@ OpenMap's map only. Only OpenMap's table is called; the map frame is only read.
 The trail stands in only while route lines draw nothing (`nav.routeLines` off):
 `Nav/Layers.lua` clears it while `Polestar.RouteLines.Active()`.
 
+### OpenMap (`Nav/OpenMap.lua`, `Maps/OpenMapLink.lua`)
+
+OpenMap is an optional world map addon (`## OptionalDeps`); its `OpenMapAPI`
+(major 1, its `docs/api.md`) is the only thing of OpenMap's Polestar calls,
+and only read, plus Polestar's own switches in its menu and a section on its
+dungeon card. Without OpenMap, or with its map switched to Blizzard's own,
+every function of `Polestar.OpenMap` answers nil and every drawing stays on
+the host map as before.
+
+- **The adapter** (`Nav/OpenMap.lua`, before `Nav/Pins.lua`). While the
+  stitched map shows, the world map frame's map (the host) is only the zone,
+  continent or world (947) under the view's centre. `OpenMap.Fit(host, c)`
+  is world yards on continent `c` to host percent (`x = ub * wy + uc`,
+  `y = va * wx + vc`), measured once per host and continent through a
+  reference map on that continent (the host, or on 947 its children) with
+  `WorldFromMap` / `MapFromWorld`, and cleared on `OpenMap_StitchedChanged`.
+  `ViewRect(view)` is what the map's scroll frame shows, in host percent
+  (the canvas's and its parent's place, read); `ViewMoved` says when a pan or
+  zoom left a drawn rect; `Level(level)` lifts a frame above `ArtTopLevel()`;
+  `Show(c, wx, wy)` glides the view (`ShowWorld`) through 947's child on that
+  continent; `OnChange(fn)` hears the stitched map come and go and OpenMap
+  load late. `Draws(kind)` reads OpenMap's own icon switches from its saved
+  settings (`OpenMapDB.worldmap`: `icons` for dungeons, `boats`,
+  `zeppelins`, `flight`, `townsfolk.innkeeper`): read only, as its API has
+  no call for them.
+- **Pins** (`Nav/Pins.lua`): every layer's pins, areas and hulls are placed
+  by the fit of their continent and clipped to the view and a quarter of it
+  past each edge (not to the host map), at levels above OpenMap's art; a pan
+  or zoom of 15% of the view, or a switch flipped in OpenMap's menu, redraws
+  them. A pin with `omKind` is an icon OpenMap also draws: on the stitched
+  map it is left out while OpenMap shows its own of that kind, so no place
+  shows twice. The trail goes through the same fits (above).
+- **Route lines** (`Maps/RouteLines.lua`): `RouteStrokes.Map` takes the fits
+  of every continent the route touches (`view.fits`, fractions) and the view
+  as its clip (`view.clip`, 5% past each edge), so dots and strokes run on
+  across zones and a crossing joins its continents; the frame follows the
+  view (redrawn when it moves) and sits above OpenMap's art. Sparkles place
+  through `CanvasFromWorldPos` as before. The travel network draws the same
+  way.
+- **OpenMap's own interface** (`Maps/OpenMapLink.lua`): a "Polestar" section
+  in its menu with a switch per layer (guide pins, route lines, dungeon
+  entrances, flight masters, docks, inns, NPC services, travel network,
+  steps ahead, moving lines, leg labels, walking time, open at the guide's
+  target), each starrable onto its tray; a section on its dungeon card
+  (`RegisterDungeonSection`): the dungeon's quests for this character from
+  `Dungeons.Quests` (in the log, done, still to pick up), its attunements and
+  the command for the full page, at most 40 lines; `Dungeons.ShowOnMap` and,
+  with `maps.openmapAtTarget` (off), the map opening glide the stitched view
+  to the entrance or the guide's target.
+- **Settings**: with OpenMap loaded the icon layers are its menu's to switch,
+  each through its own setting (`maps.omDungeonPins`, `maps.omTaxiPins`,
+  `maps.omDockPins`, `maps.omInnPins`, `maps.omServicePins`,
+  `maps.omTravelNetwork`, all on); `Maps.LayerOn(key)` answers which one
+  rules, and `Maps.LayerToggle` makes Polestar's own option show ticked and
+  greyed, saying so. Polestar's own settings are left as they were.
+
 ### Route lines (`Maps/RouteStrokes.lua`, `Maps/RouteLines.lua`)
 
 The way to the target on the world map and the minimap, from
@@ -2288,7 +2344,35 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   doors; `icon-bridge`; `icon-cave` for caves and tunnels; `icon-pass`) and
   the name in its tooltip. Hand-made stops (chain nodes, guide gotos) carry
   no `choke` and keep the plain disc. The route lines' dots leave their gap
-  round every stop alike.
+  round every stop alike. A stop where the way changes mode shows the next
+  leg's icon: the map's travel art for a flight, boat, zeppelin or the
+  Hearthstone (untinted, no disc), the drawn tram (`map-tram` and its
+  shine), and `icon-gate`, `icon-use` or `icon-lift` for portals, teleports
+  and lifts.
+- The world map's extras, each its own setting (Options, Guide, Arrow &
+  routes; also in OpenMap's menu):
+  - `nav.lineFlow` (on): the breadcrumbs sit `phase` of a spacing on along a
+    walk and glints (`view.glint`, the theme's `ink`) run along every ride
+    46 px apart, carried across bends; the frame redraws at 20 Hz while the
+    map shows it (still with `ui.reduceMotion`).
+  - `nav.lineLabels` (on): a leg's kind, a walk's length and the leg's time
+    (`Nav.GetRoute` leg `seconds`; a walk's only with `nav.lineWalkTime`,
+    on) as outlined text in the leg's colour, the same size on screen at any
+    zoom. It sits beside the middle of the line as drawn (a crossing's on its
+    bow), at the first of five places along it and to either side that keeps
+    clear of the route's stops and the labels already placed; a leg shorter
+    on screen than 1.3 times its label has none.
+  - `nav.stepPreview` (on): for each of the five steps after the target, of
+    its open goals with a place, the one nearest the point before (another
+    continent counts as farther), joined from the route's end by a faint
+    dashed `preview` path in the `accent` (world map only) and labelled
+    "Step N"; a step whose goals are all done or unplaced is left out.
+    Rebuilt on `STEP_CHANGED` and every route change.
+  - `maps.travelNetwork` (off): every flight between two flight masters this
+    character knows and may use (`Nav.GetTravelData` flights, along their
+    tracks) and every boat, zeppelin and tram it may ride, at 35%
+    (`view.dim`), on a frame of its own just under the route's, rebuilt when
+    the travel data or the known flight masters change (`TAXIMAP_CLOSED`).
 
 ### Travel planner and zone crossings
 
@@ -3316,8 +3400,16 @@ Each feature is a setting on the Map page (Rares & travel, Zones), and none of
 them makes a frame or loads data until it's on. The icon layers (dungeon
 entrances, flight masters `maps.taxiPins`, docks `maps.dockPins`, inns
 `maps.innPins`, NPC services `maps.servicePins`, and `maps.travelMinimap` for
-the minimap) default to off. The
+the minimap) default to off; with OpenMap loaded they are switched in its
+menu instead (above, "OpenMap"). The
 flight timer and the instance tracker are set under Quality of Life.
+
+Their icons: dungeon and raid entrances, flight masters (by the node's
+faction, an undiscovered one at 55%), boats, zeppelins and inns are scaled
+from the client's own map art (`Media/UI/game-*.tga`, drawn untinted; see
+`THIRD_PARTY.md`); the Deeprun Tram, which the client has no icon for, is
+drawn by `tools/media/mapicons.js` (`map-tram`, tinted, with its untinted
+`map-tram-shine` over it through Pins' `shine`).
 
 - NPC services (`maps.servicePins`, off; `Maps/Services.lua`): one pin per
   friendly NPC spawn, with all its services in the tooltip and click-to-navigate.

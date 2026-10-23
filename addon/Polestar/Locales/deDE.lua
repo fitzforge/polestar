@@ -999,6 +999,11 @@ L["After Polestar accepts or turns in a quest, closes the quest window the NPC o
 -- L["Offer class quests"] = ""
 -- L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] = ""
 L["Celebrating the supporters and contributors behind Polestar."] = "Wir feiern die Unterstützer und Mitwirkenden hinter Polestar."
+-- L["On the world map the dots crawl on toward the goal and glints run along flights and boats. Still while Reduce motion is on."] = ""
+-- L["Each leg of the route says what it is, how far and how long, at its middle on the world map."] = ""
+-- L["The goals of the next five steps after this one, joined by a faint line and numbered by step, on the world map."] = ""
+-- L["Every flight you know and every boat, zeppelin and tram you can ride, faintly, under the route on the world map."] = ""
+-- L["A walk's label on the world map also says how long it takes."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -1368,7 +1373,6 @@ L["Clears the Seen list, alert cooldowns and the glow on recently seen pins."] =
 -- Maps/Maps.lua
 L["Dungeon entrances"] = "Dungeon-Eingänge"
 L["Marks each dungeon entrance with its level range. Click to open the dungeon's guide, or to set a waypoint when there is none; Shift-click always sets a waypoint. Needs the Codex pack."] = "Markiert jeden Dungeon-Eingang mit seiner Stufenspanne. Klicke, um den Guide des Dungeons zu öffnen, oder um einen Wegpunkt zu setzen, wenn es keinen gibt; Umschalt-Klick setzt immer einen Wegpunkt. Erfordert das Codex-Paket."
-L["Your faction's and neutral flight masters: green when known, amber when not yet discovered. The tooltip lists destinations and flight times."] = "Flugmeister deiner Fraktion und neutrale: grün, wenn bekannt, bernsteinfarben, wenn noch nicht entdeckt. Der Tooltip listet Ziele und Flugzeiten."
 L["Boats and zeppelins"] = "Boote und Zeppeline"
 L["Docks, zeppelin towers and the Deeprun Tram, with where they go."] = "Anlegestellen, Zeppelintürme und die Tiefenbahn, mit ihren Zielen."
 L["Inns"] = "Gasthäuser"
@@ -1401,6 +1405,8 @@ L["Clear instance history"] = "Instanzverlauf löschen"
 L["Forgets recorded entries and runs (the server's own limit is not affected)."] = "Vergisst aufgezeichnete Eintritte und Durchläufe (die eigene Grenze des Servers bleibt unberührt)."
 L["Minimap button"] = "Minikarten-Button"
 L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Ein Polestar-Button am Rand der Minikarte. Klicke, um den Guide ein- oder auszublenden, Rechtsklick für die Einstellungen, ziehen zum Verschieben."
+-- L["Your faction's and neutral flight masters; the ones you have not discovered yet are faded. The tooltip lists destinations and flight times."] = ""
+-- L["With OpenMap, switch it in OpenMap's menu. Where OpenMap shows its own icons of the same kind, Polestar's leave them be; switch OpenMap's off to see Polestar's."] = ""
 
 -- Quests/Options.lua
 L["Any level"] = "Jede Stufe"
@@ -2471,6 +2477,28 @@ L["on GitHub"] = "auf GitHub"
 L["Thank you for making Polestar possible."] = "Danke, dass ihr Polestar möglich macht."
 L["No names here yet."] = "Noch keine Namen."
 
+-- Maps/RouteLines.lua
+-- L["Flight"] = ""
+-- L["Boat"] = ""
+-- L["Zeppelin"] = ""
+-- L["Deeprun Tram"] = ""
+-- L["Lift"] = ""
+
+-- Maps/OpenMapLink.lua
+-- L["Guide pins"] = ""
+-- L["Travel network"] = ""
+-- L["Steps ahead"] = ""
+-- L["Moving lines"] = ""
+-- L["Leg labels"] = ""
+-- L["Open at the guide's target"] = ""
+-- L["done"] = ""
+-- L["in your log"] = ""
+-- L["%d quests to do, %d in your log"] = ""
+-- L["No quests for this dungeon."] = ""
+-- L["Attunement: %s"] = ""
+-- L["Full page: /polestar dungeons %s"] = ""
+-- L["Walking time on labels"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "Das Ziel des Pfeils, die Stationen seiner Reiseroute, die anderen Ziele des Schritts und die Gebiete, in denen ihre Mobs und Objekte spawnen."
@@ -2527,3 +2555,4 @@ L["No names here yet."] = "Noch keine Namen."
 -- L["Route"] = "Route"
 -- L["Open the Import page: guides shared as text"] = "Seite „Import“ öffnen: als Text geteilte Guides"
 -- L["WoW Forever"] = "WoW Forever"
+-- L["Your faction's and neutral flight masters: green when known, amber when not yet discovered. The tooltip lists destinations and flight times."] = "Flugmeister deiner Fraktion und neutrale: grün, wenn bekannt, bernsteinfarben, wenn noch nicht entdeckt. Der Tooltip listet Ziele und Flugzeiten."

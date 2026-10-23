@@ -514,7 +514,6 @@ L["Dungeons and travel"] = "Подземелья и перемещения"
 L["Dungeon entrances"] = "Входы в подземелья"
 L["Marks each dungeon entrance with its level range. Click to open the dungeon's guide, or to set a waypoint when there is none; Shift-click always sets a waypoint. Needs the Codex pack."] = "Отмечает вход в каждое подземелье с диапазоном уровней. Щелчок открывает гайд подземелья или ставит путевую точку, если гайда нет; Shift-щелчок всегда ставит путевую точку. Нужен пакет Codex."
 L["Flight masters"] = "Распорядители полетов"
-L["Your faction's and neutral flight masters: green when known, amber when not yet discovered. The tooltip lists destinations and flight times."] = "Распорядители полетов вашей фракции и нейтральные: зеленые — известные, янтарные — еще не открытые. В подсказке — пункты назначения и время полета."
 L["Boats and zeppelins"] = "Корабли и дирижабли"
 L["Docks, zeppelin towers and the Deeprun Tram, with where they go."] = "Причалы, башни дирижаблей и Подземный поезд с пунктами назначения."
 L["Inns"] = "Таверны"
@@ -554,6 +553,8 @@ L["Clear instance history"] = "Очистить историю подземел�
 L["Forgets recorded entries and runs (the server's own limit is not affected)."] = "Забывает записанные входы и проходы (лимит сервера не меняется)."
 L["Minimap button"] = "Кнопка у миникарты"
 L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Кнопка Polestar на краю миникарты. Щелчок показывает или скрывает гайд, правый щелчок открывает настройки, перетаскивание перемещает ее."
+-- L["Your faction's and neutral flight masters; the ones you have not discovered yet are faded. The tooltip lists destinations and flight times."] = ""
+-- L["With OpenMap, switch it in OpenMap's menu. Where OpenMap shows its own icons of the same kind, Polestar's leave them be; switch OpenMap's off to see Polestar's."] = ""
 
 -- Maps/WorldMap.lua
 L["Player"] = "Игрок"
@@ -1762,6 +1763,11 @@ L["After Polestar accepts or turns in a quest, closes the quest window the NPC o
 -- L["Offer class quests"] = ""
 -- L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] = ""
 L["Celebrating the supporters and contributors behind Polestar."] = "Чествуем тех, кто поддерживает и развивает Polestar."
+-- L["On the world map the dots crawl on toward the goal and glints run along flights and boats. Still while Reduce motion is on."] = ""
+-- L["Each leg of the route says what it is, how far and how long, at its middle on the world map."] = ""
+-- L["The goals of the next five steps after this one, joined by a faint line and numbered by step, on the world map."] = ""
+-- L["Every flight you know and every boat, zeppelin and tram you can ride, faintly, under the route on the world map."] = ""
+-- L["A walk's label on the world map also says how long it takes."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -2496,6 +2502,28 @@ L["on GitHub"] = "на GitHub"
 L["Thank you for making Polestar possible."] = "Спасибо, что делаете Polestar возможным."
 L["No names here yet."] = "Здесь пока нет имён."
 
+-- Maps/RouteLines.lua
+-- L["Flight"] = ""
+-- L["Boat"] = ""
+-- L["Zeppelin"] = ""
+-- L["Deeprun Tram"] = ""
+-- L["Lift"] = ""
+
+-- Maps/OpenMapLink.lua
+-- L["Guide pins"] = ""
+-- L["Travel network"] = ""
+-- L["Steps ahead"] = ""
+-- L["Moving lines"] = ""
+-- L["Leg labels"] = ""
+-- L["Open at the guide's target"] = ""
+-- L["done"] = ""
+-- L["in your log"] = ""
+-- L["%d quests to do, %d in your log"] = ""
+-- L["No quests for this dungeon."] = ""
+-- L["Attunement: %s"] = ""
+-- L["Full page: /polestar dungeons %s"] = ""
+-- L["Walking time on labels"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Сейчас ведет Shortest Path Forever. Чтобы использовать стрелку Polestar, отключите \"Вести через Shortest Path Forever, если он установлен\" (Настройки, Интеграции)."
@@ -2517,3 +2545,4 @@ L["No names here yet."] = "Здесь пока нет имён."
 -- L["Route"] = "Маршрут"
 -- L["Open the Import page: guides shared as text"] = "Открыть страницу «Импорт»: гайды, которыми поделились текстом"
 -- L["WoW Forever"] = "WoW Forever"
+-- L["Your faction's and neutral flight masters: green when known, amber when not yet discovered. The tooltip lists destinations and flight times."] = "Распорядители полетов вашей фракции и нейтральные: зеленые — известные, янтарные — еще не открытые. В подсказке — пункты назначения и время полета."

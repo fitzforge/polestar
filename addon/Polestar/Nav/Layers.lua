@@ -101,11 +101,20 @@ local function updateSpots(world)
 end
 
 -- A leg that ends at a chokepoint (leg.choke = { kind, name }, Travel.lua)
--- marks it with its glyph; other stops are plain discs.
+-- marks it with its glyph; a stop where the way changes mode, with the next
+-- leg's (as the arrow's dial, Nav/Arrow.lua); a walk's other stops are plain discs.
 local CHOKE_ICON = {
 	lift = "icon-lift", gate = "icon-gate", building = "icon-gate", bridge = "icon-bridge",
 	cave = "icon-cave", tunnel = "icon-cave", pass = "icon-pass",
 }
+-- The modes the map's travel icons show (Maps/TravelPins.lua) take those
+-- icons, as they are; the rest a glyph in the arrow's colour.
+local MODE_ICON = {
+	fly = "game-flight-neutral", boat = "game-boat", zeppelin = "game-zeppelin", tram = "map-tram", hearth = "game-inn",
+	portal = "icon-gate", teleport = "icon-use", lift = "icon-lift",
+}
+local MODE_ART = { fly = true, boat = true, zeppelin = true, hearth = true }
+local MODE_SHINE = { tram = "map-tram-shine" }
 
 local function updateRoute(world)
 	local legs, ci
@@ -119,10 +128,15 @@ local function updateRoute(world)
 		local to, nextLeg, choke = legs[i].to, legs[i + 1], legs[i].choke
 		local icon = type(choke) == "table" and CHOKE_ICON[choke.kind] or nil
 		local place = icon and choke.name
+		local art, shine
+		if not icon and nextLeg.kind ~= legs[i].kind then
+			icon, shine = MODE_ICON[nextLeg.kind], MODE_SHINE[nextLeg.kind]
+			art = MODE_ART[nextLeg.kind]
+		end
 		local step = format(L["Travel route, step %s"], i .. "/" .. #legs)
 		pins[#pins + 1] = {
-			c = to.c, wx = to.wx, wy = to.wy, color = color("arrow"), priority = 50,
-			icon = icon, backdrop = icon and true or nil,
+			c = to.c, wx = to.wx, wy = to.wy, color = art and { 1, 1, 1, 1 } or color("arrow"), priority = 50,
+			icon = icon, shine = shine, backdrop = icon and not art and not shine or nil, size = art and 22 or nil,
 			label = nextLeg.label, step = i,
 			tooltip = function(tip)
 				tip:SetText(nextLeg.label or "")
