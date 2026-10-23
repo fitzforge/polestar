@@ -271,10 +271,12 @@ map. Renders of every window and state, drawn without the game, are in
   takes you there, routed like any goal; Alt-click works over map icons.
   Click the spot again to let it go.
 - **Nearby services.** `/polestar near repair` (trainer, a profession,
-  class, weapon, reagents, vendor, innkeeper, bank, auction, flight, stable)
-  points the arrow at the quickest one to reach; the map's tracking menu and
-  the guide window's Nearby services button list them, the button with a
-  page of the weapons a weapon master can teach you. Once you get there,
+  class, weapon, reagents, vendor, food, arrows, bullets, ranged, innkeeper,
+  bank, auction, flight, stable) points the arrow at the quickest one to
+  reach, naming a vendor's trade; the map's tracking menu and the guide
+  window's Nearby services button list them, the button with a page of
+  vendors (food and drink, and the ammunition and bows or guns your class
+  can use) and one of the weapons a weapon master can teach you. Once you get there,
   the arrow is back on the guide.
 - **OpenMap.** On [OpenMap](https://www.curseforge.com/wow/addons/openmap)'s
   seamless world map the trail dots carry on across zone borders and show on

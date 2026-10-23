@@ -51,13 +51,24 @@ local RIDING = 762 -- Compat.SKILL_LINES' riding: no trainer role
 local FACTION = { Alliance = "A", Horde = "H" }
 
 -- `stop`: the stop kind the target carries (Nav.SetTarget), for Shortest Path Forever's badge.
+-- `without`: NPCs with that role too are left out (a profession trainer the
+-- data also lists as a vendor sells only its trade's goods, if anything).
+-- `titled`: the target and the chat line name the NPC's title ("Keina
+-- (Bowyer)"). `under`: a kind on the vendor's page, not in the list itself.
+-- `uses`: shown only to a class that can use one of these weapon subclasses
+-- (Gear.PROFICIENCY: 2 bows, 3 guns, 18 crossbows).
 local KINDS = {
 	{ key = "trainer", label = L["Profession trainer"], stop = "trainer" },
 	{ key = "class", label = L["Class trainer"], stop = "trainer" },
 	{ key = "weapon", label = L["Weapon master"], stop = "trainer" },
 	{ key = "repair", role = "repair", label = L["Repair"] },
 	{ key = "reagents", role = "vendor", only = "reagentVendors", label = L["Reagents"] },
-	{ key = "vendor", role = "vendor", label = L["Vendor"] },
+	{ key = "vendor", role = "vendor", without = "trainer", titled = true, label = L["Vendor"] },
+	-- By what they sell (the Codex's "sells:" roles, from the item's class).
+	{ key = "food", role = "sells:food", without = "trainer", titled = true, under = "vendor", label = L["Food & drink"] },
+	{ key = "arrows", role = "sells:arrows", without = "trainer", titled = true, under = "vendor", uses = { 2, 18 }, label = L["Arrows"] },
+	{ key = "bullets", role = "sells:bullets", without = "trainer", titled = true, under = "vendor", uses = { 3 }, label = L["Bullets"] },
+	{ key = "ranged", role = "sells:ranged", without = "trainer", titled = true, under = "vendor", uses = { 2, 3, 18 }, label = L["Bows & guns"] },
 	{ key = "innkeeper", role = "innkeeper", label = L["Innkeeper"], stop = "innkeeper" },
 	{ key = "bank", role = "banker", label = L["Bank"] },
 	{ key = "auction", role = "auctioneer", label = L["Auction house"] },
@@ -69,6 +80,8 @@ for _, k in ipairs(KINDS) do BY_KEY[k.key] = k end
 local ALIAS = {
 	inn = "innkeeper", banker = "bank", ah = "auction", auctioneer = "auction", fp = "flight",
 	flightmaster = "flight", stablemaster = "stable", reagent = "reagents", trainers = "trainer",
+	drink = "food", water = "food", arrow = "arrows", bullet = "bullets", ammo = "arrows",
+	bow = "ranged", bows = "ranged", gun = "ranged", guns = "ranged", crossbow = "ranged",
 }
 Nearby.KINDS = KINDS
 
@@ -152,6 +165,32 @@ function Nearby.Weapons()
 	return out
 end
 
+-- Whether kind k is for this character: one with `uses` only for a class
+-- that can use one of those weapon subclasses (arrows for bows and
+-- crossbows, bullets for guns).
+function Nearby.Fits(k)
+	if not k.uses then return true end
+	local C = ns.Compat
+	local info = C.GetPlayerInfo and C.GetPlayerInfo() or {}
+	local G = ns.Gear
+	local prof = G and G.PROFICIENCY and G.PROFICIENCY[info.class or ""]
+	if not prof then return true end
+	for _, sub in ipairs(k.uses) do
+		if prof.weapons[sub] then return true end
+	end
+	return false
+end
+
+-- The vendor's page: the nearest vendor, then each kind under it this
+-- character fits ({ key, label } each).
+function Nearby.VendorPage()
+	local out = { { key = "vendor", label = L["Nearest"] } }
+	for _, k in ipairs(KINDS) do
+		if k.under == "vendor" and Nearby.Fits(k) then out[#out + 1] = { key = k.key, label = k.label } end
+	end
+	return out
+end
+
 ---------------------------------------------------------------------------
 -- Professions
 ---------------------------------------------------------------------------
@@ -230,7 +269,7 @@ local function rolePlaces(role)
 			for _, s in ipairs(npc.spawns or {}) do
 				local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
 				if c then
-					list[#list + 1] = { id = id, name = npc.name, map = s.map, x = s.x, y = s.y, f = s.f, c = c, wx = wx, wy = wy }
+					list[#list + 1] = { id = id, name = npc.name, sub = npc.subName, map = s.map, x = s.x, y = s.y, f = s.f, c = c, wx = wx, wy = wy }
 				end
 			end
 		end
@@ -283,6 +322,15 @@ local function candidates(kind, line)
 		return rolePlaces("class:" .. info.class)
 	end
 	local list = rolePlaces(kind.role)
+	if kind.without then
+		local skip = {}
+		for _, id in ipairs(ns.Codex.WithRole(kind.without)) do skip[id] = true end
+		local out = {}
+		for _, p in ipairs(list) do
+			if not skip[p.id] then out[#out + 1] = p end
+		end
+		list = out
+	end
 	if not kind.only then return list end
 	local QoL = ns.QoL
 	local keep = QoL and QoL.data and QoL.data[kind.only] or {}
@@ -411,7 +459,7 @@ function Nearby.Go(key, line)
 	if not place then
 		local why = seconds
 		if why == "kind" then
-			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"])
+			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"])
 		elseif why == "combat" then
 			ns.Print(L["Nearby services can be looked up after combat."])
 		elseif why == "missing" then
@@ -427,16 +475,18 @@ function Nearby.Go(key, line)
 		end
 		return false
 	end
-	if not Nav.SetTarget(place.map, place.x, place.y, place.name, place.f, BY_KEY[key].stop, place.z) then return false end
-	trip = { target = Nav.GetTarget(), name = place.name, label = kindLabel(key, line) }
+	local name = place.name
+	if BY_KEY[key].titled and place.sub and place.sub ~= "" then name = format("%s (%s)", name, place.sub) end
+	if not Nav.SetTarget(place.map, place.x, place.y, name, place.f, BY_KEY[key].stop, place.z) then return false end
+	trip = { target = Nav.GetTarget(), name = name, label = kindLabel(key, line) }
 	ns.Fire("NEARBY_TRIP", trip)
 	local zone = ns.Compat.GetMapName(place.map) or "?"
 	local Q = ns.QoL
 	local time = seconds and Q and Q.Duration and Q.Duration(seconds)
 	if time then
-		ns.Print(format(L["Nearest %s: %s, %s, about %s away."], lower(kindLabel(key, line)), place.name, zone, time))
+		ns.Print(format(L["Nearest %s: %s, %s, about %s away."], lower(kindLabel(key, line)), name, zone, time))
 	else
-		ns.Print(format(L["Nearest %s: %s, %s."], lower(kindLabel(key, line)), place.name, zone))
+		ns.Print(format(L["Nearest %s: %s, %s."], lower(kindLabel(key, line)), name, zone))
 	end
 	return true
 end
@@ -446,7 +496,7 @@ function Nearby.Command(rest)
 	local text = lower((rest or ""):match("^%s*(.-)%s*$"))
 	local word, more = text:match("^(%S+)%s*(.-)$")
 	if not word then
-		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"])
+		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"])
 		return
 	end
 	local key = ALIAS[word] or word
@@ -491,6 +541,14 @@ local function addMenu(_, root)
 				local line = w.line
 				masters:CreateButton(w.label, function() Nearby.Go("weapon", line) end)
 			end
+		elseif k.key == "vendor" then
+			local vendors = sub:CreateButton(k.label)
+			for _, v in ipairs(Nearby.VendorPage()) do
+				local key = v.key
+				vendors:CreateButton(v.label, function() Nearby.Go(key) end)
+			end
+		elseif k.under then
+			-- On the vendor's page.
 		else
 			local key = k.key
 			sub:CreateButton(k.label, function() Nearby.Go(key) end)
@@ -502,7 +560,8 @@ Nearby.AddMenu = addMenu
 -- The guide window's "Nearby" button (UI/GuideFrame.lua): the everyday
 -- services first, then a trainer for each profession the character has (any
 -- profession trainer when it has none), then the rest. Each entry is
--- { key, line, label, icon }, for Nearby.Go(key, line).
+-- { key, line, label, icon }, for Nearby.Go(key, line); the vendor and the
+-- weapon master are pages of their own (`page`, `weapons`).
 local BUTTON_ORDER = { "vendor", "repair", "innkeeper", "flight", "class", "trainer", "weapon", "-", "reagents", "bank", "auction", "stable" }
 local ICONS = { vendor = "icon-vendor", repair = "icon-buy", innkeeper = "icon-sethome", flight = "icon-fly",
 	class = "icon-train", trainer = "icon-skill", weapon = "icon-train" }
@@ -522,6 +581,9 @@ function Nearby.MenuItems()
 				end
 			end
 			if known == 0 then items[#items + 1] = { key = key, label = BY_KEY[key].label, icon = ICONS.trainer } end
+		elseif key == "vendor" then
+			-- What to buy, to pick from: { key, label } each.
+			items[#items + 1] = { key = key, label = BY_KEY[key].label, icon = ICONS.vendor, page = Nearby.VendorPage() }
 		elseif key == "weapon" then
 			-- Its weapons, to pick from: { key, line, label, known, level } each.
 			local weapons = {}

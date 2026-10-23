@@ -673,7 +673,9 @@ function Nav.ResetArrowPosition() record("ResetArrowPosition") end
 -- Nearby services (Nav/Nearby.lua): the guide window's list, and Go.
 Nav.nearby = {
 	MenuItems = function()
-		return { { key = "vendor", label = "Vendor", icon = "icon-vendor" }, { key = "innkeeper", label = "Innkeeper", icon = "icon-sethome" },
+		return { { key = "vendor", label = "Vendor", icon = "icon-vendor", page = {
+				{ key = "vendor", label = "Nearest" }, { key = "food", label = "Food & drink" }, { key = "arrows", label = "Arrows" },
+			} }, { key = "innkeeper", label = "Innkeeper", icon = "icon-sethome" },
 			{ key = "trainer", line = 186, label = "Mining trainer", icon = "icon-skill" },
 			{ key = "weapon", label = "Weapon master", icon = "icon-train", weapons = {
 				{ key = "weapon", line = 43, label = "Swords" },

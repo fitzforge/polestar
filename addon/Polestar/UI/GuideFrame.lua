@@ -2474,6 +2474,23 @@ local function openWeapons(button, entry)
 	W.ShowMenu(button, items)
 end
 
+-- The vendor's page: the nearest vendor, or one that sells food and drink,
+-- arrows, bullets, bows and guns (Nearby.VendorPage). Back returns to the
+-- services.
+local function openPage(button, entry)
+	local Nearby = ns.Nav.nearby
+	local fight = InCombatLockdown and InCombatLockdown()
+	local items = {
+		{ text = L["Back"], icon = "chevron-left", onClick = function() openNearby(button) end },
+		{ separator = true },
+	}
+	for _, p in ipairs(entry.page) do
+		local key = p.key
+		items[#items + 1] = { text = p.label, disabled = fight, onClick = function() Nearby.Go(key) end }
+	end
+	W.ShowMenu(button, items)
+end
+
 function openNearby(button)
 	if W.MenuShown(button) then return W.HideMenu() end
 	local Nearby = ns.Nav and ns.Nav.nearby
@@ -2487,6 +2504,10 @@ function openNearby(button)
 	for _, e in ipairs(Nearby.MenuItems()) do
 		if e.separator then
 			items[#items + 1] = e
+		elseif e.page then
+			-- A page of its own: what to buy.
+			items[#items + 1] = { text = e.label .. "  \226\128\186", icon = e.icon, disabled = fight,
+				onClick = function() openPage(button, e) end }
 		elseif e.weapons then
 			-- A page of its own: which weapon to learn.
 			items[#items + 1] = { text = e.label .. "  \226\128\186", icon = e.icon, disabled = fight,
