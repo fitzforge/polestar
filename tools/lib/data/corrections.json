@@ -3023,6 +3023,10 @@
 			},
 			"note": "Wowhead Forever npc=7846 (https://www.wowhead.com/forever/npc=7846): Teremus the Devourer is Rare Elite in Forever (checked 2026-10-13); the merged Era data has rank 3 (Boss)."
 		},
+		"8888": {
+			"set": { "ghostOnly": true },
+			"note": "Franclorn Forgewright is only visible to dead players (a ghost at Blackrock Mountain). ghostOnly prevents him from appearing as a pickup-route stop for living players."
+		},
 		"9024": {
 			"set": {
 				"rank": 1

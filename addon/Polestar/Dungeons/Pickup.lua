@@ -146,6 +146,7 @@ local function errand(r, from, p)
 	local Lk = LK()
 	local g = Lk.QuestEnd(st, from, p)
 	if not (g and g.spawn and not g.hostile) then return false end
+	if g.npc and ns.Codex then local npcRec = ns.Codex.Npc(g.npc); if npcRec and npcRec.ghostOnly then return false end end
 	local e = Lk.QuestEnd(r["end"], g.spawn, p)
 	return (e and e.spawn and not e.hostile) and true or false
 end

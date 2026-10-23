@@ -278,6 +278,7 @@ local function decodeNpc(group, id, s)
 		rare = find(flags, "r", 1, true) ~= nil,
 		elite = find(flags, "e", 1, true) ~= nil,
 		boss = find(flags, "b", 1, true) ~= nil,
+		ghostOnly = find(flags, "g", 1, true) or nil,
 		instance = unesc(t[5]),
 		roles = roles,
 		subName = title,

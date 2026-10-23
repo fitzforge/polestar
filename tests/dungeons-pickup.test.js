@@ -363,6 +363,37 @@ emit({ take = take, carried = carried, pre = pre, steps = steps, notes = notes }
 	}
 });
 
+test('ghost-only quest givers are not included in the pickup route (#558: Franclorn Forgewright)', () => {
+	const c = structuredClone(codex);
+	const i = structuredClone(inputs);
+	const ghostNpc = {
+		id: 90500, name: 'Ghost Giver', level: 50, levelMax: null, faction: 'AH',
+		rare: false, elite: false, boss: false, ghostOnly: true,
+		instance: null, roles: [], spawns: [{ map: 1428, x: 29, y: 29, f: 'e' }],
+	};
+	c.npcs[90500] = ghostNpc;
+	c.quests[90500] = {
+		id: 90500, title: 'Ghost Quest', level: 50, minLevel: 48, faction: 'AH',
+		races: null, classes: null,
+		start: { npc: [90500], object: [], item: [] }, end: { npc: [90500], object: [] },
+		objectives: [], pre: [], zone: 1428, rewards: [], choices: [], preAny: [],
+	};
+	i.forever.quests[90500] = { area: 209 };
+	const own = writeCodexPack(c, { extraFiles: emitJournal(buildJournal(i, c)) });
+	try {
+		const [plan] = run(`
+local plan = D.PickupPlan("${KEY}")
+local inRoute = false
+for _, t in ipairs(plan.take) do if t.quest.id == 90500 then inRoute = true end end
+emit({ inRoute = inRoute })
+`, { codexPack: own, done: [1098] });
+		assert.equal(plan.inRoute, false, 'ghost-only quest giver is not in the pickup route');
+	} finally {
+		own.cleanup();
+	}
+});
+
+
 // Travel between the fixture's zones by the way a player goes (seconds):
 // Undercity and Silverpine are next door, the Barrens a zeppelin away.
 const ZONE_TRAVEL = `
