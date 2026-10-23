@@ -4350,14 +4350,18 @@ Polestar.Rares.Show(kind, id)                       -- SHOW_RARES: the hub secti
   target (`PLAYER_TARGET_CHANGED`) and mouseover (`UPDATE_MOUSEOVER_UNIT`).
   A unit counts when the client calls it rare or the Codex (if loaded) knows
   its NPC as one. Secret values read as unknown. Event payloads only: a GUID
-  is looked at once per 3 s, the full vignette scan runs at most every 2 s
-  and never in combat. Nothing is detected inside instances.
+  is looked at once per 3 s, except a confirmed alive-to-dead transition;
+  unchanged dead observations remain throttled. The full vignette scan runs
+  at most every 2 s and never in combat. Nothing is detected inside instances.
 - **The decision**: off, instance, path off, players and pets, not a rare →
   skip; muted (`rares.ignored`) → skip; dead, alerts off, treasure alerts
   off, or alerted within `rares.cooldown` minutes → recorded only; in combat
   without `rares.combatAlerts` → held until `PLAYER_REGEN_ENABLED` (dropped
-  after a minute); else the alert (`RARE_SPOTTED(alert)`, sound
-  `rares.soundKit` when `rares.sound`).
+  after a minute); otherwise the alert fires immediately (`RARE_SPOTTED(alert)`,
+  sound `rares.soundKit` when `rares.sound`). Release rechecks the decision
+  against current settings, instance and cooldown state before marking it
+  alerted. An observed death cancels a held sighting only when both have the
+  same known creature GUID; historical deaths and NPC ids alone never cancel it.
 - **History**: account-wide per realm, `PolestarDB.rares.history[realm][key]`
   (`"rare:<npc>"`, `"treasure:<object>"`, `"name:<name>"` without an id), at
   most 400 entries; the cooldown reads `alerted` (epoch seconds), so it

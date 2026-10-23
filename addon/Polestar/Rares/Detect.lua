@@ -16,8 +16,9 @@
 --     unit is passed over.
 --
 -- Cost: event payloads only. A unit is looked at once per GUID per few
--- seconds (DEBOUNCE); the full vignette scan runs at most every SCAN_EVERY
--- seconds and never in combat (it waits for PLAYER_REGEN_ENABLED). Nothing
+-- seconds (DEBOUNCE), except a confirmed alive-to-dead transition; the full
+-- vignette scan runs at most every SCAN_EVERY seconds and never in combat
+-- (it waits for PLAYER_REGEN_ENABLED). Nothing
 -- here loads the Codex. Each path is its own setting; a path that is off has
 -- no event registered.
 
@@ -37,25 +38,27 @@ local readable = ns.Compat.Readable
 
 local function clock() return GetTime and GetTime() or 0 end
 
--- guid -> time last looked at
-local recent, recentCount = {}, 0
+-- guid -> time last looked at, and its readable dead state then.
+local recent, recentDead, recentCount = {}, {}, 0
 
-local function fresh(guid)
+local function fresh(guid, dead)
 	local now = clock()
 	local t = recent[guid]
-	if t and now - t < DEBOUNCE then return false end
+	if t and now - t < DEBOUNCE and not (dead == true and recentDead[guid] == false) then return false end
 	if not t then
 		recentCount = recentCount + 1
 		if recentCount > 200 then
 			for g, at in pairs(recent) do
 				if now - at >= DEBOUNCE then
 					recent[g] = nil
+					recentDead[g] = nil
 					recentCount = recentCount - 1
 				end
 			end
 		end
 	end
 	recent[guid] = now
+	recentDead[guid] = dead
 	return true
 end
 
@@ -77,7 +80,8 @@ function D.Unit(unit, source)
 	if not guid then return nil end
 	local kind, id = guidId(guid)
 	if kind ~= "Creature" and kind ~= "Vehicle" then return nil end
-	if not fresh(guid) then return nil end
+	local dead = readable(UnitIsDead and UnitIsDead(unit))
+	if not fresh(guid, dead) then return nil end
 	if readable(UnitIsPlayer(unit)) or readable(UnitPlayerControlled and UnitPlayerControlled(unit)) then return nil end
 	local class = readable(UnitClassification and UnitClassification(unit))
 	if not CLASS_RARE[class or ""] and not Rares.Known("rare", id) then return nil end
@@ -86,7 +90,7 @@ function D.Unit(unit, source)
 		source = source, kind = "rare", id = id, guid = guid,
 		name = readable(UnitName(unit)), classification = class,
 		level = type(level) == "number" and level or nil,
-		dead = readable(UnitIsDead and UnitIsDead(unit)) and true or false,
+		dead = dead and true or false,
 	})
 end
 
@@ -139,10 +143,11 @@ function D.Vignette(vguid)
 	else
 		return nil
 	end
-	if not fresh(vguid) then return nil end
+	local dead = readable(info.isDead)
+	if not fresh(vguid, dead) then return nil end
 	return Rares.Sighting({
 		source = "vignette", kind = what, id = id, guid = object, vignette = vguid,
-		name = readable(info.name), dead = readable(info.isDead) and true or false,
+		name = readable(info.name), dead = dead and true or false,
 	}, vignetteWhere(vguid))
 end
 

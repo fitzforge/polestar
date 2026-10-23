@@ -296,6 +296,192 @@ emit({ after = #got })`);
 	assert.deepEqual(out[2], { after: 1 });
 });
 
+// Start with a real detection event, not a manually populated hold. The GUID
+// is a synthetic creature instance of the existing Thuros fixture.
+const HELD_RARE = `
+local U = stub.rares
+stub.inCombat = true
+U.unit("target", { guid = "Creature-0-1-0-1-61-000000000001", name = "Thuros Lightfingers", level = 11, class = "rare" })
+stub.fire("PLAYER_TARGET_CHANGED")
+assert(R.Held() ~= nil, "the sighting must be held during combat")
+assert(#got == 0 and #stub.sounds == 0 and not R.Toast.Current(), "nothing alerts during the hold")
+local function finishCombat()
+	stub.inCombat = false
+	stub.fire("PLAYER_REGEN_ENABLED")
+	stub.runTimers()
+end
+local function notificationState()
+	local e = R.History()["rare:61"]
+	return { alerts = #got, sounds = #stub.sounds,
+		toast = PolestarRareToast and PolestarRareToast:IsShown() or false,
+		alerted = e ~= nil and e.alerted ~= nil }
+end
+`;
+
+test('held rare alert: observing the same creature dead cancels its notification without starting a cooldown', () => {
+	const [death, after] = run(`${HELD_RARE}
+-- The rare died, but another enemy keeps the player in combat. Moving the
+-- cursor over the corpse delivers a fresh observation of the same GUID.
+stub.advance(4)
+U.units.target.dead = true
+U.unit("mouseover", U.units.target)
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit({ recorded = R.History()["rare:61"].dead ~= nil, sightings = R.History()["rare:61"].n })
+finishCombat()
+emit(notificationState())`);
+	assert.deepEqual(death, { recorded: true, sightings: 2 }, 'the death observation reached the addon');
+	assert.deepEqual(after, { alerts: 0, sounds: 0, toast: false, alerted: false });
+});
+
+test('held rare alert: a death observed one second after detection is recorded and cancels the pending notification', () => {
+	const [death, repeated, after] = run(`${HELD_RARE}
+stub.advance(1)
+U.units.target.dead = true
+U.unit("mouseover", U.units.target)
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit({ recorded = R.History()["rare:61"].dead ~= nil, sightings = R.History()["rare:61"].n, held = R.Held() ~= nil })
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit(R.History()["rare:61"].n)
+finishCombat()
+emit(notificationState())`);
+	assert.deepEqual(death, { recorded: true, sightings: 2, held: false }, 'the alive-to-dead transition must bypass the GUID debounce');
+	assert.equal(repeated, 2, 'an unchanged dead sighting remains throttled');
+	assert.deepEqual(after, { alerts: 0, sounds: 0, toast: false, alerted: false });
+});
+
+test('held rare alert: unchanged alive sightings stay throttled across unit sources', () => {
+	const [during, after] = run(`${HELD_RARE}
+stub.advance(1)
+U.unit("mouseover", U.units.target)
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({ sightings = R.History()["rare:61"].n, held = R.Held() ~= nil, notification = notificationState() })
+finishCombat()
+emit(notificationState())`);
+	assert.deepEqual(during, { sightings: 1, held: true, notification: { alerts: 0, sounds: 0, toast: false, alerted: false } });
+	assert.deepEqual(after, { alerts: 1, sounds: 1, toast: true, alerted: true });
+});
+
+for (const [change, script] of [
+	['alerts are disabled', 'Polestar.Set("rares.alerts", false)'],
+	['the rare is ignored', 'R.Ignore("rare:61", true)'],
+	['its detection source is disabled', 'Polestar.Set("rares.target", false)'],
+]) {
+	test(`held rare alert: no notification or cooldown when ${change}`, () => {
+		const [out] = run(`${HELD_RARE}
+${script}
+finishCombat()
+emit(notificationState())`);
+		assert.deepEqual(out, { alerts: 0, sounds: 0, toast: false, alerted: false });
+	});
+}
+
+test('held rare alert: a different GUID with the same NPC ID dying leaves the valid notification intact', () => {
+	const [death, after] = run(`${HELD_RARE}
+-- Both GUIDs identify NPC 61, but only the second creature is dead.
+U.unit("mouseover", { guid = "Creature-0-1-0-1-61-000000000002", name = "Thuros Lightfingers", level = 11, class = "rare", dead = true })
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit({ recorded = R.History()["rare:61"].dead ~= nil, sightings = R.History()["rare:61"].n,
+	other = UnitGUID("target") ~= UnitGUID("mouseover"), alive = not UnitIsDead("target") })
+finishCombat()
+emit({ notification = notificationState(), name = got[1] and got[1].name })`);
+	assert.deepEqual(death, { recorded: true, sightings: 2, other: true, alive: true });
+	assert.deepEqual(after, { notification: { alerts: 1, sounds: 1, toast: true, alerted: true }, name: 'Thuros Lightfingers' });
+});
+
+for (const [identity, pendingGuid, deathGuid] of [
+	['death GUID unavailable', '"Creature-0-1-0-1-61-000000000001"', 'nil'],
+	['pending GUID unavailable', 'nil', '"Creature-0-1-0-1-61-000000000001"'],
+	['both GUIDs unavailable', 'nil', 'nil'],
+]) {
+	test(`held rare alert: an uncertain death does not cancel a sighting (${identity})`, () => {
+		// Exercise the public sighting API: the unit detector itself rejects
+		// missing GUIDs, but callers must not conflate two unknown identities.
+		const [death, after] = run(`${HELD_RARE}
+R.Sighting({ source = "target", kind = "rare", id = 61, name = "Thuros Lightfingers", classification = "rare", guid = ${pendingGuid} })
+R.Sighting({ source = "mouseover", kind = "rare", id = 61, name = "Thuros Lightfingers", classification = "rare", guid = ${deathGuid}, dead = true })
+emit({ recorded = R.History()["rare:61"].dead ~= nil, held = R.Held() ~= nil })
+finishCombat()
+emit(notificationState())`);
+		assert.deepEqual(death, { recorded: true, held: true });
+		assert.deepEqual(after, { alerts: 1, sounds: 1, toast: true, alerted: true });
+	});
+}
+
+test('held rare alert: release respects a newer alert cooldown without changing its timestamp', () => {
+	const [during, after] = run(`${HELD_RARE}
+Polestar.Set("rares.combatAlerts", true)
+stub.advance(4)
+stub.fire("PLAYER_TARGET_CHANGED")
+local alerted = R.History()["rare:61"].alerted
+emit(notificationState())
+stub.advance(2)
+finishCombat()
+emit({ notification = notificationState(), unchanged = R.History()["rare:61"].alerted == alerted })`);
+	assert.deepEqual(during, { alerts: 1, sounds: 1, toast: true, alerted: true });
+	assert.deepEqual(after, { notification: { alerts: 1, sounds: 1, toast: true, alerted: true }, unchanged: true });
+});
+
+test('held rare alert: a vignette death within one second bypasses debounce once', () => {
+	const [death, after] = run(`
+local U = stub.rares
+stub.inCombat = true
+U.vignette("V1", { npc = 61, name = "Thuros Lightfingers", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V1", true)
+assert(R.Held() ~= nil and #got == 0, "the vignette alert must start held")
+stub.advance(1)
+U.vignettes.V1.dead = true
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V1", true)
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V1", true)
+emit({ recorded = R.History()["rare:61"].dead ~= nil, sightings = R.History()["rare:61"].n, held = R.Held() ~= nil })
+stub.inCombat = false
+stub.fire("PLAYER_REGEN_ENABLED")
+emit({ alerts = #got, sounds = #stub.sounds, toast = PolestarRareToast and PolestarRareToast:IsShown() or false,
+	alerted = R.History()["rare:61"].alerted ~= nil })`);
+	assert.deepEqual(death, { recorded: true, sightings: 2, held: false });
+	assert.deepEqual(after, { alerts: 0, sounds: 0, toast: false, alerted: false });
+});
+
+test('held rare alert: clearing history drops the pending notification and keeps history empty', () => {
+	const [out] = run(`${HELD_RARE}
+R.ClearHistory()
+finishCombat()
+emit({ notification = notificationState(), empty = next(R.History()) == nil })`);
+	assert.deepEqual(out, { notification: { alerts: 0, sounds: 0, toast: false, alerted: false }, empty: true });
+});
+
+test('held rare alert: disabling the module prevents a notification after combat', () => {
+	const [out] = run(`${HELD_RARE}
+Polestar.Set("rares.enabled", false)
+finishCombat()
+emit({ notification = notificationState(), paths = R.Detect.Paths(), recorded = R.History()["rare:61"] ~= nil })`);
+	assert.deepEqual(out, { notification: { alerts: 0, sounds: 0, toast: false, alerted: false }, paths: {}, recorded: true });
+});
+
+test('held rare alert: a later respawn can alert despite an earlier death in history', () => {
+	const [death, during, after] = run(`
+local U = stub.rares
+U.unit("target", { guid = "Creature-0-1-0-1-61-000000000001", name = "Thuros Lightfingers", level = 11, class = "rare", dead = true })
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({ recorded = R.History()["rare:61"].dead ~= nil, alerted = R.History()["rare:61"].alerted ~= nil,
+	alerts = #got, sounds = #stub.sounds })
+-- A later spawn of the same NPC is a new creature instance. Keep the
+-- earlier death in history: it must not suppress this fresh, live sighting.
+stub.advance(11 * 60)
+stub.inCombat = true
+U.unit("target", { guid = "Creature-0-1-0-1-61-000000000002", name = "Thuros Lightfingers", level = 11, class = "rare" })
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({ held = R.Held() ~= nil, alerts = #got, sounds = #stub.sounds })
+stub.advance(4)
+stub.inCombat = false
+stub.fire("PLAYER_REGEN_ENABLED")
+emit({ alerts = #got, sounds = #stub.sounds, toast = PolestarRareToast and PolestarRareToast:IsShown() or false,
+	name = got[1] and got[1].name, alerted = R.History()["rare:61"].alerted ~= nil })`);
+	assert.deepEqual(death, { recorded: true, alerted: false, alerts: 0, sounds: 0 });
+	assert.deepEqual(during, { held: true, alerts: 0, sounds: 0 });
+	assert.deepEqual(after, { alerts: 1, sounds: 1, toast: true, name: 'Thuros Lightfingers', alerted: true });
+});
+
 test('vignettes: a creature is a rare at its exact distance, a game object a treasure; the scan waits out combat', () => {
 	const out = run(`
 local U = stub.rares
