@@ -13,6 +13,9 @@
 	<Script file="FlightPaths.lua"/>
 	<Script file="RouteStrokes.lua"/>
 	<Script file="RouteSparkle.lua"/>
+	<Script file="WorldTrailMath.lua"/>
+	<Script file="WorldTrailTerrain.lua"/>
+	<Script file="WorldTrailRender.lua"/>
 	<Script file="RouteLines.lua"/>
 	<Script file="FlightTimer.lua"/>
 	<Script file="Instances.lua"/>

@@ -89,6 +89,7 @@ never in saved variables.
 | File | Public table | What it does |
 |---|---|---|
 | `Nav.lua` | `Nav` | The point being guided to and where it is relative to the player |
+| `WorldTrail.lua` | `WorldTrail` | Native opt-in settings under Appearance, Ground trail; bounded presets and saved look, scoped reset and `/polestar trail`; independent from map sparkles |
 | `MapCanvas.lua` | `MapCanvas` | Drawing on Blizzard's map frames (world map, battlefield map) with Polestar's own frames, the maps only read |
 | `Pins.lua` | `Pins` | Map and minimap icons for every module, in named layers |
 | `Arrow.lua` | `Nav.arrow` | The waypoint arrow: turning, distance, label, arrival ring |
@@ -126,6 +127,9 @@ never in saved variables.
 | File | Public table | What it does |
 |---|---|---|
 | `Maps.lua` | `Maps` | The module's settings, options page and shared helpers |
+| `WorldTrailMath.lua` | `WorldTrail.Trail` | Current-route geometry and camera math, with shared RouteSparkle point/emission/twinkle helpers |
+| `WorldTrailTerrain.lua` | `WorldTrail.Terrain` | Guarded, bounded height/visibility reads that respect the navigation reader's active tile |
+| `WorldTrailRender.lua` | `WorldTrail.Render` | Camera-only ground sprite pool and lifecycle; no map painter or waypoint ownership |
 | `WorldMap.lua` | `Maps` | Zone level ranges on continent maps and the world map's info bar |
 | `ZoneLevels.lua` | (registers data) | Generated: each zone's level range |
 | `Reveal.lua` | `Maps` | The world map without fog of war |

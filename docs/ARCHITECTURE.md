@@ -169,8 +169,10 @@ Every distance a player reads goes through `FormatDistance` (the arrow, the
 map target's tooltip, the death helper, the rares' toasts and view); text
 that embeds one takes the formatted string (`%s`). `opts.round = 5` rounds to
 the nearest 5, `opts.compact` writes yards from 1000 as "1.2k yd"
-(`Rares.YardsText`); metres turn to kilometres from 1000 m. The bug report
-keeps yards for whoever reads it.
+(`Rares.YardsText`); metres turn to kilometres from 1000 m. `opts.decimals = 1`
+keeps tenths for ground-trail spacing, width and height controls; ordinary
+arrow and tooltip distances keep their existing whole-unit formatting. The
+bug report keeps yards for whoever reads it.
 
 `PolestarDB = { schema = 1, settings = { [section] = { ... } }, packs = { [packId] = { off = true } }, imports = { [guideId] = { format, license, guide, frames } }, welcomeSeen = 1, gamepad = { chords = { [action] = "PADRSHOULDER+PADDUP" } } }`
 `PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = true }, skippedQuests = { [questID] = true }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, flags = { fp = { [name] = true }, ... }, dungeons = { [mapId] = true }, welcomeSeen = 0|1 }`
@@ -2282,6 +2284,32 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   OpenMap's stitched world map on (`OpenMapAPI.IsStitched`), the world map
   places them with `OpenMapAPI.CanvasFromWorldPos` and lifts the frame above
   `OpenMapAPI.ArtTopLevel()`.
+- Ground trail (`Nav/WorldTrail.lua`, `Maps/WorldTrailMath.lua`,
+  `Maps/WorldTrailTerrain.lua`, `Maps/WorldTrailRender.lua`, `UI/WorldTrail.lua`):
+  `ns.WorldTrail`, a camera-estimated in-world sparkle trail. `nav.worldTrail`
+  defaults off for fresh and upgrading accounts. Its master switch and controls
+  live under Appearance, Ground trail; the `groundtrail` and `worldtrail` aliases
+  and `/polestar trail` reach that tab, with no duplicate switch under Guide.
+  The existing first-account setup offers the same switch;
+  the welcome version is unchanged, with no new upgrade popup or login message.
+  All `nav.worldTrail*` settings are independent of map-line settings.
+  `WorldTrail.Settings()` returns a normalized, detached runtime snapshot;
+  `ApplyPreset`, `SaveLook` and `Reset` write only this feature's native settings.
+  Looks change appearance and shape, not enabled/indoor/view policy. Reset also
+  clears the saved custom look and turns the ground trail off.
+  The runtime consumes `Nav.GetRouteGeometry` directly, retaining raw-leg
+  current/jump filtering, the hinted nearest search and two-pass route smoothing.
+  It reuses RouteSparkle's shared point/emission/twinkle/style math but owns its
+  ground spacing, animation and bounded sprite pool. It draws no map overlays,
+  owns no waypoint and never changes the game's pin or supertracking state.
+  Camera and map-height placement are approximations, not native depth-buffer
+  occlusion. The terrain adapter's guarded use of Polestar_Nav's shared reader
+  and internal grid metadata is version-coupled; do not replace it with arbitrary
+  cross-tile surface queries or make this visual force-load navigation data.
+  Loading suppression and the full post-loading settle period must survive
+  overlapping events. Disabled means no active drawing or terrain work. Local
+  player settings transfer is separate from the contribution: upstream code
+  does not read ForeverSparkleTrailDB or hard-code a personal preset.
 - Chokepoints: a Travel leg ending at one carries `choke = { kind, name }`;
   `Nav/Layers.lua` gives its route stop (`nav.route`) the kind's glyph on a
   scrim disc in the accent (`icon-lift`; `icon-gate` for gates and building

@@ -22,5 +22,6 @@
 	<Script file="Thanks.lua"/>
 	<Script file="Options.lua"/>
 	<Script file="LineStyle.lua"/>
+	<Script file="WorldTrail.lua"/>
 	<Script file="QuestieTurnIns.lua"/>
 </Ui>
