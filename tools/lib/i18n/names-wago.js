@@ -29,6 +29,18 @@ const TABLES = {
 	taxi: { table: 'TaxiNodes', field: 'Name_lang' },
 };
 const KINDS = Object.keys(TABLES);
+// What `i18n audit` reads besides: the names of spells and talents, areas and
+// skill lines, and the talent trees alone (the skill lines of category 7: the
+// Classic client names a tree "Shadow Magic" where the addon says "Shadow").
+// Kept apart from TABLES: the names addons carry none of them.
+const AUDIT_TABLES = {
+	spell: { table: 'SpellName', field: 'Name_lang' },
+	area: { table: 'AreaTable', field: 'AreaName_lang' },
+	skill: { table: 'SkillLine', field: 'DisplayName_lang' },
+	tree: { table: 'SkillLine', field: 'DisplayName_lang', keep: (row) => row.CategoryID === '7' },
+};
+const AUDIT_KINDS = Object.keys(AUDIT_TABLES);
+const ALL_TABLES = { ...TABLES, ...AUDIT_TABLES };
 // Each product's kinds: Forever's every one, the Era client's items behind them.
 const PRODUCT_KINDS = { forever: KINDS, era: ['item'] };
 const BUILDS_URL = 'https://wago.tools/api/builds';
@@ -46,7 +58,7 @@ const tableFile = (sourcesDir, build, locale, table) => path.join(sourcesDir, 'w
 function completeBuilds(sourcesDir, product, kinds, locales) {
 	const root = path.join(sourcesDir, 'wago');
 	if (!fs.existsSync(root)) return [];
-	const tables = kinds.map((k) => TABLES[k].table);
+	const tables = kinds.map((k) => ALL_TABLES[k].table);
 	return fs.readdirSync(root)
 		.filter((b) => /^\d+(\.\d+)+$/.test(b) && PRODUCTS[product].family.test(b))
 		.filter((b) => [null, ...locales].every((l) => tables.every((t) => fs.existsSync(tableFile(sourcesDir, b, l, t)))))
@@ -70,10 +82,11 @@ async function listedBuild(fetchImpl, product) {
 // Throws when a table can be neither read from the cache nor fetched.
 async function loadTables({ sourcesDir, build, locales, kinds, offline, fetchImpl, log }) {
 	const read = async (locale, kind) => {
-		const { table, field } = TABLES[kind];
+		const { table, field, keep } = ALL_TABLES[kind];
 		const rows = await cachedTable({ sourcesDir, build, table, locale, offline, get: (url) => fetchText(fetchImpl, url), log });
 		const m = new Map();
 		for (const r of rows) {
+			if (keep && !keep(r)) continue;
 			const id = Number(r.ID);
 			const name = typeof r[field] === 'string' ? r[field].trim() : '';
 			if (id > 0 && name) m.set(id, name);
@@ -83,7 +96,7 @@ async function loadTables({ sourcesDir, build, locales, kinds, offline, fetchImp
 	const out = { names: {}, english: {}, urls: [] };
 	for (const kind of kinds) {
 		out.english[kind] = await read(null, kind);
-		out.urls.push(`https://wago.tools/db2/${TABLES[kind].table}/csv?build=${build}&locale=<locale>`);
+		out.urls.push(`https://wago.tools/db2/${ALL_TABLES[kind].table}/csv?build=${build}&locale=<locale>`);
 	}
 	for (const locale of locales) {
 		out.names[locale] = {};
@@ -135,4 +148,23 @@ async function loadClientNames({ sourcesDir, locales, forever, era, offline = fa
 	return out;
 }
 
-module.exports = { TABLES, KINDS, PRODUCT_KINDS, loadClientNames, completeBuilds };
+// The audit's tables, Forever's alone: { names: { [locale]: { kind: Map id ->
+// name } }, english: { kind: Map }, build }. The build: `forever` when given;
+// else the newest wago.tools lists (offline: none), falling back to the
+// newest cached build holding every table in English and in every language
+// asked. None throws.
+async function loadAuditNames({ sourcesDir, locales, forever, offline = false, fetchImpl = globalThis.fetch, log = () => {} }) {
+	const tries = forever ? [forever] : [...new Set([offline ? null : await listedBuild(fetchImpl, 'forever'), ...completeBuilds(sourcesDir, 'forever', AUDIT_KINDS, locales)].filter(Boolean))];
+	const errors = [];
+	for (const build of tries) {
+		try {
+			const got = await loadTables({ sourcesDir, build, locales, kinds: AUDIT_KINDS, offline, fetchImpl, log });
+			return { names: got.names, english: got.english, build };
+		} catch (err) {
+			errors.push(`${build}: ${err.message}`);
+		}
+	}
+	throw new Error(`no forever client tables (${AUDIT_KINDS.map((k) => AUDIT_TABLES[k].table).join(', ')}) for ${locales.join(', ')}${errors.length ? `: ${errors.join('; ')}` : ' cached'}; run once online, or pass the build`);
+}
+
+module.exports = { TABLES, KINDS, AUDIT_TABLES, AUDIT_KINDS, PRODUCT_KINDS, loadClientNames, loadAuditNames, completeBuilds };

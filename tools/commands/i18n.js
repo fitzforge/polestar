@@ -9,6 +9,7 @@ const { parseArgs, plural } = require('../lib/cli');
 const { ROOT } = require('../lib/paths');
 const { LOCALES, LOCALE_CODES, checkLocale } = require('../lib/i18n/locales');
 const { localeState, syncFiles, rel } = require('../lib/i18n/project');
+const { localeFile } = require('../lib/i18n/files');
 
 // The addons with interface translations, each with Locales/<locale>.lua:
 // Polestar's own (loaded by Core/Core.xml) and the Recorder's (its TOC).
@@ -40,7 +41,7 @@ function wrapWords(text, indent) {
 	return lines.map((l) => ' '.repeat(indent) + l).join('\n');
 }
 
-const usage = `usage: node tools/polestar.js i18n <status|check|sync|keys|import|fit|leaks|names|guides> [options]
+const usage = `usage: node tools/polestar.js i18n <status|check|sync|keys|import|fit|leaks|names|audit|guides> [options]
 
 Polestar's interface translations (docs/TRANSLATING.md): one file per
 locale, addon/Polestar/Locales/<locale>.lua, and the same for the Recorder,
@@ -118,6 +119,21 @@ ${wrapWords(require('../lib/i18n/leaks').SCENE_NAMES.join(', ') + '.', 29)}
                              name. A language left without names loses its
                              folder.
 
+  i18n audit [<locale>...]   read only: holds the translations against the
+                             Forever client's own names (SpellName,
+                             AreaTable and SkillLine, from the tables
+                             that names caches; the talent trees are skill
+                             lines). A text whose English names a spell, a
+                             talent, an area or a talent tree should carry
+                             the client's name. A name of one word counts
+                             only as a whole text, one of several words
+                             wherever it stands; endings may change. Reads
+                             the interface files of both addons and the
+                             guide texts (guides/locales/<locale>). Prints
+                             a table: kind, English name, client name,
+                             file:line, the English text (--json: the
+                             translation too). Exit 1 when it finds any.
+
   i18n guides sync [<locale>...]
                              writes a pack's texts in other languages
                              (docs/TRANSLATING.md, "Guide texts"):
@@ -143,7 +159,7 @@ ${wrapWords(require('../lib/i18n/leaks').SCENE_NAMES.join(', ') + '.', 29)}
                              for naming only their goal.
 
 options:
-  --json            status, check, keys, names, fit, leaks, guides: one JSON document on stdout
+  --json            status, check, keys, names, audit, fit, leaks, guides: one JSON document on stdout
   --scene <a,b>     leaks: only these scenes
   --guide <id,...>  leaks: the guides the guide scene shows (default a few)
   --jobs <n>        leaks: runs at a time (default one per core)
@@ -158,9 +174,9 @@ options:
   --no-questie      names: leave DingDB out (its base data is QuestieDB's)
   --no-tables       names: leave the client tables out (otherwise a missing
                     table stops the build)
-  --offline         names: no downloads; the cached clones and tables
-  --build <version> names: this Forever client build (default the newest wago.tools lists)
-  --sources <dir>   names: the client-table and Wowhead cache (default data/sources)
+  --offline         names, audit: no downloads; the cached clones and tables
+  --build <version> names, audit: this Forever client build (default the newest wago.tools lists)
+  --sources <dir>   names, audit: the client-table and Wowhead cache (default data/sources)
   --ding <dir>      names: this DingDB checkout (default data/sources/ding)
   --pfquest <dir>   names: this pfQuest checkout (default data/sources/pfQuest)
   --guides <file>   names: the compiled guides (default addon/Polestar_Guides/Guides.lua)
@@ -483,6 +499,45 @@ async function runNames(opts, positional) {
 	return 0;
 }
 
+// `i18n audit`: the translations against the client's own names
+// (tools/lib/i18n/audit.js); exit 1 when any text lacks one.
+async function runAudit(opts, positional) {
+	const A = require('../lib/i18n/audit');
+	const { loadAuditNames } = require('../lib/i18n/names-wago');
+	const { DEFAULTS } = require('../lib/i18n/names');
+	const wanted = locales(positional);
+	const log = opts.json ? () => {} : (m) => console.log(m);
+	const sourcesDir = opts.sources ? path.resolve(opts.sources) : DEFAULTS.sources;
+	const tables = await loadAuditNames({ sourcesDir, locales: wanted, forever: opts.build, offline: Boolean(opts.offline), log });
+	const rows = [];
+	const checked = {};
+	for (const locale of wanted) {
+		const files = [
+			...Object.values(ADDONS).map((a) => localeFile(a.dir, locale)).filter((f) => fs.existsSync(f)),
+			...A.luaFiles(path.join(ROOT, 'guides', 'locales', locale)),
+		];
+		const texts = A.readTexts(files).map((t) => ({ ...t, file: rel(t.file) }));
+		const index = A.nameIndex({ names: tables.names[locale], english: tables.english });
+		const trees = A.treeIndex({ names: tables.names[locale], english: tables.english });
+		checked[locale] = { texts: texts.length, names: index.size };
+		for (const r of A.auditTexts({ texts, index, trees })) rows.push({ locale, ...r });
+	}
+	if (opts.json) {
+		console.log(JSON.stringify({ build: tables.build, checked, findings: rows }, null, 2));
+		return rows.length ? 1 : 0;
+	}
+	console.log(`client tables: Forever ${tables.build}`);
+	for (const locale of wanted) {
+		const mine = rows.filter((r) => r.locale === locale);
+		const c = checked[locale];
+		if (!c.texts) continue;
+		console.log(`\n${locale}: ${plural(c.texts, 'translated text')} against ${plural(c.names, 'client name')}: ${mine.length ? plural(mine.length, 'text') + ' without the client\'s name' : 'all carry the client\'s names'}`);
+		if (!mine.length) continue;
+		for (const line of A.formatTable(mine)) console.log(line);
+	}
+	return rows.length ? 1 : 0;
+}
+
 // Every locale (or those named, each with the file standing in for its
 // shipped one) laid out in every preview scene and Options page: the
 // translated text that does not fit (tools/preview/fit.js).
@@ -698,6 +753,7 @@ async function run(argv) {
 		if (sub === 'fit') return await runFit(opts, rest);
 		if (sub === 'leaks') return await runLeaks(opts, rest);
 		if (sub === 'names') return await runNames(opts, rest);
+		if (sub === 'audit') return await runAudit(opts, rest);
 		if (sub === 'guides') return runGuides(opts, rest);
 	} catch (e) {
 		console.error(`error: ${e.message}`);
@@ -707,4 +763,4 @@ async function run(argv) {
 	return 2;
 }
 
-module.exports = { name: 'i18n', summary: 'interface translations (status, check, sync, keys, import, fit, leaks), guide texts (guides) and the names addons (names)', usage, run };
+module.exports = { name: 'i18n', summary: 'interface translations (status, check, sync, keys, import, fit, leaks, audit), guide texts (guides) and the names addons (names)', usage, run };
