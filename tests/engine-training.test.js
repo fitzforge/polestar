@@ -15,6 +15,7 @@ const CORE = { name: 'Polestar', files: ['Core/Core.xml'] };
 const WORLD = `
 local w = stub.world
 w.addMap(1413, { name = "The Barrens", c = 1, left = 2622.917, right = -7510.417, top = 1612.5, bottom = -5139.583 })
+w.addMap(1412, { name = "Mulgore", c = 1, left = 2047.917, right = -3089.583, top = -272.917, bottom = -3697.917 })
 w.race, w.raceName, w.faction, w.class = "Scourge", "Undead", "Horde", "WARRIOR"
 w.level = 12
 w.moveTo(1413, 51.9, 30.4)
@@ -32,13 +33,60 @@ Polestar.RegisterGuide({ id = "test/trains", pack = "test", title = "Trains soon
 	{ goals = { { t = "train", class = true, candidates = { { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.8, y = 31.4, f = "e", faction = "H", classes = { "WARRIOR" } } } } } },
 	{ goals = { { t = "level", level = 20 } } },
 } })
+-- Heads south-west to Mulgore: the nearest trainer from the Crossroads lies the other way.
+Polestar.RegisterGuide({ id = "test/route", pack = "test", title = "To Mulgore", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+	{ goals = { { t = "accept", quest = 870, title = "The Forgotten Pools", map = 1413, x = 52, y = 31 } } },
+	{ goals = { { t = "goto", map = 1413, x = 45, y = 58 } } },
+	{ goals = { { t = "goto", map = 1412, x = 47, y = 60 } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
+-- Dun Morogh: from the trogg tunnel on to Kharanos (the report in #664).
+Polestar.RegisterGuide({ id = "test/tunnel", pack = "test", title = "The tunnel", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ goals = { { t = "accept", quest = 2160, title = "Supplies to Tannok", map = 1426, x = 33.9, y = 72.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 47.2, y = 52.4 } } },
+	{ goals = { { t = "goto", map = 1426, x = 47.3, y = 52.9 } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
+-- A Dwarf near the tunnel with Coldridge work still ahead: Anvilmar, then the tunnel, then Kharanos.
+Polestar.RegisterGuide({ id = "test/coldridge", pack = "test", title = "Coldridge", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ goals = { { t = "goto", map = 1426, x = 28.8, y = 66.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 26.9, y = 80.0 } } },
+	{ goals = { { t = "goto", map = 1426, x = 28.8, y = 66.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 33.9, y = 72.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 47.2, y = 52.4 } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
+-- Grik'nir's cave, then (or not) a stop in Anvilmar, the tunnel and Kharanos.
+Polestar.RegisterGuide({ id = "test/cave-anvilmar", pack = "test", title = "Cave, Anvilmar", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ goals = { { t = "goto", map = 1426, x = 26.9, y = 80.0 } } },
+	{ goals = { { t = "goto", map = 1426, x = 28.8, y = 66.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 33.9, y = 72.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 47.2, y = 52.4 } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
+Polestar.RegisterGuide({ id = "test/cave-direct", pack = "test", title = "Cave, tunnel", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ goals = { { t = "goto", map = 1426, x = 26.9, y = 80.0 } } },
+	{ goals = { { t = "goto", map = 1426, x = 33.9, y = 72.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 47.2, y = 52.4 } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
+-- The trainer is the sixth step: past the reminder's reach from step 1.
+Polestar.RegisterGuide({ id = "test/trains-far", pack = "test", title = "Trains far", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+	{ goals = { { t = "goto", map = 1413, x = 20, y = 20 } } },
+	{ goals = { { t = "goto", map = 1413, x = 21, y = 20 } } },
+	{ goals = { { t = "goto", map = 1413, x = 22, y = 20 } } },
+	{ goals = { { t = "goto", map = 1413, x = 23, y = 20 } } },
+	{ goals = { { t = "goto", map = 1413, x = 24, y = 20 } } },
+	{ goals = { { t = "train", class = true, candidates = { { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.8, y = 31.4, f = "e", faction = "H", classes = { "WARRIOR" } } } } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
 `;
 
-function run({ saved, pre = '', script }) {
+function run({ saved, pre = '', script, addons = [CORE] }) {
 	return runAddon({
 		stubs: ['stub_world.lua'],
 		before: WORLD,
-		addons: [CORE],
+		addons,
 		saved,
 		script: `${TEST_PACK}
 ${TEST_SOURCE}
@@ -104,6 +152,97 @@ test('no reminder when the guide trains the class within its next steps, on odd 
 
 	const off = run({ saved: TRAINED_AT_10, pre: 'Polestar.Set("behavior.trainReminder", "off")', script: 'stub.advance(0.5); emit({ due = #DUE })' })[0];
 	assert.equal(off.due, 0);
+});
+
+test('the reminder names the trainer on the guide\'s route, not the nearest one behind it (#664)', () => {
+	const near = run({ saved: TRAINED_AT_10, script: 'stub.advance(0.5); emit({ map = DUE[1].map })' })[0];
+	// With no guide open the nearest trainer is east, in Durotar or Orgrimmar.
+	assert.ok([1411, 1454].includes(near.map), `trainer on map ${near.map}`);
+	const route = run({
+		saved: { Polestar: 'PolestarCharDB = { schema = 1, classTrainLevel = 10, tabs = { "test/route" }, activeTab = 1 }' },
+		script: 'stub.advance(0.5); emit({ map = DUE[1].map, npc = DUE[1].npc })',
+	})[0];
+	assert.ok([1412, 1456].includes(route.map), `trainer on map ${route.map}, npc ${route.npc}`);
+});
+
+test('the route never leads to a trainer in a zone far above the character', () => {
+	const [out] = run({
+		saved: { Polestar: 'PolestarCharDB = { schema = 1, classTrainLevel = 10, tabs = { "test/route" }, activeTab = 1 }' },
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Maps/Maps.lua', 'Maps/WorldMap.lua'] }],
+		pre: 'Polestar.Maps.RegisterZoneLevels({ [1413] = { 10, 25, 50, 50 }, [1411] = { 1, 10, 50, 50 }, [1454] = { 1, 20, 50, 50 }, [1412] = { 55, 60, 50, 50 }, [1456] = { 55, 60, 50, 50 } })',
+		script: 'stub.advance(0.5); emit({ map = DUE[1].map })',
+	});
+	assert.ok([1411, 1454].includes(out.map), `trainer on map ${out.map}`);
+});
+
+test('a trainer close by line but far by the route planner (a mountain between) loses to one that is reachable', () => {
+	const pick = (planner) => run({
+		saved: { Polestar: 'PolestarCharDB = { schema = 1, classTrainLevel = 10, tabs = { "test/route" }, activeTab = 1 }' },
+		pre: planner ? `Polestar.Nav = { EstimateTravel = function(a, b)
+			if a.npc == 3063 or b.npc == 3063 then return 2500 end -- Krang Stonehoof: over the ridge
+			return a.map == b.map and 100 or 1000
+		end }` : '',
+		script: 'stub.advance(0.5); emit({ npc = DUE[1].npc })',
+	})[0].npc;
+	assert.equal(pick(false), 3063);
+	// Harutt Thunderhorn, the next Mulgore trainer.
+	assert.equal(pick(true), 3059);
+});
+
+test('a Dwarf Shaman who dings 6 in the trogg tunnel is sent on to Kharanos, not back to Anvilmar (#664)', () => {
+	const [out] = run({
+		saved: { Polestar: 'PolestarCharDB = { schema = 1, classTrainLevel = 4, tabs = { "test/tunnel" }, activeTab = 1 }' },
+		pre: `local w = stub.world
+			w.addMap(1426, { name = "Dun Morogh", c = 0, left = 1802.083, right = -3122.917, top = -3877.083, bottom = -7160.417 })
+			w.race, w.raceName, w.faction, w.class, w.level = "Dwarf", "Dwarf", "Alliance", "SHAMAN", 6
+			w.moveTo(1426, 36.5, 71.5)`,
+		script: 'stub.advance(0.5); emit({ due = #DUE, npc = DUE[1] and DUE[1].npc })',
+	});
+	// 257446 Teo Hammerstorm (Anvilmar), 258113 Ingrid Dunwald (Kharanos).
+	assert.deepEqual(out, { due: 1, npc: 258113 });
+});
+
+test('near the tunnel with Coldridge work still ahead, the reminder keeps to Anvilmar (#664)', () => {
+	const [out] = run({
+		saved: { Polestar: 'PolestarCharDB = { schema = 1, classTrainLevel = 2, tabs = { "test/coldridge" }, activeTab = 1 }' },
+		pre: `local w = stub.world
+			w.addMap(1426, { name = "Dun Morogh", c = 0, left = 1802.083, right = -3122.917, top = -3877.083, bottom = -7160.417 })
+			w.race, w.raceName, w.faction, w.class, w.level = "Dwarf", "Dwarf", "Alliance", "SHAMAN", 4
+			w.moveTo(1426, 36.5, 71.5)`,
+		script: 'stub.advance(0.5); emit({ step = Polestar.Engine.GetStepIndex(), npc = DUE[1] and DUE[1].npc })',
+	});
+	// 257446 Teo Hammerstorm (Anvilmar).
+	assert.deepEqual(out, { step: 1, npc: 257446 });
+});
+
+test('a stop in Anvilmar on the way out of the cave keeps the reminder there; without it Kharanos wins (#664)', () => {
+	const pick = (guide) => run({
+		saved: { Polestar: `PolestarCharDB = { schema = 1, classTrainLevel = 4, tabs = { "${guide}" }, activeTab = 1 }` },
+		pre: `local w = stub.world
+			w.addMap(1426, { name = "Dun Morogh", c = 0, left = 1802.083, right = -3122.917, top = -3877.083, bottom = -7160.417 })
+			w.race, w.raceName, w.faction, w.class, w.level = "Dwarf", "Dwarf", "Alliance", "SHAMAN", 6
+			w.moveTo(1426, 27.5, 79.0)`,
+		script: 'stub.advance(0.5); emit({ npc = DUE[1] and DUE[1].npc })',
+	})[0].npc;
+	// 257446 Teo Hammerstorm (Anvilmar), 258113 Ingrid Dunwald (Kharanos).
+	assert.equal(pick('test/cave-anvilmar'), 257446);
+	assert.equal(pick('test/cave-direct'), 258113);
+});
+
+test('the reminder follows the live step, not the step on screen (#664)', () => {
+	// Trained at 12 and at 12 now: nothing due until the level-up to 14 below.
+	const levelUp = (guide, view) => run({
+		saved: { Polestar: `PolestarCharDB = { schema = 1, classTrainLevel = 12, tabs = { "${guide}" }, activeTab = 1 }` },
+		script: `stub.advance(0.5)
+			Polestar.Engine.Goto(${view}); stub.advance(0.5)
+			stub.world.level = 14
+			Polestar.Engine.RequestUpdate(); stub.advance(0.5)
+			emit({ due = #DUE, step = Polestar.Engine.GetStepIndex() })`,
+	})[0];
+	// Live step 1, trainer at 6: out of reach, so it is due, though step 6 is on screen.
+	assert.deepEqual(levelUp('test/trains-far', 6), { due: 1, step: 6 });
+	// Live step 1, trainer at 2: within reach, so held back, though step 3 is on screen.
+	assert.deepEqual(levelUp('test/trains', 3), { due: 0, step: 3 });
 });
 
 test('a class trainer is one the registry holds for the character\'s class; riding trainers and other classes\' are not', () => {
