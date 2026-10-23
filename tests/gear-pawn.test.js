@@ -517,6 +517,58 @@ test('Pawn.Build writes a string Parse and Weights read back to the same weights
 	assert.match(out.s, /^\( Pawn: v1: "A 'quoted' name": Class=Warrior, /);
 });
 
+test('Pawn.Build rounds positive and negative weights to the nearest thousandth, with ties away from zero', () => {
+	const cases = [
+		[0, 0], [1, 1], [-1, -1], [0.1, 0.1], [-0.1, -0.1],
+		[1.234, 1.234], [-1.234, -1.234],
+		[1.2344, 1.234], [-1.2344, -1.234],
+		[1.2345, 1.235], [-1.2345, -1.235],
+		[1.2346, 1.235], [-1.2346, -1.235],
+		[0.0004, 0], [-0.0004, 0],
+		[0.0005, 0.001], [-0.0005, -0.001],
+		[0.0006, 0.001], [-0.0006, -0.001],
+	];
+	const [weights] = run(`
+		local out = {}
+		for _, value in ipairs({ ${cases.map(([value]) => value).join(', ')} }) do
+			local source = G.Pawn.Build("Rounded", "WARRIOR", { str = value })
+			local parsed = assert(G.Pawn.Parse(source))
+			out[#out + 1] = G.Pawn.Weights(parsed).str
+		end
+		emit(out)
+	`);
+	for (let i = 0; i < cases.length; i++) {
+		assert.equal(weights[i], cases[i][1], `weight ${cases[i][0]}`);
+	}
+});
+
+test('editing a scale preserves negative weights through repeated export and import', () => {
+	const rounds = run(`
+		local _, r = G.Scales.Import('( Pawn: v1: "Penalties": Class=Warrior, Strength=-1, Agility=-0.1, Stamina=-1.234, CritRating=0 )')
+		for i = 1, 3 do
+			-- Changing another stat rebuilds the whole export string.
+			assert(G.Scales.SetWeight("WARRIOR", r.scale.id, "dps", i))
+			local source = G.Scales.Export("WARRIOR", r.scale.id)
+			local ok, imported = G.Scales.Import(source)
+			assert(ok)
+			r = imported
+			emit(r.scale.weights)
+		end
+	`);
+	assert.deepEqual(rounds, [1, 2, 3].map((dps) => ({ str: -1, agi: -0.1, sta: -1.234, crit: 0, dps })));
+});
+
+test('removing a stat keeps the other negative weights in the exported scale', () => {
+	const [weights] = run(`
+		local _, r = G.Scales.Import('( Pawn: v1: "Penalties": Class=Warrior, Strength=-1, Agility=-0.1, Stamina=2 )')
+		assert(G.Scales.RemoveWeight("WARRIOR", r.scale.id, "sta"))
+		local ok, imported = G.Scales.Import(G.Scales.Export("WARRIOR", r.scale.id))
+		assert(ok)
+		emit(imported.scale.weights)
+	`);
+	assert.deepEqual(weights, { str: -1, agi: -0.1 });
+});
+
 test('Copy a built-in spec: a new scale holds that spec\'s weights at your level, named as a copy, ready to edit', () => {
 	const [out] = runUI(`${ROWS}
 		local UI, G = Polestar.UI, Polestar.Gear
