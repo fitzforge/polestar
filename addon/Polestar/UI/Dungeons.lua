@@ -24,14 +24,15 @@
 -- quests still to do are worth in levels (Dungeons.QuestXP); hovering it
 -- opens a panel with the XP, a bar of the levels it spans (earned, then
 -- gained) and what was counted.
---   Quests: one block per quest, hairlines between: the name in its
---   difficulty colour (lifted to 4.5:1 on the ground), this character's
+--   Quests: one panel per quest: the name in its difficulty colour (lifted
+--   to 4.5:1 on the ground) above a rule, this character's
 --   state (done, in the log, ready, too low), level and requirement,
 --   faction, shareable, picked up inside; a label column with the
 --   objective, where it starts and ends (each with a pin that sets the
 --   arrow; the whole Starts line is a link to the giver, or to the first
 --   prerequisite still to do), the chain before it (one line per quest,
---   each with its own pin; hovering one shows that quest's levels, state,
+--   each with its own pin, the steps still to do numbered and the next one
+--   on an accent ground; hovering one shows that quest's levels, state,
 --   objective, start and end, rewards and its XP at the character's level)
 --   and the rewards (item icons in quality borders, "Choose one", XP, money,
 --   reputation; after a chain still to do, a chip of what the quest and its
@@ -115,6 +116,8 @@ local function mainWidth()
 	if w <= 0 then w = 878 end
 	return w
 end
+
+local function questWidth() return mainWidth() - CARD_X * 2 end
 
 local function viewHeight()
 	local h = hub and hub:GetHeight() or 0
@@ -297,14 +300,14 @@ end
 
 local STATE_GLYPH = {
 	done = { "check", "success" }, ready = { "icon-turnin", "success" }, log = { "icon-turnin", "quest" },
-	low = { "lock", "textMuted" }, open = { "icon-accept", "quest" },
+	low = { "lock", "warning" }, open = { "icon-accept", "quest" },
 }
 
 local function stateChip(state, q)
 	if state == "done" then return L["Done"], "success" end
 	if state == "ready" then return L["Ready to turn in"], "success" end
 	if state == "log" then return L["In your log"], "neutral" end
-	if state == "low" then return format(L["From level %d"], q.minLevel), "neutral" end
+	if state == "low" then return format(L["From level %d"], q.minLevel), "warning" end
 	return nil
 end
 
@@ -481,13 +484,16 @@ local function chainRow(b, i)
 	if r then return r end
 	r = CreateFrame("Frame", nil, b)
 	r:SetHeight(CHAIN_H)
+	r.Highlight = W.Fill(r, "chipAccent", "BACKGROUND")
+	r.Highlight:Hide()
 	r:EnableMouse(true)
 	r:SetScript("OnEnter", chainEnter)
 	r:SetScript("OnLeave", W.HideTip)
-	-- A done step is checked; the others get a quiet bullet (the title's
-	-- difficulty colour already speaks).
+	-- Completed steps keep their check; unfinished ones show their chain number.
 	r.Glyph = W.Tex(r, "ARTWORK", "circle", "textMuted")
 	r.Glyph:SetPoint("CENTER", r, "LEFT", 10, 0)
+	r.Number = W.Text(r, "caption", "textMuted")
+	r.Number:SetPoint("CENTER", r, "LEFT", 10, 0)
 	r.Title = W.Text(r, "label", "text")
 	r.Title:SetPoint("LEFT", r, "LEFT", 24, 0)
 	r.Sub = W.Text(r, "small", "textMuted")
@@ -536,7 +542,7 @@ local function tile(b, i)
 end
 
 local function label(parent, text)
-	local fs = W.Text(parent, "small", "textMuted")
+	local fs = W.Text(parent, "small", "textDim")
 	fs:SetText(text or "")
 	fs:SetJustifyH("LEFT")
 	return fs
@@ -546,18 +552,22 @@ local function block(i)
 	local b = blocks[i]
 	if b then return b end
 	b = CreateFrame("Frame", nil, pg.Body)
+	Theme.Skin(b, "panel")
 	b.Chains, b.Tiles, b.Chips = {}, {}, {}
 	-- What the quest and the chain before it are worth (UI/LevelTip.lua).
 	b.ChainXP = UI.LevelTip.Chip(b, hub)
 	b.Glyph = W.Tex(b, "ARTWORK", "icon-accept", "quest")
 	b.Glyph:SetSize(14, 14)
-	b.Glyph:SetPoint("CENTER", b, "TOPLEFT", GUT, -30)
-	b.Title = W.Text(b, "title", "quest")
-	b.Title:SetPoint("LEFT", b, "TOPLEFT", PAD, -30)
+	b.Glyph:SetPoint("CENTER", b, "TOPLEFT", GUT, -28)
+	b.Title = W.Text(b, "title", "text")
+	b.Title:SetPoint("LEFT", b, "TOPLEFT", PAD, -28)
 	b.Faction = W.Chip(b)
 	b.State = W.Chip(b)
 	b.Meta = W.Text(b, "small", "textMuted")
-	b.Meta:SetPoint("TOPLEFT", b, "TOPLEFT", PAD, -46)
+	b.Meta:SetPoint("TOPLEFT", b, "TOPLEFT", PAD, -44)
+	b.HeadRule = W.Divider(b)
+	b.HeadRule:SetPoint("TOPLEFT", b, "TOPLEFT", PAD, -62)
+	b.HeadRule:SetPoint("TOPRIGHT", b, "TOPRIGHT", -PAD, -62)
 	b.ObjLabel = label(b, L["Objective"])
 	b.Obj = W.Text(b, "note", "text")
 	b.Obj:SetWordWrap(true)
@@ -582,9 +592,6 @@ local function block(i)
 	b.ChooseLabel = label(b, L["Choose one"])
 	b.GetLabel = label(b, L["You get"])
 	b.MoreLabel = label(b, L["Rewards"])
-	b.Rule = W.Divider(b)
-	b.Rule:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", PAD, 0)
-	b.Rule:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", -PAD, 0)
 	blocks[i] = b
 	return b
 end
@@ -1248,7 +1255,7 @@ end
 -- measured on one shared string), so every block is placed before any is
 -- drawn and only the ones in view are.
 local function tilesPer()
-	return max(1, floor((mainWidth() - VALUE_X - PAD + TILE_GAP) / (TILE_W + TILE_GAP)))
+	return max(1, floor((questWidth() - VALUE_X - PAD + TILE_GAP) / (TILE_W + TILE_GAP)))
 end
 
 local function tilesHeight(n)
@@ -1277,11 +1284,12 @@ local function startLine(q, key)
 end
 
 local function plan(q, key)
-	local VW = mainWidth() - VALUE_X - PAD
+	local VW = questWidth() - VALUE_X - PAD
 	local p = {}
-	local y = 66
+	local y = 74
 	p.objective = D().ObjectiveText(q)
 	if p.objective then
+		p.objective = "\226\128\162  " .. p.objective:gsub("\n", "\n\226\128\162  ")
 		p.obj = y
 		local m = pg.Measure
 		m:SetWidth(min(VW, 620))
@@ -1323,7 +1331,7 @@ local function plan(q, key)
 		p.more = y
 		y = y + W.CHIP_H + 4
 	end
-	p.h = y + 18
+	p.h = y + 14
 	return p
 end
 
@@ -1380,10 +1388,10 @@ end
 
 -- One quest block at top in the body, laid out by its plan p.
 local function paintQuest(b, q, p, top, plevel, key)
-	local MW = mainWidth()
+	local MW = questWidth()
 	local VW = MW - VALUE_X - PAD
 	b:ClearAllPoints()
-	b:SetPoint("TOPLEFT", pg.Body, "TOPLEFT", 0, -top)
+	b:SetPoint("TOPLEFT", pg.Body, "TOPLEFT", CARD_X, -top)
 	b:SetWidth(MW)
 	b:SetHeight(p.h)
 	b.psQuest = q.id
@@ -1392,7 +1400,8 @@ local function paintQuest(b, q, p, top, plevel, key)
 	b.Glyph:SetTexture(Theme.Media(g[1]))
 	W.Color(b.Glyph, g[2])
 	b.Title:SetText(q.title or (L["Quest"] .. " " .. tostring(q.id)))
-	-- Done: the muted text colour (held legible), its chip says so.
+	-- Done: the muted text colour (held legible), its chip says so; else the
+	-- quest's difficulty colour, as on the Attunement tab and in the quest log.
 	if state == "done" then W.Color(b.Title, "textMuted") else paintRGB(b.Title, difficulty(q.level, plevel)) end
 	-- Right of the title line: the state, then the faction mark.
 	local right = PAD
@@ -1400,7 +1409,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 	if text then
 		local w = W.SetChip(b.State, text, kind)
 		b.State:ClearAllPoints()
-		b.State:SetPoint("RIGHT", b, "TOPRIGHT", -right, -30)
+		b.State:SetPoint("RIGHT", b, "TOPRIGHT", -right, -28)
 		right = right + w + 6
 	else
 		b.State:Hide()
@@ -1408,7 +1417,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 	if q.faction then
 		local w = W.SetChip(b.Faction, ns.FactionName(q.faction == "A" and "A" or "H"))
 		b.Faction:ClearAllPoints()
-		b.Faction:SetPoint("RIGHT", b, "TOPRIGHT", -right, -30)
+		b.Faction:SetPoint("RIGHT", b, "TOPRIGHT", -right, -28)
 		right = right + w + 6
 	else
 		b.Faction:Hide()
@@ -1485,6 +1494,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 	b.End:SetText(pointText(fin))
 	-- The chain before it, oldest first, each with its own pin.
 	local nChain = 0
+	local nextStep = false
 	labelAt(b.ChainLabel, p.chain and p.chain + 6)
 	if p.chain then
 		y = p.chain
@@ -1496,16 +1506,22 @@ local function paintQuest(b, q, p, top, plevel, key)
 			r:SetPoint("TOPLEFT", b, "TOPLEFT", VALUE_X - 4, -y)
 			r:SetWidth(VW + 4)
 			local cs = questState(cq, plevel)
+			local marked = cs ~= "done" and not nextStep
+			if marked then nextStep = true end
+			if marked then r.Highlight:Show() else r.Highlight:Hide() end
 			if cs == "done" then
 				r.Glyph:SetTexture(Theme.Media("check"))
 				r.Glyph:SetSize(12, 12)
 				W.Color(r.Glyph, "success")
+				r.Glyph:Show()
+				r.Number:Hide()
 			else
-				r.Glyph:SetTexture(Theme.Media("circle"))
-				r.Glyph:SetSize(5, 5)
-				W.Color(r.Glyph, "textMuted")
+				r.Glyph:Hide()
+				r.Number:SetText(tostring(nChain))
+				r.Number:Show()
 			end
 			r.Title:SetText(cq.title or (L["Quest"] .. " " .. tostring(id)))
+			-- The next step is marked by its ground; titles keep the difficulty colour.
 			if cs == "done" then W.Color(r.Title, "textMuted") else paintRGB(r.Title, difficulty(cq.level, plevel)) end
 			local sub = {}
 			if cq.level then sub[#sub + 1] = format(L["Level %d"], cq.level) end
@@ -1535,7 +1551,7 @@ local function paintQuest(b, q, p, top, plevel, key)
 	labelAt(b.GetLabel, p.get and p.get + 10)
 	if p.get then nTiles = nTiles + placeTiles(b, nTiles, items, false, p.get) end
 	hidePool(b.Tiles, nTiles + 1)
-	labelAt(b.MoreLabel, p.more and not (p.choose or p.get) and p.more + 4 or nil)
+	labelAt(b.MoreLabel, p.more and p.more + 4 or nil)
 	local x = VALUE_X
 	for i, e in ipairs(p.extras) do
 		local c = chip(b, i)
@@ -1585,11 +1601,11 @@ local function renderQuests(key, f, plevel)
 	hidePool(blocks)
 	qpass.quests, qpass.key, qpass.plevel = qs, key, plevel
 	local plans, tops = {}, {}
-	local y = 0
+	local y = CARD_GAP
 	for i, q in ipairs(qs) do
 		local p = plan(q, key)
 		plans[i], tops[i] = p, y
-		y = y + p.h
+		y = y + p.h + CARD_GAP
 	end
 	qpass.plans, qpass.tops, qpass.painted = plans, tops, {}
 	if #qs == 0 then

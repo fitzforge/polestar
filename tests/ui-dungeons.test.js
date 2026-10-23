@@ -440,6 +440,25 @@ test('Quests: one block per quest with state, level, flags, objective, start and
 	assert.equal(out.tip, true, 'item hover shows the game tooltip');
 });
 
+test('Quest cards group the details and mark the next unfinished chain step; names keep their difficulty colour', () => {
+	const [out] = run(`
+		done[1490] = nil
+		Polestar.Dungeons.Open("wailing-caverns")
+		local fang = block(914)
+		local step = fang.Chains[1]
+		local function rgb(r, g, b) return string.format("%.3f %.3f %.3f", r, g, b) end
+		local text, accent = rgb(Polestar.Theme.Color("text")), rgb(Polestar.Theme.Color("accent"))
+		emit({ panel = fang.psSkin ~= nil, rule = fang.HeadRule:IsShown(), rewards = fang.MoreLabel:IsShown(), objective = fang.Obj:GetText(),
+			step = { step.Number:GetText(), step.Number:IsShown(), step.Highlight:IsShown(), step.Glyph:IsShown() },
+			plain = { rgb(fang.Title:GetTextColor()) == text, rgb(step.Title:GetTextColor()) == text, rgb(step.Title:GetTextColor()) == accent } })`);
+	assert.equal(out.panel, true);
+	assert.equal(out.rule, true);
+	assert.equal(out.rewards, true);
+	assert.match(out.objective, /^\u2022  /);
+	assert.deepEqual(out.step, ['1', true, true, false]);
+	assert.deepEqual(out.plain, [false, false, false], 'quest and chain names are in their difficulty colour, not plain text or accent');
+});
+
 test('Quests: too low shows the level it opens at; the other faction is counted when none are left', () => {
 	const [out] = run(`
 		uistub.player.level = 12

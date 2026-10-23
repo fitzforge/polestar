@@ -3967,8 +3967,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   in, "Nothing to pick up" (shown while the page has quests for this side)
   says why in its tooltip and, clicked, in chat (`DS.NothingText`); no guide
   is built. Tabs Quests n, Attunement (Keys when each is a key; only on pages
-  with one for the filter's side), Bosses n, Map. Quests: a block per quest planned from the
-  data (the objective measured on one shared string) so only the blocks in
+  with one for the filter's side), Bosses n, Map. Quests: a card (panel ground,
+  a rule under its head) per quest planned from the
+  data (the objective measured on one shared string) so only the cards in
   view are drawn (`DS.PaintQuests` on scroll): the title in the client's
   difficulty colour (`GetQuestDifficultyColor`, else `QuestDifficultyColors`
   by level gap) lifted to 4.5:1, the state from `Compat.IsQuestCompleted`,
@@ -3977,7 +3978,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (`Dungeons.GuideToPoint`); the Starts line (pin and text) is one link to
   `Dungeons.GiverTarget`: the giver of the first prerequisite still to do
   (its turn-in when that one is in the log), else the quest's giver, its
-  tooltip saying which; the Chain (`Dungeons.Quest` per id, a pin each),
+  tooltip saying which; the Chain (`Dungeons.Quest` per id, a pin each; the
+  steps still to do numbered, the next one on an accent ground),
   Choose one / You get item tiles (quality border; hover `GameTooltip:
   SetHyperlink`, where Gear adds its upgrade line; modified clicks through
   `HandleModifiedItemClick`), XP, money and reputation chips. Bosses: kill
