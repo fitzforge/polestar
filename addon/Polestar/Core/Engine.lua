@@ -1175,7 +1175,7 @@ local function pickFor(goal)
 		end
 		table.sort(list, better)
 	end
-	p = { list = list, i = #list > 0 and 1 or 0, gen = contextGen }
+	p = { list = list, i = #list > 0 and 1 or 0, gen = contextGen, tier = tier }
 	picks[goal] = p
 	return p
 end
@@ -3666,13 +3666,95 @@ function ns.RegisterClassTrainerIds(byClass)
 	end
 end
 
+-- Where the guide goes next: the first open goal with coordinates of each of
+-- the next ROUTE_STEPS applicable steps from the live step (not the one on
+-- screen), in order.
+-- (On Own: the main chunk is at 200 locals.)
+Own.ROUTE_STEPS = 8
+Own.ROUTE_TIE = 15 -- seconds of detour that count as no difference
+function Own.routePoints()
+	local pts = {}
+	local from = computed or current
+	if not (guide and from) then return pts end
+	local seen = 0
+	for s = from, #guide.steps do
+		local step = guide.steps[s]
+		if stepApplies(step) then
+			for g, goal in ipairs(step.goals) do
+				if goalApplies(goal) and goal.map and goal.x and goal.y and not goalDone(s, g, goal) then
+					pts[#pts + 1] = { map = goal.map, x = goal.x, y = goal.y, f = goal.f }
+					break
+				end
+			end
+			seen = seen + 1
+			if seen >= Own.ROUTE_STEPS then break end
+		end
+	end
+	return pts
+end
+
+-- Seconds added to walking from `here` through `pts` by a stop at `t`, by
+-- `cost` (a travel function), on the cheapest leg to leave and rejoin the
+-- route at; and that leg's end index. Nil when no leg can be measured.
+function Own.routeDetour(here, pts, t, cost)
+	local best, at_, a = nil, nil, here
+	for i, b in ipairs(pts) do
+		local ab, at, tb = cost(a, b), cost(a, t), cost(t, b)
+		if ab and at and tb and (not best or at + tb - ab < best) then best, at_ = at + tb - ab, i end
+		a = b
+	end
+	return best, at_
+end
+
+-- The trainer of the best pickFor tier (continent, zone level) among `list`
+-- (nearest first) that costs the least detour on the guide's next steps; a
+-- trainer within ROUTE_TIE of a nearer one loses to it. Straight lines pick
+-- the Own.ROUTE_PLANNED likeliest, then the route planner prices each one's
+-- best leg, so a trainer on the far side of a mountain does not win by
+-- being close as the crow flies. Nil when the guide has no route ahead of
+-- the player to measure against.
+Own.ROUTE_PLANNED = 4
+function Own.trainerOnRoute(list, tier)
+	local here = ns.PlayerPoint()
+	local pts = here and Own.routePoints()
+	if not pts or #pts == 0 then return nil end
+	local rough = {}
+	for order, c in ipairs(list) do
+		if tier[c] == tier[list[1]] then
+			local d, leg = Own.routeDetour(here, pts, c, ns.DirectTravelCost)
+			if d then rough[#rough + 1] = { c = c, d = d, leg = leg, order = order } end
+		end
+	end
+	table.sort(rough, function(x, y)
+		if x.d ~= y.d then return x.d < y.d end
+		return x.order < y.order
+	end)
+	local best, bestCost
+	for k = 1, math.min(Own.ROUTE_PLANNED, #rough) do
+		local r = rough[k]
+		local from = r.leg == 1 and here or pts[r.leg - 1]
+		local to = pts[r.leg]
+		local ab, at, tb = ns.TravelCost(from, to), ns.TravelCost(from, r.c), ns.TravelCost(r.c, to)
+		r.cost = ab and at and tb and at + tb - ab or r.d
+	end
+	local planned = {}
+	for k = 1, math.min(Own.ROUTE_PLANNED, #rough) do planned[#planned + 1] = rough[k] end
+	table.sort(planned, function(x, y) return x.order < y.order end)
+	for _, r in ipairs(planned) do
+		if not best or r.cost < bestCost - Own.ROUTE_TIE then best, bestCost = r.c, r.cost end
+	end
+	return best
+end
+
 -- The best class trainer for the character from where they stand, or nil;
--- its npcName in the client's language where Names has it.
-function Engine.NearestClassTrainer()
+-- its npcName in the client's language where Names has it. `onRoute`: the one
+-- that costs the least detour on the guide's route instead, when it has one.
+function Engine.NearestClassTrainer(onRoute)
 	if #classTrainers.candidates == 0 then return nil end
 	if not player then refreshPlayer() end
 	local p = pickFor(classTrainers)
 	local t = p.list[p.i]
+	if onRoute and t then t = Own.trainerOnRoute(p.list, p.tier) or t end
 	if t then
 		t.npcEnglish = t.npcEnglish or t.npcName
 		t.npcName = ns.Names.Npc(t.npc) or t.npcEnglish
@@ -3688,21 +3770,33 @@ function Engine.IsClassTrainer(npc)
 	return classes[player.class] == true
 end
 
--- The active guide sends the character to their class trainer soon.
-local function guideTrainsSoon()
-	if not (guide and current) then return false end
+-- The active guide's next class training stop from the live step, whichever
+-- step is on screen: its place among the applicable steps (the live step is
+-- 1) and the step's title. False when the guide trains the class nowhere
+-- ahead; nil with no guide.
+function Engine.GuideTrainStop()
+	local from = computed or current
+	if not (guide and from) then return nil end
 	local seen = 0
-	for s = current, #guide.steps do
+	for s = from, #guide.steps do
 		local step = guide.steps[s]
 		if stepApplies(step) then
-			for _, goal in ipairs(step.goals) do
-				if goal.t == "train" and goalApplies(goal) and (goal.class or (goal.npc and trainerClasses[goal.npc])) then return true end
-			end
 			seen = seen + 1
-			if seen >= TRAIN_LOOKAHEAD then break end
+			for _, goal in ipairs(step.goals) do
+				if goal.t == "train" and goalApplies(goal) and (goal.class or (goal.npc and trainerClasses[goal.npc])) then
+					return seen, step.title
+				end
+			end
 		end
 	end
 	return false
+end
+
+-- The active guide sends the character to their class trainer soon: within
+-- TRAIN_LOOKAHEAD steps of the live step.
+local function guideTrainsSoon()
+	local n = Engine.GuideTrainStop()
+	return n and n <= TRAIN_LOOKAHEAD or false
 end
 
 local trainChecked -- the level last checked this session
@@ -3720,7 +3814,7 @@ local function checkTrainDue()
 	end
 	if level - last < every or (every == 2 and level % 2 == 1) or tonumber(s.trainDueShown) == level then return end
 	if guideTrainsSoon() then return end
-	local t = Engine.NearestClassTrainer()
+	local t = Engine.NearestClassTrainer(true)
 	if not t then return end
 	s.trainDueShown = level
 	ns.Fire("TRAIN_DUE", level, t)
