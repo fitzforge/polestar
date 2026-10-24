@@ -1,0 +1,22 @@
+# Fixture: an optional profession and a step behind `when skill`
+# (tests/playtest.test.js). The Herbs step's goto is on a map the game has no
+# frame for: a player who chose Herbalism takes the optional train at the
+# abbey and is stuck there; one who did not never learns it and plays the
+# guide through.
+guide skill/northshire
+title Skill Fixture
+faction Alliance
+race Human
+levels 1-6
+zone Elwynn Forest
+
+step Northshire Abbey
+  goto 48.2,42.0 "Northshire Abbey"
+
+step Abbey garden
+  train Herbalism optional
+  goto 50.6,40.2 "Abbey garden"
+
+step Herbs
+  when skill Herbalism 1
+  goto 50,50 map 9999 "Nowhere"

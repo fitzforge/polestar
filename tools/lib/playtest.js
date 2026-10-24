@@ -495,11 +495,23 @@ function playData(dir, diag) {
 // Plays run on a pool of `workers` long-lived Lua processes (LuaPool; each
 // play in a fresh environment, so the results are a separate process's);
 // onResult gets them in play order as they come in.
-async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined }) {
+// `learn` (profession names): the player chose these professions, so the
+// simulator takes the guide's optional `train` of each like any goal and then
+// plays the steps behind `when skill` they open (on its own it takes no
+// optional goal, so it never learns a profession).
+async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined, learn = null }) {
 	const dataDiag = new Diagnostics();
 	data = data || playData(dataDir, dataDiag);
 	const contextData = official ? null : contextDataDir && path.resolve(contextDataDir) !== path.resolve(dataDir) ? playData(contextDataDir, dataDiag) : data;
 	if (dataDiag.hasErrors()) return { results: [], diag: dataDiag, played: 0, dataMissing: true };
+	const skillLines = [];
+	for (const name of learn || []) {
+		const prof = data.professionNamed(name);
+		if (!prof) dataDiag.error('--learn', 0, `profession "${name}" is not in the reference data (professions.json)`);
+		else skillLines.push(prof.id);
+	}
+	if (dataDiag.hasErrors()) return { results: [], diag: dataDiag, played: 0 };
+	const learnt = skillLines.length ? [`PLAYTEST_LEARN = ${luaValue(Object.fromEntries(skillLines.map((id) => [id, true])))}`] : [];
 	let guides;
 	let diag;
 	let packs;
@@ -562,6 +574,7 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 						pre.done.length ? `w.complete(${luaValue(pre.done)})` : '',
 						...pre.carried.map((q) => `w.onQuest(${q}, {})`),
 						...pre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(g, q))})`),
+						...learnt,
 					].join('\n');
 					const k = results.length;
 					results.push(null);
@@ -766,6 +779,18 @@ local visited, stuck, guard = {}, nil, 0
 -- The engine may move on to the next guide (a hand-over) during any advance:
 -- from then on nothing here may read or act on G's steps.
 local function left() return E.GetGuide() ~= G end
+-- PLAYTEST_LEARN (playtest --learn): the professions the player chose, by skill
+-- line. An optional \`train\` of one of them is taken, once, the way a player who
+-- chose it would; every other optional goal is left alone.
+local trained = {}
+local function chosenTrain(i, view)
+	if not PLAYTEST_LEARN then return nil end
+	for _, g in ipairs(view.goals) do
+		local r = g.t == "train" and g.optional and g.status ~= "done" and not trained[i .. ":" .. g.index] and G.steps[i].goals[g.index]
+		if r and r.skillLine and PLAYTEST_LEARN[r.skillLine] then return g end
+	end
+	return nil
+end
 while guard < 4000 do
 	guard = guard + 1
 	local i = E.GetStepIndex()
@@ -776,7 +801,16 @@ while guard < 4000 do
 	for _, g in ipairs(view.goals) do
 		if g.status ~= "done" and g.status ~= "na" and not g.optional and g.t ~= "note" then open = g; break end
 	end
-	if not open then
+	-- A chosen profession's train is taken first, while its step is current: a
+	-- step passed with its \`when\` failing keeps that outcome, so a profession
+	-- learnt after the route left the step would not bring its steps back.
+	local learn = chosenTrain(i, view)
+	if learn then
+		trained[i .. ":" .. learn.index] = true
+		act(i, learn, G.steps[i].goals[learn.index])
+		stub.advance(0.6)
+		if left() then break end
+	elseif not open then
 		stub.advance(0.6)
 		if left() then break end
 		if E.GetStepIndex() == i then stuck = { step = i, title = view.title, why = "no open goal but the step did not advance" }; break end
