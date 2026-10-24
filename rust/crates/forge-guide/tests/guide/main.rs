@@ -29,6 +29,7 @@ mod dsl_when;
 mod dsl_when_cooldown;
 mod dsl_when_dungeon;
 mod dsl_when_group;
+mod dsl_when_knows;
 mod dsl_when_skill;
 mod dsl_when_upgrade;
 mod guidecheck;

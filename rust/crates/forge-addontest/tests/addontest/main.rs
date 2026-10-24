@@ -103,6 +103,8 @@ mod engine_when_cooldown;
 mod engine_when_dungeon;
 #[path = "engine-when-group.rs"]
 mod engine_when_group;
+#[path = "engine-when-knows.rs"]
+mod engine_when_knows;
 #[path = "engine-when-skill.rs"]
 mod engine_when_skill;
 #[path = "engine-when-upgrade.rs"]
