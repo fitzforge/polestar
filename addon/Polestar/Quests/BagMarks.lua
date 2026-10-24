@@ -6,8 +6,10 @@
 -- So does a guide that has gone past every step for a quest you never accepted:
 -- nothing ahead needs the item, and the mark clears.
 --
--- Three bag views (qol.questBagMarks), the way Gear/Bags.lua draws its
--- arrows: the client's bags, where each container frame's UpdateItems is
+-- Three bag views (qol.questBagMarks, which hides only the marks: the sale,
+-- delete and buyback guards ask Q.IsItemNeeded whatever it says), the way
+-- Gear/Bags.lua draws its arrows: the client's bags, where each container
+-- frame's UpdateItems is
 -- post-hooked on the frame itself (ContainerFrameMixin's functions are copied
 -- onto each frame as it is made) and the mark is a texture on the item
 -- button, top-right, kept here by button, nothing written into the button's
@@ -26,9 +28,11 @@ local function isOn()
 	return Q.IsRunning() and ns.Get("qol.questBagMarks") and true or false
 end
 
--- Whether a quest in the log still asks for item `itemID`.
+-- Whether a quest in the log, or one ahead in the running guide, still asks
+-- for item `itemID`. Needs only the quest database: the marks' setting does
+-- not turn off the other guards that ask this.
 function Q.IsItemNeeded(itemID)
-	return isOn() and (Q.ObjectivesForItem(itemID) ~= nil or Q.IsItemNeededAhead(itemID)) or false
+	return Q.IsRunning() and (Q.ObjectivesForItem(itemID) ~= nil or Q.IsItemNeededAhead(itemID)) or false
 end
 
 local marks = setmetatable({}, { __mode = "k" }) -- item button -> texture
@@ -120,7 +124,7 @@ local function registerBaganator()
 	if not API then return false end
 	baganator = true
 	API.RegisterCornerWidget(ns.L["Polestar quest items"], WIDGET, function(_, details)
-		return needed(type(details) == "table" and details.itemLink or nil)
+		return isOn() and needed(type(details) == "table" and details.itemLink or nil)
 	end, function(button)
 		local t = button:CreateTexture(nil, "OVERLAY")
 		t:SetSize(SIZE, SIZE)

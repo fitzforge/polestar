@@ -87,24 +87,27 @@ local function addStartLines(tt, itemID)
 	return added
 end
 
--- Quests the running guide still has ahead (this step on) that the player has
--- neither accepted nor handed in, by the items their objectives ask for: the
--- log index above only knows quests already accepted. Built on first use,
--- dropped when the step, the guide or the database changes.
-local ahead
+-- Quests the running guide still has ahead (from the live step on, whichever
+-- step is on screen) that the player has neither accepted nor handed in, by
+-- the items their objectives ask for: the log index above only knows quests
+-- already accepted. Only steps and goals for this character count (another
+-- class's or race's are left out). Built on first use for the live step,
+-- dropped when the guide or the database changes.
+local ahead, aheadFrom
 local function questsAhead()
-	if ahead then return ahead end
-	ahead = {}
 	local E = ns.Engine
-	local guide = E and E.GetGuide and E.GetGuide()
+	local from = E and E.GetLiveStep and E.GetLiveStep()
+	if ahead and aheadFrom == from then return ahead end
+	ahead, aheadFrom = {}, from
+	local guide = from and E.GetGuide and E.GetGuide()
 	local steps = guide and type(guide.steps) == "table" and guide.steps
-	if not steps then return ahead end
+	if not steps or not E.Applies then return ahead end
 	local C, seen = ns.Compat, {}
-	for s = E.GetStepIndex() or 1, #steps do
-		local goals = type(steps[s]) == "table" and steps[s].goals
+	for s = from, #steps do
+		local goals = type(steps[s]) == "table" and E.Applies(s) and steps[s].goals
 		for g = 1, goals and #goals or 0 do
 			local q = goals[g].quest
-			if type(q) == "number" and not seen[q] then
+			if type(q) == "number" and not seen[q] and E.Applies(s, g) then
 				seen[q] = true
 				local rec = not C.IsQuestCompleted(q) and not C.IsOnQuest(q) and Q.GetQuest(q)
 				for _, o in ipairs(rec and rec.objectives or {}) do
@@ -139,7 +142,8 @@ local function addAheadLines(tt, itemID)
 	local qc, dim = Q.Color("quest"), Q.Color("textDim")
 	for i = 1, #list do
 		local e = list[i]
-		addLine(tt, (Q.GetQuestTitle(e.q) or tostring(e.q)) .. ":", L["0/%d (not accepted)"]:format(e.n), qc, dim)
+		local have = ns.Compat.GetItemCount and ns.Compat.GetItemCount(itemID) or 0
+		addLine(tt, (Q.GetQuestTitle(e.q) or tostring(e.q)) .. ":", L["%d/%d (not accepted)"]:format(math.min(have, e.n), e.n), qc, dim)
 	end
 	return #list
 end

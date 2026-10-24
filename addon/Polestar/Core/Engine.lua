@@ -4471,6 +4471,20 @@ end
 -- the guide is complete), whatever step the player is looking at.
 function Engine.GetLiveStep() return computed end
 
+-- Whether step i of the active guide is for this character (the step's
+-- `only` and `when`) and, given goal g, that goal too (its `only`,
+-- profession, quests the route leaves out): what the guide counts as
+-- applicable. False for a step or goal it does not have.
+function Engine.Applies(i, g)
+	local step = guide and guide.steps[i]
+	if not step then return false end
+	if not player then refreshPlayer() end
+	if not stepApplies(step) then return false end
+	if g == nil then return true end
+	local goal = step.goals[g]
+	return goal ~= nil and goalApplies(goal)
+end
+
 -- The level the guide expects next (QoL/XPMark): the first `level N` goal at
 -- or after the step shown that is for this character (the step's `only` and
 -- `when`, the goal's `only`), neither skipped, with N above `level` (the

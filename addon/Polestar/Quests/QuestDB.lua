@@ -25,7 +25,7 @@ ns.RegisterDefaults("qol", {
 	questLevelWindow = 5, -- available quests up to this many levels above yours (10: any)
 	questTooltips = true, -- quest lines on unit, item and object tooltips
 	questSellWarning = true, -- at a vendor, offer to buy back a sold item a quest needs
-	questBagMarks = true, -- a quest mark on bag items a quest in your log still needs
+	questBagMarks = true, -- a quest mark on bag items a quest (in the log or ahead in the guide) still needs
 	nameplateIcons = false, -- quest icon on nameplates of objective mobs
 	questLevels = true, -- "[12]" before quest titles the client lists without a level (gossip, greeting, details)
 	guideHighlight = true, -- the active guide step's quests stand out on the maps

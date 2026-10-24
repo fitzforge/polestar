@@ -498,13 +498,14 @@ emit(sq.hoverUnit(6, true))         -- GUID is a secret value (combat): no lines
 
 // An item a quest still needs is marked in the bags and named on its tooltip
 // until the quest is handed in: through the log, and (not accepted yet) through
-// the running guide's steps from the current one on.
+// the running guide's steps from the live one on.
 test('an item a quest needs is flagged while the quest is in the log or ahead in the guide', () => {
-	const [ahead, accepted, done, noGuide, off] = run(`
+	const [ahead, accepted, done, noGuide] = run(`
 local E = Polestar.Engine
 local function guideAhead() E.GetGuide = function() return { id = "test", steps = { { goals = { { t = "accept", quest = 60 } } } } } end end
 guideAhead()
-E.GetStepIndex = function() return 1 end
+E.GetLiveStep = function() return 1 end
+E.Applies = function() return true end
 Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3)
 emit({ Q.IsItemNeeded(772), sq.hoverItem(772) })
 w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
@@ -515,16 +516,45 @@ emit({ Q.IsItemNeeded(772), sq.hoverItem(772) })
 E.GetGuide = function() return nil end
 Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3)
 emit({ Q.IsItemNeeded(772) })
-Polestar.Set("qol.questBagMarks", false)
-guideAhead()
-Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3)
-emit({ Q.IsItemNeeded(772) })
 `, { setup: 'w.complete({ 783 })' });
 	assert.deepEqual(ahead, [true, ['?', 'Kobold Candles: | 0/8 (not accepted)']]);
 	assert.deepEqual(accepted, [true, ['?', 'Kobold Candles: | 0/8']]);
 	assert.deepEqual(done, [false, ['?']]);
 	assert.deepEqual(noGuide, [false]);
-	assert.deepEqual(off, [false], 'qol.questBagMarks off: nothing flagged');
+});
+
+// The guide-ahead list reads from the live step (not the one on screen),
+// leaves out steps that are not for this character, shows how many the bags
+// hold, and hiding the bag marks does not turn off the guards that ask it.
+test('quest items ahead: from the live step, only steps for you, with the count you carry; marks off keeps the guards', () => {
+	const [screenAhead, notForYou, carried, marksOff] = run(`
+local E = Polestar.Engine
+local steps = { { goals = { { t = "goto" } } }, { goals = { { t = "accept", quest = 60 } } }, { goals = { { t = "goto" } } } }
+local applies = { true, true, true }
+E.GetGuide = function() return { id = "test", steps = steps } end
+E.Applies = function(i) return applies[i] == true end
+local function again() Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3) end
+E.GetStepIndex = function() return 2 end   -- looking back at the accept
+E.GetLiveStep = function() return 3 end    -- the guide has moved past it
+again()
+emit({ Q.IsItemNeeded(772) })
+E.GetStepIndex = function() return 1 end
+E.GetLiveStep = function() return 1 end
+applies[2] = false                         -- another class's step
+again()
+emit({ Q.IsItemNeeded(772) })
+applies[2] = true
+w.items[772] = 3
+again()
+emit(sq.hoverItem(772))
+Polestar.Set("qol.questBagMarks", false)
+again()
+emit({ Q.IsItemNeeded(772) })
+`, { setup: 'w.complete({ 783 })' });
+	assert.deepEqual(screenAhead, [false], 'a quest behind the live step is not ahead, whichever step is on screen');
+	assert.deepEqual(notForYou, [false], 'a step that is not for this character is left out');
+	assert.deepEqual(carried, ['?', 'Kobold Candles: | 3/8 (not accepted)']);
+	assert.deepEqual(marksOff, [true], 'qol.questBagMarks off hides only the marks');
 });
 
 // The delete confirmation gets "Needed for: <Quest>" while the item on the

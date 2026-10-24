@@ -60,7 +60,7 @@ Q.OPTIONS = {
 			{ kind = "toggle", key = "qol.questTooltips", label = L["Quest tooltips"], disabled = dbOff,
 				help = L["Name the quests a mob, item or object is for, with your progress."] },
 			{ kind = "toggle", key = "qol.questBagMarks", label = L["Quest marks in bags"], disabled = dbOff,
-				help = L["Mark bag items a quest in your log still needs, until you hand the quest in."] },
+				help = L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] },
 			{ kind = "toggle", key = "qol.questSellWarning", label = L["Offer to buy back quest items"], disabled = dbOff,
 				help = L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] },
 			{ kind = "toggle", key = "qol.nameplateIcons", label = L["Nameplate icons"], disabled = dbOff,
