@@ -496,6 +496,153 @@ emit(sq.hoverUnit(6, true))         -- GUID is a secret value (combat): no lines
 	assert.deepEqual(secret, ['?']);
 });
 
+// An item a quest still needs is marked in the bags and named on its tooltip
+// until the quest is handed in: through the log, and (not accepted yet) through
+// the running guide's steps from the live one on.
+test('an item a quest needs is flagged while the quest is in the log or ahead in the guide', () => {
+	const [ahead, accepted, done, noGuide] = run(`
+local E = Polestar.Engine
+local function guideAhead() E.GetGuide = function() return { id = "test", steps = { { goals = { { t = "accept", quest = 60 } } } } } end end
+guideAhead()
+E.GetLiveStep = function() return 1 end
+E.Applies = function() return true end
+Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3)
+emit({ Q.IsItemNeeded(772), sq.hoverItem(772) })
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+emit({ Q.IsItemNeeded(772), sq.hoverItem(772) })
+w.turnIn(60); stub.advance(0.3)
+emit({ Q.IsItemNeeded(772), sq.hoverItem(772) })
+E.GetGuide = function() return nil end
+Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3)
+emit({ Q.IsItemNeeded(772) })
+`, { setup: 'w.complete({ 783 })' });
+	assert.deepEqual(ahead, [true, ['?', 'Kobold Candles: | 0/8 (not accepted)']]);
+	assert.deepEqual(accepted, [true, ['?', 'Kobold Candles: | 0/8']]);
+	assert.deepEqual(done, [false, ['?']]);
+	assert.deepEqual(noGuide, [false]);
+});
+
+// The guide-ahead list reads from the live step (not the one on screen),
+// leaves out steps that are not for this character, shows how many the bags
+// hold, and hiding the bag marks does not turn off the guards that ask it.
+test('quest items ahead: from the live step, only steps for you, with the count you carry; marks off keeps the guards', () => {
+	const [screenAhead, notForYou, carried, marksOff] = run(`
+local E = Polestar.Engine
+local steps = { { goals = { { t = "goto" } } }, { goals = { { t = "accept", quest = 60 } } }, { goals = { { t = "goto" } } } }
+local applies = { true, true, true }
+E.GetGuide = function() return { id = "test", steps = steps } end
+E.Applies = function(i) return applies[i] == true end
+local function again() Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3) end
+E.GetStepIndex = function() return 2 end   -- looking back at the accept
+E.GetLiveStep = function() return 3 end    -- the guide has moved past it
+again()
+emit({ Q.IsItemNeeded(772) })
+E.GetStepIndex = function() return 1 end
+E.GetLiveStep = function() return 1 end
+applies[2] = false                         -- another class's step
+again()
+emit({ Q.IsItemNeeded(772) })
+applies[2] = true
+w.items[772] = 3
+again()
+emit(sq.hoverItem(772))
+Polestar.Set("qol.questBagMarks", false)
+again()
+emit({ Q.IsItemNeeded(772) })
+`, { setup: 'w.complete({ 783 })' });
+	assert.deepEqual(screenAhead, [false], 'a quest behind the live step is not ahead, whichever step is on screen');
+	assert.deepEqual(notForYou, [false], 'a step that is not for this character is left out');
+	assert.deepEqual(carried, ['?', 'Kobold Candles: | 3/8 (not accepted)']);
+	assert.deepEqual(marksOff, [true], 'qol.questBagMarks off hides only the marks');
+});
+
+// The delete confirmation gets "Needed for: <Quest>" while the item on the
+// cursor is one a quest in the log still needs, and the dialog grows by the
+// lines added.
+test('the delete confirmation names the quest that still needs the item', () => {
+	const [needed, other, handedIn] = run(`
+local cursor = 772
+GetCursorInfo = function() return "item", cursor end
+local function popup()
+	local text = { s = "Do you want to destroy X?", lines = 1 }
+	function text:GetText() return self.s end
+	function text:SetText(v) self.s = v; self.lines = 3 end
+	function text:GetStringHeight() return self.lines * 12 end
+	local dialog = { text = text, h = 100 }
+	function dialog:GetHeight() return self.h end
+	function dialog:SetHeight(h) self.h = h end
+	StaticPopup_FindVisible = function() return dialog end
+	return dialog
+end
+local function show(which)
+	local d = popup()
+	Q.AddDeleteWarning(which)
+	return { (d.text.s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\\n", "/")), d.h }
+end
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+emit(show("DELETE_ITEM"))
+cursor = 1972
+emit(show("DELETE_ITEM"))
+cursor = 772
+w.turnIn(60); stub.advance(0.3)
+emit(show("DELETE_GOOD_ITEM"))
+`, { setup: 'w.complete({ 783 })' });
+	assert.deepEqual(needed, ['Do you want to destroy X?//Needed for: Kobold Candles', 124]);
+	assert.deepEqual(other, ['Do you want to destroy X?', 100], 'an item no quest needs: dialog untouched');
+	assert.deepEqual(handedIn, ['Do you want to destroy X?', 100], 'quest handed in: dialog untouched');
+});
+
+// At a vendor, a sale that takes a quest item out of the bags raises a
+// buy-back question; nothing is bought until the dialog is accepted.
+test('selling an item a quest needs offers the buyback, and buys it back only when accepted', () => {
+	const [before, shown, boughtAsked, afterAccept, afterNoMoney] = run(`
+local bag = { { itemID = 772, stackCount = 8 }, { itemID = 5, stackCount = 3 } }
+Polestar.QoL = { Client = {
+	NumBags = function() return 0 end,
+	NumSlots = function() return #bag end,
+	SlotInfo = function(_, slot) return bag[slot] end,
+} }
+local shown, bought, money = {}, {}, 1000
+StaticPopupDialogs = {}
+StaticPopup_Show = function(which, text, _, data) shown[#shown + 1] = { which, (text:gsub("|c%x+|Hitem[^|]*|h", ""):gsub("|h|r", "")), data } end
+local buyback = {}
+GetNumBuybackItems = function() return #buyback end
+GetBuybackItemLink = function(i) return buyback[i].link end
+GetBuybackItemInfo = function(i) return "x", "icon", buyback[i].price end
+BuybackItem = function(i) bought[#bought + 1] = i end
+GetMoney = function() return money end
+GetCoinTextureString = function(c) return c .. "c" end
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+Q.SellWarningOpen(true)
+emit(#shown)
+bag[1] = nil                         -- the candles are sold
+buyback[1] = { link = "|cffffffff|Hitem:772::::::::|h[Large Candle]|h|r", price = 24 }
+Q.CheckSold()
+emit(shown)
+local data = shown[1] and shown[1][3]
+emit(#bought)                        -- asked, not bought
+StaticPopupDialogs.POLESTAR_QUEST_BUYBACK.OnAccept(nil, data)
+emit(bought)
+money = 5
+shown[1] = nil
+StaticPopupDialogs.POLESTAR_QUEST_BUYBACK.OnAccept(nil, data)
+emit(bought)
+`, { setup: 'w.complete({ 783 })' });
+	assert.equal(before, 0, 'nothing asked while the bags are unchanged');
+	assert.equal(shown.length, 1);
+	assert.equal(shown[0][0], 'POLESTAR_QUEST_BUYBACK');
+	assert.equal(shown[0][2], 772);
+	assert.match(shown[0][1], /Large Candle/);
+	assert.match(shown[0][1], /Kobold Candles/);
+	assert.match(shown[0][1], /24c/);
+	assert.equal(boughtAsked, 0, 'asking buys nothing');
+	assert.deepEqual(afterAccept, [1], 'accept buys the buyback entry back');
+	assert.deepEqual(afterNoMoney, [1], 'too little money: no second buyback');
+});
+
 test('object tooltips by id or, without one, by name', () => {
 	const [byId, byName] = run(`
 w.accept(18, { { text = "Bundle of Wood: 0/1", type = "object", required = 1 } })
@@ -907,7 +1054,7 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 });
 
 test('the database loads on demand: not while every quest feature is off, at once when one turns on', () => {
-	const allOff = '{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, nameplateIcons = false }';
+	const allOff = '{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questSellWarning = false, nameplateIcons = false }';
 	const [before, after] = run(`
 emit({ Q.IsLoaded(), sq.loadCalls, Q.IsRunning() })
 Polestar.Set("qol.questTooltips", true)
