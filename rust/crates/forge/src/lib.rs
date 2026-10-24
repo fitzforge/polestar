@@ -274,7 +274,8 @@ fn symlink(target: &Path, link: &Path) -> Result<(), String> {
 		if cur == target {
 			return Ok(());
 		}
-		std::fs::remove_file(link).map_err(|e| format!("{}: {e}", link.display()))?;
+		// A link to a directory is a directory entry on Windows: remove_file refuses it.
+		std::fs::remove_file(link).or_else(|e| if cfg!(windows) { std::fs::remove_dir(link) } else { Err(e) }).map_err(|e| format!("{}: {e}", link.display()))?;
 	}
 	if let Some(p) = link.parent() {
 		std::fs::create_dir_all(p).map_err(|e| e.to_string())?;
@@ -283,9 +284,16 @@ fn symlink(target: &Path, link: &Path) -> Result<(), String> {
 	{
 		std::os::unix::fs::symlink(target, link).map_err(|e| format!("{} -> {}: {e}", link.display(), target.display()))
 	}
-	#[cfg(not(unix))]
+	// Windows: a directory and a file link are two calls; a target not built yet (a world or walks
+	// file before its stage) is linked as a file. Needs Developer Mode or an administrator shell.
+	#[cfg(windows)]
 	{
-		Err("forge build needs symbolic links (unix)".into())
+		let made = if target.is_dir() { std::os::windows::fs::symlink_dir(target, link) } else { std::os::windows::fs::symlink_file(target, link) };
+		made.map_err(|e| format!("{} -> {}: {e} (symbolic links on Windows need Developer Mode, Settings > System > For developers, or an administrator shell)", link.display(), target.display()))
+	}
+	#[cfg(not(any(unix, windows)))]
+	{
+		Err("forge build needs symbolic links (unix or Windows)".into())
 	}
 }
 
@@ -1053,4 +1061,33 @@ pub fn data_sources_note(data: &Path) -> String {
 		if names.is_empty() { "not recorded".to_string() } else { names.join(", ") },
 		if questie { "QuestieDB: found in the client and used." } else { "QuestieDB: not found (no installed Forever client with it); the data was built without it, so it has fewer quest facts." }
 	)
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	#[test]
+	fn symlink_links_directories_files_and_targets_not_built_yet_and_replaces_a_link() {
+		let dir = std::env::temp_dir().join(format!("forge-symlink-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&dir);
+		let (a, b, file, later) = (dir.join("a"), dir.join("b"), dir.join("f.json"), dir.join("later.bin"));
+		std::fs::create_dir_all(&a).unwrap();
+		std::fs::create_dir_all(&b).unwrap();
+		std::fs::write(a.join("x.txt"), b"x").unwrap();
+		std::fs::write(&file, b"{}").unwrap();
+		let stage = dir.join("stage");
+		symlink(&a, &stage.join("data/forever")).unwrap();
+		symlink(&file, &stage.join("rules.json")).unwrap();
+		symlink(&later, &stage.join("sim/walks.bin")).unwrap();
+		assert_eq!(std::fs::read_to_string(stage.join("data/forever/x.txt")).unwrap(), "x", "a directory link reads through");
+		assert_eq!(std::fs::read_to_string(stage.join("rules.json")).unwrap(), "{}", "a file link reads through");
+		assert_eq!(std::fs::read_link(stage.join("sim/walks.bin")).unwrap(), later, "a target not built yet is linked all the same");
+		std::fs::write(&later, b"w").unwrap();
+		assert_eq!(std::fs::read_to_string(stage.join("sim/walks.bin")).unwrap(), "w", "and reads once it is built");
+		symlink(&a, &stage.join("data/forever")).unwrap();
+		symlink(&b, &stage.join("data/forever")).unwrap();
+		assert_eq!(std::fs::read_link(stage.join("data/forever")).unwrap(), b, "a link to another target is replaced");
+		std::fs::remove_dir_all(&dir).ok();
+	}
 }

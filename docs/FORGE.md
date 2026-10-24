@@ -123,6 +123,12 @@ cd polestar/rust
 cargo build --release -p forge        # the program is rust/target/release/forge
 ```
 
+On Windows, build in the "x64 Native Tools Command Prompt" of the Visual Studio Build Tools (or
+after its `vcvars64.bat`): from Git Bash, Git's own `link` comes before the MSVC linker in `PATH`,
+and the build stops with `link: extra operand`. `forge build` links its stages' folders with
+symbolic links, which Windows allows with Developer Mode on (Settings > System > For developers)
+or from an administrator shell.
+
 Check it runs:
 
 <!-- ci -->
