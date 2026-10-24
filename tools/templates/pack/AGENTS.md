@@ -5,12 +5,13 @@ This folder is a pack, the source of a community addon for Polestar:
 `guides/*.guide` hold its guides, written in Polestar's guide format
 (docs/GUIDE_CHEATSHEET.md on one page, docs/GUIDE_FORMAT.md in full, in
 Polestar's source). Every guide id starts with `{{id}}/`. The `polestar`
-command comes from a Polestar clone (`npm link` in it); run it from this
-folder.
+command comes from a Polestar clone (`npm link` in it) and `forge` from the
+same clone (`cargo build --release -p forge` in its `rust/`, on your PATH);
+run both from this folder.
 
 Before writing or fixing a guide, read the polestar-guide-pack skill in
 `.agents/skills/polestar-guide-pack/SKILL.md` (the same files are in
-`.claude/skills/`): the workflow from `polestar new` to `polestar pack`, and
+`.claude/skills/`): the workflow from `polestar new` to `forge release pack`, and
 the guide format on one page in its `references/guide-format.md`.
 
 ## Never guess an id, a name or a coordinate
@@ -32,7 +33,7 @@ of inventing a value.
 
 After every change, repeat until both pass:
 
-    polestar lint --format json
+    forge guide lint --format json
     polestar playtest
 
 `lint` prints one JSON document: `ok`, the counts, and each problem with its
@@ -42,7 +43,7 @@ means no errors, and a wrong objective number (`quest 788.2` for a quest
 with one objective) is a warning that playtest does not catch. `playtest`
 plays each guide to the end in the real addon and names the step where a
 guide gets stuck. Then `polestar install` copies the pack into the game to
-try it, and `polestar pack` writes the release zip to `dist/`.
+try it, and `forge release pack` writes the release zip to `dist/`.
 
 ## Only the author's own material
 

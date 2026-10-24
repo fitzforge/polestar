@@ -15,8 +15,8 @@ why A rare off-hand orb or staff for your late 20s, for fragments from two dunge
 # lets you choose the Orb of Soran'ruk (off-hand) or the Staff of Soran'ruk.
 # Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
 # Questie-Forever) for Doan Karhan and the drops; dungeons.json for the two
-# dungeon entrances; Wowhead Forever's Warlock class page
-# (data/local/quest-audit/wowhead-class-quests.json): unchanged in Forever,
+# dungeon entrances; Forever's Warlock class quest list
+# (data/local/quest-audit/): unchanged in Forever,
 # level 25, needs 20, 2550 experience.
 # Both fragments come from elite dungeon mobs: this chain needs a dungeon
 # group, or two. The Large Fragment drops from one Darksoul in five.

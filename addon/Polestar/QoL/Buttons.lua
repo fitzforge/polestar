@@ -484,10 +484,24 @@ function Buttons.TargetNames(view, raw)
 	if not view then return names end
 	local QDB = ns.QuestDB
 	local qdb = QDB and QDB.IsLoaded and QDB.IsLoaded()
-	local goals = view.goals or {}
+	-- The step's goals, then the Along the way list's (along steps and
+	-- pinned quests, #644: Engine.GetAlong), each with its raw goal.
+	local goals, raws = view.goals or {}, raw
+	local E = ns.Engine
+	if E and E.GetAlong and E.AlongGoal then
+		local all, allRaw = {}, {}
+		for g = 1, #goals do all[g], allRaw[g] = goals[g], raw and raw[g] or goals[g] end
+		for _, s in ipairs(E.GetAlong()) do
+			for _, gv in ipairs(s.goals) do
+				all[#all + 1] = gv
+				allRaw[#all] = E.AlongGoal(gv.step, gv.index) or gv
+			end
+		end
+		goals, raws = all, allRaw
+	end
 	for g = 1, #goals do
 		local gv = goals[g]
-		local rg = raw and raw[g] or gv
+		local rg = raws and raws[g] or gv
 		if QoL.Open(gv) then
 			goalCount = goalCount + 1
 			goalNames[goalCount] = wipe(goalNames[goalCount] or {})

@@ -59,3 +59,33 @@ jobs:
             echo
             echo "Nothing to check for this base."
           } >> "$GITHUB_STEP_SUMMARY"
+
+  generated:
+    # The leveling guides are written by Polestar Forge on the maintainer's machine and listed in
+    # guides/GENERATED.json; forge/seed is what Forge starts from. tests/generated-guides.test.js
+    # fails a hand edit to a listed guide; this fails a pull request that changes the list or the
+    # seed, so the two cannot be edited together. docs/FORGE.md, "Fixing a generated guide".
+    name: Generated guides
+    if: github.event.pull_request.user.login != github.repository_owner
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR: ${{ github.event.pull_request.number }}
+      REPO: ${{ github.repository }}
+    steps:
+      - name: Not the manifest or the seed
+        run: |
+          bad=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename' | grep -E '^(guides/GENERATED\.json|forge/seed/)' || true)
+          if [ -n "$bad" ]; then
+            msg="This pull request changes files only forge build writes: $(echo $bad). A fix goes into forever-db/corrections, data/mechanics-public.json or data/route-fixes.json, and the next build applies it (docs/FORGE.md, \"Fixing a generated guide\")."
+            echo "::error::$msg"
+            {
+              echo '## Generated guides'
+              echo
+              echo "$msg"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          echo '## Generated guides' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No generated manifest or seed file changed.' >> "$GITHUB_STEP_SUMMARY"

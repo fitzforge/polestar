@@ -15,8 +15,8 @@ why The Night Elf priest spells: Starshards at 10, Elune's Grace at 20.
 # The Night Elf Priest spell quests: Stars of Elune at 10 (5627, Starshards)
 # and Elune's Grace at 20 (5672), both from Priestess Alathea in the Temple
 # of the Moon in Darnassus.
-# Sources: quests.json and npcs.json for the givers; Wowhead Forever's
-# Priest class page (data/local/quest-audit/wowhead-class-quests.json:
+# Sources: quests.json and npcs.json for the givers; Forever's
+# Priest class quest list (data/local/quest-audit/:
 # both unchanged; Elune's Grace 5674 now also starts at Nara Meideros);
 # classicwowforever.com/racials and wowclassicforever.info/classes/priest
 # for the spells (Starshards and Elune's Grace stay Night Elf spells).

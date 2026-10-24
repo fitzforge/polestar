@@ -22,7 +22,10 @@
 ## Author: Polestar
 ## X-License: GPL-3.0-only
 ## Version: 0.2.6
+## Category: Polestar
+## Group: Polestar
 ## SavedVariables: PolestarRecorderDB
+## OptionalDeps: Polestar
 
 Recorder.lua
 Locales\deDE.lua
@@ -39,4 +42,7 @@ World.lua
 Finds.lua
 Progress.lua
 Route.lua
+Trail.lua
+Spots.lua
+Panel.lua
 Commands.lua

@@ -1,0 +1,10 @@
+{
+  "name": "forge-wasm-www-build",
+  "private": true,
+  "description": "Build steps of the browser planner: the backend worker bundle (esbuild) and the static assets.",
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "events": "^3.3.0",
+    "path-browserify": "^1.0.1"
+  }
+}

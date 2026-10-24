@@ -1,0 +1,6664 @@
+{
+	"schema": 1,
+	"cases": [
+		{
+			"id": "C01a",
+			"title": "Durotar: Cutting Teeth (788) handed in before Sarkoth (790) is worked",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 788,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 790,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"Cutting Teeth\"",
+					"guides/forever/horde/orc-troll/01-durotar.guide header"
+				],
+				"credit": [
+					"Tom"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C01b",
+			"title": "Durotar: Sting of the Scorpid (789) accepted before Sarkoth",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 789,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 790,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"Cutting Teeth\"",
+					"guides/forever/horde/orc-troll/01-durotar.guide header"
+				],
+				"credit": [
+					"Tom"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C01c",
+			"title": "Durotar: Galgar's Cactus Apple Surprise (4402) accepted before Sarkoth",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 4402,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 790,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"Cutting Teeth\"",
+					"guides/forever/horde/orc-troll/01-durotar.guide header"
+				],
+				"credit": [
+					"Tom"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C01d",
+			"title": "Durotar: Sting of the Scorpid (789) worked before Sarkoth (804) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 789,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 804,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"Cutting Teeth\"",
+					"guides/forever/horde/orc-troll/01-durotar.guide header"
+				],
+				"credit": [
+					"Tom"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C01e",
+			"title": "Durotar: Galgar's Cactus Apple Surprise (4402) worked before Sarkoth (804) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 4402,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 804,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"Cutting Teeth\"",
+					"guides/forever/horde/orc-troll/01-durotar.guide header"
+				],
+				"credit": [
+					"Tom"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C02a",
+			"title": "Durotar: Practical Prey (817) handed in before Securing the Lines (835) is worked (#352: carrying it early is fine, its work waits)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 817,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 835,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#352",
+					"#351",
+					"tests/guides-reported.test.js \"Securing the Lines\""
+				],
+				"credit": [
+					"tor"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C02b",
+			"title": "Durotar: A Solvent Spirit (818) handed in before Securing the Lines (835) is worked (#352: carrying it early is fine, its work waits)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 818,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 835,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#352",
+					"#351",
+					"tests/guides-reported.test.js \"Securing the Lines\""
+				],
+				"credit": [
+					"tor"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C02c",
+			"title": "Durotar: Zalazane (826) handed in before Securing the Lines (835) is worked (#352: carrying it early is fine, its work waits)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 826,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 835,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#352",
+					"#351",
+					"tests/guides-reported.test.js \"Securing the Lines\""
+				],
+				"credit": [
+					"tor"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C02d",
+			"title": "Durotar: Minshina's Skull (808) handed in before Securing the Lines (835) is worked (#352: carrying it early is fine, its work waits)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 808,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 835,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#352",
+					"#351",
+					"tests/guides-reported.test.js \"Securing the Lines\""
+				],
+				"credit": [
+					"tor"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C02e",
+			"title": "Durotar: Thwarting Kolkar Aggression (786) handed in before Securing the Lines (835) is worked (#352: carrying it early is fine, its work waits)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 786,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 835,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#352",
+					"#351",
+					"tests/guides-reported.test.js \"Securing the Lines\""
+				],
+				"credit": [
+					"tor"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C02f",
+			"title": "Durotar: Dark Storms (806) accepted before Winds in the Desert (834)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 806,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 834,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#352",
+					"#351",
+					"tests/guides-reported.test.js \"Securing the Lines\""
+				],
+				"credit": [
+					"tor"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C02g",
+			"title": "Durotar: Securing the Lines (835) handed in before Dark Storms (806)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 835,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 806,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#352",
+					"#351",
+					"tests/guides-reported.test.js \"Securing the Lines\""
+				],
+				"credit": [
+					"tor"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "S01a",
+			"title": "Durotar: Encroachment (837, level 10) not worked below level 8 (#351: \"a level 10 quest… much too high\" at 6; carrying it early is fine)",
+			"faction": "Horde",
+			"property": "notBefore",
+			"quest": 837,
+			"step": "objective",
+			"level": 8,
+			"source": {
+				"refs": [
+					"#351",
+					"#352"
+				],
+				"credit": [
+					"tor"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "S01b",
+			"title": "Durotar: Securing the Lines (835, level 11) not worked below level 9 (#352: its Dustwind mobs are 9-10)",
+			"faction": "Horde",
+			"property": "notBefore",
+			"quest": 835,
+			"step": "objective",
+			"level": 9,
+			"source": {
+				"refs": [
+					"#351",
+					"#352"
+				],
+				"credit": [
+					"tor"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "S01c",
+			"title": "Durotar: Tiragarde Keep's Vanquish the Betrayers (784) handed in before Encroachment (837) is worked (#351: carrying it early is fine, its work waits)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 784,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 837,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#351",
+					"#352"
+				],
+				"credit": [
+					"tor"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "S01d",
+			"title": "Durotar: Tiragarde Keep's Carry Your Weight (791) handed in no later than the visit in which Encroachment (837) is worked (#351: carrying it early is fine, its work waits)",
+			"faction": "Horde",
+			"property": "beforeOrSameVisit",
+			"note": "same-visit order follows NPC walking order (P2): in from Tiragarde Keep Gar'Thok (784's turn-in, 837) stands nearer than Furl Scornbrow (791), the guide's own Razor Hill order; #351/#352's intent is Tiragarde Keep done before 837 is carried",
+			"a": {
+				"quest": 791,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 837,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#351",
+					"#352"
+				],
+				"credit": [
+					"tor"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "S01e",
+			"title": "Durotar: Tiragarde Keep's The Admiral's Orders (830) handed in before Encroachment (837) is worked (#351: carrying it early is fine, its work waits)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 830,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 837,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#351",
+					"#352"
+				],
+				"credit": [
+					"tor"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C03a",
+			"title": "Durotar: Vile Familiars (792) handed in before the first coven trip (the pick)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 792,
+				"step": "turnin"
+			},
+			"b": {
+				"item": 16332
+			},
+			"source": {
+				"refs": [
+					"#240",
+					"PR #257",
+					"tests/guides-reported.test.js \"Thazz'ril's Pick and Yarrog\""
+				],
+				"credit": [
+					"Gruko",
+					"fitzforge"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C03b",
+			"title": "Durotar: Burning Blade Medallion (794) accepted before the first coven trip",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 794,
+				"step": "accept"
+			},
+			"b": {
+				"item": 16332
+			},
+			"source": {
+				"refs": [
+					"#240",
+					"PR #257",
+					"tests/guides-reported.test.js \"Thazz'ril's Pick and Yarrog\""
+				],
+				"credit": [
+					"Gruko",
+					"fitzforge"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C03c",
+			"title": "Durotar: Thazz'ril's Pick (16332) and Yarrog's medallion (4859) in one coven trip, every class",
+			"faction": "Horde",
+			"property": "sameVisit",
+			"a": {
+				"item": 16332
+			},
+			"b": {
+				"item": 4859
+			},
+			"source": {
+				"refs": [
+					"#240",
+					"PR #257",
+					"tests/guides-reported.test.js \"Thazz'ril's Pick and Yarrog\""
+				],
+				"credit": [
+					"Gruko",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C03d",
+			"title": "Durotar, Warlock: Vile Familiars (1485) handed in before the first coven trip",
+			"faction": "Horde",
+			"cls": "WARLOCK",
+			"property": "before",
+			"a": {
+				"quest": 1485,
+				"step": "turnin"
+			},
+			"b": {
+				"item": 16332
+			},
+			"source": {
+				"refs": [
+					"#240",
+					"PR #257",
+					"tests/guides-reported.test.js \"Thazz'ril's Pick and Yarrog\""
+				],
+				"credit": [
+					"Gruko",
+					"fitzforge"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C03e",
+			"title": "Durotar: Vile Familiars (792), Burning Blade Medallion (794) and Thazz'ril's Pick (6394) in one stretch, nothing elsewhere between",
+			"faction": "Horde",
+			"property": "singleVisit",
+			"quests": [
+				792,
+				794,
+				6394
+			],
+			"source": {
+				"refs": [
+					"#240",
+					"PR #257",
+					"tests/guides-reported.test.js \"Thazz'ril's Pick and Yarrog\""
+				],
+				"credit": [
+					"Gruko",
+					"fitzforge"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C03f",
+			"title": "Durotar, Warlock: Vile Familiars (1485), Burning Blade Medallion (794) and Thazz'ril's Pick (6394) in one stretch",
+			"faction": "Horde",
+			"cls": "WARLOCK",
+			"property": "singleVisit",
+			"quests": [
+				1485,
+				794,
+				6394
+			],
+			"source": {
+				"refs": [
+					"#240",
+					"PR #257",
+					"tests/guides-reported.test.js \"Thazz'ril's Pick and Yarrog\""
+				],
+				"credit": [
+					"Gruko",
+					"fitzforge"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "C04a",
+			"title": "Teldrassil: Dolanaar Delivery (2159) taken from Porthannius on the way out to Dolanaar",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "onLeg",
+			"quest": 2159,
+			"step": "accept",
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"Dolanaar Delivery\"",
+					"guides/forever/alliance/nightelf/01-teldrassil.guide header"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C04b",
+			"title": "Teldrassil: Crown of the Earth (921) handed in before Dolanaar Delivery (2159) is taken",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "before",
+			"a": {
+				"quest": 921,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 2159,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"Dolanaar Delivery\"",
+					"guides/forever/alliance/nightelf/01-teldrassil.guide header"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C04c",
+			"title": "Teldrassil: Iverron's Antidote (3522) handed in before Dolanaar Delivery (2159) is taken",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "before",
+			"a": {
+				"quest": 3522,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 2159,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"Dolanaar Delivery\"",
+					"guides/forever/alliance/nightelf/01-teldrassil.guide header"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C04d",
+			"title": "Teldrassil: Webwood Egg (917) handed in before Dolanaar Delivery (2159) is taken",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "before",
+			"a": {
+				"quest": 917,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 2159,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"Dolanaar Delivery\"",
+					"guides/forever/alliance/nightelf/01-teldrassil.guide header"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C04e",
+			"title": "Teldrassil: The Balance of Nature (457) handed in before Dolanaar Delivery (2159) is taken",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "before",
+			"a": {
+				"quest": 457,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 2159,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"Dolanaar Delivery\"",
+					"guides/forever/alliance/nightelf/01-teldrassil.guide header"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C04f",
+			"title": "Teldrassil: The Balance of Nature (456) handed in before Dolanaar Delivery (2159) is taken",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "before",
+			"a": {
+				"quest": 456,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 2159,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"Dolanaar Delivery\"",
+					"guides/forever/alliance/nightelf/01-teldrassil.guide header"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C05a",
+			"title": "Coldridge: Supplies to Tannok (2160) taken at Hands Springsprocket on the way out",
+			"faction": "Alliance",
+			"property": "onLeg",
+			"quest": 2160,
+			"step": "accept",
+			"source": {
+				"refs": [
+					"PR #16 4fb23be2",
+					"tests/guides-reported.test.js \"Supplies to Tannok\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C05b",
+			"title": "Coldridge: Bring Back the Mug (3365) handed in before Supplies to Tannok (2160) is taken",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 3365,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 2160,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #16 4fb23be2",
+					"tests/guides-reported.test.js \"Supplies to Tannok\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C05c",
+			"title": "Coldridge: The Stolen Journal (218) handed in before Supplies to Tannok (2160) is taken",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 218,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 2160,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #16 4fb23be2",
+					"tests/guides-reported.test.js \"Supplies to Tannok\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C05d",
+			"title": "Coldridge: A New Threat (170) handed in before Supplies to Tannok (2160) is taken",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 170,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 2160,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #16 4fb23be2",
+					"tests/guides-reported.test.js \"Supplies to Tannok\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C05e",
+			"title": "Coldridge: The Boar Hunter (183) handed in before Supplies to Tannok (2160) is taken",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 183,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 2160,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #16 4fb23be2",
+					"tests/guides-reported.test.js \"Supplies to Tannok\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C07a",
+			"title": "Coldridge: Scalding Mornbrew (3364) handed in before Grik'nir's journal (2004)",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 3364,
+				"step": "turnin"
+			},
+			"b": {
+				"item": 2004
+			},
+			"source": {
+				"refs": [
+					"PR #16",
+					"tests/guides-reported.test.js \"Grik'nir comes after Anvilmar\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C07b",
+			"title": "Coldridge: the journal (218) and Bring Back the Mug (3365) handed in on one camp visit",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 218,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 3365,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"PR #16",
+					"tests/guides-reported.test.js \"Grik'nir comes after Anvilmar\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C07c",
+			"title": "Coldridge: Grund and Gozwin (97277) handed in before Grik'nir",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 97277,
+				"step": "turnin"
+			},
+			"b": {
+				"item": 2004
+			},
+			"source": {
+				"refs": [
+					"PR #16",
+					"tests/guides-reported.test.js \"Grik'nir comes after Anvilmar\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C08a",
+			"title": "Coldridge: The Adventurer (96628) taken at the tunnel with Senir's Observations (282)",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 96628,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 282,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"PR #16 2f70202a",
+					"tests/guides-reported.test.js \"The Adventurer is taken from Thalos\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C08b",
+			"title": "Dun Morogh: The Adventurer (96628) handed in at Eric before The Great Outdoors (96608)",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 96628,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 96608,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #16 2f70202a",
+					"tests/guides-reported.test.js \"The Adventurer is taken from Thalos\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C09a",
+			"title": "Coldridge: Sten's mail (233) taken before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 233,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C09a-3106",
+			"title": "Coldridge, Dwarf Warrior: Simple Rune (3106) taken from Sten before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"race": "Dwarf",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"quest": 3106,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C09a-3107",
+			"title": "Coldridge, Dwarf Paladin: Consecrated Rune (3107) taken from Sten before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"race": "Dwarf",
+			"cls": "PALADIN",
+			"property": "before",
+			"a": {
+				"quest": 3107,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C09a-3108",
+			"title": "Coldridge, Dwarf Hunter: Etched Rune (3108) taken from Sten before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"race": "Dwarf",
+			"cls": "HUNTER",
+			"property": "before",
+			"a": {
+				"quest": 3108,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C09a-3109",
+			"title": "Coldridge, Dwarf Rogue: Encrypted Rune (3109) taken from Sten before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"race": "Dwarf",
+			"cls": "ROGUE",
+			"property": "before",
+			"a": {
+				"quest": 3109,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C09a-3110",
+			"title": "Coldridge, Dwarf Priest: Hallowed Rune (3110) taken from Sten before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"race": "Dwarf",
+			"cls": "PRIEST",
+			"property": "before",
+			"a": {
+				"quest": 3110,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C09a-3111",
+			"title": "Coldridge, Dwarf Mage: Glyphic Rune (3111) taken from Sten before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"race": "Dwarf",
+			"cls": "MAGE",
+			"property": "before",
+			"todo": "needs the quest: 3111 isn't in Forever's quest data (Coldridge's letters are 3106-3110 and 98581 for Dwarves, 3112-3115 and 98574 for Gnomes), so a Dwarf Mage's letter is unconfirmed; an in-game check (findings log)",
+			"a": {
+				"quest": 3111,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C09a-98581",
+			"title": "Coldridge, Dwarf Shaman: Archaic Rune (98581) taken from Sten before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"race": "Dwarf",
+			"cls": "SHAMAN",
+			"property": "before",
+			"a": {
+				"quest": 98581,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C09a-3112",
+			"title": "Coldridge, Gnome Warrior: Simple Memorandum (3112) taken from Sten before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"race": "Gnome",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"quest": 3112,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C09a-3113",
+			"title": "Coldridge, Gnome Rogue: Encrypted Memorandum (3113) taken from Sten before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"race": "Gnome",
+			"cls": "ROGUE",
+			"property": "before",
+			"a": {
+				"quest": 3113,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C09a-3114",
+			"title": "Coldridge, Gnome Mage: Glyphic Memorandum (3114) taken from Sten before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"race": "Gnome",
+			"cls": "MAGE",
+			"property": "before",
+			"a": {
+				"quest": 3114,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C09a-3115",
+			"title": "Coldridge, Gnome Warlock: Tainted Memorandum (3115) taken from Sten before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"race": "Gnome",
+			"cls": "WARLOCK",
+			"property": "before",
+			"a": {
+				"quest": 3115,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C09a-98574",
+			"title": "Coldridge, Gnome Priest: Hallowed Memorandum (98574) taken from Sten before Balir's A New Threat (170)",
+			"faction": "Alliance",
+			"race": "Gnome",
+			"cls": "PRIEST",
+			"property": "before",
+			"a": {
+				"quest": 98574,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 170,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C09b",
+			"title": "Coldridge: Anvilmar entered once",
+			"faction": "Alliance",
+			"property": "enteredOnce",
+			"place": "Anvilmar",
+			"todo": "needs enteredOnce (an indoor area marker, harvest N12)",
+			"source": {
+				"refs": [
+					"PR #61 6fe00c11",
+					"tests/guides-reported.test.js \"Sten's quests\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C10a",
+			"title": "Coldridge: Bring Back the Mug (3365) taken with the Mornbrew turn-in (3364)",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 3364,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 3365,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 140c6c11",
+					"tests/guides-reported.test.js \"Bring Back the Mug\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C10b",
+			"title": "Coldridge: Bring Back the Mug (3365) taken before Felix's A Refugee's Quandary (3361) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 3365,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 3361,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"PR #61 140c6c11",
+					"tests/guides-reported.test.js \"Bring Back the Mug\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C11a",
+			"title": "Kharanos: The Adventurer (96628) handed in at Eric before Tools for Steelgrill (400)",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 96628,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 400,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 33c9c57f",
+					"PR #61 32fc6cea",
+					"tests/guides-reported.test.js \"Kharanos is done outside first\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C11b",
+			"title": "Kharanos: Tools for Steelgrill (400) taken outside before Supplies to Tannok (2160) is handed in inside",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 400,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 2160,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"PR #61 33c9c57f",
+					"PR #61 32fc6cea",
+					"tests/guides-reported.test.js \"Kharanos is done outside first\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C11c",
+			"title": "Kharanos: outside first, then one distillery visit with class training last",
+			"faction": "Alliance",
+			"property": "enteredOnce",
+			"place": "Kharanos distillery",
+			"todo": "needs enteredOnce (an indoor area marker, harvest N12)",
+			"source": {
+				"refs": [
+					"PR #61 33c9c57f",
+					"PR #61 32fc6cea",
+					"tests/guides-reported.test.js \"Kharanos is done outside first\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C12a",
+			"title": "Dun Morogh: Crag Boar Ribs (2886) collected before Beer Basted Boar Ribs (384) is accepted",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"item": 2886,
+				"act": "loot"
+			},
+			"b": {
+				"quest": 384,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #16 d153b4b6"
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C12b",
+			"title": "Dun Morogh: Crag Boar Ribs (2886) collected on the road to Kharanos",
+			"faction": "Alliance",
+			"property": "onLeg",
+			"item": 2886,
+			"act": "loot",
+			"source": {
+				"refs": [
+					"PR #16 d153b4b6"
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C13a",
+			"title": "Dun Morogh: The Reports (291) taken with the Frostmane Hold (287) turn-in",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 287,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 291,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #238 2a14d5ce",
+					"tests/guides-reported.test.js \"The Reports\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C13b",
+			"title": "Ironforge: The Reports (291) handed to Senator Barin Redstone on the Ironforge to tram leg",
+			"faction": "Alliance",
+			"property": "onLeg",
+			"quest": 291,
+			"step": "turnin",
+			"source": {
+				"refs": [
+					"PR #238 2a14d5ce",
+					"tests/guides-reported.test.js \"The Reports\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C14a",
+			"title": "Dun Morogh: Rime's Wrath (99160) elementals killed with Treacherous Cold's (99162) rifles",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 99160,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 99162,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"PR #238 c17b8632",
+					"PR #61 20cad41e",
+					"tests/guides-reported.test.js \"kills on the way\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C14b",
+			"title": "Dun Morogh: A Favor for Evershine (319) bears killed on the walk to Frostmane Hold",
+			"faction": "Alliance",
+			"property": "onLeg",
+			"quest": 319,
+			"step": "objective",
+			"source": {
+				"refs": [
+					"PR #238 c17b8632",
+					"PR #61 20cad41e",
+					"tests/guides-reported.test.js \"kills on the way\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C15a",
+			"title": "Dun Morogh: Ammo for Rumbleshot (5541) taken with the Tools for Steelgrill (400) turn-in at Beldin",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 400,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 5541,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 e28f6c31",
+					"PR #61 65c34946",
+					"tests/guides-reported.test.js \"Ammo for Rumbleshot\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C15b",
+			"title": "Dun Morogh: Ammo for Rumbleshot (5541) handed in before Flintfire's Shipment (98321)",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 5541,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 98321,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"PR #61 e28f6c31",
+					"PR #61 65c34946",
+					"tests/guides-reported.test.js \"Ammo for Rumbleshot\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C16a",
+			"title": "Dun Morogh: Secure the Mountain (98319) taken from Gretchen before the Grizzled Den's shipments (280413)",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 98319,
+				"step": "accept"
+			},
+			"b": {
+				"item": 280413
+			},
+			"source": {
+				"refs": [
+					"PR #61 552e7416",
+					"tests/guides-reported.test.js \"Gretchen comes first\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C16b",
+			"title": "Dun Morogh: the Grizzled Den entered once (shipments and Cornelius on one trip)",
+			"faction": "Alliance",
+			"property": "enteredOnce",
+			"place": "the Grizzled Den",
+			"todo": "needs enteredOnce (an indoor area marker, harvest N12)",
+			"source": {
+				"refs": [
+					"PR #61 552e7416",
+					"tests/guides-reported.test.js \"Gretchen comes first\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C17a",
+			"title": "Brewnall: Frosthowl (98326) taken from Gretta before A Favor for Evershine (319)",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 98326,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 319,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #61 c5070878",
+					"PR #61 20cad41e",
+					"tests/guides-reported.test.js \"Gretta's dock comes first\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C17b",
+			"title": "Dun Morogh: A Favor for Evershine (319) taken before the Frostmane Headhunters (287) are killed",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 319,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 287,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"PR #61 c5070878",
+					"PR #61 20cad41e",
+					"tests/guides-reported.test.js \"Gretta's dock comes first\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C18a",
+			"title": "Dun Morogh: Farsen's Watch (96392) worked on the walk east to the South Gate",
+			"faction": "Alliance",
+			"property": "onLeg",
+			"quest": 96392,
+			"step": "objective",
+			"source": {
+				"refs": [
+					"PR #238 3fa61f80",
+					"guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide header"
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C18b",
+			"title": "Dun Morogh: Mehr's The Public Servant (433) worked on the walk east to the South Gate",
+			"faction": "Alliance",
+			"property": "onLeg",
+			"quest": 433,
+			"step": "objective",
+			"source": {
+				"refs": [
+					"PR #238 3fa61f80",
+					"guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide header"
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C19a",
+			"title": "Dwarf Paladin: Honor Students (6387) taken after The Tome of Divinity (1784)",
+			"faction": "Alliance",
+			"race": "Dwarf",
+			"cls": "PALADIN",
+			"property": "before",
+			"a": {
+				"quest": 1784,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 6387,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #238 f244dc23",
+					"PR #238 170b119c"
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C19b",
+			"title": "Dwarf Paladin: Honor Students (6387) taken on the Thelsamar run",
+			"faction": "Alliance",
+			"race": "Dwarf",
+			"cls": "PALADIN",
+			"property": "taken",
+			"quest": 6387,
+			"source": {
+				"refs": [
+					"PR #238 f244dc23",
+					"PR #238 170b119c"
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C19c",
+			"title": "Dwarf Paladin: Ride to Ironforge (6391) taken in Thelsamar",
+			"faction": "Alliance",
+			"race": "Dwarf",
+			"cls": "PALADIN",
+			"property": "taken",
+			"quest": 6391,
+			"source": {
+				"refs": [
+					"PR #238 f244dc23",
+					"PR #238 170b119c"
+				],
+				"credit": [
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "C20",
+			"title": "Skyborne Druid at Shen'dar trains with Naeluna Swiftmend (254081), not Xyton Silverwind (251373)",
+			"faction": "Alliance",
+			"race": "Skyborne",
+			"cls": "DRUID",
+			"property": "service",
+			"npc": 254081,
+			"notNpc": 251373,
+			"todo": "needs service (a named trainer: service NPC ids, harvest N3)",
+			"source": {
+				"refs": [
+					"#367",
+					"PR #313"
+				],
+				"credit": [
+					"Feverish",
+					"XrayAlpha"
+				]
+			}
+		},
+		{
+			"id": "C21a",
+			"title": "Coldridge Valley Mail Delivery (233) taken at npc 658 with the Dwarven Outfitters (179) hand-in",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 179,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 233,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#310",
+					"PR #323",
+					"PR #320"
+				],
+				"credit": [
+					"Zepheriel",
+					"b7216309-jpg",
+					"CDVolvik"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C21b",
+			"title": "Bring Back the Mug (3365) taken at npc 836 with the Scalding Mornbrew Delivery (3364) hand-in",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 3364,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 3365,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#310",
+					"PR #323",
+					"PR #320"
+				],
+				"credit": [
+					"Zepheriel",
+					"b7216309-jpg",
+					"CDVolvik"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C21c",
+			"title": "The Red Messenger (382) taken at npc 1570 with the The Scarlet Crusade (381) hand-in",
+			"faction": "Horde",
+			"property": "sameVisit",
+			"a": {
+				"quest": 381,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 382,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#310",
+					"PR #323",
+					"PR #320"
+				],
+				"credit": [
+					"Zepheriel",
+					"b7216309-jpg",
+					"CDVolvik"
+				]
+			},
+			"race": "Undead"
+		},
+		{
+			"id": "C21d",
+			"title": "At War With The Scarlet Crusade (427) taken at npc 1515 with the Vital Intelligence (383) hand-in",
+			"faction": "Horde",
+			"property": "sameVisit",
+			"a": {
+				"quest": 383,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 427,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#310",
+					"PR #323",
+					"PR #320"
+				],
+				"credit": [
+					"Zepheriel",
+					"b7216309-jpg",
+					"CDVolvik"
+				]
+			},
+			"race": "Undead"
+		},
+		{
+			"id": "C21e",
+			"title": "Reagents for Reclaimers Inc. (1467) taken at npc 5638 with the Reagents for Reclaimers Inc. (1466) hand-in",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 1466,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 1467,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#310",
+					"PR #323",
+					"PR #320"
+				],
+				"credit": [
+					"Zepheriel",
+					"b7216309-jpg",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C21f",
+			"title": "Further Mysteries (525) taken at npc 1356 with the Letter to Stormpike (514) hand-in",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 514,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 525,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#310",
+					"PR #323",
+					"PR #320"
+				],
+				"credit": [
+					"Zepheriel",
+					"b7216309-jpg",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C22a",
+			"title": "Northshire: Skirmish at Echo Ridge (21) taken with the Investigate Echo Ridge (15) hand-in at McBride",
+			"faction": "Alliance",
+			"race": "Human",
+			"property": "sameVisit",
+			"a": {
+				"quest": 15,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 21,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#310",
+					"#323",
+					"PR #320",
+					"guides/forever/alliance/human/01-elwynn-forest.guide header"
+				],
+				"credit": [
+					"Zepheriel",
+					"b7216309-jpg",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C22b",
+			"title": "Northshire: Report to Goldshire (54) and The Adventurer (96627) taken on one visit",
+			"faction": "Alliance",
+			"race": "Human",
+			"property": "sameVisit",
+			"a": {
+				"quest": 54,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 96627,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#310",
+					"#323",
+					"PR #320",
+					"guides/forever/alliance/human/01-elwynn-forest.guide header"
+				],
+				"credit": [
+					"Zepheriel",
+					"b7216309-jpg",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C22c",
+			"title": "Elwynn: The Adventurer (96627) taken before The Great Outdoors (96608)",
+			"faction": "Alliance",
+			"race": "Human",
+			"property": "before",
+			"a": {
+				"quest": 96627,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 96608,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#310",
+					"#323",
+					"PR #320",
+					"guides/forever/alliance/human/01-elwynn-forest.guide header"
+				],
+				"credit": [
+					"Zepheriel",
+					"b7216309-jpg",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C23",
+			"title": "Darkshore at 20: grey quests skipped, the Buzzbox chain kept",
+			"faction": "Alliance",
+			"property": "pattern",
+			"todo": "needs pattern (the addon's grey skip, piece 5, not the sim)",
+			"source": {
+				"refs": [
+					"#216",
+					"tests/guides-reported.test.js \"Skip grey quests\""
+				],
+				"credit": [
+					"Wogi",
+					"XooVe"
+				]
+			}
+		},
+		{
+			"id": "C24h",
+			"title": "An event or escort objective holds its step (Horde): 99134, 98389, 99144, 99123",
+			"faction": "Horde",
+			"property": "held",
+			"quests": [
+				99134,
+				98389,
+				99144,
+				99123
+			],
+			"todo": "needs held (objective between accept and turn-in, as one step)",
+			"source": {
+				"refs": [
+					"PR #38",
+					"PR #39",
+					"tests/guides-reported.test.js \"an event or escort objective holds its step\""
+				],
+				"credit": [
+					"a Priest's report",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C24a",
+			"title": "An escort objective holds its step (Alliance): Escaping Ban'ethil 99053",
+			"faction": "Alliance",
+			"property": "held",
+			"quests": [
+				99053
+			],
+			"todo": "needs held (objective between accept and turn-in, as one step)",
+			"source": {
+				"refs": [
+					"PR #38",
+					"PR #39",
+					"tests/guides-reported.test.js \"an event or escort objective holds its step\""
+				],
+				"credit": [
+					"a Priest's report",
+					"CDVolvik"
+				]
+			},
+			"race": "NightElf"
+		},
+		{
+			"id": "C25-01",
+			"title": "Grim Tidings (99081) taken only after Longwalker Malah (99079) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 99079,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 99081,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			},
+			"race": "Tauren"
+		},
+		{
+			"id": "C25-02",
+			"title": "Our Ancient Enemy (99101) taken only after Grim Tidings (99081) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 99081,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 99101,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			},
+			"race": "Tauren"
+		},
+		{
+			"id": "C25-03",
+			"title": "Drive Them Out (99080) taken only after Our Ancient Enemy (99101) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 99101,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 99080,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			},
+			"race": "Tauren"
+		},
+		{
+			"id": "C25-04",
+			"title": "The High Chieftain (99082) taken only after Drive Them Out (99080) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 99080,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 99082,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			},
+			"race": "Tauren"
+		},
+		{
+			"id": "C25-05",
+			"title": "Thunderhorn's Report (98435) taken only after Wildmane Cleansing (760) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 760,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 98435,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			},
+			"race": "Tauren"
+		},
+		{
+			"id": "C25-06",
+			"title": "Bandarion Keep (96899) taken only after The Cult of the Damned (96897) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 96897,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 96899,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			},
+			"race": "Undead"
+		},
+		{
+			"id": "C25-07",
+			"title": "Bandarion Keep (96899) taken only after Remnants of War (96898) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 96898,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 96899,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			},
+			"race": "Undead"
+		},
+		{
+			"id": "C25-08",
+			"title": "Rear Guard Patrol (99156) taken only after Rear Guard Patrol (356) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 356,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 99156,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			},
+			"race": "Undead"
+		},
+		{
+			"id": "C25-09",
+			"title": "Alther's Mill (98386) taken only after The Everstill Bridge (89) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 89,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 98386,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-10",
+			"title": "The State of the Mines (92745) taken only after Testing the Wells (92742) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 92742,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 92745,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-11",
+			"title": "Scout Support (98094) taken only after Battle of Hillsbrad (528) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 528,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 98094,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-12",
+			"title": "Wild Eyes (91920) taken only after Return to Quinn (430) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 430,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 91920,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-13",
+			"title": "Return to Quinn (Again) (91921) taken only after Wild Eyes (91920) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 91920,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 91921,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-14",
+			"title": "Bloom of the Heavens (98209) taken only after Bloom of the Heavens (98208) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 98208,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 98209,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-15",
+			"title": "Sentiments of the Lost (88758) taken only after Accessories of the Lost (88757) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 88757,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 88758,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-16",
+			"title": "Stopping the Cycle (98297) taken only after Death to the Dragonmaw (98291) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 98291,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 98297,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-17",
+			"title": "Shared Fury (98418) taken only after Vengeful Trail (98417) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 98417,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 98418,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-18",
+			"title": "Friend of the Kirin Tor (92459) taken only after Heart of Disruption (92458) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 92458,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 92459,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-19",
+			"title": "Holy Diver (87760) taken only after Beached Sea Turtle (4722) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 4722,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 87760,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-20",
+			"title": "Holy Diver (87760) taken only after Beached Sea Creature (4723) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 4723,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 87760,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-21",
+			"title": "Holy Diver (87760) taken only after Beached Sea Turtle (4725) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 4725,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 87760,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-22",
+			"title": "Holy Diver (87760) taken only after Beached Sea Turtle (4727) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 4727,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 87760,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-23",
+			"title": "Holy Diver (87760) taken only after Beached Sea Creature (4728) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 4728,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 87760,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-24",
+			"title": "Holy Diver (87760) taken only after Beached Sea Creature (4730) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 4730,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 87760,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-25",
+			"title": "Holy Diver (87760) taken only after Beached Sea Turtle (4731) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 4731,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 87760,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-26",
+			"title": "Holy Diver (87760) taken only after Beached Sea Turtle (4732) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 4732,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 87760,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-27",
+			"title": "Holy Diver (87760) taken only after Beached Sea Creature (4733) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 4733,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 87760,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-28",
+			"title": "Ivar the Foul (425) taken only after Return to Quinn (Again) (91921) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 91921,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 425,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-29",
+			"title": "Arugal's Folly (98298) taken only after Arugal's Folly (99) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 99,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 98298,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-30",
+			"title": "Harvesting the Harvesters (92911) taken only after Harvesting the Harvesters (92910) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 92910,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 92911,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-31",
+			"title": "From the Ashes (98221) taken only after War Banners (464) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 464,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 98221,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C25-32",
+			"title": "Nek'rosh's Gambit (465) taken only after From the Ashes (98221) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 98221,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 465,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#112",
+					"#51",
+					"#128",
+					"#126",
+					"#143",
+					"#148",
+					"#225",
+					"PR #157",
+					"tests/guides-reported.test.js \"Forever follow-ups\""
+				],
+				"credit": [
+					"Kori",
+					"Mull",
+					"whiteswag",
+					"SouthernStyleSims",
+					"Taako",
+					"Lou-Saydus",
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C26a",
+			"title": "Barrens: The Hermit Tanner (95495) after Bruised Pride and Lion Hides (95494) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 95494,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 95495,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#65",
+					"#66",
+					"PR #48",
+					"tests/guides-reported.test.js \"Walton and Vrang\""
+				],
+				"credit": [
+					"Hotline",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C26b",
+			"title": "Barrens: The Hermit Tanner (95495) after Vrang's Game (95507) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 95507,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 95495,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#65",
+					"#66",
+					"PR #48",
+					"tests/guides-reported.test.js \"Walton and Vrang\""
+				],
+				"credit": [
+					"Hotline",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C26c",
+			"title": "Barrens: Trouble in the Valley (95621) after The Hermit Tanner (95495) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 95495,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 95621,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#65",
+					"#66",
+					"PR #48",
+					"tests/guides-reported.test.js \"Walton and Vrang\""
+				],
+				"credit": [
+					"Hotline",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C26d",
+			"title": "Barrens: Unwelcome Guests (95508) after Trouble in the Valley (95621) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 95621,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 95508,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#65",
+					"#66",
+					"PR #48",
+					"tests/guides-reported.test.js \"Walton and Vrang\""
+				],
+				"credit": [
+					"Hotline",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C27",
+			"title": "Barrens: Jorn Skyseer (3261) after The Angry Scytheclaws (905)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 905,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 3261,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#70",
+					"tests/guides-reported.test.js \"Jorn Skyseer\""
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C28",
+			"title": "Silverpine: Stop the Spread (98299) never asked for",
+			"faction": "Horde",
+			"property": "never",
+			"quest": 98299,
+			"source": {
+				"refs": [
+					"#161",
+					"#229",
+					"#245"
+				],
+				"credit": [
+					"Wyatt R",
+					"Rupert"
+				]
+			}
+		},
+		{
+			"id": "C29a",
+			"title": "Wetlands: Nek'rosh's Gambit (465) handed in after This Land Was Their Land (98230)",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 98230,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 465,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#225",
+					"tests/guides-reported.test.js \"Nek'rosh's Gambit\""
+				],
+				"credit": [
+					"Lou-Saydus"
+				]
+			}
+		},
+		{
+			"id": "C29b",
+			"title": "Wetlands: Nek'rosh's Gambit (465) handed in before Old Habits (98223) is taken",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 465,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 98223,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#225",
+					"tests/guides-reported.test.js \"Nek'rosh's Gambit\""
+				],
+				"credit": [
+					"Lou-Saydus"
+				]
+			}
+		},
+		{
+			"id": "C30a",
+			"title": "Darkshore: Beached Sea Creature (4723) taken on the walk from Asterion to Buzzbox 411",
+			"faction": "Alliance",
+			"property": "onLeg",
+			"quest": 4723,
+			"step": "accept",
+			"source": {
+				"refs": [
+					"#213",
+					"tests/guides-reported.test.js \"Beached Sea Creature by Bashal'Aran\""
+				],
+				"credit": [
+					"XooVe"
+				]
+			}
+		},
+		{
+			"id": "C30b",
+			"title": "Darkshore: Beached Sea Creature (4723) taken after Bashal'Aran (957)",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 957,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 4723,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#213",
+					"tests/guides-reported.test.js \"Beached Sea Creature by Bashal'Aran\""
+				],
+				"credit": [
+					"XooVe"
+				]
+			}
+		},
+		{
+			"id": "C30c",
+			"title": "Darkshore: Beached Sea Creature (4723) taken before Buzzbox 411 (1001) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 4723,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 1001,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#213",
+					"tests/guides-reported.test.js \"Beached Sea Creature by Bashal'Aran\""
+				],
+				"credit": [
+					"XooVe"
+				]
+			}
+		},
+		{
+			"id": "C30d",
+			"title": "Darkshore: Beached Sea Creature (4723) handed in with Beached Sea Turtle (4722)",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 4723,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 4722,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#213",
+					"tests/guides-reported.test.js \"Beached Sea Creature by Bashal'Aran\""
+				],
+				"credit": [
+					"XooVe"
+				]
+			}
+		},
+		{
+			"id": "C30e",
+			"title": "Darkshore: Beached Sea Creature (4723) handed in before 4728 is taken",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 4723,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 4728,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#213",
+					"tests/guides-reported.test.js \"Beached Sea Creature by Bashal'Aran\""
+				],
+				"credit": [
+					"XooVe"
+				]
+			}
+		},
+		{
+			"id": "C31a",
+			"title": "Teldrassil: Zenn's Bidding (488) taken on the Shadowglen road",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "onLeg",
+			"quest": 488,
+			"step": "accept",
+			"source": {
+				"refs": [
+					"#89",
+					"PR #262",
+					"#252",
+					"tests/guides-reported.test.js \"Zenn's Bidding\""
+				],
+				"credit": [
+					"Pynte",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C31b",
+			"title": "Teldrassil: Zenn's Bidding (488) taken after Dolanaar Delivery (2159)",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "before",
+			"a": {
+				"quest": 2159,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 488,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#89",
+					"PR #262",
+					"#252",
+					"tests/guides-reported.test.js \"Zenn's Bidding\""
+				],
+				"credit": [
+					"Pynte",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C31c",
+			"title": "Teldrassil: Zenn's Bidding (488) taken before The Adventurer (96630) is handed in",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "before",
+			"a": {
+				"quest": 488,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 96630,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#89",
+					"PR #262",
+					"#252",
+					"tests/guides-reported.test.js \"Zenn's Bidding\""
+				],
+				"credit": [
+					"Pynte",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C32a",
+			"title": "Book of the Ancients (6027) taken from Azore on the way to Karnitol's Chest",
+			"faction": "Alliance",
+			"property": "onLeg",
+			"quest": 6027,
+			"step": "accept",
+			"source": {
+				"refs": [
+					"#89",
+					"tests/guides-reported.test.js \"Book of the Ancients\""
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C32b",
+			"title": "Book of the Ancients (6027) taken after The Karnitol Shipwreck (1454) is accepted",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 1454,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 6027,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#89",
+					"tests/guides-reported.test.js \"Book of the Ancients\""
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C32c",
+			"title": "Book of the Ancients (6027) taken before The Karnitol Shipwreck (1454) is handed in",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 6027,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 1454,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#89",
+					"tests/guides-reported.test.js \"Book of the Ancients\""
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C33a",
+			"title": "Tirisfal: Fields of Grief (365) taken at Solliden with A Rogue's Deal (590)",
+			"faction": "Horde",
+			"property": "sameVisit",
+			"a": {
+				"quest": 365,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 590,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#213",
+					"#226",
+					"tests/guides-reported.test.js \"#213: quests whose giver the route already stands at\""
+				],
+				"credit": [
+					"XooVe"
+				]
+			},
+			"race": "Undead"
+		},
+		{
+			"id": "C33b",
+			"title": "Tanaris: WANTED: Caliph Scorpidsting (2781) taken with WANTED: Andre Firebeard (2875)",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 2781,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 2875,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#213",
+					"#226",
+					"tests/guides-reported.test.js \"#213: quests whose giver the route already stands at\""
+				],
+				"credit": [
+					"XooVe"
+				]
+			}
+		},
+		{
+			"id": "C33c",
+			"title": "Stranglethorn: Panther Mastery (192) taken with the 191 hand-in",
+			"faction": "Horde",
+			"property": "sameVisit",
+			"a": {
+				"quest": 191,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 192,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#213",
+					"#226",
+					"tests/guides-reported.test.js \"#213: quests whose giver the route already stands at\""
+				],
+				"credit": [
+					"XooVe"
+				]
+			}
+		},
+		{
+			"id": "C34",
+			"title": "Teldrassil: The Balance of Nature (456) taken before The Woodland Protector (458)",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "before",
+			"a": {
+				"quest": 456,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 458,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"Pynte 0.2.4",
+					"tests/guides-reported.test.js \"Conservator Ilthalaine's quest\"",
+					"guides/forever/alliance/nightelf/01-teldrassil.guide header"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C35a",
+			"title": "Teldrassil: Nature's Call (97977) totems worked with The Balance of Nature (456) kills",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "sameVisit",
+			"a": {
+				"quest": 97977,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 456,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"the Gnarlpine Totems\""
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C35b",
+			"title": "Teldrassil: Nature's Call (97977) totems worked with The Woodland Protector (459)",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "sameVisit",
+			"a": {
+				"quest": 97977,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 459,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"the Gnarlpine Totems\""
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C36a",
+			"title": "Teldrassil, Warrior: Simple Sigil (3116) handed in on a training visit",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"cls": "WARRIOR",
+			"property": "sameVisit",
+			"a": {
+				"quest": 3116,
+				"step": "turnin"
+			},
+			"b": {
+				"act": "train"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"each class's sigil\"",
+					"tests/guides-patterns.test.js #103"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C36b",
+			"title": "Teldrassil, Hunter: Etched Sigil (3117) handed in on a training visit",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"cls": "HUNTER",
+			"property": "sameVisit",
+			"a": {
+				"quest": 3117,
+				"step": "turnin"
+			},
+			"b": {
+				"act": "train"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"each class's sigil\"",
+					"tests/guides-patterns.test.js #103"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C36c",
+			"title": "Teldrassil, Rogue: Encrypted Sigil (3118) handed in on a training visit",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"cls": "ROGUE",
+			"property": "sameVisit",
+			"a": {
+				"quest": 3118,
+				"step": "turnin"
+			},
+			"b": {
+				"act": "train"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"each class's sigil\"",
+					"tests/guides-patterns.test.js #103"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C36d",
+			"title": "Teldrassil, Priest: Hallowed Sigil (3119) handed in on a training visit",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"cls": "PRIEST",
+			"property": "sameVisit",
+			"a": {
+				"quest": 3119,
+				"step": "turnin"
+			},
+			"b": {
+				"act": "train"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"each class's sigil\"",
+					"tests/guides-patterns.test.js #103"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C36e",
+			"title": "Teldrassil, Druid: Verdant Sigil (3120) handed in on a training visit",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"cls": "DRUID",
+			"property": "sameVisit",
+			"a": {
+				"quest": 3120,
+				"step": "turnin"
+			},
+			"b": {
+				"act": "train"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"each class's sigil\"",
+					"tests/guides-patterns.test.js #103"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C37a",
+			"title": "Dun Morogh: Frostmane Headhunters (287) at Frostmane Hold, not the strays",
+			"faction": "Alliance",
+			"property": "campOf",
+			"quest": 287,
+			"objective": 0,
+			"near": {
+				"map": 1426,
+				"x": 23.5,
+				"y": 52.5,
+				"yards": 207
+			},
+			"source": {
+				"refs": [
+					"#175",
+					"tests/guides-reported.test.js \"Phear's report\""
+				],
+				"credit": [
+					"Phear"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C37b",
+			"title": "Darkshore: Grizzled Scalps (1003) from the bears at the Grove",
+			"faction": "Alliance",
+			"property": "campOf",
+			"quest": 1003,
+			"objective": 0,
+			"near": {
+				"map": 1439,
+				"x": 41.5,
+				"y": 76,
+				"yards": 425
+			},
+			"source": {
+				"refs": [
+					"#175",
+					"tests/guides-reported.test.js \"Phear's report\""
+				],
+				"credit": [
+					"Phear"
+				]
+			}
+		},
+		{
+			"id": "C37c",
+			"title": "Felwood: Jadefire Hellcallers (4906) at Jadefire Run",
+			"faction": "Alliance",
+			"property": "campOf",
+			"quest": 4906,
+			"objective": 0,
+			"near": {
+				"map": 1448,
+				"x": 41,
+				"y": 18,
+				"yards": 258
+			},
+			"source": {
+				"refs": [
+					"#175",
+					"tests/guides-reported.test.js \"Phear's report\""
+				],
+				"credit": [
+					"Phear"
+				]
+			}
+		},
+		{
+			"id": "C37d",
+			"title": "Stonetalon: Stonetalon Sap (1058) from the camp in the north",
+			"faction": "Horde",
+			"property": "campOf",
+			"quest": 1058,
+			"objective": 0,
+			"near": {
+				"map": 1442,
+				"x": 36.5,
+				"y": 15,
+				"yards": 294
+			},
+			"source": {
+				"refs": [
+					"#175",
+					"tests/guides-reported.test.js \"Phear's report\""
+				],
+				"credit": [
+					"Phear"
+				]
+			}
+		},
+		{
+			"id": "C37e",
+			"title": "Un'Goro: Bloodpetal Lashers (4145) on the east side",
+			"faction": "Horde",
+			"property": "campOf",
+			"quest": 4145,
+			"objective": 0,
+			"near": {
+				"map": 1449,
+				"x": 66,
+				"y": 35,
+				"yards": 550
+			},
+			"source": {
+				"refs": [
+					"#175",
+					"tests/guides-reported.test.js \"Phear's report\""
+				],
+				"credit": [
+					"Phear"
+				]
+			}
+		},
+		{
+			"id": "C37f",
+			"title": "Un'Goro: Bloodpetal Threshers (4145) on the east side",
+			"faction": "Horde",
+			"property": "campOf",
+			"quest": 4145,
+			"objective": 3,
+			"near": {
+				"map": 1449,
+				"x": 66,
+				"y": 35,
+				"yards": 550
+			},
+			"source": {
+				"refs": [
+					"#175",
+					"tests/guides-reported.test.js \"Phear's report\""
+				],
+				"credit": [
+					"Phear"
+				]
+			}
+		},
+		{
+			"id": "C37g",
+			"title": "Swamp of Sorrows: Marsh Flesheaters (1426) at the huts on the western shore",
+			"faction": "Horde",
+			"property": "campOf",
+			"quest": 1426,
+			"objective": 2,
+			"near": {
+				"map": 1435,
+				"x": 67.5,
+				"y": 87.5,
+				"yards": 257
+			},
+			"source": {
+				"refs": [
+					"#175",
+					"tests/guides-reported.test.js \"Phear's report\""
+				],
+				"credit": [
+					"Phear"
+				]
+			}
+		},
+		{
+			"id": "C38a",
+			"title": "Zephras Isle: Scrawny Ursera Claws (92473) on the slope west of Thendal Village",
+			"faction": "Alliance",
+			"race": "Skyborne",
+			"property": "campOf",
+			"quest": 92473,
+			"objective": 0,
+			"near": {
+				"map": 2521,
+				"x": 39.3,
+				"y": 27.4,
+				"yards": 165,
+				"f": "l"
+			},
+			"source": {
+				"refs": [
+					"#93",
+					"tests/guides-reported.test.js \"Scrawny Ursera\""
+				],
+				"credit": [
+					"Sato"
+				]
+			}
+		},
+		{
+			"id": "C38h",
+			"title": "Zephras Isle: Scrawny Ursera Claws (92473) on the slope west of Thendal Village",
+			"faction": "Horde",
+			"race": "Skyborne",
+			"property": "campOf",
+			"quest": 92473,
+			"objective": 0,
+			"near": {
+				"map": 2521,
+				"x": 39.3,
+				"y": 27.4,
+				"yards": 165,
+				"f": "l"
+			},
+			"source": {
+				"refs": [
+					"#93",
+					"tests/guides-reported.test.js \"Scrawny Ursera\""
+				],
+				"credit": [
+					"Sato"
+				]
+			}
+		},
+		{
+			"id": "C39a",
+			"title": "Barrens: Lion Hides (95494) from the Patriarchs in the Dry Hills",
+			"faction": "Horde",
+			"property": "campOf",
+			"quest": 95494,
+			"objective": 0,
+			"near": {
+				"map": 1413,
+				"x": 46,
+				"y": 16,
+				"yards": 731
+			},
+			"source": {
+				"refs": [
+					"#273",
+					"#329",
+					"tests/guides-reported.test.js \"Savannah Lion Hide\""
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C39b",
+			"title": "Barrens: Lion Hides (95494) never from the Matriarchs by Ratchet",
+			"faction": "Horde",
+			"property": "notCampOf",
+			"quest": 95494,
+			"objective": 0,
+			"near": {
+				"map": 1413,
+				"x": 61.5,
+				"y": 33.1,
+				"yards": 250
+			},
+			"source": {
+				"refs": [
+					"#273",
+					"#329",
+					"tests/guides-reported.test.js \"Savannah Lion Hide\""
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C39c",
+			"title": "Barrens: Lion Hides (95494) worked with Vrang's Game (95507) traps",
+			"faction": "Horde",
+			"property": "sameVisit",
+			"a": {
+				"quest": 95494,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 95507,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#273",
+					"#329",
+					"tests/guides-reported.test.js \"Savannah Lion Hide\""
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C40a",
+			"title": "Redridge: Iron Pikes (89) from the Redridge Brutes",
+			"faction": "Alliance",
+			"property": "campOf",
+			"quest": 89,
+			"objective": 0,
+			"near": {
+				"map": 1433,
+				"x": 25.5,
+				"y": 35.5,
+				"yards": 237
+			},
+			"source": {
+				"refs": [
+					"#280",
+					"tests/guides-reported.test.js \"Iron Pike and Iron Rivet\""
+				],
+				"credit": [
+					"Avtom"
+				]
+			}
+		},
+		{
+			"id": "C40b",
+			"title": "Redridge: Iron Rivets (89) from the Redridge Brutes",
+			"faction": "Alliance",
+			"property": "campOf",
+			"quest": 89,
+			"objective": 1,
+			"near": {
+				"map": 1433,
+				"x": 25.5,
+				"y": 35.5,
+				"yards": 237
+			},
+			"source": {
+				"refs": [
+					"#280",
+					"tests/guides-reported.test.js \"Iron Pike and Iron Rivet\""
+				],
+				"credit": [
+					"Avtom"
+				]
+			}
+		},
+		{
+			"id": "C40c",
+			"title": "Redridge: Iron Pikes and Rivets (89) not from the rare Ribchaser's camp",
+			"faction": "Alliance",
+			"property": "notCampOf",
+			"quest": 89,
+			"near": {
+				"map": 1433,
+				"x": 18.95,
+				"y": 72.75,
+				"yards": 283
+			},
+			"source": {
+				"refs": [
+					"#280",
+					"tests/guides-reported.test.js \"Iron Pike and Iron Rivet\""
+				],
+				"credit": [
+					"Avtom"
+				]
+			}
+		},
+		{
+			"id": "C41a",
+			"title": "Redridge: Battleworn Axes (20) from the normal camps south",
+			"faction": "Alliance",
+			"property": "campOf",
+			"quest": 20,
+			"objective": 0,
+			"near": {
+				"map": 1433,
+				"x": 67.5,
+				"y": 72.5,
+				"yards": 189
+			},
+			"source": {
+				"refs": [
+					"#340",
+					"#126",
+					"#286"
+				],
+				"credit": [
+					"Tazul",
+					"Smuve"
+				]
+			}
+		},
+		{
+			"id": "C41b",
+			"title": "Redridge: Blackrock Blockade (98387) done in the same pass as the axes (20)",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 20,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 98387,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#340",
+					"#126",
+					"#286"
+				],
+				"credit": [
+					"Tazul",
+					"Smuve"
+				]
+			}
+		},
+		{
+			"id": "C42a",
+			"title": "Westfall (A6): Gnoll Paws (102) from the northern hills' level 11-13 gnolls",
+			"faction": "Alliance",
+			"property": "campOf",
+			"quest": 102,
+			"objective": 0,
+			"near": {
+				"map": 1436,
+				"x": 45.8,
+				"y": 22.4,
+				"yards": 481
+			},
+			"source": {
+				"refs": [
+					"#385"
+				],
+				"credit": [
+					"Bashidian Twotao"
+				]
+			}
+		},
+		{
+			"id": "C42b",
+			"title": "Westfall (A6): Gnoll Paws (102) never from the 16-19 Bandits, Taskmasters and Mystics",
+			"faction": "Alliance",
+			"property": "notCampOf",
+			"quest": 102,
+			"objective": 0,
+			"near": {
+				"map": 1436,
+				"x": 57.2,
+				"y": 69.05,
+				"yards": 390
+			},
+			"source": {
+				"refs": [
+					"#385"
+				],
+				"credit": [
+					"Bashidian Twotao"
+				]
+			}
+		},
+		{
+			"id": "C43a",
+			"title": "Teldrassil: Timberling Seeds (918) at Lake Al'Ameth",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "campOf",
+			"quest": 918,
+			"objective": 0,
+			"near": {
+				"map": 1438,
+				"x": 58.25,
+				"y": 68.2,
+				"yards": 243
+			},
+			"source": {
+				"refs": [
+					"#327"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C43b",
+			"title": "Teldrassil: Timberling Seeds (918) never from the Elder Timberlings at the Oracle Glade",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "notCampOf",
+			"quest": 918,
+			"objective": 0,
+			"near": {
+				"map": 1438,
+				"x": 43.8,
+				"y": 27.2,
+				"yards": 150
+			},
+			"source": {
+				"refs": [
+					"#327"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C44",
+			"title": "Tirisfal, Undead Warlock: Piercing the Veil (1470) skulls in the same pass as Rattling the Rattlecages (3901)",
+			"faction": "Horde",
+			"race": "Scourge",
+			"cls": "WARLOCK",
+			"property": "sameVisit",
+			"a": {
+				"quest": 1470,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 3901,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#345"
+				],
+				"credit": [
+					"an3vilmonk3y"
+				]
+			}
+		},
+		{
+			"id": "C45a",
+			"title": "Teldrassil: The Sleeping Druid (2541) done before Escaping Ban'ethil (99053) is accepted",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "before",
+			"a": {
+				"quest": 2541,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 99053,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#334"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C45b",
+			"title": "Teldrassil: The Relics of Wakening (483) done before Escaping Ban'ethil (99053) is accepted",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "before",
+			"a": {
+				"quest": 483,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 99053,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#334"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C46",
+			"title": "Westfall: Harvesting the Harvesters (92910) never required; taken only if the 0.09% Assembly drops",
+			"faction": "Alliance",
+			"property": "optional",
+			"quest": 92910,
+			"todo": "needs optional (a starter-drop chance, harvest N10)",
+			"source": {
+				"refs": [
+					"#298",
+					"PR #322"
+				],
+				"credit": [
+					"b7216309-jpg"
+				]
+			}
+		},
+		{
+			"id": "C47",
+			"title": "Caves: the arrow leads to the cave mouths",
+			"faction": "Alliance",
+			"property": "arrow",
+			"todo": "needs arrow (nav, piece 4, not the sim)",
+			"source": {
+				"refs": [
+					"PR #16",
+					"PR #52",
+					"PR #61"
+				],
+				"credit": [
+					"Tom",
+					"thmastin",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C48",
+			"title": "Guide patterns: a giver beside the spawn first (#73), class letters on a training visit (#103)",
+			"faction": "Alliance",
+			"property": "pattern",
+			"todo": "needs pattern (holds across all routes)",
+			"source": {
+				"refs": [
+					"tests/guides-patterns.test.js"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C49a",
+			"title": "Every hearth goes to an inn the route bound (Alliance)",
+			"faction": "Alliance",
+			"property": "boundAt",
+			"source": {
+				"refs": [
+					"#171",
+					"tests/guides-reported.test.js \"#171\""
+				],
+				"credit": [
+					"psykzz"
+				]
+			}
+		},
+		{
+			"id": "C49h",
+			"title": "Every hearth goes to an inn the route bound (Horde)",
+			"faction": "Horde",
+			"property": "boundAt",
+			"source": {
+				"refs": [
+					"#171",
+					"tests/guides-reported.test.js \"#171\""
+				],
+				"credit": [
+					"psykzz"
+				]
+			}
+		},
+		{
+			"id": "C50",
+			"title": "Barrens: the first Kadrak visit walks up the Barrens road, without the Ashenvale crossing",
+			"faction": "Horde",
+			"property": "path",
+			"quest": 6541,
+			"todo": "needs path (which crossing a walk takes)",
+			"source": {
+				"refs": [
+					"#246",
+					"PR #258",
+					"PR #260"
+				],
+				"credit": [
+					"fitzforge",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C51",
+			"title": "Tirion quests (5542-5544, 5742, 5781) at Tirion Fordring (npc 1855), never Lord Tirion Fordring (12126)",
+			"faction": "Alliance",
+			"property": "giver",
+			"quests": [
+				5542,
+				5543,
+				5544,
+				5742,
+				5781
+			],
+			"npc": 1855,
+			"notNpc": 12126,
+			"todo": "needs giver (which giver NPC an accept uses)",
+			"source": {
+				"refs": [
+					"#246",
+					"tests/guides-reported.test.js \"#246: every goal with Tirion\""
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C52a",
+			"title": "A Tauren in Thunder Bluff flies to Camp Taurajo from the flight master, with no lift ride",
+			"faction": "Horde",
+			"race": "Tauren",
+			"property": "mode",
+			"from": {
+				"map": 1456,
+				"x": 46.65,
+				"y": 49.9,
+				"yards": 30
+			},
+			"to": {
+				"map": 1413,
+				"x": 44.46,
+				"y": 59.1,
+				"yards": 30
+			},
+			"act": "fly",
+			"without": [
+				"ride"
+			],
+			"source": {
+				"refs": [
+					"#347",
+					"#349"
+				],
+				"credit": [
+					"risco"
+				]
+			}
+		},
+		{
+			"id": "C52b",
+			"title": "Stormwind Dwarven District to Ironforge rides the Deeprun Tram",
+			"faction": "Alliance",
+			"race": "Human",
+			"property": "mode",
+			"from": {
+				"map": 1453,
+				"x": 66.04,
+				"y": 39.37,
+				"yards": 40
+			},
+			"to": {
+				"map": 1455,
+				"x": 55.89,
+				"y": 47.87,
+				"yards": 30
+			},
+			"act": "ride",
+			"source": {
+				"refs": [
+					"#338"
+				],
+				"credit": [
+					"Tazul"
+				]
+			}
+		},
+		{
+			"id": "C52c",
+			"title": "Undercity to Varimathras walks inside the city",
+			"faction": "Horde",
+			"race": "Scourge",
+			"property": "path",
+			"todo": "needs path (indoor walk vs a straight line, blocked on #420)",
+			"source": {
+				"refs": [
+					"#350",
+					"#420"
+				],
+				"credit": [
+					"Annie"
+				]
+			}
+		},
+		{
+			"id": "C52d",
+			"title": "Duskwood (A1): Sven's camp to the Sentinel Hill flight master is a walk across the river, no hearth or flight",
+			"faction": "Alliance",
+			"property": "mode",
+			"from": {
+				"map": 1431,
+				"x": 7.8,
+				"y": 34.1,
+				"yards": 40
+			},
+			"to": {
+				"map": 1436,
+				"x": 56.57,
+				"y": 52.67,
+				"yards": 30
+			},
+			"act": "walk",
+			"without": [
+				"hearth",
+				"fly"
+			],
+			"source": {
+				"refs": [
+					"#371"
+				],
+				"credit": [
+					"Ioney"
+				]
+			}
+		},
+		{
+			"id": "C52e",
+			"title": "Elwynn (A2): Eastvale to Darkshire over the Darkshire bridge, not through Redridge",
+			"faction": "Alliance",
+			"property": "path",
+			"todo": "needs path (which crossing a walk takes)",
+			"source": {
+				"refs": [
+					"#421"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C53a",
+			"title": "Skyborne Shaman at Shen'dar trains with Aarnor Galestrike",
+			"faction": "Horde",
+			"race": "Skyborne",
+			"cls": "SHAMAN",
+			"property": "service",
+			"todo": "needs service (a named trainer: service NPC ids, harvest N3)",
+			"source": {
+				"refs": [
+					"#299",
+					"#281",
+					"#79"
+				],
+				"credit": [
+					"MrBackus"
+				]
+			}
+		},
+		{
+			"id": "C53b",
+			"title": "Skyborne Rogue at Valanaar (12) trains at the nearest rogue trainer",
+			"faction": "Alliance",
+			"race": "Skyborne",
+			"cls": "ROGUE",
+			"property": "service",
+			"todo": "needs service (the nearest trainer from a place)",
+			"source": {
+				"refs": [
+					"#299",
+					"#281",
+					"#79"
+				],
+				"credit": [
+					"Phear"
+				]
+			}
+		},
+		{
+			"id": "C53c",
+			"title": "Night Elf at 18 in Darkshore repairs in Auberdine, never Hyjal",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "service",
+			"todo": "needs service (where a repair happens)",
+			"source": {
+				"refs": [
+					"#299",
+					"#281",
+					"#79"
+				],
+				"credit": [
+					"Sevenleafclover"
+				]
+			}
+		},
+		{
+			"id": "C54",
+			"title": "Night Elf (A3): Flight to Auberdine (6342) flies the hippogryph from Rut'theran Village to Auberdine, never the boat",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"property": "mode",
+			"from": {
+				"map": 1438,
+				"x": 57.2,
+				"y": 91.8,
+				"yards": 250
+			},
+			"to": {
+				"map": 1439,
+				"x": 36.4,
+				"y": 45.62,
+				"yards": 250
+			},
+			"act": "fly",
+			"without": [
+				"ride",
+				"boat"
+			],
+			"source": {
+				"refs": [
+					"#402",
+					"#403"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C55a",
+			"title": "Westfall arrival (A4): Furlbrow's Deed (184) taken on the way to Sentinel Hill",
+			"faction": "Alliance",
+			"property": "onLeg",
+			"quest": 184,
+			"step": "accept",
+			"source": {
+				"refs": [
+					"#416"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C55b",
+			"title": "Westfall arrival (A4): Report to Gryan Stoutmantle (109) handed in after the road quests",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 184,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 109,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#416"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C55c",
+			"title": "Westfall arrival (A4): Saldean's Westfall Stew (36) taken on the way",
+			"faction": "Alliance",
+			"property": "onLeg",
+			"quest": 36,
+			"step": "accept",
+			"source": {
+				"refs": [
+					"#416"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "C56a1",
+			"title": "Zephras tower (A5, Alliance): The Anchors of Zephras (94414) done before Harmony in Balance (92461) goes to Rorian",
+			"faction": "Alliance",
+			"race": "Skyborne",
+			"property": "before",
+			"a": {
+				"quest": 94414,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 92461,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#363"
+				],
+				"credit": [
+					"Alx"
+				]
+			}
+		},
+		{
+			"id": "C56a2",
+			"title": "Zephras tower (A5, Alliance): Falling With Style (92474) done before Harmony in Balance (92461) goes to Rorian",
+			"faction": "Alliance",
+			"race": "Skyborne",
+			"property": "before",
+			"a": {
+				"quest": 92474,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 92461,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#363"
+				],
+				"credit": [
+					"Alx"
+				]
+			}
+		},
+		{
+			"id": "C56a3",
+			"title": "Zephras tower (A5, Alliance): The Anchors of Zephras (94414) and Falling With Style (92474) handed in together after the glide",
+			"faction": "Alliance",
+			"race": "Skyborne",
+			"property": "sameVisit",
+			"a": {
+				"quest": 94414,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 92474,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#363"
+				],
+				"credit": [
+					"Alx"
+				]
+			}
+		},
+		{
+			"id": "C56h1",
+			"title": "Zephras tower (A5, Horde): The Anchors of Zephras (94414) done before Harmony in Balance (92461) goes to Rorian",
+			"faction": "Horde",
+			"race": "Skyborne",
+			"property": "before",
+			"a": {
+				"quest": 94414,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 92461,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#363"
+				],
+				"credit": [
+					"Alx"
+				]
+			}
+		},
+		{
+			"id": "C56h2",
+			"title": "Zephras tower (A5, Horde): Falling With Style (92474) done before Harmony in Balance (92461) goes to Rorian",
+			"faction": "Horde",
+			"race": "Skyborne",
+			"property": "before",
+			"a": {
+				"quest": 92474,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 92461,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#363"
+				],
+				"credit": [
+					"Alx"
+				]
+			}
+		},
+		{
+			"id": "C56h3",
+			"title": "Zephras tower (A5, Horde): The Anchors of Zephras (94414) and Falling With Style (92474) handed in together after the glide",
+			"faction": "Horde",
+			"race": "Skyborne",
+			"property": "sameVisit",
+			"a": {
+				"quest": 94414,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 92474,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#363"
+				],
+				"credit": [
+					"Alx"
+				]
+			}
+		},
+		{
+			"id": "C57a-78132",
+			"title": "Ashenvale (A7): a non-Warrior never takes Dragonslayer's Helm (78132), Warrior-only",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "MAGE",
+			"property": "never",
+			"quest": 78132,
+			"source": {
+				"refs": [
+					"#383",
+					"#396",
+					"PR #388"
+				],
+				"credit": [
+					"Zerkness",
+					"Ioney",
+					"c0njure"
+				]
+			}
+		},
+		{
+			"id": "C57a-78133",
+			"title": "Ashenvale (A7): a non-Warrior never takes Dragonslayer's Shield (78133), Warrior-only",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "MAGE",
+			"property": "never",
+			"quest": 78133,
+			"source": {
+				"refs": [
+					"#383",
+					"#396",
+					"PR #388"
+				],
+				"credit": [
+					"Zerkness",
+					"Ioney",
+					"c0njure"
+				]
+			}
+		},
+		{
+			"id": "C57a-78134",
+			"title": "Ashenvale (A7): a non-Warrior never takes Dragonslayer's Lance (78134), Warrior-only",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "MAGE",
+			"property": "never",
+			"quest": 78134,
+			"source": {
+				"refs": [
+					"#383",
+					"#396",
+					"PR #388"
+				],
+				"credit": [
+					"Zerkness",
+					"Ioney",
+					"c0njure"
+				]
+			}
+		},
+		{
+			"id": "C57h-78132",
+			"title": "Ashenvale (A7): a non-Warrior never takes Dragonslayer's Helm (78132), Warrior-only",
+			"faction": "Horde",
+			"race": "Orc",
+			"cls": "MAGE",
+			"property": "never",
+			"quest": 78132,
+			"source": {
+				"refs": [
+					"#383",
+					"#396",
+					"PR #388"
+				],
+				"credit": [
+					"Zerkness",
+					"Ioney",
+					"c0njure"
+				]
+			}
+		},
+		{
+			"id": "C57h-78133",
+			"title": "Ashenvale (A7): a non-Warrior never takes Dragonslayer's Shield (78133), Warrior-only",
+			"faction": "Horde",
+			"race": "Orc",
+			"cls": "MAGE",
+			"property": "never",
+			"quest": 78133,
+			"source": {
+				"refs": [
+					"#383",
+					"#396",
+					"PR #388"
+				],
+				"credit": [
+					"Zerkness",
+					"Ioney",
+					"c0njure"
+				]
+			}
+		},
+		{
+			"id": "C57h-78134",
+			"title": "Ashenvale (A7): a non-Warrior never takes Dragonslayer's Lance (78134), Warrior-only",
+			"faction": "Horde",
+			"race": "Orc",
+			"cls": "MAGE",
+			"property": "never",
+			"quest": 78134,
+			"source": {
+				"refs": [
+					"#383",
+					"#396",
+					"PR #388"
+				],
+				"credit": [
+					"Zerkness",
+					"Ioney",
+					"c0njure"
+				]
+			}
+		},
+		{
+			"id": "C58",
+			"title": "Barrens: Her Name Is Olgra (95774) only after Lost in Battle (4921)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 4921,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 95774,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#65",
+					"#66"
+				],
+				"credit": [
+					"Hotline"
+				]
+			}
+		},
+		{
+			"id": "C59a",
+			"title": "Return to Bodley (8996) handed in before Back to the Beginning (8997)",
+			"faction": "Alliance",
+			"property": "before",
+			"a": {
+				"quest": 8996,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 8997,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"legacy-challenges\""
+				],
+				"credit": [
+					"tests (no reporter named)"
+				]
+			}
+		},
+		{
+			"id": "C59h",
+			"title": "Return to Bodley (8996) handed in before Back to the Beginning (8998)",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 8996,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 8998,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"legacy-challenges\""
+				],
+				"credit": [
+					"tests (no reporter named)"
+				]
+			}
+		},
+		{
+			"id": "C60a",
+			"title": "Dun Morogh: Ammo for Rumbleshot (5541) from the Ammo Crate by Gretchen (44.13,56.95)",
+			"faction": "Alliance",
+			"property": "campOf",
+			"quest": 5541,
+			"objective": 0,
+			"near": {
+				"map": 1426,
+				"x": 44.13,
+				"y": 56.95,
+				"yards": 60
+			},
+			"source": {
+				"refs": [
+					"#241",
+					"tests/guides-reported.test.js \"Rumbleshot's Ammo leads to the Ammo Crate\""
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C60b",
+			"title": "Darkshore: The Red Crystal (4811) at its trigger",
+			"faction": "Alliance",
+			"property": "held",
+			"quest": 4811,
+			"todo": "needs held (an event objective at its trigger)",
+			"source": {
+				"refs": [
+					"#241",
+					"tests/guides-reported.test.js \"Rumbleshot's Ammo leads to the Ammo Crate\""
+				],
+				"credit": [
+					"Twerkjob"
+				]
+			}
+		},
+		{
+			"id": "C61a",
+			"title": "Dun Morogh: Rime's Wrath (99160) finished at the small lake west of Misty Pine Refuge (56.37,44.73)",
+			"faction": "Alliance",
+			"property": "at",
+			"quest": 99160,
+			"near": {
+				"map": 1426,
+				"x": 56.37,
+				"y": 44.73,
+				"yards": 80
+			},
+			"todo": "needs at (where an objective finishes, harvest N11)",
+			"source": {
+				"refs": [
+					"PR #238 62e70b3d"
+				],
+				"credit": [
+					"thmastin"
+				]
+			},
+			"race": "Dwarf"
+		},
+		{
+			"id": "C61b",
+			"title": "Darkshore: Grizzled Scalps (1003) collected on the visit that hands in Buzzbox 525",
+			"faction": "Alliance",
+			"property": "sameVisit",
+			"a": {
+				"quest": 1003,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 1003,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"tests/guides-reported.test.js \"Grizzled Scalps are collected in the step at the Grove\""
+				],
+				"credit": [
+					"Phear"
+				]
+			}
+		},
+		{
+			"id": "C62",
+			"title": "Stonetalon: a Warsong Report (16746) in the bags before the Warsong Scout (16764), on Kadrak's visit",
+			"faction": "Horde",
+			"property": "requires",
+			"quest": 6543,
+			"todo": "needs requires (an item opened from a bundle, harvest N7)",
+			"source": {
+				"refs": [
+					"#278",
+					"PR #293"
+				],
+				"credit": [
+					"Hotline",
+					"muffe",
+					"PRDesrochers"
+				]
+			}
+		},
+		{
+			"id": "C63a",
+			"title": "Tirisfal: Coarse Thread (2320) bought from Brill's vendor (2118) on the visit that hands in The Chill of Death (375)",
+			"faction": "Horde",
+			"property": "sameVisit",
+			"a": {
+				"act": "buy",
+				"item": 2320
+			},
+			"b": {
+				"quest": 375,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#365",
+					"PR #381"
+				],
+				"credit": [
+					"Onrevax",
+					"PRDesrochers"
+				]
+			},
+			"race": "Undead"
+		},
+		{
+			"id": "C63b",
+			"title": "Tirisfal: Coarse Thread (2320) bought before The Chill of Death (375) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"act": "buy",
+				"item": 2320
+			},
+			"b": {
+				"quest": 375,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#365",
+					"PR #381"
+				],
+				"credit": [
+					"Onrevax",
+					"PRDesrochers"
+				]
+			},
+			"race": "Undead"
+		},
+		{
+			"id": "C64a",
+			"title": "Undead Paladin: Rediscovering the Light (90902) heals done in the first Deathknell pass",
+			"faction": "Horde",
+			"race": "Scourge",
+			"cls": "PALADIN",
+			"property": "sameVisit",
+			"a": {
+				"quest": 90902,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 90902,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#408",
+					"PR #413"
+				],
+				"credit": [
+					"Hotline",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C64b",
+			"title": "Undead Paladin: Rediscovering the Light (90902) heals done before the turn-in",
+			"faction": "Horde",
+			"race": "Scourge",
+			"cls": "PALADIN",
+			"property": "before",
+			"a": {
+				"quest": 90902,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 90902,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#408",
+					"PR #413"
+				],
+				"credit": [
+					"Hotline",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "C65",
+			"title": "Tirisfal: A Light in the Darkness (98389) not accepted before The Damned (376) is handed in",
+			"faction": "Horde",
+			"race": "Scourge",
+			"property": "before",
+			"a": {
+				"quest": 376,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 98389,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#120",
+					"PR #359"
+				],
+				"credit": [
+					"Onrevax",
+					"thmastin"
+				]
+			}
+		},
+		{
+			"id": "S02-99152",
+			"title": "Undead Paladin: As Above, So Below (99152) not accepted below level 10 (no 96896 prerequisite)",
+			"faction": "Horde",
+			"race": "Scourge",
+			"cls": "PALADIN",
+			"property": "notBefore",
+			"quest": 99152,
+			"level": 10,
+			"source": {
+				"refs": [
+					"#343",
+					"#51"
+				],
+				"credit": [
+					"Mike_",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "S02-99153",
+			"title": "Undead Paladin: The One That Got Away (99153) not accepted below level 10 (no 96896 prerequisite)",
+			"faction": "Horde",
+			"race": "Scourge",
+			"cls": "PALADIN",
+			"property": "notBefore",
+			"quest": 99153,
+			"level": 10,
+			"source": {
+				"refs": [
+					"#343",
+					"#51"
+				],
+				"credit": [
+					"Mike_",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "S03",
+			"title": "Darkshore: The Blackwood Corrupted (4763) bowl (12347) filled at the Auberdine Moonwell before the Blackwood camp",
+			"faction": "Alliance",
+			"property": "requires",
+			"quest": 4763,
+			"item": 12347,
+			"todo": "needs requires (an item filled at an object, harvest N7)",
+			"source": {
+				"refs": [
+					"#302",
+					"PR #316",
+					"PR #321"
+				],
+				"credit": [
+					"XooVe",
+					"b7216309-jpg",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "V01",
+			"title": "Durotar: Sen'jin's second visit swept with its Razor Hill hand-in (817, 818, 97225, 826, 808, 786, 97223, 823)",
+			"faction": "Horde",
+			"property": "singleVisit",
+			"quests": [
+				817,
+				818,
+				97225,
+				826,
+				808,
+				786,
+				97223,
+				823
+			],
+			"why": "Sen'jin's 8 quests taken on one visit and done through the Echo Isles, Kolkar Crag and the Report to Orgnil turn-in at Razor Hill, not split with Thwarting Kolkar Aggression left for later (route-compare stretch 1, #352)",
+			"source": {
+				"refs": [
+					"#352",
+					"guides/forever/horde/orc-troll/01-durotar.guide:260-376"
+				],
+				"credit": [
+					"tor",
+					"fitzforge"
+				]
+			},
+			"race": "Orc"
+		},
+		{
+			"id": "V02",
+			"title": "Barrens: Regthar's Kolkar quests together (Centaur Bracers 855, Kolkar Leaders 850)",
+			"faction": "Horde",
+			"property": "singleVisit",
+			"quests": [
+				855,
+				850
+			],
+			"why": "Centaur Bracers and Kolkar Leaders worked on one walk to Regthar and one pass through the Kolkar camps (route-compare stretch 2)",
+			"source": {
+				"refs": [
+					"#76",
+					"guides/forever/horde/orc-troll/02-the-barrens.guide:196",
+					"guides/forever/horde/04-the-barrens.guide:231"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "V03",
+			"title": "Barrens: Ratchet's pirates together (Southsea Freebooters 887, WANTED: Baron Longshore 895)",
+			"faction": "Horde",
+			"property": "singleVisit",
+			"quests": [
+				887,
+				895
+			],
+			"why": "Southsea Freebooters and WANTED: Baron Longshore taken, done and handed in together at Ratchet and the Southsea beach (route-compare stretch 3)",
+			"source": {
+				"refs": [
+					"guides/forever/horde/orc-troll/02-the-barrens.guide:148",
+					"guides/forever/horde/04-the-barrens.guide:117-130"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "V04",
+			"title": "Stranglethorn: the Bloodscalp camps worked once for Hunt for Yenniku (581), Bloodscalp Ears (189) and Bloody Bone Necklaces (596)",
+			"faction": "Horde",
+			"property": "singleVisit",
+			"quests": [
+				581,
+				189,
+				596
+			],
+			"steps": [
+				"objective"
+			],
+			"why": "The three Bloodscalp drops (tusks 3901, ears 1519, necklaces 3915, all from the Bloodscalp trolls) in one pass through the camps, not three (route-compare stretch 5)",
+			"source": {
+				"refs": [
+					"guides/forever/horde/30-40/02-stranglethorn-vale.guide:149,221,275"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "V05",
+			"title": "Elwynn: the Young Forest Bears worked once for An Enticing Offer's blood vials (99130) and Protect the Frontier's bears (52)",
+			"faction": "Alliance",
+			"race": "Human",
+			"property": "singleVisit",
+			"quests": [
+				99130,
+				52
+			],
+			"steps": [
+				"objective"
+			],
+			"match": [
+				{
+					"quest": 99130,
+					"item": 286215
+				},
+				{
+					"quest": 52,
+					"npc": 822
+				}
+			],
+			"why": "Vial of Animal Blood (286215, dropped by Young Forest Bear 822) and Protect the Frontier's Young Forest Bear kills in one bear visit, not 1,272 yd and two levels apart (route-compare stretch 6)",
+			"source": {
+				"refs": [
+					"guides/forever/alliance/human/01-elwynn-forest.guide:293,384"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C66",
+			"title": "Barrens: Lion Hides and Trapped Game on the first Dry Hills pass",
+			"faction": "Horde",
+			"property": "doneBy",
+			"quests": [
+				95494,
+				95507
+			],
+			"level": 17,
+			"todo": "needs doneBy (objectives finished by a level: the first Dry Hills pass at about 16)",
+			"source": {
+				"refs": [
+					"#274"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "C67",
+			"title": "Alliance: the Shimmering Flats quests (the guide's 28-31) are not reached by walking the Barrens road (Horde ground)",
+			"faction": "Alliance",
+			"race": "Human",
+			"property": "notThrough",
+			"quests": [
+				1104,
+				1105,
+				1110,
+				1175,
+				1176
+			],
+			"map": 1413,
+			"note": "Seconds in the Barrens from each leg's routed walk (the travel action's enemy seconds, territory.js terrSec), allowed one zone-grid cell (world.danger's, 200 yd) at the border at the leg's speed: a walk along the Thousand Needles edge clips a Barrens cell.",
+			"source": {
+				"refs": [
+					"Discord, Luna, 2026-10-20: \"It sent me out to the salt flats in the Barrens. Getting XP but kind of rough out here.\"",
+					"data/local/research/FactionLevelingZones.md"
+				],
+				"credit": [
+					"Luna"
+				]
+			}
+		},
+		{
+			"id": "C576",
+			"title": "Undead: consecutive hearths at least the hearthstone's 60 min of play apart (Warrior)",
+			"faction": "Horde",
+			"race": "Undead",
+			"class": "WARRIOR",
+			"property": "hearthSpacing",
+			"source": {
+				"refs": [
+					"#576",
+					"Discord, Hotline (Scourge Paladin, level 12): \"Hearthstone is on cooldown.\"",
+					"guides/forever/horde/undead/01-tirisfal-glades.guide: hearth 2 at line 416, hearth 3 at line 569"
+				],
+				"credit": [
+					"Hotline"
+				]
+			}
+		},
+		{
+			"id": "C576p",
+			"title": "Undead: consecutive hearths at least the hearthstone's 60 min of play apart (Paladin)",
+			"faction": "Horde",
+			"race": "Undead",
+			"class": "PALADIN",
+			"property": "hearthSpacing",
+			"source": {
+				"refs": [
+					"#576",
+					"Discord, Hotline (Scourge Paladin, level 12): \"Hearthstone is on cooldown.\"",
+					"guides/forever/horde/undead/01-tirisfal-glades.guide: hearth 2 at line 416, hearth 3 at line 569"
+				],
+				"credit": [
+					"Hotline"
+				]
+			}
+		},
+		{
+			"id": "M592",
+			"title": "Barrens: Ishamuhale (882) is summoned with a Fresh Zhevra Carcass (10338) used at the dead tree before he is killed",
+			"faction": "Horde",
+			"race": "Orc",
+			"cls": "HUNTER",
+			"property": "before",
+			"a": {
+				"act": "use",
+				"item": 10338
+			},
+			"b": {
+				"quest": 882,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#592",
+					"data/local/research/PastIssuesVsV2.md (A, still broken)",
+					"data/local/research/WebCheck.md 882"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "M302",
+			"title": "Darkshore: The Blackwood Corrupted (4763): the Blackwood Fruit Sample (12341) is looted before the Talisman of Corruption",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "MAGE",
+			"property": "before",
+			"a": {
+				"act": "loot",
+				"item": 12341
+			},
+			"b": {
+				"quest": 4763,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#302",
+					"data/local/research/PastIssuesVsV2.md (A, LOST)",
+					"data/local/research/WebCheck.md 4763"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "M108",
+			"title": "Dun Morogh: Distracting Jarven (308) is handed in before Bitter Rivals (310)'s barrel",
+			"faction": "Alliance",
+			"race": "Dwarf",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"quest": 308,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 310,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#108",
+					"data/local/research/PastIssuesVsV2.md (A, LOST)"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "M391a",
+			"title": "Ashenvale: Elemental Bracers (1016) is taken",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"cls": "WARRIOR",
+			"property": "taken",
+			"quest": 1016,
+			"source": {
+				"refs": [
+					"#391",
+					"data/local/research/PastIssuesVsV2.md (A, still broken)"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "M391b",
+			"title": "Ashenvale: Elemental Bracers (1016): the Intact Elemental Bracers (12220) are looted before the turn-in",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"act": "loot",
+				"item": 12220
+			},
+			"b": {
+				"quest": 1016,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#391",
+					"data/local/research/PastIssuesVsV2.md (A, still broken)"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "M221",
+			"title": "Elwynn: Croaky's Head (91740) is taken (an optional extra on the murloc shore)",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "WARRIOR",
+			"property": "taken",
+			"quest": 91740,
+			"source": {
+				"refs": [
+					"#221",
+					"data/local/research/PastIssuesVsV2.md (D, LOST; v2 rule H29a skips it)"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "M424a",
+			"title": "Thousand Needles: Test of Endurance (1150) is never handed in without Grenka's Claw (5843) looted",
+			"faction": "Horde",
+			"race": "Tauren",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"act": "loot",
+				"item": 5843
+			},
+			"b": {
+				"quest": 1150,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#424",
+					"data/local/research/PastIssuesVsV2.md (E, still broken)",
+					"data/local/research/WebCheck.md 1150"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "M424b",
+			"title": "Key to the City (93680) is never handed in without the Grimy Key (279469) looted",
+			"faction": "Horde",
+			"race": "Tauren",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"act": "loot",
+				"item": 279469
+			},
+			"b": {
+				"quest": 93680,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#424",
+					"data/local/research/PastIssuesVsV2.md (E, still broken)"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "M619",
+			"title": "Teldrassil: Ferocitas the Dream Eater (2459): the Gnarlpine Necklace (8049) is looted before the turn-in",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"act": "loot",
+				"item": 8049
+			},
+			"b": {
+				"quest": 2459,
+				"step": "turnin"
+			},
+			"source": {
+				"refs": [
+					"#619",
+					"#625",
+					"data/local/research/PRScan-2026-10-21.md"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "M613",
+			"title": "Elwynn: The Escape (114) is accepted after Deliver Thomas' Report (39) is handed in to Marshal Dughan (fills William Pestle's brew)",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"quest": 39,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 114,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#613",
+					"#627",
+					"data/local/research/PRScan-2026-10-21.md"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "M614",
+			"title": "Wetlands: Digging Through the Ooze (470): Sida's Bag is worked at Ironbeard's Tomb",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "WARRIOR",
+			"property": "campOf",
+			"quest": 470,
+			"objective": 0,
+			"near": {
+				"map": 1437,
+				"x": 44.6,
+				"y": 25.6,
+				"yards": 150
+			},
+			"source": {
+				"refs": [
+					"#614",
+					"#628",
+					"data/local/research/PRScan-2026-10-21.md"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "M621",
+			"title": "Westfall: Poor Old Blanchy (151): the oats are gathered in the Jansen Stead's fields",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "WARRIOR",
+			"property": "campOf",
+			"quest": 151,
+			"objective": 0,
+			"near": {
+				"map": 1436,
+				"x": 56.8,
+				"y": 19.1,
+				"yards": 250
+			},
+			"source": {
+				"refs": [
+					"#621",
+					"#634",
+					"data/local/research/PRScan-2026-10-21.md"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "L592a",
+			"title": "The Barrens: Ishamuhale's Fang (882) is taken on the Orc route (summoned target as point work, 88ee9399b)",
+			"faction": "Horde",
+			"race": "Orc",
+			"cls": "WARRIOR",
+			"property": "taken",
+			"quest": 882,
+			"source": {
+				"refs": [
+					"#592",
+					"#626",
+					"data/local/research/routelessons/LostRecheck.md"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "L389a",
+			"title": "Darkshore: Swelling Forces (98013) is taken by Humans (maintainer 2026-10-20: open to Humans)",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "WARRIOR",
+			"property": "taken",
+			"quest": 98013,
+			"source": {
+				"refs": [
+					"#389",
+					"data/local/research/routelessons/LostRecheck.md"
+				],
+				"credit": []
+			}
+		},
+		{
+			"id": "L195a",
+			"title": "Orc Warrior: no walk crosses a zone DANGER_GAP or more levels above the character where the band walk has a way round",
+			"faction": "Horde",
+			"race": "Orc",
+			"cls": "WARRIOR",
+			"property": "maxRisk",
+			"max": 0,
+			"todo": "needs maxRisk (each travel action's risk: dangerous zones the walk crosses, travel2.js R24 / score.js:345); today's route has one risk-1 walk at level 42",
+			"source": {
+				"refs": [
+					"#195"
+				],
+				"credit": [
+					"Taako"
+				]
+			}
+		},
+		{
+			"id": "L611a",
+			"title": "Mulgore: A Task Unfinished (1656) accepted after Rite of Strength (757) is handed in, on the way out of Camp Narache",
+			"faction": "Horde",
+			"race": "Tauren",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"quest": 757,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 1656,
+				"step": "accept"
+			},
+			"note": "Replaces C06 (sameVisit 1656 accept / 750 objective), which encodes the v1 choice #611 disputes",
+			"source": {
+				"refs": [
+					"#611",
+					"Discord, Matti (Tauren Druid, level 3): \"leads me out of the starting zone … before finishing all the quests. Wasting bag space\""
+				],
+				"credit": [
+					"Matti"
+				]
+			}
+		},
+		{
+			"id": "L611b",
+			"title": "Mulgore: A Task Unfinished (1656) accepted after The Battleboars (780) is handed in",
+			"faction": "Horde",
+			"race": "Tauren",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"quest": 780,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 1656,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#611"
+				],
+				"credit": [
+					"Matti"
+				]
+			}
+		},
+		{
+			"id": "L612a",
+			"title": "Elwynn: The Jasperlode Mine (76), Delicate Instruments (91723) and Good Steel (91732) worked on one Jasperlode visit",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "WARRIOR",
+			"property": "singleVisit",
+			"quests": [
+				76,
+				91723,
+				91732
+			],
+			"steps": [
+				"objective"
+			],
+			"why": "The explore trigger, the Geomancers and the tool buckets are all at Jasperlode Mine (61-63,50-57); g6 explores it first and comes back after 91723/91732",
+			"source": {
+				"refs": [
+					"#612",
+					"/tmp/w3/g6/alliance-human-warrior/…/01-elwynn-forest.guide:474-484,603-613"
+				],
+				"credit": [
+					"Nittepitte"
+				]
+			}
+		},
+		{
+			"id": "L618a",
+			"title": "Teldrassil: Bounty: Gnarlpine Furbolg (490) accepted before The Road to Darnassus (487) Ambushers are killed",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"quest": 490,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 487,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#618",
+					"data/forever/items.json 5220 drops (2006-2014, 2152, 7235)"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "L618b",
+			"title": "Teldrassil: Bounty: Gnarlpine Furbolg (490) accepted before The Sleeping Druid (2541) is worked in Ban'ethil",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"quest": 490,
+				"step": "accept"
+			},
+			"b": {
+				"quest": 2541,
+				"step": "objective"
+			},
+			"source": {
+				"refs": [
+					"#618"
+				],
+				"credit": [
+					"Pynte"
+				]
+			}
+		},
+		{
+			"id": "L610a",
+			"title": "Wetlands: Blisters on the Land (275) Fen Creepers hunted in the Sundown Marsh waterways, not the patch by Rethiel",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "WARRIOR",
+			"property": "campOf",
+			"quest": 275,
+			"objective": 0,
+			"near": {
+				"map": 1437,
+				"x": 24.5,
+				"y": 33.2,
+				"yards": 300
+			},
+			"todo": "needs a camp model that merges the 1-2-spawn Fen Creeper points into a hunting ground and observed respawn/contention: today's supply model prices the 5-6 spawns by Rethiel cheaper; the reporter's spot, KB place 17.6,27.6",
+			"source": {
+				"refs": [
+					"#610",
+					"KB 275 step 1 place \"Wetlands waterways\""
+				],
+				"credit": [
+					"Tazul | Robin"
+				]
+			}
+		},
+		{
+			"id": "L566a",
+			"title": "Undead at Tarren Mill flies to Brill (Undercity), never walks through Alterac",
+			"faction": "Horde",
+			"race": "Undead",
+			"cls": "WARRIOR",
+			"property": "mode",
+			"from": {
+				"map": 1424,
+				"x": 61,
+				"y": 20,
+				"yards": 250
+			},
+			"to": {
+				"map": 1420,
+				"x": 61.8,
+				"y": 52.8,
+				"yards": 300
+			},
+			"act": "fly",
+			"source": {
+				"refs": [
+					"#566"
+				],
+				"credit": [
+					"dogoku"
+				]
+			}
+		},
+		{
+			"id": "L204a",
+			"title": "Westfall: a Human never takes Testing the Wells (92742), Alba Fairmoon's chain is not for Humans",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "WARRIOR",
+			"property": "never",
+			"quest": 92742,
+			"source": {
+				"refs": [
+					"#144",
+					"PR #204"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "L204b",
+			"title": "Westfall: a Human never takes Murloc Gills (92744), Alba Fairmoon's chain is not for Humans",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "WARRIOR",
+			"property": "never",
+			"quest": 92744,
+			"source": {
+				"refs": [
+					"#144",
+					"PR #204"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "L119",
+			"title": "Azshara, Priest: Of Coursers We Know (8255) is taken (Cenarion Aid chain on the Azshara visit)",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "PRIEST",
+			"property": "taken",
+			"quest": 8255,
+			"source": {
+				"refs": [
+					"PR #119"
+				],
+				"credit": [
+					"XrayAlpha"
+				]
+			}
+		},
+		{
+			"id": "L159a",
+			"title": "Blood in the Streets (92434) taken only after Dalaran Patrols (545) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 545,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 92434,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #159",
+					"PR #173"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "L159b",
+			"title": "Blood in the Streets (92434) taken only after Key to the City (93680) is handed in",
+			"faction": "Horde",
+			"property": "before",
+			"a": {
+				"quest": 93680,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 92434,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #159",
+					"PR #173"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "L322a",
+			"title": "Durotar: A Simmering Storm (97281) accepted only after Dustwind Storm Witches (3118, Securing the Lines 835 objective 1) were killed: the Dull Storm Orb drops at ~2%",
+			"faction": "Horde",
+			"race": "Orc",
+			"property": "before",
+			"a": {
+				"quest": 835,
+				"step": "objective",
+				"objective": 1
+			},
+			"b": {
+				"quest": 97281,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#298",
+					"PR #322",
+					"data/local/research/routelessons/PRsB.md"
+				],
+				"credit": [
+					"b7216309-jpg"
+				]
+			}
+		},
+		{
+			"id": "L322b",
+			"title": "Northshire: Nibbled-On Book (91741) accepted only after Kobold Vermin (6) were killed for Kobold Camp Cleanup (7): the book drops at ~1.6%",
+			"faction": "Alliance",
+			"race": "Human",
+			"property": "before",
+			"a": {
+				"quest": 7,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 91741,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#298",
+					"PR #322",
+					"data/local/research/routelessons/PRsB.md"
+				],
+				"credit": [
+					"b7216309-jpg"
+				]
+			}
+		},
+		{
+			"id": "L269a",
+			"title": "Stormwind: Greater Friend of the Library (79536) never taken: offered only after library book hand-ins the route never collects",
+			"faction": "Alliance",
+			"race": "Human",
+			"property": "never",
+			"quest": 79536,
+			"source": {
+				"refs": [
+					"PR #269",
+					"PR #307"
+				],
+				"credit": [
+					"b7216309-jpg"
+				]
+			}
+		},
+		{
+			"id": "L269b",
+			"title": "Stormwind: Greater Friend of the Library (82208) never taken: offered only after library book hand-ins the route never collects",
+			"faction": "Alliance",
+			"race": "Human",
+			"property": "never",
+			"quest": 82208,
+			"source": {
+				"refs": [
+					"PR #269",
+					"PR #307"
+				],
+				"credit": [
+					"b7216309-jpg"
+				]
+			}
+		},
+		{
+			"id": "L269c",
+			"title": "Stormwind: Demons and You (79950) never taken: a library book quest, offered only with the book in the bags",
+			"faction": "Alliance",
+			"race": "Human",
+			"property": "never",
+			"quest": 79950,
+			"source": {
+				"refs": [
+					"PR #269"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "L343a",
+			"title": "Undead Paladin: As Above, So Below (99152) accepted after A Righteous Cause (96896) is handed in (right whether the gate is level 10 or Leonid; verify-in-game)",
+			"faction": "Horde",
+			"race": "Scourge",
+			"cls": "PALADIN",
+			"property": "before",
+			"a": {
+				"quest": 96896,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 99152,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #343",
+					"#51"
+				],
+				"credit": [
+					"MadReign_Ltd",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "L343b",
+			"title": "Undead Paladin: The One That Got Away (99153) accepted after A Righteous Cause (96896) is handed in (right whether the gate is level 10 or Leonid; verify-in-game)",
+			"faction": "Horde",
+			"race": "Scourge",
+			"cls": "PALADIN",
+			"property": "before",
+			"a": {
+				"quest": 96896,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 99153,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #343",
+					"#51"
+				],
+				"credit": [
+					"MadReign_Ltd",
+					"CDVolvik"
+				]
+			}
+		},
+		{
+			"id": "L467a",
+			"title": "Durotar: The Admiral's Orders (830) accepted only after Lieutenant Benedict (3192, 784's third objective) is killed for the chest key",
+			"faction": "Horde",
+			"race": "Orc",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"quest": 784,
+				"step": "objective",
+				"objective": 2
+			},
+			"b": {
+				"quest": 830,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#357",
+					"PR #467",
+					"PR #318",
+					"g6 horde-orc-warrior 01-durotar.guide:242-250"
+				],
+				"credit": [
+					"defect"
+				]
+			}
+		},
+		{
+			"id": "L460a",
+			"title": "Redridge: Making Do (97926) accepted only after Expanding Horizons (97914) is handed in",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"quest": 97914,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 97926,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#453",
+					"PR #460"
+				],
+				"credit": [
+					"Nittepitte"
+				]
+			}
+		},
+		{
+			"id": "L441a",
+			"title": "Barrens: Plainstrider Beaks (844) never from the level 16-17 Ornery Plainstriders west of the Crossroads",
+			"faction": "Horde",
+			"race": "Orc",
+			"cls": "WARRIOR",
+			"property": "notCampOf",
+			"quest": 844,
+			"objective": 0,
+			"near": {
+				"map": 1413,
+				"x": 38.5,
+				"y": 26.4,
+				"yards": 300
+			},
+			"source": {
+				"refs": [
+					"PR #441",
+					"#385"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "L543",
+			"title": "Barrens: an Orc Warlock questing from the Crossroads or Ratchet trains at Strahad Farsan (6251) in Ratchet, not on a trip to Nartok (3156)",
+			"faction": "Horde",
+			"race": "Orc",
+			"cls": "WARLOCK",
+			"property": "service",
+			"npc": 6251,
+			"notNpc": 3156,
+			"todo": "needs service (a named trainer: service NPC ids, harvest N3); data/forever/trainers.json lacks 6251",
+			"source": {
+				"refs": [
+					"PR #543"
+				],
+				"credit": [
+					"bigdefect"
+				]
+			}
+		},
+		{
+			"id": "L557",
+			"title": "Elwynn: The Collector (123) never required: its Gold Pickup Schedule (1307) drops 86% from the rare Gruff Swiftbite (100), 3% from the Riverpaw Runts and Outrunners",
+			"faction": "Alliance",
+			"race": "Human",
+			"property": "optional",
+			"quest": 123,
+			"todo": "needs optional (a starter-drop chance, harvest N10); world.js picks the rare as the starter dropper",
+			"source": {
+				"refs": [
+					"#553",
+					"PR #557"
+				],
+				"credit": [
+					"zeike",
+					"XrayAlpha"
+				]
+			}
+		},
+		{
+			"id": "L562",
+			"title": "Teldrassil: Soft Saber Pelts (87288) and Zenn's Bidding (488) Nightsabers worked on one east-loop visit",
+			"faction": "Alliance",
+			"race": "NightElf",
+			"cls": "WARRIOR",
+			"property": "sameVisit",
+			"a": {
+				"quest": 87288,
+				"step": "objective"
+			},
+			"b": {
+				"quest": 488,
+				"step": "objective",
+				"objective": 0
+			},
+			"source": {
+				"refs": [
+					"#555",
+					"PR #562"
+				],
+				"credit": [
+					"fitzforge"
+				]
+			}
+		},
+		{
+			"id": "L581",
+			"title": "Ashenvale to Wetlands: Seeking Caitlin (95737) is handed to Caitlin Grassman before Lost in the Thicket Things (95647) is taken; Llana stops offering it once 95647 is in the log",
+			"faction": "Alliance",
+			"race": "Human",
+			"cls": "WARRIOR",
+			"property": "before",
+			"a": {
+				"quest": 95737,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 95647,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"#533",
+					"PR #581"
+				],
+				"credit": [
+					"Visur",
+					"PRDesrochers"
+				]
+			}
+		},
+		{
+			"id": "L636",
+			"title": "Barrens: an Orc Shaman finishes Call of Fire (1527 handed to Kranal Fiss, the Fire Totem) before leaving north for Kadrak (6541)",
+			"faction": "Horde",
+			"race": "Orc",
+			"cls": "SHAMAN",
+			"property": "before",
+			"a": {
+				"quest": 1527,
+				"step": "turnin"
+			},
+			"b": {
+				"quest": 6541,
+				"step": "accept"
+			},
+			"source": {
+				"refs": [
+					"PR #636"
+				],
+				"credit": [
+					"HershelW"
+				]
+			}
+		}
+	]
+}

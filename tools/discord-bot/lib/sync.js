@@ -179,7 +179,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	}
 
 	// A message in a thread: the post itself, or a follow-up, the reporter's
-	// or anyone else's (another player's confirmation or a Wowhead link is
+	// or anyone else's (another player's confirmation or a quest database link is
 	// context for whoever triages the issue).
 	async function message(m) {
 		if (m.channel_id === m.id) return newPost(m.id);

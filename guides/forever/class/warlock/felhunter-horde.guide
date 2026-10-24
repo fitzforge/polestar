@@ -17,8 +17,8 @@ why The felhunter, the demon to bring against spellcasters, and a Box of Souls f
 # Binding (1795) back in Ratchet.
 # Sources: quests.json, npcs.json, objects.json and items.json (Questie 12.1.0
 # and Questie-Forever) for the givers, the tome, the chest, the rods and the
-# summoning circle; Wowhead Forever's Warlock class page
-# (data/local/quest-audit/wowhead-class-quests.json): the chain is unchanged in
+# summoning circle; Forever's Warlock class quest list
+# (data/local/quest-audit/): the chain is unchanged in
 # Forever and The Binding pays a Box of Souls.
 # Gan'rul's and Carendin's Seeking Strahad exclude each other; the guide sends
 # Orcs and Trolls to Gan'rul and the Undead to Carendin.

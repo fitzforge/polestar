@@ -1,0 +1,294 @@
+{
+  "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
+  "name": "polestar-data-forever",
+  "title": "Polestar quest data for World of Warcraft: Forever",
+  "version": "2026.10.1",
+  "created": "2026-10-24",
+  "clientBuild": "1.60.1.70532",
+  "schemaVersion": 1,
+  "producerCommit": "9b385df597d2425d8c86cfad8c95d4565e1b3e0f",
+  "licenses": [
+    {
+      "name": "GPL-3.0-only",
+      "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+      "title": "GNU General Public License v3.0"
+    },
+    {
+      "name": "CC-BY-4.0",
+      "path": "https://creativecommons.org/licenses/by/4.0/",
+      "title": "Creative Commons Attribution 4.0"
+    }
+  ],
+  "resources": [
+    {
+      "name": "quest",
+      "description": "One row per quest id.",
+      "path": "data/quest.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 732752,
+      "hash": "sha256:79ed83ccfc809b9f7f2c410478ef15c6e14ba22f261266f25987912cbaf04fb7",
+      "schema": "schema/quest.schema.json",
+      "licenses": [
+        {
+          "name": "GPL-3.0-only",
+          "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "title": "GNU General Public License v3.0"
+        }
+      ]
+    },
+    {
+      "name": "quest_start",
+      "description": "What offers a quest.",
+      "path": "data/quest_start.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 208380,
+      "hash": "sha256:746752605f702e525401ba7e1c22cd3d7becfe107515f858763e7018a7a0f926",
+      "schema": "schema/quest_start.schema.json",
+      "licenses": [
+        {
+          "name": "GPL-3.0-only",
+          "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "title": "GNU General Public License v3.0"
+        }
+      ]
+    },
+    {
+      "name": "quest_end",
+      "description": "Where a quest is turned in.",
+      "path": "data/quest_end.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 196891,
+      "hash": "sha256:70b617e87ddcb050511f4b89d053ca3f4cafa7ca2753012762c660ebfdaec2be",
+      "schema": "schema/quest_end.schema.json",
+      "licenses": [
+        {
+          "name": "GPL-3.0-only",
+          "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "title": "GNU General Public License v3.0"
+        }
+      ]
+    },
+    {
+      "name": "quest_objective",
+      "description": "A quest's objectives in order.",
+      "path": "data/quest_objective.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 375918,
+      "hash": "sha256:ff6d4f46dcdbcb6e2bdf8ac1e9826f1d5759a5518cd67958c54579a1c776468f",
+      "schema": "schema/quest_objective.schema.json",
+      "licenses": [
+        {
+          "name": "GPL-3.0-only",
+          "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "title": "GNU General Public License v3.0"
+        }
+      ]
+    },
+    {
+      "name": "quest_prereq",
+      "description": "Quests that open a quest.",
+      "path": "data/quest_prereq.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 152593,
+      "hash": "sha256:4f9319d1a30868452edbed0043d69209ec4d58b6986b358e9a8350ec5d684eaa",
+      "schema": "schema/quest_prereq.schema.json",
+      "licenses": [
+        {
+          "name": "GPL-3.0-only",
+          "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "title": "GNU General Public License v3.0"
+        }
+      ]
+    },
+    {
+      "name": "quest_reward",
+      "description": "Items, item choices and reputation a quest gives.",
+      "path": "data/quest_reward.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 301870,
+      "hash": "sha256:c9b29a552b90559519153f2061e49dd39820abf3de5cdaf91af82ee59d001405",
+      "schema": "schema/quest_reward.schema.json",
+      "licenses": [
+        {
+          "name": "GPL-3.0-only",
+          "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "title": "GNU General Public License v3.0"
+        }
+      ]
+    },
+    {
+      "name": "npc",
+      "description": "One row per creature id.",
+      "path": "data/npc.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 1256753,
+      "hash": "sha256:8d6c0773b778381012bc453118ece647ecde08760483d53bbe24d04e9cd13c0b",
+      "schema": "schema/npc.schema.json",
+      "licenses": [
+        {
+          "name": "GPL-3.0-only",
+          "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "title": "GNU General Public License v3.0"
+        }
+      ]
+    },
+    {
+      "name": "object",
+      "description": "One row per game object id.",
+      "path": "data/object.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 474447,
+      "hash": "sha256:09d1bd6e02e581eca0f716ab56e3e29c78c82ccdc23914f21ca608bafa04e307",
+      "schema": "schema/object.schema.json",
+      "licenses": [
+        {
+          "name": "GPL-3.0-only",
+          "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "title": "GNU General Public License v3.0"
+        }
+      ]
+    },
+    {
+      "name": "spawn",
+      "description": "Spawn points in world yards on the continent or instance map.",
+      "path": "data/spawn.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 6122612,
+      "hash": "sha256:83b4a06a14ee99f0d098da1d6a5bb8c13008dce103ed801cb758e8059ca2cb75",
+      "schema": "schema/spawn.schema.json",
+      "licenses": [
+        {
+          "name": "GPL-3.0-only",
+          "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "title": "GNU General Public License v3.0"
+        }
+      ]
+    },
+    {
+      "name": "item",
+      "description": "One row per item id.",
+      "path": "data/item.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 1073720,
+      "hash": "sha256:14d7248d3437e8a9a9df1528c917fddf5383c295a9697da1ead988f71cb76222",
+      "schema": "schema/item.schema.json",
+      "licenses": [
+        {
+          "name": "GPL-3.0-only",
+          "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "title": "GNU General Public License v3.0"
+        }
+      ]
+    },
+    {
+      "name": "item_source",
+      "description": "Where a quest-relevant item comes from.",
+      "path": "data/item_source.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 1777385,
+      "hash": "sha256:0ea1f056575da1f8e9f819a82e7f9b2adef627060cc0cbe6fd298b5dc14461a2",
+      "schema": "schema/item_source.schema.json",
+      "licenses": [
+        {
+          "name": "GPL-3.0-only",
+          "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "title": "GNU General Public License v3.0"
+        }
+      ]
+    },
+    {
+      "name": "ui_map",
+      "description": "The in-game map frames: where each client UiMap lies in world yards, for turning world yards into map percent.",
+      "path": "data/ui_map.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 5223,
+      "hash": "sha256:f821be399a88e49b6891a251c71578aabd894bb63283b07aa0aa2e8025f26bb7",
+      "schema": "schema/ui_map.schema.json",
+      "licenses": [
+        {
+          "name": "GPL-3.0-only",
+          "path": "https://www.gnu.org/licenses/gpl-3.0.html",
+          "title": "GNU General Public License v3.0"
+        }
+      ]
+    },
+    {
+      "name": "mechanic",
+      "description": "How a quest plays out beyond its objectives, in our own words.",
+      "path": "data/mechanic.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 226112,
+      "hash": "sha256:9dc25d2b016b3df461f027bbab23350cb3a17a2a447633ea824b179ddaa0bab5",
+      "schema": "schema/mechanic.schema.json",
+      "licenses": [
+        {
+          "name": "CC-BY-4.0",
+          "path": "https://creativecommons.org/licenses/by/4.0/",
+          "title": "Creative Commons Attribution 4.0"
+        }
+      ]
+    },
+    {
+      "name": "step",
+      "description": "Ordered quest steps from structured data, in our own words.",
+      "path": "data/step.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 428401,
+      "hash": "sha256:9eb9979406415d87cf582b90890036fec44c89be2cf847684657f9ba6eff6fd6",
+      "schema": "schema/step.schema.json",
+      "licenses": [
+        {
+          "name": "CC-BY-4.0",
+          "path": "https://creativecommons.org/licenses/by/4.0/",
+          "title": "Creative Commons Attribution 4.0"
+        }
+      ]
+    },
+    {
+      "name": "note",
+      "description": "Quest notes (timers, spawns, dangers, requirements, tips), in our own words.",
+      "path": "data/note.jsonl",
+      "format": "jsonl",
+      "mediatype": "application/x-ndjson",
+      "encoding": "utf-8",
+      "bytes": 0,
+      "hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "schema": "schema/note.schema.json",
+      "licenses": [
+        {
+          "name": "CC-BY-4.0",
+          "path": "https://creativecommons.org/licenses/by/4.0/",
+          "title": "Creative Commons Attribution 4.0"
+        }
+      ]
+    }
+  ]
+}

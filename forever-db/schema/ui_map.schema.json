@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/ui_map.schema.json",
+  "title": "ui_map",
+  "description": "The in-game map frames: where each client UiMap lies in world yards, for turning world yards into map percent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ui_map",
+    "map",
+    "left",
+    "right",
+    "top",
+    "bottom"
+  ],
+  "properties": {
+    "ui_map": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "client UiMap id"
+    },
+    "map": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "client Map id (continent or instance) the frame lies on"
+    },
+    "left": {
+      "type": "number",
+      "description": "world y at the map's left edge (x = 0%)"
+    },
+    "right": {
+      "type": "number",
+      "description": "world y at the map's right edge (x = 100%)"
+    },
+    "top": {
+      "type": "number",
+      "description": "world x at the map's top edge (y = 0%)"
+    },
+    "bottom": {
+      "type": "number",
+      "description": "world x at the map's bottom edge (y = 100%)"
+    }
+  }
+}

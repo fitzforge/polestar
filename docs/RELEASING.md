@@ -8,31 +8,33 @@ skip with a reason.
 
 ## What ships
 
-`node tools/polestar.js pack` writes three files to `dist/`:
+`forge release pack` writes three files to `dist/` ([forge/release.md](forge/release.md)
+has every release command):
 
 | File | Contents |
 |---|---|
-| `Polestar-<version>.zip` | `Polestar` (with `LICENSE` and a player `README.txt`), `Polestar_Guides`, always `Polestar_Nav` (Polestar's walking router, started from Shortest Path Forever by Cillian Berragan, and Polestar's walking maps with `PACK.json`, its own GPL-3.0-or-later `LICENSE` and `CREDITS.md`; `nav check` must pass), `Polestar_QuestDB` / `Polestar_ItemDB` when built, and always `Polestar_Codex` (with its `LICENSE-DATA.txt`) |
+| `Polestar-<version>.zip` | `Polestar` (with `LICENSE` and a player `README.txt`), `Polestar_Guides`, always `Polestar_Nav` (Polestar's walking router, started from Shortest Path Forever by Cillian Berragan, and Polestar's walking maps with `PACK.json`, its own GPL-3.0-or-later `LICENSE` and `CREDITS.md`; `forge nav check` must pass), `Polestar_QuestDB` / `Polestar_ItemDB` when built, and always `Polestar_Codex` (with its `LICENSE-DATA.txt`) |
 | `Polestar_Recorder-<version>.zip` | `Polestar_Recorder` (optional, with `LICENSE`) |
 | `SHA256SUMS` | checksums of both zips, in the format `sha256sum -c` reads |
 
 Addon folders sit at the top level of each zip, so a player (or an addon
 manager) extracts straight into `Interface/AddOns/`. The zips are
-reproducible: the same sources give byte-identical archives.
+reproducible: the same sources give byte-identical archives, on every
+machine.
 
-Community addons are packed by their authors with `polestar pack` in the pack
-folder (`<pack>/dist/<folder>-<version>.zip`, version from its `pack.json`);
-see docs/PACKS.md.
+Community addons are packed by their authors with `forge release pack` in the
+pack folder (`<pack>/dist/<folder>-<version>.zip`, version from its
+`pack.json`); see docs/PACKS.md.
 
 ## Version
 
 The version lives in `package.json`, in `guides/pack.json` (the manifest of
-our guides' pack: `compile` writes its version into `Polestar_Guides.toc`)
+our guides' pack: `forge guide compile` writes its version into `Polestar_Guides.toc`)
 and in the `## Version` line of every addon TOC. One command sets them all:
 
 ```sh
-node tools/polestar.js version            # print it; exit 1 if guides/pack.json or a TOC disagrees
-node tools/polestar.js version 0.2.0      # set package.json, guides/pack.json and every addon TOC
+forge release version            # print it; exit 1 if guides/pack.json or a TOC disagrees
+forge release version 0.2.0      # set package.json, guides/pack.json and every addon TOC
 ```
 
 Data addons rebuilt later take the version from `package.json`. Versions
@@ -44,8 +46,8 @@ Feature releases are built from the full local data build of the steps below.
 [THIRD_PARTY.md](../THIRD_PARTY.md) ("Distributing Polestar") lists what
 that puts in the zip: QuestieDB facts in `Polestar_Guides`, `Polestar_QuestDB`
 and `Polestar_Codex`, nothing from AtlasLoot, RareScanner or DungeonJournal,
-and never the zone crossings pack (`pack` leaves it out). The Codex is part of
-Polestar (Lookup, Dungeons and Rares read it): `pack` stops when
+and never the zone crossings pack (`forge release pack` leaves it out). The Codex is part of
+Polestar (Lookup, Dungeons and Rares read it): `forge release pack` stops when
 `Polestar_Codex` is not built, or was built with `--local-extras`, or names
 one of those three among its sources.
 
@@ -88,17 +90,23 @@ version throughout.
 2. Set the version and rebuild the data, the data addons and the guides:
 
    ```sh
-   node tools/polestar.js version 0.2.0
-   node tools/polestar.js data build
-   node tools/polestar.js questdb build
-   node tools/polestar.js itemdb build && node tools/polestar.js gear build
-   node tools/polestar.js codex build        # release-safe; never --local-extras here
-   node tools/polestar.js credits            # Guiding Stars: tools/lib/credits.json + merged PRs (needs gh)
-   node tools/polestar.js lint
-   node tools/polestar.js compile
+   forge release version 0.2.0
+   forge data build --kb                     # fetches the sources first (forge data sources)
+   forge data questdb
+   forge data itemdb && forge data gear
+   forge data sources --only builders && forge data codex   # release-safe inputs only
+   forge release credits                     # Guiding Stars: data/credits.json + merged PRs (needs gh)
+   forge guide lint
+   forge guide compile
    ```
 
-   Before `credits`, add new Ko-fi supporters to `tools/lib/credits.json`
+   `Polestar_QuestDB` is not in the repository (it is ignored, like the
+   Codex): build it with `forge data questdb` on every release machine
+   before `forge release pack`, or the zip goes out without it. The language
+   folders (`Polestar_<locale>`: guide texts and names) are committed; rebuild
+   their names with `forge data names` when the data changed.
+
+   Before `credits`, add new Ko-fi supporters to `data/credits.json`
    (names only, highest total first; amounts are never stored).
 
 3. Run the whole suite with the data built (nothing skips for missing data
@@ -111,26 +119,26 @@ version throughout.
 4. Pack and check the archives:
 
    ```sh
-   rm -rf dist && node tools/polestar.js pack
+   rm -rf dist && forge release pack
    (cd dist && sha256sum -c SHA256SUMS)
    unzip -l dist/Polestar-0.2.0.zip      # Polestar_Codex/ with its LICENSE-DATA.txt, and Polestar_Nav/ with its LICENSE and CREDITS.md, are listed
-   node tools/polestar.js nav check      # Polestar_Nav's walking maps match its PACK.json
+   forge nav check                       # Polestar_Nav's walking maps match its PACK.json
    ```
 
 5. Smoke-test the zips as a player gets them: unpack both into an empty
    AddOns folder and load the addons from there under Lua 5.1, with the stub
-   client the tests use (`POLESTAR_ADDON_DIR` points the test loader at
+   client the addon tests use (`POLESTAR_ADDON_DIR` points the test at
    another addon folder):
 
    ```sh
    smoke=$(mktemp -d)
    unzip -q dist/Polestar-0.2.0.zip -d "$smoke/AddOns"
    unzip -q dist/Polestar_Recorder-0.2.0.zip -d "$smoke/AddOns"
-   POLESTAR_ADDON_DIR="$smoke/AddOns" node --test tests/release.test.js
+   (cd rust && POLESTAR_ADDON_DIR="$smoke/AddOns" cargo test --release -p forge-addontest --test release)
    rm -rf "$smoke"
    ```
 
-   The test loads every addon in the folder in client order, logs in, and
+   The test loads every addon of the release in client order, logs in, and
    checks that the guides registered, a guide opened, the data addons loaded
    and every TOC carries the release version.
 
@@ -170,7 +178,7 @@ version throughout.
    the branch rules (see [Branch rules](#branch-rules)):
 
    ```sh
-   node tools/polestar.js changelog build 0.2.0     # writes "## 0.2.0 (<today>)", deletes the fragments
+   forge changelog build 0.2.0     # writes "## 0.2.0 (<today>)", deletes the fragments
    git add CHANGELOG.md changes package.json guides/pack.json addon/Polestar addon/Polestar_Guides addon/Polestar_ItemDB addon/Polestar_Nav addon/Polestar_Recorder
    git commit -m "Release: 0.2.0"
    git switch main && git merge --ff-only next && git switch next
@@ -178,13 +186,13 @@ version throughout.
    git push origin main next v0.2.0
    ```
 
-8. Write the release notes. `release notes` drafts all three from the
+8. Write the release notes. `forge release notes` drafts all three from the
    version's CHANGELOG.md section into `dist/` (not committed), each
    paragraph and list item joined onto one line, since GitHub shows every
    line break of a release's notes:
 
    ```sh
-   node tools/polestar.js release notes 0.2.0
+   forge release notes 0.2.0
    ```
 
    It writes `notes-0.2.0.md` (GitHub), `notes-curseforge-0.2.0.md` and
@@ -239,7 +247,7 @@ go to testers first. Build it as in [Steps](#steps) with the version
 `0.3.0-rc.1` and do steps 1 to 6, then:
 
 - leave the fragments in `changes/`: only the final release runs
-  `changelog build`. `node tools/polestar.js changelog show` prints what the
+  `forge changelog build`. `forge changelog show` prints what the
   candidate carries, for its notes;
 - tag `v0.3.0-rc.1` on `next`; `main` does not move for a candidate;
 - publish with `gh release create v0.3.0-rc.1 --verify-tag --prerelease`

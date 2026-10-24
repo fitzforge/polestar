@@ -64,7 +64,7 @@ async function score(o) {
 		// Never let scoring rebuild (and write) a world: refuse a stale one.
 		const file = worldFile(simDir, faction);
 		const w = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : null;
-		if (!w || w.dataHash !== hash) throw new Error(`${path.relative(ROOT, file)} is not built on the current data (${hash.slice(0, 12)}): run \`sim world\` first`);
+		if (!w || w.dataHash !== hash) throw new Error(`${path.relative(ROOT, file)} is not built on the current data (${hash.slice(0, 12)}): run \`forge walks world . data/local/nav4 data/sim <faction>\` first`);
 	}
 	const prev = draftGuides(o.draft);
 	const series = (row) => row && { timeTo: Object.fromEntries(Object.entries(row.timeTo).map(([l, t]) => [Number(l), t])), seconds: row.seconds, grind: row.grindSeconds };

@@ -144,7 +144,17 @@ local function updateGoals(world)
 	end
 	local target = Nav.GetTarget()
 	local pins = {}
-	for _, goal in ipairs(view.goals) do
+	-- The step's goals, then the Along the way list's (Engine.GetAlong: along
+	-- steps and pinned quests, #644).
+	local list = view.goals
+	if Engine.GetAlong then
+		list = {}
+		for _, goal in ipairs(view.goals) do list[#list + 1] = goal end
+		for _, s in ipairs(Engine.GetAlong()) do
+			for _, goal in ipairs(s.goals) do list[#list + 1] = goal end
+		end
+	end
+	for _, goal in ipairs(list) do
 		if goal.map and goal.x and goal.y and (goal.status == "active" or goal.status == "pending")
 			and not (target and target.map == goal.map and target.x == goal.x and target.y == goal.y) then
 			local text = goal.text
@@ -360,6 +370,20 @@ local function updateAreas(world, minimap)
 			if regions then
 				shown[#shown + 1], shown[#shown + 2] = regions, v.index == tg
 				sig[#sig + 1], sig[#sig + 2] = regions, v.index == tg
+			end
+		end
+		-- The Along the way list's goals (along steps, pinned quests: #644).
+		if Engine.GetAlong and Engine.AlongGoal then
+			for _, s in ipairs(Engine.GetAlong()) do
+				for _, v in ipairs(s.goals) do
+					local goal = Engine.AlongGoal(v.step, v.index)
+					local regions = goal and goal.map and goal.spots and regionsOf(goal)
+					local mine = target and target.stepIndex == v.step and target.goalIndex == v.index or false
+					if regions then
+						shown[#shown + 1], shown[#shown + 2] = regions, mine
+						sig[#sig + 1], sig[#sig + 2] = regions, mine
+					end
+				end
 			end
 		end
 	end

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/quest_reward.schema.json",
+  "title": "quest_reward",
+  "description": "Items, item choices and reputation a quest gives.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "quest",
+    "kind",
+    "id"
+  ],
+  "properties": {
+    "quest": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "quest id"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "item",
+        "choice",
+        "rep"
+      ],
+      "description": "item, choice or rep"
+    },
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "item id or client Faction id"
+    },
+    "count": {
+      "type": "integer",
+      "description": "items given, or reputation points"
+    }
+  }
+}

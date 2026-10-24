@@ -12,16 +12,16 @@
 //   	["{npc:234} and {npc:821} stand at the top of the stone tower."] = "",
 //   }
 //
-// "" is not translated yet: the English shows. `i18n guides sync` writes the
-// files whole, in reading order, keeping every translation; one whose English
-// the guide no longer has goes, commented out, to a block at the end. The
+// "" is not translated yet: the English shows. `forge i18n guides sync`
+// (rust/crates/forge-i18n) writes the files; this is the read side the JS
+// compiler uses. The
 // compiler (project.js buildPackFiles) puts each language's translations into
 // the pack's texts addon for it, <folder>_<locale>. Adapted from Ding! by
 // Yendi (@moust4ki), GPL-3.0: https://github.com/moust4ki/DingGuideWoWForever
 
 const fs = require('node:fs');
 const path = require('node:path');
-const { luaString, readLocaleFiles } = require('./files');
+const { readLocaleFiles } = require('./files');
 const { LOCALES } = require('./locales');
 const { forEachText, onlyTokens, tokensOf, fillTokens, TOKEN_RE, KINDS } = require('../dsl/tokens');
 
@@ -107,19 +107,20 @@ function packLocales(packDir) {
 const TOKEN_ONLY = new RegExp(TOKEN_RE.source, 'g');
 const NAMES_ROOT = path.join(__dirname, '..', '..', '..', 'addon');
 
-// The object ids Polestar's names addon of `locale`
-// (addon/Polestar_Names_<locale>/Names.lua, `i18n names`) names, or null
+// The object ids Polestar's names of `locale` (Names.lua in the language
+// folder addon/Polestar_<locale>, `forge data names`) name, or null
 // when it has none, cached.
 const NAMED_OBJECTS = new Map();
 function namedObjects(locale) {
 	if (!NAMED_OBJECTS.has(locale)) {
-		const file = path.join(NAMES_ROOT, `Polestar_Names_${locale}`, 'Names.lua');
+		const file = path.join(NAMES_ROOT, require('./toc').languageAddon(locale), 'Names.lua');
 		let ids = null;
 		if (fs.existsSync(file)) {
 			ids = new Set();
-			const re = /add\("[A-Za-z]+", "object", \{([\s\S]*?)\n\}\)/g;
+			// R("object", lo, hi, [[ then one "<id>\t<name>" line per name, up to the chunk's ]].
+			const re = /R\("object", [\d-]+, [\d-]+, \[=*\[([\s\S]*?)\n\]/g;
 			const text = fs.readFileSync(file, 'utf8');
-			for (let m = re.exec(text); m; m = re.exec(text)) for (const e of m[1].matchAll(/\[(\d+)\]=/g)) ids.add(`object:${e[1]}`);
+			for (let m = re.exec(text); m; m = re.exec(text)) for (const e of m[1].matchAll(/\n(\d+)\t/g)) ids.add(`object:${e[1]}`);
 		}
 		NAMED_OBJECTS.set(locale, ids);
 	}
@@ -249,58 +250,6 @@ function guideState(packDir, manifest, guides, locales) {
 	return out;
 }
 
-// `unnamed`: tokens no source names in the file's language (unnamedTokens).
-function tokenLine(tokens, unnamed = new Set()) {
-	return `\t-- ${tokens.map(([t, en]) => `{${t}} ${en}${unnamed.has(t) ? ' (no name in this language: may be words)' : ''}`).join(' · ')}`;
-}
-
-// A texts file whole: header, every text in reading order (translated or
-// ""), then the retired block.
-function writeTextsFile({ locale, kind, id, source, texts, translated, retired }) {
-	const lang = (LOCALES[locale] && LOCALES[locale].language) || locale;
-	const what = kind === 'pack' ? "the pack's own texts (its title and notes, its guides' folders)" : `the guide ${id} (${source})`;
-	const lines = [
-		`-- ${lang} (${locale}): ${what}.`,
-		`-- Written by \`node tools/polestar.js i18n guides sync ${locale}\`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").`,
-		'-- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its',
-		`-- name there in ${lang} (the English is listed above the line). A name the English has in the plural, as words,`,
-		'-- may be written with the singular\'s token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".',
-		`-- A token marked "no name in this language" would show in English: write that name in ${lang} words instead.`,
-		'-- The comments are rewritten by sync.',
-		'return {',
-	];
-	let where = null;
-	for (const t of texts) {
-		if (t.where !== where) {
-			if (where !== null) lines.push('');
-			lines.push(`\t-- ${t.where.replace(/[\r\n]+/g, ' ')}`);
-			where = t.where;
-		}
-		if (t.tokens.length) lines.push(tokenLine(t.tokens, new Set(kind === 'guide' ? unnamedTokens(t.text, locale) : [])));
-		if (t.plurals.length) lines.push(`\t-- plural, as words: ${t.plurals.map(([tok, en]) => `${en}s = {${tok}} ${en}`).join(' · ')}`);
-		lines.push(`\t[${luaString(t.text)}] = ${luaString(translated[t.text] || '')},`);
-	}
-	const old = Object.keys(retired).sort();
-	if (old.length) {
-		lines.push('', `\t${RETIRED}`);
-		for (const k of old) lines.push(`\t-- [${luaString(k)}] = ${luaString(retired[k])},`);
-	}
-	lines.push('}', '');
-	return lines.join('\n');
-}
-
-// The files sync writes, { file: text }: each of `state`'s files that reads
-// (one Lua cannot load is left alone), translations of texts gone moved to
-// the retired block.
-function syncFiles(state) {
-	const files = {};
-	for (const s of Object.values(state).flatMap((l) => l.files)) {
-		if (s.error) continue;
-		files[s.file] = writeTextsFile({ ...s, retired: { ...s.retired, ...s.stale } });
-	}
-	return files;
-}
-
 // Translations for the compiler: { [locale]: { pack: {}, guides: { [id]: {} } } }
 // with only well-formed translations of texts the pack has, and warnings
 // ({ file, message }) for every problem, stale entry and orphan file.
@@ -321,7 +270,7 @@ function packTranslations(packDir, manifest, guides) {
 				const next = s.successors[k];
 				warnings.push({
 					file,
-					message: `stale translation of ${JSON.stringify(k)}: ${next ? `its English changed to ${JSON.stringify(next)}` : 'the guide no longer has that text'}; \`node tools/polestar.js i18n guides sync ${locale}\` moves it to the end`,
+					message: `stale translation of ${JSON.stringify(k)}: ${next ? `its English changed to ${JSON.stringify(next)}` : 'the guide no longer has that text'}; \`forge i18n guides sync ${locale}\` moves it to the end`,
 				});
 			}
 			const ok = Object.fromEntries(Object.entries(s.translated).filter(([k]) => !bad.has(k)));
@@ -335,32 +284,4 @@ function packTranslations(packDir, manifest, guides) {
 	return { translations, warnings };
 }
 
-// The translation wave's size: the texts that need words, unique per
-// language, with their words and characters (tokens left out), in all and
-// by guide folder (the .guide's directory).
-function textStats(manifest, guides) {
-	const total = { texts: 0, words: 0, chars: 0 };
-	const byFolder = {};
-	const seen = new Set();
-	const count = (into, text) => {
-		const plain = text.replace(TOKEN_RE, '');
-		into.texts++;
-		into.words += plain.split(/\s+/).filter((w) => /\p{L}/u.test(w)).length;
-		into.chars += [...plain].length;
-	};
-	const add = (folder, text) => {
-		if (seen.has(text)) return;
-		seen.add(text);
-		count(total, text);
-		count((byFolder[folder] ||= { guides: 0, texts: 0, words: 0, chars: 0 }), text);
-	};
-	for (const t of packTexts(manifest, guides)) add('(pack)', t.text);
-	for (const g of guides) {
-		const folder = path.posix.dirname(g._ast.source);
-		(byFolder[folder] ||= { guides: 0, texts: 0, words: 0, chars: 0 }).guides++;
-		for (const t of guideTexts(g)) add(folder, t.text);
-	}
-	return { total, byFolder };
-}
-
-module.exports = { PACK_FILE, RETIRED, guideTexts, packTexts, guideFile, localeDir, packLocales, textProblems, guideState, writeTextsFile, syncFiles, packTranslations, textStats };
+module.exports = { PACK_FILE, RETIRED, guideTexts, packTexts, guideFile, localeDir, packLocales, textProblems, guideState, packTranslations };

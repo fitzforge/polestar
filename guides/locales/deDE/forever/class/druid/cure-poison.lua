@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Cliffspring Falls
 	-- {area:442} Auberdine · {area:445} Cliffspring Falls · {item:15844} Empty Cliffspring Falls Sampler
-	["Head north-east from {area:442} to {area:445} and fill the {item:15844} at the mouth of the cave by the falls."] = "",
+	["Head north-east from {area:442} to {area:445} and fill the {item:15844} at the mouth of the cave by the falls."] = "Geh von {area:442} nach Nordosten zu den {area:445} und fülle {item:15844} am Eingang der Höhle bei den Fällen.",
 
 	-- Step 4: Alanndarian Nightsong
 	-- {area:442} Auberdine
@@ -53,7 +53,7 @@ return {
 
 	-- Step 12: Dreadmist Peak
 	-- {area:380} Crossroads · {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool (no name in this language: may be words)
-	["From the {area:380} head north to {area:384} and fill the {item:15842} at the {object:19464}."] = "",
+	["From the {area:380} head north to {area:384} and fill the {item:15842} at the {object:19464}."] = "Geh vom {area:380} nach Norden zum {area:384} und fülle {item:15842} am Teich am Glutnebelgipfel.",
 
 	-- Step 13: Tonga Runetotem
 	-- {npc:3448} Tonga Runetotem · {area:380} Crossroads · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot

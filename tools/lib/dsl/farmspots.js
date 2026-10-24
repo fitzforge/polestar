@@ -77,7 +77,16 @@ function yardScale(data, map) {
 }
 
 // -> [spot] sorted by continent, then rate × spawns (best first), map, x, y.
+// Memoised per data and item: a guide set farms the same items many times.
+const SPOTS = new WeakMap();
 function farmSpots(data, itemId) {
+	let byItem = SPOTS.get(data);
+	if (!byItem) SPOTS.set(data, (byItem = new Map()));
+	if (!byItem.has(itemId)) byItem.set(itemId, farmSpotsOf(data, itemId));
+	return byItem.get(itemId);
+}
+
+function farmSpotsOf(data, itemId) {
 	const it = data.item(itemId);
 	const drops = (it && it.drops && it.drops.npc) || {};
 	const towns = townPoints(data);

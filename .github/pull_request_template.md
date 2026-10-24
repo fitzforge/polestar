@@ -12,7 +12,7 @@
 
 ## The report, checked
 
-<!-- For a bug fix: the verdict (confirmed / partly right) and the evidence: guide file and step, quest id, data, Wowhead Forever, a recording. A report is a lead, not a verdict. -->
+<!-- For a bug fix: the verdict (confirmed / partly right) and the evidence: guide file and step, quest id, data, Forever's quest data, a recording. A report is a lead, not a verdict. -->
 
 ## Checks
 
@@ -20,7 +20,7 @@
 
 - [ ] I ran the tests for what I changed (`node --test tests/<area>.test.js`; guide changes: also `lint` and `playtest --filter <guide>`)
 - [ ] Not run, and why:
-- [ ] A changelog fragment in `changes/` (`node tools/polestar.js changelog add`), crediting the reporter
+- [ ] A changelog fragment in `changes/` (`forge changelog add`), crediting the reporter
 - [ ] An AI agent wrote or helped with this — **Model and tool:** ____
 
 ## Maintainer review

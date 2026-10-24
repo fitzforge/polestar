@@ -87,8 +87,8 @@ async function run(argv) {
 	// so, not "nothing matches".
 	const missing = opts.kind === 'guide' ? [] : data.missing.filter((f) => (listed ? PLACES : SEARCHED).includes(f));
 	if (missing.length) {
-		const build = missing.includes('travel.json') && missing.length === 1 ? 'travel build' : 'data build';
-		console.error(`find: the reference data in ${dataDir} is missing ${missing.join(', ')}; run node tools/polestar.js ${build} (or pass --data)`);
+		const build = missing.includes('travel.json') && missing.length === 1 ? 'forge data travel' : 'forge data build';
+		console.error(`find: the reference data in ${dataDir} is missing ${missing.join(', ')}; run ${build} (or pass --data)`);
 		return 1;
 	}
 	const guides = opts.kind && opts.kind !== 'guide' ? [] : loadGuideHeaders(resolvePath(opts.guides, 'guides', ROOT));

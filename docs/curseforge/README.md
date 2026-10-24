@@ -61,7 +61,7 @@ indicator.
 
 ### The file
 
-- **File:** `dist/Polestar-<version>.zip`, from `node tools/polestar.js pack`
+- **File:** `dist/Polestar-<version>.zip`, from `forge release pack`
   (docs/RELEASING.md). Its addon folders sit at the top level, as CurseForge
   and its app expect.
 - **Display name:** `Polestar <version>`

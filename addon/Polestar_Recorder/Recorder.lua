@@ -54,6 +54,9 @@ ns.CAPS = {
 	combat = 12000,
 	afk = 1000,
 	revive = 1000,
+	trail = 20000, -- /psrec trail samples: ~7200 for a 30 min trail at 4 Hz
+	trail_start = 500,
+	trail_stop = 500,
 }
 
 ---------------------------------------------------------------------------
@@ -165,6 +168,7 @@ local inWorld = false
 
 -- Turning recording on in play starts a session at once.
 function ns.SetEnabled(on)
+	if not on and ns.TrailStop then ns.TrailStop("recording off") end
 	enabled = on and true or false
 	DB().enabled = enabled or nil
 	if enabled and not session and inWorld then ns.StartSession(false) end

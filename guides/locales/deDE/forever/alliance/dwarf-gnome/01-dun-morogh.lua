@@ -89,7 +89,7 @@ return {
 	["{npc:836}, inside {area:77}"] = "{npc:836}, in {area:77}",
 	["Level 4 spells, before Gozwin's camp"] = "Zauber der Stufe 4, vor Gozwins Lager",
 	-- {npc:8416} Felix Whindlebolt
-	["{npc:8416}, at the door on the way out"] = "",
+	["{npc:8416}, at the door on the way out"] = "{npc:8416}, an der Tür auf dem Weg hinaus",
 
 	-- Step 13: Grund and Gozwin
 	-- {npc:2756} Grund Drokda · {npc:8416} Felix Whindlebolt · {area:77} Anvilmar · {npc:269075} Snow Leopard Prowler
@@ -123,27 +123,27 @@ return {
 	-- Step 18: Kharanos
 	-- {area:131} Kharanos · {npc:1267} Ragnar Thunderbrew · {npc:1252} Senir Whitebeard · {area:2102} Thunderbrew Distillery
 	-- plural, as words: Crag Boars = {npc:1125} Crag Boar
-	["Follow the road through the tunnel and north-east to {area:131}. Kill the Crag Boars on the way: their ribs drop before you have {npc:1267}'s quest and count toward it. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}."] = "",
+	["Follow the road through the tunnel and north-east to {area:131}. Kill the Crag Boars on the way: their ribs drop before you have {npc:1267}'s quest and count toward it. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}."] = "Folge der Straße durch den Tunnel und nach Nordosten nach {area:131}. Töte unterwegs die Klippeneber: Ihre Rippchen fallen, bevor du die Quest von {npc:1267} hast, und zählen dafür. Fang draußen an: {npc:1252} und Erics Lagerfeuer sind vor der {area:2102}.",
 
 	-- Step 19: The Great Outdoors
-	["Sit by Eric's campfire (type /sit) and wait for the buff."] = "",
+	["Sit by Eric's campfire (type /sit) and wait for the buff."] = "Setz dich an Erics Lagerfeuer (tippe /sit) und warte auf den Segen.",
 
 	-- Step 20: Tharek Blackstone
 	-- {npc:1872} Tharek Blackstone
-	["{npc:1872} works the forge west of the distillery."] = "",
+	["{npc:1872} works the forge west of the distillery."] = "{npc:1872} arbeitet an der Schmiede westlich der Brennerei.",
 
 	-- Step 21: Thunderbrew Distillery
 	-- {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
-	["Then go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "",
+	["Then go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it."] = "Geh dann hinein: {npc:6806}, der Gastwirt, {npc:1226} und {npc:1267}. Die {skill:185}-Lektion von {npc:1699} wartet auf die Rückkehr mit den Rippchen, wenn das Kupfer dafür da ist.",
 	-- {item:2894} Rhapsody Malt · {npc:1247} Innkeeper Belm
 	["{item:2894}, from {npc:1247}"] = "{item:2894}, von {npc:1247}",
-	["Last: some classes' trainers stand outside"] = "",
+	["Last: some classes' trainers stand outside"] = "Zuletzt: Die Lehrer einiger Klassen stehen draußen",
 
 	-- Step 22: Steelgrill's Depot
 	-- {area:131} Kharanos · {zone:1455} Ironforge
 	["Follow the road north-east from {area:131} to the depot below the {zone:1455} road."] = "Folge der Straße von {area:131} nach Nordosten zum Depot unterhalb der Straße nach {zone:1455}.",
 	-- {npc:1694} Loslor Rudge
-	["{npc:1694}, beside him"] = "",
+	["{npc:1694}, beside him"] = "{npc:1694}, neben ihm",
 
 	-- Step 23: Boars and bears
 	["Boars and bears"] = "Eber und Bären",
@@ -153,19 +153,19 @@ return {
 
 	-- Step 24: Kharanos
 	-- {npc:1699} Gremlock Pilsnor · {skill:185} Cooking · {npc:1267} Ragnar Thunderbrew
-	["Back in the distillery: {npc:1699} teaches {skill:185}, then the ribs go to {npc:1267}."] = "",
+	["Back in the distillery: {npc:1699} teaches {skill:185}, then the ribs go to {npc:1267}."] = "Zurück in der Brennerei: {npc:1699} lehrt {skill:185}, danach gehen die Rippchen an {npc:1267}.",
 	-- {npc:1699} Gremlock Pilsnor
-	["{npc:1699}: Camping 101 asks you to learn it"] = "",
+	["{npc:1699}: Camping 101 asks you to learn it"] = "{npc:1699}: Camping 101 bittet dich, es zu lernen",
 	-- {npc:1699} Gremlock Pilsnor
 	["Speak with {npc:1699}"] = "Sprich mit {npc:1699}",
 
 	-- Step 26: Mountaineer Gretchen
 	-- {area:136} Grizzled Den · {area:131} Kharanos
-	["Gretchen camps just outside the {area:136}, the wendigo cave south-west of {area:131}."] = "",
+	["Gretchen camps just outside the {area:136}, the wendigo cave south-west of {area:131}."] = "Gretchen lagert direkt vor dem {area:136}, der Wendigohöhle südwestlich von {area:131}.",
 
 	-- Step 27: The Grizzled Den
 	-- {object:460004} Mountaineer Cornelius (no name in this language: may be words)
-	["Flintfire's shipments lie on the cave floor, and {object:460004} is missing somewhere inside."] = "",
+	["Flintfire's shipments lie on the cave floor, and {object:460004} is missing somewhere inside."] = "Flintfeuers Lieferungen liegen auf dem Höhlenboden, und der Bergsteiger Cornelius wird irgendwo im Inneren vermisst.",
 
 	-- Step 29: Rumbleshot's Ammo
 	-- {object:176785} Ammo Crate · {npc:271546} Mountaineer Gretchen · {area:136} Grizzled Den · {npc:1243} Hegnar Rumbleshot
@@ -183,20 +183,20 @@ return {
 
 	-- Step 31: Brewnall Village
 	-- {area:137} Brewnall Village · {area:131} Kharanos · {npc:8508} Gretta Ganter · {npc:1374} Rejold Barleybrew · {npc:1375} Marleth Barleybrew
-	["{area:137} sits on the lake west of {area:131}. {npc:8508}'s dock is the first stop; {npc:1374} and {npc:1375} are in the village beyond it."] = "",
+	["{area:137} sits on the lake west of {area:131}. {npc:8508}'s dock is the first stop; {npc:1374} and {npc:1375} are in the village beyond it."] = "{area:137} liegt am See westlich von {area:131}. Der Steg von {npc:8508} ist die erste Station; {npc:1374} und {npc:1375} sind im Dorf dahinter.",
 	-- {npc:8508} Gretta Ganter
-	["{npc:8508}, on the dock"] = "",
+	["{npc:8508}, on the dock"] = "{npc:8508}, am Steg",
 	-- {npc:1196} Ice Claw Bear
-	["{npc:1196}, on the way to the Hold"] = "",
+	["{npc:1196}, on the way to the Hold"] = "{npc:1196}, auf dem Weg zur Feste",
 	-- {npc:1127} Elder Crag Boar
-	["{npc:1127}, on the way"] = "",
+	["{npc:1127}, on the way"] = "{npc:1127}, auf dem Weg",
 	-- {npc:1201} Snow Leopard
-	["{npc:1201}, on the way"] = "",
+	["{npc:1201}, on the way"] = "{npc:1201}, auf dem Weg",
 
 	-- Step 32: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village · {npc:1374} Rejold Barleybrew
 	-- plural, as words: Ice Claw Bears = {npc:1196} Ice Claw Bear · Elder Crag Boars = {npc:1127} Elder Crag Boar · Snow Leopards = {npc:1201} Snow Leopard
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for {npc:1374}. Kill Headhunters at its mouth and walk through to its far end."] = "",
+	["{area:135} is the troll cave in the hills south-west of {area:137}. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for {npc:1374}. Kill Headhunters at its mouth and walk through to its far end."] = "{area:135} ist die Trollhöhle in den Hügeln südwestlich von {area:137}. Eisklauenbären, Alte Klippeneber und Schneeleoparden, die du auf dem Weg tötest, zählen für {npc:1374}. Töte Kopfjäger an ihrem Eingang und geh bis zu ihrem hinteren Ende durch.",
 
 	-- Step 33: Gnomes, bears and leopards
 	["Gnomes, bears and leopards"] = "Gnome, Bären und Leoparden",
@@ -222,7 +222,7 @@ return {
 	-- {object:270} Unguarded Thunder Ale Barrel
 	["The {object:270} in the distillery"] = "{object:270} in der Brauerei",
 	-- {npc:1252} Senir Whitebeard · {npc:1274} Senator Barin Redstone · {zone:1455} Ironforge
-	["{npc:1252}: {npc:1274} in {zone:1455} takes it"] = "",
+	["{npc:1252}: {npc:1274} in {zone:1455} takes it"] = "{npc:1252}: {npc:1274} in {zone:1455} nimmt sie an",
 
 	-- Step 38: Misty Pine Refuge
 	-- {area:138} Misty Pine Refuge
@@ -235,15 +235,15 @@ return {
 	-- Step 41: Treacherous Cold
 	-- {quest:99160} Rime's Wrath
 	-- plural, as words: Minor Ice Elementals = {npc:276003} Minor Ice Elemental
-	["The three rifles lie in the snow around the frozen lake by the refuge. Minor Ice Elementals drift around the lake and along the way: kill them as you go for {quest:99160}."] = "",
+	["The three rifles lie in the snow around the frozen lake by the refuge. Minor Ice Elementals drift around the lake and along the way: kill them as you go for {quest:99160}."] = "Die drei Gewehre liegen im Schnee rund um den zugefrorenen See beim Zufluchtsort. Kleine Eiselementare treiben um den See und entlang des Wegs: Töte sie im Vorbeigehen für {quest:99160}.",
 	-- {npc:276003} Minor Ice Elemental
-	["{npc:276003}, on the way"] = "",
+	["{npc:276003}, on the way"] = "{npc:276003}, auf dem Weg",
 
 	-- Step 42: Rime's Wrath
 	-- plural, as words: Minor Ice Elementals = {npc:276003} Minor Ice Elemental
-	["Finish off the Minor Ice Elementals around the small lake just west of the refuge if you are still short."] = "",
+	["Finish off the Minor Ice Elementals around the small lake just west of the refuge if you are still short."] = "Erledige die Kleinen Eiselementare rund um den kleinen See direkt westlich des Zufluchtsorts, falls dir noch welche fehlen.",
 	-- {npc:276003} Minor Ice Elemental
-	["{npc:276003}, around the small lake"] = "",
+	["{npc:276003}, around the small lake"] = "{npc:276003}, rund um den kleinen See",
 
 	-- Step 44: Avala's Core
 	-- {item:286325} Avala's Core
@@ -318,7 +318,7 @@ return {
 	["Spies and Bonesnappers"] = "Spione und Knochenknacker",
 	-- {area:212} Helm's Bed Lake · {item:274268} Dark Iron Map
 	-- plural, as words: Rockjaw Bonesnappers = {npc:1117} Rockjaw Bonesnapper
-	["Rockjaw Bonesnappers prowl the quarry and {area:212}; Dark Iron Spies sneak around the lake shore, on the way east to the South Gate. One spy drops the {item:274268}."] = "",
+	["Rockjaw Bonesnappers prowl the quarry and {area:212}; Dark Iron Spies sneak around the lake shore, on the way east to the South Gate. One spy drops the {item:274268}."] = "Knochenknacker der Felsenkiefer streifen durch den Steinbruch und {area:212}; Spione der Dunkeleisen schleichen am Seeufer umher, auf dem Weg nach Osten zum Südtor. Ein Spion lässt {item:274268} fallen.",
 
 	-- Step 62: South Gate Outpost
 	-- {area:806} South Gate Outpost · {zone:1432} Loch Modan
@@ -362,19 +362,19 @@ return {
 
 	-- Step 70: Tundra MacGrann
 	-- {npc:1266} Tundra MacGrann · {area:801} Chill Breeze Valley · {npc:1271} Old Icebeard
-	["{npc:1266} camps in {area:801}, south of Brewnall. His meats are in the locker in {npc:1271}'s cave, north-east of his camp. {npc:1271} is an elite yeti: wait out of sight until he wanders off on his patrol, then take the meats and leave before he comes back. You don't need to fight him."] = "",
+	["{npc:1266} camps in {area:801}, south of Brewnall. His meats are in the locker in {npc:1271}'s cave, north-east of his camp. {npc:1271} is an elite yeti: wait out of sight until he wanders off on his patrol, then take the meats and leave before he comes back. You don't need to fight him."] = "{npc:1266} lagert im {area:801}, südlich von Brewnall. Seine Fleischstücke sind in der Truhe in der Höhle von {npc:1271}, nordöstlich seines Lagers. {npc:1271} ist ein Elite-Yeti: Warte außer Sicht, bis er auf seine Runde geht, nimm dann das Fleisch und verschwinde, bevor er zurückkommt. Du musst nicht gegen ihn kämpfen.",
 	-- {item:2667} MacGrann's Dried Meats
 	["{item:2667}: the meat locker"] = "{item:2667}: der Fleischspind",
 
 	-- Step 71: The Tome of Divinity
 	-- {zone:1455} Ironforge · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1426} Dun Morogh
-	["Follow the road up to {zone:1455} and take the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "",
+	["Follow the road up to {zone:1455} and take the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "Folge der Straße hinauf nach {zone:1455} und nimm das Mystikerviertel: {npc:5149}, {npc:6179} und {npc:6178} sind in der Halle der Mysterien, {npc:6179} und {npc:6178} auf ihrem Obergeschoss: Die Treppe nach oben beginnt knapp nordöstlich von {npc:5149}. {npc:6175}, ein Bettler, wandert durch die Stadt. Er verlangt zehn {item:2589}: Die Troggs und Trolle von {zone:1426} lassen es fallen, und das Auktionshaus verkauft es.",
 	-- {quest:2997} Tome of Divinity
 	["From the {quest:2997} she gives you"] = "Aus {quest:2997}, den sie dir gibt",
 
 	-- Step 72: Narm Faulk
 	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life
-	["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "",
+	["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "Geh zurück aus {zone:1455} und östlich entlang der Straße zum {area:212}. {npc:6177} liegt tot an seinem Ufer: Benutze {item:6866} an ihm. Die Spione der Dunkeleisen, die um den See schleichen, tragen das Skript.",
 	-- {item:6866} Symbol of Life · {npc:6177} Narm Faulk
 	["Use the {item:6866} on {npc:6177}"] = "Benutze {item:6866} an {npc:6177}",
 	-- {item:6847} Dark Iron Script
@@ -382,15 +382,15 @@ return {
 
 	-- Step 73: Honor Students
 	-- {area:1537} Ironforge · {zone:1432} Loch Modan · {area:144} Thelsamar · {npc:1681} Brock Stoneseeker · {area:2101} Stoutlager Inn
-	["Instead of walking back up to {area:1537}, go east through the South Gate tunnel into {zone:1432} and follow the road north to {area:144}. {npc:1681} stands on the east side of town, past the {area:2101}; his errand pays for a flight back to {area:1537}."] = "",
+	["Instead of walking back up to {area:1537}, go east through the South Gate tunnel into {zone:1432} and follow the road north to {area:144}. {npc:1681} stands on the east side of town, past the {area:2101}; his errand pays for a flight back to {area:1537}."] = "Statt zurück zu {area:1537} hinaufzulaufen, geh östlich durch den Tunnel am Südtor nach {zone:1432} und folge der Straße nach Norden nach {area:144}. {npc:1681} steht auf der Ostseite der Stadt, hinter dem {area:2101}; sein Auftrag bezahlt dir einen Flug zurück nach {area:1537}.",
 	-- {npc:1572} Thorgrum Borrelson
-	["{npc:1572}, the gryphon master"] = "",
+	["{npc:1572}, the gryphon master"] = "{npc:1572}, der Greifenmeister",
 
 	-- Step 74: Golnir Bouldertoe
 	-- {npc:4256} Golnir Bouldertoe · {object:32372} Great Forge (no name in this language: may be words)
-	["{npc:4256}, in the {object:32372}"] = "",
+	["{npc:4256}, in the {object:32372}"] = "{npc:4256}, in der Großen Schmiede",
 	-- {npc:1573} Gryth Thurden
-	["{npc:1573}, the gryphon master where you landed"] = "",
+	["{npc:1573}, the gryphon master where you landed"] = "{npc:1573}, der Greifenmeister, wo du gelandet bist",
 
 	-- Step 75: Muiredon Battleforge
 	-- {npc:6179} Tiza Battleforge
@@ -410,7 +410,7 @@ return {
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind
 	["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "Folge der Straße hinauf nach {zone:1455} und trainiere bei deinem Klassenlehrer. {area:2257} fährt von {object:171524} im Osten der Stadt ab. Fahr damit nach {zone:1453}.",
 	-- {npc:1274} Senator Barin Redstone · {object:171709} High Seat
-	["{npc:1274}, in the {object:171709} with King Magni"] = "",
+	["{npc:1274}, in the {object:171709} with King Magni"] = "{npc:1274}, im {object:171709} bei König Magni",
 	-- {object:660964} Misplaced Packages · {object:171524} Tinker Town
 	["{object:660964}, by the mailbox in {object:171524}"] = "{object:660964}, beim Briefkasten in {object:171524}",
 	-- {npc:258098} Eldrun Stormbreaker · {object:32372} Great Forge (no name in this language: may be words)

@@ -1,0 +1,34 @@
+[package]
+name = "forge-nav"
+description = "Walks: CCH, legs, straight-line fast path, danger in the search, the walk store."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[features]
+default = ["native"]
+# The CCH, fine-grid legs and threads: native only. Without it (WASM) the crate reads the walk store.
+native = ["dep:cch", "dep:memmap2", "dep:flate2", "dep:rayon", "dep:parking_lot", "dep:sha2"]
+# Grid floors for forge-world's builder and the world + walks pipeline (`forge walks`).
+world = ["native", "dep:forge-world", "forge-world/native"]
+
+[dependencies]
+serde.workspace = true
+serde_json = { workspace = true, features = ["float_roundtrip", "preserve_order"] }
+rustc-hash.workspace = true
+forge-core = { path = "../forge-core" }
+forge-world = { path = "../forge-world", optional = true, default-features = false }
+cch = { version = "0.3", optional = true }
+memmap2 = { version = "0.9", optional = true }
+flate2 = { version = "1", default-features = false, features = ["zlib-rs"], optional = true }
+rayon = { version = "1", optional = true }
+parking_lot = { version = "0.12", optional = true }
+miniz_oxide = "0.8"
+sha2 = { version = "0.10", optional = true }
+
+[lints]
+workspace = true

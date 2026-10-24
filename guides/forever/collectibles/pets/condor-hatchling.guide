@@ -9,7 +9,7 @@ zone Loch Modan
 
 # Shaking Egg (the Condor Hatchling) from Lord Condar in Loch Modan (new in
 # Forever).
-# Sources: Wowhead Forever item 282637 (Lord Condar, 0.2% in 475 kills);
+# Sources: Forever's item data, item 282637 (Lord Condar, 0.2% in 475 kills);
 # npcs.json (Lord Condar's spawn); Forever client 1.60.1.70338.
 
 step Lord Condar

@@ -444,9 +444,13 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 	-- The game's looks light the goal to do now with their own art.
 	Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, Theme.Metric("guideLitInset", 4))
 	r.Text:SetText(UI.GoalLine(goal))
-	-- White while it is to be done; done and skipped goals step back.
-	W.Color(r.Text, (done or skipped) and "textMuted" or "text")
+	-- White while it is to be done; done and skipped goals step back. The
+	-- turn-in of a quest the player pinned (#644) whose objectives are still
+	-- open: the warning colour, and its line says so.
+	local warn = goal.pinOpen and not done and not skipped
+	W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or "text"))
 	local sub = UI.GoalSubline(goal, person.Where:IsShown() and person.psPlace and person.psPlace.map or nil, noParty, noMissing, noEscort)
+	if warn then sub = sub and (L["Pinned: its objectives are still open."] .. "\n" .. sub) or L["Pinned: its objectives are still open."] end
 	r.Sub:SetText(sub or "")
 	r.Sub:SetShown(sub ~= nil)
 	-- An unavailable quest's reason is the point of the line: keep it readable.
@@ -648,6 +652,7 @@ local function alongRow(i)
 	local r = alongRows[i]
 	if r then return r end
 	r = CreateFrame("Button", nil, along)
+	r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	r:SetHeight(UP_ROW)
 	W.Hover(r)
 	r.Icon = r:CreateTexture(nil, "ARTWORK")
@@ -656,13 +661,19 @@ local function alongRow(i)
 	W.Color(r.Icon, "textMuted")
 	r.Text = T(r, "label", "textDim")
 	r.Text:SetPoint("LEFT", r.Icon, "RIGHT", 9, 0)
-	r:SetScript("OnClick", function(self)
+	r:SetScript("OnClick", function(self, button)
 		local E = Engine()
+		-- A pinned quest's row unpins it on a right-click (#644).
+		if button == "RightButton" then
+			if self.psPin and E and E.PinQuest then E.PinQuest(self.psPin, false) end
+			return
+		end
 		if E and E.AimAlong and self.psStep then E.AimAlong(self.psStep, self.psGoal) end
 	end)
 	r:SetScript("OnEnter", function(self)
 		local lines = {}
-		if self.psPlace then lines[1] = { L["Click to point the arrow here"], Theme.Accent() } end
+		if self.psPlace then lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() } end
+		if self.psPin then lines[#lines + 1] = { L["Pinned by you. Right-click to unpin."], Theme.Color("textDim") } end
 		W.Tooltip(self, tooltipAnchor(), self.psTitle or "", lines)
 		GF.HoverIn()
 	end)
@@ -1484,7 +1495,20 @@ local function setEmpty(kind)
 	empty.Primary:Hide()
 	empty.Secondary:Hide()
 	local glyph, color = "emblem", "accent"
-	if kind == "noguides" and UI.Packs and UI.Packs.AnySwitchedOff() then
+	if kind == "noguides" and UI.Packs and UI.Packs.OursSwitchedOff() then
+		-- Our own guides switched off on the Community guides page: one
+		-- click turns them back on.
+		empty.Title:SetText(L["No guides shown"])
+		empty.Text:SetText(L["Polestar's own guides are switched off on the Community guides page (/polestar packs)."])
+		W.SetButtonText(empty.Primary, L["Show Polestar's guides"])
+		empty.Primary.psAction = function()
+			if G and G.SetPackShown then G.SetPackShown("guides", true) end
+		end
+		empty.Primary:Show()
+		W.SetButtonText(empty.Secondary, L["Community guides"])
+		empty.Secondary.psAction = function() UI.ShowOptions("guidepacks") end
+		empty.Secondary:Show()
+	elseif kind == "noguides" and UI.Packs and UI.Packs.AnySwitchedOff() then
 		-- Installed but switched off on the Community guides page.
 		empty.Title:SetText(L["No guides shown"])
 		empty.Text:SetText(L["The community addons are switched off. Turn one on under Options, Community guides (/polestar packs)."])
@@ -1654,9 +1678,16 @@ local function fillUpcoming(E, index)
 			local r = upRow(n)
 			r.psIndex = i
 			r.psSummary = UI.StepSummary(v)
+			-- It turns in a pinned quest still open (#644): warning colour, and says so.
+			local warn = false
+			for _, gv in ipairs(v.goals) do
+				if gv.pinOpen then warn = true end
+			end
+			if warn then r.psSummary = r.psSummary .. " (" .. L["pinned, still open"] .. ")" end
 			r.Num:SetText(i)
 			r.Icon:SetTexture(Theme.VerbIcon(UI.FirstVerb(v)))
 			r.Text:SetText(r.psSummary)
+			W.Color(r.Text, warn and "warning" or "textDim")
 			r:SetShown(upcomingOpen())
 		end
 		i = i + 1
@@ -1703,7 +1734,7 @@ local function fillAlong(E)
 			if n < ALONG_MAX then
 				n = n + 1
 				local r = alongRow(n)
-				r.psStep, r.psGoal, r.psTitle = s.index, gv.index, s.title or UI.GoalLine(gv)
+				r.psStep, r.psGoal, r.psTitle, r.psPin = gv.step or s.index, gv.index, s.title or UI.GoalLine(gv), s.pin
 				r.psPlace = gv.map and gv.x and gv.y and true or nil
 				r.Icon:SetTexture(Theme.VerbIcon(gv.t))
 				r.Text:SetText(UI.GoalLine(gv))
@@ -2427,12 +2458,18 @@ local function openMenu(button)
 	local E = Engine()
 	local hasGuide = E and E.GetGuide and E.GetGuide()
 	local clear = transparent()
-	W.ShowMenu(button, {
+	local items = {
 		{ text = L["Choose guide"], icon = "search", onClick = function() UI.ShowPicker() end },
 		{ text = L["Open in new tab"], icon = "plus", disabled = not (E and E.OpenTab), onClick = function() UI.ShowPicker({ newTab = true }) end },
 		{ text = L["Skip this step"], icon = "skip", disabled = not hasGuide, onClick = function() GF.SkipStep() end },
 		{ text = L["Report a problem"], icon = "bug", onClick = function() UI.ShowReport() end },
 		{ separator = true },
+	}
+	-- Pin the shown step's quests in the log as along the way, or unpin them (#644).
+	local pins = GF.PinItems(view)
+	for _, it in ipairs(pins) do items[#items + 1] = it end
+	if #pins > 0 then items[#items + 1] = { separator = true } end
+	for _, it in ipairs({
 		{ text = L["Compact mode"], icon = "compact", checked = compact(), onClick = function() ns.Set("ui.compact", not compact()) end },
 		{ text = L["Transparent"], icon = "layers", checked = clear, onClick = function() ns.Set("ui.style", clear and "standard" or "transparent") end },
 		{ text = L["Lock window"], icon = "lock", checked = ns.Get("ui.locked") and true or false, onClick = function() ns.Set("ui.locked", not ns.Get("ui.locked")) end },
@@ -2444,8 +2481,46 @@ local function openMenu(button)
 			ns.Set("ui.shown", false)
 			ns.Print(L["Guide window hidden. Type /polestar to bring it back."])
 		end },
-	})
+	}) do items[#items + 1] = it end
+	-- The Recorder's window, while the Recorder addon is loaded.
+	if type(PolestarRecorder_Command) == "function" then
+		table.insert(items, 5, { text = L["Recorder window"], icon = "record", onClick = function() PolestarRecorder_Command("ui") end })
+	end
+	W.ShowMenu(button, items)
 end
+
+-- Menu entries pinning the quests of step view `v` that are in the log with
+-- objectives open as along the way, or unpinning those pinned (#644).
+function GF.PinItems(v)
+	local E, C, out, seen = Engine(), ns.Compat, {}, {}
+	if not (v and v.goals and E and E.PinQuest) then return out end
+	for _, gv in ipairs(v.goals) do
+		local q = gv.quest
+		if q and not seen[q] and C.IsOnQuest(q) and (E.IsPinned(q) or not C.IsQuestReadyForTurnIn(q)) then
+			seen[q] = true
+			local title = C.GetQuestTitle(q) or (L["Quest"] .. " " .. q)
+			local pinned = E.IsPinned(q)
+			out[#out + 1] = { text = string.format(pinned and L["Unpin %s"] or L["Pin %s as along the way"], title), icon = "pin",
+				checked = pinned, onClick = function() E.PinQuest(q, not pinned) end }
+		end
+	end
+	return out
+end
+
+-- The quest log's menu on a quest (right-click its title): pin it as along
+-- the way, or unpin it (#644). Not with the gamepad interface (ns.GamepadUI),
+-- as Nav/Nearby.lua's map menus.
+ns.OnLogin(function()
+	if ns.GamepadUI() or not (Menu and Menu.ModifyMenu) then return end
+	Menu.ModifyMenu("MENU_QUEST_MAP_LOG_TITLE", function(owner, root)
+		local q = owner and owner.questID
+		local E = Engine()
+		if type(q) ~= "number" or not (E and E.PinQuest) then return end
+		local pinned = E.IsPinned(q)
+		root:CreateDivider()
+		root:CreateButton(pinned and L["Unpin from along the way"] or L["Pin as along the way"], function() E.PinQuest(q, not pinned) end)
+	end)
+end)
 
 -- Nearby services (Nav/Nearby.lua): the nearest vendor, repair, inn, flight
 -- master or trainer, as the arrow's target. Looked up after combat only.

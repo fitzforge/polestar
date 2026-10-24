@@ -24,13 +24,13 @@ one into the other. The addons:
 | Addon | What it holds | Built by (`node tools/polestar.js …`) | In git | Ships |
 |---|---|---|---|---|
 | `Polestar` (`addon/Polestar/`) | The addon: engine, navigation, quests, gear, maps, quality of life, Lookup, Dungeons, Rares and every window | hand-written, plus a few generated data files | yes | yes |
-| `Polestar_Guides` (`addon/Polestar_Guides/`) | Polestar's own pack (pack id `guides`) | `compile`, from `guides/` | yes (generated) | yes |
+| `Polestar_Guides` (`addon/Polestar_Guides/`, with `Polestar_Guides_Alliance` and `Polestar_Guides_Horde`) | Polestar's own pack (pack id `guides`): the factionless guides, and each faction's in a part loaded on demand, the player's faction's with the pack (PACK_FORMAT, "Format 8") | `compile`, from `guides/` | yes (generated) | yes |
 | community addons | Addons by other authors (`X-Polestar-Pack` in their TOC; `docs/PACKS.md`, `docs/PACK_FORMAT.md`) | the same compiler, from their own repositories | in their own repositories | by their authors |
-| `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `itemdb build` (`Items.lua`), then `gear build` (`Forever.lua`) | yes (generated) | yes |
-| `Polestar_Names_<locale>` (`addon/Polestar_Names_deDE/` … `zhTW/`) | Quest, NPC, object and item names in one client language, for `Polestar.Names`; loaded on demand, only the client's own, never in English | `i18n names`, from DingDB (pinned) and pfQuest | yes (generated) | yes |
-| `Polestar_QuestDB` (`addon/Polestar_QuestDB/`) | The quest database behind quest markers and tooltips; loaded on demand | `questdb build` | no (local, gitignored) | yes, when built |
-| `Polestar_Codex` (`addon/Polestar_Codex/`) | Lookup's Codex, and the Dungeons and Rares data; loaded on demand | `codex build`, from release-safe inputs (`--local-extras` builds a local-only one) | no (generated, gitignored) | yes, always: `pack` fails without it |
-| `Polestar_Nav` (`addon/Polestar_Nav/`) | Polestar's walking router (started from Shortest Path Forever v1.16.0 by Cillian Berragan, GPL-3.0-or-later; Polestar's since 2026-10-16) with Polestar's walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle (maps format 2, grown from his format) and the walk's chokepoints, for the arrow's walking routes; loaded on demand at login, never while an installed Shortest Path Forever guides (the target handed to it, or a journey of its own running; Nav, "In-game walking routes (Polestar_Nav)", "Hand-off to Shortest Path Forever") | the router hand-written (`Routing/`); `nav pack` (the maps, `PACK.json`, from the navigation grid and the ground layers) | yes | yes, always |
+| `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `forge data itemdb` (`Items.lua`), then `forge data gear` (`Forever.lua`) | yes (generated) | yes |
+| `Polestar_<locale>` (`addon/Polestar_deDE/` … `zhTW/`) | The language folder of one client language: our guides' texts (`Texts.lua`, for `Polestar.GuideTexts`) and the quest, NPC, object and item names (`Names.lua`, for `Polestar.Names`); loaded on demand, only the client's own, never in English. It replaced `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` in 0.3.0 | `forge guide compile` (`Texts.lua`) and `forge data names` (`Names.lua`, from the client's tables, DingDB (pinned) and pfQuest); each writes the one TOC alike (`forge_guide::toc::language_toc`) and leaves the other's file alone | yes (generated) | yes |
+| `Polestar_QuestDB` (`addon/Polestar_QuestDB/`) | The quest database behind quest markers and tooltips; loaded on demand | `forge data questdb` | no (local, gitignored) | yes, when built |
+| `Polestar_Codex` (`addon/Polestar_Codex/`) | Lookup's Codex, and the Dungeons and Rares data; loaded on demand | `forge data codex`, from release-safe inputs (`--local-extras` builds a local-only one) | no (generated, gitignored) | yes, always: `pack` fails without it |
+| `Polestar_Nav` (`addon/Polestar_Nav/`) | Polestar's walking router (started from Shortest Path Forever v1.16.0 by Cillian Berragan, GPL-3.0-or-later; Polestar's since 2026-10-16) with Polestar's walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle (maps format 2, grown from his format) and the walk's chokepoints, for the arrow's walking routes; loaded on demand at login, never while an installed Shortest Path Forever guides (the target handed to it, or a journey of its own running; Nav, "In-game walking routes (Polestar_Nav)", "Hand-off to Shortest Path Forever") | the router hand-written (`Routing/`); `forge nav pack` (the maps, `PACK.json`, from the navigation grid and the ground layers) | yes | yes, always |
 | `Polestar_Travel` (`addon/Polestar_Travel/`) | Zone crossings for the travel planner, from an optional local crossings file; loaded with Polestar | `travel build` | no (local, gitignored) | no, never packaged (Nav, "Travel planner and zone crossings") |
 | `Polestar_Recorder` (`addon/Polestar_Recorder/`) | The optional standalone recorder of play sessions, for authoring | hand-written | yes | yes, as its own zip |
 
@@ -75,7 +75,7 @@ TOC and these manifests, so tests always load exactly what the client loads.
 ### Globals
 
 Only these globals may be assigned anywhere under `addon/` (enforced by
-`tests/syntax.test.js` via `luac -l`):
+`rust/crates/forge-addontest/tests/addontest/syntax.rs` via `luac -l`):
 
 `Polestar`, `PolestarDB`, `PolestarCharDB`, `PolestarRecorderDB`,
 `SLASH_POLESTAR<n>`, `SLASH_POLESTARREC<n>`, `SLASH_POLESTARWAY<n>` (`/way`,
@@ -275,9 +275,9 @@ own windows, which hang off `UIParent`, are made with `CreateFrame`. No
 `CreateFramePool` with a game frame either: it calls `CreateFrame` with its
 parent. `tests/lua/wow_stub.lua`'s `CreateFrame` raises on a call from addon
 code whose parent is, or is under, a frame addon code did not make
-(`stub.underGameFrames`), and `tests/nav-mapcanvas.test.js`,
-`tests/qol.test.js` (the reward marks, the XP bar mark) and
-`tests/talents.test.js` (the talent marks) check that none was made.
+(`stub.underGameFrames`), and `rust/crates/forge-addontest/tests/addontest/nav-mapcanvas.rs`,
+`rust/crates/forge-addontest/tests/addontest/qol.rs` (the reward marks, the XP bar mark) and
+`rust/crates/forge-addontest/tests/addontest/talents.rs` (the talent marks) check that none was made.
 
 ### Gamepad interface
 
@@ -338,7 +338,7 @@ Frames under the game's frames are made through `CreateFrameUnder` and the
 maps are only read (MapCanvas) with either style. The quest automation, the
 vendor and the trainer stay on: they call the game's API, never its
 windows, and the game opens and closes those from its own event handlers.
-`tests/gamepad-ui.test.js` loads Polestar with each style, and lists every
+`rust/crates/forge-addontest/tests/addontest/gamepad-ui.rs` loads Polestar with each style, and lists every
 line of addon code that reaches into the game's UI (slash commands,
 `UISpecialFrames`, menus, panels, popups, the world map's tables, the error
 frame's settings, override bindings, the gamepad's managers): a new one fails
@@ -348,12 +348,12 @@ there until it is guarded and listed.
 
 `Polestar.L[key]`: a key is the English text, and a missing key returns
 itself, so a client without a translation reads English. A locale file
-(`Locales/<locale>.lua`, one per language of `tools/lib/i18n/locales.js`,
+(`Locales/<locale>.lua`, one per language of forge-guide's `locales.rs`,
 loaded by `Core/Core.xml` right after `Core/Init.lua` and returning at once on
 another client) fills `L` for its client, so every file after it may read `L`
 at load; Init.lua, which loads before it, reads `L` only when it prints (the
 commands register in Core/Commands.lua). docs/TRANSLATING.md describes the
-files and `node tools/polestar.js i18n`.
+files and `forge i18n`.
 
 A word with more than one meaning gets a key per meaning:
 `Polestar.LC(context, text)` is the translation of `"<context>: <text>"`, and
@@ -374,23 +374,23 @@ reads its key: the client names it only per side ("High Order Skyborne",
 "Windshaper Skyborne").
 
 Every player-facing string is written as a literal `L["..."]` or `LC(...)`
-where it appears, so `i18n keys` and a translator find every key: a table of
+where it appears, so `forge i18n keys` and a translator find every key: a table of
 labels holds `L["Home"]`, not `"Home"` translated later through
 `L[VIEW_LABEL[v]]`. `L[variable]` is left only for text that comes from data
 (a guide's category, race and class names, profession and spec names, the
 talent plans' spec names, the release stage), each listed in `DATA_KEYS`
-(`tools/lib/i18n/keys.js`, which also reads Gear/Weights.lua's spec labels,
+(`rust/crates/forge-i18n/src/keys.rs`, which also reads Gear/Weights.lua's spec labels,
 Talents/Builds.lua's `specs` and the Dungeons attunement notes of
-`tools/lib/codex/attunements.json`). Generated files carry their prose as
-literal keys too: `talents build` writes the plan summary and per-level notes
+`data/codex/attunements.json`). Generated files carry their prose as
+literal keys too: `forge data talents build` writes the plan summary and per-level notes
 as `L["..."]` in `Talents/Builds.lua`. Data that names a game thing carries
 its id instead, and the display asks `Polestar.Names` (quests, NPCs, objects,
 items, spells, factions, instances, areas, flight points, encounters). The
 optional Recorder has its own `ns.L` and `Locales/<locale>.lua` (listed in
-its TOC); `i18n check` and `sync` cover it too.
+its TOC); `forge i18n check` and `sync` cover it too.
 
 `Polestar.AI_LOCALES` names the languages whose translation is AI-made
-(`status: "ai"` in locales.js; `tests/i18n.test.js` keeps the two equal). On
+(`status: "ai"` in locales.rs; the forge-i18n tests keep the two equal). On
 such a client with its file loaded, `Polestar.AITranslation()` is true and
 Options > About says so, with the Discord invite.
 
@@ -413,8 +413,8 @@ Names.Cached(kind, id) -> name | nil   -- never asks the server; items from the 
 Names.Learn(unit) -> name | nil        -- keeps the name the client shows for unit
 Names.Localised() -> bool              -- false on enUS and enGB
 Names.Ready() -> bool                  -- the pack is in, or will not load this session
-Names.PackName() -> "Polestar_Names_<locale>" | nil
-Names.Add(locale, kind, { [id] = name })   -- the pack's files only; any kind
+Names.PackName() -> "Polestar_<locale>" | nil   -- the language folder
+Names.AddChunk(locale, kind, lo, hi, text)   -- the pack's files only; any kind
 ```
 
 - **Order.** The client's own name first, where the client has an API by id:
@@ -427,11 +427,13 @@ Names.Add(locale, kind, { [id] = name })   -- the pack's files only; any kind
   somewhere other than the current zone (an older client ignores the
   argument). Flight points (`taxi`) and encounters are the pack's only.
   Then the names pack of the client's
-  language, `Polestar_Names_<GetLocale()>`, loaded through `Data.Pack` on the
-  first ask (refused in combat, it loads when combat ends, fires
-  `NAMES_LOADED` and redraws the guide window once; a missing
-  folder is final for the session and harmless). Then nil. On an English
-  client every answer is nil and nothing loads.
+  language, `Names.lua` in the language folder `Polestar_<GetLocale()>`,
+  loaded through `Data.Pack` on the
+  first ask, or already in when Guide texts loaded the folder (refused in
+  combat, it loads when combat ends, fires `NAMES_LOADED` and redraws the
+  guide window once; a missing folder is final for the session and
+  harmless). Then nil. On an English client every answer is nil and nothing
+  loads.
 - **Learned in play.** The client has no API for NPC or object names by id,
   but it names the units it shows: on `PLAYER_TARGET_CHANGED`,
   `UPDATE_MOUSEOVER_UNIT`, `NAME_PLATE_UNIT_ADDED` and the NPC windows
@@ -476,22 +478,28 @@ Names.Add(locale, kind, { [id] = name })   -- the pack's files only; any kind
   goals' compiled sources carry their ids (`fromId`, `fromAlsoId`, of kind
   `fromKind`), so the goal line names them in the client's language;
   `from` and `fromAlso` are the English for older packs and English clients.
-- **The packs.** One load-on-demand addon per language
-  (`addon/Polestar_Names_<locale>/`: `Names.lua` calling `Names.Add` per
-  1,000 names and kind, the TOC, `LICENSE-DATA.txt`, Ding's `CREDITS.md`),
+- **The packs.** One load-on-demand language folder per language,
+  `addon/Polestar_<locale>/`, shared with our guides' texts (Guide texts):
+  `Names.lua` handing `Names.AddChunk`
+  each kind's names as LuaChunks text, `"<id>\t<name>"` lines of up to 500
+  names a chunk, cut out when a name is asked (about 1 MB resident instead
+  of 3 to 4), `LICENSE-DATA.txt`, Ding's `CREDITS.md`, and the folder's TOC,
+  which `forge data names` and `forge guide compile` write alike (each leaves
+  the other's files alone; `forge data names` removes the folder only once
+  no `Texts.lua` is left in it, and the old `Polestar_Names_<locale>`),
   committed and shipped. Kinds: `quest`, `npc`, `object`, `item`, and `map`
   (instance maps), `encounter` (DungeonEncounter ids), `faction`, `taxi`
   (TaxiNodes ids) and `objective` (the objective text of the dungeon quests
-  whose objective is an event). `node tools/polestar.js i18n names` builds
+  whose objective is an event). `forge data names` builds
   them, per id the first source with a name winning: the client's own
   tables in that language (wago.tools with `&locale=`: Forever's ItemSparse,
   Map, DungeonEncounter, Faction and TaxiNodes, then the Era client's
   ItemSparse for the items Forever's lacks; the newest build holding every
-  one in English and each language, and none stops the build), Wowhead's
-  Forever database in that language (read from `data/sources/wowhead/names`;
+  one in English and each language, and none stops the build), Forever's
+  quest data in that language (read from `data/sources/web/names`;
   without that cache this source is empty; a bracketed name is no translation), DingDB (cloned into
-  `data/sources/ding`, pinned to a commit and its files' sha256s: `DING` in
-  `tools/lib/i18n/names.js`), then pfQuest's `db/<locale>` (no esMX). A name
+  `data/sources/ding`, pinned to a commit and its files' sha256s: `ding_pin` in
+  `rust/crates/forge-data/src/names_sources.rs`), then pfQuest's `db/<locale>` (no esMX). A name
   equal to the English one, from any source, is never stored: a translation
   from a later source wins, else the English shows as it would; a name
   marking unused content (`[PH]`, `[UNUSED]`, `(DNT)`, `<NYI>`, `(test)`
@@ -499,8 +507,11 @@ Names.Add(locale, kind, { [id] = name })   -- the pack's files only; any kind
   them by id (`Compat.GetAreaName`). Only the ids the compiled guides, the
   quest database, the Codex's data and the travel data name are kept.
   `--no-questie` leaves DingDB out. `Data.CheckInstall` checks the client's
-  pack like the other optional data packs: never missing, named when its
-  version differs.
+  language folder like the other optional data packs: never missing, named
+  when its version differs. It also lists the languages whose old folders,
+  `Polestar_Guides_<locale>` or `Polestar_Names_<locale>` (before 0.3.0),
+  are still installed: Polestar never loads them, and at login one line asks
+  the player to delete them.
 
 ### Guide texts
 
@@ -521,14 +532,16 @@ texts; a folder named after a class reads as `LOCALIZED_CLASS_NAMES_MALE`'s.
 ```
 GuideTexts.Prepare(def, live) / GuideTexts.Refresh(def) -> changed
 GuideTexts.Load(addon) -> "loaded" | "combat" | nil
-GuideTexts.TextsAddon(addon) -> "<addon>_<locale>" | nil   -- nil on English
+GuideTexts.TextsAddon(addon) -> "<addon>_<locale>" | nil   -- nil on English; our pack's "Polestar_<locale>"
 GuideTexts.PackText(packId, text) -> translation | text
 Polestar.RegisterGuideTexts(locale, packId, { pack = {...}, guides = { [id] = {...} } })
 ```
 
 - **Loading.** The translations of a pack are its texts addon for the
   client's language, `<pack addon>_<locale>` (load on demand, generated by
-  `compile` from the pack's `locales/<locale>/` files): only that one loads,
+  `compile` from the pack's `locales/<locale>/` files; our own pack's,
+  `Polestar_Guides`, are `Texts.lua` in the language folder `Polestar_<locale>`
+  beside the game's names, so one load brings both): only that one loads,
   only on that client, through `Data.Pack`, at the pack's own
   `ADDON_LOADED`. While the pack's files load, its guides show their English
   names (asking Names then would load the names pack in the middle of
@@ -542,8 +555,8 @@ Polestar.RegisterGuideTexts(locale, packId, { pack = {...}, guides = { [id] = {.
   else; no texts addon loads. A text in the guide's `written` (one spelling
   a name otherwise than its token's English, "Dendrite" for Dendrite
   Starblaze) reads as the author's words there.
-- `Data.CheckInstall` checks the client's texts addon of our pack like the
-  names pack: never missing, named when its version differs.
+- `Data.CheckInstall` checks the client's language folder once, for our
+  pack's texts and the names alike: never missing, named when its version differs.
 
 ### Compat — the client's game data goes through here
 
@@ -610,7 +623,7 @@ through `Compat.OpenWorldMap(uiMapID)` (`C_Map.OpenWorldMap`, the global
 `OpenWorldMap` only on a client without it, never in combat;
 `Compat.CanOpenWorldMap()` says whether it can): the global opener called
 from addon code taints the map frame (NAV_QA C3), and
-`tests/compat.test.js` rejects any other code that opens or moves the world
+`rust/crates/forge-addontest/tests/addontest/compat.rs` rejects any other code that opens or moves the world
 map. Routing the rest keeps Forever specifics in few places and lets other modules' tests
 replace Compat with a fake.
 
@@ -729,7 +742,7 @@ query matches name prefixes only. Only the results returned are named, and
 subtitles are filled per shown row (`Search.Subtitle`). Generated `lookup/`
 guides are not listed.
 
-Measured with the real pack (lua5.1, `tests/lookup-codex.test.js` setup):
+Measured with the real pack (lua5.1, `rust/crates/forge-addontest/tests/addontest/lookup-codex.rs` setup):
 the pack loads in about 20 ms (4.4 MB; it never loads at login), the first
 query costs 7 ms (guide headers), a keystroke 1.5–4 ms (1 to 8 letters), a
 detail page (`Lookup.Sources`) 0.1 ms for a mount up to 10 ms for an item
@@ -737,12 +750,15 @@ with 40 drop sources.
 
 ### Guide data (compiled Lua) — the toolchain/Engine contract
 
-Generated by `tools/polestar.js compile` from `.guide` sources
+Generated by `forge guide compile` from `.guide` sources
 (`docs/GUIDE_FORMAT.md`) into the pack's addon folder: the generated TOC,
 `Pack.lua`, `MapFrames.lua`, `Guides.lua` (one `RegisterGuide` per guide, each
 built in its own function) and `LICENSE-DATA.txt`, plus `LICENSE.txt` (the
 pack's `LICENSE`) when the pack folder has one. Ours is
-`addon/Polestar_Guides/`; a community pack's is `<pack>/dist/<folder>/`. The
+`addon/Polestar_Guides/`; a community pack's is `<pack>/dist/<folder>/`. Our
+faction parts (`Polestar_Guides_Alliance`, `Polestar_Guides_Horde`) carry the
+same `LICENSE-DATA.txt`, and `forge release pack` refuses a guide part
+without one, as it refuses a data addon without its notice. The
 full contract for pack authors' tools is `docs/PACK_FORMAT.md`.
 
 ```lua
@@ -785,7 +801,9 @@ Goal fields. Common: `t` (verb), `text` (display override), `note`,
 `map`, `x`, `y` (0–100), `f` (`"e"` = Era frame, absent = live), `r` (arrival
 radius in yards), `group` (group content, below). A goal placed at an NPC or
 object that spawns at several
-places carries spawn areas, `spots = { { x, y, r, n, alt }, ... }`: cluster
+places carries spawn areas, `spots = { { x, y, r, n, alt }, ... }` (in
+Polestar's own pack one string, `spotsPacked`, built into these tables on the
+goal's first read of `spots`; PACK_FORMAT, "Format 8"): cluster
 centre in the goal's `map` and frame, radius in yards, spawn count; together
 they cover every spawn of the target on that map. Camps nearest to the goal's
 `x`/`y` first, at most 6 (a target with 6 spawns or fewer gets a spot at every
@@ -891,7 +909,7 @@ negations.
 Every guide belongs to a registered pack. The rules a pack meets (ids, no
 overrides, clashes, map frames, format, problems, literal text, packs on disk
 and their statuses) are in PACK_FORMAT.md, "Rules Polestar enforces"; lint
-applies the same ones (`tests/packs-parity.test.js`). Where `Core/Guides.lua`
+applies the same ones (`rust/crates/forge-addontest/tests/addontest/packs-parity.rs`). Where `Core/Guides.lua`
 implements them:
 
 - Ids: `Guides.RESERVED` (reserved pack ids) and `Guides.OwnsId` (which
@@ -951,7 +969,7 @@ known. The reader: the client's `C_EncodingUtil.DecodeBase64` and
 is told it cannot read strings), Adler-32 over the payload, a JSON parser of
 its own (no `null`, 12 levels deep at most), then the guide built field by
 field from a fixed schema of the compiler's keys and types (`Import.KEYS`;
-`tests/import.test.js` holds it to emit.js's key lists), then the id,
+`rust/crates/forge-addontest/tests/addontest/import.rs` holds it to emit.js's key lists), then the id,
 prefix, `next`, step-cap and `Guides.Validate` checks. Nothing in a string
 is run. The record is never listed on the Community guides page (`Packs`)
 nor a suggestion source; the guide menu lists it as "Imported" under
@@ -1072,7 +1090,7 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   unless the quest is a prerequisite (`pre`, `preAll`) of a quest later in the
   guide or its chain that is not grey, directly or through other grey ones.
 - **Class-training reminder.** Class trainers ship in the core:
-  `Core/ClassTrainers.lua` (generated by `node tools/polestar.js trainers build`,
+  `Core/ClassTrainers.lua` (generated by `forge data trainers`,
   one trainer per town and class, with the Era frames of their maps) calls
   `Polestar.RegisterClassTrainers({ { npc, npcName, map, x, y, f, faction, classes }, ... })`,
   then `Polestar.RegisterClassTrainerIds({ WARRIOR = { npcId, ... }, ... })`
@@ -1157,6 +1175,25 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   open, and a step change keeps it. The guide window lists them under "Then:"
   ("Along the way", `fillAlong`, at most six rows, not in compact mode);
   "Then:" and Up next skip along steps (`GetStepView(i).along`).
+- **Pinned quests** (#644). The player pins a quest of the log as along the
+  way (`Engine.PinQuest`, from the window menu's step entries `GF.PinItems`
+  and the quest log's `MENU_QUEST_MAP_LOG_TITLE` menu); pins are per
+  character (`CharState().pinnedQuests`, quest id -> true) and a quest
+  turned in drops its pin (`Own.pinList`). While the quest is in the log
+  with a line open, `Engine.GetAlong` lists one goal per open line after
+  the along steps (`Own.pinGoals`): the guide's first open objective goal
+  bound to that line (`Own.objectiveLine`), else one built from the quest
+  database (`Own.pinBuild`: its mob, item or object at that one's spawns on
+  the player's map, else the map with most, as `spots`; without a record,
+  the log's label by the line's type) at step `Own.PIN_STEP` (0), goal
+  `quest * 100 + line`. Each listed goal view carries `step`, and
+  `Engine.AlongGoal(step, goal)` returns its goal: `AimAlong` accepts it
+  (`Own.pinListed`), and the map's goal marks and spawn areas (Nav/Layers)
+  and the target button (QoL/Buttons `TargetNames`) take the Along the way
+  goals after the step's. Their statuses are in the step signature. A
+  `turnin` at or after the current step of a pinned quest whose lines are
+  open has `pinOpen` in its goal view: its row and its Up next line show in
+  the warning colour and say so.
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
   quest log can be read (`logReady`): `Own.jump` takes the first jump whose
@@ -2063,7 +2100,7 @@ Polestar.Nav.handoff.Yielding() -> bool  -- the option off and a journey not Pol
   (or the bare toggle turning it on), `/polestar route` and
   `/polestar skipleg`. Polestar's arrival chime is silent meanwhile.
 
-Tested by `tests/nav-handoff.test.js` against a fake API written to its
+Tested by `rust/crates/forge-addontest/tests/addontest/nav-handoff.rs` against a fake API written to its
 `docs/api.md` (v1.16.0).
 
 ### MapCanvas — drawing on Blizzard's map frames
@@ -2114,7 +2151,7 @@ only; a click is a `GLOBAL_MOUSE_DOWN` and a `GLOBAL_MOUSE_UP` of one button
 only while the map is shown; each frame it compares the map ID, the canvas
 size, scale and zoom, the pin scale and the alpha, and tells its listeners
 what changed ("show" with fresh values on the map's first frame open).
-`tests/nav-mapcanvas.test.js` runs every drawing with the maps' tables
+`rust/crates/forge-addontest/tests/addontest/nav-mapcanvas.rs` runs every drawing with the maps' tables
 guarded (`stub.guardMap`: any write of addon code fails), pins the list
 of what is read and checks that no frame was made with a parent on the maps
 or the minimap.
@@ -2429,7 +2466,13 @@ carries that one the same way; walks to other leg ends go
 without a height (docs/NAV_QA.md Z1-Z3). A later walk from a board point
 (off the boat) starts at the deck's height (`from.z`; asked once more with
 neither height when that fails), and the measure into the target gives each
-dock place its deck height (`FindMany`'s per-target `z`).
+dock place its deck height (`FindMany`'s per-target `z`). An end without a
+height (a map-click waypoint, a hand-set target) whose walk finds nothing is
+walked again from each other surface of its cell, lowest first, the start's
+then the goal's, six tries at most (`Routing/Path.lua` `runAny`, for `Find`
+and `FindCost`): the surface a search without a height picks can be a pocket
+no walk leaves (William MacGregor's house in Westfall: the ground's surface
+4 yd over the house floor).
 **The player's floor (#234, Ruling 36).** Forever's `UnitPosition` gives no
 height (Compat reads its 0 as none), and `Path.Find` from a point without one
 starts from the cheapest surface within a cell of it: a roof, rock top,
@@ -2439,11 +2482,39 @@ Hana'zua). So `Walk.lua` follows the height of the surface under the player:
 `Walk.Aim` checks at most every 0.25 s and reads the cell's surfaces
 (`Path.SurfacesAt`, into one reused table) only after moving 1 yd. Unknown,
 it seeds where the cell's surfaces lie within 10 yd (the router's `ZTOL`:
-the lowest), or, when `Compat.IsIndoors()` answers and the surfaces differ
-in indoor-ness (class indoor or indoor city against the rest), on those that
-match it when they lie within 10 yd (off the Undercity's lifts: the city
-under Tirisfal's outdoor ground); it never overrides a followed floor with
-the indoor state. Known, it follows the surface nearest it, never more than
+the lowest), or, when `Compat.IsIndoors()` says indoors and the surfaces
+differ in indoor-ness (class indoor or indoor city against the rest), on the
+indoor ones when they lie within 10 yd (off the Undercity's lifts: the city
+under Tirisfal's outdoor ground). Outdoors says nothing: a city's streets and
+gates are of the indoor city class under the open sky (Stormwind's Trade
+District over its canal level, Ironforge's gate under the mountain), so the
+one outdoor surface there is the ground below or above; it never overrides a followed floor with
+the indoor state. Where seed cannot tell (the Undercity: every cell has indoor
+layers more than 10 yd apart), each surface read (indoors: the indoor ones) is
+a candidate floor that follows the surface within 10 yd of it at each read; one
+with none there two reads in a row is gone, and while any are followed they
+decide instead of seed; the last one left is the floor (a few dozen yards on
+the Trade Quarter's ring rule out the entrance hall above it). Some never come
+down to one (the canal ring: canal and walkway under every step); while the
+client says indoors, a search from the player with the floor unknown starts
+only on the candidate floors (`Path.Find`'s `from.floors`, the player's place
+in `Walk.Measure` too): the canals and streets, never the roofs or the Ruins'
+ground over them. On a map whose surfaces carry their area (`Path.AreaFormat`:
+each WMO group's WMOAreaTable row, `Path.SurfacesAt`'s fifth argument), the
+surfaces the client's subzone names (the Undercity's "The Canals", its
+quarters, the hall's "Ruins of Lordaeron"; the rows' English names,
+`Path.AreaName`: an English client only until Polestar_Names carries
+WMOAreaTable names) are the floor at once when they lie within 10 yd; on
+several levels (the hall and its gallery; the Trade Quarter's ring, walkway
+and canal) they keep the candidate floors to those levels (`Walk.Floors`: a
+chain node then holds the start when one of them is on its floor and none
+lies more than 20 yd below it; the plan is made again once the floor or the
+floors are known). They come before the seed and the candidates, and a single
+named level corrects a followed floor on another level. `Walk.Floor`
+gives the planner that floor (the client's height first): a crossing end with
+a height (`z`) is reached, and a leading walk to it dropped, only with the
+floor within 20 yd of it, or with the floor unknown within 5 yd; a crossing's
+walk begun near its end with the floor then found off it plans again. Known, it follows the surface nearest it, never more than
 4 yd above (a ramp or stairs at mount speed, plus a jump); any drop is a
 fall; none is unknown. It is unknown again on another continent, after more
 than 30 yd from where it was last read (a hearth, teleport, landing, loading
@@ -2470,8 +2541,10 @@ lands after the player walked back keeps out of it). `Path.ReleaseSurfaces()`
 cancels a pending prefetch and drops it: the target cleared or no `Walk.Aim`
 for 2 s (`Walk:Refresh`), never a style change, a level-up or a hand-made
 walk, which only clear the walk.
-Hand-made walks win: a walk leg from a crossing or chain waypoint, to a
-chain node past its mouth, or from inside a chain (`leg.handmade`), and a
+Hand-made walks win: a crossing's own walk from end to end (but one between
+ends whose heights, `z`, lie 20 yd or more apart: a lift, which the engine
+rides), a walk between chain neighbours, to a chain node past its mouth, or
+from inside a chain (`leg.handmade`: the data's own links), and a
 guide goal whose last located goal before it, across steps, is a `goto`
 (the author's way in: a cave's mouth; the goto itself is walked) keep the
 straight arrow, so a target underground is never routed over the hill
@@ -2480,8 +2553,11 @@ engine missing, or Polestar_Nav not loaded: the straight arrow everywhere.
 `GetRouteGeometry` (rebuilt on `NAV_ROUTE_GEOMETRY`, which fires on every
 plan, leg change, target change and path arrival) gives the map lines the
 legs from the current one on: the current walk as the engine's points once
-in, else player (or leg start) to leg end; a later walk as its own searched
-path once in (below), else straight; a flight as its hop nodes; a ride or
+in, else its search's sketch (below) until then, else player (or leg start)
+to leg end; a later walk as its own searched path once in, else its sketch
+(below), else straight; a crossing the arrow walks straight, current or
+later, as its own searched path or sketch when that is at most twice the
+straight line's length, else straight; a flight as its hop nodes; a ride or
 portal as its two ends; a hearth or teleport as from and to.
 
 **Route style.** `nav.routeStyle` (Guide > Arrow & routes > Routes, "Route
@@ -2556,8 +2632,9 @@ player's measure holds within 50 yd of where it was taken. Farther, the
 player's walk counts as missing from the measure, so the next plan (at most
 once per replan) measures it again; meanwhile it is that measure less the
 yards moved (its cost scaled alike), never less than the straight distance (x1.0), so a walk never
-gets dearer for coming closer. A walk from a crossing end stays hand-made
-(drawn straight, never searched); only its price is the engine's. Measures
+gets dearer for coming closer. A walk on from a crossing's far end or a
+chain's mouth is no hand-made walk: the arrow and the route lines follow the
+engine's path on it like any other. Measures
 are fixed per target (the last 4 targets are kept), so plans never
 flip-flop on them; a target is measured again only when a plan has a place
 its measure lacks (a flight master learned, a new bind, the player come
@@ -2574,11 +2651,32 @@ Shortest Path Forever (`Walk:Refresh` cancels one in flight). The planner
 itself never waits: the first plan is straight, the measured one follows a
 few frames later.
 
+**Every walk's shape at once.** A search from a cold start is mostly its
+endpoint and lift-landing grid searches and the clusters it decodes (Mulgore
+below Thunder Bluff to the Barrens: about 0.5 s of CPU, 2-3 s at a 60 fps
+frame budget), and the later walks wait for the planner's measure besides.
+So as soon as a route is planned (`ROUTE_CHANGED`, `ROUTE_ADVANCED`) every
+later walk leg that will be searched (below), and a crossing the arrow walks
+straight, is sketched with `Path.FindCoarse`, one at a time, ahead of the
+measure (a drawn job) and whatever else runs: an A* over the entrance graph
+alone (Routing/Path.lua `sketch`: no grid decoded or searched, the ends and
+lift landings joined to their cluster's entrances at straight yards), a few
+milliseconds a walk, whose line is the start, each border crossing and lift
+landing on the way, and the goal. Sketches go first; then, once the arrow's
+own search is in, the walks inside one cluster, which have no entrance route,
+are searched whole (their path
+is then kept as the walk's own, priced like a searched one). The arrow's own
+search sends a sketch beside it, drawn until its path is in. A sketch
+prices nothing (`Walk.LegPath` reads only searched paths) and is replaced by
+the walk's path when that lands; on the shipped maps its stretches stay
+within about 150 yd of that path.
+
 **Every later walk's path.** Once the plan has settled (no measure running)
 and the arrow's own search for the walk it is on has answered (checked on
 every `ROUTE_CHANGED` and `ROUTE_ADVANCED`: the current walk's goal must be
 the one searched, with a path or a failure; a flight, a ride or a hand-made
-walk has none to wait for), each later walk leg that is not hand-made, not
+walk has none to wait for), each later walk leg that is not hand-made (a
+crossing is searched, for its line only: never priced by it), not
 a piece of a split walk and not the walk on from a guide `goto` (the arrow
 goes straight from the mouth) is searched once with `Path.Find`, one at a
 time, the last walk to the target's height (once more without it, as Z2),
@@ -2602,15 +2700,19 @@ with a radius), read instead of the Transit lifts. A chokepoint counts within it
 nearest point on the path (the step ends there, so no leg runs out and back:
 K5); ones within 20 yd of the player, the walk's end or the step before are
 dropped (K7), and ones within 30 yd of a crossing, chain node or a guide
-`goto` end leave the hand-made caption alone (K8). Captions: a passage names
+`goto` end leave the hand-made caption alone (K8), but a lift the path rides
+(its height changes 20 yd or more there) is always a step, whatever its
+floor guard or the ends near it. Captions: a passage names
 the area on the side the path reaches 25 yd past it ("Cross the bridge to
 Lakeshire", "Through the gate into Orgrimmar"); a cave or building its
 name ("Walk to the Frostmane Hold cave mouth"); without a name, the kind and
 the zone ("Through the gate in Durotar"); never empty or "Unknown" (K1). A
 lift is a walk to the landing the path reaches first ("Walk to The Great
 Lift, Bottom": the side comes from the path's direction, K4) and a `lift`
-leg to its paired landing ("Take The Great Lift"), timed and captioned by
-`Transit.NextDeparture`/`Caption("lift", ...)` (30 s without); other steps
+leg to its paired landing ("Ride the elevator up" boarded at the bottom,
+"Ride the elevator down" at the top), timed and captioned by
+`Transit.NextDeparture`/`Caption("lift", ...)` (30 s without); within 30 yd
+of the landing the walk's label already reads as the ride; other steps
 carry no wait (K3). The names in the captions are the client's, in its
 language: each chokepoint carries the AreaTable ids of its name, zone and
 sides (`area`, `zoneArea`, read with `Names.Area`) and a lift its
@@ -2639,7 +2741,9 @@ paths. With full crossing data for a continent (`complete = true`), a straight
 walk stays inside one zone; between zones it goes only through
 
 - a crossing: two waypoints, one in each zone, at a tunnel, pass, bridge, gate
-  or lift, each with an arrival radius, joined by an explicit walk link, with a
+  or lift, each with an arrival radius and optionally the height of its floor
+  (`z`: a walk to that end ends there, the Undercity's entrance hall rather
+  than the city under it), joined by an explicit walk link, with a
   caption per direction (`ab`, `ba`; else "Go to <zone>"), optionally one way;
 - an open-ground pair: two zones whose shared border is walkable anywhere
   (optionally one way);
@@ -2649,7 +2753,16 @@ walk stays inside one zone; between zones it goes only through
   start or target within max(2 x radius, 30) yd of such a node is inside the
   chain and attaches only to the nearest node and its neighbours, so routes
   enter at the mouth and leave the way they came ("Follow the path out", or the
-  node's `back` caption).
+  node's `back` caption). A node may carry its floor's height (`z`): a start
+  (with the player's floor, `Walk.Floor`, known and within 20 yd of it) or a
+  target (or one with no height at all) is then inside only on that floor. A
+  hop between neighbouring nodes whose floors lie 20 yd or more apart within
+  15 yd on the map is a lift: a `lift` leg ("Ride the elevator up/down",
+  Transit's lift id and timetable), the walk to it "Walk to the lift". The
+  Undercity's way in and out is one such chain, `undercity-south-lift` (from
+  Fitz's own walk): Tirisfal's front door, the corridor and the entrance hall
+  to the south lift's top and bottom landings, both ends mouths; the other
+  lifts serve walks inside the city.
 
 A point's zone is its uiMap when the crossing data knows that zone; a zone
 the data lists as `wild` (no crossing data, e.g. the zones only Forever has)
@@ -2682,7 +2795,7 @@ AreaTable area each carries (`Travel.PlaceName`, `Names.Area`), a boat's
 route from its two ends' areas, the tram and the lifts by their area
 (`L["%s, east lift"]` and its kin), a class teleport by its spell; the
 English names stay for enUS, logs and matching. The shipped crossings are the full crossing data
-of both continents (`complete = true`): `tools/lib/travel/crossings.json`,
+of both continents (`complete = true`): `data/crossings.json`,
 committed, written by `node tools/polestar.js travel import --carbonite
 <ZoneConnections.lua> --source <text>` from Carbonite's Classic Era zone
 connections (GPL-3.0; `tools/lib/travel/carbonite.js`): its walks between
@@ -2924,7 +3037,10 @@ started from Shortest Path Forever v1.16.0 by Cillian Berragan, with thanks;
 Polestar maintains it since 2026-10-16. `addon/Polestar_Nav` holds that
 router, running on Polestar's own walking maps of Eastern Kingdoms,
 Kalimdor and Zephras Isle (packed from our navigation grid in maps format 2,
-grown from his map format, `nav pack`); Polestar's travel planner (above) keeps choosing
+grown from his map format, `forge nav pack`; format 3 adds each floor's WMO group
+area, the WMOAreaTable row whose name is the client's subzone there, from the
+grid's `<tile>.area.gz` sidecars and `areas.json`: `Path.SurfacesAt`'s areas,
+`Path.AreaName`, for telling a city's levels apart); Polestar's travel planner (above) keeps choosing
 flights, rides and the Hearthstone, and the walking is the router's: the
 arrow's walk, every later walk's path, and the measure of the walks into the
 target the planner prices (`Path.Find` and one reversed `Path.FindMany` per
@@ -2962,13 +3078,21 @@ before styles. The drawn line straightens the found path
 (`PathGrid.lua`'s `smooth`) only over ground no costlier for the profile in
 the style than the path stretch it replaces, and into a hostile hub only
 where that stretch already entered one, so it never cuts a road's bend or a
-hostile hub's rim. A map of format 1 (0.2.4's, no class field) is class 0
+hostile hub's rim. A walk that starts or ends in a hostile town (`Path.HubAt`
+at its start, its goal, or the player's place in a measure; `opts.homeHub`,
+set by `Nav/Walk.lua`) is priced as for no profile (`costNone`, no hub
+multiplier), so it leaves or enters by the town's streets and gate: priced
+as hostile, the shortest way off the town's ground won (a Tauren at
+Stormwind's Deeprun Tram walked 3,700 yd over the walls and round the
+mountains instead of 750 to the gate). Its drawn line still names the towns
+it enters for the profile (`job.hubs`); other towns on such a walk are not
+kept out of. A map of format 1 (0.2.4's, no class field) is class 0
 everywhere, has one edge cost for every profile and keeps the 1.0
 heuristic, so it routes and straightens exactly as before classes, for any
 profile and style.
 
 **Zone danger.** Each map tile of the walking maps carries the zone of its
-16 x 16 chunks (the metadata's `zone` field, `nav pack`: the grid's chunk
+16 x 16 chunks (the metadata's `zone` field, `forge nav pack`: the grid's chunk
 area up its AreaTable parents to a zone of `zones.json`, as its uiMapID; the
 layout in `pack.js`'s HEADER). A search's `opts.danger`, a table
 `{ [uiMapID] = multiplier }` its caller builds, multiplies a grid step into a
@@ -2992,11 +3116,14 @@ Hyjal, Shen'dralas, Zephras Isle) are there too; loaded, about 0.1 MB.
 ```
 Polestar_Nav.toc        LoadOnDemand, Dependencies: Polestar
   Nav\Nav.xml           the walking maps -> PolestarPathData[map], then the chokepoints
-    Nav0*.lua, Nav1*.lua, Nav2991*.lua  ours: `nav pack` from the grid (128 cells a tile, 4.17 yd), listed in PACK.json
+    Nav0*.lua, Nav1*.lua, Nav2991*.lua  ours: `forge nav pack` from the grid (128 cells a tile, 4.17 yd), listed in PACK.json
     Chokepoints.lua       ours: PolestarNavChokepoints[map] for the walk's named steps
   Routing\Costs.lua     ours: Polestar_NavCosts, the ground classes' multipliers and the faction profiles
   Routing\PathGrid.lua  ours from his: decoded clusters and ground classes, memory ceilings, frame slicing, string-pulling
-  Routing\Path.lua      ours from his: HPA* between clusters, the grid inside them priced by class, FindMany's Dijkstra
+  Routing\Path.lua      ours from his: HPA* between clusters, the grid inside them priced by class, FindMany's Dijkstra;
+                        lifts: Chokepoints.lua's lift landings (bottom, pair = its top) as abstract vertices, the ride
+                        175 (25 s at run speed) either way, joined to their cluster's entrances and to a start or goal
+                        there by grid searches (a few numbers a landing kept, 64 at most)
   Routing\PathJobs.lua  ours from his: the coroutine queue sharing Path.budget (2 ms) a frame
   API.lua               Polestar_NavEngine = the Path table, plus Available(map); the memory ceilings
 ```
@@ -3029,9 +3156,9 @@ that failed to load), and every map when the client lacks
 `C_EncodingUtil.DecodeBase64` or `DecompressString`: the engine then has no
 data for it and the arrow points straight, where it would otherwise raise a
 Lua error the first time a search reads a missing cluster's graph
-(`tests/nav-load.test.js`). A grid block that fails to decode is the
+(`rust/crates/forge-addontest/tests/addontest/nav-load.rs`). A grid block that fails to decode is the
 engine's own case: that cluster counts as empty. The bytes of the shipped
-blocks are not checked at load; `nav check` pins them by sha256.
+blocks are not checked at load; `forge nav check` pins them by sha256.
 
 **The handoff.** Polestar loads the addon with `Data.Pack("Polestar_Nav")`
 at login or later, never at its own `ADDON_LOADED` (decoding nothing, it
@@ -3044,9 +3171,11 @@ widened:
 ```lua
 Path.Find(map, from, to, callback, opts) -> job      -- callback(points, cost, job) or (nil, reason, job); job.yards, job.hubs
 Path.FindCost(map, from, to, callback, opts) -> job  -- callback(cost, reason, job), no drawing points; job.yards
+Path.FindCoarse(map, from, to, callback, opts, whole) -> job  -- callback(points, cost, job): the entrance-graph sketch (points.coarse); inside one cluster the drawn path with whole, else (nil, "cluster", job)
 Path.FindMany(map, from, targets, callback, opts, reverse, progress) -> job  -- costs[i] or false; job.yards[i]
 Path.ReuseMany(job, point, profile, style, danger) -> bool  -- may a batch from job's source serve one from point for profile in style with danger
 Path.ZoneAt(map, x, y) -> uiMapID | nil  -- a point's zone (the maps' zone field)
+Path.HubAt(map, x, y, profile) -> id, name | nil  -- the town hostile to profile whose ground (a hubs disk) holds the point
 Path.SurfacesAt(map, x, y, out) -> n | nil  -- the cell's walkable surfaces: out[i] height, out[-i] marks (1 water, 2 indoor); nil: its cluster not decoded (a Prefetch is queued)
 Path.Prefetch(map, x, y) -> job | nil  -- decode that cluster under the frame budget for SurfacesAt (one job at a time)
 Path.ReleaseSurfaces()  -- cancel a pending Prefetch; the cluster SurfacesAt reads may go at rest
@@ -3078,7 +3207,7 @@ floor, until `Path.ReleaseSurfaces`). `Path.cacheKB` and `Path.graphKB` cap
 them meanwhile, and `Idle` trims the decoded graph to `Path.graphRestKB`, all
 set in `API.lua`.
 The maps are base64 zlib blocks decoded per cluster with `C_EncodingUtil`.
-`nav check` holds the maps to `PACK.json` (grid build, cells, date, sizes,
+`forge nav check` holds the maps to `PACK.json` (grid build, cells, date, sizes,
 the sha256 of every file), and `Nav.xml` to it.
 
 **Polestar's side: the faction, cost and yards, hostile towns**
@@ -3132,19 +3261,19 @@ in the middle of a search that already counts a cluster as decoded, which
 would end in a Lua error (docs/NAV_QA.md H1). With both
 addons installed and not handing off, each holds its own maps in memory
 (handing off, `Polestar_Nav` is not loaded: "Hand-off to Shortest
-Path Forever"); `tests/nav-maps.test.js`
+Path Forever"); `rust/crates/forge-addontest/tests/addontest/nav-maps.rs`
 trims a stand-in for his tables after every frame of one of our searches and
 checks the route is unchanged.
 
 **Updating.** The router (`Routing/`) is Polestar's code: it is edited here,
-tested by `tests/nav-router.test.js` (synthetic maps with and without the
+tested by `rust/crates/forge-addontest/tests/addontest/nav-router.rs` (synthetic maps with and without the
 class field; format 1 against the router before classes, from git) and the
 real-map tests, and no tool copies it from upstream any more; its three
 files that began as his keep his copyright and the GPL notice under a header
 line saying where it started. The maps are Polestar's too (Zephras Isle's
-since 2026-10-16, no longer copied from his repository): `nav pack`
-writes all three from the grid, and `nav check` and
-`tests/nav-maps.test.js` hold them to `PACK.json`; the test also loads the
+since 2026-10-16, no longer copied from his repository): `forge nav pack`
+writes all three from the grid, and `forge nav check` and
+`rust/crates/forge-addontest/tests/addontest/nav-maps.rs` hold them to `PACK.json`; the test also loads the
 addon with the real maps (`tests/lua/stub_encoding.lua` decodes them in
 plain Lua), walks Goldshire to the Fargodeep Mine mouth and holds the engine
 to NAV_QA C2 (a cancelled search never calls back), C6 (Stormwind's flight
@@ -3203,7 +3332,9 @@ needs it is (`QuestDB.IsWanted()`: map/minimap objectives, available quests,
 turn-ins, tooltips, nameplates); turning the first one on later loads it then,
 and a load refused in combat is retried when combat ends. It fires
 `QUESTDB_LOADED`, then `QUESTDB_STARTED`; `QUESTDB_UPDATED` follows every
-change to the tracked quest log. Record layouts: `tools/lib/questdb/build.js`.
+change to the tracked quest log. Record layouts: `rust/crates/forge-data/src/questdb.rs`;
+the records stay LuaChunks text (`Core/LuaChunks.lua`) and are decoded when read, so the
+loaded database costs about 1.2 MiB, not the 6.6 MiB of tables it took (#693).
 An entity's spawn clusters (70 yd) cover every known spawn on each map (the
 reference data's `pts` and `more`), with no cap on how many.
 
@@ -3395,7 +3526,7 @@ flight timer and the instance tracker are set under Quality of Life.
   and a resized one (`OnSizeChanged`) moves it to the new edge.
   No frame exists until the setting is first turned on.
 - Zone level ranges (`maps.zoneLevels`): labels on continent maps, and the
-  hovered zone's range in the info bar. The ranges come from `maps build`
+  hovered zone's range in the info bar. The ranges come from `forge data maps build`
   (`tools/lib/maps/zonelevels.js`). Forever-only zones (maps with Forever
   frames and no Era frames in `map-frames.json`) are held to the sparse
   thresholds, because every source records them thinly.
@@ -3594,8 +3725,8 @@ as Lua source compiled only when opened): the quests QuestieDB files under the
 instance's areas (the areas on the instance's map and the outdoor areas of its
 name, as the solo filter's instance classification reads them,
 `tools/lib/sim/solo.js`), whose objectives or starting item point into it,
-that Wowhead Forever's dungeon and raid quest lists place in it (`quests.json`'s
-`wowhead.zone`, counted only when QuestieDB's Forever store has the quest,
+that Forever's dungeon and raid quest lists place in it (`quests.json`'s
+`web.zone`, counted only when QuestieDB's Forever store has the quest,
 which keeps out `<UNUSED>`, `<NYI>` and retired quests), whose start item drops
 or lies inside one instance (that page too, even when the quest has an area),
 or that end its story (a follow-up with the same title, no objectives, taken
@@ -3603,12 +3734,12 @@ where the quest ends: Hidden Enemies, The Lord of Blackrock); plus, with
 `--local-extras`, `dungeons.json`'s. An objective item that is sold, crafted,
 or dropped or held outside every instance ties no quest to a dungeon (the
 false-positive rule: Murloc Poachers, Craftsman's Writs), nor does a stray
-drop, one only Wowhead's lists record and under 5% (The Ectoplasmic
+drop, one only the web lists record and under 5% (The Ectoplasmic
 Distiller's Greater Eternal Essence from Gri'lek and Maexxna); a quest of a
 game event (pfQuest's `event`: the Darkmoon Faire, the holidays, the war
-efforts) is on a page only where QuestieDB or Wowhead files it (Copper
+efforts) is on a page only where QuestieDB or Forever's quest data files it (Copper
 Modulator, Rinling's Faire turn-in, is on none). What no rule can catch is
-in the cited table `tools/lib/codex/journal-quests.json` (Shards of the
+in the cited table `data/codex/journal-quests.json` (Shards of the
 Felvine). Each quest has giver and ender and their positions, its objective
 facts (`objectives`: kind, NPC, item or object id, count and the English
 name; the escorts' and events' text), composed at run time into our own
@@ -3618,8 +3749,8 @@ objective line in the client's language (`Dungeons.ObjectiveText`:
 the names pack, kind `objective`), chain (every prerequisite and breadcrumb of the quest's side,
 all of `pre` and `preAny`, oldest first, at most 20), rewards (items with
 quality, count and choice from recordings and ForeverLevelingBiS, else
-Wowhead's list rewards, choice versus fixed as Wowhead files them; XP from
-`quests.json`; money, else Wowhead's; reputation from Wowhead's rewards, its
+the quest list's rewards, choice versus fixed as the list files them; XP from
+`quests.json`; money, else the list's; reputation from the list's rewards, its
 "+1" placeholders left out, never the standing a quest asks for) and, with
 `--local-extras`, DungeonJournal's audited shareability; bosses in kill order
 with the quests tied to them (an encounter's boss carries its DungeonEncounter
@@ -3628,8 +3759,8 @@ table (the corpse point, placed on its zone); and the page's `attunement`
 list (below). No loot tables. The page also carries the instance's Map id
 (`map`): the list shows the dungeon's name in the client's language
 (`Names.Instance`) and its zone's (`C_Map`); attunement notes are our prose,
-read through `L[note]` (`i18n keys` lists them from
-`tools/lib/codex/attunements.json`). `codex attune` writes the local comparison with
+read through `L[note]` (`forge i18n keys` lists them from
+`data/codex/attunements.json`). `codex attune` writes the local comparison with
 the Attune addon (`tools/lib/codex/questaudit.js`,
 `tools/lib/consume/attune.js`; `data/local/dungeon-quests-audit.md` and
 `.json`, then the attunements report). Runtime: `addon/Polestar/Dungeons/Dungeons.lua`
@@ -3791,8 +3922,8 @@ Travel, Social, Vendors, Trackers), **Community guides** (70, a custom page:
 `UI/Packs.lua`), **Gamepad** (75, registered by `UI/GamepadGuide.lua`:
 Navigation, Key bindings), **Guiding Stars** (80, key `thanks`, a custom page:
 `UI/Thanks.lua`: the top supporter and top contributor on podiums, then both
-lists in full, from `Core/Credits.lua`, generated by `polestar credits` from
-`tools/lib/credits.json` (Ko-fi supporters in rank order, no amounts; the page
+lists in full, from `Core/Credits.lua`, generated by `forge release credits` from
+`data/credits.json` (Ko-fi supporters in rank order, no amounts; the page
 names them only, with no donation link or request, per Blizzard's add-on
 policy rule 5) and the
 merged pull requests on GitHub; `UI.Thanks.HeaderLink` puts "Special thanks
@@ -4189,7 +4320,7 @@ window is laid out on a tick only when a departure line comes or goes.
 `GuideFrame.Layout` places it (`JourneyPanel.Layout`
 returns its height); never in compact mode. Off with `nav.journeySteps`
 (Options, Arrow & routes, Routes, "Show the journey"); without Nav neither
-setting exists. Non-secure frames only. Tests: `tests/ui-journey.test.js`;
+setting exists. Non-secure frames only. Tests: `rust/crates/forge-addontest/tests/addontest/ui-journey.rs`;
 render: `docs/preview/journey.svg`.
 
 ### Gamepad (`UI/Gamepad.lua`, `UI/GamepadGuide.lua`)
@@ -4397,7 +4528,7 @@ Polestar.Rares.Show(kind, id)                       -- SHOW_RARES: the hub secti
 `addon/Polestar/Talents/` (`Talents\Talents.xml`, loaded after `Rares\Rares.xml`):
 `Talents.lua` (settings `talents.*`, the plan per character in
 `PolestarCharDB.talents.build`, progress, validation, the unspent-point reminder),
-`Builds.lua` (generated by `talents build`), `Overlay.lua` (the talent frame),
+`Builds.lua` (generated by `forge data talents build`), `Overlay.lua` (the talent frame),
 `Options.lua` (Questing → Talents → Talent plan), `View.lua` (the hub section,
 order 40).
 
@@ -4419,11 +4550,11 @@ Polestar.Talents.Show()                                     -- SHOW_TALENTS; /po
   `TRAIT_TREE_CURRENCY_INFO_UPDATED`, `ACTIVE_TALENT_GROUP_CHANGED`,
   `PLAYER_TALENT_UPDATE` and Gear's spec changes; `TALENTS_UPDATED` follows.
 - **Classes.** One plan file per class (`talents/forever/<class>.json`);
-  `talents build` writes them all into `Builds.lua`, one `T.Register` per
+  `forge data talents build` writes them all into `Builds.lua`, one `T.Register` per
   class, sorted by class. `T.Register` keeps only the player's class
   (`UnitClass("player")`): the other classes' plans are dropped unexpanded,
   so a character holds one class's plans, not all nine. The tool finds each class's tree by its class skill
-  line (`CLASSES` in `tools/lib/talents/build.js`) and leaves out a stray
+  line (`CLASSES` in `rust/crates/forge-data/src/talents.rs`) and leaves out a stray
   copy of a talent far off the grid (1.60.1.70374 and 1.60.1.70450: Hunter node 104982,
   Lightning Reflexes again; Priest node 105865, Holy Specialization again).
 - **Validation.** `Builds.lua` carries the tree the plans were replayed on.
@@ -4445,7 +4576,7 @@ Polestar.Talents.Show()                                     -- SHOW_TALENTS; /po
   Hunter's Intimidation, from Bestial Swiftness or Bestial Wrath); a line
   the client only draws (TraitEdge type 0) is no arrow. Whether an arrow needs its
   source at full rank or one rank is `PREREQ_RULE` in
-  `tools/lib/talents/build.js` (default `"full"`, unconfirmed in game);
+  `rust/crates/forge-data/src/talents.rs` (`PREREQ_RULE`, default `"full"`, unconfirmed in game);
   `Builds.lua` carries it as `prereq` and `Talents.Replay` follows it.
 - **Overlay.** Post-hooks only: the frame's `OnShow` and EventRegistry's
   `TalentFrameBase.ButtonsUpdated` / `ConfigUpdated`, and each button's
@@ -4494,7 +4625,8 @@ What `compile` writes into a pack's folder: Core, "Guide data (compiled Lua)".
 | `export <file.guide>` | lints the file's pack (the nearest `pack.json` above it) and prints its one guide as an import string (`tools/lib/pack/importstring.js`; PACK_FORMAT.md, "Import strings"); refuses a file with errors, of several guides, of Polestar's own, over 60 steps or 50,000 characters. `play` and `dev --play` give the same string (`POST /api/import`, the page's Copy import string) |
 | `doctor` | Node, Lua, reference data, AddOns folder, `pack.json` |
 | `find` | quests, NPCs, objects, items, inns, flight points and our guides as guide lines (`--json`); `--kind inn\|flight` without a text lists every inn or flight point (from `travel.json`) |
-| `playtest` | every guide to the end per class (`tools/lib/playtest.js`, also behind `tests/guides.test.js`); a guide starts with the prerequisites of its accepts that the guides chaining into it turn in already done, and those they leave for it only to hand in in the log, as for a player arriving on the route |
+| `playtest` | every guide to the end per class (`tools/lib/playtest.js`, also behind `tests/guides.test.js`); a guide starts with the prerequisites of its accepts that the guides chaining into it turn in already done, and those they leave for it only to hand in in the log, as for a player arriving on the route. Plays run on a pool of long-lived lua5.1 processes (`tools/lib/luapool.js`, `tests/lua/pool.lua`; `POLESTAR_PLAY_WORKERS`, default 8): each play in a fresh environment, the addon's and the pack's files parsed once per process. `--honest` (`tools/lib/playtest-honest.js`, no Lua) plays each `next` chain (the main route; a catch-up alone) from the compiled lines and the data only, carrying the log, bags, flight paths and hearth, with nothing free: R1 travel (continent and zone changes, flight paths, hearth), R2 accept (giver at the place, item starts), R3 items (a source near the goal, quest-only drops), R4 NPCs (giver or ender, step titles, several givers), R5 turn-in (objectives credited, the required steps of `data/local/kb/forever-kb.sqlite` when present); `--format json` for agents; exit 1 on any fail |
+| `forge guide check <dir>` (was `guidecheck`) | every chain of `.guide` files under `<dir>` (one folder, in file-name order; catch-ups left out) read as the player does, line by line, against the reference data (`rust/crates/forge-guide/src/guidecheck.rs`). It reads the parsed and resolved lines and the data they touch into facts, derives the failures from them by the rules once written as answer set programming (they are stratified, so plain Rust), and gives each failure the cheapest of the repairs it may take (equally cheap ones: a fixed choice). Rules: `itemStart` (an item-started accept before anything gives its item), `useBefore`, `unsourced` (no source in the data or the guide), `bagBefore` (a quest-only drop bagged before its quest is held), `giver`/`ender` (an NPC who does not give or take the quest, or none named when several do), `objective` (a turn-in with a part never worked since the accept), `noAccept`, `travel` (a new zone with no line that moves the player; a capital and its zone are one place), `continent` (no boat, zeppelin, portal or hearth). `--fix` runs the repairs (`guidecheck_repair.rs`; `travel` and `continent` are left to the writer's travel pass in `forge build`): names the NPC, adds the item's source (its best dropper's or object's spawn nearest the route's point, or a vendor), gates a rare start on `when has`, adds a missing goal or accept, copies a later collect before a use, and an order pass (a stable topological sort: every line after the nearest line that gives what it needs, moving no more than 150 lines; a step caught in a cycle is split per goal; a step whose sticky `zone` changed says it again). `--json` |
 | `play`, `dev` | the playground with the pack built into a temp folder; `dev` watches and builds into AddOns |
 | `install`, `pack` | builds and installs the pack; writes `<pack>/dist/<folder>-<version>.zip` |
 | `record draft`, `sim compare` | drafts into `<pack>/drafts/` under `<id>/draft/`; scores the pack's chain beside ours |
@@ -4509,12 +4641,12 @@ cannot be combined with `--data`, `--context-data` or `--sim`.
 
 The folder rule (PACK_FORMAT.md, "TOC fields") is `packDirRefusal` in
 `tools/lib/dsl/project.js`. Lint's pack rules mirror the runtime's
-(`tests/packs-parity.test.js`); our house rules (elites in Leveling guides)
+(`rust/crates/forge-addontest/tests/addontest/packs-parity.rs`); our house rules (elites in Leveling guides)
 are warnings in other packs.
 
 ### Zone art overlays (`maps overlays`)
 
-`node tools/polestar.js maps overlays [--build <ver>] [--offline]` writes
+`forge data maps overlays [--build <ver>] [--offline]` writes
 `addon/Polestar/UI/ZoneArtOverlays.lua` (`tools/lib/maps/overlays.js`) from
 the client's DB2 tables, as wago.tools CSV cached under
 `data/sources/wago/<build>/`: `UiMapXMapArt` (every art a map shows, any
@@ -4532,9 +4664,10 @@ registers through `ZoneArt.RegisterOverlays` the way `MapFrames.lua` and
 
 ### Codex (`codex build`)
 
-`node tools/polestar.js codex build [--addons <dir>] [--build <version>] [--offline] [--out <dir>] [--local-extras]`
+`forge data codex [--addons <dir>] [--build <version>] [--out <dir>] [--pack <dir>]` (the release build;
+`--local-extras` adds the local extras)
 merges `data/forever/*.json` (pfQuest, QuestieDB facts, recordings,
-corrections, Wowhead and web XP facts), the Forever client's tables
+corrections, web quest list and web XP facts), the Forever client's tables
 (wago.tools, cached under `data/sources/wago/<build>/`: the newest 1.60+
 `wow_classic_beta` build wago.tools lists, as `data build` picks its
 `--forever-build` (`pickBuild` in `tools/lib/data/wago.js`); `--build`
@@ -4558,12 +4691,12 @@ built.
   (`releaseRefusal` in `tools/lib/codex/pack.js`). It exists for comparison
   on the developer's machine.
 - Importers, one per installed addon, all reading through
-  `tools/lib/consume/lua.js` (`addonVersion`, `readAddonLua`: the installed
-  addon's files, found with `tools/lib/addons.js`, run sandboxed in Lua 5.1
-  with the namespace the client passes them): `foreverlevelingbis.js` (item
-  sources: quest rewards, drops, crafts); with `--local-extras` also
-  `atlasloot.js` (DungeonsAndRaids incl. `forever.lua` and `droprate.lua`,
-  Collections, Crafting, Factions, PvP) and `rarescanner.js` (rares, their
+  `rust/crates/forge-data/src/gear/addonlua.rs` (`read_addon_lua`,
+  `addon_version_in`: the installed addon's files run sandboxed in Lua 5.1
+  with the namespace the client passes them): `gear/flb.rs` (ForeverLevelingBiS
+  item sources: quest rewards, drops, crafts); with `--local-extras` also
+  `codex/atlasloot.rs` (DungeonsAndRaids incl. `forever.lua` and `droprate.lua`,
+  Collections, Crafting, Factions, PvP) and `codex/rarescanner.rs` (rares, their
   loot, treasures, mount and pet items). Each returns plain JSON with a
   `meta` naming its source, version and licence.
 - Client tables: `Item`, `ItemSparse` (names, quality, levels, prices, the
@@ -4590,17 +4723,17 @@ built.
   encounters name both; an encounter naming no NPC takes the chest placed
   inside whose name ends with its name, The Seven: Chest of The Seven). A
   boss's loot (at most 30 items) is its own table first: its `items.json`
-  drops at 1% or more or at an unknown rate, and its Wowhead drops outside
+  drops at 1% or more or at an unknown rate, and its web database drops outside
   the world-drop pool at any rate (Thermaplugg's schematics, Dextren Ward's
-  plans); then Wowhead's `commondrop` rows (world books, world blues) at 1%
+  plans); then the web database's `commondrop` rows (world books, world blues) at 1%
   or more, so those no longer crowd out a boss's own loot (Onyxia's Sacks
   of Gems); each part best chance first. The entrance (`chooseEntrance`): a recorded one
   (Recorder `enter`, `data/forever/instances.json`), else the curated table
-  `tools/lib/codex/entrances.json` (per instance key: the point on the zone
+  `data/codex/entrances.json` (per instance key: the point on the zone
   map where one walks in, `{ key, instance, map, x, y, source, note }`, each
   with its public source, checked against the corpse point and our guides'
   gotos; every dungeon and raid in the Codex, Forever's own included, from
-  QuestieDB's Forever dungeon table, warcraft.wiki.gg and Wowhead Forever),
+  QuestieDB's Forever dungeon table, warcraft.wiki.gg and Forever's quest data),
   else a guide's `goto x,y "<instance name> ..."`, else the `Map` Corpse
   point (where a ghost comes back: near the way in, not at it; the
   Deadmines' is the portal deep in the Moonbrook mine, 200 yd from the
@@ -4610,15 +4743,15 @@ built.
   and the trigger nearest a Corpse point is as often an inn or city trigger,
   so they are not used. Every
   NPC placed in an instance (`npcs.json` `instances`, from QuestieDB and
-  recordings, or Wowhead's `location` naming an `AreaTable` area of the
+  recordings, or the web database's `location` naming an `AreaTable` area of the
   instance's map) belongs to it: its drops carry the instance. An instance's
   boss or mob the data ranks rare is not a rare unless RareScanner lists it.
   `--local-extras` takes the instances from AtlasLoot and `dungeons.json`
   instead.
-- Wowhead Forever per entity (`tools/lib/codex/wowhead.js`, release build
-  only, lowest precedence). `codex build` reads the Wowhead Forever facts
-  cached under `data/sources/wowhead/codex/`, and builds without them when
-  there are none. The cache holds Wowhead's NPC, object
+- Forever's web data per entity (`tools/lib/codex/web.js`, release build
+  only, lowest precedence). `codex build` reads the Forever web facts
+  cached under `data/sources/web/codex/`, and builds without them when
+  there are none. The cache holds the NPC, object
   and item list rows by id range (`lists/<type>.json`: id, name, levels,
   classification, boss flag, `location` and `envChange`, how Forever differs
   from Classic) and each fetched entity's facts
@@ -4627,13 +4760,13 @@ built.
   one (286 NPCs); a row's rank, boss flag and place are no page's, so rares,
   bosses and parity's verdicts read only pages. From the pages: an NPC's
   level, rare rank and spawns where ours lack them (and the rares only
-  Wowhead places), drops and object contents with chance = looted count /
+  the web data places), drops and object contents with chance = looted count /
   looted kills, an NPC's or object's `location` (the areas its page entry
-  names) and Wowhead's boss flag, and the reputation ("Requires <Faction> -
+  names) and the web data's boss flag, and the reputation ("Requires <Faction> -
   <Standing>") and PvP rank ("(Rank N)") an item's Forever tooltip asks for.
   An instance also lists, after
   its encounters and by level, the NPCs placed inside that the data or
-  Wowhead ranks rare or boss (or flags boss), or that alone drop an item of
+  the web data ranks rare or boss (or flags boss), or that alone drop an item of
   quality 2 or better at 5% or more, each with a `role`: `rare` (ranked
   rare), `event` (pfQuest and QuestieDB know no static spawn: summoned or
   scripted, the Ring of Law's fighters, the Tier 0.5 summons), else
@@ -4646,11 +4779,11 @@ built.
   still reads), and the Dungeons Bosses tab says Chest and the role beside
   the level.
 - Attunements and keys (`tools/lib/codex/attunements.js`, release-safe):
-  the cited table `tools/lib/codex/attunements.json` names per Codex instance
+  the cited table `data/codex/attunements.json` names per Codex instance
   each attunement's goal only (the quests that end it, one of them with
   `any`, or the key item), whether everyone entering needs it or one in the
-  group, and our one-line note, each entry with its public sources (Wowhead
-  Forever, warcraft.wiki.gg). The steps come from the Codex: every
+  group, and our one-line note, each entry with its public sources (Forever's
+  quest data, warcraft.wiki.gg). The steps come from the Codex: every
   prerequisite of a goal (all of `pre`, the `preAny` of the entry's side),
   oldest first, each with `after`/`afterAny`; a quest only an item starts
   gets that item's drops before it (Blackhand's Command from the Scarshield
@@ -4661,7 +4794,7 @@ built.
   Streets after Dalaran Patrols and Key to the City, Heart of Disruption
   after it). `inside` places an NPC or object of a chain that has no
   open-world spawn and no Codex instance in the instance it is in, each with
-  its Wowhead Forever page (Marshal Windsor, the Monument of Franclorn
+  its Forever quest data entry (Marshal Windsor, the Monument of Franclorn
   Forgewright and the Core Fragment in Blackrock Depths; the Inconspicuous
   Documents and Drakkisath's Brand in Blackrock Spire; Doan's Strongbox in
   Scarlet Monastery); each attunement carries the entries its steps meet as
@@ -4692,7 +4825,7 @@ built.
   naming it, its own first (items no other NPC or object drops or holds:
   Bayne's Bite, Serrated Shadowclaw), then best chance first, at most 150 (a
   rare's candidates run to hundreds, median 286; 150 keeps every drop the
-  internal build names that Wowhead Forever confirms, for about 215 KB of
+  internal build names that Forever's web data confirms, for about 215 KB of
   pack). An item keeps its 10 likeliest droppers (6 objects, 10 vendors) plus
   the drops of its instances' bosses.
 - Precedence for a fact found in several places follows `docs/SUITE.md`;
@@ -4708,7 +4841,7 @@ built.
   (with `pre` = every blocking prerequisite, `preAny`, rewards from recordings
   and ForeverLevelingBiS, `xp` = the full XP reward from `data/forever/quests.json`
   where known (what a guide or dungeon is worth in levels: Core/Levels.lua),
-  and `wowhead` on each quest Wowhead Forever's zone,
+  and `web` on each quest Forever's zone,
   dungeon and raid lists carry: `{ zone, type, side, choices, items, money,
   rep }`, the zone or instance category and the list's rewards, read by the
   journal), `instances.json`, `zones.json`, `factions.json`,
@@ -4736,9 +4869,9 @@ built.
   merge's `evidence.cut`, not shipped) says so ("cut by a cap") and is
   counted on its own line. A chest boss matches the internal row named after
   its object (Chest of The Seven); a confirmed missing boss that Forever's
-  sources place outside every instance (Wowhead `location` or spawns off the
+  sources place outside every instance (the web data's `location` or spawns off the
   instance maps' areas: Techbot, Maraudon's Desolace caves) or rank an
-  ordinary NPC (no Wowhead boss flag, not rare, no green or better item
+  ordinary NPC (no web boss flag, not rare, no green or better item
   only it drops at 5% or more) says so, counted as "no boss of it in
   Forever's sources". `codex parity
   [--ours <dir>] [--against <dir>]` reruns the comparison. The report also
@@ -4786,19 +4919,19 @@ built.
 
   The gaps: seven Forever instances AtlasLoot lists ahead of release are not
   in the client (no `Map` row); the Hall of Thanes' entrance stays
-  different (QuestieDB's Ironforge 27.6,47.8, where Wowhead Forever's
-  comments put the quest givers "near the entrance", against 43.5,52) until
+  different (QuestieDB's Ironforge 27.6,47.8, where players'
+  reports put the quest givers near the entrance, against 43.5,52) until
   a recording settles it; AtlasLoot's extra bosses (the Ring of
   Law's fighters, rare spawns, chests) are not `DungeonEncounter` rows;
   reputation standings that vendors gate in gossip, and battleground rewards
   AtlasLoot files as PvP, are in no client table (`ItemSparse` carries no
-  `MinFactionID` or `RequiredPVPRank` for them, and Wowhead Forever's Sells
+  `MinFactionID` or `RequiredPVPRank` for them, and Forever's web data Sells
   standing is that same `MinReputation`). A vendor's, giver's or quest's gate
-  comes from the cited table `tools/lib/codex/repgates.json`
+  comes from the cited table `data/codex/repgates.json`
   (`loadRepGateTable`, provenance `curated`: rows `{ item, name, faction,
   standing, npcs: [vendors or givers] | quest (+ choice), source, note? }`,
-  one per item and faction, each citing warcraft.wiki.gg, else Wowhead
-  Classic's reputation guides or QuestieDB; the Alterac Valley and Warsong
+  one per item and faction, each citing warcraft.wiki.gg, else classic
+  reputation guides or QuestieDB; the Alterac Valley and Warsong
   Gulch supply officers, Argent Dawn quartermasters, Timbermaw Hold, Duke
   Hydraxis, Rin'wosho the Trader's barter quests, which the row also makes
   the item's quest source since QuestieDB lists no rewards for them), from a
@@ -4821,7 +4954,7 @@ built.
   the Neutral gate) and the world-drop Warbear patterns 15742 and 15754
   (Timbermaw Hold sells 20253 and 20254, gated in `ItemSparse`). An NPC that
   casts a spell creating an item (client `SpellEffect` 24; who casts it,
-  Wowhead Forever's spell page in the cache) hands it out: a `gift { npc,
+  Forever's spell data in the cache) hands it out: a `gift { npc,
   spell }` source (Duke
   Hydraxis's Aqual and Eternal Quintessence). 26 Forever rares no
   database ranks yet. The 251 confirmed drop chances the release lacks are
@@ -4829,7 +4962,7 @@ built.
   instance trash past it; every dropper of every item would be 1.6 million
   sources against 74 thousand).
 
-### Reference data (`data/forever/`, built by `data build`, gitignored)
+### Reference data (`data/forever/`, built by `forge data build`, gitignored)
 
 ```
 quests.json   { "<id>": { id, title, level, minLevel, races, classes, start: { npc: [], object: [], item: [] },
@@ -4837,7 +4970,7 @@ quests.json   { "<id>": { id, title, level, minLevel, races, classes, start: { n
                           { type: "kill"|"item"|"object"|"event", id, count, text } ], objectiveText, zone, xp,
                           rewards?: { items: [ids], choices: [ids], money }, source: [] } }   (rewards: recorded only;
               count: the objective text's, else pfQuest's, else CMaNGOS classic-db quest_template's for the same id or the
-              quest's one objective of that kind, else null; tools/lib/data/questie-merge.js fillCounts)
+              quest's one objective of that kind, else null; rust/crates/forge-data/src/merge.rs)
 npcs.json     { "<id>": { id, name, level, levelMax?, rank?, faction, roles?, spawns: { "<uiMapID>": { f: "e"|"l", pts: [[x, y], ...],
                           more?: [[x, y], ...] } }, instances?: [instance map ids], encounter?: DungeonEncounter id, source: [] } }
 objects.json  { "<id>": { id, name, roles?, spawns: { ... same ... }, instances?: [instance map ids], source: [] } }
@@ -4850,7 +4983,7 @@ professions.json { "<skillLineID>": { id, name, kind: "primary"|"gathering"|"sec
                   learnedAt, yellow, green, grey, source: "trainer"|"vendor"|"drop"|"quest"|"item", recipeItem, cost } ] } }
 factions.json { "<factionID>": { id, name, side: "Alliance"|"Horde"|null, parent, source: [] } }   (Forever Faction table wins by id, Era fills)
 races.json    { "<raceFile>": { "<Alliance|Horde>": { id, bit, classes: [classFiles] } } }   (Forever client ChrRaces, ChrClasses,
-              CharBaseInfo; written only when those tables are cached; see tools/lib/data/races.js)
+              CharBaseInfo; written only when those tables are cached; see rust/crates/forge-data/src/factions.rs)
 spawnz.json   { npc: { "<id>": [[instanceMap, x, y, z], ...] }, object: { ... } }   (CMaNGOS classic-db creature and
               gameobject spawns on maps 0 and 1, UnitPosition's frame (x north, y west), 0.1 yd, each id's spawns sorted;
               one id per line; the compiler's goal `z`, tools/lib/dsl/heights.js; left out, with one warning, when
@@ -4873,7 +5006,7 @@ Codex, the profession generators), except the ones that mark where an entity
 spawns, which read `pts` and `more`, every known spawn: the guide compiler's
 spawn areas and near-spawn lint, and QuestDB's marker clusters.
 
-`dungeons.json` is built by `dungeons build` (`tools/lib/data/dungeonjournal.js`)
+`dungeons.json` is built by `forge data dungeons` (`rust/crates/forge-data/src/dungeons.rs`)
 from the installed DungeonJournal addon (no licence: local only, see
 THIRD_PARTY.md). Bosses are in kill order; `entrance` and DungeonJournal
 positions are live frame (`f: "l"`). Quest positions take our data first (the
@@ -4888,7 +5021,7 @@ only it knows needs its title (and level) written in the guide.
 
 The hub's Dungeons section and the pick-up guide built from it: "Dungeons" above.
 
-`professions.json` is built by `profession build` from the Forever client's
+`professions.json` is built by `forge data professions` from the Forever client's
 DB2 (`wow_classic_beta` 1.60+ via wago.tools: SkillLine, SkillLineAbility,
 SpellName, SpellEffect, SpellReagents, ItemSparse, Item, ItemEffect,
 ItemXItemEffect, ...; `tools/lib/professions/tables.js`). Forever changed
@@ -4950,6 +5083,36 @@ meaning (any one suffices, optional breadcrumbs included) for every quest
 pfQuest has; Forever-only quests take `preAny`, else `preAll`. `excl` is the
 exclusive group: pfQuest `close` united with QuestieDB `exclusiveTo`.
 
+#### Validation (`rust/crates/forge-data/src/stats.rs`)
+
+A data build can go wrong silently. Without `data/sources` beside `data/forever`, for example,
+the compiler has no AreaTable: every `{area:N}` name token becomes an object (Sentinel Hill,
+`{area:108}`, became `{object:81}` in every Westfall guide), and nothing failed. So each build
+is checked against the last good one's field statistics before it replaces the data:
+
+- the counts of quests, NPCs, objects, items and zones; the share of quests with a giver and
+  with an ender, whose giver and ender ids and objective ids the data has, whose NPC giver
+  spawns on the quest's zone map; race- and class-limited quests and the quests per race mask;
+  NPCs and objects with spawns;
+- the AreaTable rows the compiler gets from `data/sources`;
+- what the sim's leveling reads: quests with a reward spell, quests with XP and their XP added
+  up, the quest XP values the knowledge base changed, our corrections applied, class training
+  rows, riding trainers and mount vendors;
+- our guides compiled on the build: name tokens per kind (`{area:N}`, `{object:N}`...),
+  errors and warnings, and the share of the tokens the deDE names addon names.
+
+`forge data build` writes the build to `<out>.staging/` (the new files over links to `<out>`'s other
+entries), computes these, and compares them with `<out>/stats-good.json`. A shift past a field's
+limit (counts ±2%, shares ±0.02, tokens per kind ±5%, AreaTable rows ±1%, the XP sum ±0.5%,
+KB XP changes ±5%, any new compile error, any change in corrections or riding) stops the build:
+`<out>` is left as it was, the report names the fields, and the new
+build stays in `<out>.staging/` to look at; `--accept` takes it when the change is intended.
+A good build replaces `<out>`, and its statistics become the last good ones (`stats.json`,
+`stats-good.json`; neither is a world input). `data check` compares the data as it is, read as
+the compiler reads it, against its last good statistics (exit 1 on a shift; `--accept`
+blesses them). Run in a copy without `data/sources`, it names `sources.areas` 1375 → 0,
+`tokens.area` 4385 → 0 and `tokens.object` 790 → 1518.
+
 #### Sources and precedence
 
 `data build` reads, lowest precedence first:
@@ -4960,11 +5123,11 @@ exclusive group: pfQuest `close` united with QuestieDB `exclusiveTo`.
    that Questie for Forever installs. `--questie <dir>`, else auto-detected in
    the Forever client the way `install` finds it (client detection lives in
    `tools/lib/addons.js`: `detectAddonsDirs`, `foreverKind`). It's read in place
-   (`tools/lib/data/questie.js` ports QuestieDB's `src/meta/codec.lua`,
+   (`rust/crates/forge-data/src/questie.rs` ports QuestieDB's `src/meta/codec.lua`,
    `src/read/baked.lua` and `normalize.default`). Field layouts come from the
    installed `src/meta/*Meta.lua`, and support data from `support/Forever/*`:
    QuestXP, DropTables (chance = manual correction, else cmangos, else
-   Wowhead, as `DropDB.GetItemDroprate`), Zones (AreaID → UiMapID). It adds
+   the web database, as `DropDB.GetItemDroprate`), Zones (AreaID → UiMapID). It adds
    Forever-only quests, npcs, objects and items. On shared ones QuestieDB wins
    on every scalar field it has a value for (titles, levels, masks, objectives,
    spawns), and pfQuest-only fields stay. **Source lists are unions**: item
@@ -4981,30 +5144,43 @@ exclusive group: pfQuest `close` united with QuestieDB `exclusiveTo`.
    licence file (CurseForge says GPL-3.0; the maintainers say to treat them as
    all rights reserved, Questie issue #4447). The data stays in `data/`, and
    only the importer is in this repository.
-3. **Wowhead Forever's change notes** (`tools/lib/data/wowhead.js`,
-   `--no-wowhead` skips them, as does a build without QuestieDB): the quest
+3. **Forever's change notes** (`rust/crates/forge-data/src/extras.rs`,
+   `--no-web-zones` skips them, as does a build without QuestieDB): the quest
    list of every zone and city page and of the nine class pages (class
-   quests are filed there, not under a zone) on wowhead.com/forever, read from
-   `data/sources/wowhead/zones.json`; without that cache this step adds
-   nothing. A quest Wowhead marks updated with "Experience
+   quests are filed there, not under a zone) of Forever's quest data, read from
+   `data/sources/web/zones.json`; without that cache this step adds
+   nothing. A quest the list marks updated with "Experience
    X instead of Y", "Level X instead of Y" or "Requires level X instead of Y"
    gets X where its value is still the old Y (for XP, also where it has none),
-   and one marked "Renamed from Y" gets Wowhead's Forever name where its title
+   and one marked "Renamed from Y" gets Forever's name where its title
    is still Y (Chastise, formerly A Lack of Fear); any other value is left
-   alone, and the quest's `source` gains `wowhead:xp`, `wowhead:level`,
-   `wowhead:minLevel` or `wowhead:title`. Only rows whose category is the
-   zone's area count: Wowhead answers an unknown zone path with a generic list.
+   alone, and the quest's `source` gains `web:xp`, `web:level`,
+   `web:minLevel` or `web:title`. Only rows whose category is the
+   zone's area count: the web database answers an unknown zone path with a generic list.
    Its Forever database also lists datamined quests that are not live (`<NYI>`
    placeholders, Season of Discovery leftovers), so presence there is not
    evidence that a quest is in the game.
-4. **Polestar corrections** (`tools/lib/data/corrections.json`, committed):
-   facts QuestieDB or pfQuest get wrong or lack, each with its source in a `note`:
+4. **Polestar corrections** (`forever-db/corrections/<section>.json`, committed):
+   facts QuestieDB or pfQuest get wrong or lack, each with the independent
+   evidence for it in `source` (`{ kind, ref }` or a list; kind `recording`,
+   `in-game-check`, `client`, `eg`, `cmangos`, `tdb`, `questie`, `pfquest` or
+   `factoruide`, `SOURCE_KINDS` in `forge-data`'s `corrections.rs`) and what it
+   fixes in a `note`:
    quest fields (`set`), item sources to drop (`removeDrops`, `removeVendors`),
    npc/object fields (`set`: the Forever elite and rare ranks QuestieDB's
    Forever store lacks, since it gives every Forever npc rank 0, and renamed
-   Era records) and npc/object spawn maps (`addSpawns`). They are applied
-   after the merge, only in a build that reads QuestieDB, and the record's
-   `source` gains `polestar-correction`. One
+   Era records) and npc/object spawn maps (`addSpawns`). A fix whose only
+   support is a source we don't publish lives in the private overlay
+   `data/local/corrections-private.json` (same shape, not in the repository),
+   which `data build` merges over the public file entry by entry when it is
+   there (`--corrections-private <file>`, `--no-corrections-private`). The
+   build prints `private corrections: N applied from <path>` or `private
+   corrections: none found (public corrections only)`, the latter as a
+   warning when the web quest-list cache or `data/local/kb` or
+   `data/local/factcheck` is present, and records N in `meta.json` counts
+   `correctionsPrivate`. They are
+   applied after the merge, only in a build that reads QuestieDB, and the
+   record's `source` gains `polestar-correction`. One
    cleanup is general rather than per quest: `pre`, `preAll` and `preAny`
    never contain the quest itself or an id from its `excl`. QuestieDB
    preQuestSingle sometimes lists the whole exclusive group.
@@ -5013,7 +5189,92 @@ exclusive group: pfQuest `close` united with QuestieDB `exclusiveTo`.
    the rules of their own paragraph there.
 
 `source` on every quest, npc, object and item lists its contributors in
-that order: `pfquest`, `questie-forever`, `wowhead:*` (change notes), `polestar-correction`, the web XP tag, `recorder`, then the recorded XP tag (`recorder:xp-*`).
+that order: `pfquest`, `questie-forever`, `web:*` (change notes), `polestar-correction`, the web XP tag, `recorder`, then the recorded XP tag (`recorder:xp-*`).
+
+#### Knowledge base (`rust/crates/forge-data/src/kb.rs`, `data/local/kb/forever-kb.sqlite`)
+
+After the merge above, `forge data build --kb` runs the knowledge base (without
+`--kb` the stage is skipped). It reads every source's value of each
+fact, picks one by a single precedence, writes the winners back into the
+tables, and only then are the files serialized. So data/forever is the
+KB's choice, and a fact no source changes stays byte-identical. The KB
+itself is a local SQLite file: `facts` (kind, id, field, value, source,
+confidence), `alternatives` (the other sources' values, `agrees`), typed
+tables `quests`, `objectives`, `givers`, `npcs`, `objects`, `items`,
+`spawns`, `drops`, `vendors`, `trainers`, `training`, `mechanics`, `steps`,
+plus `verify_in_game` and `changes` (every field it changed in data/forever,
+old and new value, deciding source).
+
+Precedence, lowest tier wins, one order for every fact kind:
+
+| Tier | Source |
+|---|---|
+| 0 | Polestar recordings and corrections (`corrections.json`, hand-verified) |
+| 1 | Forever TrinityCore world DB, sniffed rows (VerifiedBuild >= 70000: advocaite/TrinityCore `forever` plus the Sakhwoow/WoWForever 2026-10-20 sniffs; `rust/crates/forge-data/src/tdb.rs` reads `data/local/forever-tdb/world.sqlite`) |
+| 1 | `client`: the installed Forever client's tables with the server's hotfix rows (DBCache.bin) applied, for what the game draws from them only: quest map areas (`start_place`, `end_place`, `objective_place:<n>`), area triggers of event objectives (`objective_trigger:<i>`), QuestV2 (`in_client`: the quest exists; never a removal), item names, durations, start quests and the quest-item class, placed game objects (`placement`) |
+| 1.4 | EG Link output: observed turn-in XP |
+| 1.5 | EG Link output (JIVESCORP/eg-link-output-wowf, CC BY 4.0): players' game caches, the server's quest answers (`rust/crates/forge-data/src/players.rs`); captured in-game XP (ForeverDB, Factoruide's collector) ranks here for XP only |
+| 1.5 | `client.cache`: the installed client's own WDB caches, the same server answers (quest title, levels, XP from QuestXP x the multiplier, races, objectives; NPC name, subtitle, rank; object name), read like an EG record |
+| 2 | the web quest-database pages (givers and enders: it wins over QuestieDB and Factoruide) |
+| 3 | ForeverDB: seen data, game cache, vendors, captures; forever-vo dialog captures (`rust/crates/forge-data/src/players.rs`) |
+| 4 | QuestieDB (Questie-Forever) |
+| 6 | Factoruide |
+| 6.5 | web verdicts (`data/local/mechanics/web-verdicts.json`) |
+| 7 | CMaNGOS, VMaNGOS, the TDB's inherited rows, ForeverDB's Classic reference |
+| 8 | pfQuest |
+
+The web quest-database pages, ForeverDB and Factoruide come from the fact check's
+`data/local/factcheck/facts.sqlite` when it is present; every local source is
+optional. Rules on top of the order:
+
+- A missing value is filled from the best source that has one, whatever its tier.
+- Classes and races change only by tier <= 1.5 (the server's own answers),
+  positions and NPC sides only by tier 1. Every other disagreement on class,
+  race, side, position or visibility (Factoruide's "removed") goes to
+  `data/local/kb/verify-in-game.json`, grouped by entity and ranked:
+  quest-relevant entities of the sim's v2 worlds first.
+- What players saw (EG, forever-vo, ForeverDB's seen data, the collector)
+  adds givers and enders but never removes one; the sniffs, the page and
+  corrections replace a list. A quest both factions share never loses the
+  other faction's NPC. A giver without spawns is not applied (verify list).
+- XP within max(5 XP, 3 %) of a capture or game cache is the same value. The
+  page's XP (and Factoruide's, which copies it) lowers ours only when an
+  independent source agrees: its dungeon, battleground and repeatable XP is
+  often the pre-change or level-capped value.
+- Placeholder text (`<NYI>`, `[UNUSED]`, "Reuse Me") never wins; titles change
+  only by tier <= 3; levels and XP of 0 count as missing.
+- Confidence: high = tier <= 1, or two sources agree; medium = one source of
+  tier 2-4; low otherwise.
+
+The TDB also gives (gap fills only, unless sniffed): objective counts, `next`,
+`pre` (sniffed PrevQuestID where a quest has no prerequisite data), quest
+`limit` (TimeAllowed, seconds), quest `rewardSpell` (the spell the turn-in grants:
+RewardSpell, else RewardDisplaySpell1), sniffed spawns of Forever-only NPCs and objects
+(ours replaced when none lies within 300 yd of a sniffed spawn, else the
+sniffed spawns without a point of ours within 40 yd added; `spawnz.json` gets
+their heights), sniffed drop rates (a sniff's k of n kills shrunk towards the
+default with 2 kills at it; placeholder rows never), new spawned droppers of
+quest items, class trainers our list lacks (`trainers.json`) and the sniffed
+class lists' cost per level (`training.json`). EG and the client's caches give
+`next`, objectives for quests with none and quest-tied drop rates (EG) the same way.
+`forge data build --kb` reads the client found (`--wow`, `--product`) unless
+`--no-client`; `--client-cache DIR` and `--client-tables DIR` (table CSVs) name
+other folders. The release build never reads it.
+
+`data/forever/mechanics.json` ({ schema, sources, quests: { id: { kinds,
+params, server, steps, gotchas } } }) holds the quest mechanics
+(data/local/mechanics, checked against the TDB layer and the web verdicts).
+A kind, parameter or step `drives` routing only when it is of high confidence
+or two independent source groups agree (page reading, CMaNGOS chain, our data,
+TDB, web); a step drives when it is high and structured, or its kind is
+confirmed by two groups. The rest, and every gotcha, are tips. The sim world
+reads the driving ones (`limit`, `mech`, summon and use-at-place work points).
+Tier 0 applies last: `data/mechanics-public.json` `corrections`, by quest id, replaces or
+adds `params` (same kind and item) and sets fields of `steps` by number; both
+then drive. One kind exists only there so far: `delayed-offer` { after, npc,
+sec }, a giver who offers the quest about `sec` seconds after `after` is
+handed in (a scripted scene), so a route can fill the wait elsewhere.
+
 Blizzard map tables come from wago.tools: Classic Era (`wow_classic_era`) for
 the Era frames pfQuest's coordinates use, and the Forever client
 (`wow_classic_beta` builds 1.60+, `--forever-build`, `--no-forever`) for
@@ -5048,7 +5309,7 @@ Quest `xp`: recordings first (`rewardXpBase` wins; otherwise the largest
 above the quest, since Classic reduces XP beyond that, so an over-levelled
 observation never overwrites a full one; `source` names `recorder:xp-base`,
 `recorder:xp-log` or `recorder:xp-turnin`). Then QuestieDB's QuestXP, with
-Wowhead's "Experience X instead of Y" notes applied where it still has the old
+Forever's "Experience X instead of Y" notes applied where it still has the old
 value (above). corrections.json `xp` replaces both: Forever about doubled the
 XP of many dungeon quests, and QuestXP still has the Classic value for some
 (issue #394), so those take the XP shown by in-game evidence dated after the
@@ -5060,12 +5321,12 @@ quest in the same dungeon: the extra XP was twice as much before the change,
 so such a value can't be a pre-change one. Then, for quests
 still without XP, the Forever web databases
 (`--no-web-xp` skips them; results are cached in
-`data/sources/webxp/quest-xp.json`): wowforevertalents.com (Forever beta client
-cache, tag `wowforevertalents:xp`), else foreverchanges.pro (Wowhead's Forever
-database: the quest's reward, `foreverchanges:xp`, or its quest-chain list,
-`foreverchanges:xp-chain`), else the XP on Wowhead's zone quest list
-(`wowhead:xp`). `meta.counts` gives `questXpFromWeb`, `questXpFromWowhead` and
-`wowheadChanged` ({ xp, level, minLevel, title }).
+`data/sources/webxp/quest-xp.json`): the Forever client's quest cache (tag
+`webcache:xp`), else Forever's quest chain data (the quest's reward,
+`webdb:xp`, or its quest-chain list, `webdb:xp-chain`), else
+the XP on Forever's zone quest list
+(`web:xp`). `meta.counts` gives `questXpFromWeb`, `questXpFromWebZones` and
+`webZonesChanged` ({ xp, level, minLevel, title }).
 
 ### Recordings (`data/recordings/<session>.json`)
 
@@ -5118,6 +5379,36 @@ map, x, y}` with `reason` = `login` (session start or /reload), `step`
 `complete` (`GUIDE_COMPLETED`; no `step`). Only the active tab is snapshotted.
 Also, with or without Polestar: `combat {on}` (`PLAYER_REGEN_DISABLED/ENABLED`),
 `afk {on}`, `revive` (alive again after a `death`).
+
+Position trail (`Trail.lua`), only while `/psrec trail on [label]` runs (and the
+Recorder records): `trail_start {label, map, x, y}`, then `trail {map, x, y,
+wx, wy, wz, facing, speed, mounted, swimming, falling, indoors, onTaxi}`
+samples, then `trail_stop {label, n, yd, reason, map, x, y}` (`yd`: yards
+walked, summed between samples) with `reason` =
+`off`, `timeout` (30 minutes), `cap` (the session's `trail` cap, 20000),
+`recording off` or `logout` (also a /reload). A 4 Hz ticker stores a sample
+when the player moved 1 yd (in world coordinates, height included), changed
+map (a city floor is its own map) or 2 s passed. `x`, `y` keep 4 decimals;
+`wx`, `wy`, `wz` are world coordinates (the Map frames convention, 2 decimals)
+from `UnitPosition` (no `wz` for its height of exactly 0, which Forever gives
+where it has none), else `C_Map.GetWorldPosFromMapPos` without `wz`;
+`facing` is radians (3 decimals), `speed` yards per second (`GetUnitSpeed`);
+the five flags are stored only when true. `record trail <session|file>
+[--out file.json]` writes a session's trails as `[{ label, start, end, reason,
+points: [{ t, map, x, y, wx, wy, wz, facing, speed, mounted, swimming,
+falling, indoors, onTaxi }] }]` (missing numbers null, flags false).
+
+The Recorder window (`Panel.lua`; `/psrec ui`, Polestar's Options > Recorder
+and its guide menu; drawn with Polestar's Theme and Widgets when Polestar is
+loaded, else the game's templates) turns recording on and off, starts and
+stops a trail (also the key binding "Recorder: start or stop the position
+trail", `/psrec trail toggle`), marks a point, lists this session's trails
+and has Save now (a /reload). Its spot list is `Spots.lua`, generated once
+from the maintainers' trail list (spots up to level 30, in each faction's tour
+order); the label box offers the first spot not done that the player's level
+allows, and a trail whose label is a spot's label, or starts with `#<id>`,
+ticks it in `PolestarRecorderDB.spots` (`{ [id] = epochSeconds }`) when it
+stops with at least one point. The window's place is `PolestarRecorderDB.panel`.
 
 #### Measuring routes
 
@@ -5289,7 +5580,7 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   rules, slope, fall and lift costs) with a direct search for near ends and
   the per-tile graph otherwise, then smooths the path; `los` tests a
   straight walkable line. `nav path` prints one route.
-- **Packing for the in-game engine** (`nav pack`, `tools/lib/nav/pack.js`,
+- **Packing for the in-game engine** (`forge nav pack`, `rust/crates/forge-nav/src/pack` (first `tools/lib/nav/pack.js`),
   rules in its header): the grid as Polestar's walking maps (format 2,
   grown from Shortest Path Forever's walking-map format: his baker's HPA*
   and encodings, ported), which the router in `Polestar_Nav` (started from
@@ -5332,7 +5623,7 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   terrain triangle under it (grid format 4's tslope) against the slope
   bands, the indoor flag (indoor city where the chunk's area or the zone
   map around it is a capital, AreaTable `Flags_0 & 0x100`), the roads layer
-  and the hubs layer (`nav layers`, a hub bit on every cell a hub disk
+  and the hubs layer (`forge nav layers`, a hub bit on every cell a hub disk
   touches); `Routing/Costs.lua` (mirrored in `tools/lib/nav/costs.js`)
   prices a step by it, per faction, and every graph edge carries its cost
   for Alliance, Horde and no profile and its yards. `chokepoints.js` adds `Chokepoints.lua`

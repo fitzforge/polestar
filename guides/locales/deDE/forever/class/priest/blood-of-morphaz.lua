@@ -30,12 +30,12 @@ return {
 	-- Step 4: Of Coursers We Know
 	-- {zone:1447} Azshara · {item:20027} Healthy Courser Gland · {item:7972} Ichor of Undeath · {npc:8405} Ogtinc
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
-	["Mosshoof Coursers graze all over {zone:1447}; about one in three drops a {item:20027}. Keep any {item:7972} you loot: {npc:8405}'s next stage asks for one."] = "",
+	["Mosshoof Coursers graze all over {zone:1447}; about one in three drops a {item:20027}. Keep any {item:7972} you loot: {npc:8405}'s next stage asks for one."] = "Mooshufrenner grasen überall im {zone:1447}; etwa jeder dritte lässt {item:20027} fallen. Behalte jedes {item:7972}, das du erbeutest: Die nächste Stufe von {npc:8405} verlangt eines.",
 
 	-- Step 6: The Ichor of Undeath
 	-- {item:7972} Ichor of Undeath · {npc:7864} Lingering Highborne · {area:1221} Ruins of Eldarath · {npc:8405} Ogtinc · {area:3137} Talrendis Point
 	-- plural, as words: Highborne Apparitions = {npc:6116} Highborne Apparition
-	["Already carrying an {item:7972}? It counts as soon as you take this stage. Otherwise any undead can drop it. The {npc:7864} in the {area:1221}, below {npc:8405}'s cliffs, are the nearest; Highborne Apparitions and Lichlings haunt the ruins near {area:3137}."] = "",
+	["Already carrying an {item:7972}? It counts as soon as you take this stage. Otherwise any undead can drop it. The {npc:7864} in the {area:1221}, below {npc:8405}'s cliffs, are the nearest; Highborne Apparitions and Lichlings haunt the ruins near {area:3137}."] = "Trägst du schon {item:7972}? Es zählt, sobald du diese Stufe annimmst. Sonst kann es jeder Untote fallen lassen. Die {npc:7864} in den {area:1221} unter den Klippen von {npc:8405} sind am nächsten; Erscheinungen der Hochgeborenen und Lichlinge spuken in den Ruinen bei {area:3137}.",
 
 	-- Step 8: Morphaz in the Sunken Temple
 	-- {area:1417} Sunken Temple

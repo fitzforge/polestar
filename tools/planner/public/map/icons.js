@@ -11,6 +11,9 @@
 //   atlas.ARROW                         // the arrow's cell
 //   atlas.tex, atlas.cols, atlas.rows   // for MarkerLayer
 
+import { iconUrl } from '../ui/dom.js';
+export { iconUrl };
+
 export const CELL = 64;
 const COLS = 16;
 const SIZE = CELL * COLS;
@@ -41,7 +44,6 @@ function ready(url) {
 }
 
 export const glyphUrl = (name) => `/glyph/${name}.png?px=64`;
-export const iconUrl = (spec) => `/icon/${spec.kind}/${encodeURIComponent(spec.key)}.png`;
 // ui textures are cut-outs at their own shapes; the rest are square icons.
 const isSquare = (spec) => spec.kind !== 'ui' || spec.key === 'hearthstone';
 

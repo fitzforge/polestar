@@ -15,8 +15,8 @@ why The Troll priest spells: Hex of Weakness at 10, Shadowguard at 20.
 # The Troll Priest spell quests: Hex of Weakness at 10 (5652) and
 # Shadowguard at 20 (5680), both from Ur'kyo in Orgrimmar's Valley of
 # Spirits.
-# Sources: quests.json and npcs.json for the givers; Wowhead Forever's
-# Priest class page (data/local/quest-audit/wowhead-class-quests.json: both
+# Sources: quests.json and npcs.json for the givers; Forever's
+# Priest class quest list (data/local/quest-audit/: both
 # unchanged); classicwowforever.com/racials for the spells (Hex of Weakness
 # and Shadowguard stay Troll spells).
 # horde/orc-troll/01-durotar and 03-silverpine-forest carry Hex of Weakness

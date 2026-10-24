@@ -1,0 +1,431 @@
+{
+	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
+	"places": [
+		{
+			"id": "646-azshara-rimtori-camp",
+			"quest": 3505,
+			"objective": 3,
+			"at": {
+				"map": 1447,
+				"x": 59.53,
+				"y": 31.47,
+				"frame": "era"
+			},
+			"note": "Betrayed: the arrow leads to Magus Rimtori's camp, the quest's discovery objective, once both kill objectives are credited.",
+			"source": {
+				"kind": "questie",
+				"ref": "quests.json 3505 objective 3 (the camp's event point)"
+			},
+			"pr": 646
+		},
+		{
+			"id": "646-silithus-silithyst-delivery",
+			"quest": 9422,
+			"objective": 1,
+			"at": {
+				"map": 1451,
+				"x": 50.93,
+				"y": 69.33,
+				"frame": "era"
+			},
+			"note": "Scouring the Desert: the arrow leads to the Horde Silithyst delivery point.",
+			"source": {
+				"kind": "questie",
+				"ref": "npcs.json 18199's spawn, the delivery credit"
+			},
+			"pr": 646
+		},
+		{
+			"id": "646-mulgore-pyall",
+			"quest": 96661,
+			"objective": 1,
+			"at": {
+				"map": 1412,
+				"x": 44.92,
+				"y": 61.67,
+				"frame": "live"
+			},
+			"note": "Camping 101: Cooking: the arrow leads to Pyall Silentstride.",
+			"source": {
+				"kind": "questie",
+				"ref": "npcs.json 3067's spawn"
+			},
+			"pr": 646
+		},
+		{
+			"id": "672-tirisfal-deathguard-church",
+			"quest": 90902,
+			"objective": 1,
+			"at": {
+				"map": 1420,
+				"x": 31.6,
+				"y": 65.8,
+				"frame": "era"
+			},
+			"note": "Rediscovering the Light: the Injured Deathguard in front of the church, near Aramis Hammerhand, not the far side of Deathknell.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#672: the reporter's position, 31.65,65.84"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json 259377 spawn at 31.59,65.83"
+				}
+			],
+			"issue": 672,
+			"pr": 676
+		},
+		{
+			"id": "674-tirisfal-gordo-road",
+			"quest": 99141,
+			"objective": 3,
+			"path": {
+				"map": 1420,
+				"frame": "era",
+				"points": [
+					[
+						53.8,
+						53.1
+					],
+					[
+						51.8,
+						55.4
+					],
+					[
+						49.7,
+						58.0
+					],
+					[
+						47.3,
+						57.4
+					],
+					[
+						45.5,
+						56.6
+					],
+					[
+						43.1,
+						54.7
+					]
+				]
+			},
+			"note": "Patience, Gordo's report: Gordo walks the road west of Brill past Cold Hearth Manor and back, so the arrow searches along his road from Brill's end out to his spawn.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#674"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature_movement_template, creature guid 28413 (entry 10666): waypoints 49, 37, 25, 103, 13 and 1"
+				}
+			],
+			"issue": 674,
+			"pr": 678
+		},
+		{
+			"id": "692-darkshore-plagued-bears",
+			"quest": 2118,
+			"objective": 1,
+			"at": {
+				"map": 1439,
+				"x": 38.21,
+				"y": 52.59,
+				"frame": "era"
+			},
+			"note": "Plagued Lands: the Rabid Thistle Bears nearest Tharnariun, the same bears the next step's kill points at.",
+			"source": {
+				"kind": "questie",
+				"ref": "npcs.json 2164's spawns"
+			},
+			"issue": 303,
+			"pr": 692
+		},
+		{
+			"id": "692-feralas-shay-rockbiter",
+			"quest": 2845,
+			"objective": 2,
+			"at": {
+				"map": 1444,
+				"x": 42.33,
+				"y": 21.85,
+				"frame": "era"
+			},
+			"note": "Wandering Shay: the escort ends at Rockbiter's camp.",
+			"source": {
+				"kind": "questie",
+				"ref": "quests.json 2845 objective 2 (the escort's end point)"
+			},
+			"issue": 303,
+			"pr": 692
+		},
+		{
+			"id": "692-dunmorogh-narm-faulk",
+			"quest": 1783,
+			"objective": 1,
+			"at": {
+				"map": 1426,
+				"x": 78.32,
+				"y": 58.09,
+				"frame": "era"
+			},
+			"note": "The Tome of Divinity: Narm Faulk, who the Symbol of Life is used on.",
+			"source": {
+				"kind": "questie",
+				"ref": "npcs.json 6177's spawn"
+			},
+			"issue": 303,
+			"pr": 692
+		},
+		{
+			"id": "692-elwynn-henze-faulk",
+			"quest": 1786,
+			"objective": 1,
+			"at": {
+				"map": 1429,
+				"x": 72.6,
+				"y": 51.41,
+				"frame": "era"
+			},
+			"note": "The Tome of Divinity: Henze Faulk, who the Symbol of Life is used on.",
+			"source": {
+				"kind": "questie",
+				"ref": "npcs.json 6172's spawn"
+			},
+			"issue": 303,
+			"pr": 692
+		},
+		{
+			"id": "703-5561-1",
+			"quest": 5561,
+			"objective": 1,
+			"write": true,
+			"faction": "Alliance",
+			"note": "Kodo Roundup: the Aged Kodos in the Kodo Graveyard, not back at the giver.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#703"
+				},
+				{
+					"kind": "questie",
+					"ref": "quests.json objectives"
+				}
+			],
+			"issue": 703,
+			"pr": 704
+		},
+		{
+			"id": "703-8304-1",
+			"quest": 8304,
+			"objective": 1,
+			"write": true,
+			"faction": "Alliance",
+			"note": "Dearest Natalia: Frankal Stonebridge at Bronzebeard's Encampment, while the giver is in Cenarion Hold.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#703"
+				},
+				{
+					"kind": "questie",
+					"ref": "quests.json objectives"
+				}
+			],
+			"issue": 703,
+			"pr": 704
+		},
+		{
+			"id": "703-8304-2",
+			"quest": 8304,
+			"objective": 2,
+			"write": true,
+			"faction": "Alliance",
+			"note": "Dearest Natalia: Rutgar Glyphshaper at Bronzebeard's Encampment.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#703"
+				},
+				{
+					"kind": "questie",
+					"ref": "quests.json objectives"
+				}
+			],
+			"issue": 703,
+			"pr": 704
+		},
+		{
+			"id": "703-93461-1",
+			"quest": 93461,
+			"objective": 1,
+			"write": true,
+			"faction": "Alliance",
+			"note": "Welcome to Shen'dar Village: Rathiril Sunlance.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#703"
+				},
+				{
+					"kind": "questie",
+					"ref": "quests.json objectives"
+				}
+			],
+			"issue": 703,
+			"pr": 704
+		},
+		{
+			"id": "703-93461-2",
+			"quest": 93461,
+			"objective": 2,
+			"write": true,
+			"faction": "Alliance",
+			"at": {
+				"map": 2521,
+				"x": 43.05,
+				"y": 43.3,
+				"frame": "live"
+			},
+			"note": "Welcome to Shen'dar Village: Coriella Calmbreeze, north-west of the village.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#703"
+				},
+				{
+					"kind": "questie",
+					"ref": "quests.json objectives"
+				}
+			],
+			"issue": 703,
+			"pr": 704
+		},
+		{
+			"id": "703-92849-1",
+			"quest": 92849,
+			"objective": 1,
+			"write": true,
+			"faction": "Alliance",
+			"note": "The Missing Scholar: Fillion Flamebreeze.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#703"
+				},
+				{
+					"kind": "questie",
+					"ref": "quests.json objectives"
+				}
+			],
+			"issue": 703,
+			"pr": 704
+		},
+		{
+			"id": "703-92849-2",
+			"quest": 92849,
+			"objective": 2,
+			"write": true,
+			"faction": "Alliance",
+			"note": "The Missing Scholar: his Dusty Bedroll.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#703"
+				},
+				{
+					"kind": "questie",
+					"ref": "quests.json objectives"
+				}
+			],
+			"issue": 703,
+			"pr": 704
+		},
+		{
+			"id": "703-92640-1",
+			"quest": 92640,
+			"objective": 1,
+			"write": true,
+			"faction": "Alliance",
+			"note": "Desperate Times: Valennia Stormfist.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#703"
+				},
+				{
+					"kind": "questie",
+					"ref": "quests.json objectives"
+				}
+			],
+			"issue": 703,
+			"pr": 704
+		},
+		{
+			"id": "703-92640-3",
+			"quest": 92640,
+			"objective": 3,
+			"write": true,
+			"faction": "Alliance",
+			"note": "Desperate Times: Elaadrin Evengale.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#703"
+				},
+				{
+					"kind": "questie",
+					"ref": "quests.json objectives"
+				}
+			],
+			"issue": 703,
+			"pr": 704
+		},
+		{
+			"id": "703-833-1",
+			"quest": 833,
+			"objective": 1,
+			"write": true,
+			"faction": "Horde",
+			"note": "A Sacred Burial: the Bristleback Interlopers at Red Rocks.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#703"
+				},
+				{
+					"kind": "questie",
+					"ref": "quests.json objectives"
+				}
+			],
+			"issue": 703,
+			"pr": 704
+		},
+		{
+			"id": "703-92640-2",
+			"quest": 92640,
+			"objective": 2,
+			"faction": "Alliance",
+			"at": {
+				"map": 2521,
+				"x": 59.15,
+				"y": 79.73,
+				"frame": "live"
+			},
+			"note": "Desperate Times: Ayessa Dawnsinger, west of town. The data has her for the other faction only, so she gets no goal line of her own (a kill would read as an elite to fight): the quest's complete leads there.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#703"
+				},
+				{
+					"kind": "questie",
+					"ref": "quests.json objectives"
+				}
+			],
+			"issue": 703,
+			"pr": 704
+		}
+	]
+}

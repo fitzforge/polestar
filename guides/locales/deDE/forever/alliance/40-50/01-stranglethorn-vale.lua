@@ -25,7 +25,7 @@ return {
 	-- Step 4: Swamplight Manor
 	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "Nimm die Straße nach Norden zum zerstörten Anwesen; Jarl wohnt in der Hütte daneben, und die lockere Erde ist an der Hausecke.",
 	-- {quest:1218} Soothing Spices
-	["{quest:1218}, for \"Swamp Eye\" Jarl"] = "",
+	["{quest:1218}, for \"Swamp Eye\" Jarl"] = "{quest:1218}, für „Sumpfauge“ Jarl",
 	["with the spices from Theramore"] = "mit den Gewürzen aus Theramore",
 
 	-- Step 5: Mudrock tortoises

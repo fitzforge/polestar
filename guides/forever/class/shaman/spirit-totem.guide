@@ -17,23 +17,22 @@ why Experience and gold at 50, ending in the Sunken Temple; Forever removed the 
 # spiders and bears of the Plaguelands) -> Da Voodoo (8413: three voodoo
 # feathers from the troll minibosses of the Sunken Temple).
 # Sources: quests.json, npcs.json and items.json (givers, objectives,
-# droppers); Wowhead Forever's Shaman class page
-# (data/local/quest-audit/wowhead-class-quests.json): Forever no longer
+# droppers); Forever's Shaman class quest list
+# (data/local/quest-audit/): Forever no longer
 # rewards Da Voodoo's choice of Azurite Fists, Enamored Water Spirit or
 # Wildstaff, and names nothing in their place, so the chain pays experience
-# and Da Voodoo's money only (Wowhead: 3,800 + 5,100 + 6,350 XP and 1g 55s).
+# and Da Voodoo's money only (Forever's quest data: 3,800 + 5,100 + 6,350 XP and 1g 55s).
 # The Sunken Temple's entrance point is the one in
 # forever/alliance/40-50/07-un-goro-crater.guide.
 # Mastering the Elements (8411) is the same quest started at Bath'rah
 # instead; the two exclude each other, and this guide takes your trainer's.
-# Horde only: the data and Wowhead list no Alliance version of these quests.
+# Horde only: the Questie data and Forever's quest data list no Alliance version of these quests.
 # Dungeon work: the voodoo feathers drop only inside the Sunken Temple, a
 # dungeon of the 50s; bring a group.
 # Beta capped at 30: not played; it follows the data above.
 
 # Collection: Forever quest 8412 requires eight eyes and eight claws; its
 # own text names carrion birds as sources of either, alongside bears/spiders.
-# https://www.wowhead.com/forever/quest=8412/spirit-totem
 
 step Sagorne Creststrider
   only Orc,Troll

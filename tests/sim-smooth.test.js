@@ -1,5 +1,5 @@
 'use strict';
-// Smooth routes (docs/SIMULATION.md "Objectives"): shared kill credit, the
+// Smooth routes (docs/legacy/SIMULATION-js.md "Objectives"): shared kill credit, the
 // return penalties of the smooth objective and the 40-quest log. The world
 // is invented (tests/fixtures/sim/synthetic.js): Elder Testa gives Rat
 // Trouble (8 Burrow Rats) and Choice One (4 rats, same camp); Word to the

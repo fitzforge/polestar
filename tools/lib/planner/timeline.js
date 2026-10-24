@@ -218,6 +218,7 @@ function goalLabel(goal, names = null) {
 		case 'getfp': return `Get the flight path${goal.location ? ` at ${goal.location}` : npc ? ` from ${npc}` : ''}`;
 		case 'fly': return `Fly to ${goal.location}`;
 		case 'hearth': return `Hearth${goal.location ? ` to ${goal.location}` : ''}`;
+		case 'die': return `Die and resurrect at ${goal.location}`;
 		case 'train': return goal.class ? 'Train class skills' : goal.skill ? `Train ${goal.skill}` : `Train${npc ? ` with ${npc}` : ''}`;
 		case 'vendor': return `Sell and repair${npc ? ` at ${npc}` : ''}`;
 		case 'buy': return `Buy ${goal.itemName || `item ${goal.item}`}${times(goal.count)}`;

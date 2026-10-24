@@ -11,11 +11,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { applyRecordings } = require('../tools/lib/data/recordings');
 const { importFile } = require('../tools/lib/recording/import');
-const { buildData } = require('../tools/lib/data/build');
+const { forge } = require('./helpers/cli');
 const { runAddon } = require('./helpers/lua');
 const { tmpdir } = require('./helpers/tmp');
 
-const FIX = path.join(__dirname, 'fixtures', 'data');
+const FIX = path.join(__dirname, '..', 'rust', 'tests', 'fixtures', 'data');
 
 // The fixture world after pfQuest (see data.test.js): wolves 3 and 4 drop
 // Wolf Pelt (50) at 45.5 % and 80 %, object 600 is a Peacebloom herb, 500 an
@@ -154,8 +154,8 @@ test('quest frame rewards: the turn-in wins over the accept', () => {
 });
 
 // The addon records a session in the stub world; `record import` and
-// `data build` turn it into facts the Codex reads.
-test('a recorded session with a rare, kills and loot imports and builds into npcs, items and objects facts', async () => {
+// `forge data build` turn it into facts the Codex reads.
+test('a recorded session with a rare, kills and loot imports and builds into npcs, items and objects facts', async (t) => {
 	const sv = runAddon({
 		stubs: ['stub_recorder.lua'],
 		addons: ['Polestar_Recorder'],
@@ -202,8 +202,11 @@ test('a recorded session with a rare, kills and loot imports and builds into npc
 	assert.deepEqual(drop.items, [{ item: 55, n: 1 }], 'loot lists survive the SavedVariables round trip');
 
 	const outDir = path.join(dir, 'forever');
-	const { meta } = await buildData({ offline: true, pfquestDir: path.join(FIX, 'pfquest'), sourcesDir: path.join(FIX, 'sources'), recordingsDir: recordings, outDir, builtAt: '2026-01-01T00:00:00Z' });
+	const r = forge(['data', 'build', '--offline', '--no-questie', '--no-forever', '--no-web-xp', '--no-web-zones', '--pfquest', path.join(FIX, 'pfquest'), '--sources', path.join(FIX, 'sources'), '--recordings', recordings, '--out', outDir, '--built-at', '2026-01-01T00:00:00Z']);
+	if (!r) return t.skip('no forge binary (rust/target/release/forge or $FORGE)');
+	assert.equal(r.status, 0, r.stderr);
 	const read = (name) => JSON.parse(fs.readFileSync(path.join(outDir, `${name}.json`), 'utf8'));
+	const meta = read('meta');
 	const npcs = read('npcs');
 	const items = read('items');
 	const objects = read('objects');

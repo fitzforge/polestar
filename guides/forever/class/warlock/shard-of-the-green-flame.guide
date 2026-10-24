@@ -14,9 +14,9 @@ why A rare off-hand for your 50s from Niby and Impsy in Felwood, the camp that a
 # Kroshius' Infernal Core (7603), for the Shard of the Green Flame.
 # Sources: quests.json, npcs.json, objects.json and items.json (Questie 12.1.0
 # and Questie-Forever) for Niby, Impsy, the essences' droppers, Kroshius and
-# his remains; Wowhead's Classic quest page (wowhead.com/classic/quest=7603)
-# for lighting the Fel Fire at the remains to wake him; Wowhead Forever's
-# Warlock class page (data/local/quest-audit/wowhead-class-quests.json):
+# his remains; the classic quest data (quest 7603)
+# for lighting the Fel Fire at the remains to wake him; Forever's
+# Warlock class quest list (data/local/quest-audit/):
 # unchanged in Forever, Kroshius' Infernal Core rewards the Shard of the Green
 # Flame.
 # Kroshius is elite: grouping up is advised.

@@ -43,8 +43,8 @@ next forever/alliance/04-redridge-mountains
 #   (986) and Gwennyth (87760) give their next quests on the same visit as
 #   the turn-ins instead of a second round.
 # - Holy Diver (87760, Forever): Gwennyth offers it only once all nine
-#   Beached Sea Creature and Turtle quests are handed in (a Wowhead Forever
-#   comment, #51; the quest data has no prerequisite for it). It is taken
+#   Beached Sea Creature and Turtle quests are handed in (players'
+#   reports, #51; the quest data has no prerequisite for it). It is taken
 #   with the last three after the fourth loop, its rod comes from the
 #   Stormscale Beastmistresses on the naga trip, and it is handed in on the
 #   way back south.
@@ -80,8 +80,8 @@ next forever/alliance/04-redridge-mountains
 #   Alanndarian's herbs after the third loop and the deer on the last legs,
 #   Power over Poison on the Cat Form trip). Forever rewards Cure Poison only
 #   through it. Earthroot needs Herbalism or the Stormwind purchase
-#   (02-westfall); the moonkin caves for the Lunar Fungus are Wowhead
-#   Forever's (quest 6123), the Lunar Fungal Blooms objects.json's.
+#   (02-westfall); the moonkin caves for the Lunar Fungus are from
+#   Forever's quest data (quest 6123), the Lunar Fungal Blooms objects.json's.
 # - Skyborne Druids hand Sheldras's Moonglade welcome (94914, from their start
 #   guide) to Dendrite on the Cat Form trip.
 
@@ -125,7 +125,7 @@ step The skeletal turtle
 
 step Plagued bears
   tip Rabid Thistle Bears roam the hills just east of Auberdine. Use Tharnariun's Hope on one and lead it back to him.
-  complete 2118
+  complete 2118 @38.21,52.59                  -- the Rabid Thistle Bears nearest Tharnariun
   turnin 2118                                 -- Tharnariun Treetender
   accept 2138
 

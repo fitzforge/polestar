@@ -16,8 +16,8 @@ why The felhunter, the demon to bring against spellcasters, and a Box of Souls f
 # with Krom Stoutarm in Ironforge, and The Binding (1795) back in Ratchet.
 # Sources: quests.json, npcs.json, objects.json and items.json (Questie 12.1.0
 # and Questie-Forever) for the givers, the tome, the chest, the rods and the
-# summoning circle; Wowhead Forever's Warlock class page
-# (data/local/quest-audit/wowhead-class-quests.json): the chain is unchanged in
+# summoning circle; Forever's Warlock class quest list
+# (data/local/quest-audit/): the chain is unchanged in
 # Forever and The Binding pays a Box of Souls.
 # The Alliance leveling guides leave the chain out (see
 # forever/alliance/30-40/01-hillsbrad-foothills): it crosses between Ratchet,

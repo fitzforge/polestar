@@ -181,7 +181,7 @@ function loadZoneResolver({ dataDir, sourcesDir, build, frames }) {
 	if (!dir) {
 		const builds = fs.existsSync(wago) ? fs.readdirSync(wago).filter((b) => fs.existsSync(path.join(wago, b, 'AreaTable.csv'))) : [];
 		builds.sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
-		if (!builds.length) throw new Error(`no AreaTable.csv under ${wago} (node tools/polestar.js data build)`);
+		if (!builds.length) throw new Error(`no AreaTable.csv under ${wago} (forge data build)`);
 		dir = path.join(wago, builds[builds.length - 1]);
 	}
 	const areaRows = parseCsv(fs.readFileSync(path.join(dir, 'AreaTable.csv'), 'utf8'));
@@ -1410,7 +1410,7 @@ async function generateAids({ nav, frames, zoneOfArea, targets = [], continents 
 // guides: compiled guides (compileProject): every located goal and its spawn spots;
 // data: { quests, npcs, objects, trainers } (data/forever); geo: planner Geo
 // (Era and live frames); travel: travel.json (flight masters, inns);
-// entrances: tools/lib/codex/entrances.json (live map percent).
+// entrances: data/codex/entrances.json (live map percent).
 function collectTargets({ guides = [], data = {}, geo, travel = null, entrances = null, continents = null }) {
 	const out = [];
 	const keep = (c) => !continents || continents.includes(c);

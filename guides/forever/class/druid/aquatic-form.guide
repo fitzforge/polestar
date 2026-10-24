@@ -13,7 +13,7 @@ zone Moonglade
 
 # Aquatic Form: in Forever Aquatic Form (5061 Night Elf, 31 Tauren) rewards
 # the form itself and the Idol of Shifting Tides besides the Aquarius Belt
-# (Wowhead Forever's druid class page: "Rewards: adds Aquatic Form, Idol of
+# (Forever's druid class quest list: "Rewards: adds Aquatic Form, Idol of
 # Shifting Tides").
 # Chain: A Lesson to Learn (26 / 27, your trainer) -> Trial of the Lake (29 /
 # 28: a Shrine Bauble from Lake Elune'ara used at the Shrine of Remulos) ->
@@ -24,7 +24,7 @@ zone Moonglade
 # The leveling guides carry the chain inline (Night Elves in
 # alliance/03-darkshore, 04-redridge-mountains and 06-ashenvale; Tauren in
 # horde/03-silverpine-forest and 04-the-barrens): this guide is for druids off
-# our route. Skyborne: Wowhead Forever opens the Alliance chain (26, 29, 272,
+# our route. Skyborne: Forever's quest data opens the Alliance chain (26, 29, 272,
 # 5061) to Skyborne druids too (corrections.json, checked 2026-10-16); this
 # guide has no Skyborne steps yet.
 # Sources: quests.json, objects.json and items.json (Questie 12.1.0,

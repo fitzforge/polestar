@@ -1,0 +1,495 @@
+{
+	"schema": 1,
+	"priors": {
+		"runSpeed": {
+			"mean": 7,
+			"sd": 0.15,
+			"lo": 6.5,
+			"hi": 7.5,
+			"desc": "run speed, yd/s"
+		},
+		"mountLevel": {
+			"mean": 40,
+			"sd": 0,
+			"lo": 40,
+			"hi": 40,
+			"desc": "level the mount is bought"
+		},
+		"mountMul": {
+			"mean": 1.6,
+			"sd": 0,
+			"lo": 1.6,
+			"hi": 1.6,
+			"desc": "mounted speed multiplier"
+		},
+		"detour0": {
+			"mean": 1.35,
+			"sd": 0.12,
+			"lo": 1.05,
+			"hi": 2,
+			"desc": "walking detour factor, Eastern Kingdoms (path / straight line)"
+		},
+		"detour1": {
+			"mean": 1.3,
+			"sd": 0.12,
+			"lo": 1.05,
+			"hi": 2,
+			"desc": "walking detour factor, Kalimdor"
+		},
+		"routeMul": {
+			"mean": 1,
+			"sd": 0.05,
+			"lo": 0.9,
+			"hi": 1.3,
+			"desc": "routed walk (sim walks) / the walking router's yards: a player strays a little from the drawn line"
+		},
+		"killSec1": {
+			"mean": 11,
+			"sd": 3,
+			"lo": 6,
+			"hi": 30,
+			"desc": "seconds per kill incl. downtime at level 1 (equal-level mob)"
+		},
+		"killSec60": {
+			"mean": 30,
+			"sd": 6,
+			"lo": 15,
+			"hi": 60,
+			"desc": "seconds per kill incl. downtime at level 60"
+		},
+		"killUp": {
+			"mean": 0.1,
+			"sd": 0.04,
+			"lo": 0,
+			"hi": 0.3,
+			"desc": "kill time +share per mob level above the player"
+		},
+		"killDown": {
+			"mean": 0.05,
+			"sd": 0.02,
+			"lo": 0,
+			"hi": 0.12,
+			"desc": "kill time -share per mob level below the player (floor 0.5)"
+		},
+		"eliteTime": {
+			"mean": 3.5,
+			"sd": 1,
+			"lo": 1.5,
+			"hi": 8,
+			"desc": "kill time multiplier for elites"
+		},
+		"groupSize": {
+			"mean": 3,
+			"sd": 0,
+			"lo": 2,
+			"hi": 5,
+			"desc": "v2: players in the party an elite quest is done with (Fitz 2026-10-20: elite quests in, grouping advised), an estimate: an elite kill takes eliteTime solo kills split over them"
+		},
+		"groupShare": {
+			"mean": 0.389,
+			"sd": 0,
+			"lo": 0.389,
+			"hi": 0.389,
+			"desc": "v2: share of an elite kill's (double) XP each member of that party gets (Classic: a 3-player party's 1.166 bonus / 3)"
+		},
+		"groupWait": {
+			"mean": 600,
+			"sd": 300,
+			"lo": 120,
+			"hi": 1800,
+			"desc": "v2: seconds to find a group, once per elite camp worked (a chain at one camp waits once), an estimate"
+		},
+		"classFactor": {
+			"mean": 1,
+			"sd": 0.1,
+			"lo": 0.6,
+			"hi": 1.6,
+			"desc": "kill time multiplier of the class"
+		},
+		"spacing": {
+			"mean": 1,
+			"sd": 0.25,
+			"lo": 0.4,
+			"hi": 2.5,
+			"desc": "multiplier on the walk between mobs from spawn density"
+		},
+		"talkSec": {
+			"mean": 6,
+			"sd": 2,
+			"lo": 2,
+			"hi": 15,
+			"desc": "seconds per accept or turn-in"
+		},
+		"interactSec": {
+			"mean": 8,
+			"sd": 3,
+			"lo": 2,
+			"hi": 25,
+			"desc": "seconds per object use"
+		},
+		"escortSec": {
+			"mean": 240,
+			"sd": 90,
+			"lo": 60,
+			"hi": 600,
+			"desc": "seconds per event objective that is no escort (a defend event, an exploration); an escort without a known path or end (v1: every escort/event)"
+		},
+		"escortFail": {
+			"mean": 0.15,
+			"sd": 0.08,
+			"lo": 0,
+			"hi": 0.5,
+			"desc": "v2: chance an escort fails once (the NPC dies to its ambush, the player strays), an estimate (QuestMechanics: \"fails easily\")"
+		},
+		"escortBusy": {
+			"mean": 0.1,
+			"sd": 0.08,
+			"lo": 0,
+			"hi": 0.5,
+			"desc": "v2: chance an escort NPC is away on another player's escort when the character arrives, an estimate (QuestMechanics: \"the NPC is often taken\")"
+		},
+		"escortRespawn": {
+			"mean": 180,
+			"sd": 90,
+			"lo": 30,
+			"hi": 600,
+			"desc": "v2: seconds an escort NPC takes to come back after a failed or another player's run, an estimate"
+		},
+		"dropMul": {
+			"mean": 1,
+			"sd": 0.2,
+			"lo": 0.5,
+			"hi": 2,
+			"desc": "real drop rate / data drop rate"
+		},
+		"extraKill": {
+			"mean": 0.043,
+			"sd": 0.038,
+			"lo": 0,
+			"hi": 0.8,
+			"desc": "incidental kills per objective kill (mobs in the way; fixed, fitted 2026-10-12 against level checkpoints)"
+		},
+		"questXpScale": {
+			"mean": 1,
+			"sd": 0.1,
+			"lo": 0.5,
+			"hi": 1.5,
+			"desc": "Forever quest XP / data quest XP (all rewards)"
+		},
+		"questEstScale": {
+			"mean": 1,
+			"sd": 0.12,
+			"lo": 0.5,
+			"hi": 1.6,
+			"desc": "real reward / QuestXP-table estimate (quests without recorded XP)"
+		},
+		"flightOverhead": {
+			"mean": 20,
+			"sd": 8,
+			"lo": 5,
+			"hi": 60,
+			"desc": "seconds per flight: talk, take-off, landing"
+		},
+		"transportWait": {
+			"mean": 1,
+			"sd": 0.3,
+			"lo": 0.3,
+			"hi": 2,
+			"desc": "multiplier on boat/zeppelin/tram average waits"
+		},
+		"hearthCast": {
+			"mean": 10,
+			"sd": 0,
+			"lo": 10,
+			"hi": 10,
+			"desc": "hearthstone cast, seconds"
+		},
+		"hearthCooldown": {
+			"mean": 3600,
+			"sd": 0,
+			"lo": 1800,
+			"hi": 3600,
+			"desc": "hearthstone cooldown, seconds"
+		},
+		"deathskipSec": {
+			"mean": 60,
+			"sd": 20,
+			"lo": 30,
+			"hi": 120,
+			"desc": "deathskip (die on purpose, release, Spirit Healer), seconds: an estimate, ~30 s pulling mobs to die to plus the healer's ~30 s (v2 travel2.js SPIRIT_HEAL_SEC)"
+		},
+		"deathskipLevel": {
+			"mean": 60,
+			"sd": 0,
+			"lo": 0,
+			"hi": 60,
+			"desc": "policy: highest level a route deathskips at (CapAudit #5: any level; above 10 resurrection sickness is priced as slower kills, sicknessSlow; was 10, Forever's last level without sickness)"
+		},
+		"sicknessSlow": {
+			"mean": 0.5,
+			"sd": 0.2,
+			"lo": 0.2,
+			"hi": 1,
+			"desc": "v2: share of each second of resurrection sickness spent working that is lost to slower kills (the debuff cuts stats; walking, flights and talks lose nothing), an estimate"
+		},
+		"levelOverhead": {
+			"mean": 60,
+			"sd": 40,
+			"lo": 0,
+			"hi": 300,
+			"desc": "seconds per level-up: training, vendoring, repairs"
+		},
+		"grindEff": {
+			"mean": 0.7,
+			"sd": 0.12,
+			"lo": 0.35,
+			"hi": 1.1,
+			"desc": "grinding XP rate / formula rate at the best site (respawns, competition, bag trips)"
+		},
+		"grindWeight": {
+			"mean": 2.5,
+			"sd": 0,
+			"lo": 2.5,
+			"hi": 2.5,
+			"desc": "policy, not a measurement: an hour of grinding counts as this many hours when routes are compared, so a route grinds only where no quest is nearly as good (reported times stay real)"
+		},
+		"escortWeight": {
+			"mean": 2.5,
+			"sd": 0,
+			"lo": 2.5,
+			"hi": 2.5,
+			"desc": "policy, not a measurement: a second of an escort counts as this many when the accept rule prices it, as grinding's do (grindWeight), so an escort is taken when its XP beats grinding outright or it opens a chain that does: players skip escorts (the wait for the NPC, its pace, a failed run; reported times stay real)"
+		},
+		"zoneChange": {
+			"mean": 450,
+			"sd": 0,
+			"lo": 450,
+			"hi": 450,
+			"desc": "policy, not a measurement: seconds a move into another zone counts when routes are compared, so a route takes a hub's quests and does them in one go and switches zones only when it is clearly worth it (reported times stay real)"
+		},
+		"zoneReturn": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 0,
+			"desc": "policy, not a measurement: seconds a move back into a zone the route was in earlier (and left) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)"
+		},
+		"spotReturn": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 0,
+			"desc": "policy, not a measurement: seconds work again at a spot (250 yd cell) worked earlier, after leaving it by more than 600 yd, counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)"
+		},
+		"wastedAccept": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 0,
+			"desc": "policy, not a measurement: seconds each quest accepted and never handed in (abandoned for a full log, or still in the log at 60) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)"
+		},
+		"stepCost": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 600,
+			"desc": "policy: per-area-visit cost (seconds); 0 in the time objective, see OBJECTIVES (reported times stay real)"
+		},
+		"deadLeg": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 0,
+			"desc": "v2 policy, not a measurement: seconds each dead leg (an arrival where nothing happens; route audit check 6) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)"
+		},
+		"hubSplit": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 0,
+			"desc": "v2 policy, not a measurement: seconds each hub split (a hub's quests accepted on a later trip; route audit check 5) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)"
+		},
+		"missedAccept": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 0,
+			"desc": "v2 policy, not a measurement: seconds each missed accept (a quest the walk passed and the sim would take, not taken then; route audit check 1) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)"
+		},
+		"missedTurnin": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 0,
+			"desc": "v2 policy, not a measurement: seconds each missed turn-in (route audit check 2) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)"
+		},
+		"avoidableReturn": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 0,
+			"desc": "v2 policy, not a measurement: seconds each avoidable return (back in a zone for work its first visit passed; route audit check 4) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)"
+		},
+		"xpLoss": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 0,
+			"desc": "v2 policy, not a measurement: weight on the seconds the XP lost to late turn-ins (the character 6+ levels over the quest) takes at the route's average rate, when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)"
+		},
+		"overrunWeight": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 0,
+			"desc": "v2 policy, not a measurement: the smooth pass's soft time bound (spec §4): a route over (1 + ε) × the fastest route's time counts this × the overrun² (seconds) more; 0 in the time objective, see OBJECTIVES"
+		},
+		"territory": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 0,
+			"desc": "v2 policy, not a measurement: each second walked or worked in the other faction's territory (v2/territory.js: an AreaTable faction zone weighs 1, a contested zone leaning to it 0.4) counts this many times more when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)"
+		},
+		"territoryPvp": {
+			"mean": 1,
+			"sd": 0,
+			"lo": 1,
+			"hi": 1,
+			"desc": "v2 policy: multiplier on territory for the realm (1: normal; a PvP realm's heavier weight is a later option)"
+		},
+		"gateGap": {
+			"mean": 2,
+			"sd": 0,
+			"lo": 2,
+			"hi": 2,
+			"desc": "levels a character grinds to reach a quest's minimum level; further above, the quest is not available yet"
+		},
+		"dangerGap": {
+			"mean": 5,
+			"sd": 0,
+			"lo": 5,
+			"hi": 5,
+			"desc": "most levels a quest may be above the character (red quests are not attempted)"
+		},
+		"deathRisk": {
+			"mean": 300,
+			"sd": 150,
+			"lo": 0,
+			"hi": 1200,
+			"desc": "seconds lost per walking crossing of a zone whose mobs are 5+ levels above the character (deaths, corpse runs, detours)"
+		},
+		"dungeonRunLow": {
+			"mean": 35,
+			"sd": 10,
+			"lo": 15,
+			"hi": 75,
+			"desc": "minutes per dungeon clear at dungeon level 15 (5-player group)"
+		},
+		"dungeonRunHigh": {
+			"mean": 60,
+			"sd": 15,
+			"lo": 25,
+			"hi": 120,
+			"desc": "minutes per dungeon clear at dungeon level 55"
+		},
+		"dungeonFormUp": {
+			"mean": 15,
+			"sd": 8,
+			"lo": 2,
+			"hi": 45,
+			"desc": "minutes to form a group and reach the instance portal"
+		},
+		"dungeonTrash": {
+			"mean": 70,
+			"sd": 20,
+			"lo": 25,
+			"hi": 150,
+			"desc": "elite trash kills per clear (DungeonJournal has no trash counts)"
+		},
+		"partyShare": {
+			"mean": 0.28,
+			"sd": 0,
+			"lo": 0.28,
+			"hi": 0.28,
+			"desc": "share of solo kill XP each of 5 party members gets (Classic: 1.4 / 5)"
+		},
+		"restedShare": {
+			"mean": 0,
+			"sd": 0,
+			"lo": 0,
+			"hi": 1,
+			"desc": "share of kill XP doubled by rested XP (optional)"
+		},
+		"trainSec": {
+			"mean": 60,
+			"sd": 0,
+			"lo": 60,
+			"hi": 60,
+			"desc": "v2: seconds per class trainer visit (v1 levelOverhead, spec §2.6)"
+		},
+		"vendorSec": {
+			"mean": 60,
+			"sd": 0,
+			"lo": 60,
+			"hi": 60,
+			"desc": "v2: seconds per vendor visit, repair and sell (estimate, spec §2.6)"
+		},
+		"ruleSoftPenalty": {
+			"mean": 600,
+			"sd": 0,
+			"lo": 0,
+			"hi": 3600,
+			"desc": "v2: seconds penalty for bending an unconfirmed rule (spec §6.2)"
+		}
+	},
+	"calibrated": {
+		"questEstScale": {
+			"mean": 1.0146578090816971,
+			"sd": 0.033992392138583606
+		},
+		"questXpScale": {
+			"mean": 3.5047139390184543,
+			"sd": 1.6840560829118636
+		},
+		"killSec1": {
+			"mean": 28.37403069926093,
+			"sd": 1.5
+		},
+		"killSec60": {
+			"mean": 72.8923649801026,
+			"sd": 3
+		}
+	},
+	"fit": {
+		"at": "2026-10-22T00:00:00.000Z",
+		"sources": {
+			"questXp": {
+				"questsJsonXp": 48,
+				"forever": {
+					"file": "journal/Data/QuestRewards.lua",
+					"values": 21,
+					"matched": 20
+				}
+			},
+			"recordings": {
+				"sessions": 2,
+				"levels": 4
+			}
+		},
+		"questXp": {
+			"est": {
+				"n": 48,
+				"mean": 1.0146578090816971,
+				"sd": 0.033992392138583606,
+				"spread": 0.23210406396267586
+			},
+			"forever": {
+				"n": 20,
+				"mean": 3.5047139390184543,
+				"sd": 1.6840560829118636,
+				"spread": 2.148913688726092
+			}
+		}
+	}
+}

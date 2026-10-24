@@ -15,6 +15,21 @@
 //     zoneYards.<uiMapID> reads 0 for a zone the line never enters, n/a on maps without zones)
 //   { type: 'hubs', includes: 'Southshore' }        the router reports that hub (n/a while it reports none)
 //   { type: 'faceClearance', face: [x, y, z], gt }  the drawn line passes the face's middle further than gt yd
+// The acceptance corpus (acceptance.json) adds (points and areas world yards once run.js resolveRoutes has them):
+//   { type: 'unreachable' }                         the router finds no walk (the only type that passes when not ok)
+//   { type: 'end', leg, dz? }                       where the walk leaves the graph for the goal: the line's last point
+//     at least 0.5 yd from the route's `to` (the engine appends the goal itself, drawn straight from its last node) lies
+//     within `leg` flat yd of it and, when dz is given, within dz yd of its height (n/a when either height is null);
+//     a line that stops short of the goal is measured from its last point
+//   { type: 'passes', point: [x, y], within }       the line passes within `within` yd of the point
+//   { type: 'avoids', point: [x, y], within }       the line never comes within `within` yd of the point
+//   { type: 'avoids', area: { x: [lo, hi], y: [lo, hi] } }   no 2 yd sample of the line lies inside the box
+//   { type: 'height', min?, max?, beyond?, near?: [x, y], within? }   every 2 yd sample of the line with a height lies
+//     within [min, max]; beyond: only samples further than that from the route's `to`; near: only those within
+//     `within` yd of that point
+//   { type: 'chokepoint', kind, name?, lift?, from? }   the line passes a chokepoint of the folder's Nav/Chokepoints.lua
+//     (route.chokepoints, the list for its map; n/a without the file) of that kind (or any of a list), its name or lift
+//     containing `name` / `lift`; with from ('top' | 'bottom'): it rides that lift from that end to its pair, in order
 // A check is n/a (pass null) while a measurement it needs is null (a layer not built, a router without hubs):
 // false when any part fails, else null when any part is n/a, else true.
 //   A1 every `reported` route ok in cand with its expectations; no route ok in base unreachable in cand
@@ -58,11 +73,24 @@ function distToLine(pts, [px, py]) {
 	return best;
 }
 
+// Calls fn(x, y, z) at both ends of every leg of the line and every `step` yd along it (z interpolated, null unknown).
+function samples(pts, step, fn) {
+	for (let i = 1; i < pts.length; i++) {
+		const [ax, ay, az] = pts[i - 1];
+		const [bx, by, bz] = pts[i];
+		const n = Math.max(1, Math.ceil(Math.hypot(bx - ax, by - ay) / step));
+		const known = typeof az === 'number' && typeof bz === 'number';
+		for (let s = i === 1 ? 0 : 1; s <= n; s++) fn(ax + ((bx - ax) * s) / n, ay + ((by - ay) * s) / n, known ? az + ((bz - az) * s) / n : null);
+	}
+	if (pts.length === 1) fn(pts[0][0], pts[0][1], typeof pts[0][2] === 'number' ? pts[0][2] : null);
+}
+
 function evaluateExpectations(route) {
 	const r = route.result || {};
 	const m = route.metrics;
 	return (route.expect || []).map((e) => {
 		if (e.type === 'ok') return { type: e.type, pass: !!r.ok, detail: r.ok ? 'found' : `not found (${r.reason})` };
+		if (e.type === 'unreachable') return { type: e.type, pass: !r.ok, detail: r.ok ? `found, ${Math.round(lineLength(r.pts || []))} yd drawn` : `not found (${r.reason})` };
 		if (!r.ok) return { type: e.type, pass: false, detail: `not found (${r.reason})` };
 		if (e.type === 'metric') {
 			// A route with an end inside a hub hostile to the side (it goes there on purpose) is held to its yards in
@@ -84,6 +112,62 @@ function evaluateExpectations(route) {
 		if (e.type === 'faceClearance') {
 			const d = distToLine(r.pts || [], e.face);
 			return { type: e.type, pass: d > e.gt, detail: `${d.toFixed(1)} yd from the face's middle (want > ${e.gt})` };
+		}
+		if (e.type === 'end') {
+			const pts = r.pts || [];
+			const at = route.to;
+			if (!pts.length) return { type: e.type, pass: false, detail: 'no points' };
+			const off = (p) => Math.hypot(p[0] - at[0], p[1] - at[1], typeof p[2] === 'number' && typeof at[2] === 'number' ? p[2] - at[2] : 0);
+			let i = pts.length - 1;
+			while (i > 0 && off(pts[i]) < 0.5) i--;
+			const p = pts[i];
+			const leg = Math.hypot(p[0] - at[0], p[1] - at[1]);
+			const known = typeof p[2] === 'number' && typeof at[2] === 'number';
+			const dz = known ? p[2] - at[2] : null;
+			const legOk = leg <= e.leg;
+			const pass = !legOk ? false : e.dz === undefined ? true : dz === null ? null : Math.abs(dz) <= e.dz;
+			return { type: e.type, pass, detail: `leaves the graph ${leg.toFixed(1)} yd from the goal (want <= ${e.leg})${e.dz === undefined ? '' : `, ${dz === null ? 'height n/a' : `${dz >= 0 ? '+' : ''}${dz.toFixed(1)} yd off its height`} (want within ${e.dz})`}` };
+		}
+		if (e.type === 'chokepoint') {
+			if (!route.chokepoints) return { type: e.type, pass: null, detail: 'no Nav/Chokepoints.lua' };
+			const { passed, liftRide } = require('./chokepoints');
+			const kinds = [].concat(e.kind);
+			const like = (cp) => kinds.includes(cp.kind) && (!e.name || String(cp.name).includes(e.name)) && (!e.lift || String(cp.lift || '').includes(e.lift));
+			const byI = new Map(route.chokepoints.map((cp) => [cp.i, cp]));
+			const all = passed(r.pts || [], route.chokepoints);
+			const hits = all.filter((p) => like(byI.get(p.i)));
+			const seen = all.map((p) => byI.get(p.i)).map((cp) => `${cp.kind} ${cp.name}${cp.liftEnd ? ` ${cp.liftEnd}` : ''}`);
+			const want = `${kinds.join('/')}${e.name ? ` "${e.name}"` : ''}${e.lift ? ` ${e.lift}` : ''}${e.from ? ` from its ${e.from}` : ''}`;
+			if (!e.from) return { type: e.type, pass: hits.length > 0, detail: `passes ${seen.join(', ') || 'no chokepoint'} (want ${want})` };
+			const ride = liftRide(hits, route.chokepoints, e.from);
+			return { type: e.type, pass: !!ride, detail: `${ride ? `rides #${ride.from.i} ${ride.from.liftEnd} to #${ride.to.i} ${ride.to.liftEnd}` : 'no ride'}; passes ${seen.join(', ') || 'no chokepoint'} (want ${want})` };
+		}
+		if (e.type === 'passes' || (e.type === 'avoids' && e.point)) {
+			const d = distToLine(r.pts || [], e.point);
+			const pass = e.type === 'passes' ? d <= e.within : d > e.within;
+			return { type: e.type, pass, detail: `${d.toFixed(1)} yd from ${e.point.slice(0, 2).map((v) => v.toFixed(1)).join(',')} (want ${e.type === 'passes' ? '<=' : '>'} ${e.within})` };
+		}
+		if (e.type === 'avoids') {
+			const { x, y } = e.area;
+			let hit = null;
+			samples(r.pts || [], 2, (px, py) => {
+				if (!hit && px >= x[0] && px <= x[1] && py >= y[0] && py <= y[1]) hit = [px, py];
+			});
+			return { type: e.type, pass: !hit, detail: hit ? `enters the area at ${hit.map((v) => v.toFixed(1)).join(',')}` : 'never enters the area' };
+		}
+		if (e.type === 'height') {
+			let lo = Infinity;
+			let hi = -Infinity;
+			samples(r.pts || [], 2, (x, y, z) => {
+				if (z === null) return;
+				if (e.beyond !== undefined && Math.hypot(x - route.to[0], y - route.to[1]) <= e.beyond) return;
+				if (e.near && Math.hypot(x - e.near[0], y - e.near[1]) > e.within) return;
+				lo = Math.min(lo, z);
+				hi = Math.max(hi, z);
+			});
+			if (lo === Infinity) return { type: e.type, pass: null, detail: 'no heights' };
+			const pass = (e.min === undefined || lo >= e.min) && (e.max === undefined || hi <= e.max);
+			return { type: e.type, pass, detail: `z ${lo.toFixed(1)} to ${hi.toFixed(1)} (want ${e.min === undefined ? '' : `>= ${e.min}`}${e.min !== undefined && e.max !== undefined ? ', ' : ''}${e.max === undefined ? '' : `<= ${e.max}`})` };
 		}
 		throw new Error(`route ${route.id}: unknown expectation ${e.type}`);
 	});
@@ -270,4 +354,4 @@ function compare(base, cand) {
 	return { pass: !checks.some((c) => c.pass === false), checks };
 }
 
-module.exports = { compare, evaluateExpectations, summarize, distToLine };
+module.exports = { compare, evaluateExpectations, summarize, distToLine, samples };

@@ -30,3 +30,6 @@ tools/discord-bot/.env
 /CLAUDE.md
 /CLAUDE.local.md
 /.claude/CLAUDE.md
+
+# forge data publish --zip writes the release zip beside forever-db/; never committed
+/forever-db-*.zip

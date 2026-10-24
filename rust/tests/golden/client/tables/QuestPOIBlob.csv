@@ -1,0 +1,5 @@
+ID,MapID,UiMapID,Flags,NumPoints,QuestID,ObjectiveIndex,ObjectiveID,PlayerConditionID,NavigationPlayerConditionID
+11,0,1436,0,1,1221,32,0,0,0
+12,0,1436,0,1,1221,-1,0,0,0
+13,0,1436,0,3,1221,0,0,0,0
+14,0,9999,0,1,1221,1,0,0,0

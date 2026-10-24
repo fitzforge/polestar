@@ -25,7 +25,7 @@ return {
 	-- {area:96} Tower of Ilgalar
 	["The {area:96}"] = "{area:96}",
 	-- {zone:1429} Elwynn Forest
-	["Head east through {zone:1429} into Redridge. The fallen mage's tower of Ilgalar stands in the east of the zone; the treatise is in his library."] = "",
+	["Head east through {zone:1429} into Redridge. The fallen mage's tower of Ilgalar stands in the east of the zone; the treatise is in his library."] = "Geh nach Osten durch {zone:1429} ins Rotkammgebirge. Der Turm des gefallenen Magiers Ilgalar steht im Osten des Gebiets; die Abhandlung ist in seiner Bibliothek.",
 
 	-- Step 5: Back to Andromath
 	["Back to Andromath"] = "Zurück zu Andromath",

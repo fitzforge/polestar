@@ -48,9 +48,9 @@ Cillian Berragan, GPL-3.0-or-later, used with his permission). They cut each
 map tile into 128 x 128 cells (4.17 yd, his are 8 yd), so the routes keep to
 doors and gates, never swim across open sea, and the router runs on them.
 `Nav/Chokepoints.lua` (the lifts, bridges, gates, tunnels, cave and
-building mouths and passes a walk is split at) is Polestar's too. `nav pack`
+building mouths and passes a walk is split at) is Polestar's too. `forge nav pack`
 writes them with `PACK.json` (the grid's client build, the cells, the date and
-the sha256 of every file) and `Nav/Nav.xml`; `nav check` checks them.
+the sha256 of every file) and `Nav/Nav.xml`; `forge nav check` checks them.
 Polestar's other files here are `API.lua` (with the memory ceilings for the
 finer maps) and `Polestar_Nav.toc`.
 

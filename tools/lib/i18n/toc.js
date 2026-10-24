@@ -2,18 +2,24 @@
 // The game's AddOns list shows each addon's `## Title` and `## Notes`, and in
 // a client language the `## Title-<locale>` and `## Notes-<locale>` beside
 // them. These are the translations of every Polestar addon's, written once
-// here (AI translations, glossary: tools/lib/i18n/glossary; Polestar, Codex
+// here (AI translations, glossary: data/i18n/glossary; Polestar, Codex
 // and the names of people and projects are kept as they are).
 //
 //   tocLines(addon) -> ['## Title-deDE: ...', '## Notes-deDE: ...', ...]
 //     for every locale (LOCALE_CODES order). addon: the folder name;
-//     Polestar_Names_<locale> and Polestar_Guides_<locale> (the per-language
-//     packs) name their own language.
+//     the language folders Polestar_<locale> name their own language.
+//   languageAddon(locale) -> 'Polestar_<locale>': our guides' texts
+//     (Texts.lua) and the game's names (Names.lua) in that language, one
+//     load-on-demand folder (rust/crates/forge-guide/src/toc.rs is the twin)
+//   languageToc(locale, iface, version) -> its TOC, written alike by
+//     `forge guide compile` and `forge data names`
+//   retiredLanguageAddons(locale) -> the two folders it replaced (0.3.0)
 // The TOCs in the repository carry these lines as they are; the generated
-// ones (Codex, QuestDB, ItemDB, Guides, the names packs) get them from their
+// ones (Codex, QuestDB, ItemDB, Guides, the language folders) get them from their
 // builders. tests/i18n-toc.test.js checks every TOC under addon/.
 
-const { LOCALE_CODES } = require('./locales');
+const { LOCALES, LOCALE_CODES } = require('./locales');
+const { GENERATED_MARKER } = require('../pack/format');
 
 const TEXT = {
 	Polestar: {
@@ -56,6 +62,34 @@ const TEXT = {
 			ruRU: 'Гайды по прокачке, профессиям, репутации и коллекциям для Polestar.',
 			zhCN: 'Polestar 的练级、专业、声望和收藏指南。',
 			zhTW: 'Polestar 的升級、專業、聲望與收藏指南。',
+		},
+	},
+	Polestar_Guides_Alliance: {
+		title: { deDE: 'Polestar Guides (Allianz)', esES: 'Polestar: guías (Alianza)', esMX: 'Polestar: guías (Alianza)', frFR: 'Polestar : guides (Alliance)', koKR: 'Polestar 가이드 (얼라이언스)', ptBR: 'Polestar: guias (Aliança)', ruRU: 'Polestar: гайды (Альянс)', zhCN: 'Polestar 指南（联盟）', zhTW: 'Polestar 指南（聯盟）' },
+		notes: {
+			deDE: 'Guides von Polestar für Charaktere der Allianz. Wird bei Bedarf geladen.',
+			esES: 'Guías de Polestar para personajes de la Alianza. Se carga bajo demanda.',
+			esMX: 'Guías de Polestar para personajes de la Alianza. Se carga bajo demanda.',
+			frFR: 'Guides de Polestar pour les personnages de l\'Alliance. Chargé à la demande.',
+			koKR: '얼라이언스 캐릭터를 위한 Polestar 가이드. 필요할 때 불러옵니다.',
+			ptBR: 'Guias do Polestar para personagens da Aliança. Carregado sob demanda.',
+			ruRU: 'Гайды Polestar для персонажей Альянса. Загружается по требованию.',
+			zhCN: 'Polestar 的联盟角色指南。按需加载。',
+			zhTW: 'Polestar 的聯盟角色指南。按需載入。',
+		},
+	},
+	Polestar_Guides_Horde: {
+		title: { deDE: 'Polestar Guides (Horde)', esES: 'Polestar: guías (Horda)', esMX: 'Polestar: guías (Horda)', frFR: 'Polestar : guides (Horde)', koKR: 'Polestar 가이드 (호드)', ptBR: 'Polestar: guias (Horda)', ruRU: 'Polestar: гайды (Орда)', zhCN: 'Polestar 指南（部落）', zhTW: 'Polestar 指南（部落）' },
+		notes: {
+			deDE: 'Guides von Polestar für Charaktere der Horde. Wird bei Bedarf geladen.',
+			esES: 'Guías de Polestar para personajes de la Horda. Se carga bajo demanda.',
+			esMX: 'Guías de Polestar para personajes de la Horda. Se carga bajo demanda.',
+			frFR: 'Guides de Polestar pour les personnages de la Horde. Chargé à la demande.',
+			koKR: '호드 캐릭터를 위한 Polestar 가이드. 필요할 때 불러옵니다.',
+			ptBR: 'Guias do Polestar para personagens da Horda. Carregado sob demanda.',
+			ruRU: 'Гайды Polestar для персонажей Орды. Загружается по требованию.',
+			zhCN: 'Polestar 的部落角色指南。按需加载。',
+			zhTW: 'Polestar 的部落角色指南。按需載入。',
 		},
 	},
 	Polestar_ItemDB: {
@@ -116,30 +150,20 @@ const TEXT = {
 	},
 };
 
-// The per-language packs: { title, notes } templates, %1 the locale code,
-// %2 the pack's language in this language.
+// The per-language folders: { title, notes } templates, %1 the locale code,
+// %2 the folder's language in this language.
+const LANGUAGE_PREFIX = 'Polestar_';
 const PER_LANGUAGE = {
-	Polestar_Names_: {
-		deDE: ['Polestar Namen (%1)', 'Spielnamen für Polestar (Quests, NPCs, Objekte, Gegenstände, Instanzen und mehr). Sprache: %2. Wird bei Bedarf geladen, nur in einem Client dieser Sprache.'],
-		esES: ['Polestar: nombres (%1)', 'Nombres del juego para Polestar (misiones, PNJ, objetos, instancias y más). Idioma: %2. Se carga bajo demanda solo en un cliente en ese idioma.'],
-		esMX: ['Polestar: nombres (%1)', 'Nombres del juego para Polestar (misiones, PNJ, objetos, instancias y más). Idioma: %2. Se carga bajo demanda solo en un cliente en ese idioma.'],
-		frFR: ['Polestar : noms (%1)', 'Noms du jeu pour Polestar (quêtes, PNJ, objets, instances et plus). Langue : %2. Chargé à la demande, uniquement sur un client dans cette langue.'],
-		koKR: ['Polestar 이름 (%1)', 'Polestar용 게임 이름(퀘스트, NPC, 물체, 아이템, 인스턴스 등). 언어: %2. 해당 언어 클라이언트에서만 필요할 때 불러옵니다.'],
-		ptBR: ['Polestar: nomes (%1)', 'Nomes do jogo para o Polestar (missões, PNJs, objetos, itens, instâncias e mais). Idioma: %2. Carregado sob demanda, só em um cliente nesse idioma.'],
-		ruRU: ['Polestar: названия (%1)', 'Названия из игры для Polestar (задания, NPC, объекты, предметы, подземелья и другое). Язык: %2. Загружается по требованию, только в клиенте на этом языке.'],
-		zhCN: ['Polestar 名称 (%1)', 'Polestar 使用的游戏名称（任务、NPC、物体、物品、副本等）。语言：%2。仅在该语言的客户端中按需加载。'],
-		zhTW: ['Polestar 名稱 (%1)', 'Polestar 使用的遊戲名稱（任務、NPC、物件、物品、副本等）。語言：%2。僅在該語言的用戶端中按需載入。'],
-	},
-	Polestar_Guides_: {
-		deDE: ['Polestar Guides (%1)', 'Guide-Texte für Polestar. Sprache: %2. Wird bei Bedarf geladen, nur in einem Client dieser Sprache.'],
-		esES: ['Polestar: guías (%1)', 'Textos de las guías de Polestar. Idioma: %2. Se carga bajo demanda solo en un cliente en ese idioma.'],
-		esMX: ['Polestar: guías (%1)', 'Textos de las guías de Polestar. Idioma: %2. Se carga bajo demanda solo en un cliente en ese idioma.'],
-		frFR: ['Polestar : guides (%1)', 'Textes des guides de Polestar. Langue : %2. Chargé à la demande, uniquement sur un client dans cette langue.'],
-		koKR: ['Polestar 가이드 (%1)', 'Polestar 가이드 텍스트. 언어: %2. 해당 언어 클라이언트에서만 필요할 때 불러옵니다.'],
-		ptBR: ['Polestar: guias (%1)', 'Textos dos guias do Polestar. Idioma: %2. Carregado sob demanda, só em um cliente nesse idioma.'],
-		ruRU: ['Polestar: гайды (%1)', 'Тексты гайдов Polestar. Язык: %2. Загружается по требованию, только в клиенте на этом языке.'],
-		zhCN: ['Polestar 指南 (%1)', 'Polestar 指南文本。语言：%2。仅在该语言的客户端中按需加载。'],
-		zhTW: ['Polestar 指南 (%1)', 'Polestar 指南文字。語言：%2。僅在該語言的用戶端中按需載入。'],
+	[LANGUAGE_PREFIX]: {
+		deDE: ['Polestar - %2', 'Guide-Texte und Spielnamen für Polestar (Quests, NPCs, Objekte, Gegenstände, Instanzen und mehr). Sprache: %2. Wird bei Bedarf geladen, nur in einem Client dieser Sprache.'],
+		esES: ['Polestar - %2', 'Textos de las guías y nombres del juego para Polestar (misiones, PNJ, objetos, instancias y más). Idioma: %2. Se carga bajo demanda solo en un cliente en ese idioma.'],
+		esMX: ['Polestar - %2', 'Textos de las guías y nombres del juego para Polestar (misiones, PNJ, objetos, instancias y más). Idioma: %2. Se carga bajo demanda solo en un cliente en ese idioma.'],
+		frFR: ['Polestar - %2', 'Textes des guides et noms du jeu pour Polestar (quêtes, PNJ, objets, instances et plus). Langue : %2. Chargé à la demande, uniquement sur un client dans cette langue.'],
+		koKR: ['Polestar - %2', 'Polestar 가이드 텍스트와 게임 이름(퀘스트, NPC, 물체, 아이템, 인스턴스 등). 언어: %2. 해당 언어 클라이언트에서만 필요할 때 불러옵니다.'],
+		ptBR: ['Polestar - %2', 'Textos dos guias e nomes do jogo para o Polestar (missões, PNJs, objetos, itens, instâncias e mais). Idioma: %2. Carregado sob demanda, só em um cliente nesse idioma.'],
+		ruRU: ['Polestar - %2', 'Тексты гайдов и названия из игры для Polestar (задания, NPC, объекты, предметы, подземелья и другое). Язык: %2. Загружается по требованию, только в клиенте на этом языке.'],
+		zhCN: ['Polestar - %2', 'Polestar 的指南文本和游戏名称（任务、NPC、物体、物品、副本等）。语言：%2。仅在该语言的客户端中按需加载。'],
+		zhTW: ['Polestar - %2', 'Polestar 的指南文字與遊戲名稱（任務、NPC、物件、物品、副本等）。語言：%2。僅在該語言的用戶端中按需載入。'],
 	},
 };
 
@@ -156,10 +180,43 @@ const LANGUAGE_NAMES = {
 	zhTW: { deDE: '德語', esES: '西班牙語（西班牙）', esMX: '西班牙語（拉丁美洲）', frFR: '法語', koKR: '韓語', ptBR: '葡萄牙語（巴西）', ruRU: '俄語', zhCN: '簡體中文', zhTW: '繁體中文' },
 };
 
+// Our pack's race parts (Polestar_Guides_<race file>: a race's class chains
+// and the baked legs of the guides it may follow): { title, notes } templates,
+// %2 the race in this language (the addon's own Locales/ names).
+const RACE_PART_PREFIX = 'Polestar_Guides_';
+const PER_RACE = {
+	deDE: ['Polestar Guides (%2)', 'Leveling-Guides von Polestar und ihre Laufwege für Charaktere der Rasse %2. Wird bei Bedarf geladen.'],
+	esES: ['Polestar: guías (%2)', 'Guías de subida de nivel de Polestar y sus rutas a pie para personajes de la raza %2. Se carga bajo demanda.'],
+	esMX: ['Polestar: guías (%2)', 'Guías de subida de nivel de Polestar y sus rutas a pie para personajes de la raza %2. Se carga bajo demanda.'],
+	frFR: ['Polestar : guides (%2)', 'Guides de montée en niveau de Polestar et leurs trajets à pied pour les personnages de la race %2. Chargé à la demande.'],
+	koKR: ['Polestar 가이드 (%2)', '%2 캐릭터를 위한 Polestar 레벨업 가이드와 도보 경로. 필요할 때 불러옵니다.'],
+	ptBR: ['Polestar: guias (%2)', 'Guias de evolução do Polestar e suas rotas a pé para personagens da raça %2. Carregado sob demanda.'],
+	ruRU: ['Polestar: гайды (%2)', 'Гайды Polestar по прокачке и их пешие маршруты для персонажей расы «%2». Загружается по требованию.'],
+	zhCN: ['Polestar 指南（%2）', 'Polestar 为%2角色提供的练级指南及其步行路线。按需加载。'],
+	zhTW: ['Polestar 指南（%2）', 'Polestar 為%2角色提供的升級指南及其步行路線。按需載入。'],
+};
+// Each race (by race file) in each language, as addon/Polestar/Locales/ has it.
+const RACE_NAMES = {
+	deDE: { Human: 'Mensch', Orc: 'Orc', Dwarf: 'Zwerg', NightElf: 'Nachtelf', Scourge: 'Untoter', Tauren: 'Tauren', Gnome: 'Gnom', Troll: 'Troll', Skyborne: 'Himmelsgeborene' },
+	esES: { Human: 'Humano', Orc: 'Orco', Dwarf: 'Enano', NightElf: 'Elfo de la noche', Scourge: 'No-muerto', Tauren: 'Tauren', Gnome: 'Gnomo', Troll: 'Trol', Skyborne: 'Cielonato' },
+	esMX: { Human: 'Humano', Orc: 'Orco', Dwarf: 'Enano', NightElf: 'Elfo de la noche', Scourge: 'No-muerto', Tauren: 'Tauren', Gnome: 'Gnomo', Troll: 'Trol', Skyborne: 'Cielonato' },
+	frFR: { Human: 'Humain', Orc: 'Orc', Dwarf: 'Nain', NightElf: 'Elfe de la nuit', Scourge: 'Mort-vivant', Tauren: 'Tauren', Gnome: 'Gnome', Troll: 'Troll', Skyborne: 'Éolide' },
+	koKR: { Human: '인간', Orc: '오크', Dwarf: '드워프', NightElf: '나이트 엘프', Scourge: '언데드', Tauren: '타우렌', Gnome: '노움', Troll: '트롤', Skyborne: '스카이본' },
+	ptBR: { Human: 'Humano', Orc: 'Orc', Dwarf: 'Anão', NightElf: 'Elfo Noturno', Scourge: 'Morto-vivo', Tauren: 'Tauren', Gnome: 'Gnomo', Troll: 'Troll', Skyborne: 'Celonato' },
+	ruRU: { Human: 'Человек', Orc: 'Орк', Dwarf: 'Дворф', NightElf: 'Ночной эльф', Scourge: 'Нежить', Tauren: 'Таурен', Gnome: 'Гном', Troll: 'Тролль', Skyborne: 'Небеснорожденный' },
+	zhCN: { Human: '人类', Orc: '兽人', Dwarf: '矮人', NightElf: '暗夜精灵', Scourge: '亡灵', Tauren: '牛头人', Gnome: '侏儒', Troll: '巨魔', Skyborne: '天裔' },
+	zhTW: { Human: '人類', Orc: '獸人', Dwarf: '矮人', NightElf: '夜精靈', Scourge: '不死族', Tauren: '牛頭人', Gnome: '地精', Troll: '食人妖', Skyborne: '天裔精靈' },
+};
+
 // addon -> { [locale]: { title, notes } }
 function tocText(addon) {
 	const fixed = TEXT[addon];
 	if (fixed) return Object.fromEntries(LOCALE_CODES.map((l) => [l, { title: fixed.title[l], notes: fixed.notes[l] }]));
+	const race = addon.startsWith(RACE_PART_PREFIX) ? addon.slice(RACE_PART_PREFIX.length) : null;
+	if (race && RACE_NAMES.deDE[race]) {
+		const fill = (s, l) => s.replace('%2', RACE_NAMES[l][race]);
+		return Object.fromEntries(LOCALE_CODES.map((l) => [l, { title: fill(PER_RACE[l][0], l), notes: fill(PER_RACE[l][1], l) }]));
+	}
 	for (const [prefix, templates] of Object.entries(PER_LANGUAGE)) {
 		if (!addon.startsWith(prefix)) continue;
 		const pack = addon.slice(prefix.length);
@@ -177,4 +234,31 @@ function tocLines(addon) {
 	return out;
 }
 
-module.exports = { tocText, tocLines, TOC_ADDONS: Object.keys(TEXT) };
+const languageAddon = (locale) => `${LANGUAGE_PREFIX}${locale}`;
+const retiredLanguageAddons = (locale) => [`Polestar_Guides_${locale}`, `Polestar_Names_${locale}`];
+// The language folder's files, in load order: every writer of the folder lists both.
+const LANGUAGE_FILES = ['Names.lua', 'Texts.lua'];
+
+function languageToc(locale, iface, version) {
+	const language = LOCALES[locale].language;
+	return `${[
+		`## Interface: ${iface}`,
+		`## Title: Polestar - ${language}`,
+		`## Notes: Guide texts and the game's names (quests, NPCs, objects, items, instances and more) in ${language} for Polestar. Loaded on demand on a ${language} client.`,
+		...tocLines(languageAddon(locale)),
+		'## Author: Polestar',
+		`## Version: ${version}`,
+		'## Category: Polestar',
+		'## Group: Polestar',
+		'## LoadOnDemand: 1',
+		'## Dependencies: Polestar',
+		'## X-Polestar-Texts: guides',
+		`## X-Polestar-Locale: ${locale}`,
+		'## X-License: GPL-3.0-only',
+		`# ${GENERATED_MARKER} (Texts.lua) and \`forge data names\` (Names.lua). Do not edit: rebuild with those commands.`,
+		'',
+		...LANGUAGE_FILES,
+	].join('\n')}\n`;
+}
+
+module.exports = { tocText, tocLines, languageAddon, languageToc, retiredLanguageAddons, LANGUAGE_PREFIX, LANGUAGE_FILES, TOC_ADDONS: Object.keys(TEXT) };

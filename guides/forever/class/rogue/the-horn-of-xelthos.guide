@@ -13,26 +13,25 @@ why The Pyrewood Signet Ring, C's payment for a solo job inside Shadowfang Keep.
 # from the Dead Drop near Pyrewood Village, Goblin Lockpicks (78270) with
 # Veenix in the Stonetalon Mountains for a Breaching Charge, the horn from
 # inside Shadowfang Keep, then C's payment (78307) from the same Dead Drop.
-# Forever changes (Wowhead Forever's Rogue class page,
-# data/local/quest-audit/wowhead-class-quests.json): 78261 now has the
+# Forever changes (Forever's Rogue class quest list,
+# data/local/quest-audit/): 78261 now has the
 # "find Veenix" objective; 78307 pays 2300 experience and 30 silver and adds
-# the Pyrewood Signet Ring. Wowhead's row also lists Rune of Deadly Brew
+# the Pyrewood Signet Ring. The list's row also lists Rune of Deadly Brew
 # (203994) among 78307's rewards, a Season of Discovery rune; the guide shows
 # only the ring.
 # Sources: quests.json and objects.json (the Dead Drop, object 410369, starts
-# and ends both Horn quests; foreverchanges.pro/quest/78261 agrees), npcs.json
+# and ends both Horn quests; Forever's quest chain data agrees), npcs.json
 # for Veenix, items.json for the Venture Co. Work Order (Venture Co. Loggers);
-# Wowhead's Forever tooltip (nether.wowhead.com/forever/tooltip/item/210186)
-# for the Breaching Charge, Goblin Lockpicks' reward; the quest texts on
-# foreverchanges.pro for Veenix's request and the solo rule; the Shadowfang
+# Forever's item data (item 210186) for the Breaching Charge, Goblin
+# Lockpicks' reward; the quest texts in Forever's quest data for Veenix's request and the solo rule; the Shadowfang
 # Keep entrance from data/forever/dungeons.json (Silverpine Forest
 # 44.8,67.8, live frame). The data has no position for the horn inside the
 # keep.
 # The quest says you must do the job alone: Shadowfang Keep is a dungeon
 # full of elites; stealth through.
 
-# Interior route: Forever player reports by Ythas and Richlion on
-# wowhead.com/forever/quest=78261 and /forever/cn/object=410369
+# Interior route: Forever player reports on quest 78261 and object
+# 410369
 # (checked 2026-10-20); item 210212/210213 Forever tooltips confirm
 # combining the half-keys. Reports are not an in-game test of this guide.
 

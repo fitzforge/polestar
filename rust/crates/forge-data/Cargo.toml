@@ -1,0 +1,37 @@
+[package]
+name = "forge-data"
+description = "The reference data build (data/forever/*.json) and the knowledge base: pfQuest, QuestieDB, client tables and recordings."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[features]
+default = []
+# Sources only the maintainer has locally (the local-only sources); never read by the public build.
+local-sources = []
+
+[dependencies]
+rustc-hash.workspace = true
+serde_json = { workspace = true, features = ["float_roundtrip", "preserve_order"] }
+forge-core = { path = "../forge-core" }
+forge-guide = { path = "../forge-guide" }
+forge-gamedata = { path = "../forge-gamedata" }
+forge-nav = { path = "../forge-nav" }
+forge-world = { path = "../forge-world", default-features = false }
+mlua = { version = "0.11", features = ["lua51", "vendored"] }
+flate2 = "1"
+indexmap = "2"
+regex = "1"
+sha1_smol = "1"
+sha2 = "0.10"
+rusqlite = { version = "0.37", features = ["bundled"] }
+unicode-normalization = "0.1"
+ureq = "3"
+serde = { workspace = true }
+
+[lints]
+workspace = true

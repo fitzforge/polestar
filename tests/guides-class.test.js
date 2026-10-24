@@ -7,7 +7,7 @@
 // where the quest data keeps them apart.
 //
 // The structure tests parse the guides alone; the chain tests read
-// data/forever (node tools/polestar.js data build) and skip without it.
+// data/forever (forge data build) and skip without it.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -142,7 +142,7 @@ const spellBuild = fs.existsSync(WAGO)
 	: null;
 const CLASS_BIT = { Warrior: 1, Paladin: 2, Hunter: 4, Rogue: 8, Priest: 16, Shaman: 64, Mage: 128, Warlock: 256, Druid: 1024 };
 
-test('reward spells are the client\'s: each id is in the Forever spell tables under its name, with an icon; no class spell is left as words', { skip: spellBuild ? false : 'no cached Forever wago build with SpellName, SpellMisc and SkillLineAbility (node tools/polestar.js data build)' }, () => {
+test('reward spells are the client\'s: each id is in the Forever spell tables under its name, with an icon; no class spell is left as words', { skip: spellBuild ? false : 'no cached Forever wago build with SpellName, SpellMisc and SkillLineAbility (forge data build)' }, () => {
 	const table = (t) => parseCsv(fs.readFileSync(path.join(WAGO, spellBuild, `${t}.csv`), 'utf8'));
 	const names = new Map(table('SpellName').map((r) => [Number(r.ID), r.Name_lang]));
 	const icons = new Map(table('SpellMisc').map((r) => [Number(r.SpellID), Number(r.SpellIconFileDataID)]));

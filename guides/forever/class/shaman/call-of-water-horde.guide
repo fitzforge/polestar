@@ -18,8 +18,8 @@ why The Water Totem that lets you place water totems, and Healing Stream Totem w
 # Ashenvale) -> Islen (Water Sapta) -> the Brazier of Everfount in Silverpine
 # Forest -> Islen, who teaches Healing Stream Totem and gives the Water Totem.
 # Sources: quests.json, npcs.json, objects.json and items.json (the fill
-# objects); Wowhead Forever's quest pages for the rewards
-# (https://www.wowhead.com/forever/quest=96: Healing Stream Totem and the
+# objects); Forever's quest data for the rewards
+# (quest 96: Healing Stream Totem and the
 # Water Totem; 220: Water Sapta).
 # The four openers (1528 Searn Firewarder in Orgrimmar, 1529 Xanis Flameweaver
 # in Thunder Bluff, 2985 Swart in Razor Hill, 2986 Narm Skychaser in Bloodhoof

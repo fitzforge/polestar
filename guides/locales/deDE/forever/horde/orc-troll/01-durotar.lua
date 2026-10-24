@@ -180,7 +180,7 @@ return {
 
 	-- Step 42: Rezlak
 	-- {zone:1454} Orgrimmar · {npc:3293} Rezlak
-	["Head north-east to the road toward {zone:1454}. {npc:3293} camps beside it; the stolen sacks lie along the road south of him."] = "",
+	["Head north-east to the road toward {zone:1454}. {npc:3293} camps beside it; the stolen sacks lie along the road south of him."] = "Geh nach Nordosten zur Straße Richtung {zone:1454}. {npc:3293} lagert daneben; die gestohlenen Säcke liegen entlang der Straße südlich von ihm.",
 
 	-- Step 43: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb

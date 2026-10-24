@@ -81,7 +81,7 @@ const FROM = {
 	pfquest: 'p',
 	questie: 'q',
 	rarescanner: 'r',
-	wowhead: 'w',
+	web: 'w',
 	forever: 'e',
 };
 
@@ -383,7 +383,8 @@ function emitToc(version, files) {
 		...require('../i18n/toc').tocLines('Polestar_Codex'),
 		'## Author: Polestar',
 		`## Version: ${version}`,
-		'## Category: Quests',
+		'## Category: Polestar',
+		'## Group: Polestar',
 		'## LoadOnDemand: 1',
 		'## Dependencies: Polestar',
 		'',
@@ -512,22 +513,4 @@ function packOrder(files) {
 		.filter((l) => l && !l.startsWith('#'));
 }
 
-// Inputs a release must not hold (their licences forbid it or are unknown).
-const LOCAL_ONLY_SOURCES = /AtlasLoot|RareScanner|DungeonJournal|dungeons\.json/i;
-
-// A built pack folder -> null when it may ship, else why not (`pack`).
-function releaseRefusal(dir) {
-	const fs = require('node:fs');
-	const path = require('node:path');
-	const file = (name) => path.join(dir, name);
-	if (!fs.existsSync(file(`${ADDON}.toc`))) return 'not built (run `node tools/polestar.js codex build`)';
-	if (!fs.existsSync(file('Meta.lua'))) return 'Meta.lua is missing (run `node tools/polestar.js codex build`)';
-	if (!fs.existsSync(file('LICENSE-DATA.txt'))) return 'LICENSE-DATA.txt is missing (rebuild it with `node tools/polestar.js codex build`)';
-	const meta = fs.readFileSync(file('Meta.lua'), 'utf8');
-	if (/\blocalExtras = true\b/.test(meta)) return 'it is a --local-extras build (AtlasLoot, RareScanner, DungeonJournal); rebuild it with `node tools/polestar.js codex build`';
-	const named = [...meta.matchAll(/\bname = "([^"]*)"/g)].map((m) => m[1]).find((n) => LOCAL_ONLY_SOURCES.test(n));
-	if (named) return `its sources include a local-only input (${named}); rebuild it with \`node tools/polestar.js codex build\``;
-	return null;
-}
-
-module.exports = { emitPack, releaseRefusal, packOrder, emitToc, licenseText, foldName, ADDON, SCHEMA, CHUNK, FROM, SOURCE };
+module.exports = { emitPack, packOrder, emitToc, licenseText, foldName, ADDON, SCHEMA, CHUNK, FROM, SOURCE };

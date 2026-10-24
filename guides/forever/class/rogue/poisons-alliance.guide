@@ -16,12 +16,12 @@ why Forever teaches Poisons through this chain, not the trainer; the Thistle Tea
 # Tower (2359) from Master Mathias Shaw to Agent Kearnen on the Westfall side
 # of the Duskwood border and back, then the follow-up The Touch of Zanzil
 # (2607, 2608, 2609) with Doc Mixilpixil in the SI:7 cellar.
-# Forever change (Wowhead Forever's Rogue class page,
-# data/local/quest-audit/wowhead-class-quests.json): Klaven's Tower now
+# Forever change (Forever's Rogue class quest list,
+# data/local/quest-audit/): Klaven's Tower now
 # teaches Poisons (Forever moved it from the trainer onto this quest).
-# Rewards from the same page:
+# Rewards from the same list:
 # Recipe: Thistle Tea (Klaven's Tower), Eau de Mixilpixil (The Touch of
-# Zanzil, 2609). Wowhead files Klaven's Tower as a group quest.
+# Zanzil, 2609). Forever's quest data files Klaven's Tower as a group quest.
 # Sources: quests.json, npcs.json, objects.json and items.json for the givers,
 # drops, vendors and places.
 # alliance/04-redridge-mountains and alliance/05-duskwood do 2360 and 2359 on

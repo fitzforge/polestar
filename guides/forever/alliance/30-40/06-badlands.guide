@@ -20,7 +20,7 @@
 # Ravagers 93035, Outing Outcasts 93037, Facing the Truth 93041, Valley of
 # Bones 93034 and 92841, A Conqueror's Crown 92743): each wants standing with
 # the Magram or the Gelkis ("Maintain your reputation with ..."; Valley of
-# Bones 92841 needs Magram Honored, Wowhead Forever), which the simulator
+# Bones 92841 needs Magram Honored, Forever's quest data), which the simulator
 # does not model and the route does not build (see Dropped below).
 # Deviations from the export:
 # - The Shimmering Flats and Ratchet stops (visits 30-31) are dropped: a long

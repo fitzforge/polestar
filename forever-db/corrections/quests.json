@@ -1,0 +1,2715 @@
+{
+	"26": {
+		"set": {
+			"races": 4294967304
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "A Lesson to Learn (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while Trial of the Sea Lion (272) before it already allows Skyborne, so Skyborne druids stopped halfway."
+	},
+	"29": {
+		"set": {
+			"races": 4294967304
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Trial of the Lake (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while Trial of the Sea Lion (272) before it already allows Skyborne, so Skyborne druids stopped halfway."
+	},
+	"151": {
+		"set": {
+			"start": {
+				"npc": [
+					238
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables"
+			}
+		],
+		"note": "Poor Old Blanchy: starts with Verna Furlbrow (npc 238); as its giver the merged data also listed Mailbox (object 696264)."
+	},
+	"171": {
+		"set": {
+			"start": {
+				"npc": [
+					14305
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					14450
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables; quest ender tables"
+			}
+		],
+		"note": "A Warden of the Alliance: starts with Human Orphan (npc 14305) and ends with Orphan Matron Nightingale (npc 14450); as its giver the merged data also listed Watcher Callahan (npc 2142); as its ender the merged data also listed Watcher Callahan (npc 2142)."
+	},
+	"172": {
+		"set": {
+			"start": {
+				"npc": [
+					14451
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					14444
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables; quest ender tables"
+			}
+		],
+		"note": "Children's Week: starts with Orphan Matron Battlewail (npc 14451) and ends with Orcish Orphan (npc 14444); as its giver the merged data also listed Ambassador Berrybuck (npc 271); as its ender the merged data also listed Ambassador Berrybuck (npc 271)."
+	},
+	"311": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					270,
+					269
+				],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: manual,questie"
+		},
+		"note": "Return to Marleth starts at both Thunder Ale barrels, the Unguarded (object 270) and the Guarded (object 269); the merged data lacked the Guarded one. The Unguarded barrel stays first, as before, so the guide's accept step keeps naming the barrel it already pointed at."
+	},
+	"377": {
+		"set": {
+			"xp": 4400
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "Crime and Punishment (The Stockade) rewards 4,400 XP on Forever; the merged data had 2,100, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"386": {
+		"set": {
+			"xp": 4200
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "What Comes Around... (The Stockade) rewards 4,200 XP on Forever; the merged data had 2,000, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"387": {
+		"set": {
+			"xp": 5550
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "Quell the Uprising (The Stockade) rewards 5,550 XP on Forever; the merged data had 2,650, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"388": {
+		"set": {
+			"xp": 5550
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "The Color of Blood (The Stockade) rewards 5,550 XP on Forever; the merged data had 2,650, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"391": {
+		"set": {
+			"xp": 4950
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "The Stockade Riots (The Stockade) rewards 4,950 XP on Forever; the merged data had 2,950, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"465": {
+		"set": {
+			"pre": [
+				98221
+			],
+			"preAny": [
+				98221
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "issue #225"
+		},
+		"note": "Nek'rosh's Gambit (Wetlands, Captain Stoutfist) comes after the Forever quest From the Ashes 98221, not straight after War Banners 464: in game, Stoutfist offered From the Ashes instead of 465 once 464 was handed in (issue #225). pfQuest and QuestieDB still have the Classic prerequisite 464."
+	},
+	"469": {
+		"set": {
+			"breadcrumbFor": 484
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#615"
+		},
+		"note": "Daily Delivery (Einar Stonegrip, Wetlands) is the optional breadcrumb to Young Crocolisk Skins 484: it ends at James Halloran, who starts 484, and Einar stops offering it once 484 is taken (#615, 2026-10-20: Einar offered nothing after 484 was picked up; the knowledge base's own gotcha for 469 says the same). QuestieDB and pfQuest have no breadcrumb link, only `next` 484."
+	},
+	"489": {
+		"set": {
+			"start": {
+				"npc": [
+					2081,
+					2083,
+					2151
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Seek Redemption!: starts with Sentinel Kyra Starsong (npc 2081), Syral Bladeleaf (npc 2083) and Moon Priestess Amara (npc 2151); as its giver the merged data also listed Sentinel Shayla Nightbreeze (npc 2155)."
+	},
+	"660": {
+		"set": {
+			"escort": true
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "escort script and waypoints"
+			},
+			{
+				"kind": "questie",
+				"ref": "questFlags PARTY_ACCEPT"
+			}
+		],
+		"note": "Hints of a New Plague? (Arathi Highlands; Kinelory gives it) is an escort: you protect Kinelory on her way back to Quae. Its text never says escort, so the guide compiler's escort rule misses it; CMaNGOS scripts it as an escort with a waypoint path, and QuestieDB flags it PARTY_ACCEPT like the other escorts."
+	},
+	"914": {
+		"set": {
+			"xp": 4300
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "Leaders of the Fang (Wailing Caverns) rewards 4,300 XP on Forever; the merged data had 2,200, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"940": {
+		"set": {
+			"xp": 440
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): xp"
+		},
+		"note": "Teldrassil (from the Oracle Tree Bark to Fandral) rewards 440 XP on Forever; the merged data had 220, the Classic value. Players' game caches give 440, as The Enchanted Glade (937) at the same level has. Issue #647."
+	},
+	"959": {
+		"set": {
+			"xp": 2650
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp; players' caches (EG Link, observed): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "Trouble at the Docks (Wailing Caverns) rewards 2,650 XP on Forever; the merged data had 1,350, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"962": {
+		"set": {
+			"xp": 3300
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp; players' caches (EG Link, observed): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "Serpentbloom (Wailing Caverns) rewards 3,300 XP on Forever; the merged data had 1,350, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"994": {
+		"set": {
+			"escort": true
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "escort script and waypoints"
+			},
+			{
+				"kind": "questie",
+				"ref": "questFlags PARTY_ACCEPT"
+			}
+		],
+		"note": "Escape Through Force (Darkshore; Volcor gives it) is an escort: you protect Volcor until he reaches the road. Its text never says escort, so the guide compiler's escort rule misses it; CMaNGOS scripts it as an escort with a waypoint path, and QuestieDB flags it PARTY_ACCEPT like the other escorts."
+	},
+	"996": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					174600
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					174600
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables; quest ender tables"
+			}
+		],
+		"note": "Corrupted Windblossom: starts with Corrupted Windblossom (object 174600) and ends with Corrupted Windblossom (object 174600); as its giver the merged data also listed Corrupted Windblossom (object 174602); as its ender the merged data also listed Corrupted Windblossom (object 174602)."
+	},
+	"998": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					174599
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					174599
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables; quest ender tables"
+			}
+		],
+		"note": "Corrupted Windblossom: starts with Corrupted Windblossom (object 174599) and ends with Corrupted Windblossom (object 174599); as its giver the merged data also listed Corrupted Windblossom (object 174603); as its ender the merged data also listed Corrupted Windblossom (object 174603)."
+	},
+	"1013": {
+		"set": {
+			"xp": 5600
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "The Book of Ur (Shadowfang Keep) rewards 5,600 XP on Forever; the merged data had 2,100, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"1014": {
+		"set": {
+			"xp": 8850
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "Arugal Must Die (Shadowfang Keep) rewards 8,850 XP on Forever; the merged data had 3,300, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"1098": {
+		"set": {
+			"xp": 5350
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "Deathstalkers in Shadowfang (Shadowfang Keep) rewards 5,350 XP on Forever; the merged data had 2,000, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"1194": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					20805
+				],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables"
+			}
+		],
+		"note": "Rizzle's Schematics: starts with Rizzle's Unguarded Plans (object 20805); as its giver the merged data also listed Rizzle's Guarded Plans (object 179888)."
+	},
+	"1486": {
+		"set": {
+			"start": {
+				"npc": [
+					5767
+				],
+				"object": [],
+				"item": []
+			},
+			"xp": 3100
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): start; players' caches (EG Link): xp; players' caches (EG Link, observed): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie; Factoruide row sources: collector"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "issue #394"
+			}
+		],
+		"note": "Deviate Hides starts with Nalpak (npc 5767) only; as its giver the merged data also listed a Mailbox (object 659159). It rewards 3,100 XP on Forever (the merged data had 1,600, the Classic value): an in-game screenshot of its reward panel on issue #394, from a level 19 Priest so with no level reduction, shows 3,100."
+	},
+	"1487": {
+		"set": {
+			"xp": 4000
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp; players' caches (EG Link, observed): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "Deviate Eradication (Wailing Caverns) rewards 4,000 XP on Forever; the merged data had 2,050, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"1491": {
+		"set": {
+			"xp": 2650
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "Smart Drinks (Wailing Caverns) rewards 2,650 XP on Forever; the merged data had 1,350, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"1501": {
+		"set": {
+			"races": 146
+		},
+		"source": {
+			"kind": "cmangos",
+			"ref": "classic-db: races"
+		},
+		"note": "Creature of the Void (Warlock voidwalker) is open to Orc, Undead and Troll Warlocks. The merged data had Orc only, which left out the Troll Warlocks the Durotar guide sends to Ruzan."
+	},
+	"1504": {
+		"set": {
+			"races": 146
+		},
+		"source": {
+			"kind": "cmangos",
+			"ref": "classic-db: races"
+		},
+		"note": "The Binding (Warlock voidwalker, after 1501) is open to Orc, Undead and Troll Warlocks. The merged data had Orc only."
+	},
+	"1514": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					173327
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					173327
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables; quest ender tables"
+			}
+		],
+		"note": "Corrupted Windblossom: starts with Corrupted Windblossom (object 173327) and ends with Corrupted Windblossom (object 173327); as its giver the merged data also listed Corrupted Windblossom (object 174709); as its ender the merged data also listed Corrupted Windblossom (object 174709)."
+	},
+	"1560": {
+		"set": {
+			"escort": true
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template: follow objective, PARTY_ACCEPT flag, 30 minute timer"
+		},
+		"note": "Tooga's Quest (Tanaris; Tooga gives it, Torta takes it) is an escort: you lead Tooga back to Torta within 30 minutes (the world DB's quest text, timer and PARTY_ACCEPT flag). Its objective is a kill objective in quests.json and no text says escort, so the guide compiler's escort rule misses it. Both Tanaris guides route it."
+	},
+	"1684": {
+		"set": {
+			"start": {
+				"npc": [
+					2151,
+					3598
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Elanaria: starts with Moon Priestess Amara (npc 2151) and Kyra Windblade (npc 3598); as its giver the merged data also listed Sentinel Elissa Starbreeze (npc 3657)."
+	},
+	"1798": {
+		"set": {
+			"start": {
+				"npc": [
+					6120,
+					6122
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Seeking Strahad (Human and Gnome Warlocks) starts with both Gakin the Darkbinder (npc 6122), the Stormwind trainer, and Lago Blackwrench (npc 6120) in Ironforge's Forlorn Cavern, the Gnome warlocks' giver, whom QuestieDB's Forever store lists and forever/class/warlock/felhunter-alliance uses. Kept so a sweep against giver data that lacks Lago does not drop him again."
+	},
+	"1818": {
+		"set": {
+			"start": {
+				"npc": [
+					2131
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables"
+			}
+		],
+		"note": "Speak with Dillinger: starts with Austil de Mon (npc 2131); as its giver the merged data also listed Baltus Fowler (npc 4595)."
+	},
+	"2523": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					171942
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					171942
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_queststarter/gameobject_queststarter; creature_questender/gameobject_questender"
+		},
+		"note": "Corrupted Songflower: starts with Corrupted Songflower (object 171942) and ends with Corrupted Songflower (object 171942); as its giver the merged data also listed Corrupted Songflower (object 164886); as its ender the merged data also listed Corrupted Songflower (object 164886)."
+	},
+	"2861": {
+		"set": {
+			"start": {
+				"npc": [
+					4568,
+					5144,
+					5497,
+					5885
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Tabetha's Task: starts with Anastasia Hartwell (npc 4568), Bink (npc 5144), Jennea Cannon (npc 5497) and Deino (npc 5885); as its giver the merged data also listed Ursyn Ghull (npc 3048)."
+	},
+	"2924": {
+		"set": {
+			"xp": 5500
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "Essential Artificials (Gnomeregan) rewards 5,500 XP on Forever; the merged data had 3,050, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"2929": {
+		"set": {
+			"xp": 4950
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "The Grand Betrayal (Gnomeregan) rewards 4,950 XP on Forever; the merged data had 2,750, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"2930": {
+		"set": {
+			"xp": 6550
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			}
+		],
+		"note": "Data Rescue (Gnomeregan) rewards 6,550 XP on Forever; the merged data had 3,650, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"2936": {
+		"set": {
+			"end": {
+				"npc": [
+					3188
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: end"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "The Spider God: ends with Master Gadrin (npc 3188); as its ender the merged data also listed Tablet of Theka (object 142715)."
+	},
+	"3525": {
+		"set": {
+			"start": {
+				"npc": [
+					8516
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					152097
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "Extinguishing the Idol: starts with Belnistrasz (npc 8516) and ends with Belnistrasz's Brazier (object 152097); as its giver the merged data also listed Belnistrasz's Brazier (object 152097); as its ender the merged data also listed Belnistrasz (npc 8516)."
+	},
+	"3645": {
+		"set": {
+			"start": {
+				"npc": [
+					7406
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					7406
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Membership Card Renewal: starts with Oglethorpe Obnoticus (npc 7406) and ends with Oglethorpe Obnoticus (npc 7406); as its giver the merged data also listed Tinkmaster Overspark (npc 7944); as its ender the merged data also listed Tinkmaster Overspark (npc 7944)."
+	},
+	"3647": {
+		"set": {
+			"start": {
+				"npc": [
+					7944
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					7944
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Membership Card Renewal: starts with Tinkmaster Overspark (npc 7944) and ends with Tinkmaster Overspark (npc 7944); as its giver the merged data also listed Oglethorpe Obnoticus (npc 7406); as its ender the merged data also listed Oglethorpe Obnoticus (npc 7406)."
+	},
+	"4113": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					164886
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					164886
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_queststarter/gameobject_queststarter; creature_questender/gameobject_questender"
+		},
+		"note": "Corrupted Songflower: starts with Corrupted Songflower (object 164886) and ends with Corrupted Songflower (object 164886); as its giver the merged data also listed Corrupted Songflower (object 174596); as its ender the merged data also listed Corrupted Songflower (object 174596)."
+	},
+	"4114": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					174596
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					174596
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_queststarter/gameobject_queststarter; creature_questender/gameobject_questender"
+		},
+		"note": "Corrupted Songflower: starts with Corrupted Songflower (object 174596) and ends with Corrupted Songflower (object 174596); as its giver the merged data also listed Corrupted Songflower (object 174597); as its ender the merged data also listed Corrupted Songflower (object 174597)."
+	},
+	"4115": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					164887
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					164887
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables; quest ender tables"
+			}
+		],
+		"note": "Corrupted Windblossom: starts with Corrupted Windblossom (object 164887) and ends with Corrupted Windblossom (object 164887); as its giver the merged data also listed Corrupted Windblossom (object 173327); as its ender the merged data also listed Corrupted Windblossom (object 173327)."
+	},
+	"4116": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					174597
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					174597
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_queststarter/gameobject_queststarter; creature_questender/gameobject_questender"
+		},
+		"note": "Corrupted Songflower: starts with Corrupted Songflower (object 174597) and ends with Corrupted Songflower (object 174597); as its giver the merged data also listed Corrupted Songflower (object 174598); as its ender the merged data also listed Corrupted Songflower (object 174598)."
+	},
+	"4118": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					174598
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					174598
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_queststarter/gameobject_queststarter; creature_questender/gameobject_questender"
+		},
+		"note": "Corrupted Songflower: starts with Corrupted Songflower (object 174598) and ends with Corrupted Songflower (object 174598); as its giver the merged data also listed Corrupted Songflower (object 174712); as its ender the merged data also listed Corrupted Songflower (object 174712)."
+	},
+	"4127": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					164909
+				],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables"
+			}
+		],
+		"note": "Boat Wreckage: starts with Wrecked Row Boat (object 164909); as its giver the merged data also listed Wrecked Row Boat (object 186419)."
+	},
+	"4221": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					174604
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					174604
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables; quest ender tables"
+			}
+		],
+		"note": "Corrupted Windblossom: starts with Corrupted Windblossom (object 174604) and ends with Corrupted Windblossom (object 174604); as its giver the merged data also listed Corrupted Windblossom (object 174599); as its ender the merged data also listed Corrupted Windblossom (object 174599)."
+	},
+	"4222": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					174603
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					174603
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables; quest ender tables"
+			}
+		],
+		"note": "Corrupted Windblossom: starts with Corrupted Windblossom (object 174603) and ends with Corrupted Windblossom (object 174603); as its giver the merged data also listed Corrupted Windblossom (object 174600); as its ender the merged data also listed Corrupted Windblossom (object 174600)."
+	},
+	"4343": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					174602
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					174602
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables; quest ender tables"
+			}
+		],
+		"note": "Corrupted Windblossom: starts with Corrupted Windblossom (object 174602) and ends with Corrupted Windblossom (object 174602); as its giver the merged data also listed Corrupted Windblossom (object 164887); as its ender the merged data also listed Corrupted Windblossom (object 164887)."
+	},
+	"4401": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					171939
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					171939
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_queststarter/gameobject_queststarter; creature_questender/gameobject_questender"
+		},
+		"note": "Corrupted Songflower: starts with Corrupted Songflower (object 171939) and ends with Corrupted Songflower (object 171939); as its giver the merged data also listed Corrupted Songflower (object 174713); as its ender the merged data also listed Corrupted Songflower (object 174713)."
+	},
+	"4464": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					174712
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					174712
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_queststarter/gameobject_queststarter; creature_questender/gameobject_questender"
+		},
+		"note": "Corrupted Songflower: starts with Corrupted Songflower (object 174712) and ends with Corrupted Songflower (object 174712); as its giver the merged data also listed Corrupted Songflower (object 171942); as its ender the merged data also listed Corrupted Songflower (object 171942)."
+	},
+	"4465": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					174713
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					174713
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_queststarter/gameobject_queststarter; creature_questender/gameobject_questender"
+		},
+		"note": "Corrupted Songflower: starts with Corrupted Songflower (object 174713) and ends with Corrupted Songflower (object 174713); as its giver the merged data also listed Corrupted Songflower (object 171939); as its ender the merged data also listed Corrupted Songflower (object 171939)."
+	},
+	"4466": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					174708
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					174708
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables; quest ender tables"
+			}
+		],
+		"note": "Corrupted Windblossom: starts with Corrupted Windblossom (object 174708) and ends with Corrupted Windblossom (object 174708); as its giver the merged data also listed Corrupted Windblossom (object 174604); as its ender the merged data also listed Corrupted Windblossom (object 174604)."
+	},
+	"4467": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					174709
+				],
+				"item": []
+			},
+			"end": {
+				"npc": [],
+				"object": [
+					174709
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables; quest ender tables"
+			}
+		],
+		"note": "Corrupted Windblossom: starts with Corrupted Windblossom (object 174709) and ends with Corrupted Windblossom (object 174709); as its giver the merged data also listed Corrupted Windblossom (object 174708); as its ender the merged data also listed Corrupted Windblossom (object 174708)."
+	},
+	"4485": {
+		"set": {
+			"start": {
+				"npc": [
+					6179
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "The Tome of Nobility: starts with Tiza Battleforge (npc 6179); as its giver the merged data also listed Arthur the Faithful (npc 5491)."
+	},
+	"4492": {
+		"set": {
+			"escort": false
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "questFlags and objective text"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template LogDescription and Flags"
+			}
+		],
+		"note": "Lost! (Un'Goro Crater; Spraggle Frock gives it, Ringo takes it) is not an escort: you only find Ringo at Fire Plume Ridge (its quest text; no PARTY_ACCEPT flag in QuestieDB or the world DB). Its event objective belongs to the next quest, A Little Help From My Friends (4491), the real escort, so the guide compiler's escort rule would label it."
+	},
+	"4742": {
+		"set": {
+			"start": {
+				"npc": [
+					10299
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					10299
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Seal of Ascension: starts with Scarshield Infiltrator (npc 10299) and ends with Scarshield Infiltrator (npc 10299); as its giver the merged data also listed Vaelan (npc 10296); as its ender the merged data also listed Vaelan (npc 10296)."
+	},
+	"4743": {
+		"set": {
+			"start": {
+				"npc": [
+					10299
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					10299
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Seal of Ascension: starts with Scarshield Infiltrator (npc 10299) and ends with Scarshield Infiltrator (npc 10299); as its giver the merged data also listed Vaelan (npc 10296); as its ender the merged data also listed Vaelan (npc 10296)."
+	},
+	"4901": {
+		"set": {
+			"escort": true
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "escort script and waypoints"
+			},
+			{
+				"kind": "questie",
+				"ref": "questFlags PARTY_ACCEPT"
+			}
+		],
+		"note": "Guardians of the Altar (Winterspring; Ranshalla gives it) is an escort: you protect Ranshalla while she relights the torches of the Altar of Elune. Its text never says escort, so the guide compiler's escort rule misses it; CMaNGOS scripts it as an escort with a waypoint path, and QuestieDB flags it PARTY_ACCEPT like the other escorts."
+	},
+	"5057": {
+		"set": {
+			"end": {
+				"npc": [
+					10303
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: end"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest ender tables"
+			}
+		],
+		"note": "Past Endeavors: ends with Storm Shadowhoof (npc 10303); as its ender the merged data also listed Melor Stonehoof (npc 3441)."
+	},
+	"5061": {
+		"set": {
+			"races": 4294967304
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Aquatic Form (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while Trial of the Sea Lion (272) before it already allows Skyborne, so Skyborne druids stopped halfway."
+	},
+	"5511": {
+		"set": {
+			"start": {
+				"npc": [
+					11057
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					11057
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_queststarter/gameobject_queststarter; creature_questender/gameobject_questender"
+		},
+		"note": "The Key to Scholomance: starts with Apothecary Dithers (npc 11057) and ends with Apothecary Dithers (npc 11057); as its giver the merged data also listed High Executor Derrington (npc 10837); as its ender the merged data also listed High Executor Derrington (npc 10837)."
+	},
+	"5631": {
+		"set": {
+			"start": {
+				"npc": [
+					5489
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables"
+			}
+		],
+		"note": "Returning Home: starts with Brother Joshua (npc 5489); as its giver the merged data also listed High Priestess Laurena (npc 376)."
+	},
+	"5633": {
+		"set": {
+			"start": {
+				"npc": [
+					5142
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables"
+			}
+		],
+		"note": "Returning Home: starts with Braenna Flintcrag (npc 5142); as its giver the merged data also listed High Priest Rohan (npc 11406)."
+	},
+	"5674": {
+		"set": {
+			"start": {
+				"npc": [
+					11397
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Elune's Grace: starts with Nara Meideros (npc 11397); as its giver the merged data also listed Laurna Morninglight (npc 3600)."
+	},
+	"5944": {
+		"set": {
+			"end": {
+				"npc": [
+					12126
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_questender/gameobject_questender"
+		},
+		"note": "In Dreams: ends with Lord Tirion Fordring (npc 12126); as its ender the merged data also listed Tirion Fordring (npc 1855)."
+	},
+	"6066": {
+		"set": {
+			"start": {
+				"npc": [
+					3407
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "The Hunter's Path: starts with Sian'dur (npc 3407); as its giver the merged data also listed Lanka Farshot (npc 3061)."
+	},
+	"6123": {
+		"set": {
+			"races": 4294967304
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Gathering the Cure (Druid Cure Poison, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while 6121 and 6122 before it already allow Skyborne."
+	},
+	"6125": {
+		"set": {
+			"races": 4294967304
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Power over Poison (Druid Cure Poison, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while 6121 and 6122 before it already allow Skyborne."
+	},
+	"6641": {
+		"set": {
+			"escort": true
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "escort script and waypoints"
+			},
+			{
+				"kind": "questie",
+				"ref": "questFlags PARTY_ACCEPT"
+			}
+		],
+		"note": "Vorsha the Lasher (Ashenvale; Muglash gives it) is an escort: you keep Muglash safe on his way to the brazier. Its text never says escort, so the guide compiler's escort rule misses it; CMaNGOS scripts it as an escort with a waypoint path, and QuestieDB flags it PARTY_ACCEPT like the other escorts."
+	},
+	"6721": {
+		"set": {
+			"start": {
+				"npc": [
+					5116
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "The Hunter's Path: starts with Olmin Burningbeard (npc 5116); as its giver the merged data also listed Regnus Thundergranite (npc 5117)."
+	},
+	"6981": {
+		"set": {
+			"xp": 5150,
+			"objectives": []
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): xp"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: collector"
+			},
+			{
+				"kind": "client",
+				"ref": "quest cache, build 1.60.1.70450"
+			}
+		],
+		"note": "The Glowing Shard (Wailing Caverns) rewards 5,150 XP on Forever; the merged data had 2,650, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394. The quest asks only for the item that starts it (10441); the extra kill objective was wrong."
+	},
+	"7042": {
+		"set": {
+			"end": {
+				"npc": [
+					13636
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Stolen Winter Veil Treats: ends with Strange Snowman (npc 13636); as its ender the merged data also listed The Abominable Greench (npc 13602)."
+	},
+	"7562": {
+		"set": {
+			"start": {
+				"npc": [
+					5520,
+					5753,
+					5815,
+					6382
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_queststarter/gameobject_queststarter"
+		},
+		"note": "Mor'zul Bloodbringer: starts with Spackle Thornberry (npc 5520), Martha Strain (npc 5753), Kurgul (npc 5815) and Jubahl Corpseseeker (npc 6382); as its giver the merged data also listed Greshka (npc 12807)."
+	},
+	"8227": {
+		"set": {
+			"start": {
+				"npc": [],
+				"object": [
+					180366
+				],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables"
+			}
+		],
+		"note": "Nat's Measuring Tape starts only at the Battered Tackle Box (object 180366). The merged data also listed the tape itself (item 19973) as a starter, but the client's ItemSparse (Forever 1.60.1 and Era 1.15.9) gives the item no StartQuestID: the box hands you the tape for the quest."
+	},
+	"8228": {
+		"set": {
+			"start": {
+				"npc": [
+					15116
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					15116
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Could I get a Fishing Flier?: starts with Grinkle (npc 15116) and ends with Grinkle (npc 15116); as its giver the merged data also listed Barrus (npc 15119); as its ender the merged data also listed Barrus (npc 15119)."
+	},
+	"8229": {
+		"set": {
+			"start": {
+				"npc": [
+					15119
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					15119
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Could I get a Fishing Flier?: starts with Barrus (npc 15119) and ends with Barrus (npc 15119); as its giver the merged data also listed Grinkle (npc 15116); as its ender the merged data also listed Grinkle (npc 15116)."
+	},
+	"8233": {
+		"set": {
+			"start": {
+				"npc": [
+					918,
+					3328,
+					4163,
+					4583,
+					5165
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_queststarter/gameobject_queststarter"
+		},
+		"note": "A Simple Request: starts with Osborne the Night Man (npc 918), Ormok (npc 3328), Syurna (npc 4163), Miles Dexter (npc 4583) and Hulfdan Blackbeard (npc 5165); as its giver the merged data also listed Fenthwick (npc 5167)."
+	},
+	"8254": {
+		"set": {
+			"start": {
+				"npc": [
+					5489,
+					6018,
+					11406
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_queststarter/gameobject_queststarter"
+		},
+		"note": "Cenarion Aid: starts with Brother Joshua (npc 5489), Ur'kyo (npc 6018) and High Priest Rohan (npc 11406); as its giver the merged data also listed Malakai Cross (npc 3045)."
+	},
+	"8417": {
+		"set": {
+			"start": {
+				"npc": [
+					3041,
+					3354,
+					4593,
+					5113,
+					5479,
+					7315
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "A Troubled Spirit starts at every capital's warrior trainer: Sorek (npc 3354), Christoph Walker (npc 4593), Kelv Sternhammer (npc 5113), Wu Shen (npc 5479), Darnath Bladesinger (npc 7315) and Torm Ragetotem (npc 3041, Thunder Bluff), whom QuestieDB's Forever store and the Classic data list and forever/class/warrior/voodoo-feathers sends Tauren warriors to. Kept so a sweep against giver data that lacks Torm does not drop him again."
+	},
+	"8792": {
+		"set": {
+			"start": {
+				"npc": [
+					15702
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "The Horde Needs Your Help!: starts with Senior Sergeant Taiga (npc 15702); as its giver the merged data also listed Senior Sergeant Grimsford (npc 15703) and Senior Sergeant Kai'jin (npc 15704)."
+	},
+	"8795": {
+		"set": {
+			"start": {
+				"npc": [
+					15707
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "The Alliance Needs Your Help!: starts with Master Sergeant Fizzlebolt (npc 15707); as its giver the merged data also listed Master Sergeant Maclure (npc 15708) and Master Sergeant Moonshadow (npc 15709)."
+	},
+	"8834": {
+		"set": {
+			"start": {
+				"npc": [
+					15764
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					15764
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "One Commendation Signet: starts with Officer Ironbeard (npc 15764) and ends with Officer Ironbeard (npc 15764); as its giver the merged data also listed Ironforge Commendation Officer (npc 15734); as its ender the merged data also listed Ironforge Commendation Officer (npc 15734)."
+	},
+	"8835": {
+		"set": {
+			"start": {
+				"npc": [
+					15764
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					15764
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "Ten Commendation Signets: starts with Officer Ironbeard (npc 15764) and ends with Officer Ironbeard (npc 15764); as its giver the merged data also listed Ironforge Commendation Officer (npc 15734); as its ender the merged data also listed Ironforge Commendation Officer (npc 15734)."
+	},
+	"8838": {
+		"set": {
+			"start": {
+				"npc": [
+					15763
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					15763
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "One Commendation Signet: starts with Officer Porterhouse (npc 15763) and ends with Officer Porterhouse (npc 15763); as its giver the merged data also listed Gnomeregan Commendation Officer (npc 15733); as its ender the merged data also listed Gnomeregan Commendation Officer (npc 15733)."
+	},
+	"8839": {
+		"set": {
+			"start": {
+				"npc": [
+					15763
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					15763
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "Ten Commendation Signets: starts with Officer Porterhouse (npc 15763) and ends with Officer Porterhouse (npc 15763); as its giver the merged data also listed Gnomeregan Commendation Officer (npc 15733); as its ender the merged data also listed Gnomeregan Commendation Officer (npc 15733)."
+	},
+	"8842": {
+		"set": {
+			"start": {
+				"npc": [
+					15767
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					15767
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "One Commendation Signet: starts with Officer Thunderstrider (npc 15767) and ends with Officer Thunderstrider (npc 15767); as its giver the merged data also listed Thunder Bluff Commendation Officer (npc 15739); as its ender the merged data also listed Thunder Bluff Commendation Officer (npc 15739)."
+	},
+	"8843": {
+		"set": {
+			"start": {
+				"npc": [
+					15767
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					15767
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "Ten Commendation Signets: starts with Officer Thunderstrider (npc 15767) and ends with Officer Thunderstrider (npc 15767); as its giver the merged data also listed Thunder Bluff Commendation Officer (npc 15739); as its ender the merged data also listed Thunder Bluff Commendation Officer (npc 15739)."
+	},
+	"8844": {
+		"set": {
+			"start": {
+				"npc": [
+					15761
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					15761
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "One Commendation Signet: starts with Officer Vu'Shalay (npc 15761) and ends with Officer Vu'Shalay (npc 15761); as its giver the merged data also listed Darkspear Commendation Officer (npc 15737); as its ender the merged data also listed Darkspear Commendation Officer (npc 15737)."
+	},
+	"8845": {
+		"set": {
+			"start": {
+				"npc": [
+					15761
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					15761
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: start; classic-db: end"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "Ten Commendation Signets: starts with Officer Vu'Shalay (npc 15761) and ends with Officer Vu'Shalay (npc 15761); as its giver the merged data also listed Darkspear Commendation Officer (npc 15737); as its ender the merged data also listed Darkspear Commendation Officer (npc 15737)."
+	},
+	"65593": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 190179,
+					"count": 1,
+					"text": "Avelina's Heart"
+				},
+				{
+					"type": "item",
+					"id": 190180,
+					"count": 1,
+					"text": "Isaac's Heart"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "issue #412"
+			}
+		],
+		"note": "Hearts of the Lovers (Horde Warlock incubus, Godrick Farsan) needs both hearts, Avelina's Heart first, then Isaac's Heart: in game, with Avelina's heart in the bags the guide passed the Isaac Pearson step, so the log's first line is Avelina's (issue #412). QuestieDB lists only Isaac's Heart."
+	},
+	"79358": {
+		"set": {
+			"end": {
+				"npc": [
+					4722,
+					259023
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Storm, Earth, and Fire is shared by the Horde and Alliance Shaman chains: it ends at both the Horde's Rau Cliffrunner (npc 4722) and Veyric Thunderhame (npc 259023) in Arathi, who starts it and whose words its text and progress text are; forever/class/shaman/call-of-air-alliance hands it in to Veyric. Kept so a sweep against giver data that names only one side does not drop Veyric again."
+	},
+	"79535": {
+		"set": {
+			"end": {
+				"npc": [
+					211022,
+					211033
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Basilisks: Should Petrification be Feared?: ends with Owen Thadd (npc 211022) and Garion Wendell (npc 211033); as its ender the merged data lacked Garion Wendell (npc 211033)."
+	},
+	"79950": {
+		"set": {
+			"end": {
+				"npc": [
+					211022,
+					211033
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Demons and You: ends with Owen Thadd (npc 211022) and Garion Wendell (npc 211033); as its ender the merged data lacked Garion Wendell (npc 211033)."
+	},
+	"81949": {
+		"set": {
+			"end": {
+				"npc": [
+					211022,
+					211033
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Legends of the Tidesages: ends with Owen Thadd (npc 211022) and Garion Wendell (npc 211033); as its ender the merged data lacked Garion Wendell (npc 211033)."
+	},
+	"81954": {
+		"set": {
+			"end": {
+				"npc": [
+					211022,
+					211033
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Venomous Journeys: ends with Owen Thadd (npc 211022) and Garion Wendell (npc 211033); as its ender the merged data lacked Owen Thadd (npc 211022)."
+	},
+	"84396": {
+		"set": {
+			"end": {
+				"npc": [
+					5497,
+					7825
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Magma or Lava?: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825)."
+	},
+	"84398": {
+		"set": {
+			"end": {
+				"npc": [
+					5497,
+					7825
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "A Study of the Light: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825)."
+	},
+	"84402": {
+		"set": {
+			"end": {
+				"npc": [
+					5497,
+					7825
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Necromancy 101: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825)."
+	},
+	"91901": {
+		"set": {
+			"start": {
+				"npc": [
+					256386,
+					256390
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					256386,
+					256390
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "Forever store giver Dokimi"
+			},
+			{
+				"kind": "client",
+				"ref": "quest text: deliver to your faction's trade representative"
+			}
+		],
+		"note": "A Sealed Crate starts and ends at both factions' trade representatives, Dokimi (npc 256386, Horde) and Marcy Baker (npc 256390, Alliance): the client's quest text sends you to your faction's trade representative, and QuestieDB's Forever store has Dokimi as giver. 91899, 91900 and 91904 already have both."
+	},
+	"91921": {
+		"set": {
+			"pre": [
+				91920
+			],
+			"preAny": [
+				91920
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon PrevQuestID"
+		},
+		"note": "Return to Quinn (Again) (Silverpine, Apothecary Renferrel) comes after Wild Eyes 91920, whose new potion it brings back. QuestieDB has no prerequisite."
+	},
+	"92850": {
+		"set": {
+			"end": {
+				"npc": [
+					253204,
+					253285
+				],
+				"object": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: manual,questie"
+		},
+		"note": "The Missing Scholar: ends with Dondallion Whisperwind (npc 253204) and Fillion Flamebreeze (npc 253285); as its ender the merged data lacked Dondallion Whisperwind (npc 253204)."
+	},
+	"94373": {
+		"set": {
+			"next": 94374
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon PrevQuestID of the next quest"
+		},
+		"note": "Dwarf Shaman Call of Earth runs 94373 -> 94374 -> 94375. QuestieDB has no chain links for it."
+	},
+	"94374": {
+		"set": {
+			"pre": [
+				94373
+			],
+			"preAny": [
+				94373
+			],
+			"next": 94375
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon PrevQuestID; quest_template_addon PrevQuestID of the next quest"
+		},
+		"note": "Second step of the Dwarf Shaman Call of Earth chain 94373 -> 94374 -> 94375."
+	},
+	"94375": {
+		"set": {
+			"pre": [
+				94374
+			],
+			"preAny": [
+				94374
+			],
+			"start": {
+				"npc": [
+					5891
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID; world DB: start"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "Third step of the Dwarf Shaman Call of Earth chain 94373 -> 94374 -> 94375. It starts with Minor Manifestation of Earth (npc 5891); as its giver the merged data also listed Teo Hammerstorm (npc 257446)."
+	},
+	"94466": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 5026,
+					"count": 1,
+					"text": "Fire Tar"
+				},
+				{
+					"type": "item",
+					"id": 6652,
+					"count": 1,
+					"text": "Reagent Pouch"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			},
+			{
+				"kind": "tdb",
+				"ref": "world DB: objectives"
+			}
+		],
+		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch."
+	},
+	"95508": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 261367,
+					"count": 1,
+					"text": "Assist Walton"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: manual"
+			}
+		],
+		"note": "Unwelcome Guests (Barrens) has one objective, Assist Walton (1), credited by Terry Longdrink (npc 261367). QuestieDB has no objectives."
+	},
+	"95737": {
+		"set": {
+			"breadcrumbFor": 95647
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "issue #533"
+		},
+		"note": "Seeking Caitlin (Llana, Astranaar) is the optional breadcrumb to Lost in the Thicket Things 95647 (Excavation Site: Wetlands): it ends at Caitlin Grassman, who starts 95647, and in game Llana stops offering it once 95647 is taken (issue #533). QuestieDB has no breadcrumb link."
+	},
+	"95774": {
+		"set": {
+			"pre": [
+				4921
+			],
+			"preAny": [
+				4921
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "issue #65"
+		},
+		"note": "Her Name Is Olgra (Barrens, Mankrik) comes after Lost in Battle 4921, once you have found her body: in game Mankrik did not offer it beside Lost in Battle (issue #65). QuestieDB has no prerequisite."
+	},
+	"95998": {
+		"set": {
+			"start": {
+				"npc": [
+					263399
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables"
+			}
+		],
+		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253)."
+	},
+	"96243": {
+		"set": {
+			"start": {
+				"npc": [
+					258098,
+					258113
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Call of Earth: starts with Eldrun Stormbreaker (npc 258098) and Ingrid Dunwald (npc 258113); as its giver the merged data lacked Ingrid Dunwald (npc 258113)."
+	},
+	"96395": {
+		"set": {
+			"start": {
+				"npc": [
+					265002
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					265002
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: att"
+			},
+			{
+				"kind": "tdb",
+				"ref": "world DB: start; world DB: end"
+			}
+		],
+		"note": "An Ancient Grudge (The Hall of Thanes) starts and ends inside with the Ghostly Attendant 265002. QuestieDB has no giver or ender."
+	},
+	"96655": {
+		"set": {
+			"start": {
+				"npc": [
+					265809
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Camping 101: Cooking: starts with Brakk (npc 265809); as its giver the merged data also listed Cook Torka (npc 3191)."
+	},
+	"96821": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 266850,
+					"count": 6,
+					"text": "Ridgeshade Creeper"
+				},
+				{
+					"type": "kill",
+					"id": 266849,
+					"count": 6,
+					"text": "Ridgeshade Lurker"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			}
+		],
+		"note": "Legging It (Durotar) lists the Ridgeshade Creepers first, then the Ridgeshade Lurkers. The merged data had the two the other way round, so `quest 96821.1` named the Lurkers."
+	},
+	"96825": {
+		"set": {
+			"start": {
+				"npc": [
+					3191
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "This Fruit Could Bite Back: starts with Cook Torka (npc 3191); as its giver the merged data also listed Grimtak (npc 3881)."
+	},
+	"97289": {
+		"set": {
+			"pre": [
+				97288
+			],
+			"preAny": [
+				97288
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon PrevQuestID"
+		},
+		"note": "Unending Torment (97289, Master Apothecary Faranell, Undercity) is step 2 of the Ruins of Lordaeron chain 97288 -> 97289 -> 97290 -> 97291 -> 97292: Faranell hands back the Head of the Baron once 97288 has delivered it. QuestieDB has no prerequisite, so the Ruins of Lordaeron pick-up guide sent players to accept it before the run (issue #50)."
+	},
+	"97290": {
+		"set": {
+			"pre": [
+				97289
+			],
+			"preAny": [
+				97289
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon PrevQuestID"
+		},
+		"note": "Unending Torment (97290) is step 3 of the chain 97288 -> 97289 -> 97290 -> 97291 -> 97292: the Unfinished Abomination 271613 that 97289 ends at gives it. QuestieDB has no prerequisite."
+	},
+	"97291": {
+		"set": {
+			"pre": [
+				97290
+			],
+			"preAny": [
+				97290
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon PrevQuestID"
+		},
+		"note": "Unending Torment (97291) is step 4 of the chain 97288 -> 97289 -> 97290 -> 97291 -> 97292, after the head is reattached. QuestieDB has no prerequisite."
+	},
+	"97292": {
+		"set": {
+			"pre": [
+				97291
+			],
+			"preAny": [
+				97291
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon PrevQuestID"
+		},
+		"note": "Unending Torment (97292) is step 5 of the chain 97288 -> 97289 -> 97290 -> 97291 -> 97292: Faranell's Hissing Serum is made from 97291's reagents. QuestieDB has no prerequisite."
+	},
+	"97903": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Raise your first aid skill to 20"
+				}
+			]
+		},
+		"source": {
+			"kind": "client",
+			"ref": "quest cache, build 1.60.1.70450"
+		},
+		"note": "Camping 101: First Aid: the objective is to raise First Aid to 20, not a kill."
+	},
+	"98094": {
+		"set": {
+			"pre": [
+				528
+			],
+			"preAny": [
+				528
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "issue #148"
+		},
+		"note": "Scout Support (Hillsbrad, High Executor Darthalia, for Deathstalker Masoj) is offered only after Battle of Hillsbrad part II 528: in game Darthalia did not offer it with 527 turned in and 528 open (issue #148). QuestieDB has no prerequisite."
+	},
+	"98389": {
+		"set": {
+			"pre": [
+				376
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "maintainer in game, Scourge Warlock"
+		},
+		"note": "A Light in the Darkness (Tirisfal, Aramis Hammerhand) is offered only after The Damned 376 is handed in: checked in game on a Scourge Warlock, who was not offered it at level 2, at level 3 before the first turn-ins or after Rattling the Rattlecages 3901, and was offered it once The Damned was handed in."
+	},
+	"98815": {
+		"set": {
+			"pre": [
+				484
+			],
+			"preAny": [
+				484
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "issue #533"
+		},
+		"note": "Highland Hides (Wetlands, James Halloran) is offered only once Young Crocolisk Skins 484, from the same NPC, is handed in: in game at level 27 Halloran offered 484 instead of 98815 (issue #533). QuestieDB has no prerequisite."
+	},
+	"98823": {
+		"set": {
+			"pre": [
+				95664
+			],
+			"preAny": [
+				95664
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon PrevQuestID"
+		},
+		"note": "Earthen Echo (98823, Bashana Runetotem, Thunder Bluff) follows Elder Knowledge 95664, which starts from the Titan Relic dropped inside the Excavation Site (Wetlands) and ends at Bashana. QuestieDB has no prerequisite, so the Excavation Site pick-up guide sent Horde players to accept it before the run."
+	},
+	"99053": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "Escort Lynessa Duskblossom out of Ban'ethil"
+				}
+			]
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Escaping Ban'ethil (Teldrassil) is an escort: one event objective, Escort Lynessa Duskblossom out of Ban'ethil (1), with no map point, so the event runs where it starts (Sentinel Lynessa Duskblossom 275744). QuestieDB has no objectives."
+	},
+	"99080": {
+		"set": {
+			"pre": [
+				99101
+			],
+			"preAny": [
+				99101
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "issue #112"
+			}
+		],
+		"note": "Drive Them Out (Mulgore, Baine Bloodhoof) comes after Our Ancient Enemy 99101, in the chain Longwalker Malah 99079 -> Grim Tidings 99081 -> Our Ancient Enemy 99101 -> Drive Them Out 99080 -> The High Chieftain 99082. In game Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings (issue #112). QuestieDB has no prerequisite."
+	},
+	"99081": {
+		"set": {
+			"pre": [
+				99079
+			],
+			"preAny": [
+				99079
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "issue #112"
+			}
+		],
+		"note": "Grim Tidings (Mulgore, Malah Longwind) comes after Longwalker Malah 99079, in the chain Longwalker Malah 99079 -> Grim Tidings 99081 -> Our Ancient Enemy 99101 -> Drive Them Out 99080 -> The High Chieftain 99082. In game Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings (issue #112). QuestieDB has no prerequisite."
+	},
+	"99082": {
+		"set": {
+			"pre": [
+				99080
+			],
+			"preAny": [
+				99080
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "issue #112"
+			}
+		],
+		"note": "The High Chieftain (Mulgore, Baine Bloodhoof) comes after Drive Them Out 99080, in the chain Longwalker Malah 99079 -> Grim Tidings 99081 -> Our Ancient Enemy 99101 -> Drive Them Out 99080 -> The High Chieftain 99082. In game Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings (issue #112). QuestieDB has no prerequisite."
+	},
+	"99101": {
+		"set": {
+			"pre": [
+				99081
+			],
+			"preAny": [
+				99081
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "issue #112"
+			}
+		],
+		"note": "Our Ancient Enemy (Mulgore, Brave Wildrunner) comes after Grim Tidings 99081, in the chain Longwalker Malah 99079 -> Grim Tidings 99081 -> Our Ancient Enemy 99101 -> Drive Them Out 99080 -> The High Chieftain 99082. In game Our Ancient Enemy was not offered before Longwalker Malah and Grim Tidings (issue #112). QuestieDB has no prerequisite."
+	},
+	"99123": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "Escort Pal'juh out of Kolkar Crag."
+				}
+			]
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: questie"
+		},
+		"note": "Lost in the Shadows (Durotar) is an escort: one event objective, Escort Pal'juh out of Kolkar Crag (1), with no map point, so the event runs where it starts (Pal'juh 275811). QuestieDB has no objectives."
+	},
+	"99130": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 286215,
+					"count": 6,
+					"text": "Vial of Animal Blood"
+				},
+				{
+					"type": "item",
+					"id": 286214,
+					"count": 18,
+					"text": "Duskweed Petal"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "issue #279"
+			}
+		],
+		"note": "An Enticing Offer (Elwynn) needs 18 Duskweed Petals and 6 Vials of Animal Blood, and the quest log lists the blood first: in game the petal goal (objective 1) showed 3/6 and the blood goal (objective 2) 14/18 (issue #279), so each goal counted the other's objective."
+	},
+	"99144": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "Escort Bareth Dawnstone out of Crusader's Outpost"
+				}
+			]
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row sources: manual"
+		},
+		"note": "Seeking Refuge (Tirisfal) is an escort: one event objective, Escort Bareth Dawnstone out of Crusader's Outpost (1), with no map point, so the event runs where it starts (Bareth Dawnstone 275954). QuestieDB has no objectives."
+	},
+	"99156": {
+		"set": {
+			"pre": [
+				356
+			],
+			"preAny": [
+				356
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon PrevQuestID"
+		},
+		"note": "The second Rear Guard Patrol (Tirisfal, Deathguard Linnea) comes after the first, Rear Guard Patrol 356. QuestieDB has no prerequisite."
+	}
+}

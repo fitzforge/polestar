@@ -1,0 +1,36 @@
+{
+	"5359": {
+		"removeDrops": {
+			"object": [
+				176344
+			]
+		},
+		"source": {
+			"kind": "questie",
+			"ref": "objectDrops of item 5359"
+		},
+		"note": "Lorgalis Manuscript comes only from the Pitted Iron Chest 13949 in Blackfathom Deeps, the one container QuestieDB lists. pfQuest also lists the Document Chest 176344 (Barrens/Thousand Needles), a different quest's chest."
+	},
+	"20519": {
+		"removeDrops": {
+			"npc": [
+				15685
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "npcDrops of item 20519"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "creature_loot_template"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "issue #327"
+			}
+		],
+		"note": "Southsea Pirate Hat (Pirate Hats Ahoy! 8365) drops from six Southsea pirates (7855, 7856, 7857, 7858, 7883, 8203) at 10%, as QuestieDB's Forever store and CMaNGOS classic-db's loot tables have it; neither puts it in the Southsea Kidnapper's (15685) loot. Only pfQuest lists 15685, at 50%, which sent the goal to the Kidnapper alone (issue #327)."
+	}
+}

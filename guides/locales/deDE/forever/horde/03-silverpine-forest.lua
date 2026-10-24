@@ -188,11 +188,11 @@ return {
 	-- {npc:3230} Nazgrel
 	["Speak with {npc:3230}, in Grommash Hold"] = "Sprich mit {npc:3230} in Grommash Hold",
 	-- {npc:3230} Nazgrel
-	["Talk to {npc:3230}"] = "",
+	["Talk to {npc:3230}"] = "Sprich mit {npc:3230}",
 	-- {npc:10540} Vol'jin
 	["Speak with {npc:10540}, in Grommash Hold"] = "Sprich mit {npc:10540} in Grommash Hold",
 	-- {npc:10540} Vol'jin
-	["Talk to {npc:10540}"] = "",
+	["Talk to {npc:10540}"] = "Sprich mit {npc:10540}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Moonrage Bloodhowlers"] = "Moonrage-Blutheuler",

@@ -15,8 +15,8 @@ why Defensive Stance and a one-hand weapon of your choice at 10.
 # the Alliance Defensive Stance quests (1638, 1639, 1640, 1665).
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
 # places and the key (Dead-tooth's Key, item 6783, drops from Dead-Tooth Jack
-# and opens his strongbox); Wowhead Forever's Warrior class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the rewards: Bartleby's
+# and opens his strongbox); Forever's Warrior class quest list
+# (data/local/quest-audit/) for the rewards: Bartleby's
 # Mug (1665) teaches Defensive Stance, Dead-tooth Jack lets you choose Haggard's
 # Axe, Hammer, Dagger or Sword.
 # The leveling guides do the Defensive Stance quests for every Alliance race in

@@ -10,7 +10,7 @@ return {
 	-- {skill:182} Herbalism
 	["Learn {skill:182}"] = "{skill:182} erlernen",
 	-- {skill:182} Herbalism
-	["Any {skill:182} trainer of your faction teaches Apprentice {skill:182} at any level, and so does the Junior Herbalism Trainer in each starting zone; the arrow picks the nearest."] = "",
+	["Any {skill:182} trainer of your faction teaches Apprentice {skill:182} at any level, and so does the Junior Herbalism Trainer in each starting zone; the arrow picks the nearest."] = "Jeder Lehrer für {skill:182} deiner Fraktion bringt dir auf jeder Stufe {skill:182} (Lehrling) bei, ebenso der Junior-Lehrer für Kräuterkunde in jedem Startgebiet; der Pfeil wählt den nächsten.",
 
 	-- Step 2: Silverleaf & Earthroot: Elwynn Forest (1-50)
 	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {skill:182} Herbalism

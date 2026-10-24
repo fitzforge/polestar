@@ -1,0 +1,62 @@
+Polestar guide data: third-party notices
+========================================
+
+The guides in this folder were written for Polestar. Quest titles, names and
+coordinates in them were filled in from the reference data sources below.
+
+CMaNGOS classic-db: creature and gameobject spawn heights
+---------------------------------------------------------
+URL: https://raw.githubusercontent.com/cmangos/classic-db/22b51464f1625f6ef6275771de1f5466c6f5d19e/Full_DB/ClassicDB_1_12_1_z2815.sql.gz
+Revision: 22b51464f1625f6ef6275771de1f5466c6f5d19e
+License: GPL-3.0; spawn heights (z) only, used as facts like the transport periods: a guide goal, spawn spot or smart-target candidate at an NPC or object (and Core/ClassTrainers.lua's class trainers) carries its spawn's height
+CMaNGOS (https://github.com/cmangos/classic-db)
+
+pfQuest
+-------
+URL: https://github.com/shagu/pfQuest
+Revision: 104f35678ca39ab1fb78b655f815cc7016f5e0c8
+License: MIT
+
+MIT License
+
+Copyright (c) 2017-2021 Eric Mauser (Shagu)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+World of Warcraft Classic Era client tables (UiMap, UiMapAssignment, AreaTable, Faction) via wago.tools
+-------------------------------------------------------------------------------------------------------
+URL: https://wago.tools/db2?build=1.15.9.70003
+Revision: wow_classic_era 1.15.9.70003
+License: Blizzard Entertainment game client data; factual map geometry, names and faction hierarchy only
+World of Warcraft (c) Blizzard Entertainment, Inc.
+
+World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, ChrRaces, ChrClasses, CharBaseInfo, Faction, Map, ItemSparse) via wago.tools
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+URL: https://wago.tools/db2?build=1.60.1.70450
+Revision: wow_classic_beta 1.60.1.70450
+License: Blizzard Entertainment game client data; factual map geometry, names, item durations and race/class combinations only
+World of Warcraft (c) Blizzard Entertainment, Inc.
+
+Guide pack permission
+---------------------
+This folder was produced by Polestar's compiler. Polestar's LICENSE-EXCEPTION.md
+gives permission to distribute guide packs produced by the compiler, including
+the parts of Polestar's reference data placed in them, under terms of your
+choice. It does not cover guide text copied from Polestar's own guides, or
+Polestar's code.

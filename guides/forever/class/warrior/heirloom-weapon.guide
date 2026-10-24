@@ -16,8 +16,8 @@ why Defensive Stance and a one-hand weapon of your choice at 10.
 # 1822): the weapon after Ulag the Cleaver (1819), the Undead Defensive
 # Stance quest in Brill.
 # Sources: quests.json, npcs.json and objects.json for the chain, Ulag and the
-# four Agamand Weapon Racks; Wowhead Forever's Warrior class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the rewards: Ulag the
+# four Agamand Weapon Racks; Forever's Warrior class quest list
+# (data/local/quest-audit/) for the rewards: Ulag the
 # Cleaver teaches Defensive Stance, Heirloom Weapon lets you choose the
 # Heirloom Axe, Hammer, Dagger or Sword.
 # horde/undead/01-tirisfal-glades does Ulag the Cleaver on the route; this

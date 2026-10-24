@@ -1,5 +1,5 @@
 'use strict';
-// Guides are scored on what they require (docs/SIMULATION.md §5, issue #30):
+// Guides are scored on what they require (docs/legacy/SIMULATION-js.md §5, issue #30):
 // `sim compare` leaves a guide's optional goals out unless --with-optional.
 
 const { test } = require('node:test');

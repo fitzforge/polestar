@@ -1,26 +1,22 @@
 'use strict';
-// Route simulator (docs/SIMULATION.md): model formulas, evaluator rules,
+// Route simulator (docs/legacy/SIMULATION-js.md): model formulas, evaluator rules,
 // search on a small synthetic world, calibration parsing and worker
 // parallelism. The world is invented (tests/fixtures/sim/synthetic.js).
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
 
 const xp = require('../tools/lib/game/xp');
 const { buildWorld } = require('../tools/lib/sim/world');
-const { compileRun, makeTables, K_ACCEPT } = require('../tools/lib/sim/run');
+const { compileRun, makeTables, K_ACCEPT, NEAR_CAND } = require('../tools/lib/sim/run');
+const { Travel } = require('../tools/lib/sim/travel');
 const { Evaluator, MAX_VISITS } = require('../tools/lib/sim/evaluate');
-const { anneal, construct, converged } = require('../tools/lib/sim/search');
-const { Rng } = require('../tools/lib/sim/rng');
 const { PRIORS, effective, means, draws } = require('../tools/lib/sim/params');
 const { compileSequence } = require('../tools/lib/sim/sequence');
-const { parseForeverXp, ratioFit } = require('../tools/lib/sim/calibrate');
-const { analyze, spearman } = require('../tools/lib/sim/robust');
-const sim = require('../tools/lib/sim');
 const syn = require('./fixtures/sim/synthetic');
-const { tmpdir } = require('./helpers/tmp');
 
 function world(opts = {}) {
 	const w = buildWorld(syn.makeData(), { faction: 'Horde', bandWidth: opts.band || 5, extraStarts: syn.START });
@@ -198,7 +194,7 @@ test('evaluation is a pure function of (world, route, params): races A, B, A in 
 	const { run, ev } = setup({ world: w });
 	const route = routeOf(run);
 	const fresh = ev.cost(route);
-	for (let i = 0; i < 5; i++) construct(ev, new Rng(i), { tau: 0.3 });
+	ev.cost([...route].reverse());
 	assert.equal(ev.cost(route), fresh);
 	assert.equal(JSON.stringify(world().quests), JSON.stringify(world().quests), 'building a world does not mutate shared data');
 });
@@ -265,18 +261,6 @@ test('feasibility: a package runs up to MAX_VISITS times and a return does what 
 	const homed = setup({ world: w });
 	assert.equal(homed.run.pkgHome[vale], 1);
 	assert.equal(homed.ev.evaluate([vale, vale]).feasible, false);
-});
-
-test('consensus: a suffix package the prefix ran is that same visit once, then a return; up to MAX_VISITS runs; home packages once', () => {
-	const { entries } = require('../tools/lib/sim/consensus');
-	const c = { prefix: ['Home', 'Field'], idx: new Map([['Home', 0], ['Field', 1], ['Ridge', 2]]), run: { pkgHome: [1, 0, 0] } };
-	const suffix = ['Field', 'Ridge', 'Field', 'Home', 'Ridge', 'Ridge', 'Ridge', 'Elsewhere'];
-	assert.deepEqual(entries(c, suffix), [
-		[0, -1], [1, -1], // prefix
-		[2, 1], // Ridge
-		[1, 2], // Field again: a return (its first suffix entry is the prefix visit)
-		[2, 4], [2, 5], // Ridge twice more; a fourth run and the home package are left out
-	]);
 });
 
 test('feasibility: a prerequisite done later does not count; exclusive quests only once', () => {
@@ -432,11 +416,6 @@ test('home first: the starting area (Skyborne: the isle) before any other packag
 	const orc = setup({ world: w });
 	assert.deepEqual(orc.run.packages.filter((p, i) => orc.run.pkgHome[i]).map((p) => p.key), ['Testvale 1-5']);
 	assert.equal(orc.ev.evaluate([pkg(orc.run, 'Farfield 1-5'), pkg(orc.run, 'Testvale 1-5')]).feasible, false);
-	// Construction starts with the home packages.
-	const c = construct(orc.ev, new Rng(3), { tau: 0.2 });
-	assert.equal(c.route[0], pkg(orc.run, 'Testvale 1-5'));
-	const cs = construct(sky.ev, new Rng(3), { tau: 0.2 });
-	assert.equal(cs.route[0], isle);
 });
 
 test('no continent change before level 10: the character grinds to 10 before leaving', () => {
@@ -490,56 +469,7 @@ test('guide sequences: no route rules; an unreachable step is skipped, not an in
 	assert.ok(Number.isFinite(r2.seconds));
 });
 
-// ---------------------------------------------------------------- search
-
-function permutations(items) {
-	if (items.length <= 1) return [items];
-	const out = [];
-	items.forEach((x, i) => {
-		for (const p of permutations(items.slice(0, i).concat(items.slice(i + 1)))) out.push([x, ...p]);
-	});
-	return out;
-}
-
-test('search recovers the known optimum of a small world (exhaustive check)', () => {
-	const { run, ev } = setup({ band: 2 });
-	const all = [...Array(run.P).keys()];
-	assert.ok(run.P >= 4 && run.P <= 7, `packages: ${run.P}`);
-	let best = Infinity;
-	// Every ordered subset.
-	for (let mask = 1; mask < 1 << run.P; mask++) {
-		const sub = all.filter((i) => mask & (1 << i));
-		for (const p of permutations(sub)) best = Math.min(best, ev.cost(p));
-	}
-	const rng = new Rng(42);
-	let found = Infinity;
-	for (let r = 0; r < 4; r++) {
-		const c = construct(ev, rng, { tau: 0.2 });
-		const a = anneal(ev, rng, c, { evals: 1500, t0: 300, t1: 1 });
-		found = Math.min(found, a.seconds);
-	}
-	assert.ok(Math.abs(found - best) < 1e-6, `search ${found} vs optimum ${best}`);
-});
-
-test('convergence rule: no improvement over the last share of evaluations', () => {
-	assert.equal(converged([[100, 10], [200, 9], [300, 9], [400, 9]], 0.25, 0.001), true);
-	assert.equal(converged([[100, 10], [200, 9], [300, 9], [400, 8]], 0.25, 0.001), false);
-});
-
-test('workers give the same result as one thread for a seed', async () => {
-	const root = tmpdir('polestar-sim-');
-	const dirs = syn.writeDataDir(root);
-	const base = { ...dirs, offline: true, extraStarts: syn.START, faction: 'Horde', race: 'Orc', paths: 3000, seed: 9, jobsPerRound: 6, constructions: 2, anneal: 150, benchMs: 0, write: false, bandWidth: 2 };
-	const one = await sim.runCharacter({ ...base, workers: 1 });
-	const many = await sim.runCharacter({ ...base, workers: 3 });
-	assert.equal(many.evaluatedRoutes, one.evaluatedRoutes);
-	assert.deepEqual(many.best.route, one.best.route);
-	assert.equal(many.best.seconds, one.best.seconds);
-	assert.deepEqual(many.curve, one.curve);
-	assert.deepEqual(many.elite, one.elite);
-});
-
-// ---------------------------------------------------------------- params, calibration, robustness
+// ---------------------------------------------------------------- params
 
 test('parameter draws are seeded and stay inside bounds', () => {
 	const eff = effective({ calibrated: { extraKill: { mean: 0.3, sd: 0.05 } } }, 'Hunter');
@@ -548,29 +478,6 @@ test('parameter draws are seeded and stay inside bounds', () => {
 	const a = draws(eff, 200, 5);
 	assert.deepEqual(a, draws(eff, 200, 5));
 	for (const d of a) for (const [k, [, , lo, hi]] of Object.entries(PRIORS)) assert.ok(d[k] >= lo && d[k] <= hi, k);
-});
-
-test('calibration: Forever XP table parsing and robust ratio fit', () => {
-	const text = 'FDJ.FOREVER_QUEST_XP_FALLBACK = {\n    [101] = 500, -- a\n    [102] = 1250,\n}\nFDJ.OTHER = { [5] = 1 }\n';
-	assert.deepEqual([...parseForeverXp(text)], [[101, 500], [102, 1250]]);
-	const f = ratioFit([0.8, 0.8, 0.8, 0.8, 2]);
-	assert.ok(Math.abs(f.mean - 0.8) < 1e-9);
-	assert.equal(f.n, 5);
-});
-
-test('robustness summary: win rates, intervals, flip correlations', () => {
-	const dr = [];
-	const secs = [];
-	for (let i = 0; i < 100; i++) {
-		const x = (i + 0.5) / 100;
-		dr.push({ ...params(), grindEff: x });
-		secs.push([100 + 10 * x, 105]); // route 1 wins while grindEff < 0.5
-	}
-	const r = analyze(secs, dr, ['a', 'b']);
-	assert.equal(r.routes[0].winRate, 0.5);
-	assert.equal(r.flips[0].param, 'grindEff');
-	assert.ok(r.flips[0].rhoDiff > 0.99);
-	assert.ok(Math.abs(spearman([1, 2, 3], [3, 2, 1]) + 1) < 1e-12);
 });
 
 test('a transport end with a board point (a ship lying off its pier) has its dock node on the deck', () => {
@@ -582,4 +489,179 @@ test('a transport end with a board point (a ship lying off its pier) has its doc
 	const dock = (name) => w.points[w.nodes.find((n) => n.kind === 'dock' && n.name.startsWith(name)).pt];
 	assert.deepEqual([0, 2, 3].map((i) => dock('Testvale tower')[i]), [1, 912, -100], 'walked to the deck');
 	assert.deepEqual([0, 2, 3].map((i) => dock('Farcoast tower')[i]), [0, 900, -100], 'no board point: the stop');
+});
+
+test('dock, tram and portal points take the height travel gives their ends: the board point\'s own, else the end\'s', () => {
+	const d = syn.makeRulesData();
+	const t = d.travel.transports.find((x) => x.id === 'zeppelin-test');
+	t.a.z = 41.2;
+	t.b.board = { wx: 912, wy: -100, z: 5.9 };
+	t.b.z = 12;
+	d.travel.transports.push({ id: 'tram-test', kind: 'tram', faction: 3, a: { name: 'Tram A', c: 1, wx: 300, wy: -300, map: t.a.map, z: -20.4 }, b: { name: 'Tram B', c: 1, wx: 320, wy: -300, map: t.a.map }, ab: 70, ba: 70, waitA: 60, waitB: 60 });
+	d.travel.transit = { portals: [{ id: 'portal-test', a: { c: 1, wx: 500, wy: -500, map: t.a.map, z: 77.7 }, b: { c: 1, wx: 600, wy: -500, map: t.a.map, z: 3.3 }, seconds: 5 }] };
+	// A portal is kept only near the faction's flight nodes or inns.
+	d.travel.taxi.nodes.push({ id: 901, name: 'Portal Roost', c: 1, wx: 550, wy: -500, map: t.a.map, faction: 2, npc: null });
+	const w = buildWorld(d, { faction: 'Horde', bandWidth: 5, extraStarts: syn.RULES_START });
+	const z = (kind, name) => w.points[w.nodes.find((n) => n.kind === kind && n.name.startsWith(name)).pt][5];
+	assert.equal(z('dock', 'Testvale tower'), 41.2, 'the end\'s z');
+	assert.equal(z('dock', 'Farcoast tower'), 5.9, 'the board point\'s z');
+	assert.equal(z('dock', 'Tram A'), -20.4);
+	assert.equal(z('dock', 'Tram B'), null, 'no z: none');
+	assert.equal(z('portal', 'portal-test (arrival)'), 3.3);
+	assert.equal(w.points[w.nodes.find((n) => n.kind === 'portal' && n.name === 'portal-test').pt][5], 77.7);
+});
+
+// ---------------------------------------------------------------- run and travel options (v2)
+
+// A digest of a compiled run (every key but the world it points to): typed
+// arrays by their bytes, maps and objects entry by entry.
+function runHash(run) {
+	const h = crypto.createHash('sha256');
+	const put = (v) => {
+		if (ArrayBuffer.isView(v)) {
+			h.update(`${v.constructor.name}[${v.length}]`);
+			h.update(new Uint8Array(v.buffer, v.byteOffset, v.byteLength));
+		} else if (v instanceof Map) {
+			h.update(`Map{${v.size}`);
+			for (const [k, x] of v) {
+				put(k);
+				put(x);
+			}
+			h.update('}');
+		} else if (Array.isArray(v)) {
+			h.update(`[${v.length}`);
+			for (const x of v) put(x);
+			h.update(']');
+		} else if (v && typeof v === 'object') {
+			h.update('{');
+			for (const k of Object.keys(v).sort()) {
+				h.update(`${k}:`);
+				put(v[k]);
+			}
+			h.update('}');
+		} else h.update(`${typeof v}:${String(v)};`);
+	};
+	for (const k of Object.keys(run).sort()) {
+		if (k === 'world') continue;
+		h.update(`${k}=`);
+		put(run[k]);
+	}
+	return h.digest('hex').slice(0, 16);
+}
+
+// Synthetic routed walks: two of every three same-region pairs.
+function withWalks(w) {
+	const NW = w.points.length;
+	w.walks = new Map();
+	for (let a = 0; a < NW; a++) {
+		for (let b = 0; b < NW; b++) {
+			if (a !== b && w.points[a][1] === w.points[b][1] && (a + b) % 3) w.walks.set(a * NW + b, 100 + ((a * 7 + b * 13) % 900));
+		}
+	}
+	return w;
+}
+
+test('compileRun: the default output is unchanged by the v2 options (digests taken before them)', () => {
+	assert.equal(runHash(compileRun(world(), { race: 'Orc', family: 'solo' })), 'ac1611e0a3b9a26d');
+	assert.equal(runHash(compileRun(world(), { race: 'Orc', family: 'dungeons' })), '2ce8052a391c5055');
+	const w = withWalks(world());
+	assert.equal(w.walks.size, 88);
+	assert.equal(runHash(compileRun(w, { race: 'Orc', family: 'solo' })), '608626acb84022af');
+});
+
+test('compileRun: packages false has no package steps; walkRun false builds no walk table', () => {
+	const w = withWalks(world());
+	const full = compileRun(w, { race: 'Orc' });
+	assert.ok(full.walkRun && full.P > 0);
+	const run = compileRun(w, { race: 'Orc', packages: false, walkRun: false });
+	assert.equal(run.walkRun, null);
+	assert.equal(run.P, 0);
+	assert.deepEqual([run.packages.length, run.pkgStart.length, run.pkgEnd.length, run.sKind.length, run.sPt.length, run.pkgHome.length], [0, 0, 0, 0, 0, 0]);
+	assert.equal(run.Q, full.Q);
+	assert.deepEqual(Array.from(run.qGiver), Array.from(full.qGiver));
+	assert.deepEqual(Array.from(run.taskPt), Array.from(full.taskPt));
+	assert.equal(run.pC.length, run.ptList.length);
+});
+
+test('compileRun: extraPts are indexed after every other point, with their geometry', () => {
+	const w = rulesWorld();
+	// A flight master and an inn near the extra points (none in the fixture).
+	w.nodes.push({ kind: 'fp', name: 'Test roost', pt: 24 });
+	w.inns.push({ pt: 26 });
+	const base = compileRun(w, { race: 'Orc' });
+	const extra = [25, 22, 2, base.ptList[0]];
+	for (const p of extra.slice(0, 3)) assert.equal(base.ptIndex.has(p), false);
+	const run = compileRun(w, { race: 'Orc', extraPts: extra });
+	const NP = run.ptList.length;
+	assert.equal(NP, base.ptList.length + 3);
+	assert.deepEqual(run.ptList.slice(0, base.ptList.length), base.ptList, 'the other points keep their indices');
+	assert.equal(run.ptIndex.get(base.ptList[0]), 0, 'a point already in the run is not added again');
+	for (const k of ['pC', 'pR', 'pX', 'pY', 'pMap', 'pFp', 'pInn', 'pZone', 'pCell']) assert.equal(run[k].length, NP, k);
+	assert.equal(run.pNear.length, NP * NEAR_CAND);
+	const fp = w.nodes.length - 1;
+	const inn = w.inns.length - 1;
+	for (const p of extra.slice(0, 3)) {
+		const i = run.ptIndex.get(p);
+		assert.ok(i >= base.ptList.length, `extra point ${p} at ${i}`);
+		const wp = w.points[p];
+		assert.deepEqual([run.pC[i], run.pR[i], run.pX[i], run.pY[i], run.pMap[i]], wp.slice(0, 5));
+		const near = w.nodes
+			.map((n, k) => [Math.hypot(w.points[n.pt][2] - wp[2], w.points[n.pt][3] - wp[3]), k, w.points[n.pt][1]])
+			.filter((x) => x[2] === wp[1])
+			.sort((x, y) => x[0] - y[0] || x[1] - y[1]);
+		const want = Array.from({ length: NEAR_CAND }, (_, k) => (near[k] ? near[k][1] : -1));
+		assert.deepEqual(Array.from(run.pNear.slice(i * NEAR_CAND, (i + 1) * NEAR_CAND)), want, `pNear of ${p}`);
+		const ck = (j) => `${run.pR[j]}:${Math.floor(run.pX[j] / 250)}:${Math.floor(run.pY[j] / 250)}`;
+		for (let j = 0; j < NP; j++) {
+			assert.equal(run.pZone[i] === run.pZone[j], run.pMap[i] === run.pMap[j]);
+			assert.equal(run.pCell[i] === run.pCell[j], ck(i) === ck(j));
+		}
+	}
+	const at = (p) => run.ptIndex.get(p);
+	assert.deepEqual([run.pFp[at(25)], run.pInn[at(25)]], [fp, inn], '90 yd from the roost and the inn');
+	assert.deepEqual([run.pFp[at(22)], run.pInn[at(22)]], [-1, -1]);
+	assert.deepEqual([run.pFp[at(2)], run.pInn[at(2)]], [-1, -1], 'another region');
+});
+
+test('Travel: a walk lookup replaces the walk table: a same-region leg is its yards × routeMul / speed, at the leg\'s level; node walks read it too', () => {
+	const w = withWalks(rulesWorld());
+	const run = compileRun(w, { race: 'Orc', packages: false, walkRun: false, extraPts: w.nodes.map((n) => n.pt) });
+	assert.equal(run.walkRun, null);
+	const p = params({ deathRisk: 0, routeMul: 1.07 });
+	const levels = [];
+	const travel = new Travel(run, makeTables(run, p), {
+		walk: (a, b, level) => {
+			levels.push(level);
+			return 500;
+		},
+	});
+	let a = -1;
+	let b = -1;
+	for (let i = 0; i < run.ptList.length && a < 0; i++) {
+		for (let j = 0; j < run.ptList.length; j++) {
+			if (i !== j && run.pR[i] === run.pR[j]) {
+				a = i;
+				b = j;
+				break;
+			}
+		}
+	}
+	assert.ok(a >= 0);
+	levels.length = 0;
+	const sec = travel.leg(a, b, travel.matrixFor(0, false), false, 17);
+	assert.ok(Math.abs(sec - (500 * p.routeMul) / p.runSpeed) < 1e-9, `${sec}`);
+	assert.equal(travel.lastMode, 0);
+	assert.deepEqual(levels, [17]);
+	assert.ok(Math.abs(travel.leg(a, b, travel.matrixFor(0, true), true, 17) - (500 * p.routeMul) / (p.runSpeed * p.mountMul)) < 1e-9);
+	// Node walks: the lookup at level 0 where both nodes are run points.
+	const N = run.N;
+	let pairs = 0;
+	for (let i = 0; i < N; i++) {
+		for (let j = 0; j < N; j++) {
+			if (i === j || run.nodeR[i] !== run.nodeR[j]) continue;
+			assert.ok(Math.abs(travel.nodeWalk[i * N + j] - 500 * p.routeMul) < 1e-9);
+			pairs++;
+		}
+	}
+	assert.ok(pairs > 0);
 });

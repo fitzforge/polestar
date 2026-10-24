@@ -1,0 +1,25 @@
+{
+  "meta": { "schema": 1, "note": "Synthetic, written for the knowledge-base golden (rust/tests/golden/kb/README.md)." },
+  "quests": {
+    "4402": {
+      "title": "Galgar's Cactus Apple Surprise",
+      "steps": [
+        { "n": 1, "action": "interact", "target": { "type": "object", "name": "Cactus Apple", "id": 171938 }, "item": { "id": 11583, "name": "Cactus Apple" }, "count": 10, "place": { "name": "Valley of Trials", "x": 45, "y": 64, "zone": "Durotar" }, "fact": "Pick the apples off the cacti around the valley.", "source": "forever-data", "confidence": "high" },
+        { "n": 2, "action": "turn-in", "target": { "type": "npc", "name": "Galgar", "id": 9796 }, "item": null, "count": null, "place": null, "fact": "Back to Galgar.", "source": "quest-text", "confidence": "high" }
+      ],
+      "gotchas": [{ "fact": "The cacti respawn quickly.", "confidence": "medium" }, { "fact": "A low-confidence tip.", "confidence": "low" }]
+    },
+    "5441": {
+      "title": "Lazy Peons",
+      "steps": [
+        { "n": 1, "action": "use", "target": { "type": "npc", "name": "Lazy Peon", "id": 10556 }, "item": { "id": 16114, "name": "Foreman's Blackjack" }, "count": 5, "place": null, "fact": "Wake the sleeping peons with the blackjack.", "source": "quest-text", "confidence": "high" }
+      ]
+    },
+    "788": {
+      "title": "Cutting Teeth",
+      "steps": [
+        { "n": 1, "action": "kill", "target": { "type": "npc", "name": "Mottled Boar", "id": 3098 }, "item": null, "count": 10, "place": { "name": "Valley of Trials", "x": 41.2, "y": 64.4, "zone": "Durotar" }, "fact": "Kill boars in the valley.", "source": "server", "confidence": "high" }
+      ]
+    }
+  }
+}

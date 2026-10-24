@@ -4,7 +4,7 @@
 --     range of the zone under the cursor in the info bar;
 --   * on a zone map, that zone's range in the info bar;
 --   * player and cursor coordinates (map percent) in the info bar.
--- Level ranges come from ZoneLevels.lua (`node tools/polestar.js maps build`,
+-- Level ranges come from ZoneLevels.lua (`forge data maps build`,
 -- heuristic in tools/lib/maps/zonelevels.js).
 --
 -- The world map's view (Core/MapCanvas.lua) tells us about map, size and

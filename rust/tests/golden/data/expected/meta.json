@@ -1,0 +1,125 @@
+{
+	"builtAt": "2026-10-22T00:00:00.000Z",
+	"sources": [
+		{
+			"name": "pfQuest",
+			"url": "https://github.com/shagu/pfQuest",
+			"revision": null,
+			"license": "MIT",
+			"copyright": "Copyright (c) 2017-2021 Eric Mauser (Shagu)",
+			"notice": "MIT License\n\nCopyright (c) 2017-2021 Eric Mauser (Shagu)\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE."
+		},
+		{
+			"name": "World of Warcraft Classic Era client tables (UiMap, UiMapAssignment, AreaTable, Faction) via wago.tools",
+			"url": "https://wago.tools/db2?build=1.15.9.70003",
+			"revision": "wow_classic_era 1.15.9.70003",
+			"license": "Blizzard Entertainment game client data; factual map geometry, names and faction hierarchy only",
+			"copyright": "World of Warcraft (c) Blizzard Entertainment, Inc.",
+			"tables": [
+				"https://wago.tools/db2/UiMap/csv?build=1.15.9.70003",
+				"https://wago.tools/db2/UiMapAssignment/csv?build=1.15.9.70003",
+				"https://wago.tools/db2/AreaTable/csv?build=1.15.9.70003",
+				"https://wago.tools/db2/Faction/csv?build=1.15.9.70003"
+			]
+		},
+		{
+			"name": "World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, ChrRaces, ChrClasses, CharBaseInfo, Faction, Map, ItemSparse, SpellName) via wago.tools",
+			"url": "https://wago.tools/db2?build=1.60.1.70450",
+			"revision": "wow_classic_beta 1.60.1.70450",
+			"license": "Blizzard Entertainment game client data; factual map geometry, names, item durations and race/class combinations only",
+			"copyright": "World of Warcraft (c) Blizzard Entertainment, Inc.",
+			"tables": [
+				"https://wago.tools/db2/UiMap/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/UiMapAssignment/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/AreaTable/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/ChrRaces/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/ChrClasses/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/CharBaseInfo/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/Faction/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/Map/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/ItemSparse/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/Item/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/SpellName/csv?build=1.60.1.70450"
+			]
+		},
+		{
+			"name": "Polestar recordings",
+			"url": null,
+			"revision": "192a9fe9f0d70cec",
+			"license": "Polestar original work",
+			"copyright": null,
+			"sessions": [
+				"session-a.json",
+				"session-b.json",
+				"session-c.json",
+				"session-d.json",
+				"session-e.json",
+				"session-f.json"
+			]
+		},
+		{
+			"name": "CMaNGOS classic-db: creature and gameobject spawn heights",
+			"url": "https://raw.githubusercontent.com/cmangos/classic-db/22b51464f1625f6ef6275771de1f5466c6f5d19e/Full_DB/ClassicDB_1_12_1_z2815.sql.gz",
+			"revision": "22b51464f1625f6ef6275771de1f5466c6f5d19e",
+			"license": "GPL-3.0; spawn heights (z) only, used as facts like the transport periods: a guide goal, spawn spot or smart-target candidate at an NPC or object (and Core/ClassTrainers.lua's class trainers) carries its spawn's height",
+			"copyright": "CMaNGOS (https://github.com/cmangos/classic-db)"
+		}
+	],
+	"counts": {
+		"quests": 277,
+		"npcs": 427,
+		"objects": 459,
+		"items": 109,
+		"zones": 61,
+		"mapFrames": 53,
+		"foreverMapFrames": 59,
+		"factions": 79,
+		"races": 9,
+		"timedItems": 0,
+		"spawnHeightNpcs": 415,
+		"spawnHeightObjects": 450,
+		"recorderOnlyFactions": 4,
+		"eraSpawnPoints": 13522,
+		"liveSpawnPoints": 8,
+		"unmappedSpawnPoints": 0,
+		"untitledQuestsSkipped": 0,
+		"recordings": 6,
+		"recordingEvents": 56,
+		"recordedQuests": 11,
+		"recorderOnlyQuests": 8,
+		"recordedKills": 7,
+		"recordedLoots": 6,
+		"recordedSightings": 2,
+		"recordedDropChances": 6,
+		"recordedTreasures": 1,
+		"recordedInstances": 1,
+		"recordedEncounters": 1,
+		"spawnCap": 24,
+		"correctionsPrivate": 0,
+		"corrections": 6
+	},
+	"liveFrameMaps": [
+		1412,
+		1423,
+		1433,
+		1453
+	],
+	"files": {
+		"quests.json": 111025,
+		"npcs.json": 121645,
+		"objects.json": 235523,
+		"items.json": 59058,
+		"zones.json": 4786,
+		"map-frames.json": 12533,
+		"factions.json": 7486,
+		"instances.json": 214,
+		"races.json": 1016,
+		"spawnz.json": 486055,
+		"training.json": 4477
+	},
+	"warnings": [
+		"pfQuest: <input>/pfQuest is not a git checkout; revision unknown",
+		"uiMap 947: spans 2 continents (0, 1); no single Era frame",
+		"forever uiMap 947: spans 2 continents (0, 1); no single Era frame"
+	]
+}

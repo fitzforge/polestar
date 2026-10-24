@@ -1,0 +1,22 @@
+{
+	"schema": 1,
+	"build": "1.60.1.70450",
+	"session": "e",
+	"char": { "name": "Golden", "realm": "Fixture", "race": "Orc", "class": "WARRIOR", "faction": "Horde" },
+	"started": 7000,
+	"ended": 7900,
+	"events": [
+		{ "t": 1, "e": "accept", "q": 4641, "title": "Your Place In The World", "qlvl": 1, "lvl": 1, "xp": 0, "map": 1411, "x": 43.29, "y": 68.53, "npc": 10176, "npcName": "Kaltunk" },
+		{ "t": 30, "e": "turnin", "q": 4641, "xpReward": 40, "money": 0, "lvl": 1, "map": 1411, "x": 42.1, "y": 68.32, "npc": 3143, "npcName": "Gornek" },
+		{ "t": 31, "e": "accept", "q": 788, "title": "Cutting Teeth", "qlvl": 2, "lvl": 1, "xp": 40, "map": 1411, "x": 42.1, "y": 68.32, "npc": 3143, "npcName": "Gornek" },
+		{ "t": 60, "e": "kill", "npc": 3098, "npcName": "Mottled Boar", "lvl": 1, "map": 1411, "x": 43.9, "y": 63.1 },
+		{ "t": 61, "e": "progress", "q": 788, "oi": 1, "text": "Mottled Boar slain: 1/10", "cur": 1, "max": 10, "type": "monster", "map": 1411, "x": 43.9, "y": 63.1 },
+		{ "t": 300, "e": "progress", "q": 788, "oi": 1, "text": "Mottled Boar slain: 10/10", "cur": 10, "max": 10, "type": "monster", "map": 1411, "x": 44.6, "y": 59.3 },
+		{ "t": 360, "e": "turnin", "q": 788, "xpReward": 170, "money": 0, "lvl": 2, "map": 1411, "x": 42.1, "y": 68.32, "npc": 3143, "npcName": "Gornek" },
+		{ "t": 400, "e": "accept", "q": 790, "title": "Sarkoth", "qlvl": 5, "lvl": 3, "xp": 0, "map": 1411, "x": 40.62, "y": 62.6, "npc": 3287, "npcName": "Hana'zua" },
+		{ "t": 500, "e": "loot", "q": 790, "oi": 1, "item": 4905, "itemName": "Sarkoth's Mangled Claw", "npc": 3281, "npcName": "Sarkoth", "map": 1411, "x": 40.6, "y": 66.8 },
+		{ "t": 501, "e": "progress", "q": 790, "oi": 1, "text": "Sarkoth's Mangled Claw: 1/1", "cur": 1, "max": 1, "type": "item", "map": 1411, "x": 40.6, "y": 66.8 },
+		{ "t": 560, "e": "turnin", "q": 790, "xpReward": 280, "money": 0, "lvl": 3, "map": 1411, "x": 40.62, "y": 62.6, "npc": 3287, "npcName": "Hana'zua" }
+	],
+	"maps": {}
+}

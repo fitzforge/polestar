@@ -15,12 +15,12 @@ why The Human priest spells: Divine Grace at 10, Feedback at 20.
 # The Human Priest spell quests: Divine Grace at 10 (94773, new in Forever)
 # and Arcane Feedback at 20 (5676), both from High Priestess Laurena in
 # Stormwind's Cathedral of Light.
-# Sources: quests.json and npcs.json for the givers; Wowhead Forever's
-# Priest class page (data/local/quest-audit/wowhead-class-quests.json):
-# Divine Grace (94773-94779) is new, Arcane Feedback unchanged; Wowhead
-# Forever's page for Laurena (wowhead.com/forever/npc=376, checked
+# Sources: quests.json and npcs.json for the givers; Forever's
+# Priest class quest list (data/local/quest-audit/):
+# Divine Grace (94773-94779) is new, Arcane Feedback unchanged; Forever's
+# quest data for Laurena (npc 376, checked
 # 2026-10-14) lists both as starting and ending with her.
-# Desperate Prayer is not in this guide: Wowhead Forever lists Humans as
+# Desperate Prayer is not in this guide: Forever's quest data lists Humans as
 # well as Dwarves for some of its quests (5635, 5637, 5639), so it is in
 # desperate-prayer-and-chastise, which is for both races. Third-party
 # Forever sites (classicwowforever.com/racials) say Humans no longer learn

@@ -37,6 +37,7 @@ end
 
 local defaults = {
 	itemButton = true,       -- quest item button
+	bagGlow = true,          -- the step's item glows in the bags
 	targetButton = true,     -- target macro button
 	rareButton = true,       -- target button for a rare the addon spotted
 	hearthButton = true,     -- Hearthstone button while a hearth goal is active

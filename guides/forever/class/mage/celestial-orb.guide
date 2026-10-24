@@ -18,9 +18,9 @@ why An off-hand orb or a staff for the late 30s, your pick.
 # Blade Summoners, the Demon of the Orb and the Mana Surges by Tabetha's
 # cottage; codex/instances.json for the Obsidian Sentinel as an Uldaman boss;
 # objects.json for the Meeting Stone in the northern Badlands (49.1,13.7), the point the
-# arrow uses for the dungeon; Wowhead Forever's Mage class page
-# (data/local/quest-audit/wowhead-class-quests.json, all six unchanged) and
-# quest pages (https://www.wowhead.com/forever/quest=1953 to 1958, checked
+# arrow uses for the dungeon; Forever's Mage class quest list
+# (data/local/quest-audit/, all six unchanged) and
+# quest data (quests 1953 to 1958, checked
 # 2026-10-14) for the givers, the elite Exorcism, the timers (3 minutes for the
 # demon, 10 for the surges) and the reward choice (Celestial Orb or Celestial
 # Stave); the quest texts for the Mannoroc Coven and the Obsidian Sentinel.

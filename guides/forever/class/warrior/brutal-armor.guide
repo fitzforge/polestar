@@ -20,12 +20,12 @@ why Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield o
 # Sen'jin Village (1839, 1842, 1843), Orm Stonehoof in Thunder Bluff (1840,
 # 1844, 1845) and Velora Nitely in the Undercity (1841, 1846, 1847), level 30.
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
-# objectives, drops and places; Wowhead Forever's Warrior class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the rewards and
+# objectives, drops and places; Forever's Warrior class quest list
+# (data/local/quest-audit/) for the rewards and
 # Forever's changes (none for this chain); the Razorfen Kraul entrance from
 # data/forever/dungeons.json (The Barrens 42.9,90.2, live frame). Roogug, who
 # drops the Vial of Phlogiston, has no spawn in the data: he is a quilboar
-# elite inside Razorfen Kraul (https://www.wowhead.com/zone=491/razorfen-kraul,
+# elite inside Razorfen Kraul (
 # https://wowwiki-archive.fandom.com/wiki/Vial_of_Phlogiston). Iron Bars have
 # no source in the data: they are smelted (Mining) or bought; the guide points
 # at the Orgrimmar auction house (Auctioneer Thathung, npc 8673).

@@ -1,5 +1,5 @@
 {
-	"about": "Synthetic Dungeons fixture: game names, sample numbers (not taken from any addon). tests/dungeons-runtime.test.js and the Dungeons preview.",
+	"about": "Synthetic Dungeons fixture: game names, sample numbers (not taken from any addon). rust/crates/forge-addontest/tests/addontest/dungeons-runtime.rs, ui-dungeons.rs and the Dungeons preview.",
 	"codex": {
 		"meta": {
 			"schema": 1,
@@ -800,7 +800,7 @@
 						"faction": 81,
 						"value": 3000
 					},
-					"wowhead": {
+					"web": {
 						"zone": 718,
 						"type": 81,
 						"side": 2,
@@ -825,7 +825,7 @@
 				"1490": {},
 				"6981": {
 					"area": 718,
-					"wowhead": {
+					"web": {
 						"zone": 718,
 						"type": 81,
 						"side": 3,

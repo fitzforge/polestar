@@ -1,0 +1,8 @@
+<Bindings>
+	<Binding name="POLESTAR_RECORDER_TRAIL" category="ADDONS">
+		PolestarRecorder_Command("trail toggle")
+	</Binding>
+	<Binding name="POLESTAR_RECORDER_WINDOW" category="ADDONS">
+		PolestarRecorder_Command("ui")
+	</Binding>
+</Bindings>

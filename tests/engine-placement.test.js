@@ -14,7 +14,7 @@
 //   the first step with work they started or can do now.
 // Steps are found by their goals (stepOf), never by number.
 //
-// Needs data/forever (node tools/polestar.js data build); skips without it.
+// Needs data/forever (forge data build); skips without it.
 
 const { test, after } = require('node:test');
 const assert = require('node:assert/strict');

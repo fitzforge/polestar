@@ -21,9 +21,9 @@ why The Air Totem that lets you place air totems, then a weapon of your choice a
 # to Bath'rah the Windwatcher in Alterac Mountains for the weapon.
 # Sources: quests.json, npcs.json and items.json (givers, enders, the Twisted
 # Totems' droppers, the Ravaging Tempest's spawns, Razorfen Kraul's entrance
-# from dungeons.json); Wowhead Forever's Shaman class page
-# (data/local/quest-audit/wowhead-class-quests.json) and quest pages
-# (https://www.wowhead.com/forever/quest=79360 to 79442) for what Forever
+# from dungeons.json); Forever's Shaman class quest list
+# (data/local/quest-audit/) and quest data
+# (quests 79360 to 79442) for what Forever
 # changed, the givers and enders of each step and the rewards: Air Totem;
 # 79442 gives the Rune of the Storm and a choice of Lightning's Grasp,
 # Tidebringer's Claw or Rage of the Storm.
@@ -35,19 +35,19 @@ why The Air Totem that lets you place air totems, then a weapon of your choice a
 # Heed My Call ("report back to Rau Cliffrunner"); Rau gives The Tempest's
 # Weapons.
 # Elite and dungeon work: Charlga Razorflank is the last boss of Razorfen
-# Kraul (a dungeon), and Wowhead marks Heed My Call as an elite quest.
+# Kraul (a dungeon), and Forever's quest data marks Heed My Call as an elite quest.
 # Heed My Call's rewards (items 212994, 212996, 212997) are not in the item
-# data and Wowhead names none of them: no `choose` line.
+# data and Forever's quest data names none of them: no `choose` line.
 # Skyborne: Forever gives Skyborne their own Call of Air (96136, to Prate
-# Cloudseer); neither the data nor Wowhead names its giver, so it is a tip
+# Cloudseer); neither the quest data nor its notes name its giver, so it is a tip
 # here and the chain picks them up at Prate.
 # Left out: With Wind Beneath Your Wings (79365, Bath'rah to Rau with a
-# Squall-breakers Potion) is on Wowhead Forever's Shaman page, but it is not in
+# Squall-breakers Potion) is on Forever's Shaman quest list, but it is not in
 # the quest data and Forever's Heed My Call no longer uses the potion ("no
 # longer Squall-breakers Potion"): the Season of Discovery step it served is
 # gone.
-# Left out: Grant's Shield and Silvia's Sword (79362, 79363; in Wowhead's
-# Forever database, not on its Shaman page) are limited to Orc, Tauren and
+# Left out: Grant's Shield and Silvia's Sword (79362, 79363; in Forever's
+# quest data, not on its Shaman list) are limited to Orc, Tauren and
 # Troll Shamans, yet start from drops of Duskwood's Lost Knight and Lost
 # Defender and send you to Sirra Von'Indi in Darkshire, an Alliance npc a
 # Horde character cannot hand in to (Bath'rah is the other ender the data

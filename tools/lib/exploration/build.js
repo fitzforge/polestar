@@ -20,7 +20,7 @@ const FACTIONS = ['Alliance', 'Horde'];
 
 function readJson(dir, name) {
 	const file = path.join(dir, `${name}.json`);
-	if (!fs.existsSync(file)) throw new Error(`${path.relative(process.cwd(), file)} missing (node tools/polestar.js data build / travel build)`);
+	if (!fs.existsSync(file)) throw new Error(`${path.relative(process.cwd(), file)} missing (forge data build / travel build)`);
 	return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 

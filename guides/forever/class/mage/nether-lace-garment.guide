@@ -14,9 +14,9 @@ why A robe or a tunic for Undead and Troll mages in their late 20s.
 # The Horde mage robe at 26: Speak with Deino (1943), Waters of Xavian (1944),
 # Laughing Sisters (1945) and Nether-lace Garment (1946).
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
-# the Xavian Waterfall and the Laughing Sisters; Wowhead Forever's Mage class
-# page (data/local/quest-audit/wowhead-class-quests.json, all four unchanged)
-# and quest pages (https://www.wowhead.com/forever/quest=1943, 1944, 1945 and
+# the Xavian Waterfall and the Laughing Sisters; Forever's Mage class
+# quest list (data/local/quest-audit/, all four unchanged)
+# and quest data (quests 1943, 1944, 1945 and
 # 1946, checked 2026-10-14) for the races (Undead and Troll only: Orc mages
 # have no level 26 robe quest) and the reward choice; the quest texts for the
 # waterfall and Raynewood Retreat.

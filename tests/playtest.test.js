@@ -27,7 +27,7 @@ const skip = needs('quests.json') || (!hasLua && 'no Lua 5.1');
 
 const lines = (out) => out.split('\n').filter(Boolean);
 
-test('a guide starts with the prerequisites its accepts need that the guides chaining into it turn in for the character done, and those they leave for it only to hand in in the log', () => {
+test('a guide starts with the prerequisites its accepts need that the guides chaining into it turn in for the character done, those they leave for it only to hand in in the log, and those it works in the log with their objectives open', () => {
 	const step = (goals, only) => ({ only, goals });
 	const a = { id: 'a', next: 'b', steps: [step([{ t: 'turnin', quest: 7003 }, { t: 'turnin', quest: 7638, only: { races: ['Human'] } }, { t: 'turnin', quest: 1 }, { t: 'accept', quest: 739 }, { t: 'accept', quest: 2 }, { t: 'accept', quest: 6127 }])] };
 	const b = { id: 'b', nextChoices: ['c', 'x'], steps: [step([{ t: 'turnin', quest: 7721 }], { classes: ['Druid'] })] };
@@ -37,7 +37,7 @@ test('a guide starts with the prerequisites its accepts need that the guides cha
 			{ t: 'turnin', quest: 739 },
 			{ t: 'accept', quest: 704, pre: [739] },
 			{ t: 'accept', quest: 3, pre: [2] }, // 2 is carried but never turned in here
-			{ t: 'collect', quest: 6127, oi: 1 }, // 6127's objective is done here, so it is not carried ready
+			{ t: 'collect', quest: 6127, oi: 1 }, // 6127's objective is done here: in the log, not ready
 			{ t: 'turnin', quest: 6127 },
 			{ t: 'accept', quest: 6128, pre: [6127] },
 			{ t: 'accept', quest: 7725, pre: [7003] },
@@ -47,17 +47,17 @@ test('a guide starts with the prerequisites its accepts need that the guides cha
 		])],
 	};
 	const guides = [a, b, c];
-	assert.deepEqual(chainDone(guides, c, { race: 'Dwarf', faction: 'Alliance', cls: 'WARRIOR' }), { done: [7003], carried: [739] });
-	assert.deepEqual(chainDone(guides, c, { race: 'Human', faction: 'Alliance', cls: 'DRUID' }), { done: [7003, 7638, 7721], carried: [739] });
-	assert.deepEqual(chainDone(guides, a, { race: 'Human', faction: 'Alliance', cls: 'DRUID' }), { done: [], carried: [] });
+	assert.deepEqual(chainDone(guides, c, { race: 'Dwarf', faction: 'Alliance', cls: 'WARRIOR' }), { done: [7003], carried: [739], open: [6127] });
+	assert.deepEqual(chainDone(guides, c, { race: 'Human', faction: 'Alliance', cls: 'DRUID' }), { done: [7003, 7638, 7721], carried: [739], open: [6127] });
+	assert.deepEqual(chainDone(guides, a, { race: 'Human', faction: 'Alliance', cls: 'DRUID' }), { done: [], carried: [], open: [] });
 });
 
 test('the chain credits a turn-in behind `when group` only when the play answers do; `when !group` only when it skips', () => {
 	const a = { id: 'a', next: 'b', steps: [{ goals: [{ t: 'turnin', quest: 10 }] }, { when: [{ k: 'group', q: 11 }], goals: [{ t: 'turnin', quest: 11 }] }, { when: [{ k: 'group', q: 11, neg: true }], goals: [{ t: 'turnin', quest: 12 }] }] };
 	const b = { id: 'b', steps: [{ goals: [{ t: 'accept', quest: 20, pre: [10] }, { t: 'accept', quest: 21, pre: [11] }, { t: 'accept', quest: 22, pre: [12] }] }] };
 	const who = { race: 'Human', faction: 'Alliance', cls: 'WARRIOR' };
-	assert.deepEqual(chainDone([a, b], b, who), { done: [10, 12], carried: [] }, 'skip by default');
-	assert.deepEqual(chainDone([a, b], b, who, 'do'), { done: [10, 11], carried: [] });
+	assert.deepEqual(chainDone([a, b], b, who), { done: [10, 12], carried: [], open: [] }, 'skip by default');
+	assert.deepEqual(chainDone([a, b], b, who, 'do'), { done: [10, 11], carried: [], open: [] });
 });
 
 test('--group takes do or skip; anything else is refused', async () => {
@@ -106,21 +106,21 @@ test('a hand-over must land on a guide the character can follow: a Human handed 
 	]);
 });
 
-test('a route choice lands on whichever option the engine recommends, not only the first', { skip }, () => {
+test('a route choice lands on whichever option the engine recommends, not only the first', { skip }, async () => {
 	const pack = commandPack({ pack: path.join(PACKS, 'handover') });
-	const { results } = playtest({ dir: pack.dir, manifest: pack.manifest, filter: 'tirisfal', contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
+	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, filter: 'tirisfal', contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
 	assert.equal(results.length, 1);
 	assert.equal(results[0].ok, true, JSON.stringify(results[0]));
 	assert.equal(results[0].landed, 'forever/horde/03-silverpine-forest', 'the recommended option here is the second one');
 });
 
-test('a `next` option whose `when` does not hold is no hand-over: the engine goes on to one offered, or the guide ends there', { skip }, () => {
+test('a `next` option whose `when` does not hold is no hand-over: the engine goes on to one offered, or the guide ends there', { skip }, async () => {
 	const pack = commandPack({ pack: path.join(PACKS, 'handover') });
-	const play = (filter) => playtest({ dir: pack.dir, manifest: pack.manifest, filter, contextDir: pack.contextDir, contextDataDir: pack.contextDataDir }).results;
-	const [one] = play('conditional');
+	const play = async (filter) => (await playtest({ dir: pack.dir, manifest: pack.manifest, filter, contextDir: pack.contextDir, contextDataDir: pack.contextDataDir })).results;
+	const [one] = await play('conditional');
 	assert.equal(one.ok, true, JSON.stringify(one));
 	assert.equal(one.landed, 'forever/horde/02-the-barrens', 'Silverpine, recommended otherwise, is not offered below level 40');
-	const [ends] = play('ends');
+	const [ends] = await play('ends');
 	assert.equal(ends.ok, true, JSON.stringify(ends));
 	assert.equal(ends.landed, 'handover/ends');
 });
@@ -152,7 +152,7 @@ test('missing reference data is an error naming data build, not a stuck or empty
 	const empty = tmpdir();
 	const r = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'plays'), '--data', empty, '--context-data', empty]));
 	assert.equal(r.result, 1, r.out);
-	assert.match(r.out, /error: reference data missing quests\.json.*: run node tools\/polestar\.js data build/);
+	assert.match(r.out, /error: reference data missing quests\.json.*: run forge data build/);
 	assert.match(r.out, /playtest failed: no reference data to play against/);
 	assert.doesNotMatch(r.out, /`lint`/);
 	assert.doesNotMatch(r.out, /^(ok|stuck) /m);
@@ -188,9 +188,9 @@ test('a class no persona\'s race can be is played as the first race of the guide
 	assert.deepEqual(ok.filter((l) => l.includes('classes/totems')), ['ok  classes/totems (Orc Shaman)', 'ok  classes/totems (Tauren Shaman)', 'ok  classes/totems (Tauren Druid)']);
 });
 
-test('level goals inside a level play through: the player gets that share of the level\'s XP', { skip }, () => {
+test('level goals inside a level play through: the player gets that share of the level\'s XP', { skip }, async () => {
 	const pack = commandPack({ pack: path.join(PACKS, 'halflevel') });
-	const { results } = playtest({ dir: pack.dir, manifest: pack.manifest, classes: ['WARRIOR'], contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
+	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, classes: ['WARRIOR'], contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
 	assert.ok(results.length > 0);
 	for (const r of results) assert.equal(r.ok, true, JSON.stringify(r));
 });

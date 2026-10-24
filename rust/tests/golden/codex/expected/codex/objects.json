@@ -1,0 +1,2907 @@
+{
+	"31": {
+		"id": 31,
+		"loot": [],
+		"name": "Old Lion Statue",
+		"spawns": [],
+		"treasure": false
+	},
+	"55": {
+		"id": 55,
+		"loot": [],
+		"name": "A half-eaten body",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 72.7,
+				"y": 60.3
+			}
+		],
+		"treasure": false
+	},
+	"56": {
+		"id": 56,
+		"loot": [],
+		"name": "Rolf's corpse",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 79.8,
+				"y": 55.5
+			}
+		],
+		"treasure": false
+	},
+	"68": {
+		"id": 68,
+		"loot": [],
+		"name": "Wanted Poster",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 24.5,
+				"y": 74.7
+			}
+		],
+		"treasure": false
+	},
+	"1560": {
+		"id": 1560,
+		"loot": [],
+		"name": "Storage Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 44.3,
+				"y": 65.8
+			}
+		],
+		"treasure": false
+	},
+	"1561": {
+		"id": 1561,
+		"loot": [],
+		"name": "Sealed Crate",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 29.4,
+				"y": 61.5
+			}
+		],
+		"treasure": false
+	},
+	"1562": {
+		"id": 1562,
+		"loot": [],
+		"name": "Marshal Haggard's Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 85.7,
+				"y": 69.5
+			}
+		],
+		"treasure": false
+	},
+	"1618": {
+		"id": 1618,
+		"loot": [],
+		"name": "Peacebloom",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 36.4,
+				"y": 47.3
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 36.4,
+				"y": 56.2
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 37.1,
+				"y": 26.6
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 38.2,
+				"y": 39.7
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 42.4,
+				"y": 16.8
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 22.7,
+				"y": 75.6
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 25.7,
+				"y": 88.9
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 26.2,
+				"y": 81.5
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 35.6,
+				"y": 69.4
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 37.1,
+				"y": 60.9
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 32.5,
+				"y": 34.6
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 34.7,
+				"y": 39.3
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 64.4,
+				"y": 10.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 64.3,
+				"y": 25.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 39.2,
+				"y": 57.6
+			}
+		],
+		"treasure": false
+	},
+	"1619": {
+		"id": 1619,
+		"loot": [],
+		"name": "Earthroot",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 36.1,
+				"y": 29.6
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 36.6,
+				"y": 54.5
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 37,
+				"y": 24.8
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 37.2,
+				"y": 36.7
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 37.2,
+				"y": 46.8
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 25.2,
+				"y": 66.9
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 28.9,
+				"y": 58.2
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 37.8,
+				"y": 50.6
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 48.1,
+				"y": 50.3
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 50.6,
+				"y": 74
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 33.2,
+				"y": 33
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 36.4,
+				"y": 51.9
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 36.8,
+				"y": 38.2
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 34.1,
+				"y": 36.6
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 35.6,
+				"y": 43.6
+			}
+		],
+		"treasure": false
+	},
+	"1732": {
+		"id": 1732,
+		"loot": [],
+		"name": "Tin Vein",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 32.5,
+				"y": 21.4
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 40.1,
+				"y": 22.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 40.8,
+				"y": 95.2
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41.6,
+				"y": 29.7
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 42.7,
+				"y": 41.1
+			}
+		],
+		"treasure": false
+	},
+	"1733": {
+		"id": 1733,
+		"loot": [],
+		"name": "Silver Vein",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 32.5,
+				"y": 21.4
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 38.9,
+				"y": 10.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 39.8,
+				"y": 19.4
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 40.6,
+				"y": 93.2
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 42.1,
+				"y": 77.8
+			}
+		],
+		"treasure": false
+	},
+	"2076": {
+		"id": 2076,
+		"loot": [],
+		"name": "Bubbling Cauldron",
+		"spawns": [],
+		"treasure": false
+	},
+	"2553": {
+		"id": 2553,
+		"loot": [],
+		"name": "A Soggy Scroll",
+		"spawns": [],
+		"treasure": false
+	},
+	"2555": {
+		"id": 2555,
+		"loot": [],
+		"name": "Musty Scroll",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 51.6,
+				"y": 88.2
+			}
+		],
+		"treasure": false
+	},
+	"2556": {
+		"id": 2556,
+		"loot": [],
+		"name": "Cortello's Treasure",
+		"spawns": [],
+		"treasure": false
+	},
+	"2843": {
+		"id": 2843,
+		"loot": [
+			159
+		],
+		"name": "Battered Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 49.8,
+				"y": 27.3
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 52.4,
+				"y": 51.9
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 53,
+				"y": 47.5
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 56.9,
+				"y": 43.9
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 57.6,
+				"y": 48.4
+			}
+		],
+		"treasure": true
+	},
+	"2849": {
+		"id": 2849,
+		"loot": [
+			1206
+		],
+		"name": "Battered Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 44.8,
+				"y": 53.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 31.9,
+				"y": 24.4
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 38.8,
+				"y": 12.4
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 51.2,
+				"y": 56.2
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 53.1,
+				"y": 53.2
+			}
+		],
+		"treasure": true
+	},
+	"2850": {
+		"id": 2850,
+		"loot": [
+			1206
+		],
+		"name": "Solid Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 43.1,
+				"y": 82.6
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41.6,
+				"y": 78.7
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 30.5,
+				"y": 97.9
+			}
+		],
+		"treasure": true
+	},
+	"2852": {
+		"id": 2852,
+		"loot": [
+			1206
+		],
+		"name": "Solid Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 48.8,
+				"y": 97.5
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 38.6,
+				"y": 92
+			}
+		],
+		"treasure": true
+	},
+	"2857": {
+		"id": 2857,
+		"loot": [],
+		"name": "Solid Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 51.6,
+				"y": 65.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 67.2,
+				"y": 58.4
+			}
+		],
+		"treasure": true
+	},
+	"3189": {
+		"id": 3189,
+		"loot": [],
+		"name": "Attack Plan: Valley of Trials",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 49.8,
+				"y": 81.3
+			}
+		],
+		"treasure": false
+	},
+	"3190": {
+		"id": 3190,
+		"loot": [],
+		"name": "Attack Plan: Sen'jin Village",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 47.7,
+				"y": 77.3
+			}
+		],
+		"treasure": false
+	},
+	"3192": {
+		"id": 3192,
+		"loot": [],
+		"name": "Attack Plan: Orgrimmar",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 46.2,
+				"y": 78.9
+			}
+		],
+		"treasure": false
+	},
+	"3236": {
+		"id": 3236,
+		"loot": [],
+		"name": "Gnomish Toolbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 62.6,
+				"y": 56.6
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 64.3,
+				"y": 51.8
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 62.1,
+				"y": 42.2
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 62.1,
+				"y": 46
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 62.3,
+				"y": 60.4
+			}
+		],
+		"treasure": false
+	},
+	"3237": {
+		"id": 3237,
+		"loot": [],
+		"name": "Imprisoned Darkspear",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 67.4,
+				"y": 87.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 80.4,
+				"y": 42.9
+			}
+		],
+		"treasure": false
+	},
+	"3238": {
+		"id": 3238,
+		"loot": [],
+		"name": "Chen's Empty Keg",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 37.9,
+				"y": 16.2
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41.8,
+				"y": 38.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 43.8,
+				"y": 12.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 45,
+				"y": 62.2
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 54.7,
+				"y": 37.2
+			}
+		],
+		"treasure": false
+	},
+	"3239": {
+		"id": 3239,
+		"loot": [],
+		"name": "Benedict's Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 59.3,
+				"y": 57.6
+			}
+		],
+		"treasure": false
+	},
+	"3240": {
+		"id": 3240,
+		"loot": [],
+		"name": "Taillasher Eggs",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 68.5,
+				"y": 71
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 67.3,
+				"y": 81.5
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 67.9,
+				"y": 88.1
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 59.9,
+				"y": 83.3
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 59.9,
+				"y": 88.9
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 77.2,
+				"y": 42.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 80.7,
+				"y": 43.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 77.9,
+				"y": 46.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 76.4,
+				"y": 43.9
+			}
+		],
+		"treasure": false
+	},
+	"3290": {
+		"id": 3290,
+		"loot": [],
+		"name": "Stolen Supply Sack",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 48.4,
+				"y": 31.9
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 50,
+				"y": 24.3
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 50.7,
+				"y": 27.3
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 47.7,
+				"y": 33.9
+			}
+		],
+		"treasure": false
+	},
+	"3525": {
+		"id": 3525,
+		"loot": [],
+		"name": "The Altar of Fire",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 48,
+				"y": 19.1
+			}
+		],
+		"treasure": false
+	},
+	"3640": {
+		"id": 3640,
+		"loot": [],
+		"name": "Laden Mushroom",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 46.7,
+				"y": 39.5
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 55.1,
+				"y": 42.5
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 44.8,
+				"y": 23.6
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 46.8,
+				"y": 41.9
+			}
+		],
+		"treasure": false
+	},
+	"3644": {
+		"id": 3644,
+		"loot": [],
+		"name": "Bael Modan Flying Machine",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 47,
+				"y": 85.6
+			}
+		],
+		"treasure": false
+	},
+	"3646": {
+		"id": 3646,
+		"loot": [],
+		"name": "General Twinbraid's Strongbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 49.1,
+				"y": 84.3
+			}
+		],
+		"treasure": false
+	},
+	"3658": {
+		"id": 3658,
+		"loot": [],
+		"name": "Water Barrel",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 34.7,
+				"y": 42.1
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 37,
+				"y": 22.9
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 40.2,
+				"y": 35.3
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 41.8,
+				"y": 26.9
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 41.9,
+				"y": 15.3
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 23.5,
+				"y": 80.8
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 24.8,
+				"y": 72
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 26.3,
+				"y": 91.8
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 27.4,
+				"y": 86
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 30.3,
+				"y": 64.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 36.7,
+				"y": 46.2
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 37.7,
+				"y": 50.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 77.5,
+				"y": 44.5
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 80.6,
+				"y": 41.4
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 63.3,
+				"y": 19.1
+			}
+		],
+		"treasure": false
+	},
+	"3660": {
+		"id": 3660,
+		"loot": [],
+		"name": "Armor Crate",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 63.1,
+				"y": 45.4
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 51.3,
+				"y": 29.9
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 63.7,
+				"y": 49.4
+			}
+		],
+		"treasure": true
+	},
+	"3661": {
+		"id": 3661,
+		"loot": [],
+		"name": "Weapon Crate",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 63.1,
+				"y": 45.4
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 51.3,
+				"y": 29.9
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 63.7,
+				"y": 49.4
+			}
+		],
+		"treasure": true
+	},
+	"3685": {
+		"id": 3685,
+		"loot": [],
+		"name": "Silithid Mound",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 43.8,
+				"y": 70.9
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 47.8,
+				"y": 70.3
+			}
+		],
+		"treasure": false
+	},
+	"3689": {
+		"id": 3689,
+		"loot": [],
+		"name": "Weapon Crate",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 64.8,
+				"y": 39.7
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 49.2,
+				"y": 84
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 63.8,
+				"y": 53.4
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 64.6,
+				"y": 44.3
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 64.9,
+				"y": 49
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 38.7,
+				"y": 73.2
+			}
+		],
+		"treasure": true
+	},
+	"3702": {
+		"id": 3702,
+		"loot": [],
+		"name": "Armor Crate",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 49.2,
+				"y": 84
+			}
+		],
+		"treasure": true
+	},
+	"3705": {
+		"id": 3705,
+		"loot": [],
+		"name": "Barrel of Milk",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 31.6,
+				"y": 21.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 39,
+				"y": 12.2
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 39.4,
+				"y": 29.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 40.7,
+				"y": 45.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41.7,
+				"y": 38.7
+			},
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 16.1,
+				"y": 49.7
+			},
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 24.4,
+				"y": 47
+			},
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 28.6,
+				"y": 72.4
+			},
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 32.2,
+				"y": 43.2
+			},
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 33.8,
+				"y": 56.2
+			}
+		],
+		"treasure": false
+	},
+	"3715": {
+		"id": 3715,
+		"loot": [
+			1206
+		],
+		"name": "Alliance Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 49.2,
+				"y": 84.2
+			}
+		],
+		"treasure": true
+	},
+	"3724": {
+		"id": 3724,
+		"loot": [],
+		"name": "Peacebloom",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41.4,
+				"y": 57.3
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 43.8,
+				"y": 28.4
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 43.9,
+				"y": 47.6
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 44.4,
+				"y": 13.3
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 44.5,
+				"y": 18.7
+			}
+		],
+		"treasure": false
+	},
+	"3725": {
+		"id": 3725,
+		"loot": [],
+		"name": "Silverleaf",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 38.8,
+				"y": 12.7
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 40.5,
+				"y": 17.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41,
+				"y": 21.3
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41.5,
+				"y": 30.7
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 45.3,
+				"y": 20.4
+			}
+		],
+		"treasure": false
+	},
+	"3726": {
+		"id": 3726,
+		"loot": [],
+		"name": "Earthroot",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 39,
+				"y": 17.7
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 39.1,
+				"y": 30.7
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 39.6,
+				"y": 14.2
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 40.5,
+				"y": 26.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41.6,
+				"y": 36.6
+			}
+		],
+		"treasure": false
+	},
+	"3727": {
+		"id": 3727,
+		"loot": [],
+		"name": "Mageroyal",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 39,
+				"y": 15.9
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 40.3,
+				"y": 29.6
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41.3,
+				"y": 46.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41.5,
+				"y": 22.6
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 42.7,
+				"y": 72.4
+			}
+		],
+		"treasure": false
+	},
+	"3729": {
+		"id": 3729,
+		"loot": [],
+		"name": "Briarthorn",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 37.3,
+				"y": 26.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 38.6,
+				"y": 17.4
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 40.5,
+				"y": 32.2
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41,
+				"y": 79.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 43.5,
+				"y": 62
+			}
+		],
+		"treasure": false
+	},
+	"3730": {
+		"id": 3730,
+		"loot": [],
+		"name": "Bruiseweed",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 38,
+				"y": 14.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 39.6,
+				"y": 10.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 40.4,
+				"y": 80.5
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41.1,
+				"y": 46.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41.6,
+				"y": 50.1
+			}
+		],
+		"treasure": false
+	},
+	"3737": {
+		"id": 3737,
+		"loot": [],
+		"name": "Bubbling Fissure",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 55.6,
+				"y": 42.7
+			}
+		],
+		"treasure": false
+	},
+	"3763": {
+		"id": 3763,
+		"loot": [],
+		"name": "Copper Vein",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 43,
+				"y": 82.4
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 53.2,
+				"y": 53.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 55.5,
+				"y": 26.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41,
+				"y": 14
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41,
+				"y": 19.2
+			}
+		],
+		"treasure": false
+	},
+	"3764": {
+		"id": 3764,
+		"loot": [],
+		"name": "Tin Vein",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 41.5,
+				"y": 79.6
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 38.5,
+				"y": 11.9
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 44.1,
+				"y": 54.6
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 46.8,
+				"y": 38.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 52.5,
+				"y": 55
+			}
+		],
+		"treasure": false
+	},
+	"3767": {
+		"id": 3767,
+		"loot": [],
+		"name": "Drizzlik's Emporium",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 62.6,
+				"y": 49.6
+			}
+		],
+		"treasure": false
+	},
+	"3768": {
+		"id": 3768,
+		"loot": [],
+		"name": "Fragile - Do Not Drop",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 63.6,
+				"y": 49.3
+			}
+		],
+		"treasure": false
+	},
+	"3972": {
+		"id": 3972,
+		"loot": [],
+		"name": "WANTED",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 62.6,
+				"y": 37.5
+			}
+		],
+		"treasure": false
+	},
+	"4072": {
+		"id": 4072,
+		"loot": [],
+		"name": "Main Control Valve",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 52.3,
+				"y": 11.6
+			}
+		],
+		"treasure": false
+	},
+	"4141": {
+		"id": 4141,
+		"loot": [],
+		"name": "Control Console",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 52.4,
+				"y": 11.6
+			}
+		],
+		"treasure": false
+	},
+	"4149": {
+		"id": 4149,
+		"loot": [],
+		"name": "Solid Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 55.1,
+				"y": 89.5
+			}
+		],
+		"treasure": true
+	},
+	"5619": {
+		"id": 5619,
+		"loot": [],
+		"name": "Flawed Power Stone",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 62.3,
+				"y": 20
+			}
+		],
+		"treasure": false
+	},
+	"5620": {
+		"id": 5620,
+		"loot": [],
+		"name": "Flawed Power Stones",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 62.3,
+				"y": 20
+			}
+		],
+		"treasure": false
+	},
+	"5621": {
+		"id": 5621,
+		"loot": [],
+		"name": "Flawed Power Stones",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 62.3,
+				"y": 20
+			}
+		],
+		"treasure": false
+	},
+	"6906": {
+		"id": 6906,
+		"loot": [],
+		"name": "Red Raptor Nest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 52.5,
+				"y": 46.6
+			}
+		],
+		"treasure": false
+	},
+	"6907": {
+		"id": 6907,
+		"loot": [],
+		"name": "Blue Raptor Nest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 52.6,
+				"y": 46.1
+			}
+		],
+		"treasure": false
+	},
+	"6908": {
+		"id": 6908,
+		"loot": [],
+		"name": "Yellow Raptor Nest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 52,
+				"y": 46.5
+			}
+		],
+		"treasure": false
+	},
+	"19017": {
+		"id": 19017,
+		"loot": [],
+		"name": "Giant Clam",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 65.2,
+				"y": 40
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 64.1,
+				"y": 50.6
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 65.7,
+				"y": 45.9
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 64.1,
+				"y": 55
+			}
+		],
+		"treasure": true
+	},
+	"19019": {
+		"id": 19019,
+		"loot": [],
+		"name": "Box of Assorted Parts",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 61.7,
+				"y": 4.2
+			}
+		],
+		"treasure": true
+	},
+	"19020": {
+		"id": 19020,
+		"loot": [],
+		"name": "Box of Assorted Parts",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 47.9,
+				"y": 84.8
+			}
+		],
+		"treasure": true
+	},
+	"19906": {
+		"id": 19906,
+		"loot": [],
+		"name": "Mok'Morokk's Strongbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 54.5,
+				"y": 90
+			}
+		],
+		"treasure": false
+	},
+	"20359": {
+		"id": 20359,
+		"loot": [],
+		"name": "Egg of Onyxia",
+		"spawns": [],
+		"treasure": false
+	},
+	"20985": {
+		"id": 20985,
+		"loot": [],
+		"name": "Loose Dirt",
+		"spawns": [],
+		"treasure": false
+	},
+	"20992": {
+		"id": 20992,
+		"loot": [],
+		"name": "Black Shield",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 50.9,
+				"y": 79.1
+			}
+		],
+		"treasure": false
+	},
+	"21015": {
+		"id": 21015,
+		"loot": [],
+		"name": "Hoofprints",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 50.9,
+				"y": 78.7
+			}
+		],
+		"treasure": false
+	},
+	"21016": {
+		"id": 21016,
+		"loot": [],
+		"name": "Hoofprints",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 50.9,
+				"y": 78.6
+			}
+		],
+		"treasure": false
+	},
+	"21042": {
+		"id": 21042,
+		"loot": [],
+		"name": "Theramore Guard Badge",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 51,
+				"y": 79
+			}
+		],
+		"treasure": false
+	},
+	"21277": {
+		"id": 21277,
+		"loot": [],
+		"name": "Crate with Holes",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 62.3,
+				"y": 37.6
+			}
+		],
+		"treasure": false
+	},
+	"21530": {
+		"id": 21530,
+		"loot": [],
+		"name": "Snufflenose Owner's Manual",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 62.3,
+				"y": 37.6
+			}
+		],
+		"treasure": false
+	},
+	"58369": {
+		"id": 58369,
+		"loot": [],
+		"name": "Stolen Iron Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 55,
+				"y": 26.7
+			}
+		],
+		"treasure": false
+	},
+	"58595": {
+		"id": 58595,
+		"loot": [],
+		"name": "Burning Blade Stash",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 51.6,
+				"y": 9.8
+			}
+		],
+		"treasure": false
+	},
+	"61934": {
+		"id": 61934,
+		"loot": [],
+		"name": "Brazier of the Dormant Flame",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 39,
+				"y": 58.2
+			}
+		],
+		"treasure": false
+	},
+	"61935": {
+		"id": 61935,
+		"loot": [],
+		"name": "Regulator Valve",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 52.3,
+				"y": 11.4
+			}
+		],
+		"treasure": false
+	},
+	"61936": {
+		"id": 61936,
+		"loot": [],
+		"name": "Fuel Control Valve",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 52.4,
+				"y": 11.4
+			}
+		],
+		"treasure": false
+	},
+	"68865": {
+		"id": 68865,
+		"loot": [],
+		"name": "Snufflenose Command Sticks",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 62.3,
+				"y": 37.6
+			}
+		],
+		"treasure": false
+	},
+	"83763": {
+		"id": 83763,
+		"loot": [],
+		"name": "Stolen Books",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 56.7,
+				"y": 44
+			}
+		],
+		"treasure": false
+	},
+	"85563": {
+		"id": 85563,
+		"loot": [],
+		"name": "Dead-tooth's Strongbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 89.3,
+				"y": 78.9
+			}
+		],
+		"treasure": false
+	},
+	"102986": {
+		"id": 102986,
+		"loot": [],
+		"name": "Ju-Ju Heap",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 68.1,
+				"y": 83.1
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 67.1,
+				"y": 87.1
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 80.6,
+				"y": 41.5
+			}
+		],
+		"treasure": false
+	},
+	"103711": {
+		"id": 103711,
+		"loot": [],
+		"name": "Tin Vein",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 47.5,
+				"y": 85.2
+			}
+		],
+		"treasure": false
+	},
+	"105174": {
+		"id": 105174,
+		"loot": [],
+		"name": "Chest of Containment Coffers",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 38.5,
+				"y": 78.9
+			}
+		],
+		"treasure": false
+	},
+	"105175": {
+		"id": 105175,
+		"loot": [],
+		"name": "Cantation of Manifestation",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 38.7,
+				"y": 78.7
+			}
+		],
+		"treasure": false
+	},
+	"105569": {
+		"id": 105569,
+		"loot": [],
+		"name": "Silver Vein",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 47.5,
+				"y": 85.2
+			}
+		],
+		"treasure": false
+	},
+	"106318": {
+		"id": 106318,
+		"loot": [],
+		"name": "Battered Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 39.4,
+				"y": 53.8
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 40.8,
+				"y": 30.5
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 42.1,
+				"y": 27.1
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 43.6,
+				"y": 35.6
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 43.7,
+				"y": 50.7
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 25.2,
+				"y": 92.8
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 41.1,
+				"y": 77.7
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 48.2,
+				"y": 87.2
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 61.7,
+				"y": 48.5
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 79.4,
+				"y": 55.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 36.3,
+				"y": 52.2
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 34,
+				"y": 35.8
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 37.3,
+				"y": 47.9
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 80.3,
+				"y": 41.5
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 32.6,
+				"y": 32.6
+			}
+		],
+		"treasure": true
+	},
+	"106319": {
+		"id": 106319,
+		"loot": [
+			1206
+		],
+		"name": "Battered Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 47,
+				"y": 38.7
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 63.6,
+				"y": 48.7
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 42.9,
+				"y": 25.6
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 47.5,
+				"y": 17
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 52.5,
+				"y": 11.1
+			}
+		],
+		"treasure": true
+	},
+	"111095": {
+		"id": 111095,
+		"loot": [
+			1206
+		],
+		"name": "Alliance Chest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 61.7,
+				"y": 55.2
+			}
+		],
+		"treasure": true
+	},
+	"113791": {
+		"id": 113791,
+		"loot": [],
+		"name": "Brazier of Everfount",
+		"spawns": [],
+		"treasure": false
+	},
+	"129127": {
+		"id": 129127,
+		"loot": [],
+		"name": "Gallywix's Lockbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 54.8,
+				"y": 5.6
+			}
+		],
+		"treasure": false
+	},
+	"140911": {
+		"id": 140911,
+		"loot": [],
+		"name": "Spool of Light Chartreuse Silk Thread",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 39.9,
+				"y": 46.1
+			}
+		],
+		"treasure": false
+	},
+	"142075": {
+		"faction": null,
+		"id": 142075,
+		"loot": [],
+		"mailbox": true,
+		"name": "Mailbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 42.9,
+				"y": 65.5
+			}
+		],
+		"treasure": false
+	},
+	"142076": {
+		"id": 142076,
+		"loot": [],
+		"name": "Clara's Fresh Apples",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 34,
+				"y": 57.2
+			}
+		],
+		"treasure": false
+	},
+	"142487": {
+		"id": 142487,
+		"loot": [],
+		"name": "The Sparklematic 5200",
+		"spawns": [],
+		"treasure": false
+	},
+	"142715": {
+		"id": 142715,
+		"loot": [],
+		"name": "Tablet of Theka",
+		"spawns": [],
+		"treasure": false
+	},
+	"143981": {
+		"faction": null,
+		"id": 143981,
+		"loot": [],
+		"mailbox": true,
+		"name": "Mailbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 51.9,
+				"y": 42.2
+			}
+		],
+		"treasure": false
+	},
+	"143982": {
+		"faction": null,
+		"id": 143982,
+		"loot": [],
+		"mailbox": true,
+		"name": "Mailbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 52,
+				"y": 30.4
+			}
+		],
+		"treasure": false
+	},
+	"144125": {
+		"faction": null,
+		"id": 144125,
+		"loot": [],
+		"mailbox": true,
+		"name": "Mailbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 62.2,
+				"y": 39.2
+			}
+		],
+		"treasure": false
+	},
+	"144128": {
+		"faction": null,
+		"id": 144128,
+		"loot": [],
+		"mailbox": true,
+		"name": "Mailbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 70.9,
+				"y": 40
+			}
+		],
+		"treasure": false
+	},
+	"144129": {
+		"faction": null,
+		"id": 144129,
+		"loot": [],
+		"mailbox": true,
+		"name": "Mailbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 39.9,
+				"y": 84.4
+			}
+		],
+		"treasure": false
+	},
+	"144130": {
+		"faction": null,
+		"id": 144130,
+		"loot": [],
+		"mailbox": true,
+		"name": "Mailbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 22.1,
+				"y": 57.9
+			}
+		],
+		"treasure": false
+	},
+	"144131": {
+		"faction": null,
+		"id": 144131,
+		"loot": [],
+		"mailbox": true,
+		"name": "Mailbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 54.2,
+				"y": 66.7
+			}
+		],
+		"treasure": false
+	},
+	"147557": {
+		"id": 147557,
+		"loot": [],
+		"name": "Stolen Silver",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 58,
+				"y": 53.9
+			}
+		],
+		"treasure": false
+	},
+	"153578": {
+		"faction": null,
+		"id": 153578,
+		"loot": [],
+		"mailbox": true,
+		"name": "Mailbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 45.1,
+				"y": 58.7
+			}
+		],
+		"treasure": false
+	},
+	"156561": {
+		"id": 156561,
+		"loot": [],
+		"name": "Wanted Poster",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 24.6,
+				"y": 78.2
+			}
+		],
+		"treasure": false
+	},
+	"161557": {
+		"id": 161557,
+		"loot": [],
+		"name": "Milly's Harvest",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 53.9,
+				"y": 49
+			}
+		],
+		"treasure": false
+	},
+	"161752": {
+		"id": 161752,
+		"loot": [],
+		"name": "Tool Bucket",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 56.3,
+				"y": 8.2
+			}
+		],
+		"treasure": false
+	},
+	"171938": {
+		"id": 171938,
+		"loot": [],
+		"name": "Cactus Apple",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 41.3,
+				"y": 64
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 45.8,
+				"y": 64.6
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 45.3,
+				"y": 60
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 41.5,
+				"y": 59.2
+			},
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 44.4,
+				"y": 71.3
+			},
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 66.1,
+				"y": 32.6
+			}
+		],
+		"treasure": false
+	},
+	"173047": {
+		"faction": null,
+		"id": 173047,
+		"loot": [],
+		"mailbox": true,
+		"name": "Mailbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1454,
+				"x": 62.3,
+				"y": 40.5
+			}
+		],
+		"treasure": false
+	},
+	"173221": {
+		"faction": null,
+		"id": 173221,
+		"loot": [],
+		"mailbox": true,
+		"name": "Mailbox",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1454,
+				"x": 50.7,
+				"y": 70.4
+			}
+		],
+		"treasure": false
+	},
+	"175708": {
+		"id": 175708,
+		"loot": [],
+		"name": "Crossroads' Supply Crates",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 58.9,
+				"y": 25.9
+			}
+		],
+		"treasure": false
+	},
+	"175894": {
+		"id": 175894,
+		"loot": [],
+		"name": "Janice's Parcel",
+		"spawns": [],
+		"treasure": false
+	},
+	"176793": {
+		"id": 176793,
+		"loot": [],
+		"name": "Bundle of Wood",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 78,
+				"y": 62.3
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 82.2,
+				"y": 60.2
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 80.4,
+				"y": 52.2
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 80.2,
+				"y": 56
+			},
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 81.6,
+				"y": 62.6
+			}
+		],
+		"treasure": false
+	},
+	"178087": {
+		"id": 178087,
+		"loot": [],
+		"name": "Thazz'ril's Pick",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1411,
+				"x": 43.7,
+				"y": 53.8
+			}
+		],
+		"treasure": false
+	},
+	"180025": {
+		"id": 180025,
+		"loot": [],
+		"name": "Mysterious Eastvale Haystack",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1429,
+				"x": 84.9,
+				"y": 64.4
+			}
+		],
+		"treasure": false
+	},
+	"180715": {
+		"id": 180715,
+		"loot": [],
+		"name": "Holly Preserver",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 54.9,
+				"y": 58.3
+			},
+			{
+				"f": "e",
+				"map": 1454,
+				"x": 53.6,
+				"y": 67.2
+			}
+		],
+		"treasure": false
+	},
+	"180743": {
+		"id": 180743,
+		"loot": [],
+		"name": "Carefully Wrapped Present",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1454,
+				"x": 52.2,
+				"y": 69
+			}
+		],
+		"treasure": false
+	},
+	"180746": {
+		"id": 180746,
+		"loot": [],
+		"name": "Gently Shaken Gift",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1454,
+				"x": 52,
+				"y": 69.3
+			}
+		],
+		"treasure": false
+	},
+	"180747": {
+		"id": 180747,
+		"loot": [],
+		"name": "Gaily Wrapped Present",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1454,
+				"x": 52.1,
+				"y": 69.7
+			}
+		],
+		"treasure": false
+	},
+	"180748": {
+		"id": 180748,
+		"loot": [],
+		"name": "Ticking Present",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1454,
+				"x": 52.2,
+				"y": 69.2
+			}
+		],
+		"treasure": false
+	},
+	"180793": {
+		"id": 180793,
+		"loot": [],
+		"name": "Festive Gift",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1454,
+				"x": 52.3,
+				"y": 69.1
+			}
+		],
+		"treasure": false
+	},
+	"181332": {
+		"id": 181332,
+		"loot": [],
+		"name": "Flame of Stormwind",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1453,
+				"x": 38.8,
+				"y": 61.8
+			}
+		],
+		"treasure": false
+	},
+	"181333": {
+		"id": 181333,
+		"loot": [],
+		"name": "Flame of Ironforge",
+		"spawns": [],
+		"treasure": false
+	},
+	"181334": {
+		"id": 181334,
+		"loot": [],
+		"name": "Flame of Darnassus",
+		"spawns": [],
+		"treasure": false
+	},
+	"181335": {
+		"id": 181335,
+		"loot": [],
+		"name": "Flame of the Undercity",
+		"spawns": [],
+		"treasure": false
+	},
+	"181336": {
+		"id": 181336,
+		"loot": [],
+		"name": "Flame of Orgrimmar",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1454,
+				"x": 42.1,
+				"y": 34.2
+			}
+		],
+		"treasure": false
+	},
+	"181337": {
+		"id": 181337,
+		"loot": [],
+		"name": "Flame of Thunder Bluff",
+		"spawns": [],
+		"treasure": false
+	},
+	"181338": {
+		"id": 181338,
+		"loot": [],
+		"name": "Flame of the Plaguelands",
+		"spawns": [],
+		"treasure": false
+	},
+	"181339": {
+		"id": 181339,
+		"loot": [],
+		"name": "Flame of Silithus",
+		"spawns": [],
+		"treasure": false
+	},
+	"181340": {
+		"id": 181340,
+		"loot": [],
+		"name": "Flame of Winterspring",
+		"spawns": [],
+		"treasure": false
+	},
+	"181341": {
+		"id": 181341,
+		"loot": [],
+		"name": "Flame of Searing Gorge",
+		"spawns": [],
+		"treasure": false
+	},
+	"181342": {
+		"id": 181342,
+		"loot": [],
+		"name": "Flame of Azshara",
+		"spawns": [],
+		"treasure": false
+	},
+	"181343": {
+		"id": 181343,
+		"loot": [],
+		"name": "Flame of Un'Goro",
+		"spawns": [],
+		"treasure": false
+	},
+	"181344": {
+		"id": 181344,
+		"loot": [],
+		"name": "Flame of the Blasted Lands",
+		"spawns": [],
+		"treasure": false
+	},
+	"181345": {
+		"id": 181345,
+		"loot": [],
+		"name": "Flame of the Hinterlands",
+		"spawns": [],
+		"treasure": false
+	},
+	"181346": {
+		"id": 181346,
+		"loot": [],
+		"name": "Flame of Dire Maul",
+		"spawns": [],
+		"treasure": false
+	},
+	"181347": {
+		"id": 181347,
+		"loot": [],
+		"name": "Flame of Blackrock Spire",
+		"spawns": [],
+		"treasure": false
+	},
+	"181348": {
+		"id": 181348,
+		"loot": [],
+		"name": "Flame of Stratholme",
+		"spawns": [],
+		"treasure": false
+	},
+	"181349": {
+		"id": 181349,
+		"loot": [],
+		"name": "Flame of the Scholomance",
+		"spawns": [],
+		"treasure": false
+	},
+	"181560": {
+		"id": 181560,
+		"loot": [],
+		"name": "Flame of the Barrens",
+		"spawns": [
+			{
+				"f": "e",
+				"map": 1413,
+				"x": 59.8,
+				"y": 39.3
+			}
+		],
+		"treasure": false
+	},
+	"181561": {
+		"id": 181561,
+		"loot": [],
+		"name": "Flame of Ashenvale",
+		"spawns": [],
+		"treasure": false
+	},
+	"181562": {
+		"id": 181562,
+		"loot": [],
+		"name": "Flame of Stonetalon",
+		"spawns": [],
+		"treasure": false
+	},
+	"181563": {
+		"id": 181563,
+		"loot": [],
+		"name": "Flame of Darkshore",
+		"spawns": [],
+		"treasure": false
+	},
+	"181564": {
+		"id": 181564,
+		"loot": [],
+		"name": "Flame of Silverpine",
+		"spawns": [],
+		"treasure": false
+	},
+	"181565": {
+		"id": 181565,
+		"loot": [],
+		"name": "Flame of Westfall",
+		"spawns": [],
+		"treasure": false
+	},
+	"181566": {
+		"id": 181566,
+		"loot": [],
+		"name": "Flame of Hillsbrad",
+		"spawns": [],
+		"treasure": false
+	},
+	"181567": {
+		"id": 181567,
+		"loot": [],
+		"name": "Flame of the Wetlands",
+		"spawns": [],
+		"treasure": false
+	}
+}

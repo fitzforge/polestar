@@ -1,0 +1,3149 @@
+{
+	"dungeons": {
+		"ahnqiraj-temple": {
+			"bosses": [
+				{
+					"encounter": 709,
+					"level": null,
+					"name": "The Prophet Skeram",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 710,
+					"level": null,
+					"name": "Silithid Royalty",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 711,
+					"level": null,
+					"name": "Battleguard Sartura",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 712,
+					"level": null,
+					"name": "Fankriss the Unyielding",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 713,
+					"level": null,
+					"name": "Viscidus",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 714,
+					"level": null,
+					"name": "Princess Huhuran",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 715,
+					"level": null,
+					"name": "Twin Emperors",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 716,
+					"level": null,
+					"name": "Ouro",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				},
+				{
+					"encounter": 717,
+					"level": null,
+					"name": "C'thun",
+					"npc": null,
+					"order": 9,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1451,
+				"x": 28.6,
+				"y": 92.3
+			},
+			"forever": false,
+			"key": "ahnqiraj-temple",
+			"kind": "raid",
+			"map": 531,
+			"maxLevel": null,
+			"minLevel": null,
+			"name": "Ahn'Qiraj Temple",
+			"players": 40,
+			"quests": [],
+			"zone": 1451,
+			"zoneName": "Silithus"
+		},
+		"blackfathom-deeps": {
+			"bosses": [
+				{
+					"encounter": 2916,
+					"level": null,
+					"name": "Ghamoo-ra",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 2915,
+					"level": null,
+					"name": "Lady Sarevess",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 2914,
+					"level": null,
+					"name": "Geilhast",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 2913,
+					"level": null,
+					"name": "Lorgus Jett",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 2912,
+					"level": null,
+					"name": "Old Serra'kis",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 2911,
+					"level": null,
+					"name": "Twilight Lord Kelris",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 2910,
+					"level": null,
+					"name": "Aku'mai",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1440,
+				"x": 14.5,
+				"y": 14.2
+			},
+			"forever": false,
+			"key": "blackfathom-deeps",
+			"kind": "dungeon",
+			"map": 48,
+			"maxLevel": 22,
+			"minLevel": 22,
+			"name": "Blackfathom Deeps",
+			"players": 10,
+			"quests": [],
+			"zone": 1440,
+			"zoneName": "Ashenvale"
+		},
+		"blackrock-depths": {
+			"bosses": [
+				{
+					"encounter": 227,
+					"level": null,
+					"name": "High Interrogator Gerstahn",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 228,
+					"level": null,
+					"name": "Lord Roccor",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 229,
+					"level": null,
+					"name": "Houndmaster Grebmar",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 230,
+					"level": null,
+					"name": "Ring of Law",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 231,
+					"level": null,
+					"name": "Pyromancer Loregrain",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 232,
+					"level": null,
+					"name": "Lord Incendius",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 233,
+					"level": null,
+					"name": "Warder Stilgiss",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 234,
+					"level": null,
+					"name": "Fineous Darkvire",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				},
+				{
+					"encounter": 235,
+					"level": null,
+					"name": "Bael'Gar",
+					"npc": null,
+					"order": 9,
+					"quests": []
+				},
+				{
+					"encounter": 236,
+					"level": null,
+					"name": "General Angerforge",
+					"npc": null,
+					"order": 10,
+					"quests": []
+				},
+				{
+					"encounter": 237,
+					"level": null,
+					"name": "Golem Lord Argelmach",
+					"npc": null,
+					"order": 11,
+					"quests": []
+				},
+				{
+					"encounter": 238,
+					"level": null,
+					"name": "Hurley Blackbreath",
+					"npc": null,
+					"order": 12,
+					"quests": []
+				},
+				{
+					"encounter": 239,
+					"level": null,
+					"name": "Phalanx",
+					"npc": null,
+					"order": 13,
+					"quests": []
+				},
+				{
+					"encounter": 240,
+					"level": null,
+					"name": "Ribbly Screwspigot",
+					"npc": null,
+					"order": 14,
+					"quests": []
+				},
+				{
+					"encounter": 241,
+					"level": null,
+					"name": "Plugger Spazzring",
+					"npc": null,
+					"order": 15,
+					"quests": []
+				},
+				{
+					"encounter": 2791,
+					"level": null,
+					"name": "The Vault",
+					"npc": null,
+					"order": 16,
+					"quests": []
+				},
+				{
+					"encounter": 242,
+					"level": null,
+					"name": "Ambassador Flamelash",
+					"npc": null,
+					"order": 17,
+					"quests": []
+				},
+				{
+					"encounter": 243,
+					"level": null,
+					"name": "The Seven",
+					"npc": null,
+					"order": 18,
+					"quests": []
+				},
+				{
+					"encounter": 244,
+					"level": null,
+					"name": "Magmus",
+					"npc": null,
+					"order": 19,
+					"quests": []
+				},
+				{
+					"encounter": 2789,
+					"level": 58,
+					"name": "Princess Moira Bronzebeard",
+					"npc": 8929,
+					"order": 20,
+					"quests": []
+				},
+				{
+					"encounter": 2790,
+					"level": 59,
+					"name": "Emperor Dagran Thaurissan",
+					"npc": 9019,
+					"order": 21,
+					"quests": [
+						{
+							"how": "kill",
+							"id": 4003
+						}
+					]
+				}
+			],
+			"chain": {
+				"4001": {
+					"bosses": [],
+					"chain": [],
+					"classes": null,
+					"faction": null,
+					"finish": {
+						"f": "e",
+						"id": 4949,
+						"inside": false,
+						"kind": "npc",
+						"map": 1454,
+						"name": "Thrall",
+						"x": 31.7,
+						"y": 37.8
+					},
+					"id": 4001,
+					"inside": false,
+					"level": 54,
+					"minLevel": 48,
+					"objectives": null,
+					"rewards": {
+						"items": [],
+						"money": null,
+						"rep": [],
+						"xp": null
+					},
+					"shareable": null,
+					"start": {
+						"f": null,
+						"id": 9020,
+						"inside": false,
+						"kind": "npc",
+						"map": null,
+						"name": "Commander Gor'shak",
+						"x": null,
+						"y": null
+					},
+					"startItem": null,
+					"title": "What Is Going On?"
+				},
+				"4002": {
+					"bosses": [],
+					"chain": [],
+					"classes": null,
+					"faction": null,
+					"finish": {
+						"f": "e",
+						"id": 4949,
+						"inside": false,
+						"kind": "npc",
+						"map": 1454,
+						"name": "Thrall",
+						"x": 31.7,
+						"y": 37.8
+					},
+					"id": 4002,
+					"inside": false,
+					"level": 54,
+					"minLevel": 48,
+					"objectives": null,
+					"rewards": {
+						"items": [],
+						"money": null,
+						"rep": [],
+						"xp": null
+					},
+					"shareable": null,
+					"start": {
+						"f": "e",
+						"id": 4949,
+						"inside": false,
+						"kind": "npc",
+						"map": 1454,
+						"name": "Thrall",
+						"x": 31.7,
+						"y": 37.8
+					},
+					"startItem": null,
+					"title": "The Eastern Kingdoms"
+				}
+			},
+			"entrance": {
+				"f": null,
+				"map": 1427,
+				"x": 34.8,
+				"y": 85.3
+			},
+			"forever": false,
+			"key": "blackrock-depths",
+			"kind": "dungeon",
+			"map": 230,
+			"maxLevel": 59,
+			"minLevel": 48,
+			"name": "Blackrock Depths",
+			"players": 5,
+			"quests": [
+				{
+					"bosses": [],
+					"chain": [
+						4001,
+						4002
+					],
+					"classes": null,
+					"faction": null,
+					"finish": {
+						"f": null,
+						"id": 8929,
+						"inside": false,
+						"kind": "npc",
+						"map": null,
+						"name": "Princess Moira Bronzebeard",
+						"x": null,
+						"y": null
+					},
+					"id": 4003,
+					"inside": false,
+					"level": 59,
+					"minLevel": 48,
+					"objectives": [
+						{
+							"id": 9019,
+							"k": "kill",
+							"name": "Emperor Dagran Thaurissan"
+						}
+					],
+					"rewards": {
+						"items": [],
+						"money": null,
+						"rep": [],
+						"xp": null
+					},
+					"shareable": null,
+					"start": {
+						"f": "e",
+						"id": 4949,
+						"inside": false,
+						"kind": "npc",
+						"map": 1454,
+						"name": "Thrall",
+						"x": 31.7,
+						"y": 37.8
+					},
+					"startItem": null,
+					"title": "The Royal Rescue"
+				}
+			],
+			"zone": 1427,
+			"zoneName": "Searing Gorge"
+		},
+		"blackrock-spire": {
+			"bosses": [
+				{
+					"encounter": 267,
+					"level": null,
+					"name": "Highlord Omokk",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 268,
+					"level": null,
+					"name": "Shadow Hunter Vosh'gajin",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 269,
+					"level": null,
+					"name": "War Master Voone",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 270,
+					"level": null,
+					"name": "Mother Smolderweb",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 271,
+					"level": null,
+					"name": "Urok Doomhowl",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 272,
+					"level": null,
+					"name": "Quartermaster Zigris",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 274,
+					"level": null,
+					"name": "Halycon",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 273,
+					"level": null,
+					"name": "Gizrul the Slavener",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				},
+				{
+					"encounter": 275,
+					"level": null,
+					"name": "Overlord Wyrmthalak",
+					"npc": null,
+					"order": 9,
+					"quests": []
+				},
+				{
+					"encounter": 3062,
+					"level": null,
+					"name": "Pyroguard Emberseer",
+					"npc": null,
+					"order": 10,
+					"quests": []
+				},
+				{
+					"encounter": 3063,
+					"level": null,
+					"name": "Warchief Rend Blackhand",
+					"npc": null,
+					"order": 11,
+					"quests": []
+				},
+				{
+					"encounter": 3068,
+					"level": null,
+					"name": "The Beast",
+					"npc": null,
+					"order": 12,
+					"quests": []
+				},
+				{
+					"encounter": 3069,
+					"level": null,
+					"name": "General Drakkisath",
+					"npc": null,
+					"order": 13,
+					"quests": []
+				},
+				{
+					"encounter": 3070,
+					"level": null,
+					"name": "Lord Valthalak",
+					"npc": null,
+					"order": 14,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1427,
+				"x": 34.8,
+				"y": 85.3
+			},
+			"forever": false,
+			"key": "blackrock-spire",
+			"kind": "dungeon",
+			"map": 229,
+			"maxLevel": 53,
+			"minLevel": 53,
+			"name": "Blackrock Spire",
+			"players": 10,
+			"quests": [],
+			"zone": 1427,
+			"zoneName": "Searing Gorge"
+		},
+		"blackwing-lair": {
+			"bosses": [
+				{
+					"encounter": 610,
+					"level": null,
+					"name": "Razorgore the Untamed",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 611,
+					"level": null,
+					"name": "Vaelastrasz the Corrupt",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 612,
+					"level": null,
+					"name": "Broodlord Lashlayer",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 613,
+					"level": null,
+					"name": "Firemaw",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 614,
+					"level": null,
+					"name": "Ebonroc",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 615,
+					"level": null,
+					"name": "Flamegor",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 616,
+					"level": null,
+					"name": "Chromaggus",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 617,
+					"level": null,
+					"name": "Nefarian",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1428,
+				"x": 29.4,
+				"y": 38.3
+			},
+			"forever": false,
+			"key": "blackwing-lair",
+			"kind": "raid",
+			"map": 469,
+			"maxLevel": 60,
+			"minLevel": 60,
+			"name": "Blackwing Lair",
+			"players": 40,
+			"quests": [],
+			"zone": 1428,
+			"zoneName": "Burning Steppes"
+		},
+		"city-of-dalaran": {
+			"bosses": [
+				{
+					"encounter": 3298,
+					"level": null,
+					"name": "Arcane Anomaly",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 3299,
+					"level": null,
+					"name": "Fel Ancient",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 3300,
+					"level": null,
+					"name": "Mana Devourer",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 3301,
+					"level": null,
+					"name": "Mana Elemental",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 3302,
+					"level": null,
+					"name": "Unstable Sentinel",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 3303,
+					"level": null,
+					"name": "Shade of the Archmage",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 3310,
+					"level": null,
+					"name": "Lyn the Ignored",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 3311,
+					"level": null,
+					"name": "Atrexis the Grave Knight",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				},
+				{
+					"encounter": 3312,
+					"level": null,
+					"name": "Mana Wraith",
+					"npc": null,
+					"order": 9,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1416,
+				"x": 8.5,
+				"y": 59.2
+			},
+			"forever": true,
+			"key": "city-of-dalaran",
+			"kind": "dungeon",
+			"map": 2959,
+			"maxLevel": 28,
+			"minLevel": 28,
+			"name": "City of Dalaran",
+			"players": null,
+			"quests": [],
+			"zone": 1416,
+			"zoneName": "Alterac Mountains"
+		},
+		"deadmines": {
+			"bosses": [
+				{
+					"encounter": 2741,
+					"level": null,
+					"name": "Rhahk'Zor",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 2742,
+					"level": null,
+					"name": "Sneed",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 3676,
+					"level": null,
+					"name": "Miner Johnson",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 2743,
+					"level": null,
+					"name": "Gilnid",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 2744,
+					"level": null,
+					"name": "Captain Greenskin",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 2745,
+					"level": null,
+					"name": "Mr. Smite",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 2746,
+					"level": null,
+					"name": "Cookie",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 2747,
+					"level": null,
+					"name": "Edwin VanCleef",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1436,
+				"x": 42.5,
+				"y": 71.7
+			},
+			"forever": false,
+			"key": "deadmines",
+			"kind": "dungeon",
+			"map": 36,
+			"maxLevel": 16,
+			"minLevel": 16,
+			"name": "Deadmines",
+			"players": 10,
+			"quests": [],
+			"zone": 1436,
+			"zoneName": "Westfall"
+		},
+		"dire-maul": {
+			"bosses": [
+				{
+					"encounter": 343,
+					"level": null,
+					"name": "Zevrim Thornhoof",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 344,
+					"level": null,
+					"name": "Hydrospawn",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 345,
+					"level": null,
+					"name": "Lethtendris",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 2792,
+					"level": null,
+					"name": "Pusillin",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 346,
+					"level": null,
+					"name": "Alzzin the Wildshaper",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 350,
+					"level": null,
+					"name": "Tendris Warpwood",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 347,
+					"level": null,
+					"name": "Illyanna Ravenoak",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 348,
+					"level": null,
+					"name": "Magister Kalendris",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				},
+				{
+					"encounter": 349,
+					"level": null,
+					"name": "Immol'thar",
+					"npc": null,
+					"order": 9,
+					"quests": []
+				},
+				{
+					"encounter": 361,
+					"level": null,
+					"name": "Prince Tortheldrin",
+					"npc": null,
+					"order": 10,
+					"quests": []
+				},
+				{
+					"encounter": 362,
+					"level": null,
+					"name": "Guard Mol'dar",
+					"npc": null,
+					"order": 11,
+					"quests": []
+				},
+				{
+					"encounter": 363,
+					"level": null,
+					"name": "Stomper Kreeg",
+					"npc": null,
+					"order": 12,
+					"quests": []
+				},
+				{
+					"encounter": 364,
+					"level": null,
+					"name": "Guard Fengus",
+					"npc": null,
+					"order": 13,
+					"quests": []
+				},
+				{
+					"encounter": 365,
+					"level": null,
+					"name": "Guard Slip'kik",
+					"npc": null,
+					"order": 14,
+					"quests": []
+				},
+				{
+					"encounter": 366,
+					"level": null,
+					"name": "Captain Kromcrush",
+					"npc": null,
+					"order": 15,
+					"quests": []
+				},
+				{
+					"encounter": 367,
+					"level": null,
+					"name": "Cho'Rush the Observer",
+					"npc": null,
+					"order": 16,
+					"quests": []
+				},
+				{
+					"encounter": 368,
+					"level": null,
+					"name": "King Gordok",
+					"npc": null,
+					"order": 17,
+					"quests": []
+				},
+				{
+					"encounter": 2793,
+					"level": null,
+					"name": "Lord Hel'nurath",
+					"npc": null,
+					"order": 18,
+					"quests": []
+				},
+				{
+					"encounter": 2794,
+					"level": null,
+					"name": "Tsu'zee",
+					"npc": null,
+					"order": 19,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1444,
+				"x": 59.2,
+				"y": 45.1
+			},
+			"forever": false,
+			"key": "dire-maul",
+			"kind": "dungeon",
+			"map": 429,
+			"maxLevel": 54,
+			"minLevel": 54,
+			"name": "Dire Maul",
+			"players": 5,
+			"quests": [],
+			"zone": 1444,
+			"zoneName": "Feralas"
+		},
+		"excavation-site-wetlands": {
+			"bosses": [
+				{
+					"encounter": 3480,
+					"level": null,
+					"name": "Saltspine",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 3481,
+					"level": null,
+					"name": "Shadetooth",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 3644,
+					"level": null,
+					"name": "Highland Horror",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 3482,
+					"level": null,
+					"name": "Relic Guardian",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1437,
+				"x": 47.8,
+				"y": 56.2
+			},
+			"forever": true,
+			"key": "excavation-site-wetlands",
+			"kind": "dungeon",
+			"map": 2998,
+			"maxLevel": 26,
+			"minLevel": 26,
+			"name": "Excavation Site: Wetlands",
+			"players": null,
+			"quests": [],
+			"zone": 1437,
+			"zoneName": "Wetlands"
+		},
+		"gnomeregan": {
+			"bosses": [
+				{
+					"encounter": 2768,
+					"level": null,
+					"name": "Grubbis",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 2769,
+					"level": null,
+					"name": "Viscous Fallout",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 2770,
+					"level": null,
+					"name": "Electrocutioner 6000",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 2771,
+					"level": null,
+					"name": "Crowd Pummeler 9-60",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 2772,
+					"level": null,
+					"name": "Mekgineer Thermaplugg",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1426,
+				"x": 24.3,
+				"y": 39.8
+			},
+			"forever": false,
+			"key": "gnomeregan",
+			"kind": "dungeon",
+			"map": 90,
+			"maxLevel": 25,
+			"minLevel": 25,
+			"name": "Gnomeregan",
+			"players": 10,
+			"quests": [],
+			"zone": 1426,
+			"zoneName": "Dun Morogh"
+		},
+		"maraudon": {
+			"bosses": [
+				{
+					"encounter": 422,
+					"level": null,
+					"name": "Noxxion",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 423,
+					"level": null,
+					"name": "Razorlash",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 427,
+					"level": null,
+					"name": "Tinkerer Gizlock",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 424,
+					"level": null,
+					"name": "Lord Vyletongue",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 425,
+					"level": null,
+					"name": "Celebras the Cursed",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 426,
+					"level": null,
+					"name": "Landslide",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 428,
+					"level": null,
+					"name": "Rotgrip",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 429,
+					"level": null,
+					"name": "Princess Theradras",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1443,
+				"x": 29.1,
+				"y": 62.5
+			},
+			"forever": false,
+			"key": "maraudon",
+			"kind": "dungeon",
+			"map": 349,
+			"maxLevel": 42,
+			"minLevel": 42,
+			"name": "Maraudon",
+			"players": 10,
+			"quests": [],
+			"zone": 1443,
+			"zoneName": "Desolace"
+		},
+		"molten-core": {
+			"bosses": [
+				{
+					"encounter": 663,
+					"level": null,
+					"name": "Lucifron",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 664,
+					"level": null,
+					"name": "Magmadar",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 665,
+					"level": null,
+					"name": "Gehennas",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 666,
+					"level": null,
+					"name": "Garr",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 667,
+					"level": null,
+					"name": "Shazzrah",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 668,
+					"level": null,
+					"name": "Baron Geddon",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 669,
+					"level": null,
+					"name": "Sulfuron Harbinger",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 670,
+					"level": null,
+					"name": "Golemagg the Incinerator",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				},
+				{
+					"encounter": 671,
+					"level": null,
+					"name": "Majordomo Executus",
+					"npc": null,
+					"order": 9,
+					"quests": []
+				},
+				{
+					"encounter": 672,
+					"level": null,
+					"name": "Ragnaros",
+					"npc": null,
+					"order": 10,
+					"quests": []
+				},
+				{
+					"encounter": 3018,
+					"level": null,
+					"name": "The Molten Core",
+					"npc": null,
+					"order": 11,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1427,
+				"x": 34.8,
+				"y": 85.3
+			},
+			"forever": false,
+			"key": "molten-core",
+			"kind": "raid",
+			"map": 409,
+			"maxLevel": 60,
+			"minLevel": 60,
+			"name": "Molten Core",
+			"players": 40,
+			"quests": [],
+			"zone": 1427,
+			"zoneName": "Searing Gorge"
+		},
+		"naxxramas": {
+			"bosses": [
+				{
+					"encounter": 1107,
+					"level": null,
+					"name": "Anub'Rekhan",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 1110,
+					"level": null,
+					"name": "Grand Widow Faerlina",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 1116,
+					"level": null,
+					"name": "Maexxna",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 1117,
+					"level": null,
+					"name": "Noth the Plaguebringer",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 1112,
+					"level": null,
+					"name": "Heigan the Unclean",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 1115,
+					"level": null,
+					"name": "Loatheb",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 1113,
+					"level": null,
+					"name": "Instructor Razuvious",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 1109,
+					"level": null,
+					"name": "Gothik the Harvester",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				},
+				{
+					"encounter": 1121,
+					"level": null,
+					"name": "The Four Horsemen",
+					"npc": null,
+					"order": 9,
+					"quests": []
+				},
+				{
+					"encounter": 1118,
+					"level": null,
+					"name": "Patchwerk",
+					"npc": null,
+					"order": 10,
+					"quests": []
+				},
+				{
+					"encounter": 1111,
+					"level": null,
+					"name": "Grobbulus",
+					"npc": null,
+					"order": 11,
+					"quests": []
+				},
+				{
+					"encounter": 1108,
+					"level": null,
+					"name": "Gluth",
+					"npc": null,
+					"order": 12,
+					"quests": []
+				},
+				{
+					"encounter": 1120,
+					"level": null,
+					"name": "Thaddius",
+					"npc": null,
+					"order": 13,
+					"quests": []
+				},
+				{
+					"encounter": 1119,
+					"level": null,
+					"name": "Sapphiron",
+					"npc": null,
+					"order": 14,
+					"quests": []
+				},
+				{
+					"encounter": 1114,
+					"level": null,
+					"name": "Kel'Thuzad",
+					"npc": null,
+					"order": 15,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1423,
+				"x": 34.3,
+				"y": 19.5
+			},
+			"forever": false,
+			"key": "naxxramas",
+			"kind": "raid",
+			"map": 533,
+			"maxLevel": null,
+			"minLevel": null,
+			"name": "Naxxramas",
+			"players": 40,
+			"quests": [],
+			"zone": 1423,
+			"zoneName": "Eastern Plaguelands"
+		},
+		"onyxias-lair": {
+			"bosses": [
+				{
+					"encounter": 1084,
+					"level": null,
+					"name": "Onyxia",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1445,
+				"x": 52.6,
+				"y": 76.8
+			},
+			"forever": false,
+			"key": "onyxias-lair",
+			"kind": "raid",
+			"map": 249,
+			"maxLevel": null,
+			"minLevel": null,
+			"name": "Onyxia's Lair",
+			"players": 40,
+			"quests": [],
+			"zone": 1445,
+			"zoneName": "Dustwallow Marsh"
+		},
+		"ragefire-chasm": {
+			"bosses": [
+				{
+					"encounter": 2732,
+					"level": null,
+					"name": "Oggleflint",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 2733,
+					"level": null,
+					"name": "Taragaman the Hungerer",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 2734,
+					"level": 16,
+					"name": "Jergosh the Invoker",
+					"npc": 11518,
+					"order": 3,
+					"quests": [
+						{
+							"how": "kill",
+							"id": 5728
+						}
+					]
+				},
+				{
+					"encounter": 2735,
+					"level": 16,
+					"name": "Bazzalan",
+					"npc": 11519,
+					"order": 4,
+					"quests": [
+						{
+							"how": "kill",
+							"id": 5728
+						}
+					]
+				}
+			],
+			"chain": {
+				"5726": {
+					"bosses": [],
+					"chain": [],
+					"classes": null,
+					"faction": null,
+					"finish": {
+						"f": "e",
+						"id": 4949,
+						"inside": false,
+						"kind": "npc",
+						"map": 1454,
+						"name": "Thrall",
+						"x": 31.7,
+						"y": 37.8
+					},
+					"id": 5726,
+					"inside": false,
+					"level": 12,
+					"minLevel": 9,
+					"objectives": [
+						{
+							"id": 14544,
+							"k": "item",
+							"name": "Lieutenant's Insignia"
+						}
+					],
+					"rewards": {
+						"items": [],
+						"money": null,
+						"rep": [],
+						"xp": null
+					},
+					"shareable": null,
+					"start": {
+						"f": "e",
+						"id": 4949,
+						"inside": false,
+						"kind": "npc",
+						"map": 1454,
+						"name": "Thrall",
+						"x": 31.7,
+						"y": 37.8
+					},
+					"startItem": null,
+					"title": "Hidden Enemies"
+				},
+				"5727": {
+					"bosses": [],
+					"chain": [],
+					"classes": null,
+					"faction": null,
+					"finish": {
+						"f": "e",
+						"id": 4949,
+						"inside": false,
+						"kind": "npc",
+						"map": 1454,
+						"name": "Thrall",
+						"x": 31.7,
+						"y": 37.8
+					},
+					"id": 5727,
+					"inside": false,
+					"level": 12,
+					"minLevel": 9,
+					"objectives": null,
+					"rewards": {
+						"items": [],
+						"money": null,
+						"rep": [],
+						"xp": null
+					},
+					"shareable": null,
+					"start": {
+						"f": "e",
+						"id": 4949,
+						"inside": false,
+						"kind": "npc",
+						"map": 1454,
+						"name": "Thrall",
+						"x": 31.7,
+						"y": 37.8
+					},
+					"startItem": null,
+					"title": "Hidden Enemies"
+				}
+			},
+			"entrance": {
+				"f": null,
+				"map": 1454,
+				"x": 52.6,
+				"y": 49
+			},
+			"forever": false,
+			"key": "ragefire-chasm",
+			"kind": "dungeon",
+			"map": 389,
+			"maxLevel": 16,
+			"minLevel": 13,
+			"name": "Ragefire Chasm",
+			"players": 10,
+			"quests": [
+				{
+					"bosses": [],
+					"chain": [
+						5726,
+						5727
+					],
+					"classes": null,
+					"faction": null,
+					"finish": {
+						"f": "e",
+						"id": 4949,
+						"inside": false,
+						"kind": "npc",
+						"map": 1454,
+						"name": "Thrall",
+						"x": 31.7,
+						"y": 37.8
+					},
+					"id": 5728,
+					"inside": false,
+					"level": 16,
+					"minLevel": 9,
+					"objectives": [
+						{
+							"id": 11518,
+							"k": "kill",
+							"name": "Jergosh the Invoker"
+						},
+						{
+							"id": 11519,
+							"k": "kill",
+							"name": "Bazzalan"
+						}
+					],
+					"rewards": {
+						"items": [],
+						"money": null,
+						"rep": [],
+						"xp": null
+					},
+					"shareable": null,
+					"start": {
+						"f": "e",
+						"id": 4949,
+						"inside": false,
+						"kind": "npc",
+						"map": 1454,
+						"name": "Thrall",
+						"x": 31.7,
+						"y": 37.8
+					},
+					"startItem": null,
+					"title": "Hidden Enemies"
+				}
+			],
+			"zone": 1454,
+			"zoneName": "Orgrimmar"
+		},
+		"razorfen-downs": {
+			"bosses": [
+				{
+					"encounter": 2780,
+					"level": null,
+					"name": "Tuten'kash",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 2781,
+					"level": null,
+					"name": "Plaguemaw the Rotting",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 2782,
+					"level": null,
+					"name": "Mordresh Fire Eye",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 2783,
+					"level": null,
+					"name": "Ragglesnout",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 2784,
+					"level": null,
+					"name": "Glutton",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 2785,
+					"level": 41,
+					"name": "Amnennar the Coldbringer",
+					"npc": 7358,
+					"order": 6,
+					"quests": [
+						{
+							"how": "kill",
+							"id": 3636
+						}
+					]
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1413,
+				"x": 49,
+				"y": 93.9
+			},
+			"forever": false,
+			"key": "razorfen-downs",
+			"kind": "dungeon",
+			"map": 129,
+			"maxLevel": 41,
+			"minLevel": 35,
+			"name": "Razorfen Downs",
+			"players": 10,
+			"quests": [
+				{
+					"bosses": [],
+					"chain": [],
+					"classes": null,
+					"faction": null,
+					"finish": {
+						"f": "e",
+						"id": 1284,
+						"inside": false,
+						"kind": "npc",
+						"map": 1453,
+						"name": "Archbishop Benedictus",
+						"x": 39.6,
+						"y": 27.2
+					},
+					"id": 3636,
+					"inside": false,
+					"level": 42,
+					"minLevel": 39,
+					"objectives": [
+						{
+							"id": 7358,
+							"k": "kill",
+							"name": "Amnennar the Coldbringer"
+						}
+					],
+					"rewards": {
+						"items": [],
+						"money": null,
+						"rep": [],
+						"xp": null
+					},
+					"shareable": null,
+					"start": {
+						"f": "e",
+						"id": 1284,
+						"inside": false,
+						"kind": "npc",
+						"map": 1453,
+						"name": "Archbishop Benedictus",
+						"x": 39.6,
+						"y": 27.2
+					},
+					"startItem": null,
+					"title": "Bring the Light"
+				}
+			],
+			"zone": 1413,
+			"zoneName": "The Barrens"
+		},
+		"razorfen-kraul": {
+			"bosses": [
+				{
+					"encounter": 2773,
+					"level": null,
+					"name": "Roogug",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 2774,
+					"level": null,
+					"name": "Aggem Thorncurse",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 2775,
+					"level": null,
+					"name": "Death Speaker Jargba",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 2776,
+					"level": null,
+					"name": "Overlord Ramtusk",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 2777,
+					"level": null,
+					"name": "Agathelos the Raging",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 2778,
+					"level": null,
+					"name": "Charlga Razorflank",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1413,
+				"x": 42.9,
+				"y": 90.2
+			},
+			"forever": false,
+			"key": "razorfen-kraul",
+			"kind": "dungeon",
+			"map": 47,
+			"maxLevel": 25,
+			"minLevel": 25,
+			"name": "Razorfen Kraul",
+			"players": 10,
+			"quests": [],
+			"zone": 1413,
+			"zoneName": "The Barrens"
+		},
+		"ruins-of-ahnqiraj": {
+			"bosses": [
+				{
+					"encounter": 718,
+					"level": null,
+					"name": "Kurinnaxx",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 719,
+					"level": null,
+					"name": "General Rajaxx",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 720,
+					"level": null,
+					"name": "Moam",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 721,
+					"level": null,
+					"name": "Buru the Gorger",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 722,
+					"level": null,
+					"name": "Ayamiss the Hunter",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 723,
+					"level": null,
+					"name": "Ossirian the Unscarred",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1451,
+				"x": 28.6,
+				"y": 92.3
+			},
+			"forever": false,
+			"key": "ruins-of-ahnqiraj",
+			"kind": "raid",
+			"map": 509,
+			"maxLevel": null,
+			"minLevel": null,
+			"name": "Ruins of Ahn'Qiraj",
+			"players": 20,
+			"quests": [],
+			"zone": 1451,
+			"zoneName": "Silithus"
+		},
+		"ruins-of-lordaeron": {
+			"bosses": [
+				{
+					"encounter": 3353,
+					"level": null,
+					"name": "Witherfang",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 3357,
+					"level": null,
+					"name": "The Abandoned",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 3355,
+					"level": null,
+					"name": "The Butcher",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 3354,
+					"level": null,
+					"name": "Rath'mael",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 3408,
+					"level": null,
+					"name": "Lordaeron Captain",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 3411,
+					"level": null,
+					"name": "Viktor the Vile",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 3412,
+					"level": null,
+					"name": "Bjork",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1420,
+				"x": 63.2,
+				"y": 67.5
+			},
+			"forever": true,
+			"key": "ruins-of-lordaeron",
+			"kind": "dungeon",
+			"map": 2999,
+			"maxLevel": 15,
+			"minLevel": 15,
+			"name": "Ruins of Lordaeron",
+			"players": null,
+			"quests": [],
+			"zone": 1420,
+			"zoneName": "Tirisfal Glades"
+		},
+		"scarlet-monastery": {
+			"bosses": [
+				{
+					"encounter": 444,
+					"level": null,
+					"name": "Interrogator Vishas",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 2779,
+					"level": null,
+					"name": "Bloodmage Thalnos",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 446,
+					"level": null,
+					"name": "Houndmaster Loksey",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 447,
+					"level": null,
+					"name": "Arcanist Doan",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 448,
+					"level": null,
+					"name": "Herod",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 449,
+					"level": null,
+					"name": "High Inquisitor Fairbanks",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 450,
+					"level": null,
+					"name": "High Inquisitor Whitemane",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1420,
+				"x": 82.6,
+				"y": 33.8
+			},
+			"forever": false,
+			"key": "scarlet-monastery",
+			"kind": "dungeon",
+			"map": 189,
+			"maxLevel": 30,
+			"minLevel": 30,
+			"name": "Scarlet Monastery",
+			"players": 10,
+			"quests": [],
+			"zone": 1420,
+			"zoneName": "Tirisfal Glades"
+		},
+		"scholomance": {
+			"bosses": [
+				{
+					"encounter": 2805,
+					"level": null,
+					"name": "Kirtonos",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 2804,
+					"level": null,
+					"name": "Jandice Barov",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 2811,
+					"level": null,
+					"name": "Rattlegore",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 2809,
+					"level": null,
+					"name": "Marduk Blackpool",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 2813,
+					"level": null,
+					"name": "Vectus",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 3055,
+					"level": null,
+					"name": "Kormok",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 2810,
+					"level": null,
+					"name": "Ras Frostwhisperer",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 2803,
+					"level": null,
+					"name": "Instructor Malicia",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				},
+				{
+					"encounter": 2802,
+					"level": null,
+					"name": "Doctor Theolen Krastinov",
+					"npc": null,
+					"order": 9,
+					"quests": []
+				},
+				{
+					"encounter": 2808,
+					"level": null,
+					"name": "Lorekeeper Polkelt",
+					"npc": null,
+					"order": 10,
+					"quests": []
+				},
+				{
+					"encounter": 2812,
+					"level": null,
+					"name": "The Ravenian",
+					"npc": null,
+					"order": 11,
+					"quests": []
+				},
+				{
+					"encounter": 2807,
+					"level": null,
+					"name": "Lord Alexei Barov",
+					"npc": null,
+					"order": 12,
+					"quests": []
+				},
+				{
+					"encounter": 2806,
+					"level": null,
+					"name": "Lady Illucia Barov",
+					"npc": null,
+					"order": 13,
+					"quests": []
+				},
+				{
+					"encounter": 2801,
+					"level": null,
+					"name": "Darkmaster Gandling",
+					"npc": null,
+					"order": 14,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1422,
+				"x": 69.7,
+				"y": 73.2
+			},
+			"forever": false,
+			"key": "scholomance",
+			"kind": "dungeon",
+			"map": 289,
+			"maxLevel": 57,
+			"minLevel": 57,
+			"name": "Scholomance",
+			"players": 5,
+			"quests": [],
+			"zone": 1422,
+			"zoneName": "Western Plaguelands"
+		},
+		"shadowfang-keep": {
+			"bosses": [
+				{
+					"encounter": 2748,
+					"level": null,
+					"name": "Rethilgore",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 2749,
+					"level": null,
+					"name": "Razorclaw the Butcher",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 2750,
+					"level": null,
+					"name": "Baron Silverlaine",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 2751,
+					"level": null,
+					"name": "Commander Springvale",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 2752,
+					"level": null,
+					"name": "Odo the Blindwatcher",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 2753,
+					"level": null,
+					"name": "Fenrus the Devourer",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 2754,
+					"level": null,
+					"name": "Wolf Master Nandos",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 2755,
+					"level": null,
+					"name": "Archmage Arugal",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1421,
+				"x": 44.8,
+				"y": 67.8
+			},
+			"forever": false,
+			"key": "shadowfang-keep",
+			"kind": "dungeon",
+			"map": 33,
+			"maxLevel": 18,
+			"minLevel": 18,
+			"name": "Shadowfang Keep",
+			"players": 10,
+			"quests": [],
+			"zone": 1421,
+			"zoneName": "Silverpine Forest"
+		},
+		"stormwind-stockade": {
+			"bosses": [
+				{
+					"encounter": 2756,
+					"level": null,
+					"name": "Targorr the Dread",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 2757,
+					"level": null,
+					"name": "Kam Deepfury",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 2758,
+					"level": null,
+					"name": "Hamhock",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 2759,
+					"level": null,
+					"name": "Dextren Ward",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 2760,
+					"level": null,
+					"name": "Bazil Thredd",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1453,
+				"x": 52.4,
+				"y": 70
+			},
+			"forever": false,
+			"key": "stormwind-stockade",
+			"kind": "dungeon",
+			"map": 34,
+			"maxLevel": 23,
+			"minLevel": 23,
+			"name": "Stormwind Stockade",
+			"players": 10,
+			"quests": [],
+			"zone": 1453,
+			"zoneName": "Stormwind City"
+		},
+		"stratholme": {
+			"bosses": [
+				{
+					"encounter": 473,
+					"level": null,
+					"name": "Hearthsinger Forresten",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 474,
+					"level": null,
+					"name": "Timmy the Cruel",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 476,
+					"level": null,
+					"name": "Malor the Zealous",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 475,
+					"level": null,
+					"name": "Cannon Master Willey",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 477,
+					"level": null,
+					"name": "Archivist Galford",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 478,
+					"level": null,
+					"name": "Balnazzar",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 472,
+					"level": null,
+					"name": "The Unforgiven",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 479,
+					"level": null,
+					"name": "Baroness Anastari",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				},
+				{
+					"encounter": 480,
+					"level": null,
+					"name": "Nerub'enkan",
+					"npc": null,
+					"order": 9,
+					"quests": []
+				},
+				{
+					"encounter": 481,
+					"level": null,
+					"name": "Maleki the Pallid",
+					"npc": null,
+					"order": 10,
+					"quests": []
+				},
+				{
+					"encounter": 482,
+					"level": null,
+					"name": "Magistrate Barthilas",
+					"npc": null,
+					"order": 11,
+					"quests": []
+				},
+				{
+					"encounter": 483,
+					"level": null,
+					"name": "Ramstein the Gorger",
+					"npc": null,
+					"order": 12,
+					"quests": []
+				},
+				{
+					"encounter": 484,
+					"level": null,
+					"name": "Baron Rivendare",
+					"npc": null,
+					"order": 13,
+					"quests": []
+				},
+				{
+					"encounter": 2795,
+					"level": null,
+					"name": "Black Guard Swordsmith",
+					"npc": null,
+					"order": 14,
+					"quests": []
+				},
+				{
+					"encounter": 2796,
+					"level": null,
+					"name": "Crimson Hammersmith",
+					"npc": null,
+					"order": 15,
+					"quests": []
+				},
+				{
+					"encounter": 2797,
+					"level": null,
+					"name": "Ezra Grimm",
+					"npc": null,
+					"order": 16,
+					"quests": []
+				},
+				{
+					"encounter": 2798,
+					"level": null,
+					"name": "Postmaster Malown",
+					"npc": null,
+					"order": 17,
+					"quests": []
+				},
+				{
+					"encounter": 2799,
+					"level": null,
+					"name": "Skul",
+					"npc": null,
+					"order": 18,
+					"quests": []
+				},
+				{
+					"encounter": 2800,
+					"level": null,
+					"name": "Stonespine",
+					"npc": null,
+					"order": 19,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1423,
+				"x": 26.5,
+				"y": 10.4
+			},
+			"forever": false,
+			"key": "stratholme",
+			"kind": "dungeon",
+			"map": 329,
+			"maxLevel": 55,
+			"minLevel": 55,
+			"name": "Stratholme",
+			"players": 5,
+			"quests": [],
+			"zone": 1423,
+			"zoneName": "Eastern Plaguelands"
+		},
+		"sunken-temple": {
+			"bosses": [
+				{
+					"encounter": 3582,
+					"level": null,
+					"name": "Atal'alarion",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 3583,
+					"level": null,
+					"name": "Avatar of Hakkar",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 3584,
+					"level": null,
+					"name": "Shade of Eranikus",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 3585,
+					"level": null,
+					"name": "Hazzas",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 3586,
+					"level": null,
+					"name": "Morphaz",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 3587,
+					"level": null,
+					"name": "Weaver",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 3588,
+					"level": null,
+					"name": "Dreamscythe",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 3589,
+					"level": null,
+					"name": "Jammal'an the Prophet",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1435,
+				"x": 69.9,
+				"y": 53.5
+			},
+			"forever": false,
+			"key": "sunken-temple",
+			"kind": "dungeon",
+			"map": 109,
+			"maxLevel": 45,
+			"minLevel": 45,
+			"name": "Sunken Temple",
+			"players": 20,
+			"quests": [],
+			"zone": 1435,
+			"zoneName": "Swamp of Sorrows"
+		},
+		"the-hall-of-thanes": {
+			"bosses": [
+				{
+					"encounter": 3493,
+					"level": null,
+					"name": "Faldrim Anvilmar",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 3495,
+					"level": null,
+					"name": "Infurnus",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 3494,
+					"level": null,
+					"name": "Plunder",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 3496,
+					"level": null,
+					"name": "Durgen Dirgehammer",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1455,
+				"x": 27.6,
+				"y": 47.8
+			},
+			"forever": true,
+			"key": "the-hall-of-thanes",
+			"kind": "dungeon",
+			"map": 3065,
+			"maxLevel": 13,
+			"minLevel": 13,
+			"name": "The Hall of Thanes",
+			"players": null,
+			"quests": [],
+			"zone": 1455,
+			"zoneName": "Ironforge"
+		},
+		"uldaman": {
+			"bosses": [
+				{
+					"encounter": 547,
+					"level": null,
+					"name": "Revelosh",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 548,
+					"level": null,
+					"name": "The Lost Dwarves",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 549,
+					"level": null,
+					"name": "Ironaya",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 1887,
+					"level": null,
+					"name": "Obsidian Sentinel",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 551,
+					"level": null,
+					"name": "Ancient Stone Keeper",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 552,
+					"level": null,
+					"name": "Galgann Firehammer",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 553,
+					"level": null,
+					"name": "Grimlok",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 554,
+					"level": null,
+					"name": "Archaedas",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1418,
+				"x": 44.6,
+				"y": 12.1
+			},
+			"forever": false,
+			"key": "uldaman",
+			"kind": "dungeon",
+			"map": 70,
+			"maxLevel": 35,
+			"minLevel": 35,
+			"name": "Uldaman",
+			"players": 10,
+			"quests": [],
+			"zone": 1418,
+			"zoneName": "Badlands"
+		},
+		"wailing-caverns": {
+			"bosses": [
+				{
+					"encounter": 585,
+					"level": null,
+					"name": "Lady Anacondra",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 586,
+					"level": null,
+					"name": "Lord Cobrahn",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 587,
+					"level": null,
+					"name": "Kresh",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 588,
+					"level": null,
+					"name": "Lord Pythas",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 589,
+					"level": null,
+					"name": "Skum",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 590,
+					"level": null,
+					"name": "Lord Serpentis",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 591,
+					"level": null,
+					"name": "Verdan the Everliving",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 592,
+					"level": null,
+					"name": "Mutanus the Devourer",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1413,
+				"x": 46,
+				"y": 36.5
+			},
+			"forever": false,
+			"key": "wailing-caverns",
+			"kind": "dungeon",
+			"map": 43,
+			"maxLevel": 17,
+			"minLevel": 17,
+			"name": "Wailing Caverns",
+			"players": 10,
+			"quests": [],
+			"zone": 1413,
+			"zoneName": "The Barrens"
+		},
+		"zulfarrak": {
+			"bosses": [
+				{
+					"encounter": 593,
+					"level": null,
+					"name": "Hydromancer Velratha",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 594,
+					"level": null,
+					"name": "Gahz'rilla",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 595,
+					"level": null,
+					"name": "Antu'sul",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 596,
+					"level": null,
+					"name": "Theka the Martyr",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 597,
+					"level": null,
+					"name": "Witch Doctor Zum'rah",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 598,
+					"level": null,
+					"name": "Nekrum Gutchewer",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 599,
+					"level": null,
+					"name": "Shadowpriest Sezz'ziz",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 600,
+					"level": null,
+					"name": "Chief Ukorz Sandscalp",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1446,
+				"x": 38.7,
+				"y": 20.1
+			},
+			"forever": false,
+			"key": "zulfarrak",
+			"kind": "dungeon",
+			"map": 209,
+			"maxLevel": 42,
+			"minLevel": 42,
+			"name": "Zul'Farrak",
+			"players": 10,
+			"quests": [],
+			"zone": 1446,
+			"zoneName": "Tanaris"
+		},
+		"zulgurub": {
+			"bosses": [
+				{
+					"encounter": 785,
+					"level": null,
+					"name": "High Priestess Jeklik",
+					"npc": null,
+					"order": 1,
+					"quests": []
+				},
+				{
+					"encounter": 784,
+					"level": null,
+					"name": "High Priest Venoxis",
+					"npc": null,
+					"order": 2,
+					"quests": []
+				},
+				{
+					"encounter": 786,
+					"level": null,
+					"name": "High Priestess Mar'li",
+					"npc": null,
+					"order": 3,
+					"quests": []
+				},
+				{
+					"encounter": 787,
+					"level": null,
+					"name": "Bloodlord Mandokir",
+					"npc": null,
+					"order": 4,
+					"quests": []
+				},
+				{
+					"encounter": 788,
+					"level": null,
+					"name": "Edge of Madness",
+					"npc": null,
+					"order": 5,
+					"quests": []
+				},
+				{
+					"encounter": 789,
+					"level": null,
+					"name": "High Priest Thekal",
+					"npc": null,
+					"order": 6,
+					"quests": []
+				},
+				{
+					"encounter": 790,
+					"level": null,
+					"name": "Gahz'ranka",
+					"npc": null,
+					"order": 7,
+					"quests": []
+				},
+				{
+					"encounter": 791,
+					"level": null,
+					"name": "High Priestess Arlokk",
+					"npc": null,
+					"order": 8,
+					"quests": []
+				},
+				{
+					"encounter": 792,
+					"level": null,
+					"name": "Jin'do the Hexxer",
+					"npc": null,
+					"order": 9,
+					"quests": []
+				},
+				{
+					"encounter": 793,
+					"level": null,
+					"name": "Hakkar",
+					"npc": null,
+					"order": 10,
+					"quests": []
+				}
+			],
+			"chain": {},
+			"entrance": {
+				"f": null,
+				"map": 1434,
+				"x": 53.9,
+				"y": 17.6
+			},
+			"forever": false,
+			"key": "zulgurub",
+			"kind": "raid",
+			"map": 309,
+			"maxLevel": 60,
+			"minLevel": 60,
+			"name": "Zul'Gurub",
+			"players": 20,
+			"quests": [],
+			"zone": 1434,
+			"zoneName": "Stranglethorn Vale"
+		}
+	},
+	"meta": {
+		"counts": {
+			"attunements": 0,
+			"dungeons": 30,
+			"entrances": 30,
+			"quests": 3
+		},
+		"schema": 3
+	}
+}

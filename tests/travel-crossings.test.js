@@ -11,7 +11,7 @@ const { spawnSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
 const { buildTravel, writeTravel } = require('../tools/lib/travel/build');
-const { validateCrossings, readCrossingsFile } = require('../tools/lib/travel/crossings');
+const { validateCrossings, readCrossingsFile, crossingsLua } = require('../tools/lib/travel/crossings');
 const { Frames } = require('../tools/lib/travel/geo');
 const { planRoute } = require('../tools/lib/travel/route');
 const { ROOT } = require('./helpers/lua');
@@ -88,6 +88,24 @@ test('validation names every malformed entry', () => {
 	assert.deepEqual(chains.map((c) => c.id), ['ok', 'bad-open']);
 
 	assert.deepEqual(validateCrossings({ crossings: {} }, frames).errors, ['crossings file: schema undefined (expected 1)', 'crossings file: crossings must be an array']);
+});
+
+test('a crossing end may give the height of the floor the walk to it ends on (z); TravelData.lua carries it', () => {
+	const end = (map, x, y, more = {}) => ({ map, x, y, radius: 15, ...more });
+	const doc = {
+		schema: 1,
+		crossings: [
+			{ id: 'lift', a: end(1429, 32, 50, { z: 63.04 }), b: end(1453, 69, 85, { z: -44 }) },
+			{ id: 'flat', a: end(1429, 32, 50), b: end(1453, 69, 85) },
+			{ id: 'bad-z', a: end(1429, 32, 50, { z: 'high' }), b: end(1453, 69, 85) },
+		],
+	};
+	const set = validateCrossings(doc, frames);
+	assert.deepEqual(set.errors, ['crossings[2] (bad-z).a: z (the floor\'s height, yards) must be a number']);
+	assert.deepEqual(set.crossings.map((c) => [c.id, c.a.z, c.b.z]), [['lift', 63, -44], ['flat', undefined, undefined]]);
+	const lua = crossingsLua({ crossings: set.crossings, open: [], chains: [] }, frames, { complete: true, live: {} }).join('\n');
+	assert.match(lua, /id = "lift", a = \{ map = 1429, c = 0, wx = [-\d.]+, wy = [-\d.]+, z = 63, r = 15 \}, b = \{ [^}]*, z = -44, r = 15 \}/);
+	assert.match(lua, /id = "flat", a = \{ map = 1429, c = 0, wx = [-\d.]+, wy = [-\d.]+, r = 15 \}/);
 });
 
 test('the crossings file is optional; a broken one stops the build with its errors', async () => {
@@ -221,10 +239,10 @@ test('travel import keeps the open borders of the file it replaces, and says whe
 	assert.deepEqual([fresh.source, fresh.open], ['test', undefined]);
 });
 
-// The shipped crossings (tools/lib/travel/crossings.json, in TravelData.lua),
+// The shipped crossings (data/crossings.json, in TravelData.lua),
 // on the real maps when this checkout has them built.
 const SHIPPED = require('../tools/lib/travel/build').SHIPPED_CROSSINGS;
-const realData = fs.existsSync(path.join(DATA, 'map-frames.json')) || 'data/forever not built (node tools/polestar.js data build)';
+const realData = fs.existsSync(path.join(DATA, 'map-frames.json')) || 'data/forever not built (forge data build)';
 
 // Fitz, 2026-10-16: from the Barrens (61.66,35.46) to his map marker by
 // Astranaar (Ashenvale 41.21,47.97), a Horde character who knows Ratchet,

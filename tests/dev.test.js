@@ -170,7 +170,7 @@ test('without reference data dev prints one error and exits instead of watching'
 	assert.equal(code, 1, d.out());
 	assert.equal(d.out().split('\n').filter((l) => /error:/.test(l)).length, 1, d.out());
 	assert.match(d.out(), new RegExp(`${missing.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}: error: no reference data: the folder does not exist`));
-	assert.match(d.out(), /hint: run `node tools\/polestar\.js data build`, or pass --data <dir>; --no-data/);
+	assert.match(d.out(), /hint: run `forge data build`, or pass --data <dir>; --no-data/);
 	assert.match(d.out(), /dev: not started: no reference data\n$/);
 	assert.doesNotMatch(d.out(), /watching|\.guide/);
 	assert.deepEqual(fs.readdirSync(dest), []);

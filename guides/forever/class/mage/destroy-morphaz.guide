@@ -13,11 +13,10 @@ why Experience at 50 through Azshara and the Sunken Temple; Forever removed the 
 # The Siren's Coral (8252) and Destroy Morphaz (8253).
 # Levels 50-54: the Forever beta stops at 30 until launch on 4 November, so
 # this guide is based on data, not play.
-# Forever change (Wowhead Forever's Mage class page,
-# data/local/quest-audit/wowhead-class-quests.json): Destroy Morphaz no longer
-# offers the Arcane Crystal Pendant, Fire Ruby or Glacial Spike; Wowhead
-# Forever (https://www.wowhead.com/forever/quest=8253, checked 2026-10-14) does
-# not name what it gives instead, so the guide names no reward. 8250-8252 are
+# Forever change (Forever's Mage class quest list,
+# data/local/quest-audit/): Destroy Morphaz no longer
+# offers the Arcane Crystal Pendant, Fire Ruby or Glacial Spike; Forever's
+# quest data (quest 8253, checked 2026-10-14) does not name what it gives instead, so the guide names no reward. 8250-8252 are
 # unchanged.
 # Sources: quests.json, npcs.json and items.json for the givers, Sanath Lim-yo,
 # Archmage Xylem and the blood elves and sirens that drop the dust and coral;

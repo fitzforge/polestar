@@ -14,7 +14,7 @@ local ns = select(2, ...)
 -- A cell holds its base surface and, where surfaces overlap (a tunnel under a mountain, a city under ruins, both
 -- ends of a lift), floors above or below it. A node is a local cell (the base surface) or C * C + a floor's index.
 -- A map of format 2 also carries a ground class byte per node (the class field, Routing/Costs.lua) and graph edges
--- priced per profile with their yards (adjacent), and may carry the zone of each cluster's 16 x 16 chunks (the zone
+-- priced per profile with their yards (edgeValue), and may carry the zone of each cluster's 16 x 16 chunks (the zone
 -- field, zoneAt); format 1 maps (0.2.4's) have no classes (class 0 everywhere) and one edge cost for every profile.
 -- This file holds the decoded maps, their memory ceilings, frame slicing and string-pulling; Path.lua searches them
 -- and PathJobs.lua schedules the searches.
@@ -27,6 +27,7 @@ Path.clusters = 64 -- secondary count ceiling per map (at least 4)
 Path.graphKB = 4096 -- decoded entrances/edges across all maps while a search runs
 Path.graphRestKB = 4096 -- the same with no search queued (Idle trims to it)
 Path.cacheKB = 24576 -- decoded grids across all maps; active coroutine locals are additional
+Path.endsMax = 256  -- max cached endpoint-connection entries; raise offline to avoid repeated connect() searches
 Path.clock = debugprofilestop or function()
 	return os.clock() * 1000
 end
@@ -35,7 +36,7 @@ local TILE = 1600 / 3
 local SNAP = 6 -- cells searched around an off-grid endpoint
 local ZTOL = 10 -- an endpoint stands on a surface within this height (yd)
 local CHECK = 64 -- expansions between clock reads
-local EDGE1, EDGE2 = 7, 14 -- symbols in a graph edge record of format 1 and format 2 (adjacent)
+local EDGE1, EDGE2 = 7, 14 -- symbols in a graph edge record of format 1 and format 2 (edges)
 
 local byte, floor, sqrt, huge, max, abs = string.byte, math.floor, math.sqrt, math.huge, math.max, math.abs
 local yield = coroutine.yield
@@ -169,6 +170,7 @@ local function State(map)
 			at = {}, -- [k][node + 1] = a floor's local cell; [k][-(lc + 1)] = the cell's first floor node
 			links = {}, -- [k][node + 1] = { direction + 8 * (layer + 1), ... } steps besides the base grid's
 			cls = {}, -- [k][node + 1] = ground class byte (Routing/Costs.lua); ZERO for a cluster without classes
+			area = {}, -- [k] = the cluster's area field string (maps format 3; nodeArea reads it), kept while it is decoded
 			graphUsed = {},
 			graphSize = {},
 			nodes = {}, -- [k] = entrance ids (k * 4096 + i)
@@ -177,7 +179,7 @@ local function State(map)
 			ncomp = {},
 			ends = {}, -- bounded local connections, shared by successive endpoint batches
 			endCount = 0,
-			nadj = {}, -- [id] = decoded edges, adjacent's layout (format 1: 3 values an edge, format 2: 5)
+			nadj = {}, -- [id] = the position of its first edge record in its cluster's graph string (edges)
 		}
 		states[map] = st
 	end
@@ -493,7 +495,7 @@ local function evict(st, oldest)
 	decodedKB, decodedCount = decodedKB - st.sizes[oldest], decodedCount - 1
 	st.sizes[oldest], st.used[oldest] = nil, nil
 	st.val[oldest], st.moves[oldest], st.z[oldest], st.at[oldest], st.links[oldest] = nil, nil, nil, nil, nil
-	st.cls[oldest] = nil
+	st.cls[oldest], st.area[oldest] = nil, nil
 	st.decoded = st.decoded - 1
 end
 
@@ -531,12 +533,16 @@ local function grid(st, k)
 		local size = gridSize(val, at, links, cls)
 		trim(st, size)
 		st.val[k], st.moves[k], st.z[k], st.at[k], st.links[k], st.cls[k] = val, m, z, at, links, cls
+		st.area[k] = unpackField(st.D, "area", k + 1) or false
 		st.sizes[k], st.decoded, decodedKB = size, st.decoded + 1, decodedKB + size
 		decodedCount = decodedCount + 1
 		if st.D.packed then
 			st.D.grid[k + 1], st.D.height[k + 1], st.D.floor[k + 1] = nil, nil, nil
 			if st.D.class then
 				st.D.class[k + 1] = nil
+			end
+			if st.D.area then
+				st.D.area[k + 1] = nil
 			end
 		end
 	end
@@ -635,17 +641,14 @@ local function decodeGraph(st, k)
 	local n, pos = num(s, 1, 2), 3
 	st.graphSize[k] = (n * 288 + 128 + (st.D.packed and #s or 0)) / 1024
 	graphKB = graphKB + st.graphSize[k]
-	local degree = {}
 	for i = 0, n - 1 do
-		local id = k * 4096 + i
-		ids[i + 1] = id
-		degree[i + 1] = B64[byte(s, pos + 6)]
-		pos = pos + 7
+		ids[i + 1] = k * 4096 + i
 	end
 	local width = st.classed and EDGE2 or EDGE1
+	pos = pos + n * 7
 	for i = 1, n do
 		st.nadj[ids[i]] = pos
-		pos = pos + degree[i] * width
+		pos = pos + B64[byte(s, 3 + (i - 1) * 7 + 6)] * width
 	end
 	return ids
 end
@@ -667,43 +670,37 @@ local function metadata(st, id)
 	return st.ncell[id], st.nlayer[id], st.ncomp[id]
 end
 
--- Most entrances in a visited cluster are never expanded. Decode their edges only when needed.
--- graph[k + 1] is n(2) | n x [cell(3) layer(1) component(2) degree(1)] | the edges in node order, each an edge record:
+-- An entrance's edges stay in the graph string; a search reads each record where it lies (edges, edgeTarget,
+-- edgeValue). graph[k + 1] is n(2) | n x [cell(3) layer(1) component(2) degree(1)] | the edges in node order, each an
+-- edge record:
 --   format 1 (7 symbols): cluster offset(1) ((dx + 1) * 3 + dy + 1), node(2), cost(2) swimming with water at swim,
---     cost(2) walking on water, in running yards. Decoded: target, cost swimming, cost walking on water.
+--     cost(2) walking on water, in running yards. Values: 1 cost swimming, 2 cost walking on water.
 --   format 2 (a map with the class field, 14 symbols): cluster offset(1), node(2), costAlliance(3), costHorde(3),
 --     costNone(3), yards(2): the edge's grid path priced under each profile's multipliers (Routing/Costs.lua, no
---     profile for costNone, water at swim) and its walked length in yards. Decoded: target, costAlliance, costHorde,
---     costNone, yards. This decoder is the layout's one definition: the packer writes what it reads.
-local function adjacent(st, id)
-	local adj = st.nadj[id]
-	if type(adj) == "number" then
-		local k, pos = floor(id / 4096), adj
-		local s = st.D.graph[k + 1]
-		adj = {}
-		local classed, n = st.classed, 0
-		for _ = 1, B64[byte(s, 9 + (id % 4096) * 7)] do
-			local offset = B64[byte(s, pos)]
-			local target = k + (floor(offset / 3) - 1) * st.ny + offset % 3 - 1
-			adj[n + 1] = target * 4096 + num(s, pos + 1, 2)
-			if classed then
-				adj[n + 2], adj[n + 3], adj[n + 4] = num(s, pos + 3, 3), num(s, pos + 6, 3), num(s, pos + 9, 3)
-				adj[n + 5] = num(s, pos + 12, 2)
-				n, pos = n + 5, pos + EDGE2
-			else
-				adj[n + 2], adj[n + 3] = num(s, pos + 3, 2), num(s, pos + 5, 2)
-				n, pos = n + 3, pos + EDGE1
-			end
+--     profile for costNone, water at swim) and its walked length in yards. Values: 1 costAlliance, 2 costHorde,
+--     3 costNone, 4 yards. These readers are the layout's one definition: the packer writes what they read.
+-- An entrance's graph string (its cluster's graph decoded: nodesOf), its first record's position, its record count
+-- and the record width.
+local function edges(st, id)
+	local s = st.D.graph[floor(id / 4096) + 1]
+	return s, st.nadj[id], B64[byte(s, 9 + (id % 4096) * 7)], st.classed and EDGE2 or EDGE1
+end
+
+-- The target entrance of the record at pos of cluster k's graph string s.
+local function edgeTarget(st, s, pos, k)
+	local offset = B64[byte(s, pos)]
+	return (k + (floor(offset / 3) - 1) * st.ny + offset % 3 - 1) * 4096 + num(s, pos + 1, 2)
+end
+
+-- Value i of the record at pos (the numbering above).
+local function edgeValue(st, s, pos, i)
+	if st.classed then
+		if i == 4 then
+			return num(s, pos + 12, 2)
 		end
-		st.nadj[id] = adj
-		local capacity = 1
-		while capacity < #adj do
-			capacity = capacity * 2
-		end
-		local size = (64 + capacity * 16) / 1024
-		st.graphSize[k], graphKB = st.graphSize[k] + size, graphKB + size
+		return num(s, pos + 3 * i, 3)
 	end
-	return adj
+	return num(s, pos + 1 + 2 * i, 2)
 end
 
 -- An entrance's node in its cluster.
@@ -929,6 +926,29 @@ local function zoneAt(st, k, lc)
 	return nil
 end
 
+-- The area field (maps format 3; tools/lib/nav/pack.js HEADER): node's WMOAreaTable row id in decoded cluster k (the
+-- client's subzone on that floor), read straight from its string (kept with the cluster's grid: the reader asks a few
+-- nodes now and then, so nothing more is decoded); 0 in none, or on a map or cluster without the field.
+local function nodeArea(st, k, node)
+	local s = st.area[k]
+	if not s then
+		return 0
+	end
+	local i, n, value = 1, -1, 0
+	while i <= #s do
+		local a = B64[byte(s, i)]
+		if a < 48 then
+			value, n, i = (a * 64 + B64[byte(s, i + 1)]) * 64 + B64[byte(s, i + 2)], n + 1, i + 3
+		else
+			n, i = n + a - 47, i + 1
+		end
+		if n >= node then
+			return value
+		end
+	end
+	return 0
+end
+
 -- The multiplier of a step into each chunk of cluster k (index q + 1) under danger ({ [uiMapID] = multiplier > 1 },
 -- Path.lua's weights); nil when no chunk of the cluster is dangerous (or it has no zone field).
 local function chunkDanger(st, k, danger)
@@ -1142,10 +1162,13 @@ ns.PathGrid = {
 	cellOf = cellOf,
 	chunkOf = chunkOf,
 	zoneAt = zoneAt,
+	nodeArea = nodeArea,
 	chunkDanger = chunkDanger,
 	nodesOf = nodesOf,
 	metadata = metadata,
-	adjacent = adjacent,
+	edges = edges,
+	edgeTarget = edgeTarget,
+	edgeValue = edgeValue,
 	entrance = entrance,
 	locate = locate,
 	standing = standing,

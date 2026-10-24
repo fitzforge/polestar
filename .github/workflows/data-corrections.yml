@@ -1,0 +1,94 @@
+name: Data corrections
+
+# A pull request that edits the public database's corrections (forever-db/corrections: the
+# section files and the note-fix records): build forge, check the edit (`forge data
+# check-corrections`: shapes, sources, ids), run the public data build (no private or web
+# sources), publish the public release from it for the base branch's corrections and for the
+# pull request's, run `forge data publish --check` on the result and on the committed
+# forever-db/ (it also checks every correction's source as check-corrections does; a conflicting
+# note fix fails, a stale one warns), and post the value diff (CHANGELOG.md) as the job summary.
+# Nothing is published. pull_request only: the pull request's code never runs with this
+# repository's secrets or write token.
+on:
+  pull_request:
+    paths: ["forever-db/**", ".github/workflows/data-corrections.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: data-corrections-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+
+jobs:
+  corrections:
+    name: Public release diff and guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+
+      - name: Build forge
+        working-directory: rust
+        run: cargo build --release --locked -p forge
+
+      # The sources the public build reads (pfQuest, the client tables, the CMaNGOS dump), fetched
+      # into data/sources; the build below reads them offline.
+      - name: Source cache
+        run: rust/target/release/forge data sources --root . --only pfquest,wago,cmangos
+      # The public data build: no QuestieDB install, no web sources, no private overlay.
+      - name: Public data build
+        run: |
+          rust/target/release/forge data build --root . --out "$RUNNER_TEMP/public" --offline \
+            --no-questie --no-web-zones --no-web-xp --forever-tables wago
+
+      # Every entry's shape and source.kind. Ids are not checked here: the CI build has no
+      # QuestieDB, so Forever-only quests and NPCs that corrections rightly name are missing from
+      # it. `forge build` checks the ids against the full data (and `--strict` blocks a release).
+      - name: Check the corrections
+        run: rust/target/release/forge data check-corrections --root . --data "$RUNNER_TEMP/no-data"
+
+      - name: Publish (base branch corrections)
+        run: |
+          mkdir -p "$RUNNER_TEMP/base-corrections"
+          git archive "origin/${{ github.base_ref }}" forever-db/corrections | tar -x -C "$RUNNER_TEMP/base-corrections" \
+            || mkdir -p "$RUNNER_TEMP/base-corrections/forever-db/corrections"
+          rust/target/release/forge data publish --root . --out "$RUNNER_TEMP/base" \
+            --public-data "$RUNNER_TEMP/public" --public-drops "$RUNNER_TEMP/public" \
+            --corrections "$RUNNER_TEMP/base-corrections/forever-db/corrections" \
+            --provenance "$RUNNER_TEMP/base-provenance.sqlite" --version 2000.1.1
+
+      - name: Publish (this pull request)
+        run: |
+          rust/target/release/forge data publish --root . --out "$RUNNER_TEMP/release" \
+            --public-data "$RUNNER_TEMP/public" --public-drops "$RUNNER_TEMP/public" \
+            --corrections forever-db/corrections \
+            --previous "$RUNNER_TEMP/base" --provenance "$RUNNER_TEMP/provenance.sqlite"
+
+      - name: Guard
+        run: |
+          rust/target/release/forge data publish --root . --check "$RUNNER_TEMP/release" \
+            --provenance "$RUNNER_TEMP/provenance.sqlite"
+          # The committed release (without the private sidecar: no provenance check there).
+          rust/target/release/forge data publish --root . --check forever-db
+
+      - name: Value diff summary
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/release/CHANGELOG.md" ]; then
+            cat "$RUNNER_TEMP/release/CHANGELOG.md" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No release was written; see the job log." >> "$GITHUB_STEP_SUMMARY"
+          fi

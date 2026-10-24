@@ -1,0 +1,162 @@
+warning: First Aid Alliance trainer "Nissa Firestone": not in npcs.json for this side
+warning: First Aid Alliance trainer "Thamner Pol": not in npcs.json for this side
+warning: First Aid Alliance trainer "Byancie": not in npcs.json for this side
+warning: First Aid Horde trainer "Pand Stonebinder": not in npcs.json for this side
+warning: First Aid Horde trainer "Mary Edras": not in npcs.json for this side
+warning: First Aid Horde trainer "Nurse Neela": not in npcs.json for this side
+warning: First Aid Alliance trainer "Deneb Walker": not in npcs.json for this side
+warning: First Aid Alliance trainer "Doctor Gustaf VanHowzen": not in npcs.json for this side
+warning: First Aid Horde trainer "Doctor Gregory Victor" (12920) has no spawns
+warning: Blacksmithing Alliance trainer "Ironus Coldsteel": not in npcs.json for this side
+warning: Blacksmithing Alliance trainer "Bengus Deepforge": not in npcs.json for this side
+warning: Blacksmithing Alliance trainer "Groum Stonebeard": not in npcs.json for this side
+warning: Blacksmithing Alliance trainer "Tognus Flintfire": not in npcs.json for this side
+warning: Blacksmithing Horde trainer "Thrag Stonehoof": not in npcs.json for this side
+warning: Blacksmithing Horde trainer "Karn Stonehoof": not in npcs.json for this side
+warning: Blacksmithing Horde trainer "James Van Brunt": not in npcs.json for this side
+warning: Blacksmithing Horde trainer "Basil Frye": not in npcs.json for this side
+warning: Blacksmithing Alliance trainer "Bengus Deepforge": not in npcs.json for this side
+warning: Blacksmithing Horde trainer "Karn Stonehoof": not in npcs.json for this side
+warning: Blacksmithing Horde trainer "James Van Brunt": not in npcs.json for this side
+warning: Blacksmithing Alliance trainer "Brikk Keencraft": not in npcs.json for this side
+warning: Blacksmithing Horde trainer "Brikk Keencraft": not in npcs.json for this side
+warning: Leatherworking Alliance trainer "Fimble Finespindle": not in npcs.json for this side
+warning: Leatherworking Alliance trainer "Telonis": not in npcs.json for this side
+warning: Leatherworking Alliance trainer "Darianna": not in npcs.json for this side
+warning: Leatherworking Alliance trainer "Faldron": not in npcs.json for this side
+warning: Leatherworking Alliance trainer "Trianna": not in npcs.json for this side
+warning: Leatherworking Horde trainer "Chaw Stronghide": not in npcs.json for this side
+warning: Leatherworking Horde trainer "Una": not in npcs.json for this side
+warning: Leatherworking Horde trainer "Tarn": not in npcs.json for this side
+warning: Leatherworking Horde trainer "Arthur Moore": not in npcs.json for this side
+warning: Leatherworking Horde trainer "Brawn": not in npcs.json for this side
+warning: Leatherworking Alliance trainer "Fimble Finespindle": not in npcs.json for this side
+warning: Leatherworking Alliance trainer "Telonis": not in npcs.json for this side
+warning: Leatherworking Horde trainer "Una": not in npcs.json for this side
+warning: Leatherworking Horde trainer "Arthur Moore": not in npcs.json for this side
+warning: Leatherworking Alliance trainer "Drakk Stonehand": not in npcs.json for this side
+warning: Leatherworking Horde trainer "Hahrana Ironhide": not in npcs.json for this side
+warning: Alchemy Alliance trainer "Tally Berryfizz": not in npcs.json for this side
+warning: Alchemy Alliance trainer "Vosur Brakthel": not in npcs.json for this side
+warning: Alchemy Alliance trainer "Ghak Healtouch": not in npcs.json for this side
+warning: Alchemy Alliance trainer "Cyndra Kindwhisper": not in npcs.json for this side
+warning: Alchemy Alliance trainer "Ainethil": not in npcs.json for this side
+warning: Alchemy Alliance trainer "Milla Fairancora": not in npcs.json for this side
+warning: Alchemy Alliance trainer "Sylvanna Forestmoon": not in npcs.json for this side
+warning: Alchemy Alliance trainer "Kylanna": not in npcs.json for this side
+warning: Alchemy Horde trainer "Bena Winterhoof": not in npcs.json for this side
+warning: Alchemy Horde trainer "Kray": not in npcs.json for this side
+warning: Alchemy Horde trainer "Carolai Anise": not in npcs.json for this side
+warning: Alchemy Horde trainer "Doctor Herbert Halsey": not in npcs.json for this side
+warning: Alchemy Horde trainer "Doctor Marsh": not in npcs.json for this side
+warning: Alchemy Horde trainer "Doctor Martin Felben": not in npcs.json for this side
+warning: Alchemy Horde trainer "Serge Hinott" (2391) has no spawns
+warning: Alchemy Alliance trainer "Vosur Brakthel": not in npcs.json for this side
+warning: Alchemy Alliance trainer "Ainethil": not in npcs.json for this side
+warning: Alchemy Horde trainer "Bena Winterhoof": not in npcs.json for this side
+warning: Alchemy Horde trainer "Doctor Herbert Halsey": not in npcs.json for this side
+warning: Alchemy Alliance trainer "Kylanna Windwhisper": not in npcs.json for this side
+warning: Alchemy Horde trainer "Rogvar": not in npcs.json for this side
+warning: Herbalism Alliance trainer "Reyna Stonebranch": not in npcs.json for this side
+warning: Herbalism Alliance trainer "Firodren Mooncaller": not in npcs.json for this side
+warning: Herbalism Alliance trainer "Malorne Bladeleaf": not in npcs.json for this side
+warning: Herbalism Alliance trainer "Alma Jainrose": not in npcs.json for this side
+warning: Herbalism Alliance trainer "Kali Healtouch": not in npcs.json for this side
+warning: Herbalism Horde trainer "Komin Winterhoof": not in npcs.json for this side
+warning: Herbalism Horde trainer "Martha Alliestar": not in npcs.json for this side
+warning: Herbalism Horde trainer "Faruza": not in npcs.json for this side
+warning: Herbalism Horde trainer "Aranae Venomblood": not in npcs.json for this side
+warning: Herbalism Alliance trainer "Nancy Songflower": not in npcs.json for this side
+warning: Herbalism Alliance trainer "Emrys Flintbeard": not in npcs.json for this side
+warning: Herbalism Alliance trainer "Eleyna Duskbreeze": not in npcs.json for this side
+warning: Herbalism Horde trainer "Zor'la": not in npcs.json for this side
+warning: Herbalism Horde trainer "Garan Sunstrider": not in npcs.json for this side
+warning: Herbalism Horde trainer "Florence Nightshade": not in npcs.json for this side
+warning: Cooking Alliance trainer "Daryl Riknussun": not in npcs.json for this side
+warning: Cooking Alliance trainer "Gremlock Pilsnor": not in npcs.json for this side
+warning: Cooking Alliance trainer "Alegorn": not in npcs.json for this side
+warning: Cooking Alliance trainer "Zarrin": not in npcs.json for this side
+warning: Cooking Horde trainer "Aska Mistrunner": not in npcs.json for this side
+warning: Cooking Horde trainer "Eunice Burch": not in npcs.json for this side
+warning: Cooking Alliance trainer "Shandrina": not in npcs.json for this side
+warning: Cooking Horde trainer "Wulan": not in npcs.json for this side
+warning: Cooking Alliance trainer "Dirge Quikcleave" (8125) has no spawns
+warning: Cooking Horde trainer "Dirge Quikcleave" (8125) has no spawns
+warning: Mining Alliance trainer "Geofram Bouldertoe": not in npcs.json for this side
+warning: Mining Alliance trainer "Yarr Hammerstone": not in npcs.json for this side
+warning: Mining Alliance trainer "Brock Stoneseeker": not in npcs.json for this side
+warning: Mining Alliance trainer "Kurdram Stonehammer": not in npcs.json for this side
+warning: Mining Horde trainer "Brek Stonehoof": not in npcs.json for this side
+warning: Mining Horde trainer "Brom Killian": not in npcs.json for this side
+warning: Mining Horde trainer "Johan Focht": not in npcs.json for this side
+warning: Mining Alliance trainer "Kelsey Fargo": not in npcs.json for this side
+warning: Mining Alliance trainer "Sally Swiftwrench": not in npcs.json for this side
+warning: Mining Alliance trainer "Fanorran Stilloak": not in npcs.json for this side
+warning: Mining Horde trainer "Norzsh": not in npcs.json for this side
+warning: Mining Horde trainer "Vartha Rockmane": not in npcs.json for this side
+warning: Mining Horde trainer "Walter Mason": not in npcs.json for this side
+warning: Tailoring Alliance trainer "Jormund Stonebrow": not in npcs.json for this side
+warning: Tailoring Alliance trainer "Uthrar Threx": not in npcs.json for this side
+warning: Tailoring Alliance trainer "Me'lynn": not in npcs.json for this side
+warning: Tailoring Alliance trainer "Sinda": not in npcs.json for this side
+warning: Tailoring Alliance trainer "Nadyia Maneweaver": not in npcs.json for this side
+warning: Tailoring Horde trainer "Josephine Lister": not in npcs.json for this side
+warning: Tailoring Horde trainer "Victor Ward": not in npcs.json for this side
+warning: Tailoring Horde trainer "Rhiannon Davis": not in npcs.json for this side
+warning: Tailoring Horde trainer "Bowen Brisboise": not in npcs.json for this side
+warning: Tailoring Horde trainer "Vhan": not in npcs.json for this side
+warning: Tailoring Alliance trainer "Jormund Stonebrow": not in npcs.json for this side
+warning: Tailoring Alliance trainer "Me'lynn": not in npcs.json for this side
+warning: Tailoring Horde trainer "Josephine Lister": not in npcs.json for this side
+warning: Tailoring Alliance trainer "Timothy Worthington": not in npcs.json for this side
+warning: Tailoring Horde trainer "Daryl Stack": not in npcs.json for this side
+warning: Engineering Alliance trainer "Springspindle Fizzlegear": not in npcs.json for this side
+warning: Engineering Alliance trainer "Jemma Quikswitch": not in npcs.json for this side
+warning: Engineering Alliance trainer "Trixie Quikswitch": not in npcs.json for this side
+warning: Engineering Alliance trainer "Bronk Guzzlegear": not in npcs.json for this side
+warning: Engineering Alliance trainer "Jenna Lemkenilli": not in npcs.json for this side
+warning: Engineering Horde trainer "Graham Van Talen": not in npcs.json for this side
+warning: Engineering Horde trainer "Franklin Lloyd": not in npcs.json for this side
+warning: Engineering Alliance trainer "Springspindle Fizzlegear": not in npcs.json for this side
+warning: Engineering Horde trainer "Graham Van Talen": not in npcs.json for this side
+warning: Engineering Alliance trainer "Buzzek Bracketswing": not in npcs.json for this side
+warning: Engineering Horde trainer "Buzzek Bracketswing": not in npcs.json for this side
+warning: Enchanting Alliance trainer "Gimble Thistlefuzz": not in npcs.json for this side
+warning: Enchanting Alliance trainer "Tilli Thistlefuzz": not in npcs.json for this side
+warning: Enchanting Alliance trainer "Thonys Pillarstone": not in npcs.json for this side
+warning: Enchanting Alliance trainer "Taladan": not in npcs.json for this side
+warning: Enchanting Alliance trainer "Lalina Summermoon": not in npcs.json for this side
+warning: Enchanting Alliance trainer "Alanna Raveneye": not in npcs.json for this side
+warning: Enchanting Horde trainer "Mot Dawnstrider": not in npcs.json for this side
+warning: Enchanting Horde trainer "Teg Dawnstrider": not in npcs.json for this side
+warning: Enchanting Horde trainer "Lavinia Crowe": not in npcs.json for this side
+warning: Enchanting Horde trainer "Malcomb Wynn": not in npcs.json for this side
+warning: Enchanting Horde trainer "Vance Undergloom": not in npcs.json for this side
+warning: Enchanting Horde trainer "Hgarth": not in npcs.json for this side
+warning: Enchanting Alliance trainer "Gimble Thistlefuzz": not in npcs.json for this side
+warning: Enchanting Alliance trainer "Taladan": not in npcs.json for this side
+warning: Enchanting Horde trainer "Teg Dawnstrider": not in npcs.json for this side
+warning: Enchanting Horde trainer "Lavinia Crowe": not in npcs.json for this side
+warning: Enchanting Alliance trainer "Annora": not in npcs.json for this side
+warning: Enchanting Horde trainer "Annora": not in npcs.json for this side
+warning: Fishing Alliance trainer "Grimnur Stonebrand": not in npcs.json for this side
+warning: Fishing Alliance trainer "Paxton Ganter": not in npcs.json for this side
+warning: Fishing Alliance trainer "Astaia": not in npcs.json for this side
+warning: Fishing Horde trainer "Kah Mistrunner": not in npcs.json for this side
+warning: Fishing Horde trainer "Armand Cromwell": not in npcs.json for this side
+warning: Fishing Horde trainer "Clyde Kellen": not in npcs.json for this side
+warning: Fishing Alliance trainer "Old Man Heming": not in npcs.json for this side
+warning: Fishing Horde trainer "Old Man Heming": not in npcs.json for this side
+warning: Fishing Alliance trainer "Nat Pagle" (12919) has no spawns
+warning: Fishing Horde trainer "Nat Pagle" (12919) has no spawns
+warning: Skinning Alliance trainer "Balthus Stoneflayer": not in npcs.json for this side
+warning: Skinning Alliance trainer "Radnaal Maneweaver": not in npcs.json for this side
+warning: Skinning Horde trainer "Mooranta": not in npcs.json for this side
+warning: Skinning Horde trainer "Rand Rhobart": not in npcs.json for this side
+warning: Skinning Horde trainer "Killian Sanatha": not in npcs.json for this side
+warning: Skinning Alliance trainer "Riley Peltskinner": not in npcs.json for this side
+warning: Skinning Alliance trainer "Brighid Stormflayer": not in npcs.json for this side
+warning: Skinning Alliance trainer "Terunne Bearshaper": not in npcs.json for this side
+warning: Skinning Horde trainer "Kagil": not in npcs.json for this side
+warning: Skinning Horde trainer "Nawka Wildsong": not in npcs.json for this side
+warning: Skinning Horde trainer "Margaret Weaver": not in npcs.json for this side

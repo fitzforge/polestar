@@ -1,9 +1,9 @@
 'use strict';
-// A names addon (Polestar_Names_<locale>, tools/lib/i18n/names.js) built
-// from a few names, for the addon's tests: the stubbed client loads it when
-// Polestar asks (C_AddOns.LoadAddOn), the way the game loads a
-// load-on-demand addon, and counts every names pack it is asked for in
-// __namesLoads.
+// A language folder (Polestar_<locale>) holding only a Names.lua, as
+// `forge data names` writes it, built from a few names, for the addon's
+// tests: the stubbed client loads it when Polestar asks (C_AddOns.LoadAddOn),
+// the way the game loads a load-on-demand addon, and counts every language
+// folder it is asked for in __namesLoads.
 //
 //   const { namesPack } = require('./helpers/names');
 //   const pack = namesPack('frFR', { npc: { 448: 'Lardeur' }, quest: { 176: '...' } });
@@ -12,17 +12,37 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { tmpdir } = require('./tmp');
-const { emitNamesAddon, NAME_KINDS, ADDON_PREFIX } = require('../../tools/lib/i18n/names');
+const { languageAddon } = require('../../tools/lib/i18n/toc');
+
+const { luaString } = require('../../tools/lib/i18n/files');
+
+// The pack's Names.lua in the shape `forge data names` writes (LuaChunks:
+// one chunk per kind here, of "<id>\t<name>" lines, the separators as %XX):
+// names = { kind: { id: name } }.
+const field = (s) => String(s).replace(/[%;,:|\t\n\r]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase().padStart(2, '0')}`);
+function longString(text) {
+	let eq = '';
+	while (text.includes(`]${eq}]`) || text.endsWith(`]${eq}`)) eq += '=';
+	return `[${eq}[\n${text}]${eq}]`;
+}
+function namesLua(locale, names) {
+	const lines = [
+		'local N = Polestar and Polestar.Names',
+		'if not (N and N.AddChunk) then return end',
+		`local function R(kind, lo, hi, text) N.AddChunk(${luaString(locale)}, kind, lo, hi, text) end`,
+	];
+	for (const [kind, byId] of Object.entries(names)) {
+		const entries = Object.entries(byId).map(([i, x]) => [Number(i), x]).sort((a, b) => a[0] - b[0]);
+		if (!entries.length) continue;
+		const text = `${entries.map(([id, n]) => `\n${id}\t${field(n)}`).join('')}\n`;
+		lines.push(`R(${luaString(kind)}, ${entries[0][0]}, ${entries[entries.length - 1][0]}, ${longString(text)})`);
+	}
+	return `${lines.join('\n')}\n`;
+}
 
 function namesPack(locale, names) {
-	const built = { names: {}, from: {} };
-	for (const kind of NAME_KINDS) {
-		const entries = Object.entries(names[kind] || {}).map(([id, n]) => [Number(id), n]).sort((a, b) => a[0] - b[0]);
-		built.names[kind] = new Map(entries);
-		built.from[kind] = { ding: 0, pfquest: entries.length };
-	}
-	const files = emitNamesAddon(locale, built, { version: '0.0.0-test', iface: '16001', sources: { ding: null, pf: { dir: null, revision: null } } });
-	const name = `${ADDON_PREFIX}${locale}`;
+	const files = { 'Names.lua': namesLua(locale, names) };
+	const name = languageAddon(locale);
 	const dir = path.join(tmpdir('polestar-names-'), name);
 	fs.mkdirSync(dir);
 	for (const [f, text] of Object.entries(files)) fs.writeFileSync(path.join(dir, f), text);
@@ -30,7 +50,7 @@ function namesPack(locale, names) {
 do
   local __load = C_AddOns.LoadAddOn
   function C_AddOns.LoadAddOn(name)
-    if type(name) == "string" and name:find("^${ADDON_PREFIX}") then __namesLoads = __namesLoads + 1 end
+    if type(name) == "string" and name:find("^Polestar_%l%l%u%u$") then __namesLoads = __namesLoads + 1 end
     if name ~= ${JSON.stringify(name)} then return __load(name) end
     if not stub.addonsLoaded[name] then
       dofile(${JSON.stringify(path.join(dir, 'Names.lua'))})

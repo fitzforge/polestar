@@ -87,7 +87,7 @@ function writeDataDir(root) {
 
 const START = { Orc: { quest: 501, zone: 'Testvale' } };
 
-// Route-rule additions (docs/SIMULATION.md "Starts", travel safety), kept
+// Route-rule additions (docs/legacy/SIMULATION-js.md "Starts", travel safety), kept
 // out of the base world so its exhaustive search test stays small:
 //   - Zephras Isle (map 2521, its own continent) with a level-1 quest: the
 //     Skyborne start; its exit is the one-way Horde airship;

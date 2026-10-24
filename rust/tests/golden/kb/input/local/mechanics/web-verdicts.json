@@ -1,0 +1,7 @@
+{
+  "meta": { "schema": 1, "note": "Synthetic, written for the knowledge-base golden (rust/tests/golden/kb/README.md)." },
+  "quests": {
+    "790": { "facts": [{ "kind": "mechanic", "claim": { "kind": "group/elite", "verdict": "refuted" } }] },
+    "783": { "facts": [{ "kind": "mechanic", "claim": { "kind": "multi-step-in-one-objective", "verdict": "confirmed" } }] }
+  }
+}

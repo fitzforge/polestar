@@ -1,0 +1,10964 @@
+{
+	"schema": 1,
+	"build": "1.15.9.70003",
+	"foreverBuild": "1.60.1.70450",
+	"transitBuild": "1.60.1.70450",
+	"cmangosRev": "22b51464f1625f6ef6275771de1f5466c6f5d19e",
+	"areaBuild": "1.60.1.70450",
+	"sources": [
+		{
+			"name": "Blizzard Classic Era client tables (wago.tools)",
+			"build": "1.15.9.70003",
+			"tables": [
+				"TaxiNodes",
+				"TaxiPath",
+				"TaxiPathNode",
+				"AreaTrigger"
+			],
+			"urls": {
+				"TaxiNodes": "https://wago.tools/db2/TaxiNodes/csv?build=1.15.9.70003",
+				"TaxiPath": "https://wago.tools/db2/TaxiPath/csv?build=1.15.9.70003",
+				"TaxiPathNode": "https://wago.tools/db2/TaxiPathNode/csv?build=1.15.9.70003",
+				"AreaTrigger": "https://wago.tools/db2/AreaTrigger/csv?build=1.15.9.70003"
+			}
+		},
+		{
+			"name": "WoW Forever client tables (wago.tools)",
+			"build": "1.60.1.70450",
+			"tables": [
+				"TaxiPathNode"
+			],
+			"urls": {
+				"TaxiPathNode": "https://wago.tools/db2/TaxiPathNode/csv?build=1.60.1.70450"
+			},
+			"use": "ship loops Forever added"
+		},
+		{
+			"name": "WoW Forever client tables (wago.tools)",
+			"build": "1.60.1.70450",
+			"tables": [
+				"TransportAnimation",
+				"SpellEffect",
+				"SpellName",
+				"SpellMisc",
+				"SpellCastTimes",
+				"SpellReagents",
+				"SkillLineAbility"
+			],
+			"urls": {
+				"TransportAnimation": "https://wago.tools/db2/TransportAnimation/csv?build=1.60.1.70450",
+				"SpellEffect": "https://wago.tools/db2/SpellEffect/csv?build=1.60.1.70450",
+				"SpellName": "https://wago.tools/db2/SpellName/csv?build=1.60.1.70450",
+				"SpellMisc": "https://wago.tools/db2/SpellMisc/csv?build=1.60.1.70450",
+				"SpellCastTimes": "https://wago.tools/db2/SpellCastTimes/csv?build=1.60.1.70450",
+				"SpellReagents": "https://wago.tools/db2/SpellReagents/csv?build=1.60.1.70450",
+				"SkillLineAbility": "https://wago.tools/db2/SkillLineAbility/csv?build=1.60.1.70450"
+			},
+			"use": "lift and tram tracks, class teleports"
+		},
+		{
+			"name": "CMaNGOS classic-db (GPL-3.0)",
+			"rev": "22b51464f1625f6ef6275771de1f5466c6f5d19e",
+			"url": "https://raw.githubusercontent.com/cmangos/classic-db/22b51464f1625f6ef6275771de1f5466c6f5d19e/Full_DB/ClassicDB_1_12_1_z2815.sql.gz",
+			"use": "lift and tram spawns, portal and teleport destinations; sniffed transport periods"
+		},
+		{
+			"name": "WoW Forever client tables (wago.tools)",
+			"build": "1.60.1.70450",
+			"tables": [
+				"AreaTable"
+			],
+			"use": "the area of each inn"
+		},
+		{
+			"name": "Shortest Path Forever by Cillian Berragan (GPL-3.0-or-later, used with permission)",
+			"use": "the timetable model, observer and data choices, ported"
+		},
+		{
+			"name": "data/forever npcs.json / objects.json (pfQuest, MIT)",
+			"use": "flight masters, dock NPCs/objects, innkeepers"
+		},
+		{
+			"name": "data/forever map-frames.json",
+			"use": "Era map frames; Forever (live) frames for maps Forever added or redrew"
+		},
+		{
+			"name": "data/recordings",
+			"use": "learned walking paths and recorded zone crossings",
+			"sessions": []
+		},
+		{
+			"name": "data/forever spawnz.json (CMaNGOS classic-db, GPL-3.0)",
+			"use": "the heights of the dock NPCs the zeppelin and wharf ends stand at"
+		},
+		{
+			"name": "Carbonite (github.com/IrcDirk/Carbonite-Classic, GPL-3.0)",
+			"source": "Carbonite (github.com/IrcDirk/Carbonite-Classic, GPL-3.0) at 4d062800ae0c77c3f52ecf436b175bf06dcced4a: Carbonite/Data/classic/ZoneConnections.lua, the walks between zones; open borders (open): from Polestar's navigation grid (nav aids)",
+			"use": "zone crossings (tools/lib/travel/crossings.json)"
+		}
+	],
+	"counts": {
+		"taxiNodes": 61,
+		"flights": 266,
+		"transports": 13,
+		"inns": 45,
+		"pathNodes": 0,
+		"pathEdges": 0,
+		"recordedCrossings": 0,
+		"shippedCrossings": 54,
+		"timetables": 20,
+		"portals": 2,
+		"teleports": 8
+	},
+	"taxi": {
+		"nodes": [
+			{
+				"id": 2,
+				"name": "Stormwind, Elwynn",
+				"short": "Stormwind",
+				"c": 0,
+				"wx": -8840.6,
+				"wy": 489.7,
+				"map": 1453,
+				"x": 66.3,
+				"y": 62.67,
+				"faction": 1,
+				"npc": 352,
+				"npcName": "Dungar Longdrink"
+			},
+			{
+				"id": 4,
+				"name": "Sentinel Hill, Westfall",
+				"short": "Sentinel Hill",
+				"c": 0,
+				"wx": -10628.9,
+				"wy": 1036.7,
+				"map": 1436,
+				"x": 56.57,
+				"y": 52.67,
+				"faction": 1,
+				"npc": 523,
+				"npcName": "Thor"
+			},
+			{
+				"id": 5,
+				"name": "Lakeshire, Redridge",
+				"short": "Lakeshire",
+				"c": 0,
+				"wx": -9429.1,
+				"wy": -2231.4,
+				"map": 1433,
+				"x": 30.43,
+				"y": 58.99,
+				"faction": 1,
+				"npc": 931,
+				"npcName": "Ariena Stormfeather"
+			},
+			{
+				"id": 6,
+				"name": "Ironforge, Dun Morogh",
+				"short": "Ironforge",
+				"c": 0,
+				"wx": -4821.8,
+				"wy": -1155.4,
+				"map": 1455,
+				"x": 55.89,
+				"y": 47.87,
+				"faction": 1,
+				"npc": 1573,
+				"npcName": "Gryth Thurden"
+			},
+			{
+				"id": 7,
+				"name": "Menethil Harbor, Wetlands",
+				"short": "Menethil Harbor",
+				"c": 0,
+				"wx": -3792.3,
+				"wy": -783.3,
+				"map": 1437,
+				"x": 9.52,
+				"y": 59.66,
+				"faction": 1,
+				"npc": 1571,
+				"npcName": "Shellei Brondir"
+			},
+			{
+				"id": 8,
+				"name": "Thelsamar, Loch Modan",
+				"short": "Thelsamar",
+				"c": 0,
+				"wx": -5421.9,
+				"wy": -2930,
+				"map": 1432,
+				"x": 33.94,
+				"y": 50.79,
+				"faction": 1,
+				"npc": 1572,
+				"npcName": "Thorgrum Borrelson"
+			},
+			{
+				"id": 10,
+				"name": "The Sepulcher, Silverpine Forest",
+				"short": "The Sepulcher",
+				"c": 0,
+				"wx": 478.9,
+				"wy": 1536.6,
+				"map": 1421,
+				"x": 45.56,
+				"y": 42.42,
+				"faction": 2,
+				"npc": 2226,
+				"npcName": "Karos Razok"
+			},
+			{
+				"id": 11,
+				"name": "Undercity, Tirisfal",
+				"short": "Undercity",
+				"c": 0,
+				"wx": 1568.6,
+				"wy": 268,
+				"map": 1458,
+				"x": 63.09,
+				"y": 48.32,
+				"faction": 2,
+				"npc": 4551,
+				"npcName": "Michael Garrett"
+			},
+			{
+				"id": 12,
+				"name": "Darkshire, Duskwood",
+				"short": "Darkshire",
+				"c": 0,
+				"wx": -10515.5,
+				"wy": -1261.7,
+				"map": 1431,
+				"x": 77.59,
+				"y": 44.38,
+				"faction": 1,
+				"npc": 2409,
+				"npcName": "Felicia Maline"
+			},
+			{
+				"id": 13,
+				"name": "Tarren Mill, Hillsbrad",
+				"short": "Tarren Mill",
+				"c": 0,
+				"wx": -0.1,
+				"wy": -859.9,
+				"map": 1424,
+				"x": 60.21,
+				"y": 18.75,
+				"faction": 2,
+				"npc": 2389,
+				"npcName": "Zarise"
+			},
+			{
+				"id": 14,
+				"name": "Southshore, Hillsbrad",
+				"short": "Southshore",
+				"c": 0,
+				"wx": -711.5,
+				"wy": -515.5,
+				"map": 1424,
+				"x": 49.44,
+				"y": 52.1,
+				"faction": 1,
+				"npc": 2432,
+				"npcName": "Darla Harris"
+			},
+			{
+				"id": 16,
+				"name": "Refuge Pointe, Arathi",
+				"short": "Refuge Pointe",
+				"c": 0,
+				"wx": -1240.5,
+				"wy": -2515.1,
+				"map": 1417,
+				"x": 45.79,
+				"y": 46.13,
+				"faction": 1,
+				"npc": 2835,
+				"npcName": "Cedrik Prose"
+			},
+			{
+				"id": 17,
+				"name": "Hammerfall, Arathi",
+				"short": "Hammerfall",
+				"c": 0,
+				"wx": -916.3,
+				"wy": -3496.9,
+				"map": 1417,
+				"x": 73.06,
+				"y": 32.62,
+				"faction": 2,
+				"npc": 2851,
+				"npcName": "Urda"
+			},
+			{
+				"id": 18,
+				"name": "Booty Bay, Stranglethorn",
+				"short": "Booty Bay",
+				"c": 0,
+				"wx": -14444.3,
+				"wy": 509.6,
+				"map": 1434,
+				"x": 26.82,
+				"y": 77,
+				"faction": 2,
+				"npc": 2858,
+				"npcName": "Gringer"
+			},
+			{
+				"id": 19,
+				"name": "Booty Bay, Stranglethorn",
+				"short": "Booty Bay",
+				"c": 0,
+				"wx": -14473,
+				"wy": 464.1,
+				"map": 1434,
+				"x": 27.53,
+				"y": 77.67,
+				"faction": 1,
+				"npc": 2859,
+				"npcName": "Gyll"
+			},
+			{
+				"id": 20,
+				"name": "Grom'gol, Stranglethorn",
+				"short": "Grom'gol",
+				"c": 0,
+				"wx": -12414.2,
+				"wy": 146.3,
+				"map": 1434,
+				"x": 32.51,
+				"y": 29.28,
+				"faction": 2,
+				"npc": 1387,
+				"npcName": "Thysta"
+			},
+			{
+				"id": 21,
+				"name": "Kargath, Badlands",
+				"short": "Kargath",
+				"c": 0,
+				"wx": -6634,
+				"wy": -2180.1,
+				"map": 1418,
+				"x": 4.06,
+				"y": 44.89,
+				"faction": 2,
+				"npc": 2861,
+				"npcName": "Gorrik"
+			},
+			{
+				"id": 22,
+				"name": "Thunder Bluff, Mulgore",
+				"short": "Thunder Bluff",
+				"c": 1,
+				"wx": -1197.2,
+				"wy": 29.7,
+				"map": 1456,
+				"x": 46.65,
+				"y": 49.9,
+				"faction": 2,
+				"npc": 2995,
+				"npcName": "Tal"
+			},
+			{
+				"id": 23,
+				"name": "Orgrimmar, Durotar",
+				"short": "Orgrimmar",
+				"c": 1,
+				"wx": 1677.6,
+				"wy": -4315.7,
+				"map": 1454,
+				"x": 45.28,
+				"y": 63.75,
+				"faction": 2,
+				"npc": 3310,
+				"npcName": "Doras"
+			},
+			{
+				"id": 25,
+				"name": "Crossroads, The Barrens",
+				"short": "Crossroads",
+				"c": 1,
+				"wx": -441.8,
+				"wy": -2596.1,
+				"map": 1413,
+				"x": 51.5,
+				"y": 30.41,
+				"faction": 2,
+				"npc": 3615,
+				"npcName": "Devrak"
+			},
+			{
+				"id": 26,
+				"name": "Auberdine, Darkshore",
+				"short": "Auberdine",
+				"c": 1,
+				"wx": 6341.4,
+				"wy": 557.7,
+				"map": 1439,
+				"x": 36.4,
+				"y": 45.62,
+				"faction": 1,
+				"npc": 3841,
+				"npcName": "Caylais Moonfeather"
+			},
+			{
+				"id": 27,
+				"name": "Rut'theran Village, Teldrassil",
+				"short": "Rut'theran Village",
+				"c": 1,
+				"wx": 8643.6,
+				"wy": 841,
+				"map": 1438,
+				"x": 58.4,
+				"y": 93.93,
+				"faction": 1,
+				"npc": 3838,
+				"npcName": "Vesprystus"
+			},
+			{
+				"id": 28,
+				"name": "Astranaar, Ashenvale",
+				"short": "Astranaar",
+				"c": 1,
+				"wx": 2827.3,
+				"wy": -289.2,
+				"map": 1440,
+				"x": 34.5,
+				"y": 48.02,
+				"faction": 1,
+				"npc": 4267,
+				"npcName": "Daelyshia"
+			},
+			{
+				"id": 29,
+				"name": "Sun Rock Retreat, Stonetalon Mountains",
+				"short": "Sun Rock Retreat",
+				"c": 1,
+				"wx": 966.6,
+				"wy": 1040.3,
+				"map": 1442,
+				"x": 45.16,
+				"y": 59.89,
+				"faction": 2,
+				"npc": 4312,
+				"npcName": "Tharm"
+			},
+			{
+				"id": 30,
+				"name": "Freewind Post, Thousand Needles",
+				"short": "Freewind Post",
+				"c": 1,
+				"wx": -5407.7,
+				"wy": -2414.3,
+				"map": 1441,
+				"x": 45.02,
+				"y": 49.13,
+				"faction": 2,
+				"npc": 4317,
+				"npcName": "Nyse"
+			},
+			{
+				"id": 31,
+				"name": "Thalanaar, Feralas",
+				"short": "Thalanaar",
+				"c": 1,
+				"wx": -4491.9,
+				"wy": -775.9,
+				"map": 1444,
+				"x": 89.46,
+				"y": 45.87,
+				"faction": 1,
+				"npc": 4319,
+				"npcName": "Thyssiana"
+			},
+			{
+				"id": 32,
+				"name": "Theramore, Dustwallow Marsh",
+				"short": "Theramore",
+				"c": 1,
+				"wx": -3825.4,
+				"wy": -4516.6,
+				"map": 1445,
+				"x": 67.46,
+				"y": 51.2,
+				"faction": 1,
+				"npc": 4321,
+				"npcName": "Baldruc"
+			},
+			{
+				"id": 33,
+				"name": "Stonetalon Peak, Stonetalon Mountains",
+				"short": "Stonetalon Peak",
+				"c": 1,
+				"wx": 2681.1,
+				"wy": 1461.7,
+				"map": 1442,
+				"x": 36.54,
+				"y": 7.23,
+				"faction": 1,
+				"npc": 4407,
+				"npcName": "Teloren"
+			},
+			{
+				"id": 37,
+				"name": "Nijel's Point, Desolace",
+				"short": "Nijel's Point",
+				"c": 1,
+				"wx": 139.2,
+				"wy": 1325.8,
+				"map": 1443,
+				"x": 64.67,
+				"y": 10.44,
+				"faction": 1,
+				"npc": 6706,
+				"npcName": "Baritanas Skyriver"
+			},
+			{
+				"id": 38,
+				"name": "Shadowprey Village, Desolace",
+				"short": "Shadowprey Village",
+				"c": 1,
+				"wx": -1767.6,
+				"wy": 3263.9,
+				"map": 1443,
+				"x": 21.56,
+				"y": 74.04,
+				"faction": 2,
+				"npc": 6726,
+				"npcName": "Thalon"
+			},
+			{
+				"id": 39,
+				"name": "Gadgetzan, Tanaris",
+				"short": "Gadgetzan",
+				"c": 1,
+				"wx": -7224,
+				"wy": -3734.6,
+				"map": 1446,
+				"x": 50.95,
+				"y": 29.33,
+				"faction": 1,
+				"npc": 7823,
+				"npcName": "Bera Stonehammer"
+			},
+			{
+				"id": 40,
+				"name": "Gadgetzan, Tanaris",
+				"short": "Gadgetzan",
+				"c": 1,
+				"wx": -7048.9,
+				"wy": -3780.4,
+				"map": 1446,
+				"x": 51.62,
+				"y": 25.52,
+				"faction": 2,
+				"npc": 7824,
+				"npcName": "Bulkrek Ragefist"
+			},
+			{
+				"id": 41,
+				"name": "Feathermoon, Feralas",
+				"short": "Feathermoon",
+				"c": 1,
+				"wx": -4373.8,
+				"wy": 3338.6,
+				"map": 1444,
+				"x": 30.26,
+				"y": 43.32,
+				"faction": 1,
+				"npc": 8019,
+				"npcName": "Fyldren Moonfeather"
+			},
+			{
+				"id": 42,
+				"name": "Camp Mojache, Feralas",
+				"short": "Camp Mojache",
+				"c": 1,
+				"wx": -4419.9,
+				"wy": 199.3,
+				"map": 1444,
+				"x": 75.43,
+				"y": 44.31,
+				"faction": 2,
+				"npc": 8020,
+				"npcName": "Shyn"
+			},
+			{
+				"id": 43,
+				"name": "Aerie Peak, The Hinterlands",
+				"short": "Aerie Peak",
+				"c": 0,
+				"wx": 283.7,
+				"wy": -2002.8,
+				"map": 1425,
+				"x": 11.11,
+				"y": 46.09,
+				"faction": 1,
+				"npc": 8018,
+				"npcName": "Guthrum Thunderfist"
+			},
+			{
+				"id": 44,
+				"name": "Valormok, Azshara",
+				"short": "Valormok",
+				"c": 1,
+				"wx": 3661.5,
+				"wy": -4390.4,
+				"map": 1447,
+				"x": 21.95,
+				"y": 49.69,
+				"faction": 2,
+				"npc": 8610,
+				"npcName": "Kroum"
+			},
+			{
+				"id": 45,
+				"name": "Nethergarde Keep, Blasted Lands",
+				"short": "Nethergarde Keep",
+				"c": 0,
+				"wx": -11112.2,
+				"wy": -3435.7,
+				"map": 1419,
+				"x": 65.49,
+				"y": 24.43,
+				"faction": 1,
+				"npc": 8609,
+				"npcName": "Alexandra Constantine"
+			},
+			{
+				"id": 48,
+				"name": "Bloodvenom Post, Felwood",
+				"short": "Bloodvenom Post",
+				"c": 1,
+				"wx": 5068.4,
+				"wy": -337.2,
+				"map": 1448,
+				"x": 34.42,
+				"y": 53.87,
+				"faction": 2,
+				"npc": 11900,
+				"npcName": "Brakkar"
+			},
+			{
+				"id": 49,
+				"name": "Moonglade",
+				"short": "Moonglade",
+				"c": 1,
+				"wx": 7458.5,
+				"wy": -2487.2,
+				"map": 1450,
+				"x": 47.91,
+				"y": 67.11,
+				"faction": 1,
+				"npc": 10897,
+				"npcName": "Sindrayl"
+			},
+			{
+				"id": 52,
+				"name": "Everlook, Winterspring",
+				"short": "Everlook",
+				"c": 1,
+				"wx": 6799.2,
+				"wy": -4742.4,
+				"map": 1452,
+				"x": 62.33,
+				"y": 36.64,
+				"faction": 1,
+				"npc": 11138,
+				"npcName": "Maethrya"
+			},
+			{
+				"id": 53,
+				"name": "Everlook, Winterspring",
+				"short": "Everlook",
+				"c": 1,
+				"wx": 6813.1,
+				"wy": -4611.1,
+				"map": 1452,
+				"x": 60.49,
+				"y": 36.34,
+				"faction": 2,
+				"npc": 11139,
+				"npcName": "Yugrek"
+			},
+			{
+				"id": 55,
+				"name": "Brackenwall Village, Dustwallow Marsh",
+				"short": "Brackenwall Village",
+				"c": 1,
+				"wx": -3147.4,
+				"wy": -2842.2,
+				"map": 1445,
+				"x": 35.57,
+				"y": 31.83,
+				"faction": 2,
+				"npc": 11899,
+				"npcName": "Shardi"
+			},
+			{
+				"id": 56,
+				"name": "Stonard, Swamp of Sorrows",
+				"short": "Stonard",
+				"c": 0,
+				"wx": -10457,
+				"wy": -3279.2,
+				"map": 1435,
+				"x": 46.05,
+				"y": 54.68,
+				"faction": 2,
+				"npc": 6026,
+				"npcName": "Breyk"
+			},
+			{
+				"id": 58,
+				"name": "Zoram'gar Outpost, Ashenvale",
+				"short": "Zoram'gar Outpost",
+				"c": 1,
+				"wx": 3374.7,
+				"wy": 997,
+				"map": 1440,
+				"x": 12.19,
+				"y": 33.77,
+				"faction": 2,
+				"npc": 11901,
+				"npcName": "Andruk"
+			},
+			{
+				"id": 61,
+				"name": "Splintertree Post, Ashenvale",
+				"short": "Splintertree Post",
+				"c": 1,
+				"wx": 2302.4,
+				"wy": -2524.6,
+				"map": 1440,
+				"x": 73.26,
+				"y": 61.67,
+				"faction": 2,
+				"npc": 12616,
+				"npcName": "Vhulgra"
+			},
+			{
+				"id": 64,
+				"name": "Talrendis Point, Azshara",
+				"short": "Talrendis Point",
+				"c": 1,
+				"wx": 2722,
+				"wy": -3880.6,
+				"map": 1447,
+				"x": 11.9,
+				"y": 77.48,
+				"faction": 1,
+				"npc": 12577,
+				"npcName": "Jarrodenus"
+			},
+			{
+				"id": 65,
+				"name": "Talonbranch Glade, Felwood",
+				"short": "Talonbranch Glade",
+				"c": 1,
+				"wx": 6205.9,
+				"wy": -1949.6,
+				"map": 1448,
+				"x": 62.46,
+				"y": 24.19,
+				"faction": 1,
+				"npc": 12578,
+				"npcName": "Mishellena"
+			},
+			{
+				"id": 66,
+				"name": "Chillwind Camp, Western Plaguelands",
+				"short": "Chillwind Camp",
+				"c": 0,
+				"wx": 931.3,
+				"wy": -1430.1,
+				"map": 1422,
+				"x": 42.95,
+				"y": 84.95,
+				"faction": 1,
+				"npc": 12596,
+				"npcName": "Bibilfaz Featherwhistle"
+			},
+			{
+				"id": 67,
+				"name": "Light's Hope Chapel, Eastern Plaguelands",
+				"short": "Light's Hope Chapel",
+				"c": 0,
+				"wx": 2271.1,
+				"wy": -5340.8,
+				"map": 1423,
+				"x": 81.52,
+				"y": 59.23,
+				"faction": 1,
+				"npc": 12617,
+				"npcName": "Khaelyn Steelwing"
+			},
+			{
+				"id": 68,
+				"name": "Light's Hope Chapel, Eastern Plaguelands",
+				"short": "Light's Hope Chapel",
+				"c": 0,
+				"wx": 2327.4,
+				"wy": -5286.9,
+				"map": 1423,
+				"x": 80.12,
+				"y": 57.05,
+				"faction": 2,
+				"npc": 12636,
+				"npcName": "Georgia"
+			},
+			{
+				"id": 69,
+				"name": "Moonglade",
+				"short": "Moonglade",
+				"c": 1,
+				"wx": 7470.4,
+				"wy": -2123.4,
+				"map": 1450,
+				"x": 32.15,
+				"y": 66.33,
+				"faction": 2,
+				"npc": 12740,
+				"npcName": "Faustron"
+			},
+			{
+				"id": 70,
+				"name": "Flame Crest, Burning Steppes",
+				"short": "Flame Crest",
+				"c": 0,
+				"wx": -7504,
+				"wy": -2187.5,
+				"map": 1428,
+				"x": 65.58,
+				"y": 24.22,
+				"faction": 2,
+				"npc": 13177,
+				"npcName": "Vahgruk"
+			},
+			{
+				"id": 71,
+				"name": "Morgan's Vigil, Burning Steppes",
+				"short": "Morgan's Vigil",
+				"c": 0,
+				"wx": -8364.6,
+				"wy": -2738.4,
+				"map": 1428,
+				"x": 84.38,
+				"y": 68.3,
+				"faction": 1,
+				"npc": 2299,
+				"npcName": "Borgus Stoutarm"
+			},
+			{
+				"id": 72,
+				"name": "Cenarion Hold, Silithus",
+				"short": "Cenarion Hold",
+				"c": 1,
+				"wx": -6811.4,
+				"wy": 836.7,
+				"map": 1451,
+				"x": 48.83,
+				"y": 36.72,
+				"faction": 2,
+				"npc": 15178,
+				"npcName": "Runk Windtamer"
+			},
+			{
+				"id": 73,
+				"name": "Cenarion Hold, Silithus",
+				"short": "Cenarion Hold",
+				"c": 1,
+				"wx": -6761.8,
+				"wy": 772,
+				"map": 1451,
+				"x": 50.68,
+				"y": 34.59,
+				"faction": 1,
+				"npc": 15177,
+				"npcName": "Cloud Skydancer"
+			},
+			{
+				"id": 74,
+				"name": "Thorium Point, Searing Gorge",
+				"short": "Thorium Point",
+				"c": 0,
+				"wx": -6552.6,
+				"wy": -1168.3,
+				"map": 1427,
+				"x": 37.89,
+				"y": 30.43,
+				"faction": 1,
+				"npc": 2941,
+				"npcName": "Lanie Reed"
+			},
+			{
+				"id": 75,
+				"name": "Thorium Point, Searing Gorge",
+				"short": "Thorium Point",
+				"c": 0,
+				"wx": -6554.9,
+				"wy": -1100.1,
+				"map": 1427,
+				"x": 34.83,
+				"y": 30.58,
+				"faction": 2,
+				"npc": 3305,
+				"npcName": "Grisha"
+			},
+			{
+				"id": 76,
+				"name": "Revantusk Village, The Hinterlands",
+				"short": "Revantusk Village",
+				"c": 0,
+				"wx": -635.3,
+				"wy": -4720.5,
+				"map": 1425,
+				"x": 81.7,
+				"y": 81.89,
+				"faction": 2,
+				"npc": 4314,
+				"npcName": "Gorkas"
+			},
+			{
+				"id": 77,
+				"name": "Camp Taurajo, The Barrens",
+				"short": "Camp Taurajo",
+				"c": 1,
+				"wx": -2380.7,
+				"wy": -1882.7,
+				"map": 1413,
+				"x": 44.46,
+				"y": 59.1,
+				"faction": 2,
+				"npc": 10378,
+				"npcName": "Omusa Thunderhorn"
+			},
+			{
+				"id": 79,
+				"name": "Marshal's Refuge, Un'Goro Crater",
+				"short": "Marshal's Refuge",
+				"c": 1,
+				"wx": -6113.8,
+				"wy": -1142.7,
+				"map": 1449,
+				"x": 45.3,
+				"y": 5.97,
+				"faction": 3,
+				"npc": 10583,
+				"npcName": "Gryfe"
+			},
+			{
+				"id": 80,
+				"name": "Ratchet, The Barrens",
+				"short": "Ratchet",
+				"c": 1,
+				"wx": -894.6,
+				"wy": -3773,
+				"map": 1413,
+				"x": 63.12,
+				"y": 37.11,
+				"faction": 3,
+				"npc": 16227,
+				"npcName": "Bragok"
+			}
+		],
+		"legs": [
+			{
+				"path": 6,
+				"from": 2,
+				"to": 4,
+				"yards": 2319,
+				"cost": 110
+			},
+			{
+				"path": 9,
+				"from": 2,
+				"to": 5,
+				"yards": 3368,
+				"cost": 210
+			},
+			{
+				"path": 13,
+				"from": 2,
+				"to": 6,
+				"yards": 7748,
+				"cost": 50
+			},
+			{
+				"path": 23,
+				"from": 2,
+				"to": 12,
+				"yards": 3469,
+				"cost": 330
+			},
+			{
+				"path": 40,
+				"from": 2,
+				"to": 19,
+				"yards": 7317,
+				"cost": 630
+			},
+			{
+				"path": 245,
+				"from": 2,
+				"to": 45,
+				"yards": 5268,
+				"cost": 830
+			},
+			{
+				"path": 427,
+				"from": 2,
+				"to": 71,
+				"yards": 4700,
+				"cost": 830
+			},
+			{
+				"path": 7,
+				"from": 4,
+				"to": 2,
+				"yards": 2565,
+				"cost": 110
+			},
+			{
+				"path": 249,
+				"from": 4,
+				"to": 5,
+				"yards": 3890,
+				"cost": 210
+			},
+			{
+				"path": 250,
+				"from": 4,
+				"to": 12,
+				"yards": 2897,
+				"cost": 330
+			},
+			{
+				"path": 255,
+				"from": 4,
+				"to": 19,
+				"yards": 5561,
+				"cost": 630
+			},
+			{
+				"path": 8,
+				"from": 5,
+				"to": 2,
+				"yards": 3374,
+				"cost": 210
+			},
+			{
+				"path": 254,
+				"from": 5,
+				"to": 4,
+				"yards": 4003,
+				"cost": 110
+			},
+			{
+				"path": 257,
+				"from": 5,
+				"to": 12,
+				"yards": 1812,
+				"cost": 330
+			},
+			{
+				"path": 469,
+				"from": 5,
+				"to": 71,
+				"yards": 1825,
+				"cost": 830
+			},
+			{
+				"path": 12,
+				"from": 6,
+				"to": 2,
+				"yards": 6307,
+				"cost": 50
+			},
+			{
+				"path": 18,
+				"from": 6,
+				"to": 7,
+				"yards": 3861,
+				"cost": 330
+			},
+			{
+				"path": 16,
+				"from": 6,
+				"to": 8,
+				"yards": 3037,
+				"cost": 110
+			},
+			{
+				"path": 27,
+				"from": 6,
+				"to": 14,
+				"yards": 7938,
+				"cost": 330
+			},
+			{
+				"path": 31,
+				"from": 6,
+				"to": 16,
+				"yards": 7585,
+				"cost": 530
+			},
+			{
+				"path": 263,
+				"from": 6,
+				"to": 43,
+				"yards": 8941,
+				"cost": 730
+			},
+			{
+				"path": 428,
+				"from": 6,
+				"to": 66,
+				"yards": 8816,
+				"cost": 1020
+			},
+			{
+				"path": 438,
+				"from": 6,
+				"to": 67,
+				"yards": 10440,
+				"cost": 1020
+			},
+			{
+				"path": 404,
+				"from": 6,
+				"to": 74,
+				"yards": 2594,
+				"cost": 830
+			},
+			{
+				"path": 17,
+				"from": 7,
+				"to": 6,
+				"yards": 2658,
+				"cost": 330
+			},
+			{
+				"path": 266,
+				"from": 7,
+				"to": 8,
+				"yards": 4877,
+				"cost": 110
+			},
+			{
+				"path": 271,
+				"from": 7,
+				"to": 14,
+				"yards": 3215,
+				"cost": 330
+			},
+			{
+				"path": 269,
+				"from": 7,
+				"to": 16,
+				"yards": 3388,
+				"cost": 530
+			},
+			{
+				"path": 15,
+				"from": 8,
+				"to": 6,
+				"yards": 3266,
+				"cost": 110
+			},
+			{
+				"path": 265,
+				"from": 8,
+				"to": 7,
+				"yards": 4564,
+				"cost": 330
+			},
+			{
+				"path": 267,
+				"from": 8,
+				"to": 16,
+				"yards": 4902,
+				"cost": 530
+			},
+			{
+				"path": 21,
+				"from": 10,
+				"to": 11,
+				"yards": 3345,
+				"cost": 110
+			},
+			{
+				"path": 440,
+				"from": 10,
+				"to": 13,
+				"yards": 2847,
+				"cost": 330
+			},
+			{
+				"path": 20,
+				"from": 11,
+				"to": 10,
+				"yards": 3180,
+				"cost": 110
+			},
+			{
+				"path": 25,
+				"from": 11,
+				"to": 13,
+				"yards": 4224,
+				"cost": 330
+			},
+			{
+				"path": 33,
+				"from": 11,
+				"to": 17,
+				"yards": 9014,
+				"cost": 530
+			},
+			{
+				"path": 39,
+				"from": 11,
+				"to": 21,
+				"yards": 14630,
+				"cost": 630
+			},
+			{
+				"path": 357,
+				"from": 11,
+				"to": 68,
+				"yards": 7849,
+				"cost": 1020
+			},
+			{
+				"path": 414,
+				"from": 11,
+				"to": 76,
+				"yards": 8530,
+				"cost": 730
+			},
+			{
+				"path": 22,
+				"from": 12,
+				"to": 2,
+				"yards": 2629,
+				"cost": 330
+			},
+			{
+				"path": 252,
+				"from": 12,
+				"to": 4,
+				"yards": 2794,
+				"cost": 110
+			},
+			{
+				"path": 258,
+				"from": 12,
+				"to": 5,
+				"yards": 1787,
+				"cost": 210
+			},
+			{
+				"path": 259,
+				"from": 12,
+				"to": 19,
+				"yards": 5135,
+				"cost": 630
+			},
+			{
+				"path": 261,
+				"from": 12,
+				"to": 45,
+				"yards": 2903,
+				"cost": 830
+			},
+			{
+				"path": 441,
+				"from": 13,
+				"to": 10,
+				"yards": 2969,
+				"cost": 110
+			},
+			{
+				"path": 24,
+				"from": 13,
+				"to": 11,
+				"yards": 4172,
+				"cost": 330
+			},
+			{
+				"path": 322,
+				"from": 13,
+				"to": 17,
+				"yards": 3532,
+				"cost": 530
+			},
+			{
+				"path": 413,
+				"from": 13,
+				"to": 76,
+				"yards": 5840,
+				"cost": 730
+			},
+			{
+				"path": 26,
+				"from": 14,
+				"to": 6,
+				"yards": 6174,
+				"cost": 330
+			},
+			{
+				"path": 272,
+				"from": 14,
+				"to": 7,
+				"yards": 3301,
+				"cost": 330
+			},
+			{
+				"path": 274,
+				"from": 14,
+				"to": 16,
+				"yards": 2214,
+				"cost": 530
+			},
+			{
+				"path": 230,
+				"from": 14,
+				"to": 43,
+				"yards": 2139,
+				"cost": 730
+			},
+			{
+				"path": 347,
+				"from": 14,
+				"to": 66,
+				"yards": 2418,
+				"cost": 830
+			},
+			{
+				"path": 30,
+				"from": 16,
+				"to": 6,
+				"yards": 8109,
+				"cost": 530
+			},
+			{
+				"path": 270,
+				"from": 16,
+				"to": 7,
+				"yards": 3776,
+				"cost": 330
+			},
+			{
+				"path": 268,
+				"from": 16,
+				"to": 8,
+				"yards": 5113,
+				"cost": 110
+			},
+			{
+				"path": 273,
+				"from": 16,
+				"to": 14,
+				"yards": 2596,
+				"cost": 330
+			},
+			{
+				"path": 275,
+				"from": 16,
+				"to": 43,
+				"yards": 2152,
+				"cost": 730
+			},
+			{
+				"path": 32,
+				"from": 17,
+				"to": 11,
+				"yards": 7763,
+				"cost": 530
+			},
+			{
+				"path": 321,
+				"from": 17,
+				"to": 13,
+				"yards": 3493,
+				"cost": 330
+			},
+			{
+				"path": 320,
+				"from": 17,
+				"to": 21,
+				"yards": 7760,
+				"cost": 630
+			},
+			{
+				"path": 484,
+				"from": 17,
+				"to": 76,
+				"yards": 2705,
+				"cost": 730
+			},
+			{
+				"path": 35,
+				"from": 18,
+				"to": 20,
+				"yards": 3047,
+				"cost": 630
+			},
+			{
+				"path": 36,
+				"from": 18,
+				"to": 21,
+				"yards": 12190,
+				"cost": 630
+			},
+			{
+				"path": 82,
+				"from": 18,
+				"to": 56,
+				"yards": 7986,
+				"cost": 630
+			},
+			{
+				"path": 41,
+				"from": 19,
+				"to": 2,
+				"yards": 6585,
+				"cost": 630
+			},
+			{
+				"path": 256,
+				"from": 19,
+				"to": 4,
+				"yards": 5439,
+				"cost": 530
+			},
+			{
+				"path": 260,
+				"from": 19,
+				"to": 12,
+				"yards": 5242,
+				"cost": 330
+			},
+			{
+				"path": 34,
+				"from": 20,
+				"to": 18,
+				"yards": 2422,
+				"cost": 630
+			},
+			{
+				"path": 361,
+				"from": 20,
+				"to": 21,
+				"yards": 9802,
+				"cost": 630
+			},
+			{
+				"path": 344,
+				"from": 20,
+				"to": 56,
+				"yards": 6151,
+				"cost": 630
+			},
+			{
+				"path": 38,
+				"from": 21,
+				"to": 11,
+				"yards": 14918,
+				"cost": 630
+			},
+			{
+				"path": 319,
+				"from": 21,
+				"to": 17,
+				"yards": 7881,
+				"cost": 630
+			},
+			{
+				"path": 37,
+				"from": 21,
+				"to": 18,
+				"yards": 12493,
+				"cost": 630
+			},
+			{
+				"path": 362,
+				"from": 21,
+				"to": 20,
+				"yards": 9376,
+				"cost": 530
+			},
+			{
+				"path": 317,
+				"from": 21,
+				"to": 56,
+				"yards": 8424,
+				"cost": 710
+			},
+			{
+				"path": 378,
+				"from": 21,
+				"to": 70,
+				"yards": 2593,
+				"cost": 830
+			},
+			{
+				"path": 406,
+				"from": 21,
+				"to": 75,
+				"yards": 1682,
+				"cost": 830
+			},
+			{
+				"path": 387,
+				"from": 22,
+				"to": 23,
+				"yards": 6213,
+				"cost": 50
+			},
+			{
+				"path": 46,
+				"from": 22,
+				"to": 25,
+				"yards": 4752,
+				"cost": 110
+			},
+			{
+				"path": 53,
+				"from": 22,
+				"to": 29,
+				"yards": 5439,
+				"cost": 210
+			},
+			{
+				"path": 55,
+				"from": 22,
+				"to": 30,
+				"yards": 6113,
+				"cost": 430
+			},
+			{
+				"path": 162,
+				"from": 22,
+				"to": 38,
+				"yards": 4772,
+				"cost": 530
+			},
+			{
+				"path": 309,
+				"from": 22,
+				"to": 40,
+				"yards": 8693,
+				"cost": 730
+			},
+			{
+				"path": 228,
+				"from": 22,
+				"to": 42,
+				"yards": 7563,
+				"cost": 730
+			},
+			{
+				"path": 290,
+				"from": 22,
+				"to": 44,
+				"yards": 8070,
+				"cost": 830
+			},
+			{
+				"path": 345,
+				"from": 22,
+				"to": 55,
+				"yards": 7149,
+				"cost": 630
+			},
+			{
+				"path": 419,
+				"from": 22,
+				"to": 77,
+				"yards": 2599,
+				"cost": 110
+			},
+			{
+				"path": 42,
+				"from": 23,
+				"to": 22,
+				"yards": 6745,
+				"cost": 50
+			},
+			{
+				"path": 47,
+				"from": 23,
+				"to": 25,
+				"yards": 3304,
+				"cost": 110
+			},
+			{
+				"path": 224,
+				"from": 23,
+				"to": 40,
+				"yards": 12500,
+				"cost": 730
+			},
+			{
+				"path": 243,
+				"from": 23,
+				"to": 44,
+				"yards": 2965,
+				"cost": 830
+			},
+			{
+				"path": 338,
+				"from": 23,
+				"to": 48,
+				"yards": 7558,
+				"cost": 830
+			},
+			{
+				"path": 399,
+				"from": 23,
+				"to": 53,
+				"yards": 9582,
+				"cost": 1020
+			},
+			{
+				"path": 335,
+				"from": 23,
+				"to": 55,
+				"yards": 6853,
+				"cost": 630
+			},
+			{
+				"path": 328,
+				"from": 23,
+				"to": 61,
+				"yards": 2680,
+				"cost": 530
+			},
+			{
+				"path": 44,
+				"from": 25,
+				"to": 22,
+				"yards": 5461,
+				"cost": 110
+			},
+			{
+				"path": 45,
+				"from": 25,
+				"to": 23,
+				"yards": 4252,
+				"cost": 110
+			},
+			{
+				"path": 279,
+				"from": 25,
+				"to": 29,
+				"yards": 4495,
+				"cost": 210
+			},
+			{
+				"path": 281,
+				"from": 25,
+				"to": 30,
+				"yards": 5532,
+				"cost": 430
+			},
+			{
+				"path": 393,
+				"from": 25,
+				"to": 40,
+				"yards": 9093,
+				"cost": 730
+			},
+			{
+				"path": 355,
+				"from": 25,
+				"to": 42,
+				"yards": 7547,
+				"cost": 730
+			},
+			{
+				"path": 283,
+				"from": 25,
+				"to": 44,
+				"yards": 5051,
+				"cost": 830
+			},
+			{
+				"path": 287,
+				"from": 25,
+				"to": 48,
+				"yards": 7603,
+				"cost": 930
+			},
+			{
+				"path": 360,
+				"from": 25,
+				"to": 55,
+				"yards": 4878,
+				"cost": 630
+			},
+			{
+				"path": 354,
+				"from": 25,
+				"to": 58,
+				"yards": 6902,
+				"cost": 330
+			},
+			{
+				"path": 334,
+				"from": 25,
+				"to": 61,
+				"yards": 4871,
+				"cost": 530
+			},
+			{
+				"path": 417,
+				"from": 25,
+				"to": 77,
+				"yards": 2705,
+				"cost": 110
+			},
+			{
+				"path": 462,
+				"from": 25,
+				"to": 80,
+				"yards": 1545,
+				"cost": 110
+			},
+			{
+				"path": 101,
+				"from": 26,
+				"to": 27,
+				"yards": 2525,
+				"cost": 0
+			},
+			{
+				"path": 51,
+				"from": 26,
+				"to": 28,
+				"yards": 5270,
+				"cost": 330
+			},
+			{
+				"path": 181,
+				"from": 26,
+				"to": 32,
+				"yards": 20249,
+				"cost": 630
+			},
+			{
+				"path": 59,
+				"from": 26,
+				"to": 33,
+				"yards": 5432,
+				"cost": 330
+			},
+			{
+				"path": 385,
+				"from": 26,
+				"to": 37,
+				"yards": 8723,
+				"cost": 530
+			},
+			{
+				"path": 226,
+				"from": 26,
+				"to": 41,
+				"yards": 14168,
+				"cost": 730
+			},
+			{
+				"path": 289,
+				"from": 26,
+				"to": 49,
+				"yards": 4525,
+				"cost": 830
+			},
+			{
+				"path": 330,
+				"from": 26,
+				"to": 64,
+				"yards": 8981,
+				"cost": 730
+			},
+			{
+				"path": 386,
+				"from": 26,
+				"to": 65,
+				"yards": 5682,
+				"cost": 730
+			},
+			{
+				"path": 102,
+				"from": 27,
+				"to": 26,
+				"yards": 2551,
+				"cost": 0
+			},
+			{
+				"path": 50,
+				"from": 28,
+				"to": 26,
+				"yards": 4426,
+				"cost": 330
+			},
+			{
+				"path": 443,
+				"from": 28,
+				"to": 33,
+				"yards": 4599,
+				"cost": 330
+			},
+			{
+				"path": 467,
+				"from": 28,
+				"to": 64,
+				"yards": 4428,
+				"cost": 730
+			},
+			{
+				"path": 52,
+				"from": 29,
+				"to": 22,
+				"yards": 5227,
+				"cost": 210
+			},
+			{
+				"path": 280,
+				"from": 29,
+				"to": 25,
+				"yards": 4477,
+				"cost": 210
+			},
+			{
+				"path": 358,
+				"from": 29,
+				"to": 38,
+				"yards": 4297,
+				"cost": 530
+			},
+			{
+				"path": 54,
+				"from": 30,
+				"to": 22,
+				"yards": 6764,
+				"cost": 430
+			},
+			{
+				"path": 282,
+				"from": 30,
+				"to": 25,
+				"yards": 5810,
+				"cost": 430
+			},
+			{
+				"path": 308,
+				"from": 30,
+				"to": 40,
+				"yards": 2782,
+				"cost": 730
+			},
+			{
+				"path": 487,
+				"from": 30,
+				"to": 42,
+				"yards": 3685,
+				"cost": 730
+			},
+			{
+				"path": 422,
+				"from": 30,
+				"to": 77,
+				"yards": 4111,
+				"cost": 430
+			},
+			{
+				"path": 57,
+				"from": 31,
+				"to": 32,
+				"yards": 4780,
+				"cost": 730
+			},
+			{
+				"path": 324,
+				"from": 31,
+				"to": 39,
+				"yards": 5122,
+				"cost": 730
+			},
+			{
+				"path": 325,
+				"from": 31,
+				"to": 41,
+				"yards": 5335,
+				"cost": 630
+			},
+			{
+				"path": 182,
+				"from": 32,
+				"to": 26,
+				"yards": 18600,
+				"cost": 630
+			},
+			{
+				"path": 56,
+				"from": 32,
+				"to": 31,
+				"yards": 4887,
+				"cost": 430
+			},
+			{
+				"path": 163,
+				"from": 32,
+				"to": 37,
+				"yards": 10013,
+				"cost": 530
+			},
+			{
+				"path": 222,
+				"from": 32,
+				"to": 39,
+				"yards": 4694,
+				"cost": 730
+			},
+			{
+				"path": 445,
+				"from": 32,
+				"to": 64,
+				"yards": 7052,
+				"cost": 730
+			},
+			{
+				"path": 464,
+				"from": 32,
+				"to": 80,
+				"yards": 3446,
+				"cost": 110
+			},
+			{
+				"path": 58,
+				"from": 33,
+				"to": 26,
+				"yards": 5304,
+				"cost": 330
+			},
+			{
+				"path": 444,
+				"from": 33,
+				"to": 28,
+				"yards": 4613,
+				"cost": 330
+			},
+			{
+				"path": 478,
+				"from": 33,
+				"to": 37,
+				"yards": 3803,
+				"cost": 530
+			},
+			{
+				"path": 384,
+				"from": 37,
+				"to": 26,
+				"yards": 8458,
+				"cost": 530
+			},
+			{
+				"path": 141,
+				"from": 37,
+				"to": 32,
+				"yards": 9220,
+				"cost": 530
+			},
+			{
+				"path": 477,
+				"from": 37,
+				"to": 33,
+				"yards": 3581,
+				"cost": 330
+			},
+			{
+				"path": 373,
+				"from": 37,
+				"to": 41,
+				"yards": 6949,
+				"cost": 730
+			},
+			{
+				"path": 161,
+				"from": 38,
+				"to": 22,
+				"yards": 5342,
+				"cost": 530
+			},
+			{
+				"path": 356,
+				"from": 38,
+				"to": 29,
+				"yards": 5966,
+				"cost": 210
+			},
+			{
+				"path": 376,
+				"from": 38,
+				"to": 42,
+				"yards": 5873,
+				"cost": 730
+			},
+			{
+				"path": 323,
+				"from": 39,
+				"to": 31,
+				"yards": 5304,
+				"cost": 430
+			},
+			{
+				"path": 201,
+				"from": 39,
+				"to": 32,
+				"yards": 4606,
+				"cost": 630
+			},
+			{
+				"path": 394,
+				"from": 39,
+				"to": 73,
+				"yards": 5907,
+				"cost": 1020
+			},
+			{
+				"path": 458,
+				"from": 39,
+				"to": 79,
+				"yards": 3115,
+				"cost": 830
+			},
+			{
+				"path": 311,
+				"from": 40,
+				"to": 22,
+				"yards": 9107,
+				"cost": 730
+			},
+			{
+				"path": 223,
+				"from": 40,
+				"to": 23,
+				"yards": 10495,
+				"cost": 730
+			},
+			{
+				"path": 392,
+				"from": 40,
+				"to": 25,
+				"yards": 9008,
+				"cost": 730
+			},
+			{
+				"path": 310,
+				"from": 40,
+				"to": 30,
+				"yards": 2602,
+				"cost": 430
+			},
+			{
+				"path": 389,
+				"from": 40,
+				"to": 42,
+				"yards": 5973,
+				"cost": 630
+			},
+			{
+				"path": 388,
+				"from": 40,
+				"to": 55,
+				"yards": 6647,
+				"cost": 630
+			},
+			{
+				"path": 395,
+				"from": 40,
+				"to": 72,
+				"yards": 6976,
+				"cost": 1020
+			},
+			{
+				"path": 459,
+				"from": 40,
+				"to": 79,
+				"yards": 3218,
+				"cost": 830
+			},
+			{
+				"path": 225,
+				"from": 41,
+				"to": 26,
+				"yards": 14014,
+				"cost": 730
+			},
+			{
+				"path": 326,
+				"from": 41,
+				"to": 31,
+				"yards": 4635,
+				"cost": 430
+			},
+			{
+				"path": 374,
+				"from": 41,
+				"to": 37,
+				"yards": 6797,
+				"cost": 730
+			},
+			{
+				"path": 471,
+				"from": 41,
+				"to": 73,
+				"yards": 4774,
+				"cost": 1030
+			},
+			{
+				"path": 227,
+				"from": 42,
+				"to": 22,
+				"yards": 7777,
+				"cost": 730
+			},
+			{
+				"path": 353,
+				"from": 42,
+				"to": 25,
+				"yards": 7915,
+				"cost": 730
+			},
+			{
+				"path": 486,
+				"from": 42,
+				"to": 30,
+				"yards": 3215,
+				"cost": 430
+			},
+			{
+				"path": 375,
+				"from": 42,
+				"to": 38,
+				"yards": 6016,
+				"cost": 730
+			},
+			{
+				"path": 391,
+				"from": 42,
+				"to": 40,
+				"yards": 6024,
+				"cost": 630
+			},
+			{
+				"path": 450,
+				"from": 42,
+				"to": 72,
+				"yards": 3897,
+				"cost": 1030
+			},
+			{
+				"path": 264,
+				"from": 43,
+				"to": 6,
+				"yards": 7658,
+				"cost": 730
+			},
+			{
+				"path": 229,
+				"from": 43,
+				"to": 14,
+				"yards": 2039,
+				"cost": 330
+			},
+			{
+				"path": 276,
+				"from": 43,
+				"to": 16,
+				"yards": 2267,
+				"cost": 530
+			},
+			{
+				"path": 475,
+				"from": 43,
+				"to": 66,
+				"yards": 1590,
+				"cost": 1020
+			},
+			{
+				"path": 349,
+				"from": 43,
+				"to": 67,
+				"yards": 4922,
+				"cost": 1020
+			},
+			{
+				"path": 291,
+				"from": 44,
+				"to": 22,
+				"yards": 7700,
+				"cost": 830
+			},
+			{
+				"path": 242,
+				"from": 44,
+				"to": 23,
+				"yards": 3622,
+				"cost": 830
+			},
+			{
+				"path": 284,
+				"from": 44,
+				"to": 25,
+				"yards": 5163,
+				"cost": 830
+			},
+			{
+				"path": 400,
+				"from": 44,
+				"to": 48,
+				"yards": 6955,
+				"cost": 930
+			},
+			{
+				"path": 500,
+				"from": 44,
+				"to": 53,
+				"yards": 3905,
+				"cost": 1020
+			},
+			{
+				"path": 482,
+				"from": 44,
+				"to": 61,
+				"yards": 2795,
+				"cost": 530
+			},
+			{
+				"path": 244,
+				"from": 45,
+				"to": 2,
+				"yards": 5672,
+				"cost": 830
+			},
+			{
+				"path": 262,
+				"from": 45,
+				"to": 12,
+				"yards": 2748,
+				"cost": 330
+			},
+			{
+				"path": 382,
+				"from": 45,
+				"to": 71,
+				"yards": 6251,
+				"cost": 830
+			},
+			{
+				"path": 341,
+				"from": 48,
+				"to": 23,
+				"yards": 7747,
+				"cost": 930
+			},
+			{
+				"path": 286,
+				"from": 48,
+				"to": 25,
+				"yards": 7227,
+				"cost": 930
+			},
+			{
+				"path": 401,
+				"from": 48,
+				"to": 44,
+				"yards": 7221,
+				"cost": 830
+			},
+			{
+				"path": 307,
+				"from": 48,
+				"to": 53,
+				"yards": 5700,
+				"cost": 1020
+			},
+			{
+				"path": 365,
+				"from": 48,
+				"to": 69,
+				"yards": 4947,
+				"cost": 830
+			},
+			{
+				"path": 368,
+				"from": 49,
+				"to": 26,
+				"yards": 4247,
+				"cost": 830
+			},
+			{
+				"path": 367,
+				"from": 49,
+				"to": 52,
+				"yards": 3900,
+				"cost": 1020
+			},
+			{
+				"path": 479,
+				"from": 49,
+				"to": 65,
+				"yards": 1840,
+				"cost": 730
+			},
+			{
+				"path": 298,
+				"from": 52,
+				"to": 49,
+				"yards": 3639,
+				"cost": 830
+			},
+			{
+				"path": 448,
+				"from": 52,
+				"to": 64,
+				"yards": 5265,
+				"cost": 730
+			},
+			{
+				"path": 339,
+				"from": 52,
+				"to": 65,
+				"yards": 3670,
+				"cost": 730
+			},
+			{
+				"path": 398,
+				"from": 53,
+				"to": 23,
+				"yards": 9115,
+				"cost": 1020
+			},
+			{
+				"path": 499,
+				"from": 53,
+				"to": 44,
+				"yards": 4041,
+				"cost": 830
+			},
+			{
+				"path": 306,
+				"from": 53,
+				"to": 48,
+				"yards": 5853,
+				"cost": 930
+			},
+			{
+				"path": 363,
+				"from": 53,
+				"to": 69,
+				"yards": 4016,
+				"cost": 830
+			},
+			{
+				"path": 348,
+				"from": 55,
+				"to": 22,
+				"yards": 6729,
+				"cost": 630
+			},
+			{
+				"path": 336,
+				"from": 55,
+				"to": 23,
+				"yards": 6496,
+				"cost": 630
+			},
+			{
+				"path": 304,
+				"from": 55,
+				"to": 25,
+				"yards": 4848,
+				"cost": 630
+			},
+			{
+				"path": 390,
+				"from": 55,
+				"to": 40,
+				"yards": 6660,
+				"cost": 730
+			},
+			{
+				"path": 121,
+				"from": 56,
+				"to": 18,
+				"yards": 7798,
+				"cost": 630
+			},
+			{
+				"path": 343,
+				"from": 56,
+				"to": 20,
+				"yards": 5646,
+				"cost": 630
+			},
+			{
+				"path": 318,
+				"from": 56,
+				"to": 21,
+				"yards": 8555,
+				"cost": 630
+			},
+			{
+				"path": 380,
+				"from": 56,
+				"to": 70,
+				"yards": 5916,
+				"cost": 830
+			},
+			{
+				"path": 305,
+				"from": 58,
+				"to": 25,
+				"yards": 6827,
+				"cost": 110
+			},
+			{
+				"path": 350,
+				"from": 58,
+				"to": 61,
+				"yards": 5013,
+				"cost": 530
+			},
+			{
+				"path": 327,
+				"from": 61,
+				"to": 23,
+				"yards": 2869,
+				"cost": 530
+			},
+			{
+				"path": 333,
+				"from": 61,
+				"to": 25,
+				"yards": 4806,
+				"cost": 530
+			},
+			{
+				"path": 481,
+				"from": 61,
+				"to": 44,
+				"yards": 2870,
+				"cost": 830
+			},
+			{
+				"path": 351,
+				"from": 61,
+				"to": 58,
+				"yards": 4995,
+				"cost": 330
+			},
+			{
+				"path": 329,
+				"from": 64,
+				"to": 26,
+				"yards": 9038,
+				"cost": 730
+			},
+			{
+				"path": 468,
+				"from": 64,
+				"to": 28,
+				"yards": 4578,
+				"cost": 330
+			},
+			{
+				"path": 446,
+				"from": 64,
+				"to": 32,
+				"yards": 7242,
+				"cost": 630
+			},
+			{
+				"path": 447,
+				"from": 64,
+				"to": 52,
+				"yards": 5355,
+				"cost": 1030
+			},
+			{
+				"path": 332,
+				"from": 64,
+				"to": 65,
+				"yards": 8502,
+				"cost": 730
+			},
+			{
+				"path": 465,
+				"from": 64,
+				"to": 80,
+				"yards": 4062,
+				"cost": 110
+			},
+			{
+				"path": 369,
+				"from": 65,
+				"to": 26,
+				"yards": 5622,
+				"cost": 730
+			},
+			{
+				"path": 480,
+				"from": 65,
+				"to": 49,
+				"yards": 2005,
+				"cost": 1020
+			},
+			{
+				"path": 371,
+				"from": 65,
+				"to": 52,
+				"yards": 3601,
+				"cost": 1020
+			},
+			{
+				"path": 372,
+				"from": 65,
+				"to": 64,
+				"yards": 8465,
+				"cost": 730
+			},
+			{
+				"path": 429,
+				"from": 66,
+				"to": 6,
+				"yards": 7782,
+				"cost": 1020
+			},
+			{
+				"path": 346,
+				"from": 66,
+				"to": 14,
+				"yards": 2559,
+				"cost": 330
+			},
+			{
+				"path": 476,
+				"from": 66,
+				"to": 43,
+				"yards": 1958,
+				"cost": 730
+			},
+			{
+				"path": 431,
+				"from": 66,
+				"to": 67,
+				"yards": 4390,
+				"cost": 1020
+			},
+			{
+				"path": 437,
+				"from": 67,
+				"to": 6,
+				"yards": 11024,
+				"cost": 1020
+			},
+			{
+				"path": 352,
+				"from": 67,
+				"to": 43,
+				"yards": 4871,
+				"cost": 730
+			},
+			{
+				"path": 432,
+				"from": 67,
+				"to": 66,
+				"yards": 4484,
+				"cost": 1020
+			},
+			{
+				"path": 359,
+				"from": 68,
+				"to": 11,
+				"yards": 7837,
+				"cost": 1020
+			},
+			{
+				"path": 474,
+				"from": 68,
+				"to": 76,
+				"yards": 4232,
+				"cost": 730
+			},
+			{
+				"path": 364,
+				"from": 69,
+				"to": 48,
+				"yards": 4713,
+				"cost": 930
+			},
+			{
+				"path": 366,
+				"from": 69,
+				"to": 53,
+				"yards": 4256,
+				"cost": 1020
+			},
+			{
+				"path": 377,
+				"from": 70,
+				"to": 21,
+				"yards": 2994,
+				"cost": 830
+			},
+			{
+				"path": 379,
+				"from": 70,
+				"to": 56,
+				"yards": 6376,
+				"cost": 830
+			},
+			{
+				"path": 408,
+				"from": 70,
+				"to": 75,
+				"yards": 2154,
+				"cost": 830
+			},
+			{
+				"path": 425,
+				"from": 71,
+				"to": 2,
+				"yards": 4528,
+				"cost": 830
+			},
+			{
+				"path": 470,
+				"from": 71,
+				"to": 5,
+				"yards": 1884,
+				"cost": 210
+			},
+			{
+				"path": 381,
+				"from": 71,
+				"to": 45,
+				"yards": 6288,
+				"cost": 830
+			},
+			{
+				"path": 410,
+				"from": 71,
+				"to": 74,
+				"yards": 3090,
+				"cost": 830
+			},
+			{
+				"path": 423,
+				"from": 72,
+				"to": 40,
+				"yards": 7224,
+				"cost": 730
+			},
+			{
+				"path": 449,
+				"from": 72,
+				"to": 42,
+				"yards": 3895,
+				"cost": 730
+			},
+			{
+				"path": 456,
+				"from": 72,
+				"to": 79,
+				"yards": 2896,
+				"cost": 830
+			},
+			{
+				"path": 424,
+				"from": 73,
+				"to": 39,
+				"yards": 5652,
+				"cost": 730
+			},
+			{
+				"path": 451,
+				"from": 73,
+				"to": 41,
+				"yards": 5239,
+				"cost": 730
+			},
+			{
+				"path": 457,
+				"from": 73,
+				"to": 79,
+				"yards": 2745,
+				"cost": 830
+			},
+			{
+				"path": 402,
+				"from": 74,
+				"to": 6,
+				"yards": 2802,
+				"cost": 830
+			},
+			{
+				"path": 411,
+				"from": 74,
+				"to": 71,
+				"yards": 2865,
+				"cost": 830
+			},
+			{
+				"path": 407,
+				"from": 75,
+				"to": 21,
+				"yards": 2090,
+				"cost": 630
+			},
+			{
+				"path": 409,
+				"from": 75,
+				"to": 70,
+				"yards": 2297,
+				"cost": 830
+			},
+			{
+				"path": 415,
+				"from": 76,
+				"to": 11,
+				"yards": 8538,
+				"cost": 730
+			},
+			{
+				"path": 412,
+				"from": 76,
+				"to": 13,
+				"yards": 4767,
+				"cost": 330
+			},
+			{
+				"path": 485,
+				"from": 76,
+				"to": 17,
+				"yards": 2785,
+				"cost": 530
+			},
+			{
+				"path": 473,
+				"from": 76,
+				"to": 68,
+				"yards": 4159,
+				"cost": 1030
+			},
+			{
+				"path": 420,
+				"from": 77,
+				"to": 22,
+				"yards": 3410,
+				"cost": 110
+			},
+			{
+				"path": 416,
+				"from": 77,
+				"to": 25,
+				"yards": 2380,
+				"cost": 110
+			},
+			{
+				"path": 421,
+				"from": 77,
+				"to": 30,
+				"yards": 3750,
+				"cost": 430
+			},
+			{
+				"path": 452,
+				"from": 79,
+				"to": 39,
+				"yards": 3100,
+				"cost": 730
+			},
+			{
+				"path": 453,
+				"from": 79,
+				"to": 40,
+				"yards": 3396,
+				"cost": 730
+			},
+			{
+				"path": 454,
+				"from": 79,
+				"to": 72,
+				"yards": 3003,
+				"cost": 1030
+			},
+			{
+				"path": 455,
+				"from": 79,
+				"to": 73,
+				"yards": 2823,
+				"cost": 1030
+			},
+			{
+				"path": 461,
+				"from": 80,
+				"to": 25,
+				"yards": 2041,
+				"cost": 110
+			},
+			{
+				"path": 460,
+				"from": 80,
+				"to": 32,
+				"yards": 3149,
+				"cost": 630
+			},
+			{
+				"path": 466,
+				"from": 80,
+				"to": 64,
+				"yards": 3960,
+				"cost": 730
+			}
+		]
+	},
+	"transports": [
+		{
+			"id": "boat-bootybay-ratchet",
+			"kind": "boat",
+			"faction": 3,
+			"a": {
+				"name": "Booty Bay",
+				"area": 35,
+				"c": 0,
+				"wx": -14299.8,
+				"wy": 542.6,
+				"map": 1434,
+				"x": 26.3,
+				"y": 73.6,
+				"f": "e",
+				"source": "npc 4631 (\"Wharfmaster Lozgil\"), 46 yd from the TaxiPathNode stop"
+			},
+			"b": {
+				"name": "Ratchet",
+				"area": 392,
+				"c": 1,
+				"wx": -988.7,
+				"wy": -3801.6,
+				"map": 1413,
+				"x": 63.4,
+				"y": 38.5,
+				"f": "e",
+				"source": "npc 3453 (\"Wharfmaster Dizzywig\"), 43 yd from the TaxiPathNode stop"
+			},
+			"ab": 124,
+			"ba": 107,
+			"waitA": 185,
+			"waitB": 185,
+			"source": "TaxiPath 241: 3045 yd / 2787 yd between stops, 120 s docked per loop, speed 30 yd/s (estimate); timetable: path-241 (CMaNGOS transport model, sniffed periods)",
+			"path": 241,
+			"client": "era",
+			"stops": {
+				"a": {
+					"c": 0,
+					"wx": -14277.745117188,
+					"wy": 582.86614990234
+				},
+				"b": {
+					"c": 1,
+					"wx": -1005.6134033203,
+					"wy": -3841.6477050781
+				}
+			}
+		},
+		{
+			"id": "boat-menethil-theramore",
+			"kind": "boat",
+			"faction": 1,
+			"a": {
+				"name": "Menethil Harbor",
+				"area": 150,
+				"c": 0,
+				"wx": -3905.2,
+				"wy": -585.8,
+				"map": 1437,
+				"x": 4.74,
+				"y": 63.76,
+				"f": "e",
+				"source": "TaxiPathNode stop"
+			},
+			"b": {
+				"name": "Theramore",
+				"area": 513,
+				"c": 1,
+				"wx": -4016.4,
+				"wy": -4740.6,
+				"map": 1445,
+				"x": 71.73,
+				"y": 56.66,
+				"f": "e",
+				"source": "TaxiPathNode stop"
+			},
+			"ab": 104,
+			"ba": 106,
+			"waitA": 175,
+			"waitB": 175,
+			"source": "TaxiPath 292: 2441 yd / 2536 yd between stops, 120 s docked per loop, speed 30 yd/s (estimate); timetable: path-292 (CMaNGOS transport model, sniffed periods)",
+			"path": 292,
+			"client": "era",
+			"stops": {
+				"a": {
+					"c": 0,
+					"wx": -3905.2248535156,
+					"wy": -585.80847167969
+				},
+				"b": {
+					"c": 1,
+					"wx": -4016.3898925781,
+					"wy": -4740.5883789062
+				}
+			}
+		},
+		{
+			"id": "boat-menethil-southshore",
+			"kind": "boat",
+			"faction": 1,
+			"a": {
+				"name": "Menethil Harbor",
+				"area": 150,
+				"c": 0,
+				"wx": -3709.5,
+				"wy": -575.1,
+				"map": 1437,
+				"x": 4.49,
+				"y": 56.66,
+				"f": "e",
+				"source": "TaxiPathNode stop"
+			},
+			"b": {
+				"name": "Southshore",
+				"area": 271,
+				"c": 0,
+				"wx": -1102.6,
+				"wy": -554.7,
+				"map": 1424,
+				"x": 50.67,
+				"y": 70.44,
+				"f": "e",
+				"source": "TaxiPathNode stop"
+			},
+			"ab": 142,
+			"ba": 224,
+			"waitA": 253,
+			"waitB": 253,
+			"source": "TaxiPath 11167 (WoW Forever client 1.60.1.70450): 3336 yd / 3733 yd between stops, 0 s / 60 s docked at stops on the way, 180 s docked per loop, speed 30 yd/s (estimate); timetable: path-11167 (CMaNGOS transport model, sniffed periods)",
+			"path": 11167,
+			"client": "forever",
+			"stops": {
+				"a": {
+					"c": 0,
+					"wx": -3709.4748535156,
+					"wy": -575.09875488281
+				},
+				"b": {
+					"c": 0,
+					"wx": -1102.6143798828,
+					"wy": -554.73266601563
+				}
+			}
+		},
+		{
+			"id": "boat-southshore-auberdine",
+			"kind": "boat",
+			"faction": 1,
+			"a": {
+				"name": "Southshore",
+				"area": 271,
+				"c": 0,
+				"wx": -1102.6,
+				"wy": -554.7,
+				"map": 1424,
+				"x": 50.67,
+				"y": 70.44,
+				"f": "e",
+				"source": "TaxiPathNode stop"
+			},
+			"b": {
+				"name": "Auberdine",
+				"area": 442,
+				"c": 1,
+				"wx": 6406.2,
+				"wy": 823.1,
+				"map": 1439,
+				"x": 32.34,
+				"y": 44.13,
+				"f": "e",
+				"source": "TaxiPathNode stop, checked against object \"Boat to Menethil\" (104 yd)"
+			},
+			"ab": 85,
+			"ba": 282,
+			"waitA": 253,
+			"waitB": 253,
+			"source": "TaxiPath 11167 (WoW Forever client 1.60.1.70450): 1964 yd / 5106 yd between stops, 0 s / 60 s docked at stops on the way, 180 s docked per loop, speed 30 yd/s (estimate); timetable: path-11167 (CMaNGOS transport model, sniffed periods)",
+			"path": 11167,
+			"client": "forever",
+			"stops": {
+				"a": {
+					"c": 0,
+					"wx": -1102.6143798828,
+					"wy": -554.73266601563
+				},
+				"b": {
+					"c": 1,
+					"wx": 6406.2158203125,
+					"wy": 823.08093261719
+				}
+			}
+		},
+		{
+			"id": "boat-menethil-auberdine",
+			"kind": "boat",
+			"faction": 1,
+			"a": {
+				"name": "Menethil Harbor",
+				"area": 150,
+				"c": 0,
+				"wx": -3709.5,
+				"wy": -575.1,
+				"map": 1437,
+				"x": 4.49,
+				"y": 56.66,
+				"f": "e",
+				"source": "TaxiPathNode stop"
+			},
+			"b": {
+				"name": "Auberdine",
+				"area": 442,
+				"c": 1,
+				"wx": 6406.2,
+				"wy": 823.1,
+				"map": 1439,
+				"x": 32.34,
+				"y": 44.13,
+				"f": "e",
+				"source": "TaxiPathNode stop, checked against object \"Boat to Menethil\" (104 yd)"
+			},
+			"ab": 287,
+			"ba": 80,
+			"waitA": 253,
+			"waitB": 253,
+			"source": "TaxiPath 11167 (WoW Forever client 1.60.1.70450): 5300 yd / 1770 yd between stops, 60 s / 0 s docked at stops on the way, 180 s docked per loop, speed 30 yd/s (estimate); timetable: path-11167 (CMaNGOS transport model, sniffed periods)",
+			"path": 11167,
+			"client": "forever",
+			"stops": {
+				"a": {
+					"c": 0,
+					"wx": -3709.4748535156,
+					"wy": -575.09875488281
+				},
+				"b": {
+					"c": 1,
+					"wx": 6406.2158203125,
+					"wy": 823.08093261719
+				}
+			}
+		},
+		{
+			"id": "boat-stormwind-auberdine",
+			"kind": "boat",
+			"faction": 1,
+			"a": {
+				"name": "Stormwind Harbor",
+				"area": 17203,
+				"c": 0,
+				"wx": -8654.5,
+				"wy": 1344.4,
+				"map": 1453,
+				"x": 21.78,
+				"y": 56.86,
+				"f": "l",
+				"source": "TaxiPathNode stop"
+			},
+			"b": {
+				"name": "Auberdine",
+				"area": 442,
+				"c": 1,
+				"wx": 6548.3,
+				"wy": 942.2,
+				"map": 1439,
+				"x": 30.53,
+				"y": 40.88,
+				"f": "e",
+				"source": "TaxiPathNode stop"
+			},
+			"ab": 60,
+			"ba": 67,
+			"waitA": 134,
+			"waitB": 134,
+			"source": "TaxiPath 11616 (WoW Forever client 1.60.1.70450): 1265 yd / 1572 yd between stops, 120 s docked per loop, speed 30 yd/s (estimate); timetable: path-11616 (CMaNGOS transport model, sniffed periods)",
+			"path": 11616,
+			"client": "forever",
+			"stops": {
+				"a": {
+					"c": 0,
+					"wx": -8654.458984375,
+					"wy": 1344.4366455078
+				},
+				"b": {
+					"c": 1,
+					"wx": 6548.2788085938,
+					"wy": 942.23937988281
+				}
+			}
+		},
+		{
+			"id": "boat-tanaris-powderfuse",
+			"kind": "boat",
+			"faction": 3,
+			"a": {
+				"name": "Steamwheedle Port",
+				"area": 977,
+				"c": 1,
+				"wx": -6932.6,
+				"wy": -4950.8,
+				"map": 1446,
+				"x": 68.58,
+				"y": 22.99,
+				"f": "e",
+				"source": "TaxiPathNode stop"
+			},
+			"b": {
+				"name": "Powderfuse Port",
+				"area": 16727,
+				"c": 0,
+				"wx": -8232.3,
+				"wy": -5800.8,
+				"map": 2548,
+				"x": 80.6,
+				"y": 54.61,
+				"f": "l",
+				"source": "TaxiPathNode stop"
+			},
+			"ab": 77,
+			"ba": 75,
+			"waitA": 146,
+			"waitB": 146,
+			"source": "TaxiPath 11391 (WoW Forever client 1.60.1.70450): 1561 yd / 1588 yd between stops, 120 s docked per loop, speed 30 yd/s (estimate); timetable: path-11391 (CMaNGOS transport model, sniffed periods)",
+			"path": 11391,
+			"client": "forever",
+			"stops": {
+				"a": {
+					"c": 1,
+					"wx": -6932.6005859375,
+					"wy": -4950.7778320312
+				},
+				"b": {
+					"c": 0,
+					"wx": -8232.298828125,
+					"wy": -5800.7880859375
+				}
+			}
+		},
+		{
+			"id": "boat-auberdine-ruttheran",
+			"kind": "boat",
+			"faction": 1,
+			"a": {
+				"name": "Auberdine",
+				"area": 442,
+				"c": 1,
+				"wx": 6594.4,
+				"wy": 759.8,
+				"map": 1439,
+				"x": 33.31,
+				"y": 39.82,
+				"f": "e",
+				"source": "TaxiPathNode stop, checked against object \"Boat to Teldrassil\" (95 yd)"
+			},
+			"b": {
+				"name": "Rut'theran Village",
+				"area": 702,
+				"c": 1,
+				"wx": 8533.7,
+				"wy": 1025.1,
+				"map": 1438,
+				"x": 54.79,
+				"y": 97.17,
+				"f": "e",
+				"source": "TaxiPathNode stop"
+			},
+			"ab": 92,
+			"ba": 105,
+			"waitA": 168,
+			"waitB": 168,
+			"source": "TaxiPath 293: 2296 yd / 2228 yd between stops, 120 s docked per loop, speed 30 yd/s (estimate); timetable: path-293 (CMaNGOS transport model, sniffed periods)",
+			"path": 293,
+			"client": "era",
+			"stops": {
+				"a": {
+					"c": 1,
+					"wx": 6594.373046875,
+					"wy": 759.82653808594
+				},
+				"b": {
+					"c": 1,
+					"wx": 8533.650390625,
+					"wy": 1025.0546875
+				}
+			}
+		},
+		{
+			"id": "boat-feathermoon",
+			"kind": "boat",
+			"faction": 1,
+			"a": {
+				"name": "Feathermoon Stronghold",
+				"area": 1116,
+				"c": 1,
+				"wx": -4197.3,
+				"wy": 3286.6,
+				"map": 1444,
+				"x": 31.01,
+				"y": 39.51,
+				"f": "e",
+				"source": "TaxiPathNode stop"
+			},
+			"b": {
+				"name": "The Forgotten Coast",
+				"area": 1108,
+				"c": 1,
+				"wx": -4347.8,
+				"wy": 2444.4,
+				"map": 1444,
+				"x": 43.13,
+				"y": 42.76,
+				"f": "e",
+				"source": "TaxiPathNode stop"
+			},
+			"ab": 60,
+			"ba": 137,
+			"waitA": 169,
+			"waitB": 169,
+			"source": "TaxiPath 303: 899 yd / 3188 yd between stops, 90 s docked per loop, speed 30 yd/s (estimate); timetable: path-303 (CMaNGOS transport model, sniffed periods)",
+			"path": 303,
+			"client": "era",
+			"stops": {
+				"a": {
+					"c": 1,
+					"wx": -4197.3071289062,
+					"wy": 3286.6284179688
+				},
+				"b": {
+					"c": 1,
+					"wx": -4347.8134765625,
+					"wy": 2444.3706054688
+				}
+			}
+		},
+		{
+			"id": "zeppelin-orgrimmar-undercity",
+			"kind": "zeppelin",
+			"faction": 2,
+			"a": {
+				"name": "Orgrimmar",
+				"area": 1637,
+				"c": 1,
+				"wx": 1332.5,
+				"wy": -4648.5,
+				"map": 1411,
+				"x": 50.8,
+				"y": 13.5,
+				"f": "e",
+				"source": "npc 9564 (\"Frezza\"), 17 yd from the TaxiPathNode stop"
+			},
+			"b": {
+				"name": "Undercity",
+				"area": 1497,
+				"c": 0,
+				"wx": 2063.1,
+				"wy": 290.5,
+				"map": 1420,
+				"x": 60.7,
+				"y": 58.9,
+				"f": "e",
+				"source": "npc 9566 (\"Zapetta\"), 3 yd from the TaxiPathNode stop"
+			},
+			"ab": 131,
+			"ba": 105,
+			"waitA": 188,
+			"waitB": 188,
+			"source": "TaxiPath 302: 3300 yd / 2389 yd between stops, 120 s docked per loop, speed 30 yd/s (estimate); timetable: path-302 (CMaNGOS transport model, sniffed periods)",
+			"path": 302,
+			"client": "era",
+			"stops": {
+				"a": {
+					"c": 1,
+					"wx": 1318.1068115234,
+					"wy": -4658.046875
+				},
+				"b": {
+					"c": 0,
+					"wx": 2062.3759765625,
+					"wy": 292.998046875
+				}
+			}
+		},
+		{
+			"id": "zeppelin-orgrimmar-gromgol",
+			"kind": "zeppelin",
+			"faction": 2,
+			"a": {
+				"name": "Orgrimmar",
+				"area": 1637,
+				"c": 1,
+				"wx": 1353.6,
+				"wy": -4643.3,
+				"map": 1411,
+				"x": 50.7,
+				"y": 12.9,
+				"f": "e",
+				"source": "npc 12136 (\"Snurk Bucksquick\"), 14 yd from the TaxiPathNode stop"
+			},
+			"b": {
+				"name": "Grom'gol",
+				"area": 117,
+				"c": 0,
+				"wx": -12440.7,
+				"wy": 217.1,
+				"map": 1434,
+				"x": 31.4,
+				"y": 29.9,
+				"f": "e",
+				"source": "npc 3149 (\"Nez'raz\"), 27 yd from the TaxiPathNode stop"
+			},
+			"ab": 78,
+			"ba": 105,
+			"waitA": 162,
+			"waitB": 162,
+			"source": "TaxiPath 285: 1619 yd / 2426 yd between stops, 120 s docked per loop, speed 30 yd/s (estimate); timetable: path-285 (CMaNGOS transport model, sniffed periods)",
+			"path": 285,
+			"client": "era",
+			"stops": {
+				"a": {
+					"c": 1,
+					"wx": 1360.8537597656,
+					"wy": -4631.3115234375
+				},
+				"b": {
+					"c": 0,
+					"wx": -12464.008789062,
+					"wy": 231.56477355957
+				}
+			}
+		},
+		{
+			"id": "zeppelin-undercity-gromgol",
+			"kind": "zeppelin",
+			"faction": 2,
+			"a": {
+				"name": "Undercity",
+				"area": 1497,
+				"c": 0,
+				"wx": 2054.1,
+				"wy": 240.7,
+				"map": 1420,
+				"x": 61.8,
+				"y": 59.2,
+				"f": "e",
+				"source": "npc 3150 (\"Hin Denburg\"), 10 yd from the TaxiPathNode stop"
+			},
+			"b": {
+				"name": "Grom'gol",
+				"area": 117,
+				"c": 0,
+				"wx": -12419.5,
+				"wy": 210.7,
+				"map": 1434,
+				"x": 31.5,
+				"y": 29.4,
+				"f": "e",
+				"source": "npc 12137 (\"Squibby Overspeck\"), 13 yd from the TaxiPathNode stop"
+			},
+			"ab": 96,
+			"ba": 117,
+			"waitA": 177,
+			"waitB": 177,
+			"source": "TaxiPath 301: 2237 yd / 2727 yd between stops, 120 s docked per loop, speed 30 yd/s (estimate); timetable: path-301 (CMaNGOS transport model, sniffed periods)",
+			"path": 301,
+			"client": "era",
+			"stops": {
+				"a": {
+					"c": 0,
+					"wx": 2062.5988769531,
+					"wy": 235.26443481445
+				},
+				"b": {
+					"c": 0,
+					"wx": -12406.890625,
+					"wy": 211.83767700195
+				}
+			}
+		},
+		{
+			"id": "tram-stormwind-ironforge",
+			"kind": "tram",
+			"faction": 1,
+			"a": {
+				"name": "Stormwind",
+				"area": 1519,
+				"c": 0,
+				"wx": -8346.5,
+				"wy": 514,
+				"map": 1453,
+				"x": 69.58,
+				"y": 30.27,
+				"f": "l",
+				"source": "AreaTrigger 2173"
+			},
+			"b": {
+				"name": "Ironforge",
+				"area": 1537,
+				"c": 0,
+				"wx": -4840.3,
+				"wy": -1330.5,
+				"map": 1455,
+				"x": 78.02,
+				"y": 51.37,
+				"f": "e",
+				"source": "AreaTrigger 2175"
+			},
+			"ab": 74,
+			"ba": 74,
+			"waitA": 68,
+			"waitB": 68,
+			"source": "AreaTrigger 2166-2171 (2480 yd inside the tram), speed 30 yd/s, 30 s wait (estimates); timetable: tram-176080, tram-176082 (CMaNGOS transport model, sniffed periods)"
+		}
+	],
+	"inns": [
+		{
+			"location": "Aerie Peak",
+			"names": [
+				"Aerie Peak",
+				"Wildhammer Keep"
+			],
+			"area": 348,
+			"npc": 7744,
+			"npcName": "Innkeeper Thulfram",
+			"c": 0,
+			"wx": 393.8,
+			"wy": -2098.6,
+			"map": 1425,
+			"x": 13.6,
+			"y": 41.8,
+			"f": "e"
+		},
+		{
+			"location": "Astranaar",
+			"names": [
+				"Astranaar"
+			],
+			"area": 415,
+			"npc": 6738,
+			"npcName": "Innkeeper Kimlya",
+			"c": 1,
+			"wx": 2781.8,
+			"wy": -433.7,
+			"map": 1440,
+			"x": 37,
+			"y": 49.2,
+			"f": "e"
+		},
+		{
+			"location": "Auberdine",
+			"names": [
+				"Auberdine"
+			],
+			"area": 442,
+			"npc": 6737,
+			"npcName": "Innkeeper Shaussiy",
+			"c": 1,
+			"wx": 6407.6,
+			"wy": 518.2,
+			"map": 1439,
+			"x": 37,
+			"y": 44.1,
+			"f": "e"
+		},
+		{
+			"location": "Bloodhoof Village",
+			"names": [
+				"Bloodhoof Village"
+			],
+			"area": 222,
+			"npc": 6747,
+			"npcName": "Innkeeper Kauth",
+			"c": 1,
+			"wx": -2365.6,
+			"wy": -346.2,
+			"map": 1412,
+			"x": 46.6,
+			"y": 61.1,
+			"f": "e"
+		},
+		{
+			"location": "Booty Bay",
+			"names": [
+				"Booty Bay"
+			],
+			"area": 35,
+			"npc": 6807,
+			"npcName": "Innkeeper Skindle",
+			"c": 0,
+			"wx": -14457.2,
+			"wy": 497.9,
+			"map": 1434,
+			"x": 27,
+			"y": 77.3,
+			"f": "e"
+		},
+		{
+			"location": "Camp Mojache",
+			"names": [
+				"Camp Mojache"
+			],
+			"area": 1099,
+			"npc": 7737,
+			"npcName": "Innkeeper Greul",
+			"c": 1,
+			"wx": -4460.9,
+			"wy": 243.1,
+			"map": 1444,
+			"x": 74.8,
+			"y": 45.2,
+			"f": "e"
+		},
+		{
+			"location": "Camp Taurajo",
+			"names": [
+				"Camp Taurajo"
+			],
+			"area": 378,
+			"npc": 7714,
+			"npcName": "Innkeeper Byula",
+			"c": 1,
+			"wx": -2373.7,
+			"wy": -1997.9,
+			"map": 1413,
+			"x": 45.6,
+			"y": 59,
+			"f": "e"
+		},
+		{
+			"location": "Cenarion Hold",
+			"names": [
+				"Cenarion Hold"
+			],
+			"area": 3425,
+			"npc": 15174,
+			"npcName": "Calandrath",
+			"c": 1,
+			"wx": -6868.9,
+			"wy": 729.6,
+			"map": 1451,
+			"x": 51.9,
+			"y": 39.2,
+			"f": "e"
+		},
+		{
+			"location": "Craftsmen's Terrace",
+			"names": [
+				"Craftsmen's Terrace",
+				"Darnassus"
+			],
+			"area": 1659,
+			"npc": 6735,
+			"npcName": "Innkeeper Saelienne",
+			"c": 1,
+			"wx": 10128.2,
+			"wy": 2225,
+			"map": 1457,
+			"x": 67.4,
+			"y": 15.6,
+			"f": "e"
+		},
+		{
+			"location": "Darkshire",
+			"names": [
+				"Darkshire"
+			],
+			"area": 42,
+			"npc": 6790,
+			"npcName": "Innkeeper Trelayne",
+			"c": 0,
+			"wx": -10515.9,
+			"wy": -1162,
+			"map": 1431,
+			"x": 73.9,
+			"y": 44.4,
+			"f": "e"
+		},
+		{
+			"location": "Deepwater Tavern",
+			"names": [
+				"Deepwater Tavern",
+				"Menethil Harbor"
+			],
+			"area": 2104,
+			"npc": 1464,
+			"npcName": "Innkeeper Helbrek",
+			"c": 0,
+			"wx": -3829.2,
+			"wy": -832.1,
+			"map": 1437,
+			"x": 10.7,
+			"y": 61,
+			"f": "e"
+		},
+		{
+			"location": "Dolanaar",
+			"names": [
+				"Dolanaar"
+			],
+			"area": 186,
+			"npc": 6736,
+			"npcName": "Innkeeper Keldamyr",
+			"c": 1,
+			"wx": 9801.8,
+			"wy": 983.6,
+			"map": 1438,
+			"x": 55.6,
+			"y": 59.8,
+			"f": "e"
+		},
+		{
+			"location": "Everlook",
+			"names": [
+				"Everlook"
+			],
+			"area": 2255,
+			"npc": 11118,
+			"npcName": "Innkeeper Vizzie",
+			"c": 1,
+			"wx": 6696.8,
+			"wy": -4676.1,
+			"map": 1452,
+			"x": 61.4,
+			"y": 38.8,
+			"f": "e"
+		},
+		{
+			"location": "Feathermoon Stronghold",
+			"names": [
+				"Feathermoon Stronghold"
+			],
+			"area": 1116,
+			"npc": 7736,
+			"npcName": "Innkeeper Shyria",
+			"c": 1,
+			"wx": -4382.2,
+			"wy": 3287.2,
+			"map": 1444,
+			"x": 31,
+			"y": 43.5,
+			"f": "e"
+		},
+		{
+			"location": "Freewind Post",
+			"names": [
+				"Freewind Post"
+			],
+			"area": 484,
+			"npc": 11116,
+			"npcName": "Innkeeper Abeqwa",
+			"c": 1,
+			"wx": -5477.3,
+			"wy": -2461.7,
+			"map": 1441,
+			"x": 46.1,
+			"y": 51.5,
+			"f": "e"
+		},
+		{
+			"location": "Gadgetzan",
+			"names": [
+				"Gadgetzan"
+			],
+			"area": 976,
+			"npc": 7733,
+			"npcName": "Innkeeper Fizzgrimble",
+			"c": 1,
+			"wx": -7158.4,
+			"wy": -3841.2,
+			"map": 1446,
+			"x": 52.5,
+			"y": 27.9,
+			"f": "e"
+		},
+		{
+			"location": "Gallows' End Tavern",
+			"names": [
+				"Gallows' End Tavern",
+				"Brill"
+			],
+			"area": 2119,
+			"npc": 5688,
+			"npcName": "Innkeeper Renee",
+			"c": 0,
+			"wx": 2271,
+			"wy": 245.3,
+			"map": 1420,
+			"x": 61.7,
+			"y": 52,
+			"f": "e"
+		},
+		{
+			"location": "Goldshire",
+			"names": [
+				"Goldshire"
+			],
+			"area": 87,
+			"npc": 295,
+			"npcName": "Innkeeper Farley",
+			"c": 0,
+			"wx": -9462.6,
+			"wy": 15.2,
+			"map": 1429,
+			"x": 43.8,
+			"y": 65.8,
+			"f": "e"
+		},
+		{
+			"location": "Grom'gol Base Camp",
+			"names": [
+				"Grom'gol Base Camp"
+			],
+			"area": 117,
+			"npc": 5814,
+			"npcName": "Innkeeper Thulbek",
+			"c": 0,
+			"wx": -12436.5,
+			"wy": 210.7,
+			"map": 1434,
+			"x": 31.5,
+			"y": 29.8,
+			"f": "e"
+		},
+		{
+			"location": "Hammerfall",
+			"names": [
+				"Hammerfall"
+			],
+			"area": 321,
+			"npc": 9501,
+			"npcName": "Innkeeper Adegwa",
+			"c": 0,
+			"wx": -913.3,
+			"wy": -3523.5,
+			"map": 1417,
+			"x": 73.8,
+			"y": 32.5,
+			"f": "e"
+		},
+		{
+			"location": "Ironforge",
+			"names": [
+				"Ironforge"
+			],
+			"area": 1537,
+			"npc": 5111,
+			"npcName": "Innkeeper Firebrew",
+			"c": 0,
+			"wx": -4840.4,
+			"wy": -857.5,
+			"map": 1455,
+			"x": 18.2,
+			"y": 51.4,
+			"f": "e"
+		},
+		{
+			"location": "Kargath",
+			"names": [
+				"Kargath"
+			],
+			"area": 340,
+			"npc": 9356,
+			"npcName": "Innkeeper Shul'kar",
+			"c": 0,
+			"wx": -6650.8,
+			"wy": -2148.8,
+			"map": 1418,
+			"x": 2.8,
+			"y": 45.9,
+			"f": "e"
+		},
+		{
+			"location": "Lakeshire",
+			"names": [
+				"Lakeshire"
+			],
+			"area": 69,
+			"npc": 6727,
+			"npcName": "Innkeeper Brianna",
+			"c": 0,
+			"wx": -9223.7,
+			"wy": -2157,
+			"map": 1433,
+			"x": 27,
+			"y": 44.8,
+			"f": "e"
+		},
+		{
+			"location": "Light's Hope Chapel",
+			"names": [
+				"Light's Hope Chapel"
+			],
+			"area": 2268,
+			"npc": 16256,
+			"npcName": "Jessica Chambers",
+			"c": 0,
+			"wx": 2300.3,
+			"wy": -5344,
+			"map": 1423,
+			"x": 81.6,
+			"y": 58.1,
+			"f": "e"
+		},
+		{
+			"location": "Nijel's Point",
+			"names": [
+				"Nijel's Point"
+			],
+			"area": 608,
+			"npc": 11103,
+			"npcName": "Innkeeper Lyshaerya",
+			"c": 1,
+			"wx": 254.2,
+			"wy": 1252.6,
+			"map": 1443,
+			"x": 66.3,
+			"y": 6.6,
+			"f": "e"
+		},
+		{
+			"location": "Orgrimmar",
+			"names": [
+				"Orgrimmar"
+			],
+			"area": 1637,
+			"npc": 6929,
+			"npcName": "Innkeeper Gryshka",
+			"c": 1,
+			"wx": 1634.1,
+			"wy": -4439.4,
+			"map": 1454,
+			"x": 54.1,
+			"y": 68.4,
+			"f": "e"
+		},
+		{
+			"location": "Ratchet",
+			"names": [
+				"Ratchet"
+			],
+			"area": 392,
+			"npc": 6791,
+			"npcName": "Innkeeper Wiley",
+			"c": 1,
+			"wx": -1049.5,
+			"wy": -3659.8,
+			"map": 1413,
+			"x": 62,
+			"y": 39.4,
+			"f": "e"
+		},
+		{
+			"location": "Razor Hill",
+			"names": [
+				"Razor Hill"
+			],
+			"area": 362,
+			"npc": 6928,
+			"npcName": "Innkeeper Grosk",
+			"c": 1,
+			"wx": 341.9,
+			"wy": -4685.6,
+			"map": 1411,
+			"x": 51.5,
+			"y": 41.6,
+			"f": "e"
+		},
+		{
+			"location": "Revantusk Village",
+			"names": [
+				"Revantusk Village"
+			],
+			"area": 3317,
+			"npc": 14731,
+			"npcName": "Lard",
+			"c": 0,
+			"wx": -622.6,
+			"wy": -4581.8,
+			"map": 1425,
+			"x": 78.1,
+			"y": 81.4,
+			"f": "e"
+		},
+		{
+			"location": "Sentinel Hill",
+			"names": [
+				"Sentinel Hill"
+			],
+			"area": 108,
+			"npc": 8931,
+			"npcName": "Innkeeper Heather",
+			"c": 0,
+			"wx": -10653,
+			"wy": 1165.2,
+			"map": 1436,
+			"x": 52.9,
+			"y": 53.7,
+			"f": "e"
+		},
+		{
+			"location": "Shadowprey Village",
+			"names": [
+				"Shadowprey Village"
+			],
+			"area": 2408,
+			"npc": 11106,
+			"npcName": "Innkeeper Sikewa",
+			"c": 1,
+			"wx": -1592.5,
+			"wy": 3149.8,
+			"map": 1443,
+			"x": 24.1,
+			"y": 68.2,
+			"f": "e"
+		},
+		{
+			"location": "Southshore",
+			"names": [
+				"Southshore"
+			],
+			"area": 271,
+			"npc": 2352,
+			"npcName": "Innkeeper Anderson",
+			"c": 0,
+			"wx": -856.5,
+			"wy": -571.7,
+			"map": 1424,
+			"x": 51.2,
+			"y": 58.9,
+			"f": "e"
+		},
+		{
+			"location": "Splintertree Post",
+			"names": [
+				"Splintertree Post"
+			],
+			"area": 431,
+			"npc": 12196,
+			"npcName": "Innkeeper Kaylisk",
+			"c": 1,
+			"wx": 2343.6,
+			"wy": -2567.3,
+			"map": 1440,
+			"x": 74,
+			"y": 60.6,
+			"f": "e"
+		},
+		{
+			"location": "Stonard",
+			"names": [
+				"Stonard"
+			],
+			"area": 75,
+			"npc": 6930,
+			"npcName": "Innkeeper Karakul",
+			"c": 0,
+			"wx": -10487.9,
+			"wy": -3259.7,
+			"map": 1435,
+			"x": 45.2,
+			"y": 56.7,
+			"f": "e"
+		},
+		{
+			"location": "Stonetalon Peak",
+			"names": [
+				"Stonetalon Peak"
+			],
+			"area": 467,
+			"npc": 16458,
+			"npcName": "Innkeeper Faralia",
+			"c": 1,
+			"wx": 2731.1,
+			"wy": 1497.6,
+			"map": 1442,
+			"x": 35.8,
+			"y": 5.7,
+			"f": "e"
+		},
+		{
+			"location": "Stormwind City",
+			"names": [
+				"Stormwind City"
+			],
+			"area": 1519,
+			"npc": 6740,
+			"npcName": "Innkeeper Allison",
+			"c": 0,
+			"wx": -8867.8,
+			"wy": 673.9,
+			"map": 1453,
+			"x": 52.6,
+			"y": 65.7,
+			"f": "e"
+		},
+		{
+			"location": "Stoutlager Inn",
+			"names": [
+				"Stoutlager Inn",
+				"Thelsamar"
+			],
+			"area": 2101,
+			"npc": 6734,
+			"npcName": "Innkeeper Hearthstove",
+			"c": 0,
+			"wx": -5377.9,
+			"wy": -2973,
+			"map": 1432,
+			"x": 35.5,
+			"y": 48.4,
+			"f": "e"
+		},
+		{
+			"location": "Sun Rock Retreat",
+			"names": [
+				"Sun Rock Retreat"
+			],
+			"area": 460,
+			"npc": 7731,
+			"npcName": "Innkeeper Jayka",
+			"c": 1,
+			"wx": 894.5,
+			"wy": 926.2,
+			"map": 1442,
+			"x": 47.5,
+			"y": 62.1,
+			"f": "e"
+		},
+		{
+			"location": "Tarren Mill",
+			"names": [
+				"Tarren Mill"
+			],
+			"area": 272,
+			"npc": 2388,
+			"npcName": "Innkeeper Shay",
+			"c": 0,
+			"wx": -5.3,
+			"wy": -942.9,
+			"map": 1424,
+			"x": 62.8,
+			"y": 19,
+			"f": "e"
+		},
+		{
+			"location": "The Crossroads",
+			"names": [
+				"The Crossroads",
+				"Crossroads"
+			],
+			"area": 380,
+			"npc": 3934,
+			"npcName": "Innkeeper Boorand Plainswind",
+			"c": 1,
+			"wx": -407.6,
+			"wy": -2646.4,
+			"map": 1413,
+			"x": 52,
+			"y": 29.9,
+			"f": "e"
+		},
+		{
+			"location": "The Sepulcher",
+			"names": [
+				"The Sepulcher"
+			],
+			"area": 228,
+			"npc": 6739,
+			"npcName": "Innkeeper Bates",
+			"c": 0,
+			"wx": 510.3,
+			"wy": 1635.6,
+			"map": 1421,
+			"x": 43.2,
+			"y": 41.3,
+			"f": "e"
+		},
+		{
+			"location": "Theramore Isle",
+			"names": [
+				"Theramore Isle"
+			],
+			"area": 513,
+			"npc": 6272,
+			"npcName": "Innkeeper Janene",
+			"c": 1,
+			"wx": -3615.3,
+			"wy": -4471.5,
+			"map": 1445,
+			"x": 66.6,
+			"y": 45.2,
+			"f": "e"
+		},
+		{
+			"location": "Thunder Bluff",
+			"names": [
+				"Thunder Bluff"
+			],
+			"area": 1638,
+			"npc": 6746,
+			"npcName": "Innkeeper Pala",
+			"c": 1,
+			"wx": -1300.2,
+			"wy": 38.6,
+			"map": 1456,
+			"x": 45.8,
+			"y": 64.7,
+			"f": "e"
+		},
+		{
+			"location": "Thunderbrew Distillery",
+			"names": [
+				"Thunderbrew Distillery",
+				"Kharanos"
+			],
+			"area": 2102,
+			"npc": 1247,
+			"npcName": "Innkeeper Belm",
+			"c": 0,
+			"wx": -5600.8,
+			"wy": -532.4,
+			"map": 1426,
+			"x": 47.4,
+			"y": 52.5,
+			"f": "e"
+		},
+		{
+			"location": "Undercity",
+			"names": [
+				"Undercity"
+			],
+			"area": 1497,
+			"npc": 6741,
+			"npcName": "Innkeeper Norman",
+			"c": 0,
+			"wx": 1635.3,
+			"wy": 223.7,
+			"map": 1458,
+			"x": 67.7,
+			"y": 37.9,
+			"f": "e"
+		}
+	],
+	"paths": {
+		"nodes": [],
+		"edges": [],
+		"sessions": []
+	},
+	"crossings": {
+		"recorded": [],
+		"shipped": {
+			"crossings": [
+				{
+					"id": "carbonite-arathi-highlands--hillsbrad-foothills",
+					"a": {
+						"map": 1417,
+						"x": 20.34,
+						"y": 29.73,
+						"r": 30,
+						"c": 0,
+						"wx": -846.9,
+						"wy": -1598.9
+					},
+					"b": {
+						"map": 1424,
+						"x": 81.96,
+						"y": 56.91,
+						"r": 30,
+						"c": 0,
+						"wx": -814.1,
+						"wy": -1556.1
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-arathi-highlands--wetlands",
+					"a": {
+						"map": 1417,
+						"x": 45.45,
+						"y": 89.06,
+						"r": 30,
+						"c": 0,
+						"wx": -2270.8,
+						"wy": -2502.9
+					},
+					"b": {
+						"map": 1437,
+						"x": 51.06,
+						"y": 11.95,
+						"r": 30,
+						"c": 0,
+						"wx": -2477.3,
+						"wy": -2501.1
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-darkshore--ashenvale",
+					"a": {
+						"map": 1439,
+						"x": 43.69,
+						"y": 94.7,
+						"r": 30,
+						"c": 1,
+						"wx": 4198.1,
+						"wy": 80
+					},
+					"b": {
+						"map": 1440,
+						"x": 29.16,
+						"y": 14.99,
+						"r": 30,
+						"c": 1,
+						"wx": 4096.7,
+						"wy": 18.4
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-ashenvale--stonetalon-mountains",
+					"a": {
+						"map": 1440,
+						"x": 42.34,
+						"y": 70.96,
+						"r": 30,
+						"c": 1,
+						"wx": 1945.4,
+						"wy": -741.6
+					},
+					"b": {
+						"map": 1442,
+						"x": 78.21,
+						"y": 42.94,
+						"r": 30,
+						"c": 1,
+						"wx": 1518.4,
+						"wy": -573.4
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-ashenvale--felwood",
+					"a": {
+						"map": 1440,
+						"x": 55.85,
+						"y": 31.7,
+						"r": 30,
+						"c": 1,
+						"wx": 3454.4,
+						"wy": -1520.7
+					},
+					"b": {
+						"map": 1448,
+						"x": 54.91,
+						"y": 92.71,
+						"r": 30,
+						"c": 1,
+						"wx": 3579.4,
+						"wy": -1515.7
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-ashenvale--azshara",
+					"a": {
+						"map": 1440,
+						"x": 94.56,
+						"y": 47.6,
+						"r": 30,
+						"c": 1,
+						"wx": 2843.3,
+						"wy": -3753
+					},
+					"b": {
+						"map": 1447,
+						"x": 10.72,
+						"y": 75.27,
+						"r": 30,
+						"c": 1,
+						"wx": 2796.6,
+						"wy": -3820.7
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-ashenvale--the-barrens",
+					"a": {
+						"map": 1440,
+						"x": 68.63,
+						"y": 86.25,
+						"r": 30,
+						"c": 1,
+						"wx": 1357.7,
+						"wy": -2257.7
+					},
+					"b": {
+						"map": 1413,
+						"x": 48.44,
+						"y": 11.33,
+						"r": 30,
+						"c": 1,
+						"wx": 847,
+						"wy": -2285.7
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-felwood--moonglade",
+					"a": {
+						"map": 1448,
+						"x": 64.97,
+						"y": 8.36,
+						"r": 30,
+						"c": 1,
+						"wx": 6812.9,
+						"wy": -2094.1
+					},
+					"b": {
+						"map": 1450,
+						"x": 35.77,
+						"y": 72.2,
+						"r": 30,
+						"c": 1,
+						"wx": 7380.1,
+						"wy": -2206.9
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-felwood--winterspring",
+					"a": {
+						"map": 1448,
+						"x": 64.97,
+						"y": 8.36,
+						"r": 30,
+						"c": 1,
+						"wx": 6812.9,
+						"wy": -2094.1
+					},
+					"b": {
+						"map": 1452,
+						"x": 27.96,
+						"y": 34.56,
+						"r": 30,
+						"c": 1,
+						"wx": 6897.5,
+						"wy": -2301.8
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-durotar--orgrimmar",
+					"a": {
+						"map": 1411,
+						"x": 45.54,
+						"y": 12.28,
+						"r": 30,
+						"c": 1,
+						"wx": 1375.5,
+						"wy": -4370.4
+					},
+					"b": {
+						"map": 1454,
+						"x": 52.49,
+						"y": 84.4,
+						"r": 30,
+						"c": 1,
+						"wx": 1484.4,
+						"wy": -4416.8
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-durotar--the-barrens",
+					"a": {
+						"map": 1411,
+						"x": 37.2,
+						"y": 43,
+						"r": 30,
+						"c": 1,
+						"wx": 292.6,
+						"wy": -3929.4
+					},
+					"b": {
+						"map": 1413,
+						"x": 60.8,
+						"y": 19.8,
+						"r": 30,
+						"c": 1,
+						"wx": 274.8,
+						"wy": -3538.2
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-stranglethorn-vale--duskwood",
+					"a": {
+						"map": 1434,
+						"x": 40.81,
+						"y": 4.19,
+						"r": 30,
+						"c": 0,
+						"wx": -11347,
+						"wy": -383.4
+					},
+					"b": {
+						"map": 1431,
+						"x": 44.5,
+						"y": 87.51,
+						"r": 30,
+						"c": 0,
+						"wx": -11291.8,
+						"wy": -368.2
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-duskwood--westfall",
+					"a": {
+						"map": 1431,
+						"x": 10.6,
+						"y": 63.8,
+						"r": 30,
+						"c": 0,
+						"wx": -10865.1,
+						"wy": 547.1
+					},
+					"b": {
+						"map": 1436,
+						"x": 68.9,
+						"y": 63,
+						"r": 30,
+						"c": 0,
+						"wx": -10870,
+						"wy": 605.2
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-westfall--elwynn-forest",
+					"a": {
+						"map": 1436,
+						"x": 60.9,
+						"y": 19,
+						"r": 30,
+						"c": 0,
+						"wx": -9843.3,
+						"wy": 885.2
+					},
+					"b": {
+						"map": 1429,
+						"x": 22.3,
+						"y": 78.2,
+						"r": 30,
+						"c": 0,
+						"wx": -9749.6,
+						"wy": 761.4
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-elwynn-forest--stormwind-city",
+					"a": {
+						"map": 1429,
+						"x": 32.33,
+						"y": 49.86,
+						"r": 30,
+						"c": 0,
+						"wx": -9093.6,
+						"wy": 413.3
+					},
+					"b": {
+						"map": 1453,
+						"x": 73.34,
+						"y": 90.73,
+						"r": 30,
+						"c": 0,
+						"wx": -9092.1,
+						"wy": 395.1
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-elwynn-forest--redridge-mountains",
+					"a": {
+						"map": 1429,
+						"x": 93.21,
+						"y": 72.27,
+						"r": 30,
+						"c": 0,
+						"wx": -9612.3,
+						"wy": -1699.7
+					},
+					"b": {
+						"map": 1433,
+						"x": 8.95,
+						"y": 71.9,
+						"r": 30,
+						"c": 0,
+						"wx": -9616.1,
+						"wy": -1765.1
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-duskwood--redridge-mountains",
+					"a": {
+						"map": 1431,
+						"x": 93.75,
+						"y": 11.43,
+						"r": 30,
+						"c": 0,
+						"wx": -9922.4,
+						"wy": -1697.9
+					},
+					"b": {
+						"map": 1433,
+						"x": 7.1,
+						"y": 89.26,
+						"r": 30,
+						"c": 0,
+						"wx": -9867.4,
+						"wy": -1725
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-duskwood--deadwind-pass",
+					"a": {
+						"map": 1431,
+						"x": 89.88,
+						"y": 41.25,
+						"r": 30,
+						"c": 0,
+						"wx": -10459.2,
+						"wy": -1593.4
+					},
+					"b": {
+						"map": 1430,
+						"x": 33.05,
+						"y": 35.96,
+						"r": 30,
+						"c": 0,
+						"wx": -10466,
+						"wy": -1659.6
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-deadwind-pass--swamp-of-sorrows",
+					"a": {
+						"map": 1430,
+						"x": 58.29,
+						"y": 41.44,
+						"r": 30,
+						"c": 0,
+						"wx": -10557.3,
+						"wy": -2290.6
+					},
+					"b": {
+						"map": 1435,
+						"x": 5.84,
+						"y": 60.78,
+						"r": 30,
+						"c": 0,
+						"wx": -10550.3,
+						"wy": -2356.9
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-blasted-lands--swamp-of-sorrows",
+					"a": {
+						"map": 1419,
+						"x": 52.03,
+						"y": 5.6,
+						"r": 30,
+						"c": 0,
+						"wx": -10691.7,
+						"wy": -2984.7
+					},
+					"b": {
+						"map": 1435,
+						"x": 33.83,
+						"y": 66.07,
+						"r": 30,
+						"c": 0,
+						"wx": -10631.2,
+						"wy": -2998.9
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-redridge-mountains--burning-steppes",
+					"a": {
+						"map": 1433,
+						"x": 46.52,
+						"y": 8.56,
+						"r": 30,
+						"c": 0,
+						"wx": -8698.9,
+						"wy": -2580.7
+					},
+					"b": {
+						"map": 1428,
+						"x": 78.85,
+						"y": 82.5,
+						"r": 30,
+						"c": 0,
+						"wx": -8641.7,
+						"wy": -2576.3
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-searing-gorge--burning-steppes",
+					"a": {
+						"map": 1427,
+						"x": 34.81,
+						"y": 83.74,
+						"r": 30,
+						"c": 0,
+						"wx": -7345.6,
+						"wy": -1099.6
+					},
+					"b": {
+						"map": 1428,
+						"x": 31.83,
+						"y": 50.44,
+						"r": 30,
+						"c": 0,
+						"wx": -8015.9,
+						"wy": -1199
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-searing-gorge--badlands",
+					"a": {
+						"map": 1427,
+						"x": 76.63,
+						"y": 56.67,
+						"r": 30,
+						"c": 0,
+						"wx": -6943,
+						"wy": -2032.7
+					},
+					"b": {
+						"map": 1418,
+						"x": 1.09,
+						"y": 62.92,
+						"r": 30,
+						"c": 0,
+						"wx": -6933,
+						"wy": -2106.3
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-loch-modan--badlands",
+					"a": {
+						"map": 1432,
+						"x": 47.19,
+						"y": 80.82,
+						"r": 30,
+						"c": 0,
+						"wx": -5974.3,
+						"wy": -3295.4
+					},
+					"b": {
+						"map": 1418,
+						"x": 49.36,
+						"y": 7.97,
+						"r": 30,
+						"c": 0,
+						"wx": -6021.8,
+						"wy": -3307
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-loch-modan--dun-morogh",
+					"a": {
+						"map": 1432,
+						"x": 19.61,
+						"y": 62.81,
+						"r": 30,
+						"c": 0,
+						"wx": -5642.9,
+						"wy": -2534.7
+					},
+					"b": {
+						"map": 1426,
+						"x": 86.13,
+						"y": 51.16,
+						"r": 30,
+						"c": 0,
+						"wx": -5556.8,
+						"wy": -2439.8
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-loch-modan--dun-morogh-2",
+					"a": {
+						"map": 1432,
+						"x": 19.23,
+						"y": 17.21,
+						"r": 30,
+						"c": 0,
+						"wx": -4804.1,
+						"wy": -2524.2
+					},
+					"b": {
+						"map": 1426,
+						"x": 84.37,
+						"y": 31.09,
+						"r": 30,
+						"c": 0,
+						"wx": -4897.9,
+						"wy": -2353.1
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-ironforge--dun-morogh",
+					"a": {
+						"map": 1455,
+						"x": 21.62,
+						"y": 77.79,
+						"r": 30,
+						"c": 0,
+						"wx": -4979.7,
+						"wy": -884.5
+					},
+					"b": {
+						"map": 1426,
+						"x": 53.4,
+						"y": 35.01,
+						"r": 30,
+						"c": 0,
+						"wx": -5026.6,
+						"wy": -827.9
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-loch-modan--wetlands",
+					"a": {
+						"map": 1432,
+						"x": 25.57,
+						"y": 10.47,
+						"r": 30,
+						"c": 0,
+						"wx": -4680.1,
+						"wy": -2699.1
+					},
+					"b": {
+						"map": 1437,
+						"x": 53.97,
+						"y": 70.33,
+						"r": 30,
+						"c": 0,
+						"wx": -4086.4,
+						"wy": -2621.5
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-alterac-mountains--hillsbrad-foothills",
+					"a": {
+						"map": 1416,
+						"x": 51.2,
+						"y": 65.6,
+						"r": 30,
+						"c": 0,
+						"wx": 275.5,
+						"wy": -650.3
+					},
+					"b": {
+						"map": 1424,
+						"x": 55.5,
+						"y": 16.6,
+						"r": 30,
+						"c": 0,
+						"wx": 45.9,
+						"wy": -709.3
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-the-hinterlands--hillsbrad-foothills",
+					"a": {
+						"map": 1425,
+						"x": 9.66,
+						"y": 55.77,
+						"r": 30,
+						"c": 0,
+						"wx": 35.2,
+						"wy": -1946.9
+					},
+					"b": {
+						"map": 1424,
+						"x": 85.06,
+						"y": 31.27,
+						"r": 30,
+						"c": 0,
+						"wx": -267.1,
+						"wy": -1655.3
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-the-hinterlands--western-plaguelands",
+					"a": {
+						"map": 1425,
+						"x": 24.94,
+						"y": 45.71,
+						"r": 30,
+						"c": 0,
+						"wx": 293.4,
+						"wy": -2535.2
+					},
+					"b": {
+						"map": 1422,
+						"x": 65.48,
+						"y": 88.64,
+						"r": 30,
+						"c": 0,
+						"wx": 825.7,
+						"wy": -2399
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-alterac-mountains--western-plaguelands",
+					"a": {
+						"map": 1416,
+						"x": 80.66,
+						"y": 36.42,
+						"r": 30,
+						"c": 0,
+						"wx": 820.2,
+						"wy": -1475.1
+					},
+					"b": {
+						"map": 1422,
+						"x": 44.05,
+						"y": 86.19,
+						"r": 30,
+						"c": 0,
+						"wx": 895.9,
+						"wy": -1477.5
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-tirisfal-glades--western-plaguelands",
+					"a": {
+						"map": 1420,
+						"x": 84.09,
+						"y": 70.49,
+						"r": 30,
+						"c": 0,
+						"wx": 1714,
+						"wy": -766.5
+					},
+					"b": {
+						"map": 1422,
+						"x": 28.62,
+						"y": 57.46,
+						"r": 30,
+						"c": 0,
+						"wx": 1719.5,
+						"wy": -814
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-eastern-plaguelands--western-plaguelands",
+					"a": {
+						"map": 1423,
+						"x": 8.82,
+						"y": 66.22,
+						"r": 30,
+						"c": 0,
+						"wx": 2090.7,
+						"wy": -2526.8
+					},
+					"b": {
+						"map": 1422,
+						"x": 69.67,
+						"y": 50.24,
+						"r": 30,
+						"c": 0,
+						"wx": 1926.5,
+						"wy": -2579.1
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-silverpine-forest--hillsbrad-foothills",
+					"a": {
+						"map": 1421,
+						"x": 66.36,
+						"y": 79.8,
+						"r": 30,
+						"c": 0,
+						"wx": -567.7,
+						"wy": 662.9
+					},
+					"b": {
+						"map": 1424,
+						"x": 14.35,
+						"y": 46.2,
+						"r": 30,
+						"c": 0,
+						"wx": -585.6,
+						"wy": 607.5
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-silverpine-forest--tirisfal-glades",
+					"a": {
+						"map": 1421,
+						"x": 67.56,
+						"y": 5.45,
+						"r": 30,
+						"c": 0,
+						"wx": 1514.1,
+						"wy": 612.5
+					},
+					"b": {
+						"map": 1420,
+						"x": 54.14,
+						"y": 75.77,
+						"r": 30,
+						"c": 0,
+						"wx": 1554.9,
+						"wy": 586.9
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-undercity--tirisfal-glades",
+					"a": {
+						"map": 1458,
+						"x": 66.01,
+						"y": 36.85,
+						"r": 30,
+						"c": 0,
+						"wx": 1642.1,
+						"wy": 239.9
+					},
+					"b": {
+						"map": 1420,
+						"x": 61.86,
+						"y": 64.95,
+						"r": 30,
+						"c": 0,
+						"wx": 1880.9,
+						"wy": 238
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-orgrimmar--the-barrens",
+					"a": {
+						"map": 1454,
+						"x": 18,
+						"y": 60.43,
+						"r": 30,
+						"c": 1,
+						"wx": 1708.6,
+						"wy": -3933.1
+					},
+					"b": {
+						"map": 1413,
+						"x": 63.88,
+						"y": 0,
+						"r": 30,
+						"c": 1,
+						"wx": 1612.5,
+						"wy": -3850.3
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-the-barrens--stonetalon-mountains",
+					"a": {
+						"map": 1413,
+						"x": 39.42,
+						"y": 29.68,
+						"r": 30,
+						"c": 1,
+						"wx": -392.8,
+						"wy": -1371.6
+					},
+					"b": {
+						"map": 1442,
+						"x": 82.78,
+						"y": 96.94,
+						"r": 30,
+						"c": 1,
+						"wx": -239.9,
+						"wy": -796.6
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-desolace--stonetalon-mountains",
+					"a": {
+						"map": 1443,
+						"x": 53.4,
+						"y": 5.52,
+						"r": 30,
+						"c": 1,
+						"wx": 286.6,
+						"wy": 1832.6
+					},
+					"b": {
+						"map": 1442,
+						"x": 30.21,
+						"y": 75.61,
+						"r": 30,
+						"c": 1,
+						"wx": 454.6,
+						"wy": 1770.6
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-desolace--feralas",
+					"a": {
+						"map": 1443,
+						"x": 40.91,
+						"y": 90.72,
+						"r": 30,
+						"c": 1,
+						"wx": -2267.6,
+						"wy": 2394.1
+					},
+					"b": {
+						"map": 1444,
+						"x": 45.45,
+						"y": 2.82,
+						"r": 30,
+						"c": 1,
+						"wx": -2497.3,
+						"wy": 2282.9
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-feralas--thousand-needles",
+					"a": {
+						"map": 1444,
+						"x": 89.1,
+						"y": 41.14,
+						"r": 30,
+						"c": 1,
+						"wx": -4272.8,
+						"wy": -750.8
+					},
+					"b": {
+						"map": 1441,
+						"x": 7.98,
+						"y": 10.93,
+						"r": 30,
+						"c": 1,
+						"wx": -4287.3,
+						"wy": -784.5
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-the-barrens--thousand-needles",
+					"a": {
+						"map": 1413,
+						"x": 44.15,
+						"y": 91.23,
+						"r": 30,
+						"c": 1,
+						"wx": -4551.2,
+						"wy": -1850.9
+					},
+					"b": {
+						"map": 1441,
+						"x": 31.92,
+						"y": 24.22,
+						"r": 30,
+						"c": 1,
+						"wx": -4677.1,
+						"wy": -1837.8
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-tanaris--thousand-needles",
+					"a": {
+						"map": 1446,
+						"x": 50.68,
+						"y": 24.29,
+						"r": 30,
+						"c": 1,
+						"wx": -6992.3,
+						"wy": -3715.7
+					},
+					"b": {
+						"map": 1441,
+						"x": 74.24,
+						"y": 93.62,
+						"r": 30,
+						"c": 1,
+						"wx": -6712.9,
+						"wy": -3699.9
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-tanaris--un-goro-crater",
+					"a": {
+						"map": 1446,
+						"x": 27.08,
+						"y": 57.2,
+						"r": 30,
+						"c": 1,
+						"wx": -8506.2,
+						"wy": -2087.3
+					},
+					"b": {
+						"map": 1449,
+						"x": 71.44,
+						"y": 77.23,
+						"r": 30,
+						"c": 1,
+						"wx": -7871.7,
+						"wy": -2109.9
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-un-goro-crater--silithus",
+					"a": {
+						"map": 1449,
+						"x": 29.43,
+						"y": 22.42,
+						"r": 30,
+						"c": 1,
+						"wx": -6519.7,
+						"wy": -555.6
+					},
+					"b": {
+						"map": 1451,
+						"x": 83.68,
+						"y": 14.26,
+						"r": 30,
+						"c": 1,
+						"wx": -6289.6,
+						"wy": -377.4
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-dustwallow-marsh--the-barrens",
+					"a": {
+						"map": 1445,
+						"x": 30.02,
+						"y": 47.11,
+						"r": 30,
+						"c": 1,
+						"wx": -3682.2,
+						"wy": -2551
+					},
+					"b": {
+						"map": 1413,
+						"x": 49.53,
+						"y": 78.41,
+						"r": 30,
+						"c": 1,
+						"wx": -3685.1,
+						"wy": -2396.1
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-the-barrens--mulgore",
+					"a": {
+						"map": 1413,
+						"x": 41.87,
+						"y": 58.62,
+						"r": 30,
+						"c": 1,
+						"wx": -2348,
+						"wy": -1619.9
+					},
+					"b": {
+						"map": 1412,
+						"x": 68.59,
+						"y": 60.59,
+						"r": 30,
+						"c": 1,
+						"wx": -2348.1,
+						"wy": -1475.9
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-moonglade--winterspring",
+					"a": {
+						"map": 1450,
+						"x": 35.77,
+						"y": 72.2,
+						"r": 30,
+						"c": 1,
+						"wx": 7380.1,
+						"wy": -2206.9
+					},
+					"b": {
+						"map": 1452,
+						"x": 27.96,
+						"y": 34.56,
+						"r": 30,
+						"c": 1,
+						"wx": 6897.5,
+						"wy": -2301.8
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-teldrassil--darnassus",
+					"a": {
+						"map": 1438,
+						"x": 36.32,
+						"y": 54.38,
+						"r": 30,
+						"c": 1,
+						"wx": 9985.7,
+						"wy": 1965.3
+					},
+					"b": {
+						"map": 1457,
+						"x": 85.73,
+						"y": 35.93,
+						"r": 30,
+						"c": 1,
+						"wx": 9984.7,
+						"wy": 2031.1
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-mulgore--thunder-bluff",
+					"a": {
+						"map": 1412,
+						"x": 37.59,
+						"y": 33.03,
+						"r": 30,
+						"c": 1,
+						"wx": -1404.2,
+						"wy": 116.7
+					},
+					"b": {
+						"map": 1456,
+						"x": 35.69,
+						"y": 63.08,
+						"r": 30,
+						"c": 1,
+						"wx": -1288.9,
+						"wy": 144.2
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-mulgore--thunder-bluff-2",
+					"a": {
+						"map": 1412,
+						"x": 34.59,
+						"y": 27.91,
+						"r": 30,
+						"c": 1,
+						"wx": -1228.8,
+						"wy": 270.9
+					},
+					"b": {
+						"map": 1456,
+						"x": 35.69,
+						"y": 63.08,
+						"r": 30,
+						"c": 1,
+						"wx": -1288.9,
+						"wy": 144.2
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-mulgore--thunder-bluff-3",
+					"a": {
+						"map": 1412,
+						"x": 38.97,
+						"y": 19.09,
+						"r": 30,
+						"c": 1,
+						"wx": -926.7,
+						"wy": 45.8
+					},
+					"b": {
+						"map": 1456,
+						"x": 51.17,
+						"y": 31.54,
+						"r": 30,
+						"c": 1,
+						"wx": -1069.5,
+						"wy": -17.4
+					},
+					"oneWay": false
+				},
+				{
+					"id": "carbonite-mulgore--thunder-bluff-4",
+					"a": {
+						"map": 1412,
+						"x": 42.13,
+						"y": 20.2,
+						"r": 30,
+						"c": 1,
+						"wx": -964.8,
+						"wy": -116.5
+					},
+					"b": {
+						"map": 1456,
+						"x": 51.17,
+						"y": 31.54,
+						"r": 30,
+						"c": 1,
+						"wx": -1069.5,
+						"wy": -17.4
+					},
+					"oneWay": false
+				}
+			],
+			"open": [
+				{
+					"a": 1429,
+					"b": 1431,
+					"c": 0,
+					"oneWay": false
+				},
+				{
+					"a": 1431,
+					"b": 1436,
+					"c": 0,
+					"oneWay": false
+				}
+			],
+			"chains": []
+		},
+		"shippedSource": "Carbonite (github.com/IrcDirk/Carbonite-Classic, GPL-3.0) at 4d062800ae0c77c3f52ecf436b175bf06dcced4a: Carbonite/Data/classic/ZoneConnections.lua, the walks between zones; open borders (open): from Polestar's navigation grid (nav aids)"
+	},
+	"transit": {
+		"routes": {
+			"lift-freewind-post": {
+				"kind": "lift",
+				"period": 30000,
+				"fit": {
+					"samples": 5,
+					"span": 4000,
+					"speed": 8
+				},
+				"stops": [
+					[
+						0,
+						5000,
+						1,
+						-5399.2,
+						-2504.6,
+						89,
+						1
+					],
+					[
+						0,
+						5000,
+						1,
+						-5382.5,
+						-2489.4,
+						-40.5,
+						2
+					],
+					[
+						15000,
+						20000,
+						1,
+						-5382.5,
+						-2489.4,
+						89,
+						2
+					],
+					[
+						15000,
+						20000,
+						1,
+						-5399.2,
+						-2504.6,
+						-40.3,
+						1
+					]
+				],
+				"frames": [
+					[
+						0,
+						5000,
+						1,
+						-5399.2,
+						-2504.6,
+						0,
+						89
+					],
+					[
+						6100,
+						6100,
+						1,
+						-5399.2,
+						-2504.6,
+						0,
+						87.3
+					],
+					[
+						6867,
+						6867,
+						1,
+						-5399.2,
+						-2504.6,
+						0,
+						83.8
+					],
+					[
+						12867,
+						12867,
+						1,
+						-5399.2,
+						-2504.6,
+						0,
+						-35.8
+					],
+					[
+						13833,
+						13833,
+						1,
+						-5399.2,
+						-2504.6,
+						0,
+						-38.9
+					],
+					[
+						15000,
+						20000,
+						1,
+						-5399.2,
+						-2504.6,
+						0,
+						-40.3
+					],
+					[
+						21333,
+						21333,
+						1,
+						-5399.2,
+						-2504.6,
+						0,
+						-38.9
+					],
+					[
+						22233,
+						22233,
+						1,
+						-5399.2,
+						-2504.6,
+						0,
+						-35.8
+					],
+					[
+						28133,
+						28133,
+						1,
+						-5399.2,
+						-2504.6,
+						0,
+						83.8
+					],
+					[
+						28800,
+						28800,
+						1,
+						-5399.2,
+						-2504.6,
+						0,
+						87.4
+					],
+					[
+						29900,
+						29900,
+						1,
+						-5399.2,
+						-2504.6,
+						0,
+						88.9
+					],
+					[
+						30000,
+						30000,
+						1,
+						-5399.2,
+						-2504.6,
+						1,
+						89
+					],
+					[
+						0,
+						5000,
+						1,
+						-5382.5,
+						-2489.4,
+						0,
+						-40.5
+					],
+					[
+						5900,
+						5900,
+						1,
+						-5382.5,
+						-2489.4,
+						0,
+						-39.3
+					],
+					[
+						6667,
+						6667,
+						1,
+						-5382.5,
+						-2489.4,
+						0,
+						-35.8
+					],
+					[
+						13100,
+						13100,
+						1,
+						-5382.5,
+						-2489.4,
+						0,
+						81
+					],
+					[
+						14067,
+						14067,
+						1,
+						-5382.5,
+						-2489.4,
+						0,
+						87.1
+					],
+					[
+						15000,
+						20000,
+						1,
+						-5382.5,
+						-2489.4,
+						0,
+						89
+					],
+					[
+						21000,
+						21000,
+						1,
+						-5382.5,
+						-2489.4,
+						0,
+						87.1
+					],
+					[
+						21800,
+						21800,
+						1,
+						-5382.5,
+						-2489.4,
+						0,
+						81.8
+					],
+					[
+						27933,
+						27933,
+						1,
+						-5382.5,
+						-2489.4,
+						0,
+						-31.9
+					],
+					[
+						28967,
+						28967,
+						1,
+						-5382.5,
+						-2489.4,
+						0,
+						-38.6
+					],
+					[
+						30000,
+						30000,
+						1,
+						-5382.5,
+						-2489.4,
+						1,
+						-40.5
+					]
+				]
+			},
+			"lift-great-lift": {
+				"kind": "lift",
+				"period": 30000,
+				"fit": {
+					"samples": 5,
+					"span": 4000,
+					"speed": 8
+				},
+				"stops": [
+					[
+						0,
+						5000,
+						1,
+						-4665.4,
+						-1827.7,
+						85.4,
+						1
+					],
+					[
+						0,
+						5000,
+						1,
+						-4670.8,
+						-1849.6,
+						-44.1,
+						2
+					],
+					[
+						15000,
+						20000,
+						1,
+						-4670.8,
+						-1849.6,
+						85.4,
+						2
+					],
+					[
+						15000,
+						20000,
+						1,
+						-4665.4,
+						-1827.7,
+						-43.9,
+						1
+					]
+				],
+				"frames": [
+					[
+						0,
+						5000,
+						1,
+						-4665.4,
+						-1827.7,
+						0,
+						85.4
+					],
+					[
+						6100,
+						6100,
+						1,
+						-4665.4,
+						-1827.7,
+						0,
+						83.7
+					],
+					[
+						6867,
+						6867,
+						1,
+						-4665.4,
+						-1827.7,
+						0,
+						80.2
+					],
+					[
+						12867,
+						12867,
+						1,
+						-4665.4,
+						-1827.7,
+						0,
+						-39.5
+					],
+					[
+						13833,
+						13833,
+						1,
+						-4665.4,
+						-1827.7,
+						0,
+						-42.5
+					],
+					[
+						15000,
+						20000,
+						1,
+						-4665.4,
+						-1827.7,
+						0,
+						-43.9
+					],
+					[
+						21333,
+						21333,
+						1,
+						-4665.4,
+						-1827.7,
+						0,
+						-42.5
+					],
+					[
+						22233,
+						22233,
+						1,
+						-4665.4,
+						-1827.7,
+						0,
+						-39.4
+					],
+					[
+						28133,
+						28133,
+						1,
+						-4665.4,
+						-1827.7,
+						0,
+						80.2
+					],
+					[
+						28800,
+						28800,
+						1,
+						-4665.4,
+						-1827.7,
+						0,
+						83.8
+					],
+					[
+						29900,
+						29900,
+						1,
+						-4665.4,
+						-1827.7,
+						0,
+						85.3
+					],
+					[
+						30000,
+						30000,
+						1,
+						-4665.4,
+						-1827.7,
+						1,
+						85.4
+					],
+					[
+						0,
+						5000,
+						1,
+						-4670.8,
+						-1849.6,
+						0,
+						-44.1
+					],
+					[
+						5900,
+						5900,
+						1,
+						-4670.8,
+						-1849.6,
+						0,
+						-42.9
+					],
+					[
+						6667,
+						6667,
+						1,
+						-4670.8,
+						-1849.6,
+						0,
+						-39.5
+					],
+					[
+						13100,
+						13100,
+						1,
+						-4670.8,
+						-1849.6,
+						0,
+						77.4
+					],
+					[
+						14067,
+						14067,
+						1,
+						-4670.8,
+						-1849.6,
+						0,
+						83.5
+					],
+					[
+						15000,
+						20000,
+						1,
+						-4670.8,
+						-1849.6,
+						0,
+						85.4
+					],
+					[
+						21000,
+						21000,
+						1,
+						-4670.8,
+						-1849.6,
+						0,
+						83.5
+					],
+					[
+						21800,
+						21800,
+						1,
+						-4670.8,
+						-1849.6,
+						0,
+						78.2
+					],
+					[
+						27933,
+						27933,
+						1,
+						-4670.8,
+						-1849.6,
+						0,
+						-35.6
+					],
+					[
+						28967,
+						28967,
+						1,
+						-4670.8,
+						-1849.6,
+						0,
+						-42.2
+					],
+					[
+						30000,
+						30000,
+						1,
+						-4670.8,
+						-1849.6,
+						1,
+						-44.1
+					]
+				]
+			},
+			"lift-thunder-bluff-north-1": {
+				"kind": "lift",
+				"period": 30000,
+				"fit": {
+					"samples": 5,
+					"span": 4000,
+					"speed": 6
+				},
+				"stops": [
+					[
+						0,
+						5000,
+						1,
+						-1028,
+						-28.4,
+						69,
+						1
+					],
+					[
+						15000,
+						20000,
+						1,
+						-1028,
+						-28.4,
+						140.5,
+						1
+					]
+				],
+				"frames": [
+					[
+						0,
+						5000,
+						1,
+						-1028,
+						-28.4,
+						0,
+						69
+					],
+					[
+						5900,
+						5900,
+						1,
+						-1028,
+						-28.4,
+						0,
+						70.2
+					],
+					[
+						6667,
+						6667,
+						1,
+						-1028,
+						-28.4,
+						0,
+						73.7
+					],
+					[
+						10567,
+						10567,
+						1,
+						-1028,
+						-28.4,
+						0,
+						106.7
+					],
+					[
+						13100,
+						13100,
+						1,
+						-1028,
+						-28.4,
+						0,
+						132.5
+					],
+					[
+						14067,
+						14067,
+						1,
+						-1028,
+						-28.4,
+						0,
+						138.6
+					],
+					[
+						15000,
+						20000,
+						1,
+						-1028,
+						-28.4,
+						0,
+						140.5
+					],
+					[
+						21000,
+						21000,
+						1,
+						-1028,
+						-28.4,
+						0,
+						138.5
+					],
+					[
+						21800,
+						21800,
+						1,
+						-1028,
+						-28.4,
+						0,
+						133.3
+					],
+					[
+						25267,
+						25267,
+						1,
+						-1028,
+						-28.4,
+						0,
+						103.3
+					],
+					[
+						27933,
+						27933,
+						1,
+						-1028,
+						-28.4,
+						0,
+						77.6
+					],
+					[
+						28967,
+						28967,
+						1,
+						-1028,
+						-28.4,
+						0,
+						71
+					],
+					[
+						30000,
+						30000,
+						1,
+						-1028,
+						-28.4,
+						1,
+						69
+					]
+				]
+			},
+			"lift-thunder-bluff-north-2": {
+				"kind": "lift",
+				"period": 30033,
+				"fit": {
+					"samples": 5,
+					"span": 4000,
+					"speed": 6
+				},
+				"stops": [
+					[
+						0,
+						5000,
+						1,
+						-1037.3,
+						-49.2,
+						140.5,
+						1
+					],
+					[
+						15000,
+						20000,
+						1,
+						-1037.3,
+						-49.2,
+						69.3,
+						1
+					]
+				],
+				"frames": [
+					[
+						0,
+						5000,
+						1,
+						-1037.3,
+						-49.2,
+						0,
+						140.5
+					],
+					[
+						6100,
+						6100,
+						1,
+						-1037.3,
+						-49.2,
+						0,
+						138.7
+					],
+					[
+						6933,
+						6933,
+						1,
+						-1037.3,
+						-49.2,
+						0,
+						135.3
+					],
+					[
+						12867,
+						12867,
+						1,
+						-1037.3,
+						-49.2,
+						0,
+						73.7
+					],
+					[
+						13833,
+						13833,
+						1,
+						-1037.3,
+						-49.2,
+						0,
+						70.7
+					],
+					[
+						15000,
+						20000,
+						1,
+						-1037.3,
+						-49.2,
+						0,
+						69.3
+					],
+					[
+						21333,
+						21333,
+						1,
+						-1037.3,
+						-49.2,
+						0,
+						70.7
+					],
+					[
+						22233,
+						22233,
+						1,
+						-1037.3,
+						-49.2,
+						0,
+						73.8
+					],
+					[
+						28133,
+						28133,
+						1,
+						-1037.3,
+						-49.2,
+						0,
+						135.2
+					],
+					[
+						28800,
+						28800,
+						1,
+						-1037.3,
+						-49.2,
+						0,
+						138.9
+					],
+					[
+						30033,
+						30033,
+						1,
+						-1037.3,
+						-49.2,
+						1,
+						140.5
+					]
+				]
+			},
+			"lift-thunder-bluff-west-1": {
+				"kind": "lift",
+				"period": 30033,
+				"fit": {
+					"samples": 5,
+					"span": 4000,
+					"speed": 6
+				},
+				"stops": [
+					[
+						0,
+						5000,
+						1,
+						-1286.2,
+						189.7,
+						130.1,
+						1
+					],
+					[
+						15000,
+						20000,
+						1,
+						-1286.2,
+						189.7,
+						68.8,
+						1
+					]
+				],
+				"frames": [
+					[
+						0,
+						5000,
+						1,
+						-1286.2,
+						189.7,
+						0,
+						130.1
+					],
+					[
+						6100,
+						6100,
+						1,
+						-1286.2,
+						189.7,
+						0,
+						128.3
+					],
+					[
+						6933,
+						6933,
+						1,
+						-1286.2,
+						189.7,
+						0,
+						124.9
+					],
+					[
+						12867,
+						12867,
+						1,
+						-1286.2,
+						189.7,
+						0,
+						73.3
+					],
+					[
+						13833,
+						13833,
+						1,
+						-1286.2,
+						189.7,
+						0,
+						70.2
+					],
+					[
+						15000,
+						20000,
+						1,
+						-1286.2,
+						189.7,
+						0,
+						68.8
+					],
+					[
+						21333,
+						21333,
+						1,
+						-1286.2,
+						189.7,
+						0,
+						70.2
+					],
+					[
+						22233,
+						22233,
+						1,
+						-1286.2,
+						189.7,
+						0,
+						73.3
+					],
+					[
+						28133,
+						28133,
+						1,
+						-1286.2,
+						189.7,
+						0,
+						124.8
+					],
+					[
+						28800,
+						28800,
+						1,
+						-1286.2,
+						189.7,
+						0,
+						128.5
+					],
+					[
+						30033,
+						30033,
+						1,
+						-1286.2,
+						189.7,
+						1,
+						130.1
+					]
+				]
+			},
+			"lift-thunder-bluff-west-2": {
+				"kind": "lift",
+				"period": 30000,
+				"fit": {
+					"samples": 5,
+					"span": 4000,
+					"speed": 6
+				},
+				"stops": [
+					[
+						0,
+						5000,
+						1,
+						-1308.4,
+						185.3,
+						68.6,
+						1
+					],
+					[
+						15000,
+						20000,
+						1,
+						-1308.4,
+						185.3,
+						130.1,
+						1
+					]
+				],
+				"frames": [
+					[
+						0,
+						5000,
+						1,
+						-1308.4,
+						185.3,
+						0,
+						68.6
+					],
+					[
+						5900,
+						5900,
+						1,
+						-1308.4,
+						185.3,
+						0,
+						69.8
+					],
+					[
+						6667,
+						6667,
+						1,
+						-1308.4,
+						185.3,
+						0,
+						73.3
+					],
+					[
+						10567,
+						10567,
+						1,
+						-1308.4,
+						185.3,
+						0,
+						101.1
+					],
+					[
+						13100,
+						13100,
+						1,
+						-1308.4,
+						185.3,
+						0,
+						122.1
+					],
+					[
+						14067,
+						14067,
+						1,
+						-1308.4,
+						185.3,
+						0,
+						128.2
+					],
+					[
+						15000,
+						20000,
+						1,
+						-1308.4,
+						185.3,
+						0,
+						130.1
+					],
+					[
+						21000,
+						21000,
+						1,
+						-1308.4,
+						185.3,
+						0,
+						128.1
+					],
+					[
+						21800,
+						21800,
+						1,
+						-1308.4,
+						185.3,
+						0,
+						122.9
+					],
+					[
+						25267,
+						25267,
+						1,
+						-1308.4,
+						185.3,
+						0,
+						97.7
+					],
+					[
+						27933,
+						27933,
+						1,
+						-1308.4,
+						185.3,
+						0,
+						77.2
+					],
+					[
+						28967,
+						28967,
+						1,
+						-1308.4,
+						185.3,
+						0,
+						70.6
+					],
+					[
+						30000,
+						30000,
+						1,
+						-1308.4,
+						185.3,
+						1,
+						68.6
+					]
+				]
+			},
+			"lift-undercity-east": {
+				"kind": "lift",
+				"period": 16667,
+				"fit": {
+					"samples": 3,
+					"span": 2000,
+					"speed": 8
+				},
+				"stops": [
+					[
+						3667,
+						8500,
+						0,
+						1595.3,
+						188.6,
+						55.7,
+						1
+					],
+					[
+						11833,
+						167,
+						0,
+						1595.3,
+						188.6,
+						-40.8,
+						1
+					]
+				],
+				"frames": [
+					[
+						0,
+						167,
+						0,
+						1595.3,
+						188.6,
+						0,
+						-40.8
+					],
+					[
+						3667,
+						8500,
+						0,
+						1595.3,
+						188.6,
+						0,
+						55.7
+					],
+					[
+						11833,
+						16667,
+						0,
+						1595.3,
+						188.6,
+						1,
+						-40.8
+					]
+				]
+			},
+			"lift-undercity-south": {
+				"kind": "lift",
+				"period": 16667,
+				"fit": {
+					"samples": 3,
+					"span": 2000,
+					"speed": 8
+				},
+				"stops": [
+					[
+						7000,
+						11833,
+						0,
+						1544.2,
+						240.8,
+						55.7,
+						1
+					],
+					[
+						15167,
+						3500,
+						0,
+						1544.2,
+						240.8,
+						-40.8,
+						1
+					]
+				],
+				"frames": [
+					[
+						0,
+						3500,
+						0,
+						1544.2,
+						240.8,
+						0,
+						-40.8
+					],
+					[
+						7000,
+						11833,
+						0,
+						1544.2,
+						240.8,
+						0,
+						55.7
+					],
+					[
+						15167,
+						16667,
+						0,
+						1544.2,
+						240.8,
+						1,
+						-40.8
+					]
+				]
+			},
+			"lift-undercity-west": {
+				"kind": "lift",
+				"period": 16667,
+				"fit": {
+					"samples": 3,
+					"span": 2000,
+					"speed": 8
+				},
+				"stops": [
+					[
+						1833,
+						6833,
+						0,
+						1596.2,
+						291.8,
+						-40.8,
+						1
+					],
+					[
+						10333,
+						15167,
+						0,
+						1596.2,
+						291.8,
+						55.7,
+						1
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						0,
+						1596.2,
+						291.8,
+						0,
+						14.7
+					],
+					[
+						1833,
+						6833,
+						0,
+						1596.2,
+						291.8,
+						0,
+						-40.8
+					],
+					[
+						10333,
+						15167,
+						0,
+						1596.2,
+						291.8,
+						0,
+						55.7
+					],
+					[
+						16667,
+						16667,
+						0,
+						1596.2,
+						291.8,
+						1,
+						14.7
+					]
+				]
+			},
+			"path-11167": {
+				"kind": "boat",
+				"period": 486155,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						43530,
+						103554,
+						0,
+						-3709.5,
+						-575.1
+					],
+					[
+						245597,
+						305621,
+						0,
+						-1102.6,
+						-554.7
+					],
+					[
+						390196,
+						450219,
+						1,
+						6406.2,
+						823.1
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						0,
+						-3037.9,
+						-222.4,
+						0
+					],
+					[
+						11981,
+						11981,
+						0,
+						-3286.6,
+						-481.6,
+						0
+					],
+					[
+						18085,
+						18085,
+						0,
+						-3421.7,
+						-588.5,
+						0
+					],
+					[
+						22864,
+						22864,
+						0,
+						-3523.7,
+						-628.9,
+						0
+					],
+					[
+						27124,
+						27124,
+						0,
+						-3600.9,
+						-643.6,
+						0
+					],
+					[
+						31807,
+						31807,
+						0,
+						-3663.4,
+						-625.2,
+						0
+					],
+					[
+						43530,
+						103554,
+						0,
+						-3709.5,
+						-575.1,
+						0
+					],
+					[
+						116714,
+						116714,
+						0,
+						-3739.9,
+						-494.8,
+						0
+					],
+					[
+						123328,
+						123328,
+						0,
+						-3725.3,
+						-388.3,
+						0
+					],
+					[
+						129416,
+						129416,
+						0,
+						-3628.3,
+						-291.6,
+						0
+					],
+					[
+						134934,
+						134934,
+						0,
+						-3474.4,
+						-273.8,
+						0
+					],
+					[
+						145023,
+						145023,
+						0,
+						-3179.2,
+						-338.6,
+						0
+					],
+					[
+						152099,
+						152099,
+						0,
+						-2987.8,
+						-428.5,
+						0
+					],
+					[
+						161111,
+						161111,
+						0,
+						-2778.1,
+						-597.1,
+						0
+					],
+					[
+						175365,
+						175365,
+						0,
+						-2543.8,
+						-951.3,
+						0
+					],
+					[
+						192796,
+						192796,
+						0,
+						-2041,
+						-1075.2,
+						0
+					],
+					[
+						207949,
+						207949,
+						0,
+						-1606.1,
+						-951.9,
+						0
+					],
+					[
+						219351,
+						219351,
+						0,
+						-1307.3,
+						-801.6,
+						0
+					],
+					[
+						229476,
+						229476,
+						0,
+						-1134.4,
+						-676.3,
+						0
+					],
+					[
+						245597,
+						305621,
+						0,
+						-1102.6,
+						-554.7,
+						0
+					],
+					[
+						326713,
+						326713,
+						0,
+						-1159.6,
+						-341.4,
+						0
+					],
+					[
+						333319,
+						333319,
+						0,
+						-1299.8,
+						-266.3,
+						0
+					],
+					[
+						342603,
+						342603,
+						0,
+						-1536.5,
+						-124.9,
+						1
+					],
+					[
+						342603,
+						342603,
+						1,
+						5807.6,
+						1241,
+						0
+					],
+					[
+						346897,
+						346897,
+						1,
+						5837,
+						1115.7,
+						0
+					],
+					[
+						352524,
+						352524,
+						1,
+						5904.4,
+						961.1,
+						0
+					],
+					[
+						357296,
+						357296,
+						1,
+						5981.7,
+						840.9,
+						0
+					],
+					[
+						361830,
+						361830,
+						1,
+						6077,
+						746.5,
+						0
+					],
+					[
+						366501,
+						366501,
+						1,
+						6189.7,
+						702.8,
+						0
+					],
+					[
+						371746,
+						371746,
+						1,
+						6299.1,
+						698.1,
+						0
+					],
+					[
+						378439,
+						378439,
+						1,
+						6376.5,
+						761.4,
+						0
+					],
+					[
+						390196,
+						450219,
+						1,
+						6406.2,
+						823.1,
+						0
+					],
+					[
+						462182,
+						462182,
+						1,
+						6417.1,
+						893.4,
+						0
+					],
+					[
+						468469,
+						468469,
+						1,
+						6402.8,
+						986.7,
+						0
+					],
+					[
+						473620,
+						473620,
+						1,
+						6339,
+						1072,
+						0
+					],
+					[
+						478219,
+						478219,
+						1,
+						6240,
+						1135.7,
+						0
+					],
+					[
+						482694,
+						482694,
+						1,
+						6113.5,
+						1173.1,
+						0
+					],
+					[
+						486155,
+						486155,
+						1,
+						6010,
+						1178.8,
+						1
+					]
+				]
+			},
+			"path-11391": {
+				"kind": "boat",
+				"period": 271091,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						37913,
+						97936,
+						1,
+						-6932.6,
+						-4950.8
+					],
+					[
+						174415,
+						234438,
+						0,
+						-8232.3,
+						-5800.8
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						1,
+						-6632.2,
+						-5506.2,
+						0
+					],
+					[
+						11155,
+						11155,
+						1,
+						-6695.5,
+						-5183.2,
+						0
+					],
+					[
+						18677,
+						18677,
+						1,
+						-6775,
+						-5030.8,
+						0
+					],
+					[
+						24855,
+						24855,
+						1,
+						-6849.3,
+						-4965.9,
+						0
+					],
+					[
+						37913,
+						97936,
+						1,
+						-6932.6,
+						-4950.8,
+						0
+					],
+					[
+						108792,
+						108792,
+						1,
+						-6991.3,
+						-4952.8,
+						0
+					],
+					[
+						113293,
+						113293,
+						1,
+						-7046.1,
+						-4972,
+						0
+					],
+					[
+						119602,
+						119602,
+						1,
+						-7127.1,
+						-5055.7,
+						0
+					],
+					[
+						124703,
+						124703,
+						1,
+						-7184.6,
+						-5164.7,
+						0
+					],
+					[
+						129100,
+						129100,
+						1,
+						-7244.4,
+						-5276.3,
+						0
+					],
+					[
+						132280,
+						132280,
+						1,
+						-7298.3,
+						-5355,
+						0
+					],
+					[
+						134702,
+						134702,
+						1,
+						-7330.2,
+						-5420,
+						0
+					],
+					[
+						137068,
+						137068,
+						1,
+						-7340,
+						-5490.1,
+						0
+					],
+					[
+						142076,
+						142076,
+						1,
+						-7341.4,
+						-5640.2,
+						1
+					],
+					[
+						142076,
+						142076,
+						0,
+						-8222.4,
+						-6275.7,
+						0
+					],
+					[
+						144781,
+						144781,
+						0,
+						-8230.6,
+						-6195.1,
+						0
+					],
+					[
+						147812,
+						147812,
+						0,
+						-8226.3,
+						-6110.4,
+						0
+					],
+					[
+						152499,
+						152499,
+						0,
+						-8181.3,
+						-6006.1,
+						0
+					],
+					[
+						157142,
+						157142,
+						0,
+						-8158.8,
+						-5918.3,
+						0
+					],
+					[
+						162536,
+						162536,
+						0,
+						-8176.4,
+						-5842.7,
+						0
+					],
+					[
+						174415,
+						234438,
+						0,
+						-8232.3,
+						-5800.8,
+						0
+					],
+					[
+						244642,
+						244642,
+						0,
+						-8280.1,
+						-5781.1,
+						0
+					],
+					[
+						249654,
+						249654,
+						0,
+						-8343.4,
+						-5783.3,
+						0
+					],
+					[
+						254213,
+						254213,
+						0,
+						-8418.9,
+						-5808.6,
+						0
+					],
+					[
+						257221,
+						257221,
+						0,
+						-8477.8,
+						-5833.6,
+						0
+					],
+					[
+						261350,
+						261350,
+						0,
+						-8570.7,
+						-5877,
+						0
+					],
+					[
+						266011,
+						266011,
+						0,
+						-8689.6,
+						-5940.5,
+						0
+					],
+					[
+						271091,
+						271091,
+						0,
+						-8805.9,
+						-6038.9,
+						1
+					]
+				]
+			},
+			"path-11616": {
+				"kind": "boat",
+				"period": 247081,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						34802,
+						94825,
+						1,
+						6548.3,
+						942.2
+					],
+					[
+						162080,
+						222103,
+						0,
+						-8654.5,
+						1344.4
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						1,
+						6992.8,
+						1253.5,
+						0
+					],
+					[
+						7532,
+						7532,
+						1,
+						6871.3,
+						1082.9,
+						0
+					],
+					[
+						13056,
+						13056,
+						1,
+						6768.1,
+						996.1,
+						0
+					],
+					[
+						18911,
+						18911,
+						1,
+						6672.1,
+						942.6,
+						0
+					],
+					[
+						24132,
+						24132,
+						1,
+						6604,
+						932.3,
+						0
+					],
+					[
+						34802,
+						94825,
+						1,
+						6548.3,
+						942.2,
+						0
+					],
+					[
+						105756,
+						105756,
+						1,
+						6496.8,
+						971.9,
+						0
+					],
+					[
+						110984,
+						110984,
+						1,
+						6447.8,
+						1022.5,
+						0
+					],
+					[
+						116481,
+						116481,
+						1,
+						6405,
+						1116.5,
+						0
+					],
+					[
+						122780,
+						122780,
+						1,
+						6397.1,
+						1271.8,
+						0
+					],
+					[
+						133052,
+						133052,
+						1,
+						6445.6,
+						1573.3,
+						1
+					],
+					[
+						133052,
+						133052,
+						0,
+						-8948.2,
+						1564.3,
+						0
+					],
+					[
+						139025,
+						139025,
+						0,
+						-8883,
+						1423.4,
+						0
+					],
+					[
+						145074,
+						145074,
+						0,
+						-8793.6,
+						1343,
+						0
+					],
+					[
+						151151,
+						151151,
+						0,
+						-8711.2,
+						1327.5,
+						0
+					],
+					[
+						162080,
+						222103,
+						0,
+						-8654.5,
+						1344.4,
+						0
+					],
+					[
+						232273,
+						232273,
+						0,
+						-8611.7,
+						1372.8,
+						0
+					],
+					[
+						237081,
+						237081,
+						0,
+						-8579.1,
+						1423.5,
+						0
+					],
+					[
+						241627,
+						241627,
+						0,
+						-8544.8,
+						1494,
+						0
+					],
+					[
+						247081,
+						247081,
+						0,
+						-8496.3,
+						1605.1,
+						1
+					]
+				]
+			},
+			"path-241": {
+				"kind": "boat",
+				"period": 350818,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						66861,
+						126887,
+						1,
+						-1005.6,
+						-3841.6
+					],
+					[
+						233741,
+						293768,
+						0,
+						-14277.7,
+						582.9
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						1,
+						-1969.4,
+						-4933,
+						0
+					],
+					[
+						9109,
+						9109,
+						1,
+						-1734.3,
+						-4794.2,
+						0
+					],
+					[
+						16892,
+						16892,
+						1,
+						-1558.6,
+						-4641.6,
+						0
+					],
+					[
+						24915,
+						24915,
+						1,
+						-1441.7,
+						-4431.8,
+						0
+					],
+					[
+						30917,
+						30917,
+						1,
+						-1370.2,
+						-4266.7,
+						0
+					],
+					[
+						36419,
+						36419,
+						1,
+						-1264.9,
+						-4139.9,
+						0
+					],
+					[
+						41098,
+						41098,
+						1,
+						-1212.5,
+						-4019.7,
+						0
+					],
+					[
+						47496,
+						47496,
+						1,
+						-1154.2,
+						-3887.8,
+						0
+					],
+					[
+						52253,
+						52253,
+						1,
+						-1105.5,
+						-3824.1,
+						0
+					],
+					[
+						56104,
+						56104,
+						1,
+						-1058.5,
+						-3818.9,
+						0
+					],
+					[
+						66861,
+						126887,
+						1,
+						-1005.6,
+						-3841.6,
+						0
+					],
+					[
+						137921,
+						137921,
+						1,
+						-956.4,
+						-3877.1,
+						0
+					],
+					[
+						141559,
+						141559,
+						1,
+						-935.5,
+						-3917.8,
+						0
+					],
+					[
+						145547,
+						145547,
+						1,
+						-950.2,
+						-3981.3,
+						0
+					],
+					[
+						150407,
+						150407,
+						1,
+						-1026.8,
+						-4049.1,
+						0
+					],
+					[
+						154354,
+						154354,
+						1,
+						-1091.8,
+						-4124.8,
+						0
+					],
+					[
+						161399,
+						161399,
+						1,
+						-1160.8,
+						-4320.8,
+						0
+					],
+					[
+						168687,
+						168687,
+						1,
+						-1209.5,
+						-4533.8,
+						0
+					],
+					[
+						177537,
+						177537,
+						1,
+						-1312.3,
+						-4778.1,
+						0
+					],
+					[
+						184829,
+						184829,
+						1,
+						-1449,
+						-4947.8,
+						0
+					],
+					[
+						193457,
+						193457,
+						1,
+						-1652.7,
+						-5107.1,
+						1
+					],
+					[
+						193457,
+						193457,
+						0,
+						-14366.6,
+						1302,
+						0
+					],
+					[
+						200892,
+						200892,
+						0,
+						-14338.3,
+						1081.1,
+						0
+					],
+					[
+						208461,
+						208461,
+						0,
+						-14366.7,
+						867.3,
+						0
+					],
+					[
+						214522,
+						214522,
+						0,
+						-14351.3,
+						733.7,
+						0
+					],
+					[
+						220666,
+						220666,
+						0,
+						-14342.5,
+						635.4,
+						0
+					],
+					[
+						233741,
+						293768,
+						0,
+						-14277.7,
+						582.9,
+						0
+					],
+					[
+						308391,
+						308391,
+						0,
+						-14171.9,
+						578.4,
+						0
+					],
+					[
+						314021,
+						314021,
+						0,
+						-14088.3,
+						626.5,
+						0
+					],
+					[
+						319034,
+						319034,
+						0,
+						-14052.8,
+						732.2,
+						0
+					],
+					[
+						324227,
+						324227,
+						0,
+						-14122.9,
+						852.5,
+						0
+					],
+					[
+						331914,
+						331914,
+						0,
+						-14351.6,
+						865,
+						0
+					],
+					[
+						350818,
+						350818,
+						0,
+						-14917.5,
+						833.4,
+						1
+					]
+				]
+			},
+			"path-285": {
+				"kind": "zeppelin",
+				"period": 303463,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						38573,
+						98603,
+						0,
+						-12464,
+						231.6
+					],
+					[
+						203559,
+						263589,
+						1,
+						1360.9,
+						-4631.3
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						0,
+						-12465.8,
+						931.3,
+						0
+					],
+					[
+						8225,
+						8225,
+						0,
+						-12442.8,
+						685.7,
+						0
+					],
+					[
+						20067,
+						20067,
+						0,
+						-12428,
+						397.4,
+						0
+					],
+					[
+						38573,
+						98603,
+						0,
+						-12464,
+						231.6,
+						0
+					],
+					[
+						115246,
+						115246,
+						0,
+						-12564.8,
+						141.6,
+						0
+					],
+					[
+						121520,
+						121520,
+						0,
+						-12677.8,
+						177.1,
+						0
+					],
+					[
+						126733,
+						126733,
+						0,
+						-12730.4,
+						296.4,
+						0
+					],
+					[
+						132458,
+						132458,
+						0,
+						-12703.1,
+						463.6,
+						0
+					],
+					[
+						138231,
+						138231,
+						0,
+						-12667.5,
+						633.1,
+						0
+					],
+					[
+						147466,
+						147466,
+						0,
+						-12612.8,
+						904.5,
+						1
+					],
+					[
+						147466,
+						147466,
+						1,
+						1132.9,
+						-5400.9,
+						0
+					],
+					[
+						154238,
+						154238,
+						1,
+						1166.7,
+						-5200.8,
+						0
+					],
+					[
+						163091,
+						163091,
+						1,
+						1165.3,
+						-4935.5,
+						0
+					],
+					[
+						169351,
+						169351,
+						1,
+						1129.7,
+						-4751.3,
+						0
+					],
+					[
+						177083,
+						177083,
+						1,
+						1126.9,
+						-4526.6,
+						0
+					],
+					[
+						182112,
+						182112,
+						1,
+						1223.5,
+						-4465.4,
+						0
+					],
+					[
+						186913,
+						186913,
+						1,
+						1299.5,
+						-4508.2,
+						0
+					],
+					[
+						203559,
+						263589,
+						1,
+						1360.9,
+						-4631.3,
+						0
+					],
+					[
+						281913,
+						281913,
+						1,
+						1468.6,
+						-4755.9,
+						0
+					],
+					[
+						289360,
+						289360,
+						1,
+						1465.4,
+						-4918.9,
+						0
+					],
+					[
+						294564,
+						294564,
+						1,
+						1453.2,
+						-5065.4,
+						0
+					],
+					[
+						300085,
+						300085,
+						1,
+						1443,
+						-5230.6,
+						0
+					],
+					[
+						303463,
+						303463,
+						1,
+						1441.4,
+						-5331.9,
+						1
+					]
+				]
+			},
+			"path-292": {
+				"kind": "boat",
+				"period": 329313,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						54297,
+						114325,
+						0,
+						-3905.2,
+						-585.8
+					],
+					[
+						217967,
+						277995,
+						1,
+						-4016.4,
+						-4740.6
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						0,
+						-3787.5,
+						178.1,
+						0
+					],
+					[
+						9945,
+						9945,
+						0,
+						-4037.3,
+						15.7,
+						0
+					],
+					[
+						17155,
+						17155,
+						0,
+						-4151.5,
+						-165.9,
+						0
+					],
+					[
+						24261,
+						24261,
+						0,
+						-4199.9,
+						-372.3,
+						0
+					],
+					[
+						30494,
+						30494,
+						0,
+						-4150.9,
+						-531.3,
+						0
+					],
+					[
+						34824,
+						34824,
+						0,
+						-4088.9,
+						-599.1,
+						0
+					],
+					[
+						40499,
+						40499,
+						0,
+						-3996.3,
+						-611.3,
+						0
+					],
+					[
+						54297,
+						114325,
+						0,
+						-3905.2,
+						-585.8,
+						0
+					],
+					[
+						128093,
+						128093,
+						0,
+						-3830.8,
+						-528.8,
+						0
+					],
+					[
+						134875,
+						134875,
+						0,
+						-3789.7,
+						-421.6,
+						0
+					],
+					[
+						142753,
+						142753,
+						0,
+						-3809.4,
+						-232.1,
+						0
+					],
+					[
+						153979,
+						153979,
+						0,
+						-3998.8,
+						43.7,
+						0
+					],
+					[
+						165145,
+						165145,
+						0,
+						-4025.7,
+						376.5,
+						1
+					],
+					[
+						165145,
+						165145,
+						1,
+						-4298.5,
+						-5627.4,
+						0
+					],
+					[
+						183828,
+						183828,
+						1,
+						-4284.9,
+						-5067.3,
+						0
+					],
+					[
+						192326,
+						192326,
+						1,
+						-4263.5,
+						-4823.3,
+						0
+					],
+					[
+						197748,
+						197748,
+						1,
+						-4201.2,
+						-4718.7,
+						0
+					],
+					[
+						203934,
+						203934,
+						1,
+						-4100.9,
+						-4692.4,
+						0
+					],
+					[
+						217967,
+						277995,
+						1,
+						-4016.4,
+						-4740.6,
+						0
+					],
+					[
+						291966,
+						291966,
+						1,
+						-3952.5,
+						-4813.7,
+						0
+					],
+					[
+						296877,
+						296877,
+						1,
+						-3927.4,
+						-4889.9,
+						0
+					],
+					[
+						303447,
+						303447,
+						1,
+						-3902.8,
+						-5033,
+						0
+					],
+					[
+						308637,
+						308637,
+						1,
+						-3816.9,
+						-5148.3,
+						0
+					],
+					[
+						313968,
+						313968,
+						1,
+						-3668.6,
+						-5204.6,
+						0
+					],
+					[
+						320385,
+						320385,
+						1,
+						-3476.4,
+						-5208.8,
+						0
+					],
+					[
+						329313,
+						329313,
+						1,
+						-3214,
+						-5261.7,
+						1
+					]
+				]
+			},
+			"path-293": {
+				"kind": "boat",
+				"period": 316251,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						41862,
+						101875,
+						1,
+						8533.7,
+						1025.1
+					],
+					[
+						206420,
+						266433,
+						1,
+						6594.4,
+						759.8
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						1,
+						7912.6,
+						1340.5,
+						0
+					],
+					[
+						12735,
+						12735,
+						1,
+						8293.7,
+						1324.4,
+						0
+					],
+					[
+						19723,
+						19723,
+						1,
+						8454.1,
+						1251.5,
+						0
+					],
+					[
+						27738,
+						27738,
+						1,
+						8519.1,
+						1123.2,
+						0
+					],
+					[
+						41862,
+						101875,
+						1,
+						8533.7,
+						1025.1,
+						0
+					],
+					[
+						115408,
+						115408,
+						1,
+						8519.1,
+						935.3,
+						0
+					],
+					[
+						121462,
+						121462,
+						1,
+						8460.3,
+						855.3,
+						0
+					],
+					[
+						127026,
+						127026,
+						1,
+						8348.1,
+						803.3,
+						0
+					],
+					[
+						134546,
+						134546,
+						1,
+						8138,
+						764.7,
+						0
+					],
+					[
+						141903,
+						141903,
+						1,
+						7917.8,
+						752.6,
+						0
+					],
+					[
+						152102,
+						152102,
+						1,
+						7612.2,
+						747.1,
+						0
+					],
+					[
+						162867,
+						162867,
+						1,
+						7304.4,
+						650.4,
+						0
+					],
+					[
+						174330,
+						174330,
+						1,
+						6968.4,
+						578,
+						0
+					],
+					[
+						181557,
+						181557,
+						1,
+						6765.6,
+						564.1,
+						0
+					],
+					[
+						186699,
+						186699,
+						1,
+						6655.1,
+						588.8,
+						0
+					],
+					[
+						193095,
+						193095,
+						1,
+						6592.9,
+						672.3,
+						0
+					],
+					[
+						206420,
+						266433,
+						1,
+						6594.4,
+						759.8,
+						0
+					],
+					[
+						280051,
+						280051,
+						1,
+						6638.7,
+						840.6,
+						0
+					],
+					[
+						286391,
+						286391,
+						1,
+						6716.2,
+						913.2,
+						0
+					],
+					[
+						292529,
+						292529,
+						1,
+						6833.6,
+						991.5,
+						0
+					],
+					[
+						298538,
+						298538,
+						1,
+						6983.4,
+						1077.2,
+						0
+					],
+					[
+						307612,
+						307612,
+						1,
+						7226.1,
+						1200.5,
+						0
+					],
+					[
+						316251,
+						316251,
+						1,
+						7466.8,
+						1296.2,
+						1
+					]
+				]
+			},
+			"path-301": {
+				"kind": "zeppelin",
+				"period": 333044,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						53810,
+						113840,
+						0,
+						-12406.9,
+						211.8
+					],
+					[
+						230877,
+						290907,
+						0,
+						2062.6,
+						235.3
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						0,
+						-12332.8,
+						1353.5,
+						0
+					],
+					[
+						7778,
+						7778,
+						0,
+						-12312,
+						1121.4,
+						0
+					],
+					[
+						17948,
+						17948,
+						0,
+						-12318.4,
+						819.7,
+						0
+					],
+					[
+						32743,
+						32743,
+						0,
+						-12381.3,
+						424.2,
+						0
+					],
+					[
+						53810,
+						113840,
+						0,
+						-12406.9,
+						211.8,
+						0
+					],
+					[
+						133257,
+						133257,
+						0,
+						-12366.5,
+						34.2,
+						0
+					],
+					[
+						139661,
+						139661,
+						0,
+						-12302.5,
+						-85.9,
+						0
+					],
+					[
+						146923,
+						146923,
+						0,
+						-12184.9,
+						-257.3,
+						0
+					],
+					[
+						154411,
+						154411,
+						0,
+						-12007.9,
+						-390.7,
+						0
+					],
+					[
+						164581,
+						164581,
+						0,
+						-11704.9,
+						-408.4,
+						0
+					],
+					[
+						173444,
+						173444,
+						0,
+						-11440,
+						-401,
+						1
+					],
+					[
+						173444,
+						173444,
+						0,
+						2301.1,
+						-944.4,
+						0
+					],
+					[
+						177586,
+						177586,
+						0,
+						2302.7,
+						-821.1,
+						0
+					],
+					[
+						187978,
+						187978,
+						0,
+						2311.2,
+						-510.7,
+						0
+					],
+					[
+						198223,
+						198223,
+						0,
+						2298.3,
+						-207.2,
+						0
+					],
+					[
+						204274,
+						204274,
+						0,
+						2258.5,
+						-39.3,
+						0
+					],
+					[
+						210981,
+						210981,
+						0,
+						2199.2,
+						102.5,
+						0
+					],
+					[
+						218471,
+						218471,
+						0,
+						2130.2,
+						200.9,
+						0
+					],
+					[
+						230877,
+						290907,
+						0,
+						2062.6,
+						235.3,
+						0
+					],
+					[
+						302391,
+						302391,
+						0,
+						1998.7,
+						229.4,
+						0
+					],
+					[
+						308214,
+						308214,
+						0,
+						1954.8,
+						158.9,
+						0
+					],
+					[
+						312062,
+						312062,
+						0,
+						1937.5,
+						87.2,
+						0
+					],
+					[
+						317068,
+						317068,
+						0,
+						1918.9,
+						-28.7,
+						0
+					],
+					[
+						323666,
+						323666,
+						0,
+						1914.5,
+						-217.3,
+						0
+					],
+					[
+						333044,
+						333044,
+						0,
+						1821,
+						-478.7,
+						1
+					]
+				]
+			},
+			"path-302": {
+				"kind": "zeppelin",
+				"period": 356284,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						49775,
+						109793,
+						1,
+						1318.1,
+						-4658
+					],
+					[
+						240706,
+						300725,
+						0,
+						2062.4,
+						293
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						1,
+						1334.8,
+						-5686.1,
+						0
+					],
+					[
+						7603,
+						7603,
+						1,
+						1363,
+						-5460.1,
+						0
+					],
+					[
+						17319,
+						17319,
+						1,
+						1336.8,
+						-5170.1,
+						0
+					],
+					[
+						26080,
+						26080,
+						1,
+						1277.2,
+						-4934.8,
+						0
+					],
+					[
+						34482,
+						34482,
+						1,
+						1297.9,
+						-4773.1,
+						0
+					],
+					[
+						39761,
+						39761,
+						1,
+						1309.9,
+						-4707.4,
+						0
+					],
+					[
+						49775,
+						109793,
+						1,
+						1318.1,
+						-4658,
+						0
+					],
+					[
+						120664,
+						120664,
+						1,
+						1311.8,
+						-4599.4,
+						0
+					],
+					[
+						124353,
+						124353,
+						1,
+						1295.4,
+						-4555.8,
+						0
+					],
+					[
+						126815,
+						126815,
+						1,
+						1263.5,
+						-4536.3,
+						0
+					],
+					[
+						129524,
+						129524,
+						1,
+						1223.9,
+						-4564.3,
+						0
+					],
+					[
+						132433,
+						132433,
+						1,
+						1218.9,
+						-4625,
+						0
+					],
+					[
+						135647,
+						135647,
+						1,
+						1238.7,
+						-4700.3,
+						0
+					],
+					[
+						140335,
+						140335,
+						1,
+						1255.5,
+						-4831.2,
+						0
+					],
+					[
+						144714,
+						144714,
+						1,
+						1267.8,
+						-4961.9,
+						0
+					],
+					[
+						150659,
+						150659,
+						1,
+						1268.5,
+						-5140.1,
+						0
+					],
+					[
+						158341,
+						158341,
+						1,
+						1256.7,
+						-5370.2,
+						1
+					],
+					[
+						158341,
+						158341,
+						0,
+						3049.9,
+						1769.5,
+						0
+					],
+					[
+						170769,
+						170769,
+						0,
+						2731.3,
+						1577.6,
+						0
+					],
+					[
+						188843,
+						188843,
+						0,
+						2318.6,
+						1226.5,
+						0
+					],
+					[
+						198248,
+						198248,
+						0,
+						2123.6,
+						1023.4,
+						0
+					],
+					[
+						207550,
+						207550,
+						0,
+						1988.9,
+						779.7,
+						0
+					],
+					[
+						213878,
+						213878,
+						0,
+						1949.9,
+						599.8,
+						0
+					],
+					[
+						219588,
+						219588,
+						0,
+						1945.7,
+						465.4,
+						0
+					],
+					[
+						227162,
+						227162,
+						0,
+						1988,
+						342.5,
+						0
+					],
+					[
+						240706,
+						300725,
+						0,
+						2062.4,
+						293,
+						0
+					],
+					[
+						317439,
+						317439,
+						0,
+						2201.3,
+						283.7,
+						0
+					],
+					[
+						328193,
+						328193,
+						0,
+						2437.4,
+						270.8,
+						0
+					],
+					[
+						337450,
+						337450,
+						0,
+						2711.4,
+						264.8,
+						0
+					],
+					[
+						344265,
+						344265,
+						0,
+						2906.6,
+						206.9,
+						0
+					],
+					[
+						351650,
+						351650,
+						0,
+						3117.4,
+						269.3,
+						0
+					],
+					[
+						356284,
+						356284,
+						0,
+						3218.6,
+						362.1,
+						1
+					]
+				]
+			},
+			"path-303": {
+				"kind": "boat",
+				"period": 317038,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						287026,
+						30012,
+						1,
+						-4197.3,
+						3286.6
+					],
+					[
+						90127,
+						150150,
+						1,
+						-4347.8,
+						2444.4
+					]
+				],
+				"frames": [
+					[
+						0,
+						30012,
+						1,
+						-4197.3,
+						3286.6,
+						0
+					],
+					[
+						50994,
+						50994,
+						1,
+						-4196.5,
+						3066.7,
+						0
+					],
+					[
+						57834,
+						57834,
+						1,
+						-4200,
+						2900,
+						0
+					],
+					[
+						70030,
+						70030,
+						1,
+						-4237.6,
+						2588.1,
+						0
+					],
+					[
+						76558,
+						76558,
+						1,
+						-4267.3,
+						2483.7,
+						0
+					],
+					[
+						90127,
+						150150,
+						1,
+						-4347.8,
+						2444.4,
+						0
+					],
+					[
+						164736,
+						164736,
+						1,
+						-4448.2,
+						2476.1,
+						0
+					],
+					[
+						175073,
+						175073,
+						1,
+						-4623.8,
+						2579.7,
+						0
+					],
+					[
+						187010,
+						187010,
+						1,
+						-4905.6,
+						2778.3,
+						0
+					],
+					[
+						195140,
+						195140,
+						1,
+						-5053.6,
+						2970.5,
+						0
+					],
+					[
+						202702,
+						202702,
+						1,
+						-5121.1,
+						3186,
+						0
+					],
+					[
+						212241,
+						212241,
+						1,
+						-5130.5,
+						3471.5,
+						0
+					],
+					[
+						220197,
+						220197,
+						1,
+						-5089.3,
+						3706,
+						0
+					],
+					[
+						225821,
+						225821,
+						1,
+						-5009.8,
+						3853.4,
+						0
+					],
+					[
+						231070,
+						231070,
+						1,
+						-4880.2,
+						3939.9,
+						0
+					],
+					[
+						237396,
+						237396,
+						1,
+						-4693.1,
+						3962.1,
+						0
+					],
+					[
+						246812,
+						246812,
+						1,
+						-4417.4,
+						3904,
+						0
+					],
+					[
+						255392,
+						255392,
+						1,
+						-4196.2,
+						3783.3,
+						0
+					],
+					[
+						268043,
+						268043,
+						1,
+						-4195.8,
+						3466.7,
+						0
+					],
+					[
+						287026,
+						317038,
+						1,
+						-4197.3,
+						3286.6,
+						1
+					]
+				]
+			},
+			"tram-176080": {
+				"kind": "tram",
+				"period": 143333,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						58633,
+						71667,
+						369,
+						4.6,
+						2510.5,
+						7.2,
+						1
+					],
+					[
+						130300,
+						143333,
+						369,
+						4.6,
+						28.2,
+						7,
+						1
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						369,
+						4.6,
+						28.2,
+						0,
+						7
+					],
+					[
+						4039,
+						4039,
+						369,
+						4.6,
+						199,
+						0,
+						6.9
+					],
+					[
+						4213,
+						4213,
+						369,
+						4.6,
+						206.4,
+						0,
+						6
+					],
+					[
+						7297,
+						7297,
+						369,
+						4.6,
+						336.8,
+						0,
+						-33.2
+					],
+					[
+						7427,
+						7427,
+						369,
+						4.6,
+						342.3,
+						0,
+						-33.6
+					],
+					[
+						12900,
+						12900,
+						369,
+						4.6,
+						573.7,
+						0,
+						-33.7
+					],
+					[
+						13074,
+						13074,
+						369,
+						4.6,
+						581.1,
+						0,
+						-34.5
+					],
+					[
+						16158,
+						16158,
+						369,
+						4.6,
+						711.5,
+						0,
+						-73.8
+					],
+					[
+						16331,
+						16331,
+						369,
+						4.6,
+						718.8,
+						0,
+						-74.2
+					],
+					[
+						21804,
+						21804,
+						369,
+						4.6,
+						950.2,
+						0,
+						-74.3
+					],
+					[
+						21934,
+						21934,
+						369,
+						4.6,
+						955.7,
+						0,
+						-75.1
+					],
+					[
+						25018,
+						25018,
+						369,
+						4.6,
+						1086.2,
+						0,
+						-114.3
+					],
+					[
+						25192,
+						25192,
+						369,
+						4.6,
+						1093.5,
+						0,
+						-115
+					],
+					[
+						32663,
+						32663,
+						369,
+						4.6,
+						1409.4,
+						0,
+						-114.8
+					],
+					[
+						32793,
+						32793,
+						369,
+						4.6,
+						1414.9,
+						0,
+						-114.4
+					],
+					[
+						35877,
+						35877,
+						369,
+						4.6,
+						1545.3,
+						0,
+						-75
+					],
+					[
+						36050,
+						36050,
+						369,
+						4.6,
+						1552.7,
+						0,
+						-74.2
+					],
+					[
+						41567,
+						41567,
+						369,
+						4.6,
+						1785.9,
+						0,
+						-74
+					],
+					[
+						41697,
+						41697,
+						369,
+						4.6,
+						1791.5,
+						0,
+						-73.2
+					],
+					[
+						44737,
+						44737,
+						369,
+						4.6,
+						1920,
+						0,
+						-34.6
+					],
+					[
+						44911,
+						44911,
+						369,
+						4.6,
+						1927.4,
+						0,
+						-33.7
+					],
+					[
+						50384,
+						50384,
+						369,
+						4.6,
+						2158.8,
+						0,
+						-33.7
+					],
+					[
+						50558,
+						50558,
+						369,
+						4.6,
+						2166.1,
+						0,
+						-32.8
+					],
+					[
+						53598,
+						53598,
+						369,
+						4.6,
+						2294.7,
+						0,
+						6
+					],
+					[
+						53772,
+						53772,
+						369,
+						4.6,
+						2302.1,
+						0,
+						6.9
+					],
+					[
+						58633,
+						71667,
+						369,
+						4.6,
+						2510.5,
+						0,
+						7.2
+					],
+					[
+						76531,
+						76531,
+						369,
+						4.6,
+						2302.1,
+						0,
+						6.9
+					],
+					[
+						76705,
+						76705,
+						369,
+						4.6,
+						2294.7,
+						0,
+						6
+					],
+					[
+						79745,
+						79745,
+						369,
+						4.6,
+						2166.1,
+						0,
+						-32.8
+					],
+					[
+						79919,
+						79919,
+						369,
+						4.6,
+						2158.8,
+						0,
+						-33.7
+					],
+					[
+						85392,
+						85392,
+						369,
+						4.6,
+						1927.4,
+						0,
+						-33.7
+					],
+					[
+						85566,
+						85566,
+						369,
+						4.6,
+						1920,
+						0,
+						-34.6
+					],
+					[
+						88606,
+						88606,
+						369,
+						4.6,
+						1791.5,
+						0,
+						-73.2
+					],
+					[
+						88736,
+						88736,
+						369,
+						4.6,
+						1785.9,
+						0,
+						-74
+					],
+					[
+						94253,
+						94253,
+						369,
+						4.6,
+						1552.7,
+						0,
+						-74.2
+					],
+					[
+						94426,
+						94426,
+						369,
+						4.6,
+						1545.3,
+						0,
+						-75
+					],
+					[
+						97510,
+						97510,
+						369,
+						4.6,
+						1414.9,
+						0,
+						-114.4
+					],
+					[
+						97640,
+						97640,
+						369,
+						4.6,
+						1409.4,
+						0,
+						-114.8
+					],
+					[
+						105111,
+						105111,
+						369,
+						4.6,
+						1093.5,
+						0,
+						-115
+					],
+					[
+						105285,
+						105285,
+						369,
+						4.6,
+						1086.2,
+						0,
+						-114.3
+					],
+					[
+						108369,
+						108369,
+						369,
+						4.6,
+						955.7,
+						0,
+						-75.1
+					],
+					[
+						108499,
+						108499,
+						369,
+						4.6,
+						950.2,
+						0,
+						-74.3
+					],
+					[
+						113972,
+						113972,
+						369,
+						4.6,
+						718.8,
+						0,
+						-74.2
+					],
+					[
+						114145,
+						114145,
+						369,
+						4.6,
+						711.5,
+						0,
+						-73.8
+					],
+					[
+						117229,
+						117229,
+						369,
+						4.6,
+						581.1,
+						0,
+						-34.5
+					],
+					[
+						117403,
+						117403,
+						369,
+						4.6,
+						573.7,
+						0,
+						-33.7
+					],
+					[
+						122876,
+						122876,
+						369,
+						4.6,
+						342.3,
+						0,
+						-33.6
+					],
+					[
+						123006,
+						123006,
+						369,
+						4.6,
+						336.8,
+						0,
+						-33.2
+					],
+					[
+						126090,
+						126090,
+						369,
+						4.6,
+						206.4,
+						0,
+						6
+					],
+					[
+						126264,
+						126264,
+						369,
+						4.6,
+						199,
+						0,
+						6.9
+					],
+					[
+						130300,
+						143333,
+						369,
+						4.6,
+						28.2,
+						1,
+						7
+					]
+				]
+			},
+			"tram-176082": {
+				"kind": "tram",
+				"period": 143333,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						59067,
+						71167,
+						369,
+						-45.4,
+						9.8,
+						7.2,
+						1
+					],
+					[
+						129800,
+						433,
+						369,
+						-45.4,
+						2492.8,
+						7,
+						1
+					]
+				],
+				"frames": [
+					[
+						0,
+						433,
+						369,
+						-45.4,
+						2492.8,
+						0,
+						7
+					],
+					[
+						4495,
+						4495,
+						369,
+						-45.4,
+						2302.6,
+						0,
+						6.9
+					],
+					[
+						4669,
+						4669,
+						369,
+						-45.4,
+						2295.2,
+						0,
+						6
+					],
+					[
+						7753,
+						7753,
+						369,
+						-45.4,
+						2164.8,
+						0,
+						-33.2
+					],
+					[
+						7883,
+						7883,
+						369,
+						-45.4,
+						2159.3,
+						0,
+						-33.6
+					],
+					[
+						13356,
+						13356,
+						369,
+						-45.4,
+						1927.9,
+						0,
+						-33.7
+					],
+					[
+						13530,
+						13530,
+						369,
+						-45.4,
+						1920.5,
+						0,
+						-34.5
+					],
+					[
+						16614,
+						16614,
+						369,
+						-45.4,
+						1790.1,
+						0,
+						-73.8
+					],
+					[
+						16787,
+						16787,
+						369,
+						-45.4,
+						1782.8,
+						0,
+						-74.2
+					],
+					[
+						22260,
+						22260,
+						369,
+						-45.4,
+						1551.4,
+						0,
+						-74.3
+					],
+					[
+						22390,
+						22390,
+						369,
+						-45.4,
+						1545.8,
+						0,
+						-75.2
+					],
+					[
+						25474,
+						25474,
+						369,
+						-45.4,
+						1415.4,
+						0,
+						-114.3
+					],
+					[
+						25648,
+						25648,
+						369,
+						-45.4,
+						1408.1,
+						0,
+						-115
+					],
+					[
+						33119,
+						33119,
+						369,
+						-45.4,
+						1092.2,
+						0,
+						-114.8
+					],
+					[
+						33249,
+						33249,
+						369,
+						-45.4,
+						1086.7,
+						0,
+						-114.4
+					],
+					[
+						36333,
+						36333,
+						369,
+						-45.4,
+						956.3,
+						0,
+						-75
+					],
+					[
+						36506,
+						36506,
+						369,
+						-45.4,
+						948.9,
+						0,
+						-74.3
+					],
+					[
+						42023,
+						42023,
+						369,
+						-45.4,
+						715.6,
+						0,
+						-74
+					],
+					[
+						42153,
+						42153,
+						369,
+						-45.4,
+						710.1,
+						0,
+						-73.2
+					],
+					[
+						45193,
+						45193,
+						369,
+						-45.4,
+						581.6,
+						0,
+						-34.6
+					],
+					[
+						45367,
+						45367,
+						369,
+						-45.4,
+						574.2,
+						0,
+						-33.7
+					],
+					[
+						50840,
+						50840,
+						369,
+						-45.4,
+						342.8,
+						0,
+						-33.7
+					],
+					[
+						51014,
+						51014,
+						369,
+						-45.4,
+						335.4,
+						0,
+						-32.8
+					],
+					[
+						54054,
+						54054,
+						369,
+						-45.4,
+						206.9,
+						0,
+						6
+					],
+					[
+						54228,
+						54228,
+						369,
+						-45.4,
+						199.5,
+						0,
+						6.9
+					],
+					[
+						59067,
+						71167,
+						369,
+						-45.4,
+						9.8,
+						0,
+						7.2
+					],
+					[
+						76053,
+						76053,
+						369,
+						-45.4,
+						199.5,
+						0,
+						6.9
+					],
+					[
+						76227,
+						76227,
+						369,
+						-45.4,
+						206.9,
+						0,
+						6
+					],
+					[
+						79268,
+						79268,
+						369,
+						-45.4,
+						335.4,
+						0,
+						-32.8
+					],
+					[
+						79441,
+						79441,
+						369,
+						-45.4,
+						342.8,
+						0,
+						-33.7
+					],
+					[
+						84914,
+						84914,
+						369,
+						-45.4,
+						574.2,
+						0,
+						-33.7
+					],
+					[
+						85088,
+						85088,
+						369,
+						-45.4,
+						581.6,
+						0,
+						-34.6
+					],
+					[
+						88128,
+						88128,
+						369,
+						-45.4,
+						710.1,
+						0,
+						-73.2
+					],
+					[
+						88259,
+						88259,
+						369,
+						-45.4,
+						715.6,
+						0,
+						-74
+					],
+					[
+						93775,
+						93775,
+						369,
+						-45.4,
+						948.9,
+						0,
+						-74.3
+					],
+					[
+						93948,
+						93948,
+						369,
+						-45.4,
+						956.3,
+						0,
+						-75
+					],
+					[
+						97032,
+						97032,
+						369,
+						-45.4,
+						1086.7,
+						0,
+						-114.4
+					],
+					[
+						97163,
+						97163,
+						369,
+						-45.4,
+						1092.2,
+						0,
+						-114.8
+					],
+					[
+						104633,
+						104633,
+						369,
+						-45.4,
+						1408.1,
+						0,
+						-115
+					],
+					[
+						104807,
+						104807,
+						369,
+						-45.4,
+						1415.4,
+						0,
+						-114.3
+					],
+					[
+						107891,
+						107891,
+						369,
+						-45.4,
+						1545.8,
+						0,
+						-75.2
+					],
+					[
+						108021,
+						108021,
+						369,
+						-45.4,
+						1551.4,
+						0,
+						-74.3
+					],
+					[
+						113494,
+						113494,
+						369,
+						-45.4,
+						1782.8,
+						0,
+						-74.2
+					],
+					[
+						113668,
+						113668,
+						369,
+						-45.4,
+						1790.1,
+						0,
+						-73.8
+					],
+					[
+						116751,
+						116751,
+						369,
+						-45.4,
+						1920.5,
+						0,
+						-34.5
+					],
+					[
+						116925,
+						116925,
+						369,
+						-45.4,
+						1927.9,
+						0,
+						-33.7
+					],
+					[
+						122398,
+						122398,
+						369,
+						-45.4,
+						2159.3,
+						0,
+						-33.6
+					],
+					[
+						122528,
+						122528,
+						369,
+						-45.4,
+						2164.8,
+						0,
+						-33.2
+					],
+					[
+						125612,
+						125612,
+						369,
+						-45.4,
+						2295.2,
+						0,
+						6
+					],
+					[
+						125786,
+						125786,
+						369,
+						-45.4,
+						2302.6,
+						0,
+						6.9
+					],
+					[
+						129800,
+						143333,
+						369,
+						-45.4,
+						2492.8,
+						1,
+						7
+					]
+				]
+			}
+		},
+		"services": {
+			"boat-auberdine-ruttheran": {
+				"kind": "boat",
+				"name": "Auberdine - Rut'theran Village",
+				"ends": [
+					"Auberdine",
+					"Rut'theran Village"
+				],
+				"areas": [
+					442,
+					702
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-293",
+						"a": [
+							1
+						],
+						"b": [
+							0
+						]
+					}
+				],
+				"wait": {
+					"a": 168.1,
+					"b": 168.1
+				},
+				"ride": {
+					"a": 91.7,
+					"b": 104.5
+				}
+			},
+			"boat-bootybay-ratchet": {
+				"kind": "boat",
+				"name": "Booty Bay - Ratchet",
+				"ends": [
+					"Booty Bay",
+					"Ratchet"
+				],
+				"areas": [
+					35,
+					392
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-241",
+						"a": [
+							1
+						],
+						"b": [
+							0
+						]
+					}
+				],
+				"wait": {
+					"a": 185.4,
+					"b": 185.4
+				},
+				"ride": {
+					"a": 123.9,
+					"b": 106.9
+				}
+			},
+			"boat-feathermoon": {
+				"kind": "boat",
+				"name": "Feathermoon Stronghold - The Forgotten Coast",
+				"ends": [
+					"Feathermoon Stronghold",
+					"The Forgotten Coast"
+				],
+				"areas": [
+					1116,
+					1108
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-303",
+						"a": [
+							0
+						],
+						"b": [
+							1
+						]
+					}
+				],
+				"wait": {
+					"a": 168.5,
+					"b": 168.5
+				},
+				"ride": {
+					"a": 60.1,
+					"b": 136.9
+				}
+			},
+			"boat-menethil-auberdine": {
+				"kind": "boat",
+				"name": "Menethil Harbor - Auberdine",
+				"ends": [
+					"Menethil Harbor",
+					"Auberdine"
+				],
+				"areas": [
+					150,
+					442
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-11167",
+						"a": [
+							0
+						],
+						"b": [
+							2
+						]
+					}
+				],
+				"wait": {
+					"a": 253.1,
+					"b": 253.1
+				},
+				"ride": {
+					"a": 286.6,
+					"b": 79.5
+				}
+			},
+			"boat-menethil-southshore": {
+				"kind": "boat",
+				"name": "Menethil Harbor - Southshore",
+				"ends": [
+					"Menethil Harbor",
+					"Southshore"
+				],
+				"areas": [
+					150,
+					271
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-11167",
+						"a": [
+							0
+						],
+						"b": [
+							1
+						]
+					}
+				],
+				"wait": {
+					"a": 253.1,
+					"b": 253.1
+				},
+				"ride": {
+					"a": 142,
+					"b": 224.1
+				}
+			},
+			"boat-menethil-theramore": {
+				"kind": "boat",
+				"name": "Menethil Harbor - Theramore",
+				"ends": [
+					"Menethil Harbor",
+					"Theramore"
+				],
+				"areas": [
+					150,
+					513
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-292",
+						"a": [
+							0
+						],
+						"b": [
+							1
+						]
+					}
+				],
+				"wait": {
+					"a": 174.7,
+					"b": 174.7
+				},
+				"ride": {
+					"a": 103.6,
+					"b": 105.6
+				}
+			},
+			"boat-southshore-auberdine": {
+				"kind": "boat",
+				"name": "Southshore - Auberdine",
+				"ends": [
+					"Southshore",
+					"Auberdine"
+				],
+				"areas": [
+					271,
+					442
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-11167",
+						"a": [
+							1
+						],
+						"b": [
+							2
+						]
+					}
+				],
+				"wait": {
+					"a": 253.1,
+					"b": 253.1
+				},
+				"ride": {
+					"a": 84.6,
+					"b": 281.5
+				}
+			},
+			"boat-stormwind-auberdine": {
+				"kind": "boat",
+				"name": "Stormwind Harbor - Auberdine",
+				"ends": [
+					"Stormwind Harbor",
+					"Auberdine"
+				],
+				"areas": [
+					17203,
+					442
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-11616",
+						"a": [
+							1
+						],
+						"b": [
+							0
+						]
+					}
+				],
+				"wait": {
+					"a": 133.5,
+					"b": 133.5
+				},
+				"ride": {
+					"a": 59.8,
+					"b": 67.3
+				}
+			},
+			"boat-tanaris-powderfuse": {
+				"kind": "boat",
+				"name": "Steamwheedle Port - Powderfuse Port",
+				"ends": [
+					"Steamwheedle Port",
+					"Powderfuse Port"
+				],
+				"areas": [
+					977,
+					16727
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-11391",
+						"a": [
+							0
+						],
+						"b": [
+							1
+						]
+					}
+				],
+				"wait": {
+					"a": 145.5,
+					"b": 145.5
+				},
+				"ride": {
+					"a": 76.5,
+					"b": 74.6
+				}
+			},
+			"lift-freewind-post": {
+				"kind": "lift",
+				"name": "Freewind Post",
+				"area": 484,
+				"c": 1,
+				"wx": -5390.8,
+				"wy": -2497,
+				"top": 89,
+				"bottom": -40.4,
+				"board": 2,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "lift-freewind-post",
+						"a": [
+							0,
+							2
+						],
+						"b": [
+							1,
+							3
+						]
+					}
+				],
+				"wait": {
+					"a": 9.5,
+					"b": 9.5
+				},
+				"ride": {
+					"a": 10,
+					"b": 10
+				}
+			},
+			"lift-great-lift": {
+				"kind": "lift",
+				"name": "The Great Lift",
+				"area": 485,
+				"c": 1,
+				"wx": -4668.1,
+				"wy": -1838.6,
+				"top": 85.4,
+				"bottom": -44,
+				"board": 2,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "lift-great-lift",
+						"a": [
+							0,
+							2
+						],
+						"b": [
+							1,
+							3
+						]
+					}
+				],
+				"wait": {
+					"a": 9.5,
+					"b": 9.5
+				},
+				"ride": {
+					"a": 10,
+					"b": 10
+				}
+			},
+			"lift-thunder-bluff-north": {
+				"kind": "lift",
+				"name": "Thunder Bluff, north lift",
+				"area": 1638,
+				"dir": "north",
+				"c": 1,
+				"wx": -1032.7,
+				"wy": -38.8,
+				"top": 140.5,
+				"bottom": 69.1,
+				"board": 2,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "lift-thunder-bluff-north-1",
+						"a": [
+							1
+						],
+						"b": [
+							0
+						]
+					},
+					{
+						"route": "lift-thunder-bluff-north-2",
+						"a": [
+							0
+						],
+						"b": [
+							1
+						]
+					}
+				],
+				"wait": {
+					"a": 12,
+					"b": 12
+				},
+				"ride": {
+					"a": 10,
+					"b": 10
+				}
+			},
+			"lift-thunder-bluff-west": {
+				"kind": "lift",
+				"name": "Thunder Bluff, west lift",
+				"area": 1638,
+				"dir": "west",
+				"c": 1,
+				"wx": -1297.3,
+				"wy": 187.5,
+				"top": 130.1,
+				"bottom": 68.7,
+				"board": 2,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "lift-thunder-bluff-west-1",
+						"a": [
+							0
+						],
+						"b": [
+							1
+						]
+					},
+					{
+						"route": "lift-thunder-bluff-west-2",
+						"a": [
+							1
+						],
+						"b": [
+							0
+						]
+					}
+				],
+				"wait": {
+					"a": 12,
+					"b": 12
+				},
+				"ride": {
+					"a": 10,
+					"b": 10
+				}
+			},
+			"lift-undercity-east": {
+				"kind": "lift",
+				"name": "Undercity, east lift",
+				"area": 1497,
+				"dir": "east",
+				"c": 0,
+				"wx": 1595.3,
+				"wy": 188.6,
+				"top": 55.7,
+				"bottom": -40.8,
+				"board": 2,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "lift-undercity-east",
+						"a": [
+							0
+						],
+						"b": [
+							1
+						]
+					}
+				],
+				"wait": {
+					"a": 10.3,
+					"b": 10.3
+				},
+				"ride": {
+					"a": 3.3,
+					"b": 3.5
+				}
+			},
+			"lift-undercity-south": {
+				"kind": "lift",
+				"name": "Undercity, south lift",
+				"area": 1497,
+				"dir": "south",
+				"c": 0,
+				"wx": 1544.2,
+				"wy": 240.8,
+				"top": 55.7,
+				"bottom": -40.8,
+				"board": 2,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "lift-undercity-south",
+						"a": [
+							0
+						],
+						"b": [
+							1
+						]
+					}
+				],
+				"wait": {
+					"a": 10.3,
+					"b": 10.3
+				},
+				"ride": {
+					"a": 3.3,
+					"b": 3.5
+				}
+			},
+			"lift-undercity-west": {
+				"kind": "lift",
+				"name": "Undercity, west lift",
+				"area": 1497,
+				"dir": "west",
+				"c": 0,
+				"wx": 1596.2,
+				"wy": 291.8,
+				"top": 55.7,
+				"bottom": -40.8,
+				"board": 2,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "lift-undercity-west",
+						"a": [
+							1
+						],
+						"b": [
+							0
+						]
+					}
+				],
+				"wait": {
+					"a": 10.3,
+					"b": 10.3
+				},
+				"ride": {
+					"a": 3.3,
+					"b": 3.5
+				}
+			},
+			"tram-stormwind-ironforge": {
+				"kind": "tram",
+				"name": "Deeprun Tram",
+				"area": 2257,
+				"ends": [
+					"Stormwind",
+					"Ironforge"
+				],
+				"areas": [
+					1519,
+					1537
+				],
+				"board": 5,
+				"pre": 15,
+				"post": 15,
+				"routes": [
+					{
+						"route": "tram-176080",
+						"a": [
+							0
+						],
+						"b": [
+							1
+						]
+					},
+					{
+						"route": "tram-176082",
+						"a": [
+							1
+						],
+						"b": [
+							0
+						]
+					}
+				],
+				"wait": {
+					"a": 67.8,
+					"b": 67.8
+				},
+				"ride": {
+					"a": 73.6,
+					"b": 73.6
+				}
+			},
+			"zeppelin-orgrimmar-gromgol": {
+				"kind": "zeppelin",
+				"name": "Orgrimmar - Grom'gol",
+				"ends": [
+					"Orgrimmar",
+					"Grom'gol"
+				],
+				"areas": [
+					1637,
+					117
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-285",
+						"a": [
+							1
+						],
+						"b": [
+							0
+						]
+					}
+				],
+				"wait": {
+					"a": 161.7,
+					"b": 161.7
+				},
+				"ride": {
+					"a": 78.4,
+					"b": 105
+				}
+			},
+			"zeppelin-orgrimmar-undercity": {
+				"kind": "zeppelin",
+				"name": "Orgrimmar - Undercity",
+				"ends": [
+					"Orgrimmar",
+					"Undercity"
+				],
+				"areas": [
+					1637,
+					1497
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-302",
+						"a": [
+							0
+						],
+						"b": [
+							1
+						]
+					}
+				],
+				"wait": {
+					"a": 188.1,
+					"b": 188.1
+				},
+				"ride": {
+					"a": 130.9,
+					"b": 105.3
+				}
+			},
+			"zeppelin-undercity-gromgol": {
+				"kind": "zeppelin",
+				"name": "Undercity - Grom'gol",
+				"ends": [
+					"Undercity",
+					"Grom'gol"
+				],
+				"areas": [
+					1497,
+					117
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-301",
+						"a": [
+							1
+						],
+						"b": [
+							0
+						]
+					}
+				],
+				"wait": {
+					"a": 176.5,
+					"b": 176.5
+				},
+				"ride": {
+					"a": 95.9,
+					"b": 117
+				}
+			}
+		},
+		"portals": [
+			{
+				"id": "portal-ruttheran",
+				"name": "Rut'theran Village",
+				"area": 702,
+				"a": {
+					"name": "Darnassus",
+					"area": 1657,
+					"c": 1,
+					"wx": 9947.5,
+					"wy": 2630,
+					"map": 1457,
+					"x": 29.13,
+					"y": 41.21,
+					"f": "e"
+				},
+				"b": {
+					"name": "Rut'theran Village",
+					"area": 702,
+					"c": 1,
+					"wx": 8785.8,
+					"wy": 967,
+					"map": 1438,
+					"x": 55.93,
+					"y": 89.74,
+					"f": "e"
+				},
+				"seconds": 5,
+				"source": "AreaTrigger 527 -> classic-db areatrigger_teleport 527"
+			},
+			{
+				"id": "portal-darnassus",
+				"name": "Darnassus",
+				"area": 1657,
+				"a": {
+					"name": "Rut'theran Village",
+					"area": 702,
+					"c": 1,
+					"wx": 8799.4,
+					"wy": 969.8,
+					"map": 1438,
+					"x": 55.87,
+					"y": 89.34,
+					"f": "e"
+				},
+				"b": {
+					"name": "Darnassus",
+					"area": 1657,
+					"c": 1,
+					"wx": 9946.3,
+					"wy": 2613,
+					"map": 1457,
+					"x": 30.75,
+					"y": 41.39,
+					"f": "e"
+				},
+				"seconds": 5,
+				"source": "AreaTrigger 542 -> classic-db areatrigger_teleport 542"
+			}
+		],
+		"teleports": [
+			{
+				"spell": 556,
+				"name": "Astral Recall",
+				"cast": 10,
+				"bind": true
+			},
+			{
+				"spell": 3561,
+				"name": "Teleport: Stormwind",
+				"cast": 10,
+				"reagents": [
+					17031,
+					1
+				],
+				"to": {
+					"name": "Stormwind",
+					"area": 1519,
+					"c": 0,
+					"wx": -9003.5,
+					"wy": 870,
+					"map": 1453,
+					"x": 49.09,
+					"y": 86.99,
+					"f": "l"
+				}
+			},
+			{
+				"spell": 3562,
+				"name": "Teleport: Ironforge",
+				"cast": 10,
+				"reagents": [
+					17031,
+					1
+				],
+				"to": {
+					"name": "Ironforge",
+					"area": 1537,
+					"c": 0,
+					"wx": -4613.6,
+					"wy": -915.4,
+					"map": 1455,
+					"x": 25.52,
+					"y": 8.41,
+					"f": "e"
+				}
+			},
+			{
+				"spell": 3563,
+				"name": "Teleport: Undercity",
+				"cast": 10,
+				"reagents": [
+					17031,
+					1
+				],
+				"to": {
+					"name": "Undercity",
+					"area": 1497,
+					"c": 0,
+					"wx": 1773.5,
+					"wy": 61.1,
+					"map": 1458,
+					"x": 84.65,
+					"y": 16.32,
+					"f": "e"
+				}
+			},
+			{
+				"spell": 3565,
+				"name": "Teleport: Darnassus",
+				"cast": 10,
+				"reagents": [
+					17031,
+					1
+				],
+				"to": {
+					"name": "Darnassus",
+					"area": 1657,
+					"c": 1,
+					"wx": 9664.1,
+					"wy": 2526.4,
+					"map": 1457,
+					"x": 38.93,
+					"y": 81.36,
+					"f": "e"
+				}
+			},
+			{
+				"spell": 3566,
+				"name": "Teleport: Thunder Bluff",
+				"cast": 10,
+				"reagents": [
+					17031,
+					1
+				],
+				"to": {
+					"name": "Thunder Bluff",
+					"area": 1638,
+					"c": 1,
+					"wx": -965,
+					"wy": 283.4,
+					"map": 1456,
+					"x": 22.35,
+					"y": 16.52,
+					"f": "e"
+				}
+			},
+			{
+				"spell": 3567,
+				"name": "Teleport: Orgrimmar",
+				"cast": 10,
+				"reagents": [
+					17031,
+					1
+				],
+				"to": {
+					"name": "Orgrimmar",
+					"area": 1637,
+					"c": 1,
+					"wx": 1469.9,
+					"wy": -4221.5,
+					"map": 1454,
+					"x": 38.57,
+					"y": 85.95,
+					"f": "e"
+				}
+			},
+			{
+				"spell": 18960,
+				"name": "Teleport: Moonglade",
+				"cast": 10,
+				"to": {
+					"name": "Moonglade",
+					"area": 493,
+					"c": 1,
+					"wx": 7991.9,
+					"wy": -2679.8,
+					"map": 1450,
+					"x": 56.26,
+					"y": 32.46,
+					"f": "e"
+				}
+			}
+		]
+	},
+	"warnings": [
+		"no navigation grid: the transports and portals get no board points or heights (`nav build`, or --grid)",
+		"boat-menethil-theramore: object \"Boat to Theramore\" is 195 yd from the Menethil Harbor stop; stop used",
+		"boat-tanaris-powderfuse: npc \"Wharfmaster Steamfizzle\" not found",
+		"boat-tanaris-powderfuse: npc \"Wharfmaster Whizzbuzz\" not found",
+		"teleport Teleport: Dalaran (1297659): no destination on a mapped continent, skipped"
+	]
+}

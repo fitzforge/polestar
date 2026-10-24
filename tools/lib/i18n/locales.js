@@ -6,7 +6,8 @@
 // (tooling never fills or rewrites its translations; `i18n sync` only adds
 // the new keys commented out), "ai" when a machine made it (Options' About
 // says so on that client: ns.AI_LOCALES in Core/Init.lua, kept equal to this
-// list by tests/i18n.test.js). enUS and enGB read the English keys. Adapted
+// list by rust/crates/forge-i18n's tests; forge-guide's locales.rs is the
+// same table). enUS and enGB read the English keys. Adapted
 // from Ding! by Yendi (@moust4ki), GPL-3.0:
 // https://github.com/moust4ki/DingGuideWoWForever
 

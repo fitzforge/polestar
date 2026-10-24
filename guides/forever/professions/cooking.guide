@@ -189,7 +189,7 @@ step Crocolisk Steak: shopping
 step Crocolisk Steak: ingredients
   only Human,Dwarf,Gnome
   zone Wetlands
-  collect 2924 x26 nearest     -- Wetlands Crocolisk (50%) in Wetlands, or wherever the arrow points
+  collect 2924 x26 nearest     -- Wetlands Crocolisk, Giant Wetlands Crocolisk in Wetlands, or wherever the arrow points
 
 step Crocolisk Steak (100-125)
   only Human,Dwarf,Gnome
@@ -251,7 +251,7 @@ step Crocolisk Steak: shopping
 step Crocolisk Steak: ingredients
   only Human,Dwarf,Gnome
   zone Wetlands
-  collect 2924 x7 nearest     -- Wetlands Crocolisk (50%) in Wetlands, or wherever the arrow points
+  collect 2924 x7 nearest     -- Wetlands Crocolisk, Giant Wetlands Crocolisk in Wetlands, or wherever the arrow points
 
 step Crocolisk Steak (125-130)
   only Human,Dwarf,Gnome

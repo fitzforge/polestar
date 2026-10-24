@@ -8,7 +8,7 @@
 return {
 	-- Step 1: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
-	["Follow the road from Elwynn into {zone:1436}: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any {object:2724} you pass on the loop: the rest are gathered in the fields here on the way back."] = "",
+	["Follow the road from Elwynn into {zone:1436}: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any {object:2724} you pass on the loop: the rest are gathered in the fields here on the way back."] = "Folge der Straße von Elwynn nach {zone:1436}: Die Furlbrows wohnen bei ihrer abgebrannten Farm, die erste Familie an der Straße. Nimm Hafer von jedem {object:2724} mit, an dem du auf der Runde vorbeikommst: Der Rest wird auf dem Rückweg auf den Feldern hier gesammelt.",
 	-- {npc:237} Farmer Furlbrow · {npc:963} Deputy Rainer
 	["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}; Menschen haben es von {npc:963} in Elwynn genommen",
 	-- {item:1972} Westfall Deed
@@ -60,7 +60,7 @@ return {
 	["Gnoll Paws"] = "Gnolltatzen",
 
 	-- Step 8: The Jansen Stead
-	["Sacks of Oats in the fields around the farm"] = "",
+	["Sacks of Oats in the fields around the farm"] = "Haferbündel auf den Feldern rund um die Farm",
 	["Fill the vial at the well"] = "Füll die Phiole am Brunnen",
 
 	-- Step 11: Jangolode Mine

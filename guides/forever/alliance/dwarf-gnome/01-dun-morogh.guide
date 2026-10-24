@@ -236,9 +236,8 @@ step Anvilmar
   accept 94373 only Shaman                    -- Teo Hammerstorm, inside Anvilmar
   turnin 3361                                 -- Felix Whindlebolt, at the door on the way out
 
-# The troll cave's mouth, marked in game at 26.93,80.03 (PR #16); Wowhead
-# Classic comments put it "@ 26, 79", Grik'nir "in the cave @ 30, 80"
-# (https://www.wowhead.com/classic/npc=808).
+# The troll cave's mouth, marked in game at 26.93,80.03 (PR #16); players
+# report it near 26,79 and Grik'nir in the cave near 30,80 (npc 808).
 step Grund and Gozwin
   tip Grund Drokda stands by Felix at the door of Anvilmar. Gozwin's camp is in the hills just north-west; the Snow Leopard Prowler prowls around it.
   accept 97277                                -- Grund Drokda
@@ -629,7 +628,7 @@ step Narm Faulk
   only Paladin
   zone Dun Morogh
   tip Head back out of Ironforge and east along the road to Helm's Bed Lake. Narm Faulk lies dead by its shore: use the Symbol of Life on him. The Dark Iron Spies sneaking around the lake carry the script.
-  complete 1783                               -- Use the Symbol of Life on Narm Faulk
+  complete 1783 @78.32,58.09                  -- Use the Symbol of Life on Narm Faulk
   turnin 1783                                 -- Narm Faulk
   accept 1784
   collect 6847 quest 1784.1                   -- Dark Iron Script: Dark Iron Spies

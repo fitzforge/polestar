@@ -48,24 +48,23 @@ next forever/horde/04-the-barrens
 # Fenris Keep among level 18-22 gnolls.
 #
 # Left out: the Forever Arugal's Folly (98298): Dalar offers it only after
-# the Classic Arugal's Folly series (421-424, 99; Wowhead Forever's Series
-# box, #51), which the route does not run. Stop the Spread (98299, Forever):
+# the Classic Arugal's Folly series (421-424, 99; Forever's quest chain
+# data, #51), which the route does not run. Stop the Spread (98299, Forever):
 # Dalar did not offer it to an Undead at 19 (#161) or a Tauren at 21 (#229)
 # on this route, though the data gives it to every Horde race from level 9
-# with no prerequisite; one Wowhead Forever comment asks for the quest before
+# with no prerequisite; one player's report asks for the quest before
 # it. Its refugees step goes with it.
 #
 # Quinn's potions run Wild Hearts (429) -> Return to Quinn (430) -> Wild Eyes
-# (91920, Forever) -> Return to Quinn (Again) (91921, Forever): the quest
-# chain foreverchanges.pro shows from Wowhead's Forever database (checked
-# 2026-10-17), and the texts agree (Wild Eyes opens "the potion made no
+# (91920, Forever) -> Return to Quinn (Again) (91921, Forever): Forever's quest
+# chain data (checked 2026-10-17), and the texts agree (Wild Eyes opens "the potion made no
 # noticeable difference", 91921 brings "the new potion"). The data has no
 # prerequisite for the two Forever quests, so the guide used to take 91921
 # first and Wild Eyes before 430 was handed in.
 # Wild Eyes is now taken from Quinn when 430 is handed in at the Ivar Patch,
 # its murlocs line the shore walk to Fenris Isle, and Renferrel takes it at
 # the Sepulcher after the island. On Forever, Ivar the Foul (425) opens only
-# once Return to Quinn (Again) is handed in (Wowhead Forever comments on 425
+# once Return to Quinn (Again) is handed in (players' reports on 425
 # and 91921, #51), so both are done at the Yoricks' house on the road north
 # out of the forest at the end.
 #

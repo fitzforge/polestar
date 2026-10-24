@@ -14,8 +14,8 @@ why The Undead priest spells: Touch of Weakness at 10, Dark Sacrifice at 20.
 
 # The Undead Priest spell quests: Touch of Weakness at 10 (5658) and Dark
 # Sacrifice at 20 (5679), both from Aelthalyste in the Undercity.
-# Sources: quests.json and npcs.json for the givers; Wowhead Forever's
-# Priest class page (data/local/quest-audit/wowhead-class-quests.json):
+# Sources: quests.json and npcs.json for the givers; Forever's
+# Priest class quest list (data/local/quest-audit/):
 # Dark Sacrifice (5644, 5646, 5679) is Devouring Plague renamed and teaches
 # Dark Sacrifice instead (every Priest now trains Devouring Plague at 20:
 # classicwowforever.com/racials); Touch of Weakness is unchanged.

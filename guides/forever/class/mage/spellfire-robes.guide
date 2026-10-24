@@ -15,12 +15,12 @@ why A robe at 15 for Horde mages, from the Undercity and Silverpine Forest.
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
 # the coffers behind Anastasia, the Rift Spawn in the Apothecarium and the
 # Dalaran mages at Ambermill (the Ambermill Strongbox marks the town);
-# Wowhead Forever's Mage class page
-# (data/local/quest-audit/wowhead-class-quests.json, all four unchanged) and
-# quest pages (https://www.wowhead.com/forever/quest=1959, 1960, 1961 and 1962,
+# Forever's Mage class quest list
+# (data/local/quest-audit/, all four unchanged) and
+# quest data (quests 1959, 1960, 1961 and 1962,
 # checked 2026-10-14) for the races, givers and the reward (Lesser Spellfire
 # Robes); the quest texts for the Apothecarium and the tailor's shop.
-# Wowhead Forever lists Orc, Undead and Troll mages for 1959-1961;
+# Forever's quest data lists Orc, Undead and Troll mages for 1959-1961;
 # corrections.json adds Orcs to 1959 and 1960, which the merged data left out.
 # Investigate the Alchemist Shop needs Report
 # to Anastasia first (quests.json): Cain Firesong in Brill, Uthel'nay in

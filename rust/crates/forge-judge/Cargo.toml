@@ -1,0 +1,35 @@
+[package]
+name = "forge-judge"
+description = "Quality: engine replay, honest playtest, passed-by, avoidable returns, guide-text metrics, cases, must-pass."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+rustc-hash.workspace = true
+regex = "1"
+forge-core = { path = "../forge-core" }
+forge-world = { path = "../forge-world", default-features = false }
+forge-guide = { path = "../forge-guide", default-features = false }
+forge-nav = { path = "../forge-nav" }
+forge-sim = { path = "../forge-sim", default-features = false }
+rusqlite = { version = "0.37", features = ["bundled"], optional = true }
+
+[features]
+default = ["native"]
+# File system access (pack folders, the CLI); the core API takes compiled guides and data.
+native = ["forge-guide/native", "forge-world/native", "dep:rusqlite", "forge-sim/native"]
+
+[dev-dependencies]
+bolero = "0.13"
+flate2 = "1"
+rilua = "0.1.27"
+
+[lints]
+workspace = true

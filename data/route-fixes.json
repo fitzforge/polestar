@@ -1,0 +1,1816 @@
+{
+	"about": "Polestar's route fixes, read by every Forge build from this checkout (never built into forge): `deliberate` holds v1's deliberate orders, the player-report fixes every route cut keeps; `overrides` holds the maintainer's hard rules (include, skip, revert, pairs). Each entry says why (`why`, or `reason` and `issue`). Check an edit with `forge data check-corrections`; docs/forge/routes.md sections 5 and 11 describe every key. $POLESTAR_ROUTE_FIXES names another file.",
+	"deliberate": {
+		"about": "v1's deliberate orders (player-report fixes pinned by tests/guides-reported.test.js and the guides' 'Order changes against the export' headers) as hard precedence pairs: every step of `a` comes before every step of `b` when both are in the order. Kinds: accept, task (an objective site of the quest), turnin.",
+		"pairs": [
+			{
+				"a": [
+					"turnin",
+					788
+				],
+				"b": [
+					"task",
+					790
+				],
+				"why": "Durotar, Tom: Cutting Teeth handed in before Sarkoth"
+			},
+			{
+				"a": [
+					"accept",
+					789
+				],
+				"b": [
+					"task",
+					790
+				],
+				"why": "Durotar, Tom: Sting of the Scorpid taken before Sarkoth"
+			},
+			{
+				"a": [
+					"accept",
+					4402
+				],
+				"b": [
+					"task",
+					790
+				],
+				"why": "Durotar, Tom: Galgar's Cactus Apple Surprise taken before Sarkoth"
+			},
+			{
+				"a": [
+					"task",
+					789
+				],
+				"b": [
+					"turnin",
+					804
+				],
+				"why": "Durotar, Tom: scorpid tails on Sarkoth's slope, before the Den"
+			},
+			{
+				"a": [
+					"task",
+					4402
+				],
+				"b": [
+					"turnin",
+					804
+				],
+				"why": "Durotar, Tom: cactus apples on Sarkoth's slope, before the Den"
+			},
+			{
+				"a": [
+					"turnin",
+					817
+				],
+				"b": [
+					"accept",
+					835
+				],
+				"why": "Durotar, tor #352: south turn-ins before Securing the Lines"
+			},
+			{
+				"a": [
+					"turnin",
+					818
+				],
+				"b": [
+					"accept",
+					835
+				],
+				"why": "Durotar, tor #352"
+			},
+			{
+				"a": [
+					"turnin",
+					826
+				],
+				"b": [
+					"accept",
+					835
+				],
+				"why": "Durotar, tor #352"
+			},
+			{
+				"a": [
+					"turnin",
+					808
+				],
+				"b": [
+					"accept",
+					835
+				],
+				"why": "Durotar, tor #352"
+			},
+			{
+				"a": [
+					"turnin",
+					786
+				],
+				"b": [
+					"accept",
+					835
+				],
+				"why": "Durotar, tor #352"
+			},
+			{
+				"a": [
+					"accept",
+					806
+				],
+				"b": [
+					"accept",
+					834
+				],
+				"why": "Durotar, tor #352: Rezlak rides along with Fizzle Darkstorm"
+			},
+			{
+				"a": [
+					"turnin",
+					835
+				],
+				"b": [
+					"turnin",
+					806
+				],
+				"why": "Durotar, tor #352"
+			},
+			{
+				"a": [
+					"accept",
+					794
+				],
+				"b": [
+					"task",
+					6394
+				],
+				"why": "Durotar, Gruko #240: the Medallion is taken before the Coven"
+			},
+			{
+				"a": [
+					"task",
+					6394
+				],
+				"b": [
+					"task",
+					794
+				],
+				"why": "Durotar, Gruko #240: Thazz'ril's Pick, then Yarrog, one trip"
+			},
+			{
+				"a": [
+					"accept",
+					95494
+				],
+				"b": [
+					"accept",
+					95507
+				],
+				"why": "Barrens, Hotline: Walton and Vrang in the game's order"
+			},
+			{
+				"a": [
+					"accept",
+					95507
+				],
+				"b": [
+					"turnin",
+					95494
+				],
+				"why": "Barrens, Hotline"
+			},
+			{
+				"a": [
+					"turnin",
+					95494
+				],
+				"b": [
+					"turnin",
+					95507
+				],
+				"why": "Barrens, Hotline"
+			},
+			{
+				"a": [
+					"turnin",
+					95507
+				],
+				"b": [
+					"accept",
+					95495
+				],
+				"why": "Barrens, Hotline"
+			},
+			{
+				"a": [
+					"turnin",
+					95495
+				],
+				"b": [
+					"accept",
+					95621
+				],
+				"why": "Barrens, Hotline"
+			},
+			{
+				"a": [
+					"turnin",
+					95621
+				],
+				"b": [
+					"accept",
+					95508
+				],
+				"why": "Barrens, Hotline"
+			},
+			{
+				"a": [
+					"turnin",
+					99079
+				],
+				"b": [
+					"accept",
+					99081
+				],
+				"why": "Mulgore, Kori #112: follow-up after its quest"
+			},
+			{
+				"a": [
+					"turnin",
+					99081
+				],
+				"b": [
+					"accept",
+					99101
+				],
+				"why": "Mulgore #112"
+			},
+			{
+				"a": [
+					"turnin",
+					99101
+				],
+				"b": [
+					"accept",
+					99080
+				],
+				"why": "Mulgore #112"
+			},
+			{
+				"a": [
+					"turnin",
+					99080
+				],
+				"b": [
+					"accept",
+					99082
+				],
+				"why": "Mulgore #112"
+			},
+			{
+				"a": [
+					"turnin",
+					760
+				],
+				"b": [
+					"accept",
+					98435
+				],
+				"why": "Mulgore #51"
+			},
+			{
+				"a": [
+					"turnin",
+					96897
+				],
+				"b": [
+					"accept",
+					96899
+				],
+				"why": "Tirisfal #128"
+			},
+			{
+				"a": [
+					"turnin",
+					96898
+				],
+				"b": [
+					"accept",
+					96899
+				],
+				"why": "Tirisfal #128"
+			},
+			{
+				"a": [
+					"turnin",
+					356
+				],
+				"b": [
+					"accept",
+					99156
+				],
+				"why": "Tirisfal #51"
+			},
+			{
+				"a": [
+					"turnin",
+					89
+				],
+				"b": [
+					"accept",
+					98386
+				],
+				"why": "Redridge #126"
+			},
+			{
+				"a": [
+					"turnin",
+					92742
+				],
+				"b": [
+					"accept",
+					92745
+				],
+				"why": "Westfall #143"
+			},
+			{
+				"a": [
+					"turnin",
+					528
+				],
+				"b": [
+					"accept",
+					98094
+				],
+				"why": "Hillsbrad (Horde), Taako #148"
+			},
+			{
+				"a": [
+					"turnin",
+					430
+				],
+				"b": [
+					"accept",
+					91920
+				],
+				"why": "Silverpine #128: Quinn's potions"
+			},
+			{
+				"a": [
+					"turnin",
+					91920
+				],
+				"b": [
+					"accept",
+					91921
+				],
+				"why": "Silverpine #128"
+			},
+			{
+				"a": [
+					"turnin",
+					91921
+				],
+				"b": [
+					"accept",
+					425
+				],
+				"why": "Silverpine #51: Ivar the Foul after Return to Quinn (Again)"
+			},
+			{
+				"a": [
+					"turnin",
+					99
+				],
+				"b": [
+					"accept",
+					98298
+				],
+				"why": "Silverpine #51"
+			},
+			{
+				"a": [
+					"turnin",
+					98208
+				],
+				"b": [
+					"accept",
+					98209
+				],
+				"why": "Hillsbrad (Alliance) #128"
+			},
+			{
+				"a": [
+					"turnin",
+					88757
+				],
+				"b": [
+					"accept",
+					88758
+				],
+				"why": "Hillsbrad (Alliance) #128"
+			},
+			{
+				"a": [
+					"turnin",
+					98291
+				],
+				"b": [
+					"accept",
+					98297
+				],
+				"why": "Hillsbrad (Alliance) #128"
+			},
+			{
+				"a": [
+					"turnin",
+					98417
+				],
+				"b": [
+					"accept",
+					98418
+				],
+				"why": "Ashenvale 30-40 #128"
+			},
+			{
+				"a": [
+					"turnin",
+					92458
+				],
+				"b": [
+					"accept",
+					92459
+				],
+				"why": "Arathi #128"
+			},
+			{
+				"a": [
+					"turnin",
+					4722
+				],
+				"b": [
+					"accept",
+					87760
+				],
+				"why": "Darkshore #51: Holy Diver after the beached remains"
+			},
+			{
+				"a": [
+					"turnin",
+					4723
+				],
+				"b": [
+					"accept",
+					87760
+				],
+				"why": "Darkshore #51"
+			},
+			{
+				"a": [
+					"turnin",
+					4725
+				],
+				"b": [
+					"accept",
+					87760
+				],
+				"why": "Darkshore #51"
+			},
+			{
+				"a": [
+					"turnin",
+					4727
+				],
+				"b": [
+					"accept",
+					87760
+				],
+				"why": "Darkshore #51"
+			},
+			{
+				"a": [
+					"turnin",
+					4728
+				],
+				"b": [
+					"accept",
+					87760
+				],
+				"why": "Darkshore #51"
+			},
+			{
+				"a": [
+					"turnin",
+					4730
+				],
+				"b": [
+					"accept",
+					87760
+				],
+				"why": "Darkshore #51"
+			},
+			{
+				"a": [
+					"turnin",
+					4731
+				],
+				"b": [
+					"accept",
+					87760
+				],
+				"why": "Darkshore #51"
+			},
+			{
+				"a": [
+					"turnin",
+					4732
+				],
+				"b": [
+					"accept",
+					87760
+				],
+				"why": "Darkshore #51"
+			},
+			{
+				"a": [
+					"turnin",
+					4733
+				],
+				"b": [
+					"accept",
+					87760
+				],
+				"why": "Darkshore #51"
+			},
+			{
+				"a": [
+					"turnin",
+					92910
+				],
+				"b": [
+					"accept",
+					92911
+				],
+				"why": "Westfall #51"
+			},
+			{
+				"a": [
+					"turnin",
+					464
+				],
+				"b": [
+					"accept",
+					98221
+				],
+				"why": "Thousand Needles, Lou-Saydus #225"
+			},
+			{
+				"a": [
+					"turnin",
+					98221
+				],
+				"b": [
+					"accept",
+					465
+				],
+				"why": "Thousand Needles, Lou-Saydus #225"
+			},
+			{
+				"a": [
+					"accept",
+					957
+				],
+				"b": [
+					"accept",
+					4723
+				],
+				"why": "Darkshore, XooVe #213: Beached Sea Creature after Asterion"
+			},
+			{
+				"a": [
+					"accept",
+					4723
+				],
+				"b": [
+					"turnin",
+					1001
+				],
+				"why": "Darkshore, XooVe #213: before Buzzbox 411"
+			},
+			{
+				"a": [
+					"turnin",
+					4723
+				],
+				"b": [
+					"accept",
+					4728
+				],
+				"why": "Darkshore, XooVe #213: handed in before the second loop"
+			},
+			{
+				"a": [
+					"turnin",
+					15
+				],
+				"b": [
+					"accept",
+					21
+				],
+				"why": "Elwynn, Zepheriel #310: Investigate Echo Ridge handed in first"
+			},
+			{
+				"a": [
+					"accept",
+					21
+				],
+				"b": [
+					"turnin",
+					91743
+				],
+				"why": "Elwynn, Zepheriel #310: Skirmish at Echo Ridge before Brother Paxton"
+			},
+			{
+				"a": [
+					"turnin",
+					3365
+				],
+				"b": [
+					"accept",
+					2160
+				],
+				"why": "Dun Morogh, thmastin: before Supplies to Tannok"
+			},
+			{
+				"a": [
+					"turnin",
+					218
+				],
+				"b": [
+					"accept",
+					2160
+				],
+				"why": "Dun Morogh, thmastin"
+			},
+			{
+				"a": [
+					"turnin",
+					170
+				],
+				"b": [
+					"accept",
+					2160
+				],
+				"why": "Dun Morogh, thmastin"
+			},
+			{
+				"a": [
+					"turnin",
+					183
+				],
+				"b": [
+					"accept",
+					2160
+				],
+				"why": "Dun Morogh, thmastin"
+			},
+			{
+				"a": [
+					"turnin",
+					96822
+				],
+				"b": [
+					"accept",
+					837
+				],
+				"why": "Durotar, tor #351: Encroachment after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins"
+			},
+			{
+				"a": [
+					"turnin",
+					784
+				],
+				"b": [
+					"accept",
+					837
+				],
+				"why": "Durotar, tor #351: Encroachment after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins"
+			},
+			{
+				"a": [
+					"turnin",
+					791
+				],
+				"b": [
+					"accept",
+					837
+				],
+				"why": "Durotar, tor #351: Encroachment after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins"
+			},
+			{
+				"a": [
+					"turnin",
+					830
+				],
+				"b": [
+					"accept",
+					837
+				],
+				"why": "Durotar, tor #351: Encroachment after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins"
+			},
+			{
+				"a": [
+					"turnin",
+					817
+				],
+				"b": [
+					"accept",
+					837
+				],
+				"why": "Durotar, tor #351: Encroachment after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins"
+			},
+			{
+				"a": [
+					"turnin",
+					818
+				],
+				"b": [
+					"accept",
+					837
+				],
+				"why": "Durotar, tor #351: Encroachment after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins"
+			},
+			{
+				"a": [
+					"turnin",
+					826
+				],
+				"b": [
+					"accept",
+					837
+				],
+				"why": "Durotar, tor #351: Encroachment after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins"
+			},
+			{
+				"a": [
+					"turnin",
+					808
+				],
+				"b": [
+					"accept",
+					837
+				],
+				"why": "Durotar, tor #351: Encroachment after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins"
+			},
+			{
+				"a": [
+					"turnin",
+					786
+				],
+				"b": [
+					"accept",
+					837
+				],
+				"why": "Durotar, tor #351: Encroachment after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins"
+			},
+			{
+				"a": [
+					"accept",
+					36
+				],
+				"b": [
+					"turnin",
+					109
+				],
+				"why": "Westfall, Pynte #416: the farm quests taken on the road in, before Sentinel Hill"
+			},
+			{
+				"a": [
+					"accept",
+					151
+				],
+				"b": [
+					"turnin",
+					109
+				],
+				"why": "Westfall, Pynte #416: the farm quests taken on the road in, before Sentinel Hill"
+			},
+			{
+				"a": [
+					"accept",
+					64
+				],
+				"b": [
+					"turnin",
+					109
+				],
+				"why": "Westfall, Pynte #416: the farm quests taken on the road in, before Sentinel Hill"
+			},
+			{
+				"a": [
+					"accept",
+					9
+				],
+				"b": [
+					"turnin",
+					109
+				],
+				"why": "Westfall, Pynte #416: the farm quests taken on the road in, before Sentinel Hill"
+			},
+			{
+				"a": [
+					"accept",
+					22
+				],
+				"b": [
+					"turnin",
+					109
+				],
+				"why": "Westfall, Pynte #416: the farm quests taken on the road in, before Sentinel Hill"
+			},
+			{
+				"a": [
+					"accept",
+					92909
+				],
+				"b": [
+					"turnin",
+					109
+				],
+				"why": "Westfall, Pynte #416: the farm quests taken on the road in, before Sentinel Hill"
+			},
+			{
+				"a": [
+					"turnin",
+					36
+				],
+				"b": [
+					"turnin",
+					109
+				],
+				"why": "Westfall, Pynte #416: Westfall Stew handed to Salma on the way south"
+			},
+			{
+				"a": [
+					"accept",
+					38
+				],
+				"b": [
+					"turnin",
+					109
+				],
+				"why": "Westfall, Pynte #416"
+			},
+			{
+				"a": [
+					"turnin",
+					97914
+				],
+				"b": [
+					"accept",
+					97926
+				],
+				"why": "Redridge, Nittepitte #453: Making Do only after Expanding Horizons"
+			},
+			{
+				"a": [
+					"turnin",
+					98230
+				],
+				"b": [
+					"turnin",
+					465
+				],
+				"why": "Hillsbrad (Alliance), Lou-Saydus #225: Nek'rosh's Gambit after Howin"
+			},
+			{
+				"a": [
+					"turnin",
+					465
+				],
+				"b": [
+					"accept",
+					98223
+				],
+				"why": "Hillsbrad (Alliance), Lou-Saydus #225: before the Tattered Spellbook"
+			},
+			{
+				"a": [
+					"accept",
+					957
+				],
+				"b": [
+					"accept",
+					4723
+				],
+				"why": "XooVe #213: the Beached Sea Creature by Bashal'Aran is taken after Asterion"
+			},
+			{
+				"a": [
+					"accept",
+					4723
+				],
+				"b": [
+					"turnin",
+					1001
+				],
+				"why": "XooVe #213: ... and before Buzzbox 411"
+			},
+			{
+				"a": [
+					"turnin",
+					4723
+				],
+				"b": [
+					"accept",
+					4728
+				],
+				"why": "XooVe #213: handed in before the second loop"
+			},
+			{
+				"a": [
+					"accept",
+					1454
+				],
+				"b": [
+					"accept",
+					6027
+				],
+				"why": "Badlands #89 pattern: Book of the Ancients after Nijel's Point"
+			},
+			{
+				"a": [
+					"accept",
+					6027
+				],
+				"b": [
+					"turnin",
+					1454
+				],
+				"why": "Badlands #89 pattern: ... on the way to Karnitol's Chest"
+			},
+			{
+				"a": [
+					"turnin",
+					97914
+				],
+				"b": [
+					"accept",
+					97926
+				],
+				"why": "Nittepitte #453: Expanding Horizons handed in first"
+			},
+			{
+				"a": [
+					"accept",
+					97926
+				],
+				"b": [
+					"accept",
+					244
+				],
+				"why": "Nittepitte #453: Making Do taken in the Redridge guide (before its first Redridge quest)"
+			},
+			{
+				"a": [
+					"accept",
+					268
+				],
+				"b": [
+					"turnin",
+					97926
+				],
+				"why": "Nittepitte #453: Making Do handed in in the Ashenvale guide (after Duskwood)"
+			},
+			{
+				"a": [
+					"turnin",
+					97926
+				],
+				"b": [
+					"accept",
+					1244
+				],
+				"why": "Nittepitte #453: ... before Thousand Needles"
+			},
+			{
+				"a": [
+					"task",
+					5510
+				],
+				"b": [
+					"accept",
+					5092
+				],
+				"why": "Phear: the Minion's Scourgestones are collected in the Winterspring guide, before Western Plaguelands"
+			},
+			{
+				"a": [
+					"task",
+					985
+				],
+				"b": [
+					"accept",
+					4728
+				],
+				"why": "r4c read: Darkshore loop 2 goes Blackwood camp -> flame -> beaches -> Grove (v1, 2,463 yd), not back north after the beaches (4,372 yd)"
+			},
+			{
+				"a": [
+					"accept",
+					245
+				],
+				"b": [
+					"task",
+					57
+				],
+				"why": "r4c read: the Skeletal Horrors after Watcher Dodds, with the Raven Hill fiends (v1, 1,748 yd)"
+			},
+			{
+				"a": [
+					"turnin",
+					147
+				],
+				"b": [
+					"accept",
+					109
+				],
+				"why": "r4e read: Manhunt handed in at ~12 before Westfall (v1), not at ~16"
+			},
+			{
+				"a": [
+					"task",
+					91732
+				],
+				"b": [
+					"task",
+					76
+				],
+				"why": "#612 Nittepitte: the Mining Tools on the walk into the Jasperlode Mine, before its far end"
+			},
+			{
+				"a": [
+					"task",
+					76
+				],
+				"b": [
+					"task",
+					91723
+				],
+				"why": "#612 Nittepitte: the mine's far end, then the Kobold Geomancers on the way out"
+			},
+			{
+				"a": [
+					"turnin",
+					99131
+				],
+				"b": [
+					"turnin",
+					112
+				],
+				"why": "#613 Nittepitte: Baited for Success handed to Jason on the way in, before Collecting Kelp"
+			},
+			{
+				"a": [
+					"turnin",
+					112
+				],
+				"b": [
+					"turnin",
+					39
+				],
+				"why": "#613 Nittepitte: Collecting Kelp, then Marshal Dughan's turn-ins"
+			},
+			{
+				"a": [
+					"turnin",
+					39
+				],
+				"b": [
+					"accept",
+					114
+				],
+				"why": "#613 Nittepitte: Marshal Dughan's turn-ins while William Pestle brews, before The Escape"
+			},
+			{
+				"a": [
+					"accept",
+					87288
+				],
+				"b": [
+					"turnin",
+					488
+				],
+				"why": "#555: Soft Saber Pelts taken before Zenn's Bidding is handed in"
+			},
+			{
+				"a": [
+					"turnin",
+					109
+				],
+				"b": [
+					"task",
+					151
+				],
+				"why": "#621 Xaden Ryan: the oats gathered on the way back, after Sentinel Hill"
+			},
+			{
+				"a": [
+					"task",
+					94414
+				],
+				"b": [
+					"turnin",
+					92461
+				],
+				"why": "F36 #363 Alx-Ryan: The Anchors of Zephras on the watchtower before Harmony in Balance is handed to Rorian"
+			},
+			{
+				"a": [
+					"accept",
+					92474
+				],
+				"b": [
+					"turnin",
+					92461
+				],
+				"why": "F36 #363 Alx-Ryan: Falling With Style taken on the tower before Harmony in Balance is handed in"
+			},
+			{
+				"a": [
+					"turnin",
+					376
+				],
+				"b": [
+					"accept",
+					98389
+				],
+				"why": "F38 #345/#120 Tirisfal: The Damned handed in before A Light in the Darkness"
+			},
+			{
+				"a": [
+					"accept",
+					2541
+				],
+				"b": [
+					"accept",
+					99053
+				],
+				"why": "F42 #334: The Sleeping Druid taken before Escaping Ban'ethil"
+			},
+			{
+				"a": [
+					"task",
+					483
+				],
+				"b": [
+					"accept",
+					99053
+				],
+				"why": "F42 #334: the Relics of Wakening collected before Escaping Ban'ethil"
+			},
+			{
+				"a": [
+					"accept",
+					92514
+				],
+				"b": [
+					"task",
+					92595
+				],
+				"why": "F64 #101: Welcome to Shen'dar Village taken before The Windshapers is completed (shared talk credit)"
+			},
+			{
+				"a": [
+					"accept",
+					2159
+				],
+				"b": [
+					"accept",
+					488
+				],
+				"why": "F67 #89: Dolanaar Delivery taken before Zenn's Bidding, on the walk down to Dolanaar"
+			},
+			{
+				"a": [
+					"turnin",
+					921
+				],
+				"b": [
+					"accept",
+					2159
+				],
+				"why": "F68 #78: Shadowglen's last turn-ins (Crown of the Earth at Tenaron) before Dolanaar Delivery"
+			},
+			{
+				"a": [
+					"turnin",
+					3522
+				],
+				"b": [
+					"accept",
+					2159
+				],
+				"why": "F68 #78: Iverron's Antidote handed in before Dolanaar Delivery"
+			},
+			{
+				"a": [
+					"accept",
+					456
+				],
+				"b": [
+					"accept",
+					458
+				],
+				"why": "F69 #73: The Balance of Nature taken before The Woodland Protector"
+			},
+			{
+				"a": [
+					"turnin",
+					3364
+				],
+				"b": [
+					"task",
+					218
+				],
+				"why": "F73 Dun Morogh: Scalding Mornbrew handed in before the Stolen Journal"
+			},
+			{
+				"a": [
+					"accept",
+					233
+				],
+				"b": [
+					"accept",
+					170
+				],
+				"why": "F73 Dun Morogh: Coldridge Valley Mail Delivery before A New Threat"
+			},
+			{
+				"a": [
+					"turnin",
+					96628
+				],
+				"b": [
+					"accept",
+					400
+				],
+				"why": "F73 Dun Morogh: The Adventurer handed in before Tools for Steelgrill"
+			},
+			{
+				"a": [
+					"turnin",
+					5541
+				],
+				"b": [
+					"turnin",
+					98321
+				],
+				"why": "F73 Dun Morogh: Ammo for Rumbleshot handed in before Flintfire's Shipment"
+			},
+			{
+				"a": [
+					"accept",
+					98319
+				],
+				"b": [
+					"task",
+					98321
+				],
+				"why": "F73 Dun Morogh: Secure the Mountain taken before Flintfire's Shipment is collected"
+			},
+			{
+				"a": [
+					"accept",
+					98326
+				],
+				"b": [
+					"turnin",
+					318
+				],
+				"why": "F73 Dun Morogh: Frosthowl taken first, before Brewnall's Evershine turn-in"
+			},
+			{
+				"a": [
+					"accept",
+					98326
+				],
+				"b": [
+					"accept",
+					319
+				],
+				"why": "F73 Dun Morogh: Frosthowl taken first at Brewnall"
+			},
+			{
+				"a": [
+					"accept",
+					319
+				],
+				"b": [
+					"task",
+					287
+				],
+				"why": "F73 Dun Morogh: A Favor for Evershine taken before the Frostmane Headhunter kills"
+			},
+			{
+				"a": [
+					"accept",
+					1150
+				],
+				"b": [
+					"task",
+					98070
+				],
+				"why": "r7b read (Orc): Test of Endurance taken before the Roguefeather Den (Jandia's harpies), so Grenka's Claw is collected on that visit (the world has no task for the claw)"
+			}
+		],
+		"notes": [
+			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
+			"Pynte #404 (no ride steps below riding level): the sim has no ride steps; it rides (mountMul) from mountLevel 40.",
+			"Forever follow-ups only after the quests before them: the turnin -> accept pairs above (the #51/#112/#128/#143/#148/#225 sweep), and every prerequisite the data has (the evaluator does not take a quest before them)."
+		],
+		"never": [
+			{
+				"q": 98299,
+				"why": "Rupert's and Wyatt R's reports (#229, #161): Dalar Dawnweaver does not offer Stop the Spread; no guide sends you there"
+			}
+		],
+		"keep": [
+			{
+				"q": 97926,
+				"why": "Nittepitte #453: Making Do stays (optional in the guide), after Expanding Horizons"
+			},
+			{
+				"q": 87760,
+				"why": "Holy Diver and the beached remains it needs stay (follow-ups test; Wogi's report: with Skip grey on, 4722/4723 are kept because they open Holy Diver)"
+			},
+			{
+				"q": 983,
+				"why": "XooVe #216: the Buzzbox chain 983 -> 1001 -> 1002 -> 1003 stays"
+			},
+			{
+				"q": 1001,
+				"why": "XooVe #216: Buzzbox chain"
+			},
+			{
+				"q": 1002,
+				"why": "XooVe #216: Buzzbox chain"
+			},
+			{
+				"q": 1003,
+				"why": "XooVe #216: Buzzbox chain"
+			},
+			{
+				"q": 6543,
+				"why": "Stonetalon tests (Kadrak's goals, Hotline #278, Warsong update goals): The Warsong Reports stays, taken at Kadrak"
+			},
+			{
+				"q": 6563,
+				"why": "guides-caves test: The Essence of Aku'Mai stays (Sapphire through the BFD tunnel mouth, 07-ashenvale)"
+			}
+		],
+		"southward": [
+			{
+				"map": 1436,
+				"until": [
+					"turnin",
+					109
+				],
+				"tolYd": 80,
+				"why": "Pynte #416: the road into Westfall runs south: Jansen Stead and Molsen Farm before Saldean's, no step back north before Sentinel Hill (map y never decreases by more than 3 %)"
+			}
+		],
+		"together": [
+			{
+				"a": [
+					"turnin",
+					4722
+				],
+				"b": [
+					"turnin",
+					4723
+				],
+				"why": "XooVe #213: the Beached Sea Creature handed in with the Beached Sea Turtle"
+			},
+			{
+				"a": [
+					"task",
+					1003
+				],
+				"b": [
+					"turnin",
+					1003
+				],
+				"why": "Grizzled Scalps collected in the Grove step that hands them to Buzzbox 525 (no separate trip)"
+			},
+			{
+				"a": [
+					"task",
+					57,
+					1
+				],
+				"b": [
+					"task",
+					57,
+					0
+				],
+				"why": "r4d read: the Skeletal Horrors with the Fiends on the Raven Hill visit (v1), not a second trip after Yorgen Farmstead"
+			},
+			{
+				"a": [
+					"turnin",
+					98461
+				],
+				"b": [
+					"accept",
+					305
+				],
+				"why": "#524 Ioney: Unrequited Love handed to Tarrel Rockweaver in the Menethil step that takes In Search of the Excavation Team, just before it"
+			},
+			{
+				"a": [
+					"task",
+					91732
+				],
+				"b": [
+					"task",
+					76
+				],
+				"why": "#612 Nittepitte: the Mining Tools and the mine's far end in one step"
+			},
+			{
+				"a": [
+					"turnin",
+					15
+				],
+				"b": [
+					"accept",
+					21
+				],
+				"why": "#310 Zepheriel: Skirmish at Echo Ridge taken from McBride on Investigate Echo Ridge's turn-in, nobody between"
+			},
+			{
+				"a": [
+					"task",
+					488,
+					0
+				],
+				"b": [
+					"task",
+					87288
+				],
+				"why": "#555: Nightsaber Fangs and Soft Nightsaber Pelts in one east loop"
+			},
+			{
+				"a": [
+					"turnin",
+					98398
+				],
+				"b": [
+					"accept",
+					940
+				],
+				"why": "#647 Pynte: Teldrassil taken from the Oracle Tree Bark on The Oracle Tree's turn-in"
+			},
+			{
+				"a": [
+					"turnin",
+					935
+				],
+				"b": [
+					"turnin",
+					940
+				],
+				"why": "#647 Pynte: Teldrassil handed to Fandral with Crown of the Earth"
+			},
+			{
+				"a": [
+					"task",
+					151
+				],
+				"b": [
+					"turnin",
+					151
+				],
+				"why": "#621 Xaden Ryan: the oats in the Jansen Stead's fields beside Poor Old Blanchy's turn-in"
+			},
+			{
+				"a": [
+					"turnin",
+					92461
+				],
+				"b": [
+					"turnin",
+					92474
+				],
+				"why": "F36 #363 Alx-Ryan: Harmony in Balance and Falling With Style on one Rorian visit"
+			},
+			{
+				"a": [
+					"task",
+					459
+				],
+				"b": [
+					"task",
+					97977
+				],
+				"why": "F63 #102: Nature's Call worked with The Woodland Protector's totem"
+			},
+			{
+				"a": [
+					"task",
+					456
+				],
+				"b": [
+					"task",
+					459
+				],
+				"why": "F63 #102: the Balance of Nature kills with the Woodland Protector totem"
+			},
+			{
+				"a": [
+					"turnin",
+					3364
+				],
+				"b": [
+					"accept",
+					3365
+				],
+				"why": "F73 Dun Morogh: Bring Back the Mug taken right on Scalding Mornbrew's turn-in"
+			},
+			{
+				"a": [
+					"turnin",
+					287
+				],
+				"b": [
+					"accept",
+					291
+				],
+				"why": "F73 Dun Morogh: The Reports taken right on Frostmane Hold's turn-in"
+			},
+			{
+				"a": [
+					"turnin",
+					400
+				],
+				"b": [
+					"accept",
+					5541
+				],
+				"why": "F73 Dun Morogh: Ammo for Rumbleshot taken right on Tools for Steelgrill's turn-in"
+			}
+		],
+		"after": [
+			{
+				"a": [
+					"accept",
+					245
+				],
+				"b": [
+					"task",
+					101,
+					1
+				],
+				"why": "r4c read: the Totem's spider venom after Watcher Dodds (v1), not before him"
+			},
+			{
+				"a": [
+					"accept",
+					245
+				],
+				"b": [
+					"task",
+					101,
+					0
+				],
+				"why": "r4c read: the Totem's fangs after Watcher Dodds (v1)"
+			},
+			{
+				"a": [
+					"task",
+					96139
+				],
+				"b": [
+					"task",
+					57,
+					1
+				],
+				"why": "r4e read: the Raven Hill tome on the way west (v1), before the Horrors"
+			},
+			{
+				"a": [
+					"task",
+					96139
+				],
+				"b": [
+					"task",
+					57,
+					0
+				],
+				"why": "r4e read: the Raven Hill tome on the way west (v1), before the Fiends"
+			},
+			{
+				"a": [
+					"task",
+					96139
+				],
+				"b": [
+					"task",
+					101,
+					0
+				],
+				"why": "r4e read: the Raven Hill tome on the way west (v1), before the ghoul fangs"
+			},
+			{
+				"a": [
+					"task",
+					96139
+				],
+				"b": [
+					"task",
+					101,
+					1
+				],
+				"why": "r4e read: the Raven Hill tome on the way west (v1), before the spider venom"
+			},
+			{
+				"a": [
+					"task",
+					226
+				],
+				"b": [
+					"task",
+					101,
+					1
+				],
+				"why": "r4f read (minor): the Totem's spider venom in the wolves step (v1), not between the tome and the cemetery"
+			}
+		],
+		"stay": [
+			{
+				"s": [
+					"turnin",
+					93176
+				],
+				"why": "r4f 30-40 read: My Little Friends' critters are not in the data; handed in at Biggs as v1"
+			},
+			{
+				"s": [
+					"task",
+					2500
+				],
+				"why": "r4f 30-40 read: Badlands Reagent Run after Hammertoe's, not a Dustbowl trip first"
+			},
+			{
+				"s": [
+					"task",
+					2258
+				],
+				"why": "r4f 30-40 read: Badlands Reagent Run (other id)"
+			},
+			{
+				"s": [
+					"turnin",
+					1301
+				],
+				"why": "r4f 30-40 read: Theramore before Desolace (flight path for Swamplight)"
+			},
+			{
+				"s": [
+					"turnin",
+					1302
+				],
+				"why": "r4f 30-40 read: Theramore before Desolace"
+			},
+			{
+				"s": [
+					"accept",
+					1218
+				],
+				"why": "r4f 30-40 read: Soothing Spices where v1 takes it"
+			},
+			{
+				"s": [
+					"turnin",
+					1218
+				],
+				"why": "r4f 30-40 read: Swamp Eye Jarl where v1 goes"
+			},
+			{
+				"s": [
+					"turnin",
+					622
+				],
+				"why": "r4f 40-50 read: Rebel Camp not after the Booty Bay hearth"
+			},
+			{
+				"s": [
+					"turnin",
+					7733
+				],
+				"why": "r4f 40-50 read: Improved Quality before the mainland grind (no second Feathermoon boat)"
+			},
+			{
+				"s": [
+					"turnin",
+					1560
+				],
+				"why": "r4f 40-50 read: Tooga handed in at the escort's end at Torta"
+			},
+			{
+				"s": [
+					"task",
+					7828
+				],
+				"why": "r4f 40-50 read (Orc): the Silvermane Howlers and Stalkers where v1 hunts them"
+			},
+			{
+				"s": [
+					"task",
+					4504
+				],
+				"why": "r5 50-60 read (Orc): Super Sticky tar at the start of the Un'Goro loop, as v1"
+			},
+			{
+				"s": [
+					"task",
+					555
+				],
+				"why": "r5 30-40 read (Human): Turtle Meat with the Hillsbrad turtles, as v1"
+			},
+			{
+				"s": [
+					"task",
+					7321
+				],
+				"why": "r5 30-40 read: Turtle Meat (other id)"
+			},
+			{
+				"s": [
+					"turnin",
+					5218
+				],
+				"why": "r5 50-60 read (Human): Felstone cauldron handed in within the Arcane Quickener's 30 minutes, as v1"
+			},
+			{
+				"s": [
+					"turnin",
+					306
+				],
+				"why": "#617 Ioney: Menethil hand-in 306 stays after the hearth, before the grind to 28"
+			},
+			{
+				"s": [
+					"turnin",
+					484
+				],
+				"why": "#617 Ioney: Menethil hand-in 484 stays after the hearth, before the grind to 28"
+			},
+			{
+				"s": [
+					"turnin",
+					470
+				],
+				"why": "#617 Ioney: Menethil hand-in 470 stays after the hearth, before the grind to 28"
+			},
+			{
+				"s": [
+					"turnin",
+					98282
+				],
+				"why": "#617 Ioney: Menethil hand-in 98282 stays after the hearth, before the grind to 28"
+			},
+			{
+				"s": [
+					"accept",
+					1179
+				],
+				"why": "#617 Ioney: Pilot Longbeard's The Brassbolts Brothers stays after the grind to 28"
+			},
+			{
+				"s": [
+					"task",
+					903
+				],
+				"why": "r7b read (Orc): Prowler Claws on v1's road past the prowlers"
+			}
+		],
+		"optional": [
+			{
+				"q": 123,
+				"why": "F17 #553: The Collector starts from a rare drop (Gold Pickup Schedule, ~1 %): v1 marks it optional; the route does not count on it"
+			},
+			{
+				"q": 92910,
+				"why": "F46 #298: Harvesting the Harvesters' starter is a ~1 in 900 drop: optional in v1, not counted on"
+			}
+		]
+	},
+	"overrides": {
+		"about": "Route overrides: one line each, honoured by every cut as hard constraints, shown as `override` in the skip and edit ledgers. include: {q, after: [accept|task|turnin, quest] (optional), reason, issue}: the quest is in the route (after that step when given). skip: {q, reason, issue}: never in the route. revert: {s: [accept|task|turnin, quest, task index (optional)], reason, issue} keeps that step between v1's neighbours (undoes a move); {q, edit: \"drop\"} keeps a quest the cut dropped; {q, edit: \"insert\"} undoes an insert (as skip).",
+		"include": [],
+		"skip": [],
+		"revert": []
+	}
+}

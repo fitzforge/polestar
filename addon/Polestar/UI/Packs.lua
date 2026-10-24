@@ -55,6 +55,16 @@ function P.AnySwitchedOff()
 	return false
 end
 
+-- Is our own pack (Polestar Guides) switched off on this page? The empty
+-- states then say so and offer to turn it back on, not blame the community
+-- addons.
+function P.OursSwitchedOff()
+	for _, r in ipairs(packs()) do
+		if r.official and r.status == "off" then return true end
+	end
+	return false
+end
+
 local function count(n, one, many)
 	return n == 1 and one or many:format(n)
 end

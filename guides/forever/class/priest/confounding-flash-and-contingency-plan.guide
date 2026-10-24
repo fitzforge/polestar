@@ -16,13 +16,13 @@ why The Gnome priest spells, new in Forever: one at 10, one at 20.
 # (94817) and Contingency Plan at 20 (94818), both from High Priestess Mims
 # in Ironforge's Hall of Mysteries.
 # Sources: quests.json and npcs.json for Mims and Confounding Flash;
-# Wowhead Forever's Priest class page
-# (data/local/quest-audit/wowhead-class-quests.json: 94817-94826 and
+# Forever's Priest class quest list
+# (data/local/quest-audit/: 94817-94826 and
 # 94818-94820 are new). The reference data has no giver for Contingency
-# Plan 94818: Wowhead Forever (wowhead.com/forever/quest=94818 and
-# npc=258785, checked 2026-10-14) lists High Priestess Mims as its giver
+# Plan 94818: Forever's quest data (quest 94818 and
+# npc 258785, checked 2026-10-14) lists High Priestess Mims as its giver
 # and the one who takes it, so the guide names her (npc 258785).
-# Two Wowhead comments (quest=94821 and 94824, September 2026) note that
+# Players' reports (quests 94821 and 94824, September 2026) note that
 # the breadcrumbs' text says "head to Stormwind" while Mims is in
 # Ironforge's Mystic Ward.
 # alliance/dwarf-gnome/01-dun-morogh carries Confounding Flash on the route

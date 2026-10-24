@@ -15,12 +15,12 @@ why Opens Ravenholdt Manor, the hidden rogue house in the Alterac hills, and its
 # in Durnholde Keep) and What's the Big Idea? (96781, level 36, Barton at
 # Strahnbrad in the Alterac Mountains). Syndicate Emblems (6701) is the
 # Ravenholdt Guards' repeatable reputation turn-in.
-# Sources: Wowhead Forever's Rogue class page
-# (data/local/quest-audit/wowhead-class-quests.json) for which quests Forever
+# Sources: Forever's Rogue class quest list
+# (data/local/quest-audit/) for which quests Forever
 # has and their rewards (Ravenholdt reputation; no items); quests.json,
 # npcs.json and items.json for the givers, places and the Elegant Letter's
 # givers (Master Mathias Shaw and Osborne the Night Man in Stormwind, Gest
-# and Ormok in Orgrimmar); the quest texts on foreverchanges.pro (96779,
+# and Ormok in Orgrimmar); the quest texts in Forever's quest data (96779,
 # 96781) for Durnholde and the pickpocketing.
 # Left out, new in Forever but not placeable in the data (no position for
 # their items, objects or NPCs and no named source for one): Covert

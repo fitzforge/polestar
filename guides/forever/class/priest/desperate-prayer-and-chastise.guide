@@ -15,19 +15,19 @@ why The Human and Dwarf priest spells: Desperate Prayer at 10, Chastise for Dwar
 # The Desperate Prayer quest at 10 (5639, Humans and Dwarves) and the Dwarf
 # Priest Chastise quest at 20 (5641), both from High Priest Rohan in
 # Ironforge's Hall of Mysteries.
-# Sources: quests.json and npcs.json for the givers; Wowhead Forever's
-# Priest class page (data/local/quest-audit/wowhead-class-quests.json):
+# Sources: quests.json and npcs.json for the givers; Forever's
+# Priest class quest list (data/local/quest-audit/):
 # Chastise (5641, 5645, 5647, updated) is "Renamed from A Lack of Fear",
 # "Rewards: adds Chastise", "no longer Fear Ward"; the Desperate Prayer
 # quests (5634-5640, updated) have reworded or removed objective text, and
 # 5634 "no longer Starts at High Priestess Laurena".
-# Races: Wowhead Forever (wowhead.com/forever/quest=5634-5640, checked
+# Races: Forever's quest data (quests 5634-5640, checked
 # 2026-10-14) lists 5635, 5637 and 5639 for Humans and Dwarves, the others
 # for Dwarves; this guide follows that. Third-party Forever sites
 # (classicwowforever.com/racials) say Humans no longer learn Desperate
 # Prayer; the quest data does not confirm it, so the step stays open to
 # Humans: skip it if Rohan offers you nothing.
-# Who takes it: Wowhead Forever's quest pages still name High Priestess
+# Who takes it: Forever's quest data still names High Priestess
 # Laurena in Stormwind as the ender of every Desperate Prayer quest, while
 # the reworded Forever text says "Speak to High Priest Rohan in Ironforge".
 # The turn-in follows the ender data (Laurena); the tip says to ask Rohan

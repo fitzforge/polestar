@@ -17,8 +17,8 @@ why A second seducer demon, the male sayaad, and a soul shard bag to carry your 
 # Slaughtered Lamb.
 # Sources: quests.json, npcs.json, objects.json and items.json (Questie 12.1.0
 # and Questie-Forever) for the givers, the figurine and the summoning circle;
-# Wowhead Forever's Warlock class page
-# (data/local/quest-audit/wowhead-class-quests.json): Forever gives the chain
+# Forever's Warlock class quest list
+# (data/local/quest-audit/): Forever gives the chain
 # level 20 and lists a Small Soul Pouch as The Binding's reward. Forever's
 # data does not list the spell; in Classic it is Summon Incubus (Wowpedia,
 # "The Binding (Incubus, Stormwind)"), and Wowpedia ("Incubus (warlock

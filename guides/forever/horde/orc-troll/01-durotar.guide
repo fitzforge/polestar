@@ -120,10 +120,8 @@ step Gornek
   accept 97279
 
 # The Den is a cave: Gornek stands just inside its mouth, Kzan Thornslash
-# "behind me in the Den" (Gornek in Wayward Weapons, 97279,
-# https://www.wowhead.com/forever/quest=97279/wayward-weapons), "all the way
-# back in the back of the cave" (https://www.wowhead.com/classic/npc=3159,
-# comments), and Mai'ah, the mage trainer, at 42.51,69.04 "near the entrance
+# "behind me in the Den" (Gornek in Wayward Weapons, 97279), at the back of
+# the cave by players' reports (npc 3159), and Mai'ah, the mage trainer, at 42.51,69.04 "near the entrance
 # to the Den" (Glyphic Parchment, 98576). The mouth, 42.4,68.6, lies between
 # her and Gornek (42.06,68.33) and opens east onto the training grounds; from
 # the boars or from Hana'zua a straight line to anyone inside crosses the
@@ -219,10 +217,9 @@ step Canaga Earthcaller
   tip Canaga stands just outside the Den.
   accept 1516                         -- Canaga Earthcaller
 
-# The Burning Blade Coven's mouth: "Go in the cave (45 56) and stay right"
-# (https://www.wowhead.com/classic/quest=794, comments); the pick lies past the
-# first split, straight on, then right along the stream to the waterfall
-# (https://www.wowhead.com/classic/quest=6394, comments).
+# The Burning Blade Coven's mouth: players report it near 45,56, keep right
+# inside (quest 794); the pick lies past the first split, straight on, then
+# right along the stream to the waterfall (players' reports, quest 6394).
 step Burning Blade Coven
   goto 45.0,56.0 "Burning Blade Coven"
 
@@ -473,8 +470,7 @@ step Gan'rul Bloodeye
   turnin 1506                         -- Gan'rul Bloodeye
   accept 1501
 
-# Skull Rock's mouth: "Entrance to the cave is at 55,10" and "Cave entrance is
-# at 55, 10" (https://www.wowhead.com/classic/quest=827, comments); Gazz'uz
+# Skull Rock's mouth: players report the entrance near 55,10 (quest 827); Gazz'uz
 # stands at its back (52.6,8.8).
 step Skull Rock's mouth
   zone Durotar

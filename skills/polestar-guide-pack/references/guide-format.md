@@ -79,6 +79,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `use <item> ["Name"]` | Use an item | `quest` |
 | `sethome "<Location>"` / `sethome nearest` | Bind the hearthstone at an inn (`polestar find --kind inn`) | `npc` |
 | `hearth "<Location>"` | Use the hearthstone; done on landing there | no place modifiers |
+| `die "<Graveyard>" @x,y` | A deathskip: die and take the resurrection at that graveyard's Spirit Healer (the coordinates); done back alive there. The pack then needs Polestar 0.3.0 | `@x,y` required |
 | `enter "<Place>"` | Be in that zone or area (the zone or subzone text; Polestar 0.3.0) | `@x,y` only points the arrow |
 | `getfp "<Flight point>"` | Learn a flight path (`polestar find --kind flight`) | `npc` |
 | `fly "<Town>"` | Take a flight; done on landing | no place modifiers |

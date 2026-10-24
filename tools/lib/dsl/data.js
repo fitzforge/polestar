@@ -212,7 +212,7 @@ class Data {
 	}
 
 	// Class trainers as [{ id, classes }], sorted by id: trainers.json when
-	// present (`node tools/polestar.js trainers build`), else the curated list
+	// present (`forge data trainers`), else the curated list
 	// resolved against npcs.json.
 	classTrainers() {
 		if (this._classTrainers) return this._classTrainers;

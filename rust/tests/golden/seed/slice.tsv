@@ -1,0 +1,138 @@
+ok	forever/alliance/human/01-elwynn-forest.guide: the arrow reaches the target through the cave mouth at 39.5,82.4
+not ok	forever/horde/07-ashenvale.guide: the arrow reaches the target through the cave mouth at 14.5,14.2
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: the arrow reaches the target through the cave mouth at 26.93,80.03
+not ok	forever/horde/undead/01-tirisfal-glades.guide: the arrow reaches the target through the cave mouth at 12.9,65.7
+not ok	forever/horde/undead/01-tirisfal-glades.guide: the arrow reaches the target through the cave mouth at 12.9,65.7
+not ok	Horde Call of Fire: hand in the carried trainer lead at Kranal before starting the shared ritual
+not ok	forever/horde/tauren/01-mulgore.guide: Sharing the Land leads to each gnoll objective and resumes partial progress
+not ok	Horde poisons: the mainline contact instructions use the supplied flare gun before saluting Fizzule
+ok	forever/horde/orc-troll/01-durotar.guide: Tom's report: Cutting Teeth is turned in and Sting of the Scorpid and Galgar's Cactus Apple Surprise accepted before Sarkoth
+ok	forever/horde/orc-troll/01-durotar.guide: tor's report: Securing the Lines is taken after the Sen'jin, Echo Isles and Kolkar Crag turn-ins, on Fizzle Darkstorm's visit
+not ok	forever/horde/undead/01-tirisfal-glades.guide: Onrevax's report: each Patience report goal names the NPC who hands it over
+not ok	forever/horde/05-stonetalon-mountains.guide: the Warsong update goals name the scouts who hand them over, from the data
+not ok	forever/horde/orc-troll/01-durotar.guide: Tom's report: the arrow's last waypoint before Kzan Thornslash is the Den's mouth
+not ok	forever/horde/orc-troll/01-durotar.guide: Tom's report: the arrow reaches the Burning Blade Coven (the pick) through its mouth at 45,56
+not ok	forever/horde/orc-troll/01-durotar.guide: Tom's report: the arrow reaches Skull Rock through its mouth at 55,10
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: Tom's report: the arrow reaches the Coldridge troll cave through its mouth at 26.93,80.03
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: Tom's report: the arrow reaches the Grizzled Den through its mouth at 42.57,54.68
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: Tom's report: the arrow reaches the Grizzled Den (Frosthowl) through its mouth at 42.57,54.68
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: Tom's report: the arrow reaches Frostmane Hold through its mouth at 25.1,50.94
+not ok	forever/alliance/human/01-elwynn-forest.guide: Tom's report: the arrow reaches the Jasperlode Mine through its mouth at 61.6,54.1
+not ok	forever/alliance/nightelf/01-teldrassil.guide: Tom's report: the arrow reaches Shadowthread Cave through its mouth at 56.69,31.29
+not ok	forever/alliance/nightelf/01-teldrassil.guide: Tom's report: the arrow reaches Fel Rock through its mouth at 54.59,52.12
+not ok	forever/horde/undead/01-tirisfal-glades.guide: Tom's report: the arrow reaches Night Web's Hollow through its mouth at 26,60
+ok	forever/horde/orc-troll/01-durotar.guide: Gruko's report (\#240): Thazz'ril's Pick and Yarrog are done on one trip into the Burning Blade Coven, for every class
+not ok	forever/alliance/nightelf/01-teldrassil.guide: Dolanaar Delivery is taken from Porthannius after the Shadowglen quests, on the way out to Dolanaar
+not ok	forever/alliance/nightelf/01-teldrassil.guide: Pynte's report (\#647): Teldrassil is taken from the Oracle Tree Bark on The Oracle Tree's turn-in and handed to Fandral with Crown of the Earth
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: Supplies to Tannok is taken from Hands Springsprocket at the tunnel, leaving Coldridge Valley
+not ok	forever/horde/tauren/01-mulgore.guide: A Task Unfinished at Antur Fallow starts the cougar hunt, with no walk back into the camp
+not ok	forever/horde/undead/01-tirisfal-glades.guide: Onrevax's report (\#365): the Coarse Thread for The Chill of Death is asked for again at the turn-in, from Abigail Shiel
+not ok	forever/alliance/30-40/01-hillsbrad-foothills.guide: the same pattern as \#365, the Soothing Spices for Chef Jessen: asked for again on the step that hands in 555
+not ok	forever/alliance/40-50/01-stranglethorn-vale.guide: the same pattern as \#365, the Soothing Spices for "Swamp Eye" Jarl, from Theramore: asked for again on the step that hands in 1218
+not ok	forever/horde/30-40/04-dustwallow-marsh.guide: the same pattern as \#365, the Soothing Spices for "Swamp Eye" Jarl, bought in Ratchet in the Arathi guide: asked for again on the step that hands in 1218
+not ok	forever/alliance/nightelf/01-teldrassil.guide: the same pattern as \#365, the Empty Vial for Byancie: asked for again on the step that hands in 99050
+not ok	forever/alliance/nightelf/01-teldrassil.guide: the same pattern as \#365, the Refreshing Spring Water for Byancie: asked for again on the step that hands in 99050
+not ok	forever/collectibles/mounts/alliance/paladin-charger.guide: the same pattern as \#365, the Enriched Manna Biscuits for Merideth Carlson, from Chillwind Camp: asked for again on the step that hands in 7645
+not ok	forever/collectibles/mounts/neutral/warlock-dreadsteed.guide: the same pattern as \#365, the Xorothian Stardust for Gorzeeki Wildeyes, from Ur'dan in Felwood: asked for again on the step that hands in 7625
+not ok	forever/horde/undead/01-tirisfal-glades.guide: Mike_'s report: only Paladins are sent to Hilda the Breaker and Ephram Barbaro at Bandarion Keep
+not ok	forever/horde/undead/01-tirisfal-glades.guide: MadReign_Ltd's report: a Paladin takes Hilda's and Ephram's quests after A Righteous Cause is handed in
+not ok	forever/horde/undead/01-tirisfal-glades.guide: an3vilmonk3y's report (\#345): the class letter is taken at Sarvis with Rattling the Rattlecages, and a Warlock's skulls are collected in the Rattlecage step
+not ok	forever/horde/undead/01-tirisfal-glades.guide: an3vilmonk3y's report (\#345) and Onrevax's (\#120): A Light in the Darkness is taken from Aramis once The Damned is handed in, for every class, and not at Sarvis
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Grik'nir comes after Anvilmar, and the journal and Nori's mug are handed in on one camp visit
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: The Adventurer is taken from Thalos at the tunnel and turned in at Eric before The Great Outdoors
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Sten's quests and the class letter are taken before Balir, then Anvilmar is entered once
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Bring Back the Mug is taken from Durnan with the Mornbrew, before Felix
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Kharanos is done outside first (Eric before Tharek), then the distillery, training last
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Camping 101: Cooking waits for the return to Kharanos, the lesson before the turn-in
+not ok	EpicTibbles's report (\#532): an objective that is talking to someone reads "Talk to", not "Kill": Zarrin in Teldrassil and the Skyborne visits to the Horde leaders
+not ok	EpicTibbles's report (\#565): a Hunter's Taming the Beast beast reads "Tame", not "Kill", in every guide
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: The Reports is taken from Senir with Frostmane Hold and handed to the senator on the way to the tram
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: kills on the way are counted on the way and finished after
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Ammo for Rumbleshot is taken beside Beldin and handed in before the walk back to Kharanos
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Gretchen comes first and the Grizzled Den is walked once for the shipments and Cornelius
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: at Brewnall Gretta's dock comes first, and the village before Frostmane Hold
+not ok	forever/alliance/03-darkshore.guide: Wogi's report: with Skip grey quests on, a Human at 20 leaves out the grey quests, keeps the Buzzbox chain, and one on the route's level keeps them all
+not ok	forever/alliance/03-darkshore.guide: XooVe's report (\#216): a grey quest Skip grey quests keeps says which quest it opens
+not ok	forever/horde/undead/01-tirisfal-glades.guide: Pledge-Resupply's report: The Argent Emissary points to Deathguard Terrence at 61.4,53.4
+not ok	a Priest's report: an event or escort objective holds its step until the quest is complete
+not ok	Hotline's report: a Paladin heals the Injured Deathguard before turning in Rediscovering the Light
+not ok	forever/horde/orc-troll/01-durotar.guide: AndarKerran's report: A Pain in the Neck is not offered to a Troll Warrior without Enchanting, and is to an enchanter
+ok	forever/horde/orc-troll/01-durotar.guide: defect's report (\#357): with The Admiral's Orders taken, Tiragarde Keep waits for neither Benedict's Key nor the Aged Envelope
+not ok	forever/alliance/nightelf/01-teldrassil.guide: Recipe of the Kaldorei is taken after the guide teaches Cooking
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Beer Basted Boar Ribs is offered without Cooking, on arrival in Kharanos
+not ok	Hotline's report: Walton and Vrang's quests come in the order the game offers them
+not ok	forever/horde/04-the-barrens.guide: Fitz's report: Jorn Skyseer is passed by while The Angry Scytheclaws is missing, and open once it is done
+not ok	forever/horde/04-the-barrens.guide: Miguel Antunes's report (\#592): loot a zhevra carcass and use it at the Dead Tree before Ishamuhale's Fang
+not ok	Forever follow-ups are taken only once the quests before them are handed in
+ok	Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or the refugees for Stop the Spread (\#229, \#161)
+not ok	forever/alliance/30-40/01-hillsbrad-foothills.guide: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in forever/alliance/07-thousand-needles.guide, is handed in on the Wetlands loop (\#225)
+not ok	forever/alliance/02-westfall.guide: Alba Fairmoon's chain is not given to Humans (\#144)
+not ok	forever/alliance/03-darkshore.guide: XooVe's report: the Beached Sea Creature by Bashal'Aran is taken on the walk from Asterion to Buzzbox 411 (\#213)
+not ok	forever/alliance/nightelf/01-teldrassil.guide: Pynte's report: Zenn's Bidding is taken on the walk down to Dolanaar that passes Zenn (\#89)
+not ok	forever/alliance/30-40/06-badlands.guide: the same pattern as \#89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it
+not ok	\#213: quests whose giver the route already stands at are taken there, not on a walk back
+not ok	the leveling guides with profession quests play to the end for a character with the profession
+not ok	a quest with objectives is completed or collected between its accept and its turn-in
+not ok	forever/alliance/nightelf/01-teldrassil.guide: Pynte's report: Conservator Ilthalaine's quest is taken before Melithar's
+not ok	forever/alliance/nightelf/01-teldrassil.guide: Pynte's report: the Gnarlpine Totems are open together with the kills and the Fel Moss, at both totem objects
+not ok	forever/alliance/nightelf/01-teldrassil.guide: Pynte's report: each class's sigil is handed to its trainer at the training stop after Shadowthread Cave
+not ok	forever/alliance/nightelf/01-teldrassil.guide: Pynte's report: Escaping Ban'ethil is taken after the relics and The Sleeping Druid's chain (\#334)
+not ok	forever/alliance/07-thousand-needles.guide: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step
+not ok	Sato's report: The Great Outdoors on Zephras Isle is done by sitting at Raan's campfire, not by clicking it
+not ok	Sato's report: the Skysight and Read Ley Line objectives tell you to cast the racial, and tick from the quest log
+not ok	forever/horde/skyborne/01-zephras-isle.guide: Sato's report: Welcome to Shen'dar Village follows its objectives, and is taken before Illaya's talk
+not ok	Sato's report: the Scrawny Ursera step leads to the slope west of Thendal Village
+not ok	Phear's report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it
+not ok	forever/alliance/03-darkshore.guide: the Grizzled Scalps are collected in the step at the Grove, where the bears are and Buzzbox 525 takes them
+not ok	the cloth the guides tell you to buy leads to the Auction House: the capitals' cloth donations and Grimand's Runecloth
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: rikette's report: the Grizzled Den leads the arrow to the wendigo cave
+ok	every step with a quest objective to do has a goal the arrow can lead to
+ok	Rumbleshot's Ammo, The Red Crystal: every objective the data can place has a goal of its own, not only the turn-in
+not ok	forever/alliance/03-darkshore.guide: Twerkjob's report: The Red Crystal leads the arrow to the crystal on the eastern ridge (\#241)
+not ok	forever/alliance/03-darkshore.guide: XooVe's report (\#302): The Blackwood Corrupted fills the bowl and gathers the three samples before the Talisman, and uses the bowl where Xabraxxis comes
+not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: Rumbleshot's Ammo leads to the Ammo Crate by Mountaineer Gretchen, not to Hegnar
+not ok	legacy-challenges: Return to Bodley is turned in before Back to the Beginning is taken
+ok	Fitz's playtest: every goto at a boat, zeppelin or tram stop is on its deck or pier, not in the water # SKIP no navigation build in data/local/nav (node tools/polestar.js nav build)
+ok	Fitz's playtest: typed coordinates are on the zone of every character who sees them
+ok	\#171: every hearth is to an inn the guide binds at first
+not ok	forever/alliance/human/01-elwynn-forest.guide: Bashidian Twotao's report (\#279): the bait ingredients count their own objectives
+not ok	forever/alliance/human/01-elwynn-forest.guide: Zepheriel's report (\#310): Skirmish at Echo Ridge is taken from McBride before Brother Paxton, with nobody between
+not ok	forever/alliance/human/01-elwynn-forest.guide: Syfin's report (\#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head
+not ok	forever/alliance/human/01-elwynn-forest.guide: zeike's report (\#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt follow only the Schedule
+not ok	forever/horde/05-stonetalon-mountains.guide: \#246: Kadrak's goals are on the Barrens' map, and the Ashenvale steps after them on Ashenvale's
+not ok	\#246: every goal with Tirion leads to Tirion Fordring at his hut, never to Lord Tirion Fordring in Hearthglen
+ok	\#246: no NPC or object goal is on a neighbouring zone's map where the two maps overlap # SKIP no Forever list cache (data/sources/web/codex/lists)
+not ok	Zerkness's and Ioney's reports (\#383, \#396): every player is led to Alonso, and his quests hold only one who takes them, in both Ashenvale guides
+not ok	forever/horde/04-the-barrens.guide: Fitz's report (\#273): the Savannah Lion Hide arrow stays in the Dry Hills with the traps, never by Ratchet
+not ok	forever/horde/04-the-barrens.guide: Fitz's report (\#274): the Dry Hills step also collects the Raptor Horns, in the Dry Hills, before the Ratchet turn-in
+not ok	forever/alliance/04-redridge-mountains.guide: Avtom's report (\#280): Iron Pike and Iron Rivet lead to the gnolls that drop them, not to the rare Ribchaser's camp among the Mongrels
+not ok	Tazul's report: Elemental Bracers counts the five bracers before the Divined Scroll
+not ok	forever/alliance/02-westfall.guide: Smuve's report (\#298): the Molsen Farm step does not wait for the Precessive Autocognition Assembly; with one, it is handed in at Saldean's
+ok	\#286: a typed coordinate is near its target's spawns in its own map frame, not only in the other one
+ok	\#289: a quest item picked up from objects is collected at one of the objects' spawns
+not ok	forever/horde/05-stonetalon-mountains.guide: Hotline's report (\#278): the Bundle of Reports is opened at Kadrak, before the Warsong Scout
+ok	Pynte's report (\#404): guides played below riding level never tell you to ride somewhere
+not ok	forever/alliance/nightelf/01-teldrassil.guide: Pynte's report: Flight to Auberdine is flown with Vesprystus, not the boat, and Return to Nessa is handed in (\#402, \#403)
+not ok	Bashidian Twotao's report (\#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone
+not ok	forever/alliance/02-westfall.guide: Pynte's report (\#416): the farm quests and Report to Gryan Stoutmantle are taken on the road in, before Sentinel Hill
+not ok	forever/alliance/02-westfall.guide: Xaden Ryan's report (\#621): the oats are gathered in the Jansen Stead's fields on the way back, not searched over the zone on the road in
+not ok	Alx-Ryan's report (\#363): on Zephras Isle, the watchtower quests come before Rorian, who takes Harmony in Balance and Falling With Style on one visit
+not ok	𝔄𝔫𝔫𝔦𝔢's report (\#285): on Zephras Isle, every objective of a quest is sent for before its turn-in; the Enchanted Gyrozephyr at its spawns
+not ok	Phear's report (\#395): on Zephras Isle, The Wounds of Betrayal and Standing Our Ground lead to each objective, in both guides
+not ok	forever/alliance/04-redridge-mountains.guide: Tazul's report (\#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill
+not ok	forever/horde/orc-troll/01-durotar.guide: tor's report (\#351): Encroachment is taken after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins
+not ok	forever/class/warlock/incubus-horde.guide: Phyz's report (\#412): Avelina's and Isaac's hearts each read their own line of Hearts of the Lovers
+not ok	Nittepitte's report (\#453): Making Do is optional in Redridge and Ashenvale, and taken only after Expanding Horizons is handed in
+not ok	forever/alliance/06-ashenvale.guide: Ioney's report (\#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat
+not ok	forever/alliance/06-ashenvale.guide: Ioney's report (\#614): Sida's Bag is searched for at Ironbeard's Tomb, not at the oozes across the Wetlands
+not ok	forever/alliance/06-ashenvale.guide: Ioney's report (\#617): the grind to 28 comes after the Menethil hand-ins, before Pilot Longbeard
+not ok	forever/alliance/nightelf/01-teldrassil.guide: Pynte's report (\#327): the Timberling Seed arrow stays round Denalan with the Timberlings, not with the Elder Timberlings in the north
+not ok	forever/alliance/nightelf/01-teldrassil.guide: \#555: Soft Saber Pelts accept comes before Zenn's Bidding turn-in, so both Nightsaber quests share the first east loop
+not ok	forever/alliance/nightelf/01-teldrassil.guide: \#619: the Gnarlpine Necklace is looted from Ferocitas before the jewel is collected
+not ok	\#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides
+not ok	forever/alliance/03-darkshore.guide: Deadshot's report (\#560): How Big a Threat? points at the furbolg camp by the bears, not the one north-east of Auberdine
+not ok	forever/miscellaneous/cozy-sleeping-bag.guide: dgc1980's report (\#563): Alliance go round Honor's Stand on the way to Stonetalon, Horde go straight
+not ok	forever/horde/30-40/04-dustwallow-marsh.guide: Syrael's report (\#575): the ghost-o-plasm points at the Valley of Bones, after the Kodo Graveyard
+ok	forever/professions: Schpune's report (\#620): Skinning, Mining and Herbalism are learned at level 1, from the Junior trainers in the starting zones too # SKIP reference data not built: data/forever has no professions.json (node tools/polestar.js data build)
+not ok	forever/alliance/human/01-elwynn-forest.guide: Nittepitte's report (\#613): Marshal Dughan's turn-ins come between Collecting Kelp and The Escape, while William Pestle brews
+not ok	forever/alliance/human/01-elwynn-forest.guide: Nittepitte's report (\#612): the Mining Tools are picked up on the walk into the Jasperlode Mine, before its far end

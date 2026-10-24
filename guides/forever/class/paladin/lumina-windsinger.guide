@@ -16,12 +16,12 @@ why No item yet: a Forsaken paladin rescue story; its sequel, the Moonsilver Bla
 # (91859), A Grim Fate (91860), Into Fenris Keep (91861), Lumina Windsinger
 # (91862), The Windshaper's Wrath (96204, an escort) and The Debt (95034).
 # Sources: quests.json, npcs.json, objects.json and items.json (Questie-Forever)
-# for givers, enders, objectives and spawns; Wowhead Forever's quest pages for
+# for givers, enders, objectives and spawns; Forever's quest data for
 # the order of the chain (the data has no prerequisites for these quests) and
 # for where things are: the pyre "on the shores of Fenris Isle", Lumina caged
 # in Fenris Keep, the Fenris Isle Key on the Rot Hide gnolls.
 # No quest of this half rewards an item (codex quests.json); the reward line
-# is from quests.json: experience and, in its Wowhead Forever fields,
+# is from quests.json: experience and, in its Forever fields,
 # Undercity and Earthen Ring reputation. Titled after the goal, Lumina's
 # rescue.
 # Left out: the rest of the chain, the Moonsilver Blade. A Moon-Kissed Blade
@@ -31,7 +31,7 @@ why No item yet: a Forsaken paladin rescue story; its sequel, the Moonsilver Bla
 # way to get it yet". An Underrated Talent (95111), Ott's Masterwork (95125),
 # The Moonsilver Blade (95126) and Old Fire-Eye (95140, elite, needs the
 # blade) follow from it, and Seeking the Kor Gem (95042, Ulric Frostveil in
-# Ashenvale, Blackfathom Deeps) only feeds it. Wowhead's news of 10 October
+# Ashenvale, Blackfathom Deeps) only feeds it. News of 10 October
 # 2026 ("New Paladin-Exclusive Cloak Currently Alliance Only") notes the
 # Paladin weapon quests of both factions keep changing in the beta.
 # The leveling route passes the Sepulcher in forever/horde/03-silverpine-forest

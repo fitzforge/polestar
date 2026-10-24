@@ -8,7 +8,7 @@ levels 1-60
 zone Stormwind City
 
 # Baby Crocolisk from the Sewer Beast in Stormwind's canals (new in Forever).
-# Sources: Wowhead Forever item 282047 (Sewer Beast, 1.5% in 132 kills);
+# Sources: Forever's drop data, item 282047 (Sewer Beast, 1.5% in 132 kills);
 # npcs.json (the Sewer Beast's spawns); Forever client 1.60.1.70338.
 
 step Sewer Beast

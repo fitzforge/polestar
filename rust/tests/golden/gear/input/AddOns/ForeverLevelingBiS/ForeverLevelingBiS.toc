@@ -1,0 +1,9 @@
+## Interface: 11507
+## Title: ForeverLevelingBiS (synthetic test data)
+## Notes: A synthetic stand-in for ForeverLevelingBiS's data files, written for Polestar's golden tests.
+## Version: v0.0.1-golden
+Data/Tables.lua
+Data/Items.lua
+Data/Quests.lua
+Data/Overrides.lua
+Racials.lua

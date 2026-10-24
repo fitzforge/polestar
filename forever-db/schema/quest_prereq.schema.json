@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/quest_prereq.schema.json",
+  "title": "quest_prereq",
+  "description": "Quests that open a quest.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "quest",
+    "pre",
+    "mode"
+  ],
+  "properties": {
+    "quest": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "quest id"
+    },
+    "pre": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "the earlier quest"
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "all",
+        "any"
+      ],
+      "description": "all: every such quest is needed; any: one of them"
+    },
+    "breadcrumb": {
+      "type": "boolean",
+      "description": "the earlier quest only leads to this one"
+    }
+  }
+}

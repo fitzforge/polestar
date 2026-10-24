@@ -18,14 +18,14 @@ why A rare cloak at 30 from the old Divine Storm story; for now only Alliance pa
 # Destroyed (78092) and Return to Delgren (78093).
 # Sources: quests.json, npcs.json, objects.json and items.json (Questie-Forever)
 # for givers, enders, objectives and the droppers of the Summoner's Salt and
-# the Motes of Mannoroth; Wowhead Forever's Paladin class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the Forever changes:
+# the Motes of Mannoroth; Forever's Paladin class quest list
+# (data/local/quest-audit/) for the Forever changes:
 # level 30, requires 22, starts at the Strange Orb instead of Delgren, rewards
 # the Cloak of the Divine Storm. The Strange Orb is not in our data: its place
 # (Darkshore 56.2,26.5, the top of the Tower of Althalaxx) and the mobs that
-# drop the salt are from Wowhead's news "New Paladin-Exclusive Cloak Currently
-# Alliance Only" (10 October 2026, wowhead.com/news=383286, mirrored by
-# seramate.com), which also says only Alliance Paladins can finish the chain
+# drop the salt are from a news report
+# "New Paladin-Exclusive Cloak Currently Alliance Only" (10 October 2026,
+# mirrored by seramate.com), which also says only Alliance Paladins can finish the chain
 # for now.
 # The chain is level 30 with level 22 to start: inside the beta's level cap.
 

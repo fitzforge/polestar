@@ -19,13 +19,13 @@ return {
 	-- {area:16622} Thendal Grove
 	["Back to {area:16622}"] = "Zurück zum {area:16622}",
 	-- {npc:257554} Halaan Hawk-Eye · {npc:263113} Myriaal Mistwake · {npc:251368} Elatrell Featherlight
-	["{npc:257554} and {npc:263113} stand at the top of the watchtower, a few steps north-east of {npc:251368}."] = "",
+	["{npc:257554} and {npc:263113} stand at the top of the watchtower, a few steps north-east of {npc:251368}."] = "{npc:257554} und {npc:263113} stehen oben auf dem Wachturm, ein paar Schritte nordöstlich von {npc:251368}.",
 	-- {npc:257554} Halaan Hawk-Eye
 	["Listen to {npc:257554}"] = "Hör {npc:257554} zu",
 
 	-- Step 4: Rorian the Dayseeker
 	-- {spell:1259416} Walk on Air · {npc:251361} Rorian the Dayseeker
-	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "",
+	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "Spring von der Spitze des Wachturms und benutze {spell:1259416}, um zu {npc:251361} westlich des Turms hinabzuschweben.",
 	-- {npc:251361} Rorian the Dayseeker · {item:4100} Crumpled Note
 	["{npc:251361}: the {item:4100}"] = "{npc:251361}: die {item:4100}",
 	-- {npc:251964} Blademaster Ren
@@ -189,7 +189,7 @@ return {
 	-- Step 34: Standing our ground
 	["Standing our ground"] = "Standhalten",
 	-- {npc:252800} Aamelia Windfield
-	["Tell {npc:252800} you're ready"] = "",
+	["Tell {npc:252800} you're ready"] = "Sag {npc:252800}, dass du bereit bist",
 
 	-- Step 35: Valanaar turn-ins
 	-- {area:16638} Valanaar
@@ -206,13 +206,13 @@ return {
 	-- {npc:254588} Windsong Crawler · {item:15908} Taming Rod
 	["{npc:254588}: tame it with the {item:15908}"] = "{npc:254588}: Zähme ihn mit der {item:15908}",
 	-- {npc:254588} Windsong Crawler
-	["Tame {npc:254588}"] = "",
+	["Tame {npc:254588}"] = "Zähme {npc:254588}",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Zähme es mit der {item:15908}",
 	-- {npc:251707} Ornery Galestrider
-	["Tame {npc:251707}"] = "",
+	["Tame {npc:251707}"] = "Zähme {npc:251707}",
 	-- {npc:250874} Vuldren Alpha
-	["Tame {npc:250874}"] = "",
+	["Tame {npc:250874}"] = "Zähme {npc:250874}",
 
 	-- Step 37: The Windstone Formations
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
@@ -278,10 +278,10 @@ return {
 
 	-- Step 49: Vayn Moongaze
 	-- {npc:254151} Vayn Moongaze · {npc:258130} Jorel Windsinger · {npc:258134} Naaleos Leafwhisper · {npc:257944} Elegael Thornpaw · {npc:253622} Commander Haalien · {quest:94490} Ripped Missive · {quest:94489} The Wounds of Betrayal
-	["{npc:254151}, {npc:258130} and {npc:258134} are north-east of {npc:257944}; {npc:253622} stands east of them. Haalien also drops a {quest:94490}. For {quest:94489}, enter the Nightfang Den, heal 7 injured druids and find {npc:258130}."] = "",
-	["Heal the injured druids in the Nightfang Den"] = "",
+	["{npc:254151}, {npc:258130} and {npc:258134} are north-east of {npc:257944}; {npc:253622} stands east of them. Haalien also drops a {quest:94490}. For {quest:94489}, enter the Nightfang Den, heal 7 injured druids and find {npc:258130}."] = "{npc:254151}, {npc:258130} und {npc:258134} sind nordöstlich von {npc:257944}; {npc:253622} steht östlich von ihnen. Haalien lässt außerdem {quest:94490} fallen. Für {quest:94489} betritt den Nachtfangbau, heile 7 verletzte Druiden und finde {npc:258130}.",
+	["Heal the injured druids in the Nightfang Den"] = "Heile die verletzten Druiden im Nachtfangbau",
 	-- {npc:258130} Jorel Windsinger
-	["Find {npc:258130}"] = "",
+	["Find {npc:258130}"] = "Finde {npc:258130}",
 
 	-- Step 50: Elegael Thornpaw, the missive
 	-- {npc:257944} Elegael Thornpaw

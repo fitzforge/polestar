@@ -177,7 +177,7 @@ test("every player's follow-up becomes a comment, the reporter's marked as their
 	const { discord, github, sync } = setup();
 	discord.post('1001', { content: POST });
 	await sync.newPost('1001');
-	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u2', content: 'Shows green until 85, not 100: https://www.wowhead.com/forever/spell=2392' }));
+	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u2', content: 'Shows green until 85, not 100: https://example.org/spell=2392' }));
 	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u1', content: 'It happens at step 20 too', attachments: [{ id: 'a9', filename: 'b.jpg', content_type: 'image/jpeg', size: 5, url: 'y' }] }));
 	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u3', content: '' }));
 	await sync.dispatch('MESSAGE_CREATE', discord.say('1001', { author: 'u4', content: 'I am a bot', bot: true }));

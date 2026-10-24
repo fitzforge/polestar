@@ -1,0 +1,32 @@
+[package]
+name = "forge-addontest"
+description = "The addon's Lua tests: runs addon/ on the WoW client stub (tests/lua) in-process, with the fixtures they build."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[dependencies]
+serde_json = { workspace = true, features = ["float_roundtrip"] }
+forge-guide = { path = "../forge-guide" }
+forge-data = { path = "../forge-data" }
+# The router tests' hand-made walking maps (navmap.rs), the pack tests' writer.
+forge-nav = { path = "../forge-nav" }
+mlua = { version = "0.11", features = ["lua51", "vendored"] }
+regex = "1"
+rustc-hash.workspace = true
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[dev-dependencies]
+# The release smoke test (tests/addontest/release.rs): which addons a release ships.
+forge-release = { path = "../forge-release" }
+# The walking-map tests read the packed blocks (tests/addontest/nav-maps.rs).
+flate2 = "1"
+
+[lints]
+workspace = true

@@ -25,7 +25,7 @@
 //   (its name in every language: Polestar.Names "encounter").
 //
 // "Placed inside" an instance: npcs.json / objects.json `instances` (QuestieDB,
-// recordings), or Wowhead's `location` naming an area on the instance's map
+// recordings), or Forever's `location` naming an area on the instance's map
 // (Map / AreaTable rows: instanceMapsOf's `inner`).
 //
 // Rules (facts only):
@@ -53,7 +53,7 @@
 //                (or MapDifficulty's); max: the highest boss level, at most 60.
 //   entrance     best evidence first: a recorded entrance (Recorder `enter`,
 //                the most-seen one), else the curated table
-//                (tools/lib/codex/entrances.json: the point on the zone map
+//                (data/codex/entrances.json: the point on the zone map
 //                where one walks in, each with its public source), else a
 //                guide's `goto x,y "<instance name> ..."` line, else the map's
 //                Corpse point (where a ghost comes back: near, not at, the way
@@ -63,7 +63,7 @@
 //                the Corpse point is as often a city or inn trigger, so they
 //                are not used.
 //   more bosses  after the encounters, by level: NPCs placed inside that the
-//                data or Wowhead ranks rare or boss (Wowhead's boss flag too),
+//                data or Forever's NPC data ranks rare or boss (its boss flag too),
 //                or that alone drop an item of quality 2 or better at 5% or
 //                more; role rare when ranked rare, else event when pfQuest and
 //                QuestieDB know no static spawn of it (summoned or scripted:
@@ -74,7 +74,7 @@
 //                more or at an unknown rate, role optional.
 //   loot         a boss's items: its items.json drops at MIN_LOOT% or more, or
 //                at an unknown rate (pfQuest reference loot tables, QuestieDB
-//                droppers), and its Wowhead drops: its own table at any rate,
+//                droppers), and its Forever drops: its own table at any rate,
 //                the world-drop pool (`commondrop`) at MIN_LOOT% or more. Its
 //                own table first, then that pool, each best chance first.
 
@@ -207,7 +207,7 @@ function curatedEntrances(dir) {
 }
 
 // The curated entrance table (entrances.json), by instance key.
-function loadEntranceTable(file = path.join(__dirname, 'entrances.json')) {
+function loadEntranceTable(file = path.join(__dirname, '..', '..', '..', 'data', 'codex', 'entrances.json')) {
 	if (!fs.existsSync(file)) return {};
 	const out = {};
 	for (const e of JSON.parse(fs.readFileSync(file, 'utf8')).entrances || []) out[e.key] = e;
@@ -257,10 +257,10 @@ function buildInstances(facts, ctx = {}) {
 	}
 	const spawnless = (n) => !Object.values(n.spawns || {}).some((s) => s && (s.pts || []).length);
 	const spawnlessNames = Object.keys(byName).filter((k) => byName[k].some((id) => spawnless(npcsIn[id])));
-	// Wowhead's `commondrop` rows of an NPC: the world-drop pool it shares
+	// Forever's `commondrop` rows of an NPC: the world-drop pool it shares
 	// (books, world blues, gems), not its own loot table.
 	const whCommon = new Set(); // `${npc}|${item}`
-	for (const [npc, w] of Object.entries((ctx.wowhead && ctx.wowhead.npc) || {})) for (const d of w.drops || []) if (d.common) whCommon.add(`${npc}|${d.item}`);
+	for (const [npc, w] of Object.entries((ctx.web && ctx.web.npc) || {})) for (const d of w.drops || []) if (d.common) whCommon.add(`${npc}|${d.item}`);
 	const lootOf = {}; // npc -> [[item, chance, common]]
 	for (const [id, it] of Object.entries(itemsIn)) {
 		for (const [npc, chance] of Object.entries((it.drops && it.drops.npc) || {})) {
@@ -271,11 +271,11 @@ function buildInstances(facts, ctx = {}) {
 		}
 	}
 
-	// Wowhead's drops of an NPC (release build): loot our tables lack. Its own
+	// Forever's drops of an NPC (release build): loot our tables lack. Its own
 	// table at any rate (a boss's recipes and rare pieces drop well under 1%:
 	// Thermaplugg's schematics, Dextren Ward's plans), the world-drop pool at
 	// MIN_LOOT% or more.
-	for (const [npc, w] of Object.entries((ctx.wowhead && ctx.wowhead.npc) || {})) {
+	for (const [npc, w] of Object.entries((ctx.web && ctx.web.npc) || {})) {
 		for (const d of w.drops || []) {
 			const c = Math.round((d.count / d.outof) * 10000) / 100;
 			if (!d.common || c >= MIN_LOOT) (lootOf[npc] = lootOf[npc] || []).push([d.item, c, d.common]);
@@ -284,9 +284,9 @@ function buildInstances(facts, ctx = {}) {
 	// item -> npcs dropping it (any rate): an item one NPC alone drops is its own loot.
 	const droppers = {};
 	for (const [id, it] of Object.entries(itemsIn)) for (const npc of Object.keys((it.drops && it.drops.npc) || {})) (droppers[id] = droppers[id] || new Set()).add(Number(npc));
-	for (const [npc, w] of Object.entries((ctx.wowhead && ctx.wowhead.npc) || {})) for (const d of w.drops || []) if (!d.common) (droppers[d.item] = droppers[d.item] || new Set()).add(Number(npc));
+	for (const [npc, w] of Object.entries((ctx.web && ctx.web.npc) || {})) for (const d of w.drops || []) if (!d.common) (droppers[d.item] = droppers[d.item] || new Set()).add(Number(npc));
 	// A boss's items from its [item, chance, common] rows: the best chance per
-	// item; its own table first (items no row puts in Wowhead's world-drop
+	// item; its own table first (items no row puts in Forever's world-drop
 	// pool, so Onyxia's Sacks of Gems are not crowded out by world blues), then
 	// that pool, each best first (an unknown rate last), at most BOSS_LOOT_CAP.
 	const bossItems = (rows) => {
@@ -306,9 +306,9 @@ function buildInstances(facts, ctx = {}) {
 	};
 	const quality = ctx.quality || (() => null);
 	const objectsIn = ctx.objects || {};
-	const whNpc = (ctx.wowhead && ctx.wowhead.npc) || {};
-	const whObject = (ctx.wowhead && ctx.wowhead.object) || {};
-	// Objects: [item, chance] rows (items.json, Wowhead), and who else yields
+	const whNpc = (ctx.web && ctx.web.npc) || {};
+	const whObject = (ctx.web && ctx.web.object) || {};
+	// Objects: [item, chance] rows (items.json, Forever's data), and who else yields
 	// an item (npcs by id, objects by name: one chest has several ids).
 	const objLootOf = {};
 	const yielders = {}; // item -> Set('n<npc>' | 'o<object name>')
@@ -329,7 +329,7 @@ function buildInstances(facts, ctx = {}) {
 			if (c >= MIN_LOOT) (objLootOf[obj] = objLootOf[obj] || []).push([d.item, c, !!d.common]);
 		}
 	}
-	// Wowhead's `location` (AreaTable ids) -> the instance map holding that area.
+	// Forever's `location` (AreaTable ids) -> the instance map holding that area.
 	const mapOfArea = {};
 	for (const m of facts.maps || []) for (const a of m.inner || []) mapOfArea[a] = mapOfArea[a] || m.id;
 	const whMaps = (w) => new Set(((w && w.location) || []).map((a) => mapOfArea[a]).filter(Boolean));
@@ -374,7 +374,7 @@ function buildInstances(facts, ctx = {}) {
 			return placed.length === 1 ? placed[0] : null;
 		};
 		const bosses = [];
-		// The objects placed inside (objects.json `instances`, Wowhead `location`).
+		// The objects placed inside (objects.json `instances`, Forever's `location`).
 		// A gathering node, mailbox or meeting stone is never a boss.
 		const objectsInside = objectIds.filter((id) => objName(id) && !JUNK_NPC.test(objName(id)) && !((objectsIn[id] && objectsIn[id].roles) || []).some((r) => r !== 'chest') && placedIn(objectsIn[id], whObject[id], m.id));
 		for (const e of enc) {
@@ -397,7 +397,7 @@ function buildInstances(facts, ctx = {}) {
 			for (const id of npcs) bossInstance[id] = bossInstance[id] || key;
 		}
 		// Further bosses, after the encounters: NPCs placed inside (npcs.json
-		// `instances`, Wowhead `location`) that the data or Wowhead ranks rare or
+		// `instances`, Forever's `location`) that the data ranks rare or
 		// boss, or that alone drop an item of quality 2 or better at OWN_LOOT% or
 		// more (the Ring of Law's fighters, rare spawns, summoned bosses), by
 		// level; then the chests placed inside that alone hold such an item (at

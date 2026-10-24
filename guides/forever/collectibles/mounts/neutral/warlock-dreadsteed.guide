@@ -46,7 +46,7 @@ zone Burning Steppes
 # Shards the ritual burns. The counts here are quests.json's.
 # Places inside the dungeons have no spawns in our data: their goals point at
 # the Scholomance (Caer Darrow 69.7,73.2) and Dire Maul (the gate, 59.2,45.1)
-# entrances of tools/lib/codex/entrances.json (QuestieDB Forever), as the
+# entrances of data/codex/entrances.json (QuestieDB Forever), as the
 # Paladin Charger guide does.
 # The materials have no place in the data to fetch them: alchemists make the
 # elixirs and transmute the Arcanite, enchanters the shards, miners dig the

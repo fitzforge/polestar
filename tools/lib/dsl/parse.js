@@ -64,6 +64,8 @@ const MODS = {
 	use: [...COMMON, ...COORDS, 'quest'],
 	sethome: [...COMMON, ...COORDS, 'npc'],
 	hearth: [...COMMON],
+	// `die "<Graveyard>" @x,y`: die and take the Spirit Healer's resurrection there (a deathskip).
+	die: [...COMMON, ...COORDS],
 	getfp: [...COMMON, ...COORDS, 'npc'],
 	fly: [...COMMON],
 	// `enter "<Place>"`: be in that zone or area (the zone or subzone text); coordinates only point the arrow.
@@ -690,6 +692,7 @@ function parsePositional(verb, goal, toks, line, lex, ln, err, spans) {
 		}
 		case 'sethome':
 		case 'hearth':
+		case 'die':
 		case 'getfp':
 		case 'fly':
 		case 'enter': {
@@ -931,6 +934,11 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 				const tk = toks[i + 1];
 				if (!tk || tk.quoted || !NUM_RE.test(tk.text) || Number(tk.text) <= 0) {
 					return err(ln, `malformed radius "${tk ? tk.text : ''}" (yards > 0)`), null;
+				}
+				// The pack writes `r` with 2 decimals (emit.js luaNumber); one that rounds to 0 is refused by
+				// the addon ("bad radius", Guides.lua).
+				if (!(Number(Number(tk.text).toFixed(2)) > 0)) {
+					return err(ln, `radius "${tk.text}" rounds to 0 in the pack (2 decimals): use at least 0.005`), null;
 				}
 				goal.r = Number(tk.text);
 				i += 2;

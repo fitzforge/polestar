@@ -383,7 +383,7 @@ local function scanLog()
 end
 
 local function sweepLog()
-	for q in pairs(Q._data.quests) do
+	for _, q in ipairs(Q.QuestIds()) do
 		if ns.Compat.IsOnQuest(q) then hidden[q] = true end
 	end
 end
@@ -757,10 +757,10 @@ local lastOn = {} -- quests in the log at the last scan
 
 local function buildCandidates()
 	candidates, dependents, skillCandidates = {}, {}, {}
-	for q, r in pairs(Q._data.quests) do
+	for _, q in ipairs(Q.QuestIds()) do
+		local r = Q.QuestRecord(q)
 		if Q.IsEligible(r, ctx) and hasGiver(r) then candidates[#candidates + 1] = q end
 	end
-	table.sort(candidates)
 	for i = 1, #candidates do
 		local q = candidates[i]
 		local needsSkill = Q.EachAvailabilityRef(q, function(ref)

@@ -13,22 +13,22 @@ why A staff, off-hand or robe for your 50s; Impsy's own errand, not a step of th
 # trainer to Impsy in Felwood, The Wrong Stuff (8421) and Trolls of a Feather
 # (8422), the Voodoo Feathers of the Sunken Temple's troll guardians.
 # Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
-# Questie-Forever) for the givers, drops and spawns; Wowhead Forever's
-# Warlock class page (data/local/quest-audit/wowhead-class-quests.json):
+# Questie-Forever) for the givers, drops and spawns; Forever's
+# Warlock class quest list (data/local/quest-audit/):
 # unchanged in Forever, Trolls of a Feather lets you choose the Soul
 # Harvester, the Abyss Shard or the Robes of Servitude.
 # Impsy also offers Hot and Itchy (8420), the same Felcloth errand without the
 # trainer; the two exclude each other, so take An Imp's Request from your
 # trainer as below.
 # The feathers drop from elite trolls inside the Sunken Temple: this chain
-# needs a dungeon group. Wowhead's Classic quest page
-# (wowhead.com/classic/quest=8422) asks for six feathers in all. The data has
+# needs a dungeon group. The classic quest data
+# (quest 8422) asks for six feathers in all. The data has
 # no position for the trolls or the dungeon entrance; the entrance point
-# (69,54, the temple in the middle of the Pool of Tears) is from a comment on
-# Wowhead's Sunken Temple zone page (wowhead.com/zone=1477).
+# (69,54, the temple in the middle of the Pool of Tears) is from players' reports on
+# the Sunken Temple zone (zone 1477).
 # Not part of the Dreadsteed chain: An Imp's Request (8419 or 8420) -> The
 # Wrong Stuff (8421) -> Trolls of a Feather (8422) ends there (8422 has no
-# `next`, and no Dreadsteed quest needs any of them; Wowhead's series box for
+# `next`, and no Dreadsteed quest needs any of them; the quest data's series for
 # 8419 shows the same four). The imp of the Dreadsteed road is J'eevee in
 # the Scholomance (Imp Delivery), not Impsy. Impsy's camp also runs Niby the
 # Almighty's chain for the Shard of the Green Flame

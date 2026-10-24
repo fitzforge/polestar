@@ -165,7 +165,7 @@ step Shay Leafrunner
 
 step Shay's escort
   tip Ring the bell whenever Shay stops to wander, and lead her south to Rockbiter.
-  complete 2845
+  complete 2845 @42.33,21.85          -- Rockbiter's camp
   turnin 2845                         -- Rockbiter
 
 step Feathermoon Stronghold

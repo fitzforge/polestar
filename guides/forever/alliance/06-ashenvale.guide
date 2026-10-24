@@ -136,6 +136,7 @@ step Boat to Auberdine
 
 step Kerlonian Evershade
   tip Kerlonian sleeps at the Grove of the Ancients in southern Darkshore. Use the Horn of Awakening to wake him and lead him south along the road into Ashenvale to Liladris Moonriver at Maestra's Post; blow the horn again whenever he falls asleep.
+  collect 13536 quest 5321.1                  -- Kerlonian's Chest, beside him
   goto 44.4,76.4 "Kerlonian Evershade"
   note Escort Kerlonian to Maestra's Post in Ashenvale.
 

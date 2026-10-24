@@ -10,7 +10,7 @@
 #
 # Forever above level 30 cannot be checked in game until launch on 4
 # November: the Forever additions here come from the data (Questie Forever,
-# Wowhead Forever), not from play.
+# Forever's quest data), not from play.
 # Left out: Bloom of the Heavens (98209, Forever, to Thundris Windweaver in
 # Auberdine): Sylessa in Menethil offers it only after her first Bloom of the
 # Heavens (98208), which 30-40/01-hillsbrad-foothills cannot place.
@@ -30,7 +30,7 @@
 # (1371) and Khan Shaka (1375) go with them. Forever's follow-ups to the war
 # (A Conqueror's Crown 92743, Valley of Bones 92841 and 93034, and the
 # Shen'dralas quests 92844, 93035, 93037, 93041, 93128) need Friendly or
-# Honored with the Magram or the Gelkis (Wowhead Forever quest=92841: Magram
+# Honored with the Magram or the Gelkis (Forever's quest data, quest 92841: Magram
 # Honored), so they are left out too; see 30-40/06-badlands.
 # Class quests: Warlocks pick up the Heartswood (1738) north-west of
 # Astranaar on the way to the Talondeep Path; Gakin takes it in Stormwind

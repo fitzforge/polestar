@@ -18,8 +18,8 @@ why A dagger at 10 from your home town's rogue quests.
 #   Onin's Report (2218, 2238, 2239).
 # - Dolanaar (Night Elves): The Apple Falls and Destiny Calls (2241, 2242).
 # Sources: quests.json, npcs.json, objects.json and items.json for the givers,
-# drops and places; travel.json for the inns; Wowhead Forever's Rogue class
-# page (data/local/quest-audit/wowhead-class-quests.json) for the rewards and
+# drops and places; travel.json for the inns; Forever's Rogue class
+# quest list (data/local/quest-audit/) for the rewards and
 # Forever's changes (none for these chains). The quests' race masks take any
 # Alliance race; the race split follows where each race is at level 10.
 # The leveling guides leave these out: they teach no spell.

@@ -1,0 +1,48 @@
+{
+	"ok": false,
+	"errors": 3,
+	"warnings": 3,
+	"diagnostics": [
+		{
+			"file": "rust/crates/forge-guide/tests/fixtures/mini/forever/test/01-valley.guide",
+			"line": 8,
+			"severity": "error",
+			"message": "`next` points to unknown guide \"forever/horde/orc-troll/02-the-barrens\"",
+			"hint": "list guide ids with `polestar find --kind guide <text>`"
+		},
+		{
+			"file": "rust/crates/forge-guide/tests/fixtures/mini/forever/test/01-valley.guide",
+			"line": 18,
+			"severity": "error",
+			"message": "quest 97279 is not in data; give its title: `accept 97279 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/crates/forge-guide/tests/fixtures/mini/forever/test/01-valley.guide",
+			"line": 18,
+			"severity": "warning",
+			"message": "quest 97279 is accepted but never turned in later in this guide or a guide after it",
+			"hint": "turn it in later in this guide or in a guide after it, or make the accept `optional` when the player may leave it"
+		},
+		{
+			"file": "rust/crates/forge-guide/tests/fixtures/mini/forever/test/01-valley.guide",
+			"line": 21,
+			"severity": "error",
+			"message": "item 277653 is not in data; give its name: `collect 277653 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/crates/forge-guide/tests/fixtures/mini/forever/test/01-valley.guide",
+			"line": 21,
+			"severity": "warning",
+			"message": "quest 97279 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/crates/forge-guide/tests/fixtures/mini/forever/test/01-valley.guide",
+			"line": 21,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		}
+	]
+}

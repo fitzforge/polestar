@@ -16,9 +16,9 @@ why A robe or a blouse for Human and Gnome mages in their late 20s.
 # (1942).
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
 # the treatise in the Tower of Ilgalar and the spiders that drop the silk;
-# Wowhead Forever's Mage class page
-# (data/local/quest-audit/wowhead-class-quests.json, all four unchanged) and
-# quest pages (https://www.wowhead.com/forever/quest=1939, 1938, 1940 and 1942,
+# Forever's Mage class quest list
+# (data/local/quest-audit/, all four unchanged) and
+# quest data (quests 1939, 1938, 1940 and 1942,
 # checked 2026-10-14) for the races (Human and Gnome only: Skyborne mages have
 # no level 26 robe quest) and the reward choice; the quest texts for the
 # tower's library and the carrion recluses.

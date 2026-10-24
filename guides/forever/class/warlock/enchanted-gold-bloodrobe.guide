@@ -15,10 +15,10 @@ why A rare cloth robe for your 30s, which Menara Voidrender makes from the parts
 # Xizk Goodstitch in Booty Bay and The Completed Robe (4786).
 # Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
 # Questie-Forever) for the givers, drops and spawns; professions.json for
-# Robes of Arcana (Tailoring) and Gold Bar (Mining, Smelt Gold); Wowhead's
-# Classic quest page (wowhead.com/classic/quest=4786) for waiting while Menara
-# finishes the robe; Wowhead Forever's Warlock class page
-# (data/local/quest-audit/wowhead-class-quests.json): every quest of the chain
+# Robes of Arcana (Tailoring) and Gold Bar (Mining, Smelt Gold); the
+# classic quest data (quest 4786) for waiting while Menara
+# finishes the robe; Forever's Warlock class quest list
+# (data/local/quest-audit/): every quest of the chain
 # unchanged in Forever.
 # Robes of Arcana and a Gold Bar have no place to fetch them: tailors and
 # miners make them, everyone else buys them at the Auction House. The Soul

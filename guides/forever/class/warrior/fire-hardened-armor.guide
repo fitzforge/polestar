@@ -22,12 +22,12 @@ why A hauberk at 28, a coif, leggings or gauntlets by race, and a shield on the 
 # three: their chain ends with Furen's Armor.
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
 # objectives, drops and places (the Rethban Caverns point is the quest's own
-# objective position); Wowhead Forever's Warrior class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the rewards and
+# objective position); Forever's Warrior class quest list
+# (data/local/quest-audit/) for the rewards and
 # Forever's changes (none for this chain); the Razorfen Kraul entrance from
 # data/forever/dungeons.json (The Barrens 42.9,90.2, live frame). Roogug, who
 # drops the Vial of Phlogiston, has no spawn in the data: he is a quilboar
-# elite inside Razorfen Kraul (https://www.wowhead.com/zone=491/razorfen-kraul,
+# elite inside Razorfen Kraul (zone 491,
 # https://wowwiki-archive.fandom.com/wiki/Vial_of_Phlogiston).
 # No leveling guide takes this chain: it needs a dungeon (Razorfen Kraul) and
 # runs from Redridge to Stonetalon, the Wetlands and the capitals.

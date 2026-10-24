@@ -1,0 +1,40 @@
+{
+	"1919": {
+		"set": {
+			"races": 4294967361,
+			"start": {
+				"npc": [
+					328,
+					7312
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"note": "Synthetic: races and givers set by the fixture."
+	},
+	"2861": {
+		"set": {
+			"start": {
+				"npc": [
+					4568,
+					5144
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"note": "Synthetic: two givers."
+	},
+	"2936": {
+		"set": {
+			"end": {
+				"npc": [
+					3188
+				],
+				"object": []
+			}
+		},
+		"note": "Synthetic: one ender."
+	}
+}

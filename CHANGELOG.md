@@ -903,7 +903,7 @@
 - On a client in another language, Polestar now names Forever's own quests,
   NPCs, objects and items in that language too, and instances, dungeon bosses,
   factions and flight points as the game does: the names packs take the game's
-  own tables first, then Wowhead's Forever database in that language. The
+  own tables first, then Forever's quest data in that language. The
   source a collect goal names ("Kill Grell for Fel Moss") is in your language,
   and the AddOns list shows Polestar's addons in it.
 - Walks keep out of zones far above your level: the arrow and the route lines
@@ -1159,7 +1159,7 @@
   get Boosted Rest, not "Click Basic Campfire" (thanks Sato).
 - Zephras Isle: the Scrawny Ursera step sends you to the slopes west of
   Thendal Village, where they spawn, not into the village: our spawn data
-  had bears inside it that Wowhead Forever's map has none of (thanks Sato).
+  had bears inside it that Forever's map data has none of (thanks Sato).
 
 ### For guide authors
 
@@ -1257,7 +1257,7 @@
   steps, goal kinds and quests do not match its `.guide` file. A hand-spliced
   Guides.lua could break that and still load without an error, and the game
   never showed those goals. Needs no reference data, so CI runs it.
-- On Windows, data build names its quest XP and Wowhead zone list caches with
+- On Windows, data build names its quest XP and zone quest list caches with
   forward slashes in meta.json, so compiling there no longer writes
   backslashes into those two lines of addon/Polestar_Guides/LICENSE-DATA.txt.
 - `tools/discord-bot`: `/close` and `/reopen` for server administrators in
@@ -1355,7 +1355,7 @@
   (`Core/Names.lua`) reads them; docs/ARCHITECTURE.md, "Names", and
   docs/TRANSLATING.md, "Game names".
 - i18n names reads the client's own tables in each language (wago.tools) and
-  the cached Wowhead Forever names (data/sources/wowhead/names) before DingDB
+  the cached Forever web names (data/sources/web/names) before DingDB
   and pfQuest, and bakes instance, encounter, faction, flight point and
   dungeon objective names too. Every addon TOC has Title-/Notes- lines for the
   nine languages, from tools/lib/i18n/toc.js.
@@ -1524,8 +1524,8 @@
   (Nathanos Blightcaller's errands before Ramstein, Speak with Shoni before
   Underground Assault, Alba Fairmoon's Toxic Soil chain before Destruction in
   Deadmines, Rethiel's Wetlands chain before Horrors in the Highland, Magus
-  Voidglare's quests before Blood in the Streets); the instance Wowhead
-  Forever files a quest under counts (An Ancient Grudge in the Hall of Thanes,
+  Voidglare's quests before Blood in the Streets); the instance Forever's
+  quest data files a quest under counts (An Ancient Grudge in the Hall of Thanes,
   now for both sides); a quest whose start item drops or lies inside is on
   that dungeon's page too (An Unholy Alliance on Razorfen Kraul's, the
   Treaty of Understanding on the Hall of Thanes'); the report back that ends
@@ -1546,7 +1546,7 @@
   Deadmines guide started with Copper Modulator, Rinling's Faire ticket
   turn-in, because the modulator drops there. Darkmoon Faire, holiday and
   war effort quests are on a dungeon's page only where the game files them,
-  and an item a boss drops only rarely by Wowhead's count no longer ties a
+  and an item a boss drops only rarely by the web database's count no longer ties a
   quest to it: The Ectoplasmic Distiller left Naxxramas and Zul'Gurub, The
   Dread Citadel left Blackwing Lair (thanks kp)
 - The Barrens guide takes Walton and Vrang's quests in the order the game
@@ -1573,7 +1573,7 @@
   (thanks CDVolvik).
 - Quests Forever renamed carry their Forever names in the guides: Chastise
   (once A Lack of Fear), Dark Sacrifice (once Devouring Plague), Look to the
-  Stars, Onu is Meditating and the others Wowhead Forever lists as renamed.
+  Stars, Onu is Meditating and the others Forever's quest data lists as renamed.
 - The leveling guides follow the refreshed simulator route and take
   Forever's new quests on it. Alliance: Shipment to Stormwind and An Apple
   Treat in Elwynn Forest, Crown of the Earth and the Temple of the Moon in
@@ -1677,7 +1677,7 @@
   Rin'wosho the Trader's quests. Such a source shows as unavailable, with
   the grind, until you have the standing, and a guide built from it reaches
   the standing first.
-- 286 more NPCs show their level in Lookup (from Wowhead Forever's NPC list,
+- 286 more NPCs show their level in Lookup (from Forever's NPC list data,
   where nothing else gave one).
 - Dungeons list more than their encounters: the Ring of Law's fighters,
   event and rare bosses (Edge of Madness, Theldren, Mor Grayhoof) after the
@@ -1989,9 +1989,9 @@
   `reward item <item> ...` (several on one line are a choice of one),
   `reward spell <id> "Name"` or `reward text <words>`, repeatable, and `why
   <one line>` (format 2; lint warns when a Class guide lacks either).
-- `data build` applies Wowhead Forever's "Renamed from Y" notes too: a quest
+- `data build` applies Forever's "Renamed from Y" change notes too: a quest
   whose title is still Y takes Forever's name (its `source` gains
-  `wowhead:title`). It also reads Wowhead Forever's class quest pages, so
+  `web:title`). It also reads Forever's class quest lists, so
   Forever's XP and level changes reach class quests that no zone list shows.
 - Goals carry `group` (format 2 of the pack format; Polestar 0.2.4 reads it,
   older versions show such a pack as needing 0.2.4): the compiler derives it
@@ -2033,7 +2033,7 @@
 - `quest Q.O` on a `collect`, `kill` or `interact` warns when objective O is
   another item, npc or object, and names the index that is this one's (or
   write `quest Q` and the index comes from the target). Legging It and Call
-  of Fire list their objectives in Wowhead Forever's order in the reference
+  of Fire list their objectives in Forever's quest data order in the reference
   data now, so their steps raise no false alarm (thanks CDVolvik).
 - `node tools/polestar.js planner` opens the route planner in the browser:
   pick a guide and a character and the route plays on the game's own map
@@ -2150,13 +2150,13 @@
   where `os.clock()` is wall time, only that is held (thanks CDVolvik).
 - `tools/lib/codex/repgates.json`: a curated, cited table of the reputation
   a vendor, giver or quest asks for an item (one row per item and faction,
-  each with its warcraft.wiki.gg or Wowhead Classic page), which `codex
+  each with its warcraft.wiki.gg or classic quest data page), which `codex
   build` applies after the client's own gates and before a guide's; a row
   whose item, vendor or quest the Codex lacks is a build warning. Parity
   "items: rep" goes from 505 to 682 of 689.
-- `codex wowhead` reads Wowhead Forever's NPC, object and item lists first
+- The Codex's web fetch reads Forever's NPC, object and item lists first
   (1,000 rows a request, by id range, cached under
-  `data/sources/wowhead/codex/lists/`) and fetches a cached page again only
+  `data/sources/web/codex/lists/`) and fetches a cached page again only
   when its list row changed, an older parser read it, or it is older than
   `--max-age` (default 7 days) and an open parity gap or Forever's own (new
   or updated): an entity Forever left as in Classic keeps its page. A
@@ -2169,7 +2169,7 @@
   picks its `--forever-build` (`pickBuild`, tools/lib/data/wago.js);
   `--build <version>` names one, and offline the newest cached build holding
   every table the Codex reads is used. `meta.json` records the build;
-  `codex parity` and `codex wowhead` read the client tables of the build the
+  `codex parity` and the web fetch read the client tables of the build the
   Codex was made from.
 - A route refresh keeps every fix a guide's header documents
   (docs/SIMULATION.md, "Keeping the guides' fixes"; CONTRIBUTING.md, "Fixing
@@ -2450,12 +2450,12 @@
 - A release `codex build` measures itself against the last `--local-extras`
   build, entity by entity (`data/local/codex-parity.md`, `codex parity`), and
   lists what only play can fill with the Recorder event that fills it.
-- `codex wowhead` fetches, one page at a time, Wowhead Forever's facts for
+- The Codex's web fetch gets, one page at a time, Forever's web facts for
   what the parity report lists as missing (NPC level, rank, positions and
   drops with counts; object contents; item tooltip requirements) into
-  `data/sources/wowhead/codex/`, which a release `codex build` reads. The
+  `data/sources/web/codex/`, which a release `codex build` reads. The
   parity report now checks every internal-only fact against Forever (the
-  client, Wowhead) and says whether it is a gap of ours, not in Forever, or
+  client, the web database) and says whether it is a gap of ours, not in Forever, or
   unverified.
 - `data build` keeps the droppers of pfQuest's reference loot tables (raid
   and boss loot) at an unknown rate instead of dropping them: Molten Core's
@@ -2465,11 +2465,11 @@
   both pass) and the guide format on one page. `new` copies it into the pack's
   `.agents/skills/` and `.claude/skills/`, and the pack's AGENTS.md points to
   it.
-- `data build` reads Wowhead's Forever zone quest lists (cached a day in
-  `data/sources/wowhead/`) and applies Forever's change notes: "Experience X
+- `data build` reads Forever's zone quest lists (cached a day in
+  `data/sources/web/`) and applies Forever's change notes: "Experience X
   instead of Y", "Level X instead of Y" and "Requires level X instead of Y"
   set X where the data still holds the old value (Scaring Shaky now gives
-  3300 XP, not 820). Quests still without XP take Wowhead's. `--no-wowhead`
+  3300 XP, not 820). Quests still without XP take the list's. `--no-web-zones`
   skips it; guide pack workflows and Codespaces build with it.
 - The Recorder records finds (`rare`, `treasure`, `slain`, `drop`, `enter`,
   `encounter` events; docs/ARCHITECTURE.md, "Recordings") and the quest

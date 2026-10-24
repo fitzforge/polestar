@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/npc.schema.json",
+  "title": "npc",
+  "description": "One row per creature id.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "client creature id"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "name"
+    },
+    "subname": {
+      "type": "string",
+      "minLength": 1,
+      "description": "title under the name"
+    },
+    "level_min": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "lowest level"
+    },
+    "level_max": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "highest level"
+    },
+    "faction_template": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "client FactionTemplate id"
+    },
+    "rank": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "0 normal, 1 elite, 2 rare elite, 3 boss, 4 rare"
+    }
+  }
+}

@@ -10,7 +10,7 @@ return {
 	-- {skill:393} Skinning
 	["Learn {skill:393}"] = "Lerne {skill:393}",
 	-- {skill:393} Skinning · {item:7005} Skinning Knife
-	["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} at any level, and so does the Junior Skinning Trainer in each starting zone; the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it."] = "",
+	["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} at any level, and so does the Junior Skinning Trainer in each starting zone; the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it."] = "Jeder Lehrer für {skill:393} deiner Fraktion bringt dir auf jeder Stufe {skill:393} (Lehrling) bei, ebenso der Junior-Lehrer für Kürschnerei in jedem Startgebiet; der Pfeil wählt den nächsten. Kaufe {item:7005} bei einem Handelswarenhändler oder allgemeinen Händler: Behalte es in deinen Taschen, ohne es kannst du nicht abziehen.",
 
 	-- Step 2: Beasts 1-9: Elwynn Forest (1-50)
 	-- {zone:1429} Elwynn Forest

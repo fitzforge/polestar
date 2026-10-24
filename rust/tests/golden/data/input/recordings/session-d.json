@@ -1,0 +1,23 @@
+{
+	"schema": 1,
+	"build": "1.60.1.70200",
+	"session": "d",
+	"char": { "name": "Repper", "realm": "Fixture", "race": "Human", "class": "ROGUE", "faction": "Alliance" },
+	"started": 5000,
+	"ended": 5600,
+	"events": [
+		{ "t": 1, "e": "rep", "faction": 529, "factionName": "The Argent Dawn", "standing": 4, "value": 0 },
+		{ "t": 2, "e": "rep", "faction": 2587, "factionName": "Durotar Supply and Logistics", "standing": 4 },
+		{ "t": 3, "e": "rep", "faction": 0, "factionName": "Inactive" },
+		{ "t": 4, "e": "rep" }
+	],
+	"factions": {
+		"72": { "name": "Stormwind", "standing": 5 },
+		"469": { "name": "Alliance", "header": true, "parent": 72 },
+		"2700": { "name": "Skyborne Accord", "parent": 469 },
+		"2701": { "name": "Fixture Horde Header", "header": true, "side": "Horde" },
+		"2702": { "name": "Fixture Horde Child", "parent": 2701 },
+		"2703": { "name": "Orphan", "parent": 99999 }
+	},
+	"maps": {}
+}
