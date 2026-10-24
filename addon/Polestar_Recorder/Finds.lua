@@ -352,18 +352,27 @@ local function noteOutdoor()
 	if map and x and y then outdoor = { map = map, x = x, y = y } end
 end
 
+-- The players in the group (1 alone), for how long a party takes to clear
+-- (the simulator's calibration: docs/SIMULATION.md, "Calibration").
+local function partySize()
+	local n = GetNumGroupMembers and GetNumGroupMembers() or 0
+	return n > 0 and n or 1
+end
+
 local function checkInstance()
 	local id, diff, name, kind = instance()
 	if id == inInstance then
 		if not id then noteOutdoor() end
 		return
 	end
+	-- Out of one (or straight into another): its run ends here.
+	if inInstance then ns.Record("leave", { inst = inInstance, party = partySize() }) end
 	inInstance = id
 	if not id then
 		noteOutdoor()
 		return
 	end
-	local ev = { inst = id, instName = name, instType = kind, diff = diff }
+	local ev = { inst = id, instName = name, instType = kind, diff = diff, party = partySize(), lvl = UnitLevel and num(UnitLevel("player")) or nil }
 	if outdoor then ev.map, ev.x, ev.y = outdoor.map, outdoor.x, outdoor.y end
 	ns.Record("enter", ev)
 end

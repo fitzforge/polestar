@@ -8,11 +8,12 @@ const { objectiveName, parseOverrides, tagName } = require('../lib/sim/params');
 
 const usage = `usage: node tools/polestar.js sim <command> [options]
 
-  sim world   [--faction F] [--rebuild]               build/cache the world model (data/sim/world-<faction>.json)
+  sim world   [--faction F] [--rebuild] [--elites]    build/cache the world model (data/sim/world-<faction>.json)
   sim walks   [--faction F] [--radius Y] [--workers W]  route the world's walks with the walking router
-              (data/sim/walks-<faction>.json; run, robust, compare, bench and consensus use them)
+              (data/sim/walks-<faction>.json, with --elites walks-<faction>-group.json;
+               run, robust, compare, bench and consensus use them)
   sim calibrate [--fdj DIR]                            fit parameters to quest data and recordings
-  sim run     --faction F [--race R] [--class C] [--paths N] [--workers W] [--seed S] [--dungeons]
+  sim run     --faction F [--race R] [--class C] [--paths N] [--workers W] [--seed S] [--dungeons] [--party N] [--elites]
               [--jobs J] [--anneal A] [--max-paths M] [--objective time|smooth] [--param K=V ...] [--tag T]
   sim robust  --faction F [--race R] [--class C] [--draws K] [--top N] [--objective O]   robustness of the top routes
   sim compare --faction F [--race R] [--class C] [--guides DIR] [--pack DIR | DIR] [--to 10,20,30] [--with-optional]
@@ -20,6 +21,13 @@ const usage = `usage: node tools/polestar.js sim <command> [options]
   sim bench   --faction F [--race R] [--class C]      bracket table: zones, levels, quests per 10 levels
   sim export  --result <file> --out <dir>             zone-by-zone skeleton guides + visits.json for authors
   sim consensus --faction F [--dungeons] [--evals N] [--objective O]   one 12-60 route shared by the faction's starts (+ exports)
+  sim weave   --faction F [--race R] [--class C] [--party N] [--elites] [--draws K]   what each dungeon is worth on a
+              searched route: its best spot, the time to 60 it saves or costs, the recommended set (data/sim/weave/),
+              and with --draws how sure that is under K parameter draws
+  sim elites  --faction F [--race R] [--party N] [--min M] [--apply]   what each elite quest saves a party on its
+              --elites route (more than M minutes, default 5), and draft \`when group\` steps for the
+              ones our guides lack, placed where a guide visits the giver (data/sim/elites/); --apply
+              writes them into the guide files and takes out any block lint reports in
 
 Without --race, run/robust/compare/bench cover every start of the faction
 (Horde: Orc, Tauren, Undead, Skyborne; Alliance: Human, Dwarf, NightElf,
@@ -46,6 +54,12 @@ options:
   --anneal <n>       run: annealing evaluations per job (default 6000)
   --max-paths <n>    run: hard cap on evaluated routes (default 3x --paths)
   --dungeons         run/robust/consensus: the dungeon-inclusive family (needs data/forever/dungeons.json)
+  --party <n>        run/robust/compare/consensus: a party of n (1-5) levelling together: shared kills
+                     and group XP, drops per member, a premade dungeon group (docs/SIMULATION.md,
+                     "Party"); results get the tag party<n> unless --tag names another
+  --elites           world/run/robust/compare/consensus: keep elite quests (the group world,
+                     data/sim/world-<faction>-group.json); results get the tag elites (with
+                     --party: party<n>-elites) unless --tag names another
   --objective <o>    run/robust/compare/consensus: what the search optimises (default time):
                      time = the fastest route; smooth = fewer zone changes, returns into zones
                      left earlier and returns to spots already worked (docs/SIMULATION.md);
@@ -60,9 +74,9 @@ options:
   --offline          never download the QuestXP table
   --quiet            less output`;
 
-const VALUE = new Set(['faction', 'race', 'class', 'paths', 'workers', 'seed', 'draws', 'top', 'result', 'out', 'data', 'sim', 'fdj', 'guides', 'pack', 'to', 'band', 'jobs', 'anneal', 'max-paths', 'evals', 'radius', 'objective', 'param', 'tag']);
+const VALUE = new Set(['faction', 'race', 'class', 'paths', 'workers', 'seed', 'draws', 'top', 'result', 'out', 'data', 'sim', 'fdj', 'guides', 'pack', 'to', 'band', 'jobs', 'anneal', 'max-paths', 'evals', 'radius', 'objective', 'param', 'tag', 'party']);
 const REPEAT = new Set(['param']);
-const FLAGS = new Set(['rebuild', 'offline', 'quiet', 'help', 'dungeons', 'with-optional', 'no-walks']);
+const FLAGS = new Set(['rebuild', 'offline', 'quiet', 'help', 'dungeons', 'with-optional', 'no-walks', 'elites', 'apply']);
 
 function parseArgs(argv) {
 	const out = { _: [] };
@@ -96,9 +110,26 @@ function common(args) {
 	if (args.objective) o.objective = objectiveName(args.objective);
 	if (args.param) o.overrides = parseOverrides(args.param);
 	if (args.tag) o.tag = tagName(args.tag);
+	// A party levelling together: partySize fixed, results in their own files (`party3`).
+	if (args.party) {
+		o.overrides = { ...(o.overrides || {}), partySize: partyArg(args.party) };
+		if (!o.tag) o.tag = `party${o.overrides.partySize}`;
+	}
+	// Elite quests open: the group world (world-<faction>-group.json), results
+	// in their own files (`elites`, `party3-elites`).
+	if (args.elites) {
+		o.variant = 'group';
+		if (!args.tag) o.tag = o.tag ? `${o.tag}-elites` : 'elites';
+	}
 	if (args['no-walks']) o.walks = false;
 	o.log = args.quiet ? () => {} : (m) => console.error(m);
 	return o;
+}
+
+function partyArg(v) {
+	const n = Number(v);
+	if (!Number.isInteger(n) || n < 1 || n > 5) throw new Error(`--party must be 1 to 5 players (got ${v})`);
+	return n;
 }
 
 function races(args, faction) {
@@ -126,6 +157,7 @@ async function run(argv) {
 		if (args.objective) objectiveName(args.objective);
 		parseOverrides(args.param);
 		tagName(args.tag);
+		if (args.party) partyArg(args.party);
 	} catch (err) {
 		console.error(`${err.message}\n\n${usage}`);
 		return 2;
@@ -201,6 +233,8 @@ async function run(argv) {
 		if (cmd === 'calibrate') return await require('../lib/sim/calibrate').command(args, o);
 		if (cmd === 'export') return await require('../lib/sim/export').command(args, o);
 		if (cmd === 'consensus') return await require('../lib/sim/consensus').command(args, o);
+		if (cmd === 'weave') return await require('../lib/sim/weave').command(args, o);
+		if (cmd === 'elites') return await require('../lib/sim/elites').command(args, o);
 		console.error(`unknown sim command "${cmd}"\n\n${usage}`);
 		return 2;
 	} catch (err) {

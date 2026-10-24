@@ -17,7 +17,7 @@
 //     { schema, faction, dataHash, nav, style, radius, points, pairs: [a, b, yards, ...] }
 //     (a < b, world point indices; a pair the router could not walk is left out, so it
 //     keeps the straight line × detour)
-//   walksFile(simDir, faction), navFingerprint(navDir)
+//   walksFile(simDir, faction, variant), navFingerprint(navDir)
 //   attachWalks(world, simDir, { navDir, log }) -> world.walks = Map(a * NW + b -> yards, both
 //     orders) when data/sim/walks-<faction>.json was built on this world and these walking
 //     maps; else none (and a note why)
@@ -40,8 +40,11 @@ const STYLE = 'balanced';
 const NAV_DIR = path.join(ROOT, 'addon', 'Polestar_Nav');
 const CHUNK = 8; // queries per worker job (progress granularity)
 
-function walksFile(simDir, faction) {
-	return path.join(simDir, `walks-${String(faction).toLowerCase()}.json`);
+// A world variant (the group world, --elites) has its own points and hash,
+// so its own walks: walks-horde-group.json beside walks-horde.json.
+function walksFile(simDir, faction, variant = 'solo') {
+	const v = variant && variant !== 'solo' ? `-${variant}` : '';
+	return path.join(simDir, `walks-${String(faction).toLowerCase()}${v}.json`);
 }
 
 function readPack(navDir = NAV_DIR) {
@@ -168,11 +171,11 @@ async function buildWalks(world, { navDir = NAV_DIR, radius = RADIUS, style = ST
 		});
 	}
 	if (log) log(`  walks: ${pairs.length / 3} pairs routed, ${failed} the router could not walk (they keep the straight line × detour)`);
-	return { schema: WALKS_SCHEMA, faction: world.faction, dataHash: world.dataHash, nav: navFingerprint(navDir), style, radius, points: points.length, pairs };
+	return { schema: WALKS_SCHEMA, faction: world.faction, variant: world.variant || 'solo', dataHash: world.dataHash, nav: navFingerprint(navDir), style, radius, points: points.length, pairs };
 }
 
 function writeWalks(simDir, doc) {
-	const file = walksFile(simDir, doc.faction);
+	const file = walksFile(simDir, doc.faction, doc.variant);
 	fs.mkdirSync(simDir, { recursive: true });
 	fs.writeFileSync(`${file}.tmp`, JSON.stringify(doc));
 	fs.renameSync(`${file}.tmp`, file);
@@ -183,9 +186,9 @@ function writeWalks(simDir, doc) {
 function attachWalks(world, simDir, { navDir = NAV_DIR, log } = {}) {
 	world.walks = null;
 	world.walksId = null;
-	const file = walksFile(simDir, world.faction);
+	const file = walksFile(simDir, world.faction, world.variant);
 	if (!fs.existsSync(file)) {
-		if (log) log(`  walks: no ${path.basename(file)}: walking is the straight line × detour (\`sim walks --faction ${world.faction.toLowerCase()}\` routes it)`);
+		if (log) log(`  walks: no ${path.basename(file)}: walking is the straight line × detour (\`sim walks --faction ${world.faction.toLowerCase()}${world.variant === 'group' ? ' --elites' : ''}\` routes it)`);
 		return null;
 	}
 	const doc = JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -194,7 +197,7 @@ function attachWalks(world, simDir, { navDir = NAV_DIR, log } = {}) {
 	else if (doc.dataHash !== world.dataHash) why = 'built on another world';
 	else if (fs.existsSync(path.join(navDir, 'PACK.json')) && doc.nav !== navFingerprint(navDir)) why = 'built on other walking maps';
 	if (why) {
-		if (log) log(`  walks: ${path.basename(file)} not used (${why}): walking is the straight line × detour; rerun \`sim walks --faction ${world.faction.toLowerCase()}\``);
+		if (log) log(`  walks: ${path.basename(file)} not used (${why}): walking is the straight line × detour; rerun \`sim walks --faction ${world.faction.toLowerCase()}${world.variant === 'group' ? ' --elites' : ''}\``);
 		return null;
 	}
 	const NW = world.points.length;

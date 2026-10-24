@@ -38,6 +38,7 @@ ns.CAPS = {
 	rare = 2000,
 	treasure = 1000,
 	enter = 500,
+	leave = 500,
 	encounter = 500,
 	gossip = 4000,
 	vendor = 2000,

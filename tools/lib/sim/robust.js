@@ -178,4 +178,4 @@ async function command(args, o) {
 	return 0;
 }
 
-module.exports = { robust, command, analyze, spearman, evaluateDraws };
+module.exports = { robust, command, analyze, spearman, quantile, evaluateDraws };
