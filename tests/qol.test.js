@@ -1130,6 +1130,35 @@ test('merchant: repairs after selling, if affordable; Shift and settings off do 
 	assert.equal(out[3], 0, 'off: nothing');
 });
 
+test('merchant: sales still queued stop when junk sales are turned off (even back on), Shift is held, you log out or another merchant opens with Shift', () => {
+	const visit = (between) => run(`${BAGS}
+		q.bags[1].size = 12
+		for i = 9, 12 do q.addItem(1, i, 1, 1) end
+		q.money = 1000
+		q.repair = { can = true, cost = 50 }
+		q.openMerchant()                 -- the first tick sells 6 of the 10 queued slots
+		${between}
+		stub.advance(2)
+		emit({ sold = #q.sold, repaired = #calls("RepairAllItems") })
+	`)[0];
+	const got = {
+		off: visit('set("sellJunk", false)'),
+		offOn: visit('set("sellJunk", false); set("sellJunk", true)'),
+		shift: visit('stub.keys.shift = true'),
+		logout: visit('stub.fire("PLAYER_LOGOUT")'),
+		nextVisit: visit('stub.keys.shift = true; q.openMerchant()'),
+		left: visit(''),
+	};
+	assert.deepEqual(got, {
+		off: { sold: 6, repaired: 1 },
+		offOn: { sold: 6, repaired: 1 },
+		shift: { sold: 6, repaired: 0 },
+		logout: { sold: 6, repaired: 0 },
+		nextVisit: { sold: 6, repaired: 0 },
+		left: { sold: 10, repaired: 1 },
+	});
+});
+
 // ---------------------------------------------------------------------------
 // Buying for the step's buy goals
 // ---------------------------------------------------------------------------
@@ -1608,6 +1637,50 @@ test('trainer: riding, weapon and pet trainers are left alone, so opening one to
 		end
 	`);
 	assert.deepEqual(out, [0, 0, 0]);
+});
+
+test('trainer: turning training off (even back on), holding Shift or logging out while a purchase is on its way buys nothing more', () => {
+	const purchases = (between) => run(`${SPELLS}
+		set("trainAll", true)
+		q.money = 1000
+		q.openTrainer()                  -- the first purchase is on its way
+		${between}
+		stub.advance(3)
+		emit(#calls("BuyTrainerService"))
+	`)[0];
+	const got = {
+		off: purchases('set("trainAll", false)'),
+		offOn: purchases('set("trainAll", false); set("trainAll", true)'),
+		shift: purchases('stub.keys.shift = true'),
+		logout: purchases('stub.fire("PLAYER_LOGOUT")'),
+		closed: purchases('q.closeTrainer()'),
+		left: purchases(''),
+	};
+	assert.deepEqual(got, { off: 1, offOn: 1, shift: 1, logout: 1, closed: 1, left: 2 });
+});
+
+test('trainer: a purchase that has landed when Shift stops the run is still counted in the summary', () => {
+	const [out] = run(`${SPELLS}
+		set("trainAll", true)
+		q.money = 1000
+		q.openTrainer()
+		stub.keys.shift = true           -- held as the first purchase lands
+		stub.advance(3)
+		emit({ bought = #calls("BuyTrainerService"), money = q.money, msg = printed("Learned 1 spell for 1s 0c") })
+	`);
+	assert.deepEqual(out, { bought: 1, money: 900, msg: true });
+});
+
+test('trainer: a purchase still on its way when the setting is turned off is counted in the summary, as on close', () => {
+	const [out] = run(`${SPELLS}
+		set("trainAll", true)
+		q.money = 1000
+		q.openTrainer()                  -- the first purchase is on its way
+		set("trainAll", false)
+		stub.advance(3)
+		emit({ bought = #calls("BuyTrainerService"), money = q.money, msg = printed("Learned 1 spell for 1s 0c") })
+	`);
+	assert.deepEqual(out, { bought: 1, money: 900, msg: true });
 });
 
 // ---------------------------------------------------------------------------
@@ -2737,17 +2810,64 @@ test('resurrections: accepted after the corpse delay while still offered; never 
 		stub.keys.shift = true; r.shift = offer("Priest"); stub.keys.shift = false
 		s.corpseDelay = 5
 		r.early = offer("Priest")
+		s.corpseDelay = 0        -- the delay runs out
 		stub.advance(6)
 		r.late = #calls("AcceptResurrect")
 		q.calls = {}
+		s.corpseDelay = 5
 		offer("Priest")
 		s.offerer = nil          -- declined or timed out meanwhile
+		s.corpseDelay = 0
 		stub.advance(6)
 		r.withdrawn = #calls("AcceptResurrect")
 		emit(r)
 	`);
 	assert.equal(out[0], 0, 'off by default');
 	assert.deepEqual(out[1], { now: 1, msg: true, combat: 0, hardcore: 0, shift: 0, early: 0, late: 1, withdrawn: 0 });
+});
+
+// One offer from the Priest, waiting out a 5 s corpse delay; `between` runs
+// during the wait, then the delay runs out (or `left` seconds remain).
+const WAITED = `
+	local s = q.social
+	set("acceptResurrect", true)
+	local function waited(between, left)
+		q.calls = {}
+		s.corpseDelay = 5
+		s.offerer = "Priest"; stub.fire("RESURRECT_REQUEST", "Priest")
+		between()
+		s.corpseDelay = left or 0
+		stub.advance(6)
+		s.offerer, s.combat.Druid = nil, nil
+		return #calls("AcceptResurrect")
+	end
+`;
+
+test('resurrections: an old callback cannot accept another caster\'s offer, in combat, changed without an event or replacing it', () => {
+	const [got] = run(`${WAITED}
+		emit({
+			same = waited(function() end),
+			combatOffer = waited(function() s.offerer = "Druid"; s.combat.Druid = true; stub.fire("RESURRECT_REQUEST", "Druid") end),
+			changed = waited(function() s.offerer = "Druid" end),
+			replaced = waited(function() s.offerer = "Druid"; stub.fire("RESURRECT_REQUEST", "Druid") end),
+		})
+	`);
+	assert.deepEqual(got, { same: 1, combatOffer: 0, changed: 0, replaced: 1 });
+});
+
+test('resurrections: life transitions, the setting off and on, or a corpse delay still running drop the waiting offer', () => {
+	const [got] = run(`${WAITED}
+		local function fire(e) return function() stub.fire(e) end end
+		emit({
+			alive = waited(fire("PLAYER_ALIVE")),
+			unghost = waited(fire("PLAYER_UNGHOST")),
+			dead = waited(fire("PLAYER_DEAD")),
+			logout = waited(fire("PLAYER_LOGOUT")),
+			offOn = waited(function() set("acceptResurrect", false); set("acceptResurrect", true) end),
+			delayed = waited(function() end, 3),
+		})
+	`);
+	assert.deepEqual(got, { alive: 0, unghost: 0, dead: 0, logout: 0, offOn: 0, delayed: 0 });
 });
 
 test('party invitations: friends joined (dialog marked accepted), strangers declined when asked; role checks, queues and Shift ask', () => {

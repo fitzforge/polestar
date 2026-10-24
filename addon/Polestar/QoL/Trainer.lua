@@ -5,9 +5,10 @@
 -- this visit is never bought again. The next purchase waits until the last
 -- one has landed (its service is no longer "available"), whatever else
 -- updates the list; one that has not landed after LAND_WAIT seconds was
--- refused, and ends the run. Closing the window counts a purchase still on
--- its way: it was sent while available and affordable, and the list cannot
--- be read once the window is gone. Only "available" services you can afford
+-- refused, and ends the run. Closing the window, or stopping the run (the
+-- setting off, Shift), counts a purchase still on its way: it was sent while
+-- available and affordable, and is paid for whether or not the list has caught
+-- up. Only "available" services you can afford
 -- are bought, and only from a class trainer of your class that
 -- Core/ClassTrainers.lua knows (Engine.IsClassTrainer): riding, weapon, pet
 -- and profession trainers are left alone. Prints what was learned, and what
@@ -77,8 +78,20 @@ local function finish(short, shortCost)
 	end
 end
 
+local function cancel()
+	purchases = purchases + 1
+	-- A purchase on its way was sent while available and affordable: it
+	-- lands and is paid for, so it counts in the summary (as on close).
+	if active and pending then
+		learned, spent = learned + 1, spent + pendingCost
+	end
+	pending = nil
+	finish()
+end
+
 local function buyNext()
 	if not active then return end
+	if not QoL.On("trainAll") or QoL.Shift() then cancel(); return end
 	if pending then
 		if stillAvailable(pending) then return end
 		learned, spent = learned + 1, spent + pendingCost
@@ -124,3 +137,7 @@ end
 ns.RegisterEvent("TRAINER_SHOW", Trainer.OnShow)
 ns.RegisterEvent("TRAINER_UPDATE", buyNext)
 ns.RegisterEvent("TRAINER_CLOSED", Trainer.OnClosed)
+ns.RegisterEvent("PLAYER_LOGOUT", cancel)
+ns.On("SETTING_CHANGED", function(path)
+	if (path == "qol.trainAll" or path == "qol" or path == "") and not QoL.On("trainAll") then cancel() end
+end)
