@@ -297,10 +297,12 @@ end
 -- did not take is the same: its turn-in holds only those who took the quest.
 -- Taking the quest brings the goals back.
 -- A `turnin ... direct` has no accept by definition: it is handed in from the
--- giver's own window, so it is never orphaned.
+-- giver's own window, so it is never orphaned. Nor is an `abandon`: a quest
+-- the character does not have is already off the log, so it is done, and
+-- taking the quest later must not bring the step back.
 local function orphaned(goal)
 	local q = goal.quest
-	if not q or goal.t == "accept" or goal.direct or not guide then return false end
+	if not q or goal.t == "accept" or goal.t == "abandon" or goal.direct or not guide then return false end
 	local C = Compat()
 	if C.IsOnQuest(q) or questDone(q) then return false end
 	local l = layoutOf(guide)
@@ -1351,12 +1353,13 @@ end
 -- Goals whose live condition can stop holding after the step is passed
 -- (leaving the zone, rebinding, selling the items, walking away). Their done
 -- state is stored once the route moves past them, so the guide never jumps
--- back; quest goals stay live on purpose (abandoning reopens the step).
+-- back; quest goals stay live on purpose (abandoning reopens the step), but
+-- an `abandon` is kept, or taking the quest again would reopen it.
 local function latchable(goal)
 	local t = goal.t
 	return t == "goto" or t == "explore" or t == "sethome" or t == "hearth" or t == "fly" or t == "getfp" or t == "enter"
 		or t == "buy" or (t == "collect" and (not goal.quest or Own.bagCollect(goal))) or (t == "craft" and craftMode(goal) == "count")
-		or (t == "train" and goal.class == true) or t == "money" or t == "destroy"
+		or (t == "train" and goal.class == true) or t == "money" or t == "destroy" or t == "abandon"
 end
 
 -- Check-offs and latched results share CharState().manual[guideId]["s:g"].

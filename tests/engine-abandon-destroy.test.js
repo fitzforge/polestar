@@ -105,3 +105,50 @@ test('a destroy goal is done once the item is out of the bags and stays done for
 	assert.equal(destroyed.goals[0], 'done:Destroy Hearthstone');
 	assert.equal(back.goals[0], 'done:Destroy Hearthstone');
 });
+
+// Steps of one goal each, as Lua: accept, abandon and turnin of A Threat Within.
+const GOAL = {
+	accept: '{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 }',
+	abandon: '{ t = "abandon", quest = 783, title = "A Threat Within" }',
+	turnin: '{ t = "turnin", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 }',
+};
+function route(kinds) {
+	const steps = kinds.map((k, i) => `{ title = "Step ${i + 1}", goals = { ${GOAL[k]} } }`).join(',\n\t\t');
+	return `
+Polestar.RegisterGuide({
+	id = "test/abandon", pack = "test", title = "Abandon", minLevel = 1, maxLevel = 10,
+	steps = {
+		${steps}
+	},
+})
+`;
+}
+
+test('a passed abandon stays done when the guide takes the quest again', () => {
+	// The guide drops the quest, then takes it again and hands it in.
+	const [rows] = run({
+		shape: () => route(['accept', 'abandon', 'accept', 'turnin']),
+		onQuest: false,
+		script: `
+			stub.world.accept(783, {}); flush()
+			stub.world.abandon(783); flush()
+			stub.world.accept(783, {}); flush()
+			emit({ live = E.GetLiveStep(), s2 = E.GetStepView(2).status })
+		`,
+	});
+	assert.deepEqual(rows, { live: 4, s2: 'done' });
+});
+
+test('an abandon of a quest the character never had is done at once and stays done once the guide takes it', () => {
+	const [start, taken] = run({
+		shape: () => route(['abandon', 'accept', 'turnin']),
+		onQuest: false,
+		script: `
+			emit({ live = E.GetLiveStep(), s1 = E.GetStepView(1).goals[1].status })
+			stub.world.accept(783, {}); flush()
+			emit({ live = E.GetLiveStep(), s1 = E.GetStepView(1).status })
+		`,
+	});
+	assert.deepEqual(start, { live: 2, s1: 'done' });
+	assert.deepEqual(taken, { live: 3, s1: 'done' });
+});
