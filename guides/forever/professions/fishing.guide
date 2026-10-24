@@ -110,7 +110,7 @@ step Fishing: Silverpine Forest (50-125)
   only Undead
   zone Silverpine Forest
   tip Fish the pools and open water here until skill 125. Pools (floating debris, schools of fish) also drop extra loot.
-  goto 37.8,32.1 "Lordamere Lake" r 25
+  goto 59.7,34.7 "Lordamere Lake" r 25
   skill Fishing 125
 
 # ---------------------------------------------------------------- Expert Fishing

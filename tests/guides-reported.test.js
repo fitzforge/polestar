@@ -2677,3 +2677,13 @@ test(`Hotline's report (#698): the Cozy Sleeping Bag chain waits for level 14 be
 		assert.ok(reached >= 14, `${faction}: the chain's level 14 is reached before it starts`);
 	}
 });
+
+test(`Hotline's report (#718): the Undead's Silverpine fishing step leads to Lordamere Lake, not the Great Sea coast`, { skip }, () => {
+	const list = goals('forever/professions/fishing.guide');
+	const arrow = list.find(({ step, goal }) => step.title === 'Fishing: Silverpine Forest (50-125)' && goal.t === 'goto');
+	assert.ok(arrow, 'the Silverpine step has a waypoint');
+	const { point } = makeProjector(data.mapFrames);
+	const [x, y] = data.npcs[6570].spawns[1421].pts[0];
+	const ferry = point(1421, x, y, data.npcs[6570].spawns[1421].f);
+	assert.ok(dist(point(arrow.goal.map, arrow.goal.x, arrow.goal.y, arrow.goal.f || 'l'), ferry) < 80, 'within 80 yards of Fenwick Thatros at the Decrepit Ferry on the lake');
+});

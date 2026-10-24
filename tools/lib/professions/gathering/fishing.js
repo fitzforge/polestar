@@ -29,7 +29,7 @@ const NEXT_SPOTS = {
 	nightelf: { zone: 1439, pools: true, label: 'Darkshore coast' },
 	'orc-troll': { zone: 1413, pools: true, label: 'Barrens oasis' },
 	tauren: { zone: 1413, pools: true, label: 'Barrens oasis' },
-	undead: { zone: 1421, pools: true, label: 'Lordamere Lake' },
+	undead: { zone: 1421, pools: true, label: 'Lordamere Lake', anchor: 6570 }, // Fenwick Thatros at the Decrepit Ferry, not the west coast near the Sepulcher
 };
 const REGION_SPOTS = {
 	'alliance-ek': { zone: 1437, pools: true, label: 'Wetlands coast' },
