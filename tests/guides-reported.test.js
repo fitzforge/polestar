@@ -2421,6 +2421,26 @@ test(`${ASHENVALE}: Ioney's report (#617): the grind to 28 comes after the Menet
 	assert.ok(grind < at(list, 'accept 1179', is('accept', 1179)), 'level 28 before Pilot Longbeard');
 });
 
+// Ioney (#615): "Einar Stonegrip doesnt offer any quest", and dwood-97
+// (#699): Daily Delivery "becomes unavailable when you accept Young Crocolisk
+// Skins (484)". Daily Delivery (469) leads to James Halloran's Young
+// Crocolisk Skins, which the guide takes in Menethil first, so Einar no longer
+// offers it there. No accept is sent for after the quest that closes it.
+
+test(`${ASHENVALE}: Ioney's and dwood-97's reports (#615, #699): no Daily Delivery from Einar once Young Crocolisk Skins is taken, and no accept after the quest that closes it`, { skip }, () => {
+	const list = goals(ASHENVALE);
+	const crocs = at(list, 'accept 484', is('accept', 484));
+	const delivery = list.findIndex(({ goal }) => is('accept', 469)(goal));
+	assert.ok(delivery < crocs, 'Daily Delivery is not sent for after Young Crocolisk Skins');
+	if (delivery < 0) assert.ok(!list.some(({ goal }) => is('turnin', 469)(goal)), 'no hand-in of a delivery never taken');
+	const taken = new Set();
+	for (const { goal, s } of list) {
+		if (goal.t !== 'accept') continue;
+		for (const c of goal.closedBy || []) assert.ok(!taken.has(c), `step ${s}: accept ${goal.quest} comes after ${c}, which closes it`);
+		taken.add(goal.quest);
+	}
+});
+
 // Pynte (#327): "Timberling Seeds quest points me to the north of Teldrassil
 // instead of just around the quest giver." XrayAlpha's diagnosis: QuestieDB's
 // server drop table gives the Elder Timberling (level 10) 100% for the seed and

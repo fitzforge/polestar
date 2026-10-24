@@ -70,3 +70,8 @@ test('Seeking Caitlin is closed by Lost in the Thicket Things, its breadcrumb ta
 	const quests = { 95737: { id: 95737, ...corrections.quests[95737].set }, 95647: { id: 95647 } };
 	assert.deepEqual(closedByOf(95737, quests), [95647]);
 });
+
+test('Daily Delivery is closed by Young Crocolisk Skins, the quest it leads to (#615, #699)', () => {
+	const quests = { 469: { id: 469, ...corrections.quests[469].set }, 484: { id: 484 } };
+	assert.deepEqual(closedByOf(469, quests), [484]);
+});

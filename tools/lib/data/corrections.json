@@ -223,6 +223,22 @@
 			},
 			"note": "Nek'rosh's Gambit (Wetlands, Captain Stoutfist) comes after the Forever quest From the Ashes 98221, not straight after War Banners 464: in game, Stoutfist offered From the Ashes instead of 465 once 464 was handed in (issue #225). pfQuest and QuestieDB still have the Classic prerequisite 464."
 		},
+		"469": {
+			"set": {
+				"breadcrumbFor": 484
+			},
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "issue #615"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "issue #699"
+				}
+			],
+			"note": "Daily Delivery (Einar Stonegrip, the Green Belt) is the lead-in to Young Crocolisk Skins 484: it is a delivery to James Halloran, who gives 484, and Einar stops offering it once 484 is taken. In game, two players standing at Einar with 484 in their quest log were offered nothing (issue #615, level 26 Dwarf Paladin, deDE; issue #699, level 27 Skyborne Hunter, enUS), well above its minimum level 18. QuestieDB, pfQuest and the CMaNGOS classic-db have no link between 469 and 484 (Classic's version stands alone)."
+		},
 		"489": {
 			"set": {
 				"start": {

@@ -71,6 +71,9 @@ next forever/alliance/07-thousand-needles
 #   level 28) is done at the Dragonmaw camp on the walk east from Menethil to
 #   Dun Algaz, after the Menethil hand-ins (about 7,200 XP) count towards it,
 #   not before the hearth (#617).
+# - Daily Delivery (469) is left out: it leads to Young Crocolisk Skins (484),
+#   taken from James Halloran on arrival in Menethil, and Einar Stonegrip no
+#   longer offers it once 484 is in the log (#615, #699).
 #
 # Class quests: on arrival in Auberdine, Night Elf Druids finish Trial of the
 # Sea Lion and Aquatic Form (272, 5061: Moonglade, then Darnassus) and Night
@@ -397,8 +400,7 @@ step Black Oozes
   collect 3349 quest 470 @44.6,25.6       -- Sida's Bag
 
 step The Green Belt
-  tip Einar Stonegrip camps by the road; Rethiel the Greenwarden stands farther east, by the river.
-  accept 469                              -- Einar Stonegrip
+  tip Rethiel the Greenwarden stands by the river, farther east than Einar Stonegrip's camp by the road.
   turnin 463                              -- Rethiel the Greenwarden
   accept 276
 
@@ -433,8 +435,7 @@ step Rethiel the Greenwarden
 step Hearth to Menethil
   hearth "Deepwater Tavern"
   turnin 306                              -- Tarrel Rockweaver
-  turnin 469                              -- James Halloran
-  turnin 484
+  turnin 484                              -- James Halloran
   accept 471                              -- For the giant crocolisks of the north coast, on your next visit
   turnin 470                              -- Sida
   turnin 98282                            -- Caitlin Grassman
