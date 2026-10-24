@@ -74,7 +74,7 @@ register(QUESTING, L["Quests"], L["Faster questing"], {
 		help = L["Shows quest text at once instead of fading it in (Forever's own option)."],
 		disabled = function() return not (QoL.Toggles and QoL.Toggles.InstantTextSupported()) end },
 	{ kind = "toggle", key = "qol.skipGossip", label = L["Skip single-option gossip"],
-		help = help("skipGossip", L["Picks the only option of NPCs without quests. Hold Shift to read it."]) },
+		help = help("skipGossip", L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, and flight masters follow Open the flight map."]) },
 	{ kind = "toggle", key = "qol.fastLoot", label = L["Faster auto-loot"],
 		help = help("fastLoot", L["Takes the whole corpse at once when auto-loot is on."]) },
 	{ kind = "toggle", key = "qol.hideErrors", label = L["Hide combat errors"],
