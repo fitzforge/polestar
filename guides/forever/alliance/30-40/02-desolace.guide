@@ -146,7 +146,7 @@ step Smeed Scrabblescrew
 
 step Kodo Graveyard
   tip Use Smeed's Kodo Kombobulator on an Aged Kodo and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides.
-  complete 5561
+  kill 4700 x5 quest 5561.1 "Tame Aged Kodos and lead them to Smeed"
   collect 6249 quest 1459.2           -- Aged Kodo Hide
 
 step Smeed Scrabblescrew

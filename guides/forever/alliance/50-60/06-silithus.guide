@@ -200,7 +200,8 @@ step Hermit Ortell
 
 step Bronzebeard's Encampment
   tip Ride south-west to the dwarves' camp near the southern mountains and question Frankal Stonebridge and Rutgar Glyphshaper. Noggle's satchel lies in the sand just south-east of the camp.
-  complete 8304
+  kill 15171 quest 8304.1 "Talk to Frankal Stonebridge"
+  kill 15170 quest 8304.2 "Talk to Rutgar Glyphshaper"
   collect 20379 quest 8282.1          -- Noggle's Satchel
 
 step The Twilight Post

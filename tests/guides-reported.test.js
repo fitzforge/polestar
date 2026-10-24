@@ -2296,6 +2296,37 @@ test(`Phear's report (#395): on Zephras Isle, The Wounds of Betrayal and Standin
 	}
 });
 
+// --- Bare `complete`s away from the giver (#703): with no place of its own, a
+// `complete` leads the arrow to the quest's giver (#303). For these quests the
+// work is somewhere else: Coriella Calmbreeze north-west of Shen'dar Village,
+// Frankal and Rutgar at Bronzebeard's Encampment while the giver is in
+// Cenarion Hold, the Aged Kodos in the Kodo Graveyard. Each objective is its
+// own goal with a place, before the turn-in, or the `complete` has a place
+// (Ayessa Dawnsinger, as Elaadrin in the Horde guide: the data has her for
+// the other faction only, so a `kill` of her reads as an elite to fight).
+const AWAY_FROM_THE_GIVER = [
+	[ZEPHRAS_ALLIANCE, 93461], // Welcome to Shen'dar Village
+	[ZEPHRAS_ALLIANCE, 92849], // The Missing Scholar
+	[ZEPHRAS_ALLIANCE, 92640], // Desperate Times
+	['forever/alliance/50-60/06-silithus.guide', 8304], // Dearest Natalia
+	['forever/alliance/30-40/02-desolace.guide', 5561], // Kodo Roundup
+	[MULGORE, 833], // A Sacred Burial
+];
+
+test('#703: quests whose objectives are away from the giver lead to each objective', { skip }, () => {
+	data = data || loadData(DATA);
+	for (const [guide, quest] of AWAY_FROM_THE_GIVER) {
+		const list = goals(guide);
+		const take = at(list, `${guide}: accept ${quest}`, is('accept', quest));
+		const give = at(list, `${guide}: turnin ${quest}`, is('turnin', quest));
+		const between = list.slice(take + 1, give).filter(({ goal }) => goal.quest === quest);
+		assert.deepEqual(between.filter((x) => !located(x)).map(({ goal }) => goal.t), [], `${guide}: every goal of ${quest} has a place for the arrow`);
+		const objectives = data.quest(quest).objectives.map((_, i) => i + 1);
+		const placedComplete = between.some(({ goal }) => goal.t === 'complete');
+		assert.deepEqual(placedComplete ? [] : objectives.filter((oi) => !between.some(({ goal }) => goal.oi === oi)), [], `${guide}: every objective of ${quest} has its goal before the turn-in`);
+	}
+});
+
 // --- Battleworn Axe (Tazul | Robin, #340): the axes were collected east of
 // Alther's Mill, about ten normal Blackrock spawns that Tazul found too few
 // and too slow to respawn. The camps at the south end of Galardell Valley,

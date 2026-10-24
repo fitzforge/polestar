@@ -389,7 +389,7 @@ step Morin Cloudstalker
 step Red Rocks
   tip Head north to Red Rocks, east of Thunder Bluff. Lorekeeper Raintotem stands at the foot of the rocks; the Bristleback Interlopers dig at the burial ground and the Ancestral Spirit waits on top.
   accept 833
-  complete 833
+  kill 3232 x8 quest 833.1
   turnin 833
   turnin 773
   collect 5203 quest 861.1            -- Flatland Prowler Claw: Flatland Prowlers roam the plains around Red Rocks

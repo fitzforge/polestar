@@ -184,7 +184,8 @@ step Shen'dar Village
   turnin 92596
   accept 94413
   accept 93461                                -- Constable Aonda
-  complete 93461                              -- Speak with Rathiril Sunlance and Coriella Calmbreeze, north-west of the village
+  kill 251903 quest 93461.1 "Talk to Rathiril Sunlance"
+  kill 254089 quest 93461.2 @43.05,43.3 "Talk to Coriella Calmbreeze"
 
 step Raan Wildwind
   accept 96101                                -- Raan Wildwind
@@ -313,7 +314,8 @@ step The missing scholar
   tip The Bloodstained Satchel lies by the path west of Valanaar; Fillion's camp is north-west of it, and the Shriekling Matriarchs nest just west of the camp.
   turnin 92727                                -- The Bloodstained Satchel
   accept 92849
-  complete 92849                              -- Find Fillion and his bedroll
+  kill 253002 quest 92849.1 "Find Fillion Flamebreeze"
+  interact 581820 quest 92849.2
   turnin 92849                                -- Fillion Flamebreeze
   accept 92850
   collect 257107 quest 92850.1                -- Shriekling Matriarch's Head
@@ -442,7 +444,10 @@ step Desperate times
   complete 94568 @66.17,76.51
   turnin 94568
   accept 92640
-  complete 92640                              -- Rally Valennia, Ayessa Dawnsinger (west of town) and Elaadrin
+  kill 252383 quest 92640.1 "Talk to Valennia Stormfist"
+  kill 252475 quest 92640.3 "Talk to Elaadrin Evengale"
+  talk 251968
+  complete 92640 @59.15,79.73
   turnin 92640                                -- Valennia Stormfist
   accept 93065
   complete 93065 @61.18,70.95                 -- Meet Valennia at the gate
