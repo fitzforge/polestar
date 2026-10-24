@@ -741,7 +741,7 @@ local function ask(P, pc, px, py, flat)
 	floorAsk = false
 	if sz == nil and not flat then flatAt = GetTime() else flatAt = nil end
 	local o = opts(ghost, pc, px, py, gx, gy) -- a ghost walks on water
-	local ok, handle = pcall(P.Find, pc, { x = px, y = py, z = sz, floors = floors }, { x = gx, y = gy, z = z }, function(points, _, answer)
+	local ok, handle = pcall(P.Find, pc, { x = px, y = py, z = sz, floors = floors }, { x = gx, y = gy, z = z }, function(points, reason, answer)
 		if token ~= mine then return end
 		token, job = nil, nil
 		dropSketch()
@@ -765,6 +765,9 @@ local function ask(P, pc, px, py, flat)
 			failed, failAt, failX, failY = true, GetTime(), px, py
 			count, hubs, shape = 0, nil, nil
 			restore(gc, gx, gy)
+			-- No walk joins the player to the goal at all: a portal there may be out of reach (Travel.WalkUnreachable).
+			local T = Nav.travel
+			if reason == "unreachable" and T and T.WalkUnreachable then T.WalkUnreachable(gc, gx, gy) end
 		end
 		changed()
 		pumpLegs()

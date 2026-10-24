@@ -2339,6 +2339,7 @@ Polestar.Nav.RegisterCrossings(d)                  -- zone crossings (merges; id
 Polestar.Nav.travel.SkipLeg() -> bool              -- leave this hearth/teleport/flight/ride out for the target; else the next leg
 Polestar.Nav.travel.SkipReplans(leg) -> bool      -- skipping it replans (the prompts' "Skip this leg"), else "Mark this leg done"
 Polestar.Nav.travel.RestoreWalk(c, x, y) -> bool  -- the path to (c, x, y) failed or was cleared: the walk's straight estimate again
+Polestar.Nav.travel.WalkUnreachable(c, x, y) -> bool -- no walk joins the player to (c, x, y): a portal taken there is left out (#568)
 Polestar.Nav.travel.Remeasured() -> bool          -- Walk.Measure landed: plan again, take it only if it goes another way
 Polestar.Nav.travel.PricePaths() -> bool          -- a later walk's path landed (Walk.LegPath): its legs take its yards and hubs
 Polestar.Nav.travel.WalkCostHook(fn)              -- fn(walk, cost) -> cost: a planner rule scaling walk costs, never times
@@ -2731,7 +2732,13 @@ fires as for a split, so the journey's legs, `Progress`, `Remaining` and the
 panel header agree. When that path's search fails or the path is cleared
 (`Walk.Clear`: no target, `nav.navRouting` off, a hand-made leg),
 `Travel.RestoreWalk(c, x, y)` puts the straight estimate back. Split pieces
-keep their path times.
+keep their path times. A search that fails as `unreachable` (the player and
+the walk's end lie on parts of the maps no walk joins) also goes to
+`Travel.WalkUnreachable(c, x, y)`: when a portal is taken at that end, the
+portal is noted for the target and the way planned again, and the plan leaves
+it out while the engine's measure has a walk from the player to the target
+(the top of Teldrassil and the Rut'theran portal, #568). A boat, zeppelin or
+tram keeps its walk: a deck need not join its pier on the maps.
 
 **Zone crossings.** Without crossing data a continent walks as it always
 did: straight lines between any two points on it (x1.25 detour) plus learned
