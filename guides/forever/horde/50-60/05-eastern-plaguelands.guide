@@ -135,6 +135,34 @@ step Nathanos Blightcaller
   turnin 6042
   turnin 6133
 
+# Group quests (sim elites): Duskwing, Oh How I Hate Thee..., about 14 min saved for a party
+step Duskwing, Oh How I Hate Thee...
+  when group 6135
+  accept 6135
+
+step Duskwing, Oh How I Hate Thee...
+  when group 6135
+  tip Duskwing is elite: grouping up is advised.
+  collect 15850 quest 6135.1
+
+step Duskwing, Oh How I Hate Thee...
+  when group 6135
+  turnin 6135
+
+# Group quests (sim elites): The Corpulent One, about 13 min saved for a party
+step The Corpulent One
+  when group 6136
+  accept 6136
+
+step The Corpulent One
+  when group 6136
+  tip Borelgore is elite: grouping up is advised.
+  kill 11896 quest 6136.1
+
+step The Corpulent One
+  when group 6136
+  turnin 6136
+
 step Hameya's mound
   tip The Mound of Dirt is just behind the Undercroft.
   turnin 6024

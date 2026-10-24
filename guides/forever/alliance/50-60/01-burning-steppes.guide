@@ -156,6 +156,23 @@ step Morgan's Vigil
   accept 4283                         -- Oralius: the Blackrock orcs drop the medallions, keep it open all through the Steppes
   accept 3823
 
+# Group quests (sim elites): Dragonkin Menace, about 13 min saved for a party
+step Dragonkin Menace
+  when group 4182
+  accept 4182
+
+step Dragonkin Menace
+  when group 4182
+  tip Black Dragonspawn is elite: grouping up is advised.
+  kill 7047 quest 4182.1
+  kill 7040 quest 4182.2
+  kill 7044 quest 4182.3
+  kill 7041 quest 4182.4
+
+step Dragonkin Menace
+  when group 4182
+  turnin 4182
+
 step Dreadmaul Rock
   tip The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.
   kill 7033 quest 3823.2              -- Firegut Ogre
@@ -230,6 +247,34 @@ step Kum'isha the Collector
   accept 3501
   collect 10593 quest 3501.1
   turnin 3501
+
+# Group quests (sim elites): To Serve Kum'isha, about 19 min saved for a party
+step To Serve Kum'isha
+  when group 2521
+  accept 2521
+
+step To Serve Kum'isha
+  when group 2521
+  tip Razelikh the Defiler is elite: grouping up is advised.
+  collect 8244 quest 2521.1
+
+step To Serve Kum'isha
+  when group 2521
+  turnin 2521
+
+# Group quests (sim elites): Kum'isha's Endeavors, about 12 min saved for a party
+step Kum'isha's Endeavors
+  when group 2522
+  accept 2522
+
+step Kum'isha's Endeavors
+  when group 2522
+  tip Razelikh the Defiler is elite: grouping up is advised.
+  collect 8244 quest 2522.1
+
+step Kum'isha's Endeavors
+  when group 2522
+  turnin 2522
 
 # ---------------------------------------------------------------- The Hinterlands, Ironforge and Rut'theran
 

@@ -161,6 +161,67 @@ step Hammerfall
   accept 8263                         -- Rutherford Twing
   turnin 8263
 
+# Group quests (sim elites): Sigil of Strom, about 24 min saved for a party
+step Sigil of Strom
+  when group 639
+  accept 639
+
+step Sigil of Strom
+  when group 639
+  tip Syndicate Prowler is elite: grouping up is advised.
+  collect 4440 quest 639.1
+
+step Sigil of Strom
+  when group 639
+  turnin 639
+
+# Group quests (sim elites): The Broken Sigil, about 8 min saved for a party
+step The Broken Sigil
+  when group 640
+  accept 640
+
+step The Broken Sigil
+  when group 640
+  tip Stromgarde Troll Hunter is elite: grouping up is advised.
+  collect 4450 quest 640.1
+
+step The Broken Sigil
+  when group 640
+  turnin 640
+
+# Group quests (sim elites): Sigil of Arathor, about 7 min saved for a party
+step Sigil of Thoradin
+  when group 643
+  accept 641
+
+step Sigil of Thoradin
+  when group 643
+  turnin 641
+  accept 643
+
+step Sigil of Arathor
+  when group 643
+  tip Lieutenant Valorcall is elite: grouping up is advised.
+  collect 4458 quest 643.1
+
+step Sigil of Arathor
+  when group 643
+  turnin 643
+
+# Group quests (sim elites): Sigil of Trollbane, about 7 min saved for a party
+step Sigil of Trollbane
+  when group 644
+  accept 644
+
+step Sigil of Trollbane
+  when group 644
+  tip Prince Galen Trollbane is elite: grouping up is advised.
+  collect 4466 quest 644.1
+
+step Sigil of Trollbane
+  when group 644
+  turnin 644
+
 step Highland raptors
   tip Highland Striders roam the hills all around Hammerfall; both they and the Thrashers further west drop the eyes.
   collect 4512 quest 672
@@ -253,7 +314,20 @@ step The Stone of West Binding
 step The Stone of Inner Binding
   tip The inner circle lies south of the western circle, east of Stromgarde.
   turnin 651
-  note The stone's next task needs Fozruk, a level 42 elite: leave it.
+
+# Group quests (sim elites): Breaking the Keystone, about 28 min saved for a party
+step Breaking the Keystone
+  when group 652
+  accept 652
+
+step Breaking the Keystone
+  when group 652
+  tip Fozruk is elite: grouping up is advised.
+  collect 4469 quest 652.1
+
+step Breaking the Keystone
+  when group 652
+  turnin 652
 
 # ---------------------------------------------------------------- Hammerfall, Boulderfist Hall
 
@@ -269,6 +343,20 @@ step Back to Hammerfall
   turnin 847                          -- Tor'gan
   vendor nearest
 
+# Group quests (sim elites): Foul Magics, about 16 min saved for a party
+step Foul Magics
+  when group 673
+  accept 673
+
+step Foul Magics
+  when group 673
+  tip Marez Cowl is elite: grouping up is advised.
+  collect 4510 quest 673.1
+
+step Foul Magics
+  when group 673
+  turnin 673
+
 step Boulderfist Hall
   tip The Boulderfist Brutes camp outside the ogres' hall south of Hammerfall; the Magus stand among them. Pull them one at a time.
   kill 2566 quest 678.1
@@ -276,7 +364,35 @@ step Boulderfist Hall
 
 step Drum Fel
   turnin 678
-  note Drum Fel's next Call to Arms is against Boulderfist elites: leave it.
+
+# Group quests (sim elites): The Real Threat, about 34 min saved for a party
+step The Real Threat
+  when group 680
+  accept 680
+
+step The Real Threat
+  when group 680
+  tip Or'Kalar is elite: grouping up is advised.
+  collect 4551 quest 680.1
+
+step The Real Threat
+  when group 680
+  turnin 680
+
+# Group quests (sim elites): Call to Arms, about 32 min saved for a party
+step Call to Arms
+  when group 679
+  accept 679
+
+step Call to Arms
+  when group 679
+  tip Boulderfist Shaman is elite: grouping up is advised.
+  kill 2570 quest 679.1
+  kill 2571 quest 679.2
+
+step Call to Arms
+  when group 679
+  turnin 679
 
 # ---------------------------------------------------------------- Into the Badlands
 
@@ -284,6 +400,21 @@ step Into the Badlands
   zone Badlands
   tip Head south-west out of Arathi over Thandol Span, south through the Wetlands (keep clear of Menethil Harbor) and east into Loch Modan; the road leaves Loch Modan to the south into the Badlands. Follow it south to the goblin camp in the Valley of Fangs.
   goto 42.3,52.8 "Valley of Fangs"
+
+# Group quests (sim elites): Power Stones, about 19 min saved for a party
+step Power Stones
+  when group 2418
+  accept 2418
+
+step Power Stones
+  when group 2418
+  tip Shadowforge Surveyor is elite: grouping up is advised.
+  collect 8009 quest 2418.1
+  collect 8052 quest 2418.2
+
+step Power Stones
+  when group 2418
+  turnin 2418
 
 step Valley of Fangs
   turnin 1106                         -- Martek the Exiled: Fizzle's letter from the Shimmering Flats

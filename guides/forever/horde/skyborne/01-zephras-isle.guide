@@ -23,8 +23,8 @@ next forever/horde/02-the-barrens
 # -> the Crossroads (flight path and hearth bind, as on the simulator's route).
 # The isle has no inn and no flight path.
 #
-# Optional extra: WANTED: Vulgara the Insatiable (93318). Vulgara is elite,
-# so the simulator leaves it out; it stays as an optional step for groups.
+# Group quest: WANTED: Vulgara the Insatiable (93318). Vulgara is elite,
+# so the simulator leaves it out; the guide asks (`when group 93318`).
 #
 # Deviations from the export:
 # - Thendal Village: the Ursera, Hanaa's camp and the Urs'anah den are done
@@ -253,7 +253,10 @@ step Welcome to Shen'dar Village
   accept 92515                        -- Indari Sunseam
   accept 92516                        -- Teeri Wellwind
   accept 93319
-  accept 93318 optional               -- the bounty board
+
+step Welcome to Shen'dar Village
+  when group 93318
+  accept 93318                        -- the bounty board
 
 step Prideclaws and Galestriders
   tip Prideclaws and Galestriders share the meadows south of the village. Keep the Strider Meat for Zerril; the eggs come later from the hippogryphs.
@@ -281,7 +284,7 @@ step Shen'dar Village turn-ins
 
 step Vulgara the Insatiable
   tip Vulgara lurks south of the village, among the Prideclaws. Vulgara is elite: grouping up is advised.
-  collect 257942 quest 93318.1 optional
+  collect 257942 quest 93318.1
 
 # ---------------------------------------------------------------- Falaath Village
 
@@ -296,9 +299,12 @@ step Constable Aonda
   turnin 92528
   accept 92550
   accept 93926
-  turnin 93318 optional               -- Danarii Bellowveil
   accept 92551
   train class
+
+step Constable Aonda
+  when group 93318
+  turnin 93318                        -- Danarii Bellowveil
 
 step Havoc in the Highlands
   tip Back at Falaath Village: Stormcallers and Living Lightning fill the village, the Supply Caches stand among the houses and Commander Cyclas waits at its south-east end.

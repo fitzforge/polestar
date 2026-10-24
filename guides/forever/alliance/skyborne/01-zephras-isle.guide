@@ -46,8 +46,8 @@ next forever/alliance/02-westfall
 #   92482, 92483, 92481, 92485) goes to its trainer in Thendal Grove once
 #   Harmony in Balance is handed in.
 #
-# Optional extra: WANTED: Vulgara the Insatiable (93318), not in the export;
-# Vulgara is elite, so it stays an optional extra.
+# Group quest: WANTED: Vulgara the Insatiable (93318), not in the export;
+# Vulgara is elite, so the guide asks (`when group 93318`).
 #
 # Deviations from the export (local order only, same quest set):
 # - Thendal Grove: Halaan, Myriaal, Dalia and Falorne are taken on the first
@@ -202,7 +202,10 @@ step Village quests
   accept 92516                                -- Teeri Wellwind
   accept 93319
   accept 92553                                -- Zerril Softbreeze
-  accept 93318 optional                       -- The bounty board
+
+step Village quests
+  when group 93318
+  accept 93318                                -- The bounty board
 
 step Prideclaws and Galestriders
   tip Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat.
@@ -265,7 +268,7 @@ step The hippogryph roost
 
 step Vulgara the Insatiable
   tip Vulgara lurks in the hills south-west of the village, on the way back. Vulgara the Insatiable is elite: grouping up is advised.
-  collect 257942 quest 93318.1 optional       -- Vulgara's Head
+  collect 257942 quest 93318.1                -- Vulgara's Head
 
 step Windshaper Novice Seers
   tip The Novice Seers practise in the clearing west of Shen'dar.
@@ -275,13 +278,16 @@ step Shen'dar Village again
   turnin 92516                                -- Teeri Wellwind
   turnin 93951                                -- Taleen Shimmerthread
   turnin 92551                                -- Danarii Bellowveil
-  turnin 93318 optional
   turnin 92550                                -- Constable Aonda
   turnin 93927
   accept 92701
   accept 93948
   turnin 94413                                -- Rathiril Sunlance
   train class
+
+step Shen'dar Village again
+  when group 93318
+  turnin 93318
 
 # ---------------------------------------------------------------- Valanaar
 

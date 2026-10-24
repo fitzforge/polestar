@@ -115,6 +115,20 @@ step Booty Bay
   accept 617                            -- Privateer Bloads
   vendor nearest
 
+# Group quests (sim elites): The Captain's Chest, about 6 min saved for a party
+step The Captain's Chest
+  when group 8551
+  accept 8551
+
+step The Captain's Chest
+  when group 8551
+  tip Gorlash is elite: grouping up is advised.
+  collect 3932 quest 8551.1
+
+step The Captain's Chest
+  when group 8551
+  turnin 8551
+
 step Bloodsail Correspondence
   tip Leave town by the tunnel; the note lies in the pirates' cove just north of Booty Bay.
   turnin 595
@@ -273,12 +287,67 @@ step Hearth to Booty Bay
   turnin 609                            -- "Sea Wolf" MacKinley
   turnin 209                            -- Kebok
 
+# Group quests (sim elites): Cracking Maury's Foot, about 12 min saved for a party
+step Cracking Maury's Foot
+  when group 613
+  accept 613
+
+step Cracking Maury's Foot
+  when group 613
+  tip Mosh'Ogg Mauler is elite: grouping up is advised.
+  collect 3930 quest 613.1
+
+step Cracking Maury's Foot
+  when group 613
+  turnin 613
+
 step Fly to Grom'gol
   fly "Grom'gol"
 
 step Nesingwary's Expedition
   tip Ride north up the road to the hunters' camp.
   turnin 196                            -- Hemet Nesingwary
+
+# Group quests (sim elites): Raptor Mastery, about 22 min saved for a party
+step Raptor Mastery
+  when group 197
+  accept 197
+
+step Raptor Mastery
+  when group 197
+  tip Tethis is elite: grouping up is advised.
+  collect 3877 quest 197.1
+
+step Raptor Mastery
+  when group 197
+  turnin 197
+
+# Group quests (sim elites): Big Game Hunter, about 13 min saved for a party
+step Panther Mastery
+  when group 208
+  accept 193
+
+step Panther Mastery
+  when group 208
+  tip Bhag'thera is elite: grouping up is advised.
+  collect 3876 quest 193.1
+
+step Panther Mastery
+  when group 208
+  turnin 193
+
+step Big Game Hunter
+  when group 208
+  accept 208
+
+step Big Game Hunter
+  when group 208
+  tip King Bangalash is elite: grouping up is advised.
+  collect 3880 quest 208.1
+
+step Big Game Hunter
+  when group 208
+  turnin 208
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 

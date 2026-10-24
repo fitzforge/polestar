@@ -356,6 +356,20 @@ step Booty Bay
   vendor nearest
   turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier
 
+# Group quests (sim elites): Excelsior, about 15 min saved for a party
+step Excelsior
+  when group 628
+  accept 628
+
+step Excelsior
+  when group 628
+  tip Elder Saltwater Crocolisk is elite: grouping up is advised.
+  collect 4105 quest 628.1
+
+step Excelsior
+  when group 628
+  turnin 628
+
 step Fly to Grom'gol
   fly "Grom'gol"
   turnin 571                          -- Far Seer Mok'thardin

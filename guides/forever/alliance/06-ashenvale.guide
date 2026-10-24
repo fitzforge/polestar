@@ -402,6 +402,22 @@ step The Green Belt
   turnin 463                              -- Rethiel the Greenwarden
   accept 276
 
+# Group quests (sim elites): Death to the Dragonmaw, about 7 min saved for a party
+step Death to the Dragonmaw
+  when group 98291
+  accept 98291
+
+step Death to the Dragonmaw
+  when group 98291
+  tip Dragonmaw Reclaimer is elite: grouping up is advised.
+  kill 271351 quest 98291.1
+  kill 271348 quest 98291.2
+  kill 271346 quest 98291.3
+
+step Death to the Dragonmaw
+  when group 98291
+  turnin 98291
+
 step The Mosshide gnolls
   tip Mosshide Gnolls and Mongrels hold the hills south-east of the Green Belt.
   kill 1007 quest 276                     -- Mosshide Gnoll

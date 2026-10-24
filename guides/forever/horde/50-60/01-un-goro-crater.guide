@@ -304,6 +304,30 @@ step Fly to Kargath
   accept 3821                         -- Thal'trak Proudtusk
   accept 4061                         -- Hierophant Theodora Mulvadania
 
+# Group quests (sim elites): Broken Alliances, about 24 min saved for a party
+step Broken Alliances
+  when group 793
+  accept 782
+
+step Broken Alliances
+  when group 793
+  collect 4640 quest 782.1
+
+step Broken Alliances
+  when group 793
+  turnin 782
+  accept 793
+
+step Broken Alliances
+  when group 793
+  tip Blacklash is elite: grouping up is advised.
+  collect 4615 quest 793.1
+  collect 4645 quest 793.2
+
+step Broken Alliances
+  when group 793
+  turnin 793
+
 step Into the Searing Gorge
   zone Searing Gorge
   tip Take the pass out of Kargath's west side into the Searing Gorge, then ride south across the gorge to the long bridge into Blackrock Mountain. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals.

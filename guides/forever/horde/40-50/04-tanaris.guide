@@ -199,6 +199,20 @@ step Thorium Point
   accept 7727
   accept 7722                           -- Master Smith Burninate
 
+# Group quests (sim elites): WANTED: Overseer Maltorius, about 12 min saved for a party
+step WANTED: Overseer Maltorius
+  when group 7701
+  accept 7701
+
+step WANTED: Overseer Maltorius
+  when group 7701
+  tip Overseer Maltorius is elite: grouping up is advised.
+  collect 18946 quest 7701.1
+
+step WANTED: Overseer Maltorius
+  when group 7701
+  turnin 7701
+
 step Kalaran Windblade
   tip Kalaran stands alone south of Thorium Point, at the edge of the Cauldron. Listen to his story.
   accept 3441
@@ -225,7 +239,20 @@ step The Steamsmiths' furnaces
 
 step Kalaran Windblade
   turnin 3443
-  note His next request needs the Symbol of Ragnaros from elite cultists: leave it.
+
+# Group quests (sim elites): The Flame's Casing, about 9 min saved for a party
+step The Flame's Casing
+  when group 3452
+  accept 3452
+
+step The Flame's Casing
+  when group 3452
+  tip Twilight Dark Shaman is elite: grouping up is advised.
+  collect 10552 quest 3452.1
+
+step The Flame's Casing
+  when group 3452
+  turnin 3452
 
 # ---------------------------------------------------------------- The rest of the gorge
 

@@ -187,6 +187,35 @@ step Refuge Pointe
   turnin 690                          -- Skuerto
   accept 691                          -- Apprentice Kryten
 
+# Group quests (sim elites): Wanted!  Marez Cowl, about 10 min saved for a party
+step Wanted!  Marez Cowl
+  when group 684
+  accept 684
+
+step Wanted!  Marez Cowl
+  when group 684
+  tip Marez Cowl is elite: grouping up is advised.
+  collect 4515 quest 684.1
+
+step Wanted!  Marez Cowl
+  when group 684
+  turnin 684
+
+# Group quests (sim elites): Wanted!  Otto and Falconcrest, about 10 min saved for a party
+step Wanted!  Otto and Falconcrest
+  when group 685
+  accept 685
+
+step Wanted!  Otto and Falconcrest
+  when group 685
+  tip Otto is elite: grouping up is advised.
+  collect 4516 quest 685.1
+  collect 4517 quest 685.2
+
+step Wanted!  Otto and Falconcrest
+  when group 685
+  turnin 685
+
 step Northfold Manor
   tip The Syndicate hold the farm north-west of Refuge Pointe. A Hay Weevil crawls about the farm: catch one with Amaryllis Webb's Entomology Starter Kit, then tick it off.
   kill 2586 quest 681.1               -- Syndicate Highwayman
