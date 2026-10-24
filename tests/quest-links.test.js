@@ -58,6 +58,31 @@ emit({ label = buttons[2].text, native = buttons[1].text, shown = PolestarPicker
 	assert.equal(r.step, 2);
 });
 
+test('reopening a staged exact quest search preserves its context, with or without an explicit Guides destination', () => {
+	const r = run(String.raw`
+Polestar.Compat.GetQuestTitle = function() return "An exact quest search" end
+P.ShowQuest(7)
+local function matches()
+	local ids = {}
+	for _, e in ipairs(P.Entries("All", P.Query())) do
+		if e.kind == "guide" then ids[#ids + 1] = e.guide.id end
+	end
+	return ids
+end
+local before = matches()
+PolestarPicker:Hide()
+Polestar.UI.ShowPicker()
+local legacy = matches()
+PolestarPicker:Hide()
+Polestar.UI.ShowPicker({ section = "Guides" })
+emit({ before = before, legacy = legacy, explicit = matches(), query = P.Query() })
+`);
+	assert.ok(r.before.length > 0, 'quest ID matches even though the search text is absent from the guides');
+	assert.deepEqual(r.legacy, r.before);
+	assert.deepEqual(r.explicit, r.before);
+	assert.equal(r.query, 'An exact quest search');
+});
+
 test('a quest menu leaves the account-wide faction filter following each character', () => {
 	const r = run(String.raw`
 local function after(setting)

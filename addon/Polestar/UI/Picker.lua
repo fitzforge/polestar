@@ -89,7 +89,7 @@ local visibleIds = {} -- guide ids in the middle pane, top to bottom (arrow keys
 
 local FACTIONS = { "Alliance", "Horde", "All" }
 local VIEWS = { "home", "browse", "current", "recent" }
-local VIEW_LABEL = { home = L["Home"], browse = L["Browse"], current = L["Current"], recent = L["Recent"] }
+local VIEW_LABEL = { home = L["Guides"], browse = L["Browse"], current = L["Current"], recent = L["Recent"] }
 
 -- The guide format's categories, in the order players look for them.
 local CATEGORIES = { "Leveling", "Class", "Professions", "Reputation", "Exploration", "Legacy", "Collectibles", "Miscellaneous" }
@@ -1376,11 +1376,14 @@ end
 --     onNav = fn(key),                 -- with nav: set the state, then UI.Picker.Render()
 --     search = fn(text), enter = fn(), step = fn(delta), -- optional: the hub search drives it
 --     searchPlaceholder = "...",       -- optional; or a list of wordings, longest first (the first that fits shows)
+--     home = true,                     -- optional: the hub opens here (UI.ShowPicker({ home = true })) until
+--                                      -- the player picks a section
 --   })
 ---------------------------------------------------------------------------
 
 local GUIDES = { key = "Guides", label = L["Guides"], icon = "guides", order = 10, builtin = true }
 local sections, section = { GUIDES }, nil
+local picked = false -- the player chose a section: the hub keeps it rather than opening at home
 P.GUIDES = GUIDES.key
 
 function UI.RegisterSection(spec)
@@ -1408,6 +1411,7 @@ function P.Query() return query end
 -- Show a section ("Guides" or nil: the guide list). The hub search starts
 -- empty in every section.
 function P.ShowSection(key)
+	picked = true
 	if key == GUIDES.key then key = nil end
 	if key ~= section and win then
 		query = ""
@@ -1886,7 +1890,26 @@ end
 -- opts: { newTab = true } when loading should open a new tab.
 function UI.ShowPicker(opts)
 	if not win then build() end
+	local before = section
 	newTabMode = type(opts) == "table" and opts.newTab and true or false
+	-- Opened as a whole (the key binding): at the home section until the
+	-- player picks one. Opened to choose a guide (opts.section = "Guides"):
+	-- at that section, whatever was shown last.
+	if newTabMode then
+		section = nil
+	elseif type(opts) == "table" and opts.section then
+		section = opts.section ~= GUIDES.key and opts.section or nil
+	elseif type(opts) == "table" and opts.home and not picked and not newTabMode then
+		for _, s in ipairs(sections) do
+			if s.home then section = s.key break end
+		end
+	end
+	-- Match ShowSection's search reset without marking a section as picked.
+	-- Keep searches staged in the destination before opening (quest links).
+	if section ~= before then
+		query, questContext = "", nil
+		win.Search:SetText("")
+	end
 	-- Remember the last selection; without one, start on the open guide or
 	-- the suggestion.
 	local byId = headersById()

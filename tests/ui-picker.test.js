@@ -159,17 +159,18 @@ test('left pane: the rail holds the sections and Options; the sidebar holds the 
 		for i, s in ipairs(P.Sections()) do sections[i] = s.label or s.key end
 		emit({ cats = P.categories, labels = labels, rail = rail, sections = sections, icon = icon, r = r, options = PolestarOptions:IsShown(), picker = PolestarPicker:IsShown() })`);
 	assert.deepEqual(out.cats, ['All', 'Leveling', 'Professions', 'Reputation', 'Exploration', 'Legacy', 'Collectibles', 'Favorites'], 'dungeons have their own section, not a category');
-	// Sections (Guides built in, then the registered ones by order) are on the rail, Options at its foot.
-	assert.equal(out.sections[0], 'Guides');
-	assert.equal(out.sections[1], 'Lookup');
+	// Sections (Home first, Guides built in, then the registered ones by order) are on the rail, Options at its foot.
+	assert.equal(out.sections[0], 'Home');
+	assert.equal(out.sections[1], 'Guides');
+	assert.equal(out.sections[2], 'Lookup');
 	// Import is a foot section: above Options, not among the sections at the top.
-	assert.deepEqual(out.rail, ['Options', 'Import', 'Guides*', ...out.sections.slice(1).filter((s) => s !== 'Import')]);
+	assert.deepEqual(out.rail, ['Options', 'Import', 'Home', 'Guides*', ...out.sections.slice(2).filter((s) => s !== 'Import')]);
 	assert.deepEqual(out.labels, ['All guides 13', 'Leveling 6', 'Professions 3', 'Reputation 1', 'Exploration 1', 'Legacy 1', 'Collectibles 1', 'Favourites 0']);
 	assert.match(out.icon, /\\star$/);
 	assert.deepEqual(out.r, {
 		view: 'browse', category: 'Professions', title: 'Professions', folders: ['Professions 3'],
 		lines: ['Cooking 1-300 (5\u201360)', 'First Aid 1-300 (5\u201360)', 'Tailoring 1-300 (5\u201360)'], navOn: true, tabOn: false, browseOn: true,
-		tabs: ['Home', 'Browse', 'Current', 'Recent'], footer: false, subtitle: 'Alliance  \u00b7  3 guides',
+		tabs: ['Guides', 'Browse', 'Current', 'Recent'], footer: false, subtitle: 'Alliance  \u00b7  3 guides',
 		home: { view: 'home', homeOn: true }, back: { view: 'browse', category: 'Professions', browseOn: true },
 	});
 	assert.equal(out.options, true);
@@ -189,7 +190,7 @@ test('the sidebar is one compact block on one edge: the lockup (wordmark, taglin
 		local navFirst = F.navButtons[1]
 		emit({ wordmark = pt(F.Wordmark), tagline = pt(F.Tagline), search = pt(F.Search), navTop = F.psNavTop, navX = select(4, navFirst.Icon:GetPoint(1)),
 			status = pt(F.Status), optLabelBottom = optY + opt:GetHeight() + iconY - opt.Icon:GetHeight() + labelY - opt.Label:GetStringHeight(),
-			emblem = pt(F.Emblem), firstRail = (function() for _, b in ipairs(F.railButtons) do if b:IsShown() and b.psKey == "Guides" then local _, _, _, _, y = b:GetPoint(1); return -y end end end)() })`);
+			emblem = pt(F.Emblem), firstRail = (function() for _, b in ipairs(F.railButtons) do if b:IsShown() and b.psKey == "Home" then local _, _, _, _, y = b:GetPoint(1); return -y end end end)() })`);
 	const edge = 24;
 	assert.deepEqual(out.wordmark, ['TOPLEFT', edge - 2, -22], 'the wordmark\'s ink (2px into its box) sits on the sidebar edge');
 	assert.deepEqual(out.tagline, ['TOPLEFT', edge, -52], 'the tagline under the wordmark, on the same edge');
@@ -517,6 +518,64 @@ test('from the guide window\'s +, loading opens a new tab; faction buttons write
 		UI.ShowPicker(); P.Select("forever/alliance/02-westfall")
 		emit({ newTab = D().NewTab:IsShown(), load = D().Load.Label:GetText(), primary = D().Load.psPrimary or false })`, { install: '{ noTabs = true }' });
 	assert.deepEqual(plain, { newTab: false, load: 'Load guide', primary: true });
+});
+
+for (const newTab of [false, true]) {
+	for (const hidden of [false, true]) {
+		test(`${newTab ? '+' : 'Choose guide'} clears Lookup search with the hub ${hidden ? 'hidden' : 'open'}`, () => {
+			const [out] = run(`
+				uistub.openTabs(TABS, 1)
+				UI.ShowLookup({ query = "saber" })
+				local lookup = P.Query()
+				-- The client also fires this callback for programmatic text changes.
+				local box, setText = P.search, P.search.SetText
+				box.SetText = function(self, text)
+					setText(self, text)
+					stub.RunScript(self, "OnTextChanged", false)
+				end
+				if ${hidden} then PolestarPicker:Hide() end
+				local first, render = nil, P.Render
+				P.Render = function(...)
+					if not first and PolestarPicker:IsShown() then first = { P.Section(), P.Query() } end
+					return render(...)
+				end
+				local GF = UI.GuideFrame
+				if ${newTab} then
+					GF.parts.strip.Add:Click()
+				else
+					GF.menuButton:Click()
+					for _, r in ipairs(PolestarMenu.rows) do
+						if r:IsShown() and r.Text:GetText() == "Choose guide" then r:Click(); break end
+					end
+				end
+				local r = { lookup = lookup, first = first, section = P.Section(), query = P.Query(),
+					search = P.search:GetText(), newTab = P.IsNewTabMode(), lookupQuery = UI.Lookup.Query() }
+				P.Select("forever/alliance/02-westfall")
+				P.LoadSelected()
+				r.loaded = lastCall("${newTab ? 'OpenTab' : 'SetGuide'}")
+				emit(r)`);
+			assert.deepEqual(out, {
+				lookup: 'saber', first: ['Guides', ''], section: 'Guides', query: '', search: '',
+				newTab, lookupQuery: 'saber', loaded: [newTab ? 'OpenTab' : 'SetGuide', 'forever/alliance/02-westfall'],
+			});
+		});
+	}
+}
+
+test('explicit destinations preserve the menu policy before and after a section is picked', () => {
+	const [out] = run(`
+		UI.ShowPicker({ section = "Lookup" })
+		P.SetQuery("saber")
+		UI.ShowPicker({ section = "Guides" })
+		PolestarPicker:Hide()
+		Polestar.Bindings.Menu()
+		local initial = P.Section()
+		P.ShowSection("Lookup")
+		UI.ShowPicker({ section = "Guides" })
+		PolestarPicker:Hide()
+		Polestar.Bindings.Menu()
+		emit({ initial = initial, picked = P.Section() })`);
+	assert.deepEqual(out, { initial: 'Home', picked: 'Guides' });
 });
 
 test('Home: Continue cards for the open tabs and the suggested guides; a card selects, a double-click continues', () => {

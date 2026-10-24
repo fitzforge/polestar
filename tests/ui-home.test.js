@@ -1,0 +1,384 @@
+'use strict';
+// Home, the hub's first section (addon/Polestar/UI/Home.lua), against the
+// fake Engine and sample guides of tests/lua/stub_ui.lua: the menu toggle
+// opens it and "Choose a guide" opens the guide list; it sits in the shell
+// like every section, the sidebar and all; its blocks come
+// from the other modules' data and close up when one has nothing to say.
+
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const { runAddon } = require('./helpers/lua');
+
+const FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'UI/UI.xml'];
+
+function run(script) {
+	return runAddon({
+		stubs: ['stub_ui.lua'],
+		addons: [{ name: 'Polestar', files: FILES }],
+		script: `uistub.install()\nstub.login()\nlocal UI, P, H = Polestar.UI, Polestar.UI.Picker, Polestar.UI.HomeSection\n${HELPERS}\n${script}`,
+	}).emitted;
+}
+
+const HELPERS = `
+local TABS = { { uistub.elwynn, 3 }, { uistub.tailoring, 2 }, { uistub.stormwindRep, 2 } }
+local function shownCards()
+	local out = {}
+	for _, key in ipairs({ "hero", "build", "dungeons", "next", "trainer", "gear", "rares" }) do
+		if H.Shown()[key] then out[#out + 1] = key end
+	end
+	return out
+end
+-- Talents as it would answer: a plan picked ("balance") or none ("auto").
+local function fakeTalents(choice, status)
+	local plans = { { key = "balance", specName = "Balance" }, { key = "feral", specName = "Feral Combat" }, { key = "resto", specName = "Restoration" } }
+	Polestar.Talents = {
+		FIRST_LEVEL = 10,
+		Choice = function() return choice end,
+		Choose = function(key) choice = key end,
+		Data = function() return { builds = plans } end,
+		Current = function()
+			return { data = { nodes = { [1] = { spell = 16814 }, [2] = { spell = 16845 } } }, build = { specName = "Balance", picks = { { node = 1, rank = 1 }, { node = 2, rank = 1 } } },
+				state = { status = status, unspent = status == "behind" and 1 or 0, spent = 0, done = 0, total = 2, next = { node = 1, rank = 1 } } }
+		end,
+		PickText = function() return "Improved Wrath 1/5" end,
+		NodeName = function(_, id) return id == 1 and "Improved Wrath" or "Moonglow" end,
+	}
+	UI.TalentsSection = { Show = function() end }
+end
+local function fakeWorld(level, trained)
+	uistub.player.level = level
+	UI.DungeonsSection.ForYou = function() return { { key = "deadmines", name = "The Deadmines", minLevel = 17, maxLevel = 26, zoneName = "Westfall", quests = { A = 5, H = 0 } } } end
+	Polestar.CharState().classTrainLevel = trained
+	Polestar.Engine.NearestClassTrainer = function() return { npcName = "Khelden Bremen", map = 1429, x = 49.66, y = 39.4 } end
+end
+`;
+
+test('the menu toggle opens Home; Choose a guide opens the guide list; once a section is picked the toggle keeps it', () => {
+	const [out] = run(`
+		Polestar.Fire("TOGGLE_PICKER")
+		local r = { first = P.Section(), title = PolestarPicker.Title:GetText() }
+		Polestar.Fire("SHOW_PICKER")
+		r.choose = P.Section()
+		PolestarPicker:Hide()
+		P.ShowSection("Lookup")
+		Polestar.Fire("TOGGLE_PICKER")
+		r.kept = P.Section()
+		emit(r)`);
+	assert.deepEqual(out, { first: 'Home', title: 'Home', choose: 'Guides', kept: 'Lookup' });
+});
+
+test('Home keeps the shell: the sidebar with the brand, no index rows, the character panel in their place; other sections keep their rows', () => {
+	const [out] = run(`
+		uistub.player.xp, uistub.player.xpMax = 6200, 10000
+		GetXPExhaustion = function() return 1200 end
+		GetMoney = function() return 123456 end
+		H.Show()
+		local F = PolestarPicker
+		local _, rel = F.Main:GetPoint(1)
+		local rows = 0
+		for _, b in ipairs(F.navButtons or {}) do if b:IsShown() then rows = rows + 1 end end
+		local p = H.Panel()
+		local r = { sidebar = F.Sidebar:IsShown(), mainAfterSidebar = rel == F.Sidebar, rows = rows, panel = p:IsShown(),
+			inSidebar = p:GetParent() == F.Sidebar, name = p.Name:GetText(), level = p.Level.Value:GetText(),
+			note = p.Level.Note:GetText(), bar = p.Level.Bar:IsShown(), gold = p.Gold.Value:IsShown(),
+			subtitle = F.Subtitle:IsShown() }
+		P.ShowSection("Guides")
+		local after = 0
+		for _, b in ipairs(F.navButtons) do if b:IsShown() then after = after + 1 end end
+		r.off = { p:IsShown(), after > 0 }
+		emit(r)`);
+	assert.deepEqual(out, { sidebar: true, mainAfterSidebar: true, rows: 0, panel: true, inSidebar: true, name: 'Testchar',
+		level: '62% to 5', note: '1,200 rested', bar: true, gold: true, subtitle: true, off: [false, true] });
+});
+
+// The clock comes from the XP tracker (QoL.GetXPStats, nil while it is off).
+test('the character panel\'s Time: this session, this level, XP per hour and time to level; gone while the tracker is off', () => {
+	const [on, slow, off] = run(`
+		local st = { sessionSeconds = 3900, levelSeconds = 1500, rate = 12300, timeToLevel = 2700, maxed = false }
+		Polestar.QoL = {
+			GetXPStats = function() return st end,
+			Duration = function(s) return s .. "s" end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end },
+		}
+		H.Show()
+		local p = H.Panel()
+		local function rows()
+			local out = {}
+			for _, r in ipairs(p.Times) do out[#out + 1] = r.Value:IsShown() and r.Value:GetText() or false end
+			return { head = p.TimeHead:IsShown(), rows = out }
+		end
+		emit(rows())
+		st.rate, st.timeToLevel = 0, nil
+		P.Render()
+		emit(rows())
+		Polestar.QoL.GetXPStats = function() return nil end
+		P.Render()
+		emit(rows())`);
+	assert.deepEqual(on, { head: true, rows: ['3900s', '1500s', '12.3k XP/h', '2700s'] });
+	assert.deepEqual(slow, { head: true, rows: ['3900s', '1500s', false, false] }, 'no pace yet: no rate, no time to level');
+	assert.deepEqual(off, { head: false, rows: [false, false, false, false] });
+});
+
+test('Home: the guide to continue with what is left of it, then the chosen talent plan, dungeons, where the guide leads and class training, two to a line', () => {
+	const [out] = run(`
+		fakeTalents("balance", "behind")
+		fakeWorld(20, 18)
+		uistub.openTabs(TABS, 1)
+		H.Show()
+		local c = H.Cards()
+		local strip = function(s) return (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
+		local r = { cards = shownCards(), who = H.Panel().Who:GetText(),
+			hero = { strip(c.hero.Name:GetText()), c.hero.Range.Text:GetText(), c.hero.Step:GetText(), c.hero.Go.Label:GetText(), c.hero.Then.Value:GetText(), c.hero.Next.Value:GetText() },
+			build = { c.build.Spec:GetText(), c.build.When:GetText(), c.build.Icons[1].psSpell, c.build.Icons[2].psSpell, c.build.Icons[3]:IsShown() },
+			dungeons = { c.dungeons.Name:GetText(), c.dungeons.Quests.Value:GetText(), c.dungeons.Count:GetText() },
+			nxt = c.next.Name:GetText(),
+			trainer = { c.trainer.Status:GetText(), c.trainer.Place:GetText(), c.trainer.Last:GetText() } }
+		local _, _, _, bx, by = c.build:GetPoint(1)
+		local _, _, _, dx, dy = c.dungeons:GetPoint(1)
+		local _, _, _, nx, ny = c.next:GetPoint(1)
+		local _, _, _, tx, ty = c.trainer:GetPoint(1)
+		r.grid = { by == dy, bx < dx, ny < by and ny == ty, nx == bx and tx > nx }
+		Polestar.Nav = { SetTarget = function(map, x, y, label) r.target = { map, label } end }
+		c.trainer.Go:Click()
+		emit(r)`);
+	assert.deepEqual(out.cards, ['hero', 'build', 'dungeons', 'next', 'trainer']);
+	assert.match(out.who, /^Level 20 /);
+	assert.deepEqual(out.hero, ['Elwynn Forest', '1–13', 'Step 3 of 8  ·  29% complete', 'Continue guide', 'Westfall (12–17)', 'Kobold Camp']);
+	assert.deepEqual(out.build, ['Balance', '1 point to spend', 16814, 16845, false]);
+	assert.deepEqual(out.dungeons, ['The Deadmines', '5 quests', '1 dungeon for your level']);
+	assert.equal(out.nxt, 'Westfall');
+	assert.deepEqual(out.trainer, ['New abilities available', 'Khelden Bremen, Elwynn Forest', 'Last trained at level 18']);
+	assert.deepEqual(out.grid, [true, true, true, true], 'build and dungeons share a line; up next and training the next');
+	assert.deepEqual(out.target, [1429, 'Khelden Bremen']);
+});
+
+test('Leveling build: no plan picked yet, the class\'s plans to pick from; picked, where you stand, before level 10 when the first point comes', () => {
+	const [ask, early] = run(`
+		fakeTalents("auto", "early")
+		fakeWorld(8, 8)
+		H.Show()
+		local c = H.Cards().build
+		local choices = {}
+		for _, b in ipairs(c.Choices) do if b:IsShown() then choices[#choices + 1] = b.Label:GetText() end end
+		emit({ cards = shownCards(), title = c.Spec:GetText(), ask = c.Ask:IsShown(), picks = c.Picks:IsShown(), choices = choices })
+		c.Choices[1]:Click()
+		P.Render()
+		emit({ choice = Polestar.Talents.Choice(), title = c.Spec:GetText(), ask = c.Ask:IsShown(), when = c.When:GetText(),
+			next = c.Next:GetText():gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""), choices = c.Choices[1]:IsShown() })`);
+	assert.deepEqual(ask, { cards: ['hero', 'build', 'dungeons', 'next', 'trainer'], title: 'Pick a leveling build', ask: true, picks: false,
+		choices: ['Balance', 'Feral Combat', 'Restoration'] });
+	assert.deepEqual(early, { choice: 'balance', title: 'Balance', ask: false, when: 'Your first talent point comes at level 10',
+		next: 'Next talent:  Improved Wrath 1/5', choices: false });
+});
+
+test('Home: a card with nothing to say is left out; with no guide open the suggestion is featured, to load', () => {
+	const [out] = run(`
+		uistub.player.level = 10
+		Polestar.CharState().classTrainLevel = 10
+		Polestar.Engine.NearestClassTrainer = function() return { npcName = "Khelden Bremen", map = 1429, x = 49.66, y = 39.4 } end
+		H.Show()
+		local c = H.Cards()
+		emit({ cards = shownCards(), status = c.trainer.Status:GetText(), go = c.hero.Go.Label:GetText(), step = c.hero.Step:GetText() })`);
+	assert.deepEqual(out.cards, ['hero', 'next', 'trainer']);
+	assert.equal(out.status, 'Class skills up to date');
+	assert.equal(out.go, 'Load guide');
+	assert.equal(out.step, 'Not started');
+});
+
+// Class training follows the guide: its own train step (the trainer the
+// engine picked, the guide window's) wins over the level rule, which would
+// call a character trained at this level up to date.
+test('Class training: the guide\'s own training step and its trainer first; else the nearest trainer and the even-level rule', () => {
+	const [guide, rule] = run(`
+		uistub.player.level = 6
+		Polestar.CharState().classTrainLevel = 6
+		Polestar.Engine.NearestClassTrainer = function() return { npcName = "Somewhere Else", map = 1413, x = 50, y = 50 } end
+		Polestar.Engine.IsClassTrainer = function(npc) return npc == 459 end
+		local g = uistub.guides[uistub.elwynn]
+		table.insert(g.steps, 4, { title = "Drusilla La Salle", goals = {
+			{ t = "train", npc = 911, npcName = "Llane Beshere", map = 1429, x = 50.24, y = 42.29, status = "na" },
+			{ t = "train", npc = 459, npcName = "Drusilla La Salle", map = 1429, x = 49.87, y = 42.65, status = "pending" },
+		} })
+		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
+		H.Show()
+		local c = H.Cards().trainer
+		local r = { status = c.Status:GetText(), place = c.Place:GetText() }
+		Polestar.Nav = { SetTarget = function(map, x, y, label) r.target = { map, label } end }
+		c.Go:Click()
+		emit(r)
+		table.remove(g.steps, 4)
+		P.Render()
+		emit({ status = c.Status:GetText(), place = c.Place:GetText() })`);
+	assert.deepEqual(guide, { status: 'Your guide trains you next step', place: 'Drusilla La Salle, Elwynn Forest', target: [1429, 'Drusilla La Salle'] });
+	assert.deepEqual(rule, { status: 'Class skills up to date', place: 'Somewhere Else, The Barrens' });
+});
+
+// The spells waiting: the class's trainer spells (Core/ClassSpells.lua) at
+// or under the level, not known, the rank before known, not a talent.
+test('Class training lists the spells to train: up to the level, not known, the rank before known, no talents', () => {
+	const [out, none] = run(`
+		uistub.player.level, uistub.player.class = 12, "WARLOCK"
+		Polestar.CharState().classTrainLevel = 10
+		local NAMES = { [348] = "Immolate", [707] = "Immolate", [172] = "Corruption", [695] = "Shadow Bolt", [705] = "Shadow Bolt",
+			[1454] = "Life Tap", [17877] = "Shadowburn", [6222] = "Corruption", [1094] = "Immolate" }
+		C_Spell = C_Spell or {}
+		C_Spell.GetSpellName = function(id) return NAMES[id] end
+		local known = { [348] = true, [695] = true, [1454] = true }
+		IsPlayerSpell = function(id) return known[id] or false end
+		Polestar.Engine.NearestClassTrainer = function() return { npcName = "Drusilla La Salle", map = 1429, x = 49.87, y = 42.65 } end
+		Polestar.Engine.ClassSpells = function(cls)
+			return cls == "WARLOCK" and {
+				{ 348, 1, 0, 0 }, { 172, 4, 0, 0 }, { 695, 6, 0, 0 }, { 1454, 6, 0, 0 }, { 707, 10, 348, 0 },
+				{ 705, 12, 695, 0 }, { 6222, 14, 172, 0 }, { 17877, 12, 0, 0 }, { 1094, 20, 707, 0 },
+			} or nil
+		end
+		Polestar.Talents = { Data = function() return { nodes = { [1] = { spell = 17877 } } } end }
+		H.Show()
+		local c = H.Cards().trainer
+		local icons = {}
+		for _, b in ipairs(c.Icons) do if b:IsShown() then icons[#icons + 1] = b.psSpell end end
+		emit({ status = c.Status:GetText(), icons = icons, spells = c.Spells:GetText() })
+		known[172], known[707], known[705] = true, true, true
+		P.Render()
+		emit({ status = c.Status:GetText(), spells = c.Spells:GetText(), icon = c.Icons[1]:IsShown() })`);
+	// Corruption 1 (known nothing), Immolate 2 (rank 1 known), Shadow Bolt 3 (rank 2 known); not Corruption 2
+	// (level 14, rank 1 unknown), not Shadowburn (a talent), not Immolate 3 (level 20).
+	assert.deepEqual(out, { status: '3 spells to train', icons: [172, 707, 705], spells: 'Corruption, Immolate, Shadow Bolt' });
+	assert.deepEqual(none, { status: 'Class skills up to date', spells: '', icon: false });
+});
+
+// The quick wins: the way to the next level in the hero, a short last line
+// of cards widened to the page, a click anywhere on a card, and what the next
+// level with new spells brings.
+test('Next level, in the character panel: share of the level, about how many guide quests are left to it, rested XP, and a bar', () => {
+	const [out, capped] = run(`
+		uistub.player.level, uistub.player.xp, uistub.player.xpMax = 18, 6200, 10000
+		GetXPExhaustion = function() return 1200 end
+		Polestar.Levels = Polestar.Levels or {}
+		Polestar.Levels.ForGuide = function() return { xp = 9000, levels = 0.9, quests = 6, questXP = 3000, unknown = 0, kills = 0 } end
+		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
+		H.Show()
+		local s = H.Panel().Level
+		emit({ value = s.Value:GetText(), note = s.Note:GetText(), bar = s.Bar:IsShown(), label = s.Label:GetText() })
+		uistub.player.xpMax = 0
+		P.Render()
+		emit({ shown = s.Value:IsShown(), bar = s.Bar:IsShown() })`);
+	// 3,800 XP to go at 500 a quest: 8 quests.
+	assert.deepEqual(out, { value: '62% to 19', note: 'about 8 quests  ·  1,200 rested', bar: true, label: 'Next level' });
+	assert.deepEqual(capped, { shown: false, bar: false }, 'nothing at the level cap');
+});
+
+test('a short last line of blocks widens to the page; the heading is the block\'s link: it lights up and opens; Preview route does the same', () => {
+	const [out] = run(`
+		fakeTalents("balance", "behind")
+		fakeWorld(20, 18)
+		UI.DungeonsSection.ForYou = function() return {} end
+		H.Show()
+		local c = H.Cards()
+		local r = { hero = c.hero:GetWidth(), build = c.build:GetWidth(), trainer = c.trainer:GetWidth() }
+		local opened
+		P.ShowSection = function(key) opened = key end
+		r.bodyClicks = c.next:GetScript("OnClick") ~= nil
+		r.bodyHover = c.next:GetScript("OnEnter") ~= nil
+		stub.RunScript(c.next.Head, "OnEnter")
+		r.lit = c.next.Head.Hover:IsShown()
+		stub.RunScript(c.next.Head, "OnLeave")
+		r.out = c.next.Head.Hover:IsShown()
+		stub.RunScript(c.next.Head, "OnClick", "LeftButton")
+		r.opened = opened
+		opened = nil
+		c.next.Go:Click()
+		r.card = opened
+		emit(r)`);
+	// Three blocks: the build and up next, then training alone across the page.
+	assert.equal(out.build, Math.floor((out.hero - 16) / 2));
+	assert.equal(out.trainer, out.hero);
+	assert.equal(out.opened, 'Guides', 'Up next opens the guide list at the next guide');
+	assert.equal(out.card, 'Guides', 'and so does Preview route');
+	assert.deepEqual([out.bodyClicks, out.bodyHover, out.lit, out.out], [false, false, true, false]);
+});
+
+test('Class training: what the next level with new spells brings, ranks chained through what can be learned now', () => {
+	const [out] = run(`
+		uistub.player.level, uistub.player.class = 9, "WARLOCK"
+		Polestar.CharState().classTrainLevel = 8
+		local NAMES = { [172] = "Corruption", [707] = "Immolate", [1120] = "Drain Soul", [6222] = "Corruption", [705] = "Shadow Bolt" }
+		C_Spell = C_Spell or {}
+		C_Spell.GetSpellName = function(id) return NAMES[id] end
+		IsPlayerSpell = function(id) return id == 348 end
+		Polestar.Engine.NearestClassTrainer = function() return { npcName = "Drusilla La Salle", map = 1429, x = 49.87, y = 42.65 } end
+		Polestar.Engine.ClassSpells = function() return {
+			{ 348, 1, 0, 0 }, { 172, 4, 0, 0 }, { 707, 10, 348, 0 }, { 1120, 10, 0, 0 }, { 705, 12, 695, 0 }, { 6222, 14, 172, 0 },
+		} end
+		H.Show()
+		local c = H.Cards().trainer
+		emit({ status = c.Status:GetText(), soon = c.Last:GetText() })`);
+	// Corruption 1 now; at 10 Immolate 2 (rank 1 known) and Drain Soul; Shadow Bolt 3 at 12 is later.
+	assert.deepEqual(out, { status: '1 spell to train', soon: 'At level 10: Immolate, Drain Soul' });
+});
+
+test('the header: "Home" and what the page is for', () => {
+	const [out] = run(`
+		H.Show()
+		emit({ title = PolestarPicker.Title:GetText(), subtitle = PolestarPicker.Subtitle:GetText() })`);
+	assert.deepEqual(out, { title: 'Home', subtitle: 'Your journey at a glance, and what comes next.' });
+});
+
+// The game menu (Escape) builds its buttons on each show (GameMenuFrameMixin:
+// InitButtons -> AddButton, laid out by layoutIndex, AddSection's 20px as the
+// next button's topPadding); Polestar adds one, its own block under Options.
+test('the game menu gets a Polestar button under Options, in its own block, added before InitButtons ends, that opens the hub at Home; none without that menu', () => {
+	const MENU = `GAMEMENU_OPTIONS, ADDONS, RETURN_TO_GAME = "Options", "AddOns", "Return to Game"
+GameMenuFrame = { buttons = {} }
+function GameMenuFrame:AddButton(text, fn)
+	local b = { text = text, fn = fn, layoutIndex = self.next, topPadding = self.section }
+	function b:GetText() return self.text end
+	self.next, self.section = self.next + 1, nil
+	self.buttons[#self.buttons + 1] = b
+	return b
+end
+function GameMenuFrame:AddSection() self.section = 20 end
+function GameMenuFrame:MarkDirty() self.dirty = true end
+function GameMenuFrame:AddCloseButton(text) self:AddSection(); return self:AddButton(text, function() end) end
+function GameMenuFrame:InitButtons()
+	self.buttons, self.next, self.section, self.dirty = {}, 1, nil, false
+	self:AddButton(GAMEMENU_OPTIONS, function() end)
+	self:AddSection()
+	self:AddButton(ADDONS, function() end)
+	self:closeButtonCall()
+	-- What a skinning addon's InitButtons post-hook would see.
+	self.seen = #self.buttons
+end
+function GameMenuFrame:closeButtonCall() self.closeButton = self:AddCloseButton(RETURN_TO_GAME) end
+HideUIPanel = function(f) f.hidden = true end`;
+	const [out] = runAddon({
+		stubs: ['stub_ui.lua'],
+		before: MENU,
+		addons: [{ name: 'Polestar', files: FILES }],
+		script: `uistub.install()\nstub.login()
+			local UI, P = Polestar.UI, Polestar.UI.Picker
+			P.ShowSection("Lookup")
+			GameMenuFrame:InitButtons()
+			GameMenuFrame:InitButtons()
+			local list = {}
+			for _, b in ipairs(GameMenuFrame.buttons) do list[#list + 1] = b end
+			table.sort(list, function(a, b) return a.layoutIndex < b.layoutIndex end)
+			local order, ours = {}, nil
+			for i, b in ipairs(list) do
+				local plain = b.text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+				order[i] = (b.topPadding and "| " or "") .. plain
+				if plain == "Polestar" then ours = b end
+			end
+			ours.fn()
+			emit({ order = order, count = #GameMenuFrame.buttons, seen = GameMenuFrame.seen, close = GameMenuFrame.closeButton.text, dirty = GameMenuFrame.dirty, hidden = GameMenuFrame.hidden or false,
+				shown = PolestarPicker:IsShown(), section = P.Section() })`,
+	}).emitted;
+	assert.deepEqual(out, {
+		// Added while InitButtons runs, so a later InitButtons hook sees all four;
+		// the close button stays the menu's.
+		order: ['Options', '| Polestar', '| AddOns', '| Return to Game'], count: 4, seen: 4, close: 'Return to Game', dirty: true,
+		hidden: true, shown: true, section: 'Home',
+	});
+	const [none] = run('emit({ installed = UI.GameMenu.installed or false })');
+	assert.deepEqual(none, { installed: false });
+});

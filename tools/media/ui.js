@@ -178,6 +178,13 @@ const GLYPHS = {
 		box(12, 15.2, 1.4, 2.4),
 		box(12, 19.6, 5.4, 1.8, 0.6),
 	),
+	// Home, the hub rail's first section: a house, a chimney on the roof, a
+	// thin gap under the eaves and the door cut out (not icon-sethome's plain
+	// house, a guide goal's verb).
+	home: subtract(
+		union(poly([[12, 2.2], [22.4, 11], [1.6, 11]]), box(17.4, 5.2, 1.5, 2.8), box(12, 16.6, 7.4, 5.2)),
+		union(line(2, 11.7, 22, 11.7, 1.1), box(12, 18.4, 2.1, 3.6, 0.4)),
+	),
 	// Guides, the hub rail's own section: an open book, its pages lined.
 	guides: subtract(
 		union(

@@ -482,6 +482,21 @@ test('the start page: Start guide opens the suggested guide, Browse guides opens
 	assert.deepEqual(none, { picker: true, closed: true });
 });
 
+for (const button of ['Browse', 'Start']) {
+	test(`welcome ${button === 'Browse' ? 'Browse guides' : 'Start without a suggestion'} opens Guides after visiting Home`, () => {
+		const [out] = run(`
+			Polestar.UI.HomeSection.Show()
+			PolestarPicker:Hide()
+			${button === 'Start' ? 'uistub.suggest = nil' : ''}
+			Wel.Show("start")
+			local calls = #uistub.calls
+			PolestarWelcome.${button}:Click()
+			emit({ section = Polestar.UI.Picker.Section(), picker = PolestarPicker:IsShown(),
+				closed = not shown(), seen = PolestarDB.welcomeSeen, calls = #uistub.calls - calls })`);
+		assert.deepEqual(out, { section: 'Guides', picker: true, closed: true, seen: 1, calls: 0 });
+	});
+}
+
 test('Show takes a page by key or by number among the pages shown', () => {
 	const [out] = run(`
 		Wel.Show(4)
