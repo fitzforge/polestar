@@ -248,6 +248,9 @@ local function checkWhen(list)
 		elseif k == "cooldown" then
 			-- One item or one spell (format 5).
 			if not ((isNum(p.item) and p.spell == nil) or (isNum(p.spell) and p.item == nil)) then return false end
+		elseif k == "knows" then
+			-- A spell id (format 5).
+			if not isNum(p.spell) then return false end
 		elseif not (WHEN_PLACE[k] and isStr(p.name)) then
 			return false
 		end

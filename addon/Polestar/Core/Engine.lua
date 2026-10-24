@@ -641,6 +641,9 @@ function Own.predicateHolds(p)
 		ok = (C.GetSkillRank and C.GetSkillRank(p.skillLine or p.name) or 0) >= p.n
 	elseif k == "cooldown" then
 		ok = Own.onCooldown(p)
+	elseif k == "knows" then
+		-- IsPlayerSpell too: Forever's spellbook check says no for weapon skills.
+		ok = C.IsSpellKnown(p.spell) or C.IsPlayerSpell(p.spell) == true
 	elseif k == "group" then
 		local answer = Own.groupAnswer(p.q)
 		-- Unanswered: the step applies either way, and waits (Own.groupPending).

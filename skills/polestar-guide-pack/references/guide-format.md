@@ -152,12 +152,13 @@ step was completed, not skipped or jumped over; not on a `next` line),
 0), `cooldown item <item>` / `cooldown spell <spell>` (on cooldown, the global
 cooldown aside), `group <quest>` (the player chose to do that group quest;
 unanswered, the route waits and asks; on the accept step, `!group` for a solo
-way; not on `next` or `skipto`); `!` in front of any but
+way; not on `next` or `skipto`), `knows <spell>` (the character knows the
+spell; `!knows` for the step that trains it); `!` in front of any but
 `level` and `money` turns it around. Once the route has passed the step, the
 outcome stays. A pack with `when` (on a step or a `next` line), `along` or
 `label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon` or `destroy` goals, a `when money`,
-`when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown` or
-`when group` predicate, or `skipto`, needs Polestar 0.3.0.
+`when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown`,
+`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0.
 
 ## Lint errors that come up most
 
