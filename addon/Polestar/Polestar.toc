@@ -41,3 +41,4 @@ Dungeons\Dungeons.xml
 UI\UI.xml
 Rares\Rares.xml
 Talents\Talents.xml
+Alts\Alts.xml

@@ -124,7 +124,7 @@ end
 -- The pages follow what the player came to do, not which module owns a
 -- setting: follow the guide (Guide), make Polestar look their way
 -- (Appearance), choose what the maps show (Map), quest (Questing), find
--- things (Discovery: Lookup, the dungeon journal, rares), small
+-- things (Discovery: Lookup, the dungeon journal, rares, your characters), small
 -- conveniences (Quality of Life), other addons Polestar works with
 -- (Integrations); the author's Recorder and About close the
 -- list. Modules still register their own controls; the pages they fill are
@@ -370,7 +370,7 @@ local BUILTIN = {
 }
 
 -- Pages filled by modules alone: Quests, QoL, Gear and Talents on Questing; Lookup,
--- Dungeons and Rares on Discovery; QoL and Maps on Quality of Life.
+-- Dungeons, Rares and Characters on Discovery; QoL and Maps on Quality of Life.
 for _, list in ipairs({
 	declare(QUESTING, "questing", "icon-accept", 40, L["Quest information, rewards and gear advice, and the quest buttons."], {
 		{ L["Quests"], { L["Quest database"], L["Tooltips and quest log"], L["Faster questing"] } },
@@ -382,6 +382,7 @@ for _, list in ipairs({
 		{ L["Lookup"], { L["How to get anything"] } },
 		{ L["Dungeons"], { ENCOUNTER_JOURNAL, L["Dungeons in leveling guides"] } },
 		{ L["Rares"], { L["When a rare shows up"], L["How rares are noticed"], L["History"] } },
+		{ L["Characters"], { L["Characters"] } },
 	}),
 	declare(QOL, "qualityoflife", "qol-toggles", 60, L["Small conveniences: travel, invitations, merchants and trackers."], {
 		{ L["Travel"], { L["Flight masters"], L["Hearthstone"], L["Flight timer"], L["Death"] } },
@@ -679,6 +680,7 @@ local ALIASES = {
 	automation = { "guide", L["Automation"] }, behavior = { "guide", L["Automation"] }, behaviour = { "guide", L["Automation"] },
 	quests = { "questing", L["Quests"] }, gear = { "questing", L["Rewards & gear"] }, talents = { "questing", L["Talents"] },
 	lookup = { "discovery", L["Lookup"] }, dungeons = { "discovery", L["Dungeons"] }, rares = { "discovery", L["Rares"] },
+	characters = { "discovery", L["Characters"] }, alts = { "discovery", L["Characters"] },
 	look = { "appearance" }, qol = { "qualityoflife" },
 }
 

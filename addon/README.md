@@ -10,7 +10,7 @@ page says which part is which.
 
 | Folder | What it holds | Built by | In git | Ships |
 |---|---|---|---|---|
-| `Polestar` | The addon: guide engine, waypoint arrow and travel planner, quest markers, gear advice, world map, quality of life, Lookup, Dungeons, Rares, Talents and every window. | Hand-written, apart from the generated files listed below | yes | yes, in `Polestar-<version>.zip` |
+| `Polestar` | The addon: guide engine, waypoint arrow and travel planner, quest markers, gear advice, world map, quality of life, Lookup, Dungeons, Rares, Talents, Characters and every window. | Hand-written, apart from the generated files listed below | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_Guides` | Polestar's own guide pack (pack id `guides`): every guide under `guides/`, compiled to Lua. Loads with Polestar. | `compile`, from `guides/` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_ItemDB` | Item stats for the gear advice (`Items.lua`) and Forever item stats with quest reward choices (`Forever.lua`). Loaded on demand. | `itemdb build`, then `gear build` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_Names_<locale>` | One per client language (`deDE` … `zhTW`): the quest, NPC, object and item names of Polestar's guides, quest database and Codex in that language (`Names.lua`), from DingDB and pfQuest (`LICENSE-DATA.txt`, Ding's `CREDITS.md`). Loaded on demand by `Core/Names.lua`, only the client's own; none on an English client. | `i18n names` | yes (generated) | yes, in `Polestar-<version>.zip` |
@@ -29,7 +29,7 @@ which data addons may ship, is in [THIRD_PARTY.md](../THIRD_PARTY.md).
 
 ## Polestar, module by module
 
-`Polestar.toc` loads eleven XML manifests, one per module, and each manifest
+`Polestar.toc` loads thirteen XML manifests, one per module, and each manifest
 lists that module's files. The order below is the load order. The addon's
 namespace is one table, `ns` inside the addon and the global `Polestar`
 outside it (`Core/Init.lua`: `Polestar = ns`), so `ns.Engine` and
@@ -55,6 +55,7 @@ never in saved variables.
 | 10 | UI | `UI/UI.xml` | `UI` | The guide window, the hub and its Guides, Lookup and Dungeons sections, zone art, route choice, welcome, problem report, options |
 | 11 | Rares | `Rares/Rares.xml` | `Rares` | Rare NPCs and treasures: detection, pins, alerts and the hub's Rares section |
 | 12 | Talents | `Talents/Talents.xml` | `Talents` | Talent plans for every class: the hub's Talents section, marks and tooltip lines on the talent frame, a reminder when a point waits |
+| 13 | Alts | `Alts/Alts.xml` | `Alts` | A snapshot of each character on the account and the hub's Characters section |
 
 `Bindings.xml` at the addon root declares the key bindings; it calls into
 `Core/Commands.lua`. Fonts are in `Media/Fonts`, textures in `Media/Nav` and
@@ -213,6 +214,14 @@ never in saved variables.
 | `Options.lua` | (registers options) | The talent settings |
 | `View.lua` | `UI.TalentsSection` | The hub's Talents section |
 
+### Alts
+
+| File | Public table | What it does |
+|---|---|---|
+| `Snapshot.lua` | `Alts` | The per-character snapshots, the events that write them, rested XP projection, the `alts` command |
+| `Options.lua` | (registers options) | The Characters setting |
+| `View.lua` | `UI.AltsSection` | The hub's Characters section |
+
 ### Where a hub screen lives
 
 The hub is the window `UI/Picker.lua` builds. Guides is its built-in section;
@@ -226,10 +235,11 @@ icon, order, build, render, ... })` from its own file:
 | Dungeons | 30 | `UI/Dungeons.lua` |
 | Talents | 40 | `Talents/View.lua` |
 | Rares | 50 | `Rares/View.lua` |
+| Characters | 60 | `Alts/View.lua` |
 
-Lookup and Dungeons keep their screens in `UI/`; Rares and Talents keep their
-screens in their own modules, which works because `Rares.xml` and
-`Talents.xml` load after `UI.xml`. A new
+Lookup and Dungeons keep their screens in `UI/`; Rares, Talents and Characters keep their
+screens in their own modules, which works because `Rares.xml`,
+`Talents.xml` and `Alts.xml` load after `UI.xml`. A new
 section registers the same way, from a file that loads after `UI/Picker.lua`.
 
 ## Generated files: do not edit

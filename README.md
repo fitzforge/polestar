@@ -71,7 +71,8 @@
 
 Good to know:
 
-- `/polestar guides` opens the hub: every guide, Lookup, Dungeons and Rares.
+- `/polestar guides` opens the hub: every guide, Lookup, Dungeons, Rares, Talents
+  and Characters.
   `/polestar options` holds every setting; quest markers on the map are off
   until you turn them on under **Map**.
 - `/polestar skip` moves on for good; `/polestar next` and `prev` only look
@@ -378,6 +379,15 @@ guides you there instead.
   window lists your scales for every class: use, rename, export or delete
   them, change their weights, and start one from a built-in spec.
 
+### Characters
+
+- **Characters** (`/polestar alts`) lists every character you have played on
+  the account: level, class, where each is, the guide it follows, gold,
+  professions and its XP bar. Rested XP for the ones logged out is worked out
+  to now from Classic's rules, so it is an estimate. Sort by last played,
+  most rested or level. The page also shows how many instances you have
+  entered this hour. A character appears once you have logged in on it.
+
 ### Lookup, Dungeons and Rares
 
 - **Lookup** searches guides, items, mounts, pets, NPCs, quests, zones,
@@ -531,6 +541,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `lookup [search]` | Open Lookup, optionally searching |
 | `mount` | Look up the mount of your target (or mouseover) and how to get it |
 | `rares [test]` | Open Rares, or show a sample rare alert |
+| `alts` | Open Characters |
 | `questdb` | Quest database status |
 | `packs` | Open Options > Community guides |
 | `import` | Open the Import page: paste a shared guide string to save it without installing an addon; `import clear` or `import delete` to remove it |

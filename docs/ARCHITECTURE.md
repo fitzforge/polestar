@@ -49,7 +49,7 @@ table; [tools/README.md](../tools/README.md) lists the commands, every
 generated file and the rebuild order; [tests/README.md](../tests/README.md)
 describes the test layers and the fake client.
 
-`addon/Polestar/Polestar.toc` loads eleven XML manifests in this order. Each
+`addon/Polestar/Polestar.toc` loads thirteen XML manifests in this order. Each
 module's manifest lists that module's files.
 The module sections below follow this order.
 
@@ -66,6 +66,7 @@ Dungeons\Dungeons.xml   Dungeon quest journal data
 UI\UI.xml               Guide window, guide menu, zone art, Lookup and Dungeons views, route choice, options
 Rares\Rares.xml         Rare NPCs and treasures: detection, pins, alerts, view
 Talents\Talents.xml     Talent plans: the hub section, talent frame marks, reminder
+Alts\Alts.xml           Characters: a snapshot of each character on the account, the hub section
 ```
 
 Manifests use only `<Script file="..."/>` and `<Include file="..."/>` (paths
@@ -183,7 +184,7 @@ its Set up and Route style pages); in `PolestarCharDB`, this character has (0 wh
 `dungeons` (per character) holds the dungeons this character runs in leveling
 guides, by the instance's Map id (`Engine.ChooseDungeon`, `when dungeon`).
 `behavior.suggestFrom` (default `"guides"`) is the pack suggestions come from.
-Modules keep their own keys beside these (`rares`, `instances`, `names` account-wide;
+Modules keep their own keys beside these (`rares`, `instances`, `names`, `alts` account-wide;
 `ui`, `routes`, `classTrainLevel`, `classTrainVisit`, `qol`, `flightTimes`,
 `flightNow`, `instanceRuns` per character), each described in its section or file header.
 
@@ -223,7 +224,7 @@ the saved view for the current guide), `guide <id>`, `status`, `tabs`,
 `packs` (Options at Community guides), `gamepad` (Options at Gamepad), `where`, `report` (`SHOW_REPORT`),
 `discord` (`SHOW_DISCORD`), `debug`; Nav adds `arrow`, `way` and `route`;
 modules add theirs (`xp`, `gear`, `instances`, `dungeons`, `lookup`, `mount`,
-`rares`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua)).
+`rares`, `talents`, `alts`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua)).
 
 `where` prints the player's map and position as two guide lines, `zone map
 <uiMapID>` and `goto <x>,<y> live` (two decimals, the client's live frame,
@@ -1628,6 +1629,7 @@ talk.
 
 ```lua
 Polestar.Theme.Accent() -> r, g, b
+Polestar.Theme.ClassColor(classFile) -> r, g, b | nil     -- the client's colour for a class file; nil: the player's class
 Polestar.Theme.Color(name) -> r, g, b, a
    -- grounds "bg","panel","panelAlt","sidebar","footer","sky"; text "text","textDim","textMuted";
    -- "accent","ink" (hairlines/washes),"star","shade" (wells, text shadows, art fades),
@@ -3784,7 +3786,7 @@ out of the sidebar and tab row. Every row resets to its default on right-click.
 The built-in pages are grouped by what the player is doing: **Guide** (10:
 Window, Arrow & routes, Automation), **Appearance** (20: Colour & type,
 Windows, Arrow), **Map** (30), **Questing** (40: Quests, Rewards & gear,
-Talents, Buttons), **Discovery** (50: Lookup, Dungeons, Rares), **Quality of Life** (60:
+Talents, Buttons), **Discovery** (50: Lookup, Dungeons, Rares, Characters), **Quality of Life** (60:
 Travel, Social, Vendors, Trackers), **Community guides** (70, a custom page:
 `UI/Packs.lua`), **Gamepad** (75, registered by `UI/GamepadGuide.lua`:
 Navigation, Key bindings), **Guiding Stars** (80, key `thanks`, a custom page:
@@ -3799,7 +3801,7 @@ and the options' headers, opening the page), Recorder, About. The options window
 declares every tab and section of the module-filled pages, in order, and the
 modules register their controls into them by name (`page = L["Questing"]`,
 `tab = L["Rewards & gear"]`, `section = L["Gear advice"]`): Quests, QoL,
-Gear and Talents fill Questing; Lookup, Dungeons and Rares fill Discovery; QoL and Maps
+Gear and Talents fill Questing; Lookup, Dungeons, Rares and Characters fill Discovery; QoL and Maps
 (flight timer, instances) fill Quality of Life. On the **Map** page (Guide &
 quests: Guide, Quest markers; Rares & travel: Rares and treasures, Dungeons and
 travel; Zones: Zones, Coordinates) Nav, Quests, Rares and Maps place every map
@@ -4453,6 +4455,55 @@ Polestar.Talents.Show()                                     -- SHOW_TALENTS; /po
   ranks off the plan; the tooltip line says "pick #N". Staged ranks count. Nothing is drawn while inspecting or for a
   loadout that is not the active one; in combat the redraw waits for
   `PLAYER_REGEN_ENABLED`.
+
+## Alts — the Characters page
+
+`addon/Polestar/Alts/` (`Alts\Alts.xml`, loaded after `Talents\Talents.xml`):
+`Snapshot.lua` (`Polestar.Alts`: the saved snapshots, the events that write
+them, the `alts` command), `Options.lua` (Discovery → Characters),
+`View.lua` (the hub section, order 60).
+
+```
+Polestar.Alts.Key() -> "Name-Realm"                         -- as Maps/Instances.lua files its entries
+Polestar.Alts.List(sortBy) -> entries                       -- the playing character first, then "seen" (default) | "rested" | "level"
+Polestar.Alts.Forget(key) -> boolean                        -- never the playing character
+Polestar.Alts.Write(silent, touch) -> boolean               -- the playing character's entry (touch: only `seen`); false with alts.enabled off
+Polestar.Alts.ProjectRested(entry, now) -> xp | nil         -- no saved state; nil at the level cap (now defaults to the server time)
+Polestar.Alts.Rested(entry, now) -> xp | nil                -- live for the playing character, else projected
+Polestar.Alts.IsCurrent(entry), Polestar.Alts.MaxLevel(), Polestar.Alts.Enabled()
+```
+
+- **Store.** `PolestarDB.alts.chars["Name-Realm"]`, one small entry per
+  character: name, realm, class, race, faction, level, xp, xpMax, rested,
+  resting, zone, bind, money, profs (skill line to rank), tabs (up to six
+  `{ id, title, step, count, complete }` from `Engine.GetTabs`) with `active`, `seen`
+  (server time), `key`. Values that equal nothing are left out. An alt's
+  entry is as of its last write, normally its logout.
+- **Writes.** All in the world: at login (after five seconds, once the tabs
+  exist), on resting changes at once, on level-ups, XP, zone, money, skill and
+  tab changes coalesced into one write every ten seconds (a single pending
+  timer) while not resting, and at once while `IsResting()` reads true, and at
+  once when the player asks to leave (`PLAYER_CAMPING` / `PLAYER_QUITING`
+  where the client has them). `Logout` and `Quit` are protected functions and
+  are not hooked; writing at once while resting (an inn or city, where an
+  instant logout is possible) is what leaves the saved entry current when
+  they are used. Also when the Characters page is drawn (so the playing
+  character is current there) and when `alts.enabled` is turned on. A write merges into the entry: a field that does not
+  read keeps its saved value; the zone is the zone-type map above the player's
+  map, not an indoor area's name. `PLAYER_LEAVING_WORLD` and `PLAYER_LOGOUT`
+  read nothing and only move `seen`: the client answers wrongly while the
+  world goes (resting false, no gold, no map, the indoor area for the zone),
+  plausibly enough that nothing could tell, so those reads would overwrite
+  good values. `ALTS_UPDATED` follows a write. `alts.enabled` (default on)
+  off: no events registered, no writes; saved entries are still listed, and
+  can be forgotten.
+- **Rested XP.** `ProjectRested` uses Classic's rules as named constants
+  (`REST_PER_8H`, `AWAY_FACTOR`, `REST_CAP`); Forever's rates are unverified,
+  so an alt's figure is an estimate.
+- **Section.** One `Button` row per character (so the gamepad can focus it),
+  sorted by `alts.sort` (the hub tabs: Last played, Most rested, Level); the
+  sidebar has an entry per character, which selects and scrolls to its row; the instance count, in the subtitle, is `Maps.GetInstanceStatus()`.
+  Forget uses `W.Confirm`. `SHOW_ALTS` opens it (`/pole alts`).
 
 ## Toolchain (Node ≥ 24, zero npm dependencies)
 

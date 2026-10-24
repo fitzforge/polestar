@@ -428,17 +428,20 @@ function Theme.SchemeChoices()
 	return out
 end
 
--- The player's class colour, from the client (class colour addons may change
--- it). -> r, g, b | nil
-local function classColor()
-	if not UnitClass then return nil end
-	local _, file = UnitClass("player")
+-- A class's colour (the player's without a class file), from the client
+-- (class colour addons may change it). -> r, g, b | nil
+local function classColor(file)
+	if not file then
+		if not UnitClass then return nil end
+		file = select(2, UnitClass("player"))
+	end
 	if not file then return nil end
 	local c = C_ClassColor and C_ClassColor.GetClassColor and C_ClassColor.GetClassColor(file)
 	if not (c and type(c.r) == "number") then c = RAID_CLASS_COLORS and RAID_CLASS_COLORS[file] end
 	if not (c and type(c.r) == "number") then return nil end
 	return c.r, c.g, c.b
 end
+Theme.ClassColor = classColor
 
 -- One accent source at a time: your own colour, your class's (ui.classAccent)
 -- or EllesmereUI's. Whether the accent currently comes from the class:
