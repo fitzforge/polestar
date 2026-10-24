@@ -38,9 +38,10 @@ end
 local defaults = {
 	itemButton = true,       -- quest item button
 	targetButton = true,     -- target macro button
+	guideNameTarget = false, -- opt in: extend navigation clicks to targeting, with shared marking settings
 	rareButton = true,       -- target button for a rare the addon spotted
 	hearthButton = true,     -- Hearthstone button while a hearth goal is active
-	markTarget = false,      -- raid icon on what the target button and step key target
+	markTarget = false,      -- raid icon on what the target button, step key and objective clicks target
 	markMob = "8",           -- its icon on mobs (1-8, "cycle"): skull
 	markNpc = "1",           -- and on NPCs: star
 	buttonScale = 1,

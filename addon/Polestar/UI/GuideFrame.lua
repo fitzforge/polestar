@@ -39,8 +39,8 @@
 --
 -- Rows are pooled and filled in place, so STEP_UPDATED (a kill, a loot)
 -- repaints existing rows instead of rebuilding anything. Nothing runs per
--- frame except a short tween (Polestar.Anim), an active drag-resize, or the
--- hover watch while the cursor is over a transparent window.
+-- frame except a short tween (Polestar.Anim), an active drag-resize, the
+-- name-target hitbox position watch, or the transparent window's hover watch.
 
 local ADDON, ns = ...
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
@@ -591,6 +591,7 @@ local function paintPerson(group)
 end
 
 local function personEnter(self)
+	self.Hover:Show()
 	local lines = {}
 	if self.psPlace then
 		lines[#lines + 1] = { left = L["Location"], right = string.format("%s  %.1f, %.1f", UI.MapName(self.psPlace.map) or "", self.psPlace.x, self.psPlace.y) }
@@ -600,6 +601,11 @@ local function personEnter(self)
 	if view and view.title and view.title ~= self.psLabel then lines[#lines + 1] = view.title end
 	W.Tooltip(self, tooltipAnchor(), self.psLabel or "", lines)
 	GF.HoverIn()
+end
+
+local function personLeave(self)
+	self.Hover:Hide()
+	W.HideTooltip(self)
 end
 
 ---------------------------------------------------------------------------
@@ -1440,6 +1446,7 @@ function GF.Layout()
 	band:SetTexCoord(x0, x1, y0, y1)
 	if showStrip then GF.RenderTabs() end
 	GF.PaintProgress(false)
+	if UI.NameTargets then UI.NameTargets.Refresh() end
 end
 
 ---------------------------------------------------------------------------
@@ -2667,7 +2674,16 @@ local function build()
 	-- The focus header: who (or what) the goals below belong to.
 	person = CreateFrame("Button", nil, card)
 	person:RegisterForClicks("LeftButtonUp")
-	W.Hover(person, 0.7)
+	-- Ordinary texture: the name-target overlay forwards enter/leave, which
+	-- cannot activate a native HIGHLIGHT on the header underneath it.
+	person.Hover = person:CreateTexture(nil, "BACKGROUND")
+	person.Hover:SetTexture(Theme.Media("white"))
+	person.Hover:SetAllPoints(person)
+	W.Painter(person.Hover, function(t)
+		local r, g, b, a = Theme.Wash("hover")
+		t:SetVertexColor(r, g, b, a * 0.7)
+	end)
+	person.Hover:Hide()
 	-- The arrow on this person: the 2px accent selection bar.
 	person.Mark = person:CreateTexture(nil, "ARTWORK")
 	person.Mark:SetTexture(Theme.Media("white"))
@@ -2693,7 +2709,8 @@ local function build()
 	person.Rule:Hide()
 	person:SetScript("OnClick", function(self) pointAt(self.psPlace, self.psLabel) end)
 	person:SetScript("OnEnter", personEnter)
-	person:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+	person:SetScript("OnLeave", personLeave)
+	person:SetScript("OnHide", personLeave)
 
 	-- The author's tip, one line until opened.
 	local tip = CreateFrame("Button", nil, card)
@@ -2880,6 +2897,27 @@ local function build()
 		GF.UpdateXP()
 		GF.Render()
 	end)
+	if UI.NameTargets then
+		UI.NameTargets.Bind(F, function()
+			local entries = {}
+			if state ~= "steps" or not view then return entries end
+			if person:IsShown() and focusGroup and focusGroup.kind == "npc" then
+				entries[#entries + 1] = { owner = person, region = person.Name,
+					goal = { t = "talk", npc = focusGroup.npc, npcName = focusGroup.name } }
+			end
+			local E = Engine()
+			local g = E and E.GetGuide and E.GetGuide()
+			local raw = g and g.steps and g.steps[view.index]
+			for _, row in ipairs(rows) do
+				if row:IsShown() and row.psGoal then
+					entries[#entries + 1] = { owner = row, region = row, wholeRow = true, goal = row.psGoal, right = true,
+						controls = { row.Check, row.Skip, row.Alt, row.psGearPick },
+						raw = raw and raw.goals and raw.goals[row.psGoal.index] }
+				end
+			end
+			return entries
+		end)
+	end
 	Theme.OnChanged(function() if ns.IsLoggedIn() then GF.Render() end end)
 end
 
