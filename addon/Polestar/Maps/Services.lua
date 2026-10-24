@@ -22,7 +22,7 @@ local CATEGORIES = {
 	{ key = "spirithealer", label = L["Spirit healers"], icon = "Interface\\Icons\\Spell_Holy_GuardianSpirit" },
 	{ key = "stablemaster", label = L["Stable masters"], texture = "StableMaster" },
 	{ key = "trainer", label = L["Profession trainers"], texture = "Profession" },
-	{ key = "vendor", label = L["Vendors"], texture = "Banker" },
+	{ key = "vendor", label = L["Vendors"], icon = "Interface\\GossipFrame\\VendorGossipIcon" },
 }
 Maps.ServiceCategories = CATEGORIES
 local filters = {}
@@ -62,19 +62,25 @@ local function rgb(key)
 	return 1, 1, 1
 end
 
--- One icon per NPC and spawn, using the first enabled service it offers.
+-- One icon per NPC and location, using the first enabled service it offers.
 -- Its tooltip keeps the other roles, so a repair vendor needs only one pin.
 function Maps.BuildServicePins(records)
 	local pins, seen = {}, {}
-	local mailboxes = {}
-	local function repeatedMailbox(spawn)
+	local observations = {}
+	local function repeatedSpawn(record, spawn, mailbox)
 		local c, wx, wy = ns.Compat.MapToWorld(spawn.map, spawn.x, spawn.y, spawn.f)
-		if not c then return false end
-		for _, point in ipairs(mailboxes) do
-			if point.c == c and (point.wx - wx) ^ 2 + (point.wy - wy) ^ 2 <= 100 then return true end
+		local key = mailbox and "mailbox" or (record.kind or "npc") .. ":" .. record.id
+		local points = observations[key] or {}
+		local radius2 = mailbox and 100 or 225
+		for _, point in ipairs(points) do
+			-- Codex uses a 3% map radius for places; exact service observations still need that display grouping.
+			if not mailbox and point.spawn.map == spawn.map and (point.spawn.f or "l") == (spawn.f or "l")
+				and (point.spawn.x - spawn.x) ^ 2 + (point.spawn.y - spawn.y) ^ 2 <= 9 then return true end
+			if c and point.c == c and (point.wx - wx) ^ 2 + (point.wy - wy) ^ 2 <= radius2 then return true end
 		end
-		-- Mailbox spawn lists include repeated player observations within interaction range.
-		mailboxes[#mailboxes + 1] = { c = c, wx = wx, wy = wy }
+		-- Retain original locations; world distance also matches overlapping maps (mailboxes keep 10 yards).
+		points[#points + 1] = { spawn = spawn, c = c, wx = wx, wy = wy }
+		observations[key] = points
 		return false
 	end
 	local info = ns.Compat.GetPlayerInfo and ns.Compat.GetPlayerInfo() or {}
@@ -96,8 +102,8 @@ function Maps.BuildServicePins(records)
 					local map, x, y = spawn.map, spawn.x, spawn.y
 					if type(map) == "number" and map > 0 and type(x) == "number" and type(y) == "number"
 						and x >= 0 and x <= 100 and y >= 0 and y <= 100 then
-						local key = table.concat({ record.kind or "npc", record.id, map, x, y }, ":")
-						if not seen[key] and (not roles.mailbox or not repeatedMailbox(spawn)) then
+						local key = table.concat({ record.kind or "npc", record.id, map, x, y, spawn.f or "l" }, ":")
+						if not seen[key] and not repeatedSpawn(record, spawn, roles.mailbox) then
 							seen[key] = true
 							local name = record.name or tostring(record.id)
 							local p = { id = record.id, kind = record.kind or "npc", category = selected.key,

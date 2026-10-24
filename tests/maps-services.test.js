@@ -232,6 +232,106 @@ test('nearby mailbox observations merge across object IDs while separate physica
   assert.deepEqual(out, [{ id: 1, x: 48 }, { id: 3, x: 52 }]);
 });
 
+test('nearby observations of one service NPC share a pin without merging different NPCs or distant spawns', () => {
+  const [out] = run(`
+    local records={}
+    for _,role in ipairs({"vendor","repair","banker","auctioneer","trainer","weapon","battlemaster","spirithealer","stablemaster","class:WARRIOR"}) do
+      records[#records+1]={id=#records+1,name=role,roles={role},spawns={
+        {map=9000,x=40,y=50,f="l"},{map=9000,x=40.2,y=50.2,f="l"},
+        {map=9000,x=42.5,y=50,f="l"},{map=9000,x=45,y=50,f="l"},
+      }}
+    end
+    local before=records[1].spawns[1]
+    local pins=M.BuildServicePins(records)
+    local counts={}
+    for _,p in ipairs(pins) do counts[p.category]=(counts[p.category] or 0)+1 end
+    local p=pins[1]
+    p.onClick("LeftButton")
+    local target=Polestar.Nav.GetTarget()
+    emit({count=#pins,categories=counts,first={id=p.id,x=p.x,y=p.y,f=p.f},
+      second={id=pins[2].id,x=pins[2].x},target={map=target.map,x=target.x,y=target.y,f=target.f},
+      unchanged=records[1].spawns[1]==before and #records[1].spawns==4})
+  `);
+  assert.deepEqual(out, {
+    count: 20,
+    categories: Object.fromEntries(['vendor','repair','banker','auctioneer','trainer','weapon','battlemaster','spirithealer','stablemaster','class'].map(k => [k,2])),
+    first: { id:1, x:40, y:50, f:'l' }, second: { id:1, x:45 },
+    target: { map:9000, x:40, y:50, f:'l' }, unchanged:true,
+  });
+});
+
+test('service observations compare world positions across maps and keep map/frame groups without world conversion', () => {
+  const [out] = run(`
+    stub.world.addMap(9100,{c=0,left=1000,right=-1000,top=1000,bottom=-1000})
+    stub.world.addMap(9101,{c=1,left=1000,right=-1000,top=1000,bottom=-1000})
+    local saved=Polestar.MapFrames.era[9100]
+    Polestar.MapFrames.era[9100]={c=0,left=2000,right=0,top=1000,bottom=-1000}
+    local pins=M.BuildServicePins({{id=101,name="Service",roles={"repair"},spawns={
+      {map=9000,x=40,y=50,f="l"},{map=9100,x=40.2,y=50,f="l"},
+      {map=9100,x=90,y=50,f="e"},{map=9100,x=40.2,y=50,f="e"},
+      {map=9101,x=40,y=50,f="l"},
+      {map=9199,x=40,y=50,f="l"},{map=9199,x=40,y=50,f="l"},
+      {map=9199,x=40,y=50,f="e"},{map=9199,x=40.2,y=50,f="l"},
+      {map=9199,x=40.3,y=50},{map=9199,x=45,y=50},
+    }}})
+    local rows={}
+    for _,p in ipairs(pins) do rows[#rows+1]={map=p.map,x=p.x,f=p.f} end
+    Polestar.MapFrames.era[9100]=saved
+    emit(rows)
+  `);
+  assert.deepEqual(out, [
+    {map:9000,x:40,f:'l'}, {map:9100,x:40.2,f:'e'}, {map:9101,x:40,f:'l'},
+    {map:9199,x:40,f:'l'}, {map:9199,x:40,f:'e'}, {map:9199,x:45},
+  ]);
+});
+
+test('the reported Gishah observations produce one original Undercity waypoint', () => {
+  const [out] = run(`
+    stub.world.addMap(1458,{c=0,left=873.193,right=-86.182,top=1877.945,bottom=1237.841})
+    local spawns={}
+    for _,xy in ipairs({{64.4,38.4},{64.4,38.6},{64.6,38.6},{64.8,38.2},{65.6,38.4},{65.6,38.6}}) do
+      spawns[#spawns+1]={map=1458,x=xy[1],y=xy[2]}
+    end
+    local pins=M.BuildServicePins({{id=214098,name="Gishah",roles={"vendor"},spawns=spawns}})
+    emit({count=#pins,x=pins[1].x,y=pins[1].y,observations=#spawns})
+  `);
+  assert.deepEqual(out, {count:1,x:64.4,y:38.4,observations:6});
+});
+
+test('Zephras repair and vendor observations share original locations even without world bounds', () => {
+  const [out] = run(`
+    local records={
+      {id=251364,name="Destin Thriceforged",roles={"repair","vendor"},points={
+        {42.5,23.4},{42.8,23.5},{43,24.2},{43.1,23.4},{43.1,23.5},{43.2,23.8},
+        {43.2,23.2},{43.2,23.6},{43.3,23.6},{43.4,23.6},{43.4,23.4}}},
+      {id=251365,name="Jolee Brightmeadows",roles={"repair","vendor"},points={
+        {43.2,23.4},{43.2,23.5},{43.2,23.8},{43.3,23.2},{43.3,23.8},{43.5,23.6}}},
+      {id=252449,name="Iallion Featherfall",roles={"vendor"},points={
+        {58.4,74.6},{58.6,76.1},{58.8,75.2},{58.9,75.5}}},
+    }
+    for _,r in ipairs(records) do
+      r.spawns={}
+      for _,p in ipairs(r.points) do r.spawns[#r.spawns+1]={map=2521,x=p[1],y=p[2]} end
+    end
+    local function summary()
+      local out={}
+      for _,p in ipairs(M.BuildServicePins(records)) do out[#out+1]={id=p.id,x=p.x,y=p.y} end
+      return out
+    end
+    local unknown=summary()
+    -- Synthetic large bounds exercise the world-conversion path too; these are not Zephras measurements.
+    stub.world.addMap(2521,{c=0,left=5000,right=-5000,top=5000,bottom=-5000})
+    local known=summary()
+    local pin=M.BuildServicePins(records)[1]
+    local target
+    Polestar.Nav.SetTarget=function(...) target={...} end
+    pin.onClick("LeftButton")
+    emit({unknown=unknown,known=known,target=target,raw=#records[1].spawns+#records[2].spawns+#records[3].spawns})
+  `);
+  const points = [{id:251364,x:42.5,y:23.4},{id:251365,x:43.2,y:23.4},{id:252449,x:58.4,y:74.6}];
+  assert.deepEqual(out, {unknown:points,known:points,target:{1:2521,2:42.5,3:23.4,4:'Destin Thriceforged',6:'npc'},raw:21});
+});
+
 test('the records kept for filter changes are slim and friendly only', () => {
   const [out] = run(`
     __npcs[1].loot,__npcs[1].level={5},30
@@ -244,7 +344,7 @@ test('the records kept for filter changes are slim and friendly only', () => {
   assert.deepEqual(out, { fields: ['faction', 'id', 'name', 'roles', 'spawns', 'subName'], shared: false, enemy: true, hostileBox: true, box: 'object' });
 });
 
-test('services are opt-in with a lean category set, leave flight masters and inns to the travel layers, and use the native bag for vendors and a distinct chest for bankers', () => {
+test('services are opt-in with a lean category set, leave flight masters and inns to the travel layers, and use the vendor gossip icon and a distinct chest for bankers', () => {
   const [out, weapon] = run(`
     local icons,on={},{}
     for _,category in ipairs(M.ServiceCategories) do
@@ -261,7 +361,7 @@ test('services are opt-in with a lean category set, leave flight masters and inn
     on: ['mailbox', 'class'],
     inn: true,
     flight: true,
-    vendor: 'Interface\\Minimap\\Tracking\\Banker',
+    vendor: 'Interface\\GossipFrame\\VendorGossipIcon',
     banker: 'Interface\\Icons\\INV_Misc_TreasureChest01a',
     reads: 0,
   });
@@ -506,7 +606,7 @@ test('a fresh install leaves the Codex unloaded until the layer is on and the wo
     assert.equal(out.loaded,true);
     assert.equal(out.questie,false);
     // The lean default set: class trainers and mailboxes; the repair vendor stays opt-in.
-    assert.deepEqual(out.npcs,[{id:103,category:'class',x:40,y:50}, {id:103,category:'class',x:40.1,y:50.1}]);
+    assert.deepEqual(out.npcs,[{id:103,category:'class',x:40,y:50}]);
     assert.deepEqual(out.boxes,[{id:101,category:'mailbox',x:50,y:50},{id:103,category:'mailbox',x:70,y:50}]);
   } finally { pack.cleanup(); }
 });
