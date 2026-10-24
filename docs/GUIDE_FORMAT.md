@@ -330,6 +330,25 @@ the outcome is stored once the route has passed the step: a sword step
 skipped because the character wore something better does not come back
 later. The item id is checked against the data, as for `has`.
 
+**Professions and cooldowns.** `when skill <Profession> <N>` is for a step
+only some characters can do: one with Herbalism picks herbs on the way, one
+below a rank works on it. `when cooldown item <item>` or `cooldown spell
+<spell>` is for a step that waits on a cooldown: `!cooldown` while the item
+or spell is ready. Both are read live, so the step comes and goes with the
+rank or the cooldown until the route has passed it.
+
+```
+step Bandages while you wait
+  when skill "First Aid" 1
+  when !skill "First Aid" 40
+  craft 3275 until 40
+```
+
+The profession is written as for the `skill` goal. Lint warns about a
+profession the data does not know: the predicate then reads the rank by
+that name, which only an English client reports. A `cooldown item` id is checked
+against the data; a spell id is not.
+
 **Group quests.** `when group <quest>` is for a quest that needs a group (an
 elite, an escort): the player decides whether to do it. When the route
 reaches a step with `when group <quest>` or `when !group <quest>` and the
@@ -398,9 +417,9 @@ time. A subzone is looked up in the zone where the guide ends.
 A pack with a `when` anywhere (on a step or a `next` option), or a `level`
 goal inside a level (`level 12.5`), is written in pack format 4, which
 Polestar 0.2.6 and later read. A `when money`, `when dungeon`, `when
-upgrade`, `when skill`, `when cooldown` or `when group` predicate (above)
-writes format 5 (Polestar 0.3.0 and later), because 0.2.6 knows `when` but
-not those predicates; `money`, `task`, `enter`, `cast`, `abandon` and `destroy` goals also need format 5
+upgrade`, `when done`, `when skill`, `when cooldown` or `when group`
+predicate (above) writes format 5 (Polestar 0.3.0 and later), because 0.2.6 knows `when` but
+not those predicates; `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals also need format 5
 (docs/PACK_FORMAT.md).
 
 ## Along the way
@@ -961,13 +980,17 @@ from the data, so the arrow leads to the nearest camp.
 `polestar find <quest id>` lists a quest's objectives as
 `7.1 = kill Kobold Vermin x10`: the `7.1` is the `quest 7.1` to write.
 
-### Places: `goto`, `explore`
+### Places: `goto`, `explore`, `enter`
 
 ```
   goto 39.5,80.0 "Fargodeep Mine"
   goto 46.0,55.0 live "Lift to the bluff"
   explore 39.5,80.0 "Fargodeep Mine"
+  enter "Goldshire"
 ```
+
+`enter` is done anywhere in the zone or area, by whichever way the player
+gets there: use it where a `goto` point would be one spot of a large place.
 
 Typed coordinates are in the Era map frame unless the guide says `coords
 live` or the goal says `live`. In game, `/polestar where` gives your own
@@ -1017,13 +1040,18 @@ The game may only find a picture added while it runs after a restart;
 guide once the picture is in place. An import string carries the `image`
 line but not the file, so an imported guide shows no picture.
 
-### People and things: `talk`, `interact`, `use`
+### People and things: `talk`, `interact`, `use`, `cast`
 
 ```
   talk 295 optional
   interact 176793 quest 5545.1        -- Bundles of wood lie under the trees
   use 5411 quest 754.1 @51.8,68.4     -- Winterhoof Cleansing Totem
+  cast 818 "Basic Campfire"
 ```
+
+`cast` counts only a cast made while the goal is open, so put it in the
+step where the player should cast; a spell that is no recipe in the data
+needs its quoted name.
 
 ### Travel: `sethome`, `hearth`, `die`, `getfp`, `fly`
 

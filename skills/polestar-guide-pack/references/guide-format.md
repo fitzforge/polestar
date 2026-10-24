@@ -155,7 +155,7 @@ unanswered, the route waits and asks; on the accept step, `!group` for a solo
 way; not on `next` or `skipto`); `!` in front of any but
 `level` and `money` turns it around. Once the route has passed the step, the
 outcome stays. A pack with `when` (on a step or a `next` line), `along` or
-`label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon` or `destroy` goals, a `when money`,
+`label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon`, `destroy` or `die` goals, a `when money`,
 `when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown` or
 `when group` predicate, or `skipto`, needs Polestar 0.3.0.
 
