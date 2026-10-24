@@ -13,9 +13,9 @@ return {
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "Die Strange Orb",
 	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore
-	["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Klettere ganz nach oben auf {area:444} im nördlichen {zone:1439}. Plündere dort oben die Strange Orb: Sie gibt dir die Althalaxx Orb, die die Quest startet.",
+	["Climb to the top of the {area:444} in northern {zone:1439}. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest."] = "Klettere ganz nach oben auf {area:444} im nördlichen {zone:1439}. Plündere dort oben die Strange Orb: Sie gibt dir die Kugel von Althalaxx, die die Quest startet.",
 	-- {area:444} Tower of Althalaxx
-	["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "Strange Orb oben auf {area:444}: Rechtsklick auf die Althalaxx Orb, die sie gibt",
+	["Strange Orb atop the {area:444}: right-click the Althalaxx Orb it gives"] = "Strange Orb oben auf {area:444}: Rechtsklick auf die Kugel von Althalaxx, die sie gibt",
 
 	-- Step 2: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale
