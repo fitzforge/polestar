@@ -828,6 +828,9 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			o.set("x", ie.get("x"));
 			o.set("y", ie.get("y"));
 			o.set("f", or_null(ie.get("f")));
+			if ie.get("A").truthy() {
+				o.set("A", ie.get("A"));
+			}
 			V::Obj(o)
 		} else {
 			V::Null

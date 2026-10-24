@@ -114,8 +114,22 @@ pub fn entrance_v(map: f64, x: f64, y: f64, era: bool, approx: bool) -> V {
 	V::Obj(o)
 }
 
-/// instances.js `chooseEntrance`.
+/// instances.js `chooseEntrance`: a table entry's `A` (the Alliance's own way in) rides along as entrance.A.
 fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
+	let e = choose_entrance_point(name, recorded, table, guides, corpse, zones, frames, prefer);
+	let a = table.get("A");
+	if let (Some(o), true) = (e.as_obj(), table.truthy() && a.get("map").truthy()) {
+		let ao = Obj::new();
+		ao.set("map", a.get("map").num());
+		ao.set("x", round1(a.get("x").num()));
+		ao.set("y", round1(a.get("y").num()));
+		o.set("A", V::Obj(ao));
+	}
+	e
+}
+
+/// instances.js `chooseEntrancePoint`.
+fn choose_entrance_point(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
 	let mut rec = recorded.items();
 	rec.sort_by(|a, b| ord(num0(&b.get("n")) - num0(&a.get("n"))));
 	if let Some(r) = rec.first() {
@@ -701,4 +715,36 @@ pub fn load_entrance_table(text: &str) -> Result<V, String> {
 		out.set(&kstr(&e.get("key")), e.clone());
 	}
 	Ok(V::Obj(out))
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use forge_guide::js::parse_json;
+
+	#[test]
+	fn a_table_entry_s_alliance_way_in_rides_along_as_entrance_a_whichever_point_wins_706() {
+		let dalaran = parse_json(r#"{ "key": "city-of-dalaran", "map": 1416, "x": 8.5, "y": 59.2, "A": { "map": 1416, "x": 14.68, "y": 62.99 } }"#).unwrap();
+		let none = V::Null;
+		let e = choose_entrance("City of Dalaran", &none, &dalaran, &[], None, &none, &none, &[]);
+		assert_eq!(e.get("A").get("map").num(), 1416.0);
+		assert_eq!((e.get("A").get("x").num(), e.get("A").get("y").num()), (14.7, 63.0));
+		assert_eq!((e.get("x").num(), e.get("y").num()), (8.5, 59.2));
+		let recorded = parse_json(r#"[{ "map": 1416, "x": 8.6, "y": 59.3, "n": 1 }]"#).unwrap();
+		let rec = choose_entrance("City of Dalaran", &recorded, &dalaran, &[], None, &none, &none, &[]);
+		assert_eq!(rec.get("x").num(), 8.6, "the recording wins");
+		assert_eq!(rec.get("A").get("x").num(), 14.7, "and keeps the Alliance way in");
+		let one = parse_json(r#"{ "key": "deadmines", "map": 1436, "x": 42.5, "y": 71.7 }"#).unwrap();
+		assert!(!choose_entrance("Deadmines", &none, &one, &[], None, &none, &none, &[]).get("A").truthy(), "one way in: no A");
+	}
+
+	#[test]
+	fn the_curated_table_sends_the_alliance_into_the_city_of_dalaran_through_cantrips_and_crows() {
+		let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../data/codex/entrances.json")).unwrap();
+		let d = load_entrance_table(&text).unwrap().get("city-of-dalaran");
+		let a = d.get("A");
+		assert_eq!((a.get("map").num(), a.get("x").num(), a.get("y").num()), (1416.0, 14.7, 63.0));
+		assert!(a.get("source").as_str().is_some_and(|s| s.starts_with("https://")));
+		assert!(a.get("note").truthy());
+	}
 }

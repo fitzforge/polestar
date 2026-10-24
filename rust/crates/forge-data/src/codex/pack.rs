@@ -414,8 +414,12 @@ fn encode_instance(rec: &V) -> Result<String, String> {
 	let ent = if e.truthy() {
 		let f = e.get("f");
 		let mut p = vec![num(&e.get("map"))?, coord(&e.get("x")), coord(&e.get("y")), if f.truthy() { f.to_js_string() } else { String::new() }];
-		if e.get("approx").truthy() {
-			p.push("a".into());
+		let a = e.get("A");
+		if e.get("approx").truthy() || a.truthy() {
+			p.push(if e.get("approx").truthy() { "a".into() } else { String::new() });
+		}
+		if a.truthy() {
+			p.extend([num(&a.get("map"))?, coord(&a.get("x")), coord(&a.get("y"))]);
 		}
 		p.join(",")
 	} else {
@@ -804,5 +808,17 @@ mod tests {
 		assert_eq!(fold_name(&V::str("Ragnaros' Heart")), "ragnaros heart");
 		assert_eq!(fold_name(&V::str("Caf\u{e9}")), "cafe");
 		assert_eq!(esc(&V::str("a;b,c%")), "a%3Bb%2Cc%25");
+	}
+
+	#[test]
+	fn an_entrance_carries_its_approximate_flag_and_the_alliance_way_in_after_it() {
+		let line = |entrance: &str| {
+			let rec = forge_guide::js::parse_json(&format!(r#"{{ "kind": "dungeon", "forever": true, "areaId": 279, "map": 2959, "entrance": {entrance}, "levels": null, "bosses": [] }}"#)).unwrap();
+			encode_instance(&rec).unwrap().split(';').nth(4).unwrap().to_string()
+		};
+		assert_eq!(line(r#"{ "map": 1436, "x": 30, "y": 50, "f": null, "approx": true }"#), "1436,300,500,,a");
+		assert_eq!(line(r#"{ "map": 1436, "x": 30, "y": 50, "f": null }"#), "1436,300,500,");
+		// The City of Dalaran (#706): the Horde's tunnel, then the Alliance's pipe in Cantrips & Crows.
+		assert_eq!(line(r#"{ "map": 1416, "x": 8.5, "y": 59.2, "f": null, "A": { "map": 1416, "x": 14.7, "y": 63 } }"#), "1416,85,592,,,1416,147,630");
 	}
 }
