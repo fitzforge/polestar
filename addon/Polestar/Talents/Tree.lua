@@ -274,7 +274,7 @@ function MT.Draw(t)
 		h:ClearAllPoints()
 		h:SetPoint("TOPLEFT", t.Grid, "TOPLEFT", (s - 1) * (t.psSpecW + PAD * 2 + COL_GAP), 0)
 		h:SetSize(t.psSpecW + PAD * 2, t.Grid:GetHeight())
-		h.Name:SetText(name)
+		h.Name:SetText(L[name])
 		h.Points:SetText(tostring(points[s] or 0))
 		local mine = s == build.spec
 		W.Color(h.Name, mine and "text" or "textDim")
