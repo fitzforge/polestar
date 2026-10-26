@@ -66,7 +66,7 @@ function packDirs(o, positional) {
 
 function makeWorkspace(o, positional, log) {
 	const dataDir = o.data ? path.resolve(o.data) : DATA;
-	if (!fs.existsSync(path.join(dataDir, 'races.json'))) throw Object.assign(new Error(`${dataDir} holds no reference data: run node tools/polestar.js data build first`), { exit: 1 });
+	if (!fs.existsSync(path.join(dataDir, 'races.json'))) throw Object.assign(new Error(`${dataDir} holds no reference data: run forge data build first`), { exit: 1 });
 	const { Workspace } = require('../planner/workspace');
 	const artDir = o.art ? path.resolve(o.art) : DEFAULT_ART;
 	const navDir = o.nav ? path.resolve(o.nav) : DEFAULT_NAV;

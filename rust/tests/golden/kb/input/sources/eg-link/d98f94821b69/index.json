@@ -1,0 +1,350 @@
+{
+ "attribution": "Data from Efficient Games (https://efficient.games), licensed under CC BY 4.0.",
+ "license": "CC BY 4.0",
+ "products": {
+  "wow_classic_beta": {
+   "1.60.1.70374": {
+    "barber": {
+     "lastCollectedOn": "2026-10-18",
+     "records": 2,
+     "sources": 1
+    },
+    "broadcast_text.enUS": {
+     "lastCollectedOn": "2026-10-15",
+     "records": 37,
+     "sources": 4
+    },
+    "character_stats": {
+     "lastCollectedOn": "2026-10-18",
+     "records": 1,
+     "sources": 1
+    },
+    "creature_details.enUS": {
+     "lastCollectedOn": "2026-10-15",
+     "records": 644,
+     "sources": 4
+    },
+    "creatures": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 214,
+     "sources": 4
+    },
+    "durability": {
+     "lastCollectedOn": "2026-10-15",
+     "records": 132,
+     "sources": 4
+    },
+    "encounters": {
+     "lastCollectedOn": "2026-10-15",
+     "records": 2,
+     "sources": 2
+    },
+    "game_rules": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 53,
+     "sources": 4
+    },
+    "hunter_pets": {
+     "lastCollectedOn": "2026-10-18",
+     "records": 10,
+     "sources": 1
+    },
+    "item_hotfixes.enUS": {
+     "lastCollectedOn": "2026-10-15",
+     "records": 4810,
+     "sources": 4
+    },
+    "item_uses": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 4,
+     "sources": 4
+    },
+    "loot": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 102,
+     "sources": 4
+    },
+    "npcs": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 101,
+     "sources": 4
+    },
+    "object_details.enUS": {
+     "lastCollectedOn": "2026-10-15",
+     "records": 556,
+     "sources": 4
+    },
+    "objectives": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 33,
+     "sources": 4
+    },
+    "quest_scan": {
+     "lastCollectedOn": "2026-10-15",
+     "records": 5488,
+     "sources": 4
+    },
+    "quests.enUS": {
+     "lastCollectedOn": "2026-10-15",
+     "records": 2467,
+     "sources": 4
+    },
+    "rank_scan.enUS": {
+     "lastCollectedOn": "2026-10-18",
+     "records": 1,
+     "sources": 1
+    },
+    "stat_scan.enUS": {
+     "lastCollectedOn": "2026-10-17",
+     "records": 105,
+     "sources": 1
+    },
+    "talent_scan.enUS": {
+     "lastCollectedOn": "2026-10-17",
+     "records": 3919,
+     "sources": 1
+    },
+    "texts.enUS": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 67,
+     "sources": 4
+    },
+    "tooltip_scan.enUS": {
+     "lastCollectedOn": "2026-10-18",
+     "records": 1883,
+     "sources": 1
+    },
+    "trainers": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 6,
+     "sources": 4
+    },
+    "turn_ins": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 39,
+     "sources": 4
+    },
+    "vendors": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 8,
+     "sources": 4
+    }
+   },
+   "1.60.1.70425": {
+    "broadcast_text.enUS": {
+     "lastCollectedOn": "2026-10-16",
+     "records": 67,
+     "sources": 3
+    },
+    "character_stats": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 19,
+     "sources": 3
+    },
+    "creature_details.enUS": {
+     "lastCollectedOn": "2026-10-16",
+     "records": 916,
+     "sources": 3
+    },
+    "creatures": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 287,
+     "sources": 3
+    },
+    "durability": {
+     "lastCollectedOn": "2026-10-16",
+     "records": 146,
+     "sources": 3
+    },
+    "flights": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 42,
+     "sources": 3
+    },
+    "game_rules": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 51,
+     "sources": 3
+    },
+    "hunter_pets": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 6,
+     "sources": 3
+    },
+    "item_hotfixes.enUS": {
+     "lastCollectedOn": "2026-10-16",
+     "records": 4826,
+     "sources": 3
+    },
+    "loot": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 127,
+     "sources": 3
+    },
+    "npcs": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 147,
+     "sources": 3
+    },
+    "object_details.enUS": {
+     "lastCollectedOn": "2026-10-16",
+     "records": 826,
+     "sources": 3
+    },
+    "objectives": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 22,
+     "sources": 3
+    },
+    "quest_scan": {
+     "lastCollectedOn": "2026-10-16",
+     "records": 6423,
+     "sources": 3
+    },
+    "quests.enUS": {
+     "lastCollectedOn": "2026-10-16",
+     "records": 2654,
+     "sources": 3
+    },
+    "texts.enUS": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 84,
+     "sources": 3
+    },
+    "trainers": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 13,
+     "sources": 3
+    },
+    "turn_ins": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 46,
+     "sources": 3
+    },
+    "vendors": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 21,
+     "sources": 3
+    }
+   },
+   "1.60.1.70450": {
+    "broadcast_text.enUS": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 151,
+     "sources": 5
+    },
+    "character_stats": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 18,
+     "sources": 5
+    },
+    "creature_details.enUS": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 2092,
+     "sources": 5
+    },
+    "creatures": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 462,
+     "sources": 5
+    },
+    "durability": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 175,
+     "sources": 5
+    },
+    "flights": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 38,
+     "sources": 5
+    },
+    "game_rules": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 59,
+     "sources": 5
+    },
+    "item_hotfixes.enUS": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 5214,
+     "sources": 5
+    },
+    "item_uses": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 3,
+     "sources": 5
+    },
+    "loot": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 248,
+     "sources": 5
+    },
+    "npcs": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 213,
+     "sources": 5
+    },
+    "object_details.enUS": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 2275,
+     "sources": 5
+    },
+    "objectives": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 64,
+     "sources": 5
+    },
+    "quest_scan": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 6596,
+     "sources": 5
+    },
+    "quests.enUS": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 2957,
+     "sources": 5
+    },
+    "rank_scan.enUS": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 3,
+     "sources": 2
+    },
+    "stat_scan.enUS": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 106,
+     "sources": 3
+    },
+    "talent_scan.enUS": {
+     "lastCollectedOn": "2026-10-19",
+     "records": 3928,
+     "sources": 2
+    },
+    "texts.enUS": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 167,
+     "sources": 5
+    },
+    "tooltip_scan.enUS": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 1935,
+     "sources": 4
+    },
+    "trainers": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 9,
+     "sources": 5
+    },
+    "turn_ins": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 95,
+     "sources": 5
+    },
+    "vendors": {
+     "lastCollectedOn": "2026-10-20",
+     "records": 28,
+     "sources": 5
+    }
+   }
+  }
+ },
+ "schemaVersion": 1
+}

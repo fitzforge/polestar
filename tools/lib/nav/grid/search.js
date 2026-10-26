@@ -159,7 +159,9 @@ class Space {
 	// outTo (node), outSlot, outK (column), outCode (stored link code, or
 	// CLS.FALL / format.js CODE_LIFT), outCls (route class), outCost (seconds), outD
 	// (yards), outH (fall or lift height, else 0). Lifts come from
-	// tile.lifts (Map entry -> [{ col, row, k, entry, h }], path.js).
+	// tile.lifts (Map entry -> [{ col, row, k, entry, h }], path.js). A step's
+	// seconds are times the multiplier of the surface it enters (areaAt:
+	// edgecost.js's ground, hub and danger terms, where p has them).
 	expand(slot, e, k, p) {
 		const t = this.tiles[slot];
 		const i = k & 255;
@@ -186,7 +188,7 @@ class Space {
 			this.outK[n] = k2;
 			this.outCode[n] = cls;
 			this.outCls[n] = segmentClass(cls, fa, fb);
-			this.outCost[n] = linkSeconds(p, cls, fa, fb, dist);
+			this.outCost[n] = linkSeconds(p, cls, fa, fb, dist) * areaAt(p, t2, k2, fb);
 			this.outD[n] = dist;
 			this.outH[n] = 0;
 			n++;
@@ -200,7 +202,7 @@ class Space {
 				this.outK[n] = L.k;
 				this.outCode[n] = CODE_LIFT;
 				this.outCls[n] = CLS.LIFT;
-				this.outCost[n] = liftSeconds(L.h);
+				this.outCost[n] = liftSeconds(L.h) * areaAt(p, this.tiles[s2], L.k, this.tiles[s2].flags[L.entry]);
 				this.outD[n] = Math.abs(L.h);
 				this.outH[n] = L.h;
 				n++;
@@ -226,13 +228,22 @@ class Space {
 			this.outK[n] = k2;
 			this.outCode[n] = CLS.FALL;
 			this.outCls[n] = CLS.FALL;
-			this.outCost[n] = fallSeconds(hgt, (t2.flags[v] & FLAG.SWIM) !== 0);
+			this.outCost[n] = fallSeconds(hgt, (t2.flags[v] & FLAG.SWIM) !== 0) * areaAt(p, t2, k2, t2.flags[v]);
 			this.outD[n] = Math.sqrt(hor * hor + hgt * hgt);
 			this.outH[n] = hgt;
 			n++;
 		}
 		return n;
 	}
+}
+
+// The multiplier of a step into a surface with flags `flags` in column k of tile t for profile p
+// (edgecost.js): p.ground(t, k, flags) (a road, a hostile hub) times p.area.mult(t, k) (zone
+// danger), each 1 where the profile has none.
+function areaAt(p, t, k, flags) {
+	if (!p) return 1;
+	const m = p.ground ? p.ground(t, k, flags) : 1;
+	return p.area ? m * p.area.mult(t, k) : m;
 }
 
 // A linked tile's fallFrom index by entry: Uint32Array(n + 1), falls of
@@ -288,21 +299,22 @@ function fallsInto(tile) {
 }
 
 // In-links of entry u (column k) of a linked tile from inside the tile ->
-// count; fills IN.from (source entries), IN.k (their columns) and, with a
-// profile p, IN.cost (seconds, as Space.expand gives them). Neighbour links
-// are read off the eight neighbouring columns, falls (unless `falls` is
-// false) off fallsInto(); lifts are left out.
-const IN = { from: new Uint32Array(256), k: new Uint32Array(256), cost: new Float64Array(256) };
+// count; fills IN.from (source entries), IN.k (their columns), IN.d (yards)
+// and, with a profile p, IN.cost (seconds, as Space.expand gives them).
+// Neighbour links are read off the eight neighbouring columns, falls (unless
+// `falls` is false) off fallsInto(); lifts are left out.
+const IN = { from: new Uint32Array(256), k: new Uint32Array(256), cost: new Float64Array(256), d: new Float64Array(256) };
 function inLinks(t, u, k, p = null, falls = true) {
 	const { first, links, z, flags } = t;
 	const i = k & 255;
 	const j = k >> 8;
 	const layer = u - first[k];
 	const fb = flags[u];
+	const am = areaAt(p, t, k, fb);
 	let n = 0;
-	const add = (s, ks, cost) => {
+	const add = (s, ks, cost, d) => {
 		if (n === IN.from.length) {
-			for (const key of ['from', 'k', 'cost']) {
+			for (const key of ['from', 'k', 'cost', 'd']) {
 				const a = new IN[key].constructor(n * 2);
 				a.set(IN[key]);
 				IN[key] = a;
@@ -311,6 +323,7 @@ function inLinks(t, u, k, p = null, falls = true) {
 		IN.from[n] = s;
 		IN.k[n] = ks;
 		IN.cost[n] = cost;
+		IN.d[n] = d;
 		n++;
 	};
 	for (let d = 0; d < 8; d++) {
@@ -321,18 +334,21 @@ function inLinks(t, u, k, p = null, falls = true) {
 		for (let s = first[ks], end = first[ks + 1]; s < end; s++) {
 			const b = links[s * 8 + d];
 			if (b === NO_LINK || (b & 31) !== layer) continue;
-			let cost = 0;
-			if (p) {
-				const h = d & 1 ? DIAG : CELL;
-				const dz = z[u] - z[s];
-				cost = linkSeconds(p, b >> 5, flags[s], fb, Math.sqrt(h * h + dz * dz));
-			}
-			add(s, ks, cost);
+			const h = d & 1 ? DIAG : CELL;
+			const dz = z[u] - z[s];
+			const dist = Math.sqrt(h * h + dz * dz);
+			add(s, ks, p ? linkSeconds(p, b >> 5, flags[s], fb, dist) * am : 0, dist);
 		}
 	}
 	if (!falls) return n;
 	const fi = fallsInto(t);
-	for (let x = fi.at[u], end = fi.at[u + 1]; x < end; x++) add(fi.from[x], fi.k[x], p ? fallSeconds(z[fi.from[x]] - z[u], (fb & FLAG.SWIM) !== 0) : 0);
+	for (let x = fi.at[u], end = fi.at[u + 1]; x < end; x++) {
+		const s = fi.from[x];
+		const ks = fi.k[x];
+		const hgt = z[s] - z[u];
+		const hor = Math.hypot((ks & 255) - i, (ks >> 8) - j) * CELL;
+		add(s, ks, p ? fallSeconds(hgt, (fb & FLAG.SWIM) !== 0) * am : 0, Math.sqrt(hor * hor + hgt * hgt));
+	}
 	return n;
 }
 
@@ -377,4 +393,4 @@ function isOpen(t, k, e, limit) {
 	return spread(true) && spread(false);
 }
 
-module.exports = { MinHeap, Space, inLinks, IN, isOpen };
+module.exports = { MinHeap, Space, inLinks, IN, isOpen, fallIndex, fallsInto, areaAt };

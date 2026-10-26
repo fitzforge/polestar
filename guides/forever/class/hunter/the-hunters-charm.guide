@@ -14,8 +14,8 @@ why Experience at 50 through Azshara and the Sunken Temple; Forever removed the 
 # (8231) and The Green Drake (8232).
 # Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
 # Questie-Forever) for the givers, drops and spawns; travel.json for the
-# flight points; Wowhead's Forever class page for Hunters
-# (data/local/quest-audit/wowhead-class-quests.json) for titles, levels
+# flight points; Forever's Hunter class quest list
+# (data/local/quest-audit/) for titles, levels
 # and rewards.
 # Forever status (that page): 8151, 8153 and 8231 "unchanged"; 8232
 # "updated": The Green Drake no longer offers its reward choices (Devilsaur
@@ -25,8 +25,8 @@ why Experience at 50 through Azshara and the Sunken Temple; Forever removed the 
 # The Tooth of Morphaz drops from Morphaz, an elite boss in the Sunken
 # Temple: this chain needs a dungeon group. The data has no position for
 # Morphaz or the dungeon entrance; the entrance point (69,54, the temple in
-# the middle of the Pool of Tears) is from a player comment on Wowhead's
-# retail Sunken Temple zone page (wowhead.com/zone=1477), a non-Forever
+# the middle of the Pool of Tears) is from players' reports on the retail
+# Sunken Temple zone (zone 1477), a non-Forever
 # source used only for that point.
 # Based on data, not play: the beta caps at level 30 until launch on
 # 4 November, so nothing here has been checked in game.

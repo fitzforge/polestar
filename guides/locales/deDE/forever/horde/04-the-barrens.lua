@@ -52,7 +52,7 @@ return {
 
 	-- Step 10: Dreadmist Peak
 	-- {area:380} Crossroads · {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["Head north from the {area:380} to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the {area:380}. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "",
+	["Head north from the {area:380} to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the {area:380}. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "Geh vom {area:380} nach Norden zum {area:384} und fülle {item:15842} am Teich am Glutnebelgipfel, dann zurück zu {npc:3448} im {area:380}. Kein {skill:182}? {npc:3490} neben ihm verkauft {item:2449}, je drei auf einmal, bis er neu auffüllt.",
 	-- {item:2449} Earthroot · {npc:3490} Hula'mahi
 	["{item:2449} from {npc:3490}; herbalists pick it on the plains"] = "{item:2449} von {npc:3490}; Kräuterkundige pflücken es auf den Ebenen",
 
@@ -77,7 +77,7 @@ return {
 
 	-- Step 14: Shenthul
 	-- {npc:3401} Shenthul · {object:172960} Cleft of Shadow · {quest:2460} The Shattered Salute · {item:5060} Thieves' Tools · {item:8051} Flare Gun · {quest:2458} Deep Cover
-	["{npc:3401} stands in the {object:172960}. Target him and type /salute to finish {quest:2460}. Before leaving town, learn Lockpicking and bring {item:5060}; practise before attempting the tower lockbox. Keep the {item:8051} supplied with {quest:2458}. Gallywix is elite, so arrange help or leave that optional part for later."] = "",
+	["{npc:3401} stands in the {object:172960}. Target him and type /salute to finish {quest:2460}. Before leaving town, learn Lockpicking and bring {item:5060}; practise before attempting the tower lockbox. Keep the {item:8051} supplied with {quest:2458}. Gallywix is elite, so arrange help or leave that optional part for later."] = "{npc:3401} steht in der {object:172960}. Wähle ihn als Ziel und tippe /salute, um {quest:2460} abzuschließen. Lerne vor dem Verlassen der Stadt Schlossknacken und bring {item:5060} mit; übe, bevor du die Kiste im Turm versuchst. Halte {item:8051} mit {quest:2458} versorgt. Gallywix ist Elite, organisiere also Hilfe oder heb dir diesen optionalen Teil für später auf.",
 	-- {quest:2458} Deep Cover · {npc:7233} Taskmaster Fizzule · {area:382} Sludge Fen
 	["{quest:2458}: {npc:7233}, by the {area:382}"] = "{quest:2458}: {npc:7233}, bei {area:382}",
 
@@ -122,11 +122,11 @@ return {
 	["Savannah Patriarchs roam the plains east of the hills, and the Sprung Traps lie among them. {quest:876} leads the Witchwing harpies in the hills to the west."] = "Savannenpatriarchen streifen über die Ebenen östlich der Hügel, und die Ausgelösten Fallen liegen zwischen ihnen. {quest:876} führt die Harpyien der Hexenschwingen in den Hügeln im Westen an.",
 	-- {quest:865} Raptor Horns
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions"] = "",
+	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions"] = "{quest:865}, falls noch offen: Bluthornsensenklauen streifen zwischen den Löwen umher",
 
 	-- Step 26: Trouble in the Valley
 	-- {npc:262119} Corporal Adamore · {npc:261366} Walton
-	["{npc:262119} and his marines hold the wrecked caravan south of {npc:261366}. The marines are linked: pulling one calls the rest. Pull from the edge and run; they leash short, so you can thin the camp one at a time before tackling the Corporal."] = "",
+	["{npc:262119} and his marines hold the wrecked caravan south of {npc:261366}. The marines are linked: pulling one calls the rest. Pull from the edge and run; they leash short, so you can thin the camp one at a time before tackling the Corporal."] = "{npc:262119} und seine Marinesoldaten halten die zerstörte Karawane südlich von {npc:261366}. Die Marinesoldaten sind verbunden: Pullst du einen, rufst du den Rest. Zieh vom Rand und lauf; sie lassen schnell ab, sodass du das Lager einzeln ausdünnen kannst, bevor du den Korporal angehst.",
 
 	-- Step 27: Walton
 	-- {npc:261366} Walton · {npc:261367} Terry Longdrink · {area:21} Kul Tiras
@@ -146,11 +146,11 @@ return {
 
 	-- Step 31: Taskmaster Fizzule
 	-- {area:382} Sludge Fen · {item:8051} Flare Gun
-	["Fizzule is by the Venture Co. tower north of the {area:382}. Use {item:8051} to fire TWO flares before approaching him, then target him and /salute. Keep that order: he attacks strangers who have not signalled first."] = "",
+	["Fizzule is by the Venture Co. tower north of the {area:382}. Use {item:8051} to fire TWO flares before approaching him, then target him and /salute. Keep that order: he attacks strangers who have not signalled first."] = "Fizzule ist beim Turm der Venture Co. nördlich des {area:382}. Benutze {item:8051}, um ZWEI Leuchtkugeln abzufeuern, bevor du dich ihm näherst, wähle ihn dann als Ziel und tippe /salute. Halte diese Reihenfolge ein: Er greift Fremde an, die nicht zuerst ein Signal gegeben haben.",
 
 	-- Step 32: Mission: Possible But Not Probable
 	-- {npc:7287} Foreman Silixiz
-	["Pickpocket {npc:7287} for the tower key before opening the lockbox. Gallywix and his lockbox are at the top; the key does not open that box, which still needs Lockpicking. Gallywix is elite: grouping up is advised. If you postpone this optional job, resume it in the Class guide Poisons (Horde)."] = "",
+	["Pickpocket {npc:7287} for the tower key before opening the lockbox. Gallywix and his lockbox are at the top; the key does not open that box, which still needs Lockpicking. Gallywix is elite: grouping up is advised. If you postpone this optional job, resume it in the Class guide Poisons (Horde)."] = "Stiehl {npc:7287} den Turmschlüssel, bevor du die Kiste öffnest. Gallywix und seine Kiste sind ganz oben; der Schlüssel öffnet diese Kiste nicht, sie braucht weiter Schlossknacken. Gallywix ist Elite: Eine Gruppe wird empfohlen. Schiebst du diesen optionalen Auftrag auf, setze ihn im Klassen-Guide Gifte (Horde) fort.",
 	["Venture Co. tower"] = "Turm der Venture Co.",
 
 	-- Step 33: Boulder Lode Mine
@@ -198,12 +198,12 @@ return {
 
 	-- Step 43: Ishamuhale
 	-- {quest:882} Ishamuhale · {item:10338} Fresh Zhevra Carcass · {object:147538} Dead Tree (no name in this language: may be words) · {area:392} Ratchet · {area:380} Crossroads
-	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the {area:380}, and be ready when he arrives."] = "",
+	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the {area:380}, and be ready when he arrives."] = "{quest:882}, ein großer Raptor der Sonnenschuppen, kommt nur zu einem frischen Kill: Plündere {item:10338} von einem Zhevra und benutze ihn am toten Baum nordwestlich von {area:392}, nördlich der Straße zum {area:380}, und sei bereit, wenn er kommt.",
 	-- {item:10338} Fresh Zhevra Carcass
 	-- plural, as words: Zhevra Chargers = {npc:3426} Zhevra Charger
-	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "",
+	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}, von jedem Zhevra; Zhevra-Stürmer grasen rund um den Baum",
 	-- {object:147538} Dead Tree (no name in this language: may be words) · {quest:882} Ishamuhale
-	["At the {object:147538}: summons {quest:882}"] = "",
+	["At the {object:147538}: summons {quest:882}"] = "Am toten Baum: beschwört {quest:882}",
 
 	-- Step 44: Crossroads
 	-- {npc:3432} Mankrik · {quest:95774} Her Name Is Olgra · {quest:4921} Lost in Battle
@@ -289,7 +289,7 @@ return {
 
 	-- Step 68: Thunder Bluff
 	-- {npc:246344} Alodan the Hopeful · {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:2995} Tal
-	["{npc:246344} teaches Paladins in {area:1638}. You have no flight path there yet: fly to {area:378}, head west through {zone:1412} and up a lift, and take the flight path from {npc:2995} on the central rise."] = "",
+	["{npc:246344} teaches Paladins in {area:1638}. You have no flight path there yet: fly to {area:378}, head west through {zone:1412} and up a lift, and take the flight path from {npc:2995} on the central rise."] = "{npc:246344} lehrt Paladine in {area:1638}. Du hast dort noch keinen Flugpunkt: Flieg nach {area:378}, geh nach Westen durch {zone:1412} und einen Aufzug hinauf und nimm den Flugpunkt bei {npc:2995} auf der mittleren Anhöhe.",
 
 	-- Step 69: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:6626} Dogran's Pendant

@@ -1,0 +1,131 @@
+{
+  "dataset": "polestar-data-forever",
+  "clientBuild": "1.60.1.70532",
+  "schemaVersion": 1,
+  "version": "2026.10.1",
+  "producerCommit": "9b385df597d2425d8c86cfad8c95d4565e1b3e0f",
+  "counts": {
+    "quest": 5287,
+    "quest_start": 5367,
+    "quest_end": 5099,
+    "quest_objective": 6340,
+    "quest_prereq": 3811,
+    "quest_reward": 6200,
+    "npc": 13239,
+    "object": 10437,
+    "spawn": 88645,
+    "item": 23344,
+    "item_source": 38105,
+    "ui_map": 59,
+    "mechanic": 3398,
+    "step": 2409,
+    "note": 0
+  },
+  "coverage": [
+    {
+      "of": 5408,
+      "what": "quests published",
+      "with": 5287
+    },
+    {
+      "of": 5408,
+      "what": "quests with giver",
+      "with": 5147
+    },
+    {
+      "of": 5408,
+      "what": "quests with turn-in",
+      "with": 5033
+    },
+    {
+      "of": 5408,
+      "what": "quests with objectives",
+      "with": 4186
+    },
+    {
+      "of": 5408,
+      "what": "quest title",
+      "with": 5284
+    },
+    {
+      "of": 5408,
+      "what": "quest level",
+      "with": 5279
+    },
+    {
+      "of": 5408,
+      "what": "quest min_level",
+      "with": 5277
+    },
+    {
+      "of": 5408,
+      "what": "quest races",
+      "with": 5286
+    },
+    {
+      "of": 5408,
+      "what": "quest classes",
+      "with": 5284
+    },
+    {
+      "of": 5408,
+      "what": "quest side",
+      "with": 5287
+    },
+    {
+      "of": 5408,
+      "what": "quest xp",
+      "with": 4293
+    },
+    {
+      "of": 5408,
+      "what": "quest zone_area",
+      "with": 3915
+    },
+    {
+      "of": 5408,
+      "what": "quest type",
+      "with": 4604
+    },
+    {
+      "of": 5408,
+      "what": "quest money_copper",
+      "with": 815
+    },
+    {
+      "of": 2877,
+      "what": "quests with prerequisites (known chain links)",
+      "with": 2795
+    },
+    {
+      "of": 13660,
+      "what": "npcs published",
+      "with": 13239
+    },
+    {
+      "of": 13660,
+      "what": "npc faction_template",
+      "with": 10757
+    },
+    {
+      "of": 13660,
+      "what": "npc level",
+      "with": 11126
+    },
+    {
+      "of": 8602,
+      "what": "npcs with spawns (of npcs with a known spawn)",
+      "with": 8539
+    },
+    {
+      "of": 6714,
+      "what": "objects with spawns (of objects with a known spawn)",
+      "with": 6683
+    },
+    {
+      "of": 9441,
+      "what": "items with drop sources (of items with a known dropper)",
+      "with": 1771
+    }
+  ]
+}

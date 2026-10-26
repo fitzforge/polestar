@@ -1,0 +1,209 @@
+warning: repgates.json: 20031 Essence Mango: quest 8196 is not in the Codex
+warning: repgates.json: 20076 Zandalar Signet of Mojo: quest 8246 is not in the Codex
+warning: repgates.json: 20077 Zandalar Signet of Might: quest 8246 is not in the Codex
+warning: repgates.json: 20078 Zandalar Signet of Serenity: quest 8246 is not in the Codex
+warning: repgates.json: 20079 Spirit of Zanza: quest 8243 is not in the Codex
+warning: repgates.json: 20080 Sheen of Zanza: quest 8243 is not in the Codex
+warning: repgates.json: 20081 Swiftness of Zanza: quest 8243 is not in the Codex
+warning: repgates.json: 22746 Buccaneer's Uniform: quest 9272 is not in the Codex
+warning: repgates.json: item 16768 Furbolg Medicine Pouch is not in the Codex
+warning: repgates.json: item 16769 Furbolg Medicine Totem is not in the Codex
+warning: repgates.json: item 17333 Aqual Quintessence is not in the Codex
+warning: repgates.json: item 18169 Flame Mantle of the Dawn is not in the Codex
+warning: repgates.json: item 18170 Frost Mantle of the Dawn is not in the Codex
+warning: repgates.json: item 18171 Arcane Mantle of the Dawn is not in the Codex
+warning: repgates.json: item 18172 Nature Mantle of the Dawn is not in the Codex
+warning: repgates.json: item 18173 Shadow Mantle of the Dawn is not in the Codex
+warning: repgates.json: item 18182 Chromatic Mantle of the Dawn is not in the Codex
+warning: repgates.json: item 19031 Frostwolf Battle Tabard is not in the Codex
+warning: repgates.json: item 19032 Stormpike Battle Tabard is not in the Codex
+warning: repgates.json: item 19045 Stormpike Battle Standard is not in the Codex
+warning: repgates.json: item 19046 Frostwolf Battle Standard is not in the Codex
+warning: repgates.json: item 19060 Warsong Gulch Enriched Ration is not in the Codex
+warning: repgates.json: item 19061 Warsong Gulch Iron Ration is not in the Codex
+warning: repgates.json: item 19062 Warsong Gulch Field Ration is not in the Codex
+warning: repgates.json: item 19066 Warsong Gulch Runecloth Bandage is not in the Codex
+warning: repgates.json: item 19067 Warsong Gulch Mageweave Bandage is not in the Codex
+warning: repgates.json: item 19068 Warsong Gulch Silk Bandage is not in the Codex
+warning: repgates.json: item 19083 Frostwolf Legionnaire's Cloak is not in the Codex
+warning: repgates.json: item 19084 Stormpike Soldier's Cloak is not in the Codex
+warning: repgates.json: item 19085 Frostwolf Advisor's Cloak is not in the Codex
+warning: repgates.json: item 19086 Stormpike Sage's Cloak is not in the Codex
+warning: repgates.json: item 19087 Frostwolf Plate Belt is not in the Codex
+warning: repgates.json: item 19088 Frostwolf Mail Belt is not in the Codex
+warning: repgates.json: item 19089 Frostwolf Leather Belt is not in the Codex
+warning: repgates.json: item 19090 Frostwolf Cloth Belt is not in the Codex
+warning: repgates.json: item 19091 Stormpike Plate Girdle is not in the Codex
+warning: repgates.json: item 19092 Stormpike Mail Girdle is not in the Codex
+warning: repgates.json: item 19093 Stormpike Leather Girdle is not in the Codex
+warning: repgates.json: item 19094 Stormpike Cloth Girdle is not in the Codex
+warning: repgates.json: item 19095 Frostwolf Legionnaire's Pendant is not in the Codex
+warning: repgates.json: item 19096 Frostwolf Advisor's Pendant is not in the Codex
+warning: repgates.json: item 19097 Stormpike Soldier's Pendant is not in the Codex
+warning: repgates.json: item 19098 Stormpike Sage's Pendant is not in the Codex
+warning: repgates.json: item 19099 Glacial Blade is not in the Codex
+warning: repgates.json: item 19100 Electrified Dagger is not in the Codex
+warning: repgates.json: item 19101 Whiteout Staff is not in the Codex
+warning: repgates.json: item 19102 Crackling Staff is not in the Codex
+warning: repgates.json: item 19103 Frostbite is not in the Codex
+warning: repgates.json: item 19104 Stormstrike Hammer is not in the Codex
+warning: repgates.json: item 19301 Alterac Manna Biscuit is not in the Codex
+warning: repgates.json: item 19307 Alterac Heavy Runecloth Bandage is not in the Codex
+warning: repgates.json: item 19308 Tome of Arcane Domination is not in the Codex
+warning: repgates.json: item 19309 Tome of Shadow Force is not in the Codex
+warning: repgates.json: item 19310 Tome of the Ice Lord is not in the Codex
+warning: repgates.json: item 19311 Tome of Fiery Arcana is not in the Codex
+warning: repgates.json: item 19312 Lei of the Lifegiver is not in the Codex
+warning: repgates.json: item 19315 Therazane's Touch is not in the Codex
+warning: repgates.json: item 19316 Ice Threaded Arrow is not in the Codex
+warning: repgates.json: item 19317 Ice Threaded Bullet is not in the Codex
+warning: repgates.json: item 19318 Bottled Alterac Spring Water is not in the Codex
+warning: repgates.json: item 19319 Harpy Hide Quiver is not in the Codex
+warning: repgates.json: item 19320 Gnoll Skin Bandolier is not in the Codex
+warning: repgates.json: item 19321 The Immovable Object is not in the Codex
+warning: repgates.json: item 19323 The Unstoppable Force is not in the Codex
+warning: repgates.json: item 19324 The Lobotomizer is not in the Codex
+warning: repgates.json: item 19325 Don Julio's Band is not in the Codex
+warning: repgates.json: item 19505 Warsong Battle Tabard is not in the Codex
+warning: repgates.json: item 19506 Silverwing Battle Tabard is not in the Codex
+warning: repgates.json: item 19510 Legionnaire's Band is not in the Codex
+warning: repgates.json: item 19511 Legionnaire's Band is not in the Codex
+warning: repgates.json: item 19512 Legionnaire's Band is not in the Codex
+warning: repgates.json: item 19513 Legionnaire's Band is not in the Codex
+warning: repgates.json: item 19514 Protector's Band is not in the Codex
+warning: repgates.json: item 19515 Protector's Band is not in the Codex
+warning: repgates.json: item 19516 Protector's Band is not in the Codex
+warning: repgates.json: item 19517 Protector's Band is not in the Codex
+warning: repgates.json: item 19518 Advisor's Ring is not in the Codex
+warning: repgates.json: item 19519 Advisor's Ring is not in the Codex
+warning: repgates.json: item 19520 Advisor's Ring is not in the Codex
+warning: repgates.json: item 19521 Advisor's Ring is not in the Codex
+warning: repgates.json: item 19522 Lorekeeper's Ring is not in the Codex
+warning: repgates.json: item 19523 Lorekeeper's Ring is not in the Codex
+warning: repgates.json: item 19524 Lorekeeper's Ring is not in the Codex
+warning: repgates.json: item 19525 Lorekeeper's Ring is not in the Codex
+warning: repgates.json: item 19526 Battle Healer's Cloak is not in the Codex
+warning: repgates.json: item 19527 Battle Healer's Cloak is not in the Codex
+warning: repgates.json: item 19528 Battle Healer's Cloak is not in the Codex
+warning: repgates.json: item 19529 Battle Healer's Cloak is not in the Codex
+warning: repgates.json: item 19530 Caretaker's Cape is not in the Codex
+warning: repgates.json: item 19531 Caretaker's Cape is not in the Codex
+warning: repgates.json: item 19532 Caretaker's Cape is not in the Codex
+warning: repgates.json: item 19533 Caretaker's Cape is not in the Codex
+warning: repgates.json: item 19534 Scout's Medallion is not in the Codex
+warning: repgates.json: item 19535 Scout's Medallion is not in the Codex
+warning: repgates.json: item 19536 Scout's Medallion is not in the Codex
+warning: repgates.json: item 19537 Scout's Medallion is not in the Codex
+warning: repgates.json: item 19538 Sentinel's Medallion is not in the Codex
+warning: repgates.json: item 19539 Sentinel's Medallion is not in the Codex
+warning: repgates.json: item 19540 Sentinel's Medallion is not in the Codex
+warning: repgates.json: item 19541 Sentinel's Medallion is not in the Codex
+warning: repgates.json: item 19542 Scout's Blade is not in the Codex
+warning: repgates.json: item 19543 Scout's Blade is not in the Codex
+warning: repgates.json: item 19544 Scout's Blade is not in the Codex
+warning: repgates.json: item 19545 Scout's Blade is not in the Codex
+warning: repgates.json: item 19546 Sentinel's Blade is not in the Codex
+warning: repgates.json: item 19547 Sentinel's Blade is not in the Codex
+warning: repgates.json: item 19548 Sentinel's Blade is not in the Codex
+warning: repgates.json: item 19549 Sentinel's Blade is not in the Codex
+warning: repgates.json: item 19550 Legionnaire's Sword is not in the Codex
+warning: repgates.json: item 19551 Legionnaire's Sword is not in the Codex
+warning: repgates.json: item 19552 Legionnaire's Sword is not in the Codex
+warning: repgates.json: item 19553 Legionnaire's Sword is not in the Codex
+warning: repgates.json: item 19554 Protector's Sword is not in the Codex
+warning: repgates.json: item 19555 Protector's Sword is not in the Codex
+warning: repgates.json: item 19556 Protector's Sword is not in the Codex
+warning: repgates.json: item 19557 Protector's Sword is not in the Codex
+warning: repgates.json: item 19558 Outrider's Bow is not in the Codex
+warning: repgates.json: item 19559 Outrider's Bow is not in the Codex
+warning: repgates.json: item 19560 Outrider's Bow is not in the Codex
+warning: repgates.json: item 19561 Outrider's Bow is not in the Codex
+warning: repgates.json: item 19562 Outrunner's Bow is not in the Codex
+warning: repgates.json: item 19563 Outrunner's Bow is not in the Codex
+warning: repgates.json: item 19564 Outrunner's Bow is not in the Codex
+warning: repgates.json: item 19565 Outrunner's Bow is not in the Codex
+warning: repgates.json: item 19566 Advisor's Gnarled Staff is not in the Codex
+warning: repgates.json: item 19567 Advisor's Gnarled Staff is not in the Codex
+warning: repgates.json: item 19568 Advisor's Gnarled Staff is not in the Codex
+warning: repgates.json: item 19569 Advisor's Gnarled Staff is not in the Codex
+warning: repgates.json: item 19570 Lorekeeper's Staff is not in the Codex
+warning: repgates.json: item 19571 Lorekeeper's Staff is not in the Codex
+warning: repgates.json: item 19572 Lorekeeper's Staff is not in the Codex
+warning: repgates.json: item 19573 Lorekeeper's Staff is not in the Codex
+warning: repgates.json: item 19578 Berserker Bracers is not in the Codex
+warning: repgates.json: item 19580 Berserker Bracers is not in the Codex
+warning: repgates.json: item 19581 Berserker Bracers is not in the Codex
+warning: repgates.json: item 19582 Windtalker's Wristguards is not in the Codex
+warning: repgates.json: item 19583 Windtalker's Wristguards is not in the Codex
+warning: repgates.json: item 19584 Windtalker's Wristguards is not in the Codex
+warning: repgates.json: item 19587 Forest Stalker's Bracers is not in the Codex
+warning: repgates.json: item 19589 Forest Stalker's Bracers is not in the Codex
+warning: repgates.json: item 19590 Forest Stalker's Bracers is not in the Codex
+warning: repgates.json: item 19595 Dryad's Wrist Bindings is not in the Codex
+warning: repgates.json: item 19596 Dryad's Wrist Bindings is not in the Codex
+warning: repgates.json: item 19597 Dryad's Wrist Bindings is not in the Codex
+warning: repgates.json: item 20031 Essence Mango is not in the Codex
+warning: repgates.json: item 20076 Zandalar Signet of Mojo is not in the Codex
+warning: repgates.json: item 20077 Zandalar Signet of Might is not in the Codex
+warning: repgates.json: item 20078 Zandalar Signet of Serenity is not in the Codex
+warning: repgates.json: item 20079 Spirit of Zanza is not in the Codex
+warning: repgates.json: item 20080 Sheen of Zanza is not in the Codex
+warning: repgates.json: item 20081 Swiftness of Zanza is not in the Codex
+warning: repgates.json: item 20425 Advisor's Gnarled Staff is not in the Codex
+warning: repgates.json: item 20426 Advisor's Ring is not in the Codex
+warning: repgates.json: item 20427 Battle Healer's Cloak is not in the Codex
+warning: repgates.json: item 20428 Caretaker's Cape is not in the Codex
+warning: repgates.json: item 20429 Legionnaire's Band is not in the Codex
+warning: repgates.json: item 20430 Legionnaire's Sword is not in the Codex
+warning: repgates.json: item 20431 Lorekeeper's Ring is not in the Codex
+warning: repgates.json: item 20434 Lorekeeper's Staff is not in the Codex
+warning: repgates.json: item 20437 Outrider's Bow is not in the Codex
+warning: repgates.json: item 20438 Outrunner's Bow is not in the Codex
+warning: repgates.json: item 20439 Protector's Band is not in the Codex
+warning: repgates.json: item 20440 Protector's Sword is not in the Codex
+warning: repgates.json: item 20441 Scout's Blade is not in the Codex
+warning: repgates.json: item 20442 Scout's Medallion is not in the Codex
+warning: repgates.json: item 20443 Sentinel's Blade is not in the Codex
+warning: repgates.json: item 20444 Sentinel's Medallion is not in the Codex
+warning: repgates.json: item 21563 Don Rodrigo's Band is not in the Codex
+warning: repgates.json: item 21565 Rune of Perfection is not in the Codex
+warning: repgates.json: item 21566 Rune of Perfection is not in the Codex
+warning: repgates.json: item 21567 Rune of Duty is not in the Codex
+warning: repgates.json: item 21568 Rune of Duty is not in the Codex
+warning: repgates.json: item 22651 Outrider's Plate Legguards is not in the Codex
+warning: repgates.json: item 22672 Sentinel's Plate Legguards is not in the Codex
+warning: repgates.json: item 22673 Outrider's Chain Leggings is not in the Codex
+warning: repgates.json: item 22676 Outrider's Mail Leggings is not in the Codex
+warning: repgates.json: item 22740 Outrider's Leather Pants is not in the Codex
+warning: repgates.json: item 22741 Outrider's Lizardhide Pants is not in the Codex
+warning: repgates.json: item 22746 Buccaneer's Uniform is not in the Codex
+warning: repgates.json: item 22747 Outrider's Silk Leggings is not in the Codex
+warning: repgates.json: item 22748 Sentinel's Chain Leggings is not in the Codex
+warning: repgates.json: item 22749 Sentinel's Leather Pants is not in the Codex
+warning: repgates.json: item 22750 Sentinel's Lizardhide Pants is not in the Codex
+warning: repgates.json: item 22752 Sentinel's Silk Leggings is not in the Codex
+warning: repgates.json: item 22753 Sentinel's Lamellar Legguards is not in the Codex
+warning: repgates.json: item 22754 Eternal Quintessence is not in the Codex
+warning: journal-quests.json: quest 5526 is not in the Codex
+warning: core: goal quest 7848 is not in the Codex
+warning: aqual: goal quest 6824 is not in the Codex
+warning: drakefire-h: goal quest 6602 is not in the Codex
+warning: drakefire-a: goal quest 6502 is not in the Codex
+warning: blackhand: goal quest 7761 is not in the Codex
+warning: dread-citadel: goal quest 9121 is not in the Codex
+warning: dread-citadel: goal quest 9122 is not in the Codex
+warning: dread-citadel: goal quest 9123 is not in the Codex
+warning: skeleton-key-h: goal quest 5511 is not in the Codex
+warning: skeleton-key-a: goal quest 5505 is not in the Codex
+warning: shadowforge-key: goal quest 3802 is not in the Codex
+warning: prison-cell-key: item 11140 is not in the Codex
+warning: prison-cell-key: no steps
+warning: key-to-the-city: item 12382 is not in the Codex
+warning: key-to-the-city: no steps
+warning: crescent-key: item 18249 is not in the Codex
+warning: crescent-key: no steps
+warning: workshop-key: item 6893 is not in the Codex
+warning: workshop-key: no steps
+warning: scarlet-key: item 7146 is not in the Codex
+warning: scarlet-key: no steps
+warning: sewer-key: goal quest 96984 is not in the Codex

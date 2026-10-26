@@ -1,5 +1,5 @@
 'use strict';
-// Route evaluation (docs/SIMULATION.md §3). Deterministic for given params.
+// Route evaluation (docs/legacy/SIMULATION-js.md §3). Deterministic for given params.
 //
 //   const ev = new Evaluator(run, tables);
 //   ev.evaluate(route)            -> { seconds, timeTo, levelTimes, xpSplit, travelSeconds, ... }
@@ -25,7 +25,7 @@
 // since (quest chains that go to another zone and back: Scholomance and the
 // Argent Dawn turn-ins, Loramus in Azshara); a home package runs once.
 // More makes the route infeasible. Route
-// rules (packages only, not guide sequences; docs/SIMULATION.md "Starts"):
+// rules (packages only, not guide sequences; docs/legacy/SIMULATION-js.md "Starts"):
 //   - home first: every home package (start zone 1-5; Skyborne: Zephras
 //     Isle) before any other package, else the route is infeasible;
 //   - an "away" package (other continent / starting island) below level 10:

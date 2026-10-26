@@ -180,19 +180,19 @@ step Beasts 10-16: Loch Modan (50-100)
 step Beasts 11-19: Darkshore (50-100)
   only NightElf
   zone Darkshore
-  tip Kill and skin Thistle Bear (11), Rabid Thistle Bear (13), Moonstalker (14), Grizzled Thistle Bear (16, needs 60), Moonstalker Runt (16, needs 60), Moonstalker Sire (17, needs 70), Ghostpaw Runner (19, needs 90), Moonstalker Matriarch (19, needs 90) along the loop until Skinning 100; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20.
-  goto 45.4,43.3 "Moonstalker Runt, Thistle Bear" r 30
-  goto 45.1,30.7 "Rabid Thistle Bear, Thistle Bear" r 30
-  goto 44.7,24.6 "Thistle Bear, Moonstalker Runt" r 30
-  goto 48.7,27.6 "Moonstalker, Rabid Thistle Bear" r 30
-  goto 60.7,12.4 "Moonstalker Matriarch, Moonstalker Sire" r 30
-  goto 53.0,29.5 "Moonstalker, Rabid Thistle Bear" r 30
-  goto 43.8,65.8 "Moonstalker, Rabid Thistle Bear" r 30
-  goto 43.3,82.0 "Moonstalker Sire, Grizzled Thistle Bear" r 30
-  goto 38.3,91.1 "Moonstalker Matriarch, Moonstalker Sire" r 30
-  goto 38.9,80.5 "Grizzled Thistle Bear, Moonstalker Sire" r 30
-  goto 39.1,70.2 "Moonstalker, Grizzled Thistle Bear" r 30
+  tip Kill and skin Moonstalker Runt (11), Thistle Bear (11), Rabid Thistle Bear (13), Moonstalker (14), Grizzled Thistle Bear (16, needs 60), Moonstalker Sire (17, needs 70), Ghostpaw Runner (19, needs 90), Moonstalker Matriarch (19, needs 90) along the loop until Skinning 100; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20.
   goto 39.1,63.6 "Rabid Thistle Bear, Moonstalker" r 30
+  goto 39.1,70.2 "Moonstalker, Grizzled Thistle Bear" r 30
+  goto 39.3,75.7 "Grizzled Thistle Bear, Rabid Thistle Bear" r 30
+  goto 38.9,80.5 "Grizzled Thistle Bear, Moonstalker Sire" r 30
+  goto 38.3,91.1 "Moonstalker Matriarch, Moonstalker Sire" r 30
+  goto 43.3,82.0 "Moonstalker Sire, Grizzled Thistle Bear" r 30
+  goto 43.8,65.8 "Moonstalker, Rabid Thistle Bear" r 30
+  goto 53.0,29.5 "Moonstalker, Rabid Thistle Bear" r 30
+  goto 60.7,12.4 "Moonstalker Matriarch, Moonstalker Sire" r 30
+  goto 48.7,27.6 "Moonstalker, Rabid Thistle Bear" r 30
+  goto 44.7,24.6 "Thistle Bear, Moonstalker Runt" r 30
+  goto 45.1,30.7 "Rabid Thistle Bear, Thistle Bear" r 30
   skill Skinning 100
 
 step Beasts 8-19: The Barrens (50-100)

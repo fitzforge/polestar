@@ -4,7 +4,7 @@
 -- in the hub's and the options' headers, a name drawn anew each time the
 -- window opens, that leads to the page.
 --
--- The names come from Core/Credits.lua (`polestar credits`): supporters in
+-- The names come from Core/Credits.lua (`forge release credits`): supporters in
 -- rank order, and GitHub contributors by merged pull requests.
 
 local ADDON, ns = ...

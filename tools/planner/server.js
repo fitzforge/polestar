@@ -47,7 +47,8 @@ const { version } = require('../../package.json');
 const glyphs = require('./glyphs');
 const { openIcons, keyOf, KINDS } = require('./icons');
 const roads = require('../lib/nav/layers/roads');
-const { HUBS_FILE } = require('../lib/nav/layers/hubs');
+// The hubs layer (forge nav layers hubs) beside the roads layer: data/local/nav-layers/hubs.json.
+const HUBS_FILE = path.join(path.dirname(roads.ROADS_DIR), 'hubs.json');
 
 const PUBLIC = path.join(__dirname, 'public');
 const TYPES = {

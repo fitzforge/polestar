@@ -20,9 +20,8 @@
 #   catch is a check-off the player ticks.
 # - Left out: Friend of the Kirin Tor (92459): the Image of Archmage Modera
 #   offers it only after Heart of Disruption (92458), the City of Dalaran
-#   dungeon quest that An Alarming Request leads to (the quest chain
-#   foreverchanges.pro shows from Wowhead's Forever database, checked
-#   2026-10-17; its text, "the city is calming down ... take this mote",
+#   dungeon quest that An Alarming Request leads to (Forever's
+#   quest chain data, checked 2026-10-17; its text, "the city is calming down ... take this mote",
 #   follows the dungeon). The data has no prerequisite.
 # - The Image of Archmage Modera stands just inside Silverpine Forest in the
 #   data: the turn-in now uses the data's position instead of typed Alterac

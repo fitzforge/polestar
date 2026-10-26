@@ -1,5 +1,5 @@
 'use strict';
-// Polestar route extractor (docs/SIMULATION.md §5) on a synthetic sample in
+// Polestar route extractor (docs/legacy/SIMULATION-js.md §5) on a synthetic sample in
 // tests/fixtures/sim/polestar: invented guide names and ids.
 
 const { test } = require('node:test');

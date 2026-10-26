@@ -1,0 +1,1 @@
+{"schema":1,"taxi":{"nodes":[],"legs":[]},"transports":[{"id":"zeppelin-test","kind":"zeppelin","faction":2,"a":{"name":"Testvale tower","c":1,"wx":900,"wy":-100,"map":99101},"b":{"name":"Farcoast tower","c":0,"wx":900,"wy":-100,"map":99103},"ab":60,"ba":60,"waitA":30,"waitB":30}],"inns":[],"paths":{"nodes":[],"edges":[]}}

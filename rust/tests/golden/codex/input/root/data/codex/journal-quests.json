@@ -1,0 +1,11 @@
+{
+	"_about": "Dungeons journal quests no rule in tools/lib/codex/journal.js can place (docs/ARCHITECTURE.md, Dungeons): a quest whose giver, ender, area and objectives all lie outside its instance and whose dungeon part is an item made inside. One row per quest and instance: { quest, instance (Codex instance key), source (URL), note }. Loaded by loadJournalQuests; a row whose quest or instance the Codex lacks is a build warning.",
+	"quests": [
+		{
+			"quest": 5526,
+			"instance": "dire-maul",
+			"source": { "edition": "forever", "kind": "quest", "id": 5526 },
+			"note": "Shards of the Felvine (Rabine Saturna, Moonglade): Forever's quest data says Type: Dungeon, and its objective is to find the Felvine in Dire Maul, take a shard from it once Alzzin the Wildshaper falls and seal it in the Reliquary of Purity (checked 2026-10-15). QuestieDB files it under Moonglade and lists only the Sealed Reliquary of Purity, which no NPC drops."
+		}
+	]
+}

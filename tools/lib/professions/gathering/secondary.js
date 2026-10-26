@@ -59,29 +59,40 @@ function recipeOf(ctx, spell) {
 
 // Densest cluster of the normal creatures in `zone` that drop `item`
 // (weighted by drop chance), as the real spawn nearest the cluster's centre,
-// plus the best droppers' names.
+// plus the best droppers' names. The data rates an item's droppers from one
+// table (items.json `dropScale`), so a dropper that table does not rate has a
+// null chance: when no rated dropper of 5% or more stands in the zone, the
+// unrated ones count, weighted alike and named without a chance.
 function dropSpot(ctx, item, zone) {
 	const it = ctx.data.item(item);
-	const pts = [];
-	const names = new Map();
-	for (const [id, chance] of Object.entries((it && it.drops && it.drops.npc) || {})) {
-		const n = ctx.data.npc(id);
-		if (!n || chance < 5 || n.rank || (n.roles && n.roles.length)) continue; // no elites, rares or service NPCs
-		if (n.faction !== null && n.faction !== undefined) continue;
-		const s = n.spawns && n.spawns[String(zone)];
-		if (!s || s.pts.length < 3) continue; // no lone named spawns
-		for (const [x, y] of s.pts) pts.push({ name: n.name, w: chance / 100, pt: ctx.project.point(zone, x, y, s.f) });
-		names.set(n.name, Math.max(names.get(n.name) || 0, chance));
-	}
+	const droppers = Object.entries((it && it.drops && it.drops.npc) || {});
+	const gather = (rated) => {
+		const pts = [];
+		const names = new Map();
+		for (const [id, chance] of droppers) {
+			if (rated ? chance === null || chance < 5 : chance !== null) continue;
+			const n = ctx.data.npc(id);
+			if (!n || n.rank || (n.roles && n.roles.length)) continue; // no elites, rares or service NPCs
+			if (n.faction !== null && n.faction !== undefined) continue;
+			const s = n.spawns && n.spawns[String(zone)];
+			if (!s || s.pts.length < 3) continue; // no lone named spawns
+			for (const [x, y] of s.pts) pts.push({ name: n.name, w: rated ? chance / 100 : 1, pt: ctx.project.point(zone, x, y, s.f) });
+			names.set(n.name, rated ? Math.max(names.get(n.name) || 0, chance) : (names.get(n.name) || 0) + s.pts.length);
+		}
+		return { pts, names };
+	};
+	let rated = true;
+	let { pts, names } = gather(true);
+	if (!pts.length) ({ pts, names } = gather((rated = false)));
 	if (!pts.length) throw new Error(`no creature in ${zoneName(ctx, zone)} drops ${it ? it.name : item}`);
 	const best = R.weightedClusters(pts, 120, ctx.project)[0];
 	let spawn = pts[0];
 	for (const p of pts) if (dist(p.pt, best.pt) < dist(spawn.pt, best.pt)) spawn = p;
 	const top = [...names.entries()]
 		.filter(([nm]) => best.counts[nm])
-		.sort((a, b) => b[1] - a[1])
+		.sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0))
 		.slice(0, 3)
-		.map(([nm, c]) => `${nm} (${Math.round(c)}%)`);
+		.map(([nm, c]) => (rated ? `${nm} (${Math.round(c)}%)` : nm));
 	return { pt: spawn.pt, mobs: top };
 }
 

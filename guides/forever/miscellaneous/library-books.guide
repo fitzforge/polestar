@@ -33,9 +33,9 @@ zone Stormwind City
 #   one entry per book object); warcraft.wiki.gg book pages (CC BY-SA 3.0) for
 #   405879, 421526 and 441248, which those fixes do not place, and as a check
 #   on every other point. Not used: QuestieDB's generated SoD and Forever base
-#   object files (built from Wowhead).
+#   object files (built from Forever's quest data).
 # - Where each book sits (the tips) and the milestone rewards: warcraft.wiki.gg
-#   and Wowhead's Forever quest pages and comments from the local archive.
+#   and Forever's quest data and players' reports from the local archive.
 # - data/forever puts an Elwynn spawn (65.4,70.1) on 386691, the Antonidas
 #   book; both sources above place 386691 in Ironforge only and that Elwynn
 #   point on 386759 (Theocritus). The goals below are placed by hand.

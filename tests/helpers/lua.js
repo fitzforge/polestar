@@ -119,6 +119,15 @@ end`);
 	return lines.join('\n');
 }
 
+// The values a program emitted (its "@@JSON " lines), in order.
+function parseEmitted(stdout) {
+	const emitted = [];
+	for (const line of stdout.split('\n')) {
+		if (line.startsWith('@@JSON ')) emitted.push(JSON.parse(line.slice(7)));
+	}
+	return emitted;
+}
+
 function runAddon(opts = {}) {
 	const program = buildProgram(opts);
 	const file = path.join(os.tmpdir(), `polestar-test-${process.pid}-${Date.now()}-${Math.random().toString(36).slice(2)}.lua`);
@@ -132,14 +141,10 @@ function runAddon(opts = {}) {
 			err.stderr = r.stderr;
 			throw err;
 		}
-		const emitted = [];
-		for (const line of r.stdout.split('\n')) {
-			if (line.startsWith('@@JSON ')) emitted.push(JSON.parse(line.slice(7)));
-		}
-		return { emitted, stdout: r.stdout, stderr: r.stderr };
+		return { emitted: parseEmitted(r.stdout), stdout: r.stdout, stderr: r.stderr };
 	} finally {
 		fs.rmSync(file, { force: true });
 	}
 }
 
-module.exports = { runAddon, tocFiles, dirFiles, tocEntries, xmlFiles, ROOT, ADDONS };
+module.exports = { runAddon, buildProgram, parseEmitted, STUBS, tocFiles, dirFiles, tocEntries, xmlFiles, ROOT, ADDONS };

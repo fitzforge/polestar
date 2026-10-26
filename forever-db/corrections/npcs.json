@@ -1,0 +1,320 @@
+{
+	"1738": {
+		"addSpawns": {
+			"1420": {
+				"f": "e",
+				"pts": [
+					[
+						61.4,
+						53.4
+					]
+				]
+			}
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "player report of his position"
+		},
+		"note": "Deathguard Terrence (npc 1738), giver of The Argent Emissary (96895), stands at Tirisfal 61.4,53.4 (map 1420), by a player's in-game report. Replaces the map's existing spawns."
+	},
+	"1756": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Stormwind Royal Guard is Elite on Forever; the merged Era data has rank 0 (Normal)."
+	},
+	"209797": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Bruuz is Elite on Forever; the merged Era data has rank 0 (Normal)."
+	},
+	"248362": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Shinyfinder Narf is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250483": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Witherfang is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250488": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Tarantula is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250622": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Ragged Ghoul is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250623": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Mangled Cadaver is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250624": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Skeletal Mage is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250626": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Skeletal Soldier is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250627": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Ghoul is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250630": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Plague Ghoul is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250656": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Fallen Berserker is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250657": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Rath'mael is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250660": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "The Baron is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"250689": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Living Monstrosity is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"251968": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Ayessa Dawnsinger is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"252475": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Elaadrin Evengale is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"254589": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Vulgara the Insatiable is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"255109": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Flesh Golem is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"255964": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Fallen Necromancer is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"259385": {
+		"set": {
+			"rank": 4
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Tel'daeor the Stormspeaker is Rare on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"259388": {
+		"set": {
+			"rank": 4
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Mystmane is Rare on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"260396": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Whispering Horror is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"261319": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Durgen Dirgehammer is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"263389": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Enraged Apparition is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"263390": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Tormented Soul is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"268623": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Outraged Pillager is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"275666": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Aggor the Young is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"276020": {
+		"set": {
+			"rank": 1
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Riptear is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"276061": {
+		"set": {
+			"rank": 4
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature_template Classification"
+		},
+		"note": "Decrepit Harvester is Rare on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	}
+}

@@ -2,6 +2,7 @@
 	<Script file="QoL.lua"/>
 	<Script file="Data.lua"/>
 	<Script file="Buttons.lua"/>
+	<Script file="BagGlow.lua"/>
 	<Script file="Hearth.lua"/>
 	<Script file="XP.lua"/>
 	<Script file="XPMark.lua"/>

@@ -16,8 +16,8 @@ why The hunter's epic bow chain: in Classic the stave and sinew became Rhok'dela
 # to Vartrus the Ancient in Felwood, An Introduction (7633), then Stave of
 # the Ancients (7636, four demons), A Proper String (7635, Onyxia) and,
 # optional, Ancient Sinew Wrapped Lamina (7634, Azuregos).
-# Forever status (Wowhead Forever's Hunter class page,
-# data/local/quest-audit/wowhead-class-quests.json): 7632, 7633, 7634, 7635
+# Forever status (Forever's Hunter class quest list,
+# data/local/quest-audit/): 7632, 7633, 7634, 7635
 # and 7636 are all listed, "unchanged". Titles, levels and rewards follow
 # those rows: the Ancient Rune Etched Stave (7636), the Enchanted Black
 # Dragon Sinew (7635) and the Ancient Sinew Wrapped Lamina (7634).
@@ -37,8 +37,8 @@ why The hunter's epic bow chain: in Classic the stave and sinew became Rhok'dela
 # boss) and, very rarely, the Cobalt dragonkin in Winterspring. The four
 # demons are elite. The data has no position for Molten Core, Onyxia or
 # the demons' true forms; their disguises are placed from the data. The
-# entrance of Onyxia's Lair (Dustwallow Marsh 52.1,75.8) is from Wowhead's
-# Onyxia's Lair zone page (wowhead.com/zone=2159); Azuregos is placed from
+# entrance of Onyxia's Lair (Dustwallow Marsh 52.1,75.8) is from the
+# game's zone data (zone 2159); Azuregos is placed from
 # npcs.json.
 # Based on data, not play: the beta caps at level 30 until launch on
 # 4 November, so nothing here has been checked in game.

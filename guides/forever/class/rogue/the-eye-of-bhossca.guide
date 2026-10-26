@@ -12,22 +12,22 @@ why The Ruby-Adorned Blade, C's payment for a solo job inside the Scarlet Monast
 # C's second job, for Rogues of both factions: The Eye of Bhossca (78676)
 # from the Dead Drop near Pyrewood Village, the eye from inside the Scarlet
 # Monastery, then C's payment (78699) from the same Dead Drop.
-# Forever changes (Wowhead Forever's Rogue class page,
-# data/local/quest-audit/wowhead-class-quests.json): both quests need level
+# Forever changes (Forever's Rogue class quest list,
+# data/local/quest-audit/): both quests need level
 # 25 (was 30 and 1) and pay 3450 experience; 78699 is now level 35, pays 75
-# silver and adds the Ruby-Adorned Blade. Wowhead's row also lists Rune of
+# silver and adds the Ruby-Adorned Blade. The list's row also lists Rune of
 # Shadowstep (210979) among 78699's rewards, a Season of Discovery rune; the
 # guide shows only the blade.
 # Sources: quests.json and objects.json (the Dead Drop, object 410369),
-# the quest text on foreverchanges.pro/quest/78676 (the eye is in the Scarlet
+# the quest text in Forever's quest data (the eye is in the Scarlet
 # Monastery, you go alone, a disguise can be found on the monastery grounds),
 # the Scarlet Monastery entrance from data/forever/dungeons.json (Tirisfal
 # Glades 82.6,33.8, live frame). The data has no item for the eye and no
 # position for it or the disguise.
 # Based on data and beta reports, not an in-game test of this guide.
 
-# Mechanics: Forever comments by Gaunerh on wowhead.com/forever/quest=78676
-# and Thorshadow on /forever/quest=78699 (checked 2026-10-20), compared
+# Mechanics: Forever players' reports on quests 78676
+# and 78699 (checked 2026-10-20), compared
 # with ForG's Forever rogue-quests walkthrough. Item 210955's Forever
 # tooltip confirms suspicious activity breaks the disguise. Letter timing
 # differs from the datamined minimum; no exact mail level is asserted.

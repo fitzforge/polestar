@@ -1,0 +1,5 @@
+/* The browser build's additions to the top bar (wasm-ui.js). */
+.set-pick { background: transparent; color: inherit; border: 1px solid var(--line, #2a3240); border-radius: 6px; padding: 3px 6px; font: inherit; font-size: 12px; margin-right: 6px; }
+.sim-hours { font-variant-numeric: tabular-nums; }
+.sim-hours.better .sim-text { color: var(--ok, #6fd39a); }
+.sim-hours.worse .sim-text { color: var(--warning, #fabf4d); }

@@ -9,9 +9,10 @@
 --   Names.Quest(id) / Names.Npc(id) / Names.Object(id) / Names.Item(id) -> name | nil
 --     The client's own name first (a quest's title, C_QuestLog; an item's,
 --     C_Item; an NPC's or object's as the client named it in play, below),
---     then the names pack of its language, Polestar_Names_<locale> (built by
---     `node tools/polestar.js i18n names`, loaded on demand on the first
---     ask), else nil. Always nil on an English client (enUS, enGB), which
+--     then the names pack of its language, Names.lua in the language folder
+--     Polestar_<locale> (built by `forge data names`; our guides' texts share
+--     the folder), loaded on demand on the first
+--     ask (or already in through GuideTexts), else nil. Always nil on an English client (enUS, enGB), which
 --     loads nothing. A quest or item the client has not cached is asked for,
 --     once a session; when the asked names arrive (QUEST_DATA_LOAD_RESULT,
 --     ITEM_DATA_LOAD_RESULT) one STEP_UPDATED redraws the guide window.
@@ -35,9 +36,11 @@
 --     window when its current or next step names that id.
 --   Names.Localised() -> bool   -- not an English client
 --   Names.Ready() -> bool       -- the pack is in, or will not load this session
---   Names.PackName() -> "Polestar_Names_<locale>" | nil (English)
---   Names.Add(locale, kind, { [id] = name })   -- the pack's files; kind:
---     quest npc object item, or another a pack adds
+--   Names.PackName() -> "Polestar_<locale>" | nil (English)
+--   Names.AddChunk(locale, kind, lo, hi, text)   -- the pack's files: one
+--     LuaChunks chunk (Core/LuaChunks.lua) of "<id>\t<name>" lines of kind
+--     quest npc object item, or another a pack adds; ignored unless locale is
+--     the client's. A name stays text in its chunk and is cut out when asked.
 
 local ADDON, ns = ...
 
@@ -49,9 +52,10 @@ local type, pairs, ipairs, tonumber, floor = type, pairs, ipairs, tonumber, math
 local ENGLISH = { enUS = true, enGB = true }
 local locale = (GetLocale and GetLocale()) or "enUS"
 local localised = not ENGLISH[locale]
-local PACK = localised and ("Polestar_Names_" .. locale) or nil
+local PACK = localised and ("Polestar_" .. locale) or nil
 
-local tables = { quest = {}, npc = {}, object = {}, item = {} }
+local LuaChunks = ns.LuaChunks
+local store = LuaChunks.New()
 -- Names the client showed in play live in PolestarDB.names[locale]
 -- ({ npc = { [id] = name }, object = {...}, order = { "n<id>"|"o<id>", ... } },
 -- oldest first), read through ns.DB() each time once saved variables are in
@@ -68,16 +72,9 @@ function Names.Localised() return localised end
 function Names.Ready() return ready end
 function Names.PackName() return PACK end
 
-function Names.Add(loc, kind, t)
-	if loc ~= locale or type(kind) ~= "string" or type(t) ~= "table" then return end
-	local into = tables[kind]
-	if not into then
-		into = {}
-		tables[kind] = into
-	end
-	for id, name in pairs(t) do
-		if type(id) == "number" and type(name) == "string" and name ~= "" then into[id] = name end
-	end
+function Names.AddChunk(loc, kind, lo, hi, text)
+	if loc ~= locale or type(kind) ~= "string" or type(text) ~= "string" then return end
+	store:Add(kind, lo, hi, text)
 end
 
 -- One redraw for a burst of arrivals: the guide window refills its rows
@@ -121,8 +118,7 @@ end
 
 local function fromPack(kind, id)
 	if not ready then load() end
-	local t = tables[kind]
-	return t and t[id]
+	return LuaChunks.Unesc(store:Raw(kind, id))
 end
 
 -- This client language's learned names, or nil before saved variables load.

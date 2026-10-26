@@ -160,7 +160,7 @@ test('missing reference data is an error naming the files and data build, not "n
 	for (const extra of [[], ['--json']]) {
 		const { result, out } = await quiet(() => cmd.run(['Westfall Stew', '--data', empty, '--guides', GUIDES, ...extra]));
 		assert.equal(result, 1);
-		assert.match(out, /find: the reference data in .* is missing quests\.json, npcs\.json, objects\.json, items\.json, zones\.json; run node tools\/polestar\.js data build/);
+		assert.match(out, /find: the reference data in .* is missing quests\.json, npcs\.json, objects\.json, items\.json, zones\.json; run forge data build/);
 		assert.doesNotMatch(out, /nothing matches|^\[\]$/m);
 	}
 	// Guides need no reference data.

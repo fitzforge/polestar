@@ -38,6 +38,8 @@ end
 register(QUESTING, L["Buttons"], L["Action buttons"], {
 	{ kind = "toggle", key = "qol.itemButton", label = L["Quest item button"],
 		help = L["A button for the current step's quest item, with count, cooldown and range. Bind it under Key Bindings > AddOns."] },
+	{ kind = "toggle", key = "qol.bagGlow", label = L["Highlight the step's item in your bags"],
+		help = L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator)."] },
 	{ kind = "toggle", key = "qol.targetButton", label = L["Target button"],
 		help = L["Targets the current step's mobs by name; each click moves to the next name. Bindable."] },
 	{ kind = "toggle", key = "qol.rareButton", label = L["Rare button"],

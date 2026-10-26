@@ -16,8 +16,8 @@ why Eris's splinter and the two Eyes make Benediction, the epic priest staff tha
 # Splinter of Nordrassil, which makes Benediction with The Eye of Divinity
 # and The Eye of Shadow.
 # Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
-# Questie-Forever) for Eris, the event point and the drops; Wowhead
-# Forever's Priest class page (data/local/quest-audit/wowhead-class-quests.json:
+# Questie-Forever) for Eris, the event point and the drops;
+# Forever's Priest class quest list (data/local/quest-audit/:
 # no Forever change to either quest; 7622 rewards the Splinter of
 # Nordrassil). How it works: Icy Veins, "Benediction/Anathema Quest: Guide
 # to The Balance of Light and Shadow"
@@ -32,8 +32,8 @@ why Eris's splinter and the two Eyes make Benediction, the epic priest staff tha
 # position for it. The Eye of Shadow drops from elite demons (Lord Kazzak,
 # Doomguard Commanders and Manahounds in the Blasted Lands, the Hederine of
 # Winterspring) and binds when equipped, so the Auction House may have it.
-# The quests are Forever-confirmed (both on Wowhead Forever's Priest class
-# page, unchanged); that the splinter turns into Benediction with both Eyes
+# The quests are Forever-confirmed (both on Forever's Priest class
+# quest list, unchanged); that the splinter turns into Benediction with both Eyes
 # is from the Classic sources above, used only for that detail.
 # Left out: Holy Bologna: What the Light Won't Tell You (7504, in Forever's
 # database) starts from a book found in Dire Maul and ends at Lorekeeper

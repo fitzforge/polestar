@@ -1,0 +1,3 @@
+ForeverLevelingBiS v0.0.1-golden (data 2026-10-22): 11 items (2 Forever-only, 7 retuned from Era, 2 as in Era), 4 quests; Forever.lua 2 KiB
+wowsims: 27 specs, 22 level bands blended with a sim, 113 authored only; 4 sim sets rejected
+SpecData.lua 20 KiB

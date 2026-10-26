@@ -122,10 +122,10 @@ step Vorsha the Lasher
 # blue crystals that appear in the tunnels leading up to the instance, not
 # inside the instance itself" and "go into the ruins and then down a bunch of
 # stairs, swim under water to get to the other side of a wall"
-# (https://www.wowhead.com/classic/quest=6563, comments). The way in is the
+# (players' reports, quest 6563). The way in is the
 # ruins' pit at 14.5,14.2 (the client's Blackfathom Deeps entrance,
-# dungeons.json; "The entrance is at 14,14, in the pit",
-# https://www.wowhead.com/classic/zone=719, comments); a straight line from
+# dungeons.json; players report the entrance in the pit
+# near 14,14, zone 719); a straight line from
 # the brazier to the crystals ends on the strand above them.
 step Blackfathom Deeps ruins
   tip The way to the Sapphires is through the sunken ruins at the north end of the strand: go down the stairs into the pit.

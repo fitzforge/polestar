@@ -16,10 +16,10 @@ why A rare off-hand at 60, Daio's payment for capturing a Doomguard Commander in
 # Sacrifice.
 # Sources: quests.json, npcs.json, objects.json and items.json (Questie
 # 12.1.0 and Questie-Forever) for Daio, the droppers, the Doomguard Commander
-# and the Imprisoned Doomguard; Wowhead Forever's Warlock class page
-# (data/local/quest-audit/wowhead-class-quests.json): unchanged in Forever,
-# Suppression rewards the Tome of Sacrifice; Wowhead's Classic quest pages
-# (wowhead.com/classic/quest=7581, =7582, =7583) for where the satyrs and the
+# and the Imprisoned Doomguard; Forever's Warlock class quest list
+# (data/local/quest-audit/): unchanged in Forever,
+# Suppression rewards the Tome of Sacrifice; the classic quest data
+# (quests 7581, 7582, 7583) for where the satyrs and the
 # Hederine live and for using the Glowing Crystal Prison on the Commander.
 # The Wildspawn satyrs, the Hederine and the Doomguard Commander are all
 # elite: grouping up is advised, and the satyrs are inside Dire Maul, a

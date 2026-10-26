@@ -29,12 +29,12 @@ why An off-hand orb or a staff for your late 30s, down the felhound's or the inf
 # This guide merges the former orb-of-orahil, orb-of-dar-orahil and
 # orb-of-noh-orahil guides.
 # Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
-# Questie-Forever) for the givers, drops and spawns; Wowhead's Classic quest
-# pages (wowhead.com/classic/quest=1799, =4962, =4963, =4964) for taking the
+# Questie-Forever) for the givers, drops and spawns; the classic quest
+# data (quests 1799, 4962, 4963, 4964) for taking the
 # acolyte's path before the Infernal Orb, for using the Felhas Ruby on a
 # felhound or the Infus Emerald on an infernal, and for waiting while Menara
-# finishes the orb; Wowhead Forever's Warlock class page
-# (data/local/quest-audit/wowhead-class-quests.json): unchanged in Forever.
+# finishes the orb; Forever's Warlock class quest list
+# (data/local/quest-audit/): unchanged in Forever.
 # The Demon of the Orb (4961) is elite.
 # Cleansing of the Orb of Orahil (4961) lists Shard of a Felhound (4962) as
 # well as 1799 before it (quests.json preAll, from pfQuest and

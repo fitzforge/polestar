@@ -1,0 +1,38 @@
+[package]
+name = "forge-wasm"
+description = "The route planner in the browser: guide compile, the judge's walk with the simulator's levels, the judge summary (wasm-bindgen)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+rustc-hash.workspace = true
+forge-core = { path = "../forge-core" }
+forge-guide = { path = "../forge-guide", default-features = false }
+forge-world = { path = "../forge-world", default-features = false }
+forge-sim = { path = "../forge-sim", default-features = false }
+forge-judge = { path = "../forge-judge", default-features = false }
+
+flate2 = { version = "1.1", optional = true }
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+
+[features]
+default = []
+# The bundle builder (file system): `cargo run -p forge-wasm --features native --bin bundle`.
+native = ["dep:flate2", "forge-guide/native", "forge-judge/native", "forge-sim/native", "forge-world/native"]
+
+[[bin]]
+name = "bundle"
+required-features = ["native"]
+
+# rustc's wasm32 target emits these features by default (bulk memory, sign extension and the rest since
+# Rust 1.82); wasm-opt has to be told it may keep them.
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-Oz", "--enable-bulk-memory", "--enable-sign-ext", "--enable-nontrapping-float-to-int", "--enable-mutable-globals", "--enable-reference-types", "--enable-multivalue"]

@@ -1,5 +1,5 @@
 {
-	"about": "Synthetic Dungeons pick-up fixture: game names, sample numbers and invented links (not taken from any addon). Shadowfang Keep for a Horde character: a class-only quest, a prerequisite chain with an any-of step, a follow-up, a race-only and an Alliance quest. tests/dungeons-pickup.test.js.",
+	"about": "Synthetic Dungeons pick-up fixture: game names, sample numbers and invented links (not taken from any addon). Shadowfang Keep for a Horde character: a class-only quest, a prerequisite chain with an any-of step, a follow-up, a race-only and an Alliance quest. rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs.",
 	"codex": {
 		"meta": {
 			"schema": 1,

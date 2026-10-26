@@ -19,8 +19,8 @@ why The Water Totem that lets you place water totems, and Healing Stream Totem w
 # Ashenvale) -> Norric (Water Sapta) -> Stendel's Pond in Westfall -> Norric,
 # who teaches Healing Stream Totem and gives the Water Totem.
 # Sources: quests.json, npcs.json and objects.json for givers, enders and the
-# Forgotten Shrine; Wowhead Forever's quest pages
-# (https://www.wowhead.com/forever/quest=94494 and the chain's "Series" box)
+# Forgotten Shrine; Forever's quest data
+# (quest 94494 and the chain's series)
 # for the order, the fill places (their objective texts) and the rewards
 # (94501: Water Sapta; 94505: Healing Stream Totem and the Water Totem).
 # Places the data does not have:

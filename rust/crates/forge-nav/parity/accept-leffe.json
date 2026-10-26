@@ -1,0 +1,1815 @@
+{
+ "note": [
+  "Acceptance walks for Leffe's navigation maps: what they add over our grid in city interiors, caves and mines, multi-floor buildings, lifts and choke points. Every walk is a pair of ends our guides walk (consecutive goals of the v1 goal streams, or two guide-placed ends a step's text walks between), with the faction profile that walks it.",
+  "Format as tools/lib/nav/eval/acceptance.json routes: ends are world [x, y, z|null] in the UnitPosition frame (z from the NPC's spawn when known, else from an object or NPC spawn within 1.5 yd of the goal, else null); map 0 Eastern Kingdoms, 1 Kalimdor; tags are a category (city, cave, floors, chokepoint, lift) plus place names; outcome is what a correct walk does; source is the guide file:line pair and the goal indices in that v1 stream.",
+  "Run together with the 46 walks of acceptance.json listed under include (by id, not copied)."
+ ],
+ "include": {
+  "file": "tools/lib/nav/eval/acceptance.json",
+  "ids": [
+   "sw-tradedistrict-jennea",
+   "teldrassil-42.10,56.59-sleepingdruid",
+   "sw-nwshore-grimand",
+   "teldrassil-banethil-oben",
+   "felrock-melenas",
+   "redridge-ridge-murlocs",
+   "dolanaar-darnassus-fishing",
+   "dolanaar-ruttheran-portal",
+   "dolanaar-ruttheran-dock",
+   "ruttheran-dock-dolanaar",
+   "darkcloud-arnak",
+   "sw-dwarven-tram",
+   "uc-apothecarium-varimathras",
+   "brill-townhall-sevren",
+   "westfall-saldean-salma",
+   "northshire-willem-llane",
+   "vot-den-hanazua",
+   "tarrenmill-brill-l24",
+   "duskwood-sven-sentinelhill",
+   "eastvale-darkshire",
+   "ratchet-tileborder-road",
+   "coldridge-trollcave-griknir",
+   "dunmorogh-grizzledden-cornelius",
+   "dunmorogh-grizzledden-frosthowl",
+   "fargodeep-goldtooth",
+   "vot-burningbladecoven-yarrog",
+   "durotar-dustwindcave-cultist",
+   "durotar-skullrock-scornn",
+   "elwynn-jasperlode-deep",
+   "elwynn-fargodeep-deep",
+   "westfall-goldcoastquarry-deep",
+   "barrens-wailingcaverns-ebru",
+   "barrens-wailingcaverns-deep",
+   "uc-ruins-androngant",
+   "uc-tradequarter-faranell",
+   "uc-apothecarium-lowercanal",
+   "brill-undercity-undervator",
+   "ironforge-gnomeregan-vator",
+   "cauldron-upper-lower",
+   "menethil-dock-town",
+   "stv-bootybay-inn",
+   "mulgore-thunderbluff-elevator",
+   "durotar-orgrimmar-tunnel",
+   "darkcloud-arnak-bridges",
+   "stormwind-city-harbor",
+   "stormwind-city-harbor-under"
+  ]
+ },
+ "routes": [
+  {
+   "id": "org-borstan-neeru-cleft",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Orgrimmar"
+   ],
+   "outcome": "From Borstan in the Valley of Strength down the Cleft of Shadow ramp to Neeru Fireblade on its floor (z -17), not on the rock above it.",
+   "from": [1775.1, -4482.9, 45.5],
+   "to": [1800.7, -4374.5, -17.3],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/03-silverpine-forest.guide:321 -> 325 (goals 438 -> 439 of v1-horde-orc-on)"
+  },
+  {
+   "id": "org-neeru-korgeld-drag",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Orgrimmar"
+   ],
+   "outcome": "Up out of the Cleft of Shadow and through to the Drag; ends at Kor'geld's shop at street level.",
+   "from": [1800.7, -4374.5, -17.3],
+   "to": [1954.8, -4466.8, 25.8],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/03-silverpine-forest.guide:325 -> 329 (goals 439 -> 440 of v1-horde-orc-on)"
+  },
+  {
+   "id": "org-doras-zeppelin",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Orgrimmar",
+    "floors",
+    "chokepoint"
+   ],
+   "outcome": "Down from Doras's flight tower, through the Valley of Strength and the main gate, to the zeppelin tower outside Orgrimmar.",
+   "from": [1676.3, -4313.4, 61.7],
+   "to": [1332.5, -4648.6, null],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/03-silverpine-forest.guide:116 -> 152 (goals 367 -> 368 of v1-horde-orc-on)"
+  },
+  {
+   "id": "org-neeru-uthelnay-spirits",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Orgrimmar"
+   ],
+   "outcome": "From the Cleft of Shadow floor to Uthel'nay in the Valley of Spirits, by the cleft's ramps and the city lanes.",
+   "from": [1800.7, -4374.5, -17.3],
+   "to": [1466.9, -4229.9, 43],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/40-50/03-feralas.guide:124 -> 125 (goals 1597 -> 1598 of v1-horde-orc-on)"
+  },
+  {
+   "id": "org-jesrimon-belgrom-honor",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Orgrimmar"
+   ],
+   "outcome": "Jes'rimon in the Drag to Belgrom Rockmaul in the Valley of Honor through the Drag's tunnel, not over the ridge.",
+   "from": [1955.1, -4459.4, 54.8],
+   "to": [1953.6, -4735.8, 48.5],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/40-50/06-azshara.guide:220 -> 221 (goals 1916 -> 1917 of v1-horde-orc-on)"
+  },
+  {
+   "id": "org-crossroads-doras",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Orgrimmar",
+    "chokepoint",
+    "Southfury River",
+    "floors"
+   ],
+   "outcome": "Crossroads to Orgrimmar: Southfury River bridge below Far Watch Post, north through Durotar, in at the main gate and up Doras's flight tower.",
+   "from": [-474.9, -2607.7, 127.9],
+   "to": [1676.3, -4313.4, 61.7],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/02-the-barrens.guide:354 -> 116 (goals 366 -> 367 of v1-horde-orc-on)"
+  },
+  {
+   "id": "org-karus-bank-doras",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Orgrimmar",
+    "floors"
+   ],
+   "outcome": "From the bank in the Valley of Strength up the flight tower's ramp to Doras on its top.",
+   "from": [1627.3, -4376.1, 11.8],
+   "to": [1676.3, -4313.4, 61.7],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/03-silverpine-forest.guide:116 (Karus, npc 3309 spawn) -> guides/forever/horde/03-silverpine-forest.guide:116 (paired from the guide text)"
+  },
+  {
+   "id": "org-grezz-gryshka",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Orgrimmar"
+   ],
+   "outcome": "From the warrior trainer in the Valley of Honor to Gryshka's inn in the Valley of Strength.",
+   "from": [1980, -4799.7, 55.9],
+   "to": [1634, -4439.4, 15.5],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/03-silverpine-forest.guide:116 (Grezz Ragefist, npc 3353 spawn) -> guides/forever/horde/50-60/03-winterspring.guide:229 (paired from the guide text)"
+  },
+  {
+   "id": "tb-tal-hamuul-elderrise",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Thunder Bluff",
+    "chokepoint"
+   ],
+   "outcome": "From Tal's tower on the central rise down and over the rope bridges to Hamuul on the Elder Rise; never steps off a mesa edge.",
+   "from": [-1196.7, 26.1, 177],
+   "to": [-1048.7, -304, 159.1],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/40-50/06-azshara.guide:232 -> 233 (goals 1921 -> 1922 of v1-horde-orc-on)"
+  },
+  {
+   "id": "tb-windstrider-ghede-elderrise",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Thunder Bluff",
+    "chokepoint"
+   ],
+   "outcome": "From Bluff Runner Windstrider on the central rise across the bridges to Ghede on the Elder Rise.",
+   "from": [-1258.9, 54, 127],
+   "to": [-1002.9, -291.8, 159.4],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/50-60/03-winterspring.guide:203 -> 206 (goals 2332 -> 2333 of v1-horde-orc-on)"
+  },
+  {
+   "id": "tb-mistrunner-hunterrise",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Thunder Bluff",
+    "chokepoint"
+   ],
+   "outcome": "From Naal Mistrunner on the central rise over the bridge to the Hunter Rise.",
+   "from": [-1215, -15.5, 166.1],
+   "to": [-1461.6, -39.7, null],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/skyborne/01-zephras-isle.guide:697 -> 702 (goals 279 -> 280 of v1-horde-skyborne-on)"
+  },
+  {
+   "id": "tb-eylah-hamuul",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Thunder Bluff",
+    "chokepoint"
+   ],
+   "outcome": "Central rise to the Elder Rise by the rope bridges; ends at Hamuul's tent floor.",
+   "from": [-1239.0, 120.0, null],
+   "to": [-1048.7, -304, 159.1],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/tauren/01-mulgore.guide:429 -> 433 (goals 157 -> 158 of v1-horde-tauren-on)"
+  },
+  {
+   "id": "tb-tal-cairne",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Thunder Bluff",
+    "floors"
+   ],
+   "outcome": "Down Tal's tower to Cairne Bloodhoof inside the great tent.",
+   "from": [-1196.7, 26.1, 177],
+   "to": [-1209.6, -112.7, 163.9],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/07-ashenvale.guide:257 -> 258 (goals 854 -> 855 of v1-horde-skyborne-on)"
+  },
+  {
+   "id": "mulgore-redrocks-tal-lift",
+   "kind": "guide",
+   "tags": [
+    "lift",
+    "Thunder Bluff",
+    "chokepoint"
+   ],
+   "outcome": "From Red Rocks across Mulgore to the bluff's foot, up a lift, and up Tal's tower on the central rise.",
+   "from": [-992.7, -1109.1, 44.5],
+   "to": [-1196.7, 26.1, 177],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/tauren/01-mulgore.guide:396 -> 403 (goals 143 -> 144 of v1-horde-tauren-on)"
+  },
+  {
+   "id": "tb-hamuul-crossroads-lift",
+   "kind": "guide",
+   "tags": [
+    "lift",
+    "Thunder Bluff",
+    "chokepoint",
+    "The Great Gate"
+   ],
+   "outcome": "From the Elder Rise down a Thunder Bluff lift, across Mulgore and through the Great Gate into the Barrens; ends at the Crossroads flight master.",
+   "from": [-1048.7, -304, 159.1],
+   "to": [-437.1, -2596, 95.9],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/tauren/01-mulgore.guide:434 -> 495 (goals 159 -> 160 of v1-horde-tauren-on)"
+  },
+  {
+   "id": "tb-eylah-crossroads-lift",
+   "kind": "guide",
+   "tags": [
+    "lift",
+    "Thunder Bluff",
+    "chokepoint",
+    "The Great Gate"
+   ],
+   "outcome": "From the central rise down a lift, east across Mulgore and through the Great Gate to the Crossroads.",
+   "from": [-1239.0, 120.0, null],
+   "to": [-437.1, -2596, 95.9],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/skyborne/01-zephras-isle.guide:706 -> 719 (goals 281 -> 282 of v1-horde-skyborne-on)"
+  },
+  {
+   "id": "uc-oran-norman",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Undercity",
+    "floors"
+   ],
+   "outcome": "From Oran Snakewrithe on the canal ring up to Innkeeper Norman on the upper ring (z -43), by the ramps; no fall through the canal.",
+   "from": [1667.7, 172.2, -62.1],
+   "to": [1635.4, 223.3, -43],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/40-50/05-the-hinterlands.guide:118 -> 119 (goals 1777 -> 1778 of v1-horde-orc-on)"
+  },
+  {
+   "id": "uc-androngant-cuely",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Undercity",
+    "floors"
+   ],
+   "outcome": "From the Magic Quarter down to Chemist Cuely on the Apothecarium's lower floor (z -85).",
+   "from": [1389.3, 347.3, -66],
+   "to": [1421, 405.9, -85.2],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/50-60/01-un-goro-crater.guide:360 -> 361 (goals 2090 -> 2091 of v1-horde-orc-on)"
+  },
+  {
+   "id": "uc-cuely-bulwark-lift",
+   "kind": "guide",
+   "tags": [
+    "lift",
+    "Undercity",
+    "chokepoint"
+   ],
+   "outcome": "Up from the Apothecarium, a lift to the Ruins of Lordaeron, out through the ruins and east to the Bulwark.",
+   "from": [1421, 405.9, -85.2],
+   "to": [1760.8, -723.2, 60],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/50-60/01-un-goro-crater.guide:361 -> 367 (goals 2091 -> 2092 of v1-horde-orc-on)"
+  },
+  {
+   "id": "uc-cuely-bauhaus-royal",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Undercity",
+    "floors"
+   ],
+   "outcome": "From the Apothecarium's lower floor up and round to the Royal Quarter.",
+   "from": [1421, 405.9, -85.2],
+   "to": [1601.7, 203.6, -55.3],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/50-60/04-azshara.guide:154 -> 157 (goals 2402 -> 2403 of v1-horde-orc-on)"
+  },
+  {
+   "id": "uc-luca-felben-apothecarium",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Undercity",
+    "floors"
+   ],
+   "outcome": "From Alessandro Luca to Doctor Martin Felben inside the Apothecarium.",
+   "from": [1527.9, 310.9, -62.1],
+   "to": [1403.7, 426.1, -80.3],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/50-60/04-azshara.guide:168 -> 169 (goals 2410 -> 2411 of v1-horde-orc-on)"
+  },
+  {
+   "id": "uc-garrett-sylvanas",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Undercity",
+    "floors"
+   ],
+   "outcome": "From the bat handler on the upper ring (z -43) down to Sylvanas in the Royal Quarter.",
+   "from": [1567.1, 266.3, -43],
+   "to": [1290.4, 316.2, -57.2],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/05-stonetalon-mountains.guide:226 -> 227 (goals 691 -> 692 of v1-horde-skyborne-on)"
+  },
+  {
+   "id": "uc-sylvanas-bulwark-lift",
+   "kind": "guide",
+   "tags": [
+    "lift",
+    "Undercity",
+    "chokepoint"
+   ],
+   "outcome": "From the Royal Quarter, up a lift into the Ruins of Lordaeron and on by road to the Bulwark.",
+   "from": [1290.4, 316.2, -57.2],
+   "to": [1775.5, -725.9, 59.4],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/50-60/06-silithus.guide:217 -> 224 (goals 2548 -> 2549 of v1-horde-orc-on)"
+  },
+  {
+   "id": "uc-zeppelin-garrett-lift",
+   "kind": "guide",
+   "tags": [
+    "lift",
+    "Undercity",
+    "floors"
+   ],
+   "outcome": "Down the Tirisfal zeppelin tower, into the Ruins of Lordaeron, down a lift and up to the bat handler on the upper ring.",
+   "from": [2063.1, 290.5, 97.1],
+   "to": [1567.1, 266.3, -43],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/03-silverpine-forest.guide:314 -> guides/forever/horde/05-stonetalon-mountains.guide:226 (paired from the guide text)"
+  },
+  {
+   "id": "uc-zygand-carendin-lift",
+   "kind": "guide",
+   "tags": [
+    "lift",
+    "Undercity"
+   ],
+   "outcome": "From Brill's town hall down the road, through the Ruins of Lordaeron, down a lift to Carendin Halgar in the Magic Quarter.",
+   "from": [2278.1, 295.6, 36.8],
+   "to": [1711.6, 57.2, -62.2],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/undead/01-tirisfal-glades.guide:540 -> guides/forever/horde/undead/01-tirisfal-glades.guide:574 (Carendin Halgar, npc 5675 spawn) (paired from the guide text)"
+  },
+  {
+   "id": "sw-sprite-catherine",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind"
+   ],
+   "outcome": "From Sprite Jumpsprocket in the Dwarven District across the city's canals by its bridges to Catherine Leland's shop.",
+   "from": [-8349.9, 647.6, 95.9],
+   "to": [-8803.9, 765.7, 96.4],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/02-westfall.guide:290 -> 296 (goals 256 -> 257 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "sw-kristoff-delavey-keep",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind",
+    "floors"
+   ],
+   "outcome": "Out of the Cathedral, through the Park-side streets and up into Stormwind Keep to Bishop DeLavey.",
+   "from": [-8623.2, 766.7, 97.4],
+   "to": [-8506.4, 328.7, 120.9],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/06-ashenvale.guide:471 -> 474 (goals 729 -> 730 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "sw-bolvar-milton-keep",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind",
+    "floors"
+   ],
+   "outcome": "Inside Stormwind Keep: the throne room to Milton Sheaf in the library wing.",
+   "from": [-8440, 329.4, 122.6],
+   "to": [-8345.7, 383.8, 122.4],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/06-ashenvale.guide:477 -> 478 (goals 733 -> 734 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "sw-milton-grayson-cathedral",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind",
+    "floors"
+   ],
+   "outcome": "Out of the Keep and down to Lord Grayson Shadowbreaker's room in the Cathedral of Light.",
+   "from": [-8345.7, 383.8, 122.4],
+   "to": [-8577.5, 881.5, 106.6],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/06-ashenvale.guide:479 -> 483 (goals 735 -> 736 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "sw-grayson-mauren-magequarter",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind"
+   ],
+   "outcome": "Cathedral of Light to Collin Mauren in the Mage Quarter, over the canal bridges.",
+   "from": [-8577.5, 881.5, 106.6],
+   "to": [-8999.4, 801.7, 105.5],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/06-ashenvale.guide:484 -> 488 (goals 737 -> 738 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "sw-mauren-jorgen",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind"
+   ],
+   "outcome": "From the Mage Quarter to Jorgen by the canal (z 76), by the streets and stairs, not off a bridge.",
+   "from": [-8999.4, 801.7, 105.5],
+   "to": [-8981.8, 397.4, 76],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/06-ashenvale.guide:488 -> 491 (goals 738 -> 739 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "sw-elling-dungar",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind",
+    "floors"
+   ],
+   "outcome": "From Elling Trias's shop floor to Dungar Longdrink on the Trade District's gryphon roost.",
+   "from": [-8854.1, 575.7, 101.2],
+   "to": [-8835.8, 490.1, 109.7],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/06-ashenvale.guide:494 -> 497 (goals 742 -> 743 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "sw-angus-andromath-tower",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind",
+    "floors",
+    "Mage Quarter tower"
+   ],
+   "outcome": "From Angus Stern's restaurant up the Mage Quarter tower to High Sorcerer Andromath at its top (z 149).",
+   "from": [-9080.5, 823.2, 108.4],
+   "to": [-9010.8, 876.6, 148.7],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/01-stranglethorn-vale.guide:351 -> 352 (goals 1546 -> 1547 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "sw-andromath-mazen-tower",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind",
+    "floors",
+    "Mage Quarter tower"
+   ],
+   "outcome": "Down the Mage Quarter tower from Andromath to Mazen Mac'Nadir at its foot.",
+   "from": [-9010.8, 876.6, 148.7],
+   "to": [-8855.7, 822.8, 98.4],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/01-stranglethorn-vale.guide:352 -> 353 (goals 1547 -> 1548 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "sw-mazen-dellis-floors",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind",
+    "floors"
+   ],
+   "outcome": "Mazen to Acolyte Dellis one floor up (9 yd apart, 6 yd higher): goes by the stairs.",
+   "from": [-8855.7, 822.8, 98.4],
+   "to": [-8850.8, 829.8, 104.8],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/01-stranglethorn-vale.guide:353 -> 354 (goals 1548 -> 1549 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "sw-bolvar-shaw-oldtown",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind",
+    "floors"
+   ],
+   "outcome": "From Bolvar in the Keep to Master Mathias Shaw in the SI:7 building in Old Town.",
+   "from": [-8440, 329.4, 122.6],
+   "to": [-8815.3, 362.3, 109.6],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/50-60/05-silithus.guide:168 -> 169 (goals 2502 -> 2503 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "sw-sentinelhill-dwarven",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind",
+    "chokepoint"
+   ],
+   "outcome": "Sentinel Hill to Stormwind: Westfall's road, Elwynn, in at the main gate and through the city to the Dwarven District.",
+   "from": [-10637.8, 1179.9, null],
+   "to": [-8349.9, 647.6, 95.9],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/02-westfall.guide:253 -> 290 (goals 253 -> 256 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "sw-baros-threecorners",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Stormwind",
+    "chokepoint"
+   ],
+   "outcome": "From Baros Alexston out of Stormwind's gate and east through Elwynn to Three Corners.",
+   "from": [-8550.2, 719.7, 101.8],
+   "to": [-9609.6, -1902.4, 59.8],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/04-redridge-mountains.guide:84 -> 115 (goals 443 -> 445 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "if-gryth-lomac",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Ironforge"
+   ],
+   "outcome": "Gryth Thurden at the Great Forge's gryphons to Lomac Gearstrip in Tinker Town.",
+   "from": [-4821.1, -1152.4, 502.3],
+   "to": [-4843, -1283.5, 502],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/06-ashenvale.guide:452 -> 453 (goals 722 -> 723 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "if-lomac-gerrig-forlorn",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Ironforge"
+   ],
+   "outcome": "Tinker Town to Gerrig Bonegrip in the Forlorn Cavern by the ring road.",
+   "from": [-4843, -1283.5, 502],
+   "to": [-4598.9, -1115.4, 505],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/06-ashenvale.guide:453 -> 454 (goals 723 -> 724 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "if-karnik-magni",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Ironforge",
+    "Hall of Explorers"
+   ],
+   "outcome": "From Historian Karnik in the Hall of Explorers to King Magni in the High Seat.",
+   "from": [-4631.6, -1326.7, 503.5],
+   "to": [-4865.7, -1022.7, 505.8],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/30-40/01-hillsbrad-foothills.guide:324 -> 325 (goals 958 -> 959 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "if-magni-roetten",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Ironforge",
+    "Hall of Explorers"
+   ],
+   "outcome": "From the High Seat to Roetten in the Reclaimers' hall by the Hall of Explorers.",
+   "from": [-4865.7, -1022.7, 505.8],
+   "to": [-4681.4, -1266.6, 503.5],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/30-40/01-hillsbrad-foothills.guide:325 -> 326 (goals 959 -> 960 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "if-firebrew-xiggs",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Ironforge",
+    "Military Ward"
+   ],
+   "outcome": "From the Stonefire Tavern in the Commons to Xiggs Fuselighter.",
+   "from": [-4840.7, -857.1, 502],
+   "to": [-5068.2, -1273.9, 502],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/07-un-goro-crater.guide:310 -> 315 (goals 2000 -> 2002 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "if-eldrun-tram",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Ironforge",
+    "Deeprun Tram"
+   ],
+   "outcome": "From Eldrun Stormbreaker to the Deeprun Tram entrance in Tinker Town.",
+   "from": [-4640.0, -1091.0, null],
+   "to": [-4840.4, -1330.3, null],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide:675 -> 676 (goals 181 -> 182 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "if-gerrig-amberstill",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Ironforge",
+    "chokepoint"
+   ],
+   "outcome": "From the Forlorn Cavern out of Ironforge's gate, down the mountain road to Amberstill Ranch.",
+   "from": [-4598.9, -1115.4, 505],
+   "to": [-5521.9, -1347.2, 398.7],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/01-stranglethorn-vale.guide:433 -> 440 (goals 1570 -> 1571 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "dunmorogh-tundra-ironforge",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Ironforge",
+    "chokepoint"
+   ],
+   "outcome": "From Tundra MacGrann up the road into Ironforge's gate and on to Senator Barin Redstone in the High Seat.",
+   "from": [-5573, 99.3, 483.9],
+   "to": [-4872.6, -1026.3, 505.8],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide:605 -> 673 (goals 177 -> 179 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "darn-gracina-saelienne",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Darnassus",
+    "floors"
+   ],
+   "outcome": "From the Temple of the Moon's upper floor to Innkeeper Saelienne on the Craftsmen's Terrace.",
+   "from": [9634.1, 2495.6, 1354.9],
+   "to": [10127.9, 2224.8, 1328.8],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/05-the-hinterlands.guide:180 -> 183 (goals 1842 -> 1843 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "darn-saelienne-fandral",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Darnassus",
+    "floors"
+   ],
+   "outcome": "From the Craftsmen's Terrace up the Cenarion Enclave tree's ramp to Fandral at its top (z 1367).",
+   "from": [10127.9, 2224.8, 1328.8],
+   "to": [10173, 2569.9, 1367],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/05-the-hinterlands.guide:183 -> 186 (goals 1843 -> 1844 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "darn-fandral-mathrengyl",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Darnassus",
+    "floors"
+   ],
+   "outcome": "Fandral at the top of the tree to Mathrengyl 8 yd away but 27 yd below: walks the ramp down.",
+   "from": [10173, 2569.9, 1367],
+   "to": [10179, 2564, 1340.1],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/50-60/04-western-plaguelands.guide:363 -> 364 (goals 2400 -> 2401 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "darn-gracina-temple-lower",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Darnassus",
+    "floors"
+   ],
+   "outcome": "From Gracina on the temple's upper floor down to its lower floor (z 1333).",
+   "from": [9634.1, 2495.6, 1354.9],
+   "to": [9634.3, 2523.7, 1333.2],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/50-60/04-western-plaguelands.guide:375 -> 376 (goals 2408 -> 2409 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "darn-ruttheran-tyrande-portal",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Darnassus",
+    "chokepoint"
+   ],
+   "outcome": "From Rut'theran Village through the portal up to Darnassus and into the Temple of the Moon to Tyrande.",
+   "from": [8707.5, 988.9, 14.2],
+   "to": [9662.5, 2524.6, 1360.1],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/05-the-hinterlands.guide:174 -> 179 (goals 1840 -> 1841 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "darn-aquinne-ruttheran-portal",
+   "kind": "guide",
+   "tags": [
+    "city",
+    "Darnassus",
+    "chokepoint"
+   ],
+   "outcome": "From Sister Aquinne through the city to the portal down to Rut'theran Village and Nessa Shadowsong on the dock.",
+   "from": [9915.1, 2632.1, 1316.9],
+   "to": [8694, 950.3, 12.9],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/nightelf/01-teldrassil.guide:484 -> 489 (goals 174 -> 175 of v1-alliance-nightelf-on)"
+  },
+  {
+   "id": "elwynn-maybell-fargodeep",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Fargodeep Mine"
+   ],
+   "outcome": "From Maybell at the Maclure farm to the Fargodeep Mine's upper mouth; does not walk onto the hill above the mine.",
+   "from": [-10014, 37.6, 35.3],
+   "to": [-9844.5, 126.3, null],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/human/01-elwynn-forest.guide:297 -> 301 (goals 81 -> 82 of v1-alliance-human-on)"
+  },
+  {
+   "id": "elwynn-fargodeep-inside",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Fargodeep Mine"
+   ],
+   "outcome": "Inside the Fargodeep Mine from the gold dust floor (z 6) to the other gallery, through its tunnels.",
+   "from": [-9849.8, 135.3, 6],
+   "to": [-9788.9, 90.9, null],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/human/01-elwynn-forest.guide:304 -> 305 (goals 85 -> 86 of v1-alliance-human-on)"
+  },
+  {
+   "id": "elwynn-jasperlode-geomancer",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Jasperlode Mine"
+   ],
+   "outcome": "Deeper into the Jasperlode Mine to the Kobold Geomancers' chamber (z 62).",
+   "from": [-9078.4, -554.0, null],
+   "to": [-9079.8, -586.9, 62.2],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/human/01-elwynn-forest.guide:439 -> 440 (goals 150 -> 151 of v1-alliance-human-on)"
+  },
+  {
+   "id": "elwynn-jasperlode-azora",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Jasperlode Mine",
+    "floors",
+    "Tower of Azora"
+   ],
+   "outcome": "Out of the Jasperlode Mine and south to Hamish Bergwort at the Tower of Azora.",
+   "from": [-9079.8, -586.9, 62.2],
+   "to": [-9556.1, -724.1, null],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/human/01-elwynn-forest.guide:440 -> 444 (goals 151 -> 152 of v1-alliance-human-on)"
+  },
+  {
+   "id": "northshire-kelsey-echoridge-inside",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Echo Ridge Mine"
+   ],
+   "outcome": "From Kelsey Fargo into Echo Ridge Mine to the Kobold Laborers on its floor (z 92).",
+   "from": [-8684.0, -102.1, null],
+   "to": [-8671.8, -123.3, 92.1],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/human/01-elwynn-forest.guide:221 -> 225 (goals 37 -> 38 of v1-alliance-human-on)"
+  },
+  {
+   "id": "northshire-echoridge-deep",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Echo Ridge Mine"
+   ],
+   "outcome": "From the laborers to the mine's back gallery, through the tunnels, not over the ridge.",
+   "from": [-8671.8, -123.3, 92.1],
+   "to": [-8587.9, -172.9, null],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/human/01-elwynn-forest.guide:225 -> 226 (goals 38 -> 39 of v1-alliance-human-on)"
+  },
+  {
+   "id": "northshire-echoridge-neals",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Echo Ridge Mine",
+    "floors",
+    "Northshire Abbey"
+   ],
+   "outcome": "Out of Echo Ridge Mine to Brother Neals on the abbey's upper floor (z 113).",
+   "from": [-8587.9, -172.9, null],
+   "to": [-8902.1, -181.6, 113.2],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/human/01-elwynn-forest.guide:226 -> 230 (goals 39 -> 40 of v1-alliance-human-on)"
+  },
+  {
+   "id": "durotar-coven-pick",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Burning Blade Coven"
+   ],
+   "outcome": "Into the Burning Blade Coven to Thazz'ril's pick, through the cave's passage.",
+   "from": [-165.7, -4341.9, null],
+   "to": [-88.1, -4273.1, null],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/orc-troll/01-durotar.guide:227 -> 231 (goals 30 -> 31 of v1-horde-orc-on)"
+  },
+  {
+   "id": "durotar-skullrock-inside",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Skull Rock"
+   ],
+   "outcome": "Inside Skull Rock from the mouth to the Burning Blade's inner cave (z 18).",
+   "from": [1463.2, -4871.2, 12.8],
+   "to": [1497.4, -4744.3, 18],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/orc-troll/01-durotar.guide:485 -> 486 (goals 151 -> 152 of v1-horde-orc-on)"
+  },
+  {
+   "id": "mulgore-palemane-poacher",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Palemane Rock",
+    "floors"
+   ],
+   "outcome": "Within Palemane Rock: from the Skinners (z 51) up to the Poachers (z 67).",
+   "from": [-2329.6, 422.4, 50.6],
+   "to": [-2368.6, 446.7, 66.8],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/tauren/01-mulgore.guide:368 -> 369 (goals 122 -> 123 of v1-horde-tauren-on)"
+  },
+  {
+   "id": "westfall-fairmoon-jangolode",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Jangolode Mine"
+   ],
+   "outcome": "From Sentinel Hill north to the Kobold Diggers inside Jangolode Mine.",
+   "from": [-10637.8, 1179.9, null],
+   "to": [-9939.5, 1448.8, 39.6],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/02-westfall.guide:211 -> 219 (goals 233 -> 235 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "westfall-jangolode-goldcoast",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Jangolode Mine",
+    "Gold Coast Quarry"
+   ],
+   "outcome": "Out of Jangolode Mine and down into the Gold Coast Quarry mine to the Riverpaw Miners (z 8).",
+   "from": [-9939.5, 1448.8, 39.6],
+   "to": [-10460.5, 1954.7, 8.2],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/02-westfall.guide:219 -> 224 (goals 235 -> 236 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "teldrassil-oben-relics",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Ban'ethil Barrow Den"
+   ],
+   "outcome": "From Oben inside the barrow to the first relic, through the barrow's tunnels.",
+   "from": [9741, 1526.2, 1280.4],
+   "to": [9881.9, 1490.2, 1278.8],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/nightelf/01-teldrassil.guide:338 -> 339 (goals 104 -> 105 of v1-alliance-nightelf-on)"
+  },
+  {
+   "id": "teldrassil-banethil-upper-lower",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Ban'ethil Barrow Den",
+    "floors"
+   ],
+   "outcome": "Barrow's upper level (z 1300) to its lower level (z 1255) by the ramps.",
+   "from": [9753.6, 1589.5, 1300.4],
+   "to": [9712.2, 1538.6, 1255.2],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/nightelf/01-teldrassil.guide:340 -> 341 (goals 106 -> 107 of v1-alliance-nightelf-on)"
+  },
+  {
+   "id": "teldrassil-oben-rageclaw",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Ban'ethil Barrow Den"
+   ],
+   "outcome": "From Oben to Rageclaw in the barrow's deepest chamber (z 1257).",
+   "from": [9741, 1526.2, 1280.4],
+   "to": [9843.2, 1496.2, 1257.3],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/nightelf/01-teldrassil.guide:345 -> 346 (goals 111 -> 112 of v1-alliance-nightelf-on)"
+  },
+  {
+   "id": "teldrassil-felrock-out-road",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Fel Rock"
+   ],
+   "outcome": "Out of Fel Rock by its mouth and north to the road to Darnassus.",
+   "from": [10127.2, 1125.2, 1338.1],
+   "to": [10013.9, 1355.6, 1283.1],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/nightelf/01-teldrassil.guide:330 -> 334 (goals 102 -> 103 of v1-alliance-nightelf-on)"
+  },
+  {
+   "id": "teldrassil-shadowthread-egg",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Shadowthread Cave"
+   ],
+   "outcome": "From the cave's mouth into Shadowthread Cave to the Webwood eggs (z 1338).",
+   "from": [10769.3, 928.1, null],
+   "to": [10932.2, 911.8, 1337.9],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/nightelf/01-teldrassil.guide:206 -> 210 (goals 32 -> 33 of v1-alliance-nightelf-on)"
+  },
+  {
+   "id": "coldridge-grelin-trollcave",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Coldridge troll cave"
+   ],
+   "outcome": "From Grelin Whitebeard's camp into the troll cave to the whelps.",
+   "from": [-6363, 567.1, 385.9],
+   "to": [-6446.6, 528.5, 385.7],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide:215 -> 220 (goals 18 -> 20 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "dunmorogh-grizzledden-shipment",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "The Grizzled Den"
+   ],
+   "outcome": "From the den's mouth into the Grizzled Den to Flintfire's shipment.",
+   "from": [-5672.4, -294.5, null],
+   "to": [-5610.7, -256.6, null],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide:336 -> 340 (goals 73 -> 74 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "dunmorogh-frostmanehold-inside",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Frostmane Hold"
+   ],
+   "outcome": "From the headhunters at the hold's mouth into Frostmane Hold's cave.",
+   "from": [-5547.1, 546.4, 391.6],
+   "to": [-5587.7, 679.2, 385],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide:377 -> 378 (goals 96 -> 97 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "darkshore-cave-mushrooms",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Cliffspring cave"
+   ],
+   "outcome": "Inside the Cliffspring Falls cave from the first mushrooms (z 84) to the back (z 70).",
+   "from": [6877.5, -663.5, 84.2],
+   "to": [6808.9, -745.3, 69.9],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/03-darkshore.guide:310 -> 311 (goals 378 -> 379 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "wetlands-ormer-thelgen",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Thelgen Rock"
+   ],
+   "outcome": "From Ormer Ironbraid into Thelgen Rock's cave.",
+   "from": [-3550.5, -1968.4, 114.9],
+   "to": [-3784.9, -2300.1, 33.2],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/06-ashenvale.guide:388 -> 392 (goals 696 -> 697 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "dustwallow-hendel-darkmist",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Darkmist Cavern"
+   ],
+   "outcome": "From North Point Tower to the Darkmist Cavern's spiders.",
+   "from": [-2896.2, -3349.9, 31.4],
+   "to": [-2770.1, -2850.8, 36.5],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/01-stranglethorn-vale.guide:126 -> 131 (goals 1433 -> 1435 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "stv-zanzil-crystalvein",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Crystalvein Mine"
+   ],
+   "outcome": "From Zanzil's village to the Crystalvein Mine's camp (z 41).",
+   "from": [-13646.4, -331.7, 8.4],
+   "to": [-13596.2, -109.6, 41.3],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/01-stranglethorn-vale.guide:306 -> 310 (goals 1526 -> 1527 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "hillsbrad-miner-bonds",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Azurelode Mine"
+   ],
+   "outcome": "Into the Azurelode Mine to Foreman Bonds.",
+   "from": [-710.4, 29.8, 12.8],
+   "to": [-795, 68, 9.1],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/06-hillsbrad-foothills.guide:206 -> 207 (goals 739 -> 740 of v1-horde-orc-on)"
+  },
+  {
+   "id": "searinggorge-slagpit-incendosaurs",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "The Slag Pit",
+    "floors"
+   ],
+   "outcome": "From the Slag Pit's upper ledge down to the lava pools (z 137) by its ramps.",
+   "from": [-6631.6, -1225.5, 210.6],
+   "to": [-6520.4, -1290.8, 137],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/06-searing-gorge.guide:87 -> 88 (goals 1874 -> 1875 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "searinggorge-slagpit-thoriumpoint",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "The Slag Pit",
+    "floors"
+   ],
+   "outcome": "Out of the Slag Pit's depths (z 137) up to Thorium Point (z 309).",
+   "from": [-6520.4, -1290.8, 137],
+   "to": [-6509.2, -1192.5, 309.3],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/06-searing-gorge.guide:88 -> 91 (goals 1875 -> 1876 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "felwood-shadowhold-heart",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Shadow Hold",
+    "floors"
+   ],
+   "outcome": "From the lower brazier (z 297) up to the Silver Heart on the hold's upper level (z 331).",
+   "from": [5113.5, -524.9, 296.6],
+   "to": [5111.2, -545.6, 331.1],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/50-60/06-silithus.guide:81 -> 82 (goals 2546 -> 2547 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "felwood-nafien-kernda",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Timbermaw Hold"
+   ],
+   "outcome": "From Nafien at the cave mouth into Timbermaw Hold to Kernda.",
+   "from": [6821.9, -2082.5, 623.3],
+   "to": [6998.4, -2124.4, 589.2],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/50-60/02-felwood.guide:149 -> 153 (goals 2139 -> 2140 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "felwood-kernda-everlook-timbermaw",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Timbermaw Hold",
+    "chokepoint"
+   ],
+   "outcome": "Through Timbermaw Hold's tunnel from Felwood into Winterspring and on to Everlook.",
+   "from": [6998.4, -2124.4, 589.2],
+   "to": [6815.1, -4610.1, 710.8],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/50-60/02-felwood.guide:355 -> 360 (goals 2266 -> 2267 of v1-horde-orc-on)"
+  },
+  {
+   "id": "felwood-kernda-moonglade-timbermaw",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Timbermaw Hold",
+    "chokepoint"
+   ],
+   "outcome": "Through Timbermaw Hold's Moonglade tunnel to Rabine Saturna.",
+   "from": [6998.4, -2124.4, 589.2],
+   "to": [7797.4, -2574.3, 488.6],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/50-60/05-eastern-plaguelands.guide:176 -> 181 (goals 2458 -> 2459 of v1-horde-orc-on)"
+  },
+  {
+   "id": "ungoro-linken-muigin-refuge",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Marshal's Refuge",
+    "floors"
+   ],
+   "outcome": "Within Marshal's Refuge caves from Linken (z -213) up to Muigin (z -198).",
+   "from": [-6166.4, -1119, -213.3],
+   "to": [-6204.4, -1055.5, -197.7],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/07-un-goro-crater.guide:101 -> 102 (goals 1915 -> 1916 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "ashenvale-thistlefur-charm-ruul",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Thistlefur Hold"
+   ],
+   "outcome": "Inside Thistlefur Hold from the troll charm (z 182) down to Ruul Snowhoof (z 160).",
+   "from": [3359.5, -599.7, 181.8],
+   "to": [3347.4, -694.7, 159.9],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/07-ashenvale.guide:152 -> 153 (goals 778 -> 779 of v1-horde-orc-on)"
+  },
+  {
+   "id": "tirisfal-nightweb-hollow",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Night Web's Hollow",
+    "floors"
+   ],
+   "outcome": "From the young spiders to the Night Web Spiders in the hollow's mine (z 108).",
+   "from": [2047.4, 1704.6, 76.1],
+   "to": [2045.1, 1831.2, 107.8],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/undead/01-tirisfal-glades.guide:202 -> 203 (goals 19 -> 20 of v1-horde-undead-on)"
+  },
+  {
+   "id": "arathi-hammerfall-boulderfist",
+   "kind": "guide",
+   "tags": [
+    "cave",
+    "Boulderfist Hall"
+   ],
+   "outcome": "From Hammerfall to the Boulderfist Brutes at Boulderfist Hall.",
+   "from": [-1004.3, -3556.5, 57.3],
+   "to": [-1879.2, -2852.2, 64.1],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/30-40/03-arathi-highlands.guide:269 -> 274 (goals 1223 -> 1225 of v1-horde-orc-on)"
+  },
+  {
+   "id": "elwynn-azora-guardthomas",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Tower of Azora"
+   ],
+   "outcome": "From Blixie at the Tower of Azora down to Guard Thomas at the bridge.",
+   "from": [-9620.0, -658.2, null],
+   "to": [-9610.2, -1032, 41.3],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/human/01-elwynn-forest.guide:386 -> 390 (goals 123 -> 124 of v1-alliance-human-on)"
+  },
+  {
+   "id": "westfall-thor-gryan-sentinelhill",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Sentinel Hill"
+   ],
+   "outcome": "From Thor at the hill's foot up the Sentinel Hill tower to Gryan Stoutmantle at its top (z 61).",
+   "from": [-10628.3, 1037.3, 34.2],
+   "to": [-10508.8, 1045.2, 60.7],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/02-westfall.guide:151 -> 153 (goals 195 -> 196 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "redridge-howe-brianna-inn",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Lakeshire inn",
+    "chokepoint",
+    "Lakeshire bridge"
+   ],
+   "outcome": "From Guard Howe over the long bridge into Lakeshire and into the inn to Innkeeper Brianna.",
+   "from": [-9412.6, -2255.4, 67.6],
+   "to": [-9224, -2157.1, 64],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/04-redridge-mountains.guide:123 -> 129 (goals 450 -> 451 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "redridge-wiley-breanna-inn",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Lakeshire inn"
+   ],
+   "outcome": "From Wiley the Black up to Chef Breanna on the inn's upper floor (z 78).",
+   "from": [-9231.6, -2145.6, 71.4],
+   "to": [-9209.7, -2063.1, 78.3],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/04-redridge-mountains.guide:135 -> 136 (goals 457 -> 458 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "redridge-marris-conacher-townhall",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Lakeshire town hall"
+   ],
+   "outcome": "From Marshal Marris at the bridge's end to Bailiff Conacher in the town hall.",
+   "from": [-9284, -2298.2, 67.6],
+   "to": [-9215.9, -2215.9, 66.5],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/04-redridge-mountains.guide:131 -> 132 (goals 453 -> 454 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "brill-renee-zygand-townhall",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Brill town hall"
+   ],
+   "outcome": "From Innkeeper Renee in Gallows' End Tavern to Executor Zygand in the town hall.",
+   "from": [2269.5, 244.9, 34.3],
+   "to": [2278.1, 295.6, 36.8],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/undead/01-tirisfal-glades.guide:262 -> 263 (goals 45 -> 46 of v1-horde-undead-on)"
+  },
+  {
+   "id": "stv-gyll-skindle-bootybay",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Booty Bay"
+   ],
+   "outcome": "From Gyll on the top tier (z 37) down to Innkeeper Skindle in the Salty Sailor (z 15).",
+   "from": [-14477.9, 464.1, 36.5],
+   "to": [-14457.7, 495.3, 15.2],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/30-40/04-stranglethorn-vale.guide:141 -> 142 (goals 1122 -> 1123 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "stv-crank-krazek-bootybay",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Booty Bay"
+   ],
+   "outcome": "Crank Fizzlebub to Krazek one floor up (11 yd apart, 11 yd higher): by the tavern's stairs.",
+   "from": [-14453.4, 490.3, 15.2],
+   "to": [-14453.3, 501.5, 26.4],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/30-40/04-stranglethorn-vale.guide:145 -> 146 (goals 1126 -> 1127 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "stv-krazek-revilgaz-bootybay",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Booty Bay"
+   ],
+   "outcome": "From Krazek up to Baron Revilgaz on the tavern's top floor.",
+   "from": [-14453.3, 501.5, 26.4],
+   "to": [-14439, 483.5, 28.9],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/30-40/04-stranglethorn-vale.guide:189 -> 190 (goals 1147 -> 1148 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "duskwood-althea-ello-townhall",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Darkshire"
+   ],
+   "outcome": "From Commander Althea to Lord Ello Ebonlocke in Darkshire's town hall.",
+   "from": [-10559.5, -1152.2, 28.1],
+   "to": [-10552.2, -1108.8, 31.5],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/07-thousand-needles.guide:175 -> 176 (goals 790 -> 791 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "blasted-lungertz-grimshade",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Nethergarde Keep"
+   ],
+   "outcome": "From Quartermaster Lungertz (z 65) up Nethergarde Keep's tower to Thadius Grimshade (z 103).",
+   "from": [-11044.3, -3470.2, 65],
+   "to": [-11001.5, -3482.7, 103.2],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/40-50/05-the-hinterlands.guide:102 -> 103 (goals 1801 -> 1802 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "darkshore-balthule-althalaxx",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Tower of Althalaxx"
+   ],
+   "outcome": "From Balthule at the tower's foot up the Tower of Althalaxx (z 58).",
+   "from": [7246.6, -659, 34.6],
+   "to": [7201.9, -710.0, 57.9],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/03-darkshore.guide:295 -> 296 (goals 369 -> 370 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "barrens-fairmount-whessan-northwatch",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Northwatch Hold"
+   ],
+   "outcome": "From Captain Fairmount (z 96) up to Cannoneer Whessan on a Northwatch tower top (z 130).",
+   "from": [-2079.9, -3644.3, 96.3],
+   "to": [-2087.7, -3500.5, 130.1],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/04-the-barrens.guide:137 -> 138 (goals 460 -> 461 of v1-horde-orc-on)"
+  },
+  {
+   "id": "durotar-marine-benedict-tiragarde",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Tiragarde Keep"
+   ],
+   "outcome": "From the keep's yard (z 17) up Tiragarde Keep to Lieutenant Benedict (z 43).",
+   "from": [-87.8, -5018.1, 16.6],
+   "to": [-245.5, -5119.9, 42.6],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/orc-troll/01-durotar.guide:310 -> 311 (goals 65 -> 66 of v1-horde-orc-on)"
+  },
+  {
+   "id": "hillsbrad-durnholde-rescue",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Durnholde Keep"
+   ],
+   "outcome": "From Durnholde's lower yard (z 54) up to the keep's upper ward (z 92).",
+   "from": [-485.3, -1343.9, 53.7],
+   "to": [-445.9, -1486.6, 92.1],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/06-hillsbrad-foothills.guide:160 -> 161 (goals 716 -> 717 of v1-horde-orc-on)"
+  },
+  {
+   "id": "stonetalon-braelyn-tsunaman",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Sun Rock Retreat"
+   ],
+   "outcome": "From Braelyn in Sun Rock Retreat up to Tsunaman on the high ledge (z 155).",
+   "from": [949.2, 1002.2, 103.8],
+   "to": [824.6, 933.3, 155.4],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/05-stonetalon-mountains.guide:174 -> 175 (goals 638 -> 639 of v1-horde-orc-on)"
+  },
+  {
+   "id": "wetlands-rhag-ebenezer-thandol",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "Thandol Span"
+   ],
+   "outcome": "From Dun Modr onto the Thandol Span and down to Ebenezer under its Arathi end.",
+   "from": [-2650.7, -2453.3, 80.2],
+   "to": [-2367.7, -2511.9, null],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/30-40/05-arathi-highlands.guide:203 -> 208 (goals 1237 -> 1238 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "arathi-refugepointe-dunmodr-thandol",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "Thandol Span"
+   ],
+   "outcome": "Refuge Pointe south over the Thandol Span to Rhag Garmason at Dun Modr.",
+   "from": [-1274.7, -2516.6, 21.5],
+   "to": [-2650.7, -2453.3, 80.2],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/30-40/05-arathi-highlands.guide:198 -> 203 (goals 1236 -> 1237 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "hillsbrad-southshore-refugepointe",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "Thoradin's Wall"
+   ],
+   "outcome": "Southshore to Refuge Pointe through the gap in Thoradin's Wall.",
+   "from": [-861, -473.7, 13.4],
+   "to": [-1239.7, -2513, 22.2],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/30-40/05-arathi-highlands.guide:179 -> 186 (goals 1228 -> 1229 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "wetlands-dragonmaw-ironforge",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "Dun Algaz",
+    "Loch Modan tunnel",
+    "city",
+    "Ironforge"
+   ],
+   "outcome": "From the Wetlands south through Dun Algaz into Loch Modan, west through the tunnel into Dun Morogh and in to Ironforge's gryphons.",
+   "from": [-3382.7, -2279.5, null],
+   "to": [-4821.1, -1152.4, 502.3],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/06-ashenvale.guide:444 -> 452 (goals 720 -> 722 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "ironforge-stormpike-thelsamar",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "Loch Modan tunnel"
+   ],
+   "outcome": "Out of Ironforge east through the Dun Morogh-Loch Modan tunnel to Thelsamar.",
+   "from": [-4631.2, -1303.7, 503.5],
+   "to": [-5424.8, -2929.9, 347.6],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/30-40/05-arathi-highlands.guide:368 -> 374 (goals 1317 -> 1319 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "durotar-orgnil-farwatch",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "Southfury River"
+   ],
+   "outcome": "Razor Hill to Far Watch Post over the Southfury River bridge.",
+   "from": [287.3, -4724.9, 13.2],
+   "to": [303.4, -3686.2, 27.2],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/orc-troll/01-durotar.guide:529 -> 549 (goals 162 -> 163 of v1-horde-orc-on)"
+  },
+  {
+   "id": "needles-moonhorn-freewind",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "lift",
+    "The Great Lift",
+    "Freewind Post"
+   ],
+   "outcome": "From the Great Lift down to Thousand Needles and up the mesa to Freewind Post by its bridges.",
+   "from": [-4617, -1852, 86.2],
+   "to": [-5407.1, -2419.6, 89.7],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/07-ashenvale.guide:298 -> 303 (goals 846 -> 847 of v1-horde-orc-on)"
+  },
+  {
+   "id": "needles-greatlift-raceway",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "lift",
+    "The Great Lift"
+   ],
+   "outcome": "From the Great Lift's top down a lift and across Thousand Needles to the Mirage Raceway.",
+   "from": [-4679.5, -1784.1, null],
+   "to": [-6229, -3868.2, -58.7],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/07-thousand-needles.guide:277 -> 282 (goals 839 -> 841 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "needles-freewind-alienegg",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "lift",
+    "Freewind Post"
+   ],
+   "outcome": "From Freewind Post down off the mesa (by its lift) to the Alien Egg below (z -47).",
+   "from": [-5458.6, -2457.3, 89.3],
+   "to": [-5587.3, -2736.3, -46.6],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/07-ashenvale.guide:310 -> 314 (goals 854 -> 855 of v1-horde-orc-on)"
+  },
+  {
+   "id": "stv-kebok-crystalvein-tunnel",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "Booty Bay tunnel"
+   ],
+   "outcome": "Out of Booty Bay by its tunnel and north up the jungle road to the Crystalvein Mine.",
+   "from": [-14449.8, 497.9, 26.4],
+   "to": [-13381.8, -273.0, 14],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/30-40/04-stranglethorn-vale.guide:148 -> 155 (goals 1129 -> 1131 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "stv-raptors-gyll-tunnel",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "Booty Bay tunnel",
+    "floors",
+    "Booty Bay"
+   ],
+   "outcome": "South through the jungle, in through Booty Bay's tunnel and up to Gyll on the top tier.",
+   "from": [-12048.7, 180.7, 18],
+   "to": [-14477.9, 464.1, 36.5],
+   "map": 0,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/30-40/04-stranglethorn-vale.guide:135 -> 141 (goals 1121 -> 1122 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "ashenvale-astranaar-windshear-talondeep",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "cave",
+    "Talondeep Path"
+   ],
+   "outcome": "Astranaar to Windshear Crag through the Talondeep Path tunnel.",
+   "from": [2767.2, -411.6, 111.5],
+   "to": [740, 320.8, 63.4],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/06-ashenvale.guide:266 -> 274 (goals 634 -> 636 of v1-alliance-dwarf-on)"
+  },
+  {
+   "id": "barrens-kadrak-warsong",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "Mor'shan Rampart"
+   ],
+   "outcome": "From Kadrak through the Mor'shan Rampart's gap into Ashenvale.",
+   "from": [1246.3, -2253.3, 108.4],
+   "to": [2045.3, -2397.2, 87.9],
+   "map": 1,
+   "profile": "Horde",
+   "source": "guides/forever/horde/05-stonetalon-mountains.guide:84 -> 90 (goals 598 -> 600 of v1-horde-orc-on)"
+  },
+  {
+   "id": "searinggorge-bridge-flamecrest",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "Blackrock Mountain"
+   ],
+   "outcome": "From the bridge into Blackrock Mountain through it into the Burning Steppes and on to Flame Crest.",
+   "from": [-7334.6, -1099.4, null],
+   "to": [-7504.1, -2190.8, 165.3],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/50-60/01-un-goro-crater.guide:310 -> 317 (goals 2069 -> 2070 of v1-horde-orc-on)"
+  },
+  {
+   "id": "silverpine-lesh-southpoint",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "floors",
+    "Southpoint Tower"
+   ],
+   "outcome": "From Beren's Peril over Silverpine's southern border to Deathstalker Lesh at Southpoint Tower (z 83).",
+   "from": [-288.9, 1010.2, null],
+   "to": [-611.3, 401.5, 83.1],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/05-stonetalon-mountains.guide:248 -> 253 (goals 677 -> 678 of v1-horde-orc-on)"
+  },
+  {
+   "id": "silverpine-ivar-zeppelintower",
+   "kind": "guide",
+   "tags": [
+    "floors",
+    "Tirisfal zeppelin tower"
+   ],
+   "outcome": "From the Ivar Patch north into Tirisfal and up the zeppelin tower (z 97).",
+   "from": [1290.7, 1204.7, 52.8],
+   "to": [2063.1, 290.5, 97.1],
+   "map": 0,
+   "profile": "Horde",
+   "source": "guides/forever/horde/03-silverpine-forest.guide:301 -> 314 (goals 434 -> 435 of v1-horde-orc-on)"
+  },
+  {
+   "id": "ungoro-pass-cenarionhold",
+   "kind": "guide",
+   "tags": [
+    "chokepoint",
+    "Un'Goro-Silithus pass"
+   ],
+   "outcome": "Up out of Un'Goro by the north-west pass into Silithus to Cenarion Hold.",
+   "from": [-6509.3, -539.7, null],
+   "to": [-6868, 729.9, 45.7],
+   "map": 1,
+   "profile": "Alliance",
+   "source": "guides/forever/alliance/50-60/06-silithus.guide:157 -> 162 (goals 2578 -> 2579 of v1-alliance-dwarf-on)"
+  }
+ ]
+}

@@ -217,6 +217,7 @@ function positionalTokens(verb, f) {
 			break;
 		case 'sethome':
 		case 'hearth':
+		case 'die':
 		case 'getfp':
 		case 'fly':
 		case 'enter':
@@ -390,6 +391,7 @@ const POSITIONAL = {
 	goto: [xy({ required: true }), fld('text', 'text', 'Label', { required: false })],
 	sethome: [fld('location', 'text', 'Inn location', { required: false, kind: 'inn' }), fld('nearest', 'bool', 'Nearest inn', { required: false })],
 	hearth: [fld('location', 'text', 'Location', { required: true, kind: 'inn' })],
+	die: [fld('location', 'text', 'Graveyard', { required: true }), xy({ required: true })],
 	getfp: [fld('location', 'text', 'Flight point', { required: true, kind: 'flight' })],
 	fly: [fld('location', 'text', 'Destination', { required: true, kind: 'flight' })],
 	enter: [fld('location', 'text', 'Zone or area', { required: true })],

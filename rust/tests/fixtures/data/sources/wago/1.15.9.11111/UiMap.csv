@@ -1,0 +1,6 @@
+Name_lang,ID,ParentUiMapID,Flags,System,Type
+Azeroth,947,0,2304,0,1
+"Eastern Kingdoms",1415,947,4,0,2
+"Elwynn Forest",1429,1415,4,0,3
+"Stormwind City",1453,1415,4,0,3
+"Inset, ""Test""",2000,1415,4,0,3

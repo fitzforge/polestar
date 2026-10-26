@@ -1,0 +1,27 @@
+{
+	"schema": 1,
+	"frame": "e",
+	"source": "synthetic (rust/tests/golden/travel)",
+	"crossings": [
+		{
+			"id": "durotar-orgrimmar",
+			"a": { "map": 1411, "x": 45.5, "y": 12.5, "radius": 25 },
+			"b": { "map": 1454, "x": 49, "y": 94, "radius": 20 },
+			"ab": "Enter Orgrimmar",
+			"ba": "Leave Orgrimmar"
+		}
+	],
+	"open": [{ "a": 1411, "b": 1454 }],
+	"chains": [
+		{
+			"id": "burning-blade-coven",
+			"name": "Burning Blade Coven",
+			"open": "mouth",
+			"nodes": [
+				{ "map": 1411, "x": 44.6, "y": 54.4, "radius": 15, "caption": "Enter the cave" },
+				{ "map": 1411, "x": 43.8, "y": 53.6, "radius": 10, "caption": "Follow the tunnel", "back": "Back to the mouth" },
+				{ "map": 1411, "x": 42.8, "y": 52.9, "radius": 10, "caption": "Down to the coven" }
+			]
+		}
+	]
+}

@@ -442,7 +442,7 @@ async function buildArt({
 } = {}) {
 	const warnings = [];
 	const framesFile = path.join(dataDir, 'map-frames.json');
-	if (!fs.existsSync(framesFile)) throw new Error(`${framesFile} not found (node tools/polestar.js data build)`);
+	if (!fs.existsSync(framesFile)) throw new Error(`${framesFile} not found (forge data build)`);
 	const frames = JSON.parse(fs.readFileSync(framesFile, 'utf8'));
 	const casc = await openCasc({ sourcesDir, product, offline, concurrency, fetchImpl });
 	const family = Object.values(PRODUCTS).find((p) => p.key === product);

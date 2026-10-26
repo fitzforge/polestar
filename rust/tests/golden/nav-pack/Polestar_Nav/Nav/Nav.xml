@@ -1,0 +1,6 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<!-- Written by node tools/polestar.js nav pack: Polestar's walking maps (PACK.json), then the chokepoints. -->
+	<Script file="Nav0.lua"/>
+	<Script file="Nav0_1.lua"/>
+	<Script file="Chokepoints.lua"/>
+</Ui>

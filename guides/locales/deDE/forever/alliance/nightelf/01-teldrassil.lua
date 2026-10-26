@@ -27,7 +27,7 @@ return {
 	-- {npc:2082} Gilshalan Windwalker
 	["{npc:2082}, on the tree's ramp"] = "{npc:2082}, auf der Rampe des Baums",
 	-- {npc:3595} Shanda
-	["{npc:3595}: in at the tree's front entrance and up the ramp"] = "",
+	["{npc:3595}: in at the tree's front entrance and up the ramp"] = "{npc:3595}: durch den Vordereingang des Baums hinein und die Rampe hinauf",
 	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {npc:3595} Shanda
 	["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}: Wirke {spell:1259799} und Schattenmimik, dann gib sie bei {npc:3595} ab",
 	-- {npc:8583} Dirania Silvershine
@@ -50,7 +50,7 @@ return {
 	-- {npc:3594} Frahun Shadewhisper
 	["{npc:3594}, the rogue trainer"] = "{npc:3594}, der Schurkenlehrer",
 	-- {npc:3595} Shanda
-	["{npc:3595}, the priest trainer: in at the tree's front entrance and up the ramp"] = "",
+	["{npc:3595}, the priest trainer: in at the tree's front entrance and up the ramp"] = "{npc:3595}, die Priesterlehrerin: durch den Vordereingang des Baums hinein und die Rampe hinauf",
 	-- {npc:3597} Mardant Strongoak · {area:256} Aldrassil
 	["{npc:3597}, the druid trainer at {area:256}"] = "{npc:3597}, der Druidenlehrer bei {area:256}",
 
@@ -113,7 +113,7 @@ return {
 	-- {npc:6286} Zarrin
 	["Speak with {npc:6286}, south of the inn"] = "Sprich mit {npc:6286}, südlich des Gasthauses",
 	-- {npc:6286} Zarrin
-	["Talk to {npc:6286}"] = "",
+	["Talk to {npc:6286}"] = "Sprich mit {npc:6286}",
 
 	-- Step 17: East to Starbreeze Village
 	-- {area:260} Starbreeze Village
@@ -183,9 +183,9 @@ return {
 	-- Step 29: Ferocitas the Dream Eater
 	-- {npc:7234} Ferocitas the Dream Eater · {area:260} Starbreeze Village · {item:8049} Gnarlpine Necklace
 	-- plural, as words: Gnarlpine Mystics = {npc:7235} Gnarlpine Mystic
-	["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel."] = "",
+	["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel."] = "Mystiker der Knarzklauen und {npc:7234} lagern nordöstlich von {area:260}. {npc:7234} lässt {item:8049} fallen: Öffne sie für das Juwel.",
 	-- {item:8049} Gnarlpine Necklace · {npc:7234} Ferocitas the Dream Eater
-	["{item:8049}, from {npc:7234}"] = "",
+	["{item:8049}, from {npc:7234}"] = "{item:8049}, von {npc:7234}",
 	-- {npc:3567} Tallonkai Swiftroot · {area:186} Dolanaar
 	["{npc:3567}, back in {area:186}"] = "{npc:3567}, zurück in {area:186}",
 
@@ -284,27 +284,27 @@ return {
 
 	-- Step 43: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:10118} Nessa Shadowsong · {npc:3838} Vesprystus · {quest:6342} Flight to Auberdine · {area:442} Auberdine · {npc:4200} Laird
-	["Take the portal down to {area:702}. {npc:10118} stands on the dock, {npc:3838} by the hippogryphs. Once you have {quest:6342}, talk to {npc:3838} again and choose the flight to {area:442}: it is free and lands beside {npc:4200}. If the flight map opens instead, close it and talk to him again holding Shift."] = "",
+	["Take the portal down to {area:702}. {npc:10118} stands on the dock, {npc:3838} by the hippogryphs. Once you have {quest:6342}, talk to {npc:3838} again and choose the flight to {area:442}: it is free and lands beside {npc:4200}. If the flight map opens instead, close it and talk to him again holding Shift."] = "Nimm das Portal hinunter nach {area:702}. {npc:10118} steht am Steg, {npc:3838} bei den Hippogryphen. Hast du {quest:6342}, sprich noch einmal mit {npc:3838} und wähle den Flug nach {area:442}: Er ist kostenlos und landet neben {npc:4200}. Öffnet sich stattdessen die Flugkarte, schließe sie und sprich noch einmal mit ihm, während du Umschalt gedrückt hältst.",
 	-- {npc:3838} Vesprystus · {quest:6342} Flight to Auberdine
-	["talk to {npc:3838} again: free with {quest:6342}"] = "",
+	["talk to {npc:3838} again: free with {quest:6342}"] = "sprich noch einmal mit {npc:3838}: kostenlos mit {quest:6342}",
 
 	-- Step 44: Auberdine
 	-- {npc:3841} Caylais Moonfeather · {npc:4200} Laird
-	["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks."] = "",
+	["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks."] = "Lerne den Flugpunkt bei {npc:3841}, wo du landest. Der Fischstand von {npc:4200} ist direkt nördlich von ihr, bei den Docks.",
 
 	-- Step 45: Return to Nessa
 	-- {area:702} Rut'theran Village · {npc:3841} Caylais Moonfeather · {item:16263} Laird's Response · {npc:10118} Nessa Shadowsong · {area:442} Auberdine
-	["Fly back to {area:702} from {npc:3841}, hand {item:16263} to {npc:10118} on the dock, then fly back to {area:442} for the boat."] = "",
+	["Fly back to {area:702} from {npc:3841}, hand {item:16263} to {npc:10118} on the dock, then fly back to {area:442} for the boat."] = "Flieg von {npc:3841} zurück nach {area:702}, gib {item:16263} bei {npc:10118} am Steg ab und flieg dann zurück nach {area:442} zum Schiff.",
 
 	-- Step 46: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {area:493} Moonglade · {area:702} Rut'theran Village · {area:442} Auberdine
-	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "",
+	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "Wirke {spell:18960}. {npc:11802} ist in {area:2361}; {quest:5929} steht in den Wäldern im Nordwesten. Lerne den Flugpunkt {area:493} in {area:2361} und flieg nach {area:702} (über {area:442}).",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "Sprich mit dem {quest:5929}",
 
 	-- Step 47: Back to Darnassus
 	-- {npc:10118} Nessa Shadowsong · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "",
+	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "{npc:10118} steht am Steg von Rut'theran, wo du landest. Nimm dann das Portal hinauf zu {npc:4217} in der {area:1658}.",
 
 	-- Step 48: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
@@ -320,9 +320,9 @@ return {
 	-- {zone:1453} Stormwind
 	["Boat to {zone:1453}"] = "Boot nach {zone:1453}",
 	-- {zone:1453} Stormwind · {area:442} Auberdine
-	["Take the boat to {zone:1453} from {area:442}'s docks."] = "",
+	["Take the boat to {zone:1453} from {area:442}'s docks."] = "Nimm das Schiff nach {zone:1453} von den Docks von {area:442}.",
 	-- {area:17203} Stormwind Harbor · {zone:1429} Elwynn Forest · {zone:1436} Westfall
-	["From {area:17203}, head through the city gates into {zone:1429} and follow the road west to {zone:1436}."] = "",
+	["From {area:17203}, head through the city gates into {zone:1429} and follow the road west to {zone:1436}."] = "Geh von {area:17203} durch die Stadttore nach {zone:1429} und folge der Straße nach Westen nach {zone:1436}.",
 
 	-- Step 51: Defensive Stance
 	-- {object:2100} Old Town · {npc:5480} Ilsa Corbin · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern

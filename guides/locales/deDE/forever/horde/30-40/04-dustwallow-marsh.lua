@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Shady Rest Inn
 	-- {area:378} Camp Taurajo · {area:403} Shady Rest Inn
-	["Head east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "",
+	["Head east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "Geh von {area:378} entlang der Straße nach Osten in den Sumpf. Das ausgebrannte {area:403} steht direkt hinter der Grenze neben ihr; der Schild, das Abzeichen und die Hufspuren sind in und neben der Ruine.",
 
 	-- Step 3: Brackenwall Village
 	["Take the road north at the fork to the ogre village of Brackenwall."] = "Nimm an der Gabelung die Straße nach Norden zum Ogerdorf Brackenwall.",
@@ -28,7 +28,7 @@ return {
 	-- Step 5: Stinky Ignatz
 	["Stinky Ignatz"] = "Stinki Ignatz",
 	-- {area:502} Witch Hill
-	["Head north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "",
+	["Head north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "Geh nach Norden zum {area:502}. Stinki steht am Fuß des Hügels; eskortiere ihn, während er Sumpfbohnenblätter direkt südlich davon sammelt.",
 
 	-- Step 6: Mirefin murlocs
 	["Mirefin murlocs"] = "Murlocs der Schlammflossen",
@@ -40,28 +40,28 @@ return {
 	-- {area:497} Swamplight Manor · {area:502} Witch Hill
 	["Jarl lives in the {area:497} south-east of {area:502}."] = "Jarl wohnt im {area:497} südöstlich vom {area:502}.",
 	-- {quest:1218} Soothing Spices
-	["{quest:1218}, for \"Swamp Eye\" Jarl"] = "",
+	["{quest:1218}, for \"Swamp Eye\" Jarl"] = "{quest:1218}, für „Sumpfauge“ Jarl",
 	-- {object:20985} Loose Dirt
 	["{object:20985}, beside the manor"] = "{object:20985}, neben dem Anwesen",
 
 	-- Step 8: Darkfang spiders
 	["Darkfang spiders"] = "Dunkelzahnspinnen",
 	-- plural, as words: Darkfang Venomspitters = {npc:4414} Darkfang Venomspitter · Theramore Infiltrators = {npc:4834} Theramore Infiltrator
-	["Head west back across the marsh. The Darkfang Venomspitters on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely."] = "",
+	["Head west back across the marsh. The Darkfang Venomspitters on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely."] = "Geh westlich zurück durch den Sumpf. Die Dunkelzahngiftspucker auf den Kämmen nördlich von Brackenwall lassen die Giftdrüsen fallen. Spitzel von Theramore (35-36) schleichen durch dieselben Wälder: Sie sind getarnt, sieh also genau hin.",
 
 	-- Step 9: Darkmist Cavern
 	["The Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes."] = "Die Graunebelspinnen wimmeln am Höhleneingang nordwestlich von Brackenwall; jede Art lässt Augen fallen.",
 
 	-- Step 11: Swamp Eye Jarl
 	-- {area:497} Swamplight Manor
-	["Head east back to the {area:497}."] = "",
+	["Head east back to the {area:497}."] = "Geh nach Osten zurück zum {area:497}.",
 	-- {item:3853} Moonsteel Broadsword · {skill:164} Blacksmithing
 	["only if you carry a {item:3853} ({skill:164} or the Auction House)"] = "nur, wenn du ein {item:3853} dabeihast ({skill:164} oder Auktionshaus)",
 	-- {object:20985} Loose Dirt · {npc:4791} Nazeer Bloodpike
 	["{object:20985}, now that {npc:4791} has read the report"] = "{object:20985}, jetzt wo {npc:4791} den Bericht gelesen hat",
 
 	-- Step 12: Brackenwall Village
-	["Head back west to Brackenwall with the head."] = "",
+	["Head back west to Brackenwall with the head."] = "Geh mit dem Kopf zurück nach Westen nach Brackenwall.",
 	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol (no name in this language: may be words)
 	["For {npc:2519} at {object:3202}, in the next guide"] = "Für {npc:2519} in {object:3202}, im nächsten Guide",
 
@@ -71,7 +71,7 @@ return {
 
 	-- Step 15: Melizza Brimbuzzle
 	-- {area:607} Valley of Spears · {npc:12277} Melizza Brimbuzzle
-	["Head north-east to the {area:607}. {npc:12277} is held in the Maraudine centaur camp; free her and escort her out east of the valley."] = "",
+	["Head north-east to the {area:607}. {npc:12277} is held in the Maraudine centaur camp; free her and escort her out east of the valley."] = "Geh nach Nordosten zum {area:607}. {npc:12277} wird im Lager der Maraudine-Zentauren festgehalten; befreie sie und eskortiere sie östlich aus dem Tal.",
 
 	-- Step 16: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
@@ -90,11 +90,11 @@ return {
 	["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395} und {npc:5412} stehen im Posten gleich westlich von {npc:11596}s Lager.",
 
 	-- Step 20: Kormek's Hut
-	["Head north up the road to the hut by the road north of the graveyard."] = "",
+	["Head north up the road to the hut by the road north of the graveyard."] = "Geh die Straße nach Norden zur Hütte an der Straße nördlich des Friedhofs.",
 
 	-- Step 21: Kodo bones
-	["Kodo bones"] = "",
-	["Pick up the kodo bones scattered across the graveyard."] = "",
+	["Kodo bones"] = "Kodoknochen",
+	["Pick up the kodo bones scattered across the graveyard."] = "Sammle die über den Friedhof verstreuten Kodoknochen ein.",
 
 	-- Step 23: Thunder Axe Fortress
 	-- {area:2407} Kormek's Hut · {item:14523} Demon Pick · {npc:11876} Demon Spirit · {item:13542} Demon Box
@@ -102,7 +102,7 @@ return {
 
 	-- Step 24: Ethel Rethor
 	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor
-	["Head west to {npc:11863}'s tower at {area:2405} on the north-west coast."] = "",
+	["Head west to {npc:11863}'s tower at {area:2405} on the north-west coast."] = "Geh nach Westen zum Turm von {npc:11863} bei {area:2405} an der Nordwestküste.",
 
 	-- Step 25: Slitherblade coast
 	["Slitherblade coast"] = "Küste der Zackenkämme",
@@ -113,25 +113,25 @@ return {
 	["Maraudine totems"] = "Totems der Maraudine",
 	-- {area:2405} Ethel Rethor · {area:607} Valley of Spears · {quest:93225} Carved Centaur Totems
 	-- plural, as words: Maraudine Scouts = {npc:4654} Maraudine Scout
-	["Head south from {area:2405} into the {area:607}. The Maraudine Scouts, Wranglers, Maulers, Windchasers and Marauders (36-39) drop the {quest:93225}."] = "",
+	["Head south from {area:2405} into the {area:607}. The Maraudine Scouts, Wranglers, Maulers, Windchasers and Marauders (36-39) drop the {quest:93225}."] = "Geh von {area:2405} nach Süden ins {area:607}. Die Späher, Treiber, Zermalmer, Windjäger und Marodeure der Maraudine (36-39) lassen {quest:93225} fallen.",
 
 	-- Step 28: Shadowprey Village
-	["Head on south-west to Shadowprey."] = "",
+	["Head on south-west to Shadowprey."] = "Geh weiter nach Südwesten zur Schattenbeute.",
 
 	-- Step 29: Portals of the Legion
 	-- {area:602} Mannoroc Coven
-	["Head east to {area:602}. Use the Rod of Banishing by each demon portal to close six of them."] = "",
+	["Head east to {area:602}. Use the Rod of Banishing by each demon portal to close six of them."] = "Geh nach Osten zu {area:602}. Benutze den Rod of Banishing an jedem Dämonenportal, um sechs davon zu schließen.",
 
 	-- Step 30: The Valley of Bones
 	-- {area:2657} Valley of Bones
-	["The {area:2657}"] = "",
+	["The {area:2657}"] = "Das {area:2657}",
 	-- {area:2657} Valley of Bones · {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
-	["Head south-east from the coven to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "",
+	["Head south-east from the coven to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "Geh vom Hexenzirkel nach Südosten zu den Knochenfeldern des {area:2657}, wo Untote Verheerer umherstreifen. Benutze ganz im Südosten {item:15848}, um die Schreckgespenster der Magram anzulocken: Sie lassen das Geisterplasma fallen.",
 
 	-- Step 31: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {area:597} Ghost Walker Post
-	["Head north to {npc:5412} at {area:597}."] = "",
+	["Head north to {npc:5412} at {area:597}."] = "Geh nach Norden zu {npc:5412} bei {area:597}.",
 
 	-- Step 33: Hearth to Shadowprey
 	["Hearth to Shadowprey"] = "Ruhestein nach Shadowprey",

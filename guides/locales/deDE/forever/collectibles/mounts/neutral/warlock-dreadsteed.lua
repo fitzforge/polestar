@@ -73,7 +73,7 @@ return {
 	-- {npc:14437} Gorzeeki Wildeyes · {item:18688} Imp in a Jar · {area:2057} Scholomance
 	["Back to {npc:14437} with the stardust. He gives you the {item:18688} for the {area:2057}."] = "Zurück zu {npc:14437} mit dem Sternenstaub. Er gibt dir {item:18688} für {area:2057}.",
 	-- {quest:7625} Xorothian Stardust · {npc:14522} Ur'dan
-	["{quest:7625}, from {npc:14522}"] = "",
+	["{quest:7625}, from {npc:14522}"] = "{quest:7625}, von {npc:14522}",
 
 	-- Step 14: The Scholomance
 	-- {area:2057} Scholomance

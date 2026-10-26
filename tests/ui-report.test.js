@@ -163,7 +163,8 @@ test('at its longest, with a marked spot and 40 addons, the report still fits on
 		assert.ok(text.length <= 2000, `${locale}: ${text.length} characters, ${Buffer.byteLength(text, 'utf8')} bytes`);
 		assert.ok(lines[0].endsWith(letter.repeat(250)), `${locale}: the description is kept whole`);
 		assert.deepEqual(block(text), details, `${locale}: every detail line, as taken`);
-		assert.equal(lines[1], '**Right spot:** zone map 1429 · goto 51.23,40.50 live', `${locale}: the right spot is kept`);
+		// The label is the locale's (ruRU translates it); the spot after it is kept whole.
+		assert.match(lines[1], /^\*\*[^*]+\*\* zone map 1429 · goto 51\.23,40\.50 live$/, `${locale}: the right spot is kept`);
 	}
 	const english = longest(...SCRIPTS[0]);
 	assert.equal(english.text.length, 2000, 'English is the one that runs over');

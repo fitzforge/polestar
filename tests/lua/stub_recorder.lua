@@ -121,6 +121,21 @@ function GetZoneText() return W.zone end
 function GetSubZoneText() return W.subzone end
 function GetBindLocation() return W.bind end
 function issecretvalue() return false end
+-- What a /psrec trail sample reads: world position with height (UnitPosition
+-- from the map's world bounds and W.z; W.noUnitPosition for a client that
+-- answers nil), facing, speed and movement flags.
+function UnitPosition(unit)
+	if unit ~= "player" or W.noUnitPosition or W.x == nil then return nil end
+	local c, pos = C_Map.GetWorldPosFromMapPos(W.map, CreateVector2D(W.x, W.y))
+	if not pos then return nil end
+	return pos.x, pos.y, W.z or 0, c
+end
+function GetPlayerFacing() return W.facing end
+function GetUnitSpeed(unit) if unit == "player" then return W.speed or 0, 7, 4.72, 4.72 end end
+function IsMounted() return W.mounted == true end
+function IsSwimming() return W.swimming == true end
+function IsFalling() return W.falling == true end
+function IsIndoors() return W.indoors == true end
 
 ---------------------------------------------------------------------------
 -- Maps

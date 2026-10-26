@@ -1,8 +1,11 @@
 'use strict';
-// `profession build` / `profession draft`: client-table parsing (fixture CSVs
-// under tests/fixtures/professions/wago: a Forever build, 1.60.1.1, and the
-// Classic Era build, 1.15.9.1, that fills its gaps), skill thresholds, the
-// recipe planner's choices on small professions, and deterministic output.
+// `profession draft`: client-table loading (fixture CSVs under
+// tests/fixtures/professions/wago: a Forever build, 1.60.1.1, and the Classic
+// Era build, 1.15.9.1, that fills its gaps), skill thresholds, the recipe
+// planner's choices on small professions, and deterministic output. The
+// fixture's data/professions.json is `forge data professions --data
+// tests/fixtures/professions/data --sources tests/fixtures/professions`
+// (forge-data's draft_fixture_is_this_build checks it).
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -10,26 +13,16 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const { loadTables } = require('../tools/lib/professions/tables');
-const { extractProfessions } = require('../tools/lib/professions/extract');
-const { buildProfessions, parseVendorStock } = require('../tools/lib/professions/build');
-const { resolveTrainers } = require('../tools/lib/professions/trainers');
 const { planProfession, chance, expectedCrafts, SWITCH_BASE, SWITCH_CRAFTS } = require('../tools/lib/professions/plan');
 const { draftGuide, farmSpot, skinSpot } = require('../tools/lib/professions/guide');
 const { sourceOf, gatherCost, homeMap, zoneOf } = require('../tools/lib/professions/materials');
-const { tmpdir } = require('./helpers/tmp');
 const { DATA: REAL_DATA, needs } = require('./helpers/data');
 
 const FX = path.join(__dirname, 'fixtures', 'professions');
 const DATA = path.join(FX, 'data');
 const readJson = (name) => JSON.parse(fs.readFileSync(path.join(DATA, `${name}.json`), 'utf8'));
 
-async function fixtureBuild(outFile) {
-	return buildProfessions({ offline: true, sourcesDir: FX, dataDir: DATA, outFile });
-}
-
-function tmpFile(name) {
-	return path.join(tmpdir('polestar-prof-'), name);
-}
+const PROFESSIONS = path.join(DATA, 'professions.json');
 
 test('loadTables reads the cached Forever build offline, Era only for a table it lacks, and fails clearly on a missing table', async () => {
 	const res = await loadTables({ sourcesDir: FX, offline: true, product: 'forever' });
@@ -45,100 +38,6 @@ test('loadTables reads the cached Forever build offline, Era only for a table it
 	await assert.rejects(loadTables({ sourcesDir: FX, offline: true, product: 'forever', tables: ['SkillLine', 'Nope'] }), /no cached wago\.tools build/);
 	// The other tools that read client tables through loadTables still get Era by default.
 	assert.equal((await loadTables({ sourcesDir: FX, offline: true, tables: ['SkillLine'] })).build, '1.15.9.1');
-});
-
-async function fixtureTables() {
-	const { tables, eraTables } = await loadTables({ sourcesDir: FX, offline: true, product: 'forever', eraFill: true });
-	const season = new Set(eraTables.SkillLineAbility.map((r) => Number(r.Spell)).filter((s) => s >= 400000));
-	return extractProfessions(tables, {
-		items: readJson('items'),
-		npcs: readJson('npcs'),
-		objects: readJson('objects'),
-		season,
-		trainers: (id, kind) => resolveTrainers(id, readJson('npcs'), { kind }),
-	});
-}
-
-test('recipes: created items, reagents, thresholds and learn sources from the client tables', async () => {
-	const { professions, report } = await fixtureTables();
-	const tailoring = professions[197];
-	assert.equal(tailoring.name, 'Tailoring');
-	assert.equal(tailoring.kind, 'primary');
-	const by = Object.fromEntries(tailoring.recipes.map((r) => [r.spell, r]));
-	// Known with the skill: learned at 1, free; green is floor((yellow + grey) / 2).
-	assert.deepEqual(
-		{ ...by[2963] },
-		{ spell: 2963, name: 'Bolt of Linen Cloth', item: 2996, itemCount: 1, reagents: [{ item: 2589, count: 2 }], source: 'trainer', learnedAt: 1, cost: 0, yellow: 25, grey: 50, green: 37 },
-	);
-	// A trainer recipe: the learn skill is not in the client, so it is estimated
-	// at yellow (trainers teach many recipes only there; never later).
-	assert.equal(by[2387].learnedAt, 35);
-	assert.equal(by[2387].learnedAtEstimated, true);
-	// A recipe item: its RequiredSkillRank, its vendor, its price.
-	assert.equal(by[2389].source, 'vendor');
-	assert.equal(by[2389].recipeItem, 2598);
-	assert.equal(by[2389].learnedAt, 40);
-	assert.equal(by[2389].cost, 200);
-	assert.equal(by[2389].learnedAtEstimated, undefined);
-	// Forever's thresholds, not Classic Era's (issue #109: Red Linen Shirt is
-	// 50/67/85 on Forever, 65/82/100 in the Era client).
-	assert.deepEqual([by[2392].yellow, by[2392].green, by[2392].grey], [50, 67, 85]);
-	// Season of Discovery spells (in the Era client too) are left out, and so are
-	// the ones Forever retired (AcquireMethod 3); rank spells and non-recipes are
-	// not recipes. Forever's own spells, past 1,000,000, stay.
-	assert.equal(by[439085], undefined);
-	assert.equal(by[2386], undefined);
-	assert.equal(by[3908], undefined);
-	assert.deepEqual(report[197].skipped, { season: 1, retired: 1 });
-	// Forever's columns: EffectBasePointsF (2 made), a signed race mask read
-	// unsigned, a tool category (162) resolved to its plain tool.
-	assert.equal(by[1257000].itemCount, 2);
-	assert.equal(by[1257000].races, 2973060173);
-	assert.deepEqual(by[1257000].tools, [5956]);
-	// Rank spells: tier index from the skill effect.
-	assert.equal(tailoring.ranks[0].spell, 3908);
-	assert.equal(tailoring.ranks[1].spell, 3909);
-	assert.deepEqual(tailoring.ranks.map((r) => r.max), [75, 150, 225, 300]);
-	// Materials: unit price and vendors per side (a limited-stock vendor is kept apart).
-	assert.deepEqual(tailoring.materials[2320].vendors, { Alliance: [1347, 5000], Horde: [3364] });
-	assert.equal(tailoring.materials[2996].madeBy[0].spell, 2963);
-	// ItemSparse Bonding 1 (binds when picked up), as Forever made many vendor recipes (#315).
-	assert.equal(tailoring.materials[2598].bop, true);
-	assert.equal(tailoring.materials[2320].bop, undefined);
-	// Spells and items the Forever tables lack come from Era: Minor Healing
-	// Potion's name and reagents, Empty Vial's prices.
-	assert.equal(professions[171].recipes[0].name, 'Minor Healing Potion');
-	assert.deepEqual(professions[171].recipes[0].reagents.map((g) => g.item), [2447, 765, 3371]);
-	assert.deepEqual(professions[171].materials[3371], { name: 'Empty Vial', buy: 20, buyCount: 5, sell: 1, quality: 1, vendors: { Alliance: [1347], Horde: [3364] } });
-});
-
-test('vendor stock limits come from pfQuest items.lua; zero means unlimited', () => {
-	const stock = parseVendorStock(fs.readFileSync(path.join(FX, 'pfQuest', 'db', 'items.lua'), 'utf8'));
-	assert.deepEqual([...stock.get(2320).entries()], [[1347, 0], [3364, 0], [5000, 3]]);
-	assert.deepEqual([...stock.get(2598).entries()], [[6000, 1]]);
-});
-
-test('trainers: curated names resolve per side; missing ones warn instead of guessing', () => {
-	const res = resolveTrainers(197, readJson('npcs'), { kind: 'primary' });
-	assert.deepEqual(res.trainers, { Alliance: [1346], Horde: [3363] });
-	assert.deepEqual(res.main, { Alliance: 1346, Horde: 3363 });
-	assert.deepEqual(res.ranks[3].trainers, { Alliance: [], Horde: [] });
-	assert.ok(res.warnings.some((w) => /Timothy Worthington": not in npcs\.json/.test(w)));
-	const cooking = resolveTrainers(185, {}, { kind: 'secondary' });
-	assert.equal(cooking.ranks[3].minSkill, 225);
-});
-
-test('build writes the same professions.json twice and reads limited stock', async () => {
-	const a = tmpFile('a.json');
-	const b = tmpFile('b.json');
-	const ra = await fixtureBuild(a);
-	await fixtureBuild(b);
-	assert.equal(fs.readFileSync(a, 'utf8'), fs.readFileSync(b, 'utf8'));
-	const json = JSON.parse(fs.readFileSync(a, 'utf8'));
-	assert.deepEqual(Object.keys(json), ['171', '197']);
-	assert.deepEqual(json[197].materials[2320].vendors, { Alliance: [1347], Horde: [3364] });
-	assert.deepEqual(json[197].materials[2320].limitedVendors, { Alliance: [5000], Horde: [] });
-	assert.equal(ra.report[197].recipes, 6);
 });
 
 test('skill-up chance: certain while orange, linear from yellow to grey, none at grey', () => {
@@ -268,10 +167,8 @@ test('materials: vendor price per unit, else 4x sell price scaled by quality', (
 });
 
 test('draft: a deterministic guide with smart trainers and vendors, per-faction farming, crafts and checkpoints', async () => {
-	const file = tmpFile('professions.json');
-	await fixtureBuild(file);
 	const data = {
-		professions: JSON.parse(fs.readFileSync(file, 'utf8')),
+		professions: JSON.parse(fs.readFileSync(PROFESSIONS, 'utf8')),
 		npcs: readJson('npcs'),
 		objects: readJson('objects'),
 		zones: readJson('zones'),
@@ -348,10 +245,8 @@ test('an NPC listed on two maps stands on its interior map; a capital beats its 
 });
 
 test('draft: mob drops the compiler can place become one `collect … nearest` step', async () => {
-	const file = tmpFile('professions.json');
-	await fixtureBuild(file);
 	const base = {
-		professions: JSON.parse(fs.readFileSync(file, 'utf8')),
+		professions: JSON.parse(fs.readFileSync(PROFESSIONS, 'utf8')),
 		npcs: readJson('npcs'),
 		objects: readJson('objects'),
 		zones: readJson('zones'),

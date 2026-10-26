@@ -9,7 +9,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Scene, ADT } = require('./helpers/navscene');
 const { tmpdir } = require('./helpers/tmp');
-const { buildGrid, liftPoints } = require('../tools/lib/nav/grid/build');
+const { buildGrid, liftPoints, liftCars } = require('../tools/lib/nav/grid/build');
 const { openNav } = require('../tools/lib/nav/path');
 const { profileFor, RUN, SWIM, REMOUNT, LIFT_WAIT, LIFT_SPEED } = require('../tools/lib/nav/move');
 const { Space, MinHeap } = require('../tools/lib/nav/grid/search');
@@ -216,6 +216,43 @@ test('lift points: objects the client animates as transports rising at least LIF
 	assert.deepEqual(pts.map((p) => [p.id, p.rise, p.wx, p.wy]), [[1, 61.2, 10, 20], [4, 100, 70, 80]]);
 });
 
+test('lift points: a car travel.json knows stands in for its object\'s spawns near it (one lift per car, where the car stands), with its floor at both stops', () => {
+	const geo = { toWorld: (map, x, y) => ({ c: 1, wx: x, wy: y }) };
+	// Object 1 shown on two maps (spawns 2 and 3 yd off its car), object 2 far from any car.
+	const objects = [
+		{ id: 1, name: 'Mesa Elevator', spawns: { 1412: { f: 'e', pts: [[102, 200]] }, 1456: { f: 'e', pts: [[100, 203]] } } },
+		{ id: 2, name: 'Mesa Elevator', spawns: { 1412: { f: 'e', pts: [[500, 500]] } } },
+	];
+	const travel = new Map([[1, { rise: 61.4, sway: 0 }], [2, { rise: 61.4, sway: 0 }]]);
+	const doc = { transit: { routes: {
+		'lift-a': { kind: 'lift', stops: [[0, 5000, 1, 100.4, 200.2, 130.1, 1], [15000, 20000, 1, 100.4, 200.2, 68.7, 1]] },
+		'tram-b': { kind: 'tram', stops: [[0, 5000, 1, 102, 200, 0, 1]] },
+	} } };
+	const cars = liftCars(doc);
+	assert.deepEqual(cars, [{ c: 1, wx: 100.4, wy: 200.2, lo: 68.7, hi: 130.1 }]);
+	const pts = liftPoints(objects, geo, travel, cars);
+	assert.deepEqual(pts.map((p) => [p.id, p.wx, p.wy, p.floor]), [[1, 100.4, 200.2, [68.7, 130.1]], [2, 500, 500, undefined]]);
+});
+
+test('lifts: with the car\'s floor known the landings are level with it, not a nearer step below', async () => {
+	// A mesa (top 60) and an elevator at its east edge; a ledge 1.5 yd up beside the car, nearer than the ground.
+	const s = new Scene();
+	s.box(50, 50, -1, 250, 450, 60);
+	s.box(252, 246, -1, 256, 254, 1.5);
+	const dir = tmpdir('polestar-nav-');
+	const car = s.world(252, 250);
+	const build = (floor) => buildGrid({
+		outDir: path.join(dir, floor ? 'level' : 'nearest'), workers: 0, continents: [{ c: 0, name: 'test', tiles: [{ col: 32, row: 32 }] }],
+		geometryJob: () => ({ geom: s.geom() }), liftPoints: [{ ...car, name: 'Mesa Elevator', id: 1, rise: 59.2, floor }],
+	});
+	await build(null);
+	await build([0, 60]);
+	const lift = (sub) => JSON.parse(fs.readFileSync(path.join(dir, sub, 'lifts.json'), 'utf8'))[0][0];
+	assert.ok(Math.abs(lift('nearest').a.z - 1.5) < 0.5, `without the floor: the ledge (${lift('nearest').a.z})`);
+	assert.ok(Math.abs(lift('level').a.z) < 0.5, `level with the car's floor: the ground (${lift('level').a.z})`);
+	assert.ok(Math.abs(lift('level').b.z - 60) < 0.5);
+});
+
 
 test('regions: an enclosure no fall reaches is unreachable without a search', async () => {
 	const s = new Scene();
@@ -380,4 +417,27 @@ test('real: Razor Hill to the Valley of Strength goes through the Orgrimmar gate
 	// The gate's tunnel (1411 45.5,12 to the valley), not the rocks east of it.
 	assert.ok(distTo(r, 1424, -4372) < 15, `gate ${distTo(r, 1424, -4372).toFixed(0)} yd off`);
 	assert.equal(r.byClass.climb, 0, `climb ${r.byClass.climb} s`);
+});
+
+test('links: onto a walkable model slope whose foot lies between two column centres, a step of up to STEP then the slope is walked', () => {
+	const { linkClass } = require('../tools/lib/nav/grid/links');
+	const { FLAG, CELL, LINK_SLOPE, STEP } = require('../tools/lib/nav/grid/format');
+	const W = FLAG.WMO;
+	// The Tirisfal zeppelin tower's top flight: a deck (flat) to a 39 degree ramp 2.5 yd up within one column, both ways.
+	assert.equal(linkClass(W, 0, W, 39, 2.5, CELL), LINK_SLOPE);
+	assert.equal(linkClass(W, 39, W, 0, -2.5, CELL), LINK_SLOPE);
+	// The Ruins' bell tower: a 0.4 yd riser and a 37 degree ramp, 1.65 yd at the column centres (over JUMP: no link before).
+	assert.equal(linkClass(W, 0, W, 37, 1.65, CELL), LINK_SLOPE);
+	// A wall: the same rise onto flat ground stays out of reach, and so does more than STEP over the slope.
+	assert.equal(linkClass(W, 0, W, 0, 2.5, CELL), -1);
+	assert.equal(linkClass(W, 0, W, 39, STEP + CELL * Math.tan((39 * Math.PI) / 180) + 0.1, CELL), -1);
+	// The tower's flight turns: its lower column is on the ramp too (38 degrees onto 39, 2.5 yd).
+	assert.equal(linkClass(W, 38, W, 39, 2.5, CELL), LINK_SLOPE);
+	// Along a model slope steeper than a stair (a rock face, a roof) the slope rule alone decides.
+	assert.equal(linkClass(W, 46, W, 46, 3.2, CELL * Math.SQRT2), -1);
+	assert.equal(linkClass(W, 0, W, 48, 2.5, CELL), -1);
+	// More than STEP + JUMP in all is no ramp foot (a tree root's 42 degree flank 3.2 yd up at the column centre).
+	assert.equal(linkClass(W, 0, W, 42, 3.23, CELL * Math.SQRT2), -1);
+	// Terrain is not a model slope: unchanged.
+	assert.equal(linkClass(FLAG.TERRAIN, 0, FLAG.TERRAIN, 30, 2.5, CELL) === LINK_SLOPE, false);
 });

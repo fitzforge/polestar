@@ -1,0 +1,13 @@
+guide golden/alliance
+title Golden trainers (Alliance)
+faction Alliance
+race Human
+class Mage
+levels 1-10
+zone Elwynn Forest
+
+# Synthetic guide for the trainers golden: the header's one class applies.
+step Northshire training
+  train 198               -- Khelden Bremen
+  train 911 only Warrior  -- Llane Beshere
+  train 99999 only Paladin -- an npc the data lacks

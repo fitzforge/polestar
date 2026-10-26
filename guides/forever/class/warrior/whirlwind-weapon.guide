@@ -15,8 +15,8 @@ why Berserker Stance at 30 and a Whirlwind axe, sword or warhammer at 40.
 # the Exile (1712, 1714), The Summoning (1713) and Whirlwind Weapon (1792,
 # level 40).
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
-# objectives, drops and places; Wowhead Forever's Warrior class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the rewards and
+# objectives, drops and places; Forever's Warrior class quest list
+# (data/local/quest-audit/) for the rewards and
 # Forever's changes: The Affray now teaches Berserker Stance; Whirlwind Weapon
 # lets you choose the Whirlwind Axe, Sword or Warhammer.
 # The leveling guides take The Islander and The Affray on the route

@@ -38,7 +38,7 @@ return {
 
 	-- Step 7: Isaac Pearson
 	-- {npc:185334} Isaac Pearson · {area:392} Ratchet · {zone:1413} Barrens · {zone:1411} Durotar
-	["{npc:185334} works in {area:392}, on the {zone:1413} coast. Take the zeppelin to {zone:1411} and walk or fly on to {area:392}."] = "",
+	["{npc:185334} works in {area:392}, on the {zone:1413} coast. Take the zeppelin to {zone:1411} and walk or fly on to {area:392}."] = "{npc:185334} arbeitet in {area:392} an der Küste von {zone:1413}. Nimm den Zeppelin nach {zone:1411} und geh oder flieg weiter nach {area:392}.",
 
 	-- Step 8: The Binding (Undercity)
 	-- {npc:5675} Carendin Halgar · {object:36082} Magic Quarter

@@ -1,0 +1,89 @@
+{
+	"build": "1.60.1.70450",
+	"builtAt": "2026-10-22T00:00:00.000Z",
+	"counts": {
+		"instance": 30,
+		"item": 447,
+		"mount": 138,
+		"npc": 1539,
+		"object": 132,
+		"pet": 94,
+		"quest": 1056,
+		"rare": 50,
+		"recipe": 0,
+		"tabard": 0,
+		"treasure": 17,
+		"zone": 60
+	},
+	"coverage": {
+		"items": 679,
+		"share": 0.295,
+		"withSource": 200
+	},
+	"localExtras": false,
+	"pack": {
+		"bytes": 438827,
+		"files": 19,
+		"loadMs": null,
+		"memoryKB": null,
+		"memoryKBDecoded": null
+	},
+	"schema": 1,
+	"sources": [
+		{
+			"licence": "MIT",
+			"name": "pfQuest",
+			"version": "104f35678ca39ab1fb78b655f815cc7016f5e0c8"
+		},
+		{
+			"licence": "Blizzard Entertainment game client data; factual map geometry, names and faction hierarchy only",
+			"name": "World of Warcraft Classic Era client tables (UiMap, UiMapAssignment, AreaTable, Faction) via wago.tools",
+			"version": "wow_classic_era 1.15.9.70003"
+		},
+		{
+			"licence": "Blizzard Entertainment game client data; factual map geometry, names, item durations and race/class combinations only",
+			"name": "World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, ChrRaces, ChrClasses, CharBaseInfo, Faction, Map, ItemSparse) via wago.tools",
+			"version": "wow_classic_beta 1.60.1.70450"
+		},
+		{
+			"licence": "GPL-3.0; spawn heights (z) only, used as facts like the transport periods: a guide goal, spawn spot or smart-target candidate at an NPC or object (and Core/ClassTrainers.lua's class trainers) carries its spawn's height",
+			"name": "CMaNGOS classic-db: creature and gameobject spawn heights",
+			"version": "22b51464f1625f6ef6275771de1f5466c6f5d19e"
+		},
+		{
+			"licence": "MIT License",
+			"name": "ForeverLevelingBiS",
+			"version": "v0.0.1-golden"
+		},
+		{
+			"licence": "Facts only (coordinates), each entry with its source",
+			"name": "Curated instance entrances (data/codex/entrances.json): QuestieDB Forever dungeon table, warcraft.wiki.gg, the web quest database (Forever pages)",
+			"version": "30 entrances"
+		},
+		{
+			"licence": "Facts only (standings), each row with its source",
+			"name": "Curated reputation gates (data/codex/repgates.json): warcraft.wiki.gg, the web quest database's Classic reputation guides, QuestieDB",
+			"version": "178 items"
+		},
+		{
+			"licence": "Facts only (quest and item ids), each entry with its sources",
+			"name": "Curated attunement goals (data/codex/attunements.json): the web quest database (Forever pages), warcraft.wiki.gg",
+			"version": "15 attunements"
+		},
+		{
+			"licence": "Facts only (quest ids and instances), each row with its source",
+			"name": "Curated Dungeons journal quests (data/codex/journal-quests.json): the web quest database (Forever pages)",
+			"version": "1 quests"
+		},
+		{
+			"licence": "Blizzard Entertainment game data, facts only",
+			"name": "World of Warcraft: Forever client tables via wago.tools",
+			"version": "1.60.1.70450"
+		},
+		{
+			"licence": "Blizzard Entertainment game data, facts only",
+			"name": "World of Warcraft Classic Era client item tables via wago.tools (items missing from the Forever tables)",
+			"version": "1.15.9.70003"
+		}
+	]
+}

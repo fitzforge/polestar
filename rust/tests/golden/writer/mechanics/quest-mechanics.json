@@ -1,0 +1,10 @@
+{
+  "meta": { "schema": 1, "note": "Synthetic, written for the writer tests (rust/tests/golden/writer/README.md): the fields the engine reads, for the quests the tests play." },
+  "quests": {
+    "882": {
+      "title": "Ishamuhale",
+      "kinds": [{ "kind": "summon-by-item", "confidence": "high" }],
+      "params": [{ "kind": "summon-by-item", "item": 10338, "npc": 3257, "place": { "positions": [{ "map": 1413, "x": 60.0, "y": 30.2 }] }, "confidence": "high" }]
+    }
+  }
+}

@@ -254,6 +254,14 @@ function isPrerelease(release) {
 	return Boolean(release.prerelease) || /^v?\d+\.\d+\.\d+-/.test(release.tag_name || '');
 }
 
+// An addon release (v0.2.5, v0.3.0-rc.1). The repository also publishes Forge
+// (forge-v*), the open database (data-v*), LibForeverData (lib-v*) and the
+// data pack (data-pack): they ship no fix to players, tell no thread and never
+// count as the release before.
+function isAddonRelease(release) {
+	return /^v\d/.test(release.tag_name || '');
+}
+
 // The commit that closed an issue, or null when it was closed by hand: the
 // last close's commit (a push saying "Fixes #N"), else the merge commit of
 // this repository's pull request merged as it closed (a minute apart at
@@ -286,7 +294,7 @@ const isFeature = (r) => /^v?\d+\.\d+\.0$/.test(r.tag_name || '');
 async function shipCheck(github, release) {
 	const published = Date.parse(release.published_at || release.created_at);
 	const full = (await github.releases())
-		.filter((r) => !r.draft && !isPrerelease(r) && r.id !== release.id && Date.parse(r.published_at) < published)
+		.filter((r) => !r.draft && isAddonRelease(r) && !isPrerelease(r) && r.id !== release.id && Date.parse(r.published_at) < published)
 		.sort((a, b) => Date.parse(b.published_at) - Date.parse(a.published_at));
 	const earlier = full[0];
 	const feature = full.find(isFeature);
@@ -417,7 +425,7 @@ async function announceCandidate({ discord, github, release, forumId, testers, l
 
 async function onRelease({ discord, github, event, forumId, testers = null, log = console }) {
 	const release = event.release;
-	if (!release || release.draft) return { told: 0, failed: 0 };
+	if (!release || release.draft || !isAddonRelease(release)) return { told: 0, failed: 0 };
 	if (isPrerelease(release)) {
 		await announceCandidate({ discord, github, release, forumId, testers, log });
 		return { told: 0, failed: 0 };

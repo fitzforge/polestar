@@ -1,0 +1,63 @@
+[workspace]
+members = ["crates/*"]
+# forge-devtools (maintainers' comparison tools) builds only when asked for: cargo build -p forge-devtools.
+default-members = [
+	"crates/forge",
+	"crates/forge-addontest",
+	"crates/forge-core",
+	"crates/forge-data",
+	"crates/forge-gamedata",
+	"crates/forge-guide",
+	"crates/forge-i18n",
+	"crates/forge-judge",
+	"crates/forge-nav",
+	"crates/forge-navbuild",
+	"crates/forge-release",
+	"crates/forge-sim",
+	"crates/forge-world",
+	"crates/forge-writer",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.1"
+edition = "2021"
+license = "GPL-3.0-only"
+rust-version = "1.87"
+repository = "https://github.com/fitzforge/polestar"
+homepage = "https://github.com/fitzforge/polestar"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rustc-hash = "2"
+
+# Lints every crate takes (`[lints] workspace = true`): clippy's defaults with -D warnings in CI,
+# less the style lints this codebase keeps on purpose: NaN-aware comparisons on floats
+# (`!(a < b)` is not `a >= b` with NaN), index loops, tab-indented crates' doc comments, wide
+# signatures and types of the pipelines, and boolean shapes kept as written.
+[workspace.lints.clippy]
+type_complexity = "allow"
+too_many_arguments = "allow"
+tabs_in_doc_comments = "allow"
+neg_cmp_op_on_partial_ord = "allow"
+needless_range_loop = "allow"
+# Its rewrites can reorder short-circuit tests (an index check after the indexing).
+nonminimal_bool = "allow"
+# `(a..=b).contains(&x)` is not `x < a || x > b` negated when x is NaN.
+manual_range_contains = "allow"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 4
+strip = true
+
+# Optimised but quick to build: for tests and local runs (`cargo test --profile quick`).
+# No LTO and more codegen units, so the ~200 test binaries link in a fraction of the time.
+[profile.quick]
+inherits = "release"
+lto = false
+codegen-units = 16
+strip = false
+incremental = true

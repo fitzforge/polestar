@@ -1,0 +1,22 @@
+{
+	"43": {
+		"set": {
+			"rank": 1
+		},
+		"note": "Synthetic: rank set by the fixture."
+	},
+	"5891": {
+		"addSpawns": {
+			"1426": {
+				"f": "e",
+				"pts": [
+					[
+						24.8,
+						61.8
+					]
+				]
+			}
+		},
+		"note": "Synthetic: one added spawn."
+	}
+}

@@ -34,7 +34,7 @@ test('the compiled Polestar_Guides lists the same guides as guides/', (t) => {
 	if (compiled.join('\n') !== files.join('\n')) {
 		t.diagnostic(
 			'Guides.lua is out of sync with guides/ — maintainers run ' +
-				'`node tools/polestar.js compile` (or `polestar regen`) after merging guide additions or renames',
+				'`forge guide compile` (or `polestar regen`) after merging guide additions or renames',
 		);
 	}
 });

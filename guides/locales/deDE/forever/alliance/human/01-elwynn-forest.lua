@@ -235,7 +235,7 @@ return {
 	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner
 	["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town."] = "Folge der Straße nach Westen zurück nach {area:87}; {npc:6306} und Jason stehen vor dem Ort am Seeufer.",
 	-- {npc:240} Marshal Dughan
-	["{npc:240}, while William brews"] = "",
+	["{npc:240}, while William brews"] = "{npc:240}, während William braut",
 
 	-- Step 49: Maybell Maclure
 	-- {area:64} Maclure Vineyards
@@ -310,15 +310,15 @@ return {
 	-- {npc:524} Rockhide Boar · {item:15908} Taming Rod
 	["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: Zähme ihn mit {item:15908}",
 	-- {npc:524} Rockhide Boar
-	["Tame {npc:524}"] = "",
+	["Tame {npc:524}"] = "Zähme {npc:524}",
 	-- {npc:1922} Gray Forest Wolf · {item:15908} Taming Rod
 	["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: Zähme ihn mit {item:15908}",
 	-- {npc:1922} Gray Forest Wolf
-	["Tame {npc:1922}"] = "",
+	["Tame {npc:1922}"] = "Zähme {npc:1922}",
 	-- {npc:822} Young Forest Bear · {item:15908} Taming Rod
 	["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: Zähme ihn mit {item:15908}",
 	-- {npc:822} Young Forest Bear
-	["Tame {npc:822}"] = "",
+	["Tame {npc:822}"] = "Zähme {npc:822}",
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}, neben ihr: {spell:5149}",
 

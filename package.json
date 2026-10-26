@@ -28,7 +28,8 @@
   },
   "scripts": {
     "test": "node --test \"tests/**/*.test.js\"",
-    "i18n:check": "node tools/polestar.js i18n check",
-    "i18n:status": "node tools/polestar.js i18n status"
+    "test:changed": "node tools/testsel.js --run",
+    "i18n:check": "cargo run --manifest-path rust/Cargo.toml --locked -q -p forge -- i18n check",
+    "i18n:status": "cargo run --manifest-path rust/Cargo.toml --locked -q -p forge -- i18n status"
   }
 }

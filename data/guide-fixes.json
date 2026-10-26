@@ -1,0 +1,48 @@
+{
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip) or a level gate before the goal (level). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"fixes": [
+		{
+			"id": "674-tirisfal-gordo-task-tip",
+			"at": {
+				"quest": 5481,
+				"goal": "accept"
+			},
+			"tip": "Gordo, the big abomination, walks the road from here east past Cold Hearth Manor almost to Brill, and back: if he isn't at the arrow, follow the road east until you meet him. The Gloom Weed grows along the road around him.",
+			"note": "Gordo's Task: Gordo walks the road, so a player can stand where the arrow points and not see him.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#674"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature_movement_template, creature guid 28413 (entry 10666)"
+				}
+			],
+			"issue": 674,
+			"pr": 678
+		},
+		{
+			"id": "674-tirisfal-gordo-report-tip",
+			"at": {
+				"quest": 99141,
+				"goal": "objective",
+				"objective": 3
+			},
+			"tip": "Gordo walks the long road west of Brill, past Cold Hearth Manor, and back: the arrow follows his road west until you meet him.",
+			"note": "Patience, Gordo's report: says that the arrow follows his road (the place 674-tirisfal-gordo-road).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#674"
+				},
+				{
+					"kind": "cmangos",
+					"ref": "creature_movement_template, creature guid 28413 (entry 10666)"
+				}
+			],
+			"issue": 674,
+			"pr": 678
+		}
+	]
+}

@@ -26,7 +26,8 @@ and maintainers who release. Paths are from the repository root.
 | [tools/README.md](../tools/README.md) | contributors, maintainers | The commands by group, the `tools/lib` folders, every generated file with its command and inputs, how to tell it is stale, the rebuild order after a data change |
 | [tests/README.md](../tests/README.md) | contributors | The test layers, the fake client, the helpers, how to run one test, what needs local data |
 | [docs/SUITE.md](SUITE.md) | contributors | The modules and their scope, which other addons and sites Polestar reads, the data layer, the in-game packs |
-| [docs/SIMULATION.md](SIMULATION.md) | contributors | The route simulator: world model, character model, search, calibration, results |
+| [docs/FORGE.md](FORGE.md) | contributors, maintainers | Polestar Forge, the Rust pipeline that makes the routes: install, `forge build`, finding the game, the data pack, Leffe's navigation maps, the report, why a quest is in or out, overrides, troubleshooting; details in [docs/forge/](forge): [data](forge/data.md), [nav](forge/nav.md), [model](forge/model.md), [routes](forge/routes.md), [writer](forge/writer.md), [judge](forge/judge.md), [internals](forge/internals.md) |
+| [docs/legacy/SIMULATION-js.md](legacy/SIMULATION-js.md) | contributors | The earlier JavaScript route simulator, which made the routes up to 0.2.x; only `sim compare` remains (`node tools/polestar.js sim compare`) |
 | [docs/DESIGN.md](DESIGN.md) | contributors | The design system: who the windows are for and what they must do, then colour, type, layout and component tokens |
 | [docs/NAV_QA.md](NAV_QA.md) | contributors, maintainers | The pathing checks: every problem reported against Shortest Path Forever that touches what Polestar uses from it, the check Polestar holds itself to and the test or in-game step that enforces it |
 | [docs/RELEASING.md](RELEASING.md) | maintainers | What ships, setting the version, the release steps from `next`, release candidates, and the patch (fast-forward + tag) |
@@ -40,20 +41,20 @@ preview`); `docs/assets/` holds the README's art and screenshots.
 
 Data flows from the game client and local sources into reference data, from
 there into the data addons and the compiled guides, and from `addon/` into
-the game. The Recorder sends play back into the reference data; the
-simulator turns reference data into route drafts for the guides.
+the game. The Recorder sends play back into the reference data; Forge turns
+reference data into the leveling routes and writes them into the guides.
 
 ```mermaid
 flowchart LR
   client["Client tables<br/>via wago.tools"] --> databuild
   installed["Installed addons<br/>in the game"] --> databuild
   recordings["data/recordings"] --> databuild
-  databuild["data build"] --> forever[("data/forever<br/>reference data")]
+  databuild["forge data build"] --> forever[("data/forever<br/>reference data")]
   installed --> builders
   forever --> builders["Data addon builds<br/>questdb, codex, travel,<br/>maps, qol, trainers"]
-  forever --> compiler["Guide compiler<br/>lint, compile"]
-  forever --> sim["Simulator<br/>sim"]
-  sim --> drafted["Drafted routes"]
+  forever --> compiler["Guide compiler<br/>forge guide lint, compile"]
+  forever --> forge["Forge<br/>forge build"]
+  forge --> drafted["Routes written<br/>into the guides"]
   drafted --> guides["guides/<br/>.guide files"]
   guides --> compiler
   compiler --> pg["addon/Polestar_Guides"]
@@ -76,12 +77,13 @@ generated file, whether it is committed, and the order to rebuild in.
 - **Step**: one stop in a guide: a title, optional conditions and tip, and at least one goal.
 - **Goal**: one thing to do in a step, as a verb and its arguments (`accept 783`, `kill`, `goto`, `turnin`...).
 - **Pack**: an addon of guides for Polestar, built by the compiler from a folder with a `pack.json` (the folder is a pack too); Polestar's own is `Polestar_Guides` (pack id `guides`). **Community addon**: every other pack, a separate addon made and supported by its author, listed under Community guides ([GUIDE_PACKS.md](GUIDE_PACKS.md)).
-- **Reference data**: the game facts in `data/forever/*.json` (quests, NPCs, objects, items, zones, map frames and more) that the compiler and the data builds read; built locally by `data build`.
+- **Reference data**: the game facts in `data/forever/*.json` (quests, NPCs, objects, items, zones, map frames and more) that the compiler and the data builds read; built locally by `forge data build`.
 - **Data addon**: a companion addon that carries data, not code, mostly loaded on demand: `Polestar_QuestDB`, `Polestar_ItemDB`, `Polestar_Codex`, `Polestar_Travel`.
-- **Codex**: Lookup's database of items, mounts, pets, recipes, NPCs, rares, quests, zones, dungeons and treasures, with where each comes from (`codex build`, the `Polestar_Codex` addon).
-- **QuestDB**: the quest database behind quest markers and tooltips (`questdb build`, the `Polestar_QuestDB` addon).
-- **ItemDB**: item stats for the gear advice (`itemdb build` and `gear build`, the `Polestar_ItemDB` addon).
+- **Codex**: Lookup's database of items, mounts, pets, recipes, NPCs, rares, quests, zones, dungeons and treasures, with where each comes from (`forge data codex`, the `Polestar_Codex` addon).
+- **QuestDB**: the quest database behind quest markers and tooltips (`forge data questdb`, the `Polestar_QuestDB` addon).
+- **ItemDB**: item stats for the gear advice (`forge data itemdb` and `forge data gear`, the `Polestar_ItemDB` addon).
 - **Recorder**: the optional `Polestar_Recorder` addon that records play; `record import` turns its sessions into `data/recordings`.
 - **Playground**: the real addon running in a browser against a simulated world (`node tools/polestar.js play`).
-- **Simulator**: the route model and search that finds and scores leveling routes (`node tools/polestar.js sim`, [SIMULATION.md](SIMULATION.md)).
+- **Forge**: the Rust pipeline that makes the leveling routes from the installed game and the guides, writes them into the guides and judges them (`forge build`, [FORGE.md](FORGE.md)).
+- **Simulator**: the earlier JavaScript route model, kept for `sim compare` and the README charts ([legacy/SIMULATION-js.md](legacy/SIMULATION-js.md)); Forge's model is [forge/model.md](forge/model.md).
 - **Playtest**: playing a pack's guides to the end in the real addon, once per class they branch on (`node tools/polestar.js playtest`).

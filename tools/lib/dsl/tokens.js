@@ -393,6 +393,14 @@ function spellById(data) {
 	return SPELL_IDS.get(data);
 }
 
+// The id a spell's name is written with in texts ({spell:id}: the lowest id
+// of that name), or null when texts keep that name as words.
+const SPELL_BY_NAME = new WeakMap();
+function spellIdOf(data, name) {
+	if (!SPELL_BY_NAME.has(data)) SPELL_BY_NAME.set(data, new Map(spellNames(data)));
+	return SPELL_BY_NAME.get(data).get(String(name).trim()) || null;
+}
+
 // First word of every NPC name -> how many different names start with it
 // (a one-word name counts too), cached per data.
 const FIRST_WORDS = new WeakMap();
@@ -693,4 +701,4 @@ function onlyTokens(text) {
 	return !/\p{L}/u.test(String(text).replace(TOKEN_RE, ''));
 }
 
-module.exports = { KINDS, TOKEN_RE, GUIDE_FIELDS, GUIDE_LISTS, STEP_FIELDS, GOAL_FIELDS, tokeniseGuides, tokeniseText, fillTokens, tokensOf, onlyTokens, forEachText, dataName };
+module.exports = { KINDS, TOKEN_RE, GUIDE_FIELDS, GUIDE_LISTS, STEP_FIELDS, GOAL_FIELDS, tokeniseGuides, tokeniseText, fillTokens, tokensOf, onlyTokens, forEachText, dataName, spellIdOf };

@@ -1,0 +1,20 @@
+{
+	"schema": 1,
+	"build": "1.60.1.70100",
+	"session": "c",
+	"char": { "name": "Xper", "realm": "Fixture", "race": "Human", "class": "PRIEST", "faction": "Alliance" },
+	"started": 3000,
+	"ended": 3900,
+	"events": [
+		{ "t": 1, "e": "accept", "q": 9101, "title": "Full Versus Reduced", "qlvl": 10, "lvl": 18, "xp": 0, "map": 1429, "x": 47.5, "y": 40.25, "npc": 1, "npcName": "Bob" },
+		{ "t": 2, "e": "turnin", "q": 9101, "xpReward": 900, "money": 0, "lvl": 18, "map": 1429, "x": 47.5, "y": 40.25, "npc": 1, "npcName": "Bob" },
+		{ "t": 3, "e": "turnin", "q": 9101, "xpReward": 800, "money": 0, "lvl": 11, "map": 1429, "x": 47.5, "y": 40.25, "npc": 1, "npcName": "Bob" },
+		{ "t": 4, "e": "accept", "q": 9102, "title": "Only Overlevelled", "qlvl": 10, "lvl": 20, "xp": 0, "map": 1429, "x": 47.5, "y": 40.25, "npc": 1, "npcName": "Bob" },
+		{ "t": 5, "e": "turnin", "q": 9102, "xpReward": 150, "money": 0, "lvl": 20, "map": 1429, "x": 47.5, "y": 40.25, "npc": 1, "npcName": "Bob" },
+		{ "t": 6, "e": "accept", "q": 9103, "title": "Base Wins", "qlvl": 10, "lvl": 16, "xp": 0, "rewardXp": 400, "rewardXpBase": 820, "map": 1429, "x": 47.5, "y": 40.25, "npc": 1, "npcName": "Bob" },
+		{ "t": 7, "e": "turnin", "q": 9103, "xpReward": 790, "money": 0, "lvl": 10, "map": 1429, "x": 47.5, "y": 40.25, "npc": 1, "npcName": "Bob" },
+		{ "t": 8, "e": "accept", "q": 9104, "title": "Reward Later", "qlvl": 10, "lvl": 10, "xp": 0, "map": 1429, "x": 47.5, "y": 40.25, "npc": 1, "npcName": "Bob" },
+		{ "t": 9, "e": "reward", "q": 9104, "rewardXp": 760, "lvl": 10 }
+	],
+	"maps": {}
+}

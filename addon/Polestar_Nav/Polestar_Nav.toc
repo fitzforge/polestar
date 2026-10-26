@@ -21,7 +21,8 @@
 ## Notes-zhTW: Polestar 的一部分：為箭頭提供步行路線，採用 Polestar 自己的尋路，源自 Shortest Path Forever 的尋路（Cillian Berragan，github.com/cjber/shortest-path-forever，經其許可使用）。按需載入。
 ## Author: Polestar; router started from Cillian Berragan's Shortest Path Forever
 ## Version: 0.2.6
-## Category: Quests
+## Category: Polestar
+## Group: Polestar
 ## LoadOnDemand: 1
 ## Dependencies: Polestar
 ## X-License: GPL-3.0-or-later

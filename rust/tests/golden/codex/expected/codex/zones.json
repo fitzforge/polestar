@@ -1,0 +1,242 @@
+{
+	"947": {
+		"id": 947,
+		"name": "Azeroth"
+	},
+	"1411": {
+		"id": 1411,
+		"name": "Durotar"
+	},
+	"1412": {
+		"id": 1412,
+		"name": "Mulgore"
+	},
+	"1413": {
+		"id": 1413,
+		"name": "The Barrens"
+	},
+	"1414": {
+		"id": 1414,
+		"name": "Kalimdor"
+	},
+	"1415": {
+		"id": 1415,
+		"name": "Eastern Kingdoms"
+	},
+	"1416": {
+		"id": 1416,
+		"name": "Alterac Mountains"
+	},
+	"1417": {
+		"id": 1417,
+		"name": "Arathi Highlands"
+	},
+	"1418": {
+		"id": 1418,
+		"name": "Badlands"
+	},
+	"1419": {
+		"id": 1419,
+		"name": "Blasted Lands"
+	},
+	"1420": {
+		"id": 1420,
+		"name": "Tirisfal Glades"
+	},
+	"1421": {
+		"id": 1421,
+		"name": "Silverpine Forest"
+	},
+	"1422": {
+		"id": 1422,
+		"name": "Western Plaguelands"
+	},
+	"1423": {
+		"id": 1423,
+		"name": "Eastern Plaguelands"
+	},
+	"1424": {
+		"id": 1424,
+		"name": "Hillsbrad Foothills"
+	},
+	"1425": {
+		"id": 1425,
+		"name": "The Hinterlands"
+	},
+	"1426": {
+		"id": 1426,
+		"name": "Dun Morogh"
+	},
+	"1427": {
+		"id": 1427,
+		"name": "Searing Gorge"
+	},
+	"1428": {
+		"id": 1428,
+		"name": "Burning Steppes"
+	},
+	"1429": {
+		"id": 1429,
+		"name": "Elwynn Forest"
+	},
+	"1430": {
+		"id": 1430,
+		"name": "Deadwind Pass"
+	},
+	"1431": {
+		"id": 1431,
+		"name": "Duskwood"
+	},
+	"1432": {
+		"id": 1432,
+		"name": "Loch Modan"
+	},
+	"1433": {
+		"id": 1433,
+		"name": "Redridge Mountains"
+	},
+	"1434": {
+		"id": 1434,
+		"name": "Stranglethorn Vale"
+	},
+	"1435": {
+		"id": 1435,
+		"name": "Swamp of Sorrows"
+	},
+	"1436": {
+		"id": 1436,
+		"name": "Westfall"
+	},
+	"1437": {
+		"id": 1437,
+		"name": "Wetlands"
+	},
+	"1438": {
+		"id": 1438,
+		"name": "Teldrassil"
+	},
+	"1439": {
+		"id": 1439,
+		"name": "Darkshore"
+	},
+	"1440": {
+		"id": 1440,
+		"name": "Ashenvale"
+	},
+	"1441": {
+		"id": 1441,
+		"name": "Thousand Needles"
+	},
+	"1442": {
+		"id": 1442,
+		"name": "Stonetalon Mountains"
+	},
+	"1443": {
+		"id": 1443,
+		"name": "Desolace"
+	},
+	"1444": {
+		"id": 1444,
+		"name": "Feralas"
+	},
+	"1445": {
+		"id": 1445,
+		"name": "Dustwallow Marsh"
+	},
+	"1446": {
+		"id": 1446,
+		"name": "Tanaris"
+	},
+	"1447": {
+		"id": 1447,
+		"name": "Azshara"
+	},
+	"1448": {
+		"id": 1448,
+		"name": "Felwood"
+	},
+	"1449": {
+		"id": 1449,
+		"name": "Un'Goro Crater"
+	},
+	"1450": {
+		"id": 1450,
+		"name": "Moonglade"
+	},
+	"1451": {
+		"id": 1451,
+		"name": "Silithus"
+	},
+	"1452": {
+		"id": 1452,
+		"name": "Winterspring"
+	},
+	"1453": {
+		"id": 1453,
+		"name": "Stormwind City"
+	},
+	"1454": {
+		"id": 1454,
+		"name": "Orgrimmar"
+	},
+	"1455": {
+		"id": 1455,
+		"name": "Ironforge"
+	},
+	"1456": {
+		"id": 1456,
+		"name": "Thunder Bluff"
+	},
+	"1457": {
+		"id": 1457,
+		"name": "Darnassus"
+	},
+	"1458": {
+		"id": 1458,
+		"name": "Undercity"
+	},
+	"1459": {
+		"id": 1459,
+		"name": "Alterac Valley"
+	},
+	"1460": {
+		"id": 1460,
+		"name": "Warsong Gulch"
+	},
+	"1461": {
+		"id": 1461,
+		"name": "Arathi Basin"
+	},
+	"1463": {
+		"id": 1463,
+		"name": "Eastern Kingdoms"
+	},
+	"1464": {
+		"id": 1464,
+		"name": "Kalimdor"
+	},
+	"2482": {
+		"id": 2482,
+		"name": "Mount Hyjal"
+	},
+	"2521": {
+		"id": 2521,
+		"name": "Zephras Isle"
+	},
+	"2524": {
+		"id": 2524,
+		"name": "Darkspear Islands"
+	},
+	"2548": {
+		"id": 2548,
+		"name": "Riverglades"
+	},
+	"2652": {
+		"id": 2652,
+		"name": "Shen'dralas"
+	},
+	"2665": {
+		"id": 2665,
+		"name": "Zephras Isle"
+	}
+}

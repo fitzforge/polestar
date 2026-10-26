@@ -1,0 +1,157 @@
+{
+	"about": "The public data pack (forge data pack): the files forge build needs when the private sources are absent, each with its source, licence and credit. Paths are relative to the checkout and keep its layout in the pack; a path ending in `?` is packed when present. `{wago-era}` and `{wago-forever}` are the newest cached Classic Era and Forever client-table builds. Never packed: the local-only sources, forever-vo captures, the web XP cache, mechanics evidence and model readings, DungeonJournal, the codex and gear trees; `never` lists them for the guard that scans every pack.",
+	"version": "pack-1",
+	"sources": [
+		{
+			"id": "pfquest",
+			"title": "pfQuest database",
+			"credit": "pfQuest by Shagu (Eric Mauser)",
+			"licence": "MIT",
+			"url": "https://github.com/shagu/pfQuest",
+			"files": [
+				"data/sources/pfQuest/LICENSE",
+				"data/sources/pfQuest/db/quests.lua",
+				"data/sources/pfQuest/db/units.lua",
+				"data/sources/pfQuest/db/objects.lua",
+				"data/sources/pfQuest/db/items.lua",
+				"data/sources/pfQuest/db/refloot.lua",
+				"data/sources/pfQuest/db/areatrigger.lua",
+				"data/sources/pfQuest/db/meta.lua",
+				"data/sources/pfQuest/db/enUS/quests.lua",
+				"data/sources/pfQuest/db/enUS/units.lua",
+				"data/sources/pfQuest/db/enUS/objects.lua",
+				"data/sources/pfQuest/db/enUS/items.lua"
+			]
+		},
+		{
+			"id": "client-tables",
+			"title": "Blizzard client data tables (Classic Era and Forever), as cached from wago.tools",
+			"credit": "Game data © Blizzard Entertainment; tables via wago.tools",
+			"licence": "Game data © Blizzard Entertainment; used as facts for interoperability",
+			"url": "https://wago.tools",
+			"files": ["data/sources/wago/{wago-era}/*.csv", "data/sources/wago/{wago-forever}/*.csv"]
+		},
+		{
+			"id": "wowdbdefs",
+			"title": "WoWDBDefs table definitions (to read the tables from your own client)",
+			"credit": "WoWDBDefs by the wowdev community",
+			"licence": "CC BY-SA 4.0 (definitions data)",
+			"url": "https://github.com/wowdev/WoWDBDefs",
+			"files": ["data/sources/wowdbdefs/LICENSE.md", "data/sources/wowdbdefs/manifest.json", "data/sources/wowdbdefs/definitions/*.dbd"]
+		},
+		{
+			"id": "cmangos",
+			"title": "CMaNGOS classic-db extracts: spawn heights, quest counts, object facts, graveyards, escort paths, training, transit",
+			"credit": "CMaNGOS classic-db (commit 22b5146)",
+			"licence": "GPL-3.0 (classic-db), used as facts",
+			"url": "https://github.com/cmangos/classic-db",
+			"files": [
+				"data/sources/cmangos/22b51464f162/spawnz.json",
+				"data/sources/cmangos/22b51464f162/spawnz.2.json",
+				"data/sources/cmangos/22b51464f162/quest_counts.json",
+				"data/sources/cmangos/22b51464f162/gameobject_facts.json",
+				"data/sources/cmangos/22b51464f162/graveyards.json",
+				"data/sources/cmangos/22b51464f162/escort_paths.json",
+				"data/sources/cmangos/22b51464f162/training.json",
+				"data/sources/cmangos/22b51464f162/transit.json",
+				"data/sources/cmangos/22b51464f162/quest_facts.json?"
+			]
+		},
+		{
+			"id": "eg-link",
+			"title": "EG Link output: players' game caches of the server's quest answers",
+			"credit": "EG Link output by Efficient Games (efficient.games), JIVESCORP/eg-link-output-wowf",
+			"licence": "CC BY 4.0",
+			"url": "https://github.com/JIVESCORP/eg-link-output-wowf",
+			"files": ["data/sources/eg-link/*/index.json", "data/sources/eg-link/*/wow_classic_beta/*/quests.enUS.json"]
+		},
+		{
+			"id": "polestar",
+			"title": "Polestar's own data: corrections, the availability rules, the simulator's calibration, the nav pack's map list, the shipped zone crossings",
+			"credit": "Polestar contributors",
+			"licence": "GPL-3.0",
+			"url": "https://github.com/fitzforge/polestar",
+			"files": [
+				"forever-db/corrections/*.json",
+				"data/rules.json",
+				"data/sim/params.json",
+				"addon/Polestar_Nav/PACK.json",
+				"data/crossings.json"
+			]
+		},
+		{
+			"id": "kb",
+			"title": "Polestar knowledge base, public part: facts that are high confidence or where two sources agree, from public sources only; quest mechanics on their public sources only (client data, server data, our corrections; one source alone at medium), and quest steps of high confidence from those that quote none of the site's text; and, with their values withheld, which quest facts are uncertain and which disagree (the route keeps such quests out)",
+			"credit": "Polestar contributors; facts credited to their sources (EG Link output CC BY 4.0, Factoruide GPL-2.0-or-later, CMaNGOS, pfQuest MIT, the client tables)",
+			"licence": "GPL-3.0 (our words); facts from the sources credited",
+			"url": "https://github.com/fitzforge/polestar",
+			"kb": {
+				"from": "data/local/kb/forever-kb.sqlite",
+				"public": ["recorder", "correction", "eg", "eg.observed", "client", "factoruide", "factoruide.collector", "classic", "pfquest"],
+				"mechanicsPublic": ["forever-data", "server", "correction", "public"],
+				"mechanicsPrivate": ["player-notes", "quest-text", "web", "server-forever"]
+			},
+			"files": ["data/local/kb/forever-kb.sqlite"]
+		},
+		{
+			"id": "factoruide",
+			"title": "Factoruide facts (in the knowledge base, source factoruide)",
+			"credit": "Factoruide contributors",
+			"licence": "GPL-2.0-or-later (taken under GPL-3.0)",
+			"url": "https://github.com/brouznouf/factoruide",
+			"files": []
+		},
+		{
+			"id": "walks",
+			"title": "Walk stores answered on Leffe's navigation maps (store-leffe-*): walking times and distances between the world's points, per faction, with each place's zone on his maps (derived numbers, no client or map geometry), so forge build runs the hybrid without his maps. Our grid's stores are not packed: they are keyed by the grid they were built on, and every contributor builds their own",
+			"credit": "Polestar contributors; the store-leffe walks were answered on Leffe's navigation maps (his maps are private and not in the pack; the walks are published with Leffe's permission)",
+			"licence": "GPL-3.0",
+			"url": "https://github.com/fitzforge/polestar",
+			"walks": true,
+			"files": ["walks/store-leffe-horde.psbn", "walks/store-leffe-alliance.psbn"]
+		}
+	],
+	"external": [],
+	"requires": [
+		{
+			"id": "grid",
+			"title": "The navigation grid (data/local/nav4)",
+			"note": "Not in the pack: built from your own client's map tiles. Until forge builds it, pass --grid <dir> (or POLESTAR_GRID). The walks on your grid are routed on your machine; the pack's Leffe walks answer every walk they hold."
+		},
+		{
+			"id": "questie",
+			"title": "QuestieDB (Forever store)",
+			"note": "Not in the pack, nor its facts in the knowledge base (its licence is still moving to GPL-3.0): read from your client's AddOns when installed; without it the data has fewer quest facts and the report says so."
+		}
+	],
+	"never": [
+		"leffe-nav",
+		"nav.xml",
+		"wowhead",
+		"foreverdb",
+		"forever-vo",
+		"forevervo",
+		"webxp",
+		"factcheck",
+		"facts.sqlite",
+		"mechanics/",
+		"evidence",
+		"quest-steps.json",
+		"quest-mechanics.json",
+		"dungeons.json",
+		"codex",
+		"gear/",
+		"forever-tdb",
+		"questie",
+		"classicdb.sql"
+	],
+	"textScanExempt": {
+		"forever-db/corrections/quests.json": "committed in the public repository; its entries name the sources each correction was checked against",
+		"forever-db/corrections/npcs.json": "committed in the public repository; its entries name the sources each correction was checked against",
+		"forever-db/corrections/objects.json": "committed in the public repository; its entries name the sources each correction was checked against",
+		"forever-db/corrections/items.json": "committed in the public repository; its entries name the sources each correction was checked against",
+		"forever-db/corrections/mechanics.json": "committed in the public repository; its entries name the sources each correction was checked against",
+		"forever-db/corrections/notes.json": "committed in the public repository; its records name the sources each note fix was checked against"
+	},
+	"neverText": ["wowhead", "foreverdb", "forevervo", "forever-vo", "page snapshot", "quest-database page", "pagesha", "player-notes", "evidence/"]
+}

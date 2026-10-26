@@ -1,5 +1,6 @@
 {
 	"name": "{{title}}",
 	"image": "mcr.microsoft.com/devcontainers/javascript-node:24",
-	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y lua5.1 && git clone --depth 1 \"{{repo}}\" \"$HOME/polestar\" && cd \"$HOME/polestar\" && npm link && polestar data build --no-web-xp --no-wowhead"
+	"features": { "ghcr.io/devcontainers/features/rust:1": {} },
+	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y lua5.1 && git clone --depth 1 \"{{repo}}\" \"$HOME/polestar\" && cd \"$HOME/polestar\" && npm link && cargo build --release --locked --manifest-path rust/Cargo.toml -p forge && sudo ln -sf \"$HOME/polestar/rust/target/release/forge\" /usr/local/bin/forge && forge data build --no-web-xp --no-web-zones"
 }

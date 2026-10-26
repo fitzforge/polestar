@@ -1,0 +1,3 @@
+final-table.js prints the result tables from forge sim route/shared JSON outputs: node final-table.js <dir>.
+
+Parity with the JS evaluator (tests/parity.rs) reads rust/tests/golden/sim (sim/regen.js, with JS_ROOT at 734380d2a).

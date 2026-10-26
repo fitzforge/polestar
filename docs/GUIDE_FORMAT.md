@@ -5,7 +5,7 @@ Every line of the format on one page, with an example each:
 
 Guides are written as `.guide` text files in a pack (Polestar's own:
 `guides/`; a community pack: any folder holding a `pack.json`, see
-[PACKS.md](PACKS.md)) and compiled to Lua by `node tools/polestar.js compile`.
+[PACKS.md](PACKS.md)) and compiled to Lua by `forge guide compile`.
 The compiler fills in names, titles and coordinates from the reference data in
 `data/forever/`, so a line can be as short as `accept 783`. Anything you write
 explicitly wins over the data. Without the reference data the compiler stops
@@ -140,6 +140,7 @@ A step must contain at least one goal.
 | `destroy` | `<itemId> ["Item name"]` | Delete an item from the bags (a start-zone Hearthstone to free a slot, a quest item that is no use any more). Done once the bags hold none of it, and it stays done for the rest of its step; a character that never held it has it done at once. The guide window reads "Destroy Hearthstone". Pack format 5. |
 | `sethome` | `"Location"` or `nearest` | Inn location as the game names it (the bind location it reports), e.g. `"Goldshire"`. Without `npc` the compiler names the inn's innkeeper, so the arrow leads to them ("What the compiler fills in"); `npc <id>` picks one yourself. `sethome nearest` binds at the nearest own-faction inn when the step comes up. Lint warns about a location no inn has (`polestar find --kind inn`). Completes on every client language: binding at the inn's innkeeper, or a bind location the client names as the inn's area (see "Places by ID"). A player with "Set your home at the guide's inn" on (Quality of Life, Travel; off by default) has Polestar bind and confirm when they talk to that innkeeper (for `nearest`, any innkeeper the compiler listed for it), never at another inn. |
 | `hearth` | `"Location"` | Done when the zone or subzone where you land has that name: an inn's location or the zone it is in, in the client's language when the compiler finds its area ("Places by ID"). Lint warns about any other name. While the Hearthstone is on cooldown (or not in the bags), the goal says how long until it is ready and the arrow leads to that inn on foot, so a "Hearthstone on cooldown?" note is not needed. Bound at another inn (as `sethome` tells, from the inns Polestar knows), the goal says where it is bound, and the arrow leads to the step's inn on foot the same way. |
+| `die` | `"Graveyard"` | A deathskip: die on purpose, release and take the Spirit Healer's resurrection at that graveyard (the name is what the guide window shows). Needs `@x,y` at the graveyard's Spirit Healer, which lint checks against the healers' spawns; the arrow leads there. Done once the player is back alive within 40 yards of it, never as a ghost standing there. A guide that uses it is written in pack format 5. |
 | `getfp` | `"Location"` | Discover a flight path: the flight point's name (`"Stormwind, Elwynn"`) or its part before the comma (`"Stormwind"`). The compiler adds its taxi node, so it completes on every client language ("Places by ID"), and without `npc` that node's flight master, so the arrow leads to them ("What the compiler fills in"); `npc <id>` picks one yourself. Lint warns about a name no flight point has (`polestar find --kind flight`). |
 | `fly` | `"Location"` | Take a flight: the flight point's town (`"Stormwind"`), as the flight map picks the node by it. Done when the zone or subzone where you land has that name (in the client's language when the compiler finds its area, "Places by ID"); where the landing area is named differently (`"Stormwind City"`), the goal checks off only through a later goal of its step. Lint warns about a name that is no flight point's town, inn location or zone they are in. |
 | `enter` | `"Location"` | Be in a zone or an area: done once the zone or subzone text reads that name (`"Darnassus"`, `"Goldshire"`; in the client's language when the compiler finds its area, "Places by ID"), and kept once the step had it, so walking on does not reopen it. Coordinates (`@x,y`) only point the arrow there. Lint warns about a name that is no zone or area of the client's tables. |
@@ -173,7 +174,7 @@ or class where it matters) and picks the cheapest by travel time from where the
 player stands, re-deciding on zone changes. Explicit npc ids stay fixed. Profession
 guides should use these forms instead of per-race branches.
 Sources: profession trainers from `professions.json`; class trainers from
-`trainers.json` (`node tools/polestar.js trainers build`: `train <npcId> only <Class>`
+`trainers.json` (`forge data trainers`: `train <npcId> only <Class>`
 goals in `guides/`, recorded trainer visits, and a curated list verified against
 `npcs.json`; without the file, the curated list); innkeepers from the `innkeeper`
 and `vendor nearest` from the `repair` role in `npcs.json`; `buy … nearest` from the
@@ -756,7 +757,7 @@ writes `escort = true` on those goals (`tools/lib/dsl/escort.js`) when the
 quest's own words say escort: an `event` objective's text ("Escort Miran to
 the excavation site") or the quest's `objectiveText` ("Escort the captive
 fire elemental out of Dun Modr"). A quest's `escort` in `quests.json` wins,
-set by `tools/lib/data/corrections.json` with its source: `true` for an
+set by `forever-db/corrections/quests.json` with its source: `true` for an
 escort worded otherwise ("Protect Volcor until you reach the road"), `false`
 for a quest whose text wrongly says escort (Lost! 4492 carries the objective
 of the escort after it). There is no modifier: a wrong label is a data fix.
@@ -805,7 +806,8 @@ Errors:
   step or goal can apply to
 - coordinates outside 0–100
 - required elite work in a `Leveling` guide (a warning in other packs; elite work may appear there only as
-  an `optional` extra, with the tip `<Target> is elite: grouping up is advised.`):
+  an `optional` extra, with the tip `<Target> is elite: grouping up is advised.`, or in a step
+  with `when group <quest>`, which only a player who chose the group way follows):
   a non-`optional` `kill` of an npc of rank 1–3 (elite, rare elite, boss) hostile
   to a side the goal applies to (a friendly one is a talk credit), or `collect` of
   an item whose every located dropper is such an npc; `lint` also errors on a
@@ -868,7 +870,7 @@ Warnings:
   to a later `turnin` that needs it or `use` of it, timed from the latest
   goal that got more of it (`buy 13320 x2` serves two turn-ins, the second
   measured from the purchase), with the simulator's travel and kill times
-  over the guide's goals (docs/SIMULATION.md, "Keeping the guides' fixes"):
+  over the guide's goals:
   ``item 10439 (Durnan's Scalding Mornbrew) lasts 5 minutes, but the route
   takes about 11:29 from here to the `turnin` that spends it (line 196)``.
   Goals for other characters and `optional` ones are left out, so the
@@ -1023,11 +1025,12 @@ line but not the file, so an imported guide shows no picture.
   use 5411 quest 754.1 @51.8,68.4     -- Winterhoof Cleansing Totem
 ```
 
-### Travel: `sethome`, `hearth`, `getfp`, `fly`
+### Travel: `sethome`, `hearth`, `die`, `getfp`, `fly`
 
 ```
   sethome "Goldshire" npc 295         -- Innkeeper Farley, inside
   hearth "Goldshire"
+  die "Sen'jin Village" @57.2,73.3   -- through level 10 the resurrection costs no sickness
   getfp "Thunder Bluff" npc 2995      -- Tal, on the top of the bluff
   fly "Crossroads"
 ```

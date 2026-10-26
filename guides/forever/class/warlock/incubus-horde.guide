@@ -29,8 +29,8 @@ why A second seducer demon, the male sayaad, and a soul shard bag to carry your 
 # summoning circle.
 # Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
 # Questie-Forever) for the givers, the scarf's droppers, the two hearts and
-# their owners and the summoning circles; Wowhead Forever's Warlock class
-# page (data/local/quest-audit/wowhead-class-quests.json): Forever gives both
+# their owners and the summoning circles; Forever's Warlock class quest
+# list (data/local/quest-audit/): Forever gives both
 # chains level 20 (Wish You Were Here level 27, 2200 experience) and lists a
 # Small Soul Pouch as each Binding's reward (codex quests.json: 22243 on
 # 65604 and 65597). Forever's data does not list the spell; in Classic it is

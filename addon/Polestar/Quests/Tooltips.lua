@@ -57,8 +57,8 @@ local function questsStartedBy(itemID)
 	if not startItems then
 		startItems = {}
 		local F = Q.F
-		for q, r in pairs(Q._data.quests) do
-			for _, it in Q.Each(r[F.START_ITEM]) do
+		for _, q in ipairs(Q.QuestIds()) do
+			for _, it in Q.Each(Q.QuestRecord(q)[F.START_ITEM]) do
 				local list = startItems[it]
 				if not list then
 					list = {}

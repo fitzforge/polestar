@@ -13,7 +13,7 @@ return {
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: Thundris' Brief aus {area:442}",
 	-- {quest:97914} Expanding Horizons · {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-ashenvale)"] = "",
+	["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-ashenvale)"] = "Erst wenn {quest:97914} abgegeben ist: für {npc:3649}, zurück in {area:442} (06-ashenvale)",
 
 	-- Step 2: Shaman training
 	["Shaman training"] = "Schamanentraining",
@@ -38,7 +38,7 @@ return {
 
 	-- Step 4: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
-	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn to Redridge."] = "",
+	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn to Redridge."] = "Flieg nach {area:108} und geh nach Nordwesten zur Küste: Die {object:177790} liegt vor dem Ufer auf dem Meeresboden. Geh dann östlich der Straße durch Elwynn nach Rotkammgebirge.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}: the {object:177790}"] = "{item:15882}: {object:177790}",
 
@@ -65,7 +65,7 @@ return {
 	["Gnolls toward {area:1002}"] = "Gnolle Richtung {area:1002}",
 	-- {area:1002} Three Corners
 	-- plural, as words: Redridge Mongrels = {npc:423} Redridge Mongrel · Redridge Thrashers = {npc:712} Redridge Thrasher · Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Dire Condors = {npc:428} Dire Condor · Great Goretusks = {npc:547} Great Goretusk
-	["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Redridge Brutes, for the Iron Pikes and Rivets, hold the hills further north; Dire Condors and Great Goretusks roam the hills east of them."] = "",
+	["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Redridge Brutes, for the Iron Pikes and Rivets, hold the hills further north; Dire Condors and Great Goretusks roam the hills east of them."] = "Bastarde der Rotkammgnolle und andere Gnolle halten die Hügel östlich von {area:1002}, nördlich der Straße; Hauer der Rotkammgnolle streifen zwischen ihnen umher, Wilderer lagern südlich der Straße. Schläger der Rotkammgnolle, für die Eisenspitzen und Nieten, halten die Hügel weiter nördlich; Terrorkondore und Große Geiferzähne streifen durch die Hügel östlich davon.",
 	-- {item:280911} Spiked Collar
 	-- plural, as words: Redridge Thrashers = {npc:712} Redridge Thrasher
 	["{item:280911}: Redridge Thrashers"] = "{item:280911}: Hauer der Rotkammgnolle",
@@ -88,7 +88,7 @@ return {
 
 	-- Step 14: Alther's Mill
 	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula
-	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "",
+	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "Große Taranteln kriechen an den Hängen rund um die Mühle nordöstlich des Sees.",
 
 	-- Step 15: Galardell Valley
 	-- {npc:703} Lieutenant Fangore · {area:2099} Stonewatch Keep
@@ -97,9 +97,9 @@ return {
 	["{item:1075}: any Shadowhide gnoll"] = "{item:1075}: jeder Gnoll der Schattenfelle",
 
 	-- Step 16: Blackrock camps
-	["Blackrock camps"] = "",
+	["Blackrock camps"] = "Blackrock-Lager",
 	-- {area:2099} Stonewatch Keep
-	["South down the valley's east side to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite."] = "",
+	["South down the valley's east side to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite."] = "Südlich das Tal entlang seiner Ostseite zu den Blackrock-Lagern östlich von {area:2099}. Abtrünnige, Grunzer und Läufer füllen sie; halte dich östlich der Feste, deren Orcs Elite sind.",
 
 	-- Step 17: Back to Lakeshire
 	-- {area:69} Lakeshire

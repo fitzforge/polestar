@@ -301,7 +301,6 @@ step Mulgore (1/2)
   zone Mulgore
   tip 16 areas to discover here, levels 5-10.
   note "The road west from Camp Taurajo climbs into Mulgore."
-  note "Flight path here: Thunder Bluff (Tal)."
   explore 57.8,31.6 "Red Rocks" live
   explore 59.2,52.1 "The Venture Co. Mine" live
   explore 51.9,68.9 "Winterhoof Water Well" live

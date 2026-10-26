@@ -1,5 +1,5 @@
 'use strict';
-// Drops and loot in a release Codex: a boss's own table before Wowhead's
+// Drops and loot in a release Codex: a boss's own table before Forever's
 // world-drop pool (tools/lib/codex/instances.js), a rare's or treasure's own
 // drops first and LOOT_CAP, what each cap cuts (evidence.cut) and the reason
 // parity gives those rows (tools/lib/codex/build.js, parity.js).
@@ -19,12 +19,12 @@ const TABLES = {
 	MapDifficulty: [],
 };
 
-test("buildInstances: a boss's own Wowhead table (any rate) before the world-drop pool (commondrop, 1% or more)", () => {
+test("buildInstances: a boss's own Forever drop table (any rate) before the world-drop pool (commondrop, 1% or more)", () => {
 	const drop = (item, count, common = false) => ({ item, count, outof: 1000, common });
 	const { instances } = buildInstances(instanceFacts(TABLES, [{ ID: '249' }]), {
 		npcs: { 10184: { id: 10184, name: 'Onyxia', level: 63, rank: 3, spawns: {}, source: ['pfquest'] } },
 		items: { 17966: { id: 17966, name: 'Onyxia Hide Backpack', drops: { npc: { 10184: 84 } }, vendors: [] } },
-		wowhead: {
+		web: {
 			npc: {
 				10184: {
 					id: 10184,
@@ -86,7 +86,7 @@ test('compareCodex: a confirmed drop or loot row the cap cut carries the reason 
 		instances: {},
 	};
 	const drops = [{ item: 2589, count: 9, outof: 100 }, { item: 3159, count: 1, outof: 100 }];
-	const verify = { wowhead: { npc: { 511: { drops: [drops[0]] }, 61: { drops: [drops[1]] } }, object: {}, item: {} }, clientInstances: new Set() };
+	const verify = { web: { npc: { 511: { drops: [drops[0]] }, 61: { drops: [drops[1]] } }, object: {}, item: {} }, clientInstances: new Set() };
 	const r = compareCodex(ours, theirs, verify);
 	assert.deepEqual(r.kinds['drop chances'].internalOnly, { confirmed: 1, notInForever: 0, unverified: 0, cut: 1 });
 	assert.match(r.kinds['drop chances'].missing[0].reason, /^cut by a cap/);

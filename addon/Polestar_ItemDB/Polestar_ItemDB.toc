@@ -22,7 +22,8 @@
 ## Author: Polestar
 ## X-License: GPL-3.0-only
 ## Version: 0.2.6
-## Category: Quests
+## Category: Polestar
+## Group: Polestar
 ## LoadOnDemand: 1
 ## Dependencies: Polestar
 

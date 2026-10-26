@@ -1533,6 +1533,9 @@ function P.Render()
 	end
 	for _, s in ipairs(sections) do if s.psFrame then s.psFrame:Hide() end end
 	local filter = factionFilter()
+	-- The other faction's guides come in when the filter asks for them
+	-- (Guides.LoadFaction): their load fires GUIDES_REGISTERED, which renders.
+	if filter ~= UI.PlayerFaction() and ns.Guides and ns.Guides.LoadFaction and ns.Guides.LoadFaction(filter) then return end
 	-- A pack entry whose pack was hidden or holds no guides, or a category no
 	-- shown guide is in (its pack was switched off): back to All.
 	if category:sub(1, #PACK) == PACK then
@@ -1650,9 +1653,14 @@ function P.Render()
 		end
 		if n == 0 and not (query ~= "" and UI.LookupCount and UI.LookupCount() > 0) then
 			if #(ns.Guides and ns.Guides.List and ns.Guides.List() or {}) == 0 then
-				empty = (UI.Packs and UI.Packs.AnySwitchedOff())
-					and L["No guides shown: the community addons are switched off. Turn one on under Options, Community guides (/polestar packs)."]
-					or L["No guides installed. Enable Polestar Guides or a community addon in the AddOns list on the character screen, then reload."]
+				local Pk = UI.Packs
+				if Pk and Pk.OursSwitchedOff() then
+					empty = L["No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs)."]
+				elseif Pk and Pk.AnySwitchedOff() then
+					empty = L["No guides shown: the community addons are switched off. Turn one on under Options, Community guides (/polestar packs)."]
+				else
+					empty = L["No guides installed. Enable Polestar Guides or a community addon in the AddOns list on the character screen, then reload."]
+				end
 			elseif query ~= "" then
 				empty = string.format(L["No guides match \226\128\156%s\226\128\157."], query)
 			elseif category == "Favorites" then

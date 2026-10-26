@@ -128,7 +128,7 @@ step General Kirika
 
 step Scouring the Desert
   tip Silithyst geysers erupt across the southern desert. Walk into the Silithyst one leaves behind and carry it to the Horde's Silithyst Extractor at Kirika's camp; fighting or mounting drops it.
-  complete 9422
+  complete 9422 @50.93,69.33 era
   turnin 9422                         -- General Kirika
 
 step Flayers and Rock Stalkers

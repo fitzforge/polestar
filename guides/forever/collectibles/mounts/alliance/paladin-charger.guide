@@ -34,7 +34,7 @@ zone Stormwind City
 # quests.json gives The Work of Grimand Elmore (7641) and Ancient Equine
 # Spirit (7643) no `pre`; the codex has them after Exorcising Terrordale
 # (7640) and Collection of Goods (7642), and the story (Lord Grayson sends
-# you on after each) and Wowhead's series put them after 7640 and Grimand's
+# you on after each) and Forever's quest chain data put them after 7640 and Grimand's
 # Finest Work (7648). This guide follows that order.
 # Again Into the Great Ossuary (7666, repeatable, a new Divination Scryer) is
 # only named in a tip: the data lists it after Judgment and Redemption, and
@@ -42,7 +42,7 @@ zone Stormwind City
 # Places: npcs.json for the givers and the Terrordale Spirits;
 # items.json for the vendors of the Enriched Manna Biscuits (the Argent Dawn
 # quartermasters), the Stratholme Supply Crates that hold the Holy Water and
-# the droppers of the diamonds; tools/lib/codex/entrances.json (QuestieDB
+# the droppers of the diamonds; data/codex/entrances.json (QuestieDB
 # Forever) for the Dire Maul gate (Feralas 59.2,45.1), Scholomance (Caer
 # Darrow, Western Plaguelands 69.7,73.2) and Stratholme's main gate (Eastern
 # Plaguelands 26.5,10.4, Forever's map). Tendris Warpwood, the Ancient Equine

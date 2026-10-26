@@ -147,3 +147,13 @@ test('pocket tests in worker threads give what one thread gives', async () => {
 	assert.deepEqual(many.stats.continents[0].notPockets, one.stats.continents[0].notPockets);
 	assert.equal(one.doc.chains.length, 1);
 });
+
+test('nav aids writes aids.json in its grid\'s folder: --dir without --out never overwrites data/local/nav/aids.json', () => {
+	const path = require('node:path');
+	const nav = require('../tools/commands/nav');
+	const { ROOT } = require('../tools/lib/paths');
+	const dir = tmpdir('polestar-nav-aids-');
+	assert.equal(nav.aidsOut({ dir }), path.join(dir, 'aids.json'));
+	assert.equal(nav.aidsOut({}), path.join(ROOT, 'data', 'local', 'nav', 'aids.json'));
+	assert.equal(nav.aidsOut({ dir, out: path.join(dir, 'x.json') }), path.join(dir, 'x.json'));
+});

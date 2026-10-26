@@ -1,0 +1,8 @@
+ID,AreaName_lang,ContinentID,ParentAreaID
+9001,Westvale,0,0
+9011,Westvale Mill,0,9001
+9002,Mid Ridge,0,0
+9021,Ridge Hollow,0,9002
+9003,Eastmarsh,0,0
+9004,Highmoor,0,0
+9099,Nowhere,1,0

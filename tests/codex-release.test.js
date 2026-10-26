@@ -2,7 +2,8 @@
 // The release-safe Codex (`codex build` without --local-extras): dungeons and
 // raids from the Forever client's tables (tools/lib/codex/instances.js), the
 // retired rule from the client's Mount flags, rares from npc ranks, and a
-// pack that says it may ship (meta, LICENSE-DATA.txt, pack's releaseRefusal).
+// pack that says it may ship (meta, LICENSE-DATA.txt; `forge release pack`
+// refuses any other: forge-release addons.rs codex_refusal).
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -10,7 +11,6 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { instanceFacts, buildInstances, curatedEntrances } = require('../tools/lib/codex/instances');
 const { mergeCodex, clientFacts, buildCodex } = require('../tools/lib/codex/build');
-const { releaseRefusal } = require('../tools/lib/codex/pack');
 const { tmpdir } = require('./helpers/tmp');
 
 // Westfall's live frame: world x north / y west -> map percent.
@@ -242,7 +242,7 @@ test('release merge: rares from npc ranks (4 rare, 2 rare elite) with spawns and
 	assert.deepEqual(codex.instances.deadmines.bosses.at(-1), { name: 'Edwin VanCleef', npc: 639, items: [5193, 5191], encounter: 1 });
 });
 
-test('buildCodex: a release build says so in its meta and ships its notices; a --local-extras build is refused by pack', async () => {
+test('buildCodex: a release build says so in its meta and ships its notices; a --local-extras build says so', async () => {
 	const tmp = tmpdir('polestar-codex-release-');
 	const safe = await buildCodex({ inputs: releaseInputs(), outDir: path.join(tmp, 'out'), packDir: path.join(tmp, 'safe', 'Polestar_Codex'), version: '1.0.0', measure: false });
 	assert.equal(safe.codex.meta.localExtras, false);
@@ -251,14 +251,12 @@ test('buildCodex: a release build says so in its meta and ships its notices; a -
 	assert.match(notice, /^Polestar Codex: third-party notices/);
 	assert.match(notice, /^pfQuest\n-------\nVersion: abc\nLicence: MIT$/m);
 	assert.doesNotMatch(notice, /LOCAL BUILD/);
-	assert.equal(releaseRefusal(safe.packDir), null);
 
 	const local = { ...releaseInputs(), localExtras: true, atlasloot: { meta: { version: 'Forever 1.60.1', licence: 'GPL-2.0' }, instances: [], collections: [], crafting: [], factions: [], pvp: [] } };
 	const x = await buildCodex({ inputs: local, outDir: path.join(tmp, 'outx'), packDir: path.join(tmp, 'local', 'Polestar_Codex'), version: '1.0.0', measure: false });
 	assert.equal(x.codex.meta.localExtras, true);
 	assert.match(fs.readFileSync(path.join(x.packDir, 'LICENSE-DATA.txt'), 'utf8'), /LOCAL BUILD \(--local-extras\)/);
-	assert.match(releaseRefusal(x.packDir), /--local-extras build/);
-	assert.match(releaseRefusal(path.join(tmp, 'nowhere')), /not built/);
+	assert.match(fs.readFileSync(path.join(x.packDir, 'Meta.lua'), 'utf8'), /\blocalExtras = true\b/);
 });
 
 test('compareCodex: per-kind match against the internal build, missing and different rows, reasons, and what needs recording', () => {
@@ -299,8 +297,8 @@ test('compareCodex: per-kind match against the internal build, missing and diffe
 	assert.deepEqual(r.needsRecording.map((n) => [n.kind, n.event]), [['instance', 'enter, encounter'], ['rare', 'rare, slain + drop']]);
 	assert.match(markdown(r), /^\| instances \| 2 \| 1 \| 50\.0% \| 0 \| 0 \| 1 \| 0 \| 0 \|$/m);
 
-	// Checked against Wowhead Forever and the client: what Forever lacks is the internal build's error, not a gap.
-	const verify = { wowhead: { npc: { 62: { classification: 'normal', drops: [], spawns: {} } }, object: {}, item: { 3: { rep: [], pvpRank: null } } }, clientInstances: new Set() };
+	// Checked against Forever's data and the client: what Forever lacks is the internal build's error, not a gap.
+	const verify = { web: { npc: { 62: { classification: 'normal', drops: [], spawns: {} } }, object: {}, item: { 3: { rep: [], pvpRank: null } } }, clientInstances: new Set() };
 	const v = compareCodex(ours, theirs, verify);
 	assert.deepEqual(v.kinds.instances.internalOnly, { confirmed: 0, notInForever: 1, unverified: 0 });
 	assert.deepEqual(v.kinds.rares.internalOnly, { confirmed: 0, notInForever: 1, unverified: 0 });

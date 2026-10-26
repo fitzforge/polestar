@@ -15,12 +15,12 @@ why A one-use stone that makes you much stronger against undead for 10 minutes; 
 # Shadowbreaker in Stormwind or Brandur Ironhammer in Ironforge, Dispelling
 # Evil (8414), Inert Scourgestones (8416) and Forging the Mightstone (8418).
 # Titled after its reward, the Holy Mightstone (one use, ten minutes against
-# the undead: Wowhead Classic's item tooltip, wowhead.com/classic/item=20620);
+# the undead: the classic item data, item 20620);
 # the quest name stays in keywords.
 # Sources: quests.json, npcs.json and items.json for givers, enders,
 # objectives and the droppers of the Minion's Scourgestones and the Voodoo
-# Feathers; Wowhead Forever's Paladin class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the rewards: the Holy
+# Feathers; Forever's Paladin class quest list
+# (data/local/quest-audit/) for the rewards: the Holy
 # Mightstone, and Forever's change note on 8418, "Rewards: no longer Choice of
 # Chivalrous Signet, Choice of Lightforged Blade, Choice of Sanctified Orb".
 # The Sunken Temple entrance (Swamp of Sorrows 69.9,53.6) is the one

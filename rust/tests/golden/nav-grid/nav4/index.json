@@ -1,0 +1,105 @@
+{
+	"schema": 1,
+	"version": 4,
+	"product": null,
+	"build": null,
+	"builtAt": "2026-10-23T20:11:22.131Z",
+	"constants": {
+		"ADT": 533.3333333333334,
+		"CELL": 2.0833333333333335,
+		"TILE_CELLS": 256,
+		"GENTLE_MAX": 35,
+		"WALK_MAX": 50,
+		"STEEP_MAX": 60,
+		"CLIMB_MAX": 80,
+		"STAIR_MAX": 45,
+		"WALL_MIN": 80,
+		"AGENT_HEIGHT": 1.6,
+		"STEP": 1,
+		"JUMP": 1.6,
+		"SWIM_DEPTH": 1.5,
+		"SAFE_FALL": 14.57,
+		"FALL_MAX": 30,
+		"FALL_MAX_WATER": 60,
+		"STABLE_CELLS": 4,
+		"MERGE_TOP": 0.5,
+		"MAX_LAYERS": 31,
+		"FALL_REACH": 3,
+		"FALL_SLIDE": 12,
+		"RUN_MAX": 32,
+		"LIFT_RADIUS": 8,
+		"LIFT_REACH": 10,
+		"LIFT_MIN": 10,
+		"LIFT_FIT": 2,
+		"LIFT_OPEN": 200
+	},
+	"continents": {
+		"0": {
+			"name": "Synthetic",
+			"tiles": [
+				"32_32",
+				"33_32",
+				"32_33",
+				"33_33"
+			],
+			"entries": 302090,
+			"surfaces": 288487,
+			"falls": 6986,
+			"nodes": 70,
+			"edges": [
+				1196,
+				1204
+			],
+			"regions": 2663,
+			"components": 2667,
+			"graph": "graph/0.bin.gz",
+			"graphVersion": 5,
+			"lifts": [
+				{
+					"name": "Mesa Elevator",
+					"id": 1,
+					"a": {
+						"col": 32,
+						"row": 32,
+						"k": 45921,
+						"entry": 64097,
+						"z": 0
+					},
+					"b": {
+						"col": 32,
+						"row": 32,
+						"k": 45919,
+						"entry": 64093,
+						"z": 60
+					},
+					"h": 60
+				}
+			],
+			"liftsKey": "[{\"name\":\"Mesa Elevator\",\"id\":1,\"a\":{\"col\":32,\"row\":32,\"k\":45921,\"entry\":64097,\"z\":0},\"b\":{\"col\":32,\"row\":32,\"k\":45919,\"entry\":64093,\"z\":60},\"h\":60}]",
+			"tris": 131266,
+			"seconds": 2.316,
+			"tileStats": {
+				"32_32": [
+					88630,
+					78443,
+					1553
+				],
+				"33_32": [
+					71643,
+					69637,
+					342
+				],
+				"32_33": [
+					75282,
+					74747,
+					4028
+				],
+				"33_33": [
+					66535,
+					65660,
+					1063
+				]
+			}
+		}
+	}
+}

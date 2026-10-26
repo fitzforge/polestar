@@ -5,10 +5,11 @@
 ## Version: 3.0.0
 ## Dependencies: Polestar
 ## X-Polestar-Pack: acceptance-future
-## X-Polestar-Format: 6
+## X-Polestar-Format: 99
 ## X-Polestar-Needs: 0.9.0
 ## X-License: MIT
 # Fixture (tests/acceptance-packs.test.js), written by hand: a pack in a
-# format this Polestar does not read yet.
+# format this Polestar does not read yet (99: far past every shipped one, so a new
+# format never makes it readable).
 
 Pack.lua

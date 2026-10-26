@@ -1,0 +1,96 @@
+name: Library release
+
+# A tag `lib-v<api>.<data version>` (e.g. lib-v1.2026.10.1) publishes the in-game library
+# LibForeverData, generated from the committed public database (forever-db/) with
+# `forge data publish --lua`: its Lua test runs against the release's tables, then
+# LibForeverData-<version>.zip is attached to a GitHub release. The release is never the
+# repository's latest: Polestar's own `v*` releases stay that.
+on:
+  push:
+    tags: ["lib-v*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lib-release-${{ github.ref }}
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+
+jobs:
+  release:
+    name: Publish LibForeverData
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+
+      - name: Lua
+        run: sudo apt-get update -q && sudo apt-get install -y -q lua5.1
+
+      - name: Build forge
+        working-directory: rust
+        run: cargo build --release --locked -p forge
+
+      # The tag is lib-v<api>.<YYYY>.<MM>.<N>: the data version must be forever-db's.
+      - name: Version
+        id: version
+        run: |
+          version="${GITHUB_REF_NAME#lib-v}"
+          data="${version#*.}"
+          have="$(jq -r .version forever-db/index.json)"
+          if [ "$data" != "$have" ]; then
+            echo "::error file=forever-db/index.json::the tag says data $data, forever-db/index.json says $have"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      # The library carries the committed release's tables: the same guard as the data release, so a
+      # lib tag never ships a forever-db that data-v* would refuse.
+      - name: Guard
+        run: rust/target/release/forge data publish --root . --check forever-db
+
+      - name: Library
+        run: |
+          mkdir -p dist/addons
+          rust/target/release/forge data publish --root . --from forever-db --lua dist/addons
+          grep -q "^## Version: ${{ steps.version.outputs.version }}$" dist/addons/LibForeverData/LibForeverData.toc \
+            || { echo "::error::LibForeverData.toc's Version is not ${{ steps.version.outputs.version }}"; exit 1; }
+
+      - name: Lua test
+        run: lua5.1 tests/lua/libforeverdata_test.lua dist/addons forever-db
+
+      - name: Archive
+        run: |
+          cd dist/addons
+          zip -qrX "../LibForeverData-${{ steps.version.outputs.version }}.zip" LibForeverData
+          cd ..
+          sha256sum LibForeverData-*.zip > SHA256SUMS
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: LibForeverData ${{ steps.version.outputs.version }}
+          files: |
+            dist/LibForeverData-*.zip
+            dist/SHA256SUMS
+          make_latest: false
+
+      # Later: its own CurseForge project. Needs a CF_API_TOKEN secret and the project id.
+      # - name: CurseForge
+      #   env:
+      #     CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+      #   run: |
+      #     curl -sf -H "X-Api-Token: $CF_API_TOKEN" \
+      #       -F "metadata={\"changelog\": \"forever-db ${{ steps.version.outputs.version }}\", \"releaseType\": \"release\", \"gameVersions\": []};type=application/json" \
+      #       -F "file=@dist/LibForeverData-${{ steps.version.outputs.version }}.zip" \
+      #       "https://wow.curseforge.com/api/projects/<project id>/upload-file"

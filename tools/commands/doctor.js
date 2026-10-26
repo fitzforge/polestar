@@ -43,9 +43,9 @@ const FIX = {
 		linux: 'sudo apt install lua5.1 (Debian, Ubuntu), sudo pacman -S lua51 (Arch) or sudo dnf install luajit (Fedora; or sudo dnf install compat-lua, then export LUA=lua-5.1)',
 	},
 	data: {
-		win32: 'in the Polestar folder: node tools/polestar.js data build',
-		darwin: 'in the Polestar folder: node tools/polestar.js data build',
-		linux: 'in the Polestar folder: node tools/polestar.js data build',
+		win32: 'in the Polestar folder: forge data build',
+		darwin: 'in the Polestar folder: forge data build',
+		linux: 'in the Polestar folder: forge data build',
 	},
 	addons: {
 		win32: 'setx WOW_FOREVER_ADDONS "C:\\Program Files (x86)\\World of Warcraft\\_forever_\\Interface\\AddOns", then open a new terminal; or pass --dest <folder>',

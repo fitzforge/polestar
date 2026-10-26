@@ -184,7 +184,8 @@ You need Node 24 or newer, and Lua 5.1 or LuaJIT for `play` and `playtest`.
 git clone https://github.com/fitzforge/polestar.git
 cd polestar
 npm link               # puts `polestar` on your PATH
-polestar data build    # the reference data every guide command reads
+cd rust && cargo build --release -p forge && cd ..   # or a prebuilt forge from the Releases page
+rust/target/release/forge data build    # the reference data every guide command reads
 polestar doctor        # checks the setup and prints the fix for anything missing
 cd ..                  # your pack goes beside the clone, not inside it
 polestar new my-pack   # asks for the id, title, author and licence
@@ -257,19 +258,19 @@ them.
 2. **Write**: `polestar find <text>` prints quest, NPC, object, item, inn
    and flight-point lines ready to paste. In the game, `/polestar where`
    prints where you stand as a guide line.
-3. **Check**: `polestar lint` checks every guide against the game's data,
+3. **Check**: `forge guide lint` checks every guide against the game's data,
    and `polestar playtest` plays each one to the end, for each race that
    can reach it and each class it has steps for.
 4. **Try**: `polestar play` opens the real addon in your browser with your
    pack loaded, and `polestar install` copies it into the game's AddOns
    folder (restart the game the first time).
-5. **Build**: `polestar pack` writes `dist/<folder>-<version>.zip`, byte
+5. **Build**: `forge release pack` writes `dist/<folder>-<version>.zip`, byte
    for byte reproducible.
 6. **Publish**: upload the zip as a new addon project on CurseForge, Wago
    or GitHub. On CurseForge and Wago, mark Polestar as a required
    dependency so addon apps install it too. With the template's workflow, a
    version tag on GitHub builds the zip and attaches it to a release.
-7. **Update**: raise `version` in `pack.json`, run `polestar pack` again and
+7. **Update**: raise `version` in `pack.json`, run `forge release pack` again and
    upload the new zip.
 
 > [!NOTE]
@@ -345,13 +346,13 @@ a community addon.
 | | Import string | Community addon |
 |---|---|---|
 | **For** | one small guide | a whole route or a set of guides |
-| **You run** | `polestar export <file.guide>` | `polestar pack` |
+| **You run** | `polestar export <file.guide>` | `forge release pack` |
 | **Players** | paste it on the Import page | install it, then restart the game |
 | **Updates** | raise the guide's `version` and share the new string: players press Update | raise `version` in `pack.json` and upload the new zip |
 | **Size** | one guide of at most 60 steps (and 50,000 characters) | no limit |
 
 ```sh
-polestar lint && polestar playtest       # the same checks as for an addon
+forge guide lint && polestar playtest       # the same checks as for an addon
 polestar export guides/cozy-sleeping-bag.guide > cozy.txt
 ```
 

@@ -218,7 +218,7 @@ const CURATED = [
 	['WARLOCK', 'Maximillion', TIRISFAL],
 	['WARLOCK', 'Rupert Boch', TIRISFAL],
 	// Forever's new race/class pairs and Skyborne (npcs from QuestieDB's Forever
-	// store, class from the NPC's <… Trainer> tag on Wowhead Forever, 2026-10-12).
+	// store, class from the NPC's <… Trainer> tag in Forever's quest data, 2026-10-12).
 	['SHAMAN', 'Eldrun Stormbreaker', IF],
 	['SHAMAN', 'Teo Hammerstorm', DUN_MOROGH],
 	['SHAMAN', 'Ingrid Dunwald', DUN_MOROGH],

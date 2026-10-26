@@ -26,7 +26,7 @@ return {
 
 	-- Step 4: Wrenix the Wretched
 	-- {area:392} Ratchet · {zone:1413} Barrens · {npc:7161} Wrenix the Wretched · {item:7970} E.C.A.C. · {item:5060} Thieves' Tools
-	["Fly or walk to {area:392} on the {zone:1413} coast. {npc:7161} stands in town with his Gizmotronic Apparatus: buy an {item:7970} and {item:5060} from the apparatus before you go."] = "",
+	["Fly or walk to {area:392} on the {zone:1413} coast. {npc:7161} stands in town with his Gizmotronic Apparatus: buy an {item:7970} and {item:5060} from the apparatus before you go."] = "Flieg oder geh nach {area:392} an der Küste von {zone:1413}. {npc:7161} steht in der Stadt mit seinem Gizmotronischen Apparat: Kaufe vor dem Aufbruch {item:7970} und {item:5060} am Apparat.",
 
 	-- Step 5: Southsea Treasure
 	-- {area:392} Ratchet · {item:7970} E.C.A.C.
@@ -40,7 +40,7 @@ return {
 
 	-- Step 7: Fenwick Thatros
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {quest:1998} Fenwick Thatros · {area:228} Sepulcher
-	["Take the zeppelin from {zone:1454} to the {zone:1458} and head south into Silverpine. {quest:1998} stands north-east of the {area:228}."] = "",
+	["Take the zeppelin from {zone:1454} to the {zone:1458} and head south into Silverpine. {quest:1998} stands north-east of the {area:228}."] = "Nimm den Zeppelin von {zone:1454} nach {zone:1458} und geh nach Süden in den Silberwald. {quest:1998} steht nordöstlich des {area:228}.",
 
 	-- Step 9: Ambermill
 	-- {area:233} Ambermill · {object:103815} Ambermill Strongbox

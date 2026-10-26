@@ -11,8 +11,8 @@ levels 14-20
 zone Moonglade
 
 # Cure Poison: in Forever the spell is no longer trained, Power over Poison
-# (6125 Night Elf, 6130 Tauren) rewards it (Wowhead Forever's druid class
-# page: "Rewards: adds Cure Poison").
+# (6125 Night Elf, 6130 Tauren) rewards it (Forever's druid class
+# quest list: "Rewards: adds Cure Poison").
 # - Night Elves: Lessons Anew (6121, Mathrengyl Bearwalker) -> Dendrite
 #   Starblaze in Moonglade -> The Principal Source (6122: fill the sampler at
 #   Cliffspring Falls) -> Alanndarian Nightsong in Auberdine: Gathering the
@@ -24,17 +24,17 @@ zone Moonglade
 #   (6129: ten Sickly Gazelles) -> Dendrite -> Power over Poison (6130) back
 #   to Turak.
 # Earthroot needs Herbalism to pick (the quest text says so); herb vendors
-# sell it in limited stock (Wowhead Forever, item 2449: Maria Lumere in
+# sell it in limited stock (Forever's quest data, item 2449: Maria Lumere in
 # Stormwind six at a time, Hula'mahi at the Crossroads three), else the
 # Auction House.
 # Skyborne: Forever added Lessons Anew givers beside both Skyborne landings
 # (Alfina Nightgaze west of Dalaran, Hana Lighthoof in northern Mulgore), but
 # the data offered the rest of the chain to Night Elves and Tauren only.
-# Wowhead Forever opens the Alliance chain (6121-6125) to Skyborne druids
+# Forever's quest data opens the Alliance chain (6121-6125) to Skyborne druids
 # (corrections.json, checked 2026-10-16); this guide has no Skyborne steps
 # yet.
 # Sources: quests.json, npcs.json, objects.json and items.json (Questie
-# 12.1.0, Forever); Wowhead Forever quest 6123 (the Lunar Fungal Blooms grow in
+# 12.1.0, Forever); Forever's quest data for quest 6123 (the Lunar Fungal Blooms grow in
 # the moonkin caves east of Auberdine) and item 2449 (Earthroot vendors).
 
 # ---------------------------------------------------------------- Night Elves

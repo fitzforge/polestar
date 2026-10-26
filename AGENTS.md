@@ -2,14 +2,17 @@
 
 Polestar is a leveling guide addon for WoW: Forever: a Lua 5.1 addon in
 `addon/`, guides in `guides/`, Node tools in `tools/`
-(`node tools/polestar.js help`). Before you work here, read the skill for
-your task:
+(`node tools/polestar.js help`) and Polestar Forge, the Rust route builder
+in `rust/` (`forge --help`, docs/FORGE.md). Before you work here, read the
+skill for your task:
 
 | Task | Skill |
 |---|---|
 | Any change, commit, pull request or issue comment | [skills/polestar-contributing/SKILL.md](skills/polestar-contributing/SKILL.md) |
 | Looking at, triaging or answering a bug report | [skills/polestar-triage/SKILL.md](skills/polestar-triage/SKILL.md) |
-| Fixing a step, route, giver or coordinate in `guides/` | [skills/polestar-guide-fix/SKILL.md](skills/polestar-guide-fix/SKILL.md) |
+| Fixing a step, route, giver or coordinate in `guides/`, or the data behind it | [skills/polestar-guide-fix/SKILL.md](skills/polestar-guide-fix/SKILL.md) (step 3 says whether the guide is generated and which record takes the fix) |
+| Addon behaviour (reminders, map pins, the arrow's logic) | polestar-contributing; a Lua fix with its test, not touched by Forge |
+| Dungeon and lookup entries (entrances, pick-ups) | polestar-contributing; the data is in `tools/lib/codex/` |
 | Writing a separate community addon (guide pack) | [skills/polestar-guide-pack/SKILL.md](skills/polestar-guide-pack/SKILL.md) |
 
 The rules that hold for every task:

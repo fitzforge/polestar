@@ -14,12 +14,12 @@ why Experience at 50, ending in the Sunken Temple; Forever removed the Classic i
 # Voodoo Feathers (8423, 8424, 8425) for the Fallen Hero of the Horde at the
 # entrance to the Blasted Lands.
 # Sources: quests.json, npcs.json and items.json for the chain, objectives,
-# drops and places; Wowhead Forever's Warrior class page
-# (data/local/quest-audit/wowhead-class-quests.json): Voodoo Feathers no longer
+# drops and places; Forever's Warrior class quest list
+# (data/local/quest-audit/): Voodoo Feathers no longer
 # offers its Classic choice of Diamond Flask, Fury Visor or Razorsteel
-# Shoulders, and Wowhead does not say what replaces it. The voodoo feathers
+# Shoulders, and the list does not say what replaces it. The voodoo feathers
 # drop from the Atal'ai minibosses on the Sunken Temple's balcony, which have
-# no spawns in the data (https://foreverchanges.pro/dungeons/sunken-temple,
+# no spawns in the data (Forever's dungeon data,
 # "Balcony Minibosses"); the temple entrance, Swamp of Sorrows 69.9,53.6, is
 # the one guides/forever/alliance/40-50/07-un-goro-crater.guide uses.
 # No leveling guide takes the chain: Voodoo Feathers needs the Sunken Temple.

@@ -225,11 +225,11 @@ return {
 
 	-- Step 55: Back to Thunder Bluff
 	-- {area:222} Bloodhoof Village · {area:1639} Elder Rise
-	["Hearth to {area:222} and head north to {area:1639}."] = "",
+	["Hearth to {area:222} and head north to {area:1639}."] = "Kehr per Ruhestein nach {area:222} zurück und geh nach Norden zum {area:1639}.",
 
 	-- Step 56: Yaw Sharpmane
 	-- {area:222} Bloodhoof Village · {item:15908} Taming Rod · {npc:2956} Adult Plainstrider · {npc:2959} Prairie Stalker
-	["Head down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "",
+	["Head down to {area:222} and tame with the {item:15908}: an {npc:2956} on the plains, a {npc:2959} north of the village, a Swoop to the north-west."] = "Geh hinunter nach {area:222} und zähme mit {item:15908}: einen {npc:2956} auf den Ebenen, einen {npc:2959} nördlich des Dorfes, einen Sturzflieger im Nordwesten.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Zähm ihn mit {item:15908}",
 

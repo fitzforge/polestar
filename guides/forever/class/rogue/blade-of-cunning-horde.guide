@@ -20,8 +20,8 @@ why A dagger at 10 from your home town's rogue quests.
 #   back.
 # Sources: quests.json, npcs.json, objects.json and items.json for the givers,
 # drops and places; travel.json for the inns (Gamon and Marion Call stand by
-# the innkeepers); Wowhead Forever's Rogue class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the rewards and
+# the innkeepers); Forever's Rogue class quest list
+# (data/local/quest-audit/) for the rewards and
 # Forever's changes (none for these chains). Tazan's Key has one source in
 # the data, Gamon in Orgrimmar; the quest asks you to steal it.
 # Horde Skyborne have no level 10 Rogue quest in the data.

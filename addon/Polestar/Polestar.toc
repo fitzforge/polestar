@@ -23,7 +23,7 @@
 ## X-License: GPL-3.0-only
 ## X-Website: https://github.com/fitzforge/polestar
 ## Version: 0.2.6
-## Category: Quests
+## Category: Polestar
 ## IconTexture: Interface\AddOns\Polestar\Media\UI\logo
 ## OptionalDeps: EllesmereUI, TomTom, OpenMap
 ## SavedVariables: PolestarDB

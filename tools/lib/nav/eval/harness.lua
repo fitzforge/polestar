@@ -11,6 +11,7 @@
 -- queries.jsonl, one JSON object per line ([x, y, z] points in UnitPosition's frame, z null when unknown):
 --   {"type":"route","id":..,"map":0,"from":[x,y,z],"to":[x,y,z],"profile":null|"Alliance"|"Horde","style":"fastest"|"balanced"|"roads","level":n|null,"danger":{"<uiMapID>":mult}|null}
 --   {"type":"many","id":..,"map":0,"from":[x,y,z],"targets":[[x,y,z],...],"profile":..,"style":..}
+--   {"type":"surfaces","id":..,"map":0,"at":[x,y]}  (Path.SurfacesAt: {"n","format","surfaces":[{"z","marks","area","name"}]})
 -- out.jsonl: an init line ({"type":"init","files":n,"loadMs":..,"packedKB":..,"profiles":bool}), then one line per
 -- query:
 --   {"type":"route","id","ok","reason","cost","yards","ms","warmMs","kb","pts":[[x,y,z],...],"hubs","wet","zones","endZones"}
@@ -31,8 +32,10 @@
 -- piece in no zone counts nowhere), endZones: [the start's zone, the goal's zone] (Path.ZoneAt, null for none); both
 -- null on a router without Path.ZoneAt or a map without the zone field.
 
-local ENCODING, FILES, QUERIES, OUT, ZONES = arg[1], arg[2], arg[3], arg[4], arg[5]
-assert(ENCODING and FILES and QUERIES and OUT, "usage: harness.lua <encoding.lua> <files.txt> <queries.jsonl> <out.jsonl> [zones.json]")
+local ENCODING, FILES, QUERIES, OUT, ZONES, WARM = arg[1], arg[2], arg[3], arg[4], arg[5], arg[6]
+assert(ENCODING and FILES and QUERIES and OUT, "usage: harness.lua <encoding.lua> <files.txt> <queries.jsonl> <out.jsonl> [zones.json] [warm]")
+-- "warm" may appear as arg[5] (no zones file) or arg[6] (with zones file).
+if ZONES == "warm" then ZONES, WARM = nil, "warm" end
 
 local clock = function()
 	return os.clock() * 1000
@@ -183,6 +186,16 @@ collectgarbage("collect")
 local packedKB = collectgarbage("count") - kb0
 local Path = assert(Polestar_NavEngine or ns.Path, "no walking router loaded (Polestar_NavEngine)")
 local profiles = type(Polestar_NavCosts) == "table"
+
+-- Warm mode: keep caches between queries; set high budgets and raise the endpoint cap.
+-- Activated by the optional "warm" 6th argument (nav eval does not pass it; sim walks does).
+if WARM == "warm" then
+	Path.cacheKB    = 4e6
+	Path.graphKB    = 4e6
+	Path.graphRestKB = 4e6
+	Path.clusters   = 100000
+	Path.endsMax    = 1e9
+end
 
 -- The frame pump: Path.after queues a frame; drain runs frames until none is left.
 local frames = {}
@@ -361,14 +374,20 @@ local function many(q)
 	for i = 1, n do
 		targets[i] = point(q.map, q.targets[i])
 	end
+	-- Zone danger at the walker's level (sim walks per level band). The
+	-- query's targets share one zone (walks.js groups them), named by q.to,
+	-- so both ends' zones are exempt as on the arrow.
+	local danger = dangerOf(q.map, from, q.to and point(q.map, q.to) or from, q.level, q.danger)
 	errors = {}
-	Path.ClearCaches()
-	collectgarbage("collect")
+	if WARM ~= "warm" then
+		Path.ClearCaches()
+		collectgarbage("collect")
+	end
 	local got
 	local start = clock()
 	Path.FindMany(q.map, from, targets, function(costs, reason, job)
 		got = { costs = costs, reason = reason, job = job, ms = clock() - start, kb = collectgarbage("count") }
-	end, opts(q.profile, q.style))
+	end, opts(q.profile, q.style, danger))
 	drain()
 	local parts, yards = {}, "null"
 	local costs = got and got.costs or {}
@@ -400,6 +419,22 @@ local function many(q)
 	)
 end
 
+-- A cell's surfaces (Path.SurfacesAt): heights, marks and, on maps format 3, areas with their names (Path.AreaName).
+local function surfaces(q)
+	local t, a = {}, {}
+	local n = Path.SurfacesAt(q.map, q.at[1], q.at[2], t, a)
+	if n == nil then
+		drain()
+		n = Path.SurfacesAt(q.map, q.at[1], q.at[2], t, a)
+	end
+	local parts = {}
+	for i = 1, n or 0 do
+		local name = Path.AreaName and Path.AreaName(q.map, a[i] or 0)
+		parts[i] = string.format('{"z":%s,"marks":%d,"area":%d,"name":%s}', num(t[i], "%.2f"), t[-i] or 0, a[i] or 0, quote(name))
+	end
+	return string.format('{"type":"surfaces","id":%s,"n":%s,"format":%s,"surfaces":[%s]}', quote(q.id), tostring(n or 0), num(Path.AreaFormat and Path.AreaFormat(q.map), "%d"), table.concat(parts, ","))
+end
+
 local out = assert(io.open(OUT, "w"))
 out:write(string.format('{"type":"init","files":%d,"loadMs":%.0f,"packedKB":%.0f,"profiles":%s}\n', nfiles, loadMs, packedKB, tostring(profiles)))
 out:flush()
@@ -411,6 +446,8 @@ for line in io.lines(QUERIES) do
 			text = route(q)
 		elseif q.type == "many" then
 			text = many(q)
+		elseif q.type == "surfaces" then
+			text = surfaces(q)
 		else
 			text = string.format('{"type":"error","id":%s,"reason":%s}', quote(q.id), quote("unknown query type " .. tostring(q.type)))
 		end

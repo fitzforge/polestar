@@ -22,9 +22,9 @@ why The Air Totem that lets you place air totems, then a weapon of your choice a
 # handed to Bath'rah the Windwatcher in Alterac Mountains for the weapon.
 # Sources: quests.json, npcs.json and items.json (givers, enders, the Twisted
 # Totems' droppers, the Ravaging Tempest's spawns, Razorfen Kraul's entrance
-# from dungeons.json); Wowhead Forever's Shaman class page
-# (data/local/quest-audit/wowhead-class-quests.json) and quest pages
-# (https://www.wowhead.com/forever/quest=94789, 96264, 79358, 96135, 96016)
+# from dungeons.json); Forever's Shaman class quest list
+# (data/local/quest-audit/) and quest data
+# (quests 94789, 96264, 79358, 96135, 96016)
 # for the order and the rewards: Air Totem; 96016 gives the Elementalist's
 # Guard and a choice of Lightning's Grasp, Tidebringer's Claw or Rage of the
 # Storm.
@@ -32,7 +32,7 @@ why The Air Totem that lets you place air totems, then a weapon of your choice a
 # lists Rau Cliffrunner and Veyric as its enders, and its text asks for the
 # totems "for Veyric Thunderhame in Arathi Highlands": handed to Veyric.
 # Elite and dungeon work: Charlga Razorflank is the last boss of Razorfen
-# Kraul (a dungeon), and Wowhead marks Heed My Call as an elite quest.
+# Kraul (a dungeon), and Forever's quest data marks Heed My Call as an elite quest.
 # The Alliance leveling guides leave this out: Veyric sits in Arathi and the
 # chain then crosses both continents.
 # Beta capped at 30: nothing past Call of Air was played; it follows the data

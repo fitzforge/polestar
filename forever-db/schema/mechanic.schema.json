@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/mechanic.schema.json",
+  "title": "mechanic",
+  "description": "How a quest plays out beyond its objectives, in our own words.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "quest",
+    "kind",
+    "params"
+  ],
+  "properties": {
+    "quest": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "quest id"
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1,
+      "description": "mechanic kind"
+    },
+    "params": {
+      "type": "object",
+      "description": "the mechanic's parameters"
+    }
+  }
+}

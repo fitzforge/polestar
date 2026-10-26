@@ -46,7 +46,7 @@ next forever/alliance/03-darkshore
 # - Harvesting the Harvesters (92910) starts from an item the Golems and
 #   Watchers drop: it is picked up on the farms rather than at Alexston.
 #   It is optional (#298): the Precessive Autocognition Assembly drops about
-#   once in 900 kills (Wowhead Forever item=255155: 161 of 187,474 Harvest
+#   once in 900 kills (Forever's quest data, item 255155: 161 of 187,474 Harvest
 #   Watchers, 54 of 46,307 Rusty Harvest Golems, checked 2026-10-17), so
 #   the farm step does not wait for it. The turn-in at Saldean's is plain:
 #   it holds only a player who took the quest.
@@ -118,7 +118,7 @@ next forever/alliance/03-darkshore
 # Skyborne turn in Journey to Sentinel Hill (98021).
 # Alba Fairmoon's whole chain (92742, 92744, 92745, 92747, 92748, 92749,
 # 92750, 92751, 92752, 92753, 92819) is not for Humans on
-# Forever: Wowhead Forever lists Dwarf, Night Elf, Gnome and Skyborne (#144).
+# Forever: Forever's quest data lists Dwarf, Night Elf, Gnome and Skyborne (#144).
 # Its goals carry `only Dwarf,Gnome,NightElf,Skyborne`; the two mine steps,
 # which are only for 92745, carry it on the step.
 

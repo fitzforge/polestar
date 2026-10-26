@@ -9,7 +9,7 @@ zone Darkshore
 
 # Tallstrider Hatchling from the Strider Clutchmother in Darkshore (new in
 # Forever).
-# Sources: Wowhead Forever item 284176 (Strider Clutchmother, 0.6% in 886
+# Sources: Forever's drop data, item 284176 (Strider Clutchmother, 0.6% in 886
 # kills); npcs.json (her spawn); Forever client 1.60.1.70338.
 
 step Strider Clutchmother

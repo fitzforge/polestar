@@ -10,7 +10,7 @@ return {
 	-- {skill:186} Mining
 	["Learn {skill:186}"] = "{skill:186} erlernen",
 	-- {skill:186} Mining · {item:2901} Mining Pick
-	["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} at any level, and so does the Junior Mining Trainer in each starting zone; the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "",
+	["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} at any level, and so does the Junior Mining Trainer in each starting zone; the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "Jeder Lehrer für {skill:186} deiner Fraktion bringt dir auf jeder Stufe {skill:186} (Lehrling) bei, ebenso der Junior-Lehrer für Bergbau in jedem Startgebiet; der Pfeil wählt den nächsten. Kaufe {item:2901} bei einem Handelswarenhändler oder allgemeinen Händler: Behalte sie in deinen Taschen, ohne sie kannst du nicht schürfen.",
 
 	-- Step 2: Copper: Elwynn Forest (1-50)
 	-- {zone:1429} Elwynn Forest

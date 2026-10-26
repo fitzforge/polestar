@@ -1,0 +1,29 @@
+[package]
+name = "forge-writer"
+description = "Writes routes into guides in the shipped layout (apply-route)."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[features]
+default = ["native"]
+# The CLI (files, the walking grid's client areas). Off for wasm: the library takes texts and parsed data.
+native = ["forge-world/native", "forge-guide/native", "forge-sim/native"]
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+rustc-hash.workspace = true
+regex = "1"
+forge-core = { path = "../forge-core" }
+forge-world = { path = "../forge-world", default-features = false }
+forge-guide = { path = "../forge-guide", default-features = false }
+forge-judge = { path = "../forge-judge", default-features = false }
+forge-sim = { path = "../forge-sim", default-features = false }
+
+[lints]
+workspace = true

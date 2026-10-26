@@ -1,0 +1,75 @@
+name: Data release
+
+# A tag `data-vYYYY.MM.N` publishes the committed public database (forever-db/) as a GitHub
+# release: build forge, check that the tag names forever-db/index.json's version, run the guard
+# (`forge data publish --check forever-db`), and attach forever-db-<version>.zip (the folder) and
+# forever-db-<version>.sqlite.zst (the tables as one sqlite file). The release is never the
+# repository's latest: Polestar's own `v*` releases stay that.
+on:
+  push:
+    tags: ["data-v*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: data-release-${{ github.ref }}
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+
+jobs:
+  release:
+    name: Publish forever-db
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+
+      - name: Build forge
+        working-directory: rust
+        run: cargo build --release --locked -p forge
+
+      - name: Version
+        id: version
+        run: |
+          version="${GITHUB_REF_NAME#data-v}"
+          have="$(jq -r .version forever-db/index.json)"
+          if [ "$version" != "$have" ]; then
+            echo "::error file=forever-db/index.json::the tag says $version, forever-db/index.json says $have"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      # The committed release, without the private sidecar: schemas, source names, fingerprints,
+      # guard words, the corrections' sources and the note fixes (a conflicting one fails).
+      - name: Guard
+        run: rust/target/release/forge data publish --root . --check forever-db
+
+      - name: Assets
+        run: |
+          v="${{ steps.version.outputs.version }}"
+          mkdir -p dist
+          rust/target/release/forge data publish --root . --from forever-db --zip --sqlite "dist/forever-db-$v.sqlite"
+          mv "forever-db-$v.zip" dist/
+          zstd -19 --rm -q "dist/forever-db-$v.sqlite"
+          (cd dist && sha256sum * > SHA256SUMS)
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: forever-db ${{ steps.version.outputs.version }}
+          body_path: forever-db/CHANGELOG.md
+          files: |
+            dist/forever-db-*.zip
+            dist/forever-db-*.sqlite.zst
+            dist/SHA256SUMS
+          make_latest: false

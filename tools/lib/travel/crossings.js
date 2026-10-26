@@ -3,7 +3,9 @@
 //
 // Three kinds of entry, all in map percent of the Era client maps:
 //   crossings  a pair of points, one in each zone, at a tunnel, pass, bridge,
-//              gate or lift, each with an arrival radius in yards; an optional
+//              gate or lift, each with an arrival radius in yards and an
+//              optional `z`, the height of the floor the walk to it ends on
+//              (the Undercity's entrance hall over the city); an optional
 //              caption per direction ("ab": walking a -> b, "ba": b -> a) and
 //              `oneWay` (a -> b only)
 //   open       zone pairs whose shared border is walkable anywhere
@@ -36,10 +38,10 @@ const LIMITS = {
 const KEYS = {
 	top: ['schema', 'frame', 'source', 'build', 'crossings', 'open', 'chains'],
 	crossing: ['id', 'a', 'b', 'ab', 'ba', 'oneWay'],
-	end: ['map', 'x', 'y', 'radius', 'offMap'],
+	end: ['map', 'x', 'y', 'z', 'radius', 'offMap'],
 	open: ['a', 'b', 'oneWay'],
-	chain: ['id', 'name', 'open', 'nodes'],
-	node: ['map', 'x', 'y', 'radius', 'caption', 'back', 'offMap'],
+	chain: ['id', 'name', 'open', 'nodes', 'note'],
+	node: ['map', 'x', 'y', 'z', 'radius', 'caption', 'back', 'offMap'],
 };
 
 const isObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
@@ -93,9 +95,15 @@ function checkPoint(p, where, keys, frames, errors) {
 		errors.push(`${where}: radius ${p.radius} outside ${LIMITS.radiusMin}-${LIMITS.radiusMax} yd`);
 		ok = false;
 	}
+	if (p.z !== undefined && (typeof p.z !== 'number' || !Number.isFinite(p.z))) {
+		errors.push(`${where}: z (the floor's height, yards) must be a number`);
+		ok = false;
+	}
 	if (!ok) return null;
 	const w = frames.toWorld(p.map, p.x, p.y);
-	return { map: p.map, x: p.x, y: p.y, r: p.radius, c: w.c, wx: round(w.wx, 1), wy: round(w.wy, 1) };
+	const out = { map: p.map, x: p.x, y: p.y, r: p.radius, c: w.c, wx: round(w.wx, 1), wy: round(w.wy, 1) };
+	if (p.z !== undefined) out.z = round(p.z, 1);
+	return out;
 }
 
 const yards = (a, b) => (a.c === b.c ? Math.hypot(a.wx - b.wx, a.wy - b.wy) : Infinity);
@@ -419,7 +427,8 @@ function luaStr(s) {
 const num = (n) => String(Object.is(n, -0) ? 0 : n);
 
 function endLua(p) {
-	return `{ map = ${p.map}, c = ${p.c}, wx = ${num(p.wx)}, wy = ${num(p.wy)}, r = ${num(p.r)} }`;
+	const z = p.z !== undefined ? `, z = ${num(p.z)}` : '';
+	return `{ map = ${p.map}, c = ${p.c}, wx = ${num(p.wx)}, wy = ${num(p.wy)}${z}, r = ${num(p.r)} }`;
 }
 
 // Zone info the planner needs for every zone a set mentions: name and frame
@@ -466,7 +475,7 @@ function crossingsLua(set, frames, { complete, live }) {
 		L.push('\t-- other zones on these continents (no crossing data: walked as before)');
 		L.push(`\twild = { ${wild.join(', ')} },`);
 	}
-	L.push('\t-- id, ends a and b (uiMap, continent, world yards, arrival radius), captions a->b and b->a, oneWay');
+	L.push('\t-- id, ends a and b (uiMap, continent, world yards, z: the floor height when given, arrival radius), captions a->b and b->a, oneWay');
 	L.push('\tcrossings = {');
 	for (const e of set.crossings) {
 		const parts = [`id = ${luaStr(e.id)}`, `a = ${endLua(e.a)}`, `b = ${endLua(e.b)}`];
@@ -483,12 +492,14 @@ function crossingsLua(set, frames, { complete, live }) {
 		L.push('\t},');
 	}
 	if (set.chains.length) {
-		L.push('\t-- nodes: uiMap, continent, world yards, radius, caption walking in, caption walking out');
+		L.push('\t-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out');
 		L.push('\tchains = {');
 		for (const ch of set.chains) {
 			L.push(`\t\t{ id = ${luaStr(ch.id)}, name = ${luaStr(ch.name)}, open = ${luaStr(ch.open)}, nodes = {`);
 			for (const n of ch.nodes) {
-				const parts = [`map = ${n.map}`, `c = ${n.c}`, `wx = ${num(n.wx)}`, `wy = ${num(n.wy)}`, `r = ${num(n.r)}`];
+				const parts = [`map = ${n.map}`, `c = ${n.c}`, `wx = ${num(n.wx)}`, `wy = ${num(n.wy)}`];
+				if (n.z !== undefined) parts.push(`z = ${num(n.z)}`);
+				parts.push(`r = ${num(n.r)}`);
 				if (n.caption) parts.push(`caption = ${luaStr(n.caption)}`);
 				if (n.back) parts.push(`back = ${luaStr(n.back)}`);
 				L.push(`\t\t\t{ ${parts.join(', ')} },`);
@@ -511,7 +522,8 @@ function emitTravelAddon(set, frames, live) {
 		'## Notes: Zone crossings for Polestar\'s travel planner, built from an optional local crossings file. Local use only.',
 		'## Author: Polestar',
 		`## Version: ${packageVersion()}`,
-		'## Category: Quests',
+		'## Category: Polestar',
+		'## Group: Polestar',
 		'## Dependencies: Polestar',
 		'',
 		'Crossings.lua',

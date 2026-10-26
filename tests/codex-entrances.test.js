@@ -1,6 +1,6 @@
 'use strict';
 // Codex instance entrances (tools/lib/codex/instances.js chooseEntrance and
-// the curated table tools/lib/codex/entrances.json): a recording beats the
+// the curated table data/codex/entrances.json): a recording beats the
 // curated table, which beats a guide's goto, which beats the client's corpse
 // point (where a ghost returns), kept only as an approximate last resort.
 

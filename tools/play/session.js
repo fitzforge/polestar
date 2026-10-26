@@ -266,6 +266,11 @@ C_Map.GetMapArtLayerTextures = function(id) local m = ART[id]; return m and m.te
 C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 		}
 		lines.push(packs.before);
+		// Our guides' faction parts (format 8) load on demand, as in the client: Polestar loads the
+		// character's faction's once Polestar_Guides is in (Core/Guides.lua), the other's when asked.
+		for (const part of ['Polestar_Guides_Alliance', 'Polestar_Guides_Horde']) {
+			if (fs.existsSync(path.join(ROOT, 'addon', part, `${part}.toc`))) lines.push(`stub.packs.${part} = { ${tocFiles(part).map(luaString).join(', ')} }`);
+		}
 		// Polestar_Nav loads on demand, as in the client: Data.Pack loads it at login (Nav/Walk.lua).
 		if (fs.existsSync(path.join(ROOT, 'addon', 'Polestar_Nav', 'Polestar_Nav.toc'))) {
 			lines.push(`stub.packs.Polestar_Nav = { ${tocFiles('Polestar_Nav').map(luaString).join(', ')} }`);

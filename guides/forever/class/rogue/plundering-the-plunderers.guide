@@ -17,8 +17,8 @@ why Ten Thistle Tea, the rogue energy drink, from the Horde lockpicking jobs at 
 #   Ratchet (2382) and Plundering the Plunderers (2381, ten Thistle Tea).
 # - Undead only: Fenwick Thatros and Tools of the Trade (1998, 1999) for
 #   Mennet Carkad, in Silverpine Forest.
-# Sources: Wowhead Forever's Rogue class page
-# (data/local/quest-audit/wowhead-class-quests.json) for which quests Forever
+# Sources: Forever's Rogue class quest list
+# (data/local/quest-audit/) for which quests Forever
 # has, the rewards and Forever's changes (none for these quests);
 # quests.json, npcs.json, objects.json and items.json for the givers, drops,
 # vendors and places; travel.json for the inns and flight points.

@@ -15,19 +15,18 @@ why Experience and gold at 50 through Azshara and the Sunken Temple; Forever rem
 # Mosshoof in Felwood.
 # Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
 # Questie-Forever) for the givers, drops and spawns; travel.json for the
-# flight points. Wowhead Forever (wowhead.com/forever/quest=8254, checked
+# flight points. Forever's quest data (quest 8254, checked
 # 2026-10-14) lists Brother Joshua (Stormwind), High Priest Rohan
 # (Ironforge) and Ur'kyo (Orgrimmar) as the givers of Cenarion Aid.
-# Rewards: Wowhead Forever's change notes for Blood of Morphaz
-# (data/local/quest-audit/wowhead-class-quests.json: "Rewards: no longer
+# Rewards: Forever's change notes for Blood of Morphaz
+# (data/local/quest-audit/: "Rewards: no longer
 # Choice of Blessed Prayer Beads, Choice of Circle of Hope, Choice of
 # Woestave") remove the item choice, and they list no new reward: the chain
 # pays experience and money only (6350 XP and 1g55s for 8257).
 # The Blood of Morphaz drops from Morphaz, an elite boss in the Sunken
 # Temple: this chain needs a dungeon group. The data has no position for
 # Morphaz or the dungeon entrance; the entrance point (69,54, the temple in
-# the middle of the Pool of Tears) is from a comment on Wowhead's Sunken
-# Temple zone page (wowhead.com/zone=1477).
+# the middle of the Pool of Tears) is from players' reports.
 # The Ichor of Undeath drops from undead all over the world (4-13%): in
 # Azshara, the Lingering Highborne (levels 48-50, about 10%) haunt the Ruins
 # of Eldarath below Ogtinc's cliffs, and Highborne Apparitions and Lichlings
@@ -37,7 +36,6 @@ why Experience and gold at 50 through Azshara and the Sunken Temple; Forever rem
 
 # Preparation: Forever quest 8256 asks for one Ichor of Undeath after
 # 8255. Existing items can be kept; the stages are still handed in in order.
-# https://www.wowhead.com/forever/quest=8256/the-ichor-of-undeath
 
 step Cenarion Aid (Alliance)
   only Alliance

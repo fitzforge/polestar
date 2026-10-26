@@ -122,7 +122,9 @@ export function goalText(goal) {
 // control) and the game's own icons (full colour, for content).
 
 export const glyphUrl = (name, px = 96) => `/glyph/${name}.png?px=${px}`;
-export const iconUrl = (spec) => `/icon/${spec.kind}/${encodeURIComponent(spec.key)}.png`;
+// The key as the icon files name it (a skill by name: lower case, dashed), so a static copy serves it too.
+export const iconKey = (spec) => (spec.kind === 'skill' && !/^\d+$/.test(String(spec.key)) ? String(spec.key).toLowerCase().replace(/[^a-z]+/g, '-') : String(spec.key));
+export const iconUrl = (spec) => `/icon/${spec.kind}/${encodeURIComponent(iconKey(spec))}.png`;
 
 // A Polestar glyph: <i class="gl"> masked by the glyph, painted in currentColor.
 export function glyph(name, cls = '') {

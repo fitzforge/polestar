@@ -16,7 +16,7 @@ return {
 
 	-- Step 3: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {area:1276} Talondeep Path
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "",
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "Geh von {area:415} nach Nordwesten in die Hügel: {quest:1738} ist ein leuchtender Baum nördlich der Straße nach {area:413}. Hast du {quest:65602} angenommen, liegt {item:190309} in einem Haus zwischen den Bäumen nördlich von {area:413} (26,6, 22,0). Geh dann zurück an {area:415} vorbei zum {area:1276}.",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}, nördlich von {area:413}",
 

@@ -18,8 +18,8 @@ why The Alliance paladin's rare two-handed mace for the 20s, with a shield on th
 # outside Ironforge forges Verigan's Fist from four parts), with Bailor's Ore
 # Shipment (1655) and Seeking the Kor Gem (1442) for two of the parts.
 # Sources: quests.json, npcs.json, objects.json and items.json for givers,
-# enders, objectives, droppers and spawns; Wowhead Forever's Paladin class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the rewards and that
+# enders, objectives, droppers and spawns; Forever's Paladin class quest list
+# (data/local/quest-audit/) for the rewards and that
 # Forever leaves these quests unchanged; Warcraft Wiki, "Paladin quests"
 # (warcraft.wiki.gg/wiki/Paladin_quests), for where the parts are: the
 # Whitestone Oak Lumber from the Goblin Woodcarvers in the Deadmines, Jordan's

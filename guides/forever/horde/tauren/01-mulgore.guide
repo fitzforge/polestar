@@ -39,8 +39,8 @@ next forever/horde/02-the-barrens
 #   so the export's first mine visit is folded into the second.
 # - A Sacred Burial (833) and Rite of Wisdom (773) are done on one visit to
 #   Red Rocks instead of two.
-# - Baine's chain goes in the order the game offers it (Wowhead Forever's
-#   Series box; the quest data has no prerequisites for it, #112): Longwalker
+# - Baine's chain goes in the order the game offers it (Forever's quest
+#   series; the quest data has no prerequisites for it, #112): Longwalker
 #   Malah (99079) on the first Bloodhoof visit, Grim Tidings (99081) from
 #   Malah, then Our Ancient Enemy (99101) and Drive Them Out (99080) when
 #   Grim Tidings is handed in, and The High Chieftain (99082) when Drive Them
@@ -203,7 +203,7 @@ step Bloodhoof Village
   sethome "Bloodhoof Village" npc 6747  -- Innkeeper Kauth
   turnin 1656
   turnin 763                          -- Baine Bloodhoof
-  complete 96661                      -- Speak with Pyall Silentstride
+  complete 96661 @44.92,61.67 live  -- Speak with Pyall Silentstride
   turnin 96661                        -- Pyall Silentstride
   accept 748                          -- Mull Thunderhorn
   accept 96130                        -- Yaw Sharpmane

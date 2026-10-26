@@ -11,7 +11,7 @@
 //   loadCorpus(file = routes.json) -> { routes: [{ id, kind, map?, from, to, profile, level?, danger?, expect }] }
 //   resolveRoutes(routes, geo) -> the routes with world ends: an end [x, y, z] is kept (on `map`), an end
 //     { uiMap, x, y, f? } (map percent in the live frame, as the player sees it; f "e" the Era frame, as Guides.lua's
-//     goals) becomes world yards by map-frames.json (planner/geo.js, as tests/nav-e2e.test.js's every-zone walk);
+//     goals) becomes world yards by map-frames.json (planner/geo.js, as rust/crates/forge-addontest/tests/addontest/nav-e2e.rs's every-zone walk);
 //     map is its continent; level (the character's, null for none) prices the route with zone danger (harness.lua),
 //     danger ({ "<uiMapID>": multiplier }, null for none) is laid over that table (adds zones or replaces them)
 //   sweepQueries({ geo, taxi, guides, profiles }) -> one `many` query per zone with located guide goals
@@ -49,7 +49,8 @@ function findInterpreter() {
 }
 
 // The folder's files in the client's load order: its .toc (else the repository's), the Script files of its
-// Nav/Nav.xml, its own Routing/API files where it has them.
+// Nav/Nav.xml, its own Routing/API files where it has them, then the map parts of its part addons beside it
+// (Polestar_Nav_EK, Polestar_Nav_Kalimdor: maps format 5; the client loads them on demand, here up front).
 function navFiles(navDir) {
 	const own = path.join(navDir, 'Polestar_Nav.toc');
 	const toc = fs.readFileSync(fs.existsSync(own) ? own : path.join(REPO_NAV, 'Polestar_Nav.toc'), 'utf8');
@@ -66,10 +67,19 @@ function navFiles(navDir) {
 			files.push(fs.existsSync(mine) ? mine : path.join(REPO_NAV, entry));
 		}
 	}
+	for (const part of ['Polestar_Nav_EK', 'Polestar_Nav_Kalimdor']) {
+		const dir = path.join(path.dirname(path.resolve(navDir)), part);
+		const partToc = path.join(dir, `${part}.toc`);
+		if (!fs.existsSync(partToc)) continue;
+		for (const raw of fs.readFileSync(partToc, 'utf8').split(/\r?\n/)) {
+			const entry = raw.trim();
+			if (entry && !entry.startsWith('#')) files.push(path.join(dir, entry.replace(/\\/g, '/')));
+		}
+	}
 	return files;
 }
 
-function runQueries({ navDir, queries, lua = findInterpreter(), zoneLevels = null }) {
+function runQueries({ navDir, queries, lua = findInterpreter(), zoneLevels = null, warm = false }) {
 	const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'polestar-eval-'));
 	try {
 		const list = path.join(tmp, 'files.txt');
@@ -83,6 +93,7 @@ function runQueries({ navDir, queries, lua = findInterpreter(), zoneLevels = nul
 			fs.writeFileSync(zfile, JSON.stringify(Object.fromEntries(Object.entries(zoneLevels).map(([id, z]) => [id, z.min]))));
 			args.push(zfile);
 		}
+		if (warm) args.push('warm');
 		const r = spawnSync(lua, args, { encoding: 'utf8', stdio: ['ignore', 'ignore', 'pipe'], maxBuffer: 64 * 1024 * 1024 });
 		if (r.error) throw r.error;
 		if (r.status !== 0) throw new Error(`nav eval harness (${lua}) failed: ${(r.stderr || '').trim()}`);
@@ -107,17 +118,32 @@ function loadCorpus(file = CORPUS) {
 function resolveRoutes(routes, geo) {
 	return routes.map((r) => {
 		let map = r.map;
-		const end = (e, which) => {
-			if (Array.isArray(e)) return [e[0], e[1], e[2] === undefined ? null : e[2]];
+		// A zone-map point { uiMap, x, y, f?, z? } in world yards on the route's map ([x, y, z|null]).
+		const world = (e, which) => {
 			const w = geo.toWorld(e.uiMap, e.x, e.y, e.f || 'l');
 			if (!w) throw new Error(`route ${r.id}: map ${e.uiMap} has no frame in map-frames.json`);
-			if (map !== undefined && map !== w.c) throw new Error(`route ${r.id}: its ${which} end is on map ${w.c}, the route on ${map}`);
+			if (map !== undefined && map !== w.c) throw new Error(`route ${r.id}: its ${which} is on map ${w.c}, the route on ${map}`);
 			map = w.c;
-			return [+w.wx.toFixed(3), +w.wy.toFixed(3), null];
+			return [+w.wx.toFixed(3), +w.wy.toFixed(3), typeof e.z === 'number' ? e.z : null];
 		};
+		const end = (e, which) => (Array.isArray(e) ? [e[0], e[1], e[2] === undefined ? null : e[2]] : world(e, `${which} end`));
 		const from = end(r.from, 'from');
 		const to = end(r.to, 'to');
-		return { id: r.id, kind: r.kind, map, from, to, profile: r.profile === undefined ? null : r.profile, level: r.level === undefined ? null : r.level, danger: r.danger || null, expect: r.expect || [] };
+		// Expectation points (point, face) and areas ({ uiMap, f?, x: [lo, hi], y: [lo, hi] } in map percent: the box
+		// between its corners in world yards) given on a zone map.
+		const expect = (r.expect || []).map((e) => {
+			const out = { ...e };
+			for (const k of ['point', 'face', 'near']) if (e[k] && !Array.isArray(e[k])) out[k] = world(e[k], `${e.type} ${k}`);
+			if (e.area && e.area.uiMap !== undefined) {
+				const a = world({ ...e.area, x: e.area.x[0], y: e.area.y[0] }, `${e.type} area`);
+				const b = world({ ...e.area, x: e.area.x[1], y: e.area.y[1] }, `${e.type} area`);
+				out.area = { x: [Math.min(a[0], b[0]), Math.max(a[0], b[0])], y: [Math.min(a[1], b[1]), Math.max(a[1], b[1])] };
+			}
+			return out;
+		});
+		const extra = {};
+		for (const k of ['issue', 'tags', 'outcome']) if (r[k] !== undefined) extra[k] = r[k];
+		return { id: r.id, kind: r.kind, map, from, to, profile: r.profile === undefined ? null : r.profile, level: r.level === undefined ? null : r.level, danger: r.danger || null, expect, ...extra };
 	});
 }
 
@@ -163,11 +189,13 @@ function evaluate({ navDir, corpus, sweep = false, style = 'balanced', geo, taxi
 	const { init, results } = runQueries({ navDir, lua, zoneLevels, queries: [...routes.map((r) => routeQuery(r, null, style)), ...many.map(({ hub, zone, ...q }) => q)] });
 	log(`nav eval: harness done in ${((Date.now() - t0) / 1000).toFixed(1)} s`);
 	const byId = new Map(results.map((r) => [`${r.type}|${r.id}`, r]));
+	// The folder's own chokepoints (Nav/Chokepoints.lua; none: n/a), for the chokepoint expectations only.
+	const cps = routes.some((r) => r.expect.some((e) => e.type === 'chokepoint')) ? require('./chokepoints').load(navDir) : null;
 	const out = routes.map((r) => {
 		const { type, id, ...result } = byId.get(`route|${r.id}`);
 		const m = result.ok ? metrics(result, { grid, layers, map: r.map }) : null;
 		const route = { ...r, result, metrics: m };
-		return { ...route, verdicts: evaluateExpectations(route) };
+		return { ...route, verdicts: evaluateExpectations({ ...route, chokepoints: cps ? cps[r.map] || [] : null }) };
 	});
 	const sw = many.map((q) => {
 		const r = byId.get(`many|${q.id}`);

@@ -3,19 +3,19 @@
 The contract between a community addon and Polestar, for anyone building
 tools of their own. Authors who use Polestar's tools never write any of this
 by hand: they write `pack.json` and `.guide` files
-([GUIDE_FORMAT.md](GUIDE_FORMAT.md)) and `polestar compile` writes the rest.
+([GUIDE_FORMAT.md](GUIDE_FORMAT.md)) and `forge guide compile` writes the rest.
 The handbook is [PACKS.md](PACKS.md).
 
 > [!TIP]
 > Building a tool that generates guides? The simplest path is to write a
-> pack (`pack.json` and `.guide` files) and let `polestar lint`,
-> `polestar playtest` and `polestar pack` check and build it. Write the
+> pack (`pack.json` and `.guide` files) and let `forge guide lint`,
+> `polestar playtest` and `forge release pack` check and build it. Write the
 > addon described below yourself only when that is not an option.
 
 **On this page:** [`pack.json`](#packjson) ·
 [The addon](#the-addon) · [TOC fields](#toc-fields) ·
 [Rules Polestar enforces](#rules-polestar-enforces) ·
-[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Import strings](#import-strings) · [Versioning](#versioning)
+[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Import strings](#import-strings) · [Versioning](#versioning)
 
 A community addon is an addon for World of Warcraft: Forever that depends
 on Polestar and registers guides with it. It is built from a pack: a folder
@@ -26,7 +26,7 @@ pack; Polestar's own guides are a pack too (`Polestar_Guides`, pack id
 ## `pack.json`
 
 The pack's manifest, in the root of the pack's folder. Every tool works on
-the pack folder given as its one argument (`polestar lint ../joe-routes`) or
+the pack folder given as its one argument (`forge guide lint ../joe-routes`) or
 with `--pack <dir>`, else on the nearest `pack.json` in the current folder or
 a parent.
 
@@ -68,7 +68,7 @@ every `.guide` file under the folder except in `dist/`, `drafts/`,
 
 ## The addon
 
-`polestar compile` writes `dist/<folder>/` (ours: `addon/Polestar_Guides/`):
+`forge guide compile` writes `dist/<folder>/` (ours: `addon/Polestar_Guides/`):
 
 ```
 PolestarPack_JoesRoutes/
@@ -83,7 +83,47 @@ PolestarPack_JoesRoutes_deDE/   one texts addon per language the pack translates
   PolestarPack_JoesRoutes_deDE.toc
   Texts.lua          Polestar.RegisterGuideTexts("deDE", "joe-routes", { ... })
   LICENSE.txt        as above
+PolestarPack_JoesRoutes_Orc/    one race part per race the pack's class chains or baked legs are for
+  PolestarPack_JoesRoutes_Orc.toc
+  Guides.lua         those guides' Polestar.RegisterGuide({ ... }) calls (a race with class chains)
+  Legs.lua           Polestar.RegisterLegs("joe-routes", "<grid>", { ... }) (format 7: baked legs)
+  LICENSE.txt        as above
 ```
+
+**Race parts.** A leveling guide (category `Leveling` or none) with both a
+`class` and a `race` header, one class's chain through the game, ships in
+`<folder>_<race file>` for each race it names (`Orc`, `Scourge`, `NightElf`,
+...), not in the pack's own `Guides.lua`: one chain per race and class adds
+up to tens of megabytes, and a character only needs its own race's. Polestar
+loads the player's race part once the pack's own files are in, and no other;
+its guides register into the pack. Its TOC carries `## LoadOnDemand: 1`,
+`## Dependencies: Polestar, <folder>`, `## X-Polestar-Part: <pack id>` and
+`## X-Polestar-Race: <race file>` with the generated-folder marker. A
+part is written for memory: each guide registers only for a character of
+one of its classes (`if Polestar.PartWants({ "WARRIOR" }) then register()
+end`), and carries its steps as one Lua source string, `stepsSrc = "return
+{ ... }"`, with `stepCount` (and `groupQuests`, the quests its steps ask
+about with `when group`). The first read of the guide's `steps` runs the
+string, checks the steps and writes their texts in the client's language as
+at registration; a guide no tab shows any more gives its steps back
+(`Polestar.Guides.Release`), so a character holds its own route's headers
+and the guides it has open, about 2 MiB, not every route of its race. The
+pack's `MapFrames.lua` and format cover the parts' guides too. `compile`,
+`install` and `dev` write and replace a race part by the same rule as a
+texts addon (its marker and `X-Polestar-Part`) and remove the one of a race
+the pack no longer has a chain or baked legs for. A race part also carries
+the baked legs of the leveling guides that race may follow, in `Legs.lua`
+([Format 7](#format-7)); a race with legs and no class chain gets a part
+with `Legs.lua` only. Polestar's own pack also splits its other guides by
+faction ([Format 8](#format-8)).
+
+**Retired guides.** A pack folder's `retired.json`, a list of guide ids
+(`["forever/horde/02-the-barrens", ...]`), names the guides a new route set
+replaced. `Guides.lua` ends with `Polestar.RetireGuides("<pack id>", { ...
+})`, and a character whose saved tab holds one of them opens, at login, the
+pack's leveling guide for it now (the one the guide menu would suggest at
+its level), whose progress is read from the quest log. A retired id that is
+still one of the pack's guides warns.
 
 **Texts addons.** A pack whose `locales/<locale>/` folder holds translations
 (docs/TRANSLATING.md, "Guide texts") gets, beside its folder, one
@@ -122,7 +162,7 @@ Each guide's table is built inside its own function in `Guides.lua`, so Lua
 ## Notes: Community addon for Polestar by Joe
 ## Author: Joe
 ## Version: 1.2.0
-## Category: Quests
+## Category: Polestar
 ## Group: Polestar
 ## Dependencies: Polestar
 ## X-Polestar-Pack: joe-routes
@@ -130,7 +170,7 @@ Each guide's table is built inside its own function in `Guides.lua`, so Lua
 ## X-Polestar-Needs: 0.2.5
 ## X-License: CC-BY-4.0
 ## X-Website: https://github.com/joe/joe-routes
-# Generated by `node tools/polestar.js compile` from pack.json and the .guide files. Do not edit: rebuild with that command.
+# Generated by `forge guide compile` from pack.json and the .guide files. Do not edit: rebuild with that command.
 
 Pack.lua
 MapFrames.lua
@@ -166,7 +206,7 @@ into a new temporary folder, so neither touches an existing pack folder.
 ## Rules Polestar enforces
 
 `Core/Guides.lua` applies these at registration; lint reports the same ones
-before a pack is built (`tests/packs-parity.test.js` holds the two together).
+before a pack is built (`rust/crates/forge-addontest/tests/addontest/packs-parity.rs` holds the two together).
 
 1. **Ids.** Pack ids match `^[a-z0-9][a-z0-9-]{1,31}$`; `guides`, `forever`,
    `lookup`, `draft`, `polestar` and `imported` are reserved. Every guide id
@@ -477,6 +517,7 @@ Guide keys (the compiler writes them in this order):
 | `group` | no | `true` (format 2): a goal of the guide's route that is not `optional` needs a group; the guide menu shows a "Group" chip |
 | `names` | no | format 3: `{ ["npc:240"] = "Marshal Dughan", ... }`, the English of every name token the guide's texts hold (a token it lacks is shown as written) |
 | `written` | no | format 3: `{ ["Back to {npc:3649}"] = "Back to Dendrite", ... }`, a text whose names its tokens' English in `names` would spell otherwise, with the author's words an English client reads |
+| `legsGrid`, `legs` | no | format 6 (read, no longer written): the navigation grid the legs were baked on, and `{ [<step>] = "<leg>" }`, one baked walk into each step ([Format 6](#format-6)); format 7 carries them in the race parts ([Format 7](#format-7)) |
 | `steps` | yes | list of steps, at least one |
 
 Step keys: `title` (optional), `note` (optional, player-facing), `image`
@@ -512,6 +553,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `use` | `item`, `itemName` | `title`, `quest`, `oi` |
 | `sethome` | `location`, or `candidates` | `npc`, `npcName`, `area` |
 | `hearth` | `location` | `area` |
+| `die` | `location`, `map`, `x`, `y` (format 5) | `f` |
 | `getfp` | `location` | `npc`, `npcName`, `node`, `area` |
 | `fly` | `location` | `area` |
 | `enter` | `location` (format 5) | `area`, `map`, `x`, `y` |
@@ -557,6 +599,7 @@ The fields:
 | `area` | the AreaTable area ID (`C_Map.GetAreaInfo`) of the place a `sethome`, `hearth`, `fly` or `getfp` location or a `goto` label names. Polestar 0.2.5 and later complete a `hearth` or `fly` when the zone or subzone text is that area's name in the client's language, accept a `sethome` bind location that reads so, count a `goto` arrived when the player goes indoors in that subzone (a cave or mine past its mouth; never for a zone), and show that name in place of the English one. The compiler fills it in (GUIDE_FORMAT.md, "Places by ID"); without it the goal matches by its English name. Older Polestar ignores it, so it does not change the format |
 | `node` | on `getfp`: the taxi node ID (`C_TaxiMap` `nodeID`) of its flight point. Polestar 0.2.5 and later count the goal done once the flight map lists that node as known, instead of comparing names. Filled in like `area`; older Polestar ignores it |
 | `spots` | spawn places `{ { x, y, z, r, n, alt } }`: centre in the goal's map and frame, its height (optional, see `z`), radius in yards, spawn count; `alt = true` for another place the target spawns, which the arrow takes only when the player moves on to it (the world map marks it) |
+| `spotsPacked` | format 8, Polestar's own pack: the same spots as one string instead of `spots` ([Format 8](#format-8)) |
 | `spread` | `true` with `spots`: an area objective, searched spot by spot |
 | `from`, `fromAlso`, `fromKind`, `fromRank`, `fromFaction` | a `collect`'s main source: name, a second source of the same kind dropping it at 50% or more, `"npc"` or `"object"`, rank (1 elite, 2 rare elite, 3 boss, 4 rare), faction `"A"`, `"H"` or `"AH"` |
 | `fromId`, `fromAlsoId` | the ids of `from` and `fromAlso` (of kind `fromKind`): Polestar names them in the client's language (`Polestar.Names`), keeping `from`/`fromAlso` where it has no name; older Polestar ignores them |
@@ -588,6 +631,87 @@ candidate on, where the reference data has them: `c` the continent,
 `left`/`right` world Y, `top`/`bottom` world X. For a map Polestar already
 covers, Polestar's bounds win (rule 4). Call it after `RegisterPack`: the
 frames of a pack that is not registered are dropped.
+
+
+## Format 6
+
+Format 5 with **baked legs** on the guide: `legs = { [<step>] = "<leg>" }` and
+`legsGrid = "<grid>"`, the walk into each step routed offline, each leg a
+version-1 string ([Format 7](#format-7) has the string). Polestar 0.3.0 and
+later read it; no Polestar release wrote it, and the compiler now writes
+format 7 instead.
+
+## Format 7
+
+Format 5 with **baked legs in the race parts**. `forge build`'s legs stage
+(or `forge guide bake --guides <dir>`) routes the walk into every step of the
+pack's leveling guides, from the last located goal before the step to its
+first, on Leffe's navigation maps (our grid where his have no way or a
+detour) and writes them beside the guides as `legs.json`: `{ "schema": 1,
+"grid": "<the maps>", "legs": { "<guide id>": { "hash": "<its leg ends>",
+"steps": { "<step>": "<leg>" } } } }`. The compiler takes a leveling guide's
+legs while its leg ends still hash as when they were baked (a changed guide
+warns and goes without) and writes them into `Legs.lua` of the race parts
+that guide is for: its own race part's races (a class chain), else the races
+its `race` header names, else every race of its faction. One call per grid:
+
+```lua
+Polestar.RegisterLegs("joe-routes", "grid 1.60.1.70450, leffe 6e0f5f2529c5", {
+	["joe-routes/barrens"] = { [3] = "CgA...", [5] = "CkB..." },
+})
+```
+
+Polestar 0.3.0 and later read it: `RegisterLegs` keeps a registered pack's
+legs for its own guide ids (strings only, never run), and the arrow follows
+the current step's leg (`Polestar.Nav.BakedLeg(step)`, Nav/Walk.lua) instead
+of searching, from the player's place on it, while the player keeps within
+25 yards of it; off it, it searches as for any walk.
+
+A leg is one printable string: base-64 digits (`A-Z a-z 0-9 + /`), each five
+bits of a varint plus a continuation bit (32), signed values zigzagged. In
+order: the version (2); the point count n; per point dx, dy (0.5 yd) and dz
+(0.25 yd) from the one before (the first from 0), in world yards (x north,
+y west) on the step's continent; n - 1 segment moves (0 walk, 1 steep, 2
+swim, 3 jump, 4 drop, 5 indoor, 6 climb, 7 lift; a walk drawn on Leffe's
+maps is classed by our grid's ground where it stands on it, else by his);
+n - 1 segment floors (the surface's index in its column on our walking grid,
+0 the lowest: a leg drawn on Leffe's maps takes our grid's surface nearest
+each segment's start, and its corners stand on our grid's surfaces except at
+a hop's ends, keeping his height and floor only where ours has no surface
+within 8 yd); the tail, the last point's distance to the goal (0.25 yd); the
+strip's count m; then its m ground heights every 2 yd along the line, as
+changes in 0.25 yd from the one before (the first from point 1's height),
+one digit per token: 32 to 63 a run of 1 to 32 unchanged heights; 0 to 24
+two changes a and b, each -2 to 2 (the digit (a + 2) × 5 + b + 2); 25 to 30
+one change of -3, -2, -1, 1, 2 or 3; 31 one change whose zigzag value follows
+as a varint. Version 1 (format 6) has no floors and one zigzagged varint per
+strip change.
+
+## Format 8
+
+Polestar's own pack (`guides`, the `Polestar_Guides` folder) is written for
+memory; a community addon is written as before. Format 8 is format 7 with two
+changes, read by Polestar 0.3.0 and later:
+
+- **Packed spawn spots.** A goal carries its `spots` as one string,
+  `spotsPacked = "<spot>;<spot>;..."`, each spot its `x`, `y`, `z`, `r`, `n`
+  and `alt` in that order, separated by commas: numbers as `Guides.lua`
+  writes them, `alt` as `1`, an absent value empty and trailing empty values
+  left out (`"57.6,62.1,,33,4"`, `"43.5,9.2,-12.5,110,19,1"`). Polestar
+  checks the string when the guide registers and builds the spot tables when
+  the goal's `spots` is first read; they stay on the goal for the session. A
+  table per spot costs about 250 bytes in the game, its text about 16.
+- **Faction parts.** The pack's guides of one faction that no race part
+  holds ship in `Polestar_Guides_Alliance` and `Polestar_Guides_Horde` beside
+  it. Their TOC carries `## LoadOnDemand: 1`, `## Dependencies: Polestar,
+  Polestar_Guides`, `## X-Polestar-Part: guides` and `## X-Polestar-Faction:
+  <faction>` with the generated-folder marker, and their `Guides.lua` is
+  written like the pack's. Polestar loads the player's faction's part once
+  the pack's own files are in, before the player's race part (whose baked
+  legs, `Legs.lua`, name those guides); the other faction's only when the
+  guide menu's faction filter asks for it, or when a saved tab holds a guide
+  no loaded part has (`Polestar.Guides.LoadFaction`). A character holds its
+  own faction's guides and the factionless ones, not the other side's.
 
 ## Import strings
 
@@ -663,9 +787,11 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   later, format 2 (the `group`, `reward` and `why` keys) by 0.2.4 and later,
   format 3 (name tokens) by 0.2.5 and later, format 4 (a step's `when`,
   `along` and `label`, a `level` goal's `frac`, a guide's `nextWhen`) by 0.2.6
-  and later, format 5 (the `money`, `task`, `enter`, `cast`, `abandon` and `destroy` goals, the `money`, `dungeon`,
+  and later, format 5 (the `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals, the `money`, `dungeon`,
   `upgrade`, `done`, `skill`, `cooldown` and `group` when predicates, a step's
-  `skipto`) by 0.3.0 and later.
+  `skipto`) by 0.3.0 and later, format 6 (a guide's `legs`), format 7
+  (baked legs in the race parts) and format 8 (packed spawn spots and
+  faction parts, Polestar's own pack only) by 0.3.0 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

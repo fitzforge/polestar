@@ -103,7 +103,7 @@ function importString(guide, { manifest, data }) {
 		return { error: `${guide.id} is one of Polestar's own guides; an import string carries a community guide, under its pack's id` };
 	}
 	const steps = (guide.steps || []).length;
-	if (steps > LIMITS.steps) return { error: `${guide.id} has ${steps} steps; an import string holds a guide of ${LIMITS.steps} steps at most (a longer guide goes in a community addon: polestar pack)` };
+	if (steps > LIMITS.steps) return { error: `${guide.id} has ${steps} steps; an import string holds a guide of ${LIMITS.steps} steps at most (a longer guide goes in a community addon: forge release pack)` };
 	const payload = { format: formatFor([guide]), license: manifest.license, guide: guideData(guide._localised || guide) };
 	const frames = data ? framesData(referencedFrames([guide], data)) : {};
 	if (Object.keys(frames).length) payload.frames = frames;
@@ -111,11 +111,11 @@ function importString(guide, { manifest, data }) {
 	if (long !== null) return { error: `${guide.id}: ${long} is longer than ${LIMITS.text} bytes, the most Polestar reads in one text of an import string` };
 	const bytes = Buffer.byteLength(JSON.stringify(payload));
 	if (bytes > LIMITS.payload) {
-		return { error: `${guide.id} holds ${bytes} bytes of guide data; Polestar reads ${LIMITS.payload} at most (a guide this big goes in a community addon: polestar pack)` };
+		return { error: `${guide.id} holds ${bytes} bytes of guide data; Polestar reads ${LIMITS.payload} at most (a guide this big goes in a community addon: forge release pack)` };
 	}
 	const text = encodeImport(payload);
 	if (text.length > LIMITS.length) {
-		return { error: `${guide.id} makes a string of ${text.length} characters; Polestar reads ${LIMITS.length} at most (a guide this big goes in a community addon: polestar pack)` };
+		return { error: `${guide.id} makes a string of ${text.length} characters; Polestar reads ${LIMITS.length} at most (a guide this big goes in a community addon: forge release pack)` };
 	}
 	return { text, steps };
 }

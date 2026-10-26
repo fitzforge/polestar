@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
-	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {zone:1418}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "",
+	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {zone:1418}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "Geh zurück nach Westen zur Straße und folge ihr nach Süden aus {zone:1432} durch den Pass in die {zone:1418}. {npc:2910} und {npc:2860} lagern Seite an Seite an der Grabungsstätte.",
 
 	-- Step 2: Shadowforge camp
 	["Shadowforge camp"] = "Lager der Schattenschmiede",
@@ -17,7 +17,7 @@ return {
 
 	-- Step 3: The excavation crate
 	["The excavation crate"] = "Die Ausgrabungskiste",
-	["Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres."] = "",
+	["Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres."] = "Geh nach Nordosten zur verlassenen Grabungsstätte; die Versorgungskiste liegt dort zwischen den Ogern der Staubbäuche.",
 
 	-- Step 4: Hammertoe's Digsite
 	-- {area:1517} Uldaman
@@ -43,7 +43,7 @@ return {
 
 	-- Step 9: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
-	["Head west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "",
+	["Head west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "Geh nach Westen in die {area:1878}; {npc:2921} arbeitet in der Mitte bei seinen Maschinen.",
 
 	-- Step 10: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
@@ -78,11 +78,11 @@ return {
 	-- {object:126260} Ancient Chest
 	["The {object:126260}"] = "{object:126260}",
 	-- {zone:1418} Badlands · {npc:2745} Ambassador Infernus
-	["Head north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "",
+	["Head north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "Geh nach Nordosten zu den Zwergenruinen im Norden der {zone:1418}; die Truhe steht zwischen den Zwergen der Schattenschmiede. {npc:2745} in der Nähe ist Elite: Gib ihm Raum.",
 
 	-- Step 18: Theldurin the Lost
 	-- {area:345} Agmond's End
-	["Head south to {area:345}."] = "",
+	["Head south to {area:345}."] = "Geh nach Süden zu {area:345}.",
 	-- {npc:2786} Gerrig Bonegrip · {zone:1455} Ironforge
 	["for {npc:2786} in {zone:1455}: keep it"] = "für {npc:2786} in {zone:1455}: behalte sie",
 

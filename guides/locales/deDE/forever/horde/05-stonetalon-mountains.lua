@@ -10,7 +10,7 @@ return {
 	-- {area:380} Crossroads · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale · {item:16783} Bundle of Reports
 	["From the {area:380} follow the road north. {npc:8582} stands on the watch tower of the {area:1703} where the road enters {zone:1440}. Open the {item:16783} he gives you."] = "Folge von {area:380} der Straße nach Norden. {npc:8582} steht auf dem Wachturm am {area:1703}, wo die Straße nach {zone:1440} führt. Öffne {item:16783}, das er dir gibt.",
 	-- {item:16746} Warsong Report · {item:16783} Bundle of Reports
-	["{item:16746}, from the {item:16783}"] = "",
+	["{item:16746}, from the {item:16783}"] = "{item:16746}, aus dem {item:16783}",
 
 	-- Step 2: Warsong Scout
 	-- {npc:12862} Warsong Scout
@@ -33,7 +33,7 @@ return {
 	-- Step 6: Va'xug Firefure
 	-- {npc:267214} Va'xug Firefure · {area:415} Astranaar
 	-- plural, as words: Shadowhorn Stags = {npc:3817} Shadowhorn Stag · Ashenvale Bears = {npc:3809} Ashenvale Bear
-	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "",
+	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "Auf dem Weg nach Westen steckt {npc:267214} in einer Schlucht südlich der Hauptstraße fest, südöstlich von {area:415}. Schattenhornhirsche und Ashenvalebären streifen rundherum durch die Wälder.",
 
 	-- Step 7: A Void Path
 	-- {npc:267214} Va'xug Firefure · {npc:271181} Eye of Kilrogg
@@ -43,7 +43,7 @@ return {
 
 	-- Step 8: Zoram'gar Outpost
 	-- {zone:1440} Ashenvale · {area:415} Astranaar · {area:2897} Zoram'gar Outpost · {area:414} Zoram Strand
-	["Head west along the main road across {zone:1440}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west. Its other quests are for the next visit, at 27."] = "",
+	["Head west along the main road across {zone:1440}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west. Its other quests are for the next visit, at 27."] = "Geh entlang der Hauptstraße nach Westen durch {zone:1440}, an {area:415} vorbei (Allianz: bleib auf der Straße), bis zur Küste. {area:2897} liegt am {area:414} im Nordwesten. Seine anderen Quests sind für den nächsten Besuch, mit 27.",
 
 	-- Step 9: Naga heads
 	["Naga heads"] = "Nagaköpfe",
@@ -53,11 +53,11 @@ return {
 	-- {npc:8582} Kadrak
 	["Back to {npc:8582}"] = "Zurück zu {npc:8582}",
 	-- {area:431} Splintertree Post · {area:1703} Mor'shan Rampart
-	["Fly to {area:431} and head south down the road to the {area:1703}."] = "",
+	["Fly to {area:431} and head south down the road to the {area:1703}."] = "Flieg nach {area:431} und geh die Straße nach Süden hinunter zum {area:1703}.",
 
 	-- Step 12: Malaka'jin
 	-- {area:380} Crossroads · {zone:1413} Barrens · {area:2539} Malaka'jin
-	["Head south to the {area:380}, then west along the road out of the {zone:1413} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "",
+	["Head south to the {area:380}, then west along the road out of the {zone:1413} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "Geh nach Süden zum {area:380}, dann entlang der Straße nach Westen aus der {zone:1413} ins Steinkrallengebirge. Das Trolldorf {area:2539} liegt am Eingang der Schlucht.",
 
 	-- Step 13: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {quest:1483} Ziz Fizziks · {area:461} Windshear Crag
@@ -117,17 +117,17 @@ return {
 
 	-- Step 22: Malaka'jin
 	-- {area:1076} Webwinder Path · {area:2539} Malaka'jin
-	["Head back down the {area:1076} to {area:2539}."] = "",
+	["Head back down the {area:1076} to {area:2539}."] = "Geh den {area:1076} zurück hinunter nach {area:2539}.",
 
 	-- Step 23: To the Undercity
 	-- {area:1497} Undercity
 	["To the {area:1497}"] = "Nach {area:1497}",
 	-- {area:380} Crossroads · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {area:1497} Undercity · {area:153} Ruins of Lordaeron · {object:36078} Trade Quarter
-	["Head east to the {area:380} and fly to {zone:1454}. Take the zeppelin from the towers outside {zone:1454} to {zone:1420}; the {area:1497} lies below the {area:153}. The bat handler is in the {object:36078}."] = "",
+	["Head east to the {area:380} and fly to {zone:1454}. Take the zeppelin from the towers outside {zone:1454} to {zone:1420}; the {area:1497} lies below the {area:153}. The bat handler is in the {object:36078}."] = "Geh nach Osten zum {area:380} und flieg nach {zone:1454}. Nimm den Zeppelin von den Türmen vor {zone:1454} nach {zone:1420}; die {area:1497} liegt unter den {area:153}. Der Fledermausführer ist im {object:36078}.",
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {quest:93739} Exploring the Horde
 	["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "Sprich mit {npc:10181} im {object:36126}: {quest:93739}",
 	-- {npc:10181} Lady Sylvanas Windrunner
-	["Talk to {npc:10181}"] = "",
+	["Talk to {npc:10181}"] = "Sprich mit {npc:10181}",
 
 	-- Step 24: Aelthalyste
 	-- {npc:4606} Aelthalyste · {object:36070} War Quarter
@@ -135,7 +135,7 @@ return {
 
 	-- Step 25: Beren's Peril
 	-- {area:272} Tarren Mill · {zone:1458} Undercity · {area:228} Sepulcher · {area:231} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
-	["If you already know the {area:272} flight path, fly there and skip to {area:272}. Otherwise fly from the {zone:1458} to the {area:228} and head south down the road past Pyrewood. The Ravenclaw undead haunt the ruins of {area:231} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "",
+	["If you already know the {area:272} flight path, fly there and skip to {area:272}. Otherwise fly from the {zone:1458} to the {area:228} and head south down the road past Pyrewood. The Ravenclaw undead haunt the ruins of {area:231} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "Kennst du den Flugpunkt {area:272} schon, flieg dorthin und spring zu {area:272}. Sonst flieg von der {zone:1458} zum {area:228} und geh die Straße nach Süden an Pyrewood vorbei. Die Untoten der Rabenklaue spuken in den Ruinen von {area:231} östlich der Straße im Südosten des Waldes; ein {npc:1973} lässt {item:271343} fallen, der zu {object:645153} führt.",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
 	["{item:271343}, from a {npc:1973}"] = "{item:271343}, von einem {npc:1973}",
 	-- {item:271350} Tortured Soul

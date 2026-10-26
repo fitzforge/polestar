@@ -18,6 +18,27 @@ Revision: 22b51464f1625f6ef6275771de1f5466c6f5d19e
 License: GPL-3.0; quest objective counts only, used as facts: an objective whose count QuestieDB and pfQuest lack takes the matching quest_template count
 CMaNGOS (https://github.com/cmangos/classic-db)
 
+EG Link output: World of Warcraft: Forever
+------------------------------------------
+URL: https://github.com/JIVESCORP/eg-link-output-wowf
+Revision: d98f94821b69cccf81b03a542df3755b60055217
+License: CC BY 4.0; facts used: quest levels, XP, objectives and counts, next quests, givers and enders, races, quest-tied drop rates
+EG Link output: World of Warcraft: Forever (https://github.com/JIVESCORP/eg-link-output-wowf), data from Efficient Games (https://efficient.games), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); reduced to quest facts for Polestar.
+
+Forever TrinityCore world database (sniffed spawns, quest objectives, timers, loot, class trainers)
+---------------------------------------------------------------------------------------------------
+URL: https://github.com/advocaite/TrinityCore/tree/forever
+Revision: forever-tdb-2026-10-14 + 367ac384fa20
+License: GPL-2.0; used as facts: objective counts, quest time limits and next quests, sniffed spawn positions, sniffed drop rates, class trainer lists and costs
+TrinityCore (https://www.trinitycore.org) and the advocaite/TrinityCore `forever` branch
+
+forever-vo captures
+-------------------
+URL: https://github.com/quinn-dougherty/forever-vo
+Revision: f3b8d4c600394a094bc7729b2bdcbbc1ddbbdb52
+License: NOASSERTION; quest givers and enders captured in game, used as facts
+forever-vo contributors
+
 pfQuest
 -------
 URL: https://github.com/shagu/pfQuest
@@ -46,9 +67,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Quest XP for quests QuestieDB lacks: wowforevertalents.com (Forever beta client quest cache), else foreverchanges.pro (Wowhead Forever database)
-------------------------------------------------------------------------------------------------------------------------------------------------
-URL: https://wowforevertalents.com ; https://foreverchanges.pro
+Polestar quest mechanics: kinds, parameters and steps (facts in our own words), checked against the Forever TrinityCore world DB
+--------------------------------------------------------------------------------------------------------------------------------
+License: Polestar original work; structured facts from CMaNGOS classic-db (GPL-3.0) and the Forever TrinityCore world DB (GPL-2.0) used as facts
+TrinityCore and the advocaite/TrinityCore `forever` branch; CMaNGOS (https://github.com/cmangos/classic-db)
+
+Quest XP for quests QuestieDB lacks: two Forever web quest databases (one from the beta client's quest cache)
+-------------------------------------------------------------------------------------------------------------
 Revision: 561 quests; cache data/sources/webxp/quest-xp.json
 License: Public web pages; facts (XP numbers) only, used locally with permission
 
@@ -73,10 +98,9 @@ Revision: wow_classic_beta 1.60.1.70450
 License: Blizzard Entertainment game client data; factual map geometry, names, item durations and race/class combinations only
 World of Warcraft (c) Blizzard Entertainment, Inc.
 
-Wowhead Forever database: zone quest lists (XP, levels, Forever change notes)
------------------------------------------------------------------------------
-URL: https://www.wowhead.com/forever
-Revision: 4234 listed quests read 2026-10-16T16:29:21.749Z; cache data/sources/wowhead/zones.json
+the web quest database: zone quest lists (XP, levels, Forever change notes)
+---------------------------------------------------------------------------
+Revision: 4234 listed quests read 2026-10-16T16:29:21.749Z; cache data/sources/web/zones.json
 License: Public web pages; facts (ids, XP, levels, instance categories, rewards) only, used locally
 
 Guide pack permission

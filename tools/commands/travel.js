@@ -24,7 +24,7 @@ the Forever client's TaxiPathNode), inns, learned walking paths and zone
 crossings learned from recordings -> data/forever/travel.json,
 addon/Polestar/Nav/TravelData.lua and the flights' tracks in
 addon/Polestar/Maps/FlightPaths.lua. The shipped crossings file
-(tools/lib/travel/crossings.json, from "travel import") goes into TravelData.lua.
+(data/crossings.json, from "travel import") goes into TravelData.lua.
 With the optional local crossings file (data/local/crossings.json, validated)
 it also writes the local data addon addon/Polestar_Travel (installed when
 built, never packaged).
@@ -35,7 +35,7 @@ built, never packaged).
   --data <dir>         data/forever (map-frames, zones, npcs, objects)
   --recordings <dir>   data/recordings
   --sources <dir>      data/sources (wago cache)
-  --shipped <file>     the shipped crossings file (default: tools/lib/travel/crossings.json; "none" to leave it out)
+  --shipped <file>     the shipped crossings file (default: data/crossings.json; "none" to leave it out)
   --grid <dir>         the navigation grid (default: data/local/nav4; "none" to leave it out): a ship's end
                        lying in the water gets a board point, the nearest dry deck within 30 yd; without a grid, none
   --crossings <file>   the local crossings file (default: <data>/../local/crossings.json)
@@ -93,7 +93,7 @@ Carbonite) are kept.
   --source <text>      where it came from (repository and commit), kept in the file
   --radius <yd>        arrival radius of every end (default 30)
   --data <dir>         data/forever (map-frames, zones)
-  --out <file>         output (default: tools/lib/travel/crossings.json)`;
+  --out <file>         output (default: data/crossings.json)`;
 
 async function build(rest) {
 	const { values } = parseArgs({
@@ -269,7 +269,7 @@ function chain(rest) {
 	const dataDir = path.resolve(values.data || DATA);
 	const read = (f) => {
 		const file = path.join(dataDir, f);
-		if (!fs.existsSync(file)) throw new Error(`missing ${file} (run: node tools/polestar.js data build)`);
+		if (!fs.existsSync(file)) throw new Error(`missing ${file} (run: forge data build)`);
 		return JSON.parse(fs.readFileSync(file, 'utf8'));
 	};
 	const frames = new Frames(read('map-frames.json').era, read('zones.json'));

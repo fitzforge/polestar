@@ -18,7 +18,7 @@ return {
 	-- {area:16635} Thendal Village
 	["Back to {area:16635}"] = "Zurück nach {area:16635}",
 	-- {npc:257554} Halaan Hawk-Eye · {npc:263113} Myriaal Mistwake · {npc:251368} Elatrell Featherlight
-	["{npc:257554} and {npc:263113} stand at the top of the watchtower, a few steps north-east of {npc:251368}."] = "",
+	["{npc:257554} and {npc:263113} stand at the top of the watchtower, a few steps north-east of {npc:251368}."] = "{npc:257554} und {npc:263113} stehen oben auf dem Wachturm, ein paar Schritte nordöstlich von {npc:251368}.",
 	-- {npc:257554} Halaan Hawk-Eye
 	["talk to {npc:257554}"] = "sprich mit {npc:257554}",
 
@@ -26,7 +26,7 @@ return {
 	-- {npc:251361} Rorian the Dayseeker
 	["{npc:251361}'s errands"] = "{npc:251361}s Besorgungen",
 	-- {spell:1259416} Walk on Air · {npc:251361} Rorian the Dayseeker
-	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "",
+	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "Spring von der Spitze des Wachturms und benutze {spell:1259416}, um zu {npc:251361} westlich des Turms hinabzuschweben.",
 	-- {npc:251361} Rorian the Dayseeker · {item:4100} Crumpled Note
 	["{npc:251361}: the {item:4100}"] = "{npc:251361}: {item:4100}",
 	-- {npc:251361} Rorian the Dayseeker
@@ -234,7 +234,7 @@ return {
 	-- Step 44: Enchanted Gyrozephyr
 	-- {object:616466} Construct Parts · {area:16624} Shen'dar Village · {area:16625} Windsong Lake · {npc:252800} Aamelia Windfield
 	-- plural, as words: Enchanted Gyrozephyrs = {item:260883} Enchanted Gyrozephyr
-	["The last {object:616466}, the Enchanted Gyrozephyrs, lie far to the north, east of {area:16624} and south-west of {area:16625}. Then head back south-west to {npc:252800} at the orchard."] = "",
+	["The last {object:616466}, the Enchanted Gyrozephyrs, lie far to the north, east of {area:16624} and south-west of {area:16625}. Then head back south-west to {npc:252800} at the orchard."] = "Die letzten {object:616466}, die Verzauberten Gyrozephyre, liegen weit im Norden, östlich von {area:16624} und südwestlich von {area:16625}. Geh dann nach Südwesten zurück zu {npc:252800} am Obstgarten.",
 
 	-- Step 45: Standing Our Ground
 	-- {npc:252800} Aamelia Windfield
@@ -248,11 +248,11 @@ return {
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar · {item:15908} Taming Rod · {npc:254588} Windsong Crawler · {npc:251707} Ornery Galestrider · {npc:250874} Vuldren Alpha · {area:16663} Windfield Orchard · {npc:254411} Quel'dora Quickgale
 	["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{npc:252389} in {area:16638} gibt dir dreimal {item:15908}: Zähm {npc:254588} an den Seen nordwestlich der Stadt, {npc:251707} auf den Feldern westlich der Stadt und {npc:250874} bei {area:16663}, und kehr nach jedem zu ihr zurück. {npc:254411} steht neben ihr.",
 	-- {npc:254588} Windsong Crawler
-	["Tame {npc:254588}"] = "",
+	["Tame {npc:254588}"] = "Zähme {npc:254588}",
 	-- {npc:251707} Ornery Galestrider
-	["Tame {npc:251707}"] = "",
+	["Tame {npc:251707}"] = "Zähme {npc:251707}",
 	-- {npc:250874} Vuldren Alpha
-	["Tame {npc:250874}"] = "",
+	["Tame {npc:250874}"] = "Zähme {npc:250874}",
 
 	-- Step 48: Belathaan Brightwish
 	-- {npc:256247} Belathaan Brightwish · {area:16638} Valanaar · {area:16629} Shrine of Akir
@@ -266,7 +266,7 @@ return {
 	-- {area:17675} East Pylon Watchtower
 	["The {area:17675}"] = "{area:17675}",
 	-- {area:17675} East Pylon Watchtower · {npc:252666} Commander Belguilos
-	["Head north-east to the {area:17675}. The Al'Aketh camp is just west of it, with {npc:252666} at its north end. Every cultist can drop a windstone charm."] = "",
+	["Head north-east to the {area:17675}. The Al'Aketh camp is just west of it, with {npc:252666} at its north end. Every cultist can drop a windstone charm."] = "Geh nach Nordosten zum {area:17675}. Das Lager der Al'Aketh ist direkt westlich davon, mit {npc:252666} an seinem Nordende. Jeder Kultist kann ein Windsteinamulett fallen lassen.",
 
 	-- Step 52: Urs'endris
 	-- {npc:255853} Urs'endris

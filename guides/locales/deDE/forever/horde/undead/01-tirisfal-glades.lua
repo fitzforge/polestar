@@ -45,7 +45,7 @@ return {
 
 	-- Step 6: Injured Deathguard
 	-- {quest:90902} Rediscovering the Light · {npc:259377} Injured Deathguard · {spell:635} Holy Light
-	["{quest:90902}: the {npc:259377} lie around the church. Heal five of them with {spell:635}."] = "",
+	["{quest:90902}: the {npc:259377} lie around the church. Heal five of them with {spell:635}."] = "{quest:90902}: Die {npc:259377} liegen rund um die Kirche. Heile fünf von ihnen mit {spell:635}.",
 
 	-- Step 7: Rattlecages, scavengers and duskbats
 	["Rattlecages, scavengers and duskbats"] = "Klappernde Skelette, Aasfresser und Nachtsauger",
@@ -236,8 +236,8 @@ return {
 	-- Step 43: Shadowvale
 	-- {area:16881} Shadowvale
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
-	["{area:16881} is the hollow at the west edge of the glades. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics."] = "",
-	["the basement under the ruined house"] = "",
+	["{area:16881} is the hollow at the west edge of the glades. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics."] = "{area:16881} ist die Senke am Westrand der Lichtungen. Geh hinunter in den großen Keller unter dem zerstörten Haus (nur ein Boden und ein paar Säulen sind übrig, nicht das zweistöckige Haus): Die Flaschen liegen auf seinem Boden zwischen den Schattentalschlingern und Mystikern.",
+	["the basement under the ruined house"] = "der Keller unter dem zerstörten Haus",
 
 	-- Step 45: Brill
 	-- {npc:1560} Yvette Farthing
@@ -330,14 +330,14 @@ return {
 	-- {area:16616} Whispering Forest
 	["Paladin: {area:16616}"] = "Paladin: {area:16616}",
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
-	["{npc:246389} and {npc:259190} camp at the forest's edge, just south of Leonid. Their quests need level 10."] = "",
+	["{npc:246389} and {npc:259190} camp at the forest's edge, just south of Leonid. Their quests need level 10."] = "{npc:246389} und {npc:259190} lagern am Waldrand, direkt südlich von Leonid. Ihre Quests brauchen Stufe 10.",
 
 	-- Step 65: Paladin: Shadowvale
 	-- {area:16881} Shadowvale
-	["Paladin: {area:16881}"] = "",
+	["Paladin: {area:16881}"] = "Paladin: {area:16881}",
 	-- {area:16881} Shadowvale · {item:286269} Glowing Crystal Fragment
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
-	["Back to {area:16881} and down into the basement under the ruined house: the Shadowvale Lurchers and Mystics there drop the bones, and the {item:286269} is at the basement's south end."] = "",
+	["Back to {area:16881} and down into the basement under the ruined house: the Shadowvale Lurchers and Mystics there drop the bones, and the {item:286269} is at the basement's south end."] = "Zurück nach {area:16881} und hinunter in den Keller unter dem zerstörten Haus: Die Schattentalschlinger und Mystiker dort lassen die Knochen fallen, und {item:286269} liegt am Südende des Kellers.",
 
 	-- Step 68: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {item:6284} Runes of Summoning · {npc:4606} Aelthalyste · {object:36070} War Quarter · {npc:4568} Anastasia Hartwell

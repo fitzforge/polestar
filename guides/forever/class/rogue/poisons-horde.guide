@@ -18,13 +18,13 @@ why Forever teaches Poisons through this chain, not the trainer; the Thistle Tea
 # Venture Co. tower in the northern Barrens; Mission: Possible But Not
 # Probable (2478) there; then Hinott's Assistance (2479, 2480) to Serge
 # Hinott in Tarren Mill.
-# Forever change (Wowhead Forever's Rogue class page,
-# data/local/quest-audit/wowhead-class-quests.json): Hinott's Assistance
+# Forever change (Forever's Rogue class quest list,
+# data/local/quest-audit/): Hinott's Assistance
 # (2480) now teaches Poisons (Forever moved it from the trainer onto this
-# quest). Rewards from the same page: Fizzule's Whistle (Deep Cover), Recipe:
+# quest). Rewards from the same list: Fizzule's Whistle (Deep Cover), Recipe:
 # Thistle Tea (Mission: Possible), Hinott's Oil (2480).
 # Mission: Possible needs Grand Foreman Puzik Gallywix's head, and Gallywix
-# is an elite (npcs.json): bring a friend. Wowhead files it as a group
+# is an elite (npcs.json): bring a friend. Forever's quest data files it as a group
 # quest. No Gallywix, no Poisons: 2479 needs 2478 turned in.
 # Sources: quests.json, npcs.json, objects.json and items.json for the givers,
 # drops and places; travel.json for the flight points.

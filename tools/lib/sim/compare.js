@@ -1,5 +1,5 @@
 'use strict';
-// `sim compare` and `sim bench` (docs/SIMULATION.md §5): Polestar's guides
+// `sim compare` (docs/legacy/SIMULATION-js.md §5): Polestar's guides
 // (the default route and every route choice) and the best route found, all
 // scored under the same calibrated model. Inside another guide pack (or with
 // --pack) compare also scores that pack's chain (after our default chain up
@@ -230,87 +230,4 @@ async function compareCommand(args, o) {
 	return 0;
 }
 
-// ---- bench ----
-const BRACKETS = [[1, 10], [10, 20], [20, 30], [30, 40], [40, 50], [50, 60]];
-
-function bracketOf(level) {
-	return Math.min(5, Math.floor((Math.max(1, level) - 0.0001) / 10));
-}
-
-async function bench(o) {
-	const res = await compare(o);
-	const out = [];
-	for (const c of res) {
-		const pick = ['polestar', 'best', 'best-dungeons'];
-		const srcs = c.rows.filter((x) => pick.includes(x.id));
-		const per = srcs.map((x) => {
-			const b = BRACKETS.map(() => ({ zones: [], quests: new Set() }));
-			for (const t of x.trace.turnins) b[bracketOf(t.level)].quests.add(t.q);
-			for (const z of x.trace.zones) {
-				const lo = bracketOf(z.from);
-				const hi = bracketOf(z.to);
-				for (let k = lo; k <= hi; k++) {
-					const zs = b[k].zones;
-					const last = zs[zs.length - 1];
-					const from = Math.max(z.from, BRACKETS[k][0]);
-					const to = Math.min(z.to, BRACKETS[k][1]);
-					if (to - from < 0.05 && zs.length) continue;
-					if (last && last.zone === z.zone) last.to = to;
-					else zs.push({ zone: z.zone, from, to });
-				}
-			}
-			return { id: x.id, label: x.label, brackets: b };
-		});
-		const brackets = BRACKETS.map(([lo, hi], k) => {
-			const rows = per.map((p) => ({
-				id: p.id,
-				zones: p.brackets[k].zones.filter((z) => z.to - z.from >= 0.2).map((z) => `${z.zone} ${z.from.toFixed(1)}-${z.to.toFixed(1)}`),
-				quests: p.brackets[k].quests.size,
-			}));
-			const overlap = [];
-			for (let i = 0; i < per.length; i++) for (let j = i + 1; j < per.length; j++) {
-				const A = per[i].brackets[k].quests;
-				const Bq = per[j].brackets[k].quests;
-				let n = 0;
-				for (const q of A) if (Bq.has(q)) n++;
-				overlap.push({ a: per[i].id, b: per[j].id, shared: n, jaccard: A.size + Bq.size - n ? n / (A.size + Bq.size - n) : 0 });
-			}
-			return { bracket: `${lo}-${hi}`, rows, overlap };
-		});
-		out.push({ faction: c.faction, race: c.race, class: c.class, sources: per.map((p) => ({ id: p.id, label: p.label })), brackets });
-	}
-	return out;
-}
-
-async function benchCommand(args, o) {
-	let cls;
-	try {
-		cls = sim.normClass(args.class);
-	} catch (err) {
-		console.error(`sim bench: ${err.message}`);
-		return 2;
-	}
-	const opts = { ...sim.DEFAULTS, ...o, faction: args.faction, race: args.race, cls, withOptional: !!args['with-optional'] };
-	const res = await bench(opts);
-	fs.mkdirSync(opts.benchDir, { recursive: true });
-	for (const b of res) {
-		const md = [`# Bench ${b.faction} ${b.race} (${b.class})`, '', `Sources: ${b.sources.map((s) => `${s.id} = ${s.label}`).join('; ')}`, ''];
-		console.log(`\n== bench ${b.faction} ${b.race} (${b.class}) ==`);
-		for (const br of b.brackets) {
-			const head = ['source', 'quests', 'zones (levels)'];
-			const rows = br.rows.map((r) => [r.id, r.quests, r.zones.join(' > ') || '-']);
-			const ov = br.overlap.map((x) => `${x.a}/${x.b} ${x.shared} (${(100 * x.jaccard).toFixed(0)}%)`).join(', ');
-			console.log(`\n-- levels ${br.bracket} --`);
-			console.log(table(head, rows));
-			console.log(`overlap (shared quests, Jaccard): ${ov}`);
-			md.push(`## Levels ${br.bracket}`, '', mdTable(head, rows), '', `Overlap: ${ov}`, '');
-		}
-		const file = path.join(opts.benchDir, `bench-${b.faction.toLowerCase()}-${b.race.toLowerCase()}${clsPart(opts.cls)}`);
-		fs.writeFileSync(`${file}.json`, `${JSON.stringify(b, null, 1)}\n`);
-		fs.writeFileSync(`${file}.md`, `${md.join('\n')}\n`);
-		console.log(`\nwrote ${path.relative(process.cwd(), file)}.{json,md}`);
-	}
-	return 0;
-}
-
-module.exports = { compare, bench, compareCommand, benchCommand, score, sources, LEVELS };
+module.exports = { compare, compareCommand, score, sources, LEVELS };

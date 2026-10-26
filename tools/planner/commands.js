@@ -458,7 +458,7 @@ const COMMANDS = [
 	},
 	{
 		name: 'pack_compile',
-		description: 'Compile a pack into its addon folder like `polestar compile` (ours -> addon/Polestar_Guides, another pack -> <pack>/dist/<folder>); nothing is written when there are errors. Returns { ok, errors, warnings (counts), outDir, guides, diagnostics }.',
+		description: 'Compile a pack into its addon folder like `forge guide compile` (ours -> addon/Polestar_Guides, another pack -> <pack>/dist/<folder>); nothing is written when there are errors. Returns { ok, errors, warnings (counts), outDir, guides, diagnostics }.',
 		input: { type: 'object', properties: { pack: PACK }, additionalProperties: false },
 		mutates: true,
 		handler: (ws, a) => ws.compilePack(a.pack),

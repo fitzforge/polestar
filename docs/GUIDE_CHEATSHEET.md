@@ -1,7 +1,7 @@
 # Guide format on one page
 
 Every line a `.guide` file can hold, with what it does and a short example.
-The full rules, the checks `polestar lint` runs and worked examples are in
+The full rules, the checks `forge guide lint` runs and worked examples are in
 [GUIDE_FORMAT.md](GUIDE_FORMAT.md); packs are in [PACKS.md](PACKS.md).
 `polestar find <text>` looks up the ids the examples use.
 
@@ -68,6 +68,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `sethome "<Location>"` | Bind the hearthstone at an inn, named as the game reports it | `sethome "Goldshire"` |
 | `sethome nearest` | Bind at the nearest inn of the player's faction | `sethome nearest` |
 | `hearth "<Location>"` | Use the hearthstone; done on landing there | `hearth "Goldshire"` |
+| `die "<Graveyard>" @x,y` | Deathskip: die and take the resurrection at that graveyard's Spirit Healer; done back alive there | `die "Sen'jin Village" @57.2,73.3` |
 | `getfp "<Flight point>"` | Learn a flight path from its flight master | `getfp "Stormwind"` |
 | `fly "<Town>"` | Take a flight; done on landing there | `fly "Stormwind"` |
 | `enter "<Place>"` | Be in that zone or area (the zone or subzone text); `@x,y` points the arrow (needs Polestar 0.3.0) | `enter "Goldshire"` |

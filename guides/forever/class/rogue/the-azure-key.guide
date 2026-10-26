@@ -13,17 +13,17 @@ why Ravenholdt reputation and experience at 50; Forever removed the Classic item
 # leaders to Lord Jorach Ravenholdt, then Sealed Azure Bag (8234) and Encoded
 # Fragments (8235) with Archmage Xylem in Azshara, and The Azure Key (8236)
 # from Morphaz in the Sunken Temple back to Lord Ravenholdt.
-# Forever change (Wowhead Forever's Rogue class page,
-# data/local/quest-audit/wowhead-class-quests.json): The Azure Key no longer
+# Forever change (Forever's Rogue class quest list,
+# data/local/quest-audit/): The Azure Key no longer
 # offers its reward choices (Duskbat Drape, Ebon Mask, Whisperwalk Boots); the
 # chain pays experience, money and Ravenholdt reputation only.
 # Sources: quests.json, npcs.json and items.json for the givers, drops and
 # spawns; travel.json for the flight points; the quest text of The Azure Key
-# (foreverchanges.pro/quest/8236) for Morphaz's lair. Morphaz has no spawn in
+# (quest 8236) for Morphaz's lair. Morphaz has no spawn in
 # the data: he is an elite boss inside the Sunken Temple, a dungeon; the
 # entrance point is the one alliance/40-50/07-un-goro-crater uses for the
-# temple (Swamp of Sorrows 69.9,53.6), which matches the point from a comment
-# on Wowhead's Sunken Temple zone page (wowhead.com/zone=1477) used by
+# temple (Swamp of Sorrows 69.9,53.6), which matches the point from players' reports
+# used by
 # class/hunter/the-hunters-charm.
 # Based on data, not play: the beta caps at level 30 until launch on
 # 4 November, so nothing here has been checked in game.

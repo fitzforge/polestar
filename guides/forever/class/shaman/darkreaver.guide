@@ -16,14 +16,14 @@ why A Scholomance fight at 60 for Horde reputation; Forever removed the Skyfury 
 # Scholomance, beat the spirits it calls and then Death Knight Darkreaver, and
 # bring his head to Sagorne).
 # Sources: quests.json, npcs.json and items.json (giver, objectives,
-# droppers); Wowhead Forever (https://www.wowhead.com/forever/quest=8258: the
+# droppers); Forever's quest data (quest 8258: the
 # "Series" box 7667 -> 8258, 200 Horde reputation) and its Shaman class page
-# (data/local/quest-audit/wowhead-class-quests.json). The Skyfury Helm is no
-# longer the reward (Wowhead Forever: "Rewards: no longer Skyfury Helm"; the
+# (data/local/quest-audit/). The Skyfury Helm is no
+# longer the reward (Forever's change notes: "Rewards: no longer Skyfury Helm"; the
 # quest page shows the reward only as an unnamed item id), and the data names
 # nothing in its place: do it for the reputation until Forever shows a reward.
 # The Darkreaver Menace has an older twin (7668) that excludes it; Questie
-# chains 7667 to 8258, which Wowhead's series confirms. Again Into the Great
+# chains 7667 to 8258, which Forever's quest series confirms. Again Into the Great
 # Ossuary (7669, a new Divination Scryer) and A More Fitting Reward (8259, the
 # helm for 7668's finishers) are left out: the first only repeats the fight,
 # the second lost its helm too.
@@ -32,13 +32,13 @@ why A Scholomance fight at 60 for Horde reputation; Forever removed the Skyfury 
 # Dungeon work: Darkreaver and his spirits are elites inside Scholomance, a
 # dungeon for 58-60; bring a group. The diamonds are rare drops: the auction
 # house is the usual source.
-# Horde only: the data and Wowhead list no Alliance version.
+# Horde only: the data and Forever's quest data list no Alliance version.
 # Left out: the level 60 armor quests open to Shamans (Vision of Voodress
 # 8116-8119 and the Augur's set 8056, 8074, 8075 from Zul'Gurub; Vodouisant's
 # Vigilant Embrace 8188; Armaments of War 8380; the Stormcaller's and
 # Gathering Storm pieces 8602, 8621-8624, 8690, 8698, 8706; Anthion's chain
 # 8918, 8942, 8957, 9011; the Earthshatter set 9068-9075; Icy Scale
-# 9244-9246). Wowhead's Forever database has them, but they are raid and
+# 9244-9246). Forever's quest data has them, but they are raid and
 # dungeon-set turn-ins shared by several classes, not Shaman class quests.
 # Beta capped at 30: not played; it follows the data above.
 

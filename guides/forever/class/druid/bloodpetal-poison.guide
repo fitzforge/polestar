@@ -16,7 +16,7 @@ zone Un'Goro Crater
 # A Better Ingredient (9053: the Putrid Vine from Atal'alarion, the guardian
 # at the bottom of the Sunken Temple).
 # Forever removed A Better Ingredient's reward choices (Forest's Embrace,
-# Grizzled Pelt, Moonshadow Stave; Wowhead Forever's druid class page), so
+# Grizzled Pelt, Moonshadow Stave; Forever's druid class quest list), so
 # the chain now pays experience and Bloodpetal Poison's two Major Healing
 # Potions. Devilsaurs are elite and Atal'alarion is a dungeon boss: bring a
 # group for both.
@@ -26,7 +26,7 @@ zone Un'Goro Crater
 # 12.1.0, Forever); the Sunken Temple entrance is the point
 # forever/alliance/40-50/07-un-goro-crater uses (Epiccarry's Sunken Temple
 # guide gives 69,53 in the Swamp of Sorrows).
-# Left out, though Wowhead's Forever database has them (tooltip found) and the
+# Left out, though Forever's quest data has them (tooltip found) and the
 # data marks them questie-forever: The Emerald Dream (7506: a Dire Maul book
 # drop; its ender, Lorekeeper Javon, has no position in the data) and the
 # raid and dungeon gear exchanges, which are not class chains: the Zul'Gurub

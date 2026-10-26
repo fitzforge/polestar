@@ -16,13 +16,13 @@ why Your first lockpicking job at 16: Lucius's lockbox at Alther's Mill, for SI:
 # in Kharanos; Erion Shadewhisper and Erion's Behest 2259, 2260 from Jannok
 # Breezesong in Dolanaar), then Redridge Rendezvous (2281) and Alther's Mill
 # (2282, the Certificate of Thievery) with Lucius in Lakeshire.
-# Sources: Wowhead Forever's Rogue class page
-# (data/local/quest-audit/wowhead-class-quests.json) for which quests Forever
+# Sources: Forever's Rogue class quest list
+# (data/local/quest-audit/) for which quests Forever
 # has, the rewards and Forever's changes (none for this chain);
 # quests.json, npcs.json, objects.json and items.json for the givers, drops
 # and places.
 # Not confirmed in Forever: Horns of Nez'ra (2358), Arantir's follow-up in
-# Lakeshire, is in the Classic data but not on Wowhead Forever's Rogue page,
+# Lakeshire, is in the Classic data but not on Forever's Rogue class quest list,
 # so it is left out.
 # The three breadcrumbs exclude one another: take the one of your town. Their
 # race masks take any Alliance race; Skyborne, in Stormwind by about 15,

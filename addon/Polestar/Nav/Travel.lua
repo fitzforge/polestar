@@ -79,6 +79,7 @@ local SKIP_WALK = 15         -- yards: a leading walk this short is dropped
 local BOARD = 60             -- yards: at the dock / flight master
 local LEAVE = 90             -- yards: walked away from it, plan again
 local DOCK_ARRIVE = 120      -- yards: a ride or hearth has arrived
+local LIFT_LEAVE = 30       -- yards from a lift's landing: at it (the ride is shown), or walked off it (the ride is over)
 local LINK_YARDS, MAX_LINKS = 150, 3
 local MAX_PATH_VERTICES = 1500
 local MAX_POPS = 20000
@@ -247,7 +248,8 @@ end
 --   complete = true    the continents this set touches walk between zones only through crossing data
 --   zones = { [uiMap] = { name, c, top, bottom, left, right } }   (Era frame: places points whose map is no zone)
 --   wild = { uiMap, ... }   zones of those continents without crossing data (walked as before)
---   crossings = { { id, a = { map, c, wx, wy, r }, b = { ... }, ab = caption a->b, ba = caption b->a, oneWay }, ... }
+--   crossings = { { id, a = { map, c, wx, wy, z, r }, b = { ... }, ab = caption a->b, ba = caption b->a, oneWay }, ... }
+--     (z: the height of the floor a walk to that end ends on, when given: the Undercity's entrance hall, not the city below)
 --   open = { zoneA, zoneB, oneWay (0/1), ... }   shared borders walkable anywhere
 --   chains = { { id, name, open = "mouth"|"both", nodes = { { map, c, wx, wy, r, caption, back }, ... } }, ... } }
 -- Calls merge; an id seen before is skipped.
@@ -260,7 +262,7 @@ function Nav.RegisterCrossings(d)
 	local touched = {}
 	local function node(e)
 		touched[e.c] = true
-		return { map = e.map, c = e.c, wx = e.wx, wy = e.wy, r = e.r or REACH }
+		return { map = e.map, c = e.c, wx = e.wx, wy = e.wy, z = type(e.z) == "number" and e.z or nil, r = e.r or REACH }
 	end
 	for _, e in ipairs(d.crossings or {}) do
 		if type(e) == "table" and e.a and e.b and not crossIds[e.id or e] then
@@ -339,6 +341,8 @@ end
 --
 -- p = { c, wx, wy, map,                   player, world yards; map = the player's uiMap (its zone)
 --       target = { c, wx, wy, label, map, x, y, f },
+--       (p.z: the player's floor height when known, Walk.Floor: a walk to an end with a height is dropped as
+--         already walked only on that floor)
 --       faction = 1 Alliance | 2 Horde | 0 other,
 --       known = { [taxiNodeID] = true },
 --       speed = yd/s,
@@ -453,14 +457,28 @@ local function zoneName(map)
 end
 
 -- The chain node past a mouth that a point is inside (within max(CAPTURE x radius, CAPTURE_MIN)), or nil.
-local function insideChain(c, wx, wy)
+-- A node with a floor height (z) holds only a point on that floor (z within 20 yd: the Undercity's entrance hall, not
+-- the city under it); a point of unknown height, when one floor it may be on (`floors`: Walk.Floors) is within 20 yd
+-- of it and none lies more than 20 yd below it (the hall and the gallery over it, never the city under it), or when
+-- `loose` (a target: a map click), else not.
+local function onEvery(floors, h)
+	if not floors or not floors[1] then return false end
+	local near = false
+	for _, f in ipairs(floors) do
+		if h - f > 20 then return false end
+		if f - h <= 20 then near = true end
+	end
+	return near
+end
+local function insideChain(c, wx, wy, z, loose, floors)
 	local best, bestD
 	for _, ch in ipairs(chains) do
 		local nodes = ch.nodes
 		local last = ch.open == "both" and #nodes - 1 or #nodes
 		for k = 2, last do
 			local nd = nodes[k]
-			if nd.c == c then
+			local floorOK = not nd.z or (z and z - nd.z <= 20 and nd.z - z <= 20) or (z == nil and (loose or onEvery(floors, nd.z)))
+			if nd.c == c and floorOK then
 				local d = yards(c, wx, wy, nd.c, nd.wx, nd.wy)
 				local cap = nd.r * CAPTURE
 				if cap < CAPTURE_MIN then cap = CAPTURE_MIN end
@@ -491,7 +509,7 @@ local TAKE = {
 	portal = L["Take the portal to %s"],
 }
 
-function Nav.PlanRoute(p)
+local function planRoute(p)
 	local clock = debugprofilestop
 	local t0 = clock and clock()
 	local tg = p.target
@@ -585,8 +603,8 @@ function Nav.PlanRoute(p)
 	end
 
 	-- Inside a chain: the start and the target attach only to its nearest node and that node's neighbours.
-	local startIn = zoned and covered[p.c] and insideChain(p.c, p.wx, p.wy) or nil
-	local targetIn = zoned and covered[tg.c] and insideChain(tg.c, tg.wx, tg.wy) or nil
+	local startIn = zoned and covered[p.c] and insideChain(p.c, p.wx, p.wy, p.z, nil, p.floors) or nil
+	local targetIn = zoned and covered[tg.c] and insideChain(tg.c, tg.wx, tg.wy, tg.z, true) or nil
 
 	-- Explicit walk links: crossing pairs, chain neighbours, attachments.
 	local extra = {}
@@ -935,7 +953,13 @@ function Nav.PlanRoute(p)
 		if kind == TARGET then return point(tg.label, tg.c, tg.wx, tg.wy, tg.map, tg.x, tg.y, tg.f) end
 		if kind == TAXI or kind == INN then return vref[w] end
 		if kind == DOCK then return dockEnd[w] end
-		if isWaypoint(w) then return point(nil, vc[w], vx[w], vy[w], vref[w].map) end
+		if isWaypoint(w) then
+			local p = point(nil, vc[w], vx[w], vy[w], vref[w].map)
+			local nd = vref[w]
+			p.z = nd.z
+			if nd.chain then p.chain, p.idx = nd.chain.id or tostring(nd.chain), nd.idx end
+			return p
+		end
 		return point(nil, vc[w], vx[w], vy[w])
 	end
 
@@ -993,10 +1017,27 @@ function Nav.PlanRoute(p)
 			if d < huge then leg.yards = floor(d + 0.5) end
 		end
 		if how == WALK then
-			-- Hand-made: on a crossing or an approach chain past its mouth, the
-			-- arrow walks the data's waypoints, never a walking-engine path.
-			if isWaypoint(u) or vkind[to] == DARK or (u == 1 and startIn ~= nil) then leg.handmade = true end
-			if vkind[u] == CROSS and vref[u].partner == vref[to] and vref[u].id ~= nil then
+			-- Hand-made: on a crossing or an approach chain past its mouth (from
+			-- a crossing end or chain node along the data's own link: to the
+			-- crossing's other end, to a chain neighbour), the arrow walks the
+			-- data's waypoints, never a walking-engine path. A walk from a
+			-- crossing's far end or a chain's mouth out into the open is the
+			-- engine's, like any other. A
+			-- crossing whose ends' floors lie 20 yards apart or more (Thunder
+			-- Bluff's mesas, the Great Lift) is a lift: walked by the engine's
+			-- path, which rides it, so the ride becomes a step (Travel.SplitWalk).
+			local cross = vkind[u] == CROSS and vref[u].partner == vref[to]
+			local za, zb = cross and vref[u].z, cross and vref[to].z
+			local lift = za and zb and (za - zb >= 20 or zb - za >= 20)
+			local linked = false
+			local ex = isWaypoint(u) and j == i + 1 and extra[u]
+			if ex then
+				for k = 1, #ex - 1, 2 do
+					if ex[k] == to then linked = true break end
+				end
+			end
+			if (linked and not lift) or vkind[to] == DARK or (u == 1 and startIn ~= nil) then leg.handmade = true end
+			if cross and vref[u].id ~= nil then
 				leg.crossing, leg.side = vref[u].id, vref[u].side
 			end
 		elseif how == FLY then
@@ -1051,7 +1092,12 @@ function Nav.PlanRoute(p)
 		local reach = first.radius or SKIP_WALK
 		if reach < SKIP_WALK then reach = SKIP_WALK end
 		local to = first.to
-		if yards(p.c, p.wx, p.wy, to.c, to.wx, to.wy) >= reach then break end
+		local d = yards(p.c, p.wx, p.wy, to.c, to.wx, to.wy)
+		if d >= reach then break end
+		-- An end with a floor height is there only on that floor (p.z within 20 yd of it; unknown: within 5 yd,
+		-- as Travel.Aim's offFloor): under the Undercity's entrance hall, in the Trade Quarter, the walk to it
+		-- stays (it rides a lift).
+		if to.z and (p.z and (p.z - to.z > 20 or to.z - p.z > 20) or (not p.z and d > 5)) then break end
 		table.remove(legs, 1)
 	end
 	local rest = 0
@@ -1244,6 +1290,8 @@ local legs          -- current plan, or nil
 local ci = 1        -- current leg
 local boarded = false
 local boardDeadline = 0
+local floorless = false -- the plan was made with the player's floor unknown (Walk.Floor, Walk.Floors): planned again once it is known
+local atLift = false -- the walk the arrow is on ends at a lift and the player is at its landing (boardingRide)
 local dirty = false
 local wasTaxi = false
 local lastHearth
@@ -1440,7 +1488,7 @@ end
 local function plan(target)
 	-- Handed to Shortest Path Forever (Nav/Handoff.lua): it plans the way; no route here.
 	if not (target and ns.Get("nav.travel") and not Nav.HandedOff() and #taxiList + #transports + #portals + #inns + pathCount + #crossEnds + #chains > 0) then return nil end
-	local tc, twx, twy = Nav.GetTargetWorld()
+	local tc, twx, twy, tz = Nav.GetTargetWorld()
 	local C = ns.Compat
 	local pc, px, py
 	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
@@ -1454,9 +1502,11 @@ local function plan(target)
 	-- The walks to the target the walking engine measured, and the places it measures next (Nav/Walk.lua).
 	local W = Nav.walk
 	local places = W and W.Measure and {} or nil
+	local pz, pfloors = W and W.Floor and W.Floor(pc, px, py) or nil, W and W.Floors and W.Floors(pc, px, py) or nil
+	floorless = pz == nil and pfloors == nil
 	local route = Nav.PlanRoute({
-		c = pc, wx = px, wy = py, map = playerMap(),
-		target = { c = tc, wx = twx, wy = twy, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
+		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors,
+		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
 		faction = playerFaction,
 		known = knownNodes(),
 		-- Walk edges are priced unmounted: straight lines may cross water, and a
@@ -1595,6 +1645,20 @@ function Travel.CurrentLeg()
 	return legs and legs[ci]
 end
 
+-- The walk the arrow is on ends at a lift's landing and the player stands
+-- within LIFT_LEAVE of it: the lift ride (the next leg), shown in its place.
+local function boardingRide(leg)
+	local ride = legs and legs[ci + 1]
+	local f, t = ride and ride.from, leg and leg.to
+	if not (leg and leg.kind == "walk" and ride and ride.kind == "lift" and f and t and f.c == t.c and f.wx == t.wx and f.wy == t.wy) then return nil end
+	local C = ns.Compat
+	local pc, px, py
+	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+	local to = leg.to
+	if not pc or yards(pc, px, py, to.c, to.wx, to.wy) > LIFT_LEAVE then return nil end
+	return ride
+end
+
 -- The current leg's caption, with the next departure while waiting for a
 -- boat, zeppelin or tram, or at a lift (Nav/Transit.lua).
 local function departureCaption(leg)
@@ -1621,9 +1685,11 @@ local function departureCaption(leg)
 	return nil
 end
 
+-- The current leg's instruction and caption; at a lift's landing, the ride's.
 function Travel.CurrentLabel()
 	local leg = legs and legs[ci]
 	if not leg then return nil end
+	leg = boardingRide(leg) or leg
 	local caption = departureCaption(leg)
 	if caption and leg.label then return leg.label .. "\n" .. caption end
 	return caption or leg.label
@@ -1675,7 +1741,7 @@ end
 
 local function advance()
 	ci = ci + 1
-	boarded = false
+	boarded, atLift = false, false
 	progressYards, legSince = nil, GetTime()
 	Travel.version = Travel.version + 1
 	ns.Fire("ROUTE_ADVANCED", legs, ci)
@@ -1688,9 +1754,49 @@ end
 -- caption and `step`/`choke`; a lift adds a ride leg (kind "lift").
 ---------------------------------------------------------------------------
 
-local HANDMADE_NEAR = 30 -- yards: a chokepoint this close to a crossing, chain node or goto keeps the hand-made caption
-local LIFT_LEAVE = 30    -- yards from the landing boarded: the ride is over
+local HANDMADE_NEAR = 30 -- yards: a chokepoint (not a lift: its ride is a step of its own) this close to a crossing, chain node or goto keeps the hand-made caption
 local LIFT_SECONDS = 30  -- a lift's wait and ride without timetables
+
+-- A lift ride's instruction, by the landing boarded.
+local RIDE = { bottom = L["Ride the elevator up"], top = L["Ride the elevator down"] }
+
+-- An approach chain's hop between two neighbouring nodes whose floors lie 20 yd or more apart within 15 yd on the
+-- map is a lift (the Undercity's fixed way in and out, its south lift): the hop becomes a lift ride leg ("Ride the
+-- elevator up/down", Transit's lift id and timetable), and the walk to it says "Walk to the lift".
+local function chainLifts(route)
+	if not route then return route end
+	local X = ns.Transit
+	local changed = false
+	for k, leg in ipairs(route) do
+		local a, b = leg.from, leg.to
+		if leg.kind == "walk" and a and b and a.chain and a.chain == b.chain and (a.idx - b.idx == 1 or b.idx - a.idx == 1)
+			and a.z and b.z and (a.z - b.z >= 20 or b.z - a.z >= 20) and yards(a.c, a.wx, a.wy, b.c, b.wx, b.wy) <= 15 then
+			local side = a.z < b.z and "bottom" or "top"
+			leg.kind, leg.label, leg.side = "lift", RIDE[side], side
+			leg.lift = X and X.LiftNear and X.LiftNear(a.c, a.wx, a.wy) or nil
+			leg.handmade, leg.waypoint, leg.radius, leg.step, leg.crossing = nil, nil, nil, nil, nil
+			local wait, ride
+			if leg.lift and X.NextDeparture then wait, ride = X.NextDeparture("lift", leg.lift, nil, side) end
+			leg.seconds = (wait and ride) and floor(wait + ride + 0.5) or LIFT_SECONDS
+			changed = true
+			local before = route[k - 1]
+			local bt = before and before.to
+			if bt and before.kind == "walk" and bt.c == a.c and bt.wx == a.wx and bt.wy == a.wy then before.label = L["Walk to the lift"] end
+		end
+	end
+	if changed then
+		local rest = 0
+		for k = #route, 1, -1 do
+			route[k].rest = rest
+			rest = rest + route[k].seconds
+		end
+	end
+	return route
+end
+
+function Nav.PlanRoute(p)
+	return chainLifts(planRoute(p))
+end
 
 local CHOKE_TO = {
 	gate = L["Through the gate into %s"],
@@ -1801,7 +1907,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 	if type(hubs) ~= "table" or #hubs == 0 then hubs = nil end
 	local kept = {}
 	for _, s in ipairs(stops) do
-		if not handmadeNear(c, s.wx, s.wy, whole) then kept[#kept + 1] = s end
+		if s.kind == "lift" or not handmadeNear(c, s.wx, s.wy, whole) then kept[#kept + 1] = s end
 	end
 	if #kept == 0 and not parent then
 		if type(total) ~= "number" or total ~= total or total < 0 or total == huge then return false end
@@ -1831,10 +1937,9 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 			local other = point(nil, c, s.endX or s.wx, s.endY or s.wy)
 			local wait, ride
 			if X and X.NextDeparture and s.lift then wait, ride = X.NextDeparture("lift", s.lift, now + secs, s.side) end
-			local name = present(s.name)
 			pieces[#pieces + 1] = {
 				kind = "lift", from = at, to = other, parent = P, lift = s.lift, side = s.side,
-				label = name and format(L["Take %s"], name) or L["Take the lift"],
+				label = RIDE[s.side] or L["Ride the elevator"],
 				seconds = (wait and ride) and floor(wait + ride + 0.5) or LIFT_SECONDS,
 				yards = floor(yards(c, at.wx, at.wy, c, other.wx, other.wy) + 0.5),
 			}
@@ -1930,6 +2035,19 @@ end
 --   "walk", c, wx, wy[, left]    walk to that point (left: yards along the walking
 --                                engine's path to the leg's end, when it has one)
 --   "instruction", c, wx, wy     do the leg's action here (fly, ride, portal, hearth, teleport)
+-- A walk's end with a floor height (a crossing end: the Undercity's entrance hall over the Trade Quarter) that the
+-- player stands within its radius of on the map but not on its floor: the player's floor (Walk.Floor) more than
+-- FLOOR_DZ yards from it; while that is unknown (the walking engine, asked without a height, may start on the end's
+-- own floor above the player), farther than FLAT_ARRIVE yards. PlanRoute drops a leading walk by the same rule.
+local FLOOR_DZ, FLAT_ARRIVE = 20, 5
+local function offFloor(to, pc, px, py, d)
+	if not to.z then return false end
+	local W = Nav.walk
+	local fz = W and W.Floor and W.Floor(pc, px, py)
+	if fz then return fz - to.z > FLOOR_DZ or to.z - fz > FLOOR_DZ end
+	return d > FLAT_ARRIVE
+end
+
 function Travel.Aim(pc, px, py)
 	if not Travel.Active() then return nil end
 	while legs[ci] do
@@ -1941,7 +2059,23 @@ function Travel.Aim(pc, px, py)
 			local W = Nav.walk
 			local P = leg.parent -- a piece of a split walk: the path is to the whole walk's end
 			local passed = P ~= nil and W ~= nil and W.Passed(P.c, P.wx, P.wy, leg.seg)
-			if not passed and yards(pc, px, py, to.c, to.wx, to.wy) > (leg.radius or REACH) then
+			-- At the landing of the lift it ends at, the label shows the ride (Travel.CurrentLabel).
+			local ride = legs[ci + 1]
+			local rf = ride and ride.kind == "lift" and ride.from
+			local near = rf and rf.c == to.c and rf.wx == to.wx and rf.wy == to.wy and yards(pc, px, py, to.c, to.wx, to.wy) <= LIFT_LEAVE or false
+			if near ~= atLift then
+				atLift = near
+				Travel.version = Travel.version + 1
+			end
+			-- On a crossing's walk from an end with a floor height, near that end but found on another floor
+			-- (the floor became known after the plan took the player for there): plan again.
+			local from = leg.from
+			if leg.crossing and from.z and W and W.Floor and yards(pc, px, py, from.c, from.wx, from.wy) <= (leg.radius or REACH) then
+				local fz = W.Floor(pc, px, py)
+				if fz and (fz - from.z > FLOOR_DZ or from.z - fz > FLOOR_DZ) then dirty = true end
+			end
+			local d, reach = yards(pc, px, py, to.c, to.wx, to.wy), leg.radius or REACH
+			if not passed and (d > reach or offFloor(to, pc, px, py, d)) then
 				-- Along the walking engine's path when it has one (Nav/Walk.lua).
 				if W then
 					local gc, gx, gy, gz = to.c, to.wx, to.wy, to.z
@@ -2124,11 +2258,19 @@ function Travel:Refresh()
 	if not dirty and not riding() and movedAway() then dirty = true end
 	-- A shared time held back by the NAV_TRANSIT limit (below).
 	if not dirty and not riding() and Travel.TransitOwed and Travel.TransitOwed() then dirty = true end
+	-- The player's floor (or the floors they may be on) known after a plan made without it: once more with it (a start
+	-- in the Undercity's entrance hall is on the fixed way out, not under it).
+	if not dirty and floorless and not riding() then
+		local W, C = Nav.walk, ns.Compat
+		local pc, px, py
+		if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+		if pc and W and ((W.Floor and W.Floor(pc, px, py)) or (W.Floors and W.Floors(pc, px, py))) then dirty = true end
+	end
 	if not dirty and remeasureOwed and not riding() then
 		Travel.Remeasured()
 	elseif dirty then
 		Travel.Replan()
-	elseif legs and legs[ci] and departureCaption(legs[ci]) then
+	elseif legs and legs[ci] and departureCaption(boardingRide(legs[ci]) or legs[ci]) then
 		Travel.version = Travel.version + 1 -- the departure countdown in the label
 	end
 end

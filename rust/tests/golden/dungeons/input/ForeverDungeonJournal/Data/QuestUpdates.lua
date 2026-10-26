@@ -1,0 +1,3 @@
+local ADDON_NAME, FDJ = ...
+FDJ = FDJ or _G.ForeverDungeonJournal_NS
+FDJ.FOREVER_QUEST_XP_FALLBACK[990002] = 900

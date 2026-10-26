@@ -73,8 +73,8 @@ next forever/horde/40-50/02-feralas
 # footlocker sits in the Venture Co. camp at Lake Nazferiti, off this loop).
 # Left out from the refreshed export:
 # - Ancient Gurubashi Idol (96774, new in Forever, 8,800 XP): a dungeon quest
-#   in the Drowned City ("gather some friends", wowforevertalents.com, read
-#   from the beta client). The data places its giver Mazu'kon in north-west
+#   in the Drowned City ("gather some friends", the Forever client's
+#   quest cache, read from the beta client). The data places its giver Mazu'kon in north-west
 #   Mulgore (32.5,20.6), which the export visits for it alone at 43.3; no
 #   other source places him, so it is not added.
 # - Lost in Transit (93663, new, Dar in Stonard to Magtoor): the data has no

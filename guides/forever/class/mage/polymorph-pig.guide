@@ -15,17 +15,15 @@ why A new look for Polymorph: it turns the target into a pig rather than a sheep
 # guide is based on data, not play.
 # Sources: quests.json, npcs.json and items.json for Xylem, Sanath Lim-yo,
 # Warlord Krellian and the Polymorph Clones; travel.json for the Azshara flight
-# points; Wowhead Forever's Mage class page
-# (data/local/quest-audit/wowhead-class-quests.json, both unchanged), quest
-# page (https://www.wowhead.com/forever/quest=9364) and spell tooltip
-# (https://nether.wowhead.com/forever/tooltip/spell/28272: "Polymorph",
+# points; Forever's Mage class quest list
+# (data/local/quest-audit/, both unchanged), Forever's
+# quest data (quest 9364) and spell data (spell 28272: "Polymorph",
 # "Transforms the enemy into a pig"), checked 2026-10-14; the quest texts for
-# the Temple of Zin-Malor and the clones. Wowhead's Classic guide "Mage Class
-# Quests in WoW Classic" (https://www.wowhead.com/classic/guide/mage-class-quests-classic-wow,
-# Sh3rro, 2023-11-09) places Krellian in the biggest building in the middle of
+# the Temple of Zin-Malor and the clones. A Classic mage class quest guide
+# (2023-11-09) places Krellian in the biggest building in the middle of
 # the Ruins of Eldarath.
-# Left out, not class quest chains: the raid and dungeon set quests Wowhead
-# Forever has for mages (Zul'Gurub 8060, 8068, 8069, 8101-8104, 8189; Ahn'Qiraj
+# Left out, not class quest chains: the raid and dungeon set quests Forever's
+# quest data has for mages (Zul'Gurub 8060, 8068, 8069, 8101-8104, 8189; Ahn'Qiraj
 # 8625, 8631-8634, 8691, 8699, 8707; Naxxramas 9095-9102, 9238-9240 and the
 # Atiesh quests 9250, 9251, 9270; the Magister's set upgrade 8907, 8915, 8932,
 # 8939, 8953, 9001, 9014, 9018). Magma or Lava? (84396, Jennea Cannon) wants a

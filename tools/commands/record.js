@@ -13,6 +13,7 @@ const {
 const { watchSavedVariables } = require('../lib/recording/watch');
 const { draftGuide } = require('../lib/recording/draft');
 const { buildReport, formatReport } = require('../lib/recording/report');
+const { trailsOf } = require('../lib/recording/trail');
 const { resolvePack } = require('../lib/pack/locate');
 const { printDiagnostics } = require('../lib/cli');
 
@@ -31,6 +32,10 @@ const usage = `usage: node tools/polestar.js record <subcommand> [options]
                          pack is --pack, else the nearest pack.json, else our
                          guides/; another pack's draft id starts with "<pack id>/"
   list                   List imported sessions
+  trail <session|file>   The session's position trails (/psrec trail) as JSON:
+                         [{ label, start, end, reason, points: [{ t, map, x, y,
+                         wx, wy, wz, facing, speed, mounted, swimming, falling,
+                         indoors, onTaxi }] }], to stdout or --out <file.json>
   report                 Measure the guides from recorded play (Polestar + Recorder):
                          per step passes, median/p75 time, XP, XP/hr, combat share,
                          deaths, turn-ins, travel; per guide time, levels, XP/hr;
@@ -43,9 +48,10 @@ options:
                          e.g. <Wine prefix>/drive_c/Program Files (x86)/World of Warcraft/_forever_/WTF;
                          POLESTAR_WTF overrides)
   --out <dir|file>       import/watch/list: recordings folder (default data/recordings);
-                         draft: output .guide file or folder (default <pack>/drafts)
+                         draft: output .guide file or folder (default <pack>/drafts);
+                         trail: output .json file
   --pack <dir>           draft: the pack the draft belongs to
-  --recordings <dir>     draft/report: where sessions are read (default data/recordings)
+  --recordings <dir>     draft/report/trail: where sessions are read (default data/recordings)
   --interval <ms>        watch: polling interval (default 1000)
   --force                draft: overwrite an existing draft
   --anonymize            import: drop character names and realms (see import)
@@ -190,6 +196,27 @@ function doList(opts) {
 	return 0;
 }
 
+function doTrail(opts) {
+	const [arg] = opts.positional;
+	if (!arg) {
+		console.error('record trail needs a session key or a recording JSON file');
+		return 2;
+	}
+	const session = JSON.parse(fs.readFileSync(resolveSession(arg, opts), 'utf8'));
+	const trails = trailsOf(session);
+	const text = `${JSON.stringify(trails, null, '\t')}\n`;
+	if (!opts.out) {
+		process.stdout.write(text);
+		return 0;
+	}
+	const out = path.resolve(opts.out);
+	fs.mkdirSync(path.dirname(out), { recursive: true });
+	fs.writeFileSync(out, text);
+	const points = trails.reduce((n, t) => n + t.points.length, 0);
+	console.log(`wrote ${rel(out)} (${trails.length} trail(s), ${points} points)`);
+	return 0;
+}
+
 function readSessions(dir) {
 	if (!fs.existsSync(dir)) return [];
 	const out = [];
@@ -245,6 +272,8 @@ module.exports = {
 					return doDraft(opts);
 				case 'list':
 					return doList(opts);
+				case 'trail':
+					return doTrail(opts);
 				case 'report':
 					return doReport(opts);
 				default:

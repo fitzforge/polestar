@@ -16,15 +16,14 @@ why A wand of your school for the 30s: frost, arcane or fire.
 # this guide is based on data, not play.
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
 # "Plucky" Johnson's spot, the Witherbark trolls and the Bolt Charged Bramble;
-# Wowhead Forever's Mage class page
-# (data/local/quest-audit/wowhead-class-quests.json, all six unchanged) and
-# quest pages (https://www.wowhead.com/forever/quest=1947 to 1952, checked
+# Forever's Mage class quest list
+# (data/local/quest-audit/, all six unchanged) and
+# quest data (quests 1947 to 1952, checked
 # 2026-10-14) for the givers and the reward choice (Icefury, Nether Force or
 # Ragefire Wand); the quest texts for Tabetha's cottage and the Scarlet
 # Monastery; codex/instances.json for the Scarlet Monastery Library entrance.
-# Details Forever's data lacks come from Wowhead's Classic guide "Mage Class
-# Quests in WoW Classic" (https://www.wowhead.com/classic/guide/mage-class-quests-classic-wow,
-# Sh3rro, 2023-11-09): the /beckon for "Plucky" Johnson, the book's place in
+# Details Forever's data lacks come from a Classic guide to the mage class
+# quests (2023-11-09): the /beckon for "Plucky" Johnson, the book's place in
 # the Library, and the ten Witherbark Totem Sticks that become the Bolt Charged
 # Bramble. Items of Power is taken after Rituals of Power, in the order that
 # guide gives (our data would let Tabetha offer it at once).

@@ -1,0 +1,222 @@
+name: Forge
+
+# The Rust pipeline (rust/): format, lints, tests, the minimum Rust version, the wasm32 build of
+# the crates the addon's browser tools use, and release builds of the forge binary on Linux,
+# Windows and macOS. A tag `forge-v*` also attaches the builds to a GitHub release. push and
+# pull_request only: a pull request's code never runs with this repository's secrets or write token.
+# The tests include the addon's Lua tests (forge-addontest: addon/ on the client stub tests/lua), so
+# a change to the addon, the stub or the compiler's test fixtures runs them too; the committed data
+# (data/, forever-db/) and the guides are what forge's checks read, so a change there runs them as well.
+# ci.yml builds forge on every push and pull request for the Node tests and the changelog check.
+on:
+  push:
+    branches: [main, next]
+    tags: ["forge-v*"]
+    paths: ["rust/**", "addon/**", "data/**", "forever-db/**", "guides/**", "tests/lua/**", "tests/fixtures/dsl/**", "docs/FORGE.md", "docs/forge/**", ".github/workflows/forge.yml"]
+  pull_request:
+    paths: ["rust/**", "addon/**", "data/**", "forever-db/**", "guides/**", "tests/lua/**", "tests/fixtures/dsl/**", "docs/FORGE.md", "docs/forge/**", ".github/workflows/forge.yml"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: forge-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+  RUST_BACKTRACE: "1"
+
+defaults:
+  run:
+    working-directory: rust
+
+jobs:
+  check:
+    name: Format, lints, tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+
+      - name: Format
+        run: cargo fmt --all --check
+
+      # The quick profile (release without LTO, rust/Cargo.toml): optimised tests without the
+      # link-time optimisation the shipped binaries get; much faster to build.
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets --profile quick --locked -- -D warnings
+
+      # A fresh clone has no game client, no built data/forever and no local reference data: the
+      # tests that need them are #[ignore]d with the input they need named.
+      - name: Test
+        run: cargo test --profile quick --workspace --locked
+
+      # Every command's --help and every docs/FORGE.md, docs/forge/*.md block marked `<!-- ci -->`.
+      - name: Documented commands
+        run: |
+          cargo build --profile quick --locked -p forge
+          scripts/doc-commands.sh target/quick/forge
+
+  msrv:
+    name: Minimum Rust version
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+
+      # The rust-version rust/Cargo.toml declares.
+      - name: Toolchain
+        id: rv
+        run: |
+          rv=$(sed -n 's/^rust-version = "\(.*\)"/\1/p' Cargo.toml)
+          test -n "$rv"
+          rustup toolchain install "$rv" --profile minimal
+          echo "version=$rv" >> "$GITHUB_OUTPUT"
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+          key: msrv
+
+      - name: Check
+        run: cargo +${{ steps.rv.outputs.version }} check --locked --workspace
+
+  wasm:
+    name: wasm32 build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+          key: wasm32
+
+      # Every crate but the native-only ones (forge and forge-data: vendored Lua, the client
+      # install), without their `native` feature.
+      - name: Check
+        run: >-
+          cargo check --locked --target wasm32-unknown-unknown --no-default-features --lib
+          -p forge-core -p forge-guide -p forge-world -p forge-sim -p forge-nav -p forge-judge
+          -p forge-writer -p forge-gamedata -p forge-wasm
+
+      # The browser planner's package (forge-wasm's wasm-bindgen glue, wasm-opt), as www-build/build.sh
+      # makes it; the page itself needs local data and is not built here.
+      - name: Install wasm-pack
+        run: cargo install --locked wasm-pack
+
+      - name: wasm-pack
+        working-directory: rust/crates/forge-wasm
+        run: wasm-pack build --release --target web --out-dir www/pkg --no-typescript
+
+  build:
+    name: Build ${{ matrix.name }}
+    needs: check
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: linux-x86_64, os: ubuntu-latest, target: x86_64-unknown-linux-gnu, exe: "" }
+          - { name: windows-x86_64, os: windows-latest, target: x86_64-pc-windows-msvc, exe: ".exe" }
+          - { name: macos-aarch64, os: macos-latest, target: aarch64-apple-darwin, exe: "" }
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+          key: ${{ matrix.target }}
+
+      # The release's version is the workspace's (rust/Cargo.toml).
+      - name: Version matches the tag
+        if: startsWith(github.ref, 'refs/tags/forge-v')
+        shell: bash
+        run: |
+          want="${GITHUB_REF_NAME#forge-v}"
+          have=$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -n1)
+          if [ "$want" != "$have" ]; then echo "tag $GITHUB_REF_NAME but rust/Cargo.toml says $have"; exit 1; fi
+
+      - name: Build
+        shell: bash
+        run: >-
+          cargo build --release --locked --target ${{ matrix.target }}
+          --bin forge
+
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-about
+
+      # The licences of every Rust dependency built into this target's binary.
+      - name: Dependency licences
+        shell: bash
+        run: cargo about generate --locked --target ${{ matrix.target }} -m crates/forge/Cargo.toml about.hbs -o THIRD_PARTY_RUST.md
+
+      - name: Package
+        shell: bash
+        run: |
+          dir="polestar-forge-${{ matrix.name }}"
+          mkdir -p "$dir"
+          # one binary: forge build, plus forge data | doctor | gamedata | guide | judge | nav | sim | walks | writer
+          cp "target/${{ matrix.target }}/release/forge${{ matrix.exe }}" "$dir/"
+          cp ../LICENSE ../LICENSE-EXCEPTION.md NOTICE.md ../THIRD_PARTY.md THIRD_PARTY_RUST.md "$dir/"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: polestar-forge-${{ matrix.name }}
+          path: rust/polestar-forge-${{ matrix.name }}
+          if-no-files-found: error
+
+  release:
+    name: Release
+    if: startsWith(github.ref, 'refs/tags/forge-v')
+    needs: [check, msrv, wasm, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Archive
+        working-directory: dist
+        run: |
+          for d in polestar-forge-*/; do
+            d="${d%/}"
+            if [ -f "$d/forge" ]; then chmod +x "$d/forge"; fi
+            if [[ "$d" == *windows* ]]; then zip -qr "$d.zip" "$d"; else tar -czf "$d.tar.gz" "$d"; fi
+          done
+          sha256sum *.zip *.tar.gz > SHA256SUMS
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.zip
+            dist/*.tar.gz
+            dist/SHA256SUMS
+          generate_release_notes: true
+          # The addon's own release stays the repository's latest (its download links and the
+          # data pack's fixed `data-pack` release do not move).
+          make_latest: false

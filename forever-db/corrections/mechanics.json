@@ -1,0 +1,67 @@
+{
+	"114": {
+		"params": [
+			{
+				"kind": "delayed-offer",
+				"after": 112,
+				"npc": 253,
+				"sec": 10
+			}
+		],
+		"note": "The Escape: William Pestle (253) brews the Invisibility Liquor in a short scene after Collecting Kelp (112) is handed in, and offers The Escape only then; the route fills the wait at Marshal Dughan a few yards away. Reported by a player and confirmed by the fix in the shipped guide; sec is an estimate (a few seconds).",
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#613"
+		}
+	},
+	"151": {
+		"steps": {
+			"1": {
+				"set": {
+					"place": {
+						"name": "The Jansen Stead's fields",
+						"x": 56.8,
+						"y": 19.1,
+						"zone": "Westfall"
+					}
+				}
+			}
+		},
+		"note": "Poor Old Blanchy: the Sacks of Oats are gathered in the Jansen Stead's own fields (56.8,19.1: 19 known sacks within 150 yd, 32 within 250), not searched for over all 119 sacks in Westfall; the reporter found the far ones empty. Confirmed by the fix in the shipped guide.",
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#621"
+		}
+	},
+	"470": {
+		"steps": {
+			"1": {
+				"set": {
+					"place": {
+						"name": "Ironbeard's Tomb",
+						"x": 44.6,
+						"y": 25.6,
+						"zone": "Wetlands"
+					}
+				}
+			}
+		},
+		"note": "Digging Through the Ooze: the quest text says one of the oozes at Ironbeard's Tomb has Sida's Bag, so the search is at the tomb (44.6,25.6, the shipped guide's arrow spot: 26 spawns within 130 yd), not every ooze in the Wetlands. Confirmed by the fix in the shipped guide.",
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#614"
+		}
+	},
+	"2459": {
+		"steps": {
+			"2": {
+				"set": {}
+			}
+		},
+		"note": "Ferocitas the Dream Eater: Tallonkai's Jewel (8050) is not a drop; it comes out of the Gnarlpine Necklace (8049) that Ferocitas (7234) drops, opened in the bags. Step 2 (loot the necklace) drives, so the guide collects the necklace before the jewel. Confirmed by the fix in the shipped guide; the container parameter from the game data agrees.",
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#619"
+		}
+	}
+}

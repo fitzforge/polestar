@@ -1,0 +1,38 @@
+[package]
+name = "forge-sim"
+description = "Route simulation: the evaluator (state, journal, time model), class profiles, the route search, the shared route."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[features]
+default = ["native"]
+# Threads (rayon) and file loaders; off for wasm (single-threaded, bytes handed in).
+native = ["dep:rayon", "dep:rusqlite", "forge-world/native"]
+
+[dependencies]
+serde.workspace = true
+serde_json = { workspace = true, features = ["float_roundtrip", "preserve_order"] }
+rustc-hash.workspace = true
+forge-core = { path = "../forge-core" }
+forge-world = { path = "../forge-world", default-features = false }
+rayon = { version = "1", optional = true }
+libm = "0.2"
+# The knowledge base (data/local/kb/forever-kb.sqlite): confidence of quest facts.
+rusqlite = { version = "0.37", features = ["bundled"], optional = true }
+
+[dev-dependencies]
+proptest = "1"
+flate2 = "1"
+criterion = { version = "0.5", default-features = false }
+
+[[bench]]
+name = "eval"
+harness = false
+
+[lints]
+workspace = true

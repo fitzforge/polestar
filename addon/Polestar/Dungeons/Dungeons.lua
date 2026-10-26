@@ -403,7 +403,7 @@ if ns.RegisterOptions then
 
 	-- The dungeons a leveling guide's `when dungeon` steps can be for, one
 	-- toggle each, all off: the solo route is the default. The Classic
-	-- dungeons of the Codex's instances (tools/lib/codex/entrances.json), by
+	-- dungeons of the Codex's instances (data/codex/entrances.json), by
 	-- level, as Map id and English name; the name shows in the client's
 	-- language when it has one (Names.Instance). The choice is per character
 	-- (Engine.ChooseDungeon).

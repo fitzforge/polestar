@@ -1,4 +1,4 @@
--- /psrec: status, on|off, mark <text>, maps, talents, clear.
+-- /psrec: status, on|off, mark <text>, trail on [label]|off, maps, talents, clear.
 
 local ADDON, ns = ...
 local L = ns.L
@@ -269,7 +269,7 @@ local function status()
 			s.factions and L["factions"] or "-", s.skills and L["skills"] or "-", s.legacy and L["legacy"] or "-",
 		}, " ")))
 	end
-	ns.Print(L["commands: /psrec on | off | mark <text> | maps | talents | legacy | factions | skills | clear"])
+	ns.Print(L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | maps | talents | legacy | factions | skills | clear"])
 end
 
 ---------------------------------------------------------------------------
@@ -285,11 +285,13 @@ commands.status = status
 commands.on = function()
 	ns.SetEnabled(true)
 	ns.Print(L["recording %s"]:format("|cff4fd18f" .. L["on"] .. "|r"))
+	if ns.RefreshPanel then ns.RefreshPanel() end
 end
 
 commands.off = function()
 	ns.SetEnabled(false)
 	ns.Print(L["recording %s"]:format("|cffd14f4f" .. L["off"] .. "|r"))
+	if ns.RefreshPanel then ns.RefreshPanel() end
 end
 
 commands.mark = function(rest)
@@ -306,6 +308,52 @@ commands.mark = function(rest)
 	else
 		ns.Print(L["mark not recorded (session cap reached)"])
 	end
+end
+
+-- /psrec trail on [label] | off | toggle: a dense position trail
+-- (Trail.lua). toggle (the key binding, the window's button) starts with the
+-- window's label, else the next spot's.
+local function trailOn(label)
+	if not ns.IsEnabled() then
+		ns.Print(L["recording is off; /psrec on first"])
+		return
+	end
+	if label == "" and ns.PanelLabel then label = ns.PanelLabel() or "" end
+	local tr, running = ns.TrailStart(label)
+	if not tr then
+		ns.Print(L["trail already on: %s"]:format(running.label))
+		return
+	end
+	ns.Print(L["trail on: %s (stops by itself after %d min; /psrec trail off to end)"]:format(tr.label, ns.TRAIL_MAX_MINUTES))
+end
+
+local function trailOff()
+	local tr = ns.TrailStop("off")
+	if tr then
+		ns.Print(L["trail off: %s, %d points"]:format(tr.label, tr.n))
+	else
+		ns.Print(L["no trail running"])
+	end
+end
+
+commands.trail = function(rest)
+	local sub, label = rest:match("^(%S*)%s*(.-)$")
+	sub = (sub or ""):lower()
+	if sub == "on" then
+		trailOn(label)
+	elseif sub == "off" then
+		trailOff()
+	elseif sub == "toggle" then
+		if ns.Trail() then trailOff() else trailOn("") end
+	else
+		ns.Print(L["usage: /psrec trail on [label] | trail off"])
+	end
+	if ns.RefreshPanel then ns.RefreshPanel() end
+end
+
+-- /psrec ui: the Recorder window (Panel.lua).
+commands.ui = function()
+	if ns.TogglePanel then ns.TogglePanel() end
 end
 
 commands.maps = function()
@@ -394,6 +442,8 @@ local function gamepadUI()
 	local get = (C_CVar and C_CVar.GetCVar) or GetCVar
 	return get and tonumber(get("InputDeviceInterfaceStyle")) == E.Gamepad or false
 end
+
+ns.GamepadUI = gamepadUI
 
 function PolestarRecorder_Command(msg)
 	local name, rest = (msg or ""):match("^%s*(%S*)%s*(.-)%s*$")

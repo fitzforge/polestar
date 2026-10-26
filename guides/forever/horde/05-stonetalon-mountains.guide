@@ -65,7 +65,7 @@ next forever/horde/06-hillsbrad-foothills
 # 95883, 95885, Forever, new consensus route): all three start and end at
 # the Offering Stone in Beren's Peril, a short ride off the road to Tarren
 # Mill (the export does them on a second Silverpine visit at about 21). The
-# Offering of Blood is optional: Wowhead lists it as elite.
+# Offering of Blood is optional: Forever's quest data lists it as elite.
 # Skyborne: Lady Sylvanas Windrunner in the Undercity is one of the leaders
 # for Exploring the Horde (93739, from Thrall in
 # forever/horde/03-silverpine-forest); talk to her on the Undercity stop.
@@ -76,7 +76,7 @@ next forever/horde/06-hillsbrad-foothills
 # ---------------------------------------------------------------- Mor'shan Rampart
 
 step Kadrak
-  # The Mor'shan Rampart is in the Barrens (Wowhead Forever; AreaTable 1703):
+  # The Mor'shan Rampart is in the Barrens (Forever's quest data; AreaTable 1703):
   # on Ashenvale's map the route sent you through the zone crossing past him (#246).
   zone The Barrens
   tip From the Crossroads follow the road north. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale. Open the Bundle of Reports he gives you.

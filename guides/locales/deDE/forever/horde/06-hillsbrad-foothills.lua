@@ -20,10 +20,10 @@ return {
 
 	-- Step 2: Serge Hinott
 	-- {quest:2479} Hinott's Assistance · {npc:2391} Serge Hinott · {area:272} Tarren Mill
-	["After returning Mission: Possible But Not Probable to Shenthul, bring {quest:2479} to {npc:2391} in {area:272}. Stay beside him until the brewing objective completes, then hand in the follow-up to learn Poisons. Finish it even if the Zanzil poison has already been removed; removing the debuff alone does not teach the skill."] = "",
+	["After returning Mission: Possible But Not Probable to Shenthul, bring {quest:2479} to {npc:2391} in {area:272}. Stay beside him until the brewing objective completes, then hand in the follow-up to learn Poisons. Finish it even if the Zanzil poison has already been removed; removing the debuff alone does not teach the skill."] = "Hast du „Mission: Possible But Not Probable“ bei Shenthul abgegeben, bring {quest:2479} zu {npc:2391} in {area:272}. Bleib neben ihm, bis das Brauziel abgeschlossen ist, und gib dann die Folgequest ab, um Gifte zu lernen. Schließe sie auch dann ab, wenn das Zanzilgift schon entfernt wurde; das Entfernen des Debuffs allein lehrt die Fertigkeit nicht.",
 	-- {npc:2391} Serge Hinott
 	["{npc:2391}: Poisons"] = "{npc:2391}: Gifte",
-	["Poison chain unfinished? Resume your current stage in the Class guide Poisons (Horde); completed quests do not need restarting. Arrange a group for Gallywix, finish the Hinott follow-up, then return to this leveling guide."] = "",
+	["Poison chain unfinished? Resume your current stage in the Class guide Poisons (Horde); completed quests do not need restarting. Arrange a group for Gallywix, finish the Hinott follow-up, then return to this leveling guide."] = "Giftreihe unvollendet? Setze deine aktuelle Stufe im Klassen-Guide Gifte (Horde) fort; abgeschlossene Quests müssen nicht neu begonnen werden. Organisiere eine Gruppe für Gallywix, schließe die Folgequest von Hinott ab und kehre dann zu diesem Leveling-Guide zurück.",
 
 	-- Step 3: Bears, creepers and lions
 	["Bears, creepers and lions"] = "Bären, Krabbler und Löwen",

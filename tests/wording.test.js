@@ -66,9 +66,9 @@ function scan() {
 
 const where = (file, text, index) => `${path.relative(ROOT, file)}:${text.slice(0, index).split('\n').length}`;
 
-// The names addons hold the game's own names in each language, not Polestar's
+// The language folders' Names.lua hold the game's own names in each language, not Polestar's
 // words: a Portuguese NPC may share a first name with a product.
-const GAME_NAMES = /[/\\]addon[/\\]Polestar_Names_[A-Za-z]{4}[/\\]Names\.lua$/;
+const GAME_NAMES = /[/\\]addon[/\\]Polestar_[a-z]{2}[A-Z]{2}[/\\]Names\.lua$/;
 
 test('no other guide product is named', () => {
 	const files = scan();

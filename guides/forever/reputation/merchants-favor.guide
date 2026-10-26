@@ -14,7 +14,7 @@ zone Redridge Mountains
 # Same camps as collectibles/mounts/*/pack-kodo and collectibles/pets/minimule.
 # Sources: quests.json, npcs.json; Forever client 1.60.1.70338 ItemSparse
 # (Waylaid Crate 248702-248713, Sealed Crate 248765-248779);
-# https://www.wowhead.com/forever/currency=3402/merchants-favor ;
+# Forever's quest data (currency 3402, Merchant's Favor);
 # https://theforeverera.com/en/merchants-favor/ . How much reputation each
 # crate gives is not documented, so the steps track the standing only.
 

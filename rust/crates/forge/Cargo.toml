@@ -1,0 +1,44 @@
+[package]
+name = "forge"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Polestar Forge: builds the game data from an installed client, prepares walks, simulates and judges routes, and writes guides, stage by stage with content-keyed caching."
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[dependencies]
+serde_json = { workspace = true }
+serde.workspace = true
+blake3 = "1"
+sha2 = "0.10"
+flate2 = { version = "1", default-features = false, features = ["zlib-rs"] }
+rusqlite = { version = "0.37", features = ["bundled"] }
+tar = "0.4"
+ureq = "3"
+rayon = "1"
+rustc-hash.workspace = true
+forge-core = { path = "../forge-core" }
+forge-data = { path = "../forge-data" }
+forge-gamedata = { path = "../forge-gamedata" }
+forge-world = { path = "../forge-world" }
+forge-navbuild = { path = "../forge-navbuild" }
+forge-nav = { path = "../forge-nav", features = ["world"] }
+forge-sim = { path = "../forge-sim" }
+forge-guide = { path = "../forge-guide" }
+forge-i18n = { path = "../forge-i18n" }
+forge-judge = { path = "../forge-judge" }
+forge-writer = { path = "../forge-writer" }
+forge-release = { path = "../forge-release" }
+
+[[bin]]
+name = "forge"
+path = "src/main.rs"
+
+[dev-dependencies]
+regex = "1"
+
+[lints]
+workspace = true

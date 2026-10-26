@@ -15,8 +15,8 @@ zone Moonglade
 # Moonglade flight path, so the reward line names Bear Form only.
 # The level-10 druid quests: Teleport: Moonglade and Bear Form. In Forever
 # Bear Form is no longer trained: Body and Heart (6001 Night Elf, 6002 Tauren)
-# and Strength and Mercy (94638, Skyborne) reward it (Wowhead Forever's druid
-# class page: "Rewards: adds Bear Form").
+# and Strength and Mercy (94638, Skyborne) reward it (Forever's druid class
+# quest list: "Rewards: adds Bear Form").
 # - Night Elves: Heeding the Call (5923 Denatharion, 5924 Theridran in
 #   Stormwind, 5925 Kal in Dolanaar: one of them) -> Moonglade (5921) -> Great
 #   Bear Spirit (5929) -> Back to Darnassus (5931) -> Body and Heart (6001) at
@@ -33,9 +33,9 @@ zone Moonglade
 #   Turak Runetotem; Alliance Skyborne get Child of Nature (94912) from Alfina
 #   Nightgaze beside the Skyborne Portal west of Dalaran (Archmage Ansirem
 #   Runeweaver offers it too) and Moonglade (94914) from Sheldras Moontree in
-#   Stormwind. Both reward Nightclaw Druids reputation (Wowhead).
+#   Stormwind. Both reward Nightclaw Druids reputation (Forever's quest data).
 # Left out: Stalk With The Earthmother (76156, 76160, 76240, Boarton
-# Shadetotem in Thunder Bluff). Wowhead's Forever change notes open 76156 and
+# Shadetotem in Thunder Bluff). Forever's change notes open 76156 and
 # 76160 to every class (not druid quests) and 76240 to Hunters, Shamans and
 # Druids, but the data cannot place their objectives (no source for the
 # Seaforium Mining Charges, Windfury Cones or Raw Brilliant Smallfish) and
@@ -44,8 +44,8 @@ zone Moonglade
 # tauren/01-mulgore, both skyborne/01-zephras-isle; the Alliance Skyborne
 # Moonglade welcome is proposed for them): this guide is for druids off our
 # route.
-# Sources: quests.json and npcs.json (Questie 12.1.0, Forever); Wowhead
-# Forever quest pages 94911-94914; the skyboat points are the ones of
+# Sources: quests.json and npcs.json (Questie 12.1.0, Forever); Forever's
+# quest data for 94911-94914; the skyboat points are the ones of
 # collectibles/pets/shadowgale-squirrel.
 
 # ---------------------------------------------------------------- Night Elves

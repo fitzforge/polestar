@@ -1,0 +1,57 @@
+{
+	"schema": 1,
+	"build": "1.60.1.70000",
+	"session": "b",
+	"char": {
+		"name": "Alt",
+		"realm": "Fixture",
+		"race": "Human",
+		"class": "MAGE",
+		"faction": "Alliance"
+	},
+	"started": 2000,
+	"ended": 2100,
+	"events": [
+		{
+			"t": 3,
+			"e": "turnin",
+			"q": 100,
+			"xpReward": 20,
+			"money": 0,
+			"lvl": 5,
+			"map": 1429,
+			"x": 48.02,
+			"y": 41.01,
+			"npc": 2,
+			"npcName": "Alice"
+		},
+		{
+			"t": 9,
+			"e": "accept",
+			"q": 102,
+			"title": "The Altar",
+			"qlvl": 4,
+			"lvl": 5,
+			"xp": 900,
+			"map": 1429,
+			"x": 31.5,
+			"y": 41.25,
+			"object": 500,
+			"objName": "Fixture Altar"
+		},
+		{
+			"t": 20,
+			"e": "turnin",
+			"q": 102,
+			"xpReward": 300,
+			"money": 0,
+			"lvl": 5,
+			"map": 1429,
+			"x": 31.52,
+			"y": 41.27,
+			"object": 500,
+			"objName": "Fixture Altar"
+		}
+	],
+	"maps": {}
+}

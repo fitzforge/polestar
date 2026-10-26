@@ -32,7 +32,7 @@ return {
 
 	-- Step 6: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
-	["Head south along the coast from {area:392} to {area:720}. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "",
+	["Head south along the coast from {area:392} to {area:720}. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "Geh von {area:392} an der Küste nach Süden zu {area:720}. {npc:6236} steht an der Arena: Betritt das Gitter, um den Kampf zu beginnen; die Herausforderer kommen einzeln, dann {npc:6238} (33).",
 	-- {npc:6238} Big Will
 	["Defeat the challengers and {npc:6238}"] = "Besiege die Herausforderer und {npc:6238}",
 

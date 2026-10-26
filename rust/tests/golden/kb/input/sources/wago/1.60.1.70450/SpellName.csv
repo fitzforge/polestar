@@ -1,0 +1,1279 @@
+ID,Name_lang
+10,Blizzard
+17,"Power Word: Shield"
+53,Backstab
+72,"Shield Bash"
+100,Charge
+116,Frostbolt
+118,Polymorph
+120,"Cone of Cold"
+122,"Frost Nova"
+126,"Eye of Kilrogg"
+130,"Slow Fall"
+131,"Water Breathing"
+132,"Detect Invisibility"
+136,"Mend Pet"
+139,Renew
+172,Corruption
+324,"Lightning Shield"
+348,Immolate
+370,Purge
+408,"Kidney Shot"
+421,"Chain Lightning"
+453,"Mind Soothe"
+467,Thorns
+475,"Remove Lesser Curse"
+498,"Divine Protection"
+526,"Cure Poison"
+527,"Dispel Magic"
+528,"Cure Disease"
+543,"Fire Ward"
+546,"Water Walking"
+552,"Abolish Disease"
+556,"Astral Recall"
+586,Fade
+587,"Conjure Food"
+588,"Inner Fire"
+589,"Shadow Word: Pain"
+596,"Prayer of Healing"
+603,"Bane of Doom"
+604,"Dampen Magic"
+605,"Mind Control"
+633,"Lay on Hands"
+642,"Divine Shield"
+674,"Dual Wield"
+676,Disarm
+678,"Holy Strike"
+689,"Drain Life"
+693,"Create Soulstone"
+694,"Mocking Blow"
+698,"Ritual of Summoning"
+702,"Curse of Weakness"
+703,Garrote
+704,"Curse of Recklessness"
+706,"Demon Armor"
+710,Banish
+740,Tranquility
+750,"Plate Mail"
+755,"Health Funnel"
+759,"Conjure Mana Agate"
+769,Swipe
+770,"Faerie Fire"
+772,Rend
+774,Rejuvenation
+781,Disengage
+783,"Travel Form"
+871,"Shield Wall"
+879,Exorcism
+921,"Pick Pocket"
+976,"Shadow Protection"
+980,"Bane of Agony"
+1002,"Eyes of the Beast"
+1008,"Amplify Magic"
+1022,"Blessing of Protection"
+1038,Salvation
+1044,"Blessing of Freedom"
+1064,"Chain Heal"
+1098,"Subjugate Demon"
+1120,"Drain Soul"
+1130,"Hunter's Mark"
+1160,"Demoralizing Shout"
+1161,"Challenging Shout"
+1243,"Power Word: Fortitude"
+1449,"Arcane Explosion"
+1454,"Life Tap"
+1459,"Arcane Intellect"
+1462,"Beast Lore"
+1463,"Mana Shield"
+1464,Slam
+1494,"Track Beasts"
+1495,"Mongoose Bite"
+1499,"Freezing Trap"
+1510,Volley
+1513,"Scare Beast"
+1543,Flare
+1680,Whirlwind
+1706,Levitate
+1714,"Curse of Tongues"
+1715,Hamstring
+1719,Recklessness
+1725,Distract
+1766,Kick
+1776,Gouge
+1784,Stealth
+1804,"Pick Lock"
+1822,Rake
+1833,"Cheap Shot"
+1842,"Disarm Trap"
+1850,Dash
+1856,Vanish
+1860,"Safe Fall"
+1943,Rupture
+1953,Blink
+1966,Feint
+1978,"Serpent Sting"
+2006,Resurrection
+2008,"Ancestral Spirit"
+2054,Heal
+2060,"Greater Heal"
+2061,"Flash Heal"
+2070,Sap
+2094,Blind
+2096,"Mind Vision"
+2120,Flamestrike
+2136,"Fire Blast"
+2139,Counterspell
+2362,"Create Spellstone"
+2565,"Shield Block"
+2637,Hibernate
+2643,Multi-Shot
+2687,Bloodrage
+2782,"Remove Curse"
+2812,"Holy Wrath"
+2878,"Turn Undead"
+2893,"Abolish Poison"
+2908,"Soothe Animal"
+2912,Starfire
+2944,"Devouring Plague"
+2948,Scorch
+2974,"Wing Clip"
+2983,Sprint
+3034,"Viper Sting"
+3043,"Scorpid Sting"
+3044,"Arcane Shot"
+3045,"Rapid Fire"
+3421,"Crippling Poison II"
+3552,"Conjure Mana Jade"
+4987,Cleanse
+5116,"Concussive Shot"
+5118,"Aspect of the Cheetah"
+5138,"Drain Mana"
+5143,"Arcane Missiles"
+5171,"Slice and Dice"
+5209,"Challenging Roar"
+5225,"Track Humanoids"
+5242,"Battle Shout"
+5246,"Intimidating Shout"
+5308,Execute
+5384,"Feign Death"
+5484,"Howl of Terror"
+5500,"Sense Demons"
+5504,"Conjure Water"
+5675,"Mana Spring Totem"
+5676,"Searing Pain"
+5697,"Unending Breath"
+5699,"Create Healthstone"
+5730,"Stoneclaw Totem"
+6117,"Mage Armor"
+6143,"Frost Ward"
+6196,"Far Sight"
+6197,"Eagle Eye"
+6229,"Shadow Ward"
+6343,"Thunder Clap"
+6346,"Fear Ward"
+6353,"Soul Fire"
+6366,"Create Firestone"
+6495,"Sentry Totem"
+6510,"Blinding Powder"
+6552,Pummel
+6572,Revenge
+6789,"Death Coil"
+6940,"Blessing of Sacrifice"
+7294,"Retribution Aura"
+7384,Overpower
+8004,"Lesser Healing Wave"
+8024,"Flametongue Weapon"
+8033,"Frostbrand Weapon"
+8050,"Flame Shock"
+8056,"Frost Shock"
+8075,"Strength of Earth Totem"
+8092,"Mind Blast"
+8122,"Psychic Scream"
+8143,"Tremor Totem"
+8166,"Poison Cleansing Totem"
+8170,"Disease Cleansing Totem"
+8177,"Grounding Totem"
+8181,"Frost Resistance Totem"
+8184,"Fire Resistance Totem"
+8227,"Flametongue Totem"
+8232,"Windfury Weapon"
+8512,"Windfury Totem"
+8647,"Expose Armor"
+8676,Ambush
+8737,Mail
+8835,"Grace of Air Totem"
+8921,Moonfire
+9005,Pounce
+9634,"Dire Bear Form"
+10053,"Conjure Mana Citrine"
+10054,"Conjure Mana Ruby"
+10321,Judgement
+10595,"Nature Resistance Totem"
+12051,Evocation
+13159,"Aspect of the Pack"
+13161,"Aspect of the Beast"
+13163,"Aspect of the Monkey"
+13165,"Aspect of the Hawk"
+13228,"Wound Poison II"
+13229,"Wound Poison III"
+13230,"Wound Poison IV"
+13795,"Immolation Trap"
+13809,"Frost Trap"
+13813,"Explosive Trap"
+14274,"Distracting Shot"
+14752,"Divine Spirit"
+14914,"Holy Fire"
+15107,"Windwall Totem"
+16864,"Omen of Clarity"
+16914,Hurricane
+17962,Conflagrate
+18499,"Berserker Rage"
+19434,"Aimed Shot"
+19506,"Trueshot Aura"
+19742,"Blessing of Wisdom"
+19746,"Concentration Aura"
+19750,"Flash of Light"
+19752,"Divine Intervention"
+19876,"Shadow Resistance Aura"
+19878,"Track Demons"
+19879,"Track Dragonkin"
+19880,"Track Elementals"
+19882,"Track Giants"
+19884,"Track Undead"
+19885,"Track Hidden"
+19888,"Frost Resistance Aura"
+19891,"Fire Resistance Aura"
+19977,"Blessing of Light"
+20043,"Aspect of the Wild"
+20116,Consecration
+20162,"Seal of the Crusader"
+20164,"Seal of Justice"
+20165,"Seal of Light"
+20217,"Blessing of Kings"
+20230,Retaliation
+20473,"Holy Shock"
+20484,Rebirth
+20608,Reincarnation
+20719,"Feline Grace"
+22568,"Ferocious Bite"
+22842,"Frenzied Regeneration"
+24239,"Hammer of Wrath"
+25780,"Righteous Fury"
+25782,"Greater Blessing of Might"
+25890,"Greater Blessing of Light"
+25894,"Greater Blessing of Wisdom"
+25895,"Mass Salvation"
+25898,"Greater Blessing of Kings"
+27681,"Prayer of Spirit"
+29166,Innervate
+36936,"Totemic Recall"
+66842,"Call of the Elements"
+66843,"Call of the Ancestors"
+66844,"Call of the Spirits"
+400640,"Ice Lance"
+401502,"Frostfire Bolt"
+402927,"Victory Rush"
+437009,"Totemic Projection"
+1296017,"Comprehend Scroll"
+1310185,"Tactical Mastery"
+6141,Blizzard
+8427,Blizzard
+10185,Blizzard
+10186,Blizzard
+10187,Blizzard
+592,"Power Word: Shield"
+600,"Power Word: Shield"
+3747,"Power Word: Shield"
+6065,"Power Word: Shield"
+6066,"Power Word: Shield"
+10898,"Power Word: Shield"
+10899,"Power Word: Shield"
+10900,"Power Word: Shield"
+10901,"Power Word: Shield"
+2589,Backstab
+2590,Backstab
+2591,Backstab
+8721,Backstab
+11279,Backstab
+11280,Backstab
+11281,Backstab
+1671,"Shield Bash"
+1672,"Shield Bash"
+284,"Heroic Strike"
+285,"Heroic Strike"
+1608,"Heroic Strike"
+11564,"Heroic Strike"
+11565,"Heroic Strike"
+11566,"Heroic Strike"
+11567,"Heroic Strike"
+1735,"Demoralizing Roar"
+9490,"Demoralizing Roar"
+9747,"Demoralizing Roar"
+9898,"Demoralizing Roar"
+6178,Charge
+11578,Charge
+205,Frostbolt
+837,Frostbolt
+7322,Frostbolt
+8406,Frostbolt
+8407,Frostbolt
+8408,Frostbolt
+10179,Frostbolt
+10180,Frostbolt
+10181,Frostbolt
+12824,Polymorph
+12825,Polymorph
+12826,Polymorph
+8492,"Cone of Cold"
+10159,"Cone of Cold"
+10160,"Cone of Cold"
+10161,"Cone of Cold"
+865,"Frost Nova"
+6131,"Frost Nova"
+10230,"Frost Nova"
+2970,"Detect Invisibility"
+11743,"Detect Invisibility"
+143,Fireball
+145,Fireball
+3140,Fireball
+8400,Fireball
+8401,Fireball
+8402,Fireball
+10148,Fireball
+10149,Fireball
+10150,Fireball
+10151,Fireball
+3111,"Mend Pet"
+3661,"Mend Pet"
+3662,"Mend Pet"
+13542,"Mend Pet"
+13543,"Mend Pet"
+13544,"Mend Pet"
+6074,Renew
+6075,Renew
+6076,Renew
+6077,Renew
+6078,Renew
+10927,Renew
+10928,Renew
+10929,Renew
+7300,"Frost Armor"
+7301,"Frost Armor"
+6222,Corruption
+6223,Corruption
+7648,Corruption
+11671,Corruption
+11672,Corruption
+325,"Lightning Shield"
+905,"Lightning Shield"
+945,"Lightning Shield"
+8134,"Lightning Shield"
+10431,"Lightning Shield"
+10432,"Lightning Shield"
+332,"Healing Wave"
+547,"Healing Wave"
+913,"Healing Wave"
+939,"Healing Wave"
+959,"Healing Wave"
+8005,"Healing Wave"
+10395,"Healing Wave"
+10396,"Healing Wave"
+1062,"Entangling Roots"
+5195,"Entangling Roots"
+5196,"Entangling Roots"
+9852,"Entangling Roots"
+9853,"Entangling Roots"
+707,Immolate
+1094,Immolate
+2941,Immolate
+11665,Immolate
+11667,Immolate
+11668,Immolate
+8012,Purge
+529,"Lightning Bolt"
+548,"Lightning Bolt"
+915,"Lightning Bolt"
+943,"Lightning Bolt"
+6041,"Lightning Bolt"
+10391,"Lightning Bolt"
+10392,"Lightning Bolt"
+15207,"Lightning Bolt"
+15208,"Lightning Bolt"
+8643,"Kidney Shot"
+930,"Chain Lightning"
+2860,"Chain Lightning"
+10605,"Chain Lightning"
+8192,"Mind Soothe"
+10953,"Mind Soothe"
+643,"Devotion Aura"
+1032,"Devotion Aura"
+10290,"Devotion Aura"
+10291,"Devotion Aura"
+10292,"Devotion Aura"
+10293,"Devotion Aura"
+1075,Thorns
+8914,Thorns
+9756,Thorns
+9910,Thorns
+5573,"Divine Protection"
+7302,"Ice Armor"
+7320,"Ice Armor"
+10219,"Ice Armor"
+10220,"Ice Armor"
+2645,"Ghost Wolf"
+988,"Dispel Magic"
+2870,"Cure Disease"
+8457,"Fire Ward"
+8458,"Fire Ward"
+10223,"Fire Ward"
+10225,"Fire Ward"
+10322,Redemption
+10324,Redemption
+20772,Redemption
+20773,Redemption
+591,Smite
+598,Smite
+984,Smite
+1004,Smite
+6060,Smite
+10933,Smite
+10934,Smite
+9578,Fade
+9579,Fade
+9592,Fade
+10941,Fade
+10942,Fade
+597,"Conjure Food"
+990,"Conjure Food"
+6129,"Conjure Food"
+10144,"Conjure Food"
+10145,"Conjure Food"
+602,"Inner Fire"
+1006,"Inner Fire"
+7128,"Inner Fire"
+10951,"Inner Fire"
+10952,"Inner Fire"
+594,"Shadow Word: Pain"
+970,"Shadow Word: Pain"
+992,"Shadow Word: Pain"
+2767,"Shadow Word: Pain"
+10892,"Shadow Word: Pain"
+10893,"Shadow Word: Pain"
+10894,"Shadow Word: Pain"
+996,"Prayer of Healing"
+10960,"Prayer of Healing"
+10961,"Prayer of Healing"
+8450,"Dampen Magic"
+8451,"Dampen Magic"
+10173,"Dampen Magic"
+10174,"Dampen Magic"
+10911,"Mind Control"
+10912,"Mind Control"
+2052,"Lesser Heal"
+2053,"Lesser Heal"
+2800,"Lay on Hands"
+10310,"Lay on Hands"
+639,"Holy Light"
+647,"Holy Light"
+1026,"Holy Light"
+1042,"Holy Light"
+3472,"Holy Light"
+10328,"Holy Light"
+10329,"Holy Light"
+1020,"Divine Shield"
+5782,Fear
+6213,Fear
+6215,Fear
+679,"Holy Strike"
+680,"Holy Strike"
+1866,"Holy Strike"
+2495,"Holy Strike"
+5569,"Holy Strike"
+10332,"Holy Strike"
+10333,"Holy Strike"
+695,"Shadow Bolt"
+705,"Shadow Bolt"
+1088,"Shadow Bolt"
+1106,"Shadow Bolt"
+7641,"Shadow Bolt"
+11659,"Shadow Bolt"
+11660,"Shadow Bolt"
+11661,"Shadow Bolt"
+696,"Demon Skin"
+699,"Drain Life"
+709,"Drain Life"
+7651,"Drain Life"
+11699,"Drain Life"
+11700,"Drain Life"
+20752,"Create Soulstone"
+20755,"Create Soulstone"
+20756,"Create Soulstone"
+20757,"Create Soulstone"
+7400,"Mocking Blow"
+7402,"Mocking Blow"
+20559,"Mocking Blow"
+20560,"Mocking Blow"
+1108,"Curse of Weakness"
+6205,"Curse of Weakness"
+7646,"Curse of Weakness"
+11707,"Curse of Weakness"
+11708,"Curse of Weakness"
+8631,Garrote
+8632,Garrote
+8633,Garrote
+11289,Garrote
+11290,Garrote
+7658,"Curse of Recklessness"
+7659,"Curse of Recklessness"
+11717,"Curse of Recklessness"
+1086,"Demon Armor"
+11733,"Demon Armor"
+11734,"Demon Armor"
+11735,"Demon Armor"
+18647,Banish
+1949,Hellfire
+11683,Hellfire
+11684,Hellfire
+8918,Tranquility
+9862,Tranquility
+9863,Tranquility
+3698,"Health Funnel"
+3699,"Health Funnel"
+3700,"Health Funnel"
+11693,"Health Funnel"
+11694,"Health Funnel"
+11695,"Health Funnel"
+779,Swipe
+780,Swipe
+9754,Swipe
+9908,Swipe
+778,"Faerie Fire"
+9749,"Faerie Fire"
+9907,"Faerie Fire"
+6546,Rend
+6547,Rend
+6548,Rend
+11572,Rend
+11573,Rend
+11574,Rend
+1430,Rejuvenation
+2090,Rejuvenation
+2091,Rejuvenation
+3627,Rejuvenation
+8910,Rejuvenation
+9839,Rejuvenation
+9840,Rejuvenation
+9841,Rejuvenation
+14272,Disengage
+14273,Disengage
+845,Cleave
+7369,Cleave
+11608,Cleave
+11609,Cleave
+20569,Cleave
+5588,"Hammer of Justice"
+5589,"Hammer of Justice"
+10308,"Hammer of Justice"
+20287,"Seal of Righteousness"
+20288,"Seal of Righteousness"
+20289,"Seal of Righteousness"
+20290,"Seal of Righteousness"
+20291,"Seal of Righteousness"
+20292,"Seal of Righteousness"
+20293,"Seal of Righteousness"
+5614,Exorcism
+5615,Exorcism
+10312,Exorcism
+10313,Exorcism
+10314,Exorcism
+10957,"Shadow Protection"
+10958,"Shadow Protection"
+1014,"Bane of Agony"
+6217,"Bane of Agony"
+11711,"Bane of Agony"
+11712,"Bane of Agony"
+11713,"Bane of Agony"
+8455,"Amplify Magic"
+10169,"Amplify Magic"
+10170,"Amplify Magic"
+5599,"Blessing of Protection"
+10278,"Blessing of Protection"
+20163,"Seal of Fury"
+20419,"Seal of Fury"
+20421,"Seal of Fury"
+20422,"Seal of Fury"
+20423,"Seal of Fury"
+1311649,"Seal of Fury"
+1311656,"Seal of Fury"
+10622,"Chain Heal"
+10623,"Chain Heal"
+9492,Rip
+9493,Rip
+9752,Rip
+9894,Rip
+9896,Rip
+3029,Claw
+5201,Claw
+9849,Claw
+9850,Claw
+11725,"Subjugate Demon"
+11726,"Subjugate Demon"
+20166,"Seal of Wisdom"
+20356,"Seal of Wisdom"
+20357,"Seal of Wisdom"
+8288,"Drain Soul"
+8289,"Drain Soul"
+11675,"Drain Soul"
+5234,"Mark of the Wild"
+6756,"Mark of the Wild"
+8907,"Mark of the Wild"
+9884,"Mark of the Wild"
+9885,"Mark of the Wild"
+14323,"Hunter's Mark"
+14324,"Hunter's Mark"
+14325,"Hunter's Mark"
+6190,"Demoralizing Shout"
+11554,"Demoralizing Shout"
+11555,"Demoralizing Shout"
+11556,"Demoralizing Shout"
+1244,"Power Word: Fortitude"
+1245,"Power Word: Fortitude"
+2791,"Power Word: Fortitude"
+10937,"Power Word: Fortitude"
+10938,"Power Word: Fortitude"
+399956,Mutilate
+1241582,Mutilate
+1241584,Mutilate
+9484,"Shackle Undead"
+9485,"Shackle Undead"
+10955,"Shackle Undead"
+8437,"Arcane Explosion"
+8438,"Arcane Explosion"
+8439,"Arcane Explosion"
+10201,"Arcane Explosion"
+10202,"Arcane Explosion"
+1455,"Life Tap"
+1456,"Life Tap"
+11687,"Life Tap"
+11688,"Life Tap"
+11689,"Life Tap"
+1460,"Arcane Intellect"
+1461,"Arcane Intellect"
+10156,"Arcane Intellect"
+10157,"Arcane Intellect"
+8494,"Mana Shield"
+8495,"Mana Shield"
+10191,"Mana Shield"
+10192,"Mana Shield"
+10193,"Mana Shield"
+8820,Slam
+11604,Slam
+11605,Slam
+1240193,Slam
+14269,"Mongoose Bite"
+14270,"Mongoose Bite"
+14271,"Mongoose Bite"
+14310,"Freezing Trap"
+14311,"Freezing Trap"
+14294,Volley
+14295,Volley
+14326,"Scare Beast"
+14327,"Scare Beast"
+11719,"Curse of Tongues"
+7372,Hamstring
+7373,Hamstring
+8998,Cower
+9000,Cower
+9892,Cower
+1757,"Sinister Strike"
+1758,"Sinister Strike"
+1759,"Sinister Strike"
+1760,"Sinister Strike"
+8621,"Sinister Strike"
+11293,"Sinister Strike"
+11294,"Sinister Strike"
+1767,Kick
+1768,Kick
+1769,Kick
+1777,Gouge
+8629,Gouge
+11285,Gouge
+11286,Gouge
+1785,Stealth
+1786,Stealth
+1787,Stealth
+1823,Rake
+1824,Rake
+9904,Rake
+2836,"Detect Traps"
+9821,Dash
+1857,Vanish
+8639,Rupture
+8640,Rupture
+11273,Rupture
+11274,Rupture
+11275,Rupture
+6768,Feint
+8637,Feint
+11303,Feint
+13549,"Serpent Sting"
+13550,"Serpent Sting"
+13551,"Serpent Sting"
+13552,"Serpent Sting"
+13553,"Serpent Sting"
+13554,"Serpent Sting"
+13555,"Serpent Sting"
+1310785,"Sniper Shot"
+1310786,"Sniper Shot"
+2010,Resurrection
+10880,Resurrection
+10881,Resurrection
+20770,Resurrection
+20609,"Ancestral Spirit"
+20610,"Ancestral Spirit"
+20776,"Ancestral Spirit"
+20777,"Ancestral Spirit"
+2055,Heal
+6063,Heal
+6064,Heal
+10963,"Greater Heal"
+10964,"Greater Heal"
+10965,"Greater Heal"
+9472,"Flash Heal"
+9473,"Flash Heal"
+9474,"Flash Heal"
+10915,"Flash Heal"
+10916,"Flash Heal"
+10917,"Flash Heal"
+6770,Sap
+11297,Sap
+6363,"Searing Totem"
+6364,"Searing Totem"
+6365,"Searing Totem"
+10437,"Searing Totem"
+10438,"Searing Totem"
+2484,"Earthbind Totem"
+10909,"Mind Vision"
+6760,Eviscerate
+6761,Eviscerate
+6762,Eviscerate
+8623,Eviscerate
+8624,Eviscerate
+11299,Eviscerate
+11300,Eviscerate
+2121,Flamestrike
+8422,Flamestrike
+8423,Flamestrike
+10215,Flamestrike
+10216,Flamestrike
+2137,"Fire Blast"
+2138,"Fire Blast"
+8412,"Fire Blast"
+8413,"Fire Blast"
+10197,"Fire Blast"
+10199,"Fire Blast"
+17727,"Create Spellstone"
+17728,"Create Spellstone"
+18657,Hibernate
+18658,Hibernate
+8129,"Mana Burn"
+8131,"Mana Burn"
+10874,"Mana Burn"
+10875,"Mana Burn"
+10876,"Mana Burn"
+10318,"Holy Wrath"
+2835,"Deadly Poison"
+2837,"Deadly Poison II"
+5627,"Turn Undead"
+10326,"Turn Undead"
+8955,"Soothe Animal"
+9901,"Soothe Animal"
+8949,Starfire
+8950,Starfire
+8951,Starfire
+9875,Starfire
+9876,Starfire
+19276,"Devouring Plague"
+19277,"Devouring Plague"
+19278,"Devouring Plague"
+19279,"Devouring Plague"
+19280,"Devouring Plague"
+8444,Scorch
+8445,Scorch
+8446,Scorch
+10205,Scorch
+10206,Scorch
+10207,Scorch
+14260,"Raptor Strike"
+14261,"Raptor Strike"
+14262,"Raptor Strike"
+14263,"Raptor Strike"
+14264,"Raptor Strike"
+14265,"Raptor Strike"
+14266,"Raptor Strike"
+14267,"Wing Clip"
+14268,"Wing Clip"
+8696,Sprint
+11305,Sprint
+14279,"Viper Sting"
+14280,"Viper Sting"
+14281,"Arcane Shot"
+14282,"Arcane Shot"
+14283,"Arcane Shot"
+14284,"Arcane Shot"
+14285,"Arcane Shot"
+14286,"Arcane Shot"
+14287,"Arcane Shot"
+3127,Parry
+6785,Ravage
+6787,Ravage
+9866,Ravage
+9867,Ravage
+5221,Shred
+6800,Shred
+8992,Shred
+9829,Shred
+9830,Shred
+3420,"Crippling Poison"
+5277,Evasion
+5740,"Rain of Fire"
+6219,"Rain of Fire"
+11677,"Rain of Fire"
+11678,"Rain of Fire"
+6226,"Drain Mana"
+11703,"Drain Mana"
+11704,"Drain Mana"
+5144,"Arcane Missiles"
+5145,"Arcane Missiles"
+8416,"Arcane Missiles"
+8417,"Arcane Missiles"
+10211,"Arcane Missiles"
+10212,"Arcane Missiles"
+6774,"Slice and Dice"
+5177,Wrath
+5179,Wrath
+5180,Wrath
+6780,Wrath
+8905,Wrath
+9912,Wrath
+5188,"Healing Touch"
+5189,"Healing Touch"
+6778,"Healing Touch"
+8903,"Healing Touch"
+9758,"Healing Touch"
+9888,"Healing Touch"
+9889,"Healing Touch"
+6798,Bash
+8983,Bash
+6783,Prowl
+9913,Prowl
+19883,"Track Humanoids"
+6192,"Battle Shout"
+6673,"Battle Shout"
+11549,"Battle Shout"
+11550,"Battle Shout"
+11551,"Battle Shout"
+20658,Execute
+20660,Execute
+20661,Execute
+20662,Execute
+6375,"Healing Stream Totem"
+6377,"Healing Stream Totem"
+10462,"Healing Stream Totem"
+10463,"Healing Stream Totem"
+414644,Lacerate
+1235826,Lacerate
+1235827,Lacerate
+17928,"Howl of Terror"
+5505,"Conjure Water"
+5506,"Conjure Water"
+6127,"Conjure Water"
+10138,"Conjure Water"
+10139,"Conjure Water"
+24974,"Insect Swarm"
+24975,"Insect Swarm"
+24976,"Insect Swarm"
+24977,"Insect Swarm"
+10495,"Mana Spring Totem"
+10496,"Mana Spring Totem"
+10497,"Mana Spring Totem"
+17919,"Searing Pain"
+17920,"Searing Pain"
+17921,"Searing Pain"
+17922,"Searing Pain"
+17923,"Searing Pain"
+6201,"Create Healthstone"
+6202,"Create Healthstone"
+11729,"Create Healthstone"
+11730,"Create Healthstone"
+6390,"Stoneclaw Totem"
+6391,"Stoneclaw Totem"
+6392,"Stoneclaw Totem"
+10427,"Stoneclaw Totem"
+10428,"Stoneclaw Totem"
+5763,"Mind-numbing Poison"
+22782,"Mage Armor"
+22783,"Mage Armor"
+8461,"Frost Ward"
+8462,"Frost Ward"
+10177,"Frost Ward"
+11739,"Shadow Ward"
+11740,"Shadow Ward"
+8198,"Thunder Clap"
+8204,"Thunder Clap"
+8205,"Thunder Clap"
+11580,"Thunder Clap"
+11581,"Thunder Clap"
+19271,Feedback
+19273,Feedback
+19274,Feedback
+19275,Feedback
+17924,"Soul Fire"
+17951,"Create Firestone"
+17952,"Create Firestone"
+17953,"Create Firestone"
+6554,Pummel
+6574,Revenge
+7379,Revenge
+11600,Revenge
+11601,Revenge
+17925,"Death Coil"
+17926,"Death Coil"
+6808,Maul
+6809,Maul
+8972,Maul
+9745,Maul
+9880,Maul
+9881,Maul
+20729,"Blessing of Sacrifice"
+10298,"Retribution Aura"
+10299,"Retribution Aura"
+10300,"Retribution Aura"
+10301,"Retribution Aura"
+7887,Overpower
+11584,Overpower
+11585,Overpower
+7405,"Sunder Armor"
+8380,"Sunder Armor"
+11596,"Sunder Armor"
+11597,"Sunder Armor"
+8008,"Lesser Healing Wave"
+8010,"Lesser Healing Wave"
+10466,"Lesser Healing Wave"
+10467,"Lesser Healing Wave"
+10468,"Lesser Healing Wave"
+8018,"Rockbiter Weapon"
+8019,"Rockbiter Weapon"
+10399,"Rockbiter Weapon"
+16314,"Rockbiter Weapon"
+16315,"Rockbiter Weapon"
+16316,"Rockbiter Weapon"
+8027,"Flametongue Weapon"
+8030,"Flametongue Weapon"
+16339,"Flametongue Weapon"
+16341,"Flametongue Weapon"
+16342,"Flametongue Weapon"
+8038,"Frostbrand Weapon"
+10456,"Frostbrand Weapon"
+16355,"Frostbrand Weapon"
+16356,"Frostbrand Weapon"
+8044,"Earth Shock"
+8045,"Earth Shock"
+8046,"Earth Shock"
+10412,"Earth Shock"
+10413,"Earth Shock"
+10414,"Earth Shock"
+8052,"Flame Shock"
+8053,"Flame Shock"
+10447,"Flame Shock"
+10448,"Flame Shock"
+8058,"Frost Shock"
+10472,"Frost Shock"
+10473,"Frost Shock"
+8154,"Stoneskin Totem"
+8155,"Stoneskin Totem"
+10406,"Stoneskin Totem"
+10407,"Stoneskin Totem"
+10408,"Stoneskin Totem"
+8160,"Strength of Earth Totem"
+8161,"Strength of Earth Totem"
+10442,"Strength of Earth Totem"
+8102,"Mind Blast"
+8103,"Mind Blast"
+8104,"Mind Blast"
+8105,"Mind Blast"
+8106,"Mind Blast"
+10945,"Mind Blast"
+10946,"Mind Blast"
+10947,"Mind Blast"
+8124,"Psychic Scream"
+10888,"Psychic Scream"
+10890,"Psychic Scream"
+10478,"Frost Resistance Totem"
+10479,"Frost Resistance Totem"
+10537,"Fire Resistance Totem"
+10538,"Fire Resistance Totem"
+8190,"Magma Totem"
+10585,"Magma Totem"
+10586,"Magma Totem"
+10587,"Magma Totem"
+8249,"Flametongue Totem"
+10526,"Flametongue Totem"
+16387,"Flametongue Totem"
+8235,"Windfury Weapon"
+10486,"Windfury Weapon"
+16362,"Windfury Weapon"
+23923,"Shield Slam"
+23924,"Shield Slam"
+23925,"Shield Slam"
+408341,"Fire Nova"
+408342,"Fire Nova"
+408343,"Fire Nova"
+408344,"Fire Nova"
+408345,"Fire Nova"
+10613,"Windfury Totem"
+10614,"Windfury Totem"
+8649,"Expose Armor"
+8650,"Expose Armor"
+11197,"Expose Armor"
+11198,"Expose Armor"
+8724,Ambush
+8725,Ambush
+11267,Ambush
+11268,Ambush
+11269,Ambush
+8687,"Instant Poison II"
+8691,"Instant Poison III"
+8694,"Mind-numbing Poison II"
+10627,"Grace of Air Totem"
+8925,Moonfire
+8926,Moonfire
+8927,Moonfire
+8928,Moonfire
+8929,Moonfire
+9833,Moonfire
+9834,Moonfire
+9835,Moonfire
+8938,Regrowth
+8939,Regrowth
+8940,Regrowth
+8941,Regrowth
+9750,Regrowth
+9856,Regrowth
+9857,Regrowth
+9858,Regrowth
+9823,Pounce
+9827,Pounce
+21551,"Mortal Strike"
+21552,"Mortal Strike"
+21553,"Mortal Strike"
+20927,"Holy Shield"
+20928,"Holy Shield"
+10600,"Nature Resistance Totem"
+10601,"Nature Resistance Totem"
+1239696,"Arcane Blast"
+1239697,"Arcane Blast"
+1239699,"Arcane Blast"
+1239700,"Arcane Blast"
+13018,"Blast Wave"
+13019,"Blast Wave"
+13020,"Blast Wave"
+13021,"Blast Wave"
+11341,"Instant Poison IV"
+11342,"Instant Poison V"
+11343,"Instant Poison VI"
+11357,"Deadly Poison III"
+11358,"Deadly Poison IV"
+12505,Pyroblast
+12522,Pyroblast
+12523,Pyroblast
+12524,Pyroblast
+12525,Pyroblast
+12526,Pyroblast
+18809,Pyroblast
+11400,"Mind-numbing Poison III"
+13031,"Ice Barrier"
+13032,"Ice Barrier"
+13033,"Ice Barrier"
+440892,"Curse of the Elements"
+1311676,"Curse of the Elements"
+1311677,"Curse of the Elements"
+1311680,"Curse of the Elements"
+1299445,"Aspect of the Beast"
+1299446,"Aspect of the Beast"
+1299447,"Aspect of the Beast"
+14318,"Aspect of the Hawk"
+14319,"Aspect of the Hawk"
+14320,"Aspect of the Hawk"
+14321,"Aspect of the Hawk"
+14322,"Aspect of the Hawk"
+13220,"Wound Poison"
+14302,"Immolation Trap"
+14303,"Immolation Trap"
+14304,"Immolation Trap"
+14305,"Immolation Trap"
+14316,"Explosive Trap"
+14317,"Explosive Trap"
+15629,"Distracting Shot"
+15630,"Distracting Shot"
+15631,"Distracting Shot"
+15632,"Distracting Shot"
+20736,"Distracting Shot"
+14818,"Divine Spirit"
+14819,"Divine Spirit"
+27841,"Divine Spirit"
+15261,"Holy Fire"
+15262,"Holy Fire"
+15263,"Holy Fire"
+15264,"Holy Fire"
+15265,"Holy Fire"
+15266,"Holy Fire"
+15267,"Holy Fire"
+15111,"Windwall Totem"
+15112,"Windwall Totem"
+15430,"Holy Nova"
+15431,"Holy Nova"
+27799,"Holy Nova"
+27800,"Holy Nova"
+27801,"Holy Nova"
+17311,"Mind Flay"
+17312,"Mind Flay"
+17313,"Mind Flay"
+17314,"Mind Flay"
+18807,"Mind Flay"
+17354,"Mana Tide Totem"
+17359,"Mana Tide Totem"
+16810,"Nature's Grasp"
+16811,"Nature's Grasp"
+16812,"Nature's Grasp"
+16813,"Nature's Grasp"
+17329,"Nature's Grasp"
+17401,Hurricane
+17402,Hurricane
+18867,Shadowburn
+18868,Shadowburn
+18869,Shadowburn
+18870,Shadowburn
+18871,Shadowburn
+18930,Conflagrate
+18931,Conflagrate
+18932,Conflagrate
+1293818,Conflagrate
+18879,"Siphon Life"
+18880,"Siphon Life"
+18881,"Siphon Life"
+20909,Counterattack
+20910,Counterattack
+1242634,Counterattack
+1293812,Incinerate
+1293813,Incinerate
+20900,"Aimed Shot"
+20901,"Aimed Shot"
+20902,"Aimed Shot"
+20903,"Aimed Shot"
+20904,"Aimed Shot"
+20905,"Trueshot Aura"
+20906,"Trueshot Aura"
+1299348,"Trueshot Aura"
+19834,"Blessing of Might"
+19835,"Blessing of Might"
+19836,"Blessing of Might"
+19837,"Blessing of Might"
+19838,"Blessing of Might"
+19850,"Blessing of Wisdom"
+19852,"Blessing of Wisdom"
+19853,"Blessing of Wisdom"
+19854,"Blessing of Wisdom"
+19939,"Flash of Light"
+19940,"Flash of Light"
+19941,"Flash of Light"
+19942,"Flash of Light"
+19943,"Flash of Light"
+19895,"Shadow Resistance Aura"
+19896,"Shadow Resistance Aura"
+19897,"Frost Resistance Aura"
+19898,"Frost Resistance Aura"
+19899,"Fire Resistance Aura"
+19900,"Fire Resistance Aura"
+19978,"Blessing of Light"
+19979,"Blessing of Light"
+20190,"Aspect of the Wild"
+20922,Consecration
+20923,Consecration
+20924,Consecration
+26573,Consecration
+20305,"Seal of the Crusader"
+20306,"Seal of the Crusader"
+20307,"Seal of the Crusader"
+20308,"Seal of the Crusader"
+21082,"Seal of the Crusader"
+20347,"Seal of Light"
+20348,"Seal of Light"
+20349,"Seal of Light"
+20616,Intercept
+20617,Intercept
+20915,"Seal of Command"
+20918,"Seal of Command"
+20919,"Seal of Command"
+20920,"Seal of Command"
+20929,"Holy Shock"
+20930,"Holy Shock"
+20739,Rebirth
+20742,Rebirth
+20747,Rebirth
+20748,Rebirth
+22812,Barkskin
+1238299,"Lava Burst"
+1238300,"Lava Burst"
+1239242,Riptide
+1239243,Riptide
+22827,"Ferocious Bite"
+22828,"Ferocious Bite"
+22829,"Ferocious Bite"
+23892,Bloodthirst
+23893,Bloodthirst
+23894,Bloodthirst
+24274,"Hammer of Wrath"
+24275,"Hammer of Wrath"
+1237948,Revive
+1237949,Revive
+1237950,Revive
+1237951,Revive
+25916,"Greater Blessing of Might"
+25918,"Greater Blessing of Wisdom"
+1240826,"Prayer of Mending"
+1240827,"Prayer of Mending"
+1240044,"Ice Lance"
+1240045,"Ice Lance"
+1240046,"Ice Lance"
+1240047,"Ice Lance"
+1237312,"Frostfire Bolt"
+1237313,"Frostfire Bolt"
+1240770,"Binding Heal"
+1240771,"Binding Heal"
+1240772,"Binding Heal"
+1240773,"Binding Heal"
+1240774,"Binding Heal"
+1309595,"Shadow Word: Death"
+1309633,"Shadow Word: Death"
+1309635,"Shadow Word: Death"
+1309636,"Shadow Word: Death"
+1240720,Penance
+1240721,Penance
+1316995,Penance
+1238069,"Primal Bite"
+1238070,"Primal Bite"
+1238073,"Primal Bite"
+1238214,"Wild Growth"
+1238215,"Wild Growth"
+1277371,"Divine Grace"
+1277372,"Divine Grace"
+1277374,"Divine Grace"
+1277376,"Divine Grace"
+1277377,"Divine Grace"
+1277378,"Divine Grace"
+1293525,"Summon Hawk"
+1293526,"Summon Hawk"
+1293527,"Summon Hawk"
+1311590,"Light's Vigil"
+1311595,"Light's Vigil"

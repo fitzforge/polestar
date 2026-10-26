@@ -230,6 +230,77 @@ test('the route corpus: a zone-map end in the Era frame (f "e") converts by that
 	assert.deepEqual([bare.level, bare.danger], [null, null]);
 });
 
+test('compare: the acceptance types (unreachable, end at the graph\'s last point, passes, avoids a point or an area, height near or beyond)', () => {
+	const { evaluateExpectations } = require('../tools/lib/nav/eval/compare');
+	const one = (e, route) => evaluateExpectations({ to: [100, 0, 10], ...route, expect: [e] })[0];
+	// The engine's line: its last node 10 yd short of the goal on the floor below it, then the goal itself appended.
+	const line = { ok: true, pts: [[0, 0, 0], [90, 0, 0], [100, 0, 10]] };
+	assert.equal(one({ type: 'unreachable' }, { result: { ok: false, reason: 'unreachable' } }).pass, true);
+	assert.equal(one({ type: 'unreachable' }, { result: line }).pass, false);
+	assert.equal(one({ type: 'ok' }, { result: { ok: false, reason: 'unreachable' } }).pass, false);
+	const end = one({ type: 'end', leg: 15, dz: 3 }, { result: line });
+	assert.deepEqual([end.pass, end.detail], [false, 'leaves the graph 10.0 yd from the goal (want <= 15), -10.0 yd off its height (want within 3)']);
+	assert.equal(one({ type: 'end', leg: 5 }, { result: line }).pass, false, 'a 10 yd last leg is longer than 5');
+	assert.equal(one({ type: 'end', leg: 15, dz: 3 }, { result: { ok: true, pts: [[0, 0, 0], [98, 0, 9], [100, 0, 10]] } }).pass, true);
+	assert.equal(one({ type: 'end', leg: 15, dz: 3 }, { to: [100, 0, null], result: line }).pass, null, 'no goal height: n/a');
+	assert.equal(one({ type: 'passes', point: [50, 5], within: 6 }, { result: line }).pass, true);
+	assert.equal(one({ type: 'avoids', point: [50, 5], within: 6 }, { result: line }).pass, false);
+	assert.equal(one({ type: 'avoids', area: { x: [40, 60], y: [-1, 1] } }, { result: line }).pass, false);
+	assert.equal(one({ type: 'avoids', area: { x: [40, 60], y: [2, 9] } }, { result: line }).pass, true);
+	assert.equal(one({ type: 'height', min: -1 }, { result: line }).pass, true);
+	assert.equal(one({ type: 'height', max: 5 }, { result: line }).pass, false);
+	assert.equal(one({ type: 'height', max: 5, beyond: 12 }, { result: line }).pass, true, 'the last 12 yd are not judged');
+	assert.equal(one({ type: 'height', max: 0, near: [0, 0], within: 30 }, { result: line }).pass, true, 'only the first 30 yd');
+});
+
+test('compare: a chokepoint expectation reads the folder\'s list: kind and name passed, a lift ridden from the asked end to its pair', () => {
+	const { evaluateExpectations } = require('../tools/lib/nav/eval/compare');
+	const cps = [
+		{ i: 1, wx: 50, wy: 0, z: 0, r: 6, kind: 'lift', name: 'Ruins', lift: 'Undervator', liftObject: 7, liftEnd: 'top', pair: 2 },
+		{ i: 2, wx: 52, wy: 0, z: -100, r: 6, kind: 'lift', name: 'Ruins', lift: 'Undervator', liftObject: 7, liftEnd: 'bottom', pair: 1 },
+		{ i: 3, wx: 150, wy: 0, z: -100, r: 10, kind: 'bridge', name: 'Canal' },
+	];
+	const down = { ok: true, pts: [[0, 0, 0], [50, 0, 0], [52, 0, -100], [200, 0, -100]] };
+	const one = (e, result, chokepoints = cps) => evaluateExpectations({ to: [200, 0, -100], result, chokepoints, expect: [e] })[0];
+	assert.equal(one({ type: 'chokepoint', kind: 'bridge', name: 'Canal' }, down).pass, true);
+	assert.equal(one({ type: 'chokepoint', kind: 'bridge', name: 'Elsewhere' }, down).pass, false);
+	assert.equal(one({ type: 'chokepoint', kind: 'lift', lift: 'Undervator', from: 'top' }, down).pass, true);
+	assert.equal(one({ type: 'chokepoint', kind: 'lift', lift: 'Undervator', from: 'bottom' }, down).pass, false, 'down, not up');
+	assert.equal(one({ type: 'chokepoint', kind: 'bridge' }, down, null).pass, null, 'no Chokepoints.lua: n/a');
+	const { sanity } = require('../tools/lib/nav/eval/chokepoints');
+	const bad = sanity({ 0: [{ ...cps[0], pair: undefined }, { ...cps[1], z: -5 }, { ...cps[2], sides: [{ wx: 160, wy: 0, area: 'A' }, { wx: 160, wy: 5, area: 'B' }] }] });
+	assert.deepEqual(bad.counts, { 0: { lift: 2, bridge: 1 } });
+	assert.equal(bad.problems.length, 3, bad.problems.join('\n'));
+});
+
+test('the route corpus: expectation points, near points and areas on a zone map resolve to world yards; issue, tags and outcome are kept', () => {
+	const { resolveRoutes } = require('../tools/lib/nav/eval/run');
+	const geo = { toWorld: (m, x, y) => ({ c: 1, wx: -x * 10, wy: y * 10 }) };
+	const [r] = resolveRoutes([{ id: 'r', kind: 'reported', issue: '#1', tags: ['underworld'], outcome: 'o', from: { uiMap: 1438, x: 1, y: 2 }, to: { uiMap: 1438, x: 3, y: 4, z: 5 }, expect: [
+		{ type: 'passes', point: { uiMap: 1438, x: 1, y: 1 }, within: 3 },
+		{ type: 'height', max: 0, near: { uiMap: 1438, x: 2, y: 2 }, within: 9 },
+		{ type: 'avoids', area: { uiMap: 1438, x: [0, 4], y: [5, 6] } },
+	] }], geo);
+	assert.deepEqual([r.map, r.to, r.issue, r.tags, r.outcome], [1, [-30, 40, 5], '#1', ['underworld'], 'o']);
+	assert.deepEqual(r.expect[0].point, [-10, 10, null]);
+	assert.deepEqual(r.expect[1].near, [-20, 20, null]);
+	assert.deepEqual(r.expect[2].area, { x: [-40, 0], y: [50, 60] });
+});
+
+test('the acceptance corpus: ids unique, each route has an issue or a reporter, or is a cave, chokepoint, floor or bridge walk, an outcome and expectations; it resolves on the map frames', { skip: needs('map-frames.json', 'zones.json') }, () => {
+	const { loadCorpus, resolveRoutes } = require('../tools/lib/nav/eval/run');
+	const { Geo } = require('../tools/lib/planner/geo');
+	const corpus = loadCorpus(path.join(ROOT, 'tools', 'lib', 'nav', 'eval', 'acceptance.json'));
+	const ids = corpus.routes.map((r) => r.id);
+	assert.equal(new Set(ids).size, ids.length);
+	for (const r of corpus.routes) {
+		assert.ok(r.issue || r.reporter || ['cave', 'chokepoint', 'floor', 'bridge'].includes(r.kind), `${r.id}: an issue or a reporter`);
+		assert.ok(r.outcome && r.expect.length, `${r.id}: an outcome and expectations`);
+	}
+	const geo = new Geo(JSON.parse(fs.readFileSync(path.join(DATA, 'map-frames.json'), 'utf8')), JSON.parse(fs.readFileSync(path.join(DATA, 'zones.json'), 'utf8')));
+	for (const r of resolveRoutes(corpus.routes, geo)) assert.ok([0, 1].includes(r.map), `${r.id} on a continent`);
+});
+
 test('metrics: yards from the drawn line, the steepest climb between points; blocked, roads, hubs and indoor null without grid and layers', () => {
 	const { metrics } = require('../tools/lib/nav/eval/metrics');
 	const m = metrics({ ok: true, cost: 70, yards: null, pts: [[0, 0, 0], [30, 40, 0], [30, 50, 10], [30, 60, 0]] }, { grid: null, layers: {} });

@@ -11,7 +11,7 @@
 // already done, and those they leave for it to turn in in the log
 // (chainDone), as for a player arriving on the route.
 //
-//   const { results, diag } = playtest({ dir, manifest, official, filter, classes });
+//   const { results, diag } = await playtest({ dir, manifest, official, filter, classes });
 //   // results: [{ guide, race, faction, cls, ok, stuck: { step, title, reason, handOver? } | null, problems, landed }]
 //
 // Another pack is compiled with our guides as context and played with ours
@@ -34,6 +34,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { runAddon, tocEntries } = require('../../tests/helpers/lua');
+const { LuaPool } = require('./luapool');
 const { OFFICIAL_DIR, findGuideFiles, compileSources, buildPackFiles, writePackDir } = require('./dsl/project');
 const { DATA } = require('./paths');
 const { RACE_BY_FILE } = require('./game/races');
@@ -41,6 +42,7 @@ const { buildPack } = require('./pack/build');
 const { readManifest } = require('./pack/manifest');
 const { loadData } = require('./dsl/data');
 const { Diagnostics } = require('./dsl/diag');
+const { honestPlay, loadKb } = require('./playtest-honest');
 
 const CLASSES = ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK', 'DRUID'];
 
@@ -61,12 +63,18 @@ const HOME = {
 };
 
 // Build compiled guides into `root/<folder>` -> { dir, files, scripts }:
-// scripts are the files its TOC loads, absolute, in load order.
+// scripts are the files its TOC loads, absolute, in load order, then each race
+// part's (every race: the sim registers them all, the engine applies each
+// guide's races).
 function writePackInto(root, { guides, manifest, data }) {
 	const dir = path.join(root, manifest.folder);
 	const files = buildPackFiles({ guides, manifest, data });
 	writePackDir(dir, files);
-	return { dir, files, scripts: tocEntries(dir).map((f) => path.join(dir, f)) };
+	const parts = Object.keys(files)
+		.filter((name) => name.startsWith('../') && name.endsWith('/Guides.lua'))
+		.sort()
+		.map((name) => path.join(dir, name));
+	return { dir, files, scripts: [...tocEntries(dir).map((f) => path.join(dir, f)), ...parts] };
 }
 
 // The stub world's maps (w.addMap) from the reference data: Era frames where
@@ -110,12 +118,22 @@ function buildSimPack(files, data) {
 // `groups`: the answer at every group quest (`when group`), "skip" (the solo
 // route) or "do", as behavior.groupQuests sets it in game; never "ask", which
 // would hold the play at the first one.
-function playGuide(pack, g, { race, faction, cls, stubs = [], before = '', script = null, handOver = null, groups = 'skip' }) {
+function playGuide(pack, g, opts) {
+	return runAddon(playOptions(pack, g, opts)).emitted;
+}
+
+// The same play on a LuaPool (tools/lib/luapool.js) -> a promise of the emitted values.
+async function playGuideIn(pool, pack, g, opts) {
+	return (await pool.runAddon(playOptions(pack, g, opts))).emitted;
+}
+
+// runAddon's options for a play (playGuide).
+function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', script = null, handOver = null, groups = 'skip' }) {
 	const raceName = race === 'Scourge' ? 'Undead' : race;
 	const first = g.steps.flatMap((s) => s.goals).find((x) => x.map && x.x != null);
 	const home = g.category && g.category !== 'Leveling' ? HOME[race] : null;
 	const start = home ? { map: home[0], x: home[1], y: home[2] } : first;
-	return runAddon({
+	return {
 		stubs: ['stub_world.lua', ...stubs],
 		before: `
 			local w = stub.world
@@ -139,7 +157,7 @@ function playGuide(pack, g, { race, faction, cls, stubs = [], before = '', scrip
 			stub.advance(0.6)
 			${script == null ? SIMULATE : script}
 			${handOver ? handOverCheck(handOver, g.id) : ''}`,
-	}).emitted;
+	};
 }
 
 // Where the engine landed after a guide handed over to one of `ids`: which
@@ -316,9 +334,11 @@ function withChain(dir, all, targets) {
 	return [...set].sort();
 }
 
-// A file matches `filter` when its path or its guide id contains it.
+// A file matches `filter` when its path or its guide id contains it, or,
+// for a function, when filter(rel) says so.
 function matches(dir, rel, filter) {
 	if (!filter) return true;
+	if (typeof filter === 'function') return filter(rel);
 	if (rel.includes(filter)) return true;
 	const { id } = headerLinks(fs.readFileSync(path.join(dir, rel), 'utf8'));
 	return !!id && id.includes(filter);
@@ -379,19 +399,20 @@ function onlyFits(only, { race, faction, cls }) {
 	return !only || (fits(only.classes, cls) && fits(only.races, race) && fits(only.factions, faction));
 }
 
-// The prerequisites (`pre`, `preAll`) of g's accepts that a player arriving
-// on the route brings, as { done, carried }: `done`, those the guides
-// chaining into g (through `next`, any route option, any number of guides
-// back) turn in for the persona; `carried`, those they accept and leave for
-// g only to hand in (no other goal of it in g): in the log, ready, on
-// arrival. The engine passes by an accept whose prerequisite is missing
-// (issue #70).
 // A step's `when group` predicates with every group quest answered `groups`
 // ("do" or "skip"); its other predicates are left to the play.
 function groupsFit(when, groups) {
 	return !(when || []).some((p) => p.k === 'group' && (groups === 'do') === !!p.neg);
 }
 
+// The prerequisites (`pre`, `preAll`) of g's accepts that a player arriving
+// on the route brings, as { done, carried, open }: `done`, those the guides
+// chaining into g (through `next`, any route option, any number of guides
+// back) turn in for the persona; `carried`, those they accept and leave for
+// g only to hand in (no other goal of it in g): in the log, ready, on
+// arrival; `open`, those they accept and leave for g to work and hand in (an
+// objective goal of it in g, no accept): in the log with its objectives to do.
+// The engine passes by an accept whose prerequisite is missing (issue #70).
 function chainDone(guides, g, persona, groups = 'skip') {
 	const into = new Map();
 	for (const from of guides) {
@@ -415,36 +436,53 @@ function chainDone(guides, g, persona, groups = 'skip') {
 		}
 		queue.push(...(into.get(from.id) || []));
 	}
-	// Quests g only hands in: a turn-in and no other goal of the quest.
+	// Quests g only hands in: a turn-in and no other goal of the quest; quests g accepts.
 	const handIn = new Map();
+	const acceptsHere = new Set();
 	for (const s of g.steps) {
-		for (const x of s.goals) if (x.quest) handIn.set(x.quest, (handIn.get(x.quest) !== false) && x.t === 'turnin');
+		for (const x of s.goals) {
+			if (!x.quest) continue;
+			handIn.set(x.quest, (handIn.get(x.quest) !== false) && x.t === 'turnin');
+			if (x.t === 'accept') acceptsHere.add(x.quest);
+		}
 	}
 	const done = new Set();
 	const carried = new Set();
+	const open = new Set();
 	for (const s of g.steps) {
 		for (const x of s.goals) {
 			if (x.t !== 'accept') continue;
 			for (const p of [...(x.pre || []), ...(x.preAll || [])]) {
 				if (turned.has(p)) done.add(p);
 				else if (accepted.has(p) && handIn.get(p)) carried.add(p);
+				else if (accepted.has(p) && handIn.has(p) && !acceptsHere.has(p)) open.add(p);
 			}
 		}
 	}
 	const sorted = (set) => [...set].sort((a, b) => a - b);
-	return { done: sorted(done), carried: sorted(carried) };
+	return { done: sorted(done), carried: sorted(carried), open: sorted(open) };
+}
+
+// The objectives g's goals count for quest q, as stub_world's onQuest takes
+// them: the largest count per objective number (1 without one).
+function objectivesIn(g, q) {
+	const req = [];
+	for (const s of g.steps) {
+		for (const x of s.goals) if (x.quest === q && x.oi) req[x.oi - 1] = Math.max(req[x.oi - 1] || 1, x.count || 1);
+	}
+	return Array.from(req, (n) => n || 1);
 }
 
 // Reference data from `dir` for playtest; missing core files are an error in
 // diag (a search over no data would only look like a broken guide).
 function playData(dir, diag) {
 	const data = loadData(dir);
-	if (data.missingCore.length) diag.error(dir, 0, `reference data missing ${data.missingCore.join(', ')}: run node tools/polestar.js data build (or pass --data / --context-data)`);
+	if (data.missingCore.length) diag.error(dir, 0, `reference data missing ${data.missingCore.join(', ')}: run forge data build (or pass --data / --context-data)`);
 	return data;
 }
 
 // Compile the pack in `dir` (ours when `official`) and play its guides whose
-// file or id contains `filter`, as every persona and class (`classes`: class
+// file or id contains `filter` (or that filter(rel) keeps), as every persona and class (`classes`: class
 // files to play instead of the guide's own choice). Our guides play with the
 // rest of their `next` chain compiled with them; another pack is built as
 // compile builds it (tools/lib/pack/build.js buildPack, our guides in
@@ -454,7 +492,10 @@ function playData(dir, diag) {
 // -> { results, diag, played, dataMissing }: no results when the pack has
 // errors; missing reference data (dataMissing) is the only error then
 // (nothing is compiled without it).
-function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null }) {
+// Plays run on a pool of `workers` long-lived Lua processes (LuaPool; each
+// play in a fresh environment, so the results are a separate process's);
+// onResult gets them in play order as they come in.
+async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined }) {
 	const dataDiag = new Diagnostics();
 	data = data || playData(dataDir, dataDiag);
 	const contextData = official ? null : contextDataDir && path.resolve(contextDataDir) !== path.resolve(dataDir) ? playData(contextDataDir, dataDiag) : data;
@@ -485,10 +526,20 @@ function playtest({ dir, manifest, official = false, filter = null, classes = nu
 	}
 	const results = [];
 	if (diag.hasErrors()) return { results, diag, played: 0 };
+	if (honest) return honestRun({ guides, packs, play, data, classes, groups, kb, diag });
 	const packIds = new Set(guides.map((g) => g.id));
 	// Every compiled guide, for the chains into each one (chainDone).
 	const chained = packs.flatMap((p) => p.guides);
 	const sim = simPacks(packs, data);
+	const pool = new LuaPool({ size: workers || Number(process.env.POLESTAR_PLAY_WORKERS) || undefined });
+	const pending = [];
+	let shown = 0;
+	const flush = () => {
+		while (shown < results.length && results[shown]) {
+			if (onResult) onResult(results[shown]);
+			shown++;
+		}
+	};
 	try {
 		// Races that reach each guide from a previous one, through any route option.
 		const arriving = new Map();
@@ -510,19 +561,46 @@ function playtest({ dir, manifest, official = false, filter = null, classes = nu
 					const before = [
 						pre.done.length ? `w.complete(${luaValue(pre.done)})` : '',
 						...pre.carried.map((q) => `w.onQuest(${q}, {})`),
+						...pre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(g, q))})`),
 					].join('\n');
-					const [out, hand] = playGuide(sim, g, { race, faction, cls, handOver, before, groups });
-					const { stuck, problems } = outcome(out, handOver, hand, { race, faction, cls });
-					const r = { guide: g.id, race, faction, cls, ok: !stuck && !problems.length, stuck, problems, landed: hand ? hand.guide || null : null };
-					results.push(r);
-					if (onResult) onResult(r);
+					const k = results.length;
+					results.push(null);
+					pending.push(playGuideIn(pool, sim, g, { race, faction, cls, handOver, before, groups }).then(([out, hand]) => {
+						const { stuck, problems } = outcome(out, handOver, hand, { race, faction, cls });
+						results[k] = { guide: g.id, race, faction, cls, ok: !stuck && !problems.length, stuck, problems, landed: hand ? hand.guide || null : null };
+						flush();
+					}));
 				}
 			}
 		}
+		await Promise.all(pending);
 		return { results, diag, played };
 	} finally {
+		pool.close();
 		sim.dispose();
 	}
+}
+
+// playtest --honest (tools/lib/playtest-honest.js): the compiled guides
+// played from their lines and the data only, each `next` chain whole from
+// its first guide, as each persona and class its first guide is played as;
+// findings for the guides of `play` (sources). No Lua. `kb`: the knowledge
+// base file (default data/local/kb/forever-kb.sqlite when present; null: none).
+// -> { results: [], findings, diag, played, honest: true }
+function honestRun({ guides, packs, play, data, classes, groups, kb, diag }) {
+	const all = packs.flatMap((p) => p.guides);
+	const wanted = guides.filter((g) => play.has(g._ast && g._ast.source));
+	const arriving = new Map();
+	for (const g of all) {
+		for (const to of g.nextChoices || (g.next ? [g.next] : [])) arriving.set(to, [...(arriving.get(to) || []), ...(g.races || [])]);
+	}
+	const personas = (root) => {
+		let list = personasFor(root, arriving.get(root.id));
+		list = [...list, ...classPersonas(data, root, list)];
+		return list.flatMap(({ race, faction }) => classesFor(data, root, race, faction, classes).map((cls) => ({ race, faction, cls })));
+	};
+	const findings = honestPlay(all, data, personas, { kb: kb === undefined ? loadKb() : kb ? loadKb(kb) : null, play: wanted.map((g) => g.id), groups });
+	return { results: [], findings, diag, played: wanted.length, honest: true };
 }
 
 const titleCase = (s) => s.charAt(0) + s.slice(1).toLowerCase();
@@ -637,6 +715,10 @@ local function act(i, g, r)
 		w.bind(g.subject or g.npcName or "Inn")
 	elseif t == "hearth" or t == "fly" or t == "enter" then
 		w.setZone(g.subject, g.subject)
+	elseif t == "die" then
+		-- A deathskip: back alive beside the graveyard's Spirit Healer.
+		w.moveTo(g.map, g.x, g.y)
+		stub.fire("PLAYER_UNGHOST")
 	elseif t == "level" then
 		w.setLevel(math.max(w.level, tonumber((g.subject or ""):match("%d+")) or (w.level + 1)))
 		-- A point inside the level ("level 12.5"): that share of its XP.
@@ -729,4 +811,4 @@ for _ in pairs(visited) do count = count + 1 end
 emit({ done = E.GetStepIndex() == nil or E.GetGuide() ~= G, stuck = stuck, visited = count, steps = #G.steps, missing = missing, wrongPick = wrongPick, level = w.level })
 `;
 
-module.exports = { playtest, resultLines, buildSimPack, playGuide, writePackInto, chainDone, SIMULATE, HOME, CLASSES, luaValue };
+module.exports = { playtest, withChain, resultLines, buildSimPack, playGuide, playGuideIn, playOptions, writePackInto, chainDone, SIMULATE, HOME, CLASSES, luaValue };

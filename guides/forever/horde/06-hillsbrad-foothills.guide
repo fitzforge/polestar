@@ -34,7 +34,7 @@ next forever/horde/07-ashenvale
 #   Tower in the previous guide; the export picks it up in Tarren Mill).
 # - Stanley and the peasants (Battle of Hillsbrad part II, 528) come before
 #   the Durnholde trip: Darthalia offers Scout Support (98094) only once 528
-#   is handed in (#148, and a Wowhead Forever comment; the quest data has no
+#   is handed in (#148, and players' reports; the quest data has no
 #   prerequisite for it), and Masoj stands on that trip. Sim compare (Orc):
 #   +0.005 h to 26, -0.004 h to 30 against the old order.
 # - Free at Last (4904): the export picks it up from Lakota Windsong near the
@@ -56,7 +56,7 @@ next forever/horde/07-ashenvale
 # because QuestieDB lists no prerequisite for them; but 97289 asks for the
 # Head of the Baron, and the chain starts from the Abominable Head (97288), a
 # drop from The Baron in the Ruins of Lordaeron dungeon, so they stay out
-# (tools/lib/data/corrections.json now links 97288 -> 97289 -> ... -> 97292).
+# (data/corrections.json now links 97288 -> 97289 -> ... -> 97292).
 # Valuable Vantages (98095, Forever, Masoj's follow-up to Scout Support):
 # the new consensus route takes it, but its three vial spots (the hills by
 # Dun Garok, the plateau over Durnholde, the Headland ridge above Hillsbrad,

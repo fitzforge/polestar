@@ -29,8 +29,8 @@ next forever/horde/02-the-barrens
 # Forever chains the quest data has no prerequisites for (#51, #128): Linnea
 # offers the second Rear Guard Patrol (99156) only once the first (356) is
 # handed in, and Hadric offers Bandarion Keep (96899) only once The Cult of
-# the Damned (96897) and Remnants of War (96898) are (Wowhead Forever's
-# Series box for 99156; a Wowhead comment and #128 for 96899). Bandarion Keep
+# the Damned (96897) and Remnants of War (96898) are (Forever's quest
+# series for 99156; players' reports and #128 for 96899). Bandarion Keep
 # is taken when those two are handed in after the east loop. Rear Guard
 # Patrol (99156) is left out: Riptear, a level 13 elite, wanders by the
 # spiders at the far east end of the loop, and handing 356 in first means a
@@ -165,10 +165,12 @@ step Aramis and Venya
   accept 90902 only Paladin
   accept 1470 only Warlock            -- Venya Marthand
 
+# The Injured Deathguard kneel all over Deathknell; the nearest to Aramis lie
+# in front of the church (Forever's quest data, npc 259377, pins 31.6,65.8; issue #672).
 step Injured Deathguard
   only Paladin
   tip Rediscovering the Light: the Injured Deathguard lie around the church. Heal five of them with Holy Light.
-  goto 31.8,63.9 "Injured Deathguard"
+  goto 31.6,65.8 "Injured Deathguard"
   complete 90902
 
 step Rattlecages, scavengers and duskbats
@@ -195,8 +197,7 @@ step Scavenging Deathknell
   tip The Equipment Boxes lie beside the ruined houses in the north of Deathknell.
   collect 11127 quest 3902.1
 
-# Night Web's Hollow: "26,60 nightwebs and entrace to cave"
-# (https://www.wowhead.com/classic/quest=380, comments).
+# Night Web's Hollow: players report the cave entrance near 26,60 (quest 380).
 step Night Web's Hollow
   tip Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the Webbed Victims are inside.
   kill 1504 quest 380.1
@@ -250,7 +251,7 @@ step Calvin Montague
   accept 8
 
 step Gordo
-  tip Gordo, the big abomination, walks the road a little further east. The Gloom Weed grows along the road around him.
+  tip Gordo, the big abomination, walks the road from here east past Cold Hearth Manor almost to Brill, and back: if he isn't at the arrow, follow the road east until you meet him. The Gloom Weed grows along the road around him.
   accept 5481
   collect 12737 quest 5481.1
 
@@ -302,7 +303,15 @@ step Fields west of Brill
   collect 2858 quest 367.1
 
 step Gordo
-  collect 286202 quest 99141.3 npc 10666 @43.1,54.7 -- Ask Gordo for his report
+  tip Gordo walks the long road west of Brill, past Cold Hearth Manor, and back: the arrow follows his road west until you meet him.
+  loop
+  goto 53.8,53.1
+  goto 51.8,55.4
+  goto 49.7,58.0
+  goto 47.3,57.4
+  goto 45.5,56.6
+  goto 43.1,54.7
+  collect 286202 quest 99141.3 npc 10666 -- Ask Gordo for his report
 
 step Calvin Montague
   tip Walk on west to the Solliden Farmstead. Deathguard Simmer stands at the farm; Calvin, by the farmhouse, wants a duel: talk to him.

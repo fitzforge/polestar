@@ -5,7 +5,7 @@
 // real reference data, the last located goal before the target must be a
 // `goto` at the mouth, and the step's tip must say the target is underground.
 //
-// Needs data/forever (node tools/polestar.js data build); skips without it.
+// Needs data/forever (forge data build); skips without it.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -23,7 +23,7 @@ const CASES = [
 		// Verium: the arrow sent him onto the hill above the Fargodeep Mine.
 		guide: 'forever/alliance/human/01-elwynn-forest.guide',
 		target: (g) => g.t === 'collect' && g.item === 981, // Bernice's Necklace, from Goldtooth
-		mouth: { map: 1429, x: 39.5, y: 82.4 }, // Wowhead quest 87/62 comments: "Enter mine 39 82", "Enter is on 39 83"
+		mouth: { map: 1429, x: 39.5, y: 82.4 }, // players' reports (quests 87, 62) put the entrance near 39.5,82.4
 		tip: /inside the Fargodeep Mine/,
 	},
 	{

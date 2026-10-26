@@ -1,0 +1,81 @@
+## Interface: 16001
+## Title: Polestar Nav (Kalimdor)
+## Notes: Walking maps of Kalimdor for Polestar's arrow, from Leffe's navigation maps. Loaded on demand on that continent.
+## Title-deDE: Polestar Navigation (Kalimdor)
+## Notes-deDE: Laufkarten von Kalimdor für Polestars Pfeil, aus Leffes Navigationskarten. Wird auf diesem Kontinent bei Bedarf geladen.
+## Title-esES: Polestar: navegación (Kalimdor)
+## Notes-esES: Mapas a pie de Kalimdor para la flecha de Polestar, a partir de los mapas de navegación de Leffe. Se carga bajo demanda en ese continente.
+## Title-esMX: Polestar: navegación (Kalimdor)
+## Notes-esMX: Mapas a pie de Kalimdor para la flecha de Polestar, a partir de los mapas de navegación de Leffe. Se carga bajo demanda en ese continente.
+## Title-frFR: Polestar : navigation (Kalimdor)
+## Notes-frFR: Cartes de marche de Kalimdor pour la flèche de Polestar, tirées des cartes de navigation de Leffe. Chargé à la demande sur ce continent.
+## Title-koKR: Polestar 길찾기 (칼림도어)
+## Notes-koKR: Polestar 화살표용 칼림도어 도보 지도. Leffe의 길찾기 지도에서 만들었습니다. 그 대륙에서 필요할 때 불러옵니다.
+## Title-ptBR: Polestar: navegação (Kalimdor)
+## Notes-ptBR: Mapas a pé de Kalimdor para a seta do Polestar, a partir dos mapas de navegação do Leffe. Carregado sob demanda nesse continente.
+## Title-ruRU: Polestar: навигация (Калимдор)
+## Notes-ruRU: Пешие карты Калимдора для стрелки Polestar, из навигационных карт Leffe. Загружается по требованию на этом континенте.
+## Title-zhCN: Polestar 导航（卡利姆多）
+## Notes-zhCN: Polestar 箭头使用的卡利姆多步行地图，来自 Leffe 的导航地图。在该大陆上按需加载。
+## Title-zhTW: Polestar 導航（卡林多）
+## Notes-zhTW: Polestar 箭頭使用的卡林多步行地圖，來自 Leffe 的導航地圖。在該大陸上按需載入。
+## Author: Polestar; walking maps: Leffe's navigation maps
+## Version: 0.2.6
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar_Nav
+## X-License: GPL-3.0-or-later
+# Written by forge nav pack: the map parts Polestar_Nav's router loads when it first searches Kalimdor.
+
+Nav1_1.lua
+Nav1_2.lua
+Nav1_3.lua
+Nav1_4.lua
+Nav1_5.lua
+Nav1_6.lua
+Nav1_7.lua
+Nav1_8.lua
+Nav1_9.lua
+Nav1_10.lua
+Nav1_11.lua
+Nav1_12.lua
+Nav1_13.lua
+Nav1_14.lua
+Nav1_15.lua
+Nav1_16.lua
+Nav1_17.lua
+Nav1_18.lua
+Nav1_19.lua
+Nav1_20.lua
+Nav1_21.lua
+Nav1_22.lua
+Nav1_23.lua
+Nav1_24.lua
+Nav1_25.lua
+Nav1_26.lua
+Nav1_27.lua
+Nav1_28.lua
+Nav1_29.lua
+Nav1_30.lua
+Nav1_31.lua
+Nav1_32.lua
+Nav1_33.lua
+Nav1_34.lua
+Nav1_35.lua
+Nav1_36.lua
+Nav1_37.lua
+Nav1_38.lua
+Nav1_39.lua
+Nav1_40.lua
+Nav1_41.lua
+Nav1_42.lua
+Nav1_43.lua
+Nav1_44.lua
+Nav1_45.lua
+Nav1_46.lua
+Nav1_47.lua
+Nav1_48.lua
+Nav1_49.lua
+Nav1_50.lua
+Nav1_51.lua

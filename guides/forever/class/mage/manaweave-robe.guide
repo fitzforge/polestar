@@ -14,12 +14,12 @@ why A robe at 15 for Alliance mages, from Stormwind and Loch Modan.
 # Recluse (1920), Gathering Materials (1921) and Manaweave Robe (1941).
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
 # the coffers and the Rift Spawn in the Blue Recluse, and the Miners' League
-# Crates in Loch Modan; Wowhead Forever's Mage class page
-# (data/local/quest-audit/wowhead-class-quests.json) and quest pages
-# (https://www.wowhead.com/forever/quest=1920 and 1941, checked 2026-10-14) for
+# Crates in Loch Modan; Forever's Mage class quest list
+# (data/local/quest-audit/) and quest data
+# (quests 1920 and 1941, checked 2026-10-14) for
 # the races and the reward (Manaweave Robe); the quest texts for the Blue
 # Recluse and the Silver Stream Mine.
-# Wowhead Forever lists Human, Gnome and Skyborne mages for 1919-1921;
+# Forever's quest data lists Human, Gnome and Skyborne mages for 1919-1921;
 # corrections.json adds Skyborne to 1919 and 1921, which the merged data
 # gave to Humans and Gnomes only.
 # Investigate the Blue Recluse needs Report to Jennea first (quests.json):

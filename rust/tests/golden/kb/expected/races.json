@@ -1,0 +1,11 @@
+{
+"Human":{"Alliance":{"id":1,"bit":1,"classes":["WARRIOR","PALADIN","HUNTER","ROGUE","PRIEST","MAGE","WARLOCK"]}},
+"Orc":{"Horde":{"id":2,"bit":2,"classes":["WARRIOR","HUNTER","ROGUE","SHAMAN","MAGE","WARLOCK"]}},
+"Dwarf":{"Alliance":{"id":3,"bit":4,"classes":["WARRIOR","PALADIN","HUNTER","ROGUE","PRIEST","SHAMAN"]}},
+"NightElf":{"Alliance":{"id":4,"bit":8,"classes":["WARRIOR","HUNTER","ROGUE","PRIEST","DRUID"]}},
+"Scourge":{"Horde":{"id":5,"bit":16,"classes":["WARRIOR","PALADIN","ROGUE","PRIEST","MAGE","WARLOCK"]}},
+"Tauren":{"Horde":{"id":6,"bit":32,"classes":["WARRIOR","HUNTER","SHAMAN","DRUID"]}},
+"Gnome":{"Alliance":{"id":7,"bit":64,"classes":["WARRIOR","ROGUE","PRIEST","MAGE","WARLOCK"]}},
+"Troll":{"Horde":{"id":8,"bit":128,"classes":["WARRIOR","HUNTER","ROGUE","PRIEST","SHAMAN","MAGE","WARLOCK"]}},
+"Skyborne":{"Alliance":{"id":95,"bit":4294967296,"classes":["WARRIOR","HUNTER","ROGUE","MAGE","DRUID"]},"Horde":{"id":96,"bit":8589934592,"classes":["WARRIOR","HUNTER","ROGUE","SHAMAN","DRUID"]}}
+}
