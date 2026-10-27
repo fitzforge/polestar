@@ -1,32 +1,66 @@
 //! The in-game recorder (addon/Polestar_Recorder) against the quest/map/unit world of
-//! tests/lua/stub_recorder.lua.
+//! tests/lua/stub_recorder.lua: schema 2 of docs/RECORDING.md, its chunks, the ack file, the caps, the
+//! commands, and the quest records.
 
 use forge_addontest::{emitted, text, truthy, RunAddon};
 use serde_json::{json, Value};
 
 const REC: &str = "Polestar_Recorder";
 
-// Lua helpers available to every script.
-const PRELUDE: &str = r#"
-local function S() return PolestarRecorderDB.sessions[PolestarRecorderDB.current] end
-local function events(kind)
+/// Lua helpers every Recorder test script starts with (also used by the other recorder*.rs files).
+pub const PRELUDE: &str = r#"
+-- Every record of every stored chunk, in seq order: { kind, dt, fields... }.
+local function all()
+	local seqs = {}
+	for seq in pairs(PolestarRecorderDB.chunks) do seqs[#seqs + 1] = seq end
+	table.sort(seqs)
 	local out = {}
-	for _, e in ipairs(S().events) do
-		if kind == nil or e.e == kind then out[#out + 1] = e end
+	for _, s in ipairs(seqs) do
+		for _, r in ipairs(stub.records(PolestarRecorderDB.chunks[s])) do out[#out + 1] = r end
 	end
 	return out
 end
-local function kinds(skip)
+-- The records of the given kinds ("kill loot", nil: all) as "kind|field|...", without dt.
+local function recs(kinds)
+	local want
+	if kinds then
+		want = {}
+		for k in kinds:gmatch("%S+") do want[k] = true end
+	end
 	local out = {}
-	for _, e in ipairs(S().events) do
-		if not (skip and skip[e.e]) then out[#out + 1] = e.e end
+	for _, r in ipairs(all()) do
+		if not want or want[r[1]] then
+			local f = { r[1] }
+			for i = 3, #r do f[#f + 1] = r[i] end
+			out[#out + 1] = table.concat(f, "|")
+		end
 	end
 	return out
 end
-local NOISE = { pos = true, zone = true }
+-- Ends the session: the open chunk is written into chunks[seq].
+local function logout() stub.fire("PLAYER_LOGOUT") end
+local cmd = SlashCmdList.POLESTARREC
+-- docs/RECORDING.md: fields after dt per kind (a position is three).
+local WIDTH = {
+	chunk = 3, session = 14, map = 8, level = 5, xp = 3, dropped = 1, mark = 4, pos = 5, zone = 5, ride = 4, taxi = 2,
+	land = 5, death = 5, revive = 4, combat = 4, afk = 1, rest = 2, offer = 10, detail = 7, text = 4, accept = 11,
+	objectives = 2, progress = 7, complete = 1, turnin = 10, abandon = 1, gossip = 7, cast = 7, escort = 5, kill = 10,
+	loot = 8, unit = 8, rare = 7, treasure = 4, enter = 6, encounter = 4, trainer = 5, vendor = 5, flightmaster = 6,
+	bind = 4, rep = 4, skill = 3, explore = 5, learn = 1, craft = 3, achieve = 1, step = 6,
+}
+-- Records whose kind is unknown or whose field count is wrong, as "kind:count".
+local function malformed()
+	local bad = {}
+	for _, r in ipairs(all()) do
+		if WIDTH[r[1]] ~= #r - 2 then bad[#bad + 1] = r[1] .. ":" .. (#r - 2) end
+	end
+	return bad
+end
 "#;
 
-fn run_with(script: &str, before: &str, login: bool, saved: Option<&str>) -> Value {
+/// The Recorder's run: `before` ahead of the addon, `saved` as its SavedVariables (and Ack.lua's
+/// global), then login when asked, then the script after PRELUDE.
+pub fn run_with(script: &str, before: &str, login: bool, saved: Option<&str>) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_recorder.lua"],
 		addons: vec![REC.into()],
@@ -38,469 +72,289 @@ fn run_with(script: &str, before: &str, login: bool, saved: Option<&str>) -> Val
 	.remove(0)
 }
 
-fn run(script: &str) -> Value {
+pub fn run(script: &str) -> Value {
 	run_with(script, "", true, None)
 }
 
-const KOBOLDS: &str = r#"{ title = "Kobold Camp Cleanup", level = 2, objectives = { { text = "Kobold Vermin slain: %d/%d", type = "monster", numRequired = 3 } } }"#;
+/// Strings of a JSON array.
+pub fn strings(v: &Value) -> Vec<String> {
+	v.as_array().unwrap_or_else(|| panic!("not an array: {v}")).iter().map(|s| s.as_str().unwrap().to_string()).collect()
+}
+
+const FIXED_IDS: &str = r#"
+PolestarRecorderDB = { schema = 2, enabled = true, install = "k3j9x0q2m7ab", seq = 4, acked = 4, chunks = {}, maps = {} }
+PolestarRecorderCharDB = { id = "k3j9x0q2m7" }"#;
 
 #[test]
-fn accept_objective_progress_and_turn_in_are_recorded_with_the_npcs_and_places_involved() {
-	let out = run(&r#"
+fn a_quest_with_kills_xp_loot_and_a_turn_in_is_exactly_this_chunk_text() {
+	let out = run_with(
+		r#"
+		local KOBOLDS = { title = "Kobold Camp Cleanup", level = 2, objectives = { { text = "Kobold Vermin slain: %d/%d", type = "monster", numRequired = 3 } } }
+		stub.acceptQuest(33, { title = "Wolves Across the Border", objectives = { { text = "Tough Wolf Meat: %d/%d", type = "item", numRequired = 8 } } })
 		stub.world.xp = 40
+		stub.world.rewards[7] = { 170, 170 }
 		stub.moveTo(48.2, 41.9)
 		local willem = stub.creature(823, "Deputy Willem")
+		stub.world.questText = "Kill 3 Kobold Vermin."
+		stub.world.questDetail = "Testchar, the kobolds trouble every Human here."
+		stub.world.frame = { reward = { { 2575, 1 } }, choice = { { 2577, 1 }, { 2578, 5 } }, money = 75 }
 		stub.offerQuest(7, willem, "Deputy Willem", "Kobold Camp Cleanup")
 		stub.advance(3)
-		stub.moveTo(48.4, 42.3) -- the accept still belongs where the quest giver stood
-		stub.acceptQuest(7, {KOBOLDS})
+		stub.moveTo(48.4, 42.3) -- the accept belongs where the quest giver stood
+		stub.acceptQuest(7, KOBOLDS)
 		stub.setUnit("npc", nil)
+		local last
 		for i = 1, 3 do
 			stub.moveTo(46 + i, 35)
 			local g = stub.creature(6, "Kobold Vermin")
+			last = g
 			stub.setUnit("target", g, "Kobold Vermin")
 			stub.fire("PLAYER_TARGET_CHANGED")
 			stub.partyKill(g)
 			stub.unitDied(g)
+			stub.xpLine("Kobold Vermin", i == 2 and 50 or 25, i == 2 and 25 or nil)
 			stub.setProgress(7, 1, i)
 			stub.advance(10)
 		end
-		stub.moveTo(48.2, 41.9)
-		stub.turnIn(7, willem, "Deputy Willem", 170, 35)
-		local accept, turnin = events("accept")[1], events("turnin")[1]
-		local progress, kills = {}, {}
-		for _, e in ipairs(events("progress")) do progress[#progress + 1] = { e.q, e.oi, e.cur, e.max, e.x, e.text } end
-		for _, e in ipairs(events("kill")) do kills[#kills + 1] = { e.npc, e.npcName, e.q, e.oi, e.x } end
-		accept.t, turnin.t = nil, nil
-		emit({ kinds = kinds(NOISE), accept = accept, turnin = turnin, progress = progress, kills = kills, complete = events("complete")[1].q })"#
-		.replace("{KOBOLDS}", KOBOLDS));
-
-	assert_eq!(out["kinds"], json!(["accept", "kill", "slain", "progress", "kill", "slain", "progress", "kill", "slain", "progress", "complete", "turnin"]));
-	assert_eq!(
-		out["accept"],
-		json!({
-			"e": "accept", "q": 7, "title": "Kobold Camp Cleanup", "qlvl": 2, "lvl": 1, "xp": 40,
-			"npc": 823, "npcName": "Deputy Willem", "map": 1429, "x": 48.2, "y": 41.9,
-		})
-	);
-	assert_eq!(
-		out["turnin"],
-		json!({
-			"e": "turnin", "q": 7, "xpReward": 170, "money": 35, "lvl": 1,
-			"npc": 823, "npcName": "Deputy Willem", "map": 1429, "x": 48.2, "y": 41.9,
-		})
-	);
-	assert_eq!(out["progress"], json!([[7, 1, 1, 3, 47, "Kobold Vermin slain: 1/3"], [7, 1, 2, 3, 48, "Kobold Vermin slain: 2/3"], [7, 1, 3, 3, 49, "Kobold Vermin slain: 3/3"],]));
-	assert_eq!(out["kills"], json!([[6, "Kobold Vermin", 7, 1, 47], [6, "Kobold Vermin", 7, 1, 48], [6, "Kobold Vermin", 7, 1, 49],]));
-	assert_eq!(out["complete"], 7);
-}
-
-#[test]
-fn kills_that_advance_no_quest_objective_are_not_recorded_an_unseen_kill_is_linked_by_the_progress_it_caused() {
-	let out = run(&r#"
-		stub.acceptQuest(7, {KOBOLDS})
-		stub.moveTo(40, 40)
-		-- the player kills a wolf: no objective mentions it, nothing advances
-		local wolf = stub.creature(299, "Young Wolf")
-		stub.setUnit("target", wolf, "Young Wolf")
-		stub.fire("PLAYER_TARGET_CHANGED")
-		stub.partyKill(wolf)
-		stub.unitDied(wolf)
-		-- someone else's kill nearby, never targeted
-		stub.unitDied((stub.creature(6, "Kobold Vermin")))
-		stub.advance(5)
-		-- a kobold the player never targeted or saw dies, then the objective advances
-		stub.moveTo(41, 42)
-		local unseen = stub.creature(6)
-		stub.unitDied(unseen)
-		stub.advance(0.5)
-		stub.setProgress(7, 1, 1)
-		-- a quest-related unit (client flag) the player targeted and killed
-		stub.advance(5)
-		local flagged = stub.creature(1000, "Kobold Laborer")
-		stub.setUnit("target", flagged, "Kobold Laborer", true)
-		stub.fire("PLAYER_TARGET_CHANGED")
-		stub.partyKill(flagged)
-		local kills = {}
-		for _, e in ipairs(events("kill")) do kills[#kills + 1] = { npc = e.npc, name = e.npcName, q = e.q, oi = e.oi, x = e.x, y = e.y } end
-		emit(kills)"#
-		.replace("{KOBOLDS}", KOBOLDS));
-
-	assert_eq!(
-		out,
-		json!([
-			{ "npc": 6, "name": "Kobold Vermin", "q": 7, "oi": 1, "x": 41, "y": 42 },
-			{ "npc": 1000, "name": "Kobold Laborer", "x": 41, "y": 42 },
-		])
-	);
-}
-
-#[test]
-fn breadcrumbs_are_recorded_only_while_moving_and_only_after_enough_distance_or_time() {
-	// Elwynn Forest in the stub is 5200 yd wide: 1 yd = 100/5200 % of the map.
-	let out = run(r#"
-		local YD = 100 / 5200
-		local x = 30
-		local function walk(seconds, yardsPerSecond)
-			for _ = 1, seconds do
-				x = x + yardsPerSecond * YD
-				stub.moveTo(x, 50)
-				stub.advance(1)
-			end
-		end
-		local function count() return #events("pos") end
-		stub.world.moving = false
-		walk(10, 7)                 -- position changes but the player is not moving (e.g. a boat)
-		local idle = count()
-		stub.world.moving = true
-		walk(1, 7)                  -- first point once moving
-		local first = count()
-		walk(15, 1)                 -- 15 yd in 15 s: under both thresholds
-		local slow = count()
-		walk(6, 1)                  -- 20 s since the last point and over 4 yd: one point
-		local slowGap = count()
-		walk(20, 10)                -- 200 yd at run speed: a point every 25+ yd
-		local run = count()
-		stub.world.onTaxi = true
-		walk(20, 30)                -- flights are not breadcrumbed
-		local taxi = count()
-		local pts = events("pos")
-		local minStep = math.huge
-		for i = first + 1, run do
-			local d = (pts[i].x - pts[i - 1].x) / YD
-			if d < minStep then minStep = d end
-		end
-		emit({ idle = idle, first = first, slow = slow, slowGap = slowGap, run = run, taxi = taxi, minStep = minStep })"#);
-
-	assert_eq!(out["idle"], 0);
-	assert_eq!(out["first"], 1);
-	assert_eq!(out["slow"], 1);
-	assert_eq!(out["slowGap"], 2);
-	assert_eq!(out["run"], 2 + 6); // 200 yd at 10 yd/s with a 25 yd minimum: every 3 s -> 6 points
-	assert_eq!(out["taxi"], out["run"]);
-	assert!(out["minStep"].as_f64().unwrap() >= 4.0, "consecutive points {} yd apart", out["minStep"]);
-}
-
-#[test]
-fn every_login_starts_a_new_session_a_ui_reload_continues_the_current_one() {
-	let first = run(r#"
-		SlashCmdList.POLESTARREC("mark first login")
-		emit(stub.serialize(PolestarRecorderDB))"#);
-
-	let second = run_with(
-		r#"
-		SlashCmdList.POLESTARREC("mark second login")
-		local keys = {}
-		for k, s in pairs(PolestarRecorderDB.sessions) do
-			local marks = {}
-			for _, e in ipairs(s.events) do if e.e == "mark" then marks[#marks + 1] = e.text end end
-			keys[#keys + 1] = { key = k, marks = marks, char = s.char.name, started = s.started }
-		end
-		table.sort(keys, function(a, b) return a.started < b.started end)
-		emit({ sessions = keys, current = PolestarRecorderDB.current, db = stub.serialize(PolestarRecorderDB) })"#,
-		"stub.epoch = stub.epoch + 3600",
-		true,
-		Some(&format!("PolestarRecorderDB = {}", first.as_str().unwrap())),
-	);
-	let sessions: Vec<Value> = second["sessions"].as_array().unwrap().iter().map(|s| json!([s["key"], s["marks"], s["char"]])).collect();
-	assert_eq!(json!(sessions), json!([["1791000000-Testchar", ["first login"], "Testchar"], ["1791003600-Testchar", ["second login"], "Testchar"],]));
-	assert_eq!(second["current"], "1791003600-Testchar");
-
-	let reloaded = run_with(
-		r#"
-		stub.fire("PLAYER_LOGIN")
-		stub.fire("PLAYER_ENTERING_WORLD", false, true)
-		SlashCmdList.POLESTARREC("mark after reload")
-		local n, marks = 0, {}
-		for _ in pairs(PolestarRecorderDB.sessions) do n = n + 1 end
-		for _, e in ipairs(S().events) do if e.e == "mark" then marks[#marks + 1] = { e.text, e.t } end end
-		emit({ n = n, current = PolestarRecorderDB.current, marks = marks })"#,
-		"stub.epoch = stub.epoch + 3700",
-		false,
-		Some(&format!("PolestarRecorderDB = {}", second["db"].as_str().unwrap())),
-	);
-	assert_eq!(reloaded["n"], 2);
-	assert_eq!(reloaded["current"], "1791003600-Testchar");
-	let marks: Vec<Value> = reloaded["marks"].as_array().unwrap().iter().map(|m| m[0].clone()).collect();
-	assert_eq!(json!(marks), json!(["second login", "after reload"]));
-	assert!(reloaded["marks"][1][1].as_f64().unwrap() >= 100.0, "event times keep counting from the session start");
-}
-
-#[test]
-fn a_nil_polestarrecorderdb_cold_start_bug_neither_errors_nor_loses_the_live_session() {
-	let out = run_with(
-		r#"
-		SlashCmdList.POLESTARREC("on") -- a lost table also lost the opt-in
-		SlashCmdList.POLESTARREC("mark before")
-		PolestarRecorderDB = nil -- the table vanishes under the running session
-		SlashCmdList.POLESTARREC("mark after")
-		stub.fire("PLAYER_LOGOUT")
-		local marks = {}
-		for _, e in ipairs(S().events) do if e.e == "mark" then marks[#marks + 1] = e.text end end
-		emit({ type = type(PolestarRecorderDB), schema = PolestarRecorderDB.schema, marks = marks, key = S().session })"#,
-		"",
-		true,
-		Some("PolestarRecorderDB = nil"),
-	);
-	assert_eq!(out, json!({ "type": "table", "schema": 1, "marks": ["before", "after"], "key": "1791000000-Testchar" }));
-
-	let garbage = run_with("SlashCmdList.POLESTARREC(\"on\")\nemit({ ok = type(S().events) == \"table\" })", "", true, Some(r#"PolestarRecorderDB = "corrupt""#));
-	assert_eq!(garbage, json!({ "ok": true }));
-}
-
-// Recording is opt-in: a fresh install writes nothing, not even a session, until the player turns it on; on
-// starts a session at once in play, and off stops writing until it is on again.
-#[test]
-fn recording_is_off_until_the_player_turns_it_on_no_session_no_events_on_starts_one_off_stops_writing() {
-	let out = run_with(
-		r#"
-		local function sessions() local n = 0 for _ in pairs(PolestarRecorderDB.sessions) do n = n + 1 end return n end
-		stub.fire("PLAYER_LEVEL_UP", 2)
-		SlashCmdList.POLESTARREC("mark ignored")
-		local off = { sessions = sessions(), current = PolestarRecorderDB.current or false, enabled = PolestarRecorderDB.enabled or false }
-		SlashCmdList.POLESTARREC("on")
-		SlashCmdList.POLESTARREC("mark kept")
-		local on = { sessions = sessions(), marks = #events("mark") }
-		SlashCmdList.POLESTARREC("off")
-		SlashCmdList.POLESTARREC("mark dropped")
-		SlashCmdList.POLESTARREC("on")
-		emit({ off = off, on = on, after = #events("mark"), enabled = PolestarRecorderDB.enabled })"#,
-		"",
-		true,
-		Some("PolestarRecorderDB = nil"),
-	);
-	assert_eq!(out["off"], json!({ "sessions": 0, "current": false, "enabled": false }));
-	assert_eq!(out["on"], json!({ "sessions": 1, "marks": 1 }));
-	assert_eq!(out["after"], 1, "nothing is written while off");
-	assert_eq!(out["enabled"], true);
-}
-
-#[test]
-fn gossip_flight_masters_flights_binds_trainers_vendors_loot_levels_deaths_abandons_and_zones() {
-	let out = run(r#"
-		local function at(x, y) stub.moveTo(x, y) end
-		-- gossip with quests on offer
-		at(10, 10)
-		stub.world.gossip = { available = { 33, 18 }, active = { 7 } }
-		stub.setUnit("npc", (stub.creature(197, "Marshal McBride")), "Marshal McBride")
-		stub.fire("GOSSIP_SHOW")
-		stub.world.gossip = { available = {}, active = {} }
-		stub.fire("GOSSIP_SHOW") -- nothing on offer: not recorded
-		-- a new flight master, opened twice
-		at(20, 20)
-		stub.world.taxi = { { nodeID = 2, name = "Stormwind, Elwynn", state = 0, slotIndex = 1 }, { nodeID = 4, name = "Sentinel Hill, Westfall", state = 1, slotIndex = 2 } }
-		stub.setUnit("npc", (stub.creature(352, "Dungar Longdrink")), "Dungar Longdrink")
-		stub.fire("TAXIMAP_OPENED", 0)
-		stub.fire("TAXIMAP_OPENED", 0)
-		-- a refused flight (not enough money): never on the taxi, not recorded
-		stub.world.taxi[1].name, stub.world.taxi[2].name = "Stormwind, Elwynn", "Lakeshire, Redridge"
-		TakeTaxiNode(2)
-		stub.advance(7)
-		-- the real flight: recorded once the player is on the taxi
-		stub.world.taxi[2].name = "Sentinel Hill, Westfall"
-		TakeTaxiNode(2)
-		stub.world.onTaxi = true
-		stub.fire("PLAYER_CONTROL_LOST")
-		stub.advance(7) -- later confirmation checks do not record it twice
-		stub.world.onTaxi = false
-		-- hearth, trainer, vendor
-		at(30, 30)
-		stub.world.bind = "Goldshire"
-		stub.fire("HEARTHSTONE_BOUND")
-		stub.setUnit("npc", (stub.creature(911, "Llane Beshere")), "Llane Beshere")
-		stub.fire("TRAINER_SHOW")
-		stub.setUnit("npc", (stub.creature(78, "Janos Hammerknuckle")), "Janos Hammerknuckle")
-		stub.fire("MERCHANT_SHOW")
-		-- loot: the quest item is recorded when looted, the wolf meat is not
-		stub.acceptQuest(33, { title = "Wolves Across the Border", objectives = { { text = "Tough Wolf Meat: %d/%d", type = "item", numRequired = 8 } } })
-		at(40, 40)
-		stub.world.loot = { { name = "Tough Wolf Meat", item = 750, count = 2 }, { name = "Ruined Pelt", item = 4865 }, { name = "Kobold Candle", item = 772, quest = true, questID = 60 } }
+		stub.world.loot = { { name = "Tough Wolf Meat", item = 750, count = 1, src = { last, 1 } } }
 		stub.fire("LOOT_OPENED", false, false)
-		stub.fire("LOOT_SLOT_CLEARED", 1)
-		stub.fire("LOOT_SLOT_CLEARED", 2)
-		stub.fire("LOOT_SLOT_CLEARED", 3)
 		stub.fire("LOOT_CLOSED")
-		-- level, death, abandon, zone
-		stub.world.level = 2
-		stub.fire("PLAYER_LEVEL_UP", 2, 10, 0, 0, 0, 0, 0, 0)
-		stub.fire("PLAYER_DEAD")
-		stub.abandon(33)
-		stub.world.zone, stub.world.subzone = "Stormwind City", "Trade District"
-		stub.moveTo(60, 70, 1453)
-		stub.fire("ZONE_CHANGED_NEW_AREA")
-		stub.fire("ZONE_CHANGED") -- same map and zone: no duplicate
-		local s = S()
-		local list = {}
-		for _, e in ipairs(s.events) do
-			if e.e ~= "pos" and e.e ~= "accept" then
-				local copy = {}
-				for k, v in pairs(e) do if k ~= "t" then copy[k] = v end end
-				list[#list + 1] = copy
-			end
-		end
-		emit({ events = list, maps = { s.maps[1429] and s.maps[1429].name, s.maps[1453] and s.maps[1453].top } })"#);
-
-	assert_eq!(
-		out["events"],
-		json!([
-			{ "e": "zone", "map": 1429, "zone": "Elwynn Forest", "subzone": "Northshire Valley" },
-			{ "e": "gossip", "npc": 197, "npcName": "Marshal McBride", "available": [33, 18], "active": [7], "map": 1429, "x": 10, "y": 10 },
-			{ "e": "fp", "location": "Stormwind, Elwynn", "npc": 352, "npcName": "Dungar Longdrink", "map": 1429, "x": 20, "y": 20 },
-			{ "e": "taxi", "from": "Stormwind, Elwynn", "to": "Sentinel Hill, Westfall" },
-			{ "e": "bind", "location": "Goldshire", "map": 1429, "x": 30, "y": 30 },
-			{ "e": "trainer", "npc": 911, "npcName": "Llane Beshere", "map": 1429, "x": 30, "y": 30 },
-			{ "e": "vendor", "npc": 78, "npcName": "Janos Hammerknuckle", "map": 1429, "x": 30, "y": 30 },
-			{ "e": "loot", "item": 750, "itemName": "Tough Wolf Meat", "count": 2, "q": 33, "oi": 1, "map": 1429, "x": 40, "y": 40 },
-			{ "e": "loot", "item": 772, "itemName": "Kobold Candle", "count": 1, "q": 60, "map": 1429, "x": 40, "y": 40 },
-			{ "e": "level", "lvl": 2, "map": 1429, "x": 40, "y": 40 },
-			{ "e": "death", "map": 1429, "x": 40, "y": 40 },
-			{ "e": "abandon", "q": 33 },
-			{ "e": "zone", "map": 1453, "zone": "Stormwind City", "subzone": "Trade District" },
-		])
-	);
-	assert_eq!(out["maps"], json!(["Elwynn Forest", 1722.17]));
-}
-
-#[test]
-fn quest_xp_rewards_on_the_accept_when_cached_as_a_later_reward_event_when_not_nothing_when_the_client_lacks_the_api() {
-	let out = run(&r#"
-		stub.world.level = 4
-		stub.world.rewards[7] = { 450, 420 }
-		stub.acceptQuest(7, {KOBOLDS})
-		-- not cached at QUEST_ACCEPTED: the next log update that knows it records it
-		stub.acceptQuest(33, { title = "Wolves Across the Border", level = 4, objectives = {} })
-		stub.advance(1)
-		local beforeCache = #events("reward")
-		stub.world.rewards[33] = { 380, 380 }
-		stub.fire("QUEST_LOG_UPDATE")
-		stub.advance(1)
-		stub.fire("QUEST_LOG_UPDATE") -- already recorded: not again
-		stub.advance(1)
-		-- the global disappears (it is not in Forever's API docs)
-		GetQuestLogRewardXP = nil
-		stub.acceptQuest(60, { title = "Kobold Candles", level = 4, objectives = {} })
-		stub.fire("QUEST_LOG_UPDATE")
-		stub.advance(1)
-		local function strip(e) local c = {} for k, v in pairs(e) do if k ~= "t" and k ~= "map" and k ~= "x" and k ~= "y" then c[k] = v end end return c end
-		local accepts, rewards = {}, {}
-		for _, e in ipairs(events("accept")) do accepts[#accepts + 1] = strip(e) end
-		for _, e in ipairs(events("reward")) do rewards[#rewards + 1] = strip(e) end
-		emit({ accepts = accepts, rewards = rewards, beforeCache = beforeCache })"#
-		.replace("{KOBOLDS}", KOBOLDS));
-
-	assert_eq!(
-		out["accepts"],
-		json!([
-			{ "e": "accept", "q": 7, "title": "Kobold Camp Cleanup", "qlvl": 2, "lvl": 4, "xp": 0, "rewardXp": 450, "rewardXpBase": 420 },
-			{ "e": "accept", "q": 33, "title": "Wolves Across the Border", "qlvl": 4, "lvl": 4, "xp": 0 },
-			{ "e": "accept", "q": 60, "title": "Kobold Candles", "qlvl": 4, "lvl": 4, "xp": 0 },
-		])
-	);
-	assert_eq!(out["beforeCache"], 0);
-	assert_eq!(out["rewards"], json!([{ "e": "reward", "q": 33, "rewardXp": 380, "rewardXpBase": 380, "lvl": 4 }]));
-}
-
-#[test]
-fn quest_xp_rewards_of_quests_already_in_the_log_are_recorded_once_per_session_not_again_after_a_reload() {
-	const LOG: &str = r#"
-		stub.world.level = 5
-		stub.world.quests[33] = { title = "Wolves Across the Border", level = 4, objectives = {} }
-		stub.world.quests[7] = { title = "Kobold Camp Cleanup", level = 2, objectives = {} }
-		stub.world.log = { 33, 7 }
-		stub.world.rewards[33] = { 380, 380 }"#;
-	let first = run_with(
-		r#"
-		local atLogin = #events("reward")
-		stub.world.rewards[7] = { 450, 420 }
-		stub.fire("QUEST_LOG_UPDATE")
-		stub.advance(1)
-		local qs = {}
-		for _, e in ipairs(events("reward")) do qs[#qs + 1] = { e.q, e.rewardXp, e.rewardXpBase, e.lvl } end
-		emit({ atLogin = atLogin, rewards = qs, db = stub.serialize(PolestarRecorderDB) })"#,
-		LOG,
+		stub.moveTo(48.2, 41.9)
+		stub.turnIn(7, willem, "Deputy Willem", 170, 35, 2)
+		logout()
+		emit({ text = PolestarRecorderDB.chunks[5], seq = PolestarRecorderDB.seq, bad = malformed() })"#,
+		"",
 		true,
-		None,
+		Some(FIXED_IDS),
 	);
-	assert_eq!(first["atLogin"], 1);
-	assert_eq!(first["rewards"], json!([[33, 380, 380, 5], [7, 450, 420, 5]]));
-
-	let reloaded = run_with(
-		r#"
-		stub.fire("PLAYER_LOGIN")
-		stub.fire("PLAYER_ENTERING_WORLD", false, true)
-		stub.fire("QUEST_LOG_UPDATE")
-		stub.advance(3)
-		emit(#events("reward"))"#,
-		&(LOG.to_string() + "\nstub.world.rewards[7] = { 450, 420 }"),
-		false,
-		Some(&format!("PolestarRecorderDB = {}", first["db"].as_str().unwrap())),
-	);
-	assert_eq!(reloaded, 2);
+	let want = [
+		"chunk|0|5|1791000000|k3j9x0q2m7",
+		"session|0|k3j9x0q2m7|Human|WARRIOR|Alliance|2|1|enUS|70338|16001|3||0.1.0-test||",
+		"map|0|1429|3|1415|0|1800|1100|-1666.7|-4100",
+		"zone|0|1429|5000|5000|Elwynn Forest|Northshire Valley",
+		"xp|0|0|400|",
+		"accept|0|33|||1429|5000|5000|1||||",
+		"objectives|0|33|item:8:Tough Wolf Meat",
+		"offer|0|c|823|1429|4820|4190|7||33||",
+		"detail|0|7|c|823|1429|4820|4190|",
+		"text|0|7|Kobold Camp Cleanup|Kill 3 Kobold Vermin.|$N, the kobolds trouble every $R here.",
+		"accept|30|7|c|823|1429|4820|4190|1|170|75|2575:1|2577:1;2578:5",
+		"objectives|30|7|monster:3:Kobold Vermin slain",
+		"unit|30|6|1|n|h|1429|4700|3500|t",
+		"progress|31|7|1|1|3|1429|4700|3500",
+		"kill|30|6|1|n|1429|4700|3500|25||0|7:1",
+		"progress|133|7|1|2|3|1429|4800|3500",
+		"kill|132|6|1|n|1429|4800|3500|50|25|0|7:1",
+		"unit|234|6|1|n|h|1429|4900|3500|t",
+		"progress|235|7|1|3|3|1429|4900|3500",
+		"complete|235|7",
+		"kill|234|6|1|n|1429|4900|3500|25||0|7:1",
+		"loot|336|c|6|1429|4900|3500||750:1|33:1",
+		"turnin|336|7|c|823|1429|4820|4190|1|170|35|2578",
+	]
+	.join("\n")
+	.replace('|', "\t");
+	assert_eq!(out["text"], json!(want));
+	assert_eq!(out["seq"], 5);
+	assert_eq!(out["bad"], json!({}));
 }
 
 #[test]
-fn psrec_off_pauses_recording_maps_dumps_world_bounds_talents_dumps_the_trait_tree_clear_needs_confirmation() {
-	let out = run(r#"
-		local cmd = SlashCmdList.POLESTARREC
-		cmd("off")
+fn at_login_the_chunks_the_uploader_acknowledged_for_this_install_are_deleted() {
+	const SAVED: &str = r#"
+local function c(seq) return ("chunk\t0\t%d\t1790990000\tk3j9x0q2m7\nmark\t5\t\t\t\tchunk %d"):format(seq, seq) end
+PolestarRecorderDB = { schema = 2, enabled = true, install = "k3j9x0q2m7ab", seq = 4, acked = 1, chunks = { [2] = c(2), [3] = c(3), [4] = c(4) }, maps = {} }
+PolestarRecorderCharDB = { id = "k3j9x0q2m7" }
+PolestarRecorderAck = "#;
+	const SCRIPT: &str = r#"
+		local keys = {}
+		for seq in pairs(PolestarRecorderDB.chunks) do keys[#keys + 1] = seq end
+		table.sort(keys)
+		emit({ chunks = keys, acked = PolestarRecorderDB.acked, seq = PolestarRecorderDB.seq })"#;
+	let with = |ack: &str| run_with(SCRIPT, "", true, Some(&format!("{SAVED}{ack}")));
+	// The release's Ack.lua: nothing acknowledged. The new session is chunk 5.
+	assert_eq!(with("nil"), json!({ "chunks": [2, 3, 4, 5], "acked": 1, "seq": 5 }));
+	assert_eq!(with(r#"{ ["k3j9x0q2m7ab"] = 3 }"#), json!({ "chunks": [4, 5], "acked": 3, "seq": 5 }));
+	// Only another WoW account's install: its ack is not for these chunks.
+	assert_eq!(with(r#"{ ["zzzzzzzzzzzz"] = 4 }"#), json!({ "chunks": [2, 3, 4, 5], "acked": 1, "seq": 5 }));
+	// One file for several accounts sharing the AddOns folder.
+	assert_eq!(with(r#"{ ["k3j9x0q2m7ab"] = 2, ["zzzzzzzzzzzz"] = 9 }"#), json!({ "chunks": [3, 4, 5], "acked": 2, "seq": 5 }));
+	// The old { install, upto } form is not read.
+	assert_eq!(with(r#"{ install = "k3j9x0q2m7ab", upto = 3 }"#), json!({ "chunks": [2, 3, 4, 5], "acked": 1, "seq": 5 }));
+}
+
+#[test]
+fn schema_1_recordings_are_removed_at_load_said_once_in_chat_the_opt_in_and_the_window_settings_stay() {
+	let out = run_with(
+		r#"
+		local db = PolestarRecorderDB
+		local keys = {}
+		for k in pairs(db) do keys[#keys + 1] = k end
+		table.sort(keys)
+		stub.fire("PLAYER_LOGIN")
+		local said = 0
+		for _, m in ipairs(stub.messages) do if m:find("schema 1", 1, true) then said = said + 1 end end
+		logout()
+		emit({ keys = keys, schema = db.schema, enabled = db.enabled, panel = db.panel, spots = db.spots, said = said,
+			old = table.concat(recs(), "\n"):find("Testchar", 1, true) ~= nil, chunks = #recs("chunk") })"#,
+		"",
+		true,
+		Some(
+			r#"PolestarRecorderDB = { schema = 1, enabled = true, current = "1790000000-Testchar",
+			sessions = { ["1790000000-Testchar"] = { char = { name = "Testchar", realm = "Test Realm" }, events = { { e = "mark", text = "old" } } } },
+			maps = { [1429] = { name = "Elwynn Forest" } }, fp = {}, panel = { "CENTER", "CENTER", 10, 20 }, spots = { [3] = 1790000000 } }"#,
+		),
+	);
+	assert_eq!(out["keys"], json!(["acked", "chunks", "enabled", "install", "maps", "panel", "schema", "seq", "spots"]));
+	assert_eq!(out["schema"], 2);
+	assert_eq!(out["enabled"], true);
+	assert_eq!(out["panel"], json!(["CENTER", "CENTER", 10, 20]));
+	assert_eq!(out["said"], 1);
+	assert_eq!(out["old"], false, "nothing of the old sessions (names) is left");
+	assert_eq!(out["chunks"], 1);
+}
+
+#[test]
+fn a_nil_polestarrecorderdb_cold_start_bug_neither_errors_nor_loses_the_open_chunk() {
+	let out = run_with(
+		r#"
+		cmd("on") -- a lost table also lost the opt-in
+		cmd("mark before")
+		local install = PolestarRecorderDB.install
+		PolestarRecorderDB = nil -- the table vanishes under the running session
+		cmd("mark after")
+		logout()
+		emit({ type = type(PolestarRecorderDB), schema = PolestarRecorderDB.schema, marks = recs("mark"), seq = PolestarRecorderDB.seq,
+			sameInstall = PolestarRecorderDB.install == install, installLength = #install, charId = #PolestarRecorderCharDB.id })"#,
+		"",
+		true,
+		Some("PolestarRecorderDB = nil; PolestarRecorderCharDB = nil"),
+	);
+	assert_eq!(out, json!({ "type": "table", "schema": 2, "marks": ["mark|1429|5000|5000|before", "mark|1429|5000|5000|after"], "seq": 1, "sameInstall": true, "installLength": 12, "charId": 10 }));
+
+	let garbage = run_with(r#"cmd("on"); cmd("mark x"); logout(); emit({ marks = recs("mark"), bad = malformed() })"#, "", true, Some(r#"PolestarRecorderDB = "corrupt"; PolestarRecorderCharDB = 5"#));
+	assert_eq!(garbage, json!({ "marks": ["mark|1429|5000|5000|x"], "bad": {} }));
+}
+
+// Recording is opt-in: a fresh install writes nothing until the player turns it on; on opens a chunk at once
+// in play, off closes it and nothing is written until it is on again (a new chunk).
+#[test]
+fn recording_is_off_until_the_player_turns_it_on_no_chunks_on_opens_one_off_closes_it() {
+	let out = run_with(
+		r#"
+		local function n() local c = 0 for _ in pairs(PolestarRecorderDB.chunks) do c = c + 1 end return c end
+		stub.fire("PLAYER_LEVEL_UP", 2)
 		cmd("mark ignored")
+		local off = { chunks = n(), enabled = PolestarRecorderDB.enabled, seq = PolestarRecorderDB.seq }
 		cmd("on")
 		cmd("mark kept")
-		local marks = {}
-		for _, e in ipairs(events("mark")) do marks[#marks + 1] = e.text end
-		cmd("maps")
-		local elwynn = PolestarRecorderDB.maps[1429]
-		local mapCount = 0
-		for _ in pairs(PolestarRecorderDB.maps) do mapCount = mapCount + 1 end
-		stub.world.talents = {
-			configID = 9, treeIDs = { 400 },
-			groups = { { groupID = 1, treeID = 400, displayName = "Arms", orderIndex = 0, icon = 1, skillLineID = 26 } },
-			nodes = { [5] = { ID = 5, posX = 100, posY = 200, maxRanks = 5, type = 0, isVisible = true, entryIDs = { 50 }, groupIDs = { 1 }, visibleEdges = { { targetNode = 6 } } },
-			          [6] = { ID = 6, posX = 100, posY = 400, maxRanks = 1, type = 0, isVisible = false, entryIDs = {}, groupIDs = { 1 } } },
-			entries = { [50] = { definitionID = 500, maxRanks = 5, type = 1 } },
-			defs = { [500] = { spellID = 12282 } },
-			spells = { [12282] = "Improved Heroic Strike" },
-		}
-		cmd("talents")
-		local talents = PolestarRecorderDB.talents.WARRIOR
-		local before = #events()
+		local on = { chunks = n(), seq = PolestarRecorderDB.seq }
+		cmd("off")
+		cmd("mark dropped")
+		cmd("on")
+		logout()
+		emit({ off = off, on = on, marks = recs("mark"), enabled = PolestarRecorderDB.enabled, seqs = PolestarRecorderDB.seq })"#,
+		"",
+		true,
+		Some("PolestarRecorderDB = nil"),
+	);
+	assert_eq!(out["off"], json!({ "chunks": 0, "enabled": false, "seq": 0 }));
+	assert_eq!(out["on"], json!({ "chunks": 1, "seq": 1 }));
+	assert_eq!(out["marks"], json!(["mark|1429|5000|5000|kept"]), "nothing is written while off");
+	assert_eq!(out["enabled"], true);
+	assert_eq!(out["seqs"], 2, "on again opens the next chunk");
+}
+
+#[test]
+fn a_chunk_closes_after_5_minutes_or_16_kib_and_is_refreshed_every_60_s_out_of_combat() {
+	let out = run(r#"
+		local db = PolestarRecorderDB
+		local function stored(seq) return db.chunks[seq] and #stub.records(db.chunks[seq]) or 0 end
+		cmd("mark one")
+		local first = db.seq
+		local atOpen = stored(first) -- chunk and session, written as the chunk opens
+		stub.advance(30)
+		cmd("mark two")
+		local before = stored(first)
+		stub.advance(31)
+		local refreshed = stored(first)
+		stub.world.combat = true
+		cmd("mark in combat")
+		stub.advance(65)
+		local inCombat = stored(first)
+		stub.world.combat = false
+		stub.advance(5)
+		local after = stored(first)
+		stub.advance(300 - stub.now + 1)
+		local second = db.seq
+		local head = stub.records(db.chunks[second])
+		for i = 1, 300 do cmd("mark " .. ("x"):rep(60) .. i) end
+		local third = db.seq
+		local size = #db.chunks[second]
+		logout()
+		emit({ first = first, atOpen = atOpen, before = before, refreshed = refreshed, inCombat = inCombat, after = after,
+			second = second, head = { head[1][1], head[1][2], head[1][3], head[2][1] }, third = third, size = size, bad = malformed() })"#);
+	assert_eq!(out["atOpen"], 2);
+	assert_eq!(out["before"], 2, "not written again before 60 s");
+	assert_eq!(out["refreshed"], 7, "chunk, session, map, zone, xp and both marks");
+	assert_eq!(out["inCombat"], 7, "no refresh in combat");
+	assert_eq!(out["after"], 8);
+	assert_eq!(out["second"], 2, "the 5-minute close opened chunk 2");
+	assert_eq!(out["head"], json!(["chunk", "0", "2", "session"]), "every chunk starts with chunk then session");
+	assert_eq!(out["third"], 3, "16 KiB closed chunk 2");
+	let size = out["size"].as_u64().unwrap();
+	assert!((16 * 1024..16 * 1024 + 200).contains(&size), "chunk 2 closed at the first record past 16 KiB: {size}");
+	assert_eq!(out["bad"], json!({}));
+}
+
+#[test]
+fn past_4_mib_the_oldest_chunks_are_dropped_and_a_dropped_record_counts_them() {
+	let out = run_with(
+		r#"
+		local keys = {}
+		for seq in pairs(PolestarRecorderDB.chunks) do keys[#keys + 1] = seq end
+		table.sort(keys)
+		local dropped = {}
+		for _, r in ipairs(stub.records(PolestarRecorderDB.chunks[6])) do if r[1] == "dropped" then dropped[#dropped + 1] = r[3] end end
+		stub.messages = {}
+		cmd("status")
+		emit({ chunks = keys, dropped = dropped, status = stub.messages })"#,
+		"",
+		true,
+		Some(
+			r#"
+local big = ("x"):rep(1024 * 1024 - 40)
+local chunks = {}
+for seq = 1, 5 do chunks[seq] = ("chunk\t0\t%d\t1790990000\tk3j9x0q2m7\nmark\t5\t\t\t\t"):format(seq) .. big end
+PolestarRecorderDB = { schema = 2, enabled = true, install = "k3j9x0q2m7ab", seq = 5, acked = 0, chunks = chunks, maps = {} }
+PolestarRecorderCharDB = { id = "k3j9x0q2m7" }"#,
+		),
+	);
+	assert_eq!(out["chunks"], json!([3, 4, 5, 6]));
+	assert_eq!(out["dropped"], json!(["2"]));
+	let status: Vec<String> = strings(&out["status"]);
+	assert!(status[1].ends_with("4 chunks waiting for the uploader (about 3072 KiB of 4096 KiB)"), "{status:?}");
+	assert!(status[2].ends_with("the uploader has not confirmed a chunk yet (newest: 6)"), "{status:?}");
+	assert!(status[3].ends_with("install id: k3j9x0q2m7ab"), "{status:?}");
+}
+
+#[test]
+fn psrec_clear_needs_confirmation_deletes_every_chunk_and_map_and_the_seq_keeps_counting() {
+	let out = run(r#"
+		cmd("mark kept")
+		local before = PolestarRecorderDB.seq
 		cmd("clear")
-		local armed = PolestarRecorderDB.sessions[PolestarRecorderDB.current] ~= nil and #events() == before
+		local armed = PolestarRecorderDB.chunks[before] ~= nil
 		stub.advance(31)
 		cmd("clear confirm") -- too late: re-arms instead
-		local stillThere = #events() == before
+		local still = PolestarRecorderDB.chunks[before] ~= nil
 		cmd("clear confirm")
 		local n = 0
-		for _ in pairs(PolestarRecorderDB.sessions) do n = n + 1 end
-		for i = 1, 600 do cmd("mark " .. i) end
-		emit({
-			marks = marks, elwynn = elwynn, mapCount = mapCount,
-			talent = { class = talents.class, nodes = #talents.trees[1].nodes, node = talents.trees[1].nodes[1], group = talents.trees[1].groups[1].name },
-			armed = armed, stillThere = stillThere, sessionsAfterClear = n, mapsAfterClear = next(PolestarRecorderDB.maps) == nil,
-			markCount = #events("mark"), dropped = S().dropped.mark,
-		})"#);
-
-	assert_eq!(out["marks"], json!(["kept"]));
-	assert_eq!(out["elwynn"], json!({ "name": "Elwynn Forest", "type": 3, "parent": 1415, "c": 0, "top": 1800, "left": 1100, "bottom": -1666.67, "right": -4100 }));
-	assert_eq!(out["mapCount"], 4);
-	assert_eq!(
-		out["talent"],
-		json!({
-			"class": "WARRIOR",
-			"nodes": 1,
-			"group": "Arms",
-			"node": {
-				"id": 5, "x": 100, "y": 200, "type": 0, "maxRanks": 5, "groups": [1], "edges": [6],
-				"entries": [{ "id": 50, "definition": 500, "maxRanks": 5, "type": 1, "spell": 12282, "name": "Improved Heroic Strike" }],
-			},
-		})
-	);
-	assert_eq!(out["armed"], true);
-	assert_eq!(out["stillThere"], true);
-	assert_eq!(out["sessionsAfterClear"], 1);
-	assert_eq!(out["mapsAfterClear"], true);
-	assert_eq!(out["markCount"], 500);
-	assert_eq!(out["dropped"], 100);
+		for _ in pairs(PolestarRecorderDB.chunks) do n = n + 1 end
+		cmd("mark after")
+		logout()
+		emit({ armed = armed, still = still, after = n, seq = PolestarRecorderDB.seq, marks = recs("mark"), maps = #recs("map") })"#);
+	assert_eq!(out, json!({ "armed": true, "still": true, "after": 1, "seq": 2, "marks": ["mark|1429|5000|5000|after"], "maps": 1 }));
 }
 
 #[test]
@@ -518,8 +372,8 @@ end"#;
 	let lines = run_with(
 		r#"
 stub.messages = {}
-SlashCmdList.POLESTARREC("on")
-SlashCmdList.POLESTARREC("mark")
+cmd("on")
+cmd("mark")
 emit(stub.messages)"#,
 		before,
 		true,
@@ -527,4 +381,92 @@ emit(stub.messages)"#,
 	);
 	assert!(truthy(&lines[0]) && text(&lines[0]).contains("запись: |cff4fd18fвкл|r"), "{}", lines[0]);
 	assert!(truthy(&lines[1]) && text(&lines[1]).contains("usage: /psrec mark <text>"), "{}", lines[1]);
+}
+
+// Polestar's quest database: NPC 197 starts 18, 33, 54, 60 and 70; object 1593 starts 61.
+const POLESTAR_QUESTDB: &str = r#"
+Polestar = { QuestDB = {
+	IsLoaded = function() return true end,
+	QuestIds = function() return { 18, 33, 54, 60, 61, 70 } end,
+	QuestRecord = function(q) return ({ [18] = { [7] = 197 }, [33] = { [7] = { 197, 240 } }, [54] = { [7] = 197 }, [60] = { [7] = 197 }, [61] = { [7] = -1593 }, [70] = { [7] = 197 } })[q] end,
+	Each = function(v)
+		if type(v) == "table" then return ipairs(v) end
+		local done = false
+		return function() if done or v == nil then return nil end done = true return 1, v end
+	end,
+	F = { START = 7 },
+} }"#;
+
+#[test]
+fn offers_list_what_is_shown_in_the_log_and_among_what_polestar_says_the_npc_starts_done_and_not_offered() {
+	let out = run_with(
+		r#"
+		stub.world.completed[54] = true
+		stub.acceptQuest(60, { title = "Kobold Candles", objectives = {} })
+		stub.advance(1) -- the index builds a slice per step
+		stub.moveTo(10, 10)
+		stub.world.gossip = { available = { 33, 18 }, active = { 7 }, options = { { gossipOptionID = 4101, name = "Tell me about Testchar's task." }, { gossipOptionID = 4102, name = "Goodbye." } } }
+		local mcbride = stub.creature(197, "Marshal McBride")
+		stub.setUnit("npc", mcbride, "Marshal McBride")
+		stub.fire("GOSSIP_SHOW")
+		C_GossipInfo.SelectOption(4101)
+		C_GossipInfo.SelectOptionByIndex(1)
+		-- the quest detail right after the same NPC's gossip is no new offer
+		stub.offerQuest(33, mcbride, "Marshal McBride", "Wolves Across the Border")
+		-- an NPC who offers nothing still says what it would start
+		stub.world.gossip = { available = {}, active = {}, options = {} }
+		stub.fire("GOSSIP_SHOW")
+		-- a timed quest: escort on while its timer runs, off once it is done
+		stub.world.timers[90] = 600
+		stub.acceptQuest(90, { title = "Escort", objectives = { { text = "Escort complete", type = "event", numRequired = 1 } } })
+		stub.advance(1)
+		stub.setProgress(90, 1, 1)
+		stub.advance(1)
+		stub.turnIn(90, mcbride, "Marshal McBride", 300, 0)
+		stub.abandon(60)
+		logout()
+		emit({ recs = recs("offer gossip detail escort abandon"), bad = malformed(), option = stub.world.selectedOption })"#,
+		POLESTAR_QUESTDB,
+		true,
+		None,
+	);
+	assert_eq!(
+		out["recs"],
+		json!([
+			"offer|c|197|1429|1000|1000|33;18|7|60|54|70",
+			"gossip|c|197|1429|1000|1000|4101|Tell me about $N's task.",
+			"gossip|c|197|1429|1000|1000|4102|Goodbye.",
+			"detail|33|c|197|1429|1000|1000|",
+			"offer|c|197|1429|1000|1000|||60|54|18;33;70",
+			"escort|90|1|1429|1000|1000",
+			"escort|90|0|1429|1000|1000",
+			"abandon|60",
+		])
+	);
+	assert_eq!(out["option"], 4101, "the client's own SelectOption still ran (hooked, not replaced)");
+	assert_eq!(out["bad"], json!({}));
+}
+
+#[test]
+fn a_quest_s_text_is_recorded_once_per_character_with_the_player_s_name_race_and_class_put_back_as_tokens() {
+	let first = run(r#"
+		stub.world.questText = "Slay the beasts, Testchar."
+		stub.world.questDetail = "A Human warrior like you, Testchar, is what we need. Warriors are rare."
+		stub.offerQuest(7, (stub.creature(823, "Deputy Willem")), "Deputy Willem", "Kobold Camp Cleanup")
+		stub.fire("QUEST_CLOSED")
+		stub.offerQuest(7, (stub.creature(823, "Deputy Willem")), "Deputy Willem", "Kobold Camp Cleanup")
+		logout()
+		emit({ text = recs("text"), seen = PolestarRecorderCharDB.textSeen[7], char = stub.serialize(PolestarRecorderCharDB) })"#);
+	assert_eq!(first["text"], json!(["text|7|Kobold Camp Cleanup|Slay the beasts, $N.|A $R $c like you, $N, is what we need. $Cs are rare."]));
+	assert_eq!(first["seen"], true);
+	let again = run_with(
+		r#"
+		stub.offerQuest(7, (stub.creature(823, "Deputy Willem")), "Deputy Willem", "Kobold Camp Cleanup")
+		logout()
+		emit(#recs("text"))"#,
+		"",
+		true,
+		Some(&format!("PolestarRecorderDB = {{ enabled = true, install = \"testinstall1\" }}; PolestarRecorderCharDB = {}", first["char"].as_str().unwrap())),
+	);
+	assert_eq!(again, 0, "textSeen is per character, across sessions");
 }

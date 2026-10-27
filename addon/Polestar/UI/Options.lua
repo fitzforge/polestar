@@ -415,21 +415,22 @@ add({ page = L["Integrations"], section = "EllesmereUI", controls = {
 -- Custom pages: Recorder status and About
 ---------------------------------------------------------------------------
 
+-- The Recorder's state from its SavedVariables (schema 2, docs/RECORDING.md):
+-- the chunks waiting for the uploader, their size, the last one it confirmed.
 local function recorderState()
 	local loaded = C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("Polestar_Recorder")
 	local db = PolestarRecorderDB
 	if not loaded then return { installed = false } end
-	local out = { installed = true, enabled = false, sessions = 0, events = 0 }
+	local out = { installed = true, enabled = false, chunks = 0, bytes = 0, acked = 0 }
 	if type(db) == "table" then
 		out.enabled = db.enabled == true -- opt-in: off until the player starts it
-		if type(db.sessions) == "table" then
-			for _, s in pairs(db.sessions) do out.sessions = out.sessions + 1 end
-			local cur = db.current and db.sessions[db.current]
-			if type(cur) == "table" and type(cur.events) == "table" then
-				out.events = #cur.events
-				out.char = type(cur.char) == "table" and cur.char.name or nil
+		if type(db.chunks) == "table" then
+			for _, text in pairs(db.chunks) do
+				out.chunks = out.chunks + 1
+				if type(text) == "string" then out.bytes = out.bytes + #text end
 			end
 		end
+		if type(db.acked) == "number" then out.acked = db.acked end
 	end
 	return out
 end
@@ -456,19 +457,19 @@ end
 local function buildRecorder(view)
 	local rows = {
 		status = W.InfoRow(view, L["Status"]),
-		sessions = W.InfoRow(view, L["Sessions stored"], L["Kept in SavedVariables until imported with the toolchain."]),
-		events = W.InfoRow(view, L["Events this session"]),
-		char = W.InfoRow(view, L["Character"]),
+		chunks = W.InfoRow(view, L["Waiting to upload"], L["Chunks the Polestar Uploader has not sent yet."]),
+		size = W.InfoRow(view, L["Stored"]),
+		acked = W.InfoRow(view, L["Last uploaded chunk"]),
 	}
 	local header = W.SectionHeader(view)
-	W.SetSection(header, L["Session"])
+	W.SetSection(header, L["Recordings"])
 	local actions = W.SectionHeader(view)
 	W.SetSection(actions, L["Actions"])
 	local toggle = W.ActionTile(view, "record", L["Start recording"], L["Write quests, routes and world data for guide authors. Off until you start it."], function(self)
 		recorderCommand(self.psOn and "off" or "on")
 		view.Refresh()
 	end)
-	local status = W.ActionTile(view, "info", L["Print status"], L["Counts and the current session in chat."], function() recorderCommand("status") end)
+	local status = W.ActionTile(view, "info", L["Print status"], L["Chunks waiting, the last upload and the install id, in chat."], function() recorderCommand("status") end)
 	local window = W.ActionTile(view, "record", L["Recorder window"], L["Position trails, marks and the list of spots to walk, in a small window."], function() recorderCommand("ui") end)
 	local note = W.Text(view, "note", "textDim")
 	note:SetWordWrap(true)
@@ -495,11 +496,11 @@ local function buildRecorder(view)
 		note:Hide()
 		rows.status.Value:SetText(st.enabled and L["Recording"] or L["Off"])
 		W.Color(rows.status.Value, st.enabled and "success" or "textDim")
-		rows.sessions.Value:SetText(st.sessions)
-		rows.events.Value:SetText(st.events)
-		rows.char.Value:SetText(st.char or "\226\128\147")
-		y = y + placePair(view, { rows.status, rows.sessions }, y, cw, W.LayoutRow)
-		y = y + placePair(view, { rows.events, rows.char }, y, cw, W.LayoutRow)
+		rows.chunks.Value:SetText(st.chunks)
+		rows.size.Value:SetText(("%d KiB"):format(math.floor(st.bytes / 1024 + 0.5)))
+		rows.acked.Value:SetText(st.acked > 0 and st.acked or "\226\128\147")
+		y = y + placePair(view, { rows.status, rows.chunks }, y, cw, W.LayoutRow)
+		y = y + placePair(view, { rows.size, rows.acked }, y, cw, W.LayoutRow)
 		actions:ClearAllPoints()
 		actions:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 		actions:SetWidth(win.BodyWidth)

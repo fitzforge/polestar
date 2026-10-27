@@ -34,13 +34,16 @@ local W = {
 	quests = {}, -- questID -> { title, level, objectives = { ... } }
 	log = {}, -- questIDs in log order
 	completed = {},
-	units = {}, -- token -> { guid, name, related }
+	units = {}, -- token -> { guid, name, related, cls, lvl, react, tapped, targetsPlayer, dead }
 	questID = 0, -- GetQuestID()
-	gossip = { available = {}, active = {} },
+	questText = nil, questDetail = nil, -- GetObjectiveText(), GetQuestText() of the open quest frame
+	gossip = { available = {}, active = {}, options = {} }, -- options: { { gossipOptionID, name } }
 	bind = "Northshire Abbey",
 	loot = {}, -- slots: { name, count, item, quest, questID }
 	rewards = {}, -- questID -> { total, base }; absent = not cached yet (0, 0)
 	taxi = {}, -- { { nodeID, name, state, slotIndex } }
+	timers = {}, -- questID -> seconds allowed (C_QuestLog.GetTimeAllowed)
+	spellbook = { [6603] = true },
 	talents = nil, -- { configID, treeIDs, groups = {...}, nodes = { [nodeID] = info }, entries = {...}, defs = {...} }
 }
 stub.world = W
@@ -121,6 +124,62 @@ function GetZoneText() return W.zone end
 function GetSubZoneText() return W.subzone end
 function GetBindLocation() return W.bind end
 function issecretvalue() return false end
+function UnitSex() return W.player.sex or 2 end
+function GetCurrentRegion() return W.region or 3 end
+function UnitIsGhost(unit) return unit == "player" and W.ghost == true end
+function IsFlying() return W.flying == true end
+-- Units may carry react (UnitReaction: 2 hostile by default), tapped
+-- (UnitIsTapDenied) and targetsPlayer (UnitIsUnit(unit .. "target", "player")).
+function UnitReaction(unit)
+	local u = W.units[unit]
+	if not u then return nil end
+	return u.react or 2
+end
+function UnitIsTapDenied(unit)
+	local u = W.units[unit]
+	return u ~= nil and u.tapped == true
+end
+function UnitCanAttack(_, unit)
+	local u = W.units[unit]
+	return u ~= nil and (u.react or 2) <= 4
+end
+function UnitIsUnit(a, b)
+	if b == "player" then
+		local token = a:match("^(.+)target$")
+		local u = token and W.units[token]
+		return u ~= nil and u.targetsPlayer == true
+	end
+	return a == b
+end
+-- The client's XP lines (GlobalStrings, enUS).
+COMBATLOG_XPGAIN_FIRSTPERSON = "%s dies, you gain %d experience."
+COMBATLOG_XPGAIN_EXHAUSTION1 = "%s dies, you gain %d experience. (%s exp %s bonus)"
+COMBATLOG_XPGAIN_EXHAUSTION2 = "%s dies, you gain %d experience. (%s exp %s penalty)"
+COMBATLOG_XPGAIN_FIRSTPERSON_GROUP = "%s dies, you gain %d experience. (+%d group bonus)"
+COMBATLOG_XPGAIN_EXHAUSTION1_GROUP = "%s dies, you gain %d experience. (%s exp %s bonus, +%d group bonus)"
+COMBATLOG_XPGAIN_FIRSTPERSON_UNNAMED = "You gain %d experience."
+-- The XP line of a kill (rested: the bonus part of it).
+function stub.xpLine(name, xp, rested)
+	local text
+	if rested then
+		text = COMBATLOG_XPGAIN_EXHAUSTION1:format(name, xp, "+" .. rested, "Rested")
+	else
+		text = COMBATLOG_XPGAIN_FIRSTPERSON:format(name, xp)
+	end
+	stub.fire("CHAT_MSG_COMBAT_XP_GAIN", text)
+end
+-- The spellbook: W.spellbook[spellID] = true (Auto Attack by default).
+C_SpellBook = {}
+function C_SpellBook.IsSpellInSpellBook(id) return W.spellbook[id] == true end
+-- Item uses: W.bags[bag][slot] = itemID, W.actions[slot] = { kind, id }.
+C_Container = {}
+function C_Container.GetContainerItemID(bag, slot) return W.bags and W.bags[bag] and W.bags[bag][slot] end
+function C_Container.UseContainerItem() end
+function GetActionInfo(slot)
+	local a = W.actions and W.actions[slot]
+	if a then return a[1], a[2] end
+end
+function UseAction() end
 -- What a /psrec trail sample reads: world position with height (UnitPosition
 -- from the map's world bounds and W.z; W.noUnitPosition for a client that
 -- answers nil), facing, speed and movement flags.
@@ -243,6 +302,13 @@ function GetTitleText()
 	local def = W.quests[W.questID]
 	return def and def.title or ""
 end
+function GetObjectiveText() return W.questText or "" end
+function GetQuestText() return W.questDetail or "" end
+function C_QuestLog.GetTimeAllowed(q)
+	local t = W.timers[q]
+	if not t or not logIndex(q) then return nil end
+	return t, 0
+end
 
 -- Objective texts use %d placeholders: "Kobold Vermin slain: %d/%d".
 function stub.acceptQuest(q, def)
@@ -285,11 +351,24 @@ local function removeFromLog(q)
 	if i then table.remove(W.log, i) end
 end
 
-function stub.turnIn(q, npcGuid, npcName, xp, money)
+-- The quest frame's rewards: W.frame = { reward = { { id, count } }, choice = { { id, count } }, money }.
+function GetNumQuestRewards() return W.frame and W.frame.reward and #W.frame.reward or 0 end
+function GetNumQuestChoices() return W.frame and W.frame.choice and #W.frame.choice or 0 end
+function GetQuestItemInfo(kind, i)
+	local it = W.frame and W.frame[kind] and W.frame[kind][i]
+	if not it then return nil end
+	return "Item " .. it[1], 134400, it[2] or 1, 1, true, it[1]
+end
+function GetRewardMoney() return W.frame and W.frame.money or 0 end
+function GetQuestReward(choice) W.chosen = choice end
+
+-- choice: the reward picked (GetQuestReward) before the turn-in.
+function stub.turnIn(q, npcGuid, npcName, xp, money, choice)
 	W.questID = q
 	stub.setUnit("npc", npcGuid, npcName)
 	stub.fire("QUEST_PROGRESS")
 	stub.fire("QUEST_COMPLETE")
+	if choice then GetQuestReward(choice) end
 	W.completed[q] = true
 	removeFromLog(q)
 	stub.fire("QUEST_TURNED_IN", q, xp or 0, money or 0)
@@ -328,6 +407,13 @@ function C_GossipInfo.GetActiveQuests()
 	for i, q in ipairs(W.gossip.active) do out[i] = { questID = q, title = "Quest " .. q, questLevel = 1 } end
 	return out
 end
+function C_GossipInfo.GetOptions()
+	local out = {}
+	for i, o in ipairs(W.gossip.options or {}) do out[i] = { gossipOptionID = o.gossipOptionID, name = o.name, orderIndex = i - 1 } end
+	return out
+end
+function C_GossipInfo.SelectOption(id) W.selectedOption = id end
+function C_GossipInfo.SelectOptionByIndex(index) W.selectedIndex = index end
 
 -- Loot slots: { name, count, item, quest, questID, src = { guid, n, guid, n, ... } }.
 function GetNumLootItems() return #W.loot end
@@ -592,6 +678,25 @@ end
 function C_TradeSkillUI.GetBaseProfessionInfo()
 	return { professionID = W.profession or 0, professionName = "", skillLevel = 0, maxSkillLevel = 0 }
 end
+-- W.recipes[spellID].prof: the recipe's profession (default: the open one).
+-- A spell that is no recipe of a profession answers profession 0, as forms
+-- and combat spells do in the client.
+function C_TradeSkillUI.GetProfessionInfoByRecipeID(spellID)
+	local r = W.recipes[spellID]
+	return { professionID = r and (r.prof or W.profession) or 0, professionName = "", skillLevel = 0, maxSkillLevel = 0 }
+end
+function C_TradeSkillUI.CraftRecipe() end
+function C_TradeSkillUI.IsTradeSkillLinked() return W.tradeLinked == true end
+-- Opens the trade skill window and crafts recipe `spell` n times (casts and
+-- results arrive as the client sends them: one UNIT_SPELLCAST_SUCCEEDED and
+-- TRADE_SKILL_ITEM_CRAFTED_RESULT per craft).
+function stub.craft(spell, n, result)
+	C_TradeSkillUI.CraftRecipe(spell, n or 1)
+	for _ = 1, n or 1 do
+		stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-3-0-0-0-" .. spell .. "-0", spell)
+		if result then stub.fire("TRADE_SKILL_ITEM_CRAFTED_RESULT", result) end
+	end
+end
 
 ---------------------------------------------------------------------------
 -- Achievements (Legacy challenges) and major factions
@@ -724,6 +829,19 @@ function stub.serialize(v)
 	return table.concat(out)
 end
 
+-- The records of a chunk's text: { { kind, dt, field, ... }, ... } (fields as strings).
+function stub.records(text)
+	local out = {}
+	for line in (text or ""):gmatch("[^\n]+") do
+		local r = {}
+		for f in (line .. "\t"):gmatch("([^\t]*)\t") do r[#r + 1] = f end
+		out[#out + 1] = r
+	end
+	return out
+end
+
 -- Recording is opt-in. Recorder tests record unless they restore their own
--- DB (`saved` replaces this before ADDON_LOADED).
-PolestarRecorderDB = { enabled = true }
+-- DB (`saved` replaces this before ADDON_LOADED); the ids are fixed so a
+-- chunk's text is the same on every machine.
+PolestarRecorderDB = { enabled = true, install = "testinstall1" }
+PolestarRecorderCharDB = { id = "char000001" }

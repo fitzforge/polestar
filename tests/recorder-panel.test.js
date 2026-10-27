@@ -28,9 +28,12 @@ test('the window\'s Start/Stop records a trail with the next spot\'s label and t
 		stub.moveTo(40.2, 40)
 		stub.advance(0.6)
 		F.Start:Click()
+		stub.fire("PLAYER_LOGOUT") -- writes the open chunk
 		local evs = {}
-		for _, e in ipairs(PolestarRecorderDB.sessions[PolestarRecorderDB.current].events) do
-			if e.e == "trail_start" or e.e == "trail_stop" then evs[#evs + 1] = { e = e.e, label = e.label, n = e.n, yd = e.yd } end
+		for _, text in pairs(PolestarRecorderDB.chunks) do
+			for _, r in ipairs(stub.records(text)) do
+				if r[1] == "mark" then evs[#evs + 1] = r[6] end
+			end
 		end
 		emit({
 			label = label, rows = rows, running = running, evs = evs,
@@ -43,8 +46,10 @@ test('the window\'s Start/Stop records a trail with the next spot\'s label and t
 	assert.match(out.label, /^#11 /);
 	assert.deepEqual(out.rows.slice(0, 2), [11, 20], "the Alliance tour order");
 	assert.equal(out.running, 'Stop trail');
-	assert.deepEqual(out.evs.map((e) => [e.e, e.label]), [['trail_start', out.label], ['trail_stop', out.label]]);
-	assert.ok(out.evs[1].n >= 2 && out.evs[1].yd > 5, JSON.stringify(out.evs[1]));
+	assert.equal(out.evs.length, 2, JSON.stringify(out.evs));
+	assert.equal(out.evs[0], `trail on: ${out.label}`);
+	const stop = out.evs[1].match(/^trail off: (.*) \((\d+) points, (\d+) yd, off\)$/);
+	assert.ok(stop && stop[1] === out.label && Number(stop[2]) >= 2 && Number(stop[3]) > 5, out.evs[1]);
 	assert.equal(typeof out.ticked, 'number', 'spot 11 ticked');
 	assert.match(out.next, /^#20 /, 'the label moves on to the next spot');
 	assert.ok(out.trail.startsWith(`${out.label}: `), out.trail);

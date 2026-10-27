@@ -462,7 +462,7 @@ fn recorder_page_not_installed_then_live_counts_and_a_stop_control() {
 	assert!(is_match(text(&missing["text"]), r"The Polestar Recorder addon is not loaded"));
 	let out = run(r#"
 		stub.addonsLoaded.Polestar_Recorder = true
-		PolestarRecorderDB = { enabled = true, current = "b", sessions = { a = { events = {} }, b = { char = { name = "Testchar" }, events = { {}, {}, {} } } } }
+		PolestarRecorderDB = { schema = 2, enabled = true, install = "k3j9x0q2m7ab", seq = 9, acked = 7, chunks = { [8] = ("x"):rep(1024), [9] = ("x"):rep(2048) } }
 		local sent = {}
 		PolestarRecorder_Command = function(arg) sent[#sent + 1] = arg; if arg == "off" then PolestarRecorderDB.enabled = false end end
 		UI.ShowOptions("recorder")
@@ -472,7 +472,7 @@ fn recorder_page_not_installed_then_live_counts_and_a_stop_control() {
 		for _, f in ipairs({ O.view:GetChildren() }) do if rawget(f, "Title") and f.Title:GetText() == "Stop recording" then stop = f end end
 		stop:Click()
 		emit({ values = values, sent = sent, after = stop.Title:GetText() })"#);
-	assert_eq!(out["values"], json!({ "Status": "Recording", "Sessions stored": "2", "Events this session": "3", "Character": "Testchar" }));
+	assert_eq!(out["values"], json!({ "Status": "Recording", "Waiting to upload": "2", "Stored": "3 KiB", "Last uploaded chunk": "7" }));
 	assert_eq!(out["sent"], json!(["off"]));
 	assert_eq!(out["after"], "Start recording");
 }

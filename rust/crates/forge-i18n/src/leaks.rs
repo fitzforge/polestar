@@ -741,7 +741,7 @@ OpenWorldMap = OpenWorldMap or function() end
 QuestDifficultyColors = {{ impossible = {{ r = 1, g = 0.1, b = 0.1 }}, verydifficult = {{ r = 1, g = 0.5, b = 0.25 }}, difficult = {{ r = 1, g = 0.82, b = 0 }}, standard = {{ r = 0.25, g = 0.75, b = 0.25 }}, trivial = {{ r = 0.5, g = 0.5, b = 0.5 }} }}
 function GetQuestDifficultyColor() return {{ r = 1, g = 1, b = 0 }} end
 stub.addonsLoaded.Polestar_Recorder = true
-PolestarRecorderDB = {{ enabled = true, current = \"s2\", sessions = {{ s1 = {{ char = {{ name = \"⟦p⟧\" }}, events = {{}} }}, s2 = {{ char = {{ name = \"⟦p⟧\" }}, events = {{ {{}}, {{}}, {{}} }} }} }} }}",
+PolestarRecorderDB = {{ schema = 2, enabled = true, install = \"k3j9x0q2m7ab\", seq = 9, acked = 7, chunks = {{ [8] = (\"x\"):rep(3072), [9] = (\"x\"):rep(2048) }}, maps = {{}} }}",
 		maps.join("\n")
 	))
 }

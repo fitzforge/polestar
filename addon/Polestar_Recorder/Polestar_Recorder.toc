@@ -25,8 +25,10 @@
 ## Category: Polestar
 ## Group: Polestar
 ## SavedVariables: PolestarRecorderDB
+## SavedVariablesPerCharacter: PolestarRecorderCharDB
 ## OptionalDeps: Polestar
 
+Ack.lua
 Recorder.lua
 Locales\deDE.lua
 Locales\esMX.lua
