@@ -1,0 +1,669 @@
+/* Polestar's Dusk scheme (docs/DESIGN.md, "Polestar Client"). Every colour is a
+   token named after its Theme token in the addon, so `--panelAlt` is `panelAlt`. */
+
+@font-face {
+	font-family: 'Inter';
+	font-weight: 400;
+	font-style: normal;
+	font-display: block;
+	src: url('../assets/fonts/Inter-Regular.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Inter';
+	font-weight: 500;
+	font-style: normal;
+	font-display: block;
+	src: url('../assets/fonts/Inter-Medium.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Inter';
+	font-weight: 600;
+	font-style: normal;
+	font-display: block;
+	src: url('../assets/fonts/Inter-SemiBold.ttf') format('truetype');
+}
+
+:root {
+	--accent: #e6ba66;
+	--accentHi: #f5d898;
+	--onAccent: #0a0d14;
+	--success: #6bd999;
+	--warning: #fabf4d;
+	--danger: #f57373;
+	--npc: #94c9ff;
+	--quest: #ffd673;
+	--item: #c7adff;
+	--place: #f5ad85;
+	--spell: #78dbed;
+	--level: #f5f7fc;
+
+	--sidebar: #121624;
+	--footer: #141927;
+	--bg: #181d2d;
+	--panel: #1c2234;
+	--panelAlt: #232a3f;
+	--sky: #283254;
+
+	--text: #f7f8fd;
+	--textDim: #c3cadd;
+	--textMuted: #9ba2b9;
+
+	--ink: #ffffff;
+	--star: #ffffff;
+	--shade: #000005;
+	--scrim: #05080f;
+
+	--border: rgba(255, 255, 255, 0.1);
+	--divider: rgba(255, 255, 255, 0.08);
+	--hover: rgba(255, 255, 255, 0.06);
+	--press: rgba(255, 255, 255, 0.1);
+	--selected: rgba(255, 255, 255, 0.1);
+	--track: rgba(255, 255, 255, 0.12);
+	--toggle: rgba(255, 255, 255, 0.14);
+	--chip: rgba(255, 255, 255, 0.07);
+	--watermark: rgba(255, 255, 255, 0.028);
+	--well: rgba(0, 0, 5, 0.35);
+	--inset: rgba(0, 0, 5, 0.25);
+	--focus: var(--accent);
+
+	--accentWash: rgba(230, 186, 102, 0.1);
+	--chipAccent: rgba(230, 186, 102, 0.16);
+	--chipSuccess: rgba(107, 217, 153, 0.14);
+	--chipWarning: rgba(250, 191, 77, 0.14);
+	--chipDanger: rgba(245, 115, 115, 0.14);
+
+	--shadowText: 1px 1px 0 rgba(0, 0, 5, 0.6);
+	/* The one drop shadow: windows over the page (drawer, menus, toasts). */
+	--shadowWindow: 0 4px 24px rgba(0, 0, 5, 0.6);
+
+	/* Motion (DESIGN.md, Motion): a strong ease-out for anything entering or
+	   answering the player, an ease-in-out for things moving on screen. */
+	--ease: cubic-bezier(0.23, 1, 0.32, 1);
+	--easeMove: cubic-bezier(0.77, 0, 0.175, 1);
+	--easePop: cubic-bezier(0.34, 1.56, 0.64, 1);
+	--fast: 120ms;
+	--base: 180ms;
+	--slow: 240ms;
+
+	/* The grid: a 4px step; 24 and 32 are the sidebar and main edges. */
+	--s1: 4px;
+	--s2: 8px;
+	--s3: 12px;
+	--s4: 16px;
+	--s5: 24px;
+	--s6: 32px;
+	--s7: 48px;
+	--edge: 32px;
+	--sideEdge: 24px;
+	--band: 112px;
+	--titlebar: 32px;
+	--measure: 880px;
+
+	color-scheme: dark;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+	background: var(--bg);
+	color: var(--text);
+	font-family: 'Inter', sans-serif;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.4;
+	-webkit-font-smoothing: antialiased;
+	text-shadow: var(--shadowText);
+	font-feature-settings: 'cv11', 'ss01';
+	user-select: none;
+	-webkit-user-select: none;
+	cursor: default;
+}
+
+#app {
+	height: 100%;
+}
+
+/* A window without the system's frame (TitleBar.svelte) draws its own hairline edge. */
+html.framed body::after {
+	content: '';
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	border: 1px solid rgba(255, 255, 255, 0.12);
+	pointer-events: none;
+}
+
+::selection {
+	background: rgba(230, 186, 102, 0.32);
+	color: var(--text);
+}
+
+/* The addon's scrollbar: a 2px thumb on a 6px strip, 4px under the cursor. */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.16);
+	border: 3px solid transparent;
+	background-clip: content-box;
+	min-height: 24px;
+}
+::-webkit-scrollbar-thumb:hover {
+	border-width: 2px;
+	background-color: rgba(255, 255, 255, 0.26);
+}
+
+button,
+input {
+	font: inherit;
+	color: inherit;
+	text-shadow: inherit;
+}
+
+/* Focus: a 2px accent ring just inside the control (the gamepad focus of
+   DESIGN.md), in text on an accent fill. */
+:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: -2px;
+}
+:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* Text a player may need for a report stays selectable. */
+.selectable,
+.path {
+	user-select: text;
+	-webkit-user-select: text;
+	cursor: text;
+}
+
+.num {
+	font-weight: 600;
+	font-size: 12px;
+	font-variant-numeric: tabular-nums;
+}
+
+.dim {
+	color: var(--textDim);
+}
+.muted {
+	color: var(--textMuted);
+}
+
+.note {
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 1.55;
+	color: var(--textDim);
+}
+
+.small {
+	font-size: 11px;
+	font-weight: 500;
+}
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+/* Buttons: one family, square, 28px. Default on the control ground with a
+   hairline; primary in the accent (one per view); quiet with only the hover
+   wash; danger for what removes. On press the button goes in by 1px. */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	height: 28px;
+	min-width: 72px;
+	padding: 0 14px;
+	border: 1px solid var(--border);
+	background: var(--panelAlt);
+	color: var(--text);
+	font-size: 12px;
+	font-weight: 500;
+	white-space: nowrap;
+	cursor: pointer;
+	position: relative;
+	transition:
+		background-color var(--fast) var(--ease),
+		border-color var(--fast) var(--ease),
+		color var(--fast) var(--ease),
+		opacity var(--fast) var(--ease),
+		transform var(--fast) var(--ease);
+}
+.btn:hover:not(:disabled) {
+	background-image: linear-gradient(var(--hover), var(--hover));
+}
+.btn:active:not(:disabled) {
+	transform: translateY(1px);
+	background-image: linear-gradient(var(--press), var(--press));
+}
+.btn:disabled {
+	opacity: 0.5;
+	cursor: default;
+}
+.btn.primary {
+	background: var(--accent);
+	border-color: var(--accent);
+	color: var(--onAccent);
+	text-shadow: none;
+	font-weight: 600;
+}
+.btn.primary:hover:not(:disabled) {
+	background-image: linear-gradient(rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.14));
+}
+.btn.primary:focus-visible {
+	outline-color: var(--onAccent);
+}
+.btn.quiet {
+	background: transparent;
+	border-color: transparent;
+	color: var(--textDim);
+}
+.btn.quiet:hover:not(:disabled) {
+	color: var(--text);
+}
+.btn.danger {
+	color: var(--danger);
+}
+.btn.danger.armed {
+	border-color: var(--danger);
+	background: var(--chipDanger);
+}
+.btn.small {
+	height: 24px;
+	min-width: 0;
+	padding: 0 10px;
+	font-size: 11px;
+}
+
+/* An icon button: a 28px hit area, the glyph in textDim, text under the cursor. */
+.icon-btn {
+	display: inline-grid;
+	place-items: center;
+	width: 28px;
+	height: 28px;
+	flex: none;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--textDim);
+	cursor: pointer;
+	transition:
+		background-color var(--fast) var(--ease),
+		color var(--fast) var(--ease),
+		transform var(--fast) var(--ease);
+}
+.icon-btn:hover {
+	color: var(--text);
+	background: var(--hover);
+}
+.icon-btn:active {
+	transform: translateY(1px);
+}
+.icon-btn[aria-expanded='true'] {
+	color: var(--text);
+	background: var(--selected);
+}
+
+/* Links: an address shown as text, in the accent, underlined on hover. */
+.link {
+	background: none;
+	border: 0;
+	padding: 0;
+	color: var(--accent);
+	font-size: 12px;
+	font-weight: 500;
+	cursor: pointer;
+	text-decoration: underline 1px transparent;
+	text-underline-offset: 3px;
+	transition:
+		color var(--fast) var(--ease),
+		text-decoration-color var(--fast) var(--ease);
+}
+.link:hover {
+	color: var(--text);
+	text-decoration-color: var(--accent);
+}
+
+/* Chips: 20px capsules, Caption text. */
+.chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	height: 20px;
+	padding: 0 9px;
+	border: 0;
+	border-radius: 9999px;
+	background: var(--chip);
+	color: var(--textDim);
+	font-size: 11px;
+	font-weight: 600;
+	white-space: nowrap;
+	text-shadow: none;
+	vertical-align: middle;
+}
+.chip.accent {
+	background: var(--chipAccent);
+	color: var(--accent);
+}
+.chip.success {
+	background: var(--chipSuccess);
+	color: var(--success);
+}
+.chip.warning {
+	background: var(--chipWarning);
+	color: var(--warning);
+}
+.chip.danger {
+	background: var(--chipDanger);
+	color: var(--danger);
+}
+
+/* A page's scrolling body: content on the 32 edge, at most --measure wide. */
+.body {
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+	padding: 0 var(--edge) var(--s6);
+	container-type: inline-size;
+}
+.body > .column {
+	max-width: var(--measure);
+}
+
+/* A section: a Heading and its hairline, never a box. */
+.section {
+	margin-top: var(--s4);
+}
+.section:first-child {
+	margin-top: 0;
+}
+.section > h2 {
+	display: flex;
+	align-items: center;
+	gap: var(--s2);
+	height: 44px;
+	margin: 0;
+	font-size: 13px;
+	font-weight: 600;
+	border-bottom: 1px solid var(--divider);
+}
+.section > h2 .aside {
+	margin-left: auto;
+	font-weight: 500;
+}
+.section > h2 .count {
+	color: var(--textMuted);
+}
+
+/* Settings and facts run in two columns of 40px rows, 24px apart; one column
+   when the page is narrow. */
+.rows {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: var(--s5);
+}
+.rows.one {
+	grid-template-columns: 1fr;
+}
+@container (max-width: 560px) {
+	.rows {
+		grid-template-columns: 1fr;
+	}
+}
+.row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-height: 40px;
+	border-bottom: 1px solid var(--divider);
+	min-width: 0;
+}
+.row > .label {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.row > .value {
+	color: var(--text);
+	white-space: nowrap;
+}
+.row.off {
+	opacity: 0.45;
+}
+
+/* Toggles: a 30x16 capsule; on in the accent with an onAccent knob that slides. */
+.toggle {
+	position: relative;
+	flex: none;
+	width: 30px;
+	height: 16px;
+	border-radius: 9999px;
+	border: 0;
+	padding: 0;
+	background: var(--toggle);
+	cursor: pointer;
+	transition: background-color var(--base) var(--ease);
+}
+.toggle::after {
+	content: '';
+	position: absolute;
+	left: 2px;
+	top: 2px;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: var(--textDim);
+	transition:
+		transform var(--base) var(--ease),
+		background-color var(--base) var(--ease),
+		scale var(--fast) var(--ease);
+}
+.toggle:active:not(:disabled)::after {
+	scale: 1.15 0.9;
+}
+.toggle[aria-checked='true'] {
+	background: var(--accent);
+}
+.toggle[aria-checked='true']::after {
+	transform: translateX(14px);
+	background: var(--onAccent);
+}
+.toggle:disabled {
+	opacity: 0.45;
+	cursor: default;
+}
+.toggle:focus-visible {
+	outline-offset: 2px;
+}
+
+/* Filter segments: 24px, Small labels; the chosen one on the control ground. */
+.segments {
+	position: relative;
+	display: inline-flex;
+	gap: 2px;
+	padding: 2px;
+	background: var(--inset);
+	border: 1px solid var(--border);
+}
+.segment {
+	position: relative;
+	z-index: 1;
+	height: 22px;
+	padding: 0 12px;
+	border: 0;
+	background: none;
+	color: var(--textMuted);
+	font-size: 11px;
+	cursor: pointer;
+	transition: color var(--fast) var(--ease);
+}
+.segment:hover {
+	color: var(--textDim);
+}
+.segment[aria-checked='true'] {
+	color: var(--text);
+}
+.segments .thumb {
+	position: absolute;
+	top: 2px;
+	bottom: 2px;
+	left: 0;
+	background: var(--panelAlt);
+	border: 1px solid var(--border);
+	transition:
+		transform var(--slow) var(--easeMove),
+		width var(--slow) var(--easeMove);
+}
+
+/* Fields: the shade well with a hairline; focus lights it in the accent. */
+.field {
+	height: 30px;
+	padding: 0 10px;
+	background: var(--well);
+	border: 1px solid var(--border);
+	color: var(--text);
+	font-size: 12px;
+	outline: none;
+	user-select: text;
+	-webkit-user-select: text;
+	transition: border-color var(--fast) var(--ease);
+}
+.field:focus {
+	border-color: rgba(230, 186, 102, 0.8);
+}
+
+/* A spinner: a quarter arc turning, for work whose length is unknown. */
+.spinner {
+	display: inline-block;
+	flex: none;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	border: 1.5px solid var(--track);
+	border-top-color: currentColor;
+	animation: spin 700ms linear infinite;
+}
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* Empty states: the glyph in its glow over the emblem's engraving. */
+.empty {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding: var(--s7) 0 var(--s5);
+	max-width: var(--measure);
+}
+.empty h3 {
+	margin: 14px 0 6px;
+	font-size: 18px;
+	font-weight: 600;
+}
+.empty p {
+	margin: 0;
+	max-width: 48ch;
+}
+.empty .halo {
+	filter: drop-shadow(0 0 12px rgba(230, 186, 102, 0.22));
+}
+.empty .watermark {
+	position: absolute;
+	top: 8px;
+	opacity: 0.035;
+	pointer-events: none;
+}
+
+/* Messages under a control: the outcome of what the player just did. */
+.out {
+	margin: var(--s2) 0 0;
+	color: var(--textMuted);
+}
+.out.bad {
+	color: var(--warning);
+}
+
+/* The fault page (lib/fault.ts): what stopped the window, never a blank one. */
+.fault {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	height: 100%;
+	padding: 48px var(--edge) 32px;
+	overflow: auto;
+}
+.fault h1 {
+	margin: 0;
+	font-size: 18px;
+	font-weight: 600;
+}
+.fault p {
+	margin: 0;
+	max-width: 64ch;
+}
+.fault pre {
+	flex: 1;
+	min-height: 120px;
+	margin: 4px 0 0;
+	padding: 12px 14px;
+	overflow: auto;
+	background: var(--inset);
+	border: 1px solid var(--border);
+	color: var(--textDim);
+	font: 400 11.5px/1.55 ui-monospace, 'SF Mono', 'Cascadia Mono', 'DejaVu Sans Mono', monospace;
+	white-space: pre-wrap;
+	word-break: break-word;
+	user-select: text;
+	-webkit-user-select: text;
+	text-shadow: none;
+}
+.fault-actions {
+	display: flex;
+	gap: 8px;
+}
+
+/* Reduced motion: movement snaps, fades stay (shorter), nothing loops. */
+@media (prefers-reduced-motion: reduce) {
+	:root {
+		--fast: 80ms;
+		--base: 110ms;
+		--slow: 140ms;
+	}
+	*,
+	*::before,
+	*::after {
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+	}
+	.spinner {
+		animation: none;
+		border-top-color: var(--track);
+		border-color: currentColor;
+		opacity: 0.6;
+	}
+}

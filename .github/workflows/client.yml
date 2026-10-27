@@ -1,0 +1,276 @@
+name: Client release
+
+# A tag `client-v<version>` (e.g. client-v0.1.0) builds Polestar Client
+# (apps/client) for Linux (AppImage, deb), Windows (msi, NSIS) and macOS
+# (universal dmg) and attaches them, with the updater's signatures and
+# latest.json, to a DRAFT release. The maintainer publishes it; the app's
+# updater only sees published client-v* releases.
+#
+# The builds hold no secrets: Linux and Windows build unsigned with a read-only
+# token. Only two jobs run in the `release` environment (required reviewer, tags
+# client-v* only; see apps/client/README.md, "Releasing"):
+#   macos   needs the Apple secrets during the build to sign and notarize.
+#           APPLE_CERTIFICATE (base64 .p12), APPLE_CERTIFICATE_PASSWORD,
+#           APPLE_SIGNING_IDENTITY, APPLE_API_ISSUER, APPLE_API_KEY (key id),
+#           APPLE_API_KEY_PATH (the .p8 key's contents). Without
+#           APPLE_CERTIFICATE the dmg is built unsigned.
+#   release runs no build code: it downloads the artifacts, signs the updater
+#           files with TAURI_SIGNING_PRIVATE_KEY and _PASSWORD (`tauri signer
+#           sign`; public half in apps/client/src-tauri/tauri.conf.json),
+#           writes latest.json and creates the draft release.
+# Every action is pinned to a commit; the tag it was is in the comment.
+on:
+  push:
+    tags: ["client-v*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: client-release-${{ github.ref }}
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+  # No updater artifacts in the builds: the release job makes and signs them.
+  UNSIGNED: '{"bundle":{"createUpdaterArtifacts":false}}'
+
+jobs:
+  build:
+    name: Build (${{ matrix.name }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux
+            os: ubuntu-22.04
+            args: --bundles appimage,deb
+          - name: Windows
+            os: windows-latest
+            args: --bundles msi,nsis
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      # The tag must name the version the app reports.
+      - name: Version
+        run: |
+          have="$(jq -r .version apps/client/src-tauri/tauri.conf.json)"
+          want="${GITHUB_REF_NAME#client-v}"
+          if [ "$have" != "$want" ]; then
+            echo "::error file=apps/client/src-tauri/tauri.conf.json::the tag says $want, tauri.conf.json says $have"
+            exit 1
+          fi
+
+      - name: Linux libraries
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libgtk-3-dev patchelf
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          package_json_file: apps/client/package.json
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: apps/client/pnpm-lock.yaml
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: apps/client/src-tauri -> target
+
+      # No lifecycle scripts: the bundler's native parts come as optional packages.
+      - name: Frontend dependencies
+        working-directory: apps/client
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Build
+        working-directory: apps/client
+        run: pnpm tauri build ${{ matrix.args }} --config "$UNSIGNED"
+
+      # Asset names without spaces (GitHub would turn them into dots anyway).
+      - name: Collect
+        run: |
+          mkdir out
+          bundle=apps/client/src-tauri/target/release/bundle
+          for f in "$bundle"/appimage/*.AppImage "$bundle"/deb/*.deb "$bundle"/msi/*.msi "$bundle"/nsis/*-setup.exe; do
+            [ -f "$f" ] && cp "$f" "out/$(basename "$f" | tr ' ' '.')"
+          done
+          ls -l out
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: client-${{ matrix.name }}
+          path: out/*
+          if-no-files-found: error
+
+  # Apple signing and notarization happen during the build, so this job holds the
+  # Apple secrets (never the updater key) and runs only in the release environment.
+  macos:
+    name: Build (macOS, signed)
+    runs-on: macos-latest
+    timeout-minutes: 60
+    environment: release
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - name: Version
+        run: |
+          have="$(jq -r .version apps/client/src-tauri/tauri.conf.json)"
+          want="${GITHUB_REF_NAME#client-v}"
+          if [ "$have" != "$want" ]; then
+            echo "::error file=apps/client/src-tauri/tauri.conf.json::the tag says $want, tauri.conf.json says $have"
+            exit 1
+          fi
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          package_json_file: apps/client/package.json
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: apps/client/pnpm-lock.yaml
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          targets: aarch64-apple-darwin,x86_64-apple-darwin
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: apps/client/src-tauri -> target
+
+      - name: Frontend dependencies
+        working-directory: apps/client
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      # Signing only when the certificate is there: an empty APPLE_CERTIFICATE
+      # would make the build try (and fail) to import it.
+      - name: Build
+        working-directory: apps/client
+        env:
+          CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+          API_KEY: ${{ secrets.APPLE_API_KEY }}
+          API_KEY_CONTENT: ${{ secrets.APPLE_API_KEY_PATH }}
+        run: |
+          if [ -n "$CERTIFICATE" ]; then
+            export APPLE_CERTIFICATE="$CERTIFICATE" APPLE_CERTIFICATE_PASSWORD="$CERTIFICATE_PASSWORD" APPLE_SIGNING_IDENTITY="$SIGNING_IDENTITY"
+            if [ -n "$API_KEY" ] && [ -n "$API_KEY_CONTENT" ]; then
+              key="$RUNNER_TEMP/AuthKey_$API_KEY.p8"
+              printf '%s' "$API_KEY_CONTENT" > "$key"
+              export APPLE_API_ISSUER="$API_ISSUER" APPLE_API_KEY="$API_KEY" APPLE_API_KEY_PATH="$key"
+            else
+              echo "::notice::No App Store Connect API key: the macOS build is signed but not notarized."
+            fi
+          else
+            echo "::notice::No APPLE_CERTIFICATE secret: the macOS build is not signed or notarized."
+          fi
+          unset CERTIFICATE CERTIFICATE_PASSWORD SIGNING_IDENTITY API_ISSUER API_KEY API_KEY_CONTENT
+          pnpm tauri build --target universal-apple-darwin --bundles app,dmg --config "$UNSIGNED"
+          rm -f "$RUNNER_TEMP"/AuthKey_*.p8
+
+      # The updater's .app.tar.gz (what `createUpdaterArtifacts` would make), and the dmg.
+      - name: Collect
+        run: |
+          mkdir out
+          bundle=apps/client/src-tauri/target/universal-apple-darwin/release/bundle
+          app="$(ls -d "$bundle"/macos/*.app)"
+          tar -czf "out/$(basename "$app" | tr ' ' '.')_universal.app.tar.gz" -C "$(dirname "$app")" "$(basename "$app")"
+          for f in "$bundle"/dmg/*.dmg; do cp "$f" "out/$(basename "$f" | tr ' ' '.')"; done
+          ls -l out
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: client-macOS
+          path: out/*
+          if-no-files-found: error
+
+  # Runs no code from the build: signs the updater files, writes latest.json and
+  # creates the draft release. The only job with the updater key or a write token.
+  release:
+    name: Sign and draft the release
+    needs: [build, macos]
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    environment: release
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+        with:
+          package_json_file: apps/client/package.json
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      # Only for the lockfile's `tauri signer`; no package runs a script.
+      - name: Tauri CLI
+        working-directory: apps/client
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          pattern: client-*
+          path: out
+          merge-multiple: true
+
+      - name: Sign the updater files
+        working-directory: apps/client
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        run: |
+          shopt -s nullglob
+          for f in ../../out/*.AppImage ../../out/*.msi ../../out/*-setup.exe ../../out/*.app.tar.gz; do
+            pnpm tauri signer sign "$f"
+          done
+
+      - name: latest.json
+        run: |
+          version="${GITHUB_REF_NAME#client-v}"
+          base="https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}"
+          entry() { jq -n --arg url "$base/$(basename "$1")" --rawfile sig "$1.sig" '{signature: $sig, url: $url}'; }
+          one() { local f=(out/$1); [ -f "${f[0]}" ] || { echo "::error::no $1 to put in latest.json"; exit 1; }; echo "${f[0]}"; }
+          appimage="$(one '*.AppImage')"; msi="$(one '*.msi')"; nsis="$(one '*-setup.exe')"; mac="$(one '*.app.tar.gz')"
+          jq -n --arg version "$version" --arg date "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            --argjson linux "$(entry "$appimage")" --argjson msi "$(entry "$msi")" --argjson nsis "$(entry "$nsis")" --argjson mac "$(entry "$mac")" \
+            '{version: $version, notes: "", pub_date: $date, platforms: {
+              "linux-x86_64": $linux, "linux-x86_64-appimage": $linux,
+              "windows-x86_64": $nsis, "windows-x86_64-nsis": $nsis, "windows-x86_64-msi": $msi,
+              "darwin-aarch64": $mac, "darwin-x86_64": $mac, "darwin-aarch64-app": $mac, "darwin-x86_64-app": $mac}}' > out/latest.json
+          cat out/latest.json
+
+      - name: Draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#client-v}"
+          gh release create "$GITHUB_REF_NAME" out/* --repo "$GITHUB_REPOSITORY" --draft --verify-tag \
+            --title "Polestar Client $version" \
+            --notes "Polestar Client $version: sends the Polestar Recorder's data from your PC, with your consent.
+          What it collects and what it never does: https://github.com/fitzforge/polestar/blob/next/docs/RECORDING.md"

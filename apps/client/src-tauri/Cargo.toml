@@ -1,0 +1,52 @@
+[package]
+name = "polestar-client"
+version = "0.1.0"
+description = "Polestar Client: sends the Polestar Recorder's data to the Polestar project"
+authors = ["Polestar contributors"]
+license = "GPL-3.0-only"
+repository = "https://github.com/fitzforge/polestar"
+edition = "2021"
+publish = false
+
+# Its own project, outside the rust/ workspace, with its own Cargo.lock.
+[workspace]
+
+[lib]
+name = "polestar_client_lib"
+crate-type = ["rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+polestar-recording = { path = "../../../rust/crates/polestar-recording" }
+tauri = { version = "2", features = ["tray-icon", "image-png"] }
+tauri-plugin-dialog = "2"
+tauri-plugin-autostart = "2"
+tauri-plugin-updater = "2"
+tauri-plugin-opener = "2"
+tauri-plugin-single-instance = "2"
+tauri-plugin-notification = "2"
+tauri-plugin-deep-link = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# rustls with ring, as tauri-plugin-updater uses (no aws-lc-rs build on Windows/macOS).
+reqwest = { version = "0.13", default-features = false, features = ["rustls-no-provider", "json", "http2", "system-proxy"] }
+rustls = { version = "0.23", default-features = false, features = ["ring"] }
+tokio = { version = "1", features = ["time", "sync"] }
+sha2 = "0.10"
+# The community pack index's ed25519 signature (ring is already here for rustls).
+ring = "0.17"
+base64 = "0.22"
+zip = { version = "4", default-features = false, features = ["deflate"] }
+sysinfo = { version = "0.38", default-features = false, features = ["system"] }
+
+# The webview's settings on Linux (lib.rs: GPU compositing always); the version wry uses.
+[target.'cfg(target_os = "linux")'.dependencies]
+webkit2gtk = { version = "2.0", features = ["v2_16"] }
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+opt-level = "s"
