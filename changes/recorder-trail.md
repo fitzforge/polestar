@@ -2,8 +2,8 @@
 section: contributors
 ---
 - Recorder: `/psrec trail on [label]` records a dense position trail while you
-  walk (a point every yard or 2 seconds, with world height, facing, speed and
-  mount, swim, fall, indoor and taxi flags) until `/psrec trail off` or 30
+  walk (a point every yard or 2 seconds, with speed and mount, swim, fall,
+  indoor and flying flags) until `/psrec trail off` or 30
   minutes, and `record trail <session> [--out file.json]` writes the trails
   out as labelled point lists for the navigation work. `/psrec ui` (also
   Options > Recorder and the guide menu) opens a small Recorder window: on/off,
