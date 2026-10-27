@@ -7,8 +7,9 @@
 //! decoded and checked for plausibility, and the maintainer can shadow-ban a contributor.
 //!
 //! The database is one connection behind one mutex, held only for queries: uploads are read,
-//! decoded and checked outside it, one chunk at a time, with at most [`UPLOAD_CONCURRENCY`]
-//! uploads at once.
+//! decoded and checked outside it, one chunk at a time. A body is read before an upload slot is
+//! taken; at most [`UPLOAD_CONCURRENCY`] uploads are decoded and stored at once (more are
+//! answered 503), and one contributor has at most one upload in flight.
 
 pub mod backup;
 pub mod db;
@@ -55,8 +56,10 @@ pub const REGISTER_REQUESTS_PER_MINUTE: u32 = 10;
 pub const UNKNOWN_TOKENS_PER_MINUTE: u32 = 10;
 /// Tokens one network (an IPv4 address, an IPv6 /48) may register per UTC day.
 pub const REGISTRATIONS_PER_DAY: u32 = 3;
-/// Uploads handled at once; more wait their turn.
+/// Uploads decoded and stored at once; more are answered 503 with [`UPLOAD_RETRY_AFTER`].
 pub const UPLOAD_CONCURRENCY: usize = 4;
+/// Seconds a client waits after a 503 because every upload slot was taken.
+pub const UPLOAD_RETRY_AFTER: u32 = 30;
 /// How long a client may take to send a request body.
 pub const BODY_TIMEOUT: Duration = Duration::from_secs(10);
 /// Default database size cap (INGEST_MAX_DB_MB).
@@ -126,15 +129,21 @@ impl Default for Config {
 	}
 }
 
-/// The request's network as today's HMAC (see [`network`]), set by the client IP layer.
+/// The request's network as today's HMAC (see [`network`]), for the per-network limits, and
+/// its cohort; set by the client IP layer.
 #[derive(Clone)]
-struct ClientIp(String);
+struct ClientIp {
+	network: String,
+	cohort: String,
+}
 
 pub struct AppState {
 	db: Mutex<Db>,
 	maintainer_key_hash: [u8; 32],
 	min_build: u32,
 	challenge_key: [u8; 32],
+	/// Derives each month's cohort key.
+	cohort_key: [u8; 32],
 	pow_bits: u32,
 	allow_direct: bool,
 	limiter: RateLimiter,
@@ -142,9 +151,13 @@ pub struct AppState {
 	register_limiter: RateLimiter,
 	unknown_limiter: RateLimiter,
 	uploads: tokio::sync::Semaphore,
+	/// Contributors with an upload in flight.
+	uploading: Mutex<std::collections::HashSet<String>>,
 	/// Today's salt for network HMACs: (day, salt), a copy of the one in the database.
 	salt: Mutex<(i64, [u8; 32])>,
 	stats_cache: Mutex<Option<(Instant, Bytes)>>,
+	/// Held while `/v1/stats` is rebuilt, so only one request rebuilds it.
+	stats_gate: tokio::sync::Mutex<()>,
 	max_db_bytes: u64,
 	data_dir: Option<PathBuf>,
 	min_free_bytes: u64,
@@ -196,6 +209,7 @@ impl AppState {
 			maintainer_key_hash: Sha256::digest(config.maintainer_key.as_bytes()).into(),
 			min_build: config.min_build,
 			challenge_key: hmac(config.secret.as_bytes(), &[b"polestar-ingest challenge"]),
+			cohort_key: hmac(config.secret.as_bytes(), &[b"polestar-ingest cohort"]),
 			pow_bits: config.pow_bits,
 			allow_direct: config.allow_direct,
 			limiter: RateLimiter::new(REQUESTS_PER_MINUTE, Duration::from_secs(60)),
@@ -203,8 +217,10 @@ impl AppState {
 			register_limiter: RateLimiter::new(REGISTER_REQUESTS_PER_MINUTE, Duration::from_secs(60)),
 			unknown_limiter: RateLimiter::new(UNKNOWN_TOKENS_PER_MINUTE, Duration::from_secs(60)),
 			uploads: tokio::sync::Semaphore::new(UPLOAD_CONCURRENCY),
+			uploading: Mutex::new(std::collections::HashSet::new()),
 			salt: Mutex::new((i64::MIN, [0; 32])),
 			stats_cache: Mutex::new(None),
+			stats_gate: tokio::sync::Mutex::new(()),
 			max_db_bytes: config.max_db_bytes,
 			data_dir: config.data_dir,
 			min_free_bytes: config.min_free_bytes,
@@ -273,6 +289,29 @@ impl AppState {
 		};
 		Ok(hex(&hmac(&salt, &[network(ip).as_bytes()])[..16]))
 	}
+
+	/// The network's cohort: 16 hex digits of its HMAC under this UTC month's key (derived from
+	/// the server secret, so the database alone does not reveal the network). Stable through a
+	/// month, so registering on either side of midnight lands in the same cohort.
+	fn cohort(&self, ip: IpAddr, now: i64) -> String {
+		let month = &db::civil_date(now.div_euclid(DAY))[..7];
+		let key = hmac(&self.cohort_key, &[month.as_bytes()]);
+		hex(&hmac(&key, &[network(ip).as_bytes()])[..8])
+	}
+
+	/// Marks `contributor` as uploading; None when it already is.
+	fn in_flight(&self, contributor: &str) -> Option<InFlight<'_>> {
+		lock(&self.uploading).insert(contributor.to_owned()).then(|| InFlight(self, contributor.to_owned()))
+	}
+}
+
+/// The contributor's place in [`AppState::uploading`], given back when dropped.
+struct InFlight<'a>(&'a AppState, String);
+
+impl Drop for InFlight<'_> {
+	fn drop(&mut self) {
+		lock(&self.0.uploading).remove(&self.1);
+	}
 }
 
 fn hmac(key: &[u8], parts: &[&[u8]]) -> [u8; 32] {
@@ -307,8 +346,10 @@ pub fn router(state: Arc<AppState>) -> Router {
 		.route("/v1/admin/storage", get(admin_storage))
 		.route("/v1/admin/contributors/{hash}/block", post(block))
 		.route("/v1/admin/contributors/{hash}/unblock", post(unblock))
+		.route("/v1/admin/contributors/{hash}/purge", post(purge))
 		.route_layer(middleware::from_fn_with_state(state.clone(), client_ip));
-	// `/healthz` is for the container healthcheck, which runs inside the container.
+	// `/healthz` is for the container healthcheck, which runs inside the container; requests
+	// through the tunnel (which carry CF-Connecting-IP) are answered 404.
 	Router::new()
 		.route("/healthz", get(healthz))
 		.merge(v1)
@@ -320,13 +361,13 @@ pub fn router(state: Arc<AppState>) -> Router {
 		.with_state(state)
 }
 
-/// An error answer: a status and `{ "error": "..." }`.
+/// An error answer: a status and `{ "error": "..." }`, and for 429 and 503 a `Retry-After`.
 #[derive(Debug)]
-pub struct ApiError(StatusCode, String);
+pub struct ApiError(StatusCode, String, Option<u32>);
 
 impl ApiError {
 	fn new(status: StatusCode, message: impl Into<String>) -> ApiError {
-		ApiError(status, message.into())
+		ApiError(status, message.into(), None)
 	}
 
 	fn unknown_token() -> ApiError {
@@ -341,6 +382,11 @@ impl ApiError {
 		ApiError::new(StatusCode::SERVICE_UNAVAILABLE, "server busy, try later")
 	}
 
+	/// Every upload slot is taken: a short wait.
+	fn uploads_full() -> ApiError {
+		ApiError(StatusCode::SERVICE_UNAVAILABLE, "too many uploads at once, try again shortly".to_owned(), Some(UPLOAD_RETRY_AFTER))
+	}
+
 	fn over_daily_cap() -> ApiError {
 		ApiError::new(StatusCode::TOO_MANY_REQUESTS, "daily upload limit (20 MiB) reached, try again tomorrow")
 	}
@@ -348,12 +394,14 @@ impl ApiError {
 
 impl IntoResponse for ApiError {
 	fn into_response(self) -> Response {
+		let retry = match self.0 {
+			StatusCode::TOO_MANY_REQUESTS => Some(self.2.unwrap_or(60)),
+			StatusCode::SERVICE_UNAVAILABLE => Some(self.2.unwrap_or(3600)),
+			_ => None,
+		};
 		let mut response = (self.0, Json(serde_json::json!({ "error": self.1 }))).into_response();
-		if self.0 == StatusCode::TOO_MANY_REQUESTS {
-			response.headers_mut().insert(header::RETRY_AFTER, HeaderValue::from_static("60"));
-		}
-		if self.0 == StatusCode::SERVICE_UNAVAILABLE {
-			response.headers_mut().insert(header::RETRY_AFTER, HeaderValue::from_static("3600"));
+		if let Some(seconds) = retry {
+			response.headers_mut().insert(header::RETRY_AFTER, HeaderValue::from(seconds));
 		}
 		response
 	}
@@ -411,19 +459,20 @@ async fn read_body(body: Body, limit: usize) -> Result<Bytes, ApiError> {
 }
 
 /// Every `/v1` request: the client IP from `CF-Connecting-IP` (refused without one unless
-/// direct requests are allowed), kept only as today's HMAC of its network, and the per-network
-/// request limit.
+/// direct requests are allowed), kept only as today's HMAC of its network and its cohort, and
+/// the per-network request limit.
 async fn client_ip(State(state): State<Arc<AppState>>, mut request: Request, next: Next) -> Result<Response, ApiError> {
 	let ip = match request.headers().get(CLIENT_IP_HEADER) {
 		Some(value) => value.to_str().ok().and_then(|s| s.trim().parse::<IpAddr>().ok()).ok_or_else(|| ApiError::new(StatusCode::BAD_REQUEST, "bad client address"))?,
 		None if state.allow_direct => IpAddr::from([127, 0, 0, 1]),
 		None => return Err(ApiError::new(StatusCode::FORBIDDEN, "direct requests are not served")),
 	};
-	let hash = state.network_hash(ip).await?;
-	if !state.ip_limiter.check(&hash, Instant::now()) {
+	let network = state.network_hash(ip).await?;
+	if !state.ip_limiter.check(&network, Instant::now()) {
 		return Err(ApiError::too_many());
 	}
-	request.extensions_mut().insert(ClientIp(hash));
+	let cohort = state.cohort(ip, now());
+	request.extensions_mut().insert(ClientIp { network, cohort });
 	Ok(next.run(request).await)
 }
 
@@ -479,8 +528,11 @@ fn maintainer(state: &AppState, headers: &HeaderMap) -> Result<(), ApiError> {
 }
 
 /// `ok` when the database answers within [`HEALTH_TIMEOUT`], else 503 (and the container
-/// healthcheck fails).
-async fn healthz(State(state): State<Arc<AppState>>) -> Response {
+/// healthcheck fails). 404 for requests through the tunnel: the route is not public.
+async fn healthz(State(state): State<Arc<AppState>>, headers: HeaderMap) -> Response {
+	if headers.contains_key(CLIENT_IP_HEADER) {
+		return StatusCode::NOT_FOUND.into_response();
+	}
 	let check = tokio::task::spawn_blocking(move || {
 		let deadline = Instant::now() + HEALTH_TIMEOUT;
 		loop {
@@ -531,7 +583,7 @@ fn registration_cap() -> ApiError {
 	ApiError::new(StatusCode::TOO_MANY_REQUESTS, "registration limit for today reached, try again tomorrow")
 }
 
-async fn register(State(state): State<Arc<AppState>>, Extension(ClientIp(ip)): Extension<ClientIp>, body: Body) -> Result<Response, ApiError> {
+async fn register(State(state): State<Arc<AppState>>, Extension(ClientIp { network: ip, cohort }): Extension<ClientIp>, body: Body) -> Result<Response, ApiError> {
 	if !state.register_limiter.check(&ip, Instant::now()) {
 		return Err(ApiError::too_many());
 	}
@@ -562,20 +614,19 @@ async fn register(State(state): State<Arc<AppState>>, Extension(ClientIp(ip)): E
 	}
 	let token = hex(&random::<32>()?);
 	let hash = hex(&Sha256::digest(token.as_bytes()));
-	let fresh_cohort = hex(&random::<8>()?);
 	// Counted and stored in one transaction, so parallel solutions cannot pass the cap.
-	match blocking(move || state.db().register(&hash, &challenge, expires, now, &ip, &fresh_cohort, REGISTRATIONS_PER_DAY).map_err(internal)).await? {
+	match blocking(move || state.db().register(&hash, &challenge, expires, now, &ip, &cohort, REGISTRATIONS_PER_DAY).map_err(internal)).await? {
 		Registration::Done(_) => Ok(Json(RegisterResponse { token }).into_response()),
 		Registration::Spent => Err(ApiError::new(StatusCode::BAD_REQUEST, "challenge already used")),
 		Registration::OverCap => Err(registration_cap()),
 	}
 }
 
-async fn upload(State(state): State<Arc<AppState>>, Extension(ClientIp(ip)): Extension<ClientIp>, headers: HeaderMap, body: Body) -> Result<Json<UploadResponse>, ApiError> {
+async fn upload(State(state): State<Arc<AppState>>, Extension(ClientIp { network: ip, .. }): Extension<ClientIp>, headers: HeaderMap, body: Body) -> Result<Json<UploadResponse>, ApiError> {
 	let contributor = token_hash(&headers)?;
 	// The contributor, its bytes today and the install are looked up once the body is read;
 	// before, only whether the declared size is already over today's cap.
-	let declared = headers.get(header::CONTENT_LENGTH).and_then(|v| v.to_str().ok()).and_then(|v| v.parse::<u64>().ok()).unwrap_or(0);
+	let declared = headers.get(header::CONTENT_LENGTH).and_then(|v| v.to_str().ok()).and_then(|v| v.parse::<u64>().ok());
 	let (s, c) = (state.clone(), contributor.clone());
 	let (used, busy) = blocking(move || {
 		let db = s.db();
@@ -587,11 +638,26 @@ async fn upload(State(state): State<Arc<AppState>>, Extension(ClientIp(ip)): Ext
 	if busy.is_some() {
 		return Err(ApiError::busy());
 	}
-	if used.saturating_add(declared) > DAILY_BYTES {
+	if used.saturating_add(declared.unwrap_or(0)) > DAILY_BYTES {
 		return Err(ApiError::over_daily_cap());
 	}
-	let _permit = state.uploads.acquire().await.map_err(internal)?;
-	let bytes = read_body(body, MAX_BODY).await?;
+	let Some(_in_flight) = state.in_flight(&contributor) else {
+		return Err(ApiError::new(StatusCode::TOO_MANY_REQUESTS, "an upload with this token is already in progress"));
+	};
+	// The body is read before an upload slot is taken, so a slow sender holds none.
+	let bytes = match read_body(body, MAX_BODY).await {
+		Ok(bytes) => bytes,
+		Err(e) => {
+			if e.0 == StatusCode::REQUEST_TIMEOUT {
+				// A body that never arrives costs its sender as much as one that does.
+				let charge = declared.unwrap_or(MAX_BODY as u64).min(MAX_BODY as u64);
+				let (s, c) = (state.clone(), contributor.clone());
+				blocking(move || s.db().charge(&c, charge, now()).map_err(internal)).await?;
+			}
+			return Err(e);
+		}
+	};
+	let Ok(_permit) = state.uploads.try_acquire() else { return Err(ApiError::uploads_full()) };
 	let request: UploadRequest = serde_json::from_slice(&bytes).map_err(|e| ApiError::new(StatusCode::BAD_REQUEST, format!("bad upload: {e}")))?;
 	let body_len = bytes.len() as u64;
 	drop(bytes);
@@ -625,33 +691,62 @@ async fn upload(State(state): State<Arc<AppState>>, Extension(ClientIp(ip)): Ext
 	}
 }
 
-async fn me(State(state): State<Arc<AppState>>, Extension(ClientIp(ip)): Extension<ClientIp>, headers: HeaderMap) -> Result<Json<polestar_recording::api::MeResponse>, ApiError> {
+async fn me(State(state): State<Arc<AppState>>, Extension(ClientIp { network: ip, .. }): Extension<ClientIp>, headers: HeaderMap) -> Result<Json<polestar_recording::api::MeResponse>, ApiError> {
 	let contributor = contributor(&state, &headers, &ip).await?;
 	let me = blocking(move || state.db().me(&contributor).map_err(internal)).await?;
 	Ok(Json(me))
 }
 
-async fn delete_me(State(state): State<Arc<AppState>>, Extension(ClientIp(ip)): Extension<ClientIp>, headers: HeaderMap) -> Result<Json<serde_json::Value>, ApiError> {
+async fn delete_me(State(state): State<Arc<AppState>>, Extension(ClientIp { network: ip, .. }): Extension<ClientIp>, headers: HeaderMap) -> Result<Json<serde_json::Value>, ApiError> {
 	let contributor = contributor(&state, &headers, &ip).await?;
 	let deleted = blocking(move || state.db().delete_contributor(&contributor, now()).map_err(internal)).await?;
 	Ok(Json(serde_json::json!({ "deleted": deleted })))
 }
 
+/// The cached `/v1/stats` body when younger than [`STATS_TTL`].
+fn fresh_stats(state: &AppState) -> Option<Bytes> {
+	lock(&state.stats_cache).as_ref().filter(|(at, _)| at.elapsed() < STATS_TTL).map(|(_, body)| body.clone())
+}
+
+/// Rebuilds the `/v1/stats` body, unless another request did while this one waited for the gate.
+/// The caller holds [`AppState::stats_gate`].
+async fn rebuild_stats(state: &Arc<AppState>) -> Result<Bytes, ApiError> {
+	if let Some(body) = fresh_stats(state) {
+		return Ok(body);
+	}
+	let s = state.clone();
+	let body = Bytes::from(
+		blocking(move || {
+			let stats = s.db().stats(now()).map_err(internal)?;
+			serde_json::to_string(&stats).map_err(internal)
+		})
+		.await?,
+	);
+	*lock(&state.stats_cache) = Some((Instant::now(), body.clone()));
+	Ok(body)
+}
+
+/// Public totals, rebuilt at most once per [`STATS_TTL`] by one request at a time. A stale
+/// answer is served while it is rebuilt in the background; only the very first request waits.
 async fn stats(State(state): State<Arc<AppState>>) -> Result<Response, ApiError> {
-	let cached = lock(&state.stats_cache).as_ref().filter(|(at, _)| at.elapsed() < STATS_TTL).map(|(_, body)| body.clone());
+	let cached = lock(&state.stats_cache).clone();
 	let body = match cached {
-		Some(body) => body,
+		Some((at, body)) if at.elapsed() < STATS_TTL => body,
+		Some((_, stale)) => {
+			if state.stats_gate.try_lock().is_ok() {
+				let s = state.clone();
+				tokio::spawn(async move {
+					// Another request may have taken the gate since; then it rebuilds.
+					if let Ok(_gate) = s.stats_gate.try_lock() {
+						let _ = rebuild_stats(&s).await;
+					}
+				});
+			}
+			stale
+		}
 		None => {
-			let s = state.clone();
-			let body = Bytes::from(
-				blocking(move || {
-					let stats = s.db().stats(now()).map_err(internal)?;
-					serde_json::to_string(&stats).map_err(internal)
-				})
-				.await?,
-			);
-			*lock(&state.stats_cache) = Some((Instant::now(), body.clone()));
-			body
+			let _gate = state.stats_gate.lock().await;
+			rebuild_stats(&state).await?
 		}
 	};
 	Ok(([(header::CONTENT_TYPE, "application/json"), (header::CACHE_CONTROL, "public, max-age=60")], body).into_response())
@@ -753,25 +848,45 @@ async fn admin_contributors(State(state): State<Arc<AppState>>, headers: HeaderM
 	Ok(Json(blocking(move || state.db().contributors().map_err(internal)).await?))
 }
 
-async fn set_blocked(state: Arc<AppState>, headers: HeaderMap, prefix: String, blocked: bool) -> Result<Json<serde_json::Value>, ApiError> {
+/// What a moderation route does to the one contributor `prefix` names.
+enum Action {
+	Block(bool),
+	Purge,
+}
+
+async fn moderate(state: Arc<AppState>, headers: HeaderMap, prefix: String, action: Action) -> Result<Json<serde_json::Value>, ApiError> {
 	maintainer(&state, &headers)?;
 	// The export shows 16 hex digits of the hash; accept those or more.
 	if !(16..=64).contains(&prefix.len()) || !is_hex(&prefix) {
 		return Err(ApiError::new(StatusCode::BAD_REQUEST, "give at least 16 lowercase hex digits of the contributor hash"));
 	}
-	match blocking(move || state.db().set_blocked(&prefix, blocked, now()).map_err(internal)).await? {
-		Moderation::Done(hash) => Ok(Json(serde_json::json!({ "hash": hash, "blocked": blocked }))),
+	let (moderation, answer) = blocking(move || {
+		let now = now();
+		let mut db = state.db();
+		Ok(match action {
+			Action::Block(blocked) => (db.set_blocked(&prefix, blocked, now).map_err(internal)?, ("blocked", blocked)),
+			Action::Purge => (db.purge(&prefix, now).map_err(internal)?, ("purged", true)),
+		})
+	})
+	.await?;
+	match moderation {
+		Moderation::Done(hash) => Ok(Json(serde_json::json!({ "hash": hash, answer.0: answer.1 }))),
 		Moderation::NotFound => Err(ApiError::new(StatusCode::NOT_FOUND, "no such contributor")),
 		Moderation::Ambiguous => Err(ApiError::new(StatusCode::CONFLICT, "more than one contributor has that prefix")),
 	}
 }
 
 async fn block(State(state): State<Arc<AppState>>, headers: HeaderMap, Path(hash): Path<String>) -> Result<Json<serde_json::Value>, ApiError> {
-	set_blocked(state, headers, hash, true).await
+	moderate(state, headers, hash, Action::Block(true)).await
 }
 
 async fn unblock(State(state): State<Arc<AppState>>, headers: HeaderMap, Path(hash): Path<String>) -> Result<Json<serde_json::Value>, ApiError> {
-	set_blocked(state, headers, hash, false).await
+	moderate(state, headers, hash, Action::Block(false)).await
+}
+
+/// Deletes everything of a contributor, counters included, and leaves a `deleted` tombstone.
+async fn purge(State(state): State<Arc<AppState>>, headers: HeaderMap, Path(hash): Path<String>) -> Result<Json<serde_json::Value>, ApiError> {
+	moderate(state, headers, hash, Action::Purge).await
 }
 
 #[cfg(test)]
@@ -784,5 +899,63 @@ mod tests {
 		assert_eq!(network("::ffff:203.0.113.7".parse().unwrap()), "203.0.113.7");
 		assert_eq!(network("2001:db8:abcd:12:1::5".parse().unwrap()), "2001:db8:abcd::/48");
 		assert_eq!(network("2001:db8:abcd:ffff::1".parse().unwrap()), network("2001:db8:abcd::9".parse().unwrap()));
+	}
+
+	fn state(secret: &str) -> Arc<AppState> {
+		AppState::new(Db::open_in_memory().unwrap(), Config { maintainer_key: "k".repeat(32), secret: secret.to_owned(), ..Config::default() })
+	}
+
+	#[test]
+	fn cohorts_hold_across_midnight_and_change_by_month_and_secret() {
+		let s = state(&"s".repeat(32));
+		let ip: IpAddr = "203.0.113.7".parse().unwrap();
+		// 2026-10-27 23:58 and 2026-10-28 00:02 UTC.
+		let (before, after) = (20_753 * DAY + DAY - 120, 20_754 * DAY + 120);
+		assert_eq!(s.cohort(ip, before), s.cohort(ip, after));
+		assert_eq!(s.cohort(ip, before).len(), 16);
+		assert_eq!(s.cohort(ip, before), s.cohort(ip, before + 3 * DAY), "and through the month");
+		assert_ne!(s.cohort(ip, before), s.cohort("198.51.100.20".parse().unwrap(), before));
+		assert_ne!(s.cohort(ip, before), s.cohort(ip, before + 10 * DAY), "November has its own key");
+		assert_ne!(s.cohort(ip, before), state(&"t".repeat(32)).cohort(ip, before), "keyed by the secret");
+	}
+
+	/// A registered contributor's token, straight in the database.
+	fn contributor(s: &AppState) -> (String, String) {
+		let token = "ab".repeat(32);
+		let hash = hex(&Sha256::digest(token.as_bytes()));
+		let at = now();
+		s.db().register(&hash, "c", at + 600, at, "net", "0123456789abcdef", 3).unwrap();
+		(token, hash)
+	}
+
+	async fn upload_status(s: &Arc<AppState>, token: &str) -> (StatusCode, Option<String>) {
+		use tower::ServiceExt;
+		let body = serde_json::json!({ "uploader": "t", "install": "k3j9x0q2m7ab", "chunks": [] }).to_string();
+		let request =
+			Request::builder().method(Method::POST).uri("/v1/upload").header(CLIENT_IP_HEADER, "203.0.113.7").header(header::AUTHORIZATION, format!("Bearer {token}")).body(Body::from(body)).unwrap();
+		let response = router(s.clone()).oneshot(request).await.unwrap();
+		(response.status(), response.headers().get(header::RETRY_AFTER).map(|v| v.to_str().unwrap().to_owned()))
+	}
+
+	#[tokio::test]
+	async fn uploads_are_refused_not_queued_when_every_slot_is_taken() {
+		let s = state(&"s".repeat(32));
+		let (token, _) = contributor(&s);
+		assert_eq!(upload_status(&s, &token).await.0, StatusCode::OK);
+		let all = s.uploads.try_acquire_many(UPLOAD_CONCURRENCY as u32).unwrap();
+		assert_eq!(upload_status(&s, &token).await, (StatusCode::SERVICE_UNAVAILABLE, Some(UPLOAD_RETRY_AFTER.to_string())));
+		drop(all);
+		assert_eq!(upload_status(&s, &token).await.0, StatusCode::OK);
+	}
+
+	#[tokio::test]
+	async fn one_upload_in_flight_per_contributor() {
+		let s = state(&"s".repeat(32));
+		let (token, hash) = contributor(&s);
+		let held = s.in_flight(&hash).unwrap();
+		assert_eq!(upload_status(&s, &token).await.0, StatusCode::TOO_MANY_REQUESTS);
+		drop(held);
+		assert_eq!(upload_status(&s, &token).await.0, StatusCode::OK);
+		assert!(s.in_flight(&hash).is_some(), "given back after the upload");
 	}
 }

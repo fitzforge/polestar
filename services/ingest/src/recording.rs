@@ -45,9 +45,9 @@ pub fn prepare(upload: UploadChunk, min_build: u32, ctx: &mut plausible::Context
 	let mut quests = BTreeSet::new();
 	for record in &decoded.records {
 		*kinds.entry(record.kind.as_str().to_owned()).or_default() += 1;
-		// The kinds whose `q` is a single quest id.
+		// The kinds whose `q` is a single quest id; ids no quest has are not counted.
 		if matches!(record.kind, Kind::Detail | Kind::Text | Kind::Accept | Kind::Objectives | Kind::Progress | Kind::Complete | Kind::Turnin | Kind::Abandon | Kind::Escort) {
-			if let Some(q) = record.int("q").and_then(|q| u32::try_from(q).ok()) {
+			if let Some(q) = record.int("q").filter(|q| (1..plausible::MAX_ID as i64).contains(q)).and_then(|q| u32::try_from(q).ok()) {
 				quests.insert(q);
 			}
 		}
@@ -117,5 +117,11 @@ mod tests {
 		assert_eq!(text(&c), format!("{HEAD}afk\t2\t1\n"));
 		let Prepared::Ok(c) = prep(format!("{HEAD}afk\t2\t1")) else { panic!("stored") };
 		assert_eq!(text(&c), format!("{HEAD}afk\t2\t1"), "a chunk of known kinds is stored as sent");
+	}
+
+	#[test]
+	fn quest_ids_no_quest_has_are_not_counted() {
+		let Prepared::Ok(c) = prep(format!("{HEAD}complete\t0\t364\ncomplete\t1\t{}\ncomplete\t2\t0\n", plausible::MAX_ID)) else { panic!("stored") };
+		assert_eq!(c.quests, BTreeSet::from([364]));
 	}
 }

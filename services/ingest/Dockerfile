@@ -18,7 +18,9 @@ FROM gcr.io/distroless/cc-debian12:nonroot@sha256:9dac0a79194e45a7da0158a9c6da57
 COPY --from=build /polestar-ingest /polestar-ingest
 COPY --from=build --chown=65532:65532 /data /data
 COPY --from=build --chown=65532:65532 /backup /backup
-ENV INGEST_DB=/data/ingest.sqlite INGEST_ADDR=0.0.0.0:8080
+# SQLite's temporary files (VACUUM, large sorts) go to the writable data volume: the root
+# filesystem is read-only.
+ENV INGEST_DB=/data/ingest.sqlite INGEST_ADDR=0.0.0.0:8080 SQLITE_TMPDIR=/data
 VOLUME /data /backup
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD ["/polestar-ingest", "healthcheck"]

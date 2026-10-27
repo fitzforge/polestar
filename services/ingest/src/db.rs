@@ -9,9 +9,17 @@
 //! re-upload of a pruned chunk is still answered `duplicate`.
 //!
 //! A contributor is the SHA-256 of a token the server handed out at registration; the token
-//! itself is never stored. No IP address is ever written here. The registration cap and
-//! cohorts need to recognise a network for one UTC day: they keep only an HMAC of it under that
-//! day's random salt, and the salt and those HMACs are deleted when the day is over.
+//! itself is never stored. No IP address is ever written here. A contributor's cohort is a
+//! keyed hash of its network under a monthly key derived from the server secret, so the
+//! database alone does not reveal the network. The registration cap needs to recognise a network
+//! for one UTC day: it keeps only an HMAC of it under that day's random salt, and the salt and
+//! those HMACs are deleted when the day is over (and left out of backups).
+//!
+//! Rows per contributor are bounded: at most [`MAX_QUESTS`] quest rows, [`MAX_INSTALLS`]
+//! installs (each with about [`SEQ_MEMORY`] seqs), 30 days of per-day counts and one row per
+//! record kind. Suspect chunks add no quest or day rows. A blocked contributor's chunks, quests
+//! and days are deleted; from then on only its seqs, installs, kinds and totals are kept, so the
+//! server answers it exactly as before.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
@@ -58,7 +66,6 @@ CREATE TABLE IF NOT EXISTS registrations (
 	day INTEGER NOT NULL,
 	network TEXT NOT NULL,
 	n INTEGER NOT NULL,
-	cohort TEXT NOT NULL,
 	PRIMARY KEY (day, network)
 ) WITHOUT ROWID;
 CREATE TABLE IF NOT EXISTS tombstones (
@@ -109,20 +116,34 @@ CREATE TABLE IF NOT EXISTS seqs (
 	seq INTEGER NOT NULL,
 	PRIMARY KEY (contributor, install, seq)
 ) WITHOUT ROWID;
+CREATE TABLE IF NOT EXISTS quest_counts (
+	quest INTEGER PRIMARY KEY,
+	n INTEGER NOT NULL
+);
 DROP TABLE IF EXISTS install_maps;
 ";
 
 /// Columns added after the first deployment: (table, column, declaration).
-const ADDED_COLUMNS: [(&str, &str, &str); 5] = [
+const ADDED_COLUMNS: [(&str, &str, &str); 7] = [
 	("contributors", "blocked", "INTEGER NOT NULL DEFAULT 0"),
 	("contributors", "cohort", "TEXT"),
 	("chunks", "epoch", "INTEGER"),
 	("chunks", "suspect", "INTEGER NOT NULL DEFAULT 0"),
 	("chunks", "reasons", "TEXT"),
+	("totals", "upload_days", "INTEGER NOT NULL DEFAULT 0"),
+	("totals", "quests", "INTEGER NOT NULL DEFAULT 0"),
 ];
 
-/// `PRAGMA user_version` of this schema: 2 has compressed text and the counter tables.
-const VERSION: i64 = 2;
+/// `PRAGMA user_version` of this schema: 2 has compressed text and the counter tables, 3 the
+/// bounded per-contributor rows, running totals and registrations without cohorts.
+const VERSION: i64 = 3;
+
+/// Quest rows kept per contributor (for `/v1/stats` `quests`).
+pub const MAX_QUESTS: i64 = 5000;
+/// Installs one contributor may upload from; chunks from more are rejected.
+pub const MAX_INSTALLS: i64 = 8;
+/// Rows rewritten per statement while migrating chunk text.
+const MIGRATE_BATCH: i64 = 500;
 
 /// Largest export page, in bytes of chunk text.
 pub const EXPORT_MAX_BYTES: usize = 8 * 1024 * 1024;
@@ -251,7 +272,32 @@ pub struct Storage {
 }
 
 /// The tables keyed by contributor that go with it on delete.
-const PER_CONTRIBUTOR: [&str; 7] = ["chunks", "totals", "kinds", "quests", "days", "installs", "seqs"];
+const PER_CONTRIBUTOR: [&str; 6] = ["chunks", "totals", "kinds", "days", "installs", "seqs"];
+
+/// A counter in `settings`, by `delta`.
+fn bump(tx: &Connection, key: &str, delta: i64) -> rusqlite::Result<()> {
+	if delta != 0 {
+		tx.execute("INSERT INTO settings (key, value) VALUES (?1, ?2) ON CONFLICT (key) DO UPDATE SET value = value + ?2", params![key, delta])?;
+	}
+	Ok(())
+}
+
+/// Deletes a contributor's quest rows, keeping `quest_counts` and the distinct-quest total right.
+fn drop_quests(tx: &Connection, contributor: &str) -> rusqlite::Result<()> {
+	tx.execute("UPDATE quest_counts SET n = n - 1 WHERE quest IN (SELECT quest FROM quests WHERE contributor = ?1)", [contributor])?;
+	let gone = tx.execute("DELETE FROM quest_counts WHERE n <= 0", [])?;
+	bump(tx, "quests", -(gone as i64))?;
+	tx.execute("DELETE FROM quests WHERE contributor = ?1", [contributor])?;
+	tx.execute("UPDATE totals SET quests = 0 WHERE contributor = ?1", [contributor])?;
+	Ok(())
+}
+
+/// What a block deletes: the chunks held and the rows that only the stats and the export use.
+fn drop_held(tx: &Connection, contributor: &str) -> rusqlite::Result<()> {
+	tx.execute("DELETE FROM chunks WHERE contributor = ?1", [contributor])?;
+	tx.execute("DELETE FROM days WHERE contributor = ?1", [contributor])?;
+	drop_quests(tx, contributor)
+}
 
 impl Db {
 	pub fn open(path: &Path) -> rusqlite::Result<Db> {
@@ -267,6 +313,8 @@ impl Db {
 
 	fn init(conn: Connection) -> rusqlite::Result<Db> {
 		conn.pragma_update(None, "foreign_keys", "ON")?;
+		// Deleted chunks, salts and contributors are overwritten, not left in free pages.
+		conn.pragma_update(None, "secure_delete", "ON")?;
 		conn.busy_timeout(std::time::Duration::from_secs(5))?;
 		// Before the first table, so a new database is incremental from the start.
 		conn.pragma_update(None, "auto_vacuum", "INCREMENTAL")?;
@@ -279,9 +327,16 @@ impl Db {
 		}
 		let mut db = Db { conn };
 		let version: i64 = db.conn.pragma_query_value(None, "user_version", |r| r.get(0))?;
-		if version < VERSION {
+		if version < 2 {
 			db.migrate_to_2()?;
 		}
+		if version < 3 {
+			db.migrate_to_3()?;
+		}
+		// The database's id, made once (a restored backup has none, so it gets a new one).
+		let mut id = [0u8; 8];
+		getrandom::fill(&mut id).map_err(|e| rusqlite::Error::ToSqlConversionFailure(e.to_string().into()))?;
+		db.conn.execute("INSERT OR IGNORE INTO settings (key, value) VALUES ('instance', ?1)", [i64::from_be_bytes(id)])?;
 		// An older database is not incremental until a VACUUM rewrites it (once).
 		let auto_vacuum: i64 = db.conn.pragma_query_value(None, "auto_vacuum", |r| r.get(0))?;
 		if auto_vacuum != 2 {
@@ -311,15 +366,51 @@ impl Db {
 			 DROP TABLE chunk_quests;",
 		)?;
 		{
-			let mut read = tx.prepare("SELECT id, text FROM chunks WHERE typeof(text) = 'text'")?;
+			// In batches, so a large old database is never held in memory at once.
+			let mut read = tx.prepare("SELECT id, text FROM chunks WHERE id > ?1 AND typeof(text) = 'text' ORDER BY id LIMIT ?2")?;
 			let mut write = tx.prepare("UPDATE chunks SET text = ?2 WHERE id = ?1")?;
-			let rows = read.query_map([], |r| Ok((r.get::<_, i64>(0)?, r.get::<_, String>(1)?)))?.collect::<rusqlite::Result<Vec<_>>>()?;
-			for (id, text) in rows {
-				write.execute(params![id, compress(&text)])?;
+			let mut after = i64::MIN;
+			loop {
+				let rows = read.query_map(params![after, MIGRATE_BATCH], |r| Ok((r.get::<_, i64>(0)?, r.get::<_, String>(1)?)))?.collect::<rusqlite::Result<Vec<_>>>()?;
+				let Some(&(last, _)) = rows.last() else { break };
+				for (id, text) in rows {
+					write.execute(params![id, compress(&text)])?;
+				}
+				after = last;
 			}
 		}
+		tx.pragma_update(None, "user_version", 2)?;
+		tx.commit()
+	}
+
+	/// Version 3: registrations without cohorts, quest rows within their caps, blocked
+	/// contributors' held rows deleted, and the running totals filled.
+	fn migrate_to_3(&mut self) -> rusqlite::Result<()> {
+		let tx = self.conn.transaction()?;
+		tx.execute_batch(&format!(
+			"DROP TABLE registrations;
+			 CREATE TABLE registrations (day INTEGER NOT NULL, network TEXT NOT NULL, n INTEGER NOT NULL, PRIMARY KEY (day, network)) WITHOUT ROWID;
+			 DELETE FROM quests WHERE quest >= {max_id};
+			 DELETE FROM quests WHERE (contributor, quest) IN
+				(SELECT contributor, quest FROM (SELECT contributor, quest, ROW_NUMBER() OVER (PARTITION BY contributor ORDER BY quest) AS rn FROM quests) WHERE rn > {MAX_QUESTS});
+			 DELETE FROM chunks WHERE contributor IN (SELECT hash FROM contributors WHERE blocked = 1);
+			 DELETE FROM quests WHERE contributor IN (SELECT hash FROM contributors WHERE blocked = 1);
+			 DELETE FROM days WHERE contributor IN (SELECT hash FROM contributors WHERE blocked = 1);
+			 UPDATE totals SET upload_days = (SELECT COUNT(*) FROM days d WHERE d.contributor = totals.contributor),
+				quests = (SELECT COUNT(*) FROM quests q WHERE q.contributor = totals.contributor);
+			 DELETE FROM quest_counts;
+			 INSERT INTO quest_counts (quest, n) SELECT quest, COUNT(*) FROM quests GROUP BY quest;
+			 INSERT OR REPLACE INTO settings (key, value) SELECT 'quests', COUNT(*) FROM quest_counts;",
+			max_id = polestar_recording::plausible::MAX_ID,
+		))?;
 		tx.pragma_update(None, "user_version", VERSION)?;
 		tx.commit()
+	}
+
+	/// The database's id ([`ExportLine::instance`]), 16 hex digits.
+	pub fn instance(&self) -> rusqlite::Result<String> {
+		let id: i64 = self.conn.query_row("SELECT value FROM settings WHERE key = 'instance'", [], |r| r.get(0))?;
+		Ok(format!("{:016x}", id as u64))
 	}
 
 	/// A cheap query, for the health check.
@@ -356,17 +447,13 @@ impl Db {
 		Ok(self.conn.query_row("SELECT n FROM registrations WHERE day = ?1 AND network = ?2", params![today, network], |r| r.get(0)).optional()?.unwrap_or(0))
 	}
 
-	/// Spends `challenge` (valid until `expires`) and creates the contributor `hash`, unless
-	/// `network` already registered `cap` contributors today. The network's first registration
-	/// of the day makes its cohort from `fresh_cohort`; later ones join it.
+	/// Spends `challenge` (valid until `expires`) and creates the contributor `hash` in `cohort`,
+	/// unless `network` (today's HMAC of it) already registered `cap` contributors today.
 	#[allow(clippy::too_many_arguments)]
-	pub fn register(&mut self, hash: &str, challenge: &str, expires: i64, now: i64, network: &str, fresh_cohort: &str, cap: u32) -> rusqlite::Result<Registration> {
+	pub fn register(&mut self, hash: &str, challenge: &str, expires: i64, now: i64, network: &str, cohort: &str, cap: u32) -> rusqlite::Result<Registration> {
 		let today = now.div_euclid(DAY);
 		let tx = self.conn.transaction()?;
-		let (n, cohort): (u32, Option<String>) = tx
-			.query_row("SELECT n, cohort FROM registrations WHERE day = ?1 AND network = ?2", params![today, network], |r| Ok((r.get(0)?, r.get(1)?)))
-			.optional()?
-			.map_or((0, None), |(n, c)| (n, Some(c)));
+		let n: u32 = tx.query_row("SELECT n FROM registrations WHERE day = ?1 AND network = ?2", params![today, network], |r| r.get(0)).optional()?.unwrap_or(0);
 		if n >= cap {
 			return Ok(Registration::OverCap);
 		}
@@ -374,11 +461,21 @@ impl Db {
 		if tx.execute("INSERT OR IGNORE INTO spent_challenges (challenge, expires) VALUES (?1, ?2)", params![challenge, expires])? == 0 {
 			return Ok(Registration::Spent);
 		}
-		let cohort = cohort.unwrap_or_else(|| fresh_cohort.to_owned());
-		tx.execute("INSERT INTO registrations (day, network, n, cohort) VALUES (?1, ?2, 1, ?3) ON CONFLICT (day, network) DO UPDATE SET n = n + 1", params![today, network, cohort])?;
+		tx.execute("INSERT INTO registrations (day, network, n) VALUES (?1, ?2, 1) ON CONFLICT (day, network) DO UPDATE SET n = n + 1", params![today, network])?;
 		tx.execute("INSERT INTO contributors (hash, first_seen, last_seen, bytes_today, day, cohort) VALUES (?1, ?2, ?2, 0, ?3, ?4)", params![hash, now, today, cohort])?;
 		tx.commit()?;
-		Ok(Registration::Done(cohort))
+		Ok(Registration::Done(cohort.to_owned()))
+	}
+
+	/// Counts `bytes` against the contributor's daily cap without storing anything (a body that
+	/// never arrived in time).
+	pub fn charge(&mut self, contributor: &str, bytes: u64, now: i64) -> rusqlite::Result<()> {
+		let today = now.div_euclid(DAY);
+		self.conn.execute(
+			"UPDATE contributors SET bytes_today = (CASE WHEN day = ?3 THEN bytes_today ELSE 0 END) + ?2, day = ?3 WHERE hash = ?1",
+			params![contributor, bytes.min(i64::MAX as u64) as i64, today],
+		)?;
+		Ok(())
 	}
 
 	/// The contributor's bytes today and the install's highest stored chunk; None when there is
@@ -393,14 +490,15 @@ impl Db {
 	}
 
 	/// Stores an upload's chunks in one transaction, unless it would take the contributor past
-	/// `daily_cap` bytes today. A blocked contributor's chunks are stored like anyone's (so the
-	/// answers are the same); the export and the stats leave them out.
+	/// `daily_cap` bytes today. A blocked contributor gets the same answers as anyone, but only
+	/// its seqs, installs, kinds and totals are kept. Suspect chunks add no quest or day rows.
+	/// Chunks from an install beyond the contributor's [`MAX_INSTALLS`] are rejected.
 	pub fn upload(&mut self, upload: Upload, prepared: Vec<Prepared>, daily_cap: u64) -> rusqlite::Result<UploadOutcome> {
 		let Upload { contributor, install, uploader, body_len, now } = upload;
 		let today = now.div_euclid(DAY);
 		let tx = self.conn.transaction()?;
-		let row: Option<(i64, i64)> = tx.query_row("SELECT bytes_today, day FROM contributors WHERE hash = ?1", [contributor], |r| Ok((r.get(0)?, r.get(1)?))).optional()?;
-		let Some((bytes, day)) = row else { return Ok(UploadOutcome::Unknown) };
+		let row: Option<(i64, i64, bool)> = tx.query_row("SELECT bytes_today, day, blocked FROM contributors WHERE hash = ?1", [contributor], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?))).optional()?;
+		let Some((bytes, day, blocked)) = row else { return Ok(UploadOutcome::Unknown) };
 		let used = if day == today { bytes.max(0) as u64 } else { 0 };
 		if used.saturating_add(body_len) > daily_cap {
 			return Ok(UploadOutcome::OverDailyCap);
@@ -408,6 +506,20 @@ impl Db {
 		tx.execute("UPDATE contributors SET last_seen = ?2, bytes_today = ?3, day = ?4 WHERE hash = ?1", params![contributor, now, (used + body_len) as i64, today])?;
 
 		let mut response = UploadResponse { accepted: Vec::new(), duplicate: Vec::new(), rejected: Vec::new() };
+		let known_install: bool = tx.query_row("SELECT COUNT(*) > 0 FROM installs WHERE contributor = ?1 AND install = ?2", [contributor, install], |r| r.get(0))?;
+		let installs: i64 = tx.query_row("SELECT COUNT(*) FROM installs WHERE contributor = ?1", [contributor], |r| r.get(0))?;
+		if !known_install && installs >= MAX_INSTALLS {
+			for p in prepared {
+				response.rejected.push(match p {
+					Prepared::Rejected(r) => r,
+					Prepared::Ok(chunk) => Rejected { seq: chunk.seq, reason: format!("more than {MAX_INSTALLS} installs sent with this token") },
+				});
+			}
+			tx.commit()?;
+			return Ok(UploadOutcome::Done(response));
+		}
+		let mut quest_room = MAX_QUESTS - tx.query_row("SELECT quests FROM totals WHERE contributor = ?1", [contributor], |r| r.get::<_, i64>(0)).optional()?.unwrap_or(0);
+		let (mut quests_added, mut quests_new, mut new_days) = (0i64, 0i64, 0i64);
 		{
 			let mut seen = tx.prepare("INSERT OR IGNORE INTO seqs (contributor, install, seq) VALUES (?1, ?2, ?3)")?;
 			let mut insert_chunk = tx.prepare(
@@ -420,7 +532,10 @@ impl Db {
 			)?;
 			let mut kind = tx.prepare("INSERT INTO kinds (contributor, kind, n) VALUES (?1, ?2, ?3) ON CONFLICT (contributor, kind) DO UPDATE SET n = n + ?3")?;
 			let mut quest = tx.prepare("INSERT OR IGNORE INTO quests (contributor, quest) VALUES (?1, ?2)")?;
-			let mut day_count = tx.prepare("INSERT INTO days (contributor, day, chunks) VALUES (?1, ?2, 1) ON CONFLICT (contributor, day) DO UPDATE SET chunks = chunks + 1")?;
+			let mut quest_first = tx.prepare("INSERT OR IGNORE INTO quest_counts (quest, n) VALUES (?1, 0)")?;
+			let mut quest_count = tx.prepare("UPDATE quest_counts SET n = n + 1 WHERE quest = ?1")?;
+			let mut day_first = tx.prepare("INSERT OR IGNORE INTO days (contributor, day, chunks) VALUES (?1, ?2, 0)")?;
+			let mut day_count = tx.prepare("UPDATE days SET chunks = chunks + 1 WHERE contributor = ?1 AND day = ?2")?;
 			let mut highest = tx.prepare(
 				"INSERT INTO installs (contributor, install, seq, epoch) VALUES (?1, ?2, ?3, ?4)
 				 ON CONFLICT (contributor, install) DO UPDATE SET seq = ?3, epoch = ?4 WHERE ?3 > seq",
@@ -439,19 +554,47 @@ impl Db {
 					continue;
 				}
 				let reasons = (!chunk.suspect.is_empty()).then(|| chunk.suspect.join("\n"));
-				insert_chunk.execute(params![contributor, install, chunk.seq as i64, now, chunk.build, chunk.locale, uploader, chunk.ztext, chunk.flagged, chunk.epoch, reasons.is_some(), reasons])?;
+				if !blocked {
+					insert_chunk.execute(params![
+						contributor,
+						install,
+						chunk.seq as i64,
+						now,
+						chunk.build,
+						chunk.locale,
+						uploader,
+						chunk.ztext,
+						chunk.flagged,
+						chunk.epoch,
+						reasons.is_some(),
+						reasons
+					])?;
+				}
 				total.execute(params![contributor, reasons.is_none(), chunk.text_len as i64, now])?;
 				for (k, n) in &chunk.kinds {
 					kind.execute(params![contributor, k, *n as i64])?;
 				}
-				for q in &chunk.quests {
-					quest.execute(params![contributor, q])?;
+				if !blocked && reasons.is_none() {
+					for q in &chunk.quests {
+						if quest_room <= 0 {
+							break;
+						}
+						if quest.execute(params![contributor, q])? > 0 {
+							quest_room -= 1;
+							quests_added += 1;
+							quests_new += quest_first.execute([q])? as i64;
+							quest_count.execute([q])?;
+						}
+					}
+					new_days += day_first.execute(params![contributor, today])? as i64;
+					day_count.execute(params![contributor, today])?;
 				}
-				day_count.execute(params![contributor, today])?;
 				highest.execute(params![contributor, install, chunk.seq as i64, chunk.epoch])?;
 				response.accepted.push(chunk.seq);
 			}
 		}
+		tx.execute("UPDATE totals SET quests = quests + ?2, upload_days = upload_days + ?3 WHERE contributor = ?1", params![contributor, quests_added, new_days])?;
+		bump(&tx, "quests", quests_new)?;
 		tx.commit()?;
 		Ok(UploadOutcome::Done(response))
 	}
@@ -468,11 +611,12 @@ impl Db {
 		Ok(MeResponse { chunks: chunks as u64, records, first_upload: first, last_upload: last })
 	}
 
-	/// Deletes every chunk, count and the contributor row, leaving a tombstone; returns how many
-	/// chunks it had sent.
+	/// Deletes every chunk, count and the contributor row, leaving a `deleted` tombstone;
+	/// returns how many chunks it had sent.
 	pub fn delete_contributor(&mut self, contributor: &str, now: i64) -> rusqlite::Result<u64> {
 		let tx = self.conn.transaction()?;
 		let n: i64 = tx.query_row("SELECT chunks FROM totals WHERE contributor = ?1", [contributor], |r| r.get(0)).optional()?.unwrap_or(0);
+		drop_quests(&tx, contributor)?;
 		for table in PER_CONTRIBUTOR {
 			tx.execute(&format!("DELETE FROM {table} WHERE contributor = ?1"), [contributor])?;
 		}
@@ -483,29 +627,30 @@ impl Db {
 	}
 
 	/// Public totals, blocked contributors left out. `last30` covers the 30 UTC days ending
-	/// today, days without chunks left out.
+	/// today, days without chunks left out. `quests` is a running total, not a count.
 	pub fn stats(&self, now: i64) -> rusqlite::Result<Stats> {
 		const OPEN: &str = "contributor NOT IN (SELECT hash FROM contributors WHERE blocked = 1)";
 		let (contributors, chunks): (i64, i64) =
 			self.conn.query_row(&format!("SELECT COUNT(*), COALESCE(SUM(chunks), 0) FROM totals WHERE chunks > 0 AND {OPEN}"), [], |r| Ok((r.get(0)?, r.get(1)?)))?;
 		let mut stmt = self.conn.prepare(&format!("SELECT kind, SUM(n) FROM kinds WHERE {OPEN} GROUP BY kind"))?;
 		let records = stmt.query_map([], |r| Ok((r.get::<_, String>(0)?, r.get::<_, i64>(1)? as u64)))?.collect::<rusqlite::Result<BTreeMap<_, _>>>()?;
-		let quests: i64 = self.conn.query_row(&format!("SELECT COUNT(DISTINCT quest) FROM quests WHERE {OPEN}"), [], |r| r.get(0))?;
+		let quests: i64 = self.conn.query_row("SELECT value FROM settings WHERE key = 'quests'", [], |r| r.get(0)).optional()?.unwrap_or(0);
 		let since = now.div_euclid(DAY) - (STATS_DAYS - 1);
-		let mut stmt = self.conn.prepare(&format!("SELECT day, SUM(chunks), COUNT(*) FROM days WHERE day >= ?1 AND {OPEN} GROUP BY day ORDER BY day"))?;
+		let mut stmt = self.conn.prepare("SELECT day, SUM(chunks), COUNT(*) FROM days WHERE day >= ?1 GROUP BY day ORDER BY day")?;
 		let last30 = stmt
 			.query_map([since], |r| Ok(StatsDay { day: civil_date(r.get(0)?), chunks: r.get::<_, i64>(1)? as u64, contributors: r.get::<_, i64>(2)? as u64 }))?
 			.collect::<rusqlite::Result<Vec<_>>>()?;
-		Ok(Stats { contributors: contributors as u64, chunks: chunks as u64, records, quests: quests as u64, last30 })
+		Ok(Stats { contributors: contributors as u64, chunks: chunks as u64, records, quests: quests.max(0) as u64, last30 })
 	}
 
 	/// Chunks with `id > after`, oldest first, at most `limit` and (after the first) at most
 	/// [`EXPORT_MAX_BYTES`] of text. Blocked contributors' chunks are left out, and suspect ones
 	/// unless `suspect`.
 	pub fn export(&self, after: i64, limit: u32, suspect: bool) -> rusqlite::Result<Vec<ExportLine>> {
+		let instance = self.instance()?;
 		let mut stmt = self.conn.prepare(
 			"SELECT ch.id, ch.contributor, ch.install, ch.seq, ch.received, ch.text, ch.flagged, ch.suspect, ch.reasons, co.first_seen,
-				COALESCE(co.cohort, substr(co.hash, 1, 16)), COALESCE(t.plausible, 0)
+				COALESCE(co.cohort, substr(co.hash, 1, 16)), COALESCE(t.plausible, 0), COALESCE(t.upload_days, 0)
 			 FROM chunks ch JOIN contributors co ON co.hash = ch.contributor LEFT JOIN totals t ON t.contributor = ch.contributor
 			 WHERE ch.id > ?1 AND co.blocked = 0 AND (?3 OR ch.suspect = 0)
 			 ORDER BY ch.id LIMIT ?2",
@@ -524,6 +669,8 @@ impl Db {
 				flagged: r.get(6)?,
 				contributor_since: r.get(9)?,
 				contributor_chunks: r.get::<_, i64>(11)? as u64,
+				upload_days: r.get::<_, i64>(12)?.max(0) as u64,
+				instance: instance.clone(),
 				suspect: r.get(7)?,
 				suspect_reasons: reasons.map(|s| s.lines().map(str::to_owned).collect()).unwrap_or_default(),
 			})
@@ -589,7 +736,7 @@ impl Db {
 		let age = |t: Option<i64>| t.map(|t| (now - t).max(0));
 		let (oldest_unacked_age, oldest_age) = (age(unacked), age(oldest));
 		let mut rows = BTreeMap::new();
-		for table in ["contributors", "chunks", "seqs", "installs", "kinds", "quests", "days", "tombstones", "spent_challenges", "registrations"] {
+		for table in ["contributors", "chunks", "seqs", "installs", "kinds", "quests", "quest_counts", "days", "tombstones", "spent_challenges", "registrations"] {
 			rows.insert(table, self.conn.query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |r| r.get::<_, i64>(0))? as u64);
 		}
 		Ok(Storage { db_bytes: self.size_bytes()?, acked, oldest_unacked_age, oldest_age, rows })
@@ -620,29 +767,49 @@ impl Db {
 		rows.collect()
 	}
 
-	/// Blocks or unblocks the one contributor whose hash starts with `prefix` (lowercase hex). A
-	/// block leaves a tombstone.
-	pub fn set_blocked(&mut self, prefix: &str, blocked: bool, now: i64) -> rusqlite::Result<Moderation> {
+	/// The one contributor whose hash starts with `prefix` (lowercase hex).
+	fn find(&self, prefix: &str) -> rusqlite::Result<Result<String, Moderation>> {
 		let mut stmt = self.conn.prepare("SELECT hash FROM contributors WHERE substr(hash, 1, length(?1)) = ?1 LIMIT 2")?;
-		let hashes = stmt.query_map([prefix], |r| r.get::<_, String>(0))?.collect::<rusqlite::Result<Vec<_>>>()?;
-		drop(stmt);
-		match hashes.as_slice() {
-			[] => Ok(Moderation::NotFound),
-			[hash] => {
-				let tx = self.conn.transaction()?;
-				if tx.execute("UPDATE contributors SET blocked = ?2 WHERE hash = ?1 AND blocked != ?2", params![hash, blocked])? > 0 {
-					if blocked {
-						tx.execute("INSERT INTO tombstones (contributor, at, why) VALUES (substr(?1, 1, 16), ?2, 'blocked')", params![hash, now])?;
-					} else {
-						// Unblocked: a fresh pull must not purge it again. `deleted` ones stay.
-						tx.execute("DELETE FROM tombstones WHERE contributor = substr(?1, 1, 16) AND why = 'blocked'", [hash])?;
-					}
-				}
-				tx.commit()?;
-				Ok(Moderation::Done(hash.clone()))
+		let mut hashes = stmt.query_map([prefix], |r| r.get::<_, String>(0))?.collect::<rusqlite::Result<Vec<_>>>()?;
+		Ok(match hashes.len() {
+			0 => Err(Moderation::NotFound),
+			1 => Ok(hashes.remove(0)),
+			_ => Err(Moderation::Ambiguous),
+		})
+	}
+
+	/// Blocks or unblocks the one contributor whose hash starts with `prefix` (lowercase hex). A
+	/// block leaves a tombstone and deletes the contributor's held chunks, quests and days
+	/// ([`Db::upload`] keeps no more of them); an unblock does not bring them back.
+	pub fn set_blocked(&mut self, prefix: &str, blocked: bool, now: i64) -> rusqlite::Result<Moderation> {
+		let hash = match self.find(prefix)? {
+			Ok(hash) => hash,
+			Err(m) => return Ok(m),
+		};
+		let tx = self.conn.transaction()?;
+		if tx.execute("UPDATE contributors SET blocked = ?2 WHERE hash = ?1 AND blocked != ?2", params![hash, blocked])? > 0 {
+			if blocked {
+				drop_held(&tx, &hash)?;
+				tx.execute("INSERT INTO tombstones (contributor, at, why) VALUES (substr(?1, 1, 16), ?2, 'blocked')", params![hash, now])?;
+			} else {
+				// Unblocked: a fresh pull must not purge it again. `deleted` ones stay.
+				tx.execute("DELETE FROM tombstones WHERE contributor = substr(?1, 1, 16) AND why = 'blocked'", [&hash])?;
 			}
-			_ => Ok(Moderation::Ambiguous),
 		}
+		tx.commit()?;
+		Ok(Moderation::Done(hash))
+	}
+
+	/// Deletes everything of the one contributor whose hash starts with `prefix`, counters
+	/// included, as [`Db::delete_contributor`] (a `deleted` tombstone); its token is unknown
+	/// from then on.
+	pub fn purge(&mut self, prefix: &str, now: i64) -> rusqlite::Result<Moderation> {
+		let hash = match self.find(prefix)? {
+			Ok(hash) => hash,
+			Err(m) => return Ok(m),
+		};
+		self.delete_contributor(&hash, now)?;
+		Ok(Moderation::Done(hash))
 	}
 }
 
@@ -682,15 +849,22 @@ mod tests {
 			 INSERT INTO chunks (contributor, install, seq, received, uploader, text) VALUES ('abc', 'i', 1, 5, 'u', 't');",
 		)
 		.unwrap();
+		// More than one migration batch of plain text.
+		for seq in 2..=(MIGRATE_BATCH * 2 + 7) {
+			conn.execute("INSERT INTO chunks (contributor, install, seq, received, uploader, text) VALUES ('abc', 'i', ?1, 5, 'u', 'more')", [seq]).unwrap();
+		}
 		let db = Db::init(conn).unwrap();
 		assert_eq!(db.contributor("abc").unwrap(), Some(false));
-		assert_eq!(db.install_context("abc", "i", 0).unwrap().unwrap().highest, Some((1, 0)));
+		assert_eq!(db.install_context("abc", "i", 0).unwrap().unwrap().highest, Some((MIGRATE_BATCH as u64 * 2 + 7, 0)));
 		let line = &db.export(0, 10, false).unwrap()[0];
-		assert_eq!((line.contributor_chunks, line.cohort.as_str(), line.text.as_str()), (1, "abc", "t"));
+		assert_eq!((line.contributor_chunks, line.cohort.as_str(), line.text.as_str(), line.upload_days), (MIGRATE_BATCH as u64 * 2 + 7, "abc", "t", 1));
+		assert_eq!(line.instance.len(), 16);
+		let plain: i64 = db.conn.query_row("SELECT COUNT(*) FROM chunks WHERE typeof(text) != 'blob'", [], |r| r.get(0)).unwrap();
+		assert_eq!(plain, 0, "every batch compressed");
 		// Migrated: compressed, counted, incremental.
 		let kind: String = db.conn.query_row("SELECT typeof(text) FROM chunks", [], |r| r.get(0)).unwrap();
 		assert_eq!(kind, "blob");
-		assert_eq!(db.me("abc").unwrap().chunks, 1);
+		assert_eq!(db.me("abc").unwrap().chunks, MIGRATE_BATCH as u64 * 2 + 7);
 		let auto_vacuum: i64 = db.conn.pragma_query_value(None, "auto_vacuum", |r| r.get(0)).unwrap();
 		assert_eq!(auto_vacuum, 2);
 	}
@@ -702,5 +876,150 @@ mod tests {
 		assert!(z.len() * 10 < text.len(), "{} -> {}", text.len(), z.len());
 		assert_eq!(stored_text(ValueRef::Blob(&z)).unwrap(), text);
 		assert_eq!(stored_text(ValueRef::Text(b"plain")).unwrap(), "plain");
+	}
+
+	const NOW: i64 = 1_793_000_000;
+
+	fn chunk(seq: u64, quests: impl IntoIterator<Item = u32>, suspect: bool) -> Prepared {
+		let text = format!("chunk\t0\t{seq}\t{NOW}\tc0ffee1234\n");
+		Prepared::Ok(Box::new(NewChunk {
+			seq,
+			epoch: NOW,
+			ztext: compress(&text),
+			text_len: text.len(),
+			build: Some(70532),
+			locale: None,
+			flagged: false,
+			suspect: if suspect { vec!["odd".to_owned()] } else { Vec::new() },
+			kinds: BTreeMap::from([("accept".to_owned(), 1)]),
+			quests: quests.into_iter().collect(),
+		}))
+	}
+
+	fn db_with(contributors: &[&str]) -> Db {
+		let mut db = Db::open_in_memory().unwrap();
+		for (i, c) in contributors.iter().enumerate() {
+			assert_eq!(db.register(c, &format!("ch{i}"), NOW + 600, NOW, &format!("net{i}"), "0123456789abcdef", 3).unwrap(), Registration::Done("0123456789abcdef".to_owned()));
+		}
+		db
+	}
+
+	fn send(db: &mut Db, contributor: &str, install: &str, now: i64, chunks: Vec<Prepared>) -> UploadResponse {
+		match db.upload(Upload { contributor, install, uploader: "t", body_len: 10, now }, chunks, u64::MAX).unwrap() {
+			UploadOutcome::Done(r) => r,
+			other => panic!("{other:?}"),
+		}
+	}
+
+	fn count(db: &Db, sql: &str) -> i64 {
+		db.conn.query_row(sql, [], |r| r.get(0)).unwrap()
+	}
+
+	#[test]
+	fn upload_days_count_distinct_server_days_of_plausible_chunks() {
+		let mut db = db_with(&["a"]);
+		send(&mut db, "a", "i", NOW, vec![chunk(1, [], false), chunk(2, [], false)]);
+		send(&mut db, "a", "i", NOW + 60, vec![chunk(3, [], false)]);
+		// Only a suspect chunk on the next day: no upload day.
+		send(&mut db, "a", "i", NOW + DAY, vec![chunk(4, [], true)]);
+		assert_eq!(db.export(0, 10, false).unwrap()[0].upload_days, 1);
+		send(&mut db, "a", "i", NOW + 2 * DAY, vec![chunk(5, [], false)]);
+		let lines = db.export(0, 10, true).unwrap();
+		assert!(lines.iter().all(|l| l.upload_days == 2 && l.instance == lines[0].instance), "{lines:?}");
+		// Days kept for the stats expire; the running count does not.
+		db.housekeeping(NOW + 40 * DAY).unwrap();
+		assert_eq!(count(&db, "SELECT COUNT(*) FROM days"), 0);
+		assert_eq!(db.export(0, 10, false).unwrap()[0].upload_days, 2);
+	}
+
+	#[test]
+	fn quest_rows_are_capped_and_the_distinct_total_runs() {
+		let mut db = db_with(&["a", "b"]);
+		// Over the cap in one upload: the first MAX_QUESTS distinct ids are kept.
+		send(&mut db, "a", "i", NOW, vec![chunk(1, 1..=(MAX_QUESTS as u32 + 100), false)]);
+		assert_eq!(count(&db, "SELECT COUNT(*) FROM quests WHERE contributor = 'a'"), MAX_QUESTS);
+		send(&mut db, "a", "i", NOW, vec![chunk(2, [999_000], false)]);
+		assert_eq!(count(&db, "SELECT COUNT(*) FROM quests WHERE contributor = 'a'"), MAX_QUESTS);
+		// Suspect chunks add none.
+		send(&mut db, "b", "i", NOW, vec![chunk(1, [7, 9], true)]);
+		assert_eq!(count(&db, "SELECT COUNT(*) FROM quests WHERE contributor = 'b'"), 0);
+		send(&mut db, "b", "i", NOW, vec![chunk(2, [1, 2, 900_001], false)]);
+		assert_eq!(db.stats(NOW).unwrap().quests, MAX_QUESTS as u64 + 1);
+		// Blocking b takes its quests out of the total, and only the one only b had.
+		assert_eq!(db.set_blocked("b", true, NOW).unwrap(), Moderation::Done("b".to_owned()));
+		assert_eq!(db.stats(NOW).unwrap().quests, MAX_QUESTS as u64);
+		assert_eq!(count(&db, "SELECT COUNT(*) FROM quests WHERE contributor = 'b'"), 0);
+		// Deleting a empties it.
+		db.delete_contributor("a", NOW).unwrap();
+		assert_eq!((db.stats(NOW).unwrap().quests, count(&db, "SELECT COUNT(*) FROM quest_counts")), (0, 0));
+	}
+
+	#[test]
+	fn installs_per_contributor_are_capped() {
+		let mut db = db_with(&["a"]);
+		for i in 0..MAX_INSTALLS {
+			assert_eq!(send(&mut db, "a", &format!("install{i}"), NOW, vec![chunk(1, [], false)]).accepted, [1]);
+		}
+		let r = send(&mut db, "a", "one-more", NOW, vec![chunk(1, [], false), chunk(2, [], false)]);
+		assert_eq!((r.accepted.len(), r.rejected.iter().map(|r| r.seq).collect::<Vec<_>>()), (0, vec![1, 2]));
+		assert!(r.rejected[0].reason.contains("installs"), "{r:?}");
+		// A known install goes on.
+		assert_eq!(send(&mut db, "a", "install0", NOW, vec![chunk(2, [], false)]).accepted, [2]);
+		assert_eq!(count(&db, "SELECT COUNT(*) FROM seqs WHERE install = 'one-more'"), 0);
+	}
+
+	#[test]
+	fn a_blocked_contributor_is_answered_the_same_and_holds_nothing() {
+		let mut db = db_with(&["a"]);
+		send(&mut db, "a", "i", NOW, vec![chunk(1, [5], false)]);
+		db.set_blocked("a", true, NOW).unwrap();
+		assert_eq!(count(&db, "SELECT COUNT(*) FROM chunks"), 0, "held chunks deleted");
+		let r = send(&mut db, "a", "i", NOW, vec![chunk(1, [6], false), chunk(2, [6], false)]);
+		assert_eq!((r.accepted, r.duplicate), (vec![2], vec![1]));
+		assert_eq!(count(&db, "SELECT COUNT(*) FROM chunks") + count(&db, "SELECT COUNT(*) FROM quests") + count(&db, "SELECT COUNT(*) FROM days"), 0);
+		let me = db.me("a").unwrap();
+		assert_eq!((me.chunks, me.records["accept"]), (2, 2));
+	}
+
+	#[test]
+	fn purge_deletes_everything_and_leaves_a_deleted_tombstone() {
+		let mut db = db_with(&["aaaa", "aaab"]);
+		send(&mut db, "aaaa", "i", NOW, vec![chunk(1, [5], false)]);
+		assert_eq!(db.purge("aaa", NOW).unwrap(), Moderation::Ambiguous);
+		assert_eq!(db.purge("ffff", NOW).unwrap(), Moderation::NotFound);
+		assert_eq!(db.purge("aaaa", NOW).unwrap(), Moderation::Done("aaaa".to_owned()));
+		assert_eq!(db.contributor("aaaa").unwrap(), None);
+		for table in PER_CONTRIBUTOR.iter().chain(&["quests"]) {
+			assert_eq!(count(&db, &format!("SELECT COUNT(*) FROM {table} WHERE contributor = 'aaaa'")), 0, "{table}");
+		}
+		assert_eq!(db.tombstones(0).unwrap().iter().map(|t| (t.contributor.as_str(), t.why.as_str())).collect::<Vec<_>>(), [("aaaa", "deleted")]);
+	}
+
+	#[test]
+	fn version_2_databases_get_bounded_rows_and_running_totals() {
+		let mut db = db_with(&["a", "b"]);
+		send(&mut db, "b", "i", NOW, vec![chunk(1, [], false)]);
+		let instance = db.instance().unwrap();
+		db.conn
+			.execute_batch(&format!(
+				"DROP TABLE registrations;
+				 CREATE TABLE registrations (day INTEGER NOT NULL, network TEXT NOT NULL, n INTEGER NOT NULL, cohort TEXT NOT NULL, PRIMARY KEY (day, network)) WITHOUT ROWID;
+				 INSERT INTO registrations VALUES (1, 'x', 1, 'c');
+				 WITH RECURSIVE q(n) AS (SELECT 1 UNION ALL SELECT n + 1 FROM q WHERE n < {})
+					INSERT INTO quests (contributor, quest) SELECT 'a', n FROM q;
+				 INSERT INTO quests VALUES ('a', 2000000), ('b', 1);
+				 UPDATE contributors SET blocked = 1 WHERE hash = 'b';
+				 DELETE FROM settings WHERE key = 'quests';
+				 PRAGMA user_version = 2;",
+				MAX_QUESTS + 50
+			))
+			.unwrap();
+		let db = Db::init(db.conn).unwrap();
+		assert_eq!(count(&db, "SELECT COUNT(*) FROM quests WHERE contributor = 'a'"), MAX_QUESTS);
+		assert_eq!(count(&db, "SELECT MAX(quest) FROM quests"), MAX_QUESTS);
+		assert_eq!(count(&db, "SELECT COUNT(*) FROM chunks WHERE contributor = 'b'") + count(&db, "SELECT COUNT(*) FROM quests WHERE contributor = 'b'"), 0);
+		assert_eq!(db.stats(NOW).unwrap().quests, MAX_QUESTS as u64);
+		assert_eq!(count(&db, "SELECT COUNT(*) FROM pragma_table_info('registrations') WHERE name = 'cohort'"), 0);
+		assert_eq!(db.instance().unwrap(), instance, "the instance id stays");
 	}
 }

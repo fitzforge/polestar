@@ -132,6 +132,8 @@ async fn contributors(app: &App) -> Vec<Value> {
 #[tokio::test]
 async fn healthz() {
 	assert_eq!(send_from(&app(), None, Method::GET, "/healthz", None, None).await, (StatusCode::OK, "ok".to_owned()));
+	// Through the tunnel (Cloudflare sets CF-Connecting-IP) it is not there.
+	assert_eq!(send_from(&app(), Some(IP_A), Method::GET, "/healthz", None, None).await.0, StatusCode::NOT_FOUND);
 }
 
 #[tokio::test]
@@ -230,7 +232,7 @@ async fn registration_counts_survive_a_restart() {
 }
 
 #[tokio::test]
-async fn cohorts_are_shared_per_network_and_day() {
+async fn cohorts_are_shared_per_network_and_month() {
 	let app = app();
 	let a1 = register(&app, IP_A).await;
 	let a2 = register(&app, IP_A).await;
@@ -243,7 +245,7 @@ async fn cohorts_are_shared_per_network_and_day() {
 	let lines = export(&app, "").await;
 	let cohort = |i: usize| lines[i]["cohort"].as_str().unwrap().to_owned();
 	assert!(lines.iter().all(|l| l["cohort"].as_str().unwrap().len() == 16));
-	assert_eq!(cohort(0), cohort(1), "same address, same day");
+	assert_eq!(cohort(0), cohort(1), "same address, same month");
 	assert_ne!(cohort(0), cohort(2));
 	assert_eq!(cohort(3), cohort(4), "same IPv6 /48");
 	assert_ne!(lines[0]["contributor"], lines[1]["contributor"]);
@@ -404,8 +406,8 @@ async fn blocked_contributors_are_shadow_banned() {
 	assert_eq!(body["blocked"], true);
 	assert!(body["hash"].as_str().unwrap().starts_with(&prefix));
 
-	// Answered like anyone's and stored, duplicates and /v1/me included; its chunks leave the
-	// export (also with suspects) and the stats.
+	// Answered like anyone's, duplicates and /v1/me included, but nothing of it is held: its
+	// chunks leave the export (also with suspects) and the stats.
 	let (status, body) = upload(&app, &a, &[(2, chunk(2, 70532)), (3, chunk(3, 70532).replace("kill\t52\t1501", "kill\t52\tx"))]).await;
 	assert_eq!(status, StatusCode::OK);
 	assert_eq!(body["accepted"], json!([2]));
@@ -429,10 +431,15 @@ async fn blocked_contributors_are_shadow_banned() {
 	let tombs = export_lines(&body);
 	assert_eq!((tombs.len(), tombs[0]["contributor"].as_str(), tombs[0]["why"].as_str()), (1, Some(prefix.as_str()), Some("blocked")));
 
-	// Unblocked: its chunks come back, the one sent while blocked too.
+	let (_, storage) = send_json(&app, IP_A, Method::GET, "/v1/admin/storage", Some(KEY), None).await;
+	assert_eq!(storage["rows"]["chunks"], 1, "the block deleted its chunks and stored none since: {storage}");
+
+	// Unblocked: what it held is gone for good; what it sends from now on is stored again.
 	let (status, _) = send(&app, Method::POST, &format!("/v1/admin/contributors/{prefix}/unblock"), Some(KEY), None).await;
 	assert_eq!(status, StatusCode::OK);
-	assert_eq!(export(&app, "").await.len(), 3);
+	assert_eq!(export(&app, "").await.len(), 1);
+	assert_eq!(upload(&app, &a, &[(4, chunk(4, 70532))]).await.1["accepted"], json!([4]));
+	assert_eq!(export(&app, "").await.len(), 2);
 	let (_, body) = send(&app, Method::GET, "/v1/export/tombstones", Some(KEY), None).await;
 	assert!(body.is_empty(), "the blocked tombstone goes on unblock: {body}");
 	// A deleted contributor's tombstone stays whatever happens to others.
@@ -506,6 +513,50 @@ async fn daily_cap() {
 	// Another contributor is unaffected.
 	let (status, _) = upload(&app, &b, &[(1, chunk(1, 70532))]).await;
 	assert_eq!(status, StatusCode::OK);
+}
+
+#[tokio::test(start_paused = true)]
+async fn a_body_that_never_arrives_counts_against_the_daily_cap() {
+	let app = app();
+	let a = register(&app, IP_A).await;
+	let stalled = || {
+		Request::builder()
+			.method(Method::POST)
+			.uri("/v1/upload")
+			.header("CF-Connecting-IP", IP_A)
+			.header(header::AUTHORIZATION, format!("Bearer {a}"))
+			.header(header::CONTENT_LENGTH, polestar_ingest::MAX_BODY.to_string())
+			.body(Body::from_stream(futures_util::stream::pending::<Result<Vec<u8>, std::io::Error>>()))
+			.unwrap()
+	};
+	for _ in 0..polestar_ingest::DAILY_BYTES / polestar_ingest::MAX_BODY as u64 {
+		assert_eq!(app.router.clone().oneshot(stalled()).await.unwrap().status(), StatusCode::REQUEST_TIMEOUT);
+	}
+	let (status, body) = upload(&app, &a, &[(1, chunk(1, 70532))]).await;
+	assert_eq!(status, StatusCode::TOO_MANY_REQUESTS, "{body}");
+}
+
+#[tokio::test]
+async fn purge_deletes_a_contributor_for_good() {
+	let app = app();
+	let a = register(&app, IP_A).await;
+	let b = register(&app, IP_B).await;
+	upload(&app, &a, &[(1, chunk(1, 70532))]).await;
+	upload(&app, &b, &[(1, chunk(1, 70532))]).await;
+	let prefix = export(&app, "").await[0]["contributor"].as_str().unwrap().to_owned();
+	let uri = format!("/v1/admin/contributors/{prefix}/purge");
+	assert_eq!(send(&app, Method::POST, &uri, None, None).await.0, StatusCode::UNAUTHORIZED);
+	let (status, body) = send_json(&app, IP_A, Method::POST, &uri, Some(KEY), None).await;
+	assert_eq!((status, body["purged"].as_bool()), (StatusCode::OK, Some(true)), "{body}");
+	assert_eq!(export(&app, "").await.len(), 1);
+	assert_eq!(contributors(&app).await.len(), 1);
+	assert_eq!(send(&app, Method::GET, "/v1/me", Some(&a), None).await.0, StatusCode::UNAUTHORIZED);
+	let (_, body) = send(&app, Method::GET, "/v1/export/tombstones", Some(KEY), None).await;
+	let tombs = export_lines(&body);
+	assert_eq!((tombs.len(), tombs[0]["contributor"].as_str(), tombs[0]["why"].as_str()), (1, Some(prefix.as_str()), Some("deleted")));
+	let (_, stats) = send_json(&app, IP_B, Method::GET, "/v1/stats", None, None).await;
+	assert_eq!(stats["contributors"], 1);
+	assert_eq!(send(&app, Method::POST, &uri, Some(KEY), None).await.0, StatusCode::NOT_FOUND);
 }
 
 #[tokio::test]
@@ -783,13 +834,29 @@ async fn backup_is_a_readable_copy_and_keeps_seven() {
 	assert_eq!(names.len(), 8, "{names:?}");
 	assert_eq!(names[0], "ingest-2026-01-03.sqlite.gz");
 	assert!(names.contains(&"other.txt".to_owned()) && names.contains(&"ingest-2026-10-27.sqlite.gz".to_owned()));
-	// Gunzipped, it opens as the database with the chunk in it.
+	assert!(!names.iter().any(|n| n.starts_with('.')), "no temporary file left: {names:?}");
+	#[cfg(unix)]
+	{
+		use std::os::unix::fs::PermissionsExt;
+		assert_eq!(std::fs::metadata(&dest).unwrap().permissions().mode() & 0o777, 0o600);
+	}
+	// Gunzipped, it opens as the database with the chunk in it, without today's salt and
+	// registration counts, and as a new instance.
+	let instance = export(&app, "").await[0]["instance"].as_str().unwrap().to_owned();
 	let restored = dir.join("restored.sqlite");
 	let mut gz = flate2::read::GzDecoder::new(std::fs::File::open(&dest).unwrap());
 	std::io::copy(&mut gz, &mut std::fs::File::create(&restored).unwrap()).unwrap();
+	{
+		let raw = rusqlite::Connection::open(&restored).unwrap();
+		for table in ["day_salt", "registrations"] {
+			assert_eq!(raw.query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |r| r.get::<_, i64>(0)).unwrap(), 0, "{table}");
+		}
+		assert_eq!(raw.query_row("SELECT COUNT(*) FROM settings WHERE key = 'instance'", [], |r| r.get::<_, i64>(0)).unwrap(), 0);
+	}
 	let copy = Db::open(&restored).unwrap();
 	let lines = copy.export(0, 10, false).unwrap();
 	assert_eq!((lines.len(), lines[0].text.as_str()), (1, chunk(1, 0).as_str()));
+	assert_ne!(lines[0].instance, instance);
 	drop(copy);
 	drop(app);
 	std::fs::remove_dir_all(&dir).unwrap();

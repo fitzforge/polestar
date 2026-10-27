@@ -32,6 +32,9 @@ services:
     init: true
     read_only: true
     mem_limit: 512m
+    # No swap on top of the memory limit.
+    memswap_limit: 512m
+    pids_limit: 64
     cpus: 1.0
     cap_drop: [ALL]
     security_opt: ["no-new-privileges:true"]
@@ -68,7 +71,11 @@ services:
       TUNNEL_TOKEN: ${TUNNEL_TOKEN:-}
     restart: unless-stopped
     read_only: true
+    # Not the server's uid (65532), which may write to the backup folder.
+    user: "65533:65533"
     mem_limit: 128m
+    memswap_limit: 128m
+    pids_limit: 32
     cap_drop: [ALL]
     security_opt: ["no-new-privileges:true"]
     depends_on: [polestar-ingest]
