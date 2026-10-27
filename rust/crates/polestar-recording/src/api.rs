@@ -138,10 +138,11 @@ pub struct ExportLine {
 	pub id: i64,
 	/// The contributor: 16 hex digits of the token's SHA-256.
 	pub contributor: String,
-	/// The contributor's registration cohort, 16 hex digits: a random id the server gave every
-	/// contributor registered from the same network (IPv4 address, IPv6 /48) on the same UTC
-	/// day. Count independent contributors by distinct cohorts. Contributors registered before
-	/// cohorts existed each have their own (their `contributor`).
+	/// The contributor's registration cohort, 16 hex digits: a keyed hash of the network
+	/// (IPv4 address, IPv6 /48) it registered from, under a key that changes each UTC month, so
+	/// every contributor registered from one network in one month shares it. Count independent
+	/// contributors by distinct cohorts. Contributors registered before cohorts existed each
+	/// have their own (their `contributor`).
 	#[serde(default)]
 	pub cohort: String,
 	pub install: String,
@@ -157,6 +158,14 @@ pub struct ExportLine {
 	/// How many chunks the server holds from the contributor (export-eligible or not).
 	#[serde(default, rename = "contributorChunks")]
 	pub contributor_chunks: u64,
+	/// On how many distinct UTC days the server received chunks from the contributor (measured
+	/// by the server, not claimed by the client).
+	#[serde(default, rename = "uploadDays")]
+	pub upload_days: u64,
+	/// The server database's id: random, made once per database. When it changes (a restore
+	/// or a new database) export ids start over, so the puller resets its cursor.
+	#[serde(default)]
+	pub instance: String,
 	/// Failed the server's plausibility checks (only exported with `include=suspect`).
 	#[serde(default, skip_serializing_if = "std::ops::Not::not")]
 	pub suspect: bool,
