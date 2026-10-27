@@ -33,17 +33,22 @@ pub(crate) fn safe_component(name: &str) -> bool {
 	if name.is_empty() || name.ends_with(['.', ' ']) || name.chars().any(|c| c == ':' || c.is_control()) {
 		return false;
 	}
-	let stem = name.split('.').next().unwrap_or(name).trim_end_matches(' ').to_uppercase();
-	let device = match stem.as_str() {
-		"CON" | "PRN" | "AUX" | "NUL" | "CONIN$" | "CONOUT$" => true,
-		s => {
-			let mut chars = s.chars();
-			let prefix: String = chars.by_ref().take(3).collect();
-			let rest: Vec<char> = chars.collect();
-			(prefix == "COM" || prefix == "LPT") && rest.len() == 1 && matches!(rest[0], '0'..='9' | '¹' | '²' | '³')
+	let is_device = |stem: &str| {
+		let stem = stem.trim_end_matches(' ').to_uppercase();
+		match stem.as_str() {
+			"CON" | "PRN" | "AUX" | "NUL" | "CONIN$" | "CONOUT$" => true,
+			s => {
+				let mut chars = s.chars();
+				let prefix: String = chars.by_ref().take(3).collect();
+				let rest: Vec<char> = chars.collect();
+				(prefix == "COM" || prefix == "LPT") && rest.len() == 1 && matches!(rest[0], '1'..='9' | '¹' | '²' | '³')
+			}
 		}
 	};
-	!device
+	// Windows 10 looks at the part before the first dot, Windows 11 before the last.
+	let first = name.split('.').next().unwrap_or(name);
+	let last = name.rsplit_once('.').map_or(name, |(head, _)| head);
+	!is_device(first) && !is_device(last)
 }
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
@@ -611,10 +616,10 @@ mod tests {
 
 	#[test]
 	fn windows_unsafe_names_are_refused() {
-		for name in ["COM1.lua", "nul.lua", "Lpt¹.txt", "CON", "conin$.lua", "a.lua:hidden.lua", "x.lua.", "x.lua ", "a\nb.lua", "AUX.tar.gz"] {
+		for name in ["COM1.lua", "nul.lua", "Lpt¹.txt", "CON", "conin$.lua", "CONOUT$.x.y", "a.lua:hidden.lua", "x.lua.", "x.lua ", "a\nb.lua", "AUX.tar.gz", "com².lua", "lpt³"] {
 			assert!(!safe_component(name), "{name:?} must be refused");
 		}
-		for name in ["Polestar.lua", "COM10.lua", "CONSOLE.lua", "comet.lua", "LPT.lua", "Nullable.lua"] {
+		for name in ["Polestar.lua", "COM10.lua", "CONSOLE.lua", "comet.lua", "LPT.lua", "Nullable.lua", "COM0.lua", "lpt0", "x.nul.lua"] {
 			assert!(safe_component(name), "{name:?} is fine");
 		}
 		let dir = temp("winnames");

@@ -627,7 +627,7 @@ impl Engine {
 	/// Records a non-success answer: a server error or 429 is retried with backoff, anything
 	/// else is refused. Returns whether it was refused.
 	fn fail_status(&self, status: reqwest::StatusCode, retry_after: Option<u64>, message: String) -> bool {
-		if status.is_server_error() || status == reqwest::StatusCode::TOO_MANY_REQUESTS {
+		if is_temporary(status) {
 			self.fail_offline(message, retry_after);
 			false
 		} else {
@@ -1084,9 +1084,25 @@ fn confirmed_ack(sent: &[api::UploadChunk], accepted: &[u64], duplicate: &[u64])
 	accepted.iter().chain(duplicate).copied().filter(|s| *s <= highest && sent.iter().any(|c| c.seq == *s)).max()
 }
 
+/// Statuses that mean "try again later" (normal backoff) rather than a refusal.
+fn is_temporary(status: reqwest::StatusCode) -> bool {
+	status.is_server_error() || status == reqwest::StatusCode::TOO_MANY_REQUESTS || status == reqwest::StatusCode::REQUEST_TIMEOUT
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	#[test]
+	fn timeouts_and_unavailable_are_temporary() {
+		use reqwest::StatusCode as S;
+		for s in [S::REQUEST_TIMEOUT, S::SERVICE_UNAVAILABLE, S::TOO_MANY_REQUESTS, S::BAD_GATEWAY] {
+			assert!(is_temporary(s), "{s}");
+		}
+		for s in [S::BAD_REQUEST, S::FORBIDDEN, S::PAYLOAD_TOO_LARGE] {
+			assert!(!is_temporary(s), "{s}");
+		}
+	}
 
 	#[test]
 	fn unknown_kinds_never_leave_and_caps_hold() {
