@@ -700,6 +700,11 @@ async fn acknowledged_chunks_are_pruned_after_the_retention_and_counts_stay() {
 	assert_eq!(ack(&app, 1_000_000).await.1["acked"], lines[3]["id"]);
 
 	// Past the retention: everything acknowledged goes (upto is the fourth line, b's).
+	let (status, storage) = send_json(&app, IP_A, Method::GET, "/v1/admin/storage", Some(KEY), None).await;
+	assert_eq!(status, StatusCode::OK, "{storage}");
+	assert_eq!((storage["acked"].as_i64(), storage["rows"]["chunks"].as_u64(), storage["uploadsRefused"].is_null()), (lines[3]["id"].as_i64(), Some(4), true));
+	assert!(storage["oldestUnackedAge"].is_null() && storage["oldestAge"].as_i64().unwrap() < 60 && storage["dbBytes"].as_u64().unwrap() > 0, "{storage}");
+	assert_eq!(send(&app, Method::GET, "/v1/admin/storage", Some(&a), None).await.0, StatusCode::UNAUTHORIZED);
 	let later = now() + polestar_ingest::RETAIN_DAYS * 86_400 + 60;
 	assert_eq!(app.state.maintain(later).unwrap(), 4);
 	assert!(export(&app, "").await.is_empty());
@@ -744,8 +749,10 @@ async fn uploads_get_503_when_the_database_or_the_disk_is_full() {
 			.unwrap();
 		let response = app.router.clone().oneshot(req).await.unwrap();
 		assert!(response.headers().get(header::RETRY_AFTER).is_some());
-		// The rest still answers.
+		// The rest still answers, and the maintainer sees why.
 		assert_eq!(send(&app, Method::GET, "/v1/me", Some(&a), None).await.0, StatusCode::OK);
+		let (_, storage) = send_json(&app, IP_A, Method::GET, "/v1/admin/storage", Some(KEY), None).await;
+		assert!(storage["uploadsRefused"].is_string(), "{storage}");
 	}
 	// With room, the same upload goes through.
 	let app = app_config(Config { data_dir: Some(std::env::temp_dir()), min_free_bytes: 1, ..Config::default() });

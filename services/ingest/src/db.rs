@@ -240,6 +240,16 @@ pub struct Db {
 	conn: Connection,
 }
 
+/// [`Db::storage`].
+#[derive(Debug)]
+pub struct Storage {
+	pub db_bytes: u64,
+	pub acked: i64,
+	pub oldest_unacked_age: Option<i64>,
+	pub oldest_age: Option<i64>,
+	pub rows: BTreeMap<&'static str, u64>,
+}
+
 /// The tables keyed by contributor that go with it on delete.
 const PER_CONTRIBUTOR: [&str; 7] = ["chunks", "totals", "kinds", "quests", "days", "installs", "seqs"];
 
@@ -568,6 +578,21 @@ impl Db {
 		tx.commit()?;
 		self.conn.execute_batch("PRAGMA incremental_vacuum;")?;
 		self.conn.query_row("PRAGMA wal_checkpoint(TRUNCATE)", [], |_| Ok(()))
+	}
+
+	/// Size, the acknowledged id, the ages (seconds at `now`) of the oldest chunk not yet
+	/// acknowledged and of the oldest held, and the row counts of the tables that grow.
+	pub fn storage(&self, now: i64) -> rusqlite::Result<Storage> {
+		let acked: i64 = self.conn.query_row("SELECT value FROM settings WHERE key = 'acked'", [], |r| r.get(0)).optional()?.unwrap_or(0);
+		let (unacked, oldest): (Option<i64>, Option<i64>) =
+			self.conn.query_row("SELECT MIN(CASE WHEN id > ?1 THEN received END), MIN(received) FROM chunks", [acked], |r| Ok((r.get(0)?, r.get(1)?)))?;
+		let age = |t: Option<i64>| t.map(|t| (now - t).max(0));
+		let (oldest_unacked_age, oldest_age) = (age(unacked), age(oldest));
+		let mut rows = BTreeMap::new();
+		for table in ["contributors", "chunks", "seqs", "installs", "kinds", "quests", "days", "tombstones", "spent_challenges", "registrations"] {
+			rows.insert(table, self.conn.query_row(&format!("SELECT COUNT(*) FROM {table}"), [], |r| r.get::<_, i64>(0))? as u64);
+		}
+		Ok(Storage { db_bytes: self.size_bytes()?, acked, oldest_unacked_age, oldest_age, rows })
 	}
 
 	/// Chunks held now (not pruned).

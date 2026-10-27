@@ -60,9 +60,9 @@ pub const UPLOAD_CONCURRENCY: usize = 4;
 /// How long a client may take to send a request body.
 pub const BODY_TIMEOUT: Duration = Duration::from_secs(10);
 /// Default database size cap (INGEST_MAX_DB_MB).
-pub const MAX_DB_BYTES: u64 = 4096 * 1024 * 1024;
+pub const MAX_DB_BYTES: u64 = 20 * 1024 * 1024 * 1024;
 /// Default free space the data volume keeps (INGEST_MIN_FREE_GB).
-pub const MIN_FREE_BYTES: u64 = 10 * 1024 * 1024 * 1024;
+pub const MIN_FREE_BYTES: u64 = 25 * 1024 * 1024 * 1024;
 /// Default days a pulled chunk stays (INGEST_RETAIN_DAYS).
 pub const RETAIN_DAYS: i64 = 14;
 /// How often a storage refusal is logged at most.
@@ -304,6 +304,7 @@ pub fn router(state: Arc<AppState>) -> Router {
 		.route("/v1/export/tombstones", get(tombstones))
 		.route("/v1/export/ack", post(ack))
 		.route("/v1/admin/contributors", get(admin_contributors))
+		.route("/v1/admin/storage", get(admin_storage))
 		.route("/v1/admin/contributors/{hash}/block", post(block))
 		.route("/v1/admin/contributors/{hash}/unblock", post(unblock))
 		.route_layer(middleware::from_fn_with_state(state.clone(), client_ip));
@@ -718,6 +719,33 @@ async fn ack(State(state): State<Arc<AppState>>, headers: HeaderMap, body: Body)
 	})
 	.await?;
 	Ok(Json(serde_json::json!({ "acked": acked, "pruned": pruned, "held": held })))
+}
+
+/// What the server holds and how close it is to its caps, for the maintainer to watch.
+async fn admin_storage(State(state): State<Arc<AppState>>, headers: HeaderMap) -> Result<Json<serde_json::Value>, ApiError> {
+	maintainer(&state, &headers)?;
+	Ok(Json(
+		blocking(move || {
+			let now = now();
+			let db = state.db();
+			let s = db.storage(now).map_err(internal)?;
+			let free = state.data_dir.as_deref().and_then(free_bytes);
+			let busy = state.storage_busy(&db)?;
+			Ok(serde_json::json!({
+				"dbBytes": s.db_bytes,
+				"maxDbBytes": state.max_db_bytes,
+				"freeBytes": free,
+				"minFreeBytes": state.min_free_bytes,
+				"uploadsRefused": busy,
+				"retainDays": state.retain_days,
+				"acked": s.acked,
+				"oldestUnackedAge": s.oldest_unacked_age,
+				"oldestAge": s.oldest_age,
+				"rows": s.rows,
+			}))
+		})
+		.await?,
+	))
 }
 
 async fn admin_contributors(State(state): State<Arc<AppState>>, headers: HeaderMap) -> Result<Json<Vec<AdminContributor>>, ApiError> {

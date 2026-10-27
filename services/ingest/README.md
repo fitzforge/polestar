@@ -127,6 +127,7 @@ method, path and status.
 | `POST /v1/export/ack` | maintainer key; `{ "upto": <export id> }`: the maintainer has stored every line up to there (clamped to the last chunk; never goes back). Prunes at once what is already past the retention; answers `{ "acked", "pruned", "held" }` |
 | `/v1/export/tombstones` | maintainer key; `after` (unix seconds, default 0); NDJSON `{ "contributor", "at", "why" }`, `why` = `deleted` or `blocked`, oldest first: drop every chunk of that contributor |
 | `/v1/admin/contributors` | maintainer key; every contributor: `hash`, `firstSeen`, `lastSeen`, `chunks`, `suspectChunks`, `blocked` |
+| `GET /v1/admin/storage` | maintainer key; `dbBytes`, `maxDbBytes`, `freeBytes`, `minFreeBytes`, `uploadsRefused` (the reason, or null), `retainDays`, `acked`, `oldestUnackedAge` and `oldestAge` (seconds, null when none), `rows` per table |
 | `POST /v1/admin/contributors/{hash}/block`, `/unblock` | maintainer key; `hash` = at least 16 hex digits of the contributor hash (the export shows 16); answers `{ "hash", "blocked" }`, 404 when none matches, 409 when several do |
 | `DELETE /v1/me` | deletes the contributor's chunks, counters and row (its token stops working) and leaves a tombstone; answers `{ "deleted": <chunks it sent> }` |
 | `/v1/me`, `/v1/stats` | count every chunk received, pruned ones too |
@@ -147,8 +148,8 @@ and is compared in constant time.
 | `INGEST_DB` | `/data/ingest.sqlite` | |
 | `INGEST_ADDR` | `0.0.0.0:8080` | |
 | `INGEST_RETAIN_DAYS` | `14` | acknowledged chunks are deleted this many days after they arrived |
-| `INGEST_MAX_DB_MB` | `4096` | uploads get 503 while the database is larger |
-| `INGEST_MIN_FREE_GB` | `10` | uploads get 503 while the data volume has less free space |
+| `INGEST_MAX_DB_MB` | `20480` | uploads get 503 while the database is larger |
+| `INGEST_MIN_FREE_GB` | `25` | uploads get 503 while the data volume has less free space |
 | `INGEST_BACKUP_MOUNT` | named volume `backup` | compose only: the host folder mounted at `/backup` for backups |
 | `RUST_LOG` | `info,tower_http=info` | |
 
