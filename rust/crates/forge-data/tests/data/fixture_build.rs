@@ -273,8 +273,9 @@ fn recordings_override_era_data_add_factions_and_recorder_only_records_with_full
 	assert_eq!(npcs["1"]["spawns"], json!({ "1429": { "f": "l", "pts": [[47.5, 40.25]] } }));
 	assert_eq!(npcs["2"]["spawns"], json!({ "1429": { "f": "l", "pts": [[48, 41]] }, "1453": { "f": "e", "pts": [[50, 50]] } }));
 	assert_eq!((&q["100"]["title"], &q["100"]["level"], &q["100"]["xp"], &q["100"]["xpSamples"]), (&json!("Fixture Calling (Forever)"), &json!(2), &json!(40), &json!(2)));
-	assert_eq!(q["100"]["source"], json!(["pfquest", "recorder", "recorder:xp-turnin"]));
-	assert_eq!(q["101"]["objectives"][0], json!({ "type": "kill", "id": 3, "count": 12, "text": "Fixture Wolf" }), "the recorded count wins");
+	// The maintainer's own recordings are trusted: each field they set is tagged.
+	assert_eq!(q["100"]["source"], json!(["pfquest", "recorder:title", "recorder:level", "recorder:start", "recorder:end", "recorder:xp-turnin"]));
+	assert_eq!(q["101"]["objectives"][0], json!({ "type": "kill", "id": 3, "count": 12, "text": "Fixture Wolf" }), "the maintainer's recorded count replaces another source's");
 	assert_eq!(
 		q["9001"],
 		json!({

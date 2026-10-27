@@ -792,7 +792,7 @@ fn expire(out: &Path, contributors: &mut BTreeMap<String, ContributorMeta>, now:
 		return Ok(old);
 	}
 	let of: BTreeMap<String, String> = session_files(out).into_iter().map(|(n, c, _)| (n, c)).collect();
-	let established: BTreeSet<String> = forge_data::recordings::read_recordings(out)?.into_iter().filter(|r| r.counts).filter_map(|r| of.get(&r.file).cloned()).collect();
+	let established: BTreeSet<String> = forge_data::recordings::read_recordings(out)?.iter().filter(|r| r.counts).filter_map(|r| of.get(&r.file).cloned()).collect();
 	let gone: BTreeSet<String> = old.difference(&established).cloned().collect();
 	quarantine(out, &gone, now)?;
 	for c in &gone {

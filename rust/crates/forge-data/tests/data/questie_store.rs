@@ -595,7 +595,7 @@ fn recordings_win_over_the_store() {
 	let b = build_with("recordings", &Store::default(), &|o| o.recordings = fixture().join("recordings"));
 	let q = b.read("quests");
 	assert_eq!((&q["100"]["title"], &q["100"]["level"], &q["100"]["xp"]), (&json!("Fixture Calling (Forever)"), &json!(2), &json!(40)));
-	assert_eq!(q["100"]["source"], json!(["pfquest", "questie-forever", "recorder", "recorder:xp-turnin"]));
+	assert_eq!(q["100"]["source"], json!(["pfquest", "questie-forever", "recorder:title", "recorder:level", "recorder:start", "recorder:end", "recorder:xp-turnin"]));
 	assert_eq!(b.read("npcs")["1"]["spawns"], json!({ "1429": { "f": "l", "pts": [[47.5, 40.25]] } }));
 }
 

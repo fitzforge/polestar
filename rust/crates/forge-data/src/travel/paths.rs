@@ -8,7 +8,7 @@ use indexmap::{IndexMap, IndexSet};
 
 use super::geo::{round, Frame, Frames};
 use super::taxi::LiveFrames;
-use crate::recordings::Recording;
+use crate::recordings::{Recording, Recordings, LOCAL};
 
 const CELL: f64 = 30.0;
 const MAX_STEP: f64 = 150.0;
@@ -40,9 +40,11 @@ fn rec_frame(m: &V) -> Option<Frame> {
 	ok.then(|| Frame { c: f("c"), left: f("left"), right: f("right"), top: f("top"), bottom: f("bottom") })
 }
 
+/// The map bounds of the maintainer's own (`local`) recordings; anyone else's are never used, the
+/// canonical frames (map-frames.json) go first and these only fill maps it lacks.
 pub fn live_frames_of(recordings: &[Recording]) -> LiveFrames {
 	let mut out = LiveFrames::default();
-	for r in recordings {
+	for r in recordings.iter().filter(|r| r.contributor() == LOCAL) {
 		let maps = r.rec.get("maps");
 		let Some(o) = maps.as_obj() else { continue };
 		for (id, m) in o.entries() {
@@ -69,16 +71,18 @@ pub struct Walk {
 	pub points: Vec<WalkPt>,
 }
 
-fn to_world(map: i64, x: f64, y: f64, rec: &V, frames: &Frames) -> Option<(f64, f64, f64)> {
-	let b = rec_frame(&rec.get("maps").get(&map.to_string())).or_else(|| frames.frame(map))?;
+/// A recorded point in world coordinates: by the live frames (canonical first, then the
+/// maintainer's own recordings'), else the Era frames; never by the recording's own map bounds.
+fn to_world(map: i64, x: f64, y: f64, live: &LiveFrames, frames: &Frames) -> Option<(f64, f64, f64)> {
+	let b = live.get(&map).copied().or_else(|| frames.frame(map))?;
 	Some((b.c, b.top + (b.bottom - b.top) * (y / 100.0), b.left + (b.right - b.left) * (x / 100.0)))
 }
 
-/// recordedWalks: each session's breadcrumbs cut into walks -> (walks, unplaced).
-pub fn recorded_walks(recordings: &[Recording], frames: &Frames) -> (Vec<Walk>, usize) {
+/// recordedWalks: each counted session's breadcrumbs cut into walks -> (walks, unplaced).
+pub fn recorded_walks(recordings: &[Recording], live: &LiveFrames, frames: &Frames) -> (Vec<Walk>, usize) {
 	let mut walks = Vec::new();
 	let mut unplaced = 0;
-	for r in recordings {
+	for r in recordings.iter().filter(|r| r.counts) {
 		let s = r.rec.get("session");
 		let session = if s.truthy() { s.to_js_string() } else { r.file.strip_suffix(".json").unwrap_or(&r.file).to_string() };
 		let mut walk: Option<Walk> = None;
@@ -106,7 +110,7 @@ pub fn recorded_walks(recordings: &[Recording], frames: &Frames) -> (Vec<Walk>, 
 				continue;
 			}
 			let map = map as i64;
-			let Some((c, wx, wy)) = to_world(map, x, y, &r.rec, frames) else {
+			let Some((c, wx, wy)) = to_world(map, x, y, live, frames) else {
 				unplaced += 1;
 				cut(&mut walk, &mut walks);
 				continue;
@@ -183,12 +187,12 @@ fn utf16_sorted(mut v: Vec<String>) -> Vec<String> {
 	v
 }
 
-pub fn build_paths(recordings: &[Recording], frames: &Frames) -> Paths {
+pub fn build_paths(recordings: &Recordings, live: &LiveFrames, frames: &Frames) -> Paths {
 	let mut warnings = Vec::new();
 	let mut cells: IndexMap<String, Cell> = IndexMap::new();
 	let mut edges: IndexMap<String, Edge> = IndexMap::new();
 	let mut zone_steps = Vec::new();
-	let (walks, unplaced) = recorded_walks(recordings, frames);
+	let (walks, unplaced) = recorded_walks(recordings, live, frames);
 	for w in &walks {
 		// (point, cell key)
 		let mut prev: Option<(&WalkPt, String)> = None;
@@ -298,10 +302,10 @@ pub fn build_paths(recordings: &[Recording], frames: &Frames) -> Paths {
 		add_edge(&mut out, &e.a, &e.b, len(&e.a, &e.b), e.n, e.sessions.clone());
 	}
 	// A learned path changes how the grid routes (another source): it needs trusted evidence,
-	// the walks of two counted players or the maintainer's own (recordings.rs "Trust"),
-	// each player (cohort, else contributor) once however many sessions, installs or tokens walked it.
+	// the walks of `minVoters` counted players or a vouched one (recordings.rs "Trust"), each
+	// player (cohort, else contributor) once however many sessions, installs or tokens walked it.
 	let mut who: IndexMap<String, IndexSet<String>> = IndexMap::new();
-	for r in recordings {
+	for r in recordings.iter() {
 		let s = r.rec.get("session");
 		let session = if s.truthy() { s.to_js_string() } else { r.file.strip_suffix(".json").unwrap_or(&r.file).to_string() };
 		let w = who.entry(session).or_default();
@@ -316,7 +320,7 @@ pub fn build_paths(recordings: &[Recording], frames: &Frames) -> Paths {
 				c.extend(w.iter().cloned());
 			}
 		}
-		crate::recordings::trusted(&c)
+		crate::recordings::trusted(&c, recordings.min_voters)
 	});
 
 	let mut used: IndexSet<String> = IndexSet::new();
@@ -357,4 +361,33 @@ pub fn build_paths(recordings: &[Recording], frames: &Frames) -> Paths {
 	}
 	let sessions = utf16_sorted(all.into_iter().collect());
 	Paths { nodes, edges: edge_list, sessions, zone_steps, warnings }
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use forge_guide::js::parse_json;
+
+	fn rec(contributor: &str, counts: bool) -> Recording {
+		let text = format!(
+			r#"{{"schema":2,"session":"s-{contributor}","contributor":"{contributor}","events":[{{"t":1,"e":"pos","map":1429,"x":50,"y":50}},{{"t":2,"e":"pos","map":1429,"x":50.1,"y":50}}],"maps":{{"1429":{{"c":0,"left":1000,"right":0,"top":1000,"bottom":0}}}}}}"#
+		);
+		Recording { file: format!("s-{contributor}.json"), rec: parse_json(&text).unwrap(), counts }
+	}
+
+	#[test]
+	fn only_the_maintainer_s_own_map_bounds_are_used_and_only_where_canonical_ones_lack() {
+		assert!(live_frames_of(&[rec("aaaaaaaaaaaaaaaa", true), rec("sent-alice", true)]).is_empty());
+		assert_eq!(live_frames_of(&[rec("aaaaaaaaaaaaaaaa", true), rec(LOCAL, true)]).get(&1429).map(|f| f.left), Some(1000.0));
+		// A walk is placed by the live frames, never by the recording's own bounds; uncounted
+		// sessions are left out.
+		let frames = Frames::new(&V::Null, &V::Null);
+		let mut live = LiveFrames::default();
+		live.insert(1429, Frame { c: 0.0, left: 2000.0, right: 0.0, top: 2000.0, bottom: 0.0 });
+		let (walks, unplaced) = recorded_walks(&[rec("aaaaaaaaaaaaaaaa", true), rec("bbbbbbbbbbbbbbbb", false)], &live, &frames);
+		assert_eq!((walks.len(), unplaced), (1, 0));
+		assert_eq!((walks[0].points[0].wx, walks[0].points[0].wy), (1000.0, 1000.0));
+		let (walks, unplaced) = recorded_walks(&[rec("aaaaaaaaaaaaaaaa", true)], &LiveFrames::default(), &frames);
+		assert_eq!((walks.len(), unplaced), (0, 2));
+	}
 }

@@ -25,6 +25,7 @@ const HANDLES: &[&str] = &["XooVe", "Pynte", "Nittepitte", "Saydus", "Gruko", "Z
 /// Every KB / build source label (none may appear as a key or a value).
 pub const SOURCE_LABELS: &[&str] = &[
 	"recorder",
+	"recorder.gap",
 	"correction",
 	"tdb",
 	"tdb.inherited",

@@ -80,7 +80,11 @@ is uploaded twice; the server ignores a repeated `(install, seq)`.
 - Text fields (titles, names, objective text, notes) have `\t`, `\n`, `;`
   and `:` replaced with spaces only where the field is a list; free text
   fields only lose `\t` and `\n`. Text is in the client's language
-  (`session.locale`). At most 4,000 bytes per text field.
+  (`session.locale`). At most 4,000 bytes per text field, and no control
+  characters. Quest titles (`text`), objectives (`objectives`) and zone names
+  (`zone`) also have no `|` (the game's escape character) and at most 255
+  characters (100 for zone names); a record that breaks this makes its chunk
+  invalid.
 - `npcKind`: `c` creature, `o` game object, `i` item, `p` player (never
   stored beyond the kind), empty unknown.
 - Unknown record kinds are skipped by readers (forward compatible). A known

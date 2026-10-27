@@ -8,6 +8,10 @@ use crate::sv::valid_char_id;
 
 /// Longest text field, in bytes.
 pub const MAX_TEXT: usize = 4000;
+/// Longest quest title or objective, in characters.
+pub const MAX_TITLE: usize = 255;
+/// Longest zone name, in characters.
+pub const MAX_PLACE: usize = 100;
 /// Largest position coordinate (hundredths of a percent).
 pub const MAX_COORD: u64 = 10000;
 /// uiMapIDs are below this.
@@ -28,8 +32,11 @@ enum F {
 	Id,
 	/// A token without spaces, or empty.
 	Word,
-	/// Free text (at most MAX_TEXT bytes), may be empty.
+	/// Free text (at most MAX_TEXT bytes, no control characters), may be empty.
 	Text,
+	/// A name the data build may ship (a quest title, a zone name): text of at most that many
+	/// characters without `|` (the game's escape character), may be empty.
+	Name(usize),
 	/// One of the listed tokens (`""` listed = may be empty).
 	Tok(&'static [&'static str]),
 	/// Characters each from the set, any order, may be empty.
@@ -48,6 +55,8 @@ enum Part {
 	OU,
 	W,
 	T,
+	/// [`F::Name`] as a list part (an objective); like `T`, may be left out when trailing.
+	Name(usize),
 	Tok(&'static [&'static str]),
 }
 
@@ -95,7 +104,7 @@ kinds! {
 	Dropped "dropped" ["count": F::U],
 	Mark "mark" ["P": F::P, "text": F::Text],
 	Pos "pos" ["P": F::P, "flags": F::OU, "speed": F::OU],
-	Zone "zone" ["P": F::P, "zoneText": F::Text, "subzoneText": F::Text],
+	Zone "zone" ["P": F::P, "zoneText": F::Name(MAX_PLACE), "subzoneText": F::Name(MAX_PLACE)],
 	Ride "ride" ["on": BOOL, "P": F::P],
 	Taxi "taxi" ["fromNode": F::OU, "toNode": F::OU],
 	Land "land" ["node": F::OU, "seconds": F::OU, "P": F::P],
@@ -106,12 +115,12 @@ kinds! {
 	Rest "rest" ["kind": F::Tok(&["f", "d", "b"]), "seconds": F::OU],
 	Offer "offer" ["npcKind": NK, "npcId": F::OU, "P": F::P, "available": IDS, "active": IDS, "log": IDS, "done": IDS, "notOffered": IDS],
 	Detail "detail" ["q": F::U, "npcKind": NK, "npcId": F::OU, "P": F::P, "startItem": F::OU],
-	Text "text" ["q": F::U, "title": F::Text, "objectiveText": F::Text, "detailText": F::Text],
+	Text "text" ["q": F::U, "title": F::Name(MAX_TITLE), "objectiveText": F::Text, "detailText": F::Text],
 	Accept "accept" [
 		"q": F::U, "npcKind": NK, "npcId": F::OU, "P": F::P, "level": F::OU, "rewardXp": F::OU, "rewardMoney": F::OU,
 		"items": ITEMS, "choices": ITEMS,
 	],
-	Objectives "objectives" ["q": F::U, "list": F::L(&[Part::W, Part::OU, Part::T])],
+	Objectives "objectives" ["q": F::U, "list": F::L(&[Part::W, Part::OU, Part::Name(MAX_TITLE)])],
 	Progress "progress" ["q": F::U, "index": F::U, "cur": F::U, "max": F::U, "P": F::P],
 	Complete "complete" ["q": F::U],
 	Turnin "turnin" ["q": F::U, "npcKind": NK, "npcId": F::OU, "P": F::P, "level": F::OU, "xp": F::OU, "money": F::OU, "chosenItem": F::OU],
@@ -168,9 +177,9 @@ impl Kind {
 		for (_, ty) in self.spec() {
 			match ty {
 				F::P => i += 2,
-				F::Text => out.push((i, None)),
+				F::Text | F::Name(_) => out.push((i, None)),
 				F::L(parts) => {
-					if let Some(p) = parts.iter().position(|p| matches!(p, Part::T)) {
+					if let Some(p) = parts.iter().position(|p| matches!(p, Part::T | Part::Name(_))) {
 						out.push((i, Some(p)));
 					}
 				}
@@ -336,6 +345,20 @@ fn check_text(s: &str) -> Result<(), String> {
 	if s.len() > MAX_TEXT {
 		return Err(format!("text longer than {MAX_TEXT} bytes"));
 	}
+	if s.chars().any(char::is_control) {
+		return Err("text with a control character".into());
+	}
+	Ok(())
+}
+
+fn check_name(s: &str, max: usize) -> Result<(), String> {
+	check_text(s)?;
+	if s.contains('|') {
+		return Err("name with `|`".into());
+	}
+	if s.chars().count() > max {
+		return Err(format!("name longer than {max} characters"));
+	}
 	Ok(())
 }
 
@@ -346,6 +369,7 @@ fn check_part(p: &str, ty: Part) -> Result<(), String> {
 		Part::OU => p.is_empty() || is_uint(p),
 		Part::W => !p.is_empty() && is_word(p),
 		Part::T => return check_text(p),
+		Part::Name(max) => return check_name(p, max),
 		Part::Tok(list) => list.contains(&p),
 	};
 	if ok {
@@ -361,7 +385,7 @@ fn check_list(s: &str, parts: &[Part]) -> Result<(), String> {
 	}
 	check_text(s)?;
 	let max = parts.len();
-	let min = if matches!(parts.last(), Some(Part::T)) { max - 1 } else { max };
+	let min = if matches!(parts.last(), Some(Part::T | Part::Name(_))) { max - 1 } else { max };
 	for item in s.split(';') {
 		let ps: Vec<&str> = item.split(':').collect();
 		if ps.len() < min || ps.len() > max {
@@ -391,6 +415,7 @@ fn check_field(v: &str, ty: F) -> Result<(), String> {
 		F::Id => valid_char_id(v),
 		F::Word => is_word(v),
 		F::Text => return check_text(v),
+		F::Name(max) => return check_name(v, max),
 		F::Tok(list) => list.contains(&v),
 		F::Flags(set) => v.chars().all(|c| set.contains(c)) && v.len() <= set.len(),
 		F::L(parts) => return check_list(v, parts),
@@ -610,6 +635,28 @@ mod tests {
 		assert!(chunk(&format!("mark\t0\t\t\t\t{long}")).is_err());
 		assert!(chunk("pos\tx\t1420\t1\t1").is_err());
 		assert!(chunk("pos\t1\t1420\t1\t1\t0\t0\textra").is_err());
+	}
+
+	#[test]
+	fn names_the_data_build_ships_are_checked() {
+		// Titles, objectives and zone names: no `|`, no control characters, 255 (100 for zones)
+		// characters at most; the whole chunk is rejected, as the server does.
+		let title = "\u{e9}".repeat(MAX_TITLE);
+		assert!(chunk(&format!("text\t0\t364\t{title}")).is_ok());
+		for bad in [
+			format!("text\t0\t364\t{title}x"),
+			"text\t0\t364\tThe |cffff0000Damned|r".into(),
+			"text\t0\t364\tThe\u{1}Damned".into(),
+			"objectives\t0\t364\tmonster:10:Scourge |Hwarrior|h slain".into(),
+			format!("objectives\t0\t364\tmonster:10:{}", "x".repeat(MAX_TITLE + 1)),
+			format!("zone\t0\t1420\t5\t5\t{}", "x".repeat(MAX_PLACE + 1)),
+			"zone\t0\t1420\t5\t5\tDeathknell|r".into(),
+			"mark\t0\t\t\t\tnote\u{7}".into(),
+		] {
+			assert!(chunk(&bad).is_err(), "{bad}");
+		}
+		// Free text keeps `|`: it ships nowhere.
+		assert!(chunk("mark\t0\t\t\t\ta | b").is_ok());
 	}
 
 	#[test]

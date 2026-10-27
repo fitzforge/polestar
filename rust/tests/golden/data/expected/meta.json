@@ -105,10 +105,10 @@
 		1453
 	],
 	"files": {
-		"quests.json": 111025,
+		"quests.json": 111234,
 		"npcs.json": 121645,
 		"objects.json": 235523,
-		"items.json": 59058,
+		"items.json": 59047,
 		"zones.json": 4786,
 		"map-frames.json": 12533,
 		"factions.json": 7486,

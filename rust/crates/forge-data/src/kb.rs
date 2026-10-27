@@ -13,7 +13,7 @@ use rustc_hash::{FxHashMap, FxHashSet};
 use crate::jsv::{arr, hypot, math_round, nums, to_int32};
 use crate::players::{round_quest_xp, Eg, EgQuest, QuestXp, Vo};
 
-const TIERS: [(&str, f64); 24] = [
+const TIERS: [(&str, f64); 25] = [
 	("recorder", 0.0),
 	("correction", 0.0),
 	("tdb", 1.0),
@@ -38,6 +38,7 @@ const TIERS: [(&str, f64); 24] = [
 	("pfquest", 8.0),
 	("eg.objectives", 9.0),
 	("cmangos", 9.0),
+	("recorder.gap", 9.0),
 ];
 
 /// Sources kept only to show which values an independent source confirms (the public tier, `forge
@@ -73,6 +74,7 @@ fn label(s: &str) -> &str {
 		"eg" => "EG Link output: players game caches (server quest answers)",
 		"eg.observed" => "EG Link output: observed turn-in XP",
 		"forevervo.seen" => "forever-vo in-game dialog captures",
+		"recorder.gap" => "Polestar recordings: a gap one player filled",
 		o => o,
 	}
 }
@@ -453,7 +455,17 @@ fn project_quest_source(q: &V, field: &str, corr: &Corr) -> &'static str {
 		}
 	}
 	let has = |t: &str| tags.iter().any(|x| x == t);
-	if if field == "xp" { tags.iter().any(|t| t.starts_with("recorder:xp")) } else { has("recorder") } {
+	// Recordings tag the fields they set (recordings.rs): `recorder:<field>` on trusted evidence
+	// (`recorder:xp-<kind>` for XP), `recorder-gap:<field>` where one counted player filled a gap;
+	// `recorder` alone is a quest only recordings have.
+	let key = if field == "min_level" { "minLevel" } else { field };
+	if if field == "xp" { tags.iter().any(|t| t.starts_with("recorder:xp")) } else { has(&format!("recorder:{key}")) } {
+		return "recorder";
+	}
+	if has(&format!("recorder-gap:{key}")) {
+		return "recorder.gap";
+	}
+	if field != "xp" && has("recorder") {
 		return "recorder";
 	}
 	if field == "xp" {
@@ -3537,6 +3549,18 @@ mod tests {
 	}
 
 	use super::*;
+
+	#[test]
+	fn recorded_quest_fields_are_labelled_by_their_own_tags() {
+		let corr = Corr { quest: FxHashMap::default(), npc: FxHashMap::default(), object: FxHashMap::default() };
+		let q = parse_json(r#"{"id":1,"source":["pfquest","recorder:title","recorder-gap:minLevel","recorder-gap:xp"]}"#).unwrap();
+		let at = |f: &str| project_quest_source(&q, f, &corr);
+		assert_eq!((at("title"), at("level"), at("min_level"), at("xp")), ("recorder", "pfquest", "recorder.gap", "recorder.gap"));
+		let q = parse_json(r#"{"id":1,"source":["recorder","recorder-gap:title","recorder:xp-base"]}"#).unwrap();
+		let at = |f: &str| project_quest_source(&q, f, &corr);
+		assert_eq!((at("title"), at("level"), at("xp")), ("recorder.gap", "recorder", "recorder"));
+		assert!(!crate::publish::tier::independent_label("recorder.gap"));
+	}
 
 	fn kind(k: &str, conf: &str, sources: &[&str], drives: bool) -> Obj {
 		let o = Obj::new();

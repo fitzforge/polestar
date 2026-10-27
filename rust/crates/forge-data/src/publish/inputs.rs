@@ -574,13 +574,15 @@ impl BuildData {
 
 	/// A build row's `source` tags as KB-style labels; tags that name no independent origin map
 	/// to themselves (and so back nothing). A build without QuestieDB leaves its pfQuest entity
-	/// rows untagged: those are pfQuest's.
+	/// rows untagged: those are pfQuest's. The recordings' per-field tags (`recorder:<field>`,
+	/// `recorder-gap:<field>`) back only their field ([`BuildData::field_labels`]).
 	pub fn labels(&self, row: &Value) -> Vec<String> {
 		let mut out: Vec<String> = Vec::new();
 		for t in row.get("source").and_then(Value::as_array).into_iter().flatten().filter_map(Value::as_str) {
 			let l = match t {
 				"pfquest" => "pfquest",
 				t if t.starts_with("questie") => "questie",
+				t if t.starts_with("recorder:") || t.starts_with("recorder-gap:") => continue,
 				t if t.contains("record") => "recorder",
 				t if t.starts_with("cmangos") => "cmangos",
 				t => t,
@@ -596,7 +598,43 @@ impl BuildData {
 		out
 	}
 
+	/// [`BuildData::labels`] for one field (`key`: the build row's key): plus `recorder` when
+	/// recordings set it on trusted evidence (`recorder:<key>`, for `xp` `recorder:xp-<kind>`),
+	/// `recorder.gap` (backing nothing) when one counted player filled it.
+	pub fn field_labels(&self, row: &Value, key: &str) -> Vec<String> {
+		let mut out = self.labels(row);
+		for t in row.get("source").and_then(Value::as_array).into_iter().flatten().filter_map(Value::as_str) {
+			let l = match t.split_once(':') {
+				Some(("recorder", f)) if f == key || (key == "xp" && f.starts_with("xp-")) => "recorder",
+				Some(("recorder-gap", f)) if f == key => "recorder.gap",
+				_ => continue,
+			};
+			if !out.iter().any(|x| x == l) {
+				out.push(l.to_string());
+			}
+		}
+		out
+	}
+
 	fn has_questie(&self) -> bool {
 		self.meta.get("sources").and_then(Value::as_array).into_iter().flatten().any(|s| s.get("name").and_then(Value::as_str).is_some_and(|n| n.contains("QuestieDB")))
+	}
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	#[test]
+	fn a_recorded_field_tag_backs_only_its_field() {
+		let data =
+			BuildData { quests: Map::new(), npcs: Map::new(), objects: Map::new(), items: Map::new(), meta: Value::Null, frames: Vec::new(), zone_ids: FxHashMap::default(), spawnz: Value::Null };
+		let q = serde_json::json!({ "id": 1, "source": ["pfquest", "recorder:title", "recorder-gap:level", "recorder:xp-base"] });
+		assert_eq!(data.labels(&q), ["pfquest"]);
+		assert_eq!(data.field_labels(&q, "title"), ["pfquest", "recorder"]);
+		assert_eq!(data.field_labels(&q, "level"), ["pfquest", "recorder.gap"]);
+		assert_eq!(data.field_labels(&q, "xp"), ["pfquest", "recorder"]);
+		assert_eq!(data.field_labels(&q, "start"), ["pfquest"]);
+		assert_eq!(data.labels(&serde_json::json!({ "source": ["recorder"] })), ["recorder"]);
 	}
 }

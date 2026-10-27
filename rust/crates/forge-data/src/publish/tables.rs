@@ -295,12 +295,12 @@ impl Asm<'_> {
 	/// Build-only mode: the public build's quest row (corrections with an accepted source applied).
 	fn quest_core_build(&mut self, id: i64, q: &Value) -> Core {
 		let mut c = Core { title_hint: q.get("title").and_then(Value::as_str).unwrap_or("").to_string(), ..Default::default() };
-		let base = Prov::labels(self.inp.data.labels(q));
 		let set = self.correction_set("quests", id);
+		let data = self.inp.data;
 		let field = |k: &str| -> (Option<Value>, Prov) {
 			match &set {
 				Some((s, p)) if s.contains_key(k) => (s.get(k).cloned(), p.clone()),
-				_ => (q.get(k).cloned(), base.clone()),
+				_ => (q.get(k).cloned(), Prov::labels(data.field_labels(q, k))),
 			}
 		};
 		let (v, p) = field("title");

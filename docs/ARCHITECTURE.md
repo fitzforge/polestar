@@ -5183,7 +5183,7 @@ blesses them). Run in a copy without `data/sources`, it names `sources.areas` 13
    the rules of their own paragraph there.
 
 `source` on every quest, npc, object and item lists its contributors in
-that order: `pfquest`, `questie-forever`, `web:*` (change notes), `polestar-correction`, the web XP tag, `recorder`, then the recorded XP tag (`recorder:xp-*`).
+that order: `pfquest`, `questie-forever`, `web:*` (change notes), `polestar-correction`, the web XP tag, `recorder` (a record only recordings have), then the recordings' per-field tags: `recorder:<field>` (a field trusted recorded evidence set or confirmed; `recorder:xp-*` for XP) or `recorder-gap:<field>` (a gap one counted player filled). The knowledge base labels a field `recorder` (tier 0) only by its own `recorder:<field>` tag or the whole-record `recorder`; `recorder-gap:<field>` is `recorder.gap`, which backs nothing in the public tier.
 
 #### Knowledge base (`rust/crates/forge-data/src/kb.rs`, `data/local/kb/forever-kb.sqlite`)
 
@@ -5344,17 +5344,30 @@ removed. Imported text has the account's character names replaced with `$N`.
 A `Polestar_Recorder.lua` outside this PC's own game folders (a file a player
 sent in) needs `--vouch <name>` (contributor `sent-<name>`, the name the
 maintainer's choice) or `--anonymize` (contributor `anon-<16 hex digits of the
-install id's SHA-256>`). Pull then fetches `GET /v1/export/tombstones` since the
-last one purged and deletes those contributors' archives and sessions. Last,
+install id's SHA-256>`). Pull reads export pages until one comes back empty
+(the server ends a page at 1,000 lines or 8 MiB). `.pull-state.json` keeps the
+export's `instance` (the server database's id): when it changes (a restored
+or recreated database) pull says so and starts again from the first id
+(archived chunks are deduplicated). Pull then fetches `GET /v1/export/tombstones` since the
+last one purged and moves those contributors' archives to
+`raw/.purged/<UTC date>/<contributor>/` (deleted after 30 days) and removes their
+sessions. Server contributors first seen more than `expireDays` (config.json,
+default 30) days ago that are still not established are quarantined the same
+way; a chunk that would take one contributor's archive past `maxContributorMB`
+(default 200) is skipped and reported. Last,
 with everything on disk, pull sends `POST /v1/export/ack` with the last id it
 pulled; the server deletes chunks up to there once they are past its retention
-(the server is a buffer, `data/recordings` the archive). A
+(the server is a buffer, `data/recordings` the archive). Pull refuses an
+`http://` server other than localhost, times its requests out and caps answer
+bodies (16 MiB an export page). `.pull-state.json`, `raw/contributors.json`,
+`install.json` and chunk files are written whole (a temporary file renamed);
+one that exists but doesn't parse stops the pull. A
 folder of the older layout (`raw/<install>/`) is moved under its contributor
 (an old `sent-<16 hex>` becomes `anon-<16 hex>`) and its sessions rewritten.
 
 ```
 { schema: 2, session: "<YYYYMMDDTHHMMSSZ>-[<contributor>-]<install>-<charId>",
-  contributor, install, charId, [cohort, received, contributorSince, contributorChunks,]
+  contributor, install, charId, [cohort, received, contributorSince, contributorChunks, uploadDays,]
   build, interface, locale, region, ruleset, versions: { recorder, polestar },
   packs: [ { id, version } ], guide, char: { id, race, class, faction, sex, level },
   started, ended, chunks: [seq], events: [ { t, e, ...fields } ],
@@ -5415,13 +5428,31 @@ schemas (records -> events):
   records'.
 
 The data build's overlay (`forge-data/src/recordings.rs`) leaves out sessions
-whose `build` is older than `data/recordings/config.json`'s `minBuild`; takes
-names (quest titles, NPC, object, item, faction, instance and zone names) from a
-session whose locale is not enUS only where there is no name; and lets a
-recorded spawn, a learned walking path (`travel/paths.rs`) or a drop chance
-replace another source's value only on the evidence of two distinct
-contributors or of `local` recordings (one contributor still fills a gap).
-Schema 1 sessions (no contributor, no locale) count as `local` and enUS.
+whose `build` is older than `data/recordings/config.json`'s `minBuild`, and
+every session whose player doesn't count. A player (voter) is the server's
+cohort, resolved per contributor from its latest session, else the
+contributor. `local` and `sent-*` always count, `anon-*` never does. A server
+contributor counts once established: first seen at least `minContributorDays`
+(3) days before its newest session arrived, `minContributorChunks` (20) chunks
+on `minContributorUploadDays` (3) distinct upload days as the server counted
+them (`uploadDays`; the client's own session times count for nothing), and at
+least `minContributorPos` (10) positions and `minContributorKills` (5) kills.
+Every value a recording writes goes through one rule. A quest's title, level,
+givers, enders, objectives (count and order), rewards and XP, an NPC's name,
+level, rank, roles, instances and encounter, a spawn, a drop chance, a
+trainer's class or a learned walking path (`travel/paths.rs`) changes another
+source's value only on trusted evidence: `minVoters` (config.json, default 3)
+distinct counted players, or `local` or `sent-*` recordings (for a drop
+chance, each with 10 kills of their own). A gap no source fills is filled by
+any counted player. Where players disagree, the value most of them back wins;
+a number is the lower median of each player's own value (an objective's
+count: the highest each saw). New quests, NPCs, objects, items, factions and
+zones come only from `local` or `sent-*` recordings. Names from a session
+whose locale is not enUS only fill a missing name. Recorded map bounds are
+used only from `local` recordings and only for maps `map-frames.json` lacks
+(`travel/paths.rs` `live_frames_of`); walks are placed by those frames, never
+by a recording's own. Schema 1 sessions (no contributor, no locale) count as
+`local` and enUS.
 
 `record trail <session|file> [--out file.json]` writes a session's `/psrec
 trail` runs as `[{ label, start, end, reason, points: [{ t, map, x, y, speed,

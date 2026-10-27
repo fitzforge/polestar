@@ -9,7 +9,7 @@ use forge_guide::data::Data;
 use forge_guide::js::{stringify, Obj, V};
 use indexmap::{IndexMap, IndexSet};
 
-use crate::recordings::{self, Recording};
+use crate::recordings::{self, Recordings};
 
 /// [classFile, name, uiMapID] (tools/lib/dsl/trainers.js CURATED, same order).
 const CURATED: &[(&str, &str, i64)] = &[
@@ -288,7 +288,7 @@ pub struct Report {
 
 /// trainers.json's object and the counts, from the data, the guide pack and the recordings
 /// (recordings.rs `read_recordings`: trust marked).
-pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &[Recording]) -> (Obj, Report) {
+pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &Recordings) -> (Obj, Report) {
 	let mut by_name: IndexMap<String, Vec<V>> = IndexMap::new();
 	for n in data.npcs.values() {
 		if !n.truthy() || !n.get("name").truthy() {
@@ -344,15 +344,16 @@ pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &[Recordin
 			}
 		}
 	}
-	// Recorded visits (recordings.rs "Trust"): per trainer and class, the players (cohorts, else
-	// contributors) who saw a character of that class train there, each once. The classes judged
-	// are the trusted ones (two counted players, or `local`) when there are any, else the counted ones, else all,
-	// so a new contributor cannot add a second class to hide a trainer. A trainer another source
-	// already lists takes a class from recordings only on trusted evidence; one no source lists
-	// is filled by any.
+	// Recorded visits (recordings.rs "Trust"): per trainer and class, the counted players (cohorts,
+	// else contributors) who saw a character of that class train there, each once; sessions whose
+	// player doesn't count are left out. The classes judged are the trusted ones (`minVoters`
+	// players, or a vouched one) when there are any, else all recorded, so a new contributor cannot
+	// add a second class to hide a trainer. A trainer another source already lists takes a class
+	// from recordings only on trusted evidence; one no source lists is filled by any counted
+	// player, and an NPC the data lacks only on vouched evidence.
 	let profession = profession_npcs(data);
-	let mut seen: IndexMap<i64, (V, IndexMap<String, (IndexSet<String>, IndexSet<String>)>)> = IndexMap::new();
-	for r in recordings {
+	let mut seen: IndexMap<i64, (V, IndexMap<String, IndexSet<String>>)> = IndexMap::new();
+	for r in recordings.iter() {
 		let rec = &r.rec;
 		let ch = rec.get("char");
 		let cls = if rec.truthy() && ch.truthy() {
@@ -361,7 +362,7 @@ pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &[Recordin
 		} else {
 			String::new()
 		};
-		if !CLASS_FILES.contains(&cls.as_str()) || !rec.get("events").is_arr() {
+		if !r.counts || !CLASS_FILES.contains(&cls.as_str()) || !rec.get("events").is_arr() {
 			continue;
 		}
 		let who = r.voter();
@@ -370,11 +371,7 @@ pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &[Recordin
 				continue;
 			}
 			let id = ev.get("npc").num() as i64;
-			let (all, counted) = seen.entry(id).or_insert_with(|| (ev.get("npcName"), IndexMap::new())).1.entry(cls.clone()).or_default();
-			all.insert(who.clone());
-			if r.counts {
-				counted.insert(who.clone());
-			}
+			seen.entry(id).or_insert_with(|| (ev.get("npcName"), IndexMap::new())).1.entry(cls.clone()).or_default().insert(who.clone());
 		}
 	}
 	let mut record = 0;
@@ -382,18 +379,14 @@ pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &[Recordin
 	ids.sort();
 	for id in ids {
 		let (name, by_class) = &seen[&id];
-		let pick = |f: &dyn Fn(&(IndexSet<String>, IndexSet<String>)) -> bool| -> Vec<&String> { by_class.iter().filter(|(_, w)| f(w)).map(|(c, _)| c).collect() };
-		let trusted = pick(&|w| recordings::trusted(&w.1));
-		let (classes, is_trusted) = if !trusted.is_empty() {
-			(trusted, true)
-		} else {
-			let counted = pick(&|w| !w.1.is_empty());
-			(if counted.is_empty() { pick(&|_| true) } else { counted }, false)
-		};
-		if classes.len() != 1 || profession.contains(&id) || (entries.contains_key(&id) && !is_trusted) {
+		let pick = |f: &dyn Fn(&IndexSet<String>) -> bool| -> Vec<&String> { by_class.iter().filter(|(_, w)| f(w)).map(|(c, _)| c).collect() };
+		let trusted = pick(&|w| recordings::trusted(w, recordings.min_voters));
+		let (classes, is_trusted) = if !trusted.is_empty() { (trusted, true) } else { (pick(&|_| true), false) };
+		let n = data.npc(&V::Num(id as f64));
+		let known = n.truthy();
+		if classes.len() != 1 || profession.contains(&id) || (entries.contains_key(&id) && !is_trusted) || (!known && !by_class.values().flatten().any(|w| recordings::vouched(w))) {
 			continue;
 		}
-		let n = data.npc(&V::Num(id as f64));
 		let nm = if n.truthy() && n.get("name").truthy() { n.get("name") } else { name.clone() };
 		add(&mut entries, id, nm, classes[0], "record");
 		record += 1;
