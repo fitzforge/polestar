@@ -179,10 +179,12 @@ network, with a salt made for that day, and deletes both when the day ends.
 | `POST /v1/register` | `{}` → `{ "challenge" (32 hex), "difficulty" (22), "expires" }`; then `{ "challenge", "solution" (u64 decimal) }` (SHA-256 of `challenge:solution` has `difficulty` leading zero bits) → `{ "token" (64 hex) }`. A challenge lasts 10 minutes and works once. |
 | `POST /v1/upload` (`Authorization: Bearer <token>`) | `{ "uploader": "0.1.0", "install": "<addon install id>", "chunks": [ { "seq": 38, "text": "..." } ] }`. Answer `{ "accepted": [38], "duplicate": [], "rejected": [ { "seq": 39, "reason": "..." } ] }`. Each chunk is decoded with the library; a chunk with any malformed record, or whose `chunk` record names another seq, is rejected whole. An unknown token gets 401 and registers again. |
 | `GET /v1/me` (bearer) | `{ "chunks", "records": { kind: n }, "first_upload", "last_upload" }` (unix seconds): what the server holds from this token. |
-| `DELETE /v1/me` (bearer) | deletes everything the server holds from this token; answers `{ "deleted": <chunks> }`. A tombstone then removes it from the maintainer's copies on their next pull. |
+| `DELETE /v1/me` (bearer) | deletes everything the server holds from this token, counts included; answers `{ "deleted": <chunks> }`. A tombstone then removes it from the maintainer's copies on their next pull. |
 | `GET /v1/stats` | public totals: contributors, chunks, records by kind, quests seen, last 30 days (cached 60 s). |
 | `GET /v1/export?after=<id>&limit=<n>[&include=suspect]` (maintainer key) | NDJSON, one line per chunk: `{ "id", "contributor" (token hash, 16 hex), "cohort" (16 hex), "contributorSince", "contributorChunks" (chunks that passed the checks), "install", "seq", "received", "flagged", "text" }`; with `include=suspect` also suspect chunks, with `suspect` and `suspectReasons`. `after` defaults to 0, `limit` to 500 (at most 1000); a page also stops after 8 MiB of chunk text (always at least one line). |
 | `GET /v1/export/tombstones?after=<unix>` (maintainer key) | NDJSON `{ "contributor", "at", "why": "deleted" \| "blocked" }`, oldest first; `forge record pull` purges those contributors' chunks and sessions. |
+| `POST /v1/export/ack` `{ "upto": <id> }` (maintainer key) | every export line up to `<id>` is safely stored; answers `{ "acked", "pruned", "held" }`. |
+| `GET /v1/admin/storage` (maintainer key) | database size and cap, free disk and floor, the oldest unacknowledged chunk's age, row counts. |
 | `GET /v1/admin/contributors`, `POST /v1/admin/contributors/<hash>/block`, `/unblock` (maintainer key) | moderation. A blocked contributor's uploads are handled like anyone's but never exported or counted in the stats. |
 | `GET /healthz` | `ok` (503 when the database is stuck) |
 
@@ -197,6 +199,15 @@ day (checked before the body is read, and counted on every byte received),
 `/v1/register`, 10 unknown-token answers a minute per network. Requests that
 did not come through the tunnel are refused. Chunks from builds older than
 the server's minimum build are stored with `flagged`, and forge skips them.
+
+The server is a buffer, not the archive: `forge record pull` stores the
+export in `data/recordings`, then acknowledges it. Acknowledged chunks are
+deleted from the server 14 days after they arrived (stored compressed until
+then); the server keeps only counts (for `/v1/me` and `/v1/stats`) and which
+seqs it has seen, so a chunk sent again is still answered `duplicate`. When
+the database reaches its size cap (20 GiB) or its disk has under 25 GiB free,
+uploads are answered `503 {"error":"server busy, try later"}` with
+`Retry-After`; Polestar Client keeps the chunks and retries later.
 
 The plausibility checks: clock within the last 30 days and at most 10
 minutes ahead, a chunk spans at most 2 hours, seq within 400 of the
