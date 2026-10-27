@@ -672,7 +672,7 @@ async fn export_pages_are_capped_by_bytes() {
 	let app = app();
 	let a = register(&app, IP_A).await;
 	// About 50 KiB a chunk (known records): 8 MiB is about 160 of them.
-	let fat = |s: u64| format!("{}\n{}", chunk(s, 70532), format!("zone\t5\t\t\t\t{}\t\n", "A".repeat(200)).repeat(240));
+	let fat = |s: u64| format!("{}\n{}", chunk(s, 70532), format!("zone\t5\t\t\t\t{}\t\n", "A".repeat(90)).repeat(480));
 	for batch in 0..9u64 {
 		let chunks: Vec<_> = (1..=20).map(|i| batch * 20 + i).map(|s| (s, fat(s))).collect();
 		let (status, body) = upload(&app, &a, &chunks).await;
