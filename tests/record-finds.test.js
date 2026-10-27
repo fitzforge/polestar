@@ -1,21 +1,13 @@
 'use strict';
-// Recorded finds (addon/Polestar_Recorder/Finds.lua events) through
-// `record import` and `data build` (tools/lib/data/recordings.js applyFinds):
-// drop chances from kills and loot windows merged across sessions, ranks,
-// levels, rare roles and spawns, treasures, instances and encounters, quest
-// rewards; and a session recorded by the addon itself, imported and built.
+// Recorded finds through the data build's overlay (tools/lib/data/recordings.js
+// applyFinds): drop chances from kills and loot windows merged across sessions,
+// ranks, levels, rare roles and spawns, treasures, instances and encounters,
+// quest rewards. (Recorder files reach data/recordings through `forge record
+// import`; polestar-recording's normalize tests cover that step.)
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
 const { applyRecordings } = require('../tools/lib/data/recordings');
-const { importFile } = require('../tools/lib/recording/import');
-const { forge } = require('./helpers/cli');
-const { runAddon } = require('./helpers/lua');
-const { tmpdir } = require('./helpers/tmp');
-
-const FIX = path.join(__dirname, '..', 'rust', 'tests', 'fixtures', 'data');
 
 // The fixture world after pfQuest (see data.test.js): wolves 3 and 4 drop
 // Wolf Pelt (50) at 45.5 % and 80 %, object 600 is a Peacebloom herb, 500 an
@@ -151,75 +143,4 @@ test('quest frame rewards: the turn-in wins over the accept', () => {
 	applyRecordings(d, sessions());
 	assert.deepEqual(d.quests[7].rewards, { items: [2575], choices: [2577], money: 75 });
 	assert.deepEqual(Object.keys(d.quests[7]).slice(-5), ['xp', 'rewards', 'skill', 'event', 'source']);
-});
-
-// The addon records a session in the stub world; `record import` and
-// `forge data build` turn it into facts the Codex reads.
-test('a recorded session with a rare, kills and loot imports and builds into npcs, items and objects facts', async (t) => {
-	const sv = runAddon({
-		stubs: ['stub_recorder.lua'],
-		addons: ['Polestar_Recorder'],
-		login: true,
-		script: `
-			local function unit(token, guid, name, cls, lvl)
-				stub.setUnit(token, guid, name)
-				stub.world.units[token].cls, stub.world.units[token].lvl = cls, lvl
-			end
-			stub.moveTo(33, 44)
-			local rare = stub.creature(6, "Fixture Rare")
-			unit("nameplate1", rare, "Fixture Rare", "rare", 12)
-			stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
-			unit("target", rare, "Fixture Rare", "rare", 12)
-			stub.fire("PLAYER_TARGET_CHANGED")
-			stub.partyKill(rare)
-			stub.world.loot = { { name = "Rare Fang", item = 55, src = { rare, 1 } } }
-			stub.fire("LOOT_OPENED", false, false)
-			stub.fire("LOOT_CLOSED")
-			stub.moveTo(50, 50)
-			for i = 1, 10 do
-				local w = stub.creature(3, "Fixture Wolf")
-				unit("target", w, "Fixture Wolf", "normal", 4)
-				stub.fire("PLAYER_TARGET_CHANGED")
-				stub.partyKill(w)
-				stub.world.loot = i <= 4 and { { name = "Wolf Pelt", item = 50, src = { w, 1 } } } or {}
-				stub.fire("LOOT_OPENED", false, false)
-				stub.fire("LOOT_CLOSED")
-			end
-			stub.moveTo(25.1, 30.2)
-			stub.world.loot = { { name = "Linen Cloth", item = 58, count = 2, src = { (stub.gameObject(700)), 2 } } }
-			stub.fire("LOOT_OPENED", false, false)
-			stub.fire("PLAYER_LOGOUT")
-			emit(stub.serialize(PolestarRecorderDB))`,
-	}).emitted[0];
-	const dir = tmpdir('polestar-finds-');
-	const svDir = path.join(dir, 'WTF', 'Account', 'TEST', 'SavedVariables');
-	fs.mkdirSync(svDir, { recursive: true });
-	fs.writeFileSync(path.join(svDir, 'Polestar_Recorder.lua'), `PolestarRecorderDB = ${sv}\n`);
-	const recordings = path.join(dir, 'recordings');
-	const imported = importFile(path.join(svDir, 'Polestar_Recorder.lua'), { outDir: recordings });
-	assert.equal(imported.sessions.length, 1);
-	const drop = JSON.parse(fs.readFileSync(imported.sessions[0].file, 'utf8')).events.find((e) => e.e === 'drop');
-	assert.deepEqual(drop.items, [{ item: 55, n: 1 }], 'loot lists survive the SavedVariables round trip');
-
-	const outDir = path.join(dir, 'forever');
-	const r = forge(['data', 'build', '--offline', '--no-questie', '--no-forever', '--no-web-xp', '--no-web-zones', '--pfquest', path.join(FIX, 'pfquest'), '--sources', path.join(FIX, 'sources'), '--recordings', recordings, '--out', outDir, '--built-at', '2026-01-01T00:00:00Z']);
-	if (!r) return t.skip('no forge binary (rust/target/release/forge or $FORGE)');
-	assert.equal(r.status, 0, r.stderr);
-	const read = (name) => JSON.parse(fs.readFileSync(path.join(outDir, `${name}.json`), 'utf8'));
-	const meta = read('meta');
-	const npcs = read('npcs');
-	const items = read('items');
-	const objects = read('objects');
-	assert.deepEqual(npcs[6], { id: 6, name: 'Fixture Rare', level: 12, rank: 4, faction: null, roles: ['rare'], spawns: { 1429: { f: 'l', pts: [[33, 44]] } } });
-	assert.equal(npcs[3].rank, 0);
-	assert.deepEqual(items[55].drops.npc, { 6: 100 });
-	// 4 pelts in 10 kills (empty corpses count): enough kills to replace pfQuest's 45.5 %.
-	assert.equal(items[50].drops.npc[3], 40);
-	assert.deepEqual(items[50].seen.npc[3], { n: 4, of: 10 });
-	assert.deepEqual(objects[700], { id: 700, name: null, roles: ['chest'], spawns: { 1429: { f: 'l', pts: [[25.1, 30.2]] } } });
-	assert.deepEqual(read('instances'), {});
-	assert.deepEqual(
-		[meta.counts.recordedKills, meta.counts.recordedLoots, meta.counts.recordedSightings, meta.counts.recordedTreasures],
-		[11, 6, 1, 1],
-	);
 });

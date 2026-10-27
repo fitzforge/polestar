@@ -4,7 +4,8 @@
 //! 1. quest rewards: questEstScale (the worlds' recorded `xp` against the QuestXP-table estimate)
 //!    and questXpScale (the dungeon journal's observed Forever rewards against the data's);
 //!    robust: median of log ratios, sd = 1.4826·MAD/√n, floored at 0.02 (0.03 when kept);
-//! 2. recordings: seconds between kills by level -> killSec1/killSec60 (weighted least squares).
+//! 2. recordings: seconds between kills by level (the median of each contributor's median) ->
+//!    killSec1/killSec60 (weighted least squares).
 
 use std::path::{Path, PathBuf};
 
@@ -197,7 +198,11 @@ fn table_estimate(rows: &[Value], q: &Quest) -> f64 {
 	row.and_then(|r| r.get(q.tier)).and_then(Value::as_f64).filter(|v| *v != 0.0).unwrap_or(0.0)
 }
 
-/// calibrate.js `recordingFits`.
+/// calibrate.js `recordingFits`, with one change: a level's seconds between kills are the median of
+/// each player's own median (a player as forge-data recordings.rs `Recording::voter` counts them:
+/// a session's server `cohort`, else its `contributor`, `local` when it has none), so one player
+/// who farms a level for hours cannot set its pace alone; the fit's weight is still every gap
+/// recorded at the level.
 pub struct RecFit {
 	pub sessions: usize,
 	pub levels: usize,
@@ -209,12 +214,19 @@ pub fn recording_fits(dir: &Path) -> RecFit {
 	// readdirSync's order (the OS's); the fit does not depend on it.
 	let mut files: Vec<PathBuf> = rd.flatten().map(|e| e.path()).filter(|p| p.to_string_lossy().ends_with(".json")).collect();
 	files.sort();
-	let mut by_level: Vec<(f64, Vec<f64>)> = Vec::new();
+	// level -> contributor -> gaps
+	let mut by_level: Vec<(f64, Vec<(String, Vec<f64>)>)> = Vec::new();
 	let mut sessions = 0;
 	for f in files {
 		let Some(doc) = std::fs::read(&f).ok().and_then(|b| serde_json::from_slice::<Value>(&b).ok()) else { continue };
 		let Some(events) = doc.get("events").and_then(Value::as_array) else { continue };
 		sessions += 1;
+		let cohort = doc.get("cohort").and_then(Value::as_str).filter(|c| c.len() == 16 && c.bytes().all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b)));
+		let who = match cohort {
+			Some(c) => format!("cohort:{c}"),
+			None => doc.get("contributor").and_then(Value::as_str).filter(|c| !c.is_empty()).unwrap_or("local").to_string(),
+		};
+		let who = who.as_str();
 		let mut lvl: Option<f64> = None;
 		let mut last: Option<f64> = None;
 		for e in events {
@@ -229,9 +241,16 @@ pub fn recording_fits(dir: &Path) -> RecFit {
 					let t = e.get("t").and_then(Value::as_f64).unwrap_or(f64::NAN);
 					if let Some(lk) = last {
 						if t - lk > 2.0 && t - lk <= 180.0 {
-							match by_level.iter_mut().find(|(x, _)| *x == l) {
+							let level = match by_level.iter().position(|(x, _)| *x == l) {
+								Some(i) => &mut by_level[i].1,
+								None => {
+									by_level.push((l, Vec::new()));
+									&mut by_level.last_mut().expect("just pushed").1
+								}
+							};
+							match level.iter_mut().find(|(c, _)| c == who) {
 								Some(g) => g.1.push(t - lk),
-								None => by_level.push((l, vec![t - lk])),
+								None => level.push((who.to_string(), vec![t - lk])),
 							}
 						}
 					}
@@ -240,7 +259,12 @@ pub fn recording_fits(dir: &Path) -> RecFit {
 			}
 		}
 	}
-	let pts: Vec<(f64, f64, f64)> = by_level.iter().filter(|(_, g)| g.len() >= 10).map(|(l, g)| (*l, median(g), g.len() as f64)).collect();
+	let pts: Vec<(f64, f64, f64)> = by_level
+		.iter()
+		.map(|(l, by)| (*l, by, by.iter().map(|(_, g)| g.len()).sum::<usize>()))
+		.filter(|(_, _, n)| *n >= 10)
+		.map(|(l, by, n)| (l, median(&by.iter().map(|(_, g)| median(g)).collect::<Vec<_>>()), n as f64))
+		.collect();
 	if pts.len() < 2 {
 		return RecFit { sessions, levels: pts.len(), kill: None };
 	}

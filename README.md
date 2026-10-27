@@ -952,8 +952,7 @@ committed or shipped.
 <summary><b>Measuring routes with recordings</b></summary>
 
 ```sh
-node tools/polestar.js record watch     # import sessions as the game saves them
-node tools/polestar.js record import    # or import once
+forge record import                     # the Recorder's chunks -> data/recordings (forge record pull: the server's)
 forge data build --kb                   # fold recordings into the reference data
 node tools/polestar.js record report    # how long each guide step really took
 ```

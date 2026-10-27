@@ -1,15 +1,17 @@
 'use strict';
-// `record import|watch|draft` (tools/commands/record.js, tools/lib/recording/)
-// against a fixture PolestarRecorderDB SavedVariables file.
+// `record draft|list|trail` (tools/commands/record.js, tools/lib/recording/) against a
+// normalized session (tests/fixtures/recordings/, schema 1: a Northshire →
+// Goldshire → Stormwind session), and the pointer from the retired
+// `record import|watch` to `forge record import`, which the last tests run on the
+// addon's own chunks.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { spawnSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
-const { importFile, findSavedVariables, normalizeSession } = require('../tools/lib/recording/import');
 const { applyRecordings } = require('../tools/lib/data/recordings');
-const { watchSavedVariables } = require('../tools/lib/recording/watch');
+const { forge } = require('./helpers/cli');
 const { draftGuide } = require('../tools/lib/recording/draft');
 
 // The guide compiler's parser: drafts must parse cleanly.
@@ -20,246 +22,19 @@ const { tmpdir } = require('./helpers/tmp');
 
 const CLI = path.join(__dirname, '..', 'tools', 'polestar.js');
 const HUMAN = '1791000000-Testchar';
-const UNDEAD = '1790990000-Altchar';
-
-// A Northshire → Goldshire → Stormwind session, as the recorder writes it
-// (two decimals, numeric map keys, empty tables, sparse caps bookkeeping),
-// plus a short Undead session whose only map has uiMapID 1 (so Lua's table
-// is a 1..n "array").
-function humanSession(extra = '') {
-	return `{
-		["schema"] = 1, ["build"] = "1.60.1.70338", ["session"] = "${HUMAN}",
-		["char"] = { ["name"] = "Testchar", ["realm"] = "Test Realm", ["race"] = "Human", ["class"] = "WARRIOR", ["faction"] = "Alliance" },
-		["started"] = 1791000000, ["ended"] = 1791003000,
-		["counts"] = { ["pos"] = 3 }, ["dropped"] = { ["pos"] = 2, ["kill"] = 0 },
-		["maps"] = {
-			[1429] = { ["name"] = "Elwynn Forest", ["type"] = 3, ["parent"] = 1415, ["c"] = 0, ["top"] = 1800, ["left"] = 1100, ["bottom"] = -1666.67, ["right"] = -4100 },
-			[1453] = { ["name"] = "Stormwind City", ["type"] = 3, ["parent"] = 1429, ["c"] = 0, ["top"] = 1722.17, ["left"] = -7997.7, ["bottom"] = 564.11, ["right"] = -9733.2 },
-		},
-		["events"] = {
-			{ ["t"] = 0, ["e"] = "zone", ["map"] = 1429, ["zone"] = "Elwynn Forest", ["subzone"] = "Northshire Valley" },
-			{ ["t"] = 5, ["e"] = "gossip", ["npc"] = 823, ["npcName"] = "Deputy Willem", ["available"] = { 783 }, ["active"] = {}, ["map"] = 1429, ["x"] = 48.17, ["y"] = 42.95 },
-			{ ["t"] = 12, ["e"] = "accept", ["q"] = 783, ["title"] = "A Threat Within", ["qlvl"] = 1, ["lvl"] = 1, ["xp"] = 0, ["npc"] = 823, ["npcName"] = "Deputy Willem", ["map"] = 1429, ["x"] = 48.17, ["y"] = 42.95 },
-			{ ["t"] = 30, ["e"] = "pos", ["map"] = 1429, ["x"] = 48.9, ["y"] = 41.6 },
-			{ ["t"] = 41, ["e"] = "turnin", ["q"] = 783, ["xpReward"] = 40, ["money"] = 0, ["lvl"] = 1, ["npc"] = 197, ["npcName"] = "Marshal McBride", ["map"] = 1429, ["x"] = 48.93, ["y"] = 41.61 },
-			{ ["t"] = 50, ["e"] = "accept", ["q"] = 7, ["title"] = "Kobold Camp Cleanup", ["qlvl"] = 2, ["lvl"] = 1, ["xp"] = 40, ["npc"] = 197, ["npcName"] = "Marshal McBride", ["map"] = 1429, ["x"] = 48.93, ["y"] = 41.61 },
-			{ ["t"] = 58, ["e"] = "accept", ["q"] = 33, ["title"] = "Wolves Across the Border", ["qlvl"] = 2, ["lvl"] = 1, ["xp"] = 40, ["npc"] = 196, ["npcName"] = "Eagan Peltskinner", ["map"] = 1429, ["x"] = 48.6, ["y"] = 42.0 },
-			{ ["t"] = 200, ["e"] = "pos", ["map"] = 1429, ["x"] = 47.5, ["y"] = 37.0 },
-			{ ["t"] = 230, ["e"] = "kill", ["npc"] = 6, ["npcName"] = "Kobold Vermin", ["q"] = 7, ["oi"] = 1, ["map"] = 1429, ["x"] = 47.2, ["y"] = 35.4 },
-			{ ["t"] = 231, ["e"] = "progress", ["q"] = 7, ["oi"] = 1, ["text"] = "Kobold Vermin slain: 1/10", ["cur"] = 1, ["max"] = 10, ["type"] = "monster", ["map"] = 1429, ["x"] = 47.2, ["y"] = 35.4 },
-			{ ["t"] = 260, ["e"] = "kill", ["npc"] = 6, ["npcName"] = "Kobold Vermin", ["q"] = 7, ["oi"] = 1, ["map"] = 1429, ["x"] = 47.8, ["y"] = 34.8 },
-			{ ["t"] = 261, ["e"] = "progress", ["q"] = 7, ["oi"] = 1, ["text"] = "Kobold Vermin slain: 2/10", ["cur"] = 2, ["max"] = 10, ["type"] = "monster", ["map"] = 1429, ["x"] = 47.8, ["y"] = 34.8 },
-			{ ["t"] = 300, ["e"] = "loot", ["item"] = 750, ["itemName"] = "Tough Wolf Meat", ["count"] = 1, ["q"] = 33, ["oi"] = 1, ["map"] = 1429, ["x"] = 46.0, ["y"] = 38.0 },
-			{ ["t"] = 301, ["e"] = "progress", ["q"] = 33, ["oi"] = 1, ["text"] = "Tough Wolf Meat: 1/8", ["cur"] = 1, ["max"] = 8, ["type"] = "item", ["map"] = 1429, ["x"] = 46.0, ["y"] = 38.0 },
-			{ ["t"] = 320, ["e"] = "kill", ["npc"] = 6, ["npcName"] = "Kobold Vermin", ["q"] = 7, ["oi"] = 1, ["map"] = 1429, ["x"] = 47.0, ["y"] = 36.0 },
-			{ ["t"] = 321, ["e"] = "progress", ["q"] = 7, ["oi"] = 1, ["text"] = "Kobold Vermin slain: 3/10", ["cur"] = 3, ["max"] = 10, ["type"] = "monster", ["map"] = 1429, ["x"] = 47.0, ["y"] = 36.0 },
-			{ ["t"] = 340, ["e"] = "progress", ["q"] = 33, ["oi"] = 1, ["text"] = "Tough Wolf Meat: 2/8", ["cur"] = 2, ["max"] = 8, ["type"] = "item", ["map"] = 1429, ["x"] = 46.4, ["y"] = 37.6 },
-			{ ["t"] = 350, ["e"] = "level", ["lvl"] = 2, ["map"] = 1429, ["x"] = 46.4, ["y"] = 37.6 },
-			{ ["t"] = 360, ["e"] = "mark", ["text"] = "Kobolds respawn fast -- pull at the \\"tunnel\\" mouth", ["map"] = 1429, ["x"] = 46.5, ["y"] = 37.5 },
-			{ ["t"] = 365, ["e"] = "progress", ["q"] = 7, ["oi"] = 2, ["text"] = "Supply crates searched: 1/1", ["cur"] = 1, ["max"] = 1, ["type"] = "object", ["map"] = 1429, ["x"] = 46.9, ["y"] = 35.2 },
-			{ ["t"] = 370, ["e"] = "complete", ["q"] = 7 },
-			{ ["t"] = 380, ["e"] = "death", ["map"] = 1429, ["x"] = 47.1, ["y"] = 35.0 },
-			{ ["t"] = 500, ["e"] = "turnin", ["q"] = 7, ["xpReward"] = 110, ["money"] = 50, ["lvl"] = 2, ["npc"] = 197, ["npcName"] = "Marshal McBride", ["map"] = 1429, ["x"] = 48.93, ["y"] = 41.61 },
-			{ ["t"] = 510, ["e"] = "trainer", ["npc"] = 911, ["npcName"] = "Llane Beshere", ["map"] = 1429, ["x"] = 50.24, ["y"] = 42.28 },
-			{ ["t"] = 520, ["e"] = "abandon", ["q"] = 33 },
-			{ ["t"] = 1200, ["e"] = "accept", ["q"] = 62, ["title"] = "The Fargodeep Mine", ["qlvl"] = 5, ["lvl"] = 3, ["xp"] = 300, ["npc"] = 240, ["npcName"] = "Marshal Dughan", ["map"] = 1429, ["x"] = 42.1, ["y"] = 65.93 },
-			{ ["t"] = 1210, ["e"] = "bind", ["location"] = "Goldshire", ["map"] = 1429, ["x"] = 43.77, ["y"] = 65.8 },
-			{ ["t"] = 1220, ["e"] = "vendor", ["npc"] = 1213, ["npcName"] = "Godric Rothgar", ["map"] = 1429, ["x"] = 41.71, ["y"] = 65.55 },
-			{ ["t"] = 1500, ["e"] = "zone", ["map"] = 1453, ["zone"] = "Stormwind City", ["subzone"] = "Trade District" },
-			{ ["t"] = 1510, ["e"] = "fp", ["location"] = "Stormwind, Elwynn", ["npc"] = 352, ["npcName"] = "Dungar Longdrink", ["map"] = 1453, ["x"] = 66.28, ["y"] = 62.13 },
-			{ ["t"] = 1520, ["e"] = "taxi", ["from"] = "Stormwind, Elwynn", ["to"] = "Sentinel Hill, Westfall" },
-			${extra}
-		},
-	}`;
-}
-
-const UNDEAD_SESSION = `{
-	["schema"] = 1, ["build"] = "1.60.1.70338", ["session"] = "${UNDEAD}",
-	["char"] = { ["name"] = "Altchar", ["realm"] = "Test Realm", ["race"] = "Scourge", ["class"] = "MAGE", ["faction"] = "Horde" },
-	["started"] = 1790990000, ["ended"] = 1790990100,
-	["maps"] = { { ["name"] = "Durotar", ["type"] = 3, ["parent"] = 1414 } },
-	["events"] = {
-		{ ["t"] = 0, ["e"] = "zone", ["map"] = 1, ["zone"] = "Durotar", ["subzone"] = "" },
-		{ ["t"] = 3, ["e"] = "gossip", ["npc"] = 3143, ["npcName"] = "Gornek", ["available"] = {}, ["active"] = { 4641 }, ["map"] = 1, ["x"] = 42.07, ["y"] = 68.33 },
-	},
-}`;
-
-function svText({ human = humanSession(), undead = UNDEAD_SESSION } = {}) {
-	const sessions = [human && `["${HUMAN}"] = ${human}`, undead && `["${UNDEAD}"] = ${undead}`].filter(Boolean).join(',\n');
-	return `
-PolestarRecorderDB = {
-	["schema"] = 1,
-	["current"] = "${HUMAN}",
-	["fp"] = { ["Testchar-Test Realm"] = { ["Stormwind, Elwynn"] = true } },
-	["maps"] = {
-		[947] = { ["name"] = "Azeroth", ["type"] = 1, ["parent"] = 946 },
-		[1415] = { ["name"] = "Eastern Kingdoms", ["type"] = 2, ["parent"] = 947, ["c"] = 0, ["top"] = 4000, ["left"] = 4000, ["bottom"] = -16000, ["right"] = -4000 },
-		[1411] = { ["name"] = "Durotar", ["type"] = 3, ["parent"] = 1414 },
-	},
-	["sessions"] = {
-${sessions}
-	},
-}
-`;
-}
-
-// <dir>/WTF/Account/<account>/SavedVariables/Polestar_Recorder.lua
-function writeSv(dir, text, account = 'TESTACCOUNT') {
-	const svDir = path.join(dir, 'WTF', 'Account', account, 'SavedVariables');
-	fs.mkdirSync(svDir, { recursive: true });
-	const file = path.join(svDir, 'Polestar_Recorder.lua');
-	fs.writeFileSync(file, text);
-	return file;
-}
+const FIXTURE = path.join(__dirname, 'fixtures', 'recordings', `${HUMAN}.json`);
 
 function readJson(file) {
 	return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
-test('import normalizes each session to the recordings schema', () => {
-	const dir = tmpdir('polestar-record-');
-	const sv = writeSv(dir, svText());
-	const out = path.join(dir, 'recordings');
-	const result = importFile(sv, { outDir: out, now: new Date('2026-10-12T15:30:00Z') });
-	assert.deepEqual(result.sessions.map((s) => [path.basename(s.file), s.status]), [
-		[`${UNDEAD}.json`, 'new'],
-		[`${HUMAN}.json`, 'new'],
-	]);
-
-	const human = readJson(path.join(out, `${HUMAN}.json`));
-	assert.deepEqual(Object.keys(human), ['schema', 'build', 'session', 'char', 'started', 'ended', 'events', 'maps', 'dropped']);
-	assert.equal(human.schema, 1);
-	assert.equal(human.build, '1.60.1.70338');
-	assert.deepEqual(human.char, { name: 'Testchar', realm: 'Test Realm', race: 'Human', class: 'WARRIOR', faction: 'Alliance' });
-	assert.equal(human.started, 1791000000);
-	assert.equal(human.events.length, 31);
-	assert.deepEqual(human.events[1], { t: 5, e: 'gossip', active: [], available: [783], map: 1429, npc: 823, npcName: 'Deputy Willem', x: 48.17, y: 42.95 });
-	assert.deepEqual(Object.keys(human.events[2]).slice(0, 2), ['t', 'e']);
-	assert.equal(human.events[18].text, 'Kobolds respawn fast -- pull at the "tunnel" mouth');
-	// session maps plus their parents from the /psrec maps dump; recorder bookkeeping dropped
-	assert.deepEqual(Object.keys(human.maps), ['947', '1415', '1429', '1453']);
-	assert.deepEqual(human.maps['1429'], { name: 'Elwynn Forest', type: 3, parent: 1415, c: 0, left: 1100, right: -4100, top: 1800, bottom: -1666.67 });
-	assert.equal(human.counts, undefined);
-	assert.deepEqual(human.dropped, { pos: 2 });
-
-	const undead = readJson(path.join(out, `${UNDEAD}.json`));
-	assert.deepEqual(undead.maps, { 1: { name: 'Durotar', type: 3, parent: 1414 } });
-	assert.deepEqual(undead.events[1].available, []);
-	assert.deepEqual(undead.events[1].active, [4641]);
-	assert.equal(undead.dropped, undefined);
-});
-
-test('import archives the raw file once per distinct content, under the account name', () => {
-	const dir = tmpdir('polestar-record-');
-	const sv = writeSv(dir, svText(), 'MYACCOUNT');
-	const out = path.join(dir, 'recordings');
-	const first = importFile(sv, { outDir: out, now: new Date('2026-10-12T15:30:00Z') });
-	assert.equal(first.archive.created, true);
-	assert.equal(path.relative(out, first.archive.path), path.join('raw', '20261012T153000Z-MYACCOUNT.lua'));
-	assert.equal(fs.readFileSync(first.archive.path, 'utf8'), fs.readFileSync(sv, 'utf8'));
-
-	const again = importFile(sv, { outDir: out, now: new Date('2026-10-12T15:31:00Z') });
-	assert.equal(again.archive.created, false);
-	assert.deepEqual(again.sessions.map((s) => s.status), ['unchanged', 'unchanged']);
-
-	fs.writeFileSync(sv, svText({ undead: null }));
-	const changed = importFile(sv, { outDir: out, now: new Date('2026-10-12T15:32:00Z') });
-	assert.equal(changed.archive.created, true);
-	assert.deepEqual(fs.readdirSync(path.join(out, 'raw')).sort(), ['20261012T153000Z-MYACCOUNT.lua', '20261012T153200Z-MYACCOUNT.lua']);
-});
-
-test('an anonymized import keeps no character name or realm anywhere, keys each character by a stable hash, and archives nothing', () => {
-	const dir = tmpdir('polestar-record-');
-	const out = path.join(dir, 'recordings');
-	const sv = writeSv(dir, svText());
-	const result = importFile(sv, { outDir: out, anonymize: true });
-	assert.equal(result.archive.path, null);
-	assert.equal(fs.existsSync(path.join(out, 'raw')), false);
-	const files = fs.readdirSync(out).sort();
-	assert.equal(files.length, 2);
-	for (const f of files) {
-		const text = fs.readFileSync(path.join(out, f), 'utf8');
-		for (const secret of ['Testchar', 'Altchar', 'Test Realm']) {
-			assert.ok(!f.includes(secret) && !text.includes(secret), `${f} still holds ${secret}`);
-		}
-	}
-	const [undead, human] = result.sessions.map((s) => s.session);
-	assert.match(human.char.id, /^[0-9a-f]{8}$/);
-	assert.notEqual(human.char.id, undead.char.id);
-	assert.equal(human.session, `1791000000-${human.char.id}`);
-	assert.equal(human.char.race, 'Human');
-	// The same character in a later file gets the same id, so its sessions group together.
-	const again = importFile(writeSv(tmpdir('polestar-record-'), svText({ undead: null })), { outDir: path.join(dir, 'other'), anonymize: true });
-	assert.equal(again.sessions[0].session.char.id, human.char.id);
-});
-
-test('a session already imported keeps the longer event list; sessions missing from a reset file survive', () => {
-	const dir = tmpdir('polestar-record-');
-	const out = path.join(dir, 'recordings');
-	const sv = writeSv(dir, svText());
-	importFile(sv, { outDir: out });
-
-	// Cold-start reset: the client lost the table, the logout wrote only a new, shorter
-	// copy of the human session (same key) and nothing else.
-	const shortHuman = `{
-		["session"] = "${HUMAN}", ["started"] = 1791000000, ["ended"] = 1791000100,
-		["char"] = { ["name"] = "Testchar", ["realm"] = "Test Realm", ["race"] = "Human", ["class"] = "WARRIOR", ["faction"] = "Alliance" },
-		["events"] = { { ["t"] = 0, ["e"] = "zone", ["map"] = 1429, ["zone"] = "Elwynn Forest", ["subzone"] = "Goldshire" } },
-	}`;
-	fs.writeFileSync(sv, svText({ human: shortHuman, undead: null }));
-	const reset = importFile(sv, { outDir: out });
-	assert.deepEqual(reset.sessions.map((s) => s.status), ['unchanged']);
-	assert.equal(readJson(path.join(out, `${HUMAN}.json`)).events.length, 31);
-	assert.equal(readJson(path.join(out, `${UNDEAD}.json`)).events.length, 2);
-
-	// The session grew: the longer list wins.
-	const longer = svText({ human: humanSession(`{ ["t"] = 1600, ["e"] = "mark", ["text"] = "landed", ["map"] = 1436, ["x"] = 56.5, ["y"] = 52.6 },`), undead: null });
-	fs.writeFileSync(sv, longer);
-	const grown = importFile(sv, { outDir: out });
-	assert.deepEqual(grown.sessions.map((s) => s.status), ['updated']);
-	const merged = readJson(path.join(out, `${HUMAN}.json`));
-	assert.equal(merged.events.length, 32);
-	assert.equal(merged.events[31].text, 'landed');
-});
-
-test('auto-detection prefers the launch "_forever_" client in any Wine prefix over a leftover beta', () => {
-	const home = tmpdir('polestar-record-');
-	// Never the machine's own native install (C:\... or /Applications/...).
-	const native = { platform: 'linux' };
-	const client = (prefix, name, flavor) => {
-		const dir = path.join(home, ...prefix, 'drive_c', 'Program Files (x86)', 'World of Warcraft', name);
-		fs.mkdirSync(dir, { recursive: true });
-		fs.writeFileSync(path.join(dir, '.flavor.info'), `Product Flavor!STRING:0\n${flavor}\n`);
-		return dir;
-	};
-	const saved = process.env.POLESTAR_WTF;
-	delete process.env.POLESTAR_WTF;
-	try {
-		const beta = client(['Games'], '_classic_beta_', 'wow_classic_beta');
-		const betaSv = writeSv(beta, svText());
-		assert.deepEqual(findSavedVariables({ home, native }), [betaSv]);
-
-		// After launch the client lives in a Faugus prefix as _forever_; the old beta WTF stays behind.
-		const live = client(['Faugus', 'battlenet'], '_forever_', 'wow_forever');
-		const liveSv = writeSv(live, svText({ undead: null }));
-		assert.deepEqual(findSavedVariables({ home, native }), [liveSv]);
-
-		// A _forever_ folder without a .flavor.info under the fixed install path is still found.
-		const plain = path.join(home, '.wine', 'drive_c', 'Program Files (x86)', 'World of Warcraft', '_forever_');
-		fs.rmSync(path.join(home, 'Faugus'), { recursive: true });
-		const plainSv = writeSv(plain, svText());
-		assert.deepEqual(findSavedVariables({ home, native }), [plainSv]);
-
-		// A native install is searched too, at the injected root.
-		const root = tmpdir('polestar-record-');
-		const mac = path.join(root, 'Applications', 'World of Warcraft', '_forever_');
-		fs.rmSync(path.join(home, '.wine'), { recursive: true });
-		const macSv = writeSv(mac, svText());
-		assert.deepEqual(findSavedVariables({ home, native: { platform: 'darwin', root } }), [macSv]);
-	} finally {
-		if (saved !== undefined) process.env.POLESTAR_WTF = saved;
-	}
-});
+// A recordings folder holding the fixture session.
+function recordings() {
+	const out = path.join(tmpdir('polestar-record-'), 'recordings');
+	fs.mkdirSync(out, { recursive: true });
+	fs.copyFileSync(FIXTURE, path.join(out, `${HUMAN}.json`));
+	return out;
+}
 
 test('data build: recorded kills linked to a quest nobody knows are skipped, not fatal', () => {
 	const db = {
@@ -280,16 +55,6 @@ test('data build: recorded kills linked to a quest nobody knows are skipped, not
 	assert.equal(db.npcs[61000].name, 'Skyborne Raider');
 	assert.equal(db.items[190001].name, 'Raider Insignia');
 	assert.deepEqual(db.quests[7].objectives, [{ type: 'kill', id: 6, count: 10, text: 'Kobold Vermin' }]);
-});
-
-test('SavedVariables are found per account under a WTF folder; --sv wins', () => {
-	const dir = tmpdir('polestar-record-');
-	const a = writeSv(dir, svText(), 'ACCOUNT_A');
-	const b = writeSv(dir, svText(), 'ACCOUNT_B');
-	fs.mkdirSync(path.join(dir, 'WTF', 'Account', 'ACCOUNT_C', 'SavedVariables'), { recursive: true });
-	assert.deepEqual(findSavedVariables({ wtf: path.join(dir, 'WTF') }), [a, b]);
-	assert.deepEqual(findSavedVariables({ sv: [b] }), [b]);
-	assert.deepEqual(findSavedVariables({ wtf: path.join(dir, 'nowhere') }), []);
 });
 
 // Reviewed by hand: hub steps by NPC proximity, one kill line at the centroid
@@ -335,11 +100,7 @@ step Dungar Longdrink
 `;
 
 test('draft turns a session into a guide in the .guide DSL', () => {
-	const dir = tmpdir('polestar-record-');
-	const sv = writeSv(dir, svText());
-	const out = path.join(dir, 'recordings');
-	importFile(sv, { outDir: out });
-	const session = readJson(path.join(out, `${HUMAN}.json`));
+	const session = readJson(FIXTURE);
 	const draft = draftGuide(session);
 	assert.equal(draft.id, 'draft/alliance/human/2026-10-03-0400');
 	assert.equal(draft.name, 'alliance-human-2026-10-03-0400');
@@ -372,9 +133,7 @@ test('the draft parses without diagnostics in the guide compiler', () => {
 });
 
 test('the recording keeps the full flight point name; the draft flies to its town, which lint accepts', () => {
-	const dir = tmpdir('polestar-record-');
-	importFile(writeSv(dir, svText()), { outDir: dir });
-	const session = readJson(path.join(dir, `${HUMAN}.json`));
+	const session = readJson(FIXTURE);
 	assert.equal(session.events.find((ev) => ev.e === 'taxi').to, 'Sentinel Hill, Westfall');
 	const guide = parseGuide(draftGuide(session).text, 'draft.guide', new Diagnostics());
 	const data = {
@@ -389,19 +148,14 @@ test('the recording keeps the full flight point name; the draft flies to its tow
 	assert.notEqual(checkLocation(data, 'fly', 'Sentinel Hill, Westfall'), null);
 });
 
-test('record CLI: import then draft, refusing to overwrite an edited draft', () => {
-	const dir = tmpdir('polestar-record-');
-	const sv = writeSv(dir, svText());
-	const out = path.join(dir, 'recordings');
-	const drafts = path.join(dir, 'drafts');
+test('record CLI: list then draft, refusing to overwrite an edited draft; import and watch point to forge', () => {
+	const out = recordings();
+	const drafts = path.join(path.dirname(out), 'drafts');
 	const run = (...args) => spawnSync(process.execPath, [CLI, 'record', ...args], { encoding: 'utf8' });
 
-	const imported = run('import', '--wtf', path.join(dir, 'WTF'), '--out', out);
-	assert.equal(imported.status, 0, imported.stderr);
-	assert.match(imported.stdout, /TESTACCOUNT: 2 session\(s\) — 2 new/);
-
-	const listed = run('list', '--out', out);
-	assert.match(listed.stdout, new RegExp(`${HUMAN}.*31 events.*Testchar Human WARRIOR Alliance`));
+	const listed = run('list', '--recordings', out);
+	assert.equal(listed.status, 0, listed.stderr);
+	assert.match(listed.stdout, new RegExp(`${HUMAN}.*31 events.*Human WARRIOR Alliance`));
 
 	const drafted = run('draft', HUMAN, '--recordings', out, '--out', drafts);
 	assert.equal(drafted.status, 0, drafted.stderr);
@@ -415,137 +169,16 @@ test('record CLI: import then draft, refusing to overwrite an edited draft', () 
 	assert.equal(run('draft', HUMAN, '--recordings', out, '--out', drafts, '--force').status, 0);
 	assert.equal(fs.readFileSync(file, 'utf8'), EXPECTED_DRAFT);
 
-	const missing = run('import', '--wtf', path.join(dir, 'empty'));
-	assert.equal(missing.status, 1);
-	assert.match(missing.stderr, /no Polestar_Recorder SavedVariables found/);
-});
-
-test('watch re-imports when the client rewrites the file and reports sessions that vanished', async () => {
-	const dir = tmpdir('polestar-record-');
-	const out = path.join(dir, 'recordings');
-	const sv = writeSv(dir, svText());
-	const seen = [];
-	let notify;
-	const watcher = watchSavedVariables([sv], {
-		outDir: out,
-		interval: 25,
-		debounce: 25,
-		onImport: (result, missing) => {
-			seen.push({ keys: result.keys, missing });
-			if (notify) notify();
-		},
-		onError: (err) => {
-			throw err;
-		},
-	});
-	try {
-		assert.deepEqual(seen, [{ keys: [UNDEAD, HUMAN], missing: [] }]);
-		const next = new Promise((resolve, reject) => {
-			const timer = setTimeout(() => reject(new Error('watch did not re-import within 5 s')), 5000);
-			notify = () => {
-				clearTimeout(timer);
-				resolve();
-			};
-		});
-		// Make sure the mtime moves even on coarse-timestamp filesystems.
-		fs.writeFileSync(sv, svText({ undead: null }));
-		const later = new Date(Date.now() + 5000);
-		fs.utimesSync(sv, later, later);
-		await next;
-		assert.deepEqual(seen[1], { keys: [HUMAN], missing: [UNDEAD] });
-		assert.ok(fs.existsSync(path.join(out, `${UNDEAD}.json`)));
-	} finally {
-		watcher.close();
+	for (const sub of ['import', 'watch']) {
+		const r = run(sub);
+		assert.equal(r.status, 2);
+		assert.match(r.stderr, /forge record import/);
 	}
 });
 
-test('quest XP reward fields pass through import unchanged', () => {
-	const dir = tmpdir('polestar-record-');
-	const extra = `{ ["t"] = 1530, ["e"] = "reward", ["q"] = 62, ["rewardXp"] = 450, ["rewardXpBase"] = 420, ["lvl"] = 3 },`;
-	const human = humanSession(extra).replace('["xp"] = 300,', '["xp"] = 300, ["rewardXp"] = 450, ["rewardXpBase"] = 420,');
-	const sv = writeSv(dir, svText({ human, undead: null }));
-	importFile(sv, { outDir: path.join(dir, 'recordings') });
-	const s = readJson(path.join(dir, 'recordings', `${HUMAN}.json`));
-	const accept = s.events.find((e) => e.e === 'accept' && e.q === 62);
-	assert.equal(accept.rewardXp, 450);
-	assert.equal(accept.rewardXpBase, 420);
-	assert.deepEqual(s.events[s.events.length - 1], { t: 1530, e: 'reward', lvl: 3, q: 62, rewardXp: 450, rewardXpBase: 420 });
-});
-
-function progressSession({ events = 'full', factionsAt = 1791000500, standing = 5 } = {}) {
-	const list = [
-		`{ ["t"] = 10, ["e"] = "rep", ["faction"] = 72, ["factionName"] = "Stormwind", ["standing"] = 5, ["value"] = 3350, ["delta"] = 250, ["map"] = 1429, ["x"] = 40, ["y"] = 60 }`,
-		`{ ["t"] = 20, ["e"] = "skill", ["skill"] = "Mining", ["skillLine"] = 186, ["rank"] = 41, ["max"] = 75, ["map"] = 1429, ["x"] = 40, ["y"] = 60 }`,
-		`{ ["t"] = 30, ["e"] = "explore", ["area"] = "Goldshire", ["areaID"] = 87, ["xp"] = 40, ["map"] = 1429, ["x"] = 42, ["y"] = 65 }`,
-		`{ ["t"] = 40, ["e"] = "craft", ["spell"] = 2660, ["item"] = 2862, ["count"] = 2, ["skill"] = 164 }`,
-		`{ ["t"] = 50, ["e"] = "learn", ["spell"] = 133, ["name"] = "Fireball" }`,
-		`{ ["t"] = 60, ["e"] = "achieve", ["id"] = 6, ["name"] = "Level 10" }`,
-	];
-	return `{
-		["session"] = "${HUMAN}", ["started"] = 1791000000, ["ended"] = 1791001000,
-		["char"] = { ["name"] = "Testchar", ["realm"] = "Test Realm", ["race"] = "Human", ["class"] = "WARRIOR", ["faction"] = "Alliance" },
-		["events"] = { ${(events === 'full' ? list : list.slice(0, 1)).join(',\n')} },
-		["rewards"] = { [7] = true }, ["explored"] = { [87] = true }, ["learned"] = { [133] = true },
-		["dumped"] = { ["factions"] = ${factionsAt}, ["legacy"] = 1791000600 },
-		["factions"] = {
-			[469] = { ["name"] = "Alliance", ["order"] = 1, ["header"] = true },
-			[72] = { ["name"] = "Stormwind", ["order"] = 2, ["parent"] = 469, ["standing"] = ${standing}, ["value"] = 3350, ["min"] = 3000, ["max"] = 9000 },
-		},
-		["legacy"] = {
-			["rewardFaction"] = 2802, ["pointsCurrency"] = 4225,
-			["categories"] = { [92] = { ["name"] = "General", ["order"] = 1, ["legacy"] = true, ["achievements"] = { 6 } } },
-			["achievements"] = { [6] = { ["name"] = "Level 10", ["points"] = 10, ["completed"] = true, ["legacyPoints"] = 5, ["legacy"] = true, ["category"] = 92, ["criteria"] = {} } },
-			["majorFactions"] = { [2802] = { ["name"] = "Legacy", ["level"] = 3, ["legacy"] = true, ["levels"] = {} } },
-			["trees"] = { { ["id"] = 1187, ["key"] = "professions", ["groups"] = {}, ["nodes"] = {} } },
-		},
-	}`;
-}
-
-test('progress events and the factions/skills/legacy dumps pass through import; per-session bookkeeping does not', () => {
-	const dir = tmpdir('polestar-record-');
-	const out = path.join(dir, 'recordings');
-	const sv = writeSv(dir, svText({ human: progressSession(), undead: null }));
-	importFile(sv, { outDir: out });
-	const s = readJson(path.join(out, `${HUMAN}.json`));
-	assert.deepEqual(s.events.map((e) => e.e), ['rep', 'skill', 'explore', 'craft', 'learn', 'achieve']);
-	assert.deepEqual(s.events[0], { t: 10, e: 'rep', delta: 250, faction: 72, factionName: 'Stormwind', map: 1429, standing: 5, value: 3350, x: 40, y: 60 });
-	assert.deepEqual(s.events[3], { t: 40, e: 'craft', count: 2, item: 2862, skill: 164, spell: 2660 });
-	assert.deepEqual(s.factions, {
-		72: { name: 'Stormwind', order: 2, parent: 469, standing: 5, value: 3350, min: 3000, max: 9000 },
-		469: { name: 'Alliance', order: 1, header: true },
-	});
-	assert.deepEqual(s.legacy.categories, { 92: { name: 'General', order: 1, legacy: true, achievements: [6] } });
-	assert.deepEqual(s.legacy.achievements['6'].criteria, []);
-	assert.deepEqual(s.legacy.majorFactions['2802'].levels, []);
-	assert.deepEqual(s.legacy.trees, [{ id: 1187, key: 'professions', groups: [], nodes: [] }]);
-	assert.deepEqual(s.dumped, { factions: 1791000500, legacy: 1791000600 });
-	assert.equal(s.skills, undefined);
-	for (const k of ['rewards', 'explored', 'learned']) assert.equal(s[k], undefined);
-
-	// A shorter copy of the session with a newer faction dump: the events
-	// stay the longer list, the factions become the newer dump.
-	fs.writeFileSync(sv, svText({ human: progressSession({ events: 'short', factionsAt: 1791000900, standing: 6 }), undead: null }));
-	importFile(sv, { outDir: out });
-	const merged = readJson(path.join(out, `${HUMAN}.json`));
-	assert.equal(merged.events.length, 6);
-	assert.equal(merged.factions['72'].standing, 6);
-	assert.equal(merged.dumped.factions, 1791000900);
-	assert.equal(merged.dumped.legacy, 1791000600);
-});
-
-test('normalizing tolerates a session written by an older or damaged recorder', () => {
-	const s = normalizeSession('k', { events: { 1: { e: 'mark', text: 'a' }, 3: { t: 9, e: 'mark', text: 'b' }, 4: 'junk' } });
-	assert.deepEqual(s.events, [{ t: 0, e: 'mark', text: 'a' }, { t: 9, e: 'mark', text: 'b' }]);
-	assert.equal(s.session, 'k');
-	assert.deepEqual(s.char, { name: null, realm: null, race: null, class: null, faction: null });
-	assert.deepEqual(s.maps, {});
-});
-
 test('record draft inside a guide pack writes a pack-prefixed draft into <pack>/drafts/', () => {
-	const dir = tmpdir('polestar-record-');
-	const out = path.join(dir, 'recordings');
-	importFile(writeSv(dir, svText()), { outDir: out });
-	const session = readJson(path.join(out, `${HUMAN}.json`));
+	const out = recordings();
+	const session = readJson(FIXTURE);
 	assert.equal(draftGuide(session, { pack: 'joe' }).id, 'joe/draft/alliance/human/2026-10-03-0400');
 	assert.equal(draftGuide(session, { pack: 'guides' }).id, 'draft/alliance/human/2026-10-03-0400');
 
@@ -563,4 +196,87 @@ test('record draft inside a guide pack writes a pack-prefixed draft into <pack>/
 	const r2 = spawnSync(process.execPath, [CLI, 'record', 'draft', HUMAN, '--recordings', out, '--pack', other], { encoding: 'utf8' });
 	assert.equal(r2.status, 0, r2.stderr);
 	assert.match(fs.readFileSync(path.join(other, 'drafts', 'alliance-human-2026-10-03-0400.guide'), 'utf8'), /^guide mini\/draft\/alliance\/human\/2026-10-03-0400$/m);
+});
+
+// An hour of play recorded by the addon in the stub world (schema 2 chunks,
+// tests/fixtures/recordings/Polestar_Recorder.lua), through `forge record import`.
+test('forge record import turns the addon\'s chunks into a normalized schema 2 session', (t) => {
+	const dir = tmpdir('polestar-record-');
+	const svDir = path.join(dir, 'WTF', 'Account', 'TESTACCOUNT', 'SavedVariables');
+	fs.mkdirSync(svDir, { recursive: true });
+	fs.mkdirSync(path.join(dir, 'WTF', 'Account', 'TESTACCOUNT', 'Test Realm', 'Testchar'), { recursive: true });
+	fs.copyFileSync(path.join(__dirname, 'fixtures', 'recordings', 'Polestar_Recorder.lua'), path.join(svDir, 'Polestar_Recorder.lua'));
+	const out = path.join(dir, 'recordings');
+	const r = forge(['record', 'import', '--wtf', path.join(dir, 'WTF'), '--out', out]);
+	if (!r) return t.skip('no forge binary (rust/target/release/forge or $FORGE)');
+	assert.equal(r.status, 0, r.stderr);
+	assert.match(r.stdout, /13 chunk\(s\) archived; .*1 new/);
+	assert.equal(fs.readdirSync(path.join(out, 'raw', 'local', 'testinstall1')).filter((f) => f.endsWith('.txt')).length, 13);
+	const s = readJson(path.join(out, '20261003T040000Z-testinstall1-char000001.json'));
+	assert.deepEqual(
+		[s.schema, s.contributor, s.install, s.charId, s.locale, s.build, s.char],
+		[2, 'local', 'testinstall1', 'char000001', 'enUS', 70338, { id: 'char000001', race: 'Human', class: 'WARRIOR', faction: 'Alliance', sex: 2, level: 1 }],
+	);
+	assert.equal(JSON.stringify(s).includes('Testchar'), false, 'no character name anywhere');
+	assert.deepEqual(s.chunks, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]);
+	const first = (e) => s.events.find((ev) => ev.e === e);
+	assert.deepEqual(first('accept'), { t: 0, e: 'accept', q: 100, map: 1429, x: 50, y: 50, lvl: 1, items: [], choices: [], itemCounts: [], choiceCounts: [] });
+	assert.deepEqual(first('kill'), { t: 38, e: 'kill', npc: 6, npcLvl: 4, cls: 'normal', map: 1429, x: 34.04, y: 50, xp: 45, rested: 22, q: 100, oi: 1 });
+	assert.equal(first('progress').text, 'Kobold Vermin slain: 1/100');
+	assert.deepEqual(first('turnin'), { t: 602, e: 'turnin', q: 100, npc: 810, map: 1429, x: 70.38, y: 50, lvl: 1, xpReward: 450, money: 120 });
+	assert.deepEqual(first('fp').known, [2, 4]);
+	assert.equal(s.events.filter((ev) => ev.e === 'drop').length, 120);
+	assert.deepEqual(Object.keys(s.maps), ['1429']);
+
+	// Again: nothing new; the session is unchanged.
+	const again = forge(['record', 'import', '--wtf', path.join(dir, 'WTF'), '--out', out]);
+	assert.match(again.stdout, /0 chunk\(s\) archived; .*0 new, 0 updated, 1 unchanged/);
+
+	// The same file sent in loose (not inside this PC's game folders): it needs --vouch or --anonymize.
+	const loose = path.join(svDir, 'Polestar_Recorder.lua');
+	const refused = forge(['record', 'import', '--wtf', loose, '--out', out]);
+	assert.equal(refused.status, 2);
+	assert.match(refused.stderr, /--vouch <name>.*--anonymize/);
+	assert.equal(forge(['record', 'import', '--wtf', loose, '--out', out, '--vouch', 'Alice']).status, 2, 'a vouched name is lowercase');
+	assert.equal(forge(['record', 'import', '--wtf', loose, '--out', out, '--vouch', 'alice', '--anonymize']).status, 2);
+	const vouched = forge(['record', 'import', '--wtf', loose, '--out', out, '--vouch', 'alice']);
+	assert.equal(vouched.status, 0, vouched.stderr);
+	assert.equal(readJson(path.join(out, '20261003T040000Z-sent-alice-testinstall1-char000001.json')).contributor, 'sent-alice');
+	const anon = forge(['record', 'import', '--wtf', loose, '--out', out, '--anonymize']);
+	assert.equal(anon.status, 0, anon.stderr);
+	const anonFile = fs.readdirSync(out).find((f) => /-anon-[0-9a-f]{16}-testinstall1-char000001\.json$/.test(f));
+	assert.ok(anonFile, fs.readdirSync(out).join(' '));
+	assert.match(readJson(path.join(out, anonFile)).contributor, /^anon-[0-9a-f]{16}$/);
+	// Each kept apart: the maintainer's own archive is untouched.
+	assert.deepEqual(fs.readdirSync(path.join(out, 'raw')).filter((f) => f !== 'contributors.json').sort(), ['local', 'sent-alice', anonFile.match(/anon-[0-9a-f]{16}/)[0]].sort());
+});
+
+test('record trail: the trail-flagged positions between a mark "trail on" and its "trail off"', () => {
+	const session = {
+		schema: 2,
+		session: '20261003T040000Z-char000001',
+		events: [
+			{ t: 0, e: 'pos', map: 1429, x: 40, y: 40, flags: 0 },
+			{ t: 1, e: 'mark', text: 'trail on: Brill to the Magic Quarter', map: 1429, x: 40, y: 40 },
+			{ t: 1.2, e: 'pos', map: 1429, x: 40, y: 40, flags: 64, speed: 7, trail: true },
+			{ t: 1.5, e: 'pos', map: 1429, x: 40.06, y: 40, flags: 80, speed: 7, falling: true, trail: true },
+			{ t: 2, e: 'mark', text: 'trail off: Brill to the Magic Quarter (2 points, 3 yd, off)', map: 1429, x: 40.06, y: 40 },
+			{ t: 3, e: 'pos', map: 1429, x: 41, y: 40, flags: 0 },
+		],
+	};
+	const out = path.join(recordings(), '..', 'trails.json');
+	const file = path.join(path.dirname(out), 'session.json');
+	fs.writeFileSync(file, JSON.stringify(session));
+	const r = spawnSync(process.execPath, [CLI, 'record', 'trail', file, '--out', out], { encoding: 'utf8' });
+	assert.equal(r.status, 0, r.stderr);
+	assert.match(r.stdout, /1 trail\(s\), 2 points/);
+	assert.deepEqual(readJson(out), [
+		{
+			label: 'Brill to the Magic Quarter', start: 1, end: 2, reason: 'off',
+			points: [
+				{ t: 1.2, map: 1429, x: 40, y: 40, speed: 7, mounted: false, swimming: false, falling: false, indoors: false, flying: false },
+				{ t: 1.5, map: 1429, x: 40.06, y: 40, speed: 7, mounted: false, swimming: false, falling: true, indoors: false, flying: false },
+			],
+		},
+	]);
 });

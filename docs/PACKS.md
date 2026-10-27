@@ -43,7 +43,7 @@ You need:
 | | Windows | macOS | Linux |
 |---|---|---|---|
 | Node 24 or newer (every command) | `winget install OpenJS.NodeJS.LTS`, then a new terminal | `brew install node` | your package manager, or `nvm install 24` |
-| Lua 5.1 or LuaJIT (`play`, `playtest`, `record import`) | `winget install DEVCOM.LuaJIT`, then a new terminal | `brew install luajit` | `sudo apt install lua5.1` (Debian, Ubuntu), `sudo pacman -S lua51` (Arch), `sudo dnf install luajit` (Fedora; or `sudo dnf install compat-lua`, then `export LUA=lua-5.1`) |
+| Lua 5.1 or LuaJIT (`play`, `playtest`) | `winget install DEVCOM.LuaJIT`, then a new terminal | `brew install luajit` | `sudo apt install lua5.1` (Debian, Ubuntu), `sudo pacman -S lua51` (Arch), `sudo dnf install luajit` (Fedora; or `sudo dnf install compat-lua`, then `export LUA=lua-5.1`) |
 | The reference data, `data/forever/` in the clone (every guide command) | `forge data build` in the clone (`cd rust && cargo build --release -p forge` builds forge, or take a prebuilt one from the Releases page) | same | same |
 | The game's AddOns folder (`install`, `dev`) | found automatically, or set `WOW_FOREVER_ADDONS`, or pass `--dest` | same | same (Wine, Proton, Lutris, Bottles and Faugus prefixes are searched) |
 
@@ -148,7 +148,7 @@ Record your own play and turn it into a draft:
 ```sh
 polestar install --recorder        # in the Polestar clone (not the pack): installs Polestar_Recorder with Polestar
 # in game: /psrec on, play the route, then log out
-polestar record import             # copies the sessions out of SavedVariables
+forge record import                # copies the recorded sessions out of SavedVariables into data/recordings
 polestar record list
 polestar record draft <session>    # writes drafts/<faction>-<race>-<date>-<time>.guide
 ```

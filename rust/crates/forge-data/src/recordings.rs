@@ -1,5 +1,18 @@
 //! Recorder overlay (port of tools/lib/data/recordings.js): data/recordings/*.json, live Forever
 //! observations, applied over the merged tables. See the JS file's header for every rule.
+//!
+//! Trust (docs/RECORDING.md "Trust"): sessions from a build older than data/recordings/config.json's
+//! `minBuild` are left out; names (quest titles, NPC, object, item, faction, instance and zone names)
+//! from a session whose locale is not enUS only fill a missing name; a recorded spawn, a learned path
+//! (travel/paths.rs), a drop chance, a quest's XP or a class trainer (trainers.rs) replaces another
+//! source's only with the evidence of at least two distinct counted players, or of the
+//! maintainer's own (`local`) recordings. A player is a [`Recording::voter`]: the server's cohort
+//! (contributors registered from one network on one day share one), else the contributor. A
+//! player counts once per fact however many sessions, installs or tokens it has, and only once
+//! established ([`establish`]: `local` and `sent-*`, a file the maintainer vouched for, always are).
+//! A single or new player still fills gaps no other source has a value for. A number several
+//! players recorded (a drop chance, a quest's XP) is the median of each player's own value, so one
+//! heavy player cannot pull it. Schema 1 sessions count as `local` and enUS.
 
 use std::path::Path;
 
@@ -15,21 +28,171 @@ use crate::spawns::{points_of, reduce_spawns, spawn_record, SpawnOptions, P};
 pub struct Recording {
 	pub file: String,
 	pub rec: V,
+	/// Whether the session's player counts toward the two-player quorum ([`establish`]).
+	pub counts: bool,
 }
 
+/// The contributor of the maintainer's own recordings (`forge record import`).
+pub const LOCAL: &str = "local";
+
+impl Recording {
+	/// Who recorded the session (`local` for schema 1 and the maintainer's own imports).
+	pub fn contributor(&self) -> String {
+		self.rec.get("contributor").as_str().filter(|c| !c.is_empty()).unwrap_or(LOCAL).to_string()
+	}
+
+	/// The player the quorum counts: `cohort:<id>` for a pulled session whose header carries the
+	/// server's cohort (16 hex digits), else the contributor (`local`, `sent-*`, `anon-*`, and
+	/// sessions pulled before the server exported cohorts).
+	pub fn voter(&self) -> String {
+		match self.rec.get("cohort").as_str().filter(|c| c.len() == 16 && c.bytes().all(|b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))) {
+			Some(c) => format!("cohort:{c}"),
+			None => self.contributor(),
+		}
+	}
+
+	/// Whether the session's names are English (schema 1 sessions carry no locale and are).
+	pub fn english(&self) -> bool {
+		self.rec.get("locale").as_str().is_none_or(|l| l == "enUS")
+	}
+}
+
+/// Whether evidence from these counted players may replace another source's value.
+pub fn trusted(voters: &IndexSet<String>) -> bool {
+	voters.contains(LOCAL) || voters.len() >= 2
+}
+
+/// How established a server contributor must be to count toward the quorum (config.json's
+/// `minContributorDays`, `minContributorChunks`, `minContributorPlayDays`, `minContributorHours`,
+/// `minContributorPos`, `minContributorKills`).
+#[derive(Clone, Copy, Debug)]
+pub struct Establish {
+	/// Days from first seen to its newest session's arrival.
+	pub min_days: f64,
+	pub min_chunks: f64,
+	/// Distinct UTC days its sessions started or ended on.
+	pub min_play_days: f64,
+	/// Hours its sessions span, summed.
+	pub min_hours: f64,
+	/// `pos` and `kill` events over its sessions.
+	pub min_pos: f64,
+	pub min_kills: f64,
+}
+
+pub const ESTABLISH: Establish = Establish { min_days: 3.0, min_chunks: 20.0, min_play_days: 3.0, min_hours: 2.0, min_pos: 10.0, min_kills: 5.0 };
+
+/// What a contributor's sessions say about it.
+struct Play {
+	since: f64,
+	newest: f64,
+	chunks: f64,
+	days: rustc_hash::FxHashSet<i64>,
+	secs: f64,
+	pos: f64,
+	kills: f64,
+}
+
+/// Marks the sessions whose player counts toward the quorum. A contributor is established when it
+/// is `local` or `sent-*` (a file the maintainer vouched for); `anon-*` (a sent-in file nobody
+/// vouched for) never is; a server contributor is once it shows substantive play, by what forge
+/// record pull wrote in its sessions' headers: first seen (`contributorSince`, the earliest any of
+/// its sessions says) at least `min_days` days before its newest session arrived (`received`), at
+/// least `min_chunks` chunks sent (`contributorChunks`, the most any says), sessions on at least
+/// `min_play_days` distinct UTC days spanning `min_hours` hours in all, and at least `min_pos`
+/// positions and `min_kills` kills recorded. A player ([`Recording::voter`]) counts when any of its
+/// contributors is established; every session of it is marked alike.
+pub fn establish(recs: &mut [Recording], e: Establish) {
+	let mut by: FxHashMap<String, Play> = FxHashMap::default();
+	for r in recs.iter() {
+		let num = |k: &str| r.rec.get(k).as_num().filter(|n| n.is_finite() && *n > 0.0);
+		let s = by.entry(r.contributor()).or_insert_with(|| Play { since: f64::INFINITY, newest: f64::NEG_INFINITY, chunks: 0.0, days: Default::default(), secs: 0.0, pos: 0.0, kills: 0.0 });
+		if let Some(x) = num("contributorSince") {
+			s.since = s.since.min(x);
+		}
+		if let Some(x) = num("received") {
+			s.newest = s.newest.max(x);
+		}
+		if let Some(x) = num("contributorChunks") {
+			s.chunks = s.chunks.max(x);
+		}
+		if let (Some(a), Some(b)) = (num("started"), num("ended")) {
+			if b >= a {
+				s.days.insert((a / 86400.0).floor() as i64);
+				s.days.insert((b / 86400.0).floor() as i64);
+				s.secs += b - a;
+			}
+		}
+		for ev in r.rec.get("events").items() {
+			match ev.get("e").as_str() {
+				Some("pos") => s.pos += 1.0,
+				Some("kill") => s.kills += 1.0,
+				_ => {}
+			}
+		}
+	}
+	let established = |c: &str| {
+		c == LOCAL
+			|| c.starts_with("sent-")
+			|| (!c.starts_with("anon-")
+				&& by.get(c).is_some_and(|p| {
+					p.newest - p.since >= e.min_days * 86400.0
+						&& p.chunks >= e.min_chunks
+						&& p.days.len() as f64 >= e.min_play_days
+						&& p.secs >= e.min_hours * 3600.0
+						&& p.pos >= e.min_pos
+						&& p.kills >= e.min_kills
+				}))
+	};
+	let mut voters: FxHashMap<String, bool> = FxHashMap::default();
+	for r in recs.iter() {
+		let ok = established(&r.contributor());
+		*voters.entry(r.voter()).or_default() |= ok;
+	}
+	for r in recs.iter_mut() {
+		r.counts = voters[&r.voter()];
+	}
+}
+
+/// data/recordings/*.json (schema 1 or 2; `config.json` and dot files are not sessions), less the
+/// sessions of builds older than `config.json`'s `minBuild`, each marked by [`establish`].
 pub fn read_recordings(dir: &Path) -> Result<Vec<Recording>, String> {
 	let Ok(rd) = std::fs::read_dir(dir) else { return Ok(Vec::new()) };
-	let mut files: Vec<String> = rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).filter(|f| f.ends_with(".json")).collect();
+	let mut files: Vec<String> = rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).filter(|f| f.ends_with(".json") && !f.starts_with('.') && f != "config.json").collect();
 	files.sort_by(|a, b| cmp_utf16(a, b));
+	let (min_build, est) = match std::fs::read_to_string(dir.join("config.json")) {
+		Ok(text) => {
+			let c = parse_json(&text).map_err(|e| format!("recordings config.json: {e}"))?;
+			let at_least_0 = |k: &str, d: f64| c.get(k).as_num().filter(|n| n.is_finite() && *n >= 0.0).unwrap_or(d);
+			let d = ESTABLISH;
+			(
+				c.get("minBuild").as_num().filter(|n| n.is_finite()),
+				Establish {
+					min_days: at_least_0("minContributorDays", d.min_days),
+					min_chunks: at_least_0("minContributorChunks", d.min_chunks),
+					min_play_days: at_least_0("minContributorPlayDays", d.min_play_days),
+					min_hours: at_least_0("minContributorHours", d.min_hours),
+					min_pos: at_least_0("minContributorPos", d.min_pos),
+					min_kills: at_least_0("minContributorKills", d.min_kills),
+				},
+			)
+		}
+		Err(_) => (None, ESTABLISH),
+	};
 	let mut out = Vec::new();
 	for file in files {
 		let text = std::fs::read_to_string(dir.join(&file)).map_err(|e| format!("recording {file}: {e}"))?;
 		let rec = parse_json(&text).map_err(|e| format!("recording {file}: {e}"))?;
-		if rec.get("schema").as_num() != Some(1.0) || !rec.get("events").is_arr() {
-			return Err(format!("recording {file}: expected {{ schema: 1, events: [...] }}"));
+		if !matches!(rec.get("schema").as_num(), Some(1.0) | Some(2.0)) || !rec.get("events").is_arr() {
+			return Err(format!("recording {file}: expected {{ schema: 1 or 2, events: [...] }}"));
 		}
-		out.push(Recording { file, rec });
+		if let (Some(min), Some(build)) = (min_build, rec.get("build").as_num()) {
+			if build < min {
+				continue;
+			}
+		}
+		out.push(Recording { file, rec, counts: false });
 	}
+	establish(&mut out, est);
 	Ok(out)
 }
 
@@ -208,14 +371,16 @@ struct Overlay<'a> {
 	touched_entities: IndexMap<String, (&'static str, i64)>,
 	live: [IndexMap<i64, ByMap>; 2],
 	recorded_objectives: IndexMap<i64, IndexMap<i64, Slot>>,
-	xp_seen: IndexMap<i64, Vec<(&'static str, i64, Option<i64>)>>,
+	/// quest -> (kind, xp, player level, contributor index) observations.
+	xp_seen: IndexMap<i64, Vec<(&'static str, i64, Option<i64>, usize)>>,
 	faction_parent: IndexMap<i64, i64>,
 	faction_side: FxHashMap<i64, String>,
 	rewards: FxHashMap<i64, (u8, V)>,
-	// finds
-	kills: FxHashMap<i64, f64>,
-	windows: [FxHashMap<i64, f64>; 2],
-	loots: [IndexMap<i64, IndexMap<i64, f64>>; 2],
+	// finds, counted per contributor index (one contributor's numbers never pool with another's)
+	kills: FxHashMap<i64, IndexMap<usize, f64>>,
+	windows: [FxHashMap<i64, IndexMap<usize, f64>>; 2],
+	/// source -> item -> contributor -> loot windows holding the item.
+	loots: [IndexMap<i64, IndexMap<i64, IndexMap<usize, f64>>>; 2],
 	found: [IndexMap<i64, ByMap>; 2],
 	killed: IndexMap<i64, ByMap>,
 	rank: IndexMap<i64, f64>,
@@ -225,7 +390,21 @@ struct Overlay<'a> {
 	encounter_of: IndexMap<i64, i64>,
 	entrances: IndexMap<i64, ByMap>,
 	inst: IndexMap<i64, Inst>,
+	// trust: the current session's contributor, its index, whether it counts toward the quorum
+	// and whether its names are English
+	contributor: String,
+	ci: usize,
+	counts: bool,
+	english: bool,
+	/// Every contributor seen (index -> id) and whether each counts.
+	contributors: IndexSet<String>,
+	counting: Vec<bool>,
+	/// (WHO_LIVE/WHO_FOUND + table index, id, map) -> counted contributors of the points.
+	who: FxHashMap<(usize, i64, i64), IndexSet<String>>,
 }
+
+const WHO_LIVE: usize = 0;
+const WHO_FOUND: usize = 2;
 
 #[derive(Default)]
 struct Slot {
@@ -255,6 +434,12 @@ fn push_point(m: &mut IndexMap<i64, ByMap>, id: i64, c: &Coord) {
 	m.entry(id).or_default().entry(c.map).or_default().push([c.x, c.y]);
 }
 
+/// Whether a recorded name may be written over `cur`: English names always, others only where
+/// there is none.
+fn may_name(english: bool, cur: &V) -> bool {
+	english || !cur.truthy()
+}
+
 impl<'a> Overlay<'a> {
 	fn quest(&mut self, id: i64) -> V {
 		let k = id.to_string();
@@ -282,7 +467,9 @@ impl<'a> Overlay<'a> {
 		}
 		let e = t.get(&k);
 		if let Some(n) = name.as_str().filter(|n| !n.is_empty()) {
-			e.set("name", n);
+			if may_name(self.english, &e.get("name")) {
+				e.set("name", n);
+			}
 		}
 		self.touched_entities.insert(format!("{kind}:{id}"), (kind, id));
 		e
@@ -302,7 +489,10 @@ impl<'a> Overlay<'a> {
 			self.db.items.set(&k, o);
 		}
 		if let Some(n) = name.as_str().filter(|n| !n.is_empty()) {
-			self.db.items.get(&k).set("name", n);
+			let it = self.db.items.get(&k);
+			if may_name(self.english, &it.get("name")) {
+				it.set("name", n);
+			}
 		}
 	}
 
@@ -310,13 +500,29 @@ impl<'a> Overlay<'a> {
 		let e = self.entity(kind, id, name);
 		if let Some(c) = coord(ev) {
 			push_point(&mut self.live[k_ix(kind)], id, &c);
+			self.note(WHO_LIVE + k_ix(kind), id, c.map);
 		}
 		e
 	}
 
+	/// The current session's contributor backs the points of (`slot`, `id`, `map`), if it counts.
+	fn note(&mut self, slot: usize, id: i64, map: i64) {
+		if !self.counts {
+			return;
+		}
+		let who = self.who.entry((slot, id, map)).or_default();
+		if !who.contains(&self.contributor) {
+			who.insert(self.contributor.clone());
+		}
+	}
+
+	fn trusted_at(&self, slot: usize, id: i64, map: i64) -> bool {
+		self.who.get(&(slot, id, map)).is_some_and(trusted)
+	}
+
 	fn xp_obs(&mut self, qid: i64, kind: &'static str, value: &V, lvl: &V) {
 		let Some(xp) = pos_int(value) else { return };
-		self.xp_seen.entry(qid).or_default().push((kind, xp, pos_int(lvl)));
+		self.xp_seen.entry(qid).or_default().push((kind, xp, pos_int(lvl), self.ci));
 	}
 
 	fn slot(&mut self, q: i64, oi: i64) -> &mut Slot {
@@ -337,7 +543,7 @@ impl<'a> Overlay<'a> {
 		}
 		let f = self.db.factions.get(&k);
 		if let Some(n) = name.as_str() {
-			if !n.trim().is_empty() {
+			if !n.trim().is_empty() && may_name(self.english, &f.get("name")) {
 				f.set("name", n.trim());
 			}
 		}
@@ -444,9 +650,12 @@ impl<'a> Overlay<'a> {
 	}
 
 	fn instance(&mut self, id: i64, ev: &V) -> &mut Inst {
+		let english = self.english;
 		let i = self.inst.entry(id).or_insert_with(|| Inst { name: None, kind: None, encounters: IndexMap::new() });
 		if let Some(n) = ev.get("instName").as_str().filter(|n| !n.is_empty()) {
-			i.name = Some(n.to_string());
+			if english || i.name.is_none() {
+				i.name = Some(n.to_string());
+			}
 		}
 		if let Some(t) = ev.get("instType").as_str().filter(|t| *t == "party" || *t == "raid") {
 			i.kind = Some(t.to_string());
@@ -464,6 +673,7 @@ impl<'a> Overlay<'a> {
 				self.roles[0].entry(npc).or_default().insert("rare".into());
 				if let Some(c) = coord(ev) {
 					push_point(&mut self.found[0], npc, &c);
+					self.note(WHO_FOUND, npc, c.map);
 				}
 				self.stats.recorded_sightings += 1;
 				true
@@ -474,6 +684,7 @@ impl<'a> Overlay<'a> {
 				self.roles[1].entry(obj).or_default().insert("chest".into());
 				if let Some(c) = coord(ev) {
 					push_point(&mut self.found[1], obj, &c);
+					self.note(WHO_FOUND + 1, obj, c.map);
 				}
 				self.where_(1, obj, ev);
 				self.stats.recorded_sightings += 1;
@@ -481,14 +692,7 @@ impl<'a> Overlay<'a> {
 			}
 			"slain" => {
 				let Some(npc) = npc else { return true };
-				self.unit(npc, ev);
-				if let Some(c) = coord(ev) {
-					push_point(&mut self.killed, npc, &c);
-				}
-				if !ev.get("denied").truthy() {
-					*self.kills.entry(npc).or_insert(0.0) += 1.0;
-				}
-				self.stats.recorded_kills += 1;
+				self.slain(npc, ev);
 				true
 			}
 			"drop" => {
@@ -516,6 +720,7 @@ impl<'a> Overlay<'a> {
 					self.where_(1, id, ev);
 					if let Some(c) = coord(ev) {
 						push_point(&mut self.found[1], id, &c);
+						self.note(WHO_FOUND + 1, id, c.map);
 					}
 					let role = match gather.as_str() {
 						Some("herb") => Some("herb"),
@@ -528,13 +733,14 @@ impl<'a> Overlay<'a> {
 					}
 				}
 				let k = k_ix(kind);
-				*self.windows[k].entry(id).or_insert(0.0) += 1.0;
+				let ci = self.ci;
+				*self.windows[k].entry(id).or_default().entry(ci).or_insert(0.0) += 1.0;
 				let mut seen: IndexSet<i64> = IndexSet::new();
 				for i in &list {
 					seen.insert(pos_int(&i.get("item")).unwrap());
 				}
 				for item in seen {
-					*self.loots[k].entry(id).or_default().entry(item).or_insert(0.0) += 1.0;
+					*self.loots[k].entry(id).or_default().entry(item).or_default().entry(ci).or_insert(0.0) += 1.0;
 					self.item_entry(item, &V::Undef);
 				}
 				self.loots[k].entry(id).or_default();
@@ -563,9 +769,12 @@ impl<'a> Overlay<'a> {
 				let Some(id) = id else { return true };
 				let ok = ev.get("ok").truthy();
 				let enc_name = ev.get("encName");
+				let english = self.english;
 				let e = self.instance(id, ev).encounters.entry(enc).or_insert_with(|| Enc { name: None, npcs: IndexSet::new(), kills: 0 });
 				if let Some(n) = enc_name.as_str().filter(|n| !n.is_empty()) {
-					e.name = Some(n.to_string());
+					if english || e.name.is_none() {
+						e.name = Some(n.to_string());
+					}
 				}
 				for b in bosses {
 					e.npcs.insert(b);
@@ -579,11 +788,27 @@ impl<'a> Overlay<'a> {
 		}
 	}
 
-	fn join(&self, e: &V, by_map: &ByMap, fill_only: bool) {
+	/// A creature the player killed: its level and rank, where it died (fills spawns only) and
+	/// the kill count behind its drop chances.
+	fn slain(&mut self, npc: i64, ev: &V) {
+		self.unit(npc, ev);
+		if let Some(c) = coord(ev) {
+			push_point(&mut self.killed, npc, &c);
+		}
+		if !ev.get("denied").truthy() {
+			*self.kills.entry(npc).or_default().entry(self.ci).or_insert(0.0) += 1.0;
+		}
+		self.stats.recorded_kills += 1;
+	}
+
+	/// Recorded points into an entity's spawns: a map without spawns gets them; another source's
+	/// spawns on a map Forever did not change are merged with them only on trusted evidence
+	/// (`slot`: WHO_FOUND + table index); `fill_only` never touches existing spawns.
+	fn join(&self, e: &V, by_map: &ByMap, fill_only: bool, slot: usize, id: i64) {
 		let spawns = e.get("spawns");
 		for (&map, pts) in by_map {
 			let cur = spawns.get(&map.to_string());
-			if !cur.is_undef() && (fill_only || (cur.get("f").as_str() != Some("l") && (self.live_maps)(map))) {
+			if !cur.is_undef() && (fill_only || (cur.get("f").as_str() != Some("l") && ((self.live_maps)(map) || !self.trusted_at(slot, id, map)))) {
 				continue;
 			}
 			let all: Vec<P> = if cur.is_undef() { pts.clone() } else { points_of(&cur.get("pts")).into_iter().chain(points_of(&cur.get("more"))).chain(pts.iter().copied()).collect() };
@@ -601,14 +826,38 @@ impl<'a> Overlay<'a> {
 		for kind in ["npc", "object"] {
 			let k = k_ix(kind);
 			for (&id, m) in &self.loots[k] {
-				let of = if kind == "npc" {
-					self.kills.get(&id).copied().unwrap_or(0.0).max(self.windows[0].get(&id).copied().unwrap_or(0.0))
-				} else {
-					self.windows[1].get(&id).copied().unwrap_or(f64::NAN)
-				};
-				for (&item, &n) in m {
+				// Each contributor's kills of the source (or loot windows, the more of the two),
+				// or its loot windows of an object.
+				let mut of_by: IndexMap<usize, f64> = self.windows[k].get(&id).cloned().unwrap_or_default();
+				if kind == "npc" {
+					for (&c, &n) in self.kills.get(&id).into_iter().flatten() {
+						let of = of_by.entry(c).or_insert(0.0);
+						*of = of.max(n);
+					}
+				}
+				for (&item, n_by) in m {
 					let it = db.items.get(&item.to_string());
 					if !it.truthy() {
+						continue;
+					}
+					// From MIN_KILLS of their own, two counted contributors (or `local`) make a
+					// trusted chance that replaces another source's; otherwise the chance only
+					// fills a gap, from the counted contributors when any saw the source, else
+					// from everyone. Either way it is the median of each contributor's chance.
+					let all: Vec<usize> = of_by.iter().filter(|(_, of)| **of > 0.0).map(|(c, _)| *c).collect();
+					let counted: Vec<usize> = all.iter().copied().filter(|c| self.counting[*c]).collect();
+					let strong: Vec<usize> = counted.iter().copied().filter(|c| of_by[c] >= MIN_KILLS).collect();
+					let trust = strong.iter().any(|c| self.contributors[*c] == LOCAL) || strong.len() >= 2;
+					let group = if trust {
+						strong
+					} else if !counted.is_empty() {
+						counted
+					} else {
+						all
+					};
+					let n_of = |c: &usize| n_by.get(c).copied().unwrap_or(0.0);
+					let chance = median(group.iter().map(|c| 100.0 * n_of(c) / of_by[c]).collect());
+					if chance.is_nan() || chance <= 0.0 {
 						continue;
 					}
 					if !it.get("drops").truthy() {
@@ -621,8 +870,8 @@ impl<'a> Overlay<'a> {
 						it.get("drops").set(kind, Obj::new());
 					}
 					let cur = it.get("drops").get(kind).get(&id.to_string());
-					if of >= MIN_KILLS || cur.is_nullish() {
-						it.get("drops").get(kind).set(&id.to_string(), round2((100.0 * n) / of));
+					if cur.is_nullish() || trust {
+						it.get("drops").get(kind).set(&id.to_string(), round2(chance));
 						chances += 1;
 					}
 					if !it.get("seen").truthy() {
@@ -631,9 +880,10 @@ impl<'a> Overlay<'a> {
 					if !it.get("seen").get(kind).truthy() {
 						it.get("seen").set(kind, Obj::new());
 					}
+					// The loot and kills behind the chance.
 					let s = Obj::new();
-					s.set("n", n);
-					s.set("of", of);
+					s.set("n", group.iter().map(n_of).sum::<f64>());
+					s.set("of", group.iter().map(|c| of_by[c]).sum::<f64>());
 					it.get("seen").get(kind).set(&id.to_string(), s);
 					let src = it.get("source");
 					if src.is_arr() {
@@ -698,11 +948,11 @@ impl<'a> Overlay<'a> {
 				e.set("instances", nums(&all));
 			}
 			for (&id, by_map) in &self.found[k] {
-				self.join(&t.get(&id.to_string()), by_map, false);
+				self.join(&t.get(&id.to_string()), by_map, false, WHO_FOUND + k, id);
 			}
 		}
 		for (&id, by_map) in &self.killed {
-			self.join(&db.npcs.get(&id.to_string()), by_map, true);
+			self.join(&db.npcs.get(&id.to_string()), by_map, true, WHO_FOUND, id);
 		}
 		for (&id, &enc) in &self.encounter_of {
 			db.npcs.get(&id.to_string()).set("encounter", enc as f64);
@@ -809,6 +1059,10 @@ fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>) {
 	keys.sort();
 	for oi in keys {
 		let s = &slots[&oi];
+		// Nothing to match it by (a non-English session's progress: names are not taken from it).
+		if s.name.is_none() && s.id.is_none() {
+			continue;
+		}
 		let mut idx = s.name.as_ref().and_then(|name| {
 			list.iter().enumerate().position(|(i, o)| {
 				!oi_of.contains_key(&i)
@@ -854,25 +1108,55 @@ fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>) {
 	q.set("objectives", arr(out));
 }
 
-fn resolve_xp(q: &V, list: &[(&'static str, i64, Option<i64>)]) {
-	let mut pick: Vec<&(&str, i64, Option<i64>)> = list.iter().filter(|o| o.0 == "base").collect();
+/// A quest's recorded XP: the base reward when one was seen, else the log or turn-in values of
+/// players near the quest's level. Each contributor gives one value (the highest it saw); the
+/// quest gets the lower median of the counted contributors' values (of everyone's when none
+/// counts), a value a player saw that one outlying contributor cannot move. Another source's XP
+/// is replaced only on trusted evidence (two counted contributors, or `local`); otherwise the
+/// recorded XP only fills a quest that has none.
+fn resolve_xp(q: &V, list: &[(&'static str, i64, Option<i64>, usize)], contributors: &IndexSet<String>, counting: &[bool]) {
+	let mut pick: Vec<&(&str, i64, Option<i64>, usize)> = list.iter().filter(|o| o.0 == "base").collect();
 	if pick.is_empty() {
 		let level = q.get("level");
 		pick = list.iter().filter(|o| o.0 != "base" && (matches!(level, V::Null) || o.2.is_some_and(|l| (l as f64) <= level.num() + FULL_XP_LEVELS))).collect();
 	}
-	let Some(&first) = pick.first() else { return };
-	let mut best = first;
+	let mut per: IndexMap<usize, (&str, i64)> = IndexMap::new();
 	for o in &pick {
+		let best = per.entry(o.3).or_insert((o.0, o.1));
 		if o.1 > best.1 {
-			best = o;
+			*best = (o.0, o.1);
 		}
 	}
-	q.set("xp", best.1 as f64);
+	let counted: IndexSet<String> = per.keys().filter(|c| counting[**c]).map(|c| contributors[*c].clone()).collect();
+	if q.get("xp").as_num().is_some_and(|x| x > 0.0) && !trusted(&counted) {
+		return;
+	}
+	let mut values: Vec<(&str, i64)> = per.iter().filter(|(c, _)| counting[**c]).map(|(_, v)| *v).collect();
+	if values.is_empty() {
+		values = per.into_values().collect();
+	}
+	values.sort_by_key(|v| v.1);
+	let Some(&(kind, xp)) = values.get(values.len().saturating_sub(1) / 2) else { return };
+	q.set("xp", xp as f64);
 	q.set("xpSamples", pick.len());
-	let tag = format!("recorder:xp-{}", best.0);
+	let tag = format!("recorder:xp-{kind}");
 	let src = q.get("source");
 	if !has_str(&src, &tag) {
 		src.push(tag.as_str());
+	}
+}
+
+/// The median: the middle value, or the mean of the two middle ones; NaN for none.
+fn median(mut v: Vec<f64>) -> f64 {
+	if v.is_empty() {
+		return f64::NAN;
+	}
+	v.sort_by(f64::total_cmp);
+	let m = v.len() / 2;
+	if v.len() % 2 == 1 {
+		v[m]
+	} else {
+		(v[m - 1] + v[m]) / 2.0
 	}
 }
 
@@ -953,8 +1237,27 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], so: SpawnOptions, liv
 		encounter_of: IndexMap::new(),
 		entrances: IndexMap::new(),
 		inst: IndexMap::new(),
+		contributor: LOCAL.to_string(),
+		ci: 0,
+		counts: true,
+		english: true,
+		contributors: IndexSet::new(),
+		counting: Vec::new(),
+		who: FxHashMap::default(),
 	};
-	for Recording { rec, .. } in recordings {
+	for r in recordings {
+		let rec = &r.rec;
+		ov.contributor = r.voter();
+		let (ci, new) = ov.contributors.insert_full(ov.contributor.clone());
+		if new {
+			ov.counting.push(r.counts);
+		}
+		ov.ci = ci;
+		ov.counts = ov.counting[ci];
+		ov.english = r.english();
+		// Schema 2 has one `kill` per creature killed (schema 1's `slain`), with the objective it
+		// ticked when it did.
+		let schema2 = rec.get("schema").as_num() == Some(2.0);
 		for (map_id, m) in rec.get("maps").entries() {
 			let Some(id) = pos_int(&V::Str(map_id)) else { continue };
 			if !db.zones.has(&id.to_string()) && m.truthy() && m.get("name").is_str() {
@@ -981,7 +1284,9 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], so: SpawnOptions, liv
 				("accept", Some(qid)) => {
 					let q = ov.quest(qid);
 					if let Some(t) = ev.get("title").as_str().filter(|t| !t.is_empty()) {
-						q.set("title", t);
+						if may_name(ov.english, &q.get("title")) {
+							q.set("title", t);
+						}
 					}
 					if let Some(l) = pos_int(&ev.get("qlvl")) {
 						q.set("level", l as f64);
@@ -1019,6 +1324,14 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], so: SpawnOptions, liv
 					}
 					ov.rewards_observe(qid, &ev, 2);
 				}
+				("text", Some(qid)) => {
+					let q = ov.quest(qid);
+					if let Some(t) = ev.get("title").as_str().filter(|t| !t.is_empty()) {
+						if may_name(ov.english, &q.get("title")) {
+							q.set("title", t);
+						}
+					}
+				}
 				("reward", Some(qid)) => {
 					ov.quest(qid);
 					ov.xp_obs(qid, "base", &ev.get("rewardXpBase"), &ev.get("lvl"));
@@ -1035,8 +1348,11 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], so: SpawnOptions, liv
 						Some("object") => Some("object"),
 						_ => None,
 					};
+					let english = ov.english;
 					let s = ov.slot(qid, oi);
-					s.name = Some(p.name);
+					if english {
+						s.name = Some(p.name);
+					}
 					s.max = Some(s.max.unwrap_or(0.0).max(p.max));
 					s.kind = kind.map(str::to_string).or(s.kind.take()).or(if p.slain { Some("kill".into()) } else { None });
 				}
@@ -1056,12 +1372,20 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], so: SpawnOptions, liv
 							s.kind = Some(kind.into());
 						}
 					}
+					if schema2 && &*e == "kill" {
+						ov.slain(id, &ev);
+					}
+				}
+				("unit", _) if schema2 => {
+					if let Some(n) = npc {
+						ov.unit(n, &ev);
+					}
 				}
 				_ => {
 					if ov.handle_find(&ev) {
 					} else if let (Some(role), Some(n)) = (
 						match &*e {
-							"gossip" => Some(None),
+							"gossip" | "offer" => Some(None),
 							"trainer" => Some(Some("trainer")),
 							"vendor" => Some(Some("vendor")),
 							"fp" => Some(Some("flightmaster")),
@@ -1103,6 +1427,10 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], so: SpawnOptions, liv
 				if r.pts.is_empty() {
 					continue;
 				}
+				let cur = e.get("spawns").get(&map.to_string());
+				if !cur.is_undef() && cur.get("f").as_str() != Some("l") && !ov.trusted_at(WHO_LIVE + k_ix(kind), id, map) {
+					continue;
+				}
 				e.get("spawns").set(&map.to_string(), spawn_record("l", &r));
 			}
 		}
@@ -1134,7 +1462,7 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], so: SpawnOptions, liv
 			src.push("recorder");
 		}
 		if let Some(list) = ov.xp_seen.get(&id) {
-			resolve_xp(&q, list);
+			resolve_xp(&q, list, &ov.contributors, &ov.counting);
 		}
 		if let Some((_, r)) = ov.rewards.get(&id) {
 			q.set("rewards", r.clone());
@@ -1144,4 +1472,346 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], so: SpawnOptions, liv
 	ov.stats.touched_quests = ov.touched.len();
 	resolve_factions(db.factions, &ov.faction_parent, &ov.faction_side);
 	ov.stats
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use crate::spawns::DEFAULTS;
+
+	fn obj(json: &str) -> Obj {
+		match parse_json(json).unwrap() {
+			V::Obj(o) => o,
+			_ => panic!("not an object: {json}"),
+		}
+	}
+
+	/// A session of an established contributor (one that counts).
+	fn session(name: &str, contributor: &str, locale: &str, events: &[String]) -> Recording {
+		let text = format!(r#"{{"schema":2,"session":"{name}","contributor":"{contributor}","locale":"{locale}","build":62345,"events":[{}],"maps":{{}}}}"#, events.join(","));
+		Recording { file: format!("{name}.json"), rec: parse_json(&text).unwrap(), counts: true }
+	}
+
+	struct Tables {
+		quests: Obj,
+		npcs: Obj,
+		objects: Obj,
+		items: Obj,
+		zones: Obj,
+		factions: Obj,
+		instances: Obj,
+	}
+
+	impl Tables {
+		fn new(quests: &str, npcs: &str, items: &str) -> Tables {
+			Tables { quests: obj(quests), npcs: obj(npcs), objects: obj("{}"), items: obj(items), zones: obj("{}"), factions: obj("{}"), instances: obj("{}") }
+		}
+
+		fn apply(&self, recs: &[Recording]) {
+			let db = Db { quests: &self.quests, npcs: &self.npcs, objects: &self.objects, items: &self.items, zones: &self.zones, factions: &self.factions, instances: &self.instances };
+			apply_recordings(&db, recs, DEFAULTS, &|_| false, false);
+		}
+	}
+
+	const QUESTS: &str = r#"{"364":{"id":364,"title":"The Damned","level":3,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[],"source":["pfquest"]}}"#;
+	const NPCS: &str = r#"{"1568":{"id":1568,"name":"Undertaker Mordo","spawns":{"1420":{"f":"q","pts":[[10,10]]}}},"1569":{"id":1569,"name":"Shadow Priest Sarvis","spawns":{}}}"#;
+
+	#[test]
+	fn names_from_a_non_english_client_only_fill_gaps() {
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		let de = session(
+			"de",
+			"aaaaaaaaaaaaaaaa",
+			"deDE",
+			&[
+				r#"{"t":1,"e":"text","q":364,"title":"Die Verdammten"}"#.into(),
+				r#"{"t":2,"e":"text","q":999,"title":"Nur auf Deutsch"}"#.into(),
+				r#"{"t":3,"e":"gossip","npc":1568,"npcName":"Leichenbestatter Mordo"}"#.into(),
+			],
+		);
+		t.apply(&[de]);
+		assert_eq!(t.quests.get("364").get("title").as_str(), Some("The Damned"));
+		assert_eq!(t.quests.get("999").get("title").as_str(), Some("Nur auf Deutsch"));
+		assert_eq!(t.npcs.get("1568").get("name").as_str(), Some("Undertaker Mordo"));
+
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&[session("en", "aaaaaaaaaaaaaaaa", "enUS", &[r#"{"t":1,"e":"text","q":364,"title":"The Damned (Forever)"}"#.into()])]);
+		assert_eq!(t.quests.get("364").get("title").as_str(), Some("The Damned (Forever)"));
+	}
+
+	#[test]
+	fn a_spawn_from_another_source_needs_two_contributors() {
+		let accept = |npc: i64| format!(r#"{{"t":1,"e":"accept","q":364,"npc":{npc},"map":1420,"x":31,"y":66}}"#);
+		// One player: Mordo keeps the other source's spawn; Sarvis, without one, gets the recorded one.
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&[session("a", "aaaaaaaaaaaaaaaa", "enUS", &[accept(1568), accept(1569)])]);
+		assert_eq!(t.npcs.get("1568").get("spawns").get("1420").get("f").as_str(), Some("q"));
+		assert_eq!(t.npcs.get("1569").get("spawns").get("1420").get("f").as_str(), Some("l"));
+		// The same player twice is still one contributor.
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&[session("a", "aaaaaaaaaaaaaaaa", "enUS", &[accept(1568)]), session("a2", "aaaaaaaaaaaaaaaa", "enUS", &[accept(1568)])]);
+		assert_eq!(t.npcs.get("1568").get("spawns").get("1420").get("f").as_str(), Some("q"));
+		// Two players, or the maintainer's own recording: replaced.
+		for second in ["bbbbbbbbbbbbbbbb", LOCAL] {
+			let t = Tables::new(QUESTS, NPCS, "{}");
+			let recs = if second == LOCAL {
+				vec![session("b", LOCAL, "enUS", &[accept(1568)])]
+			} else {
+				vec![session("a", "aaaaaaaaaaaaaaaa", "enUS", &[accept(1568)]), session("b", second, "enUS", &[accept(1568)])]
+			};
+			t.apply(&recs);
+			assert_eq!(t.npcs.get("1568").get("spawns").get("1420").get("f").as_str(), Some("l"), "{second}");
+			assert_eq!(t.npcs.get("1568").get("spawns").get("1420").get("pts").items()[0].num_at(0), 31.0);
+		}
+	}
+
+	#[test]
+	fn a_drop_chance_from_another_source_needs_two_contributors() {
+		let items = r#"{"2589":{"id":2589,"name":"Linen Cloth","drops":{"npc":{"1501":5},"object":{}},"vendors":[]}}"#;
+		let npcs = r#"{"1501":{"id":1501,"name":"Mindless Zombie","spawns":{}}}"#;
+		let kills = |n: usize| -> Vec<String> { loot(1501, 2589, n, n) };
+		let t = Tables::new("{}", npcs, items);
+		t.apply(&[session("a", "aaaaaaaaaaaaaaaa", "enUS", &kills(12))]);
+		assert_eq!(t.items.get("2589").get("drops").get("npc").get("1501").as_num(), Some(5.0));
+		// Two players, each under MIN_KILLS of their own: not trusted, however many kills together.
+		let t = Tables::new("{}", npcs, items);
+		t.apply(&[session("a", "aaaaaaaaaaaaaaaa", "enUS", &kills(6)), session("b", "bbbbbbbbbbbbbbbb", "enUS", &kills(6))]);
+		assert_eq!(t.items.get("2589").get("drops").get("npc").get("1501").as_num(), Some(5.0));
+		let t = Tables::new("{}", npcs, items);
+		t.apply(&[session("a", "aaaaaaaaaaaaaaaa", "enUS", &kills(12)), session("b", "bbbbbbbbbbbbbbbb", "enUS", &kills(12))]);
+		assert_eq!(t.items.get("2589").get("drops").get("npc").get("1501").as_num(), Some(100.0));
+	}
+
+	/// `n` kills of `npc`, `drops` of them dropping `item`.
+	fn loot(npc: i64, item: i64, n: usize, drops: usize) -> Vec<String> {
+		(0..n)
+			.flat_map(|i| {
+				let mut e = vec![format!(r#"{{"t":{i},"e":"kill","npc":{npc},"cls":"normal"}}"#)];
+				if i < drops {
+					e.push(format!(r#"{{"t":{i},"e":"drop","npc":{npc},"items":[{{"item":{item},"count":1}}]}}"#));
+				}
+				e
+			})
+			.collect()
+	}
+
+	/// A session pulled from the server: its contributor's first-seen time and chunk count as
+	/// forge record pull writes them, `days` before the session arrived.
+	fn pulled(name: &str, contributor: &str, install: &str, days: f64, chunks: u64, events: &[String]) -> Recording {
+		let received = 1_800_000_000.0;
+		let since = received - days * 86400.0;
+		let text = format!(
+			r#"{{"schema":2,"session":"{name}","contributor":"{contributor}","install":"{install}","contributorSince":{since},"contributorChunks":{chunks},"received":{received},"locale":"enUS","build":62345,"events":[{}],"maps":{{}}}}"#,
+			events.join(",")
+		);
+		Recording { file: format!("{name}.json"), rec: parse_json(&text).unwrap(), counts: false }
+	}
+
+	/// The same, with the server's cohort in its header.
+	fn in_cohort(r: Recording, cohort: &str) -> Recording {
+		r.rec.set("cohort", cohort);
+		r
+	}
+
+	/// Substantive play of a contributor: an hour on each of the 3 days before 1_800_000_000, with
+	/// `pos` positions and `kills` kills in each session.
+	fn played(contributor: &str, hours: f64, days: usize, pos: usize, kills: usize) -> Vec<Recording> {
+		(1..=days)
+			.map(|d| {
+				let started = 1_800_000_000.0 - d as f64 * 86400.0;
+				let ended = started + hours * 3600.0;
+				let events: Vec<String> = (0..pos).map(|i| format!(r#"{{"t":{i},"e":"pos","map":1420,"x":1,"y":1}}"#)).chain((0..kills).map(|i| format!(r#"{{"t":{i},"e":"kill"}}"#))).collect();
+				let text = format!(
+					r#"{{"schema":2,"session":"{contributor}-play{d}","contributor":"{contributor}","install":"play","started":{started},"ended":{ended},"locale":"enUS","build":62345,"events":[{}],"maps":{{}}}}"#,
+					events.join(",")
+				);
+				Recording { file: format!("{contributor}-play{d}.json"), rec: parse_json(&text).unwrap(), counts: false }
+			})
+			.collect()
+	}
+
+	/// [`played`] enough to be established.
+	fn play(contributor: &str) -> Vec<Recording> {
+		played(contributor, 1.0, 3, 4, 2)
+	}
+
+	const ACCEPT_MORDO: &str = r#"{"t":1,"e":"accept","q":364,"npc":1568,"map":1420,"x":31,"y":66}"#;
+
+	/// Mordo's spawn flag after [`establish`] and the overlay: `q` kept, `l` replaced.
+	fn mordo(recs: &mut [Recording]) -> Option<String> {
+		establish(recs, ESTABLISH);
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(recs);
+		t.npcs.get("1568").get("spawns").get("1420").get("f").as_str().map(str::to_owned)
+	}
+
+	#[test]
+	fn a_contributor_counts_toward_the_quorum_only_once_established() {
+		let (a, b) = ("aaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbb");
+		let with_play = |mut recs: Vec<Recording>| {
+			recs.extend(play(a));
+			recs.extend(play(b));
+			recs
+		};
+		let pa = || pulled("a", a, "ia", 4.0, 50, &[ACCEPT_MORDO.into()]);
+		// b registered a day ago, or has sent too little: Mordo keeps the other source's spawn.
+		for pb in [pulled("b", b, "ib", 1.0, 50, &[ACCEPT_MORDO.into()]), pulled("b", b, "ib", 10.0, 5, &[ACCEPT_MORDO.into()])] {
+			let mut recs = with_play(vec![pa(), pb]);
+			assert_eq!(mordo(&mut recs).as_deref(), Some("q"));
+			assert!(recs[0].counts && !recs[1].counts);
+		}
+		// Established: its earliest first-seen and its largest chunk count, over all its sessions.
+		let mut recs = with_play(vec![pa(), pulled("b1", b, "ib", 10.0, 5, &[]), pulled("b2", b, "ib", 1.0, 30, &[ACCEPT_MORDO.into()])]);
+		assert_eq!(mordo(&mut recs).as_deref(), Some("l"));
+		// A file the maintainer vouched for and the maintainer's own count without any of it; a
+		// sent-in file nobody vouched for never counts.
+		let sent = |c: &str| Recording { counts: false, ..session("s", c, "enUS", &[ACCEPT_MORDO.into()]) };
+		let mut recs = with_play(vec![pa(), sent("sent-alice")]);
+		assert_eq!(mordo(&mut recs).as_deref(), Some("l"));
+		let mut recs = with_play(vec![pa(), sent("anon-0123456789abcdef")]);
+		assert_eq!(mordo(&mut recs).as_deref(), Some("q"));
+		assert!(!recs[1].counts);
+		let mut recs = vec![Recording { counts: false, ..session("m", LOCAL, "enUS", &[ACCEPT_MORDO.into()]) }];
+		assert_eq!(mordo(&mut recs).as_deref(), Some("l"));
+	}
+
+	#[test]
+	fn establishing_takes_substantive_play() {
+		let (a, b) = ("aaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbb");
+		let with = |b_play: Vec<Recording>| {
+			let mut recs = vec![pulled("a", a, "ia", 30.0, 500, &[ACCEPT_MORDO.into()]), pulled("b", b, "ib", 30.0, 500, &[ACCEPT_MORDO.into()])];
+			recs.extend(play(a));
+			recs.extend(b_play);
+			recs
+		};
+		// Old and busy enough, but no play, two days, too short, no kills or no positions: b doesn't count.
+		for (why, b_play) in [
+			("no play", vec![]),
+			("two days", played(b, 1.0, 2, 8, 4)),
+			("an hour and a half", played(b, 0.5, 3, 4, 2)),
+			("no kills", played(b, 1.0, 3, 4, 0)),
+			("no positions", played(b, 1.0, 3, 0, 2)),
+		] {
+			let mut recs = with(b_play);
+			assert_eq!(mordo(&mut recs).as_deref(), Some("q"), "{why}");
+			assert!(recs[0].counts && !recs[1].counts, "{why}");
+		}
+		let mut recs = with(play(b));
+		assert_eq!(mordo(&mut recs).as_deref(), Some("l"));
+	}
+
+	#[test]
+	fn contributors_of_one_cohort_count_as_one_player() {
+		let (a, b) = ("aaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbb");
+		let recs = |ca: Option<&str>, cb: Option<&str>| {
+			let mut v = vec![pulled("a", a, "ia", 30.0, 500, &[ACCEPT_MORDO.into()]), pulled("b", b, "ib", 30.0, 500, &[ACCEPT_MORDO.into()])];
+			v.extend(play(a));
+			v.extend(play(b));
+			v.into_iter()
+				.map(|r| match (r.contributor() == a, ca, cb) {
+					(true, Some(c), _) | (false, _, Some(c)) => in_cohort(r, c),
+					_ => r,
+				})
+				.collect::<Vec<_>>()
+		};
+		// Two established contributors registered from one network on one day: one player.
+		let mut v = recs(Some("0000000000000001"), Some("0000000000000001"));
+		assert_eq!(mordo(&mut v).as_deref(), Some("q"));
+		assert!(v.iter().all(|r| r.counts));
+		// Two cohorts, or one pulled before cohorts were exported (it counts as its contributor): two.
+		for (ca, cb) in [(Some("0000000000000001"), Some("0000000000000002")), (Some("0000000000000001"), None)] {
+			let mut v = recs(ca, cb);
+			assert_eq!(mordo(&mut v).as_deref(), Some("l"), "{ca:?} {cb:?}");
+		}
+		// A cohort counts once any of its contributors is established.
+		let mut v = vec![in_cohort(pulled("a", a, "ia", 30.0, 500, &[]), "0000000000000003"), in_cohort(pulled("b", b, "ib", 1.0, 1, &[]), "0000000000000003")];
+		v.extend(play(a).into_iter().map(|r| in_cohort(r, "0000000000000003")));
+		establish(&mut v, ESTABLISH);
+		assert!(v.iter().all(|r| r.counts));
+	}
+
+	#[test]
+	fn one_contributor_with_many_installs_counts_once() {
+		let items = r#"{"2589":{"id":2589,"name":"Linen Cloth","drops":{"npc":{"1501":5},"object":{}},"vendors":[]}}"#;
+		let npcs = r#"{"1501":{"id":1501,"name":"Mindless Zombie","spawns":{}},"1568":{"id":1568,"name":"Undertaker Mordo","spawns":{"1420":{"f":"q","pts":[[10,10]]}}}}"#;
+		let mut recs: Vec<Recording> = (0..5)
+			.map(|i| {
+				let mut events = loot(1501, 2589, 40, 40);
+				events.push(ACCEPT_MORDO.into());
+				pulled(&format!("a{i}"), "aaaaaaaaaaaaaaaa", &format!("install{i}"), 30.0, 500, &events)
+			})
+			.chain(play("aaaaaaaaaaaaaaaa"))
+			.collect();
+		establish(&mut recs, ESTABLISH);
+		assert!(recs.iter().all(|r| r.counts));
+		let t = Tables::new(QUESTS, npcs, items);
+		t.apply(&recs);
+		assert_eq!(t.npcs.get("1568").get("spawns").get("1420").get("f").as_str(), Some("q"), "one player's spawn, however many installs");
+		assert_eq!(t.items.get("2589").get("drops").get("npc").get("1501").as_num(), Some(5.0), "one player's drop chance, however many installs");
+	}
+
+	#[test]
+	fn the_median_resists_one_outlier_contributor() {
+		let items = r#"{"2589":{"id":2589,"name":"Linen Cloth","drops":{"npc":{"1501":5},"object":{}},"vendors":[]}}"#;
+		let npcs = r#"{"1501":{"id":1501,"name":"Mindless Zombie","spawns":{}}}"#;
+		let xp = |v: i64| format!(r#"{{"t":1,"e":"accept","q":364,"rewardXpBase":{v},"lvl":3}}"#);
+		// Two players see 10% and 20% in 20 kills each and 450 XP; a third farms 400 kills at
+		// 100% and claims 9999 XP. Pooled the chance would be 81.8%; the median is 20%.
+		let player = |name: &str, c: &str, n: usize, d: usize, x: i64| {
+			let mut events = loot(1501, 2589, n, d);
+			events.push(xp(x));
+			session(name, c, "enUS", &events)
+		};
+		let t = Tables::new(QUESTS, npcs, items);
+		t.apply(&[player("a", "aaaaaaaaaaaaaaaa", 20, 2, 450), player("b", "bbbbbbbbbbbbbbbb", 20, 4, 450), player("c", "cccccccccccccccc", 400, 400, 9999)]);
+		assert_eq!(t.items.get("2589").get("drops").get("npc").get("1501").as_num(), Some(20.0));
+		assert_eq!(t.items.get("2589").get("seen").get("npc").get("1501").get("of").as_num(), Some(440.0));
+		assert_eq!(t.quests.get("364").get("xp").as_num(), Some(450.0));
+		// With two contributors the XP is the lower of the two: a value a player saw.
+		let t = Tables::new(QUESTS, npcs, items);
+		t.apply(&[player("a", "aaaaaaaaaaaaaaaa", 20, 2, 450), player("c", "cccccccccccccccc", 400, 400, 9999)]);
+		assert_eq!(t.quests.get("364").get("xp").as_num(), Some(450.0));
+		assert_eq!(t.items.get("2589").get("drops").get("npc").get("1501").as_num(), Some(55.0));
+	}
+
+	#[test]
+	fn quest_xp_from_another_source_needs_two_counted_contributors() {
+		let quests = r#"{"364":{"id":364,"title":"The Damned","level":3,"xp":400,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[],"source":["pfquest"]}}"#;
+		let xp = |v: i64| vec![format!(r#"{{"t":1,"e":"accept","q":364,"rewardXpBase":{v},"lvl":3}}"#)];
+		let after = |recs: Vec<Recording>| {
+			let mut recs: Vec<Recording> = recs.into_iter().chain(play("aaaaaaaaaaaaaaaa")).chain(play("bbbbbbbbbbbbbbbb")).collect();
+			establish(&mut recs, ESTABLISH);
+			let t = Tables::new(quests, "{}", "{}");
+			t.apply(&recs);
+			t.quests.get("364").get("xp").as_num()
+		};
+		// One established player, the same player on two installs, or two where one is new: kept.
+		assert_eq!(after(vec![pulled("a", "aaaaaaaaaaaaaaaa", "ia", 30.0, 50, &xp(450))]), Some(400.0));
+		assert_eq!(after(vec![pulled("a", "aaaaaaaaaaaaaaaa", "ia", 30.0, 50, &xp(450)), pulled("a2", "aaaaaaaaaaaaaaaa", "ib", 30.0, 50, &xp(450))]), Some(400.0));
+		assert_eq!(after(vec![pulled("a", "aaaaaaaaaaaaaaaa", "ia", 30.0, 50, &xp(450)), pulled("b", "bbbbbbbbbbbbbbbb", "ib", 1.0, 50, &xp(450))]), Some(400.0));
+		// Two established players, or the maintainer's own: replaced.
+		assert_eq!(after(vec![pulled("a", "aaaaaaaaaaaaaaaa", "ia", 30.0, 50, &xp(450)), pulled("b", "bbbbbbbbbbbbbbbb", "ib", 30.0, 50, &xp(450))]), Some(450.0));
+		assert_eq!(after(vec![session("m", LOCAL, "enUS", &xp(450))]), Some(450.0));
+		// A quest without XP is filled by a single new player.
+		let t = Tables::new(QUESTS, "{}", "{}");
+		let mut recs = [pulled("b", "bbbbbbbbbbbbbbbb", "ib", 1.0, 5, &xp(450))];
+		establish(&mut recs, ESTABLISH);
+		t.apply(&recs);
+		assert_eq!(t.quests.get("364").get("xp").as_num(), Some(450.0));
+	}
+
+	#[test]
+	fn sessions_of_builds_older_than_min_build_are_left_out() {
+		let dir = std::env::temp_dir().join(format!("forge-data-recordings-min-build-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&dir);
+		std::fs::create_dir_all(&dir).unwrap();
+		std::fs::write(dir.join("config.json"), r#"{"minBuild":62000}"#).unwrap();
+		std::fs::write(dir.join(".pull-state.json"), r#"{"after":5}"#).unwrap();
+		std::fs::write(dir.join("old.json"), r#"{"schema":2,"build":61000,"events":[]}"#).unwrap();
+		std::fs::write(dir.join("new.json"), r#"{"schema":2,"build":62345,"events":[]}"#).unwrap();
+		std::fs::write(dir.join("v1.json"), r#"{"schema":1,"events":[]}"#).unwrap();
+		let files: Vec<String> = read_recordings(&dir).unwrap().into_iter().map(|r| r.file).collect();
+		assert_eq!(files, vec!["new.json", "v1.json"]);
+		std::fs::remove_dir_all(&dir).unwrap();
+	}
 }

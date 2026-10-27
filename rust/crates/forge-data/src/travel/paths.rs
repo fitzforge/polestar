@@ -297,6 +297,27 @@ pub fn build_paths(recordings: &[Recording], frames: &Frames) -> Paths {
 		let e = &edges[&ek];
 		add_edge(&mut out, &e.a, &e.b, len(&e.a, &e.b), e.n, e.sessions.clone());
 	}
+	// A learned path changes how the grid routes (another source): it needs trusted evidence,
+	// the walks of two counted players or the maintainer's own (recordings.rs "Trust"),
+	// each player (cohort, else contributor) once however many sessions, installs or tokens walked it.
+	let mut who: IndexMap<String, IndexSet<String>> = IndexMap::new();
+	for r in recordings {
+		let s = r.rec.get("session");
+		let session = if s.truthy() { s.to_js_string() } else { r.file.strip_suffix(".json").unwrap_or(&r.file).to_string() };
+		let w = who.entry(session).or_default();
+		if r.counts {
+			w.insert(r.voter());
+		}
+	}
+	out.retain(|_, e| {
+		let mut c: IndexSet<String> = IndexSet::new();
+		for s in &e.4 {
+			if let Some(w) = who.get(s) {
+				c.extend(w.iter().cloned());
+			}
+		}
+		crate::recordings::trusted(&c)
+	});
 
 	let mut used: IndexSet<String> = IndexSet::new();
 	for e in out.values() {

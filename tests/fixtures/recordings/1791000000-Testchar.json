@@ -1,0 +1,377 @@
+{
+	"schema": 1,
+	"build": "1.60.1.70338",
+	"session": "1791000000-Testchar",
+	"char": {
+		"name": "Testchar",
+		"realm": "Test Realm",
+		"race": "Human",
+		"class": "WARRIOR",
+		"faction": "Alliance"
+	},
+	"started": 1791000000,
+	"ended": 1791003000,
+	"events": [
+		{
+			"t": 0,
+			"e": "zone",
+			"map": 1429,
+			"subzone": "Northshire Valley",
+			"zone": "Elwynn Forest"
+		},
+		{
+			"t": 5,
+			"e": "gossip",
+			"active": [],
+			"available": [
+				783
+			],
+			"map": 1429,
+			"npc": 823,
+			"npcName": "Deputy Willem",
+			"x": 48.17,
+			"y": 42.95
+		},
+		{
+			"t": 12,
+			"e": "accept",
+			"lvl": 1,
+			"map": 1429,
+			"npc": 823,
+			"npcName": "Deputy Willem",
+			"q": 783,
+			"qlvl": 1,
+			"title": "A Threat Within",
+			"x": 48.17,
+			"xp": 0,
+			"y": 42.95
+		},
+		{
+			"t": 30,
+			"e": "pos",
+			"map": 1429,
+			"x": 48.9,
+			"y": 41.6
+		},
+		{
+			"t": 41,
+			"e": "turnin",
+			"lvl": 1,
+			"map": 1429,
+			"money": 0,
+			"npc": 197,
+			"npcName": "Marshal McBride",
+			"q": 783,
+			"x": 48.93,
+			"xpReward": 40,
+			"y": 41.61
+		},
+		{
+			"t": 50,
+			"e": "accept",
+			"lvl": 1,
+			"map": 1429,
+			"npc": 197,
+			"npcName": "Marshal McBride",
+			"q": 7,
+			"qlvl": 2,
+			"title": "Kobold Camp Cleanup",
+			"x": 48.93,
+			"xp": 40,
+			"y": 41.61
+		},
+		{
+			"t": 58,
+			"e": "accept",
+			"lvl": 1,
+			"map": 1429,
+			"npc": 196,
+			"npcName": "Eagan Peltskinner",
+			"q": 33,
+			"qlvl": 2,
+			"title": "Wolves Across the Border",
+			"x": 48.6,
+			"xp": 40,
+			"y": 42
+		},
+		{
+			"t": 200,
+			"e": "pos",
+			"map": 1429,
+			"x": 47.5,
+			"y": 37
+		},
+		{
+			"t": 230,
+			"e": "kill",
+			"map": 1429,
+			"npc": 6,
+			"npcName": "Kobold Vermin",
+			"oi": 1,
+			"q": 7,
+			"x": 47.2,
+			"y": 35.4
+		},
+		{
+			"t": 231,
+			"e": "progress",
+			"cur": 1,
+			"map": 1429,
+			"max": 10,
+			"oi": 1,
+			"q": 7,
+			"text": "Kobold Vermin slain: 1/10",
+			"type": "monster",
+			"x": 47.2,
+			"y": 35.4
+		},
+		{
+			"t": 260,
+			"e": "kill",
+			"map": 1429,
+			"npc": 6,
+			"npcName": "Kobold Vermin",
+			"oi": 1,
+			"q": 7,
+			"x": 47.8,
+			"y": 34.8
+		},
+		{
+			"t": 261,
+			"e": "progress",
+			"cur": 2,
+			"map": 1429,
+			"max": 10,
+			"oi": 1,
+			"q": 7,
+			"text": "Kobold Vermin slain: 2/10",
+			"type": "monster",
+			"x": 47.8,
+			"y": 34.8
+		},
+		{
+			"t": 300,
+			"e": "loot",
+			"count": 1,
+			"item": 750,
+			"itemName": "Tough Wolf Meat",
+			"map": 1429,
+			"oi": 1,
+			"q": 33,
+			"x": 46,
+			"y": 38
+		},
+		{
+			"t": 301,
+			"e": "progress",
+			"cur": 1,
+			"map": 1429,
+			"max": 8,
+			"oi": 1,
+			"q": 33,
+			"text": "Tough Wolf Meat: 1/8",
+			"type": "item",
+			"x": 46,
+			"y": 38
+		},
+		{
+			"t": 320,
+			"e": "kill",
+			"map": 1429,
+			"npc": 6,
+			"npcName": "Kobold Vermin",
+			"oi": 1,
+			"q": 7,
+			"x": 47,
+			"y": 36
+		},
+		{
+			"t": 321,
+			"e": "progress",
+			"cur": 3,
+			"map": 1429,
+			"max": 10,
+			"oi": 1,
+			"q": 7,
+			"text": "Kobold Vermin slain: 3/10",
+			"type": "monster",
+			"x": 47,
+			"y": 36
+		},
+		{
+			"t": 340,
+			"e": "progress",
+			"cur": 2,
+			"map": 1429,
+			"max": 8,
+			"oi": 1,
+			"q": 33,
+			"text": "Tough Wolf Meat: 2/8",
+			"type": "item",
+			"x": 46.4,
+			"y": 37.6
+		},
+		{
+			"t": 350,
+			"e": "level",
+			"lvl": 2,
+			"map": 1429,
+			"x": 46.4,
+			"y": 37.6
+		},
+		{
+			"t": 360,
+			"e": "mark",
+			"map": 1429,
+			"text": "Kobolds respawn fast -- pull at the \"tunnel\" mouth",
+			"x": 46.5,
+			"y": 37.5
+		},
+		{
+			"t": 365,
+			"e": "progress",
+			"cur": 1,
+			"map": 1429,
+			"max": 1,
+			"oi": 2,
+			"q": 7,
+			"text": "Supply crates searched: 1/1",
+			"type": "object",
+			"x": 46.9,
+			"y": 35.2
+		},
+		{
+			"t": 370,
+			"e": "complete",
+			"q": 7
+		},
+		{
+			"t": 380,
+			"e": "death",
+			"map": 1429,
+			"x": 47.1,
+			"y": 35
+		},
+		{
+			"t": 500,
+			"e": "turnin",
+			"lvl": 2,
+			"map": 1429,
+			"money": 50,
+			"npc": 197,
+			"npcName": "Marshal McBride",
+			"q": 7,
+			"x": 48.93,
+			"xpReward": 110,
+			"y": 41.61
+		},
+		{
+			"t": 510,
+			"e": "trainer",
+			"map": 1429,
+			"npc": 911,
+			"npcName": "Llane Beshere",
+			"x": 50.24,
+			"y": 42.28
+		},
+		{
+			"t": 520,
+			"e": "abandon",
+			"q": 33
+		},
+		{
+			"t": 1200,
+			"e": "accept",
+			"lvl": 3,
+			"map": 1429,
+			"npc": 240,
+			"npcName": "Marshal Dughan",
+			"q": 62,
+			"qlvl": 5,
+			"title": "The Fargodeep Mine",
+			"x": 42.1,
+			"xp": 300,
+			"y": 65.93
+		},
+		{
+			"t": 1210,
+			"e": "bind",
+			"location": "Goldshire",
+			"map": 1429,
+			"x": 43.77,
+			"y": 65.8
+		},
+		{
+			"t": 1220,
+			"e": "vendor",
+			"map": 1429,
+			"npc": 1213,
+			"npcName": "Godric Rothgar",
+			"x": 41.71,
+			"y": 65.55
+		},
+		{
+			"t": 1500,
+			"e": "zone",
+			"map": 1453,
+			"subzone": "Trade District",
+			"zone": "Stormwind City"
+		},
+		{
+			"t": 1510,
+			"e": "fp",
+			"location": "Stormwind, Elwynn",
+			"map": 1453,
+			"npc": 352,
+			"npcName": "Dungar Longdrink",
+			"x": 66.28,
+			"y": 62.13
+		},
+		{
+			"t": 1520,
+			"e": "taxi",
+			"from": "Stormwind, Elwynn",
+			"to": "Sentinel Hill, Westfall"
+		}
+	],
+	"maps": {
+		"947": {
+			"name": "Azeroth",
+			"type": 1,
+			"parent": 946
+		},
+		"1415": {
+			"name": "Eastern Kingdoms",
+			"type": 2,
+			"parent": 947,
+			"c": 0,
+			"left": 4000,
+			"right": -4000,
+			"top": 4000,
+			"bottom": -16000
+		},
+		"1429": {
+			"name": "Elwynn Forest",
+			"type": 3,
+			"parent": 1415,
+			"c": 0,
+			"left": 1100,
+			"right": -4100,
+			"top": 1800,
+			"bottom": -1666.67
+		},
+		"1453": {
+			"name": "Stormwind City",
+			"type": 3,
+			"parent": 1429,
+			"c": 0,
+			"left": -7997.7,
+			"right": -9733.2,
+			"top": 1722.17,
+			"bottom": 564.11
+		}
+	},
+	"dropped": {
+		"pos": 2
+	}
+}

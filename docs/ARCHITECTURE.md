@@ -5324,73 +5324,112 @@ the XP on Forever's zone quest list
 
 ### Recordings (`data/recordings/<session>.json`)
 
-Normalised from `PolestarRecorderDB` by `record import`:
+What the Recorder collects, its SavedVariables, chunk and record format, the
+upload API and the trust rules are the contract in
+[docs/RECORDING.md](RECORDING.md) (schema 2). The library that reads it is
+`rust/crates/polestar-recording` (shared by the Polestar Client, the ingest server and
+forge; `forge record import` (this PC's game: every account of every Forever
+install, or `--wtf <path>`) and `forge record pull` (the server's
+`GET /v1/export`, after the last line in `data/recordings/.pull-state.json`)
+archive every chunk per contributor as
+`data/recordings/raw/<contributor>/<install>/<seq>.txt` (with `install.json`
+beside it: the contributor owning the folder and the install's map table; a
+pulled line whose folder names another contributor is skipped), then normalise
+every (contributor, install) that got a chunk again from its whole archive
+(`normalize::sessions`). One contributor claiming another's install id lands in
+its own folder and its own sessions. A session is the consecutive chunks of one
+(contributor, install, character id) with gaps under 30 minutes; a session file
+the new normalisation no longer has (a late chunk joined two sessions) is
+removed. Imported text has the account's character names replaced with `$N`.
+A `Polestar_Recorder.lua` outside this PC's own game folders (a file a player
+sent in) needs `--vouch <name>` (contributor `sent-<name>`, the name the
+maintainer's choice) or `--anonymize` (contributor `anon-<16 hex digits of the
+install id's SHA-256>`). Pull then fetches `GET /v1/export/tombstones` since the
+last one purged and deletes those contributors' archives and sessions. A
+folder of the older layout (`raw/<install>/`) is moved under its contributor
+(an old `sent-<16 hex>` becomes `anon-<16 hex>`) and its sessions rewritten.
 
 ```
-{ schema: 1, build, session, char: { name, realm, race, class, faction }, started, ended,
-  events: [ { t, e, ...fields } ], maps: { "<uiMapID>": { name, type, parent, c, left, right, top, bottom } } }
+{ schema: 2, session: "<YYYYMMDDTHHMMSSZ>-[<contributor>-]<install>-<charId>",
+  contributor, install, charId, [cohort, received, contributorSince, contributorChunks,]
+  build, interface, locale, region, ruleset, versions: { recorder, polestar },
+  packs: [ { id, version } ], guide, char: { id, race, class, faction, sex, level },
+  started, ended, chunks: [seq], events: [ { t, e, ...fields } ],
+  maps: { "<uiMapID>": { type, parent, c, left, right, top, bottom } } }
 ```
 
-`record import --anonymize` (a file a player sent in) sets `char.name` and
-`char.realm` to null and adds `char.id`, 8 hex digits of a SHA-256 of
-"name-realm", which also replaces the name in the session key; no raw copy is
-archived.
+No names, realms or account names: `char.id` is the addon's random character
+id. `contributor` is `local` for the maintainer's own imports (the session id
+then leaves it out), `sent-<name>` or `anon-<16 hex>` for files sent in, else
+the server's contributor id, with its registration `cohort` when the server
+exported one (the data build counts players by cohort). `t` = seconds since
+`started` (one decimal); `map`, `x`, `y` = uiMapID and percent (two decimals).
+The kinds and fields keep schema
+1's names where the meaning is unchanged, so the data build, the travel build,
+the trainer list, `forge sim calibrate` and `record report|draft` read both
+schemas (records -> events):
 
-`t` = seconds since session start. Event kinds and fields:
-`accept {q, title, qlvl, lvl, xp, map, x, y, npc, npcName, object}`,
-`turnin {q, xpReward, money, lvl, map, x, y, npc, npcName}`,
-`progress {q, oi, text, cur, max, map, x, y}`, `complete {q}`, `abandon {q}`,
-`level {lvl, map, x, y}`, `zone {map, zone, subzone}`, `pos {map, x, y}`,
-`kill {npc, npcName, map, x, y}`, `loot {item, itemName, count, map, x, y}`,
-`gossip {npc, npcName, available: [q], active: [q], map, x, y}`,
-`fp {location, npc, npcName, map, x, y}`, `taxi {from, to}`,
-`bind {location, map, x, y}`, `trainer {npc, npcName, map, x, y}`,
-`vendor {npc, npcName, map, x, y}`, `death {map, x, y}`, `mark {text, map, x, y}`.
+- `accept {q, title, npc|object|item, map, x, y, lvl, rewardXp, rewardMoney,
+  items: [id], choices: [id], itemCounts, choiceCounts}` (`title` from the
+  character's `text` record of the quest), `turnin {q, npc|object, map, x, y,
+  lvl, xpReward, money, chosen}`, `progress {q, oi, cur, max, map, x, y, type,
+  text}` (`type` and `text` = "<objective>: cur/max" from the `objectives`
+  record), `complete {q}`, `abandon {q}`, `level {lvl, map, x, y, played}`,
+  `zone {map, x, y, zone, subzone}`, `pos {map, x, y, flags, speed (yd/s),
+  mounted, swimming, indoors, flying, falling, dead, trail}`, `death {map, x, y,
+  killer, killerLvl}`, `revive {map, x, y, how}`, `combat {on, map, x, y}`,
+  `afk {on}`, `mark {text, map, x, y}`, `taxi {fromNode, toNode}` (node ids
+  now), `fp {npc, map, x, y, node, known: [node]}` (the `flightmaster` record),
+  `bind {npc, map, x, y}`, `trainer {npc, map, x, y, services: [{ spell, cost,
+  reqLevel, state, name }]}`, `vendor {npc, map, x, y, items: [{ item, price,
+  stack, qty }]}`, `gossip {npc|object, map, x, y, option, optionText}` (an
+  option chosen; schema 1's gossip window is `offer` now), `rep {faction,
+  standing, value, delta}`, `skill {skillLine, rank, max}`, `explore {areaID,
+  xp, map, x, y}`, `learn {spell}`, `craft {spell, item, count}`,
+  `achieve {id}`.
+- Finds: every creature killed is a `kill {npc, npcLvl, cls, map, x, y, xp,
+  rested, denied, q, oi, inst}` (schema 1's `slain` and quest `kill` in one;
+  `cls` normal, elite, rare, rareelite, worldboss), every loot window a
+  `drop {npc|object|item, gather (herb, mine, skin, fish), items: [{ item,
+  count, q, oi }], wanted: [{ q, oi }], map, x, y, inst}` (an item's `q`/`oi`
+  when an item objective ticked within 3 s, which also adds a schema 1 style
+  `loot {item, count, q, oi, map, x, y}`), `unit {npc, npcLvl, cls, react, src,
+  map, x, y, inst}`, `rare {npc, npcLvl, cls, src, map, x, y, inst}`,
+  `treasure {object, map, x, y, inst}`, `enter {inst, instType, difficulty, map,
+  x, y}`, `encounter {enc, ok, difficulty, size, inst}` (`inst`: the instance
+  entered last, until a record has a position again).
+- New: `session {lvl}` (login, reload, each chunk), `xp {xp, xpMax, rested}`,
+  `dropped {count}`, `ride {on, map, x, y}`, `land {node, seconds, map, x, y}`,
+  `rest {kind, seconds}`, `offer {npc|object|item, map, x, y, available, active,
+  log, done, notOffered}`, `detail {q, npc|object|item, map, x, y, startItem}`,
+  `text {q, title, objectiveText, detailText}`, `objectives {q, objectives:
+  [{ type, max, text }]}`, `cast {spell, item, map, x, y, targetNpc|...}`,
+  `escort {q, on, map, x, y}`.
+- Route telemetry: `step {guide, step, reason, how, map, x, y, lvl, xp, xpMax,
+  rested, combat}`: `how` is the record's reason, `reason` what `record report`
+  reads (`done` -> `complete`, `pick` -> `guide`, else `step`); `lvl`, `xp`,
+  `xpMax`, `rested` and `combat` are the latest `session`/`level`/`xp`/`combat`
+  records'.
 
-Additive fields: `progress.type`; `kill`/`loot` may carry `q` and `oi`;
-`accept`/`turnin` carry `object`/`objName` for game-object givers; `accept.item`
-for item-started quests; `accept.rewardXp`/`rewardXpBase` (from the client's
-`GetQuestLogRewardXP`, when cached); a `reward {q, rewardXp, rewardXpBase, lvl}`
-event when the reward was not cached at accept, or for quests already in the log
-at login; a session may carry `dropped: { kind: n }` when caps
-were hit. Forever restricts `COMBAT_LOG_EVENT_UNFILTERED` to secure code, so
-kills come from `UNIT_DIED`/`PARTY_KILL` correlated with objective progress.
+The data build's overlay (`forge-data/src/recordings.rs`) leaves out sessions
+whose `build` is older than `data/recordings/config.json`'s `minBuild`; takes
+names (quest titles, NPC, object, item, faction, instance and zone names) from a
+session whose locale is not enUS only where there is no name; and lets a
+recorded spawn, a learned walking path (`travel/paths.rs`) or a drop chance
+replace another source's value only on the evidence of two distinct
+contributors or of `local` recordings (one contributor still fills a gap).
+Schema 1 sessions (no contributor, no locale) count as `local` and enUS.
 
-Character progress: `skill {skill, skillLine, rank, max, map, x, y}`,
-`rep {faction, factionName, standing, value, delta, map, x, y}`,
-`explore {map, x, y, area, areaID, xp}`, `craft {spell, item, count, skill}`,
-`learn {spell, name}`, `achieve {id, name, already}`. Session dumps from
-`/psrec factions|skills|legacy`: `factions: { "<id>": { name, order, parent,
-header, headerRep, standing, value, min, max, atWar, canToggleAtWar } }`,
-`skills: { "<skillLine>": { name, order, rank, max, category, categoryID } }`,
-`legacy: { categories, achievements, majorFactions, trees }`, each time-stamped
-in `dumped: { kind: epochSeconds }`.
+`record trail <session|file> [--out file.json]` writes a session's `/psrec
+trail` runs as `[{ label, start, end, reason, points: [{ t, map, x, y, speed,
+mounted, swimming, falling, indoors, flying }] }]`: the `pos` events with
+`trail` (flag 64) between a `mark` "trail on: <label>" and its "trail off:
+<label> (<n> points, <yd> yd, <reason>)".
 
-Route telemetry (`v = 1`), recorded while Polestar runs: `step {v, reason,
-guide, step, title, guideTitle, time, lvl, xp, xpMax, rested, money, combat,
-map, x, y}` with `reason` = `login` (session start or /reload), `step`
-(`STEP_CHANGED`), `guide` (`GUIDE_CHANGED`: tab switch or new guide) or
-`complete` (`GUIDE_COMPLETED`; no `step`). Only the active tab is snapshotted.
-Also, with or without Polestar: `combat {on}` (`PLAYER_REGEN_DISABLED/ENABLED`),
-`afk {on}`, `revive` (alive again after a `death`).
-
-Position trail (`Trail.lua`), only while `/psrec trail on [label]` runs (and the
-Recorder records): `trail_start {label, map, x, y}`, then `trail {map, x, y,
-wx, wy, wz, facing, speed, mounted, swimming, falling, indoors, onTaxi}`
-samples, then `trail_stop {label, n, yd, reason, map, x, y}` (`yd`: yards
-walked, summed between samples) with `reason` =
-`off`, `timeout` (30 minutes), `cap` (the session's `trail` cap, 20000),
-`recording off` or `logout` (also a /reload). A 4 Hz ticker stores a sample
-when the player moved 1 yd (in world coordinates, height included), changed
-map (a city floor is its own map) or 2 s passed. `x`, `y` keep 4 decimals;
-`wx`, `wy`, `wz` are world coordinates (the Map frames convention, 2 decimals)
-from `UnitPosition` (no `wz` for its height of exactly 0, which Forever gives
-where it has none), else `C_Map.GetWorldPosFromMapPos` without `wz`;
-`facing` is radians (3 decimals), `speed` yards per second (`GetUnitSpeed`);
-the five flags are stored only when true. `record trail <session|file>
-[--out file.json]` writes a session's trails as `[{ label, start, end, reason,
-points: [{ t, map, x, y, wx, wy, wz, facing, speed, mounted, swimming,
-falling, indoors, onTaxi }] }]` (missing numbers null, flags false).
+Schema 1 (the Recorder before the recording program) wrote whole sessions with
+the character's name and realm; its JSON (`{ schema: 1, build, session, char:
+{ name, realm, race, class, faction }, started, ended, events, maps }`) is still
+read by the data build and `record report|draft`; nothing writes it any more.
 
 The Recorder window (`Panel.lua`; `/psrec ui`, Polestar's Options > Recorder
 and its guide menu; drawn with Polestar's Theme and Widgets when Polestar is
@@ -5408,8 +5447,8 @@ stops with at least one point. The window's place is `PolestarRecorderDB.panel`.
 
 Recording is opt-in (`PolestarRecorderDB.enabled == true`, set by `/psrec on` or
 Options > Recorder); while it is off the Recorder writes nothing, not even a
-session. Testers turn it on, play with Polestar, run `record import`
-(or keep `record watch` running), then `record report [--guide <text>]
+session. Testers turn it on, play with Polestar, run `forge record import`
+(or `forge record pull` for the server's), then `record report [--guide <text>]
 [--json] [--top n]`. The report rebuilds step passes from every session and
 character:
 

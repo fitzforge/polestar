@@ -83,3 +83,43 @@ fn trainers_read_the_pack_guides_only_not_drafts_or_dist() {
 	assert_eq!(t["152"]["sources"], serde_json::json!(["guide"]));
 	assert!(t.get("3175").is_none());
 }
+
+/// Recorded trainer visits from the recording server, under recordings.rs "Trust": a trainer another
+/// source lists takes a class only from two established players, each counted once however many
+/// installs it has; a trainer no source lists is filled by one; a new player cannot hide one.
+#[test]
+fn recorded_trainers_from_the_server_follow_the_trust_rules() {
+	let data = dsl_data_copy("trainers-trust-data");
+	let guides = common::scratch("trainers-trust-guides");
+	// (file, contributor, install, days since first seen, class, trainer)
+	let run = |name: &str, sessions: &[(&str, &str, &str, f64, &str, i64)]| -> serde_json::Value {
+		let recs = common::scratch(name);
+		for (file, who, install, days, cls, npc) in sessions {
+			let received = 1_800_000_000.0;
+			let since = received - days * 86400.0;
+			let text = format!(
+				r#"{{"schema":2,"session":"{file}","contributor":"{who}","install":"{install}","contributorSince":{since},"contributorChunks":50,"received":{received},"char":{{"class":"{cls}"}},"events":[{{"t":1,"e":"trainer","npc":{npc}}}]}}"#
+			);
+			std::fs::write(recs.join(format!("{file}.json")), text).unwrap();
+			// Substantive play (recordings.rs `establish`): an hour on each of 3 days, with
+			// positions and kills; a class-less session, so no trainer.
+			for d in 1..=3 {
+				let started = received - d as f64 * 86400.0;
+				let events = [r#"{"t":1,"e":"pos","map":1420,"x":1,"y":1}"#; 4].into_iter().chain([r#"{"t":2,"e":"kill"}"#; 2]).collect::<Vec<_>>().join(",");
+				let play = format!(r#"{{"schema":2,"session":"{who}-play{d}","contributor":"{who}","install":"play","started":{started},"ended":{},"events":[{events}]}}"#, started + 3600.0);
+				std::fs::write(recs.join(format!("{who}-play{d}.json")), play).unwrap();
+			}
+		}
+		let (json, _, _) = forge_data::trainers::run(&data, Some(&guides), &recs).unwrap();
+		serde_json::from_str(&json).unwrap()
+	};
+	let (a, b, new) = ("aaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbb", "cccccccccccccccc");
+	// 911 is a curated Warrior trainer; 6928 is in no source.
+	let t = run("trainers-trust-one", &[("a1", a, "i1", 30.0, "MAGE", 911), ("a2", a, "i2", 30.0, "MAGE", 911), ("a3", a, "i1", 30.0, "MAGE", 6928), ("c1", new, "i3", 1.0, "WARRIOR", 6928)]);
+	assert_eq!(t["911"]["classes"], serde_json::json!(["WARRIOR"]), "one player on two installs does not change a curated trainer");
+	assert_eq!((&t["6928"]["classes"], &t["6928"]["sources"]), (&serde_json::json!(["MAGE"]), &serde_json::json!(["record"])), "one player fills a gap; a new player's second class does not hide it");
+	let t = run("trainers-trust-two", &[("a1", a, "i1", 30.0, "MAGE", 911), ("b1", b, "i2", 30.0, "MAGE", 911)]);
+	assert_eq!(t["911"]["classes"], serde_json::json!(["WARRIOR", "MAGE"]), "two established players add a class");
+	let t = run("trainers-trust-new", &[("a1", a, "i1", 30.0, "MAGE", 911), ("c1", new, "i2", 1.0, "MAGE", 911)]);
+	assert_eq!(t["911"]["classes"], serde_json::json!(["WARRIOR"]), "a new player does not make the second");
+}

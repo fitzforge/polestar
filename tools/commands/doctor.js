@@ -18,7 +18,7 @@ Checks what the Polestar tools need, one line per check (\`ok\` or \`fix\`,
 with the fix for Windows, macOS and Linux):
   node      Node 24 or newer (every command)
   lua       a Lua 5.1 interpreter: lua5.1, LuaJIT, or a \`lua\` that is 5.1
-            (play, playtest and record import; $LUA picks one)
+            (play and playtest; $LUA picks one)
   data      the reference data, data/forever/ (every guide command)
   addons    the game's AddOns folder: $WOW_FOREVER_ADDONS, else the client
             install finds (install and dev; or pass them --dest)
@@ -74,7 +74,7 @@ function checks(opts, env) {
 	out.push(
 		lua
 			? { check: 'lua', ok: true, detail: `${lua} (${env.luaVersion(lua) || 'Lua 5.1'})` }
-			: { check: 'lua', ok: false, detail: 'no Lua 5.1 interpreter found (tried $LUA, lua5.1, luajit, lua); play, playtest and record import need one', fixes: FIX.lua },
+			: { check: 'lua', ok: false, detail: 'no Lua 5.1 interpreter found (tried $LUA, lua5.1, luajit, lua); play and playtest need one', fixes: FIX.lua },
 	);
 
 	const races = path.join(env.dataDir, 'races.json');

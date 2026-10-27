@@ -30,6 +30,7 @@ Commands:
   guide      compile or lint guides
   judge      judge a guide pack; the route report; the player-report tests
   nav        the walking grid from the installed client (grid, prepare)
+  record     the Recorder's chunks into data/recordings: from this PC's game (import) or the server (pull)
   sim        route cuts, the shared route, why a quest is in or out (why, skips), calibration (calibrate)
   walks      the world and walks stages on their own
   writer     write a route into the guides (apply-route)

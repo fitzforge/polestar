@@ -16,6 +16,7 @@ default-members = [
 	"crates/forge-sim",
 	"crates/forge-world",
 	"crates/forge-writer",
+	"crates/polestar-recording",
 ]
 resolver = "2"
 

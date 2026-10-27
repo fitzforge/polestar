@@ -46,10 +46,13 @@ const GATHER_ROLES = { herb: 'herb', mine: 'mine' };
 // Entrance points closer than this (map percent) are one entrance.
 const ENTRANCE_RADIUS = 1.5;
 
+// data/recordings/*.json, schema 1 or 2 (config.json and dot files are not
+// sessions). The Rust overlay (rust/crates/forge-data/src/recordings.rs) adds
+// the trust rules for other players' sessions (docs/RECORDING.md "Trust").
 function readRecordings(dir) {
 	if (!dir || !fs.existsSync(dir)) return [];
 	const out = [];
-	for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.json')).sort()) {
+	for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.json') && !f.startsWith('.') && f !== 'config.json').sort()) {
 		const p = path.join(dir, file);
 		let rec;
 		try {
@@ -57,7 +60,7 @@ function readRecordings(dir) {
 		} catch (err) {
 			throw new Error(`recording ${file}: ${err.message}`);
 		}
-		if (!rec || rec.schema !== 1 || !Array.isArray(rec.events)) throw new Error(`recording ${file}: expected { schema: 1, events: [...] }`);
+		if (!rec || (rec.schema !== 1 && rec.schema !== 2) || !Array.isArray(rec.events)) throw new Error(`recording ${file}: expected { schema: 1 or 2, events: [...] }`);
 		out.push({ file, rec });
 	}
 	return out;

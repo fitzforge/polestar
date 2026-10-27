@@ -23,9 +23,9 @@ package them. You can help without touching any code.
   share it: after logging out, send the file
   `WTF/Account/<your account>/SavedVariables/Polestar_Recorder.lua` on Discord
   or attach it to an issue. We import it with
-  `node tools/polestar.js record import --sv <file> --anonymize`, which keeps
-  no character name or realm. With the tools set up you can measure a route
-  yourself: `node tools/polestar.js record import`, then
+  `forge record import --wtf <file> --anonymize`, which counts it as its own
+  contributor. With the tools set up you can measure a route
+  yourself: `forge record import`, then
   `node tools/polestar.js record report` gives per step times, XP per hour,
   deaths and detours.
 - **Code.** Bugs in the addon or the tools; see [Code changes](#code-changes).
@@ -197,7 +197,7 @@ checks, and they are run before it is merged.
   `preview`).
 - Without a local client, `forge data fetch` downloads the public data pack
   (the reference data's sources) for `forge data build`.
-- Lua 5.1 or LuaJIT: `play`, `playtest`, `record import`, `travel route` and
+- Lua 5.1 or LuaJIT: `play`, `playtest`, `travel route` and
   the addon tests.
   `$LUA` picks one when you have several.
 - The reference data, `data/forever/`: quest titles, givers and coordinates,

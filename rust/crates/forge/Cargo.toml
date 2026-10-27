@@ -32,6 +32,7 @@ forge-i18n = { path = "../forge-i18n" }
 forge-judge = { path = "../forge-judge" }
 forge-writer = { path = "../forge-writer" }
 forge-release = { path = "../forge-release" }
+polestar-recording = { path = "../polestar-recording" }
 
 [[bin]]
 name = "forge"
