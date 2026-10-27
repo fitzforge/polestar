@@ -47,8 +47,11 @@ const GATHER_ROLES = { herb: 'herb', mine: 'mine' };
 const ENTRANCE_RADIUS = 1.5;
 
 // data/recordings/*.json, schema 1 or 2 (config.json and dot files are not
-// sessions). The Rust overlay (rust/crates/forge-data/src/recordings.rs) adds
-// the trust rules for other players' sessions (docs/RECORDING.md "Trust").
+// sessions). This JS overlay has none of the trust rules the Rust overlay
+// applies (rust/crates/forge-data/src/recordings.rs, docs/RECORDING.md
+// "Trust"), so it reads only the maintainer's own sessions: schema 1, and
+// schema 2 whose contributor is `local`. Other players' recordings reach the
+// data only through forge.
 function readRecordings(dir) {
 	if (!dir || !fs.existsSync(dir)) return [];
 	const out = [];
@@ -61,6 +64,7 @@ function readRecordings(dir) {
 			throw new Error(`recording ${file}: ${err.message}`);
 		}
 		if (!rec || (rec.schema !== 1 && rec.schema !== 2) || !Array.isArray(rec.events)) throw new Error(`recording ${file}: expected { schema: 1 or 2, events: [...] }`);
+		if (rec.schema === 2 && rec.contributor !== 'local') continue;
 		out.push({ file, rec });
 	}
 	return out;
