@@ -225,28 +225,42 @@ their own client, so nothing trusts a single upload.
   play can't produce: timestamps in the future or long past, time running
   backwards, impossible movement speed between positions, kill XP beyond what
   the level allows, more kills or loot windows a minute than a player can
-  manage, ids out of range. A chunk that fails is kept aside as suspect and
-  left out of the export. A contributor the maintainer blocks is answered
-  like anyone else, and nothing it sends is used. Deleting your data, or
-  being blocked, also removes it from the maintainer's copy at the next
-  `forge record pull`.
-- **In the data build.** A player is a registration cohort: contributors
-  registered from the same network on the same day count as one (data
-  pulled before cohorts existed counts per contributor). A contributor counts
-  only once established: first seen by the server at least 3 days before its
-  newest recording arrived, at least 20 chunks sent, recordings on at least 3
-  different UTC days covering at least 2 hours in all, with positions and
-  kills (`minContributorDays`, `minContributorChunks`,
-  `minContributorPlayDays`, `minContributorHours`, `minContributorPos`,
-  `minContributorKills` in `data/recordings/config.json`). `local` (the
-  maintainer's own) and `sent-*` (a file the maintainer vouched for) always
-  count; `anon-*` (a sent-in file nobody vouched for) never does. A player
-  counts once per fact, however many installs, tokens or sessions it has. A
-  spawn, a learned path, a trainer's list, quest XP or a drop chance
-  replaces another source's value only on the evidence of two counted
-  players (for a drop chance, each with 10 kills of their own), or of
-  `local`; a single or new player only fills gaps no other source has.
-  Numbers several players recorded are the median of each player's own
-  value, never a pooled total: drop chances, quest XP (the lower median, a
-  value a player actually saw) and seconds per kill. Text from a non-English
-  client never overwrites English names.
+  manage, ids out of range, text with control characters or game markup. A
+  chunk that fails is kept aside as suspect and left out of the export. A
+  contributor the maintainer blocks is answered like anyone else, but its
+  held chunks are deleted and nothing it sends is used; the maintainer can
+  also purge a contributor completely. Deleting your data, or being blocked,
+  also removes it from the maintainer's copy at the next `forge record pull`.
+- **Server-side signals.** Every export line carries `cohort`, `uploadDays`
+  and `instance`. `cohort` is a keyed hash of the network (IPv4 address or
+  IPv6 /48) the contributor registered from, under a key that changes each
+  UTC month, so tokens registered from one place in one month count as one
+  voter. `uploadDays` is the number of distinct UTC days on which the server
+  received plausible chunks from the contributor, counted by the server, not
+  claimed by the client. `instance` identifies the server's database; when
+  it changes (a restore or a new database), `forge record pull` starts again
+  from the first export id.
+- **In the data build.** A voter is a cohort (data pulled before cohorts
+  existed counts per contributor, resolved across all its sessions). A
+  contributor counts only once established: `uploadDays` at least 3, at
+  least 20 chunks sent, and sessions with real play (positions and kills).
+  `local` (the maintainer's own) and `sent-*` (a file the maintainer vouched
+  for) always count; `anon-*` (a sent-in file nobody vouched for) never
+  does. A voter counts once per fact, however many installs, tokens or
+  sessions it has. Every value a recording sets goes through the same rule:
+  a value another source already has (a quest's title, objectives, giver or
+  ender, rewards, XP, a spawn, a learned path, a trainer's list, a drop
+  chance) changes only on the evidence of 3 distinct counted voters (for a
+  drop chance, each with 10 kills of their own), or of `local`; a single or
+  new voter only fills gaps no other source has. New quests, NPCs, items and
+  factions, and map frames, come only from the maintainer's own or vouched
+  recordings. Numbers several voters recorded are the median of each voter's
+  own value, never a pooled total. A field is labelled as recorded only when
+  it came from that trusted evidence. Text from a non-English client never
+  overwrites English names.
+- **What the server keeps.** Rows per contributor are capped: 5,000 quests,
+  8 installs, about 1,000 remembered seqs per install, and 30 days of
+  per-day counts. Backups are encrypted, hold neither the day's network salt
+  nor registration counts, and are kept 7 days on the server and 30 days
+  off-site (locked against deletion for the first 14); deleted data is gone
+  from every backup 30 days after deletion.
