@@ -10,7 +10,7 @@ in this repository.
 | Recording library | `rust/crates/polestar-recording/` | Reads the SavedVariables file, decodes and validates records, finds WoW installs, scrubs text, writes the ack file, summarises. Shared by the three below. |
 | Polestar Client | `apps/client/` (Tauri) | Desktop app for Windows, macOS and Linux: finds the game, installs the Recorder, uploads new chunks, shows exactly what was sent. |
 | Ingest server | `services/ingest/` | Receives uploads, validates them with the library, stores them, serves stats, deletion and the maintainer export. |
-| forge | `forge record import`, `forge record pull` | Turns local files or the server export into `data/recordings/<session>.json` for the data build. `import` marks this PC's own installs' contributor `local`. A file someone sent in needs `import --vouch <name>` (contributor `sent-<name>`, a name the maintainer chooses; it counts as one more player) or `import --anonymize` (contributor `anon-<16 hex>`; it only fills gaps). |
+| forge | `forge record import`, `forge record pull` | Turns local files or the server export into `data/recordings/<session>.json` for the data build. `import` marks this PC's own installs' contributor `local`. A file someone sent in needs `import --vouch <name>` (contributor `sent-<name>`, a name the maintainer chooses; trusted like the maintainer's own) or `import --anonymize` (contributor `anon-<16 hex>`; never used for the data). |
 
 ## What is never collected
 
@@ -249,18 +249,22 @@ their own client, so nothing trusts a single upload.
   contributor counts only once established: `uploadDays` at least 3, at
   least 20 chunks sent, and sessions with real play (positions and kills).
   `local` (the maintainer's own) and `sent-*` (a file the maintainer vouched
-  for) always count; `anon-*` (a sent-in file nobody vouched for) never
-  does. A voter counts once per fact, however many installs, tokens or
-  sessions it has. Every value a recording sets goes through the same rule:
-  a value another source already has (a quest's title, objectives, giver or
-  ender, rewards, XP, a spawn, a learned path, a trainer's list, a drop
-  chance) changes only on the evidence of 3 distinct counted voters (for a
-  drop chance, each with 10 kills of their own), or of `local`; a single or
-  new voter only fills gaps no other source has. New quests, NPCs, items and
-  factions, and map frames, come only from the maintainer's own or vouched
-  recordings. Numbers several voters recorded are the median of each voter's
-  own value, never a pooled total. A field is labelled as recorded only when
-  it came from that trusted evidence. Text from a non-English client never
+  for) are trusted outright; `anon-*` (a sent-in file nobody vouched for) and
+  contributors not yet established are not used at all. A voter counts once
+  per fact, however many installs, tokens or sessions it has. Every value a
+  recording sets goes through the same rule: a value another source already
+  has (a quest's title, level, objectives, giver or ender, rewards, XP, an
+  NPC's name, rank or level, a spawn, a learned path, a trainer's list, a
+  drop chance) changes only on the evidence of 3 distinct counted voters
+  (for a drop chance, each with 10 kills of their own), or of `local` or
+  `sent-*`; one counted voter fills only gaps no other source has.
+  Objectives are added or reordered only on trusted evidence. New quests,
+  NPCs, objects, items, factions and zones come only from `local` or
+  `sent-*`, and map frames only from `local` (for maps the game's own data
+  lacks). Numbers several voters recorded are the median of each voter's own
+  value, never a pooled total. Each field is labelled by where it came from:
+  recorded on trusted evidence, or a gap one voter filled (which the public
+  database never publishes on its own). Text from a non-English client never
   overwrites English names.
 - **What the server keeps.** Rows per contributor are capped: 5,000 quests,
   8 installs, about 1,000 remembered seqs per install, and 30 days of
