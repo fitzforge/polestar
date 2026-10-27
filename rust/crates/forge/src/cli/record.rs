@@ -662,13 +662,7 @@ fn page_instance(body: &str) -> String {
 /// Pulls export pages until one comes back empty (the server caps a page's bytes, so a short page
 /// is not the last), saving the state and contributors after each. `fetch(after, limit)` answers
 /// a page. When the server's database changed (another instance id) the cursors start over.
-fn drain(
-	out: &Path,
-	state: &mut PullState,
-	contributors: &mut BTreeMap<String, ContributorMeta>,
-	t: &mut Tally,
-	mut fetch: impl FnMut(i64, usize) -> Result<String, String>,
-) -> Result<(), String> {
+fn drain(out: &Path, state: &mut PullState, contributors: &mut BTreeMap<String, ContributorMeta>, t: &mut Tally, mut fetch: impl FnMut(i64, usize) -> Result<String, String>) -> Result<(), String> {
 	let state_file = out.join(".pull-state.json");
 	let mut restarted = false;
 	let mut first = true;
@@ -925,11 +919,7 @@ fn pull(out: &Path, server: Option<String>, key_file: &Path) -> Result<(), Fail>
 	let expired = expire(out, &mut contributors, now, expire_days)?;
 	if !expired.is_empty() {
 		write_contributors(out, &contributors)?;
-		println!(
-			"{} contributor(s) first seen over {expire_days} days ago and never established moved to raw/.purged: {}",
-			expired.len(),
-			expired.iter().cloned().collect::<Vec<_>>().join(", ")
-		);
+		println!("{} contributor(s) first seen over {expire_days} days ago and never established moved to raw/.purged: {}", expired.len(), expired.iter().cloned().collect::<Vec<_>>().join(", "));
 	}
 	prune_purged(out, now)?;
 	// Only now, with every line archived, every session written and the state saved: the server
@@ -1169,7 +1159,19 @@ mod tests {
 	}
 
 	fn tmp_files(dir: &Path) -> Vec<PathBuf> {
-		std::fs::read_dir(dir).unwrap().flatten().flat_map(|e| if e.path().is_dir() { tmp_files(&e.path()) } else if e.file_name().to_string_lossy().ends_with(".tmp") { vec![e.path()] } else { vec![] }).collect()
+		std::fs::read_dir(dir)
+			.unwrap()
+			.flatten()
+			.flat_map(|e| {
+				if e.path().is_dir() {
+					tmp_files(&e.path())
+				} else if e.file_name().to_string_lossy().ends_with(".tmp") {
+					vec![e.path()]
+				} else {
+					vec![]
+				}
+			})
+			.collect()
 	}
 
 	#[test]
