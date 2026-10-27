@@ -1,0 +1,6 @@
+# Used by BuildKit for this Dockerfile, relative to the build context (the repository root).
+*
+!rust/crates/polestar-recording
+!services/ingest
+**/target
+services/ingest/.env

@@ -1,0 +1,89 @@
+# The ingest server as its own Compose project (see README.md, "Deploy").
+#
+#   services/ingest/deploy.sh <ssh-target> [remote-dir] [git-ref]   copy the sources to the host and (re)start
+#   docker compose logs -f                                           what it is doing (on the host, in services/ingest)
+#
+# No published ports. The server sits on the project's own network, which is internal: it
+# can reach nothing outside it, and nothing outside the project can reach it. The only way in
+# is the Cloudflare Tunnel below, which connects out to Cloudflare and needs no open port.
+#
+# .env (chmod 600, never committed) holds INGEST_MAINTAINER_KEY, INGEST_SECRET,
+# INGEST_MIN_BUILD, TUNNEL_TOKEN and COMPOSE_PROFILES=tunnel.
+
+name: polestar-ingest
+
+services:
+  polestar-ingest:
+    container_name: polestar-ingest
+    build:
+      context: ../..
+      dockerfile: services/ingest/Dockerfile
+    image: polestar-ingest:latest
+    # Only its own settings: the tunnel token stays with the tunnel.
+    environment:
+      INGEST_MAINTAINER_KEY: ${INGEST_MAINTAINER_KEY:?set INGEST_MAINTAINER_KEY in .env}
+      INGEST_SECRET: ${INGEST_SECRET:?set INGEST_SECRET in .env}
+      INGEST_MIN_BUILD: ${INGEST_MIN_BUILD:-0}
+      INGEST_POW_BITS: ${INGEST_POW_BITS:-}
+    restart: unless-stopped
+    init: true
+    read_only: true
+    mem_limit: 512m
+    cpus: 1.0
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    volumes:
+      - data:/data
+    healthcheck:
+      test: ["CMD", "/polestar-ingest", "healthcheck"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+    networks: [default]
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  # The public door: a Cloudflare Tunnel (outbound only). Starts with the `tunnel` profile
+  # (COMPOSE_PROFILES=tunnel in .env) and TUNNEL_TOKEN from Cloudflare Zero Trust > Networks >
+  # Tunnels. The tunnel's public hostname (data.polestar.guide) points at
+  # http://polestar-ingest:8080.
+  tunnel:
+    container_name: polestar-ingest-tunnel
+    # Pinned by digest (2026.10.5); update on purpose.
+    image: cloudflare/cloudflared:2026.10.5@sha256:1b1d34d0a9c0bfca9de72db8460d328db3f19edd2b96169114e3e893a97bbe53
+    profiles: [tunnel]
+    # Metrics on loopback only, so the ingest container cannot reach them.
+    command: tunnel --no-autoupdate --metrics 127.0.0.1:20241 run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:-}
+    restart: unless-stopped
+    read_only: true
+    mem_limit: 128m
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    depends_on: [polestar-ingest]
+    networks: [default, egress]
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+volumes:
+  data:
+
+networks:
+  # The server and the tunnel only; no route out.
+  default:
+    internal: true
+    # Pinned, so the host firewall rule that keeps this network off the host's own ports
+    # (README.md, "Network") stays valid across redeploys.
+    ipam:
+      config:
+        - subnet: 172.24.0.0/16
+  # The tunnel's way out to Cloudflare.
+  egress: {}
