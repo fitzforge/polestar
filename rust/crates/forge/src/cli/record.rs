@@ -10,13 +10,18 @@
 //! is not `local`); a session file of that archive the new normalisation no longer has (two
 //! sessions joined by a late chunk) is removed. A pulled session's header also carries `received`
 //! (the latest the server received one of its chunks), its contributor's `contributorSince`,
-//! `contributorChunks` and `cohort` (from `raw/contributors.json`, the export's figures), which the
-//! data build's trust reads (forge-data recordings.rs `establish`). Contributors the server
-//! tombstones (deleted or blocked) are purged on pull.
+//! `contributorChunks`, `uploadDays` and `cohort` (from `raw/contributors.json`, the export's
+//! figures), which the data build's trust reads (forge-data recordings.rs `establish`).
+//! Contributors the server tombstones (deleted or blocked), and server contributors first seen over
+//! `expireDays` (config.json, default 30) days ago that never became established, are moved to
+//! `raw/.purged/<UTC date>/` (deleted after 30 days) and their sessions removed on pull. A
+//! contributor's archive is capped at `maxContributorMB` (config.json, default 200): chunks past it
+//! are skipped. State and archive files are written whole (a temp file, then renamed).
 //!
 //! Contributors: `local` (this PC's own installs), `sent-<name>` (a file a player sent in that the
-//! maintainer vouches for under a name he chooses), `anon-<16 hex digits of the install id's
-//! SHA-256>` (a sent-in file nobody vouches for: it only fills gaps), and the server's 16 hex digits.
+//! maintainer vouches for under a name he chooses: trusted like his own), `anon-<16 hex digits of
+//! the install id's SHA-256>` (a sent-in file nobody vouches for: kept for the record report and
+//! the calibration; the data build takes nothing from it), and the server's 16 hex digits.
 
 use std::collections::{BTreeMap, BTreeSet};
 use std::io::Read;
@@ -41,21 +46,27 @@ same), archive its chunks in <out>/raw/<contributor>/<install>/ and write the se
 <out>/<session>.json. The contributor is `local` (this PC's own installs). A Polestar_Recorder.lua that
 is not inside this PC's own game folders is a file someone sent in and needs one of:
   --vouch <name>  you vouch for the sender: the contributor is `sent-<name>` (a-z, 0-9 and -, up to 32,
-                  your choice, never taken from the file), counted by the data build as one more player;
-  --anonymize     the contributor is `anon-<16 hex digits of the install id's SHA-256>`: it only fills
-                  gaps no other source has.
+                  your choice, never taken from the file), trusted like your own recordings;
+  --anonymize     the contributor is `anon-<16 hex digits of the install id's SHA-256>`: kept for the
+                  record report and the calibration; the data build takes nothing from it.
 Character names of the account are replaced with $N in every text.
 
-pull: the server's export (GET /v1/export) after the last line pulled (<out>/.pull-state.json), archived
-and normalised the same way under each line's contributor; each session's header records when the
-server received it and the contributor's first-seen time, chunk count and registration cohort. Then the
-server's tombstones (GET /v1/export/tombstones: contributors deleted or blocked) since the last pull are
-purged: their archives and sessions. Last, with all of it on disk, the pull is acknowledged (POST
-/v1/export/ack): the server deletes the chunks up to there once they are past its retention period
-(the server is a buffer; this folder is the archive). --server: the recording server's base URL (default:
-$POLESTAR_INGEST_URL, else the public recording server); --key-file: the maintainer key (default
-<root>/data/local/ingest/maintainer.key). Lines the server flagged (a build it does not accept) or found
-suspect are skipped, and so are malformed ones and ones whose install folder another contributor owns.
+pull: the server's export (GET /v1/export) after the last line pulled (<out>/.pull-state.json), page by
+page until one comes back empty, archived and normalised the same way under each line's contributor;
+each session's header records when the server received it and the contributor's first-seen time, chunk
+count, upload days and registration cohort. When the server's database changed (restored or recreated:
+its export carries another instance id), the pull starts over from the first line. Then the server's
+tombstones (GET /v1/export/tombstones: contributors deleted or blocked) since the last pull are purged,
+and so are server contributors first seen over expireDays (<out>/config.json, default 30) days ago that
+never became established: their archives move to <out>/raw/.purged/<date>/ (deleted after 30 days) and
+their sessions are removed. A contributor's archive holds at most maxContributorMB (<out>/config.json,
+default 200) MB; chunks past it are skipped and reported. Last, with all of it on disk, the pull is
+acknowledged (POST /v1/export/ack): the server deletes the chunks up to there once they are past its
+retention period (the server is a buffer; this folder is the archive). --server: the recording server's
+base URL, https:// (http:// only for localhost; default: $POLESTAR_INGEST_URL, else the public recording
+server); --key-file: the maintainer key (default <root>/data/local/ingest/maintainer.key). Lines the
+server flagged (a build it does not accept) or found suspect are skipped, and so are malformed ones and
+ones whose install folder another contributor owns.
 
 --out: the recordings folder (default <root>/data/recordings); --root: the Polestar checkout (default:
 the one above the current folder). A recordings folder of the older layout (raw/<install>/) is moved to
@@ -143,37 +154,56 @@ struct InstallMeta {
 }
 
 /// What the server's export said of a contributor: first seen (unix seconds, the earliest
-/// figure), chunks held (the largest) and its registration cohort (the latest).
+/// figure), chunks held and upload days (the largest) and its registration cohort (the latest).
 #[derive(Default, Clone, Serialize, serde::Deserialize)]
 struct ContributorMeta {
 	since: i64,
 	chunks: u64,
+	#[serde(default, rename = "uploadDays")]
+	upload_days: u64,
 	#[serde(default, skip_serializing_if = "String::is_empty")]
 	cohort: String,
 }
 
-fn read_contributors(out: &Path) -> BTreeMap<String, ContributorMeta> {
-	std::fs::read_to_string(out.join("raw").join("contributors.json")).ok().and_then(|t| serde_json::from_str(&t).ok()).unwrap_or_default()
+/// Writes `file` whole or not at all: a temp file in the same folder, renamed over it.
+fn write_atomic(file: &Path, data: &[u8]) -> Result<(), String> {
+	let name = file.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default();
+	let tmp = file.with_file_name(format!(".{name}.tmp"));
+	std::fs::write(&tmp, data).and_then(|()| std::fs::rename(&tmp, file)).map_err(|e| {
+		let _ = std::fs::remove_file(&tmp);
+		format!("{}: {e}", file.display())
+	})
+}
+
+/// A JSON file: the default when it does not exist, an error naming it when it does not parse.
+fn read_json<T: serde::de::DeserializeOwned + Default>(file: &Path) -> Result<T, String> {
+	match std::fs::read_to_string(file) {
+		Ok(t) => serde_json::from_str(&t).map_err(|e| format!("{}: {e}", file.display())),
+		Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(T::default()),
+		Err(e) => Err(format!("{}: {e}", file.display())),
+	}
+}
+
+fn read_contributors(out: &Path) -> Result<BTreeMap<String, ContributorMeta>, String> {
+	read_json(&out.join("raw").join("contributors.json"))
 }
 
 fn write_contributors(out: &Path, c: &BTreeMap<String, ContributorMeta>) -> Result<(), String> {
-	let file = out.join("raw").join("contributors.json");
 	std::fs::create_dir_all(out.join("raw")).map_err(|e| format!("{}: {e}", out.display()))?;
-	std::fs::write(&file, serde_json::to_string_pretty(c).map_err(|e| e.to_string())? + "\n").map_err(|e| format!("{}: {e}", file.display()))
+	write_atomic(&out.join("raw").join("contributors.json"), (serde_json::to_string_pretty(c).map_err(|e| e.to_string())? + "\n").as_bytes())
 }
 
 fn raw_dir(out: &Path, contributor: &str, install: &str) -> PathBuf {
 	out.join("raw").join(contributor).join(install)
 }
 
-fn read_meta(out: &Path, contributor: &str, install: &str) -> Option<InstallMeta> {
-	let text = std::fs::read_to_string(raw_dir(out, contributor, install).join("install.json")).ok()?;
-	serde_json::from_str(&text).ok()
+/// The archive's install.json; None when there is none.
+fn read_meta(out: &Path, contributor: &str, install: &str) -> Result<Option<InstallMeta>, String> {
+	read_json(&raw_dir(out, contributor, install).join("install.json"))
 }
 
 fn write_meta(out: &Path, contributor: &str, install: &str, meta: &InstallMeta) -> Result<(), String> {
-	let file = raw_dir(out, contributor, install).join("install.json");
-	std::fs::write(&file, serde_json::to_string_pretty(meta).map_err(|e| e.to_string())? + "\n").map_err(|e| format!("{}: {e}", file.display()))
+	write_atomic(&raw_dir(out, contributor, install).join("install.json"), (serde_json::to_string_pretty(meta).map_err(|e| e.to_string())? + "\n").as_bytes())
 }
 
 /// Opens the contributor's archive of the install and merges its maps. False (nothing written)
@@ -181,7 +211,7 @@ fn write_meta(out: &Path, contributor: &str, install: &str, meta: &InstallMeta) 
 fn archive_meta(out: &Path, contributor: &str, install: &str, maps: &BTreeMap<u32, String>) -> Result<bool, String> {
 	let dir = raw_dir(out, contributor, install);
 	std::fs::create_dir_all(&dir).map_err(|e| format!("{}: {e}", dir.display()))?;
-	let existing = read_meta(out, contributor, install);
+	let existing = read_meta(out, contributor, install)?;
 	if existing.as_ref().is_some_and(|m| m.contributor != contributor) {
 		return Ok(false);
 	}
@@ -209,14 +239,14 @@ fn archive_chunk(out: &Path, contributor: &str, install: &str, seq: u64, text: &
 			return Ok(false);
 		}
 	}
-	std::fs::write(&file, text).map_err(|e| format!("{}: {e}", file.display()))?;
+	write_atomic(&file, text.as_bytes())?;
 	Ok(true)
 }
 
 /// An archive, decoded (chunks that do not decode are reported and left out).
 fn load_source(out: &Path, contributor: &str, install: &str) -> Result<Source, String> {
 	let dir = raw_dir(out, contributor, install);
-	let meta = read_meta(out, contributor, install).ok_or_else(|| format!("{}: no install.json", dir.display()))?;
+	let meta = read_meta(out, contributor, install)?.ok_or_else(|| format!("{}: no install.json", dir.display()))?;
 	let mut chunks = Vec::new();
 	let rd = std::fs::read_dir(&dir).map_err(|e| format!("{}: {e}", dir.display()))?;
 	let mut files: Vec<(u64, PathBuf)> = rd.flatten().filter_map(|e| Some((e.file_name().to_str()?.strip_suffix(".txt")?.parse().ok()?, e.path()))).collect();
@@ -278,15 +308,15 @@ fn remove_sessions(out: &Path, gone: impl Fn(&str, &str) -> bool) -> Result<usiz
 }
 
 /// Normalises the archives again and writes their sessions, a pulled session's header with
-/// `received` and its contributor's `contributorSince`, `contributorChunks` and `cohort`.
+/// `received` and its contributor's `contributorSince`, `contributorChunks`, `uploadDays` and `cohort`.
 fn write_sessions(out: &Path, keys: &BTreeSet<Key>) -> Result<Written, String> {
 	let mut sources = Vec::new();
 	let mut received: BTreeMap<&Key, BTreeMap<u64, i64>> = BTreeMap::new();
 	for k in keys {
 		sources.push(load_source(out, &k.0, &k.1)?);
-		received.insert(k, read_meta(out, &k.0, &k.1).map(|m| m.received).unwrap_or_default());
+		received.insert(k, read_meta(out, &k.0, &k.1)?.map(|m| m.received).unwrap_or_default());
 	}
-	let contributors = read_contributors(out);
+	let contributors = read_contributors(out)?;
 	let mut w = Written::default();
 	let mut keep = BTreeSet::new();
 	for mut s in normalize::sessions(&sources) {
@@ -300,6 +330,7 @@ fn write_sessions(out: &Path, keys: &BTreeSet<Key>) -> Result<Written, String> {
 			if let Some(c) = who {
 				h.insert("contributorSince".into(), c.since.into());
 				h.insert("contributorChunks".into(), c.chunks.into());
+				h.insert("uploadDays".into(), c.upload_days.into());
 				if is_contributor(&c.cohort) {
 					h.insert("cohort".into(), c.cohort.into());
 				}
@@ -356,6 +387,10 @@ fn migrate(out: &Path) -> Result<(), Fail> {
 	let mut moved: BTreeSet<Key> = BTreeSet::new();
 	for e in rd.flatten() {
 		let install = e.file_name().to_string_lossy().into_owned();
+		// Dot folders (raw/.purged) are no archive.
+		if install.starts_with('.') {
+			continue;
+		}
 		if !sv::valid_install(&install) || !e.path().is_dir() {
 			continue;
 		}
@@ -501,6 +536,12 @@ fn import(out: &Path, wtf: Option<&Path>, who: &Who) -> Result<(), Fail> {
 // ---- pull
 
 const PAGE: usize = 1000;
+/// The most an export page's body may hold (the server caps a page at 8 MiB).
+const PAGE_BYTES: u64 = 16 << 20;
+/// The most a tombstone or acknowledgement answer may hold.
+const SMALL_BYTES: u64 = 1 << 20;
+/// Days a purged contributor's archive stays in raw/.purged.
+const PURGED_DAYS: i64 = 30;
 /// The public recording server (docs/RECORDING.md "Upload API"): the one place forge names it.
 const DEFAULT_SERVER: &str = "https://data.polestar.guide";
 
@@ -513,6 +554,9 @@ struct PullState {
 	/// The latest tombstone purged (unix seconds).
 	#[serde(default)]
 	tombstones: i64,
+	/// The server database's id the cursors belong to.
+	#[serde(default, skip_serializing_if = "String::is_empty")]
+	instance: String,
 }
 
 fn is_contributor(s: &str) -> bool {
@@ -528,6 +572,18 @@ struct Tally {
 	suspect: usize,
 	bad: usize,
 	touched: BTreeSet<Key>,
+	/// The most bytes one contributor's archive may hold; 0: no cap.
+	cap: u64,
+	/// Bytes each contributor's archive holds (measured when first needed).
+	sizes: BTreeMap<String, u64>,
+	/// Chunks skipped per contributor for the cap.
+	capped: BTreeMap<String, usize>,
+}
+
+/// The bytes of the files under `dir`.
+fn dir_size(dir: &Path) -> u64 {
+	let Ok(rd) = std::fs::read_dir(dir) else { return 0 };
+	rd.flatten().map(|e| if e.path().is_dir() { dir_size(&e.path()) } else { e.metadata().map(|m| m.len()).unwrap_or(0) }).sum()
 }
 
 /// Archives one export page (NDJSON), advancing `state.after`; returns its line count.
@@ -557,24 +613,38 @@ fn take_page(out: &Path, body: &str, state: &mut PullState, contributors: &mut B
 			t.bad += 1;
 			continue;
 		}
-		if archive_chunk(out, &l.contributor, &l.install, l.seq, &l.text)? {
-			t.archived += 1;
-		}
-		let key = (l.contributor.clone(), l.install.clone());
-		let at = received.entry(key.clone()).or_default().entry(l.seq).or_insert(l.received);
-		*at = (*at).max(l.received);
 		let c = contributors.entry(l.contributor.clone()).or_default();
 		if l.contributor_since > 0 {
 			c.since = if c.since > 0 { c.since.min(l.contributor_since) } else { l.contributor_since };
 		}
 		c.chunks = c.chunks.max(l.contributor_chunks);
+		c.upload_days = c.upload_days.max(l.upload_days);
 		if !l.cohort.is_empty() {
 			c.cohort = l.cohort.clone();
 		}
+		let file = raw_dir(out, &l.contributor, &l.install).join(format!("{}.txt", l.seq));
+		let old = std::fs::metadata(&file).map(|m| m.len()).unwrap_or(0);
+		let new = l.text.len() as u64;
+		if t.cap > 0 && new > old {
+			let used = *t.sizes.entry(l.contributor.clone()).or_insert_with(|| dir_size(&out.join("raw").join(&l.contributor)));
+			if used + new - old > t.cap {
+				*t.capped.entry(l.contributor.clone()).or_default() += 1;
+				continue;
+			}
+		}
+		if archive_chunk(out, &l.contributor, &l.install, l.seq, &l.text)? {
+			t.archived += 1;
+			if let Some(used) = t.sizes.get_mut(&l.contributor) {
+				*used += new - old;
+			}
+		}
+		let key = (l.contributor.clone(), l.install.clone());
+		let at = received.entry(key.clone()).or_default().entry(l.seq).or_insert(l.received);
+		*at = (*at).max(l.received);
 		t.touched.insert(key);
 	}
 	for ((contributor, install), seqs) in received {
-		let mut meta = read_meta(out, &contributor, &install).ok_or_else(|| format!("{}: no install.json", raw_dir(out, &contributor, &install).display()))?;
+		let mut meta = read_meta(out, &contributor, &install)?.ok_or_else(|| format!("{}: no install.json", raw_dir(out, &contributor, &install).display()))?;
 		for (seq, at) in seqs {
 			let old = meta.received.entry(seq).or_insert(at);
 			*old = (*old).max(at);
@@ -584,9 +654,126 @@ fn take_page(out: &Path, body: &str, state: &mut PullState, contributors: &mut B
 	Ok(page)
 }
 
-/// Purges the contributors of a tombstone page (NDJSON): their archives, sessions and figures.
-/// Advances `state.tombstones`; returns the contributors purged.
-fn purge(out: &Path, body: &str, state: &mut PullState, contributors: &mut BTreeMap<String, ContributorMeta>) -> Result<BTreeSet<String>, String> {
+/// The instance id an export page's first line carries ("" when none or no lines).
+fn page_instance(body: &str) -> String {
+	body.lines().find(|l| !l.trim().is_empty()).and_then(|l| serde_json::from_str::<ExportLine>(l).ok()).map(|l| l.instance).unwrap_or_default()
+}
+
+/// Pulls export pages until one comes back empty (the server caps a page's bytes, so a short page
+/// is not the last), saving the state and contributors after each. `fetch(after, limit)` answers
+/// a page. When the server's database changed (another instance id) the cursors start over.
+fn drain(
+	out: &Path,
+	state: &mut PullState,
+	contributors: &mut BTreeMap<String, ContributorMeta>,
+	t: &mut Tally,
+	mut fetch: impl FnMut(i64, usize) -> Result<String, String>,
+) -> Result<(), String> {
+	let state_file = out.join(".pull-state.json");
+	let mut restarted = false;
+	let mut first = true;
+	loop {
+		let body = fetch(state.after, PAGE)?;
+		// Nothing after the cursor: a database restored with fewer lines says the same, so the
+		// first line's instance is asked for.
+		let probe = first && body.trim().is_empty() && state.after > 0 && !state.instance.is_empty();
+		first = false;
+		let instance = if probe { page_instance(&fetch(0, 1)?) } else { page_instance(&body) };
+		if !instance.is_empty() && instance != state.instance {
+			let changed = !state.instance.is_empty();
+			state.instance = instance;
+			if changed {
+				if restarted {
+					return Err("the server's database changed twice during one pull; pull again".into());
+				}
+				println!("the server's database changed (restored or recreated): pulling from the start");
+				state.after = 0;
+				state.tombstones = 0;
+				restarted = true;
+				save_state(&state_file, state)?;
+				continue;
+			}
+		}
+		if probe {
+			save_state(&state_file, state)?;
+			return Ok(());
+		}
+		let after = state.after;
+		let page = take_page(out, &body, state, contributors, t).map_err(|e| format!("export after {after}: {e}"))?;
+		write_contributors(out, contributors)?;
+		save_state(&state_file, state)?;
+		if page == 0 {
+			return Ok(());
+		}
+	}
+}
+
+/// Moves the contributors' archives to raw/.purged/<UTC date>/ and removes their sessions.
+fn quarantine(out: &Path, gone: &BTreeSet<String>, now: i64) -> Result<(), String> {
+	let day = out.join("raw").join(".purged").join(ymd(now));
+	for c in gone {
+		let dir = out.join("raw").join(c);
+		if !dir.exists() {
+			continue;
+		}
+		std::fs::create_dir_all(&day).map_err(|e| format!("{}: {e}", day.display()))?;
+		let mut to = day.join(c);
+		let mut n = 2;
+		while to.exists() {
+			to = day.join(format!("{c}-{n}"));
+			n += 1;
+		}
+		std::fs::rename(&dir, &to).map_err(|e| format!("{} -> {}: {e}", dir.display(), to.display()))?;
+	}
+	remove_sessions(out, |c, _| gone.contains(c))?;
+	Ok(())
+}
+
+/// Deletes raw/.purged/<date>/ folders over [`PURGED_DAYS`] old.
+fn prune_purged(out: &Path, now: i64) -> Result<(), String> {
+	let Ok(rd) = std::fs::read_dir(out.join("raw").join(".purged")) else { return Ok(()) };
+	for e in rd.flatten() {
+		if days_of(&e.file_name().to_string_lossy()).is_some_and(|d| d < now.div_euclid(86400) - PURGED_DAYS) {
+			std::fs::remove_dir_all(e.path()).map_err(|x| format!("{}: {x}", e.path().display()))?;
+		}
+	}
+	Ok(())
+}
+
+/// The UTC date of unix seconds, YYYY-MM-DD.
+fn ymd(secs: i64) -> String {
+	let z = secs.div_euclid(86400) + 719_468;
+	let era = z.div_euclid(146_097);
+	let doe = z - era * 146_097;
+	let yoe = (doe - doe / 1460 + doe / 36_524 - doe / 146_096) / 365;
+	let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+	let mp = (5 * doy + 2) / 153;
+	let d = doy - (153 * mp + 2) / 5 + 1;
+	let m = if mp < 10 { mp + 3 } else { mp - 9 };
+	let y = yoe + era * 400 + i64::from(m <= 2);
+	format!("{y:04}-{m:02}-{d:02}")
+}
+
+/// Days since 1970-01-01 of a YYYY-MM-DD date.
+fn days_of(date: &str) -> Option<i64> {
+	let b = date.as_bytes();
+	if b.len() != 10 || b[4] != b'-' || b[7] != b'-' {
+		return None;
+	}
+	let (y, m, d): (i64, i64, i64) = (date[..4].parse().ok()?, date[5..7].parse().ok()?, date[8..].parse().ok()?);
+	if !(1..=12).contains(&m) || !(1..=31).contains(&d) {
+		return None;
+	}
+	let y = if m <= 2 { y - 1 } else { y };
+	let era = y.div_euclid(400);
+	let yoe = y - era * 400;
+	let doy = (153 * (if m > 2 { m - 3 } else { m + 9 }) + 2) / 5 + d - 1;
+	Some(era * 146_097 + yoe * 365 + yoe / 4 - yoe / 100 + doy - 719_468)
+}
+
+/// Purges the contributors of a tombstone page (NDJSON): their archives (to raw/.purged),
+/// sessions and figures. Advances `state.tombstones`; returns the contributors purged.
+fn purge(out: &Path, body: &str, state: &mut PullState, contributors: &mut BTreeMap<String, ContributorMeta>, now: i64) -> Result<BTreeSet<String>, String> {
 	let mut gone = BTreeSet::new();
 	for (n, line) in body.lines().filter(|l| !l.trim().is_empty()).enumerate() {
 		let t: Tombstone = serde_json::from_str(line).map_err(|e| format!("tombstone line {}: {e}", n + 1))?;
@@ -595,64 +782,129 @@ fn purge(out: &Path, body: &str, state: &mut PullState, contributors: &mut BTree
 			gone.insert(t.contributor);
 		}
 	}
+	quarantine(out, &gone, now)?;
 	for c in &gone {
-		let dir = out.join("raw").join(c);
-		if dir.exists() {
-			std::fs::remove_dir_all(&dir).map_err(|e| format!("{}: {e}", dir.display()))?;
-		}
 		contributors.remove(c);
 	}
-	remove_sessions(out, |c, _| gone.contains(c))?;
 	Ok(gone)
 }
 
-/// GET with the maintainer key; the body.
-fn get(url: &str, key: &str) -> Result<String, String> {
-	let resp = ureq::get(url).header("Authorization", &format!("Bearer {key}")).call().map_err(|e| match e {
+/// Server contributors first seen over `days` days ago none of whose sessions counts (forge-data
+/// `establish`): quarantined like tombstoned ones. Returns them.
+fn expire(out: &Path, contributors: &mut BTreeMap<String, ContributorMeta>, now: i64, days: u64) -> Result<BTreeSet<String>, String> {
+	let limit = i64::try_from(days.saturating_mul(86400)).unwrap_or(i64::MAX);
+	let old: BTreeSet<String> = contributors.iter().filter(|(c, m)| is_contributor(c) && m.since > 0 && now - m.since > limit).map(|(c, _)| c.clone()).collect();
+	if old.is_empty() {
+		return Ok(old);
+	}
+	let of: BTreeMap<String, String> = session_files(out).into_iter().map(|(n, c, _)| (n, c)).collect();
+	let established: BTreeSet<String> = forge_data::recordings::read_recordings(out)?.into_iter().filter(|r| r.counts).filter_map(|r| of.get(&r.file).cloned()).collect();
+	let gone: BTreeSet<String> = old.difference(&established).cloned().collect();
+	quarantine(out, &gone, now)?;
+	for c in &gone {
+		contributors.remove(c);
+	}
+	Ok(gone)
+}
+
+/// config.json's `expireDays` (default 30) and `maxContributorMB` (default 200).
+fn pull_config(out: &Path) -> Result<(u64, u64), String> {
+	let file = out.join("config.json");
+	let v: Value = read_json(&file)?;
+	let num = |k: &str, d: u64| match &v[k] {
+		Value::Null => Ok(d),
+		x => x.as_u64().ok_or_else(|| format!("{}: {k}: expected a whole number", file.display())),
+	};
+	Ok((num("expireDays", 30)?, num("maxContributorMB", 200)?))
+}
+
+/// The maintainer key travels with every request: https only, but for a server on this PC.
+fn check_server(server: &str) -> Result<(), String> {
+	let lower = server.to_ascii_lowercase();
+	if let Some(rest) = lower.strip_prefix("http://") {
+		let hp = rest.split(['/', '?', '#']).next().unwrap_or("");
+		let hp = hp.rsplit('@').next().unwrap_or("");
+		let host = if hp.starts_with('[') { hp.split_inclusive(']').next().unwrap_or("") } else { hp.split(':').next().unwrap_or("") };
+		if matches!(host, "localhost" | "127.0.0.1" | "[::1]") {
+			return Ok(());
+		}
+		return Err(format!("{server}: http:// would send the maintainer key unencrypted; use https:// (http:// is only for localhost)"));
+	}
+	if lower.starts_with("https://") {
+		Ok(())
+	} else {
+		Err(format!("{server}: not an https:// URL"))
+	}
+}
+
+fn agent() -> ureq::Agent {
+	ureq::Agent::config_builder().timeout_connect(Some(std::time::Duration::from_secs(20))).timeout_global(Some(std::time::Duration::from_secs(300))).build().into()
+}
+
+/// A body of at most `limit` bytes; more is an error.
+fn read_limited(r: impl Read, limit: u64, url: &str) -> Result<String, String> {
+	let mut buf = Vec::new();
+	r.take(limit + 1).read_to_end(&mut buf).map_err(|e| format!("{url}: {e}"))?;
+	if buf.len() as u64 > limit {
+		return Err(format!("{url}: the answer is over {limit} bytes; refused"));
+	}
+	String::from_utf8(buf).map_err(|e| format!("{url}: {e}"))
+}
+
+fn http_error(url: &str, e: ureq::Error) -> String {
+	match e {
 		ureq::Error::StatusCode(401 | 403) => format!("{url}: the server refused the maintainer key"),
 		e => format!("{url}: {e}"),
-	})?;
-	let mut body = String::new();
-	resp.into_body().into_reader().read_to_string(&mut body).map_err(|e| format!("{url}: {e}"))?;
-	Ok(body)
+	}
+}
+
+/// GET with the maintainer key; the body (at most `limit` bytes).
+fn get(agent: &ureq::Agent, url: &str, key: &str, limit: u64) -> Result<String, String> {
+	let resp = agent.get(url).header("Authorization", &format!("Bearer {key}")).call().map_err(|e| http_error(url, e))?;
+	read_limited(resp.into_body().into_reader(), limit, url)
+}
+
+/// POST a JSON body with the maintainer key; the answer's body (at most `limit` bytes).
+fn post_json(agent: &ureq::Agent, url: &str, key: &str, body: &str, limit: u64) -> Result<String, String> {
+	let resp = agent.post(url).header("Authorization", &format!("Bearer {key}")).content_type("application/json").send(body).map_err(|e| http_error(url, e))?;
+	read_limited(resp.into_body().into_reader(), limit, url)
 }
 
 fn save_state(file: &Path, state: &PullState) -> Result<(), String> {
-	let text = serde_json::to_string_pretty(state).map_err(|e| e.to_string())? + "\n";
-	std::fs::write(file, text).map_err(|e| format!("{}: {e}", file.display()))
+	write_atomic(file, (serde_json::to_string_pretty(state).map_err(|e| e.to_string())? + "\n").as_bytes())
+}
+
+fn unix_now() -> i64 {
+	std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map(|d| d.as_secs() as i64).unwrap_or(0)
 }
 
 fn pull(out: &Path, server: Option<String>, key_file: &Path) -> Result<(), Fail> {
 	let state_file = out.join(".pull-state.json");
-	let mut state: PullState = std::fs::read_to_string(&state_file).ok().and_then(|t| serde_json::from_str(&t).ok()).unwrap_or_default();
+	let mut state: PullState = read_json(&state_file)?;
 	let server = server.or_else(|| std::env::var("POLESTAR_INGEST_URL").ok().filter(|s| !s.is_empty())).unwrap_or_else(|| DEFAULT_SERVER.to_string());
 	let server = server.trim_end_matches('/').trim_end_matches("/v1").to_string();
+	check_server(&server)?;
 	if state.server.as_deref().is_some_and(|s| s != server) {
 		// Another server: its line ids and tombstones are not this one's.
 		state.after = 0;
 		state.tombstones = 0;
+		state.instance.clear();
 	}
 	state.server = Some(server.clone());
+	let (expire_days, max_mb) = pull_config(out)?;
 	let key = std::fs::read_to_string(key_file).map_err(|e| format!("{}: {e} (the maintainer key; --key-file)", key_file.display()))?;
 	let key = key.trim();
 	std::fs::create_dir_all(out).map_err(|e| format!("{}: {e}", out.display()))?;
-	let mut contributors = read_contributors(out);
-	let mut t = Tally::default();
-	loop {
-		let url = format!("{server}/v1/export?after={}&limit={PAGE}", state.after);
-		let body = get(&url, key)?;
-		let page = take_page(out, &body, &mut state, &mut contributors, &mut t).map_err(|e| format!("{url}: {e}"))?;
-		write_contributors(out, &contributors)?;
-		save_state(&state_file, &state)?;
-		if page < PAGE {
-			break;
-		}
-	}
+	let mut contributors = read_contributors(out)?;
+	let mut t = Tally { cap: max_mb.saturating_mul(1 << 20), ..Tally::default() };
+	let agent = agent();
+	drain(out, &mut state, &mut contributors, &mut t, |after, limit| get(&agent, &format!("{server}/v1/export?after={after}&limit={limit}"), key, PAGE_BYTES))?;
+	let now = unix_now();
 	// One second back: a tombstone in the same second as the last one purged is not missed (a
 	// purge again is harmless).
 	let url = format!("{server}/v1/export/tombstones?after={}", (state.tombstones - 1).max(0));
-	let body = get(&url, key)?;
-	let gone = purge(out, &body, &mut state, &mut contributors).map_err(|e| format!("{url}: {e}"))?;
+	let body = get(&agent, &url, key, SMALL_BYTES)?;
+	let gone = purge(out, &body, &mut state, &mut contributors, now).map_err(|e| format!("{url}: {e}"))?;
 	t.touched.retain(|(c, _)| !gone.contains(c));
 	write_contributors(out, &contributors)?;
 	save_state(&state_file, &state)?;
@@ -667,27 +919,29 @@ fn pull(out: &Path, server: Option<String>, key_file: &Path) -> Result<(), Fail>
 	);
 	let w = write_sessions(out, &t.touched)?;
 	report(out, t.archived, &w);
+	for (c, n) in &t.capped {
+		println!("{c}: {n} chunk(s) skipped: its archive would pass maxContributorMB ({max_mb} MB)");
+	}
+	let expired = expire(out, &mut contributors, now, expire_days)?;
+	if !expired.is_empty() {
+		write_contributors(out, &contributors)?;
+		println!(
+			"{} contributor(s) first seen over {expire_days} days ago and never established moved to raw/.purged: {}",
+			expired.len(),
+			expired.iter().cloned().collect::<Vec<_>>().join(", ")
+		);
+	}
+	prune_purged(out, now)?;
 	// Only now, with every line archived, every session written and the state saved: the server
 	// may delete what it holds up to here once it is past its retention.
 	if state.after > 0 {
 		let url = format!("{server}/v1/export/ack");
-		let answer = post_json(&url, key, &serde_json::json!({ "upto": state.after }).to_string())
+		let answer = post_json(&agent, &url, key, &serde_json::json!({ "upto": state.after }).to_string(), SMALL_BYTES)
 			.map_err(|e| format!("everything pulled is stored, but the acknowledgement failed ({e}); pull again to send it"))?;
 		let acked = serde_json::from_str::<Value>(&answer).ok().and_then(|v| v["acked"].as_i64()).unwrap_or(state.after);
 		println!("acknowledged export lines up to {acked}: the server deletes them after its retention period");
 	}
 	Ok(())
-}
-
-/// POST a JSON body with the maintainer key; the answer's body.
-fn post_json(url: &str, key: &str, body: &str) -> Result<String, String> {
-	let resp = ureq::post(url).header("Authorization", &format!("Bearer {key}")).content_type("application/json").send(body).map_err(|e| match e {
-		ureq::Error::StatusCode(401 | 403) => format!("{url}: the server refused the maintainer key"),
-		e => format!("{url}: {e}"),
-	})?;
-	let mut answer = String::new();
-	resp.into_body().into_reader().read_to_string(&mut answer).map_err(|e| format!("{url}: {e}"))?;
-	Ok(answer)
 }
 
 #[cfg(test)]
@@ -715,6 +969,10 @@ mod tests {
 	}
 
 	fn line(id: i64, contributor: &str, cohort: &str, seq: u64, text: &str) -> String {
+		line_of(id, contributor, cohort, seq, text, 40, "")
+	}
+
+	fn line_of(id: i64, contributor: &str, cohort: &str, seq: u64, text: &str, chunks: u64, instance: &str) -> String {
 		serde_json::to_string(&ExportLine {
 			id,
 			contributor: contributor.into(),
@@ -725,7 +983,9 @@ mod tests {
 			text: text.into(),
 			flagged: false,
 			contributor_since: 1_790_000_000,
-			contributor_chunks: 40,
+			contributor_chunks: chunks,
+			upload_days: chunks / 4,
+			instance: instance.into(),
 			suspect: false,
 			suspect_reasons: Vec::new(),
 		})
@@ -739,7 +999,7 @@ mod tests {
 	}
 
 	fn pull_page(out: &Path, body: &str) -> Tally {
-		let (mut state, mut contributors, mut t) = (PullState::default(), read_contributors(out), Tally::default());
+		let (mut state, mut contributors, mut t) = (PullState::default(), read_contributors(out).unwrap(), Tally::default());
 		take_page(out, body, &mut state, &mut contributors, &mut t).unwrap();
 		write_contributors(out, &contributors).unwrap();
 		write_sessions(out, &t.touched).unwrap();
@@ -766,7 +1026,7 @@ mod tests {
 		assert_eq!(of(VICTIM)["cohort"], "aaaaaaaaaaaaaaaa");
 		assert_eq!(of(ATTACKER)["chunks"], serde_json::json!([1, 2]));
 		// A folder whose install.json names someone else is never written to: the line is bad.
-		let mut meta = read_meta(&out, ATTACKER, INSTALL).unwrap();
+		let mut meta = read_meta(&out, ATTACKER, INSTALL).unwrap().unwrap();
 		meta.contributor = VICTIM.into();
 		write_meta(&out, ATTACKER, INSTALL, &meta).unwrap();
 		let t = pull_page(&out, &line(4, ATTACKER, "", 3, &chunk(3, 1_799_990_200, 1)));
@@ -780,16 +1040,171 @@ mod tests {
 		let out = scratch("tombstones");
 		pull_page(&out, &format!("{}\n{}", line(1, VICTIM, "", 1, &chunk(1, 1_799_990_000, 2)), line(2, ATTACKER, "", 1, &chunk(1, 1_799_990_000, 3))));
 		assert_eq!(sessions(&out).len(), 2);
-		let (mut state, mut contributors) = (PullState::default(), read_contributors(&out));
+		let (mut state, mut contributors) = (PullState::default(), read_contributors(&out).unwrap());
 		let body = serde_json::to_string(&Tombstone { contributor: ATTACKER.into(), at: 1_800_000_500, why: "blocked".into() }).unwrap();
-		let gone = purge(&out, &body, &mut state, &mut contributors).unwrap();
+		let now = 1_800_001_000;
+		let gone = purge(&out, &body, &mut state, &mut contributors, now).unwrap();
 		assert_eq!(gone.into_iter().collect::<Vec<_>>(), vec![ATTACKER.to_string()]);
 		assert_eq!(state.tombstones, 1_800_000_500);
 		assert!(!out.join("raw").join(ATTACKER).exists() && raw_dir(&out, VICTIM, INSTALL).join("1.txt").exists());
+		let purged = out.join("raw").join(".purged").join(ymd(now));
+		assert!(purged.join(ATTACKER).join(INSTALL).join("1.txt").is_file(), "moved, not deleted");
 		assert!(!contributors.contains_key(ATTACKER) && contributors.contains_key(VICTIM));
 		let s = sessions(&out);
 		assert_eq!((s.len(), s[0]["contributor"].as_str()), (1, Some(VICTIM)));
+		// raw/.purged is no archive to migrate.
+		migrate(&out).unwrap();
+		assert!(purged.join(ATTACKER).is_dir());
+		// Purged folders over 30 days old are deleted; younger ones stay.
+		let old = out.join("raw").join(".purged").join(ymd(now - 31 * 86400));
+		let young = out.join("raw").join(".purged").join(ymd(now - 29 * 86400));
+		std::fs::create_dir_all(old.join(ATTACKER)).unwrap();
+		std::fs::create_dir_all(&young).unwrap();
+		prune_purged(&out, now).unwrap();
+		assert!(!old.exists() && young.is_dir() && purged.is_dir());
 		std::fs::remove_dir_all(&out).unwrap();
+	}
+
+	#[test]
+	fn dates_round_trip() {
+		assert_eq!(ymd(0), "1970-01-01");
+		assert_eq!(ymd(1_800_000_000), "2027-01-15");
+		for d in [-800_000, -1, 0, 59, 60, 10_957, 20_000, 800_000] {
+			assert_eq!(days_of(&ymd(d * 86400)), Some(d), "{d}");
+		}
+		assert_eq!(days_of("contributor1"), None);
+	}
+
+	#[test]
+	fn the_header_carries_upload_days() {
+		let out = scratch("upload-days");
+		pull_page(&out, &line_of(1, VICTIM, "", 1, &chunk(1, 1_799_990_000, 2), 40, ""));
+		assert_eq!(sessions(&out)[0]["uploadDays"], 10);
+		assert_eq!(read_contributors(&out).unwrap()[VICTIM].upload_days, 10);
+		// The largest seen is kept.
+		pull_page(&out, &line_of(2, VICTIM, "", 2, &chunk(2, 1_799_990_100, 2), 8, ""));
+		assert_eq!(read_contributors(&out).unwrap()[VICTIM].upload_days, 10);
+		std::fs::remove_dir_all(&out).unwrap();
+	}
+
+	/// `drain` over canned pages: after -> body (limit 1 asks for the first line only).
+	fn drain_pages(out: &Path, state: &mut PullState, pages: &[(i64, String)]) -> (Tally, Vec<i64>) {
+		let (mut contributors, mut t, mut asked) = (BTreeMap::new(), Tally::default(), Vec::new());
+		drain(out, state, &mut contributors, &mut t, |after, limit| {
+			asked.push(after);
+			let body = pages.iter().find(|p| p.0 == after).map(|p| p.1.clone()).unwrap_or_default();
+			Ok(if limit == 1 { body.lines().next().unwrap_or("").to_string() } else { body })
+		})
+		.unwrap();
+		(t, asked)
+	}
+
+	#[test]
+	fn a_short_page_is_not_the_last() {
+		let out = scratch("drain");
+		let c = |s| chunk(s, 1_799_990_000 + s as i64 * 100, 1);
+		let pages = [(0, format!("{}\n{}\n", line(1, VICTIM, "", 1, &c(1)), line(2, VICTIM, "", 2, &c(2)))), (2, line(3, VICTIM, "", 3, &c(3)))];
+		let mut state = PullState::default();
+		let (t, asked) = drain_pages(&out, &mut state, &pages);
+		assert_eq!((state.after, t.archived, asked), (3, 3, vec![0, 2, 3]));
+		let saved: PullState = read_json(&out.join(".pull-state.json")).unwrap();
+		assert_eq!(saved.after, 3);
+		std::fs::remove_dir_all(&out).unwrap();
+	}
+
+	#[test]
+	fn another_server_database_starts_the_pull_over() {
+		let out = scratch("instance");
+		let c = |s| chunk(s, 1_799_990_000 + s as i64 * 100, 1);
+		// The first pull records the instance.
+		let mut state = PullState::default();
+		drain_pages(&out, &mut state, &[(0, line_of(1, VICTIM, "", 1, &c(1), 40, "aaaa"))]);
+		assert_eq!((state.after, state.instance.as_str()), (1, "aaaa"));
+		// A page from another instance: the cursors reset and the pull starts from the first line.
+		let mut state = PullState { after: 10, tombstones: 99, instance: "aaaa".into(), ..PullState::default() };
+		let fresh = format!("{}\n{}\n", line_of(1, VICTIM, "", 1, &c(1), 40, "bbbb"), line_of(2, VICTIM, "", 2, &c(2), 40, "bbbb"));
+		let (_, asked) = drain_pages(&out, &mut state, &[(10, line_of(11, VICTIM, "", 5, &c(5), 40, "bbbb")), (0, fresh.clone())]);
+		assert_eq!((state.after, state.tombstones, state.instance.as_str(), asked), (2, 0, "bbbb", vec![10, 0, 2]));
+		assert!(!raw_dir(&out, VICTIM, INSTALL).join("5.txt").exists(), "the stale page is not taken");
+		// Nothing after the cursor, but the server's first line is of another instance: restored with fewer lines.
+		let mut state = PullState { after: 10, instance: "aaaa".into(), ..PullState::default() };
+		let (_, asked) = drain_pages(&out, &mut state, &[(0, fresh)]);
+		assert_eq!((state.after, state.instance.as_str(), asked), (2, "bbbb", vec![10, 0, 0, 2]));
+		std::fs::remove_dir_all(&out).unwrap();
+	}
+
+	#[test]
+	fn old_contributors_never_established_expire() {
+		let out = scratch("expire");
+		std::fs::write(
+			out.join("config.json"),
+			r#"{"minContributorDays":0,"minContributorChunks":30,"minContributorPlayDays":0,"minContributorHours":0,"minContributorPos":0,"minContributorKills":0}"#,
+		)
+		.unwrap();
+		pull_page(&out, &format!("{}\n{}", line_of(1, VICTIM, "", 1, &chunk(1, 1_799_990_000, 2), 40, ""), line_of(2, ATTACKER, "", 1, &chunk(1, 1_799_990_000, 3), 10, "")));
+		let mut contributors = read_contributors(&out).unwrap();
+		// Not yet old enough: nothing expires.
+		assert!(expire(&out, &mut contributors, 1_790_000_000 + 29 * 86400, 30).unwrap().is_empty());
+		let now = 1_790_000_000 + 31 * 86400;
+		let gone = expire(&out, &mut contributors, now, 30).unwrap();
+		assert_eq!(gone.into_iter().collect::<Vec<_>>(), vec![ATTACKER.to_string()]);
+		assert!(out.join("raw").join(".purged").join(ymd(now)).join(ATTACKER).is_dir());
+		assert!(!out.join("raw").join(ATTACKER).exists() && raw_dir(&out, VICTIM, INSTALL).join("1.txt").is_file());
+		assert!(!contributors.contains_key(ATTACKER) && contributors.contains_key(VICTIM));
+		assert_eq!(sessions(&out).len(), 1);
+		std::fs::remove_dir_all(&out).unwrap();
+	}
+
+	#[test]
+	fn the_archive_cap_skips_and_counts() {
+		let out = scratch("cap");
+		pull_page(&out, &line(1, VICTIM, "", 1, &chunk(1, 1_799_990_000, 2)));
+		let used = dir_size(&out.join("raw").join(VICTIM));
+		let (mut state, mut contributors) = (PullState::default(), read_contributors(&out).unwrap());
+		let mut t = Tally { cap: used + 5, ..Tally::default() };
+		take_page(&out, &format!("{}\n{}", line(2, VICTIM, "", 2, &chunk(2, 1_799_990_100, 2)), line(3, VICTIM, "", 3, &chunk(3, 1_799_990_200, 2))), &mut state, &mut contributors, &mut t).unwrap();
+		assert_eq!((t.archived, t.capped.get(VICTIM).copied()), (0, Some(2)));
+		assert!(!raw_dir(&out, VICTIM, INSTALL).join("2.txt").exists());
+		std::fs::remove_dir_all(&out).unwrap();
+	}
+
+	fn tmp_files(dir: &Path) -> Vec<PathBuf> {
+		std::fs::read_dir(dir).unwrap().flatten().flat_map(|e| if e.path().is_dir() { tmp_files(&e.path()) } else if e.file_name().to_string_lossy().ends_with(".tmp") { vec![e.path()] } else { vec![] }).collect()
+	}
+
+	#[test]
+	fn writes_are_whole_and_corrupt_state_is_an_error() {
+		let out = scratch("atomic");
+		let mut state = PullState::default();
+		drain_pages(&out, &mut state, &[(0, line(1, VICTIM, "", 1, &chunk(1, 1_799_990_000, 2)))]);
+		assert!(out.join(".pull-state.json").is_file() && out.join("raw").join("contributors.json").is_file());
+		assert!(tmp_files(&out).is_empty(), "{:?}", tmp_files(&out));
+		std::fs::write(out.join("raw").join("contributors.json"), "{ not json").unwrap();
+		assert!(read_contributors(&out).err().unwrap().contains("contributors.json"));
+		std::fs::write(raw_dir(&out, VICTIM, INSTALL).join("install.json"), "[").unwrap();
+		assert!(read_meta(&out, VICTIM, INSTALL).err().unwrap().contains("install.json"));
+		std::fs::write(out.join(".pull-state.json"), "nope").unwrap();
+		let key = out.join("maintainer.key");
+		std::fs::write(&key, "k").unwrap();
+		let e = pull(&out, Some("http://127.0.0.1:9".into()), &key).unwrap_err();
+		assert!(format!("{e:?}").contains(".pull-state.json"), "{e:?}");
+		std::fs::remove_dir_all(&out).unwrap();
+	}
+
+	#[test]
+	fn plain_http_only_for_localhost() {
+		for ok in ["https://example.org", "http://localhost:8080", "http://127.0.0.1:1", "http://[::1]:5", "HTTP://LOCALHOST"] {
+			assert!(check_server(ok).is_ok(), "{ok}");
+		}
+		for bad in ["http://example.org", "http://localhost.example.org", "http://127.0.0.1.example.org", "http://localhost@example.org", "ftp://localhost", "example.org"] {
+			assert!(check_server(bad).is_err(), "{bad}");
+		}
+	}
+
+	#[test]
+	fn oversized_bodies_are_refused() {
+		assert_eq!(read_limited(&b"0123456789"[..], 10, "u").unwrap(), "0123456789");
+		assert!(read_limited(&b"0123456789!"[..], 10, "u").unwrap_err().contains("over 10 bytes"));
 	}
 
 	#[test]
@@ -806,7 +1221,7 @@ mod tests {
 		migrate(&out).unwrap();
 		for (c, i) in [("local", "localinstal1"), ("anon-0123456789abcdef", "sentinstall1"), (VICTIM, "pulledinsta1")] {
 			assert!(raw_dir(&out, c, i).join("1.txt").is_file(), "{c}/{i}");
-			assert_eq!(read_meta(&out, c, i).unwrap().contributor, c);
+			assert_eq!(read_meta(&out, c, i).unwrap().unwrap().contributor, c);
 		}
 		let mut names: Vec<String> = session_files(&out).into_iter().map(|(n, _, _)| n).collect();
 		names.sort();
@@ -879,6 +1294,8 @@ mod tests {
 		let out = scratch("ack");
 		let key = out.join("maintainer.key");
 		std::fs::write(&key, "k".repeat(64)).unwrap();
+		// The test contributor's first-seen time is fixed; it must not expire as the clock runs on.
+		std::fs::write(out.join("config.json"), r#"{"expireDays":1000000}"#).unwrap();
 		let export = format!("{}\n{}\n", line(1, VICTIM, "", 1, &chunk(1, 1_799_990_000, 2)), line(2, VICTIM, "", 2, &chunk(2, 1_799_990_100, 2)));
 		let (url, acks) = fake_server(out.clone(), export);
 		pull(&out, Some(url), &key).unwrap();
