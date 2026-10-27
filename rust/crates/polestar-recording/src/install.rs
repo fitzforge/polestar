@@ -308,7 +308,11 @@ pub fn find_installs() -> Vec<Install> {
 	} else {
 		Vec::new()
 	};
-	find_installs_in(dirs::home_dir().as_deref(), &roots)
+	// std's home_dir is correct on every platform since Rust 1.85 (no `dirs`: its option-ext
+	// dependency is MPL-2.0, outside the licences the forge release accepts).
+	#[allow(deprecated)]
+	let home = std::env::home_dir();
+	find_installs_in(home.as_deref(), &roots)
 }
 
 /// The install of a folder the player picked: the World of Warcraft folder, the `_forever_`
