@@ -8,4 +8,5 @@ section: forge
   are retired. The data build trusts other players' recordings only where it
   should: a spawn, a learned path or a drop chance replaces another source's
   only when two players saw it, and names from non-English clients never
-  replace English ones.
+  replace English ones. After a pull has stored everything, it tells the
+  server, which then deletes those chunks after two weeks.

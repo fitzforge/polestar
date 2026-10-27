@@ -5345,7 +5345,10 @@ A `Polestar_Recorder.lua` outside this PC's own game folders (a file a player
 sent in) needs `--vouch <name>` (contributor `sent-<name>`, the name the
 maintainer's choice) or `--anonymize` (contributor `anon-<16 hex digits of the
 install id's SHA-256>`). Pull then fetches `GET /v1/export/tombstones` since the
-last one purged and deletes those contributors' archives and sessions. A
+last one purged and deletes those contributors' archives and sessions. Last,
+with everything on disk, pull sends `POST /v1/export/ack` with the last id it
+pulled; the server deletes chunks up to there once they are past its retention
+(the server is a buffer, `data/recordings` the archive). A
 folder of the older layout (`raw/<install>/`) is moved under its contributor
 (an old `sent-<16 hex>` becomes `anon-<16 hex>`) and its sessions rewritten.
 

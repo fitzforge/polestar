@@ -58,7 +58,9 @@ pub fn prepare(upload: UploadChunk, min_build: u32, ctx: &mut plausible::Context
 	}
 	let text = if decoded.skipped_unknown > 0 { strip_unknown(&upload.text) } else { upload.text };
 	let flagged = build.is_none_or(|b| b < min_build);
-	Prepared::Ok(Box::new(NewChunk { seq: upload.seq, epoch: decoded.epoch, text, build, locale, flagged, suspect, kinds, quests }))
+	// Compressed here, outside the database lock.
+	let ztext = crate::db::compress(&text);
+	Prepared::Ok(Box::new(NewChunk { seq: upload.seq, epoch: decoded.epoch, ztext, text_len: text.len(), build, locale, flagged, suspect, kinds, quests }))
 }
 
 /// The chunk text without its records of unknown kinds (the `chunk` header stays first).
@@ -111,8 +113,9 @@ mod tests {
 	#[test]
 	fn unknown_kinds_are_not_stored() {
 		let Prepared::Ok(c) = prep(format!("{HEAD}newkind\t1\tName\nafk\t2\t1\n\nother\t3\n")) else { panic!("stored") };
-		assert_eq!(c.text, format!("{HEAD}afk\t2\t1\n"));
+		let text = |c: &NewChunk| String::from_utf8(zstd::stream::decode_all(&c.ztext[..]).unwrap()).unwrap();
+		assert_eq!(text(&c), format!("{HEAD}afk\t2\t1\n"));
 		let Prepared::Ok(c) = prep(format!("{HEAD}afk\t2\t1")) else { panic!("stored") };
-		assert_eq!(c.text, format!("{HEAD}afk\t2\t1"), "a chunk of known kinds is stored as sent");
+		assert_eq!(text(&c), format!("{HEAD}afk\t2\t1"), "a chunk of known kinds is stored as sent");
 	}
 }

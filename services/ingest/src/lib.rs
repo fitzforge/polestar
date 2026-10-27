@@ -10,11 +10,13 @@
 //! decoded and checked outside it, one chunk at a time, with at most [`UPLOAD_CONCURRENCY`]
 //! uploads at once.
 
+pub mod backup;
 pub mod db;
 pub mod limit;
 pub mod recording;
 
 use std::net::IpAddr;
+use std::path::PathBuf;
 use std::sync::{Arc, Mutex, MutexGuard, PoisonError};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
@@ -57,6 +59,16 @@ pub const REGISTRATIONS_PER_DAY: u32 = 3;
 pub const UPLOAD_CONCURRENCY: usize = 4;
 /// How long a client may take to send a request body.
 pub const BODY_TIMEOUT: Duration = Duration::from_secs(10);
+/// Default database size cap (INGEST_MAX_DB_MB).
+pub const MAX_DB_BYTES: u64 = 4096 * 1024 * 1024;
+/// Default free space the data volume keeps (INGEST_MIN_FREE_GB).
+pub const MIN_FREE_BYTES: u64 = 10 * 1024 * 1024 * 1024;
+/// Default days a pulled chunk stays (INGEST_RETAIN_DAYS).
+pub const RETAIN_DAYS: i64 = 14;
+/// How often a storage refusal is logged at most.
+pub const BUSY_WARN_EVERY: Duration = Duration::from_secs(3600);
+/// How often the in-process maintenance runs (pruning, housekeeping, WAL checkpoint).
+pub const MAINTENANCE_EVERY: Duration = Duration::from_secs(3600);
 /// How long `/healthz` waits for the database.
 pub const HEALTH_TIMEOUT: Duration = Duration::from_secs(2);
 /// How long a registration challenge stays valid.
@@ -87,6 +99,31 @@ pub struct Config {
 	pub pow_bits: u32,
 	/// Serve requests without `CF-Connecting-IP` (local development and tests only).
 	pub allow_direct: bool,
+	/// Uploads are refused (503) while the database is larger than this.
+	pub max_db_bytes: u64,
+	/// Uploads are refused (503) while the filesystem holding this folder has less free space
+	/// than `min_free_bytes`; None skips the check.
+	pub data_dir: Option<PathBuf>,
+	pub min_free_bytes: u64,
+	/// Acknowledged chunks are deleted this many days after they arrived.
+	pub retain_days: i64,
+}
+
+impl Default for Config {
+	/// Keys left empty; the storage settings at their defaults.
+	fn default() -> Config {
+		Config {
+			maintainer_key: String::new(),
+			min_build: 0,
+			secret: String::new(),
+			pow_bits: polestar_recording::api::POW_BITS,
+			allow_direct: false,
+			max_db_bytes: MAX_DB_BYTES,
+			data_dir: None,
+			min_free_bytes: MIN_FREE_BYTES,
+			retain_days: RETAIN_DAYS,
+		}
+	}
 }
 
 /// The request's network as today's HMAC (see [`network`]), set by the client IP layer.
@@ -108,6 +145,30 @@ pub struct AppState {
 	/// Today's salt for network HMACs: (day, salt), a copy of the one in the database.
 	salt: Mutex<(i64, [u8; 32])>,
 	stats_cache: Mutex<Option<(Instant, Bytes)>>,
+	max_db_bytes: u64,
+	data_dir: Option<PathBuf>,
+	min_free_bytes: u64,
+	retain_days: i64,
+	/// When a storage refusal was last logged.
+	busy_warned: Mutex<Option<Instant>>,
+}
+
+/// Free bytes for an unprivileged user on the filesystem holding `dir`; None when unknown.
+#[cfg(unix)]
+pub fn free_bytes(dir: &std::path::Path) -> Option<u64> {
+	use std::os::unix::ffi::OsStrExt;
+	let path = std::ffi::CString::new(dir.as_os_str().as_bytes()).ok()?;
+	let mut st: libc::statvfs = unsafe { std::mem::zeroed() };
+	// SAFETY: `path` is a valid C string and `st` a writable statvfs.
+	if unsafe { libc::statvfs(path.as_ptr(), &mut st) } != 0 {
+		return None;
+	}
+	Some((st.f_bavail as u64).saturating_mul(st.f_frsize as u64))
+}
+
+#[cfg(not(unix))]
+pub fn free_bytes(_dir: &std::path::Path) -> Option<u64> {
+	None
 }
 
 /// A mutex's guard, also after a panic while it was held: every state behind these mutexes is
@@ -144,7 +205,52 @@ impl AppState {
 			uploads: tokio::sync::Semaphore::new(UPLOAD_CONCURRENCY),
 			salt: Mutex::new((i64::MIN, [0; 32])),
 			stats_cache: Mutex::new(None),
+			max_db_bytes: config.max_db_bytes,
+			data_dir: config.data_dir,
+			min_free_bytes: config.min_free_bytes,
+			retain_days: config.retain_days,
+			busy_warned: Mutex::new(None),
 		})
+	}
+
+	/// Why uploads are refused now (the database at its size cap, or the disk nearly full);
+	/// None when they are not. Logged at most once per [`BUSY_WARN_EVERY`].
+	fn storage_busy(&self, db: &Db) -> Result<Option<String>, ApiError> {
+		let size = db.size_bytes().map_err(internal)?;
+		let reason = if size > self.max_db_bytes {
+			Some(format!("the database is {} MiB, over its cap of {} MiB", size >> 20, self.max_db_bytes >> 20))
+		} else {
+			self.data_dir
+				.as_deref()
+				.and_then(free_bytes)
+				.filter(|free| *free < self.min_free_bytes)
+				.map(|free| format!("{} MiB free on the data volume, under {} MiB", free >> 20, self.min_free_bytes >> 20))
+		};
+		if let Some(reason) = &reason {
+			let mut warned = lock(&self.busy_warned);
+			if warned.is_none_or(|at| at.elapsed() >= BUSY_WARN_EVERY) {
+				tracing::warn!("refusing uploads (503): {reason}; prune with a pull and its ack, or make room");
+				*warned = Some(Instant::now());
+			}
+		}
+		Ok(reason)
+	}
+
+	/// One maintenance pass at `now`: acknowledged chunks older than the retention deleted (in
+	/// batches, letting go of the database between them), then housekeeping. Returns the chunks
+	/// deleted.
+	pub fn maintain(&self, now: i64) -> Result<usize, String> {
+		let before = now.saturating_sub(self.retain_days.saturating_mul(DAY));
+		let mut pruned = 0;
+		loop {
+			let n = self.db().prune_batch(before).map_err(|e| e.to_string())?;
+			pruned += n;
+			if n < db::PRUNE_BATCH {
+				break;
+			}
+		}
+		self.db().housekeeping(now).map_err(|e| e.to_string())?;
+		Ok(pruned)
 	}
 
 	fn db(&self) -> MutexGuard<'_, Db> {
@@ -196,6 +302,7 @@ pub fn router(state: Arc<AppState>) -> Router {
 		.route("/v1/stats", get(stats))
 		.route("/v1/export", get(export))
 		.route("/v1/export/tombstones", get(tombstones))
+		.route("/v1/export/ack", post(ack))
 		.route("/v1/admin/contributors", get(admin_contributors))
 		.route("/v1/admin/contributors/{hash}/block", post(block))
 		.route("/v1/admin/contributors/{hash}/unblock", post(unblock))
@@ -229,6 +336,10 @@ impl ApiError {
 		ApiError::new(StatusCode::TOO_MANY_REQUESTS, "too many requests, try again in a minute")
 	}
 
+	fn busy() -> ApiError {
+		ApiError::new(StatusCode::SERVICE_UNAVAILABLE, "server busy, try later")
+	}
+
 	fn over_daily_cap() -> ApiError {
 		ApiError::new(StatusCode::TOO_MANY_REQUESTS, "daily upload limit (20 MiB) reached, try again tomorrow")
 	}
@@ -239,6 +350,9 @@ impl IntoResponse for ApiError {
 		let mut response = (self.0, Json(serde_json::json!({ "error": self.1 }))).into_response();
 		if self.0 == StatusCode::TOO_MANY_REQUESTS {
 			response.headers_mut().insert(header::RETRY_AFTER, HeaderValue::from_static("60"));
+		}
+		if self.0 == StatusCode::SERVICE_UNAVAILABLE {
+			response.headers_mut().insert(header::RETRY_AFTER, HeaderValue::from_static("3600"));
 		}
 		response
 	}
@@ -462,9 +576,16 @@ async fn upload(State(state): State<Arc<AppState>>, Extension(ClientIp(ip)): Ext
 	// before, only whether the declared size is already over today's cap.
 	let declared = headers.get(header::CONTENT_LENGTH).and_then(|v| v.to_str().ok()).and_then(|v| v.parse::<u64>().ok()).unwrap_or(0);
 	let (s, c) = (state.clone(), contributor.clone());
-	let used = blocking(move || s.db().install_context(&c, "", now()).map_err(internal)).await?;
+	let (used, busy) = blocking(move || {
+		let db = s.db();
+		Ok((db.install_context(&c, "", now()).map_err(internal)?, s.storage_busy(&db)?))
+	})
+	.await?;
 	let Some(used) = used.map(|ctx| ctx.used_today) else { return Err(unknown(&state, &ip)) };
 	limit(&state, &contributor)?;
+	if busy.is_some() {
+		return Err(ApiError::busy());
+	}
 	if used.saturating_add(declared) > DAILY_BYTES {
 		return Err(ApiError::over_daily_cap());
 	}
@@ -575,6 +696,28 @@ async fn tombstones(State(state): State<Arc<AppState>>, headers: HeaderMap, Quer
 	maintainer(&state, &headers)?;
 	let after = query.after.unwrap_or(0);
 	Ok(ndjson(blocking(move || state.db().tombstones(after).map_err(internal)).await?))
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct AckBody {
+	upto: i64,
+}
+
+/// The maintainer has stored every export line up to `upto`: those chunks may be deleted once
+/// they are older than the retention period (pruned straight away when they already are).
+async fn ack(State(state): State<Arc<AppState>>, headers: HeaderMap, body: Body) -> Result<Json<serde_json::Value>, ApiError> {
+	maintainer(&state, &headers)?;
+	let bytes = read_body(body, MAX_REGISTER_BODY).await?;
+	let AckBody { upto } = serde_json::from_slice(&bytes).map_err(|_| ApiError::new(StatusCode::BAD_REQUEST, "send {\"upto\": <export id>}"))?;
+	let (acked, pruned, held) = blocking(move || {
+		let acked = state.db().ack(upto).map_err(internal)?;
+		let pruned = state.maintain(now()).map_err(internal)?;
+		let held = state.db().chunks_held().map_err(internal)?;
+		Ok((acked, pruned, held))
+	})
+	.await?;
+	Ok(Json(serde_json::json!({ "acked": acked, "pruned": pruned, "held": held })))
 }
 
 async fn admin_contributors(State(state): State<Arc<AppState>>, headers: HeaderMap) -> Result<Json<Vec<AdminContributor>>, ApiError> {

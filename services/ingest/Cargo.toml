@@ -17,7 +17,10 @@ repository = "https://github.com/fitzforge/polestar"
 polestar-recording = { path = "../../rust/crates/polestar-recording" }
 axum = { version = "0.8", default-features = false, features = ["http1", "tokio", "query", "json"] }
 tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "signal", "sync", "time"] }
-rusqlite = { version = "0.37", features = ["bundled"] }
+rusqlite = { version = "0.37", features = ["bundled", "backup"] }
+zstd = { version = "0.13", default-features = false }
+flate2 = "1"
+libc = "0.2"
 tower-http = { version = "0.6", features = ["cors", "limit", "trace"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"

@@ -11,14 +11,15 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
 	--mount=type=cache,target=/src/services/ingest/target \
 	cargo build --release --locked \
 	&& cp target/release/polestar-ingest /polestar-ingest \
-	&& mkdir /data
+	&& mkdir /data /backup
 
 # No shell, no package manager; runs as uid 65532.
 FROM gcr.io/distroless/cc-debian12:nonroot@sha256:9dac0a79194e45a7da0158a9c6da57b217585af0786db3845d1f0ec1a0dd182f
 COPY --from=build /polestar-ingest /polestar-ingest
 COPY --from=build --chown=65532:65532 /data /data
+COPY --from=build --chown=65532:65532 /backup /backup
 ENV INGEST_DB=/data/ingest.sqlite INGEST_ADDR=0.0.0.0:8080
-VOLUME /data
+VOLUME /data /backup
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD ["/polestar-ingest", "healthcheck"]
 ENTRYPOINT ["/polestar-ingest"]

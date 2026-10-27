@@ -70,19 +70,31 @@ The server is never reachable directly:
 
 ## What it stores
 
-One SQLite file, `/data/ingest.sqlite` (WAL):
+One SQLite file, `/data/ingest.sqlite` (WAL, incremental auto-vacuum). The
+server is a buffer, not the archive: the archive is the maintainer's
+`data/recordings`, which `forge record pull` writes and then acknowledges.
 
 - `contributors`: the SHA-256 of each token (the token itself is never
   stored), when it registered (`first_seen`) and last uploaded, bytes sent
   today, and `blocked`.
-- `chunks`: the chunk text as uploaded, its install id, seq and server
-  epoch, when it arrived, the game build and client language from its
-  `session` record, the uploader version, `flagged` when the build is older
-  than `INGEST_MIN_BUILD` (or unknown), and `suspect` with the reasons when
-  it failed a plausibility check. `(contributor, install, seq)` is unique,
-  so a chunk sent twice is answered `duplicate` and stored once.
-- `chunk_kinds`, `chunk_quests`: record counts by kind and the quest ids per
-  chunk, for `/v1/me` and `/v1/stats`. They go with their chunk on delete.
+- `chunks`: the chunk text as uploaded (minus unknown-kind records),
+  zstd-compressed (level 9), its install id, seq and server epoch, when it
+  arrived, the game build and client language from its `session` record,
+  the uploader version, `flagged` when the build is older than
+  `INGEST_MIN_BUILD` (or unknown), and `suspect` with the reasons when it
+  failed a plausibility check. Deleted once acknowledged and older than
+  `INGEST_RETAIN_DAYS` (see Retention).
+- `totals`, `kinds`, `quests`, `days`: per contributor its chunk count (and
+  how many passed the checks), bytes, first and last upload, records by
+  kind, quests seen and chunks per day (30 days). `/v1/me`, `/v1/stats`,
+  the export's `contributorChunks` and the admin list read these, so they
+  stay right after chunks are pruned.
+- `installs`, `seqs`: each install's highest seq (for the plausibility
+  checks) and the seqs stored, so a chunk sent again after it was pruned is
+  still answered `duplicate` and not stored twice. Seqs more than 1000 below
+  their install's highest are forgotten once their chunk is gone (the addon
+  never holds chunks that old).
+- `settings`: the acknowledged export id.
 - `spent_challenges`: registration challenges already used, until they
   expire.
 - `tombstones`: the 16-hex ids of deleted and blocked contributors, with
@@ -90,6 +102,8 @@ One SQLite file, `/data/ingest.sqlite` (WAL):
 - `day_salt`, `registrations`: today's random salt, and per network (as the
   HMAC of its address or /48 under that salt) today's registration count
   and cohort. Both are deleted once the day is over.
+
+Everything a contributor sent goes on `DELETE /v1/me`, counters included.
 
 Client IP addresses are never written anywhere; only their salted HMACs
 for the current UTC day, as above (also used, in memory, for the per-IP
@@ -106,13 +120,16 @@ method, path and status.
 | Per contributor | 30 requests a minute (429, in memory, only for registered tokens), 20 MiB a UTC day (429; checked on the declared size before the body is read, and again on the body) |
 | Uploads | at most 4 handled at once (others wait); at most 256 chunks (400) |
 | Chunks | at most 64 KiB of text and 4096 records, else rejected; decoded whole, any malformed record rejects the chunk, with the reason; the `chunk` record's seq must match the uploaded seq; uiMapIDs below 100000; at most 64 records of unknown kinds, which are dropped from the stored text; implausible ones are stored suspect |
+| Storage | uploads answer `503 {"error":"server busy, try later"}` with `Retry-After: 3600` while the database is over `INGEST_MAX_DB_MB` or the data volume has under `INGEST_MIN_FREE_GB` free (Polestar Client retries with backoff); a warning is logged at most once an hour meanwhile |
 | `/healthz` | `ok` when the database answers within 2 s, else 503 |
 | `/v1/stats` | computed at most once a minute; blocked contributors left out |
 | `/v1/export` | maintainer key; `after` (default 0), `limit` (default 500, at most 1000; a page also stops after 8 MiB of chunk text, always holding at least one line), `include=suspect` adds suspect chunks (with `suspect` and `suspectReasons`); NDJSON, streamed, adds `cohort`, `flagged`, `contributorSince` and `contributorChunks` to the documented fields; blocked contributors' chunks are never exported |
+| `POST /v1/export/ack` | maintainer key; `{ "upto": <export id> }`: the maintainer has stored every line up to there (clamped to the last chunk; never goes back). Prunes at once what is already past the retention; answers `{ "acked", "pruned", "held" }` |
 | `/v1/export/tombstones` | maintainer key; `after` (unix seconds, default 0); NDJSON `{ "contributor", "at", "why" }`, `why` = `deleted` or `blocked`, oldest first: drop every chunk of that contributor |
 | `/v1/admin/contributors` | maintainer key; every contributor: `hash`, `firstSeen`, `lastSeen`, `chunks`, `suspectChunks`, `blocked` |
 | `POST /v1/admin/contributors/{hash}/block`, `/unblock` | maintainer key; `hash` = at least 16 hex digits of the contributor hash (the export shows 16); answers `{ "hash", "blocked" }`, 404 when none matches, 409 when several do |
-| `DELETE /v1/me` | deletes the contributor's chunks and row (its token stops working) and leaves a tombstone; answers `{ "deleted": <chunks> }` |
+| `DELETE /v1/me` | deletes the contributor's chunks, counters and row (its token stops working) and leaves a tombstone; answers `{ "deleted": <chunks it sent> }` |
+| `/v1/me`, `/v1/stats` | count every chunk received, pruned ones too |
 | CORS | `tauri://localhost`, `http://tauri.localhost`, `https://tauri.localhost` |
 
 The maintainer key goes in `Authorization: Bearer <INGEST_MAINTAINER_KEY>`
@@ -129,7 +146,28 @@ and is compared in constant time.
 | `INGEST_ALLOW_DIRECT` | unset | `1` serves requests without `CF-Connecting-IP` (development only) |
 | `INGEST_DB` | `/data/ingest.sqlite` | |
 | `INGEST_ADDR` | `0.0.0.0:8080` | |
+| `INGEST_RETAIN_DAYS` | `14` | acknowledged chunks are deleted this many days after they arrived |
+| `INGEST_MAX_DB_MB` | `4096` | uploads get 503 while the database is larger |
+| `INGEST_MIN_FREE_GB` | `10` | uploads get 503 while the data volume has less free space |
+| `INGEST_BACKUP_MOUNT` | named volume `backup` | compose only: the host folder mounted at `/backup` for backups |
 | `RUST_LOG` | `info,tower_http=info` | |
+
+## Retention and housekeeping
+
+- `forge record pull` archives the export, writes its sessions and saves its
+  state, and only then sends `POST /v1/export/ack` with the last id it
+  pulled. A chunk is deleted once its id is acknowledged **and** it arrived
+  more than `INGEST_RETAIN_DAYS` ago. Chunks the pull skips (suspect, from
+  blocked contributors) go with the ack too: the server holds nothing
+  forever.
+- Every hour the server prunes (in batches of 2000, letting go of the
+  database in between), deletes expired challenges, old salts and day
+  counts and old seqs, gives free pages back (`incremental_vacuum`) and
+  truncates the WAL (`wal_checkpoint(TRUNCATE)`); the first pass runs at
+  start-up.
+- An older database is migrated on start: text compressed, counters filled
+  from the chunks held, then one `VACUUM` to switch on incremental
+  auto-vacuum.
 
 ## Develop
 
@@ -189,5 +227,33 @@ docker run --rm --network polestar-ingest_default curlimages/curl \
 	-s -H 'CF-Connecting-IP: 192.0.2.1' http://polestar-ingest:8080/v1/stats
 ```
 
-Back up by copying the volume's `ingest.sqlite` with `sqlite3 .backup` (or
-stop the container and copy the file with its `-wal`).
+## Backups
+
+`polestar-ingest backup <path>` writes a consistent copy of the live
+database (SQLite's online backup), gzipped, to `<path>` and keeps the newest
+7 `ingest-*.sqlite.gz` in that folder. `backup.sh`, run on the host from the
+deploying user's crontab, does it nightly into the `/backup` mount
+(`INGEST_BACKUP_MOUNT`), then encrypts the file with gpg (AES256, the
+passphrase in `BACKUP_PASSPHRASE_FILE`) or keeps it as plain gzip (mode
+600), copies it off the box with rclone when `BACKUP_REMOTE` is set, and
+keeps 7 locally (`BACKUP_DIR`, default `~/backups/polestar`) and 7 days
+remotely. Its settings go in the deploy folder's `.env`:
+
+```sh
+INGEST_BACKUP_MOUNT=/home/<user>/backups/polestar/incoming
+BACKUP_PASSPHRASE_FILE=<path>     # optional
+BACKUP_REMOTE=<remote:bucket/dir> # optional
+```
+
+The mount folder must be writable by the server's uid (65532) and nobody
+else, e.g. `mkdir -p ~/backups/polestar/incoming && chmod 700
+~/backups/polestar ~/backups/polestar/incoming && setfacl -m u:65532:rwx
+~/backups/polestar/incoming`. Cron:
+
+```sh
+45 3 * * * $HOME/polestar-ingest/services/ingest/backup.sh >> $HOME/backups/polestar/backup.log 2>&1
+```
+
+To restore: decrypt (`gpg -d`), `gunzip`, stop the container and put the
+file in the `data` volume as `ingest.sqlite` (with no `-wal`/`-shm` beside
+it).

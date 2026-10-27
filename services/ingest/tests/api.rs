@@ -26,7 +26,13 @@ struct App {
 }
 
 fn app_with(allow_direct: bool) -> App {
-	let state = AppState::new(Db::open_in_memory().unwrap(), Config { maintainer_key: KEY.to_owned(), min_build: 70532, secret: SECRET.to_owned(), pow_bits: BITS, allow_direct });
+	app_config(Config { allow_direct, ..Config::default() })
+}
+
+/// An app with `config`'s settings, the test keys and proof of work.
+fn app_config(config: Config) -> App {
+	let config = Config { maintainer_key: KEY.to_owned(), min_build: 70532, secret: SECRET.to_owned(), pow_bits: BITS, ..config };
+	let state = AppState::new(Db::open_in_memory().unwrap(), config);
 	App { router: router(state.clone()), state }
 }
 
@@ -200,7 +206,7 @@ async fn registrations_per_ip_per_day() {
 async fn registration_counts_survive_a_restart() {
 	let path = std::env::temp_dir().join(format!("polestar-ingest-test-{}-{}.sqlite", std::process::id(), now()));
 	let open = || {
-		let state = AppState::new(Db::open(&path).unwrap(), Config { maintainer_key: KEY.to_owned(), min_build: 0, secret: SECRET.to_owned(), pow_bits: BITS, allow_direct: false });
+		let state = AppState::new(Db::open(&path).unwrap(), Config { maintainer_key: KEY.to_owned(), min_build: 0, secret: SECRET.to_owned(), pow_bits: BITS, ..Config::default() });
 		App { router: router(state.clone()), state }
 	};
 	let first = open();
@@ -659,4 +665,125 @@ async fn map_heavy_uploads_stay_cheap() {
 	let took = started.elapsed();
 	assert!(took < std::time::Duration::from_secs(if cfg!(debug_assertions) { 20 } else { 4 }), "{took:?}");
 	assert_eq!(send_from(&app, None, Method::GET, "/healthz", None, None).await.0, StatusCode::OK);
+}
+
+#[tokio::test]
+async fn chunk_text_round_trips_through_compression() {
+	let app = app();
+	let a = register(&app, IP_A).await;
+	let text = format!("{}\nzone\t60\t\t\t\tÉtang de Rûne — ünïcode\t\n", chunk(1, 70532));
+	assert_eq!(upload(&app, &a, &[(1, text.clone())]).await.1["accepted"], json!([1]));
+	assert_eq!(export(&app, "").await[0]["text"], text.as_str());
+}
+
+async fn ack(app: &App, upto: i64) -> (StatusCode, Value) {
+	send_json(app, IP_A, Method::POST, "/v1/export/ack", Some(KEY), Some(json!({ "upto": upto }))).await
+}
+
+#[tokio::test]
+async fn acknowledged_chunks_are_pruned_after_the_retention_and_counts_stay() {
+	let app = app();
+	let a = register(&app, IP_A).await;
+	let b = register(&app, IP_B).await;
+	upload(&app, &a, &(1..=3).map(|s| (s, chunk(s, 70532))).collect::<Vec<_>>()).await;
+	upload(&app, &b, &[(1, chunk(1, 70532))]).await;
+	let lines = export(&app, "").await;
+	let (_, me_before) = send_json(&app, IP_A, Method::GET, "/v1/me", Some(&a), None).await;
+
+	// The maintainer key only; an ack prunes nothing younger than the retention.
+	assert_eq!(send_json(&app, IP_A, Method::POST, "/v1/export/ack", Some(&a), Some(json!({ "upto": 9 }))).await.0, StatusCode::UNAUTHORIZED);
+	let upto = lines[2]["id"].as_i64().unwrap();
+	let (status, body) = ack(&app, upto).await;
+	assert_eq!(status, StatusCode::OK, "{body}");
+	assert_eq!((body["acked"].as_i64(), body["pruned"].as_u64(), body["held"].as_u64()), (Some(upto), Some(0), Some(4)));
+	// A bogus ack past the last chunk is clamped, so later chunks are never pruned unpulled.
+	assert_eq!(ack(&app, 1_000_000).await.1["acked"], lines[3]["id"]);
+
+	// Past the retention: everything acknowledged goes (upto is the fourth line, b's).
+	let later = now() + polestar_ingest::RETAIN_DAYS * 86_400 + 60;
+	assert_eq!(app.state.maintain(later).unwrap(), 4);
+	assert!(export(&app, "").await.is_empty());
+	// The counts are the same.
+	let (_, me_after) = send_json(&app, IP_A, Method::GET, "/v1/me", Some(&a), None).await;
+	assert_eq!(me_after, me_before);
+	// (The first /v1/stats of this app: computed now, not cached from before.)
+	let (_, stats) = send_json(&app, IP_B, Method::GET, "/v1/stats", None, None).await;
+	assert_eq!((stats["contributors"].as_u64(), stats["chunks"].as_u64(), stats["quests"].as_u64()), (Some(2), Some(4), Some(1)));
+	assert_eq!((stats["records"]["accept"].as_u64(), stats["last30"][0]["chunks"].as_u64(), stats["last30"][0]["contributors"].as_u64()), (Some(4), Some(4), Some(2)));
+	// A pruned chunk sent again is a duplicate, not stored again; a new one exports with the
+	// contributor's figures counting the pruned ones.
+	let (_, body) = upload(&app, &a, &[(2, chunk(2, 70532)), (4, chunk(4, 70532))]).await;
+	assert_eq!(body, json!({ "accepted": [4], "duplicate": [2], "rejected": [] }));
+	let lines = export(&app, "").await;
+	assert_eq!(lines.len(), 1);
+	assert_eq!((lines[0]["seq"].as_u64(), lines[0]["contributorChunks"].as_u64()), (Some(4), Some(4)));
+	// Not acknowledged yet: kept however old.
+	assert_eq!(app.state.maintain(later + 30 * 86_400).unwrap(), 0);
+	let mut chunks: Vec<u64> = contributors(&app).await.iter().map(|c| c["chunks"].as_u64().unwrap()).collect();
+	chunks.sort();
+	assert_eq!(chunks, [1, 4]);
+	// Deleting still deletes everything, the counts too.
+	let (_, body) = send_json(&app, IP_A, Method::DELETE, "/v1/me", Some(&a), None).await;
+	assert_eq!(body, json!({ "deleted": 4 }));
+	assert_eq!(contributors(&app).await.len(), 1);
+}
+
+#[tokio::test]
+async fn uploads_get_503_when_the_database_or_the_disk_is_full() {
+	for config in [Config { max_db_bytes: 1, ..Config::default() }, Config { data_dir: Some(std::env::temp_dir()), min_free_bytes: u64::MAX, ..Config::default() }] {
+		let app = app_config(config);
+		let a = register(&app, IP_A).await;
+		let (status, body) = send(&app, Method::POST, "/v1/upload", Some(&a), Some(upload_body(&[(1, chunk(1, 70532))]))).await;
+		assert_eq!((status, serde_json::from_str::<Value>(&body).unwrap()), (StatusCode::SERVICE_UNAVAILABLE, json!({ "error": "server busy, try later" })));
+		let req = Request::builder()
+			.method(Method::POST)
+			.uri("/v1/upload")
+			.header("CF-Connecting-IP", IP_A)
+			.header(header::AUTHORIZATION, format!("Bearer {a}"))
+			.body(Body::from(upload_body(&[(1, chunk(1, 70532))])))
+			.unwrap();
+		let response = app.router.clone().oneshot(req).await.unwrap();
+		assert!(response.headers().get(header::RETRY_AFTER).is_some());
+		// The rest still answers.
+		assert_eq!(send(&app, Method::GET, "/v1/me", Some(&a), None).await.0, StatusCode::OK);
+	}
+	// With room, the same upload goes through.
+	let app = app_config(Config { data_dir: Some(std::env::temp_dir()), min_free_bytes: 1, ..Config::default() });
+	let a = register(&app, IP_A).await;
+	assert_eq!(upload(&app, &a, &[(1, chunk(1, 70532))]).await.0, StatusCode::OK);
+}
+
+#[tokio::test]
+async fn backup_is_a_readable_copy_and_keeps_seven() {
+	let dir = std::env::temp_dir().join(format!("polestar-ingest-backup-{}-{}", std::process::id(), now()));
+	std::fs::create_dir_all(&dir).unwrap();
+	let path = dir.join("ingest.sqlite");
+	let state = AppState::new(Db::open(&path).unwrap(), Config { maintainer_key: KEY.to_owned(), secret: SECRET.to_owned(), pow_bits: BITS, ..Config::default() });
+	let app = App { router: router(state.clone()), state };
+	let a = register(&app, IP_A).await;
+	upload(&app, &a, &[(1, chunk(1, 0))]).await;
+	let out = dir.join("backups");
+	std::fs::create_dir_all(&out).unwrap();
+	for day in 1..=8 {
+		std::fs::write(out.join(format!("ingest-2026-01-0{day}.sqlite.gz")), b"old").unwrap();
+	}
+	std::fs::write(out.join("other.txt"), b"not a backup").unwrap();
+	let dest = out.join("ingest-2026-10-27.sqlite.gz");
+	let size = polestar_ingest::backup::backup(&path, &dest).unwrap();
+	assert!(size > 100);
+	let mut names: Vec<String> = std::fs::read_dir(&out).unwrap().map(|e| e.unwrap().file_name().into_string().unwrap()).collect();
+	names.sort();
+	assert_eq!(names.len(), 8, "{names:?}");
+	assert_eq!(names[0], "ingest-2026-01-03.sqlite.gz");
+	assert!(names.contains(&"other.txt".to_owned()) && names.contains(&"ingest-2026-10-27.sqlite.gz".to_owned()));
+	// Gunzipped, it opens as the database with the chunk in it.
+	let restored = dir.join("restored.sqlite");
+	let mut gz = flate2::read::GzDecoder::new(std::fs::File::open(&dest).unwrap());
+	std::io::copy(&mut gz, &mut std::fs::File::create(&restored).unwrap()).unwrap();
+	let copy = Db::open(&restored).unwrap();
+	let lines = copy.export(0, 10, false).unwrap();
+	assert_eq!((lines.len(), lines[0].text.as_str()), (1, chunk(1, 0).as_str()));
+	drop(copy);
+	drop(app);
+	std::fs::remove_dir_all(&dir).unwrap();
 }

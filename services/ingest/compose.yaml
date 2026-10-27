@@ -25,6 +25,9 @@ services:
       INGEST_SECRET: ${INGEST_SECRET:?set INGEST_SECRET in .env}
       INGEST_MIN_BUILD: ${INGEST_MIN_BUILD:-0}
       INGEST_POW_BITS: ${INGEST_POW_BITS:-}
+      INGEST_MAX_DB_MB: ${INGEST_MAX_DB_MB:-}
+      INGEST_MIN_FREE_GB: ${INGEST_MIN_FREE_GB:-}
+      INGEST_RETAIN_DAYS: ${INGEST_RETAIN_DAYS:-}
     restart: unless-stopped
     init: true
     read_only: true
@@ -34,6 +37,9 @@ services:
     security_opt: ["no-new-privileges:true"]
     volumes:
       - data:/data
+      # Where `polestar-ingest backup` writes (backup.sh): a host folder the server's uid
+      # (65532) may write to, else a named volume.
+      - ${INGEST_BACKUP_MOUNT:-backup}:/backup
     healthcheck:
       test: ["CMD", "/polestar-ingest", "healthcheck"]
       interval: 30s
@@ -75,6 +81,7 @@ services:
 
 volumes:
   data:
+  backup:
 
 networks:
   # The server and the tunnel only; no route out.

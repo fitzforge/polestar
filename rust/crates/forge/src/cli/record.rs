@@ -50,7 +50,9 @@ pull: the server's export (GET /v1/export) after the last line pulled (<out>/.pu
 and normalised the same way under each line's contributor; each session's header records when the
 server received it and the contributor's first-seen time, chunk count and registration cohort. Then the
 server's tombstones (GET /v1/export/tombstones: contributors deleted or blocked) since the last pull are
-purged: their archives and sessions. --server: the recording server's base URL (default:
+purged: their archives and sessions. Last, with all of it on disk, the pull is acknowledged (POST
+/v1/export/ack): the server deletes the chunks up to there once they are past its retention period
+(the server is a buffer; this folder is the archive). --server: the recording server's base URL (default:
 $POLESTAR_INGEST_URL, else the public recording server); --key-file: the maintainer key (default
 <root>/data/local/ingest/maintainer.key). Lines the server flagged (a build it does not accept) or found
 suspect are skipped, and so are malformed ones and ones whose install folder another contributor owns.
@@ -665,7 +667,27 @@ fn pull(out: &Path, server: Option<String>, key_file: &Path) -> Result<(), Fail>
 	);
 	let w = write_sessions(out, &t.touched)?;
 	report(out, t.archived, &w);
+	// Only now, with every line archived, every session written and the state saved: the server
+	// may delete what it holds up to here once it is past its retention.
+	if state.after > 0 {
+		let url = format!("{server}/v1/export/ack");
+		let answer = post_json(&url, key, &serde_json::json!({ "upto": state.after }).to_string())
+			.map_err(|e| format!("everything pulled is stored, but the acknowledgement failed ({e}); pull again to send it"))?;
+		let acked = serde_json::from_str::<Value>(&answer).ok().and_then(|v| v["acked"].as_i64()).unwrap_or(state.after);
+		println!("acknowledged export lines up to {acked}: the server deletes them after its retention period");
+	}
 	Ok(())
+}
+
+/// POST a JSON body with the maintainer key; the answer's body.
+fn post_json(url: &str, key: &str, body: &str) -> Result<String, String> {
+	let resp = ureq::post(url).header("Authorization", &format!("Bearer {key}")).content_type("application/json").send(body).map_err(|e| match e {
+		ureq::Error::StatusCode(401 | 403) => format!("{url}: the server refused the maintainer key"),
+		e => format!("{url}: {e}"),
+	})?;
+	let mut answer = String::new();
+	resp.into_body().into_reader().read_to_string(&mut answer).map_err(|e| format!("{url}: {e}"))?;
+	Ok(answer)
 }
 
 #[cfg(test)]
@@ -807,5 +829,66 @@ mod tests {
 		for bad in ["", "-a", "Alice", "a/b", "a.b", &"a".repeat(33)] {
 			assert!(!valid_vouch(bad), "{bad}");
 		}
+	}
+
+	/// A one-thread HTTP server for `pull`: `export` answers `GET /v1/export?after=0`, every other
+	/// export and tombstone request is empty, and each `POST /v1/export/ack` body is recorded
+	/// together with whether the pulled session was on disk when it came.
+	fn fake_server(out: PathBuf, export: String) -> (String, std::sync::Arc<std::sync::Mutex<Vec<(String, bool)>>>) {
+		use std::io::{BufRead, BufReader, Write};
+		let listener = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+		let url = format!("http://{}", listener.local_addr().unwrap());
+		let acks = std::sync::Arc::new(std::sync::Mutex::new(Vec::new()));
+		let seen = acks.clone();
+		std::thread::spawn(move || {
+			for stream in listener.incoming() {
+				let mut stream = stream.unwrap();
+				let mut reader = BufReader::new(stream.try_clone().unwrap());
+				let mut request = String::new();
+				reader.read_line(&mut request).unwrap();
+				let mut length = 0;
+				loop {
+					let mut h = String::new();
+					reader.read_line(&mut h).unwrap();
+					if h.trim().is_empty() {
+						break;
+					}
+					if let Some(v) = h.to_ascii_lowercase().strip_prefix("content-length:") {
+						length = v.trim().parse().unwrap();
+					}
+				}
+				let mut body = vec![0; length];
+				std::io::Read::read_exact(&mut reader, &mut body).unwrap();
+				let path = request.split(' ').nth(1).unwrap_or("").to_owned();
+				let answer = if path.starts_with("/v1/export/ack") {
+					seen.lock().unwrap().push((String::from_utf8(body).unwrap(), !session_files(&out).is_empty() && out.join(".pull-state.json").exists()));
+					r#"{"acked":2,"pruned":0,"held":2}"#.to_owned()
+				} else if path.starts_with("/v1/export?after=0&") {
+					export.clone()
+				} else {
+					String::new()
+				};
+				let _ = write!(stream, "HTTP/1.1 200 OK\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{answer}", answer.len());
+			}
+		});
+		(url, acks)
+	}
+
+	#[test]
+	fn pull_acknowledges_only_once_everything_is_on_disk() {
+		let out = scratch("ack");
+		let key = out.join("maintainer.key");
+		std::fs::write(&key, "k".repeat(64)).unwrap();
+		let export = format!("{}\n{}\n", line(1, VICTIM, "", 1, &chunk(1, 1_799_990_000, 2)), line(2, VICTIM, "", 2, &chunk(2, 1_799_990_100, 2)));
+		let (url, acks) = fake_server(out.clone(), export);
+		pull(&out, Some(url), &key).unwrap();
+		assert_eq!(*acks.lock().unwrap(), [(r#"{"upto":2}"#.to_owned(), true)]);
+
+		// A pull that fails part way acknowledges nothing.
+		let out = scratch("ack-failed");
+		std::fs::write(&key, "k".repeat(64)).unwrap();
+		let (url, acks) = fake_server(out.clone(), format!("{}\nnot json\n", line(1, VICTIM, "", 1, &chunk(1, 1_799_990_000, 2))));
+		assert!(pull(&out, Some(url), &key).is_err());
+		assert!(acks.lock().unwrap().is_empty());
 	}
 }
