@@ -194,7 +194,7 @@ local function queue()
 	if queued then return end
 	queued = true
 	if C_Timer and C_Timer.After then
-		C_Timer.After(0, Maps.RefreshTravelPins)
+		ns.After(0, Maps.RefreshTravelPins)
 	else
 		Maps.RefreshTravelPins()
 	end

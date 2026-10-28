@@ -45,6 +45,12 @@ function O.SchemeLabel()
 	return key
 end
 
+-- A Hardcore character (C_GameRules): deathskips are off for good.
+function O.Hardcore()
+	local rules = C_GameRules
+	return rules and rules.IsHardcoreActive and rules.IsHardcoreActive() and true or false
+end
+
 local function keyOf(name) return (name:lower():gsub("[^%w]+", "")) end
 
 ---------------------------------------------------------------------------
@@ -243,6 +249,11 @@ local BUILTIN = {
 		{ kind = "toggle", key = "behavior.autoNextGuide", label = L["Continue to the next guide"], help = L["Loads the follow-up guide in the same tab when one finishes."] },
 		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
 			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
+		-- `die` steps (Core/Engine.lua, Own.deathskips): the player's choice, never in Hardcore.
+		{ kind = "toggle", key = "behavior.deathskips", label = L["Use deathskips"],
+			help = L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."],
+			get = function() return ns.Get("behavior.deathskips") and not O.Hardcore() end,
+			disabled = function() return O.Hardcore() end },
 		{ kind = "dropdown", key = "behavior.trainReminder", label = L["Trainer reminders"], help = L["A note in the guide window, with the nearest trainer of your class, when new skills are waiting."],
 			choices = { { value = "2", label = L["Every 2 levels"] }, { value = "1", label = L["Every level"] }, { value = "off", label = L["Off"] } } },
 		{ kind = "toggle", key = "behavior.offerClassQuests", label = L["Offer class quests"],
@@ -298,6 +309,8 @@ local BUILTIN = {
 				ns.Set("ui.font", v)
 				if Theme.IsEllesmere() then ns.Set("ui.matchFont", false) end
 			end },
+		{ kind = "slider", key = "ui.textSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent,
+			help = L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] },
 		{ kind = "toggle", key = "ui.reduceMotion", label = L["Reduce motion"], help = L["No sliding or popping; fades stay short."] },
 	} },
 	{ page = LOOK, tab = L["Windows"], section = L["Frame"], controls = {
@@ -357,6 +370,8 @@ local BUILTIN = {
 		{ kind = "toggle", key = "nav.worldPins", label = L["Guide pins on the world map"],
 			help = L["The arrow's target, the stops of its travel route, the step's other goals, the areas their mobs and objects spawn in, and the route lines."] },
 		{ kind = "toggle", key = "nav.minimapPins", label = L["Guide pin on the minimap"], help = L["The arrow's target, the areas it spawns in, and the route line."] },
+		{ kind = "toggle", key = "nav.upcomingPins", label = L["Numbered pins for the steps ahead"],
+			help = L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] },
 		H({ kind = "toggle", key = "nav.trailDots", label = L["Trail dots along the travel route"],
 			help = L["Moving dots from you to the target on the world map and the minimap, along the travel route, while route lines are off."],
 			disabled = function() return ns.Get("nav.routeLines") end }),
@@ -374,7 +389,7 @@ local BUILTIN = {
 for _, list in ipairs({
 	declare(QUESTING, "questing", "icon-accept", 40, L["Quest information, rewards and gear advice, and the quest buttons."], {
 		{ L["Quests"], { L["Quest database"], L["Tooltips and quest log"], L["Faster questing"] } },
-		{ L["Rewards & gear"], { L["Quest rewards"], L["Gear advice"], L["Comparison"] } },
+		{ L["Rewards & gear"], { L["Quest rewards"], L["Loot and merchants"], L["Gear advice"], L["Comparison"] } },
 		{ L["Talents"], { L["Talent plan"] } },
 		{ L["Buttons"], { L["Action buttons"] } },
 	}),
@@ -386,7 +401,7 @@ for _, list in ipairs({
 	declare(QOL, "qualityoflife", "qol-toggles", 60, L["Small conveniences: travel, invitations, merchants and trackers."], {
 		{ L["Travel"], { L["Flight masters"], L["Hearthstone"], L["Flight timer"], L["Death"] } },
 		{ L["Social"], { L["Requests"], L["Blocking"] } },
-		{ L["Vendors"], { L["Merchants"] } },
+		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"] } },
 		{ L["Trackers"], { L["Experience"], L["Instances"], L["Instance limits"] } },
 	}),
 }) do
@@ -692,8 +707,8 @@ local function available(c)
 	if c.needs and not c.needs() then return false end
 	if c.kind == "button" then return true end
 	if c.kind == "binding" then return ns.Gamepad ~= nil and ns.Gamepad.BindingRow ~= nil end
-	-- A toggle with get/set and no key holds state that is no setting (per character).
-	if c.kind == "toggle" and not c.key and c.get and c.set then return true end
+	-- A toggle or slider with get/set and no key holds state that is no setting (per character).
+	if (c.kind == "toggle" or c.kind == "slider") and not c.key and c.get and c.set then return true end
 	return ns.GetDefault and ns.GetDefault(c.key) ~= nil
 end
 
@@ -717,7 +732,9 @@ local function makeControl(parent, c)
 	if c.kind == "toggle" then
 		w = W.Toggle(parent, labelOf(c), c.key, c.help, nil, (c.gear or c.get or c.set) and { gear = c.gear, get = c.get, set = c.set } or nil)
 	elseif c.kind == "slider" then
-		w = W.Slider(parent, c.label, c.key, c.min or 0, c.max or 1, c.step or 0.1, c.format, c.help, nil, c.release and { release = true } or nil)
+		local opts
+		if c.release or c.get or c.set then opts = { release = c.release, get = c.get, set = c.set } end
+		w = W.Slider(parent, c.label, c.key, c.min or 0, c.max or 1, c.step or 0.1, c.format, c.help, nil, opts)
 	elseif c.kind == "dropdown" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
 		w = W.Dropdown(parent, c.label, c.key, choices, c.help, nil, (c.get or c.set) and { get = c.get, set = c.set } or nil)
@@ -1003,11 +1020,11 @@ end
 
 function O.ResetPage(p)
 	for _, key in ipairs(pageKeys(p)) do ns.Set(key, nil) end
-	-- Toggles of state that is no setting go back to their default too.
+	-- Toggles and sliders of state that is no setting go back to their default too.
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
 			for _, c in ipairs(s.controls) do
-				if c.kind == "toggle" and not c.key and c.set and available(c) then c.set(nil) end
+				if (c.kind == "toggle" or c.kind == "slider") and not c.key and c.set and available(c) then c.set(nil) end
 			end
 		end
 	end

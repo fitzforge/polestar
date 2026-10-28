@@ -16,8 +16,12 @@
 --   Polestar.QoL.GetDeathAdvice() -> { choice = "corpse"|"healer", corpseYards, healerYards,
 --                                      corpseSeconds, healerSeconds, sickness, note } | nil
 --
+-- Died in a dungeon or raid and released outside it, the corpse is on no map
+-- the client answers for: the instance's entrance (the Codex) stands for it.
+--
 -- Client: UnitIsGhost, C_DeathInfo.GetCorpseMapPosition, GetUnitSpeed,
--- C_UnitAuras.GetPlayerAuraBySpellID (AuraData.duration) (Forever API docs).
+-- C_UnitAuras.GetPlayerAuraBySpellID (AuraData.duration), IsInInstance,
+-- GetInstanceInfo (through Compat) (Forever API docs).
 
 local ADDON, ns = ...
 local L = ns.L
@@ -135,6 +139,39 @@ local function corpse()
 	return c, wx, wy, map, x * 100, y * 100
 end
 
+-- The entrance of the dungeon or raid with instance map `map` (the Codex's
+-- instance record, Lookup's pack: read only while it is loaded or Lookup is
+-- on): map, x, y, name; nil when unknown. Found once per instance.
+local entrances = {}
+function Death.EntranceOf(map)
+	if not map then return nil end
+	local hit = entrances[map]
+	if hit == nil then
+		local X = ns.Codex
+		if not (X and X.Each and X.Instance) then return nil end
+		if not (X.IsLoaded and X.IsLoaded()) and not (ns.Get("lookup.enabled") and X.Load and X.Load()) then return nil end
+		hit = false
+		X.Each("instance", function(key)
+			local rec = not hit and X.Instance(key)
+			if rec and rec.map == map and type(rec.entrance) == "table" then hit = rec end
+		end)
+		entrances[map] = hit
+	end
+	if not hit then return nil end
+	local e = hit.entrance
+	return e.map, e.x, e.y, hit.name
+end
+
+-- Where the character died, when in a dungeon or raid (QoL.State().diedIn =
+-- { map }), kept until alive: once released outside, the corpse is on no map
+-- the client answers for, so the run back is to the instance's entrance.
+local function noteDeathPlace()
+	local C = ns.Compat
+	local inside, kind = C.IsInInstance()
+	local map = inside and (kind == "party" or kind == "raid") and C.GetInstanceMapID and C.GetInstanceMapID() or nil
+	QoL.State().diedIn = map and { map = map } or nil
+end
+
 ---------------------------------------------------------------------------
 -- Advice
 ---------------------------------------------------------------------------
@@ -164,6 +201,10 @@ end
 local function noteFor(a)
 	local D = ns.FormatDistance
 	if a.choice == "corpse" then
+		-- Died in a dungeon: the run is to its entrance, the corpse inside.
+		if a.via then
+			return format(L["Run back to %s, your corpse is inside: %s (~%s)."], a.via, D(a.corpseYards), QoL.Duration(a.corpseSeconds))
+		end
 		if a.healerYards and a.sickness > 0 then
 			return format(L["Run back to your corpse: %s (~%s). The Spirit Healer costs %s of resurrection sickness."],
 				D(a.corpseYards), QoL.Duration(a.corpseSeconds), QoL.Duration(a.sickness))
@@ -190,7 +231,7 @@ local function point(a)
 	local C = ns.Compat
 	local ok
 	if a.choice == "corpse" then
-		ok = Nav.SetTarget(a.corpseMap, a.corpseX, a.corpseY, L["Your corpse"])
+		ok = Nav.SetTarget(a.corpseMap, a.corpseX, a.corpseY, a.via and format(L["%s (your corpse is inside)"], a.via) or L["Your corpse"])
 	else
 		-- Live percent on the healer's own map; Era frame if the client cannot convert.
 		local x, y = C.WorldToMap(a.healerC, a.healerWX, a.healerWY, a.healerMap)
@@ -217,7 +258,7 @@ local function pins(a)
 	end
 	if a.corpseC then
 		list[#list + 1] = { c = a.corpseC, wx = a.corpseWX, wy = a.corpseWY, icon = "qol-corpse", size = 18,
-			tooltip = L["Your corpse"], priority = a.choice == "corpse" and 2 or 1 }
+			tooltip = a.via and format(L["%s (your corpse is inside)"], a.via) or L["Your corpse"], priority = a.choice == "corpse" and 2 or 1 }
 	end
 	P.SetLayer(LAYER, list, { world = true, minimap = true, edge = true })
 end
@@ -228,6 +269,15 @@ function Death.Update()
 	local pc, px, py = C.GetPlayerWorldPosition()
 	if not pc then return nil end
 	local cc, cwx, cwy, cmap, cx, cy = corpse()
+	-- Released outside the dungeon or raid the character died in: its
+	-- entrance stands for the corpse.
+	local died, via = QoL.State().diedIn, nil
+	if not cc and type(died) == "table" and not C.IsInInstance() then
+		local em, ex, ey, name = Death.EntranceOf(died.map)
+		local ec, ewx, ewy
+		if em then ec, ewx, ewy = C.MapToWorld(em, ex, ey) end
+		if ec then cc, cwx, cwy, cmap, cx, cy, via = ec, ewx, ewy, em, ex, ey, name or L["the dungeon"] end
+	end
 	local corpseYards
 	if cc == pc then corpseYards = sqrt((cwx - px) ^ 2 + (cwy - py) ^ 2) end
 	local hc, hwx, hwy, hmap, hx, hy, healerYards = Death.NearestHealer(pc, px, py)
@@ -239,7 +289,7 @@ function Death.Update()
 	advice.corpseYards, advice.corpseSeconds = corpseYards, cs
 	advice.healerYards, advice.healerSeconds = healerYards, hs
 	advice.corpseC, advice.corpseWX, advice.corpseWY = corpseYards and cc, cwx, cwy
-	advice.corpseMap, advice.corpseX, advice.corpseY = cmap, cx, cy
+	advice.corpseMap, advice.corpseX, advice.corpseY, advice.via = cmap, cx, cy, via
 	advice.healerC, advice.healerWX, advice.healerWY = hc, hwx, hwy
 	advice.healerMap, advice.healerEX, advice.healerEY = hmap, hx, hy
 	advice.note = noteFor(advice)
@@ -284,7 +334,7 @@ end
 
 local function check()
 	if QoL.On("deathHelper") and isGhost() then
-		if not ticker and C_Timer and C_Timer.NewTicker then ticker = C_Timer.NewTicker(INTERVAL, Death.Update) end
+		if not ticker and C_Timer and C_Timer.NewTicker then ticker = ns.NewTicker(INTERVAL, Death.Update) end
 		Death.Update()
 	elseif ticker or mine then
 		release()
@@ -296,10 +346,13 @@ Death.Check = check
 -- length, again a second later in case it lands after the event.
 local function alive()
 	check()
+	if not isGhost() and not readable(UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")) then QoL.State().diedIn = nil end
 	if not QoL.On("deathHelper") or isGhost() then return end
 	readSickness()
-	if C_Timer and C_Timer.After then C_Timer.After(1, readSickness) end
+	if C_Timer and C_Timer.After then ns.After(1, readSickness) end
 end
+
+ns.RegisterEvent("PLAYER_DEAD", noteDeathPlace)
 
 ns.RegisterEvent("PLAYER_DEAD", check)
 ns.RegisterEvent("PLAYER_ALIVE", check)

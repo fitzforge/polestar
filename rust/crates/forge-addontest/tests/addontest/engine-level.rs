@@ -62,6 +62,28 @@ fn a_level_goal_with_frac_is_done_at_its_level_once_that_share_of_the_xp_is_reac
 }
 
 #[test]
+fn a_level_goal_says_how_much_xp_is_left_to_its_point_across_levels_and_the_xp_bar_target_is_that_point() {
+	let out = run(r#"
+		local function left(s) return E.GetStepView(s).goals[1].xpLeft or false end
+		w.setLevel(2); w.setXP(100, 900); flush()
+		emit({ half = left(1), six = left(3), target = { E.LevelTarget(2) } })
+		w.setLevel(3); w.setXP(300, 1400); flush()
+		emit({ half = left(1), target = { E.LevelTarget(3) } })
+		w.setXP(700); flush()
+		emit({ half = left(1), six = left(3), target = { E.LevelTarget(3) } })
+	"#);
+	// Level 2 at 100/900: 800 to level 3 and half of its 1400; level 6 adds 1400, 2100 and 2800 (levels 3-5).
+	assert_eq!(
+		out,
+		json!([
+			{ "half": 1500, "six": 7100, "target": [3, 1, 0.5] },
+			{ "half": 400, "target": [3, 1, 0.5] },
+			{ "half": false, "six": 700 + 2100 + 2800, "target": [6, 3] },
+		])
+	);
+}
+
+#[test]
 fn a_later_level_counts_whatever_its_xp_a_plain_level_goal_still_shows_the_bare_level() {
 	let out = run(r#"
 		w.setLevel(4); w.setXP(0, 2100); flush()

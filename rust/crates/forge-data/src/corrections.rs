@@ -1201,7 +1201,8 @@ fn check_places(ck: &mut Ck, d: &V) {
 }
 
 /// data/guide-fixes.json: `{ about, fixes: [{ id, at: { quest, goal: accept | turnin | complete |
-/// objective, objective? }, tip | level, note, source, issue, pr }] }`.
+/// objective, objective? }, tip | level | along: false, note, source, issue, pr }] }`. `along: false` (an
+/// objective goal only): the writer never lists the objective "on the way" before its step.
 fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "fixes"]);
 	let list = d.get("fixes");
@@ -1213,7 +1214,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
-		ck.keys(&at, r, &["id", "at", "tip", "level", "faction", "note", "source", "issue", "pr"]);
+		ck.keys(&at, r, &["id", "at", "tip", "level", "along", "faction", "note", "source", "issue", "pr"]);
 		check_record(ck, &at, r, &mut ids);
 		let a = r.get("at");
 		ck.keys(&format!("{at}.at"), &a, &["quest", "goal", "objective"]);
@@ -1232,8 +1233,17 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 			}
 			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete or objective", show(&a.get("goal")))),
 		}
-		let (tip, level) = (r.get("tip"), r.get("level"));
+		let (tip, level, along) = (r.get("tip"), r.get("level"), r.get("along"));
 		let kind = match (tip.is_undef(), level.is_undef()) {
+			(true, true) if !along.is_undef() => {
+				if !matches!(along, V::Bool(false)) {
+					ck.err(format!("{at}.along"), "`along` is false (the objective is never listed on the way)");
+				}
+				if a.get("goal").as_str() != Some("objective") {
+					ck.err(format!("{at}.at.goal"), "an `along` fix is on an objective goal");
+				}
+				"along"
+			}
 			(false, true) => {
 				if !has_text(&tip) || tip.as_str().is_some_and(|t| t.contains('\n')) {
 					ck.err(format!("{at}.tip"), "a tip is one line of text");
@@ -1247,7 +1257,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"level"
 			}
 			_ => {
-				ck.err(&at, "a guide fix sets either a `tip` or a `level` gate");
+				ck.err(&at, "a guide fix sets a `tip`, a `level` gate or `along: false`");
 				"?"
 			}
 		};
@@ -1413,7 +1423,7 @@ mod tests {
 			"places[3].faction: \"Both\" is not Alliance or Horde",
 			"places[3].at.frame: map 2521 has no Era bounds",
 			"fixes[0].at.goal",
-			"fixes[0]: a guide fix sets either",
+			"fixes[0]: a guide fix sets a `tip`, a `level` gate or `along: false`",
 		] {
 			assert!(has(s), "{s}: {f:#?}");
 		}

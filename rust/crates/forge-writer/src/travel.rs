@@ -29,6 +29,9 @@ use rustc_hash::FxHashSet;
 use std::collections::BTreeMap;
 
 const MAX_ROUNDS: usize = 6;
+/// A flight or hearth later in a goal's step is the goal's own travel (the goal goes after it) when it
+/// lands this near the goal.
+const LANDS_NEAR_YD: f64 = 1500.0;
 // The way's costs (estimates): a walk at 7 yd/s, a flight at 25 yd/s plus a minute at the
 // masters, a boat or zeppelin 5 minutes with the wait.
 const WALK_YPS: f64 = 7.0;
@@ -50,6 +53,8 @@ pub struct Travel {
 	/// The chain's guides other races play too.
 	pub shared: Vec<String>,
 	pub faction: Option<String>,
+	/// The class the chain is played as (a class file, `WARLOCK`; None: `WARRIOR`).
+	pub cls: Option<String>,
 }
 
 #[derive(Debug, Default)]
@@ -83,6 +88,10 @@ impl Pt {
 		Pt { map: v.get("map").num(), x: v.get("x").num(), y: v.get("y").num(), f: v.get("f").to_js_string() }
 	}
 }
+
+/// Moonglade, and where a Druid's Teleport: Moonglade lands (TravelData.lua, spell 18960).
+const MOONGLADE: &str = "Moonglade";
+const MOONGLADE_LANDING: &str = "56.3,32.5";
 
 struct WayStep {
 	title: String,
@@ -371,10 +380,15 @@ fn insert_way(text: &mut Vec<String>, i: usize, steps: &[WayStep], only_route: &
 		}
 		None
 	})();
+	// The way to a step only some characters play is theirs too (the Undercity leg before the class
+	// trainers' step, A9).
+	let step_only: Option<String> =
+		if only_route.is_empty() { text.get(s + 1..step_end.min(text.len())).and_then(|b| b.iter().take_while(|l| !is_goal(l)).find(|l| re!(r"^\s+only\s").is_match(l)).cloned()) } else { None };
 	let mut block: Vec<String> = Vec::new();
 	for st in steps {
 		block.push(format!("step {}", st.title));
 		block.extend(only_route.iter().cloned());
+		block.extend(step_only.iter().cloned());
 		if let Some(z) = st.zone.as_ref().filter(|z| !z.is_empty()) {
 			block.push(format!("  zone {z}"));
 		}
@@ -798,7 +812,9 @@ fn play_traced(tree: &BTreeMap<String, String>, data: &Data, t: &Travel, traced:
 			})
 		})
 		.collect();
-	let persona = Persona { race: t.route_races.first().cloned().unwrap_or_default(), faction: t.faction.clone().unwrap_or_default(), cls: "WARRIOR".into() };
+	// (The persona is a race file: Undead play as `Scourge`, which their `only Undead` lines compile to.)
+	let race = t.route_races.first().map(|r| if r == "Undead" { "Scourge".to_string() } else { r.clone() }).unwrap_or_default();
+	let persona = Persona { race, faction: t.faction.clone().unwrap_or_default(), cls: t.cls.clone().unwrap_or_else(|| "WARRIOR".into()) };
 	let (f, tr) = if traced {
 		play_chain_traced(&played, data, &persona, &HonestOpts { walk_far: true, ..HonestOpts::legacy() })
 	} else {
@@ -821,10 +837,10 @@ fn text_at<'a>(tree: &'a BTreeMap<String, String>, file: &str, line: u32) -> &'a
 	tree.get(file).and_then(|t| t.split('\n').nth((line as usize).wrapping_sub(1))).map_or("", trim)
 }
 
-/// A failure v1 has too: the same guide, reason and line text (v1's own breaks elsewhere in the guide do not
-/// hide one the route makes).
+/// A failure v1 has too: the same guide, reason and line text without its `--` note (v1's own breaks
+/// elsewhere in the guide do not hide one the route makes; a note the engine adds does not unhide one).
 fn key_of(f: &Finding, tree: &BTreeMap<String, String>) -> String {
-	format!("{} {} {}", f.file, norm(&f.reason), text_at(tree, &f.file, f.line))
+	format!("{} {} {}", f.file, norm(&f.reason), crate::jsre::trim_end(crate::jsre::split_comment(text_at(tree, &f.file, f.line)).0))
 }
 
 /// The flights that take them away from their next goal (on one continent): (file, line).
@@ -933,16 +949,54 @@ impl Repair<'_> {
 			return 0;
 		}
 		let i = i as usize;
+		// (A step searched as a circuit, `loop`: its gotos are the search's spots, not travel; the way
+		// there is the step before's.)
+		let mut s = i;
+		while s > 0 && !step_re(&text[s]) {
+			s -= 1;
+		}
+		if text[s + 1..].iter().take_while(|l| !step_re(l) && !l.trim().is_empty()).any(|l| l.trim() == "loop") {
+			return 0;
+		}
 		let line = text[i].clone();
 		rep.log.push(format!("  {file}:{} {} | {}", i + 1, f.reason, trim(&line)));
 		let change = re!(r"(zone|continent) change with no travel line").is_match(&f.reason);
-		// A goal written before its own step's travel: after it.
+		// A goal written before its own step's travel: after it. (Not travel that leaves for another map
+		// than the goal's: the Druids' flight back to Auberdine at the end of their Moonglade step.)
 		if change {
 			let mut k = i + 1;
 			while k < text.len() && !step_re(&text[k]) && !(re!(r"^\s+(fly|hearth)\s").is_match(&text[k]) && !gated_for(&text[k], rr)) {
 				k += 1;
 			}
-			if k < text.len() && re!(r"^\s+(fly|hearth)\s").is_match(&text[k]) {
+			// (Lands within LANDS_NEAR_YD of the goal; unknown: yes.)
+			let lands_there = |l: &str| -> bool {
+				let Some(to) = f.moved.as_ref().map(|m| Pt::of_place(&m.to)) else { return true };
+				let Some(name) = re!(r#""([^"]+)""#).captures(l).map(|m| m[1].to_lowercase()) else { return true };
+				let land = if re!(r"^\s+fly\s").is_match(l) {
+					self.ways
+						.nodes
+						.iter()
+						.find(|x| self.ways.usable(&x.get("faction")) && (x.get("short").to_js_string().to_lowercase() == name || x.get("name").to_js_string().to_lowercase() == name))
+						.map(|n| Pt { map: n.get("map").num(), x: n.get("x").num(), y: n.get("y").num(), f: "e".into() })
+				} else {
+					self.data
+						.travel
+						.get("inns")
+						.items()
+						.into_iter()
+						.find(|x| {
+							let names = x.get("names");
+							let list = if names.truthy() { names.items() } else { vec![x.get("location")] };
+							list.iter().any(|nm| nm.to_js_string().to_lowercase() == name)
+						})
+						.map(|inn| Pt::of_v(&inn))
+				};
+				match (land.and_then(|p| self.ways.at(&p)), self.ways.at(&to)) {
+					(Some(a), Some(b)) => a.c == b.c && (a.wx - b.wx).hypot(a.wy - b.wy) <= LANDS_NEAR_YD,
+					_ => true,
+				}
+			};
+			if k < text.len() && re!(r"^\s+(fly|hearth)\s").is_match(&text[k]) && lands_there(&text[k]) {
 				let moved = text.remove(i);
 				text.insert(k, moved);
 				return 1;
@@ -1009,11 +1063,19 @@ impl Repair<'_> {
 			return 0;
 		}
 		let to = Pt::of_place(to);
+		let dz = ways.zone_of(to.map);
+		// (A Druid goes to Moonglade by its own spell, as v1's Moonglade steps say: the Skyborne Druids'
+		// teleport, not a flight to Orgrimmar and a 6,500 yd walk, S6.)
+		let druid = t.cls.as_deref() == Some("DRUID") || only_list(&text[..=i.min(text.len() - 1)].iter().rev().take_while(|l| !step_re(l)).find(|l| re!(r"^\s+only\s").is_match(l)).cloned().unwrap_or_default()).is_some_and(|o| o.split(',').all(|c| c.trim() == "Druid"));
+		if druid && dz.as_deref() == Some(MOONGLADE) {
+			let way = WayStep { title: "Moonglade".into(), zone: Some(MOONGLADE.into()), lines: vec![format!("  goto {MOONGLADE_LANDING} \"Cast Teleport: Moonglade\"")] };
+			insert_way(text, i, &[way], only_route, dz.as_deref(), rr);
+			return 1;
+		}
 		let steps = ways.way(&Pt::of_place(state.at.as_ref().unwrap()), &to, &kn, None);
 		if steps.is_empty() {
 			return 0;
 		}
-		let dz = ways.zone_of(to.map);
 		insert_way(text, i, &steps, only_route, dz.as_deref(), rr);
 		1
 	}
@@ -1084,6 +1146,18 @@ pub fn repair_travel(tree: &mut BTreeMap<String, String>, v1: &BTreeMap<String, 
 		r.rounds(tree, &mut rep);
 	}
 	rep.fixed += pass(tree, t, &mut |text, _| restate_zones(text, &rr));
+	rep
+}
+
+/// The repair's rounds alone on `tree` (no gating of v1's travel for other races): each R1 failure of
+/// the chain played as `t`'s race (and class) that `v1` does not have gets that player's way, `only`
+/// the route's races (shared.rs: a race's or class's own detour on the one shared route).
+pub fn repair_rounds(tree: &mut BTreeMap<String, String>, v1: &BTreeMap<String, String>, t: &Travel, data: &Data, walks: Option<&dyn WalkYards>) -> Report {
+	let mut rep = Report::default();
+	let ways = Ways { data, geo: Geo::new(&data.map_frames), nodes: data.travel.get("taxi").get("nodes").items(), side: if t.faction.as_deref() == Some("Alliance") { 1.0 } else { 2.0 }, walks };
+	let v1_keys: FxHashSet<String> = play(v1, data, t).iter().map(|f| key_of(f, v1)).collect();
+	let mut r = Repair { ways, t, data, v1_keys, tried: FxHashSet::default() };
+	r.rounds(tree, &mut rep);
 	rep
 }
 
@@ -1185,7 +1259,7 @@ mod tests {
 		let mut tree = BTreeMap::new();
 		tree.insert("a".to_string(), v(&["guide a", "", "step The Crossroads", "  turnin 875", "  turnin 7", ""]).join("\n"));
 		tree.insert("b".to_string(), v(&["guide b", "", "step The Crossroads", "  only Orc,Troll", "  turnin 875", ""]).join("\n"));
-		let t = Travel { chain: s(&["a", "b"]), route_races: s(&["Orc", "Troll"]), other_races: s(&["Tauren", "Undead", "Skyborne"]), shared: s(&["a", "b"]), faction: Some("Horde".into()) };
+		let t = Travel { chain: s(&["a", "b"]), route_races: s(&["Orc", "Troll"]), other_races: s(&["Tauren", "Undead", "Skyborne"]), shared: s(&["a", "b"]), faction: Some("Horde".into()), cls: None };
 		assert_eq!(route_events_first(&mut tree, &t), 1);
 		assert!(tree["a"].contains("  turnin 875 only Tauren,Undead,Skyborne"));
 		assert!(tree["a"].contains("  turnin 7\n"));

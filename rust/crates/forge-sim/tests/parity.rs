@@ -15,7 +15,9 @@ fn case(f: Faction, race: &str) {
 	let walks = NoWalks;
 	let rules = Rules::new(&w, race, None, false);
 	let run = compile_run(&w, &rules, race, None, &[]).unwrap();
-	let model = Model::new(run, &Params::effective(common::params_doc().as_ref(), None, &[]), &walks);
+	// The golden world is v1's: its taxi edges hold the TaxiPath price, which v1 read as seconds;
+	// at 1 yd/s the model reads them the same way.
+	let model = Model::new(run, &Params::effective(common::params_doc().as_ref(), None, &[("flightSpeed".to_string(), 1.0)]), &walks);
 	let events = events_from(&doc);
 	let mut ev = model.evaluator(&walks);
 	let rep = replay_events(&mut ev, &model.run, &events);

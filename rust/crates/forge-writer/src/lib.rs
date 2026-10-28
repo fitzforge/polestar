@@ -7,12 +7,15 @@ pub mod apply;
 pub mod engine;
 pub mod fixes;
 pub mod guide;
+pub mod hub;
 pub mod input;
 pub mod jsre;
 #[cfg(feature = "native")]
 pub mod native;
 pub mod post;
 pub mod run;
+pub mod shared;
+pub mod tips;
 pub mod travel;
 
 pub use apply::{apply_route, Inputs, Output};

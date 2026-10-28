@@ -60,6 +60,8 @@ pub struct WalksIn<'a> {
 	pub threads: usize,
 	pub nav: Nav,
 	pub log: &'a (dyn Fn(&str) + Sync),
+	/// Extra pairs (world point ids) to walk beyond the radius rules (WalkWorld::extra).
+	pub extra: &'a [(usize, usize)],
 }
 
 pub struct WalksOut {
@@ -139,7 +141,9 @@ pub fn walks(i: &WalksIn) -> Result<WalksOut, String> {
 		return Ok(WalksOut { bin, stats });
 	}
 	let t_all = Instant::now();
-	let world = WalkWorld::from_json(i.world_json, i.maps)?;
+	let mut world = WalkWorld::from_json(i.world_json, i.maps)?;
+	world.extra = i.extra.to_vec();
+	world.walks_key = forge_world::World::from_json(i.world_json)?.walks_key();
 	let pool = rayon::ThreadPoolBuilder::new().num_threads(i.threads).build().map_err(|e| e.to_string())?;
 	let mut store = open_store(i.store)?;
 	let n0 = store.len();

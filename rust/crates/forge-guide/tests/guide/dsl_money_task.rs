@@ -4,7 +4,7 @@
 
 use crate::common;
 use common::*;
-use forge_guide::format::{format_for, FORMAT, MONEY_TASK_FORMAT, WHEN_FORMAT};
+use forge_guide::format::{format_for, needs, FORMAT, MONEY_TASK_FORMAT, WAIT_FORMAT, WHEN_FORMAT};
 use forge_guide::js::parse_json;
 use forge_guide::money::read_money;
 use forge_guide::when::parse_when;
@@ -91,4 +91,13 @@ fn a_pack_with_a_money_or_task_goal_or_a_when_money_predicate_is_written_in_form
 	// `when level` stays format 4
 	let level = with_first_step(&guides, |s| s.set("when", parse_json(r#"[{"k":"level","op":">=","n":10}]"#).unwrap()));
 	assert_eq!(format_for(&level), WHEN_FORMAT, "when level stays format 4");
+}
+
+#[test]
+fn a_pack_with_a_wait_goal_is_written_in_format_9_which_an_older_polestar_refuses_as_too_new() {
+	let guides = compile_pack_fixture("mini").guides;
+	let copy = with_first_step(&guides, |s| s.get("goals").push(parse_json(r#"{"t":"wait","seconds":30}"#).unwrap()));
+	assert_eq!(format_for(&copy), WAIT_FORMAT);
+	assert_eq!(WAIT_FORMAT, 9);
+	assert_eq!(needs(WAIT_FORMAT), Some("0.3.0"));
 }

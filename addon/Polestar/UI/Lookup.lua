@@ -1430,7 +1430,7 @@ local function onSearch(text)
 		setQuery(text)
 		return
 	end
-	pending = C_Timer.NewTimer(DEBOUNCE, function()
+	pending = ns.NewTimer(DEBOUNCE, function()
 		pending = nil
 		setQuery(text)
 	end)

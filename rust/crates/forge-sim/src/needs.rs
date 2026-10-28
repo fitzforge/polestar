@@ -91,6 +91,9 @@ pub fn item_needs(world: &World, run: &Run, rules: &Rules, data: &GameData, rewa
 			let sold = it.vendors.as_ref().is_some_and(|v| !v.is_empty());
 			let drops = it.drops.as_ref().is_some_and(|x| x.npc.values().chain(x.object.values()).any(|c| c.is_none_or(|c| c > 0.0)));
 			if sold || drops {
+				if !sold {
+					out.extend(lock_need(run, data, steps, item, kb, qb, task));
+				}
 				continue;
 			}
 			let at = if task >= 0 { steps.iter().position(|s| s.kind == K_TASK && s.task == task) } else { pos(kb, qb) };
@@ -145,4 +148,45 @@ pub fn item_needs(world: &World, run: &Run, rules: &Rules, data: &GameData, rewa
 		}
 	}
 	out
+}
+
+/// An item that only comes out of locked objects (Benedict's Chest, the Aged Envelope that starts
+/// The Admiral's Orders, 830): the step that needs it comes after the step that gets the lock's
+/// key (Benedict's Key drops from Lieutenant Benedict, Vanquish the Betrayers' kill, 784): the
+/// earliest task in the order that kills a mob dropping the key or collects it. Object locks are
+/// data (objects.json `lock.item`, from the data corrections).
+fn lock_need(run: &Run, data: &GameData, steps: &[crate::Step], item: u32, kb: u8, qb: u32, task: i32) -> Option<Need> {
+	let drops = data.items.get(&item)?.drops.as_ref()?;
+	if drops.npc.values().any(|c| c.is_none_or(|c| c > 0.0)) {
+		return None;
+	}
+	let mut keys: Vec<(u32, u32)> = Vec::new();
+	for (&obj, c) in &drops.object {
+		if c.is_some_and(|c| c <= 0.0) {
+			continue;
+		}
+		match data.objects.get(&obj).and_then(|o| o.lock.as_ref()).and_then(|l| l.item) {
+			Some(k) => keys.push((obj, k)),
+			// An unlocked source: no key needed.
+			None => return None,
+		}
+	}
+	let (obj, key) = *keys.first()?;
+	let key_item = data.items.get(&key);
+	let mobs: Vec<u32> = key_item.and_then(|k| k.drops.as_ref()).map(|d| d.npc.keys().copied().collect()).unwrap_or_default();
+	let gets = |t: usize| {
+		(run.task_w0[t]..run.task_w1[t]).any(|w| run.w_kind[w as usize] == crate::run::W_KILL && mobs.contains(&run.w_mob[w as usize]))
+			|| (run.t_quest[t] >= 0 && data.quests.get(&run.q_id[run.t_quest[t] as usize]).is_some_and(|d| d.objectives.iter().flatten().any(|o| o.kind == "item" && o.id == Some(f64::from(key)))))
+	};
+	let s = steps.iter().find(|s| s.kind == K_TASK && s.task >= 0 && gets(s.task as usize))?;
+	let name = |i: u32| data.items.get(&i).and_then(|x| x.name.clone()).unwrap_or_else(|| format!("item {i}"));
+	Some(Need {
+		kb,
+		qb,
+		task,
+		ka: K_TASK,
+		qa: s.q,
+		task_a: s.task,
+		why: format!("{} comes out of object {obj}, locked: its key {} ({key}) comes from {}'s work", name(item), name(key), run.q_id[s.q as usize]),
+	})
 }

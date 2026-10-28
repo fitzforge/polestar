@@ -57,29 +57,34 @@ fn accepts_a_quest_the_current_step_wants_and_nothing_else() {
 }
 
 #[test]
-fn accepts_within_the_current_and_next_two_steps_only() {
+fn accepts_on_the_live_step_only_never_a_step_ahead() {
 	let out = run(
 		"",
 		&guide(),
 		r#"
-			w.questDetail(1, 33)      -- step 3: current + 2
-			w.questDetail(2, 18)      -- step 5: beyond the window
+			w.questDetail(1, 33)      -- step 3: two steps ahead
 			w.close()
+			w.questDetail(2, 7)       -- step 2: the next step
+			w.close()
+			w.questDetail(823, 783)   -- step 1: the live step
+			flush()
 			${calls}
 			emit(c)
 		"#,
 	);
-	assert_eq!(out, json!(["AcceptQuest 33 nil"]));
+	assert_eq!(out, json!(["AcceptQuest 783 nil"]), "Fitz: automation acts on the live step only");
 }
 
 #[test]
-fn reading_ahead_with_next_still_accepts_the_quests_of_the_step_the_player_is_on() {
+fn reading_ahead_with_next_accepts_the_quests_of_the_live_step_and_never_the_ones_of_the_step_in_view() {
 	let out = run(
 		"",
 		&guide(),
 		r#"
 			Polestar.Engine.Next(); Polestar.Engine.Next()
 			local viewed, live = Polestar.Engine.GetStepIndex(), Polestar.Engine.GetLiveStep()
+			w.questDetail(1, 33)      -- step 3: the step in view
+			w.close()
 			w.questDetail(823, 783)   -- step 1: the live step, behind the view
 			flush()
 			${calls}

@@ -219,11 +219,11 @@
 			"desc": "deathskip (die on purpose, release, Spirit Healer), seconds: an estimate, ~30 s pulling mobs to die to plus the healer's ~30 s (v2 travel2.js SPIRIT_HEAL_SEC)"
 		},
 		"deathskipLevel": {
-			"mean": 60,
+			"mean": 10,
 			"sd": 0,
 			"lo": 0,
 			"hi": 60,
-			"desc": "policy: highest level a route deathskips at (CapAudit #5: any level; above 10 resurrection sickness is priced as slower kills, sicknessSlow; was 10, Forever's last level without sickness)"
+			"desc": "policy: highest level a route deathskips at (10: Forever's last level without resurrection sickness, so a deathskip costs none; raised, each second of sickness above 10 is priced as slower kills, sicknessSlow)"
 		},
 		"sicknessSlow": {
 			"mean": 0.5,

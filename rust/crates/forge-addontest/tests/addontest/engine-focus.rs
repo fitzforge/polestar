@@ -192,9 +192,9 @@ fn skipped_and_unavailable_goals_do_not_hold_the_focus() {
 		GUIDE,
 		r#"
 			local w = stub.world
-			-- Thork does not offer 842 (unavailable), and the turn-in is done: Thork's group is done.
+			-- The player skipped 842 (Skip this quest), and the turn-in is done: Thork's group is done.
 			w.turnIn(840); flush()
-			w.gossip(3429, { available = {} }); w.close(); flush()
+			E.SkipQuest(842, true); flush()
 			local r = groups(1)
 			r.status = E.GetStepView(1).goals[2].status
 			emit(r)

@@ -276,3 +276,37 @@ fn formatdistance_yards_or_metres_rounding_kilometres_from_1000_m_and_the_rares_
 	// 0.9144 m to the yard: 1093 yd = 999.4 m, 1094 yd = 1000.4 m; with rares' rounding 1092 yd = 998.5 m reads 1000 m, so 1.0 km.
 	assert_eq!(out[0]["m"], json!(["110 m", "1 m", "999 m", "1.0 km", "1.4 km", "75 m", "1.0 km", "1.4 km"]));
 }
+
+#[test]
+fn a_timer_or_onupdate_error_is_caught_noted_and_passed_on_once_per_half_minute_and_the_rolling_log_keeps_the_last_200_lines() {
+	let out = emitted(&RunAddon {
+		addons: vec![core()],
+		script: r#"
+			local raised = 0
+			geterrorhandler = function() return function() raised = raised + 1 end end
+			local ran = 0
+			Polestar.After(0, function() error("tick broke", 0) end)
+			Polestar.After(0, function() ran = ran + 1 end)
+			stub.runTimers()
+			local f = CreateFrame("Frame")
+			f:SetScript("OnUpdate", Polestar.Safe(function() error("tick broke", 0) end))
+			stub.RunScript(f, "OnUpdate", 0.1)
+			local first = { raised = raised, ran = ran, noted = Polestar.Errors()[1].count }
+			stub.advance(31)
+			stub.RunScript(f, "OnUpdate", 0.1)
+			local later = raised
+			for i = 1, 205 do Polestar.Debug("line", i) end
+			local log = Polestar.DebugLog()
+			emit({ first = first, later = later, logged = #log, oldest = log[1]:match("line %d+$"), newest = log[#log]:match("line %d+$"),
+				tail = #Polestar.DebugLog(3), safeNil = Polestar.Safe(nil) == nil })"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0]["first"], json!({ "raised": 1, "ran": 1, "noted": 2 }), "the same message raised once, noted twice; the next timer still ran");
+	assert_eq!(out[0]["later"], 2, "half a minute on, it is passed on again");
+	assert_eq!(out[0]["logged"], 200);
+	assert_eq!(out[0]["oldest"], "line 6");
+	assert_eq!(out[0]["newest"], "line 205");
+	assert_eq!(out[0]["tail"], 3);
+	assert_eq!(out[0]["safeNil"], true);
+}

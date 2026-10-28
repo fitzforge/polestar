@@ -88,7 +88,7 @@ test.after(async () => {
 
 test('the page, the command list and an unknown command', async () => {
 	const list = await (await fetch(`${server.url}api/commands`)).json();
-	for (const name of ['planner_info', 'guides_list', 'guide_get', 'timeline_get', 'edit_apply', 'edit_move_world', 'edit_undo', 'changes_list', 'spawns_get', 'view_focus']) {
+	for (const name of ['planner_info', 'guides_list', 'guide_get', 'timeline_get', 'hub_view', 'edit_apply', 'edit_move_world', 'edit_undo', 'changes_list', 'spawns_get', 'view_focus']) {
 		const c = list.find((x) => x.name === name);
 		assert.ok(c, name);
 		assert.equal(c.input.type, 'object', name);

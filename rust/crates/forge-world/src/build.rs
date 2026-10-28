@@ -48,6 +48,13 @@ const Z_STEP: f64 = 3.0;
 const LIFT_END_R: f64 = 150.0;
 const LIFT_END_Z: f64 = 25.0;
 const PORTAL_NEAR: f64 = 1500.0;
+/// Yards: a graveyard's Spirit Healer stands this close to where its ghosts appear. A graveyard
+/// with none so close has no healer of its own (a city's or a battleground's exit: the ghost walks
+/// to another's) and is left out.
+const GY_HEALER_YD: f64 = 100.0;
+/// CMaNGOS teams of graveyard links (game_graveyard_zone.faction).
+const GY_HORDE: f64 = 67.0;
+const GY_ALLIANCE: f64 = 469.0;
 
 fn island(map: u32) -> i64 {
 	match map {
@@ -57,25 +64,70 @@ fn island(map: u32) -> i64 {
 	}
 }
 
-fn region_of(c: i64, map: u32) -> i64 {
-	c * 10 + island(map)
+/// An island inside a mainland map that a faction reaches by a boat or a flight, not on foot: its
+/// points get their own region (`island`), so no walk is priced across the water (a walk pair is
+/// asked only within a region, and the evaluator walks none across regions); the dock and the
+/// flight path take the leg. A world box in a map, for the faction that has the dock.
+struct SeaIsland {
+	faction: Faction,
+	map: u32,
+	island: i64,
+	wx: (f64, f64),
+	wy: (f64, f64),
 }
 
-/// Zephras Isle exits per faction: (name, isle map, x, y, mainland c, wx, wy, map, ride, wait).
+/// Sardor Isle (Feralas): Feathermoon Stronghold's flight path, inn and boat dock to the Forgotten
+/// Coast. The grid's land (no swimming or ocean cell, 8 yd blocks) has no way from it to the
+/// mainland, and of the land cut off from the mainland only it and Teldrassil hold a flight path,
+/// dock or inn. Its land holds every world point in wx -5032..-4209, wy 3113..3794 (and no other:
+/// a rock at wy 3106 and the sea east of it stay out); the Isle of Dread to its south (wx -5725 to
+/// -5243) is an island with no dock, swum to. The Horde has no dock or flight there: its walks to
+/// the isle are the store's (swum).
+const SEA_ISLANDS: &[SeaIsland] = &[SeaIsland { faction: Faction::Alliance, map: 1444, island: 3, wx: (-5100.0, -4150.0), wy: (3110.0, 3900.0) }];
+
+fn region_of(c: i64, map: u32, wx: f64, wy: f64, faction: Faction) -> i64 {
+	let sea = SEA_ISLANDS.iter().find(|s| s.map == map && s.faction == faction && (s.wx.0..=s.wx.1).contains(&wx) && (s.wy.0..=s.wy.1).contains(&wy));
+	c * 10 + sea.map_or_else(|| island(map), |s| s.island)
+}
+
+/// Where an exit lands: world coordinates (c, wx, wy, map), or a map's Era-frame percent.
+enum Land {
+	World(i64, f64, f64, u32),
+	Map(u32, f64, f64),
+}
+
+/// Zephras Isle exits per faction: (name, isle map, x, y, landing, ride, wait).
 struct Exit {
 	name: &'static str,
 	a: (u32, f64, f64),
-	b: (i64, f64, f64, u32),
+	b: Land,
 	ab: f64,
 	wait: f64,
 }
 
+/// The Horde airship lands in northern Mulgore, by Alaana Stormwalker; the Alliance skycutter by
+/// the Kirin Tor camp west of Dalaran (Alterac Mountains), by Denaaris Stargale and the Skyborne
+/// Portal to Stormwind (SKYBORNE_PORTAL), not in Stormwind itself (A10).
 fn skyborne_exits(f: Faction) -> [Exit; 1] {
 	match f {
-		Faction::Horde => [Exit { name: "Zephras Isle airship", a: (2521, 57.92, 80.78), b: (1, -658.0, 426.0, 1412), ab: 90.0, wait: 60.0 }],
-		Faction::Alliance => [Exit { name: "Zephras Isle zeppelin + Skyborne portal", a: (2521, 65.81, 83.44), b: (0, -8840.6, 489.7, 1453), ab: 110.0, wait: 60.0 }],
+		Faction::Horde => [Exit { name: "Zephras Isle airship", a: (2521, 57.92, 80.78), b: Land::World(1, -658.0, 426.0, 1412), ab: 90.0, wait: 60.0 }],
+		Faction::Alliance => [Exit { name: "Zephras Isle skycutter", a: (2521, 65.81, 83.44), b: Land::Map(1416, 12.24, 56.54), ab: 105.0, wait: 60.0 }],
 	}
 }
+
+/// The Skyborne Portal to Stormwind (object 631299, Alterac Mountains, beside the skycutter's
+/// landing; using it is Welcome to Azeroth's objective, 94947): a portal ride from the object's
+/// spawn to Stormwind. Ridden by the Skyborne only (forge-sim compile_run): whether other
+/// Alliance races may use it is unchecked in game.
+pub const SKYBORNE_PORTAL_RIDE: &str = "portal-skyborne-stormwind";
+const SKYBORNE_PORTAL: (u32, (i64, f64, f64, u32)) = (631299, (0, -8840.6, 489.7, 1453));
+
+/// Zephras Isle's own portals (RevSkyA3, c13: Lorthuna's heights priced as a 546 yd walk up from the
+/// shrine): (object, ride name, arrival as isle map percent and z). The Portal To Rohashi Spires in the
+/// shrine's inner sanctum lands on the heights where Confront Lorthuna (93835) has its event, 325 yd
+/// above. (The Portal to Valanaar beside Lorthuna, 617084/617085, is left out until its arrival point
+/// is checked in game: no client table here names it.)
+const ISLE_PORTALS: [(u32, &str, (u32, f64, f64, f64)); 1] = [(586726, "portal-rohashi-spires", (2521, 74.87, 53.02, 1144.0))];
 
 enum StartSpec {
 	Quest(u32, &'static str),
@@ -402,7 +454,7 @@ impl<'a> Builder<'a> {
 	pub(crate) fn add_point(&mut self, c: i64, wx: f64, wy: f64, map: u32, z: Option<f64>, hint: Option<f64>) -> u32 {
 		let rx = js_round(wx * 10.0) / 10.0;
 		let ry = js_round(wy * 10.0) / 10.0;
-		let region = region_of(c, map);
+		let region = region_of(c, map, wx, wy, self.faction);
 		let (z, from) = match z {
 			Some(z) => (Some(z), 0),
 			None => match self.floor_at(c, rx, ry, hint) {
@@ -444,6 +496,27 @@ impl<'a> Builder<'a> {
 		js_hypot(pa.wx - pb.wx, pa.wy - pb.wy)
 	}
 
+	/// Yards from point `to` to the entity's nearest spawn, without making its sites (a vendor that
+	/// may not be used adds no point to the world).
+	fn nearest_spawn_yd(&self, kind: Kind, id: u32, to: u32) -> f64 {
+		let Some(raw) = self.d.entities(kind).get(&id) else { return f64::INFINITY };
+		let p = &self.points[to as usize];
+		let mut best = f64::INFINITY;
+		for (&map, sp) in &raw.spawns {
+			if !self.allowed_map(map) {
+				continue;
+			}
+			let live = sp.f.as_deref() == Some("l");
+			for s in sp.pts.iter().chain(sp.more.iter().flatten()).filter(|s| s.len() >= 2) {
+				let (c, wx, wy) = self.to_world(map, s[0], s[1], live);
+				if region_of(c, map, wx, wy, self.faction) == p.region {
+					best = best.min(js_hypot(wx - p.wx, wy - p.wy));
+				}
+			}
+		}
+		best
+	}
+
 	// ---- zone vote ----
 	fn votes(&mut self, region: i64, wx: f64, wy: f64) -> Rc<Vec<(u32, u32)>> {
 		let gx = (wx / VOTE_R).floor() as i64;
@@ -465,7 +538,7 @@ impl<'a> Builder<'a> {
 								continue;
 							}
 							let (c, x, y) = self.to_world(map, q[0], q[1], live);
-							let k = (region_of(c, map), (x / VOTE_R).floor() as i64, (y / VOTE_R).floor() as i64);
+							let k = (region_of(c, map, x, y, self.faction), (x / VOTE_R).floor() as i64, (y / VOTE_R).floor() as i64);
 							let m = grid.entry(k).or_default();
 							match m.iter_mut().find(|e| e.0 == map) {
 								Some(e) => e.1 += 1,
@@ -547,7 +620,7 @@ impl<'a> Builder<'a> {
 				}
 				let (c, wx, wy) = self.to_world(map, p[0], p[1], live);
 				let edge = p[0].min(100.0 - p[0]).min(p[1]).min(100.0 - p[1]);
-				all.push(Sp { c, wx, wy, region: region_of(c, map), map, f_live, edge });
+				all.push(Sp { c, wx, wy, region: region_of(c, map, wx, wy, self.faction), map, f_live, edge });
 			}
 		}
 		if all.is_empty() {
@@ -762,6 +835,61 @@ struct Located {
 	ois: Vec<i64>,
 }
 
+/// Yards from one camp's site every target of a quest's kill work may lie (one_camp).
+const ONE_CAMP_YD: f64 = 150.0;
+/// Spawns a target's site at that camp needs (fewer when the target has no bigger site anywhere).
+const ONE_CAMP_MIN: u32 = 3;
+
+/// A quest's kill work at one camp when one camp has every target (Sharing the Land, 745: its
+/// Tanners and Skinners were placed south of Bloodhoof, its Poachers at Palemane Rock 900 yd away,
+/// while Palemane Rock has all three): each target's site within ONE_CAMP_YD of one site of the
+/// first, the camp with the most of them nearest the giver (best_site's score); every kill item
+/// there. Kill work already at one site, or with no such camp, stays.
+fn one_camp(b: &mut Builder<'_>, located: &mut [Located], giver: u32) {
+	let kills: Vec<(usize, u32)> = located.iter().enumerate().filter_map(|(i, l)| if let Work::Kill { npc, .. } = l.work { Some((i, npc)) } else { None }).collect();
+	if kills.len() < 2 || kills.iter().all(|&(i, _)| b.dist(located[i].pt, located[kills[0].0].pt) <= SITE_R) {
+		return;
+	}
+	let mut npcs: Vec<u32> = kills.iter().map(|k| k.1).collect();
+	npcs.sort_unstable();
+	npcs.dedup();
+	let Some(ents) = npcs.iter().map(|&n| b.sites(Kind::Npc, i64::from(n))).collect::<Option<Vec<_>>>() else { return };
+	let mut best: Option<(f64, u32, Vec<f64>)> = None;
+	for cand in ents[0].sites.iter().filter(|s| s.size >= ONE_CAMP_MIN.min(ents[0].sites.iter().map(|x| x.size).max().unwrap_or(0))) {
+		let mut size = 0u32;
+		let mut spacing = Vec::with_capacity(ents.len());
+		// (Each target's biggest site there, a camp: ONE_CAMP_MIN spawns, or its own biggest site's.)
+		let all = ents.iter().all(|e| match e
+			.sites
+			.iter()
+			.filter(|s| b.dist(s.pt, cand.pt) <= ONE_CAMP_YD && s.size >= ONE_CAMP_MIN.min(e.sites.iter().map(|x| x.size).max().unwrap_or(0)))
+			.max_by(|x, y| x.size.cmp(&y.size).then(b.dist(y.pt, cand.pt).total_cmp(&b.dist(x.pt, cand.pt))))
+		{
+			Some(s) => {
+				size += s.size.min(12);
+				spacing.push(s.spacing);
+				true
+			}
+			None => false,
+		});
+		let d = b.dist(cand.pt, giver);
+		if !all || !d.is_finite() {
+			continue;
+		}
+		let sc = f64::from(size) / (1.0 + d / 400.0);
+		if best.as_ref().is_none_or(|x| sc > x.0) {
+			best = Some((sc, cand.pt, spacing));
+		}
+	}
+	let Some((_, pt, spacing)) = best else { return };
+	for (i, npc) in kills {
+		located[i].pt = pt;
+		if let Work::Kill { spacing: sp, .. } = &mut located[i].work {
+			*sp = spacing[npcs.binary_search(&npc).unwrap()];
+		}
+	}
+}
+
 struct Regexes {
 	talk: Regex,
 	deed: Regex,
@@ -850,7 +978,10 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 	let mut taxi: Vec<(u32, u32, Value)> = Vec::new();
 	for l in arr(taxi_doc.and_then(|t| t.get("legs"))) {
 		if let (Some(a), Some(bb)) = (taxi_node(&js_str(l.get("from"))), taxi_node(&js_str(l.get("to")))) {
-			taxi.push((a, bb, l.get("cost").cloned().unwrap_or(Value::Null)));
+			// The path's length (yards): the sim prices the flight at its taxi speed. (Not `cost`, the
+			// TaxiPath's price in copper, which v1 read as seconds: Orgrimmar to Thunder Bluff 50 s,
+			// Everlook to Orgrimmar 1020 s.)
+			taxi.push((a, bb, l.get("yards").cloned().unwrap_or(Value::Null)));
 		}
 	}
 	let end_z = |end: &Value| -> Option<f64> {
@@ -1001,11 +1132,11 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 	let mut anchors: Vec<(i64, f64, f64)> = nodes.iter().filter(|n| n.kind == "fp").map(|n| (b.points[n.pt as usize].region, b.points[n.pt as usize].wx, b.points[n.pt as usize].wy)).collect();
 	for inn in arr(travel.get("inns")) {
 		if inn_ok(&inn) {
-			anchors.push((region_of(num(inn.get("c")) as i64, u32of(inn.get("map"))), num(inn.get("wx")), num(inn.get("wy"))));
+			anchors.push((region_of(num(inn.get("c")) as i64, u32of(inn.get("map")), num(inn.get("wx")), num(inn.get("wy")), faction), num(inn.get("wx")), num(inn.get("wy"))));
 		}
 	}
 	let own_end = |e: &Value| {
-		let region = region_of(num(e.get("c")) as i64, u32of(e.get("map")));
+		let region = region_of(num(e.get("c")) as i64, u32of(e.get("map")), num(e.get("wx")), num(e.get("wy")), faction);
 		anchors.iter().any(|x| x.0 == region && js_hypot(x.1 - num(e.get("wx")), x.2 - num(e.get("wy"))) <= PORTAL_NEAR)
 	};
 	for p in arr(transit.and_then(|t| t.get("portals"))) {
@@ -1031,9 +1162,42 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 		let pa = b.add_point(c, wx, wy, x.a.0, None, None);
 		nodes.push(Node { kind: "dock", taxi: None, name: x.name.into(), pt: pa });
 		let bn = nodes.len() as u32;
-		let pb = b.add_point(x.b.0, x.b.1, x.b.2, x.b.3, None, None);
+		let pb = match x.b {
+			Land::World(c, wx, wy, map) => b.add_point(c, wx, wy, map, None, None),
+			Land::Map(map, mx, my) => {
+				let (c, wx, wy) = b.to_world(map, mx, my, false);
+				b.add_point(c, wx, wy, map, None, None)
+			}
+		};
 		nodes.push(Node { kind: "dock", taxi: None, name: format!("{} (arrival)", x.name), pt: pb });
 		rides.push(Ride { a, b: bn, seconds: x.ab, wait: x.wait, id: json!(x.name) });
+	}
+	// The Skyborne Portal to Stormwind: from the object's own point (the quest's objective is there).
+	if faction == Faction::Alliance {
+		let (obj, (c, wx, wy, map)) = SKYBORNE_PORTAL;
+		match b.sites(Kind::Object, obj as i64).and_then(|e| e.sites.first().map(|s| s.pt)) {
+			Some(pa) => {
+				let a = nodes.len() as u32;
+				nodes.push(Node { kind: "portal", taxi: None, name: SKYBORNE_PORTAL_RIDE.into(), pt: pa });
+				let bn = nodes.len() as u32;
+				let pb = b.add_point(c, wx, wy, map, None, None);
+				nodes.push(Node { kind: "portal", taxi: None, name: format!("{SKYBORNE_PORTAL_RIDE} (arrival)"), pt: pb });
+				rides.push(Ride { a, b: bn, seconds: 5.0, wait: 0.0, id: json!(SKYBORNE_PORTAL_RIDE) });
+			}
+			None => warnings.push(format!("object {obj} (Skyborne Portal to Stormwind) has no spawn: the Skyborne leave Zephras Isle with no portal")),
+		}
+	}
+	// Zephras Isle's own portals, from each object's point (the isle's quests stand by them); an
+	// object the data has no spawn for (a slice) has no ride.
+	for (obj, name, (map, x, y, z)) in ISLE_PORTALS {
+		let Some(pa) = b.sites(Kind::Object, obj as i64).and_then(|e| e.sites.first().map(|s| s.pt)) else { continue };
+		let (c, wx, wy) = b.to_world(map, x, y, true);
+		let a = nodes.len() as u32;
+		nodes.push(Node { kind: "portal", taxi: None, name: name.into(), pt: pa });
+		let bn = nodes.len() as u32;
+		let pb = b.add_point(c, wx, wy, map, Some(z), None);
+		nodes.push(Node { kind: "portal", taxi: None, name: format!("{name} (arrival)"), pt: pb });
+		rides.push(Ride { a, b: bn, seconds: 5.0, wait: 0.0, id: json!(name) });
 	}
 	let mut inns: Vec<Inn> = Vec::new();
 	for inn in arr(travel.get("inns")) {
@@ -1098,6 +1262,7 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 
 	let mut quests: Vec<WQuest> = Vec::new();
 	let mut timed_ids: FxHashSet<u32> = FxHashSet::default();
+	let closed_by = crate::prereqs::ClosedBy::new(&d.quests);
 	for (&id, raw) in &d.quests {
 		let races = raw.races.filter(|r| *r != 0.0 && !r.is_nan()).unwrap_or(0.0);
 		if races != 0.0 && !faction.mask_open(races as u64) {
@@ -1184,8 +1349,11 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 		let mut accept: Option<Task> = None;
 		let mut g_name: Option<String> = None;
 		let mut g_pos: Option<Pos> = None;
+		// A giver rule's NPC first, when it is one of the quest's givers.
+		let ruled = d.giver_rule(id).filter(|n| start.of(Kind::Npc).iter().any(|&g| g as i64 == i64::from(*n)));
 		'g: for k in Kind::BOTH {
-			for &gid in start.of(k) {
+			let ordered: Vec<_> = start.of(k).iter().copied().filter(|&g| k == Kind::Npc && ruled.is_some_and(|n| g as i64 == i64::from(n))).chain(start.of(k).iter().copied()).collect();
+			for gid in ordered {
 				if let Some(e) = b.sites(k, gid) {
 					if e.friendly {
 						let anchor = if e.sites.len() > 1 { end_anchor(&mut b) } else { None };
@@ -1216,7 +1384,7 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 			} else {
 				Work::Use(n)
 			};
-			(s.pt, name, b.pos_of(s.pt, s.f.as_deref()), Task { pt: s.pt, work: vec![work] })
+			(s.pt, name, b.pos_of(s.pt, s.f.as_deref()), Task { pt: s.pt, work: vec![work], alts: Vec::new() })
 		};
 		if giver.is_none() {
 			let mut best: Option<StartBest> = None;
@@ -1367,6 +1535,9 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 		// Objectives.
 		let objs = &raw.objectives;
 		let mut located: Vec<Located> = Vec::new();
+		// A located work's other places (by its index in `located`): a buy's other vendors, an object's
+		// other sites.
+		let mut located_alts: Vec<(usize, Vec<u32>)> = Vec::new();
 		let mut missing: Option<String> = None;
 		let mut missing_cat: Option<&'static str> = None;
 		let mut missing_code: &'static str = "";
@@ -1512,7 +1683,10 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 						outside = true;
 						break;
 					};
-					located.push(Located { pt: b.best_site(&e, Some(giver)).pt, work: Work::Use(count), ois: vec![oi] });
+					let best = b.best_site(&e, Some(giver)).pt;
+					// (Its other sites: the planner may take one by another quest's work, route::co_sited_tasks.)
+					located_alts.push((located.len(), e.sites.iter().map(|s| s.pt).filter(|&p| p != best).collect()));
+					located.push(Located { pt: best, work: Work::Use(count), ois: vec![oi] });
 					add_obj(&mut obj_list, oi, "object", oid, Some(count), None, false, Vec::new(), Vec::new());
 				}
 				"item" => {
@@ -1635,7 +1809,64 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 							}
 						}
 					}
-					if let Some(bst) = best {
+					// A friendly vendor that sells the item, nearest the giver: bought there when that
+					// costs less than the best drop, priced as a sure drop (1) plus the walk (Look to
+					// the Stars' Bronze Tube from Herble beside Viktori in Darkshire, not a 1.9 % drop in
+					// Stonetalon carried for five levels: RevA1, c13).
+					// (An item a friendly NPC hands out stays a talk. Against a drop, vendors' spawns are
+					// read without making their sites: a drop that wins adds no vendor point; a buy adds
+					// every friendly vendor's, its alternatives.)
+					let vendors = item.and_then(|i| i.vendors.as_deref()).unwrap_or(&[]);
+					let mut buy: Option<u32> = None;
+					if let Some(bst) = best.as_ref() {
+						let near = vendors
+							.iter()
+							.filter(|&&vid| u32::try_from(vid).ok().and_then(|i| d.entities(Kind::Npc).get(&i)).is_some_and(|r| friendly(r.faction.as_deref(), faction)))
+							.map(|&vid| (vid, b.nearest_spawn_yd(Kind::Npc, vid as u32, giver)))
+							.min_by(|x, y| x.1.total_cmp(&y.1));
+						if let Some((vid, _)) = near.filter(|&(_, vd)| bst.kind != "talk" && 1.0 + vd / 300.0 < bst.cost) {
+							buy = b.sites(Kind::Npc, vid).map(|e| b.best_site(&e, Some(giver)).pt);
+						}
+					} else {
+						let mut vd = f64::INFINITY;
+						for &vid in vendors {
+							let Some(e) = b.sites(Kind::Npc, vid) else { continue };
+							if !e.friendly {
+								continue;
+							}
+							let s = b.best_site(&e, Some(giver));
+							let dd = b.dist(s.pt, giver);
+							let dd = if dd.is_finite() { dd } else { 1e9 };
+							if buy.is_none() || dd < vd {
+								buy = Some(s.pt);
+								vd = dd;
+							}
+						}
+					}
+					if let Some(pt) = buy {
+						// Every other friendly vendor's site, nearest the giver first: the task's
+						// alternatives (a buy on the way, forge-sim's eval).
+						let mut others: Vec<(f64, u32)> = Vec::new();
+						for &vid in vendors {
+							let Some(e) = b.sites(Kind::Npc, vid) else { continue };
+							if !e.friendly {
+								continue;
+							}
+							let s = b.best_site(&e, Some(giver));
+							let dd = b.dist(s.pt, giver);
+							others.push((if dd.is_finite() { dd } else { 1e9 }, s.pt));
+						}
+						others.sort_by(|a, b| a.0.total_cmp(&b.0));
+						let alts: Vec<u32> = others.iter().map(|x| x.1).filter(|&p| p != pt).fold(Vec::new(), |mut a, p| {
+							if !a.contains(&p) {
+								a.push(p);
+							}
+							a
+						});
+						located_alts.push((located.len(), alts));
+						located.push(Located { pt, work: Work::Buy, ois: vec![oi] });
+						add_obj(&mut obj_list, oi, "item", oid, Some(count), oid, qi, item_camps, item_chances);
+					} else if let Some(bst) = best {
 						let n = (count * 100.0) / bst.chance;
 						match bst.kind {
 							"talk" => located.push(Located { pt: bst.s.pt, work: Work::Use(1.0), ois: vec![oi] }),
@@ -1653,68 +1884,49 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 							_ => located.push(Located { pt: bst.s.pt, work: Work::Use(n), ois: vec![oi] }),
 						}
 						add_obj(&mut obj_list, oi, "item", oid, Some(count), oid, qi, item_camps, item_chances);
+					} else if let Some(hb) = high_best {
+						let n = (count * 100.0) / hb.chance;
+						let el = elite_rank(hb.e.rank);
+						if el {
+							elite = true;
+						}
+						located.push(Located {
+							pt: hb.s.pt,
+							work: Work::Kill { level: hb.e.level(Some(level)).unwrap_or(level), count: n, elite: el, spacing: hb.s.spacing, npc: hb.e.id },
+							ois: vec![oi],
+						});
+						let ids = camps_for(&mut b, &mut camp_cache, &high_src);
+						if !ids.is_empty() {
+							obj_camps.push(ObjCamp { oi, camps: ids.clone(), chances: chances_of(&high_src) });
+						}
+						add_obj(&mut obj_list, oi, "item", oid, Some(count), oid, qi, ids, chances_of(&high_src));
+					} else if skipped_rare {
+						missing = Some(format!("item objective {} drops below 1%", oid.map_or("null".into(), js_to_string)));
+						missing_cat = Some("rareDrop");
+						missing_code = "rare-drop";
+						break;
+					} else if !any_drop {
+						let given = raw.source_item.is_some_and(|s| s > 0.0) || !raw.required_items.is_empty() || start.item.iter().any(|&x| Some(x as f64) == oid) || solo.turnin_after.contains_key(&id) || reward_items.contains(&oid_i);
+						let handout = given || item.and_then(|i| i.containers.as_ref()).is_some_and(|c| !c.is_empty());
+						if !handout {
+							missing = Some(format!("item objective {} has no source", oid.map_or("null".into(), js_to_string)));
+							missing_code = "unsourced-item";
+							outside = true;
+							break;
+						}
+						// A quest item only found inside another item (Tallonkai's Jewel in the Gnarlpine
+						// Necklace Ferocitas drops, #619): opened where that container drops, from its
+						// likeliest dropper, not at the giver.
+						let opened = if given { None } else { item.and_then(|i| i.containers.as_ref()).into_iter().flatten().filter_map(|c| c.as_u64().and_then(|c| u32::try_from(c).ok())).filter_map(|c| d.items.get(&c)).flat_map(|c| c.drops.as_ref().map(|dr| dr.npc.iter().map(|(n, ch)| (*n, ch.unwrap_or(0.0))).collect::<Vec<_>>()).unwrap_or_default()).max_by(|x, y| x.1.total_cmp(&y.1).then(y.0.cmp(&x.0))) };
+						let at = opened.and_then(|(n, _)| b.sites(Kind::Npc, i64::from(n))).map(|e| b.best_site(&e, Some(giver)).pt);
+						located.push(Located { pt: at.unwrap_or(giver), work: Work::Use(1.0), ois: vec![oi] });
+						add_obj(&mut obj_list, oi, "item", oid, Some(count), oid, qi, item_camps, item_chances);
+						outside = at.is_none();
 					} else {
-						let mut v: Option<Site> = None;
-						let mut vd = f64::INFINITY;
-						for &vid in item.and_then(|i| i.vendors.as_deref()).unwrap_or(&[]) {
-							let Some(e) = b.sites(Kind::Npc, vid) else { continue };
-							if !e.friendly {
-								continue;
-							}
-							let s = b.best_site(&e, Some(giver));
-							let dd = b.dist(s.pt, giver);
-							let dd = if dd.is_finite() { dd } else { 1e9 };
-							if v.is_none() || dd < vd {
-								v = Some(s);
-								vd = dd;
-							}
-						}
-						if let Some(v) = v {
-							located.push(Located { pt: v.pt, work: Work::Buy, ois: vec![oi] });
-							add_obj(&mut obj_list, oi, "item", oid, Some(count), oid, qi, item_camps, item_chances);
-						} else if let Some(hb) = high_best {
-							let n = (count * 100.0) / hb.chance;
-							let el = elite_rank(hb.e.rank);
-							if el {
-								elite = true;
-							}
-							located.push(Located {
-								pt: hb.s.pt,
-								work: Work::Kill { level: hb.e.level(Some(level)).unwrap_or(level), count: n, elite: el, spacing: hb.s.spacing, npc: hb.e.id },
-								ois: vec![oi],
-							});
-							let ids = camps_for(&mut b, &mut camp_cache, &high_src);
-							if !ids.is_empty() {
-								obj_camps.push(ObjCamp { oi, camps: ids.clone(), chances: chances_of(&high_src) });
-							}
-							add_obj(&mut obj_list, oi, "item", oid, Some(count), oid, qi, ids, chances_of(&high_src));
-						} else if skipped_rare {
-							missing = Some(format!("item objective {} drops below 1%", oid.map_or("null".into(), js_to_string)));
-							missing_cat = Some("rareDrop");
-							missing_code = "rare-drop";
-							break;
-						} else if !any_drop {
-							let handout = raw.source_item.is_some_and(|s| s > 0.0)
-								|| !raw.required_items.is_empty()
-								|| start.item.iter().any(|&x| Some(x as f64) == oid)
-								|| solo.turnin_after.contains_key(&id)
-								|| reward_items.contains(&oid_i)
-								|| item.and_then(|i| i.containers.as_ref()).is_some_and(|c| !c.is_empty());
-							if !handout {
-								missing = Some(format!("item objective {} has no source", oid.map_or("null".into(), js_to_string)));
-								missing_code = "unsourced-item";
-								outside = true;
-								break;
-							}
-							located.push(Located { pt: giver, work: Work::Use(1.0), ois: vec![oi] });
-							add_obj(&mut obj_list, oi, "item", oid, Some(count), oid, qi, item_camps, item_chances);
-							outside = true;
-						} else {
-							missing = Some(format!("item objective {} drops only outside the open world", oid.map_or("null".into(), js_to_string)));
-							missing_code = "outside";
-							outside = true;
-							break;
-						}
+						missing = Some(format!("item objective {} drops only outside the open world", oid.map_or("null".into(), js_to_string)));
+						missing_code = "outside";
+						outside = true;
+						break;
 					}
 				}
 				"event" => {
@@ -1779,17 +1991,25 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 			ex(&mut excluded, m, missing_cat, missing_code);
 			continue;
 		}
+		one_camp(&mut b, &mut located, giver);
 		// Tasks.
 		let mut tasks: Vec<Task> = Vec::new();
 		let mut task_of_oi: Vec<(i64, u32)> = Vec::new();
-		for l in located {
+		// (A task of one located work keeps its other places; merged with more work, its place is theirs.)
+		let mut n_located: Vec<usize> = Vec::new();
+		for (li, l) in located.into_iter().enumerate() {
 			let ti = match tasks.iter().position(|x| b.dist(x.pt, l.pt) <= SITE_R) {
 				Some(t) => t,
 				None => {
-					tasks.push(Task { pt: l.pt, work: Vec::new() });
+					tasks.push(Task { pt: l.pt, work: Vec::new(), alts: located_alts.iter().find(|x| x.0 == li).map(|x| x.1.clone()).unwrap_or_default() });
+					n_located.push(0);
 					tasks.len() - 1
 				}
 			};
+			n_located[ti] += 1;
+			if n_located[ti] > 1 {
+				tasks[ti].alts.clear();
+			}
 			tasks[ti].work.push(l.work);
 			for oi in l.ois {
 				match task_of_oi.iter_mut().find(|e| e.0 == oi) {
@@ -1839,7 +2059,9 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 			races: (races != 0.0).then_some(races),
 			classes: raw.classes.filter(|c| *c != 0.0 && !c.is_nan()),
 			pre: raw.pre.clone(),
-			excl: raw.excl.clone(),
+			// Closed for good by its `excl`, and a breadcrumb by the quest it leads to once that is
+			// taken (prereqs.js closedByOf: Daily Delivery once Young Crocolisk Skins is in the log, #615).
+			excl: closed_by.of(id as i64, &d.quests),
 			next: raw.next.filter(|n| *n != 0.0 && !n.is_nan()),
 			xp,
 			no_xp: Some(raw.repeatable == Some(true) && xp.is_none()),
@@ -2038,7 +2260,7 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 				giver,
 				ender,
 				accept: None,
-				tasks: if inside { vec![Task { pt: dpt, work: vec![Work::Dungeon(di)] }] } else { Vec::new() },
+				tasks: if inside { vec![Task { pt: dpt, work: vec![Work::Dungeon(di)], alts: Vec::new() }] } else { Vec::new() },
 				zone: b.points[giver as usize].map,
 				breadcrumb: !inside,
 				kind: if inside {
@@ -2619,7 +2841,7 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 					continue;
 				}
 				let (c, wx, wy) = b.to_world(map, p[0], p[1], live);
-				let region = region_of(c, map);
+				let region = region_of(c, map, wx, wy, b.faction);
 				let k = ((wx / DANGER_CELL).floor() as i64, (wy / DANGER_CELL).floor() as i64);
 				let cells = cell_count.entry(region).or_default();
 				let idx = *cell_index.entry((region, k.0, k.1)).or_insert_with(|| {
@@ -2738,6 +2960,8 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 		q.hub_giver = hub_of_point.get(&q.giver).copied().unwrap_or(-1);
 		q.hub_ender = hub_of_point.get(&q.ender).copied().unwrap_or(-1);
 	}
+	// ---- graveyards (forge-sim's deathskips): after every other place, so no point id moves ----
+	let graveyards = build_graveyards(&mut b, faction);
 	let floor_misses = b.floor_misses;
 	let mut zones: BTreeMap<u32, String> = BTreeMap::new();
 	for p in &b.points {
@@ -2773,6 +2997,7 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 		grind_spacing,
 		zone_min,
 		danger,
+		graveyards,
 		starts,
 		zones,
 		warnings,
@@ -2785,6 +3010,57 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 	world.areas = areas;
 	world.point_area = point_area;
 	Ok((world, floor_misses))
+}
+
+/// The faction's graveyards (World::graveyards) from CMaNGOS classic-db's graveyard table: its
+/// places, and its links of zones to graveyards for the faction (team 0 or the faction's), each
+/// with the Spirit Healer spawn within GY_HEALER_YD of where its ghosts appear (npcs.json's
+/// `spirithealer` role), which the graveyard's point is. Forever's own server table (the TDB) is
+/// not used: its places are the later game's (Auberdine's, Feathermoon's moved graveyards), far
+/// from Forever's Spirit Healers. By id.
+fn build_graveyards(b: &mut Builder, faction: Faction) -> Vec<Graveyard> {
+	let d = b.d;
+	let Some(src) = d.graveyards.as_ref() else { return Vec::new() };
+	let team = match faction {
+		Faction::Horde => GY_HORDE,
+		Faction::Alliance => GY_ALLIANCE,
+	};
+	// The Spirit Healers' spawns in world yards: (c, wx, wy, map, npc).
+	let mut healers: Vec<(i64, f64, f64, u32, u32)> = Vec::new();
+	for n in d.npcs.values() {
+		if !n.roles.as_deref().unwrap_or(&[]).iter().any(|r| r == "spirithealer") {
+			continue;
+		}
+		for (&map, sp) in &n.spawns {
+			if !b.allowed_map(map) {
+				continue;
+			}
+			for p in sp.pts.iter().filter(|p| p.len() >= 2) {
+				let (c, wx, wy) = b.to_world(map, p[0], p[1], sp.f.as_deref() == Some("l"));
+				healers.push((c, wx, wy, map, n.id));
+			}
+		}
+	}
+	let mut out = Vec::new();
+	for (&id, (map, x, y, z, name)) in &src.locs {
+		let c = *map as i64;
+		let mut maps: Vec<u32> = Vec::new();
+		for l in src.links.iter().filter(|l| l[0] == f64::from(id) && (l[2] == 0.0 || l[2] == team)) {
+			maps.extend(d.zones.values().filter(|zn| zn.area_id == Some(l[1]) && b.allowed_map(zn.id)).map(|zn| zn.id));
+		}
+		maps.sort_unstable();
+		maps.dedup();
+		if maps.is_empty() {
+			continue;
+		}
+		let near = healers.iter().filter(|h| h.0 == c).map(|h| (js_hypot(h.1 - x, h.2 - y), *h)).min_by(|a, b| a.0.total_cmp(&b.0));
+		let Some((_, h)) = near.filter(|n| n.0 <= GY_HEALER_YD) else { continue };
+		let pt = b.entity_point(Kind::Npc, h.4, h.0, h.1, h.2, h.3);
+		// "Tirisfal Glades, Brill" -> "Brill" (the place the guide window names).
+		let short = name.split_once(", ").map_or(name.as_str(), |s| s.1).to_string();
+		out.push(Graveyard { id, name: short, pt, loc: (c, round1(*x), round1(*y), round1(*z)), maps });
+	}
+	out
 }
 
 /// JS default sort (UTF-16 code units) for ASCII-ish strings.
@@ -2884,4 +3160,28 @@ fn camps_for(b: &mut Builder, cache: &mut FxHashMap<String, Vec<u32>>, sources: 
 	let ids = build_camps(&placed, &mut Host { b });
 	cache.insert(key, ids.clone());
 	ids
+}
+
+#[cfg(test)]
+mod sea_islands {
+	use super::region_of;
+	use forge_core::Faction;
+
+	#[test]
+	fn sardor_isle_is_its_own_region_for_the_alliance() {
+		let fa = Faction::Alliance;
+		// Feathermoon's flight path, its dock and Feathermoon's 2939 giver (c13 order 1354) on the isle.
+		for (wx, wy) in [(-4373.8, 3338.6), (-4209.4, 3290.6), (-4474.8, 3233.0)] {
+			assert_eq!(region_of(1, 1444, wx, wy, fa), 13, "({wx}, {wy}) on Sardor Isle");
+		}
+		// The Forgotten Coast's dock, Dustwallow (order 1354's walk start), the Isle of Dread and the rock
+		// east of the isle: the mainland region.
+		for (map, wx, wy) in [(1444, -4346.9, 2430.2), (1445, -4348.2, -2608.3), (1444, -5544.1, 3577.2), (1444, -4898.3, 3106.5)] {
+			assert_eq!(region_of(1, map, wx, wy, fa), 10, "({wx}, {wy}) on the mainland");
+		}
+		// The Horde has no dock or flight path there: the isle stays in Kalimdor's region (swum to).
+		assert_eq!(region_of(1, 1444, -4373.8, 3338.6, Faction::Horde), 10);
+		// Teldrassil keeps its map's island.
+		assert_eq!(region_of(1, 1438, 9900.0, 1000.0, fa), 11);
+	}
 }

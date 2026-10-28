@@ -36,6 +36,7 @@ ns.RegisterDefaults("ui", {
 	reduceMotion = false,
 	skin = "polestar", -- "polestar" (the house style, the default) | "halo" | "hearth" | "forever" | "blizzard" | "classic" (Polestar.Theme, "Skins")
 	font = "skin", -- "skin" (the skin's: the game's own font, Fira Sans in Halo) | "game" | "inter" | "fira" (EllesmereUI's while matchFont is on)
+	textSize = 1, -- 0.8..1.4: every text role's size against its own (Theme.FontSpec), apart from the window scale
 	scheme = "dusk", -- "dusk" | "night" | "graphite" | "ellesmere" (Polestar.Theme.SCHEMES)
 	accent = false, -- false: the scheme's (or EllesmereUI's) accent; { r, g, b }: your own
 	bgColor = false, -- false: the scheme's ground; { r, g, b }: your own
@@ -413,14 +414,20 @@ end
 function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
 	if goal.unavailable then return UI.GoalDetail(goal) end
 	local parts = {}
+	-- An accept the game does not confirm says so first (not in the quest
+	-- log; not offered by its giver: report it).
+	if goal.noticeText then parts[#parts + 1] = goal.noticeText end
 	local party = not noParty and UI.GroupLine(goal)
 	if party then parts[#parts + 1] = party end
 	local escort = not noEscort and UI.EscortLine(goal)
 	if escort then parts[#parts + 1] = escort end
 	local starter = UI.StarterLine(goal)
 	if starter then parts[#parts + 1] = starter end
-	-- A hearth goal while the Hearthstone waits: the time left (#576).
+	-- A hearth goal while the Hearthstone waits, or while travelling there
+	-- is about as fast: what to do (#576).
 	if goal.hearthText then parts[#parts + 1] = goal.hearthText end
+	-- A level goal: the XP still to earn.
+	if goal.xpLeft then parts[#parts + 1] = format(L["%s XP to go"], thousands(goal.xpLeft)) end
 	-- A grey accept "Skip grey quests" keeps, and the quest it opens.
 	if goal.keptGreyText and goal.status ~= "skipped" then parts[#parts + 1] = goal.keptGreyText end
 	local source = UI.SourceLine(goal)
@@ -499,7 +506,7 @@ end
 local function barKind(goal)
 	local p = goal.progress
 	if type(p) ~= "table" or type(p.max) ~= "number" or p.max <= 0 then return nil end
-	if p.kind == "skill" or p.kind == "rep" then return p.kind end
+	if p.kind == "skill" or p.kind == "rep" or p.kind == "wait" then return p.kind end
 	if goal.subjectKind == "achievement" then return "count" end
 	return nil
 end
@@ -510,7 +517,7 @@ function UI.GoalProgress(goal)
 	local p = goal.progress
 	if type(p) == "table" and type(p.max) == "number" and p.max > 1 then
 		local kind = barKind(goal)
-		if kind == "skill" or kind == "rep" then return nil end
+		if kind == "skill" or kind == "rep" or kind == "wait" then return nil end
 		return format("%d/%d", p.cur or 0, p.max)
 	end
 	return nil
@@ -527,6 +534,11 @@ function UI.GoalBar(goal)
 	local frac = (p.cur or 0) / p.max
 	if frac < 0 then frac = 0 elseif frac > 1 then frac = 1 end
 	if kind == "count" then return frac, nil end
+	-- A `wait`: the time left, draining from full.
+	if kind == "wait" then
+		local left = math.max(0, p.cur or 0)
+		return frac, format(L["%d:%02d left"], math.floor(left / 60), left % 60)
+	end
 	local name = p.label
 	if name and kind == "skill" and goal.text and goal.text:find(name, 1, true) then name = nil end
 	local numbers = format("%d/%d", p.cur or 0, p.max)

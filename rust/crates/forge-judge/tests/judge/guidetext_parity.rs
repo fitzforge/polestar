@@ -59,9 +59,13 @@ fn goal(v: &Value) -> WalkGoal {
 		time: v["time"].as_f64().unwrap(),
 		lvl_after: v["lvlAfter"].as_f64().unwrap(),
 		time_after: v["timeAfter"].as_f64().unwrap(),
+		grind: f64::NAN,
 		pos: None,
 		along: None,
 		label: None,
+		item: None,
+		spots: Vec::new(),
+		class: false,
 	}
 }
 

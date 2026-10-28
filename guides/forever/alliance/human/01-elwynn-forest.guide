@@ -98,9 +98,12 @@ next forever/alliance/02-westfall
 #   Sternblade in Northshire; Josephine Carson's three Taming the Beast
 #   quests (94792, 94863, 94864: Tame Beast) and Training the Beast (94793,
 #   Isaac Chan: Beast Training), all around Goldshire.
-# - Paladin: Tome of Divinity (2998, Brother Wilhelm) through Henze Faulk by
-#   Stone Cairn Lake to Redemption (1788): a trip to Stormwind and east
-#   Elwynn before Westfall.
+# - Paladin: The Tome of Divinity is level 12, and Elwynn ends below 12: it
+#   starts from Duthorian Rall (1641) at the Stormwind stop of 02-westfall,
+#   not from Brother Wilhelm's breadcrumb (2998), which would send Paladins
+#   back to Goldshire from Stormwind. Henze Faulk (1786, 1787) is done on the
+#   road east through Elwynn (04-redridge-mountains) and Redemption (1788)
+#   at the Stormwind stop of 05-duskwood.
 # - Priest: Desperate Prayer (5635) and Divine Grace (94774) from Priestess
 #   Josetta, handed in at the Cathedral of Light (02-westfall).
 #   Forever rewords Desperate Prayer to name High Priest Rohan in Ironforge;
@@ -284,7 +287,8 @@ step Jason Mathers
 
 step Goldshire
   tip Tomas cooks in the inn's kitchen.
-  complete 96626 @44.4,66.0                   -- Speak with Tomas
+  train Cooking npc 1430                      -- Tomas: Camping 101 asks you to learn it
+  complete 96626 @44.4,66.0
   turnin 96626                                -- Tomas
   turnin 99129                                -- Remy "Two Times"
   accept 99130
@@ -539,7 +543,6 @@ step The Tower of Azora
 step Goldshire
   tip Follow the road west back to Goldshire.
   accept 1685 only Warlock                    -- Remen Marcot: Gakin the Darkbinder in Stormwind takes it
-  accept 2998 only Paladin                    -- Brother Wilhelm: Duthorian Rall in Stormwind takes it
   accept 5635 only Priest                     -- Priestess Josetta: High Priestess Laurena in Stormwind takes both
   accept 94774 only Priest
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it
@@ -577,7 +580,7 @@ step Mirror Lake
   tip Leave Stormwind by the main gate. The Mirror Lake waterfall is south-west of the gates, on the way west to Westfall: fill Jennea's Flask at its base.
   collect 7206 quest 1861.1                   -- Mirror Lake Water Sample
 
-# ---------------------------------------------------------------- Warlocks and Paladins: Stormwind and east Elwynn
+# ---------------------------------------------------------------- Warlocks: Stormwind and east Elwynn
 
 step Gakin the Darkbinder
   only Warlock
@@ -600,41 +603,6 @@ step The Binding
   accept 1689
   complete 1689                               -- Subdue the voidwalker
   turnin 1689                                 -- Summon Voidwalker
-
-step The Tome of Divinity
-  only Paladin
-  zone Stormwind City
-  tip Follow the road north from Goldshire into Stormwind. Duthorian Rall and Gazin Tenorm are in the Cathedral of Light; Stephanie Turner stands in Old Town and asks for ten Linen Cloth (humanoids drop it; the Auction House sells it).
-  turnin 2998                                 -- Duthorian Rall
-  accept 1642                                 -- From the Tome of Divinity he gives you
-  turnin 1642
-  accept 1643
-  turnin 1643                                 -- Stephanie Turner, Old Town
-  accept 1644
-  collect 2589 quest 1644.1                   -- Linen Cloth
-  turnin 1644
-  accept 1780
-  turnin 1780                                 -- Duthorian Rall
-  accept 1781
-  turnin 1781                                 -- Gazin Tenorm
-  accept 1786
-
-step Henze Faulk
-  only Paladin
-  zone Elwynn Forest
-  tip Head back out through Goldshire and east to Stone Cairn Lake. Henze Faulk lies south of the lake: use the Symbol of Life on him. The Defias Rogue Wizards around him carry the Defias Script.
-  complete 1786 @72.6,51.41                   -- Use the Symbol of Life on Henze Faulk
-  turnin 1786                                 -- Henze Faulk
-  accept 1787
-  collect 6846 quest 1787.1                   -- Defias Script: Defias Rogue Wizards
-
-step Gazin Tenorm
-  only Paladin
-  zone Stormwind City
-  tip Back to the Cathedral of Light.
-  turnin 1787                                 -- Gazin Tenorm
-  accept 1788
-  turnin 1788                                 -- Duthorian Rall: Redemption
 
 # ---------------------------------------------------------------- To Westfall
 

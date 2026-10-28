@@ -38,31 +38,80 @@ pub fn join_point(o: &Order, goals: &[Goal]) -> usize {
 	o.origin.iter().rposition(|&g| g >= 0 && goals.get(g as usize).is_some_and(|x| !shared_guide(&x.guide))).map_or(0, |i| i + 1)
 }
 
-/// The guide after which a faction's starts share one route. Horde: horde/02-the-barrens (Orc and
-/// Troll play the early Barrens quests in their own orc-troll/02-the-barrens, the others inside the
-/// shared guide). Alliance: alliance/02-westfall (Human plays part of Westfall's quests from its own
-/// Elwynn guide, the others inside the shared Westfall guide). A tail that began before that guide
-/// would leave the others' quests of it out (RsSim.md "horde shared", "forge all-10"); each start
-/// keeps its own order of it.
-pub fn join_after(f: forge_core::Faction) -> Option<&'static str> {
+/// Where a faction's starts begin to share one route: the first guide of the shared start zone,
+/// by its file name in any folder of the faction (Fitz, 2026-10-25: each race's own start zone 1-12,
+/// Skyborne to about 15, then one Horde route and one Alliance route 12-60). Horde: the Barrens
+/// (`02-the-barrens`: Orc and Troll's own orc-troll/02-the-barrens and the others' shared
+/// horde/02-the-barrens alike); Alliance: Westfall (`02-westfall`). The shared tail orders every
+/// Barrens (Westfall) quest for everyone; a start's own quests of it the canonical tail lacks are
+/// put back (keep_own_rest).
+pub fn join_at(f: forge_core::Faction) -> Option<&'static str> {
 	match f {
-		forge_core::Faction::Horde => Some("horde/02-the-barrens"),
-		forge_core::Faction::Alliance => Some("alliance/02-westfall"),
+		forge_core::Faction::Horde => Some("02-the-barrens"),
+		forge_core::Faction::Alliance => Some("02-westfall"),
 	}
 }
 
-/// Where an order joins its faction's shared route: after its last step from the `join_after`
-/// guide (the start's own order of it kept), or, without one or when the order has no step
-/// from it, at join_point.
-pub fn join_index(o: &Order, goals: &[Goal], join_after: Option<&str>) -> usize {
-	join_after.and_then(|g| o.origin.iter().rposition(|&x| x >= 0 && goals.get(x as usize).is_some_and(|y| y.guide.ends_with(g)))).map_or_else(|| join_point(o, goals), |i| i + 1)
+/// Whether a goal's guide is the shared start zone's (`join_at`: its file name, any folder).
+fn at_join(guide: &str, stem: &str) -> bool {
+	guide.rsplit('/').next() == Some(stem)
 }
 
-/// The last goal (index) of a start's own part: its last goal from the `join_after` guide, or,
-/// without one or when no goal is from it, its last goal from its own race guides; -1: none.
-pub fn join_goal(goals: &[Goal], join_after: Option<&str>) -> i64 {
+/// Shared guides a start plays in its own part, before its join (by file stem, any folder; Fitz,
+/// 2026-10-27): Night Elves do Darkshore to about 14 with Teldrassil (the seven quests open at
+/// Auberdine at 11.5), then join the Alliance route at Westfall, with no return to Darkshore at 15.
+/// The shared tail keeps Darkshore for the other starts.
+pub fn own_guides(race: &str) -> &'static [&'static str] {
+	match race {
+		"NightElf" => &["03-darkshore"],
+		_ => &[],
+	}
+}
+
+/// Whether a goal's guide is one of `stems` (own_guides).
+pub fn in_guides(guide: &str, stems: &[&str]) -> bool {
+	stems.iter().any(|s| at_join(guide, s))
+}
+
+/// A start's goal stream (a `{"goals": [...]}` document) with the goals of its own shared guides
+/// (own_guides) moved right before its first goal from the `join_at` guide, in their order, every
+/// goal's `i` numbered again: its own part (split_at_join, join_goal) then holds them.
+pub fn with_own_guides(doc: &serde_json::Value, race: &str, join_at: Option<&str>) -> serde_json::Value {
+	let stems = own_guides(race);
+	let (Some(goals), Some(stem)) = (doc["goals"].as_array(), join_at) else { return doc.clone() };
+	let guide = |g: &serde_json::Value| g["guide"].as_str().unwrap_or("").to_string();
+	let Some(first) = goals.iter().position(|g| at_join(&guide(g), stem)) else { return doc.clone() };
+	if stems.is_empty() {
+		return doc.clone();
+	}
+	let moved: Vec<serde_json::Value> = goals[first..].iter().filter(|g| in_guides(&guide(g), stems)).cloned().collect();
+	let mut out: Vec<serde_json::Value> = goals[..first].to_vec();
+	out.extend(moved);
+	out.extend(goals[first..].iter().filter(|g| !in_guides(&guide(g), stems)).cloned());
+	for (i, g) in out.iter_mut().enumerate() {
+		g["i"] = serde_json::json!(i);
+	}
+	let mut d = doc.clone();
+	d["goals"] = serde_json::Value::Array(out);
+	d
+}
+
+/// Where an order joins its faction's shared route: before its first step from the `join_at`
+/// guide (by goal, as split_at_join), or, without one or when the order has no step from it, at
+/// join_point.
+pub fn join_index(o: &Order, goals: &[Goal], join_at: Option<&str>) -> usize {
+	match join_at.and_then(|g| goals.iter().position(|x| at_join(&x.guide, g))) {
+		Some(first) => o.origin.iter().position(|&x| x >= first as i64).unwrap_or(o.len()),
+		None => join_point(o, goals),
+	}
+}
+
+/// The last goal (index) of a start's own part: the goal before its first goal from the `join_at`
+/// guide, or, without one or when no goal is from it, its last goal from its own race guides; -1:
+/// none.
+pub fn join_goal(goals: &[Goal], join_at: Option<&str>) -> i64 {
 	let own = || goals.iter().rposition(|x| !shared_guide(&x.guide)).map_or(-1, |i| i as i64);
-	join_after.and_then(|g| goals.iter().rposition(|x| x.guide.ends_with(g))).map_or_else(own, |i| i as i64)
+	join_at.and_then(|g| goals.iter().position(|x| at_join(&x.guide, g))).map_or_else(own, |i| i as i64 - 1)
 }
 
 /// An order split at its start's join goal `jg`: the steps from goals up to `jg`, then the steps
@@ -84,31 +133,80 @@ pub fn split_at_join(o: &Order, jg: i64) -> (Order, Order) {
 }
 
 /// The steps of a start's own rest (its own cut after the join) that its shared route lacks (its
-/// own quests the canonical tail does not take: a guide line `only <race>`), put back: each after
-/// the shared route's step that came before it in the own cut (or at the join). Without them the
-/// start would lose its own quests of the shared guides.
-pub fn keep_own_rest(route: &mut Order, join: usize, own_rest: &Order) -> usize {
+/// own quests the canonical tail does not take: a guide line `only <race>`), put back: each where
+/// it adds the least straight-line detour (`dist` between run points), after the join and after the
+/// steps of its quest already placed (an accept before its tasks before its turn-in). Without them
+/// the start would lose its own quests of the shared guides.
+pub fn keep_own_rest(route: &mut Order, join: usize, own_rest: &Order, dist: &dyn Fn(u32, u32) -> f64) -> usize {
 	let key = |s: &crate::Step| (s.kind, s.q, s.task);
 	let quest = |s: &crate::Step| matches!(s.kind, crate::run::K_ACCEPT | crate::run::K_TASK | crate::run::K_TURNIN);
-	let have: rustc_hash::FxHashSet<(u8, u32, i32)> = route.steps[join..].iter().filter(|s| quest(s)).map(key).collect();
-	let mut at = join;
+	let have: rustc_hash::FxHashSet<(u8, u32, i32)> = route.steps[join..].iter().filter(|s| quest(s) || s.kind == crate::run::K_RIDE).map(key).collect();
 	let mut put = 0;
-	for (s, &g) in own_rest.steps.iter().zip(&own_rest.origin) {
-		if !quest(s) {
+	let mut last_put = join;
+	for (k, (s, &g)) in own_rest.steps.iter().zip(&own_rest.origin).enumerate() {
+		// (Its riding step too: the canonical start's trainer is not its own.)
+		if !(quest(s) || s.kind == crate::run::K_RIDE) || have.contains(&key(s)) {
 			continue;
 		}
-		if have.contains(&key(s)) {
-			if let Some(i) = route.steps[at..].iter().position(|x| key(x) == key(s)) {
-				at += i + 1;
+		// After the join and after the steps of this quest already in the route; between the shared
+		// steps the start's own cut does around it (Welcome to Azeroth handed to Thrall at the
+		// Orgrimmar visit of ~13, not at the last one, so Exploring the Horde follows it, #532).
+		let at_of = |x: &crate::Step| route.steps[join..].iter().position(|y| key(y) == key(x)).map(|i| i + join);
+		let before = own_rest.steps[..k].iter().rev().filter(|x| quest(x) && have.contains(&key(x))).find_map(at_of);
+		let after = own_rest.steps[k + 1..].iter().filter(|x| quest(x) && have.contains(&key(x))).find_map(at_of);
+		// (And after the own steps put back before it: their order is the own cut's, so Exploring the
+		// Horde's accept stays after Welcome to Azeroth's hand-in, #532.)
+		let from = route.steps.iter().rposition(|x| quest(s) && quest(x) && x.q == s.q).map_or(join, |i| i + 1).max(join).max(before.map_or(join, |b| b + 1)).max(last_put);
+		let to = after.unwrap_or(route.steps.len()).max(from);
+		let pt = |i: usize| route.steps.get(i).filter(|x| x.kind != crate::run::K_GRIND).map(|x| x.pt);
+		let cost = |i: usize| {
+			let prev = (0..i).rev().find_map(pt);
+			let next = (i..route.steps.len()).find_map(pt);
+			match (prev, next) {
+				(Some(a), Some(b)) => dist(a, s.pt) + dist(s.pt, b) - dist(a, b),
+				(Some(a), None) => dist(a, s.pt),
+				(None, Some(b)) => dist(s.pt, b),
+				_ => 0.0,
 			}
-			continue;
-		}
+		};
+		let at = (from..=to).min_by(|&a, &b| cost(a).total_cmp(&cost(b))).unwrap_or(from);
 		route.steps.insert(at, *s);
 		route.origin.insert(at, g);
-		at += 1;
+		last_put = at + 1;
 		put += 1;
 	}
 	put
+}
+
+/// The tail steps of a start's shared route that come from the canonical start's guide lines
+/// (origins `offset` + canonical goal index) take the start's own line of the same goal (type,
+/// quest, objective) when its own chain has one at or after its join and not yet used: the route's
+/// `from` then names a line of a guide the start plays (c11: Tauren's tail named Orc and Troll's
+/// orc-troll/02-the-barrens lines, which no Tauren guide has, so the writer could not place them).
+/// Returns how many it changed.
+pub fn own_lines(route: &mut Order, join: usize, own_goals: &[Goal], own_join_goal: i64, canon: &[Goal], offset: i64) -> usize {
+	let key = |g: &Goal| (g.t.clone(), g.q, g.oi);
+	let mut used: rustc_hash::FxHashSet<usize> = route.origin.iter().filter(|&&g| g >= 0 && g < offset).map(|&g| g as usize).collect();
+	let mut free: rustc_hash::FxHashMap<(String, Option<u32>, Option<i64>), Vec<usize>> = rustc_hash::FxHashMap::default();
+	for (i, g) in own_goals.iter().enumerate().rev() {
+		if i as i64 > own_join_goal && g.q.is_some() && !used.contains(&i) {
+			free.entry(key(g)).or_default().push(i);
+		}
+	}
+	let mut n = 0;
+	for k in join..route.len() {
+		let g = route.origin[k];
+		if g < offset {
+			continue;
+		}
+		let Some(cg) = canon.get((g - offset) as usize) else { continue };
+		if let Some(i) = free.get_mut(&key(cg)).and_then(Vec::pop) {
+			used.insert(i);
+			route.origin[k] = i as i64;
+			n += 1;
+		}
+	}
+	n
 }
 
 /// A start's shared route: its own order to `join`, then the canonical tail; `map` takes the
@@ -196,11 +294,11 @@ pub fn shared_route(
 		let m = &models[k][AVG];
 		let mut ev = m.evaluator(walks);
 		let extra = crate::order::overrides_for(&m.run, &crate::order::overrides_doc()).pairs;
-		let seed = crate::order::keep_pairs(&seed_order(&mut ev, &s.events, true), &extra);
+		let seed = crate::order::keep_pairs(&seed_order(&mut ev, &s.events, true), &extra, &|f, x| crate::order::follows(&m.run, f, x));
 		let pairs = deliberate_pairs(&m.run).into_iter().chain(extra).collect();
 		let mut p = Problem::single(m, walks, pairs, eligible(world, m, &rules[k], &seed, judge));
 		p.guard = guard_for(world, m, &rules[k], &seed, walks, judge);
-		let out = search(&p, &seed, own_opts);
+		let out = search(&p, &seed, own_opts, None);
 		let best = clean(&mut ev, &out.best);
 		joins.push(join_point(&best, &s.goals));
 		seeds.push(seed);
@@ -237,7 +335,7 @@ pub fn shared_route(
 		log_bound: u32::MAX,
 	};
 	let seed_sum: f64 = runs(&p, &u0).iter().map(|c| c.total).sum();
-	let out = search(&p, &u0, opts);
+	let out = search(&p, &u0, opts, None);
 	let best_runs = runs(&p, &out.best);
 	let best_sum: f64 = best_runs.iter().map(|c| c.total).sum();
 	let mut rows = Vec::new();

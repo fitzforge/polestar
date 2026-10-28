@@ -85,7 +85,7 @@ fn work(v: &Value) -> R<Work> {
 
 fn task(v: &Value) -> R<Task> {
 	let m = obj(v, "task")?;
-	Ok(Task { pt: u(get(m, "pt"), "task.pt")?, work: arr(get(m, "work"), "task.work")?.iter().map(work).collect::<R<_>>()? })
+	Ok(Task { pt: u(get(m, "pt"), "task.pt")?, work: arr(get(m, "work"), "task.work")?.iter().map(work).collect::<R<_>>()?, alts: u32s(m.get("alts"), "task.alts")? })
 }
 
 fn pos(v: &Value) -> R<Option<Pos>> {
@@ -442,6 +442,24 @@ impl World {
 				})
 			})
 			.collect::<R<_>>()?;
+		let graveyards = match w.get("graveyards") {
+			None | Some(Value::Null) => Vec::new(),
+			Some(x) => arr(x, "graveyards")?
+				.iter()
+				.map(|x| {
+					let x = obj(x, "graveyard")?;
+					let l = arr(get(x, "loc"), "graveyard.loc")?;
+					let lf = |k: usize| l.get(k).and_then(Value::as_f64).unwrap_or(f64::NAN);
+					Ok(Graveyard {
+						id: u(get(x, "id"), "graveyard.id")?,
+						name: s(get(x, "name"), "graveyard.name")?,
+						pt: u(get(x, "pt"), "graveyard.pt")?,
+						loc: (i(l.first().unwrap_or(&Value::Null), "graveyard.loc")?, lf(1), lf(2), lf(3)),
+						maps: u32s(x.get("maps"), "graveyard.maps")?,
+					})
+				})
+				.collect::<R<_>>()?,
+		};
 		let starts = obj(get(w, "starts"), "starts")?
 			.iter()
 			.map(|(race, x)| {
@@ -481,6 +499,7 @@ impl World {
 			grind_spacing,
 			zone_min,
 			danger,
+			graveyards,
 			starts,
 			zones,
 			warnings: arr(get(w, "warnings"), "warnings")?.iter().map(|x| s(x, "warnings")).collect::<R<_>>()?,

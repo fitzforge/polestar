@@ -44,7 +44,7 @@ pub const PRIORS: &[(&str, f64, f64, f64, f64, &str)] = &[
     ("hearthCast", 10.0, 0.0, 10.0, 10.0, "hearthstone cast, seconds"),
     ("hearthCooldown", 3600.0, 0.0, 1800.0, 3600.0, "hearthstone cooldown, seconds"),
     ("deathskipSec", 60.0, 20.0, 30.0, 120.0, "deathskip (die on purpose, release, Spirit Healer), seconds: an estimate, ~30 s pulling mobs to die to plus the healer's ~30 s (v2 travel2.js SPIRIT_HEAL_SEC)"),
-    ("deathskipLevel", 60.0, 0.0, 0.0, 60.0, "policy: highest level a route deathskips at (CapAudit #5: any level; above 10 resurrection sickness is priced as slower kills, sicknessSlow; was 10, Forever's last level without sickness)"),
+    ("deathskipLevel", 10.0, 0.0, 0.0, 60.0, "policy: highest level a route deathskips at (10: Forever's last level without resurrection sickness, so a deathskip costs none; raised, each second of sickness above 10 is priced as slower kills, sicknessSlow)"),
     ("sicknessSlow", 0.5, 0.2, 0.2, 1.0, "v2: share of each second of resurrection sickness spent working that is lost to slower kills (the debuff cuts stats; walking, flights and talks lose nothing), an estimate"),
     ("levelOverhead", 60.0, 40.0, 0.0, 300.0, "seconds per level-up: training, vendoring, repairs"),
     ("grindEff", 0.7, 0.12, 0.35, 1.1, "grinding XP rate / formula rate at the best site (respawns, competition, bag trips)"),

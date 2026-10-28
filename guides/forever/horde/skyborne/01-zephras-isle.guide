@@ -54,14 +54,17 @@ next forever/horde/02-the-barrens
 #   town, and the next guide would otherwise be the first training since 6.
 #
 # Class quests on the isle:
-# - Shaman: Call of Earth (92466-92468) from Windshaper Boro at 4; the Signet
-#   of Akir drops from the Al'Aketh by Hanaa's camp, the Minor Manifestation
-#   of Earth is at the Rise of Spirits east of the village. Call of Fire
-#   (97243-97257, Searing Totem, the Fire Totem and the Totem of Charged
-#   Flames) at about 12: Sessaria Skystride in Valanaar, Olariaan Swiftburn
-#   at the Shrine of Flames,
-#   Skypriest Faladiel west of the falls, Kuramaa in the Shen'dar Highlands,
-#   then the Eternal Flame run back to Valanaar. The Barrens Call of Fire
+# - Shaman: Call of Earth (92466-92468) from Windshaper Boro at the level 4
+#   turn-ins; the Signet of Akir drops from the Al'Aketh in Hanaa's camp (in
+#   Hanaa's step), the Minor Manifestation of Earth is at the Rise of Spirits
+#   east of the village (in the step that leaves the village, beside Boro).
+#   Call of Fire (97243-97257, Searing Totem, the Fire Totem and the Totem of
+#   Charged Flames): Sessaria Skystride stands beside Ayessa, taken at about
+#   10 with Ayessa's hand-ins; Olariaan Swiftburn's Shrine of Flames is just
+#   south-east of Windfield Orchard (on the orchard visit); Skypriest Faladiel
+#   is on the hill just north of the East Pylon Watchtower (on that visit);
+#   then Olariaan, Kuramaa in the Shen'dar Highlands and the Eternal Flame
+#   run back to Valanaar after the turncoat. The Barrens Call of Fire
 #   (1524-1527) is not taken.
 # - Druid: The Great Ursera Spirit / Strength and Mercy (94006, 94638, Bear
 #   Form): Lotheluum in Valanaar, Urs'endris by the falls north of the East
@@ -72,19 +75,20 @@ next forever/horde/02-the-barrens
 #   data has no Skyborne Aquatic Form quest; the Tauren one (27-31) is not
 #   offered to Skyborne.
 # - Warrior: The Skybreaker Bulwark (94003, Defensive Stance): Seena
-#   Skybreaker in Valanaar, Zaal Stormshield at the Shrine of Akir.
+#   Skybreaker stands beside Riaani (taken there, at 10), Zaal Stormshield
+#   at the Shrine of Akir.
 # - Hunter: Taming the Beast (94978, 94979, 94013) and Training the Beast
 #   (94050) with Quel'ana Quickgale in Valanaar: a Windsong Crawler by the
 #   lakes north-west of town, a Vuldren Alpha at the orchard, an Ornery
 #   Galestrider in the fields west of town, done after the orchard.
 # - Class letters at 2: once Harmony in Balance (92461) is turned in, Rorian
-#   gives each class its trainer quest, handed in with the level 4 turn-ins
-#   in the village, just before training (nothing to learn before then):
-#   The Warrior's Path (92532) to Blademaster Ren in the
-#   watchtower; The Way of the Hunter (92482) to Tai'ree Farsight; Embracing
-#   the Elements (92484) to Windshaper Boro; A Student of Nature (92485) to
-#   Xyton Silverwind. Rogue: At Home in the Shadows (92483): Rorian to Akeri
-#   Duskblade in the watchtower, at the level 4 turn-ins (no spell).
+#   gives each class its trainer quest. Tai'ree Farsight, Windshaper Boro and
+#   Xyton Silverwind stand beside him: The Way of the Hunter (92482),
+#   Embracing the Elements (92484) and A Student of Nature (92485) are handed
+#   in at once, and Shamans and Druids train there (their trainers teach a
+#   first spell at 1). The Warrior's Path (92532, Blademaster Ren) and At Home
+#   in the Shadows (92483, Akeri Duskblade) go to the watchtower at the
+#   level 4 turn-ins.
 #
 # Added: The Earthen Ring (95349). The export accepts it but never turns it
 # in; its ender, Alaana Stormwalker, stands where the airship lands, so it is
@@ -138,6 +142,11 @@ step Rorian's errands
   accept 92482 only Hunter            -- Rorian the Dayseeker: a note from your trainer
   accept 92484 only Shaman            -- Rorian: examine the Humming Recall Crystal
   accept 92485 only Druid             -- Rorian: A Student of Nature
+  accept 92483 only Rogue             -- Rorian the Dayseeker: read the Simple Note
+  turnin 92482 only Hunter            -- Tai'ree Farsight, beside Rorian
+  turnin 92484 only Shaman            -- Windshaper Boro, beside Rorian
+  turnin 92485 only Druid             -- Xyton Silverwind, the druid trainer, on the ground floor of the tree behind Rorian
+  train class only Shaman,Druid       -- Boro and Xyton, while you stand beside them
   accept 93552                        -- Dalia the Collector
   accept 92598                        -- Ventaari Brightwish
 
@@ -166,23 +175,15 @@ step Thendal Village turn-ins
   turnin 92463                        -- Elatrell Featherlight
   turnin 92598                        -- Ventaari Brightwish
   turnin 92469                        -- Rorian the Dayseeker
-  accept 92483 only Rogue             -- Rorian the Dayseeker: read the Simple Note
   turnin 92483 only Rogue             -- Akeri Duskblade, in the watchtower
   turnin 92532 only Warrior           -- Blademaster Ren, in the watchtower
-  turnin 92482 only Hunter            -- Tai'ree Farsight
-  turnin 92484 only Shaman            -- Windshaper Boro, at the village centre
-  turnin 92485 only Druid             -- Xyton Silverwind, the druid trainer, on the ground floor of the tree behind Rorian
   level 4
   accept 92471
   turnin 92471                        -- Aetheen of the Gales
   accept 92470
   accept 92473                        -- Valreaa Valewind
   train class
-
-step Windshaper Boro
-  only Shaman
-  tip Windshaper Boro stands in the village.
-  accept 92466                        -- Windshaper Boro
+  accept 92466 only Shaman            -- Windshaper Boro: Call of Earth
 
 step Scrawny Ursera
   tip Scrawny Ursera prowl the slopes south-west of the village, on the way to Hanaa.
@@ -194,12 +195,8 @@ step Hanaa Nightwind
   kill 251145 quest 92544.1
   kill 251448 quest 92544.2
   kill 256935 quest 92544.3
+  collect 251924 quest 92466.1 only Shaman -- Signet of Akir: the Al'Aketh in Hanaa's camp carry it
   turnin 92544
-
-step Signet of Akir
-  only Shaman
-  tip The Al'Aketh cultists in the camp beyond Hanaa carry the signet.
-  collect 251924 quest 92466.1
 
 step Urs'anah
   tip The Ursera den is west of the village. Urs'anah, their matriarch, sits at its far end.
@@ -212,15 +209,11 @@ step Leaving Thendal Village
   accept 92472
   accept 96638
   train class
-
-step Call of Earth
-  only Shaman
-  tip Windshaper Boro sends you to the Rise of Spirits, just east of the village: drink the Earth Sapta there to see the Minor Manifestation of Earth, then take the Rough Quartz back to him.
-  turnin 92466                        -- Windshaper Boro
-  accept 92467
-  turnin 92467                        -- Minor Manifestation of Earth
-  accept 92468
-  turnin 92468                        -- Windshaper Boro: Stoneskin Totem and your Earth Totem
+  turnin 92466 only Shaman            -- Windshaper Boro
+  accept 92467 only Shaman
+  turnin 92467 only Shaman            -- drink the Earth Sapta at the Rise of Spirits, just east of the village, to see the Minor Manifestation of Earth
+  accept 92468 only Shaman
+  turnin 92468 only Shaman            -- Windshaper Boro: Stoneskin Totem and your Earth Totem
 
 # ---------------------------------------------------------------- Shen'dar Village
 
@@ -236,11 +229,12 @@ step Shen'dar Village
   accept 96101                        -- Raan Wildwind
 
 step Raan's campfire
-  tip Sit by Raan's campfire (type /sit) until you get the Boosted Rest buff, then find Zerril Softbreeze at the cook fire.
+  tip Sit by Raan's campfire (type /sit) until you get the Boosted Rest buff, then learn Cooking from Zerril Softbreeze at the cook fire.
   complete 96101 @41.73,44.78         -- /sit by Raan's campfire until you get Boosted Rest
   turnin 96101                        -- Raan Wildwind
   accept 96646
-  complete 96646 @43.85,43.9          -- talk to Zerril Softbreeze
+  train Cooking npc 251905            -- Zerril Softbreeze: Camping 101 asks you to learn it
+  complete 96646 @43.85,43.9
   turnin 96646                        -- Zerril Softbreeze
 
 step Welcome to Shen'dar Village
@@ -369,6 +363,7 @@ step Ayessa Dawnsinger
   accept 93735
   complete 92708 @59.15,79.73         -- talk to Ayessa Dawnsinger
   turnin 92708
+  accept 97243 only Shaman            -- Sessaria Skystride, beside Ayessa: Call of Fire
   accept 93736                        -- Endaria Mistgaze
 
 step Riaani Nightwind
@@ -376,6 +371,7 @@ step Riaani Nightwind
   turnin 93735
   accept 93737
   kill 256083 quest 93737.1 "Listen to Riaani Nightwind"
+  accept 94003 only Warrior           -- Seena Skybreaker, beside Riaani: The Skybreaker Bulwark
 
 step Wind Hollows and Construct Parts
   tip Wind Hollows drift over the lowlands around Valanaar. The first Construct Parts lie west of the orchard road.
@@ -402,6 +398,8 @@ step The orchard
   collect 253595 quest 92683.1
   collect 253597 quest 92684.1
   accept 92698                        -- Malfunctioning Cyclone Construct
+  turnin 97243 only Shaman            -- Olariaan Swiftburn, at the Shrine of Flames just south-east of the orchard
+  accept 97244 only Shaman
 
 step Aamelia Windfield
   turnin 92682
@@ -476,6 +474,7 @@ step The East Pylon Watchtower
   kill 270201 quest 92642.2
   kill 252666 quest 92645.1
   collect 255658 quest 93740.1
+  collect 277267 quest 97244.1 only Shaman -- Skypriest Faladiel, on the hill west of the falls just north of the watchtower
   turnin 92642
   turnin 92645
   accept 92880
@@ -497,16 +496,6 @@ step Back to Valanaar
   accept 92643
   train class
 
-step The Skybreaker Bulwark
-  only Warrior
-  tip Seena Skybreaker stands in the middle of Valanaar.
-  accept 94003                        -- Seena Skybreaker
-
-step Sessaria Skystride
-  only Shaman
-  tip Sessaria Skystride stands on Valanaar's west side.
-  accept 97243                        -- Sessaria Skystride
-
 # ---------------------------------------------------------------- The turncoat
 
 step The turncoat
@@ -523,20 +512,9 @@ step Ur'endra
   tip Ur'endra roams the slopes just south of the turncoat's house.
   kill 258443 quest 94638.1
 
-step Olariaan Swiftburn
-  only Shaman
-  tip Take the Torch of Dormant Flame to Olariaan Swiftburn at the Shrine of Flames, south-west of Valanaar in the Gustberry Lowlands.
-  turnin 97243                        -- Olariaan Swiftburn
-  accept 97244
-
-step Skypriest Faladiel
-  only Shaman
-  tip Faladiel stands on the hill west of the falls, north of Valanaar.
-  collect 277267 quest 97244.1
-
 step Kuramaa
   only Shaman
-  tip Back to Olariaan, then west into the Shen'dar Highlands: Kuramaa's home is in the hills south of the Windsong Crawlers' lakes.
+  tip Take Faladiel's Heart to Olariaan at the Shrine of Flames, south-west of Valanaar, then head west into the Shen'dar Highlands: Kuramaa's home is in the hills south of the Windsong Crawlers' lakes.
   turnin 97244                        -- Olariaan Swiftburn
   accept 97245
   collect 277269 quest 97245.1

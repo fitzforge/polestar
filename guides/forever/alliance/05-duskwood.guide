@@ -45,6 +45,9 @@ next forever/alliance/06-ashenvale
 # (2607-2609, Doc Mixilpixil in the Barracks cellar; Wildflowers, a Leaded
 # Vial and a Bronze Tube from Stormwind vendors, the thread in the city),
 # 1,305 XP without leaving Stormwind.
+# Human Paladins hand the Defias Script (1787, from Henze Faulk in
+# 04-redridge-mountains) to Gazin Tenorm at the Stormwind stop and learn
+# Redemption from Duthorian Rall (1788).
 #
 # Left out (not in the export): Jitters' Growling Gut and Dusky Crab Cakes
 # (163, 5, 93), Seasoned Wolf Kabobs (90: Cooking), The Weathered Grave chain
@@ -246,6 +249,14 @@ step Stormwind
   zone Stormwind City
   tip Train in Stormwind, north through Elwynn Forest. Then take the boat from Stormwind Harbor to Auberdine.
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 22 and 24 spells
+
+step Gazin Tenorm
+  only Human,Paladin
+  zone Stormwind City
+  tip Gazin Tenorm and Duthorian Rall are in the Cathedral of Light.
+  turnin 1787                                 -- Gazin Tenorm
+  accept 1788
+  turnin 1788                                 -- Duthorian Rall: Redemption
 
 step Shaman training
   only Shaman

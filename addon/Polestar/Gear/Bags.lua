@@ -277,7 +277,7 @@ local function schedule()
 		pending = false
 		Bags.Redraw()
 	end
-	if C_Timer and C_Timer.After then C_Timer.After(REDRAW, run) else run() end
+	if C_Timer and C_Timer.After then ns.After(REDRAW, run) else run() end
 end
 
 ns.On("GEAR_UPDATED", schedule)

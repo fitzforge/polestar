@@ -20,11 +20,12 @@ forge-guide = { path = "../forge-guide", default-features = false }
 forge-nav = { path = "../forge-nav" }
 forge-sim = { path = "../forge-sim", default-features = false }
 rusqlite = { version = "0.37", features = ["bundled"], optional = true }
+rayon = { version = "1", optional = true }
 
 [features]
 default = ["native"]
 # File system access (pack folders, the CLI); the core API takes compiled guides and data.
-native = ["forge-guide/native", "forge-world/native", "dep:rusqlite", "forge-sim/native"]
+native = ["forge-guide/native", "forge-world/native", "dep:rusqlite", "dep:rayon", "forge-sim/native"]
 
 [dev-dependencies]
 bolero = "0.13"

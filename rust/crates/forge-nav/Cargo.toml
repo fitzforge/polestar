@@ -23,7 +23,7 @@ rustc-hash.workspace = true
 forge-core = { path = "../forge-core" }
 forge-world = { path = "../forge-world", optional = true, default-features = false }
 # The AddOns-list translations of the walking maps' part addons (pack: their TOCs).
-forge-guide = { path = "../forge-guide", optional = true, default-features = false }
+forge-guide = { path = "../forge-guide", optional = true }
 cch = { version = "0.3", optional = true }
 memmap2 = { version = "0.9", optional = true }
 flate2 = { version = "1", default-features = false, features = ["zlib-rs"], optional = true }
@@ -34,3 +34,7 @@ sha2 = { version = "0.10", optional = true }
 
 [lints]
 workspace = true
+
+[[example]]
+name = "trail_walks"
+required-features = ["world"]

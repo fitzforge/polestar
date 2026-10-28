@@ -42,8 +42,9 @@ forge <command> --help shows a command's options; forge build --help the build's
 
 const BUILD_HELP: &str = "usage: forge build --out <dir> [--guides <dir>] [--wow <dir>] [--starts all|Orc,Human,...] [--threads N]
                    [--nav grid|leffe|hybrid] [--leffe <dir>] [--checkout <dir>] [--root <checkout>] [--data <dir>]
-                   [--data-root <checkout>] [--walks-from <dir>] [--grid <dir>] [--pack <dir>] [--allow-incomplete]
-                   [--strict] [--until walks]
+                   [--data-root <checkout>] [--walks-from <dir>] [--walk-pairs <file>] [--grid <dir>] [--pack <dir>] [--allow-incomplete]
+                   [--strict] [--until data|walks] [--cut all|knee] [--search edits|free|hybrid] [--tries N] [--members N]
+                   [--no-questie] [--accept-fewer-quests] [--forever-tables saved|client|wago] [--allow-build-mismatch]
 
 Runs the stages grid, data, prepare, world, walks, routes, guides and report into --out. A stage whose
 inputs did not change since the last run (a BLAKE3 key in <out>/.forge/<stage>.key) is skipped.
@@ -65,11 +66,35 @@ inputs did not change since the last run (a BLAKE3 key in <out>/.forge/<stage>.k
   --data         a built data/forever to use instead of the data stage
   --data-root    the checkout the data stage reads its sources from
   --walks-from   a forge output folder whose walk store to start from
+  --walk-pairs   extra walk pairs for the walks stage (default <out>/walks/extra-pairs.json when present:
+                 the legs earlier builds' routes priced with no walk, merged there after each routes stage)
   --grid         a built walking grid (default: built from the client, or $POLESTAR_GRID)
   --pack         the data pack folder (default $POLESTAR_DATA_PACK, else the user's data folder)
   --allow-incomplete   build the grid from an install with missing files (the grid is wrong there)
-  --strict       fail when a fix no longer applies (fixes.md lists them): for release builds
-  --until walks  stop after the walks stage (the walk stores for a data pack: rust/scripts/data-pack.sh)
+  --no-questie   build the data without QuestieDB (about a sixth of the quests fewer); without it the
+                 build stops when no client AddOns folder holds QuestieDB ($WOW_FOREVER_ADDONS names one)
+  --accept-fewer-quests   take a data build with over 5% fewer quests than the previous build's (else
+                 it stops, naming the quests missing by source)
+  --forever-tables   where the data stage reads the Forever client tables, always at the grid's build
+                 (its index.json): saved (default: the copy under data/sources/client-tables/<build>),
+                 client (refresh that copy from the installed client, a Forever product at the grid's
+                 build, then read it) or wago (the wago.tools cache data/sources/wago/<build>)
+  --allow-build-mismatch   take Forever tables of another build than the grid's (the newest saved or
+                 cached, or the installed client's) instead of stopping
+  --strict       fail when a fix no longer applies (fixes.md lists them) or the route check has a
+                 blocker (check.md lists them): for release builds
+  --until        data: stop after the data stage; walks: after the walks stage (the walk stores for a
+                 data pack: rust/scripts/data-pack.sh)
+  --cut          where each route's edit descent is cut: all (default: every edit it found) or knee (the
+                 fewest edits for most of the gain); the route file reports the knee either way
+  --search       how each route is searched: edits (default: the edit descent from the guides' order),
+                 free (random moves, --tries over --members) or hybrid (free, then the edit descent
+                 from its order); the same routes for a given rng whatever --threads
+  --tries        the free search's tries (default 2000000)
+  --members      the free search's members (default 24)
+  --deathskips   price deathskips in the routes (off by default): die near a leg's start and go on from
+                 the graveyard the game resurrects at, where that beats the leg by 30 s, through
+                 level 10; written as `die` steps, which only players with \"Use deathskips\" take
 
 With more than one start of a faction, its routes are one shared route from the join (the Horde after
 horde/02-the-barrens, the Alliance after alliance/02-westfall); each start's own cut is kept in
@@ -98,8 +123,8 @@ game client (forge build --wow <dir>).";
 fn options(cmd: &str) -> (&'static [&'static str], &'static [&'static str]) {
 	match cmd {
 		"build" => (
-			&["--guides", "--out", "--checkout", "--wow", "--data", "--data-root", "--starts", "--nav", "--leffe", "--root", "--walks-from", "--grid", "--pack", "--threads", "--until"],
-			&["--allow-incomplete", "--strict"],
+			&["--guides", "--out", "--checkout", "--wow", "--data", "--data-root", "--starts", "--nav", "--leffe", "--root", "--walks-from", "--grid", "--pack", "--threads", "--until", "--cut", "--search", "--tries", "--members", "--walk-pairs", "--forever-tables"],
+			&["--allow-incomplete", "--strict", "--no-questie", "--accept-fewer-quests", "--allow-build-mismatch", "--deathskips"],
 		),
 		"pack" => (&["--out", "--root", "--walks-from", "--grid"], &[]),
 		_ => (&["--url", "--dest"], &[]),
@@ -247,9 +272,14 @@ fn run(cmd: &str, args: &[String]) -> Result<(), Fail> {
 		leffe: val("--leffe").map(abs),
 		root: if root.is_absolute() { root } else { cwd.join(root) },
 		walks_from: val("--walks-from").map(abs),
+		walk_pairs: val("--walk-pairs").map(abs),
 		grid: val("--grid").map(abs),
 		pack: val("--pack").map(abs),
 		allow_incomplete: args.iter().any(|a| a == "--allow-incomplete"),
+		no_questie: args.iter().any(|a| a == "--no-questie"),
+		accept_fewer_quests: args.iter().any(|a| a == "--accept-fewer-quests"),
+		forever_tables: val("--forever-tables").map_or(Ok(forge::ForeverTables::Saved), |v| forge::ForeverTables::parse(&v)).map_err(Fail::Usage)?,
+		allow_build_mismatch: args.iter().any(|a| a == "--allow-build-mismatch"),
 		strict: args.iter().any(|a| a == "--strict"),
 		threads: match val("--threads") {
 			None => 8,
@@ -257,9 +287,28 @@ fn run(cmd: &str, args: &[String]) -> Result<(), Fail> {
 		},
 		until: match val("--until").as_deref() {
 			None => None,
-			Some("walks") => Some("walks".into()),
-			Some(x) => return Err(Fail::Usage(format!("--until {x}: only walks"))),
+			Some(s @ ("data" | "walks")) => Some(s.into()),
+			Some(x) => return Err(Fail::Usage(format!("--until {x}: data or walks"))),
 		},
+		search: forge_sim::search::SearchOpts::forge(
+			match val("--search").as_deref() {
+				None => forge_sim::search::Mode::Edits,
+				Some(v) => forge_sim::search::Mode::parse(v).ok_or_else(|| Fail::Usage(format!("--search {v}: edits, free or hybrid")))?,
+			},
+			match val("--cut").as_deref() {
+				None => forge_sim::search::edits::Cut::All,
+				Some(v) => forge_sim::search::edits::Cut::parse(v).ok_or_else(|| Fail::Usage(format!("--cut {v}: all or knee")))?,
+			},
+			match val("--tries") {
+				None => None,
+				Some(v) => Some(v.parse().ok().filter(|&n: &u64| n > 0).ok_or_else(|| Fail::Usage(format!("--tries {v}: a positive number")))?),
+			},
+			match val("--members") {
+				None => None,
+				Some(v) => Some(v.parse().ok().filter(|&n: &usize| n > 0).ok_or_else(|| Fail::Usage(format!("--members {v}: a positive number")))?),
+			},
+		),
+		deathskips: args.iter().any(|a| a == "--deathskips"),
 	};
 	if let Some(w) = &o.wow {
 		match forge_gamedata::remember_wow(w) {

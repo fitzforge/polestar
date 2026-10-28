@@ -31,7 +31,7 @@ const COZY: &str = "forever/miscellaneous/cozy-sleeping-bag.guide";
 
 pub fn tests() -> Vec<SeedTest> {
 	vec![
-		(format!("{MULGORE}: Sharing the Land leads to each gnoll objective and resumes partial progress"), sharing_the_land),
+		(format!("{MULGORE}: Sharing the Land (PR#632) leads to an unfinished gnoll objective, never a finished one, and resumes partial progress"), sharing_the_land),
 		(
 			"forever/alliance/03-darkshore.guide: Wogi's report: with Skip grey quests on, a Human at 20 leaves out the grey quests, keeps the Buzzbox chain, and one on the route's level keeps them all".into(),
 			grey_skipped,
@@ -218,8 +218,10 @@ fn sharing_the_land(ctx: &Ctx, c: &mut Check) {
 			};
 			c.eq(*map, Some(1412), "p.map");
 			c.eq(*quest, Some(745), "p.quest");
-			c.eq(*npc, Some([2949, 2949, 2950, 2950, 2951, 2951][i]), "p.npc");
-			c.eq(*oi, Some([1, 1, 2, 2, 3, 3][i]), "p.oi");
+			// The objectives finished by snapshot i: 2949 (oi 1) after the second, 2950 (oi 2) after the fourth.
+			let open: &[i64] = [&[2949, 2950, 2951][..], &[2949, 2950, 2951], &[2950, 2951], &[2950, 2951], &[2951], &[2951]][i];
+			c.ok(npc.is_some_and(|n| open.contains(&(n as i64))), &format!("{cls}: arrow {i} leads to an unfinished objective {open:?}, not {npc:?}"));
+			c.ok(oi.is_some_and(|o| npc.is_some_and(|n| (o as usize).checked_sub(1).and_then(|k| [2949, 2950, 2951].get(k)) == Some(&(n as i64)))), &format!("{cls}: arrow {i}'s objective {oi:?} is {npc:?}'s"));
 			c.ok(x.is_some(), "typeof p.x is number");
 			c.ok(y.is_some(), "typeof p.y is number");
 		}

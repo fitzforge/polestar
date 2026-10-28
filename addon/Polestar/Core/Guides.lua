@@ -168,6 +168,7 @@ local REQUIRED = {
 	rep = { faction = isNum, factionName = isStr, standing = isNum },
 	explore = { map = isNum, x = isNum, y = isNum },
 	achieve = { achievement = isNum, achievementName = isStr },
+	wait = { seconds = isNum },
 }
 Guides.VERBS = REQUIRED
 
@@ -576,7 +577,7 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true }
 Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }

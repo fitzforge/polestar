@@ -54,5 +54,6 @@ pub mod toc;
 pub mod tokens;
 pub mod trainers;
 pub mod validate;
+pub mod walks;
 pub mod when;
 pub mod xp;

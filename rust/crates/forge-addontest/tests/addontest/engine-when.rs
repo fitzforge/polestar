@@ -111,7 +111,8 @@ fn once_the_route_has_moved_past_a_step_its_outcome_is_stored_a_failed_when_neve
 
 #[test]
 fn nothing_is_stored_before_the_quest_log_can_be_read_a_step_whose_when_reads_the_log_is_decided_once_it_can() {
-	// Step 1's accept checked off by hand; 783 shows in the log only with QUEST_LOG_UPDATE.
+	// Step 1's accept checked off by hand (which never stands for the quest log, #739); 783 shows in the log
+	// only with QUEST_LOG_UPDATE.
 	let saved = format!("PolestarCharDB = {}", lua_value(&json!({ "schema": 1, "guide": "test/when", "manual": { "test/when": { "1:1": true } } })));
 	let out = run(
 		r#"{ { k = "onquest", q = { 783 } } }"#,
@@ -124,7 +125,7 @@ fn nothing_is_stored_before_the_quest_log_can_be_read_a_step_whose_when_reads_th
 			emit({ skipped = PolestarCharDB.skipped, when = PolestarCharDB.when })
 		"#,
 	);
-	assert_eq!(out[0], json!({ "status": "na" }));
+	assert_eq!(out[0], json!({ "live": 1, "status": "na" }), "the tick alone keeps the guide at Willem");
 	assert_eq!(out[1], json!({ "live": 2, "status": "current" }));
 	assert_eq!(out[2], json!({ "skipped": {}, "when": {} }));
 }
@@ -156,7 +157,7 @@ fn a_step_that_applied_stays_applied_once_passed_and_resetprogress_forgets_the_s
 		None,
 		"",
 		r#"
-			stub.world.trainer(911); flush(); stub.world.close(); flush()
+			stub.world.trainer(911); stub.world.learnSpell(100); flush(); stub.world.close(); flush()
 			local a = state()
 			stub.world.setLevel(5); flush()
 			local b = state()

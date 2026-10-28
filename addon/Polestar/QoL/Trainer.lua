@@ -92,7 +92,7 @@ local function buyNext()
 	local this = purchases
 	BuyTrainerService(index)
 	if C_Timer and C_Timer.After then
-		C_Timer.After(LAND_WAIT, function()
+		ns.After(LAND_WAIT, function()
 			if active and pending and purchases == this then
 				pending = nil
 				finish()

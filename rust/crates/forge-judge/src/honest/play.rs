@@ -308,7 +308,9 @@ fn round(d: f64) -> String {
 /// R1 before a goal moves the character to `to`.
 fn arrive(w: &mut World, x: &V, t: &str, gi: usize, h: &Here, to: Pos) {
 	let is_travel = matches!(t, "goto" | "enter" | "explore" | "fly" | "hearth" | "die");
-	if let (Some(from), Some(tw)) = (w.pos.clone(), to.w) {
+	// (A goto labelled as a class teleport, "Cast Teleport: Moonglade", is the teleport itself: no walk.)
+	let teleport = t == "goto" && words_re(&if x.get("text").truthy() { x.get("text").to_js_string() } else { String::new() }, &["teleport"]);
+	if let (Some(from), Some(tw), false) = (w.pos.clone(), to.w, teleport) {
 		if let Some(fw) = from.w {
 			let label = format!("{} to {}", w.ctx.zone_name(&from.map), w.ctx.zone_name(&to.map));
 			let moved = Move { from: place_of(&from), to: place_of(&to), in_step: w.pos_step == w.step };
@@ -931,7 +933,13 @@ fn collect(w: &mut World, x: &V, gi: usize, h: &Here, p: Option<&Pos>) {
 				"write the line that makes it (`buy` what it takes, the object to use, the quest that rewards it) before, or drop the goal".into(),
 			);
 		} else if let (Some(at), false) = (&at, has_vendors) {
-			let near = npcs.iter().any(|m| w.ctx.npc_dist(*m, at.w) <= SOURCE_YD) || objs.iter().any(|o| w.ctx.obj_dist(*o, at.w) <= SOURCE_YD);
+			let near_at = |wp: Option<super::world::Wpt>, r: f64| npcs.iter().any(|m| w.ctx.npc_dist(*m, wp) <= SOURCE_YD + r) || objs.iter().any(|o| w.ctx.obj_dist(*o, wp) <= SOURCE_YD + r);
+			// (A goal searched over spots, a `loop` circuit's: sourced at any of them, not only the first.)
+			let near = near_at(at.w, 0.0)
+				|| x.get("spots").items().iter().any(|s| {
+					let r = s.get("r");
+					near_at(w.ctx.world(&at.map, &s.get("x"), &s.get("y"), &at.f), if r.truthy() { r.num() } else { 0.0 })
+				});
 			if !near {
 				sourced = false;
 				let mut cands: Vec<(f64, String)> = npcs.iter().map(|m| (w.ctx.npc_dist(*m, at.w), w.ctx.npc_name(&V::Num(*m as f64)))).collect();

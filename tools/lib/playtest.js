@@ -54,12 +54,17 @@ function luaValue(v) {
 	return `{ ${Object.entries(v).map(([k, x]) => `[${/^\d+$/.test(k) ? k : JSON.stringify(k)}] = ${luaValue(x)}`).join(', ')} }`;
 }
 
-// Where each race starts (Era frame): non-leveling guides begin there instead
-// of at their first waypoint, the way a player opens them.
+// Where each race starts (Era frame): the client's playercreateinfo spawn
+// (Undead: the Deathknell crypt by Undertaker Mordo, world 1676.7, 1678.3;
+// Human -8950, -132.5; Dwarf and Gnome -6240.3, 331; Night Elf 10311.3,
+// 832.5; Orc and Troll -618.5, -4251.7; Tauren -2917.6, -258), in map percent.
+// Non-leveling guides begin there instead of at their first waypoint, the way
+// a player opens them, and the planner's playback starts a level 1 route there.
 const HOME = {
-	Human: [1429, 48.2, 42.0], Dwarf: [1426, 29.9, 71.2], Gnome: [1426, 29.9, 71.2], NightElf: [1438, 58.6, 44.4],
-	Orc: [1411, 43.3, 68.5], Troll: [1411, 43.3, 68.5], Tauren: [1412, 44.2, 76.1], Scourge: [1420, 32.5, 63.2],
-	Skyborne: [2521, 42.8, 23.4], // Zephras Isle has no Era frame: live coordinates
+	Human: [1429, 48.06, 43.65], Dwarf: [1426, 29.87, 71.98], Gnome: [1426, 29.87, 71.98], NightElf: [1438, 58.57, 44.79],
+	Orc: [1411, 43.29, 68.85], Troll: [1411, 43.29, 68.85], Tauren: [1412, 44.88, 77.22], Scourge: [1420, 29.99, 71.73],
+	// Zephras Isle has no Era frame: live coordinates (the world's start, 4089.6, 1849.4)
+	Skyborne: [2521, 42.82, 23.37],
 };
 
 // Build compiled guides into `root/<folder>` -> { dir, files, scripts }:

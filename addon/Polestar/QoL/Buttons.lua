@@ -19,16 +19,22 @@
 --   Rare: /targetexact for the rares in range (Polestar.Rares.Nearby): the
 --     button comes up when the addon spots one and goes when it dies or is
 --     out of sight; every click moves the next name to the front.
+--   Bag: while the bags are nearly full (QoL/Space.lua), the cheapest junk
+--     in them with the free slot count; a press arms it, a second press
+--     within a few seconds deletes it. It has no secure action: the delete
+--     runs in its PostClick, on the press itself.
 --   Step key: no button on screen, only a binding: the first open goal it can
 --     act on, in guide order (a use goal's item, a hearth goal's Hearthstone,
 --     a kill or collect's mobs, an NPC goal's NPC by name), else the quest
---     item. Independent of the buttons' settings.
+--     item. While the flight map is open on the live step, it takes the
+--     marked flight instead (QoL/Flight.lua, Flight.Take). Independent of
+--     the buttons' settings.
 --   Mark target (off by default): the target button and the step key clear
 --     the target first (out of combat) and end their macro with /tm, an icon
 --     on a live hostile target (skull unless set) or an NPC (star), or a new
 --     one each press (Buttons.MarkLine).
 --
--- The buttons hang off one holder: hearth above the item, target and rare
+-- The buttons hang off one holder: the bag and hearth above the item, target and rare
 -- below. A left-drag on any of them moves the set (out of combat; with
 -- ui.lockHud on, only a Shift-drag); the position is per character, so the
 -- Hearthstone button, shown only for hearth goals, appears in its slot of the
@@ -54,7 +60,7 @@ QoL.Buttons = Buttons
 -- button's slot above (+) or below (-) it, GAP button units apart.
 local DEFAULT_POS = { "CENTER", "CENTER", 260, -140 }
 local GAP = 44
-local SLOT = { PolestarHearthButton = 1, PolestarQuestItemButton = 0, PolestarTargetButton = -1, PolestarRareButton = -2 }
+local SLOT = { PolestarBagButton = 2, PolestarHearthButton = 1, PolestarQuestItemButton = 0, PolestarTargetButton = -1, PolestarRareButton = -2 }
 
 local function Theme() return ns.Theme end
 
@@ -166,7 +172,7 @@ end
 
 local function onDragStop(b)
 	stopMoving()
-	C_Timer.After(0, function()
+	ns.After(0, function()
 		b.dragging = nil
 		local over = b:IsMouseOver() and not QoL.InLockdown()
 		if over then useOnKeyDown(b, false) else useOnKeyDown(b, nil) end
@@ -349,7 +355,7 @@ end
 
 local function newItemButton(name)
 	local b = newButton(name, itemTooltip)
-	b:SetScript("OnUpdate", rangeUpdate)
+	b:SetScript("OnUpdate", ns.Safe(rangeUpdate))
 	return b
 end
 
@@ -677,6 +683,38 @@ local function rareTooltip(b, tip)
 end
 
 ---------------------------------------------------------------------------
+-- Bag button (QoL/Space.lua)
+---------------------------------------------------------------------------
+
+local function applyBag(b)
+	local Space = QoL.Space
+	local j = Space and Space.Low() and Space.Junk()
+	b.junk = j or nil
+	if j then
+		b.Icon:SetTexture(Client.ItemIcon(j.id) or media("icon-use"))
+		b.Icon:SetDesaturated(not Space.Armed())
+		b.Count:SetText(tostring((Space.Free())))
+		b.Label:SetText(Space.Armed() and L["Press again to delete"] or "")
+	end
+	QoL.Secure("bag", function()
+		if b.junk then b:Show() else b:Hide() end
+	end)
+end
+
+local function bagTooltip(b, tip)
+	local Space = QoL.Space
+	local j = b.junk
+	local f, t = Space.Free()
+	tip:SetText(L["Bag space"])
+	tip:AddLine(string.format(L["Free slots: %d of %d"], f, t), 1, 1, 1)
+	if j then
+		tip:AddLine(string.format(L["Cheapest junk: %s (%s)"], Space.ItemText(j), j.value < math.huge and QoL.Money(j.value) or "?"), 1, 1, 1)
+		tip:AddLine(L["Press twice to delete it."], 0.6, 0.6, 0.6)
+	end
+	tip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
+end
+
+---------------------------------------------------------------------------
 -- Step key
 ---------------------------------------------------------------------------
 
@@ -712,6 +750,10 @@ local function stepGoal(view, raw, goals, optional)
 end
 
 function Buttons.StepAction(view, raw)
+	-- The open flight map's marked node first: the press flies there.
+	local F = QoL.Flight
+	local slot = F and F.TakeSlot and F.TakeSlot()
+	if slot then return "fly", slot end
 	if not view then view, raw = QoL.CurrentStep() end
 	if not view then return nil end
 	local goals = view.goals or {}
@@ -747,7 +789,96 @@ end
 -- Wiring
 ---------------------------------------------------------------------------
 
-local itemButton, hearthButton, targetButton, rareButton, stepButton
+local itemButton, hearthButton, targetButton, rareButton, stepButton, bagButton
+
+---------------------------------------------------------------------------
+-- The step key's interact stage (qol.stepInteract, off by default)
+---------------------------------------------------------------------------
+
+-- The quest window open now ("detail", "progress", "complete") and its quest.
+local questWin, questWinQuest
+-- The quest frame's button each stage presses (Blizzard's QuestFrame).
+local QUEST_BUTTONS = { accept = "QuestFrameAcceptButton", continue = "QuestFrameCompleteButton", complete = "QuestFrameCompleteQuestButton" }
+local STEP_BINDING = "CLICK PolestarStepButton:LeftButton"
+
+-- An open goal of the step for which test(view goal, raw goal) holds.
+local function openGoal(view, raw, test)
+	local goals = view.goals or {}
+	for g = 1, #goals do
+		if QoL.Open(goals[g]) and test(goals[g], raw and raw[g] or goals[g]) then return goals[g] end
+	end
+	return nil
+end
+
+-- What the step key's next press does in place of its own action, or nil:
+-- in a quest window of the live step's quest, "accept" (its accept),
+-- "continue" or "complete" (its turn-in; with several rewards to choose
+-- from, the player picks); else "interact" while the target is the live
+-- step's NPC, or the corpse of one of its mobs (loot). Only with the
+-- setting, the client's interact binding (BINDING_NAME_INTERACTTARGET), the
+-- live step on screen, and never with the gamepad interface.
+function Buttons.InteractStage(view, raw)
+	if not (QoL.On("stepInteract") and BINDING_NAME_INTERACTTARGET) or ns.GamepadUI() then return nil end
+	if not view then view, raw = QoL.CurrentStep() end
+	local E = ns.Engine
+	if not view or (E and E.GetLiveStep and E.GetLiveStep() ~= E.GetStepIndex()) then return nil end
+	if questWin then
+		local q = questWinQuest
+		if questWin == "detail" then
+			return openGoal(view, raw, function(gv) return gv.t == "accept" and gv.quest == q end) and "accept" or nil
+		end
+		if not openGoal(view, raw, function(gv) return gv.t == "turnin" and gv.quest == q end) then return nil end
+		if questWin == "progress" then return "continue" end
+		return (GetNumQuestChoices and GetNumQuestChoices() or 0) <= 1 and "complete" or nil
+	end
+	if not (UnitExists and UnitExists("target")) or (UnitIsPlayer and UnitIsPlayer("target")) then return nil end
+	local name = UnitName and UnitName("target")
+	if UnitIsDead and UnitIsDead("target") then
+		local list = Buttons.TargetNames(view, raw)
+		for i = 1, #list do
+			if list[i] == name then return "interact" end
+		end
+		return nil
+	end
+	if UnitCanAttack and UnitCanAttack("player", "target") then return nil end
+	local npc = ns.Compat.GetNpcID("target")
+	return openGoal(view, raw, function(gv, rg)
+		return NPC_VERBS[gv.t] and ((npc ~= nil and (gv.npc or rg.npc) == npc) or (name ~= nil and (gv.npcName or rg.npcName) == name))
+	end) and "interact" or nil
+end
+
+-- The step key's keys bound over to the stage's action (override bindings
+-- owned by the step button), or back to the step key; out of combat only.
+local interactSig = ""
+local function applyInteract(stage)
+	local keys = { GetBindingKey and GetBindingKey(STEP_BINDING) }
+	local sig = stage and (stage .. "\n" .. concat(keys, "\n")) or ""
+	if sig == interactSig or not stepButton then return end
+	QoL.Secure("stepInteract", function()
+		interactSig = sig
+		ClearOverrideBindings(stepButton)
+		if not stage then return end
+		for i = 1, #keys do
+			if stage == "interact" then
+				SetOverrideBinding(stepButton, true, keys[i], "INTERACTTARGET")
+			elseif _G[QUEST_BUTTONS[stage]] then
+				SetOverrideBindingClick(stepButton, true, keys[i], QUEST_BUTTONS[stage], "LeftButton")
+			end
+		end
+	end)
+end
+local refreshInteract = QoL.Coalesce(function() applyInteract(Buttons.InteractStage()) end)
+
+for event, kind in pairs({ QUEST_DETAIL = "detail", QUEST_PROGRESS = "progress", QUEST_COMPLETE = "complete", QUEST_FINISHED = false }) do
+	ns.RegisterEvent(event, function()
+		questWin = kind or nil
+		questWinQuest = kind and GetQuestID and GetQuestID() or nil
+		refreshInteract()
+	end)
+end
+for _, event in ipairs({ "PLAYER_TARGET_CHANGED", "PLAYER_REGEN_ENABLED", "UPDATE_BINDINGS", "LOOT_CLOSED" }) do
+	ns.RegisterEvent(event, refreshInteract)
+end
 
 local function refresh()
 	if not itemButton then return end
@@ -798,6 +929,9 @@ local function refresh()
 		step.list = copy
 		applyStep(stepButton)
 	end
+	applyInteract(Buttons.InteractStage(view, raw))
+
+	applyBag(bagButton)
 end
 local refreshSoon = QoL.Coalesce(refresh)
 Buttons.Refresh = refresh
@@ -815,8 +949,8 @@ local function create()
 	holder:SetSize(SIZE, SIZE)
 	holder:SetMovable(true)
 	holder:SetClampedToScreen(true)
-	-- The clamp covers the hearth, target and rare slots too.
-	holder:SetClampRectInsets(0, 0, GAP, -2 * GAP)
+	-- The clamp covers the bag, hearth, target and rare slots too.
+	holder:SetClampRectInsets(0, 0, 2 * GAP, -2 * GAP)
 	itemButton = newItemButton("PolestarQuestItemButton")
 	hearthButton = newItemButton("PolestarHearthButton")
 	targetButton = newButton("PolestarTargetButton", targetTooltip)
@@ -844,12 +978,24 @@ local function create()
 			applyRare(rareButton)
 		end
 	end)
+	bagButton = newButton("PolestarBagButton", bagTooltip)
+	bagButton:HookScript("PostClick", function(self, _, down)
+		if down or self.dragging then return end
+		local Space = QoL.Space
+		if Space then Space.Press() end
+		applyBag(self)
+	end)
 	-- The step key: a binding only, never shown.
 	stepButton = CreateFrame("Button", "PolestarStepButton", UIParent, "SecureActionButtonTemplate")
 	stepButton:RegisterForClicks("AnyUp", "AnyDown")
 	QoL.Secure("init:PolestarStepButton", function() stepButton:Hide() end)
 	stepButton:HookScript("PostClick", function(self, _, down)
 		if down then return end
+		-- No secure action while it flies: the press takes the marked node.
+		if step.kind == "fly" then
+			QoL.Flight.Take()
+			return
+		end
 		local n = #step.list
 		local names = step.kind == "target" and n > 1
 		if names then step.cycle = step.cycle % n + 1 end
@@ -857,8 +1003,8 @@ local function create()
 		if names or marked then applyStep(self) end
 		if marked then applyTarget(targetButton) end
 	end)
-	Buttons.item, Buttons.hearth, Buttons.target, Buttons.rare, Buttons.step = itemButton, hearthButton, targetButton, rareButton, stepButton
-	set = { hearthButton, itemButton, targetButton, rareButton }
+	Buttons.item, Buttons.hearth, Buttons.target, Buttons.rare, Buttons.step, Buttons.bag = itemButton, hearthButton, targetButton, rareButton, stepButton, bagButton
+	set = { bagButton, hearthButton, itemButton, targetButton, rareButton }
 	-- An Above name moves when a button over it comes or goes.
 	local function placeLabels() for i = 1, #set do placeLabel(set[i]) end end
 	for i = 1, #set do
@@ -887,9 +1033,12 @@ ns.RegisterEvent("UPDATE_BINDINGS", function()
 	refreshHotkey(hearthButton)
 	refreshHotkey(targetButton)
 	refreshHotkey(rareButton)
+	refreshHotkey(bagButton)
 end)
 ns.On("RARE_NEARBY", refreshSoon)
+ns.On("FLIGHT_MARK_CHANGED", refreshSoon)
 ns.On("QUESTDB_LOADED", refreshSoon)
+ns.On("BAG_SPACE", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
 	if not itemButton or type(path) ~= "string" then return end
 	if path == "qol.buttonScale" or path == "qol" or path == "" then

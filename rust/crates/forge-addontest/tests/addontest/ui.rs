@@ -98,6 +98,7 @@ fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counte
 				iconColor = { tr, tg, tb }, textColor = { cr, cg, cb },
 				check = r.Check:IsShown(),
 				text = r.Text:GetText(),
+				sub = r.Sub:IsShown() and r.Sub:GetText() or false,
 				size = select(2, r.Text:GetFont()),
 			}
 		end
@@ -115,9 +116,16 @@ fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counte
 	assert_eq!(out["where"], "Elwynn Forest");
 	assert_eq!(out["personIcon"], "icon-goto", "a field group is a place");
 	assert_eq!(out["count"], "3 / 8", "the navigator says where you are");
-	assert_eq!(pluck(&out["rows"], "subject"), json!(["the Kobold Camp", "Kobold Vermin", "Tough Wolf Meat"]), "only the focus group: the earlier quest-giver is not listed");
+	assert_eq!(
+		pluck(&out["rows"], "subject"),
+		json!(["Wolves Across the Border", "the Kobold Camp", "Kobold Vermin", "Tough Wolf Meat"]),
+		"every goal of the step: the quest taken from the earlier quest-giver stays listed (#741, #739)"
+	);
 	let rows = out["rows"].as_array().unwrap();
-	let (go, kill, collect) = (&rows[0], &rows[1], &rows[2]);
+	let (taken, go, kill, collect) = (&rows[0], &rows[1], &rows[2], &rows[3]);
+	assert_eq!(taken["icon"], "check");
+	assert!(is_match(text(&taken["sub"]), r"^\|c[0-9a-f]{8}Eagan Peltskinner\|r$"), "another person's goal names them, in the NPC colour");
+	assert_eq!(go["sub"], false, "the focus's own goals do not repeat the header");
 	assert_eq!(go["icon"], "check");
 	assert_eq!(go["iconColor"], rgb(&out["success"]));
 	assert_eq!(go["textColor"], rgb(&out["muted"]), "done goals dim");
@@ -139,15 +147,21 @@ fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counte
 }
 
 #[test]
-fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_only_their_goals_then_the_next_person() {
+fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_every_goal_listed_with_its_person_then_the_next_person() {
 	let out = run(r#"
 		local function snap()
 			local P = GF.parts
-			local names = {}
-			for _, r in ipairs(visibleRows()) do names[#names + 1] = r.psGoal.subject end
+			local names, subs, dimmed = {}, {}, {}
+			local dr, dg, db = Polestar.Theme.Color("textDim")
+			for _, r in ipairs(visibleRows()) do
+				names[#names + 1] = r.psGoal.subject
+				subs[#subs + 1] = r.Sub:IsShown() and r.Sub:GetText() or false
+				local tr, tg, tb = r.Text:GetTextColor()
+				dimmed[#dimmed + 1] = tr == dr and tg == dg and tb == db
+			end
 			local nr, ng, nb = P.person.Name:GetTextColor()
 			return { person = P.person.Name:GetText(), color = { nr, ng, nb }, npc = { Polestar.Theme.Color("npc") },
-				icon = P.person.Icon:GetTexture():match("([%w-]+)$"), goals = names,
+				icon = P.person.Icon:GetTexture():match("([%w-]+)$"), goals = names, subs = subs, dimmed = dimmed,
 				after = P.after.Text:GetText(), persons = P.after.Count:GetText(), mark = P.person.Mark:IsShown(),
 				markW = P.person.Mark:GetWidth(), iconColor = { P.person.Icon:GetVertexColor() }, dim = { Polestar.Theme.Color("textDim") },
 				sliding = Polestar.Anim.IsRunning(P.card, "offset") }
@@ -169,14 +183,21 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_only_their_goals_then_the
 	assert_eq!(first["person"], "Marshal McBride");
 	assert_eq!(first["color"], rgb(&first["npc"]));
 	assert_eq!(first["icon"], "icon-talk");
-	assert_eq!(first["goals"], json!(["Kobold Camp Cleanup", "Investigate Echo Ridge"]));
+	// The whole hub stays listed (#741, #739): the focus's goals in the text colour, the other persons' named and
+	// stepped back while open.
+	assert_eq!(first["goals"], json!(["Kobold Camp Cleanup", "Investigate Echo Ridge", "Wolves Across the Border", "Brother Neals"]));
+	assert_eq!(first["dimmed"], json!([false, false, true, true]));
+	assert_eq!(first["subs"][0], false, "the focus's goals do not repeat the header");
+	assert!(is_match(text(&first["subs"][2]), r"^\|c[0-9a-f]{8}Eagan Peltskinner\|r"), "another person's goal names them first");
 	assert!(is_match(text(&first["after"]), r"^Then: \|c[0-9a-f]{8}Eagan Peltskinner\|r$"));
 	assert_eq!(first["persons"], "Person 1 of 3");
 	assert_eq!(first["mark"], true, "the arrow points at this person");
 	assert_eq!(first["markW"], 2, "the 2px selection bar used across Polestar");
 	assert_eq!(rgb(&first["iconColor"]), rgb(&first["dim"]), "the person glyph steps back; the name carries the colour");
 	assert_eq!(second["person"], "Eagan Peltskinner");
-	assert_eq!(second["goals"], json!(["Wolves Across the Border"]));
+	assert_eq!(second["goals"], json!(["Kobold Camp Cleanup", "Investigate Echo Ridge", "Wolves Across the Border", "Brother Neals"]), "done goals stay listed");
+	assert_eq!(second["dimmed"], json!([false, false, false, true]), "done goals dim to textMuted; the new focus reads in text");
+	assert!(is_match(text(&second["subs"][0]), r"^\|c[0-9a-f]{8}Marshal McBride\|r"), "the person done with is named on their rows");
 	assert_eq!(second["persons"], "Person 2 of 3");
 	assert_eq!(second["sliding"], true, "the next person slides in");
 	assert_eq!(third["person"], "Brother Neals");
@@ -207,6 +228,20 @@ fn a_done_step_viewed_with_prev_lists_all_its_goals_under_the_step_title_checked
 			"personMark": false,
 		})
 	);
+}
+
+#[test]
+fn an_accept_the_game_does_not_confirm_says_so_on_its_line_first() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 4)
+		uistub.goal(4, 2).noticeText = "Not offered by Marshal McBride? Report it with /polestar"
+		uistub.update()
+		local r = rowFor("Investigate Echo Ridge")
+		local cr, cg, cb = r.Sub:GetTextColor()
+		emit({ sub = r.Sub:IsShown() and r.Sub:GetText() or false, color = { cr, cg, cb }, dim = { Polestar.Theme.Color("textDim") } })"#)
+	.remove(0);
+	assert!(text(&out["sub"]).starts_with("Not offered by Marshal McBride? Report it with /polestar"), "{}", text(&out["sub"]));
+	assert_eq!(rgb(&out["color"]), rgb(&out["dim"]), "kept readable, like an unavailable quest's reason");
 }
 
 #[test]
@@ -578,7 +613,7 @@ fn settings_apply_live_scale_opacity_lock_compact_upcoming_shown() {
 	assert_eq!(out["movedWhileLocked"], false);
 	let mut compact = out["compact"].clone();
 	compact.as_object_mut().unwrap().remove("h");
-	assert_eq!(compact, json!({ "strip": false, "after": false, "tip": false, "rows": 3, "foot": true }), "compact keeps the navigator, the focus goals and the progress bar");
+	assert_eq!(compact, json!({ "strip": false, "after": false, "tip": false, "rows": 4, "foot": true }), "compact keeps the navigator, the step's goals and the progress bar");
 	assert!(f(&out["compact"]["h"]) < f(&out["h0"]), "compact mode is shorter");
 	assert_eq!(out["upcoming"], json!([4, 5, 7, 8]));
 	assert_eq!(out["afterToggle"], false);
@@ -837,7 +872,7 @@ fn without_the_engine_tabs_api_the_strip_stays_hidden_and_the_navigator_names_th
 		"{ noTabs = true }",
 	)
 	.remove(0);
-	assert_eq!(out, json!({ "strip": false, "title": "Elwynn Forest", "rows": 3 }));
+	assert_eq!(out, json!({ "strip": false, "title": "Elwynn Forest", "rows": 4 }), "the step's four goals, the earlier quest-giver's included");
 }
 
 #[test]
@@ -1851,4 +1886,30 @@ fn guide_complete_up_next_names_where_the_hand_off_goes_now_and_asks_for_a_guide
 	assert!(is_match(text(&next["text"]), r"Darkshore"));
 	assert_eq!(next["primary"], "Continue");
 	assert_eq!(*none, json!({ "text": "Nice work. Pick your next guide to keep going.", "primary": "Choose a guide" }));
+}
+
+#[test]
+fn the_wheel_over_the_step_number_scrubs_through_the_steps_shift_by_ten_back_on_the_live_step_after_a_pause_and_a_click_lists_the_steps_around() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		uistub.live = 3
+		local hit = GF.parts.nav.Steps.Hit
+		local function at() return Polestar.Engine.GetStepIndex() end
+		stub.RunScript(hit, "OnMouseWheel", -1)
+		local seen = { at() }
+		stub.RunScript(hit, "OnMouseWheel", 1); stub.RunScript(hit, "OnMouseWheel", 1)
+		seen[#seen + 1] = at()
+		stub.advance(4.5)
+		seen[#seen + 1] = at()
+		stub.keys.shift = true
+		stub.RunScript(hit, "OnMouseWheel", -1)
+		stub.keys.shift = false
+		seen[#seen + 1] = at()
+		stub.RunScript(hit, "OnMouseUp", "LeftButton")
+		local rows = {}
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then rows[#rows + 1] = r.Text:GetText():match("^%d+") end end
+		emit({ seen = seen, rows = rows })
+	"#);
+	assert_eq!(out[0]["seen"], json!([4, 2, 3, 8]), "down looks on, up back; after the pause the live step; Shift goes ten, to the last");
+	assert_eq!(out[0]["rows"], json!(["3", "4", "5", "7", "8"]), "step 6 is the Mage's alone and is left out");
 }

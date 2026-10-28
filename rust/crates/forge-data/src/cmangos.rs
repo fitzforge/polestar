@@ -27,6 +27,16 @@ pub fn heights_source() -> V {
 	V::Obj(o)
 }
 
+pub fn moves_source() -> V {
+	let o = Obj::new();
+	o.set("name", "CMaNGOS classic-db: creature walks");
+	o.set("url", db_url());
+	o.set("revision", DB_REV);
+	o.set("license", "GPL-3.0; the extent of a creature's walk (its spawn, the centre and radius of the ground its random or waypoint movement covers) only, used as facts: a goal at an NPC who walks around gets that ground as its spawn area, and the guides say so");
+	o.set("copyright", "CMaNGOS (https://github.com/cmangos/classic-db)");
+	V::Obj(o)
+}
+
 pub fn counts_source() -> V {
 	let o = Obj::new();
 	o.set("name", "CMaNGOS classic-db: quest objective counts");
@@ -262,6 +272,101 @@ fn extract_spawn_heights(lines: impl Iterator<Item = String>, respawn: bool) -> 
 		res.set(name, t);
 	}
 	V::Obj(res)
+}
+
+/// Walks reaching less than this many yards from their centre are left out of moves.json (a mob
+/// pacing at its camp): the compiler's walkers walk 20 yards or more (forge-guide walks.rs).
+pub const MOVE_MIN_YD: f64 = 20.0;
+
+/// Lines -> { npc: { id: [[map, x, y, cx, cy, r]...] } } on maps 0 and 1: every creature spawn that
+/// walks (random movement within its `spawndist`, or a waypoint path: `creature_movement` by spawn,
+/// else `creature_movement_template` path 0 by creature), with its spawn point, then the centre and
+/// radius in yards of the ground the walk covers; walks under MOVE_MIN_YD left out. The columns are
+/// found by name.
+fn extract_moves(lines: impl Iterator<Item = String>) -> V {
+	let mut c = Columns::default();
+	// (entry, guid, map, x, y, spawndist, movement type)
+	let mut spawns: Vec<(i64, i64, f64, f64, f64, f64, f64)> = Vec::new();
+	let mut by_guid: rustc_hash::FxHashMap<i64, Vec<(f64, f64)>> = Default::default();
+	let mut by_entry: rustc_hash::FxHashMap<i64, Vec<(f64, f64)>> = Default::default();
+	for line in lines {
+		if c.see(&line) {
+			continue;
+		}
+		if line.starts_with("INSERT INTO `creature` VALUES") {
+			let at = |n: &str, f: i64| c.at("creature", n, f);
+			let (ig, ii, im, ix, idist, imt) = (at("guid", 0), at("id", 1), at("map", 2), at("position_x", 4), at("spawndist", 10), at("MovementType", 11));
+			for r in tuples(&line) {
+				let (map, mt, entry) = (num(get(&r, im)), num(get(&r, imt)), num(get(&r, ii)));
+				if (map != 0.0 && map != 1.0) || (mt != 1.0 && mt != 2.0) || entry <= 0.0 {
+					continue;
+				}
+				spawns.push((entry as i64, num(get(&r, ig)) as i64, map, num(get(&r, ix)), num(get(&r, ix + 1)), num(get(&r, idist)), mt));
+			}
+		} else if line.starts_with("INSERT INTO `creature_movement` VALUES") {
+			let (ii, ix) = (c.at("creature_movement", "Id", 0), c.at("creature_movement", "PositionX", 2));
+			for r in tuples(&line) {
+				by_guid.entry(num(get(&r, ii)) as i64).or_default().push((num(get(&r, ix)), num(get(&r, ix + 1))));
+			}
+		} else if line.starts_with("INSERT INTO `creature_movement_template` VALUES") {
+			let t = "creature_movement_template";
+			let (ie, ip, ix) = (c.at(t, "Entry", 0), c.at(t, "PathId", 1), c.at(t, "PositionX", 3));
+			for r in tuples(&line) {
+				if num(get(&r, ip)) == 0.0 {
+					by_entry.entry(num(get(&r, ie)) as i64).or_default().push((num(get(&r, ix)), num(get(&r, ix + 1))));
+				}
+			}
+		}
+	}
+	let round = |v: f64| {
+		let r = crate::jsv::math_round(v * 10.0) / 10.0;
+		if r == 0.0 {
+			0.0
+		} else {
+			r
+		}
+	};
+	let mut out: std::collections::BTreeMap<i64, Vec<Vec<f64>>> = std::collections::BTreeMap::new();
+	for (entry, guid, map, x, y, dist, mt) in spawns {
+		let (cx, cy, r) = if mt == 1.0 {
+			(x, y, dist)
+		} else {
+			let Some(path) = by_guid.get(&guid).or_else(|| by_entry.get(&entry)) else { continue };
+			let pts: Vec<(f64, f64)> = path.iter().copied().chain(std::iter::once((x, y))).collect();
+			let (x0, x1) = pts.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(a, b), p| (a.min(p.0), b.max(p.0)));
+			let (y0, y1) = pts.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(a, b), p| (a.min(p.1), b.max(p.1)));
+			let (cx, cy) = ((x0 + x1) / 2.0, (y0 + y1) / 2.0);
+			(cx, cy, pts.iter().map(|p| (p.0 - cx).hypot(p.1 - cy)).fold(0.0, f64::max))
+		};
+		if !(r >= MOVE_MIN_YD) {
+			continue;
+		}
+		out.entry(entry).or_default().push(vec![map, round(x), round(y), round(cx), round(cy), (r * 10.0).ceil() / 10.0]);
+	}
+	let t = Obj::new();
+	for (id, mut list) in out {
+		list.sort_by(|a, b| a.iter().zip(b.iter()).map(|(p, q)| p.partial_cmp(q).unwrap()).find(|o| o.is_ne()).unwrap_or(std::cmp::Ordering::Equal));
+		t.set(&id.to_string(), arr(list.iter().map(|p| crate::jsv::nums(p)).collect()));
+	}
+	let res = Obj::new();
+	res.set("npc", V::Obj(t));
+	V::Obj(res)
+}
+
+/// moves.json's text: one id per line.
+pub fn serialize_moves(db: &V) -> String {
+	let part = db
+		.get("npc")
+		.entries()
+		.iter()
+		.map(|(id, v)| {
+			let mut s = String::new();
+			json_quote(&mut s, id);
+			format!("{s}:{}", stringify(v, None))
+		})
+		.collect::<Vec<_>>()
+		.join(",\n");
+	format!("{{\"npc\":{{\n{part}\n}}}}\n")
 }
 
 const CLASS_BY_ID: [(f64, &str); 9] = [(1.0, "WARRIOR"), (2.0, "PALADIN"), (3.0, "HUNTER"), (4.0, "ROGUE"), (5.0, "PRIEST"), (7.0, "SHAMAN"), (8.0, "MAGE"), (9.0, "WARLOCK"), (11.0, "DRUID")];
@@ -728,6 +833,11 @@ pub fn load_spawn_heights(sources: &Path, sim: bool) -> Result<Heights, String> 
 	Ok(Heights { text: serialize_spawn_heights(&data), npc: data.get("npc"), object: data.get("object") })
 }
 
+/// Creature walks: moves.json's text (see extract_moves).
+pub fn load_moves(sources: &Path) -> Result<String, String> {
+	Ok(serialize_moves(&cached_extract(sources, "moves.json", &|lines| Ok(serialize_moves(&extract_moves(lines))))?))
+}
+
 pub fn load_quest_counts(sources: &Path) -> Result<V, String> {
 	cached_extract(sources, "quest_counts.json", &|lines| Ok(format!("{}\n", stringify(&extract_quest_counts(lines)?, None))))
 }
@@ -820,6 +930,7 @@ pub fn extract_text(sources: &Path, name: &str) -> Result<String, String> {
 		"escort_paths.json" => format!("{}\n", stringify(&extract_escort_paths(lines)?, None)),
 		"quest_facts.json" => format!("{}\n", stringify(&extract_quest_facts(lines)?, None)),
 		"creature_template.json" => format!("{}\n", stringify(&extract_creature_templates(lines)?, None)),
+		"moves.json" => serialize_moves(&extract_moves(lines)),
 		_ => return Err(format!("no CMaNGOS extract named {name}")),
 	})
 }
@@ -836,6 +947,7 @@ pub fn extract_all(sources: &Path, dir: &Path) -> Result<(), String> {
 	w("graveyards.json", format!("{}\n", stringify(&extract_graveyards(dump_lines(&dump)?)?, None)))?;
 	w("escort_paths.json", format!("{}\n", stringify(&extract_escort_paths(dump_lines(&dump)?)?, None)))?;
 	w("quest_facts.json", format!("{}\n", stringify(&extract_quest_facts(dump_lines(&dump)?)?, None)))?;
+	w("moves.json", serialize_moves(&extract_moves(dump_lines(&dump)?)))?;
 	Ok(())
 }
 
@@ -863,5 +975,40 @@ mod tests {
 		assert_eq!(stringify(&t.get("9").get("name"), None), r#""O'Neil, the (Test)""#);
 		assert_eq!(stringify(&t.get("2405").get("faction"), None), "71");
 		assert!(stringify(&t, None).starts_with(r#"{"9":"#), "entries in numeric order, as JSON.stringify writes integer keys");
+	}
+
+	#[test]
+	fn moves_are_each_walking_spawns_ground_by_its_path_or_its_wander_distance() {
+		let lines = [
+			"CREATE TABLE `creature` (",
+			"  `guid` int unsigned NOT NULL AUTO_INCREMENT,",
+			"  `id` mediumint unsigned NOT NULL DEFAULT '0',",
+			"  `map` smallint unsigned NOT NULL DEFAULT '0',",
+			"  `spawnMask` tinyint unsigned NOT NULL DEFAULT '1',",
+			"  `position_x` float NOT NULL DEFAULT '0',",
+			"  `position_y` float NOT NULL DEFAULT '0',",
+			"  `position_z` float NOT NULL DEFAULT '0',",
+			"  `orientation` float NOT NULL DEFAULT '0',",
+			"  `spawntimesecsmin` int unsigned NOT NULL DEFAULT '120',",
+			"  `spawntimesecsmax` int unsigned NOT NULL DEFAULT '120',",
+			"  `spawndist` float NOT NULL DEFAULT '5',",
+			"  `MovementType` tinyint unsigned NOT NULL DEFAULT '0',",
+			"  PRIMARY KEY (`guid`)",
+			") ENGINE=MyISAM;",
+			// A waypoint walker (template path), a wanderer, one pacing on the spot, one standing, one in a dungeon.
+			"INSERT INTO `creature` VALUES (34111,1742,0,1,2289.3,391.421,34.2,3.6,300,300,0,2),(5,100,1,1,10,20,0,0,300,300,25,1),(6,101,0,1,10,20,0,0,300,300,5,1),(7,102,0,1,10,20,0,0,300,300,0,0),(8,103,36,1,10,20,0,0,300,300,30,1);",
+			"CREATE TABLE `creature_movement_template` (",
+			"  `Entry` mediumint unsigned NOT NULL,",
+			"  `PathId` int unsigned NOT NULL DEFAULT '0',",
+			"  `Point` mediumint unsigned NOT NULL DEFAULT '0',",
+			"  `PositionX` float NOT NULL DEFAULT '0',",
+			"  `PositionY` float NOT NULL DEFAULT '0',",
+			"  `PositionZ` float NOT NULL DEFAULT '0',",
+			"  PRIMARY KEY (`Entry`,`PathId`,`Point`)",
+			") ENGINE=MyISAM;",
+			"INSERT INTO `creature_movement_template` VALUES (1742,0,1,2289.3,391.4,34.1),(1742,0,2,2349.3,391.4,34),(1742,0,3,2319.3,331.4,37),(1742,1,1,0,0,0);",
+		];
+		let m = extract_moves(lines.iter().map(|l| l.to_string()));
+		assert_eq!(serialize_moves(&m), "{\"npc\":{\n\"100\":[[1,10,20,10,20,25]],\n\"1742\":[[0,2289.3,391.4,2319.3,361.4,42.5]]\n}}\n");
 	}
 }

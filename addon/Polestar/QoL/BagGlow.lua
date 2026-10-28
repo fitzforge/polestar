@@ -1,7 +1,9 @@
 -- The step's item in the bags: a glow on the bag slot holding the item the
 -- current step uses (the quest item button's item, every open `use` goal's
 -- item) or a quest item it collects (an open `collect` goal with a quest), so
--- the player finds it at a glance (qol.bagGlow, on by default).
+-- the player finds it at a glance (qol.bagGlow, on by default). A slot
+-- holding an item a later step keeps (QoL.Kept, QoL/Keep.lua) that a
+-- merchant would buy gets a small lock in its top-left corner instead.
 --
 --   BagGlow.Items(view, raw) -> { [itemID] = true }   -- what glows for a step
 --   BagGlow.Redraw()                                  -- repaint the shown bags now
@@ -10,9 +12,9 @@
 --   * The client's bags: each container frame's UpdateItems is post-hooked on
 --     the frame itself; the glow is the action button border texture on the
 --     item button (OVERLAY sublevel 2, under the upgrade arrow and the search
---     overlay), in the theme's accent colour, pulsing. Glows are kept here by
---     button; nothing is written into the button's table.
---   * Baganator: a corner widget (bottom-right) with the same texture.
+--     overlay), in the theme's accent colour, pulsing. Glows and locks are
+--     kept here by button; nothing is written into the button's table.
+--   * Baganator: corner widgets, the glow bottom-right and the lock top-left.
 --
 -- The step (STEP_CHANGED and friends), the bags (BAG_UPDATE_DELAYED) and the
 -- quest log repaint the shown bags on the next frame.
@@ -32,6 +34,9 @@ local TEXTURE = "Interface\\Buttons\\UI-ActionButton-Border"
 local SCALE = 1.9 -- the border texture's size against the item button's
 local LAYER = 2 -- OVERLAY sublevel: under the upgrade arrow (3) and the search overlay (4)
 local WIDGET = "polestar_step_item" -- Baganator corner widget id
+local LOCK = "Interface\\PetBattles\\PetBattle-LockIcon"
+local LOCK_SIZE = 14
+local KEEP_WIDGET = "polestar_kept_item" -- Baganator corner widget id of the lock
 
 local function paint(t)
 	local T = ns.Theme
@@ -40,8 +45,9 @@ local function paint(t)
 	t:SetVertexColor(r, g, b, 1)
 end
 
--- The items the current step wants found in the bags.
-local items = {}
+-- The items the current step wants found in the bags, and those later
+-- steps keep (itemID -> step).
+local items, kept = {}, {}
 
 function BagGlow.Items(view, raw)
 	local out = {}
@@ -64,12 +70,29 @@ local function wanted(itemID)
 	return itemID ~= nil and items[itemID] == true
 end
 
+-- A kept item a merchant would buy: the glowing step item needs no lock.
+local function locked(itemID)
+	return itemID ~= nil and kept[itemID] ~= nil and not wanted(itemID) and (Client.SellPrice(itemID) or 0) > 0
+end
+
 ---------------------------------------------------------------------------
 -- The client's bags
 ---------------------------------------------------------------------------
 
 local glows = setmetatable({}, { __mode = "k" }) -- item button -> glow texture
 local widgets = setmetatable({}, { __mode = "k" }) -- glow textures made for Baganator
+local locks = setmetatable({}, { __mode = "k" }) -- item button -> lock texture
+
+local function lockFor(button)
+	local t = locks[button]
+	if t then return t end
+	t = button:CreateTexture(nil, "OVERLAY", nil, LAYER)
+	t:SetSize(LOCK_SIZE, LOCK_SIZE)
+	t:SetPoint("TOPLEFT", button, "TOPLEFT", 1, -1)
+	t:SetTexture(LOCK)
+	locks[button] = t
+	return t
+end
 
 local function pulse(t)
 	if not t.CreateAnimationGroup then return end
@@ -121,10 +144,16 @@ local function updateFrame(frame)
 	if type(frame.EnumerateValidItems) ~= "function" then return end
 	local on = QoL.On("bagGlow")
 	for _, button in frame:EnumerateValidItems() do
-		if on and wanted(itemOf(button)) then
+		local id = on and itemOf(button)
+		if id and wanted(id) then
 			show(glowFor(button))
 		elseif glows[button] then
 			hide(glows[button])
+		end
+		if id and locked(id) then
+			lockFor(button):Show()
+		elseif locks[button] then
+			locks[button]:Hide()
 		end
 	end
 end
@@ -187,6 +216,14 @@ local function registerBaganator()
 		widgets[t] = true
 		return t
 	end, { corner = "bottom_right", priority = 1 })
+	API.RegisterCornerWidget(L["Polestar: kept for the guide"], KEEP_WIDGET, function(_, details)
+		return QoL.On("bagGlow") and type(details) == "table" and locked(details.itemID) or false
+	end, function(button)
+		local t = button:CreateTexture(nil, "OVERLAY")
+		t:SetSize(LOCK_SIZE, LOCK_SIZE)
+		t:SetTexture(LOCK)
+		return t
+	end, { corner = "top_left", priority = 1 })
 	return true
 end
 
@@ -207,21 +244,31 @@ function BagGlow.Redraw()
 		if hooked[f] and f:IsShown() then onUpdateItems(f) end
 	end
 	local API = baganator and baganatorAPI()
-	if API and API.RequestItemButtonsRefresh and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET)) then
+	local active = API and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET) or API.IsCornerWidgetActive(KEEP_WIDGET))
+	if API and API.RequestItemButtonsRefresh and active then
 		local reasons = _G.Baganator.Constants and _G.Baganator.Constants.RefreshReason
 		API.RequestItemButtonsRefresh(reasons and reasons.ItemWidgets and { reasons.ItemWidgets } or nil)
 	end
 end
 
--- The step's items again; a repaint only when they changed.
+-- Two item sets the same?
+local function same(a, b)
+	for k, v in pairs(a) do if b[k] ~= v then return false end end
+	for k in pairs(b) do if a[k] == nil then return false end end
+	return true
+end
+
+-- The step's items and the kept ones again; a repaint only when they changed.
 local function refresh()
 	local view, raw = QoL.CurrentStep()
-	local now = QoL.On("bagGlow") and BagGlow.Items(view, raw) or {}
-	local same = true
-	for k in pairs(now) do if not items[k] then same = false end end
-	for k in pairs(items) do if not now[k] then same = false end end
-	if same then return end
-	items = now
+	local on = QoL.On("bagGlow")
+	local now = on and BagGlow.Items(view, raw) or {}
+	local keep = {}
+	local E = ns.Engine
+	local all = on and E and E.KeptItems and E.KeptItems()
+	if all then for id, s in pairs(all) do keep[id] = s end end
+	if same(now, items) and same(keep, kept) then return end
+	items, kept = now, keep
 	BagGlow.Redraw()
 end
 local refreshSoon = QoL.Coalesce(refresh)
@@ -232,7 +279,7 @@ ns.RegisterEvent("BAG_UPDATE_DELAYED", refreshSoon)
 ns.RegisterEvent("QUEST_LOG_UPDATE", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.bagGlow" or path == "qol" or path == "" then
-		items = {}
+		items, kept = {}, {}
 		refreshSoon()
 		BagGlow.Redraw()
 	end

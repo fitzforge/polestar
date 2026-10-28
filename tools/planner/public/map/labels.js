@@ -17,6 +17,12 @@ const STYLE = `
 .mv-hub { font-size: 11px; font-weight: 600; text-shadow: var(--text-on-art), 0 0 6px var(--shade); }
 .mv-hub.alliance { color: var(--npc); }
 .mv-hub.horde { color: var(--danger); }
+.mv-hub.hv { color: var(--text); font-size: 12px; }
+.mv-hv-n { min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: var(--ink); color: var(--scrim);
+	font-size: 10px; font-weight: 700; line-height: 16px; text-align: center; box-shadow: 0 0 0 1.5px var(--scrim); font-variant-numeric: tabular-nums; }
+.mv-hv-flag { font-size: 11px; padding: 1px 6px 2px; }
+.mv-hv-flag.walked { border-color: var(--danger); color: var(--danger); }
+.mv-hv-flag.left { border-color: var(--warning); color: var(--warning); }
 .mv-add { position: absolute; left: -11px; top: -11px; width: 22px; height: 22px; border-radius: 50%;
 	background: var(--scrim); border: 1.5px solid var(--accent); will-change: transform; }
 .mv-add::after { content: ''; position: absolute; inset: 3px; background: var(--accent);

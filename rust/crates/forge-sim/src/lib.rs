@@ -13,13 +13,16 @@
 pub mod chain;
 pub mod eval;
 pub mod fixes;
+pub mod flow;
 pub mod guards;
+pub mod hubs;
 pub mod insertable;
 pub mod ledger;
 pub mod needs;
 pub mod order;
 pub mod params;
 pub mod profile;
+pub mod resume;
 pub mod rng;
 pub mod route;
 pub mod run;

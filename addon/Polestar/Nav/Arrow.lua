@@ -201,7 +201,7 @@ local glassSand = glass:CreateTexture(nil, "ARTWORK")
 glassSand:SetTexture(UI_MEDIA .. "hourglass-sand")
 glassSand:SetAllPoints(glassBody)
 local glassTime = 0
-glass:SetScript("OnUpdate", function(_, elapsed)
+glass:SetScript("OnUpdate", ns.Safe(function(_, elapsed)
 	glassTime = glassTime + elapsed
 	local c = glassTime % (HOURGLASS_HOLD + HOURGLASS_TURN)
 	local a = 0
@@ -212,7 +212,7 @@ glass:SetScript("OnUpdate", function(_, elapsed)
 	end
 	glassBody:SetRotation(a)
 	glassSand:SetRotation(a)
-end)
+end))
 
 local distText = frame:CreateFontString(nil, "OVERLAY")
 distText:SetPoint("TOP", dial, "BOTTOM", 0, -2)
@@ -229,9 +229,16 @@ local etaText = frame:CreateFontString(nil, "OVERLAY")
 etaText:SetPoint("TOP", labelText, "BOTTOM", 0, -2)
 etaText:SetJustifyH("CENTER")
 
+-- Up or down to the target's floor (Nav.FloorHint), left of the distance.
+local floorIcon = frame:CreateTexture(nil, "OVERLAY")
+floorIcon:SetSize(12, 12)
+floorIcon:SetPoint("RIGHT", distText, "LEFT", -3, 0)
+floorIcon:Hide()
+local UI_MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\UI\\"
+
 local Arrow = {
 	frame = frame, dial = dial, mover = mover, body = body, facet = facet, glow = glow, sheet = sheet, sheetSpec = sheetSpec,
-	ring = ring, halo = halo, legIcon = legIcon, distText = distText, labelText = labelText, etaText = etaText,
+	ring = ring, halo = halo, legIcon = legIcon, distText = distText, labelText = labelText, etaText = etaText, floorIcon = floorIcon,
 	dart = dart, dartEdge = dartEdge, skinRing = skinRing, skinCheck = skinCheck, skinDisc = skinDisc,
 	glass = glass, glassBody = glassBody, glassSand = glassSand,
 }
@@ -254,6 +261,7 @@ local function facing()
 	return C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
 end
 local lastYards, lastEta
+local floorShown -- the floor glyph's hint ("up" | "down") or nil
 local lastDist, closeSpeed = nil, 0
 local pulse = 0
 local showEta = true
@@ -495,6 +503,15 @@ local function sample(elapsed)
 		frame:Hide()
 		return false
 	end
+	local hint = state == "travel" and Nav.FloorHint and Nav.FloorHint() or nil
+	if hint ~= floorShown then
+		floorShown = hint
+		if hint then
+			floorIcon:SetTexture(UI_MEDIA .. (hint == "up" and "chevron-up" or "chevron-down"))
+			floorIcon:SetVertexColor(Nav.RGB("text"))
+		end
+		floorIcon:SetShown(hint ~= nil)
+	end
 	local T = Nav.travel
 	local routed = T ~= nil and T.Active() or false
 	syncLabel(T, routed)
@@ -562,7 +579,7 @@ local function sample(elapsed)
 	return true
 end
 
-frame:SetScript("OnUpdate", function(_, elapsed)
+frame:SetScript("OnUpdate", ns.Safe(function(_, elapsed)
 	accum = accum + elapsed
 	if accum >= SAMPLE_INTERVAL then
 		local step = accum
@@ -592,7 +609,7 @@ frame:SetScript("OnUpdate", function(_, elapsed)
 		ring:SetSize(DIAL * s, DIAL * s)
 		halo:SetAlpha(0.35 + 0.25 * (0.5 + 0.5 * sin(pulse * 4)))
 	end
-end)
+end))
 
 frame:SetScript("OnShow", function()
 	accum, hasAngle = 0, false

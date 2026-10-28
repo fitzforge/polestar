@@ -71,7 +71,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
 			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals", "trainAll",
-			"rewardEquip", "autoBind", "hideQuestTracker" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
+			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "bagSpace", "bagsLow", "wearOffer" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
 		emit(keys)
 	"#);
 	let (specs, defaults) = (&out[0], &out[1]);
@@ -485,6 +485,59 @@ fn step_key_the_route_s_own_goals_come_before_optional_ones_and_an_npc_name_with
 	assert_eq!(out[2], json!(["macro", "/cleartarget [nocombat]\n/targetexact Marshal McBride\n/cleartarget [dead]"]), "optional goals still count once the route's are done");
 	assert_eq!(out[3], json!(["macro", "/cleartarget [nocombat]\n/targetexact Kobold Vermin\n/cleartarget [dead]"]), "the unsafe NPC goal is passed over");
 	assert_eq!(out[4], json!(["nil", "nil"]), "a tab is a control character too: no macro");
+}
+
+#[test]
+fn step_key_interact_stage_talks_to_the_targeted_step_npc_loots_its_mob_and_accepts_or_completes_in_its_quest_window_only_with_the_setting_and_out_of_combat() {
+	let out = run(r#"
+		q.bindings["CLICK PolestarStepButton:LeftButton"] = { "F" }
+		local function key() stub.runTimers(); return q.overrides.F or "step" end
+		q.step({ { t = "accept", quest = 7, npc = 197, npcName = "Marshal McBride" }, { t = "kill", target = "Kobold Vermin", quest = 8, oi = 1 } })
+		q.target = { name = "Marshal McBride", npc = 197 }
+		stub.fire("PLAYER_TARGET_CHANGED")
+		local off = key()
+		set("stepInteract", true)
+		local out = { off = off, npc = key() }
+		-- the giver's quest window: accept
+		q.questID = 7
+		stub.fire("QUEST_DETAIL")
+		out.detail = key()
+		stub.fire("QUEST_FINISHED")
+		-- another NPC, a living mob: the step key's own action
+		q.target = { name = "Goldshire Guard", npc = 1423 }
+		stub.fire("PLAYER_TARGET_CHANGED")
+		out.other = key()
+		q.target = { name = "Kobold Vermin", npc = 6, hostile = true }
+		stub.fire("PLAYER_TARGET_CHANGED")
+		out.alive = key()
+		-- killed in a fight: loots once the fight is over
+		q.combat(true)
+		q.target.dead = true
+		stub.fire("PLAYER_TARGET_CHANGED")
+		out.fighting = key()
+		q.combat(false)
+		out.corpse = key()
+		-- a hand-in: continue, then complete (not with rewards to choose)
+		q.step({ { t = "turnin", quest = 9, npc = 240, npcName = "Marshal Dughan" } })
+		q.questID = 9
+		stub.fire("QUEST_PROGRESS")
+		out.progress = key()
+		q.choices = { { id = 1 }, { id = 2 } }
+		stub.fire("QUEST_COMPLETE")
+		out.choose = key()
+		q.choices = {}
+		stub.fire("QUEST_COMPLETE")
+		out.complete = key()
+		emit(out)
+	"#);
+	assert_eq!(
+		out[0],
+		json!({
+			"off": "step", "npc": "INTERACTTARGET", "detail": "CLICK QuestFrameAcceptButton:LeftButton", "other": "step", "alive": "step",
+			"fighting": "step", "corpse": "INTERACTTARGET", "progress": "CLICK QuestFrameCompleteButton:LeftButton", "choose": "step",
+			"complete": "CLICK QuestFrameCompleteQuestButton:LeftButton"
+		})
+	);
 }
 
 #[test]
@@ -1074,6 +1127,33 @@ fn xp_mark_the_label_reads_the_next_level_or_the_target_and_how_many_levels_away
 }
 
 #[test]
+fn xp_mark_a_point_inside_this_level_puts_the_tick_at_that_share_of_the_bar_one_in_a_later_level_names_the_share() {
+	let out = run(&[
+		XPMARK,
+		r#"
+		local M = QoL.XPMark
+		emit({ same = M.Label(10, 10, 0.4), later = M.Label(10, 12, 0.4), whole = M.Label(10, 10) or "nil" })
+		local bar = q.xpBar()
+		q.engine.levelTarget, q.engine.levelFrac = 10, 0.4
+		q.step({ { t = "level", level = 10, frac = 0.4 } })
+		local f = M.frame
+		local _, _, _, x = f.Tick:GetPoint(1)
+		emit({ text = f.Label:GetText(), shown = f:IsShown(), x = x, width = f:GetWidth() or 0 })
+		q.engine.levelTarget, q.engine.levelFrac = 12, nil
+		q.step({ { t = "level", level = 12 } })
+		local _, _, _, x2 = f.Tick:GetPoint(1)
+		emit({ text = f.Label:GetText(), x = x2 })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "same": "Guide: 40% of this level", "later": "Guide: 12 (40%)", "whole": "nil" }));
+	assert_eq!(out[1]["text"], "Guide: 40% of this level");
+	assert_eq!(out[1]["shown"], true);
+	near(&out[1]["x"], -0.6 * out[1]["width"].as_f64().unwrap(), 1e-6);
+	assert_eq!(out[2], json!({ "text": "Guide: 12 (2 levels)", "x": 0 }), "a whole level: back at the bar's end");
+}
+
+#[test]
 fn xp_mark_a_tick_at_the_right_end_of_the_shown_xp_bar_labelled_with_the_guide_s_next_level_target_made_through_createframeunder() {
 	let out = run(&[
 		XPMARK,
@@ -1239,6 +1319,40 @@ fn merchant_a_slot_changed_between_ticks_is_re_checked_and_never_sold() {
 	assert!(!used.contains(&json!("1:12")), "the swapped slot is never used");
 	assert!(!ids.contains(&json!(6)));
 	assert_eq!(ids.len(), 9);
+}
+
+#[test]
+fn merchant_never_sells_an_item_a_later_step_keeps_names_the_sellable_ones_first_and_their_tooltip_warns_while_it_is_open() {
+	let out = run(&[
+		BAGS,
+		r#"
+		-- The guide keeps Ruined Pelt (grey) for step 14, Linen Cloth for step 9 and a valueless quest item for step 3.
+		q.engine.kept = { [5] = 14, [2] = 9, [4] = 3 }
+		local before = { QoL.KeptLine(2) }
+		q.openMerchant()
+		stub.advance(2)
+		local sold = {}
+		for _, id in ipairs(q.sold) do sold[id] = (sold[id] or 0) + 1 end
+		local open = { QoL.KeptLine(2) }
+		q.closeMerchant()
+		emit({
+			pelt = sold[5] or 0, fangs = sold[1] or 0,
+			warned = printed("Linen Cloth.*Ruined Pelt.*: later steps of the guide need them"),
+			before = before[1], open = open[1], after = QoL.KeptLine(2), none = QoL.KeptLine(3) or false,
+		})
+	"#,
+	]
+	.concat());
+	assert_eq!(
+		out[0],
+		json!({
+			"pelt": 0, "fangs": 5, "warned": true,
+			"before": "Kept for the guide: step 9 needs it",
+			"open": "Don't sell: the guide needs it at step 9",
+			"after": "Kept for the guide: step 9 needs it",
+			"none": false,
+		})
+	);
 }
 
 #[test]
@@ -2640,6 +2754,38 @@ fn flight_marks_the_route_s_next_flight_destination_else_the_fly_goal_never_take
 }
 
 #[test]
+fn flight_the_step_key_takes_the_marked_flight_on_the_live_step_when_the_player_can_pay() {
+	let out = run(r#"
+		local s = PolestarStepButton
+		local function press() q.calls = {}; q.click(s, true); q.click(s, false); return calls("TakeTaxiNode")[1] or 0 end
+		q.step({ { t = "fly", location = "Lakeshire" } })
+		q.money = 500
+		q.taxiCosts[2] = 300
+		q.openTaxi({ "Stormwind, Elwynn", "Lakeshire, Redridge", "Sentinel Hill, Westfall" })
+		emit(s:GetAttribute("type") or "nil")
+		emit(press())
+		-- too dear: nothing taken, the price said
+		q.taxiCosts[2] = 900
+		emit({ press(), printed("Lakeshire") })
+		-- looking at another step: the key does that step's thing, no flight
+		q.taxiCosts[2] = 300
+		q.engine.live = 1
+		q.step({ { t = "fly", location = "Lakeshire" } }, 2)
+		Polestar.Fire("FLIGHT_MARK_CHANGED", 2); stub.runTimers()
+		emit(press())
+		-- the map closed: the step key is back to the step
+		q.engine.live = nil
+		stub.fire("TAXIMAP_CLOSED"); stub.runTimers()
+		emit(press())
+	"#);
+	assert_eq!(out[0], "nil", "no secure action: the press flies");
+	assert_eq!(out[1], 2);
+	assert_eq!(out[2], json!([0, true]));
+	assert_eq!(out[3], 0);
+	assert_eq!(out[4], 0);
+}
+
+#[test]
 fn flight_the_mark_names_the_destination_node_and_bobs_unless_motion_is_reduced() {
 	let out = run(r#"
 		q.step({ { t = "fly", location = "Sentinel Hill" } })
@@ -2897,6 +3043,40 @@ fn death_helper_off_does_nothing() {
 		emit(q.pins["qol.death"] == nil)
 	"#);
 	assert_eq!(out[0], 0);
+	assert_eq!(out[1], true);
+}
+
+#[test]
+fn death_released_outside_the_dungeon_you_died_in_the_arrow_runs_to_its_entrance_not_the_spirit_healer() {
+	let out = run(r#"
+		QoL.SetData({ spiritHealers = { { 0, 20, 0, 9000, 50, 49 } }, flightMasters = {} })
+		q.player = { c = 0, wx = 0, wy = 0 }
+		q.level = 30
+		Polestar.Codex = { IsLoaded = function() return true end, Each = function(_, fn) fn("rfc"); fn("deadmines") end,
+			Instance = function(key)
+				if key == "rfc" then return { key = key, name = "Ragefire Chasm", map = 389, entrance = { map = 9000, x = 90, y = 90 } } end
+				return { key = key, name = "The Deadmines", map = 36, entrance = { map = 9000, x = 50, y = 30 } }
+			end }
+		-- dies in the Deadmines (instance map 36), released at the graveyard outside
+		IsInInstance = function() return true, "party" end
+		GetInstanceInfo = function() return "The Deadmines", "party", 1, "Normal", 5, 0, false, 36 end
+		stub.fire("PLAYER_DEAD")
+		IsInInstance = function() return false, "none" end
+		q.corpse = nil
+		q.ghost = true
+		stub.fire("PLAYER_ALIVE")
+		local t, a = q.nav.target, QoL.GetDeathAdvice()
+		emit({ label = t.label, map = t.map, x = t.x, y = t.y, choice = a.choice, yards = a.corpseYards, note = a.note })
+		-- alive again: forgotten
+		q.ghost = false
+		stub.fire("PLAYER_UNGHOST")
+		emit(QoL.State().diedIn == nil)
+	"#);
+	assert_eq!(out[0]["label"], "The Deadmines (your corpse is inside)");
+	assert_eq!(json!([out[0]["map"].clone(), out[0]["x"].clone(), out[0]["y"].clone()]), json!([9000, 50, 30]));
+	assert_eq!(out[0]["choice"], "corpse", "400 yd of running beats ten minutes of sickness");
+	assert!((out[0]["yards"].as_f64().unwrap() - 400.0).abs() < 1e-6);
+	assert!(is_match(text(&out[0]["note"]), r"^Run back to The Deadmines, your corpse is inside"));
 	assert_eq!(out[1], true);
 }
 
@@ -3315,4 +3495,76 @@ fn full_addon_qol_loads_with_every_module_and_creates_its_buttons_at_login() {
 	let r = &out[0];
 	assert_eq!(*r, json!({ "qol": true, "item": true, "target": true, "hearth": true, "xp": true, "healers": r["healers"].clone() }));
 	assert!(r["healers"].as_f64().unwrap() > 50.0, "generated Spirit Healer data loaded");
+}
+
+#[test]
+fn breath_off_by_default_on_it_warns_at_10_and_4_seconds_left_while_breath_runs_down_and_clears_when_the_timer_stops() {
+	let out = run(r#"
+		local ms = 30000
+		GetMirrorTimerProgress = function(t) if t == "BREATH" then return ms end end
+		local flashes = 0
+		FlashClientIcon = function() flashes = flashes + 1 end
+		local function warned() return { sounds = #stub.sounds, flashes = flashes } end
+		stub.fire("MIRROR_TIMER_START", "BREATH", 30000, 30000, -1, false, "Breath")
+		ms = 9000; stub.advance(0.5)
+		local off = warned()
+		set("breathWarning", true)
+		ms = 30000
+		stub.fire("MIRROR_TIMER_START", "BREATH", 30000, 30000, -1, false, "Breath")
+		ms = 15000; stub.advance(0.5)
+		local early = warned()
+		ms = 9000; stub.advance(0.5)
+		local ten = warned()
+		ms = 8000; stub.advance(0.5)
+		local once = warned()
+		ms = 3500; stub.advance(0.5)
+		local four = warned()
+		stub.fire("MIRROR_TIMER_STOP", "BREATH")
+		ms = 30000
+		stub.fire("MIRROR_TIMER_START", "BREATH", 9000, 30000, 10, false, "Breath")
+		ms = 9000; stub.advance(0.5)
+		emit({ off = off, early = early, ten = ten, once = once, four = four, refill = warned() })
+	"#);
+	assert_eq!(out[0]["off"], json!({ "sounds": 0, "flashes": 0 }));
+	assert_eq!(out[0]["early"], json!({ "sounds": 0, "flashes": 0 }));
+	assert_eq!(out[0]["ten"], json!({ "sounds": 1, "flashes": 1 }));
+	assert_eq!(out[0]["once"], json!({ "sounds": 1, "flashes": 1 }), "said once at 10 seconds");
+	assert_eq!(out[0]["four"], json!({ "sounds": 2, "flashes": 2 }));
+	assert_eq!(out[0]["refill"], json!({ "sounds": 2, "flashes": 2 }), "breath filling back up says nothing");
+}
+
+#[test]
+fn step_gossip_picks_the_option_the_live_step_names_opens_goods_or_training_for_its_buy_and_train_goals_and_shift_or_quests_suppress() {
+	let out = run(r#"
+		local CHAT = { gossipOptionID = 4021, name = "Tell me more.", icon = 132053, orderIndex = 0 }
+		local GOODS = { gossipOptionID = 91, name = "Let me browse your goods.", icon = 132060, orderIndex = 1 }
+		local TRAIN = { gossipOptionID = 92, name = "Train me.", icon = 132058, orderIndex = 2 }
+		local function visit(npc, opts)
+			q.calls = {}
+			stub.fire("GOSSIP_CLOSED")
+			q.openGossip(npc, opts or { options = { CHAT, GOODS, TRAIN } })
+			return calls("SelectOption")[1] or 0
+		end
+		local out = {}
+		q.step({ { t = "talk", npc = 344, npcName = "Magistrate Solomon", gossip = 4021 } })
+		out.named = visit(344)
+		out.otherNpc = visit(345)
+		stub.keys.shift = true
+		out.shift = visit(344)
+		stub.keys.shift = false
+		out.quests = visit(344, { options = { CHAT }, available = 1 })
+		q.step({ { t = "buy", item = 159, npc = 344, count = 5 } })
+		out.goods = visit(344)
+		q.step({ { t = "train", npc = 344, npcName = "Trainer" } })
+		out.train = visit(344)
+		-- looking at another step: only the live one counts
+		q.engine.live = 1
+		q.step({ { t = "talk", npc = 344, gossip = 4021 } }, 2)
+		out.notLive = visit(344)
+		q.engine.live = nil
+		set("stepGossip", false)
+		out.off = visit(344)
+		emit(out)
+	"#);
+	assert_eq!(out[0], json!({ "named": 4021, "otherNpc": 0, "shift": 0, "quests": 0, "goods": 91, "train": 92, "notLive": 0, "off": 0 }));
 }

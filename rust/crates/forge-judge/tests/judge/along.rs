@@ -26,9 +26,13 @@ fn goal(i: usize, t: &str, q: Option<i64>, oi: Option<i64>, x: f64, along: Optio
 		time: 0.0,
 		lvl_after: 15.0,
 		time_after: 0.0,
+		grind: f64::NAN,
 		pos: Some(w),
 		along: along.map(str::to_string),
 		label: label.map(str::to_string),
+		item: None,
+		spots: Vec::new(),
+		class: false,
 	}
 }
 

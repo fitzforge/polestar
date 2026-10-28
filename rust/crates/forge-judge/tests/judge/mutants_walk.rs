@@ -64,9 +64,13 @@ fn goal(i: usize, t: &str, q: Option<i64>, oi: Option<i64>, w: WPt) -> WalkGoal 
 		time: i as f64,
 		lvl_after: 3.0,
 		time_after: i as f64,
+		grind: f64::NAN,
 		pos: Some(w),
 		along: None,
 		label: None,
+		item: None,
+		spots: Vec::new(),
+		class: false,
 	}
 }
 

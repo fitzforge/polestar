@@ -386,7 +386,7 @@ function T.Queue()
 		queued = false
 		T.Refresh()
 	end
-	if C_Timer and C_Timer.After then C_Timer.After(0, run) else run() end
+	if C_Timer and C_Timer.After then ns.After(0, run) else run() end
 end
 
 -- A plan node's name: the live tree's, then the client's spell name even
@@ -421,7 +421,7 @@ ns.OnLogin(function()
 		ns.RegisterEvent(ev, T.Queue)
 	end
 	ns.RegisterEvent("PLAYER_LEVEL_UP", function()
-		if C_Timer and C_Timer.After then C_Timer.After(1, remind) else remind() end
+		if C_Timer and C_Timer.After then ns.After(1, remind) else remind() end
 	end)
 	ns.On("GEAR_UPDATED", function(what) if what == "spec" then T.Queue() end end)
 	T.Refresh()

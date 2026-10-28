@@ -8,7 +8,7 @@ use forge_guide::js::{cmp_utf16, V};
 use super::geo::{round, Frames};
 use super::taxi::{spawn_points, LiveFrames};
 
-const INNS: [(&[&str], i64, i64); 45] = [
+const INNS: [(&[&str], i64, i64); 47] = [
 	(&["Goldshire"], 1429, 295),
 	(&["Thunderbrew Distillery", "Kharanos"], 1426, 1247),
 	(&["Deepwater Tavern", "Menethil Harbor"], 1437, 1464),
@@ -54,6 +54,10 @@ const INNS: [(&[&str], i64, i64); 45] = [
 	(&["Cenarion Hold"], 1451, 15174),
 	(&["Light's Hope Chapel"], 1423, 16256),
 	(&["Stonetalon Peak"], 1442, 16458),
+	// Zephras Isle (RevSkyA3, c13: the isle never bound or hearthed; the speedrun guides bind
+	// Shen'dar, then Valanaar, and hearth from both).
+	(&["Shen'dar Village"], 2521, 254089),
+	(&["Valanaar"], 2521, 255940),
 ];
 
 pub struct Inn {

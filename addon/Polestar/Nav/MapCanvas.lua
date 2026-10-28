@@ -141,7 +141,7 @@ function MapCanvas.Watch(map, fn)
 		if not canvas then return nil end
 		view = setmetatable({ map = map, canvas = canvas, shown = false, listeners = {}, muted = {} }, View)
 		local f = ns.CreateFrameUnder("Frame", nil, canvas)
-		f:SetScript("OnUpdate", function(_, elapsed) update(view, elapsed or 0) end)
+		f:SetScript("OnUpdate", ns.Safe(function(_, elapsed) update(view, elapsed or 0) end))
 		f:SetScript("OnHide", function()
 			if not view.shown then return end
 			view.shown = false

@@ -12,7 +12,7 @@
 //! compared with the same order's v1 counts, so the guard is consistent with itself; the judge
 //! stays the reference for the reported numbers.
 
-use crate::eval::Step;
+use crate::eval::{Moved, Step};
 use crate::run::{Run, K_ACCEPT, K_GRIND, K_TASK, K_TURNIN};
 use forge_core::{Frame, Projector};
 use forge_world::atlas::{AtlasNode, GoalAt};
@@ -54,6 +54,8 @@ pub struct GuardData {
 	near_town: Vec<bool>,
 	/// Per run task: it kills an elite or rare mob (#156/#217/#175: no elite or rare camps).
 	pub elite_rare: Vec<bool>,
+	/// Per run point: the points within a hub's reach (left-ready, walked-past).
+	pub hub: crate::hubs::HubData,
 }
 
 /// Spawn points a giver record contributes (passedby.js spawnPoints cap).
@@ -90,9 +92,11 @@ impl GuardData {
 			for t in run.q_task0[q]..run.q_task1[q] {
 				let ti = t - run.q_task0[q];
 				let obj = wq.objs.iter().find(|o| o.task == Some(ti));
-				let oi = obj.map(|o| o.oi as usize + 1);
+				// (1-based; a quest with no objectives has one event objective, oi -1: 0 here, as the
+				// release build's wrapping gave, and no objective to read.)
+				let oi = obj.map(|o| (o.oi + 1) as usize);
 				area_task[t as usize] = locate(id, "collect", oi, run.task_pt[t as usize]);
-				let is_item = oi.and_then(|i| dq.and_then(|d| d.objectives.get(i - 1)).and_then(|o| o.as_ref())).is_some_and(|o| o.kind == "item");
+				let is_item = oi.and_then(|i| i.checked_sub(1)).and_then(|i| dq.and_then(|d| d.objectives.get(i)).and_then(|o| o.as_ref())).is_some_and(|o| o.kind == "item");
 				if is_item {
 					task_item_oi[t as usize] = oi.unwrap_or(0) as u32;
 				}
@@ -157,7 +161,7 @@ impl GuardData {
 			.collect();
 		let near_town = (0..run.pt_list.len() as u32).map(|p| run.towns.iter().any(|&t| run.straight(p, t) <= crate::profile::TOWN_TRAIN_YD)).collect();
 		let elite_rare = elite_rare_tasks_of(run, data);
-		GuardData { elite_rare, near_town, area_accept, area_turnin, area_task, item_areas, near, give_areas, pickup, closed_by, grid }
+		GuardData { elite_rare, near_town, area_accept, area_turnin, area_task, item_areas, near, give_areas, pickup, closed_by, grid, hub: crate::hubs::HubData::new(run) }
 	}
 
 	fn step_area(&self, run: &Run, s: &Step) -> i32 {
@@ -186,6 +190,9 @@ impl GuardData {
 #[derive(Clone, Debug, Default, PartialEq, Eq, serde::Serialize)]
 pub struct GuardCounts {
 	pub avoidable_returns: u32,
+	/// Avoidable returns per atlas area (area, returns), by area: a move is judged per area, not
+	/// by the total (GuardCounts::added_returns).
+	pub returns_by_area: Vec<(u32, u32)>,
 	pub wasted_trips: u32,
 	pub passed_by: u32,
 	pub passed_by_never: u32,
@@ -206,7 +213,28 @@ pub struct GuardCounts {
 	pub train_bounces: u32,
 	/// Tasks of the order that kill elite or rare mobs.
 	pub elite_rare: u32,
+	/// Accepts and hand-ins left ready at a hub visit for a later return (the check's
+	/// `left-ready`; crate::hubs).
+	pub left_ready: u32,
+	/// Hand-ins whose ender the walk passed within reach while they were ready, then went away
+	/// (the check's `walked-past`; crate::hubs).
+	pub walked_past: u32,
+	/// Trips off the continent and back for quests LOW_TRIP_UNDER or more levels under the
+	/// character while an on-level quest is open where the route left (the route benchmark's rule 2; low_trips).
+	pub low_trips: u32,
 }
+
+impl GuardCounts {
+	/// Avoidable returns these counts add over `bound`, area by area (a return removed in one area
+	/// does not pay for one added in another).
+	pub fn added_returns(&self, bound: &GuardCounts) -> u32 {
+		self.returns_by_area.iter().map(|&(a, n)| n.saturating_sub(bound.returns_by_area.iter().find(|x| x.0 == a).map_or(0, |x| x.1))).sum()
+	}
+}
+
+/// Seconds of route time a kept move must save for each avoidable return it adds to an area
+/// (policy: a return costs the player more than its travel; GuardCounts::added_returns).
+pub const RETURN_COST_SEC: f64 = 300.0;
 
 /// Yards and levels of the split-work count.
 pub const SPLIT_YD: f64 = 600.0;
@@ -221,32 +249,56 @@ impl GuardCounts {
 	/// The judge's guards only (avoidable returns, passed-by) and training gaps: a pickup adds a
 	/// stop by nature, so the visit counts (split work, area visits) don't bound it.
 	pub fn within_judge(&self, bound: &GuardCounts) -> bool {
-		self.avoidable_returns <= bound.avoidable_returns && self.passed_by <= bound.passed_by && self.training_gaps <= bound.training_gaps && self.feedback_within(bound)
+		self.passed_by <= bound.passed_by && self.training_gaps <= bound.training_gaps && self.feedback_within(bound) && self.hubs_within(bound)
+	}
+
+	/// The hub guards: no accept or hand-in more left ready at a hub, no ready hand-in more walked
+	/// past.
+	pub fn hubs_within(&self, bound: &GuardCounts) -> bool {
+		self.left_ready <= bound.left_ready && self.walked_past <= bound.walked_past
 	}
 
 	/// The feedback guards (grind after the trip's hand-ins, no training bounce, no elite or
-	/// rare camps).
+	/// rare camps, no trip off the continent for low quests).
 	pub fn feedback_within(&self, bound: &GuardCounts) -> bool {
-		self.grind_before_handin <= bound.grind_before_handin && self.train_bounces <= bound.train_bounces && self.elite_rare <= bound.elite_rare
+		self.grind_before_handin <= bound.grind_before_handin && self.train_bounces <= bound.train_bounces && self.elite_rare <= bound.elite_rare && self.low_trips <= bound.low_trips
 	}
 
 	pub fn within(&self, bound: &GuardCounts) -> bool {
-		self.avoidable_returns <= bound.avoidable_returns
-			&& self.passed_by <= bound.passed_by
+		self.passed_by <= bound.passed_by
 			&& self.training_gaps <= bound.training_gaps
 			&& self.feedback_within(bound)
+			&& self.hubs_within(bound)
 			&& self.split_by_zone.iter().all(|&(z, n)| n <= bound.split_by_zone.iter().find(|x| x.0 == z).map_or(0, |x| x.1))
 			&& self.area_visits.iter().all(|&(a, n)| n <= bound.area_visits.iter().find(|x| x.0 == a).map_or(1, |x| x.1))
 	}
 }
 
 /// The order's walk: who was accepted and turned in when, levels after each step.
-struct Walk<'a> {
-	run: &'a Run,
-	steps: &'a [Step],
-	lv_after: Vec<f64>,
-	accept_at: Vec<u32>,
-	turnin_at: Vec<u32>,
+pub(crate) struct Walk<'a> {
+	pub(crate) run: &'a Run,
+	pub(crate) steps: &'a [Step],
+	pub(crate) lv_after: Vec<f64>,
+	pub(crate) accept_at: Vec<u32>,
+	pub(crate) turnin_at: Vec<u32>,
+}
+
+/// The walk of an order to 60 (the judge counts the steps begun below it): `lv_before[i]` the
+/// level before step i (search Current.lv).
+pub(crate) fn walk<'a>(run: &'a Run, steps: &'a [Step], lv_before: &[f64]) -> Walk<'a> {
+	let n = lv_before.iter().position(|&l| l >= 60.0).unwrap_or(steps.len()).min(steps.len());
+	let steps = &steps[..n];
+	let lv_after: Vec<f64> = (0..n).map(|i| lv_before.get(i + 1).copied().unwrap_or_else(|| lv_before.last().copied().unwrap_or(1.0).max(60.0))).collect();
+	let mut accept_at = vec![NEVER; run.n_quests()];
+	let mut turnin_at = vec![NEVER; run.n_quests()];
+	for (i, s) in steps.iter().enumerate() {
+		match s.kind {
+			K_ACCEPT if accept_at[s.q as usize] == NEVER => accept_at[s.q as usize] = i as u32,
+			K_TURNIN if turnin_at[s.q as usize] == NEVER => turnin_at[s.q as usize] = i as u32,
+			_ => {}
+		}
+	}
+	Walk { run, steps, lv_after, accept_at, turnin_at }
 }
 
 const NEVER: u32 = u32::MAX;
@@ -264,11 +316,11 @@ impl Walk<'_> {
 	fn ever(&self, q: u32) -> bool {
 		self.accept_at[q as usize] != NEVER || self.turnin_at[q as usize] != NEVER
 	}
-	fn lvl(&self, t: usize) -> f64 {
+	pub(crate) fn lvl(&self, t: usize) -> f64 {
 		self.lv_after.get(t).copied().unwrap_or(1.0)
 	}
 	/// rules.js acceptableAt: open at the state after step t.
-	fn acceptable(&self, q: u32, t: usize) -> bool {
+	pub(crate) fn acceptable(&self, q: u32, t: usize) -> bool {
 		let r = self.run;
 		let qi = q as usize;
 		if self.accepted_by(q, t) || self.lvl(t) < r.q_min_level[qi] as f64 {
@@ -311,50 +363,34 @@ fn dist(a: (i64, f64, f64), b: (i64, f64, f64)) -> f64 {
 }
 
 /// Count the guards on an order: `lv_before[i]` the level before step i (search Current.lv),
-/// `walked[i]` whether the leg into step i was walked.
-pub fn guard_counts(g: &GuardData, run: &Run, steps: &[Step], lv_before: &[f64], walked: &[bool]) -> GuardCounts {
-	// The judge counts to 60: the steps begun below it.
-	let n = lv_before.iter().position(|&l| l >= 60.0).unwrap_or(steps.len()).min(steps.len());
-	let steps = &steps[..n];
-	let lv_after: Vec<f64> = (0..n).map(|i| lv_before.get(i + 1).copied().unwrap_or_else(|| lv_before.last().copied().unwrap_or(1.0).max(60.0))).collect();
-	let mut accept_at = vec![NEVER; run.n_quests()];
-	let mut turnin_at = vec![NEVER; run.n_quests()];
-	for (i, s) in steps.iter().enumerate() {
-		match s.kind {
-			K_ACCEPT if accept_at[s.q as usize] == NEVER => accept_at[s.q as usize] = i as u32,
-			K_TURNIN if turnin_at[s.q as usize] == NEVER => turnin_at[s.q as usize] = i as u32,
-			_ => {}
-		}
-	}
-	let w = Walk { run, steps, lv_after, accept_at, turnin_at };
+/// `walked[i]` how the leg into step i was travelled.
+pub fn guard_counts(g: &GuardData, run: &Run, steps: &[Step], lv_before: &[f64], walked: &[Moved]) -> GuardCounts {
+	let w = walk(run, steps, lv_before);
 	let mut c = GuardCounts::default();
 	returns(g, &w, &mut c);
 	split_work(g, &w, &mut c);
 	training_gaps(g, &w, &mut c);
 	area_visits(g, &w, &mut c);
-	c.grind_before_handin = grind_before_handin(run, steps, &w.lv_after);
-	c.train_bounces = train_bounces(run, steps);
-	c.elite_rare = elite_rare_count(steps, &g.elite_rare);
+	c.grind_before_handin = grind_before_handin(run, w.steps, &w.lv_after);
+	c.train_bounces = train_bounces(run, w.steps);
+	c.elite_rare = elite_rare_count(w.steps, &g.elite_rare);
+	c.low_trips = low_trips(&w);
 	passed_by(g, &w, walked, &mut c, None);
+	let h = crate::hubs::count(&g.hub, &w, walked, None);
+	(c.left_ready, c.walked_past) = (h.left_ready, h.walked_past);
 	c
+}
+
+/// The hub counts of an order (crate::hubs), with the fixes they point at when `fixes` is given
+/// (indices into `steps`).
+pub fn hub_counts(h: &crate::hubs::HubData, run: &Run, steps: &[Step], lv_before: &[f64], walked: &[Moved], fixes: Option<&mut Vec<crate::hubs::Fix>>) -> crate::hubs::HubCounts {
+	crate::hubs::count(h, &walk(run, steps, lv_before), walked, fixes)
 }
 
 /// The quests the order passes by and never takes (passed_by_never), with the step whose leg
 /// passes the giver first.
-pub fn passed_never(g: &GuardData, run: &Run, steps: &[Step], lv_before: &[f64], walked: &[bool]) -> Vec<(u32, usize)> {
-	let n = lv_before.iter().position(|&l| l >= 60.0).unwrap_or(steps.len()).min(steps.len());
-	let steps = &steps[..n];
-	let lv_after: Vec<f64> = (0..n).map(|i| lv_before.get(i + 1).copied().unwrap_or_else(|| lv_before.last().copied().unwrap_or(1.0).max(60.0))).collect();
-	let mut accept_at = vec![NEVER; run.n_quests()];
-	let mut turnin_at = vec![NEVER; run.n_quests()];
-	for (i, s) in steps.iter().enumerate() {
-		match s.kind {
-			K_ACCEPT if accept_at[s.q as usize] == NEVER => accept_at[s.q as usize] = i as u32,
-			K_TURNIN if turnin_at[s.q as usize] == NEVER => turnin_at[s.q as usize] = i as u32,
-			_ => {}
-		}
-	}
-	let w = Walk { run, steps, lv_after, accept_at, turnin_at };
+pub fn passed_never(g: &GuardData, run: &Run, steps: &[Step], lv_before: &[f64], walked: &[Moved]) -> Vec<(u32, usize)> {
+	let w = walk(run, steps, lv_before);
 	let mut c = GuardCounts::default();
 	let mut out = Vec::new();
 	passed_by(g, &w, walked, &mut c, Some(&mut out));
@@ -422,6 +458,10 @@ fn returns(g: &GuardData, w: &Walk, c: &mut GuardCounts) {
 			}
 			if avoid > 0 {
 				c.avoidable_returns += 1;
+				match c.returns_by_area.last_mut() {
+					Some(x) if x.0 == au as u32 => x.1 += 1,
+					_ => c.returns_by_area.push((au as u32, 1)),
+				}
 				if avoid == v2.2.len() {
 					c.wasted_trips += 1;
 				}
@@ -481,7 +521,7 @@ fn obtainable(g: &GuardData, w: &Walk, q: u32, d: usize, a: usize) -> bool {
 
 /// passedby.js: the quests the walk goes past (giver within PB_RADIUS of a walked leg) while
 /// open and in the window, never taken or taken only after going PB_LEFT away.
-fn passed_by(g: &GuardData, w: &Walk, walked: &[bool], c: &mut GuardCounts, mut out: Option<&mut Vec<(u32, usize)>>) {
+fn passed_by(g: &GuardData, w: &Walk, walked: &[Moved], c: &mut GuardCounts, mut out: Option<&mut Vec<(u32, usize)>>) {
 	let steps = w.steps;
 	let mut found: FxHashSet<u32> = FxHashSet::default();
 	let mut rejected: FxHashSet<(u32, u32)> = FxHashSet::default();
@@ -489,7 +529,7 @@ fn passed_by(g: &GuardData, w: &Walk, walked: &[bool], c: &mut GuardCounts, mut 
 	let mut near: Vec<(f64, f64, u32)> = Vec::new();
 	for i in 0..steps.len() {
 		let Some(p) = w.pos(i) else { continue };
-		let walk = prev.filter(|&j| walked.get(i).copied().unwrap_or(false) && w.pos(j).is_some_and(|x| x.0 == p.0));
+		let walk = prev.filter(|&j| walked.get(i).is_some_and(|m| m.walked) && w.pos(j).is_some_and(|x| x.0 == p.0));
 		let from = walk.and_then(|j| w.pos(j)).unwrap_or(p);
 		let t = walk.unwrap_or(i.saturating_sub(1));
 		let lvl = w.lvl(t);
@@ -652,19 +692,81 @@ pub fn grind_before_handin(run: &Run, steps: &[Step], lv_after: &[f64]) -> u32 {
 		}
 		let before = if i == 0 { 1.0 } else { lv_after[i - 1] };
 		let (Some(p), true) = (at, lv_after[i] > before + 1e-3) else { continue };
-		let bad = (i + 1..(i + 1 + GRIND_TRIP_STEPS).min(n)).any(|j| {
-			let t = steps[j];
-			t.kind == K_TURNIN && run.straight(p, t.pt) <= GRIND_TRIP_YD && {
-				let q = t.q as usize;
-				let has_tasks = run.q_task0[q] < run.q_task1[q];
-				!has_tasks || (last_task[q] >= 0 && last_task[q] < i as i64 && !steps[i + 1..j].iter().any(|x| x.kind == K_TASK && x.q == t.q))
-			}
-		});
-		if bad {
+		if handin_waits(run, &steps[..n], i + 1, p, &last_task) {
 			n_bad += 1;
 		}
 	}
 	n_bad
+}
+
+/// Whether a grind at `p` right before `steps[from..]` is on the trip of a hand-in that waits (the
+/// #617 guard, grind_before_handin): a turn-in among the next GRIND_TRIP_STEPS steps, within
+/// GRIND_TRIP_YD of p, of a quest with no tasks or whose work is all done before (`last_task`: per
+/// quest the index of its last task step before `from`, -1 none), none of its tasks in between.
+pub fn handin_waits(run: &Run, steps: &[Step], from: usize, p: u32, last_task: &[i64]) -> bool {
+	(from..(from + GRIND_TRIP_STEPS).min(steps.len())).any(|j| {
+		let t = steps[j];
+		t.kind == K_TURNIN && run.straight(p, t.pt) <= GRIND_TRIP_YD && {
+			let q = t.q as usize;
+			let has_tasks = run.q_task0[q] < run.q_task1[q];
+			!has_tasks || (last_task[q] >= 0 && last_task[q] < from as i64 && !steps[from..j].iter().any(|x| x.kind == K_TASK && x.q == t.q))
+		}
+	})
+}
+
+/// The low trips of an order (GuardCounts::low_trips) without the judge's data.
+pub fn low_trip_count(run: &Run, steps: &[Step], lv_before: &[f64]) -> u32 {
+	low_trips(&walk(run, steps, lv_before))
+}
+
+/// Levels under the character a trip's quests are for it to be a low trip (the route benchmark's rule 2).
+pub const LOW_TRIP_UNDER: f64 = 3.0;
+/// Levels under the character an open quest may be and still be on level (a low trip leaves one).
+pub const ON_LEVEL_UNDER: f64 = 2.0;
+
+/// The trips off the continent and back: per run of placed steps on another continent than the
+/// steps before and after it, its first and last step (a grind checkpoint has no place).
+pub fn trips(run: &Run, steps: &[Step]) -> Vec<(usize, usize)> {
+	// Runs of one continent: (continent, first, last).
+	let mut runs: Vec<(i64, usize, usize)> = Vec::new();
+	for (i, s) in steps.iter().enumerate() {
+		if s.kind == K_GRIND {
+			continue;
+		}
+		let c = run.p_c[s.pt as usize];
+		match runs.last_mut() {
+			Some(r) if r.0 == c => r.2 = i,
+			_ => runs.push((c, i, i)),
+		}
+	}
+	runs.windows(3).filter(|w| w[0].0 == w[2].0 && w[1].0 != w[0].0).map(|w| (w[1].1, w[1].2)).collect()
+}
+
+/// The route benchmark's rule 2 (stay on the continent): trips off the continent whose
+/// quest steps are at least two thirds for quests LOW_TRIP_UNDER or more levels under the
+/// character, taken while a quest no more than ON_LEVEL_UNDER under it is in the log with a step
+/// left on the continent the route leaves (our 16-19 Silverpine trip from the Barrens).
+fn low_trips(w: &Walk) -> u32 {
+	let run = w.run;
+	let steps = w.steps;
+	let mut n = 0;
+	for (s, e) in trips(run, steps) {
+		let l = if s == 0 { 1.0 } else { w.lvl(s - 1) };
+		let quest = |x: &&Step| matches!(x.kind, K_ACCEPT | K_TASK | K_TURNIN);
+		let all = steps[s..=e].iter().filter(quest).count();
+		let low = steps[s..=e].iter().filter(quest).filter(|x| run.q_level[x.q as usize] as f64 <= l - LOW_TRIP_UNDER).count();
+		if all == 0 || 3 * low < 2 * all {
+			continue;
+		}
+		let home = run.p_c[steps[..s].iter().rev().find(|x| x.kind != K_GRIND).map_or(run.start_pt, |x| x.pt) as usize];
+		let open = steps[e + 1..].iter().any(|x| {
+			matches!(x.kind, K_TASK | K_TURNIN) && run.p_c[x.pt as usize] == home && w.accept_at[x.q as usize] != NEVER && (w.accept_at[x.q as usize] as usize) < s && run.q_level[x.q as usize] as f64 >= l - ON_LEVEL_UNDER
+		});
+		if open {
+			n += 1;
+		}
+	}
+	n
 }
 
 /// #664/#663: trainings whose town is within TOWN_TRAIN_YD of neither the stop before nor the
@@ -673,7 +775,9 @@ pub fn train_bounces(run: &Run, steps: &[Step]) -> u32 {
 	let yd = crate::profile::TOWN_TRAIN_YD;
 	let mut n = 0;
 	for k in 0..steps.len() {
-		if steps[k].kind != crate::run::K_TRAIN {
+		// (A training due, order::due_trains, is a trip for the trainer by design: a rank that waited
+		// TRAIN_DUE_GAP levels.)
+		if steps[k].kind != crate::run::K_TRAIN || steps[k].task == crate::order::TRAIN_DUE_TASK {
 			continue;
 		}
 		let t = steps[k].pt;
@@ -700,4 +804,22 @@ pub fn elite_rare_tasks_of(run: &Run, data: &GameData) -> Vec<bool> {
 				.any(|w| run.w_kind[w] == crate::run::W_KILL && (run.w_elite[w] || data.npcs.get(&run.w_mob[w]).and_then(|n| n.rank).is_some_and(|r| r >= 1.0)))
 		})
 		.collect()
+}
+
+#[cfg(test)]
+mod returns_tests {
+	use super::*;
+
+	#[test]
+	fn a_return_added_to_one_area_is_not_paid_for_by_one_removed_elsewhere() {
+		// c6 Orc: the order's total returns fell (94 -> 77) while it added returns to Camp Taurajo
+		// and Stonard; the old guard compared the totals only.
+		let c = |v: &[(u32, u32)]| GuardCounts { avoidable_returns: v.iter().map(|x| x.1).sum(), returns_by_area: v.to_vec(), ..Default::default() };
+		let now = c(&[(10, 1), (20, 3)]);
+		let cand = c(&[(10, 2), (20, 1)]);
+		assert!(cand.avoidable_returns < now.avoidable_returns, "fewer in total");
+		assert_eq!(cand.added_returns(&now), 1, "one added to area 10");
+		assert_eq!(c(&[(20, 3), (30, 2)]).added_returns(&now), 2, "a new area");
+		assert_eq!(now.added_returns(&now), 0);
+	}
 }

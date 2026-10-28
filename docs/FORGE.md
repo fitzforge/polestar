@@ -174,12 +174,17 @@ A new Forge may change what a stage writes; the stages it affects run again on t
    | `--wow <folder>` | the game folder, when Forge does not find it (remembered for next time) |
    | `--grid <folder>` | a walking grid already built (or `$POLESTAR_GRID`); without it Forge builds one from the game into `forge-out/grid` |
    | `--allow-incomplete` | build the walking grid even when the install lacks files ([Troubleshooting](#troubleshooting)) |
+   | `--no-questie` | build the data without QuestieDB. Without this flag the build stops when no client's AddOns folder holds QuestieDB's Forever store (the live `_forever_` client first, then a `_classic_beta_` one, a test install under `~/Games/*/World of Warcraft`, any other client; `$WOW_FOREVER_ADDONS` names one): without it about a sixth of the quests are missing |
+   | `--accept-fewer-quests` | take a data build with over 5% fewer quests than the previous build's (else the build stops, naming the missing quests by source) |
+   | `--forever-tables saved\|client\|wago` | where the data stage reads the Forever client tables (zones, map frames, races, factions, items). Always at the build the walking grid was built from (its `index.json`), never whatever client is installed: `saved` (default) reads the copy under `data/sources/client-tables/<build>/`; `client` refreshes that copy from the installed client (`wow_classic_beta` or `wowf` at the grid's build) and reads it; `wago` reads the wago.tools cache `data/sources/wago/<build>/`. The build log names the source and build. Tables missing for the grid's build stop the build |
+   | `--allow-build-mismatch` | take Forever tables of another build than the grid's (the newest saved or cached, or the installed client's) instead of stopping; the log warns |
+   | `--until data\|walks` | stop after the data stage, or after the walks stage |
    | `--nav grid\|leffe\|hybrid` | which walking maps price the walks ([Leffe's navigation maps](#leffes-navigation-maps)) |
    | `--threads N` | worker threads (default 8) |
    | `--guides <folder>` | the guides to start from (default: the checkout's `guides/`, its generated guides read from the seed) |
    | `--checkout <folder>` | the checkout whose fixes the build applies (default: the one above `--guides`, else above here) |
    | `--root <checkout>` | the checkout whose sources to read (default: the nearest folder above here with `data/sources`) |
-   | `--strict` | for release builds: fail when a fix no longer applies ([Fixing a generated guide](#fixing-a-generated-guide)), and when the walks would be on our grid alone (no Leffe's maps or saved walks). Every report's first line names the walking maps the build used |
+   | `--strict` | for release builds: fail when a fix no longer applies ([Fixing a generated guide](#fixing-a-generated-guide)), when the route check (`check.md`) has a blocker, and when the walks would be on our grid alone (no Leffe's maps or saved walks). Every report's first line names the walking maps the build used |
 
 5. **Run it again after a change.** Each stage remembers a key of its inputs in
    `forge-out/.forge/`; a stage whose inputs did not change is skipped. Change one guide and only
@@ -197,6 +202,7 @@ What lands in `forge-out/`:
 | `guides/<start>/` | the guides with the route written in |
 | `report.md`, `report.json` | the judge's report |
 | `fixes.md`, `fixes.json` | the fixes ledger: every fix in the checkout and what this build did with it (also the report's last section) |
+| `check.md`, `check.json` | the route check (`forge judge check`, [judge.md](forge/judge.md#the-route-gate-forge-judge-check)): every rule the written guides break, one line each; its summary line ends `report.md` |
 
 Forge also reads a few environment variables; [internals.md](forge/internals.md#environment-variables)
 lists them all.
@@ -481,7 +487,9 @@ released), then every record and what became of it:
 | `undone` | a player-report check that passes on the seed and fails on the written guides | yes |
 | `error` | `check-corrections` finds the entry wrong (an id not in the data, a conflict) | yes |
 
-A normal build lists them; a release build (`--strict`) fails until each is fixed or removed.
+A normal build lists them; a release build (`--strict`) fails until each is fixed or removed. It
+fails on the route check's blockers too (`check.md`): the build still writes every file first, so
+the list is there to read.
 
 ## Troubleshooting
 

@@ -343,6 +343,8 @@ end
 G.ACTIONS = {
 	{ action = "POLESTAR_NEXT", section = "guide", label = L["Next step"], run = "Next" },
 	{ action = "POLESTAR_PREV", section = "guide", label = L["Previous step"], run = "Prev" },
+	{ action = "POLESTAR_NEXT_WAYPOINT", section = "guide", label = L["Next waypoint"], run = "NextWaypoint" },
+	{ action = "POLESTAR_PREV_WAYPOINT", section = "guide", label = L["Previous waypoint"], run = "PrevWaypoint" },
 	{ action = "POLESTAR_FOCUS", section = "guide", label = L["Browse the guide with the gamepad"], run = "Focus" },
 	{ action = "POLESTAR_TOGGLE", section = "guide", label = L["Toggle guide window"], run = "Toggle" },
 	{ action = "POLESTAR_MENU", section = "windows", label = L["Open the guide menu"], run = "Menu" },
@@ -937,7 +939,7 @@ local checkFocus -- forward: the open window's focus and help, checked a few tim
 
 driver = CreateFrame("Frame")
 driver:Hide()
-driver:SetScript("OnUpdate", function(_, elapsed)
+driver:SetScript("OnUpdate", ns.Safe(function(_, elapsed)
 	bindReleased()
 	sinceChords = sinceChords + elapsed
 	if chordHeld or sinceChords >= CHORD_POLL then
@@ -963,7 +965,7 @@ driver:SetScript("OnUpdate", function(_, elapsed)
 		G.repeatWait = REPEAT_EVERY
 		if G.handler then G.handler(key, true) end
 	end
-end)
+end))
 
 function updateDriver()
 	local need = G.owner ~= nil or G.repeatKey ~= nil or next(G.heldKeys) ~= nil
@@ -1162,7 +1164,7 @@ function G.Capture(opts)
 		pcall(frame.SetScript, frame, "OnGamePadButtonUp", function(_, button) return onPadUp(button) end)
 		pcall(frame.SetScript, frame, "OnKeyDown", function(_, key) onKeyDown(key) end)
 		pcall(frame.SetScript, frame, "OnKeyUp", function(_, key) onKeyUp(key) end)
-		frame:SetScript("OnUpdate", onCaptureUpdate)
+		frame:SetScript("OnUpdate", ns.Safe(onCaptureUpdate))
 		frame:Hide()
 		G.captureFrame = frame
 	end
@@ -1802,7 +1804,7 @@ function G.Register(frame, spec)
 	frame:HookScript("OnHide", function() G.Close(frame) end)
 	-- A frame is born shown: one still shown once its builder ran is open.
 	if C_Timer and C_Timer.After then
-		C_Timer.After(0, function() if frame:IsShown() and not entryOf(frame) then G.Open(frame) end end)
+		ns.After(0, function() if frame:IsShown() and not entryOf(frame) then G.Open(frame) end end)
 	end
 end
 

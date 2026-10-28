@@ -44,6 +44,7 @@ local defaults = {
 	markTarget = false,      -- raid icon on what the target button and step key target
 	markMob = "8",           -- its icon on mobs (1-8, "cycle"): skull
 	markNpc = "1",           -- and on NPCs: star
+	stepInteract = false,    -- the step key talks to, loots and accepts with its target (QoL/Buttons.lua)
 	buttonScale = 1,
 	buttonTextSide = "right", -- which side of the button its name sits on
 	xpTracker = true,
@@ -52,14 +53,21 @@ local defaults = {
 	autoRepair = true,
 	repairGuild = false,     -- guild bank first when the rank allows
 	buyGoals = false,        -- buy what the step's buy goals still need
+	restock = true,          -- the merchant's Restock button, for the amounts set per character
+	itemMarks = true,        -- Ctrl+Alt-click marks an item as junk or to keep
+	bagSpace = true,         -- free bag slots: the junk button and the bags-full banner
+	bagsLow = 2,             -- ... at this many free slots or fewer
 	trainAll = false,        -- learn every spell a class trainer offers now
 	rewardHighlight = true,
 	rewardAutoPick = false,
 	rewardEquip = false,     -- wear what a turn-in gives when it is an upgrade
+	wearOffer = true,        -- offer gear from loot or a merchant that is an upgrade
 	flightAutoOpen = true,
 	flightHighlight = true,
+	stepGossip = true,       -- pick the gossip option the live step asks for, open goods or training for its buy and train goals (QoL/Gossip.lua)
 	autoBind = false,        -- bind the Hearthstone at the step's innkeeper
 	deathHelper = true,
+	breathWarning = false,   -- red screen edge, sound and taskbar flash as breath runs out (QoL/Breath.lua)
 	instantQuestText = true,
 	skipGossip = true,
 	fastLoot = true,
@@ -226,7 +234,7 @@ function QoL.Coalesce(fn)
 	return function()
 		if scheduled then return end
 		scheduled = true
-		if C_Timer and C_Timer.After then C_Timer.After(0, run) else run() end
+		if C_Timer and C_Timer.After then ns.After(0, run) else run() end
 	end
 end
 
@@ -285,7 +293,7 @@ function QoL.ClosePopup(which, mark)
 		end
 		StaticPopup_Hide(which)
 	end
-	if C_Timer and C_Timer.After then C_Timer.After(0, close) else close() end
+	if C_Timer and C_Timer.After then ns.After(0, close) else close() end
 end
 
 ---------------------------------------------------------------------------
@@ -299,7 +307,10 @@ local readable = ns.Compat.Readable
 
 Client.HEARTHSTONE = 6948
 Client.QUALITY_POOR = 0
+Client.QUALITY_COMMON = 1
 Client.CLASS_QUEST = 12 -- Enum.ItemClass.Questitem
+Client.CLASS_PROJECTILE = 6 -- Enum.ItemClass.Projectile
+Client.RANGED_SLOT = 18
 
 function Client.NumBags()
 	return NUM_BAG_SLOTS or 4
@@ -321,6 +332,29 @@ end
 function Client.UseSlot(bag, slot)
 	local C = C_Container
 	if C and C.UseContainerItem then C.UseContainerItem(bag, slot) end
+end
+
+-- Free slots in one bag and its family: 0 (or nil) for a bag that holds
+-- anything, a bit set for a quiver, ammo pouch, soul or profession bag.
+function Client.FreeSlots(bag)
+	local C = C_Container
+	if not (C and C.GetContainerNumFreeSlots) then return 0, nil end
+	local free, family = C.GetContainerNumFreeSlots(bag)
+	return readable(free) or 0, readable(family)
+end
+
+-- Destroys what a bag slot holds. Only on a press (DeleteCursorItem has
+-- restrictions: the client's own delete dialog calls it from its button),
+-- never with something already on the cursor, which the pickup would
+-- swap in. true when the item went.
+function Client.DeleteSlot(bag, slot)
+	local C = C_Container
+	if not (C and C.PickupContainerItem and DeleteCursorItem and CursorHasItem) then return false end
+	if CursorHasItem() then return false end
+	C.PickupContainerItem(bag, slot)
+	if not CursorHasItem() then return false end
+	DeleteCursorItem()
+	return true
 end
 
 function Client.ItemCount(itemID)
@@ -361,6 +395,31 @@ end
 function Client.ItemClass(itemID)
 	if C_Item and C_Item.GetItemInfoInstant then return (select(6, C_Item.GetItemInfoInstant(itemID))) end
 	return nil
+end
+
+-- classID, subclassID (C_Item.GetItemInfoInstant: cached or not).
+function Client.ItemKind(itemID)
+	if not (C_Item and C_Item.GetItemInfoInstant) then return nil end
+	local _, _, _, _, _, classID, subclassID = C_Item.GetItemInfoInstant(itemID)
+	return classID, subclassID
+end
+
+-- The level an item can be used from, nil while uncached.
+function Client.ItemMinLevel(itemID)
+	if not (itemID and C_Item and C_Item.GetItemInfo) then return nil end
+	return (select(5, C_Item.GetItemInfo(itemID)))
+end
+
+-- A spell's name in the client's language, nil when unknown.
+function Client.SpellName(spellID)
+	if C_Spell and C_Spell.GetSpellName then return C_Spell.GetSpellName(spellID) end
+	if GetSpellInfo then return (GetSpellInfo(spellID)) end
+	return nil
+end
+
+-- Item ID of what the character wears in an inventory slot.
+function Client.WornID(slot)
+	return GetInventoryItemID and GetInventoryItemID("player", slot) or nil
 end
 
 -- Vendor sell price per item in copper, nil while uncached.

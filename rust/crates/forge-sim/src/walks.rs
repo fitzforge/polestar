@@ -5,13 +5,20 @@
 //! layout) with v1's semantics (walks.js `attachWalks`): one walk per pair, band 30's where it
 //! was re-routed, else band 0's; yards × the document's `smooth`; within a band both-ways walks
 //! first, one-way walks over them, and the last entry of a pair wins. Pairs it lacks fall back
-//! to the straight line × detour in the evaluator (v1 does not read `unwalkable`).
+//! to the straight line × detour in the evaluator (v1 does not read `unwalkable`), but only
+//! within the store's `radius`: a pair beyond it was never asked, and the straight line there
+//! may cross a sea or a mountain range (travel.rs direct_walk).
 
 use rustc_hash::FxHashMap;
 
 /// Routed walking yards from world point `a` to world point `b`, or None (no routed walk).
 pub trait Walks: Sync + Send {
 	fn yards(&self, a: u32, b: u32) -> Option<f64>;
+	/// Straight yards within which the store asked every pair of points (the walks document's
+	/// `radius`): a pair it lacks beyond it has no walk. None: no store (every leg straight).
+	fn radius(&self) -> Option<f64> {
+		None
+	}
 }
 
 /// No routed walks: every leg is the straight line × detour (the gate's model, walks off).
@@ -30,6 +37,10 @@ pub struct WalkTable {
 	pub nw: u64,
 	pub smooth: f64,
 	pub data_hash: String,
+	/// The world's walk inputs the walks were built on (World::walks_key; empty in older files).
+	pub walks_key: String,
+	/// The document's `radius` (yards; None in a file without one).
+	pub radius: Option<f64>,
 	map: FxHashMap<u64, f64>,
 }
 
@@ -37,6 +48,9 @@ impl Walks for WalkTable {
 	#[inline]
 	fn yards(&self, a: u32, b: u32) -> Option<f64> {
 		self.map.get(&(a as u64 * self.nw + b as u64)).copied()
+	}
+	fn radius(&self) -> Option<f64> {
+		self.radius
 	}
 }
 
@@ -93,8 +107,28 @@ impl WalkTable {
 				}
 			}
 		}
-		let data_hash = header.get("dataHash").and_then(|v| v.as_str()).unwrap_or("").to_string();
-		Ok(WalkTable { nw: nwu, smooth, data_hash, map })
+		let s = |k: &str| header.get(k).and_then(|v| v.as_str()).unwrap_or("").to_string();
+		let radius = header.get("radius").and_then(|v| v.as_f64()).filter(|r| *r > 0.0);
+		Ok(WalkTable { nw: nwu, smooth, data_hash: s("dataHash"), walks_key: s("walksKey"), radius, map })
+	}
+
+	/// Whether these walks are the ones of `world`: the same walk inputs (`walksKey`, World::walks_key:
+	/// its points and the places walked to; a data fix that touches neither keeps them), or for a walks
+	/// file without one, the same `dataHash`. An unknown side counts as the same.
+	pub fn built_on(&self, world: &forge_world::World) -> bool {
+		if !self.walks_key.is_empty() {
+			return self.walks_key == world.walks_key();
+		}
+		world.data_hash.as_deref().is_none_or(|h| self.data_hash.is_empty() || h == self.data_hash)
+	}
+
+	/// What `built_on` compares, for messages: this file's key and the world's.
+	pub fn built_on_text(&self, world: &forge_world::World) -> String {
+		if self.walks_key.is_empty() {
+			format!("dataHash {} vs this world's {}", self.data_hash, world.data_hash.as_deref().unwrap_or("-"))
+		} else {
+			format!("walksKey {} vs this world's {}", self.walks_key, world.walks_key())
+		}
 	}
 
 	#[cfg(feature = "native")]

@@ -361,7 +361,7 @@ function refreshDisplay()
 	paint()
 	frame:Show()
 	if not ticker and C_Timer and C_Timer.NewTicker then
-		ticker = C_Timer.NewTicker(1, function()
+		ticker = ns.NewTicker(1, function()
 			if wanted() then paint() else refreshDisplay() end
 		end)
 	end

@@ -163,6 +163,15 @@ function Compat.IsInInstance()
 	return true, kind
 end
 
+-- The instance the player is in: its map ID (GetInstanceInfo's 8th value,
+-- Map.csv's ID, as the Codex's instance records carry it), or nil outside or
+-- while the client keeps it secret.
+function Compat.GetInstanceMapID()
+	if not (Compat.IsInInstance() and GetInstanceInfo) then return nil end
+	local id = readable((select(8, GetInstanceInfo())))
+	return type(id) == "number" and id or nil
+end
+
 -- The client's indoor state (the minimap's indoor zoom): true indoors, false
 -- outdoors, nil when the client lacks IsIndoors, it errors, or keeps it secret.
 -- Nav/Walk.lua seeds the walking floor with it.
@@ -273,6 +282,51 @@ function Compat.GetQuestTitle(questID)
 		if t and t ~= "" then return t end
 	end
 	return nil
+end
+
+-- The quests in the log, in log order (headers and hidden entries left out).
+function Compat.GetLogQuests()
+	local out, QL = {}, C_QuestLog
+	if not (QL and QL.GetNumQuestLogEntries and QL.GetInfo) then return out end
+	for i = 1, QL.GetNumQuestLogEntries() or 0 do
+		local info = QL.GetInfo(i)
+		local q = info and not info.isHeader and not info.isHidden and Compat.Readable(info.questID)
+		if type(q) == "number" and q > 0 then out[#out + 1] = q end
+	end
+	return out
+end
+
+-- How many quests the log holds: the client's word, else Forever's 40
+-- (QuestLogConstsMainlineCamelot.MAXIMUM_NUM_QUESTS_LOG_CAN_ACCEPT).
+function Compat.GetLogCap()
+	local QL = C_QuestLog
+	local n = QL and QL.GetMaxNumQuestsCanAccept and tonumber(QL.GetMaxNumQuestsCanAccept())
+	return n and n > 0 and n or 40
+end
+
+-- Ask to abandon a quest the way the quest log's own button does: select it,
+-- mark it for abandoning, and show the game's confirmation, whose Accept
+-- abandons it. False when the client offers no way, and with the gamepad
+-- interface, whose focus owns the game's dialogs (abandon from the quest log
+-- there).
+function Compat.AskAbandonQuest(questID)
+	local QL, show = C_QuestLog, StaticPopup_Show
+	if ns.GamepadUI() or not (QL and QL.SetSelectedQuest and QL.SetAbandonQuest and show) then return false end
+	QL.SetSelectedQuest(questID)
+	QL.SetAbandonQuest()
+	show("ABANDON_QUEST", Compat.GetQuestTitle(questID) or "")
+	return true
+end
+
+-- Share a quest with the party, as the quest log's Share button does. False
+-- when the client offers no way or says it cannot be shared.
+function Compat.ShareQuest(questID)
+	local QL = C_QuestLog
+	if not (QL and QL.SetSelectedQuest and QuestLogPushQuest) then return false end
+	if QL.IsPushableQuest and not QL.IsPushableQuest(questID) then return false end
+	QL.SetSelectedQuest(questID)
+	QuestLogPushQuest()
+	return true
 end
 
 -- Quests the open NPC window offers, as a list of quest IDs, or nil when the

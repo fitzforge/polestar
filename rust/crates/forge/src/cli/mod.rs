@@ -184,13 +184,13 @@ const SIM_HELP: &str = "usage: forge sim <command> [options]
 
   route   one start's route, cut from the current guides' order and improved:
           --faction F --start <race> --out <file.json> [--root <checkout>] [--world-dir <dir>]
-          [--seed guides|<file>] [--guides <dir>] [--edits N] [--budget K] [--guard seed|current|off]
-          [--profile avg|slow|fast|gate] [--walks on|off] [--param name=value ...] [--tries N] [--members N]
-          [--rng S] [--share-every N] [--search-draws K] [--holdout N] [--threads N]
+          [--seed guides|<file>] [--guides <dir>] [--search edits|free|hybrid] [--edits N] [--budget K] [--cut knee|all]
+          [--guard seed|current|off] [--profile avg|slow|fast|gate] [--walks on|off] [--param name=value ...] [--tries N] [--members N]
+          [--rng S] [--share-every N] [--search-draws K] [--holdout N] [--threads N] [--deathskips]
   widen   the shared 12-60 route of a faction: --faction F --starts A,B,... --out <file.json>
-          [--join-after <guide>] [--diagnose] [--edits N] [--budget K] [--members N] [--threads N]
+          [--join-at <guide file name>] [--diagnose] [--edits N] [--budget K] [--cut knee|all] [--members N] [--threads N] [--deathskips]
   shared  the shared route by the free search: --faction F --out <file.json> [--own-tries N] [--tries N]
-          [--guard on|off] [--walks on|off] [--threads N]
+          [--guard on|off] [--walks on|off] [--threads N] [--deathskips]
   guards  the judge's guards on orders: --faction F --race R <chain.json>... [--export <dir>]
   why     <quest> --start S (--dir <routes dir> | --out <forge build output>): where the quest is in S's
           route, or why it is not
@@ -203,7 +203,12 @@ const SIM_HELP: &str = "usage: forge sim <command> [options]
 --seed guides (default): the order of the guides in --guides (default <root>/guides), as forge build
 makes it; --seed <file>: a chain document. --guard: a kept change may not raise the seed's guard counts
 (seed), the current order's (current), or is unguarded (off). The route fixes are <root>/data/route-fixes.json
-($POLESTAR_ROUTE_FIXES names another file); $POLESTAR_ROUTES the routes dir for why and skips.
+($POLESTAR_ROUTE_FIXES names another file); $POLESTAR_ROUTES the routes dir for why and skips. --edits: the
+edit descent's cap; --budget: keep that many of its edits; else --cut: every edit (all, the default) or
+the knee's (knee). --search: the edit descent, the free search (--tries over --members) or both, the
+free search first (default: edits when --edits is given, else free). --deathskips (off by default): the route
+profiles may die near a leg's start and go on from the graveyard the game resurrects at, where that beats the
+leg by 30 s, through level 10 (docs/forge/model.md, Deathskips); the guide writes it as a `die` step.
 ";
 
 const WALKS_HELP: &str = "usage: forge walks <command> ...
@@ -232,9 +237,11 @@ fn help(name: &str) -> Option<String> {
        {}
        {}
        {}
+       {}
        {}",
 			judge::USAGE,
 			judge::REPORT_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
+			judge::CHECK_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
 			judge::SEED_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
 			judge::STATUS_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
 			judge::FEEDBACK_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: ")

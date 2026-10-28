@@ -20,7 +20,8 @@
 //                     -> undead, NightElf -> nightelf); Skyborne, which has none,
 //                     its character frame portrait (interface/characterframe/
 //                     temporaryportrait-<sex>-skyborne); female falls back to male
-//   ui:<key>          a named client texture, the UI table below
+//   ui:<key>          a named client texture, the UI table below (by path or
+//                     fileDataID; `cell` [x, y, w, h] cuts one cell of an atlas)
 //
 // Tables are the Forever build's (the one CASC serves), cached as
 // data/sources/wago/<build>/<Table>.csv (tools/lib/data/wago.js cachedTable).
@@ -58,6 +59,11 @@ const UI = {
 	// Quest givers and gossip.
 	'quest-available': { path: 'interface/gossipframe/availablequesticon' }, // 132049
 	'quest-turnin': { path: 'interface/gossipframe/activequesticon' }, // 132048
+	'quest-incomplete': { fdid: 365195 }, // interface/gossipframe/incompletequesticon: the grey ?
+	// The minimap's quest marks: 32 px cells of interface/minimap/objecticons (136435).
+	'mark-available': { fdid: 136435, cell: [32, 32, 32, 32] }, // yellow !
+	'mark-turnin': { fdid: 136435, cell: [64, 32, 32, 32] }, // yellow ?
+	'mark-low': { fdid: 136435, cell: [128, 96, 32, 32] }, // the dimmed !
 	talk: { path: 'interface/gossipframe/gossipgossipicon' }, // 132053
 	// Minimap tracking: the town services.
 	flightmaster: { path: 'interface/minimap/tracking/flightmaster' }, // 136456
@@ -163,11 +169,16 @@ function resizeBox(rgba, w, h, x0, y0, cw, ch, n) {
 	return out;
 }
 
-// A BLP -> PNG; crop: the Interface/Icons inset at ICON_PX, else the full frame.
+// A BLP -> PNG; crop: true, the Interface/Icons inset at ICON_PX; [x, y, s, s],
+// that square cell at its own size; else the full frame.
 function blpToPng(buf, crop) {
 	const blp = decodeBlp(buf, { levels: 1 });
 	const { width: w, height: h, rgba } = blp.mips[0];
 	if (!crop) return encodePng(rgba, w, h);
+	if (Array.isArray(crop)) {
+		const [x, y, s] = crop;
+		return encodePng(resizeBox(rgba, w, h, x, y, s, s, s), s, s);
+	}
 	return encodePng(resizeBox(rgba, w, h, INSET * w, INSET * h, (1 - 2 * INSET) * w, (1 - 2 * INSET) * h, ICON_PX), ICON_PX, ICON_PX);
 }
 
@@ -300,6 +311,7 @@ function openIcons({ sourcesDir = SOURCES, outDir = DEFAULT_OUT, product = 'wow_
 			}
 			case 'ui': {
 				const e = UI[key];
+				if (e.fdid) return { fdid: e.fdid, crop: e.cell || false };
 				return e.item ? icon((await items()).get(String(e.item))) : byPath(e.path);
 			}
 			default:

@@ -43,6 +43,320 @@
 			],
 			"issue": 674,
 			"pr": 678
+		},
+		{
+			"id": "621-westfall-oats-not-on-the-way",
+			"at": {
+				"quest": 151,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Poor Old Blanchy: the oats grow in the Jansen Stead's fields and are gathered there on the way back; listing them on the road in sends players searching the zone.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#621"
+				}
+			],
+			"issue": 621
+		},
+		{
+			"id": "416-westfall-harvest-watchers-not-on-the-way",
+			"at": {
+				"quest": 9,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Killing Fields: the road into Westfall runs south, farm by farm; listing the Harvest Watchers on the way pulls the arrow back north before Sentinel Hill.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#416"
+				}
+			],
+			"issue": 416
+		},
+		{
+			"id": "345-tirisfal-rattlecages-in-their-step",
+			"at": {
+				"quest": 3901,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Rattling the Rattlecages: the skeletons are killed in the Rattlecage step, where a Warlock collects the Rattlecage Skulls (1470) from the same skeletons; an along list from the accept would split the two.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#345"
+				}
+			],
+			"issue": 345
+		},
+		{
+			"id": "duskwood-spider-venom-not-on-the-way",
+			"at": {
+				"quest": 101,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Totem of Infliction: the spider venom is gathered after Watcher Dodds, the Raven Hill tome and the wolves (the route's order records for task 101.2); an along list from Darkshire lists it before all three.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "route-fixes after: task 101.2 (r4c, r4e, r4f reads)"
+				}
+			]
+		},
+		{
+			"id": "509-tirisfal-scarlet-warriors-not-on-the-way",
+			"at": {
+				"quest": 427,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "At War With The Scarlet Crusade: the Scarlet Warriors are killed at the Crusader's Outpost on the west loop; listing them on the way sends the arrow to Solliden Farmstead first.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#509"
+				}
+			],
+			"issue": 509
+		},
+		{
+			"id": "tirisfal-doom-weed-not-on-the-way",
+			"at": {
+				"quest": 5482,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Doom Weed: it grows only in the graveyard fields north of Brill and is picked on the north loop; an along list from the accept keeps it on screen through the whole west trip to Solliden and the hearth back, where none grows.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "gameobject 176753 (Doom Weed, loot 13702): all 50 spawns north of Brill, map 54.7-58.8, 33.8-43.3"
+				}
+			]
+		},
+		{
+			"id": "zephras-taming-near-quelana",
+			"at": {
+				"quest": 94978,
+				"goal": "turnin"
+			},
+			"tip": "Quel'ana Quickgale hands you a Taming Rod three times: tame the beast she names with it, then bring the rod back to her for the next one. The first is for a Windsong Crawler on the shore west of town; Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Quel'dora Quickgale, beside her, teaches Beast Training.",
+			"note": "Taming the Beast: the Galestriders and Vuldren Alphas the second and third rods need live 100-200 yd north of Quel'ana (places zephras-taming-galestrider, zephras-taming-vuldren-alpha); the tip sent Hunters to the Windfield farm, about 800 yd away, twice, with a walk back to her after each tame. RevSkyA3 c13 read: the alliance seed tames the first rod's Windsong Crawler on the Catching Wind trip to the Windstone Formations (crawlers 221 yd from the formations, 462 yd from Quel'ana), so the tip sits on the first hand-in, which both seeds write in the taming step.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 251707 and 250874 spawns on map 2991 within 200 yd of Quel'ana Quickgale (252389, 2263, 918)"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json 251707 and 250874 spawns 69-188 yd from Quel'ana (59.61,72.65)"
+				}
+			]
+		},
+		{
+			"id": "zephras-skycutter-from-valanaar",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94946,
+				"goal": "accept"
+			},
+			"tip": "Elaadrin Evengale sends you on to Dalaran. Once you have trained, take the skycutter from the dock tower just south of Valanaar: it lands by the Kirin Tor camp west of Dalaran, beside Denaaris Stargale and the Skyborne Portal.",
+			"note": "The Magical City of Dalaran: the written step that leaves the isle is a bare goto to the skycutter's dock, so the step before it says how the player leaves the isle (v1's skycutter step said it).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quests.json 94946 objective text: take the skycutter ship from Zephras Isle to Dalaran City and speak with Denaaris Stargale"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature_template 252391 Haalee Windstalker, Captain of the Skycutter"
+				}
+			]
+		},
+		{
+			"id": "zephras-denaaris-by-the-skycutter",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94946,
+				"goal": "turnin"
+			},
+			"tip": "Denaaris Stargale stands beside the Skyborne Portal, where the skycutter lands by the Kirin Tor camp west of Dalaran. The portal takes you to Stormwind.",
+			"note": "The Magical City of Dalaran: the Alliance Skyborne arrive by skycutter, not by zeppelin (v1's tip said zeppelin).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quests.json 94946 objective text: take the skycutter ship from Zephras Isle to Dalaran City and speak with Denaaris Stargale"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature_template 252391 Haalee Windstalker, Captain of the Skycutter"
+				}
+			]
+		},
+		{
+			"id": "zephras-lorthuna-by-portal",
+			"faction": "Alliance",
+			"at": {
+				"quest": 93835,
+				"goal": "complete"
+			},
+			"tip": "Lorthuna waits up on the Rohashi Spires, east of the shrine: take the Portal to Rohashi Spires in the inner sanctum, beside Valennia, and cross the heights east to Elaadrin. When she falls, the Portal to Valanaar beside her takes you back to town.",
+			"note": "Confront Lorthuna: the event is on the heights above the eastern shore (Lorthuna about 325 yd above the shrine's floor), reached by the inner sanctum's portal; the alliance tip sent the player 'east of the Shrine of Akir' on foot and said nothing of the portal back to Valanaar beside her (the horde seed's tip names the portal up).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "objects.json 586726 Portal To Rohashi Spires at 65.55,50.33 (Zephras Isle, in the shrine) and 617084/617085 Portal to Valanaar at 75.2,53.3, beside the quest's event point 74.87,53.02 (quests.json 93835)"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json 252957 High Priestess Lorthuna at 74.29-74.74,52.94-54.0; simulator world points: Lorthuna's event height 1144 against Valennia's inner sanctum 819"
+				}
+			]
+		},
+		{
+			"id": "zephras-shendar-eggs-from-galestriders",
+			"faction": "Horde",
+			"at": {
+				"quest": 92553,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Prideclaws and Galestriders share the meadows south of Shen'dar Village. The Galestriders drop both the Small Eggs and the Strider Meat for Zerril.",
+			"note": "Restocking the Larders: the route takes the Small Eggs from the Galestriders it kills for the Strider Meat (the same spot), but the step kept v1's tip sending the player to the hippogryph nests west of Falaath, and the meat step's tip said the eggs come later from the hippogryphs (RevSkyH c13 read, 01-zephras-isle.guide:281-287).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 6889 Small Egg drops: Galestrider 251661 (24 spawns on map 2521 around 44.3,52.4, south of Shen'dar); items.json 5469 Strider Meat: Galestrider 251661 the only dropper on the isle"
+				}
+			]
+		},
+		{
+			"id": "zephras-shendar-meat-in-the-meadows",
+			"faction": "Horde",
+			"at": {
+				"quest": 92553,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Prideclaws and Galestriders share the meadows south of Shen'dar Village. The Galestriders drop both the Small Eggs and the Strider Meat for Zerril.",
+			"note": "Restocking the Larders: the same tip as zephras-shendar-eggs-from-galestriders on the meat's step, which said the eggs come later from the hippogryphs (RevSkyH c13 read, 01-zephras-isle.guide:285-289); one text, so the merged step reads the same.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 6889 and 5469: Galestrider 251661 drops both"
+				}
+			]
+		},
+		{
+			"id": "zephras-hippogryph-nests",
+			"faction": "Horde",
+			"at": {
+				"quest": 92516,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "The hippogryph nests are north-west of the West Pylon Watchtower, west of Falaath Village. The Matriarch sits at their western end; Hippogryph Down lies on the ground around the nests.",
+			"note": "Hippogryph Harrassment and A Little Beauty: the nests step lost its tip when the eggs' step took v1's nests tip (RevSkyH c13 read, 01-zephras-isle.guide:369-373 has no tip).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 251291/251284 Hippogryph Youth/Protector 33-41,48-59 and 251261 Matriarch 33-35,54 on map 2521; West Pylon (Peacekeeper Vaaniel) 42.3,62.1"
+				}
+			]
+		},
+		{
+			"id": "zephras-crystallized-lightning-cave",
+			"faction": "Horde",
+			"at": {
+				"quest": 93737,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "The Crystallized Lightning lies in a cave in the hills north-west of Riaani.",
+			"note": "The Broken Construct: the route takes the lightning right after Riaani, alone, in v1's step titled for the Bandit Highwaymen whose tip sent the player to the hills by the orchard (RevSkyH c13 read, 01-zephras-isle.guide:427-429).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "objects.json 616468 Construct Parts (Crystallized Lightning 260881): 5 spawns at 51.4-52.9, 64.8-67.5 on map 2521, below ground; Riaani Nightwind 59.0,72.9"
+				}
+			]
+		},
+		{
+			"id": "zephras-gyrozephyrs-in-the-north",
+			"faction": "Horde",
+			"at": {
+				"quest": 93737,
+				"goal": "objective",
+				"objective": 3
+			},
+			"tip": "The Enchanted Gyrozephyrs lie under water far to the north, east of Shen'dar Village and south-west of Windsong Lake.",
+			"note": "The Broken Construct: v1's tip called them the last parts and sent the player on to the orchard; the route takes the Air Construct Cores after them (RevSkyH c13 read, 01-zephras-isle.guide:431-433).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "objects.json 616466 Construct Parts (Enchanted Gyrozephyr 260883): 10 spawns at 49.4-53.5, 44.3-51.7 on map 2521"
+				}
+			]
+		},
+		{
+			"id": "zephras-air-construct-cores",
+			"faction": "Horde",
+			"at": {
+				"quest": 93737,
+				"goal": "objective",
+				"objective": 4
+			},
+			"tip": "The Air Construct Cores lie in the hills just north-west of Windfield Orchard, among the Highwayman Bandits.",
+			"note": "The Broken Construct: the cores' step kept v1's tip about Wind Hollows, whose quest (Unwelcome Spirits) the route leaves out (RevSkyH c13 read, 01-zephras-isle.guide:435-437).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "objects.json 616467 Construct Parts (Air Construct Core 260880): 5 spawns at 43.3-44.8, 73.4-76.7 on map 2521; Aamelia Windfield 46.7,82.0; Bandit Highwayman 252820 at 43-53, 70-80"
+				}
+			]
+		},
+		{
+			"id": "zephras-highwayman-masks",
+			"faction": "Horde",
+			"at": {
+				"quest": 92685,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Highwayman Bandits hold the hills north of Windfield Orchard; they drop the Blood-Stained Bandit Masks.",
+			"note": "The Hills Have Eyes: the route split v1's Bandit Highwaymen step, and the masks' own step was left without a tip (RevSkyH c13 read, 01-zephras-isle.guide:469-470).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 253596 drops: Bandit Highwayman 252820, 24 spawns at 43-53, 70-80 on map 2521 (mean 48.0,74.6); Aamelia Windfield 46.7,82.0"
+				}
+			]
+		},
+		{
+			"id": "zephras-skycutter-to-mulgore",
+			"faction": "Horde",
+			"at": {
+				"quest": 95349,
+				"goal": "accept"
+			},
+			"tip": "Ayessa sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on Valanaar's south-west edge: it flies to northern Mulgore, where Alaana Stormwalker waits.",
+			"note": "The Earthen Ring: the written step that leaves the isle is a bare goto to the dock, so the step before it says how the player leaves (v1's airship step said it; the Alliance has zephras-skycutter-from-valanaar). RevSkyH c13 read, 01-zephras-isle.guide:740-758.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quests.json 95349 objective text: take the skycutter ship from Zephras Isle to Mulgore and speak with Alana Stormwalker when you arrive; npcs.json 259119 Alaana Stormwalker at Mulgore 33.4,22.5"
+				}
+			]
 		}
 	]
 }

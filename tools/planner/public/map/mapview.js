@@ -8,11 +8,12 @@
 //   map.fitWorld(c, [[wx, wy], ...], { padding });
 //   map.toScreen(c, wx, wy)          // { x, y } CSS px in the canvas | null (continent not shown)
 //   map.toWorld(sx, sy)              // { c, wx, wy }
-//   map.setLayer(name, on);          // terrain, zoneArt, route, labels, spawns, grid, walkable, roads, hubs, aids
+//   map.setLayer(name, on);          // terrain, zoneArt, route, labels, spawns, grid, walkable, roads, hubs, aids, quests
 //   map.setNav({ tiles } | null);     // the Walkable layer's tiles: { [c]: ['col_row'] } (GET /nav/index.json)
 //   map.setRoads({ tiles } | null);   // the Roads layer's tiles: { [c]: ['col_row'] } (GET /nav/roads/index.json)
 //   map.setHubs(hubs | null);         // the Hubs layer (GET /nav/hubs.json): { [c]: [{ id, side, name, disks: [[x, y, r]] }] }
 //   map.setAids(aids | null);         // the arrow aids (GET /nav/aids.json): crossings, chains
+//   map.setHubView(view | null, { loop, faintLoop }); // the Quest marks layer (command hub_view): marks, the walk, its problems, the ideal loop (faint: at 40%)
 //   map.setRoute([{ c, pts /* Float32Array wx,wy,... */, mode, step, state }]);
 //   map.setScene({ areas, dots, markers, rings });
 //   map.setCharacter({ c, wx, wy } | null);
@@ -30,6 +31,7 @@
 //   pick   { c, wx, wy, sx, sy, hit, event }  click without drag; hit = { type: 'marker', marker }
 //          | { type: 'handle', handle, part } | null
 //   marker { marker, step }                   a marker was clicked
+//   mark   { mark }                           a quest mark of the Quest marks layer was clicked
 //   handle { id, phase: 'start'|'move'|'end', part: 'point'|'ring', c, wx, wy, r, handle }
 //          drag of a handle (part 'ring' changes r); the handle follows the pointer until
 //          the next setHandles
@@ -42,7 +44,8 @@
 //
 // Additions to the spec: setView also takes { c, wx, wy, zoom }; any field
 // left out keeps its value. fitWorld options { padding = 48, animate = true,
-// maxZoom = 2.5 } (pts may be a flat Float32Array; none fits the continent).
+// maxZoom = 2.5, right = 0 (CSS px kept clear on the right) } (pts may be a
+// flat Float32Array; none fits the continent).
 // zoomBy(factor, { animate = true }) zooms about the centre. resize()
 // re-measures (a ResizeObserver does it anyway). destroy() releases
 // everything. stats: { path: 's3tc' | 'worker' | null, frameMs (CPU, EMA),
@@ -55,6 +58,14 @@
 // the aids draw over it: a crossing as its two ends' rings joined by a long
 // dash, its caption at its middle; a chain as a line through its nodes'
 // rings, its name at its first node and the node captions.
+// The Quest marks layer (setHubView) draws over the route: the walk through the
+// hub in ink, the ideal loop as a success-green dash, a PAST_YD disc in danger
+// round each mark walked past, the marks (the game's own textures: the
+// minimap's yellow !, yellow ? and dimmed !, the gossip window's grey ?;
+// locked ones and those the route never does faint), outlined, floating
+// above their NPC and sized by the zoom; ready marks over everything, a mark
+// walked past or left ready in a red ring; a mark's tooltip lists its quests;
+// and our stops' numbers.
 // Route mode is a MODES name or number (teleport is not drawn); a marker is
 // a pin of the atlas (icons.js): { icon: { kind, key } | null, glyph, tint }
 // (tint a colour token); markers { active } grow 1.3x inside an accent ring
@@ -85,6 +96,10 @@ const COLORS = {
 const PIN = 24;          // a pin's size in CSS px
 const PIN_ACTIVE = 31;   // the current goal's pin (1.3x)
 const ARROW = 40;
+// A quest mark's atlas cell size in CSS px (the game texture fills 50 of its 64): by zoom, 26-54.
+const markPx = (zoom) => Math.max(26, Math.min(54, 36 * zoom ** 0.3));
+// The game's marks (tools/planner/icons.js ui keys): the minimap's yellow !, yellow ?, dimmed !; the gossip grey ?.
+const MARK_ICON = { '!ready': 'mark-available', '?ready': 'mark-turnin', '!grey': 'mark-low', '?grey': 'quest-incomplete', '!locked': 'mark-low' };
 
 const pm = (c, a = 1) => [c[0] * c[3] * a, c[1] * c[3] * a, c[2] * c[3] * a, c[3] * a];
 const NONE = [0, 0, 0, 0];
@@ -96,11 +111,13 @@ export class MapView {
 		this.opts = opts;
 		this.artBase = (opts.artBase ?? '/art').replace(/\/$/, '');
 		this.listeners = {};
-		this.layers = { terrain: true, zoneArt: false, route: true, labels: true, spawns: true, grid: false, walkable: false, roads: false, hubs: false, aids: false };
+		this.layers = { terrain: true, zoneArt: false, route: true, labels: true, spawns: true, grid: false, walkable: false, roads: false, hubs: false, aids: false, quests: false };
 		this.navTiles = null;
 		this.roadTiles = null;
 		this.hubs = null;
 		this.aids = null;
+		this.hubView = null;
+		this.hubLoop = true;
 		this.mode = 'continent';
 		this.c = Number(opts.c ?? 0);
 		this.cam = { x: 0, y: 0, zoom: 0.02 };
@@ -192,12 +209,27 @@ export class MapView {
 		this.inst = {
 			areas: this.circles.instances(), rings: this.circles.instances(), dots: this.circles.instances(),
 			handles: this.circles.instances(), aidRings: this.circles.instances(), hubDisks: this.circles.instances(),
+			hvRings: this.circles.instances(), hvMarkRings: this.circles.instances(),
 		};
+		// the Quest marks layer: the walk through the hub in ink, the ideal loop dashed in success green
+		this.hvPath = new RouteLayer(gl);
+		const ink = this.colors.ink;
+		this.hvPath.setColors({ ...this.colors, route: ink, routePast: ink, routeFuture: ink });
+		this.hvLoop = new RouteLayer(gl);
+		const ok = this.token('success');
+		this.hvLoop.setColors({ ...this.colors, route: ok, routePast: ok, routeFuture: ok });
+		this.hvLoop.styles.style[8] = 2;
+		this.hvLoop.styles.style[9] = 9;
+		this.hvLoop.styles.style[10] = 6;
+		this._loopColor = this.hvLoop.styles.color.slice();
+		this._loopCas = this.hvLoop.styles.cas.slice();
 		this.inst.pinRings = this.circles.instances();
 		this.markers = new MarkerLayer(gl);
 		this.markers.atlas = new PinAtlas(gl, { color: (t) => cssOf(this.token(t)), onChange: () => this.requestRender() });
 		this.inst.arrow = this.markers.instances();
 		this.inst.glow = this.markers.instances();
+		this.inst.hvMarks = this.markers.instances();
+		this.inst.hvTop = this.markers.instances();
 		this._charData = new Float32Array(7);
 		this._dirty = true;
 	}
@@ -289,7 +321,7 @@ export class MapView {
 		}
 	}
 
-	fitWorld(c, pts, { padding = 48, animate = true, maxZoom = 2.5 } = {}) {
+	fitWorld(c, pts, { padding = 48, animate = true, maxZoom = 2.5, right = 0 } = {}) {
 		c = Number(c);
 		if (this.mode === 'continent' && c !== this.c) {
 			this._stop();
@@ -308,7 +340,7 @@ export class MapView {
 		const o = this._off(c) || { ox: 0, oy: 0 };
 		const rect = x0 <= x1 ? [x0, y0, x1, y1] : this._rect(c);
 		if (x0 > x1) maxZoom = Infinity;
-		const to = this._fitCam([rect[0] + o.ox, rect[1] + o.oy, rect[2] + o.ox, rect[3] + o.oy], padding, maxZoom);
+		const to = this._fitCam([rect[0] + o.ox, rect[1] + o.oy, rect[2] + o.ox, rect[3] + o.oy], padding, maxZoom, right);
 		this._fitPending = false;
 		if (animate) this._tween(to);
 		else {
@@ -378,6 +410,18 @@ export class MapView {
 
 	setAids(aids) {
 		this.aids = aids || null;
+		this._dirty = true;
+		this._overlayDirty = true;
+		this.requestRender();
+	}
+
+	setHubView(view, { loop = this.hubLoop, faintLoop = false } = {}) {
+		this.hubView = view || null;
+		this.hubLoop = !!loop;
+		if (this.hvLoop) {
+			this.hvLoop.styles.color = this._loopColor.map((x) => x * (faintLoop ? 0.4 : 1));
+			this.hvLoop.styles.cas = this._loopCas.map((x, i) => (faintLoop && i % 4 === 3 ? 0 : x));
+		}
 		this._dirty = true;
 		this._overlayDirty = true;
 		this.requestRender();
@@ -531,11 +575,12 @@ export class MapView {
 		return Math.min(this.W / (b[2] - b[0]), this.H / (b[3] - b[1])) * 0.9;
 	}
 
-	_fitCam(b, padding, maxZoom) {
+	// right: CSS px on the right the fit keeps clear (a panel over the map).
+	_fitCam(b, padding, maxZoom, right = 0) {
 		this._size();
 		const w = Math.max(b[2] - b[0], 1), h = Math.max(b[3] - b[1], 1);
-		const zoom = Math.min((this.W - 2 * padding) / w, (this.H - 2 * padding) / h, maxZoom);
-		return { x: (b[0] + b[2]) / 2, y: (b[1] + b[3]) / 2, zoom: Math.max(zoom, 1e-4) };
+		const zoom = Math.max(Math.min(Math.max(this.W - 2 * padding - right, 40) / w, (this.H - 2 * padding) / h, maxZoom), 1e-4);
+		return { x: (b[0] + b[2]) / 2 + right / 2 / zoom, y: (b[1] + b[3]) / 2, zoom };
 	}
 
 	_fit(b, padding, maxZoom) {
@@ -706,6 +751,12 @@ export class MapView {
 		this.circles.drawUnion(f, this.inst.areas);
 		if (this.hubs && this.layers.hubs) this.circles.draw(f, this.inst.hubDisks);
 		if (this.layers.route) this.route.draw(f);
+		const hv = this.hubView && this.layers.quests;
+		if (hv) {
+			this.circles.draw(f, this.inst.hvRings);
+			this.hvPath.draw(f);
+			if (this.hubLoop) this.hvLoop.draw(f);
+		}
 		if (this.legShown) this.preview.draw(f);
 		if (this.aids && this.layers.aids) {
 			this.aidRoute.draw(f);
@@ -715,9 +766,18 @@ export class MapView {
 		if (this.layers.spawns) this.circles.draw(f, this.inst.dots);
 		this.markers.draw(f, this.inst.glow);
 		this.markers.draw(f);
+		if (hv) {
+			if (this._hvZoom !== this.cam.zoom) this._rebuildMarks();
+			this.markers.draw(f, this.inst.hvMarks);
+		}
 		this.circles.draw(f, this.inst.pinRings);
 		this.circles.draw(f, this.inst.handles);
 		this._drawCharacter(f);
+		// ready marks over everything, problem marks in their red ring
+		if (hv) {
+			this.circles.draw(f, this.inst.hvMarkRings);
+			this.markers.draw(f, this.inst.hvTop);
+		}
 		if (this._overlayDirty) this._updateOverlay();
 		this._emitView();
 		this.stats.tiles = this.terrain ? this.terrain.ready : 0;
@@ -815,6 +875,7 @@ export class MapView {
 		this._rebuildHandles();
 		this._rebuildAids();
 		this._rebuildHubs();
+		this._rebuildHubView();
 	}
 
 	// The arrow aids: crossing ends and chain nodes as rings of their radius
@@ -860,6 +921,76 @@ export class MapView {
 		this.inst.hubDisks.set(d, k / CIRCLE_STRIDE);
 	}
 
+	// The Quest marks layer: the walk, the loop, the problem rings; the marks (_rebuildMarks) follow the zoom.
+	_rebuildHubView() {
+		const v = this.hubView;
+		const off = (c) => this._off(Number(c));
+		const path = (v?.path || []).map((r) => ({ c: r.c, pts: new Float32Array(r.pts), mode: r.mode, state: 'current' }));
+		this.hvPath.set(path, off, 0);
+		const loop = v?.loop ? [{ c: v.loop.c, pts: new Float32Array(v.loop.pts), mode: 'walk', state: 'current' }] : [];
+		this.hvLoop.set(loop, off, 0);
+		const walked = v?.walkedPast || [];
+		const d = new Float32Array(Math.max(1, walked.length) * CIRCLE_STRIDE);
+		let k = 0;
+		const danger = this.token('danger');
+		const seen = new Set();
+		for (const w of walked) {
+			const o = off(w.c);
+			if (!o || seen.has(w.key)) continue;
+			seen.add(w.key);
+			k = circle(d, k, -w.wy + o.ox, -w.wx + o.oy, v.rules.pastYd, 0, pm(danger, 0.08), pm(danger, 0.7), 1.25, 6, 4, 6);
+		}
+		this.inst.hvRings.set(d, k / CIRCLE_STRIDE);
+		this._rebuildMarks();
+	}
+
+	// The marks markPx() above their NPC (a problem mark in a red ring), sized by the zoom: rebuilt when it changes.
+	_rebuildMarks() {
+		const v = this.hubView;
+		const z = this.cam.zoom;
+		this._hvZoom = z;
+		this._hvPx = markPx(z);
+		const marks = (v?.marks || []).filter((m) => this._off(Number(m.c)));
+		// locked under grey under yellow, the route's over the others
+		const rank = (m) => (m.tone === 'ready' ? 4 : m.tone === 'grey' ? 2 : 0) + (m.inRoute ? 1 : 0);
+		this._hvMarks = marks.sort((a, b) => rank(a) - rank(b));
+		const low = new Float32Array(Math.max(1, marks.length) * 7);
+		const top = new Float32Array(Math.max(1, marks.length) * 7);
+		const rings = new Float32Array(Math.max(1, marks.length) * 2 * CIRCLE_STRIDE);
+		let kl = 0, kt = 0, kr = 0;
+		const atlas = this.markers.atlas;
+		const px = this._hvPx;
+		const lift = this._markLift() / z;
+		const danger = this.token('danger');
+		for (const m of this._hvMarks) {
+			const o = this._off(Number(m.c));
+			const x = -m.wy + o.ox, y = -m.wx + o.oy - lift;
+			const ready = m.tone === 'ready';
+			const d = ready ? top : low;
+			let k = ready ? kt : kl;
+			d[k++] = x; d[k++] = y;
+			d[k++] = atlas.cell({ icon: { kind: 'ui', key: MARK_ICON[m.mark + m.tone] }, glyph: m.mark === '?' ? 'icon-turnin' : 'icon-accept', tint: ready ? 'quest' : 'textMuted', bare: true });
+			d[k++] = px;
+			d[k++] = m.tone === 'locked' ? 0.5 : m.inRoute ? 1 : 0.65;
+			d[k++] = 0;
+			d[k++] = 0;
+			if (ready) kt = k;
+			else kl = k;
+			if (m.flags.length) {
+				kr = circle(rings, kr, x, y, 0, px * 0.42 + 2, NONE, pm(this.token('scrim'), 0.9), 4.5);
+				kr = circle(rings, kr, x, y, 0, px * 0.42 + 2, pm(danger, 0.18), pm(danger), 2.5);
+			}
+		}
+		this.inst.hvMarks.set(low, kl / 7);
+		this.inst.hvTop.set(top, kt / 7);
+		this.inst.hvMarkRings.set(rings, kr / CIRCLE_STRIDE);
+	}
+
+	// How far above its NPC a mark is drawn (CSS px): its foot just over the NPC's point.
+	_markLift() {
+		return (this._hvPx || markPx(this.cam.zoom)) * 0.5;
+	}
+
 	_handleAt(h) {
 		return this.drag && this.drag.id === h.id ? { ...h, ...this.drag } : h;
 	}
@@ -903,6 +1034,11 @@ export class MapView {
 			const p = this.toScreen(h.c, h.wx, h.wy);
 			if (p) pins.push([p.x, p.y, 9 + 2]);
 		}
+		const hv = this.hubView && this.layers.quests ? this.hubView : null;
+		for (const m of hv ? this._hvMarks || [] : []) {
+			const p = this.toScreen(m.c, m.wx, m.wy);
+			if (p) pins.push([p.x, p.y - this._markLift(), (this._hvPx || 30) * 0.42 + 2]);
+		}
 		// Pill labels first, by priority (the active goal, then the step's
 		// handles); they collide with each other and with the map's controls.
 		if (this.layers.labels) {
@@ -922,6 +1058,30 @@ export class MapView {
 			const p = this.toScreen(h.c, h.wx, h.wy);
 			if (!p) continue;
 			items.push({ key: `h:${h.id}`, text: h.label, cls: 'mv-pill mv-handle', x: p.x, y: p.y, anchor: 'pin', r: 12, collide: true });
+		}
+		if (hv) {
+			// our stops' numbers (a place's visits joined: "2·6"), lower right of the stop
+			const byPlace = new Map();
+			for (const s of hv.stops) {
+				const key = `${s.c}:${s.wx}:${s.wy}`;
+				if (!byPlace.has(key)) byPlace.set(key, { ...s, ns: [] });
+				byPlace.get(key).ns.push(s.n);
+			}
+			for (const [key, s] of byPlace) {
+				const p = this.toScreen(s.c, s.wx, s.wy);
+				if (p) items.push({ key: `hvn:${key}`, text: s.ns.join('·'), cls: 'mv-hv-n', x: p.x + 13, y: p.y + 11, anchor: 'center', collide: false });
+			}
+			// the marks walked past or left ready, by name
+			const flagged = (m) => m.flags.length > 0;
+			for (const m of (this._hvMarks || []).filter(flagged)) {
+				const p = this.toScreen(m.c, m.wx, m.wy);
+				if (p) items.push({ key: `hvm:${m.key}`, text: m.name, cls: `mv-pill mv-hv-flag ${m.flags.includes('walked') ? 'walked' : 'left'}`, x: p.x, y: p.y - this._markLift(), anchor: 'pin', r: (this._hvPx || 30) * 0.42 + 5, collide: true });
+			}
+			if (hv.hub && hv.hub.places.length) {
+				const [wx, wy] = hv.hub.places.reduce((a, q) => (q[0] > a[0] ? q : a));
+				const p = this.toScreen(hv.hub.c, wx, wy);
+				if (p) items.push({ key: 'hvh', text: `${hv.hub.name || 'Hub'} · visit ${hv.hub.visit} of ${hv.hub.visits.length}`, cls: 'mv-hub hv', x: p.x, y: p.y - 40, anchor: 'center', collide: true });
+			}
 		}
 		if (this.hubs && this.layers.hubs) {
 			for (const [c, hubs] of Object.entries(this.hubs)) {
@@ -1039,6 +1199,13 @@ export class MapView {
 			const p = this.toScreen(h.c, h.wx, h.wy);
 			if (p && Math.abs(Math.hypot(p.x - sx, p.y - sy) - Math.max(h.r * z, 4)) <= 6) return { type: 'handle', handle: this.handles[i], part: 'ring' };
 		}
+		if (this.hubView && this.layers.quests) {
+			const hm = this._hvMarks || [];
+			for (let i = hm.length - 1; i >= 0; i--) {
+				const p = this.toScreen(hm[i].c, hm[i].wx, hm[i].wy);
+				if (p && Math.hypot(p.x - sx, p.y - this._markLift() - sy) <= (this._hvPx || 30) * 0.42 + 2) return { type: 'mark', mark: hm[i] };
+			}
+		}
 		const ms = this._markers || [];
 		for (let i = ms.length - 1; i >= 0; i--) {
 			const m = ms[i];
@@ -1090,10 +1257,12 @@ export class MapView {
 		if (hit?.type === 'leg') {
 			if (!this.press) this._showLeg(hit.leg, null, { x: hit.leg.sx, y: hit.leg.sy });
 		} else if (this.legShown && !this.press?.dragging && !this._legHeld) this._showLeg(null);
-		const key = (h) => (h ? `${h.type}:${h.handle?.id ?? ''}:${h.part ?? ''}:${h.marker ? this._markers.indexOf(h.marker) : ''}:${h.leg ? h.leg.key : ''}` : '');
+		const key = (h) => (h ? `${h.type}:${h.handle?.id ?? ''}:${h.part ?? ''}:${h.marker ? this._markers.indexOf(h.marker) : ''}:${h.mark ? h.mark.key : ''}:${h.leg ? h.leg.key : ''}` : '');
 		if (key(hit) === key(this.hover)) return;
 		this.hover = hit;
-		this.canvas.style.cursor = !hit ? 'grab' : hit.type === 'marker' ? 'pointer' : hit.type === 'leg' ? 'copy' : hit.part === 'ring' ? 'ew-resize' : 'move';
+		this.canvas.style.cursor = !hit ? 'grab' : hit.type === 'marker' || hit.type === 'mark' ? 'pointer' : hit.type === 'leg' ? 'copy' : hit.part === 'ring' ? 'ew-resize' : 'move';
+		// a quest mark's tooltip: the NPC and its quests ("after The Damned" for a locked one)
+		this.canvas.title = hit?.type === 'mark' ? hit.mark.tip || hit.mark.name : '';
 		this._rebuildHandles();
 		this.requestRender();
 	}
@@ -1204,6 +1373,7 @@ export class MapView {
 			}
 			this._emit('pick', { c: w.c, wx: w.wx, wy: w.wy, sx, sy, hit, event: e });
 			if (hit?.type === 'marker') this._emit('marker', { marker: hit.marker, step: hit.marker.step });
+			if (hit?.type === 'mark') this._emit('mark', { mark: hit.mark });
 			return;
 		}
 		if (pr.hit?.type === 'handle') {

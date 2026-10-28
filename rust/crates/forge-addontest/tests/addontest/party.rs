@@ -2,7 +2,7 @@
 //! client (tests/lua/stub_world.lua for the quest log, tests/lua/stub_party.lua for the group and the addon
 //! channel). Quest IDs and counts only, so players on other guides or other languages agree.
 
-use forge_addontest::{emitted, Addon, RunAddon};
+use forge_addontest::{emitted, is_match, Addon, RunAddon};
 use serde_json::{json, Value};
 
 const FILES: &[&str] = &["Core/Core.xml", "Quests/Party.lua"];
@@ -836,4 +836,87 @@ stub.advance(1)
 emit(fires)"#,
 	));
 	assert_eq!(out[0], 2);
+}
+
+// A guide on step 5 of pack "test" version 3, for the position line.
+const ON_GUIDE: &str = r#"
+local E = Polestar.Engine
+E.GetGuide = function() return { id = "test/g", pack = "test" } end
+E.GetLiveStep = function() return 5 end
+Polestar.Guides.Pack = function(id) if id == "test" then return { id = "test", title = "Test", version = "3" } end end
+local goals = {}
+E.GetStepView = function(i) if i == 5 then return { goals = goals } end end
+"#;
+
+#[test]
+fn party_where_you_are_round_trips_and_versions_compare_as_dotted_numbers() {
+	let out = run(r#"
+local text = P.EncodePos({ step = 12, addon = "0.3.1", pack = "polestar", packVersion = "7", guide = "forever/elwynn|1" })
+emit(text); emit(P.DecodePos(text)); emit(P.Decode(text) == nil)
+emit({ P.Newer("0.3.10", "0.3.9"), P.Newer("0.3.9", "0.3.10"), P.Newer("1.0", "1.0.0"), P.Newer("0.4", "dev") })"#);
+	assert_eq!(out[0], "1P|12|0.3.1|polestar|7|forever/elwynn|1");
+	assert_eq!(out[1], json!({ "step": 12, "addon": "0.3.1", "pack": "polestar", "packVersion": "7", "guide": "forever/elwynn|1" }));
+	assert_eq!(out[2], true, "older clients drop it as malformed");
+	assert_eq!(out[3], json!([true, false, false, false]));
+}
+
+#[test]
+fn party_your_place_goes_out_with_the_snapshot_and_again_only_when_the_live_step_moves() {
+	let out = live(&sent(&format!(
+		"{ON_GUIDE}{}",
+		r#"
+local step = 5
+E.GetLiveStep = function() return step end
+p.join("Ana")
+stub.advance(6.5)
+local first = texts()
+p.sent = {}
+Polestar.Fire("STEP_UPDATED", 5); stub.advance(2.5)
+local same = #p.sent
+step = 6; Polestar.Fire("STEP_CHANGED", 6); stub.advance(2.5)
+emit({ first = first, same = same, moved = texts() })"#
+	)));
+	let first = out[0]["first"].as_array().unwrap();
+	assert!(first.len() == 2 && is_match(first[1].as_str().unwrap(), r"^1P\|5\|[^|]*\|test\|3\|test/g$"), "{first:?}");
+	assert_eq!(out[0]["same"], 0);
+	assert!(is_match(out[0]["moved"][0].as_str().unwrap(), r"^1P\|6\|"));
+}
+
+#[test]
+fn party_the_step_line_says_who_is_ahead_or_behind_on_the_same_guide_who_is_still_at_it_and_what_to_share() {
+	let out = shown(&sent(&format!(
+		"{ON_GUIDE}{}",
+		r#"
+w.onQuest(33, { 8 })
+w.titles = w.titles or {}
+p.join("Ana"); p.join("Ben"); p.join("Cy")
+p.onQuest.Ana = { [33] = true }; p.onQuest.Cy = { [33] = true }
+p.receive("Ana-TestRealm", "1P|8|0.0.1|test|3|test/g")
+p.receive("Ben-TestRealm", "1P|4|0.0.1|test|3|test/g")
+p.receive("Cy-TestRealm", "1P|9|0.0.1|test|2|test/g")
+emit({ P.StepLine() })
+goals[1] = { t = "kill", quest = 33, oi = 1, status = "done" }
+p.receive("Ana-TestRealm", "1|33:5/8")
+local text, share = P.StepLine()
+emit({ text, share })"#
+	)));
+	assert_eq!(out[0], json!([format!("Ana: 3 steps ahead{DOT}Ben: 1 step behind")]), "Cy's pack version differs: no line for her");
+	assert_eq!(out[1], json!([format!("Ana: 3 steps ahead{DOT}Ben: 1 step behind{DOT}Still at it: Ana{DOT}Share Quest 33 with Ben"), 33]));
+}
+
+#[test]
+fn party_a_member_on_a_newer_polestar_or_guide_pack_is_said_once_a_session() {
+	let out = live(&sent(&format!(
+		"{ON_GUIDE}{}",
+		r#"
+stub.messages = {}
+Polestar.version = "0.3.0"
+p.join("Ana")
+p.receive("Ana-TestRealm", "1P|8|999.0|test|4|test/g")
+p.receive("Ana-TestRealm", "1P|9|999.0|test|4|test/g")
+local n = 0
+for _, m in ipairs(stub.messages) do if m:find("999.0", 1, true) or m:find("(4;", 1, true) then n = n + 1 end end
+emit(n)"#
+	)));
+	assert_eq!(out[0], 2, "one line for Polestar, one for the pack, each once");
 }

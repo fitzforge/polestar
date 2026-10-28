@@ -128,7 +128,7 @@ local function build()
 	f.Timer:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -1, 1)
 
 	f:SetScript("OnMouseUp", function(self) self:Hide() end)
-	f:SetScript("OnUpdate", function(self)
+	f:SetScript("OnUpdate", ns.Safe(function(self)
 		local left = self.arriveAt - GetTime()
 		if left <= -LINGER then
 			self:Hide()
@@ -140,7 +140,7 @@ local function build()
 			self.When:SetText(left > 0 and format(self.whenFormat, Alerts.Countdown(left)) or L["Arriving now"])
 		end
 		W.SetProgress(self.Timer, left > 0 and left / self.total or 0, WIDTH - 2)
-	end)
+	end))
 	f:Hide()
 	f.Anim = Anim
 	banner = f

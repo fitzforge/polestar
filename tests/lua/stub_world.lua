@@ -622,6 +622,9 @@ function C_GossipInfo.GetOptions()
 	end
 	return out
 end
+-- Picking an option (the page it leads to is the test's to open).
+function C_GossipInfo.SelectOption(id) call("C_GossipInfo.SelectOption", id) end
+function C_GossipInfo.SelectOptionByIndex(i) call("C_GossipInfo.SelectOptionByIndex", i) end
 function C_GossipInfo.CloseGossip()
 	call("C_GossipInfo.CloseGossip")
 	world.close()

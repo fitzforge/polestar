@@ -62,7 +62,7 @@ pub const STEP_KEYS: [&str; 9] = ["zone", "only", "tip", "image", "when", "label
 
 // COMMON = text optional only group; COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
 /// The modifiers each verb takes, in the JS object's order (VERBS is the verbs in this order).
-pub const MODS: [(&str, &[&str]); 31] = [
+pub const MODS: [(&str, &[&str]); 32] = [
 	("accept", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "object", "item", "lvl"]),
 	// `reward`/`choose`/`xp`/`money`: what the turn-in pays, shown on the goal.
 	// `direct`: handed in straight from the NPC's window, with no accept.
@@ -73,7 +73,7 @@ pub const MODS: [(&str, &[&str]); 31] = [
 	("kill", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count"]),
 	("collect", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count", "nearest"]),
 	("goto", &["text", "optional", "only", "group", "map", "r", "frame"]),
-	("talk", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
+	("talk", &["text", "optional", "only", "group", "at", "map", "r", "frame", "gossip"]),
 	("interact", &["text", "optional", "only", "group", "at", "map", "r", "frame", "quest"]),
 	("use", &["text", "optional", "only", "group", "at", "map", "r", "frame", "quest"]),
 	("sethome", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc"]),
@@ -84,9 +84,9 @@ pub const MODS: [(&str, &[&str]); 31] = [
 	("fly", &["text", "optional", "only", "group"]),
 	// `enter "<Place>"`: be in that zone or area (the zone or subzone text); coordinates only point the arrow.
 	("enter", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
-	("train", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc"]),
+	("train", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "gossip"]),
 	("buy", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "count", "nearest"]),
-	("vendor", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc"]),
+	("vendor", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "gossip"]),
 	("level", &["text", "optional", "only", "group"]),
 	// `money <amount>`: hold that much; `task "<text>"`: done when the player ticks it.
 	("money", &["text", "optional", "only"]),
@@ -100,11 +100,13 @@ pub const MODS: [(&str, &[&str]); 31] = [
 	("rep", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
 	("explore", &["text", "optional", "only", "group", "map", "r", "frame"]),
 	("achieve", &["text", "optional", "only", "group", "at", "map", "r", "frame", "criteria"]),
+	// `wait <seconds> ["text"]`: done that long after the goals before it in the step are.
+	("wait", &["text", "optional", "only"]),
 ];
 /// Object.keys(MODS).
-pub const VERBS: [&str; 31] = [
+pub const VERBS: [&str; 32] = [
 	"accept", "turnin", "complete", "abandon", "destroy", "kill", "collect", "goto", "talk", "interact", "use", "sethome", "hearth", "die", "getfp", "fly", "enter", "train", "buy", "vendor", "level",
-	"money", "task", "note", "skill", "learn", "cast", "craft", "rep", "explore", "achieve",
+	"money", "task", "note", "skill", "learn", "cast", "craft", "rep", "explore", "achieve", "wait",
 ];
 
 /// `MODS[verb]` (own properties only).
@@ -126,8 +128,8 @@ fn mod_label(m: &str) -> &str {
 		_ => m,
 	}
 }
-pub const MOD_WORDS: [&str; 20] =
-	["map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "reward", "choose", "xp", "money", "group", "direct"];
+pub const MOD_WORDS: [&str; 21] =
+	["map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "reward", "choose", "xp", "money", "group", "direct", "gossip"];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN: f64 = 2.0;
 const GROUP_MAX: f64 = 40.0;
@@ -1020,6 +1022,19 @@ fn parse_positional(verb: &str, goal: &V, toks: &[Tok], line: &[u16], lex: &Lex,
 			}
 			Some(i + 1)
 		}
+		"wait" => {
+			// Whole seconds, at most an hour.
+			match t.filter(|t| !t.quoted && is_int(&t.text)).map(|t| str_to_num(&t.text)) {
+				Some(v) if v > 0.0 && v <= 3600.0 => {
+					goal.set("seconds", v);
+					Some(i + 1)
+				}
+				_ => {
+					cx.err(ln, format!("malformed seconds \"{}\" (1 to 3600)", tok_text(t)), Some("`wait` needs seconds: wait <seconds> [\"what for\"]"));
+					None
+				}
+			}
+		}
 		"money" => {
 			let v = t.filter(|t| !t.quoted).and_then(|t| read_money(&t.text));
 			match v {
@@ -1369,6 +1384,13 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 				use_!("direct");
 				goal.set("direct", true);
 				i += 1;
+				continue;
+			}
+			"gossip" => {
+				use_!("gossip");
+				let v = int_arg(i + 1, "gossip option id", cx)?;
+				goal.set("gossip", v);
+				i += 2;
 				continue;
 			}
 			"group" => {

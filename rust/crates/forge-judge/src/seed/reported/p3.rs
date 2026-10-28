@@ -28,7 +28,7 @@ pub fn tests() -> Vec<SeedTest> {
 		t("every step with a quest objective to do has a goal the arrow can lead to", objective_steps_placed),
 		t("Rumbleshot's Ammo, The Red Crystal: every objective the data can place has a goal of its own, not only the turn-in", objectives_own_goal),
 		t("forever/alliance/03-darkshore.guide: Twerkjob's report: The Red Crystal leads the arrow to the crystal on the eastern ridge (#241)", red_crystal),
-		t("forever/alliance/03-darkshore.guide: XooVe's report (#302): The Blackwood Corrupted fills the bowl and gathers the three samples before the Talisman, and uses the bowl where Xabraxxis comes", blackwood_corrupted),
+		t("forever/alliance/03-darkshore.guide: XooVe's report (#302): The Blackwood Corrupted fills the bowl and gathers the three samples before the Talisman, never uses the empty bowl after the filled one is collected, and uses the bowl where Xabraxxis comes", blackwood_corrupted),
 		t("forever/alliance/dwarf-gnome/01-dun-morogh.guide: Rumbleshot's Ammo leads to the Ammo Crate by Mountaineer Gretchen, not to Hegnar", rumbleshot_ammo),
 		t("legacy-challenges: Return to Bodley is turned in before Back to the Beginning is taken", legacy_bodley),
 		t("Fitz's playtest: every goto at a boat, zeppelin or tram stop is on its deck or pier, not in the water", transport_gotos_dry),
@@ -421,6 +421,12 @@ fn blackwood_corrupted(ctx: &Ctx, c: &mut Check) {
 	let Some(list) = goals(ctx, c, DARKSHORE) else { return };
 	let Some(accept) = at(c, &list, "accept 4763 (The Blackwood Corrupted)", is("accept", 4763)) else { return };
 	let Some(talisman) = at(c, &list, "the Talisman of Corruption", |g| t_is(g, "collect") && num_is(g, "quest", 4763.0) && num_is(g, "item", 12355.0)) else { return };
+	// The Empty Cleansing Bowl (12346) is used at the Auberdine Moonwell to fill it: never after the step that collects the filled bowl.
+	if let Some(filled) = list.iter().find(|r| t_is(&r.goal, "collect") && num_is(&r.goal, "item", 12347.0)) {
+		if let Some(late) = list.iter().find(|r| t_is(&r.goal, "use") && num_is(&r.goal, "item", 12346.0) && r.s > filled.s) {
+			c.ok(false, &format!("use 12346 (step {}) is not after the filled bowl's step {}", late.s + 1, filled.s + 1));
+		}
+	}
 	let quest = d.quests.get("4763");
 	let table = |kind: &str| if kind == "objects" { &d.objects } else { &d.npcs };
 	let spawn = |kind: &str, id: &str| -> Option<V> {
@@ -699,7 +705,10 @@ fn hearth_bound(ctx: &Ctx, c: &mut Check) {
 				bound.push(loc.clone());
 			}
 			let key = format!("{guide} {}", loc.to_js_string());
-			if t_is(&r.goal, "hearth") && !bound.iter().any(|b| b.strict_eq(&loc)) && !HEARTH_ON_AN_EARLIER_BIND.contains(&key.as_str()) {
+			// (A hearth only a player bound there sees, `when bound "<inn>"`, the walk there for the others
+			// after it: the guide's own R3 guard for a bind made in an earlier guide.)
+			let guarded = r.step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("bound") && !p.get("neg").truthy() && p.get("name").to_js_string() == loc.to_js_string());
+			if t_is(&r.goal, "hearth") && !guarded && !bound.iter().any(|b| b.strict_eq(&loc)) && !HEARTH_ON_AN_EARLIER_BIND.contains(&key.as_str()) {
 				offenders.push(format!("{key} (step {})", r.step.get("title").to_js_string()));
 			}
 		}
@@ -800,7 +809,9 @@ fn lion_hides(ctx: &Ctx, c: &mut Check) {
 		let Some(i) = at(c, &list, &format!("the Dry Hills collect for {quest}"), is("collect", quest)) else { return };
 		let goal = &list[i].goal;
 		let mut pts = vec![goal.clone()];
-		pts.extend(spots(goal));
+		// The arrow's spots; the alternatives (alt: the droppers' other places, which a pinned goal with
+		// droppers of unknown odds marks on the map) are not the arrow's.
+		pts.extend(non_alt(goal));
 		for p in &pts {
 			let wh = format!("{} at {},{}", goal.get("itemName").to_js_string(), p.get("x").to_js_string(), p.get("y").to_js_string());
 			if !c.ok(in_dry_hills(p), &format!("{wh} is in the Dry Hills")) || !c.ok((n(p, "x") - 60.0).hypot(n(p, "y") - 33.0) > 10.0, &format!("{wh} is not near Ratchet's Matriarchs (60,33)")) {

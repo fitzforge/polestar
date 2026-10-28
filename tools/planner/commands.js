@@ -16,6 +16,8 @@ const { PlannerError } = require('./workspace');
 const { ROOT } = require('../lib/paths');
 const { NAMES: GLYPH_NAMES } = require('./glyphs');
 const { UI, KINDS: KINDS_ICON } = require('./icons');
+const { hubView, screensOf, screenView, screenProblems, spawnPoints } = require('./hubview');
+const review = require('./review');
 
 // --- schemas -----------------------------------------------------------------
 
@@ -138,19 +140,6 @@ function artInfo(artDir) {
 function iconInfo(icons) {
 	const game = icons ? icons.info() : { ui: Object.keys(UI), kinds: KINDS_ICON, available: false };
 	return { glyphs: GLYPH_NAMES, ui: game.ui, kinds: game.kinds, available: game.available };
-}
-
-// Every place an NPC or object spawns, as world points.
-function spawnPoints(ws, kind, id) {
-	const out = [];
-	for (const s of ws.data.spawns(kind, id)) {
-		const f = s.f === 'e' ? 'e' : 'l';
-		for (const [x, y] of [...s.pts, ...s.more]) {
-			const w = ws.geo.toWorld(s.map, x, y, f);
-			if (w) out.push({ c: w.c, wx: w.wx, wy: w.wy, map: s.map, x, y });
-		}
-	}
-	return out;
 }
 
 // The zone uiMapID a goal's parse `zone` spec names, or null.
@@ -353,6 +342,109 @@ const COMMANDS = [
 			const { view = 'summary', guide = null, ...args } = a;
 			return timelineView(ws.timeline(args), view, guide, !!args.optional);
 		},
+	},
+	{
+		name: 'hub_view',
+		description: [
+			'The quest marks and the walk around one step of the route (timeline_get\'s step index), as the planner\'s "Quest marks" layer draws them: why a route goes back and forth in a hub. World points are { c, wx, wy } (yards, wx north, wy west).',
+			'marks: every quest giver and ender within rules.areaYd of the hub (of the step\'s place outside one) with the mark the game shows the character at the step\'s start: mark "!" (a quest to take) or "?" (a hand-in), tone "ready" (yellow: takeable now, level reached, prerequisites handed in, not taken or done, nothing exclusive taken, right side/race/class; or in the log with its work done), "grey" (! up to rules.greyLevels levels away; ? in the log, work not done) or "locked" (! that would show but for a prerequisite not handed in yet: `after` names it; never a problem); quests [{ id, title, mark, tone, after?, route: "here" | "later" | "never" | "past", step (where the route does it) }]; inRoute; flags ("walked", "left"); tip (the tooltip: the NPC and a line per quest).',
+			'hub (null outside one): { name, places, visit (1-based), visits [{ s0, s1, leave, current }], steps }: a hub is the route\'s NPC places linked within rules.hubYd, a visit a run of goals at it, left at the first goal rules.leaveYd from every place (forge-sim hubs.rs, forge-judge check/hub.rs). path: the walk through it [{ c, mode (timeline track mode), step, pts [wx, wy, ...] }]; stops: our numbered stops [{ n, c, wx, wy, step, s1, goals }].',
+			'walkedPast: marks due (a ready hand-in, or a takeable accept at the quest level less rules.readyUnder) that a walked leg passed within rules.pastYd of, the route doing them only after leaving them rules.leaveYd behind [{ name, quest, title, mark, yd, passStep, doneStep }]; passedSkipped: the same for quests the route never does. leftReady / leftSkipped: marks due at the hub\'s NPCs when the visit ended that the route does after leaving / never. loop: the ideal loop from where the walk arrives through the visit\'s stops and the marks it left ready to where it goes on, quest order kept, clockwise preferred: { c, mode, yards, ours (our straight yards), pts, stops, entry, exit }.',
+		].join(' '),
+		input: {
+			type: 'object',
+			required: ['start', 'character', 'step'],
+			properties: {
+				start: GUIDE_ID, character: CHARACTER, choices: CHOICES,
+				startLevel: { type: ['integer', 'null'], minimum: 1 },
+				optional: { type: 'boolean' },
+				step: { type: 'integer', minimum: 0, description: '0-based step index of the timeline (timeline_get steps[].i).' },
+			},
+			additionalProperties: false,
+		},
+		mutates: false,
+		handler: (ws, a, ctx) => {
+			const { step, ...args } = a;
+			const tl = ws.timeline(args);
+			if (step >= tl.steps.length) throw new PlannerError(`no step ${step}: the route has ${tl.steps.length}`, 'bad_args');
+			return hubView(ws, tl, a.character, step, { hubsFile: ctx && ctx.hubsFile });
+		},
+	},
+	{
+		name: 'review_screens',
+		description: 'The route as the review mode pages it, in order: one screen per visit to a town (kind "hub": name, n of `of` visits to it; visits the walk never left, 200 yd from the town\'s NPCs, between are one) and one per run of field work in one zone between them (kind "out"): [{ i, kind, name, c, s0, s1 (0-based steps), guide, level, n?, of?, problems: { walked (ready marks walked past), left (left ready), over (share of the walk over the ideal loop, 0.17 = 17%, or null) } }].',
+		input: { type: 'object', required: ['start', 'character'], properties: { start: GUIDE_ID, character: CHARACTER, choices: CHOICES, startLevel: { type: ['integer', 'null'], minimum: 1 }, optional: { type: 'boolean' } }, additionalProperties: false },
+		mutates: false,
+		handler: (ws, a, ctx) => {
+			const tl = ws.timeline(a);
+			const opts = { hubsFile: ctx && ctx.hubsFile };
+			const problems = screenProblems(ws, tl, a.character, opts);
+			return screensOf(ws, tl, opts).map(({ g0, g1, visits, ...s }, i) => ({ ...s, problems: problems[i] }));
+		},
+	},
+	{
+		name: 'review_screen',
+		description: 'One review screen (review_screens index `screen`) as hub_view returns it; a field-work screen has its path and numbered stops only. Stops carry items [{ verb, label, quest, title, step, file, line }] and the NPC there ({ kind, id, name } | null). Also the review notes on it: notes.',
+		input: { type: 'object', required: ['start', 'character', 'screen'], properties: { start: GUIDE_ID, character: CHARACTER, choices: CHOICES, startLevel: { type: ['integer', 'null'], minimum: 1 }, optional: { type: 'boolean' }, screen: { type: 'integer', minimum: 0 } }, additionalProperties: false },
+		mutates: false,
+		handler: (ws, a, ctx) => {
+			const { screen, ...args } = a;
+			const tl = ws.timeline(args);
+			const screens = screensOf(ws, tl, { hubsFile: ctx && ctx.hubsFile });
+			if (screen >= screens.length) throw new PlannerError(`no screen ${screen}: the route has ${screens.length}`, 'bad_args');
+			const { g0, g1, ...sc } = screens[screen];
+			const view = screenView(ws, tl, a.character, screen, { hubsFile: ctx && ctx.hubsFile });
+			const notes = review.readNotes().filter((n) => n.start === a.start && n.character && n.character.race === a.character.race && n.character.cls === a.character.cls && n.screen && n.screen.s0 === sc.s0 && n.screen.kind === sc.kind);
+			return { screen: sc, count: screens.length, view, notes };
+		},
+	},
+	{
+		name: 'review_note_add',
+		description: `Save a review note (Fitz's feedback on the route) to data/local/route-feedback/review-notes.jsonl and as a dashboard item (needs-you feedback-route-<id>, with Fitz's comment on its thread). step is 0-based (stored 1-based, as the steps list); file:line, the screen and the time are filled in. target: { kind: "mark" | "stop" | "path" | "spot", quest?, npc?, label? }; point: { c, wx, wy } (map percent added). Returns the note.`,
+		input: {
+			type: 'object',
+			required: ['start', 'character', 'screen', 'step', 'text'],
+			properties: {
+				start: GUIDE_ID, character: CHARACTER, choices: CHOICES, startLevel: { type: ['integer', 'null'], minimum: 1 }, optional: { type: 'boolean' },
+				screen: { type: 'integer', minimum: 0 }, step: { type: 'integer', minimum: 0 },
+				target: { type: 'object', properties: { kind: { type: 'string', enum: ['mark', 'stop', 'path', 'spot'] }, quest: { type: ['integer', 'null'] }, npc: { type: ['integer', 'null'] }, label: { type: ['string', 'null'] } }, additionalProperties: false },
+				point: { type: 'object', properties: { c: { type: 'integer' }, wx: { type: 'number' }, wy: { type: 'number' } }, additionalProperties: false },
+				text: { type: 'string' },
+				url: { type: 'string', description: 'The review page\'s link to this screen (for the dashboard).' },
+			},
+			additionalProperties: false,
+		},
+		mutates: true,
+		handler: (ws, a, ctx) => {
+			const tl = ws.timeline({ start: a.start, character: a.character, choices: a.choices || {}, startLevel: a.startLevel ?? null, optional: !!a.optional });
+			const screens = screensOf(ws, tl, { hubsFile: ctx && ctx.hubsFile });
+			const sc = screens[a.screen];
+			const st = tl.steps[a.step];
+			if (!sc || !st) throw new PlannerError('no such screen or step', 'bad_args');
+			let point = null;
+			if (a.point) {
+				// on the map the step's goals are written on when it holds the point, else the smallest one that does
+				const own = (st.goals.find((x) => x.at && x.at.c === a.point.c) || {}).at;
+				const p = own ? ws.geo.toMap(own.map, a.point.c, a.point.wx, a.point.wy, own.f) : null;
+				const z = p && p.x >= 0 && p.x <= 100 && p.y >= 0 && p.y <= 100 ? { map: own.map, x: p.x, y: p.y } : ws.geo.containing(a.point.c, a.point.wx, a.point.wy, 'e')[0];
+				point = { ...a.point, map: z ? z.map : null, x: z ? Math.round(z.x * 100) / 100 : null, y: z ? Math.round(z.y * 100) / 100 : null };
+			}
+			const g = tl.guides[st.gi];
+			const rel = (f) => (f && !path.relative(ROOT, f).startsWith('..') ? path.relative(ROOT, f) : f);
+			return review.addNote({
+				start: a.start, character: a.character, guides: rel(ws.officialDir),
+				screen: { i: sc.i, kind: sc.kind, name: sc.name, visit: sc.n || null, of: sc.of || null, s0: sc.s0, s1: sc.s1 },
+				step: a.step + 1, guide: g ? g.id : null, file: g ? rel(g.file) : null, line: st.line,
+				target: a.target || { kind: 'spot' }, point, text: a.text,
+			}, { url: a.url });
+		},
+	},
+	{
+		name: 'review_note_delete',
+		description: 'Delete a review note by id, and its dashboard item. Returns { deleted }.',
+		input: { type: 'object', required: ['id'], properties: { id: { type: 'string' } }, additionalProperties: false },
+		mutates: true,
+		handler: (ws, a) => ({ deleted: review.deleteNote(a.id) }),
 	},
 	{
 		name: 'edit_apply',

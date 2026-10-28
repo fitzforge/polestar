@@ -2187,6 +2187,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			"money" => {
 				goal.set("money", g.get("money"));
 			}
+			"wait" => {
+				goal.set("seconds", g.get("seconds"));
+			}
 			"note" | "task" | "goto" => {}
 			"skill" => {
 				let p = data.profession_named(&g.get("skill").to_js_string());
@@ -2623,6 +2626,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 	if g.get("optional").truthy() {
 		goal.set("optional", true);
 	}
+	if !g.get("gossip").is_undef() {
+		goal.set("gossip", g.get("gossip"));
+	}
 	if g.get("direct").truthy() {
 		goal.set("direct", true);
 		let q = if !goal.get("quest").is_undef() { data.quest(&goal.get("quest")) } else { V::Null };
@@ -2634,6 +2640,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 	set_if(&goal, "escort", crate::escort::escort_of(&goal, data));
 	set_if(&goal, "only", only_of(&g.get("only")));
 	set_if(&goal, "note", g.get("note"));
+	set_if(&goal, "spots", crate::walks::walk_spot(data, &goal).unwrap_or_default());
 	set_if(&goal, "z", crate::heights::goal_height(data, &goal).unwrap_or_default());
 	for s in goal.get("spots").items() {
 		set_if(&s, "z", crate::heights::spot_height(data, &goal, &s).unwrap_or_default());

@@ -33,6 +33,7 @@ ns.RegisterDefaults("behavior", {
 	autoNextGuide = true,
 	autoSelectGuide = true,
 	skipGrey = false,
+	deathskips = false, -- `die` goals (deathskips) apply; never on a Hardcore character (Own.deathskips)
 	warnClosing = false, -- name what an offered quest closes for good, and leave its accept to the player (Closes.lua)
 	closeSkipped = true, -- close the quest window the game opens after an auto accept/turn-in when it shows only quests the guide skips (Automation.lua)
 	routeChoice = "ask", -- "ask" | "recommended": what happens where a guide offers several next zones
@@ -291,10 +292,12 @@ end
 -- A turn-in, complete or objective goal for a quest the character neither
 -- has nor has done, and that this guide does not (for this character) accept
 -- at or before that step, in a step the player has not skipped, with an
--- accept that is not optional, not left out as grey nor checked off: it was
--- picked up on another route, or skipped, or ticked without being taken, so it
--- cannot be done here and no longer applies. An `optional` accept the player
--- did not take is the same: its turn-in holds only those who took the quest.
+-- accept that is not optional nor left out as grey: it was picked up on
+-- another route, or skipped, so it cannot be done here and no longer applies.
+-- An accept the player ticked by hand still counts as the guide's accept: a
+-- tick never says the quest is in the log (#739), so its lines stay and the
+-- accept reopens (goalDone). An `optional` accept the player did not take is
+-- the same: its turn-in holds only those who took the quest.
 -- Taking the quest brings the goals back.
 -- A `turnin ... direct` has no accept by definition: it is handed in from the
 -- giver's own window, so it is never orphaned.
@@ -307,9 +310,8 @@ local function orphaned(goal)
 	local s = l.stepOf[goal]
 	if not s then return false end
 	local skipped = ns.CharState().skipped[guide.id]
-	local manual = ns.CharState().manual[guide.id]
 	for _, a in ipairs(l.accepts[q] or NONE) do
-		if a.s <= s and not a.goal.optional and not (skipped and skipped[a.s]) and not (manual and manual[a.key])
+		if a.s <= s and not a.goal.optional and not (skipped and skipped[a.s])
 			and stepApplies(a.step) and Guides.Matches(a.goal.only, player) and greyNeed(a.goal) ~= false then
 			return false
 		end
@@ -322,9 +324,13 @@ end
 -- character's without the profession or below that rank, like another
 -- class's goals; learning it brings them back (SKILL_LINES_CHANGED). A quest
 -- in the log or done keeps its goals, and a client that cannot read skills
--- shows them. (Inline: the main chunk is at Lua's 200 locals.)
+-- shows them. A `die` goal (a deathskip) is only for players who chose
+-- deathskips (Own.deathskips): without it, its step passes and the next
+-- step's travel takes the player there. (Inline: the main chunk is at Lua's
+-- 200 locals.)
 local function goalApplies(goal)
 	if not Guides.Matches(goal.only, player) then return false end
+	if goal.t == "die" and not Own.deathskips() then return false end
 	if goal.profLine or goal.profName then
 		local C = Compat()
 		local q = goal.quest
@@ -359,6 +365,13 @@ Own.passedWhole, Own.placedThrough, Own.placedChain = {}, {}, {}
 -- -> { ["s:g"] = true }): a flight path, a hearth or training in a guide the
 -- character is past and may never have been in is no check-off to store.
 Own.passedNow = {}
+-- Quests that left the log this session (QUEST_REMOVED), until taken again:
+-- only these are held when the live step would go back (Own.holdLost), so
+-- bringing back a step the player skipped asks nothing.
+Own.removed = {}
+-- When each `wait` goal's countdown began (goal -> GetTime()), for the
+-- session: once the goals before it in its step are done (Own.startWaits).
+Own.waitStart = setmetatable({}, { __mode = "k" })
 -- Guides just opened in a tab, until placed (guideId -> true): by the player
 -- or for them, not brought back by a login or reload. Only these chain on
 -- when passed whole (with autoChain) and announce GUIDE_PLACED.
@@ -513,6 +526,31 @@ function Own.levelReached(level, frac)
 	return max > 0 and (player.xp or 0) / max >= frac
 end
 
+-- XP still to earn for a `level` goal: the rest of the levels below its
+-- level (the 1.12 table, Levels.LEVEL_XP; the client's own XP to level for
+-- the one the character is at) and its share of that level. nil once it is
+-- reached, or while the client tells no XP.
+function Own.xpLeft(goal)
+	local lvl, xp, max = player.level or 1, player.xp or 0, player.xpMax or 0
+	if max <= 0 or Own.levelReached(goal.level, goal.frac) then return nil end
+	-- The share of a level as XP; the epsilon keeps 0.4 x 1400 at 560.
+	local function share(total) return goal.frac and math.ceil(goal.frac * total - 1e-6) or 0 end
+	if lvl == goal.level then return share(max) - xp end
+	local levels = ns.Levels and ns.Levels.LEVEL_XP
+	if not levels then return nil end
+	local left = max - xp
+	for l = lvl + 1, goal.level - 1 do left = left + (levels[l] or 0) end
+	return left + share(levels[goal.level] or 0)
+end
+
+-- Deathskips (`die` goals) are the player's choice (behavior.deathskips, off
+-- by default) and never a Hardcore character's: a death there is the end.
+function Own.deathskips()
+	if not ns.Get("behavior.deathskips") then return false end
+	local rules = C_GameRules
+	return not (rules and rules.IsHardcoreActive and rules.IsHardcoreActive())
+end
+
 -- `when upgrade`: Polestar's gear advice (Gear.IsUpgrade: wearable now and at
 -- least the "minimum upgrade" better than what is worn) rates the item an
 -- upgrade. When it cannot judge (gear advice off, the item's stats or the
@@ -539,7 +577,7 @@ function Own.onCooldown(p)
 	local wake = Own.cooldownWake
 	if not (wake and wake > now and wake <= ends) then
 		Own.cooldownWake = ends
-		C_Timer.After(ends - now, function()
+		ns.After(ends - now, function()
 			if Own.cooldownWake == ends then Own.cooldownWake = nil end
 			Engine.RequestUpdate()
 		end)
@@ -1335,9 +1373,16 @@ local function posOf(goal)
 	return goal.map, goal.x, goal.y, goal.f, nil, goal.z
 end
 
+-- One of the goal's candidates, and, for a candidate that names the classes
+-- it serves (class trainers), one for the character's class.
 local function isCandidate(goal, npc)
 	for _, c in ipairs(goal.candidates) do
-		if c.npc == npc then return true end
+		if c.npc == npc then
+			if type(c.classes) ~= "table" or not player then return true end
+			for _, cls in ipairs(c.classes) do
+				if cls == player.class then return true end
+			end
+		end
 	end
 	return false
 end
@@ -1357,12 +1402,13 @@ end
 -- Goals whose live condition can stop holding after the step is passed
 -- (leaving the zone, rebinding, selling the items, walking away). Their done
 -- state is stored once the route moves past them, so the guide never jumps
--- back; quest goals stay live on purpose (abandoning reopens the step).
+-- back; quest goals stay live on purpose (abandoning reopens the step once
+-- the player says to go back for it: Own.holdLost).
 local function latchable(goal)
 	local t = goal.t
 	return t == "goto" or t == "explore" or t == "die" or t == "sethome" or t == "hearth" or t == "fly" or t == "getfp" or t == "enter"
 		or t == "buy" or (t == "collect" and (not goal.quest or Own.bagCollect(goal))) or (t == "craft" and craftMode(goal) == "count")
-		or (t == "train" and goal.class == true) or t == "money" or t == "destroy"
+		or (t == "train" and goal.class == true) or t == "money" or t == "destroy" or t == "wait"
 end
 
 -- Check-offs and latched results share CharState().manual[guideId]["s:g"].
@@ -1627,18 +1673,34 @@ function Own.abandonedByGuide(q, s)
 	return false
 end
 
+-- Quests that left the log after the route had passed their accept, held
+-- until the player answers (Engine.LostQuestion): per character, per guide,
+-- quest id -> the live step when it left (CharState().lostQuests). Such an
+-- accept before that step reads done, so the live step stays where it was
+-- instead of jumping back to the giver unasked.
+function Own.lostHeld(q, s)
+	local all = ns.CharState().lostQuests
+	local mine = all and guide and all[guide.id]
+	local upTo = mine and mine[q]
+	return upTo ~= nil and s < upTo
+end
+
 -- done, cur, max[, label, kind] for goal g of step s. Notes are never done
 -- (and never block). A stored check-off (the player's tick, or a result the
 -- Engine latched) is done whatever the live state says, as is a goal the
--- catch-up passed for the session (Own.passedNow).
+-- catch-up passed for the session (Own.passedNow); but an accept is done
+-- only by the quest log (in it, completed, abandoned by the guide, or held
+-- after it left the log: Own.lostHeld): a tick
+-- on it never stands for the quest (#739), and its view says the quest is
+-- not in the log (`notInLog`).
 goalDone = function(s, g, goal)
 	local t = goal.t
 	local C = Compat()
-	if checked(s, g) then return true end
+	if t ~= "accept" and checked(s, g) then return true end
 	local now = Own.passedNow[guide.id]
 	if now and now[Own.key(s, g)] then return true end
 	if t == "accept" then
-		return C.IsOnQuest(goal.quest) or questDone(goal.quest) or Own.abandonedByGuide(goal.quest, s)
+		return C.IsOnQuest(goal.quest) or questDone(goal.quest) or Own.abandonedByGuide(goal.quest, s) or Own.lostHeld(goal.quest, s)
 	elseif t == "turnin" then
 		-- `direct`: only its latched QUEST_TURNED_IN (checked above) or the
 		-- completed flag. The session's turn-ins would close every later goal
@@ -1699,6 +1761,14 @@ goalDone = function(s, g, goal)
 	elseif t == "task" then
 		-- Done only by the player's tick (checked above).
 		return false
+	elseif t == "wait" then
+		-- Its countdown starts once the goals before it are done (Own.startWaits).
+		local secs = tonumber(goal.seconds) or 0
+		local at = Own.waitStart[goal]
+		if not at then return false, secs, secs, nil, "wait" end
+		local left = secs - (GetTime() - at)
+		if left <= 0 then return true end
+		return false, math.ceil(left), secs, nil, "wait"
 	elseif t == "abandon" then
 		return not C.IsOnQuest(goal.quest)
 	elseif t == "destroy" then
@@ -2217,7 +2287,7 @@ local function latchInStep(s, live)
 		local t = goal.t
 		-- An abandon latches on the live step only: on a step looked at ahead it
 		-- reads done for a quest not taken yet (Own.abandonedByGuide).
-		if ((isBagCount(goal) and (live or t ~= "abandon")) or (live and (t == "fly" or t == "hearth" or t == "enter"))) and goalApplies(goal) and not checked(s, g) and goalDone(s, g, goal) then
+		if ((isBagCount(goal) and (live or t ~= "abandon")) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait"))) and goalApplies(goal) and not checked(s, g) and goalDone(s, g, goal) then
 			manualFor(guide.id, true)[s .. ":" .. g] = true
 		end
 	end
@@ -2398,6 +2468,20 @@ local function unavailableText(u)
 	return L["Not offered by %s"]:format(N.Npc(a.npc) or a.npcName or N.Object(a.object) or a.objName or L["the quest giver"])
 end
 
+-- What an open accept's line says about the game's own word on it: ticked by
+-- hand while the quest is not in the log (the tick does not stand for it,
+-- #739), or its giver's window did not list it (Own.notListed: never a skip,
+-- #741; the player is asked to report it).
+function Own.acceptNotice(s, g, goal, status)
+	if goal.t ~= "accept" or not goal.quest or (status ~= "active" and status ~= "pending") then return nil end
+	if checked(s, g) then return L["%s isn't in your quest log"]:format(questTitle(goal) or titleOfQuest(goal.quest)) end
+	if Own.notListed[goal.quest] then
+		local N = ns.Names
+		return L["Not offered by %s? Report it with /polestar"]:format(N.Npc(goal.npc) or goal.npcName or N.Object(goal.object) or goal.objName or L["the quest giver"])
+	end
+	return nil
+end
+
 -- A translated pattern (L["from %s"]) filled with value; nil without one.
 local function fmt(pattern, value)
 	if not value then return nil end
@@ -2427,6 +2511,8 @@ local function describe(goal)
 		return L["Complete"], questTitle(goal), "quest", nil
 	elseif t == "abandon" then
 		return L["Abandon"], questTitle(goal), "quest", nil
+	elseif t == "wait" then
+		return L["Wait"], goal.text or L["%d seconds"]:format(tonumber(goal.seconds) or 0), "text", nil
 	elseif t == "destroy" then
 		return L["Destroy"], N.Item(goal.item) or goal.itemName, "item", nil
 	elseif t == "kill" then
@@ -2613,11 +2699,17 @@ local function goalView(s, g, goal, stepStatus, group)
 		lvl = goal.candidates and chosen(goal) and chosen(goal).lvl or nil,
 		unavailable = unavail and unavail.reason or nil,
 		unavailableText = unavail and unavailableText(unavail) or nil,
+		-- An open accept the game does not confirm: ticked but not in the
+		-- quest log, or not listed by its giver (Own.acceptNotice).
+		noticeText = Own.acceptNotice(s, g, goal, status),
 		skippedGrey = need == false or nil,
 		keptGrey = opens and opens.quest or nil,
 		keptGreyText = opens and L["Grey, kept: opens %s"]:format(questTitle(opens)) or nil,
-		-- A hearth goal still to do while the Hearthstone waits (#576).
+		-- A hearth goal still to do while the Hearthstone waits, or while
+		-- travelling there is about as fast (#576, Own.hearthText).
 		hearthText = (status == "active" or status == "pending") and Own.hearthText(goal) or nil,
+		-- A level goal still to reach: the XP it takes (Own.xpLeft).
+		xpLeft = goal.t == "level" and (status == "active" or status == "pending") and Own.xpLeft(goal) or nil,
 		skillLine = goal.skillLine, spell = goal.spell, faction = goal.faction,
 		standing = goal.standing, standingName = goal.standing and standingName(goal.standing) or nil,
 		achievement = goal.achievement, criteria = goal.criteria,
@@ -2672,16 +2764,65 @@ function Own.hearthInn(goal)
 	return nil
 end
 
--- "Hearthstone ready in 23 min: walk to the inn, or wait for it"; nil while
--- it is ready.
-function Own.hearthText(goal)
+-- Seconds the way to a hearth goal's inn takes without the Hearthstone:
+-- walks, flights and boats as the arrow would plan them (Nav.EstimateTravel
+-- with noHearth, cached there for a few seconds); nil when unknown.
+function Own.hearthTrip(inn)
+	local nav = ns.Nav
+	if not (inn and nav and nav.EstimateTravel) then return nil end
+	local ok, s = pcall(nav.EstimateTravel, nil, inn, nil, true)
+	if ok and type(s) == "number" then return s end
+	return nil
+end
+
+-- What a Hearthstone costs and is worth, as the route planner prices it
+-- (Nav/Travel.lua): its cast and loading screen, and the time it must save
+-- before its hour's cooldown is spent on a trip.
+function Own.hearthCost()
+	local nav = ns.Nav
+	return (nav and nav.HEARTH_SECONDS) or 15, (nav and nav.HEARTH_MARGIN) or 120
+end
+
+-- How to make a hearth goal's trip now: wait (Own.hearthWait), the inn
+-- (Own.hearthInn), the trip there without the Hearthstone in seconds
+-- (Own.hearthTrip, only while the inn is known), and `go`: travel there
+-- yourself, as the Hearthstone waits or is missing, or, ready, saves less
+-- than the planner's margin over the trip (the inn is close or a short
+-- flight away). Never holds the step: arriving checks the goal off either way.
+function Own.hearthPlan(goal)
 	local wait = Own.hearthWait(goal)
-	if not wait then return nil end
-	local inn = Own.hearthInn(goal) ~= nil
+	local inn = goal.t == "hearth" and Own.hearthInn(goal) or nil
+	local trip = inn and Own.hearthTrip(inn)
+	local cast, margin = Own.hearthCost()
+	local go = wait ~= nil or (trip ~= nil and trip <= cast + margin)
+	return wait, inn, trip, go
+end
+
+-- "under a minute", "23 min".
+function Own.minutes(seconds)
+	return seconds < 60 and L["under a minute"] or L["%d min"]:format(math.ceil(seconds / 60))
+end
+
+-- The line under a hearth goal: how long the Hearthstone waits and, where
+-- the trip there is known, whether to set off now or wait for it; with the
+-- Hearthstone ready, that travelling is about as fast when it is. nil when
+-- hearthing is the way.
+function Own.hearthText(goal)
+	if goal.t ~= "hearth" then return nil end
+	local wait, inn, trip, go = Own.hearthPlan(goal)
+	if not wait then
+		if go then return L["The inn is only %s away: travel there and keep the Hearthstone"]:format(Own.minutes(trip)) end
+		return nil
+	end
 	if wait == 0 then
 		return inn and L["No Hearthstone in your bags: walk to the inn"] or L["No Hearthstone in your bags"]
 	end
-	local left = wait < 60 and L["under a minute"] or L["%d min"]:format(math.ceil(wait / 60))
+	local left = Own.minutes(wait)
+	if trip then
+		local cast = Own.hearthCost()
+		if trip <= wait + cast then return L["Hearthstone ready in %s; the trip takes %s: set off now"]:format(left, Own.minutes(trip)) end
+		return L["Hearthstone ready in %s, sooner than the %s trip: wait for it"]:format(left, Own.minutes(trip))
+	end
 	return (inn and L["Hearthstone ready in %s: walk to the inn, or wait for it"] or L["Hearthstone ready in %s"]):format(left)
 end
 
@@ -2709,10 +2850,11 @@ local function waypointOf(g, goal, at, s)
 	else
 		map, x, y, f, area, z = posOf(goal)
 		-- A hearth goal has no place of its own; while the Hearthstone waits,
-		-- the arrow leads to its inn on foot (#576).
-		if not map and goal.t == "hearth" and Own.hearthWait(goal) then
-			local inn = Own.hearthInn(goal)
-			if inn then map, x, y, f, walk = inn.map, inn.x, inn.y, inn.f, true end
+		-- or travelling is about as fast (Own.hearthPlan), the arrow leads to
+		-- its inn (#576).
+		if not map and goal.t == "hearth" then
+			local _, inn, _, go = Own.hearthPlan(goal)
+			if go and inn then map, x, y, f, walk = inn.map, inn.x, inn.y, inn.f, true end
 		end
 	end
 	if not (map and x and y) or not goalApplies(goal) or unavailableFor(goal) or Own.goalSkipped(s, g)
@@ -2742,13 +2884,16 @@ end
 
 -- The current goal of step s, the one the window marks and the arrow leads
 -- to: in the focus group, the first open blocking goal, else the first open
--- optional one; the group's header only when nothing else is open. Returns
--- its index (or nil) and the open header's index (or nil).
+-- optional one; the group's header only when nothing else is open. When that
+-- first blocking goal is a field goal (kill, collect, interact with a place)
+-- and the group has two or more such goals open, the nearest of them to the
+-- player takes its place (Own.nearestField: sticky, never switched in a
+-- fight). Returns its index (or nil) and the open header's index (or nil).
 function Own.currentGoal(s, groups, focus)
 	local grp = focus and groups[focus]
 	if not grp then return nil end
 	local step = guide.steps[s]
-	local header, optional
+	local header, optional, first, fields
 	for _, g in ipairs(grp.goals) do
 		local goal = step.goals[g]
 		if goal.t ~= "note" and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g)
@@ -2756,11 +2901,23 @@ function Own.currentGoal(s, groups, focus)
 			if Own.isHeader(step, goal, grp) then
 				header = header or g
 			elseif not goal.optional then
-				return g, header or Own.headerOf(s, grp, g)
+				first = first or g
+				if Own.isField(goal) then
+					fields = fields or {}
+					fields[#fields + 1] = g
+				end
 			else
 				optional = optional or g
 			end
 		end
+	end
+	if first then
+		if fields and #fields >= 2 and fields[1] == first then
+			first = Own.nearestField(s, fields)
+		else
+			Own.nearPick[step] = nil
+		end
+		return first, header or Own.headerOf(s, grp, first)
 	end
 	return optional or header, header
 end
@@ -2861,6 +3018,74 @@ local function goalWorld(goal)
 		worldOf[goal] = w
 	end
 	return w[1], w[2], w[3]
+end
+
+-- Field goals: work done out at a place, where a step can hold several
+-- (Garren's Haunt: the Graverobbers, the Mongrels, the Doom Weed). With two
+-- or more open, the arrow leads to the nearest (Own.currentGoal); written
+-- order still orders the window's list. Sticky: another goal takes over
+-- only once it is NEAR_SHARE of the current one's distance and NEAR_YARDS
+-- nearer, or the current one is done; never while the player is in a fight.
+Own.FIELD = { kill = true, collect = true, interact = true }
+Own.NEAR_SHARE, Own.NEAR_YARDS = 0.75, 40
+Own.nearPick = setmetatable({}, { __mode = "k" }) -- step -> goal index the arrow is on
+
+function Own.isField(goal)
+	return Own.FIELD[goal.t] == true and not goal.candidates and (goal.spots ~= nil or (goal.map ~= nil and goal.x ~= nil and goal.y ~= nil))
+end
+
+-- Yards from the player (c, px, py) to a field goal's nearest spawn area
+-- (its edge; alternatives left out, as the spot picks leave them), else to
+-- its point; nil on another continent.
+function Own.fieldDistance(goal, c, px, py)
+	local best
+	for _, s in ipairs(goal.spots or NONE) do
+		if not s.alt then
+			local d = Spots.edge(goal, s, c, px, py)
+			if d and (not best or d < best) then best = d end
+		end
+	end
+	if best or not (goal.map and goal.x and goal.y) then return best end
+	local gc, gx, gy = goalWorld(goal)
+	if gc ~= c then return nil end
+	return ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5
+end
+
+-- Of step s's open field goals `list` (indexes, written order), the one the
+-- arrow is on: the one it was on while it is open and nothing is clearly
+-- nearer, or the player fights; else the nearest. Where nothing is
+-- measurable (no position, another continent), the first. Sets
+-- Own.nearMoved when the pick changes (the arrival poll re-evaluates then).
+function Own.nearestField(s, list)
+	local step = guide.steps[s]
+	local cur = Own.nearPick[step]
+	local open = false
+	for _, g in ipairs(list) do
+		if g == cur then open = true end
+	end
+	if not open then cur = nil end
+	local c, px, py = Compat().GetPlayerWorldPosition()
+	local fighting = UnitAffectingCombat and UnitAffectingCombat("player")
+	local pick = cur
+	if c and not (cur and fighting) then
+		local best, bestD, curD
+		for _, g in ipairs(list) do
+			local d = Own.fieldDistance(step.goals[g], c, px, py)
+			if g == cur then curD = d end
+			if d and (not bestD or d < bestD) then best, bestD = g, d end
+		end
+		if best and (not cur or not curD or (bestD < curD * Own.NEAR_SHARE and bestD < curD - Own.NEAR_YARDS)) then pick = best end
+	end
+	pick = pick or list[1]
+	if pick ~= Own.nearPick[step] then
+		Own.nearPick[step] = pick
+		Own.nearMoved = true
+		-- Its spawn area from where the player stands now, not from where it
+		-- was first picked.
+		local goal = step.goals[pick]
+		if c and goal.spots and Spots.chosen[goal] then Spots.repick(goal, c, px, py) end
+	end
+	return pick
 end
 
 ---------------------------------------------------------------------------
@@ -3269,6 +3494,13 @@ local function checkArrival()
 	useActive()
 	local sg = Spots.waypointGoal()
 	if sg and Spots.repick(sg, c, px, py) then hit = true end
+	-- A step with several open field goals: the nearest may have changed.
+	if guide and current and Own.nearPick[guide.steps[current]] then
+		Own.nearMoved = false
+		local groups, focus = stepGroups(current)
+		Own.currentGoal(current, groups, focus)
+		if Own.nearMoved then hit = true end
+	end
 	if hit then requestUpdate() end
 end
 
@@ -3292,9 +3524,9 @@ local function updateTicker()
 		end
 	end
 	useActive()
-	if not need then need = Spots.waypointGoal() ~= nil end
+	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
 	if need and not ticker then
-		ticker = C_Timer.NewTicker(ARRIVAL_POLL, checkArrival)
+		ticker = ns.NewTicker(ARRIVAL_POLL, checkArrival)
 	elseif not need and ticker then
 		ticker:Cancel()
 		ticker = nil
@@ -3340,6 +3572,10 @@ local function signature()
 				-- The chosen spawn area moves the goal's position in the view.
 				n = n + 1
 				sigParts[n] = "spot" .. (Spots.index(goal) or 0)
+			elseif goal.t == "accept" and goal.quest then
+				-- Its line's notice (not in the log, not listed by its giver).
+				n = n + 1
+				sigParts[n] = Own.acceptNotice(current, g, goal, status) and "notice" or "-"
 			end
 		end
 		local _, focus = stepGroups(current)
@@ -3371,9 +3607,14 @@ end
 -- An NPC interaction while a step is current checks off its talk/train/
 -- vendor goals (sethome: binding); while the player looks at another step,
 -- the live step's too. Stored with the manual check-offs, so the result
--- survives the step moving on and a reload. Goals with candidates count only
--- for one of their candidates (any of them); profession trains complete from
--- the skill's max rank instead. Returns true if anything changed.
+-- survives the step moving on and a reload. Only that NPC counts: a goal
+-- with candidates for one of them (a class trainer's for the character's
+-- class), one naming its NPC for that NPC, `train class` for a trainer of
+-- the character's class; profession trains complete from the skill's max
+-- rank instead. A window still open when the step changes counts for nothing
+-- in the new step: only what opens, or what the player does, while it is
+-- current (Fitz: "clear signals from the game"). Returns true if anything
+-- changed.
 local function latch(kind, npc)
 	if not (guide and current and player) then return false end
 	local hit = false
@@ -3393,8 +3634,12 @@ local function latch(kind, npc)
 						ok = not goal.location or Engine.IsSethomeInnkeeper(goal, npc)
 					elseif kind == "train" and isProfessionTrain(goal) then
 						ok = false
-					elseif goal.candidates and npc then
-						ok = isCandidate(goal, npc)
+					elseif goal.candidates then
+						ok = npc ~= nil and isCandidate(goal, npc)
+					elseif goal.npc then
+						ok = goal.npc == npc
+					elseif kind == "train" and goal.class then
+						ok = Engine.IsClassTrainer(npc)
 					end
 				end
 				if ok then
@@ -3408,14 +3653,6 @@ local function latch(kind, npc)
 			end
 		end
 	end
-	return hit
-end
-
--- A frame still open when the step changes counts for the new step.
-local function latchOpenFrame()
-	if not openNpc and not openKind then return false end
-	local hit = openNpc and latch("talk", openNpc) or false
-	if openKind == "train" or openKind == "vendor" then hit = latch(openKind, openNpc) or hit end
 	return hit
 end
 
@@ -3726,22 +3963,23 @@ local function checkTrainDue()
 	ns.Fire("TRAIN_DUE", level, t)
 end
 
--- A trainer window of the character's class: trained at this level.
--- classTrainVisit is only ever a real visit (classTrainLevel is also set on
--- first sight), so `train class` trusts it alone.
+-- A trainer window of the character's class: the reminder's level
+-- (classTrainLevel, also set on first sight). classTrainVisit, which `train
+-- class` trusts, is set only when that trainer taught a spell
+-- (Own.trainerLearned).
 local function noteClassTrainer(npc)
 	if not Engine.IsClassTrainer(npc) then return end
 	refreshPlayer()
 	local s = ns.CharState()
 	s.classTrainLevel = player.level or 1
-	s.classTrainVisit = s.classTrainLevel
 	ns.Fire("CLASS_TRAINED", s.classTrainLevel)
 end
 
--- `train class` has nothing to teach: the character visited its class trainer
--- at this level, or at the even level below an odd one (class trainers teach
--- on even levels only). Latched once the route moves past (latchable), so the
--- next level does not send the player back.
+-- `train class` has nothing to teach: the character's class trainer taught
+-- a spell (Own.trainerLearned) at this level or at
+-- the even level below an odd one (class trainers teach on even levels
+-- only). Latched once the route moves past (latchable), so the next level
+-- does not send the player back.
 function Own.nothingToTrain()
 	local visit, level = tonumber(ns.CharState().classTrainVisit), player and player.level
 	return visit ~= nil and level ~= nil and visit <= level and level - visit <= level % 2
@@ -3754,9 +3992,78 @@ local function resetLoaded(id, auto)
 	if not auto then completedFired[id] = nil end
 	guide = Guides.Get(id)
 	current, computed, pin, pinDone, aim, lastSig, passedUpTo = nil, nil, nil, nil, nil, nil, 0
+	Own.skipQueue[id] = nil
 	autoChain, sawIncomplete, placing = auto and true or false, false, GetTime() + PLACE_SECONDS
 	Own.opened[id] = true
 	tabsDirty = true
+end
+
+-- Notices of quests passed over, per guide, until the player is on the live
+-- step: { from = the first step passed, skips = { { quest, title, reason,
+-- text }, ... }, seen = { [quest] = true } }.
+Own.skipQueue = {}
+
+-- Queue the unavailable quests of step s the route just moved past: its
+-- blocking goals that apply, not done, unavailable (once per quest). A step
+-- the player skipped, or one not for the character, says nothing.
+function Own.queueSkips(s)
+	local step = guide.steps[s]
+	if not step or isSkipped(s) or not stepApplies(step) then return end
+	local q = Own.skipQueue[guide.id]
+	for g, goal in ipairs(step.goals) do
+		local u = blocks(goal) and goalApplies(goal) and unavailableFor(goal)
+		if u and not (q and q.seen[goal.quest]) and not goalDone(s, g, goal) then
+			if not q then
+				q = { from = s, skips = {}, seen = {} }
+				Own.skipQueue[guide.id] = q
+			end
+			q.seen[goal.quest] = true
+			q.skips[#q.skips + 1] = { quest = goal.quest, title = questTitle(goal), reason = u.reason, text = unavailableText(u) }
+		end
+	end
+end
+
+-- The live step went back from `to` to `from`: hold it at `to` for every
+-- accept in between whose quest left the log (not done, not skipped), and
+-- ask (Engine.LostQuestion). A held quest back in the log, done or skipped
+-- is forgotten first. True if a quest is newly held.
+function Own.holdLost(from, to)
+	local st, C = ns.CharState(), Compat()
+	local mine = st.lostQuests and st.lostQuests[guide.id]
+	local held = false
+	for s = from, to - 1 do
+		local step = guide.steps[s]
+		if stepApplies(step) and not isSkipped(s) then
+			for g, goal in ipairs(step.goals) do
+				local q = goal.quest
+				if goal.t == "accept" and q and blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal)
+					and Own.removed[q] and not C.IsOnQuest(q) and not questDone(q) and not Own.questSkipped(q) then
+					if not mine then
+						st.lostQuests = st.lostQuests or {}
+						mine = st.lostQuests[guide.id] or {}
+						st.lostQuests[guide.id] = mine
+					end
+					mine[q] = math.max(mine[q] or 0, to)
+					held = true
+				end
+			end
+		end
+	end
+	return held
+end
+
+-- Forget the held quests of the loaded guide that are back in the log, done
+-- or skipped.
+function Own.pruneLost()
+	local all = ns.CharState().lostQuests
+	local mine = all and all[guide.id]
+	if not mine then return end
+	local C = Compat()
+	for q in pairs(mine) do
+		if C.IsOnQuest(q) or questDone(q) or Own.questSkipped(q) then mine[q] = nil end
+	end
+	if not next(mine) then all[guide.id] = nil end
+	if not next(all) then ns.CharState().lostQuests = nil end
 end
 
 -- Evaluate the loaded tab. Only the active tab announces step and waypoint
@@ -3773,12 +4080,23 @@ local function evaluateLoaded(active)
 	-- A Class guide the character cannot start yet holds at its opening
 	-- without placing (which would mark its accepts unavailable and move on).
 	local gate = Own.startGate(guide)
+	local wasComputed = computed
+	Own.pruneLost()
 	computed = gate and gate.step or computeCurrent()
 	-- Placed once the quest log could be read (it can lag PLAYER_LOGIN).
 	local wasPlacing = placing
 	if placing and (logReady or GetTime() >= placing) then placing = nil end
 	local placed = wasPlacing and not placing
-	if computed then sawIncomplete = true end
+	-- A quest the route had passed left the log: the live step stays and the
+	-- window asks whether to go back for it (Own.holdLost), never silently.
+	if not (gate or wasPlacing) and computed and wasComputed and computed < wasComputed and Own.holdLost(computed, wasComputed) then
+		computed = computeCurrent()
+		lastSig = nil
+	end
+	if computed then
+		sawIncomplete = true
+		Own.startWaits(computed)
+	end
 	local passed = (computed or #guide.steps + 1) - 1
 	if passed > passedUpTo then latchPassed(passedUpTo + 1, passed) end
 	Own.latchCaughtUp(passed)
@@ -3788,7 +4106,7 @@ local function evaluateLoaded(active)
 	-- longer applies); while the step looked at gets done it follows forward,
 	-- behind the live step up to it, ahead of it to the next open step, its
 	-- transient goals latched like any step the route moves past.
-	local wasPinned = pin ~= nil
+	local oldPin = pin
 	if pin and ((computed and pin == computed) or not guide.steps[pin] or not stepApplies(guide.steps[pin])) then pin = nil end
 	if pin then
 		local done = stepDone(pin)
@@ -3803,30 +4121,30 @@ local function evaluateLoaded(active)
 
 	local newCurrent = pin or computed
 	local changed = newCurrent ~= current
-	local latched = false
 	-- Bag-count goals already met in the step about to be (or still) current
 	-- stay met for the rest of it, even if the items get used up (crafted,
 	-- handed in) before the step's other goals are done.
 	if newCurrent then latchInStep(newCurrent, newCurrent == computed) end
 	if pin and computed then latchInStep(computed, true) end
-	if changed then
-		-- The computed step moved past a step whose quests became unavailable
-		-- (not offered at the giver, or closed for good): say which and why,
-		-- before STEP_CHANGED, so the window shows it with the new step.
-		-- STEP_SKIPPED(fromStep, toStep, { { quest, title, reason, text }, ... })
-		local old = current
-		if active and old and not wasPlacing and not wasPinned and not pin and (not newCurrent or newCurrent > old) and not isSkipped(old)
-			and stepApplies(guide.steps[old]) then
-			local skips, seen = {}, {}
-			for g, goal in ipairs(guide.steps[old].goals) do
-				local u = blocks(goal) and goalApplies(goal) and not seen[goal.quest] and unavailableFor(goal)
-				if u and not goalDone(old, g, goal) then
-					seen[goal.quest] = true
-					skips[#skips + 1] = { quest = goal.quest, title = questTitle(goal), reason = u.reason, text = unavailableText(u) }
-				end
-			end
-			if #skips > 0 then ns.Fire("STEP_SKIPPED", old, newCurrent, skips) end
+	-- Quests passed over as unavailable (not offered at the giver, or closed
+	-- for good) are said, never silently: when the live step moves past its
+	-- step, and when the step looked at follows forward past its own. While
+	-- the player looks at another step the notice waits, and comes with the
+	-- live step when they are back on it (#741, #739: Fitz pages a lot).
+	-- STEP_SKIPPED(fromStep, toStep, { { quest, title, reason, text }, ... }),
+	-- before STEP_CHANGED, so the window shows it with the step.
+	if active and not wasPlacing then
+		if wasComputed and (not computed or computed > wasComputed) then Own.queueSkips(wasComputed) end
+		if oldPin and pin ~= oldPin and oldPin ~= wasComputed and (not newCurrent or newCurrent > oldPin) then Own.queueSkips(oldPin) end
+		local q = Own.skipQueue[guide.id]
+		if q and not pin then
+			Own.skipQueue[guide.id] = nil
+			ns.Fire("STEP_SKIPPED", q.from, newCurrent, q.skips)
+			-- Back on the live step without a step change: repaint for the notice.
+			if not changed then lastSig = nil end
 		end
+	end
+	if changed then
 		current = newCurrent
 		-- The arrow's choice was for the old step; an along goal's lasts while it is listed.
 		if not (aim and Own.alongOf(aim)) then aim = nil end
@@ -3847,7 +4165,6 @@ local function evaluateLoaded(active)
 				end
 			end
 		end
-		latched = current and latchOpenFrame() or false
 		lastSig = signature()
 		tabsDirty = true
 		if active then ns.Fire("STEP_CHANGED", current) end
@@ -3867,9 +4184,6 @@ local function evaluateLoaded(active)
 			ns.Fire("WAYPOINT_CHANGED", wp)
 		end
 	end
-
-	-- The open frame just checked off goals of the new step: re-evaluate.
-	if latched then requestUpdate() end
 
 	if not current then
 		local id = guide.id
@@ -3919,6 +4233,36 @@ local function evaluateLoaded(active)
 	end
 end
 
+-- Start the countdown of each `wait` goal of step s whose earlier goals (the
+-- ones that hold the route) are all done.
+function Own.startWaits(s)
+	local goals = guide.steps[s].goals
+	local ready = true
+	for g = 1, #goals do
+		local goal = goals[g]
+		if goal.t == "wait" and goalApplies(goal) and not Own.waitStart[goal] and ready then
+			Own.waitStart[goal] = GetTime()
+		end
+		if ready and blocks(goal) and goalApplies(goal) and not Own.goalSkipped(s, g) and not goalDone(s, g, goal) then ready = false end
+	end
+end
+
+-- While the live step has a `wait` counting down: evaluate again each second,
+-- so its countdown line moves and it is done on time. One timer at a time.
+function Own.watchWait()
+	if Own.waitTimer or not (guide and computed and guide.steps[computed]) then return end
+	for g, goal in ipairs(guide.steps[computed].goals) do
+		if goal.t == "wait" and Own.waitStart[goal] and not checked(computed, g) and not goalDone(computed, g, goal) then
+			Own.waitTimer = true
+			ns.After(1, function()
+				Own.waitTimer = false
+				requestUpdate()
+			end)
+			return
+		end
+	end
+end
+
 -- While the shown step has an open hearth goal whose Hearthstone waits:
 -- evaluate again when its minute changes and once it is ready, so the time
 -- left and the walk to the inn follow it (#576). One timer at a time
@@ -3936,7 +4280,7 @@ function Own.watchHearth()
 	local nextIn = wait % 60
 	if nextIn < 0.5 then nextIn = 60 end
 	Own.hearthTimer = true
-	C_Timer.After(math.min(nextIn, wait) + 0.1, function()
+	ns.After(math.min(nextIn, wait) + 0.1, function()
 		Own.hearthTimer = false
 		requestUpdate()
 	end)
@@ -3956,6 +4300,7 @@ local function evaluate()
 	useActive()
 	evaluateLoaded(true)
 	Own.watchHearth()
+	Own.watchWait()
 	-- Out-levelled: once per guide per session; for a guide the catch-up may
 	-- pass whole for the player (Own.opened, autoChain), once it is placed.
 	local mayPass = placing and autoChain and Own.opened[guide and guide.id or ""] and ns.Get("behavior.skipGrey")
@@ -3989,7 +4334,7 @@ requestUpdate = function()
 	if scheduled or #tabs == 0 or not ns.IsLoggedIn() then return end
 	scheduled = true
 	local wait = lastEval + MIN_INTERVAL - GetTime()
-	C_Timer.After(wait > 0 and wait or 0, flush)
+	ns.After(wait > 0 and wait or 0, flush)
 end
 Engine.RequestUpdate = requestUpdate
 
@@ -4365,6 +4710,40 @@ function Engine.AnswerGroup(q, answer)
 	requestUpdate()
 end
 
+-- The quest the active guide holds for the player's answer (it left the log
+-- after the route had passed its accept, Own.holdLost): its id and title, the
+-- lowest id first, or nil.
+function Engine.LostQuestion()
+	local all = guide and ns.CharState().lostQuests
+	local mine = all and all[guide.id]
+	if not mine then return nil end
+	local q
+	for id in pairs(mine) do
+		if not q or id < q then q = id end
+	end
+	local a = layoutOf(guide).accepts[q]
+	return q, a and questTitle(a[1].goal) or nil
+end
+
+-- The answer for a held quest: "back" lets the route go back to its giver,
+-- "skip" skips it and the quests that follow from it (Engine.SkipQuest).
+function Engine.AnswerLost(q, answer)
+	local all = ns.CharState().lostQuests
+	if type(q) ~= "number" or not all or (answer ~= "back" and answer ~= "skip") then return end
+	Own.removed[q] = nil
+	for id, mine in pairs(all) do
+		mine[q] = nil
+		if not next(mine) then all[id] = nil end
+	end
+	if not next(all) then ns.CharState().lostQuests = nil end
+	if answer == "skip" then
+		Engine.SkipQuest(q, true)
+	else
+		placing = nil
+		evaluate()
+	end
+end
+
 -- The active tab's finished guide when its route choice waits for the
 -- player, else nil.
 function Engine.PendingRouteChoice()
@@ -4719,7 +5098,9 @@ function Engine.GetLiveStep() return computed end
 -- The level the guide expects next (QoL/XPMark): the first `level N` goal at
 -- or after the step shown that is for this character (the step's `only` and
 -- `when`, the goal's `only`), neither skipped, with N above `level` (the
--- caller's reading; the character's level by default). N, its step; or nil.
+-- caller's reading; the character's level by default), or a point inside
+-- that level (`level 12.4`, `frac`) the character has not reached yet.
+-- N, its step, its frac (nil for a whole level); or nil.
 function Engine.LevelTarget(level)
 	if not (guide and current) then return nil end
 	if not player then refreshPlayer() end
@@ -4729,13 +5110,65 @@ function Engine.LevelTarget(level)
 		local step = guide.steps[s]
 		if not (sk and sk[s]) and stepApplies(step) then
 			for g, goal in ipairs(step.goals) do
-				if goal.t == "level" and (goal.level or 0) > level and not (sk and sk[Own.key(s, g)]) and goalApplies(goal) then
-					return goal.level, s
+				local n = goal.level or 0
+				local ahead = n > level or (goal.frac and n == level and not Own.levelReached(n, goal.frac))
+				if goal.t == "level" and ahead and not (sk and sk[Own.key(s, g)]) and goalApplies(goal) then
+					return n, s, goal.frac
 				end
 			end
 		end
 	end
 	return nil
+end
+
+-- Items the active guide still needs in the bags, so they are kept, never
+-- sold (QoL/Vendor.lua, QoL/Keep.lua): from the live step on, a `use` goal's
+-- item, a `collect`'s, a `buy`'s, a `craft`'s reagents and the item an
+-- `accept` starts from; and before it, a quest `collect` whose quest is in
+-- the log and handed in at a later step (the turn-in takes the items). Only
+-- steps and goals for this character, none the player skipped.
+-- -> { [itemID] = the first step that needs it }, built once per evaluation
+-- (read it, do not keep it).
+Own.kept = {}
+function Engine.KeptItems()
+	local k = Own.kept
+	if k.items and k.generation == generation and k.guide == guide then return k.items end
+	local items = {}
+	k.items, k.generation, k.guide = items, generation, guide
+	local live = computed
+	if not (guide and live) then return items end
+	if not player then refreshPlayer() end
+	local C, sk = Compat(), skippedFor(guide.id)
+	local function keep(item, s)
+		if type(item) == "number" and not (items[item] and items[item] <= s) then items[item] = s end
+	end
+	local function wanted(s, g, goal)
+		return not (sk and sk[Own.key(s, g)]) and goalApplies(goal)
+	end
+	local handIn, early = {}, {}
+	for s, step in ipairs(guide.steps) do
+		if not (sk and sk[s]) and stepApplies(step) then
+			for g, goal in ipairs(step.goals) do
+				local t = goal.t
+				if s < live then
+					if t == "collect" and goal.quest and C.IsOnQuest(goal.quest) and wanted(s, g, goal) then early[#early + 1] = goal end
+				elseif wanted(s, g, goal) then
+					if t == "use" or t == "collect" or t == "buy" or (t == "accept" and goal.item) then
+						keep(goal.item, s)
+					elseif t == "craft" and type(goal.reagents) == "table" then
+						for _, r in ipairs(goal.reagents) do keep(r.item, s) end
+					elseif t == "turnin" and goal.quest and not handIn[goal.quest] then
+						handIn[goal.quest] = s
+					end
+				end
+			end
+		end
+	end
+	for _, goal in ipairs(early) do
+		local s = handIn[goal.quest]
+		if s then keep(goal.item, s) end
+	end
+	return items
 end
 
 -- What a Class guide waits on before this character can start it
@@ -5004,6 +5437,34 @@ function Engine.CycleSpot(stepIndex, goalIndex, index)
 	return Spots.index(goal)
 end
 
+-- The waypoint keys (Bindings.xml): the next (dir 1) or previous (-1) place
+-- the arrow can lead to on the step on screen. A goal with spawn spots moves
+-- on to its next or previous spot (CycleSpot); else the arrow moves to the
+-- next or previous open goal of the step that has a place, in goal order,
+-- round the step. True if the arrow moved.
+function Engine.CycleWaypoint(dir)
+	if not (guide and current) then return false end
+	dir = dir == -1 and -1 or 1
+	local step = guide.steps[current]
+	local gi = waypoint and waypoint.stepIndex == current and waypoint.goalIndex or nil
+	local goal = gi and step.goals[gi]
+	if goal and goal.spots and #goal.spots > 1 then
+		local n = #goal.spots
+		return Engine.CycleSpot(current, gi, ((Spots.index(goal) or 1) - 1 + dir) % n + 1) ~= nil
+	end
+	local n = #step.goals
+	for k = 1, n do
+		local g = ((gi or (dir == 1 and 0 or 1)) - 1 + dir * k) % n + 1
+		local cand = step.goals[g]
+		if cand ~= goal and goalApplies(cand) and not Own.goalSkipped(current, g) and not goalDone(current, g, cand) and waypointOf(g, cand) then
+			aim = cand
+			evaluate()
+			return true
+		end
+	end
+	return false
+end
+
 -- Forget check-offs, skips and the saved view for the active guide.
 function Engine.ResetProgress()
 	if not guide then return end
@@ -5049,9 +5510,10 @@ ns.On("QOL_HEARTH_CHANGED", onUpdateEvent)
 -- New gear verdicts (equipment, spec, level, item data): `when upgrade`.
 ns.On("GEAR_UPDATED", onUpdateEvent)
 
--- A new answer for every group quest (`when group`, Own.groupAnswer).
+-- A new answer for every group quest (`when group`, Own.groupAnswer), and
+-- deathskips turned on or off (`die` goals, Own.deathskips).
 ns.On("SETTING_CHANGED", function(path)
-	if path == "behavior.groupQuests" then requestUpdate() end
+	if path == "behavior.groupQuests" or path == "behavior.deathskips" then requestUpdate() end
 end)
 
 -- An item or spell going on cooldown: `when cooldown` (Own.onCooldown), once a
@@ -5087,6 +5549,16 @@ end)
 -- The client fills the quest log after PLAYER_LOGIN; placing a tab waits for
 -- the first QUEST_LOG_UPDATE (onUpdateEvent evaluates after it).
 ns.RegisterEvent("QUEST_LOG_UPDATE", function() logReady = true end)
+
+-- A quest leaving the log (abandoned, failed, or handed in) may be held
+-- (Own.holdLost); taking it again ends that.
+ns.RegisterEvent("QUEST_REMOVED", function(_, questID)
+	if type(questID) == "number" then Own.removed[questID] = true end
+end)
+ns.RegisterEvent("QUEST_ACCEPTED", function(_, a, b)
+	local q = type(b) == "number" and b or a
+	if type(q) == "number" then Own.removed[q] = nil end
+end)
 
 ns.RegisterEvent("UNIT_QUEST_LOG_CHANGED", function(_, unit)
 	if unit == "player" then requestUpdate() end
@@ -5125,16 +5597,22 @@ ns.RegisterEvent("PLAYER_LEVEL_UP", function(_, level)
 	requestUpdate()
 end)
 
--- kind: "talk" for gossip/quest frames, "train"/"vendor" for those windows.
--- The interaction counts for the current step of every open tab.
+-- kind: "talk" for gossip/quest frames, "train"/"vendor"/"taxi" for those
+-- windows. A vendor or flight window is the service itself: it counts at
+-- once, for the current step of every open tab (and as talking to that NPC).
+-- A trainer window counts as talking to the trainer; its `train` goals wait
+-- for a spell learned there (Own.trainerLearned). A gossip or quest window only opens
+-- the chat, which proves nothing (#741: an NPC with nothing for the player):
+-- a talk goal counts from what the player does in it (Own.talkAct), never
+-- from the window opening.
 local function onNpcFrame(kind)
 	local npc = Compat().GetNpcID("npc")
 	openNpc, openKind = npc, kind
-	if player then
+	if player and kind ~= "talk" then
 		for i = 1, #tabs do
 			use(tabs[i])
 			if npc then latch("talk", npc) end
-			if kind ~= "talk" then latch(kind, npc) end
+			if kind ~= "train" then latch(kind, npc) end
 		end
 		useActive()
 	end
@@ -5145,34 +5623,84 @@ for _, event in ipairs({ "GOSSIP_SHOW", "QUEST_DETAIL", "QUEST_GREETING", "QUEST
 	ns.RegisterEvent(event, onTalkFrame)
 end
 
+-- The player's own act at the open NPC: a gossip option picked, a quest
+-- accepted, completed or handed in there (the client's calls, post-hooked,
+-- and the quest log's QUEST_ACCEPTED / QUEST_TURNED_IN). That is what checks
+-- off the NPC's talk goals. Accepting closes the quest window before the
+-- quest log says so: an act within 2 seconds of the NPC's window closing
+-- still counts for that NPC. (No new main-chunk local: it is at Lua's 200.)
+function Own.talkAct()
+	local npc = openNpc
+	if not npc and Own.closedNpc and GetTime() - Own.closedAt < 2 then npc = Own.closedNpc end
+	if not (npc and player) then return end
+	local hit = false
+	for i = 1, #tabs do
+		use(tabs[i])
+		hit = latch("talk", npc) or hit
+	end
+	useActive()
+	if hit then requestUpdate() end
+end
+
+-- A spell learned while a trainer's window is open: that is training done
+-- there (Fitz: a train goal ticks only on a learned spell, never on the
+-- window opening). It checks off the step's `train` goals for that trainer
+-- (latch: the NPC named, a candidate of the character's class, or a class
+-- trainer for `train class`), and at a class trainer of the character's
+-- class it is the visit `train class` remembers for the level
+-- (Own.nothingToTrain).
+function Own.trainerLearned()
+	if openKind ~= "train" or not (openNpc and player) then return end
+	refreshPlayer()
+	if Engine.IsClassTrainer(openNpc) then ns.CharState().classTrainVisit = player.level or 1 end
+	for i = 1, #tabs do
+		use(tabs[i])
+		latch("train", openNpc)
+	end
+	useActive()
+	requestUpdate()
+end
+if hooksecurefunc then
+	for _, name in ipairs({ "SelectOption", "SelectOptionByIndex" }) do
+		if C_GossipInfo and type(C_GossipInfo[name]) == "function" then hooksecurefunc(C_GossipInfo, name, function() Own.talkAct() end) end
+	end
+	for _, name in ipairs({ "SelectGossipOption", "AcceptQuest", "CompleteQuest", "GetQuestReward" }) do
+		if type(_G[name]) == "function" then hooksecurefunc(name, function() Own.talkAct() end) end
+	end
+end
+for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_TURNED_IN" }) do
+	ns.RegisterEvent(event, function() Own.talkAct() end)
+end
+
 -- Unavailable quests. A gossip, greeting or quest-detail window from an
 -- `accept` goal's own giver (current step of any tab) that does not offer
--- its quest marks it unavailable; one that offers it clears the mark. A
+-- its quest marks it unavailable when the data says why (its level not
+-- reached, a prerequisite missing); one that offers it clears the mark. A
+-- refusal the data does not explain is never a skip (Fitz, #741: a giver the
+-- server lacks would take the quest and its later steps out of the guide):
+-- the accept stays open, the arrow stays on the giver, and its line says
+-- "Not offered by <giver>? Report it with /polestar" (Own.notListed, this
+-- session, until the giver's window lists the quest or it is taken). A
 -- detail window opened from that giver's list, popped up by a turn-in at
 -- that giver (the follow-up quest), or started by an item, says nothing
 -- about the others.
 local LIST_WINDOW = 30 -- seconds a list or a turn-in covers the detail windows opened from it
 local listedAt = {} -- npc -> GetTime() of its last gossip/greeting list or turn-in
+Own.notListed = {} -- questID -> the accept goal whose giver's window did not list it
 
 local function unavailableReason(goal)
 	local lvl = tonumber(goal.minLevel)
 	if lvl and (player.level or 1) < lvl then return "level" end
 	if missingPre(goal) then return "pre" end
-	return "offer"
+	return nil
 end
 
 -- A level-up or a turn-in (either can unlock a quest) clears the marks, so
 -- the giver's next window decides afresh. A mark whose accept is in a step a
 -- tab has moved past is cleared only when the data says the quest has just
--- opened: a "level" or "pre" mark whose level is reached and prerequisites
--- done (the guide goes back to it, as for #70). A "level" or "pre" mark still
--- gated stays, its reason brought up to date (a level reached, a
--- prerequisite still missing). An "offer" mark stays (#161): nothing in the
--- data explains the refusal, and clearing it would send the guide back to a
--- giver who said no, from wherever the player is now. It keeps that step
--- passed until the giver's window offers the quest (checkOffers) or it is
--- taken; a server gate the data does not know (a higher level) opens the
--- same way.
+-- opened: its level reached and prerequisites done (the guide goes back to
+-- it, as for #70). A mark still gated stays, its reason brought up to date
+-- (a level reached, a prerequisite still missing).
 function Own.clearMarks()
 	if not player then
 		wipe(unavailable)
@@ -5193,12 +5721,17 @@ function Own.clearMarks()
 	useActive()
 	for q, u in pairs(unavailable) do
 		local now = passed[q] and unavailableReason(u.accept)
-		if now and (u.reason == "offer" or now ~= "offer") then
-			if u.reason ~= "offer" then u.reason = now end
+		if now then
+			u.reason = now
 		else
 			unavailable[q] = nil
 		end
 	end
+end
+
+function Own.listed(q)
+	unavailable[q] = nil
+	Own.notListed[q] = nil
 end
 
 local function checkOffers(source, startItem)
@@ -5212,7 +5745,7 @@ local function checkOffers(source, startItem)
 		if t and GetTime() - t < LIST_WINDOW then
 			local list = C.GetOfferedQuests("detail")
 			if list and list[1] then
-				unavailable[list[1]] = nil
+				Own.listed(list[1])
 				Own.offered[list[1]] = true
 			end
 			return
@@ -5225,7 +5758,7 @@ local function checkOffers(source, startItem)
 	local offered = {}
 	for i = 1, #list do
 		offered[list[i]] = true
-		unavailable[list[i]] = nil
+		Own.listed(list[i])
 		Own.offered[list[i]] = true
 	end
 	-- The window lists a quest just accepted as active a moment before the
@@ -5233,7 +5766,7 @@ local function checkOffers(source, startItem)
 	local active = source ~= "detail" and C.GetActiveQuests(source) or nil
 	for i = 1, active and #active or 0 do
 		offered[active[i]] = true
-		unavailable[active[i]] = nil
+		Own.listed(active[i])
 	end
 	for i = 1, #tabs do
 		use(tabs[i])
@@ -5242,7 +5775,12 @@ local function checkOffers(source, startItem)
 				local q = goal.quest
 				if goal.t == "accept" and q and (goal.npc == npc or goal.object == npc) and goalApplies(goal)
 					and not offered[q] and not C.IsOnQuest(q) and not questDone(q) and not unavailable[q] then
-					unavailable[q] = { reason = unavailableReason(goal), accept = goal }
+					local why = unavailableReason(goal)
+					if why then
+						unavailable[q] = { reason = why, accept = goal }
+					else
+						Own.notListed[q] = goal
+					end
 				end
 			end
 		end
@@ -5254,7 +5792,7 @@ ns.RegisterEvent("GOSSIP_SHOW", function() checkOffers("gossip") end)
 ns.RegisterEvent("QUEST_GREETING", function() checkOffers("greeting") end)
 ns.RegisterEvent("QUEST_DETAIL", function(_, startItem) checkOffers("detail", startItem) end)
 ns.RegisterEvent("QUEST_ACCEPTED", function(_, q)
-	if type(q) == "number" then unavailable[q] = nil end
+	if type(q) == "number" then Own.listed(q) end
 end)
 for _, event in ipairs({ "QUEST_COMPLETE", "QUEST_TURNED_IN" }) do
 	ns.RegisterEvent(event, function()
@@ -5263,53 +5801,21 @@ for _, event in ipairs({ "QUEST_COMPLETE", "QUEST_TURNED_IN" }) do
 	end)
 end
 
--- Quests their giver did not offer survive a reload and a relog, at any
--- level: saved at logout as CharState().offers[questID] = true (older saves
--- hold a level there, which reads the same) and restored at login, so placing
--- the guide does not pull the player back to a giver who already said no
--- (#161). As in play, the giver's window offering the quest clears the mark
--- (checkOffers).
-function Own.saveOffers()
-	local s = ns.CharState()
-	local out
-	for q, u in pairs(unavailable) do
-		if u.reason == "offer" and not Compat().IsOnQuest(q) then
-			out = out or {}
-			out[q] = true
-		end
-	end
-	s.offers = out
-end
-
-function Own.restoreOffers()
-	local saved = ns.CharState().offers
-	if type(saved) ~= "table" then return end
-	for q in pairs(saved) do
-		q = tonumber(q)
-		if q and not unavailable[q] then
-			for _, t in ipairs(tabs) do
-				local a = layoutOf(t.guide).accepts[q]
-				if a then
-					unavailable[q] = { reason = "offer", accept = a[1].goal }
-					break
-				end
-			end
-		end
-	end
-end
-
-ns.RegisterEvent("PLAYER_LOGOUT", function()
-	sync()
-	Own.saveOffers()
-end)
+ns.RegisterEvent("PLAYER_LOGOUT", function() sync() end)
 
 ns.RegisterEvent("TRAINER_SHOW", function()
 	onNpcFrame("train")
 	noteClassTrainer(openNpc)
 end)
+ns.RegisterEvent("LEARNED_SPELL_IN_SKILL_LINE", function() Own.trainerLearned() end)
 ns.RegisterEvent("MERCHANT_SHOW", function() onNpcFrame("vendor") end)
 
-local function onNpcFrameClosed() openNpc, openKind = nil, nil end
+-- The NPC whose window just closed, for an act the client reports after it
+-- (Own.talkAct).
+local function onNpcFrameClosed()
+	if openNpc then Own.closedNpc, Own.closedAt = openNpc, GetTime() end
+	openNpc, openKind = nil, nil
+end
 ns.RegisterEvent("GOSSIP_CLOSED", onNpcFrameClosed)
 ns.RegisterEvent("QUEST_FINISHED", onNpcFrameClosed)
 ns.RegisterEvent("TRAINER_CLOSED", onNpcFrameClosed)
@@ -5337,9 +5843,11 @@ local function matchesVerb(goal, verb)
 end
 
 -- True when an applicable `verb` goal ("accept"/"turnin"/"direct") for questID
--- sits in the live step or the next `span` (default 2) applicable steps of any
--- open tab, or in the step in view and the ones after it when Prev/Next moved
--- the view. Automation's gate: never act on quests the route does not want now.
+-- sits in the live step (or the next `span` applicable steps after it, 0 by
+-- default) of any open tab. Automation's gate (Fitz): it acts on the live
+-- step only, never ahead of it nor on a step the player is only looking at
+-- (Prev/Next/Goto), so no quest is taken or handed in that the live step
+-- does not name.
 local function wantsFrom(from, verb, questID, span)
 	local left = span + 1
 	local steps = guide.steps
@@ -5363,18 +5871,19 @@ local function wantsFrom(from, verb, questID, span)
 end
 
 local function wantsLoaded(verb, questID, span)
-	if not guide then return false end
-	if computed and wantsFrom(computed, verb, questID, span) then return true end
-	return current ~= nil and current ~= computed and wantsFrom(current, verb, questID, span)
+	return guide ~= nil and computed ~= nil and wantsFrom(computed, verb, questID, span)
 end
 
 function Engine.WantsQuest(verb, questID, span)
 	if not questID then return false end
 	if not player then refreshPlayer() end
+	-- The live step after what just happened: a hand-in that finished the step
+	-- whose next one takes the follow-up the game offers at once.
+	if scheduled then flush() end
 	local found = false
 	for i = 1, #tabs do
 		use(tabs[i])
-		if wantsLoaded(verb, questID, span or 2) then
+		if wantsLoaded(verb, questID, span or 0) then
 			found = true
 			break
 		end
@@ -5469,7 +5978,8 @@ ns.OnLogin(function()
 		if ids[i] == activeId then activeIndex = i end
 	end
 	if activeIndex == 0 then activeIndex = 1 end
-	Own.restoreOffers()
+	-- Older saves kept "not offered" marks across a logout; no mark is kept now.
+	s.offers = nil
 	useActive()
 	persist()
 	tabsDirty = true

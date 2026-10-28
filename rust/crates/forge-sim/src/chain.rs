@@ -27,6 +27,21 @@ pub struct Goal {
 	/// Where the goal is (world yards), when located.
 	#[serde(default)]
 	pub w: Option<GoalW>,
+	/// The NPC the goal names (`train 4752`: a trainer by id, not `train class`).
+	#[serde(default)]
+	pub npc: Option<u32>,
+	/// A `train` goal: whether it is `train class` (None: not recorded, as before: a `train` goal
+	/// without an npc is). `train Cooking` is not (RevNightElf: it became a class training at
+	/// Dolanaar).
+	#[serde(default)]
+	pub class: Option<bool>,
+	/// The line of the guide step the goal is in (the goals of one step share it).
+	#[serde(default)]
+	pub step: Option<u32>,
+	/// The compiled goal's spawn spots (cluster centres), world points: the judge's walk goals'
+	/// own (`forge judge check` reads the same), for what one camp is (search::passby::camp_gathers).
+	#[serde(default)]
+	pub spots: Vec<GoalW>,
 }
 
 #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, PartialEq)]
@@ -40,10 +55,20 @@ pub struct GoalW {
 /// goal naming a quest completes it; goals naming no quest are left out.
 pub fn goal_event(g: &Goal) -> Option<Event> {
 	if g.t == "level" {
-		return Some(Event { t: Ev::Level, q: None, level: g.level, xp: None, src: g.i as i64, oi: None });
+		return Some(Event { t: Ev::Level, q: None, level: g.level, xp: None, src: g.i as i64, oi: None, npc: None });
 	}
+	// (`train class` only is a class training stop: a trainer named by id, a riding trainer of one
+	// race, Kildar in Orgrimmar, is a line of its race's guide the route may not move to the nearest
+	// town: it was placed at another race's hub. A riding trainer's line is a riding step at that
+	// trainer, Ev::Ride.)
 	if g.t == "train" {
-		return Some(Event { t: Ev::Train, q: None, level: None, xp: None, src: g.i as i64, oi: None });
+		if let Some(npc) = g.npc {
+			return Some(Event { t: Ev::Ride, q: None, level: None, xp: None, src: g.i as i64, oi: None, npc: Some(npc) });
+		}
+		if g.class == Some(false) {
+			return None;
+		}
+		return Some(Event { t: Ev::Train, q: None, level: None, xp: None, src: g.i as i64, oi: None, npc: None });
 	}
 	let q = g.q?;
 	let t = match g.t.as_str() {
@@ -51,7 +76,7 @@ pub fn goal_event(g: &Goal) -> Option<Event> {
 		"turnin" => Ev::Turnin,
 		_ => Ev::Complete,
 	};
-	Some(Event { t, q: Some(q), level: None, xp: None, src: g.i as i64, oi: g.oi })
+	Some(Event { t, q: Some(q), level: None, xp: None, src: g.i as i64, oi: g.oi, npc: None })
 }
 
 /// Goals from a JSON document's `goals` array (the JS reference driver's output, or a seed).
@@ -79,6 +104,7 @@ pub fn events_from(doc: &Value) -> Vec<Event> {
 					xp: e.get("xp").and_then(Value::as_f64),
 					src: e.get("a").and_then(Value::as_i64).unwrap_or(k as i64),
 					oi: None,
+					npc: None,
 				})
 			})
 			.collect();
@@ -176,4 +202,21 @@ pub fn compare_reference(doc: &Value, events: &[Event], rep: &Replay) -> Compare
 		c.compared += 1;
 	}
 	c
+}
+
+#[cfg(test)]
+mod train_tests {
+	use super::*;
+
+	#[test]
+	fn only_train_class_is_a_class_training_stop() {
+		// c4 Troll and an Orc free search moved v1's `train 4752 optional -- Kildar` (the Orc riding
+		// trainer, horde/40-50/02-feralas:90) to the Undercity and Bloodhoof trainer hubs.
+		let g = |npc: Option<u32>| Goal { i: 3, guide: String::new(), file: String::new(), line: None, t: "train".into(), q: None, oi: None, level: None, w: None, npc, class: None, step: None, spots: Vec::new() };
+		assert!(goal_event(&g(Some(4752))).is_some_and(|e| e.t == Ev::Ride && e.npc == Some(4752)), "a named trainer is the guide's own line (a riding step when it is a riding trainer)");
+		assert!(goal_event(&g(None)).is_some_and(|e| e.t == Ev::Train), "train class");
+		let cooking = Goal { class: Some(false), ..g(None) };
+		assert!(goal_event(&cooking).is_none(), "a profession's training is not a class training");
+		assert!(goal_event(&Goal { class: Some(true), ..g(None) }).is_some_and(|e| e.t == Ev::Train));
+	}
 }

@@ -191,7 +191,8 @@ step Raan Wildwind
   complete 96101 @41.73,44.78                 -- /sit by Raan's campfire until you get Boosted Rest
   turnin 96101
   accept 96646
-  complete 96646 @43.85,43.9                  -- Zerril Softbreeze
+  train Cooking npc 251905                    -- Zerril Softbreeze: Camping 101 asks you to learn it
+  complete 96646 @43.85,43.9
   turnin 96646
 
 step Village quests
@@ -289,6 +290,7 @@ step The road to Valanaar
   tip Take the road south-east. Nyalah Brightfire and Alvarion Windfield stand by the road west of Valanaar; Windsong Crawlers line the shore further west, around 51,70.
   accept 93317                                -- Nyalah Brightfire
   accept 92679                                -- Alvarion Windfield
+  kill 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
   collect 257941 quest 93317.1 @51.6,70.6
   turnin 93317                                -- Nyalah Brightfire
 
@@ -322,7 +324,7 @@ step The missing scholar
 
 step Aamelia Windfield
   tip Aamelia Windfield runs the farm in the south-west lowlands.
-  complete 92679 @46.7,81.95                  -- Aamelia Windfield
+  kill 252800 quest 92679.1 @46.7,81.95 "Talk to Aamelia Windfield"
   turnin 92679
   accept 92682
   accept 92683
@@ -368,10 +370,15 @@ step Valanaar turn-ins
   accept 93797 only Mage
   train class
 
+step The Windstone Formations
+  tip The Windstone Formations stand on the rise west of Fillion's camp.
+  interact 697118 quest 92840.1
+  collect 262668 quest 93797.1 only Mage      -- Wind-Infused Bough: by the wind shrine south of Falaath Village
+  kill 254588 quest 94978.1 @51.6,70.6 "Tame Windsong Crawler" only Hunter -- Windsong Crawler, on the shore just east of the formations: tame it with Quel'ana's Taming Rod
+
 step Taming the Beast
   only Hunter
   tip Each of Quel'ana's quests hands you a Taming Rod: use it on the beast she names, then bring the rod back to her in Valanaar. Windsong Crawlers line the shore west of town; Vuldren Alphas and Ornery Galestriders roam the Gustberry Lowlands around the Windfield farm. Her sister Quel'dora stands beside her.
-  kill 254588 quest 94978.1 @51.6,70.6 "Tame Windsong Crawler" -- Windsong Crawler: tame it with the Taming Rod
   turnin 94978                                -- Quel'ana Quickgale
   accept 94979
   kill 251707 quest 94979.1 "Tame Ornery Galestrider" -- Tame it with the Taming Rod
@@ -381,11 +388,6 @@ step Taming the Beast
   turnin 94013                                -- Tame Beast
   accept 94050
   turnin 94050                                -- Quel'dora Quickgale: Beast Training
-
-step The Windstone Formations
-  tip The Windstone Formations stand on the rise west of Fillion's camp.
-  interact 697118 quest 92840.1
-  collect 262668 quest 93797.1 only Mage      -- Wind-Infused Bough: by the wind shrine south of Falaath Village
 
 step Elaadrin Evengale
   turnin 93797 only Mage                      -- Belann Windwood: Windbough Wand

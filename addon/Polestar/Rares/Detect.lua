@@ -178,7 +178,7 @@ end
 local function queueScan()
 	if scanQueued then return end
 	scanQueued = true
-	if C_Timer and C_Timer.After then C_Timer.After(SCAN_EVERY, D.Scan) else D.Scan() end
+	if C_Timer and C_Timer.After then ns.After(SCAN_EVERY, D.Scan) else D.Scan() end
 end
 
 local function onRegen()

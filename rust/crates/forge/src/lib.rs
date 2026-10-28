@@ -43,12 +43,18 @@ pub const GRID_PRODUCT: &str = "wow_classic_beta";
 pub const DATA_VERSION: &str = "data-2";
 pub const GRID_VERSION: &str = "grid-1";
 pub const PREPARE_VERSION: &str = "prepare-2";
-pub const WORLD_VERSION: &str = "world-2";
-pub const WALKS_VERSION: &str = "walks-2";
-pub const ROUTES_VERSION: &str = "routes-8";
-pub const GUIDES_VERSION: &str = "guides-2";
-pub const REPORT_VERSION: &str = "report-2";
-pub const LEGS_VERSION: &str = "legs-4";
+/// world-6: vendor buys for item objectives; world-7: the graveyard table (World::graveyards, the
+/// deathskips').
+pub const WORLD_VERSION: &str = "world-7";
+/// walks-4: keyed by the worlds' walk inputs (World::walks_key) and the walkers' answer versions, not
+/// the world stage's key; the extra walk pairs by their places (schema 2).
+pub const WALKS_VERSION: &str = "walks-4";
+pub const ROUTES_VERSION: &str = "routes-9";
+/// The routes stage's search checkpoints, under the stage cache (`<out>/.forge/routes-resume/`).
+pub const ROUTES_RESUME: &str = "routes-resume";
+pub const GUIDES_VERSION: &str = "guides-3";
+pub const REPORT_VERSION: &str = "report-3";
+pub const LEGS_VERSION: &str = "legs-5";
 /// The decode cache of Leffe's maps (MB): bounded memory per our measurements.
 pub const LEFFE_CACHE_MB: usize = 2048;
 
@@ -112,7 +118,8 @@ pub struct BuildOpts {
 	/// The Polestar checkout whose fixes the build applies (forever-db/corrections,
 	/// data/route-fixes.json); the report names its commit.
 	pub checkout: PathBuf,
-	/// Fail when a fix no longer applies (the fixes ledger's blocking rows): release builds.
+	/// Fail when a fix no longer applies (the fixes ledger's blocking rows) or the route check has a
+	/// blocker: release builds.
 	pub strict: bool,
 	/// The installed client (the data stage, once the Rust data build lands).
 	pub wow: Option<PathBuf>,
@@ -135,16 +142,36 @@ pub struct BuildOpts {
 	pub root: PathBuf,
 	/// Prebuilt walks-<faction>.bin to import (keyed by their bytes) instead of building them.
 	pub walks_from: Option<PathBuf>,
+	/// Extra walk pairs the walks stage routes (`--walk-pairs`; default `<out>/walks/extra-pairs.json`
+	/// when present): the routes stage's misses of earlier builds, merged there after each build.
+	pub walk_pairs: Option<PathBuf>,
 	/// Build the walking grid from an incomplete install (files missing) instead of refusing.
 	pub allow_incomplete: bool,
+	/// Build the data without QuestieDB (`--no-questie`). Without it a data build that finds no
+	/// QuestieDB stops: building without it silently loses about 17% of the quests.
+	pub no_questie: bool,
+	/// Take a data build whose quest count fell by more than [`forge_data::MAX_QUEST_DROP`] against the
+	/// previous build's (`--accept-fewer-quests`).
+	pub accept_fewer_quests: bool,
+	/// Where the data stage reads the Forever client tables (`--forever-tables`).
+	pub forever_tables: ForeverTables,
+	/// Take Forever client tables of another build than the grid's (`--allow-build-mismatch`).
+	pub allow_build_mismatch: bool,
 	/// The walking grid (default $POLESTAR_GRID, else <root>/data/local/nav4).
 	pub grid: Option<PathBuf>,
 	/// The public data pack (default: fetch::default_pack_dir()): the root when the checkout has
 	/// no data/sources, and the walk stores' seed.
 	pub pack: Option<PathBuf>,
 	pub threads: usize,
-	/// Stop after this stage (`walks`: the walk stores for a data pack), None: every stage.
+	/// Stop after this stage (`data`; `walks`: the walk stores for a data pack), None: every stage.
 	pub until: Option<String>,
+	/// How each route is searched: `--search edits|free|hybrid` (default edits), `--tries`,
+	/// `--members` for the free search, `--cut` where an edit descent is cut (every edit, the
+	/// default, or the knee's).
+	pub search: forge_sim::search::SearchOpts,
+	/// Price deathskips in the routes (`--deathskips`, off by default): the guides write them as `die`
+	/// steps, which only players who turned on "Use deathskips" take.
+	pub deathskips: bool,
 }
 
 /// A file every Polestar checkout has; [`find_checkout`] looks for it.
@@ -153,6 +180,152 @@ pub const CHECKOUT_MARK: &str = "forever-db/corrections/quests.json";
 /// The nearest folder at or above `from` that is a Polestar checkout.
 pub fn find_checkout(from: &Path) -> Option<PathBuf> {
 	from.ancestors().find(|d| d.join(CHECKOUT_MARK).is_file()).map(Path::to_path_buf)
+}
+
+/// The data stage's QuestieDB: the one found, None with `--no-questie`, else an error naming the
+/// folders searched. Building without it loses Forever's own quests (975 of 5408 in October 2026), so
+/// it is never silent.
+pub fn data_questie(no_questie: bool, found: Option<PathBuf>, searched: &[PathBuf]) -> Result<Option<PathBuf>, String> {
+	if no_questie {
+		return Ok(None);
+	}
+	match found {
+		Some(q) => Ok(Some(q)),
+		None => Err(format!(
+			"data: QuestieDB not found: no baked {} in {}. Install QuestieDB in your Forever client, point $WOW_FOREVER_ADDONS at an AddOns folder holding it, or pass --no-questie to build without it (about a sixth of the quests fewer)",
+			forge_data::questie::TOC,
+			if searched.is_empty() { "any client AddOns folder (none found)".to_string() } else { searched.iter().map(|d| d.display().to_string()).collect::<Vec<_>>().join(", ") }
+		)),
+	}
+}
+
+/// The data stage's guard: the new quests.json against the reference build's (`reference`: its file and
+/// text), stopping the build when more than [`forge_data::MAX_QUEST_DROP`] of its quests are gone,
+/// unless `accept` (`--accept-fewer-quests`).
+pub fn data_guard(reference: Option<(&Path, &str)>, new: &str, accept: bool, log: &mut dyn FnMut(&str)) -> Result<(), String> {
+	let Some((file, text)) = reference else { return Ok(()) };
+	match forge_data::quest_drop(text, new, forge_data::MAX_QUEST_DROP) {
+		Ok(()) => Ok(()),
+		Err(e) if accept => {
+			log(&format!("  data: {e} (against {}; taken: --accept-fewer-quests)", file.display()));
+			Ok(())
+		}
+		Err(e) => Err(format!("data: {e} (against {}). A source is probably missing (QuestieDB, the client tables); pass --accept-fewer-quests if the drop is intended", file.display())),
+	}
+}
+
+/// The Forever client products, the grid's first: the beta (`_classic_beta_`) and the live client
+/// (`_forever_`). A build of either holds the same tables.
+pub const FOREVER_PRODUCTS: [&str; 2] = [GRID_PRODUCT, "wowf"];
+
+/// Where the data stage reads the Forever client tables (`--forever-tables`). Each reads the grid's
+/// build, never whatever the installed client is at, so a build does not change with what is
+/// installed.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum ForeverTables {
+	/// The client's tables saved under `data/sources/client-tables/<grid build>/` (the default).
+	#[default]
+	Saved,
+	/// Read the installed client (a Forever product at the grid's build), save its tables there,
+	/// then read the saved copy: the opt-in refresh.
+	Client,
+	/// The cached wago.tools CSVs, `data/sources/wago/<grid build>/`.
+	Wago,
+}
+
+impl ForeverTables {
+	pub fn parse(s: &str) -> Result<ForeverTables, String> {
+		match s {
+			"saved" => Ok(ForeverTables::Saved),
+			"client" => Ok(ForeverTables::Client),
+			"wago" => Ok(ForeverTables::Wago),
+			x => Err(format!("--forever-tables {x}: saved, client or wago")),
+		}
+	}
+	pub fn name(self) -> &'static str {
+		match self {
+			ForeverTables::Saved => "saved",
+			ForeverTables::Client => "client",
+			ForeverTables::Wago => "wago",
+		}
+	}
+}
+
+/// The product and build a walking grid was built from (its index.json).
+pub fn grid_build(grid: &Path) -> Result<(String, String), String> {
+	let file = grid.join("index.json");
+	let v: Value = std::fs::read(&file).map_err(|e| format!("{}: {e}", file.display())).and_then(|b| serde_json::from_slice(&b).map_err(|e| format!("{}: {e}", file.display())))?;
+	let build = v["build"].as_str().ok_or_else(|| format!("{}: names no build", file.display()))?;
+	Ok((v["product"].as_str().unwrap_or(GRID_PRODUCT).to_string(), build.to_string()))
+}
+
+/// The data stage's Forever tables: the source and the build to read, the grid's (`want`) unless
+/// `allow_other` (`--allow-build-mismatch`) and it is not there. `Client` first saves the installed
+/// client's tables (`wow`; the Forever product at `want`, else with `allow_other` the first
+/// installed) under `<sources>/client-tables`, then reads that copy.
+pub fn forever_tables(mode: ForeverTables, sources: &Path, want: &str, wow: Option<&Path>, allow_other: bool, say: &dyn Fn(&str)) -> Result<(forge_data::tables::Source, String), String> {
+	use forge_data::tables::{self, Source, FOREVER_SIM};
+	let refresh = "refresh them from a client at that build with --forever-tables client";
+	let other = |b: &str| if allow_other { Ok(()) } else { Err(format!("pass --allow-build-mismatch to read {b} instead")) };
+	match mode {
+		ForeverTables::Saved => {
+			let root = tables::saved_root(sources);
+			if root.join(want).join(tables::SAVED_RECORD).is_file() {
+				return Ok((Source::Saved, want.to_string()));
+			}
+			let saved = tables::saved_builds(sources);
+			let newest = tables::newest_saved_build(sources, &FOREVER_SIM);
+			match &newest {
+				Some(b) if allow_other => Ok((Source::Saved, b.clone())),
+				_ => Err(format!(
+					"no Forever client tables saved for the grid's build {want} in {} (saved: {}): {refresh}{}",
+					root.display(),
+					if saved.is_empty() { "none".to_string() } else { saved.join(", ") },
+					newest.map(|b| other(&b).err().map(|e| format!(", or {e}")).unwrap_or_default()).unwrap_or_default()
+				)),
+			}
+		}
+		ForeverTables::Wago => {
+			let holds = |b: &str| FOREVER_SIM.tables.iter().all(|t| sources.join("wago").join(b).join(format!("{t}.csv")).is_file());
+			if holds(want) {
+				return Ok((Source::Wago, want.to_string()));
+			}
+			match tables::newest_cached_build(sources, &FOREVER_SIM) {
+				Some(b) if allow_other => Ok((Source::Wago, b)),
+				b => Err(format!(
+					"the wago.tools cache {} lacks the Forever tables ({}){}",
+					sources.join("wago").join(want).display(),
+					FOREVER_SIM.tables.join(", "),
+					b.map(|b| format!(": fetch them (forge data sources --forever-build {want}), or {}", other(&b).unwrap_err())).unwrap_or_default()
+				)),
+			}
+		}
+		ForeverTables::Client => {
+			let wow = wow.ok_or("--forever-tables client: no World of Warcraft folder found; pass --wow")?;
+			let defs = sources.join("wowdbdefs");
+			if !defs.join("definitions").is_dir() {
+				return Err(format!("--forever-tables client: no WoWDBDefs checkout in {}", defs.display()));
+			}
+			let installed: Vec<(String, String)> = forge_gamedata::casc::read_build_info(wow)?
+				.into_iter()
+				.filter(|i| FOREVER_PRODUCTS.contains(&i.product.as_str()))
+				.map(|i| (i.product, i.version))
+				.collect();
+			let list = || if installed.is_empty() { "no Forever product".to_string() } else { installed.iter().map(|(p, v)| format!("{p} {v}")).collect::<Vec<_>>().join(", ") };
+			let pick = FOREVER_PRODUCTS.iter().find_map(|p| installed.iter().find(|(ip, v)| ip == p && v == want)).or(installed.first().filter(|_| allow_other));
+			let Some((product, version)) = pick else {
+				return Err(format!(
+					"--forever-tables client: {} has {}, not the grid's build {want}: install a client at {want}, use the saved tables (leave --forever-tables out){}",
+					wow.display(),
+					list(),
+					installed.first().map(|(_, v)| format!(", or {}", other(v).unwrap_err())).unwrap_or_default()
+				));
+			};
+			say(&format!("refreshing the saved Forever tables from the client: {product} {version} in {}", wow.display()));
+			let b = tables::save_client(sources, &FOREVER_SIM, wow, product, &defs, say)?;
+			Ok((Source::Saved, b))
+		}
+	}
 }
 
 /// What a stage did.
@@ -174,6 +347,9 @@ pub enum Part<'a> {
 	Dir(&'a Path),
 	/// Every file under a directory, by relative path, size and modification time.
 	Manifest(&'a Path),
+	/// A walking grid's own files (as Manifest), without what the build writes into it (walk/, cch/:
+	/// the prepare stage's walk graphs and bundles), so a round does not change its own key.
+	Grid(&'a Path),
 }
 
 fn files_under(dir: &Path) -> Vec<PathBuf> {
@@ -222,11 +398,14 @@ pub fn key(stage: &str, version: &str, parts: &[Part]) -> String {
 					}
 				}
 			}
-			Part::Dir(d) | Part::Manifest(d) => {
+			Part::Dir(d) | Part::Manifest(d) | Part::Grid(d) => {
 				let bytes = matches!(p, Part::Dir(_));
 				h.update(if bytes { b"\0d" } else { b"\0m" });
 				for f in files_under(d) {
 					let rel = f.strip_prefix(d).unwrap_or(&f).to_string_lossy().replace('\\', "/");
+					if matches!(p, Part::Grid(_)) && (rel.starts_with("walk") || rel.starts_with("cch/")) {
+						continue;
+					}
 					h.update(rel.as_bytes());
 					h.update(b"\0");
 					if bytes {
@@ -341,6 +520,10 @@ impl Layout {
 		for sub in ["data/sources", "data/rules.json", "data/corrections.json", "addon"] {
 			symlink(&o.root.join(sub), &r.join(sub))?;
 		}
+		// (The corrections the data was built from: the seed tests read them, Hearts of the Lovers #412.)
+		if o.root.join("forever-db").is_dir() {
+			symlink(&o.root.join("forever-db"), &r.join("forever-db"))?;
+		}
 		// data/local: the checkout's entries, with nav4 the grid in use (and its nav-layers).
 		let local = r.join("data/local");
 		if std::fs::symlink_metadata(&local).is_ok_and(|m| m.file_type().is_symlink()) {
@@ -395,6 +578,111 @@ fn stage(cache: &Cache, name: &'static str, key: String, log: &mut dyn FnMut(&st
 	Ok(StageRun { stage: name, key, skipped: false, seconds, outputs })
 }
 
+/// The extra walk pairs file's name in `<out>/walks/` (BuildOpts::walk_pairs).
+pub const EXTRA_PAIRS: &str = "extra-pairs.json";
+
+/// The walkers' answer versions and the walks header's nav fingerprint, part of the walks stage's key:
+/// a walker that answers otherwise reruns the stage (the walk stores re-ask its pairs, their models
+/// carry the same versions).
+pub fn walks_versions(nav_fp: &str) -> String {
+	format!("grid walker v{} | leffe walker v{} | nav {nav_fp}", forge_nav::walker::MODEL_VERSION, forge_nav::f4walks::MODEL_VERSION)
+}
+
+/// The walks stage's key over its parts (forge build: the worlds' walk inputs, `walks_versions`, the
+/// walking maps and pricing files, the extra pairs).
+pub fn walks_stage_key(parts: &[Part]) -> String {
+	key("walks", WALKS_VERSION, parts)
+}
+
+/// The extra walk pairs file's form: its pairs by their ends' places, never by world point ids
+/// (a correction that adds a place shifts the ids). Files of another form (schema 1: point ids of
+/// whatever world they were written on) are read as empty.
+const EXTRA_PAIRS_SCHEMA: u64 = 2;
+
+/// A world point's place in the extra walk pairs file: `[continent, x, y, height]` as the world
+/// file has them (`points[i]` is `[c, region, x, y, zone, z]`).
+fn place_of(p: &Value) -> Value {
+	json!([p[0], p[2], p[3], p[5]])
+}
+
+/// A world file's points (`<worlds>/world-<faction>.json`).
+fn world_points(worlds: &Path, f: &str) -> Result<Vec<Value>, String> {
+	let file = worlds.join(format!("world-{f}.json"));
+	let b = std::fs::read(&file).map_err(|e| format!("{}: {e}", file.display()))?;
+	let mut w: Value = serde_json::from_slice(&b).map_err(|e| format!("{}: {e}", file.display()))?;
+	match w["points"].take() {
+		Value::Array(a) => Ok(a),
+		_ => Err(format!("{}: no points", file.display())),
+	}
+}
+
+/// A file's pairs of places per faction (both places as their JSON text, smaller first); a
+/// file absent or of another form has none.
+fn place_pairs(doc: &Value, f: &str) -> std::collections::BTreeSet<(String, String)> {
+	if doc["schema"].as_u64() != Some(EXTRA_PAIRS_SCHEMA) {
+		return Default::default();
+	}
+	doc[f].as_array().into_iter().flatten().filter_map(|p| Some((p.get(0)?.to_string(), p.get(1)?.to_string()))).filter(|(a, b)| a != b).map(|(a, b)| if a <= b { (a, b) } else { (b, a) }).collect()
+}
+
+/// A faction's pairs in an extra walk pairs file (`{"schema": 2, "horde": [[place, place], ...],
+/// "alliance": [...]}`, a place `[c, x, y, z]`) as point ids of the world `points` (World JSON
+/// `points`): a place this world lacks drops its pairs. None when the file is absent.
+pub fn extra_pairs(file: &Path, f: Faction, points: &[Value]) -> Result<Vec<(usize, usize)>, String> {
+	let Ok(bytes) = std::fs::read(file) else { return Ok(Vec::new()) };
+	let doc: Value = serde_json::from_slice(&bytes).map_err(|e| format!("{}: {e}", file.display()))?;
+	let mut id: std::collections::HashMap<String, usize> = std::collections::HashMap::with_capacity(points.len());
+	for (i, p) in points.iter().enumerate() {
+		id.entry(place_of(p).to_string()).or_insert(i);
+	}
+	let mut out: Vec<(usize, usize)> = place_pairs(&doc, f.lower()).iter().filter_map(|(a, b)| Some((*id.get(a)?, *id.get(b)?))).map(|(a, b)| (a.min(b), a.max(b))).collect();
+	out.sort_unstable();
+	out.dedup();
+	Ok(out)
+}
+
+/// Merges a routes stage's misses (world point ids of the worlds in `worlds`, the routes stage's)
+/// into the extra walk pairs file by their places (union per faction, sorted): the file changes only
+/// when the set grows (or is rewritten from another form). The new pairs' count.
+pub fn merge_walk_pairs(misses: &Path, extra: &Path, worlds: &Path) -> Result<usize, String> {
+	let read = |p: &Path| -> Result<Value, String> {
+		match std::fs::read(p) {
+			Ok(b) => serde_json::from_slice(&b).map_err(|e| format!("{}: {e}", p.display())),
+			Err(_) => Ok(json!({})),
+		}
+	};
+	let (m, e) = (read(misses)?, read(extra)?);
+	let mut out = serde_json::Map::new();
+	out.insert("schema".into(), json!(EXTRA_PAIRS_SCHEMA));
+	let mut grown = 0;
+	for f in ["horde", "alliance"] {
+		let mut all = place_pairs(&e, f);
+		let n0 = all.len();
+		let ids: Vec<(usize, usize)> = m[f].as_array().into_iter().flatten().filter_map(|p| Some((p.get(0)?.as_u64()? as usize, p.get(1)?.as_u64()? as usize))).collect();
+		if !ids.is_empty() {
+			let points = world_points(worlds, f)?;
+			for (a, b) in ids {
+				let (Some(pa), Some(pb)) = (points.get(a), points.get(b)) else { continue };
+				let (a, b) = (place_of(pa).to_string(), place_of(pb).to_string());
+				if a != b {
+					all.insert(if a <= b { (a, b) } else { (b, a) });
+				}
+			}
+		}
+		grown += all.len() - n0;
+		let pairs: Vec<Value> = all.iter().map(|(a, b)| Ok(json!([serde_json::from_str::<Value>(a)?, serde_json::from_str::<Value>(b)?]))).collect::<Result<_, serde_json::Error>>().map_err(|x| x.to_string())?;
+		out.insert(f.into(), Value::Array(pairs));
+	}
+	let other_form = e.as_object().is_some_and(|o| !o.is_empty()) && e["schema"].as_u64() != Some(EXTRA_PAIRS_SCHEMA);
+	if grown > 0 || other_form {
+		if let Some(d) = extra.parent() {
+			std::fs::create_dir_all(d).map_err(|x| format!("{}: {x}", d.display()))?;
+		}
+		std::fs::write(extra, serde_json::to_string(&Value::Object(out)).unwrap_or_default()).map_err(|x| format!("{}: {x}", extra.display()))?;
+	}
+	Ok(grown)
+}
+
 /// v1's goal stream of a start (judge walk.js's chain goals over the input guides), as the
 /// `{"goals": [...]}` document the routes stage reads.
 pub fn v1_goals(guides: &Path, data_dir: &Path, faction: Faction, race: &str) -> Result<Value, String> {
@@ -415,7 +703,7 @@ pub fn v1_goals(guides: &Path, data_dir: &Path, faction: Faction, race: &str) ->
 	let (goals, _) = chain_goals(&compiled, &file_of, &chain, &ctx, &proj, true)?;
 	let goals: Vec<Value> = goals
         .iter()
-        .map(|g| json!({ "i": g.i, "guide": g.guide, "file": g.file, "line": g.line, "t": g.t, "q": g.q, "oi": g.oi, "level": g.level, "npc": g.npc, "map": g.map, "w": g.w.map(|w| json!({ "c": w.c, "wx": w.wx, "wy": w.wy })), "title": g.title }))
+        .map(|g| json!({ "i": g.i, "guide": g.guide, "file": g.file, "line": g.line, "t": g.t, "q": g.q, "oi": g.oi, "level": g.level, "npc": g.npc, "class": (g.t == "train").then_some(g.class), "step": g.step, "map": g.map, "w": g.w.map(|w| json!({ "c": w.c, "wx": w.wx, "wy": w.wy })), "spots": g.spots.iter().map(|w| json!({ "c": w.c, "wx": w.wx, "wy": w.wy })).collect::<Vec<_>>(), "title": g.title }))
         .collect();
 	Ok(json!({ "faction": faction.name(), "race": race, "goals": goals }))
 }
@@ -642,30 +930,53 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 	let mut runs = Vec::new();
 	runs.extend(grid_run);
 
-	// data: forge-data from the client (or the cached wago tables), or an imported data/forever.
+	// data: forge-data from the Forever client tables at the grid's build (a saved copy of them by
+	// default, see ForeverTables), or an imported data/forever.
 	let data_root = o.data_root.clone().unwrap_or_else(|| o.root.clone());
+	let forever = match &o.data {
+		Some(_) => None,
+		None => {
+			let (grid_product, want) = grid_build(&l.grid)?;
+			let wow = o.wow.clone().or_else(forge_gamedata::find_install);
+			let say = |m: &str| eprintln!("forge:   data: {m}");
+			let (src, build) = forever_tables(o.forever_tables, &data_root.join("data/sources"), &want, wow.as_deref(), o.allow_build_mismatch, &say)?;
+			let from = match &src {
+				forge_data::tables::Source::Saved => format!("the client tables saved in {}", forge_data::tables::saved_root(&data_root.join("data/sources")).join(&build).display()),
+				forge_data::tables::Source::Wago => format!("the wago.tools cache {}", data_root.join("data/sources/wago").join(&build).display()),
+				forge_data::tables::Source::Client { wow, .. } => format!("the client {}", wow.display()),
+			};
+			if build == want {
+				log(&format!("data: Forever tables: build {build} (the grid's, {grid_product}) from {from}"));
+			} else {
+				log(&format!("data: WARNING: Forever tables of build {build} from {from}, but the grid is built from {grid_product} {want} (--allow-build-mismatch)"));
+			}
+			Some((src, build))
+		}
+	};
 	let k_data = match &o.data {
 		Some(d) => key("data", DATA_VERSION, &[Part::Text("import"), Part::Dir(d)]),
 		None => {
-			let wow = o.wow.clone().or_else(forge_gamedata::find_install);
-			let wow_text = wow.as_ref().map_or("wago".to_string(), |w| w.display().to_string());
-			let build_info = wow.as_ref().map(|w| w.join(".build.info")).unwrap_or_default();
-			let questie_text = forge_data::questie::detect_questie().map_or("no questie".to_string(), |q| q.display().to_string());
+			// The source kind and build (a client refresh reads the saved copy too, keyed by its files).
+			let forever_text = match &forever {
+				Some((forge_data::tables::Source::Wago, b)) => format!("wago {b}"),
+				Some((_, b)) => format!("saved {b}"),
+				None => String::new(),
+			};
+			let questie_text = if o.no_questie { "no questie (--no-questie)".to_string() } else { forge_data::questie::detect_questie().map_or("no questie".to_string(), |q| q.display().to_string()) };
 			let corrections = forge_data::corrections::locate(&o.checkout);
 			key(
 				"data",
 				DATA_VERSION,
 				&[
 					Part::Text("build"),
-					Part::Text(&wow_text),
+					Part::Text(&forever_text),
 					Part::Text(&questie_text),
-					Part::File(&build_info),
 					if corrections.is_dir() { Part::Dir(&corrections) } else { Part::File(&corrections) },
 					Part::File(&data_root.join("data/crossings.json")),
 					Part::Manifest(&data_root.join("data/sources")),
 					Part::Manifest(&data_root.join("data/recordings")),
 					Part::Manifest(&data_root.join("data/forever")),
-					Part::Manifest(&l.grid),
+					Part::Grid(&l.grid),
 					Part::Dir(&o.guides),
 				],
 			)
@@ -680,26 +991,22 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 		None => {
 			let mut opts = forge_data::Options::new(&data_root);
 			opts.corrections = forge_data::corrections::locate(&o.checkout);
-			opts.questie = forge_data::questie::detect_questie();
+			opts.questie = data_questie(o.no_questie, forge_data::questie::detect_questie(), &forge_data::questie::questie_search_dirs())?;
 			match &opts.questie {
 				Some(q) => log(&format!("  data: QuestieDB from your client: {}", q.display())),
-				None => log("  data: QuestieDB not found (no installed Forever client with it): building without it, so fewer quest facts"),
+				None => log("  data: built without QuestieDB (--no-questie), so fewer quest facts"),
 			}
-			let defs = opts.sources.join("wowdbdefs");
-			let wow = o.wow.clone().or_else(forge_gamedata::find_install);
-			opts.forever_source = match wow {
-				Some(w) if defs.join("definitions").is_dir() => forge_data::tables::Source::Client { wow: w, product: "wow_classic_beta".into(), defs },
-				_ => forge_data::tables::Source::Wago,
-			};
-			log(&format!(
-				"  data: Forever tables from {}",
-				match &opts.forever_source {
-					forge_data::tables::Source::Client { wow, .. } => format!("the client {}", wow.display()),
-					_ => "the cached wago tables".to_string(),
-				}
-			));
+			let (src, build) = forever.ok_or("data: no Forever tables chosen")?;
+			opts.forever_source = src;
+			opts.forever_build = Some(build);
+			opts.forever_required = true;
 			let say = |m: &str| eprintln!("forge:   data: {m}");
 			let out = forge_data::run(&opts, &say)?;
+			// (The previous build's quests, else the data pack's, else the data root's.)
+			let refs = [Some(l.data.clone()), pack_dir.as_ref().map(|p| p.join("data/forever")), Some(data_root.join("data/forever"))];
+			let reference = refs.iter().flatten().map(|d| d.join("quests.json")).find_map(|f| std::fs::read_to_string(&f).ok().map(|t| (f, t)));
+			let new_quests = out.files.iter().find(|(n, _)| n == "quests").map_or("{}", |(_, t)| t.as_str());
+			data_guard(reference.as_ref().map(|(f, t)| (f.as_path(), t.as_str())), new_quests, o.accept_fewer_quests, &mut *log)?;
 			let _ = std::fs::remove_dir_all(&l.data);
 			forge_data::write(&l.data, &out)?;
 			let rows: Vec<Value> = out.corrections.iter().map(|e| json!({ "section": e.section, "id": e.id, "state": e.state, "detail": e.detail })).collect();
@@ -743,6 +1050,11 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 		}
 	})?);
 
+	if o.until.as_deref() == Some("data") {
+		log("stopping after data (--until data)");
+		return Ok(runs);
+	}
+
 	// prepare: the road masks, walk graphs (one per faction) and zone mixes the walks stage routes on,
 	// built where missing into the grid's walk/ (forge-nav prepare; `forge nav prepare`). Keyed by the
 	// grid's graphs and tiles, the roads and hubs layers and the zones (AreaTable, zones.json).
@@ -764,7 +1076,7 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 			Part::File(&zones_json),
 		],
 	);
-	runs.push(stage(&cache, "prepare", k_prepare, log, |log| {
+	runs.push(stage(&cache, "prepare", k_prepare.clone(), log, |log| {
 		let say = |m: &str| eprintln!("forge:   prepare: {m}");
 		let built = forge_nav::prepare::prepare(&forge_nav::prepare::PrepareIn {
 			grid: &l.grid,
@@ -785,7 +1097,7 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 	let rules = o.root.join("data/rules.json");
 	let sources = o.root.join("data/sources");
 	let fs_text = fs.iter().map(|f| f.lower()).collect::<Vec<_>>().join(",");
-	let k_world = key("world", WORLD_VERSION, &[Part::Text(&k_data), Part::Text(&fs_text), Part::File(&rules), Part::Manifest(&sources), Part::Manifest(&l.grid)]);
+	let k_world = key("world", WORLD_VERSION, &[Part::Text(&k_data), Part::Text(&fs_text), Part::File(&rules), Part::Manifest(&sources), Part::Grid(&l.grid)]);
 	runs.push(stage(&cache, "world", k_world.clone(), log, |log| {
 		std::fs::create_dir_all(&l.world).map_err(|e| e.to_string())?;
 		let mut out = Vec::new();
@@ -819,11 +1131,35 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 	};
 	// Leffe's lift layer, which may sit beside his pack folder (outside its manifest).
 	let walks_lifts = leffe.as_deref().filter(|_| nav != Nav::Grid).and_then(|p| forge_nav::f4::lifts::find(&if p.join("Nav.xml").exists() { p.to_path_buf() } else { p.join("Nav") }));
-	let mut parts: Vec<Part> = vec![Part::Text(&k_world)];
+	// The worlds by their walk inputs (World::walks_key: the places and the zones' danger), not the
+	// world stage's key: a data fix that moves and adds no place keeps the walks; one that adds places
+	// reruns the stage, where the walk stores answer every pair they hold by its ends and route only
+	// the new places' pairs.
+	let mut world_walks = Vec::new();
+	for &f in &fs {
+		let file = l.world.join(format!("world-{}.json", f.lower()));
+		let w = forge_world::World::from_json(&std::fs::read(&file).map_err(|e| format!("{}: {e}", file.display()))?).map_err(|e| format!("{}: {e}", file.display()))?;
+		world_walks.push(format!("{} {}", f.lower(), w.walks_key()));
+	}
+	let world_walks = world_walks.join(",");
+	// What the walkers answer besides the ends: their answer versions, the header's nav fingerprint.
+	let nav_fp = std::env::var("POLESTAR_NAV_FP").unwrap_or_else(|_| format!("forge-{WALKS_VERSION}"));
+	let versions = walks_versions(&nav_fp);
+	let pack_json = o.root.join("addon/Polestar_Nav/PACK.json");
+	let mut parts: Vec<Part> = vec![Part::Text(&world_walks), Part::Text(&versions), Part::File(&pack_json), Part::File(&area_table), Part::File(&zones_json)];
 	let nav_text = if o.walks_from.is_some() { "import".to_string() } else { format!("{nav:?}") };
 	parts.push(Part::Text(&nav_text));
+	// (The walk graphs the prepare stage built into the grid.)
+	if o.walks_from.is_none() {
+		parts.push(Part::Text(&k_prepare));
+	}
 	if let (false, Some(p)) = (nav == Nav::Grid, &leffe) {
 		parts.push(Part::Manifest(p));
+	}
+	// The extra pairs (keyed by their content: a file absent is its absence).
+	let extra_file = o.walk_pairs.clone().unwrap_or_else(|| l.walks.join(EXTRA_PAIRS));
+	if o.walks_from.is_none() {
+		parts.push(Part::File(&extra_file));
 	}
 	if let Some(f) = &walks_lifts {
 		parts.push(Part::File(f));
@@ -838,9 +1174,9 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 		parts.push(Part::File(p));
 	}
 	if o.walks_from.is_none() {
-		parts.push(Part::Manifest(&l.grid));
+		parts.push(Part::Grid(&l.grid));
 	}
-	let k_walks = key("walks", WALKS_VERSION, &parts);
+	let k_walks = walks_stage_key(&parts);
 	runs.push(stage(&cache, "walks", k_walks.clone(), log, |log| {
 		std::fs::create_dir_all(&l.walks).map_err(|e| e.to_string())?;
 		let mut out = Vec::new();
@@ -848,7 +1184,22 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 			let dest = l.walks.join(format!("walks-{}.bin", f.lower()));
 			match &o.walks_from {
 				Some(d) => {
-					std::fs::copy(d.join(format!("walks-{}.bin", f.lower())), &dest).map_err(|e| format!("walks {}: {e}", f.name()))?;
+					let src = d.join(format!("walks-{}.bin", f.lower()));
+					// Walks are by the world's point ids: imported over a world built on other data they
+					// would be silently wrong (a correction that adds a giver shifts the ids).
+					let world_file = l.world.join(format!("world-{}.json", f.lower()));
+					let world = forge_world::World::from_json(&std::fs::read(&world_file).map_err(|e| format!("{}: {e}", world_file.display()))?).map_err(|e| format!("{}: {e}", world_file.display()))?;
+					let table = forge_sim::walks::WalkTable::load(&src, world.points.len()).map_err(|e| format!("walks {}: {e}", f.name()))?;
+					// By their walk inputs: a data fix that moves and adds no place keeps them.
+					if !table.built_on(&world) && std::env::var_os("POLESTAR_WALKS_STALE_OK").is_none() {
+						return Err(format!(
+							"walks {}: --walks-from {} was built on another world ({}): rebuild the walks (or set POLESTAR_WALKS_STALE_OK to force)",
+							f.name(),
+							src.display(),
+							table.built_on_text(&world)
+						));
+					}
+					std::fs::copy(&src, &dest).map_err(|e| format!("walks {}: {e}", f.name()))?;
 				}
 				None => {
 					let world_json = std::fs::read(l.world.join(format!("world-{}.json", f.lower()))).map_err(|e| e.to_string())?;
@@ -876,11 +1227,13 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 						_ => forge_nav::stage::Nav::Grid,
 					};
 					let store = if nav == Nav::Leffe { leffe_store.clone() } else { store };
-					let nav_fp = std::env::var("POLESTAR_NAV_FP").unwrap_or_else(|_| format!("forge-{WALKS_VERSION}"));
 					let say = |m: &str| eprintln!("forge:   walks {}: {m}", f.name());
+					// (The grid through the stage root's data/local/nav4: the walker reads the hubs layer
+					// beside its grid, so it gets the layers the prepare stage built the graphs with.)
+					let grid_in_root = l.stage_root.join("data/local/nav4");
 					let w = forge_nav::stage::walks(&forge_nav::stage::WalksIn {
 						world_json: &world_json,
-						grid: &l.grid,
+						grid: if grid_in_root.is_dir() { &grid_in_root } else { &l.grid },
 						maps: &maps,
 						area_table: &area_table,
 						zones: &l.data.join("zones.json"),
@@ -890,6 +1243,7 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 						threads: o.threads,
 						nav: backend,
 						log: &say,
+						extra: &extra_pairs(&extra_file, f, &world_points(&l.world, f.lower())?)?,
 					})?;
 					std::fs::write(&dest, &w.bin).map_err(|e| format!("{}: {e}", dest.display()))?;
 					log(&format!("  walks {}: {}", f.name(), w.stats));
@@ -914,7 +1268,12 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 	let fixes = forge_sim::fixes::find(&[&o.checkout]).ok_or_else(|| format!("no {} in the checkout {}", forge_sim::fixes::FILE, o.checkout.display()))?;
 	forge_sim::fixes::load(&fixes)?;
 	log(&format!("route fixes: {}", fixes.display()));
-	let sim_text = env!("CARGO_PKG_VERSION");
+	let sim_text = format!("{} {}{}", env!("CARGO_PKG_VERSION"), o.search.key(), if o.deathskips { " deathskips" } else { "" });
+	// The running program itself: a changed planner or writer reruns routes and everything after it
+	// (guides, legs and report key on the routes key) without a hand-bumped stage version.
+	let exe = std::env::current_exe().unwrap_or_default();
+	// (The routes stage writes and checks guides too, forge_sim::flow: the places and guide fixes.)
+	let (places_file, guide_fixes_file) = (o.checkout.join(forge_writer::native::PLACES), o.checkout.join(forge_writer::native::GUIDE_FIXES));
 	let k_routes = key(
 		"routes",
 		ROUTES_VERSION,
@@ -923,22 +1282,80 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 			Part::Text(&k_world),
 			Part::Text(&k_walks),
 			Part::Text(&starts_text),
-			Part::Text(sim_text),
+			Part::Text(&sim_text),
 			Part::File(&fixes),
 			Part::Dir(&o.guides),
 			Part::File(&kb),
 			Part::File(&params),
 			Part::Manifest(&sources),
+			Part::File(&exe),
+			Part::File(&places_file),
+			Part::File(&guide_fixes_file),
 		],
 	);
+	// The check on the written guides the routes stage feeds back (forge_sim::flow): each start's
+	// guides written as the guides stage writes them, into <out>/.forge/flow, and the judge's flow
+	// rules read on them. One start at a time in the whole stage (the factions run at once; a writer
+	// and a judge walk each hold a world, a walk store and the data, beside the factions' search
+	// state).
+	let flow_dir = l.out.join(".forge/flow");
+	let flow_walks = forge_judge::check::Walks::default();
+	let flow_one = std::sync::Mutex::new(());
+	let flow = |routes: &Path, names: &[String]| -> Result<Vec<forge_sim::flow::Finding>, String> {
+		let per: Vec<Vec<forge_sim::flow::Finding>> = names
+			.iter()
+			.map(|name| -> Result<Vec<forge_sim::flow::Finding>, String> {
+				let _one = flow_one.lock().unwrap_or_else(|e| e.into_inner());
+				let s = o.starts.iter().find(|s| &s.name == name).ok_or_else(|| format!("written check: no start {name}"))?;
+				let (route_file, dest) = (routes.join(format!("{name}.json")), flow_dir.join(name));
+				forge_writer::native::run_paths(
+					&forge_writer::native::PathInputs {
+						route: route_file.clone(),
+						world: l.sim.join(format!("world-{}.json", s.faction.lower())),
+						walks: Some(l.sim.join(format!("walks-{}.bin", s.faction.lower()))),
+						guides: o.guides.clone(),
+						root: l.stage_root.clone(),
+						data_dir: Some(l.data.clone()),
+						out: dest.clone(),
+						checkout: Some(o.checkout.clone()),
+					},
+					&forge_writer::RunOpts::default(),
+				)
+				.map_err(|e| format!("written check {name}: {e}"))?;
+				let route: Value = serde_json::from_slice(&std::fs::read(&route_file).map_err(|e| format!("{}: {e}", route_file.display()))?).map_err(|e| format!("{}: {e}", route_file.display()))?;
+				forge_judge::check::flow_findings(&dest, &o.guides, &route, &l.stage_root, &l.sim, &flow_walks, name)
+			})
+			.collect::<Result<_, String>>()?;
+		Ok(per.into_iter().flatten().collect())
+	};
+	// The searches checkpoint under the stage cache for this key (forge_sim::resume): a build killed
+	// mid-stage resumes each start where it was; the checkpoints go once the stage is done.
+	let resume_dir = cache.dir.join(ROUTES_RESUME);
 	runs.push(stage(&cache, "routes", k_routes.clone(), log, |log| {
+		let resume = forge_sim::resume::Resume::open(&resume_dir, &k_routes)?;
+		log(&format!("  checkpoints: {} (every {} s)", resume_dir.display(), resume.every.as_secs()));
 		let mut starts = Vec::new();
 		for s in &o.starts {
 			let goals = v1_goals(&o.guides, &l.data, s.faction, &s.race)?;
 			log(&format!("  the guides' order for {}: {} goals", s.name, goals["goals"].as_array().map_or(0, Vec::len)));
 			starts.push(forge_sim::stage::StartIn { race: s.race.clone(), faction: s.faction, name: s.name.clone(), goals, seed_name: format!("v1 chain of {}", o.guides.display()) });
 		}
-		let r = forge_sim::stage::run(&forge_sim::stage::RoutesIn { root: &l.stage_root, world_dir: &l.sim, starts, out: &l.routes })?;
+		let r = forge_sim::stage::run(&forge_sim::stage::RoutesIn {
+			root: &l.stage_root,
+			world_dir: &l.sim,
+			starts,
+			out: &l.routes,
+			threads: o.threads.max(1),
+			search: o.search.clone(),
+			deathskips: o.deathskips,
+			resume: Some(&resume),
+			flow: Some(&flow),
+		})?;
+		// The next build walks what this one priced with no walk.
+		let grown = merge_walk_pairs(&l.routes.join(forge_sim::stage::WALK_MISSES), &extra_file, &l.world)?;
+		if grown > 0 {
+			log(&format!("  walk store misses: {grown} new pair(s) in {} for the next build's walks", extra_file.display()));
+		}
 		for row in &r.rows {
 			let shared = &row["shared"];
 			log(&format!(
@@ -962,11 +1379,12 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 		std::fs::write(&table, serde_json::to_string_pretty(&r.rows).map_err(|e| e.to_string())?).map_err(|e| format!("{}: {e}", table.display()))?;
 		let mut files = r.files;
 		files.push(table);
+		// Every route written: the checkpoints have done their job.
+		resume.clear()?;
 		Ok(files)
 	})?);
 
 	// guides: forge writer apply-route per start.
-	let (places_file, guide_fixes_file) = (o.checkout.join(forge_writer::native::PLACES), o.checkout.join(forge_writer::native::GUIDE_FIXES));
 	let k_guides = key("guides", GUIDES_VERSION, &[Part::Text(&k_routes), Part::Dir(&o.guides), Part::Text(&k_data), Part::File(&places_file), Part::File(&guide_fixes_file)]);
 	runs.push(stage(&cache, "guides", k_guides.clone(), log, |log| {
 		let mut out = Vec::new();
@@ -999,7 +1417,7 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 	// legs: the walk into every step of the written guides, baked on the hybrid backend (Leffe's
 	// maps first, the grid where his have no way or a detour), one legs.json per start's tree.
 	let chokepoints = o.root.join("addon/Polestar_Nav/Nav/Chokepoints.lua");
-	let mut legs_parts = vec![Part::Text(&k_guides), Part::Text(&k_data), Part::Manifest(&l.grid), Part::File(&chokepoints)];
+	let mut legs_parts = vec![Part::Text(&k_guides), Part::Text(&k_data), Part::Grid(&l.grid), Part::File(&chokepoints)];
 	let leffe_for_legs = leffe.as_deref().filter(|_| nav != Nav::Grid);
 	// Leffe's lift layer, when it sits with his maps (forge_nav::f4::lifts::find).
 	let legs_lifts = leffe_for_legs.and_then(|p| forge_nav::f4::lifts::find(&if p.join("Nav.xml").exists() { p.to_path_buf() } else { p.join("Nav") }));
@@ -1037,7 +1455,20 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 			.iter()
 			.map(|s| report::StartInput { route: l.routes.join(format!("{}.json", s.name)), stream: Some(l.routes.join(format!("{}.judge-improved.json", s.name))), guides: l.guides.join(&s.name) })
 			.collect();
-		let r = report::run(&report::Inputs { starts, v1: o.guides.clone(), root: l.stage_root.clone(), data_dir: l.data.clone(), sim_dir: l.sim.clone(), along_walked: false, checks: true })?;
+		// Each start (and v1's checks) on its own thread, in a pool of --threads.
+		let pool = rayon::ThreadPoolBuilder::new().num_threads(o.threads.max(1)).build().map_err(|e| e.to_string())?;
+		let r = pool.install(|| {
+			report::run(&report::Inputs {
+				starts,
+				v1: o.guides.clone(),
+				root: l.stage_root.clone(),
+				data_dir: l.data.clone(),
+				sim_dir: l.sim.clone(),
+				along_walked: false,
+				checks: true,
+				route_model: true,
+			})
+		})?;
 		let md = l.out.join("report.md");
 		let js = l.out.join("report.json");
 		std::fs::write(&md, format!("{maps_line}\n\n{}\n{}\n", report::markdown(&r).trim_end(), data_sources_note(&l.data))).map_err(|e| e.to_string())?;
@@ -1065,11 +1496,37 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 	}
 	let blocking = ledger.blocking();
 	log(&format!("fixes: {} ({} no longer apply); fixes.md", ledger.counts().iter().map(|(k, v)| format!("{v} {k}")).collect::<Vec<_>>().join(", "), blocking.len()));
-	if o.strict && !blocking.is_empty() {
-		for (f, r) in blocking.iter().take(20) {
-			log(&format!("  {f} {}: {} {}", r.at, r.state, r.detail));
+	// The route check (forge judge check): every run, after the ledger it reads; check.md and check.json
+	// beside report.md, its summary line in report.md. Blockers fail the build only with --strict.
+	let check = {
+		let mut inp = forge_judge::check::Inputs::beside(&l.guides);
+		inp.starts = o.starts.iter().map(|s| s.name.clone()).collect();
+		inp.route_fixes = Some(fixes.clone());
+		let pool = rayon::ThreadPoolBuilder::new().num_threads(o.threads.max(1)).build().map_err(|e| e.to_string())?;
+		pool.install(|| forge_judge::check::run(&inp))?
+	};
+	std::fs::write(l.out.join("check.md"), check.markdown()).map_err(|e| e.to_string())?;
+	std::fs::write(l.out.join("check.json"), serde_json::to_string_pretty(&check).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?;
+	let report_md = l.out.join("report.md");
+	if let Ok(text) = std::fs::read_to_string(&report_md) {
+		let kept: Vec<&str> = text.lines().filter(|x| !x.starts_with("Route check: ")).collect();
+		std::fs::write(&report_md, format!("{}\n\n{}\n", kept.join("\n").trim_end(), check.summary())).map_err(|e| e.to_string())?;
+	}
+	log(&format!("check: {}", check.summary()));
+	if o.strict {
+		let mut why = Vec::new();
+		if !blocking.is_empty() {
+			for (f, r) in blocking.iter().take(20) {
+				log(&format!("  {f} {}: {} {}", r.at, r.state, r.detail));
+			}
+			why.push(format!("{} fix(es) no longer apply (fixes.md lists them)", blocking.len()));
 		}
-		return Err(format!("--strict: {} fix(es) no longer apply (fixes.md lists them)", blocking.len()));
+		if check.blockers() > 0 {
+			why.push(format!("the route check has {} blocker(s) (check.md lists them)", check.blockers()));
+		}
+		if !why.is_empty() {
+			return Err(format!("--strict: {}", why.join("; ")));
+		}
 	}
 	Ok(runs)
 }

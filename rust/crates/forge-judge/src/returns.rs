@@ -68,6 +68,9 @@ pub struct JudgedGoal {
 	pub why: String,
 	#[serde(rename = "ref")]
 	pub ref_: String,
+	/// The goal's index in the walk (not in returns.js's output).
+	#[serde(skip)]
+	pub i: usize,
 }
 
 #[derive(Clone, Debug, Serialize)]
@@ -88,6 +91,9 @@ pub struct Example {
 	pub v1: Visit1,
 	pub v2: Visit2,
 	pub why: Option<String>,
+	/// The walk index of the last visit's departure (not in returns.js's output).
+	#[serde(skip)]
+	pub depart: usize,
 }
 
 #[derive(Clone, Debug, Serialize)]
@@ -324,6 +330,12 @@ pub fn avoidable_returns(goals: &[WalkGoal], atlas: &Atlas, d: &GameData, solo_o
 					return (false, why);
 				}
 			}
+			// (An item the quest asks for bought elsewhere after the last visit, the Arcane Quickener
+			// at Chillwind Camp for the cauldrons: the hand-in waits for it.)
+			let items: Vec<u32> = qrec(q).map_or(Vec::new(), |r| r.objectives.iter().flatten().filter(|o| o.kind == "item").filter_map(|o| o.id).filter_map(|i| u32::try_from(i as i64).ok()).collect());
+			if let Some(w) = goals.get(dd + 1..g.i).unwrap_or(&[]).iter().find(|w| w.t == "buy" && w.item.is_some_and(|i| items.contains(&i)) && w.w.is_some() && !near(a, w)) {
+				return (false, format!("its item was bought elsewhere after the last visit ({})", goal_ref(w)));
+			}
 		}
 		ob
 	};
@@ -390,11 +402,12 @@ pub fn avoidable_returns(goals: &[WalkGoal], atlas: &Atlas, d: &GameData, solo_o
 					.iter()
 					.map(|(i, ok, why)| {
 						let g = &goals[*i];
-						JudgedGoal { t: g.t.clone(), q: g.q, title: g.q.and_then(qrec).and_then(|x| x.title.clone()), avoidable: *ok, why: why.clone(), ref_: goal_ref(g) }
+						JudgedGoal { t: g.t.clone(), q: g.q, title: g.q.and_then(qrec).and_then(|x| x.title.clone()), avoidable: *ok, why: why.clone(), ref_: goal_ref(g), i: *i }
 					})
 					.collect(),
 			},
 			why: r.judged.iter().find(|x| x.1).map(|x| x.2.clone()),
+			depart: v1.depart,
 		}
 	};
 	let mut ranked: Vec<&Ret> = returns.iter().filter(|r| r.avoidable > 0).collect();

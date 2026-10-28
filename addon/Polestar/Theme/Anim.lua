@@ -144,7 +144,7 @@ function Anim.To(obj, kind, from, to, dur, ease, done)
 		rec.running = true
 		count = count + 1
 		active[count] = rec
-		if count == 1 then driver:SetScript("OnUpdate", step) end
+		if count == 1 then driver:SetScript("OnUpdate", ns.Safe(step)) end
 	end
 end
 

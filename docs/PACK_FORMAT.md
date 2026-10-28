@@ -548,7 +548,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `kill` | `target` | `title`, `npc`, `count`, `quest`, `oi`, `spread` |
 | `collect` | `item`, `itemName` | `title`, `count`, `quest`, `oi`, `spread`, `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction`, `fromNpcs`, `npc`, `npcName`, `candidates` |
 | `goto` | `map`, `x`, `y` | `text`, `r`, `area` |
-| `talk` | `npc`, `npcName` | — |
+| `talk` | `npc`, `npcName` | `gossip` |
 | `interact` | `object`, `objName` | `title`, `quest`, `oi`, `spread` |
 | `use` | `item`, `itemName` | `title`, `quest`, `oi` |
 | `sethome` | `location`, or `candidates` | `npc`, `npcName`, `area` |
@@ -558,11 +558,12 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `fly` | `location` | `area` |
 | `enter` | `location` (format 5) | `area`, `map`, `x`, `y` |
 | `cast` | `spell`, `spellName` (format 5) | `map`, `x`, `y` |
-| `train` | — | `npc`, `npcName`, `class`, `skill`, `skillLine`, `rank`, `rankMax`, `candidates` |
+| `train` | — | `npc`, `npcName`, `class`, `skill`, `skillLine`, `rank`, `rankMax`, `candidates`, `gossip` |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName`, `candidates` |
-| `vendor` | — | `npc`, `npcName`, `candidates` |
+| `vendor` | — | `npc`, `npcName`, `candidates`, `gossip` |
 | `level` | `level` | `frac` (format 4) |
 | `money` | `money`: copper (format 5) | — |
+| `wait` | `seconds` | `text` |
 | `task` | `text` (format 5) | — |
 | `note` | `text` | — |
 | `skill` | `skill`, `level` | `skillLine` |
@@ -608,6 +609,8 @@ The fields:
 | `candidates` | smart targets: `{ { npc, npcName, map, x, y, z, f, faction, races, classes, lvl, rate, spawns } }` (`z` optional, see `z`); Polestar picks the nearest usable one at runtime |
 | `rewards` | `{ choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (money in copper) |
 | `direct` | `true` on a `turnin`: the quest is handed in straight from the giver's window and never enters the quest log, so the goal needs no `accept` before it and carries no objectives. Polestar counts it done on the hand-in itself and stores that, so a repeatable stays done after a reload |
+| `gossip` | On a `talk`, `vendor` or `train`: the `gossipOptionID` Polestar picks at that NPC on the live step |
+| `seconds` | A `wait` goal's countdown, 1 to 3600 |
 | `escort` | `true` on the accept, `complete` and objective goals of an escort quest: the guide window says under the goal that the NPC may have to respawn (GUIDE_FORMAT.md, "Escort quests"). Older Polestar ignores it |
 | `group` | format 2: the goal needs a group, shown under it in the guide window: `{ kind = "elite", rank = 1 }` (rank 1 elite, 2 rare elite, 3 boss: "Elite: group advised"), `{ kind = "dungeon", name = "Dire Maul" }` ("Dungeon: Dire Maul"), `{ kind = "raid", name = "Molten Core" }` ("Raid: Molten Core"), `{ kind = "group", size = 3 }` ("Group of 3 advised"; without `size`, "Group advised"). The compiler derives it or takes the author's `group [N]` (GUIDE_FORMAT.md, "Group content"); Polestar shows nothing for a kind it does not know |
 
@@ -791,7 +794,8 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   `upgrade`, `done`, `skill`, `cooldown` and `group` when predicates, a step's
   `skipto`) by 0.3.0 and later, format 6 (a guide's `legs`), format 7
   (baked legs in the race parts) and format 8 (packed spawn spots and
-  faction parts, Polestar's own pack only) by 0.3.0 and later.
+  faction parts, Polestar's own pack only) by 0.3.0 and later, and format 9
+  (the `wait` goal) by 0.3.0 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

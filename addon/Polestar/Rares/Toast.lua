@@ -135,13 +135,13 @@ local function build()
 		local point, _, _, x, y = self:GetPoint(1)
 		if point then ns.Set("rares.toastPoint", { point, floor(x + 0.5), floor(y + 0.5) }) end
 	end)
-	f:SetScript("OnUpdate", function(self, elapsed)
+	f:SetScript("OnUpdate", ns.Safe(function(self, elapsed)
 		if self:IsMouseOver() then return end
 		self.psLeft = (self.psLeft or 0) - elapsed
 		local total = self.psTotal or 1
 		W.SetProgress(self.Timer, max(0, self.psLeft) / total, self:GetWidth() - 2)
 		if self.psLeft <= 0 then T.Hide() end
-	end)
+	end))
 	f:Hide()
 	T.frame = f
 end

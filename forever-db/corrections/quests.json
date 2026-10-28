@@ -2338,6 +2338,21 @@
 		],
 		"note": "An Ancient Grudge (The Hall of Thanes) starts and ends inside with the Ghostly Attendant 265002. QuestieDB has no giver or ender."
 	},
+	"96607": {
+		"set": {
+			"pre": [
+				96656
+			],
+			"preAny": [
+				96656
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon PrevQuestID"
+		},
+		"note": "The Great Outdoors (Tirisfal, Eleanor Shackleton) is offered once The Adventurer 96656, which ends with her, is handed in; the merged data had no prerequisite, so the Undead route took it before handing The Adventurer in."
+	},
 	"96655": {
 		"set": {
 			"start": {
@@ -2476,6 +2491,42 @@
 		},
 		"note": "Camping 101: First Aid: the objective is to raise First Aid to 20, not a kill."
 	},
+	"97926": {
+		"set": {
+			"pre": [
+				97914
+			],
+			"preAny": [
+				97914
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issue #453"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 97914"
+			}
+		],
+		"note": "Making Do (Stormwind, Baros Alexston) is offered only after Expanding Horizons 97914 is handed to him: in game, a player without the letter was not offered it (issue #453). The merged data had no prerequisite; the route held only through route-fixes pairs."
+	},
+	"98221": {
+		"set": {
+			"pre": [
+				464
+			],
+			"preAny": [
+				464
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "issue #225"
+		},
+		"note": "From the Ashes (Wetlands, Captain Stoutfist) is the Forever step between War Banners 464 and Nek'rosh's Gambit 465: the player in issue #225 reported it in game as the next quest in the chain after War Banners. The merged data had no prerequisite, so only route-fixes pairs held it after 464, and the writer's hub tour, which reads the data, moved its accept before the War Banners hand-in (c13 07-thousand-needles:224)."
+	},
 	"98094": {
 		"set": {
 			"pre": [
@@ -2495,13 +2546,27 @@
 		"set": {
 			"pre": [
 				376
+			],
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 271961,
+					"count": 6,
+					"text": "Webbed Forsaken freed"
+				}
 			]
 		},
-		"source": {
-			"kind": "in-game-check",
-			"ref": "maintainer in game, Scourge Warlock"
-		},
-		"note": "A Light in the Darkness (Tirisfal, Aramis Hammerhand) is offered only after The Damned 376 is handed in: checked in game on a Scourge Warlock, who was not offered it at level 2, at level 3 before the first turn-ins or after Rattling the Rattlecages 3901, and was offered it once The Damned was handed in."
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "maintainer in game, Scourge Warlock; issue #735"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			}
+		],
+		"note": "A Light in the Darkness (Tirisfal, Aramis Hammerhand) is offered only after The Damned 376 is handed in: checked in game on a Scourge Warlock, who was not offered it at level 2, at level 3 before the first turn-ins or after Rattling the Rattlecages 3901, and was offered it once The Damned was handed in. Its objective is \"Webbed Forsaken freed\" x6, credited by the Webbed Forsaken 271961 (the game's quest data: a monster objective), freed by attacking their cocoons in Night's Web Hollow (issue #735, with a screenshot of the attackable cocoon); the merged data has no objective."
 	},
 	"98815": {
 		"set": {
@@ -2711,5 +2776,50 @@
 			"ref": "quest_template_addon PrevQuestID"
 		},
 		"note": "The second Rear Guard Patrol (Tirisfal, Deathguard Linnea) comes after the first, Rear Guard Patrol 356. QuestieDB has no prerequisite."
+	},
+	"92519": {
+		"set": {
+			"start": {
+				"npc": [
+					12920
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					12920
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "server data: quest giver and ender seen as Doctor Gregory Victor (npc 12920)"
+			}
+		],
+		"note": "Ward Restocking: given and taken by Doctor Gregory Victor at Hammerfall (Arathi 73.41,36.89); the merged data had no giver or ender, so the world left it out (RouteAudit B2)."
+	},
+	"97539": {
+		"set": {
+			"end": {
+				"npc": [
+					12920
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "server data: quest ender seen as Doctor Gregory Victor (npc 12920)"
+			},
+			{
+				"kind": "questie",
+				"ref": "starter npc 12920"
+			}
+		],
+		"note": "Silky Sutures: handed in to Doctor Gregory Victor at Hammerfall, who gives it; the merged data had no ender (RouteAudit B2)."
 	}
 }

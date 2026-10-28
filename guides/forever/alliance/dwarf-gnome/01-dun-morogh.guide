@@ -110,12 +110,17 @@ next forever/alliance/02-westfall
 # - Hunter (Dwarf): Etched Rune (3108) to Thorgas Grimson at Anvilmar;
 #   Grif Wildheart's taming quests (6064, 6084, 6085: Tame Beast) at
 #   Kharanos after the hearth; Training the Beast (6086) in Ironforge.
+#   The hearth step holds no training: the route places the level 10
+#   training itself, and a `train class` there carried the hearth's class
+#   accepts (and so the taming) along to its Ironforge stop.
 # - Paladin (Dwarf): the Tome of Divinity quests (2999 to 1785, Redemption)
 #   at the end: Ironforge, Narm Faulk by Helm's Bed Lake, then Thelsamar in
 #   Loch Modan for Honor Students (6387, 6391, 6388) and its flight back to
 #   Ironforge: about 70 seconds more than walking back up to the gates, for
 #   about 1,000 XP and the Thelsamar flight point (recorded Dwarf Paladin
 #   run). Return to Brock (6392) is left for a later visit to Loch Modan.
+#   The Tome needs level 12: Paladins top up on the road up to Ironforge
+#   when the route arrives below it.
 # - Priest: Desperate Prayer (5637, Dwarf; handed in at the Cathedral of Light
 #   on arrival in Stormwind) and Confounding Flash (94824, Gnome; Ironforge) from
 #   Maxan Anvol in Kharanos.
@@ -316,8 +321,8 @@ step Boars and bears
 
 step Kharanos
   tip Back in the distillery: Gremlock Pilsnor teaches Cooking, then the ribs go to Ragnar.
-  train Cooking                               -- Gremlock Pilsnor: Camping 101 asks you to learn it
-  complete 96629                              -- Speak with Gremlock Pilsnor
+  train Cooking npc 1699                      -- Gremlock Pilsnor: Camping 101 asks you to learn it
+  complete 96629 @47.7,52.3
   turnin 96629                                -- Gremlock Pilsnor
   turnin 384                                  -- Ragnar Thunderbrew
   accept 98321                                -- Tognus Flintfire
@@ -498,7 +503,6 @@ step North Gate Outpost
 
 step Hearth to Kharanos
   hearth "Thunderbrew Distillery"
-  train class
   accept 6064 only Hunter                     -- Grif Wildheart, at the smithy
   accept 94449 only Shaman                    -- Ingrid Dunwald: Bruegs Kindleborn by the South Gate takes it
   accept 5637 only Priest,Dwarf               -- Maxan Anvol: High Priestess Laurena in Stormwind takes it
@@ -609,6 +613,7 @@ step The Tome of Divinity
   only Paladin
   zone Ironforge
   tip Follow the road up to Ironforge and take the Mystic Ward: Brandur Ironhammer, Tiza Battleforge and Muiredon Battleforge are in the Hall of Mysteries, Tiza and Muiredon on its upper floor: the stairs up start just north-east of Brandur. John Turner, a beggar, wanders the city. He asks for ten Linen Cloth: the troggs and trolls of Dun Morogh drop it, and the Auction House sells it.
+  level 12                                    -- The Tome needs level 12: the Rockjaw troggs along the road up if you are short
   accept 2999                                 -- Brandur Ironhammer
   turnin 2999                                 -- Tiza Battleforge
   accept 1646                                 -- From the Tome of Divinity she gives you

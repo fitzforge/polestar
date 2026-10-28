@@ -7,9 +7,11 @@
 //! - [`passedby`], [`returns`]: judge passedby.js and returns.js.
 //! - [`guidetext`]: the gate's guide-text scorer (gate metric names kept).
 //! - [`report`]: the judge report and the dashboard's route status; [`feedback`]: player reports into route overrides.
+//! - [`check`]: `forge judge check`, the route gate on a build's written guides (one line per broken rule).
 //! - [`cases`]: the sim cases (tests/fixtures/sim/cases/reported.json) property evaluator.
 
 pub mod cases;
+pub mod check;
 pub mod engine;
 pub mod feedback;
 pub mod guidetext;

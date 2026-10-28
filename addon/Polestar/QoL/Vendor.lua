@@ -3,7 +3,10 @@
 -- goes a few slots per tick (the server throttles bursts)
 -- and re-reads every slot right before selling it, so an item moved or
 -- swapped in the meantime is never sold: only Poor-quality items with a
--- vendor price ever are. Repair runs after the selling (the sale pays for it);
+-- vendor price ever are, and the items the player marked as junk
+-- (QoL/Marks.lua), of any quality; never one marked to keep or one the
+-- guide keeps for a later step (QoL.Kept, QoL/Keep.lua). Repair runs after
+-- the selling (the sale pays for it);
 -- with qol.repairGuild and a rank that may (CanGuildBankRepair), it repairs the
 -- way the merchant's guild repair button does: RepairAllItems(true), the
 -- server paying from the guild bank what the allowance covers and the rest
@@ -34,13 +37,17 @@ local qi, qn = 1, 0
 local sold, earned = 0, 0
 local ticker
 
--- A slot holding a grey item worth money: itemID, stack count, price per item.
+-- A slot holding a grey item, or one marked as junk, worth money that no
+-- keep mark or later step protects (Marks.Protected covers QoL.Kept): itemID,
+-- stack count, price per item.
 local function junkAt(bag, slot)
 	local info = Client.SlotInfo(bag, slot)
 	if not info or info.isLocked or info.hasNoValue then return nil end
-	if info.quality ~= Client.QUALITY_POOR then return nil end
 	local id = info.itemID
 	if not id then return nil end
+	local Marks = QoL.Marks
+	if Marks.Protected(id) then return nil end
+	if info.quality ~= Client.QUALITY_POOR and not Marks.Junk(id) then return nil end
 	local price = Client.SellPrice(id)
 	if not price or price <= 0 then return nil end
 	return id, info.stackCount or 1, price
@@ -133,7 +140,7 @@ function Vendor.OnMerchantShow()
 	step()
 	if qi <= qn and C_Timer and C_Timer.NewTicker then
 		stop()
-		ticker = C_Timer.NewTicker(INTERVAL, step)
+		ticker = ns.NewTicker(INTERVAL, step)
 	end
 end
 

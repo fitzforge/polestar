@@ -20,6 +20,7 @@
 
 use crate::eval::{Evaluator, Snap, Step};
 use crate::order::{Checker, Order, Pair, INSERTED};
+use crate::resume::{FreeCk, Unit, FREE};
 use crate::run::{Run, K_ACCEPT, K_GRIND, K_TASK, K_TRAIN, K_TURNIN};
 use crate::seq::nearest_town;
 use crate::walks::Walks;
@@ -59,21 +60,75 @@ const FAR_YD: f64 = 1.0e6;
 pub mod edits;
 pub mod passby;
 
+/// How a route is searched: the edit descent from the seed (`edits`), the free search (`free`:
+/// random moves, `tries` of them over `members`), or the free search and then the edit descent
+/// from its order (`hybrid`).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Mode {
+	Edits,
+	Free,
+	Hybrid,
+}
+
+impl Mode {
+	pub fn parse(s: &str) -> Option<Mode> {
+		match s {
+			"edits" => Some(Mode::Edits),
+			"free" => Some(Mode::Free),
+			"hybrid" => Some(Mode::Hybrid),
+			_ => None,
+		}
+	}
+	pub fn name(self) -> &'static str {
+		match self {
+			Mode::Edits => "edits",
+			Mode::Free => "free",
+			Mode::Hybrid => "hybrid",
+		}
+	}
+}
+
 #[derive(Clone, Debug)]
 pub struct SearchOpts {
+	pub mode: Mode,
 	pub tries: u64,
 	pub members: usize,
 	pub seed: u64,
 	pub share_every: u64,
-	/// Edit-budget mode (edits::descend): at most this many greedy local edits from the seed,
-	/// the result being the order after `budget` of them (None: at the knee).
+	/// The edit descent's cap (edits and hybrid modes); the order after `budget` of them, else
+	/// as `cut` says.
 	pub edits: Option<usize>,
 	pub budget: Option<usize>,
+	/// Without a budget: every edit of the descent (the default), or the knee's.
+	pub cut: edits::Cut,
+	/// A kept move may not slow any character (the shared route: no start loses for another).
+	pub no_worse: bool,
 }
+
+impl SearchOpts {
+	/// forge build's search: `mode` (edits: the descent capped at 400 edits, cut as `cut` says;
+	/// free and hybrid: `tries` over `members`, rng 1).
+	pub fn forge(mode: Mode, cut: edits::Cut, tries: Option<u64>, members: Option<usize>) -> SearchOpts {
+		let d = SearchOpts::default();
+		SearchOpts { mode, edits: Some(400), cut, tries: tries.unwrap_or(FORGE_TRIES), members: members.unwrap_or(FORGE_MEMBERS), ..d }
+	}
+	/// The options as one line (the routes stage's cache key, the route file's `search` facts).
+	pub fn key(&self) -> String {
+		match self.mode {
+			Mode::Edits => format!("edits cut {}", self.cut.name()),
+			m => format!("{} tries {} members {} rng {} share {} cut {}", m.name(), self.tries, self.members, self.seed, self.share_every, self.cut.name()),
+		}
+	}
+}
+
+/// forge build's free search (free, hybrid modes) by default: tries and members (RouteSearch030:
+/// 2M tries over 24 members reached Orc 112.0 h in ~100 s).
+pub const FORGE_TRIES: u64 = 2_000_000;
+pub const FORGE_MEMBERS: usize = 24;
 
 impl Default for SearchOpts {
 	fn default() -> Self {
-		SearchOpts { tries: 20_000, members: 8, seed: 1, share_every: 250, edits: None, budget: None }
+		SearchOpts { mode: Mode::Free, tries: 20_000, members: 8, seed: 1, share_every: 250, edits: None, budget: None, cut: edits::Cut::All, no_worse: false }
 	}
 }
 
@@ -99,6 +154,12 @@ impl Mapper {
 			K_TRAIN => match self.pt[s.pt as usize] {
 				-1 => none,
 				p => Step { pt: p as u32, ..s },
+			},
+			// A riding step only for a start that learns from that trainer (Orc's Kildar is not the
+			// Tauren's): its own riding step is its own (shared::keep_own_rest).
+			crate::run::K_RIDE => match self.pt[s.pt as usize] {
+				p if p >= 0 && to.riding.iter().any(|r| r.0 as i32 == s.task) => Step { pt: p as u32, ..s },
+				_ => none,
 			},
 			_ => {
 				let (q, p) = (self.q[s.q as usize], self.pt[s.pt as usize]);
@@ -197,6 +258,11 @@ impl Current {
 		&self.lv
 	}
 
+	/// How the leg into each step was travelled.
+	pub fn walked(&self) -> &[crate::eval::Moved] {
+		&self.wk
+	}
+
 	/// The guards' counts of this run.
 	pub fn guard_counts(&self, g: &crate::guards::GuardData, run: &Run) -> crate::guards::GuardCounts {
 		crate::guards::guard_counts(g, run, &self.steps, &self.lv, &self.wk)
@@ -233,17 +299,20 @@ impl<'a> Problem<'a> {
 }
 
 /// A character's run of its steps: snapshots every SNAP_EVERY steps (the state before step
-/// k * SNAP_EVERY), and after each step the total XP, the time and the level before it.
+/// k * SNAP_EVERY), and after each step the total XP, the cost so far and the level before it.
+/// Runs are priced by cost (Evaluator::cost): seconds, each grinding second counted
+/// `grindWeight` times, so a route grinds only where no quest is nearly as good.
 #[derive(Clone)]
 pub struct Current {
 	pub steps: Vec<Step>,
+	/// Cost to 60 (Evaluator::cost; the real seconds stay in the route's hours blocks).
 	pub total: f64,
 	snaps: Vec<Snap>,
 	xs: Vec<f64>,
 	ts: Vec<f64>,
 	lv: Vec<f64>,
-	/// Whether the leg into each step was walked (the passed-by guard).
-	wk: Vec<bool>,
+	/// How the leg into each step was travelled (the passed-by and hub guards).
+	wk: Vec<crate::eval::Moved>,
 	/// Steps played before level 60 (changes after it change nothing).
 	pub live: usize,
 	/// Steps that did nothing: a kept move never adds one (a quest is left out only by a drop
@@ -258,7 +327,7 @@ pub struct Current {
 }
 
 /// Counters of a search.
-#[derive(Clone, Debug, Default)]
+#[derive(Clone, Debug, Default, serde::Serialize, serde::Deserialize)]
 pub struct Stats {
 	pub tries: u64,
 	pub invalid: u64,
@@ -269,7 +338,14 @@ pub struct Stats {
 	pub guard_rejected: u64,
 	pub steps_replayed: u64,
 	pub by_move: [[u64; 2]; MOVES],
+	/// Moves the free search refused by the edit descent's rules (RULE_NAMES order).
+	pub refused: [u64; RULES],
 }
+
+/// The edit descent's rules a free-search move is held to (Member::rules_ok, levels_ok,
+/// no_worse), as counted in Stats::refused.
+pub const RULES: usize = 7;
+pub const RULE_NAMES: [&str; RULES] = ["checker", "twin training", "walk lengthened", "grind checkpoint", "quest on the way", "objective under level", "a start slower"];
 
 pub const MOVES: usize = 12;
 pub const MOVE_NAMES: [&str; MOVES] = [
@@ -313,16 +389,16 @@ fn full(ev: &mut Evaluator, steps: Vec<Step>) -> Current {
 			if c.live == n {
 				c.live = i;
 			}
-			c.wk.push(false);
+			c.wk.push(crate::eval::Moved::STAY);
 		} else {
 			ev.step_in(&c.steps, i);
-			c.wk.push(ev.s.walked);
+			c.wk.push(ev.s.moved);
 		}
 		c.xs.push(ev.total_xp());
-		c.ts.push(ev.s.time);
+		c.ts.push(ev.cost_now());
 	}
 	ev.finish();
-	c.total = ev.seconds();
+	c.total = ev.cost();
 	c.noops = ev.s.noops;
 	c.late = ev.s.late;
 	c.log_peak = ev.s.log_peak;
@@ -330,9 +406,10 @@ fn full(ev: &mut Evaluator, steps: Vec<Step>) -> Current {
 	c
 }
 
-/// Evaluate an order from scratch: seconds to 60.
+/// Evaluate an order from scratch: seconds to 60 (real, not the search's cost).
 pub fn evaluate(ev: &mut Evaluator, order: &Order) -> f64 {
-	full(ev, order.steps.clone()).total
+	let _ = full(ev, order.steps.clone());
+	ev.seconds()
 }
 
 /// A candidate being replayed by one character.
@@ -344,7 +421,7 @@ struct Pending {
 	xs: Vec<f64>,
 	ts: Vec<f64>,
 	lv: Vec<f64>,
-	wk: Vec<bool>,
+	wk: Vec<crate::eval::Moved>,
 	live: usize,
 }
 
@@ -356,8 +433,8 @@ pub struct Ctx<'a> {
 }
 
 impl<'a> Ctx<'a> {
-	/// Replay `steps` from the snapshot before `a` to `stop`. The estimate of its seconds to
-	/// 60 (exact when it reached 60 or the end), or None past the current run's XP.
+	/// Replay `steps` from the snapshot before `a` to `stop`. The estimate of its cost to 60
+	/// (exact when it reached 60 or the end), or None past the current run's XP.
 	fn window(&mut self, steps: Vec<Step>, a: usize, stop: usize, stats: &mut Stats) -> (Pending, Option<f64>) {
 		// The steps before a look ahead at it (the spot term): replay from NEXT_LOOK earlier.
 		let c0 = (a.saturating_sub(crate::eval::NEXT_LOOK) / SNAP_EVERY) * SNAP_EVERY;
@@ -369,7 +446,7 @@ impl<'a> Ctx<'a> {
 		if pd.at >= n || self.ev.s.finished {
 			self.advance(&mut pd, n, stats);
 			self.ev.finish();
-			return (pd, Some(self.ev.seconds()));
+			return (pd, Some(self.ev.cost()));
 		}
 		stats.estimated += 1;
 		(pd, self.estimate())
@@ -387,14 +464,14 @@ impl<'a> Ctx<'a> {
 				if pd.live == n {
 					pd.live = i;
 				}
-				pd.wk.push(false);
+				pd.wk.push(crate::eval::Moved::STAY);
 			} else {
 				self.ev.step_in(&pd.steps, i);
 				stats.steps_replayed += 1;
-				pd.wk.push(self.ev.s.walked);
+				pd.wk.push(self.ev.s.moved);
 			}
 			pd.xs.push(self.ev.total_xp());
-			pd.ts.push(self.ev.s.time);
+			pd.ts.push(self.ev.cost_now());
 			pd.at += 1;
 		}
 	}
@@ -416,7 +493,7 @@ impl<'a> Ctx<'a> {
 			v
 		};
 		Current {
-			total: self.ev.seconds(),
+			total: self.ev.cost(),
 			noops: self.ev.s.noops,
 			late: self.ev.s.late,
 			log_peak: self.ev.s.log_peak,
@@ -435,11 +512,11 @@ impl<'a> Ctx<'a> {
 		}
 	}
 
-	/// The current run's seconds to 60 shifted by how much later (or sooner) the candidate is
+	/// The current run's cost to 60 shifted by how much later (or sooner) the candidate is
 	/// than the current run was at the same total XP. None past the current run's XP.
 	fn estimate(&self) -> Option<f64> {
 		let xp = self.ev.total_xp();
-		let t = self.ev.s.time;
+		let t = self.ev.cost_now();
 		let xs = &self.cur.xs;
 		let j = xs.partition_point(|&x| x < xp);
 		if j >= xs.len() {
@@ -471,6 +548,11 @@ pub struct Member<'a> {
 	pub guard_now: crate::guards::GuardCounts,
 	/// Seconds a kept move may add to the hours to 60 (the pickup allowance; 0 in the search).
 	pub allow: f64,
+	/// A kept move may not slow any character (SearchOpts::no_worse).
+	pub no_worse: bool,
+	/// A tie (passby::bag_ties): an avoidable return it adds in an area need not be paid for by its
+	/// gain (the total stays bounded).
+	pub tie: bool,
 }
 
 fn d(run: &Run, a: u32, b: u32) -> f64 {
@@ -483,7 +565,7 @@ fn d(run: &Run, a: u32, b: u32) -> f64 {
 }
 
 /// Where each step of an order is (a grind checkpoint is where the step before it was).
-fn locs(run: &Run, steps: &[Step]) -> Vec<u32> {
+pub fn locs(run: &Run, steps: &[Step]) -> Vec<u32> {
 	let mut v = Vec::with_capacity(steps.len());
 	let mut at = run.start_pt;
 	for s in steps {
@@ -546,6 +628,8 @@ impl<'a> Member<'a> {
 			lv: Vec::new(),
 			guard_now: Default::default(),
 			allow: 0.0,
+			no_worse: false,
+			tie: false,
 		};
 		if let Some(g) = &p.guard {
 			m.guard_now = g.counts(run, &m.ctxs[0].cur);
@@ -554,7 +638,7 @@ impl<'a> Member<'a> {
 		m
 	}
 
-	/// Seconds to 60 summed over the characters.
+	/// Cost to 60 (seconds, grinding weighted: Current::total) summed over the characters.
 	pub fn total(&self) -> f64 {
 		self.ctxs.iter().map(|c| c.cur.total).sum()
 	}
@@ -601,17 +685,30 @@ impl<'a> Member<'a> {
 	/// One try: a move, its check, its estimate and (when promising) its exact replay.
 	pub fn try_one(&mut self, p: &Problem) {
 		self.stats.tries += 1;
+		// (Nothing played before 60: no move to make; a shared tail can be empty.)
+		if self.live == 0 {
+			self.stats.invalid += 1;
+			return;
+		}
 		let kind = self.pick_move();
 		let Some((cand, a, b)) = self.make_move(p, kind) else {
 			self.stats.invalid += 1;
 			return;
 		};
-		if a >= self.live || !self.check.valid(&cand.steps, &p.pairs, &p.feas) {
+		if a >= self.live || !self.rules_ok(p, &cand, a, b) {
 			self.stats.invalid += 1;
 			return;
 		}
 		self.stats.by_move[kind][0] += 1;
 		if let Some((next, gc)) = self.replay(p, &cand, a, b) {
+			if self.no_worse && next.iter().zip(&self.ctxs).any(|(n, c)| n.total > c.cur.total + 1e-6) {
+				self.stats.refused[6] += 1;
+				return;
+			}
+			if !self.levels_ok(p, &cand, &next) {
+				self.stats.refused[5] += 1;
+				return;
+			}
 			self.guard_now = gc;
 			self.stats.by_move[kind][1] += 1;
 			self.stats.kept += 1;
@@ -623,9 +720,84 @@ impl<'a> Member<'a> {
 		}
 	}
 
+	/// The rules a free-search move keeps before its replay, beyond the replay's own (no added
+	/// no-op, late hand-in, hearth line on cooldown, log over its bound, guard raised), as the
+	/// edit descent keeps them (edits::candidates, Member::est_gain): the checker (quest step
+	/// order, deliberate pairs, item needs and lock keys, `after`/`stay` records, together, keep,
+	/// skip, southward, escorts); no training right after a training it did not have; a
+	/// reordering (same steps) adds at most PATH_SLACK_YD to the straight walk over the stretch it
+	/// changes; v1's grind checkpoints stay unless they guard no gate (Feas::free_grinds); a quest
+	/// dropped costs a trip (not every stop on the way).
+	pub(crate) fn rules_ok(&mut self, p: &Problem, cand: &Order, a: usize, b: usize) -> bool {
+		if !self.check.valid(&cand.steps, &p.pairs, &p.feas) {
+			self.stats.refused[0] += 1;
+			return false;
+		}
+		if edits::twin_trainings(cand) > edits::twin_trainings(&self.order) {
+			self.stats.refused[1] += 1;
+			return false;
+		}
+		let run = &p.model.run;
+		let o = &self.order;
+		if cand.len() == o.len() {
+			let hi = (b + 1).min(cand.len() - 1);
+			let ok = a > hi || edits::path_len(run, &cand.steps, a, hi) <= edits::path_len(run, &o.steps, a, hi) + edits::PATH_SLACK_YD;
+			self.stats.refused[2] += u64::from(!ok);
+			return ok;
+		}
+		let grinds = |x: &Order| x.steps.iter().zip(&x.origin).filter(|(s, g)| s.kind == K_GRIND && !p.feas.free_grinds.contains(g)).count();
+		if grinds(cand) < grinds(o) {
+			self.stats.refused[3] += 1;
+			return false;
+		}
+		if cand.len() < o.len() {
+			let mut kept = vec![false; run.n_quests()];
+			for s in cand.steps.iter().filter(|s| s.kind == K_ACCEPT) {
+				kept[s.q as usize] = true;
+			}
+			let dropped = o.steps.iter().filter(|s| s.kind == K_ACCEPT && !kept[s.q as usize]);
+			for s in dropped {
+				if on_the_way(run, &o.steps, s.q) {
+					self.stats.refused[4] += 1;
+					return false;
+				}
+			}
+		}
+		true
+	}
+
+	/// The edit descent's under-level rule after a replay (edits::UNDER_LEVEL): no objective is
+	/// done at a lower level than before where that level is more than UNDER_LEVEL under its
+	/// quest's (the Daggerspine naga, 30-31, at 26).
+	pub(crate) fn levels_ok(&self, p: &Problem, cand: &Order, next: &[Current]) -> bool {
+		self.levels_ok_by(p, cand, next, 0.0)
+	}
+
+	/// levels_ok, an objective allowed `slack` levels lower than before (a hand-in moved later
+	/// delays its XP: the work between it and its new place comes a little lower).
+	pub(crate) fn levels_ok_by(&self, p: &Problem, cand: &Order, next: &[Current], slack: f64) -> bool {
+		let run = &p.model.run;
+		let off = self.ctxs[0].off;
+		let lv = &next[0].lv;
+		let mut before: rustc_hash::FxHashMap<i32, f64> = Default::default();
+		for (k, s) in self.order.steps.iter().enumerate().take(self.live) {
+			if s.kind == K_TASK {
+				before.insert(s.task, self.lv[k]);
+			}
+		}
+		cand.steps.iter().enumerate().all(|(k, s)| {
+			if s.kind != K_TASK {
+				return true;
+			}
+			let Some(&now) = lv.get(k + off) else { return true };
+			now >= run.q_level[s.q as usize] as f64 - edits::UNDER_LEVEL || before.get(&s.task).is_none_or(|&was| now >= was - slack - 1e-9)
+		})
+	}
+
 	fn pick_move(&mut self) -> usize {
-		// Weights in percent, by MOVE_NAMES order.
-		const W: [usize; MOVES] = [14, 14, 10, 15, 5, 8, 2, 8, 6, 6, 6, 6];
+		// Weights in percent, by MOVE_NAMES order. (No grind checkpoint is dropped: rules_ok; its
+		// share goes to moving objectives.)
+		const W: [usize; MOVES] = [14, 16, 10, 15, 5, 8, 0, 8, 6, 6, 6, 6];
 		let mut r = self.rng.below(100);
 		for (k, &w) in W.iter().enumerate() {
 			if r < w {
@@ -641,6 +813,11 @@ impl<'a> Member<'a> {
 	/// summed seconds to 60 drop and no character's run gains a step that does nothing.
 	fn replay(&mut self, p: &Problem, cand: &Order, a: usize, b: usize) -> Option<(Vec<Current>, crate::guards::GuardCounts)> {
 		let now = self.total();
+		// No training put inside a field stretch (order::field_trains).
+		let run = &p.model.run;
+		if crate::order::field_trains(run, &cand.steps) > crate::order::field_trains(run, &self.order.steps) {
+			return None;
+		}
 		let mut pend = Vec::with_capacity(self.ctxs.len());
 		let mut est = 0.0;
 		let mut sure = true;
@@ -687,7 +864,13 @@ impl<'a> Member<'a> {
 				}
 			}
 			let ok = if self.allow > 0.0 { gc.within_judge(&bound) } else { gc.within(&bound) };
-			if !ok || g.train_shifts(cand, &next[0]) > 0 {
+			// Avoidable returns: the total never above the bound's (as before), and area by area
+			// against the current order, each one added must also be paid for by RETURN_COST_SEC of
+			// the move's gain (one removed elsewhere does not pay for it).
+			let added = gc.added_returns(&self.guard_now);
+			let paid = now - total >= MIN_GAIN + f64::from(added) * crate::guards::RETURN_COST_SEC;
+			let total_ok = gc.avoidable_returns <= bound.avoidable_returns;
+			if !ok || !total_ok || (added > 0 && !paid && !self.tie) || g.train_shifts(cand, &next[0]) > 0 {
 				self.stats.guard_rejected += 1;
 				return None;
 			}
@@ -759,7 +942,7 @@ impl<'a> Member<'a> {
 		}
 		if s.kind == K_TRAIN {
 			let from = if j == 0 { run.start_pt } else { loc[j - 1] };
-			x.pt = nearest_town(run, from)?;
+			x.pt = train_town(run, s, og, from)?;
 		}
 		steps.insert(j, x);
 		origin.insert(j, og);
@@ -1248,15 +1431,53 @@ pub fn runs(p: &Problem, order: &Order) -> Vec<Current> {
 }
 
 /// Improve `seed` (counted in tries; deterministic for `opts.seed`).
-pub fn search(p: &Problem, seed: &Order, opts: &SearchOpts) -> Outcome {
+///
+/// With a checkpoint unit `ck`: the members are saved at a meeting every `ck.every()` and after
+/// the last round (resume::FreeCk), and a search of the same seed and settings resumes from the
+/// last one saved: each member rebuilt from its order (its runs replayed from scratch, as a kept
+/// move's exact replay made them), generator and counters plays on as the uninterrupted search's.
+pub fn search(p: &Problem, seed: &Order, opts: &SearchOpts, ck: Option<&Unit>) -> Outcome {
 	let t0 = std::time::Instant::now();
-	let start = runs(p, seed);
 	let members = opts.members.max(1);
-	let mut ms: Vec<Member> = (0..members).map(|k| Member::new(p, seed.clone(), &start, opts.seed.wrapping_mul(1_000_003).wrapping_add(k as u64))).collect();
 	let per_round = opts.share_every.max(1);
 	let rounds = opts.tries.div_ceil(per_round * members as u64);
+	let fit = crate::resume::fit(seed, &[members as u64, per_round, opts.seed, u64::from(opts.no_worse)]);
+	let saved = ck.and_then(|u| u.load::<FreeCk>(FREE)).filter(|c| c.fit == fit && c.members.len() == members && c.round <= rounds && c.members.iter().all(|m| m.0 < c.orders.len()));
+	let (mut ms, r0) = match saved {
+		Some(c) => {
+			let orders: Vec<Order> = c.orders.into_iter().map(Order::from).collect();
+			let rs: Vec<Vec<Current>> = orders.iter().map(|o| runs(p, o)).collect();
+			let ms: Vec<Member> = c
+				.members
+				.into_iter()
+				.map(|(k, rng, stats)| {
+					let mut m = Member::new(p, orders[k].clone(), &rs[k], 0);
+					m.rng = Rng::at(rng);
+					m.stats = stats;
+					m.no_worse = opts.no_worse;
+					m
+				})
+				.collect();
+			if let Some(u) = ck {
+				u.note(format!("resuming {} from checkpoint ({} tries done)", u.name, ms.iter().map(|m| m.stats.tries).sum::<u64>()));
+			}
+			(ms, c.round)
+		}
+		None => {
+			let start = runs(p, seed);
+			let ms = (0..members)
+				.map(|k| {
+					let mut m = Member::new(p, seed.clone(), &start, opts.seed.wrapping_mul(1_000_003).wrapping_add(k as u64));
+					m.no_worse = opts.no_worse;
+					m
+				})
+				.collect();
+			(ms, 0)
+		}
+	};
 	let best_of = |ms: &[Member]| (0..ms.len()).min_by(|&a, &b| ms[a].total().total_cmp(&ms[b].total()).then(a.cmp(&b))).unwrap();
-	for _ in 0..rounds {
+	let mut last_save = std::time::Instant::now();
+	for r in r0..rounds {
 		run_round(p, &mut ms, per_round);
 		// Meeting: the laggards continue from the best (ties: the lowest member).
 		let best = best_of(&ms);
@@ -1265,6 +1486,12 @@ pub fn search(p: &Problem, seed: &Order, opts: &SearchOpts) -> Outcome {
 		for m in before.iter_mut().chain(after.iter_mut()) {
 			if m.total() > bt {
 				m.take(b);
+			}
+		}
+		if let Some(u) = ck {
+			if r + 1 == rounds || last_save.elapsed() >= u.every() {
+				u.save(FREE, &free_state(&ms, fit, r + 1));
+				last_save = std::time::Instant::now();
 			}
 		}
 	}
@@ -1282,8 +1509,25 @@ pub fn search(p: &Problem, seed: &Order, opts: &SearchOpts) -> Outcome {
 			stats.by_move[k][0] += m.stats.by_move[k][0];
 			stats.by_move[k][1] += m.stats.by_move[k][1];
 		}
+		for k in 0..RULES {
+			stats.refused[k] += m.stats.refused[k];
+		}
 	}
 	Outcome { best: ms[best].order.clone(), totals: ms[best].ctxs.iter().map(|c| c.cur.total).collect(), stats, seconds: t0.elapsed().as_secs_f64() }
+}
+
+/// The members after `round` rounds as a checkpoint (each distinct order once).
+fn free_state(ms: &[Member], fit: u64, round: u64) -> FreeCk {
+	let mut orders: Vec<&Order> = Vec::new();
+	let mut members = Vec::with_capacity(ms.len());
+	for m in ms {
+		let k = orders.iter().position(|o| **o == m.order).unwrap_or_else(|| {
+			orders.push(&m.order);
+			orders.len() - 1
+		});
+		members.push((k, m.rng.state(), m.stats.clone()));
+	}
+	FreeCk { fit, round, orders: orders.into_iter().map(Into::into).collect(), members }
 }
 
 #[cfg(feature = "native")]
@@ -1359,3 +1603,146 @@ pub fn train_levels(order: &Order, c: &Current) -> Vec<(i64, f64)> {
 	let lv = c.levels();
 	(0..order.len()).filter(|&k| order.steps[k].kind == K_TRAIN).map(|k| (order.origin[k], lv.get(k + off).copied().unwrap_or(60.0))).collect()
 }
+
+#[cfg(test)]
+mod rule_tests {
+	//! The free search keeps the edit descent's rules (Member::rules_ok, levels_ok, no_worse):
+	//! each move that breaks one is refused, a move that keeps it is not.
+	use super::*;
+	use std::io::Read;
+
+	fn gunzip(p: &std::path::Path) -> Vec<u8> {
+		let mut out = Vec::new();
+		flate2::read::GzDecoder::new(std::fs::File::open(p).unwrap()).read_to_end(&mut out).unwrap();
+		out
+	}
+
+	struct Fx {
+		world: forge_world::World,
+		base: crate::Params,
+		chain: serde_json::Value,
+	}
+
+	fn fx() -> Fx {
+		let golden = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../tests/golden");
+		let world = forge_world::World::from_json(&gunzip(&golden.join("world/expected/world-horde.json.gz"))).unwrap();
+		let doc: serde_json::Value = serde_json::from_slice(&std::fs::read(golden.join("sim/params.json")).unwrap()).unwrap();
+		let chain = serde_json::from_slice(&gunzip(&golden.join("sim/v1-horde-orc-off.json.gz"))).unwrap();
+		Fx { world, base: crate::Params::effective(Some(&doc), None, &[]), chain }
+	}
+
+	fn model(f: &Fx, profile: &crate::profile::Profile) -> Model {
+		crate::route::model_for(&f.world, "Orc", profile, &f.base, &crate::NoWalks).unwrap().0
+	}
+
+	fn seed(f: &Fx, m: &Model) -> Order {
+		let mut ev = m.evaluator(&crate::NoWalks);
+		crate::order::seed_order(&mut ev, &crate::chain::events_from(&f.chain), true)
+	}
+
+	#[test]
+	fn a_moved_v1_training_keeps_its_town_an_added_one_takes_the_nearest() {
+		// #664: v1's Kharanos `train class` moved into Coldridge was retargeted to Anvilmar.
+		let f = fx();
+		let m = model(&f, &crate::profile::Profile::average(forge_core::Faction::Horde));
+		let r = &m.run;
+		let (a, b) = (r.towns[0], *r.towns.iter().find(|&&t| r.straight(t, r.towns[0]) > 1000.0).expect("two towns apart"));
+		let s = Step { kind: K_TRAIN, q: 0, task: -1, pt: a };
+		assert_eq!(train_town(r, s, 17, b), Some(a), "v1's line keeps its town");
+		assert_eq!(train_town(r, s, crate::order::TRAIN_STOP - 1, b), crate::seq::nearest_town(r, b), "an added stop trains where it goes");
+		assert_ne!(crate::seq::nearest_town(r, b), Some(a));
+	}
+
+	fn without(o: &Order, drop: impl Fn(usize, &Step) -> bool) -> Order {
+		let keep: Vec<usize> = (0..o.len()).filter(|&i| !drop(i, &o.steps[i])).collect();
+		Order { steps: keep.iter().map(|&i| o.steps[i]).collect(), origin: keep.iter().map(|&i| o.origin[i]).collect() }
+	}
+
+	#[test]
+	fn the_free_search_refuses_what_the_edit_descent_refuses() {
+		let f = fx();
+		let m = model(&f, &crate::profile::Profile::average(forge_core::Faction::Horde));
+		let s = seed(&f, &m);
+		let run = &m.run;
+		let p = Problem::single(&m, &crate::NoWalks, Vec::new(), Vec::new());
+		let mut mem = Member::new(&p, s.clone(), &runs(&p, &s), 1);
+		let n = s.len();
+		// A training right after a training.
+		let t = (0..n).find(|&i| s.steps[i].kind == K_TRAIN).expect("a training");
+		let mut twin = s.clone();
+		twin.steps.insert(t + 1, s.steps[t]);
+		twin.origin.insert(t + 1, INSERTED);
+		assert!(!mem.rules_ok(&p, &twin, t, t + 1), "a second training at once");
+		// v1's grind checkpoint dropped.
+		let g = (0..n).find(|&i| s.steps[i].kind == K_GRIND).expect("a grind checkpoint");
+		assert!(!mem.rules_ok(&p, &without(&s, |i, _| i == g), g, g), "a grind checkpoint stays");
+		// A quest on the way dropped (the slice's quests are all on the way: the drop rule is the
+		// only one this candidate breaks).
+		let accepts: Vec<u32> = s.steps.iter().filter(|x| x.kind == K_ACCEPT).map(|x| x.q).collect();
+		let drop_q = |q: u32| without(&s, |_, x| x.q == q && matches!(x.kind, K_ACCEPT | K_TASK | K_TURNIN));
+		let on = *accepts.iter().find(|&&q| on_the_way(run, &s.steps, q) && mem.check.valid(&drop_q(q).steps, &p.pairs, &p.feas)).expect("a quest on the way");
+		assert!(!mem.rules_ok(&p, &drop_q(on), 0, n - 1), "a quest on the way is kept");
+		// A reorder: two neighbouring stops swapped, refused when it lengthens the straight walk over
+		// the stretch by more than PATH_SLACK_YD, kept when it does not lengthen it.
+		let swap = |i: usize| {
+			let mut c = s.clone();
+			c.steps.swap(i, i + 1);
+			c.origin.swap(i, i + 1);
+			c
+		};
+		let quest = |x: &Step| matches!(x.kind, K_ACCEPT | K_TASK | K_TURNIN);
+		let cands: Vec<usize> = (1..n - 2).filter(|&i| quest(&s.steps[i]) && quest(&s.steps[i + 1]) && s.steps[i].q != s.steps[i + 1].q && mem.check.valid(&swap(i).steps, &p.pairs, &p.feas)).collect();
+		let grow = |i: usize| edits::path_len(run, &swap(i).steps, i, i + 2) - edits::path_len(run, &s.steps, i, i + 2);
+		let long = *cands.iter().find(|&&i| grow(i) > edits::PATH_SLACK_YD).expect("a swap that lengthens the walk");
+		let short = *cands.iter().find(|&&i| grow(i) <= 0.0).expect("a swap that does not");
+		assert!(!mem.rules_ok(&p, &swap(long), long, long + 1), "the walk lengthened by {:.0} yd", grow(long));
+		assert!(mem.rules_ok(&p, &swap(short), short, short + 1));
+		// An objective moved earlier, to more than UNDER_LEVEL under its quest's level and lower
+		// than it was: refused after the replay.
+		let lv = runs(&p, &s)[0].levels().to_vec();
+		let (ia, it) = (0..n)
+			.filter(|&i| s.steps[i].kind == K_ACCEPT)
+			.find_map(|ia| {
+				let q = s.steps[ia].q;
+				let it = (ia + 2..n).find(|&k| s.steps[k].kind == K_TASK && s.steps[k].q == q)?;
+				(lv[ia + 1] < run.q_level[q as usize] as f64 - edits::UNDER_LEVEL && lv[it] > lv[ia + 1] + 0.5).then_some((ia, it))
+			})
+			.expect("an objective done well after its accept, the accept under its level");
+		let mut early = s.clone();
+		let x = early.steps.remove(it);
+		let g0 = early.origin.remove(it);
+		early.steps.insert(ia + 1, x);
+		early.origin.insert(ia + 1, g0);
+		assert!(!mem.levels_ok(&p, &early, &runs(&p, &early)), "the objective done under its level, earlier");
+		assert!(mem.levels_ok(&p, &s, &runs(&p, &s)), "the seed itself");
+	}
+
+	#[test]
+	fn the_free_search_slows_no_character_with_no_worse() {
+		// The shared route: one order played by two characters (the fast and the slow profile);
+		// with no_worse, no kept move slows either.
+		let f = fx();
+		let (fast, slow) = (model(&f, &crate::profile::Profile::fast(forge_core::Faction::Horde)), model(&f, &crate::profile::Profile::slow(forge_core::Faction::Horde)));
+		let s = seed(&f, &fast);
+		let mut p = Problem::single(&fast, &crate::NoWalks, Vec::new(), Vec::new());
+		p.ctxs.push(CtxSpec { model: &slow, prefix: Vec::new(), map: None, name: "slow".into() });
+		let before: Vec<f64> = runs(&p, &s).iter().map(|c| c.total).collect();
+		let out = search(&p, &s, &SearchOpts { tries: 1500, members: 2, no_worse: true, ..Default::default() }, None);
+		assert!(out.stats.kept > 0, "some moves kept");
+		for (k, (&b, &a)) in before.iter().zip(&out.totals).enumerate() {
+			assert!(a <= b + 1e-6, "character {k}: {b:.0} s -> {a:.0} s");
+		}
+	}
+}
+
+/// Where a moved training stop trains: a stop the profile added (origin TRAIN_STOP - k) at the
+/// town nearest where it moves; v1's own `train class` line keeps its guide step's town (#664: the
+/// Kharanos training moved into Coldridge was retargeted to Anvilmar, 0.03 levels after Anvilmar's
+/// own: a duplicate under a Kharanos step).
+pub(crate) fn train_town(run: &crate::run::Run, s: Step, origin: i64, from: u32) -> Option<u32> {
+	if origin > crate::order::TRAIN_STOP {
+		return Some(s.pt);
+	}
+	nearest_town(run, from)
+}
+

@@ -8,7 +8,8 @@
 --   Pins.ClearLayer(layer)
 --   Pins.SetLayerVisible(layer, visible)
 --   pin = { map, x, y, f, icon, size, color = { r, g, b, a }, tooltip = string | function(tooltip),
---           onClick = function(button, owner), priority }
+--           onClick = function(button, owner), priority, text }
+--   text: a few characters (a step number) drawn on the pin, outlined, in its colour's alpha.
 --   Additive pin fields: c, wx, wy (world position instead of map/x/y), glow (soft halo),
 --   area (yards: a soft disc of that radius under the pin, in the pin's colour, on the world
 --   map; on the minimap too in a layer with minimapAreas, cut at the minimap's rim),
@@ -288,6 +289,9 @@ local function buildLook(f)
 	f.edge:SetTexture(MEDIA .. "edge")
 	f.edge:SetPoint("CENTER")
 	f.edge:Hide()
+	f.text = f:CreateFontString(nil, "OVERLAY")
+	f.text:SetPoint("CENTER", 0, 0)
+	f.text:Hide()
 end
 
 -- In every skin but the house style each glyph pin sits on a dark disc
@@ -308,6 +312,7 @@ local function showParts(f, p, clamped)
 	f.mark:SetShown(not clamped and type(p.ring) == "table")
 	f.glow:SetShown(not clamped and p.glow and true or false)
 	f.edge:SetShown(clamped and true or false)
+	f.text:SetShown(not clamped and p.text ~= nil)
 end
 
 local function applyLook(f, p, size)
@@ -341,6 +346,11 @@ local function applyLook(f, p, size)
 	f.edge:SetSize(size, size)
 	f.edge:SetVertexColor(r, g, b, a)
 	f.clamped = nil
+	if p.text then
+		f.text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", math.max(8, size * 0.6), "OUTLINE")
+		f.text:SetText(p.text)
+		f.text:SetTextColor(1, 1, 1, a)
+	end
 	showParts(f, p, false)
 end
 
@@ -1889,7 +1899,7 @@ local function ensureMinimap()
 	if driver or not Minimap then return end
 	driver = CreateFrame("Frame", nil, UIParent)
 	driver:Hide()
-	driver:SetScript("OnUpdate", function(self, elapsed)
+	driver:SetScript("OnUpdate", ns.Safe(function(self, elapsed)
 		accum = accum + elapsed
 		if accum < DRIVE_INTERVAL then return end
 		local step = accum
@@ -1900,14 +1910,14 @@ local function ensureMinimap()
 			idle = idle + step
 			if idle >= IDLE_AFTER then self:Hide() end
 		end
-	end)
+	end))
 	Pins.driver = driver
 end
 
 local function updateWatcher()
 	local want = hasMinimapPins()
 	if want and not watcher and C_Timer and C_Timer.NewTicker then
-		watcher = C_Timer.NewTicker(WATCH_INTERVAL, function()
+		watcher = ns.NewTicker(WATCH_INTERVAL, function()
 			if sample(false) then
 				wake()
 			elseif mmDotCount > 0 then
@@ -1951,7 +1961,7 @@ function refreshMinimap(layersChanged)
 		if C_Timer and C_Timer.After then
 			if not queued then
 				queued = true
-				C_Timer.After(0, flushQueued)
+				ns.After(0, flushQueued)
 			end
 			return
 		end
@@ -2077,7 +2087,7 @@ function updateTrailDriver()
 		if not trailDriver then
 			trailDriver = CreateFrame("Frame", nil, UIParent)
 			trailDriver:Hide()
-			trailDriver:SetScript("OnUpdate", trailTick)
+			trailDriver:SetScript("OnUpdate", ns.Safe(trailTick))
 			Pins.trailDriver = trailDriver
 		end
 		if not trailDriver:IsShown() then

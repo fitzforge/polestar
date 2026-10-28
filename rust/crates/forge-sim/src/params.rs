@@ -27,9 +27,16 @@ pub const PRIORS: &[(&str, f64)] = &[
 	("questXpScale", 1.0),
 	("questEstScale", 1.0),
 	("flightOverhead", 20.0),
+	// Taxi speed, yd/s (the world's taxi edges are path yards): 4 flights recorded in game (the
+	// addon's learned flight times, boarding to landing) give 29.9 yd/s, each within 1 s
+	// (model.md).
+	("flightSpeed", 30.0),
 	("transportWait", 1.0),
 	("hearthCast", 10.0),
 	("hearthCooldown", 3600.0),
+	// Route profiles: a cast waits hearthCooldown × (1 + hearthMargin) after the last (F58: forge judge
+	// check times the written guide on straight legs, its gaps 52-55 min where the route's were 60).
+	("hearthMargin", 0.25),
 	("levelOverhead", 60.0),
 	("grindEff", 0.7),
 	("grindWeight", 2.5),
@@ -39,6 +46,10 @@ pub const PRIORS: &[(&str, f64)] = &[
 	("wastedAccept", 0.0),
 	("gateGap", 2.0),
 	("dangerGap", 5.0),
+	// Most levels the mobs of kill work may be above the character (A7, A8: Khan Dez'hepah worked at
+	// 30, the lvl-26 Lieutenant Fangore at 21 are not solo-safe): further under, the route grinds up
+	// first. The route profiles only (feasible); the gate's model keeps v1's.
+	("workGap", 3.0),
 	("deathRisk", 300.0),
 	("restedShare", 0.0),
 	("trainSec", 60.0),
@@ -52,7 +63,50 @@ pub const PRIORS: &[(&str, f64)] = &[
 	// are walked (no hearth, flight or boat while it runs).
 	("feasible", 0.0),
 	("along", 0.0),
+	("pool", 0.0),
+	// Hearths the route chooses (1 = on, the route profiles only): see eval FREE_HEARTH_GAIN_SEC.
+	("freeHearth", 1.0),
+	// Tauren's racial Plainsrunning (1 = on; model_for turns it on for Tauren route profiles): on
+	// foot out of combat, +1% run speed every 5 s to +30% (plainsrunning_sec).
+	("plainsrunning", 0.0),
+	// Deathskips (1 = on: `--deathskips`, off by default; the route profiles only): a leg may die near
+	// where it starts and go on from the graveyard the game resurrects at (eval DEATHSKIP_GAIN_SEC).
+	// deathskipSec: being killed, releasing and the Spirit Healer, an estimate (~30 s pulling mobs to
+	// die to, ~30 s the healer). deathskipLevel: the highest level a route deathskips at, Forever's
+	// last without resurrection sickness (Polestar's death helper, QoL/Death.lua: none through 10,
+	// then 600 s); above it each second of sickness costs sicknessSlow seconds (the debuff slows
+	// kills; walking, flights and talks lose nothing).
+	("deathskips", 0.0),
+	("deathskipSec", 60.0),
+	("deathskipLevel", 10.0),
+	("sicknessSlow", 0.5),
 ];
+
+/// Plainsrunning (the game's data: spell 1259918, a 1 s periodic trigger with values 5 and 30, its
+/// stacking speed aura 1299038 +1% per stack; Fitz's recorded trails on a Tauren, 2026-10-23: the
+/// run speed climbs from 7.00 by 0.07 every 5.0 s (median of 109 steps; the first after 4-5 s) to
+/// 9.10, and is back at 7.00 after standing still): seconds per stack, speed per stack, stacks.
+pub const PLAINS_STEP_SEC: f64 = 5.0;
+pub const PLAINS_STACK: f64 = 0.01;
+pub const PLAINS_STACKS: f64 = 30.0;
+
+/// Seconds of an on-foot walk that takes `base` seconds at the run speed, for a character whose
+/// speed climbs with Plainsrunning from the start of the walk (each walk starts at no stack: a stop
+/// at a quest giver, a fight or a lift resets it).
+pub fn plainsrunning_sec(base: f64) -> f64 {
+	if base <= 0.0 || !base.is_finite() {
+		return base;
+	}
+	// Run-speed seconds covered by the end of stack k: d(k) = step * (k + stack * k (k - 1) / 2).
+	let (st, a) = (PLAINS_STEP_SEC, PLAINS_STACK);
+	let d = |k: f64| st * (k + a * k * (k - 1.0) / 2.0);
+	// The last whole stack reached: d(k) <= base, k <= stacks.
+	let qa = st * a / 2.0;
+	let qb = st * (1.0 - a / 2.0);
+	let k = ((-qb + (qb * qb + 4.0 * qa * base).sqrt()) / (2.0 * qa)).floor().clamp(0.0, PLAINS_STACKS);
+	let k = if d(k + 1.0) <= base && k < PLAINS_STACKS { k + 1.0 } else { k };
+	st * k + (base - d(k)) / (1.0 + a * k)
+}
 
 /// Kill-speed priors by class (params.js CLASS_FACTOR; lower is faster).
 pub const CLASS_FACTOR: &[(&str, f64)] = &[("Warrior", 1.15), ("Paladin", 1.1), ("Hunter", 0.8), ("Rogue", 1.0), ("Priest", 1.05), ("Shaman", 1.0), ("Mage", 0.9), ("Warlock", 0.85), ("Druid", 1.0)];
@@ -81,9 +135,12 @@ pub struct Params {
 	pub quest_xp_scale: f64,
 	pub quest_est_scale: f64,
 	pub flight_overhead: f64,
+	/// Taxi speed, yd/s.
+	pub flight_speed: f64,
 	pub transport_wait: f64,
 	pub hearth_cast: f64,
 	pub hearth_cooldown: f64,
+	pub hearth_margin: f64,
 	pub level_overhead: f64,
 	pub grind_eff: f64,
 	pub grind_weight: f64,
@@ -93,6 +150,7 @@ pub struct Params {
 	pub wasted_accept: f64,
 	pub gate_gap: f64,
 	pub danger_gap: f64,
+	pub work_gap: f64,
 	pub death_risk: f64,
 	pub rested_share: f64,
 	pub train_sec: f64,
@@ -102,6 +160,17 @@ pub struct Params {
 	pub feasible: bool,
 	/// Along credit: kills of open quests' kill objectives on walks that pass their site.
 	pub along: bool,
+	/// Pooled kills: other open objectives' mobs met at a kill work's overlapping ground (pool).
+	pub pool: bool,
+	/// Hearths the route chooses where no v1 hearth line is (route profiles).
+	pub free_hearth: bool,
+	/// Tauren's Plainsrunning on walks on foot (plainsrunning_sec).
+	pub plainsrunning: bool,
+	/// Deathskips (eval Evaluator::deathskip).
+	pub deathskips: bool,
+	pub deathskip_sec: f64,
+	pub deathskip_level: f64,
+	pub sickness_slow: f64,
 }
 
 impl Params {
@@ -130,9 +199,11 @@ impl Params {
 			quest_xp_scale: get("questXpScale"),
 			quest_est_scale: get("questEstScale"),
 			flight_overhead: get("flightOverhead"),
+			flight_speed: get("flightSpeed"),
 			transport_wait: get("transportWait"),
 			hearth_cast: get("hearthCast"),
 			hearth_cooldown: get("hearthCooldown"),
+			hearth_margin: get("hearthMargin"),
 			level_overhead: get("levelOverhead"),
 			grind_eff: get("grindEff"),
 			grind_weight: get("grindWeight"),
@@ -142,6 +213,7 @@ impl Params {
 			wasted_accept: get("wastedAccept"),
 			gate_gap: get("gateGap"),
 			danger_gap: get("dangerGap"),
+			work_gap: get("workGap"),
 			death_risk: get("deathRisk"),
 			rested_share: get("restedShare"),
 			train_sec: get("trainSec"),
@@ -150,6 +222,13 @@ impl Params {
 			spots: get("spots") > 0.0,
 			feasible: get("feasible") > 0.0,
 			along: get("along") > 0.0,
+			pool: get("pool") > 0.0,
+			free_hearth: get("freeHearth") > 0.0,
+			plainsrunning: get("plainsrunning") > 0.0,
+			deathskips: get("deathskips") > 0.0,
+			deathskip_sec: get("deathskipSec"),
+			deathskip_level: get("deathskipLevel"),
+			sickness_slow: get("sicknessSlow"),
 		}
 	}
 

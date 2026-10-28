@@ -7,7 +7,8 @@
 // has thousands of icons, a route shows a few dozen at a time.
 //
 //   const atlas = new PinAtlas(gl, { color: (token) => css, onChange });
-//   atlas.cell({ icon: { kind, key } | null, glyph: 'icon-kill', tint: 'danger' }) -> index
+//   atlas.cell({ icon: { kind, key } | null, glyph: 'icon-kill', tint: 'danger', bare }) -> index
+//   (bare: the icon alone, outlined, no disc: the Quest marks layer's game marks)
 //   atlas.ARROW                         // the arrow's cell
 //   atlas.tex, atlas.cols, atlas.rows   // for MarkerLayer
 
@@ -21,6 +22,7 @@ const R = 30;          // the disc
 const INSET = 25;      // a square icon's circle mask
 const GLYPH = 34;      // a glyph's size in the disc
 const CUT = 40;        // a cut-out ui icon's size in the disc
+const BARE = 50;       // a bare icon's size in its cell
 
 // Image loads shared by every cell: url -> Promise<HTMLImageElement | null>.
 const images = new Map();
@@ -98,7 +100,7 @@ export class PinAtlas {
 
 	// The cell of a pin, drawn now with what has loaded and again as the rest arrives.
 	cell(pin) {
-		const key = `${pin.icon ? iconUrl(pin.icon) : ''}|${pin.glyph}|${pin.tint}`;
+		const key = `${pin.icon ? iconUrl(pin.icon) : ''}|${pin.glyph}|${pin.tint}|${pin.bare ? 'bare' : ''}`;
 		let i = this.cells.get(key);
 		if (i !== undefined) {
 			this.cells.delete(key);
@@ -122,17 +124,8 @@ export class PinAtlas {
 		const icon = iconU ? ready(iconU) : null;
 		const glyph = ready(glyphU);
 		const g = this._begin();
-		g.beginPath();
-		g.arc(CELL / 2, CELL / 2, R, 0, Math.PI * 2);
-		g.fillStyle = this.color('pin-ground');
-		g.globalAlpha = 0.92;
-		g.fill();
-		g.globalAlpha = 1;
-		g.lineWidth = 1.5;
-		g.strokeStyle = this.color('border');
-		g.stroke();
-		if (icon) this._icon(g, icon, isSquare(pin.icon));
-		else if (glyph) this._glyph(g, glyph, this.color(pin.tint || 'textDim'), GLYPH);
+		if (pin.bare && icon) this._bare(g, icon);
+		else this._disc(g, icon, glyph, pin);
 		this._upload(i);
 		// Redraw once what was missing has settled (the icon, else the glyph).
 		const pending = [];
@@ -148,6 +141,47 @@ export class PinAtlas {
 				});
 			});
 		}
+	}
+
+	// A game texture as it is (a quest mark), BARE px, pixels kept sharp, on a
+	// dark outline and drop shadow so it reads on any ground.
+	_bare(g, img) {
+		const s = BARE / Math.max(img.width, img.height);
+		const w = img.width * s, h = img.height * s;
+		const x = (CELL - w) / 2, y = (CELL - h) / 2;
+		const t = this.tint.getContext('2d');
+		t.clearRect(0, 0, CELL, CELL);
+		t.imageSmoothingEnabled = false;
+		t.drawImage(img, x, y, w, h);
+		t.imageSmoothingEnabled = true;
+		t.globalCompositeOperation = 'source-in';
+		t.fillStyle = this.color('scrim');
+		t.fillRect(0, 0, CELL, CELL);
+		t.globalCompositeOperation = 'source-over';
+		g.save();
+		g.shadowColor = 'rgba(0, 0, 0, 0.85)';
+		g.shadowBlur = 5;
+		g.shadowOffsetY = 1.5;
+		for (const [dx, dy] of [[-2, 0], [2, 0], [0, -2], [0, 2], [-1.5, -1.5], [1.5, -1.5], [-1.5, 1.5], [1.5, 1.5]]) g.drawImage(this.tint, dx, dy);
+		g.restore();
+		g.imageSmoothingEnabled = false;
+		g.drawImage(img, x, y, w, h);
+		g.imageSmoothingEnabled = true;
+	}
+
+	// The pin disc: the icon in it, else the verb's glyph tinted.
+	_disc(g, icon, glyph, pin) {
+		g.beginPath();
+		g.arc(CELL / 2, CELL / 2, R, 0, Math.PI * 2);
+		g.fillStyle = this.color('pin-ground');
+		g.globalAlpha = 0.92;
+		g.fill();
+		g.globalAlpha = 1;
+		g.lineWidth = 1.5;
+		g.strokeStyle = this.color('border');
+		g.stroke();
+		if (icon) this._icon(g, icon, isSquare(pin.icon));
+		else if (glyph) this._glyph(g, glyph, this.color(pin.tint || 'textDim'), GLYPH);
 	}
 
 	_icon(g, img, square) {

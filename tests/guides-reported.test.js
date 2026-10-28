@@ -1043,14 +1043,18 @@ const STRANGLETHORN_HORDE = 'forever/horde/30-40/02-stranglethorn-vale.guide';
 const TANARIS_ALLIANCE = 'forever/alliance/40-50/04-tanaris.guide';
 
 test('#213: quests whose giver the route already stands at are taken there, not on a walk back', { skip }, () => {
-	for (const [guide, quest, withGoal, what] of [
-		[TIRISFAL, 365, is('accept', 590), "Calvin's duel at Solliden"],
-		[TANARIS_ALLIANCE, 2781, is('accept', 2875), "Andre Firebeard's poster at Steamwheedle Port"],
-		[STRANGLETHORN_HORDE, 192, is('turnin', 191), "Panther Mastery's second turn-in"],
+	// Each case: the quest, and the goals of a step at its giver the route stands at, any one of which may
+	// hold its accept. Simmer stands beside Calvin at Solliden: Fields of Grief at either pass by him.
+	for (const [guide, quest, withGoals, what] of [
+		[TIRISFAL, 365, [is('accept', 590), is('accept', 8)], "Calvin's duel at Solliden or Calvin's letter on the walk in from Deathknell"],
+		[TANARIS_ALLIANCE, 2781, [is('accept', 2875)], "Andre Firebeard's poster at Steamwheedle Port"],
+		[STRANGLETHORN_HORDE, 192, [is('turnin', 191)], "Panther Mastery's second turn-in"],
 	]) {
 		const list = goals(guide);
 		const take = at(list, `${guide}: accept ${quest}`, is('accept', quest));
-		assert.equal(list[take].step, list[at(list, `${guide}: ${what}`, withGoal)].step, `${guide}: ${quest} is taken at ${what}`);
+		const steps = withGoals.map((p) => list.findIndex(({ goal }) => p(goal))).filter((i) => i >= 0).map((i) => list[i].step);
+		assert.ok(steps.length > 0, `${guide}: ${what} is in the guide`);
+		assert.ok(steps.includes(list[take].step), `${guide}: ${quest} is taken at ${what}`);
 	}
 });
 
@@ -2643,7 +2647,7 @@ test('Alliance: a quest objective that opens its step leads the arrow to the obj
 		['forever/alliance/03-darkshore.guide', 2118, { npc: 2164 }], // Plagued Lands: Rabid Thistle Bears
 		['forever/alliance/40-50/03-feralas.guide', 2845, { event: 2845 }], // Wandering Shay: Rockbiter's camp
 		['forever/alliance/dwarf-gnome/01-dun-morogh.guide', 1783, { npc: 6177 }], // The Tome of Divinity: Narm Faulk
-		['forever/alliance/human/01-elwynn-forest.guide', 1786, { npc: 6172 }], // The Tome of Divinity: Henze Faulk
+		['forever/alliance/04-redridge-mountains.guide', 1786, { npc: 6172 }], // The Tome of Divinity: Henze Faulk, on the road east to Redridge
 	]) {
 		const list = goals(file);
 		const { goal } = list[at(list, `complete ${quest}`, is('complete', quest))];

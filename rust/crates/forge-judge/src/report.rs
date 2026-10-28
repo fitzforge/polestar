@@ -39,7 +39,13 @@ pub struct Measures {
 	pub deaths: usize,
 	pub trains: usize,
 	pub train_trips: usize,
+	/// Minutes on `level` goals (gmeasure.js: their time, travel to the camp included).
 	pub grind_min: f64,
+	/// The level model's grinding to `to`, every goal's (its evaluator's `grind_sec`): what the walk
+	/// grinds, written or not. With a model that gives no grind (a recorded JS walk), `grind_min`.
+	pub grind_all_min: f64,
+	/// The part of `grind_all_min` on `level` goals: the grind a step tells the player to do.
+	pub grind_shown_min: f64,
 	/// The most quests held at once along the walk (accepts less turn-ins).
 	pub log_peak: usize,
 }
@@ -52,6 +58,24 @@ fn d(a: Option<WPt>, b: Option<WPt>) -> f64 {
 	match (a, b) {
 		(Some(a), Some(b)) if a.c == b.c => (a.wx - b.wx).hypot(a.wy - b.wy),
 		_ => f64::INFINITY,
+	}
+}
+
+/// The level model's grind along `goals`, in minutes: (all of it, the part `level` goals write). With no
+/// goal carrying the model's grind (a recorded JS walk), both are `fallback` (the `level` goals' time).
+pub fn grind_split<'a>(goals: impl IntoIterator<Item = &'a WalkGoal>, fallback: f64) -> (f64, f64) {
+	let (mut modelled, mut all, mut shown) = (false, 0.0, 0.0);
+	for g in goals.into_iter().filter(|g| g.grind.is_finite()) {
+		modelled = true;
+		all += g.grind;
+		if g.t == "level" {
+			shown += g.grind;
+		}
+	}
+	if modelled {
+		((all / 60.0).round(), (shown / 60.0).round())
+	} else {
+		(fallback, fallback)
 	}
 }
 
@@ -112,6 +136,7 @@ pub fn measures(j: &crate::walk::Judged, to: f64) -> Measures {
 		}
 	}
 	let s = &j.returns.summary;
+	let (grind_all_min, grind_shown_min) = grind_split(goals.iter().copied(), (grind / 60.0).round());
 	Measures {
 		to,
 		hours: (j.walk.hours * 10.0).round() / 10.0,
@@ -131,6 +156,8 @@ pub fn measures(j: &crate::walk::Judged, to: f64) -> Measures {
 		trains,
 		train_trips: trips,
 		grind_min: (grind / 60.0).round(),
+		grind_all_min,
+		grind_shown_min,
 		log_peak: peak,
 	}
 }
@@ -260,9 +287,13 @@ pub fn stream_goals(doc: &serde_json::Value) -> Vec<WalkGoal> {
 			time: 0.0,
 			lvl_after: g["lvlAfter"].as_f64().unwrap_or(f64::NAN),
 			time_after: 0.0,
+			grind: f64::NAN,
 			pos: w.or(last),
 			along: None,
 			label: None,
+			item: None,
+			spots: Vec::new(),
+			class: false,
 		});
 	}
 	out
@@ -325,7 +356,7 @@ pub fn honest_sum(findings: &[Finding], chain: &FxHashSet<String>) -> BTreeMap<S
 }
 
 /// honest-diff.js's key: rule and reason less its distances.
-fn diff_key(f: &Finding) -> String {
+pub fn diff_key(f: &Finding) -> String {
 	let r = regex_lite_replace(&f.reason);
 	format!("{} {r}", f.rule)
 }
@@ -367,6 +398,11 @@ fn regex_lite_replace(r: &str) -> String {
 /// honest-diff.js: distinct (rule, reason) fail findings on the chain v1's findings do not have, with the
 /// first place each is met.
 pub fn honest_new(findings: &[Finding], v1: &[Finding], chain: &FxHashSet<String>, rule: Option<&str>) -> Vec<String> {
+	honest_new_findings(findings, v1, chain, rule).into_iter().map(|f| format!("{}:{} {}: {}", f.guide.trim_start_matches("forever/"), f.line, f.title, f.reason)).collect()
+}
+
+/// [`honest_new`]'s findings themselves (the first of each key).
+pub fn honest_new_findings<'a>(findings: &'a [Finding], v1: &[Finding], chain: &FxHashSet<String>, rule: Option<&str>) -> Vec<&'a Finding> {
 	let have: FxHashSet<String> = v1.iter().filter(|f| f.severity == Severity::Fail).map(diff_key).collect();
 	let mut seen: FxHashSet<String> = FxHashSet::default();
 	let mut out = Vec::new();
@@ -378,7 +414,7 @@ pub fn honest_new(findings: &[Finding], v1: &[Finding], chain: &FxHashSet<String
 		if have.contains(&k) || !seen.insert(k) {
 			continue;
 		}
-		out.push(format!("{}:{} {}: {}", f.guide.trim_start_matches("forever/"), f.line, f.title, f.reason));
+		out.push(f);
 	}
 	out
 }
@@ -423,6 +459,9 @@ pub struct Inputs {
 	pub along_walked: bool,
 	/// Run v1's player-report guide tests and lint on v1 and each written tree (seed.rs).
 	pub checks: bool,
+	/// Hours and levels from the routes stage's model ([`SimLevels::route`]: the walk store, the route
+	/// profile's accept and bag rules, written travel lines priced); false: the gate's (JS parity).
+	pub route_model: bool,
 }
 
 /// The seed tests and lint on one guides folder.
@@ -489,9 +528,53 @@ pub struct Output {
 	pub starts: Vec<StartReport>,
 }
 
-/// The report for every start (the forge `report` stage).
+/// The report for every start (the forge `report` stage): each start on its own thread (a start loads
+/// its own data and knowledge base, the value model is per thread), then v1's checks; starts in input order.
 #[cfg(feature = "native")]
 pub fn run(inp: &Inputs) -> Result<Output, String> {
+	let mut jobs: Vec<Option<&StartInput>> = inp.starts.iter().map(Some).collect();
+	if inp.checks {
+		jobs.push(None);
+	}
+	enum Done {
+		Start(String, Option<String>, Box<StartReport>),
+		V1(Checks),
+	}
+	let walks = std::sync::Mutex::new(rustc_hash::FxHashMap::default());
+	let one = |job: &Option<&StartInput>| -> Result<Done, String> {
+		match job {
+			Some(s) => start_report(inp, s, &walks).map(|(f, h, r)| Done::Start(f, h, Box::new(r))),
+			None => checks(&inp.v1, inp).map(Done::V1),
+		}
+	};
+	let done: Vec<Done> = {
+		use rayon::prelude::*;
+		jobs.par_iter().map(one).collect::<Result<_, String>>()?
+	};
+	let mut world_hashes = BTreeMap::new();
+	let mut starts = Vec::new();
+	let mut v1_checks = None;
+	for d in done {
+		match d {
+			Done::Start(f, h, r) => {
+				world_hashes.insert(f, h);
+				starts.push(*r);
+			}
+			Done::V1(c) => v1_checks = Some(c),
+		}
+	}
+	let meta: serde_json::Value = std::fs::read(inp.data_dir.join("meta.json")).ok().and_then(|b| serde_json::from_slice(&b).ok()).unwrap_or_default();
+	let data_built = serde_json::json!({ "builtAt": meta["builtAt"], "sources": meta["sources"] });
+	Ok(Output { sources: Sources { inputs: inp.clone(), data_built, world_hashes }, v1_checks, starts })
+}
+
+/// The walk stores loaded so far, by faction (every start of a faction shares one).
+#[cfg(feature = "native")]
+type WalksCache = std::sync::Mutex<rustc_hash::FxHashMap<String, Option<std::sync::Arc<forge_sim::WalkTable>>>>;
+
+/// One start's report -> (its faction, its world's data hash, the report).
+#[cfg(feature = "native")]
+fn start_report(inp: &Inputs, s: &StartInput, walks: &WalksCache) -> Result<(String, Option<String>, StartReport), String> {
 	use crate::honest::{self, HonestOpts, PackRun};
 	use crate::walk::{judge_walk, JudgeOpts};
 	let gdata = forge_guide::data::load_data(&inp.data_dir)?;
@@ -504,72 +587,64 @@ pub fn run(inp: &Inputs) -> Result<Output, String> {
 			String::new()
 		}
 	};
-	let mut world_hashes = BTreeMap::new();
-	let mut starts = Vec::new();
-	for s in &inp.starts {
-		let route: serde_json::Value = serde_json::from_slice(&std::fs::read(&s.route).map_err(|e| format!("{}: {e}", s.route.display()))?).map_err(|e| format!("{}: {e}", s.route.display()))?;
-		let faction = route["faction"].as_str().ok_or_else(|| format!("{}: no faction", s.route.display()))?.to_string();
-		let race = route["start"].as_str().ok_or_else(|| format!("{}: no start", s.route.display()))?.to_string();
-		let fac = forge_core::Faction::parse(&faction).ok_or_else(|| format!("unknown faction {faction}"))?;
-		let world = forge_sim::load_world(&inp.sim_dir, fac)?;
-		world_hashes.insert(faction.clone(), world.data_hash.clone());
-		let params: Option<serde_json::Value> = std::fs::read(inp.sim_dir.join("params.json")).ok().and_then(|b| serde_json::from_slice(&b).ok());
-		let lv = SimLevels::new(&world, &race, params.as_ref())?;
-		let judge = |tree: &std::path::Path, to: f64| {
-			let mut jo = JudgeOpts::new(tree, &faction, &race, None, &inp.root);
-			jo.data_dir = inp.data_dir.clone();
-			jo.to = to;
-			jo.along_on_the_way = !inp.along_walked;
-			judge_walk(&jo, &lv)
-		};
-		let mut rows = Vec::new();
-		let mut chains: Vec<FxHashSet<String>> = Vec::new();
-		let mut written_goals = Vec::new();
-		for (name, tree) in [("v1", &inp.v1), ("written", &s.guides)] {
-			for to in [30.0, 61.0] {
-				let j = judge(tree, to)?;
-				if to == 61.0 {
-					chains.push(j.walk.chain.iter().cloned().collect());
-					if name == "written" {
-						written_goals = j.walk.goals.clone();
-					}
+	let route: serde_json::Value = serde_json::from_slice(&std::fs::read(&s.route).map_err(|e| format!("{}: {e}", s.route.display()))?).map_err(|e| format!("{}: {e}", s.route.display()))?;
+	let faction = route["faction"].as_str().ok_or_else(|| format!("{}: no faction", s.route.display()))?.to_string();
+	let race = route["start"].as_str().ok_or_else(|| format!("{}: no start", s.route.display()))?.to_string();
+	let fac = forge_core::Faction::parse(&faction).ok_or_else(|| format!("unknown faction {faction}"))?;
+	let world = forge_sim::load_world(&inp.sim_dir, fac)?;
+	let params: Option<serde_json::Value> = std::fs::read(inp.sim_dir.join("params.json")).ok().and_then(|b| serde_json::from_slice(&b).ok());
+	let lv = if inp.route_model { SimLevels::route(&world, &race, params.as_ref(), crate::levels::walks_for(walks, &inp.sim_dir, &world))? } else { SimLevels::new(&world, &race, params.as_ref())? };
+	let judge = |tree: &std::path::Path, to: f64| {
+		let mut jo = JudgeOpts::new(tree, &faction, &race, None, &inp.root);
+		jo.data_dir = inp.data_dir.clone();
+		jo.to = to;
+		jo.along_on_the_way = !inp.along_walked;
+		judge_walk(&jo, &lv)
+	};
+	let mut rows = Vec::new();
+	let mut chains: Vec<FxHashSet<String>> = Vec::new();
+	let mut written_goals = Vec::new();
+	for (name, tree) in [("v1", &inp.v1), ("written", &s.guides)] {
+		for to in [30.0, 61.0] {
+			let j = judge(tree, to)?;
+			if to == 61.0 {
+				chains.push(j.walk.chain.iter().cloned().collect());
+				if name == "written" {
+					written_goals = j.walk.goals.clone();
 				}
-				rows.push((name.to_string(), measures(&j, to)));
 			}
+			rows.push((name.to_string(), measures(&j, to)));
 		}
-		let run = PackRun { filter: None, faction: Some(faction.clone()), race: Some(race.clone()), classes: None };
-		let hv1 = honest::play_pack(&inp.v1, &gdata, kb.as_ref(), &run, &HonestOpts::legacy())?.findings;
-		let hw = honest::play_pack(&s.guides, &gdata, kb.as_ref(), &run, &HonestOpts::legacy())?.findings;
-		let warrior = |fs: &[Finding]| -> Vec<Finding> { fs.iter().filter(|f| f.cls.eq_ignore_ascii_case("WARRIOR")).cloned().collect() };
-		let stream_f = s.stream.clone().or_else(|| {
-			let p = s.route.to_string_lossy().into_owned();
-			p.strip_suffix(".json").map(|b| std::path::PathBuf::from(format!("{b}.judge-improved.json"))).filter(|f| f.exists())
-		});
-		let stream = match &stream_f {
-			Some(f) => {
-				let doc: serde_json::Value = serde_json::from_slice(&std::fs::read(f).map_err(|e| format!("{}: {e}", f.display()))?).map_err(|e| format!("{}: {e}", f.display()))?;
-				Some(stream_diff(&lv, &stream_goals(&doc), &written_goals, &title))
-			}
-			None => None,
-		};
-		starts.push(StartReport {
-			route: s.route.clone(),
-			guides: s.guides.clone(),
-			faction,
-			race,
-			rows,
-			honest_v1: honest_sum(&hv1, &chains[0]),
-			honest_written: honest_sum(&hw, &chains[1]),
-			honest_new: honest_new(&hw, &hv1, &chains[1], None),
-			honest_new_warrior_r1: honest_new(&warrior(&hw), &warrior(&hv1), &chains[1], Some("R1")),
-			stream,
-			checks: if inp.checks { Some(checks(&s.guides, inp)?) } else { None },
-		});
 	}
-	let meta: serde_json::Value = std::fs::read(inp.data_dir.join("meta.json")).ok().and_then(|b| serde_json::from_slice(&b).ok()).unwrap_or_default();
-	let data_built = serde_json::json!({ "builtAt": meta["builtAt"], "sources": meta["sources"] });
-	let v1_checks = if inp.checks { Some(checks(&inp.v1, inp)?) } else { None };
-	Ok(Output { sources: Sources { inputs: inp.clone(), data_built, world_hashes }, v1_checks, starts })
+	let run = PackRun { filter: None, faction: Some(faction.clone()), race: Some(race.clone()), classes: None };
+	let hv1 = honest::play_pack(&inp.v1, &gdata, kb.as_ref(), &run, &HonestOpts::legacy())?.findings;
+	let hw = honest::play_pack(&s.guides, &gdata, kb.as_ref(), &run, &HonestOpts::legacy())?.findings;
+	let warrior = |fs: &[Finding]| -> Vec<Finding> { fs.iter().filter(|f| f.cls.eq_ignore_ascii_case("WARRIOR")).cloned().collect() };
+	let stream_f = s.stream.clone().or_else(|| {
+		let p = s.route.to_string_lossy().into_owned();
+		p.strip_suffix(".json").map(|b| std::path::PathBuf::from(format!("{b}.judge-improved.json"))).filter(|f| f.exists())
+	});
+	let stream = match &stream_f {
+		Some(f) => {
+			let doc: serde_json::Value = serde_json::from_slice(&std::fs::read(f).map_err(|e| format!("{}: {e}", f.display()))?).map_err(|e| format!("{}: {e}", f.display()))?;
+			Some(stream_diff(&lv, &stream_goals(&doc), &written_goals, &title))
+		}
+		None => None,
+	};
+	let report = StartReport {
+		route: s.route.clone(),
+		guides: s.guides.clone(),
+		faction,
+		race,
+		rows,
+		honest_v1: honest_sum(&hv1, &chains[0]),
+		honest_written: honest_sum(&hw, &chains[1]),
+		honest_new: honest_new(&hw, &hv1, &chains[1], None),
+		honest_new_warrior_r1: honest_new(&warrior(&hw), &warrior(&hv1), &chains[1], Some("R1")),
+		stream,
+		checks: if inp.checks { Some(checks(&s.guides, inp)?) } else { None },
+	};
+	Ok((report.faction.clone(), world.data_hash.clone(), report))
 }
 
 /// report.md.

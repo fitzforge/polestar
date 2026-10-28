@@ -77,12 +77,16 @@ next forever/horde/02-the-barrens
 # Class quests at 10 (Thunder Bluff stop):
 # - Warrior: Veteran Uzzek (1505), continued in the Barrens guide.
 # - Shaman: Call of Fire (1523), continued in the Barrens guide.
-# - Hunter: The Hunter's Path (6065) and the taming chain at Bloodhoof (6061,
-#   6087, 6088: Tame Beast) to Training the Beast (6089, Beast Training),
-#   handed in on a flight back from the Crossroads.
+# - Hunter: the taming chain at Bloodhoof (6061, 6087, 6088: Tame Beast) on the
+#   last Bloodhoof visit (level 10 or more), taken straight from Yaw Sharpmane
+#   (the Thunder Bluff breadcrumb The Hunter's Path, 6065, is not needed), to
+#   Training the Beast (6089, Beast Training), handed to Holt Thunderhorn on
+#   Hunter Rise at the Thunder Bluff stop: no flight back from the Crossroads.
 # - Druid: Heeding the Call (5926) through the Great Bear Spirit in Moonglade
 #   to Body and Heart (6002) at the Moonkin Stone in the eastern pass, handed
-#   in on a flight back from the Crossroads.
+#   in on a flight back from the Crossroads. Druids bind at Thunder Bluff
+#   (Innkeeper Pala, who gives Heeding the Call) before Teleport: Moonglade and
+#   hearth back there, not to Bloodhoof and a walk up to Elder Rise.
 #
 # Class letters at 1: Grull Hawkwind's letter for each class (Simple Note
 # 3091 Warrior, Etched Note 3092 Hunter, Rune-Inscribed Note 3093 Shaman,
@@ -203,7 +207,8 @@ step Bloodhoof Village
   sethome "Bloodhoof Village" npc 6747  -- Innkeeper Kauth
   turnin 1656
   turnin 763                          -- Baine Bloodhoof
-  complete 96661 @44.92,61.67 live  -- Speak with Pyall Silentstride
+  train Cooking npc 3067              -- Pyall Silentstride: Camping 101 asks you to learn it
+  complete 96661 @44.92,61.67 live
   turnin 96661                        -- Pyall Silentstride
   accept 748                          -- Mull Thunderhorn
   accept 96130                        -- Yaw Sharpmane
@@ -381,6 +386,21 @@ step Bloodhoof Village
   accept 861                          -- Skorn Whitecloud
   train class
 
+step Yaw Sharpmane
+  only Hunter
+  zone Mulgore
+  tip Yaw Sharpmane stands at the north end of Bloodhoof Village. Tame with the Taming Rod: an Adult Plainstrider on the plains, a Prairie Stalker north of the village, a Swoop to the north-west.
+  accept 6061
+  kill 2956 quest 6061.1 "Tame Adult Plainstrider" -- Tame it with the Taming Rod
+  turnin 6061
+  accept 6087
+  kill 2959 quest 6087.1 "Tame Prairie Stalker" -- Tame it with the Taming Rod
+  turnin 6087
+  accept 6088
+  kill 2970 quest 6088.1 "Tame Swoop" -- Tame it with the Taming Rod
+  turnin 6088                         -- Tame Beast
+  accept 6089
+
 step Morin Cloudstalker
   turnin 764
   turnin 765
@@ -422,7 +442,7 @@ step Hunter Rise
   turnin 861                          -- Melor Stonehoof
   accept 860                          -- Melor Stonehoof: for Sergra Darkthorn at the Crossroads
   accept 1505 npc 3041 only Warrior   -- Torm Ragetotem
-  accept 6065 only Hunter             -- Kary Thunderhorn
+  turnin 6089 only Hunter             -- Holt Thunderhorn, beside Torm
 
 step Eylah Sunhorn
   zone Thunder Bluff
@@ -441,7 +461,8 @@ step Spirit Rise
 step Turak Runetotem
   only Druid
   zone Thunder Bluff
-  tip Innkeeper Pala on the central rise sends you to Turak on Elder Rise.
+  tip Innkeeper Pala on the central rise sends you to Turak on Elder Rise. Make Thunder Bluff your home with her first: the hearth from Moonglade brings you back here.
+  sethome "Thunder Bluff" npc 6746 only Druid -- Innkeeper Pala
   accept 5926
   turnin 5926
   accept 5922
@@ -459,26 +480,10 @@ step Moonglade
 step Back to Thunder Bluff
   only Druid
   zone Thunder Bluff
-  tip Hearth to Bloodhoof Village and head north to Elder Rise.
-  hearth "Bloodhoof Village"
+  tip Hearth to Thunder Bluff and cross to Elder Rise.
+  hearth "Thunder Bluff" only Druid
   turnin 5932                         -- Turak Runetotem
   accept 6002
-
-step Yaw Sharpmane
-  only Hunter
-  zone Mulgore
-  tip Head down to Bloodhoof Village and tame with the Taming Rod: an Adult Plainstrider on the plains, a Prairie Stalker north of the village, a Swoop to the north-west.
-  turnin 6065
-  accept 6061
-  kill 2956 quest 6061.1 "Tame Adult Plainstrider" -- Tame it with the Taming Rod
-  turnin 6061
-  accept 6087
-  kill 2959 quest 6087.1 "Tame Prairie Stalker" -- Tame it with the Taming Rod
-  turnin 6087
-  accept 6088
-  kill 2970 quest 6088.1 "Tame Swoop" -- Tame it with the Taming Rod
-  turnin 6088                         -- Tame Beast
-  accept 6089
 
 step The Moonkin Stone
   only Druid
@@ -497,10 +502,9 @@ step The Crossroads
   turnin 860                          -- Sergra Darkthorn
   turnin 886                          -- Tonga Runetotem
 
-step Class turn-ins in Thunder Bluff
-  only Hunter,Druid
+step Class turn-in in Thunder Bluff
+  only Druid
   zone Thunder Bluff
   fly "Thunder Bluff"
-  turnin 6089 only Hunter             -- Holt Thunderhorn, Hunter Rise
-  turnin 6002 only Druid              -- Turak Runetotem, Elder Rise
+  turnin 6002                         -- Turak Runetotem, Elder Rise
   fly "Crossroads"

@@ -249,3 +249,15 @@ fn r1_dock_is_walked_to() {
 	// R1 findings carry where the guide left the player.
 	assert!(rules_of(&far, "R1")[0].state.as_ref().is_some_and(|s| s.at.is_some()));
 }
+
+#[cfg(feature = "native")]
+#[test]
+#[ignore = "needs the built reference data in data/forever"]
+fn r1_a_class_teleport_goto_is_no_walk() {
+	// RevSkyH3 S6: a Druid's Teleport: Moonglade, written as the goto to where it lands, is not a walk
+	// from Durotar to Moonglade; the same goto without the teleport is.
+	let cast = play_real("step Boars\n  kill 3098 @52.0,10.0\n\nstep Moonglade\n  zone Moonglade\n  goto 56.3,32.5 \"Cast Teleport: Moonglade\"\n");
+	assert!(rules_of(&cast, "R1").is_empty(), "{cast:?}");
+	let walk = play_real("step Boars\n  kill 3098 @52.0,10.0\n\nstep Moonglade\n  zone Moonglade\n  goto 56.3,32.5 \"Moonglade\"\n");
+	assert!(!rules_of(&walk, "R1").is_empty(), "{walk:?}");
+}

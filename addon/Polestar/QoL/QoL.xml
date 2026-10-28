@@ -1,6 +1,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="QoL.lua"/>
 	<Script file="Data.lua"/>
+	<Script file="Keep.lua"/>
+	<Script file="Marks.lua"/>
+	<Script file="Space.lua"/>
 	<Script file="Buttons.lua"/>
 	<Script file="BagGlow.lua"/>
 	<Script file="Hearth.lua"/>
@@ -8,12 +11,16 @@
 	<Script file="XPMark.lua"/>
 	<Script file="Vendor.lua"/>
 	<Script file="Buy.lua"/>
+	<Script file="Restock.lua"/>
 	<Script file="Trainer.lua"/>
 	<Script file="Rewards.lua"/>
 	<Script file="Equip.lua"/>
+	<Script file="Wear.lua"/>
 	<Script file="Flight.lua"/>
 	<Script file="Bind.lua"/>
+	<Script file="Gossip.lua"/>
 	<Script file="Death.lua"/>
+	<Script file="Breath.lua"/>
 	<Script file="Toggles.lua"/>
 	<Script file="Social.lua"/>
 	<Script file="Riding.lua"/>

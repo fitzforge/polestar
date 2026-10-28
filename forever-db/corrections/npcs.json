@@ -217,6 +217,24 @@
 		},
 		"note": "Fallen Necromancer is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
 	},
+	"257196": {
+		"addSpawns": {
+			"2521": {
+				"f": "l",
+				"pts": [
+					[
+						56.66,
+						50.4
+					]
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature guid 21101604, map 2991 (3088.4, 1084.6)"
+		},
+		"note": "Zaal Stormshield (npc 257196), who drops the Skybreaker Bulwark for the Skyborne Warrior quest (94003), stands on the west side of the Shrine of Akir at Zephras Isle 56.66,50.4 (map 2521): the world database spawn converted with Seena Skybreaker and Sessaria Skystride as reference points. Our merged data had 36.05,33.53, far to the north-west. Replaces the map's points."
+	},
 	"259385": {
 		"set": {
 			"rank": 4

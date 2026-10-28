@@ -147,7 +147,7 @@ local function schedule()
 	if scheduled then return end
 	if C_Timer and C_Timer.After then
 		scheduled = true
-		C_Timer.After(0.01, function() scheduled = false; step() end)
+		ns.After(0.01, function() scheduled = false; step() end)
 	end
 end
 

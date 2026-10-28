@@ -7,7 +7,7 @@ References for `forge-judge/tests/engine_parity.rs` (`slice_*`) and `engine_rilu
   - Data: `../world/root/data/forever`.
 - `fx-warrior.json`, `fx-mage.json`: the same for engine_parity.rs's fixture guides (FIXTURES: skipto, when, only, along on Northshire quests), on the data slice.
 - `rilua-orc/`: `engine-program.js`'s Lua program of the Orc chain: `program.lua`, the compiled pack (`pack/`) and `files.json`. The repository and pack paths are written as `@REPO@` and `@PACK@`, and the test fills them in. rilua plays it against this checkout's addon files. Its trace must equal both the Rust replay and `orc.json` (lua5.1).
-- The JS and the addon: this checkout (rust-retire @ a8f669093).
-- Regenerate (not run in CI): `rust/tests/golden/engine/regen.sh`. It needs node, lua5.1 and cargo, and writes the fixtures through engine_parity's `fixtures_*` tests.
+- The JS and the addon: this checkout (ro-talkgoal after 2beb2ff98, the step rules of #741/#739: a train goal ticks only on a spell learned there, no window carry-over, a talk goal only on an act at that NPC).
+- Regenerate (not run in CI): `rust/tests/golden/engine/regen.sh`. It needs node, lua5.1 and cargo, and writes the fixture guides through the `judge` test target's `engine_parity::slice_fixtures_*` tests. The Lua program loads the addon by its TOC (QoL by `QoL/QoL.xml`) as it stands when regenerated: regenerate after adding addon files, or the replay leaves them out.
 
 Not CI-provable: the shipped and v2 chains on the full data (most of their quests are outside the slice), and the goal lines dropped from the clean slice.

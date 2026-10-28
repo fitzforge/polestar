@@ -31,9 +31,10 @@ options:
   --questie DIR          QuestieDB folder or the AddOns folder holding it (default: detected)
   --no-questie           build without QuestieDB
   --build V              wago.tools Classic Era build (default: newest cached)
-  --forever-build V      Forever build (wago: a cached one; client: must be the installed one)
+  --forever-build V      Forever build (wago, saved: a cached one; client: must be the installed one)
   --forever-tables S     client (default when a client is found: the installed client via
-                         forge-gamedata) or wago (the cached wago.tools CSVs)
+                         forge-gamedata), wago (the cached wago.tools CSVs) or saved (the client
+                         tables forge build saved under <sources>/client-tables)
   --wow DIR              World of Warcraft folder (default: $POLESTAR_WOW_DIR or detected)
   --product P            client product (default wow_classic_beta)
   --defs DIR             WoWDBDefs checkout (default: <sources>/wowdbdefs)
@@ -468,6 +469,7 @@ fn run() -> Result<(), Fail> {
 	});
 	o.forever_source = match get("--forever-tables").as_deref() {
 		Some("wago") => Source::Wago,
+		Some("saved") => Source::Saved,
 		Some("client") => Source::Client { wow: wow.ok_or("--forever-tables client: no World of Warcraft folder found; pass --wow")?, product, defs },
 		None => match wow {
 			Some(w) if defs.join("definitions").is_dir() => Source::Client { wow: w, product, defs },
@@ -476,7 +478,7 @@ fn run() -> Result<(), Fail> {
 				Source::Wago
 			}
 		},
-		Some(x) => return Err(usage(format!("--forever-tables {x}: client or wago"))),
+		Some(x) => return Err(usage(format!("--forever-tables {x}: client, wago or saved"))),
 	};
 	let out_dir = get("--out").map(abs).unwrap_or_else(|| root.join("data").join("forever"));
 	if let Some(c) = get("--corrections-private") {

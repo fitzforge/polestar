@@ -162,7 +162,7 @@ fn close_steep(meta: &Meta, c: &Cluster, s: &str) -> Result<(String, usize), Str
 /// entrance at them, and not on the cluster's border (where a neighbour's links may land). About a fifth of his
 /// floors; a player standing on one is snapped to a surface beside it as on any spot the maps lack.
 fn isolated(meta: &Meta, c: &Cluster, g: &Graph) -> Vec<bool> {
-	let cc = meta.c;
+	let cc = meta.c as i64;
 	let n2 = (cc * cc) as usize;
 	let mut used = vec![false; c.n0];
 	for r in 0..g.rows {
@@ -187,7 +187,7 @@ fn isolated(meta: &Meta, c: &Cluster, g: &Graph) -> Vec<bool> {
 			let layer = (l / 8) as i64 - 1;
 			let first = c.first_floor[t] as i64;
 			let target = if layer > 0 {
-				(first >= 0).then(|| (first + layer - 1) as usize)
+				Some((first + layer - 1) as usize).filter(|_| first >= 0)
 			} else if layer < 0 {
 				let h = c.z[u];
 				let mut best = (None, if c.val[t] != 0 { (c.z[t] - h).abs() } else { f32::INFINITY });

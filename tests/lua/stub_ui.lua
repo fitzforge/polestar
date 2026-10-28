@@ -709,6 +709,7 @@ function Compat.IsOnQuest() return false end
 function Compat.IsQuestReadyForTurnIn() return false end
 function Compat.GetZoneText() return "Elwynn Forest", "" end
 function Compat.IsOnTaxi() return false end
+function Compat.IsShiftKeyDown() return stub.keys.shift and true or false end
 function Compat.IsInInstance() return uistub.instance ~= nil, uistub.instance end
 function Compat.GetPlayerInfo() return uistub.player end
 function Compat.GetMapName(id) return MAPS[id] end

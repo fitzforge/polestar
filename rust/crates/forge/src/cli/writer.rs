@@ -8,12 +8,15 @@ use std::process::ExitCode;
 pub(super) const USAGE: &str = "usage: forge writer apply-route <route.json> --world <world-faction.json> --out <dir>
                            [--guides <dir>] [--data <dir>] [--root <checkout>] [--checkout <dir>] [--walks <file>]
                            [--format-0-3] [--no-engine] [--no-along] [--no-use] [--no-when] [--no-level]
+                           [--no-tips] [--no-warnings]
                            [--no-route-legs] [--no-repair]
 
 Copies the guides (default <root>/guides) to --out and rewrites the route's chain in the route's order:
 the guides' own lines move with their step's tips, added quests become accept, objective and turn-in
 steps, dropped quests' lines go, and each changed guide gets a comment block. Travel between steps is
-the route's own legs (walks, flights, rides, hearths).
+the route's own legs (walks, flights, rides, hearths). The faction's shared guides (from the Barrens or
+Westfall on) are written once, from the shared order of every route of the faction beside this one
+(routes/<Start>.json): the same files for every start (docs/forge/writer.md, \"One shared route\").
 
   --world          the simulator world the route's points index (world-horde.json, world-alliance.json)
   --walks          the walk file for walking yards (default walks-<faction>.bin beside --world)
@@ -26,6 +29,9 @@ the route's own legs (walks, flights, rides, hearths).
   --no-along, --no-use, --no-when, --no-level   leave out one feature: `along until` for work the route
                    walks past, `use` for item quests, `when onquest`/`when bound` guards, fractional
                    `level` targets
+  --no-tips        no notes on where a goal's NPC or object stands (upstairs, below ground, in a cave,
+                   under water) or that an NPC walks around
+  --no-warnings    no `Careful:` tips from the quest notes (ambushes, stealthed mobs, adds)
   --format-0-3     also `when group`, `task`/`cast`, `abandon`, `skipto` (guide pack format 5, Polestar 0.3.0)";
 
 pub fn main() -> ExitCode {
@@ -64,7 +70,7 @@ fn run(args: &[String]) -> Result<Result<(), String>, String> {
 				opt.insert(a, v.clone());
 				i += 2;
 			}
-			"--no-engine" | "--format-0-3" | "--no-along" | "--no-use" | "--no-when" | "--no-level" | "--no-route-legs" | "--no-repair" => {
+			"--no-engine" | "--format-0-3" | "--no-along" | "--no-use" | "--no-when" | "--no-level" | "--no-tips" | "--no-warnings" | "--no-route-legs" | "--no-repair" => {
 				opt.insert(a, String::new());
 				i += 1;
 			}
@@ -117,6 +123,8 @@ fn run(args: &[String]) -> Result<Result<(), String>, String> {
 			along: !opt.contains_key("--no-along"),
 			use_items: !opt.contains_key("--no-use"),
 			when: !opt.contains_key("--no-when"),
+			tips: !opt.contains_key("--no-tips"),
+			warnings: !opt.contains_key("--no-warnings"),
 		},
 	};
 	let ro = forge_writer::native::run_paths(&pin, &ropts)?;

@@ -71,12 +71,28 @@ pub fn json_gz(path: &Path) -> serde_json::Value {
 	serde_json::from_slice(&gunzip(path)).unwrap()
 }
 
+/// The calibration the JS references were made with: golden/sim/params.json, flights at 1 yd/s. The JS
+/// read a taxi edge's TaxiPath price (copper) as seconds; at 1 yd/s forge-sim reads v1's world's edges
+/// ([`v1_world_file`]) the same way (as forge-sim's own JS-parity test).
 pub fn params() -> serde_json::Value {
-	serde_json::from_slice(&std::fs::read(golden().join("sim/params.json")).unwrap()).unwrap()
+	let mut p: serde_json::Value = serde_json::from_slice(&std::fs::read(golden().join("sim/params.json")).unwrap()).unwrap();
+	p["calibrated"]["flightSpeed"] = serde_json::json!({ "mean": 1.0 });
+	p
+}
+
+/// The golden sim world the JS references were made on: v1's (taxi edges holding the TaxiPath price,
+/// golden/sim/world-<faction>-v1) where the refreshed world differs, else world/expected's.
+pub fn v1_world_file(f: forge_core::Faction) -> PathBuf {
+	let v1 = golden().join(format!("sim/world-{}-v1.json.gz", f.lower()));
+	if v1.is_file() {
+		v1
+	} else {
+		golden().join(format!("world/expected/world-{}.json.gz", f.lower()))
+	}
 }
 
 pub fn world(f: forge_core::Faction) -> forge_world::World {
-	forge_world::World::from_json(&gunzip(&golden().join(format!("world/expected/world-{}.json.gz", f.lower())))).unwrap()
+	forge_world::World::from_json(&gunzip(&v1_world_file(f))).unwrap()
 }
 
 /// `v` with every string's `<prefix>/` cut (file names relative to a folder, as the references hold them).

@@ -252,3 +252,26 @@ emit({ below = s.below, from = s.from.level, now = s.now.level })"#,
 	.remove(0);
 	assert_eq!(low, json!({ "below": 10, "from": 10, "now": 7 }), "below the guide's minLevel: from there");
 }
+
+#[test]
+fn pace_the_route_from_the_live_step_to_the_next_level_target_says_how_many_bars_short_or_on_pace() {
+	let out = lua(&[
+		GUIDE,
+		r#"local E = Polestar.Engine
+local target, frac = 11, nil
+E.GetGuide = function() return { id = "sample" } end
+E.GetLiveStep = function() return 1 end
+E.LevelTarget = function() return target, 3, frac end
+local p = { level = 10, xp = 0, xpMax = 2000, class = "SHAMAN", race = "Orc", faction = "Horde" }
+local short = Lv.Pace(p)
+target, frac = 10, 0.4
+local onPace = Lv.Pace(p)
+E.LevelTarget = function() return nil end
+emit({ short = short, onPace = onPace, none = Lv.Pace(p) == nil })"#,
+	]
+	.join("\n"));
+	// Steps 1 and 2 for an Orc Shaman: quest 1's 1000 XP of the 2000 to level, so level 10.5 by step 3.
+	assert_eq!(out[0]["short"], json!({ "target": 11, "step": 3, "reach": 10.5, "bars": 10 }));
+	assert_eq!(out[0]["onPace"]["bars"], 0, "a target of 10.4 is met");
+	assert_eq!(out[0]["none"], true);
+}

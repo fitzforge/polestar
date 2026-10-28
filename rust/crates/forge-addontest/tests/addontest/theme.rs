@@ -946,3 +946,21 @@ fn skins_forever_s_progress_bar_draws_its_own_fill_to_the_bar_s_value_the_frame_
 	assert_eq!(out["textTop"], -8, "the lit goal's lines start 8 below its top, not 4");
 	assert_eq!(out["hearth"], json!({ "own": 1, "fill": false, "pad": 12, "lit": 4 }), "Hearth: the bar's own fill back, its own sizes");
 }
+
+#[test]
+fn text_size_scales_every_role_at_once_apart_from_the_window_scale_within_80_to_140_percent() {
+	let out = run(r#"
+		local fs = UIParent:CreateFontString()
+		T.Font(fs, "title")
+		local _, base = fs:GetFont()
+		Polestar.Set("ui.textSize", 1.2)
+		local _, bigger = fs:GetFont()
+		local _, spec = T.FontSpec("title")
+		Polestar.Set("ui.textSize", 3)
+		local _, capped = T.FontSpec("title")
+		emit({ grown = bigger / base, spec = spec == bigger, capped = capped / base, scale = Polestar.Get("ui.scale") })"#);
+	assert!((out["grown"].as_f64().unwrap() - 1.2).abs() < 0.05, "a text already drawn grows with the setting: {}", out["grown"]);
+	assert_eq!(out["spec"], true);
+	assert!((out["capped"].as_f64().unwrap() - 1.4).abs() < 0.05, "at most 140%: {}", out["capped"]);
+	assert_eq!(out["scale"], 1, "the window scale is left alone");
+}

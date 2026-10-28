@@ -328,8 +328,9 @@ fn route_rules(doc: &Value) -> Vec<Rule<'_>> {
 fn route_fixes(inp: &Inputs) -> FileLedger {
 	let label = inp.route_fixes.strip_prefix(inp.checkout).map_or_else(|_| inp.route_fixes.display().to_string(), |p| p.display().to_string());
 	let Some(doc) = read_json(inp.route_fixes) else { return FileLedger { file: label, rows: Vec::new(), skipped: Some("unreadable".into()) } };
-	// Per start: the quests it can do (in its route or its skip ledger), and its notes.
-	let mut starts: Vec<(String, std::collections::HashSet<u64>, Vec<String>)> = Vec::new();
+	// Per start: the quests it can do (in its route or its skip ledger), its notes, and its order.
+	type Order = Vec<(String, u64, Option<u64>)>;
+	let mut starts: Vec<(String, std::collections::HashSet<u64>, Vec<String>, Order)> = Vec::new();
 	for s in &inp.starts {
 		let Some(r) = read_json(&inp.routes_dir.join(format!("{s}.json"))) else { continue };
 		let mut qs: std::collections::HashSet<u64> = r["order"].as_array().into_iter().flatten().filter_map(|e| e["q"].as_u64()).collect();
@@ -338,21 +339,34 @@ fn route_fixes(inp: &Inputs) -> FileLedger {
 			qs.extend(list.iter().filter_map(|e| e["q"].as_u64()));
 		}
 		let notes = r["feasibility"].as_array().into_iter().flatten().filter_map(|e| e["note"].as_str().map(String::from)).collect();
-		starts.push((s.clone(), qs, notes));
+		let order = r["order"].as_array().into_iter().flatten().filter_map(|e| Some((e["t"].as_str()?.to_string(), e["q"].as_u64()?, e["task"].as_u64()))).collect();
+		starts.push((s.clone(), qs, notes, order));
 	}
 	if starts.is_empty() {
 		return FileLedger { file: label, rows: Vec::new(), skipped: Some("no routes were cut".into()) };
 	}
+	// Where a rule's step `[kind, quest, task?]` is in a route's order.
+	let at = |order: &Order, s: &Value| -> Option<usize> {
+		let (k, q) = step(s)?;
+		let t = s.get(2).and_then(Value::as_u64);
+		order.iter().position(|x| x.0 == k && x.1 == q && (t.is_none() || x.2 == t))
+	};
 	let mut rows = Vec::new();
 	for rule in route_rules(&doc) {
+		// An order rule (a before b: pairs, after) the cut's own order breaks (a search edit or a
+		// pickup moved one side: Benedict's Marines and 830, after[14]).
+		let ordered = [".pairs[", ".after["].iter().any(|s| rule.at.contains(s));
 		let mut per = BTreeMap::new();
-		for (s, qs, notes) in &starts {
+		for (s, qs, notes, order) in &starts {
 			let here = rule.quests.iter().any(|q| qs.contains(q));
 			let broken = rule.left_out.as_ref().is_some_and(|l| notes.iter().any(|n| n.contains(l.as_str())));
+			let route_breaks = ordered && matches!((at(order, &rule.entry["a"]), at(order, &rule.entry["b"])), (Some(a), Some(b)) if b < a);
 			per.insert(
 				s.clone(),
 				if broken {
 					"left out"
+				} else if route_breaks {
+					"broken"
 				} else if here {
 					"applied"
 				} else {
@@ -362,15 +376,23 @@ fn route_fixes(inp: &Inputs) -> FileLedger {
 			);
 		}
 		let left: Vec<&String> = per.iter().filter(|(_, v)| *v == "left out").map(|(k, _)| k).collect();
-		let state = if !left.is_empty() {
+		let broke: Vec<&String> = per.iter().filter(|(_, v)| *v == "broken").map(|(k, _)| k).collect();
+		let state = if !left.is_empty() || !broke.is_empty() {
 			"left out"
 		} else if per.values().any(|v| v == "applied") {
 			"applied"
 		} else {
 			"not for these starts"
 		};
-		let detail =
-			if left.is_empty() { String::new() } else { format!("v1's order breaks it at {}: the cut does not keep it there", left.iter().map(|s| s.as_str()).collect::<Vec<_>>().join(", ")) };
+		let names = |v: &[&String]| v.iter().map(|s| s.as_str()).collect::<Vec<_>>().join(", ");
+		let mut parts = Vec::new();
+		if !left.is_empty() {
+			parts.push(format!("v1's order breaks it at {}: the cut does not keep it there", names(&left)));
+		}
+		if !broke.is_empty() {
+			parts.push(format!("the cut's order breaks it at {}", names(&broke)));
+		}
+		let detail = parts.join("; ");
 		let mut r = row(rule.at, state, issue_of(rule.entry), detail, state == "left out");
 		r.starts = per;
 		rows.push(r);
@@ -656,6 +678,45 @@ mod tests {
 		assert_eq!(st("deliberate.pairs[2]"), ("left out".into(), true));
 		assert_eq!(st("overrides.skip[0]"), ("applied".into(), false));
 		assert_eq!(f.rows.iter().find(|r| r.at == "deliberate.pairs[2]").unwrap().issues, vec![416]);
+		std::fs::remove_dir_all(&dir).unwrap();
+	}
+
+	#[test]
+	fn an_order_rule_the_cut_s_own_order_breaks_is_left_out() {
+		// after[14] on canon3: the search moved 784's second task (Benedict) after 830's accept.
+		let dir = std::env::temp_dir().join(format!("forge-ledger-after-{}", std::process::id()));
+		let routes = dir.join("routes");
+		std::fs::create_dir_all(&routes).unwrap();
+		let fixes = dir.join("route-fixes.json");
+		std::fs::write(
+			&fixes,
+			json!({ "deliberate": { "after": [
+				{ "a": ["task", 784, 0], "b": ["accept", 830], "why": "Benedict's key" },
+				{ "a": ["task", 784, 1], "b": ["accept", 830], "why": "Benedict's key" } ] } })
+			.to_string(),
+		)
+		.unwrap();
+		let order = json!([{ "t": "accept", "q": 784 }, { "t": "task", "q": 784, "task": 0 }, { "t": "accept", "q": 830 }, { "t": "task", "q": 784, "task": 1 }]);
+		std::fs::write(routes.join("Orc.json"), json!({ "order": order, "feasibility": [] }).to_string()).unwrap();
+		let inp = Inputs {
+			checkout: &dir,
+			guides: &dir,
+			root: &dir,
+			data_root: None,
+			route_fixes: &fixes,
+			data_dir: &dir,
+			routes_dir: &routes,
+			written: &dir,
+			corrections: None,
+			starts: vec!["Orc".into()],
+			report_json: &dir.join("report.json"),
+		};
+		let f = route_fixes(&inp);
+		let row = |at: &str| f.rows.iter().find(|r| r.at == at).unwrap();
+		assert_eq!((row("deliberate.after[0]").state.as_str(), row("deliberate.after[0]").blocking), ("applied", false));
+		let r = row("deliberate.after[1]");
+		assert_eq!((r.state.as_str(), r.blocking), ("left out", true));
+		assert!(r.detail.contains("the cut's order breaks it at Orc"), "{}", r.detail);
 		std::fs::remove_dir_all(&dir).unwrap();
 	}
 

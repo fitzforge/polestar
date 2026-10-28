@@ -140,6 +140,68 @@ function Plan.Describe(result)
 	return text
 end
 
+---------------------------------------------------------------------------
+-- Room in the quest log: what the route never hands in, and what an accept
+-- step would push past the log's cap. Nothing here abandons anything.
+---------------------------------------------------------------------------
+
+local NEVER = { missed = true, skipped = true, unplanned = true }
+
+-- The quests in the log the route never hands in: { { quest, title, status
+-- = "missed" | "skipped" | "unplanned" }, ... } in log order; nil while the
+-- plan cannot say (no guide, a route choice to make, a guide not loaded).
+function Plan.Unneeded()
+	local C, out = ns.Compat, {}
+	for _, q in ipairs(C.GetLogQuests() or {}) do
+		local r = Plan.GetTurnIn(q)
+		if r.status == "noGuide" or r.status == "choice" or r.status == "unloaded" then return nil end
+		if NEVER[r.status] then out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = r.status } end
+	end
+	return out
+end
+
+-- The live step's open accepts would not fit in the log: { take = accepts
+-- open, free = room left, drop = { { quest, title }, ... } }, else nil. drop
+-- names enough quests to make room: the ones the route never hands in, then
+-- the ones it hands in last, never one the live step needs.
+function Plan.LogOverflow()
+	local E, C = ns.Engine, ns.Compat
+	local live = E and E.GetLiveStep and E.GetLiveStep()
+	local view = live and E.GetStepView(live)
+	if not view then return nil end
+	local take, here = 0, {}
+	for _, g in ipairs(view.goals or {}) do
+		if g.quest then here[g.quest] = true end
+		if g.t == "accept" and g.quest and (g.status == "active" or g.status == "pending") and not C.IsOnQuest(g.quest) then take = take + 1 end
+	end
+	if take == 0 then return nil end
+	local log = C.GetLogQuests() or {}
+	local free = (C.GetLogCap() or 40) - #log
+	if take <= free then return nil end
+	local drop, want = {}, take - math.max(free, 0)
+	for _, u in ipairs(Plan.Unneeded() or {}) do
+		if #drop < want and not here[u.quest] then drop[#drop + 1] = { quest = u.quest, title = u.title } end
+	end
+	if #drop < want then
+		local later = {}
+		for _, q in ipairs(log) do
+			local r = Plan.GetTurnIn(q)
+			if not here[q] and (r.status == "future" or r.status == "later") then
+				later[#later + 1] = { quest = q, title = C.GetQuestTitle(q), chapter = r.chapter, step = r.step }
+			end
+		end
+		table.sort(later, function(a, b)
+			if a.chapter ~= b.chapter then return a.chapter > b.chapter end
+			return a.step > b.step
+		end)
+		for i = 1, #later do
+			if #drop >= want then break end
+			drop[#drop + 1] = { quest = later[i].quest, title = later[i].title }
+		end
+	end
+	return { take = take, free = math.max(free, 0), drop = drop }
+end
+
 for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", "ROUTE_CHOSEN", "TABS_CHANGED" }) do
 	ns.On(event, Plan.Invalidate)
 end

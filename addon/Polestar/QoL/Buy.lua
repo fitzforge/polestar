@@ -94,6 +94,46 @@ local function itemInfo(i)
 	local name, _, price, perStack, numAvailable, _, _, extendedCost = GetMerchantItemInfo(i)
 	return name, price, perStack, numAvailable, extendedCost
 end
+Buy.ItemInfo = itemInfo
+Buy.OnTheWay = onTheWay
+Buy.MAX_SPEND = MAX_SPEND
+
+-- Buys `items` of merchant slot i (item `id`, `name`; `price` per purchase
+-- of `perStack`) in purchases within the merchant's stack limit, and prints
+-- what lands. One record per item while purchases are on their way: a later
+-- one adds to it, and each landing reports only the items not reported yet,
+-- so none is counted twice and a refused purchase is never reported.
+function Buy.Purchase(i, id, name, items, price, perStack)
+	local maxStack = GetMerchantItemMaxStack(i) or perStack
+	local per = maxStack >= perStack and (maxStack - maxStack % perStack) or perStack
+	local left = items
+	while left > 0 do
+		local n = min(left, per)
+		BuyMerchantItem(i, n)
+		left = left - n
+	end
+	local p = onTheWay(id) > 0 and pending[id]
+	if p then
+		p.items, p.at = p.items + items, GetTime()
+	else
+		p = { before = Client.ItemCount(id), items = items, at = GetTime(), reported = 0 }
+		pending[id] = p
+	end
+	if C_Timer and C_Timer.After then
+		local function report()
+			local got = min(Client.ItemCount(id) - p.before, p.items) - p.reported
+			if got > 0 then
+				p.reported = p.reported + got
+				ns.Print(format(L["Bought %d %s for %s."], got, name, QoL.Money(got * price / perStack)))
+			end
+			-- Some not landed yet: look again while they still may.
+			if p.reported < p.items and GetTime() - p.at < PENDING_WAIT then
+				ns.After(LAND_WAIT, report)
+			end
+		end
+		ns.After(LAND_WAIT, report)
+	end
+end
 
 function Buy.Run()
 	if not QoL.On("buyGoals") then return end
@@ -125,41 +165,10 @@ function Buy.Run()
 					ns.Print(format(L["Not enough money to buy %d %s (%s)."], shortItems, name, QoL.Money(shortCost)))
 				end
 				if items > 0 then
-					local maxStack = GetMerchantItemMaxStack(i) or perStack
-					local per = maxStack >= perStack and (maxStack - maxStack % perStack) or perStack
-					local left = items
-					while left > 0 do
-						local n = min(left, per)
-						BuyMerchantItem(i, n)
-						left = left - n
-					end
+					Buy.Purchase(i, id, name, items, price, perStack)
 					money = money - cost
 					spent = spent + cost
-					-- One record per item while purchases are on their way: a
-					-- later one adds to it, and each landing reports only the
-					-- items not reported yet, so none is counted twice and a
-					-- refused purchase is never reported.
-					local p = onTheWay(id) > 0 and pending[id]
-					if p then
-						p.items, p.at = p.items + items, GetTime()
-					else
-						p = { before = Client.ItemCount(id), items = items, at = GetTime(), reported = 0 }
-						pending[id] = p
-					end
-					if C_Timer and C_Timer.After then
-						local function report()
-							local got = min(Client.ItemCount(id) - p.before, p.items) - p.reported
-							if got > 0 then
-								p.reported = p.reported + got
-								ns.Print(format(L["Bought %d %s for %s."], got, name, QoL.Money(got * price / perStack)))
-							end
-							-- Some not landed yet: look again while they still may.
-							if p.reported < p.items and GetTime() - p.at < PENDING_WAIT then
-								C_Timer.After(LAND_WAIT, report)
-							end
-						end
-						C_Timer.After(LAND_WAIT, report)
-					end
+
 				end
 			end
 		end

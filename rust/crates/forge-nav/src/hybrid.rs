@@ -40,7 +40,7 @@ fn directed(p: &[f64]) -> FxHashMap<(u32, u32), W> {
 /// those his maps had no way for (`leffeNone`: unreachable or failed there) or a way over the slack (`leffeDetour`);
 /// among his, those the grid had no way for (`gridNone`).
 pub fn merge(grid: &WalksDoc, leffe: &WalksDoc, slack: f64) -> Result<(Doc, serde_json::Value), String> {
-	if grid.header.get("dataHash") != leffe.header.get("dataHash") || grid.header.get("nw") != leffe.header.get("nw") {
+	if ["dataHash", "walksKey", "nw"].iter().any(|k| grid.header.get(*k) != leffe.header.get(*k)) {
 		return Err("hybrid: the two walks documents are of different worlds".into());
 	}
 	let mut header = grid.header.clone();

@@ -40,11 +40,18 @@ counters.
 
 | Step | What happens |
 |---|---|
-| accept | Needs the prerequisites and a level of at least the quest's minimum level − 2 and its level − 7. Travel to the giver. If the character is under the minimum level, grind to it; if more than 5 levels under the quest, grind to quest level − 5. A quest started by an item first works that item's task. Then talk. |
-| task | One objective at its place. Skipped if earlier kills already covered it. Travel there, then do the work: kills, uses, an escort or a purchase. |
+| accept | Needs the prerequisites and a level of at least the quest's minimum level − 2 and its level − 7. Travel to the giver. If the character is under the minimum level, grind to it; if more than 5 levels under the quest, grind to quest level − 5 (in the route profiles only when the quest has kill or escort work of its own: a quest done over time from what the character carries, The Green Hills of Stranglethorn's pages, is taken at once). A quest started by an item first works that item's task. Then talk. |
+| task | One objective at its place. Skipped if earlier kills already covered it. Travel there, then do the work: kills, uses, an escort or a purchase. In the route profiles, kill work on mobs more than `workGap` (3) levels above the character is not solo-safe: the character first grinds to the mobs' level (at most the quest's) − 3, so the search moves such work to a later visit (A7, A8). |
 | turn in | Needs every task done (and any quest that must be handed in first). Travel to the ender, talk, gain the quest XP. |
 | level | Grind to a level (with a fraction: `level 12.4`), at the grind rate for the current level. |
 | train | Travel to a town's class trainers and train. |
+
+**Rare starts.** In the route profiles, a quest started by an item that only mobs drop, each at
+under 5 % or an unknown chance (a rare mob's drop does not count; the writer writes these lines
+optional), is never farmed for. When the route takes it, the chance the player has the item is
+worked out from the kills the route has made so far of its source mobs: 1 − Π (1 − c)^kills, with
+1 % per kill for a source of unknown chance. Its reward, and the reward of every quest of its chain
+after it, counts at that chance. Its own work still costs its full time.
 
 A step that cannot be done (prerequisite missing, level too low, log full, place unreachable, quest
 not active) changes nothing. It only counts as a **no-op**. A kept edit may never add a no-op. After the
@@ -60,7 +67,7 @@ overrides any of them for one run.
 |---|---|---|
 | `runSpeed` | 7 yd/s | walking speed |
 | `mountLevel`, `mountMul` | 40, 1.6 | from level 40, walking is 1.6 times faster |
-| `detour0`, `detour1` | 1.35, 1.3 | straight line × detour where there is no routed walk (Eastern Kingdoms, Kalimdor) |
+| `detour0`, `detour1` | 1.35, 1.3 | straight line × detour where there is no routed walk (Eastern Kingdoms, Kalimdor), within the walk store's radius; beyond it the leg goes by the network (routes.md) |
 | `routeMul` | 1 | × routed walk yards |
 | `killSec1`, `killSec60` | 11 s, 30 s | time to kill an even-level mob at level 1 and level 60 |
 | `killUp`, `killDown` | 0.1, 0.05 | per level the mob is above or below the character |
@@ -73,13 +80,18 @@ overrides any of them for one run.
 | `interactSec` | 8 s | each object used |
 | `escortSec` | 240 s | each escort or event |
 | `flightOverhead` | 20 s | each flight |
+| `flightSpeed` | 30 yd/s | taxi speed over the flight path's length |
 | `transportWait` | 1 | × the average wait for a boat, zeppelin or tram |
 | `hearthCast`, `hearthCooldown` | 10 s, 3600 s | the hearthstone |
+| `hearthMargin` | 0.25 | route profiles: the next cast waits `hearthCooldown` × 1.25 |
 | `levelOverhead` | 60 s | each level-up (vendor, repairs, training) |
 | `trainSec` | 60 s | each training stop |
 | `grindEff` | 0.7 | × the best grind rate |
 | `gateGap`, `dangerGap` | 2, 5 | the accept window (above) |
+| `workGap` | 3 | most levels kill work's mobs may be above the character (route profiles; above) |
 | `deathRisk` | 300 s | each dangerous zone a walk crosses |
+| `deathskips` | 0 (off) | deathskips priced (`--deathskips`; see Deathskips) |
+| `deathskipSec`, `deathskipLevel`, `sicknessSlow` | 60 s, 10, 0.5 | a deathskip's death; the highest level it is taken at; the cost of each second of resurrection sickness |
 | `questXpScale`, `questEstScale` | 1, 1 | × recorded quest XP; × estimated quest XP |
 
 ### Kills
@@ -93,7 +105,9 @@ yards between mobs at that site. An elite takes `eliteTime` times longer and giv
 
 The kills needed are the objective's count × (1 + `extraKill`). For an item, the count is the items
 over the drop chance per kill, ÷ `dropMul`. Kills of one mob also count for another open quest's
-objective on the same mob within 100 yd (shared kill credit).
+objective on the same mob within 100 yd (shared kill credit). An item a friendly vendor sells is
+bought at the vendor nearest the giver when that costs less than the best drop (a sure drop plus
+the walk against 100 ÷ chance plus the walk: Look to the Stars' Bronze Tube from Herble in Darkshire).
 
 Kill XP is v1's formula: (5L + 45) for an even-level mob, +5 % per level above (up to 4), less below,
 and nothing for grey mobs. The model levels up as XP comes in, so the kill time changes mid-camp.
@@ -101,7 +115,9 @@ and nothing for grey mobs. The model levels up as XP comes in, so the kill time 
 ### Grinding
 
 The grind rate at level L is the best XP per second over mobs at L, L+1 and L+2, with the grind camps'
-spacing at that level, × `grindEff`. A `level` step and the grind out to 60 use it.
+spacing at that level, × `grindEff`. A `level` step and the grind out to 60 use it. The route search
+prices grinding at `grindWeight` (2.5) times its seconds ([routes.md](routes.md#2-local-edits-with-a-budget));
+reported hours stay real.
 
 ### Quest XP
 
@@ -120,12 +136,40 @@ detour. Seconds are yards ÷ `runSpeed` (× `mountMul` once mounted). Across con
 A walk that crosses zones 5 or more levels above the character (not counting the two end zones) adds
 `deathRisk` for each such zone.
 
+**Tauren** walk faster on foot: their racial Plainsrunning (the game's data: spell 1259918 and its
+speed aura 1299038) adds 1% run speed every 5 s of a walk, to +30% after 150 s. Each walk starts
+without it (a stop resets it), so a walk that takes $t$ at `runSpeed` takes
+$5k + \frac{t - d(k)}{1 + 0.01k}$, with $d(k) = 5(k + 0.005\,k(k-1))$ and $k$ the stacks reached
+($k \le 30$). For example, 7 minutes become 5 min 41 s. It is on for Tauren starts' route profiles
+(not the gate's v1 model), on foot only. `params::plainsrunning_sec`; test `plainsrunning`.
+
+**Calibration** (Fitz's recorded trails on the local test copy, 2026-10-23, walk geometry and timing
+only, never data):
+
+- Run speed: `runSpeed` 7.0 stays. On the trails with no lift or portal, the 2D ground covered is
+  0.99 of the client's own run speed (0.96-0.97 on ramp- and stair-heavy trails: Booty Bay,
+  Deathknell). Stretches in druid travel form (9.8 yd/s, 140%) are left out.
+- Routed walks: for the three trails walked end to end along the obvious way (Ironforge gate to the
+  tram, Orgrimmar gate to the Valley of Honor, the Cleft of Shadow), the walking grid's yards are 1.006
+  of the yards walked, so `routeMul` 1.0 stays.
+- Lifts (11 rides: Thunder Bluff 4, Undercity 3, the Great Lift 2, Freewind Post 2): the recorded
+  wait at the platform plus the time on the lift averages 25.4 s (Thunder Bluff), 13.6 s (Undercity),
+  19.8 s (Great Lift) and 17.5 s (Freewind). The client-derived timetable gives 22, 13.7, 19.5 and
+  19.5 s. All four together are within 2%, so the timetable is kept.
+
 ### Flights, boats and other transport
 
 For a leg of 400 yd or more, the model also tries the transport network: walk to one of the 3 nearest
 nodes, travel the network, walk from one of the 3 nodes nearest the end. It takes whichever is
-cheaper. The network uses only flight paths the character knows: each flight costs its time plus
-`flightOverhead`; a boat, zeppelin or tram costs its ride plus its wait × `transportWait`. Network
+cheaper. The network uses only flight paths the character knows: each flight costs its path's length
+(travel.json `taxi.legs[].yards`) at `flightSpeed` (30 yd/s; checked 2026-10-24 against four flights a
+character recorded in game, the addon's learned flight times from boarding to landing: Orgrimmar to
+Thunder Bluff and back, the Crossroads to Orgrimmar, Ratchet to the Crossroads, 6745, 6213, 4252 and
+2041 yd in 225, 207, 142 and 69 s, 29.9 yd/s overall, each within 1 s of the model; left out one at a
+time, the others give 29.9-30.0) plus `flightOverhead` (an estimate: the talk, take-off and landing
+are outside the recorded times). (v1 read the TaxiPath's `cost`, its price in copper, as seconds:
+Orgrimmar to Thunder Bluff 50 s, Everlook to Orgrimmar 1020 s; forge-sim's JS-parity test keeps
+the golden v1 world at 1 yd/s); a boat, zeppelin or tram costs its ride plus its wait × `transportWait`. Network
 legs carry no danger.
 
 Flight paths are learned when a step stops within 200 yd of a flight master (one talk). The network is
@@ -139,12 +183,60 @@ plus the travel from the bound inn. It then waits `hearthCooldown` before the ne
 - In the gate's model, the character binds at every inn it stops at, and hearths whenever that is
   more than 30 seconds faster.
 - In the route profiles, the character follows **v1's travel plan**: it binds only at v1's `sethome`
-  lines, hearths only at v1's hearth lines (unless the hearth is more than 2 minutes worse than
-  travelling), and learns flight paths at v1's `getfp` lines too. A plan line is attached to the quest
-  step right after it in v1's guide, so it moves with that step when the route changes.
+  lines, hearths at v1's hearth lines (unless the hearth is more than 2 minutes worse than
+  travelling) and wherever else the stone is ready and the hearth beats the leg by 3 minutes or
+  more, and learns flight paths at v1's `getfp` lines too. A plan line is attached to the quest
+  step right after it in v1's guide. A bind or flight path stays with its place, though: it is taken at
+  that step only when the character stands within 200 yd of the inn (300 yd of the flight master);
+  otherwise it waits for the next stop there. A moved step no longer binds at Ratchet from Shady Rest.
 
-A v1 hearth line met while the stone cools down is skipped and counted (`planHearthsOnCooldown`). A
-kept edit never adds one. So the route's hearths are always at least an hour apart.
+The model never hearths while the stone cools down. A v1 hearth line the route plays on cooldown
+(counted as `planHearthsOnCooldown` at the step that plays it) is taken out of the travel plan before
+the search: the route travels there, as it already did. Each start's plan is checked against its own
+seed order, and for the shared route against its own part and the shared tail. A kept edit never adds
+a line on cooldown, so the improved route reports none (F58). The route's hearths are always at
+least `hearthCooldown` × (1 + `hearthMargin`) apart in model time: 75 minutes, so the written guide's
+hearths stay an hour apart on `forge judge check`'s walk, which times straight legs (on canon c4 its
+gaps were 52-55 minutes where the route's were 60).
+
+### Deathskips
+
+Off by default; `forge build --deathskips` (or `--param deathskips=1` on `forge sim`) turns them on
+for the route profiles (never the gate's model). A leg may then **die and take the Spirit Healer**:
+walk to a lethal spot near where it starts, die there, release, take the resurrection at the
+graveyard the game sends that death to, and go on from its Spirit Healer. The ghost's run is skipped.
+
+- **The graveyards** are the world's (`World::graveyards`, built by forge-world from CMaNGOS
+  classic-db's graveyard table): per faction, each graveyard whose links name a zone for the faction
+  (team 0 or its own), with the Spirit Healer spawn within 100 yd of where its ghosts appear
+  (npcs.json's `spirithealer` role; the graveyard's point is the healer's). Of the 88 linked
+  graveyards on the two continents, 79 have one; the other 9 (Ironforge's, Stormwind's,
+  Rut'theran Village's and the battlegrounds' exits) are left out. Forever's TrinityCore database
+  was checked against it and is not used: 96 of its 159 linked graveyards there have no Forever
+  Spirit Healer within 100 yd, 14 of them graveyards CMaNGOS places by one (its places are the later
+  game's: New Auberdine, New Feathermoon, Splithoof Heights moved). Which graveyard a death goes to is
+  the game's rule (`World::graveyard_for`): of the graveyards the death's zone links to the faction
+  on that continent, the nearest (heights counted where both are known).
+- **Lethal spots** are the kill camps of mobs (3 or more of npcs with a level: a lone named mob is no
+  sure death) within `DEATH_SPOT_YD` (400 yd) of the leg's start whose mobs are at least the
+  character's level (Run::set_deaths keeps per graveyard the nearest spot, then each farther one of
+  higher mobs).
+- **The price**: the walk to the spot (straight × detour), `deathskipSec` (60 s, an estimate: about
+  30 s pulling mobs to die to and 30 s for the healer), the resurrection sickness's cost, and the
+  travel on from the healer (walks, flights and boats as any leg). The cheapest is taken when it beats
+  the leg (or the hearth) by `DEATHSKIP_GAIN_SEC` (30 s, v1's own margin for a hearth), never on
+  a leg walked for an escort or a timed quest.
+- **Resurrection sickness** follows Polestar's death helper (QoL/Death.lua, #390): none through
+  level 10, then 600 s. A route deathskips only up to `deathskipLevel` (10: no sickness); raised,
+  each second of sickness costs `sicknessSlow` (0.5) seconds.
+
+The route counts them (`deathskips` in the hours summary, `deathskips` and `sickness_sec` in the
+counters) and traces each (`deathskip` item: graveyard, spot, one of its mobs, healer, destination).
+The writer writes it as a `die "<Graveyard>"` step at the healer, before the way there, with a tip
+naming the mobs and spot to die at (a death elsewhere may go to another graveyard). The addon shows
+it only to players who turned on "Use deathskips"; for everyone else it passes and the way after it
+takes them there. On the Undead's road from Deathknell to Brill a death goes to Deathknell until past
+halfway, so a deathskip there saves under a minute (tests/deathskips.rs).
 
 ### Training and level-ups
 
@@ -170,8 +262,9 @@ The other class parts are handled the same way for every class:
 
 - **Class quests are out.** The character is compiled with no class, so quests open to only one to
   four classes are closed. Class chains live in their own Class guides.
-- **Training is a stop.** A `train class` step at a town's trainers, at even levels, where the route
-  passes a town ([routes.md](routes.md#training-stops)).
+- **Training is a stop.** A `train class` step at a town's trainers, where the route passes a town
+  with a new class rank to teach ([routes.md](routes.md#training-stops)). A profession's `train`
+  line (`train Cooking`) is not one.
 
 The shared route is scored over all three of `slow`, `avg` and `fast`, so it does not favour one kind
 of class ([routes.md](routes.md#8-the-shared-12-60-route-and-join-points)).
@@ -203,6 +296,30 @@ work left at the objective's own step shrinks, and an objective finished this wa
 
 The 25 % share is a modelling estimate, not yet checked against recordings. The route file reports
 `alongKills`.
+
+## Pooled kills
+
+Route profiles also **pool kills**. Players kill every quest mob they meet: on the Barrens plains the
+plainstriders, zhevra and raptors of three open quests go in one pass. So a kill objective's work also
+kills the mobs of every other open quest's unfinished kill objective whose site lies within 200 yd
+(not elite, not a mob another quest shares). They are met in proportion to their density against the
+work's own, (s_a / s_b)² with s the spacing between mobs (an unknown spacing counts as the work's),
+up to what each needs. Each pooled kill pays its kill time and gets its XP. The walk is the pooled
+one: all the kills at the spacing of the summed densities, less the walk the work already paid. An
+objective finished this way needs no trip, as with along credit. The route file reports
+`pooledKills`.
+
+## Riding
+
+v1's model rides from level 40. The route profiles ride only once riding is learned. v1's
+`train <npc>` line of a riding trainer (its title says Riding: Kildar, Xar'Ti, Randal Hunter...) is a
+**riding step** at the world point nearest the line's place. The seed puts it on the first stop
+within 600 yd of the trainer at level 40 or above, else leaves it at v1's line. Below level 40 the
+step does nothing. A start with no such line rides from 40, as before. The edit descent also offers
+the riding step on the first visit to the trainer at 40 or above (edit kind `ride`). The route
+file's order writes it as `{"t":"ride","npc":N}` with v1's line as its origin; in the shared route a
+start's own trainer's step is its own (the canonical start's riding step does nothing for another
+race).
 
 ## Quest log
 

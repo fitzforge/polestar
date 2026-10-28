@@ -25,7 +25,8 @@ pub struct WidenStart {
 }
 
 /// Plan the shared tail of `starts` (the first is the canonical one) with at most `max_edits`
-/// edits; the result's order is the canonical tail at the knee (or after `budget` edits).
+/// edits; the result's order is the canonical tail after `budget` edits, else as `cut` says (every
+/// edit, or the knee's).
 pub fn widen(
 	world: &World,
 	walks: &dyn Walks,
@@ -35,14 +36,15 @@ pub fn widen(
 	ex: &Extras,
 	max_edits: usize,
 	budget: Option<usize>,
+	cut: crate::search::edits::Cut,
 	members: usize,
-	join_after: Option<&str>,
+	join_at: Option<&str>,
 ) -> Result<Value, String> {
 	let mut preps: Vec<Prepared> = starts.iter().map(|s| prepare(world, walks, base, &s.race, &s.events, &s.goals, profile, ex)).collect::<Result<_, _>>()?;
 	let guard0 = preps[0].guard.take();
-	// The join: after the start's own guides, or (join_after) after the last step from that
-	// shared guide (each start keeps its own order of it).
-	let joins = joins_of(&preps, starts, join_after);
+	// The join: after the start's own guides, or (join_at) before its first step from that
+	// shared start zone's guide.
+	let joins = joins_of(&preps, starts, join_at);
 	let c = &preps[0];
 	let j0 = joins[0];
 	let u0 = Order { steps: c.seed.steps[j0..].to_vec(), origin: c.seed.origin[j0..].to_vec() };
@@ -77,8 +79,9 @@ pub fn widen(
 	let p = Problem { model: &c.model, walks, pairs, pool: c.pool.clone(), ctxs, followers: followers(&c.model.run), guard, feas, log_bound: u32::MAX };
 	let base_runs = runs(&p, &u0);
 	let mut lg = |k: usize, h: f64, kind: &str| eprintln!("edit {k}: {kind} -> {h:.3} h (sum)");
-	let d = descend(&p, &u0, max_edits, members, true, &mut lg);
-	let kk = budget.unwrap_or_else(|| knee(&d)).min(d.edits.len());
+	let d = descend(&p, &u0, max_edits, members, true, &mut lg, None);
+	let kk = crate::search::edits::cut_at(&d, budget, cut);
+	let kn = knee(&d).min(d.edits.len());
 	let per = |o: &Order| runs(&p, o).iter().map(|r| r.total / 3600.0).collect::<Vec<f64>>();
 	let by_edit: Vec<Vec<f64>> = d.orders.iter().map(per).collect();
 	let at = |k: usize| if k == 0 { base_runs.iter().map(|r| r.total / 3600.0).collect() } else { by_edit[k - 1].clone() };
@@ -93,14 +96,14 @@ pub fn widen(
 				.collect::<serde_json::Map<_, _>>());
 		}
 	}
-	let (knee_h, end_h, v1c) = (at(kk), at(d.edits.len()), at(0));
+	let (knee_h, kept_h, end_h, v1c) = (at(kn), at(kk), at(d.edits.len()), at(0));
 	let rows: Vec<Value> = preps
         .iter()
         .enumerate()
         .map(|(k, p)| {
             let mut ev = p.model.evaluator(walks);
             let own = evaluate(&mut ev, &p.seed) / 3600.0;
-            json!({ "start": starts[k].race, "joinStep": joins[k], "v1Own": own, "v1Shared": v1c[k], "knee": knee_h[k], "converged": end_h[k], "kneeGain": v1c[k] - knee_h[k], "slowerThanV1Own": knee_h[k] > own })
+            json!({ "start": starts[k].race, "joinStep": joins[k], "v1Own": own, "v1Shared": v1c[k], "knee": knee_h[k], "kept": kept_h[k], "converged": end_h[k], "kneeGain": v1c[k] - knee_h[k], "slowerThanV1Own": kept_h[k] > own })
         })
         .collect();
 	let best = if kk == 0 { u0.clone() } else { d.orders[kk - 1].clone() };
@@ -111,9 +114,9 @@ pub fn widen(
 /// canonical tail, both played by the start's model and aligned by quest step; the gap
 /// (seconds, shared minus own) at the first aligned step and at the end of each canonical
 /// guide, with trainings and hearths of each.
-pub fn diagnose(world: &World, walks: &dyn Walks, base: &Params, starts: &[WidenStart], profile: &Profile, ex: &Extras, join_after: Option<&str>) -> Result<Value, String> {
+pub fn diagnose(world: &World, walks: &dyn Walks, base: &Params, starts: &[WidenStart], profile: &Profile, ex: &Extras, join_at: Option<&str>) -> Result<Value, String> {
 	let preps: Vec<Prepared> = starts.iter().map(|s| prepare(world, walks, base, &s.race, &s.events, &s.goals, profile, ex)).collect::<Result<_, _>>()?;
-	let joins = joins_of(&preps, starts, join_after);
+	let joins = joins_of(&preps, starts, join_at);
 	let c = &preps[0];
 	let tail = &c.seed.steps[joins[0]..];
 	let tail_origin = &c.seed.origin[joins[0]..];
@@ -241,7 +244,9 @@ pub fn shared_plan(
 	p
 }
 
-/// A start's model for the shared order (shared_plan), same parameters, and its profile.
+/// A start's model for the shared order (shared_plan), same parameters, and its profile. The
+/// plan's hearth lines this start plays while the stone cools down (its own prefix, then the
+/// canonical tail in its run) are left out (route::drop_cooling_hearths, F58).
 #[allow(clippy::too_many_arguments)]
 pub fn shared_model(
 	world: &World,
@@ -256,12 +261,18 @@ pub fn shared_model(
 ) -> Result<(crate::Model, Profile), String> {
 	let (Some(op), Some(cp)) = (own.profile.plan.as_ref(), canon.profile.plan.as_ref()) else { return Ok((crate::route::model_for(world, race, profile, base, walks)?.0, profile.clone())) };
 	let plan = shared_plan(op, &own.model.run, prefix, cp, &canon.model.run, tail);
-	let pr = Profile { plan: Some(std::sync::Arc::new(plan)), ..own.profile.clone() };
-	Ok((crate::route::model_for(world, race, &pr, base, walks)?.0, pr))
+	let mut pr = Profile { plan: Some(std::sync::Arc::new(plan)), ..own.profile.clone() };
+	let mut model = crate::route::model_for(world, race, &pr, base, walks)?.0;
+	let map = crate::search::Mapper::new(&canon.model.run, &model.run);
+	let steps: Vec<crate::eval::Step> = prefix.iter().copied().chain(tail.iter().map(|&s| map.step(&canon.model.run, &model.run, s))).collect();
+	if !crate::route::drop_cooling_hearths(&mut model, walks, &steps).is_empty() {
+		pr.plan = model.run.plan.clone();
+	}
+	Ok((model, pr))
 }
 
-/// Each start's join: after its own guides, or (join_after) after its last step from that shared
-/// guide (each start keeps its own order of it).
-fn joins_of(preps: &[Prepared], starts: &[WidenStart], join_after: Option<&str>) -> Vec<usize> {
-	preps.iter().zip(starts).map(|(p, s)| crate::shared::join_index(&p.seed, &s.goals, join_after)).collect()
+/// Each start's join: after its own guides, or (join_at) before its first step from that shared
+/// start zone's guide.
+fn joins_of(preps: &[Prepared], starts: &[WidenStart], join_at: Option<&str>) -> Vec<usize> {
+	preps.iter().zip(starts).map(|(p, s)| crate::shared::join_index(&p.seed, &s.goals, join_at)).collect()
 }

@@ -38,7 +38,7 @@ fn main() -> Result<(), String> {
 		keys.sort_unstable();
 		let (meta, src) = (&meta, &src);
 		let c2 = (meta.c * meta.c) as usize;
-		let cc = meta.c;
+		let cc = meta.c as i64;
 		let counts: Vec<[usize; 4]> = keys
 			.par_iter()
 			.map(|&k| -> Result<[usize; 4], String> {
@@ -77,7 +77,7 @@ fn main() -> Result<(), String> {
 						let target = if layer == 0 {
 							None
 						} else if layer > 0 {
-							(first >= 0).then(|| (first + layer - 1) as usize)
+							Some((first + layer - 1) as usize).filter(|_| first >= 0)
 						} else {
 							let h = c.z[u];
 							let mut best = (if c.val[t] != 0 { Some(t) } else { None }, if c.val[t] != 0 { (c.z[t] - h).abs() } else { f32::INFINITY });

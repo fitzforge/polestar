@@ -308,6 +308,26 @@ fn reaching_the_target_switches_to_the_arrived_state_with_hysteresis_one_chime_a
 	assert_eq!(out, json!([["travel", "20 yd", 0], ["arrived", "Arrived", 1, true, false], ["arrived", 1], ["travel", "20 yd", false], ["arrived", 1], 2]));
 }
 
+#[test]
+fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_down_until_you_are_on_its_floor() {
+	let out = run(r#"
+		local m, x, y = nav.mapPoint(20, 0)
+		N.SetTarget(m, x, y, "Upstairs", nil, nil, 30)
+		local floor = 10
+		N.walk.Floor = function() return floor end
+		nav.place(15, 0)                   -- 5 yd across, 20 yd below
+		stub.advance(0.2)
+		local seen = { { A.GetMode(), N.FloorHint(), A.floorIcon:IsShown() } }
+		floor = 50                         -- above it
+		stub.advance(0.2)
+		seen[#seen + 1] = { A.GetMode(), N.FloorHint() }
+		floor = 29                         -- on its floor
+		stub.advance(0.2)
+		seen[#seen + 1] = { A.GetMode(), N.FloorHint() == nil, A.floorIcon:IsShown() }
+		emit(seen)"#);
+	assert_eq!(out, json!([["travel", "up", true], ["travel", "down"], ["arrived", true, false]]));
+}
+
 // The player's arrow colours, with Theme loaded: the arrow wears its own colour far away and the near colour
 // on arrival (both styles, the ring), the target's pin follows the arrow live, and a colour too dark to read
 // as the arrow's text is lifted for the text alone.
@@ -1376,4 +1396,26 @@ fn polestar_way_without_a_position_here_says_so_not_how_to_type_it() {
 	);
 	assert_eq!(out["malformed"], json!({ "msgs": ["|cff4fd1c5Polestar|r: Usage: /polestar way <x> <y> [label]"], "target": "nil" }));
 	assert_eq!(out["valid"], json!({ "msgs": "none", "target": "Mine" }));
+}
+
+#[test]
+fn the_steps_ahead_get_numbered_pins_fading_with_distance_steps_together_share_one_and_the_layer_is_off_by_default() {
+	let out = run(r#"
+		local views = {
+			[3] = { status = "current", goals = { { map = 1429, x = 40, y = 40, status = "active" } } },
+			[4] = { title = "Goldshire", status = "upcoming", goals = { { status = "active" }, { map = 1429, x = 42, y = 65, status = "pending" } } },
+			[5] = { status = "na", goals = { { map = 1429, x = 10, y = 10, status = "pending" } } },
+			[6] = { title = "The inn", status = "upcoming", goals = { { map = 1429, x = 42.2, y = 65.1, status = "pending" } } },
+			[7] = { title = "Mine", status = "upcoming", goals = { { map = 1429, x = 38, y = 80, status = "pending" } } },
+		}
+		Polestar.Engine = { GetLiveStep = function() return 3 end, GetStepCount = function() return 7 end, GetStepView = function(i) return views[i] end }
+		Polestar.Set("ui.upcoming", 3)
+		local pins = N.upcoming.Build()
+		local out = { off = Polestar.Get("nav.upcomingPins") }
+		for i, p in ipairs(pins) do out[i] = { text = p.text, tip = p.tooltip, alpha = p.color[4] } end
+		emit(out)"#);
+	assert_eq!(out["off"], false);
+	assert_eq!(out["1"], json!({ "text": "4+", "tip": "Step 4: Goldshire\nStep 6: The inn", "alpha": 1 }));
+	assert_eq!(out["2"]["text"], "7");
+	assert!((out["2"]["alpha"].as_f64().unwrap() - 0.35).abs() < 1e-9, "the third step ahead is the faintest");
 }

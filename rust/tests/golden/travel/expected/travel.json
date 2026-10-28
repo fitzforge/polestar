@@ -6516,6 +6516,8 @@
 		"inn Revantusk Village: innkeeper 14731 not in npcs.json",
 		"inn Cenarion Hold: innkeeper 15174 not in npcs.json",
 		"inn Light's Hope Chapel: innkeeper 16256 not in npcs.json",
-		"inn Stonetalon Peak: innkeeper 16458 not in npcs.json"
+		"inn Stonetalon Peak: innkeeper 16458 not in npcs.json",
+		"inn Shen'dar Village: innkeeper 254089 not in npcs.json",
+		"inn Valanaar: innkeeper 255940 not in npcs.json"
 	]
 }

@@ -25,6 +25,8 @@ pub const GUARDS_PASSED: &str = "quest order and deliberate orders (player repor
 
 /// What a cut's ledgers are made from.
 pub struct LedgerIn<'a> {
+	/// The walk store: a quest whose places the route cannot walk to is named so.
+	pub walks: Option<&'a dyn crate::walks::Walks>,
 	pub world: &'a World,
 	/// The start's race (exclusions for other races are left out).
 	pub race: &'a str,
@@ -48,6 +50,8 @@ pub struct LedgerIn<'a> {
 	pub edits: &'a Value,
 	/// route-fixes.json `optional` quests (run indices) with why.
 	pub optional: &'a [(u32, String)],
+	/// Quests the route took and could not hand in before 60, left out (route::drop_unfinished).
+	pub unfinished: &'a [u32],
 }
 
 fn guide_of(goals: &[Goal], order: &Order, k: usize) -> String {
@@ -65,6 +69,33 @@ fn fit(l: &LedgerIn, q: u32) -> (String, Option<usize>) {
 		Some(k) => (guide_of(l.goals, l.best, k), Some(k)),
 		None => (l.world.zones.get(&run.p_map[g as usize]).cloned().unwrap_or_default(), None),
 	}
+}
+
+/// The first of a quest's places (giver, work, turn-in) the walk store cannot reach from the route's
+/// nearest stop on its continent, by name.
+fn unwalkable(l: &LedgerIn, q: u32) -> Option<&'static str> {
+	let walks = l.walks?;
+	let run = &l.model.run;
+	let qi = q as usize;
+	let mut places: Vec<(&'static str, u32)> = vec![("quest giver", run.q_giver[qi])];
+	for t in run.q_task0[qi]..run.q_task1[qi] {
+		places.push(("work place", run.task_pt[t as usize]));
+	}
+	places.push(("turn-in", run.q_ender[qi]));
+	places
+		.into_iter()
+		.find(|&(_, p)| {
+			let near = l
+				.best
+				.steps
+				.iter()
+				.filter(|s| s.kind != crate::run::K_GRIND && s.pt != p)
+				.map(|s| s.pt)
+				.filter(|&s| run.straight(s, p).is_finite())
+				.min_by(|&a, &b| run.straight(a, p).total_cmp(&run.straight(b, p)));
+			near.is_some_and(|s| walks.yards(s, p).is_some_and(|y| y.is_infinite()))
+		})
+		.map(|(what, _)| what)
 }
 
 /// An insertable verdict's reason as (code, missing info).
@@ -121,6 +152,8 @@ fn passed_code(v: &Passed) -> &'static str {
 		"low-value"
 	} else if r.contains("zone") || r.contains("off the route") {
 		"zone-left"
+	} else if r.contains("override skip") {
+		"override"
 	} else if r.contains("deliberate") {
 		"player-report"
 	} else {
@@ -144,6 +177,44 @@ fn issue_of(s: &str) -> String {
 		}
 	}
 	out.join(", ")
+}
+
+/// A quest whose giver the route stands near (within the passed-by radius) but never passes while
+/// it is open: `level` when only out of its accept window (under its minimum level, too high above
+/// the character, or grey), else `zone-left` with the levels where it stands there in the window.
+/// The code, detail and numbers; None when the route never comes near the giver.
+/// (c12: Wharfmaster Dizzywig and Goblin Sponsorship were `zone-left`, "never passes its giver",
+/// while the route took other quests from Kravel Koalbeard at 29.9-30.5, 6-7 levels under them.)
+fn passed_out_of_window(l: &LedgerIn, q: u32) -> Option<(&'static str, String, Value)> {
+	let run = &l.model.run;
+	let qi = q as usize;
+	let g = run.q_giver[qi];
+	let at: Vec<f64> = (0..l.best.len().min(l.lv.len())).filter(|&k| l.best.steps[k].kind != K_GRIND && run.straight(l.best.steps[k].pt, g) <= crate::guards::PB_RADIUS).map(|k| l.lv[k]).collect();
+	if at.is_empty() {
+		return None;
+	}
+	let (ql, min) = (f64::from(run.q_level[qi]), f64::from(run.q_min_level[qi]));
+	let below = |lv: f64| lv < min || ql > lv.floor() + forge_world::rules::ACCEPT_ABOVE;
+	let r1 = |x: f64| (x * 10.0).round() / 10.0;
+	let open: Vec<f64> = at.iter().copied().filter(|&lv| !below(lv) && forge_world::rules::level_ok(ql, lv)).collect();
+	if !open.is_empty() {
+		// At the giver in its window, but never walked past while the quest is open (c13: The
+		// Disgraced One at the Fallen Hero, 48.7, right after Fall From Grace, the route then
+		// flying on): the chain opens there, or the route leaves by flight or hearth.
+		let (lo, hi) = open.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(a, b), &x| (a.min(x), b.max(x)));
+		let detail = format!("the route is at its giver (500 yd) at level {:.1}-{:.1}, in its level window, but never walks past it while the quest is open (the quest opens there, or the route leaves by flight or hearth); inserting it there did not save time", r1(lo), r1(hi));
+		return Some(("zone-left", detail, json!({ "atGiverLevel": [r1(lo), r1(hi)] })));
+	}
+	let (lo, hi) = at.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(a, b), &x| (a.min(x), b.max(x)));
+	let from = min.max(ql - forge_world::rules::ACCEPT_ABOVE);
+	let detail = if at.iter().all(|&lv| below(lv)) {
+		format!("passed only below its level window: the route is at its giver (500 yd) at level {:.1}-{:.1}, the quest (level {ql}) is taken from {from}", r1(lo), r1(hi))
+	} else if at.iter().all(|&lv| !below(lv)) {
+		format!("passed only where it is grey: the route is at its giver (500 yd) at level {:.1}-{:.1}, the quest is level {ql}", r1(lo), r1(hi))
+	} else {
+		format!("passed only out of its level window: the route is at its giver (500 yd) at level {:.1}-{:.1}, the quest (level {ql}) is taken from {from} and grey later", r1(lo), r1(hi))
+	};
+	Some(("level", detail, json!({ "passedAtLevel": [r1(lo), r1(hi)], "opensAtLevel": from })))
 }
 
 /// The skip ledger's rows.
@@ -172,13 +243,20 @@ pub fn skips(l: &LedgerIn) -> Vec<Value> {
 		let mut row = json!({ "q": id, "title": title(id), "level": run.q_level[q as usize], "xp": l.model.tables.q_full[q as usize].round(), "guide": guide });
 		let (code, detail, numbers, source, missing): (&str, String, Value, String, Vec<Missing>) = if let Some((why, issue)) = l.ovr.why.get(&id).filter(|_| l.ovr.skip.contains(&q)) {
 			("override", why.clone(), json!({ "issue": issue }), "route-fixes.json".into(), Vec::new())
+		} else if l.unfinished.contains(&q) {
+			("level", "taken too late: its work and hand-in come only after level 60, so it is left out".into(), Value::Null, "route model".into(), Vec::new())
 		} else if let Some((_, why)) = l.optional.iter().find(|x| x.0 == q) {
 			("rare-drop", format!("optional in v1: {why}"), json!({ "issue": issue_of(why) }), "player report".into(), Vec::new())
 		} else if in_v1(q) {
 			let drop = l.edits["list"].as_array().into_iter().flatten().find(|e| e["kind"] == "drop" && e["q"].as_u64() == Some(u64::from(id)) && e["kept"] == json!(true));
 			match drop {
 				Some(e) => ("low-value", format!("dropped from v1: {}", e["text"].as_str().unwrap_or("")), json!({ "savedMin": e["savedMin"] }), "route model".into(), Vec::new()),
-				None => ("dropped", "in v1's order, does nothing in the cut's replay (its chain or level is not open where v1 has it)".into(), Value::Null, "route model".into(), Vec::new()),
+				None => match unwalkable(l, q) {
+					Some(what) => {
+						("not-walkable", format!("in v1's order, but its {what} cannot be walked to from the route (the walk store has no way there)"), Value::Null, "walk store".into(), Vec::new())
+					}
+					None => ("dropped", "in v1's order, does nothing in the cut's replay (its chain or level is not open where v1 has it)".into(), Value::Null, "route model".into(), Vec::new()),
+				},
 			}
 		} else if let Some(why) = l.ins.filter(|i| !i.ok(q)).map(|i| i.why(q)) {
 			let (c, m) = verdict_code(&why, kbm);
@@ -205,6 +283,8 @@ pub fn skips(l: &LedgerIn) -> Vec<Value> {
 			)
 		} else if run.q_pre[q as usize].iter().chain(&run.q_all[q as usize]).any(|&p| !in_best[p as usize]) && !run.q_pre[q as usize].is_empty() {
 			("chain-not-open", "a quest before it is not in the route".into(), Value::Null, "game data".into(), Vec::new())
+		} else if let Some((code, detail, numbers)) = passed_out_of_window(l, q) {
+			(code, detail, numbers, "route model".into(), Vec::new())
 		} else {
 			("zone-left", "the route never passes its giver (500 yd) at a level that opens it".into(), Value::Null, "route model".into(), Vec::new())
 		};
@@ -220,6 +300,37 @@ pub fn skips(l: &LedgerIn) -> Vec<Value> {
 			row["missing"] = json!(missing);
 		}
 		rows.push(row);
+	}
+	// Quests of the world the character may take but whose chain is closed to it (a quest before
+	// it left out of the world, or closed in turn): out of the run, so explained here (B2: Shared
+	// Fury after Vengeful Trail, whose item drops only in an instance).
+	{
+		let f = l.world.faction;
+		let rbit = forge_world::rules::race_bit(l.race, f);
+		let skyborne = l.race == "Skyborne";
+		let excluded: FxHashMap<u32, &str> = l.world.excluded.iter().map(|e| (e.id, e.reason.as_str())).collect();
+		for wq in &l.world.quests {
+			if l.rules.open.contains_key(&wq.id) || wq.dungeon.is_some() || !forge_world::rules::quest_open(wq, f, rbit, None) || (!skyborne && forge_world::rules::on_isle(l.world, wq)) {
+				continue;
+			}
+			let before: Vec<String> = wq
+				.pre
+				.iter()
+				.chain(&wq.pre_all)
+				.chain(wq.in_log.iter())
+				.copied()
+				.chain(wq.after.iter().flatten().map(|&c| i64::from(c)))
+				.filter_map(|p| u32::try_from(p).ok())
+				.filter(|p| !l.rules.open.contains_key(p))
+				.map(|p| match excluded.get(&p) {
+					Some(why) => format!("{p} (left out of the world: {why})"),
+					None => format!("{p} (closed to this character)"),
+				})
+				.collect();
+			let detail = if before.is_empty() { "its chain is closed to this character".to_string() } else { format!("a quest before it is not open: {}", before.join(", ")) };
+			let guide = l.world.points.get(wq.giver as usize).and_then(|p| l.world.zones.get(&p.map)).cloned().unwrap_or_default();
+			rows.push(json!({ "q": wq.id, "title": wq.title, "level": wq.level, "guide": guide, "reason": "chain-not-open", "detail": detail, "numbers": Value::Null, "source": "game data" }));
+		}
 	}
 	// Quests left out of the world for this faction (not race or faction locked, not unused).
 	let zone_of = |id: u32| l.data.and_then(|d| d.quests.get(&id)).and_then(|q| q.zone).and_then(|z| l.world.zones.get(&(z as u32)).cloned()).unwrap_or_default();
@@ -259,10 +370,28 @@ pub fn edit_rows(edits: &Value, ovr: &Overrides, run: &crate::run::Run) -> Vec<V
             let reason = match e["kind"].as_str().unwrap_or("") {
                 "fold" | "fold later" => "folds a return into the other visit to the same place",
                 "move" => "a cheaper place within the zone stay",
+                "stay later" => "a zone entered nearer its quests' level, after the stays that come next: no grind before early work",
+                "stay split" => "a later zone stay's quests far under the character there done earlier, on level, as their own visit",
+                "gate later" => "a level gate ground just before the accept it gates: the hand-ins before it count first",
+                "hub revisit" => "a hub visited again at the level its chains open: their quest XP removes grind",
                 "insert" => "a passed-by quest worth its detour",
                 "pickup" => "a worthwhile passed-by quest picked up where it is passed (<= 2 min)",
                 "drop" => "its trip costs more than its XP",
-                "drop grind" => "a grind the route no longer needs",
+                "drop grind" => "a grind that guards no gate, the quests around it give the XP",
+                "chain insert" => "a quest with the quests it opens, worth their detour together",
+                "zone block" => "a zone's open chains as one visit, at their level",
+                "drop trip" => "a trip off the continent for quests well under the character",
+                "stay on continent" => "on-level quests open on the continent: the trip off it for low quests taken out (<= 15 min)",
+                "hub batch" => "a hub return (or a whole visit within a level of the next) folded into the next visit there",
+                "hub batch undone" => "a hub batch the written guides' check found walked past, undone",
+                "train at the hub" => "a training out of the field work it split, at the hub before or after it",
+                "written check" => "done where the written guide's walk passes it ready (the check on the written guides)",
+                "bag tie" => "carried in the bags: taken, done and handed in at once (a tie, <= 30 s)",
+                "hub sweep" | "on the way" => "done where it is ready: the hub visit or the walk past its NPC",
+                "hub loop" => "the hub's stops in the order of the shortest walk",
+                "defer hard work" => "early hard work waits for its level: no long grind before it",
+                "grind top-up" => "grind left in pieces at the zone stay's camps, at most 15 minutes each, never a silent wait",
+                "free move" => "moved by the free search (the route reordered as a whole: its gain is the search's, not this move's)",
                 _ => "",
             };
             json!({ "n": e["n"], "kind": e["kind"], "steps": e["steps"], "from": e["from"], "to": e["to"], "q": e["q"], "text": e["text"], "reason": reason, "savedMin": e["savedMin"], "guards": GUARDS_PASSED, "revert": revert_line(e) })
@@ -274,7 +403,8 @@ pub fn edit_rows(edits: &Value, ovr: &Overrides, run: &crate::run::Run) -> Vec<V
 fn revert_line(e: &Value) -> Value {
 	match e["kind"].as_str().unwrap_or("") {
 		"drop" => json!({ "q": e["q"], "edit": "drop", "reason": "", "issue": "" }),
-		"insert" | "pickup" => json!({ "q": e["q"], "edit": "insert", "reason": "", "issue": "" }),
+		"insert" | "pickup" | "chain insert" | "zone block" | "hub revisit" => json!({ "q": e["q"], "edit": "insert", "reason": "", "issue": "" }),
+		"drop trip" => json!({ "q": e["q"], "edit": "drop", "reason": "", "issue": "" }),
 		_ => e["steps"].as_array().and_then(|s| s.iter().find(|x| !x["q"].is_null())).map_or(Value::Null, |s| json!({ "s": [s["t"], s["q"], s["task"]], "reason": "", "issue": "" })),
 	}
 }
@@ -375,6 +505,7 @@ pub fn step_json(run: &crate::run::Run, s: crate::Step) -> Value {
 		K_TASK => "task",
 		K_TURNIN => "turnin",
 		K_GRIND => return json!({ "t": "grind", "level": s.q }),
+		crate::run::K_RIDE => return json!({ "t": "ride", "npc": s.task }),
 		_ => return json!({ "t": "train" }),
 	};
 	let task = if s.kind == K_TASK { json!(s.task as u32 - run.q_task0[s.q as usize]) } else { Value::Null };

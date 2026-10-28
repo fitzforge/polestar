@@ -15,6 +15,7 @@
 	<Script file="RouteChoice.lua"/>
 	<Script file="Welcome.lua"/>
 	<Script file="Copy.lua"/>
+	<Script file="QuestRoom.lua"/>
 	<Script file="GearScales.lua"/>
 	<Script file="Report.lua"/>
 	<Script file="Packs.lua"/>

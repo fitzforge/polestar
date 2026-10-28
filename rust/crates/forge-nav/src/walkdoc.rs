@@ -41,12 +41,18 @@ pub struct Pt {
 pub struct WalkWorld {
 	pub faction: String,
 	pub data_hash: String,
+	/// The world's walk inputs (forge-world `World::walks_key`), written as the walks file's
+	/// `walksKey`: what its readers check the walks against (empty: unknown).
+	pub walks_key: String,
 	pub points: Vec<Pt>,
 	pub zone_min: Vec<(u16, f64)>,
 	pub danger: Vec<ZoneGrid>,
 	walk: Vec<usize>,
 	plain: FxHashSet<usize>,
 	anchors: FxHashSet<usize>,
+	/// Extra pairs (world point ids) asked in the base band beyond the radius rules: the legs the
+	/// last routes stage priced with no walk (forge build's `<out>/walks/extra-pairs.json`).
+	pub extra: Vec<(usize, usize)>,
 }
 
 fn num(v: &Value) -> Option<usize> {
@@ -132,12 +138,20 @@ impl WalkWorld {
 			add(&q["accept"]["pt"]);
 			for t in q["tasks"].as_array().into_iter().flatten() {
 				add(&t["pt"]);
+				// (A task's other places: a buy's other vendors, an object's other sites.)
+				for a in t["alts"].as_array().into_iter().flatten() {
+					add(a);
+				}
 			}
 		}
 		for p in w["packages"].as_array().into_iter().flatten() {
 			for s in p["steps"].as_array().into_iter().flatten() {
 				add(&s[3]);
 			}
+		}
+		// The graveyards' Spirit Healers: a deathskip walks on from one (forge-sim).
+		for g in w["graveyards"].as_array().into_iter().flatten() {
+			add(&g["pt"]);
 		}
 		for &pt in &anchors {
 			if in_maps(pt) {
@@ -161,7 +175,18 @@ impl WalkWorld {
 		}
 		let mut walk: Vec<usize> = set.into_iter().collect();
 		walk.sort_unstable();
-		Ok(WalkWorld { faction: w["faction"].as_str().unwrap_or("").to_string(), data_hash: w["dataHash"].as_str().unwrap_or("").to_string(), points, zone_min, danger, walk, plain, anchors })
+		Ok(WalkWorld {
+			faction: w["faction"].as_str().unwrap_or("").to_string(),
+			data_hash: w["dataHash"].as_str().unwrap_or("").to_string(),
+			walks_key: String::new(),
+			points,
+			zone_min,
+			danger,
+			walk,
+			plain,
+			anchors,
+			extra: Vec::new(),
+		})
 	}
 
 	pub fn walk_points(&self) -> &[usize] {
@@ -243,6 +268,24 @@ impl WalkWorld {
 			}
 			for (_, ids) in groups {
 				out.push((src, ids));
+			}
+		}
+		// The extra pairs (base band): each not already asked, on one region, both ends world points.
+		if band == 0 && !self.extra.is_empty() {
+			let asked: FxHashSet<(usize, usize)> = out.iter().flat_map(|(s, ids)| ids.iter().map(move |&t| (*s.min(&t), *s.max(&t)))).collect();
+			let mut extra: Vec<(usize, usize)> = self
+				.extra
+				.iter()
+				.map(|&(a, b)| (a.min(b), a.max(b)))
+				.filter(|&(a, b)| a != b && b < self.points.len() && self.points[a].region == self.points[b].region && !asked.contains(&(a, b)))
+				.collect();
+			extra.sort_unstable();
+			extra.dedup();
+			for (a, b) in extra {
+				match out.iter_mut().rev().find(|x| x.0 == a) {
+					Some(x) => x.1.push(b),
+					_ => out.push((a, vec![b])),
+				}
 			}
 		}
 		out
@@ -401,6 +444,7 @@ pub fn build_doc(world: &WalkWorld, ends: &[End], store: &mut WalkStore, be: &dy
 		("schema", json!(BIN_SCHEMA)),
 		("faction", json!(world.faction)),
 		("dataHash", json!(world.data_hash)),
+		("walksKey", json!(world.walks_key)),
 		("router", json!(be.router_name())),
 		("nav", json!(nav_fp)),
 		("smooth", json!(smooth)),
@@ -586,4 +630,144 @@ pub fn encode(doc: &Doc, smooth: f64) -> Vec<u8> {
 	sections.push(Section::f64s("zval", &doc.zones.1));
 	sections.push(Section::u8s("zhas", &doc.zones.2));
 	psbn::encode(&doc.header, &sections).0
+}
+
+#[cfg(test)]
+mod extra_tests {
+	use super::*;
+
+	fn world() -> WalkWorld {
+		let pt = |x: f64| Pt { c: 1, region: 10, x, y: 0.0, zone: 0, z: None };
+		WalkWorld {
+			faction: "Alliance".into(),
+			data_hash: String::new(),
+			walks_key: String::new(),
+			points: vec![pt(0.0), pt(100.0), pt(9000.0), Pt { region: 20, ..pt(50.0) }],
+			zone_min: Vec::new(),
+			danger: Vec::new(),
+			walk: vec![0, 1, 2, 3],
+			plain: [0, 1, 2, 3].into_iter().collect(),
+			anchors: FxHashSet::default(),
+			extra: Vec::new(),
+		}
+	}
+
+	fn asked(w: &WalkWorld) -> Vec<(usize, usize)> {
+		let mut v: Vec<(usize, usize)> = w.queries(0).into_iter().flat_map(|(s, ids)| ids.into_iter().map(move |t| (s.min(t), s.max(t)))).collect();
+		v.sort_unstable();
+		v
+	}
+
+	#[test]
+	fn an_extra_pair_beyond_the_radius_is_asked_once_in_the_base_band() {
+		// Feathermoon 2821 (c6): a 5921 yd leg past RADIUS had no walk; routes listed it as a miss.
+		let mut w = world();
+		assert_eq!(asked(&w), vec![(0, 1)], "9000 yd is past RADIUS; another region never");
+		w.extra = vec![(2, 0), (0, 2), (1, 0), (0, 3)];
+		assert_eq!(asked(&w), vec![(0, 1), (0, 2)], "the far pair once; the near one not twice; no cross-region pair");
+		assert!(w.queries(10).iter().all(|(s, ids)| !(ids.contains(&2) && *s == 0)), "danger bands unchanged");
+	}
+
+	/// Walks 1.5 × the straight line (with one zone cell when cells are asked, as the grid's router
+	/// gives them), the base model only; `Fake(v)`: the walker's answer version `v`.
+	struct Fake(u32);
+	struct FakeRouter;
+	impl crate::store::Router for FakeRouter {
+		fn walks(&mut self, _: &crate::store::Model, pairs: &[(End, End)], cells: bool) -> Vec<(Answer, Option<ZoneCells>)> {
+			pairs
+				.iter()
+				.map(|(a, b)| {
+					let yd = 1.5 * js_hypot(a.x - b.x, a.y - b.y);
+					(Answer { yd, cost: yd }, cells.then(|| vec![(0u32, yd as f32)].into_boxed_slice()))
+				})
+				.collect()
+		}
+	}
+	impl BackendRouter for FakeRouter {}
+	impl Backend for Fake {
+		fn router_name(&self) -> &str {
+			"fake"
+		}
+		fn smooth(&self) -> f64 {
+			1.0
+		}
+		fn model(&self, _: &[(u16, f64)]) -> crate::store::Model {
+			crate::store::Model { grid: "g".into(), params: format!("p|v={}", self.0) }
+		}
+		fn ends(&self, world: &WalkWorld) -> Vec<End> {
+			world.points.iter().map(|p| End::new(p.c as i32, p.x, p.y, p.z, p.z)).collect()
+		}
+		fn zone_at(&self, _: &End) -> u16 {
+			0
+		}
+		fn router<'a>(&'a self, _: Vec<(crate::store::Model, Vec<(u16, f64)>)>, _: bool, _: i64) -> Box<dyn BackendRouter + 'a> {
+			Box::new(FakeRouter)
+		}
+	}
+
+	/// A world whose every point is a plain walk place on one region.
+	fn places(xy: &[(f64, f64)]) -> WalkWorld {
+		let n = xy.len();
+		WalkWorld {
+			points: xy.iter().map(|&(x, y)| Pt { c: 1, region: 10, x, y, zone: 0, z: None }).collect(),
+			walk: (0..n).collect(),
+			plain: (0..n).collect(),
+			..world()
+		}
+	}
+
+	/// One build on `w` with the store saved and read back (as forge build keeps it) -> (doc, base band's stats).
+	fn build(w: &WalkWorld, be: &Fake, store: &mut WalkStore) -> (Doc, BandStats) {
+		let (doc, s) = build_doc(w, &be.ends(w), store, be, "fp", &|_| {}, &[0]);
+		*store = WalkStore::decode(&store.encode()).unwrap();
+		(doc, s[0].clone())
+	}
+
+	#[test]
+	fn a_world_gaining_places_reuses_every_stored_walk_and_routes_only_the_new_pairs() {
+		// #735: a correction makes an objective a kill, and its camp's places join the world ahead of
+		// others (every later point id shifts). The store keeps walks by their ends, not by ids.
+		let old_xy = [(0.0, 0.0), (100.0, 0.0), (200.0, 50.0), (300.0, 0.0), (420.0, 80.0)];
+		let mut store = WalkStore::new();
+		let (_, s) = build(&places(&old_xy), &Fake(2), &mut store);
+		assert_eq!((s.pairs, s.stored, s.routed), (10, 0, 10), "a first build routes every pair");
+		let new_xy: Vec<(f64, f64)> = [(150.0, 10.0), (160.0, 20.0)].into_iter().chain(old_xy).collect();
+		let new = places(&new_xy);
+		let (doc, s) = build(&new, &Fake(2), &mut store);
+		// 7 places: 21 pairs, the 10 old ones stored, the 11 with a new place routed.
+		assert_eq!((s.pairs, s.stored, s.routed), (21, 10, 11), "every old pair from the store, only the new places' pairs routed");
+		let (fresh, _) = build(&new, &Fake(2), &mut WalkStore::new());
+		assert_eq!(doc.pairs, fresh.pairs, "the same walks as a build from nothing");
+		assert_eq!(doc.zones, fresh.zones, "and the same zone shares");
+		let (_, s) = build(&new, &Fake(2), &mut store);
+		assert_eq!((s.stored, s.routed), (21, 0), "nothing new: nothing routed");
+	}
+
+	#[test]
+	fn a_walker_that_answers_otherwise_routes_every_pair_again() {
+		// The walker's answer version (MODEL_VERSION) is part of every model: a bumped walker reuses no walk.
+		let w = places(&[(0.0, 0.0), (100.0, 0.0), (200.0, 50.0), (300.0, 0.0)]);
+		let mut store = WalkStore::new();
+		build(&w, &Fake(2), &mut store);
+		let (_, s) = build(&w, &Fake(3), &mut store);
+		assert_eq!((s.pairs, s.stored, s.routed), (6, 0, 6), "another answer version: every pair routed");
+		let (_, s) = build(&w, &Fake(2), &mut store);
+		assert_eq!((s.stored, s.routed), (6, 0), "the store keeps both versions' walks");
+	}
+
+	#[test]
+	fn an_extra_pair_is_routed_and_written_with_its_walk() {
+		// The base band's table holds the extra pair's routed yards (what forge-sim's walk table
+		// reads), not a missing pair the sim prices as the straight line × detour.
+		let walk_of = |w: &WalkWorld| -> Option<f64> {
+			let mut store = WalkStore::new();
+			let (doc, _) = build_doc(w, &Fake(2).ends(w), &mut store, &Fake(2), "fp", &|_| {}, &[0]);
+			let p = &doc.pairs[0].1;
+			(0..p.len() / 5).find(|&k| (p[5 * k] as usize, p[5 * k + 1] as usize) == (0, 2) || (p[5 * k] as usize, p[5 * k + 1] as usize) == (2, 0)).map(|k| p[5 * k + 2])
+		};
+		let mut w = world();
+		assert_eq!(walk_of(&w), None, "no walk for the far pair");
+		w.extra = vec![(2, 0)];
+		assert_eq!(walk_of(&w), Some(13500.0), "routed: 1.5 × 9000 yd");
+	}
 }

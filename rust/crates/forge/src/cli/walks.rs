@@ -207,6 +207,7 @@ fn walks(a: &[String]) {
 			_ => forge_nav::stage::Nav::auto(std::env::var("POLESTAR_LEFFE_NAV").ok().as_deref().map(std::path::Path::new), &file),
 		},
 		log: &log,
+		extra: &[],
 	})
 	.unwrap_or_else(|e| die(&e));
 	let f = sim.join(format!("walks-{faction}.bin"));

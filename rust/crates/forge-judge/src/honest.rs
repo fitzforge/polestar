@@ -288,7 +288,8 @@ pub fn chains_with(guides: &[V], shared_once: bool) -> Vec<Vec<usize>> {
 /// The classes every race file can be on each side (races.json), CLASSES order when the data has no table.
 const ALL_CLASS_FILES: [&str; 9] = ["WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID"];
 
-fn playable_classes(data: &Data, race: &str, faction: &str) -> Vec<String> {
+/// The class files `race` (a race file: `Scourge`, `NightElf`) can be on `faction`'s side.
+pub fn playable_classes(data: &Data, race: &str, faction: &str) -> Vec<String> {
 	if !data.races.is_obj() || data.races.is_empty() {
 		return ALL_CLASS_FILES.iter().map(|s| s.to_string()).collect();
 	}

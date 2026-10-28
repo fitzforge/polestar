@@ -122,7 +122,7 @@ fn accept_objectives_and_turn_in_advance_the_steps_and_fire_messages_in_order() 
 			local v = E.GetStepView(3)
 			local wp = E.GetWaypoint()
 			w.progress(7, 1, 10); flush()
-			w.trainer(911); flush()
+			w.trainer(911); w.learnSpell(100); flush()
 			w.close()
 			w.turnIn(7); flush()
 			w.setLevel(4); flush()
@@ -209,7 +209,7 @@ fn only_on_steps_and_goals_filters_by_class_and_race() {
 		script: r#"
 			local at = E.GetStepIndex()
 			local v4, v6 = E.GetStepView(4), E.GetStepView(6)
-			stub.world.trainer(198); flush()
+			stub.world.trainer(198); stub.world.learnSpell(100); flush()
 			local g = {}
 			for i, goal in ipairs(v6.goals) do g[i] = goal.status end
 			emit({ at = at, s4 = v4.status, s4goal = v4.goals[1].status, s6 = v6.status, goals6 = g,
@@ -395,6 +395,68 @@ Polestar.RegisterGuide({ id = "test/evidence", pack = "test", title = "Evidence"
 	assert_eq!(out["skipped"], true, "the turn-in after the cave was skipped");
 	let done: Vec<bool> = out["gotos"].as_array().unwrap().iter().map(|st| st == "done").collect();
 	assert_eq!(done, vec![false, false, false, false, true], "only the goto ahead of quest work everyone does is done");
+}
+
+// A step with several field goals (Garren's Haunt from Brill): Elwynn here is 30 yd per map percent across.
+const FIELD: &str = r#"
+Polestar.RegisterGuide({ id = "test/field", pack = "test", title = "Field", zone = 1429, steps = {
+	{ title = "Garren's Haunt", goals = {
+		{ t = "kill", target = "Maggot Eye", npc = 300, count = 1, quest = 7, oi = 1, map = 1429, x = 80, y = 50,
+			spots = { { x = 80, y = 50, r = 10, n = 1 } } },
+		{ t = "kill", target = "Rot Hide Graverobber", npc = 1941, count = 8, quest = 8, oi = 1, map = 1429, x = 45, y = 50 },
+		{ t = "collect", item = 2848, itemName = "Doom Weed", quest = 9, oi = 1, count = 10, map = 1429, x = 55, y = 50,
+			spots = { { x = 55, y = 50, r = 10, n = 4 }, { x = 30, y = 50, r = 10, n = 1, alt = true } } },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+
+#[test]
+fn several_open_field_goals_the_arrow_and_the_mark_lead_to_the_nearest_the_list_keeps_its_written_order() {
+	let out = run1(Run {
+		guides: FIELD,
+		before: "w.onQuest(7, { 1 }); w.onQuest(8, { 8 }); w.onQuest(9, { 10 }); w.moveTo(1429, 40, 50)",
+		script: r#"
+			E.SetGuide("test/field"); flush()
+			local v = E.GetStepView(1)
+			emit({ arrow = E.GetWaypoint().goalIndex, mark = v.current, first = v.goals[1].subject })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "arrow": 2, "mark": 2, "first": "Maggot Eye" }), "the Graverobbers 150 yd off, not Maggot Eye 1200 yd off");
+}
+
+#[test]
+fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight_and_moves_on_when_it_is_done() {
+	let out = run1(Run {
+		guides: FIELD,
+		before: "w.onQuest(7, { 1 }); w.onQuest(8, { 8 }); w.onQuest(9, { 10 }); w.moveTo(1429, 40, 50)",
+		script: r#"
+			local w = stub.world
+			fighting = false
+			function UnitAffectingCombat(unit) return unit == "player" and fighting end
+			E.SetGuide("test/field"); flush()
+			local function at(x) w.moveTo(1429, x, 50); stub.advance(1); return E.GetWaypoint().goalIndex end
+			local r = { start = E.GetWaypoint().goalIndex }
+			-- 49: the Graverobbers' point 120 yd off, the Doom Weed's area edge 170
+			r.between = at(49)
+			-- 51.5: 195 yd against 95, clearly nearer
+			r.past = at(51.5)
+			-- 50.5: 165 against 125, the Graverobbers not clearly nearer: no flap back
+			r.back = at(50.5)
+			-- in a fight beside the Graverobbers the arrow stays
+			fighting = true
+			r.fight = at(45.5)
+			fighting = false
+			r.after = at(45.5)
+			-- the Graverobbers done: on to the nearest left, the Doom Weed
+			w.progress(8, 1, 8); flush()
+			r.done = E.GetWaypoint().goalIndex
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "start": 2, "between": 2, "past": 3, "back": 3, "fight": 3, "after": 2, "done": 3 }));
 }
 
 #[test]
@@ -1133,7 +1195,9 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 			local function mark(label) trail[#trail + 1] = label .. "=" .. tostring(E.GetStepIndex()) end
 			w.merchant(54); w.close(); flush(); mark("early-vendor")
 			w.gossip(198); w.close(); flush(); mark("wrong-npc")
-			w.gossip(197); flush(); w.close(); mark("talk")
+			-- Opening the NPC's chat is not talking to them: picking an option is (#741).
+			w.gossip(197, { options = { { name = "Tell me about Northshire." } } }); flush(); mark("talk-open")
+			C_GossipInfo.SelectOption(1); flush(); w.close(); mark("talk")
 			w.bind("Goldshire"); flush(); mark("bind")
 			w.taxi(352, "Stormwind, Elwynn", { "Sentinel Hill, Westfall" }); w.close(); flush(); mark("fp")
 			w.setZone("Stormwind City", "Trade District"); flush(); mark("fly")
@@ -1152,7 +1216,7 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 		"#,
 		..Default::default()
 	});
-	assert_eq!(out["trail"], json!(["early-vendor=1", "wrong-npc=1", "talk=2", "bind=3", "fp=4", "fly=5", "vendor=6", "buy=7", "collect-2=7", "collect-3=8", "hearth=9", "moved-on=9"]));
+	assert_eq!(out["trail"], json!(["early-vendor=1", "wrong-npc=1", "talk-open=1", "talk=2", "bind=3", "fp=4", "fly=5", "vendor=6", "buy=7", "collect-2=7", "collect-3=8", "hearth=9", "moved-on=9"]));
 	assert_eq!(out["fp"], json!({ "Stormwind, Elwynn": true }));
 	assert_eq!(out["progress"], json!({ "cur": 2, "max": 3, "kind": "count" }));
 	assert_eq!(
@@ -1337,6 +1401,56 @@ fn hotline_s_report_576_a_hearth_step_while_the_hearthstone_waits_says_how_long_
 	assert_eq!(out["none"], json!({ "line": "No Hearthstone in your bags: walk to the inn", "arrow": [1429, 43.8, 65.8, "Walk to Goldshire"] }));
 	assert_eq!(out["walked"], 2, "arriving in Goldshire on foot checks the hearth off");
 	assert_eq!(out["unknown"], json!({ "line": "Hearthstone ready in 10 min", "arrow": false }));
+}
+
+#[test]
+fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_longer_wait_when_it_is_sooner_travel_when_the_inn_is_close() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-trip", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		script: r#"
+			local hs = { have = true, remaining = 20 * 60 }
+			Polestar.QoL = Polestar.QoL or {}
+			Polestar.QoL.GetHearth = function() return hs end
+			-- The way to the inn without the Hearthstone, as Nav plans it (seconds); noHearth asked for.
+			local trip, asked = 9 * 60, {}
+			Polestar.Nav = Polestar.Nav or {}
+			Polestar.Nav.HEARTH_SECONDS, Polestar.Nav.HEARTH_MARGIN = 15, 120
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
+			end
+			Polestar.Nav.EstimateTravel = function(from, to, budgeted, noHearth)
+				asked[#asked + 1] = (from == nil and to.map == 1429 and noHearth == true) and "noHearth" or "other"
+				return trip
+			end
+			local function changed() Polestar.Fire("QOL_HEARTH_CHANGED"); flush() end
+			local function state()
+				local g, wp = E.GetStepView(1).goals[1], E.GetWaypoint()
+				return { line = g.hearthText or false, arrow = wp and wp.label or false }
+			end
+			E.SetGuide("test/hearth-trip"); flush()
+			local r = { longer = state() }
+			trip = 30 * 60; changed()
+			r.sooner = state()
+			hs.remaining = 0; trip = 90; changed()
+			r.close = state()
+			trip = 20 * 60; changed()
+			r.far = state()
+			r.asked = asked[1]
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["longer"], json!({ "line": "Hearthstone ready in 20 min; the trip takes 9 min: set off now", "arrow": "Walk to Goldshire" }));
+	assert_eq!(out["sooner"], json!({ "line": "Hearthstone ready in 20 min, sooner than the 30 min trip: wait for it", "arrow": "Walk to Goldshire" }));
+	assert_eq!(out["close"], json!({ "line": "The inn is only 2 min away: travel there and keep the Hearthstone", "arrow": "Walk to Goldshire" }));
+	assert_eq!(out["far"], json!({ "line": false, "arrow": false }), "a long trip with the Hearthstone ready: hearth");
+	assert_eq!(out["asked"], "noHearth");
 }
 
 #[test]

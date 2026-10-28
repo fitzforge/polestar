@@ -2526,6 +2526,18 @@ fn verify_counts(list: &[V]) -> Obj {
 	c
 }
 
+/// A TDB loot row (`[rate, provenance, flags, ...]`) gives its own rate to a dropper the item lists
+/// without one, when the item's rates are on the server's scale (`dropScale` server, or no table
+/// chosen): the merge keeps one rate table per item, and the world leaves a dropper that table does
+/// not rate out whenever a rated one stands nearer (Red Leather Bandana 829: QuestieDB's server table
+/// rates the Highwaymen at 80 and none of the Trappers, Smugglers, Pillagers or Looters, which the
+/// TDB has at 40, so the world sent Red Leather Bandanas to the level 17 Highwaymen of Moonbrook,
+/// past the Defias the Militia quests kill: RevA1, c13). A sniffed row fills any table (above).
+fn tdb_rate_fills_unrated(item: &V, row: &V) -> bool {
+	let scale = item.get("dropScale");
+	(scale.is_nullish() || scale.as_str() == Some("server")) && row.num_at(0) > 0.0
+}
+
 /// The TDB's sniffed spawns, drop rates and droppers (kb.js applyTdbWorld).
 fn apply_tdb_world(kb: &mut Kb, tdb: &V, spawnz: Option<&mut (V, V)>) -> Obj {
 	let inp = kb.inp;
@@ -2708,6 +2720,11 @@ fn apply_tdb_world(kb: &mut Kb, tdb: &V, spawnz: Option<&mut (V, V)>) -> Obj {
 						let v = rate(mult);
 						drops.set(&ent, v);
 						kb.change("items", iid, &format!("drop {kind}"), V::Null, V::Num(v), "tdb");
+						bump("ratesFilled", 1.0);
+					} else if drops.get(&ent).is_nullish() && tdb_rate_fills_unrated(&it, &e) {
+						let v = rate(mult);
+						drops.set(&ent, v);
+						kb.change("items", iid, &format!("drop {kind}"), V::Null, V::Num(v), "tdb.inherited");
 						bump("ratesFilled", 1.0);
 					}
 				} else if it.get("questItem").truthy() && (to_int32(e.num_at(2)) & 1) != 0 && !e.at(1).to_js_string().contains("placeholder") && e.num_at(0) >= 1.0 {
@@ -3592,6 +3609,23 @@ mod tests {
 		assert_eq!(steps[0].get("action").as_str(), Some("interact"));
 		assert!(steps[0].get("drives").truthy());
 		assert!(!steps[1].get("drives").truthy());
+	}
+
+	#[test]
+	fn tdb_rates_fill_droppers_the_server_table_leaves_unrated() {
+		// Red Leather Bandana 829 (RevA1, c13): the server table rates the Highwaymen, not the
+		// Trappers; the TDB has the Trappers at 40 (a placeholder row).
+		let item = parse_json(r#"{ "id": 829, "drops": { "npc": { "122": 80, "504": null } }, "dropScale": "server", "questItem": true }"#).unwrap();
+		let row = parse_json(r#"[40, "placeholder", 5, null, null, 1]"#).unwrap();
+		assert!(tdb_rate_fills_unrated(&item, &row));
+		// No table chosen: the TDB's rate too.
+		let bare = parse_json(r#"{ "drops": { "npc": { "504": null } }, "dropScale": null }"#).unwrap();
+		assert!(tdb_rate_fills_unrated(&bare, &row));
+		// An observed or pfQuest table keeps its scale: no server rates mixed in.
+		let observed = parse_json(r#"{ "drops": { "npc": { "504": null } }, "dropScale": "observed" }"#).unwrap();
+		assert!(!tdb_rate_fills_unrated(&observed, &row));
+		// A zero row fills nothing.
+		assert!(!tdb_rate_fills_unrated(&item, &parse_json(r#"[0, "vmangos", 5, null, null, 1]"#).unwrap()));
 	}
 
 	fn fact_of(alt: &Alt, key: &str, field: &str, source: &str) -> Option<String> {

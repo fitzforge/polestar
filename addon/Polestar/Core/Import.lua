@@ -226,7 +226,7 @@ local GOAL = rec({
 		lvl = rec({ min = N, max = N }), rate = N, spawns = N })),
 	rewards = rec({ choices = list(REWARD_ITEM), items = list(REWARD_ITEM), xp = N, money = N }),
 	group = rec({ kind = S, rank = N, name = S, size = N, map = N }),
-	direct = B, escort = B,
+	direct = B, escort = B, gossip = N, seconds = N,
 })
 -- A step's `when` predicates and a `next` option's (format 4; Guides.Validate checks each kind's keys).
 local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, spell = N, name = S, label = S, area = N, map = N, skillLine = N, minLevel = N, pre = LN, preAll = LN, closedBy = LN })

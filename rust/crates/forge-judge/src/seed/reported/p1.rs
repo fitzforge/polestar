@@ -244,7 +244,7 @@ const CAVES: [Cave; 10] = [
 	Cave { cave: "the Jasperlode Mine", guide: ELWYNN, target: |g| t(g, "collect") && n(g, "item", 247816.0), mouth: (1429.0, 61.6, 54.1) },
 	Cave { cave: "Shadowthread Cave", guide: TELDRASSIL, target: |g| t(g, "collect") && n(g, "item", 5167.0), mouth: (1438.0, 56.69, 31.29) },
 	Cave { cave: "Fel Rock", guide: TELDRASSIL, target: |g| t(g, "collect") && n(g, "item", 5221.0), mouth: (1438.0, 54.59, 52.12) },
-	Cave { cave: "Night Web's Hollow", guide: TIRISFAL, target: |g| t(g, "goto") && n(g, "x", 24.8) && n(g, "y", 59.6), mouth: (1420.0, 26.0, 60.0) },
+	Cave { cave: "Night Web's Hollow", guide: TIRISFAL, target: |g| t(g, "kill") && n(g, "npc", 271961.0), mouth: (1420.0, 26.0, 60.0) },
 ];
 
 fn cave_name(k: usize) -> String {
@@ -474,6 +474,19 @@ fn righteous_cause(ctx: &Ctx, c: &mut Check) {
 	}
 }
 
+fn shadowvale_once(ctx: &Ctx, c: &mut Check) {
+	let paladin = filter(&goals!(ctx, c, TIRISFAL), for_class("PALADIN"));
+	let work: Vec<usize> = (0..paladin.len()).filter(|&i| t(&paladin[i].goal, "collect") && [95314.0, 99152.0, 99153.0].iter().any(|&q| n(&paladin[i].goal, "quest", q))).collect();
+	let steps: Vec<usize> = work.iter().map(|&i| paladin[i].s).collect();
+	if !ok!(c, work.len() == 3 && steps.iter().all(|&s| s == steps[0]), &format!("a Paladin works 95314, 99152 and 99153 in one Shadowvale step (steps {steps:?})")) {
+		return;
+	}
+	let cause = at!(c, &paladin, "turnin 96896 (A Righteous Cause)", is("turnin", 96896));
+	ok!(c, cause < work[0], "after A Righteous Cause, at level 10");
+	let away = paladin.iter().position(|r| r.goal.get("map").as_num().is_some_and(|m| m != 1420.0));
+	ok!(c, away.is_none_or(|a| work[0] < a), "before the Paladin leaves Tirisfal Glades");
+}
+
 fn class_letter(ctx: &Ctx, c: &mut Check) {
 	const SARVIS: f64 = 1569.0;
 	let all = goals!(ctx, c, TIRISFAL);
@@ -610,7 +623,6 @@ fn camping(ctx: &Ctx, c: &mut Check) {
 
 fn talk_to(ctx: &Ctx, c: &mut Check) {
 	let talks = [
-		(TELDRASSIL, 96634, 1.0, "Zarrin"),
 		("forever/horde/03-silverpine-forest.guide", 93739, 1.0, "Nazgrel"),
 		("forever/horde/03-silverpine-forest.guide", 93739, 2.0, "Vol'jin"),
 		(STONETALON, 93739, 4.0, "Lady Sylvanas Windrunner"),
@@ -765,6 +777,7 @@ pub fn tests() -> Vec<SeedTest> {
 	v.extend([
 		(format!("{TIRISFAL}: Mike_'s report: only Paladins are sent to Hilda the Breaker and Ephram Barbaro at Bandarion Keep"), bandarion as F),
 		(format!("{TIRISFAL}: MadReign_Ltd's report: a Paladin takes Hilda's and Ephram's quests after A Righteous Cause is handed in"), righteous_cause),
+		(format!("{TIRISFAL}: an Undead Paladin's report (stress test): a Paladin goes down into Shadowvale once, after level 10, with 95314, 99152 and 99153, before leaving Tirisfal"), shadowvale_once),
 		(
 			format!("{TIRISFAL}: an3vilmonk3y's report (#345): the class letter is taken at Sarvis with Rattling the Rattlecages, and a Warlock's skulls are collected in the Rattlecage step"),
 			class_letter,
@@ -779,7 +792,7 @@ pub fn tests() -> Vec<SeedTest> {
 		(format!("{DUN_MOROGH}: thmastin's report: Bring Back the Mug is taken from Durnan with the Mornbrew, before Felix"), mornbrew),
 		(format!("{DUN_MOROGH}: thmastin's report: Kharanos is done outside first (Eric before Tharek), then the distillery, training last"), kharanos),
 		(format!("{DUN_MOROGH}: thmastin's report: Camping 101: Cooking waits for the return to Kharanos, the lesson before the turn-in"), camping),
-		(s("EpicTibbles's report (#532): an objective that is talking to someone reads \"Talk to\", not \"Kill\": Zarrin in Teldrassil and the Skyborne visits to the Horde leaders"), talk_to),
+		(s("EpicTibbles's report (#532): an objective that is talking to someone reads \"Talk to\", not \"Kill\": the Skyborne visits to the Horde leaders"), talk_to),
 		(s("EpicTibbles's report (#565): a Hunter's Taming the Beast beast reads \"Tame\", not \"Kill\", in every guide"), tame),
 		(format!("{DUN_MOROGH}: thmastin's report: The Reports is taken from Senir with Frostmane Hold and handed to the senator on the way to the tram"), reports),
 		(format!("{DUN_MOROGH}: thmastin's report: kills on the way are counted on the way and finished after"), kills_on_the_way),

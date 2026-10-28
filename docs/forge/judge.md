@@ -29,6 +29,7 @@ not a stopwatch on a real character.
 | Guide-text metrics | `guidetext` | Route-quality numbers read off the guide text | none (library, tests) |
 | Seed tests | `seed` | Checks written from player reports, run on any guides folder | `forge judge seed-tests` |
 | Report | `report` | v1 against the written guides, per start | `forge judge report` |
+| Route check | `check` | The route gate: every broken rule of the written guides, one line each | `forge judge check` |
 | Sim cases | `cases` | Reported route problems as properties of a route's action list | none (library, tests) |
 
 The library builds without the file system too (`--no-default-features`, for
@@ -82,7 +83,7 @@ each class an `only` in the guide names, and one class no `only` names. With
 |---|---|---|
 | R1 travel | A continent change needs a travel line (hearth, `die`, a boat/zeppelin `goto`). A zone change farther than 600 yd needs one too. `fly` needs both flight paths learnt and a flight master within 200 yd. `hearth` needs the inn you are bound at. Goals of an `along` step do not move the player. | fail |
 | R2 accept | An item-started quest needs the item in the bags. The giver stands within 80 yd. | fail |
-| R3 items | `collect` needs a source in the data within 400 yd. Quest items drop only while a quest needs them. `use` needs the item in the bags. | fail / warn |
+| R3 items | `collect` needs a source in the data within 400 yd (of any of its spots, for a goal searched over spots: a `loop` circuit's). Quest items drop only while a quest needs them. `use` needs the item in the bags. | fail / warn |
 | R4 NPCs | Givers and enders come from the data. A step titled with an NPC's name has a goal at that NPC. With several givers and no `npc`, none is 500 yd nearer. | fail |
 | R5 turn-in | The quest is held, every objective is credited, and every extra step the quest needs (use an item, escort, buy, ...) has a line since the accept. | fail / warn |
 | R6 gating | The data closes the quest to this race or class and no `only` gates the line (fail). An `only` on a quest the data opens to everyone (warn). | fail / warn |
@@ -124,6 +125,15 @@ time from the simulator's evaluator (`levels::SimLevels`), using the sim
 folder's world and `params.json`. `--levels FILE` replays the levels from a
 saved judge dump instead. With neither, the walk is skipped.
 
+`forge judge report`, `forge judge check` and `forge build`'s report price the
+walk as the routes stage prices an order (`SimLevels::route`): the average route
+profile on the sim folder's walk store, so a quest with no kill or escort work is
+taken without first grinding to its level, items that drop from more than 20
+kinds of mob come from the bags, and every placed line with no quest (a `goto`,
+`getfp`, `sethome`, a vendor) is travelled to, so a written detour costs its
+travel. The judge's own walk (`forge judge`) and the JS-parity tests keep the
+gate's model (`SimLevels::new`).
+
 An `along` goal is done the way the addon plays it: when a later goal works the
 same objective, or at the step its `until` label names. `forge judge report
 --along-walked` walks to it where the step stands instead, as the old judge did.
@@ -140,7 +150,9 @@ going more than 1,000 yd away from that giver, or to another continent.
 the area of its giver, ender or objective camp. A visit to an area lasts until
 the walk goes more than 400 yd from the area's camps. Each quest goal on a later
 visit is judged against the state when the player last left: could it have been
-done then? The counts:
+done then? A hand-in is not avoidable when its objective was worked, or an item
+it asks for bought (the Arcane Quickener at Chillwind Camp for the cauldrons),
+elsewhere since. The counts:
 
 - **avoidable returns**: later visits with at least one goal that could have
   been done on the last visit;
@@ -205,6 +217,7 @@ test fails.
 ```sh
 forge judge --help
 forge judge report --help
+forge judge check --help
 forge judge seed-tests --help
 forge judge route-status --help
 forge judge feedback --help
@@ -259,6 +272,79 @@ forge judge report --route out/routes/Orc.json --guides out/guides --root out/.f
 `forge build` writes the same two files to the top of its `--out` folder.
 After a build, `<out>/.forge/root` and `<out>/.forge/sim` are a consistent root
 and sim folder for these commands.
+
+### The route gate: `forge judge check`
+
+```sh
+forge judge check out/guides
+forge judge check out/guides --start Orc --json
+```
+
+The fast check of a build's written guides, independent of the search and the
+writer. It reads the build's files beside the guides folder (`../routes`,
+`../.forge/root`, `../.forge/sim`, `../fixes.json`) and the deliberate orders
+in the route fixes (`--route-fixes`, else `$POLESTAR_ROUTE_FIXES`, else this
+checkout's `data/route-fixes.json`). It prints one line per broken rule:
+
+```
+<start> <file>:<line> <rule> blocker|warn: <message> [<classes>]
+```
+
+The classes in brackets are the ones that meet it; none means every class.
+Rules read off the build's own files (the ledger, the route) name that file
+with line 0. The command exits 1 when there is a blocker; `--json` prints
+`{ starts, violations }`, and `--out DIR` also writes `check.md` and `check.json`
+there. All ten starts take about 25 s on 12 threads (each start on its own
+thread, the base guides' playtest and the player view beside the written one).
+
+| Rule | Level | Breaks when |
+|---|---|---|
+| `R1` `R2` `R3` `R5` `R6` `R10` | blocker | The honest playtest (default mode) fails the line, the base guides do not have the same failure (the report's key: rule and reason less distances), and the guide is on the start's chain |
+| `lock-key` | blocker | An item that only comes from locked objects (`lock.item` in the data) is collected before any line gets the key (collects it, or kills the NPC it drops from): the Aged Envelope before Lieutenant Benedict |
+| `not-ready` | blocker | On a class's walk, an accept before the hand-in of a prerequisite the walk hands in later (The Binding before Creature of the Void), with its parent (the data's `parent`, the TDB's negative PrevQuestID) not in the log while the walk takes the parent (Chapter I-IV with The Green Hills of Stranglethorn open), or at a level more than one under the quest's minimum. A breadcrumb is no prerequisite (Taking Back Silithus for Securing the Supply Lines), nor is a parent one to hand in (Stranglethorn Fever 349 inside 348) |
+| `class-lost` | blocker | A class quest the faction's seed guides accept (required, the data names its classes) is accepted in no written guide of the start, though the start's race plays a class it is for and its races allow the race: the Dwarf Paladins' Tome of Divinity. The line is the seed guide's |
+| `item-use` | blocker | A `use` comes before the only line that gets the item (no collect, buy or accept hands it over first) |
+| `deliberate` | blocker | A route fixes `deliberate` `pairs` or `after`, or `overrides` `pairs`, order is broken on the walk: some step of `a` after the first step of `b` (a task index is the sim's, read through the world's objectives) |
+| `fixes` | blocker | The fixes ledger (`fixes.json`) has a blocking row this start does not pass |
+| `rare` | blocker | A required collect or accept waits on a rare drop: a quest-starting item whose drops are all under 5 %, or of unknown chance from several NPCs (the Nibbled-On Book); an objective item whose drops are all known and under 5 %; a quest the route fixes keep `optional` |
+| `hearth` | blocker | A hearth less than the cooldown (`hearthCooldown`, 60 min) after the last one on the walk's modelled time, or the route's own `improved.planHearthsOnCooldown` above 0 |
+| `bounce` | blocker | A `goto` more than 500 yd from where the player stands leads where nothing is done for the class (no work within 400 yd, none in its own step) before the walk goes back: to the continent it came from, or to another zone much nearer where it came from than to this place (A1c's Thunder Bluff, the Silverpine "To Orgrimmar", Searing Gorge before Thelsamar) |
+| `round-trip` | warn | Per class, the written walk against the model route (`routes/<start>.judge-improved.json`, as `stream_diff`): quests only in one, out of order, hours to 60 |
+| `under-level` `grey` | warn | Quest work begun more than 3 levels under the quest's level; a turn-in at a level where the quest is grey |
+| `dup-trip` | blocker | The walk stops at a place, goes on to another place more than 300 yd away, and comes straight back, where nothing done on the return needed that trip: no quest of the return stop was taken, worked or handed in at the other place, opened by a hand-in there (any of its prerequisites, the data's `preAny` too: the Writhing Haunt Cauldron after Return to Chillwind Camp), out of level before, or a training a level later. One stop could do both (train, Regthar, back to train, Regthar) |
+| `next-to` | warn | A quest taken at its giver on a later visit, though the walk stood within 50 yd of that giver before (then left more than 300 yd) while it was open: on level (its minimum, and its level less 5), a prerequisite handed in. Also, with no trip away, an earlier step with a goal within 40 yd of the giver where it was open (Venya's imp quest beside Sarvis); class lines too, on each class's walk |
+| `split` | warn | An objective worked after a hand-in trip away, though its quest was in the log when the walk worked another objective within 150 yd of it before the trip (their spawns overlap: one visit could do both) |
+| `merge` | warn | Field objectives (kill, collect, interact with a quest) whose spawn spots lie within 150 yd of each other are written apart in one visit: in separate steps though the later one's quest was in the log at the earlier one and the walk did not leave the ground between them; or in one step without `loop` whose written order sends the arrow from one area to another more than 300 yd away and back. The addon's arrow leads to a step's first open goal in written order; a `loop` step searches one circuit for all its field goals |
+| `along` | warn | A travel leg of more than 300 yd passes within 60 yd of the spawns of an objective in the log that is worked later (not at the leg's end), and no `along` line covers the leg; or an `along` line's objective has no spawn within 300 yd of any leg walked while it is listed (the Doom Weed case) |
+| `arrow-order` | warn | In a step of two or more field goals (not a `loop`), the first, where the arrow leads, is more than 200 yd farther from where the step is entered than another of its field goals |
+| `hub-order` | warn | A hub visit with three NPC stops or more walks them more than 1.3 times (and 20 yd more than) the best order from where the walk came in to where it goes next, each NPC once, the quests' own order kept (exact up to 12 stops). A hub is the walk's NPC lines (accept, turn-in, train, bind, flight path, vendor, buy, talk, a collect from an NPC) linked within 120 yd; a visit is the goals done there in a row (other goals within 120 yd and a `goto` inside the hub stay in it). Brill as c12w wrote it: Holland, Zygand, back west to Dillinger, east to the inn (#740) |
+| `walked-past` | warn | A hand-in made after the walk passed within 50 yd of its ender (straight walking legs between the goals where the walk is; a flight or hearth passes no one) while it was ready (accepted, its work done), then went on more than 200 yd from the ender: Aramis' A Light in the Darkness, ready at the cave, handed in after the Scarlet farm (#736) |
+| `left-ready` | warn | A line at a hub's NPC, written after the walk left the hub (more than 200 yd from all its NPCs), that was ready when an earlier visit there ended: an accept open there (on level, a prerequisite handed in), a hand-in accepted with its work done. One violation per line, naming the visit |
+| `feel` | info | The player view is worse than the base guides': avoidable returns, wasted trips, zone changes, quests passed by, quests passed by and never done, or area visits above the base guides' by more than 2 (or 2 % of theirs, if more). One line per metric, on `guides/<start>`. A count is no verdict: a return or a zone change that saves time is fine |
+| `feel-return` | info | A return the base guides do not make (per area, beyond their count there), at its first avoidable goal: in the model order when the model order (`routes/<start>.judge-improved.json`) adds one to that area over v1's chain (`.judge-v1.json`), with the route edits on its quests; else the writer's |
+| `feel-zone` | info | A zone change (from, to) the written walk makes more often than the base guides, at the goal arriving; in the model order or the writer's, the same way |
+
+The walk rules run on each class's walk, with a step's `zone` placing goals
+that have no point of their own (`train class`). The player view walks the
+base guides and the written ones as `forge judge report` does (any class, to
+60), so its numbers are the report's, except that **chain returns** are left
+out of returns, wasted trips and zone changes (and of `feel`, `feel-return` and
+`feel-zone`). A chain return is a return where one of the quests done there has a
+prerequisite (the data's or the rules', the quest whose `next` it is, or a
+breadcrumb) handed in somewhere else since the last visit: the five quests at
+the camp north of Brill, hand them in at Brill, back to the camp for the leaders
+that hand-in opened. A zone change is a chain the same way. `check.md` opens with
+a table of the player view per start: hours, grind minutes (all the level model's
+grinding, with the part on `level` steps and the unwritten rest beside it, so a
+route that drops its `level` lines does not read as grinding less), returns (wasted),
+zone changes, passed by (never), area visits, chain returns (zone changes),
+base -> written, how many added returns and zone changes are the model
+order's and the writer's, and the `merge`, `along` and `arrow-order` counts.
+The rules `merge`, `along` and `arrow-order` read the walk as written, with
+`along` goals at their own steps. `forge build` runs the check
+after the fixes ledger on every run and writes `check.md` and `check.json`
+beside `report.md`, with a `Route check:` summary line at the end of
+`report.md`. A blocker fails the build only with `--strict`.
 
 ### The dashboard's route status: `forge judge route-status`
 
@@ -316,7 +402,8 @@ whole 1-60 walk.
 | area visits (`areaVisits`) | Visits to quest areas (`qPerVisit` = quests per visit) | fewer, fuller |
 | deaths (`deaths`) | `die` goals (deliberate deaths for travel) | — |
 | trains (trips) (`trains`, `trainTrips`) | Training goals; trips whose only purpose is training, going back on yourself | fewer trips |
-| grind min (`grindMin`) | Minutes spent on `level` goals | lower |
+| grind min (`grindMin`) | Minutes spent on `level` goals (their time, travel to the camp included) | lower |
+| grind all, shown (`grindAllMin`, `grindShownMin`) | The level model's grinding on every goal (its evaluator's grind time), and the part on `level` goals; the rest is grind no step writes. A recorded JS walk has no model grind: both are `grindMin` | lower |
 | log peak (`logPeak`) | Most quests held at once | ≤ 20 |
 
 Then, per start:

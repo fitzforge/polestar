@@ -117,8 +117,9 @@ instead of their bytes. A key never hashes source text that does not change the 
 old outputs survive. Nothing else invalidates a stage.
 
 **Staging root.** Every stage reads a repository-shaped folder, `<out>/.forge/root`: its
-`data/forever` is the data stage's output; `data/sources`, `data/local`, `tools` and `addon` link to
-the checkout's (or the data pack's); `guides` to the input guides. The sim stages also read
+`data/forever` is the data stage's output; `data/sources`, `data/local`, `tools`, `addon` and
+`forever-db` (the corrections the seed tests read) link to the checkout's (or the data pack's);
+`guides` to the input guides. The sim stages also read
 `<out>/.forge/sim` (`world-*.json`, `walks-*.bin`, `params.json`). This is why a stage's library
 code can take "a checkout" and work the same inside a build.
 

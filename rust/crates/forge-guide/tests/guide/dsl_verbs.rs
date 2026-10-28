@@ -253,7 +253,7 @@ fn achieve_id_required_name_and_optional_criterion() {
 #[test]
 fn without_professions_json_and_factions_json_built_in_professions_still_resolve_quoted_names_warn_nothing_crashes() {
 	let data = data_without(&["professions.json", "factions.json"]);
-	assert_eq!(data.missing, ["professions.json", "factions.json", "trainers.json", "travel.json", "spawnz.json"]);
+	assert_eq!(data.missing, ["professions.json", "factions.json", "trainers.json", "travel.json", "spawnz.json", "moves.json"]);
 	let src = guide_text(&[
 		"step S",
 		"  skill Tailoring 75",

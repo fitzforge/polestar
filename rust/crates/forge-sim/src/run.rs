@@ -20,6 +20,12 @@ pub const K_TURNIN: u8 = 2;
 pub const K_GRIND: u8 = 3;
 /// A class training stop (`train class`): travel to `pt` (a town's trainers) and train.
 pub const K_TRAIN: u8 = 4;
+/// Judge replays only: travel to `pt` and do nothing there (a written guide's `goto`, `getfp`,
+/// `sethome`, vendor or other placed line with no quest), so a written detour costs its travel.
+pub const K_VISIT: u8 = 5;
+/// Learning to ride (v1's `train <npc>` line of a riding trainer): travel to `pt` (the trainer)
+/// and learn; `task` holds the trainer's npc id. The route profiles ride only after it.
+pub const K_RIDE: u8 = 6;
 
 pub const W_KILL: u8 = 0;
 pub const W_USE: u8 = 1;
@@ -85,6 +91,21 @@ pub struct DangerGrid {
 	pub z: Vec<u32>,
 }
 
+/// Yards: a deathskip dies at a lethal spot this close to where the leg starts.
+pub const DEATH_SPOT_YD: f64 = 400.0;
+
+/// A death near a run point (Run::deaths): the graveyard it sends the character to
+/// (world.graveyards index), the straight yards to the spot, the highest level of the mobs there,
+/// the spot's world point (a kill camp's) and one of its mobs (npc id).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct DeathSpot {
+	pub gy: u32,
+	pub yd: f64,
+	pub level: f64,
+	pub spot: u32,
+	pub npc: u32,
+}
+
 pub struct Run {
 	pub faction: forge_core::Faction,
 	pub race: String,
@@ -119,12 +140,32 @@ pub struct Run {
 	/// Per task: the quest objectives (0-based oi, as bits) worked there (the seed places a
 	/// guide goal naming one objective at that objective's task).
 	pub task_objs: Vec<u64>,
+	/// Per task: its objectives' spawn spots (continent, x, y) from v1's compiled goals (Profile
+	/// spots); empty: its site only.
+	pub task_spots: Vec<Vec<(i64, f64, f64)>>,
 	/// Per task: its items drop from so many kinds of mob (> BAG_SOURCES) that the player has
 	/// them from the bags (cloth for the donations): no trip, no work (route profiles set it).
 	pub task_bag: Vec<bool>,
+	/// Per task: its other places (run points; the world's task `alts`): a buy's other friendly
+	/// vendors, an object's other sites. The evaluator buys on the way (eval's buys); the route
+	/// profiles take an object's site by other work (route::co_sited_tasks).
+	pub task_alts: Vec<Vec<u32>>,
+	/// Per task: its index among the buy tasks (all its work a buy, eval's buys), -1 for others.
+	pub buy_ix: Vec<i32>,
+	/// (run point, buy index) of every buy task's vendors (its site and its other places), sorted.
+	pub buy_pts: Vec<(u32, u32)>,
+	pub n_buys: usize,
 	/// v1's travel plan (route profiles): hearths, binds and flight paths where v1's guide has
 	/// them, keyed by the quest step after the guide's line. None: the model's own rules.
 	pub plan: Option<std::sync::Arc<TravelPlan>>,
+	/// Quests started by a rare drop (route profiles, Run::set_rare): per quest, the mob slots
+	/// whose kills may drop its start item, with the chance per kill; `q_rare` marks them (an
+	/// empty source list: no mob the run kills drops it). Valued at expected value (eval).
+	pub q_rare: Vec<bool>,
+	pub q_rare_src: Vec<Vec<(u32, f64)>>,
+	/// Per kill work item: its mob's slot among the rare starts' sources (-1: none).
+	pub w_slot: Vec<i32>,
+	pub n_slots: usize,
 	pub task_w0: Vec<u32>,
 	pub task_w1: Vec<u32>,
 	/// Objective tasks' quest (accept item tasks: -1).
@@ -175,8 +216,23 @@ pub struct Run {
 	pub quest_xp_rows: Vec<Vec<f64>>,
 	/// Run points of towns with the class trainers (`train class` stops); set by the profile.
 	pub towns: Vec<u32>,
+	/// The start's riding trainers (npc id, run point): v1's `train <npc>` lines of riding
+	/// trainers, at the run point nearest the line's place (route::riding). Non-empty: the route
+	/// profiles ride only after a K_RIDE step at one of them.
+	pub riding: Vec<(u32, u32)>,
 	/// Of those, the character's own starting valley: trained at only before leaving it.
 	pub valley_towns: Vec<u32>,
+	/// Per town (as `towns`): the yards a training there costs the classes it has no trainer for
+	/// (profile::town_gaps).
+	pub town_gap_yd: Vec<f64>,
+	/// Per town (as `towns`): the classes it has no trainer for with none in its region, each as the
+	/// run points of the towns that train it (profile::town_away; Evaluator::train_away_sec), and
+	/// each such class's share of the training (1 / the race's classes).
+	pub town_away: Vec<Vec<Vec<u32>>>,
+	pub town_away_share: f64,
+	/// The levels class trainers have new ranks at (the world's training table, every class; rank
+	/// 1 is known from the start), ascending.
+	pub train_ranks: Vec<u32>,
 	/// Per quest: its time limit in seconds (0: none).
 	pub q_limit: Vec<f64>,
 	/// Per quest: the task that holds its escort (-1: none).
@@ -188,6 +244,11 @@ pub struct Run {
 	pub w_alts: Vec<Vec<(u32, f64)>>,
 	/// Per kill work item: the alternative nearest its task's site (-1: none).
 	pub w_default: Vec<i32>,
+	/// Deathskips (Run::set_deaths; empty: none): per graveyard (world.graveyards), its Spirit
+	/// Healer's run point (u32::MAX: not in the run); per run point, the deaths worth pricing from
+	/// there, nearest first.
+	pub gy_pt: Vec<u32>,
+	pub deaths: Vec<Vec<DeathSpot>>,
 }
 
 impl Run {
@@ -209,6 +270,59 @@ impl Run {
 			return f64::INFINITY;
 		}
 		js_hypot(self.p_x[a] - self.p_x[b], self.p_y[a] - self.p_y[b])
+	}
+	/// The buy tasks (all their work a buy) and their vendors (buy_ix, buy_pts, n_buys) from the
+	/// tasks' sites and other places (task_alts): again after those change.
+	pub fn index_buys(&mut self) {
+		self.buy_ix = vec![-1; self.task_pt.len()];
+		self.buy_pts.clear();
+		self.n_buys = 0;
+		for t in 0..self.task_pt.len() {
+			let (w0, w1) = (self.task_w0[t] as usize, self.task_w1[t] as usize);
+			if w1 > w0 && self.w_kind[w0..w1].iter().all(|&k| k == W_BUY) {
+				let b = self.n_buys as u32;
+				self.buy_ix[t] = b as i32;
+				self.buy_pts.push((self.task_pt[t], b));
+				self.buy_pts.extend(self.task_alts[t].iter().map(|&p| (p, b)));
+				self.n_buys += 1;
+			}
+		}
+		self.buy_pts.sort_unstable();
+		self.buy_pts.dedup();
+	}
+}
+
+/// Shared kill credit (`w_share`): per kill work item, the other objective kill items on the same mob
+/// whose tasks' sites are within SHARE_R of its own (`pt_list`: run point -> world point). Again
+/// after a task's site moves (route::model_for's together camps).
+pub(crate) fn kill_shares(r: &mut Run, world: &World, pt_list: &[u32]) {
+	let nw_items = r.w_kind.len();
+	let mut by_mob: Vec<(u32, Vec<u32>)> = Vec::new();
+	let mut mob_ix: FxHashMap<u32, usize> = FxHashMap::default();
+	for w in 0..nw_items {
+		if r.w_kind[w] != W_KILL || r.w_mob[w] == 0 {
+			continue;
+		}
+		let k = *mob_ix.entry(r.w_mob[w]).or_insert_with(|| {
+			by_mob.push((r.w_mob[w], Vec::new()));
+			by_mob.len() - 1
+		});
+		by_mob[k].1.push(w as u32);
+	}
+	r.w_share = vec![Vec::new(); nw_items];
+	for (_, list) in &by_mob {
+		for &a in list {
+			let pa = &world.points[pt_list[r.task_pt[r.w_task[a as usize] as usize] as usize] as usize];
+			for &b in list {
+				if a == b || r.t_quest[r.w_task[b as usize] as usize] < 0 {
+					continue;
+				}
+				let pb = &world.points[pt_list[r.task_pt[r.w_task[b as usize] as usize] as usize] as usize];
+				if pa.region == pb.region && js_hypot(pa.wx - pb.wx, pa.wy - pb.wy) <= SHARE_R {
+					r.w_share[a as usize].push(b);
+				}
+			}
+		}
 	}
 }
 
@@ -257,8 +371,17 @@ pub fn compile_run(world: &World, rules: &Rules, race: &str, cls: Option<&str>, 
 		q_lv_start: Vec::new(),
 		task_pt: Vec::new(),
 		task_objs: Vec::new(),
+		task_spots: Vec::new(),
 		task_bag: Vec::new(),
 		plan: None,
+		q_rare: Vec::new(),
+		q_rare_src: Vec::new(),
+		w_slot: Vec::new(),
+		n_slots: 0,
+		task_alts: Vec::new(),
+		buy_ix: Vec::new(),
+		buy_pts: Vec::new(),
+		n_buys: 0,
 		task_w0: Vec::new(),
 		task_w1: Vec::new(),
 		t_quest: Vec::new(),
@@ -302,12 +425,19 @@ pub fn compile_run(world: &World, rules: &Rules, race: &str, cls: Option<&str>, 
 		zone_min: FxHashMap::default(),
 		grind_spacing: world.grind_spacing.clone(),
 		towns: Vec::new(),
+		riding: Vec::new(),
 		valley_towns: Vec::new(),
+		town_gap_yd: Vec::new(),
+		town_away: Vec::new(),
+		town_away_share: 0.0,
+		train_ranks: Vec::new(),
 		q_limit: Vec::new(),
 		q_escort_task: Vec::new(),
 		camps: Vec::new(),
 		w_alts: Vec::new(),
 		w_default: Vec::new(),
+		gy_pt: Vec::new(),
+		deaths: Vec::new(),
 		quest_xp_rows: Vec::new(),
 	};
 	let is_int = |v: f64| v.fract() == 0.0 && v.is_finite();
@@ -379,36 +509,14 @@ pub fn compile_run(world: &World, rules: &Rules, race: &str, cls: Option<&str>, 
 			r.t_quest[t as usize] = i as i32;
 		}
 	}
-	// Shared kill credit: other objective kill items on the same mob within SHARE_R.
-	let nw_items = r.w_kind.len();
-	let mut by_mob: Vec<(u32, Vec<u32>)> = Vec::new();
-	let mut mob_ix: FxHashMap<u32, usize> = FxHashMap::default();
-	for w in 0..nw_items {
-		if r.w_kind[w] != W_KILL || r.w_mob[w] == 0 {
-			continue;
-		}
-		let k = *mob_ix.entry(r.w_mob[w]).or_insert_with(|| {
-			by_mob.push((r.w_mob[w], Vec::new()));
-			by_mob.len() - 1
-		});
-		by_mob[k].1.push(w as u32);
-	}
-	r.w_share = vec![Vec::new(); nw_items];
-	for (_, list) in &by_mob {
-		for &a in list {
-			let pa = &world.points[pt_list[r.task_pt[r.w_task[a as usize] as usize] as usize] as usize];
-			for &b in list {
-				if a == b || r.t_quest[r.w_task[b as usize] as usize] < 0 {
-					continue;
-				}
-				let pb = &world.points[pt_list[r.task_pt[r.w_task[b as usize] as usize] as usize] as usize];
-				if pa.region == pb.region && js_hypot(pa.wx - pb.wx, pa.wy - pb.wy) <= SHARE_R {
-					r.w_share[a as usize].push(b);
-				}
-			}
-		}
-	}
+	kill_shares(&mut r, world, &pt_list);
 	r.start_pt = use_pt(start.pt, &mut pt_list, &mut pt_index);
+	r.train_ranks = {
+		let mut v: Vec<u32> = world.training.as_object().into_iter().flat_map(|c| c.values()).filter_map(|t| t.as_object()).flat_map(|t| t.keys()).filter_map(|k| k.parse().ok()).filter(|&l| l > 1).collect();
+		v.sort_unstable();
+		v.dedup();
+		v
+	};
 	r.inn_pt = world.inns.iter().map(|n| use_pt(n.pt, &mut pt_list, &mut pt_index)).collect();
 	for &p in extra_pts {
 		use_pt(p, &mut pt_list, &mut pt_index);
@@ -576,6 +684,15 @@ pub fn compile_run(world: &World, rules: &Rules, race: &str, cls: Option<&str>, 
 	if r.fp_count > 50 {
 		return Err(format!("too many flight paths for the known-set key ({})", r.fp_count));
 	}
+	// Each task's other places, indexed after every other point (shifting none of them).
+	r.task_alts = vec![Vec::new(); r.task_pt.len()];
+	for (i, &id) in ids.iter().enumerate() {
+		let q = &world.quests[rules.open[&id]];
+		for (k, t) in q.tasks.iter().enumerate() {
+			r.task_alts[(r.q_task0[i] as usize) + k] = t.alts.iter().map(|&p| use_pt(p, &mut pt_list, &mut pt_index)).collect();
+		}
+	}
+	r.index_buys();
 	let np = pt_list.len();
 	r.p_fp = vec![-1; np];
 	r.p_inn = vec![-1; np];
@@ -639,7 +756,9 @@ pub fn compile_run(world: &World, rules: &Rules, race: &str, cls: Option<&str>, 
 	r.node_x = node_pt.iter().map(|p| p.wx).collect();
 	r.node_y = node_pt.iter().map(|p| p.wy).collect();
 	r.taxi = world.taxi.iter().map(|(a, b, s)| (*a as usize, *b as usize, s.as_f64().unwrap_or(f64::NAN))).collect();
-	r.rides = world.rides.iter().map(|x| RideEdge { a: x.a as usize, b: x.b as usize, ride: x.seconds, wait: x.wait }).collect();
+	// The Skyborne Portal to Stormwind carries the Skyborne only (forge-world SKYBORNE_PORTAL_RIDE).
+	let ridden = |x: &forge_world::world::Ride| race == "Skyborne" || x.id.as_str() != Some(forge_world::build::SKYBORNE_PORTAL_RIDE);
+	r.rides = world.rides.iter().map(|x| RideEdge { a: x.a as usize, b: x.b as usize, ride: if ridden(x) { x.seconds } else { f64::INFINITY }, wait: x.wait }).collect();
 	r.quest_xp_rows = match &world.quest_xp {
 		serde_json::Value::Array(rows) => rows.iter().map(|row| row.as_array().map(|a| a.iter().map(|v| v.as_f64().unwrap_or(0.0)).collect()).unwrap_or_default()).collect(),
 		_ => Vec::new(),
@@ -733,6 +852,44 @@ pub fn grind_rates(run: &Run, p: &Params) -> Vec<f64> {
 /// (-1: none).
 pub type StepKey = (u8, u32, i32);
 
+/// Quests started by a rare drop (route::rare_starts): (quest id, [(npc id, chance per kill 0-1)]).
+pub type RareStarts = Vec<(u32, Vec<(u32, f64)>)>;
+
+impl Run {
+	/// Marks the rare-start quests of `rare` (route profiles): their sources' mobs get slots, each
+	/// kill work item on such a mob its slot (the evaluator tallies those kills).
+	pub fn set_rare(&mut self, rare: &RareStarts) {
+		let n = self.n_quests();
+		self.q_rare = vec![false; n];
+		self.q_rare_src = vec![Vec::new(); n];
+		self.w_slot = vec![-1; self.w_kind.len()];
+		let mut slot_of: FxHashMap<u32, u32> = FxHashMap::default();
+		for (id, srcs) in rare {
+			let Some(q) = self.q(*id) else { continue };
+			self.q_rare[q as usize] = true;
+			for &(npc, c) in srcs {
+				let next = slot_of.len() as u32;
+				let s = *slot_of.entry(npc).or_insert(next);
+				self.q_rare_src[q as usize].push((s, c));
+			}
+		}
+		for w in 0..self.w_kind.len() {
+			if self.w_kind[w] == W_KILL {
+				if let Some(&s) = slot_of.get(&self.w_mob[w]) {
+					self.w_slot[w] = s as i32;
+				}
+			}
+		}
+		self.n_slots = slot_of.len();
+	}
+
+	/// Whether quest q is a rare start (set_rare).
+	#[inline]
+	pub fn rare(&self, q: usize) -> bool {
+		self.q_rare.get(q).copied().unwrap_or(false)
+	}
+}
+
 impl Run {
 	/// The key of a quest step (None for grinds and trainings).
 	pub fn step_key(&self, kind: u8, q: u32, task: i32) -> Option<StepKey> {
@@ -740,6 +897,88 @@ impl Run {
 			K_ACCEPT | K_TURNIN => Some((kind, self.q_id[q as usize], -1)),
 			K_TASK => Some((kind, self.q_id[q as usize], task - self.q_task0[q as usize] as i32)),
 			_ => None,
+		}
+	}
+}
+
+/// Spawn spots of objectives: (quest id, objective 1-based or None for every one, (continent, x, y)).
+pub type Spots = Vec<(u32, Option<i64>, Vec<(i64, f64, f64)>)>;
+
+impl Run {
+	/// Set each task's spawn spots from `spots` (Run::task_spots).
+	pub fn set_spots(&mut self, spots: &Spots) {
+		self.task_spots = vec![Vec::new(); self.task_pt.len()];
+		for (id, oi, pts) in spots {
+			let Some(q) = self.q(*id) else { continue };
+			for t in self.q_task0[q as usize]..self.q_task1[q as usize] {
+				let hit = match oi {
+					Some(i) if (1..=64).contains(i) => self.task_objs.get(t as usize).is_some_and(|b| b >> (i - 1) & 1 == 1),
+					_ => true,
+				};
+				if hit {
+					let v = &mut self.task_spots[t as usize];
+					for p in pts {
+						if !v.contains(p) {
+							v.push(*p);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+impl Run {
+	/// Deathskips (route profiles with `deathskips` on; model_for makes the Spirit Healers run
+	/// points): the graveyards' healers, and per run point the deaths within DEATH_SPOT_YD of it at
+	/// the kill camps of mobs (MIN_SPAWNS or more, of npcs with a level: a lone named mob is no
+	/// sure death), each with the graveyard the game sends a death there to
+	/// (World::graveyard_for) and its most numerous mob. Per graveyard the nearest spot, then each
+	/// farther one of higher mobs than every nearer one (a character over the nearest's mobs dies
+	/// there).
+	pub fn set_deaths(&mut self, world: &World) {
+		self.gy_pt = world.graveyards.iter().map(|g| self.run_pt(g.pt).unwrap_or(u32::MAX)).collect();
+		let cell = |v: f64| (v / DEATH_SPOT_YD).floor() as i64;
+		// (spot world point, mobs' level, graveyard, mob) by (region, cell).
+		let mut grid: FxHashMap<(i64, i64, i64), Vec<(u32, f64, u32, u32)>> = FxHashMap::default();
+		for c in &world.camps {
+			let Some(level) = c.level_max else { continue };
+			let npcs = c.sources.iter().filter(|s| s.kind == forge_world::data::Kind::Npc);
+			let Some(npc) = npcs.clone().max_by_key(|s| s.spawns).map(|s| s.id) else { continue };
+			if f64::from(npcs.map(|s| s.spawns).sum::<u32>()) < MIN_SPAWNS {
+				continue;
+			}
+			let p = &world.points[c.pt as usize];
+			let Some(gy) = world.graveyard_for(p) else { continue };
+			if self.gy_pt[gy] == u32::MAX {
+				continue;
+			}
+			grid.entry((p.region, cell(p.wx), cell(p.wy))).or_default().push((c.pt, level, gy as u32, npc));
+		}
+		let np = self.pt_list.len();
+		self.deaths = vec![Vec::new(); np];
+		let mut near: Vec<DeathSpot> = Vec::new();
+		for i in 0..np {
+			let (r, x, y) = (self.p_r[i], self.p_x[i], self.p_y[i]);
+			near.clear();
+			for gx in cell(x) - 1..=cell(x) + 1 {
+				for gy in cell(y) - 1..=cell(y) + 1 {
+					for &(spot, level, g, npc) in grid.get(&(r, gx, gy)).into_iter().flatten() {
+						let q = &world.points[spot as usize];
+						let yd = js_hypot(q.wx - x, q.wy - y);
+						if yd <= DEATH_SPOT_YD {
+							near.push(DeathSpot { gy: g, yd, level, spot, npc });
+						}
+					}
+				}
+			}
+			near.sort_by(|a, b| a.yd.total_cmp(&b.yd).then(a.spot.cmp(&b.spot)));
+			let keep = &mut self.deaths[i];
+			for s in &near {
+				if keep.iter().filter(|k| k.gy == s.gy).all(|k| s.level > k.level) {
+					keep.push(*s);
+				}
+			}
 		}
 	}
 }

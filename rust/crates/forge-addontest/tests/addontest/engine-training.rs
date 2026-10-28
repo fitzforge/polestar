@@ -166,7 +166,7 @@ fn train_class_asks_nothing_when_there_is_nothing_new_trained_at_this_level_or_a
 }
 
 #[test]
-fn opening_a_class_trainer_records_the_visit_s_level_a_first_sight_does_not() {
+fn a_spell_learned_at_a_class_trainer_records_the_visit_s_level_opening_the_window_or_a_first_sight_does_not() {
 	let out = run(
 		None,
 		"",
@@ -174,7 +174,9 @@ fn opening_a_class_trainer_records_the_visit_s_level_a_first_sight_does_not() {
 			stub.advance(0.5)
 			local before = PolestarCharDB.classTrainVisit
 			stub.world.trainer(3353); stub.advance(0.5)
-			emit({ before = before or false, visit = PolestarCharDB.classTrainVisit })"#,
+			local opened = PolestarCharDB.classTrainVisit
+			stub.world.learnSpell(100); stub.advance(0.5)
+			emit({ before = before or false, opened = opened or false, visit = PolestarCharDB.classTrainVisit })"#,
 	);
-	assert_eq!(out, json!({ "before": false, "visit": 12 }));
+	assert_eq!(out, json!({ "before": false, "opened": false, "visit": 12 }));
 }

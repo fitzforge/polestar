@@ -157,7 +157,7 @@ pub fn run(feedback: &Value, issues: &[Value], issues_from: &str, base: &Value, 
 				"insert" => match insert_re.captures(&spec).filter(|_| !spec.contains("keep only if") && !spec.contains("optional only")) {
 					Some(m) => {
 						let q: u64 = m[1].parse().unwrap();
-						let mut line = json!({ "q": q, "reason": why, "issue": issue, "source": id });
+						let mut line = json!({ "q": q, "reason": format!("{id}: {why}"), "issue": issue });
 						if let (Some(k), Some(a)) = (m.get(2), m.get(3)) {
 							line["after"] = json!([k.as_str(), a.as_str().parse::<u64>().unwrap()]);
 						}
@@ -171,7 +171,7 @@ pub fn run(feedback: &Value, issues: &[Value], issues_from: &str, base: &Value, 
 					for part in spec.split(';') {
 						if let Some(m) = drop_re.captures(part) {
 							let q: u64 = m.get(1).or(m.get(2)).unwrap().as_str().parse().unwrap();
-							add("skip", json!({ "q": q, "reason": why, "issue": issue, "source": id }), id, base_skip.contains(&q) || never.contains(&q));
+							add("skip", json!({ "q": q, "reason": format!("{id}: {why}"), "issue": issue }), id, base_skip.contains(&q) || never.contains(&q));
 							any = true;
 						}
 					}
@@ -210,9 +210,14 @@ pub fn run(feedback: &Value, issues: &[Value], issues_from: &str, base: &Value, 
 					for sec in ["include", "skip", "pairs"] {
 						for l in doc[sec].as_array().into_iter().flatten() {
 							let mut l = l.clone();
-							l["source"] = json!(src);
-							if sec != "pairs" {
+							// check-corrections reads `source` on pairs only: include/skip lines carry it in
+							// their reason, as the maintainer writes them (`F01: ...`).
+							if sec == "pairs" {
+								l["source"] = json!(src);
+							} else {
 								l["issue"] = json!(src);
+								let why = l["reason"].as_str().unwrap_or("").to_string();
+								l["reason"] = json!(if why.is_empty() { src.clone() } else { format!("{src}: {why}") });
 							}
 							let applied = match sec {
 								"include" => l["q"].as_u64().is_some_and(|q| base_inc.contains(&q)),
@@ -306,10 +311,7 @@ mod tests {
 			vec![("turnin 306 < accept 1179".into(), false), ("turnin 484 < accept 1179".into(), false), ("turnin 15 < accept 21".into(), true), ("accept 21 < turnin 91743".into(), false)]
 		);
 		// The skip the sim already has is applied; the overrides document gains only the rest.
-		assert_eq!(
-			lines("skip"),
-			vec![(json!({ "q": 98299, "reason": "w", "issue": "#647", "source": "F60" }), true), (json!({ "q": 98298, "reason": "w", "issue": "#647", "source": "F60" }), false)]
-		);
+		assert_eq!(lines("skip"), vec![(json!({ "q": 98299, "reason": "F60: w", "issue": "#647" }), true), (json!({ "q": 98298, "reason": "F60: w", "issue": "#647" }), false)]);
 		assert_eq!(o.overrides["skip"].as_array().unwrap().len(), 2);
 		assert_eq!(o.overrides["pairs"].as_array().unwrap().len(), 3);
 		// Free text is manual, never guessed.
@@ -340,6 +342,9 @@ mod tests {
 		let o = run(&fb, &issues, "cache", &json!({}), &json!({}));
 		assert_eq!(o.entries.len(), 1);
 		assert_eq!(o.entries[0].line["issue"], json!("#700"));
+		assert_eq!(o.entries[0].line["reason"], json!("#700: rare start"));
+		// check-corrections allows `source` on pairs only.
+		assert!(o.entries.iter().all(|e| e.section == "pairs" || e.line.get("source").is_none()));
 		assert_eq!(o.untriaged.len(), 1);
 		assert_eq!(o.untriaged[0]["number"], json!(701));
 		// Same inputs, same document.

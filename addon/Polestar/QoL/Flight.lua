@@ -3,7 +3,9 @@
 -- on the open map mark the node the travel route flies to next (else the
 -- current step's `fly` location) and, on TaxiFrame, draw the route's hops
 -- to it in the accent. The flight is only ever taken by the player's own
--- click: nothing here calls TakeTaxiNode.
+-- press: their click on the map, or the step key while the map is open and
+-- the window shows the live step (Flight.Take); nothing else calls
+-- TakeTaxiNode.
 --
 -- Recognising the taxi option without its localized text: the taxi gossip
 -- icon (fileID 132057, Interface\GossipFrame\TaxiGossipIcon), or a flight
@@ -350,7 +352,7 @@ Flight.destination, Flight.node = nil, nil
 -- not again on every replan while it stays open.
 local told = false
 
-function Flight.Highlight()
+local function markNode()
 	Flight.destination, Flight.node = nil, nil
 	if mark then mark:Hide() end
 	hideLines()
@@ -379,19 +381,55 @@ function Flight.Highlight()
 	end
 end
 
+-- Mark the node; FLIGHT_MARK_CHANGED(slot or nil) tells the step key.
+function Flight.Highlight()
+	markNode()
+	ns.Fire("FLIGHT_MARK_CHANGED", Flight.node)
+end
+
+-- The marked node the step key flies to: the map is open, the window shows
+-- the live step and the node is reachable from here. -> slot, cost (copper,
+-- 0 when the client does not say), or nil.
+function Flight.TakeSlot()
+	local slot = Flight.node
+	if not (slot and Flight.open) then return nil end
+	local E = ns.Engine
+	if E and E.GetLiveStep and E.GetStepIndex and E.GetLiveStep() ~= E.GetStepIndex() then return nil end
+	local kind = TaxiNodeGetType and TaxiNodeGetType(slot)
+	if kind ~= nil and kind ~= "REACHABLE" then return nil end
+	return slot, TaxiNodeCost and tonumber(TaxiNodeCost(slot)) or 0
+end
+
+-- The step key's press on the open flight map: take the marked flight when
+-- the player can pay for it, else say what it costs. True if taken.
+function Flight.Take()
+	local slot, cost = Flight.TakeSlot()
+	if not slot then return false end
+	local money = GetMoney and GetMoney() or 0
+	local name = nodeLabel(slot, Flight.destination)
+	if cost > money then
+		ns.Print(format(L["Not enough money to fly to %s: it costs %s."], name, QoL.Money(cost)))
+		return false
+	end
+	TakeTaxiNode(slot)
+	return true
+end
+
 function Flight.Drawn() return drawnSlot end
 
 ns.RegisterEvent("TAXIMAP_OPENED", function()
 	told = false
+	Flight.open = true
 	-- The map lays out its nodes in the same event; mark them after it.
-	if C_Timer and C_Timer.After then C_Timer.After(0, Flight.Highlight) else Flight.Highlight() end
+	if C_Timer and C_Timer.After then ns.After(0, Flight.Highlight) else Flight.Highlight() end
 end)
 ns.RegisterEvent("TAXIMAP_CLOSED", function()
-	Flight.destination, Flight.node = nil, nil
+	Flight.destination, Flight.node, Flight.open = nil, nil, false
 	if mark then mark:Hide() end
 	hideLines()
 	drawnSlot = nil
 	told = false
+	ns.Fire("FLIGHT_MARK_CHANGED", nil)
 end)
 -- A route planned while the map is open (a flight path just learned).
 ns.On("ROUTE_CHANGED", function()

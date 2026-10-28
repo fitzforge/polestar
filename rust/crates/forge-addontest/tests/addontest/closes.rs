@@ -9,7 +9,8 @@ fn core() -> Addon {
 }
 
 // 164 is a breadcrumb to 95; 97 also closes it. The Night Elf accept and the second "Sven's Revenge" are
-// closed by 95 too, but a Human never loses them: one is not his, the other is the same quest.
+// closed by 95 too, but a Human never loses them: one is not his, the other is the same quest. 95 is in the
+// live step with them: automation takes only the live step's quests.
 const GUIDE_BODY: &str = r#"Polestar.RegisterGuide({
 	id = "test/closes", pack = "test", title = "Closes", minLevel = 1, maxLevel = 30,
 	steps = {
@@ -17,8 +18,9 @@ const GUIDE_BODY: &str = r#"Polestar.RegisterGuide({
 			{ t = "accept", quest = 164, title = "Deliveries to Sven", closedBy = { 95, 97 }, preTitles = { [95] = "Sven's Revenge", [97] = "Other Way" } },
 			{ t = "accept", quest = 5673, title = "Elune's Grace", closedBy = { 95 }, preTitles = { [95] = "Sven's Revenge" }, only = { races = { "NightElf" } } },
 			{ t = "accept", quest = 96, title = "Sven's Revenge", closedBy = { 95 }, preTitles = { [95] = "Sven's Revenge" } },
+			{ t = "accept", quest = 95, title = "Sven's Revenge" },
 		} },
-		{ goals = { { t = "accept", quest = 95, title = "Sven's Revenge" } } },
+		{ goals = { { t = "level", level = 30 } } },
 	},
 })
 "#;

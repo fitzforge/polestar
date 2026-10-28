@@ -573,7 +573,7 @@ end
 
 function JP.StartTicker()
 	if ticker or not (C_Timer and C_Timer.NewTicker) then return end
-	ticker = C_Timer.NewTicker(1, tick)
+	ticker = ns.NewTicker(1, tick)
 end
 
 function JP.StopTicker()

@@ -26,6 +26,8 @@
 --   q.gainXP(n)                                 -- UnitXP moves, PLAYER_XP_UPDATE (levels up past xpMax)
 --   q.xpBar(shown)                              -- the game's XP bar frames (StatusTrackingBarManager); returns the experience bar
 --   q.engine.levelTarget = N                    -- what Engine.LevelTarget answers above the player's level
+--   q.engine.levelFrac = f                      -- with it, a point inside the level (also at the player's level)
+--   q.engine.kept = { [itemID] = step }         -- what Engine.KeptItems answers
 --   q.calls                                     -- { { "UseContainerItem", bag, slot }, { "GetQuestReward", i }, ... }
 
 local q = {
@@ -104,6 +106,30 @@ function GetXPExhaustion() return q.rested end
 function GetMaxPlayerLevel() return q.maxLevel end
 function UnitIsGhost(unit) return unit == "player" and q.ghost end
 function UnitExists(unit) if unit == "target" then return q.target end return unit == "player" end
+-- q.target as a table { name, npc, dead, hostile, player }: the target the
+-- step key's interact stage reads.
+local function targetOf(unit) return unit == "target" and type(q.target) == "table" and q.target or nil end
+function UnitIsDead(unit) local t = targetOf(unit) return t and t.dead or false end
+function UnitIsPlayer(unit) local t = targetOf(unit) return t and t.player or false end
+function UnitCanAttack(_, unit) local t = targetOf(unit) return t and t.hostile or false end
+local unitName = UnitName
+function UnitName(unit)
+	local t = targetOf(unit)
+	if t then return t.name end
+	return unitName(unit)
+end
+-- Key bindings: q.bindings[command] = { key, ... }; override bindings land in
+-- q.overrides[key] = command ("CLICK <button>:LeftButton" for a click).
+q.bindings, q.overrides = {}, {}
+function GetBindingKey(command) return unpack(q.bindings[command] or {}) end
+function SetOverrideBinding(_, _, key, command) q.overrides[key] = command end
+function SetOverrideBindingClick(_, _, key, button, mouse) q.overrides[key] = "CLICK " .. button .. ":" .. (mouse or "LeftButton") end
+function ClearOverrideBindings() q.overrides = {} end
+BINDING_NAME_INTERACTTARGET = "Interact with Target"
+-- The quest frame's buttons the interact stage clicks through bindings.
+for _, name in ipairs({ "QuestFrameAcceptButton", "QuestFrameCompleteButton", "QuestFrameCompleteQuestButton" }) do
+	_G[name] = _G[name] or CreateFrame("Button", name, UIParent)
+end
 function GetUnitSpeed(unit) if unit == "player" then return 0, q.runSpeed, 0, 0 end end
 
 function q.gainXP(n)
@@ -196,6 +222,35 @@ function C_Container.UseContainerItem(bag, slot)
 		q.bags[bag].slots[slot] = nil
 	end
 end
+-- Free slots per bag; q.bags[bag].family marks a quiver or other special bag.
+function C_Container.GetContainerNumFreeSlots(bag)
+	local b = q.bags[bag]
+	if not b then return 0, 0 end
+	local used = 0
+	for s in pairs(b.slots) do if s <= b.size then used = used + 1 end end
+	return b.size - used, b.family or 0
+end
+-- The cursor: q.cursor = { bag, slot } while it holds an item. Deleting it
+-- empties that slot; the bags update a moment later, as from the server.
+function C_Container.PickupContainerItem(bag, slot)
+	call("PickupContainerItem", bag, slot)
+	if q.cursor then q.cursor = nil; return end
+	if q.bags[bag] and q.bags[bag].slots[slot] then q.cursor = { bag, slot } end
+end
+function CursorHasItem() return q.cursor ~= nil end
+function ClearCursor() q.cursor = nil end
+function DeleteCursorItem()
+	local c = q.cursor
+	call("DeleteCursorItem", c and c[1], c and c[2])
+	if not c then return end
+	q.cursor = nil
+	local s = q.bags[c[1]].slots[c[2]]
+	q.deleted = q.deleted or {}
+	if s then table.insert(q.deleted, s.itemID) end
+	q.bags[c[1]].slots[c[2]] = nil
+	C_Timer.After(0.05, function() stub.fire("BAG_UPDATE_DELAYED") end)
+end
+function GetInventoryItemID(unit, slot) if unit == "player" then return q.worn[slot] end end
 function C_Container.GetItemCooldown(id)
 	local c = q.cooldowns[id]
 	if c then return c[1], c[2], 1 end
@@ -238,17 +293,23 @@ function C_Item.EquipItemByName(item, slot)
 		end
 	end)
 end
-function C_Item.GetItemSpell(id) local it = q.items[id]; if it and it.spell then return "Use", it.spell end end
+-- q.items[id].spellName: the use spell's name ("Use" unless set); spell its ID.
+function C_Item.GetItemSpell(id) local it = q.items[id]; if it and it.spell then return it.spellName or "Use", it.spell end end
+-- equipLoc ("INVTYPE_FEET"...), subclassID and minLevel come from q.items too.
 function C_Item.GetItemInfoInstant(id)
 	local it = q.items[id] or {}
-	return id, "", "", "", it.icon or 134400, it.classID or 0, 0
+	return id, "", "", it.equipLoc or "", it.icon or 134400, it.classID or 0, it.subclassID or 0
 end
 function C_Item.GetItemInfo(item)
 	local id = type(item) == "number" and item or tonumber(tostring(item):match("item:(%d+)"))
 	local it = id and q.items[id]
 	if not it or it.uncached then return nil end
-	return it.name, "|Hitem:" .. id .. "|h[" .. (it.name or "?") .. "]|h", it.quality, 1, 1, "", "", 1, "", 134400, it.price
+	return it.name, "|Hitem:" .. id .. "|h[" .. (it.name or "?") .. "]|h", it.quality, 1, it.minLevel or 1, "", "", 1, it.equipLoc or "", 134400, it.price
 end
+-- Spell names: the client's Drink and Food (spells 430 and 433).
+C_Spell = C_Spell or {}
+q.spellNames = { [430] = "Drink", [433] = "Food" }
+function C_Spell.GetSpellName(id) return q.spellNames[id] end
 
 C_QuestLog = {}
 function C_QuestLog.GetLogIndexForQuestID(questID) if q.specialItems[questID] then return questID end end
@@ -495,6 +556,9 @@ TaxiFrame.shown = false
 function NumTaxiNodes() return #q.taxiNodes end
 function TaxiNodeName(i) return q.taxiNodes[i] end
 function TakeTaxiNode(i) call("TakeTaxiNode", i) end
+-- q.taxiCosts[i]: the copper node i costs (0 when unset).
+q.taxiCosts = {}
+function TaxiNodeCost(i) return q.taxiCosts[i] or 0 end
 
 function q.openTaxi(names)
 	q.taxiNodes = names
@@ -601,6 +665,8 @@ end
 local Engine = {}
 q.Engine = Engine
 function Engine.GetStepIndex() return q.engine.step end
+-- q.engine.live: the live step when the window shows another one.
+function Engine.GetLiveStep() return q.engine.live or q.engine.step end
 function Engine.GetStepView(i) if i == q.engine.step then return q.engine.view end end
 function Engine.GetGuide() return q.engine.guide end
 function Engine.GetWaypoint() return q.engine.waypoint end
@@ -615,12 +681,17 @@ function Engine.IsSethomeInnkeeper(goal, npc)
 	return npc == goal.npc
 end
 
--- q.engine.levelTarget: the guide's next `level N`; returned only above `level`.
+-- q.engine.levelTarget: the guide's next `level N`; returned only above `level`,
+-- or at it with q.engine.levelFrac (a point inside the level, returned as its frac).
 function Engine.LevelTarget(level)
-	local t = q.engine.levelTarget
-	if t and q.engine.step and t > (level or q.level) then return t, q.engine.step end
+	local t, frac = q.engine.levelTarget, q.engine.levelFrac
+	level = level or q.level
+	if t and q.engine.step and (t > level or (frac and t == level)) then return t, q.engine.step, frac end
 	return nil
 end
+
+-- q.engine.kept: { [itemID] = step } the guide keeps for later steps.
+function Engine.KeptItems() return q.engine.kept or {} end
 
 -- A step from raw goals: views get status "active" unless goal.status says otherwise.
 function q.step(goals, index)
@@ -736,7 +807,10 @@ function stub.addonLoaded(name)
 			return map, x, y
 		end
 		function C.GetPlayerInfo() return { name = "Testchar", level = q.level, faction = "Alliance" } end
-		function C.GetNpcID(unit) if unit == "npc" then return q.npc end end
+		function C.GetNpcID(unit)
+			if unit == "npc" then return q.npc end
+			if unit == "target" and type(q.target) == "table" then return q.target.npc end
+		end
 		function C.GetBindLocation() return q.bind end
 		function C.IsShiftKeyDown() return stub.keys.shift end
 	end

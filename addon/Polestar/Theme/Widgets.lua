@@ -464,7 +464,7 @@ function W.Confirm(b, text, fn)
 		end
 		self.psArmed = now
 		if self.psSetText then self.psSetText(self, L["Click again to confirm"]) end
-		C_Timer.After(3, function()
+		ns.After(3, function()
 			if self.psArmed and GetTime() - self.psArmed >= 2.9 then
 				self.psArmed = nil
 				if self.psSetText then self.psSetText(self, self.psConfirmText) end
@@ -901,8 +901,22 @@ local function sliderPaint(self, value)
 	self.Value:SetText(sliderText(self, v))
 end
 
+local function sliderValue(self)
+	if self.psGet then return self.psGet() end
+	return ns.Get(self.psPath)
+end
+
+local function sliderWrite(self, value)
+	if self.psSet then
+		self.psSet(value)
+		self:Refresh()
+	else
+		ns.Set(self.psPath, value)
+	end
+end
+
 local function sliderRefresh(self)
-	local v = ns.Get(self.psPath)
+	local v = sliderValue(self)
 	if type(v) ~= "number" then v = self.psMin end
 	self.psRefreshing = true
 	self.Slider:SetValue(v)
@@ -1005,9 +1019,13 @@ end
 
 -- opts.release: write the value when the drag ends, not on every step (a
 -- setting that rescales the window the slider sits in).
+-- opts.get() / opts.set(value) stand in for reading and writing the path,
+-- for state that is no setting (path nil; per character); set(nil) on
+-- right-click: the default.
 function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opts)
 	local row = settingRow(parent, label, desc)
 	row.psRow = true
+	row.psGet, row.psSet = opts and opts.get, opts and opts.set
 	row.psMin, row.psMax, row.psStep, row.psFormat = lo, hi, stepSize, fmt
 	row.Value = W.Text(row, "number", "textDim")
 	row.Value:SetJustifyH("RIGHT")
@@ -1021,26 +1039,26 @@ function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opt
 	s:SetScript("OnValueChanged", function(_, value, userInput)
 		value = roundTo(value, stepSize)
 		sliderPaint(row, value)
-		if userInput and not row.psRefreshing and W.Enabled(row) and ns.Get(row.psPath) ~= value then
-			if opts and opts.release then row.psPending = value else ns.Set(row.psPath, value) end
+		if userInput and not row.psRefreshing and W.Enabled(row) and sliderValue(row) ~= value then
+			if opts and opts.release then row.psPending = value else sliderWrite(row, value) end
 		end
 	end)
 	s:SetScript("OnMouseUp", function()
 		if row.psPending ~= nil then
 			local v = row.psPending
 			row.psPending = nil
-			ns.Set(row.psPath, v)
+			sliderWrite(row, v)
 		end
 	end)
 	s:SetScript("OnMouseWheel", function(_, delta)
 		if not W.Enabled(row) then return end
-		local v = roundTo((ns.Get(row.psPath) or lo) + delta * stepSize, stepSize)
-		ns.Set(row.psPath, min(hi, max(lo, v)))
+		local v = roundTo((sliderValue(row) or lo) + delta * stepSize, stepSize)
+		sliderWrite(row, min(hi, max(lo, v)))
 	end)
 	-- Right-click puts the setting back to its default.
 	row:RegisterForClicks("RightButtonUp")
 	row:SetScript("OnClick", function(self, button)
-		if button == "RightButton" and W.Enabled(self) then ns.Set(self.psPath, nil) end
+		if button == "RightButton" and W.Enabled(self) then sliderWrite(self, nil) end
 	end)
 	row:SetScript("OnEnter", rowEnter)
 	row:SetScript("OnLeave", hideTip)
@@ -1672,7 +1690,7 @@ function W.Scroll(parent)
 		local _, y = GetCursorPosition()
 		self.psStartY = y / self:GetEffectiveScale()
 		self.psStartScroll = sf:GetVerticalScroll()
-		self:SetScript("OnUpdate", scrollDrag)
+		self:SetScript("OnUpdate", ns.Safe(scrollDrag))
 	end)
 	bar:SetScript("OnMouseUp", function(self) self:SetScript("OnUpdate", nil) end)
 	-- Escape can hide the window mid-drag, before any mouse-up arrives.
@@ -2419,8 +2437,8 @@ function ns.RegisterOptions(spec)
 		if type(c) ~= "table" or not CONTROL_KINDS[c.kind] then
 			return false, ("RegisterOptions(%s): control %d has unknown kind %s"):format(spec.page, i, tostring(c and c.kind))
 		end
-		-- A toggle may hold state that is no setting: get/set and no key.
-		local state = c.kind == "toggle" and c.key == nil and type(c.get) == "function" and type(c.set) == "function"
+		-- A toggle or slider may hold state that is no setting: get/set and no key.
+		local state = (c.kind == "toggle" or c.kind == "slider") and c.key == nil and type(c.get) == "function" and type(c.set) == "function"
 		if c.kind ~= "button" and c.kind ~= "binding" and not state and type(c.key) ~= "string" then
 			return false, ("RegisterOptions(%s): control %d needs a settings key"):format(spec.page, i)
 		end

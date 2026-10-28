@@ -73,6 +73,7 @@ Travel.WALK_DETOUR = WALK_DETOUR -- Nav/Walk.lua's floor for the player's measur
 local HEARTH_ITEM = 6948
 local HEARTH_SECONDS = 15    -- 10 s cast plus the loading screen
 local HEARTH_MARGIN = 120    -- an hour's cooldown is spent only to save at least this much
+Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN = HEARTH_SECONDS, HEARTH_MARGIN -- the Engine's hearth goal weighs it the same way
 local GCD = 1.5
 local REACH = 12             -- yards: a walk leg's end is reached
 local SKIP_WALK = 15         -- yards: a leading walk this short is dropped
@@ -1583,9 +1584,10 @@ local function pointWorld(p)
 	return C.MapToWorld(p.map, p.x, p.y, p.f)
 end
 
--- from, to = { map, x, y, f } (from = nil: the player); budgeted = true: the public API's call
+-- from, to = { map, x, y, f } (from = nil: the player); budgeted = true: the public API's call;
+-- noHearth = true: the way without the Hearthstone (the Engine's hearth goal weighs the two)
 --   -> seconds | nil (unknown position or unreachable) | nil, "busy" (budgeted, this frame's budget is spent)
-function Nav.EstimateTravel(from, to, budgeted)
+function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	local tc, twx, twy = pointWorld(to)
 	if not tc then return nil end
 	local fc, fwx, fwy
@@ -1599,7 +1601,7 @@ function Nav.EstimateTravel(from, to, budgeted)
 	-- The level too: the plan's walk danger is the level's (Nav/Danger.lua).
 	local D = Nav.danger
 	local key = format("%d:%d:%d>%d:%.1f:%.1f:%d:%d", fc, floor(fwx / CACHE_CELL), floor(fwy / CACHE_CELL),
-		tc, twx, twy, from == nil and 1 or 0, D and D.Level() or 0)
+		tc, twx, twy, from ~= nil and 0 or noHearth and 2 or 1, D and D.Level() or 0)
 	local now = GetTime()
 	local hit = estimates[key]
 	if hit and now - hit.at < CACHE_SECONDS then return hit.seconds end
@@ -1610,7 +1612,7 @@ function Nav.EstimateTravel(from, to, budgeted)
 	refreshFaction()
 	local ghost = from == nil and isGhost()
 	local inn, bindName
-	if from == nil and not ghost and hearthReady() then inn, bindName = bindInn() end
+	if from == nil and not ghost and not noHearth and hearthReady() then inn, bindName = bindInn() end
 	local plan = Nav.PlanRoute({
 		c = fc, wx = fwx, wy = fwy, map = from == nil and playerMap() or from.map,
 		target = { c = tc, wx = twx, wy = twy, map = to.map },

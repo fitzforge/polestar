@@ -275,9 +275,9 @@ step The Great Outdoors
   complete 96606 @57.7,56.7                   -- /sit by Lyreena's campfire until you get Boosted Rest
   turnin 96606
   accept 96634
-  kill 6286 quest 96634.1 "Talk to Zarrin"    -- Speak with Zarrin, south of the inn
+  train Cooking npc 6286                      -- Zarrin, south of the inn: Camping 101 asks you to learn it
+  complete 96634 @57.1,61.3
   turnin 96634                                -- Zarrin
-  train Cooking
   accept 4161                                 -- Zarrin
 
 # ---------------------------------------------------------------- East: Starbreeze and Lake Al'Ameth

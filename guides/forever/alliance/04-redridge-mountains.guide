@@ -61,9 +61,13 @@ next forever/alliance/05-duskwood
 # Darnassus on arrival in Auberdine (06-ashenvale). Night Elf Druids fetch
 # the Westfall half pendant for Trial of the Sea Lion (272). Train in
 # Stormwind on the way; Shamans take the Deeprun Tram to Ironforge for theirs.
-# Paladins: at 20 Duthorian Rall (Human) or Tiza Battleforge (Dwarf) starts
-# The Tome of Valor (1793/1794), the way to Verigan's Fist: three dungeons and
-# an escort, the Class guide forever/class/paladin/verigans-fist.
+# Paladins: Human Paladins use the Symbol of Life on Henze Faulk by Stone
+# Cairn Lake on the road east through Elwynn (The Tome of Divinity, 1786 and
+# 1787, from the Stormwind stop of 02-westfall; Redemption at the Stormwind
+# stop of 05-duskwood). At 20 Duthorian Rall (Human) or Tiza Battleforge
+# (Dwarf) starts The Tome of Valor (1793/1794), the way to Verigan's Fist:
+# three dungeons and an escort, the Class guide
+# forever/class/paladin/verigans-fist.
 #
 # Not taken: Tharil'zun, Shadow Magic, Wanted: Gath'Ilzogg and Morganth (19,
 # 115, 169, 249: elite targets), Blackrock Blockade (98387) and the
@@ -108,6 +112,15 @@ step Half Pendant of Aquatic Endurance
   tip Fly to Sentinel Hill and head north-west to the coast: the Strange Lockbox lies on the sea floor off the shore. Then head east along the road through Elwynn to Redridge.
   fly "Sentinel Hill"
   collect 15882 x1                            -- Half Pendant of Aquatic Endurance: the Strange Lockbox
+
+step Henze Faulk
+  only Human,Paladin
+  zone Elwynn Forest
+  tip On the road east, past the Tower of Azora, head north from the bridge to Stone Cairn Lake. Henze Faulk lies south of the lake: use the Symbol of Life on him. The Defias Rogue Wizards around him carry the Defias Script.
+  complete 1786 @72.6,51.41                   -- Use the Symbol of Life on Henze Faulk
+  turnin 1786                                 -- Henze Faulk
+  accept 1787
+  collect 6846 quest 1787.1                   -- Defias Script: Defias Rogue Wizards
 
 step Three Corners
   zone Redridge Mountains

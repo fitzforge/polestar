@@ -25,6 +25,7 @@ mod dsl_skipto;
 mod dsl_smart;
 mod dsl_validate;
 mod dsl_verbs;
+mod dsl_walks;
 mod dsl_when;
 mod dsl_when_cooldown;
 mod dsl_when_dungeon;

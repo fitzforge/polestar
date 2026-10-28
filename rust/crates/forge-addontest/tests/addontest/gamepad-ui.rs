@@ -133,7 +133,7 @@ const REACHES: &[&str] = &[
 // file -> lines that reach, why it is safe with the gamepad interface
 const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/Core/Init.lua", 5, "ns.CloseOnEscape and the /polestar registration, neither with the gamepad interface"),
-	("Polestar/Core/Compat.lua", 3, "Compat.OpenWorldMap opens nothing with the gamepad interface"),
+	("Polestar/Core/Compat.lua", 4, "Compat.OpenWorldMap opens nothing with the gamepad interface; Compat.AskAbandonQuest shows the game's abandon dialog only without it"),
 	("Polestar/Dungeons/Dungeons.lua", 1, "through Compat.OpenWorldMap"),
 	("Polestar/Nav/Journey.lua", 6, "the map's canvas click handler and /way, neither with the gamepad interface; wayTaken only reads"),
 	("Polestar/Nav/Nearby.lua", 3, "the tracking menus, not with the gamepad interface"),
@@ -144,6 +144,7 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/QoL/Toggles.lua", 3, "the error-message setting, which does nothing with the gamepad interface"),
 	("Polestar/UI/Options.lua", 2, "closing the game's Settings panel, never with the gamepad interface or in combat"),
 	("Polestar/UI/Gamepad.lua", 3, "a window's override bindings, only with the keyboard and mouse interface; the gamepad interface's focused window only read (a field, never a call)"),
+	("Polestar/QoL/Buttons.lua", 3, "the step key's interact stage binds its keys over, never with the gamepad interface"),
 	("Polestar_Recorder/Commands.lua", 3, "/psrec, not with the gamepad interface"),
 	("Polestar_Recorder/Panel.lua", 1, "the Recorder window's Escape entry, not with the gamepad interface"),
 ];

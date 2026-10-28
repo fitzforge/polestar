@@ -141,7 +141,7 @@ fn a_guide_registered_before_its_pack_is_refused_and_the_pack_records_it() {
 fn a_pack_of_a_format_the_core_does_not_read_is_refused_whole_with_the_version_it_needs() {
 	let out = run_before(
 		r#"
-		local p = pack("joe", "JoeAddon", { format = 9 })
+		local p = pack("joe", "JoeAddon", { format = 99 })
 		local g1 = guide("joe/a", "joe")
 		local g2 = guide("joe/b", "joe")
 		local r = G.Pack("joe")

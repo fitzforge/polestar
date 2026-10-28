@@ -182,7 +182,7 @@ local function due(kind)
 end
 
 local function later(fn)
-	if C_Timer and C_Timer.After then C_Timer.After(0, fn) else fn() end
+	if C_Timer and C_Timer.After then ns.After(0, fn) else fn() end
 end
 
 local function apply(kind)
@@ -284,7 +284,7 @@ local function onHistory()
 		dirty = false
 		Rares.RefreshPins()
 	end
-	if C_Timer and C_Timer.After then C_Timer.After(30, run) else run() end
+	if C_Timer and C_Timer.After then ns.After(30, run) else run() end
 end
 
 -- Never inside Codex.Load: the first search or tooltip that loads it must
@@ -325,6 +325,6 @@ ns.OnLogin(function()
 			if lists.rare or lists.treasure then Rares.RefreshPins() end
 		end)
 	end
-	if C_Timer and C_Timer.After then C_Timer.After(5, minimapLoad) else minimapLoad() end
+	if C_Timer and C_Timer.After then ns.After(5, minimapLoad) else minimapLoad() end
 	Rares.RefreshPins()
 end)

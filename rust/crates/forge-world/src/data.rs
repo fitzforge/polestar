@@ -116,6 +116,15 @@ pub struct Entity {
 	pub roles: Option<Vec<String>>,
 	pub sub_name: Option<String>,
 	pub spawns: BTreeMap<u32, Spawn>,
+	/// An object's lock (data corrections: Benedict's Chest opens only with Benedict's Key).
+	pub lock: Option<Lock>,
+}
+
+/// What opens a locked object.
+#[derive(Clone, Debug, Default, Deserialize)]
+#[serde(default)]
+pub struct Lock {
+	pub item: Option<u32>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize)]
@@ -205,6 +214,16 @@ pub struct ObjectFact {
 	pub loot: Option<BTreeMap<String, Vec<f64>>>,
 }
 
+/// CMaNGOS classic-db's graveyards (forge-data cmangos.rs `extract_graveyards`): `links` are
+/// `[graveyard, zone (AreaTable id), team (0 any, 67 Horde, 469 Alliance)]`, `locs` the graveyards'
+/// places `{ graveyard: [map, x, y, z, name] }` (x north, y west, yards).
+#[derive(Clone, Debug, Default, Deserialize)]
+#[serde(default)]
+pub struct CmGraveyards {
+	pub links: Vec<[f64; 3]>,
+	pub locs: BTreeMap<u32, (f64, f64, f64, f64, String)>,
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum Kind {
 	Npc,
@@ -251,6 +270,8 @@ pub struct GameData {
 	/// Client instance areas (Map.csv + AreaTable.csv of the newest cached Forever build).
 	pub quest_areas: Option<InstanceAreas>,
 	pub object_facts: Option<BTreeMap<u32, ObjectFact>>,
+	/// CMaNGOS graveyards (the deathskip's graveyard table, World::graveyards).
+	pub graveyards: Option<CmGraveyards>,
 	/// rules.json's rules (all kinds; the world reads `handover`).
 	pub rules: Vec<Value>,
 	/// QuestXP rows by level: 10 tiers (index 0 unused, `null` in JSON).
@@ -342,6 +363,9 @@ impl GameData {
 		if let Some(b) = src.read("sources", &format!("cmangos/{CMANGOS_REV12}/gameobject_facts.json")) {
 			d.object_facts = Some(parse("gameobject_facts.json", &b)?);
 		}
+		if let Some(b) = src.read("sources", &format!("cmangos/{CMANGOS_REV12}/graveyards.json")) {
+			d.graveyards = Some(parse("graveyards.json", &b)?);
+		}
 		if let Some(b) = src.read("rules", "rules.json") {
 			let doc: Value = parse("rules.json", &b)?;
 			if doc.get("schema").and_then(Value::as_f64) != Some(1.0) || !doc.get("rules").is_some_and(Value::is_array) {
@@ -353,6 +377,17 @@ impl GameData {
 			d.quest_xp = Some(parse_quest_xp(&String::from_utf8(b)?)?);
 		}
 		Ok(d)
+	}
+
+	/// The giver rules (rules.json kind `giver`): quest -> the NPC of its several givers it is taken
+	/// from (Report to Gryan Stoutmantle from Deputy Rainer on the road into Westfall, #416).
+	pub fn giver_rule(&self, quest: u32) -> Option<u32> {
+		self.rules
+			.iter()
+			.filter(|r| r.get("kind").and_then(Value::as_str) == Some("giver"))
+			.find(|r| r.get("quest").and_then(Value::as_u64) == Some(u64::from(quest)))
+			.and_then(|r| r.get("npc").and_then(Value::as_u64))
+			.and_then(|n| u32::try_from(n).ok())
 	}
 
 	/// The handover rules (rules.json kind `handover`), in file order.

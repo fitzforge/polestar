@@ -104,12 +104,14 @@ next forever/horde/02-the-barrens
 # is right whether the gate is the level or Leonid's quests; which one it is
 # still needs checking in game.
 #
-# Left out for Paladins: the Bandarion Keep chain (91282-91317, 95803) and A
-# Lesson in Divinity (94427-94441, Redemption) run from Bandarion Keep on the
-# west coast to the Undercity and Deathguard Falgan at the far east end of the
-# glades and back: three crossings of the zone for a resurrection spell solo
-# leveling does not need. They are the Class guide
-# forever/class/paladin/tyrs-watch.
+# Paladins take the start of the Bandarion Keep chain on the west loop: A
+# Second Home (91282) from Shari in Brill, Murlocs at the Gates (91285) and
+# Touring the Grounds (91294) at the keep, which sends them to Danitha Morr.
+# Left out for Paladins: the rest of it (91316-91317, 95803) and A Lesson in
+# Divinity (94427-94441, Redemption), from Bandarion Keep to the Undercity and
+# Deathguard Falgan at the far east end of the glades and back: three
+# crossings of the zone for a resurrection spell solo leveling does not need.
+# They are the Class guide forever/class/paladin/tyrs-watch.
 #
 # Left out: The Prodigal Lich (405, Bethor Iceshard in the Undercity): the
 # export accepts it and never turns it in. With it go the Prodigal Lich chain
@@ -188,8 +190,7 @@ step Back to the church
   train class
 
 step Aramis and Venya
-  tip Paladins: Rediscovering the Light is done once you have healed five Injured Deathguard around the church with Holy Light.
-  turnin 90902 only Paladin           -- Aramis Hammerhand: Holy Light
+  turnin 90902 only Paladin           -- Aramis Hammerhand: Holy Light, once five Injured Deathguard are healed
   accept 98389                        -- Aramis Hammerhand
   turnin 1470 only Warlock            -- Venya Marthand: Summon Imp
 
@@ -199,12 +200,11 @@ step Scavenging Deathknell
 
 # Night Web's Hollow: players report the cave entrance near 26,60 (quest 380).
 step Night Web's Hollow
-  tip Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the Webbed Victims are inside.
+  tip Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the cocooned Webbed Forsaken are inside.
   kill 1504 quest 380.1
   kill 1505 quest 380.2
   goto 26.0,60.0 "Night Web's Hollow"
-  goto 24.8,59.6 "Webbed Victims"    -- Free six Webbed Victims inside the cave for Aramis
-  complete 98389
+  kill 271961 quest 98389.1 "Free the Webbed Forsaken" -- attack the cocoons inside the cave to free them
 
 step Back to Deathknell
   turnin 3902                         -- Deathguard Saltain
@@ -267,7 +267,7 @@ step Brill
   accept 99141
   accept 404                          -- Deathguard Dillinger
   collect 286200 quest 99141.1 npc 1496 @58.2,51.5 -- Ask Deathguard Dillinger for his report
-  accept 86784                        -- Deathguard Bartholomew
+  accept 86784                        -- Deathguard Bartholomew stands by Dillinger a few minutes, then walks up to the graveyard north of town and back
   turnin 91209 only Paladin           -- Shari Stilwell, the Paladin trainer
   train class                         -- The Brill trainers are in and around the inn
 
@@ -314,9 +314,9 @@ step Gordo
   collect 286202 quest 99141.3 npc 10666 -- Ask Gordo for his report
 
 step Calvin Montague
-  tip Walk on west to the Solliden Farmstead. Deathguard Simmer stands at the farm; Calvin, by the farmhouse, wants a duel: talk to him.
+  tip Deathguard Simmer stands by the road at the Solliden Farmstead.
   accept 365                          -- Deathguard Simmer
-  accept 590
+  accept 590                          -- Calvin Montague, by the farmhouse: talk to him for the duel; he offers it once Innkeeper Renee has his letter
   complete 590 @38.2,56.8             -- Beat Calvin in the duel
   turnin 590
 
@@ -331,7 +331,8 @@ step Brill
   accept 95314                        -- Carolai Anise, beside Johaan
   turnin 404                          -- Deathguard Dillinger
   accept 426
-  kill 265944 quest 96658.1 "Talk to William Pickman" -- in the inn: ask him about cooking
+  train Cooking npc 265944            -- William Pickman, in the inn: Camping 101 asks you to learn it
+  complete 96658 @61.8,51.5
   turnin 96658
   accept 398                          -- The Wanted poster by the inn
   accept 358                          -- Magistrate Sevren, in the town hall
@@ -368,6 +369,7 @@ step Brill
   turnin 368                          -- Apothecary Johaan
   accept 369
   train class
+  accept 91282 only Paladin           -- Shari Stilwell, the Paladin trainer: A Second Home, to Bandarion Keep
 
 step Deathguard Linnea
   tip Follow the road south-east from Brill past the zeppelin towers. Linnea, Kristof and Shelene Rhobart camp by the road.
@@ -410,16 +412,37 @@ step Vile Fin shore
   tip More Vile Fin murlocs walk the shore just north of the outpost.
   collect 278244 quest 97558.3
 
-# Shadowvale's Lurchers, Mystics and elixir bottles are in the big basement
-# under the ruined house (only a floor and a few pillars left), not on the
-# ground above it: Onrevax's report (#392), and players' notes on quests
-# 95314 and 99152 in Forever's quest data put the way down at 12.9,65.7. Both
-# Shadowvale steps go to the stairs first, so the arrow does not circle the
-# ruins overhead.
-step Shadowvale
-  tip Shadowvale is the hollow at the west edge of the glades. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics.
-  goto 12.9,65.7 "the basement under the ruined house"
-  collect 268801 quest 95314.1
+# An Undead Paladin's report (stress test): from Bandarion Keep straight into
+# Shadowvale at 8-9 gets you killed (the Mystics pull from far off, the
+# basement packs). Paladins stop at the keep instead: Murlocs at the Gates
+# (91285, a weapon upgrade) and Touring the Grounds to Danitha Morr, then on to
+# Brill. Every class goes down into Shadowvale once, after Leonid at 12, for
+# the elixir bottles; Paladins do As Above, So Below and The One That Got Away
+# in the same basement.
+step Paladin: Bandarion Keep
+  only Paladin
+  tip Bandarion Keep stands on the bluffs north-west of the Solliden Farmstead. Breton Samuels waits at the gate.
+  turnin 91282                        -- Breton Samuels
+  accept 91285
+
+step Paladin: Murlocs at the Gates
+  only Paladin
+  tip The Vile Fin murlocs lurk on the bluffs along the road east of the keep and in the camps around the lake to the west.
+  kill 250283 quest 91285.1           -- Vile Fin Attackers
+  kill 250282 quest 91285.2           -- Vile Fin Seers
+
+step Paladin: Touring the Grounds
+  only Paladin
+  turnin 91285 choose 246164 246165   -- Breton Samuels
+  accept 91294
+  talk 246389                         -- Hilda the Breaker
+  talk 246393                         -- Jorin Croge
+  talk 246394                         -- Ander Solliden
+
+step Paladin: Danitha Morr
+  only Paladin
+  tip Danitha Morr leads the order from inside the keep.
+  turnin 91294                        -- Danitha Morr
 
 step Hearth to Brill
   hearth "Gallows' End Tavern"
@@ -429,7 +452,6 @@ step Brill
   accept 99142                        -- Junior Apothecary Holland
   turnin 365                          -- Apothecary Johaan
   accept 407
-  turnin 95314                        -- Carolai Anise
   turnin 99144                        -- Shari Stilwell
   turnin 427                          -- Executor Zygand
   accept 370
@@ -562,12 +584,20 @@ step Paladin: Whispering Forest
   accept 99152                        -- Hilda the Breaker
   accept 99153                        -- Ephram Barbaro
 
-step Paladin: Shadowvale
-  only Paladin
-  tip Back to Shadowvale and down into the basement under the ruined house: the Shadowvale Lurchers and Mystics there drop the bones, and the Glowing Crystal Fragment is at the basement's south end.
+# Shadowvale's Lurchers, Mystics and elixir bottles are in the big basement
+# under the ruined house (only a floor and a few pillars left), not on the
+# ground above it: Onrevax's report (#392), and players' notes on quests
+# 95314 and 99152 in Forever's quest data put the way down at 12.9,65.7. The
+# step goes to the stairs first, so the arrow does not circle the ruins
+# overhead. Done after Leonid (RevUndead c13 read): at 9-10 on the west loop
+# the Mystics were a risk for every class, and the loop's leg there and back
+# was longer than this one from the Whispering Forest.
+step Shadowvale
+  tip Shadowvale is the hollow at the west edge of the glades, south-west of the Whispering Forest. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics.
   goto 12.9,65.7 "the basement under the ruined house"
-  collect 286259 quest 99152.1
-  collect 286269 quest 99153.1
+  collect 268801 quest 95314.1
+  collect 286259 quest 99152.1 only Paladin -- the Shadowvale Lurchers and Mystics drop the bones
+  collect 286269 quest 99153.1 only Paladin -- the Glowing Crystal Fragment, at the basement's south end
 
 step Paladin: Whispering Forest
   only Paladin
@@ -576,6 +606,9 @@ step Paladin: Whispering Forest
 
 step Hearth to Brill
   hearth "Gallows' End Tavern"
+
+step Brill
+  turnin 95314                        -- Carolai Anise
 
 step The Undercity
   only Warlock,Priest,Mage

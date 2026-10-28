@@ -2,8 +2,9 @@
 -- Contract: docs/ARCHITECTURE.md, "Engine" (Automation).
 --
 -- Rules: settings behavior.autoAccept / behavior.autoTurnin; holding Shift
--- suppresses both; only `accept`/`turnin` goals in the current step or the
--- next two applicable steps qualify; a reward with several choices is always
+-- suppresses both; only `accept`/`turnin` goals of the live step qualify
+-- (never a step ahead, nor one the player only looks at); a reward with
+-- several choices is always
 -- left to the player, as are quests that cost money or flag for PvP, and
 -- (behavior.warnClosing) quests that close another one for good.
 --
@@ -271,7 +272,7 @@ local function follow(handler, kind)
 		if handler() or not (after and kind) then return end
 		local mine = windows
 		local function close() if windows == mine then closeSkipped(kind) end end
-		if C_Timer and C_Timer.After then C_Timer.After(0, close) else close() end
+		if C_Timer and C_Timer.After then ns.After(0, close) else close() end
 	end
 end
 

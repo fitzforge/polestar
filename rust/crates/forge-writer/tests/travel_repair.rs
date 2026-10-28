@@ -25,15 +25,20 @@ fn text(lines: &[String]) -> String {
 }
 
 fn run(start: &[String], v1: &[String], written: &[String]) -> (forge_writer::travel::Report, Vec<String>) {
+	run_as(start, v1, written, &["Orc", "Troll"], None)
+}
+
+fn run_as(start: &[String], v1: &[String], written: &[String], races: &[&str], cls: Option<&str>) -> (forge_writer::travel::Report, Vec<String>) {
 	let data = common::travel_ref().data;
 	let v1t: BTreeMap<String, String> = [("forever/t/start.guide".to_string(), text(start)), ("forever/t/shared.guide".to_string(), text(v1))].into();
 	let mut out: BTreeMap<String, String> = [("forever/t/start.guide".to_string(), text(start)), ("forever/t/shared.guide".to_string(), text(written))].into();
 	let t = Travel {
 		chain: vec!["forever/t/start.guide".into(), "forever/t/shared.guide".into()],
-		route_races: vec!["Orc".into(), "Troll".into()],
-		other_races: vec!["Tauren".into(), "Undead".into(), "Skyborne".into()],
+		route_races: races.iter().map(|r| r.to_string()).collect(),
+		other_races: ["Orc", "Troll", "Tauren", "Undead", "Skyborne"].iter().filter(|r| !races.contains(r)).map(|r| r.to_string()).collect(),
 		shared: vec!["forever/t/shared.guide".into()],
 		faction: Some("Horde".into()),
+		cls: cls.map(str::to_string),
 	};
 	let r = repair_travel(&mut out, &v1t, &t, &data, None);
 	let g = out["forever/t/shared.guide"].split('\n').map(str::to_string).collect();
@@ -139,4 +144,18 @@ fn gate_keeps_other_races() {
 	assert_eq!(gate("  fly \"X\" only Orc,Tauren -- c", &rr, &or, true).as_deref(), Some("  fly \"X\" only Tauren -- c"));
 	assert_eq!(gate("  fly \"X\" only Orc", &rr, &or, true), None);
 	assert_eq!(gate("  fly \"X\" only !Orc", &rr, &or, true).as_deref(), Some("  fly \"X\" only !Orc"));
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn a_druids_way_to_moonglade_is_its_teleport() {
+	// RevSkyH3 S6: the Skyborne Druids' way from Thunder Bluff to Moonglade was a flight to Orgrimmar
+	// and a 6,551 yd walk; they teleport, as v1's Moonglade steps say.
+	let st = start(&["zone Thunder Bluff", "", "step Elder Rise", "  goto 76.5,27.3 \"Elder Rise\"", ""]);
+	let v1 = shared(&["zone Thunder Bluff", "", "step Elder Rise", "  talk 3033 @76.5,27.3", ""]);
+	let mut written = v1.clone();
+	written.extend(["step Moonglade", "  only Druid", "  zone Moonglade", "  talk 11802 @52.5,40.6", ""].map(String::from));
+	let (r, g) = run_as(&st, &v1, &written, &["Tauren"], Some("DRUID"));
+	assert!(g.iter().any(|l| l.contains("\"Cast Teleport: Moonglade\"")), "{}\n{:?}\n{:?}", g.join("\n"), r.log, r.left);
+	assert!(!g.iter().any(|l| l.starts_with("  fly ")), "{}", g.join("\n"));
 }

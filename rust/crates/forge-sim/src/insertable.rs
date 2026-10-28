@@ -13,6 +13,10 @@ use rustc_hash::FxHashMap;
 
 /// Percent: a quest-starting item dropping less often than this is a rare drop.
 pub const MIN_START_CHANCE: f64 = 25.0;
+/// Creature ranks of rare mobs (npcs.json `rank`: 4 rare, 2 rare elite): their drops do not count
+/// toward a quest-starting item's chance.
+pub const RARE_RANK: f64 = 4.0;
+pub const RARE_ELITE_RANK: f64 = 2.0;
 /// A non-quest item asked for this many times is a trade-goods turn-in (cloth donations).
 pub const TRADE_GOOD_COUNT: f64 = 10.0;
 
@@ -37,6 +41,7 @@ impl Insertable {
 		let fixes = crate::fixes::get();
 		let doc = &fixes["deliberate"];
 		let never = doc["never"].as_array().cloned().unwrap_or_default();
+		let optional = doc["optional"].as_array().cloned().unwrap_or_default();
 		let inst: FxHashMap<u32, &'static str> = data.quest_areas.as_ref().map(|a| a.areas.clone()).unwrap_or_default();
 		let verdict = (0..run.n_quests())
 			.map(|qi| {
@@ -46,7 +51,14 @@ impl Insertable {
 				if let Some(n) = never.iter().find(|n| n["q"].as_u64() == Some(u64::from(id))) {
 					return Err(format!("never offered ({})", n["why"].as_str().unwrap_or("")));
 				}
-				if let Some(why) = doubtful.get(&id) {
+				// v1 marks it optional (a rare start the route does not count on): never added (The
+				// Collector, c7 hybrid).
+				if let Some(n) = optional.iter().find(|n| n["q"].as_u64() == Some(u64::from(id))) {
+					return Err(format!("started by a rare drop (optional in v1: {})", n["why"].as_str().unwrap_or("")));
+				}
+				// (A delivery's one doubted objective is the letter the giver hands over: the quest's
+				// source item, so nothing is in doubt. Letter to Jin'Zil, Apothecary Zamah.)
+				if let Some(why) = doubtful.get(&id).filter(|why| !delivery_doubt(why, d)) {
 					return Err(format!("uncertain in the KB: {why}"));
 				}
 				if !rules.solo_ok(id) {
@@ -108,6 +120,11 @@ impl Insertable {
 						}
 						for (kind, map) in [("npc", item.drops.as_ref().map(|x| &x.npc)), ("object", item.drops.as_ref().map(|x| &x.object))] {
 							for (src, ch) in map.into_iter().flatten() {
+								// (A rare mob's drop is as rare as the mob: Gruff Swiftbite's 86 % of the
+								// Gold Pickup Schedule, rank 4, a 90-minute respawn.)
+								if kind == "npc" && data.npcs.get(src).and_then(|n| n.rank).is_some_and(|r| r == RARE_RANK || r == RARE_ELITE_RANK) {
+									continue;
+								}
 								let c = ch.unwrap_or(0.0);
 								if c > best.0 {
 									best = (c, format!("item {it} drops {c} % from {kind} {src}"));
@@ -125,6 +142,57 @@ impl Insertable {
 			.collect();
 		Insertable { verdict }
 	}
+}
+
+/// A KB objectives doubt that is no doubt about the quest's work: what the KB lists is the data's
+/// objectives (a count the KB gives as `?` matches any; an object is `o:<id>`), once the quest's
+/// own source item (the letter the giver hands over, which one source lists as an objective:
+/// Letter to Jin'Zil; Target: Writhing Haunt; Tremors of the Earth) and `none` are left out, and an
+/// escort or event the sources cannot give an id for (`x:?:1`, `e:?:?`: The Defias Brotherhood's
+/// traitor, OOX, B5) stands for the data's event; and either that was the disagreement, or no
+/// source disagrees (`1 of 1 sources agree`: medium only for want of a second source; Shards of
+/// the Felvine, Sathrah's Sacrifice, the Bulwark keys B3, B4).
+fn delivery_doubt(why: &str, d: &forge_world::data::Quest) -> bool {
+	let Some(rest) = why.strip_prefix("objectives ") else { return false };
+	let Some((value, tail)) = rest.split_once(" (") else { return false };
+	// "medium confidence, 1 of 1 sources agree)"
+	let agree = tail.split(", ").nth(1).map(|s| s.split_whitespace().collect::<Vec<_>>());
+	let all_agree = agree.is_some_and(|w| w.len() >= 3 && w[1] == "of" && w[0] == w[2]);
+	let provided = d.source_item.filter(|s| *s > 0.0 && s.fract() == 0.0).map(|s| format!("i:{}:1", s as u64));
+	let event = |e: &str| e.starts_with("x:") || e.starts_with("e:");
+	// (kind:id, count; None: any)
+	let entry = |e: &str| -> (String, Option<u64>) {
+		if event(e) {
+			return ("event".into(), None);
+		}
+		match e.rsplit_once(':') {
+			Some((k, c)) => (k.to_string(), c.parse().ok()),
+			None => (e.to_string(), None),
+		}
+	};
+	let mut left: Vec<(String, Option<u64>)> = value.split(';').filter(|e| Some(*e) != provided.as_deref() && *e != "none").map(entry).collect();
+	let count = |c: Option<f64>| c.filter(|c| *c > 0.0).map(|c| c as u64);
+	let mut have: Vec<(String, Option<u64>)> = d
+		.objectives
+		.iter()
+		.flatten()
+		.filter_map(|o| match o.kind.as_str() {
+			"item" => Some((format!("i:{}", o.id? as u64), Some(count(o.count).unwrap_or(1)))),
+			"kill" => Some((format!("c:{}", o.id? as u64), count(o.count))),
+			"object" => Some((format!("o:{}", o.id? as u64), count(o.count))),
+			"event" => Some(("event".into(), None)),
+			_ => None,
+		})
+		.collect();
+	let changed = left.len() < value.split(';').count() || left.iter().any(|e| e.0 == "event");
+	// (No source listing the event at all: the data's events stand for it.)
+	if left.is_empty() && !have.is_empty() && have.iter().all(|h| h.0 == "event") {
+		return true;
+	}
+	left.sort_unstable();
+	have.sort_unstable();
+	let same = left.len() == have.len() && left.iter().zip(&have).all(|(a, b)| a.0 == b.0 && (a.1.is_none() || b.1.is_none() || a.1 == b.1));
+	same && (changed || all_agree)
 }
 
 /// Quests the knowledge base is unsure of: objectives of low or medium confidence, or a
@@ -214,4 +282,30 @@ pub fn kb_missing(kb: &std::path::Path) -> Result<FxHashMap<u32, Vec<Missing>>, 
 		});
 	}
 	Ok(out)
+}
+
+#[cfg(all(test, feature = "native"))]
+mod tests {
+	use super::delivery_doubt;
+
+	fn quest(v: serde_json::Value) -> forge_world::data::Quest {
+		serde_json::from_value(v).unwrap()
+	}
+
+	#[test]
+	fn a_kb_doubt_no_source_disputes_is_no_doubt_when_it_lists_the_data_s_objectives() {
+		// B4, B3, B5 (canon3 skips as missing-info): one source, and it lists what the data has.
+		let felvine = quest(serde_json::json!({ "id": 5526, "sourceItem": 18539, "objectives": [{ "type": "item", "id": 18540, "count": 1 }] }));
+		assert!(delivery_doubt("objectives i:18540:1 (medium confidence, 1 of 1 sources agree)", &felvine));
+		let sathrah = quest(serde_json::json!({ "id": 2520, "objectives": [{ "type": "object", "id": 138498 }] }));
+		assert!(delivery_doubt("objectives o:138498:? (medium confidence, 1 of 1 sources agree)", &sathrah));
+		let plagues = quest(serde_json::json!({ "id": 6185, "objectives": [
+			{ "type": "item", "id": 16003, "count": 1 }, { "type": "item", "id": 16001, "count": 1 }, { "type": "item", "id": 16002, "count": 1 },
+			{ "type": "kill", "id": 11878 }, { "type": "event", "id": 2726 }] }));
+		assert!(delivery_doubt("objectives i:16003:1;i:16001:1;i:16002:1;c:11878:?;e:2726:? (medium confidence, 1 of 1 sources agree)", &plagues));
+		// Disputed by other sources, or not the data's objectives: still a doubt.
+		assert!(!delivery_doubt("objectives i:18540:1 (medium confidence, 1 of 3 sources agree)", &felvine));
+		assert!(!delivery_doubt("objectives i:18540:2 (medium confidence, 1 of 1 sources agree)", &felvine));
+		assert!(!delivery_doubt("objectives i:18540:1;c:99:5 (medium confidence, 1 of 1 sources agree)", &felvine));
+	}
 }

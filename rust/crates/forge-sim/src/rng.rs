@@ -8,6 +8,13 @@ impl Rng {
 	pub fn new(seed: u64) -> Rng {
 		Rng(seed ^ 0x9e37_79b9_7f4a_7c15)
 	}
+	/// The generator's state (a checkpoint), and a generator at a saved state.
+	pub fn state(&self) -> u64 {
+		self.0
+	}
+	pub fn at(state: u64) -> Rng {
+		Rng(state)
+	}
 	#[allow(clippy::should_implement_trait)]
 	pub fn next(&mut self) -> u64 {
 		self.0 = self.0.wrapping_add(0x9e37_79b9_7f4a_7c15);

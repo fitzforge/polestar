@@ -8,7 +8,7 @@ use rustc_hash::FxHashMap;
 use std::cell::RefCell;
 
 pub const FILES: [&str; 7] = ["quests", "npcs", "objects", "items", "zones", "map-frames", "meta"];
-pub const OPTIONAL: [&str; 6] = ["professions", "factions", "trainers", "races", "travel", "spawnz"];
+pub const OPTIONAL: [&str; 7] = ["professions", "factions", "trainers", "races", "travel", "spawnz", "moves"];
 
 /// Classic skill lines (game facts), so `skill <Profession> <N>` resolves without professions.json.
 pub const BUILTIN_PROFESSIONS: [(u32, &str); 13] = [
@@ -70,6 +70,9 @@ pub struct Data {
 	pub travel: V,
 	/// spawnz.json ({ npc, object } -> id -> [[instance map, x, y, z]]) or Null.
 	pub spawnz: V,
+	/// moves.json ({ npc } -> id -> [[instance map, x, y, centre x, centre y, radius]]: the ground a
+	/// walking creature's spawn covers, world yards) or Null.
+	pub moves: V,
 	/// solo.js loadInstances ({ areas, maps }) or Null.
 	pub instances: V,
 	/// tools/lib/data/areas.js loadAreas or Null.
@@ -102,6 +105,8 @@ impl Data {
 		let has = |f: &str| !missing.iter().any(|m| m == f);
 		let spawnz = raw.tables.get("spawnz").cloned().unwrap_or_default();
 		let spawnz = if spawnz.is_obj() && has("spawnz.json") { spawnz } else { V::Null };
+		let moves = raw.tables.get("moves").cloned().unwrap_or_default();
+		let moves = if moves.is_obj() && has("moves.json") { moves } else { V::Null };
 		let mut d = Data {
 			quests: t("quests"),
 			npcs: t("npcs"),
@@ -119,6 +124,7 @@ impl Data {
 			races: t("races"),
 			travel: t("travel"),
 			spawnz,
+			moves,
 			instances: if raw.instances.is_nullish() { V::Null } else { raw.instances },
 			areas: if raw.areas.is_nullish() { V::Null } else { raw.areas },
 			professions: FxHashMap::default(),

@@ -143,7 +143,7 @@ function O.Queue()
 		queued = false
 		O.Draw()
 	end
-	if C_Timer and C_Timer.After then C_Timer.After(0, run) else run() end
+	if C_Timer and C_Timer.After then ns.After(0, run) else run() end
 end
 
 -- The tooltip line, below Blizzard's.

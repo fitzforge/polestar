@@ -26,7 +26,10 @@ export const S = {
 	changes: [],             // changes_list
 	lint: null,              // lint diagnostics (last run)
 	adding: false,           // the Add waypoint tool is armed
-	layers: { terrain: true, zoneArt: false, route: true, labels: true, spawns: true, grid: false, walkable: false, roads: false, hubs: false, aids: false },
+	layers: { terrain: true, zoneArt: false, route: true, labels: true, spawns: true, grid: false, walkable: false, roads: false, hubs: false, aids: false, quests: false },
+	hubView: null,           // hub_view at the selected step while the Quest marks layer is on
+	hubLoop: true,           // the Quest marks layer draws the ideal loop
+	review: false,           // review mode (ui/review.js) shows the page
 	routing: null,           // { pending, done } while the server routes the timeline's walks
 	roads: null,             // { [c]: ['col_row'] } (GET /nav/roads/index.json) when the roads layer is built
 	hubs: null,              // { [c]: [hub] } (GET /nav/hubs.json) when the hubs layer is built
@@ -72,6 +75,7 @@ export function savePrefs() {
 		follow: S.follow,
 		layers: S.layers,
 		extent: S.extent,
+		hubLoop: S.hubLoop,
 	};
 	try {
 		localStorage.setItem(KEY, JSON.stringify(prefs));

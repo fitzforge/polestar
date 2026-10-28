@@ -42,6 +42,9 @@ pub struct Options {
 	pub forever: bool,
 	pub forever_build: Option<String>,
 	pub forever_source: Source,
+	/// Stop when the Forever tables cannot be read, instead of taking Classic Era's zones and frames
+	/// (forge build: its tables are pinned to the grid's build).
+	pub forever_required: bool,
 	pub web_xp: bool,
 	/// Read the source cache only (the library default). Not offline, the web quest XP the build
 	/// wants is looked up first (`sources::web_xp`); the CLI fetches the other sources before the build.
@@ -188,6 +191,7 @@ impl Options {
 			forever: true,
 			forever_build: None,
 			forever_source: Source::Wago,
+			forever_required: false,
 			web_xp: true,
 			offline: true,
 			web_zones: true,
@@ -382,6 +386,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 				fmaps = Some(m);
 				fwago = Some(f);
 			}
+			Err(e) if o.forever_required => return Err(format!("Forever client tables unavailable: {e}")),
 			Err(e) => warnings.push(format!("Forever map tables unavailable ({e}); zones and frames from Classic Era, changed frames from QuestieDB's eraToForever list")),
 		}
 	}
@@ -595,6 +600,13 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			None
 		}
 	};
+	let moves = match crate::cmangos::load_moves(&o.sources) {
+		Ok(m) => Some(m),
+		Err(e) => {
+			warnings.push(format!("CMaNGOS classic-db creature walks unavailable ({e}); moves.json not written, so walking NPCs get no walk area"));
+			None
+		}
+	};
 
 	// sim-v2: class training costs per level (copper), from the same dump, and the knowledge base.
 	let mut training_doc: Option<V> = None;
@@ -794,7 +806,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			if has("QuestV2") { ", QuestV2" } else { "" },
 		) + if has("SpellName") { ", SpellName" } else { "" };
 		let license = format!("Blizzard Entertainment game client data; factual map geometry, names{} and race/class combinations only", if has("ItemSparse") { ", item durations" } else { "" });
-		let (name, url) = if f.from_client {
+		let (name, url) = if f.saved {
+			(format!("World of Warcraft: Forever client tables ({list}) read from the client (a saved copy of build {})", f.build), V::Null)
+		} else if f.from_client {
 			(format!("World of Warcraft: Forever client tables ({list}) read from the installed client"), V::Null)
 		} else {
 			(format!("World of Warcraft: Forever client tables ({list}) via wago.tools"), s(&format!("https://wago.tools/db2?build={}", f.build)))
@@ -820,6 +834,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	}
 	if heights.is_some() {
 		sources.push(crate::cmangos::heights_source());
+	}
+	if moves.is_some() {
+		sources.push(crate::cmangos::moves_source());
 	}
 	if qstats.as_ref().is_some_and(|q| q.objective_counts_from_classic_db > 0) {
 		sources.push(crate::cmangos::counts_source());
@@ -859,6 +876,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	}
 	if let Some(h) = &heights {
 		files.push(("spawnz".into(), h.text.clone()));
+	}
+	if let Some(m) = &moves {
+		files.push(("moves".into(), m.clone()));
 	}
 	if let Some(t) = &training_doc {
 		files.push(("training".into(), pretty(t)));
@@ -999,6 +1019,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	if heights.is_none() {
 		stale.push("spawnz");
 	}
+	if moves.is_none() {
+		stale.push("moves");
+	}
 	if training_doc.is_none() {
 		stale.push("training");
 	}
@@ -1019,4 +1042,39 @@ pub fn write(out_dir: &Path, out: &Output) -> Result<(), String> {
 		let _ = std::fs::remove_file(out_dir.join(format!("{name}.json")));
 	}
 	Ok(())
+}
+
+/// The largest share of a reference build's quests a new build may lose before [`quest_drop`] stops
+/// it (a source gone missing, QuestieDB's 975 Forever-only quests in October 2026, loses about 17%).
+pub const MAX_QUEST_DROP: f64 = 0.05;
+
+/// The data build's sanity guard: `new` (a quests.json text) against `reference` (an earlier build's).
+/// Err, naming what is missing, when the quest count falls by more than `max_drop` of the reference's:
+/// how many quests went, and per source they came from its count and its first quests by id and title.
+pub fn quest_drop(reference: &str, new: &str, max_drop: f64) -> Result<(), String> {
+	let parse = |t: &str, what: &str| serde_json::from_str::<serde_json::Map<String, serde_json::Value>>(t).map_err(|e| format!("{what} quests.json: {e}"));
+	let (old, new) = (parse(reference, "the reference")?, parse(new, "the new")?);
+	if old.is_empty() || (new.len() as f64) >= old.len() as f64 * (1.0 - max_drop) {
+		return Ok(());
+	}
+	let mut gone: Vec<(i64, &serde_json::Value)> = old.iter().filter(|(k, _)| !new.contains_key(*k)).map(|(k, q)| (k.parse().unwrap_or(0), q)).collect();
+	gone.sort_by_key(|g| g.0);
+	let mut by_source: std::collections::BTreeMap<&str, Vec<String>> = std::collections::BTreeMap::new();
+	for (id, q) in &gone {
+		let title = q.get("title").and_then(|t| t.as_str()).unwrap_or("?");
+		for s in q.get("source").and_then(|s| s.as_array()).into_iter().flatten().filter_map(|s| s.as_str()) {
+			by_source.entry(s).or_default().push(format!("{id} {title}"));
+		}
+	}
+	let mut sources: Vec<(&str, Vec<String>)> = by_source.into_iter().collect();
+	sources.sort_by(|a, b| b.1.len().cmp(&a.1.len()).then(a.0.cmp(b.0)));
+	let pct = 100.0 * (old.len() - new.len().min(old.len())) as f64 / old.len() as f64;
+	Err(format!(
+		"the quest count fell from {} to {} ({pct:.1}%, more than {:.0}% allowed): {} quests are missing; by source: {}",
+		old.len(),
+		new.len(),
+		max_drop * 100.0,
+		gone.len(),
+		sources.iter().map(|(s, qs)| format!("{s} {} ({})", qs.len(), qs.iter().take(3).cloned().collect::<Vec<_>>().join(", "))).collect::<Vec<_>>().join("; ")
+	))
 }

@@ -344,7 +344,7 @@ end
 local function schedule()
 	if pending then return end
 	pending = true
-	if C_Timer and C_Timer.After then C_Timer.After(0, redraw) else redraw() end
+	if C_Timer and C_Timer.After then ns.After(0, redraw) else redraw() end
 end
 Rewards.ScheduleMarks = schedule
 
@@ -364,7 +364,7 @@ local function evaluate(gen, tries, quest)
 	if not complete and tries < RETRIES and C_Timer and C_Timer.After then
 		-- Meanwhile: the upgrades known so far, without a best.
 		if tries == 0 then Rewards.Mark() end
-		C_Timer.After(RETRY_DELAY, function() evaluate(gen, tries + 1, quest) end)
+		ns.After(RETRY_DELAY, function() evaluate(gen, tries + 1, quest) end)
 		return
 	end
 	-- A retry deadline is not evidence that the missing choice is worse.
@@ -399,7 +399,7 @@ function Rewards.OnQuestComplete()
 	local gen, quest = generation, questID()
 	-- The panel lays its buttons out in the same event; mark them after it.
 	if C_Timer and C_Timer.After then
-		C_Timer.After(0, function() evaluate(gen, 0, quest) end)
+		ns.After(0, function() evaluate(gen, 0, quest) end)
 	else
 		evaluate(gen, 0, quest)
 	end

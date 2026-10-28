@@ -414,7 +414,7 @@ function Rares.Nearby()
 	for i = 1, #list do nearbyList[i] = list[i].name end
 	if #list > 0 and not nearbyTimer and C_Timer and C_Timer.After then
 		nearbyTimer = true
-		C_Timer.After(NEAR_FOR, function()
+		ns.After(NEAR_FOR, function()
 			nearbyTimer = false
 			ns.Fire("RARE_NEARBY")
 		end)

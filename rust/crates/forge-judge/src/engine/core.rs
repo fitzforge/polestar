@@ -32,7 +32,6 @@ pub(crate) enum Reason {
 	Closed,
 	Pre,
 	Level,
-	Offer,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -172,6 +171,9 @@ pub(crate) struct Sim<'a> {
 	turned_in: FxHashSet<u32>,
 	open_npc: Option<u32>,
 	open_kind: Option<Kind>,
+	/// The NPC whose window last closed, and when (Own.talkAct's 2 s grace).
+	closed_npc: Option<u32>,
+	closed_at: f64,
 	pub log_ready: bool,
 	arrived: FxHashSet<GRef>,
 	unavailable: FxHashMap<u32, Mark>,
@@ -374,6 +376,8 @@ impl<'a> Sim<'a> {
 			turned_in: FxHashSet::default(),
 			open_npc: None,
 			open_kind: None,
+			closed_npc: None,
+			closed_at: 0.0,
 			log_ready: false,
 			arrived: FxHashSet::default(),
 			unavailable: FxHashMap::default(),
@@ -829,12 +833,12 @@ impl<'a> Sim<'a> {
 		if self.w.on_quest(q) || self.quest_done(q) {
 			return false;
 		}
+		// A hand tick on the accept never stands for the quest log (#739): it orphans nothing.
 		let empty = Vec::new();
 		for a in gd.accepts.get(&q).unwrap_or(&empty) {
 			let ag = gd.goal(a.s, a.g);
 			let skipped = self.skipped_steps.get(&gi).is_some_and(|k| k.contains(&a.s));
-			let ticked = self.manual.get(&gi).is_some_and(|m| m.contains_key(&(a.s, a.g)));
-			if a.s <= s && !ag.optional && !skipped && !ticked && self.step_applies(a.s) && self.matches(&ag.only) {
+			if a.s <= s && !ag.optional && !skipped && self.step_applies(a.s) && self.matches(&ag.only) {
 				return false;
 			}
 		}
@@ -965,9 +969,10 @@ impl<'a> Sim<'a> {
 		}
 	}
 
-	/// goalDone: done, cur, max of goal g of step s.
+	/// goalDone: done, cur, max of goal g of step s. An accept is done only by the quest log: a tick
+	/// never stands for it (#739).
 	pub fn goal_done(&mut self, s: usize, g: usize) -> Done {
-		if self.checked(s, g) {
+		if self.gd().goal(s, g).t != T::Accept && self.checked(s, g) {
 			return Done::yes();
 		}
 		let gd = self.gd();
@@ -1818,9 +1823,16 @@ impl<'a> Sim<'a> {
 						// Engine.IsSethomeInnkeeper: a located sethome needs its inn's innkeeper (never known here).
 						Kind::Sethome => goal.location.is_none() || (npc.is_some() && npc == self.find_inn(goal.npc, goal.location.as_deref()).map(|k| self.wd.inns[k].npc).or(goal.npc)),
 						Kind::Train if is_profession_train(goal) => false,
+						// Only that NPC: a candidate (of the character's class when it names classes), the
+						// goal's npc, or for `train class` a class trainer of the character's class.
 						_ => match (&goal.candidates, npc) {
-							(Some(cands), Some(n)) => cands.iter().any(|c| c.npc == Some(n)),
-							_ => true,
+							(Some(cands), Some(n)) => cands.iter().any(|c| c.npc == Some(n) && (c.classes.is_empty() || !self.have_player || c.classes.iter().any(|k| *k == self.w.class))),
+							(Some(_), None) => false,
+							_ => match goal.npc {
+								Some(want) => npc == Some(want),
+								None if kind == Kind::Train && goal.class => self.is_class_trainer(npc),
+								None => true,
+							},
 						},
 					};
 				}
@@ -1832,15 +1844,9 @@ impl<'a> Sim<'a> {
 		hit
 	}
 
-	fn latch_open_frame(&mut self) -> bool {
-		if self.open_npc.is_none() && self.open_kind.is_none() {
-			return false;
-		}
-		let mut hit = if self.open_npc.is_some() { self.latch(Kind::Talk, self.open_npc) } else { false };
-		if matches!(self.open_kind, Some(Kind::Train) | Some(Kind::Vendor)) {
-			hit = self.latch(self.open_kind.unwrap(), self.open_npc) || hit;
-		}
-		hit
+	/// Engine.IsClassTrainer(npc): a class trainer of the character's class.
+	fn is_class_trainer(&self, npc: Option<u32>) -> bool {
+		npc.is_some_and(|n| self.wd.class_trainers.get(&n).is_some_and(|cls| cls.contains(&self.w.class)))
 	}
 
 	/// Own.latchTurnin: a `turnin ... direct` hand-in checks off its goal in the live step.
@@ -1911,7 +1917,8 @@ impl<'a> Sim<'a> {
 		self.evaluate();
 	}
 
-	/// Own.clearMarks: a level-up or turn-in clears the unavailable marks (refusals of passed steps stay).
+	/// Own.clearMarks: a level-up or turn-in clears the unavailable marks; one of a passed step stays
+	/// while the data still gives its reason.
 	pub fn clear_marks(&mut self) {
 		if !self.have_player {
 			self.unavailable.clear();
@@ -1929,33 +1936,31 @@ impl<'a> Sim<'a> {
 		let keys: Vec<u32> = self.unavailable.keys().copied().collect();
 		for q in keys {
 			let u = self.unavailable[&q];
-			let now = if passed.contains(&q) {
-				let a = self.gs[u.accept.0].goal(u.accept.1, u.accept.2);
-				Some(if a.min_level.is_some_and(|l| self.pl_level < l) {
-					Reason::Level
-				} else if self.missing_pre_of(&a.pre, &a.pre_all).is_some() {
-					Reason::Pre
-				} else {
-					Reason::Offer
-				})
-			} else {
-				None
-			};
+			let now = if passed.contains(&q) { self.gated_reason(u.accept) } else { None };
 			match now {
-				Some(r) if u.reason == Reason::Offer || r != Reason::Offer => {
-					if u.reason != Reason::Offer {
-						self.unavailable.get_mut(&q).unwrap().reason = r;
-					}
-				}
-				_ => {
+				Some(r) => self.unavailable.get_mut(&q).unwrap().reason = r,
+				None => {
 					self.unavailable.remove(&q);
 				}
 			}
 		}
 	}
 
+	/// unavailableReason: the data's reason an accept is not offered (level, prerequisite), or none.
+	fn gated_reason(&self, (gi, s, g): (usize, usize, usize)) -> Option<Reason> {
+		let a = self.gs[gi].goal(s, g);
+		if a.min_level.is_some_and(|l| self.pl_level < l) {
+			Some(Reason::Level)
+		} else if self.missing_pre_of(&a.pre, &a.pre_all).is_some() {
+			Some(Reason::Pre)
+		} else {
+			None
+		}
+	}
+
 	/// checkOffers("gossip"): a gossip window listing no quests marks the live step's accepts at that
-	/// giver unavailable.
+	/// giver unavailable when the data gives a reason; a refusal it does not explain is never a skip
+	/// (#741: the line only asks for a report).
 	pub fn check_offers_gossip(&mut self, npc: Option<u32>) {
 		if !self.have_player {
 			return;
@@ -1973,21 +1978,29 @@ impl<'a> Sim<'a> {
 				&& !self.quest_done(q)
 				&& !self.unavailable.contains_key(&q)
 			{
-				let reason = if goal.min_level.is_some_and(|l| self.pl_level < l) {
-					Reason::Level
-				} else if self.missing_pre_of(&goal.pre, &goal.pre_all).is_some() {
-					Reason::Pre
-				} else {
-					Reason::Offer
-				};
-				self.unavailable.insert(q, Mark { reason, accept: (gi, cur, g), by: None });
+				if let Some(reason) = self.gated_reason((gi, cur, g)) {
+					self.unavailable.insert(q, Mark { reason, accept: (gi, cur, g), by: None });
+				}
 			}
 		}
 	}
 
 	pub fn on_quest_accepted(&mut self, q: u32) {
 		self.request_update();
+		self.talk_act();
 		self.unavailable.remove(&q);
+	}
+
+	/// Own.talkAct: a quest taken or handed in at the open NPC (or within 2 s of its window closing)
+	/// checks off that NPC's talk goals.
+	fn talk_act(&mut self) {
+		let npc = self.open_npc.or_else(|| self.closed_npc.filter(|_| self.now - self.closed_at < 2.0));
+		if npc.is_none() || !self.have_player {
+			return;
+		}
+		if self.latch(Kind::Talk, npc) {
+			self.request_update();
+		}
 	}
 
 	pub fn on_log_update(&mut self) {
@@ -2002,6 +2015,7 @@ impl<'a> Sim<'a> {
 		}
 		self.clear_marks();
 		self.request_update();
+		self.talk_act();
 	}
 
 	pub fn on_level_up(&mut self, level: f64) {
@@ -2063,34 +2077,43 @@ impl<'a> Sim<'a> {
 		inns.iter().rposition(|i| i.names.iter().any(|x| x.to_lowercase() == key))
 	}
 
-	/// onNpcFrame(kind).
+	/// onNpcFrame(kind): a vendor window is its service (and talking to that NPC); a trainer window is
+	/// talking to the trainer, its `train` goals wait for a spell learned there (on_spell_learned); a
+	/// gossip window alone checks off nothing (#741).
 	pub fn on_npc_frame(&mut self, kind: Kind) {
 		let npc = self.w.npc_unit;
 		self.open_npc = npc;
 		self.open_kind = Some(kind);
-		if self.have_player {
+		if self.have_player && kind != Kind::Talk {
 			if npc.is_some() {
 				self.latch(Kind::Talk, npc);
 			}
-			if kind != Kind::Talk {
+			if kind != Kind::Train {
 				self.latch(kind, npc);
 			}
 		}
 		self.request_update();
 	}
 
-	/// noteClassTrainer: a trainer window of the character's class: trained at this level.
-	pub fn note_class_trainer(&mut self) {
-		let Some(npc) = self.open_npc else { return };
-		let is = self.wd.class_trainers.get(&npc).is_some_and(|cls| cls.contains(&self.w.class));
-		if !is {
+	/// Own.trainerLearned: a spell learned while a trainer's window is open checks off its `train`
+	/// goals, and at a class trainer of the character's class is the visit `train class` remembers.
+	pub fn on_spell_learned(&mut self) {
+		if self.open_kind != Some(Kind::Train) || self.open_npc.is_none() || !self.have_player {
 			return;
 		}
 		self.refresh_player();
-		self.class_train_visit = Some(self.pl_level);
+		if self.is_class_trainer(self.open_npc) {
+			self.class_train_visit = Some(self.pl_level);
+		}
+		self.latch(Kind::Train, self.open_npc);
+		self.request_update();
 	}
 
 	pub fn on_frame_closed(&mut self) {
+		if self.open_npc.is_some() {
+			self.closed_npc = self.open_npc;
+			self.closed_at = self.now;
+		}
 		self.open_npc = None;
 		self.open_kind = None;
 	}
@@ -2323,7 +2346,6 @@ impl<'a> Sim<'a> {
 		}
 		let new_current = self.pin.or(self.computed);
 		let changed = new_current != self.current;
-		let mut latched = false;
 		if let Some(nc) = new_current {
 			self.latch_in_step(nc, Some(nc) == self.computed);
 		}
@@ -2351,14 +2373,10 @@ impl<'a> Sim<'a> {
 						}
 					}
 				}
-				latched = self.latch_open_frame();
 			}
 		}
 		self.signature();
 		self.waypoint = self.find_waypoint();
-		if latched {
-			self.request_update();
-		}
 		if self.current.is_none() && !self.completed_fired.contains(&gi) {
 			self.completed_fired.insert(gi);
 			let through = self.placed_through.remove(&gi);

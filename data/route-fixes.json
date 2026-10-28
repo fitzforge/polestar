@@ -325,6 +325,17 @@
 			{
 				"a": [
 					"turnin",
+					20
+				],
+				"b": [
+					"task",
+					128
+				],
+				"why": "RevA1 c13 read: Redridge's Blackrock Champions (Render's Valley, north-west) are killed with Corporal Keeshan's escort from the same valley, after the Battleworn Axes (Blackrock camps east of Stonewatch Keep, places 340) are handed in, as v1 does. c13 killed the Champions before the hearth on a trip that also sent the player south-east for the axes, then walked back north for Keeshan: the world puts the axes 10 yd from Keeshan because it does not read the places record"
+			},
+			{
+				"a": [
+					"turnin",
 					92742
 				],
 				"b": [
@@ -1314,6 +1325,39 @@
 			},
 			{
 				"a": [
+					"turnin",
+					96390
+				],
+				"b": [
+					"turnin",
+					291
+				],
+				"why": "RevDwarfGnome c13 read: Ironforge (The Reports to Barin, the class trainer) once, at the end of Dun Morogh on the way to the tram, after the Dark Iron Spies; c13 Dwarf went Farsen > Ironforge > back east to Helm's Bed Lake > Farsen > Ironforge again (01-dun-morogh.guide:598-663, a bounce and a missing tram line), as v1 and the Gnome route do not"
+			},
+			{
+				"a": [
+					"turnin",
+					433
+				],
+				"b": [
+					"turnin",
+					291
+				],
+				"why": "RevDwarfGnome c13 read: Senator Mehr's Bonesnappers handed in before the one Ironforge stop at the end (see the Nip 'Em pair)"
+			},
+			{
+				"a": [
+					"turnin",
+					96408
+				],
+				"b": [
+					"accept",
+					96392
+				],
+				"why": "RevDwarfGnome c13 read: A Visitor to Dun Morogh is Farsen's breadcrumb to Farsen's Watch (next 96392, exclusive with it): handed in before Farsen's Watch is taken, as v1; c13 Dwarf took 96392 first (01-dun-morogh.guide:565, check not-ready blocker)"
+			},
+			{
+				"a": [
 					"accept",
 					1150
 				],
@@ -1322,6 +1366,193 @@
 					98070
 				],
 				"why": "r7b read (Orc): Test of Endurance taken before the Roguefeather Den (Jandia's harpies), so Grenka's Claw is collected on that visit (the world has no task for the claw)"
+			},
+			{
+				"a": [
+					"accept",
+					109
+				],
+				"b": [
+					"accept",
+					36
+				],
+				"why": "Westfall, Pynte #416: Elwynn ends at Deputy Rainer on the road west (Report to Gryan Stoutmantle), then the farm quests on the road in"
+			},
+			{
+				"a": [
+					"accept",
+					109
+				],
+				"b": [
+					"accept",
+					151
+				],
+				"why": "Westfall, Pynte #416: Elwynn ends at Deputy Rainer on the road west (Report to Gryan Stoutmantle), then the farm quests on the road in"
+			},
+			{
+				"a": [
+					"accept",
+					109
+				],
+				"b": [
+					"accept",
+					64
+				],
+				"why": "Westfall, Pynte #416: Elwynn ends at Deputy Rainer on the road west (Report to Gryan Stoutmantle), then the farm quests on the road in"
+			},
+			{
+				"a": [
+					"accept",
+					109
+				],
+				"b": [
+					"accept",
+					9
+				],
+				"why": "Westfall, Pynte #416: Elwynn ends at Deputy Rainer on the road west (Report to Gryan Stoutmantle), then the farm quests on the road in"
+			},
+			{
+				"a": [
+					"accept",
+					109
+				],
+				"b": [
+					"accept",
+					22
+				],
+				"why": "Westfall, Pynte #416: Elwynn ends at Deputy Rainer on the road west (Report to Gryan Stoutmantle), then the farm quests on the road in"
+			},
+			{
+				"a": [
+					"accept",
+					109
+				],
+				"b": [
+					"accept",
+					92909
+				],
+				"why": "Westfall, Pynte #416: Elwynn ends at Deputy Rainer on the road west (Report to Gryan Stoutmantle), then the farm quests on the road in"
+			},
+			{
+				"a": [
+					"accept",
+					459
+				],
+				"b": [
+					"task",
+					456
+				],
+				"why": "F63 #102: Nature's Call taken before the Young Nightsabers, so the totems and the Fel Moss are worked with the kills"
+			},
+			{
+				"a": [
+					"accept",
+					97977
+				],
+				"b": [
+					"task",
+					456
+				],
+				"why": "F63 #102: The Woodland Protector taken before the Young Nightsabers, so the totems are open with the kills"
+			},
+			{
+				"a": [
+					"turnin",
+					2561
+				],
+				"b": [
+					"accept",
+					99053
+				],
+				"why": "F42 #334: Druid of the Claw handed to Oben Rageclaw in the den before Escaping Ban'ethil, so the escort is the last thing done in the den"
+			},
+			{
+				"a": [
+					"turnin",
+					96658
+				],
+				"b": [
+					"task",
+					358
+				],
+				"why": "#509: Camping 101: Cooking handed to William Pickman on the first Brill stop, as v1 does, not carried past two inn visits"
+			},
+			{
+				"a": [
+					"turnin",
+					2561
+				],
+				"b": [
+					"accept",
+					99053
+				],
+				"why": "F42 #334: Druid of the Claw handed to Oben Rageclaw before Escaping Ban'ethil is taken (the chain, not only its accept, comes before the escort; the cut put the escort between Rageclaw's kill and Oben's turn-in)"
+			},
+			{
+				"a": [
+					"turnin",
+					96634
+				],
+				"b": [
+					"accept",
+					4161
+				],
+				"why": "Teldrassil: Recipe of the Kaldorei needs Cooking, which Camping 101: Cooking teaches; Zarrin offers it once the lesson is handed in (the cut took it before)"
+			},
+			{
+				"a": [
+					"turnin",
+					6342
+				],
+				"b": [
+					"accept",
+					109
+				],
+				"why": "F30 #402/#403 Pynte: Flight to Auberdine is handed to Laird where Vesprystus's free flight lands, beside the boat to Stormwind, not carried through Westfall to 15.6"
+			},
+			{
+				"a": [
+					"accept",
+					1448
+				],
+				"b": [
+					"accept",
+					1398
+				],
+				"why": "c10 30-60 review (Alliance): Driftwood is taken on the Swamp visit after the ~42 Stormwind stop, as in v1. Taken early at Biggs (37.4) it saves nothing (the later visit returns to Biggs) and the writer pulls the Stormwind stop's level-40 steps with it: Riding at 40 (Humans sent to Elwynn), The Tome of Nobility (1661) and Summon Felsteed (4488), both level 40, written at 37.4 with Paladin and Warlock flights to Stormwind and back"
+			},
+			{
+				"a": [
+					"accept",
+					348
+				],
+				"b": [
+					"accept",
+					595
+				],
+				"why": "c10 30-60 review (Alliance): Stranglethorn Fever is Booty Bay's first accept off the Ratchet boat, as in v1. Taken after the tavern's accepts, the Ratchet flight path and the Booty Bay bind (v1's Ratchet step before it) ride with it, so the guide wrote 'Ratchet: getfp' after landing in Booty Bay and sent Warriors back by boat to Fray Island and Ratchet"
+			},
+			{
+				"a": [
+					"task",
+					827
+				],
+				"b": [
+					"turnin",
+					99051
+				],
+				"why": "RevOrcTroll3 c13 read: Threat from Below's naga beach (Spitelash, 57-61 x 22-30 %) lies on the walk from Razor Hill north to Margoz and Skull Rock: hand it in at the Razor Hill stop after the hearth back from Skull Rock (the level 12 training), not by walking back to Razor Hill and north again (c13 Orc 01-durotar:499, Troll :488; about 1100 yd and a hub return)"
+			},
+			{
+				"a": [
+					"task",
+					21
+				],
+				"b": [
+					"turnin",
+					3905
+				],
+				"why": "RevHuman3 c13 read: Grape Manifest goes to Brother Neals on the Abbey visit after Echo Ridge Mine, with Garrick's bounty and Skirmish at Echo Ridge (v1, and the speedrun benchmark: one Abbey return). c13's hub pickup handed it in right after Milly gave it, so the walk went vineyard -> Abbey (upstairs) -> Kelsey and the mine -> Abbey again (01-elwynn-forest:234 and 252)"
 			}
 		],
 		"notes": [
@@ -1367,6 +1598,22 @@
 			{
 				"q": 6563,
 				"why": "guides-caves test: The Essence of Aku'Mai stays (Sapphire through the BFD tunnel mouth, 07-ashenvale)"
+			},
+			{
+				"q": 95314,
+				"why": "Mike_'s report: That Shadowvale Green Elixir stays (its Bottle of Whispering Elixir step is how the guide sends only Paladins on to Hilda and Ephram at Bandarion Keep; RouteAudit A17)"
+			},
+			{
+				"q": 1058,
+				"why": "Phear's report: Jin'Zil's Forest Magic stays (its Stonetalon Sap leads to the camp that holds the mobs; in v1 and round 0; RouteAudit A17)"
+			},
+			{
+				"q": 372,
+				"why": "At War With The Scarlet Crusade stays after 371, which the route does (RouteAudit A17: on the route's way, dropped by the cut)"
+			},
+			{
+				"q": 93739,
+				"why": "EpicTibbles #532: Exploring the Horde stays for Skyborne (its leaders' visits are on the route's way through Orgrimmar, Thunder Bluff and the Undercity; the report's Talk to lines test it)"
 			}
 		],
 		"southward": [
@@ -1381,6 +1628,63 @@
 			}
 		],
 		"together": [
+			{
+				"a": [
+					"task",
+					99144,
+					0
+				],
+				"b": [
+					"task",
+					97558,
+					2
+				],
+				"why": "RevUndead c13 read: the three Vile Fin Murloc Skins for Hides for the Forsaken come from the murlocs on the shore just north of the Crusader's Outpost (Vile Fin Minor Oracles and Muckdwellers at 25-38, 37-48, by Bareth's way out), as v1 has them. c13 moved them to a trip of their own from Brill to the north shore before Agamand Mills (about 460 yd out of the way) and kept the step's tip about the outpost the player had not seen yet"
+			},
+			{
+				"a": [
+					"turnin",
+					763
+				],
+				"b": [
+					"accept",
+					767
+				],
+				"why": "RevTauren3 c13 read: Baine offers Rite of Vision as Rites of the Earthmother is handed to him on the first Bloodhoof visit (L5.8); the route took it two visits later (L7.75), so the writer hoisted it and the planner never saw 771 open on the Winterhoof trip"
+			},
+			{
+				"a": [
+					"accept",
+					767
+				],
+				"b": [
+					"turnin",
+					767
+				],
+				"why": "RevTauren3 c13 read: Rite of Vision 767 is only 'speak with Zarlman Two-Moons', 75 yd from Baine in the same village: handed in on the same visit"
+			},
+			{
+				"a": [
+					"turnin",
+					767
+				],
+				"b": [
+					"accept",
+					771
+				],
+				"why": "RevTauren3 c13 read: Two-Moons offers the next Rite of Vision (771) as 767 is handed to him (v0.2.6 takes it there); c13's order took it a visit later (L7.76, after the Winterhoof Water Well at L6.95), so the planner worked its Ambercorn on a trip of its own south of the village (written 01-mulgore:306-315: village, Ambercorn, village again)"
+			},
+			{
+				"a": [
+					"turnin",
+					109
+				],
+				"b": [
+					"turnin",
+					98021
+				],
+				"why": "RevSkyA c10 read: Journey to Sentinel Hill (Skyborne, from Bolvar) is handed to Gryan Stoutmantle with Report to Gryan Stoutmantle, as v1 does: the cut kept it to the second Sentinel Hill stop (L14.5 -> 16.0), so the player stands at Gryan with it in the log and the writer gated that stop's bind and flight path on it"
+			},
 			{
 				"a": [
 					"turnin",
@@ -1434,7 +1738,8 @@
 				],
 				"b": [
 					"task",
-					76
+					76,
+					0
 				],
 				"why": "#612 Nittepitte: the Mining Tools and the mine's far end in one step"
 			},
@@ -1457,7 +1762,8 @@
 				],
 				"b": [
 					"task",
-					87288
+					87288,
+					0
 				],
 				"why": "#555: Nightsaber Fangs and Soft Nightsaber Pelts in one east loop"
 			},
@@ -1512,7 +1818,8 @@
 				],
 				"b": [
 					"task",
-					97977
+					97977,
+					0
 				],
 				"why": "F63 #102: Nature's Call worked with The Woodland Protector's totem"
 			},
@@ -1523,7 +1830,8 @@
 				],
 				"b": [
 					"task",
-					459
+					459,
+					0
 				],
 				"why": "F63 #102: the Balance of Nature kills with the Woodland Protector totem"
 			},
@@ -1559,6 +1867,299 @@
 					5541
 				],
 				"why": "F73 Dun Morogh: Ammo for Rumbleshot taken right on Tools for Steelgrill's turn-in"
+			},
+			{
+				"a": [
+					"task",
+					745,
+					0
+				],
+				"b": [
+					"task",
+					745,
+					1
+				],
+				"why": "Mulgore, Sharing the Land: the Palemane gnolls (Tanners, Skinners, Poachers) are worked in one visit to Palemane Rock, so the arrow leads to each objective and resumes partial progress"
+			},
+			{
+				"a": [
+					"task",
+					3901,
+					0
+				],
+				"b": [
+					"task",
+					1470,
+					0
+				],
+				"why": "Tirisfal, an3vilmonk3y #345: a Warlock's Rattlecage Skulls drop from the Rattlecage skeletons Rattling the Rattlecages kills: one step"
+			},
+			{
+				"a": [
+					"task",
+					9,
+					0
+				],
+				"b": [
+					"task",
+					92909,
+					0
+				],
+				"why": "Westfall, the CurseForge review (one quest at a time): v1's Molsen Farm step kills The Killing Fields' Harvest Watchers and collects Harvesting the Harvesters' isosprings from the same Watchers and Golems; the cut split them (parts at 11.8, Watchers on a second pass at 13.5)"
+			},
+			{
+				"a": [
+					"turnin",
+					5261
+				],
+				"b": [
+					"turnin",
+					33
+				],
+				"why": "RevA1 c10 Human read: Wolves Across the Border handed to Eagan Peltskinner on the same visit as his breadcrumb (v1); the cut handed in the breadcrumb only and walked back to him with the wolf meat after Echo Ridge Mine"
+			},
+			{
+				"a": [
+					"turnin",
+					91723
+				],
+				"b": [
+					"turnin",
+					91725
+				],
+				"why": "RevA1 c10 Human read: Stolen Enchanting Supplies handed to Blixie Fitzwink beside Hamish Bergwort at the Tower of Azora (v1); the cut kept it for a walk east from Forest's Edge, and the guide's Goldshire stop for Marshal Dughan then sent everyone Tower -> Goldshire -> back east"
+			},
+			{
+				"a": [
+					"task",
+					11
+				],
+				"b": [
+					"turnin",
+					11
+				],
+				"why": "RevA1 c10 Human read: the Painted Gnoll Armbands handed to Deputy Rainer as you leave Forest's Edge, beside him (v1); the cut kept them for the end of Elwynn, so the guide went Westbrook (11) -> Goldshire -> Westbrook (109): check dup-trip blocker at 01-elwynn-forest:710"
+			},
+			{
+				"a": [
+					"task",
+					92514
+				],
+				"b": [
+					"turnin",
+					92514
+				],
+				"why": "Sato (0.2.3): Welcome to Shen'dar Village's talks to Illaya and Coriella sit in the step that hands it to Constable Aonda (Coriella stands beside her); c10 split them around Call of Earth and Raan's campfire and the seed test failed"
+			},
+			{
+				"a": [
+					"task",
+					95494
+				],
+				"b": [
+					"task",
+					95507
+				],
+				"why": "RevH1 c13 read (#273, #274): Vrang's traps in the same Dry Hills visit as the hides, 268 yd apart. Replaces 'task 95494 then task 865': the model's Raptor Horns site is the Raptor Grounds (2981 yd from the hides, 73 yd from the Stolen Silver), so that record made c13 hearth out of the Dry Hills after the hides (04-the-barrens:277-280), do horns, silver and Verog in the south and walk 2053 yd back for the traps and Vrang (04:307-315). The horns in the Dry Hills (#274) wait for the planner to pick a together partner's camp nearest its pair"
+			},
+			{
+				"a": [
+					"task",
+					95494
+				],
+				"b": [
+					"task",
+					865
+				],
+				"why": "#274: Raptor Horns in the Dry Hills on the hides' visit. The planner now takes a together pair's work at the partner camp nearest its pair (route::together_camps): the horns at the Dry Hills raptors beside the hides, not the Raptor Grounds 2981 yd south, so the pair no longer hearths out of the Dry Hills and walks back as c13 did (04-the-barrens:277-315)"
+			},
+			{
+				"a": [
+					"task",
+					875
+				],
+				"b": [
+					"task",
+					95494
+				],
+				"why": "RevH1 c13 read, #274 restated as same-visit work: Vrang's hides (minLevel 14) on the ~16 Dry Hills visit with the Witchwing rings. Replaces the overrides pairs 'turnin 95494/95507 before turnin 875', which c13 met by carrying Harpy Lieutenants from 16.0 to 21.6 past Darsok, and so lost Serena Bloodfeather (876) and Letter to Jin'Zil (1060)"
+			},
+			{
+				"a": [
+					"accept",
+					789
+				],
+				"b": [
+					"turnin",
+					97279
+				],
+				"why": "Durotar, Tom: Kzan Thornslash at the back of the Den on the Den visit, the mouth the last waypoint before him"
+			},
+			{
+				"a": [
+					"task",
+					790
+				],
+				"b": [
+					"task",
+					789
+				],
+				"why": "RevOrcTroll3 c13 read: Sarkoth prowls the Scorpid Workers' slope (40.5,66.8) and drops their tails too: the workers are worked on from him, v1's one 'Sarkoth' step, not a separate Sarkoth step after Hana'zua. The c13 Orc cut split that step, and the guide read three steps titled Sarkoth (01-durotar:181, 190, 197)"
+			},
+			{
+				"a": [
+					"task",
+					789
+				],
+				"b": [
+					"task",
+					4402
+				],
+				"why": "RevOrcTroll3 c13 read: the cactus apples and the Scorpid Worker tails are on the same valley floor (cactuses 39.6-47.3 x 56.5-72.5 %, workers 39.4-47.7 x 56.4-73.7 % of Durotar): one loop, v1's one 'Sarkoth' step; the c13 Orc cut put the Vile Familiars between them"
+			},
+			{
+				"a": [
+					"accept",
+					4402
+				],
+				"b": [
+					"accept",
+					5441
+				],
+				"why": "RevOrcTroll3 c13 read: Foreman Thazz'ril's Lazy Peons is taken on the first Den visit with Galgar's Cactus Apple Surprise (Thazz'ril at the lumber pile 140 yd east of Galgar's fire), so the peons are woken on the valley loop that follows (the next rule); v1 and the c13 Troll cut take it only on the second Den visit"
+			},
+			{
+				"a": [
+					"task",
+					4402
+				],
+				"b": [
+					"task",
+					5441
+				],
+				"why": "RevOrcTroll3 c13 read: the Lazy Peons sleep across the same valley floor as the cactuses and Scorpid Workers (14 spawns, 38.8-47.6 x 57-73 % of Durotar): woken on that loop, before the Den hand-ins, not on a second circuit after the Den (c13 Orc and Troll 01-durotar:216)"
+			},
+			{
+				"a": [
+					"task",
+					827
+				],
+				"b": [
+					"accept",
+					832
+				],
+				"why": "RevOrcTroll3 c13 read: the Eye of Burning Shadow (Burning Shadows) drops from Gazz'uz at the back of Skull Rock, where the guide takes the player for the Searing Collars; v1 does both in one Skull Rock step. The c13 cut took it after Margoz and Aggor, so the guide sent the player into Skull Rock twice (Orc 01-durotar:529 and 560, Troll :518 and 549)"
+			},
+			{
+				"a": [
+					"accept",
+					5261
+				],
+				"b": [
+					"turnin",
+					5261
+				],
+				"why": "RevHuman3 c13 read: Deputy Willem's Eagan Peltskinner is handed to Eagan at the first walk past him, at the Abbey's north-west corner, where Wolves Across the Border (33, which needs it in the quest data) is taken; c13 took 33 before handing 5261 in (not-ready blocker, 01-elwynn-forest:145)"
+			},
+			{
+				"a": [
+					"task",
+					7815
+				],
+				"b": [
+					"task",
+					580
+				],
+				"why": "RevH2 c13 35-60 read: Whiskey Slim's port bottles lie on the Hinterlands beaches beside Revantusk, where the Saltwater Snapjaws are killed for Snapjaws, Mon! (88 yd apart, judge split). c13 picks them up on a second walk out after the Revantusk hand-ins (Orc 40-50/05-the-hinterlands:222 and :298), and the snapjaw step's tip still says the quest is not on this route"
+			},
+			{
+				"a": [
+					"task",
+					93172
+				],
+				"b": [
+					"task",
+					94896
+				],
+				"why": "RevSkyA3 c13 read: the Abandoned Belongings for Aid For The Refugees lie between the tents of the refugees' camp, where the Wind Hollows for the Strange Hermit's Free the Hollows drift (83 yd apart); v1 works the camp once with both and Resaan's Heirloom. c13 took the belongings on a first trip before Elegael (camp gather with Unwelcome Visitors' talons, 361 yd off) and came back for the hollows and the heirloom (Skyborne-alliance 01-zephras-isle:529 and :589)"
+			},
+			{
+				"a": [
+					"task",
+					94896
+				],
+				"b": [
+					"task",
+					94897
+				],
+				"why": "RevSkyA3 c13 read: Resaan's Heirloom (The Fate of a Loved One) is at the north end of the refugees' camp, 143 yd from the belongings, both from Ealaane Nimbuswalker: one camp visit, as v1 has them"
+			},
+			{
+				"a": [
+					"task",
+					93737,
+					1
+				],
+				"b": [
+					"task",
+					93317
+				],
+				"why": "RevSkyH3 c13 read: Crab Season's Windsong Crawlers crowd the slopes below the Crystallized Lightning cave (51-53,65-68; 12 of the isle's 55 crawler spawns within 250 yd of it, 25 within 400 yd) that the route walks to right after Riaani; c13 made a round trip of its own from Valanaar to the crawlers at 51.6,71.9 and back (about 1100 yd) before the town's hand-ins (01-zephras-isle.guide:393-398). Nyalah takes the meat on the next Valanaar visit."
+			},
+			{
+				"a": [
+					"turnin",
+					96630
+				],
+				"b": [
+					"task",
+					96606
+				],
+				"why": "RevNightElf3 c13 read: The Great Outdoors is done when Lost Journal is handed to Lyreena Duskblade on the first Dolanaar stop: her campfire is 5 yd from her, so the player sits there while standing next to it, as v0.2.6 does in one step and the speedrun benchmark does on arrival. c13 took the quest at 01-teldrassil:286, walked the Zenn loop and came back to the campfire for it at :312"
+			},
+			{
+				"a": [
+					"task",
+					488
+				],
+				"b": [
+					"task",
+					4161
+				],
+				"why": "RevNightElf3 c13 read: Recipe of the Kaldorei's Small Spider Legs drop from the Webwood Lurkers that Zenn's Bidding kills for Webwood Spider Silk (both from Webwood Lurker 1998 in the game's loot data; the two task places are 226 yd apart east of Dolanaar), so both are collected in one Zenn loop. c13 killed the lurkers for the silk at 01-teldrassil:306 and again for the legs in a second pass at :337"
+			},
+			{
+				"a": [
+					"task",
+					929
+				],
+				"b": [
+					"turnin",
+					475
+				],
+				"why": "RevNightElf3 c13 read: Gaerolas Talvethren (A Troubling Breeze) stands 147 yd from the Starbreeze moonwell the Zenn loop already fills the Jade Phial at, and Tallonkai's Dresser is 97 yd beyond him (the world's points): one Starbreeze visit, as the speedrun benchmark does. c13 filled the phial at 01-teldrassil:309 and came back to Starbreeze for both on the second east loop (:343-345)"
+			},
+			{
+				"a": [
+					"accept",
+					476
+				],
+				"b": [
+					"task",
+					2438
+				],
+				"why": "RevNightElf3 c13 read: Tallonkai's Dresser (The Emerald Dreamcatcher) is in the house 97 yd from Gaerolas, on the same Starbreeze visit, right after his Gnarlpine Corruption is taken (with the record before)"
+			},
+			{
+				"a": [
+					"turnin",
+					489
+				],
+				"b": [
+					"task",
+					2459
+				],
+				"why": "RevNightElf3 c13 read: with the dresser done on the first east loop, Ferocitas the Dream Eater (level 8, Gnarlpine Mystics level 6, 450 yd east of Zenn) is killed on the second east loop after Seek Redemption! is handed to Zenn, before the lake, as the speedrun benchmark does. c13 made it an out-and-back from Dolanaar after the hearth (01-teldrassil:433-439, about 1,300 yd for one quest) before walking the other way to the Oracle Glade"
 			}
 		],
 		"after": [
@@ -1645,6 +2246,30 @@
 					1
 				],
 				"why": "r4f read (minor): the Totem's spider venom in the wolves step (v1), not between the tome and the cemetery"
+			},
+			{
+				"a": [
+					"task",
+					784,
+					0
+				],
+				"b": [
+					"accept",
+					830
+				],
+				"why": "Durotar: Lieutenant Benedict's key opens the chest that holds the Aged Envelope (830 starts from it): the keep's kills, Benedict's with them, first (v1)"
+			},
+			{
+				"a": [
+					"task",
+					784,
+					1
+				],
+				"b": [
+					"accept",
+					830
+				],
+				"why": "Durotar: Lieutenant Benedict's key opens the chest that holds the Aged Envelope (830 starts from it): the keep's kills, Benedict's with them, first (v1)"
 			}
 		],
 		"stay": [
@@ -1749,13 +2374,6 @@
 			{
 				"s": [
 					"turnin",
-					5218
-				],
-				"why": "r5 50-60 read (Human): Felstone cauldron handed in within the Arcane Quickener's 30 minutes, as v1"
-			},
-			{
-				"s": [
-					"turnin",
 					306
 				],
 				"why": "#617 Ioney: Menethil hand-in 306 stays after the hearth, before the grind to 28"
@@ -1804,13 +2422,1024 @@
 			{
 				"q": 92910,
 				"why": "F46 #298: Harvesting the Harvesters' starter is a ~1 in 900 drop: optional in v1, not counted on"
+			},
+			{
+				"q": 184,
+				"why": "RevA1 c10 read: Furlbrow's Deed starts from the Westfall Deed, a 2-4 % drop of Elwynn's Defias (the game's loot data): v1 marks it optional. The Dwarf, Gnome, Night Elf and Skyborne cuts counted on it (accepted at 11.6 from nowhere), and the writer put its Jansen Stead step in their start guides, before their Stormwind class steps"
+			},
+			{
+				"q": 93318,
+				"why": "RevSkyA c10 read: WANTED: Vulgara the Insatiable is an elite kill (Vulgara, level 8, rank 1 in Forever's creature data): v1 marks it optional and advises a group; the Skyborne cut counted its 775 XP at L9"
+			},
+			{
+				"q": 99052,
+				"why": "RevOrcTroll3 c13 read: Threat from Below (99052) is Aggor the Young's belt, an elite sea giant (level 11, rank 1 in Forever's creature data): v1 marks it optional and advises a group. The c13 Orc and Troll cuts counted its 900 XP at 11.85 and walked back to Razor Hill for its accept"
 			}
 		]
 	},
 	"overrides": {
-		"about": "Route overrides: one line each, honoured by every cut as hard constraints, shown as `override` in the skip and edit ledgers. include: {q, after: [accept|task|turnin, quest] (optional), reason, issue}: the quest is in the route (after that step when given). skip: {q, reason, issue}: never in the route. revert: {s: [accept|task|turnin, quest, task index (optional)], reason, issue} keeps that step between v1's neighbours (undoes a move); {q, edit: \"drop\"} keeps a quest the cut dropped; {q, edit: \"insert\"} undoes an insert (as skip).",
-		"include": [],
-		"skip": [],
-		"revert": []
+		"about": "Route overrides: one line each, honoured by every cut as hard constraints, shown as `override` in the skip and edit ledgers. include: {q, after: [accept|task|turnin, quest] (optional), reason, issue}: the quest is in the route (after that step when given). skip: {q, reason, issue}: never in the route. revert: {s: [accept|task|turnin, quest, task index (optional)], reason, issue} keeps that step between v1's neighbours (undoes a move); {q, edit: \"drop\"} keeps a quest the cut dropped; {q, edit: \"insert\"} undoes an insert (as skip). pairs: {a, b: [accept|task|turnin, quest], why, source}: a before b. Lines whose reason or source starts F<n> come from player reports (forge judge feedback, data/local/research/RouteFeedback.json).",
+		"include": [
+			{
+				"q": 940,
+				"reason": "F01: bark offers 940 on 98398 turn-in; Fandral already visited for 935; Forever pays 440 XP (data had 220)",
+				"issue": "#647",
+				"after": [
+					"turnin",
+					98398
+				]
+			},
+			{
+				"q": 6343,
+				"reason": "F30: quest grants a free hippogryph, faster than the boat; return quest pays XP",
+				"issue": "#402"
+			},
+			{
+				"q": 308,
+				"reason": "F61: hand-in-only quest unlocks the barrel",
+				"issue": "#108"
+			},
+			{
+				"q": 2641,
+				"after": [
+					"turnin",
+					2606
+				],
+				"reason": "RouteGrind030 fix 2: Sprinkle offers Sprinkle's Secret Ingredient on the 2606 hand-in in Gadgetzan; the Violet Tragan (object 141853) grows in the Hinterlands, the route's next zone, and the hand-in falls on the Gadgetzan pass to Un'Goro. Solo (server data: no group type, object objective). The Horde route takes it (v1 horde/40-50/04-tanaris:130, 05-the-hinterlands:172)",
+				"issue": ""
+			},
+			{
+				"q": 5086,
+				"after": [
+					"turnin",
+					5085
+				],
+				"reason": "RouteGrind030 fix 2: Donova Snowden offers Toxic Horrors on the Mystery Goo hand-in; Toxic Horror Droplets drop 80% from the non-elite Toxic Horrors of northern Felwood (7132), on the route's L58-59 Winterspring/Felwood stay. Solo (server data: no group type). The Horde route takes it (v1 horde/50-60/07-felwood:170)",
+				"issue": ""
+			},
+			{
+				"q": 5087,
+				"after": [
+					"turnin",
+					5086
+				],
+				"reason": "RouteGrind030 fix 2: Winterfall Runners follows Toxic Horrors at Donova; the crate drops 100% from the non-elite Winterfall Runner (10916) on the Felwood-Winterspring road. Solo. The Horde route takes it (v1 horde/50-60/07-felwood:171-176)",
+				"issue": ""
+			},
+			{
+				"q": 1452,
+				"reason": "RouteGrind030 fix 2: kept so Rhapsody's Tale (1469) has its prerequisite in the route; the cut already inserts it (three Kalimdor drops at 10-17%, no elite, no group type)",
+				"issue": ""
+			},
+			{
+				"q": 1469,
+				"after": [
+					"turnin",
+					1452
+				],
+				"reason": "RouteGrind030 fix 2: Rhapsody offers Rhapsody's Tale on the 1452 hand-in in the Hinterlands; a delivery (the tablet fragment is handed over at accept) to Brohann Caskbelly in Stormwind, where the route flies right after (v1 alliance/40-50/05-the-hinterlands 'Fly to Stormwind')",
+				"issue": ""
+			},
+			{
+				"q": 5845,
+				"after": [
+					"turnin",
+					5781
+				],
+				"reason": "RouteGrind030 fix 7: Tirion offers Of Lost Honor on the Of Forgotten Memories hand-in; the Symbol of Lost Honor is an object (177264, Eastern Plaguelands 62.5,26.8), no kill. Solo (server data: no group type). The cut chooses where 5781 is handed in",
+				"issue": ""
+			},
+			{
+				"q": 5846,
+				"after": [
+					"turnin",
+					5845
+				],
+				"reason": "RouteGrind030 fix 7: Of Love and Family follows Of Lost Honor at Tirion; a delivery to Artist Renfray at Caer Darrow, outside the dungeon. Solo (server data: no group type)",
+				"issue": ""
+			},
+			{
+				"q": 4721,
+				"after": [
+					"turnin",
+					4741
+				],
+				"reason": "RevH2 c13 35-60 read: Trull Failbane offers Wild Guardians (6400 XP) on the 4741 hand-in at Bloodvenom Post (Orc 50-60/07-felwood:97, about 59.1); its Berserk Owlbeasts are in Winterspring, where the route goes next, and c13 ends that stay with a 195-minute grind to 60 (07-felwood:181). Both speedrun benchmarks take it at 59. Solo (no group type, non-elite owlbeasts)",
+				"issue": ""
+			},
+			{
+				"q": 8304,
+				"reason": "RevH2 c13 35-60 read: Dearest Natalia (6600 XP, Commander Mar'alith in Cenarion Hold, minimum level 58) is refused by the pickup pass (judge-refused: 1491 XP/min against the route's 1429) while c13 ends with a 195-minute grind to 60; Rutgar and Frankal stand in southern Silithus during the 57.5-58.5 stay. Both speedrun benchmarks take it at 59. Its two objectives are conversations with Rutgar and Frankal, no fight (the game's data still tags it a group quest: verify in game)",
+				"issue": ""
+			}
+		],
+		"skip": [
+			{
+				"q": 98298,
+				"reason": "F60: Dalar never offers 98299 (unknown unlock); 98298 needs elite 99",
+				"issue": "#229"
+			},
+			{
+				"q": 98297,
+				"reason": "F80: Howin offers it only after the elite Death to the Dragonmaw",
+				"issue": ""
+			},
+			{
+				"q": 5821,
+				"reason": "RouteCritique-Horde: Bodyguard for Hire is offered only while the Gizelton caravan stops north of Kolkar Village, once per loop of about an hour through Desolace (Classic behaviour, to verify in game); the model counts a fixed escort with no wait, so the guide sends players to wait up to an hour for 2750 XP",
+				"issue": ""
+			},
+			{
+				"q": 5943,
+				"reason": "RouteCritique-Horde: Gizelton Caravan is offered only when the caravan leaves Gelkis Village on the same hourly loop (Classic behaviour, to verify in game); an average half-hour wait for 2850 XP at level 40",
+				"issue": ""
+			},
+			{
+				"q": 118,
+				"reason": "RevA1 c10 Human read: The Price of Shoes (level 18, 340 XP) is carried from Lakeshire at 19.5 to Smith Argus in Goldshire at 25.7, grey: a log slot for six levels for a few dozen XP, and the guide writes its hand-in after the Stormwind training, so Goldshire -> Stormwind -> Goldshire -> Stormwind for the boat",
+				"issue": ""
+			},
+			{
+				"q": 608,
+				"reason": "RevA2 c13 Alliance 40-50 read: the Bloodsail captains (45, 46, 48) stand on ship decks with crews of 42-45; the seed writes them optional, yet the route counts them and the model grinds 41.2 -> 42.0 before Captain Keelhaul (40-50/01-stranglethorn-vale:328), a hidden grind the guide never shows. The speedrun benchmarks take it on a Stranglethorn visit at 48-50, which this route does not make",
+				"issue": ""
+			},
+			{
+				"q": 5218,
+				"reason": "RevA2 c13 Alliance 50-60 read: the Scourge Cauldron repeatables (530-620 XP each) need an Arcane Quickener bought at Chillwind Camp (it lasts 30 minutes) and 4 Runecloth; c13 walks cauldron -> Chillwind -> cauldron for each (50-60/04-western-plaguelands:180-234), three extra camp round trips for about 1650 XP and 12 Runecloth the cloth donations want. The speedrun benchmarks leave all four out",
+				"issue": ""
+			},
+			{
+				"q": 5221,
+				"reason": "RevA2 c13 Alliance 50-60 read: Dalson's Tears Cauldron, a Scourge Cauldron repeatable (see Felstone Field Cauldron, 5218)",
+				"issue": ""
+			},
+			{
+				"q": 5224,
+				"reason": "RevA2 c13 Alliance 50-60 read: Writhing Haunt Cauldron, a Scourge Cauldron repeatable (see Felstone Field Cauldron, 5218)",
+				"issue": ""
+			},
+			{
+				"q": 5227,
+				"reason": "RevA2 c13 Alliance 50-60 read: Gahrron's Withering Cauldron, a Scourge Cauldron repeatable (see Felstone Field Cauldron, 5218)",
+				"issue": ""
+			},
+			{
+				"q": 5721,
+				"reason": "RevA2 c13 Alliance 50-60 read: The Battle of Darrowshire is a waved event that ends with Redpath the Corrupted, an elite level 60 (the seed guide leaves it out for that); c13 inserted it at 59.7 with no warning (50-60/06-silithus:627) and Hidden Treasures after it. The speedrun benchmarks leave it out",
+				"issue": ""
+			},
+			{
+				"q": 6606,
+				"reason": "RevH2 c13 35-60 read: A Little Luck is a 660 XP talk quest that needs level 55; c13 arrives at Everlook at 54.65 and writes a grind to 55 for it (Orc 50-60/03-winterspring:16, 139 model minutes, nothing else at Everlook needs 55). Neither speedrun benchmark takes it",
+				"issue": ""
+			},
+			{
+				"q": 4293,
+				"reason": "RevH2 c13 35-60 read: A Sample of Slime... needs Felwood Slime Samples from the Felwood oozes, turned into Corrupted Felwood Samples at the Apothecarium's Testing Equipment; the world has only the Testing Equipment, so c13 accepts, does and hands it in within one Undercity stop at 52.3 (judge R5, Orc 50-60/01-un-goro-crater:394-399). v0.2.6 left it out for the same reason. Lift once the world carries the ooze step",
+				"issue": ""
+			},
+			{
+				"q": 4294,
+				"reason": "RevH2 c13 35-60 read: ... and a Batch of Ooze needs Un'Goro Slime Samples from the Un'Goro oozes, turned into Pure Un'Goro Samples at the Apothecarium's Testing Equipment; the world has only the Testing Equipment, so c13 accepts and hands it in on the spot at 52.3, after Un'Goro was left (Orc 50-60/01-un-goro-crater:391-398). v0.2.6 left it out for the same reason. Lift once the world carries the ooze step",
+				"issue": ""
+			}
+		],
+		"revert": [
+			{
+				"s": [
+					"accept",
+					850
+				],
+				"reason": "RouteCritique-Horde: the shared tail starts with Kolkar Leaders at Regthar (c9: L16.2 Orc/Troll, L15.9 Tauren, L16.2 Undead, L17.3 Skyborne). For Orcs and Trolls that comes after the Orgrimmar training stop at 16 (Orgrimmar -> Crossroads -> Orgrimmar before the zeppelin), and in every start the writer anchors v1's level-20 Orgrimmar class block to it, so Speak with Ruga, Call of Water, Devourer of Souls and The Shattered Salute (minimum level 20) are written at 16. Its work and turn-in are at 20: take it there, as v1 does",
+				"issue": ""
+			},
+			{
+				"s": [
+					"turnin",
+					6342
+				],
+				"reason": "F30 Pynte: Flight to Auberdine lands beside Laird; folding the hand-in into the L16 Darkshore visit walks past him to the boat and hands 6342/6343 in grey",
+				"issue": "#403"
+			},
+			{
+				"s": [
+					"accept",
+					6343
+				],
+				"reason": "F30 Pynte: Return to Nessa is taken from Laird on landing, with Flight to Auberdine",
+				"issue": "#403"
+			},
+			{
+				"s": [
+					"turnin",
+					6343
+				],
+				"reason": "F30 Pynte: Return to Nessa flown back to Rut'theran right away, not at 16 when it is grey",
+				"issue": "#403"
+			},
+			{
+				"s": [
+					"task",
+					20
+				],
+				"reason": "RevA1 c10 Human read: Blackrock Menace's Battleworn Axes where v1 and #340 (Tazul) take them, the Blackrock camps at the south end of Galardell Valley right after Fangore (Grunts and Outrunners drop them at 45 %, the game's loot data). The cut moved them after Render's Camp in the north, where the guide still sends players to the Galardell camps (71,70.5): Render's Camp -> south-east camps -> back north to Keeshan",
+				"issue": "#340"
+			},
+			{
+				"s": [
+					"turnin",
+					98046
+				],
+				"reason": "RevNightElf c10 read: Drained Vessel (Fandral, taken in the Cenarion Enclave at 11.3) goes to Lariia in the Temple of the Moon on the same walk through Darnassus, as v1 has it (Priests hand Returning Home to Alathea beside her there anyway). The cut's fold onto a level-48 Darnassus visit held it past the late hand-in guard, so the route came back for it at 15.6: Stormwind harbor -> boat to Auberdine -> fly to Rut'theran -> portal -> Temple -> back down and fly to Auberdine, about 5 minutes more than the Temple walk at 11.3 and the reason Westfall ends and Darkshore starts in Darnassus for Night Elves",
+				"issue": ""
+			},
+			{
+				"s": [
+					"accept",
+					98065
+				],
+				"reason": "RevNightElf c10 read: Moonwell Remnants is offered by Lariia on the Drained Vessel hand-in, in the Temple of the Moon at 11.3 (v1)",
+				"issue": ""
+			},
+			{
+				"s": [
+					"turnin",
+					98065
+				],
+				"reason": "RevNightElf c10 read: Moonwell Remnants goes to Tyrande Whisperwind just above Lariia, on the same Temple of the Moon stop at 11.3 (v1)",
+				"issue": ""
+			}
+		],
+		"pairs": [
+			{
+				"a": [
+					"turnin",
+					112
+				],
+				"b": [
+					"turnin",
+					76
+				],
+				"why": "F04 #613: 112 turn-in runs a ~5 s brewing scene (cmangos dbscripts_on_quest_end 112) before 114 is offered; reporter's order (kelp before Jason) adds a walk back, rejected",
+				"source": "F04"
+			},
+			{
+				"a": [
+					"accept",
+					59
+				],
+				"b": [
+					"accept",
+					114
+				],
+				"why": "F04 #613: 112 turn-in runs a ~5 s brewing scene (cmangos dbscripts_on_quest_end 112) before 114 is offered; reporter's order (kelp before Jason) adds a walk back, rejected",
+				"source": "F04"
+			},
+			{
+				"a": [
+					"accept",
+					239
+				],
+				"b": [
+					"accept",
+					114
+				],
+				"why": "F04 #613: 112 turn-in runs a ~5 s brewing scene (cmangos dbscripts_on_quest_end 112) before 114 is offered; reporter's order (kelp before Jason) adds a walk back, rejected",
+				"source": "F04"
+			},
+			{
+				"a": [
+					"turnin",
+					306
+				],
+				"b": [
+					"accept",
+					1179
+				],
+				"why": "F06 #617: level-28 grind sat before the hearth to Menethil, so its hand-ins did not count; sim compare -18 min to 28",
+				"source": "F06"
+			},
+			{
+				"a": [
+					"turnin",
+					484
+				],
+				"b": [
+					"accept",
+					1179
+				],
+				"why": "F06 #617: level-28 grind sat before the hearth to Menethil, so its hand-ins did not count; sim compare -18 min to 28",
+				"source": "F06"
+			},
+			{
+				"a": [
+					"turnin",
+					470
+				],
+				"b": [
+					"accept",
+					1179
+				],
+				"why": "F06 #617: level-28 grind sat before the hearth to Menethil, so its hand-ins did not count; sim compare -18 min to 28",
+				"source": "F06"
+			},
+			{
+				"a": [
+					"turnin",
+					98282
+				],
+				"b": [
+					"accept",
+					1179
+				],
+				"why": "F06 #617: level-28 grind sat before the hearth to Menethil, so its hand-ins did not count; sim compare -18 min to 28",
+				"source": "F06"
+			},
+			{
+				"a": [
+					"turnin",
+					98461
+				],
+				"b": [
+					"accept",
+					305
+				],
+				"why": "F23 #524: Tarrel won't offer 305 while 98461 is in the log",
+				"source": "F23"
+			},
+			{
+				"a": [
+					"turnin",
+					484
+				],
+				"b": [
+					"accept",
+					98815
+				],
+				"why": "F24 #533: Halloran offers 98815 only after 484; breadcrumb 95737 disappears once 95647 is taken",
+				"source": "F24"
+			},
+			{
+				"a": [
+					"task",
+					92474
+				],
+				"b": [
+					"turnin",
+					92461
+				],
+				"why": "F36 #363: Rorian, up the tower, back to Rorian",
+				"source": "F36"
+			},
+			{
+				"a": [
+					"turnin",
+					96896
+				],
+				"b": [
+					"accept",
+					99152
+				],
+				"why": "F39 : both need level 10 and are offered after 96896",
+				"source": "F39"
+			},
+			{
+				"a": [
+					"accept",
+					3365
+				],
+				"b": [
+					"turnin",
+					3361
+				],
+				"why": "PR#61 (recorded run): Durnan's Mornbrew hand-in and Bring Back the Mug before Felix at the door, one visit inside Anvilmar",
+				"source": "PR#61"
+			},
+			{
+				"a": [
+					"turnin",
+					312
+				],
+				"b": [
+					"accept",
+					96408
+				],
+				"why": "PR#727: Tundra MacGrann's stash on the western Brewnall leg, before the eastbound depot lead to Farsen; no walk back west from the South Gate",
+				"source": "PR#727"
+			},
+			{
+				"a": [
+					"accept",
+					4449
+				],
+				"b": [
+					"task",
+					3443
+				],
+				"why": "Searing Gorge: Caught! (the outhouse at the Grimesilt Dig Site) is taken before Forging the Shaft's Dark Iron work there, so its 8 Dark Iron Geologists fall in the same camp visit, not a second trip at 48.8",
+				"source": "critic"
+			},
+			{
+				"a": [
+					"accept",
+					1138
+				],
+				"b": [
+					"task",
+					983
+				],
+				"why": "Darkshore: Fruit of the Sea (Gubber Blump, Auberdine) is taken before Buzzbox 827's crawler legs, so its crab chunks come from the same Encrusted Tide Crawlers on the first shore loop, not a second one at 17.4",
+				"source": "critic"
+			},
+			{
+				"a": [
+					"turnin",
+					1420
+				],
+				"b": [
+					"accept",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					1424
+				],
+				"b": [
+					"accept",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					1428
+				],
+				"b": [
+					"accept",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					1430
+				],
+				"b": [
+					"accept",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"turnin",
+					624
+				],
+				"b": [
+					"accept",
+					3520
+				],
+				"why": "Swamp of Sorrows, one stay (RevH2, c10 Orc read): the 43.8 visit stands in Stonard and at Misty Reed Post with Fresh Meat already taken, then boats to Tanaris and comes back at 45.5 (Orgrimmar -> Grom'gol -> Stonard, then Stonard -> Grom'gol -> Orgrimmar, about 20 minutes of travel) for Report to Helgrum, Pool of Tears, the Soggy Scroll and the Misty Reed murlocs (levels 40-45, open at 43.8); all of them on the first stay, before the boat",
+				"source": "RevH2"
+			},
+			{
+				"a": [
+					"accept",
+					87
+				],
+				"b": [
+					"task",
+					60
+				],
+				"why": "Elwynn, the Fargodeep Mine once: the Stonefield/Maclure chain runs first, so Kobold Candles, Gold Dust, the walk through the mine and Goldtooth (Bernice's Necklace) are one visit to the mine, not a mine trip at 7.1 and a second one for Goldtooth at 7.9",
+				"source": "critic"
+			},
+			{
+				"a": [
+					"accept",
+					87
+				],
+				"b": [
+					"task",
+					47
+				],
+				"why": "Elwynn, the Fargodeep Mine once: Gold Dust with Goldtooth (see Kobold Candles)",
+				"source": "critic"
+			},
+			{
+				"a": [
+					"accept",
+					87
+				],
+				"b": [
+					"task",
+					62
+				],
+				"why": "Elwynn, the Fargodeep Mine once: the walk through the mine with Goldtooth (see Kobold Candles)",
+				"source": "critic"
+			},
+			{
+				"a": [
+					"turnin",
+					2158
+				],
+				"b": [
+					"turnin",
+					54
+				],
+				"why": "RevHumanStart c10 Human read: Rest and Relaxation handed to Innkeeper Farley on the first Goldshire stop, where the guide binds you at him (v1, c9); c10 carried it to the second stop and wrote it after the bind at the same innkeeper (01-elwynn-forest:264 bind, :310 hand-in)",
+				"source": "critic"
+			},
+			{
+				"a": [
+					"accept",
+					47
+				],
+				"b": [
+					"turnin",
+					96627
+				],
+				"why": "RevHumanStart c10 Human read: Gold Dust Exchange taken from Remy \"Two Times\" on the first Goldshire stop, beside Marshal Dughan, not on the return from the lake (check next-to at 01-elwynn-forest:305); no walk added, the mine trip is unchanged",
+				"source": "critic"
+			},
+			{
+				"a": [
+					"accept",
+					60
+				],
+				"b": [
+					"turnin",
+					96627
+				],
+				"why": "RevHumanStart c10 Human read: Kobold Candles taken from William Pestle at the inn on the first Goldshire stop, not on the return from the lake (check next-to at 01-elwynn-forest:308); no walk added",
+				"source": "critic"
+			},
+			{
+				"a": [
+					"accept",
+					46
+				],
+				"b": [
+					"turnin",
+					71
+				],
+				"why": "RevHumanStart c10 Human read: Bounty on Murlocs taken from Guard Thomas on the first east loop (he is visited twice on it), so the river murlocs can go with Downstream and Princess there; c10 took it only on the second loop at 10.5 (check next-to at 01-elwynn-forest:555, split at :559)",
+				"source": "critic"
+			},
+			{
+				"a": [
+					"turnin",
+					805
+				],
+				"b": [
+					"task",
+					96821
+				],
+				"why": "Durotar: Report to Sen'jin Village is handed to Master Gadrin on the first Sen'jin visit (Vel'rin Fang, whose Practical Prey and Legging It are taken there, stands beside him), not carried to the second visit at 7.6; Report to Orgnil then goes in on the first Razor Hill stop. No XP is lost (level 5 quest, full XP at either level)",
+				"source": "critic"
+			},
+			{
+				"a": [
+					"turnin",
+					494
+				],
+				"b": [
+					"task",
+					496
+				],
+				"why": "Hillsbrad: every Tarren Mill quest (Darthalia's Time To Strike hand-in and Battle of Hillsbrad, the WANTED and Dangerous! posters, Krusk) is taken on arrival before the Creeper Ichor, not split around a 100 yd creeper detour with the guide sending the player west to the farms and back into town (c10 06-hillsbrad-foothills lines 7-22)",
+				"source": "critic"
+			},
+			{
+				"a": [
+					"task",
+					381
+				],
+				"b": [
+					"task",
+					6395
+				],
+				"why": "Tirisfal: Marla's Last Wish buries Samuel's Remains (16333, the quest's required item, dropped by Samuel Fipps at the Solliden farm among The Scarlet Crusade's armband zealots) at Marla's Grave, so the farm comes before the grave; c10's Undead order went to the grave first, where the burial cannot be done",
+				"source": "critic"
+			},
+			{
+				"a": [
+					"turnin",
+					92474
+				],
+				"b": [
+					"accept",
+					92464
+				],
+				"why": "F36 #363 (Alx-Ryan): Falling With Style is handed to Rorian right with Harmony in Balance, before his Elemental Unrest is taken; c10's free search put that accept between the two hand-ins and the seed test failed",
+				"source": "F36"
+			},
+			{
+				"a": [
+					"task",
+					917
+				],
+				"b": [
+					"accept",
+					97236
+				],
+				"why": "RevNightElf c10 read: Githyiss the Vile (1994) sits at the back of Shadowthread Cave beside the Webwood Eggs (12 yd apart, the server's spawns), and the Fang of Githyiss (97236, 450 XP) goes to Gilshalan, who takes the egg (917). c10 walks to the back of the cave twice: for Githyiss on the venom trip, then for the eggs. Kill him on the egg trip and hand both in together; the venom trip stays at the mouth and Iverron",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					383
+				],
+				"b": [
+					"accept",
+					5481
+				],
+				"why": "FitzTest c12w (#739's run): Gordo's Task (5481) needs level 5 in Forever's quest data, and the first pass by Gordo, on the walk in from Deathknell, comes at about level 4 in play (Fitz was 4 there; the model says 6.0, see the level table in FitzTest-c12w-issues.md), so Gordo would not offer it and the guide skips it with its Gloom Weed and hand-in. Taken on the pass after Brill (Gordo's report for Patience, about level 7), with the Gloom Weed on the west road and the hand-in at Holland on the way back",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					590
+				],
+				"b": [
+					"turnin",
+					5481
+				],
+				"why": "RevUndead c13 read: with Gordo's Task taken after Brill (the pair above), c13 handed it to Junior Apothecary Holland at once: Brill, west along Gordo's road to 43,55, back to Holland at the north-west edge of Brill, then out west again for the Putrid Claws, the Darkhound Blood and Calvin's duel (about 1,500 yd walked twice, a second trip west). The hand-in waits for the hearth back to Brill after the duel, so Gordo's report, the Gloom Weed, the claws and the blood are one westward sweep that ends at Calvin, as v1 does",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					96896
+				],
+				"b": [
+					"task",
+					95314
+				],
+				"why": "RevUndead c13 read: That Shadowvale Green Elixir's bottles lie in the Shadowvale basement among Lurchers and Mystics that killed an Undead Paladin at 8-9 (the seed's stress-test report); c13 sent every other class there at model 9.9 (players run about a level under the model in Tirisfal, FitzTest c12w). After A Righteous Cause at Leonid (about 12.5) the basement is one trip for every class, Paladins doing Hilda's and Ephram's quests in it (one Shadowvale step, the Paladin seed test), the west loop loses its legs to Shadowvale and back (about 1,000 + 1,700 yd for 750 from the Whispering Forest), and the hand-in at Carolai Anise rides the hearth to Brill before the zeppelin. c13 also broke the Paladins' split of this quest: their collect was dropped and their hand-in written at the 9.9 Brill stop (R5 blocker)",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					52
+				],
+				"b": [
+					"turnin",
+					112
+				],
+				"why": "RevHuman3 c13 read: Elwynn's east is finished in one loop before the west sweep, as the speedrun benchmarks do (both hand in Guard Thomas's, Eastvale's and the Tower of Azora's quests, then Goldshire, the Maclure and Stonefield farms, the Westbrook Garrison and Westfall). c13 left the east at 9.6 with Protect the Frontier and Report to Thomas ready at the bridge and Good Steel at Eastvale, walked Goldshire -> the farms -> Westbrook, then the whole zone back east (Westbrook -> bridge, 1,700 yd, the route's own 272 s walk) for them, Red Linen Goods and Delicate Instruments, then Goldshire and Westbrook again: about 2,900 yd (7-8 min) more than one east loop then one west sweep; check feel-return 01-elwynn-forest:576-592",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					52
+				],
+				"b": [
+					"turnin",
+					88
+				],
+				"why": "RevHuman3 c13 read: Elwynn's east is finished in one loop before the west sweep, as the speedrun benchmarks do (both hand in Guard Thomas's, Eastvale's and the Tower of Azora's quests, then Goldshire, the Maclure and Stonefield farms, the Westbrook Garrison and Westfall). c13 left the east at 9.6 with Protect the Frontier and Report to Thomas ready at the bridge and Good Steel at Eastvale, walked Goldshire -> the farms -> Westbrook, then the whole zone back east (Westbrook -> bridge, 1,700 yd, the route's own 272 s walk) for them, Red Linen Goods and Delicate Instruments, then Goldshire and Westbrook again: about 2,900 yd (7-8 min) more than one east loop then one west sweep; check feel-return 01-elwynn-forest:576-592",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					71
+				],
+				"b": [
+					"turnin",
+					112
+				],
+				"why": "RevHuman3 c13 read: Elwynn's east is finished in one loop before the west sweep, as the speedrun benchmarks do (both hand in Guard Thomas's, Eastvale's and the Tower of Azora's quests, then Goldshire, the Maclure and Stonefield farms, the Westbrook Garrison and Westfall). c13 left the east at 9.6 with Protect the Frontier and Report to Thomas ready at the bridge and Good Steel at Eastvale, walked Goldshire -> the farms -> Westbrook, then the whole zone back east (Westbrook -> bridge, 1,700 yd, the route's own 272 s walk) for them, Red Linen Goods and Delicate Instruments, then Goldshire and Westbrook again: about 2,900 yd (7-8 min) more than one east loop then one west sweep; check feel-return 01-elwynn-forest:576-592",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					71
+				],
+				"b": [
+					"turnin",
+					88
+				],
+				"why": "RevHuman3 c13 read: Elwynn's east is finished in one loop before the west sweep, as the speedrun benchmarks do (both hand in Guard Thomas's, Eastvale's and the Tower of Azora's quests, then Goldshire, the Maclure and Stonefield farms, the Westbrook Garrison and Westfall). c13 left the east at 9.6 with Protect the Frontier and Report to Thomas ready at the bridge and Good Steel at Eastvale, walked Goldshire -> the farms -> Westbrook, then the whole zone back east (Westbrook -> bridge, 1,700 yd, the route's own 272 s walk) for them, Red Linen Goods and Delicate Instruments, then Goldshire and Westbrook again: about 2,900 yd (7-8 min) more than one east loop then one west sweep; check feel-return 01-elwynn-forest:576-592",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					83
+				],
+				"b": [
+					"turnin",
+					112
+				],
+				"why": "RevHuman3 c13 read: Elwynn's east is finished in one loop before the west sweep, as the speedrun benchmarks do (both hand in Guard Thomas's, Eastvale's and the Tower of Azora's quests, then Goldshire, the Maclure and Stonefield farms, the Westbrook Garrison and Westfall). c13 left the east at 9.6 with Protect the Frontier and Report to Thomas ready at the bridge and Good Steel at Eastvale, walked Goldshire -> the farms -> Westbrook, then the whole zone back east (Westbrook -> bridge, 1,700 yd, the route's own 272 s walk) for them, Red Linen Goods and Delicate Instruments, then Goldshire and Westbrook again: about 2,900 yd (7-8 min) more than one east loop then one west sweep; check feel-return 01-elwynn-forest:576-592",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					83
+				],
+				"b": [
+					"turnin",
+					88
+				],
+				"why": "RevHuman3 c13 read: Elwynn's east is finished in one loop before the west sweep, as the speedrun benchmarks do (both hand in Guard Thomas's, Eastvale's and the Tower of Azora's quests, then Goldshire, the Maclure and Stonefield farms, the Westbrook Garrison and Westfall). c13 left the east at 9.6 with Protect the Frontier and Report to Thomas ready at the bridge and Good Steel at Eastvale, walked Goldshire -> the farms -> Westbrook, then the whole zone back east (Westbrook -> bridge, 1,700 yd, the route's own 272 s walk) for them, Red Linen Goods and Delicate Instruments, then Goldshire and Westbrook again: about 2,900 yd (7-8 min) more than one east loop then one west sweep; check feel-return 01-elwynn-forest:576-592",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					91732
+				],
+				"b": [
+					"turnin",
+					112
+				],
+				"why": "RevHuman3 c13 read: Elwynn's east is finished in one loop before the west sweep, as the speedrun benchmarks do (both hand in Guard Thomas's, Eastvale's and the Tower of Azora's quests, then Goldshire, the Maclure and Stonefield farms, the Westbrook Garrison and Westfall). c13 left the east at 9.6 with Protect the Frontier and Report to Thomas ready at the bridge and Good Steel at Eastvale, walked Goldshire -> the farms -> Westbrook, then the whole zone back east (Westbrook -> bridge, 1,700 yd, the route's own 272 s walk) for them, Red Linen Goods and Delicate Instruments, then Goldshire and Westbrook again: about 2,900 yd (7-8 min) more than one east loop then one west sweep; check feel-return 01-elwynn-forest:576-592",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					91732
+				],
+				"b": [
+					"turnin",
+					88
+				],
+				"why": "RevHuman3 c13 read: Elwynn's east is finished in one loop before the west sweep, as the speedrun benchmarks do (both hand in Guard Thomas's, Eastvale's and the Tower of Azora's quests, then Goldshire, the Maclure and Stonefield farms, the Westbrook Garrison and Westfall). c13 left the east at 9.6 with Protect the Frontier and Report to Thomas ready at the bridge and Good Steel at Eastvale, walked Goldshire -> the farms -> Westbrook, then the whole zone back east (Westbrook -> bridge, 1,700 yd, the route's own 272 s walk) for them, Red Linen Goods and Delicate Instruments, then Goldshire and Westbrook again: about 2,900 yd (7-8 min) more than one east loop then one west sweep; check feel-return 01-elwynn-forest:576-592",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					91724
+				],
+				"b": [
+					"turnin",
+					112
+				],
+				"why": "RevHuman3 c13 read: Elwynn's east is finished in one loop before the west sweep, as the speedrun benchmarks do (both hand in Guard Thomas's, Eastvale's and the Tower of Azora's quests, then Goldshire, the Maclure and Stonefield farms, the Westbrook Garrison and Westfall). c13 left the east at 9.6 with Protect the Frontier and Report to Thomas ready at the bridge and Good Steel at Eastvale, walked Goldshire -> the farms -> Westbrook, then the whole zone back east (Westbrook -> bridge, 1,700 yd, the route's own 272 s walk) for them, Red Linen Goods and Delicate Instruments, then Goldshire and Westbrook again: about 2,900 yd (7-8 min) more than one east loop then one west sweep; check feel-return 01-elwynn-forest:576-592",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					91724
+				],
+				"b": [
+					"turnin",
+					88
+				],
+				"why": "RevHuman3 c13 read: Elwynn's east is finished in one loop before the west sweep, as the speedrun benchmarks do (both hand in Guard Thomas's, Eastvale's and the Tower of Azora's quests, then Goldshire, the Maclure and Stonefield farms, the Westbrook Garrison and Westfall). c13 left the east at 9.6 with Protect the Frontier and Report to Thomas ready at the bridge and Good Steel at Eastvale, walked Goldshire -> the farms -> Westbrook, then the whole zone back east (Westbrook -> bridge, 1,700 yd, the route's own 272 s walk) for them, Red Linen Goods and Delicate Instruments, then Goldshire and Westbrook again: about 2,900 yd (7-8 min) more than one east loop then one west sweep; check feel-return 01-elwynn-forest:576-592",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					91740
+				],
+				"b": [
+					"turnin",
+					112
+				],
+				"why": "RevHuman3 c13 read: Elwynn's east is finished in one loop before the west sweep, as the speedrun benchmarks do (both hand in Guard Thomas's, Eastvale's and the Tower of Azora's quests, then Goldshire, the Maclure and Stonefield farms, the Westbrook Garrison and Westfall). c13 left the east at 9.6 with Protect the Frontier and Report to Thomas ready at the bridge and Good Steel at Eastvale, walked Goldshire -> the farms -> Westbrook, then the whole zone back east (Westbrook -> bridge, 1,700 yd, the route's own 272 s walk) for them, Red Linen Goods and Delicate Instruments, then Goldshire and Westbrook again: about 2,900 yd (7-8 min) more than one east loop then one west sweep; check feel-return 01-elwynn-forest:576-592",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					91740
+				],
+				"b": [
+					"turnin",
+					88
+				],
+				"why": "RevHuman3 c13 read: Elwynn's east is finished in one loop before the west sweep, as the speedrun benchmarks do (both hand in Guard Thomas's, Eastvale's and the Tower of Azora's quests, then Goldshire, the Maclure and Stonefield farms, the Westbrook Garrison and Westfall). c13 left the east at 9.6 with Protect the Frontier and Report to Thomas ready at the bridge and Good Steel at Eastvale, walked Goldshire -> the farms -> Westbrook, then the whole zone back east (Westbrook -> bridge, 1,700 yd, the route's own 272 s walk) for them, Red Linen Goods and Delicate Instruments, then Goldshire and Westbrook again: about 2,900 yd (7-8 min) more than one east loop then one west sweep; check feel-return 01-elwynn-forest:576-592",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					5261
+				],
+				"b": [
+					"accept",
+					33
+				],
+				"why": "RevHuman3 c13 read: Eagan Peltskinner (5261) is handed in before his Wolves Across the Border (33) is taken: the quest data has 5261 as 33's prerequisite and the check's not-ready blocker fired at 01-elwynn-forest:145 (c13 and v0.2.6), where the guide listed accept 33 before turnin 5261 at the same NPC; the speedrun benchmark hands it in first too",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					3914
+				],
+				"b": [
+					"accept",
+					4292
+				],
+				"why": "RevA2 c13 Alliance 40-60 read: Un'Goro's level 55-56 quests wait for the later Un'Goro visit (Linken's Sword, 57), as the speedrun benchmarks keep them for a second visit at 53-54. At 49-51 c13 grinds 49.1 -> 50 on the gorillas (the gate for Lost!, U'cha and Ringo) and the model hides a 51.5 -> 53 grind inside the Lar'korwi step (level 56): The Bait for Lar'korwi",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					3914
+				],
+				"b": [
+					"accept",
+					4289
+				],
+				"why": "RevA2 c13 Alliance 40-60 read: Un'Goro's level 55-56 quests on the later Un'Goro visit (see The Bait for Lar'korwi): The Apes of Un'Goro, with The Mighty U'cha after it (minimum level 50)",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					3914
+				],
+				"b": [
+					"accept",
+					4492
+				],
+				"why": "RevA2 c13 Alliance 40-60 read: Un'Goro's level 55-56 quests on the later Un'Goro visit (see The Bait for Lar'korwi): Lost! (minimum level 50), with Ringo's escort after it",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					3914
+				],
+				"b": [
+					"accept",
+					4501
+				],
+				"why": "RevA2 c13 Alliance 40-60 read: Un'Goro's level 55-56 quests on the later Un'Goro visit (see The Bait for Lar'korwi): Beware of Pterrordax, Frenzied Pterrordax 4-5 levels above c13's 50",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					3914
+				],
+				"b": [
+					"accept",
+					974
+				],
+				"why": "RevA2 c13 Alliance 40-60 read: Un'Goro's level 55-56 quests on the later Un'Goro visit (see The Bait for Lar'korwi): Finding the Source (minimum level 51), with The New Springs for Donova Snowden on the later Winterspring visit",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					349
+				],
+				"b": [
+					"task",
+					348
+				],
+				"why": "RevH2 c13 35-60 read: the Heart of Mokk (Stranglethorn Fever 348) comes from Mokk the Savage, whom Witch Doctor Unbagwa summons when the gorilla fangs (349) are handed to him. c13 orders the heart before Unbagwa's quest is even taken (Orc 40-50/01-stranglethorn-vale:155-172)",
+				"source": "review"
+			},
+			{
+				"a": [
+					"accept",
+					349
+				],
+				"b": [
+					"task",
+					606
+				],
+				"why": "RevH2 c13 35-60 read: the Mistvale gorillas drop both Unbagwa's fangs (349) and Shaky's giblets (606); taking 349 at Unbagwa first makes it one gorilla stay, as the seed guide's header intends (40-50/01-stranglethorn-vale header) and both speedrun benchmarks do. c13 kills gorillas, takes 349, then kills gorillas again (Orc 40-50/01-stranglethorn-vale:155-169)",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					2932
+				],
+				"b": [
+					"accept",
+					608
+				],
+				"why": "RevH2 c13 35-60 read: the Bloodsail captains are 45-48 on decks crewed by 42-45 pirates. c13 sends the player at 41.2 (Orc 40-50/01-stranglethorn-vale:147) and the model grinds 181 hidden minutes to 42 first; the guide marks the kills optional. The route is back in Booty Bay at 50.2 (40-50/06-azshara:239-253, after Nimboya's Grim Message): take and do it there. The benchmark speedrun does it at 45",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					5229
+				],
+				"b": [
+					"accept",
+					4971
+				],
+				"why": "RevH2 c13 35-60 read: Chromie offers A Matter of Time from level 53. c13 writes the accept at 52.75 on the first Andorhal pass (Orc 50-60/02-felwood:144, no level line: the game refuses it; the model grinds 93 hidden minutes to 53) and works it at 58.5. Take it on the second Western Plaguelands visit with the watchtowers, as the seed guide's 06-silithus header says and both speedrun benchmarks do (56-57)",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					5229
+				],
+				"b": [
+					"accept",
+					6023
+				],
+				"why": "RevH2 c13 35-60 read: Unfinished Business part 2 sends you to Huntsman Radley and Cavalier Durgen (level 57 quest) and part 3 to the Hearthglen tower (level 58). c13 does both at 53.1-54.0 (Orc 50-60/02-felwood:179-203; judge under-level 3.6 and 4.0; the model grinds 318 hidden minutes first). The route passes Northridge again at 58.5 (06-silithus:306): do them there. Both speedrun benchmarks do them at 56-58",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					5542
+				],
+				"b": [
+					"task",
+					6024
+				],
+				"why": "RevH2 c13 35-60 read: Hameya's key comes from the level 59-60 Mossflayers of Zul'Mashar. c13 goes there at 56.4 (Orc 50-60/05-eastern-plaguelands:120; judge under-level 3.5; the model grinds 241 hidden minutes first) and hands the key in at 58.8 anyway (06-silithus:335). Fetch it on the second Eastern Plaguelands visit, as the benchmark speedrun does at 57-58",
+				"source": "review"
+			},
+			{
+				"a": [
+					"accept",
+					348
+				],
+				"b": [
+					"task",
+					572
+				],
+				"why": "RevH2 c13 35-60 read: Mok'thardin's feathers drop from the Jungle Stalkers (40-41) south of Grom'gol, the same mobs as Raptor Mastery (196), which c13 kills at 42.4 (Orc 40-50/01-stranglethorn-vale:201). c13 sends the player for the feathers at 36.6 instead (30-40/02-stranglethorn-vale:346, judge under-level 4.3) and the model grinds 252 hidden minutes to 38 first. Gather them on the second Stranglethorn stay, from 40.8, with 196's kills; both speedrun benchmarks do 572 at about 40.5",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					96630
+				],
+				"b": [
+					"accept",
+					96606
+				],
+				"why": "RevNightElf3 c13 read: Lost Journal (96630) is The Great Outdoors' breadcrumb (the quest data's breadcrumbs), so it is handed to Lyreena Duskblade before her quest is taken; c13 listed accept 96606 first at the same NPC (not-ready blocker, 01-teldrassil:286; the route order had it too)",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					99046
+				],
+				"b": [
+					"accept",
+					99047
+				],
+				"why": "RevNightElf3 c13 read: The Lost Runner (99046) is Not Dead Yet's breadcrumb (the quest data's breadcrumbFor), so it is handed to Sentinel Eralya Leafshadow before her quest is taken; c13 listed accept 99047 first at the same NPC (not-ready blocker, 01-teldrassil:445; the route order had it too)",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					96634
+				],
+				"b": [
+					"task",
+					488
+				],
+				"why": "RevNightElf3 c13 read: Camping 101: Cooking is handed to Zarrin on the first Dolanaar stop, 52 yd from Corithras Moonrage whom that stop already visits (the world's points), so Recipe of the Kaldorei is in the log for the Zenn loop's Webwood Lurkers (see the together record for 4161), as v0.2.6 and the speedrun benchmark take the cooking lesson before leaving town. c13 walked the Zenn loop first, sat at the campfire on the way back and came back to Zarrin from the second east loop (01-teldrassil:331-334), so Lyreena was visited twice and Zarrin three times",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					92748
+				],
+				"b": [
+					"turnin",
+					95065
+				],
+				"why": "RevNightElf3 c13 read: Alba Fairmoon's chain (Testing the Wells to Explosive Consultation, Dwarf, Gnome, Night Elf and Skyborne) is finished in Westfall and Stormwind before Fishin' Time at the harbor, as every other start's route has it. c13's Night Elf route left Westfall without it, boated to Auberdine at 15.1, went back by boat to Westfall for the whole chain and hearthed to Auberdine (routes/NightElf.json order 208-236, a 792 s trip); the shared guide then wrote the water-sample lines without Night Elves, so a Night Elf turns in Testing the Wells with nothing collected (R5 blocker, 02-westfall:227)",
+				"source": "review"
+			}
+		]
 	}
 }

@@ -5,7 +5,7 @@
 //! checkpoint the character grinds to). Each compiles to steps the evaluator plays.
 
 use crate::eval::Step;
-use crate::run::{Run, K_ACCEPT, K_GRIND, K_TASK, K_TRAIN, K_TURNIN};
+use crate::run::{Run, K_ACCEPT, K_GRIND, K_RIDE, K_TASK, K_TRAIN, K_TURNIN};
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -17,6 +17,9 @@ pub enum Ev {
 	Level,
 	/// `train class`: the nearest town's trainers from where the order is (profile towns only).
 	Train,
+	/// `train <npc>`: a named trainer (`npc`); a riding trainer of the run's (Run::riding) is a
+	/// K_RIDE step, any other is left out (the guide's own line).
+	Ride,
 }
 
 /// One event; `src` is where it came from (a goal index in the seed, or an action index).
@@ -34,6 +37,9 @@ pub struct Event {
 	/// The objective a `complete` goal names (1-based, as the guide's goals), if any.
 	#[serde(default, skip_serializing_if = "Option::is_none")]
 	pub oi: Option<i64>,
+	/// A named trainer's npc id (Ev::Ride).
+	#[serde(default, skip_serializing_if = "Option::is_none")]
+	pub npc: Option<u32>,
 }
 
 /// A step with the event it came from.
@@ -61,10 +67,18 @@ pub fn compile_events(run: &Run, events: &[Event], by_objective: bool) -> (Vec<T
 			}
 			continue;
 		}
+		if e.t == Ev::Ride {
+			if let Some(&(npc, pt)) = e.npc.and_then(|n| run.riding.iter().find(|r| r.0 == n)) {
+				out.push(Tagged { step: Step { kind: K_RIDE, q: 0, task: npc as i32, pt }, ev });
+			}
+			continue;
+		}
 		if e.t == Ev::Train {
 			let from = out.iter().rev().find(|t| t.step.kind != K_GRIND).map_or(run.start_pt, |t| t.step.pt);
 			if let Some(town) = nearest_town(run, from) {
-				out.push(Tagged { step: Step { kind: K_TRAIN, q: 0, task: -1, pt: town }, ev });
+				// (`task`: the level the training is held at or above: its step's class quests', route::train_floors.)
+				let floor = e.level.map_or(-1, |l| l as i32);
+				out.push(Tagged { step: Step { kind: K_TRAIN, q: 0, task: floor, pt: town }, ev });
 			}
 			continue;
 		}
@@ -97,7 +111,7 @@ pub fn compile_events(run: &Run, events: &[Event], by_objective: bool) -> (Vec<T
 					out.push(Tagged { step: Step { kind: K_TURNIN, q: qi, task: -1, pt: run.q_ender[q] }, ev });
 				}
 			}
-			Ev::Level | Ev::Train => unreachable!(),
+			Ev::Level | Ev::Train | Ev::Ride => unreachable!(),
 		}
 	}
 	unknown.sort_unstable();

@@ -94,7 +94,9 @@ next forever/alliance/03-darkshore
 #
 # Class quests: Human Warriors take the Defensive Stance quests (1638, 1639,
 # 1640, 1665) and Human Priests hand in Desperate Prayer and Divine Grace
-# (5635, 94774, from Goldshire) at the Stormwind stop; the other races do
+# (5635, 94774, from Goldshire) at the Stormwind stop; Human Paladins start
+# The Tome of Divinity there from Duthorian Rall (1641; Henze Faulk follows
+# on the road east in 04-redridge-mountains); the other races do
 # theirs in their start guides. Mages of every race hand in Mirror Lake
 # (1861, Ley Staff or Ley Orb) to Jennea Cannon at the Stormwind stop; their
 # start guides take it. Night Elf Druids may buy Earthroot from Maria Lumere
@@ -275,6 +277,25 @@ step High Priestess Laurena
   tip Fly or walk to Stormwind. High Priestess Laurena is in the Cathedral of Light.
   turnin 5635                                 -- Desperate Prayer
   turnin 94774                                -- Divine Grace
+
+step The Tome of Divinity
+  only Human,Paladin
+  zone Stormwind City
+  tip Duthorian Rall and Gazin Tenorm are in the Cathedral of Light; Stephanie Turner stands in Old Town and asks for ten Linen Cloth (humanoids drop it; the Auction House sells it).
+  accept 1641                                 -- Duthorian Rall
+  turnin 1641
+  accept 1642                                 -- Right-click the Tome of Divinity he gives you
+  turnin 1642                                 -- Duthorian Rall
+  accept 1643
+  turnin 1643                                 -- Stephanie Turner, Old Town
+  accept 1644
+  collect 2589 quest 1644.1                   -- Linen Cloth
+  turnin 1644
+  accept 1780
+  turnin 1780                                 -- Duthorian Rall
+  accept 1781
+  turnin 1781                                 -- Gazin Tenorm
+  accept 1786                                 -- Henze Faulk, by Stone Cairn Lake in Elwynn, on the road to Redridge
 
 step Shaman training
   only Shaman

@@ -89,7 +89,7 @@ end
 local function scheduleRedraw()
 	if redrawing then return end
 	redrawing = true
-	C_Timer.After(0.2, redraw)
+	ns.After(0.2, redraw)
 end
 
 -- Data.Pack refuses in combat: the load is tried again when combat ends

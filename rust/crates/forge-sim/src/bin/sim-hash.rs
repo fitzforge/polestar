@@ -34,7 +34,7 @@ fn main() {
 	let h0 = action_hash(&mut ev, &seed.steps);
 	let secs0 = ev.seconds();
 	let p = Problem::single(&m, &*walks, deliberate_pairs(&m.run), pool(&m.run, &rules, &seed, &m.tables));
-	let out = search(&p, &seed, &SearchOpts { tries, members: 2, seed: 1, share_every: 250, ..Default::default() });
+	let out = search(&p, &seed, &SearchOpts { tries, members: 2, seed: 1, share_every: 250, ..Default::default() }, None);
 	let h1 = action_hash(&mut ev, &out.best.steps);
 	println!("seed {h0:016x} {:.6} h; searched {h1:016x} {:.6} h ({} steps)", secs0 / 3600.0, ev.seconds() / 3600.0, out.best.len());
 }

@@ -373,7 +373,8 @@ function buildTimeline({ guides, data, geo, params, travel = null, start, charac
 	const dist = (a, b) => Math.hypot(a.wx - b.wx, a.wy - b.wy);
 	const walkTime = (a, b) => (dist(a, b) * detour(a.c)) / speed();
 	const warn = (line, message) => out.warnings.push({ guide: guideId, line: line == null ? null : line, message });
-	const event = (type, fields) => out.events.push({ t: r2(t), s: stepIndex, type, ...fields });
+	// s: the step, g: the goal of that step it happened in (null between goals).
+	const event = (type, fields) => out.events.push({ t: r2(t), s: stepIndex, g: goalOut ? goalOut.gi : null, type, ...fields });
 
 	const spend = (cat, sec) => {
 		if (!(sec > 0)) return;
@@ -1353,4 +1354,4 @@ function buildTimeline({ guides, data, geo, params, travel = null, start, charac
 	return out;
 }
 
-module.exports = { buildTimeline, routeOf, loadParams, goalLabel, appliesTo, HOME, MODES };
+module.exports = { buildTimeline, routeOf, loadParams, goalLabel, appliesTo, questAdmits, HOME, MODES };

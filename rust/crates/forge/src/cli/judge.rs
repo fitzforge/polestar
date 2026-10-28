@@ -37,6 +37,9 @@ fn run() -> Result<(), Fail> {
 	if super::args().nth(1).as_deref() == Some("report") {
 		return report(super::args().skip(2).collect());
 	}
+	if super::args().nth(1).as_deref() == Some("check") {
+		return check(super::args().skip(2).collect());
+	}
 	if super::args().nth(1).as_deref() == Some("seed-tests") {
 		return seed_tests(super::args().skip(2).collect());
 	}
@@ -186,7 +189,9 @@ when present). --root: the checkout the guides were built with (default: above -
 --base: the guides the routes started from (default <root>/guides); --data <root>/data/forever, --sim
 <root>/data/sim. --out: writes report.md and report.json there (else the text to stdout; --json the
 JSON). --along-walked: walk to `along` steps' goals where the steps stand (default: as the addon, on the
-way). The player-report tests and lint run on the base guides and each written tree (--no-checks: not).";
+way). The player-report tests and lint run on the base guides and each written tree (--no-checks: not).
+Hours come from the routes stage's model on the sim dir's walk store: the route profile's accept and
+bag rules, and every placed line with no quest (a goto, getfp, vendor) travelled to.";
 
 fn report(argv: Vec<String>) -> Result<(), Fail> {
 	use forge_judge::report::{markdown, run, Inputs, StartInput};
@@ -260,6 +265,7 @@ fn report(argv: Vec<String>) -> Result<(), Fail> {
 		root,
 		along_walked,
 		checks: !no_checks,
+		route_model: true,
 	};
 	let o = run(&inp)?;
 	let js = serde_json::to_string_pretty(&o).map_err(|e| e.to_string())?;
@@ -272,6 +278,100 @@ fn report(argv: Vec<String>) -> Result<(), Fail> {
 		}
 		None if as_json => println!("{js}"),
 		None => print!("{}", markdown(&o)),
+	}
+	Ok(())
+}
+
+pub(super) const CHECK_USAGE: &str = "usage: forge judge check <out>/guides [--json] [--out <dir>] [--start S ...] [--route-fixes <file>] [--root <dir>]
+                         [--sim <dir>] [--routes <dir>] [--base <dir>] [--threads N]
+
+The route gate on a build's written guides (<guides>/<start>/forever), read with the build's files beside
+the guides folder: ../routes, ../.forge/root, ../.forge/sim and ../fixes.json. One line per broken rule,
+`<start> <file>:<line> <rule> blocker|warn: <message>` (classes in brackets when not every class meets
+it): the honest playtest's new R1/R2/R3/R5/R6/R10 fails against the base guides, an item looted from a
+locked chest before its key, an item used before it is got, deliberate orders broken, the fixes ledger's
+blocking rows, required waits on rare drops, hearths on cooldown, travel legs that go somewhere, do
+nothing and come back, and the player view worse than the base guides' (avoidable returns, wasted trips,
+zone changes, quests passed by, area visits: all blockers); each return and zone change the base guides
+do not make (from the model order or the writer), the written walk against the model route and work
+under the quest's level or turned in grey (warnings). Exit 1 when there is a blocker. --json: one
+document { starts, violations }. --out: also write check.md (the player view table first) and
+check.json there. --route-fixes: the deliberate orders (default $POLESTAR_ROUTE_FIXES, else
+data/route-fixes.json of the checkout here). --base: the guides compared against (default
+<root>/guides). --threads: default the machine's.";
+
+fn check(argv: Vec<String>) -> Result<(), Fail> {
+	use forge_judge::check::{run, Inputs};
+	let mut guides: Option<PathBuf> = None;
+	let (mut starts, mut fixes, mut root, mut sim, mut routes, mut base, mut threads, mut as_json) = (Vec::new(), None, None, None, None, None, 0usize, false);
+	let mut out: Option<PathBuf> = None;
+	let mut it = argv.into_iter();
+	while let Some(a) = it.next() {
+		let mut val = || it.next().ok_or_else(|| usage(format!("{a} needs a value")));
+		match a.as_str() {
+			"--json" => as_json = true,
+			"--start" => starts.push(val()?),
+			"--out" => out = Some(PathBuf::from(val()?)),
+			"--route-fixes" => fixes = Some(PathBuf::from(val()?)),
+			"--root" => root = Some(PathBuf::from(val()?)),
+			"--sim" => sim = Some(PathBuf::from(val()?)),
+			"--routes" => routes = Some(PathBuf::from(val()?)),
+			"--base" => base = Some(PathBuf::from(val()?)),
+			"--threads" => {
+				let v = val()?;
+				threads = v.parse().map_err(|_| usage(format!("--threads {v}: a number")))?;
+			}
+			"-h" | "--help" => {
+				println!("{CHECK_USAGE}");
+				return Ok(());
+			}
+			k if k.starts_with('-') || guides.is_some() => return Err(usage(format!("unexpected {k}"))),
+			k => guides = Some(PathBuf::from(k)),
+		}
+	}
+	let guides = guides.ok_or_else(|| usage("the guides folder (<out>/guides) is required"))?;
+	let mut inp = Inputs::beside(&guides);
+	inp.starts = starts;
+	if let Some(r) = root {
+		inp.v1 = r.join("guides");
+		inp.root = r;
+	}
+	if let Some(s) = sim {
+		inp.sim = s;
+	}
+	if let Some(r) = routes {
+		inp.routes = r;
+	}
+	if let Some(b) = base {
+		inp.v1 = b;
+	}
+	inp.route_fixes = fixes.or_else(|| std::env::var_os("POLESTAR_ROUTE_FIXES").map(PathBuf::from)).or_else(|| {
+		let here = std::env::current_dir().ok()?;
+		find_root(&here).map(|r| r.join("data/route-fixes.json")).filter(|f| f.is_file())
+	});
+	let pool = rayon::ThreadPoolBuilder::new().num_threads(threads).build().map_err(|e| e.to_string())?;
+	let t0 = std::time::Instant::now();
+	let o = pool.install(|| run(&inp))?;
+	if as_json {
+		println!("{}", serde_json::to_string_pretty(&o).map_err(|e| e.to_string())?);
+	} else {
+		print!("{}", o.text());
+	}
+	if let Some(dir) = &out {
+		std::fs::create_dir_all(dir).map_err(|e| format!("{}: {e}", dir.display()))?;
+		std::fs::write(dir.join("check.md"), o.markdown()).map_err(|e| e.to_string())?;
+		std::fs::write(dir.join("check.json"), serde_json::to_string_pretty(&o).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?;
+	}
+	eprintln!(
+		"check: {} blockers, {} warnings ({}) in {:.1} s{}",
+		o.blockers(),
+		o.warns(),
+		o.starts.iter().map(|s| format!("{} {}/{}", s.start, s.blockers, s.warns)).collect::<Vec<_>>().join(", "),
+		t0.elapsed().as_secs_f64(),
+		inp.route_fixes.as_ref().map_or(String::new(), |f| format!("; deliberate orders from {}", f.display()))
+	);
+	if o.blockers() > 0 {
+		std::process::exit(1);
 	}
 	Ok(())
 }

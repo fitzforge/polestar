@@ -75,6 +75,10 @@ pub enum Work {
 pub struct Task {
 	pub pt: u32,
 	pub work: Vec<Work>,
+	/// Other places the same work is done (a task of one objective): an item's other friendly vendors
+	/// for a buy, an object's other spawn sites for a use. World points; the planner picks among them
+	/// by the order (forge-sim route::co_sited_tasks, eval's buys).
+	pub alts: Vec<u32>,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -241,6 +245,20 @@ pub struct Start {
 	pub quest: u32,
 }
 
+/// A graveyard the world's faction is resurrected at (World::graveyards): the game's graveyard
+/// (WorldSafeLocs) id and name, the Spirit Healer's world point beside it (where the resurrection
+/// puts the character, the `die` goal's place), where a released ghost appears (continent, x,
+/// y, height: the death's distance is measured to it) and the zone maps (UiMap ids) whose deaths
+/// may send the faction there.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Graveyard {
+	pub id: u32,
+	pub name: String,
+	pub pt: u32,
+	pub loc: (i64, f64, f64, f64),
+	pub maps: Vec<u32>,
+}
+
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct PreRules {
 	pub canonical: u32,
@@ -289,6 +307,8 @@ pub struct World {
 	pub grind_spacing: Vec<f64>,
 	pub zone_min: std::collections::BTreeMap<u32, f64>,
 	pub danger: Vec<Danger>,
+	/// The faction's graveyards, by id (empty without the graveyard source).
+	pub graveyards: Vec<Graveyard>,
 	pub starts: Vec<(String, Start)>,
 	pub zones: std::collections::BTreeMap<u32, String>,
 	pub warnings: Vec<String>,
@@ -333,7 +353,11 @@ impl Work {
 
 impl Task {
 	pub fn to_value(&self) -> Value {
-		json!({ "pt": self.pt, "work": self.work.iter().map(Work::to_value).collect::<Vec<_>>() })
+		let mut v = json!({ "pt": self.pt, "work": self.work.iter().map(Work::to_value).collect::<Vec<_>>() });
+		if !self.alts.is_empty() {
+			v["alts"] = json!(self.alts);
+		}
+		v
 	}
 }
 
@@ -663,6 +687,16 @@ impl World {
 		}
 		put(&mut w, "zoneMin", Value::Object(zm));
 		put(&mut w, "danger", Value::Array(self.danger.iter().map(|d| json!({ "region": d.region, "gx0": d.gx0, "gy0": d.gy0, "nx": d.nx, "ny": d.ny, "cell": jnum(d.cell), "z": d.z })).collect()));
+		// (A world built without the graveyard source has no key.)
+		if !self.graveyards.is_empty() {
+			put(
+				&mut w,
+				"graveyards",
+				Value::Array(
+					self.graveyards.iter().map(|g| json!({ "id": g.id, "name": g.name, "pt": g.pt, "loc": [g.loc.0, jnum(g.loc.1), jnum(g.loc.2), jnum(g.loc.3)], "maps": g.maps })).collect(),
+				),
+			);
+		}
 		let mut st = Map::new();
 		for (race, s) in &self.starts {
 			st.insert(race.clone(), json!({ "zone": s.zone, "pt": s.pt, "quest": s.quest }));
@@ -691,5 +725,57 @@ impl World {
 	/// The world file's bytes (`JSON.stringify(world)`).
 	pub fn to_json(&self) -> String {
 		crate::json::stringify(&self.to_value())
+	}
+
+	/// What the walks of this world are built from (forge-nav's `WalkWorld::from_json` reads no
+	/// more): the faction, every point (its id, continent, region, x, y, zone, height), the zones'
+	/// danger (`zoneMin`, `danger`), the places walked to (inns, nodes, starts, services, camps,
+	/// packages, the graveyards' Spirit Healers, and per quest its giver, ender, alternatives,
+	/// accept, tasks' and objectives' camps). A fix that changes none of them (a quest's text, xp,
+	/// prerequisites, a rule) keeps the key, so forge build's walks stage is skipped; a new place
+	/// changes it. SHA-1 hex.
+	pub fn walks_key(&self) -> String {
+		let v = self.to_value();
+		let mut h = forge_core::key::ContentHasher::new();
+		h.update(b"walks-key 1\n");
+		for k in ["faction", "points", "zoneMin", "danger", "inns", "nodes", "starts", "services", "camps", "packages"] {
+			h.update(k.as_bytes()).update(b"=").update(v[k].to_string().as_bytes()).update(b"\n");
+		}
+		let quests: Vec<Value> = v["quests"]
+			.as_array()
+			.into_iter()
+			.flatten()
+			.map(|q| {
+				let tasks: Vec<Value> = q["tasks"].as_array().into_iter().flatten().map(|t| if t["alts"].is_null() { t["pt"].clone() } else { json!([t["pt"], t["alts"]]) }).collect();
+				let camps: Vec<&Value> = q["objs"].as_array().into_iter().flatten().map(|o| &o["camps"]).collect();
+				json!([q["giver"], q["ender"], q["gAlt"], q["eAlt"], q["accept"], tasks, camps])
+			})
+			.collect();
+		h.update(b"quests=").update(Value::Array(quests).to_string().as_bytes());
+		// The Spirit Healers are walked from (forge-nav WalkWorld: anchors).
+		if !self.graveyards.is_empty() {
+			let pts: Vec<u32> = self.graveyards.iter().map(|g| g.pt).collect();
+			h.update(b"\ngraveyards=").update(json!(pts).to_string().as_bytes());
+		}
+		h.hex()
+	}
+
+	/// The graveyard a character of this world's faction dying at `p` is sent to, by the game's
+	/// rule: of the graveyards its zone links to the faction, on the death's continent, the
+	/// nearest (straight, with heights where both are known; the lower id on a tie). None: its
+	/// zone links none.
+	pub fn graveyard_for(&self, p: &Point) -> Option<usize> {
+		let mut best: Option<(f64, usize)> = None;
+		for (i, g) in self.graveyards.iter().enumerate() {
+			if g.loc.0 != p.c || !g.maps.contains(&p.map) {
+				continue;
+			}
+			let dz = p.z.map_or(0.0, |z| z - g.loc.3);
+			let d = (g.loc.1 - p.wx).powi(2) + (g.loc.2 - p.wy).powi(2) + dz * dz;
+			if best.is_none_or(|b| d < b.0) {
+				best = Some((d, i));
+			}
+		}
+		best.map(|b| b.1)
 	}
 }

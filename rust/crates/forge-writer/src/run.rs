@@ -28,6 +28,13 @@ pub struct RunInputs<'a> {
 	pub mechanics: Option<&'a serde_json::Value>,
 	pub steps: Option<&'a serde_json::Value>,
 	pub spells: Option<&'a FxHashMap<String, u32>>,
+	/// The walking grid's floors (R9 where-notes), when the grid is there.
+	pub floors: Option<&'a dyn crate::tips::Floors>,
+	/// Spawn heights beyond spawnz.json: the Forever server data's spawns ({ npc, object } -> id ->
+	/// [[map, x, y, z, ...]]), when there.
+	pub heights: Option<&'a forge_guide::js::V>,
+	/// data/local/mechanics/quest-notes.json (`quests`), for R10's warnings.
+	pub notes: Option<&'a serde_json::Value>,
 	/// The checkout's places and guide fixes, applied to the written guides last (fixes.rs).
 	pub records: crate::fixes::Records<'a>,
 }
@@ -88,7 +95,10 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 	for (rel, text) in &r.files {
 		tree.insert(rel.clone(), text.clone());
 	}
-	if opts.repair && !ai.route_travel {
+	// (With the route's own legs too: a written line the player cannot travel to as written, R1 — a
+	// flight from where no flight master is, a zone or continent change with no travel line — gets the
+	// repair's way, on the lines v1 does not have the failure on.)
+	if opts.repair {
 		let rep = travel::repair_travel(&mut tree, inp.guides, &r.travel, inp.gdata, inp.walk_yards);
 		log.extend(rep.log);
 		log.extend(rep.left.iter().map(|(f, l, why)| format!("apply-route: travel left: {f}:{l} {why}")));
@@ -105,7 +115,20 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 	let mut check = None;
 	if opts.engine {
 		let accept_lvl: FxHashMap<u32, f64> = inp.route.order.iter().filter(|o| o.t == OrderT::Accept).filter_map(|o| Some((o.q?, o.lvl?))).collect();
-		let einp = engine::Inputs { data: inp.gdata, mechanics: inp.mechanics, steps: inp.steps, spells: inp.spells, walks: inp.walk_yards, accept_lvl: &accept_lvl };
+		let no_along = crate::fixes::no_along(&inp.records, inp.route.faction.as_deref());
+		let einp = engine::Inputs {
+			data: inp.gdata,
+			mechanics: inp.mechanics,
+			steps: inp.steps,
+			spells: inp.spells,
+			walks: inp.walk_yards,
+			accept_lvl: &accept_lvl,
+			no_along: &no_along,
+			floors: inp.floors,
+			area_at: inp.area_at,
+			heights: inp.heights,
+			notes: inp.notes,
+		};
 		let er = engine::engine_pass(&mut tree, &r.travel, &einp, &opts.rules);
 		log.extend(er.log.iter().cloned());
 		log.push(format!(
@@ -120,6 +143,18 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 		log.extend(list.iter().map(|(f, l, why)| format!("travel check: {f}:{l} {why}")));
 		log.push(format!("travel check: {n} R1 failures v1 does not have on the route's chain ({all} in all)"));
 		check = Some((n, all));
+	}
+	// (Class lists name only the classes a start guide's races play, W3.)
+	if let Some(fac) = inp.route.faction.as_deref() {
+		let playable = |race: &str| -> Vec<String> {
+			let file = forge_core::RACES.iter().find(|r| r.key.eq_ignore_ascii_case(race) || r.file.eq_ignore_ascii_case(race) || (race == "Undead" && r.file == "Scourge")).map_or(race, |r| r.file);
+			forge_judge::honest::playable_classes(inp.gdata, file, fac).iter().map(|c| forge_core::class_label(c)).collect()
+		};
+		for rel in &written {
+			if let Some(t) = tree.get(rel).and_then(|t| crate::post::playable_only(t, &playable)) {
+				tree.insert(rel.clone(), t);
+			}
+		}
 	}
 	let changed: Vec<String> = tree.iter().filter(|(k, v)| inp.guides.get(*k) != Some(*v)).map(|(k, _)| k.clone()).collect();
 	let unwritable =

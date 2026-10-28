@@ -213,10 +213,7 @@ impl<'a> Sim<'a> {
 				self.on_npc_frame(super::core::Kind::Talk);
 				self.check_offers_gossip(npc);
 			}
-			FrameKind::Trainer => {
-				self.on_npc_frame(super::core::Kind::Train);
-				self.note_class_trainer();
-			}
+			FrameKind::Trainer => self.on_npc_frame(super::core::Kind::Train),
 			FrameKind::Merchant => self.on_npc_frame(super::core::Kind::Vendor),
 		}
 	}
@@ -412,6 +409,7 @@ impl<'a> Sim<'a> {
 			T::Learn => {
 				if let Some(sp) = goal.spell {
 					self.w.spells.insert(sp);
+					self.on_spell_learned();
 				}
 				self.request_update();
 			}

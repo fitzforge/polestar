@@ -275,12 +275,12 @@ end
 driver = CreateFrame("Frame")
 driver:Hide()
 local acc = 0
-driver:SetScript("OnUpdate", function(_, dt)
+driver:SetScript("OnUpdate", ns.Safe(function(_, dt)
 	acc = acc + dt
 	if acc < TICK then return end
 	acc = 0
 	tick()
-end)
+end))
 
 local function wake()
 	acc = TICK

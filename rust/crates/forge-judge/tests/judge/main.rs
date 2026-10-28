@@ -11,6 +11,7 @@ mod guidetext_parity;
 mod honest_parity;
 mod judge_parity;
 mod judge_simlevels;
+mod levels_route;
 mod mutants_cases;
 mod mutants_honest;
 mod mutants_walk;

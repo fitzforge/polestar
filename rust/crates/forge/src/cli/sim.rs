@@ -28,15 +28,29 @@ fn num<T: std::str::FromStr>(args: &[String], k: &str) -> Option<T> {
 	arg(args, k).map(|v| v.parse().unwrap_or_else(|_| usage(&format!("{k} {v}: not a number"))))
 }
 
-/// `--param name=value`, repeatable: e.g. camps=1, spots=1.
+/// `--cut knee|all`: where an edit descent is cut (default all: every edit it made).
+fn cut_arg(args: &[String]) -> forge_sim::search::edits::Cut {
+	match arg(args, "--cut") {
+		None => forge_sim::search::edits::Cut::All,
+		Some(v) => forge_sim::search::edits::Cut::parse(&v).unwrap_or_else(|| usage(&format!("--cut {v}: knee or all"))),
+	}
+}
+
+/// `--param name=value`, repeatable: e.g. camps=1, spots=1; `--deathskips` is deathskips=1 (the
+/// route profiles may die and take a graveyard's Spirit Healer where that beats the leg).
 fn overrides(args: &[String]) -> Vec<(String, f64)> {
-	args.windows(2)
+	let mut v: Vec<(String, f64)> = args
+		.windows(2)
 		.filter(|w| w[0] == "--param")
 		.map(|w| {
 			let (k, v) = w[1].split_once('=').unwrap_or_else(|| usage("--param name=value"));
 			(k.to_string(), v.parse().unwrap_or_else(|_| usage(&format!("--param {k}: not a number"))))
 		})
-		.collect()
+		.collect();
+	if args.iter().any(|a| a == "--deathskips") {
+		v.push(("deathskips".into(), 1.0));
+	}
+	v
 }
 
 /// A failure: exit 1.
@@ -93,8 +107,8 @@ fn load(root: &Path, faction: forge_core::Faction, walks_on: bool) -> Loaded {
 		let t1 = Instant::now();
 		let f = root.join(format!("data/sim/walks-{}.bin", faction.lower()));
 		let w = WalkTable::load(&f, world.points.len()).unwrap_or_else(|e| die(&e));
-		if Some(&w.data_hash) != world.data_hash.as_ref() {
-			eprintln!("warning: {} was built on world {} (this world {:?})", f.display(), w.data_hash, world.data_hash);
+		if !w.built_on(&world) {
+			eprintln!("warning: {} was built on another world ({})", f.display(), w.built_on_text(&world));
 		}
 		eprintln!("walks: {} pairs in {:.2} s", w.len(), t1.elapsed().as_secs_f64());
 		Box::new(w)
@@ -207,10 +221,15 @@ fn profile_of(name: &str, f: forge_core::Faction) -> Profile {
 	}
 }
 
-/// forge sim widen --faction F --starts A,B,... [--edits N] [--budget K] --out <json>: the
-/// shared tail of the starts (the first canonical) with an edit budget, no start slower.
+/// forge sim widen --faction F --starts A,B,... [--edits N] [--budget K] [--cut knee|all] --out <json>:
+/// the shared tail of the starts (the first canonical) with an edit budget, no start slower.
 fn widen_cmd(args: &[String]) {
-	check(args, &["--root", "--faction", "--starts", "--out", "--threads", "--seed", "--guides", "--param", "--edits", "--budget", "--members", "--join-after"], &["--diagnose"], 0);
+	check(
+		args,
+		&["--root", "--faction", "--starts", "--out", "--threads", "--seed", "--guides", "--param", "--edits", "--budget", "--cut", "--members", "--join-at"],
+		&["--diagnose", "--deathskips"],
+		0,
+	);
 	let root = PathBuf::from(arg(args, "--root").unwrap_or_else(|| ".".into()));
 	let faction = faction_arg(args);
 	let list = arg(args, "--starts").unwrap_or_else(|| usage("--starts A,B,... is required"));
@@ -235,13 +254,13 @@ fn widen_cmd(args: &[String]) {
 	let budget = num(args, "--budget");
 	let members = num(args, "--members").unwrap_or(8);
 	if args.iter().any(|a| a == "--diagnose") {
-		let doc = forge_sim::widen::diagnose(&l.world, &*l.walks, &base, &starts, &Profile::average(faction), &ex, arg(args, "--join-after").as_deref()).unwrap_or_else(|e| die(&e));
+		let doc = forge_sim::widen::diagnose(&l.world, &*l.walks, &base, &starts, &Profile::average(faction), &ex, arg(args, "--join-at").as_deref()).unwrap_or_else(|e| die(&e));
 		std::fs::write(&out, serde_json::to_string_pretty(&doc).unwrap_or_default()).unwrap_or_else(|e| die(&format!("{out}: {e}")));
 		eprintln!("wrote {out}");
 		return;
 	}
-	let join_after = arg(args, "--join-after");
-	let doc = forge_sim::widen::widen(&l.world, &*l.walks, &base, &starts, &Profile::average(faction), &ex, edits, budget, members, join_after.as_deref()).unwrap_or_else(|e| die(&e));
+	let join_at = arg(args, "--join-at");
+	let doc = forge_sim::widen::widen(&l.world, &*l.walks, &base, &starts, &Profile::average(faction), &ex, edits, budget, cut_arg(args), members, join_at.as_deref()).unwrap_or_else(|e| die(&e));
 	for r in doc["rows"].as_array().into_iter().flatten() {
 		eprintln!(
 			"  {:9} the guides' own {:.2} h, the guides' shared tail {:.2} h, knee {:.2} h, converged {:.2} h",
@@ -273,6 +292,8 @@ fn route(args: &[String]) {
 			"--share-every",
 			"--edits",
 			"--budget",
+			"--cut",
+			"--search",
 			"--guard",
 			"--param",
 			"--search-draws",
@@ -281,7 +302,7 @@ fn route(args: &[String]) {
 			"--seed",
 			"--guides",
 		],
-		&[],
+		&["--deathskips"],
 		0,
 	);
 	let root = PathBuf::from(arg(args, "--root").unwrap_or_else(|| ".".into()));
@@ -293,12 +314,20 @@ fn route(args: &[String]) {
 	let o = RouteOpts {
 		profile: profile_of(&arg(args, "--profile").unwrap_or_else(|| "avg".into()), faction),
 		search: SearchOpts {
+			// --search edits|free|hybrid; without it, edits when --edits is given, else free.
+			mode: match arg(args, "--search").as_deref() {
+				None if num::<usize>(args, "--edits").is_some() => forge_sim::search::Mode::Edits,
+				None => forge_sim::search::Mode::Free,
+				Some(v) => forge_sim::search::Mode::parse(v).unwrap_or_else(|| usage(&format!("--search {v}: edits, free or hybrid"))),
+			},
+			no_worse: false,
 			tries: num(args, "--tries").unwrap_or(20_000),
 			members: num(args, "--members").unwrap_or(8),
 			seed: num(args, "--rng").unwrap_or(1),
 			share_every: num(args, "--share-every").unwrap_or(250),
 			edits: num(args, "--edits"),
 			budget: num(args, "--budget"),
+			cut: cut_arg(args),
 		},
 		guard: match arg(args, "--guard").as_deref() {
 			Some("off") => None,
@@ -317,7 +346,9 @@ fn route(args: &[String]) {
 	let outp = Path::new(&out);
 	let dir = outp.parent().filter(|p| !p.as_os_str().is_empty()).unwrap_or(Path::new("."));
 	let name = outp.file_name().and_then(|n| n.to_str()).unwrap_or("route.json").trim_end_matches(".json").to_string();
-	let (r, files) = stage::route_one(&l, &cx, &race, &doc, &seed_file, &o, dir, &name).unwrap_or_else(|e| die(&e));
+	let resume = route_resume(args, &root, &world_dir, faction, &doc, dir, &name);
+	let (r, files) = stage::route_one(&l, &cx, &race, &doc, &seed_file, &o, dir, &name, Some(&resume.unit(&name)), None).unwrap_or_else(|e| die(&e));
+	resume.clear().unwrap_or_else(|e| die(&e));
 	let h = |v: &Value, k: &str| v[k].as_f64().unwrap_or(f64::NAN);
 	eprintln!(
 		"guards ({:?}): avoidable returns {} -> {}, passed by {} -> {}; added {}, dropped {}",
@@ -350,6 +381,40 @@ fn route(args: &[String]) {
 	eprintln!("wrote {} files under {} ({out} + ledgers + judge goal streams)", files.len(), dir.display());
 }
 
+/// `forge sim route`'s checkpoints (forge_sim::resume): `<dir>/.<name>.resume/`, for its arguments
+/// (but `--threads`: the route is the same at any thread count, so a rerun with fewer resumes),
+/// seed, inputs and the forge binary, so a killed run resumes where it was and a run of other inputs
+/// or code starts afresh. The world and walks files by size and time (the walks can be large).
+fn route_resume(args: &[String], root: &Path, world_dir: &Path, faction: forge_core::Faction, seed: &Value, dir: &Path, name: &str) -> forge_sim::resume::Resume {
+	use forge::Part;
+	let stamp = |p: &Path| std::fs::metadata(p).map_or_else(|_| "missing".to_string(), |m| format!("{} {:?}", m.len(), m.modified().ok().and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok())));
+	let files = format!("{}\0{}", stamp(&world_dir.join(format!("world-{}.json", faction.lower()))), stamp(&world_dir.join(format!("walks-{}.bin", faction.lower()))));
+	let env = ["POLESTAR_KB", "POLESTAR_GRID", forge_sim::fixes::ENV].map(|k| std::env::var(k).unwrap_or_default()).join("\0");
+	let exe = std::env::current_exe().unwrap_or_default();
+	let fixes = forge_sim::fixes::find(&[]).unwrap_or_default();
+	let kb = stage::kb_path(root);
+	let argv: Vec<&str> = args.iter().enumerate().filter(|&(i, a)| a != "--threads" && (i == 0 || args[i - 1] != "--threads")).map(|(_, a)| a.as_str()).collect();
+	let key = forge::key(
+		"sim-route",
+		forge::ROUTES_VERSION,
+		&[
+			Part::Text(&argv.join("\0")),
+			Part::Text(&env),
+			Part::Text(&seed.to_string()),
+			Part::Text(&files),
+			Part::File(&world_dir.join("params.json")),
+			Part::File(&fixes),
+			Part::File(&kb),
+			Part::Manifest(&root.join("data/forever")),
+			Part::Manifest(&root.join("data/sources")),
+			Part::File(&exe),
+		],
+	);
+	let r = forge_sim::resume::Resume::open(&dir.join(format!(".{name}.resume")), &key).unwrap_or_else(|e| die(&e));
+	eprintln!("checkpoints: {} (every {} s)", r.dir().display(), r.every.as_secs());
+	r
+}
+
 /// Start races per faction (Troll and Gnome share a starting area with Orc and Dwarf and play the
 /// same guides).
 fn start_races(f: forge_core::Faction) -> &'static [&'static str] {
@@ -371,7 +436,12 @@ fn opts_of(args: &[String], tries_key: &str, default: u64) -> SearchOpts {
 
 /// forge sim shared --faction F [--tries N] [--own-tries M] --out <file.json>
 fn shared(args: &[String]) {
-	check(args, &["--root", "--faction", "--out", "--threads", "--walks", "--param", "--seed", "--guides", "--guard", "--own-tries", "--tries", "--members", "--rng", "--share-every"], &[], 0);
+	check(
+		args,
+		&["--root", "--faction", "--out", "--threads", "--walks", "--param", "--seed", "--guides", "--guard", "--own-tries", "--tries", "--members", "--rng", "--share-every"],
+		&["--deathskips"],
+		0,
+	);
 	let root = PathBuf::from(arg(args, "--root").unwrap_or_else(|| ".".into()));
 	let faction = faction_arg(args);
 	let out = arg(args, "--out").unwrap_or_else(|| usage("--out <file.json> is required"));
@@ -436,7 +506,7 @@ fn guards_cmd(args: &[String]) {
 		let t0 = Instant::now();
 		let c = &forge_sim::search::runs(&forge_sim::search::Problem::single(&m, &*l.walks, Vec::new(), Vec::new()), &o)[0];
 		let gc = c.guard_counts(&g, &m.run);
-		println!("{f}: {:.2} h, {} steps, guards {:?} ({:.1} ms)", c.total / 3600.0, o.len(), gc, t0.elapsed().as_secs_f64() * 1000.0);
+		println!("{f}: {:.2} h cost (grinding weighted), {} steps, guards {:?} ({:.1} ms)", c.total / 3600.0, o.len(), gc, t0.elapsed().as_secs_f64() * 1000.0);
 		if let Some(dir) = arg(args, "--export") {
 			let out = Path::new(&dir).join(Path::new(f).file_name().unwrap_or_default());
 			let goals = forge_sim::route::judge_goals(&m, &l.world, &rules, &o.steps, c);

@@ -3,7 +3,7 @@
 
 use forge_guide::js::V;
 
-use crate::seed::{Check, Ctx, SeedTest};
+use crate::seed::{Check, Ctx, Row, SeedTest};
 
 /// One player report: the guide, the target goal (item collected), the mouth, and what the tip says.
 struct Case {
@@ -47,7 +47,10 @@ fn cave(ctx: &Ctx, c: &mut Check, i: usize) {
 		c.ok(false, "the target goal is in the guide");
 		return;
 	};
-	let Some(before) = goals[..at].iter().rev().find(|r| !r.goal.get("map").is_nullish() && !r.goal.get("x").is_nullish()) else {
+	// (Other work of the target's own step, done in the same basement after the mouth's goto, is not a
+	// waypoint on the way in: the Shadowvale step's bottles before a Paladin's bones.)
+	let same_step = |r: &Row| r.s == goals[at].s;
+	let Some(before) = goals[..at].iter().rev().find(|r| !r.goal.get("map").is_nullish() && !r.goal.get("x").is_nullish() && (!same_step(r) || r.goal.get("t").as_str() == Some("goto"))) else {
 		c.ok(false, "a located goal comes before the target");
 		return;
 	};

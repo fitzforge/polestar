@@ -156,7 +156,8 @@ function shapeDiag(d) {
 
 class Workspace extends EventEmitter {
 	// opts: { dataDir, packs: [dir] (other packs, after ours), official (ours,
-	// guides/, first; default true), officialDir, simDir, artDir, navDir (the
+	// first; default true), officialDir (ours: guides/, or a written guide set
+	// in its place, `planner --guides`), simDir, artDir, navDir (the
 	// navigation grid, data/local/nav: walks are routed on it; default none),
 	// watch, lintDelay, log }
 	constructor(opts = {}) {
@@ -176,6 +177,7 @@ class Workspace extends EventEmitter {
 		this.flights = undefined; // Map path id -> [[wx, wy], ...] (flightPaths), null when unavailable
 		this.geo = new Geo(this.data.mapFrames, this.data.zones);
 		this.packs = [];
+		this.officialDir = path.resolve(officialDir);
 		const dirs = [...(official ? [officialDir] : []), ...packs];
 		for (const dir of dirs) this.addPack(path.resolve(dir));
 		if (!this.packs.length) throw new Error('no pack to plan');
@@ -207,8 +209,10 @@ class Workspace extends EventEmitter {
 
 	addPack(dir) {
 		if (this.packs.some((p) => samePath(p.dir, dir))) return;
-		const official = samePath(dir, OFFICIAL_DIR);
-		const { manifest, diags } = readManifest(dir, { official });
+		const official = samePath(dir, this.officialDir);
+		// A written guide tree in place of ours (`planner --guides`) may hold no pack.json: ours describes it.
+		const manifestDir = official && !fs.existsSync(path.join(dir, 'pack.json')) ? OFFICIAL_DIR : dir;
+		const { manifest, diags } = readManifest(manifestDir, { official });
 		if (!manifest) throw new Error(`${shownFile(dir)}: ${diags.filter((d) => d.severity === 'error').map((d) => d.message).join('; ')}`);
 		if (this.packs.some((p) => p.id === manifest.id)) throw new Error(`two packs with the id "${manifest.id}"`);
 		this.packs.push({ id: manifest.id, title: manifest.title, dir, official, manifest, diags });

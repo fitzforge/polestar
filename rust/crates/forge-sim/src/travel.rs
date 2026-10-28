@@ -25,6 +25,8 @@ pub struct TravelBase {
 	pub run_speed: f64,
 	pub mount_mul: f64,
 	pub route_mul: f64,
+	/// Tauren's Plainsrunning on foot (params::plainsrunning_sec).
+	pub plainsrunning: bool,
 	pub flight_overhead: f64,
 	/// Seconds per second of a ride's wait (params transportWait): the path's ride edges.
 	pub transport_wait: f64,
@@ -60,8 +62,8 @@ impl TravelBase {
 			}
 		}
 		let mut taxi_from = vec![Vec::new(); n];
-		for &(a, b, s) in &run.taxi {
-			taxi_from[a].push((b, s));
+		for &(a, b, yd) in &run.taxi {
+			taxi_from[a].push((b, yd / p.flight_speed));
 		}
 		let mut node_walk = vec![f64::INFINITY; n * n];
 		for i in 0..n {
@@ -101,6 +103,7 @@ impl TravelBase {
 			run_speed: p.run_speed,
 			mount_mul: p.mount_mul,
 			route_mul: p.route_mul,
+			plainsrunning: p.plainsrunning,
 			flight_overhead: p.flight_overhead,
 			transport_wait: p.transport_wait,
 			death_risk: p.death_risk,
@@ -120,6 +123,16 @@ impl TravelBase {
 	#[inline]
 	pub fn speed(&self, mounted: bool) -> f64 {
 		self.run_speed * if mounted { self.mount_mul } else { 1.0 }
+	}
+
+	/// Seconds of one walk that takes `sec` at the run speed: Plainsrunning shortens it on foot.
+	#[inline]
+	pub fn foot(&self, sec: f64, mounted: bool) -> f64 {
+		if self.plainsrunning && !mounted {
+			crate::params::plainsrunning_sec(sec)
+		} else {
+			sec
+		}
 	}
 
 	fn base_matrix(&self, run: &Run, p: &crate::params::Params, mounted: bool) -> Vec<f32> {
@@ -307,13 +320,15 @@ pub struct Travel {
 	pub last_walk: (f64, u8),
 	/// The last leg's entry and exit nodes when it used the network (-1: walked).
 	pub last_nodes: (i32, i32),
+	/// The last leg's direct walk was refused: a pair the walk store lacks beyond its radius.
+	pub last_far: bool,
 }
 
 const MOUNTED_KEY: u64 = 1 << 51;
 
 impl Travel {
 	pub fn new(base: Arc<TravelBase>) -> Travel {
-		Travel { base, cache: FxHashMap::default(), cross: FxHashMap::default(), cache_max: 6000, last_mode: 0, last_risk: 0.0, last_short: false, last_walk: (0.0, 0), last_nodes: (-1, -1) }
+		Travel { base, cache: FxHashMap::default(), cross: FxHashMap::default(), cache_max: 6000, last_mode: 0, last_risk: 0.0, last_short: false, last_walk: (0.0, 0), last_nodes: (-1, -1), last_far: false }
 	}
 
 	/// Matrix for a known-flight-path set (built from the set without its highest bit).
@@ -356,10 +371,17 @@ impl Travel {
 		&self.cross[&key]
 	}
 
-	/// Seconds of the direct walk from a to b at speed v for a character of `level`.
-	fn direct_walk(&mut self, run: &Run, walks: &dyn Walks, a: u32, b: u32, v: f64, level: f64, risk: f64) -> f64 {
+	/// Seconds of the direct walk from a to b at speed v for a character of `level`. A pair the
+	/// walk store lacks beyond its radius (Walks::radius) has no direct walk (infinite, last_far)
+	/// unless `far_ok`: the straight line there may cross a sea (Dustwallow to Feathermoon on
+	/// Sardor Isle, 5841 yd) or a range (Emerald Sanctuary to Everlook, 4299 yd); the leg goes by
+	/// the network (leg), and only where the network has no way is it walked straight.
+	#[allow(clippy::too_many_arguments)]
+	fn direct_walk(&mut self, run: &Run, walks: &dyn Walks, a: u32, b: u32, mounted: bool, level: f64, risk: f64, far_ok: bool) -> f64 {
+		let v = self.base.speed(mounted);
 		self.last_risk = 0.0;
 		self.last_short = false;
+		self.last_far = false;
 		let (ai, bi) = (a as usize, b as usize);
 		if run.p_r[ai] != run.p_r[bi] {
 			return f64::INFINITY;
@@ -377,8 +399,12 @@ impl Travel {
 				},
 			),
 		};
+		if !far_ok && ry.is_none() && walks.radius().is_some_and(|r| d > r) {
+			self.last_far = true;
+			return f64::INFINITY;
+		}
 		let r = ry.map(|y| y * self.base.route_mul);
-		let mut walk = r.unwrap_or_else(|| d * detour_of(&self.base.detour, run.p_c[ai])) / v;
+		let mut walk = self.base.foot(r.unwrap_or_else(|| d * detour_of(&self.base.detour, run.p_c[ai])) / v, mounted);
 		if r.unwrap_or(d) < SHORT {
 			self.last_short = true;
 			return walk;
@@ -404,8 +430,7 @@ impl Travel {
 		if a == b {
 			return 0.0;
 		}
-		let v = self.base.speed(mounted);
-		self.direct_walk(run, walks, a, b, v, level, self.base.death_risk)
+		self.direct_walk(run, walks, a, b, mounted, level, self.base.death_risk, false)
 	}
 
 	/// Seconds from a to b (run points) with matrix `dm`, for a character of `level`.
@@ -417,7 +442,7 @@ impl Travel {
 			return 0.0;
 		}
 		let v = self.base.speed(mounted);
-		let walk = self.direct_walk(run, walks, a, b, v, level, self.base.death_risk);
+		let walk = self.direct_walk(run, walks, a, b, mounted, level, self.base.death_risk, false);
 		if self.last_short {
 			self.last_mode = 0;
 			return walk;
@@ -434,7 +459,7 @@ impl Travel {
 				break;
 			}
 			let ni = ni as usize;
-			let wi = tb.near_walk[ka + i] / v;
+			let wi = tb.foot(tb.near_walk[ka + i] / v, mounted);
 			if wi >= best {
 				continue;
 			}
@@ -445,12 +470,15 @@ impl Travel {
 				}
 				let nj = nj as usize;
 				let dn = dm[ni * n + nj] as f64;
-				let c = wi + dn + tb.near_walk[kb + j] / v;
+				let c = wi + dn + tb.foot(tb.near_walk[kb + j] / v, mounted);
 				if c < best {
-					if ni == nj {
+					// (A path that only walks between nodes is the direct walk's, unless that walk was
+					// refused beyond the store's radius: then the nodes are its waypoints.)
+					let far = self.last_far;
+					if !far && ni == nj {
 						continue;
 					}
-					if run.node_r[ni] == run.node_r[nj] && dn >= tb.node_walk[ni * n + nj] / v - 0.05 {
+					if !far && run.node_r[ni] == run.node_r[nj] && dn >= tb.node_walk[ni * n + nj] / v - 0.05 {
 						continue;
 					}
 					best = c;
@@ -461,6 +489,11 @@ impl Travel {
 		}
 		if self.last_mode == 1 {
 			self.last_risk = 0.0;
+		}
+		if !best.is_finite() && self.last_far {
+			// No way by the network either: the straight walk, as before the radius rule.
+			best = self.direct_walk(run, walks, a, b, mounted, level, self.base.death_risk, true);
+			self.last_far = true;
 		}
 		best
 	}

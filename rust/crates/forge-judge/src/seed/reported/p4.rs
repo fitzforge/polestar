@@ -24,6 +24,8 @@ const DARKSHORE: &str = "forever/alliance/03-darkshore.guide";
 const TANARIS_ALLIANCE: &str = "forever/alliance/40-50/04-tanaris.guide";
 const ZEPHRAS_HORDE: &str = "forever/horde/skyborne/01-zephras-isle.guide";
 const ZEPHRAS_ALLIANCE: &str = "forever/alliance/skyborne/01-zephras-isle.guide";
+/// Ironforge's uiMapID.
+const IRONFORGE: f64 = 1455.0;
 
 pub fn tests() -> Vec<SeedTest> {
 	let t = |name: &str, f: fn(&Ctx, &mut Check)| (name.to_string(), f);
@@ -48,10 +50,11 @@ pub fn tests() -> Vec<SeedTest> {
 			unrequited_love,
 		),
 		t(&format!("{ASHENVALE}: Ioney's report (#614): Sida's Bag is searched for at Ironbeard's Tomb, not at the oozes across the Wetlands"), sidas_bag),
-		t(&format!("{ASHENVALE}: Ioney's report (#617): the grind to 28 comes after the Menethil hand-ins, before Pilot Longbeard"), grind_to_28),
+		t(&format!("{ASHENVALE}: Ioney's report (#617): the grind to 28 comes after the Menethil hand-ins, before Pilot Longbeard, with no walk to Ironforge between the hearth and the grind"), grind_to_28),
 		t(&format!("{TELDRASSIL}: Pynte's report (#327): the Timberling Seed arrow stays round Denalan with the Timberlings, not with the Elder Timberlings in the north"), timberling_seed),
 		t(&format!("{TELDRASSIL}: #555: Soft Saber Pelts accept comes before Zenn's Bidding turn-in, so both Nightsaber quests share the first east loop"), soft_saber_pelts),
 		t(&format!("{TELDRASSIL}: #619: the Gnarlpine Necklace is looted from Ferocitas before the jewel is collected"), gnarlpine_necklace),
+		t(&format!("{TELDRASSIL}: #619: the necklace and the jewel are collected where Ferocitas is killed, before any turn-in"), ferocitas_loot),
 		t("#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides", pirate_hats),
 		t("forever/alliance/03-darkshore.guide: Deadshot's report (#560): How Big a Threat? points at the furbolg camp by the bears, not the one north-east of Auberdine", how_big_a_threat),
 		t("forever/horde/30-40/04-dustwallow-marsh.guide: Syrael's report (#575): the ghost-o-plasm points at the Valley of Bones, after the Kodo Graveyard", ghost_o_plasm),
@@ -640,6 +643,9 @@ fn grind_to_28(ctx: &Ctx, c: &mut Check) {
 	}
 	let Some(hearth) = at(c, &list, "hearth to Menethil", |g| str_is(g, "t", "hearth") && str_is(g, "location", "Deepwater Tavern")) else { return };
 	c.ok(hearth < grind, "the grind is after the hearth");
+	if let Some(r) = list[hearth..grind.max(hearth)].iter().find(|r| r.step.get("goals").items().iter().any(|g| num_is(g, "map", IRONFORGE))) {
+		c.ok(false, &format!("step {} between the hearth and the grind is in Ironforge", r.s + 1));
+	}
 	let Some(b) = before_at(c, &list, grind, "accept 1179", is("accept", 1179)) else { return };
 	c.ok(b, "level 28 before Pilot Longbeard");
 }
@@ -693,6 +699,18 @@ fn gnarlpine_necklace(ctx: &Ctx, c: &mut Check) {
 	c.ok(necklace < jewel, "the necklace comes before the jewel");
 	c.eq(list[necklace].s, list[jewel].s, "on the Ferocitas step");
 	c.ok(located(&list[necklace]), "the arrow leads to Ferocitas for the necklace");
+}
+
+fn ferocitas_loot(ctx: &Ctx, c: &mut Check) {
+	let Some(list) = goals(ctx, c, TELDRASSIL) else { return };
+	let Some(kill) = at(c, &list, "kill 7235 quest 2459.1 (Ferocitas)", |g| str_is(g, "t", "kill") && num_is(g, "npc", 7235.0) && num_is(g, "quest", 2459.0)) else { return };
+	let near = |i: usize| list[i].s == list[kill].s || list[i].s == list[kill].s + 1;
+	let Some(necklace) = at(c, &list, "collect 8049 (Gnarlpine Necklace)", collect(8049.0, Some(None))) else { return };
+	c.ok(near(necklace), &format!("the necklace (step {}) is collected in Ferocitas' step {} or the next", list[necklace].s + 1, list[kill].s + 1));
+	let Some(jewel) = at(c, &list, "collect 8050 quest 2459 (Tallonkai's Jewel)", collect(8050.0, Some(Some(2459.0)))) else { return };
+	c.ok(near(jewel), &format!("the jewel (step {}) is collected in Ferocitas' step {} or the next", list[jewel].s + 1, list[kill].s + 1));
+	let turnin = list[kill..jewel.max(kill)].iter().find(|r| str_is(&r.goal, "t", "turnin"));
+	c.ok(turnin.is_none(), &format!("no turn-in between the kill and the jewel (turnin {})", turnin.map_or(String::new(), |r| r.goal.get("quest").to_js_string())));
 }
 
 fn pirate_hats(ctx: &Ctx, c: &mut Check) {

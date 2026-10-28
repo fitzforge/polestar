@@ -23,6 +23,8 @@ mod data_addons;
 mod docs_packs;
 #[path = "dsl-farm.rs"]
 mod dsl_farm;
+#[path = "dsl-gossip-wait.rs"]
+mod dsl_gossip_wait;
 #[path = "dsl-guide-reward.rs"]
 mod dsl_guide_reward;
 #[path = "dsl-loop.rs"]
@@ -61,10 +63,14 @@ mod engine_focus;
 mod engine_group_default;
 #[path = "engine-heights.rs"]
 mod engine_heights;
+#[path = "engine-keep.rs"]
+mod engine_keep;
 #[path = "engine-l10n.rs"]
 mod engine_l10n;
 #[path = "engine-level.rs"]
 mod engine_level;
+#[path = "engine-lost-quest.rs"]
+mod engine_lost_quest;
 #[path = "engine-manual.rs"]
 mod engine_manual;
 #[path = "engine-money-task.rs"]
@@ -89,12 +95,18 @@ mod engine_skipquest;
 mod engine_skipto;
 #[path = "engine-smart.rs"]
 mod engine_smart;
+#[path = "engine-talk.rs"]
+mod engine_talk;
 #[path = "engine-tabs.rs"]
 mod engine_tabs;
 #[path = "engine-training.rs"]
 mod engine_training;
 #[path = "engine-unavailable.rs"]
 mod engine_unavailable;
+#[path = "engine-wait.rs"]
+mod engine_wait;
+#[path = "engine-waypoint-keys.rs"]
+mod engine_waypoint_keys;
 #[path = "engine-when.rs"]
 mod engine_when;
 #[path = "engine-when-cooldown.rs"]
@@ -194,6 +206,8 @@ mod party;
 mod qol;
 #[path = "qol-bagglow.rs"]
 mod qol_bagglow;
+#[path = "qol-items.rs"]
+mod qol_items;
 #[path = "quest-links.rs"]
 mod quest_links;
 #[path = "questdb-memory.rs"]

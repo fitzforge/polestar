@@ -778,6 +778,7 @@ for _, v in ipairs({ "accept", "turnin", "complete", "kill", "collect", "goto", 
 end
 VERB_ICON.enter = VERB_ICON.goto
 VERB_ICON.cast = VERB_ICON.use
+VERB_ICON.wait = MEDIA .. "UI\\hourglass"
 
 function Theme.VerbIcon(t)
 	return VERB_ICON[t] or VERB_ICON.note
@@ -889,10 +890,17 @@ function Theme.FontKey()
 	return f
 end
 
+-- The text size against every role's own (ui.textSize, 0.8 to 1.4): the
+-- window scale leaves the text as it is, this only the text.
+function Theme.TextScale()
+	local v = tonumber(get("ui.textSize")) or 1
+	return math.max(0.8, math.min(1.4, v))
+end
+
 function Theme.FontSpec(role)
 	local own = SKIN_ROLES[Theme.SkinKey()]
 	local spec = (own and own[role]) or ROLES[role] or ROLES.body
-	local size = spec[2]
+	local size = math.floor(spec[2] * Theme.TextScale() * 2 + 0.5) / 2
 	if Theme.FollowsEllesmereFont() and S.GetFont then
 		local ok, path, flag = pcall(S.GetFont)
 		if ok and type(path) == "string" then return path, size, flag or "" end
@@ -1635,7 +1643,7 @@ function Theme.Refresh()
 	-- a frame later.
 	if Theme.FollowsEllesmereFont() and C_Timer and C_Timer.After and not retextQueued then
 		retextQueued = true
-		C_Timer.After(0, function()
+		ns.After(0, function()
 			retextQueued = false
 			for fs in pairs(fonted) do textAgain(fs) end
 		end)
@@ -1647,7 +1655,7 @@ function Theme.Refresh()
 end
 
 local LOOKS = {
-	["ui.accent"] = true, ["ui.font"] = true, ["ui.skin"] = true, ["ui.scheme"] = true, ["ui.bgColor"] = true, ["ui.bgOpacity"] = true,
+	["ui.accent"] = true, ["ui.font"] = true, ["ui.textSize"] = true, ["ui.skin"] = true, ["ui.scheme"] = true, ["ui.bgColor"] = true, ["ui.bgOpacity"] = true,
 	["ui.brightness"] = true, ["ui.matchAccent"] = true, ["ui.classAccent"] = true, ["ui.matchFont"] = true,
 	["ui.border"] = true, ["ui.borderColor"] = true, ["ui.borderAccent"] = true, ["ui.borderSize"] = true,
 	["ui.band"] = true, ["ui.shadow"] = true, ["nav.arrowColor"] = true, ["nav.arrowNearColor"] = true,

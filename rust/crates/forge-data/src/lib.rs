@@ -43,4 +43,4 @@ pub mod trainers;
 pub mod travel;
 pub mod worldmap;
 
-pub use build::{run, write, Options, Output, VERSION};
+pub use build::{quest_drop, run, write, Options, Output, MAX_QUEST_DROP, VERSION};

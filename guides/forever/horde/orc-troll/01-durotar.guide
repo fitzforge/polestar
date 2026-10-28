@@ -282,7 +282,8 @@ step Razor Hill
   accept 96822                        -- Turroc, on the east side of town
   turnin 96821                        -- Gar'Thok
   accept 784
-  complete 96655 @51.1,42.5           -- Talk to Cook Torka
+  train Cooking npc 3191              -- Cook Torka: Camping 101 asks you to learn it
+  complete 96655 @51.1,42.5
   turnin 96655
   accept 96825
   turnin 2161                         -- Innkeeper Grosk
