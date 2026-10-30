@@ -13,7 +13,7 @@ name: Client release
 #           APPLE_CERTIFICATE (base64 .p12), APPLE_CERTIFICATE_PASSWORD,
 #           APPLE_SIGNING_IDENTITY, APPLE_API_ISSUER, APPLE_API_KEY (key id),
 #           APPLE_API_KEY_PATH (the .p8 key's contents). Without
-#           APPLE_CERTIFICATE the dmg is built unsigned.
+#           APPLE_CERTIFICATE the dmg is only ad-hoc signed (no Developer ID).
 #   release runs no build code: it downloads the artifacts, signs the updater
 #           files with TAURI_SIGNING_PRIVATE_KEY and _PASSWORD (`tauri signer
 #           sign`; public half in apps/client/src-tauri/tauri.conf.json),
@@ -173,7 +173,7 @@ jobs:
               echo "::notice::No App Store Connect API key: the macOS build is signed but not notarized."
             fi
           else
-            echo "::notice::No APPLE_CERTIFICATE secret: the macOS build is not signed or notarized."
+            echo "::notice::No APPLE_CERTIFICATE secret: the macOS build is only ad-hoc signed, not notarized."
           fi
           unset CERTIFICATE CERTIFICATE_PASSWORD SIGNING_IDENTITY API_ISSUER API_KEY API_KEY_CONTENT
           pnpm tauri build --target universal-apple-darwin --bundles app,dmg --config "$UNSIGNED"
