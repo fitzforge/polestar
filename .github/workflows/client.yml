@@ -1,10 +1,12 @@
 name: Client release
 
 # A tag `client-v<version>` (e.g. client-v0.1.0) builds Polestar Client
-# (apps/client) for Linux (AppImage, deb), Windows (msi, NSIS) and macOS
-# (universal dmg) and attaches them, with the updater's signatures and
-# latest.json, to a DRAFT release. The maintainer publishes it; the app's
-# updater only sees published client-v* releases.
+# (apps/client) for Linux x64 and arm64 (AppImage, deb), Windows x64 (msi,
+# NSIS) and arm64 (NSIS; WiX makes no arm64 msi) and macOS (universal dmg for
+# Apple silicon and Intel) and attaches them, with the updater's signatures and
+# latest.json, to a DRAFT release. The maintainer publishes it (not as the
+# repo's "latest", which stays Polestar's); the app's updater only sees
+# published, non-prerelease client-v* releases.
 #
 # The builds hold no secrets: Linux and Windows build unsigned with a read-only
 # token. Only two jobs run in the `release` environment (required reviewer, tags
@@ -47,9 +49,15 @@ jobs:
           - name: Linux
             os: ubuntu-22.04
             args: --bundles appimage,deb
+          - name: Linux-arm64
+            os: ubuntu-22.04-arm
+            args: --bundles appimage,deb
           - name: Windows
             os: windows-latest
             args: --bundles msi,nsis
+          - name: Windows-arm64
+            os: windows-11-arm
+            args: --bundles nsis
     defaults:
       run:
         shell: bash
@@ -249,12 +257,16 @@ jobs:
           base="https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}"
           entry() { jq -n --arg url "$base/$(basename "$1")" --rawfile sig "$1.sig" '{signature: $sig, url: $url}'; }
           one() { local f=(out/$1); [ -f "${f[0]}" ] || { echo "::error::no $1 to put in latest.json"; exit 1; }; echo "${f[0]}"; }
-          appimage="$(one '*.AppImage')"; msi="$(one '*.msi')"; nsis="$(one '*-setup.exe')"; mac="$(one '*.app.tar.gz')"
+          appimage="$(one '*_amd64.AppImage')"; appimage_arm="$(one '*_aarch64.AppImage')"
+          msi="$(one '*_x64_*.msi')"; nsis="$(one '*_x64-setup.exe')"; nsis_arm="$(one '*_arm64-setup.exe')"; mac="$(one '*.app.tar.gz')"
           jq -n --arg version "$version" --arg date "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-            --argjson linux "$(entry "$appimage")" --argjson msi "$(entry "$msi")" --argjson nsis "$(entry "$nsis")" --argjson mac "$(entry "$mac")" \
+            --argjson linux "$(entry "$appimage")" --argjson linux_arm "$(entry "$appimage_arm")" \
+            --argjson msi "$(entry "$msi")" --argjson nsis "$(entry "$nsis")" --argjson nsis_arm "$(entry "$nsis_arm")" --argjson mac "$(entry "$mac")" \
             '{version: $version, notes: "", pub_date: $date, platforms: {
               "linux-x86_64": $linux, "linux-x86_64-appimage": $linux,
+              "linux-aarch64": $linux_arm, "linux-aarch64-appimage": $linux_arm,
               "windows-x86_64": $nsis, "windows-x86_64-nsis": $nsis, "windows-x86_64-msi": $msi,
+              "windows-aarch64": $nsis_arm, "windows-aarch64-nsis": $nsis_arm,
               "darwin-aarch64": $mac, "darwin-x86_64": $mac, "darwin-aarch64-app": $mac, "darwin-x86_64-app": $mac}}' > out/latest.json
           cat out/latest.json
 
@@ -263,7 +275,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           version="${GITHUB_REF_NAME#client-v}"
-          gh release create "$GITHUB_REF_NAME" out/* --repo "$GITHUB_REPOSITORY" --draft --verify-tag \
-            --title "Polestar Client $version" \
-            --notes "Polestar Client $version: sends the Polestar Recorder's data from your PC, with your consent.
-          What it collects and what it never does: https://github.com/fitzforge/polestar/blob/next/docs/RECORDING.md"
+          gh release create "$GITHUB_REF_NAME" out/* --repo "$GITHUB_REPOSITORY" --draft --verify-tag --latest=false \
+            --title "Polestar Client $version (beta)" \
+            --notes "Polestar Client $version (beta): installs and updates Polestar's addons and community guides from polestar.guide, and, if you turn recording on, sends what the Polestar Recorder logs.
+          Downloads: Windows (x64: -setup.exe or .msi; Arm: arm64-setup.exe), macOS (universal .dmg, Apple silicon and Intel), Linux (x64 and arm64: .AppImage or .deb).
+          More: https://polestar.guide/client
+          What recording collects and what it never does: https://github.com/fitzforge/polestar/blob/next/docs/RECORDING.md"
