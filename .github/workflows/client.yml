@@ -78,17 +78,12 @@ jobs:
         with:
           package_json_file: apps/client/package.json
 
+      # No pnpm or Rust caches: tag builds would restore caches other workflows may have written.
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: 24
-          cache: pnpm
-          cache-dependency-path: apps/client/pnpm-lock.yaml
 
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
-
-      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
-        with:
-          workspaces: apps/client/src-tauri -> target
 
       # No lifecycle scripts: the bundler's native parts come as optional packages.
       - name: Frontend dependencies
@@ -143,19 +138,14 @@ jobs:
         with:
           package_json_file: apps/client/package.json
 
+      # No pnpm or Rust caches: tag builds would restore caches other workflows may have written.
       - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: 24
-          cache: pnpm
-          cache-dependency-path: apps/client/pnpm-lock.yaml
 
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
         with:
           targets: aarch64-apple-darwin,x86_64-apple-darwin
-
-      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
-        with:
-          workspaces: apps/client/src-tauri -> target
 
       - name: Frontend dependencies
         working-directory: apps/client
