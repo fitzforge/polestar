@@ -306,6 +306,18 @@ fn admit_link(since_last: Option<Duration>, waiting: Option<&str>, pack: Option<
 	since_last.is_none_or(|d| d >= LINK_EVERY) && !(pack.is_some() && waiting == pack)
 }
 
+/// What the 6-hourly background check does with the community index: `None` = nothing;
+/// `Some(true)` = fetch it, apply its revocations and announce or install updates;
+/// `Some(false)` = fetch it only for its revocations (the kill switch works with update checks
+/// off, as long as a pack is installed; with none installed nothing is fetched).
+pub fn background_poll(auto_check: bool, installed: usize) -> Option<bool> {
+	if auto_check {
+		Some(true)
+	} else {
+		(installed > 0).then_some(false)
+	}
+}
+
 impl Engine {
 	/// Re-reads which packs are in AddOns.
 	pub fn refresh_packs(&self) {
@@ -707,6 +719,16 @@ impl Engine {
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	#[test]
+	fn the_kill_switch_polls_with_update_checks_off() {
+		assert_eq!(background_poll(true, 0), Some(true));
+		assert_eq!(background_poll(true, 2), Some(true));
+		// Checks off: the index is still fetched for its revocations, without updates.
+		assert_eq!(background_poll(false, 1), Some(false));
+		// Nothing installed, nothing to revoke: no fetch.
+		assert_eq!(background_poll(false, 0), None);
+	}
 
 	#[test]
 	fn links_are_coalesced() {

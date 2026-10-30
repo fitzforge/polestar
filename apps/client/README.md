@@ -96,7 +96,9 @@ the upload API, and the public list of what is never collected.
   (off by default), and then only with the game closed, a day after the
   version was published, and with the same uid, publisher and folders;
   anything else is announced in
-  the tray and waits for you. A guide the site revokes (its id, pinned uid
+  the tray and waits for you. With any guide installed, the 6-hourly check
+  fetches the index even when update checks are off (then only for its
+  revocations). A guide the site revokes (its id, pinned uid
   and installed version, or every version) is turned off or removed, even
   while the game runs: turned off moves its folders to the data folder's
   `disabled/<id>/` (Restore puts them back, unless it is still revoked);

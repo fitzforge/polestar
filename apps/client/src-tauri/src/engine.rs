@@ -249,13 +249,21 @@ impl Engine {
 				self.publish();
 				last_scan = Some(Instant::now());
 			}
-			let auto = self.lock().settings.auto_check;
-			if auto && last_addon_check.is_none_or(|t| t.elapsed() >= ADDON_CHECK) {
+			let (auto, poll) = {
+				let state = self.lock();
+				let auto = state.settings.auto_check;
+				(auto, crate::community::background_poll(auto, state.packs.installed.len()))
+			};
+			if (auto || poll.is_some()) && last_addon_check.is_none_or(|t| t.elapsed() >= ADDON_CHECK) {
 				last_addon_check = Some(Instant::now());
 				let engine = Arc::clone(&self);
 				tauri::async_runtime::spawn(async move {
-					engine.check_addons(true).await;
-					engine.check_packs(true).await;
+					if auto {
+						engine.check_addons(true).await;
+					}
+					if let Some(updates) = poll {
+						engine.check_packs(updates).await;
+					}
 				});
 			}
 			let soon = self.poll_files();
