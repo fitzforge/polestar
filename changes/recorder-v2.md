@@ -9,3 +9,6 @@ section: players
   uses and gossip choices. Chunks Polestar Client has sent are cleared at
   your next login. What it records, field by field, is in docs/RECORDING.md.
   Recordings from the old Recorder are cleared once.
+  Start sharing in Polestar Client is the only switch: the Recorder turns
+  itself on at your next login and says so; `/psrec off` keeps it off until
+  `/psrec on`.
