@@ -7,26 +7,27 @@
 </p>
 
 <p align="center">
-  A free, open-source guide addon for <b>World of Warcraft: Forever</b>: leveling routes for every start, found by simulation and written step by step.
+  A free, open-source guide addon for <b>World of Warcraft: Forever</b>: step-by-step leveling routes for every race from 1 to 60, a waypoint arrow that walks real paths, and guides for class quests, professions, reputations, mounts and pets.
 </p>
 
 <p align="center">
-  <a href="https://github.com/fitzforge/polestar/releases"><img src="docs/assets/download.svg" height="48" alt="Download Polestar"></a>
   <a href="https://www.curseforge.com/wow/addons/polestar"><img src="docs/assets/curseforge.svg" height="48" alt="Get it on CurseForge"></a>
+  <a href="https://polestar.guide/client"><img src="docs/assets/client.svg" height="48" alt="Get the Polestar Client"></a>
+  <a href="https://github.com/fitzforge/polestar/releases/latest"><img src="docs/assets/download.svg" height="48" alt="Download Polestar"></a>
 </p>
 
 <p align="center">
-  On <a href="https://www.curseforge.com/wow/addons/polestar"><b>CurseForge</b></a>, or from the Releases page. Questions, feedback and bug reports: join the <a href="https://discord.gg/polestar"><b>Polestar Discord</b></a>.
+  <a href="https://polestar.guide"><b>polestar.guide</b></a>: every guide, community guides and the docs ·
+  <a href="https://discord.gg/polestar"><b>Polestar Discord</b></a>: questions, feedback and bug reports ·
   Polestar is free; if it saves you a few hours, you can <a href="https://ko-fi.com/0xfitz"><b>buy me a coffee</b></a>.
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img alt="Licence: GPL-3.0" src="https://img.shields.io/badge/licence-GPL--3.0-e6ba66?style=flat-square&labelColor=232a3f"></a>
-  <img alt="World of Warcraft: Forever, client 1.60.1" src="https://img.shields.io/badge/WoW-Forever_1.60.1-94c9ff?style=flat-square&labelColor=232a3f">
-  <img alt="Version 0.2.6, beta" src="https://img.shields.io/badge/version-0.2.6_beta-fabf4d?style=flat-square&labelColor=232a3f">
+  <a href="https://www.curseforge.com/wow/addons/polestar"><img alt="CurseForge downloads" src="https://img.shields.io/curseforge/dt/1744437?style=flat-square&logo=curseforge&logoColor=white&label=CurseForge&labelColor=232a3f&color=f16436"></a>
+  <a href="https://github.com/fitzforge/polestar/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/fitzforge/polestar?filter=v*&style=flat-square&label=release&labelColor=232a3f&color=fabf4d"></a>
   <a href="https://github.com/fitzforge/polestar/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/fitzforge/polestar/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://discord.gg/polestar"><img alt="Discord: join the Polestar community" src="https://img.shields.io/badge/Discord-join_us-5865f2?style=flat-square&logo=discord&logoColor=white&labelColor=232a3f"></a>
-  <a href="https://www.curseforge.com/wow/addons/polestar"><img alt="CurseForge: Polestar Guides" src="https://img.shields.io/badge/CurseForge-Polestar_Guides-f16436?style=flat-square&logo=curseforge&logoColor=white&labelColor=232a3f"></a>
+  <a href="LICENSE"><img alt="License: GPL-3.0" src="https://img.shields.io/badge/license-GPL--3.0-e6ba66?style=flat-square&labelColor=232a3f"></a>
   <a href="https://ko-fi.com/0xfitz"><img alt="Ko-fi: buy me a coffee" src="https://img.shields.io/badge/Ko--fi-buy_me_a_coffee-ff5e5b?style=flat-square&logo=kofi&logoColor=white&labelColor=232a3f"></a>
 </p>
 
@@ -34,31 +35,38 @@
   <a href="#quick-start">Quick start</a> ·
   <a href="#what-it-is">What it is</a> ·
   <a href="#a-look-inside">A look inside</a> ·
-  <a href="#features">Features</a> ·
-  <a href="#how-the-routes-are-made">How the routes are made</a> ·
+  <a href="#polestarguide">polestar.guide</a> ·
   <a href="#community-guides">Community guides</a> ·
+  <a href="#polestar-client">Polestar Client</a> ·
+  <a href="#features">Features</a> ·
+  <a href="#help-and-feedback">Help</a> ·
+  <a href="#how-the-routes-are-made">How the routes are made</a> ·
   <a href="#building-from-source">Building from source</a> ·
   <a href="#contributing">Contributing</a> ·
-  <a href="#data-and-licensing">Data and licensing</a> ·
-  <a href="https://discord.gg/polestar">Discord</a>
+  <a href="#data-and-licensing">Data and licensing</a>
 </p>
 
 <table align="center">
   <tr>
-    <td align="center" width="240"><a href="#quick-start"><b>Play</b></a><br>Install the addon and follow the arrow.</td>
-    <td align="center" width="240"><a href="#writing-a-community-addon"><b>Write guides</b></a><br>Publish your own routes as a community addon.</td>
-    <td align="center" width="240"><a href="#building-from-source"><b>Work on Polestar</b></a><br>Fix a guide, build the addon, run the tests.</td>
+    <td align="center" width="220"><a href="#quick-start"><b>Play</b></a><br>Install the addon and follow the arrow.</td>
+    <td align="center" width="220"><a href="https://polestar.guide/guides"><b>Browse the guides</b></a><br>Every guide, step by step, on polestar.guide.</td>
+    <td align="center" width="220"><a href="#writing-a-community-addon"><b>Write guides</b></a><br>Publish your own routes as a community guide.</td>
+    <td align="center" width="220"><a href="#building-from-source"><b>Work on Polestar</b></a><br>Fix a guide, build the addon, run the tests.</td>
   </tr>
 </table>
 
 ## Quick start
 
-1. **Install it with the CurseForge app** (search for
-   [Polestar Guides](https://www.curseforge.com/wow/addons/polestar)),
-   then skip to step 3. **Or download** `Polestar-<version>.zip` from the
-   newest release on the
-   [Releases page](https://github.com/fitzforge/polestar/releases), under
-   *Assets* (not "Source code").
+1. **Install it** one of three ways:
+   - **The CurseForge app:** search for
+     [Polestar Guides](https://www.curseforge.com/wow/addons/polestar) and
+     install it, then skip to step 3.
+   - **The [Polestar Client](https://polestar.guide/client):** a small app for
+     Windows, macOS and Linux that finds the game, installs Polestar and keeps
+     it up to date, community guides included. Skip to step 3.
+   - **By hand:** download `Polestar-<version>.zip` from the
+     [newest release](https://github.com/fitzforge/polestar/releases/latest),
+     under *Assets* (not "Source code").
 2. **Unzip it into the game's AddOns folder**, so the Polestar folders
    (`Polestar`, `Polestar_Guides`, `Polestar_Codex`, `Polestar_Nav` and the
    others, with one `Polestar_<language>` folder per client language such as
@@ -74,31 +82,32 @@
 
 Good to know:
 
-- `/polestar guides` opens the hub: every guide, Lookup, Dungeons and Rares.
-  `/polestar options` holds every setting; quest markers on the map are off
-  until you turn them on under **Map**.
+- `/polestar guides` opens the hub: every guide, Lookup, Dungeons, Talents
+  and Rares. `/polestar options` holds every setting; quest markers on the map
+  are off until you turn them on under **Map**. Right-click the minimap
+  button for a short menu.
 - `/polestar skip` moves on for good; `/polestar next` and `prev` only look
   ahead or back.
-- **Updating:** delete the old Polestar folders, then unzip the new release
+- **Updating:** the CurseForge app and the Polestar Client update Polestar for
+  you. By hand, delete the old Polestar folders, then unzip the new release
   the same way. Coming from 0.2.x, also delete the `Polestar_Guides_deDE`,
   `Polestar_Names_deDE` kind (one of each per language): `Polestar_deDE` and
   its siblings replace them, and Polestar reminds you at login while they are
   still there.
-- **Memory:** [CHECK: figures after the final 0.3.0 measurement] the arrow's walking routes (`Polestar_Nav`) load after login,
-  never in combat: about 34 MB for the walking maps, and while a walk is being
-  searched up to about 45 MB more for the stretch of map it crosses, released
-  when the search ends. **Walk real paths** (Options, Arrow & routes) off
-  never loads them.
-- **Optional:** `Polestar_Recorder-<version>.zip` from the same release
-  records your sessions to improve the routes. It does nothing until you turn
-  it on.
-- **Community guides** are other people's guides for Polestar, each a
-  separate addon from its own author: see
+- **Memory:** the arrow's walking routes (`Polestar_Nav`) load after login,
+  never in combat, and each continent's walking maps load when you get there.
+  **Walk real paths** (Options, Arrow & routes) off never loads them.
+- **Optional:** `Polestar_Recorder` (`Polestar_Recorder-<version>.zip` in the
+  same release, or from the Polestar Client) records your play for the
+  recording program that improves the routes. It stays off until you start
+  sharing in the Polestar Client or type `/psrec on`.
+- **Community guides** are routes other players publish for Polestar, on
+  [polestar.guide](https://polestar.guide/community): see
   [Community guides](#community-guides).
 - Something wrong? Click the bug in the guide window, beside Skip: say what
   went wrong; the report already holds the step, where you stand, your other
   addons and the versions. **Copy report** and post it in **#bugs** on the
-  [Polestar Discord](https://discord.gg/polestar) — a bot files it for the
+  [Polestar Discord](https://discord.gg/polestar): a bot files it for the
   developers and replies in your thread when it's fixed. **Get the invite** is
   there if you're not in the Discord yet. Have a GitHub account?
   **Open on GitHub** pre-fills a new issue with your report. `/polestar report`
@@ -107,20 +116,23 @@ Good to know:
 
 ## What it is
 
-Polestar is one addon for the whole of WoW: Forever. It carries 222 guides:
+Polestar is one addon for the whole of WoW: Forever. It carries 232 guides:
 57 leveling guides that take both factions from 1 to 60 from every race's
-starting zone (Zephras Isle for the Skyborne included), 62 class guides for
-every class's quest chains, the twelve professions from 1 to 300, 17
-reputations, 7 exploration guides, the Legacy challenges, 64 collectible
-guides (one per mount and per pet) and 2 miscellaneous guides. Around the
-guides it adds a 3D waypoint arrow that walks real paths (on Polestar's
-walking maps, with a router that started from Shortest Path Forever's by
-Cillian Berragan) and a travel planner, quest markers on the map, an upgrade
-indicator on item tooltips, a search for where any item, mount or pet comes
-from, a dungeon quest journal, rare alerts and the quality-of-life helpers a
-long leveling session needs. Its interface and its guides read in English,
-German, French, Spanish (Spain and Latin America), Brazilian Portuguese,
-Russian, Korean and Chinese (simplified and traditional).
+starting zone (Zephras Isle for the Skyborne included), 66 class guides for
+every class's quest chains and class mounts, the twelve professions from 1 to
+300, 27 reputations, 7 exploration guides, the Legacy challenges, 60
+collectible guides (mounts and pets) and 2 miscellaneous guides. Every one of
+them can be read step by step on [polestar.guide](https://polestar.guide/guides).
+
+Around the guides it adds a 3D waypoint arrow that walks real paths (on
+Polestar's walking maps, with a router that started from Shortest Path
+Forever's by Cillian Berragan) and a travel planner, quest markers on the map,
+talent plans for every class and spec, gear advice on tooltips, quest rewards
+and bags, a search for where any item, mount or pet comes from, a dungeon
+quest journal, rare alerts and the quality-of-life helpers a long leveling
+session needs. Its interface and its guides read in English, German, French,
+Spanish (Spain and Latin America), Brazilian Portuguese, Russian, Korean and
+Chinese (simplified and traditional).
 
 The leveling routes are not hand-picked. Polestar Forge models every quest
 Forever offers a faction, starts from the order of the guides players know
@@ -129,16 +141,21 @@ undoing a fix from a player's report; the guides are written from that route
 and judged against the last ones
 ([How the routes are made](#how-the-routes-are-made)).
 
-Other people can publish their own guides for Polestar as community
-addons: separate addons, made and supported by their authors
-([Community guides](#community-guides)). Each new character's first login opens a short
-welcome: a hello and what Polestar does; on the account's first character,
-quest automation, the guide at login and the colour scheme, then the route
-style (Fastest, Balanced or Roads, with a line on what each does); then the
-guide Polestar suggests for that character, the Discord and community guides
-(`/polestar welcome` shows it again).
+Players publish their own routes for Polestar as community guides on
+[polestar.guide](https://polestar.guide/community), and the
+[Polestar Client](https://polestar.guide/client) installs them and keeps them
+up to date ([Community guides](#community-guides)). Each new character's
+first login opens a short welcome: a hello and what Polestar does; on the
+account's first character, quest automation, the guide at login and the color
+scheme, then the route style (Fastest, Balanced or Roads, with a line on what
+each does); then the guide Polestar suggests for that character, the Discord
+and community guides (`/polestar welcome` shows it again).
 
-### New in 0.3.0
+### Coming in 0.3.0
+
+0.2.6 is the current release. These are on the `next` branch and arrive with
+0.3.0 ([CHANGELOG.md](CHANGELOG.md) lists every change, and `changes/` what
+is merged since):
 
 - **Better routes.** Every race's route is rebuilt by Polestar Forge, and on
   each side the races share one route after their starting zones, so a fix
@@ -151,10 +168,17 @@ guide Polestar suggests for that character, the Discord and community guides
   departure time; walks get on and off where the car stops; one fixed way in
   and out of the Undercity; Stormwind and the other capitals are left by
   their streets and gates.
+- **Reputation guides rebuilt** from Forever's data, ten new factions among
+  them: each standing band says what every turn-in, kill or run pays, how many
+  you need to the next standing, and what the quartermaster sells.
+- **Your own way through a route.** Pin any quest along the way, answer group
+  quests once for the whole route, and have your class's quests offered in a
+  tab beside your leveling guide when they open.
+- **The recording program.** The Recorder is rebuilt to record what the
+  guides need most in compact, anonymous chunks, and the Polestar Client
+  sends them only with your consent, showing what each upload holds.
 - **Less memory.** Your race's guides, the quest database and the names in
   other languages each take a fraction of what they did.
-
-[CHANGELOG.md](CHANGELOG.md) lists every change.
 
 > [!NOTE]
 > **Beta.** Every guide compiles, lints and plays to the end in a simulator
@@ -164,27 +188,28 @@ guide Polestar suggests for that character, the Discord and community guides
 
 ## A look inside
 
-Screenshots from the game: World of Warcraft: Forever (beta client) with
-Polestar 0.1.0 at its default settings. Click a picture for full size.
+Polestar 0.2.6's own windows, drawn from the addon's layout: the same pictures
+[polestar.guide](https://polestar.guide) shows. The world map, minimap and zone
+art in them is © Blizzard Entertainment.
 
 <p align="center">
-  <img src="docs/assets/screenshots/hub-guides.png" width="880" alt="The Polestar hub on its Guides section: the section rail (Guides, Lookup, Dungeons, Rares, Options), guide categories with Leveling selected, the Horde leveling guides by level band with The Barrens (19-24) selected, and its details: a painting of the zone, levels, progress in tab 1, steps, quests, zones, the next guide and a Continue button">
-  <br><sub><b>The hub.</b> Guides, Lookup, Dungeons and Rares on one rail, Options at its foot. Here the Horde leveling guides by level band, and the selected guide's zone, progress, quests and the guide after it.</sub>
+  <img src="docs/assets/screenshots/hub.webp" width="880" alt="The Polestar hub on its Guides section. The rail holds Guides, Lookup, Dungeons, Talents and Rares, with Import and Options at its foot. The sidebar lists the guides by category (Leveling, Class, Professions, Reputation, Exploration, Legacy, Collectibles, Miscellaneous) and an installed community guide; the Alliance leveling guides are listed by level band with Westfall (12-17) selected, its steps, quests, zones and the next guide shown under the zone's map painting, with Load guide and Open in new tab buttons">
+  <br><sub><b>The hub.</b> Guides, Lookup, Dungeons, Talents and Rares on one rail, Import and Options at its foot; here the Alliance leveling guides by level band.</sub>
 </p>
 
 <table>
   <tr>
     <td width="36%" align="center">
-      <img src="docs/assets/screenshots/guide-window.png" width="260" alt="The guide window on step 5 of 60 of The Barrens: Northwatch Hold, collect the Theramore Medal, kill Captain Fairmount and two cannoneers with a 4/10 counter, then Gilthares Firebough, 3620 XP per hour and 6 h 52 m to level">
-      <br><sub><b>The guide window.</b> The step's goals with their counters, who comes next, XP per hour and the time to level.</sub>
-    </td>
-    <td width="36%" align="center">
-      <img src="docs/assets/screenshots/guide-transparent.png" width="260" alt="The same guide window in transparent mode: no background, outlined text over the grass of the Barrens">
-      <br><sub><b>Transparent mode.</b> Outlined text straight on the world; the controls appear under the cursor.</sub>
+      <img src="docs/assets/screenshots/guide.webp" width="300" alt="The guide window on step 3 of 8, Kobold Camp in Elwynn Forest, with tabs for a profession and a reputation guide: Go to the Kobold Camp done, Kill Kobold Vermin 7/10, Kill Young Wolf for Tough Wolf Meat 3/8, a tip on pulling the kobolds, then Marshal McBride, and the guide 29% done">
+      <br><sub><b>The guide window.</b> The step's goals with their counters, a tip, who comes next, and up to six guides in tabs.</sub>
     </td>
     <td width="28%" align="center">
-      <img src="docs/assets/screenshots/arrow.png" width="190" alt="The 3D waypoint arrow over the sea: 34 yd, Collect Theramore Medal">
-      <br><sub><b>The arrow.</b> Distance and the goal it leads to.</sub>
+      <img src="docs/assets/screenshots/waypoint-arrow.webp" width="200" alt="The waypoint arrow: 1412 yd, Go to Westfall, 8:00 total">
+      <br><sub><b>The arrow.</b> Distance, the goal it leads to and the time to get there.</sub>
+    </td>
+    <td width="36%" align="center">
+      <img src="docs/assets/screenshots/quest-markers.webp" width="300" alt="Quest markers on the Elwynn Forest world map around Northshire and Goldshire: the step's kobolds ringed in gold inside the step's outlined area, other quests' mobs, a turn-in mark at the Abbey and available quests in Goldshire">
+      <br><sub><b>Quest markers.</b> The step's mobs ringed inside its area, turn-ins and the quests you can pick up.</sub>
     </td>
   </tr>
 </table>
@@ -192,42 +217,155 @@ Polestar 0.1.0 at its default settings. Click a picture for full size.
 <table>
   <tr>
     <td width="50%" align="center">
-      <img src="docs/assets/screenshots/lookup.png" width="390" alt="Lookup searching for Swift: 119 results across guides, mounts, items, recipes, quests, NPCs and rares, with the Swift Ram guide selected">
+      <img src="docs/assets/screenshots/lookup-search.webp" width="430" alt="Lookup in the hub searching swift: results across mounts, items, recipes, quests, NPCs and rares, with the Swift Brown Steed selected: level 60, sold by four vendors, the nearest 6 minutes away, and a Guide me button">
       <br><sub><b>Lookup.</b> One search over guides, mounts, items, recipes, quests, NPCs and rares, each with where it comes from.</sub>
     </td>
     <td width="50%" align="center">
-      <img src="docs/assets/screenshots/dungeons.png" width="390" alt="The Dungeons section: 34 dungeons by level band on painted cards, with their levels, zone, quest count and a Your level mark">
-      <br><sub><b>Dungeons.</b> Every dungeon by level, its quests counted for your faction, the ones for your level marked.</sub>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center">
-      <img src="docs/assets/screenshots/dungeon-quests.png" width="390" alt="The Wailing Caverns page: Show on map, Guide me to the entrance and Pick up the quests buttons, and its quests with who starts and ends them and their chains">
-      <br><sub><b>A dungeon's page.</b> Who starts and ends each quest and its chain; one button guides you round to pick them all up.</sub>
-    </td>
-    <td width="50%" align="center">
-      <img src="docs/assets/screenshots/dungeon-rewards.png" width="390" alt="Wailing Caverns quests with their objectives and rewards: item choices with icons, experience and money">
-      <br><sub><b>Objectives and rewards.</b> The items to choose from with their icons, the experience and the money.</sub>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center">
-      <img src="docs/assets/screenshots/rares.png" width="390" alt="The Rares section: a list of rares with their levels, and Aean Swiftriver selected with its drop, where it spawns and how far away, when it was last seen, and Mute alerts, Look up and Set waypoint buttons">
-      <br><sub><b>Rares.</b> Every rare and treasure, its drops, where it spawns and how far, and when you last met it.</sub>
-    </td>
-    <td width="50%" align="center">
-      <img src="docs/assets/screenshots/options-appearance.png" width="390" alt="Options on the Appearance page: accent colour, class colour, colour scheme, background colour, brightness, background opacity, font set to Game font, and reduce motion">
-      <br><sub><b>Options.</b> Every setting as one row, applied as you change it; here Appearance.</sub>
+      <img src="docs/assets/screenshots/dungeon-journal.webp" width="430" alt="Wailing Caverns in the dungeon journal over the Barrens map: levels 17 to 24, its quests with objectives, who starts and ends them and their rewards, and a Hand in the quests button">
+      <br><sub><b>Dungeons.</b> Every dungeon's quests with their chains and rewards; one button gathers them, another hands them in.</sub>
     </td>
   </tr>
 </table>
 
 Lookup, Dungeons and Rares read the Codex, a data pack that ships in the
 release as `Polestar_Codex` ([Lookup, Dungeons and
-Rares](#lookup-dungeons-and-rares)). Not pictured yet: the rare alert, the
-upgrade marks on the quest reward panel and the quest markers on the world
-map. Renders of every window and state, drawn without the game, are in
-[docs/preview](docs/preview).
+Rares](#lookup-dungeons-and-rares)). Renders of every window and state, drawn
+without the game, are in [docs/preview](docs/preview).
+
+## polestar.guide
+
+[**polestar.guide**](https://polestar.guide) is Polestar's website: the guides,
+the community guides, the Polestar Client and the docs in one place.
+
+- **[The guide library](https://polestar.guide/guides).** Every guide Polestar
+  ships, step by step as the guide window shows it, searchable by zone, class,
+  mount or reward. Pick your race for your road from 1 to 60:
+  [Alliance](https://polestar.guide/guides/alliance) or
+  [Horde](https://polestar.guide/guides/horde), zone by zone.
+- **[Class leveling pages](https://polestar.guide/guides/class).** Each class's
+  races, class quests, talent plans and gear advice while leveling.
+- **[Community guides](https://polestar.guide/community).** Routes players
+  write and publish, free to download ([Community guides](#community-guides)).
+- **[The docs](https://polestar.guide/docs)** for players, guide authors and
+  contributors, with every slash command, option and key binding, and every
+  release's changes. AI assistants can read the site from its
+  [llms.txt](https://polestar.guide/llms.txt).
+
+<p align="center">
+  <a href="https://polestar.guide/guides"><img src="docs/assets/screenshots/site-library.webp" width="880" alt="The guide library on polestar.guide: All 222 guides that ship inside Polestar, a search for a zone, class, mount or reward, race buttons for the Alliance and the Horde, and the Human road from Elwynn Forest to level 60, guide by guide with steps and level ranges"></a>
+</p>
+
+## Community guides
+
+Guides for Polestar written by other players and published as their own
+addons. Install one next to Polestar and its guides show up in the guide
+menu under **Community guides**, with the arrow, the map markers and
+everything else Polestar does. Each is made and supported by its author.
+
+Most are published on [polestar.guide](https://polestar.guide/community), which
+keeps them safe to play and fair to their authors:
+
+- **Plain text, built by Polestar.** An author publishes the guide files, never
+  code: the site builds every version with Polestar's own compiler and checks
+  every step against the game data, so no author's code runs in your game.
+- **Scanned and reviewed.** Every version is scanned on VirusTotal before it is
+  published, and its page links the report. A moderator reviews each author's
+  first version, and any later one that changes owner or installs different
+  addon folders.
+- **Pulled when it must be.** A person reviews every copyright notice; a
+  takedown removes the guide from the site and from every player's Polestar
+  Client. A version found to be harmful or broken can be turned off in the
+  Client for everyone who has it, with the reason shown.
+
+<p align="center">
+  <img src="docs/preview/picker-packs.svg" width="720" alt="The guide menu: under the Community guides heading, Joe's Routes is selected and lists four Alliance leveling guides, each credited to Joe">
+</p>
+
+### Installing a community addon
+
+1. Find one on [polestar.guide](https://polestar.guide/community) and install
+   it with the [Polestar Client](https://polestar.guide/client), which keeps it
+   up to date. Or download it from wherever its author publishes it and
+   install it like any addon, next to the `Polestar` folders.
+2. Restart the game. Its guides appear in the guide menu
+   (`/polestar guides`) under **Community guides**.
+3. **Options > Community guides** (`/polestar packs`) turns each one on or
+   off without a reload, and picks where the guide for your level is
+   suggested from.
+
+A community addon never replaces Polestar's guides or another one's.
+Report problems in it to its author, not to Polestar, and install them only
+from authors you trust.
+
+### Import strings
+
+A short guide shared as a single line of text (a quest chain, an item, a
+mount, an errand) can be pasted on the **Import page** without installing
+anything: `/polestar import` opens it, or follow the foot of the hub's left
+rail above Options. Polestar shows what the guide is before saving it, says
+why when it turns one down, offers **Update** for a newer version and keeps
+your progress, and lists your imported guides with **Delete**. Imported guides
+appear in the guide menu under **Community guides > Imported**, credited to
+their author, and are never suggested on their own.
+
+### Writing a community addon
+
+Write leveling guides in plain text and publish them as your own addon,
+with the tools Polestar uses for its own: the guide format, the compiler,
+`lint`, `playtest`, and in the game the guide engine, the arrow and the map
+markers. Hand over to any of Polestar's guides with `next`, so your addon
+can cover one zone or the whole climb, under a license of your choice
+([Data and licensing](#data-and-licensing)).
+
+```sh
+git clone https://github.com/fitzforge/polestar.git
+cd polestar
+npm link               # puts `polestar` on your PATH
+cd rust && cargo build --release -p forge && cd ..   # or a prebuilt forge from the Releases page
+rust/target/release/forge data build    # the reference data every guide command reads
+polestar doctor        # checks the setup and prints the fix for anything missing
+cd ..                  # your pack goes beside the clone, not inside it
+polestar new my-pack   # asks for the id, title, author and license
+cd my-pack
+polestar dev --play    # lint and build on every save, with the browser playground
+```
+
+To publish, sign in on polestar.guide and start a
+[new community guide](https://polestar.guide/studio/new): upload the folder, or
+publish from GitHub Actions by pushing a tag. You send the source, never a
+built addon: the site builds it, shows the build report, scans it and lists
+it. [Writing a community guide](https://polestar.guide/docs/authors) on the
+site walks through every step.
+
+| Start here | Then |
+|---|---|
+| [**docs/GUIDE_PACKS.md**](docs/GUIDE_PACKS.md): community guides on one page, for players and authors: install, the steps from `new` to publishing, the checklist before you publish | [docs/PACKS.md](docs/PACKS.md): the full handbook, with setup on each system, a first pack in 15 minutes, and every problem and its fix<br>[docs/GUIDE_CHEATSHEET.md](docs/GUIDE_CHEATSHEET.md): the guide format on one page ([in full](docs/GUIDE_FORMAT.md))<br>[docs/PACK_FORMAT.md](docs/PACK_FORMAT.md): exactly what the tools write |
+
+## Polestar Client
+
+The [Polestar Client](https://polestar.guide/client) is a small desktop app for
+Windows, macOS and Linux (beta, 0.1.0). It finds WoW: Forever on your
+computer and:
+
+- **installs and updates Polestar's addons**: Polestar, the Recorder and
+  LibForeverData, each download checked against the checksum its GitHub
+  release publishes. Other addons are never touched.
+- **installs community guides** from polestar.guide and keeps them current.
+  Updates install by themselves only if you turn that on, and then only a day
+  after release and while the guide's publisher and folders are unchanged; a
+  guide the site pulls is turned off or removed, with the reason shown.
+- **joins the recording program** if you want it to: with your consent it
+  sends what the Recorder records, showing exactly what each upload holds
+  first. Pause it, or delete everything it sent, any time
+  ([docs/RECORDING.md](docs/RECORDING.md) lists every field).
+
+Download it from [polestar.guide/client](https://polestar.guide/client) or the
+[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.0);
+its source is in [apps/client](apps/client).
+
+<p align="center">
+  <img src="docs/assets/screenshots/client.webp" width="760" alt="The Polestar Client on its Community Guides page: installed community guides with their authors and versions, an Update button where a newer version is out, Up to date, a guide marked Replaced, one Turned off by polestar.guide with its reason, and one Removed by polestar.guide; the sidebar holds Addons, Community Guides, Activity, the recording Status and What we send, and Settings">
+</p>
 
 ## Features
 
@@ -247,7 +385,7 @@ map. Renders of every window and state, drawn without the game, are in
   banner's Undo brings them back. Skip, at the top, passes the whole step.
 - **It catches up.** With "Skip grey quests" on, a guide you open on a
   character who already did part of the route goes over what is done to
-  where you are: grey quests are left out, and so are green ones behind your
+  where you are: gray quests are left out, and so are green ones behind your
   progress, unless a later quest needs them. A guide you are past, given to
   you when no guide is open or by Start guide, hands over to the next.
   Item, mount, reputation, profession and class guides do every step.
@@ -256,11 +394,32 @@ map. Renders of every window and state, drawn without the game, are in
   next one in its chain when you finish it.
 - **Tabs.** Up to six guides open at once (a leveling route and a profession,
   say); quests are auto-accepted for all of them.
+- **Class quests come to you.** When one of your class's quest guides opens
+  (you reach its level, or its first quest becomes available), the guide
+  window offers it in a tab next to your leveling guide (Options, Guide,
+  Automation, "Offer class quests").
+- **Pin a quest along the way.** Right-click any quest in the quest log, or
+  use the guide window's menu, and its open objectives join the Along the way
+  list beside whatever step you are on, with their map marks, the target
+  button and the arrow, until they are done or you unpin it.
+- **Group quests are your call.** At a quest a guide marks as a group quest,
+  the guide window asks: Skip it keeps to the solo route, Do it with a group
+  takes it on. "Group quests" (Options, Guide, Automation) can answer them
+  all at once, so the route never stops to ask.
+- **Talent plans** for every class and spec, from level 10 to 60, in the
+  hub's Talents section: an ordered list of picks with short notes, marked on
+  the game's talent frame. Nothing is spent for you.
+- **Reputation guides** say, for each standing band, what every turn-in, kill
+  or run pays, how many you need to the next standing, where the items come
+  from, when kills stop counting and what the quartermaster sells.
 - **Professions** send you to the nearest trainer, vendor or inn of your own
   faction from where you stand, never into a city of the other faction; a
   goal's cycle button picks another.
 - **Class training reminder** every two levels (configurable): the nearest
-  trainer of your class, unless your guide is about to take you there.
+  trainer of your class, unless your guide is about to take you there. At
+  levels 40 and 60 a **riding reminder** shows the cost of riding and your
+  balance, and points the arrow at your riding trainer once you can afford
+  it.
 - **Elite quests are optional.** Leveling routes use only quests a player can
   do alone; a quest that needs an elite appears as an extra marked "optional".
 - **Escort notes.** On an escort quest the guide window says so under the
@@ -279,7 +438,7 @@ map. Renders of every window and state, drawn without the game, are in
 
 - **A 3D waypoint arrow** points at the current goal, shifting from the
   accent to jade as you arrive, with distance and ETA. Distances read in
-  yards, the game's unit, or in metres (Options, Arrow & routes).
+  yards, the game's unit, or in meters (Options, Arrow & routes).
 - **The travel planner** uses known flight paths, boats, zeppelins and your
   Hearthstone when they are faster. Each leg has its own caption on the arrow
   ("Fly to Crossroads", "Take the boat to Menethil Harbor", "Hearth to Razor
@@ -379,7 +538,14 @@ guides you there instead.
   under **Map** in the options; the arrow's target, its route and the
   regions the guide step's mobs and objects spawn in (shaded on the world map
   and the minimap) always show.
+- **NPC services and mailboxes** on zone and city maps (Map, Rares & travel,
+  NPC services; off by default): class trainers and mailboxes, with repair,
+  vendors, bankers, profession trainers, weapon masters and the rest one
+  click away. A click sets the arrow there.
 - **A world map without fog of war**, with coordinates and zone level ranges.
+- **The step's item glows in your bags** (and in Baganator): the carcass, the
+  seeds or the horn the step uses or has you collect.
+- **Hide the game's quest tracker** (Options, Questing; off by default).
 - **Mark what they target** (Options, Questing, Buttons; off by default): the
   target button and the step key put a raid icon on the mob or NPC they
   target — a skull and a star by default, configurable — leaving icons
@@ -423,22 +589,21 @@ guides you there instead.
   A **Rare button** appears under the Target button when Polestar spots a rare
   nearby and targets it by name (Options, Questing, Buttons, Rare button).
 
-Lookup, Dungeons and Rares read the Codex, a data pack built on your own
-machine from addons you have installed ([Data and licensing](#data-and-licensing));
-it is not part of the release. Without it Lookup still searches the guides,
-and each section says what is missing.
+Lookup, Dungeons and Rares read the Codex, a data pack that ships in the
+release as `Polestar_Codex`. Without it Lookup still searches the guides, and
+each section says what is missing.
 
 ### Appearance and UI suites
 
-- **Colour schemes**: Dusk (the default), Night and Graphite, and
-  EllesmereUI's own panel colour and accent while it is installed. On top of
-  any scheme: your own accent or your class colour, background colour,
+- **Color schemes**: Dusk (the default), Night and Graphite, and
+  EllesmereUI's own panel color and accent while it is installed. On top of
+  any scheme: your own accent or your class color, background color,
   opacity and brightness. Text stays legible whatever you pick: a ground too
   light for its text is darkened until it reads.
-- **Windows**: the border, its colour and thickness, the starlit header band
+- **Windows**: the border, its color and thickness, the starlit header band
   and the shadow, each on or off; the guide window's style (standard, compact
   or transparent), scale, width and opacity; the menu scale; the arrow's style,
-  scale, opacity and colours; reduced motion. Everything applies live,
+  scale, opacity and colors; reduced motion. Everything applies live,
   without a reload; right-click any setting to reset it.
 - **Fonts**: the game's own by default, or Inter, or EllesmereUI's.
 - **EllesmereUI** (Options, Integrations): Polestar follows its accent and font by default through
@@ -447,13 +612,17 @@ and each section says what is missing.
 
 ### Quality of life
 
-Quest item, target and Hearthstone buttons; XP per hour and time to level;
+Quest item, target and Hearthstone buttons; a hearth step while your
+Hearthstone is on cooldown says how long until it is ready and points the
+arrow at the inn; XP per hour and time to level;
 the level the guide wants you to reach, marked on the game's XP bar;
-selling greys and repairing (optionally from the guild bank first); buying
-what a step asks you to buy; learning new spells at class trainers; taking
-the best quest reward and wearing rewards that are upgrades; instant quest
-text, single-option gossip and faster auto-loot; hiding combat error spam;
-flight map and death helpers, and releasing at once in battlegrounds;
+selling grays and repairing (optionally from the guild bank first); buying
+what a step of Polestar's own guides asks you to buy (a community guide's
+step names what to buy and leaves it to you); learning new spells at class
+trainers; taking the best quest reward and wearing rewards that are upgrades;
+instant quest text, single-option gossip and faster auto-loot; hiding combat
+error spam; flight map and death helpers, and releasing at once in
+battlegrounds;
 setting your home at the inn the guide names when you talk to its innkeeper
 (off by default). Requests from other players: accept summons, resurrections
 and friends' or guildmates' party invitations; decline other party
@@ -503,13 +672,16 @@ shows: everything works with the mouse and keyboard as before.
 
 ### Recorder
 
-`Polestar_Recorder` is an optional companion addon that records your
-sessions to improve the routes. It is off until you turn it on (`/psrec on`,
-or Options > Recorder > Start recording) and writes nothing while off.
-Recordings replace the Classic Era estimates with Forever facts (quest XP,
-NPC and object positions, trainers, flight paths and times), feed the Codex
-what only play shows (rares and treasures, drops and how often they fall,
-dungeon entrances and bosses), and
+`Polestar_Recorder` is an optional companion addon that records your play
+for the recording program, to improve the routes. It is off until you start
+sharing in the [Polestar Client](https://polestar.guide/client) or turn it on
+(`/psrec on`, or Options > Recorder), and writes nothing while off. It writes
+compact chunks with no character, realm or account names, and records what
+the guides need most: kill pace and kill XP, drops counted against what your
+quests still needed, which quests each NPC offered you, trainer and vendor
+lists, flight times, item uses and gossip choices
+([docs/RECORDING.md](docs/RECORDING.md), field by field). Recordings replace
+estimates with Forever facts, feed the Codex what only play shows, and
 `record report` turns them into per-step timings: passes, median and p75
 time, XP per hour, time in combat, deaths and travel, then the slowest
 steps and detours, the steps to fix first.
@@ -544,6 +716,8 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `tabs`, `tab <n>`, `close` | List, switch and close guide tabs |
 | `path` | Choose where to level next, where a guide offers a choice of route |
 | `route` | Show the travel route to the current target |
+| `skipleg` | Skip the travel route's current leg (a Hearthstone, flight or portal: plan the rest without it; a walk or lift: mark it done) |
+| `near <service>` | Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, auction house, flight or stable master |
 | `way <x> <y> [label]` | Point the arrow at x y on your current map (no argument clears it) |
 | `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it) |
 | `reset` | Clear ticks and skips for the current guide |
@@ -556,6 +730,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `lookup [search]` | Open Lookup, optionally searching |
 | `mount` | Look up the mount of your target (or mouseover) and how to get it |
 | `rares [test]` | Open Rares, or show a sample rare alert |
+| `talents` | Open your talent plan |
 | `questdb` | Quest database status |
 | `packs` | Open Options > Community guides |
 | `import` | Open the Import page: paste a shared guide string to save it without installing an addon; `import clear` or `import delete` to remove it |
@@ -575,6 +750,27 @@ small window with the same controls, a key binding for the trail, and a
 checklist of the spots we need walked.
 
 </details>
+
+Every command with its help line, every option and every key binding are on
+[polestar.guide's reference](https://polestar.guide/docs/reference/commands).
+
+## Help and feedback
+
+- **[The docs](https://polestar.guide/docs)** answer most questions: installing,
+  the guide window and the arrow, community guides, the
+  [FAQ](https://polestar.guide/docs/players/faq), and every
+  [slash command](https://polestar.guide/docs/reference/commands) and
+  [option](https://polestar.guide/docs/reference/options).
+- **A wrong step?** Click the bug in the guide window (or `/polestar report`)
+  and post the report in **#bugs** on the
+  [Polestar Discord](https://discord.gg/polestar), or open it on GitHub from
+  the same window. What makes a good report is in
+  [CONTRIBUTING.md](CONTRIBUTING.md#a-good-wrong-step-report).
+- **Questions, ideas and feedback** are welcome on the
+  [Discord](https://discord.gg/polestar); a feature request goes in an
+  [issue](https://github.com/fitzforge/polestar/issues/new/choose).
+- **A security problem** goes in a private report, never an issue:
+  [SECURITY.md](SECURITY.md).
 
 ## How the routes are made
 
@@ -754,69 +950,6 @@ Every verb, modifier and condition is in
 [docs/GUIDE_FORMAT.md](docs/GUIDE_FORMAT.md); guides of your own ship as a
 [community addon](#community-guides).
 
-## Community guides
-
-Guides for Polestar written by other players and published as their own
-addons. Install one next to Polestar and its guides show up in the guide
-menu under **Community guides**, with the arrow, the map markers and
-everything else Polestar does. Each is made and supported by its author;
-Polestar does not ship, host or recommend any.
-
-<p align="center">
-  <img src="docs/preview/picker-packs.svg" width="720" alt="The guide menu: under the Community guides heading, Joe's Routes is selected and lists four Alliance leveling guides, each credited to Joe">
-</p>
-
-### Installing a community addon
-
-1. Download it from wherever its author publishes it, and install it like
-   any addon, next to the `Polestar` folders.
-2. Restart the game. Its guides appear in the guide menu
-   (`/polestar guides`) under **Community guides**.
-3. **Options > Community guides** (`/polestar packs`) turns each one on or
-   off without a reload, and picks where the guide for your level is
-   suggested from.
-
-A community addon never replaces Polestar's guides or another one's.
-Report problems in it to its author, not to Polestar, and install them only
-from authors you trust.
-
-### Import strings
-
-A short guide shared as a single line of text (a quest chain, an item, a
-mount, an errand) can be pasted on the **Import page** without installing
-anything: `/polestar import` opens it, or follow the foot of the hub's left
-rail above Options. Polestar shows what the guide is before saving it, says
-why when it turns one down, offers **Update** for a newer version and keeps
-your progress, and lists your imported guides with **Delete**. Imported guides
-appear in the guide menu under **Community guides > Imported**, credited to
-their author, and are never suggested on their own.
-
-### Writing a community addon
-
-Write leveling guides in plain text and publish them as your own addon,
-with the tools Polestar uses for its own: the guide format, the compiler,
-`lint`, `playtest`, and in the game the guide engine, the arrow and the map
-markers. Hand over to any of Polestar's guides with `next`, so your addon
-can cover one zone or the whole climb, under a licence of your choice
-([Data and licensing](#data-and-licensing)).
-
-```sh
-git clone https://github.com/fitzforge/polestar.git
-cd polestar
-npm link               # puts `polestar` on your PATH
-cd rust && cargo build --release -p forge && cd ..   # or a prebuilt forge from the Releases page
-rust/target/release/forge data build    # the reference data every guide command reads
-polestar doctor        # checks the setup and prints the fix for anything missing
-cd ..                  # your pack goes beside the clone, not inside it
-polestar new my-pack   # asks for the id, title, author and licence
-cd my-pack
-polestar dev --play    # lint and build on every save, with the browser playground
-```
-
-| Start here | Then |
-|---|---|
-| [**docs/GUIDE_PACKS.md**](docs/GUIDE_PACKS.md): community guides on one page, for players and authors: install, the steps from `new` to publishing, the checklist before you publish | [docs/PACKS.md](docs/PACKS.md): the full handbook, with setup on each system, a first pack in 15 minutes, and every problem and its fix<br>[docs/GUIDE_CHEATSHEET.md](docs/GUIDE_CHEATSHEET.md): the guide format on one page ([in full](docs/GUIDE_FORMAT.md))<br>[docs/PACK_FORMAT.md](docs/PACK_FORMAT.md): exactly what the tools write |
-
 ## Building from source
 
 This part is for working on Polestar itself: players need only the
@@ -830,7 +963,7 @@ the Releases page) builds the data, the guides, the walking maps and the
 releases: `forge guide compile|lint|check`, `forge data ...`,
 `forge nav pack|check`, `forge release ...` and `forge changelog`. The old
 `node tools/polestar.js compile`, `lint`, `data`, `release` and their
-neighbours only print the forge command now. **`node tools/polestar.js`**
+neighbors only print the forge command now. **`node tools/polestar.js`**
 keeps the contributor tools that have not moved yet: `playtest`, `find`,
 `record`, `new`, `dev`, `install`, `play`, `preview` and the planner.
 
@@ -980,6 +1113,8 @@ the new zones ([docs/FORGE.md](docs/FORGE.md)).
 | [`guides/forever`](guides/forever) | The guide sources: leveling, professions, reputation, exploration, Legacy, collectibles |
 | [`tools`](tools) | The command line (`polestar.js`), the guide compiler, the simulator, data importers, texture and preview renderers, the playground ([tools/README.md](tools/README.md)) |
 | [`rust`](rust) | Polestar Forge, the Rust pipeline that makes the routes and writes them into the guides: one `forge` program ([docs/FORGE.md](docs/FORGE.md)) |
+| [`apps/client`](apps/client) | The Polestar Client, the desktop app that installs and updates the addons and community guides and sends recordings ([apps/client/README.md](apps/client/README.md)) |
+| [`services/ingest`](services/ingest) | The recording program's server: it checks and stores the chunks the Polestar Client sends ([services/ingest/README.md](services/ingest/README.md)) |
 | [`tests`](tests) | `node --test` suites; `tests/lua` is the simulated game client they run the addon in ([tests/README.md](tests/README.md)) |
 | [`docs`](docs) | Architecture, guide format, Forge, the suite's scope, UI renders ([docs/README.md](docs/README.md)) |
 | `data/` | Local build products and recordings, gitignored |
@@ -1006,14 +1141,15 @@ saved you a minute. Questions and ideas are welcome on the
   `node --test "tests/**/*.test.js"` green.
 - **UI** changes stay in the visual system of [docs/DESIGN.md](docs/DESIGN.md);
   `node tools/polestar.js preview` renders them for review.
-- **Recordings** are the most useful contribution of all: play a guide with
-  the Recorder on and attach `record report` for the steps that felt slow.
+- **Recordings** are the most useful contribution of all: start sharing in
+  the [Polestar Client](#polestar-client) and play, or attach `record report`
+  for the steps that felt slow.
 - **With an AI agent?** It reads [AGENTS.md](AGENTS.md) in a clone. To have
   Polestar's skills everywhere, install them:
   `npx skills add fitzforge/polestar -g`, or the Claude Code and Codex
   plugins in [CONTRIBUTING.md](CONTRIBUTING.md#installing-the-skills).
 
-Contributions are accepted under the GPL-3.0, the project's licence.
+Contributions are accepted under the GPL-3.0, the project's license.
 
 ## Data and licensing
 
@@ -1021,7 +1157,7 @@ Polestar is free and open source under the
 [GNU General Public License, version 3](LICENSE).
 
 Its data comes from public sources, the game client's own tables and
-recordings; [THIRD_PARTY.md](THIRD_PARTY.md) lists every input, its licence
+recordings; [THIRD_PARTY.md](THIRD_PARTY.md) lists every input, its license
 and what a release holds from it. The guides and the quest markers carry
 facts (titles, givers, positions, levels) from QuestieDB's Forever store,
 credited there. Inputs whose terms do not allow redistribution are read from
