@@ -130,9 +130,13 @@ pub fn set_pack_auto_update(engine: Engine_, enabled: bool) -> Result<(), String
 	Ok(())
 }
 
-/// Sets the community site (advanced, for developers); an empty one puts polestar.guide back.
+/// Sets the community site (debug builds only, for developing the site); an empty one puts
+/// polestar.guide back. A release build only ever uses polestar.guide.
 #[tauri::command]
 pub async fn set_packs_url(engine: Engine_<'_>, url: String) -> Result<String, String> {
+	if !cfg!(debug_assertions) {
+		return Err("Community Guides always come from polestar.guide.".to_owned());
+	}
 	let url = web_address(&url, crate::packs::DEFAULT_BASE)?;
 	engine.save_settings(|s| s.packs_url = url.clone())?;
 	Arc::clone(&engine).check_packs(false).await;

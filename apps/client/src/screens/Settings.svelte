@@ -262,6 +262,8 @@
 						<button class="btn" type="submit" disabled={server === snapshot.serverUrl}>Save</button>
 					</form>
 					<p class="out note">Leave it at {snapshot.defaultServerUrl} unless you run your own recording server.</p>
+					<!-- Developers only: a release build always takes Community Guides from polestar.guide. -->
+					{#if import.meta.env.DEV}
 					<form
 						class="row server"
 						onsubmit={(e) => {
@@ -280,6 +282,7 @@
 						<button class="btn" type="submit" disabled={packsSite === snapshot.community.base || busy === 'packs'}>Save</button>
 					</form>
 					<p class="out note">Where Community Guides come from: {snapshot.community.defaultBase}, or http://localhost:3100 while developing the site.</p>
+					{/if}
 				</div>
 			{/if}
 		</section>

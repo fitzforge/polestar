@@ -247,11 +247,10 @@ impl Store {
 	}
 
 	/// The settings, with the community site in its one spelling ([`crate::packs::normalize_base`]).
+	/// A release build always uses polestar.guide, whatever the file says.
 	pub fn settings(&self) -> Settings {
 		let mut settings: Settings = read_json(&self.path("settings.json")).unwrap_or_default();
-		if let Some(base) = crate::packs::normalize_base(&settings.packs_url) {
-			settings.packs_url = base;
-		}
+		settings.packs_url = community_base(&settings.packs_url, cfg!(debug_assertions));
 		settings
 	}
 
@@ -337,6 +336,14 @@ fn is_token(text: &str) -> bool {
 	text.len() == 64 && text.bytes().all(|b| b.is_ascii_hexdigit())
 }
 
+/// The community site to use: polestar.guide, or (`dev`, a debug build) the one saved.
+pub fn community_base(saved: &str, dev: bool) -> String {
+	match crate::packs::normalize_base(saved) {
+		Some(base) if dev => base,
+		_ => crate::packs::DEFAULT_BASE.to_owned(),
+	}
+}
+
 fn read_json<T: DeserializeOwned>(path: &Path) -> Option<T> {
 	let text = fs::read_to_string(path).ok()?;
 	serde_json::from_str(&text).ok()
@@ -363,4 +370,18 @@ fn write_private(path: &Path, bytes: &[u8]) -> io::Result<()> {
 		file.sync_all()?;
 	}
 	fs::rename(&tmp, path)
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	#[test]
+	fn release_builds_only_use_polestar_guide() {
+		let default = crate::packs::DEFAULT_BASE;
+		assert_eq!(community_base("http://localhost:3100", false), default);
+		assert_eq!(community_base("https://evil.example", false), default);
+		assert_eq!(community_base("http://localhost:3100/", true), "http://localhost:3100");
+		assert_eq!(community_base("not a url", true), default);
+	}
 }
