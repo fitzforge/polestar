@@ -15,13 +15,15 @@
 
 	let { snapshot }: { snapshot: Snapshot } = $props();
 
-	const DONE: Record<PackAction, string> = { install: 'Installed', update: 'Updated', uninstall: 'Removed' };
+	const DONE: Record<PackAction, string> = { install: 'Installed', update: 'Updated', uninstall: 'Removed', restore: 'Restored', discard: 'Cleared' };
 	const PHASE: Record<string, string> = { download: 'Downloading', verify: 'Checking', install: 'Installing', remove: 'Removing' };
 
 	const community = $derived(snapshot.community);
 	let query = $state('');
 	let menu = $state<string | null>(null);
 	let armed = $state<string | null>(null);
+	/** The pack whose update needs a confirm (replaced, new publisher, changed folders): it opens in the sheet. */
+	let confirming = $state<string | null>(null);
 	let notes = $state<Notes | null>(null);
 	let notesFrom: HTMLElement | null = null;
 	let checking = $state(false);
@@ -44,8 +46,10 @@
 	const words = $derived(query.trim().toLowerCase().split(/\s+/).filter(Boolean));
 	const matches = (p: Pack) => words.every((w) => p.title.toLowerCase().includes(w) || p.author.toLowerCase().includes(w));
 	const shown = $derived(community.packs.filter(matches));
-	const installed = $derived(shown.filter((p) => p.installed));
-	const available = $derived(shown.filter((p) => !p.installed));
+	/** Turned off or removed by the site counts as installed: the notice belongs with the player's guides. */
+	const kept = (p: Pack) => !!p.installed || p.status === 'disabled' || p.status === 'removed';
+	const installed = $derived(shown.filter(kept));
+	const available = $derived(shown.filter((p) => !kept(p)));
 
 	const [send, receive] = crossfade({
 		duration: (d) => (reduced() ? 120 : Math.min(420, Math.sqrt(d * 200))),
@@ -64,6 +68,21 @@
 		} catch (e) {
 			toast(message(e), 'warning');
 		}
+	}
+
+	/** Update: one click when routine, else the sheet that names what changed. */
+	let confirmFrom: HTMLElement | null = null;
+	function update(pack: Pack) {
+		if (pack.status === 'replaced' || pack.changes) {
+			menu = null;
+			confirmFrom = document.activeElement as HTMLElement | null;
+			confirming = pack.id;
+		} else void act(pack, 'update');
+	}
+
+	function confirmed(pack: string, action: PackAction) {
+		done[pack] = action;
+		setTimeout(() => delete done[pack], 2600);
 	}
 
 	function confirm(key: string, run: () => void) {
@@ -205,12 +224,15 @@
 					<span class="names">
 						<span class="name">
 							<span class="title" title={p.title}>{p.title}</span>
-							{#if p.official}<span class="chip accent">Official</span>{/if}
+							{#if p.official}<span class="chip accent">Official</span>{:else if p.reviewed}<span class="chip">Reviewed</span>{/if}
 							{#if p.status === 'unlisted'}<span class="chip">No longer listed</span>{/if}
+							{#if p.status === 'replaced'}<span class="chip warning">Replaced</span>{/if}
+							{#if p.status === 'disabled'}<span class="chip warning">Turned off</span>{/if}
+							{#if p.status === 'removed'}<span class="chip danger">Removed by {community.site}</span>{/if}
 						</span>
-						<span class="small muted author">by {p.author || 'an unknown author'}</span>
+						<span class="small muted author">by {p.author || 'an unknown author'}{#if p.publisher && p.publisher !== p.author}&nbsp;· shared by {p.publisher}{/if}</span>
 						<span class="small versions">
-							{#if p.status === 'update' && p.installed && p.version}
+							{#if (p.status === 'update' || p.status === 'replaced') && p.installed && p.version}
 								<span class="num muted">{p.installed}</span><span class="arrow">→</span><span class="num">{p.version}</span>
 							{:else}
 								<span class="num dim">{p.installed ?? p.version}</span>
@@ -219,13 +241,21 @@
 							{#if p.changelog !== null}<span class="sep">·</span><button class="link small-link" onclick={(e) => openNotes(p, e)}>What's new</button>{/if}
 							{#if p.homepage}<span class="sep">·</span><button class="link small-link" onclick={() => api.openLink(p.homepage!)}>Homepage</button>{/if}
 						</span>
+						{#if p.revoked && (p.status === 'disabled' || p.status === 'removed')}
+							<span class="small why">{p.revoked.reason}</span>
+							{#if p.status === 'disabled'}
+								<span class="small muted said">Turned off by {community.site}. Its files were moved out of AddOns; /reload or restart the game.</span>
+							{/if}
+						{:else if p.status === 'replaced' && !busy}
+							<span class="small why">{community.site} now lists a different guide under this name.</span>
+						{/if}
 						{#if p.blocked && !busy}<span class="small why">{p.blocked}</span>{/if}
 					</span>
 					<span class="action">
 						{#if busy}
 							{#key progress?.phase ?? busy}
 								<span class="phase small" in:swap>
-									<span class="spinner"></span>{progress ? PHASE[progress.phase] : PHASE[busy === 'uninstall' ? 'remove' : 'download']}{#if pct !== null}<span class="num">&nbsp;{Math.round(pct * 100)}%</span>{/if}
+									<span class="spinner"></span>{progress ? PHASE[progress.phase] : PHASE[busy === 'uninstall' || busy === 'discard' ? 'remove' : busy === 'restore' ? 'install' : 'download']}{#if pct !== null}<span class="num">&nbsp;{Math.round(pct * 100)}%</span>{/if}
 								</span>
 							{/key}
 						{:else if done[p.id]}
@@ -236,14 +266,27 @@
 							<span class="chip success" in:swap>Up to date</span>
 						{:else if p.status === 'unlisted'}
 							<span class="small muted">Removed from {community.site}</span>
+						{:else if p.status === 'disabled' || p.status === 'removed'}
+							<span class="buttons" in:swap>
+								{#if p.status === 'disabled'}
+									<button class="btn" onclick={() => act(p, 'restore')}>Restore</button>
+								{:else}
+									<button class="btn" onclick={() => act(p, 'discard')}>Dismiss</button>
+								{/if}
+								{#if p.version}
+									<button class="btn" disabled={!!p.blocked} title={p.blocked ?? undefined} onclick={() => act(p, 'install')}>Install {p.version}</button>
+								{/if}
+							</span>
+						{:else if p.status === 'replaced'}
+							<button class="btn" disabled={!!p.blocked} title={p.blocked ?? undefined} onclick={() => update(p)} in:swap>Replace…</button>
 						{:else}
-							<button class="btn" disabled={!!p.blocked} title={p.blocked ?? undefined} onclick={() => act(p, p.status === 'update' ? 'update' : 'install')} in:swap>
-								{p.status === 'update' ? 'Update' : 'Install'}
+							<button class="btn" disabled={!!p.blocked} title={p.blocked ?? undefined} onclick={() => (p.status === 'update' ? update(p) : act(p, 'install'))} in:swap>
+								{p.status === 'update' ? (p.changes ? 'Update…' : 'Update') : 'Install'}
 							</button>
 						{/if}
 					</span>
 					<span class="more">
-						{#if p.installed && !busy}
+						{#if kept(p) && !busy}
 							<button class="icon-btn" aria-label="More for {p.title}" aria-haspopup="menu" aria-expanded={menu === p.id} onclick={(e) => openMenu(p.id, e)}><Glyph name="menu" size={14} /></button>
 							{#if menu === p.id}
 								<!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -251,10 +294,17 @@
 									<button role="menuitem" onclick={() => api.openLink(pageOf(p))}>
 										<Glyph name="search" size={14} color="var(--textDim)" /><span>{p.homepage ? 'Open the homepage' : `Open on ${community.site}`}</span>
 									</button>
-									<button role="menuitem" class="danger" onclick={() => confirm(`${p.id}:uninstall`, () => act(p, 'uninstall'))}>
-										<Glyph name="close" size={14} color="var(--danger)" /><span>{armed === `${p.id}:uninstall` ? 'Click again to remove' : 'Remove'}</span>
-										<span class="small muted hint">Removes only {p.folders.join(', ')}</span>
-									</button>
+									{#if p.status === 'disabled'}
+										<button role="menuitem" class="danger" onclick={() => confirm(`${p.id}:discard`, () => act(p, 'discard'))}>
+											<Glyph name="close" size={14} color="var(--danger)" /><span>{armed === `${p.id}:discard` ? 'Click again to delete' : 'Delete the kept copy'}</span>
+											<span class="small muted hint">Deletes the turned-off files Polestar kept</span>
+										</button>
+									{:else if p.status !== 'removed'}
+										<button role="menuitem" class="danger" onclick={() => confirm(`${p.id}:uninstall`, () => act(p, 'uninstall'))}>
+											<Glyph name="close" size={14} color="var(--danger)" /><span>{armed === `${p.id}:uninstall` ? 'Click again to remove' : 'Remove'}</span>
+											<span class="small muted hint">Removes only {p.folders.join(', ')}</span>
+										</button>
+									{/if}
 								</div>
 							{/if}
 						{/if}
@@ -321,12 +371,33 @@
 	<PackSheet link={app.link} {community} onclose={() => (app.link = null)} />
 {/if}
 
+{#if confirming && !app.link}
+	{@const id = confirming}
+	<PackSheet
+		link={{ seq: 0, pack: id, error: null }}
+		{community}
+		page
+		ondone={(action) => confirmed(id, action)}
+		onclose={() => {
+			confirming = null;
+			confirmFrom?.focus();
+		}}
+	/>
+{/if}
+
 <style>
 	.tools {
 		display: flex;
 		align-items: center;
 		gap: var(--s4);
 		margin: 0 0 var(--s2);
+	}
+	.buttons {
+		display: flex;
+		gap: var(--s2);
+	}
+	.said {
+		max-width: 60ch;
 	}
 	.meta {
 		flex: 1;

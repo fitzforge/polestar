@@ -117,9 +117,9 @@
 					<span class="label">Check for updates automatically</span>
 					<button class="toggle" role="switch" aria-checked={snapshot.addons.autoCheck} aria-label="Check for updates automatically" onclick={() => run('autoCheck', () => api.setAddonPrefs({ autoCheck: !snapshot.addons.autoCheck }))}></button>
 				</div>
-				<div class="row" title="Installs updates as soon as they are found, while the game is closed.">
-					<span class="label">Install updates automatically</span>
-					<button class="toggle" role="switch" aria-checked={snapshot.addons.autoInstall} aria-label="Install updates automatically" onclick={() => run('autoInstall', () => api.setAddonPrefs({ autoInstall: !snapshot.addons.autoInstall }))}></button>
+				<div class="row" title="Installs updates to Polestar's own addons as soon as they are found, while the game is closed. Community Guides have their own setting below.">
+					<span class="label">Install addon updates automatically</span>
+					<button class="toggle" role="switch" aria-checked={snapshot.addons.autoInstall} aria-label="Install addon updates automatically" onclick={() => run('autoInstall', () => api.setAddonPrefs({ autoInstall: !snapshot.addons.autoInstall }))}></button>
 				</div>
 				<div class="row" title="Beta also offers pre-releases: newer, less tested.">
 					<span class="label">Update channel</span>
@@ -136,6 +136,10 @@
 		<section class="section">
 			<h2>Community Guides</h2>
 			<div class="rows">
+				<div class="row" title="Only routine updates, a day after they're published, while the game is closed. A new publisher or changed folders always asks first.">
+					<span class="label">Update guides automatically</span>
+					<button class="toggle" role="switch" aria-checked={snapshot.community.autoUpdate} aria-label="Update guides automatically" onclick={() => run('packAutoUpdate', () => api.setPackAutoUpdate(!snapshot.community.autoUpdate))}></button>
+				</div>
 				<div class="row" title="After a guide installs, tells {snapshot.community.site} which guide and version, nothing else, so its author sees how many players use it. Off: nothing is sent.">
 					<span class="label">Count my guide installs</span>
 					<button class="toggle" role="switch" aria-checked={snapshot.community.telemetry} aria-label="Count my guide installs" onclick={() => run('telemetry', () => api.setPackTelemetry(!snapshot.community.telemetry))}></button>

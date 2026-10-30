@@ -147,8 +147,25 @@ export interface Changelog {
 }
 
 /** A community pack (src-tauri/src/community.rs PackView). */
-export type PackStatus = 'install' | 'update' | 'upToDate' | 'unlisted' | 'noGame';
-export type PackAction = 'install' | 'update' | 'uninstall';
+export type PackStatus = 'install' | 'update' | 'upToDate' | 'unlisted' | 'noGame' | 'replaced' | 'disabled' | 'removed';
+export type PackAction = 'install' | 'update' | 'uninstall' | 'restore' | 'discard';
+
+/** The community site turned the installed version off, or removed it. */
+export interface PackRevoked {
+	reason: string;
+	at: number;
+	action: 'disable' | 'remove';
+}
+
+/** What makes an update not routine; it needs `confirm: true`. */
+export interface PackChanges {
+	/** The pack under this id is a different guide. */
+	replaced: boolean;
+	/** Publisher handles. */
+	publisher: { from: string | null; to: string | null } | null;
+	added: string[];
+	removed: string[];
+}
 
 export interface Pack {
 	id: string;
@@ -168,6 +185,14 @@ export interface Pack {
 	official: boolean;
 	busy: PackAction | null;
 	progress: Progress | null;
+	revoked: PackRevoked | null;
+	/** null = a routine update: one click. */
+	changes: PackChanges | null;
+	/** The index's publisher handle. */
+	publisher: string | null;
+	reviewed: boolean;
+	/** When this version became available, epoch ms. */
+	published: number | null;
 }
 
 /** The last polestar:// link, until the page has opened it. */
@@ -190,6 +215,8 @@ export interface Community {
 	error: string | null;
 	gameFound: boolean;
 	gameRunning: boolean;
+	/** Install routine pack updates by themselves. */
+	autoUpdate: boolean;
 	/** Installed packs first, then the others; each by title. */
 	packs: Pack[];
 	link: PackLink | null;
@@ -212,6 +239,8 @@ export interface Snapshot {
 	addons: Addons;
 	community: Community;
 	update: string | null;
+	/** The community site and recording server, when not the default. */
+	custom: { community: string | null; server: string | null };
 }
 
 export interface Rejection {
@@ -220,7 +249,7 @@ export interface Rejection {
 }
 
 export interface ActivityEntry {
-	kind: 'upload' | 'failed' | 'deleted' | 'install' | 'update' | 'repair' | 'uninstall';
+	kind: 'upload' | 'failed' | 'deleted' | 'install' | 'update' | 'repair' | 'uninstall' | 'disabled' | 'removed' | 'restored';
 	at: number;
 	account: string;
 	chunks: number;

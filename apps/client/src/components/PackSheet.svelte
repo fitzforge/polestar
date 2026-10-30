@@ -2,18 +2,27 @@
 	// What a polestar://install link asks, before anything happens: the pack's
 	// title, author, version and size and the folders it will create, with
 	// Install and Cancel. Never a silent install. A link that can't be used says
-	// why. It takes focus as it opens (on Cancel), keeps Tab inside, and Escape or
-	// the scrim closes it; while installing it shows the phase and stays open.
+	// why. The Community page opens it too (`page`), as the confirm for an update
+	// that isn't routine: a replaced guide, a new publisher, changed folders; the
+	// sheet names what changed and is itself the explicit confirm. It takes focus
+	// as it opens (on Cancel), keeps Tab inside, and Escape or the scrim closes it;
+	// while installing it shows the phase and stays open.
 	import { onMount } from 'svelte';
 	import { api, message } from '../lib/backend';
 	import { bytes } from '../lib/format';
 	import { fade, rise, swap } from '../lib/motion';
 	import { toast } from '../lib/toast.svelte';
-	import type { Community, PackLink } from '../lib/types';
+	import type { Community, Pack, PackLink } from '../lib/types';
 	import Band from './Band.svelte';
 	import Glyph from './Glyph.svelte';
 
-	let { link, community, onclose }: { link: PackLink; community: Community; onclose: () => void } = $props();
+	let {
+		link,
+		community,
+		page = false,
+		onclose,
+		ondone,
+	}: { link: PackLink; community: Community; page?: boolean; onclose: () => void; ondone?: (action: 'install' | 'update') => void } = $props();
 
 	const PHASE: Record<string, string> = { download: 'Downloading', verify: 'Checking', install: 'Installing' };
 
@@ -35,8 +44,45 @@
 						? 'Looking up the guide…'
 						: `${link.pack} isn't on ${community.site}`,
 	);
-	/** What Install does here, or null when there is nothing to do. */
-	const verb = $derived(!pack || pack.status === 'unlisted' || pack.status === 'noGame' ? null : pack.status === 'update' ? 'update' : pack.status === 'install' ? 'install' : null);
+
+	/** What the main button does here, or null when there is nothing to do. */
+	const verb = $derived.by((): 'install' | 'update' | null => {
+		if (!pack) return null;
+		switch (pack.status) {
+			case 'update':
+			case 'replaced':
+				return 'update';
+			case 'install':
+				return 'install';
+			case 'disabled':
+			case 'removed':
+				return pack.version ? 'install' : null;
+			default:
+				return null;
+		}
+	});
+	/** An update that isn't routine: the backend wants `confirm`, and this sheet is it. */
+	const confirming = $derived(verb === 'update' && (pack?.status === 'replaced' || !!pack?.changes));
+	const kind = $derived(
+		link.error
+			? 'Install link'
+			: pack?.status === 'replaced'
+				? `Replaced on ${community.site}`
+				: page && verb === 'update'
+					? `Update from ${community.site}`
+					: `Install from ${community.site}`,
+	);
+
+	/** The changes an update makes, one line each. */
+	function changeLines(p: Pack): string[] {
+		const c = p.changes;
+		if (!c) return [];
+		const lines: string[] = [];
+		if (c.publisher && !c.replaced) lines.push(`New publisher: ${c.publisher.from ?? 'unknown'} → ${c.publisher.to ?? 'unknown'}`);
+		if (c.added.length) lines.push(`New folders: ${c.added.join(', ')}`);
+		if (c.removed.length) lines.push(`Folders it no longer has: ${c.removed.join(', ')}`);
+		return lines;
+	}
 
 	let panel: HTMLElement;
 	let cancel = $state<HTMLButtonElement>();
@@ -47,7 +93,8 @@
 		failed = null;
 		started = true;
 		try {
-			toast(await api.packAction(pack.id, verb));
+			toast(await api.packAction(pack.id, verb, confirming));
+			ondone?.(verb);
 			onclose();
 		} catch (e) {
 			failed = message(e);
@@ -85,9 +132,9 @@
 <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" bind:this={panel} in:rise={{ y: 10, duration: 240 }} out:fade={{ duration: 140 }}>
 	<Band height={96}>
 		<div class="head">
-			<span class="mark"><Glyph name={link.error ? 'info' : 'flag'} size={18} color={link.error ? 'var(--warning)' : 'var(--accent)'} /></span>
+			<span class="mark"><Glyph name={link.error || pack?.status === 'replaced' ? 'info' : 'flag'} size={18} color={link.error || pack?.status === 'replaced' ? 'var(--warning)' : 'var(--accent)'} /></span>
 			<div class="titles">
-				<p class="small dim kind">{link.error ? 'Install link' : `Install from ${community.site}`}</p>
+				<p class="small dim kind">{kind}</p>
 				<h2 id="sheet-title">{heading}</h2>
 			</div>
 		</div>
@@ -105,15 +152,36 @@
 				<p class="note">{community.error ?? `No guide named ${link.pack} is listed there. It may have been taken down; look for it on the site again.`}</p>
 			{/if}
 		{:else}
-			<p class="note by">by {pack.author}{#if pack.official}<span class="chip accent">Official</span>{/if}</p>
+			<p class="note by">
+				by {pack.author}{#if pack.publisher && pack.publisher !== pack.author}<span class="muted">· shared by {pack.publisher}</span>{/if}
+				{#if pack.official}<span class="chip accent">Official</span>{:else if pack.reviewed}<span class="chip">Reviewed</span>{/if}
+			</p>
 			<dl class="facts">
-				<div><dt class="small muted">Version</dt><dd class="num">{#if pack.installed && pack.status === 'update'}{pack.installed} <span class="arrow">→</span> {/if}{pack.version ?? pack.installed}</dd></div>
+				<div><dt class="small muted">Version</dt><dd class="num">{#if pack.installed && (pack.status === 'update' || pack.status === 'replaced')}{pack.installed} <span class="arrow">→</span> {/if}{pack.version ?? pack.installed}</dd></div>
 				{#if pack.size}<div><dt class="small muted">Download</dt><dd class="num">{bytes(pack.size)}</dd></div>{/if}
 				<div class="wide">
 					<dt class="small muted">{pack.installed ? 'Its folders in AddOns' : 'It will create in AddOns'}</dt>
 					<dd>{#each pack.folders as folder (folder)}<span class="folder path">{folder}</span>{/each}</dd>
 				</div>
 			</dl>
+			{#if pack.status === 'replaced'}
+				<p class="out bad">
+					The guide you installed as ‘{pack.title}’ was replaced on {community.site} by a different guide{#if pack.changes?.publisher?.to}, from a new publisher: {pack.changes.publisher.to}{/if}. Installing puts the new one in its place. Cancel keeps yours.
+				</p>
+			{:else if verb === 'update' && pack.changes}
+				<div class="changes">
+					<p class="small muted">This update isn't routine, so it asks first:</p>
+					<ul>
+						{#each changeLines(pack) as line (line)}<li>{line}</li>{/each}
+					</ul>
+				</div>
+			{:else if pack.revoked && (pack.status === 'disabled' || pack.status === 'removed')}
+				<p class="out bad">{pack.revoked.reason}</p>
+				<p class="out">
+					{pack.status === 'disabled' ? `Turned off by ${community.site}. Its files were moved out of AddOns.` : `Removed by ${community.site}.`}
+					{#if pack.version}Version {pack.version} is still offered.{/if}
+				</p>
+			{/if}
 			{#if pack.status === 'upToDate'}
 				<p class="out">{pack.title} {pack.installed} is installed and up to date.</p>
 			{:else if pack.status === 'noGame'}
@@ -122,7 +190,7 @@
 				<p class="out bad">{pack.blocked}</p>
 			{:else if failed}
 				<p class="out bad" in:swap>{failed}</p>
-			{:else}
+			{:else if verb}
 				<p class="out">Checked against {community.site}'s signed list before anything changes. Nothing else in AddOns is touched.</p>
 			{/if}
 		{/if}
@@ -139,7 +207,7 @@
 		<button class="btn quiet" bind:this={cancel} disabled={!!busy || started} onclick={close}>{verb ? 'Cancel' : 'Close'}</button>
 		{#if verb}
 			<button class="btn primary" disabled={!!pack?.blocked || !!busy || started} title={pack?.blocked ?? undefined} onclick={install}>
-				{verb === 'update' ? `Update to ${pack?.version}` : 'Install'}
+				{pack?.status === 'replaced' ? 'Replace' : verb === 'update' ? `Update to ${pack?.version}` : pack?.installed ? `Install ${pack.version}` : 'Install'}
 			</button>
 		{/if}
 	</footer>
@@ -247,6 +315,23 @@
 	.out {
 		margin-top: var(--s4) !important;
 		max-width: 52ch;
+	}
+	.changes {
+		margin-top: var(--s4);
+		padding: var(--s2) var(--s3);
+		background: var(--inset);
+		border: 1px solid rgba(250, 191, 77, 0.3);
+	}
+	.changes p {
+		margin: 0 0 4px;
+	}
+	.changes ul {
+		margin: 0;
+		padding-left: 18px;
+		color: var(--warning);
+	}
+	.changes li {
+		overflow-wrap: anywhere;
 	}
 	footer {
 		position: relative;

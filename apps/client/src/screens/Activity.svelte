@@ -13,11 +13,12 @@
 	let entries = $state<ActivityEntry[] | null>(null);
 	let open = $state<number | null>(null);
 
-	// Reload whenever the status moves on (a new upload lands in the log) or an addon changes.
+	// Reload whenever the status moves on (a new upload lands in the log), an addon changes, or a guide does.
 	$effect(() => {
 		void snapshot.status.lastUpload;
 		void snapshot.status.kind;
 		void snapshot.addons.products.map((p) => p.installed).join();
+		void snapshot.community.packs.map((p) => `${p.status}:${p.installed}`).join();
 		api.activity().then((list) => (entries = list));
 	});
 
@@ -26,6 +27,7 @@
 		update: ['Updated', "Couldn't update"],
 		repair: ['Repaired', "Couldn't repair"],
 		uninstall: ['Removed', "Couldn't remove"],
+		restored: ['Restored', "Couldn't restore"],
 	};
 	const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' });
 
@@ -36,6 +38,8 @@
 		return null;
 	}
 
+	/** The community site turned a guide off or removed it; `message` is its reason, not a failure. */
+	const revoked = (e: ActivityEntry) => e.kind === 'disabled' || e.kind === 'removed';
 	const glyph = (e: ActivityEntry) => (e.product ? 'layers' : e.kind === 'deleted' ? 'close' : e.kind === 'failed' ? 'plug' : 'qol-upgrade');
 	const expand = (e: ActivityEntry) => (e.kind !== 'failed' && e.rejected.length > 0) || !!e.message;
 </script>
@@ -58,10 +62,14 @@
 					{@const again = entry.kind === 'failed' ? sentAgain(i) : null}
 					<div class="entry" class:open={open === i} role="listitem" style:--i={i}>
 						<button class="line" class:expandable disabled={!expandable} onclick={() => (open = open === i ? null : i)} aria-expanded={expandable ? open === i : undefined}>
-							<span class="kind"><Glyph name={glyph(entry)} size={14} color={entry.kind === 'failed' || entry.message ? 'var(--warning)' : entry.product ? 'var(--textDim)' : 'var(--accent)'} /></span>
+							<span class="kind"><Glyph name={glyph(entry)} size={14} color={entry.kind === 'failed' || entry.message || revoked(entry) ? 'var(--warning)' : entry.product ? 'var(--textDim)' : 'var(--accent)'} /></span>
 							<span class="what">
 								{#if entry.kind === 'deleted'}
 									Your data was deleted from the server
+								{:else if revoked(entry)}
+									{entry.product}{entry.version ? ` ${entry.version}` : ''} {entry.kind === 'disabled' ? 'turned off' : 'removed'} by the community site
+								{:else if entry.kind === 'restored' && !entry.message}
+									{entry.product}{entry.version ? ` ${entry.version}` : ''} restored
 								{:else if entry.product}
 									{VERB[entry.kind][entry.message ? 1 : 0]} {entry.product}{entry.version ? ` ${entry.version}` : ''}
 								{:else}
@@ -73,8 +81,12 @@
 							<span class="result">
 								{#if entry.kind === 'deleted'}
 									<span class="chip">Fresh start</span>
+								{:else if entry.kind === 'disabled'}
+									<span class="chip warning">Turned off</span>
+								{:else if entry.kind === 'removed'}
+									<span class="chip danger">Removed</span>
 								{:else if entry.product}
-									{#if entry.message}<span class="chip warning">Failed</span>{:else}<span class="chip">Addon</span>{/if}
+									{#if entry.message}<span class="chip warning">Failed</span>{:else}<span class="chip">{entry.kind === 'restored' ? 'Guide' : 'Addon'}</span>{/if}
 								{:else if entry.kind === 'failed'}
 									<span class="chip warning">{again ? `Not delivered · sent again ${again}` : 'Not delivered yet'}</span>
 								{:else}

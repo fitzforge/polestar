@@ -33,11 +33,16 @@ const FIRST_ANSWER_MS = 10_000;
 
 let linkSeen = 0;
 /** A new link opens the Community page on its pack once the intro has handed over (and once
- * the first-run setup is behind the player: until then it waits). */
+ * the first-run setup is behind the player: until then it waits). A link to the pack whose
+ * sheet is already open only counts as seen. */
 async function takeLink(s: Snapshot): Promise<void> {
 	const link = s.community.link;
 	if (!link || !s.setupDone || link.seq <= linkSeen) return;
 	linkSeen = link.seq;
+	if (app.link && !link.error && app.link.pack === link.pack) {
+		await api.packLinkDone(link.seq).catch(() => {});
+		return;
+	}
 	await afterIntro();
 	go('community');
 	app.link = link;

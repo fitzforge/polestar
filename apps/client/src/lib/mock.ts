@@ -6,7 +6,8 @@
 //   setup-saved (the saved folder broke; other installs found), setup-two,
 //   setup-scanning, optin, home, registering, uploading, offline, paused,
 //   attention, empty, running, community-off (no signing key pinned),
-//   community-link (a polestar://install link waiting), community-bad-link
+//   community-link (a polestar://install link waiting), community-bad-link,
+//   custom (a custom community site and recording server)
 
 import type { ActivityEntry, Pack, Preview, Product, Snapshot, Summary } from './types';
 
@@ -119,6 +120,7 @@ const base: Snapshot = {
 		base: 'https://polestar.guide',
 		defaultBase: 'https://polestar.guide',
 		telemetry: false,
+		autoUpdate: false,
 		checkedAt: now - 20 * MIN,
 		checking: false,
 		error: null,
@@ -128,10 +130,11 @@ const base: Snapshot = {
 		link: scene === 'community-link' ? { seq: 1, pack: 'emberway', error: null } : scene === 'community-bad-link' ? { seq: 1, pack: null, error: '"Ember_Way" isn\'t a guide name: they are 2 to 32 lowercase letters, digits and dashes. Copy the link from the guide\'s page on polestar.guide again.' } : null,
 	},
 	update: null,
+	custom: { community: null, server: null },
 };
 
 function mockPacks(): Pack[] {
-	const pack = (id: string, title: string, author: string, version: string, size: number, extra: Partial<Pack> = {}): Pack => ({
+	const pack = (id: string, title: string, author: string, version: string | null, size: number, extra: Partial<Pack> = {}): Pack => ({
 		id,
 		title,
 		author,
@@ -146,13 +149,43 @@ function mockPacks(): Pack[] {
 		official: false,
 		busy: null,
 		progress: null,
+		revoked: null,
+		changes: null,
+		publisher: author,
+		reviewed: false,
+		published: now - 3 * 86_400_000,
 		...extra,
 	});
 	return [
-		pack('lightforge', 'Lightforge Leveling', 'Brannis', '1.2.0', 9671, { installed: '1.1.0', status: 'update', changelog: '## 1.2.0\n\n- Westfall: the Defias loop now ends at Sentinel Hill.\n- Fewer runs back to Goldshire.' }),
+		pack('lightforge', 'Lightforge Leveling', 'Brannis', '1.2.0', 9671, { installed: '1.1.0', status: 'update', reviewed: true, changelog: '## 1.2.0\n\n- Westfall: the Defias loop now ends at Sentinel Hill.\n- Fewer runs back to Goldshire.' }),
 		pack('wayfarer', "Wayfarer's Atlas", 'Odile', '1.0.0', 7330, { installed: '1.0.0', status: 'upToDate', homepage: 'https://example.org/wayfarer', folders: ['PolestarPack_wayfarer', 'PolestarPack_wayfarer_deDE'] }),
+		pack('stonetalon', 'Stonetalon Shortcuts', 'Rhea', '2.0.0', 8120, {
+			installed: '1.4.0',
+			status: 'update',
+			publisher: 'rhea-guides',
+			folders: ['PolestarPack_stonetalon', 'PolestarPack_stonetalon_maps'],
+			changes: { replaced: false, publisher: { from: 'Rhea', to: 'rhea-guides' }, added: ['PolestarPack_stonetalon_maps'], removed: [] },
+		}),
+		pack('barrens-run', 'Barrens Run', 'Quill', '3.0.0', 11_040, {
+			installed: '1.3.2',
+			status: 'replaced',
+			publisher: 'quickpath',
+			changes: { replaced: true, publisher: { from: 'Grell', to: 'quickpath' }, added: [], removed: [] },
+		}),
+		pack('moonrise', 'Moonrise Questing', 'Selka', null, 0, {
+			installed: '0.9.0',
+			status: 'disabled',
+			size: null,
+			changelog: null,
+			revoked: { reason: 'This version sends players into an unwinnable escort loop.', at: now - 2 * 60 * MIN, action: 'disable' },
+		}),
+		pack('ashfall', 'Ashfall Dailies', 'Varn', '1.1.0', 6400, {
+			installed: '1.0.0',
+			status: 'removed',
+			revoked: { reason: 'Taken down: it copied another guide without permission.', at: now - 26 * 60 * MIN, action: 'remove' },
+		}),
 		pack('durotar-dash', 'Durotar Dash', 'Tester', '1.0.0', 10_311),
-		pack('emberway', 'Emberway Routes', 'Ashka', '1.0.0', 10_251, { official: true }),
+		pack('emberway', 'Emberway Routes', 'Ashka', '1.0.0', 10_251, { official: true, reviewed: true }),
 		pack('hearthside', 'Hearthside Professions', 'Mira', '1.0.0', 12_169, { blocked: 'Needs Polestar 0.2.8 or newer; you have 0.2.6. Update it on the Addons page.' }),
 		pack('ironvault', 'Ironvault Dungeons', 'Kel', '1.0.0', 6958),
 	];
@@ -221,6 +254,12 @@ function initial(): Snapshot {
 			s.week = null;
 			s.status = { ...s.status, lastUpload: null };
 			break;
+		case 'custom':
+			s.custom = { community: 'https://guides.example.net', server: 'https://data.example.net:8443' };
+			s.community.base = 'https://guides.example.net';
+			s.community.site = 'guides.example.net';
+			s.serverUrl = 'https://data.example.net:8443';
+			break;
 		case 'home':
 		default:
 			s.pending = 12;
@@ -242,6 +281,9 @@ const activity: ActivityEntry[] =
 				{ kind: 'failed', at: now - 3 * 60 * MIN - 9 * MIN, account: 'WOW1', chunks: 6, records: 702, bytes: 40_210, accepted: [], duplicate: [], rejected: [], message: 'Can\'t reach the recording server. Check your internet connection.' },
 				{ kind: 'update', at: now - 20 * 60 * MIN, account: '', chunks: 0, records: 0, bytes: 0, accepted: [], duplicate: [], rejected: [], message: null, product: 'Polestar Recorder', version: '0.3.0' },
 				{ kind: 'install', at: now - 22 * 60 * MIN, account: '', chunks: 0, records: 0, bytes: 0, accepted: [], duplicate: [], rejected: [], message: 'Downloading Polestar-0.2.7.zip failed: connection reset by peer', product: 'Polestar', version: '0.2.7' },
+				{ kind: 'disabled', at: now - 2 * 60 * MIN, account: '', chunks: 0, records: 0, bytes: 0, accepted: [], duplicate: [], rejected: [], message: 'This version sends players into an unwinnable escort loop.', product: 'Moonrise Questing', version: '0.9.0' },
+				{ kind: 'restored', at: now - 2 * 60 * MIN + 30_000, account: '', chunks: 0, records: 0, bytes: 0, accepted: [], duplicate: [], rejected: [], message: 'Moonrise Questing 0.9.0 is still turned off by polestar.guide, so it stays off.', product: 'Moonrise Questing', version: '0.9.0' },
+				{ kind: 'removed', at: now - 26 * 60 * MIN + 60_000, account: '', chunks: 0, records: 0, bytes: 0, accepted: [], duplicate: [], rejected: [], message: 'Taken down: it copied another guide without permission.', product: 'Ashfall Dailies', version: '1.0.0' },
 				{ kind: 'upload', at: now - 26 * 60 * MIN, account: 'WOW1', chunks: 14, records: 1820, bytes: 98_011, accepted: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], duplicate: [23, 24], rejected: [], message: null },
 				{ kind: 'upload', at: now - 3 * 24 * 60 * MIN, account: 'WOW1', chunks: 10, records: 1647, bytes: 84_930, accepted: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], duplicate: [], rejected: [], message: null },
 			];
@@ -339,9 +381,19 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 	},
 	pack_action: async (a) => {
 		const p = snapshot.community.packs.find((x) => x.id === a.id)!;
+		if (a.action === 'update' && p.changes && !a.confirm) {
+			throw `${p.title} ${p.version} isn't a routine update; confirm it first.`;
+		}
+		if (a.action === 'discard') {
+			snapshot.community.packs = snapshot.community.packs
+				.map((x) => (x.id === p.id ? { ...x, installed: null, status: 'install' as const, revoked: null } : x))
+				.filter((x) => x.id !== p.id || x.version !== null);
+			emit();
+			return p.status === 'removed' ? `Dismissed the notice for ${p.title}.` : `Deleted the kept copy of ${p.title}.`;
+		}
 		p.busy = a.action as Pack['busy'];
-		if (a.action === 'uninstall') {
-			p.progress = { phase: 'remove', done: 0, total: null };
+		if (a.action === 'uninstall' || a.action === 'restore') {
+			p.progress = { phase: a.action === 'restore' ? 'install' : 'remove', done: 0, total: null };
 			emit();
 			await sleep(600);
 		} else {
@@ -359,10 +411,22 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 		}
 		p.busy = null;
 		p.progress = null;
+		if (a.action === 'restore') {
+			p.status = p.version && p.version !== p.installed ? 'update' : 'upToDate';
+			p.revoked = null;
+			emit();
+			return `${p.title} ${p.installed} restored. Restart the game (or /reload) to load it.`;
+		}
 		p.installed = a.action === 'uninstall' ? null : p.version;
 		p.status = a.action === 'uninstall' ? 'install' : 'upToDate';
+		p.revoked = null;
+		p.changes = null;
 		emit();
 		return a.action === 'uninstall' ? `${p.title} removed.` : `${p.title} ${p.version} installed. Restart the game (or /reload) to load it.`;
+	},
+	set_pack_auto_update: (a) => {
+		snapshot.community.autoUpdate = a.enabled as boolean;
+		emit();
 	},
 	set_pack_telemetry: (a) => {
 		snapshot.community.telemetry = a.enabled as boolean;

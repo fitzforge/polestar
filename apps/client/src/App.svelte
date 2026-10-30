@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { app, SCREENS } from './lib/app.svelte';
+	import { app, go, SCREENS } from './lib/app.svelte';
 	import { diagnostics, showFrames } from './lib/diagnostics.svelte';
 	import FrameMeter from './components/FrameMeter.svelte';
 	import { fade, page } from './lib/motion';
@@ -16,9 +16,28 @@
 	import Sending from './screens/Sending.svelte';
 	import Settings from './screens/Settings.svelte';
 	import OptIn from './components/OptIn.svelte';
+	import Glyph from './components/Glyph.svelte';
 
 	/** The sky turns a little with each page down the sidebar. */
 	const drift = $derived(SCREENS.indexOf(app.screen) * 48);
+
+	/** An address's host, as the banner names it. */
+	function host(url: string): string {
+		try {
+			return new URL(url).host || url;
+		} catch {
+			return url;
+		}
+	}
+	/** Not the default community site or recording server: said on every page, and can't be dismissed. */
+	const custom = $derived(
+		app.snapshot
+			? [
+					app.snapshot.custom.community && `Using a custom community site: ${host(app.snapshot.custom.community)}`,
+					app.snapshot.custom.server && `Sending recordings to a custom server: ${host(app.snapshot.custom.server)}`,
+				].filter((line): line is string => !!line)
+			: [],
+	);
 </script>
 
 {#snippet pageFault(error: unknown, reset: () => void)}
@@ -42,6 +61,7 @@
 <TitleBar />
 {#if diagnostics.frames}<FrameMeter />{/if}
 
+<div class="frame">
 {#if !app.snapshot}
 	<div class="starting" out:fade={{ duration: 160 }}>
 		<Band height={600} />
@@ -81,8 +101,46 @@
 		</main>
 	</div>
 {/if}
+{#if custom.length > 0}
+	<div class="custom" role="status">
+		<Glyph name="info" size={13} color="var(--warning)" />
+		<p class="small">{custom.join(' · ')}</p>
+		{#if app.snapshot?.setupDone}
+			<button class="link small" onclick={() => go('settings')}>Settings</button>
+		{/if}
+	</div>
+{/if}
+</div>
 
 <style>
+	.frame {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+	.frame > :not(.custom) {
+		flex: 1;
+		min-height: 0;
+	}
+	.custom {
+		display: flex;
+		align-items: center;
+		gap: var(--s2);
+		flex: none;
+		min-height: 28px;
+		padding: 4px var(--s4);
+		background: var(--chipWarning);
+		border-top: 1px solid rgba(250, 191, 77, 0.3);
+		color: var(--warning);
+	}
+	.custom p {
+		flex: 1;
+		min-width: 0;
+		margin: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 	.shell {
 		display: grid;
 		grid-template-columns: 216px minmax(0, 1fr);
