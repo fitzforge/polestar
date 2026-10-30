@@ -43,6 +43,9 @@ pub struct Settings {
 	/// When they agreed, in epoch milliseconds.
 	pub consent_at: Option<i64>,
 	pub paused: bool,
+	/// The player has turned sharing on at least once: from then on the client tells the
+	/// Recorder whether to record (Ack.lua's `PolestarRecorderShare`); before, it says nothing.
+	pub ever_shared: bool,
 	/// The WoW folder the player picked or confirmed; `None` = auto-detect.
 	pub wow_folder: Option<PathBuf>,
 	/// The recording server ([`DEFAULT_SERVER`]; a developer's own in a debug build's Settings > Advanced).
@@ -112,6 +115,7 @@ impl Default for Settings {
 			consent: false,
 			consent_at: None,
 			paused: false,
+			ever_shared: false,
 			wow_folder: None,
 			server_url: DEFAULT_SERVER.to_owned(),
 			channel: Channel::Stable,

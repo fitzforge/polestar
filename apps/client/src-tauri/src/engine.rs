@@ -681,7 +681,7 @@ impl Engine {
 	fn sync_share(&self) {
 		let state = self.lock();
 		let Some(dir) = state.install.as_ref().map(|i| i.addons_dir().join(install::ADDON)) else { return };
-		let share = sharing(&state.settings);
+		let Some(share) = sharing(&state.settings) else { return };
 		drop(state);
 		if !dir.is_dir() {
 			return;
@@ -902,9 +902,11 @@ fn backoff_secs(attempts: u32, retry_after: Option<u64>) -> u64 {
 	(BACKOFF_MIN << attempts.min(10)).min(BACKOFF_MAX).max(retry_after.unwrap_or(0).min(RETRY_AFTER_503_MAX))
 }
 
-/// The Recorder should record: the player shares and has not paused uploads.
-fn sharing(settings: &Settings) -> bool {
-	settings.consent && !settings.paused
+/// What Ack.lua tells the Recorder: nothing (`None`) until the player has shared once, so a
+/// `/psrec on` of someone who never opted in stays theirs; then whether they share and have not
+/// paused uploads. (`consent` covers settings saved before `ever_shared` existed.)
+fn sharing(settings: &Settings) -> Option<bool> {
+	(settings.ever_shared || settings.consent).then_some(settings.consent && !settings.paused)
 }
 
 /// `address`'s host when it is not `default` (both normalized): the banner names it.
@@ -1237,6 +1239,19 @@ mod tests {
 		assert_eq!(confirmed_ack(&sent, &[3, u64::MAX], &[]), Some(3));
 		assert_eq!(confirmed_ack(&sent, &[9], &[2]), None);
 		assert_eq!(confirmed_ack(&[], &[1], &[]), None);
+	}
+
+	#[test]
+	fn no_share_flag_until_the_player_has_shared() {
+		let at = |consent, paused, ever_shared| sharing(&Settings { consent, paused, ever_shared, ..Settings::default() });
+		// Never opted in: the Recorder is left to /psrec.
+		assert_eq!(at(false, false, false), None);
+		assert_eq!(at(true, false, true), Some(true));
+		assert_eq!(at(true, true, true), Some(false));
+		// Stopped sharing after having shared: off.
+		assert_eq!(at(false, false, true), Some(false));
+		// Consent saved before ever_shared existed counts.
+		assert_eq!(at(true, false, false), Some(true));
 	}
 
 	#[test]

@@ -139,9 +139,10 @@ the upload API, and the public list of what is never collected.
   It then records in
   `Interface/AddOns/Polestar_Recorder/Ack.lua` the highest chunk the server
   accepted or already had among the ones that request sent, per Recorder
-  install, so the addon can free the space. The same file carries
-  `PolestarRecorderShare = true|false` (sharing on and not paused), written
-  whenever that changes and with every ack: Start sharing is the one
+  install, so the addon can free the space. Once the player has turned
+  sharing on at least once (`everShared` in `settings.json`), the same file
+  carries `PolestarRecorderShare = true|false` (sharing on and not paused),
+  written whenever that changes and with every ack: Start sharing is the one
   opt-in, and at the next login (or `/reload`) the Recorder turns itself on
   and says so, unless the player typed `/psrec off` (docs/RECORDING.md "Ack
   file"). **Status** says what it is doing (sharing on, sending, waiting for

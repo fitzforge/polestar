@@ -73,12 +73,14 @@ Polestar Client merges its entry into whatever the file holds. A lost ack
 only means a chunk is uploaded twice; the server ignores a repeated
 `(install, seq)`.
 
-`PolestarRecorderShare` is `true` while sharing is on in Polestar Client and
-uploads are not paused, `false` otherwise; the client writes it whenever that
-changes and with every ack. At login the Recorder reads it: `true` turns
-recording on (saying so once in chat) unless `optout` is set, `false` turns it
-off (without setting `optout`), and no flag (no Polestar Client) leaves
-`enabled` as the player set it. So one opt-in, Start sharing in the client,
+`PolestarRecorderShare` is written only once the player has turned sharing on
+in Polestar Client at least once (before that the file has no flag, so a
+`/psrec on` of someone who never opted in is left alone). From then on it is
+`true` while sharing is on and uploads are not paused, `false` otherwise; the
+client writes it whenever that changes and with every ack. At login the
+Recorder reads it: `true` turns recording on (saying so once in chat) unless
+`optout` is set, `false` turns it off (without setting `optout`), and no flag
+leaves `enabled` as the player set it. So one opt-in, Start sharing in the client,
 is enough; `/psrec off` stays the player's last word until `/psrec on`.
 
 ### Field encoding

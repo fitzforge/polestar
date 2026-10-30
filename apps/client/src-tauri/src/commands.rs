@@ -192,6 +192,7 @@ pub fn finish_setup(engine: Engine_) -> Result<(), String> {
 pub fn set_sharing(engine: Engine_, enabled: bool) -> Result<(), String> {
 	engine.save_settings(|s| {
 		s.consent = enabled;
+		s.ever_shared |= enabled;
 		s.consent_at = enabled.then(now_ms);
 		s.paused = false;
 	})?;

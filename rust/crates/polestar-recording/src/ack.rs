@@ -2,8 +2,8 @@
 //! written by the Polestar Client so the addon can delete chunks the server has, and learn
 //! whether the player shares. One game folder holds every WoW account's install, so the file maps
 //! each install id to its highest acknowledged chunk:
-//! `PolestarRecorderAck = { ["<install>"] = <upto>, ... }`, then
-//! `PolestarRecorderShare = true|false` (sharing on and not paused in the client).
+//! `PolestarRecorderAck = { ["<install>"] = <upto>, ... }`, then, once the player has shared at
+//! least once, `PolestarRecorderShare = true|false` (sharing on and not paused in the client).
 
 use std::collections::BTreeMap;
 use std::io::{self, Write};
@@ -17,8 +17,8 @@ pub const FILE_NAME: &str = "Ack.lua";
 /// Records that `install`'s chunks up to `upto` are on the server: reads the ack file in
 /// `addon_dir` (the Polestar_Recorder addon folder), raises this install's entry (never lowers
 /// it), keeps the other installs' entries, and writes the file atomically (a temporary file, then
-/// a rename) with the share flag `share`.
-pub fn write(addon_dir: &Path, install: &str, upto: u64, share: bool) -> io::Result<()> {
+/// a rename) with the share flag `share` (`None`: no flag, the player never shared).
+pub fn write(addon_dir: &Path, install: &str, upto: u64, share: Option<bool>) -> io::Result<()> {
 	if !valid_install(install) {
 		return Err(io::Error::new(io::ErrorKind::InvalidInput, format!("not an install id: {install:?}")));
 	}
@@ -30,15 +30,18 @@ pub fn write(addon_dir: &Path, install: &str, upto: u64, share: bool) -> io::Res
 
 /// Writes the share flag, keeping every install's ack.
 pub fn write_share(addon_dir: &Path, share: bool) -> io::Result<()> {
-	save(addon_dir, &read(addon_dir), share)
+	save(addon_dir, &read(addon_dir), Some(share))
 }
 
-fn save(addon_dir: &Path, acks: &BTreeMap<String, u64>, share: bool) -> io::Result<()> {
+fn save(addon_dir: &Path, acks: &BTreeMap<String, u64>, share: Option<bool>) -> io::Result<()> {
 	let mut text = String::from("PolestarRecorderAck = {\n");
 	for (i, n) in acks {
 		text.push_str(&format!("\t[\"{i}\"] = {n},\n"));
 	}
-	text.push_str(&format!("}}\nPolestarRecorderShare = {share}\n"));
+	text.push_str("}\n");
+	if let Some(share) = share {
+		text.push_str(&format!("PolestarRecorderShare = {share}\n"));
+	}
 	let tmp = addon_dir.join(format!("{FILE_NAME}.tmp"));
 	{
 		let mut f = std::fs::File::create(&tmp)?;
@@ -89,19 +92,23 @@ mod tests {
 		std::fs::write(dir.join(FILE_NAME), "PolestarRecorderAck = nil\n").unwrap();
 		assert!(read(&dir).is_empty());
 		assert_eq!(read_share(&dir), None);
-		write(&dir, "k3j9x0q2m7ab", 37, true).unwrap();
+		// A player who never shared: acks only, no flag.
+		write(&dir, "k3j9x0q2m7ab", 30, None).unwrap();
+		assert_eq!(std::fs::read_to_string(dir.join(FILE_NAME)).unwrap(), "PolestarRecorderAck = {\n\t[\"k3j9x0q2m7ab\"] = 30,\n}\n");
+		assert_eq!(read_share(&dir), None);
+		write(&dir, "k3j9x0q2m7ab", 37, Some(true)).unwrap();
 		assert_eq!(std::fs::read_to_string(dir.join(FILE_NAME)).unwrap(), "PolestarRecorderAck = {\n\t[\"k3j9x0q2m7ab\"] = 37,\n}\nPolestarRecorderShare = true\n");
 		assert!(!dir.join("Ack.lua.tmp").exists());
 		assert_eq!(read_share(&dir), Some(true));
 		// A second account's install keeps the first's entry.
-		write(&dir, "0000aaaabbbb", 5, true).unwrap();
+		write(&dir, "0000aaaabbbb", 5, Some(true)).unwrap();
 		let acks = read(&dir);
 		assert_eq!((acks["k3j9x0q2m7ab"], acks["0000aaaabbbb"]), (37, 5));
 		// Raised, never lowered.
-		write(&dir, "k3j9x0q2m7ab", 41, true).unwrap();
-		write(&dir, "k3j9x0q2m7ab", 12, true).unwrap();
+		write(&dir, "k3j9x0q2m7ab", 41, Some(true)).unwrap();
+		write(&dir, "k3j9x0q2m7ab", 12, Some(true)).unwrap();
 		assert_eq!(read(&dir)["k3j9x0q2m7ab"], 41);
-		assert_eq!(write(&dir, "\"; os.exit() --", 1, true).unwrap_err().kind(), io::ErrorKind::InvalidInput);
+		assert_eq!(write(&dir, "\"; os.exit() --", 1, Some(true)).unwrap_err().kind(), io::ErrorKind::InvalidInput);
 		assert_eq!(read(&dir).len(), 2);
 		// Sharing turned off: the flag changes, the acks stay.
 		write_share(&dir, false).unwrap();
