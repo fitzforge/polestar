@@ -1161,8 +1161,9 @@ recordings; [THIRD_PARTY.md](THIRD_PARTY.md) lists every input, its license
 and what a release holds from it. The guides and the quest markers carry
 facts (titles, givers, positions, levels) from QuestieDB's Forever store,
 credited there. Inputs whose terms do not allow redistribution are read from
-your installed copies at build time and their outputs stay local: the Codex
-pack and the zone crossings pack are gitignored and never packaged. No game
+your installed copies at build time and their outputs stay local: a Codex
+built with those extras (`--local-extras`) and the zone crossings pack are
+never packaged; the Codex that ships is built from release-safe inputs only. No game
 art ships with Polestar: zone paintings are read from the player's own
 client, and every texture is drawn in code. The screenshots in this README
 show the game (© Blizzard Entertainment) and are not part of the release.
