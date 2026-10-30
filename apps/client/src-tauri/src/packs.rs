@@ -295,12 +295,13 @@ impl Index {
 	/// The revocation that covers pack `id` at `version`, and what to do about it. `uid` is the
 	/// one the install was pinned to; an install with none yet (made before pins, and its pack no
 	/// longer listed) is matched by id and version alone, and then only ever turned off, never
-	/// deleted.
+	/// deleted. When several entries cover it, `remove` wins over `disable`.
 	pub fn revocation(&self, id: &str, uid: Option<&str>, version: Option<&str>) -> Option<(&Revoked, RevokeAction)> {
-		self.revoked.iter().filter(|r| r.id == id && r.covers(version)).find_map(|r| match uid {
+		let hits = self.revoked.iter().filter(|r| r.id == id && r.covers(version)).filter_map(|r| match uid {
 			Some(uid) => (r.uid == uid).then_some((r, r.action)),
 			None => Some((r, RevokeAction::Disable)),
-		})
+		});
+		hits.reduce(|best, hit| if best.1 != RevokeAction::Remove && hit.1 == RevokeAction::Remove { hit } else { best })
 	}
 }
 
@@ -1528,6 +1529,12 @@ mod tests {
 		assert!(index.revocation("ember", Some("pk_old"), Some("0.1")).is_some());
 		// An install without a pinned uid is only ever turned off.
 		assert_eq!(index.revocation("ember", None, Some("1.2.0")).map(|(_, a)| a), Some(RevokeAction::Disable));
+		// Two entries cover the same version (one version turned off, then the whole guide taken
+		// down): remove wins, whichever comes first.
+		let off = r(serde_json::json!({ "id": "ash", "uid": "pk_ash", "versions": ["1.0.0"], "reason": "a", "action": "disable" })).unwrap();
+		let gone = r(serde_json::json!({ "id": "ash", "uid": "pk_ash", "versions": "*", "reason": "b", "action": "remove" })).unwrap();
+		let index = Index { generated: 0, expires: 1, packs: Vec::new(), revoked: vec![off, gone] };
+		assert_eq!(index.revocation("ash", Some("pk_ash"), Some("1.0.0")).map(|(r, a)| (r.reason.as_str(), a)), Some(("b", RevokeAction::Remove)));
 	}
 
 	#[test]
