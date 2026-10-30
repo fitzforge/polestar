@@ -45,7 +45,7 @@ Free, open-source guides for World of Warcraft: Forever: leveling routes for eve
 - [ ] **Source URL:** https://github.com/fitzforge/polestar
 - [ ] **Issues URL:** https://github.com/fitzforge/polestar/issues
 - [ ] **Wiki or docs URL** (if asked): https://github.com/fitzforge/polestar/blob/main/docs/README.md
-- [ ] **Discord** (if the form has a field for it): https://discord.gg/vMbee6F2e9
+- [ ] **Discord** (if the form has a field for it): https://discord.gg/polestar
 - [ ] **Donation:** Ko-fi, `0xfitz` (https://ko-fi.com/0xfitz); the description's "Support Polestar" section links the same page
 - [ ] **Experimental:** off, so the project syncs to the CurseForge app
 - [ ] **Allow comments:** on

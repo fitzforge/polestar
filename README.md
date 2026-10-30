@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  On <a href="https://www.curseforge.com/wow/addons/polestar-guides"><b>CurseForge</b></a>, or from the Releases page. Questions, feedback and bug reports: join the <a href="https://discord.gg/vMbee6F2e9"><b>Polestar Discord</b></a>.
+  On <a href="https://www.curseforge.com/wow/addons/polestar-guides"><b>CurseForge</b></a>, or from the Releases page. Questions, feedback and bug reports: join the <a href="https://discord.gg/polestar"><b>Polestar Discord</b></a>.
   Polestar is free; if it saves you a few hours, you can <a href="https://ko-fi.com/0xfitz"><b>buy me a coffee</b></a>.
 </p>
 
@@ -25,7 +25,7 @@
   <img alt="World of Warcraft: Forever, client 1.60.1" src="https://img.shields.io/badge/WoW-Forever_1.60.1-94c9ff?style=flat-square&labelColor=232a3f">
   <img alt="Version 0.2.6, beta" src="https://img.shields.io/badge/version-0.2.6_beta-fabf4d?style=flat-square&labelColor=232a3f">
   <a href="https://github.com/fitzforge/polestar/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/fitzforge/polestar/actions/workflows/ci.yml/badge.svg"></a>
-  <a href="https://discord.gg/vMbee6F2e9"><img alt="Discord: join the Polestar community" src="https://img.shields.io/badge/Discord-join_us-5865f2?style=flat-square&logo=discord&logoColor=white&labelColor=232a3f"></a>
+  <a href="https://discord.gg/polestar"><img alt="Discord: join the Polestar community" src="https://img.shields.io/badge/Discord-join_us-5865f2?style=flat-square&logo=discord&logoColor=white&labelColor=232a3f"></a>
   <a href="https://www.curseforge.com/wow/addons/polestar-guides"><img alt="CurseForge: Polestar Guides" src="https://img.shields.io/badge/CurseForge-Polestar_Guides-f16436?style=flat-square&logo=curseforge&logoColor=white&labelColor=232a3f"></a>
   <a href="https://ko-fi.com/0xfitz"><img alt="Ko-fi: buy me a coffee" src="https://img.shields.io/badge/Ko--fi-buy_me_a_coffee-ff5e5b?style=flat-square&logo=kofi&logoColor=white&labelColor=232a3f"></a>
 </p>
@@ -40,7 +40,7 @@
   <a href="#building-from-source">Building from source</a> ·
   <a href="#contributing">Contributing</a> ·
   <a href="#data-and-licensing">Data and licensing</a> ·
-  <a href="https://discord.gg/vMbee6F2e9">Discord</a>
+  <a href="https://discord.gg/polestar">Discord</a>
 </p>
 
 <table align="center">
@@ -98,7 +98,7 @@ Good to know:
 - Something wrong? Click the bug in the guide window, beside Skip: say what
   went wrong; the report already holds the step, where you stand, your other
   addons and the versions. **Copy report** and post it in **#bugs** on the
-  [Polestar Discord](https://discord.gg/vMbee6F2e9) — a bot files it for the
+  [Polestar Discord](https://discord.gg/polestar) — a bot files it for the
   developers and replies in your thread when it's fixed. **Get the invite** is
   there if you're not in the Discord yet. Have a GitHub account?
   **Open on GitHub** pre-fills a new issue with your report. `/polestar report`
@@ -994,7 +994,7 @@ scope (best-in-slot lists, loot browsing, talent builds), and
 Issues and pull requests are welcome, guide fixes most of all: a step in the
 wrong order, a quest that is not where the guide says, a tip that would have
 saved you a minute. Questions and ideas are welcome on the
-[Polestar Discord](https://discord.gg/vMbee6F2e9).
+[Polestar Discord](https://discord.gg/polestar).
 
 - **Found a wrong step?** A guide's title names its file under
   `guides/forever/`; fix the step, run `forge guide lint` and

@@ -77,7 +77,7 @@ function Nav.ArrowFrameCoords(index)
 	return col * CELL / SHEET, (col + 1) * CELL / SHEET, row * CELL / SHEET, (row + 1) * CELL / SHEET
 end
 
-local WIDTH, TEXT_H = 200, 52 -- the frame: the dial, and the distance and label under it
+local WIDTH, TEXT_H = 200, 66 -- the frame: the dial, and the distance and label under it
 
 local frame = CreateFrame("Frame", "PolestarNavArrow", UIParent)
 frame:SetSize(WIDTH, DIAL + TEXT_H)
@@ -215,18 +215,18 @@ glass:SetScript("OnUpdate", function(_, elapsed)
 end)
 
 local distText = frame:CreateFontString(nil, "OVERLAY")
-distText:SetPoint("TOP", dial, "BOTTOM", 0, -2)
+distText:SetPoint("TOP", dial, "BOTTOM", 0, -12) -- clear of the dart's tip and the 3D arrow's shadow
 distText:SetJustifyH("CENTER")
 
 local labelText = frame:CreateFontString(nil, "OVERLAY")
-labelText:SetPoint("TOP", distText, "BOTTOM", 0, -3)
+labelText:SetPoint("TOP", distText, "BOTTOM", 0, -5)
 labelText:SetWidth(200)
 labelText:SetJustifyH("CENTER")
 labelText:SetWordWrap(true)
 labelText:SetMaxLines(2)
 
 local etaText = frame:CreateFontString(nil, "OVERLAY")
-etaText:SetPoint("TOP", labelText, "BOTTOM", 0, -2)
+etaText:SetPoint("TOP", labelText, "BOTTOM", 0, -4)
 etaText:SetJustifyH("CENTER")
 
 local Arrow = {

@@ -11,11 +11,13 @@ use std::path::{Path, PathBuf};
 const ALLOWED_GLOBAL: &str = r"^(Polestar|PolestarDB|PolestarCharDB|PolestarRecorderDB|PolestarRecorderCharDB|PolestarRecorderAck|PolestarRecorder_Command|Polestar_NavEngine|PolestarPathData|PolestarNavChokepoints|SLASH_POLESTAR\d+|SLASH_POLESTARREC\d+|SLASH_POLESTARWAY\d+|BINDING_HEADER_POLESTAR|BINDING_NAME_POLESTAR_\w+)$";
 
 // Globals one file may write: the TomTom stand-in owns `TomTom` while TomTom is not installed; the walking
-// router's cost table is `Polestar_NavCosts` (tools and the eval harness read it).
+// router's cost table is `Polestar_NavCosts` (tools and the eval harness read it); the addon compartment
+// calls the handlers the .toc names (`AddonCompartmentFunc` and friends), which must be globals.
 fn file_globals(rel: &str) -> &'static [&'static str] {
 	match rel {
 		"addon/Polestar/Nav/Journey.lua" => &["TomTom"],
 		"addon/Polestar_Nav/Routing/Costs.lua" => &["Polestar_NavCosts"],
+		"addon/Polestar/Maps/MinimapButton.lua" => &["Polestar_OnAddonCompartmentClick", "Polestar_OnAddonCompartmentEnter", "Polestar_OnAddonCompartmentLeave"],
 		_ => &[],
 	}
 }

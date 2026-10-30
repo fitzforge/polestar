@@ -33,7 +33,7 @@ menu, with the arrow, the map markers and everything else Polestar does.
 | **Tested by Polestar** | yes | no: Polestar does not test or vouch for them |
 | **How you get them** | they come with Polestar | a separate addon you install yourself |
 | **Where they show** | the guide menu's categories (Leveling, Professions…) | the guide menu, under **Community guides** |
-| **Where to report a problem** | the [Polestar Discord](https://discord.gg/vMbee6F2e9) or GitHub | the addon's author, where they publish it |
+| **Where to report a problem** | the [Polestar Discord](https://discord.gg/polestar) or GitHub | the addon's author, where they publish it |
 
 A community addon only adds guides: it never replaces Polestar's own or
 another community addon's. Polestar does not ship, host or recommend any;
@@ -391,4 +391,4 @@ strings"](PACK_FORMAT.md#import-strings). Strings are covered by the same
 | Know exactly what the tools write | [PACK_FORMAT.md](PACK_FORMAT.md) |
 
 Questions, or a community addon to show? Players and authors meet on the
-[Polestar Discord](https://discord.gg/vMbee6F2e9).
+[Polestar Discord](https://discord.gg/polestar).

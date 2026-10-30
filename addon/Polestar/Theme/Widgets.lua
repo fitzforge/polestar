@@ -1,9 +1,10 @@
 -- Polestar.Widgets: the widget kit the guide window, picker and options are
 -- built from. Every piece paints itself from Polestar.Theme.
 --
--- Setting controls (Toggle, Slider, Dropdown, Swatch) are grid rows, 40px
--- high, label left and control right; their description is the row's
--- tooltip. Each is bound to a settings path: it reads Polestar.Get, writes
+-- Setting controls (Toggle, Slider, Dropdown, Swatch) are rows, 40px high
+-- at least, label left and control right; their description is the row's
+-- tooltip, or shown under the label (W.RowDetails: the options window).
+-- Each is bound to a settings path: it reads Polestar.Get, writes
 -- Polestar.Set, and refreshes on SETTING_CHANGED, so a change made anywhere
 -- (slash command, another control, a reset) shows up everywhere.
 --
@@ -374,18 +375,43 @@ function W.Button(parent, text, onClick, opts)
 			if self.psBorder then for i = 1, 4 do self.psBorder[i]:Hide() end end
 			if icon then icon:SetVertexColor(Theme.Color("buttonText")) end
 			Theme.SetShadow(self.Label, true)
+			if rawget(self, "psTopHi") then self.psTopHi:Hide() end
 			return
 		end
+		local d = self.psSkin
+		local hi = rawget(self, "psTopHi")
 		if self.psPrimary then
-			local d = self.psSkin
 			local r, g, bb = Theme.Accent()
 			if d and d.bg then d.bg:SetVertexColor(r, g, bb, 1) end
 			if self.psBorder then for i = 1, 4 do self.psBorder[i]:SetVertexColor(r, g, bb, 1) end end
 			W.Uncolor(self.Label)
 			self.Label:SetTextColor(Theme.Color("onAccent"))
 			if icon then icon:SetVertexColor(Theme.Color("onAccent")) end
-		elseif icon then
-			icon:SetVertexColor(Theme.Color(self.psDanger and "danger" or "textDim"))
+			-- The house primary: one lit line inside its top edge.
+			if Theme.SkinKey() == "polestar" and not self.psGhost then
+				if not hi then
+					hi = self:CreateTexture(nil, "ARTWORK", nil, 7)
+					hi:SetTexture(WHITE)
+					hi:SetPoint("TOPLEFT", self, "TOPLEFT", 1, -1)
+					hi:SetPoint("TOPRIGHT", self, "TOPRIGHT", -1, -1)
+					self.psTopHi = hi
+				end
+				hi:SetHeight(Theme.Pixel(self))
+				hi:SetVertexColor(1, 1, 1, 0.55)
+				hi:Show()
+			elseif hi then
+				hi:Hide()
+			end
+		else
+			if hi then hi:Hide() end
+			-- The house danger button: red text over a red hairline and the
+			-- faintest red ground.
+			if self.psDanger and not self.psGhost and Theme.SkinKey() == "polestar" then
+				local r, g, bb = Theme.Color("danger")
+				if d and d.bg then d.bg:SetVertexColor(r, g, bb, 0.07) end
+				if self.psBorder then for i = 1, 4 do self.psBorder[i]:SetVertexColor(r, g, bb, 0.45) end end
+			end
+			if icon then icon:SetVertexColor(Theme.Color(self.psDanger and "danger" or "textDim")) end
 		end
 		Theme.SetShadow(self.Label, not self.psPrimary)
 	end)
@@ -409,7 +435,9 @@ function W.SetButtonText(b, text)
 		b.Icon:SetPoint("RIGHT", b.Label, "LEFT", -6, 0)
 	end
 	b.Label:SetPoint("CENTER", b, "CENTER", b.psLabelX or 0, 0)
-	b:SetWidth(b.psFixedWidth or max(72, floor(w + iconW + 2 * Theme.Metric("buttonPad", 16) + 0.5)))
+	-- A tight button (the footer's ghosts): 8px either side, no minimum.
+	local pad = b.psTight and 8 or Theme.Metric("buttonPad", 16)
+	b:SetWidth(b.psFixedWidth or max(b.psTight and 0 or 72, floor(w + iconW + 2 * pad + 0.5)))
 end
 
 -- A link: an address shown as text in the accent, no box. Under the cursor
@@ -713,19 +741,165 @@ W.TextWidth = textWidth
 -- Size a settings row (toggle, slider, dropdown, swatch, info) to `width`:
 -- its control takes what its text needs, the label the rest, on as many
 -- lines as it needs; the row grows past ROW_H when they do not fit in it.
+-- A row given W.RowDetails shows its description under the label and
+-- grows to both (50 at least), the pair centred on the control's line.
 -- -> the row's height
+local ROW_PAD, ROW_MIN, HELP_MAX, RESET_W = 9, 50, 440, 22
 function W.LayoutRow(row, width)
 	row:SetWidth(width)
 	local span = row.psSpan and row.psSpan(row, width) or 22
-	row.Label:SetWidth(max(1, width - 12 - span))
-	local h = max(W.ROW_H, math.ceil(row.Label:GetStringHeight()) + 16)
+	if not row.psDetails then
+		row.Label:SetWidth(max(1, width - 12 - span))
+		local h = max(W.ROW_H, math.ceil(row.Label:GetStringHeight()) + 16)
+		row.psLaidH = h
+		row:SetHeight(h)
+		return h
+	end
+	span = span + (row.psKitGap or 0)
+	local inset = row.psInset or 12
+	local lw = max(1, width - inset - span - (row.psMarks and RESET_W + 8 or 0))
+	local label, help = row.Label, row.Help
+	label:ClearAllPoints()
+	label:SetWidth(lw)
+	local lh = math.ceil(label:GetStringHeight())
+	-- 50 at least in the house style; the other skins keep their own row.
+	local least = Theme.SkinKey() == "polestar" and ROW_MIN or W.RowH()
+	local h, top
+	if help:IsShown() then
+		help:SetWidth(min(lw, HELP_MAX))
+		local content = lh + 2 + math.ceil(help:GetStringHeight())
+		h = max(least, content + 2 * ROW_PAD)
+		top = floor((h - content) / 2)
+	else
+		h = max(least, lh + 2 * ROW_PAD)
+		top = floor((h - lh) / 2)
+	end
+	label:SetPoint("TOPLEFT", row, "TOPLEFT", inset, -top)
+	-- A child's connector: down from the row's top, then in to the label's
+	-- first line.
+	local c = row.psConnector
+	if c then
+		local px = Theme.Pixel(row)
+		local mid = top + 8
+		c[1]:ClearAllPoints()
+		c[1]:SetPoint("TOPLEFT", row, "TOPLEFT", inset - 18, 0)
+		c[1]:SetSize(px, mid)
+		c[2]:ClearAllPoints()
+		c[2]:SetPoint("TOPLEFT", row, "TOPLEFT", inset - 18, -mid)
+		c[2]:SetSize(8, px)
+	end
+	local reset = row.psResetButton
+	if reset then
+		reset:ClearAllPoints()
+		reset:SetPoint("RIGHT", row, "RIGHT", -(span - 2), 0)
+	end
+	row.psLaidH = h
 	row:SetHeight(h)
 	return h
+end
+
+-- Deep equality, numbers within rounding.
+local function sameValue(a, b)
+	if type(a) == "table" and type(b) == "table" then
+		for k, v in pairs(a) do if not sameValue(v, b[k]) then return false end end
+		for k in pairs(b) do if a[k] == nil then return false end end
+		return true
+	end
+	if type(a) == "number" and type(b) == "number" then return math.abs(a - b) < 1e-6 end
+	return a == b
+end
+
+-- Whether a setting holds something other than its default.
+function W.Modified(path)
+	if not (path and ns.GetDefault) then return false end
+	local d = ns.GetDefault(path)
+	if d == nil then return false end
+	return not sameValue(ns.Get(path), d)
+end
+
+local function markRow(row)
+	if not row.psMarks then return end
+	local mod = W.Modified(row.psPath)
+	row.psModified = mod
+	row.ModDot:SetShown(mod)
+	if not (mod and W.Enabled(row) and row.IsMouseOver and row:IsMouseOver()) then row.psResetButton:Hide() end
 end
 
 local function dimRow(row, enabled)
 	row:SetAlpha(enabled and 1 or 0.45)
 	if enabled then row:Enable() else row:Disable() end
+	markRow(row)
+end
+
+local function resetEnter(self) W.Color(self.Glyph, "text"); simpleTip(self) end
+local function resetLeave(self) W.Color(self.Glyph, "textDim"); hideTip(self) end
+
+-- A row as the options window shows it: the description visible under the
+-- label (note type, muted, wrapping; no tooltip then), the label from
+-- `inset`; a setting off its default marked with a 6px accent dot before
+-- the label and, under the cursor, a small reset square left of the control
+-- (the right-click's reset). opts: { inset = 12, child = true (a setting
+-- under the one above it: a connector line from it), marks = true }.
+-- W.LayoutRow lays it out.
+function W.RowDetails(row, opts)
+	opts = opts or {}
+	row.psDetails, row.psInset = true, opts.inset
+	if not rawget(row, "Help") then
+		row.Help = W.Text(row, "note", "textMuted")
+		row.Help:SetWordWrap(true)
+		row.Help:SetSpacing(2)
+		row.Help:SetJustifyV("TOP")
+		row.Help:SetPoint("TOPLEFT", row.Label, "BOTTOMLEFT", 0, -2)
+	end
+	local desc = row.psDesc
+	row.Help:SetText(desc or "")
+	row.Help:SetShown(desc ~= nil and desc ~= "")
+	if row.Help:IsShown() then row.psTip, row.psTipLines = nil, nil end
+	if opts.child and not row.psConnector then
+		local c = {}
+		for i = 1, 2 do
+			c[i] = row:CreateTexture(nil, "BORDER")
+			c[i]:SetTexture(WHITE)
+			W.Painter(c[i], function(t) t:SetVertexColor(Theme.Wash("border")) end)
+		end
+		row.psConnector = c
+	end
+	if opts.marks ~= false and row.psPath and not row.psMarks then
+		row.psMarks = true
+		row.ModDot = W.Tex(row, "ARTWORK", "circle", "accent")
+		row.ModDot:SetSize(6, 6)
+		row.ModDot:SetPoint("RIGHT", row.Label, "TOPLEFT", -6, -8)
+		local b = CreateFrame("Button", nil, row)
+		b:SetSize(RESET_W, RESET_W)
+		b.Ground = W.Tex(b, "BACKGROUND")
+		b.Ground:SetAllPoints(b)
+		W.Painter(b, function(self)
+			self.Ground:SetVertexColor(Theme.Wash("hover"))
+			Theme.Border(self, Theme.Wash("border"))
+		end)
+		b.Glyph = W.Tex(b, "ARTWORK", "reset", "textDim")
+		b.Glyph:SetSize(11, 11)
+		b.Glyph:SetPoint("CENTER", b, "CENTER", 0, 0)
+		b.psTip = L["Reset to default"]
+		b:SetScript("OnEnter", resetEnter)
+		b:SetScript("OnLeave", resetLeave)
+		b:SetScript("OnClick", function()
+			local click = row:GetScript("OnClick")
+			if click and W.Enabled(row) then click(row, "RightButton") end
+			b:Hide()
+		end)
+		-- Gone once the cursor leaves the row (its controls are in it).
+		b:SetScript("OnUpdate", function(self)
+			if not (row.IsMouseOver and row:IsMouseOver()) then self:Hide() end
+		end)
+		b:Hide()
+		row.psResetButton = b
+		row:HookScript("OnEnter", function(self)
+			if self.psModified and W.Enabled(self) then self.psResetButton:Show() end
+		end)
+		markRow(row)
+	end
+	return row
 end
 
 local function rowEnter(self)
@@ -781,7 +955,7 @@ end
 local function toggleRefresh(self)
 	local on = toggleValue(self)
 	local enabled = W.Enabled(self)
-	if self.SetHeight and self.psRow then self:SetHeight(W.RowH()) end
+	if self.SetHeight and self.psRow then self:SetHeight(max(W.RowH(), self.psDetails and self.psLaidH or 0)) end
 	dimRow(self, enabled)
 	if gameCheck(self, on) then
 		self.psOn = on
@@ -917,15 +1091,16 @@ function W.SkinSlider(self)
 	local bliz = Theme.SkinKey() == "hearth"
 	local s = self.Slider
 	if self.psRow then
-		self:SetHeight(W.RowH())
-		s:SetWidth(Theme.Metric("sliderW", SLIDER_W))
+		self:SetHeight(max(W.RowH(), self.psDetails and self.psLaidH or 0))
+		s:SetWidth(self.psTrackW or Theme.Metric("sliderW", SLIDER_W))
 		self.Value:SetWidth(Theme.Metric("valueW", VALUE_W))
 	end
 	self.Thumb:SetTexCoord(0, 1, 0, 1)
 	-- A row's label ends short of the slider: further in the game's looks,
 	-- where the back stepper stands left of the track.
 	local kitDrawn = Theme.KitSlider(self, s, self.Thumb)
-	if self.psRow and self.Label then self.Label:SetPoint("RIGHT", s, "LEFT", kitDrawn and -20 or -10, 0) end
+	self.psKitGap = kitDrawn and 10 or 0
+	if self.psRow and self.Label and not self.psDetails then self.Label:SetPoint("RIGHT", s, "LEFT", kitDrawn and -20 or -10, 0) end
 	if kitDrawn then
 		-- The game's looks: their own track and thumb, the value in gold.
 		self.Track:Hide()
@@ -1050,11 +1225,25 @@ end
 
 ---------------------------------------------------------------------------
 -- Menu: one shared popup list (header menu, dropdown choices). A click
--- anywhere else closes it; Escape closes it.
+-- anywhere else closes it; Escape closes it. On the panel ground inside its
+-- hairline, 26px rows in textDim; the chosen one in the text colour with the
+-- accent check, the one under the cursor in the text colour on the hover
+-- wash. It opens with a 120ms fade and a 4px drop (reduced motion: none).
 ---------------------------------------------------------------------------
 
 local menu, catcher
-local MENU_ROW, MENU_SEP, MENU_PAD = 26, 9, 5
+local MENU_ROW, MENU_SEP, MENU_PAD = 26, 9, 4
+
+-- A row's resting colours: the item's own, else the text colour while
+-- chosen or under the cursor, textDim otherwise.
+local function paintMenuRow(row, lit)
+	local item = row.psItem
+	if not item then return end
+	local off = item.disabled and 0.45 or 1
+	local on = (lit and not item.disabled) or item.checked
+	W.Color(row.Text, item.color or (on and "text" or "textDim"), off)
+	if item.icon then W.Color(row.Icon, item.color or (on and "text" or "textDim"), off) end
+end
 
 -- Items with confirm = true need a second click: the first relabels the row
 -- and keeps the menu open.
@@ -1072,7 +1261,13 @@ local function menuRowClick(self)
 end
 
 local function menuRowEnter(self)
+	if not self.psArmed then paintMenuRow(self, true) end
 	if self.psItem and self.psItem.tip then W.Tooltip(self, "ANCHOR_RIGHT", self.psItem.text, { self.psItem.tip }) end
+end
+
+local function menuRowLeave(self)
+	if not self.psArmed then paintMenuRow(self, false) end
+	hideTip(self)
 end
 
 local function buildMenu()
@@ -1130,7 +1325,7 @@ local function menuRow(i)
 	row.Check:SetPoint("RIGHT", row, "RIGHT", -10, 0)
 	row:SetScript("OnClick", menuRowClick)
 	row:SetScript("OnEnter", menuRowEnter)
-	row:SetScript("OnLeave", hideTip)
+	row:SetScript("OnLeave", menuRowLeave)
 	menu.rows[i] = row
 	return row
 end
@@ -1167,14 +1362,13 @@ function W.ShowMenu(anchor, items, opts)
 			row.psArmed = nil
 			row.Text:SetText(item.text)
 			row.Text:SetPoint("LEFT", row, "LEFT", anyIcon and 32 or 12, 0)
-			W.Color(row.Text, item.color or "text", item.disabled and 0.45 or 1)
 			if item.icon then
 				row.Icon:SetTexture(Theme.Media(Theme.Icon(item.icon)))
-				W.Color(row.Icon, item.color or "textDim", item.disabled and 0.45 or 1)
 				row.Icon:Show()
 			else
 				row.Icon:Hide()
 			end
+			paintMenuRow(row, false)
 			row.Check:SetShown(item.checked and true or false)
 			W.Color(row.Check, "accent")
 			row:ClearAllPoints()
@@ -1239,9 +1433,9 @@ local DROPDOWN_ARROW = "Interface\\ChatFrame\\UI-ChatIcon-ScrollDown-Up"
 
 local function dropdownRefresh(self)
 	self.Button.Label:SetText(choiceText(choicesOf(self), valueOf(self)))
-	self:SetHeight(W.RowH())
+	self:SetHeight(max(W.RowH(), self.psDetails and self.psLaidH or 0))
 	local b = self.Button
-	b:SetSize(Theme.Metric("dropdownW", DROPDOWN_W), Theme.Metric("dropdownH", 28))
+	b:SetSize(self.psBoxW or Theme.Metric("dropdownW", DROPDOWN_W), Theme.Metric("dropdownH", 28))
 	local bliz = Theme.GameSkin()
 	local size = bliz and 22 or Theme.Metric("chevron", 12)
 	b.Arrow:SetTexture(bliz and DROPDOWN_ARROW or Theme.Media("chevron-down"))
@@ -1295,6 +1489,7 @@ local function dropdownSpan(row, width)
 	local room = width - 12 - 10 - 12 - math.ceil(widestWord(row))
 	local bw = max(DROPDOWN_MIN, min(desired, room))
 	b:SetWidth(bw)
+	row.psBoxW = bw
 	return 12 + bw + 10
 end
 
@@ -1428,6 +1623,33 @@ function W.InfoRow(parent, label, desc)
 	fitLabel(row, row.Value, function(self) return 12 + math.ceil(textWidth(self.Value)) + 10 end)
 	row:SetScript("OnEnter", rowEnter)
 	row:SetScript("OnLeave", hideTip)
+	return row
+end
+
+---------------------------------------------------------------------------
+-- An action row: label (and description) left, a button right that acts
+-- (reset a position, forget a history). opts: { icon = glyph, danger = true }.
+-- The button's click is onClick(row); a row with a `disabled` function
+-- (W.SetDisabledWhen) dims and stops it.
+---------------------------------------------------------------------------
+
+local function actionRowRefresh(self)
+	local on = W.Enabled(self)
+	dimRow(self, on)
+	if on then self.Button:Enable() else self.Button:Disable() end
+end
+
+function W.ActionRow(parent, label, desc, text, onClick, opts)
+	opts = opts or {}
+	local row = settingRow(parent, label, desc)
+	local b = W.Button(row, text, function() if W.Enabled(row) then onClick(row) end end,
+		{ icon = opts.icon, danger = opts.danger })
+	b:SetPoint("RIGHT", row, "RIGHT", -12, 0)
+	row.Button = b
+	fitLabel(row, b, function(self) return 12 + math.ceil(self.Button:GetWidth()) + 10 end)
+	row:SetScript("OnEnter", rowEnter)
+	row:SetScript("OnLeave", hideTip)
+	row.Refresh = actionRowRefresh
 	return row
 end
 
@@ -1700,6 +1922,258 @@ function W.ScrollTo(sf, offset)
 end
 
 ---------------------------------------------------------------------------
+-- The gold rim: a line of light along the top edge of a Polestar window,
+-- clear at the corners, accent at 22 % and 78 % of the way, bright at the
+-- centre, with a soft light thrown down from it. The house style alone: the
+-- other skins draw their own frames.
+---------------------------------------------------------------------------
+
+-- The accent lifted toward white: the rim's bright centre (#f5d898 on
+-- Polestar gold). -> r, g, b
+function W.AccentHi()
+	local r, g, b = Theme.Accent()
+	return r + (1 - r) * 0.4, g + (1 - g) * 0.4, b + (1 - b) * 0.4
+end
+
+local RIM_EDGE, RIM_MID, RIM_HI = 0, 0.18, 0.9 -- alphas at 0, 22 % and 50 %
+local RIM_OUTER = 0.22 -- the outer segment's share of the width
+local THROW_H, THROW_A = 110, 0.1
+
+local function gradient(t, r1, g1, b1, a1, r2, g2, b2, a2)
+	if t.SetGradient and CreateColor then
+		t:SetVertexColor(1, 1, 1, 1)
+		t:SetGradient("HORIZONTAL", CreateColor(r1, g1, b1, a1), CreateColor(r2, g2, b2, a2))
+	else
+		t:SetVertexColor(r2, g2, b2, (a1 + a2) / 2)
+	end
+end
+W.Gradient = gradient
+
+local function layoutRim(rim)
+	local w = rim.psOwner:GetWidth() or 0
+	if w <= 0 then return end
+	local inner = w * (0.5 - RIM_OUTER)
+	rim.parts[2]:SetWidth(inner)
+	rim.parts[3]:SetWidth(inner)
+	local tw = rim.psWidth or w * 0.6
+	local th = rim.psHeight or THROW_H
+	rim:SetHeight(th)
+	rim.Throw:SetSize(tw, th)
+	rim.Throw:ClearAllPoints()
+	rim.Throw:SetPoint("TOP", rim, "TOP", rim.psOffset or 0, 0)
+end
+
+local function paintRim(rim)
+	local on = Theme.SkinKey() == "polestar" and not rim.psOwner.psBare
+	rim:SetShown(on)
+	if not on then return end
+	local px = Theme.Pixel(rim)
+	local r, g, b = Theme.Accent()
+	local hr, hg, hb = W.AccentHi()
+	local p = rim.parts
+	for i = 1, 4 do p[i]:SetHeight(px) end
+	gradient(p[1], r, g, b, RIM_EDGE, r, g, b, RIM_MID)
+	gradient(p[2], r, g, b, RIM_MID, hr, hg, hb, RIM_HI)
+	gradient(p[3], hr, hg, hb, RIM_HI, r, g, b, RIM_MID)
+	gradient(p[4], r, g, b, RIM_MID, r, g, b, RIM_EDGE)
+	rim.Throw:SetVertexColor(hr, hg, hb, THROW_A)
+	layoutRim(rim)
+end
+
+-- W.Rim(frame, opts) -> rim: the rim on `frame`'s top edge, over its
+-- children (its own frame, mouse-transparent, levels above), repainted on
+-- theme changes and hidden outside the house style or on a bare frame.
+-- opts: { width = the thrown light's width (60 % of the frame's by default),
+-- offset = its centre's x from the frame's centre (0), height = how far it
+-- falls (110; less on a short window, so it stays inside) }.
+-- rim.parts: the four line segments, left to right; rim.Throw: the light.
+-- W.LayoutRim(frame) after resizing a frame whose size scripts do not run.
+function W.Rim(frame, opts)
+	opts = opts or {}
+	local rim = rawget(frame, "psRim")
+	if rim then
+		rim.psWidth, rim.psOffset, rim.psHeight = opts.width, opts.offset, opts.height
+		paintRim(rim)
+		return rim
+	end
+	rim = CreateFrame("Frame", nil, frame)
+	rim:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
+	rim:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, 0)
+	rim:SetHeight(opts.height or THROW_H)
+	rim:SetFrameLevel(frame:GetFrameLevel() + 30)
+	rim.psOwner, rim.psWidth, rim.psOffset, rim.psHeight = frame, opts.width, opts.offset, opts.height
+	local p = {}
+	for i = 1, 4 do
+		p[i] = rim:CreateTexture(nil, "OVERLAY", nil, 7)
+		p[i]:SetTexture(WHITE)
+	end
+	p[2]:SetPoint("TOPRIGHT", rim, "TOP", 0, 0)
+	p[3]:SetPoint("TOPLEFT", rim, "TOP", 0, 0)
+	p[1]:SetPoint("TOPLEFT", rim, "TOPLEFT", 0, 0)
+	p[1]:SetPoint("TOPRIGHT", p[2], "TOPLEFT", 0, 0)
+	p[4]:SetPoint("TOPLEFT", p[3], "TOPRIGHT", 0, 0)
+	p[4]:SetPoint("TOPRIGHT", rim, "TOPRIGHT", 0, 0)
+	rim.parts = p
+	-- The light: the lower half of the glow, flattened under the line.
+	rim.Throw = rim:CreateTexture(nil, "OVERLAY", nil, 6)
+	rim.Throw:SetTexture(Theme.Media("glow"))
+	rim.Throw:SetTexCoord(0, 1, 0.5, 1)
+	frame.psRim = rim
+	frame:HookScript("OnSizeChanged", function() layoutRim(rim) end)
+	W.Painter(rim, paintRim)
+	return rim
+end
+
+function W.LayoutRim(frame)
+	local rim = rawget(frame, "psRim")
+	if rim then layoutRim(rim) end
+end
+
+-- The night header's haze: the lower half of the glow, wide and flat, hung
+-- from the top of `parent` (a header band) in the "haze" tint, over the band
+-- and under the text. House style with the band on only.
+-- opts: { width = (80 % of parent's), height = 120, offset = x from centre,
+--         layer = "BACKGROUND", sub = -4 } -> the texture
+function W.Haze(parent, opts)
+	opts = opts or {}
+	local t = parent:CreateTexture(nil, opts.layer or "BACKGROUND", nil, opts.sub or -4)
+	t:SetTexture(Theme.Media("glow"))
+	t:SetTexCoord(0, 1, 0.5, 1)
+	t:SetPoint("TOP", parent, "TOP", opts.offset or 0, 0)
+	W.Painter(t, function(tex)
+		local w = opts.width or (parent:GetWidth() or 0) * 0.8
+		tex:SetSize(math.max(1, w), opts.height or 120)
+		tex:SetVertexColor(Theme.Color("haze"))
+		tex:SetShown(Theme.SkinKey() == "polestar" and Theme.ShowsBand())
+	end)
+	return t
+end
+
+---------------------------------------------------------------------------
+-- The shared confirm dialog: a scrim over the screen, a 400 wide box on the
+-- window ground with its hairline and the rim, a title (an optional glyph
+-- before it), the body text, and a footer band with Cancel and the action.
+-- Escape, Cancel or a click on the scrim close it.
+--   W.Modal({ title, text, icon = glyph, action = label, danger = true,
+--             onAccept = fn, cancel = label, onCancel = fn }) -> the dialog
+--   W.HideModal(), W.ModalShown()
+---------------------------------------------------------------------------
+
+local modal
+local MODAL_W, MODAL_PAD, MODAL_FOOT, MODAL_SCRIM = 400, 24, 54, 0.55
+
+function W.HideModal()
+	if modal and modal:IsShown() then modal:Hide() end
+end
+
+function W.ModalShown()
+	return modal ~= nil and modal:IsShown()
+end
+
+local function closeModal(accept)
+	local spec = modal.psSpec
+	modal:Hide()
+	local fn = spec and (accept and spec.onAccept or (not accept and spec.onCancel))
+	if fn then fn() end
+end
+
+local function buildModal()
+	local s = CreateFrame("Button", "PolestarModal", UIParent)
+	s:SetAllPoints(UIParent)
+	s:SetFrameStrata("FULLSCREEN_DIALOG")
+	s:EnableMouse(true)
+	s:Hide()
+	s.Scrim = W.Fill(s, "scrim", "BACKGROUND")
+	s.Scrim:SetAlpha(MODAL_SCRIM)
+	s:SetScript("OnClick", function() closeModal(false) end)
+	local box = CreateFrame("Frame", nil, s)
+	box:SetWidth(MODAL_W)
+	box:SetPoint("CENTER", UIParent, "CENTER", 0, 40)
+	box:EnableMouse(true)
+	W.Painter(box, function(f)
+		local d = rawget(f, "Ground") or W.Fill(f, "bg", "BACKGROUND")
+		f.Ground = d
+		local r, g, b = Theme.Color("bg")
+		d:SetVertexColor(r, g, b, 1)
+		Theme.Border(f, Theme.Wash("border"))
+	end)
+	s.Box = box
+	box.Icon = W.Tex(box, "ARTWORK")
+	box.Icon:SetSize(16, 16)
+	box.Title = W.Text(box, "title", "text")
+	box.Text = W.Text(box, "note", "textDim")
+	box.Text:SetWordWrap(true)
+	box.Text:SetSpacing(3)
+	box.Text:SetJustifyV("TOP")
+	box.Text:SetWidth(MODAL_W - 2 * MODAL_PAD)
+	local foot = CreateFrame("Frame", nil, box)
+	foot:SetPoint("BOTTOMLEFT", box, "BOTTOMLEFT", 0, 0)
+	foot:SetPoint("BOTTOMRIGHT", box, "BOTTOMRIGHT", 0, 0)
+	foot:SetHeight(MODAL_FOOT)
+	W.Fill(foot, "footer")
+	local rule = W.Divider(foot)
+	rule:SetPoint("TOPLEFT", foot, "TOPLEFT", 0, 0)
+	rule:SetPoint("TOPRIGHT", foot, "TOPRIGHT", 0, 0)
+	box.Foot = foot
+	box.Action = W.Button(foot, "", function() closeModal(true) end)
+	box.Action:SetPoint("RIGHT", foot, "RIGHT", -16, 0)
+	box.Cancel = W.Button(foot, L["Cancel"], function() closeModal(false) end)
+	box.Cancel:SetPoint("RIGHT", box.Action, "LEFT", -8, 0)
+	W.Rim(box, { width = MODAL_W * 0.7 })
+	-- Escape closes the dialog alone; every other key goes on to the game.
+	box:EnableKeyboard(true)
+	box:SetScript("OnKeyDown", function(self, key)
+		local esc = key == "ESCAPE"
+		if self.SetPropagateKeyboardInput and not (InCombatLockdown and InCombatLockdown()) then
+			self:SetPropagateKeyboardInput(not esc)
+		end
+		if esc then closeModal(false) end
+	end)
+	s:HookScript("OnShow", function(self) Anim.To(self, "alpha", 0, 1, Anim.FAST, "out") end)
+	modal = s
+end
+
+function W.Modal(spec)
+	if not modal then buildModal() end
+	W.HideMenu()
+	local box = modal.Box
+	modal.psSpec = spec
+	local x = MODAL_PAD
+	box.Icon:SetShown(spec.icon ~= nil)
+	if spec.icon then
+		box.Icon:SetTexture(Theme.Media(spec.icon))
+		W.Color(box.Icon, spec.danger and "danger" or "accent")
+		box.Icon:ClearAllPoints()
+		box.Icon:SetPoint("TOPLEFT", box, "TOPLEFT", MODAL_PAD, -(MODAL_PAD + 2))
+		x = x + 16 + 10
+	end
+	box.Title:ClearAllPoints()
+	box.Title:SetPoint("TOPLEFT", box, "TOPLEFT", x, -MODAL_PAD)
+	box.Title:SetPoint("RIGHT", box, "RIGHT", -MODAL_PAD, 0)
+	box.Title:SetText(spec.title or "")
+	if box.Icon:IsShown() then
+		box.Icon:ClearAllPoints()
+		box.Icon:SetPoint("RIGHT", box.Title, "LEFT", -10, 0)
+		box.Icon:SetPoint("TOP", box.Title, "TOP", 0, 0)
+	end
+	local th = math.ceil(box.Title:GetStringHeight())
+	box.Text:ClearAllPoints()
+	box.Text:SetPoint("TOPLEFT", box, "TOPLEFT", MODAL_PAD, -(MODAL_PAD + th + 8))
+	box.Text:SetText(spec.text or "")
+	box.Text:SetShown((spec.text or "") ~= "")
+	local body = box.Text:IsShown() and math.ceil(box.Text:GetStringHeight()) + 8 or 0
+	box:SetHeight(MODAL_PAD + th + body + 20 + MODAL_FOOT)
+	local a = box.Action
+	a.psDanger, a.psPrimary = spec.danger and true or false, not spec.danger
+	W.SetButtonText(a, spec.action or L["OK"])
+	W.RepaintButton(a)
+	W.SetButtonText(box.Cancel, spec.cancel or L["Cancel"])
+	modal:Show()
+	modal:Raise()
+	return modal
+end
+
+---------------------------------------------------------------------------
 -- The shell
 ---------------------------------------------------------------------------
 
@@ -1707,7 +2181,7 @@ local HOUSE_SHELL = {
 	width = 960, height = 680, sidebar = 240, header = 112, tabs = 40, footer = 56, pad = 32,
 	side = 24, -- the sidebar's left edge
 	top = 152, -- header + tab band: where navigation and content begin
-	rail = 64, -- the section rail of a hub shell (opts.rail)
+	rail = 88, -- the section rail of a hub shell (opts.rail): "Nachschlagen" fits
 	brand = 69, -- a hub's brand block ends here: the rail's hairline starts below it
 	foot = 23, -- the version line's bottom, level with the rail's foot label
 }
@@ -1756,16 +2230,35 @@ function W.SetStageChip(c)
 end
 
 -- Navigation rows in the sidebar, on the nav scroll area's child.
+local NAV_ROW = 36
 local function navButton(f, i)
 	local b = f.navButtons[i]
 	if b then return b end
 	b = CreateFrame("Button", nil, f.NavScroll.Child)
-	b:SetHeight(40)
+	b:SetHeight(NAV_ROW)
 	hoverTexture(b)
+	-- The selected row: in the house style an accent wash fading out to the
+	-- right (12 % to clear at 85 % of the row), elsewhere the selected wash.
 	b.Selected = b:CreateTexture(nil, "BACKGROUND")
 	b.Selected:SetTexture(WHITE)
-	b.Selected:SetAllPoints(b)
-	W.Painter(b.Selected, function(t) t:SetVertexColor(Theme.Wash("selected")) end)
+	b.Selected:SetPoint("TOPLEFT", b, "TOPLEFT", 0, 0)
+	b.Selected:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 0)
+	W.Painter(b.Selected, function(t)
+		local w = (f.psSidebar or SHELL.sidebar) - 1
+		if Theme.SkinKey() == "polestar" then
+			local r, g, bb = Theme.Accent()
+			t:SetWidth(w * 0.85)
+			gradient(t, r, g, bb, 0.12, r, g, bb, 0)
+		else
+			t:SetWidth(w)
+			if t.SetGradient and CreateColor then
+				local r, g, bb, a = Theme.Wash("selected")
+				t:SetGradient("HORIZONTAL", CreateColor(r, g, bb, a), CreateColor(r, g, bb, a))
+			else
+				t:SetVertexColor(Theme.Wash("selected"))
+			end
+		end
+	end)
 	b.Bar = b:CreateTexture(nil, "ARTWORK")
 	b.Bar:SetTexture(WHITE)
 	b.Bar:SetWidth(2)
@@ -1776,7 +2269,7 @@ local function navButton(f, i)
 	b.Icon:SetSize(16, 16)
 	b.Icon:SetPoint("LEFT", b, "LEFT", SHELL.side, 0)
 	b.Label = W.Text(b, "body", "textDim")
-	-- Two lines at most: both fit the 40px row (13px type); past that it is
+	-- Two lines at most: both fit the 36px row (13px type); past that it is
 	-- cut. Its text is set on every ShellNav, so the cold-start blank of a
 	-- max-lines string (W.Text) does not stick.
 	b.Label:SetWordWrap(true)
@@ -1808,58 +2301,84 @@ end
 -- bottom), so the version and stage chip below it keep their band however
 -- many rows there are: past that line the list scrolls (wheel, thumb) and
 -- the active row is scrolled into view.
-local NAV_ROW = 40
+-- { separator = true } is a hairline between groups of rows, at the text
+-- edges, not a row.
+local NAV_SEP = 17
+
+local function navRow(b, item, on)
+	b.psKey = item.key
+	local empty = item.count == 0
+	b.Icon:SetTexture(Theme.Media(item.icon or "compact"))
+	b.Label:SetText(item.label)
+	b.Count:SetText(item.count or "")
+	b.Count:SetShown(item.count ~= nil and not empty)
+	b.Dot:SetShown(item.dot and true or false)
+	if item.dot then b.Count:Hide() end
+	b.Selected:SetShown(on)
+	b.Bar:SetShown(on)
+	-- The game's looks mark the row with their own selection art.
+	if Theme.KitRowLit(b, on, "navLit", 10) then
+		b.Selected:Hide()
+		b.Bar:Hide()
+	end
+	W.Color(b.Label, on and "text" or (empty and "textMuted" or "navRest"))
+	W.Color(b.Icon, on and "accent" or (empty and "textMuted" or "textDim"))
+	b:SetAlpha((empty and not on) and 0.55 or 1)
+	b.psEmpty = empty
+	b.psHeading = item.heading and true or false
+	b.Icon:SetShown(not item.heading)
+	-- The label ends short of the count (or dot), as wide as that is, and
+	-- takes a second line rather than run under it or off the sidebar.
+	b.Label:ClearAllPoints()
+	if item.heading then
+		b.Label:SetPoint("LEFT", b, "LEFT", SHELL.side, 0)
+		b.Label:SetPoint("RIGHT", b, "RIGHT", -SHELL.side, 0)
+		W.Color(b.Label, "textMuted")
+		b:SetAlpha(1)
+		b:Disable()
+	else
+		local reserve = b.Dot:IsShown() and 6 + 8 or b.Count:IsShown() and math.ceil(textWidth(b.Count)) + 8 or 0
+		b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
+		b.Label:SetPoint("RIGHT", b, "RIGHT", -(SHELL.side + reserve), 0)
+		b:Enable()
+	end
+end
+
 function W.ShellNav(f, items, active, onSelect)
 	f.psOnNav = onSelect
 	local sf = f.NavScroll
 	local y, activeY = 0, nil
-	for i, item in ipairs(items) do
-		local b = navButton(f, i)
-		b.psKey = item.key
-		local on = item.key == active
-		local empty = item.count == 0
-		b.Icon:SetTexture(Theme.Media(item.icon or "compact"))
-		b.Label:SetText(item.label)
-		b.Count:SetText(item.count or "")
-		b.Count:SetShown(item.count ~= nil and not empty)
-		b.Dot:SetShown(item.dot and true or false)
-		if item.dot then b.Count:Hide() end
-		b.Selected:SetShown(on)
-		b.Bar:SetShown(on)
-		-- The game's looks mark the row with their own selection art.
-		if Theme.KitRowLit(b, on, "navLit", 10) then
-			b.Selected:Hide()
-			b.Bar:Hide()
-		end
-		W.Color(b.Label, on and "text" or (empty and "textMuted" or "navRest"))
-		W.Color(b.Icon, on and "accent" or (empty and "textMuted" or "textDim"))
-		b:SetAlpha((empty and not on) and 0.55 or 1)
-		b.psEmpty = empty
-		b.psHeading = item.heading and true or false
-		b.Icon:SetShown(not item.heading)
-		-- The label ends short of the count (or dot), as wide as that is, and
-		-- takes a second line rather than run under it or off the sidebar.
-		b.Label:ClearAllPoints()
-		if item.heading then
-			b.Label:SetPoint("LEFT", b, "LEFT", SHELL.side, 0)
-			b.Label:SetPoint("RIGHT", b, "RIGHT", -SHELL.side, 0)
-			W.Color(b.Label, "textMuted")
-			b:SetAlpha(1)
-			b:Disable()
+	local rules = rawget(f, "navRules") or {}
+	f.navRules = rules
+	local bi, ri = 0, 0
+	for _, item in ipairs(items) do
+		if item.separator then
+			ri = ri + 1
+			local t = rules[ri]
+			if not t then
+				t = W.Divider(sf.Child)
+				rules[ri] = t
+			end
+			t:ClearAllPoints()
+			t:SetPoint("TOPLEFT", sf.Child, "TOPLEFT", SHELL.side, -(y + 8))
+			t:SetPoint("TOPRIGHT", sf.Child, "TOPRIGHT", -SHELL.side, -(y + 8))
+			t:Show()
+			y = y + NAV_SEP
 		else
-			local reserve = b.Dot:IsShown() and 6 + 8 or b.Count:IsShown() and math.ceil(textWidth(b.Count)) + 8 or 0
-			b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
-			b.Label:SetPoint("RIGHT", b, "RIGHT", -(SHELL.side + reserve), 0)
-			b:Enable()
+			bi = bi + 1
+			local b = navButton(f, bi)
+			local on = item.key == active
+			navRow(b, item, on)
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", sf.Child, "TOPLEFT", 0, -y)
+			b:SetPoint("TOPRIGHT", sf.Child, "TOPRIGHT", 0, -y)
+			b:Show()
+			if on then activeY = y end
+			y = y + NAV_ROW
 		end
-		b:ClearAllPoints()
-		b:SetPoint("TOPLEFT", sf.Child, "TOPLEFT", 0, -y)
-		b:SetPoint("TOPRIGHT", sf.Child, "TOPRIGHT", 0, -y)
-		b:Show()
-		if on then activeY = y end
-		y = y + NAV_ROW
 	end
-	for i = #items + 1, #f.navButtons do f.navButtons[i]:Hide() end
+	for i = bi + 1, #f.navButtons do f.navButtons[i]:Hide() end
+	for i = ri + 1, #rules do rules[i]:Hide() end
 	local view = W.ShellNavHeight(f)
 	sf.Child:SetWidth((f.psSidebar or SHELL.sidebar) - 1)
 	W.SetScrollContent(sf, y, view)
@@ -1937,12 +2456,16 @@ function W.ShellTabs(f, tabs, active, onSelect)
 end
 
 -- Footer buttons: left and right lists of { label, onClick, opts }.
--- opts.confirm: a second click acts. Buttons are reused per position.
-local function footerButton(f, side, i)
+-- opts.confirm: a second click acts; opts.ghost: a borderless button (its
+-- glyph on the content edge when first on the left). Buttons are reused
+-- per position and kind.
+local function footerButton(f, side, i, ghost)
 	local list = f.footerButtons[side]
 	local b = list[i]
-	if b then return b end
-	b = W.Button(f.Footer, "", nil, {})
+	if b and (b.psGhost and true or false) == ghost then return b end
+	if b then b:Hide() end
+	b = W.Button(f.Footer, "", nil, { ghost = ghost })
+	b.psTight = ghost or nil
 	b.psSetText = W.SetButtonText
 	list[i] = b
 	return b
@@ -1958,7 +2481,8 @@ function W.ShellFooter(f, left, right)
 		local list = f.footerButtons[side]
 		local prev
 		for i, spec in ipairs(specs) do
-			local b = footerButton(f, side, i)
+			local ghost = spec.opts and spec.opts.ghost and true or false
+			local b = footerButton(f, side, i, ghost)
 			b.psPrimary = spec.opts and spec.opts.primary
 			b.psArmed = nil
 			if spec.opts and spec.opts.icon then
@@ -1982,7 +2506,7 @@ function W.ShellFooter(f, left, right)
 			W.RepaintButton(b)
 			b:ClearAllPoints()
 			if side == "left" then
-				if prev then b:SetPoint("LEFT", prev, "RIGHT", 8, 0) else b:SetPoint("LEFT", f.Footer, "LEFT", SHELL.pad, 0) end
+				if prev then b:SetPoint("LEFT", prev, "RIGHT", 8, 0) else b:SetPoint("LEFT", f.Footer, "LEFT", SHELL.pad - (ghost and 8 or 0), 0) end
 			else
 				if prev then b:SetPoint("RIGHT", prev, "LEFT", -8, 0) else b:SetPoint("RIGHT", f.Footer, "RIGHT", -SHELL.pad, 0) end
 			end
@@ -1997,7 +2521,7 @@ end
 function W.RepaintButton(b)
 	local fn = painters[b]
 	if fn then
-		if not b.psPrimary then W.Color(b.Label, b.psDanger and "danger" or "text") end
+		if not b.psPrimary then W.Color(b.Label, b.psDanger and "danger" or (b.psGhost and "textDim" or "text")) end
 		fn(b)
 	end
 end
@@ -2019,6 +2543,101 @@ local function fitLines(fs, text, lines)
 		fs:SetText(table.concat(words, " ", 1, k):gsub("[,;:%.%s]+$", "") .. ELLIPSIS)
 		if fs:GetNumLines() <= lines then return end
 	end
+end
+
+-- The window's scale in its header, left of the close button (or on the
+-- main column's pad where the frame's own close button stands): its label,
+-- a small track and the value. The value follows the drag; the window
+-- rescales when it ends (the slider sits in what it scales), the wheel
+-- steps it. -> the control (control:Place() after the close button comes
+-- or goes).
+local SCALE_TRACK, SCALE_LO, SCALE_HI, SCALE_STEP = 64, 0.7, 1.4, 0.05
+local function scaleText(v) return floor(v * 100 + 0.5) .. "%" end
+
+function W.HeaderScale(f, path)
+	local head = f.Header
+	local t = CreateFrame("Frame", nil, head)
+	t:SetHeight(20)
+	t.Label = W.Text(t, "small", "textMuted")
+	t.Label:SetText(L["Menu scale"])
+	t.Value = W.Text(t, "number", "textDim")
+	t.Value:SetJustifyH("RIGHT")
+	local s = sliderParts(t, t, SCALE_TRACK)
+	s:SetMinMaxValues(SCALE_LO, SCALE_HI)
+	s:SetValueStep(SCALE_STEP)
+	t.Thumb:SetSize(9, 9)
+	local function paint(v)
+		v = v or s:GetValue()
+		t.Fill:SetWidth(max(0.01, SCALE_TRACK * (v - SCALE_LO) / (SCALE_HI - SCALE_LO)))
+		t.Value:SetText(scaleText(v))
+	end
+	function t.Refresh()
+		local v = ns.Get(path)
+		if type(v) ~= "number" then v = 1 end
+		t.psRefreshing = true
+		s:SetValue(min(SCALE_HI, max(SCALE_LO, v)))
+		t.psRefreshing = false
+		paint()
+	end
+	function t.Place()
+		local vw = math.ceil(max(textWidth(t.Value, scaleText(SCALE_HI)), textWidth(t.Value, scaleText(1))))
+		paint()
+		t.Value:SetWidth(vw)
+		t.Value:ClearAllPoints()
+		t.Value:SetPoint("RIGHT", t, "RIGHT", 0, 0)
+		s:ClearAllPoints()
+		s:SetPoint("RIGHT", t.Value, "LEFT", -10, 0)
+		t.Label:ClearAllPoints()
+		t.Label:SetPoint("RIGHT", s, "LEFT", -10, 0)
+		t:SetWidth(math.ceil(textWidth(t.Label)) + 10 + SCALE_TRACK + 10 + vw)
+		t:ClearAllPoints()
+		-- Where the close button has left the header (the hub's details pane
+		-- holds it) the header is too narrow for it: the scale stays under
+		-- Options, Appearance, Windows.
+		local inHeader = f.Close:GetParent() == head
+		t:SetShown(inHeader or not f.Close:IsShown())
+		if f.Close:IsShown() and inHeader then
+			t:SetPoint("RIGHT", f.Close, "LEFT", -14, 0)
+		else
+			t:SetPoint("TOPRIGHT", head, "TOPRIGHT", -SHELL.pad, -16)
+		end
+		if t:IsShown() then
+			f.Title:SetPoint("TOPRIGHT", t, "TOPLEFT", -16, -16)
+		else
+			f.Title:SetPoint("TOPRIGHT", head, "TOPRIGHT", -(12 + 28 + 12), -32)
+		end
+	end
+	W.Painter(t.Track, function(tex) tex:SetHeight(3); tex:SetVertexColor(Theme.Wash("track")) end)
+	W.Painter(t.Fill, function(tex) tex:SetHeight(3); tex:SetVertexColor(Theme.Accent()) end)
+	W.Painter(t.Thumb, function(tex) tex:SetVertexColor(Theme.Color("text")) end)
+	s:SetScript("OnValueChanged", function(_, v, userInput)
+		v = roundTo(v, SCALE_STEP)
+		paint(v)
+		if userInput and not t.psRefreshing then t.psPending = v end
+	end)
+	s:SetScript("OnMouseUp", function(_, button)
+		local v = t.psPending
+		t.psPending = nil
+		if button == "RightButton" then
+			ns.Set(path, nil)
+		elseif v ~= nil and ns.Get(path) ~= v then
+			ns.Set(path, v)
+		end
+	end)
+	s:SetScript("OnMouseWheel", function(_, delta)
+		local v = roundTo((ns.Get(path) or 1) + delta * SCALE_STEP, SCALE_STEP)
+		ns.Set(path, min(SCALE_HI, max(SCALE_LO, v)))
+	end)
+	s.psTip = L["Menu scale"]
+	s.psTipLines = { L["The guide menu and this window; applies when you let go. Right-click to reset."] }
+	s:SetScript("OnEnter", simpleTip)
+	s:SetScript("OnLeave", hideTip)
+	ns.On("SETTING_CHANGED", function(p)
+		if p == path or p == "" or p == "ui" or p == nil then t.Refresh() end
+	end)
+	t.Place()
+	t.Refresh()
+	return t
 end
 
 -- opts: { width, height, title, subtitle, searchPlaceholder, onSearch,
@@ -2153,10 +2772,12 @@ function W.Shell(name, opts)
 	f.Band = Theme.Band(head, "BACKGROUND", -5)
 	f.Band:SetAllPoints(head)
 	f.Band:SetTexCoord(Theme.BandCoords(Wd - RAIL - SB - 2, SHELL.header))
+	-- The night: a faint blue haze over the band (house style, band on).
+	f.Haze = W.Haze(head, { width = (Wd - RAIL - SB - 2) * 0.9, height = SHELL.header })
 	f.Title = W.Text(head, "hero", "text")
 	f.Title:SetPoint("TOPLEFT", head, "TOPLEFT", SHELL.pad, -32)
-	-- Clear of the close button (28px, 12px in, 12px gap): a long title (a
-	-- guide pack's) ends in an ellipsis.
+	-- Clear of the close button (28px, 12px in, 12px gap), or of the scale
+	-- control left of it: a long title (a guide pack's) ends in an ellipsis.
 	f.Title:SetPoint("TOPRIGHT", head, "TOPRIGHT", -(12 + 28 + 12), -32)
 	-- The subtitle: up to two lines between the pads, under the close button
 	-- and clear of it, cut with an ellipsis after the second (W.ShellTitle).
@@ -2170,10 +2791,20 @@ function W.Shell(name, opts)
 	f.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -12)
 	-- The game's looks put the close button on the window frame's corner.
 	f.Close:SetShown(not Theme.Kit())
-	Theme.OnChanged(function() f.Close:SetShown(not Theme.Kit()) end)
+	Theme.OnChanged(function()
+		f.Close:SetShown(not Theme.Kit())
+		if rawget(f, "HeaderTools") then f.HeaderTools:Place() end
+	end)
 	-- The window frame's own close button (the game's looks) stands for this
 	-- one: paint again now that it exists.
 	Theme.Repaint(f)
+	if opts.scalePath then
+		f.HeaderTools = W.HeaderScale(f, opts.scalePath)
+		f.Title:SetPoint("TOPRIGHT", f.HeaderTools, "TOPLEFT", -16, -16)
+	end
+	-- The gold rim along the window's top, its light thrown under the
+	-- main column.
+	W.Rim(f, { offset = Wd * 0.1 })
 
 	-- Tab row: tabs sit on its bottom hairline.
 	f.TabRow = CreateFrame("Frame", nil, main)
@@ -2295,6 +2926,7 @@ local function fitRail(f, items, bottom)
 	f.Sidebar:SetPoint("TOPLEFT", f, "TOPLEFT", 1 + rail, -1)
 	f.Sidebar:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 1 + rail, 1)
 	f:SetWidth(f:GetWidth() + grow)
+	W.LayoutRim(f)
 	for _, b in ipairs(f.railButtons) do
 		b:SetWidth(rail)
 		b.Label:SetWidth(rail - 4)
@@ -2366,19 +2998,33 @@ function W.ShellBody(f, height)
 end
 
 -- A section header in a shell body: the heading itself, a hairline after it.
-function W.SectionHeader(parent)
+-- opts.plain: the heading alone over a panel of rows (W.PLAIN_SECTION_H
+-- tall, its text 8 above the panel), no hairline.
+W.PLAIN_SECTION_H = 30
+function W.SectionHeader(parent, opts)
+	local plain = opts and opts.plain
 	local h = CreateFrame("Frame", nil, parent)
-	h:SetHeight(44)
+	h:SetHeight(plain and W.PLAIN_SECTION_H or 44)
 	h.Text = W.Text(h, "heading", "text")
-	h.Text:SetPoint("BOTTOMLEFT", h, "BOTTOMLEFT", 0, 10)
+	h.Text:SetPoint("BOTTOMLEFT", h, "BOTTOMLEFT", 0, plain and 8 or 10)
 	h.Rule = W.Divider(h)
 	h.Rule:SetPoint("LEFT", h.Text, "RIGHT", 12, 0)
 	h.Rule:SetPoint("RIGHT", h, "RIGHT", 0, 0)
+	h.Rule:SetShown(not plain)
 	h.Count = W.Text(h, "number", "textMuted")
 	h.Count:SetJustifyH("RIGHT")
-	h.Count:SetPoint("BOTTOMRIGHT", h, "BOTTOMRIGHT", 0, 10)
+	h.Count:SetPoint("BOTTOMRIGHT", h, "BOTTOMRIGHT", 0, plain and 8 or 10)
 	h.Count:Hide()
 	return h
+end
+
+-- A panel the rows of one section sit in: the raised ground and its inner
+-- hairline in the skin in use, under the rows (its parent's own level).
+function W.RowPanel(parent)
+	local p = CreateFrame("Frame", nil, parent)
+	p:SetFrameLevel(parent:GetFrameLevel())
+	Theme.Skin(p, "panel")
+	return p
 end
 
 function W.SetSection(h, text, count)

@@ -243,14 +243,14 @@ Polestar.Codex.Load()
 U.unit("nameplate1", { npc = 61, name = "Thuros Lightfingers", level = 11, class = "rare" })
 stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
 local a = got[1]
-local facts = R.Toast.Facts(a)
+local distance = R.Toast.Distance(a)
 PolestarRareToast.Waypoint:Click()
 local t = Polestar.Nav.GetTarget()
-emit({ map = a.map, x = a.x, y = a.y, spawn = a.spawnYards or false, facts = facts, target = { t.map, t.x, t.y } })"#,
+emit({ map = a.map, x = a.x, y = a.y, spawn = a.spawnYards or false, distance = distance, target = { t.map, t.x, t.y } })"#,
 		[1429, 75, 60],
 		None,
 	);
-	assert_eq!(out[0], json!({ "map": 1429, "x": 75, "y": 60, "spawn": false, "facts": "Level 11 Rare  \u{b7}  in sight  \u{b7}  Elwynn Forest", "target": [1429, 75, 60] }));
+	assert_eq!(out[0], json!({ "map": 1429, "x": 75, "y": 60, "spawn": false, "distance": "In sight", "target": [1429, 75, 60] }));
 }
 
 #[test]
@@ -262,13 +262,13 @@ Polestar.Codex.Load()
 U.vignette("V1", { npc = 61, name = "Thuros Lightfingers" })
 stub.fire("VIGNETTE_MINIMAP_UPDATED", "V1", true)
 local a = got[1]
-emit({ map = a.map, x = a.x, f = a.f, spawn = a.spawnYards and math.floor(a.spawnYards + 0.5), inSight = a.inSight or false, facts = R.Toast.Facts(a) })
+emit({ map = a.map, x = a.x, f = a.f, spawn = a.spawnYards and math.floor(a.spawnYards + 0.5), inSight = a.inSight or false, distance = R.Toast.Distance(a) })
 -- By the click it has one: the waypoint goes there, not to the spawn.
 U.vignette("V1", { npc = 61, name = "Thuros Lightfingers", map = 1429, x = 80, y = 70 })
 PolestarRareToast.Waypoint:Click()
 local t = Polestar.Nav.GetTarget()
 emit({ t.map, t.x, t.y, t.f or false })"#);
-	assert_eq!(out[0], json!({ "map": 1429, "x": 89.4, "f": "e", "spawn": 57, "inSight": false, "facts": "Level 11 Rare  \u{b7}  known spawn 55 yd  \u{b7}  Elwynn Forest" }));
+	assert_eq!(out[0], json!({ "map": 1429, "x": 89.4, "f": "e", "spawn": 57, "inSight": false, "distance": "Known spawn 55 yd" }));
 	assert_eq!(out[1], json!([1429, 80, 70, false]));
 }
 
@@ -377,7 +377,7 @@ emit({ n = #got, paths = R.Detect.Paths() })"#);
 }
 
 #[test]
-fn the_toast_shows_the_alert_name_facts_line_actions_show_rare_opens_the_section_event() {
+fn the_toast_shows_the_alert_name_facts_line_distance_actions_show_rare_opens_the_section_event() {
 	let out = run(r#"
 local U = stub.rares
 local opened
@@ -387,15 +387,16 @@ U.vignette("V1", { npc = 61, name = "Thuros Lightfingers", map = 1429, x = 90, y
 stub.fire("VIGNETTE_MINIMAP_UPDATED", "V1", true)
 local f = PolestarRareToast
 local shown = f:IsShown()
-local facts = R.Toast.Facts(got[1])
+local facts, distance = f.Facts:GetText(), f.Distance:IsShown() and f.Distance:GetText()
 local name = f.Name:GetText()
 local label = f.Open.Label:GetText()
 f.Open:Click()
-emit({ shown = shown, name = name, facts = facts, label = label, opened = opened, hidden = not f:IsShown() })"#);
+emit({ shown = shown, name = name, facts = facts, distance = distance, label = label, opened = opened, hidden = not f:IsShown() })"#);
 	let out = &out[0];
 	assert_eq!(out["shown"], true);
 	assert_eq!(out["name"], "Thuros Lightfingers");
-	assert_eq!(out["facts"], "Level 11 Rare  \u{b7}  70 yd  \u{b7}  Elwynn Forest");
+	assert_eq!(out["facts"], "Level 11 Rare  \u{b7}  Elwynn Forest");
+	assert_eq!(out["distance"], "70 yd");
 	assert_eq!(out["label"], "Show rare");
 	assert_eq!(out["opened"], json!(["rare", 61]));
 	assert_eq!(out["hidden"], true);

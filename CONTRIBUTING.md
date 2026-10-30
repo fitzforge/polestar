@@ -9,7 +9,7 @@ package them. You can help without touching any code.
 - **Report a wrong step.** A quest that is not where the guide says, a step
   that never checks off, an order that wastes a trip. In the game, click the
   bug in the guide window (or type `/polestar report`), say what is wrong and
-  paste the report on the [Polestar Discord](https://discord.gg/vMbee6F2e9);
+  paste the report on the [Polestar Discord](https://discord.gg/polestar);
   or open an issue with the "Wrong step" form.
 - **Fix a guide.** Guides are plain text files; a fix is often one line. See
   [Fixing a guide](#fixing-a-guide). New here? Start with an issue labelled

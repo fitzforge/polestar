@@ -1,9 +1,14 @@
 -- A Polestar button on the edge of the minimap (setting maps.minimapButton,
 -- off by default): click shows or hides the guide window, right-click opens
--- the settings, drag moves it around the edge. Where it sits is
+-- Polestar's menu (the guide window, the guides, Lookup, the settings, a
+-- report), drag moves it around the edge. Where it sits is
 -- maps.minimapButtonAngle, in degrees (0 = east, counter-clockwise); on a
 -- square minimap (GetMinimapShape, set by minimap addons) it rides the
 -- square's edge instead of the circle.
+--
+-- The game's addon compartment (the minimap's addon list, on clients that
+-- have one: AddonCompartmentFrame) does the same through the globals the
+-- .toc names: Polestar_OnAddonCompartmentClick / OnEnter / OnLeave.
 --
 -- Cost: nothing until the setting is first turned on (no frame exists).
 
@@ -45,9 +50,44 @@ end
 local function showTip(self)
 	ns.Widgets.Tooltip(self, "ANCHOR_LEFT", "Polestar", {
 		L["Click: show or hide the guide"],
-		L["Right-click: settings"],
-		L["Drag: move it around the minimap"],
+		L["Right-click: menu"],
+		self == button and L["Drag: move it around the minimap"] or nil,
 	})
+end
+
+-- Polestar's menu from the minimap button or the compartment, opening
+-- beside `anchor`.
+function Maps.ShowMenu(anchor)
+	local W = ns.Widgets
+	if not (W and W.ShowMenu and anchor) then return end
+	if W.MenuShown(anchor) then return W.HideMenu() end
+	local shown = ns.Get("ui.shown")
+	W.ShowMenu(anchor, {
+		{ text = shown and L["Hide window"] or L["Show window"], icon = "window", onClick = function() ns.Fire("TOGGLE_FRAME") end },
+		{ text = L["Guides"], icon = "guides", onClick = function() ns.Fire("SHOW_PICKER") end },
+		{ text = L["Lookup"], icon = "search", onClick = function() ns.Fire("SHOW_LOOKUP") end },
+		{ text = L["Options"], icon = "sliders", onClick = function() ns.Fire("SHOW_OPTIONS") end },
+		{ separator = true },
+		{ text = L["Report a problem"], icon = "bug", onClick = function() ns.Fire("SHOW_REPORT") end },
+	}, { point = "TOPRIGHT", relPoint = "BOTTOMLEFT", x = 4, y = 4 })
+end
+
+-- The addon compartment's entry (Polestar.toc). The client passes the
+-- addon's name, the mouse button and the compartment's row.
+function Polestar_OnAddonCompartmentClick(_, which, row)
+	if which == "RightButton" then
+		Maps.ShowMenu(row or UIParent)
+	else
+		ns.Fire("TOGGLE_FRAME")
+	end
+end
+
+function Polestar_OnAddonCompartmentEnter(_, row)
+	if row then showTip(row) end
+end
+
+function Polestar_OnAddonCompartmentLeave(_, row)
+	if ns.Widgets then ns.Widgets.HideTooltip(row) end
 end
 
 local function build()
@@ -69,9 +109,10 @@ local function build()
 	local hover = W.Tex(button, "HIGHLIGHT", "circle", "accent")
 	hover:SetAllPoints(button)
 	hover:SetAlpha(0.25)
-	button:SetScript("OnClick", function(_, which)
+	button:SetScript("OnClick", function(self, which)
 		if which == "RightButton" then
-			ns.Fire("SHOW_OPTIONS")
+			W.HideTooltip(self)
+			Maps.ShowMenu(self)
 		else
 			ns.Fire("TOGGLE_FRAME")
 		end

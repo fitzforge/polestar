@@ -1061,8 +1061,8 @@ fn the_arrow_takes_the_mouse_on_its_dial_only_and_the_hover_wash_sits_behind_the
 		local _, rel = A.mover:GetPoint(1)
 		stub.RunScript(A.frame, "OnEnter")
 		emit({ insets = { l, r, t, b }, washOnDial = rel == A.dial, washShown = A.mover:IsShown(), mouse = A.frame:IsMouseEnabled() })"#);
-	// The frame is 200 wide and 64 + 52 tall; the dial is the 64 x 64 at its top centre.
-	assert_eq!(out["insets"], json!([68, 68, 0, 52]), "the text under the dial does not catch the mouse");
+	// The frame is 200 wide and 64 + 66 tall; the dial is the 64 x 64 at its top centre.
+	assert_eq!(out["insets"], json!([68, 68, 0, 66]), "the text under the dial does not catch the mouse");
 	assert_eq!(out["washOnDial"], true, "the wash covers the dial, not the whole frame");
 	assert_eq!(out["washShown"], true, "hovering still shows it");
 	assert_eq!(out["mouse"], true, "the arrow is still movable");
@@ -1086,14 +1086,14 @@ fn without_the_dial_the_text_under_it_takes_the_mouse_and_the_hover_wash() {
 		nav.place(0, 0, 0)
 		stub.advance(0.1); snap("back")
 		emit(seen)"#);
-	// The frame is 200 wide and 64 + 52 tall: the dial at its top, the text under it.
+	// The frame is 200 wide and 64 + 66 tall: the dial at its top, the text under it.
 	assert_eq!(
 		out,
 		json!([
-			["travel", "travel", true, [68, 68, 0, 52], true],
+			["travel", "travel", true, [68, 68, 0, 66], true],
 			["far", "far", false, [0, 0, 64, 0], false],
 			["no position", "nopos", false, [0, 0, 64, 0], false],
-			["back", "travel", true, [68, 68, 0, 52], true]
+			["back", "travel", true, [68, 68, 0, 66], true]
 		])
 	);
 }

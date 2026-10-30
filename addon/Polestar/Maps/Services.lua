@@ -230,12 +230,12 @@ local controls = {
 		help = L["Marks friendly service NPCs and mailboxes on zone and city maps using Polestar's bundled Codex. Click an individual icon to set a waypoint, or a city group to choose an NPC and destination; choose categories here or in the map's tracking menu. Flight masters and inns have their own toggles under Dungeons and travel."] },
 	{ kind = "toggle", key = "maps.serviceMinimap", label = L["Service icons on the minimap"],
 		help = L["Shows the enabled NPC service categories on the minimap as well."],
-		disabled = function() return not ns.Get("maps.servicePins") end },
+		child = true, disabled = function() return not ns.Get("maps.servicePins") end },
 }
 for _, category in ipairs(CATEGORIES) do
 	controls[#controls + 1] = { kind = "toggle", key = "maps.serviceFilters." .. category.key, label = category.label,
 		help = category.key == "class" and L["Shows trainers for your character's class."] or L["Shows this service category on the map."],
-		disabled = function() return not ns.Get("maps.servicePins") end }
+		child = true, disabled = function() return not ns.Get("maps.servicePins") end }
 end
 ns.RegisterOptions({ page = L["Map"], tab = L["Rares & travel"], section = L["NPC services"], controls = controls })
 

@@ -55,10 +55,12 @@ local SHARED = {
 	rare = { 1, 0.5, 0.32, 1 }, -- rare NPCs (ember; treasures keep object)
 }
 
--- Tints laid on the game's own art (the world map), not on a Polestar
--- ground: the same in every scheme and outside the legibility guard.
+-- Tints laid on the game's own art (the world map), and light laid over
+-- a Polestar ground (the night header's haze), never under text: the same
+-- in every scheme and outside the legibility guard.
 local ART = {
 	mapUnexplored = { 0.6, 0.66, 0.9, 1 }, -- multiplied onto unexplored map overlays
+	haze = { 0.29, 0.376, 0.667, 0.25 }, -- the faint blue haze in a night header (Media glow)
 }
 
 -- Another brand's colour, for its mark only: Discord's Blurple, as its

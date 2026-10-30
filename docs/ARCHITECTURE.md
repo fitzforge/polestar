@@ -3514,11 +3514,16 @@ flight timer and the instance tracker are set under Quality of Life.
   the bottom of the minimap (`Maps/Coords.lua`, 5 Hz, repainted only when the
   tenth changes). Both use `Maps.FormatCoords`.
 - Minimap button (`maps.minimapButton`, off by default; `Maps/MinimapButton.lua`):
-  click fires `TOGGLE_FRAME`, right-click `SHOW_OPTIONS`, a drag moves it
+  click fires `TOGGLE_FRAME`, right-click opens `Maps.ShowMenu` (show or hide
+  the window, Guides, Lookup, Options, Report a problem; each fires the
+  existing event), a drag moves it
   around the minimap's edge and saves `maps.minimapButtonAngle` (degrees, 0 =
   east). A square minimap (`GetMinimapShape`) puts it on the square's edge,
   and a resized one (`OnSizeChanged`) moves it to the new edge.
-  No frame exists until the setting is first turned on.
+  No frame exists until the setting is first turned on. The addon
+  compartment (clients with `AddonCompartmentFrame`) gets the same through
+  the .toc's `AddonCompartmentFunc*` globals (`Polestar_OnAddonCompartment*`):
+  click toggles the window, right-click opens the menu, hover the tooltip.
 - Zone level ranges (`maps.zoneLevels`): labels on continent maps, and the
   hovered zone's range in the info bar. The ranges come from `forge data maps build`
   (`tools/lib/maps/zonelevels.js`). Forever-only zones (maps with Forever
@@ -4174,20 +4179,28 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `PACKS.md`: the TOC's `X-Website` + `/blob/HEAD/docs/GUIDE_PACKS.md`, else
   "docs/GUIDE_PACKS.md in Polestar's source"). While `Guides.ProblemCount() > 0` the page's sidebar row carries
   the warning dot (a page spec's `dot`). Nothing goes to chat.
-- **Welcome** (`UI/Welcome.lua`, `SHOW_WELCOME`): centred, four pages under
-  a starlit hero, with step dots, Skip, Back and Next in the footer: Hello,
-  <name> (what Polestar does, then the guide window, the arrow and
-  `/polestar guides`); Set up (quest automation, the guide at login, the
-  colour scheme as cards that apply live); Route style (`nav.routeStyle`,
-  the setting Options' Route style dropdown writes, as three cards, Fastest,
+- **Welcome** (`UI/Welcome.lua`, `SHOW_WELCOME`): centred, 600 wide, four
+  pages each under its own night hero, the gold rim (`W.Rim`) on top, with
+  Skip (Back on the last page), the step dots (not buttons), Back and Next
+  in the footer: Hello, <name> (the suggested guide's zone painting engraved
+  faintly into the night; what Polestar does, then three cards with
+  miniatures built from frames: a goal row of the suggested guide, the gold
+  dart going to its first walk's place, the library's Leveling, Professions
+  and Reputation counts); Set up (quest automation, the guide at login, the
+  colour scheme as preview cards in each scheme's colours that apply live;
+  Skip keeps them); Route style (the start zone's painting with the
+  suggested guide's first walk drawn on it and its place named, no
+  distances; `nav.routeStyle`, the setting Options' Route style dropdown
+  writes, as three rows, Fastest,
   Balanced with its Recommended tag and Roads, each saying what it does: a
   click sets it live and Nav/Walk.lua searches again, right-click or the
   gamepad's Y puts Balanced back, and the pick follows the setting however
   it changes; a line on what every style keeps you away from); Start (the guide
   `Guides.Suggest()` picks on its zone painting, with its level range and
-  pitch; the beta note while `ns.routesBeta`; the Discord invite in a copy
-  box; what community guides are; then Start guide, or Choose a guide without
-  one, and Browse guides). Once
+  pitch; what Start guide does; the beta note while `ns.routesBeta`; the
+  Discord invite as a link to the copy window; community guides with a
+  Browse guides link to the guide menu; then Start guide, or Choose a guide
+  without one). The window takes its tallest page's height. Once
   per new character (`PolestarCharDB.welcomeSeen`: 0 for a character with no
   saved `PolestarCharDB` as Polestar loaded, `ns.IsNewCharacter()`; set seen
   silently for one with saved data and no flag), 2 s after login, never in

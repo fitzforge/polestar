@@ -9,7 +9,12 @@
 --   ZoneArt.Create(parent, width, height[, ground]) -> art
 --     A width x height band (the caller anchors it). ground: the palette
 --     colour the bottom fade runs into (default "panelAlt"). art.Over sits
---     above the painting for text and chips; art.psZoom overrides ZA.ZOOM.
+--     above the painting for text and chips; art.psZoom overrides ZA.ZOOM,
+--     art.psDesat ZA.DESAT; art.psTint ({ r, g, b }) is multiplied into
+--     every tile (the welcome engraves a painting into its night sky).
+--     After a Paint, art.psCanvas = { left, top, width, height }: where the
+--     whole layer lies in the band (nil while the band stands in), so a
+--     caller can place map percent on the painting.
 --   ZoneArt.Paint(art, uiMapID, focusX, focusY, index) -> painted, reveal
 --     focusX/Y: the place to show, live-frame percent (default the middle);
 --     it lands in the clear stretch between the top shade and the bottom
@@ -147,6 +152,13 @@ local function acquire(a, pool, n, sub)
 	return t
 end
 
+-- A tile's desaturation and tint: the art's own, else the house's.
+local function shadeTile(a, t)
+	if t.SetDesaturation then t:SetDesaturation(a.psDesat or ZA.DESAT) end
+	local tint = a.psTint
+	if tint then t:SetVertexColor(tint[1], tint[2], tint[3], 1) else t:SetVertexColor(1, 1, 1, 1) end
+end
+
 -- One overlay split the way MapExplorationDataProvider splits it: tileW x
 -- tileH textures, the last column and row partial, cropped from a
 -- power-of-two file. Calls place(ctx, file, x, y, w, h, right, bottom) (layer
@@ -198,7 +210,7 @@ local function placeTile(a, file, x, y, w, h, right, bottom)
 	t:SetSize(w * s, h * s)
 	t:ClearAllPoints()
 	t:SetPoint("TOPLEFT", a.Canvas, "TOPLEFT", x * s, -y * s)
-	if t.SetDesaturation then t:SetDesaturation(ZA.DESAT) end
+	shadeTile(a, t)
 	t:Show()
 end
 
@@ -237,6 +249,7 @@ function ZA.Paint(a, uiMapID, focusX, focusY, index)
 		local shift = (((index or 1) - 1) * 0.29) % (1 - x1)
 		a.Band:SetTexCoord(shift, shift + x1, y0, y1)
 		a.Band:Show()
+		a.psCanvas = nil
 		return false
 	end
 	a.Band:Hide()
@@ -247,6 +260,7 @@ function ZA.Paint(a, uiMapID, focusX, focusY, index)
 	a.Canvas:SetSize(lw * s, lh * s)
 	a.Canvas:ClearAllPoints()
 	a.Canvas:SetPoint("TOPLEFT", a, "TOPLEFT", x, -y)
+	a.psCanvas = { x, y, lw * s, lh * s } -- where the layer lies in the band: left, top, width, height
 	-- The window the band shows, in layer pixels: only what meets it is drawn.
 	local x0, y0 = -x / s, -y / s
 	local x1, y1 = x0 + w / s, y0 + h / s
@@ -265,7 +279,7 @@ function ZA.Paint(a, uiMapID, focusX, focusY, index)
 					t:SetSize(tileW * s, tileH * s)
 					t:ClearAllPoints()
 					t:SetPoint("TOPLEFT", a.Canvas, "TOPLEFT", tx * s, -ty * s)
-					if t.SetDesaturation then t:SetDesaturation(ZA.DESAT) end
+					shadeTile(a, t)
 					t:Show()
 				end
 			end

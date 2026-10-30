@@ -104,8 +104,13 @@ function T.HeaderLink(f)
 	local function place()
 		b:SetWidth(b.Lead:GetStringWidth() + 4 + b.Name:GetStringWidth())
 		b:ClearAllPoints()
-		local close = f.Close
-		if close and close:IsShown() and close:GetParent() == f.Header then
+		local close, tools = f.Close, rawget(f, "HeaderTools")
+		-- The close button may have moved (the hub's details pane): the
+		-- scale control follows it first.
+		if tools then tools.Place() end
+		if tools and tools:IsShown() then
+			b:SetPoint("RIGHT", tools, "LEFT", -16, 0)
+		elseif close and close:IsShown() and close:GetParent() == f.Header then
 			b:SetPoint("RIGHT", close, "LEFT", -10, 0)
 		else
 			b:SetPoint("RIGHT", f.Header, "TOPRIGHT", -SH.pad, -26)
