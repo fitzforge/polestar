@@ -27,7 +27,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -68,7 +68,7 @@ jobs:
           zstd -19 --rm -q "dist/forever-db-$v.sqlite"
           (cd dist && sha256sum * > SHA256SUMS)
 
-      - uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
+      - uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
         with:
           name: forever-db ${{ steps.version.outputs.version }}
           body_path: forever-db/CHANGELOG.md
