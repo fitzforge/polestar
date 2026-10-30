@@ -224,15 +224,20 @@ end
 -- SavedVariables
 ---------------------------------------------------------------------------
 
--- Recording is opt-in: nothing is written until the player turns it on. The
--- choice lives in the DB and here, so a DB table lost mid-session keeps
--- recording on.
+-- Recording is opt-in: nothing is written until the player turns it on, with
+-- /psrec on or by sharing in Polestar Client (PolestarRecorderShare in
+-- Ack.lua). The choice lives in the DB and here, so a DB table lost
+-- mid-session keeps recording on.
 local enabled = false
+-- /psrec off was typed (and not undone by /psrec on): it wins over the
+-- client's share flag.
+local optout = false
 
 -- The live state, mirrored into PolestarRecorderDB by DB().
 local live -- the table PolestarRecorderDB was at the last DB()
 local state = { install = nil, seq = 0, acked = 0, chunks = {}, maps = {} }
 local schemaNote = false -- schema 1 data was found and removed at load
+local shareNote = false -- the client's share flag turned recording on at load
 
 local BASE36 = "0123456789abcdefghijklmnopqrstuvwxyz"
 local function randomId(n)
@@ -260,6 +265,7 @@ local function DB()
 		db.install, db.seq, db.acked = state.install, state.seq, state.acked
 		db.chunks, db.maps = state.chunks, state.maps
 		db.enabled = enabled
+		db.optout = optout or nil
 	end
 	return db
 end
@@ -287,15 +293,26 @@ function ns.TextSeen() return CharDB().textSeen end
 
 -- Adopts the SavedVariables at ADDON_LOADED: schema 1 data is removed (its
 -- sessions carried names and nothing reads it now); only the opt-in and the
--- Recorder window's own settings (position, ticked spots) stay.
+-- Recorder window's own settings (position, ticked spots) stay. Then the
+-- client's share flag (Ack.lua, loaded before the SavedVariables): true turns
+-- recording on unless the player typed /psrec off, false turns it off, nil
+-- (no Polestar Client) leaves the player's own choice.
 local function adopt()
 	local db = PolestarRecorderDB
 	if type(db) ~= "table" then db = {} end
 	if db.schema ~= ns.SCHEMA and (db.schema ~= nil or db.sessions ~= nil) then
-		db = { enabled = db.enabled == true, panel = db.panel, spots = db.spots }
+		db = { enabled = db.enabled == true, optout = db.optout, panel = db.panel, spots = db.spots }
 		schemaNote = true
 	end
 	enabled = db.enabled == true
+	optout = db.optout == true
+	local share = PolestarRecorderShare
+	if share == true and not optout and not enabled then
+		enabled, shareNote = true, true
+	elseif share == false then
+		enabled = false
+	end
+	db.enabled = enabled
 	state.install = validId(db.install, 12) and db.install or randomId(12)
 	state.seq = type(db.seq) == "number" and db.seq >= 0 and floor(db.seq) or 0
 	state.acked = type(db.acked) == "number" and db.acked >= 0 and floor(db.acked) or 0
@@ -724,13 +741,17 @@ local function startSession(isReload)
 end
 ns.StartSession = startSession
 
+-- The player's own choice (/psrec on|off, the Recorder window): off is kept
+-- as an opt-out that the client's share flag does not undo; on clears it.
 -- Turning recording on in play starts a session at once; off closes the
 -- chunk.
 function ns.SetEnabled(on)
 	if not on and ns.TrailStop then ns.TrailStop("recording off") end
 	if not on then closeChunk() end
 	enabled = on and true or false
-	DB().enabled = enabled
+	optout = not enabled
+	local db = DB()
+	db.enabled, db.optout = enabled, optout or nil
 	if enabled and not open and inWorld then startSession(false) end
 end
 
@@ -772,6 +793,10 @@ ns.On("PLAYER_LOGIN", function()
 	if schemaNote then
 		schemaNote = false
 		ns.Print(L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"])
+	end
+	if shareNote then
+		shareNote = false
+		ns.Print(L["on, because sharing is on in Polestar Client. /psrec off to stop."])
 	end
 end)
 

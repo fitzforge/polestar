@@ -57,10 +57,10 @@
 			</button>
 			<p class="small muted">
 				{#if recorder?.installed}
-					Uses the Recorder {recorder.installed} you have installed; turn it on in the game with /psrec on.
+					Uses the Recorder {recorder.installed} you have installed; it starts recording at your next login (or /reload).
 				{:else}
 					Needs the Polestar Recorder addon:
-					<button class="link small-link" onclick={() => go('addons')}>install it from Addons</button>, then type /psrec on in the game.
+					<button class="link small-link" onclick={() => go('addons')}>install it from Addons</button>; it starts recording at your next login.
 				{/if}
 				Stop any time in Settings.
 			</p>

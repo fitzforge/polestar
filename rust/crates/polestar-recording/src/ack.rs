@@ -1,7 +1,9 @@
 //! The ack file (docs/RECORDING.md "Ack file"): `Interface/AddOns/Polestar_Recorder/Ack.lua`,
-//! written by the Polestar Client so the addon can delete chunks the server has. One game folder
-//! holds every WoW account's install, so the file maps each install id to its highest
-//! acknowledged chunk: `PolestarRecorderAck = { ["<install>"] = <upto>, ... }`.
+//! written by the Polestar Client so the addon can delete chunks the server has, and learn
+//! whether the player shares. One game folder holds every WoW account's install, so the file maps
+//! each install id to its highest acknowledged chunk:
+//! `PolestarRecorderAck = { ["<install>"] = <upto>, ... }`, then
+//! `PolestarRecorderShare = true|false` (sharing on and not paused in the client).
 
 use std::collections::BTreeMap;
 use std::io::{self, Write};
@@ -15,19 +17,28 @@ pub const FILE_NAME: &str = "Ack.lua";
 /// Records that `install`'s chunks up to `upto` are on the server: reads the ack file in
 /// `addon_dir` (the Polestar_Recorder addon folder), raises this install's entry (never lowers
 /// it), keeps the other installs' entries, and writes the file atomically (a temporary file, then
-/// a rename).
-pub fn write(addon_dir: &Path, install: &str, upto: u64) -> io::Result<()> {
+/// a rename) with the share flag `share`.
+pub fn write(addon_dir: &Path, install: &str, upto: u64, share: bool) -> io::Result<()> {
 	if !valid_install(install) {
 		return Err(io::Error::new(io::ErrorKind::InvalidInput, format!("not an install id: {install:?}")));
 	}
 	let mut acks = read(addon_dir);
 	let e = acks.entry(install.to_string()).or_insert(upto);
 	*e = (*e).max(upto);
+	save(addon_dir, &acks, share)
+}
+
+/// Writes the share flag, keeping every install's ack.
+pub fn write_share(addon_dir: &Path, share: bool) -> io::Result<()> {
+	save(addon_dir, &read(addon_dir), share)
+}
+
+fn save(addon_dir: &Path, acks: &BTreeMap<String, u64>, share: bool) -> io::Result<()> {
 	let mut text = String::from("PolestarRecorderAck = {\n");
-	for (i, n) in &acks {
+	for (i, n) in acks {
 		text.push_str(&format!("\t[\"{i}\"] = {n},\n"));
 	}
-	text.push_str("}\n");
+	text.push_str(&format!("}}\nPolestarRecorderShare = {share}\n"));
 	let tmp = addon_dir.join(format!("{FILE_NAME}.tmp"));
 	{
 		let mut f = std::fs::File::create(&tmp)?;
@@ -39,14 +50,19 @@ pub fn write(addon_dir: &Path, install: &str, upto: u64) -> io::Result<()> {
 	})
 }
 
+/// The last value of the global `name` in the ack file, if the file reads.
+fn global(addon_dir: &Path, name: &str) -> Option<Value> {
+	let text = std::fs::read_to_string(addon_dir.join(FILE_NAME)).ok()?;
+	let vars = lua::parse_assignments(&text).ok()?;
+	vars.into_iter().rev().find(|(n, _)| n == name).map(|(_, v)| v)
+}
+
 /// The acks in `addon_dir`: install id -> highest acknowledged chunk. Empty when there is no
 /// file, the release's `PolestarRecorderAck = nil`, or an unreadable file; entries that are not
 /// an install id and a whole number are left out.
 pub fn read(addon_dir: &Path) -> BTreeMap<String, u64> {
 	let mut out = BTreeMap::new();
-	let Ok(text) = std::fs::read_to_string(addon_dir.join(FILE_NAME)) else { return out };
-	let Ok(vars) = lua::parse_assignments(&text) else { return out };
-	let Some((_, v)) = vars.into_iter().rev().find(|(n, _)| n == "PolestarRecorderAck") else { return out };
+	let Some(v) = global(addon_dir, "PolestarRecorderAck") else { return out };
 	for (k, n) in v.entries() {
 		if let (Value::Str(k), Some(n)) = (k, n.as_u64()) {
 			if valid_install(k) {
@@ -55,6 +71,11 @@ pub fn read(addon_dir: &Path) -> BTreeMap<String, u64> {
 		}
 	}
 	out
+}
+
+/// The share flag in `addon_dir`'s ack file; `None` when there is none (the release's file).
+pub fn read_share(addon_dir: &Path) -> Option<bool> {
+	global(addon_dir, "PolestarRecorderShare")?.as_bool()
 }
 
 #[cfg(test)]
@@ -67,21 +88,31 @@ mod tests {
 		std::fs::create_dir_all(&dir).unwrap();
 		std::fs::write(dir.join(FILE_NAME), "PolestarRecorderAck = nil\n").unwrap();
 		assert!(read(&dir).is_empty());
-		write(&dir, "k3j9x0q2m7ab", 37).unwrap();
-		assert_eq!(std::fs::read_to_string(dir.join(FILE_NAME)).unwrap(), "PolestarRecorderAck = {\n\t[\"k3j9x0q2m7ab\"] = 37,\n}\n");
+		assert_eq!(read_share(&dir), None);
+		write(&dir, "k3j9x0q2m7ab", 37, true).unwrap();
+		assert_eq!(std::fs::read_to_string(dir.join(FILE_NAME)).unwrap(), "PolestarRecorderAck = {\n\t[\"k3j9x0q2m7ab\"] = 37,\n}\nPolestarRecorderShare = true\n");
 		assert!(!dir.join("Ack.lua.tmp").exists());
+		assert_eq!(read_share(&dir), Some(true));
 		// A second account's install keeps the first's entry.
-		write(&dir, "0000aaaabbbb", 5).unwrap();
+		write(&dir, "0000aaaabbbb", 5, true).unwrap();
 		let acks = read(&dir);
 		assert_eq!((acks["k3j9x0q2m7ab"], acks["0000aaaabbbb"]), (37, 5));
 		// Raised, never lowered.
-		write(&dir, "k3j9x0q2m7ab", 41).unwrap();
-		write(&dir, "k3j9x0q2m7ab", 12).unwrap();
+		write(&dir, "k3j9x0q2m7ab", 41, true).unwrap();
+		write(&dir, "k3j9x0q2m7ab", 12, true).unwrap();
 		assert_eq!(read(&dir)["k3j9x0q2m7ab"], 41);
-		assert_eq!(write(&dir, "\"; os.exit() --", 1).unwrap_err().kind(), io::ErrorKind::InvalidInput);
+		assert_eq!(write(&dir, "\"; os.exit() --", 1, true).unwrap_err().kind(), io::ErrorKind::InvalidInput);
+		assert_eq!(read(&dir).len(), 2);
+		// Sharing turned off: the flag changes, the acks stay.
+		write_share(&dir, false).unwrap();
+		assert_eq!(read_share(&dir), Some(false));
 		assert_eq!(read(&dir).len(), 2);
 		// Junk entries and the old single-install form are not acks.
 		std::fs::write(dir.join(FILE_NAME), "PolestarRecorderAck = { install = \"k3j9x0q2m7ab\", upto = 3, [\"BAD\"] = 1 }\n").unwrap();
+		assert!(read(&dir).is_empty());
+		// With no acks yet, the flag alone is written.
+		write_share(&dir, true).unwrap();
+		assert_eq!(std::fs::read_to_string(dir.join(FILE_NAME)).unwrap(), "PolestarRecorderAck = {\n}\nPolestarRecorderShare = true\n");
 		assert!(read(&dir).is_empty());
 		std::fs::remove_dir_all(&dir).unwrap();
 	}

@@ -139,13 +139,21 @@ the upload API, and the public list of what is never collected.
   It then records in
   `Interface/AddOns/Polestar_Recorder/Ack.lua` the highest chunk the server
   accepted or already had among the ones that request sent, per Recorder
-  install, so the addon can free the
-  space. **Status** says what it is doing (sharing on, sending, waiting for
+  install, so the addon can free the space. The same file carries
+  `PolestarRecorderShare = true|false` (sharing on and not paused), written
+  whenever that changes and with every ack: Start sharing is the one
+  opt-in, and at the next login (or `/reload`) the Recorder turns itself on
+  and says so, unless the player typed `/psrec off` (docs/RECORDING.md "Ack
+  file"). **Status** says what it is doing (sharing on, sending, waiting for
   the game to save, can't reach the server and retrying, paused, some data
   skipped and why, or what needs your attention) and what this week's play
-  added up to; **Activity** lists every upload and every addon change;
-  **What we send** shows the next upload as a summary, event by event, and
-  as the raw JSON.
+  added up to. While a file is still in the old format (schema 1) it offers
+  to update the Recorder only when a newer one is published; with the latest
+  installed it asks you to log in (or `/reload`) with it, and while no
+  published Recorder records the new format yet it says the new one comes
+  with the next Polestar update. **Activity** lists every upload and every
+  addon change; **What we send** shows the next upload as a summary, event
+  by event, and as the raw JSON.
 - **Settings** has sharing and pause, the addon update options, start with
   your computer, the game folder, "Delete my data from the server", the
   frame-rate overlay (Ctrl+Shift+F anywhere, or `POLESTAR_FRAME_METER=1`

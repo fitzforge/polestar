@@ -26,7 +26,8 @@ class with `$R`, `$C`) in the addon, and again in Polestar Client.
 ```lua
 PolestarRecorderDB = {
 	schema = 2,
-	enabled = true,            -- recording on (/psrec on); nothing is written while false
+	enabled = true,            -- recording on (/psrec on, or Polestar Client's share flag); nothing is written while false
+	optout = true,             -- only after /psrec off: the client's share flag does not turn recording on; /psrec on clears it
 	install = "k3j9x0q2m7ab",  -- 12 random base-36 characters, made once per WoW account folder
 	seq = 41,                  -- last chunk number used
 	acked = 37,                -- highest chunk Polestar Client confirmed (from Ack.lua), kept for display
@@ -59,15 +60,26 @@ without its name.
 ### Ack file (written by Polestar Client)
 
 `Interface/AddOns/Polestar_Recorder/Ack.lua`, loaded first by the TOC. One
-entry per install, because several WoW accounts share one AddOns folder:
+entry per install, because several WoW accounts share one AddOns folder,
+then whether the player shares:
 
 ```lua
 PolestarRecorderAck = { ["k3j9x0q2m7ab"] = 37 }
+PolestarRecorderShare = true
 ```
 
-The release zip ships it as `PolestarRecorderAck = nil`; Polestar Client
-merges its entry into whatever the file holds. A lost ack only means a chunk
-is uploaded twice; the server ignores a repeated `(install, seq)`.
+The release zip ships it as `PolestarRecorderAck = nil` with no share flag;
+Polestar Client merges its entry into whatever the file holds. A lost ack
+only means a chunk is uploaded twice; the server ignores a repeated
+`(install, seq)`.
+
+`PolestarRecorderShare` is `true` while sharing is on in Polestar Client and
+uploads are not paused, `false` otherwise; the client writes it whenever that
+changes and with every ack. At login the Recorder reads it: `true` turns
+recording on (saying so once in chat) unless `optout` is set, `false` turns it
+off (without setting `optout`), and no flag (no Polestar Client) leaves
+`enabled` as the player set it. So one opt-in, Start sharing in the client,
+is enough; `/psrec off` stays the player's last word until `/psrec on`.
 
 ### Field encoding
 

@@ -214,11 +214,13 @@ impl Engine {
 		self.lock().settings.server_url.trim_end_matches('/').to_owned()
 	}
 
+	/// Changes and saves the settings, then tells the Recorder whether the player shares.
 	pub fn save_settings(&self, change: impl FnOnce(&mut Settings)) -> Result<(), String> {
 		let mut state = self.lock();
 		change(&mut state.settings);
 		self.store.save_settings(&state.settings).map_err(|e| format!("Could not save settings: {e}"))?;
 		drop(state);
+		self.sync_share();
 		self.wake();
 		Ok(())
 	}
@@ -244,6 +246,7 @@ impl Engine {
 			let force = std::mem::take(&mut self.lock().rescan);
 			if force || last_scan.is_none_or(|t| t.elapsed() >= RESCAN) {
 				self.scan().await;
+				self.sync_share();
 				self.refresh_packs();
 				// Before any upload (which can take a while): the window shows what was found now.
 				self.publish();
@@ -604,9 +607,10 @@ impl Engine {
 		state.week_dirty = true;
 		state.rejected = (!rejected.is_empty()).then(|| (now, rejected.clone()));
 		let addon_dir = state.install.as_ref().and_then(|i| i.addon_dir.clone());
+		let share = sharing(&state.settings);
 		drop(state);
 		if let (Some(dir), true) = (addon_dir, acked > 0) {
-			if let Err(e) = ack::write(&dir, &request.install, acked) {
+			if let Err(e) = ack::write(&dir, &request.install, acked, share) {
 				eprintln!("could not write Ack.lua: {e}");
 			}
 		}
@@ -652,18 +656,38 @@ impl Engine {
 	}
 
 	/// Writes Ack.lua again for every install the server confirmed chunks of
-	/// (after the Recorder was reinstalled, which ships it empty). `ack::write`
-	/// merges each install into the file's per-install map.
+	/// (after the Recorder was reinstalled, which ships it empty), and the share
+	/// flag. `ack::write` merges each install into the file's per-install map.
 	pub fn rewrite_ack(&self) {
 		let state = self.lock();
 		let Some(dir) = state.install.as_ref().map(|i| i.addons_dir().join(install::ADDON)) else { return };
 		let acks: Vec<(String, u64)> = state.progress.iter().filter(|(_, p)| p.acked > 0).map(|(i, p)| (i.clone(), p.acked)).collect();
+		let share = sharing(&state.settings);
 		drop(state);
 		if !dir.is_dir() {
 			return;
 		}
 		for (install, upto) in acks {
-			if let Err(e) = ack::write(&dir, &install, upto) {
+			if let Err(e) = ack::write(&dir, &install, upto, share) {
+				eprintln!("could not write Ack.lua: {e}");
+			}
+		}
+		self.sync_share();
+	}
+
+	/// Puts the share flag in Ack.lua when the file does not say it already: the Recorder records
+	/// while the player shares (docs/RECORDING.md "Ack file"). Called when the settings change
+	/// and after every look for the game (which also catches a Recorder reinstalled by hand).
+	fn sync_share(&self) {
+		let state = self.lock();
+		let Some(dir) = state.install.as_ref().map(|i| i.addons_dir().join(install::ADDON)) else { return };
+		let share = sharing(&state.settings);
+		drop(state);
+		if !dir.is_dir() {
+			return;
+		}
+		if ack::read_share(&dir) != Some(share) {
+			if let Err(e) = ack::write_share(&dir, share) {
 				eprintln!("could not write Ack.lua: {e}");
 			}
 		}
@@ -878,6 +902,11 @@ fn backoff_secs(attempts: u32, retry_after: Option<u64>) -> u64 {
 	(BACKOFF_MIN << attempts.min(10)).min(BACKOFF_MAX).max(retry_after.unwrap_or(0).min(RETRY_AFTER_503_MAX))
 }
 
+/// The Recorder should record: the player shares and has not paused uploads.
+fn sharing(settings: &Settings) -> bool {
+	settings.consent && !settings.paused
+}
+
 /// `address`'s host when it is not `default` (both normalized): the banner names it.
 fn custom_site(address: &str, default: &str) -> Option<String> {
 	let norm = |u: &str| crate::packs::normalize_base(u).unwrap_or_else(|| u.to_owned());
@@ -933,7 +962,7 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 		return make("attention", "World of Warcraft: Forever not found", "Show Polestar Client where the game is installed.".into(), Some("locate"));
 	};
 	if !addon.installed {
-		return make("attention", "The Recorder addon is not installed", "Install it, then log in to the game and turn recording on with /psrec on.".into(), Some("install"));
+		return make("attention", "The Recorder addon is not installed", "Install it, then log in to the game. While sharing is on, the Recorder records by itself.".into(), Some("install"));
 	}
 	if state.accounts.iter().any(|a| matches!(a.error, Some(sv::Error::OldSchema))) {
 		let (kind, title, detail, action) = old_recorder(addon.version.as_deref(), addon.latest.as_deref());
@@ -961,10 +990,10 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 		return make("waiting", "Waiting for your first login", "Log in to WoW: Forever once so the game makes your account folder.".into(), None);
 	}
 	if files.is_empty() {
-		return make("waiting", "Waiting for the first recording", "In the game, type /psrec on. The game saves the recording when you log out or type /reload.".into(), None);
+		return make("waiting", "Waiting for the first recording", "Log in to the game: the Recorder records while sharing is on. The game saves the recording when you log out or type /reload.".into(), None);
 	}
 	if files.iter().all(|f| !f.enabled) && pending == 0 {
-		return make("attention", "Recording is off in the game", "Type /psrec on in the game to start recording.".into(), None);
+		return make("attention", "Recording is off in the game", "It turns on at your next login (or /reload) while sharing is on, unless you turned it off with /psrec off: then type /psrec on.".into(), None);
 	}
 	if let Some((at, rejected)) = &state.rejected {
 		if now - at < REJECTED_SHOWN_MS {

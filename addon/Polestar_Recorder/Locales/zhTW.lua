@@ -64,6 +64,7 @@ L["Recorder: show or hide the window"] = "記錄器：顯示或隱藏視窗"
 
 -- Recorder.lua
 -- L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = ""
+-- L["on, because sharing is on in Polestar Client. /psrec off to stop."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["this client exposes no talent tree API"] = "此用戶端未提供天賦樹 API"
