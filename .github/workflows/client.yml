@@ -185,6 +185,9 @@ jobs:
           mkdir out
           bundle=apps/client/src-tauri/target/universal-apple-darwin/release/bundle
           app="$(ls -d "$bundle"/macos/*.app)"
+          # Ad-hoc ("-", tauri.macos.conf.json) without an Apple certificate: a bundle with no
+          # seal is "damaged" to Gatekeeper on Apple silicon instead of "unverified developer".
+          codesign --verify --deep --strict --verbose=2 "$app"
           tar -czf "out/$(basename "$app" | tr ' ' '.')_universal.app.tar.gz" -C "$(dirname "$app")" "$(basename "$app")"
           for f in "$bundle"/dmg/*.dmg; do cp "$f" "out/$(basename "$f" | tr ' ' '.')"; done
           ls -l out
