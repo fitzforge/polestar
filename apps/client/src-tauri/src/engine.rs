@@ -884,6 +884,22 @@ fn custom_site(address: &str, default: &str) -> Option<String> {
 	(norm(address) != norm(default)).then(|| crate::packs::host(address))
 }
 
+/// The last Recorder release that records schema 1; every later one records schema 2.
+const LAST_SCHEMA1_RECORDER: &str = "0.2.6";
+
+/// What Status says (kind, title, detail, action) while an account's file is still schema 1,
+/// given the Recorder installed and the latest one published (`None`: not known yet). It offers
+/// an update only when the published one records schema 2 and is newer than the one installed.
+fn old_recorder(installed: Option<&str>, latest: Option<&str>) -> (&'static str, &'static str, &'static str, Option<&'static str>) {
+	let records_schema2 = |v: &str| addons::newer(v, LAST_SCHEMA1_RECORDER);
+	match latest {
+		Some(l) if records_schema2(l) && installed.is_none_or(|have| addons::newer(l, have)) => ("attention", "The Recorder is out of date", "Update it so it records in the format the server reads.", Some("update")),
+		_ if installed.is_some_and(records_schema2) => ("waiting", "Waiting for the new Recorder to run", "Log in (or /reload) with the Recorder on to start recording in the new format.", None),
+		Some(_) => ("attention", "The Recorder is out of date", "It records in an older format the server no longer reads. The new Recorder comes with the next Polestar update.", None),
+		None => ("attention", "The Recorder is out of date", "It records in an older format the server no longer reads. Check for addon updates to get the new one.", None),
+	}
+}
+
 /// Is World of Warcraft running? (Under Wine the game shows up as its .exe.)
 fn game_running(system: &mut sysinfo::System) -> bool {
 	use sysinfo::{ProcessRefreshKind, ProcessesToUpdate};
@@ -920,7 +936,8 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 		return make("attention", "The Recorder addon is not installed", "Install it, then log in to the game and turn recording on with /psrec on.".into(), Some("install"));
 	}
 	if state.accounts.iter().any(|a| matches!(a.error, Some(sv::Error::OldSchema))) {
-		return make("attention", "The Recorder is out of date", "Update it so it records in the format the server reads.".into(), Some("install"));
+		let (kind, title, detail, action) = old_recorder(addon.version.as_deref(), addon.latest.as_deref());
+		return make(kind, title, detail.into(), action);
 	}
 	if let Some(a) = state.accounts.iter().find(|a| a.error.as_ref().is_some_and(|e| !matches!(e, sv::Error::Missing))) {
 		return make("attention", "The Recorder's file can't be read", format!("{}: {}", a.folder_name, a.error.as_ref().map(|e| e.to_string()).unwrap_or_default()), None);
@@ -1191,5 +1208,21 @@ mod tests {
 		assert_eq!(confirmed_ack(&sent, &[3, u64::MAX], &[]), Some(3));
 		assert_eq!(confirmed_ack(&sent, &[9], &[2]), None);
 		assert_eq!(confirmed_ack(&[], &[1], &[]), None);
+	}
+
+	#[test]
+	fn old_recorder_offers_only_a_newer_release() {
+		let action = |have, latest| old_recorder(have, latest).3;
+		// Published newer than installed (or nothing readable installed): update.
+		assert_eq!(action(Some("0.2.6"), Some("0.3.0")), Some("update"));
+		assert_eq!(action(None, Some("0.3.0")), Some("update"));
+		// The latest is installed already: play with it, nothing to install.
+		assert_eq!(old_recorder(Some("0.3.0"), Some("0.3.0")), ("waiting", "Waiting for the new Recorder to run", "Log in (or /reload) with the Recorder on to start recording in the new format.", None));
+		assert_eq!(action(Some("0.3.1"), Some("0.3.0")), None);
+		// No published release records schema 2 yet: never reinstall the same old one.
+		let (_, _, detail, action) = old_recorder(Some("0.2.6"), Some("0.2.6"));
+		assert!(detail.contains("next Polestar update") && action.is_none(), "{detail}");
+		assert_eq!(old_recorder(Some("0.2.5"), Some("0.2.6")).3, None);
+		assert_eq!(old_recorder(Some("0.2.6"), None).3, None);
 	}
 }

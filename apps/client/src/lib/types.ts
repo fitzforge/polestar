@@ -1,7 +1,7 @@
 // The shapes the Rust backend sends (src-tauri/src/engine.rs, store.rs).
 
 export type StatusKind = 'off' | 'watching' | 'uploading' | 'waiting' | 'offline' | 'paused' | 'rejected' | 'attention';
-export type StatusAction = 'retry' | 'resume' | 'install' | 'locate';
+export type StatusAction = 'retry' | 'resume' | 'install' | 'update' | 'locate';
 
 export interface Status {
 	kind: StatusKind;

@@ -7,7 +7,11 @@
 //   setup-scanning, optin, home, registering, uploading, offline, paused,
 //   attention, empty, running, community-off (no signing key pinned),
 //   community-link (a polestar://install link waiting), community-bad-link,
-//   custom (a custom community site and recording server)
+//   custom (a custom community site and recording server),
+//   recorder-update (an old-format file; a newer Recorder is published),
+//   recorder-reload (an old-format file; the latest Recorder is installed but
+//   hasn't run yet), recorder-next (an old-format file; no published Recorder
+//   records the new format yet)
 
 import type { ActivityEntry, Pack, Preview, Product, Snapshot, Summary } from './types';
 
@@ -248,7 +252,18 @@ function initial(): Snapshot {
 			break;
 		case 'attention':
 			s.game.addon = { installed: false, version: null, latest: '0.3.0', updateAvailable: false };
-			s.status = { ...s.status, kind: 'attention', title: 'The Recorder addon is not installed', detail: 'Install it, then log in to the game and turn recording on with /psrec on.', action: 'install' };
+			s.status = { ...s.status, kind: 'attention', title: 'The Recorder addon is not installed', detail: 'Install it, then log in to the game. While sharing is on, the Recorder records by itself.', action: 'install' };
+			break;
+		case 'recorder-update':
+			s.game.addon = { installed: true, version: '0.2.6', latest: '0.3.0', updateAvailable: true };
+			s.status = { ...s.status, kind: 'attention', title: 'The Recorder is out of date', detail: 'Update it so it records in the format the server reads.', action: 'update' };
+			break;
+		case 'recorder-reload':
+			s.status = { ...s.status, kind: 'waiting', title: 'Waiting for the new Recorder to run', detail: 'Log in (or /reload) with the Recorder on to start recording in the new format.', action: null };
+			break;
+		case 'recorder-next':
+			s.game.addon = { installed: true, version: '0.2.6', latest: '0.2.6', updateAvailable: false };
+			s.status = { ...s.status, kind: 'attention', title: 'The Recorder is out of date', detail: 'It records in an older format the server no longer reads. The new Recorder comes with the next Polestar update.', action: null };
 			break;
 		case 'empty':
 			s.week = null;

@@ -31,6 +31,7 @@
 		retry: { label: 'Try again now', run: () => api.retryNow() },
 		resume: { label: 'Resume uploads', run: () => api.setPaused(false) },
 		install: { label: 'Install the Recorder', run: () => api.addonAction('recorder', 'install').then((t) => toast(t)) },
+		update: { label: 'Update the Recorder', run: () => api.addonAction('recorder', 'update').then((t) => toast(t)) },
 		locate: {
 			label: 'Locate the game',
 			run: async () => {
