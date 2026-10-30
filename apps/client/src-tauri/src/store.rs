@@ -12,9 +12,13 @@
 //! - `activity.json`: the last 500 uploads, newest first.
 //! - `sent.jsonl`: the chunks the server accepted in the last 8 days, so the
 //!   Home page can say what this week's play contributed.
-//! - `packs.json`: per community site, the last pack index accepted (its
-//!   bytes, signature and ETag), so the Community page works offline and an
-//!   older index is never accepted after a newer one.
+//! - `packs.json`: per community site (its normalized address), the last pack
+//!   index accepted (its bytes, signature and ETag), so the Community page
+//!   works offline and an older index is never accepted after a newer one.
+//! - `community.json`: per installed community pack, what it was installed as
+//!   (its uid, publisher and folders: updates are compared against it), and the
+//!   packs the site pulled (turned off, with their folders kept in
+//!   `disabled/<id>/`, or removed), with the site's reason.
 
 use std::collections::BTreeMap;
 use std::fs;
@@ -46,8 +50,11 @@ pub struct Settings {
 	pub channel: Channel,
 	/// Look for addon updates every 6 hours (and say so in the tray).
 	pub auto_check: bool,
-	/// Install addon updates as soon as they are found (while the game is closed).
+	/// Install addon updates as soon as they are found (while the game is closed). Polestar's
+	/// own addons only: community packs have `auto_update_packs`.
 	pub auto_install: bool,
+	/// Install routine community pack updates by themselves (packs.rs `auto_update_ok`).
+	pub auto_update_packs: bool,
 	/// The community packs site (polestar.guide; a developer's own in Settings > Advanced).
 	pub packs_url: String,
 	/// Tell the packs site which pack was installed (opt-in): the pack and version, nothing else.
@@ -73,6 +80,30 @@ pub struct SavedIndex {
 	pub sig: String,
 }
 
+/// What the client keeps about community packs between runs.
+#[derive(Serialize, Deserialize, Clone, Debug, Default, PartialEq)]
+#[serde(rename_all = "camelCase", default)]
+pub struct PackState {
+	/// Per installed pack id: what it was installed as.
+	pub pins: BTreeMap<String, crate::packs::Pin>,
+	/// Per pack id: a pack the site pulled.
+	pub pulled: BTreeMap<String, Pulled>,
+}
+
+/// A pack the site's `revoked` list turned off or removed.
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
+#[serde(rename_all = "camelCase")]
+pub struct Pulled {
+	pub title: String,
+	pub version: Option<String>,
+	pub uid: Option<String>,
+	pub folders: Vec<String>,
+	pub reason: String,
+	pub action: crate::packs::RevokeAction,
+	/// When, epoch milliseconds.
+	pub at: i64,
+}
+
 impl Default for Settings {
 	fn default() -> Self {
 		Settings {
@@ -85,6 +116,7 @@ impl Default for Settings {
 			channel: Channel::Stable,
 			auto_check: true,
 			auto_install: false,
+			auto_update_packs: false,
 			packs_url: crate::packs::DEFAULT_BASE.to_owned(),
 			pack_telemetry: false,
 		}
@@ -126,6 +158,12 @@ pub enum ActivityKind {
 	Update,
 	Repair,
 	Uninstall,
+	/// A community pack the site pulled was turned off (moved out of AddOns) or removed; `message`
+	/// is the site's reason (and why it failed, when it did).
+	Disabled,
+	Removed,
+	/// A turned-off pack was put back (`message` set when it failed).
+	Restored,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, Default)]
@@ -208,8 +246,13 @@ impl Store {
 		read_json(&self.path("tokens.json")).unwrap_or_default()
 	}
 
+	/// The settings, with the community site in its one spelling ([`crate::packs::normalize_base`]).
 	pub fn settings(&self) -> Settings {
-		read_json(&self.path("settings.json")).unwrap_or_default()
+		let mut settings: Settings = read_json(&self.path("settings.json")).unwrap_or_default();
+		if let Some(base) = crate::packs::normalize_base(&settings.packs_url) {
+			settings.packs_url = base;
+		}
+		settings
 	}
 
 	pub fn save_settings(&self, settings: &Settings) -> io::Result<()> {
@@ -260,15 +303,33 @@ impl Store {
 		}
 	}
 
-	/// The last pack index accepted from `base`.
+	/// The last pack index accepted from `base`. Keys are compared normalized, so `https://x/` and
+	/// `https://X` are one site; of several spellings kept by an older client, the newest stands.
 	pub fn pack_index(&self, base: &str) -> Option<SavedIndex> {
-		read_json::<BTreeMap<String, SavedIndex>>(&self.path("packs.json")).and_then(|mut all| all.remove(base))
+		let key = crate::packs::normalize_base(base)?;
+		let all = read_json::<BTreeMap<String, SavedIndex>>(&self.path("packs.json"))?;
+		all.into_iter().filter(|(k, _)| crate::packs::normalize_base(k).as_deref() == Some(key.as_str())).map(|(_, v)| v).max_by_key(|v| v.generated)
 	}
 
 	pub fn save_pack_index(&self, base: &str, saved: SavedIndex) -> io::Result<()> {
+		let key = crate::packs::normalize_base(base).unwrap_or_else(|| base.to_owned());
 		let mut all: BTreeMap<String, SavedIndex> = read_json(&self.path("packs.json")).unwrap_or_default();
-		all.insert(base.to_owned(), saved);
+		all.retain(|k, _| crate::packs::normalize_base(k).as_deref() != Some(key.as_str()));
+		all.insert(key, saved);
 		write_json(&self.path("packs.json"), &all)
+	}
+
+	pub fn pack_state(&self) -> PackState {
+		read_json(&self.path("community.json")).unwrap_or_default()
+	}
+
+	pub fn save_pack_state(&self, state: &PackState) -> io::Result<()> {
+		write_json(&self.path("community.json"), state)
+	}
+
+	/// Where a turned-off pack's folders are kept.
+	pub fn disabled_dir(&self, id: &str) -> PathBuf {
+		self.dir.join("disabled").join(id)
 	}
 }
 

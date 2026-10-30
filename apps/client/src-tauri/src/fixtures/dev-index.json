@@ -20,7 +20,14 @@
 			"toc": 16001,
 			"minPolestar": "0.2.5",
 			"homepage": null,
-			"changelog": "First release."
+			"changelog": "First release.",
+			"uid": "pk_dev_durotar-dash",
+			"publisher": {
+				"id": "usr_dev_tester",
+				"handle": "Tester"
+			},
+			"published": "2026-10-27T16:41:44.877Z",
+			"reviewed": true
 		},
 		{
 			"id": "emberway",
@@ -39,7 +46,14 @@
 			"toc": 16001,
 			"minPolestar": "0.2.5",
 			"homepage": null,
-			"changelog": "First release."
+			"changelog": "First release.",
+			"uid": "pk_dev_emberway",
+			"publisher": {
+				"id": "usr_dev_ashka",
+				"handle": "Ashka"
+			},
+			"published": "2026-10-27T16:41:44.877Z",
+			"reviewed": true
 		},
 		{
 			"id": "hearthside",
@@ -58,7 +72,14 @@
 			"toc": 16001,
 			"minPolestar": "0.2.5",
 			"homepage": null,
-			"changelog": "First release."
+			"changelog": "First release.",
+			"uid": "pk_dev_hearthside",
+			"publisher": {
+				"id": "usr_dev_mira",
+				"handle": "Mira"
+			},
+			"published": "2026-10-27T16:41:44.877Z",
+			"reviewed": true
 		},
 		{
 			"id": "ironvault",
@@ -77,7 +98,14 @@
 			"toc": 16001,
 			"minPolestar": "0.2.5",
 			"homepage": null,
-			"changelog": "First release."
+			"changelog": "First release.",
+			"uid": "pk_dev_ironvault",
+			"publisher": {
+				"id": "usr_dev_brekka",
+				"handle": "Brekka"
+			},
+			"published": "2026-10-27T16:41:44.877Z",
+			"reviewed": true
 		},
 		{
 			"id": "lightforge",
@@ -96,7 +124,14 @@
 			"toc": 16001,
 			"minPolestar": "0.2.5",
 			"homepage": null,
-			"changelog": "First release."
+			"changelog": "First release.",
+			"uid": "pk_dev_lightforge",
+			"publisher": {
+				"id": "usr_dev_corwin",
+				"handle": "Corwin"
+			},
+			"published": "2026-10-27T16:41:44.877Z",
+			"reviewed": true
 		},
 		{
 			"id": "wayfarer",
@@ -115,7 +150,32 @@
 			"toc": 16001,
 			"minPolestar": "0.2.5",
 			"homepage": null,
-			"changelog": "First release."
+			"changelog": "First release.",
+			"uid": "pk_dev_wayfarer",
+			"publisher": {
+				"id": "usr_dev_tamsin",
+				"handle": "Tamsin"
+			},
+			"published": "2026-10-27T16:41:44.877Z",
+			"reviewed": true
+		}
+	],
+	"revoked": [
+		{
+			"id": "oldroute",
+			"uid": "pk_dev_oldroute",
+			"versions": [
+				"1.0.0"
+			],
+			"reason": "Sent players into a wall in Durotar.",
+			"action": "disable"
+		},
+		{
+			"id": "emberway",
+			"uid": "pk_dev_emberway_v0",
+			"versions": "*",
+			"reason": "An earlier guide under this name.",
+			"action": "remove"
 		}
 	]
 }

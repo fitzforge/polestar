@@ -246,7 +246,7 @@ impl Engine {
 			}
 		}
 		for (id, ..) in packs {
-			match self.pack_action(&id, "update").await {
+			match self.pack_action(&id, "update", false).await {
 				Ok(text) => done.push(text),
 				Err(e) => failed.push(e),
 			}

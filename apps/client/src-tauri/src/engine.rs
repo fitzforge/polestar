@@ -33,6 +33,10 @@ const RESCAN: Duration = Duration::from_secs(60);
 const PROCESS_CHECK: Duration = Duration::from_secs(15);
 const BACKOFF_MIN: u64 = 5;
 const BACKOFF_MAX: u64 = 300;
+/// The longest a 503's `Retry-After` is waited out.
+const RETRY_AFTER_503_MAX: u64 = 24 * 3600;
+/// The most of a server answer read (the answers are a few KB of JSON at most).
+const MAX_ANSWER: usize = 64 * 1024;
 /// After the server refuses a request outright, try again this rarely on its own.
 const REFUSED_RETRY: u64 = 30 * 60;
 /// How long the "server turned some data away" status stays up.
@@ -139,18 +143,17 @@ pub struct Engine {
 	app: AppHandle,
 	pub store: Store,
 	pub http: reqwest::Client,
+	/// For the community site: redirects only within its origin (packs.rs `redirect_policy`).
+	pub packs_http: reqwest::Client,
 	state: Mutex<State>,
 	kick: Notify,
 }
 
 impl Engine {
 	pub fn new(app: AppHandle, store: Store) -> Result<Arc<Engine>, String> {
-		let http = reqwest::Client::builder()
-			.user_agent(concat!("PolestarClient/", env!("CARGO_PKG_VERSION")))
-			.connect_timeout(Duration::from_secs(15))
-			.timeout(Duration::from_secs(90))
-			.build()
-			.map_err(|e| e.to_string())?;
+		let client = || reqwest::Client::builder().user_agent(concat!("PolestarClient/", env!("CARGO_PKG_VERSION"))).connect_timeout(Duration::from_secs(15)).timeout(Duration::from_secs(90));
+		let http = client().build().map_err(|e| e.to_string())?;
+		let packs_http = client().redirect(crate::packs::redirect_policy()).build().map_err(|e| e.to_string())?;
 		let activity = store.activity();
 		let last_upload = activity.iter().find(|a| matches!(a.kind, ActivityKind::Upload)).map(|a| a.at);
 		let rejected = activity.first().filter(|a| matches!(a.kind, ActivityKind::Upload) && !a.rejected.is_empty()).map(|a| (a.at, a.rejected.clone()));
@@ -184,7 +187,7 @@ impl Engine {
 			last_emitted: String::new(),
 			skipped: BTreeSet::new(),
 		};
-		Ok(Arc::new(Engine { app, store, http, state: Mutex::new(state), kick: Notify::new() }))
+		Ok(Arc::new(Engine { app, store, http, packs_http, state: Mutex::new(state), kick: Notify::new() }))
 	}
 
 	pub fn app(&self) -> &AppHandle {
@@ -498,7 +501,7 @@ impl Engine {
 			let message = server_message(response).await.unwrap_or_else(|| format!("The server answered {status}."));
 			return Err(Failed::Status(status, retry_after, message));
 		}
-		response.json().await.map_err(|e| Failed::Offline(format!("The server's answer could not be read: {e}")))
+		read_answer(response).await.map_err(Failed::Offline)
 	}
 
 	/// Records a failed request (see [`Engine::fail_status`]); None, for the caller to return.
@@ -561,10 +564,10 @@ impl Engine {
 			}
 			return false;
 		}
-		let answer: api::UploadResponse = match response.json().await {
+		let answer: api::UploadResponse = match read_answer(response).await {
 			Ok(a) => a,
 			Err(e) => {
-				self.fail_offline(format!("The server's answer could not be read: {e}"), None);
+				self.fail_offline(e, None);
 				return false;
 			}
 		};
@@ -620,8 +623,8 @@ impl Engine {
 			Some(Failure::Offline { attempts, .. }) => attempts + 1,
 			_ => 0,
 		};
-		let backoff = (BACKOFF_MIN << attempts.min(10)).min(BACKOFF_MAX).max(retry_after.unwrap_or(0));
-		state.failure = Some(Failure::Offline { message, attempts, retry_at: now_ms() + backoff as i64 * 1000 });
+		let backoff = backoff_secs(attempts, retry_after);
+		state.failure = Some(Failure::Offline { message, attempts, retry_at: now_ms().saturating_add(backoff as i64 * 1000) });
 	}
 
 	/// Records a non-success answer: a server error or 429 is retried with backoff, anything
@@ -753,6 +756,10 @@ impl Engine {
 			paused: state.settings.paused,
 			server_url: state.settings.server_url.clone(),
 			default_server_url: crate::store::DEFAULT_SERVER.to_owned(),
+			custom: CustomSites {
+				community: custom_site(&state.settings.packs_url, crate::packs::DEFAULT_BASE),
+				server: custom_site(&state.settings.server_url, crate::store::DEFAULT_SERVER),
+			},
 			data_dir: self.store.dir.display().to_string(),
 			game,
 			status,
@@ -834,14 +841,39 @@ fn describe_reqwest(e: &reqwest::Error) -> String {
 	}
 }
 
-async fn server_message(response: reqwest::Response) -> Option<String> {
-	let value: serde_json::Value = response.json().await.ok()?;
+/// The server's `{"error": ...}`, from at most [`MAX_ANSWER`] bytes of its answer.
+pub(crate) async fn server_message(response: reqwest::Response) -> Option<String> {
+	let value: serde_json::Value = serde_json::from_slice(&crate::packs::read_capped(response, MAX_ANSWER).await.ok()?).ok()?;
 	value.get("error")?.as_str().map(str::to_owned)
 }
 
-/// The `Retry-After` of a 429 or 503, in seconds.
+/// A JSON answer, from at most [`MAX_ANSWER`] bytes.
+async fn read_answer<T: serde::de::DeserializeOwned>(response: reqwest::Response) -> Result<T, String> {
+	let body = crate::packs::read_capped(response, MAX_ANSWER).await.map_err(|e| format!("The server's answer could not be read: {e}"))?;
+	serde_json::from_slice(&body).map_err(|e| format!("The server's answer could not be read: {e}"))
+}
+
+/// The `Retry-After` of a 429 or 503, in seconds, at most [`BACKOFF_MAX`] (a day for a 503).
 fn retry_after(response: &reqwest::Response) -> Option<u64> {
-	response.headers().get("retry-after").and_then(|v| v.to_str().ok()).and_then(|v| v.trim().parse::<u64>().ok())
+	let value = response.headers().get("retry-after").and_then(|v| v.to_str().ok()).and_then(|v| v.trim().parse::<u64>().ok());
+	clamp_retry_after(value, response.status())
+}
+
+fn clamp_retry_after(value: Option<u64>, status: reqwest::StatusCode) -> Option<u64> {
+	let max = if status == reqwest::StatusCode::SERVICE_UNAVAILABLE { RETRY_AFTER_503_MAX } else { BACKOFF_MAX };
+	value.map(|v| v.min(max))
+}
+
+/// The wait before try `attempts + 1`: doubling from [`BACKOFF_MIN`] up to [`BACKOFF_MAX`], or the
+/// server's (clamped) `Retry-After` when longer.
+fn backoff_secs(attempts: u32, retry_after: Option<u64>) -> u64 {
+	(BACKOFF_MIN << attempts.min(10)).min(BACKOFF_MAX).max(retry_after.unwrap_or(0).min(RETRY_AFTER_503_MAX))
+}
+
+/// `address`'s host when it is not `default` (both normalized): the banner names it.
+fn custom_site(address: &str, default: &str) -> Option<String> {
+	let norm = |u: &str| crate::packs::normalize_base(u).unwrap_or_else(|| u.to_owned());
+	(norm(address) != norm(default)).then(|| crate::packs::host(address))
 }
 
 /// Is World of Warcraft running? (Under Wine the game shows up as its .exe.)
@@ -949,6 +981,15 @@ pub struct Snapshot {
 	pub addons: crate::manager::AddonsView,
 	pub community: crate::community::CommunityView,
 	pub update: Option<String>,
+	/// The community site and recording server, when either is not the default: a banner says so.
+	pub custom: CustomSites,
+}
+
+#[derive(Serialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct CustomSites {
+	pub community: Option<String>,
+	pub server: Option<String>,
 }
 
 #[derive(Serialize, Clone)]
@@ -1102,6 +1143,20 @@ mod tests {
 		for s in [S::BAD_REQUEST, S::FORBIDDEN, S::PAYLOAD_TOO_LARGE] {
 			assert!(!is_temporary(s), "{s}");
 		}
+	}
+
+	#[test]
+	fn retry_after_is_clamped() {
+		use reqwest::StatusCode as S;
+		// A hostile Retry-After can't stall uploads for years (or overflow the retry time).
+		assert_eq!(clamp_retry_after(Some(u64::MAX), S::TOO_MANY_REQUESTS), Some(BACKOFF_MAX));
+		assert_eq!(clamp_retry_after(Some(u64::MAX), S::SERVICE_UNAVAILABLE), Some(24 * 3600));
+		assert_eq!(clamp_retry_after(Some(60), S::TOO_MANY_REQUESTS), Some(60));
+		assert_eq!(clamp_retry_after(None, S::SERVICE_UNAVAILABLE), None);
+		assert_eq!(backoff_secs(0, Some(u64::MAX)), 24 * 3600);
+		assert_eq!(backoff_secs(0, None), BACKOFF_MIN);
+		assert_eq!(backoff_secs(20, None), BACKOFF_MAX);
+		assert!(now_ms().saturating_add(backoff_secs(u32::MAX, Some(u64::MAX)) as i64 * 1000) > now_ms());
 	}
 
 	#[test]

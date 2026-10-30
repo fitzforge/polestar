@@ -98,22 +98,34 @@ pub async fn check_packs(engine: Engine_<'_>) -> Result<(), String> {
 	error.map_or(Ok(()), Err)
 }
 
-/// `install`, `update` or `uninstall` one community pack.
+/// `install`, `update`, `uninstall`, `restore` (a pack the site turned off, once it no longer
+/// pulls it) or `discard` (forget a pulled pack) one community pack. An update that changes the
+/// pack, its publisher or its folders needs `confirm`.
 #[tauri::command]
-pub async fn pack_action(engine: Engine_<'_>, id: String, action: String) -> Result<String, String> {
+pub async fn pack_action(engine: Engine_<'_>, id: String, action: String, confirm: Option<bool>) -> Result<String, String> {
 	let action = match action.as_str() {
 		"install" => "install",
 		"update" => "update",
 		"uninstall" => "uninstall",
+		"restore" => "restore",
+		"discard" => "discard",
 		_ => return Err(format!("Unknown action {action}.")),
 	};
-	Arc::clone(&engine).pack_action(&id, action).await
+	Arc::clone(&engine).pack_action(&id, action, confirm.unwrap_or(false)).await
 }
 
 /// Counting installs on the community site (opt-in).
 #[tauri::command]
 pub fn set_pack_telemetry(engine: Engine_, enabled: bool) -> Result<(), String> {
 	engine.save_settings(|s| s.pack_telemetry = enabled)?;
+	engine.publish();
+	Ok(())
+}
+
+/// "Update guides automatically": routine community pack updates, a day after they came out.
+#[tauri::command]
+pub fn set_pack_auto_update(engine: Engine_, enabled: bool) -> Result<(), String> {
+	engine.save_settings(|s| s.auto_update_packs = enabled)?;
 	engine.publish();
 	Ok(())
 }
@@ -203,14 +215,15 @@ pub fn set_autostart(app: AppHandle, enabled: bool) -> Result<(), String> {
 }
 
 /// An address the player typed: https, or http for something on this PC; empty is `default`.
+/// Kept in one spelling (packs.rs `normalize_base`), so it compares equal however it was typed.
 fn web_address(url: &str, default: &str) -> Result<String, String> {
-	let url = url.trim().trim_end_matches('/');
+	let url = url.trim();
 	let url = if url.is_empty() { default } else { url };
 	let parsed = tauri::Url::parse(url).map_err(|_| "That is not a web address.".to_owned())?;
 	if parsed.scheme() != "https" && !(parsed.scheme() == "http" && crate::packs::is_local(url)) {
 		return Err("Use an https:// address (http:// only for a server on this PC).".to_owned());
 	}
-	Ok(url.to_owned())
+	crate::packs::normalize_base(url).ok_or_else(|| "That is not a web address.".to_owned())
 }
 
 /// Sets the server address (advanced); an empty one puts the default back.
@@ -232,7 +245,7 @@ pub async fn delete_server_data(engine: Engine_<'_>) -> Result<(), String> {
 		let response = engine.http.delete(format!("{server}/v1/me")).bearer_auth(token).send().await.map_err(|e| format!("Could not reach the server, nothing was deleted: {e}"))?;
 		let status = response.status();
 		if !status.is_success() {
-			let message = response.json::<serde_json::Value>().await.ok().and_then(|v| v.get("error").and_then(|e| e.as_str()).map(str::to_owned));
+			let message = crate::engine::server_message(response).await;
 			if !(status == reqwest::StatusCode::UNAUTHORIZED && message.as_deref() == Some(UNKNOWN_TOKEN)) {
 				return Err(format!("The server did not delete your data ({}).", message.unwrap_or_else(|| status.to_string())));
 			}

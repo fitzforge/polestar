@@ -170,6 +170,7 @@ pub fn run() {
 			commands::check_packs,
 			commands::pack_action,
 			commands::set_pack_telemetry,
+			commands::set_pack_auto_update,
 			commands::set_packs_url,
 			commands::pack_link_done,
 			commands::set_addon_prefs,

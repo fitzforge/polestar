@@ -1,1 +1,1 @@
-{"keyId":"polestar-dev-1","alg":"ed25519","sig":"Vj3FUakUCjUAthQjJhnEKrlBQnKs2y3pm21zgjggSWGVq9eViNUTso2LxCXNTjlDYWl9jCgiVImlAOp9qR1hBg==","sha256":"c736c37be913407ac176e324c606f4b1d36d2a435d9d98a6fc2d230064462abb"}
+{"keyId":"polestar-dev-1","alg":"ed25519","sig":"lBRskkOp+DdiDki1ID/kaPz8vLEQwkiEa+Ur/8M7SMHo9q/yYpawHsuoIvWPL/7mgJwEtoE7CrzTgFvbL0ctCQ==","sha256":"fadb1463c09549730e10571e28ea8a90e73f4a8c0b8ac547b6df6da36b15c450"}
