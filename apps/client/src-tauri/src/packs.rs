@@ -46,10 +46,22 @@ pub struct PinnedKey {
 	pub key: [u8; 32],
 }
 
-/// The production signing keys (the current one and the next, for rotation). Empty until the
-/// production key is made: until then a release build pointed at polestar.guide has no
-/// community packs and says so.
-pub const RELEASE_KEYS: &[PinnedKey] = &[];
+/// The production signing keys: the live signer and the next one (held offline for rotation).
+/// The signature's `keyId` picks which.
+pub const RELEASE_KEYS: &[PinnedKey] = &[
+	PinnedKey {
+		id: "polestar-1",
+		key: [
+			0xaf, 0x69, 0xa8, 0xb7, 0x68, 0xef, 0xea, 0x39, 0xd9, 0xa9, 0x66, 0x03, 0xb6, 0xfd, 0x98, 0x73, 0x13, 0x77, 0xc1, 0x23, 0xf6, 0x75, 0x4a, 0x1e, 0xcd, 0x7d, 0xc9, 0xfd, 0xb3, 0x69, 0xab, 0xe8,
+		],
+	},
+	PinnedKey {
+		id: "polestar-2",
+		key: [
+			0xf3, 0xf4, 0xc0, 0xf9, 0xd9, 0x3a, 0xbd, 0x25, 0xed, 0xeb, 0xa1, 0x6e, 0x83, 0xfc, 0x05, 0xe3, 0xa7, 0x0c, 0x99, 0x56, 0x29, 0xfa, 0x7f, 0xa2, 0x8e, 0xf0, 0xb2, 0xb8, 0x40, 0x9f, 0xbb, 0x88,
+		],
+	},
+];
 
 /// The development site's key (polestar-site's `.env.local`), trusted only by debug builds or
 /// when the configured site is on this PC.
@@ -494,7 +506,7 @@ fn unpack(bytes: &[u8], staging: &Path, entry: &Entry) -> Result<Vec<String>, St
 	let mut total: u64 = 0;
 	for i in 0..archive.len() {
 		let mut file = archive.by_index(i).map_err(|e| bad(format!("is not a usable zip ({e})")))?;
-		let name = file.name().to_owned();
+		let name = file.name().map_err(|e| bad(format!("has a file name that is not text ({e})")))?.into_owned();
 		let Some(path) = file.enclosed_name() else { return Err(bad(format!("has an unsafe path ({name})"))) };
 		if path.components().any(|c| !matches!(c, Component::Normal(n) if n.to_str().is_some_and(safe_component))) {
 			return Err(bad(format!("has an unsafe path ({name})")));

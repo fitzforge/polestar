@@ -398,9 +398,13 @@ fn unpack(bytes: &[u8], staging: &Path) -> Result<Vec<String>, String> {
 	let mut total: u64 = 0;
 	for i in 0..archive.len() {
 		let mut entry = archive.by_index(i).map_err(|e| bad(e.to_string()))?;
-		let Some(path) = entry.enclosed_name() else { return Err(bad(format!("unsafe path {}", entry.name()))) };
+		let name = entry.name().map_err(|e| bad(format!("a file name that is not text ({e})")))?.into_owned();
+		let Some(path) = entry.enclosed_name() else { return Err(bad(format!("unsafe path {name}"))) };
 		if path.components().any(|c| !matches!(c, Component::Normal(n) if n.to_str().is_some_and(safe_component))) {
-			return Err(bad(format!("unsafe path {}", entry.name())));
+			return Err(bad(format!("unsafe path {name}")));
+		}
+		if entry.is_symlink() {
+			return Err(bad(format!("it holds a link ({name})")));
 		}
 		let mut parts = path.components();
 		let Some(Component::Normal(top)) = parts.next() else { continue };
@@ -575,6 +579,21 @@ mod tests {
 		let _ = fs::remove_dir_all(&dir);
 		fs::create_dir_all(&dir).unwrap();
 		dir
+	}
+
+	#[test]
+	fn unpack_refuses_a_link_entry() {
+		let staging = temp("link");
+		let mut out = io::Cursor::new(Vec::new());
+		let mut w = zip::ZipWriter::new(&mut out);
+		w.start_file("Polestar/Polestar.toc", zip::write::SimpleFileOptions::default()).unwrap();
+		w.write_all(b"## Author: Polestar\n").unwrap();
+		w.add_symlink("Polestar/escape", "../../../../.bashrc", zip::write::SimpleFileOptions::default()).unwrap();
+		w.finish().unwrap();
+		let err = unpack(&out.into_inner(), &staging).unwrap_err();
+		assert!(err.contains("link"), "{err}");
+		assert!(!staging.join("Polestar/escape").exists());
+		let _ = fs::remove_dir_all(&staging);
 	}
 
 	#[test]

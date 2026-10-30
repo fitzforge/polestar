@@ -29,6 +29,7 @@ local function check(def)
 	if rawget(def, "steps") == nil and type(def.stepsSrc) == "string" then
 		local fn, perr = loadstring(def.stepsSrc, "=stepsSrc")
 		if not fn then return "stepsSrc does not load: " .. tostring(perr) end
+		setfenv(fn, {})
 		local ok, list = pcall(fn)
 		if not (ok and type(list) == "table") then return "bad steps" end
 		local copy = {}

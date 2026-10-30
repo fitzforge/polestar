@@ -54,9 +54,9 @@ the upload API, and the public list of what is never collected.
   check), trusted only with its detached ed25519 signature
   (`index.json.sig?for=<id>`) from a key pinned in `src-tauri/src/packs.rs`:
   the SHA-256 of the exact bytes, the signature, an index no older than the
-  last one accepted (kept in `packs.json`) and not past its `expires`. The
-  production key is not pinned yet, so a release build pointed at
-  polestar.guide says Community Guides aren't available; the development
+  last one accepted (kept in `packs.json`) and not past its `expires`. Two
+  production keys are pinned: `polestar-1` (the live signer) and `polestar-2`
+  (held offline for rotation); the signature's `keyId` picks one. The development
   site's key is trusted only by debug builds or for a site on this PC
   (Settings > Advanced > Community site, e.g. `http://localhost:3100`). A
   guide is installed only into a game whose Interface matches the guide's

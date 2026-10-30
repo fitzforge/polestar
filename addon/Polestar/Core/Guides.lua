@@ -799,9 +799,11 @@ Own.live = {} -- guide id -> true while its deferred steps are in
 function Guides.Steps(def)
 	local steps = rawget(def, "steps")
 	if steps or type(rawget(def, "stepsSrc")) ~= "string" then return steps end
+	-- Pure data (local tables and `return { ... }`): run in an empty environment,
+	-- so text that slipped past escaping can't reach the game's or Polestar's globals.
 	local fn = loadstring(def.stepsSrc, "=" .. tostring(def.id))
 	local ok, list = false, nil
-	if fn then ok, list = pcall(fn) end
+	if fn then setfenv(fn, {}); ok, list = pcall(fn) end
 	local err = not (ok and type(list) == "table") and "bad steps" or Own.validateSteps(list)
 	if err then
 		local r = packs[def.pack]

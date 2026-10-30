@@ -38,7 +38,8 @@ sha2 = "0.10"
 # The community pack index's ed25519 signature (ring is already here for rustls).
 ring = "0.17"
 base64 = "0.22"
-zip = { version = "4", default-features = false, features = ["deflate"] }
+# 9.0.5+: earlier versions have the parser-differential and symlink advisories (GHSA-m665-v7pm-7grj, RUSTSEC-2026-0368).
+zip = { version = "9.0.5", default-features = false, features = ["deflate-flate2-zlib-rs"] }
 sysinfo = { version = "0.38", default-features = false, features = ["system"] }
 
 # The webview's settings on Linux (lib.rs: GPU compositing always); the version wry uses.
