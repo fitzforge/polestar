@@ -56,28 +56,63 @@ the upload API, and the public list of what is never collected.
   the SHA-256 of the exact bytes, the signature, an index no older than the
   last one accepted (kept in `packs.json`) and not past its `expires`. Two
   production keys are pinned: `polestar-1` (the live signer) and `polestar-2`
-  (held offline for rotation); the signature's `keyId` picks one. The development
-  site's key is trusted only by debug builds or for a site on this PC
-  (Settings > Advanced > Community site, e.g. `http://localhost:3100`). A
-  guide is installed only into a game whose Interface matches the guide's
-  `toc` and with Polestar at least its `minPolestar` (otherwise the page says
-  why). Its zip must match the index's SHA-256 and size (at most 20 MB, 100
-  MB unpacked), hold only the folders the index lists (`PolestarPack_<id>`
-  and `PolestarPack_<id>_<locale>`) with `.toc`, `.lua`, `.xml`, `.tga`,
-  `.blp`, `.png` and LICENSE/README texts, and say its id in each TOC
+  (held offline for rotation); the signature's `keyId` picks one. The
+  development site's key is trusted only by debug builds; a release build
+  never trusts it, not even for a site on this PC (Settings > Advanced >
+  Community site, e.g. `http://localhost:3100`). While the community site or
+  the recording server is not the default, a banner says so on every page.
+  Each guide in the index has a `uid` (fixed for that guide, never reused),
+  a `publisher` (`id` and `handle`), `published` (when this version came
+  out, set by the site) and `reviewed` (a moderator approved it). The index
+  also lists `revoked` guides: `id`, `uid`, `versions` (exact versions, or
+  `"*"` for all) and a `reason` with an `action`. A guide's `download.url`
+  must be on the site's own origin (scheme, host and port); a redirect may
+  not leave that origin or go from https to http. Server answers are read up
+  to 64 KiB, and a `Retry-After` is held to at most 5 minutes (1 day for a
+  503). A guide is installed only into a game whose Interface matches the
+  guide's `toc` and with Polestar at least its `minPolestar` (otherwise the
+  page says why). Its zip must match the index's SHA-256 and size (at most
+  20 MB, 100 MB unpacked) and hold only what the guide compiler makes: the
+  folders the index lists (`PolestarPack_<id>` and
+  `PolestarPack_<id>_<locale>`), each with its `.toc`, the `.lua` files that
+  TOC lists, `.tga` and `.blp` pictures and LICENSE/README texts. No `.xml`,
+  no `.png`. A TOC may list only the generated files (`Pack.lua`,
+  `MapFrames.lua`, `Guides.lua`; in a locale folder `Texts.lua`) and use
+  only the generated `## Key:` lines (Interface, Title, Notes, Author,
+  Version, Category, Group, Dependencies, LoadOnDemand, X-Polestar-*,
+  X-License, X-Website, Title-/Notes-<locale>), so no SavedVariables,
+  LoadWith, LoadManagers or AllowLoad. Each TOC says its guide's id
   (`## X-Polestar-Pack: <id>`, locale folders `## X-Polestar-Texts: <id>`).
   A guide writes or removes only folders that don't exist yet or already
   carry its id, swapped in like an addon with a backup; Polestar's own
-  folders and every other addon are never touched. Guide updates count in the
-  Addons badge, are in Update all, and follow "Install updates
-  automatically". With "Count my guide installs" on (off by default) the
-  client tells the site `{pack, version}` after an install, nothing else.
+  folders and every other addon are never touched. At install the client
+  pins the guide's uid, publisher and folders (guides installed before this
+  pin them on the first check). A different uid under the same id means the
+  guide was replaced by another one: it shows as replaced and is only
+  installed after you confirm. An update whose publisher or folders changed
+  also asks first, naming what changed. Guide updates count in the Addons
+  badge; Update all takes only the routine ones. They install by
+  themselves only with their own setting, "Update guides automatically"
+  (off by default), and then only with the game closed, a day after the
+  version was published, and with the same uid, publisher and folders;
+  anything else is announced in
+  the tray and waits for you. A guide the site revokes (its id, pinned uid
+  and installed version, or every version) is turned off or removed, even
+  while the game runs: turned off moves its folders to the data folder's
+  `disabled/<id>/` (Restore puts them back, unless it is still revoked);
+  removed deletes them. Only the guide's own folders are touched. The tray,
+  the guide's page and Activity give the site's reason; a /reload or
+  restart makes the game notice. With "Count my guide installs" on (off by
+  default) the client tells the site `{pack, version}` after an install,
+  nothing else.
 - **Links.** polestar.guide's install button opens
   `polestar://install?pack=<id>` (other parameters are ignored). The client
   comes up (a running one gets the link from the new start), opens Community
   on that guide once the intro has handed over, and asks: title, author,
   version, size and the folders it will create, with Install and Cancel. It
-  never installs silently; a link it can't use says why. The scheme is
+  never installs silently; a link it can't use says why. Links are taken one
+  sheet at a time (at most one every 3 seconds); the same guide's link while
+  its sheet is open is ignored. The scheme is
   registered by the installers on Windows and macOS (and by the client on
   Windows), by the `.deb`'s desktop entry, and by the desktop entry an
   AppImage writes for itself (`MimeType=x-scheme-handler/polestar`, made the
@@ -147,7 +182,8 @@ Everything lives in the app's data folder (Settings > Open data folder):
 | `progress.json` | Per Recorder install id: the last chunk sent and the last one the server confirmed. |
 | `activity.json` | The last 500 uploads. |
 | `sent.jsonl` | The chunks the server accepted in the last 8 days, for the Home page's week. |
-| `packs.json` | Per community site, the last guide index accepted (its bytes, signature and ETag): the Community page works offline, and an older index is never accepted after it. |
+| `packs.json` | Per community site (its address normalized: lowercase host, default port dropped, no trailing slash), the last guide index accepted (its bytes, signature and ETag): the Community page works offline, and an older index is never accepted after it. |
+| `community.json` | Per installed guide, what it was pinned to at install (uid, publisher, folders), and the guides the site turned off or removed. |
 
 "Delete my data from the server" calls `DELETE /v1/me`, then drops that
 server's token, clears `sent.jsonl` and pauses uploads; the next upload
