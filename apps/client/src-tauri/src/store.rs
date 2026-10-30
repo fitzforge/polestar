@@ -45,6 +45,7 @@ pub struct Settings {
 	pub paused: bool,
 	/// The WoW folder the player picked or confirmed; `None` = auto-detect.
 	pub wow_folder: Option<PathBuf>,
+	/// The recording server ([`DEFAULT_SERVER`]; a developer's own in a debug build's Settings > Advanced).
 	pub server_url: String,
 	/// Addon updates: pre-releases too ("beta") or only releases ("stable").
 	pub channel: Channel,
@@ -246,11 +247,13 @@ impl Store {
 		read_json(&self.path("tokens.json")).unwrap_or_default()
 	}
 
-	/// The settings, with the community site in its one spelling ([`crate::packs::normalize_base`]).
-	/// A release build always uses polestar.guide, whatever the file says.
+	/// The settings, with the community site and recording server in their one spelling
+	/// ([`crate::packs::normalize_base`]). A release build always uses polestar.guide and
+	/// [`DEFAULT_SERVER`], whatever the file says.
 	pub fn settings(&self) -> Settings {
 		let mut settings: Settings = read_json(&self.path("settings.json")).unwrap_or_default();
 		settings.packs_url = community_base(&settings.packs_url, cfg!(debug_assertions));
+		settings.server_url = server_base(&settings.server_url, cfg!(debug_assertions));
 		settings
 	}
 
@@ -344,6 +347,14 @@ pub fn community_base(saved: &str, dev: bool) -> String {
 	}
 }
 
+/// The recording server to send to: [`DEFAULT_SERVER`], or (`dev`, a debug build) the one saved.
+pub fn server_base(saved: &str, dev: bool) -> String {
+	match crate::packs::normalize_base(saved) {
+		Some(base) if dev => base,
+		_ => DEFAULT_SERVER.to_owned(),
+	}
+}
+
 fn read_json<T: DeserializeOwned>(path: &Path) -> Option<T> {
 	let text = fs::read_to_string(path).ok()?;
 	serde_json::from_str(&text).ok()
@@ -383,5 +394,13 @@ mod tests {
 		assert_eq!(community_base("https://evil.example", false), default);
 		assert_eq!(community_base("http://localhost:3100/", true), "http://localhost:3100");
 		assert_eq!(community_base("not a url", true), default);
+	}
+
+	#[test]
+	fn release_builds_only_send_to_the_default_server() {
+		assert_eq!(server_base("http://localhost:8787", false), DEFAULT_SERVER);
+		assert_eq!(server_base("https://evil.example", false), DEFAULT_SERVER);
+		assert_eq!(server_base("http://localhost:8787/", true), "http://localhost:8787");
+		assert_eq!(server_base("", true), DEFAULT_SERVER);
 	}
 }

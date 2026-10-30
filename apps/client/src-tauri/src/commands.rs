@@ -230,9 +230,13 @@ fn web_address(url: &str, default: &str) -> Result<String, String> {
 	crate::packs::normalize_base(url).ok_or_else(|| "That is not a web address.".to_owned())
 }
 
-/// Sets the server address (advanced); an empty one puts the default back.
+/// Sets the recording server (debug builds only, for developing the server); an empty one puts
+/// the default back. A release build only ever sends to [`DEFAULT_SERVER`].
 #[tauri::command]
 pub fn set_server_url(engine: Engine_, url: String) -> Result<String, String> {
+	if !cfg!(debug_assertions) {
+		return Err(format!("Recordings always go to {DEFAULT_SERVER}."));
+	}
 	let url = web_address(&url, DEFAULT_SERVER)?;
 	engine.save_settings(|s| s.server_url = url.clone())?;
 	engine.retry_now();

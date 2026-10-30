@@ -58,10 +58,13 @@ the upload API, and the public list of what is never collected.
   production keys are pinned: `polestar-1` (the live signer) and `polestar-2`
   (held offline for rotation); the signature's `keyId` picks one. The
   development site's key is trusted only by debug builds. A release build
-  always takes Community Guides from polestar.guide: the address can be
-  changed (Settings > Advanced > Community site, e.g. `http://localhost:3100`)
-  only in a debug build, for developing the site. While the community site or
-  the recording server is not the default, a banner says so on every page.
+  always takes Community Guides from polestar.guide and sends recordings to
+  `https://data.polestar.guide` (`store::DEFAULT_SERVER`), whatever
+  `settings.json` says: both addresses can be changed (Settings > Advanced,
+  e.g. `http://localhost:3100` for the site) only in a debug build, for
+  developing the site or the server. While the community site or the
+  recording server is not the default (so only in a debug build), a banner
+  says so on every page.
   Each guide in the index has a `uid` (fixed for that guide, never reused),
   a `publisher` (`id` and `handle`), `published` (when this version came
   out, set by the site) and `reviewed` (a moderator approved it). The index
@@ -147,8 +150,8 @@ the upload API, and the public list of what is never collected.
   your computer, the game folder, "Delete my data from the server", the
   frame-rate overlay (Ctrl+Shift+F anywhere, or `POLESTAR_FRAME_METER=1`
   from launch, with the last intro's numbers), counting guide installs and,
-  folded away under Advanced, the recording server address (and, in a debug
-  build, the community site's).
+  in a debug build only, folded away under Advanced, the recording server
+  and community site addresses.
 - Closing the window keeps it running in the tray (Open, Pause/Resume, Quit).
 - **The intro.** The window opens on a starlit intro (`index.html` holds
   its first frame, `src/lib/intro.svelte.ts` plays it) that ends with the
