@@ -244,6 +244,27 @@ pub fn lua_number(n: f64, decimals: usize) -> String {
 	s
 }
 
+const LUA_KEYWORDS: [&str; 22] = [
+	"and", "break", "do", "else", "elseif", "end", "false", "for", "function", "goto", "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while",
+];
+
+/// A table key: a Lua identifier bare, anything else as a quoted string, so
+/// no key can break out of the table it sits in.
+fn lua_key(k: &str) -> String {
+	let identifier = k.starts_with(|c: char| c.is_ascii_alphabetic() || c == '_') && k.chars().all(|c| c.is_ascii_alphanumeric() || c == '_');
+	if identifier && !LUA_KEYWORDS.contains(&k) {
+		k.to_string()
+	} else {
+		format!("[{}]", lua_string(k))
+	}
+}
+
+/// A key in canonical integer form ("123", "-4"), emitted as `[123]`.
+fn is_int_key(k: &str) -> bool {
+	let n = str_to_num(k);
+	n.fract() == 0.0 && n.abs() <= 9007199254740991.0 && num_str(n) == k
+}
+
 fn type_of(v: &V) -> &'static str {
 	match v {
 		V::Undef => "undefined",
@@ -328,8 +349,11 @@ fn list_with(arr: &V, keys: Option<&'static [&'static str]>, decimals: usize, re
 }
 
 /// Integer-keyed map (e.g. preTitles: quest id -> title), keys ascending.
+/// Any key that is not an integer is emitted as a string, after the integers.
 fn id_map(obj: &V) -> String {
-	let parts: Vec<String> = numeric_keys(obj).into_iter().map(|k| format!("[{}] = {}", num_str(k), scalar(&obj.get(&num_str(k)), 2))).collect();
+	let (mut ints, rest): (Vec<String>, Vec<String>) = sorted_keys(obj).into_iter().partition(|k| is_int_key(k));
+	ints.sort_by(|a, b| str_to_num(a).total_cmp(&str_to_num(b)));
+	let parts: Vec<String> = ints.iter().map(|k| format!("[{k}] = {}", scalar(&obj.get(k), 2))).chain(rest.iter().map(|k| format!("{} = {}", lua_key(k), scalar(&obj.get(k), 2)))).collect();
 	format!("{{ {} }}", parts.join(", "))
 }
 
@@ -354,21 +378,22 @@ fn inline_with(obj: &V, keys: &Keys, decimals: usize, shared: Option<&Shared>) -
 		if v.is_nullish() {
 			continue;
 		}
+		let key = lua_key(&k);
 		if k == "spots" && v.is_arr() && shared.is_some_and(|s| s.packed) {
 			parts.push(format!("spotsPacked = {}", lua_string(&pack_spots(&v))));
 		} else if v.is_arr() {
 			let shared = if k == "candidates" { shared } else { None };
 			let value = list_with(&v, list_keys(&k), list_decimals(&k), shared.map(|s| &s.records));
 			match shared.and_then(|s| s.lists.get(&value)) {
-				Some(i) => parts.push(format!("{k} = candidateLists[{i}]")),
-				None => parts.push(format!("{k} = {value}")),
+				Some(i) => parts.push(format!("{key} = candidateLists[{i}]")),
+				None => parts.push(format!("{key} = {value}")),
 			}
 		} else if k == "preTitles" {
-			parts.push(format!("{k} = {}", id_map(&v)));
+			parts.push(format!("{key} = {}", id_map(&v)));
 		} else if v.is_obj() {
-			parts.push(format!("{k} = {}", inline(&v, &sub_keys(&k), decimals)));
+			parts.push(format!("{key} = {}", inline(&v, &sub_keys(&k), decimals)));
 		} else {
-			parts.push(format!("{k} = {}", scalar(&v, decimals)));
+			parts.push(format!("{key} = {}", scalar(&v, decimals)));
 		}
 	}
 	if parts.is_empty() {
@@ -1164,4 +1189,63 @@ pub fn emit_license(meta: &V, legs: bool) -> String {
 /// JS `trim` whitespace (WhiteSpace and LineTerminator).
 pub fn is_js_space(c: char) -> bool {
 	matches!(c, '\t' | '\n' | '\u{b}' | '\u{c}' | '\r' | ' ' | '\u{a0}' | '\u{1680}' | '\u{2000}'..='\u{200a}' | '\u{2028}' | '\u{2029}' | '\u{202f}' | '\u{205f}' | '\u{3000}' | '\u{feff}')
+}
+
+#[cfg(all(test, feature = "native"))]
+mod tests {
+	use super::*;
+
+	const HOSTILE: [&str; 10] = ["a = 1 }) os.exit() --", "]]", "\n", "end", "__index_x y", "q\"u'o\\te", "NaN", "1e3", "nil", ""];
+
+	/// `<expr>`'s pairs read back through Lua 5.1, each as `type:key=value`, sorted.
+	fn lua_pairs(expr: &str) -> String {
+		let program = format!("local out = {{}} for k, v in pairs({expr}) do out[#out + 1] = type(k) .. ':' .. tostring(k) .. '=' .. tostring(v) end table.sort(out) return table.concat(out, '\\n')");
+		mlua::Lua::new().load(program).eval().unwrap()
+	}
+
+	fn sorted(mut lines: Vec<String>) -> String {
+		lines.sort();
+		lines.join("\n")
+	}
+
+	#[test]
+	fn identifier_keys_stay_bare() {
+		for k in ["x", "npcName", "_a1", "__index", "NaN"] {
+			assert_eq!(lua_key(k), k);
+		}
+	}
+
+	#[test]
+	fn keywords_and_other_keys_are_quoted_strings() {
+		for k in HOSTILE.iter().filter(|k| **k != "NaN") {
+			assert_eq!(lua_key(k), format!("[{}]", lua_string(k)));
+		}
+	}
+
+	#[test]
+	fn inline_hostile_nested_keys_round_trip_through_lua() {
+		let nested = V::obj();
+		for (i, k) in HOSTILE.iter().enumerate() {
+			nested.set(k, i as f64);
+		}
+		let wrap = V::obj();
+		wrap.set("wrap", nested);
+		let src = inline(&wrap, &Keys::Fixed(&["wrap"]), 2);
+		assert!(src.starts_with("{ wrap = { "), "{src}");
+		let expected = HOSTILE.iter().enumerate().map(|(i, k)| format!("string:{k}={i}")).collect();
+		assert_eq!(lua_pairs(&format!("({src}).wrap")), sorted(expected));
+	}
+
+	#[test]
+	fn id_map_integers_stay_bracketed_and_anything_else_is_a_string_key() {
+		let map = V::obj();
+		for (k, v) in [("12", "a"), ("3", "b"), ("-4", "c"), ("NaN", "d"), ("1e3", "e"), ("012", "f"), ("x\"]] = 1 --", "g")] {
+			map.set(k, v);
+		}
+		let src = id_map(&map);
+		assert!(!src.contains("[NaN]"), "{src}");
+		assert!(src.starts_with("{ [-4] = \"c\", [3] = \"b\", [12] = \"a\", "), "{src}");
+		let expected = ["number:-4=c", "number:3=b", "number:12=a", "string:NaN=d", "string:1e3=e", "string:012=f", "string:x\"]] = 1 --=g"];
+		assert_eq!(lua_pairs(&src), sorted(expected.map(String::from).to_vec()));
+	}
 }
