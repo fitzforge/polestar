@@ -2672,9 +2672,32 @@ function Own.hearthInn(goal)
 	return nil
 end
 
+-- A hearth goal whose Hearthstone is bound at another inn (#667): the bind
+-- location, as the client names it. nil when bound at the goal's inn (the
+-- same check as `sethome`), and when the data does not know both inns, so
+-- an inn it cannot place never reads as elsewhere.
+function Own.hearthElsewhere(goal)
+	if goal.t ~= "hearth" then return nil end
+	local nav = ns.Nav
+	local want = nav and nav.FindInn and nav.FindInn(goal.npc, goal.location)
+	local bound = want and nav.BoundInn and nav.BoundInn()
+	if not bound or bound == want then return nil end
+	local C = Compat()
+	local loc, areaName = C.GetBindLocation(), C.GetAreaName
+	if not loc or loc == "" or same(loc, goal.location) then return nil end
+	if areaName and (same(loc, areaName(want.area)) or same(loc, areaName(goal.area))) then return nil end
+	return loc
+end
+
 -- "Hearthstone ready in 23 min: walk to the inn, or wait for it"; nil while
--- it is ready.
+-- it is ready. Bound at another inn, that first: hearthing would land there.
 function Own.hearthText(goal)
+	local elsewhere = Own.hearthElsewhere(goal)
+	if elsewhere then
+		local _, subject = describe(goal)
+		return (Own.hearthInn(goal) and L["Your Hearthstone is bound to %s, not %s: walk to the inn"]
+			or L["Your Hearthstone is bound to %s, not %s"]):format(elsewhere, subject)
+	end
 	local wait = Own.hearthWait(goal)
 	if not wait then return nil end
 	local inn = Own.hearthInn(goal) ~= nil
@@ -2708,9 +2731,10 @@ local function waypointOf(g, goal, at, s)
 		map, x, y, f, z = at.map, at.x, at.y, at.f, at.z
 	else
 		map, x, y, f, area, z = posOf(goal)
-		-- A hearth goal has no place of its own; while the Hearthstone waits,
-		-- the arrow leads to its inn on foot (#576).
-		if not map and goal.t == "hearth" and Own.hearthWait(goal) then
+		-- A hearth goal has no place of its own; while the Hearthstone waits
+		-- (#576) or is bound at another inn (#667), the arrow leads to its
+		-- inn on foot.
+		if not map and goal.t == "hearth" and (Own.hearthWait(goal) or Own.hearthElsewhere(goal)) then
 			local inn = Own.hearthInn(goal)
 			if inn then map, x, y, f, walk = inn.map, inn.x, inn.y, inn.f, true end
 		end

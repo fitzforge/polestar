@@ -1340,6 +1340,69 @@ fn hotline_s_report_576_a_hearth_step_while_the_hearthstone_waits_says_how_long_
 }
 
 #[test]
+fn a_hearth_step_whose_hearthstone_is_bound_at_another_inn_says_so_and_walks_the_arrow_to_its_inn_bound_there_it_is_as_before_667() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-bound", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" } } },
+				{ goals = { { t = "hearth", location = "Nowhere Inn" } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District"); w.bind("Kharanos")"#,
+		script: r#"
+			local w = stub.world
+			-- The Hearthstone (QoL/Hearth.lua) and the inns (Nav/Travel.lua), as the test sets them.
+			local hs = { have = true, remaining = 0 }
+			local goldshire = { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 }
+			local kharanos = { map = 1426, x = 47.4, y = 52.4, f = "w", npc = 1247 }
+			local bound = kharanos
+			Polestar.QoL = Polestar.QoL or {}
+			Polestar.QoL.GetHearth = function() return hs end
+			Polestar.Nav = Polestar.Nav or {}
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return goldshire end
+			end
+			Polestar.Nav.BoundInn = function() return bound end
+			local function changed() Polestar.Fire("QOL_HEARTH_CHANGED"); flush() end
+			local function state()
+				local g, wp = E.GetStepView(E.GetStepIndex()).goals[1], E.GetWaypoint()
+				return { line = g.hearthText or false, arrow = wp and { wp.map, wp.x, wp.y, wp.label } or false }
+			end
+			E.SetGuide("test/hearth-bound"); flush()
+			local r = { elsewhere = state() }
+			-- on cooldown too: where it is bound comes first
+			hs.remaining = 600; changed()
+			r.cooling = state()
+			-- bound at the step's inn: the cooldown as before, then nothing
+			bound = goldshire; w.bind("Goldshire"); stub.fire("HEARTHSTONE_BOUND"); flush()
+			r.rebound = state()
+			hs.remaining = 0; changed()
+			r.ready = state()
+			-- the bound inn unknown to the data: never reads as elsewhere
+			bound = nil; w.bind("Kharanos"); changed()
+			r.unknownBound = state()
+			-- bound elsewhere, walking into the inn's town checks the step off
+			bound = kharanos; changed()
+			w.setZone("Elwynn Forest", "Goldshire"); flush()
+			r.walked = E.GetStepIndex()
+			-- a step inn the data does not know: nothing
+			r.unknownInn = state()
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	let walk = json!([1429, 43.8, 65.8, "Walk to Goldshire"]);
+	assert_eq!(out["elsewhere"], json!({ "line": "Your Hearthstone is bound to Kharanos, not Goldshire: walk to the inn", "arrow": walk }));
+	assert_eq!(out["cooling"], json!({ "line": "Your Hearthstone is bound to Kharanos, not Goldshire: walk to the inn", "arrow": walk }));
+	assert_eq!(out["rebound"], json!({ "line": "Hearthstone ready in 10 min: walk to the inn, or wait for it", "arrow": walk }));
+	assert_eq!(out["ready"], json!({ "line": false, "arrow": false }), "bound at its inn and ready: the hearth step as before");
+	assert_eq!(out["unknownBound"], json!({ "line": false, "arrow": false }));
+	assert_eq!(out["walked"], 2, "arriving in Goldshire on foot checks the hearth off");
+	assert_eq!(out["unknownInn"], json!({ "line": false, "arrow": false }));
+}
+
+#[test]
 fn a_flight_that_lands_while_the_player_looks_ahead_at_another_step_still_counts_for_its_own_step_362() {
 	let out = run1(Run {
 		guides: LANDED,
