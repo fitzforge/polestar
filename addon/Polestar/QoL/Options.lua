@@ -42,6 +42,8 @@ register(QUESTING, L["Buttons"], L["Action buttons"], {
 		help = L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator)."] },
 	{ kind = "toggle", key = "qol.targetButton", label = L["Target button"],
 		help = L["Targets the current step's mobs by name; each click moves to the next name. Bindable."] },
+	{ kind = "toggle", key = "qol.guideNameTarget", label = L["Click objectives to target"],
+		help = L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] },
 	{ kind = "toggle", key = "qol.rareButton", label = L["Rare button"],
 		help = L["Shows a button that targets a rare Polestar spotted nearby, until it dies or is out of sight. Bindable."] },
 	{ kind = "toggle", key = "qol.hearthButton", label = L["Hearthstone button"],
