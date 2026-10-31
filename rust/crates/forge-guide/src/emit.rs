@@ -244,9 +244,8 @@ pub fn lua_number(n: f64, decimals: usize) -> String {
 	s
 }
 
-const LUA_KEYWORDS: [&str; 22] = [
-	"and", "break", "do", "else", "elseif", "end", "false", "for", "function", "goto", "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while",
-];
+const LUA_KEYWORDS: [&str; 22] =
+	["and", "break", "do", "else", "elseif", "end", "false", "for", "function", "goto", "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while"];
 
 /// A table key: a Lua identifier bare, anything else as a quoted string, so
 /// no key can break out of the table it sits in.
