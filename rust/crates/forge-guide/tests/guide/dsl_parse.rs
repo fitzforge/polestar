@@ -220,7 +220,15 @@ fn conditions_classes_races_factions_negation_and_unknown_races() {
 
 #[test]
 fn a_class_list_warns_only_when_its_negations_admit_every_class() {
-	let text = guide_text(&["step One", "  only !Hunter, !Mage,Dwarf", "  train only Hunter,!Hunter", "  train only !Hunter", "  train only !Hunter,!Hunter", "  train only !Hunter,Warrior", "  train only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid"]);
+	let text = guide_text(&[
+		"step One",
+		"  only !Hunter, !Mage,Dwarf",
+		"  train only Hunter,!Hunter",
+		"  train only !Hunter",
+		"  train only !Hunter,!Hunter",
+		"  train only !Hunter,Warrior",
+		"  train only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid",
+	]);
 	let (_, errors, warnings) = parse3(&text);
 	assert!(errors.is_empty(), "{errors:?}");
 	assert_eq!(warnings.len(), 2, "{warnings:?}");
