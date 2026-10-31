@@ -591,6 +591,8 @@ impl<'a> Sim<'a> {
 			"skill" => self.skill_rank(p.skill_line, p.name.as_deref()).map_or(0.0, |r| r.0) >= p.n.unwrap_or(0.0),
 			// No cooldowns run in the stub.
 			"cooldown" => false,
+			// No spellbook in the stub: no spell is known.
+			"knows" => false,
 			"group" => match q0.and_then(|q| self.group_answer(q)) {
 				None => return true,
 				Some(a) => a == Groups::Do,

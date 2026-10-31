@@ -321,6 +321,7 @@ hold:
 | `"done"` | `label`: a step label of the same guide (format 5) | the step so labelled applies, its goals are done and it was not skipped (by the player, a failed `when` or a `skipto` jump); refused in `nextWhen` |
 | `"skill"` | `name`, `n`; optional `skillLine` (format 5) | the character's rank in that profession is `n` or more; one not learned is rank 0 |
 | `"cooldown"` | `item` or `spell` (format 5) | the item or spell is on cooldown for more than the global cooldown (1.5 s) |
+| `"knows"` | `spell` (format 5) | the character knows the spell (`Compat.IsSpellKnown`, else `Compat.IsPlayerSpell`) |
 | `"group"` | `q` (format 5) | the player answered "do it" for that group quest (`CharState().groupQuests[q] == "do"`); unanswered, the step applies and is not done, so the route waits there; refused in `nextWhen` and `skipto` |
 
 ```lua
@@ -329,7 +330,7 @@ hold:
 
 A `when` that is not a non-empty list, or a predicate of another kind or
 without its keys, refuses the guide. Polestar 0.2.6 reads every kind above
-but `"money"`, `"dungeon"`, `"upgrade"`, `"done"`, `"skill"`, `"cooldown"` and `"group"`, which came after it: a guide with one, on a
+but `"money"`, `"dungeon"`, `"upgrade"`, `"done"`, `"skill"`, `"cooldown"`, `"group"` and `"knows"`, which came after it: a guide with one, on a
 step or a `next` option, is written in format 5, so 0.2.6 says the pack needs
 Polestar 0.3.0 instead of refusing the guide ("bad when"). Once the route has moved past a step,
 Polestar stores whether its `when` held (per character, guide and step) and
@@ -369,7 +370,7 @@ list refuses the guide.
 ## Format 5
 
 Format 4 with the **`money`**, **`task`**, **`enter`**, **`cast`**, **`abandon`** and **`destroy`** goals, the **`money`**,
-**`dungeon`**, **`upgrade`**, **`done`**, **`skill`**, **`cooldown`** and **`group`**
+**`dungeon`**, **`upgrade`**, **`done`**, **`skill`**, **`cooldown`**, **`group`** and **`knows`**
 `when` predicates (on a step or a `next` option; `done` on a step only) and a step's
 **`skipto`** jumps. Polestar 0.3.0 and later read it.
 The compiler writes a pack in format 5 only when its guides use one of them;
@@ -417,6 +418,12 @@ name (`Compat.GetSkillRank`).
 (`Compat.GetItemCooldown`) or spell (`Compat.GetSpellCooldown`) has a cooldown
 longer than the global cooldown that has not run out; Polestar evaluates the
 guide again when it does.
+
+`knows` when predicate: `{ k = "knows", spell = <id> }`. Holds while the
+character knows the spell: `Compat.IsSpellKnown` (the spellbook, or a learned
+profession recipe), else `Compat.IsPlayerSpell` (Forever's spellbook check
+says no for weapon skills). Learning a spell (`SPELLS_CHANGED`) evaluates the
+guide again.
 
 `group` when predicate: `{ k = "group", q = <quest> }`. The player's answer for
 that group quest, per character: "do" holds, "skip" fails. Unanswered, the
@@ -788,7 +795,7 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   format 3 (name tokens) by 0.2.5 and later, format 4 (a step's `when`,
   `along` and `label`, a `level` goal's `frac`, a guide's `nextWhen`) by 0.2.6
   and later, format 5 (the `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals, the `money`, `dungeon`,
-  `upgrade`, `done`, `skill`, `cooldown` and `group` when predicates, a step's
+  `upgrade`, `done`, `skill`, `cooldown`, `group` and `knows` when predicates, a step's
   `skipto`) by 0.3.0 and later, format 6 (a guide's `legs`), format 7
   (baked legs in the race parts) and format 8 (packed spawn spots and
   faction parts, Polestar's own pack only) by 0.3.0 and later.

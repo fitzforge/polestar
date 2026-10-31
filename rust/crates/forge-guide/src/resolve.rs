@@ -1418,6 +1418,9 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) ->
 					w.set("spell", p.get("spell"));
 				}
 			}
+			"knows" => {
+				w.set("spell", p.get("spell"));
+			}
 			"dungeon" => {
 				w.set("name", p.get("name"));
 				let run = crate::group::dungeon_named(data, &p.get("name"));
@@ -1491,6 +1494,7 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) ->
 						"spell"
 					}
 				}
+				"knows" => "spell",
 				_ => "place",
 			};
 			r.warn(&p.get("line"), format!("the step asks for `{k}` and `!{k}` of the same {what}: no character sees it"), None);

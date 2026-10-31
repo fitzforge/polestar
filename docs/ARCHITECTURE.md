@@ -1135,7 +1135,9 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   learned is 0), and an item or spell on cooldown (`Own.onCooldown`: longer
   than the global cooldown and not run out; it times an update for when it
   ends, and `BAG_UPDATE_COOLDOWN`/`SPELL_UPDATE_COOLDOWN` update once a guide
-  has asked), and the player's answer at a group quest (`Own.groupAnswer`:
+  has asked), whether the character knows a spell (`Compat.IsSpellKnown`,
+  else `Compat.IsPlayerSpell`; `SPELLS_CHANGED` updates), and the player's
+  answer at a group quest (`Own.groupAnswer`:
   `CharState().groupQuests[q]`, "do" or "skip", set by `Engine.AnswerGroup`
   from the guide window's banner or Options, Discovery, Group quests;
   `Engine.GroupQuests` lists a character's; a quest not answered takes
