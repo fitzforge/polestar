@@ -1,63 +1,332 @@
 guide forever/reputation/merchants-favor
-title Merchant's Favor Reputation
+title Supply Factions Reputation
 category Reputation
+folder Reputation · World
 levels 10-60
 zone Redridge Mountains
-# Azeroth Commerce Authority (2586, Alliance) and Durotar Supply and Logistics
-# (2587, Horde): Forever's tradeskill factions, paid in Merchant's Favor.
-# Reputation comes from crate hand-ins at each faction's camp: mobs from level
-# 10 drop Waylaid Crates (Apprentice, Journeyman, Expert, Artisan); filled with
-# the goods on the label, a crate becomes a Sealed Crate for the faction's trade
-# representative ("A Sealed Crate", quests 91899/91900/91904/91905). Hand-in
-# NPCs: Marcy Baker (256390) at Three Corners, Redridge Mountains (live frame
-# 9.75,71.02), and Dokimi (256386) just outside the Crossroads (Era 50.15,29.35).
-# Same camps as collectibles/mounts/*/pack-kodo and collectibles/pets/minimule.
-# Sources: quests.json, npcs.json; Forever client 1.60.1.70338 ItemSparse
-# (Waylaid Crate 248702-248713, Sealed Crate 248765-248779);
-# Forever's quest data (currency 3402, Merchant's Favor);
-# https://theforeverera.com/en/merchants-favor/ . How much reputation each
-# crate gives is not documented, so the steps track the standing only.
+keywords Azeroth Commerce Authority, Durotar Supply and Logistics, Merchant's Favor, Craftsman's Writ, Shipping Label, Crate Return, Forged Delivery Receipt, Forger's Quill, Waylaid Crate, Marcy Baker, Dokimi, Tamelyn Aldridge, Gishah, Three Corners, Crossroads, Pack Kodo, Minimule, Packmule Treat, tabard
+reward item 262766
+reward item 284664
+reward item 262765
+reward item 262764
+reward text Profession recipes at Friendly and Honored
+why Forever's trade camps: their best recipes, the Minimule and the Pack Kodo need standing, not only Merchant's Favor.
 
-step Azeroth Commerce Authority to Friendly
+# Azeroth Commerce Authority (2586, Alliance) and Durotar Supply and Logistics
+# (2587, Horde): Forever's trade camps. Each side earns only its own camp's
+# standing (Forever's faction table locks the other side's at the bottom).
+# Built from Forever's quest pages (reputation per quest: Shipping Label
+# 98247/98248 2000 once; Crate Return 93862 50; the 150 Craftsman's Writs
+# 94004-94360, all daily, 45 at 75, 60 at 125 and 45 at 200; the four
+# "A Sealed Crate" quests give no reputation, only Merchant's Favor), the
+# pages' writ customers (43 of the 45 Journeyman writs and one Expert writ;
+# the other Expert and Artisan customers are not in the data, the beta
+# stopped at level 30), npcs.json for the camps, the drop data for the writ
+# envelopes (Sealed Journeyman's Writ from 173 world mobs of level 11-31),
+# and Forever's client item table for the rewards it gates by standing
+# (Advertising License Application Honored, the tabards Exalted).
+# The Merchant's Favor prices, the Revered Packmule Treat, the Exalted Pack
+# Kodo and the scribes' items (Forged Delivery Receipt at Friendly, Forger's
+# Quill at Honored) are vendor rules the item table does not hold: they
+# follow several beta reports that agree. Polestar cannot count Merchant's
+# Favor. Numbers are base reputation; the Legacy perk Diplomat adds up to
+# 10%. Every quest here is level 60, so no level cut applies. The Legacy perk
+# Performance Bonus raises Merchant's Favor from crates, not reputation.
+# ASSUMED: Crate Return (93862) is handed to Marcy Baker or Dokimi from their
+# window (Classic-style repeatable; Forever's data names no giver). In-game
+# check: who takes the Notarized Shipping Container.
+# ASSUMED: Journeyman writs keep paying 75 past Honored (Forever's quest data
+# gives the writs no standing limit). In-game check: a Journeyman writ turned
+# in at Honored or above.
+
+step Your first Waylaid Crate or writ
+  tip From level 10, mobs anywhere drop Waylaid Crates and sealed writs (Journeyman's, Expert's and Artisan's). Fill a crate with one of the bundles it lists (right-click it), or open a sealed writ: by beta reports, the first time you do either you also get a Shipping Label. Right-click the label to start its quest. Crates and writs can be traded, so the Auction House sells them too.
+  accept 98247 only Alliance
+  accept 98248 only Horde
+
+step Three Corners: the Shipping Label
   only Alliance
   zone Redridge Mountains
-  tip The Azeroth Commerce Authority is the Alliance's tradeskill faction in Forever. Its camp is at Three Corners in western Redridge Mountains. From level 10 mobs drop Waylaid Crates: fill each with the goods its label asks for and hand the Sealed Crate to Marcy Baker at the camp for reputation and Merchant's Favor. Forever's Legacy Diplomat perk increases reputation gains.
-  goto 9.8,71.0 "Marcy Baker" live
-  rep 2586 Friendly
+  tip The Azeroth Commerce Authority camp is at Three Corners, where the roads from Elwynn Forest, Duskwood and Lakeshire meet in western Redridge. The label pays 2000 reputation once (and, by beta reports, 50 Merchant's Favor): two thirds of the way to Friendly. Filled crates go to Marcy Baker too, but they pay only Merchant's Favor and silver, never reputation.
+  turnin 98247
 
-step Azeroth Commerce Authority to Honored
-  only Alliance
-  tip Keep filling Waylaid Crates for Marcy Baker.
-  rep 2586 Honored
-
-step Azeroth Commerce Authority to Revered
-  only Alliance
-  tip Keep filling Waylaid Crates for Marcy Baker.
-  rep 2586 Revered
-
-step Azeroth Commerce Authority to Exalted
-  only Alliance
-  tip Keep filling Waylaid Crates for Marcy Baker until Exalted.
-  rep 2586 Exalted
-
-step Durotar Supply and Logistics to Friendly
+step The Crossroads camp: the Shipping Label
   only Horde
   zone The Barrens
-  tip Durotar Supply and Logistics is the Horde's tradeskill faction in Forever. Its camp is just outside the Crossroads in the Barrens. From level 10 mobs drop Waylaid Crates: fill each with the goods its label asks for and hand the Sealed Crate to Dokimi at the camp for reputation and Merchant's Favor. Forever's Legacy Diplomat perk increases reputation gains.
-  goto 50.2,29.4 "Dokimi"
-  rep 2587 Friendly
+  tip The Durotar Supply and Logistics camp stands just outside the west gate of the Crossroads. The label pays 2000 reputation once (and, by beta reports, 50 Merchant's Favor): two thirds of the way to Friendly. Filled crates go to Dokimi too, but they pay only Merchant's Favor and silver, never reputation.
+  turnin 98248
 
-step Durotar Supply and Logistics to Honored
-  only Horde
-  tip Keep filling Waylaid Crates for Dokimi.
-  rep 2587 Honored
+step Gather your writs
+  tip Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, named in its quest (not always the writ's title: a Lesser Troll's Blood Elixir writ wants a Strong Troll's Blood Potion). Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for.
+  task "Take the quests of the writs you can fill"
 
-step Durotar Supply and Logistics to Revered
-  only Horde
-  tip Keep filling Waylaid Crates for Dokimi.
-  rep 2587 Revered
+step Duskwood writ customers
+  when onquest 94214,94232,94241,94250
+  zone Duskwood
+  tip Kzixx stands about 450 yards north of Darkshire. Customers show no quest mark: right-click them anyway.
+  turnin 94214 npc 3134                       -- Shadow Protection Potion, 75 reputation
+  turnin 94232 npc 3134                       -- Minor Recombobulator, 75 reputation
+  turnin 94241 npc 3134                       -- Dark Leather Tunic, 75 reputation
+  turnin 94250 npc 3134                       -- Small Silk Pack, 75 reputation
 
-step Durotar Supply and Logistics to Exalted
-  only Horde
-  tip Keep filling Waylaid Crates for Dokimi until Exalted.
-  rep 2587 Exalted
+step Stranglethorn Vale writ customers
+  when onquest 94226,94235,94244,94217,94253
+  zone Stranglethorn Vale
+  tip Booty Bay holds three customers: "Sea Wolf" MacKinley, Scooty, the goblin transporter's engineer, and Narkk. Short John Mithril stands at the Gurubashi Arena, about 800 yards south of Grom'gol; Hekshi is in northern Stranglethorn. Customers show no quest mark: right-click them anyway.
+  turnin 94226 npc 2501                       -- Green Iron Gauntlets, 75 reputation
+  turnin 94235 npc 7853                       -- Gnomish Universal Remote, 75 reputation
+  turnin 94244 npc 2663                       -- Dark Leather Shoulders, 75 reputation
+  turnin 94217 npc 14508                      -- Strong Troll's Blood Potion, 75 reputation
+  turnin 94253 npc 261961                     -- Colorful Kilt, 75 reputation
+
+step Wetlands writ customers
+  when onquest 94219,94228,94237,94246,94255
+  zone Wetlands
+  tip Kixxle stands about 600 yards south of Dun Modr. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway.
+  turnin 94219 npc 8305                       -- Elixir of Water Breathing, 75 reputation
+  turnin 94228 npc 8305                       -- Green Iron Boots, 75 reputation
+  turnin 94237 npc 8305                       -- Crafted Solid Shot, 75 reputation
+  turnin 94246 npc 8305                       -- Red Whelp Gloves, 75 reputation
+  turnin 94255 npc 8305                       -- Spider Silk Slippers, 75 reputation
+
+step An Explosive Sheep for the writ
+  when onquest 94230
+  when !has 4384
+  tip Engineers make the Explosive Sheep; Kimberly Hiett sells it in Lakeshire (Alliance). Otherwise buy one at the Auction House.
+  buy 4384 nearest optional only Alliance  -- Explosive Sheep
+
+step Arathi Highlands writ customers
+  when onquest 94212,94221,94230,94239,94248
+  zone Arathi Highlands
+  tip Muggol Breezebeard is about 250 yards south of Refuge Pointe, Alyce about 700 yards north-west of it. Customers show no quest mark: right-click them anyway.
+  turnin 94212 npc 257296                     -- Elixir of Wisdom, 75 reputation
+  turnin 94221 npc 257296                     -- Golden Rod, 75 reputation
+  collect 4384 quest 94230.2 @34,23.2         -- bring it: craft it or buy it at the Auction House
+  turnin 94230 npc 257304                     -- Explosive Sheep, 75 reputation
+  turnin 94239 npc 257304                     -- Fine Leather Pants, 75 reputation
+  turnin 94248 npc 257304                     -- Blue Overalls, 75 reputation
+
+step Hillsbrad Foothills writ customers
+  when onquest 94224,94233,94242,94215
+  zone Hillsbrad Foothills
+  tip Gorgrash and Kris Legace are in the east of the foothills; the Webbed Mudsnout Gnoll hangs in a spider cocoon about 500 yards south-east of Southshore. Customers show no quest mark: right-click them anyway.
+  turnin 94224 npc 261932                     -- Heavy Bronze Mace, 75 reputation
+  collect 6712 quest 94233.2                  -- bring it: craft it or buy it at the Auction House
+  turnin 94233 npc 261932                     -- Practice Lock, 75 reputation
+  turnin 94242 npc 3536                       -- Pilferer's Gloves, 75 reputation
+  turnin 94215 npc 261928                     -- Free Action Potion, 75 reputation
+
+step A Heavy Leather Ball for the writ
+  when onquest 94238
+  when !has 18662
+  tip Leatherworkers make the Heavy Leather Ball, and the Auction House has it. Its only vendor is Flik at the Darkmoon Faire, which Forever has not shown yet: go there only if the Faire is in town.
+  buy 18662 nearest optional              -- Heavy Leather Ball
+
+step Alterac Mountains writ customers
+  when onquest 94004,94238,94220,94229,94247,94251
+  zone Alterac Mountains
+  tip Sos'mol and Alan Sneeks are close together in the south-west of the mountains; Syndicate thugs roam around Alan Sneeks. Bath'rah the Windwatcher stands on the eastern edge, above Tarren Mill. Customers show no quest mark: right-click them anyway.
+  turnin 94004 npc 257281                     -- Elixir of Ogre's Strength, 75 reputation
+  collect 18662 quest 94238.2 @38.34,61.15    -- bring it: craft it or buy it at the Auction House
+  turnin 94238 npc 257281                     -- Heavy Leather Ball, 75 reputation
+  turnin 94220 npc 257282                     -- Pearl-handled Dagger, 75 reputation
+  turnin 94229 npc 257282                     -- Ornate Spyglass, 75 reputation
+  turnin 94247 npc 257282                     -- Lesser Wizard's Robe, 75 reputation
+  turnin 94251 npc 6176                       -- Phoenix Pants, 75 reputation
+
+step Ashenvale writ customers
+  when onquest 94213,94240,94222,94249,94231
+  zone Ashenvale
+  tip All four stand around Splintertree Post: Ash'alari about 850 yards south-west of it, Murache to the south, the Cowardly Peon about 350 yards south-east and Grembly about 650 yards north-east. Customers show no quest mark: right-click them anyway.
+  collect 3385 quest 94213.2                  -- bring it: craft it or buy it at the Auction House
+  turnin 94213 npc 257315                     -- Lesser Mana Potion, 75 reputation
+  turnin 94240 npc 257322                     -- Herbalist's Gloves, 75 reputation
+  turnin 94222 npc 257316                     -- Iridescent Hammer, 75 reputation
+  turnin 94249 npc 257316                     -- Azure Silk Hood, 75 reputation
+  turnin 94231 npc 257317                     -- Moonsight Rifle, 75 reputation
+
+step A Heavy Quiver for the writ
+  when onquest 94243
+  when !has 7371
+  tip Leatherworkers make the Heavy Quiver; the bow and gun vendors of Stormwind, Ironforge and the Undercity sell it. Otherwise buy one at the Auction House.
+  buy 7371 nearest optional               -- Heavy Quiver
+
+step Stonetalon Mountains writ customers
+  when onquest 94216,94225,94234,94243
+  zone Stonetalon Mountains
+  tip Ziz Fizziks has a small hut about 550 yards east of Sun Rock Retreat. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway.
+  turnin 94216 npc 4201                       -- Elixir of Lesser Agility, 75 reputation
+  turnin 94225 npc 4201                       -- Rough Bronze Leggings, 75 reputation
+  turnin 94234 npc 4201                       -- Shadow Goggles, 75 reputation
+  collect 7371 quest 94243.2 @58.99,62.6      -- bring it: craft it or buy it at the Auction House
+  turnin 94243 npc 4201                       -- Heavy Quiver, 75 reputation
+
+step Thousand Needles writ customers
+  when onquest 94218,94227,94236,94245,94254
+  zone Thousand Needles
+  tip All five stand at the Mirage Raceway on the Shimmering Flats, south-east of Freewind Post: Rizzle Brassbolts, the chicken "Plucky" Johnson, Razzeric, the Goblin Pit Boss and Magus Tirth. Customers show no quest mark: right-click them anyway.
+  collect 8951 quest 94218.2 @77.22,77.4      -- bring it: craft it or buy it at the Auction House
+  turnin 94218 npc 4720                       -- Elixir of Greater Defense, 75 reputation
+  turnin 94227 npc 6626                       -- Big Bronze Knife, 75 reputation
+  turnin 94236 npc 4706                       -- Big Bronze Bomb, 75 reputation
+  turnin 94245 npc 4496                       -- Barbaric Gloves, 75 reputation
+  turnin 94254 npc 6548                       -- Greater Adept's Robe, 75 reputation
+
+step Neutral to Friendly
+  tip After the Shipping Label, Friendly is 1000 more: 14 Journeyman writs, 8 Expert or 5 Artisan. Expert and Artisan customers are mostly not in Polestar's data yet: follow the mark the quest puts on your map. Journeyman envelopes drop from mobs of about level 11 to 31; Expert and Artisan ones from higher mobs.
+  rep 2586 Friendly only Alliance
+  rep 2587 Friendly only Horde
+
+step Gather your writs again
+  tip Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, named in its quest (not always the writ's title: a Lesser Troll's Blood Elixir writ wants a Strong Troll's Blood Potion). Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for.
+  task "Take the quests of the writs you can fill"
+
+step Duskwood writ customers again
+  when onquest 94214,94232,94241,94250
+  zone Duskwood
+  tip Kzixx stands about 450 yards north of Darkshire, by the road. Customers show no quest mark: right-click them anyway.
+  turnin 94214 npc 3134                       -- Shadow Protection Potion, 75 reputation
+  turnin 94232 npc 3134                       -- Minor Recombobulator, 75 reputation
+  turnin 94241 npc 3134                       -- Dark Leather Tunic, 75 reputation
+  turnin 94250 npc 3134                       -- Small Silk Pack, 75 reputation
+
+step Stranglethorn Vale writ customers again
+  when onquest 94226,94235,94244,94217,94253
+  zone Stranglethorn Vale
+  tip Booty Bay holds three customers: "Sea Wolf" MacKinley, Scooty at the zeppelin-style transporter pad and Narkk. Short John Mithril stands about 800 yards south of Grom'gol, by the Gurubashi Arena; Hekshi is in northern Stranglethorn. Customers show no quest mark: right-click them anyway.
+  turnin 94226 npc 2501                       -- Green Iron Gauntlets, 75 reputation
+  turnin 94235 npc 7853                       -- Gnomish Universal Remote, 75 reputation
+  turnin 94244 npc 2663                       -- Dark Leather Shoulders, 75 reputation
+  turnin 94217 npc 14508                      -- Strong Troll's Blood Potion, 75 reputation
+  turnin 94253 npc 261961                     -- Colorful Kilt, 75 reputation
+
+step Wetlands writ customers again
+  when onquest 94219,94228,94237,94246,94255
+  zone Wetlands
+  tip Kixxle stands about 600 yards south of Dun Modr. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway.
+  turnin 94219 npc 8305                       -- Elixir of Water Breathing, 75 reputation
+  turnin 94228 npc 8305                       -- Green Iron Boots, 75 reputation
+  turnin 94237 npc 8305                       -- Crafted Solid Shot, 75 reputation
+  turnin 94246 npc 8305                       -- Red Whelp Gloves, 75 reputation
+  turnin 94255 npc 8305                       -- Spider Silk Slippers, 75 reputation
+
+step An Explosive Sheep for the writ again
+  when onquest 94230
+  when !has 4384
+  tip Engineers make the Explosive Sheep; Kimberly Hiett sells it in Lakeshire (Alliance). Otherwise buy one at the Auction House.
+  buy 4384 nearest optional only Alliance  -- Explosive Sheep
+
+step Arathi Highlands writ customers again
+  when onquest 94212,94221,94230,94239,94248
+  zone Arathi Highlands
+  tip Muggol Breezebeard is about 250 yards south of Refuge Pointe, Alyce about 700 yards north-west of it. Customers show no quest mark: right-click them anyway.
+  turnin 94212 npc 257296                     -- Elixir of Wisdom, 75 reputation
+  turnin 94221 npc 257296                     -- Golden Rod, 75 reputation
+  collect 4384 quest 94230.2 @34,23.2         -- bring it: craft it or buy it at the Auction House
+  turnin 94230 npc 257304                     -- Explosive Sheep, 75 reputation
+  turnin 94239 npc 257304                     -- Fine Leather Pants, 75 reputation
+  turnin 94248 npc 257304                     -- Blue Overalls, 75 reputation
+
+step Hillsbrad Foothills writ customers again
+  when onquest 94224,94233,94242,94215
+  zone Hillsbrad Foothills
+  tip Gorgrash and Kris Legace are in the east of the foothills; the Webbed Mudsnout Gnoll hangs in a spider cocoon about 500 yards south-east of Southshore. Customers show no quest mark: right-click them anyway.
+  turnin 94224 npc 261932                     -- Heavy Bronze Mace, 75 reputation
+  collect 6712 quest 94233.2                  -- bring it: craft it or buy it at the Auction House
+  turnin 94233 npc 261932                     -- Practice Lock, 75 reputation
+  turnin 94242 npc 3536                       -- Pilferer's Gloves, 75 reputation
+  turnin 94215 npc 261928                     -- Free Action Potion, 75 reputation
+
+step A Heavy Leather Ball for the writ again
+  when onquest 94238
+  when !has 18662
+  tip Leatherworkers make the Heavy Leather Ball, and the Auction House has it. Its only vendor is Flik at the Darkmoon Faire, which Forever has not shown yet: go there only if the Faire is in town.
+  buy 18662 nearest optional              -- Heavy Leather Ball
+
+step Alterac Mountains writ customers again
+  when onquest 94004,94238,94220,94229,94247,94251
+  zone Alterac Mountains
+  tip Sos'mol and Alan Sneeks are close together in the south-west of the mountains; Syndicate thugs roam around Alan Sneeks. Bath'rah the Windwatcher stands on the eastern edge, above Tarren Mill. Customers show no quest mark: right-click them anyway.
+  turnin 94004 npc 257281                     -- Elixir of Ogre's Strength, 75 reputation
+  collect 18662 quest 94238.2 @38.34,61.15    -- bring it: craft it or buy it at the Auction House
+  turnin 94238 npc 257281                     -- Heavy Leather Ball, 75 reputation
+  turnin 94220 npc 257282                     -- Pearl-handled Dagger, 75 reputation
+  turnin 94229 npc 257282                     -- Ornate Spyglass, 75 reputation
+  turnin 94247 npc 257282                     -- Lesser Wizard's Robe, 75 reputation
+  turnin 94251 npc 6176                       -- Phoenix Pants, 75 reputation
+
+step Ashenvale writ customers again
+  when onquest 94213,94240,94222,94249,94231
+  zone Ashenvale
+  tip All four stand around Splintertree Post: Ash'alari about 850 yards south-west of it, Murache to the south, the Cowardly Peon about 350 yards south-east and Grembly about 650 yards north-east. Customers show no quest mark: right-click them anyway.
+  collect 3385 quest 94213.2                  -- bring it: craft it or buy it at the Auction House
+  turnin 94213 npc 257315                     -- Lesser Mana Potion, 75 reputation
+  turnin 94240 npc 257322                     -- Herbalist's Gloves, 75 reputation
+  turnin 94222 npc 257316                     -- Iridescent Hammer, 75 reputation
+  turnin 94249 npc 257316                     -- Azure Silk Hood, 75 reputation
+  turnin 94231 npc 257317                     -- Moonsight Rifle, 75 reputation
+
+step A Heavy Quiver for the writ again
+  when onquest 94243
+  when !has 7371
+  tip Leatherworkers make the Heavy Quiver; the bow and gun vendors of Stormwind, Ironforge and the Undercity sell it. Otherwise buy one at the Auction House.
+  buy 7371 nearest optional               -- Heavy Quiver
+
+step Stonetalon Mountains writ customers again
+  when onquest 94216,94225,94234,94243
+  zone Stonetalon Mountains
+  tip Ziz Fizziks has a small hut about 550 yards east of Sun Rock Retreat. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway.
+  turnin 94216 npc 4201                       -- Elixir of Lesser Agility, 75 reputation
+  turnin 94225 npc 4201                       -- Rough Bronze Leggings, 75 reputation
+  turnin 94234 npc 4201                       -- Shadow Goggles, 75 reputation
+  collect 7371 quest 94243.2 @58.99,62.6      -- bring it: craft it or buy it at the Auction House
+  turnin 94243 npc 4201                       -- Heavy Quiver, 75 reputation
+
+step Thousand Needles writ customers again
+  when onquest 94218,94227,94236,94245,94254
+  zone Thousand Needles
+  tip All five stand at the Mirage Raceway on the Shimmering Flats, south-east of Freewind Post: Rizzle Brassbolts, the chicken "Plucky" Johnson, Razzeric, the Goblin Pit Boss and Magus Tirth. Customers show no quest mark: right-click them anyway.
+  collect 8951 quest 94218.2 @77.22,77.4      -- bring it: craft it or buy it at the Auction House
+  turnin 94218 npc 4720                       -- Elixir of Greater Defense, 75 reputation
+  turnin 94227 npc 6626                       -- Big Bronze Knife, 75 reputation
+  turnin 94236 npc 4706                       -- Big Bronze Bomb, 75 reputation
+  turnin 94245 npc 4496                       -- Barbaric Gloves, 75 reputation
+  turnin 94254 npc 6548                       -- Greater Adept's Robe, 75 reputation
+
+step Friendly to Honored
+  tip Friendly opens the first gated recipes at the camp's profession vendors (Tailoring 25, Leatherworking 17, Enchanting 13, Blacksmithing 10, Engineering 10, Alchemy 5, Cooking 2) and the Uncertified Scribe: Dianne Softstep at Three Corners, Kurvelk Shadowhoof at the south end of the Crossroads camp. The scribe's Forged Delivery Receipt (15 Merchant's Favor) turns an empty Waylaid Crate into a Notarized Shipping Container; hand it to Marcy Baker or Dokimi for 50 reputation (Crate Return). Any crate works, so buy the cheapest one the Auction House has. Honored is 6000 more: 80 Journeyman writs, 48 Expert, 30 Artisan, or 120 crate returns (1,800 Favor and 120 crates). Mix both: every writ you can fill, returns with spare Favor. The Legacy perk Diplomat adds up to 10% to every gain.
+  rep 2586 Honored only Alliance
+  rep 2587 Honored only Horde
+  buy 262902 npc 256742 optional only Alliance          -- Forged Delivery Receipt, 15 Merchant's Favor
+  buy 262902 npc 256672 optional only Horde             -- Forged Delivery Receipt, 15 Merchant's Favor
+  turnin 93862 direct npc 256390 optional only Alliance -- Crate Return: 50 reputation
+  turnin 93862 direct npc 256386 optional only Horde    -- Crate Return: 50 reputation
+
+step Badlands writ customer
+  when onquest 94256
+  zone Badlands
+  tip Lotwil Veriatus works about 550 yards east of Kargath. He is the only Expert customer Polestar's data knows.
+  turnin 94256 npc 2921                       -- Frost Protection Potion, 125 reputation
+
+step Honored to Revered
+  tip Honored opens the rest of the gated recipes (Leatherworking 28, Blacksmithing 21, Enchanting 16, Alchemy 15, Engineering 9, Tailoring 6, Cooking 1), the Advertising License Application (1,200 Favor from Tamelyn Aldridge or Gishah: it starts the quest for a Tradeskill Sign toy) and the scribe's Forger's Quill (15 Favor), which swaps a writ you cannot fill for a random one of the same rank. Revered is 12000 more: 160 Journeyman writs, 96 Expert, 60 Artisan, or 240 crate returns (3,600 Favor). Forever's quest data sets no standing limit on Journeyman writs: their customers are the ones in the zone steps above.
+  rep 2586 Revered only Alliance
+  rep 2587 Revered only Horde
+  buy 270888 npc 256389 optional only Alliance          -- Advertising License Application, 1,200 Merchant's Favor
+  buy 270887 npc 256384 optional only Horde             -- Advertising License Application, 1,200 Merchant's Favor
+  turnin 93862 direct npc 256390 optional only Alliance -- Crate Return: 50 reputation
+  turnin 93862 direct npc 256386 optional only Horde    -- Crate Return: 50 reputation
+
+step Revered to Exalted
+  tip Revered opens the Packmule Treat, the Minimule pet (1,500 Favor from Tamelyn Aldridge or Gishah). Exalted is 21000 more: 280 Journeyman writs, 168 Expert, 105 Artisan, or 420 crate returns (6,300 Favor). Keep 6,000 Favor for the Pack Kodo if you want it.
+  rep 2586 Exalted only Alliance
+  rep 2587 Exalted only Horde
+  buy 284664 npc 256389 optional only Alliance          -- Packmule Treat, 1,500 Merchant's Favor
+  buy 284664 npc 256384 optional only Horde             -- Packmule Treat, 1,500 Merchant's Favor
+  turnin 93862 direct npc 256390 optional only Alliance -- Crate Return: 50 reputation
+  turnin 93862 direct npc 256386 optional only Horde    -- Crate Return: 50 reputation
+
+step Exalted
+  tip Exalted opens the camp's tabard (200 Favor) at Tamelyn Aldridge or Gishah, and the Reins of the Pack Kodo (6,000 Favor; the mount needs level 60 and Journeyman mount training) at Huey Sunnydale in Three Corners or Okamache at the Crossroads camp. The Pack Kodo guide under Collectibles leads you there.
+  buy 262765 npc 256389 only Alliance                   -- Azeroth Commerce Authority Tabard, 200 Merchant's Favor
+  buy 262764 npc 256384 only Horde                      -- Durotar Supply and Logistics Tabard, 200 Merchant's Favor

@@ -8,7 +8,9 @@
 // inert first: Discord's mention syntax becomes names, and nothing in it can
 // mention a GitHub user, link another issue, write HTML or forge the marker.
 
-const MARKER = /<!-- polestar-bot (\{[^\n]*?\}) -->/;
+// The bot's marker is always the body's last line; one anywhere else is
+// player text (or a stranger's) and is never read.
+const MARKER = /(?:^|\n)<!-- polestar-bot (\{[^\n]*\}) -->$/;
 const FOLLOWUP_MARK = '<!-- polestar-bot:followup -->';
 
 const COLORS = {
@@ -71,20 +73,22 @@ function quote(text) {
 	return inert(text).split('\n').map((l) => (l ? '> ' + l : '>')).join('\n');
 }
 
-// A code block that the text cannot close early.
+// A code block that the text cannot close early, and in which no HTML
+// comment opens (so it cannot hide a marker from the reader).
 function fence(text, lang = 'text') {
-	const longest = Math.max(2, ...(String(text).match(/`+/g) || []).map((s) => s.length));
+	const body = String(text).replace(/<!--/g, '<\u200b!--');
+	const longest = Math.max(2, ...(body.match(/`+/g) || []).map((s) => s.length));
 	const ticks = '`'.repeat(longest + 1);
-	return `${ticks}${lang}\n${text}\n${ticks}`;
+	return `${ticks}${lang}\n${body}\n${ticks}`;
 }
 
 function marker(data) {
 	return `<!-- polestar-bot ${JSON.stringify(data)} -->`;
 }
 
-// The marker's data from an issue body, or null.
+// The marker's data from an issue body's last line, or null.
 function readMarker(body) {
-	const m = String(body || '').match(MARKER);
+	const m = String(body || '').trimEnd().match(MARKER);
 	if (!m) return null;
 	try {
 		const data = JSON.parse(m[1]);
@@ -92,6 +96,18 @@ function readMarker(body) {
 	} catch {
 		return null;
 	}
+}
+
+const labelNames = (issue) => (issue.labels || []).map((l) => (typeof l === 'string' ? l : l.name));
+
+// The marker of an issue the bot filed, or null. Only maintainers and the
+// bot can label an issue `discord`, so an issue opened on GitHub with a
+// marker of its own is not trusted. `login`: the bot's GitHub account
+// (BOT_GITHUB_LOGIN), checked against the issue's author when set.
+function issueMarker(issue, login = (process.env.BOT_GITHUB_LOGIN || '').trim() || null) {
+	if (!issue || issue.pull_request || !labelNames(issue).includes('discord')) return null;
+	if (login && !(issue.user && issue.user.login === login)) return null;
+	return readMarker(issue.body);
 }
 
 function threadUrl(guild, thread, message) {
@@ -109,15 +125,22 @@ function issueTitle(name) {
 	return t.length > 200 ? t.slice(0, 197) + '...' : t;
 }
 
+// The report's text is the player's, so a label is made from it only when it
+// has the shape of a real one: a release version, a guide id, a game locale.
+const LABEL_VERSION = /^\d{1,2}\.\d{1,3}\.\d{1,3}(?:-(?:alpha|beta|rc|test)\.\d{1,3})?$/;
+const LABEL_GUIDE = /^[a-z0-9]+(?:[-_][a-z0-9]+){0,8}$/;
+const LOCALES = new Set(['enUS', 'enGB', 'enCN', 'enTW', 'deDE', 'esES', 'esMX', 'frFR', 'itIT', 'koKR', 'ptBR', 'ptPT', 'ruRU', 'zhCN', 'zhTW']);
+
 // Labels for a post: always discord, triage and bug, then what the report
-// and the post's forum tags say.
+// and the post's forum tags (set by the server's admins) say.
 function labelsFor(report, forumTags = []) {
 	const labels = ['discord', 'triage', 'bug'];
 	const d = report && report.details;
 	if (d) {
-		if (d.version && d.version !== 'dev') labels.push('v' + d.version);
-		if (d.guideId) labels.push('guide:' + d.guideId.split('/').pop());
-		if (d.locale && d.locale !== '?') labels.push('locale:' + d.locale);
+		if (d.version && LABEL_VERSION.test(d.version)) labels.push('v' + d.version);
+		const guide = d.guideId && d.guideId.split('/').pop();
+		if (guide && guide.length <= 44 && LABEL_GUIDE.test(guide)) labels.push('guide:' + guide);
+		if (d.locale && LOCALES.has(d.locale)) labels.push('locale:' + d.locale);
 		if (d.errors && d.errors.length) labels.push('lua-error');
 	}
 	for (const t of forumTags) {
@@ -213,4 +236,6 @@ module.exports = {
 	followUpComment,
 	trackedReply,
 	readTrackedReply,
+	issueMarker,
+	labelNames,
 };

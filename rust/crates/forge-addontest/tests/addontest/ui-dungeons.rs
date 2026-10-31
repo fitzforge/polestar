@@ -550,6 +550,27 @@ fn quests_one_block_per_quest_with_state_level_flags_objective_start_and_end_pin
 }
 
 #[test]
+fn quest_cards_group_the_details_and_mark_the_next_unfinished_chain_step_names_keep_their_difficulty_colour() {
+	let out = run(r#"
+		done[1490] = nil
+		Polestar.Dungeons.Open("wailing-caverns")
+		local fang = block(914)
+		local step = fang.Chains[1]
+		local function rgb(r, g, b) return string.format("%.3f %.3f %.3f", r, g, b) end
+		local text, accent = rgb(Polestar.Theme.Color("text")), rgb(Polestar.Theme.Color("accent"))
+		emit({ panel = fang.psSkin ~= nil, rule = fang.HeadRule:IsShown(), rewards = fang.MoreLabel:IsShown(), objective = fang.Obj:GetText(),
+			step = { step.Number:GetText(), step.Number:IsShown(), step.Highlight:IsShown(), step.Glyph:IsShown() },
+			plain = { rgb(fang.Title:GetTextColor()) == text, rgb(step.Title:GetTextColor()) == text, rgb(step.Title:GetTextColor()) == accent } })"#);
+	let out = &out[0];
+	assert_eq!(out["panel"], true);
+	assert_eq!(out["rule"], true);
+	assert_eq!(out["rewards"], true);
+	assert!(is_match(out["objective"].as_str().unwrap(), "^\u{2022}  "));
+	assert_eq!(out["step"], json!(["1", true, true, false]));
+	assert_eq!(out["plain"], json!([false, false, false]), "quest and chain names keep their difficulty colour");
+}
+
+#[test]
 fn quests_too_low_shows_the_level_it_opens_at_the_other_faction_is_counted_when_none_are_left() {
 	let out = run(r#"
 		uistub.player.level = 12

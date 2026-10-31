@@ -61,7 +61,7 @@ flowchart LR
   builders --> addon["addon/"]
   pg --> addon
   addon -->|install| game["The game"]
-  game -->|"Recorder, record import"| recordings
+  game -->|"Recorder, forge record import/pull"| recordings
 ```
 
 `data/forever`, `data/recordings` and the local data addons stay on the
@@ -82,7 +82,7 @@ generated file, whether it is committed, and the order to rebuild in.
 - **Codex**: Lookup's database of items, mounts, pets, recipes, NPCs, rares, quests, zones, dungeons and treasures, with where each comes from (`forge data codex`, the `Polestar_Codex` addon).
 - **QuestDB**: the quest database behind quest markers and tooltips (`forge data questdb`, the `Polestar_QuestDB` addon).
 - **ItemDB**: item stats for the gear advice (`forge data itemdb` and `forge data gear`, the `Polestar_ItemDB` addon).
-- **Recorder**: the optional `Polestar_Recorder` addon that records play; `record import` turns its sessions into `data/recordings`.
+- **Recorder**: the optional `Polestar_Recorder` addon that records play (opt-in; [RECORDING.md](RECORDING.md)); `forge record import` (this PC) and `forge record pull` (the recording server) turn its chunks into `data/recordings`.
 - **Playground**: the real addon running in a browser against a simulated world (`node tools/polestar.js play`).
 - **Forge**: the Rust pipeline that makes the leveling routes from the installed game and the guides, writes them into the guides and judges them (`forge build`, [FORGE.md](FORGE.md)).
 - **Simulator**: the earlier JavaScript route model, kept for `sim compare` and the README charts ([legacy/SIMULATION-js.md](legacy/SIMULATION-js.md)); Forge's model is [forge/model.md](forge/model.md).

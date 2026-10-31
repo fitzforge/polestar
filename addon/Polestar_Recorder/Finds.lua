@@ -1,82 +1,71 @@
--- Finds: what the Codex needs and the client tables cannot give, recorded
--- the way RareScanner and AtlasLoot gather it in play. Schema in
--- docs/ARCHITECTURE.md ("Recordings"); `data build` turns these events into
--- npc ranks and spawns, drop chances, treasures and instance facts.
+-- Fights and loot (docs/RECORDING.md, "Fights and loot"): the creatures the
+-- player sees (`unit` census, `rare`), treasures behind vignettes, kills with
+-- the XP they paid and the objective they ticked, loot windows per source
+-- with the open item objectives (the drop-chance denominator), instance
+-- entrances and encounters.
 --
---   rare       a rare (UnitClassification rare | rareelite | worldboss) seen on
---              a nameplate, as target or mouseover, or behind a vignette;
---              once per npc per SIGHT_YARDS per session
---   treasure   a game object behind a vignette (a treasure), same de-duplication
---   slain      a creature the player or pet killed, or looted (a party kill),
---              with its classification and level when the unit was seen;
---              `denied` when its corpse turned out to be someone else's loot
---   drop       one loot window per source (GetLootSourceInfo: the corpse or
---              game object): the items in it with counts, and `gather` when a
---              gathering cast (herb, mine, skin) opened it
---   enter      zoning into a dungeon or raid, with the last outdoor position
---              before it (the entrance)
---   encounter  ENCOUNTER_END: the encounter, its result and the bosses the
---              client lists for it (or the creatures that died during it)
+-- Kills: Forever's combat log is closed to addons (COMBAT_LOG_EVENT_* are
+-- callback events; C_CombatLog has no GetCurrentEventInfo), so deaths come
+-- from PARTY_KILL and UNIT_DIED, which carry only GUIDs, and from the XP
+-- line in chat. A death waits LINK_WINDOW seconds for its XP line and the
+-- objective it ticked, then is written at the time it happened. Recorded:
+-- the player's or pet's kills, deaths of creatures the player targeted (or
+-- the client flags as quest-related), deaths that ticked an objective, an
+-- XP line naming a creature the player saw, and every corpse looted.
 --
--- APIs, verified against .ref/wow-ui-source-forever: UnitClassification
--- (UnitDocumentation), NAME_PLATE_UNIT_ADDED, C_VignetteInfo and
--- VIGNETTE_MINIMAP_UPDATED / VIGNETTES_UPDATED (VignetteInfoDocumentation),
--- CanLootUnit (PlayerScriptDocumentation), ENCOUNTER_START / ENCOUNTER_END
--- (EncounterInfoDocumentation), UNIT_SPELLCAST_SUCCEEDED, PLAYER_LEAVING_WORLD,
--- GetInstanceInfo (8th return: the instance map id), and the loot globals
--- GetNumLootItems / GetLootSlotInfo / GetLootSlotLink / GetLootSourceInfo /
--- IsFishingLoot (LootFrame.lua). Every read may be a secret value; a secret
--- reads as unknown.
+-- APIs, verified against .ref/wow-ui-source-forever: UnitClassification,
+-- UnitIsTapDenied, UnitReaction (UnitDocumentation), NAME_PLATE_UNIT_ADDED,
+-- C_VignetteInfo and VIGNETTE_MINIMAP_UPDATED / VIGNETTES_UPDATED,
+-- CanLootUnit, ENCOUNTER_START / ENCOUNTER_END, UNIT_SPELLCAST_SUCCEEDED,
+-- PLAYER_LEAVING_WORLD, GetInstanceInfo (8th return: the instance map id),
+-- the loot globals GetNumLootItems / GetLootSlotInfo / GetLootSlotLink /
+-- GetLootSourceInfo / IsFishingLoot (LootFrame.lua), and the XP lines'
+-- COMBATLOG_XPGAIN_* global strings. Unit identity is secret in combat and
+-- in instances on this client: every read goes through ns.Usable, and a
+-- secret reads as unknown.
 
 local ADDON, ns = ...
 
-local type, GetTime, tonumber, ipairs, pairs, wipe = type, GetTime, tonumber, ipairs, pairs, wipe
-local usable = ns.Usable
+local type, GetTime, tonumber, ipairs, pairs, wipe, concat = type, GetTime, tonumber, ipairs, pairs, wipe, table.concat
+local usable, Str, Num = ns.Usable, ns.Str, ns.Num
 
-local SIGHT_YARDS = 50 -- one sighting per npc (or treasure) per this many yards per session
-local CACHE_SIZE = 128 -- units remembered (classification, level, name) by GUID
-local DONE_SIZE = 128 -- GUIDs already recorded as slain / looted
-local LOOT_CHECK = 1 -- seconds after a kill to ask CanLootUnit whose loot it is
+local SIGHT_YARDS = 50 -- one rare / treasure sighting per npc (object) per this many yards per session
+local UNIT_YARDS = 100 -- one `unit` per npc per this many yards per session (and per new level)
+local CACHE_SIZE = 128 -- units remembered by GUID
+local DONE_SIZE = 128 -- GUIDs already handled as dead / looted
+local LOOT_CHECK = 1 -- seconds after a death to ask CanLootUnit whose loot it is
+local LINK_WINDOW = 3 -- seconds a death waits for its objective tick and XP line
+local XP_WINDOW = 1.5 -- seconds between a death and its XP line, either order
 local GATHER_WINDOW = 3 -- seconds between a gathering cast and its loot window
-local ENCOUNTER_NPCS = 16
 
 local RARE = { rare = true, rareelite = true, worldboss = true }
 
--- Gathering casts whose loot window is not a kill's or a chest's drop
--- (Classic spell ids, every rank).
+-- Gathering casts whose loot window is not a kill's or a chest's (Classic
+-- spell ids, every rank).
 local GATHER = {}
-for _, id in ipairs({ 2366, 2368, 3570, 11993 }) do GATHER[id] = "herb" end
-for _, id in ipairs({ 2575, 2576, 3564, 10248 }) do GATHER[id] = "mine" end
-for _, id in ipairs({ 8613, 8617, 8618, 10768 }) do GATHER[id] = "skin" end
-
-local function value(v)
-	if usable(v) then return v end
-	return nil
-end
-
-local function str(v)
-	v = value(v)
-	if type(v) == "string" and v ~= "" then return v end
-	return nil
-end
-
-local function num(v)
-	v = value(v)
-	if type(v) == "number" then return v end
-	return nil
-end
+for _, id in ipairs({ 2366, 2368, 3570, 11993 }) do GATHER[id] = "h" end
+for _, id in ipairs({ 2575, 2576, 3564, 10248 }) do GATHER[id] = "m" end
+for _, id in ipairs({ 8613, 8617, 8618, 10768 }) do GATHER[id] = "s" end
+function ns.IsGatherSpell(spell) return GATHER[spell] ~= nil end
 
 local function creature(kind) return kind == "Creature" or kind == "Vehicle" end
 
--- instance map id, difficulty, name, type while in a dungeon or raid.
+local function call(fn, ...)
+	if type(fn) ~= "function" then return nil end
+	local ok, v = pcall(fn, ...)
+	if ok and usable(v) then return v end
+	return nil
+end
+
+-- instance map id, difficulty, type while in a dungeon or raid.
 local function instance()
 	if not GetInstanceInfo then return nil end
-	local name, kind, diff, _, _, _, _, id = GetInstanceInfo()
-	kind = str(kind)
+	local _, kind, diff, _, _, _, _, id = GetInstanceInfo()
+	kind = Str(kind)
 	if kind ~= "party" and kind ~= "raid" then return nil end
-	id = num(id)
+	id = Num(id)
 	if not id or id <= 0 then return nil end
-	return id, num(diff), str(name), kind
+	return id, Num(diff), kind
 end
 
 -- A fixed ring of recently used keys; evicted keys leave `set`.
@@ -92,74 +81,126 @@ local function ring(size)
 end
 
 ---------------------------------------------------------------------------
--- Units seen: GUID -> { npc, name, cls, lvl }
+-- Units seen: GUID -> { npc, name, cls, lvl, tapped, targeted, related }.
+-- Names stay in memory (to read XP lines and objective texts), never in a
+-- record.
 ---------------------------------------------------------------------------
 
 local units, unitKeys, unitPos = {}, {}, 0
+local byName = {} -- name -> GUID last seen with it
 
 local function remember(guid, u)
 	if not units[guid] then
 		unitPos = unitPos % CACHE_SIZE + 1
 		local old = unitKeys[unitPos]
-		if old then units[old] = nil end
+		if old then
+			local o = units[old]
+			if o and o.name and byName[o.name] == old then byName[o.name] = nil end
+			units[old] = nil
+		end
 		unitKeys[unitPos] = guid
 	end
 	units[guid] = u
+	if u.name then byName[u.name] = guid end
+end
+
+local function react(unit)
+	local r = call(UnitReaction, unit, "player")
+	if type(r) ~= "number" then return nil end
+	if r <= 3 then return "h" end
+	if r == 4 then return "n" end
+	return "f"
 end
 
 ---------------------------------------------------------------------------
--- Sightings: rares and treasures
+-- Sightings: the unit census, rares and treasures
 ---------------------------------------------------------------------------
 
-local sighted = {} -- "npc:<id>" | "object:<id>" -> { { map, x, y } }
+local levelSeen = {} -- "npc:level" seen this session
+local placesSeen = {} -- "u<npc>" | "r<npc>" | "t<object>" -> { { map, x, y } }
 
-ns.OnSession(function() wipe(sighted) end)
-
-local function near(key, map, x, y)
-	local list = sighted[key]
+local function near(key, map, x, y, yards)
+	local list = placesSeen[key]
 	if not list then return false end
 	for _, p in ipairs(list) do
-		if p.map == map and ns.Yards(map, p.x - x, p.y - y) <= SIGHT_YARDS then return true end
+		if p.map == map and ns.Yards(map, p.x - x, p.y - y) <= yards then return true end
 	end
 	return false
 end
 
-local function sighting(kind, key, ev)
-	if not (ev.map and ev.x and ev.y) or near(key, ev.map, ev.x, ev.y) then return end
-	ev.inst = instance()
-	local map, x, y = ev.map, ev.x, ev.y
-	if ns.Record(kind, ev) then
-		local list = sighted[key] or {}
-		sighted[key] = list
-		list[#list + 1] = { map = map, x = x, y = y }
+local function remember_place(key, map, x, y)
+	local list = placesSeen[key]
+	if not list then
+		list = {}
+		placesSeen[key] = list
+	end
+	list[#list + 1] = { map = map, x = x, y = y }
+end
+
+local UNIT_SRC = { nameplate = "p", target = "t", mouseover = "m" }
+
+local function census(npc, lvl, cls, reaction, src)
+	local map, x, y = ns.Position()
+	local lkey = npc .. ":" .. (lvl or "")
+	local key = "u" .. npc
+	local newLevel = not levelSeen[lkey]
+	local newPlace = x and not near(key, map, x, y, UNIT_YARDS)
+	if not (newLevel or newPlace) then return end
+	if ns.Rec("unit", npc, lvl, ns.Cls(cls), reaction, ns.PAt(map, x, y), UNIT_SRC[src]) then
+		levelSeen[lkey] = true
+		if x then remember_place(key, map, x, y) end
 	end
 end
 
-local function seeUnit(unit, src)
-	if not (UnitExists and value(UnitExists(unit))) then return end
-	local guid = str(UnitGUID(unit))
-	local kind, npc = ns.ParseGUID(guid)
-	if not creature(kind) or not npc then return end
-	if value(UnitIsPlayer and UnitIsPlayer(unit)) or value(UnitPlayerControlled and UnitPlayerControlled(unit)) then return end
-	local cls = str(UnitClassification and UnitClassification(unit))
-	local lvl = num(UnitLevel and UnitLevel(unit))
-	local name = str(UnitName(unit))
-	remember(guid, { npc = npc, name = name, cls = cls, lvl = lvl })
-	if not (cls and RARE[cls]) then return end
-	local map, x, y = ns.Position()
-	sighting("rare", "npc:" .. npc, { npc = npc, npcName = name, cls = cls, npcLvl = lvl, src = src, map = map, x = x, y = y })
+local function sighting(kind, key, id, rest, map, x, y)
+	if not (map and x and y) or near(key, map, x, y, SIGHT_YARDS) then return end
+	local ok
+	if kind == "rare" then
+		ok = ns.Rec("rare", id, rest.lvl, ns.Cls(rest.cls), ns.PAt(map, x, y), rest.src)
+	else
+		ok = ns.Rec("treasure", id, ns.PAt(map, x, y))
+	end
+	if ok then remember_place(key, map, x, y) end
 end
 
-ns.On("NAME_PLATE_UNIT_ADDED", function(_, unit) if str(unit) then seeUnit(unit, "nameplate") end end)
+local RARE_SRC = { nameplate = "p", target = "t", mouseover = "m" }
+
+local function seeUnit(unit, src)
+	if not ns.Recording() or not call(UnitExists, unit) then return end
+	local guid = Str(UnitGUID(unit))
+	local kind, npc = ns.ParseGUID(guid)
+	if not creature(kind) or not npc then return end
+	if call(UnitIsPlayer, unit) or call(UnitPlayerControlled, unit) then return end
+	local cls = Str(call(UnitClassification, unit))
+	local lvl = Num(call(UnitLevel, unit))
+	local e = units[guid]
+	if not e then
+		e = { npc = npc }
+	end
+	e.name = Str(call(UnitName, unit)) or e.name
+	e.cls, e.lvl = cls or e.cls, lvl or e.lvl
+	local denied = call(UnitIsTapDenied, unit)
+	if denied ~= nil then e.tapped = denied and true or false end
+	if src == "target" then e.targeted = true end
+	if not e.related and C_QuestLog.UnitIsRelatedToActiveQuest and call(C_QuestLog.UnitIsRelatedToActiveQuest, unit) then e.related = true end
+	remember(guid, e)
+	census(npc, lvl, cls, react(unit), src)
+	if cls and RARE[cls] then
+		local map, x, y = ns.Position()
+		sighting("rare", "r" .. npc, npc, { lvl = lvl, cls = cls, src = RARE_SRC[src] }, map, x, y)
+	end
+end
+
+ns.On("NAME_PLATE_UNIT_ADDED", function(_, unit) if Str(unit) then seeUnit(unit, "nameplate") end end)
 ns.On("PLAYER_TARGET_CHANGED", function() seeUnit("target", "target") end)
 ns.On("UPDATE_MOUSEOVER_UNIT", function() seeUnit("mouseover", "mouseover") end)
 
 local function vignette(vguid)
 	local V = C_VignetteInfo
-	if not (str(vguid) and V and V.GetVignetteInfo and V.GetVignettePosition and C_Map and C_Map.GetBestMapForUnit) then return end
+	if not (ns.Recording() and Str(vguid) and V and V.GetVignetteInfo and V.GetVignettePosition and C_Map and C_Map.GetBestMapForUnit) then return end
 	local ok, info = pcall(V.GetVignetteInfo, vguid)
 	if not ok or type(info) ~= "table" then return end
-	local guid = str(info.objectGUID)
+	local guid = Str(info.objectGUID)
 	local kind, id = ns.ParseGUID(guid)
 	if not id then return end
 	local map = C_Map.GetBestMapForUnit("player")
@@ -168,95 +209,237 @@ local function vignette(vguid)
 	if not okPos or type(pos) ~= "table" then return end
 	local x, y
 	if pos.GetXY then x, y = pos:GetXY() else x, y = pos.x, pos.y end
-	x, y = num(x), num(y)
+	x, y = Num(x), Num(y)
 	if not (x and y) or (x == 0 and y == 0) then return end
-	x, y = ns.Round2(x * 100), ns.Round2(y * 100)
-	local name = str(info.name)
+	x, y = x * 100, y * 100
 	if creature(kind) then
 		local u = units[guid]
-		sighting("rare", "npc:" .. id, { npc = id, npcName = name or (u and u.name), cls = u and u.cls, npcLvl = u and u.lvl, src = "vignette", map = map, x = x, y = y })
+		sighting("rare", "r" .. id, id, { lvl = u and u.lvl, cls = u and u.cls, src = "v" }, map, x, y)
 	elseif kind == "GameObject" then
-		sighting("treasure", "object:" .. id, { object = id, objName = name, src = "vignette", map = map, x = x, y = y })
+		sighting("treasure", "t" .. id, id, nil, map, x, y)
 	end
 end
 
 ns.On("VIGNETTE_MINIMAP_UPDATED", function(_, vguid, onMinimap)
-	if value(onMinimap) then vignette(vguid) end
+	if ns.Value(onMinimap) then vignette(vguid) end
 end)
 ns.On("VIGNETTES_UPDATED", function()
 	local V = C_VignetteInfo
-	if not (V and V.GetVignettes) then return end
+	if not (ns.Recording() and V and V.GetVignettes) then return end
 	local ok, list = pcall(V.GetVignettes)
 	if not ok or type(list) ~= "table" then return end
 	for _, vguid in ipairs(list) do vignette(vguid) end
 end)
 
 ---------------------------------------------------------------------------
--- Kills, and the encounter they belong to
+-- XP lines: the client's COMBATLOG_XPGAIN_* format strings as Lua patterns,
+-- so every client language reads. Captures come back in argument order
+-- (positional %1$s forms included).
 ---------------------------------------------------------------------------
 
-local slain, markSlain = ring(DONE_SIZE)
-local encounter -- { enc, encName, diff, size, inst, npcs = { ids }, has = { [id] = true } }
+-- fmt -> pattern, { argIndex per capture }
+local function formatPattern(fmt)
+	if type(fmt) ~= "string" or fmt == "" then return nil end
+	local out, args, n, i = {}, {}, 0, 1
+	while i <= #fmt do
+		local s, e, pos, conv = fmt:find("^%%(%d*)%$?([sd])", i)
+		if s then
+			n = n + 1
+			args[#args + 1] = pos ~= "" and tonumber(pos) or n
+			out[#out + 1] = conv == "s" and "(.-)" or "([%-%+]?%d+)"
+			i = e + 1
+		elseif fmt:sub(i, i + 1) == "%%" then
+			out[#out + 1] = "%%"
+			i = i + 2
+		else
+			local c = fmt:sub(i, i)
+			out[#out + 1] = c:find("[%^%$%(%)%%%.%[%]%*%+%-%?]") and "%" .. c or c
+			i = i + 1
+		end
+	end
+	return "^" .. concat(out) .. "$", args
+end
+ns.FormatPattern = formatPattern
 
-local function recordSlain(guid, npc)
-	if slain[guid] then return end
-	markSlain(guid)
-	local u = units[guid]
-	local inst, diff = instance()
-	local ev = ns.Here({ npc = npc, npcName = u and u.name, cls = u and u.cls, npcLvl = u and u.lvl, inst = inst, diff = diff })
-	if not ns.Record("slain", ev) or not CanLootUnit then return end
-	-- A tapped or round-robin corpse is someone else's loot: its kill tells
-	-- nothing about this npc's drops. The stored event is updated in place.
-	C_Timer.After(LOOT_CHECK, function()
-		local ok, hasLoot, canLoot = pcall(CanLootUnit, guid)
-		if ok and value(hasLoot) == true and value(canLoot) == false then ev.denied = true end
-	end)
+-- Global string names, most specific first: { name, rested (arg 3 is the bonus) }.
+local XP_FORMATS = {
+	{ "COMBATLOG_XPGAIN_EXHAUSTION1_GROUP", true }, { "COMBATLOG_XPGAIN_EXHAUSTION1_RAID", true },
+	{ "COMBATLOG_XPGAIN_EXHAUSTION2_GROUP", false }, { "COMBATLOG_XPGAIN_EXHAUSTION2_RAID", false },
+	{ "COMBATLOG_XPGAIN_EXHAUSTION1", true }, { "COMBATLOG_XPGAIN_EXHAUSTION2", false },
+	{ "COMBATLOG_XPGAIN_FIRSTPERSON_GROUP", false }, { "COMBATLOG_XPGAIN_FIRSTPERSON_RAID", false },
+	{ "COMBATLOG_XPGAIN_FIRSTPERSON", false },
+}
+local xpPatterns -- built on first use (global strings load late)
+
+-- name, xp, rested of a kill's XP line, or nil.
+function ns.ParseKillXP(text)
+	if not (usable(text) and type(text) == "string") then return nil end
+	if not xpPatterns then
+		xpPatterns = {}
+		for _, f in ipairs(XP_FORMATS) do
+			local p, args = formatPattern(_G[f[1]])
+			if p then xpPatterns[#xpPatterns + 1] = { p = p, args = args, rested = f[2] } end
+		end
+	end
+	for _, x in ipairs(xpPatterns) do
+		local caps = { text:match(x.p) }
+		if caps[1] then
+			local v = {}
+			for i, a in ipairs(x.args) do v[a] = caps[i] end
+			local xp = tonumber(v[2])
+			if v[1] and xp then
+				local rested = x.rested and v[3] and tonumber((v[3]:match("%d+"))) or nil
+				return v[1], xp, rested
+			end
+		end
+	end
+	return nil
 end
 
-ns.On("PARTY_KILL", function(_, attacker, target)
-	attacker, target = str(attacker), str(target)
-	if not (attacker and target) then return end
-	local pet = UnitGUID("pet")
-	if attacker ~= UnitGUID("player") and not (pet and attacker == pet) then return end
-	local kind, npc = ns.ParseGUID(target)
-	if creature(kind) and npc then recordSlain(target, npc) end
-end)
+---------------------------------------------------------------------------
+-- Kills
+---------------------------------------------------------------------------
 
-ns.On("UNIT_DIED", function(_, guid)
-	local e = encounter
-	if not e or #e.npcs >= ENCOUNTER_NPCS then return end
-	local kind, npc = ns.ParseGUID(str(guid))
-	if creature(kind) and npc and not e.has[npc] then
-		e.has[npc] = true
-		e.npcs[#e.npcs + 1] = npc
+local dead, markDead = ring(DONE_SIZE)
+local pending = {} -- deaths waiting for their XP line and objective
+local recent = { at = -math.huge, q = nil, oi = nil, text = nil, left = 0 } -- progress no death claimed yet
+local xpLine = nil -- { name, xp, rested, at } no death claimed yet
+
+local function nameMatches(name, text)
+	return not name or not text or text:find(name, 1, true) ~= nil
+end
+
+local function finish(k)
+	for i = #pending, 1, -1 do
+		if pending[i] == k then table.remove(pending, i) end
 	end
+	if not (k.keep or k.q[1] or k.xp) then return end
+	local tapped
+	if k.denied ~= nil then tapped = k.denied elseif k.tapped ~= nil then tapped = k.tapped end
+	ns.RecAt(k.t, "kill", k.npc, k.lvl, ns.Cls(k.cls), k.p, k.xp, k.rested, tapped, k.q[1] and concat(k.q, ";") or nil)
+end
+
+-- A creature seen with this name that is not dead (the XP line may be its).
+local function seenAlive(name)
+	local guid = byName[name]
+	return guid ~= nil and not dead[guid]
+end
+
+local function takeXP(k)
+	local x = xpLine
+	if x and not k.xp and GetTime() - x.at <= XP_WINDOW and (k.name == x.name or (not k.name and not seenAlive(x.name))) then
+		k.xp, k.rested = x.xp, x.rested
+		xpLine = nil
+	end
+end
+
+local function onDeath(guid, byPlayer, keep)
+	if not (ns.Recording() and Str(guid)) or dead[guid] then return end
+	local kind, npc = ns.ParseGUID(guid)
+	if not creature(kind) or not npc then return end
+	markDead(guid)
+	local e = units[guid]
+	local now = GetTime()
+	local k = {
+		guid = guid, npc = npc, name = e and e.name, lvl = e and e.lvl, cls = e and e.cls, tapped = e and e.tapped,
+		t = now, p = ns.P(), q = {},
+		keep = keep or byPlayer or (e and (e.targeted or e.related)) or false,
+	}
+	-- The objective may have ticked just before the death was reported.
+	if recent.left > 0 and now - recent.at <= LINK_WINDOW and nameMatches(k.name, recent.text) then
+		recent.left = recent.left - 1
+		k.q[1] = ("%d:%d"):format(recent.q, recent.oi)
+	end
+	takeXP(k)
+	pending[#pending + 1] = k
+	if CanLootUnit then
+		C_Timer.After(LOOT_CHECK, function()
+			-- A tapped or round-robin corpse is someone else's loot.
+			local ok, hasLoot, canLoot = pcall(CanLootUnit, guid)
+			if ok and ns.Value(hasLoot) == true and ns.Value(canLoot) == false then k.denied = true end
+		end)
+	end
+	C_Timer.After(LINK_WINDOW, function() finish(k) end)
+end
+ns.KillSeen = onDeath
+
+ns.On("UNIT_DIED", function(_, guid) onDeath(guid, false) end)
+ns.On("PARTY_KILL", function(_, attacker, target)
+	attacker = Str(attacker)
+	if not attacker then return end
+	local pet = UnitGUID("pet")
+	onDeath(target, attacker == UnitGUID("player") or (pet ~= nil and attacker == pet))
 end)
 
-ns.On("ENCOUNTER_START", function(_, id, name, diff, size)
-	id = num(id)
+ns.OnProgress(function(q, oi, o, delta)
+	if o.type ~= "monster" then return end
+	local now = GetTime()
+	local text = Str(o.text)
+	for i = #pending, 1, -1 do
+		if delta <= 0 then break end
+		local k = pending[i]
+		if not k.q[1] and now - k.t <= LINK_WINDOW and nameMatches(k.name, text) then
+			k.q[1] = ("%d:%d"):format(q, oi)
+			delta = delta - 1
+		end
+	end
+	recent.at, recent.q, recent.oi, recent.text, recent.left = now, q, oi, text, delta
+end)
+
+-- A kill's XP line: to the waiting death it names, else kept for the death
+-- about to be reported, else (no death at all) a kill of the creature seen
+-- with that name. A death whose name is unknown takes it only when no
+-- living creature the player saw carries that name.
+ns.On("CHAT_MSG_COMBAT_XP_GAIN", function(_, text)
+	if not ns.Recording() then return end
+	local name, xp, rested = ns.ParseKillXP(text)
+	if not name then return end
+	local now = GetTime()
+	local unnamedOk = not seenAlive(name)
+	for pass = 1, 2 do
+		for i = #pending, 1, -1 do
+			local k = pending[i]
+			if not k.xp and now - k.t <= XP_WINDOW and (k.name == name or (pass == 2 and unnamedOk and not k.name)) then
+				k.xp, k.rested = xp, rested
+				return
+			end
+		end
+	end
+	local x = { name = name, xp = xp, rested = rested, at = now }
+	xpLine = x
+	C_Timer.After(XP_WINDOW, function()
+		if xpLine ~= x then return end
+		xpLine = nil
+		local guid = byName[name]
+		if guid and not dead[guid] then
+			onDeath(guid, true)
+			local k = pending[#pending]
+			if k and k.guid == guid then
+				k.t, k.xp, k.rested = x.at, xp, rested
+			end
+		end
+	end)
+end)
+
+---------------------------------------------------------------------------
+-- Encounters
+---------------------------------------------------------------------------
+
+local encounter -- { enc, diff, size }
+
+ns.On("ENCOUNTER_START", function(_, id, _, diff, size)
+	id = Num(id)
 	if not id then return end
-	encounter = { enc = id, encName = str(name), diff = num(diff), size = num(size), inst = instance(), npcs = {}, has = {} }
+	encounter = { enc = id, diff = Num(diff), size = Num(size) }
 end)
 
-ns.On("ENCOUNTER_END", function(_, id, name, diff, size, success, status)
-	id = num(id)
+ns.On("ENCOUNTER_END", function(_, id, _, diff, size, success)
+	id = Num(id)
 	if not id then return end
 	local e = encounter
 	encounter = nil
-	if not (e and e.enc == id) then e = { npcs = {}, inst = instance() } end
-	-- The bosses the client lists for the encounter; else whatever died in it.
-	local bosses = {}
-	if type(value(status)) == "table" then
-		for _, u in ipairs(status) do
-			local npc = type(u) == "table" and num(u.creatureID)
-			if npc and npc > 0 then bosses[#bosses + 1] = npc end
-		end
-	end
-	if #bosses == 0 then bosses = e.npcs end
-	ns.Record("encounter", ns.Here({
-		enc = id, encName = str(name) or e.encName, diff = num(diff) or e.diff, size = num(size) or e.size,
-		ok = num(success) == 1, inst = e.inst, npcs = #bosses > 0 and bosses or nil,
-	}))
+	if not (e and e.enc == id) then e = {} end
+	ns.Rec("encounter", id, Num(success) == 1, Num(diff) or e.diff, Num(size) or e.size)
 end)
 
 ---------------------------------------------------------------------------
@@ -267,8 +450,8 @@ local looted, markLooted = ring(DONE_SIZE)
 local lastCast, lastCastAt = nil, -math.huge
 
 ns.On("UNIT_SPELLCAST_SUCCEEDED", function(_, unit, _, spell)
-	if value(unit) ~= "player" then return end
-	spell = num(spell)
+	if ns.Value(unit) ~= "player" then return end
+	spell = Num(spell)
 	if spell then lastCast, lastCastAt = spell, GetTime() end
 end)
 
@@ -286,23 +469,43 @@ local function sources(slot)
 		local list = { GetLootSourceInfo(slot) }
 		if #list > 0 then return list end
 	end
-	local target = str(UnitGUID("target"))
-	if target and value(UnitIsDead and UnitIsDead("target")) then return { target } end
+	local target = Str(UnitGUID("target"))
+	if target and call(UnitIsDead, "target") then return { target } end
 	return {}
 end
 
+local function slotItem(slot)
+	local link = Str(GetLootSlotLink and GetLootSlotLink(slot))
+	return link and tonumber(link:match("item:(%d+)"))
+end
+
+local function itemList(items)
+	if #items == 0 then return nil end
+	local out = {}
+	for i, it in ipairs(items) do out[i] = ("%d:%d"):format(it[1], it[2]) end
+	return concat(out, ";")
+end
+
 ns.On("LOOT_OPENED", function()
-	if not (GetNumLootItems and GetLootSlotInfo) or not ns.Session() then return end
-	if IsFishingLoot and value(IsFishingLoot()) then return end
+	if not (GetNumLootItems and GetLootSlotInfo) or not ns.Recording() then return end
+	local p = ns.P()
+	if IsFishingLoot and ns.Value(IsFishingLoot()) then
+		local items = {}
+		for slot = 1, GetNumLootItems() do
+			local item = slotItem(slot)
+			if item then items[#items + 1] = { item, Num(select(3, GetLootSlotInfo(slot))) or 1 } end
+		end
+		ns.Rec("loot", nil, nil, p, "f", itemList(items), ns.Wanted())
+		return
+	end
 	local gather = gathering()
 	local bySource, order = {}, {}
 	for slot = 1, GetNumLootItems() do
-		local _, _, quantity, _, _, _, isQuestItem = GetLootSlotInfo(slot)
-		local link = str(GetLootSlotLink and GetLootSlotLink(slot))
-		local item = link and tonumber(link:match("item:(%d+)"))
+		local quantity = select(3, GetLootSlotInfo(slot))
+		local item = slotItem(slot)
 		local list = sources(slot)
 		for i = 1, #list, 2 do
-			local guid = str(list[i])
+			local guid = Str(list[i])
 			local key = guid and (gather and guid .. "#" .. gather or guid)
 			if key and not looted[key] then
 				local s = bySource[key]
@@ -311,30 +514,19 @@ ns.On("LOOT_OPENED", function()
 					bySource[key] = s
 					order[#order + 1] = key
 				end
-				if item then
-					local n = num(list[i + 1]) or num(quantity) or 1
-					s.items[#s.items + 1] = { item = item, n = n, q = value(isQuestItem) == true or nil }
-				end
+				if item then s.items[#s.items + 1] = { item, Num(list[i + 1]) or Num(quantity) or 1 } end
 			end
 		end
 	end
-	local inst, diff = instance()
+	local wanted = ns.Wanted()
 	for _, key in ipairs(order) do
 		local s = bySource[key]
-		local kind, id = ns.ParseGUID(s.guid)
-		local ev = { items = #s.items > 0 and s.items or nil, gather = gather, inst = inst, diff = diff }
-		if creature(kind) and id then
-			ev.npc = id
-			local u = units[s.guid]
-			ev.npcName = u and u.name
+		local kind, id = ns.RefOfGUID(s.guid)
+		if kind == "c" or kind == "o" or kind == "i" then
 			-- a corpse looted is a kill counted, so loots never outnumber kills
-			if not gather then recordSlain(s.guid, id) end
-		elseif kind == "GameObject" and id then
-			ev.object = id
-		end
-		if ev.npc or ev.object then
+			if kind == "c" and not gather then onDeath(s.guid, false, true) end
 			markLooted(key)
-			ns.Record("drop", ns.Here(ev))
+			ns.Rec("loot", kind, id, p, gather, itemList(s.items), wanted)
 		end
 	end
 end)
@@ -353,7 +545,7 @@ local function noteOutdoor()
 end
 
 local function checkInstance()
-	local id, diff, name, kind = instance()
+	local id, diff, kind = instance()
 	if id == inInstance then
 		if not id then noteOutdoor() end
 		return
@@ -363,17 +555,25 @@ local function checkInstance()
 		noteOutdoor()
 		return
 	end
-	local ev = { inst = id, instName = name, instType = kind, diff = diff }
-	if outdoor then ev.map, ev.x, ev.y = outdoor.map, outdoor.x, outdoor.y end
-	ns.Record("enter", ev)
+	local o = outdoor
+	ns.Rec("enter", id, kind, diff, o and ns.PAt(o.map, o.x, o.y) or ns.NO_P)
 end
 
-ns.OnSession(function()
-	inInstance = nil
-	checkInstance()
-end)
 -- The loading screen into an instance starts here, still at the portal.
 ns.On("PLAYER_LEAVING_WORLD", noteOutdoor)
 ns.On("PLAYER_ENTERING_WORLD", checkInstance)
 ns.On("ZONE_CHANGED_NEW_AREA", checkInstance)
 ns.On("ZONE_CHANGED", noteOutdoor)
+
+---------------------------------------------------------------------------
+-- Session start: dedupe sets start empty
+---------------------------------------------------------------------------
+
+ns.OnSession(function()
+	wipe(levelSeen)
+	wipe(placesSeen)
+	pending = {}
+	recent.left, xpLine = 0, nil
+	inInstance = nil
+	checkInstance()
+end)

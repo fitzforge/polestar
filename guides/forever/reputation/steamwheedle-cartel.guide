@@ -1,0 +1,229 @@
+guide forever/reputation/steamwheedle-cartel
+title Steamwheedle Cartel Reputation
+category Reputation
+folder Reputation · World
+levels 50-60
+zone Feralas
+keywords Steamwheedle Cartel, goblin, Booty Bay, Gadgetzan, Ratchet, Everlook, Powderfuse, Riverglades, Zorbin Fandazzle, Zapped Giants, Again With the Zapped Giants, Refuel for the Zapping, Miniaturization Residue, Water Elemental Core, Free Knot, Knot Thimblejack, Gordok Shackle Key, Gordok Ogre Suit, Dire Maul, Tinkee Steamboil, Southsea, Lost Rigger Cove, Winklespark, Gezzy Gunkgear, Rettrick, Zippie Fizzbolt, Friz Frazzlespark, quartermaster, Tough Guy's Eyepatch, Fizzbolt's Fashionable Fedora, Stolen Wastewander Cowl, Barrens Headband, Haughty Fellow's Monocle
+why Every goblin town at once: Zorbin's zapped giants and Knot's shackles, then five new quartermasters and their hats.
+reward item 274024
+reward item 274022
+reward item 274023
+reward item 274021
+reward item 276199
+reward text Forever's goblin quartermasters: gear for levels 20 to 50 at Friendly and Honored
+collects 274024, 274022, 274023, 274021, 276199
+
+# Built from Forever's data: the quest rows that pay the whole Cartel (header faction 169: Zapped Giants 7003
+# and Fuel for the Zapping 7721, 150 each; Again With the Zapped Giants 7725 and Refuel for the Zapping 7726, 25
+# each, repeatable; Tinkee Steamboil's chain 4726/4810, her Rookery quests 4734/4735 named only; The Gordok Ogre
+# Suit 5518/5519, named only, and Free Knot 5525/7429 in Dire Maul), Forever's reputation values from its quest
+# pages, the quest and kill rows of the four town factions (Booty Bay 21, Gadgetzan 369, Ratchet 470, Everlook
+# 577), the drop and spawn data for the residue, cores, shackle keys
+# and essences, and the five quartermasters Forever added with their items' standing and price from Forever's
+# client item table (Winklespark 265574, Gezzy Gunkgear 265575, Rettrick 265576, Zippie Fizzbolt 265577, Friz
+# Frazzlespark 255897). Forever's client faction table starts every town at Neutral 500 and gives Booty Bay,
+# Gadgetzan, Ratchet, Everlook and Powderfuse the same parent (the Cartel) with the Classic share rules: a quest
+# for the Cartel pays every town in full, and a gain with one town gives half as much to the others (losses
+# too). Neutral 500 to Revered is 20,500 reputation per town, to Exalted 41,500.
+# Kill caps: a capped kill pays up to the top of its last standing and no further (Southsea pirates: to the
+# end of Honored; Wastewander and Bloodsail pirates: to the end of Neutral). Zorbin's repeatables (level 55) and
+# Knot's quests (level 60) are never cut for level. Forever's world data lets the Draco-Incarcinatrix 900 take
+# only Black and Scalding Broodlings, and drops the residue, the cores and the Chillwind horns only while their
+# quest is in the log; the client item table gives the Ultra-Shrinker a two-hour life and lets you carry one
+# Gordok Shackle Key at a time.
+# ASSUMED: Powderfuse shares the Cartel's reputation like the four Classic towns (Forever's client data puts it
+# in the same group; it has no quests or kills of its own in Forever's data). In-game check: does Powderfuse rise
+# with a Zapped Giants turn-in?
+# INGAME: grey-mob kill rep (Classic: about a fifth). Lost Rigger Cove's pirates are grey from level 56.
+# INGAME: grey-quest rep. In Classic a quest paid full only while at most 5 levels below you, then a fifth less
+# per level down to a fifth; a Forever beta report says quests paid in full at any level.
+# The trinkets' use effects are not in the client tables we have: they are described by their stats.
+
+step Zorbin Fandazzle
+  tip Five goblin towns share one reputation family, the Steamwheedle Cartel: Ratchet, Booty Bay, Gadgetzan, Everlook and Forever's new Powderfuse in the Riverglades. Everyone starts each at Neutral (500 into it). A gain with one town gives the others half as much; a quest for the Cartel itself, like Zorbin's, pays every town in full. Losses spread the same way: a Booty Bay Bruiser or any goblin of the towns costs 125 (half that with the other towns), and Bloodsail Buccaneers reputation is earned only that way. Zorbin camps on the road through central Feralas and works for anyone, even players the goblins hate. His first two quests are level 48: in Classic they paid less once you were 6 or more levels above them (a fifth at 57 and up), but they open his repeatables, which are level 55 and pay in full at 60.
+  accept 7003                         -- Zapped Giants: 150 to every town
+  accept 7721                         -- Fuel for the Zapping: 150 to every town
+
+step Zapped giants
+  tip Use Zorbin's Ultra-Shrinker on a living giant (Land Walker, Cliff Giant, or a Shore, Deep or Wave Strider, level 47-50) and it shrinks into a zapped version; kill that for its Miniaturization Residue, one every time. The Land Walkers and Cliff Giants in the north-west hills are the thickest; the striders walk the coast and the shallows. The shrinker lasts two hours: if it runs out, abandon the quest and take it again.
+  goto 37.8,22.0 "Land Walkers and Cliff Giants"
+  goto 36.4,34.0 "Shore and Deep Striders"
+  goto 44.3,46.6 "Wave Striders"
+  goto 45.1,58.0 "Striders on the south coast"
+  loop
+  use 18904 optional @37.8,22.0       -- Zorbin's Ultra-Shrinker, on a living giant
+  collect 18956 x15 quest 7003.1      -- Miniaturization Residue, from the zapped giants
+
+step Sea Elementals and Sea Sprays
+  tip The Sea Elementals and Sea Sprays (level 47-49) drift along the Forgotten Coast and in the shallows below the giants: about half drop a Water Elemental Core.
+  goto 34.4,35.6 "Forgotten Coast"
+  goto 44.5,52.5 "the south coast"
+  loop
+  collect 18958 x10 quest 7721.1      -- Water Elemental Core: Sea Elementals and Sea Sprays
+
+step Back to Zorbin
+  tip From now on Zorbin offers Again With the Zapped Giants (10 residue) and Refuel for the Zapping (6 cores), again and again: 25 reputation with every town each time.
+  turnin 7003
+  turnin 7721
+
+step Lost Rigger Cove, below 56
+  when level<56
+  zone Tanaris
+  tip The Southsea pirates of Lost Rigger Cove (level 44-45) on the east coast of Tanaris give Gadgetzan 5 each up to the end of Honored, and the other towns half. Two quests at Steamwheedle Port pay 100 Gadgetzan each: Southsea Shakedown (10 of each pirate) and Pirate Hats Ahoy! (20 Southsea Pirate Hats, one in ten pirates). From level 56 the pirates are grey and pay little: skip this step then.
+  accept 8366                         -- Security Chief Bilgewhizzle, Steamwheedle Port
+  accept 8365                         -- Haughty Modiste
+  kill 7855 x10 quest 8366.1
+  kill 7856 x10 quest 8366.2
+  kill 7857 x10 quest 8366.3
+  kill 7858 x10 quest 8366.4
+  collect 20519 x20 quest 8365.1      -- Southsea Pirate Hat
+  turnin 8366
+  turnin 8365
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  tip Tinkee Steamboil, a goblin at Flame Crest in the north of the Burning Steppes, has a chain that pays every town 150 and Everlook 150 more. Use her Draco-Incarcinatrix 900 on a broodling, kill it while the device holds it, and pick up the Broodling Essence it leaves. The device takes only Black and Scalding Broodlings, not the Flamescale Broodlings of the west: Scalding Broodlings (level 53-54) roam just west and east of Flame Crest, Black Broodlings (51-52) the north-east corner of the zone, the thickest group. They are few and spread out: the path passes both and ends among the Black Broodlings.
+  accept 4726                         -- Tinkee Steamboil
+  goto 59.2,32.3 "Scalding Broodlings west of Flame Crest"
+  goto 73.2,27.1 "Scalding Broodlings east of Flame Crest"
+  goto 87.8,33.5 "Black Broodlings in the north-east"
+  use 12284 optional @87.8,33.5       -- Draco-Incarcinatrix 900, on a Black or Scalding Broodling
+  collect 12283 x8 quest 4726.1 @87.8,33.5 -- Broodling Essence, left by the broodlings
+  turnin 4726                         -- 100 to every town
+  accept 4808
+
+step Everlook: Felnok Steelspring
+  zone Winterspring
+  tip Felnok Steelspring is in Everlook. The Chillwind Chimaeras (level 55-57) south-west of Everlook drop the horns one time in five.
+  turnin 4808                         -- 50 Everlook
+  accept 4809
+  collect 12444 x8 quest 4809.1 @55.4,47.5 -- Uncracked Chillwind Horn: Chillwind Chimaeras
+  turnin 4809                         -- 100 Everlook
+  accept 4810
+
+step Back to Tinkee
+  zone Burning Steppes
+  tip Return to Tinkee gives 50 to every town. Her later quests, Egg Freezing (150 to every town) and Egg Collection (200), are done in the Rookery of Upper Blackrock Spire, a ten-player dungeon: take them up with your group.
+  turnin 4810
+
+step Dire Maul North: Knot Thimblejack
+  when level>=57
+  zone Feralas
+  tip Knot Thimblejack sits shackled in Dire Maul North, the Gordok ogres' wing (a five-player dungeon from level 57: group up). Every Gordok Shackle Key frees him once: 150 to every town, and he is shackled again on your next run. Gordok ogres drop the keys (about one in fifteen; Guard Fengus one in seven): a full run of the wing usually brings one. His Gordok Ogre Suit pays 100 the first time and 50 after, for 4 Bolts of Runecloth, 8 Rugged Leather, 2 Rune Thread and the Ogre Tannin from the basket in the wing. Under 57 when you get here? Unskip this step later.
+  level 57
+  goto 59.2,45.1 "Dire Maul"
+  collect 18250 optional @59.2,45.1   -- Gordok Shackle Key, Gordok ogres
+  accept 5525 optional @59.2,45.1     -- Free Knot!: 150 to every town
+  turnin 5525 optional @59.2,45.1
+  accept 7429 optional @59.2,45.1     -- Free Knot!, again on every later run: 150
+  turnin 7429 optional @59.2,45.1
+
+step Every town to Friendly
+  tip Neutral 500 to Friendly is 2,500 with each town. The quests above pay every town up to 700 (Zorbin's two 300, Tinkee's 150, the first Free Knot 150 and the first Ogre Suit 100; less when you are well above their level); Zorbin's repeatables do the rest, 25 to every town each: 10 residue (ten giants) or 6 cores (about twelve elementals). The towns' own quests count too, each giving the other towns half: Ratchet's in the Barrens (levels 10-25, about 4,300: the Samophlange chain 625, Mebok Mizzyrix's errands, the Wizzlecrank and Gilthares escorts 150 each), Booty Bay's in Stranglethorn, Arathi and the Badlands (30-50, about 6,500: the three OOX robot rescues 250 each, An OOX of Your Own 200, Stranglethorn Fever 200, Facing Negolash 200, the Sunken Treasure chain at Faldir's Cove), Gadgetzan's in Tanaris (43-55, about 3,000: the Divino-matic Rod 200, Wastewander Justice 100 each, the WANTED posters) and Everlook's in Winterspring (52-60, about 1,450: Donova Snowden's Winterfall chain, Umi's yeti quests). Forever adds a few low ones: A Simmering Storm and Stormy Potential in Durotar and WANTED: Bruuz (Ratchet 100 each), Important Heirlooms in Ironforge (Gadgetzan 100). In Classic they pay in full only while at most 5 levels below you; past that each level takes a fifth off, down to a fifth. Kills help while they are not grey, 5 each: Southsea pirates in the Barrens for Ratchet and in Tanaris for Gadgetzan and Stranglethorn's Venture Co. camps for Booty Bay, up to the end of Honored; Wastewander bandits for Gadgetzan and Bloodsail pirates for Booty Bay only up to the end of Neutral. Friendly opens each quartermaster's first gear.
+  accept 7725 optional                -- Again With the Zapped Giants: 10 residue
+  collect 18956 x10 optional          -- Miniaturization Residue
+  turnin 7725 optional                -- 25 to every town
+  accept 7726 optional                -- Refuel for the Zapping: 6 cores
+  collect 18958 x6 optional           -- Water Elemental Core
+  turnin 7726 optional                -- 25 to every town
+  rep 470 Friendly                    -- Ratchet
+  rep 21 Friendly                     -- Booty Bay
+  rep 369 Friendly                    -- Gadgetzan
+  rep 577 Friendly                    -- Everlook
+  rep 2827 Friendly optional          -- Powderfuse
+
+step Every town to Honored
+  tip Friendly to Honored is 6,000: 240 of Zorbin's turn-ins, or 40 Free Knot runs, or a mix. Nothing can be saved up: residue and cores drop only while their quest is in your log, and you can carry one Gordok Shackle Key at a time, so hand each in before the next run. Honored opens each quartermaster's blue items.
+  accept 7725 optional
+  collect 18956 x10 optional
+  turnin 7725 optional
+  accept 7726 optional
+  collect 18958 x6 optional
+  turnin 7726 optional
+  rep 470 Honored
+  rep 21 Honored
+  rep 369 Honored
+  rep 577 Honored
+  rep 2827 Honored optional
+
+step Every town to Revered
+  tip Honored to Revered is 12,000 more: 480 of Zorbin's turn-ins (4,800 residue) or 80 Free Knot runs. Revered opens the five cosmetic hats, the reason most players do this. Legacy Diplomat adds up to 10%.
+  accept 7725 optional
+  collect 18956 x10 optional
+  turnin 7725 optional
+  accept 7726 optional
+  collect 18958 x6 optional
+  turnin 7726 optional
+  rep 470 Revered
+  rep 21 Revered
+  rep 369 Revered
+  rep 577 Revered
+  rep 2827 Revered optional
+
+step Ratchet: Winklespark
+  zone The Barrens
+  tip Winklespark, Ratchet's quartermaster, by the docks. Friendly, level 20 gear: Quilted Cloak 41s (Stamina, Agility), Rumpled Kilt 54s (Stamina, spell power), Ratchet Wristwraps 34s (Intellect, Agility). Honored: Defective Samophlange, an off-hand, 66s (Intellect, Spirit); Barrens Basher, a one-handed mace, 1g 65s (Stamina, Strength). Revered: the Barrens Headband, a cosmetic hat, 2g.
+  buy 274740 optional                 -- Quilted Cloak, Friendly
+  buy 274741 optional                 -- Rumpled Kilt, Friendly
+  buy 274742 optional                 -- Ratchet Wristwraps, Friendly
+  buy 274743 optional                 -- Defective Samophlange, Honored
+  buy 274744 optional                 -- Barrens Basher, Honored
+  buy 274021 optional                 -- Barrens Headband, Revered
+
+step Booty Bay: Gezzy Gunkgear
+  zone Stranglethorn Vale
+  tip Gezzy Gunkgear, Booty Bay's quartermaster. Friendly, level 30 gear: Deckswabber's Mitts 1g 10s (Strength, Agility), Sea Giant's Toe Ring 1g 48s (healing and spell damage), Soggy Boots 1g 3s (Intellect, Spirit). Honored: Booty Bay Bruiser's Buckshot, a gun, 3g 11s (attack power, Stamina); Souvenir Sea Shell, a necklace, 1g 66s (health regeneration, Stamina). Revered: Tough Guy's Eyepatch, 5g.
+  buy 274745 optional                 -- Deckswabber's Mitts, Friendly
+  buy 274746 optional                 -- Sea Giant's Toe Ring, Friendly
+  buy 274747 optional                 -- Soggy Boots, Friendly
+  buy 274748 optional                 -- Booty Bay Bruiser's Buckshot, Honored
+  buy 274749 optional                 -- Souvenir Sea Shell, Honored
+  buy 274022 optional                 -- Tough Guy's Eyepatch, Revered
+
+step Gadgetzan: Rettrick
+  zone Tanaris
+  tip Rettrick, Gadgetzan's quartermaster. Friendly, level 40 gear: Reflective Wristguards 2g 74s (Intellect, healing, spell damage), Sunburn Spaulders 2g 94s (Agility, attack power), Sandstorm Cover, a cloak, 2g 36s (Spirit, spell power). Honored: Jhordy's Misplaced Screwdriver, a one-handed weapon, 9g 46s (Strength, Agility); Suspicious Spare Part, a ring, 3g 80s (Strength, Stamina). Revered: the Stolen Wastewander Cowl, 10g.
+  buy 274750 optional                 -- Reflective Wristguards, Friendly
+  buy 274751 optional                 -- Sunburn Spaulders, Friendly
+  buy 274752 optional                 -- Sandstorm Cover, Friendly
+  buy 274753 optional                 -- Jhordy's Misplaced Screwdriver, Honored
+  buy 274754 optional                 -- Suspicious Spare Part, Honored
+  buy 274023 optional                 -- Stolen Wastewander Cowl, Revered
+
+step Everlook: Zippie Fizzbolt
+  zone Winterspring
+  tip Zippie Fizzbolt, Everlook's quartermaster. Friendly, level 50 gear: Steamwheedle Grips 3g 10s (Spirit, Intellect), Impractical Headwarmer 5g 84s (Agility, Stamina, frost resistance), Substandard Belt Chain 4g 68s (Agility, attack power), Coldmetal Guard, a chest, 10g 96s (Strength, Stamina). Honored, three trinkets at about 7g 55s: Everlook Pathcarver (nature resistance), Everlook Delivery Bot (frost resistance) and Parachute-Priest Pager (shadow resistance), the last two with a use. Revered: Fizzbolt's Fashionable Fedora, 25g.
+  buy 274755 optional                 -- Steamwheedle Grips, Friendly
+  buy 274756 optional                 -- Impractical Headwarmer, Friendly
+  buy 274757 optional                 -- Substandard Belt Chain, Friendly
+  buy 274758 optional                 -- Coldmetal Guard, Friendly
+  buy 274759 optional                 -- Everlook Pathcarver, Honored
+  buy 274760 optional                 -- Everlook Delivery Bot, Honored
+  buy 274761 optional                 -- Parachute-Priest Pager, Honored
+  buy 274024 optional                 -- Fizzbolt's Fashionable Fedora, Revered
+
+step Powderfuse: Friz Frazzlespark
+  zone Riverglades
+  tip Friz Frazzlespark sells Powderfuse's rewards in Powderfuse Port, on the east coast of the Riverglades, alongside general goods. Friendly, level 40 gear: Crawler's Clackers 2g 74s (Stamina, attack power), Misplaced Pantaloons 2g 94s (Intellect, Spirit), Disengagement Ring 2g 36s (Agility, Spirit). Honored: Primitive Fishing Pole, a two-handed weapon, 9g 46s (Stamina, Strength, Agility); Thrash's Trash, a shield, 3g 80s (Stamina, spell damage, healing). Revered: Haughty Fellow's Monocle, 10g.
+  buy 276200 optional                 -- Crawler's Clackers, Friendly
+  buy 276201 optional                 -- Misplaced Pantaloons, Friendly
+  buy 276202 optional                 -- Disengagement Ring, Friendly
+  buy 276203 optional                 -- Primitive Fishing Pole, Honored
+  buy 276204 optional                 -- Thrash's Trash, Honored
+  buy 276199 optional                 -- Haughty Fellow's Monocle, Revered
+
+step Every town to Exalted
+  zone Feralas
+  tip Revered to Exalted is 21,000 more with each town: 840 of Zorbin's turn-ins or 140 Free Knot runs. No quartermaster sells anything for Exalted: this is for the title bar only.
+  accept 7725 optional
+  collect 18956 x10 optional
+  turnin 7725 optional
+  accept 7726 optional
+  collect 18958 x6 optional
+  turnin 7726 optional
+  rep 470 Exalted optional
+  rep 21 Exalted optional
+  rep 369 Exalted optional
+  rep 577 Exalted optional
+  rep 2827 Exalted optional

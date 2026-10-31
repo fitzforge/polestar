@@ -102,14 +102,53 @@ function shown(abs) {
 	return rel.startsWith('..') || path.isAbsolute(rel) ? abs : rel.split(path.sep).join('/');
 }
 
+// A file the pack folder itself holds (pack.json, LICENSE, retired.json,
+// legs.json) -> { text }, {} when there is none, or { error } when it is a
+// link, not a plain file, or lies outside the folder once links are
+// resolved: a pack handed over as a repository or an archive must not pull
+// another file of the machine (a token, a key) into the build or its
+// messages.
+function readPackFile(dir, name) {
+	const file = path.join(dir, name);
+	let st;
+	try {
+		st = fs.lstatSync(file);
+	} catch {
+		return {};
+	}
+	if (!st.isFile()) return { error: `${name} is a link or not a plain file; Polestar reads only a plain file in the pack folder` };
+	let rel;
+	try {
+		rel = path.relative(fs.realpathSync(dir), fs.realpathSync(file));
+	} catch {
+		return {};
+	}
+	if (rel !== name) return { error: `${name} lies outside the pack folder; Polestar reads only a plain file in the pack folder` };
+	try {
+		return { text: fs.readFileSync(file, 'utf8') };
+	} catch {
+		return {};
+	}
+}
+
+// Where JSON.parse stopped in text, as " (line L, column C)" when V8 says,
+// else "": never V8's own message, which quotes the start of the text (a
+// file that is no JSON at all would show its contents).
+function jsonErrorAt(e, text) {
+	const m = /position (\d+)/.exec((e && e.message) || '');
+	if (!m) return '';
+	const lines = text.slice(0, Number(m[1])).split('\n');
+	return ` (line ${lines.length}, column ${lines[lines.length - 1].length + 1})`;
+}
+
 // -> { manifest, diags }; manifest is null when there are errors.
 function readManifest(dir, { official = false } = {}) {
 	const abs = path.join(dir, 'pack.json');
 	const file = shown(abs);
-	let text;
-	try {
-		text = fs.readFileSync(abs, 'utf8');
-	} catch {
+	const read = readPackFile(dir, 'pack.json');
+	if (read.error) return { manifest: null, diags: [{ file, line: 1, severity: 'error', message: read.error, hint: 'make pack.json a plain file of the pack folder' }] };
+	let text = read.text;
+	if (text === undefined) {
 		return { manifest: null, diags: [{ file, line: 1, severity: 'error', message: `no pack.json in ${shown(dir) || '.'}`, hint: 'create pack.json with id, title, author, version and license' }] };
 	}
 	// Editors on Windows may save a byte order mark; JSON.parse rejects it.
@@ -118,7 +157,7 @@ function readManifest(dir, { official = false } = {}) {
 	try {
 		obj = JSON.parse(text);
 	} catch (e) {
-		return { manifest: null, diags: [{ file, line: 1, severity: 'error', message: `pack.json is not valid JSON (${e.message})`, hint: 'check for a missing value, quote or comma; JSON allows no trailing commas or comments' }] };
+		return { manifest: null, diags: [{ file, line: 1, severity: 'error', message: `pack.json is not valid JSON${jsonErrorAt(e, text)}`, hint: 'check for a missing value, quote or comma; JSON allows no trailing commas or comments' }] };
 	}
 	const diags = validateManifest(obj, file, { official, text });
 	if (diags.some((d) => d.severity === 'error')) return { manifest: null, diags };
@@ -128,4 +167,4 @@ function readManifest(dir, { official = false } = {}) {
 	return { manifest, diags };
 }
 
-module.exports = { readManifest, validateManifest, PIPE_HINT };
+module.exports = { readManifest, validateManifest, readPackFile, jsonErrorAt, PIPE_HINT };

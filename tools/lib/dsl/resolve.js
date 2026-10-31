@@ -996,7 +996,7 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 				w.name = p.name;
 				const found = data.zoneNamed(p.name);
 				if (found && found.zone.areaId) w.area = Number(found.zone.areaId);
-				else if (!found && haveZones) warn(p.line, `zone "${p.name}" is not in zones.json: the game never reports that zone name, so the predicate never holds there`, 'write the zone as the game names it (`polestar find --kind zone <text>`)');
+				else if (!found && haveZones) warn(p.line, `zone "${p.name}" is not in zones.json: the game never reports that zone name, so the predicate never holds there`, 'write the zone as the game names it: the zone text it shows when you walk in');
 				break;
 			}
 			case 'subzone': {
@@ -1503,7 +1503,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			goal.location = g.location;
 			// Without the client's area table (no `sources` beside the data) an area name cannot be checked.
 			if (data.areas && !data.zoneNamed(g.location) && !data.areas.byName.has(g.location.trim().toLowerCase())) {
-				warn(ln, `enter "${g.location}": no zone or area has that name; the game never reports it, so the goal never checks off by itself`, 'write the place as the game names it (`polestar find --kind zone <text>`)');
+				warn(ln, `enter "${g.location}": no zone or area has that name; the game never reports it, so the goal never checks off by itself`, 'write the place as the game names it: the zone or subzone text the minimap shows there');
 			}
 			break;
 		case 'buy': {

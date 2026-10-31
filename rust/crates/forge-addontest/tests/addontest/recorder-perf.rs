@@ -124,10 +124,14 @@ local function burst(key, fire)
 	hold(key, rounds, refs)
 end
 
-local S = PolestarRecorderDB.sessions[PolestarRecorderDB.current]
+-- Records of a kind in every stored chunk; the open chunk is closed first
+-- (a logout), so this is for the end of a run.
 local function count(kind)
+	stub.fire("PLAYER_LOGOUT")
 	local n = 0
-	for _, e in ipairs(S.events) do if e.e == kind then n = n + 1 end end
+	for _, text in pairs(PolestarRecorderDB.chunks) do
+		for _, r in ipairs(stub.records(text)) do if r[1] == kind then n = n + 1 end end
+	end
 	return n
 end
 "#;
@@ -197,7 +201,6 @@ for q = 1, 20 do
 	} })
 end
 stub.advance(1)
-local progress = count("progress")
 burst("quests", function(round)
 	for q = 1, 20 do stub.world.quests[q].objectives[1].numFulfilled = round end
 	for _ = 1, 50 do
@@ -208,17 +211,14 @@ burst("quests", function(round)
 		stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-3-0-0-0-6603-0", 6603)
 	end
 end)
-out.progress = count("progress") - progress
 
 -- Walking: one frame at a time for 10 s, far enough that breadcrumbs are
 -- written (the work being measured). Each round's slowest frame; the median
 -- of those is held to the budget.
 local slowest, refs = {}, {}
-out.crumbs = math.huge
 stub.world.moving = true
 for r = 1, ROUNDS do
 	refs[r] = reference()
-	local before = count("pos")
 	collectgarbage("collect")
 	slowest[r] = 0
 	for i = 1, 200 do
@@ -227,13 +227,14 @@ for r = 1, ROUNDS do
 		stub.advance(0.05)
 		slowest[r] = math.max(slowest[r], P.total() - t)
 	end
-	out.crumbs = math.min(out.crumbs, count("pos") - before)
 end
 stub.world.moving = false
-hold("tick", slowest, refs)"#,
+hold("tick", slowest, refs)
+out.progress = count("progress")
+out.crumbs = count("pos")"#,
 	);
 	assert_eq!(r["progress"], ROUNDS * 20, "every round recorded progress on each of the 20 quests, so the quest scans were measured");
-	assert!(num(&r["crumbs"]) > 0.0, "a round of walking wrote no breadcrumbs, so nothing was measured");
+	assert!(num(&r["crumbs"]) >= f64::from(ROUNDS), "the walking wrote too few breadcrumbs for every round to have measured one: {}", r["crumbs"]);
 	within(&r, &["quests", "tick"]);
 }
 
@@ -257,7 +258,6 @@ C_VignetteInfo = {
 	GetVignettes = function() return { "Vignette-1", "Vignette-2" } end,
 }
 stub.moveTo(50, 50)
-local before = { rare = count("rare"), slain = count("slain"), drop = count("drop") }
 -- Each round: 20 new rares on nameplates, 20 kills, each corpse looted, and
 -- the vignette list updating with every one. Every rare, kill and corpse is
 -- new, so each is recorded rather than skipped as already seen.
@@ -278,9 +278,10 @@ burst("finds", function(round)
 		stub.fire("LOOT_CLOSED")
 	end
 end)
-out.rares = count("rare") - before.rare
-out.kills = count("slain") - before.slain
-out.drops = count("drop") - before.drop"#,
+stub.advance(4) -- the last kills wait for their XP line and objective
+out.rares = count("rare")
+out.kills = count("kill")
+out.drops = count("loot")"#,
 	);
 	assert_eq!(
 		json!({ "rares": r["rares"], "kills": r["kills"], "drops": r["drops"] }),
@@ -288,4 +289,116 @@ out.drops = count("drop") - before.drop"#,
 		"every rare (and the vignette one), kill and loot window was recorded, so the recording is what was measured"
 	);
 	within(&r, &["finds"]);
+}
+
+/// One simulated hour of questing (walking, mobs on plates, kills with XP lines, loot, quests every 10
+/// minutes, a vendor and a trainer twice, one flight): what it stores, so the 4 MiB cap holds days of play.
+#[test]
+fn an_hour_of_questing_stores_under_80_kib_in_well_formed_records() {
+	let out = crate::recorder::run(
+		r#"
+		local W = stub.world
+		local YD = 100 / 5200
+		local x, y = 30, 50
+		W.speed = 7
+		local q = 100
+		local function walk(seconds)
+			W.moving = true
+			for _ = 1, seconds do
+				x = x + 7 * YD
+				if x > 80 then x = 20; y = y + 2 end
+				stub.moveTo(x, y)
+				stub.advance(1)
+			end
+			W.moving = false
+			stub.fire("PLAYER_STOPPED_MOVING")
+		end
+		local mobs = { { 6, "Kobold Vermin" }, { 299, "Young Wolf" }, { 40, "Kobold Miner" }, { 113, "Stonetusk Boar" }, { 257, "Kobold Worker" } }
+		stub.acceptQuest(q, { title = "Quest " .. q, objectives = { { text = "Kobold Vermin slain: %d/%d", type = "monster", numRequired = 100 }, { text = "Gold Dust: %d/%d", type = "item", numRequired = 100 } } })
+		local kills, dust = 0, 0
+		for minute = 1, 60 do
+			walk(30)
+			for i = 1, 5 do
+				local m = mobs[(minute + i) % #mobs + 1]
+				local g = stub.creature(m[1], m[2])
+				stub.setUnit("nameplate" .. i, g, m[2])
+				W.units["nameplate" .. i].lvl = 3 + (i % 3)
+				stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate" .. i)
+			end
+			for k = 1, 2 do
+				local g = stub.creature(6, "Kobold Vermin")
+				stub.setUnit("target", g, "Kobold Vermin")
+				W.units.target.lvl = 4
+				stub.fire("PLAYER_TARGET_CHANGED")
+				W.combat = true
+				stub.fire("PLAYER_REGEN_DISABLED")
+				stub.advance(8)
+				stub.partyKill(g)
+				stub.xpLine("Kobold Vermin", 45, k == 1 and 22 or nil)
+				W.xp = W.xp + 45
+				kills = kills + 1
+				stub.setProgress(q, 1, kills)
+				W.combat = false
+				stub.fire("PLAYER_REGEN_ENABLED")
+				W.loot = { { name = "Gold Dust", item = 773, count = 1, src = { g, 1 } }, { name = "Linen Cloth", item = 2589, count = 1, src = { g, 1 } } }
+				stub.fire("LOOT_OPENED", false, false)
+				stub.fire("LOOT_CLOSED")
+				dust = dust + 1
+				stub.setProgress(q, 2, dust)
+				stub.advance(4)
+			end
+			if minute % 10 == 0 then
+				local giver = stub.creature(800 + minute, "Giver")
+				q = q + 1
+				W.gossip = { available = { q }, active = { q - 1 }, options = {} }
+				stub.setUnit("npc", giver, "Giver")
+				stub.fire("GOSSIP_SHOW")
+				W.questText = "Bring me what I need, $N."
+				W.questDetail = ("Long quest text %d. "):rep(20):format(minute, minute, minute, minute, minute, minute, minute, minute, minute, minute, minute, minute, minute, minute, minute, minute, minute, minute, minute, minute)
+				stub.offerQuest(q, giver, "Giver", "Quest " .. q)
+				stub.acceptQuest(q, { title = "Quest " .. q, objectives = { { text = "Kobold Vermin slain: %d/%d", type = "monster", numRequired = 100 }, { text = "Gold Dust: %d/%d", type = "item", numRequired = 100 } } })
+				stub.turnIn(q - 1, giver, "Giver", 450, 120)
+				kills, dust = 0, 0
+			end
+			if minute == 15 or minute == 45 then
+				function GetMerchantNumItems() return 20 end
+				function GetMerchantItemID(i) return 2500 + i end
+				function GetMerchantItemInfo(i) return "Item", 1, 25 * i, 1, -1 end
+				stub.setUnit("npc", (stub.creature(1200 + minute, "Vendor")), "Vendor")
+				stub.fire("MERCHANT_SHOW")
+				function GetNumTrainerServices() return 12 end
+				function GetTrainerServiceInfo(i) return "Spell " .. i, i % 3 == 0 and "used" or "available", 1, 2 * i end
+				function GetTrainerServiceCost(i) return 100 * i end
+				C_TooltipInfo = { GetTrainerService = function(i) return { id = 6000 + i } end }
+				stub.setUnit("npc", (stub.creature(1300 + minute, "Trainer")), "Trainer")
+				stub.fire("TRAINER_SHOW")
+			end
+			if minute == 30 then
+				W.taxi = { { nodeID = 2, name = "Stormwind", state = 0, slotIndex = 1 }, { nodeID = 4, name = "Sentinel Hill", state = 1, slotIndex = 2 } }
+				stub.setUnit("npc", (stub.creature(352, "Flight Master")), "Flight Master")
+				stub.fire("TAXIMAP_OPENED", 0)
+				TakeTaxiNode(2)
+				W.onTaxi = true
+				stub.fire("PLAYER_CONTROL_LOST")
+				stub.advance(90)
+				W.onTaxi = false
+				stub.fire("PLAYER_CONTROL_GAINED")
+			end
+			stub.advance(6)
+		end
+		logout()
+		local bytes, kinds = 0, {}
+		for _, text in pairs(PolestarRecorderDB.chunks) do
+			bytes = bytes + #text
+			for _, r in ipairs(stub.records(text)) do kinds[r[1]] = (kinds[r[1]] or 0) + 1 end
+		end
+		emit({ bytes = bytes, seconds = stub.now, kinds = kinds, bad = malformed() })"#,
+	);
+	let per_hour = num(&out["bytes"]) * 3600.0 / num(&out["seconds"]);
+	println!("recorded {} bytes in {} simulated seconds: {:.0} bytes per hour; records {}", out["bytes"], out["seconds"], per_hour, out["kinds"]);
+	assert_eq!(out["bad"], json!({}));
+	for kind in ["pos", "unit", "kill", "loot", "progress", "accept", "turnin", "offer", "text", "vendor", "trainer", "taxi", "land", "combat", "xp"] {
+		assert!(out["kinds"][kind].as_u64().unwrap_or(0) > 0, "no {kind} record in the hour: {}", out["kinds"]);
+	}
+	assert!(per_hour < 80.0 * 1024.0, "{per_hour:.0} bytes per hour");
 }

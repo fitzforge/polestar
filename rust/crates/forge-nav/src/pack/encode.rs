@@ -29,6 +29,8 @@ pub struct Maps {
 	pub zone: Option<BTreeMap<u32, String>>,
 	/// Format 3: the area field, when any node of the map has a WMOAreaTable row.
 	pub area: Option<BTreeMap<u32, String>>,
+	/// Format 5 (Leffe's navigation maps, pack/leffe.rs): each cluster's one-way arcs, the jumps and drops.
+	pub arc: Option<BTreeMap<u32, String>>,
 	pub components: usize,
 	pub clamped: usize,
 	pub max_degree: usize,
@@ -43,16 +45,18 @@ impl Maps {
 			"floor" => &self.floor,
 			"class" => self.class.as_ref().expect("class field"),
 			"area" => self.area.as_ref().expect("area field"),
+			"arc" => self.arc.as_ref().expect("arc field"),
 			_ => panic!("field {f}"),
 		}
 	}
 
-	/// The packed fields, in pack order: format 1's, format 2's class, format 3's area.
+	/// The packed fields, in pack order: format 1's, format 2's class, format 3's area, format 5's arc.
 	pub fn fields(&self) -> &'static [&'static str] {
-		match (self.class.is_some(), self.area.is_some()) {
-			(false, _) => &FIELDS,
-			(true, false) => &CLASS_FIELDS,
-			(true, true) => &AREA_FIELDS,
+		match (self.class.is_some(), self.area.is_some(), self.arc.is_some()) {
+			(false, _, _) => &FIELDS,
+			(true, false, _) => &CLASS_FIELDS,
+			(true, true, false) => &AREA_FIELDS,
+			(true, true, true) => &ARC_FIELDS,
 		}
 	}
 }
@@ -461,6 +465,20 @@ const HEADER: &[&str] = &[
 pub const FIELDS: [&str; 4] = ["graph", "grid", "height", "floor"];
 pub const CLASS_FIELDS: [&str; 5] = ["graph", "grid", "height", "floor", "class"];
 pub const AREA_FIELDS: [&str; 6] = ["graph", "grid", "height", "floor", "class", "area"];
+pub const ARC_FIELDS: [&str; 7] = ["graph", "grid", "height", "floor", "class", "area", "arc"];
+/// The format 5 header lines (Leffe's navigation maps; a pack without them keeps its bytes).
+const ARC_HEADER: &[&str] = &[
+	"-- Format 5: Leffe's navigation maps (forge nav pack --leffe): his surfaces, floors, classes and zones in the fields",
+	"--   above, his entrance graph in the graph field (an entrance lists only the edges it can walk: some are one way),",
+	"--   and arc[k + 1]: the cluster's one-way jumps and drops; a search steps along one like a grid step of that length,",
+	"--   a search out of the goal backwards. Format 5's floor and arc fields are columns of numbers, each base 32 in",
+	"--   symbols (5 bits a symbol, low first; a symbol >= 32: another follows) or fixed symbols (width in brackets),",
+	"--   zigzag numbers 0, 1, 2, 3, ... for 0, -1, 1, -2, ...: floor n | n cell gaps (cell - previous - 1, from -1) |",
+	"--   n counts (1) | the floors' values (1) | their heights (zigzag, against the floor below in the cell, a cell's",
+	"--   first against the previous cell's first, from 0) | their steps (2) | m | m link nodes (zigzag, against the",
+	"--   previous link's, from 0) | m directions (1) | m layers (1); arc n | n from-node gaps (from 0, by from node) |",
+	"--   n to-nodes (zigzag, against the from node) | n yards * 4.",
+];
 const PART_NOTE: &str = "-- Compressed terrain for on-demand decoding (Shortest Path Forever's pack_nav.py layout).";
 const CREDIT: &[&str] = &[
 	"-- Polestar's walking maps (format 2: ground classes and per-faction costs) of the navigation grid, written by",
@@ -506,8 +524,19 @@ pub fn block(raw: &[u8]) -> String {
 
 /// pack.js packFiles: one map's strings -> its metadata file and parts. `gen` is the
 /// generated-file header line; `area_names` the grid's areas.json ({ id: [name, AreaTableID] }),
-/// naming the rows of a format 3 map's area field. -> (files, packed bytes)
-pub fn pack_files(map: u32, cg: &CellGrid, maps: &Maps, global: &str, gen: &str, hubs: &[Hub], area_names: Option<&serde_json::Value>) -> Result<(Vec<(String, String)>, usize), String> {
+/// naming the rows of a format 3 map's area field; `addon` the load-on-demand addon the parts ship in (their names
+/// then `<addon>/Nav<map>_<n>.lua`, and the metadata names it: `part = "<addon>"`). -> (files, packed bytes)
+#[allow(clippy::too_many_arguments)]
+pub fn pack_files(
+	map: u32,
+	cg: &CellGrid,
+	maps: &Maps,
+	global: &str,
+	gen: &str,
+	hubs: &[Hub],
+	area_names: Option<&serde_json::Value>,
+	addon: Option<&str>,
+) -> Result<(Vec<(String, String)>, usize), String> {
 	let mut files = Vec::new();
 	let classed = maps.class.is_some();
 	let areaed = classed && maps.area.is_some();
@@ -525,14 +554,29 @@ pub fn pack_files(map: u32, cg: &CellGrid, maps: &Maps, global: &str, gen: &str,
 	meta.extend(CREDIT.iter().map(|s| s.to_string()));
 	meta.push(format!("-- Map {map} ({}), ADT rows {}-{} x cols {}-{}.", map_name(map), 31 - cg.cx0 - cg.nx as i32 + 1, 31 - cg.cx0, 31 - cg.cy0 - cg.ny as i32 + 1, 31 - cg.cy0));
 	meta.extend(HEADER.iter().map(|s| s.to_string()));
+	if maps.arc.is_some() {
+		meta.extend(ARC_HEADER.iter().map(|s| s.to_string()));
+	}
 	meta.push(format!("{global} = {global} or {{}}"));
 	meta.push(String::new());
 	meta.push("---@type SPFNavData".into());
 	meta.push("-- stylua: ignore".into());
 	meta.push(format!("{global}[{map}] = {{"));
 	if classed {
-		meta.push(format!("\tformat = {},", if areaed { 3 } else { 2 }));
+		meta.push(format!(
+			"\tformat = {},",
+			if maps.arc.is_some() && areaed {
+				5
+			} else if areaed {
+				3
+			} else {
+				2
+			}
+		));
 		meta.push("\tprofiles = { \"Alliance\", \"Horde\" },".into());
+		if let Some(a) = addon {
+			meta.push(format!("\tpart = {},", lua_str(a)));
+		}
 	}
 	meta.push(format!("\tcx0 = {},", cg.cx0));
 	meta.push(format!("\tcy0 = {},", cg.cy0));
@@ -565,6 +609,9 @@ pub fn pack_files(map: u32, cg: &CellGrid, maps: &Maps, global: &str, gen: &str,
 	}
 	if areaed {
 		meta.push("\tarea = {},".into());
+		if maps.arc.is_some() {
+			meta.push("\tarc = {},".into());
+		}
 		meta.push("\tareaNames = {".into());
 		for id in &cg.areas {
 			let name = area_names.and_then(|n| n[id.to_string()][0].as_str()).unwrap_or("");
@@ -577,8 +624,14 @@ pub fn pack_files(map: u32, cg: &CellGrid, maps: &Maps, global: &str, gen: &str,
 	meta.push("}".into());
 	meta.push(String::new());
 	files.push((format!("Nav{map}.lua"), meta.join("\n")));
-	let header = format!("{gen}\n{PART_NOTE}\n---@type SPFNavData\nlocal data = {global}[{map}]\n-- stylua: ignore start\n");
+	// A continent's part addon may load where Polestar_Nav dropped its map (API.lua: no decoder, a part missing) or
+	// never loaded: it then adds nothing.
+	let header = match addon {
+		Some(_) => format!("{gen}\n{PART_NOTE}\n---@type SPFNavData\nlocal data = {global} and {global}[{map}]\nif not data then return end\n-- stylua: ignore start\n"),
+		None => format!("{gen}\n{PART_NOTE}\n---@type SPFNavData\nlocal data = {global}[{map}]\n-- stylua: ignore start\n"),
+	};
 	let mut part = 1;
+	let folder = addon.map_or(String::new(), |a| format!("{a}/"));
 	let mut content = header.clone();
 	let mut keys: Vec<u32> = fields.iter().flat_map(|f| maps.field(f).keys().copied()).collect();
 	keys.sort_unstable();
@@ -601,14 +654,14 @@ pub fn pack_files(map: u32, cg: &CellGrid, maps: &Maps, global: &str, gen: &str,
 				return Err(format!("pack: map {map} cluster {k} exceeds the part limit"));
 			}
 			if content.len() + line.len() + 32 > PART_BYTES {
-				files.push((format!("Nav{map}_{part}.lua"), format!("{content}-- stylua: ignore end\n")));
+				files.push((format!("{folder}Nav{map}_{part}.lua"), format!("{content}-- stylua: ignore end\n")));
 				part += 1;
 				content = header.clone();
 			}
 			content.push_str(&line);
 		}
 	}
-	files.push((format!("Nav{map}_{part}.lua"), format!("{content}-- stylua: ignore end\n")));
+	files.push((format!("{folder}Nav{map}_{part}.lua"), format!("{content}-- stylua: ignore end\n")));
 	Ok((files, packed_bytes))
 }
 

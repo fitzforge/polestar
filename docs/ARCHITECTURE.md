@@ -30,7 +30,8 @@ one into the other. The addons:
 | `Polestar_<locale>` (`addon/Polestar_deDE/` … `zhTW/`) | The language folder of one client language: our guides' texts (`Texts.lua`, for `Polestar.GuideTexts`) and the quest, NPC, object and item names (`Names.lua`, for `Polestar.Names`); loaded on demand, only the client's own, never in English. It replaced `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` in 0.3.0 | `forge guide compile` (`Texts.lua`) and `forge data names` (`Names.lua`, from the client's tables, DingDB (pinned) and pfQuest); each writes the one TOC alike (`forge_guide::toc::language_toc`) and leaves the other's file alone | yes (generated) | yes |
 | `Polestar_QuestDB` (`addon/Polestar_QuestDB/`) | The quest database behind quest markers and tooltips; loaded on demand | `forge data questdb` | no (local, gitignored) | yes, when built |
 | `Polestar_Codex` (`addon/Polestar_Codex/`) | Lookup's Codex, and the Dungeons and Rares data; loaded on demand | `forge data codex`, from release-safe inputs (`--local-extras` builds a local-only one) | no (generated, gitignored) | yes, always: `pack` fails without it |
-| `Polestar_Nav` (`addon/Polestar_Nav/`) | Polestar's walking router (started from Shortest Path Forever v1.16.0 by Cillian Berragan, GPL-3.0-or-later; Polestar's since 2026-10-16) with Polestar's walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle (maps format 2, grown from his format) and the walk's chokepoints, for the arrow's walking routes; loaded on demand at login, never while an installed Shortest Path Forever guides (the target handed to it, or a journey of its own running; Nav, "In-game walking routes (Polestar_Nav)", "Hand-off to Shortest Path Forever") | the router hand-written (`Routing/`); `forge nav pack` (the maps, `PACK.json`, from the navigation grid and the ground layers) | yes | yes, always |
+| `Polestar_Nav` (`addon/Polestar_Nav/`) | Polestar's walking router (started from Shortest Path Forever v1.16.0 by Cillian Berragan, GPL-3.0-or-later; Polestar's since 2026-10-16) with the walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle (maps format 5: Leffe's navigation maps, his surfaces, graph, jumps and drops, with our area names and chokepoints; format 3 from our grid when packed without `--leffe`) and the walk's chokepoints, for the arrow's walking routes; loaded on demand at login, never while an installed Shortest Path Forever guides (the target handed to it, or a journey of its own running; Nav, "In-game walking routes (Polestar_Nav)", "Hand-off to Shortest Path Forever") | the router hand-written (`Routing/`); `forge nav pack --leffe` (the maps, `PACK.json`, from Leffe's navigation maps, the navigation grid and the ground layers) | yes | yes, always |
+| `Polestar_Nav_EK`, `Polestar_Nav_Kalimdor` (`addon/Polestar_Nav_EK/`, `addon/Polestar_Nav_Kalimdor/`) | The map parts of each continent's walking maps when they are Leffe's (maps format 5; their metadata stays in Polestar_Nav); loaded on demand by Polestar_Nav's router the first time it searches that continent (Polestar searches only the player's continent and those already loaded), never in combat ("Leffe's navigation maps in game") | `forge nav pack --leffe` | yes | yes, when written |
 | `Polestar_Travel` (`addon/Polestar_Travel/`) | Zone crossings for the travel planner, from an optional local crossings file; loaded with Polestar | `travel build` | no (local, gitignored) | no, never packaged (Nav, "Travel planner and zone crossings") |
 | `Polestar_Recorder` (`addon/Polestar_Recorder/`) | The optional standalone recorder of play sessions, for authoring | hand-written | yes | yes, as its own zip |
 
@@ -49,7 +50,7 @@ table; [tools/README.md](../tools/README.md) lists the commands, every
 generated file and the rebuild order; [tests/README.md](../tests/README.md)
 describes the test layers and the fake client.
 
-`addon/Polestar/Polestar.toc` loads eleven XML manifests in this order. Each
+`addon/Polestar/Polestar.toc` loads thirteen XML manifests in this order. Each
 module's manifest lists that module's files.
 The module sections below follow this order.
 
@@ -66,6 +67,7 @@ Dungeons\Dungeons.xml   Dungeon quest journal data
 UI\UI.xml               Guide window, guide menu, zone art, Lookup and Dungeons views, route choice, options
 Rares\Rares.xml         Rare NPCs and treasures: detection, pins, alerts, view
 Talents\Talents.xml     Talent plans: the hub section, talent frame marks, reminder
+Alts\Alts.xml           Characters: a snapshot of each character on the account, the hub section
 ```
 
 Manifests use only `<Script file="..."/>` and `<Include file="..."/>` (paths
@@ -183,7 +185,7 @@ its Set up and Route style pages); in `PolestarCharDB`, this character has (0 wh
 `dungeons` (per character) holds the dungeons this character runs in leveling
 guides, by the instance's Map id (`Engine.ChooseDungeon`, `when dungeon`).
 `behavior.suggestFrom` (default `"guides"`) is the pack suggestions come from.
-Modules keep their own keys beside these (`rares`, `instances`, `names` account-wide;
+Modules keep their own keys beside these (`rares`, `instances`, `names`, `alts` account-wide;
 `ui`, `routes`, `classTrainLevel`, `classTrainVisit`, `qol`, `flightTimes`,
 `flightNow`, `instanceRuns` per character), each described in its section or file header.
 
@@ -223,7 +225,7 @@ the saved view for the current guide), `guide <id>`, `status`, `tabs`,
 `packs` (Options at Community guides), `gamepad` (Options at Gamepad), `where`, `report` (`SHOW_REPORT`),
 `discord` (`SHOW_DISCORD`), `debug`; Nav adds `arrow`, `way` and `route`;
 modules add theirs (`xp`, `gear`, `instances`, `dungeons`, `lookup`, `mount`,
-`rares`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua)).
+`rares`, `talents`, `alts`, `questdb`, `import` (`SHOW_IMPORT`, Core/Import.lua)).
 
 `where` prints the player's map and position as two guide lines, `zone map
 <uiMapID>` and `goto <x>,<y> live` (two decimals, the client's live frame,
@@ -1667,6 +1669,7 @@ talk.
 
 ```lua
 Polestar.Theme.Accent() -> r, g, b
+Polestar.Theme.ClassColor(classFile) -> r, g, b | nil     -- the client's colour for a class file; nil: the player's class
 Polestar.Theme.Color(name) -> r, g, b, a
    -- grounds "bg","panel","panelAlt","sidebar","footer","sky"; text "text","textDim","textMuted";
    -- "accent","ink" (hairlines/washes),"star","shade" (wells, text shadows, art fades),
@@ -2163,12 +2166,29 @@ Polestar.Pins.SetLayer(layer, pins, opts)   -- replace a layer; opts = { world =
                                             --   minimapAreas = false, minMapType = nil, worldLayout = nil }
 Polestar.Pins.ClearLayer(layer)
 Polestar.Pins.SetLayerVisible(layer, visible)
--- pin = { map, x, y, f, icon (Theme.Media name or texture path), size, minimapSize, color = { r, g, b, a },
---         tooltip = string | function(tooltip), onClick = function(button, owner), priority,
+-- pin = { map, x, y, f, icon (Theme.Media name, texture path, or "map:<name>": a map mark), size, minimapSize,
+--         color = { r, g, b, a }, tooltip = string | function(tooltip), onClick = function(button, owner), priority,
 --         glow (soft halo), ring = { r, g, b } (ring round the disc), backdrop (scrim disc), area (yards),
 --         hull = { wx1, wy1, ... } (a convex region in world yards on the pin's continent `c`),
---         areaOnly (only the area or hull draws, no pin) }
+--         areaOnly (only the area or hull draws, no pin),
+--         map marks only: ring2 = { r, g, b } (dashed ring further out), badge = n | "?" (accent capsule,
+--         top right), state = "focus" | "dim", medal = false (the glyph alone), medalSize (px) }
 ```
+
+Map marks (`icon = "map:<name>"`) are the map's own glyph family: white masks
+in `Media/Map/icon-<name>` (`tools/media/map.js`, 64 px over 27 units of a
+24-unit grid, a relief and a black contour baked in, so the tint keeps both),
+drawn at 27/24 of the mark's size, tinted with the pin's colour. Each sits in
+a medallion 1.4 times the mark (rounded to even), the one untinted piece: the
+icon pack's (`nav.mapIcons`; `Pins.IconPack()`: "skin", the default, takes
+Polestar's, Halo's, or Hearth's for Hearth and the game's looks; "bare"
+draws no medallion). The kit is tinted too: `ring` 5 px and `ring2` 11 px
+wider than the medallion, the glow 2.3 times it (only where a pin asks:
+the guide's target, a focused quest turn-in), the badge 14 px high. A mark
+clamped to the minimap's rim keeps medallion and glyph, its medallion at the
+rim, the edge pointer on its side toward the target. A city group of services
+(`Maps/ServiceClusters.lua`) is one 30 px medallion with up to three glyphs at
+0.4 of it and a badge with its count.
 
 Pins are drawn on the world map for the map being viewed (converted through Compat
 for other maps). Optional `worldLayout(projected, view)` receives this layer's
@@ -3129,26 +3149,21 @@ Polestar_Nav.toc        LoadOnDemand, Dependencies: Polestar
 ```
 
 **Memory.** The packed maps (format 2, all three) are 33.9 MB of files; loaded,
-the Lua heap holds about 34 MB (0.2.4's format 1 maps 28 MB; his own three maps were about 12 MB). A search decodes the clusters (ADT tiles) it
-crosses: by the engine's own accounting (`PathGrid.lua` gridSize, an upper
-bound) about 3.3 MB a cluster on average: 15.8 MB for Kharanos to
-Thelsamar (6 clusters), 28.5 MB for Razor Hill to the Valley of Strength
-through Orgrimmar (4), 46.4 MB and 4.9 MB of graph for a 7,700 yd walk from
-the Crossroads to Tanaris (17 clusters, none evicted); the decoded graph of a
-whole continent is 4.2 MB (Eastern Kingdoms) or 4.9 MB (Kalimdor). His
-ceilings, 24 MB of grids and 4 MB of graph, were sized for his 8 yd cells, so
-`API.lua` sets `Path.cacheKB` 48 MB and `Path.graphKB` 16 MB while a search
-runs (maps format 2's longest corpus walk decodes 40.9 MB of grids and 15.7 MB
-of graph) and `Path.graphRestKB` 6 MB at rest. With no search queued (`Idle`)
-the decoded grids go and the decoded graph is trimmed to 6 MB: measured
-standalone (Task 15, LuaJIT heap at the router's callbacks), 33.8 MB with the
-maps loaded and no search, 38.3 MB after the six longest corpus walks and
-`Idle` (0.2.4: 27.8 MB and 33.4 MB), and a peak of 79.2 MB seen during those
-walks. Since the walking floor (#234) the cluster `Path.SurfacesAt`
-reads (the player's) stays decoded at rest while the arrow runs: one cluster,
-3.3 MB on average by the engine's accounting (3.1 MB allocated decoding the
-Den's camp's under LuaJIT); none without a target or 2 s after the arrow's
-last update.
+the Lua heap holds about 34 MB (0.2.4's format 1 maps 28 MB; his own three maps were about 12 MB). On Leffe's
+maps (maps format 5) Polestar_Nav holds 1.4 MB and a continent's part 17 / 21 MB (Eastern Kingdoms / Kalimdor);
+only the player's continent's part loads (below). A search decodes the clusters (ADT tiles) it crosses into a
+few byte strings each (`PathGrid.lua` decodeGrid: kind = walkable value and class, moves, heights, each cell's
+floors, step masks and one list of the other moves and arcs, read with `string.byte`; nothing per node in a
+table): 0.2-0.45 MB a cluster on Leffe's maps, where four tables a node field took 2-10 MB. The decoder's
+scratch arrays are reused until `Idle`; an endpoint tree a connection gives up goes to a pool for the next one,
+and at most 4 trees and 65,536 nodes between them stay (`Path.lua` connect); a decoded graph keeps only its
+entrance lists and graph strings (`metadata` reads an entrance's cell, layer and component from the string).
+`API.lua` sets `Path.cacheKB` 8 MB of grids and `Path.graphKB` 16 MB of graph while a search runs, and
+`Path.graphRestKB` 1 MB at rest. Measured by `nav-memory.rs` (Lua 5.1, the walks and the 16-place batch there,
+2026-10-25), Eastern Kingdoms / Kalimdor: 18.3 / 22.4 MB loaded, 39.8 / 29.2 MB at most while searching, 91.4 /
+7.9 MB allocated in all, 19.8 / 22.5 MB at rest (the grid's maps, both continents: 35.3, 84.5, 163.6 and 40.7).
+Since the walking floor (#234) the cluster `Path.SurfacesAt` reads (the player's) stays decoded at rest while
+the arrow runs: one cluster; none without a target or 2 s after the arrow's last update.
 
 **A map is used whole.** `API.lua` drops a map whose packed tables hold
 fewer entries than its `counts` (a part file missing from the folder, or one
@@ -3520,11 +3535,16 @@ flight timer and the instance tracker are set under Quality of Life.
   the bottom of the minimap (`Maps/Coords.lua`, 5 Hz, repainted only when the
   tenth changes). Both use `Maps.FormatCoords`.
 - Minimap button (`maps.minimapButton`, off by default; `Maps/MinimapButton.lua`):
-  click fires `TOGGLE_FRAME`, right-click `SHOW_OPTIONS`, a drag moves it
+  click fires `TOGGLE_FRAME`, right-click opens `Maps.ShowMenu` (show or hide
+  the window, Guides, Lookup, Options, Report a problem; each fires the
+  existing event), a drag moves it
   around the minimap's edge and saves `maps.minimapButtonAngle` (degrees, 0 =
   east). A square minimap (`GetMinimapShape`) puts it on the square's edge,
   and a resized one (`OnSizeChanged`) moves it to the new edge.
-  No frame exists until the setting is first turned on.
+  No frame exists until the setting is first turned on. The addon
+  compartment (clients with `AddonCompartmentFrame`) gets the same through
+  the .toc's `AddonCompartmentFunc*` globals (`Polestar_OnAddonCompartment*`):
+  click toggles the window, right-click opens the menu, hover the tooltip.
 - Zone level ranges (`maps.zoneLevels`): labels on continent maps, and the
   hovered zone's range in the info bar. The ranges come from `forge data maps build`
   (`tools/lib/maps/zonelevels.js`). Forever-only zones (maps with Forever
@@ -3917,7 +3937,7 @@ out of the sidebar and tab row. Every row resets to its default on right-click.
 The built-in pages are grouped by what the player is doing: **Guide** (10:
 Window, Arrow & routes, Automation), **Appearance** (20: Colour & type,
 Windows, Arrow), **Map** (30), **Questing** (40: Quests, Rewards & gear,
-Talents, Buttons), **Discovery** (50: Lookup, Dungeons, Rares), **Quality of Life** (60:
+Talents, Buttons), **Discovery** (50: Lookup, Dungeons, Rares, Characters), **Quality of Life** (60:
 Travel, Social, Vendors, Trackers), **Community guides** (70, a custom page:
 `UI/Packs.lua`), **Gamepad** (75, registered by `UI/GamepadGuide.lua`:
 Navigation, Key bindings), **Guiding Stars** (80, key `thanks`, a custom page:
@@ -3932,7 +3952,7 @@ and the options' headers, opening the page), Recorder, About. The options window
 declares every tab and section of the module-filled pages, in order, and the
 modules register their controls into them by name (`page = L["Questing"]`,
 `tab = L["Rewards & gear"]`, `section = L["Gear advice"]`): Quests, QoL,
-Gear and Talents fill Questing; Lookup, Dungeons and Rares fill Discovery; QoL and Maps
+Gear and Talents fill Questing; Lookup, Dungeons, Rares and Characters fill Discovery; QoL and Maps
 (flight timer, instances) fill Quality of Life. On the **Map** page (Guide &
 quests: Guide, Quest markers; Rares & travel: Rares and treasures, Dungeons and
 travel; Zones: Zones, Coordinates) Nav, Quests, Rares and Maps place every map
@@ -4100,8 +4120,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   in, "Nothing to pick up" (shown while the page has quests for this side)
   says why in its tooltip and, clicked, in chat (`DS.NothingText`); no guide
   is built. Tabs Quests n, Attunement (Keys when each is a key; only on pages
-  with one for the filter's side), Bosses n, Map. Quests: a block per quest planned from the
-  data (the objective measured on one shared string) so only the blocks in
+  with one for the filter's side), Bosses n, Map. Quests: a card (panel ground,
+  a rule under its head) per quest planned from the
+  data (the objective measured on one shared string) so only the cards in
   view are drawn (`DS.PaintQuests` on scroll): the title in the client's
   difficulty colour (`GetQuestDifficultyColor`, else `QuestDifficultyColors`
   by level gap) lifted to 4.5:1, the state from `Compat.IsQuestCompleted`,
@@ -4110,7 +4131,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (`Dungeons.GuideToPoint`); the Starts line (pin and text) is one link to
   `Dungeons.GiverTarget`: the giver of the first prerequisite still to do
   (its turn-in when that one is in the log), else the quest's giver, its
-  tooltip saying which; the Chain (`Dungeons.Quest` per id, a pin each),
+  tooltip saying which; the Chain (`Dungeons.Quest` per id, a pin each; the
+  steps still to do numbered, the next one on an accent ground),
   Choose one / You get item tiles (quality border; hover `GameTooltip:
   SetHyperlink`, where Gear adds its upgrade line; modified clicks through
   `HandleModifiedItemClick`), XP, money and reputation chips. Bosses: kill
@@ -4180,20 +4202,28 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `PACKS.md`: the TOC's `X-Website` + `/blob/HEAD/docs/GUIDE_PACKS.md`, else
   "docs/GUIDE_PACKS.md in Polestar's source"). While `Guides.ProblemCount() > 0` the page's sidebar row carries
   the warning dot (a page spec's `dot`). Nothing goes to chat.
-- **Welcome** (`UI/Welcome.lua`, `SHOW_WELCOME`): centred, four pages under
-  a starlit hero, with step dots, Skip, Back and Next in the footer: Hello,
-  <name> (what Polestar does, then the guide window, the arrow and
-  `/polestar guides`); Set up (quest automation, the guide at login, the
-  colour scheme as cards that apply live); Route style (`nav.routeStyle`,
-  the setting Options' Route style dropdown writes, as three cards, Fastest,
+- **Welcome** (`UI/Welcome.lua`, `SHOW_WELCOME`): centred, 600 wide, four
+  pages each under its own night hero, the gold rim (`W.Rim`) on top, with
+  Skip (Back on the last page), the step dots (not buttons), Back and Next
+  in the footer: Hello, <name> (the suggested guide's zone painting engraved
+  faintly into the night; what Polestar does, then three cards with
+  miniatures built from frames: a goal row of the suggested guide, the gold
+  dart going to its first walk's place, the library's Leveling, Professions
+  and Reputation counts); Set up (quest automation, the guide at login, the
+  colour scheme as preview cards in each scheme's colours that apply live;
+  Skip keeps them); Route style (the start zone's painting with the
+  suggested guide's first walk drawn on it and its place named, no
+  distances; `nav.routeStyle`, the setting Options' Route style dropdown
+  writes, as three rows, Fastest,
   Balanced with its Recommended tag and Roads, each saying what it does: a
   click sets it live and Nav/Walk.lua searches again, right-click or the
   gamepad's Y puts Balanced back, and the pick follows the setting however
   it changes; a line on what every style keeps you away from); Start (the guide
   `Guides.Suggest()` picks on its zone painting, with its level range and
-  pitch; the beta note while `ns.routesBeta`; the Discord invite in a copy
-  box; what community guides are; then Start guide, or Choose a guide without
-  one, and Browse guides). Once
+  pitch; what Start guide does; the beta note while `ns.routesBeta`; the
+  Discord invite as a link to the copy window; community guides with a
+  Browse guides link to the guide menu; then Start guide, or Choose a guide
+  without one). The window takes its tallest page's height. Once
   per new character (`PolestarCharDB.welcomeSeen`: 0 for a character with no
   saved `PolestarCharDB` as Polestar loaded, `ns.IsNewCharacter()`; set seen
   silently for one with saved data and no flag), 2 s after login, never in
@@ -4483,14 +4513,18 @@ Polestar.Rares.Show(kind, id)                       -- SHOW_RARES: the hub secti
   target (`PLAYER_TARGET_CHANGED`) and mouseover (`UPDATE_MOUSEOVER_UNIT`).
   A unit counts when the client calls it rare or the Codex (if loaded) knows
   its NPC as one. Secret values read as unknown. Event payloads only: a GUID
-  is looked at once per 3 s, the full vignette scan runs at most every 2 s
-  and never in combat. Nothing is detected inside instances.
+  is looked at once per 3 s, except a confirmed alive-to-dead transition;
+  unchanged dead observations remain throttled. The full vignette scan runs
+  at most every 2 s and never in combat. Nothing is detected inside instances.
 - **The decision**: off, instance, path off, players and pets, not a rare →
   skip; muted (`rares.ignored`) → skip; dead, alerts off, treasure alerts
   off, or alerted within `rares.cooldown` minutes → recorded only; in combat
   without `rares.combatAlerts` → held until `PLAYER_REGEN_ENABLED` (dropped
-  after a minute); else the alert (`RARE_SPOTTED(alert)`, sound
-  `rares.soundKit` when `rares.sound`).
+  after a minute); otherwise the alert fires immediately (`RARE_SPOTTED(alert)`,
+  sound `rares.soundKit` when `rares.sound`). Release rechecks the decision
+  against current settings, instance and cooldown state before marking it
+  alerted. An observed death cancels a held sighting only when both have the
+  same known creature GUID; historical deaths and NPC ids alone never cancel it.
 - **History**: account-wide per realm, `PolestarDB.rares.history[realm][key]`
   (`"rare:<npc>"`, `"treasure:<object>"`, `"name:<name>"` without an id), at
   most 400 entries; the cooldown reads `alerted` (epoch seconds), so it
@@ -4586,6 +4620,55 @@ Polestar.Talents.Show()                                     -- SHOW_TALENTS; /po
   ranks off the plan; the tooltip line says "pick #N". Staged ranks count. Nothing is drawn while inspecting or for a
   loadout that is not the active one; in combat the redraw waits for
   `PLAYER_REGEN_ENABLED`.
+
+## Alts — the Characters page
+
+`addon/Polestar/Alts/` (`Alts\Alts.xml`, loaded after `Talents\Talents.xml`):
+`Snapshot.lua` (`Polestar.Alts`: the saved snapshots, the events that write
+them, the `alts` command), `Options.lua` (Discovery → Characters),
+`View.lua` (the hub section, order 60).
+
+```
+Polestar.Alts.Key() -> "Name-Realm"                         -- as Maps/Instances.lua files its entries
+Polestar.Alts.List(sortBy) -> entries                       -- the playing character first, then "seen" (default) | "rested" | "level"
+Polestar.Alts.Forget(key) -> boolean                        -- never the playing character
+Polestar.Alts.Write(silent, touch) -> boolean               -- the playing character's entry (touch: only `seen`); false with alts.enabled off
+Polestar.Alts.ProjectRested(entry, now) -> xp | nil         -- no saved state; nil at the level cap (now defaults to the server time)
+Polestar.Alts.Rested(entry, now) -> xp | nil                -- live for the playing character, else projected
+Polestar.Alts.IsCurrent(entry), Polestar.Alts.MaxLevel(), Polestar.Alts.Enabled()
+```
+
+- **Store.** `PolestarDB.alts.chars["Name-Realm"]`, one small entry per
+  character: name, realm, class, race, faction, level, xp, xpMax, rested,
+  resting, zone, bind, money, profs (skill line to rank), tabs (up to six
+  `{ id, title, step, count, complete }` from `Engine.GetTabs`) with `active`, `seen`
+  (server time), `key`. Values that equal nothing are left out. An alt's
+  entry is as of its last write, normally its logout.
+- **Writes.** All in the world: at login (after five seconds, once the tabs
+  exist), on resting changes at once, on level-ups, XP, zone, money, skill and
+  tab changes coalesced into one write every ten seconds (a single pending
+  timer) while not resting, and at once while `IsResting()` reads true, and at
+  once when the player asks to leave (`PLAYER_CAMPING` / `PLAYER_QUITING`
+  where the client has them). `Logout` and `Quit` are protected functions and
+  are not hooked; writing at once while resting (an inn or city, where an
+  instant logout is possible) is what leaves the saved entry current when
+  they are used. Also when the Characters page is drawn (so the playing
+  character is current there) and when `alts.enabled` is turned on. A write merges into the entry: a field that does not
+  read keeps its saved value; the zone is the zone-type map above the player's
+  map, not an indoor area's name. `PLAYER_LEAVING_WORLD` and `PLAYER_LOGOUT`
+  read nothing and only move `seen`: the client answers wrongly while the
+  world goes (resting false, no gold, no map, the indoor area for the zone),
+  plausibly enough that nothing could tell, so those reads would overwrite
+  good values. `ALTS_UPDATED` follows a write. `alts.enabled` (default on)
+  off: no events registered, no writes; saved entries are still listed, and
+  can be forgotten.
+- **Rested XP.** `ProjectRested` uses Classic's rules as named constants
+  (`REST_PER_8H`, `AWAY_FACTOR`, `REST_CAP`); Forever's rates are unverified,
+  so an alt's figure is an estimate.
+- **Section.** One `Button` row per character (so the gamepad can focus it),
+  sorted by `alts.sort` (the hub tabs: Last played, Most rested, Level); the
+  sidebar has an entry per character, which selects and scrolls to its row; the instance count, in the subtitle, is `Maps.GetInstanceStatus()`.
+  Forget uses `W.Confirm`. `SHOW_ALTS` opens it (`/pole alts`).
 
 ## Toolchain (Node ≥ 24, zero npm dependencies)
 
@@ -5189,7 +5272,7 @@ blesses them). Run in a copy without `data/sources`, it names `sources.areas` 13
    the rules of their own paragraph there.
 
 `source` on every quest, npc, object and item lists its contributors in
-that order: `pfquest`, `questie-forever`, `web:*` (change notes), `polestar-correction`, the web XP tag, `recorder`, then the recorded XP tag (`recorder:xp-*`).
+that order: `pfquest`, `questie-forever`, `web:*` (change notes), `polestar-correction`, the web XP tag, `recorder` (a record only recordings have), then the recordings' per-field tags: `recorder:<field>` (a field trusted recorded evidence set or confirmed; `recorder:xp-*` for XP) or `recorder-gap:<field>` (a gap one counted player filled). The knowledge base labels a field `recorder` (tier 0) only by its own `recorder:<field>` tag or the whole-record `recorder`; `recorder-gap:<field>` is `recorder.gap`, which backs nothing in the public tier.
 
 #### Knowledge base (`rust/crates/forge-data/src/kb.rs`, `data/local/kb/forever-kb.sqlite`)
 
@@ -5330,73 +5413,146 @@ the XP on Forever's zone quest list
 
 ### Recordings (`data/recordings/<session>.json`)
 
-Normalised from `PolestarRecorderDB` by `record import`:
+What the Recorder collects, its SavedVariables, chunk and record format, the
+upload API and the trust rules are the contract in
+[docs/RECORDING.md](RECORDING.md) (schema 2). The library that reads it is
+`rust/crates/polestar-recording` (shared by the Polestar Client, the ingest server and
+forge; `forge record import` (this PC's game: every account of every Forever
+install, or `--wtf <path>`) and `forge record pull` (the server's
+`GET /v1/export`, after the last line in `data/recordings/.pull-state.json`)
+archive every chunk per contributor as
+`data/recordings/raw/<contributor>/<install>/<seq>.txt` (with `install.json`
+beside it: the contributor owning the folder and the install's map table; a
+pulled line whose folder names another contributor is skipped), then normalise
+every (contributor, install) that got a chunk again from its whole archive
+(`normalize::sessions`). One contributor claiming another's install id lands in
+its own folder and its own sessions. A session is the consecutive chunks of one
+(contributor, install, character id) with gaps under 30 minutes; a session file
+the new normalisation no longer has (a late chunk joined two sessions) is
+removed. Imported text has the account's character names replaced with `$N`.
+A `Polestar_Recorder.lua` outside this PC's own game folders (a file a player
+sent in) needs `--vouch <name>` (contributor `sent-<name>`, the name the
+maintainer's choice) or `--anonymize` (contributor `anon-<16 hex digits of the
+install id's SHA-256>`). Pull reads export pages until one comes back empty
+(the server ends a page at 1,000 lines or 8 MiB). `.pull-state.json` keeps the
+export's `instance` (the server database's id): when it changes (a restored
+or recreated database) pull says so and starts again from the first id
+(archived chunks are deduplicated). Pull then fetches `GET /v1/export/tombstones` since the
+last one purged and moves those contributors' archives to
+`raw/.purged/<UTC date>/<contributor>/` (deleted after 30 days) and removes their
+sessions. Server contributors first seen more than `expireDays` (config.json,
+default 30) days ago that are still not established are quarantined the same
+way; a chunk that would take one contributor's archive past `maxContributorMB`
+(default 200) is skipped and reported. Last,
+with everything on disk, pull sends `POST /v1/export/ack` with the last id it
+pulled; the server deletes chunks up to there once they are past its retention
+(the server is a buffer, `data/recordings` the archive). Pull refuses an
+`http://` server other than localhost, times its requests out and caps answer
+bodies (16 MiB an export page). `.pull-state.json`, `raw/contributors.json`,
+`install.json` and chunk files are written whole (a temporary file renamed);
+one that exists but doesn't parse stops the pull. A
+folder of the older layout (`raw/<install>/`) is moved under its contributor
+(an old `sent-<16 hex>` becomes `anon-<16 hex>`) and its sessions rewritten.
 
 ```
-{ schema: 1, build, session, char: { name, realm, race, class, faction }, started, ended,
-  events: [ { t, e, ...fields } ], maps: { "<uiMapID>": { name, type, parent, c, left, right, top, bottom } } }
+{ schema: 2, session: "<YYYYMMDDTHHMMSSZ>-[<contributor>-]<install>-<charId>",
+  contributor, install, charId, [cohort, received, contributorSince, contributorChunks, uploadDays,]
+  build, interface, locale, region, ruleset, versions: { recorder, polestar },
+  packs: [ { id, version } ], guide, char: { id, race, class, faction, sex, level },
+  started, ended, chunks: [seq], events: [ { t, e, ...fields } ],
+  maps: { "<uiMapID>": { type, parent, c, left, right, top, bottom } } }
 ```
 
-`record import --anonymize` (a file a player sent in) sets `char.name` and
-`char.realm` to null and adds `char.id`, 8 hex digits of a SHA-256 of
-"name-realm", which also replaces the name in the session key; no raw copy is
-archived.
+No names, realms or account names: `char.id` is the addon's random character
+id. `contributor` is `local` for the maintainer's own imports (the session id
+then leaves it out), `sent-<name>` or `anon-<16 hex>` for files sent in, else
+the server's contributor id, with its registration `cohort` when the server
+exported one (the data build counts players by cohort). `t` = seconds since
+`started` (one decimal); `map`, `x`, `y` = uiMapID and percent (two decimals).
+The kinds and fields keep schema
+1's names where the meaning is unchanged, so the data build, the travel build,
+the trainer list, `forge sim calibrate` and `record report|draft` read both
+schemas (records -> events):
 
-`t` = seconds since session start. Event kinds and fields:
-`accept {q, title, qlvl, lvl, xp, map, x, y, npc, npcName, object}`,
-`turnin {q, xpReward, money, lvl, map, x, y, npc, npcName}`,
-`progress {q, oi, text, cur, max, map, x, y}`, `complete {q}`, `abandon {q}`,
-`level {lvl, map, x, y}`, `zone {map, zone, subzone}`, `pos {map, x, y}`,
-`kill {npc, npcName, map, x, y}`, `loot {item, itemName, count, map, x, y}`,
-`gossip {npc, npcName, available: [q], active: [q], map, x, y}`,
-`fp {location, npc, npcName, map, x, y}`, `taxi {from, to}`,
-`bind {location, map, x, y}`, `trainer {npc, npcName, map, x, y}`,
-`vendor {npc, npcName, map, x, y}`, `death {map, x, y}`, `mark {text, map, x, y}`.
+- `accept {q, title, npc|object|item, map, x, y, lvl, rewardXp, rewardMoney,
+  items: [id], choices: [id], itemCounts, choiceCounts}` (`title` from the
+  character's `text` record of the quest), `turnin {q, npc|object, map, x, y,
+  lvl, xpReward, money, chosen}`, `progress {q, oi, cur, max, map, x, y, type,
+  text}` (`type` and `text` = "<objective>: cur/max" from the `objectives`
+  record), `complete {q}`, `abandon {q}`, `level {lvl, map, x, y, played}`,
+  `zone {map, x, y, zone, subzone}`, `pos {map, x, y, flags, speed (yd/s),
+  mounted, swimming, indoors, flying, falling, dead, trail}`, `death {map, x, y,
+  killer, killerLvl}`, `revive {map, x, y, how}`, `combat {on, map, x, y}`,
+  `afk {on}`, `mark {text, map, x, y}`, `taxi {fromNode, toNode}` (node ids
+  now), `fp {npc, map, x, y, node, known: [node]}` (the `flightmaster` record),
+  `bind {npc, map, x, y}`, `trainer {npc, map, x, y, services: [{ spell, cost,
+  reqLevel, state, name }]}`, `vendor {npc, map, x, y, items: [{ item, price,
+  stack, qty }]}`, `gossip {npc|object, map, x, y, option, optionText}` (an
+  option chosen; schema 1's gossip window is `offer` now), `rep {faction,
+  standing, value, delta}`, `skill {skillLine, rank, max}`, `explore {areaID,
+  xp, map, x, y}`, `learn {spell}`, `craft {spell, item, count}`,
+  `achieve {id}`.
+- Finds: every creature killed is a `kill {npc, npcLvl, cls, map, x, y, xp,
+  rested, denied, q, oi, inst}` (schema 1's `slain` and quest `kill` in one;
+  `cls` normal, elite, rare, rareelite, worldboss), every loot window a
+  `drop {npc|object|item, gather (herb, mine, skin, fish), items: [{ item,
+  count, q, oi }], wanted: [{ q, oi }], map, x, y, inst}` (an item's `q`/`oi`
+  when an item objective ticked within 3 s, which also adds a schema 1 style
+  `loot {item, count, q, oi, map, x, y}`), `unit {npc, npcLvl, cls, react, src,
+  map, x, y, inst}`, `rare {npc, npcLvl, cls, src, map, x, y, inst}`,
+  `treasure {object, map, x, y, inst}`, `enter {inst, instType, difficulty, map,
+  x, y}`, `encounter {enc, ok, difficulty, size, inst}` (`inst`: the instance
+  entered last, until a record has a position again).
+- New: `session {lvl}` (login, reload, each chunk), `xp {xp, xpMax, rested}`,
+  `dropped {count}`, `ride {on, map, x, y}`, `land {node, seconds, map, x, y}`,
+  `rest {kind, seconds}`, `offer {npc|object|item, map, x, y, available, active,
+  log, done, notOffered}`, `detail {q, npc|object|item, map, x, y, startItem}`,
+  `text {q, title, objectiveText, detailText}`, `objectives {q, objectives:
+  [{ type, max, text }]}`, `cast {spell, item, map, x, y, targetNpc|...}`,
+  `escort {q, on, map, x, y}`.
+- Route telemetry: `step {guide, step, reason, how, map, x, y, lvl, xp, xpMax,
+  rested, combat}`: `how` is the record's reason, `reason` what `record report`
+  reads (`done` -> `complete`, `pick` -> `guide`, else `step`); `lvl`, `xp`,
+  `xpMax`, `rested` and `combat` are the latest `session`/`level`/`xp`/`combat`
+  records'.
 
-Additive fields: `progress.type`; `kill`/`loot` may carry `q` and `oi`;
-`accept`/`turnin` carry `object`/`objName` for game-object givers; `accept.item`
-for item-started quests; `accept.rewardXp`/`rewardXpBase` (from the client's
-`GetQuestLogRewardXP`, when cached); a `reward {q, rewardXp, rewardXpBase, lvl}`
-event when the reward was not cached at accept, or for quests already in the log
-at login; a session may carry `dropped: { kind: n }` when caps
-were hit. Forever restricts `COMBAT_LOG_EVENT_UNFILTERED` to secure code, so
-kills come from `UNIT_DIED`/`PARTY_KILL` correlated with objective progress.
+The data build's overlay (`forge-data/src/recordings.rs`) leaves out sessions
+whose `build` is older than `data/recordings/config.json`'s `minBuild`, and
+every session whose player doesn't count. A player (voter) is the server's
+cohort, resolved per contributor from its latest session, else the
+contributor. `local` and `sent-*` always count, `anon-*` never does. A server
+contributor counts once established: first seen at least `minContributorDays`
+(3) days before its newest session arrived, `minContributorChunks` (20) chunks
+on `minContributorUploadDays` (3) distinct upload days as the server counted
+them (`uploadDays`; the client's own session times count for nothing), and at
+least `minContributorPos` (10) positions and `minContributorKills` (5) kills.
+Every value a recording writes goes through one rule. A quest's title, level,
+givers, enders, objectives (count and order), rewards and XP, an NPC's name,
+level, rank, roles, instances and encounter, a spawn, a drop chance, a
+trainer's class or a learned walking path (`travel/paths.rs`) changes another
+source's value only on trusted evidence: `minVoters` (config.json, default 3)
+distinct counted players, or `local` or `sent-*` recordings (for a drop
+chance, each with 10 kills of their own). A gap no source fills is filled by
+any counted player. Where players disagree, the value most of them back wins;
+a number is the lower median of each player's own value (an objective's
+count: the highest each saw). New quests, NPCs, objects, items, factions and
+zones come only from `local` or `sent-*` recordings. Names from a session
+whose locale is not enUS only fill a missing name. Recorded map bounds are
+used only from `local` recordings and only for maps `map-frames.json` lacks
+(`travel/paths.rs` `live_frames_of`); walks are placed by those frames, never
+by a recording's own. Schema 1 sessions (no contributor, no locale) count as
+`local` and enUS.
 
-Character progress: `skill {skill, skillLine, rank, max, map, x, y}`,
-`rep {faction, factionName, standing, value, delta, map, x, y}`,
-`explore {map, x, y, area, areaID, xp}`, `craft {spell, item, count, skill}`,
-`learn {spell, name}`, `achieve {id, name, already}`. Session dumps from
-`/psrec factions|skills|legacy`: `factions: { "<id>": { name, order, parent,
-header, headerRep, standing, value, min, max, atWar, canToggleAtWar } }`,
-`skills: { "<skillLine>": { name, order, rank, max, category, categoryID } }`,
-`legacy: { categories, achievements, majorFactions, trees }`, each time-stamped
-in `dumped: { kind: epochSeconds }`.
+`record trail <session|file> [--out file.json]` writes a session's `/psrec
+trail` runs as `[{ label, start, end, reason, points: [{ t, map, x, y, speed,
+mounted, swimming, falling, indoors, flying }] }]`: the `pos` events with
+`trail` (flag 64) between a `mark` "trail on: <label>" and its "trail off:
+<label> (<n> points, <yd> yd, <reason>)".
 
-Route telemetry (`v = 1`), recorded while Polestar runs: `step {v, reason,
-guide, step, title, guideTitle, time, lvl, xp, xpMax, rested, money, combat,
-map, x, y}` with `reason` = `login` (session start or /reload), `step`
-(`STEP_CHANGED`), `guide` (`GUIDE_CHANGED`: tab switch or new guide) or
-`complete` (`GUIDE_COMPLETED`; no `step`). Only the active tab is snapshotted.
-Also, with or without Polestar: `combat {on}` (`PLAYER_REGEN_DISABLED/ENABLED`),
-`afk {on}`, `revive` (alive again after a `death`).
-
-Position trail (`Trail.lua`), only while `/psrec trail on [label]` runs (and the
-Recorder records): `trail_start {label, map, x, y}`, then `trail {map, x, y,
-wx, wy, wz, facing, speed, mounted, swimming, falling, indoors, onTaxi}`
-samples, then `trail_stop {label, n, yd, reason, map, x, y}` (`yd`: yards
-walked, summed between samples) with `reason` =
-`off`, `timeout` (30 minutes), `cap` (the session's `trail` cap, 20000),
-`recording off` or `logout` (also a /reload). A 4 Hz ticker stores a sample
-when the player moved 1 yd (in world coordinates, height included), changed
-map (a city floor is its own map) or 2 s passed. `x`, `y` keep 4 decimals;
-`wx`, `wy`, `wz` are world coordinates (the Map frames convention, 2 decimals)
-from `UnitPosition` (no `wz` for its height of exactly 0, which Forever gives
-where it has none), else `C_Map.GetWorldPosFromMapPos` without `wz`;
-`facing` is radians (3 decimals), `speed` yards per second (`GetUnitSpeed`);
-the five flags are stored only when true. `record trail <session|file>
-[--out file.json]` writes a session's trails as `[{ label, start, end, reason,
-points: [{ t, map, x, y, wx, wy, wz, facing, speed, mounted, swimming,
-falling, indoors, onTaxi }] }]` (missing numbers null, flags false).
+Schema 1 (the Recorder before the recording program) wrote whole sessions with
+the character's name and realm; its JSON (`{ schema: 1, build, session, char:
+{ name, realm, race, class, faction }, started, ended, events, maps }`) is still
+read by the data build and `record report|draft`; nothing writes it any more.
 
 The Recorder window (`Panel.lua`; `/psrec ui`, Polestar's Options > Recorder
 and its guide menu; drawn with Polestar's Theme and Widgets when Polestar is
@@ -5412,10 +5568,11 @@ stops with at least one point. The window's place is `PolestarRecorderDB.panel`.
 
 #### Measuring routes
 
-Recording is opt-in (`PolestarRecorderDB.enabled == true`, set by `/psrec on` or
-Options > Recorder); while it is off the Recorder writes nothing, not even a
-session. Testers turn it on, play with Polestar, run `record import`
-(or keep `record watch` running), then `record report [--guide <text>]
+Recording is opt-in (`PolestarRecorderDB.enabled == true`, set by `/psrec on`,
+Options > Recorder, or sharing in Polestar Client, docs/RECORDING.md "Ack
+file"); while it is off the Recorder writes nothing, not even a
+session. Testers turn it on, play with Polestar, run `forge record import`
+(or `forge record pull` for the server's), then `record report [--guide <text>]
 [--json] [--top n]`. The report rebuilds step passes from every session and
 character:
 
@@ -5630,6 +5787,33 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   (`PolestarNavChokepoints[map]`: lift landings, bridges, gates at passages,
   tunnels, cave and building mouths, passes, each named by its AreaTable
   area) for the journey's named walk steps.
+- **Leffe's navigation maps in game** (`forge nav pack --leffe <dir>`, `pack/leffe.rs`, maps format 5): the
+  walking maps taken from Leffe's navigation maps (format 4, private, never shipped as files) instead of our grid.
+  His grid, height, floor and class fields already are the in-game encodings and pass through (the steps his flags
+  leave open past the walkable slope, which his reader closes, are closed); his zones too. His entrance graph is
+  re-encoded as the graph field (an entrance on one of his refined ports becomes the surface owning it; an entrance
+  keeps its 63 cheapest edges; an edge may be one way: an entrance lists only the edges it can walk). His motion
+  stream reduces, at 4.17 yd cells, to steps inside one surface, steps his cells make, and his jumps, drops and
+  climbs, each to the same or a neighbouring cell: those inside a cluster are the new `arc` field (one-way moves
+  between the surfaces owning their ends, once per pair), those across a border are already his graph's. Each of his
+  surfaces takes the named WMOAreaTable row of our grid's surface in its cell nearest in height (within 6 yd), so the
+  Undercity's floor names carry over; the chokepoints stay ours. The router steps along an arc like a grid step of its
+  length, and a search out of a goal steps along them backwards (`Routing/Path.lua` search, `PathGrid.lua`
+  decodeArcs). `--leffe-maps` picks the maps taken from his; the rest stay the grid's, byte for byte.
+  About a fifth of his floors no walk can use (no step or link out, none in, no jump or entrance at them, not on a
+  cluster border): they are dropped and the nodes after them renumbered (floor, class, area, arc and graph
+  fields alike). Each continent of his ships its map parts in a load-on-demand addon beside Polestar_Nav
+  (`Polestar_Nav_EK`, `Polestar_Nav_Kalimdor`; its metadata, with `part = "<addon>"`, stays in Polestar_Nav), which
+  `PathGrid.lua` loads the first time a search needs that map, never in combat (`EnsurePart`; a part that fails
+  to load drops its map: the straight arrow there). Its blocks are the zlib bytes themselves in the string
+  literals (`blocks = "zlib"`; only `\0 \n \r ^Z " \` escaped), a quarter less than base64 on disk and in memory;
+  `--literals base64` keeps base64. A session on one continent holds Polestar_Nav and that continent's part:
+  Polestar searches and measures walks only on the player's continent and on continents already in memory
+  (`Nav/Walk.lua` canSearch, `Path.Resident`), so a journey to the other continent keeps the planner's straight
+  estimate for the walks there (their danger unweighed, `Nav/Danger.lua`) until the player arrives and that part loads
+  with the first search there.
+  The router gives up on a walk past 8 times the straight line plus 2000 yd (`Path.lua` DETOUR): a start on
+  ground his maps join to the world only far away no longer searches most of a continent.
 
 ## Tests
 

@@ -27,6 +27,7 @@
 --   Gear.GetWeights() -> weights (read-only): the spec's band for this level
 --       (Gear.WEIGHT_BANDS, generated SpecData.lua), else the authored table;
 --       a small melee weapon DPS weight is added where the spec has none
+--       (Feral's is 14x its attack power weight)
 --   Gear.GetWeightsInfo() -> { source, note, upTo, level } of the weights in use
 --   Gear.GetPlayer() -> { class, classID, level, race, raceID, faction } (read-only)
 --   Gear.GetRacial() -> the racial gear traits in use (Gear.RACIALS by raceID) | nil
@@ -405,20 +406,21 @@ end
 -- Melee weapon DPS for the specs whose weights leave it out: every caster, and
 -- Druids. Low-level casters and Druids still fight with the weapon, so a staff
 -- or dagger that hits harder counts. A tiebreaker: the stats that matter
--- outweigh it; a weight the spec has is never changed. Feral is left out from
--- the level Bear Form is learned (FERAL_FORM_LEVEL): forms ignore weapon DPS.
+-- outweigh it; a weight the spec has is never changed. Feral weighs weapon DPS
+-- as the other melee specs do, 14 attack power per DPS (AP_PER_DPS): in
+-- Forever, Cat, Bear and Dire Bear Form hit with the equipped weapon's DPS
+-- (Blizzard's Forever Druid class deep dive; #731).
 local MELEE_DPS = 0.01
-local FERAL_FORM_LEVEL = 10
+local AP_PER_DPS = 14
 local withMelee = setmetatable({}, { __mode = "k" }) -- weights -> weights with dps
 
-local function withMeleeDps(w, class, key, level)
+local function withMeleeDps(w, class, key)
 	if not w or w.dps ~= nil then return w end
-	if class == "DRUID" and key == "feral" and (level or 0) >= FERAL_FORM_LEVEL then return w end
 	local c = withMelee[w]
 	if not c then
 		c = {}
 		for k, v in pairs(w) do c[k] = v end
-		c.dps = MELEE_DPS
+		c.dps = (class == "DRUID" and key == "feral" and w.ap) and AP_PER_DPS * w.ap or MELEE_DPS
 		withMelee[w] = c
 	end
 	return c
@@ -438,10 +440,10 @@ function Gear.WeightsFor(class, key, level)
 				break
 			end
 		end
-		return withMeleeDps(pick.weights, class, key, level), pick
+		return withMeleeDps(pick.weights, class, key), pick
 	end
 	local w = WEIGHTS[class] and WEIGHTS[class][key]
-	return withMeleeDps(w, class, key, level), w and { source = "polestar", upTo = 60 } or nil
+	return withMeleeDps(w, class, key), w and { source = "polestar", upTo = 60 } or nil
 end
 
 local function resolveSpec()

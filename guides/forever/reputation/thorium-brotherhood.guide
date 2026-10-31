@@ -1,51 +1,178 @@
 guide forever/reputation/thorium-brotherhood
 title Thorium Brotherhood Reputation
 category Reputation
+folder Reputation · Raids and dungeons
 levels 48-60
 zone Searing Gorge
-# Built from the Era-baseline reference data: Master Smith Burninate at Thorium
-# Point with What the Flux? (7722, the plans are an object in the Slag Pit) and
-# the repeatable Restoring Fiery Flux Supplies turn-ins (7736 Kingsblood, 8241
-# Iron, 8242 Heavy Leather, each with Coal and an Incendosaur Scale); Lokhtos
-# Darkbargainer's Favor Amongst the Brotherhood turn-ins (6642-6646) and the
-# drop tables of their materials. Nothing public shows Forever changing Searing
-# Gorge or Blackrock Depths; this has NOT been play-tested on Forever yet.
-#
-# Lokhtos stands inside Blackrock Depths, which has no map in our data, so his
-# steps point to the Blackrock Mountain entrance and track the standing (rep
-# 59). Repeatable turn-ins are never flagged completed by the client, so their
-# steps track the standing too. Gaining Acceptance (7737, Dark Iron Residue) is
-# in the data but its drop sources are not, so it is only mentioned. Turn-in
-# amounts are not in the data and are left out.
+keywords Thorium Brotherhood, Thorium Point, Master Smith Burninate, Hansel Heavyhands, Lokhtos Darkbargainer, Grim Guzzler, Blackrock Depths, Shadowforge Key, Fiery Flux, Incendosaur Scale, Coal, Dark Iron Residue, Dark Iron Ore, Fiery Core, Lava Core, Core Leather, Blood of the Mountain, Molten Core, fire resistance, Flarecore, Dark Iron, Imperial Plate, Sulfuron
+why Lokhtos's Molten Core recipes: fire resistance gear, Dark Iron armour and the Exalted epic weapon plans.
+reward text Lokhtos Darkbargainer's 29 recipes, from Friendly to Exalted
+reward item 17051
+reward item 17018
+reward item 19212
+reward item 19210
+reward item 19211
 
-step Master Smith Burninate
-  tip Thorium Point, on the scaffolds in the north-west of Searing Gorge, is the Brotherhood's outpost. The Thorium Brotherhood starts out Neutral. Forever's Legacy Diplomat perk increases reputation gains.
-  accept 7722
+# Built from Forever's data: the quest rows of Thorium Point, Master Smith Burninate and Lokhtos
+# Darkbargainer (reputation per turn-in from Forever's quest pages, which match the world database), the
+# standing window of each repeatable (the world database's quest requirements: Burninate's Fiery Flux
+# turn-ins only while Neutral, Gaining Acceptance only while Friendly, Lokhtos's turn-ins at any standing),
+# Lokhtos's gossip and shop conditions (the shop opens at Friendly), his 29 recipes with their standing and
+# price from Forever's client item table, and the drop tables of the materials (Incendosaur Scale: every
+# Incendosaur, two to four; Fiery and Lava Cores, Core Leather and Blood of the Mountain from the Molten
+# Core). The Thorium Brotherhood has no kill reputation. Neutral to Exalted is 42,000 reputation.
+# Quest reputation and level: in Classic a quest pays less once it is 6 or more levels below you (a fifth
+# off per level, down to a fifth); a Forever beta report had low quests paying in full. Only the Thorium
+# Point quests (48-50) are affected; every turn-in quest here is level 60. Numbers leave out Diplomat.
+# INGAME: Do the Thorium Point quests (48-50) pay 100 or 20 reputation at level 60?
+# The way to the Grim Guzzler (the Shadowforge Key or the Ring of Law, then the Shadowforge Lock) is
+# Classic's layout of Blackrock Depths; nothing shows Forever changing it.
+# Left out: Secrets of the Colossus - Regal (8858, 200 reputation), a Silithus quest with no objectives in
+# Forever's data. The client item table also ties two cloak enchanting formulas (Greater Fire and Greater
+# Nature Resistance, Honored, 10g) to the Brotherhood, but no vendor in Forever's data sells them.
+# INGAME: Does Lokhtos sell Formula: Enchant Cloak - Greater Fire Resistance (229008) or Greater Nature
+# Resistance (229009) at Honored?
+# ASSUMED: Chambermaid Pillaclencher's Pillow (Look at the Size of It!, 7704) lies in the Slag Pit's
+# sleeping quarters (Classic flow; Forever's data has no spawn for the pillow, and the Classic quest that sent
+# players there is not in Forever's data). In-game check: is the ornate pillow in the Slag Pit?
+# ASSUMED: Lokhtos takes his turn-ins below Friendly once you have any Brotherhood reputation (Forever's
+# quest data asks for 1 point; Classic players brought him materials from Honored on). In-game check: does
+# Lokhtos offer Favor Amongst the Brotherhood while Neutral?
+# INGAME: Is the Molten Core open? Blizzard's raid announcement for Forever names Barrow Deeps, Hyjal Summit
+# and Onyxia's Lair; the Molten Core is in the client but not announced. Until it opens, Lokhtos's Fiery
+# and Lava Cores and Core Leather cannot be had, and Dark Iron Ore carries Honored to Exalted.
 
-step Secret Plans: Fiery Flux
-  tip The plans lie in the Slag Pit of the Cauldron, guarded by Dark Iron dwarves. Dark Iron dwarves also drop Dark Iron Residue, which Burninate takes for Gaining Acceptance.
-  collect 18922 quest 7722.1 @40.4,35.7
+step Thorium Point
+  tip Thorium Point is the scaffolded camp on the north-west rim of the Cauldron, with a flight point. Everyone starts Neutral with the Brotherhood. These seven quests (level 48 to 50) pay 100 reputation each: 700 in all, 800 with the pillow below. In Classic a quest pays less once it is 6 or more levels below you, only 20 each at 60, so do them while you level through Searing Gorge if you can; your first turn-in shows which. Master Smith Burninate's What the Flux? also opens his Fiery Flux turn-ins, so it is needed at any level. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%.
+  accept 7722                         -- Master Smith Burninate
+  accept 7723                         -- Hansel Heavyhands
+  accept 7724
+  accept 7727
+  accept 7728 object 179827           -- The Wanted/Missing/Lost & Found board
+  accept 7729 object 179827
+  accept 7701 object 179827 optional  -- Overseer Maltorius is elite
 
-step Back to Burninate
-  turnin 7722
+step Golems and Dark Iron dwarves
+  tip Heavy War Golems and the Dark Iron Taskmasters and Slavers work all over the floor of the Cauldron below Thorium Point. The Smithing Tuyere drops from Dark Iron Steamsmiths at the furnaces in the middle, the Lookout's Spyglass from Dark Iron Lookouts on the southern ridges: about one in ten of each.
+  kill 5854 x20 quest 7723.1          -- Heavy War Golem
+  kill 5846 x15 quest 7729.1          -- Dark Iron Taskmaster
+  kill 5844 x15 quest 7729.2          -- Dark Iron Slaver
+  collect 18959 quest 7728.1          -- Smithing Tuyere, Dark Iron Steamsmiths
+  collect 18960 quest 7728.2          -- Lookout's Spyglass, Dark Iron Lookouts
 
-step Fiery Flux supplies to Friendly
-  tip Restoring Fiery Flux Supplies repeats in three versions: Kingsblood, Iron Bars or Heavy Leather, each with Coal and an Incendosaur Scale. Incendosaurs (level 47-49) in the north of Searing Gorge drop a scale every time; Burninate himself sells Coal.
-  collect 18944 optional @44.6,24.9
-  talk 14624 optional -- Master Smith Burninate: Restoring Fiery Flux Supplies
+step Greater Lava Spiders
+  tip The spiders roam the lava pools and plateaus of the south-west.
+  kill 5858 x20 quest 7724.1
+
+step The Slag Pit
+  tip The Slag Pit is the cave in the north of the Cauldron. The Secret Plans: Fiery Flux lie on a bench on its upper ledge, beside Overseer Maltorius: a level 50 elite with guards, easy at 60, worth a group below 55. Incendosaurs swim in the lava pools inside and around the north rim; every one drops two to four Incendosaur Scales. Keep every scale: Burninate's turn-ins take two each. If you find Chambermaid Pillaclencher's ornate pillow in the dwarves' sleeping quarters, take it to Evonice Sootsmoker at Thorium Point for 100 more.
+  collect 18922 quest 7722.1          -- Secret Plans: Fiery Flux
+  kill 9318 x20 quest 7727.1          -- Incendosaur
+  collect 18946 quest 7701.1 optional -- Head of Overseer Maltorius, elite: group up below 55
+  accept 7704 optional                -- Chambermaid Pillaclencher's Pillow, if you find it
+
+step Back to Thorium Point
+  turnin 7722                         -- Master Smith Burninate
+  turnin 7723                         -- Hansel Heavyhands
+  turnin 7724
+  turnin 7727
+  turnin 7728                         -- Taskmaster Scrange
+  turnin 7729
+  turnin 7701 optional                -- Lookout Captain Lolo Longstriker
+  turnin 7704 optional                -- Evonice Sootsmoker
+
+step Imperial Plate, for Blacksmiths
+  when skill Blacksmithing 265
+  when level>=50
+  zone Tanaris
+  tip Blacksmiths with 265 skill can buy their way up with Thorium Bars: Derotain Mudsipper in Gadgetzan trades the Imperial Plate plans for bars, and each pays Brotherhood reputation. A Blue Light Bargain opens them (100). Belt 20 bars (100), Bracer 20 (100), Shoulders 20 (100), Boots 40 (150), Helm 50 (200), Chest 60 (200), Leggings 60 (200): 1,150 reputation for 270 Thorium Bars. They count at any standing, so do them before Burninate's turn-ins.
+  level 50
+  accept 7652 optional
+  turnin 7652 optional
+  accept 7653 optional
+  turnin 7653 optional                -- Belt, 20 Thorium Bars
+  accept 7655 optional
+  turnin 7655 optional                -- Bracer, 20 Thorium Bars
+  accept 7659 optional
+  turnin 7659 optional                -- Shoulders, 20 Thorium Bars
+  accept 7654 optional
+  turnin 7654 optional                -- Boots, 40 Thorium Bars
+  accept 7657 optional
+  turnin 7657 optional                -- Helm, 50 Thorium Bars
+  accept 7656 optional
+  turnin 7656 optional                -- Chest, 60 Thorium Bars
+  accept 7658 optional
+  turnin 7658 optional                -- Leggings, 60 Thorium Bars
+
+step Heavy Leather, if you skin (Alliance)
+  only Alliance
+  zone Alterac Mountains
+  tip Only if you take the Heavy Leather turn-in below and skin it yourself: the yetis and mountain lions here (level 28 to 40) yield it. Ten per turn-in.
+  collect 4234 x10 optional @38.2,91.9 -- Heavy Leather
+
+step Heavy Leather, if you skin (Horde)
+  only Horde
+  zone Thousand Needles
+  tip Only if you take the Heavy Leather turn-in below and skin it yourself: the wyverns, basilisks and scorpids here (level 28 to 40) yield it. Ten per turn-in.
+  collect 4234 x10 optional @78.5,59 -- Heavy Leather
+
+step Fiery Flux to Friendly
+  zone Searing Gorge
+  tip Neutral to Friendly is 3,000 reputation. Burninate takes Restoring Fiery Flux Supplies only while you are Neutral: 25 reputation for 2 Incendosaur Scales, 1 Coal and either 4 Iron Bars, 4 Kingsblood or 10 Heavy Leather. These are level 60 quests, so they always pay in full. After the 700 from the Thorium Point quests that is 92 turn-ins: 184 scales (about 60 Incendosaurs), 92 Coal (Burninate sells it at 5 silver: 4g 60s) and 368 Iron Bars, 368 Kingsblood or 920 Heavy Leather. If those quests paid you only 140 at 60, it is 115 turn-ins: 230 scales, 115 Coal (5g 75s) and 460 bars or Kingsblood or 1,150 Heavy Leather. Miners smelt the bars from Iron Ore, herbalists pick Kingsblood, skinners get Heavy Leather from beasts of level 28 to 40; all three sell on the Auction House. Pick whichever is cheapest for you, or mix them. Blacksmiths who did the Imperial Plate quests need 46 fewer turn-ins.
+  collect 18944 x20 optional          -- Incendosaur Scale, 2 per turn-in
+  buy 3857 x10 optional npc 14624     -- Coal, 1 per turn-in
+  turnin 8241 direct optional         -- via Iron: 4 Iron Bars
+  collect 3356 x4 optional            -- Kingsblood, 4 per turn-in
+  turnin 7736 direct optional         -- via Kingsblood: 4 Kingsblood
+  turnin 8242 direct optional         -- via Heavy Leather: 10 Heavy Leather
   rep 59 Friendly
 
-step Lokhtos Darkbargainer to Honored
-  tip Lokhtos Darkbargainer trades in the Grim Guzzler inside Blackrock Depths. His Favor Amongst the Brotherhood turn-ins take Dark Iron Ore (mined from Dark Iron Deposits with Mining), Blood of the Mountain, Fiery Core, Lava Core and Core Leather. Lothos Riftwaker at the Blackrock Mountain entrance offers attunement to the Molten Core.
-  goto 32.1,94.7 "Blackrock Mountain"
-  note Dark Iron Ore: Favor Amongst the Brotherhood, Dark Iron Ore at Lokhtos, repeatable.
+step Gaining Acceptance to Honored
+  zone Searing Gorge
+  tip Friendly to Honored is 6,000 reputation. While you are Friendly Burninate takes Gaining Acceptance instead: 25 reputation for 4 Dark Iron Residue, 240 turn-ins and 960 residue in all. About a third of the Dark Iron dwarves in Blackrock Depths drop residue, sometimes several at once; it also sells on the Auction House. Dark Iron Ore or Molten Core materials at Lokhtos (next steps) count here too. Lokhtos's shop opens at Friendly: Flarecore Gloves 8g, Corehound Boots 15g, Molten Helm 16g, Dark Iron Bracers 7g, Enchant Weapon - Strength 3g, Transmute Elemental Fire 12g.
+  collect 18945 x40 optional          -- Dark Iron Residue, 4 per turn-in
+  turnin 7737 direct optional
   rep 59 Honored
 
-step Thorium Brotherhood to Revered
-  tip The Molten Core materials carry the rest: Fiery Cores drop from Firewalkers, Flameguards and Firelords, and Lava Cores from Lava Elementals, Lava Reavers and Molten Destroyers there. Blood of the Mountain comes from Molten Destroyers and rarely elsewhere.
-  note Molten Core materials: Favor Amongst the Brotherhood, Fiery Core, Lava Core, Core Leather and Blood of the Mountain, all repeatable at Lokhtos.
+step The Shadowforge Key
+  zone Burning Steppes
+  tip Optional, and it saves every later trip to Lokhtos the Ring of Law fight. Franclorn Forgewright is a ghost in the middle of Blackrock Mountain: only the dead see him, so die in the mountain and walk to his tomb as a spirit. He sends you after Fineous Darkvire in Blackrock Depths, who always drops Ironfel; place it on Franclorn's monument in the Shrine of Thaurissan and the Shadowforge Key falls out. Blackrock Depths is a five-player dungeon: group up.
+  accept 3801 optional                -- Franclorn Forgewright, as a ghost
+  turnin 3801 optional
+  accept 3802 optional
+  collect 10999 quest 3802.1 optional @32.1,94.7 map 1427 -- Ironfel, Fineous Darkvire inside Blackrock Depths
+  turnin 3802 optional @32.1,94.7 map 1427 -- Monument of Franclorn Forgewright, Shrine of Thaurissan in Blackrock Depths
+
+step Lokhtos Darkbargainer to Revered
+  zone Searing Gorge
+  tip Honored to Revered is 12,000 reputation, all of it from Lokhtos Darkbargainer in the Grim Guzzler, the tavern deep in Blackrock Depths. The way there: with the Shadowforge Key, open the East Garrison door near the entrance; without it, win the Ring of Law and climb to the East Garrison. Pull the Shadowforge Lock there to lower the bridge to the Manufactory, the only way to the Guzzler. His Favor Amongst the Brotherhood turn-ins never stop counting: 1 Fiery Core, 1 Lava Core or 1 Blood of the Mountain for 200, 2 Core Leather for 150, 10 Dark Iron Ore for 50. To Revered that is 60 cores, 160 Core Leather or 2,400 Dark Iron Ore. The cores and the leather come only from the Molten Core, which is not among the first raids Blizzard has announced for Forever; until it opens, Dark Iron Ore is the way. Miners with 230 skill find Dark Iron Deposits around the Cauldron in Searing Gorge, across the Burning Steppes and inside Blackrock Depths, and a deposit now and then gives a Blood of the Mountain; the ore also sells on the Auction House. Honored opens Flarecore Mantle 18g, Flarecore Robe 6g, Lava Belt 6g, Black Dragonscale Boots 16g, Fiery Chain Girdle 9g, Dark Iron Helm 6g, Dark Iron Reaver 22g, Dark Iron Destroyer 22g and Enchant Weapon - Mighty Spirit 8g.
+  goto 32.1,94.7 "Blackrock Mountain"
+  collect 17010 x5 optional @32.1,94.7 -- Fiery Core: Firewalkers, Flameguards and Firelords in the Molten Core
+  collect 17011 x5 optional @32.1,94.7 -- Lava Core: Lava Elementals, Lava Reavers and Molten Destroyers
+  collect 17012 x2 optional @32.1,94.7 -- Core Leather: skin Ancient Core Hounds and Magmadar
+  collect 11382 x1 optional           -- Blood of the Mountain: Molten Destroyers, sometimes a Dark Iron Deposit
+  collect 11370 x10 optional          -- Dark Iron Ore: Dark Iron Deposits, Mining 230
+  turnin 6643 direct optional @32.1,94.7 -- Fiery Core: 200
+  turnin 6644 direct optional @32.1,94.7 -- Lava Core: 200
+  turnin 6646 direct optional @32.1,94.7 -- Blood of the Mountain: 200
+  turnin 6645 direct optional @32.1,94.7 -- 2 Core Leather: 150
+  turnin 6642 direct optional @32.1,94.7 -- 10 Dark Iron Ore: 50
   rep 59 Revered
 
-step Thorium Brotherhood to Exalted
-  tip Keep turning in Molten Core materials and Dark Iron Ore at Lokhtos until Exalted.
+step A Binding Contract
+  when has 17203
+  when level>=60
+  tip Carry a Sulfuron Ingot (Golemagg the Incinerator, the Molten Core) to Lokhtos and he offers you a contract: ask about the offer and take it. Handing in the contract with the ingot pays 200 reputation and Plans: Sulfuron Hammer, the hammer Blacksmiths later join with the Eye of Sulfuras into Sulfuras, Hand of Ragnaros.
+  level 60
+  accept 7604 optional                -- Thorium Brotherhood Contract, from Lokhtos
+  collect 17203 quest 7604.1 optional @32.1,94.7 -- Sulfuron Ingot, already in your bags
+  turnin 7604 optional @32.1,94.7
+
+step Lokhtos Darkbargainer to Exalted
+  tip Revered to Exalted is 21,000 more: 105 cores or Bloods, 280 Core Leather or 4,200 Dark Iron Ore. The Molten Core materials come from the raid, so a guild or the auction house does most of the work. Revered opens Flarecore Leggings 9g, Chromatic Gauntlets 9g, Corehound Belt 9g, Molten Belt 9g, Dark Iron Leggings 18g, Dark Iron Gauntlets 8g, Fiery Chain Shoulders 20g, Black Amnesty 7g, Blackfury 7g and Enchant Weapon - Mighty Intellect 10g. Exalted opens the epic weapon plans Ebon Hand, Blackguard and Nightfall (12g each) and Dark Iron Boots 8g.
+  turnin 6643 direct optional @32.1,94.7 -- Fiery Core: 200
+  turnin 6644 direct optional @32.1,94.7 -- Lava Core: 200
+  turnin 6646 direct optional @32.1,94.7 -- Blood of the Mountain: 200
+  turnin 6645 direct optional @32.1,94.7 -- 2 Core Leather: 150
+  turnin 6642 direct optional @32.1,94.7 -- 10 Dark Iron Ore: 50
   rep 59 Exalted

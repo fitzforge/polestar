@@ -29,7 +29,8 @@
 //     (never the storey above or below), else the nearest within `radius`
 //     (an inn's floor, not its roof or the terrain under the city); else in
 //     the nearest column with one, an indoor surface (the lowest), then
-//     terrain ground (the highest), then the lowest; prefer 'indoor' /
+//     the top surface under the open sky, then terrain ground (the highest),
+//     then the lowest; prefer 'indoor' /
 //     'ground' first looks for the nearest column holding such a surface.
 //     The floor rule and the first pass only take surfaces open both ways
 //     (search.js isOpen: walking reaches SNAP_OPEN surfaces from it and it
@@ -355,13 +356,17 @@ class Nav {
 		const pick = (t, k, cell, strict, test, highest) => {
 			let best = -1;
 			for (let e = t.first[k]; e < t.first[k + 1]; e++) {
-				if (!usable(t, k, cell, e, strict) || !test(t.flags[e])) continue;
+				if (!usable(t, k, cell, e, strict) || !test(t.flags[e], t.ceil[e])) continue;
 				if (best < 0 || highest) best = e;
 			}
 			return best;
 		};
+		// Outdoors (no indoor floor in the column) a place stands on its top surface under the open
+		// sky: the terrain under a city's streets, a harbour's decks or a bridge is the ground the
+		// models were built over, not where anyone stands.
 		const rule = (t, k, cell, strict) => {
 			let e = pick(t, k, cell, strict, (f) => f & FLAG.INDOOR, false);
+			if (e < 0) e = pick(t, k, cell, strict, (f, ceil) => ceil === Infinity, true);
 			if (e < 0) e = pick(t, k, cell, strict, (f) => f & FLAG.TERRAIN, true);
 			if (e < 0) e = pick(t, k, cell, strict, () => true, false);
 			return e;

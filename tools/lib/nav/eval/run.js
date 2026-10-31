@@ -49,7 +49,8 @@ function findInterpreter() {
 }
 
 // The folder's files in the client's load order: its .toc (else the repository's), the Script files of its
-// Nav/Nav.xml, its own Routing/API files where it has them.
+// Nav/Nav.xml, its own Routing/API files where it has them, then the map parts of its part addons beside it
+// (Polestar_Nav_EK, Polestar_Nav_Kalimdor: maps format 5; the client loads them on demand, here up front).
 function navFiles(navDir) {
 	const own = path.join(navDir, 'Polestar_Nav.toc');
 	const toc = fs.readFileSync(fs.existsSync(own) ? own : path.join(REPO_NAV, 'Polestar_Nav.toc'), 'utf8');
@@ -64,6 +65,15 @@ function navFiles(navDir) {
 		} else {
 			const mine = path.join(navDir, entry);
 			files.push(fs.existsSync(mine) ? mine : path.join(REPO_NAV, entry));
+		}
+	}
+	for (const part of ['Polestar_Nav_EK', 'Polestar_Nav_Kalimdor']) {
+		const dir = path.join(path.dirname(path.resolve(navDir)), part);
+		const partToc = path.join(dir, `${part}.toc`);
+		if (!fs.existsSync(partToc)) continue;
+		for (const raw of fs.readFileSync(partToc, 'utf8').split(/\r?\n/)) {
+			const entry = raw.trim();
+			if (entry && !entry.startsWith('#')) files.push(path.join(dir, entry.replace(/\\/g, '/')));
 		}
 	}
 	return files;

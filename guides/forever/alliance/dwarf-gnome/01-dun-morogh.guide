@@ -477,7 +477,7 @@ step Stolen Blasting Powder
 step Leopards and boars
   tip Snow Leopards and boars roam the snow between the ranch and the quarry. Blacksmiths: Copper Bars come from smelting Copper Ore or the trade vendors.
   collect 267414 quest 95212.1                -- Pristine Leopard Pelt
-  collect 267416 quest 95217.1 optional       -- Toughened Boar Hide
+  collect 267416 quest 95217.2 optional       -- Toughened Boar Hide
 
 step Gol'Bolar Quarry
   turnin 95217 optional                       -- Frast Dokner

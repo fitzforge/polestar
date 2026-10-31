@@ -254,7 +254,7 @@ local prefetching
 function Path.Prefetch(map, x, y)
 	local st = Grid.State(map)
 	local k = st and Grid.locate(st, x, y)
-	if not k or st.val[k] ~= nil then
+	if not k or st.cl[k] ~= nil then
 		return nil
 	end
 	local p = prefetching

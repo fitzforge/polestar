@@ -12,6 +12,8 @@
 //   await commands.register(applicationId, guildId);   // on READY
 //   await commands.handle(interaction);                 // on INTERACTION_CREATE
 
+const I = require('./issue');
+
 const ADMINISTRATOR = 1n << 3n;
 const EPHEMERAL = 64;
 const MAX_NOTE = 1000;
@@ -92,20 +94,30 @@ function createCommands({ discord, github, issueFor, log = console }) {
 		}
 	}
 
-	// Which issue: the one given, else the one filed from this thread.
+	// Which issue: the one given, else the one filed from this thread. Only an
+	// issue the bot filed from Discord (labelled discord, with its marker),
+	// never a pull request or another issue: { n, issue } or { error }.
 	async function target(interaction, opts) {
-		if (opts.issue) return opts.issue;
-		return issueFor(interaction.channel_id);
+		const n = opts.issue || await issueFor(interaction.channel_id);
+		if (!n) return { error: 'This isn\u2019t a filed bug report. Use it in a #bugs thread, or give the issue number.' };
+		let issue;
+		try {
+			issue = await github.getIssue(n);
+		} catch (err) {
+			if (err.status === 404 || err.status === 410) return { error: `${link(repo, n)} doesn\u2019t exist.` };
+			throw err;
+		}
+		if (!I.issueMarker(issue)) return { error: `${link(repo, n)} isn\u2019t a bug report filed from Discord, so it can\u2019t be closed or reopened here.` };
+		return { n, issue };
 	}
 
 	async function close(interaction, opts) {
 		const reason = REASONS[opts.reason];
 		if (!reason) return `Unknown reason "${opts.reason}".`;
-		const n = await target(interaction, opts);
-		if (!n) return 'This isn\u2019t a filed bug report. Use it in a #bugs thread, or give the issue number.';
+		const { n, issue, error } = await target(interaction, opts);
+		if (error) return error;
 		if (opts.reason === 'duplicate' && !opts.duplicate_of) return 'Give the issue it duplicates in `duplicate_of`.';
 		if (opts.duplicate_of === n) return 'An issue can\u2019t duplicate itself.';
-		const issue = await github.getIssue(n);
 		if (issue.state === 'closed') return `${link(repo, n)} is already closed.`;
 
 		// The note first: lib/notify.js quotes the last maintainer comment.
@@ -126,9 +138,8 @@ function createCommands({ discord, github, issueFor, log = console }) {
 	}
 
 	async function reopen(interaction, opts) {
-		const n = await target(interaction, opts);
-		if (!n) return 'This isn\u2019t a filed bug report. Use it in a #bugs thread, or give the issue number.';
-		const issue = await github.getIssue(n);
+		const { n, issue, error } = await target(interaction, opts);
+		if (error) return error;
 		if (issue.state === 'open') return `${link(repo, n)} is already open.`;
 		const had = (issue.labels || []).map((l) => (typeof l === 'string' ? l : l.name));
 		for (const old of had.filter((l) => RESOLUTION_LABELS.includes(l))) await github.removeLabel(n, old);

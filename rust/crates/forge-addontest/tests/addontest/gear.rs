@@ -135,7 +135,7 @@ fn the_class_weight_table_nine_classes_three_specs_each_known_stat_keys_sane_pri
 	assert!(n(&w["MAGE"]["frost"]["int"]) > w["MAGE"]["frost"]["str"].as_f64().unwrap_or(0.0) && n(&w["MAGE"]["frost"]["spFrost"]) > 0.0);
 	assert!(n(&w["HUNTER"]["marksmanship"]["rdps"]) > n(&w["HUNTER"]["marksmanship"]["dps"]));
 	assert!(n(&w["PRIEST"]["holy"]["heal"]) > n(&w["PRIEST"]["holy"]["sp"]) && n(&w["PRIEST"]["shadow"]["sp"]) > n(&w["PRIEST"]["shadow"]["heal"]));
-	assert!(!truthy(&w["DRUID"]["feral"]["dps"]), "feral forms ignore weapon DPS");
+	assert!(!truthy(&w["DRUID"]["feral"]["dps"]), "feral's weapon DPS weight comes from its attack power, in Gear.WeightsFor");
 	assert!(n(&w["ROGUE"]["combat"]["agi"]) >= n(&w["ROGUE"]["combat"]["str"]));
 }
 
@@ -449,7 +449,7 @@ fn specs_with_no_melee_weapon_dps_weight_get_a_small_one_a_harder_hitting_staff_
 		);
 		run(&script, Opts { cls, class_name, class_id, level: 8, ..Default::default() }).remove(0)
 	};
-	let druid = probe("DRUID", "Druid", 11, "feral");
+	let druid = probe("DRUID", "Druid", 11, "balance");
 	assert_eq!(druid["up"], true, "the cane beats the knife on weapon DPS alone");
 	assert_eq!(druid["w"], 0.01);
 	assert_eq!(probe("PRIEST", "Priest", 5, "shadow")["up"], true);
@@ -509,12 +509,35 @@ fn the_melee_dps_weight_is_only_a_tiebreaker_a_stat_on_the_item_outweighs_any_we
 }
 
 #[test]
-fn feral_loses_the_melee_dps_weight_from_the_level_bear_form_is_learned_balance_keeps_it() {
+fn feral_weighs_weapon_dps_at_14_attack_power_before_and_after_bear_form_balance_keeps_the_tiebreaker() {
+	// In Forever, Cat, Bear and Dire Bear Form hit with the equipped weapon's DPS (#731).
 	let w = |spec: &str, level: i32| {
-		let script = format!("\n\t\tPolestar.Set(\"gear.spec.DRUID\", \"{spec}\")\n\t\temit({{ dps = G.GetWeights().dps or false }})\n\t");
-		run(&script, Opts { cls: "DRUID", class_name: "Druid", class_id: 11, level, ..Default::default() }).remove(0)["dps"].clone()
+		let script = format!("\n\t\tPolestar.Set(\"gear.spec.DRUID\", \"{spec}\")\n\t\tlocal w = G.GetWeights()\n\t\temit({{ dps = w.dps or false, ap = w.ap or false }})\n\t");
+		run(&script, Opts { cls: "DRUID", class_name: "Druid", class_id: 11, level, ..Default::default() }).remove(0)
 	};
-	assert_eq!(w("feral", 9), 0.01, "before any form the Druid fights with the weapon");
-	assert_eq!(w("feral", 10), false, "cat and bear damage ignores weapon DPS");
-	assert_eq!(w("balance", 20), 0.01);
+	assert_eq!(w("feral", 9)["dps"], 7, "before any form the Druid fights with the weapon");
+	assert_eq!(w("feral", 10)["dps"], 7, "cat and bear damage follows the weapon's DPS");
+	assert_eq!(w("feral", 24)["dps"], 7, "the same as Arms");
+	for level in [30, 45, 55, 60] {
+		let f = w("feral", level);
+		let (dps, ap) = (f["dps"].as_f64().unwrap(), f["ap"].as_f64().unwrap());
+		assert!((dps - 14.0 * ap).abs() < 1e-9, "level {level}: 14 attack power per weapon DPS ({dps} vs ap {ap})");
+	}
+	assert_eq!(w("balance", 20)["dps"], 0.01);
+}
+
+#[test]
+fn a_feral_druid_takes_the_harder_hitting_mace_over_a_caster_staff_with_more_stats() {
+	// #731: at Leaders of the Fang the turn-in pick offered Crescent Staff over Hammerbone.
+	let script = r#"
+		g.defineItem("item:7201", { equipLoc = "INVTYPE_2HWEAPON", classID = 2, subclassID = 10, minLevel = 1,
+			stats = { ITEM_MOD_DAMAGE_PER_SECOND_SHORT = 15.2, ITEM_MOD_STAMINA_SHORT = 7, ITEM_MOD_INTELLECT_SHORT = 7 } })
+		g.defineItem("item:7202", { equipLoc = "INVTYPE_2HWEAPON", classID = 2, subclassID = 5, minLevel = 1,
+			stats = { ITEM_MOD_DAMAGE_PER_SECOND_SHORT = 20.4 } })
+		g.equip(16, "item:7201")
+		Polestar.Set("gear.spec.DRUID", "feral")
+		emit({ up = G.IsUpgrade("item:7202") })
+	"#;
+	let out = run(script, Opts { cls: "DRUID", class_name: "Druid", class_id: 11, level: 20, ..Default::default() }).remove(0);
+	assert_eq!(out["up"], true, "5.2 more weapon DPS outweighs 7 Stamina and 7 Intellect");
 }

@@ -24,8 +24,8 @@ const KEYS_CROSSING: &[&str] = &["id", "a", "b", "ab", "ba", "oneWay"];
 /// (`z`: the end's height, for ends on a ramp or a ledge: the crossings baked-legs measured.)
 const KEYS_END: &[&str] = &["map", "x", "y", "z", "radius", "offMap"];
 const KEYS_OPEN: &[&str] = &["a", "b", "oneWay"];
-const KEYS_CHAIN: &[&str] = &["id", "name", "open", "nodes"];
-const KEYS_NODE: &[&str] = &["map", "x", "y", "radius", "caption", "back", "offMap"];
+const KEYS_CHAIN: &[&str] = &["id", "name", "open", "note", "nodes"];
+const KEYS_NODE: &[&str] = &["map", "x", "y", "z", "radius", "caption", "back", "offMap"];
 
 /// A checked point: map percent, radius, world position (and a chain node's captions).
 #[derive(Clone, Debug)]
@@ -34,6 +34,8 @@ pub struct XPt {
 	pub x: Option<f64>,
 	pub y: Option<f64>,
 	pub r: f64,
+	/// The floor height a walk to the point ends on (a ramp, a ledge, the Undercity's entrance hall), when given.
+	pub z: Option<f64>,
 	pub c: f64,
 	pub wx: f64,
 	pub wy: f64,
@@ -160,12 +162,17 @@ fn check_point(p: &V, at: &str, keys: &[&str], frames: &Frames, errors: &mut Vec
 		}
 		_ => {}
 	}
+	let zv = p.get("z");
+	if !zv.is_undef() && zv.as_num().is_none_or(|z| !z.is_finite()) {
+		errors.push(format!("{at}: z must be a number (yards)"));
+		ok = false;
+	}
 	if !ok {
 		return None;
 	}
 	let (map, x, y) = (map.unwrap(), p.get("x").num(), p.get("y").num());
 	let w = frames.to_world(map as i64, x, y).unwrap();
-	Some(XPt { map, x: Some(x), y: Some(y), r: p.get("radius").num(), c: w.c, wx: round(w.wx, 1), wy: round(w.wy, 1), caption: None, back: None })
+	Some(XPt { map, x: Some(x), y: Some(y), r: p.get("radius").num(), z: zv.as_num(), c: w.c, wx: round(w.wx, 1), wy: round(w.wy, 1), caption: None, back: None })
 }
 
 fn yards(a: &XPt, b: &XPt) -> f64 {
@@ -408,7 +415,7 @@ pub fn recorded_crossings(steps: &[ZoneStep], frames: &Frames) -> Vec<Crossing> 
 				let wx = round(sx / g.n, 1);
 				let wy = round(sy / g.n, 1);
 				let p = frames.to_map(map, g.c, wx, wy);
-				XPt { map: map as f64, x: p.map(|p| round(p.0, 2)), y: p.map(|p| round(p.1, 2)), r: RECORDED_RADIUS, c: g.c, wx, wy, caption: None, back: None }
+				XPt { map: map as f64, x: p.map(|p| round(p.0, 2)), y: p.map(|p| round(p.1, 2)), r: RECORDED_RADIUS, z: None, c: g.c, wx, wy, caption: None, back: None }
 			};
 			let mut sessions: Vec<String> = g.sessions.iter().cloned().collect();
 			sessions.sort_by(|a, b| cmp_utf16(a, b));
@@ -417,8 +424,13 @@ pub fn recorded_crossings(steps: &[ZoneStep], frames: &Frames) -> Vec<Crossing> 
 		.collect()
 }
 
+/// `, z = <height>` when the point has one (after wy, as the planner reads it).
+fn z_lua(p: &XPt) -> String {
+	p.z.map_or(String::new(), |z| format!(", z = {}", num_str(z)))
+}
+
 fn end_lua(p: &XPt) -> String {
-	format!("{{ map = {}, c = {}, wx = {}, wy = {}, r = {} }}", num_str(p.map), num_str(p.c), num_str(p.wx), num_str(p.wy), num_str(p.r))
+	format!("{{ map = {}, c = {}, wx = {}, wy = {}{}, r = {} }}", num_str(p.map), num_str(p.c), num_str(p.wx), num_str(p.wy), z_lua(p), num_str(p.r))
 }
 
 /// The live frames (map-frames.json `forever`), ids as the object keys.
@@ -495,7 +507,7 @@ pub fn crossings_lua(set: &Set, frames: &Frames, complete: bool, live: &Live) ->
 		l.push("\t-- other zones on these continents (no crossing data: walked as before)".into());
 		l.push(format!("\twild = {{ {} }},", wild.iter().map(|w| w.to_string()).collect::<Vec<_>>().join(", ")));
 	}
-	l.push("\t-- id, ends a and b (uiMap, continent, world yards, arrival radius), captions a->b and b->a, oneWay".into());
+	l.push("\t-- id, ends a and b (uiMap, continent, world yards, z: the floor height when given, arrival radius), captions a->b and b->a, oneWay".into());
 	l.push("\tcrossings = {".into());
 	for e in &set.crossings {
 		let mut parts = vec![format!("id = {}", lua_str(&e.id)), format!("a = {}", end_lua(&e.a)), format!("b = {}", end_lua(&e.b))];
@@ -520,13 +532,16 @@ pub fn crossings_lua(set: &Set, frames: &Frames, complete: bool, live: &Live) ->
 		l.push("\t},".into());
 	}
 	if !set.chains.is_empty() {
-		l.push("\t-- nodes: uiMap, continent, world yards, radius, caption walking in, caption walking out".into());
+		l.push("\t-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out".into());
 		l.push("\tchains = {".into());
 		for ch in &set.chains {
 			l.push(format!("\t\t{{ id = {}, name = {}, open = {}, nodes = {{", lua_str(&ch.id), lua_str(&ch.name), lua_str(&ch.open)));
 			for n in &ch.nodes {
-				let mut parts =
-					vec![format!("map = {}", num_str(n.map)), format!("c = {}", num_str(n.c)), format!("wx = {}", num_str(n.wx)), format!("wy = {}", num_str(n.wy)), format!("r = {}", num_str(n.r))];
+				let mut parts = vec![format!("map = {}", num_str(n.map)), format!("c = {}", num_str(n.c)), format!("wx = {}", num_str(n.wx)), format!("wy = {}", num_str(n.wy))];
+				if let Some(z) = n.z {
+					parts.push(format!("z = {}", num_str(z)));
+				}
+				parts.push(format!("r = {}", num_str(n.r)));
 				if let Some(c) = n.caption.as_ref().filter(|s| !s.is_empty()) {
 					parts.push(format!("caption = {}", lua_str(c)));
 				}

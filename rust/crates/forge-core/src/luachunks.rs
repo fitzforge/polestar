@@ -63,8 +63,10 @@ pub fn chunks(records: &[(i64, String)], o: Options) -> Vec<Chunk> {
 
 /// `s` as a Lua long string literal (`[==[...]==]`, the level the text never closes early; the
 /// newline after the opening bracket, which Lua drops, is written so the text keeps its own).
+/// Level 0 only for a text without `[[`: Lua 5.1 refuses `[[` inside `[[...]]` ("nesting of
+/// [[...]] is deprecated"), and a level of 1 or more reads it as text.
 pub fn long_string(s: &str) -> String {
-	let mut level = 0;
+	let mut level = usize::from(s.contains("[["));
 	loop {
 		let close = format!("]{}]", "=".repeat(level));
 		if !s.contains(&close) && !s.ends_with(&format!("]{}", "=".repeat(level))) {
@@ -132,6 +134,20 @@ mod tests {
 		assert_eq!(long_string("x]]y"), "[=[\nx]]y]=]");
 		assert_eq!(long_string("x]=]y]]"), "[==[\nx]=]y]]]==]");
 		assert_eq!(long_string("ends]"), "[=[\nends]]=]");
+	}
+
+	#[test]
+	fn a_text_holding_double_open_brackets_gets_a_level_lua_5_1_reads() {
+		assert_eq!(long_string("a[[b"), "[=[\na[[b]=]");
+		assert_eq!(long_string("a[[b]=]c"), "[==[\na[[b]=]c]==]");
+		assert_eq!(long_string("a[=[b"), "[[\na[=[b]]");
+		// Read back by stock Lua 5.1 (built with LUA_COMPAT_LSTR 1) where it is installed.
+		let texts = ["a[[b", "[[x]]", "a[[b]=]c]]", "x]]y", "ends]", "[=[ [[ ]=", "plain"];
+		let checks: String = texts.iter().map(|t| format!("assert(assert(loadstring('return ' .. {:?}))() == {:?})\n", long_string(t), t)).collect();
+		match std::process::Command::new("lua5.1").arg("-e").arg(checks).output() {
+			Ok(out) => assert!(out.status.success(), "{}", String::from_utf8_lossy(&out.stderr)),
+			Err(_) => eprintln!("lua5.1 not installed: the Lua 5.1 read-back is skipped"),
+		}
 	}
 
 	#[test]

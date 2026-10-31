@@ -8,7 +8,11 @@
 //!
 //! The core is wasm-safe: decoders take bytes through a [`PackSource`]; [`NavDir`] reads a Nav folder (feature
 //! `native`). Decoded clusters live in one byte-bounded LRU shared by every thread; `F4` is `Send + Sync`.
+//!
+//! Lifts: his maps' walking graph has none (a transport layer on top of it); `F4::open` splices Leffe's lift layer
+//! (lifts.rs) into the search when it sits with the maps and fits their build.
 
+pub mod lifts;
 pub mod pack;
 mod router;
 mod store;
@@ -137,16 +141,20 @@ pub enum Move {
 	Drop,
 	Climb,
 	Motion,
+	/// A ride on a lift (Leffe's lift layer).
+	Lift,
 }
 
-/// A drawn segment: points[from] -> points[to], its move and the floor of its start surface (0 base, i the
-/// cell's ith floor from the bottom).
+/// A drawn segment: points[from] -> points[to], its move, the floor of its start surface (0 base, i the cell's ith
+/// floor from the bottom, on his maps) and its start's ground class (Costs.lua: 0 normal, 1 road, 2 gentle slope,
+/// 3 steep slope, 4 indoor, 5 indoor city).
 #[derive(Clone, Debug, PartialEq)]
 pub struct Leg {
 	pub from: usize,
 	pub to: usize,
 	pub kind: Move,
 	pub floor: Option<u32>,
+	pub ground: u8,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -204,17 +212,81 @@ pub struct F4 {
 	store: Store,
 	checks: Checks,
 	scratch: Mutex<Vec<Scratch>>,
+	/// Leffe's lift layer, resolved on the maps (empty: none).
+	lifts: lifts::ByMap,
+	/// The layer's content hash (None: no lifts).
+	lift_layer: Option<String>,
 }
 
 impl F4 {
-	/// A Nav folder (Nav.xml beside Nav<map>.lua), or a folder holding one as Nav/.
+	/// A Nav folder (Nav.xml beside Nav<map>.lua), or a folder holding one as Nav/; with Leffe's lift layer when it
+	/// sits with the maps (lifts::find) and fits their build (one log line either way).
 	#[cfg(feature = "native")]
 	pub fn open(dir: &std::path::Path, cache_mb: usize) -> Result<F4, String> {
-		Ok(F4::from_source(Box::new(NavDir::open(dir)?), cache_mb))
+		let nav = NavDir::open(dir)?;
+		let nav_dir = nav.dir.clone();
+		let mut f4 = F4::from_source(Box::new(nav), cache_mb);
+		if let Some(file) = lifts::find(&nav_dir) {
+			match lifts::load(&file, &nav_dir) {
+				Ok((layer, left)) => {
+					for l in left {
+						eprintln!("  Leffe's lift layer: left out {l}");
+					}
+					for l in f4.set_lifts(Some(layer)) {
+						eprintln!("  Leffe's lift layer ({}): {l}", file.display());
+					}
+				}
+				Err(e) => eprintln!("  Leffe's lift layer ({}): not used, no lifts on his maps: {e}", file.display()),
+			}
+		}
+		Ok(f4)
 	}
 
 	pub fn from_source(source: Box<dyn PackSource>, cache_mb: usize) -> F4 {
-		F4 { store: Store::new(source, cache_mb), checks: Checks::default(), scratch: Mutex::default() }
+		F4 { store: Store::new(source, cache_mb), checks: Checks::default(), scratch: Mutex::default(), lifts: Default::default(), lift_layer: None }
+	}
+
+	/// Splices a lift layer into the search (None: takes the lifts out). Each landing is resolved on the maps (the
+	/// node it stands on, within lifts::LAND_Z_YD of its height); a car with a landing that does not stand on them is
+	/// left out. -> what it did, one line per map and per car left out.
+	pub fn set_lifts(&mut self, layer: Option<lifts::Layer>) -> Vec<String> {
+		self.lifts.clear();
+		self.lift_layer = None;
+		let Some(layer) = layer else { return Vec::new() };
+		let mut log = Vec::new();
+		for (map, cars) in layer.maps {
+			let mut kept = Vec::new();
+			for mut car in cars {
+				let mut ok = true;
+				for l in car.ends.iter_mut() {
+					match self.with(map, Validate::Off, |r| r.landing(l.x, l.y, l.z)) {
+						Ok(Ok(Some((k, node)))) => {
+							l.k = k;
+							l.node = node;
+						}
+						_ => ok = false,
+					}
+				}
+				if ok {
+					kept.push(car);
+				} else {
+					log.push(format!("map {map}: left out {} {}: a landing does not stand on the maps", car.name, car.object));
+				}
+			}
+			if !kept.is_empty() {
+				log.push(format!("map {map}: {} lift cars spliced", kept.len()));
+				self.lifts.insert(map, std::sync::Arc::new(lifts::MapLifts { cars: kept, group: lifts::group_of(map) }));
+			}
+		}
+		if !self.lifts.is_empty() {
+			self.lift_layer = Some(layer.id);
+		}
+		log
+	}
+
+	/// The spliced lift layer's content hash (None: no lifts).
+	pub fn lift_layer(&self) -> Option<&str> {
+		self.lift_layer.as_deref()
 	}
 
 	pub fn maps(&self) -> Vec<u32> {
@@ -226,7 +298,7 @@ impl F4 {
 		let meta = self.store.meta(map)?.ok_or_else(|| format!("no nav data for map {map}"))?;
 		let mut sc = self.scratch.lock().unwrap().pop().unwrap_or_default();
 		let out = {
-			let mut run = Run::new(&self.store, &self.checks, meta, validate, &mut sc);
+			let mut run = Run::new(&self.store, &self.checks, meta, validate, &mut sc, self.lifts.get(&map).cloned());
 			let out = f(&mut run);
 			run.finish();
 			out
@@ -278,7 +350,8 @@ impl F4 {
 		self.with(map, Validate::Off, |r| r.zone_at(x, y)).ok().flatten()
 	}
 
-	/// An entrance's position (route_many chains' ids: k * STRIDE + row), index.js chainCells' geometry.
+	/// An entrance's position (route_many chains' ids: k * STRIDE + row, or a lift landing), index.js chainCells'
+	/// geometry.
 	pub fn entrance_xy(&self, map: u32, id: i64) -> Option<(f64, f64)> {
 		self.with(map, Validate::Off, |r| r.entrance_xy(id)).ok()?.ok().map(|g| (g[0], g[1]))
 	}

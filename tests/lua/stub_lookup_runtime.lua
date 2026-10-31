@@ -12,6 +12,11 @@
 --   lookuprt.journal[spellId] = { id, name, icon }             C_MountJournal
 --   lookuprt.button = "LeftButton"      GetMouseButtonClicked()
 --   lookuprt.clickItem(link)            a modified click (HandleModifiedItemClick)
+--
+-- ClearLines/SetOwner simulate OnTooltipCleared through the generic script
+-- dispatcher. This models the lifecycle under test, not verified Forever
+-- native event timing. The show helpers only deliver post-calls: they never
+-- clear lines, so tests can also model repeated callbacks and appended text.
 
 lookuprt = { postCalls = {}, units = {}, auras = {}, journal = {}, button = "LeftButton", clicks = {} }
 
@@ -27,8 +32,14 @@ end
 ItemRefTooltip = CreateFrame("GameTooltip", "ItemRefTooltip", UIParent)
 for _, tt in ipairs({ GameTooltip, ItemRefTooltip }) do
 	tt.lines = tt.lines or {}
-	tt.SetOwner = function(self) self.lines = {} end
-	tt.ClearLines = function(self) self.lines = {} end
+	tt.ClearLines = function(self)
+		self.lines = {}
+		stub.RunScript(self, "OnTooltipCleared")
+	end
+	tt.SetOwner = function(self, owner, anchor)
+		self.owner, self.anchor = owner, anchor
+		self:ClearLines()
+	end
 	tt.AddLine = function(self, text) table.insert(self.lines, tostring(text)) end
 	tt.AddDoubleLine = function(self, l, r) table.insert(self.lines, tostring(l) .. " | " .. tostring(r)) end
 	tt.NumLines = function(self) return #self.lines end

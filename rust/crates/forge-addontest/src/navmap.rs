@@ -13,7 +13,7 @@ use std::path::PathBuf;
 
 pub use forge_nav::pack::encode::{encode_areas, encode_zones, run_length};
 pub use forge_nav::pack::fixture::{map_files, FixtureCell, FixtureMap};
-pub use forge_nav::pack::{enc, B64};
+pub use forge_nav::pack::{b32, enc, zigzag, B64};
 
 /// A written map: its folder (removed on drop) and its files in load order.
 pub struct MapDir {

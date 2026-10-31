@@ -1,0 +1,146 @@
+guide forever/reputation/nightclaw-druids
+title Nightclaw Druids Reputation
+category Reputation
+folder Reputation · World
+levels 10-18
+zone Zephras Isle
+keywords Nightclaw Druids, Vayn Moongaze, Elegael Thornpaw, Lotheluum Starbreeze, Shadowgale Forest, Nightfang Den, Shrine of Akir, Al'Aketh Cultist's Ear, More Al'Aketh Ears, Mercy Falls on Deaf Ears, Shadowgale Squirrel, Nightclaw Mantle, Cloudy, Azure, Skyforged, Gustwoven, Windraveled, Stormsewn, Zephras Isle
+collects 280363
+reward item 280363
+reward item 280347
+reward text 48 Blacksmithing, Leatherworking and Tailoring patterns
+why Zephras Isle's hidden druids: five cultist ears pay 1000 reputation, best done before you outlevel the isle.
+
+# Nightclaw Druids (2758): Forever's druid circle of the Shadowgale Forest on
+# Zephras Isle, open to both factions and every race (Forever's faction
+# table: everyone starts at Neutral 0).
+# Built from Forever's quest pages and the world database's sniffed quest
+# rows (they agree on every value): Unnerving Silence 94484 100, Tears of the
+# Lady 94485 500, Feathers for Binding 94486 500, Unwanted and Unworthy 94487
+# 500, The Ties That Bind 94488 1000, The Wounds of Betrayal 94489 500,
+# Ripped Missive 94490 500, The Fate of the Den 94491 500 (storyline 4100),
+# Mercy Falls on Deaf Ears 93165 1000 (10 ears, one of three green pieces),
+# then the repeatable More Al'Aketh Ears 93459, 1000 for 5 ears (the world
+# database's objective). A Sacrifice in Vain 94493 (100) is Elegael's own
+# start of the same storyline, for those who skip Lotheluum: it cannot be
+# taken with 94484. Skyborne druids get 100 more each from Strength and
+# Mercy 94638 and Child of Nature 94911/94912 (the class guide for Bear
+# Form). No mob gives the reputation on kill.
+# Ears: the drop data's rates per cultist (Al'Aketh Skypriest 60%, Guardian
+# 42%, Brawler 39%, Pillager 37%, Spiritcaller 35%, Honor Guard and Preacher
+# 33%, Stormchaser 25%, Footsoldier 23%, Blademaster 20%).
+# Rewards: Vayn Moongaze's vendor list (world database) and Forever's client
+# item table with its hotfixes: 32 patterns at Friendly (skill 50 at 9s 50c,
+# skill 55 at 11s), 16 at Honored (skill 60, 12s 50c), the Shadowgale
+# Squirrel at Revered (50s), the Nightclaw Mantle at Exalted (8s 16c,
+# level 15). Skyboats: as in the Shadowgale Squirrel guide.
+# Level: in Classic a quest pays less once it is 6 or more levels below
+# you (a fifth less per level, down to a fifth). More Al'Aketh Ears is a
+# level 13 quest: 1000 up to level 18, then 800, 600, 400 and 200 from
+# level 22. One beta player reported 200 for it, which fits that rule. The
+# storyline quests are level 11 to 13.
+# INGAME: low-level quest reputation: does Forever cut it as Classic did
+# (a beta report of 200 for More Al'Aketh Ears says yes; another report of
+# a full low-level quest at 30 says no)? Check one turn-in above level 18.
+# Numbers are base reputation; the Legacy perk Diplomat adds up to 10%.
+# INGAME: the world database marks the ears as quest drops (only while an ear
+# quest wants them); a beta guide says to bank them. Check whether ears keep
+# dropping once five are in the bags.
+
+step Skyboat from Dalaran
+  only Alliance
+  when !zone "Zephras Isle"
+  zone Alterac Mountains
+  tip Zephras Isle is the Skyborne starting island, open to everyone. A skyboat leaves the north side of Dalaran about every five minutes; another flies from north of Thunder Bluff, and either faction may take either.
+  goto 12.5,51.8 "Skyboat to Zephras Isle" live
+
+step Skyboat from Thunder Bluff
+  only Horde
+  when !zone "Zephras Isle"
+  zone Mulgore
+  tip Zephras Isle is the Skyborne starting island, open to everyone. A skyboat leaves the cliffs south of Skywatcher Plateau, north of Thunder Bluff, about every five minutes; another flies from Dalaran, and either faction may take either.
+  goto 34.3,25.8 "Skyboat to Zephras Isle" live
+
+step Lotheluum Starbreeze
+  zone Zephras Isle
+  tip Lotheluum stands in Valanaar, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Come early: in Classic a quest pays less once you are 6 levels above it, a fifth at most from 9 levels up, and these are level 11 to 13 quests.
+  accept 94484
+
+step Elegael Thornpaw
+  tip Head north into the Shadowgale Forest. Elegael Thornpaw holds the druids' camp in its north-east.
+  turnin 94484
+  accept 94485
+  accept 94486
+  accept 94487
+
+step Vayn Moongaze
+  tip Vayn Moongaze, the druids' quartermaster, waits inside their den: the cave just across the clearing north-east of Elegael (Nightclaw Cavern on the map; Elegael calls it the Nightfang Den). Take his ear quest now: the cultists you fight for Elegael drop ears for it.
+  accept 93165
+
+step Shadowgale Forest
+  tip The Al'Aketh Footsoldiers and Stormchasers camp just north of Elegael and drop the Bloody Heirlooms (and ears, about one kill in four). The Shadowgale Shrieklings flying west of her drop the feathers; the Lady's Tear Moss grows on the trees along the stream west of her.
+  collect 265141 quest 94487.1
+  collect 265140 quest 94486.1
+  collect 265105 quest 94485.1
+  collect 258771 quest 93165.1 optional        -- ears for Vayn: keep every one
+
+step Elegael's next tasks
+  turnin 94485                                -- 500 reputation
+  turnin 94486                                -- 500 reputation
+  turnin 94487                                -- 500 reputation
+  accept 94488
+  accept 94489
+
+step The Nightfang Den and Commander Haalien
+  tip The Nightfang Den is the cave north across the clearing from Elegael. Heal the seven injured druids inside (Naaleos Leafwhisper among them) and find Jorel Windsinger. Commander Haalien stands east of the den: he drops his head and a Ripped Missive; right-click the missive to start its quest.
+  kill 258134 quest 94489.1
+  kill 258130 quest 94489.2
+  collect 265475 quest 94488.1
+  accept 94490 item 265476                    -- from Commander Haalien
+
+step Elegael, the den's fate
+  turnin 94488                                -- 1000 reputation
+  turnin 94489                                -- 500 reputation
+  turnin 94490                                -- 500 reputation
+  accept 94491
+
+step Ears at the Shrine of Akir
+  tip The best ears are south of the forest at the Shrine of Akir: Skypriests drop one in more than half their kills, Guardians in four of ten, Spiritcallers and Honor Guards in a third. The Gustberry Lowlands just north-west of Valanaar are next best (Brawlers and Pillagers, about four in ten). All cultists are level 8 to 10.
+  collect 258771 quest 93165.1
+
+step Mercy Falls on Deaf Ears
+  tip Back to Vayn inside the den. Ten ears for 1000 reputation and a green piece: leather gloves, cloth pants or mail boots. Vayn then takes ears five at a time, for 1000 each, as often as you like, up to level 18; in Classic the pay drops from level 19 and is 200 from level 22. The Legacy perk Diplomat adds up to 10% to every gain.
+  turnin 93165 choose 263306 263307 263308   -- 1000 reputation
+  accept 93459
+
+step Back to Valanaar
+  tip Lotheluum waits in Valanaar. Hand in on your way to a skyboat or to the Gustberry Lowlands.
+  turnin 94491                                -- 500 reputation
+
+step Friendly to Honored
+  tip The storyline and Vayn's first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of Vayn's patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter.
+  rep 2758 Honored
+  collect 258771 x5 optional                  -- five ears per turn-in
+  turnin 93459 optional                       -- More Al'Aketh Ears: 1000 reputation
+  accept 93459 optional
+  vendor 254151 optional                      -- Vayn's patterns
+
+step Honored to Revered
+  tip Honored opens the chest and leg patterns (skill 60, 12s 50c): Skyforged chainmail and legguards, Gustwoven harness and trousers, Windraveled jerkin and pants, Stormsewn vest and leggings. Revered is 12000 more: 12 turn-ins (60 ears, about 160 cultist kills at the Shrine) up to level 18, 60 turn-ins (300 ears) from level 22.
+  rep 2758 Revered
+  collect 258771 x5 optional                  -- five ears per turn-in
+  turnin 93459 optional                       -- More Al'Aketh Ears: 1000 reputation
+  accept 93459 optional
+  vendor 254151 optional                      -- Vayn's patterns
+
+step Revered to Exalted
+  tip Revered opens the Shadowgale Squirrel, a companion pet, for 50s. Exalted is 21000 more: 21 turn-ins (105 ears, about 280 kills) up to level 18, 105 turn-ins (525 ears) from level 22.
+  rep 2758 Exalted
+  collect 258771 x5 optional                  -- five ears per turn-in
+  turnin 93459 optional                       -- More Al'Aketh Ears: 1000 reputation
+  accept 93459 optional
+  buy 280347 npc 254151 optional              -- Shadowgale Squirrel, 50s
+
+step The Nightclaw Mantle
+  tip Exalted opens the Nightclaw Mantle, green cloth shoulders for level 15, for 8s 16c.
+  buy 280363 npc 254151                       -- Nightclaw Mantle

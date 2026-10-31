@@ -21,7 +21,10 @@
 -- Every later walk leg is sketched at once (Path.FindCoarse, its border
 -- crossings), then searched once after it (Walk.LegPath), for the route
 -- lines and its price; the arrow's own walk is drawn by its sketch until its
--- path is in.
+-- path is in. Walks on another continent than the player's are neither
+-- measured nor searched until its walking maps are in memory (canSearch: a
+-- continent's part of Polestar_Nav loads when the player gets there); until
+-- then they keep the planner's straight estimates.
 --
 -- Baked legs: a guide step whose walk was routed at build time (Nav/Baked.lua,
 -- a race part's Legs.lua) needs no search: for a new goal that the current
@@ -207,6 +210,18 @@ end
 local function engine()
 	if not ns.Get("nav.navRouting") or Nav.HandedOff() then return nil end
 	return Nav.Path
+end
+
+-- May the router search walks on continent c now? Its maps are in memory
+-- (Path.Resident: Polestar_Nav's own, or the continent's part addon loaded),
+-- or c is the player's continent: its part loads with the first search there.
+-- A walk on another continent keeps the planner's straight estimate until the
+-- player gets there, so Polestar holds one continent's walking maps at a time.
+local function canSearch(P, c)
+	if P.Available and not P.Available(c) then return false end
+	if not P.Resident or P.Resident(c) then return true end
+	local C = ns.Compat
+	return C and C.GetPlayerWorldPosition and C.GetPlayerWorldPosition() == c or false
 end
 
 -- The router's options (Routing/Path.lua): water walking (a ghost), the
@@ -1065,12 +1080,13 @@ local function batch(P, mine, z)
 end
 
 -- Measure the walks into the target (c, x, y) from the plan's places (Travel's
--- p.places), unless they are measured or being measured.
+-- p.places), unless they are measured or being measured, or c's walking maps
+-- may not be searched yet (canSearch: the target is on another continent).
 function Walk.Measure(c, x, y, water, places)
 	water = water or false
 	if measuring and not sameTarget(measuring, c, x, y, water) then cancelMeasure() end
 	local P = engine()
-	if not (P and P.FindMany) or type(places) ~= "table" or (P.Available and not P.Available(c)) then return end
+	if not (P and P.FindMany) or type(places) ~= "table" or not canSearch(P, c) then return end
 	if inCombat() then
 		measureOwed = { c = c, x = x, y = y, water = water, places = places }
 		return
@@ -1225,11 +1241,12 @@ end
 
 -- Leg i is a walk drawn from its own search: not a piece of a split walk,
 -- not along an approach chain (a crossing is), on one continent with walking
--- data, and not the last walk after a guide `goto`.
+-- data the router may search now (canSearch), and not the last walk after a
+-- guide `goto`.
 local function searchable(legs, i, P)
 	local leg = legs[i]
 	return leg.kind == "walk" and (not leg.handmade or leg.crossing ~= nil) and not leg.parent and leg.from.c == leg.to.c
-		and (not P.Available or P.Available(leg.from.c)) and not afterGoto(legs, i)
+		and canSearch(P, leg.from.c) and not afterGoto(legs, i)
 end
 
 -- The first leg drawn from its own search: the one after the arrow's, or the

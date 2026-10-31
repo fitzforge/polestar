@@ -83,6 +83,14 @@ permission), outside this folder, each file saying so at its top:
 - `tools/lib/travel/timetable.js` and `tools/lib/travel/cmangos.js`: his
   transit generators (`tools/gen_routes.py`, `tools/gen_transit.py`).
 
+## Leffe's navigation maps
+
+The surfaces, floors, ground classes, zones, entrance graph and the jumps and
+drops in these walking maps (maps format 5) are **Leffe's navigation maps**,
+condensed for the game by `forge nav pack --leffe`, with his permission. His
+maps were built from the same Forever client; Polestar adds only the area names
+of the floors (from its own grid) and `Nav/Chokepoints.lua`. Thank you, Leffe.
+
 ## With Shortest Path Forever installed too
 
 Polestar Nav always reads its own maps (`PolestarPathData`), never his

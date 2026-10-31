@@ -19,7 +19,7 @@ Polestar checkout (default: the nearest folder above the working directory with 
 slots, files not downloaded: forge gamedata check) is refused, since the grid would be wrong
 there: run Scan and Repair in the launcher, or pass --allow-incomplete.
 
-usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>]
+usage: forge nav pack [--dir <grid>] [--layers <dir>] [--out <addon dir>] [--cells N] [--date YYYY-MM-DD] [--root <dir>] [--leffe <dir> [--leffe-maps 0,1,2991] [--literals zlib|base64]]
 
 Writes Polestar's walking maps of maps 0, 1 and 2991 from the grid (--dir, default $POLESTAR_GRID,
 else <root>/data/local/nav4; grid format 4) and the ground layers (--layers, default
@@ -32,7 +32,14 @@ aids.json), PACK.json (grid, cells, date, sizes, sha256 of every file) and Nav/N
 each ADT tile into N x N cells (8-256, default 128); --date dates the generated headers (default
 today, UTC): the same grid, layers, cells and date give the same bytes. The capitals, zones and
 place names come from <root>/data/forever (zones.json, map-frames.json) and the newest cached
-AreaTable.csv under <root>/data/sources/wago.
+AreaTable.csv under <root>/data/sources/wago. --leffe takes the maps from Leffe's navigation maps
+instead (his format-4 Nav folder, or the folder holding it; same client build and cells): his
+surfaces, floors, classes, zones and entrance graph, his jumps and drops as one-way arcs, and each
+surface's area from the grid's surface nearest it (maps format 5); the chokepoints stay the grid's.
+--leffe-maps names the maps taken from his (default all three); the rest stay the grid's. His
+continents' map parts ship in their own load-on-demand addons beside the folder (Polestar_Nav_EK,
+Polestar_Nav_Kalimdor; their metadata stays in Polestar_Nav), and their blocks as zlib bytes in the
+string literals (--literals base64 keeps base64).
 
 usage: forge nav check [--out <addon dir>] [--root <dir>]
 
@@ -193,10 +200,28 @@ fn today() -> String {
 }
 
 fn pack(args: &[String]) -> Result<(), Fail> {
-	let o = options(args, &["--dir", "--layers", "--out", "--cells", "--date", "--root"])?;
+	let o = options(args, &["--dir", "--layers", "--out", "--cells", "--date", "--root", "--leffe", "--leffe-maps", "--literals"])?;
 	let cells: usize = match o.get("--cells") {
 		None => 128,
 		Some(v) => v.parse().ok().filter(|n| (8..=256).contains(n)).ok_or_else(|| usage("--cells needs a whole number from 8 to 256"))?,
+	};
+	let leffe: Option<(PathBuf, Vec<u32>)> = match o.get("--leffe") {
+		None if o.contains_key("--leffe-maps") => return Err(usage("--leffe-maps needs --leffe")),
+		None => None,
+		Some(d) => {
+			let maps: Vec<u32> = match o.get("--leffe-maps") {
+				None => forge_nav::pack::MAPS.to_vec(),
+				Some(v) => {
+					v.split(',').map(|m| m.trim().parse().ok().filter(|m| forge_nav::pack::MAPS.contains(m))).collect::<Option<_>>().ok_or_else(|| usage("--leffe-maps needs maps among 0,1,2991"))?
+				}
+			};
+			Some((PathBuf::from(d), maps))
+		}
+	};
+	let zlib_literals = match o.get("--literals").map(String::as_str) {
+		None | Some("zlib") => leffe.is_some(),
+		Some("base64") => false,
+		Some(_) => return Err(usage("--literals needs zlib or base64")),
 	};
 	let date = o.get("--date").cloned().unwrap_or_else(today);
 	let ok_date = date.len() == 10 && date.bytes().enumerate().all(|(n, b)| if n == 4 || n == 7 { b == b'-' } else { b.is_ascii_digit() });
@@ -232,10 +257,12 @@ fn pack(args: &[String]) -> Result<(), Fail> {
 		date: &date,
 		continents: &forge_nav::pack::MAPS,
 		generator: "forge nav pack",
+		leffe: leffe.as_ref().map(|(d, m)| (d.as_path(), m.as_slice())),
+		zlib_literals,
 		log: &log,
 	})?;
 	let (written, removed) = forge_nav::pack::ship_pack(&p, &out)?;
-	let bytes: usize = p.files.iter().map(|f| f.1.len()).sum();
+	let bytes: u64 = written.iter().filter_map(|k| std::fs::metadata(if k.starts_with("Nav/") { out.join(k) } else { out.parent().unwrap_or(&out).join(k) }).ok()).map(|m| m.len()).sum();
 	println!("nav pack: {} files, {:.1} MB at {cells} cells per tile in {} ({:.0} s)", written.len(), bytes as f64 / 1e6, out.display(), t0.elapsed().as_secs_f64());
 	for r in removed {
 		println!("removed {r}");

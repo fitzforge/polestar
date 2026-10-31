@@ -575,7 +575,7 @@ N.RegisterCrossings({
 	},
 	-- other zones on these continents (no crossing data: walked as before)
 	wild = { 2482, 2548, 2652 },
-	-- id, ends a and b (uiMap, continent, world yards, arrival radius), captions a->b and b->a, oneWay
+	-- id, ends a and b (uiMap, continent, world yards, z: the floor height when given, arrival radius), captions a->b and b->a, oneWay
 	crossings = {
 		{ id = "carbonite-arathi-highlands--hillsbrad-foothills", a = { map = 1417, c = 0, wx = -846.9, wy = -1598.9, r = 30 }, b = { map = 1424, c = 0, wx = -814.1, wy = -1556.1, r = 30 } },
 		{ id = "carbonite-arathi-highlands--wetlands", a = { map = 1417, c = 0, wx = -2270.8, wy = -2502.9, r = 30 }, b = { map = 1437, c = 0, wx = -2477.3, wy = -2501.1, r = 30 } },

@@ -54,7 +54,7 @@ pub const SMOOTH: f64 = 0.961;
 
 /// The walker's answers' version, part of every store model's parameters: bump when what the Rust
 /// router answers for the same ends, grid and cost model changes (never keyed by source text).
-pub const MODEL_VERSION: u32 = 1;
+pub const MODEL_VERSION: u32 = 2;
 
 /// path.js WALK_GRAPH_VERSION.
 pub const WALK_GRAPH_VERSION: u32 = 2;

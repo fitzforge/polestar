@@ -2223,6 +2223,29 @@
 		],
 		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch."
 	},
+	"95217": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 2840,
+					"count": 12,
+					"text": "Copper Bar"
+				},
+				{
+					"type": "item",
+					"id": 267416,
+					"count": 4,
+					"text": "Toughened Boar Hide"
+				}
+			]
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): objectives Copper Bar 2840 x12, then Toughened Boar Hide 267416 x4"
+		},
+		"note": "The Quarry's Smith (Dun Morogh, blacksmiths) asks for 12 Copper Bars, then 4 Toughened Boar Hides, so the hide is objective 2. The merged data listed only the hide, so `quest 95217.1` named it. Found by TP1186 in #727."
+	},
 	"95508": {
 		"set": {
 			"objectives": [
@@ -2711,5 +2734,39 @@
 			"ref": "quest_template_addon PrevQuestID"
 		},
 		"note": "The second Rear Guard Patrol (Tirisfal, Deathguard Linnea) comes after the first, Rear Guard Patrol 356. QuestieDB has no prerequisite."
+	},
+	"99191": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 2592,
+					"count": 60,
+					"text": "Wool Cloth"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives (sniffed): item 2592 x60"
+		},
+		"note": "A Donation of Wool (High Order, Belanaa Windveil in Dalaran) asks for 60 Wool Cloth, like the capitals' donations; the merged data had no count."
+	},
+	"99196": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 2592,
+					"count": 60,
+					"text": "Wool Cloth"
+				}
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_objectives (sniffed): item 2592 x60"
+		},
+		"note": "A Donation of Wool (Windshapers, Oura Stormspinner by Thunder Bluff) asks for 60 Wool Cloth, like the capitals' donations; the merged data had no count."
 	}
 }

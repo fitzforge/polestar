@@ -24,7 +24,8 @@ pub fn world(root: &Path, grid: &Path, faction: forge_core::Faction) -> Result<(
 }
 
 /// Which walking maps answer the walks. forge build's default is `Nav::auto`: the hybrid when Leffe's navigation
-/// maps are present (they ship in the data pack), our grid alone without them.
+/// maps are present, else the hybrid on his saved walks (the data pack's Leffe walk stores) when there are any,
+/// else our grid alone. His maps are private and never ship; his saved walks do.
 #[derive(Default)]
 pub enum Nav {
 	#[default]
@@ -32,8 +33,12 @@ pub enum Nav {
 	Grid,
 	/// Leffe's navigation maps (format 4): his pack's Nav folder, the decode cache's MB.
 	Leffe { pack: PathBuf, cache_mb: usize },
+	/// Leffe's saved walks alone (the store, no maps): pairs it lacks get no walk; the store is read, never written.
+	LeffeSaved,
 	/// Leffe's maps, our grid where his have no way or a detour (hybrid.rs); his walks kept in `leffe_store`.
 	Hybrid { pack: PathBuf, cache_mb: usize, leffe_store: PathBuf },
+	/// The hybrid without his maps: his walks from `leffe_store` (saved), our grid for the pairs it lacks.
+	HybridSaved { leffe_store: PathBuf },
 }
 
 pub struct WalksIn<'a> {
@@ -115,12 +120,17 @@ pub fn save_store(store: &WalkStore, file: &Path) -> Result<usize, String> {
 }
 
 pub fn walks(i: &WalksIn) -> Result<WalksOut, String> {
-	if let Nav::Hybrid { pack, cache_mb, leffe_store } = &i.nav {
+	let leffe_pass = match &i.nav {
+		Nav::Hybrid { pack, cache_mb, leffe_store } => Some((Nav::Leffe { pack: pack.clone(), cache_mb: *cache_mb }, leffe_store)),
+		Nav::HybridSaved { leffe_store } => Some((Nav::LeffeSaved, leffe_store)),
+		_ => None,
+	};
+	if let Some((leffe_nav, leffe_store)) = leffe_pass {
 		let t0 = Instant::now();
 		// Each backend's own pass: its "not walkable" counts are its own, before the merge falls back to the grid.
 		let (glog, llog) = (|m: &str| (i.log)(&format!("grid: {m}")), |m: &str| (i.log)(&format!("Leffe's maps: {m}")));
 		let g = walks(&WalksIn { nav: Nav::Grid, log: &glog, ..*i })?;
-		let l = walks(&WalksIn { nav: Nav::Leffe { pack: pack.clone(), cache_mb: *cache_mb }, store: leffe_store, log: &llog, ..*i })?;
+		let l = walks(&WalksIn { nav: leffe_nav, store: leffe_store, log: &llog, ..*i })?;
 		let (bin, h) = hybrid_bin(&g.bin, &l.bin, crate::hybrid::SLACK)?;
 		for line in crate::hybrid::summary(&h) {
 			(i.log)(&line);
@@ -145,7 +155,28 @@ pub fn walks(i: &WalksIn) -> Result<WalksOut, String> {
 				(d, s, be.smooth())
 			})
 		}
-		Nav::Hybrid { .. } => unreachable!(),
+		Nav::Hybrid { .. } | Nav::HybridSaved { .. } => unreachable!(),
+		Nav::LeffeSaved => {
+			let pack = store.leffe_pack().ok_or_else(|| format!("{}: no saved walks on Leffe's maps", i.store.display()))?;
+			let faction = match world.faction.as_str() {
+				"Horde" => Some("Horde"),
+				"Alliance" => Some("Alliance"),
+				_ => None,
+			};
+			let ends: Vec<crate::store::End> = world.points.iter().map(|p| crate::store::End::new(p.c as i32, p.x, p.y, p.z, p.z)).collect();
+			let be = crate::f4walks::SavedF4Backend::new(&store, pack, faction, &ends);
+			(i.log)(&format!(
+				"saved walks (pack {}, lift layer {}), zones kept for {} of {} places; walks it lacks are our grid's",
+				&be.pack_id[..12.min(be.pack_id.len())],
+				be.lifts,
+				be.zones_known(),
+				ends.len()
+			));
+			pool.install(|| {
+				let (d, s) = build_doc(&world, &ends, &mut store, &be, i.nav_fp, i.log, i.bands);
+				(d, s, be.smooth())
+			})
+		}
 		Nav::Leffe { pack, cache_mb } => {
 			let nav_dir = if pack.join("Nav.xml").exists() { pack.clone() } else { pack.join("Nav") };
 			let faction = match world.faction.as_str() {
@@ -156,13 +187,18 @@ pub fn walks(i: &WalksIn) -> Result<WalksOut, String> {
 			let be = crate::f4walks::F4Backend { f4: crate::f4::F4::open(&nav_dir, *cache_mb)?, pack_id: crate::f4walks::F4Backend::pack_id(&nav_dir).map_err(|e| e.to_string())?, faction };
 			pool.install(|| {
 				let ends = be.ends(&world);
+				// Each end's zone on his maps, kept so a build without them prices the danger bands alike.
+				for e in &ends {
+					store.set_zone(e, be.zone_at(e));
+				}
 				let (d, s) = build_doc(&world, &ends, &mut store, &be, i.nav_fp, i.log, i.bands);
 				(d, s, be.smooth())
 			})
 		}
 	};
 	let bin = encode(&doc, smooth);
-	let saved = save_store(&store, i.store)?;
+	// Leffe's saved walks are read only: the pairs they lack were not asked of his maps, so keep no answer for them.
+	let saved = if matches!(i.nav, Nav::LeffeSaved) { 0 } else { save_store(&store, i.store)? };
 	let (asked, stored, routed, straight) = stats.iter().fold((0, 0, 0, 0), |s, b| (s.0 + b.pairs, s.1 + b.stored, s.2 + b.routed, s.3 + b.straight));
 	let stats = serde_json::json!({
 		"nav": i.nav.source(),
@@ -186,10 +222,12 @@ pub fn hybrid_bin(grid: &[u8], leffe: &[u8], slack: f64) -> Result<(Vec<u8>, ser
 
 impl Nav {
 	/// forge build's default: the hybrid (Leffe's navigation maps, our grid as the fallback) when his pack (a Nav
-	/// folder, or one holding Nav/) is present, else the grid. Leffe's walks are kept in `<store>-leffe.<ext>`.
+	/// folder, or one holding Nav/) is present; else the hybrid on his saved walks when `<store>-leffe.<ext>`
+	/// exists; else the grid. Leffe's walks are kept in `<store>-leffe.<ext>`.
 	pub fn auto(pack: Option<&Path>, store: &Path) -> Nav {
 		match pack.filter(|p| p.join("Nav.xml").exists() || p.join("Nav").join("Nav.xml").exists()) {
 			Some(p) => Nav::Hybrid { pack: p.to_path_buf(), cache_mb: 2048, leffe_store: leffe_store_of(store) },
+			None if leffe_store_of(store).is_file() => Nav::HybridSaved { leffe_store: leffe_store_of(store) },
 			None => Nav::Grid,
 		}
 	}
@@ -199,7 +237,9 @@ impl Nav {
 		match self {
 			Nav::Grid => serde_json::json!({ "backend": "grid" }),
 			Nav::Leffe { pack, .. } => serde_json::json!({ "backend": "leffe", "pack": pack }),
+			Nav::LeffeSaved => serde_json::json!({ "backend": "leffe", "pack": "saved walks" }),
 			Nav::Hybrid { pack, .. } => serde_json::json!({ "backend": "hybrid", "pack": pack, "slack": crate::hybrid::SLACK }),
+			Nav::HybridSaved { leffe_store } => serde_json::json!({ "backend": "hybrid", "pack": "saved walks", "leffeStore": leffe_store, "slack": crate::hybrid::SLACK }),
 		}
 	}
 }

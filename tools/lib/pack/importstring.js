@@ -28,8 +28,12 @@ const PREFIX = '!PS1!';
 // The caps the addon applies too (Core/Import.lua, Import.LIMITS; a test
 // holds the two equal): the whole string, the steps of its guide, the
 // payload once decompressed (bytes), and any one text or object key in it
-// (bytes).
-const LIMITS = { length: 50000, steps: 60, payload: 262144, text: 4096, names: 128, goals: 100, candidates: 128 };
+// (bytes); then the entries of every list a string could pad to freeze the
+// game (crowded).
+const LIMITS = {
+	length: 50000, steps: 60, payload: 262144, text: 4096, names: 128, goals: 100, candidates: 128,
+	spots: 1024, when: 16, skipto: 16, reagents: 32, fromNpcs: 32, pre: 64, tokens: 1024, nextWhen: 16,
+};
 
 // The first text or key in v longer than LIMITS.text, as the addon names it
 // (`guide.steps[2].note`), or null.
@@ -51,6 +55,69 @@ function longText(v, where = '') {
 			const hit = longText(x, at);
 			if (hit !== null) return hit;
 		}
+	}
+	return null;
+}
+
+// The first list or map of the payload's guide g holding more entries than
+// its cap, as the addon names it (Core/Import.lua crowded, plus its goals and
+// candidates caps) -> { at, n, cap }, or null.
+function crowded(g) {
+	const over = (v, cap, at) => {
+		const n = v !== null && typeof v === 'object' ? Object.keys(v).length : 0;
+		return n > cap ? { at, n, cap } : null;
+	};
+	const quests = (v, at) => {
+		for (const k of ['pre', 'preAll', 'closedBy', 'preTitles', 'q']) {
+			const hit = over(v && v[k], LIMITS.pre, `${at}.${k}`);
+			if (hit) return hit;
+		}
+		return null;
+	};
+	const whens = (list, at) => {
+		const hit = over(list, LIMITS.when, at);
+		if (hit) return hit;
+		for (const [i, w] of (Array.isArray(list) ? list : []).entries()) {
+			const q = quests(w, `${at}[${i + 1}]`);
+			if (q) return q;
+		}
+		return null;
+	};
+	const first = (...checks) => {
+		for (const check of checks) {
+			const hit = check();
+			if (hit) return hit;
+		}
+		return null;
+	};
+	const nextWhen = g.nextWhen || {};
+	const top = first(
+		() => over(g.names, LIMITS.tokens, 'guide.names'),
+		() => over(g.written, LIMITS.tokens, 'guide.written'),
+		() => over(g.nextChoices, LIMITS.nextWhen, 'guide.nextChoices'),
+		() => over(g.nextWhen, LIMITS.nextWhen, 'guide.nextWhen'),
+		...Object.keys(nextWhen).map((k) => () => whens(nextWhen[k], `guide.nextWhen.${k}`)),
+	);
+	if (top) return top;
+	for (const [i, step] of (g.steps || []).entries()) {
+		const s = `guide.steps[${i + 1}]`;
+		const hit = first(
+			() => whens(step.when, `${s}.when`),
+			() => over(step.skipto, LIMITS.skipto, `${s}.skipto`),
+			...(step.skipto || []).map((jump, j) => () => quests(jump.when, `${s}.skipto[${j + 1}].when`)),
+			() => over(step.goals, LIMITS.goals, `${s}.goals`),
+			...(step.goals || []).map((goal, j) => () => {
+				const at = `${s}.goals[${j + 1}]`;
+				return first(
+					() => over(goal.spots, LIMITS.spots, `${at}.spots`),
+					() => over(goal.candidates, LIMITS.candidates, `${at}.candidates`),
+					() => over(goal.reagents, LIMITS.reagents, `${at}.reagents`),
+					() => over(goal.fromNpcs, LIMITS.fromNpcs, `${at}.fromNpcs`),
+					() => quests(goal, at),
+				);
+			}),
+		);
+		if (hit) return hit;
 	}
 	return null;
 }
@@ -109,6 +176,8 @@ function importString(guide, { manifest, data }) {
 	if (Object.keys(frames).length) payload.frames = frames;
 	const long = longText(payload);
 	if (long !== null) return { error: `${guide.id}: ${long} is longer than ${LIMITS.text} bytes, the most Polestar reads in one text of an import string` };
+	const full = crowded(payload.guide);
+	if (full) return { error: `${guide.id}: ${full.at} has ${full.n} entries; an import string holds ${full.cap} there at most (a guide this big goes in a community addon: forge release pack)` };
 	const bytes = Buffer.byteLength(JSON.stringify(payload));
 	if (bytes > LIMITS.payload) {
 		return { error: `${guide.id} holds ${bytes} bytes of guide data; Polestar reads ${LIMITS.payload} at most (a guide this big goes in a community addon: forge release pack)` };

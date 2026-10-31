@@ -1,0 +1,5 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="Snapshot.lua"/>
+	<Script file="Options.lua"/>
+	<Script file="View.lua"/>
+</Ui>

@@ -15,7 +15,7 @@
 -- Pawn stats with no Polestar key, so ignored (and named in the import
 -- summary): ArcaneResist, FireResist, FrostResist, NatureResist, ShadowResist
 -- and AllResist (Polestar scores no resistance), FeralAp (Polestar's feral
--- weights ignore weapon DPS and read plain attack power), Speed, MinDamage and
+-- weights read plain attack power and weapon DPS), Speed, MinDamage and
 -- MaxDamage (a weapon's speed and damage range; Polestar scores its DPS), and
 -- anything Classic does not have (HasteRating, ExpertiseRating,
 -- ArmorPenetration, SpellPower, ...).

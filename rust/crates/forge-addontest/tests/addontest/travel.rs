@@ -316,7 +316,7 @@ fn world_map_shows_the_final_target_pin_plus_the_route_waypoints() {
 			r[#r + 1] = { pin.data.layer.name, tip[1], tip[2] or false, math.floor(pin.width * 10 + 0.5) / 10 }
 		end
 		emit(r)"#);
-	assert_eq!(out, json!([["nav.target", "Kobolds", "1380 yd", 22.4], ["nav.route", "Fly to East Hold", "Travel route, step 1/3", 14.4], ["nav.route", "Kobolds", "Travel route, step 2/3", 14.4],]));
+	assert_eq!(out, json!([["nav.target", "Kobolds", "1380 yd", 22.4], ["nav.route", "Fly to East Hold", "Travel route, step 1/3", 13.5], ["nav.route", "Kobolds", "Travel route, step 2/3", 13.5],]));
 }
 
 #[test]

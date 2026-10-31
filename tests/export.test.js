@@ -153,3 +153,34 @@ test('importString refuses a text over the cap and a payload over the cap, as th
 	const r = importString(big, { manifest, data: null });
 	assert.match(r.error, /bytes of guide data; Polestar reads 262144 at most/);
 });
+
+test('importString refuses a guide whose spots, predicates, jumps, reagents, sources, quest lists or names pass their caps, as the addon would', () => {
+	const manifest = { id: 'yendi', license: 'MIT' };
+	const when = { k: 'level', n: 2 };
+	const quests = Array.from({ length: LIMITS.pre + 1 }, (_, i) => i + 1);
+	const goal = (extra) => ({ t: 'kill', npc: 1, map: 1429, x: 50, y: 50, ...extra });
+	const guide = (step, top = {}) => ({ id: 'yendi/padded', title: 'Padded', ...top, steps: [{ goals: [goal()], ...step }] });
+	const cases = [
+		['guide.steps[1].goals[1].spots', guide({ goals: [goal({ spots: Array.from({ length: LIMITS.spots + 1 }, () => ({ x: 50, y: 50, r: 1 })) })] })],
+		['guide.steps[1].when', guide({ when: Array.from({ length: LIMITS.when + 1 }, () => when) })],
+		['guide.steps[1].when[1].pre', guide({ when: [{ k: 'quest', pre: quests }] })],
+		['guide.steps[1].skipto', guide({ skipto: Array.from({ length: LIMITS.skipto + 1 }, () => ({ to: 'x', when })) })],
+		['guide.steps[1].goals[1].reagents', guide({ goals: [goal({ reagents: Array.from({ length: LIMITS.reagents + 1 }, () => ({ item: 1, count: 1 })) })] })],
+		['guide.steps[1].goals[1].fromNpcs', guide({ goals: [goal({ fromNpcs: Array.from({ length: LIMITS.fromNpcs + 1 }, () => ({ npc: 1 })) })] })],
+		['guide.steps[1].goals[1].closedBy', guide({ goals: [goal({ closedBy: quests })] })],
+		['guide.names', guide({}, { names: Object.fromEntries(Array.from({ length: LIMITS.tokens + 1 }, (_, i) => [`npc:${i}`, 'A'])) })],
+	];
+	for (const [place, g] of cases) {
+		const { error } = importString(g, { manifest, data: null });
+		assert.ok(error && error.includes(`yendi/padded: ${place} has `), `${place}: ${error}`);
+	}
+	const fine = guide({ goals: [goal({ spots: Array.from({ length: LIMITS.spots }, () => ({ x: 50, y: 50, r: 1 })) })] });
+	assert.equal(importString(fine, { manifest, data: null }).error, undefined);
+});
+
+test('the writer\'s caps are the addon\'s (Core/Import.lua LIMITS)', () => {
+	const src = fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar', 'Core', 'Import.lua'), 'utf8');
+	const body = /^local LIMITS = \{([^}]*)\}/m.exec(src)[1];
+	const lua = Object.fromEntries([...body.matchAll(/(\w+) = (\d+)/g)].map((m) => [m[1], Number(m[2])]));
+	assert.deepEqual(lua, LIMITS);
+});

@@ -581,6 +581,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let rec = apply_recordings(
 		&crate::recordings::Db { quests: &norm.quests, npcs: &norm.npcs, objects: &norm.objects, items: &norm.items, zones: &zones, factions: &factions, instances: &instances },
 		&recordings,
+		recordings.min_voters,
 		so_,
 		&live,
 		sim,

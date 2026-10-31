@@ -1,6 +1,7 @@
 //! The forge-addontest integration tests, one binary: one module per test file (they used to be one
 //! test binary each, which cost a link per file).
 #![recursion_limit = "512"]
+mod alts;
 mod automation;
 #[path = "automation-close-skipped.rs"]
 mod automation_close_skipped;

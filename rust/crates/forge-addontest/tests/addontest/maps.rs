@@ -63,12 +63,12 @@ fn pin_layers_come_from_the_travel_data_own_faction_and_neutral_flight_masters_k
 		local P = Polestar.Pins
 		local taxi = {}
 		for _, p in ipairs(P.GetLayer("maps.taxi")) do
-			taxi[#taxi + 1] = { id = p.nodeID, known = p.known, icon = p.icon, c = p.c, wx = p.wx, wy = p.wy }
+			taxi[#taxi + 1] = { id = p.nodeID, known = p.known, icon = p.icon, badge = p.badge or false, c = p.c, wx = p.wx, wy = p.wy }
 		end
 		local docks = {}
 		for _, p in ipairs(P.GetLayer("maps.docks")) do docks[#docks + 1] = p.transport .. ">" .. p.dest end
 		local inns = {}
-		for _, p in ipairs(P.GetLayer("maps.inns")) do inns[#inns + 1] = { bound = p.bound, glow = p.glow or false, icon = p.icon } end
+		for _, p in ipairs(P.GetLayer("maps.inns")) do inns[#inns + 1] = { bound = p.bound, ring = p.ring ~= nil, glow = p.glow or false, icon = p.icon, size = p.size } end
 		local g = { Polestar.Theme.Color("success") }
 		local a = { Polestar.Theme.Color("warning") }
 		local layer = P.GetLayer("maps.taxi")
@@ -82,14 +82,18 @@ fn pin_layers_come_from_the_travel_data_own_faction_and_neutral_flight_masters_k
 	assert_eq!(
 		out["taxi"],
 		json!([
-			{ "id": 1, "known": true, "icon": "icon-fly", "c": 0, "wx": 0, "wy": 800 },
-			{ "id": 2, "known": false, "icon": "icon-fly", "c": 0, "wx": 0, "wy": -800 },
-			{ "id": 3, "known": false, "icon": "icon-fly", "c": 0, "wx": 600, "wy": 0 },
+			{ "id": 1, "known": true, "icon": "map:flightmaster", "badge": false, "c": 0, "wx": 0, "wy": 800 },
+			{ "id": 2, "known": false, "icon": "map:flightmaster", "badge": "?", "c": 0, "wx": 0, "wy": -800 },
+			{ "id": 3, "known": false, "icon": "map:flightmaster", "badge": "?", "c": 0, "wx": 600, "wy": 0 },
 		]),
 		"the Horde-only Red Fort is left out"
 	);
 	assert_eq!(out["docks"], json!(["boat-west>Far Isle", "boat-west>West Dock"]), "the Horde zeppelin is left out");
-	assert_eq!(out["inns"], json!([{ "bound": true, "glow": true, "icon": "icon-hearth" }, { "bound": false, "glow": false, "icon": "icon-hearth" }]));
+	assert_eq!(
+		out["inns"],
+		json!([{ "bound": true, "ring": true, "glow": false, "icon": "map:inn", "size": 16 }, { "bound": false, "ring": false, "glow": false, "icon": "map:inn", "size": 12 }]),
+		"the bound inn: larger and circled, no glow"
+	);
 	assert_eq!(out["knownColor"], true);
 	assert_eq!(out["unknownColor"], true);
 	assert_eq!(out["minimap"], 0, "minimap travel icons are off by default");

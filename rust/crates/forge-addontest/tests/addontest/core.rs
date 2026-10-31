@@ -243,7 +243,8 @@ fn every_slash_command_is_registered_by_exactly_one_module_a_second_registration
 			if e.file_type().unwrap().is_dir() {
 				walk(&p, root, re, seen);
 			} else if e.file_name().to_string_lossy().ends_with(".lua") {
-				let text = std::fs::read_to_string(&p).unwrap();
+				// The walking maps' parts may hold zlib bytes in their literals (maps format 5): not UTF-8.
+				let text = String::from_utf8_lossy(&std::fs::read(&p).unwrap()).into_owned();
 				for m in re.captures_iter(&text) {
 					let name = m[1].to_lowercase();
 					seen.entry(name).or_default().push(p.strip_prefix(root).unwrap().display().to_string());

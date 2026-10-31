@@ -128,9 +128,12 @@ end
 
 #[cfg(feature = "native")]
 const SANDBOX: &str = r##"
+-- pcall, xpcall and coroutine too: a chunk catching errors could swallow the
+-- time limit's (lua_to_json_within) in a loop and never end.
 local __blocked = { os = true, io = true, load = true, loadfile = true, loadstring = true, dofile = true,
   require = true, module = true, package = true, debug = true, getfenv = true, setfenv = true,
-  getmetatable = true, setmetatable = true, newproxy = true, collectgarbage = true, _G = true, jit = true, ffi = true, bit = true }
+  getmetatable = true, setmetatable = true, newproxy = true, collectgarbage = true, _G = true, jit = true, ffi = true, bit = true,
+  pcall = true, xpcall = true, coroutine = true }
 local function __copy(t) local c = {} for k, v in pairs(t) do c[k] = v end return c end
 local __safe = { table = __copy(table), string = __copy(string), math = __copy(math) }
 local __env = setmetatable({}, {
@@ -197,10 +200,36 @@ end
 /// luaToJson({ expr }) (no files, no prelude): runs `expr` (a chunk body that
 /// returns a value) and JSON-decodes it. The interpreter is PUC Lua 5.1 built
 /// in (mlua, vendored), as the `lua5.1` the JS ran, so tables enumerate in the
-/// same order; the JS 120 s time limit is not applied.
+/// same order. A pack's locale files are untrusted, so the run stops with an
+/// error past LUA_TIME (the JS killed its `lua5.1` after 120 s) or once Lua
+/// holds more than LUA_MEMORY.
 #[cfg(feature = "native")]
 fn lua_to_json(expr: &str) -> Result<V, String> {
+	lua_to_json_within(expr, LUA_TIME, LUA_MEMORY)
+}
+
+/// The longest one read of translation files may run, and the most memory it may hold.
+#[cfg(feature = "native")]
+const LUA_TIME: std::time::Duration = std::time::Duration::from_secs(10);
+#[cfg(feature = "native")]
+const LUA_MEMORY: usize = 256 << 20;
+
+#[cfg(feature = "native")]
+fn lua_to_json_within(expr: &str, time: std::time::Duration, memory: usize) -> Result<V, String> {
 	let lua = mlua::Lua::new();
+	lua.set_memory_limit(memory).map_err(|e| format!("Lua failed: {e}"))?;
+	// Checked every 10,000 instructions, in every coroutine too (a global hook);
+	// past the deadline every check raises, so a chunk catching the error in a
+	// pcall loop still ends.
+	let deadline = std::time::Instant::now() + time;
+	let secs = time.as_secs_f64();
+	lua.set_global_hook(mlua::HookTriggers::new().every_nth_instruction(10_000), move |_, _| {
+		if std::time::Instant::now() > deadline {
+			return Err(mlua::Error::runtime(format!("the translation files took longer than {secs} s to run")));
+		}
+		Ok(mlua::VmState::Continue)
+	})
+	.map_err(|e| format!("Lua failed: {e}"))?;
 	let body = format!("{ENCODER}\n{SANDBOX}\nlocal __value = (function() {expr} end)()\n__polestar_out = __polestar_json(__value)\n");
 	lua.load(&body).set_name("=polestar-lua").exec().map_err(|e| format!("Lua failed: {e}"))?;
 	let out: mlua::String = lua.globals().get("__polestar_out").map_err(|e| format!("Lua failed: {e}"))?;
@@ -776,4 +805,69 @@ pub fn new_locale_text(locale: &str, keys: &[(String, Vec<String>)], fill: &V, r
 		BODY_START.into(),
 	];
 	update_locale_text(&format!("{}\n", head.join("\n")), &format!("Locales/{locale}.lua"), keys, fill, retire)
+}
+
+#[cfg(all(test, feature = "native"))]
+mod tests {
+	use super::*;
+	use std::time::{Duration, Instant};
+
+	/// A locale file holding `src` in a fresh temporary folder.
+	fn hostile(name: &str, src: &str) -> String {
+		let dir = std::env::temp_dir().join(format!("forge-i18n-limits-{}-{name}", std::process::id()));
+		std::fs::create_dir_all(&dir).unwrap();
+		let file = dir.join("deDE.lua");
+		std::fs::write(&file, src).unwrap();
+		file.to_string_lossy().into_owned()
+	}
+
+	/// Loads `src` as a locale file within `time` and `memory`, on a thread so a hook that never
+	/// fires fails the test instead of hanging it. -> (whether the chunk ran clean, its error or the run's).
+	fn load(name: &str, src: &str, time: Duration, memory: usize) -> (bool, String) {
+		let expr = format!("local ok, err = __polestar_loaddata({}) return {{ ok = ok, err = tostring(err) }}", lua_string(&hostile(name, src)));
+		let (tx, rx) = std::sync::mpsc::channel();
+		std::thread::spawn(move || {
+			let _ = tx.send(lua_to_json_within(&expr, time, memory).map(|v| (v.get("ok").truthy(), v.get("err").to_js_string())));
+		});
+		match rx.recv_timeout(Duration::from_secs(30)).expect("the Lua run did not stop") {
+			Ok(r) => r,
+			Err(e) => (false, e),
+		}
+	}
+
+	#[test]
+	fn an_endless_locale_file_stops_at_the_deadline_and_cannot_catch_its_error() {
+		let started = Instant::now();
+		let (ok, err) = load("loop", "while true do end", Duration::from_millis(500), 64 << 20);
+		assert!(!ok);
+		assert!(err.contains("took longer than 0.5 s"), "{err}");
+		assert!(started.elapsed() < Duration::from_secs(10), "{:?}", started.elapsed());
+		// Catching the limit's error to loop on: neither pcall, xpcall nor a coroutine is there.
+		for (name, src) in [
+			("pcall", "while true do pcall(function() while true do end end) end"),
+			("xpcall", "while true do xpcall(function() while true do end end, print) end"),
+			("coroutine", "while true do coroutine.resume(coroutine.create(function() while true do end end)) end"),
+		] {
+			let started = Instant::now();
+			let (ok, err) = load(name, src, Duration::from_millis(500), 64 << 20);
+			assert!(!ok, "{name}");
+			assert!(err.contains(&format!("global '{name}' (a nil value)")), "{name}: {err}");
+			assert!(started.elapsed() < Duration::from_secs(10), "{name}: {:?}", started.elapsed());
+		}
+	}
+
+	#[test]
+	fn a_locale_file_filling_memory_stops_at_the_limit() {
+		let (ok, err) = load("memory", "local t = {} for i = 1, 1e9 do t[i] = ('x'):rep(1e6) .. i end", Duration::from_secs(10), 64 << 20);
+		assert!(!ok);
+		assert!(err.contains("memory"), "{err}");
+	}
+
+	#[test]
+	fn read_locale_files_applies_the_memory_limit() {
+		let file = hostile("read", "local t = {} for i = 1, 1e9 do t[i] = ('x'):rep(1e6) .. i end");
+		let r = read_locale_files(&[(file, "deDE".into())]).unwrap();
+		assert!(!r[0].ok);
+		assert!(r[0].error.as_deref().unwrap_or("").contains("memory"), "{:?}", r[0].error);
+	}
 }

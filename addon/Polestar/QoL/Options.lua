@@ -56,7 +56,7 @@ register(QUESTING, L["Buttons"], L["Action buttons"], {
 		help = L["Scale of the quest item, Hearthstone, target and rare buttons. Drag one to move them all."] },
 	{ kind = "dropdown", key = "qol.buttonTextSide", label = L["Target name position"], help = L["Where the target's name shows around the target button: right, left, above or below."],
 		choices = { { value = "right", label = L["Right"] }, { value = "left", label = L["Left"] }, { value = "above", label = L["Above"] }, { value = "below", label = L["Below"] } } },
-	{ kind = "button", label = L["Reset button positions"], help = L["Put the buttons back in their default spot."],
+	{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset button positions"], help = L["Put the buttons back in their default spot."],
 		onClick = function() if QoL.Buttons then QoL.Buttons.ResetPositions() end end },
 })
 
@@ -128,7 +128,7 @@ register(QOL, L["Vendors"], L["Merchants"], {
 		help = help("sellJunk", L["Sells Poor-quality items when a merchant opens and prints the total. Never sells anything else."]) },
 	{ kind = "toggle", key = "qol.autoRepair", label = L["Repair"],
 		help = help("autoRepair", L["Repairs all gear at merchants who can, when you can afford it. Hold Shift to skip."]) },
-	{ kind = "toggle", key = "qol.repairGuild", label = L["Guild bank first"], disabled = repairOff,
+	{ kind = "toggle", key = "qol.repairGuild", label = L["Guild bank first"], disabled = repairOff, child = true,
 		help = help("repairGuild", L["When your guild rank may, the guild bank pays for repairs and your money covers the rest."]) },
 	{ kind = "toggle", key = "qol.buyGoals", label = L["Buy for the guide"],
 		help = L["When the step asks you to buy something and the merchant sells it, buys what you still need after selling and repairing. Optional buys and anything over 50g are left to you. Hold Shift to skip."] },
@@ -146,6 +146,6 @@ register(QOL, L["Trackers"], L["Experience"], {
 		help = L["XP per hour, time, kills and quests to level, and level splits (/pole xp)."] },
 	{ kind = "toggle", key = "qol.xpTargetMark", label = L["Guide level on the XP bar"],
 		help = L["A mark at the end of the game's XP bar with the level the guide wants you to reach before it moves on, and how many levels away that is when it is more than one."] },
-	{ kind = "button", label = L["Reset session"], help = L["Start this session's XP per hour from zero."],
+	{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset session"], help = L["Start this session's XP per hour from zero."],
 		onClick = function() if QoL.XP then QoL.XP.ResetSession() end end },
 })

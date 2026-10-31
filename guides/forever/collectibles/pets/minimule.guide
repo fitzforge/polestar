@@ -16,13 +16,13 @@ zone Redridge Mountains
 step Azeroth Commerce Authority
   only Alliance
   zone Redridge Mountains
-  tip The Alliance camp is at Three Corners in western Redridge Mountains. Loot supply crates in the world, fill them and hand them in to Marcy Baker for Merchant's Favor (5-20 a crate); the treat costs 1,500.
+  tip The Alliance camp is at Three Corners in western Redridge Mountains. Loot supply crates in the world, fill them and hand them in to Marcy Baker for Merchant's Favor (5-20 a crate); the treat costs 1,500. By beta reports Tamelyn Aldridge sells it only once you are Revered with the Azeroth Commerce Authority: the Supply Factions Reputation guide gets you there.
   vendor 256389 "Tamelyn Aldridge" @10.6,71.3 live
   buy 284664 "Packmule Treat" npc 256389 @10.6,71.3 live -- 1,500 Merchant's Favor
 
 step Durotar Supply and Logistics
   only Horde
   zone The Barrens
-  tip The Horde camp is just outside the Crossroads. Loot supply crates in the world, fill them and hand them in at the camp for Merchant's Favor; the treat costs 1,500. (Another Gishah stands in the Undercity; this is the one at the camp.)
+  tip The Horde camp is just outside the Crossroads. Loot supply crates in the world, fill them and hand them in at the camp for Merchant's Favor; the treat costs 1,500. By beta reports Gishah sells it only once you are Revered with Durotar Supply and Logistics: the Supply Factions Reputation guide gets you there. (Another Gishah stands in the Undercity; this is the one at the camp.)
   vendor 256384 "Gishah" @49.4,29.4
   buy 284664 "Packmule Treat" npc 256384 @49.4,29.4 -- 1,500 Merchant's Favor

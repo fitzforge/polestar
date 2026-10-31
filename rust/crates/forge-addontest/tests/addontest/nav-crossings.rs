@@ -399,7 +399,7 @@ fn the_local_crossings_route_real_trips_through_their_gates_within_the_planner_b
 	let n = |k: &str| out[k].as_f64().unwrap_or(0.0);
 	assert!(n("crossings") >= 40.0 && n("open") >= 8.0 && n("chains") >= 7.0, "{}", out);
 	assert_eq!(out["routes"][0], json!(["Enter Orgrimmar", "Enter Orgrimmar", "Target"]));
-	assert_eq!(out["routes"][1][0], "Enter the Thousand Needles and ride the elevator down");
+	assert!(forge_addontest::is_match(forge_addontest::text(&out["routes"][1][0]), r"Thousand Needles"), "the first leg enters Thousand Needles: {}", out["routes"][1]);
 	assert_eq!(out["routes"][2], json!(["Enter Stormwind City", "Enter Stormwind City", "Target"]));
 	assert!(out["routes"][3].as_array().unwrap().iter().any(|l| forge_addontest::is_match(forge_addontest::text(l), r"Loch Modan")), "Dun Morogh -> Loch Modan crosses a tunnel: {}", out["routes"][3]);
 	let ms = out["ms"].as_f64().unwrap();

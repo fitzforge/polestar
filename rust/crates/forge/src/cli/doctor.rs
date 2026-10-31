@@ -212,12 +212,15 @@ pub fn main() -> ExitCode {
 	}
 
 	println!("Walks");
-	let leffe = forge::find_leffe(val("--leffe").map(abs).as_deref(), pack_dir.as_deref());
-	match &leffe {
-		Some(l) => line(true, "Leffe's maps", &l.display().to_string()),
-		None => {
-			note("Leffe's maps", "not found: walks are priced on our grid alone");
-			fix("--leffe <dir> or POLESTAR_LEFFE_NAV=<dir>");
+	let leffe = forge::find_leffe(val("--leffe").map(abs).as_deref());
+	// His maps are private; the data pack carries the walks they answered (its Leffe walk stores).
+	let saved = pack_dir.as_deref().is_some_and(|d| ["horde", "alliance"].iter().all(|f| d.join("walks").join(format!("store-leffe-{f}.psbn")).is_file()));
+	match (&leffe, saved) {
+		(Some(l), _) => line(true, "Leffe's maps", &l.display().to_string()),
+		(None, true) => line(true, "Leffe's saved walks", "in the data pack (his maps are private): walks they lack are priced on our grid"),
+		(None, false) => {
+			note("Leffe's saved walks", "not found: walks are priced on our grid alone");
+			fix("forge data fetch (the data pack carries the walks on Leffe's maps)");
 		}
 	}
 	let given = val("--grid").map(abs).or_else(|| std::env::var_os("POLESTAR_GRID").map(PathBuf::from));
@@ -247,7 +250,15 @@ pub fn main() -> ExitCode {
 			}
 		}
 	}
-	line(true, "walks backend", if leffe.is_some() { "hybrid (Leffe's maps first, our grid where they have no way)" } else { "grid" });
+	line(
+		true,
+		"walks backend",
+		match (&leffe, saved) {
+			(Some(_), _) => "hybrid (Leffe's maps first, our grid where they have no way)",
+			(None, true) => "hybrid (Leffe's saved walks first, our grid for the rest)",
+			(None, false) => "grid",
+		},
+	);
 
 	println!();
 	if ready {

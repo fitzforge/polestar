@@ -16,11 +16,12 @@ default-members = [
 	"crates/forge-sim",
 	"crates/forge-world",
 	"crates/forge-writer",
+	"crates/polestar-recording",
 ]
 resolver = "2"
 
 [workspace.package]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "GPL-3.0-only"
 rust-version = "1.87"

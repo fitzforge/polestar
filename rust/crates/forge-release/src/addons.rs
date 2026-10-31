@@ -28,14 +28,20 @@ fn has_toc(addons: &Path, name: &str) -> bool {
 	addons.join(name).join(format!("{name}.toc")).exists()
 }
 
-/// The release's folders: the three always shipped, our guides' faction parts and race parts once
-/// built, then the data addons that are built (our guides' texts are in the language folders).
+/// The walking maps' part addons, shipped when `forge nav pack --leffe` wrote them (each continent's maps of
+/// Leffe's, loaded on demand by Polestar_Nav's router).
+pub const NAV_PARTS: [&str; 2] = ["Polestar_Nav_EK", "Polestar_Nav_Kalimdor"];
+
+/// The release's folders: the three always shipped, the walking maps' part addons when written, our guides'
+/// faction parts and race parts once built, then the data addons that are built (our guides' texts are in the
+/// language folders).
 pub fn release_addons(addons: &Path) -> Release {
 	let guides = forge_guide::project::OWN_FOLDER;
 	let factions = forge_guide::project::FACTION_PARTS.iter().map(|f| forge_guide::project::part_addon(guides, f));
 	let parts = forge_guide::races::RACE_FILES.iter().map(|r| forge_guide::project::part_addon(guides, r));
 	let (data, skipped): (Vec<String>, Vec<String>) = data_addons().into_iter().partition(|n| has_toc(addons, n));
 	let mut names: Vec<String> = RELEASE_ADDONS.iter().map(|s| s.to_string()).collect();
+	names.extend(NAV_PARTS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(factions.chain(parts).filter(|n| has_toc(addons, n)));
 	names.extend(data);
 	Release { names, skipped }

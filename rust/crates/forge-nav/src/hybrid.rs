@@ -2,8 +2,9 @@
 //! Two walks documents of one world (the grid's and Leffe's, each built from its own store) are merged walk by
 //! walk: Leffe's answer is taken when it exists and costs at most `slack` × the grid's (both cost models price a
 //! yard alike: seconds × the same ground, hub and danger multipliers, ~1.02-1.05 per yard on the acceptance walks);
-//! else the grid's (his pack has no lift arcs and leaves some city parts unjoined, so his way there is a detour or
-//! none). Every walk records which backend answered (counts in the stats; the base walks' list in `backend`).
+//! else the grid's (his maps leave some city parts unjoined, and without Leffe's lift layer beside them they have no
+//! lifts, so his way there is a detour or none). Every walk records which backend answered (counts in the stats; the
+//! base walks' list in `backend`).
 
 use crate::lookup::WalksDoc;
 use crate::walkdoc::Doc;

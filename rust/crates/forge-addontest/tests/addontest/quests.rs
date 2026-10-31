@@ -148,7 +148,15 @@ emit(kinds("quests.available"))
 	assert_eq!(out[2], json!([10]), "everything else is grey at level 10");
 	assert_eq!(out[3], json!([7, 10, 16, 18, 33, 60]));
 	assert_eq!(out[4], json!(["eligibility", "eligibility", "eligibility", "eligibility", "exclusive", "prerequisite"]));
-	assert_eq!(out[5], json!(["Eagan Peltskinner@48.9,40.2:icon-accept", "Marshal McBride@48.9,41.6:icon-accept", "Wanted Poster@50,50:icon-accept", "William Pestle@43.3,65.7:icon-accept",]));
+	assert_eq!(
+		out[5],
+		json!([
+			"Eagan Peltskinner@48.9,40.2:map:quest-available",
+			"Marshal McBride@48.9,41.6:map:quest-available",
+			"Wanted Poster@50,50:map:quest-available",
+			"William Pestle@43.3,65.7:map:quest-available",
+		])
+	);
 }
 
 #[test]
@@ -301,12 +309,12 @@ emit({ sq.pins.layers["quests.objectives"] == nil, sq.pins.layers["quests.turnin
 "#,
 		"w.complete({ 783 })",
 	);
-	assert_eq!(out[0], json!(["Kobold Vermin@47.8,35.8:icon-skull", "Kobold Vermin@50.3,35.8:icon-skull", "Kobold Vermin@70.3,70.2:icon-skull"]));
+	assert_eq!(out[0], json!(["Kobold Vermin@47.8,35.8:map:kill", "Kobold Vermin@50.3,35.8:map:kill", "Kobold Vermin@70.3,70.2:map:kill"]));
 	assert_eq!(out[1], json!(["Kobold Vermin", "Kobold Camp Cleanup", "  Kobold Vermin: 0/10"]));
 	assert_eq!(out[2], json!(["Kobold Vermin", "Kobold Camp Cleanup", "  Kobold Vermin: 4/10"]));
 	let ready = &out[3];
 	assert_eq!(ready[0], json!({}), "no objective markers once complete");
-	assert_eq!(ready[1], json!(["Marshal McBride@48.9,41.6:icon-turnin"]));
+	assert_eq!(ready[1], json!(["Marshal McBride@48.9,41.6:map:quest-turnin"]));
 	assert_eq!(ready[2], json!({ "world": true, "minimap": true, "edge": false, "scale": 1 }));
 	assert_eq!(out[4], json!([true, true]));
 }
@@ -389,7 +397,7 @@ emit({ prog(9500, 6), prog(9500, 9500) })
 	assert_eq!(exact[1], "5/5 done");
 	assert_eq!(
 		exact[2],
-		json!(["Kobold Vermin@47.8,35.8:icon-skull", "Kobold Vermin@50.3,35.8:icon-skull", "Kobold Vermin@70.3,70.2:icon-skull"]),
+		json!(["Kobold Vermin@47.8,35.8:map:kill", "Kobold Vermin@50.3,35.8:map:kill", "Kobold Vermin@70.3,70.2:map:kill"]),
 		"the unfinished objective keeps its markers; the finished Runts have none"
 	);
 	assert_eq!(out[1], json!(["4/8", "5/5 done"]), "repeated scans keep the assignment");
@@ -541,12 +549,12 @@ emit(#Q.GetMarkers(1429, "objectives"))
 		"w.complete({ 783 }); w.setLevel(4)",
 	);
 	// Kobold Vermin is killed for 7 and drops candles for 60: one pin per
-	// cluster with both objectives, under the kill glyph (the higher rank).
+	// cluster with both objectives, under the kill glyph (the higher rank than loot).
 	assert_eq!(
 		out[0],
-		json!(["Candle Crate:gear:1", "Kobold Miner:icon-skull:1", "Kobold Vermin:icon-skull:2", "Kobold Vermin:icon-skull:2", "Kobold Vermin:icon-skull:2", "William Pestle:icon-vendor:1",])
+		json!(["Candle Crate:map:use:1", "Kobold Miner:map:loot:1", "Kobold Vermin:map:kill:2", "Kobold Vermin:map:kill:2", "Kobold Vermin:map:kill:2", "William Pestle:map:vendor:1",])
 	);
-	assert_eq!(out[1], json!(["Bundle of Wood@30.2,30.1:gear", "Gathering Wood@40.5,70.3:icon-explore"]));
+	assert_eq!(out[1], json!(["Bundle of Wood@30.2,30.1:map:use", "Gathering Wood@40.5,70.3:map:explore"]));
 	assert_eq!(out[2], 2);
 }
 
@@ -577,8 +585,8 @@ end
 "#,
 		"w.complete({ 783 }); w.setLevel(4)",
 	);
-	assert_eq!(out[0], json!(["icon-skull:2", "icon-skull:2", "icon-skull:2"]));
-	assert_eq!(out[1], json!(["icon-skull:1", "icon-skull:1", "icon-skull:1"]), "the skull glyph stays for NPC candle drops; the done kill quest is gone");
+	assert_eq!(out[0], json!(["map:kill:2", "map:kill:2", "map:kill:2"]));
+	assert_eq!(out[1], json!(["map:loot:1", "map:loot:1", "map:loot:1"]), "the loot glyph for NPC candle drops; the done kill quest is gone");
 	let tip = arr(&out[2]);
 	let any = |s: &str| tip.iter().any(|l| l.as_str().is_some_and(|l| l.contains(s)));
 	assert!(any("Kobold Candles") && !any("Kobold Camp Cleanup"), "{}", out[2]);
@@ -1109,7 +1117,7 @@ local function look(name)
 	local out = {}
 	for _, p in ipairs(layer(name)) do
 		local accent = Q.Color("accent")
-		out[#out + 1] = { h = p.header, area = p.area and true or false, radius = p.radius, ring = p.ring == accent, back = p.backdrop == true,
+		out[#out + 1] = { h = p.header, area = p.area and true or false, radius = p.radius, ring = p.ring == accent, mark = p.icon:sub(1, 4) == "map:",
 			size = p.size, mini = p.minimapSize, a = p.color[4], focus = p.focus or "none" }
 	end
 	table.sort(out, function(a, b) if a.h ~= b.h then return a.h < b.h end return (a.radius or 0) < (b.radius or 0) end)
@@ -1143,8 +1151,8 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 	// Kobold Vermin: two camps spread over yards (areas), one tight pair (none).
 	assert_eq!(areas.len(), 3);
 	assert!(
-		areas.iter().all(|p| p["h"] == "Kobold Vermin" && p["focus"] == "none" && !ring(p) && truthy(&p["back"]) && num(p, "size") == Some(kill) && num(p, "mini") == Some(kill_mini)),
-		"glyph on its dark disc, 16 px on the world map, 14 on the minimap"
+		areas.iter().all(|p| p["h"] == "Kobold Vermin" && p["focus"] == "none" && !ring(p) && truthy(&p["mark"]) && num(p, "size") == Some(kill) && num(p, "mini") == Some(kill_mini)),
+		"a map mark (glyph in its medallion), 16 px on the world map, 14 on the minimap"
 	);
 	assert!(areas.iter().filter(|p| truthy(&p["area"])).count() >= 1, "spread clusters get an area");
 	assert!(areas.iter().all(|p| truthy(&p["area"]) == !p["radius"].is_null()), "area only where the cluster radius reaches MIN_AREA");
@@ -1161,7 +1169,7 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 	let (off0, off1) = (list(&off[0]), list(&off[1]));
 	assert!(!d_avail.is_empty() && off0.len() == 3 && !off1.is_empty());
 	assert!(d_obj.iter().all(|p| p["focus"] == "focus" && num(p, "a") == Some(1.0)));
-	assert!(d_turn.iter().all(|p| p["focus"] == "dim" && truthy(&p["back"]) && num(p, "a").is_some_and(|a| (a - 0.6).abs() < 1e-9)), "qol.guideDim: everything else recedes to 0.6");
+	assert!(d_turn.iter().all(|p| p["focus"] == "dim" && truthy(&p["mark"]) && num(p, "a").is_some_and(|a| (a - 0.6).abs() < 1e-9)), "qol.guideDim: everything else recedes to 0.6");
 	assert!(d_avail.iter().all(|p| p["focus"] == "dim"));
 	assert!(off0.iter().all(|p| p["focus"] == "none" && !ring(p)) && off1.iter().all(|p| p["focus"] == "none" && num(p, "a") == Some(1.0)), "no guide: plain look");
 	assert_eq!(out[5], true, "qol.turnInMarkers off clears the turn-in layer");

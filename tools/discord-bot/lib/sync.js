@@ -24,8 +24,30 @@ function safeName(name) {
 	return String(name || 'file').replace(/[^\w.-]+/g, '_').slice(-80);
 }
 
-function createSync({ discord, github, media, config, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)) }) {
+// At most `limit` uses per key in any `windowMs`: take(key) is true when one is left.
+function rateLimit(limit, windowMs, now) {
+	const uses = new Map();
+	return function take(key) {
+		const t = now();
+		const recent = (uses.get(key) || []).filter((at) => t - at < windowMs);
+		if (recent.length >= limit) {
+			uses.set(key, recent);
+			return false;
+		}
+		recent.push(t);
+		uses.set(key, recent);
+		return true;
+	};
+}
+
+const HOUR = 60 * 60 * 1000;
+// Per Discord user: new reports, and follow-ups and edits, an hour.
+const LIMITS = { posts: 3, followUps: 20 };
+
+function createSync({ discord, github, media, config, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now }) {
 	const { forumId, since = null } = config;
+	const takePost = rateLimit(LIMITS.posts, HOUR, now);
+	const takeFollowUp = rateLimit(LIMITS.followUps, HOUR, now);
 	const repo = github.repo;
 	const issues = new Map(); // thread id -> issue number
 	const threads = new Map(); // channel id -> channel (threads, and others as { id, parent_id: null })
@@ -106,13 +128,15 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		return author.global_name || author.username;
 	}
 
-	// The message's attachments: images copied to the media branch, the rest linked.
-	async function files(guild, threadId, message) {
+	// The message's attachments: images copied to the media branch, the rest
+	// linked. Only the thread owner's are copied (`copy`); everyone else's
+	// are linked on Discord.
+	async function files(guild, threadId, message, copy) {
 		const out = [];
 		for (const a of message.attachments || []) {
 			const image = /^image\//.test(a.content_type || '');
 			let url = null;
-			if (image) {
+			if (image && copy) {
 				try {
 					url = await media.copy(`discord/${threadId}/${a.id}-${safeName(a.filename)}`, a, `Media: screenshot from Discord thread ${threadId}`);
 				} catch (err) {
@@ -141,7 +165,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			guild: thread.guild_id,
 			thread: thread.id,
 			tags: tagNames,
-			files: await files(thread.guild_id, thread.id, message),
+			files: await files(thread.guild_id, thread.id, message, message.author && message.author.id === thread.owner_id),
 		};
 	}
 
@@ -161,6 +185,10 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			if (await issueFor(threadId)) return null;
 			const message = await starter(threadId);
 			if (!message || message.author.bot) return null;
+			if (!takePost(message.author.id)) {
+				log.warn(`${threadId}: ${message.author.id} filed ${LIMITS.posts} reports this hour, not filed`);
+				return null;
+			}
 
 			const post = await postFor(thread, message);
 			const labels = I.labelsFor(post.report, post.tags);
@@ -190,10 +218,14 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			const n = await issueFor(thread.id);
 			if (!n) return null;
 			const report = parseReport(I.discordToText(m.content, m.mentions));
-			const f = await files(thread.guild_id, thread.id, m);
-			if (!report.description && !report.details && !f.length) return null;
-			const author = await displayName(thread.guild_id, m.author, m.member);
+			if (!report.description && !report.details && !(m.attachments || []).length) return null;
+			if (!takeFollowUp(m.author.id)) {
+				log.warn(`#${n}: ${m.author.id} sent ${LIMITS.followUps} follow-ups this hour, ${m.id} not copied`);
+				return null;
+			}
 			const reporter = m.author.id === thread.owner_id;
+			const f = await files(thread.guild_id, thread.id, m, reporter);
+			const author = await displayName(thread.guild_id, m.author, m.member);
 			await github.comment(n, I.followUpComment({ report, author, reporter, guild: thread.guild_id, thread: thread.id, message: m.id, files: f }));
 			log.info(`#${n}: added ${author}'s follow-up ${m.id}`);
 			return n;
@@ -211,6 +243,10 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			if (!n) return null;
 			const message = await discord.getMessage(m.id, m.id);
 			if (seen.get(m.id) === signature(message)) return null;
+			if (!takeFollowUp(message.author.id)) {
+				log.warn(`#${n}: ${message.author.id} edited too often this hour, edit not copied`);
+				return null;
+			}
 			const fresh = await getThread(m.id, true);
 			await github.updateIssue(n, { body: I.issueBody(await postFor(fresh, message)) });
 			seen.set(m.id, signature(message));
@@ -249,7 +285,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	// Issues the bot filed before, read back from their markers.
 	async function loadIndex() {
 		for (const issue of await github.issuesLabelled('discord', { max: 1000 })) {
-			const mk = I.readMarker(issue.body);
+			const mk = I.issueMarker(issue);
 			if (mk && !issues.has(mk.thread)) issues.set(mk.thread, issue.number);
 		}
 		log.info(`index: ${issues.size} issues already filed from Discord`);

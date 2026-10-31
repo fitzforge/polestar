@@ -16,7 +16,7 @@ other command runs as `node tools/polestar.js <command>` (or `polestar
 <command>` after `npm link`).
 
 Some commands also need a Lua 5.1 interpreter (`play`, `playtest`,
-`record import`, `travel route`); `node tools/polestar.js doctor` checks what
+`travel route`); `node tools/polestar.js doctor` checks what
 is installed. The contract the tools write to is in
 [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md), "Toolchain".
 
@@ -44,7 +44,7 @@ is installed. The contract the tools write to is in
 | `guidecheck` | Moved to forge: `forge guide check <dir>` reads written guides as a player would and gives a repair for each line that lacks what it needs (`--fix` writes them); `polestar guidecheck` prints the forge command and exits 2 |
 | `find` | Looks up quests, NPCs, objects, items, inns, flight points and guides, printed as guide lines |
 | `draft` | Drafts a leveling route (`.guide`) from the reference data |
-| `record` | Recorder sessions: `import`, `watch`, `list`, `draft` a guide from one, `report` on recorded play |
+| `record` | Recorded sessions (from `forge record import` / `forge record pull`): `list`, `draft` a guide from one, `trail`, `report` on recorded play |
 | `sim` | `sim compare`: score a pack's or Polestar's chain under the earlier JS route model; every other `sim` subcommand was retired for Forge (`forge sim`, `forge walks`, `forge build`; [docs/FORGE.md](../docs/FORGE.md)) and prints its replacement ([docs/legacy/SIMULATION-js.md](../docs/legacy/SIMULATION-js.md)) |
 
 ### Building data
@@ -79,7 +79,7 @@ command and exit 2.
 | `nav pack` / `nav check` | Moved to forge: `forge nav pack` writes Polestar's walking maps into `addon/Polestar_Nav`, `forge nav check` holds them to `PACK.json`; see [docs/forge/nav.md](../docs/forge/nav.md#the-walking-maps-forge-nav-pack-forge-nav-check) |
 | `nav eval` | The walking router run standalone on a folder's maps (`--nav`, default `addon/Polestar_Nav`): the route corpus with each route's metrics and expectations, `--sweep` the guide goals per zone and side, `--baseline` another folder or report with the acceptance checks A1-A8, `--style fastest\|balanced\|roads` (default balanced) the route style every search is priced in (the summary line names it), `--out` the whole report |
 | `media` | Regenerates the addon's textures from `tools/media/*.js` |
-| `readme brand` / `readme charts` | Redraws the README's art: the banners, emblem, logo, download and CurseForge buttons and the CurseForge avatar / the route charts (needs `data/sim`); both also export the CurseForge listing's PNGs when `rsvg-convert` is installed |
+| `readme brand` / `readme charts` | Redraws the README's art: the banners, emblem, logo, download, CurseForge and Polestar Client buttons and the CurseForge avatar / the route charts (needs `data/sim`); both also export the CurseForge listing's PNGs when `rsvg-convert` is installed |
 
 ### Translating
 
@@ -107,7 +107,7 @@ The release steps are in [docs/RELEASING.md](../docs/RELEASING.md).
 | `preview/` | `preview`'s renderer: a geometry-recording client stub (`stub.lua`), font outlines, SVG drawing, and a zlib encoder of its own for the textures (`deflate.js`), so the renders are byte-identical on any Node |
 | `play/` | The playground: server, Lua session, driver and the page in `play/public` |
 | `planner/` | The route planner: server, workspace (packs, sources, edits, undo, lint), the command registry shared by HTTP, MCP and WebMCP, the MCP bridge, the walk routes on the navigation grid (`navpool.js`: worker pool, route cache, Walkable tiles) and the page in `planner/public` (WebGL2 map in `public/map`) |
-| `readme/` | The README's art, drawn by `readme`: `brand.js` (banners, emblem, logo, download and CurseForge buttons, CurseForge avatar) with the wordmark outlines of `outline.js`, `charts.js` (route charts) and `png.js` (the listing's PNG copies, through `rsvg-convert`) |
+| `readme/` | The README's art, drawn by `readme`: `brand.js` (banners, emblem, logo, download, CurseForge and Polestar Client buttons, CurseForge avatar) with the wordmark outlines of `outline.js`, `charts.js` (route charts) and `png.js` (the listing's PNG copies, through `rsvg-convert`) |
 | `templates/pack/` | What `new` copies into a new pack |
 | `discord-bot/` | The bug bot, a service rather than a command: files the Discord #bugs forum's posts as GitHub issues and tells the threads when a fix opens, and when they are fixed or shipped; lists each issue's pull requests on the issue (`links.js`); setup in [discord-bot/README.md](discord-bot/README.md) |
 
@@ -135,7 +135,7 @@ The release steps are in [docs/RELEASING.md](../docs/RELEASING.md).
 | `playtest.js` | The guide simulator behind `playtest` and `tests/guides.test.js`; `playtest-honest.js` is `playtest --honest` |
 | `professions/` | `profession draft` (and the client-table reader its tests and `exploration` use); `gathering/` is the gathering and secondary profession guide generator behind `profession gathering` |
 | `questdb/` | The spawn clustering the route tools use (`cluster.js`); the database is `forge data questdb` |
-| `recording/` | `record`: import, watch, draft, report |
+| `recording/` | `record`: draft, trail, report |
 | `route/` | `draft`: the first-draft route planner and its geometry and tour helpers |
 | `sim/` | The earlier route model behind `sim compare`, `readme charts` and `lint`'s solo filter: world model, walks reader, evaluation, baselines |
 | `tga.js` | Draws textures in code and writes TGA files |
@@ -184,7 +184,7 @@ or `` Generated by `forge <command>` `` for the files forge writes.
 | `addon/Polestar/Media/Nav/*.tga`, `addon/Polestar/Media/UI/*.tga` | `media` | `tools/media/*.js`, `tools/lib/tga.js`, `tools/media/fonts` (no data) | yes | rerun: the output is byte-identical; CI checks that it builds; `tests/media-refs.test.js` checks the addon names every texture |
 | `docs/preview/*.svg` | `preview` | the addon's Lua (Core, Theme, Nav, Quests, Gear, Maps, QoL, Lookup, Dungeons, Rares, UI), its generated files included; `tests/lua` (the client stubs, `stub_ui.lua`'s sample guides), `tests/fixtures`, among them six compiled Horde guides frozen in `tests/fixtures/preview/guides.lua`; no reference data and not the shipped `addon/Polestar_Guides`, so a guide recompile never changes the renders. `POLESTAR_CLIENT_ART` (with `POLESTAR_DUNGEONS_PACK`) renders local art and data into its own folder, never here | yes | rerun: the output is byte-identical; CI checks that it builds; a full run removes the renders of scenes that are gone |
 | `addon/Polestar/Core/Credits.lua` | `forge release credits` | `data/credits.json`, the repository's merged pull requests (GitHub, `gh` logged in) | yes | rerun before a release |
-| `docs/assets/{banner-dark,banner-light,emblem,logo,download,curseforge,avatar}.svg` | `readme brand` | the emblem geometry, the wordmark fonts, the CurseForge mark | yes | rerun |
+| `docs/assets/{banner-dark,banner-light,emblem,logo,download,curseforge,client,avatar}.svg` | `readme brand` | the emblem geometry, the wordmark fonts, the CurseForge mark | yes | rerun |
 | `docs/curseforge/images/{logo-1024,logo-400,banner,starts,levels}.png` | `readme brand` (all five), `readme charts` (the charts), with `rsvg-convert` (librsvg) installed; without it they print the `rsvg-convert` commands to run | `docs/assets/avatar.svg`, `banner-dark.svg`, `charts/{starts,levels}.svg` | yes | rerun |
 | `docs/assets/charts/{levels,starts}.svg` | `readme charts --draft v0.1.0` | `data/sim`, `guides/`, the guides of the first release (tag `v0.1.0`) | yes | rerun |
 | `data/sim/` | `forge walks world` / `forge walks walks` (world, walks) and `forge sim calibrate` (params.json) | `data/forever` | local | `lint` notes a cached world built from other data and skips its check |
@@ -197,7 +197,7 @@ or `` Generated by `forge <command>` `` for the files forge writes.
 | `data/local/nav/aids.json`, `aids-report.json`, `aids-report.md` (in the `--dir` grid's folder when given) | `nav aids` (`--report` for the report) | the navigation grid, `data/forever` zones, quests, npcs, objects, trainers, travel; the AreaTable of the grid's client build (`data/sources/wago/<build>/`); `guides/`; `data/codex/entrances.json`; the reference `data/local/crossings.json` (compared, never changed) | local, never distributed | `build` in the file names the grid's client build; rerun after `nav build` |
 | `data/local/nav-layers/roads/` (`index.json`, `<c>/<col>_<row>.bin`: one byte per grid column) | `forge nav layers roads` | the Forever client's tex0 ADTs and WDTs (files by fileDataID from wago.tools, cached in `data/sources/casc/`), the Map table, the community listfile (`data/sources/listfile/`), `data/road-textures.json` | local, never distributed | `index.json` records the client build; rerun after a new client build or an allowlist change |
 | `data/local/nav-layers/hubs.json` | `forge nav layers hubs` | CMaNGOS classic-db's `creature` spawns (`spawnz.json`) and `creature_template` rows (kept as `creature_template.json` beside the dump in `data/sources/cmangos/`), the FactionTemplate and AreaTable of the grid's client build (`data/sources/wago/<build>/`), the grid's area ids (`data/local/nav4`) | local, never distributed | the file records the client build and classic-db's revision; rerun after a new client build or grid |
-| `data/recordings/*.json` | `record import` / `record watch` | the Recorder's SavedVariables | local | none |
+| `data/recordings/*.json` (and `raw/<install>/<seq>.txt`, `.pull-state.json`) | `forge record import` / `forge record pull` | the Recorder's SavedVariables, or the recording server's export | local | none |
 | `dist/` | `forge release pack` | `addon/`, `guides/` | local | none |
 
 ## Rebuild order after a data change

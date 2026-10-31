@@ -1,41 +1,35 @@
 'use strict';
-// `record`: Polestar Recorder sessions -> data/recordings -> draft guides.
+// `record`: data/recordings sessions -> draft guides, trails and the route report.
+// The Recorder's files become data/recordings with `forge record import` (this
+// PC's game) or `forge record pull` (the recording server): docs/RECORDING.md.
 
 const fs = require('node:fs');
 const path = require('node:path');
-const {
-	DEFAULT_OUT,
-	defaultWtfDirs,
-	findSavedVariables,
-	importFile,
-	safeName,
-} = require('../lib/recording/import');
-const { watchSavedVariables } = require('../lib/recording/watch');
 const { draftGuide } = require('../lib/recording/draft');
 const { buildReport, formatReport } = require('../lib/recording/report');
 const { trailsOf } = require('../lib/recording/trail');
 const { resolvePack } = require('../lib/pack/locate');
 const { printDiagnostics } = require('../lib/cli');
+const { ROOT } = require('../lib/paths');
+
+const DEFAULT_OUT = path.join(ROOT, 'data', 'recordings');
+const IMPORT_HINT = 'run "forge record import" (or "forge record pull")';
 
 const usage = `usage: node tools/polestar.js record <subcommand> [options]
 
-  import                 Archive and convert the recorder's SavedVariables:
-                         raw copy -> data/recordings/raw/<timestamp>-<account>.lua,
-                         one JSON per session -> data/recordings/<session>.json
-                         (a session already on disk keeps the longer event list);
-                         --anonymize for a file a player sent in: no name or
-                         realm (a hash keys the character), no raw copy
-  watch                  Import again whenever the client rewrites the file
-                         (keeps sessions safe from the cold-start SavedVariables reset)
+Sessions come from the Polestar Recorder through forge (docs/RECORDING.md):
+"forge record import" reads this PC's game, "forge record pull" the recording
+server; both write data/recordings/<session>.json.
+
   draft <session|file>   Write a draft guide from a session key or JSON file
                          to <pack>/drafts/<faction>-<race>-<date>-<time>.guide: the
                          pack is --pack, else the nearest pack.json, else our
                          guides/; another pack's draft id starts with "<pack id>/"
-  list                   List imported sessions
+  list                   List the sessions in data/recordings
   trail <session|file>   The session's position trails (/psrec trail) as JSON:
                          [{ label, start, end, reason, points: [{ t, map, x, y,
-                         wx, wy, wz, facing, speed, mounted, swimming, falling,
-                         indoors, onTaxi }] }], to stdout or --out <file.json>
+                         speed, mounted, swimming, falling, indoors, flying }] }],
+                         to stdout or --out <file.json>
   report                 Measure the guides from recorded play (Polestar + Recorder):
                          per step passes, median/p75 time, XP, XP/hr, combat share,
                          deaths, turn-ins, travel; per guide time, levels, XP/hr;
@@ -43,37 +37,36 @@ const usage = `usage: node tools/polestar.js record <subcommand> [options]
                          time, and detours (far travel for little XP)
 
 options:
-  --sv <file>            SavedVariables file to use (repeatable); skips auto-detection
-  --wtf <dir>            WTF folder to search (default: the detected Forever client's,
-                         e.g. <Wine prefix>/drive_c/Program Files (x86)/World of Warcraft/_forever_/WTF;
-                         POLESTAR_WTF overrides)
-  --out <dir|file>       import/watch/list: recordings folder (default data/recordings);
-                         draft: output .guide file or folder (default <pack>/drafts);
+  --out <dir|file>       draft: output .guide file or folder (default <pack>/drafts);
                          trail: output .json file
   --pack <dir>           draft: the pack the draft belongs to
-  --recordings <dir>     draft/report/trail: where sessions are read (default data/recordings)
-  --interval <ms>        watch: polling interval (default 1000)
+  --recordings <dir>     where sessions are read (default data/recordings)
   --force                draft: overwrite an existing draft
-  --anonymize            import: drop character names and realms (see import)
   --guide <text>         report: only guides whose id or title contains <text>
   --top <n>              report: length of the ranked lists (default 10)
   --json                 report: print the report as JSON`;
 
+// A session file's name for a session key (session keys are file names).
+function safeName(s) {
+	return String(s).replace(/[^\p{L}\p{N}_.-]+/gu, '_').replace(/^\.+/, '_');
+}
+
+// Session files of a recordings folder (config.json and dot files are not sessions).
+function sessionFiles(dir) {
+	return fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.json') && !f.startsWith('.') && f !== 'config.json').sort() : [];
+}
+
 function parse(argv) {
-	const opts = { sv: [], wtf: null, out: null, recordings: null, interval: 1000, force: false, anonymize: false, guide: null, top: 10, json: false, positional: [] };
+	const opts = { out: null, recordings: null, force: false, guide: null, top: 10, json: false, positional: [] };
 	for (let i = 0; i < argv.length; i++) {
 		const a = argv[i];
 		const value = () => {
 			if (i + 1 >= argv.length) throw new Error(`${a} needs a value`);
 			return argv[++i];
 		};
-		if (a === '--sv') opts.sv.push(value());
-		else if (a === '--wtf') opts.wtf = value();
-		else if (a === '--out') opts.out = value();
+		if (a === '--out') opts.out = value();
 		else if (a === '--recordings') opts.recordings = value();
-		else if (a === '--interval') opts.interval = Number(value());
 		else if (a === '--force') opts.force = true;
-		else if (a === '--anonymize') opts.anonymize = true;
 		else if (a === '--pack') opts.pack = value();
 		else if (a === '--guide') opts.guide = value();
 		else if (a === '--top') {
@@ -86,61 +79,9 @@ function parse(argv) {
 	return opts;
 }
 
-function svFiles(opts) {
-	const files = findSavedVariables({ sv: opts.sv, wtf: opts.wtf });
-	if (!files.length) {
-		const searched = opts.wtf ? [opts.wtf] : defaultWtfDirs();
-		console.error(`no Polestar_Recorder SavedVariables found; searched:\n${searched.map((d) => `  ${d}/Account/*/SavedVariables/`).join('\n')}\nUse --sv <file> or --wtf <dir>.`);
-	}
-	return files;
-}
-
 function rel(p) {
 	const r = path.relative(process.cwd(), p);
 	return r && !r.startsWith('..') ? r : p;
-}
-
-function report(result, missing = []) {
-	const by = { new: 0, updated: 0, unchanged: 0 };
-	for (const s of result.sessions) by[s.status]++;
-	console.log(
-		`${result.account}: ${result.sessions.length} session(s) — ${by.new} new, ${by.updated} updated, ${by.unchanged} unchanged; raw ${result.archive.path === null ? 'not kept (anonymized)' : `${result.archive.created ? 'archived to' : 'unchanged at'} ${rel(result.archive.path)}`}`,
-	);
-	for (const s of result.sessions) if (s.status !== 'unchanged') console.log(`  ${s.status.padEnd(7)} ${rel(s.file)} (${s.session.events.length} events)`);
-	if (missing.length) {
-		console.warn(
-			`  warning: ${missing.length} session(s) vanished from the SavedVariables file (cold-start reset?); their JSON is kept: ${missing.join(', ')}`,
-		);
-	}
-}
-
-function doImport(opts) {
-	const files = svFiles(opts);
-	if (!files.length) return 1;
-	const outDir = path.resolve(opts.out || DEFAULT_OUT);
-	for (const file of files) report(importFile(file, { outDir, anonymize: opts.anonymize }));
-	return 0;
-}
-
-function doWatch(opts) {
-	const files = svFiles(opts);
-	if (!files.length) return 1;
-	const outDir = path.resolve(opts.out || DEFAULT_OUT);
-	console.log(`watching ${files.map(rel).join(', ')} (Ctrl+C to stop)`);
-	const watcher = watchSavedVariables(files, {
-		outDir,
-		interval: opts.interval,
-		onImport: report,
-		onError: (err, file) => console.error(`import of ${rel(file)} failed: ${err.message}`),
-	});
-	return new Promise((resolve) => {
-		const stop = () => {
-			watcher.close();
-			resolve(0);
-		};
-		process.once('SIGINT', stop);
-		process.once('SIGTERM', stop);
-	});
 }
 
 function resolveSession(arg, opts) {
@@ -148,7 +89,7 @@ function resolveSession(arg, opts) {
 	const dir = path.resolve(opts.recordings || DEFAULT_OUT);
 	const file = path.join(dir, `${safeName(arg.replace(/\.json$/, ''))}.json`);
 	if (fs.existsSync(file)) return file;
-	throw new Error(`no session "${arg}" (looked for ${rel(file)}); run "record list"`);
+	throw new Error(`no session "${arg}" (looked for ${rel(file)}); run "record list", or ${IMPORT_HINT}`);
 }
 
 function doDraft(opts) {
@@ -180,10 +121,10 @@ function doDraft(opts) {
 }
 
 function doList(opts) {
-	const dir = path.resolve(opts.out || DEFAULT_OUT);
-	const files = fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith('.json')).sort() : [];
+	const dir = path.resolve(opts.recordings || DEFAULT_OUT);
+	const files = sessionFiles(dir);
 	if (!files.length) {
-		console.log(`no sessions in ${rel(dir)}; run "record import"`);
+		console.log(`no sessions in ${rel(dir)}; ${IMPORT_HINT}`);
 		return 0;
 	}
 	for (const f of files) {
@@ -191,7 +132,8 @@ function doList(opts) {
 		const c = s.char || {};
 		const when = typeof s.started === 'number' ? new Date(s.started * 1000).toISOString().replace('T', ' ').slice(0, 16) : '?';
 		const minutes = typeof s.started === 'number' && typeof s.ended === 'number' ? Math.round((s.ended - s.started) / 60) : '?';
-		console.log(`${s.session.padEnd(28)} ${when} UTC  ${String(minutes).padStart(4)} min  ${String(s.events.length).padStart(6)} events  ${c.name || '?'} ${c.race || ''} ${c.class || ''} ${c.faction || ''}`);
+		const who = c.id || s.charId || c.name || '?';
+		console.log(`${s.session.padEnd(28)} ${when} UTC  ${String(minutes).padStart(4)} min  ${String(s.events.length).padStart(6)} events  ${who} ${c.race || ''} ${c.class || ''} ${c.faction || ''}`);
 	}
 	return 0;
 }
@@ -220,7 +162,7 @@ function doTrail(opts) {
 function readSessions(dir) {
 	if (!fs.existsSync(dir)) return [];
 	const out = [];
-	for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json')).sort()) {
+	for (const f of sessionFiles(dir)) {
 		let s;
 		try {
 			s = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
@@ -236,7 +178,7 @@ function doReport(opts) {
 	const dir = path.resolve(opts.recordings || DEFAULT_OUT);
 	const sessions = readSessions(dir);
 	if (!sessions.length) {
-		console.error(`no sessions in ${rel(dir)}; run "record import"`);
+		console.error(`no sessions in ${rel(dir)}; ${IMPORT_HINT}`);
 		return 1;
 	}
 	const report = buildReport(sessions, { guide: opts.guide, top: opts.top });
@@ -251,7 +193,7 @@ function doReport(opts) {
 
 module.exports = {
 	name: 'record',
-	summary: 'Polestar Recorder sessions: import, watch, draft guides, measure routes (report)',
+	summary: 'Recorded sessions (forge record import|pull): draft guides, trails, measure routes (report)',
 	usage,
 	async run(argv) {
 		const [sub, ...rest] = argv;
@@ -265,9 +207,9 @@ module.exports = {
 		try {
 			switch (sub) {
 				case 'import':
-					return doImport(opts);
 				case 'watch':
-					return await doWatch(opts);
+					console.error(`record ${sub} moved to forge: ${IMPORT_HINT} (docs/RECORDING.md)`);
+					return 2;
 				case 'draft':
 					return doDraft(opts);
 				case 'list':

@@ -89,7 +89,8 @@ pub fn parse_image_size(text: &str) -> Option<(f64, f64)> {
 
 /// The file a step's picture names, found in the pack folder: the extension
 /// written, else .tga, then .blp; the name as written, the extension in any
-/// case. -> (absolute path, path relative to the pack folder with `/`) | None.
+/// case. A folder that is a link out of the pack folder holds none.
+/// -> (absolute path, path relative to the pack folder with `/`) | None.
 #[cfg(feature = "native")]
 fn find_image(pack_dir: &Path, path: &str, ext: Option<&str>) -> Option<(String, String)> {
 	let mut parts: Vec<&str> = path.split('/').collect();
@@ -97,6 +98,9 @@ fn find_image(pack_dir: &Path, path: &str, ext: Option<&str>) -> Option<(String,
 	let mut dir = pack_dir.to_path_buf();
 	for p in &parts {
 		dir.push(p);
+	}
+	if !std::fs::canonicalize(&dir).ok()?.starts_with(std::fs::canonicalize(pack_dir).ok()?) {
+		return None;
 	}
 	let rd = std::fs::read_dir(&dir).ok()?;
 	// libuv's scandir sorts the names (strcmp order).

@@ -38,8 +38,8 @@ flowchart LR
     client[("game client")] --> grid
     client --> data
     pack[("data pack or<br/>data/sources<br/>(optional pack)")] --> data
-    leffe[("Leffe's maps<br/>(optional)")] --> walks
-    leffe --> legs
+    leffe[("Leffe's maps (private)<br/>or his saved walks<br/>(data pack)")] --> walks
+    leffe -. "his maps only" .-> legs
     layers[("roads and hubs<br/>(optional)")] --> prepare
     guidesin[("guides/")] --> routes
     grid --> prepare --> world
@@ -54,8 +54,9 @@ flowchart LR
 5. **walks**: how long every walk between those places takes.
 6. **routes**: each start's route, improved from the current guides.
 7. **guides**: the improved route written into the guides.
-8. **legs**: the walk into every step of the written guides, drawn on Leffe's maps (our grid where
-   his have no way or a detour, as the walks stage chooses), kept as its corners with each
+8. **legs**: the walk into every step of the written guides, drawn on Leffe's maps when you have
+   them (our grid where his have no way or a detour, as the walks stage chooses; our grid alone
+   without his maps), kept as its corners with each
    stretch's move and floor and the ground's height every 2 yards, and written beside each start's
    guides as `legs.json` (`legs-qa.txt` lists the walks it left out, and why). Compiling the guides
    puts them into the race parts, and the arrow follows them in game instead of searching
@@ -70,8 +71,7 @@ flowchart LR
 - A checkout of the Polestar repository: Forge reads its `guides/` folder and its tools' data.
 - Memory: about 5 to 6 GB of RAM per faction for the walks stage, at the default 8 threads; lower
   `--threads` on a smaller machine.
-- Disk: several GB for `forge-out/` (the walking grid and the walk stores are the largest parts),
-  plus about 1 GB for Leffe's maps when you use them.
+- Disk: several GB for `forge-out/` (the walking grid and the walk stores are the largest parts).
 - Time: the first build takes a long while, roughly an hour or more (the grid, the walk graphs and
   every walk are built from nothing; [nav.md](forge/nav.md#memory-and-time) has the parts). Later
   builds redo only what changed and take minutes.
@@ -122,6 +122,12 @@ git clone https://github.com/fitzforge/polestar.git
 cd polestar/rust
 cargo build --release -p forge        # the program is rust/target/release/forge
 ```
+
+On Windows, build in the "x64 Native Tools Command Prompt" of the Visual Studio Build Tools (or
+after its `vcvars64.bat`): from Git Bash, Git's own `link` comes before the MSVC linker in `PATH`,
+and the build stops with `link: extra operand`. `forge build` links its stages' folders with
+symbolic links, which Windows allows with Developer Mode on (Settings > System > For developers)
+or from an administrator shell.
 
 Check it runs:
 
@@ -179,7 +185,7 @@ A new Forge may change what a stage writes; the stages it affects run again on t
    | `--guides <folder>` | the guides to start from (default: the checkout's `guides/`, its generated guides read from the seed) |
    | `--checkout <folder>` | the checkout whose fixes the build applies (default: the one above `--guides`, else above here) |
    | `--root <checkout>` | the checkout whose sources to read (default: the nearest folder above here with `data/sources`) |
-   | `--strict` | fail when a fix no longer applies ([Fixing a generated guide](#fixing-a-generated-guide)): for release builds |
+   | `--strict` | for release builds: fail when a fix no longer applies ([Fixing a generated guide](#fixing-a-generated-guide)), and when the walks would be on our grid alone (no Leffe's maps or saved walks). Every report's first line names the walking maps the build used |
 
 5. **Run it again after a change.** Each stage remembers a key of its inputs in
    `forge-out/.forge/`; a stage whose inputs did not change is skipped. Change one guide and only
@@ -253,15 +259,33 @@ Without it, Forge still builds, with fewer quest facts; the report says so.
 
 ## Leffe's navigation maps
 
-Leffe made navigation maps of Azeroth's continents and lets Polestar use them: thank you, Leffe.
-They come with the data pack as their own download, or from `--leffe <folder>` /
-`$POLESTAR_LEFFE_NAV`.
+Leffe made navigation maps of Azeroth's continents and lets Polestar use what they give: thank
+you, Leffe. **His maps are private**: they are not in the repository or the data pack, and only
+people Leffe gives access to have them (`--leffe <folder>` / `$POLESTAR_LEFFE_NAV`).
 
-When they are present, `forge build` prices walks with the **hybrid**: Leffe's maps first, and
-Polestar's own walking grid wherever his maps have no way or a much longer one (lifts, a few city
-parts). Without them, it uses our grid alone. `forge build --nav grid|leffe|hybrid` forces one
-(`POLESTAR_NAV` does the same for `forge walks walks` only). [nav.md](forge/nav.md) explains both
-and when each wins.
+What is shared is the walks his maps answered. The data pack's walk stores hold, for every walk a
+maintainer build asked of his maps, its length and time, plus the zone of each place on his maps
+(numbers, no map geometry). So everyone builds with the **hybrid**: Leffe's walks first, and
+Polestar's own walking grid wherever his maps have no way or a much longer one (a few city parts),
+and wherever the pack holds no walk of his (a place that is new since the pack was built).
+
+| You have | Walks | Legs |
+|---|---|---|
+| his maps | hybrid on his maps | his maps, our grid as the fallback |
+| the data pack, not his maps | hybrid on his saved walks, our grid for the walks they lack | our grid |
+| neither | our grid | our grid |
+
+`forge build --nav grid|leffe|hybrid` forces one (`leffe` needs his maps; `POLESTAR_NAV` does the
+same for `forge walks walks` only). [nav.md](forge/nav.md) explains both and when each wins.
+
+### Building as a contributor
+
+Without his maps your build is close to the maintainers' but not the same: the walks the pack does
+not hold, and every leg, come from our grid. That is fine for checking a change. Send the change
+to the sources (guides, corrections, `data/route-fixes.json`), not the generated guides: the
+maintainers rebuild the guides that ship with his maps after merging, and the report of that
+build is the one that counts. Compare your build with your own build of the same commit without
+your change, not with the shipped guides.
 
 ## Roads and hubs
 
@@ -518,5 +542,6 @@ print the forge command to run):
 Credits: the full credits and licences are in [rust/NOTICE.md](../rust/NOTICE.md) and
 [THIRD_PARTY.md](../THIRD_PARTY.md), both in each release archive, and in the data pack's
 `manifest.json`. Forge's route search adapts ideas from Factoruide (MIT, used with its author's
-permission); Leffe's navigation maps are used with Leffe's permission; EG Link's data is used under
+permission); the walks drawn on Leffe's navigation maps are used and published with Leffe's
+permission (his maps themselves are private); EG Link's data is used under
 CC BY 4.0.

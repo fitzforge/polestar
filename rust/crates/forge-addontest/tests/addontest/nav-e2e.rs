@@ -250,7 +250,7 @@ fn a_polestars_world_frame_is_the_engines_known_unitposition_spots_and_guide_coo
 			local cell = G.cellOf(st, k, n)
 			local cx = st.x0 + (floor(k / st.ny) * st.C + floor(cell / st.C) + 0.5) * st.cs
 			local cy = st.y0 + ((k % st.ny) * st.C + cell % st.C + 0.5) * st.cs
-			return { d = dist(cx, cy, x, y), z = st.z[k][n + 1] }
+			return { d = dist(cx, cy, x, y), z = G.zOf(G.grid(st, k), n) }
 		end
 		local function spot(map, ux, uy, uz)
 			-- UnitPosition -> Polestar's map coordinates -> Polestar's world point -> the engine's node there.
@@ -309,8 +309,10 @@ fn a_polestars_world_frame_is_the_engines_known_unitposition_spots_and_guide_coo
 // of pathing v2: the format 2 path passes within the mouth's radius). This was the Fargodeep Mine's walk until maps
 // format 3: its "mouth" at -9842.4,135.3 lay 30 yd inside the mine on its bottom floor (Bernice's Necklace's chain
 // starts there, indoors, and gives no mouth since 8006432ed), and the guide's 39.5,82.4 (no height) now ends at the
-// mine's lower door, on the ground outside, short of any mouth.
-const MINE_MOUTH: [f64; 3] = [-9178.9, -599.5, 13.0];
+// mine's lower door, on the ground outside, short of any mouth. Since the chokepoints stand on the street, not on the
+// terrain buried under it (forge-nav's top surface under the open sky, 2026-10-25), the mouth is 13 yd further out,
+// 15 yd across.
+const MINE_MOUTH: [f64; 3] = [-9191.3, -604.0, 15.0];
 const IN_THE_MINE: &str = r#"guide(1429, 61.13, 49.28, "Jasperlode Mine")"#;
 
 #[test]
@@ -482,6 +484,58 @@ fn the_arrows_walk_find_answers_before_walk_measures_batch_findmany_gets_any_sli
 	assert_eq!(out["done"], true, "the batch completes after it");
 }
 
+// One continent's walking maps at a time (Fitz, 2026-10-25: 137 MB in the AddOn Memory readout with both of Leffe's
+// continents): a journey to the other continent searches and measures only the walks on the player's own, so only its
+// part of Polestar_Nav loads (Polestar_Nav_EK in Brill); the walk at the far end keeps the planner's straight estimate.
+// The other part loads once the player is there (Nav/Walk.lua canSearch, Path.Resident).
+#[test]
+fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_maps_the_other_part_on_arrival() {
+	skip_unless_ready!();
+	if !addons_dir().join("Polestar_Nav_Kalimdor").is_dir() {
+		eprintln!("skipped: no continent parts (the walking maps are not Leffe's)");
+		return;
+	}
+	let out = run(
+		r#"
+		w.setLevel(20)
+		w.faction = "Horde"
+		local loads, asked = {}, {}
+		local load = C_AddOns.LoadAddOn
+		C_AddOns.LoadAddOn = function(name) loads[#loads + 1] = name return load(name) end
+		for _, name in ipairs({ "FindMany", "FindCoarse", "FindCost" }) do
+			local real = E[name]
+			E[name] = function(map, ...) asked[map] = (asked[map] or 0) + 1 return real(map, ...) end
+		end
+		place(1420, 2249.1, 236.8, 41.3) -- Brill
+		N.SetTarget(1411, 56.31, 75.11, "Sen'jin Village", "e")
+		for _ = 1, 400 do aim() stub.advance(0.05) end
+		local legs, ci = N.GetRoute()
+		local far, finite = 0, true
+		for i = ci or 1, legs and #legs or 0 do
+			local l = legs[i]
+			if l.kind == "walk" and l.from.c == 1 and l.to.c == 1 then far = far + 1 end
+			if l.seconds ~= l.seconds or l.seconds == math.huge then finite = false end
+		end
+		local finds1 = 0
+		for _, rec in ipairs(finds) do if rec.map == 1 then finds1 = finds1 + 1 end end
+		local r = { loads = table.concat(loads, ","), resident1 = E.Resident(1), far = far, finite = finite, finds1 = finds1, asked1 = asked[1] or 0, asked0 = asked[0] or 0 }
+		-- Off the zeppelin at Razor Hill: Kalimdor's part loads with the first walk there.
+		local _, px, py = C.MapToWorld(1411, 51.85, 43.49, "e")
+		place(1411, px, py, 11.7)
+		for _ = 1, 200 do aim() stub.advance(0.05) end
+		r.arrived = { loads = table.concat(loads, ","), resident1 = E.Resident(1) }
+		emit(r)"#,
+		false,
+	);
+	assert_eq!(out["loads"], "Polestar_Nav_EK", "in Brill only the Eastern Kingdoms' part loads");
+	assert_eq!(out["resident1"], false);
+	assert_eq!((f(&out["finds1"]), f(&out["asked1"])), (0.0, 0.0), "nothing is searched or measured on Kalimdor from Brill");
+	assert!(f(&out["asked0"]) > 0.0, "the walks on the Eastern Kingdoms are");
+	assert!(f(&out["far"]) >= 1.0 && out["finite"] == true, "the walk on Kalimdor stays in the journey, timed by its estimate");
+	assert_eq!(out["arrived"]["loads"], "Polestar_Nav_EK,Polestar_Nav_Kalimdor", "Kalimdor's part loads on arrival");
+	assert_eq!(out["arrived"]["resident1"], true);
+}
+
 // Forever's client answers UnitPosition with a height of exactly 0 (reported from Ratchet's flight master,
 // 2026-10-16, where the ground is at 12 yd). Taken as real, the search started on the nearest surface within 10 yd
 // of 0, 20 yd down the slope towards the harbour, and the line went there and back.
@@ -591,14 +645,21 @@ fn d_30_yards_off_the_path_asks_once_after_the_2_s_throttle_keeping_the_old_path
 		place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
 		local f = guide()
 		local a, b = f.points[1], f.points[2]
-		-- 40 yd along the first segment, then 35 yd off it, square to it.
+		-- Up to 40 yd along the first segment (at most half of it), then 35 yd off it, square to it, on the side
+		-- farther from the rest of the path.
 		local L = dist(a.x, a.y, b.x, b.y)
 		local ux, uy = (b.x - a.x) / L, (b.y - a.y) / L
-		local ox, oy = a.x + ux * 40 - uy * 35, a.y + uy * 40 + ux * 35
+		local along = math.min(40, L / 2)
+		local ox, oy = a.x + ux * along - uy * 35, a.y + uy * along + ux * 35
+		local px, py = a.x + ux * along + uy * 35, a.y + uy * along - ux * 35
+		if offPath(f.points, px, py) > offPath(f.points, ox, oy) then
+			ox, oy = px, py
+		end
 		place(1429, ox, oy)
 		r.off = offPath(f.points, ox, oy)
 		local s = aim()
-		r.soon = { finds = #finds, index = indexOf(f, s.x, s.y), since = GetTime() - f.at }
+		local at, gap = alongOf(f, s.x, s.y)
+		r.soon = { finds = #finds, along = at, gap = gap, since = GetTime() - f.at }
 		stub.advance(1)
 		aim()
 		r.stillSoon = #finds
@@ -609,7 +670,8 @@ fn d_30_yards_off_the_path_asks_once_after_the_2_s_throttle_keeping_the_old_path
 		local n = 0
 		while not g.done and n < 100 do stub.advance(0.05); n = n + 1 end
 		s = aim()
-		r.new = { from = dist(g.from[1], g.from[2], ox, oy), index = indexOf(g, s.x, s.y), oldIndex = indexOf(f, s.x, s.y), n = #g.points, gap = GetTime() - f.at }
+		local nat, ngap = alongOf(g, s.x, s.y)
+		r.new = { from = dist(g.from[1], g.from[2], ox, oy), along = nat, gap = ngap, n = #g.points, since = GetTime() - f.at }
 		stub.advance(5)
 		aim()
 		r.settled = #finds
@@ -618,11 +680,11 @@ fn d_30_yards_off_the_path_asks_once_after_the_2_s_throttle_keeping_the_old_path
 	);
 	assert!(f(&out["off"]) > 30.0, "{:.1} yd off the path", f(&out["off"]));
 	assert_eq!(out["soon"]["finds"], 1, "not within 2 s of the last search ({:.2} s)", f(&out["soon"]["since"]));
-	assert!(f(&out["soon"]["index"]) >= 2.0, "the old path is kept meanwhile");
+	assert!(f(&out["soon"]["gap"]) < 0.5, "the old path is kept meanwhile: the arrow aims on it ({})", out["soon"]);
 	assert_eq!(out["stillSoon"], 1);
 	assert_eq!(out["after"], 2, "one new search once 2 s have passed");
 	assert!(f(&out["new"]["from"]) < 0.01, "from where the player stands");
-	assert_eq!(out["new"]["index"], 2, "the arrow aims at the new path's next point");
+	assert!(f(&out["new"]["gap"]) < 0.5 && f(&out["new"]["along"]) > 0.0 && f(&out["new"]["along"]) < 3.0, "the arrow aims along the new path's first stretch ({})", out["new"]);
 	assert_eq!(out["settled"], 2, "on the new path nothing more is asked");
 }
 
@@ -793,6 +855,11 @@ fn the_walking_maps_load_on_demand_only_with_walk_real_paths_on_nav_navrouting_o
 	assert!(f(&on["finds"]) >= 1.0);
 }
 
+// Map 0's part files: in its part addon (maps format 5: Polestar_Nav_EK) or in Polestar_Nav/Nav.
+fn parts_dir() -> PathBuf {
+	forge_nav::pack::part_of(0).map(|p| addons_dir().join(p)).filter(|d| d.is_dir()).unwrap_or_else(nav_dir)
+}
+
 // The part file holding the cluster (ADT tile) of a world point on map 0, and that cluster's index.
 fn cluster_file(wx: f64, wy: f64) -> (i64, Option<String>) {
 	let meta = std::fs::read_to_string(nav_dir().join("Nav0.lua")).unwrap();
@@ -801,9 +868,9 @@ fn cluster_file(wx: f64, wy: f64) -> (i64, Option<String>) {
 	let k = ((wx / t).floor() as i64 - num("cx0")) * num("ny") + ((wy / t).floor() as i64 - num("cy0"));
 	let part = Regex::new(r"^Nav0_\d+\.lua$").unwrap();
 	let needle = format!("data.packed.grid[{}] = ", k + 1);
-	let mut names: Vec<String> = std::fs::read_dir(nav_dir()).unwrap().filter_map(|e| e.ok()).map(|e| e.file_name().to_string_lossy().into_owned()).filter(|n| part.is_match(n)).collect();
+	let mut names: Vec<String> = std::fs::read_dir(parts_dir()).unwrap().filter_map(|e| e.ok()).map(|e| e.file_name().to_string_lossy().into_owned()).filter(|n| part.is_match(n)).collect();
 	names.sort();
-	let file = names.into_iter().find(|n| std::fs::read_to_string(nav_dir().join(n)).unwrap().contains(&needle));
+	let file = names.into_iter().find(|n| String::from_utf8_lossy(&std::fs::read(parts_dir().join(n)).unwrap()).contains(&needle));
 	(k, file)
 }
 
@@ -816,9 +883,13 @@ const STRAIGHT: &str = r#"
 	emit({ state = a.state, toTarget = a.x and dist(a.x, a.y, tx, ty), measured = a.measured, available = E and E.Available(0), points = f and f.points and #f.points or 0, cost = f and f.cost })"#;
 
 fn with_maps(files: &[PathBuf], script: &str) -> Value {
+	with_maps_and(files, "", script)
+}
+
+fn with_maps_and(files: &[PathBuf], extra: &str, script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_encoding.lua", "stub_packs.lua"],
-		before: before(files),
+		before: format!("{}\n{extra}", before(files)),
 		addons: polestar_addons(),
 		login: true,
 		script: format!("{PRELUDE}\n{script}"),
@@ -847,14 +918,23 @@ fn a_corrupted_grid_block_of_the_map_leaves_the_straight_arrow_for_that_walk_wit
 	let file = file.expect("Goldshire's cluster is in one part file");
 	let tmp = TempDir::new("polestar-nav-bad-");
 	let bad = tmp.path().join(&file);
-	let text = std::fs::read_to_string(nav_dir().join(&file)).unwrap();
-	let re = Regex::new(&format!(r"(?m)^data\.packed\.grid\[{}\] = \{{[^}}]*\}}$", k + 1)).unwrap();
-	let broken = re.replace(&text, format!("data.packed.grid[{}] = {{\"bm90IHpsaWI=\"}}", k + 1).as_str()).into_owned();
-	assert_ne!(broken, text);
+	let bytes = std::fs::read(parts_dir().join(&file)).unwrap();
+	// A block that is not zlib: as the metadata's literals carry blocks (zlib bytes, or base64).
+	let zlib = std::fs::read_to_string(nav_dir().join("Nav0.lua")).unwrap().contains("\n\tblocks = \"zlib\",\n");
+	let re = regex::bytes::Regex::new(&format!(r"(?m-u)^data\.packed\.grid\[{}\] = \{{.*\}}$", k + 1)).unwrap();
+	let block = if zlib { "not zlib" } else { "bm90IHpsaWI=" };
+	let broken = re.replace(&bytes, format!("data.packed.grid[{}] = {{\"{block}\"}}", k + 1).as_bytes()).into_owned();
+	assert_ne!(broken, bytes);
 	std::fs::write(&bad, broken).unwrap();
 	let (_ns_tmp, ns) = ns_file();
-	let files: Vec<PathBuf> = nav_files(&ns).into_iter().map(|p| if p.file_name().is_some_and(|n| n.to_string_lossy() == file) { bad.clone() } else { p }).collect();
-	let out = with_maps(&files, STRAIGHT);
+	let swap = |p: PathBuf| if p.file_name().is_some_and(|n| n.to_string_lossy() == file) && p.starts_with(parts_dir()) { bad.clone() } else { p };
+	let out = if parts_dir() == nav_dir() {
+		with_maps(&nav_files(&ns).into_iter().map(swap).collect::<Vec<_>>(), STRAIGHT)
+	} else {
+		let part = forge_nav::pack::part_of(0).unwrap();
+		let list: Vec<String> = toc_files(part).unwrap().into_iter().map(swap).map(|p| lua_string(&p.to_string_lossy())).collect();
+		with_maps_and(&nav_files(&ns), &format!("stub.packs.{part} = {{ {} }}", list.join(", ")), STRAIGHT)
+	};
 	assert_eq!(out["available"], true, "the map is there");
 	assert_eq!(out["points"], 0, "no path through the broken cluster ({})", out["cost"]);
 	assert_eq!(out["state"], "travel");
@@ -1453,7 +1533,8 @@ fn t_234_floor_off_the_undercitys_south_lift_indoors_the_walk_to_the_plundering_
 // Lifts (Fitz, 2026-10-23): the walking grid has no link between a lift's landings, so from the Undercity's lower
 // floor to Brill the walk went out through the sewers. The router joins the landings of Polestar_Nav's lift
 // chokepoints; the way in and out is one fixed chain (crossings.json, undercity-south-lift: Fitz's own walk), from the
-// south lift's bottom landing up through the entrance hall and out of the front, both ways.
+// south lift's bottom landing up through the entrance hall and out of the front, both ways (its three nodes over the
+// Ruins' courtyard and gate since 2026-10-25: three more legs out).
 #[test]
 fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lift_rides_it_up_and_follows_the_fixed_way_out_from_brill_in_the_same_way_down() {
 	skip_unless_ready!();
@@ -1495,6 +1576,9 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 	let want = [
 		"walk|Walk to the lift",
 		"lift|Ride the elevator up",
+		"walk|Follow the path out",
+		"walk|Follow the path out",
+		"walk|Follow the path out",
 		"walk|Follow the path out",
 		"walk|Follow the path out",
 		"walk|Follow the path out",
@@ -1563,6 +1647,47 @@ fn lifts_at_the_trade_quarters_centre_under_the_entrance_hall_the_walk_to_brill_
 	assert!(rides(&walked), "a few steps on the ring: the floor is found and the walk rides a lift up ({})", walked.join(", "));
 }
 
+// Fitz in the Trade Quarter (2026-10-25, the first build on Leffe's maps, 1458 67.1,49.8, 18 yd from the south lift's
+// bottom): the minimap's trail went the short way to the lift, but the arrow said 175 m and pointed backwards. His
+// floor there (-48) took no area of ours within 3 yd, so the client's subzone ("Trade Quarter") named a ledge at 13 and
+// the walk started up there. Within 6 yd it takes the Trade Quarter's (as the floor at -42 does): the followed floor is
+// the city's, and the arrow aims along it to the lift. (Leffe's surface at -47 there is a pocket no walk leaves, so the
+// search from it finds nothing and is asked once more without the height: from the floor at -42, 67 yd.)
+#[test]
+fn lifts_in_the_trade_quarter_by_the_south_lift_the_subzone_names_the_citys_floor_and_the_arrow_aims_along_it_to_the_lift() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(20)
+		w.faction = "Horde"
+		IsIndoors = function() return 1 end
+		w.setZone("Undercity", "Trade Quarter")
+		local c, sx, sy = C.MapToWorld(1458, 67.1, 49.8, "e")
+		place(1458, sx, sy, 0)
+		N.SetTarget(1420, 61.9, 52.3, "Brill")
+		for _ = 1, 400 do aim() stub.advance(0.05) end
+		local legs, ci = N.GetRoute()
+		local f
+		for _, rec in ipairs(finds) do
+			if dist(rec.from[1], rec.from[2], sx, sy) < 3 and rec.done and rec.points then f = rec end
+		end
+		local a = aim()
+		local lx, ly = 1544.8, 240.6 -- the south lift's bottom landing
+		local toward = a.x and ((a.x - sx) * (lx - sx) + (a.y - sy) * (ly - sy)) / (dist(a.x, a.y, sx, sy) * dist(lx, ly, sx, sy)) or false
+		local top = -math.huge
+		for _, p in ipairs(f and f.points or {}) do if p.z then top = math.max(top, p.z) end end
+		emit({ floor = N.walk.Floor(0, sx, sy) or false, first = legs[ci].kind .. "|" .. legs[ci].label, yards = f and floor(length(f.points)) or false, top = top,
+			shown = a.dist and floor(a.dist) or false, toward = toward, lift = floor(dist(sx, sy, lx, ly)) })"#,
+		true,
+	);
+	assert_eq!(out["first"], "walk|Walk to the lift");
+	assert!(out["floor"] != false && f(&out["floor"]) < -40.0, "the followed floor is the city's ({}), not the ledge at 13", out["floor"]);
+	assert!(f(&out["yards"]) < 100.0, "the short way to the lift's door, round its shaft ({} yd, {} straight)", out["yards"], out["lift"]);
+	assert!(f(&out["top"]) < -30.0, "on the city's floor all the way (highest {})", out["top"]);
+	assert!(f(&out["shown"]) < 80.0, "the arrow shows {} yd (175 m in the first build)", out["shown"]);
+	assert!(f(&out["toward"]) > 0.5, "and aims toward the lift (cosine {})", out["toward"]);
+}
+
 // Fitz in the canals (2026-10-23, after 21b658260): by the auction house (1628, 305, z -62 by the server; Forever's
 // client gives no height) and on round the canal ring, the walk to Tirisfal lost its lift at some spots and pointed
 // at the entrance hall's level. Along the ring the canal (-62) and the walkway over it (-45) lie under every step, so
@@ -1624,7 +1749,8 @@ fn lifts_walking_the_undercitys_canal_ring_from_the_auction_house_with_no_height
 // graph, a walk inside one cluster its own path), and no later. Before, a walk from a crossing's far end was hand-made
 // (drawn and walked straight) and the others were searched only after the measure: from Mulgore below Thunder Bluff a
 // straight line across Mulgore and straight segments north along the Stonetalon range. A walk leg drawn with two
-// points is only one the engine's own path walks straight.
+// points is only one the engine's own path walks straight, or one on another continent than the player's while its
+// walking maps are not loaded (they load when the player gets there: one continent's at a time).
 const SHAPES: &str = r#"
 -- The walk legs as drawn when the measure's batch answers (before any later walk's own search may run): label, the
 -- points, and the ends of a two-point one; checked afterwards against the engine's path between those ends.
@@ -1635,11 +1761,13 @@ E.FindMany = function(map, from, targets, callback, ...)
 			atMeasure = {}
 			local g = N.GetRouteGeometry()
 			local legs, ci = N.GetRoute()
+			local pc = C.GetPlayerWorldPosition()
 			for i, l in ipairs(g and g.legs or {}) do
 				local leg = legs and legs[ci + i - 1]
 				if l.kind == "walk" and leg and leg.kind == "walk" then
 					local p = l.pts
-					atMeasure[#atMeasure + 1] = { label = leg.label, n = #p, handmade = leg.handmade or false, ends = #p == 2 and { p[1][1], p[1][2], p[1][3], p[2][2], p[2][3] } or nil }
+					local far = leg.from.c ~= pc and not E.Resident(leg.from.c)
+					atMeasure[#atMeasure + 1] = { label = leg.label, n = #p, handmade = leg.handmade or false, far = far, ends = #p == 2 and not far and { p[1][1], p[1][2], p[1][3], p[2][2], p[2][3] } or nil }
 				end
 			end
 		end
@@ -1657,7 +1785,7 @@ local function shapes(steps)
 			local full = E.FindSync(e[1], { x = e[2], y = e[3] }, { x = e[4], y = e[5] }, { profile = w.faction })
 			engine = full and #full or 0
 		end
-		out[#out + 1] = { label = l.label, n = l.n, handmade = l.handmade, engine = engine }
+		out[#out + 1] = { label = l.label, n = l.n, handmade = l.handmade, engine = engine, far = l.far }
 	end
 	return out
 end
@@ -1673,15 +1801,15 @@ fn check_shapes(legs: &Value, min: usize) {
 				l["label"].as_str().unwrap_or(""),
 				l["n"],
 				if l["engine"].is_null() { String::new() } else { format!(" (engine {})", l["engine"]) },
-				if l["handmade"] == true { " hand-made" } else { "" }
-			))
+				if l["handmade"] == true { " hand-made" } else { "" },
+			) + if l["far"] == true { " (another continent)" } else { "" })
 			.collect::<Vec<_>>()
 			.join("; ")
 	);
 	assert!(legs.len() >= min, "the route walks {} legs", legs.len());
 	for l in &legs {
 		let n = f(&l["n"]);
-		assert!(n > 2.0 || (n == 2.0 && l["engine"].as_f64().is_some_and(|e| e <= 2.0)), "{}: drawn with {n} points while the engine's path has {}", l["label"], l["engine"]);
+		assert!(n > 2.0 || (n == 2.0 && (l["far"] == true || l["engine"].as_f64().is_some_and(|e| e <= 2.0))), "{}: drawn with {n} points while the engine's path has {}", l["label"], l["engine"]);
 	}
 }
 

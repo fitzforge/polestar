@@ -18,9 +18,9 @@ local L = ns.L
 local type, ipairs, lower, format = type, ipairs, string.lower, string.format
 
 local KIND = {
-	boat = { label = L["Boat to %s"], color = "npc" },
-	zeppelin = { label = L["Zeppelin to %s"], color = "place" },
-	tram = { label = L["Deeprun Tram to %s"], color = "object" },
+	boat = { label = L["Boat to %s"], color = "npc", icon = "map:boat" },
+	zeppelin = { label = L["Zeppelin to %s"], color = "place", icon = "map:zeppelin" },
+	tram = { label = L["Deeprun Tram to %s"], color = "object", icon = "map:tram" },
 }
 
 -- Names to show, in the client's language (Nav/Travel.lua: by area and node
@@ -125,18 +125,21 @@ function Maps.BuildTravelPins(o)
 	for _, node in ipairs(data.taxi or {}) do
 		if Maps.Allowed(node.faction, faction) then
 			local isKnown = known[node.id] and true or false
-			local p = pinAt(node, "icon-fly", isKnown and 14 or 15, isKnown and knownCol or unknownCol,
+			local p = pinAt(node, "map:flightmaster", 15, isKnown and knownCol or unknownCol,
 				taxiTooltip(node, data, faction, known), isKnown and 2 or 3)
-			p.nodeID, p.known = node.id, isKnown
+			-- Not yet learned: in the warning colour, with a "?".
+			p.nodeID, p.known, p.badge = node.id, isKnown, not isKnown and "?" or nil
+			p.minimapSize = 14
 			taxi[#taxi + 1] = p
 		end
 	end
 	for _, t in ipairs(data.transports or {}) do
 		if Maps.Allowed(t.faction, faction) then
-			local col = color((KIND[t.kind] or KIND.boat).color)
-			local a = pinAt(t.a, "icon-boat", 15, col, dockTooltip(t, t.a, t.b, t.ab, t.waitB, t.waitA), 1)
+			local kind = KIND[t.kind] or KIND.boat
+			local col = color(kind.color)
+			local a = pinAt(t.a, kind.icon, 16, col, dockTooltip(t, t.a, t.b, t.ab, t.waitB, t.waitA), 1)
 			a.transport, a.dest = t.id, t.b.name
-			local b = pinAt(t.b, "icon-boat", 15, col, dockTooltip(t, t.b, t.a, t.ba, t.waitA, t.waitB), 1)
+			local b = pinAt(t.b, kind.icon, 16, col, dockTooltip(t, t.b, t.a, t.ba, t.waitA, t.waitB), 1)
 			b.transport, b.dest = t.id, t.a.name
 			docks[#docks + 1] = a
 			docks[#docks + 1] = b
@@ -150,8 +153,9 @@ function Maps.BuildTravelPins(o)
 				if lower(n) == bind then bound = true end
 			end
 		end
-		local p = pinAt(inn, "icon-hearth", bound and 14 or 12, color(bound and "success" or "quest"), innTooltip(inn, bound), bound and 2 or 0)
-		p.glow, p.bound = bound or nil, bound
+		-- The inn the Hearthstone is bound to: larger, in the success colour, circled.
+		local p = pinAt(inn, "map:inn", bound and 16 or 12, color(bound and "success" or "npc"), innTooltip(inn, bound), bound and 2 or 0)
+		p.ring, p.bound = bound and color("success") or nil, bound
 		inns[#inns + 1] = p
 	end
 	return taxi, docks, inns

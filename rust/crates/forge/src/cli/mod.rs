@@ -12,6 +12,7 @@ pub mod i18n;
 pub mod judge;
 pub mod nav;
 pub mod navprep;
+pub mod record;
 pub mod sim;
 pub mod walks;
 pub mod writer;
@@ -241,6 +242,7 @@ fn help(name: &str) -> Option<String> {
 		),
 		"sim" => SIM_HELP.to_string(),
 		"walks" => WALKS_HELP.to_string(),
+		"record" => record::USAGE.to_string(),
 		"writer" => writer::USAGE.to_string(),
 		"release" => release::USAGE.to_string(),
 		"changelog" => changelog::USAGE.to_string(),
@@ -286,6 +288,7 @@ pub fn run(name: &str, rest: &[String]) -> Option<std::process::ExitCode> {
 		"nav" => done(nav::main),
 		"sim" => done(sim::main),
 		"walks" => done(walks::main),
+		"record" => done(record::main),
 		"writer" => writer::main().report(),
 		"release" => release::main(),
 		"changelog" => changelog::main(),

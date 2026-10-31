@@ -20,6 +20,6 @@ step Azeroth Commerce Authority
   goto 10.5,72.7 "Azeroth Commerce Authority camp" live
 
 step Pack Kodo
-  tip The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier.
+  tip The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier. By beta reports Huey Sunnydale sells them only once you are Exalted with the Azeroth Commerce Authority: crates pay only Favor, so follow the Supply Factions Reputation guide (Craftsman's Writs and the Shipping Label pay the reputation).
   vendor 256736 "Huey Sunnydale" @8.5,72.1 live
   buy 262766 "Reins of the Pack Kodo" npc 256736 -- 6,000 Merchant's Favor

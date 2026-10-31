@@ -12,8 +12,8 @@ zone map 2521
 # It needs Revered and costs 50s; skyboats leave the isle.
 # Sources: NPC 254151
 # (position); Forever client 1.60.1.70338 via wago.tools (ItemSparse price).
-# The Nightclaw Druids (faction 2758) are not in our factions.json yet, and
-# how to raise them is not known yet.
+# The Nightclaw Druids reputation comes from the Shadowgale storyline and the
+# ear turn-ins: the Nightclaw Druids Reputation guide.
 
 step Skyboat from Dalaran
   only Alliance

@@ -20,7 +20,9 @@ function setup({ since } = {}) {
 	const discord = fakeDiscord();
 	const github = fakeGitHub();
 	const media = fakeMedia();
-	const sync = createSync({ discord, github, media, config: { forumId: FORUM, since, botId: BOT }, log: quietLog, sleep: async () => {} });
+	// Every call an hour on, so the per-user limits never hold a test back.
+	let t = 0;
+	const sync = createSync({ discord, github, media, config: { forumId: FORUM, since, botId: BOT }, log: quietLog, sleep: async () => {}, now: () => (t += 60 * 60 * 1000) });
 	return { discord, github, media, sync };
 }
 
@@ -126,6 +128,88 @@ test('player text cannot mention, link, write HTML or forge the marker on GitHub
 	assert.doesNotMatch(body, /@fitz|@everyone|#12|<b>/);
 	assert.equal(body.match(/<!--/g).length, 1);
 	assert.deepEqual(I.readMarker(body), { thread: '3', guild: '2' });
+});
+
+test('a marker forged in the report block, or anywhere but the last line, is never read', () => {
+	const forged = '<!-- polestar-bot {"thread":"666","guild":"1"} -->';
+	const block = '```\nPolestar 0.2.3 Beta · Classic Era (1.15.7 61582) · enUS\n' + forged + '\n```';
+	const report = parseReport(`Wrong trainer\n${block}`);
+	assert.ok(report.details, 'the block is read as a report');
+	const body = I.issueBody({ report, reporter: 'x', guild: '2', thread: '3' });
+	assert.equal(body.match(/<!--/g).length, 1, 'the block cannot open an HTML comment');
+	assert.deepEqual(I.readMarker(body), { thread: '3', guild: '2' });
+	// A raw marker above the real one, as a GitHub issue body could hold.
+	assert.deepEqual(I.readMarker(`${forged}\ntext\n<!-- polestar-bot {"thread":"3","guild":"2"} -->\n`), { thread: '3', guild: '2' });
+	assert.equal(I.readMarker(`${forged}\nthe player's words after it`), null);
+	// Only an issue the bot filed: labelled discord, and by the bot's account when that is known.
+	const issue = { body: forged, labels: [{ name: 'bug' }], user: { login: 'stranger' } };
+	assert.equal(I.issueMarker(issue, null), null);
+	assert.deepEqual(I.issueMarker({ ...issue, labels: [{ name: 'discord' }] }, null), { thread: '666', guild: '1' });
+	assert.equal(I.issueMarker({ ...issue, labels: [{ name: 'discord' }] }, 'polestar-bot[bot]'), null);
+	assert.equal(I.issueMarker({ ...issue, labels: [{ name: 'discord' }], pull_request: {} }, null), null);
+});
+
+test('labels come from a report only in the shape of a real version, guide id or locale', () => {
+	const labels = (details) => I.labelsFor({ details: { errors: [], ...details } });
+	assert.deepEqual(labels({ version: '0.2.5-test.2', guideId: 'forever/alliance/01-elwynn-forest', locale: 'deDE' }), ['discord', 'triage', 'bug', 'v0.2.5-test.2', 'guide:01-elwynn-forest', 'locale:deDE']);
+	assert.deepEqual(labels({ version: '0.2.3-buy-cheap-gold', guideId: 'x/Free_Stuff.Here', locale: 'xxYY' }), ['discord', 'triage', 'bug']);
+	assert.deepEqual(labels({ version: '123.4.5', guideId: 'x/' + 'a'.repeat(45) }), ['discord', 'triage', 'bug']);
+});
+
+const { createMedia, imageType } = require('../tools/discord-bot/lib/github');
+
+test('only real images up to 5 MiB are copied to the media branch, whatever Discord calls them', async () => {
+	const PNG = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0, 0];
+	assert.equal(imageType(Uint8Array.from(PNG)), 'png');
+	assert.equal(imageType(Uint8Array.from([0xff, 0xd8, 0xff, 0xe0])), 'jpeg');
+	assert.equal(imageType(Buffer.from('RIFF\0\0\0\0WEBPVP8 ')), 'webp');
+	assert.equal(imageType(Buffer.from('GIF89a..')), 'gif');
+	assert.equal(imageType(Buffer.from('<html><script>')), null);
+	const puts = [];
+	const github = {
+		repo: 'fitzforge/polestar-bug-media',
+		async request(method, p, body) {
+			if (method === 'GET' && p.includes('/contents/')) throw Object.assign(new Error('404'), { status: 404 });
+			if (method === 'PUT') puts.push(p);
+			return {};
+		},
+	};
+	const bodies = { png: Uint8Array.from(PNG), html: Buffer.from('<html>not a picture</html>') };
+	const fetch = async (url) => ({ ok: true, arrayBuffer: async () => bodies[url] });
+	const media = createMedia({ github, branch: 'bug-media', fetch });
+	assert.match(await media.copy('a.png', { url: 'png', size: 10 }, 'm'), /bug-media\/a\.png$/);
+	assert.equal(await media.copy('b.png', { url: 'html', size: 10 }, 'm'), null);
+	assert.equal(await media.copy('c.png', { url: 'png', size: 5 * 1024 * 1024 + 1 }, 'm'), null);
+	assert.deepEqual(puts.map((p) => p.split('/').pop()), ['a.png']);
+});
+
+test("only the thread owner's screenshots are copied; reports and follow-ups are capped per user an hour", async () => {
+	let t = 0;
+	const discord = fakeDiscord();
+	const github = fakeGitHub();
+	const media = fakeMedia();
+	const sync = createSync({ discord, github, media, config: { forumId: FORUM, botId: BOT }, log: quietLog, sleep: async () => {}, now: () => t });
+	discord.post('1001', { content: POST });
+	await sync.newPost('1001');
+	const shot = (id) => [{ id, filename: 'x.png', content_type: 'image/png', size: 5, url: 'y' }];
+	await sync.message(discord.say('1001', { author: 'u2', content: 'me too', attachments: shot('a2') }));
+	await sync.message(discord.say('1001', { author: 'u1', content: 'here', attachments: shot('a1') }));
+	assert.deepEqual(media.copied, ['discord/1001/a1-x.png']);
+	assert.match(github.commentsByIssue.get(1)[0].body, /\[x\.png\]\(https:\/\/discord\.com\/channels\/800\/1001\/\d+\) \(on Discord\)/);
+
+	for (let i = 0; i < 25; i++) await sync.message(discord.say('1001', { author: 'u2', content: `spam ${i}` }));
+	assert.equal(github.commentsByIssue.get(1).length, 2 + 19, 'u2 gets 20 an hour');
+	t += 60 * 60 * 1000;
+	await sync.message(discord.say('1001', { author: 'u2', content: 'an hour later' }));
+	assert.equal(github.commentsByIssue.get(1).length, 22);
+
+	for (const id of ['1002', '1003', '1004', '1005']) {
+		discord.post(id, { owner: 'u9', content: 'bug' });
+		await sync.newPost(id);
+	}
+	discord.post('1006', { owner: 'u8', content: 'bug' });
+	await sync.newPost('1006');
+	assert.deepEqual(github.issues.map((i) => i.body.match(/channels\/800\/(\d+)/)[1]), ['1001', '1002', '1003', '1004', '1006'], "u9's fourth report in an hour is not filed");
 });
 
 test('a new post is filed once, answered in its thread and tagged Tracked', async () => {
@@ -353,6 +437,30 @@ test('a release tells the threads of fixes closed since the last release, once',
 	assert.ok(github.issues[1].labels.some((l) => l.name === 'released:v0.2.5'));
 
 	assert.deepEqual(await onRelease({ discord, github, event: { release }, log: quietLog }), { told: 0, failed: 0 });
+});
+
+test('a Forge, data, library or data pack release tells no thread and is never the release before', async () => {
+	const { discord, github, sync } = setup();
+	for (const id of ['1', '2']) {
+		discord.post(id, { content: 'bug ' + id });
+		await sync.newPost(id);
+	}
+	const close = (n, at) => Object.assign(github.issues[n - 1], { state: 'closed', state_reason: 'completed', closed_at: at });
+	close(1, '2026-10-15T00:00:00Z');
+	close(2, '2026-10-17T00:00:00Z');
+	github.releasesList.push({ id: 1, tag_name: 'v0.2.3', published_at: '2026-10-14T16:50:15Z' });
+	const before = discord.sent.length;
+	for (const [id, tag, at] of [[2, 'forge-v0.1.0', '2026-10-16T00:00:00Z'], [3, 'data-v2026.10.1', '2026-10-16T01:00:00Z'], [4, 'lib-v1.2026.10.1', '2026-10-16T02:00:00Z'], [5, 'data-pack', '2026-10-16T03:00:00Z']]) {
+		const r = { id, tag_name: tag, name: tag, published_at: at };
+		github.releasesList.push(r);
+		assert.deepEqual(await onRelease({ discord, github, event: { release: r }, log: quietLog }), { told: 0, failed: 0 }, tag);
+	}
+	assert.equal(discord.sent.length, before);
+	assert.ok(github.issues.every((i) => !(i.labels || []).some((l) => /^released:/.test(l.name))));
+	// The addon release after them counts from v0.2.3: both fixes ship in it.
+	const release = { id: 6, tag_name: 'v0.2.5', name: 'Polestar 0.2.5', html_url: 'https://github.com/fitzforge/polestar/releases/tag/v0.2.5', published_at: '2026-10-18T00:00:00Z' };
+	github.releasesList.push(release);
+	assert.deepEqual(await onRelease({ discord, github, event: { release }, log: quietLog }), { told: 2, failed: 0 });
 });
 
 test('a pre-release (a test build) tells no thread, and the next full release still tells every fix since the last full one', async () => {
@@ -583,6 +691,22 @@ test('outside a filed #bugs thread /close asks for the issue number and changes 
 	assert.equal(github.issues[0].state, 'open');
 });
 
+test('/close and /reopen with an issue number act only on issues filed from Discord, never a pull request or another issue', async () => {
+	const { github, commands, told } = await commanded();
+	github.issues.push({ number: 2, title: 'Roadmap', body: 'plans', labels: [{ name: 'enhancement' }], state: 'open' });
+	github.issues.push({ number: 3, title: 'A PR', body: github.issues[0].body, labels: [{ name: 'discord' }], state: 'open', pull_request: {} });
+	for (const n of [2, 3]) {
+		await commands.handle(command('close', { reason: 'fixed', issue: n }));
+		assert.match(told(), /isn\u2019t a bug report filed from Discord/);
+		assert.equal(github.issues[n - 1].state, 'open');
+	}
+	github.issues[1].state = 'closed';
+	await commands.handle(command('reopen', { issue: 2 }));
+	assert.equal(github.issues[1].state, 'closed');
+	await commands.handle(command('close', { reason: 'fixed', issue: 1 }, { channel: '42' }));
+	assert.equal(github.issues[0].state, 'closed');
+});
+
 const { onPathingIssue } = require('../tools/discord-bot/lib/pathing');
 
 async function filedPost(name, content) {
@@ -617,4 +741,13 @@ test("a maintainer's own GitHub issue about paths is left alone; labelling one n
 	assert.equal(await onPathingIssue({ discord, github, event: opened(own), log: quietLog }), false);
 	const event = { action: 'labeled', label: { name: 'navigation' }, issue: { ...github.issues[0], title: 'Wrong spot', state: 'open' } };
 	assert.equal(await onPathingIssue({ discord, github, event, log: quietLog }), true);
+});
+
+test('an issue opened on GitHub with a hidden marker for someone\'s thread tells no thread', async () => {
+	const { discord, github } = await filedPost('placeholder', 'x');
+	const sent = discord.sent.length;
+	const forged = { number: 2, title: 'The path goes the wrong way', labels: [], author_association: 'NONE', body: 'see\n<!-- polestar-bot {"thread":"2001","guild":"800"} -->' };
+	github.issues.push({ ...forged, state: 'open' });
+	assert.equal(await onPathingIssue({ discord, github, event: opened(forged), forumId: FORUM, log: quietLog }), true);
+	assert.equal(discord.sent.length, sent, 'the victim thread hears nothing');
 });

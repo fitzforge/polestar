@@ -217,7 +217,7 @@ fn the_minimap_readout_exists_only_once_turned_on_follows_the_player_and_blanks_
 }
 
 #[test]
-fn the_minimap_button_exists_only_once_turned_on_click_shows_or_hides_the_guide_right_click_opens_settings_drag_moves_it_around_the_edge() {
+fn the_minimap_button_exists_only_once_turned_on_click_shows_or_hides_the_guide_right_click_opens_polestar_s_menu_drag_moves_it_around_the_edge() {
 	let out = run(
 		r#"
 		local fired = {}
@@ -230,6 +230,9 @@ fn the_minimap_button_exists_only_once_turned_on_click_shows_or_hides_the_guide_
 		local start = at()
 		b:Click("LeftButton")
 		b:Click("RightButton")
+		local menu = Polestar.Widgets.MenuShown(b)
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Options" then r:Click() end end
+		local picked = not PolestarMenu:IsShown()
 		-- Drag to the right of the minimap's centre (70, 70): east, 0 degrees.
 		stub.cursor = { 200, 70 }
 		b:GetScript("OnDragStart")(b)
@@ -248,13 +251,15 @@ fn the_minimap_button_exists_only_once_turned_on_click_shows_or_hides_the_guide_
 		stub.RunScript(Minimap, "OnSizeChanged", 280, 280)
 		local resized = at()
 		Polestar.Set("maps.minimapButton", false)
-		emit({ before = before ~= nil, start = start, fired = fired, dragging = dragging, saved = saved, stopped = stopped,
-			corner = corner, resized = resized, hidden = not b:IsShown() })"#,
+		emit({ before = before ~= nil, start = start, fired = fired, menu = menu, picked = picked, dragging = dragging, saved = saved,
+			stopped = stopped, corner = corner, resized = resized, hidden = not b:IsShown() })"#,
 		None,
 	);
 	assert_eq!(out["before"], false, "no frame while off");
 	// 225 degrees (south-west) at 70 + 5 px from the centre.
 	assert_eq!(out["start"], json!([true, -53, -53]));
+	assert_eq!(out["menu"], true, "right-click opens Polestar's menu on the button");
+	assert_eq!(out["picked"], true, "picking an item closes the menu");
 	assert_eq!(out["fired"], json!(["toggle", "options"]));
 	assert_eq!(out["dragging"], json!([true, 75, 0]));
 	assert_eq!(out["saved"], 0);
@@ -307,7 +312,7 @@ fn dungeon_pins_the_codex_loads_only_when_the_world_map_opens_one_pin_per_known_
 	);
 	assert_eq!(out["atLogin"], json!({ "loads": 0, "layer": false }), "nothing loads at login");
 	assert_eq!(out["loads"], 1);
-	assert_eq!(out["keys"], json!(["deadmines@42.5,71.7:icon-dungeon", "hall-of-thanes@10,20:icon-dungeon"]));
+	assert_eq!(out["keys"], json!(["deadmines@42.5,71.7:map:dungeon", "hall-of-thanes@10,20:map:dungeon"]));
 	assert_eq!(out["color"], true);
 	assert_eq!(out["off"], true);
 }

@@ -798,6 +798,26 @@ fn a_teldrassil_step_s_spawn_regions_cover_every_spawn_of_its_goals_and_read_at_
 }
 
 #[test]
+fn a_goal_with_more_spots_than_grouping_can_afford_draws_no_regions_instead_of_freezing_while_a_built_in_sized_one_still_groups() {
+	let out = run(&[
+		TELDRASSIL,
+		r#"
+		-- A crafted import: 1024 spots on one point, every pair within reach.
+		local piled = { t = "kill", npc = 2031, map = 1438, x = 57, y = 44, f = "e", spots = {} }
+		for i = 1, 1024 do piled.spots[i] = { x = 57, y = 44, r = 1 } end
+		-- As many spots as the busiest built-in goal (438), spread over the map.
+		local spread = { t = "kill", npc = 1984, map = 1438, x = 50, y = 50, f = "e", spots = {} }
+		for i = 0, 437 do spread.spots[i + 1] = { x = 10 + (i % 21) * 4, y = 10 + math.floor(i / 21) * 4, r = 20 } end
+		local regions = N.layers.Regions(spread)
+		emit({ piled = N.layers.Regions(piled) == nil, again = N.layers.Regions(piled) == nil, spread = regions and #regions or 0 })"#,
+	]
+	.concat());
+	assert_eq!(out["piled"], true, "1024 spots on one point: no regions");
+	assert_eq!(out["again"], true, "and the goal is not grouped again");
+	assert!(out["spread"].as_u64().unwrap() > 0, "438 spread spots still group into regions");
+}
+
+#[test]
 fn hidden_on_a_taxi_in_an_instance_and_without_a_target_zone_name_on_another_continent() {
 	let out = run(r#"
 		local seen = {}
@@ -999,7 +1019,8 @@ fn minimap_projection_honours_view_radius_rotation_and_clamps_to_the_rim() {
 	near(num(&out["rotNorth"]["x"]), 100.0 * s, e, "");
 	near(num(&out["rotNorth"]["y"]), 0.0, e, "");
 	// Out of range: pinned to the rim, pointer turned outward (east = -90 degrees).
-	let limit = 70.0 - 14.0 * 1.4 * 0.35;
+	// The target is a map mark: its medallion (1.4 times the mark) stops at the rim.
+	let limit = 70.0 - 14.0 * 1.4 * 1.4 * 0.5;
 	near(num(&out["farEast"]["x"]), limit, e, "");
 	near(num(&out["farEast"]["y"]), 0.0, e, "");
 	assert_eq!(out["farEast"]["edge"], true);
@@ -1061,8 +1082,8 @@ fn the_arrow_takes_the_mouse_on_its_dial_only_and_the_hover_wash_sits_behind_the
 		local _, rel = A.mover:GetPoint(1)
 		stub.RunScript(A.frame, "OnEnter")
 		emit({ insets = { l, r, t, b }, washOnDial = rel == A.dial, washShown = A.mover:IsShown(), mouse = A.frame:IsMouseEnabled() })"#);
-	// The frame is 200 wide and 64 + 52 tall; the dial is the 64 x 64 at its top centre.
-	assert_eq!(out["insets"], json!([68, 68, 0, 52]), "the text under the dial does not catch the mouse");
+	// The frame is 200 wide and 64 + 66 tall; the dial is the 64 x 64 at its top centre.
+	assert_eq!(out["insets"], json!([68, 68, 0, 66]), "the text under the dial does not catch the mouse");
 	assert_eq!(out["washOnDial"], true, "the wash covers the dial, not the whole frame");
 	assert_eq!(out["washShown"], true, "hovering still shows it");
 	assert_eq!(out["mouse"], true, "the arrow is still movable");
@@ -1086,14 +1107,14 @@ fn without_the_dial_the_text_under_it_takes_the_mouse_and_the_hover_wash() {
 		nav.place(0, 0, 0)
 		stub.advance(0.1); snap("back")
 		emit(seen)"#);
-	// The frame is 200 wide and 64 + 52 tall: the dial at its top, the text under it.
+	// The frame is 200 wide and 64 + 66 tall: the dial at its top, the text under it.
 	assert_eq!(
 		out,
 		json!([
-			["travel", "travel", true, [68, 68, 0, 52], true],
+			["travel", "travel", true, [68, 68, 0, 66], true],
 			["far", "far", false, [0, 0, 64, 0], false],
 			["no position", "nopos", false, [0, 0, 64, 0], false],
-			["back", "travel", true, [68, 68, 0, 52], true]
+			["back", "travel", true, [68, 68, 0, 66], true]
 		])
 	);
 }

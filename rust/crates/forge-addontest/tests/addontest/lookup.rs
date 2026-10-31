@@ -699,6 +699,322 @@ fn search_a_keystroke_costs_a_few_scans_of_the_names_and_grows_linearly_from_2_5
 // Hooks
 // ---------------------------------------------------------------------------
 
+fn run_bare(script: &str) -> Vec<Value> {
+	run_with(script, &Opts { with_pack: false, ..Default::default() })
+}
+
+#[test]
+fn hooks_simulated_clears_dispatch_existing_scripts_and_hooks_on_both_item_frames() {
+	let out = run_bare(
+		r#"
+		for _, tt in ipairs({ GameTooltip, ItemRefTooltip }) do
+			local events = {}
+			tt:SetScript("OnTooltipCleared", function(self) events[#events + 1] = "script:" .. #self.lines end)
+			tt:HookScript("OnTooltipCleared", function(self) events[#events + 1] = "hook:" .. #self.lines end)
+			tt:AddLine("Old client line")
+			tt:ClearLines()
+			tt:AddLine("Another client line")
+			tt:SetOwner(UIParent)
+			emit(events)
+		end
+	"#,
+	);
+	let events = json!(["script:0", "hook:0", "script:0", "hook:0"]);
+	assert_eq!(out, vec![events.clone(), events]);
+}
+
+// One annotated subject on a tooltip: the frame, the Hooks registration and the post-call that shows it.
+struct Rebuild {
+	name: &'static str,
+	frame: &'static str,
+	register: &'static str,
+	show: &'static str,
+	setup: &'static str,
+}
+
+const TOOLTIP_REBUILD_CASES: [Rebuild; 4] = [
+	Rebuild { name: "item on GameTooltip", frame: "GameTooltip", register: "ItemLines", show: r#"lookuprt.showItem(tt, 1234, "item:1234")"#, setup: "" },
+	Rebuild { name: "item on ItemRefTooltip", frame: "ItemRefTooltip", register: "ItemLines", show: r#"lookuprt.showItem(tt, 1234, "item:1234")"#, setup: "" },
+	Rebuild {
+		name: "unit",
+		frame: "GameTooltip",
+		register: "UnitLines",
+		show: r#"lookuprt.showUnit(tt, "mouseover")"#,
+		setup: r#"lookuprt.units.mouseover = { guid = "Creature-0-1-0-1-1234-00000001" }"#,
+	},
+	Rebuild { name: "object", frame: "GameTooltip", register: "ObjectLines", show: r#"lookuprt.showObject(tt, { id = 1234, lines = { { leftText = "Synthetic object" } } })"#, setup: "" },
+];
+
+fn rebuild_script(c: &Rebuild, body: &str) -> String {
+	body.replace("{SETUP}", c.setup).replace("{FRAME}", c.frame).replace("{REGISTER}", c.register).replace("{SHOW}", c.show)
+}
+
+#[test]
+fn hooks_clear_hooks_install_once_per_frame_preserve_handlers_and_survive_registration_changes() {
+	let [items, object] = first::<2>(run_bare(
+		r#"
+		local H, installs, clears = Polestar.Hooks, {}, {}
+		local function annotation(tt) H.AddLine(tt, "Annotation") end
+		H.ItemLines("installation-test", annotation)
+		for _, tt in ipairs({ GameTooltip, ItemRefTooltip }) do
+			local name, hook = tt:GetName(), tt.HookScript
+			installs[name], clears[name] = 0, 0
+			tt:SetScript("OnTooltipCleared", function() clears[name] = clears[name] + 1 end)
+			tt.HookScript = function(self, event, fn)
+				if event == "OnTooltipCleared" then installs[name] = installs[name] + 1 end
+				return hook(self, event, fn)
+			end
+			-- HookScript can still work when support introspection is absent.
+			if tt == ItemRefTooltip then tt.HasScript = false end
+			for i = 1, 3 do
+				tt:ClearLines(); tt:AddLine("Client")
+				lookuprt.showItem(tt, 1234, "item:1234")
+				lookuprt.showItem(tt, 1234, "item:1234")
+				H.ItemLines("installation-test", nil)
+				H.ItemLines("installation-test", annotation)
+			end
+		end
+		emit({ installs = installs, clears = clears, game = GameTooltip.lines, ref = ItemRefTooltip.lines })
+		H.ObjectLines("installation-test", annotation)
+		GameTooltip:ClearLines(); GameTooltip:AddLine("Client")
+		lookuprt.showObject(GameTooltip, { id = 1234 })
+		lookuprt.showObject(GameTooltip, { id = 1234 })
+		emit({ installs = installs, clears = clears, game = GameTooltip.lines, ref = ItemRefTooltip.lines })
+	"#,
+	));
+	let installs = json!({ "GameTooltip": 1, "ItemRefTooltip": 1 });
+	let lines = json!(["Client", "Annotation"]);
+	assert_eq!(items, json!({ "installs": installs, "clears": { "GameTooltip": 3, "ItemRefTooltip": 3 }, "game": lines, "ref": lines }));
+	assert_eq!(object, json!({ "installs": installs, "clears": { "GameTooltip": 4, "ItemRefTooltip": 3 }, "game": lines, "ref": lines }));
+}
+
+// A clear-hook API that is missing, says it is unsupported, or throws: annotations still show once per clear,
+// the API is tried once, and a thrown error is kept once in the session report without reaching the handler.
+fn clear_hook_api_failure(failure: &str) {
+	let [out] = first::<1>(run_bare(
+		&r#"
+			local H, tt, checks, attempts, calls, handlerCalls = Polestar.Hooks, GameTooltip, 0, 0, 0, 0
+			local messages = #stub.messages
+			geterrorhandler = function() return function() handlerCalls = handlerCalls + 1 end end
+			tt.HasScript = function()
+				checks = checks + 1
+				if "{FAILURE}" == "HasScript" then error("synthetic HasScript failure", 0) end
+				return "{FAILURE}" ~= "unsupported"
+			end
+			tt.HookScript = function()
+				attempts = attempts + 1
+				error("synthetic HookScript failure", 0)
+			end
+			if "{FAILURE}" == "missing" then tt.HookScript = false end
+			H.ItemLines("failure-test", function(tip) calls = calls + 1; H.AddLine(tip, "Annotation") end)
+			for i = 1, 2 do
+				tt:ClearLines(); tt:AddLine("Client")
+				for j = 1, 3 do lookuprt.showItem(tt, 1234, "item:1234") end
+			end
+			local errors = Polestar.Errors()
+			emit({ checks = checks, attempts = attempts, calls = calls, lines = tt.lines,
+				errors = #errors, error = errors[1] and { msg = errors[1].msg, count = errors[1].count } or false,
+				handlerCalls = handlerCalls, messages = #stub.messages - messages })
+		"#
+		.replace("{FAILURE}", failure),
+	));
+	let throws = failure == "HasScript" || failure == "HookScript";
+	let error = if throws { json!({ "msg": format!("synthetic {failure} failure"), "count": 1 }) } else { json!(false) };
+	assert_eq!(
+		out,
+		json!({
+			"checks": if failure == "missing" { 0 } else { 1 },
+			"attempts": if failure == "HookScript" { 1 } else { 0 },
+			"calls": 2, "lines": ["Client", "Annotation"], "errors": if throws { 1 } else { 0 },
+			"error": error, "handlerCalls": 0, "messages": 0,
+		}),
+		"{failure}"
+	);
+}
+
+#[test]
+fn hooks_missing_clear_hook_api_preserves_annotations_without_retrying_or_noisy_diagnostics() {
+	clear_hook_api_failure("missing");
+}
+
+#[test]
+fn hooks_unsupported_clear_hook_api_preserves_annotations_without_retrying_or_noisy_diagnostics() {
+	clear_hook_api_failure("unsupported");
+}
+
+#[test]
+fn hooks_hasscript_clear_hook_api_failure_preserves_annotations_without_retrying_or_noisy_diagnostics() {
+	clear_hook_api_failure("HasScript");
+}
+
+#[test]
+fn hooks_hookscript_clear_hook_api_failure_preserves_annotations_without_retrying_or_noisy_diagnostics() {
+	clear_hook_api_failure("HookScript");
+}
+
+// Without TooltipDataProcessor the OnTooltipSet* scripts deliver the post-calls.
+fn processor_unavailable_fallback(frame: &str, kind: &str) {
+	let [initial, rebuilt] = first::<2>(run_with(
+		&r#"
+			local H, tt, calls = Polestar.Hooks, {FRAME}, 0
+			lookuprt.units.mouseover = { guid = "Creature-0-1-0-1-1234-00000001" }
+			GameTooltip.GetUnit = function() return "Synthetic unit", "mouseover" end
+			tt.link = "item:1234"
+			H.{KIND}Lines("fallback-test", function(tip) calls = calls + 1; H.AddLine(tip, "Annotation") end)
+			for n = 1, 2 do
+				tt:ClearLines()
+				for i = 1, n do tt:AddLine("Client " .. i) end
+				stub.RunScript(tt, "OnTooltipSet{KIND}")
+				stub.RunScript(tt, "OnTooltipSet{KIND}")
+				emit({ lines = tt.lines, calls = calls, hooks = #tt.hooks.OnTooltipCleared })
+			end
+		"#
+		.replace("{FRAME}", frame)
+		.replace("{KIND}", kind),
+		&Opts { with_pack: false, setup: "TooltipDataProcessor = nil".into(), ..Default::default() },
+	));
+	assert_eq!(initial, json!({ "lines": ["Client 1", "Annotation"], "calls": 1, "hooks": 1 }), "{kind} on {frame}");
+	assert_eq!(rebuilt, json!({ "lines": ["Client 1", "Client 2", "Annotation"], "calls": 2, "hooks": 1 }), "{kind} on {frame}");
+}
+
+#[test]
+fn hooks_processor_unavailable_item_fallback_on_gametooltip_restores_annotations_once_per_clear() {
+	processor_unavailable_fallback("GameTooltip", "Item");
+}
+
+#[test]
+fn hooks_processor_unavailable_item_fallback_on_itemreftooltip_restores_annotations_once_per_clear() {
+	processor_unavailable_fallback("ItemRefTooltip", "Item");
+}
+
+#[test]
+fn hooks_processor_unavailable_unit_fallback_on_gametooltip_restores_annotations_once_per_clear() {
+	processor_unavailable_fallback("GameTooltip", "Unit");
+}
+
+#[test]
+fn hooks_repeated_and_appended_callbacks_keep_annotations_once_without_clearing() {
+	for c in &TOOLTIP_REBUILD_CASES {
+		let [repeated, appended] = first::<2>(run_bare(&rebuild_script(
+			c,
+			r#"
+			{SETUP}
+			local tt, H, calls, clears = {FRAME}, Polestar.Hooks, 0, 0
+			tt:HookScript("OnTooltipCleared", function() clears = clears + 1 end)
+			H.{REGISTER}("rebuild-test", function(tip) calls = calls + 1; H.AddLine(tip, "Annotation") end)
+			tt:ClearLines()
+			tt:AddLine("Client 1")
+			{SHOW}
+			{SHOW}
+			emit({ lines = tt.lines, calls = calls, clears = clears })
+			tt:AddLine("Appended client line")
+			{SHOW}
+			{SHOW}
+			emit({ lines = tt.lines, calls = calls, clears = clears })
+		"#,
+		)));
+		assert_eq!(repeated, json!({ "lines": ["Client 1", "Annotation"], "calls": 1, "clears": 1 }), "{}", c.name);
+		assert_eq!(appended, json!({ "lines": ["Client 1", "Annotation", "Appended client line"], "calls": 1, "clears": 1 }), "{}", c.name);
+	}
+}
+
+// #673: a tooltip cleared and rebuilt for the same subject with as many or more client lines than before.
+#[test]
+fn hooks_restore_annotations_after_a_same_subject_clear_and_rebuild_with_an_equal_or_greater_line_count() {
+	for c in &TOOLTIP_REBUILD_CASES {
+		for client_lines in [2, 3] {
+			let [initial, rebuilt, repeated] = first::<3>(run_bare(
+				&rebuild_script(
+					c,
+					r#"
+				{SETUP}
+				local tt, H, calls, clears = {FRAME}, Polestar.Hooks, 0, 0
+				tt:HookScript("OnTooltipCleared", function() clears = clears + 1 end)
+				H.{REGISTER}("rebuild-test", function(tip) calls = calls + 1; H.AddLine(tip, "Annotation") end)
+				tt:ClearLines()
+				tt:AddLine("Client 1")
+				{SHOW}
+				emit({ lines = tt.lines, calls = calls, clears = clears })
+				tt:ClearLines()
+				for i = 1, {LINES} do tt:AddLine("Client " .. i) end
+				{SHOW}
+				emit({ lines = tt.lines, calls = calls, clears = clears })
+				{SHOW}
+				emit({ lines = tt.lines, calls = calls, clears = clears })
+			"#,
+				)
+				.replace("{LINES}", &client_lines.to_string()),
+			));
+			let case = format!("{} with {client_lines} client lines", c.name);
+			assert_eq!(initial, json!({ "lines": ["Client 1", "Annotation"], "calls": 1, "clears": 1 }), "{case}");
+			let mut lines: Vec<Value> = (1..=client_lines).map(|i| json!(format!("Client {i}"))).collect();
+			lines.push(json!("Annotation"));
+			let expected = json!({ "lines": lines, "calls": 2, "clears": 2 });
+			assert_eq!(rebuilt, expected, "{case}: a clear removed annotations even though the rebuilt line count is not smaller");
+			assert_eq!(repeated, expected, "{case}: a repeated callback on the rebuilt tooltip must not add another annotation");
+		}
+	}
+}
+
+#[test]
+fn hooks_item_frames_keep_independent_annotation_state_when_one_is_cleared() {
+	let [initial, refreshed] = first::<2>(run_bare(
+		r#"
+		local H, calls = Polestar.Hooks, { game = 0, ref = 0 }
+		H.ItemLines("independent-test", function(tt)
+			local key = tt == GameTooltip and "game" or "ref"
+			calls[key] = calls[key] + 1
+			H.AddLine(tt, "Annotation")
+		end)
+		for _, tt in ipairs({ GameTooltip, ItemRefTooltip }) do
+			tt:ClearLines(); tt:AddLine("Client 1")
+			lookuprt.showItem(tt, 1234, "item:1234")
+			lookuprt.showItem(tt, 1234, "item:1234")
+		end
+		emit({ game = GameTooltip.lines, ref = ItemRefTooltip.lines, calls = calls })
+		GameTooltip:ClearLines(); GameTooltip:AddLine("Replacement client line")
+		lookuprt.showItem(GameTooltip, 1234, "item:1234")
+		lookuprt.showItem(ItemRefTooltip, 1234, "item:1234")
+		emit({ game = GameTooltip.lines, ref = ItemRefTooltip.lines, calls = calls })
+	"#,
+	));
+	assert_eq!(initial, json!({ "game": ["Client 1", "Annotation"], "ref": ["Client 1", "Annotation"], "calls": { "game": 1, "ref": 1 } }));
+	assert_eq!(refreshed, json!({ "game": ["Replacement client line", "Annotation"], "ref": ["Client 1", "Annotation"], "calls": { "game": 2, "ref": 1 } }));
+}
+
+#[test]
+fn hooks_a_reused_tooltip_dispatches_annotations_for_changed_subjects_and_kinds() {
+	let out = run_bare(
+		r#"
+		local H, tt = Polestar.Hooks, GameTooltip
+		H.ItemLines("transition-test", function(tip, _, id) H.AddLine(tip, "Item " .. id) end)
+		H.ObjectLines("transition-test", function(tip, id) H.AddLine(tip, "Object " .. id) end)
+		local function clientLines(n)
+			tt:ClearLines()
+			for i = 1, n do tt:AddLine("Client " .. i) end
+		end
+		clientLines(1)
+		lookuprt.showItem(tt, 1234, nil); lookuprt.showItem(tt, 1234, nil); emit(tt.lines)
+		clientLines(2)
+		lookuprt.showItem(tt, 1235, nil); lookuprt.showItem(tt, 1235, nil); emit(tt.lines)
+		-- Same numeric key, different annotation kind, on the same frame.
+		clientLines(3)
+		lookuprt.showObject(tt, { id = 1235 }); lookuprt.showObject(tt, { id = 1235 }); emit(tt.lines)
+		clientLines(4)
+		lookuprt.showItem(tt, 1235, nil); lookuprt.showItem(tt, 1235, nil); emit(tt.lines)
+	"#,
+	);
+	assert_eq!(
+		out,
+		vec![
+			json!(["Client 1", "Item 1234"]),
+			json!(["Client 1", "Client 2", "Item 1235"]),
+			json!(["Client 1", "Client 2", "Client 3", "Object 1235"]),
+			json!(["Client 1", "Client 2", "Client 3", "Client 4", "Item 1235"]),
+		]
+	);
+}
+
 #[test]
 fn hooks_item_lines_once_per_tooltip_show_in_order_errors_isolated_forbidden_and_secret_skipped() {
 	let [once, cleared, forbidden, secret, other, item_ref, replaced] = first::<7>(run_with(

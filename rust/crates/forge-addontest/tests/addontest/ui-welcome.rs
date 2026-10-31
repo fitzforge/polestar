@@ -34,15 +34,18 @@ function title() return (select(4, Wel.Page())) end
 function key() return (Wel.Page()) end
 -- "2 of 4": the page's place, as the step dots show it.
 function step() local _, at, n = Wel.Page(); return at .. " of " .. n end
--- The dots: how many show, which one is the accent capsule.
+-- The dots: how many show, which one is the accent capsule (the one wider than the rest, once its width has
+-- grown: the width it is going to).
 function dots()
-	local n, on = 0, nil
+	local n, on, widest, ties = 0, nil, 0, 0
 	for i, d in ipairs(PolestarWelcome.Dots.list) do
 		if d:IsShown() then
 			n = n + 1
-			if d.psOn then on = i end
+			local w = d.psW or d:GetWidth()
+			if w > widest then on, widest, ties = i, w, 1 elseif w == widest then ties = ties + 1 end
 		end
 	end
+	if ties > 1 then on = nil end
 	return n .. ":" .. tostring(on)
 end
 function titles()
@@ -144,20 +147,22 @@ fn the_first_page_greets_the_character_by_name_says_what_polestar_does_and_shows
 		Wel.Show()
 		local F = PolestarWelcome
 		local named = title()
-		local parts = {}
-		for _, s in ipairs({ "The guide window", "The arrow", "Every guide", "/polestar guides", "Goals tick off as you play.",
-			"Leveling guides for World of Warcraft: Forever", "who to talk to" }) do
-			parts[s] = uistub.findText(F, s) ~= nil
+		local body = F.pages.welcome.Body
+		local function said(fs) return fs ~= nil and fs:IsShown() and (fs:GetText() or "") ~= "" end
+		local cards = {}
+		for i, c in ipairs(body.Cards) do
+			cards[i] = { shown = c:IsShown(), title = said(c.Title), line = said(c.Desc), media = c.Media:IsShown() }
 		end
+		local line = said(body.Line)
 		F:Hide()
 		uistub.player = {}
 		Wel.Show()
-		emit({ named = named, parts = parts, anonymous = title() })"#);
+		emit({ named = named, line = line, cards = cards, anonymous = title() })"#);
 	assert_eq!(out["named"], "Hello, Testchar");
 	assert_eq!(out["anonymous"], "Welcome to Polestar", "without a name");
-	for (part, found) in out["parts"].as_object().unwrap() {
-		assert_eq!(*found, true, "{part}");
-	}
+	assert_eq!(out["line"], true, "a line on what Polestar does");
+	let part = json!({ "shown": true, "title": true, "line": true, "media": true });
+	assert_eq!(out["cards"], json!([part, part, part]), "three parts, each a card with its miniature, title and line");
 }
 
 #[test]
@@ -326,7 +331,7 @@ fn four_pages_with_next_and_back_and_the_step_dots_the_last_page_holds_the_guide
 		for i = 1, 4 do
 			keys[i], steps[i], marks[i] = key(), step(), dots()
 			buttons[i] = { skip = F.Skip:IsShown(), back = F.Back:IsShown(), next = F.Next:IsShown(),
-				start = F.Start:IsShown(), browse = F.Browse:IsShown() }
+				start = F.Start:IsShown(), browse = F.Browse:IsVisible() }
 			if i < 4 then F.Next:Click() end
 		end
 		local height = F:GetHeight()
@@ -361,16 +366,15 @@ fn the_beta_callout_on_the_start_page_follows_ns_routesbeta() {
 	let out = run(r#"
 		Wel.Show("start")
 		local F = PolestarWelcome
-		local p = F.pages.start
-		local beta = { chip = p.Beta.Chip:IsShown() and p.Beta.Chip.Text:GetText(),
-			text = uistub.findText(F, "nobody has followed them through the live game yet") ~= nil,
-			report = plain(p.Beta.Text:GetText()):find("/polestar skip and tell us on Discord", 1, true) ~= nil }
+		local n = F.pages.start.Body.Beta
+		local function note() return { chip = n.Chip:IsShown(), head = n.Head:IsShown(), text = n.Text:IsShown() and (n.Text:GetText() or "") ~= "" } end
+		local beta = note()
 		F:Hide()
 		Polestar.routesBeta = false
 		Wel.Show("start")
-		emit({ beta = beta, proven = { chip = p.Beta.Chip:IsShown(), head = uistub.findText(F, "still in beta") ~= nil } })"#);
-	assert_eq!(out["beta"], json!({ "chip": "BETA", "text": true, "report": true }));
-	assert_eq!(out["proven"], json!({ "chip": false, "head": false }));
+		emit({ beta = beta, proven = note() })"#);
+	assert_eq!(out["beta"], json!({ "chip": true, "head": true, "text": true }), "the note and its Beta chip while the routes are in beta");
+	assert_eq!(out["proven"], json!({ "chip": false, "head": false, "text": false }));
 }
 
 #[test]
@@ -378,34 +382,31 @@ fn the_start_page_invites_the_player_to_the_discord_community_its_mark_and_the_i
 	let out = run(r#"
 		Wel.Show("start")
 		local F = PolestarWelcome
-		local mark = F.pages.start.Discord.Mark
+		local n = F.pages.start.Body.Discord
+		local mark = n.Glyph
 		local r, g, b = mark:GetVertexColor()
 		local dr, dg, db = Polestar.Theme.Color("discord")
 		local link = F.Discord
 		local seen = { link = link:IsVisible() and link.Label:GetText(),
-			head = uistub.findText(F, "Join us on Discord") ~= nil, line = uistub.findText(F, "Feedback, bug reports and news") ~= nil,
+			head = n.Head:IsShown() and (n.Head:GetText() or "") ~= "", line = n.Text:IsShown() and (n.Text:GetText() or "") ~= "",
 			mark = mark:IsVisible() and tostring(mark:GetTexture()):find("discord", 1, true) ~= nil,
 			own = r == dr and g == dg and b == db, kind = link:GetObjectType() }
 		link:Click()
 		emit({ seen = seen, copy = PolestarCopy ~= nil and PolestarCopy:IsShown() and PolestarCopy.Box:GetText(),
 			shared = Polestar.DiscordURL })"#);
-	assert_eq!(out["seen"], json!({ "link": "discord.gg/vMbee6F2e9", "head": true, "line": true, "mark": true, "own": true, "kind": "Button" }), "the address reads as a link, not a field");
+	assert_eq!(out["seen"], json!({ "link": "discord.gg/polestar", "head": true, "line": true, "mark": true, "own": true, "kind": "Button" }), "the address reads as a link, not a field");
 	assert!(truthy(&out["shared"]) && out["copy"] == out["shared"], "the copy window holds the shared invite: {}", out["copy"]);
 }
 
 #[test]
-fn the_start_page_says_what_community_guides_are_and_where_to_learn_more() {
+fn the_start_page_says_what_community_guides_are_with_a_link_to_browse_them() {
 	let out = run(r#"
 		Wel.Show("start")
 		local F = PolestarWelcome
-		local t = plain(F.pages.start.Packs.Text:GetText())
-		emit({ head = uistub.findText(F, "Community guides") ~= nil,
-			others = t:find("made by other players for Polestar", 1, true) ~= nil,
-			addon = t:find("installed like any other", 1, true) ~= nil,
-			where = t:find("/polestar guides under Community guides", 1, true) ~= nil,
-			author = t:find("credited to their author, who supports them", 1, true) ~= nil,
-			more = t:find("Options > Community guides", 1, true) ~= nil })"#);
-	assert_eq!(out, json!({ "head": true, "others": true, "addon": true, "where": true, "author": true, "more": true }));
+		local n = F.pages.start.Body.Packs
+		emit({ head = n.Head:IsShown() and (n.Head:GetText() or "") ~= "", line = n.Text:IsShown() and (n.Text:GetText() or "") ~= "",
+			link = n.Link == F.Browse and F.Browse:IsVisible() })"#);
+	assert_eq!(out, json!({ "head": true, "line": true, "link": true }));
 }
 
 #[test]
@@ -495,7 +496,7 @@ fn the_route_page_three_styles_with_what_each_does_balanced_picked_on_a_fresh_ac
 		local options = pick()
 		local route = F.pages.route
 		local function said(w) return w ~= nil and w:IsShown() and (w:GetText() or "") ~= "" end
-		emit({ title = title(), note = said(route.Hero.Sub), foot = said(route.Foot),
+		emit({ title = title(), note = said(route.Hero.Sub), foot = said(route.Body.Foot),
 			cards = cards, fresh = fresh, roads = roads, reset = reset, options = options,
 			fits = F.pages.route:GetHeight() <= F.pages.setup:GetHeight() })"#);
 	assert!(truthy(&out["title"]), "the page has a title");

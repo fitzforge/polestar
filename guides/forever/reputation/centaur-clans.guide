@@ -1,0 +1,191 @@
+guide forever/reputation/centaur-clans
+title Gelkis and Magram Centaur Reputation
+category Reputation
+folder Reputation · World
+levels 30-60
+zone Desolace
+keywords Gelkis Clan Centaur, Magram Clan Centaur, centaur, Desolace, Uthek the Wise, Warug, Captain Pentigast, Gurda Wildmane, Molkar, Gorhak, Buying Friendship, Economic Warfare, Carved Centaur Totem, Maraudine, Valley of Bones, Shen'dralas, Nerlokh, Orgrul, Khan Jehn, Ongeku, Kolkar, Centaur Banner Deployment Device, A Conqueror's Crown, Conqueror's Helm, title
+why Desolace's feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes.
+reward item 269901
+reward text 12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed
+reward text Khan Jehn's quest: a clan title and a choice of three rare level 35 weapons
+
+# Built from Forever's data: both clans start Neutral 2,000 (Forever's client faction table; Friendly is 1,000
+# away, Honored 7,000, Revered 19,000, Exalted 40,000); the kill rows (a Magram kill gives the Gelkis 20 and
+# costs the Magram 100, and the other way round; their khans and Warug's bodyguards 100 and 500); the quest rows
+# with Forever's values (the choice quests Strange Alliance, Gelkis Alliance, Brutal Politics and Magram Alliance
+# 250 and, per Forever's change log, no longer a loss with the other clan; Raid on the Kolkar, Assault on the
+# Kolkar, Stealing Supplies and Broken Tears 500; Ongeku and Gizmo for Warug 1,000); Forever's new quests: Buying
+# Friendship 3,000 (needs Neutral), Economic Warfare 750 for 5 Carved Centaur Totems (repeatable), the
+# profession turn-ins 1,000 (Friendly), A Conqueror's Crown 1,000 (Friendly), the Valley of Bones quests 125 to
+# 500 (Honored) and Khan Jehn 6,000 with a title and a choice of rare weapons (Forever's quest pages; the weapons'
+# kind and stats from the client item table); the totem drops (Maraudine centaurs) and Gorhak's 12 recipes. The
+# totems bind to no one (client item table): they trade and sell.
+# Molkar, the Gelkis quartermaster, has no spawn in our data: he is placed from a player report from the beta.
+# The Valley of Bones lies in Shen'dralas, Forever's new zone south of Desolace, which the beta (capped at level
+# 30) never opened: only the quests whose giver is in the data are steps; the rest are named in the tips.
+# ASSUMED: Captain Pentigast gives Buying Friendship: Magram (93226) to the Alliance as he gives the Gelkis one
+# (Forever's data has no sure giver for 93226: one dialog capture names Gorhak, but the quest text sends you to
+# "their quartermaster in Magram Village to the southeast", Nijel's Point's view). In-game check: who offers it?
+# INGAME: Where do centaur kills stop: at the end of Friendly (Forever's kill rows) or at the end of Honored
+# (Classic Era players report 11,999/12,000 Honored)?
+# ASSUMED: The Magram's Valley of Bones needs A Conqueror's Crown first (Forever's quest pages list it in the
+# Magram series between Broken Tears and Valley of Bones; the Gelkis series has no such step). Its Conqueror's
+# Helm has no source in Forever's data; Warug sends you to "a crypt" in the Badlands. In-game check: does Warug
+# offer Valley of Bones without it, and where is the helm?
+# INGAME: grey-quest rep. In Classic a quest paid full only while at most 5 levels below you, then a fifth less
+# per level down to a fifth (Buying Friendship, level 45, would pay 600 at 60); a Forever beta report says quests
+# paid in full at any level. Economic Warfare is a level 60 quest: never cut.
+
+step Pick your clan
+  tip The Gelkis (south-west Desolace) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: Captain Pentigast at Nijel's Point offers Strange Alliance (Gelkis) and Brutal Politics (Magram). Horde: Gurda Wildmane, east of Shadowprey, offers Gelkis Alliance and Magram Alliance. Take the one of your clan and its Buying Friendship (3,000 for carrying a tote of totems), then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it jumps to the Magram half. Do the clan's quests by level 50 if you can: in Classic a quest pays less once it is 6 or more levels below you, down to a fifth.
+  accept 1382 optional only Alliance  -- Strange Alliance: Gelkis
+  accept 93227 optional only Alliance -- Buying Friendship: Gelkis
+  accept 1368 optional only Horde     -- Gelkis Alliance
+  accept 94873 optional only Horde    -- Buying Friendship: Gelkis
+  task "Take the quests of one clan"
+
+step Gelkis Village: Uthek and Molkar
+  skipto magram when onquest 1385
+  skipto magram when onquest 1367
+  tip Gelkis Village sits in the hills of south-west Desolace; Uthek the Wise stands at its heart. Molkar, the Gelkis quartermaster, is at the south end of the village. Buying Friendship alone takes you from Neutral to Friendly.
+  turnin 1382 only Alliance           -- Uthek the Wise: 250
+  accept 1384 only Alliance           -- Raid on the Kolkar
+  turnin 1368 only Horde              -- Uthek the Wise: 250
+  accept 1370 only Horde              -- Stealing Supplies
+  turnin 93227 @35.6,92.0 only Alliance -- Molkar: 3,000
+  turnin 94873 @35.6,92.0 only Horde  -- Molkar: 3,000
+
+step Gelkis: the Kolkar camps
+  only Alliance
+  tip The Kolkar centaurs (level 30-33) hold the camps south of Nijel's Point, along the eastern road. About one in four drops a Crude Charm.
+  collect 6079 x10 quest 1384.1 @69.5,44.0 -- Crude Charm: Kolkar centaurs
+  turnin 1384                         -- Uthek the Wise: 500
+  accept 1370
+
+step Gelkis: Magram Village
+  tip The Sacks of Meat lie about Magram Village, in the south-east. Every Magram you kill on the way pays the Gelkis 20.
+  collect 6069 x6 quest 1370.1 @69.8,77.9 -- Crudely Dried Meat: Sacks of Meat
+  kill 4640 optional                  -- Magram Wrangler: 20 Gelkis
+  kill 4641 optional                  -- Magram Windchaser: 20 Gelkis
+
+step Gelkis: Ongeku
+  tip Back to Uthek, then east to the Swamp of Sorrows: Ongeku (level 37) waits by a black cauldron in Fallow Sanctuary, north-east of Stonard.
+  turnin 1370                         -- Uthek the Wise: 500
+  accept 1373
+  zone Swamp of Sorrows
+  collect 6190 quest 1373.1           -- Draenethyst Shard: Ongeku
+  zone Desolace
+  turnin 1373                         -- Uthek the Wise: 1,000
+
+step Gelkis: totems and kills to Honored
+  tip Friendly to Honored is 6,000; after the clan's quests you are about 4,000 into it, so 2,000 to go. Molkar's Economic Warfare takes 5 Carved Centaur Totems for 750, again and again: three turn-ins, 15 totems. The Maraudine centaurs (level 36-40) of western Desolace drop them; the totems do not bind, so the auction house is the other source. Magram kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village also has three craft orders for 1,000 each: Halea wants 3 Greater Mystic Essences, Molkar a White Bandit Mask (tailoring) and Talra a Barbaric Harness (leatherworking). Legacy Diplomat adds up to 10%.
+  collect 254432 x5 optional @29.5,58.0 -- Carved Centaur Totem: Maraudine centaurs
+  accept 92812 @35.6,92.0 optional    -- Economic Warfare
+  turnin 92812 @35.6,92.0 optional    -- Molkar: 750
+  rep 92 Honored
+
+step Gelkis: the Valley of Bones
+  tip At Honored, Uthek sends you east to Nerlokh at the southern entrance of the Valley of Bones, in Shen'dralas. Nerlokh's quests (500 each) take you among the undead and the outcasts there: Ravaging Ravagers, Outing Outcasts and Facing the Truth, then A Cleansing Cry from Uthek, and a second line (Saving Our Own, Bone Burying, Checking Things Out) that ends with Khan Jehn: kill the Magram khan in his own village for 6,000, a title and a rare level 35 weapon. They all ask you to stay Honored or better. Honored to Revered is 12,000: the valley's quests pay about 10,600 of it, two or three Economic Warfare turn-ins the rest.
+  accept 93034                        -- Uthek the Wise: Valley of Bones
+  zone Shen'dralas
+  turnin 93034                        -- Nerlokh: 125
+  accept 93035 optional
+  accept 93037 optional
+  accept 93041 optional
+  zone Desolace
+
+step Gelkis: Khan Jehn
+  when available 93128
+  tip Khan Jehn (level 37) leads the Magram from the west side of Magram Village, with his bodyguards. The kill costs the Magram 500. Uthek pays 6,000, a title, and your pick of three rare level 35 weapons: Abandoned Ferocity (two-handed axe: Strength, Stamina, Agility), Bludgeon of Betrayed Virtues (one-handed mace: Strength, Stamina, Agility) or Thrice-Damned Effigy (off-hand: Spirit, Intellect, Stamina).
+  zone Shen'dralas
+  accept 93128                        -- Nerlokh
+  zone Desolace
+  kill 5601 @66.0,80.4                -- Khan Jehn
+  turnin 93128                        -- Uthek the Wise: 6,000
+
+step Gelkis: totems to Exalted
+  tip From Revered on only Economic Warfare is left: Revered to Exalted is 21,000, 28 turn-ins, 140 totems. Nothing is sold for standing; the recipes below need only totems.
+  collect 254432 x5 optional @29.5,58.0
+  accept 92812 @35.6,92.0 optional
+  turnin 92812 @35.6,92.0 optional
+  rep 92 Revered
+  rep 92 Exalted optional
+
+step Magram Village: Warug and Gorhak
+  label magram
+  skipto recipes when turnedin 1382
+  skipto recipes when turnedin 1368
+  tip Magram Village fills the valley of south-east Desolace; Warug stands on its north side, Gorhak, the Magram quartermaster, near the lake. Buying Friendship alone takes you from Neutral to Friendly.
+  accept 1385 only Alliance           -- Brutal Politics, Captain Pentigast
+  accept 93226 npc 5396 only Alliance -- Buying Friendship: Magram, Captain Pentigast
+  accept 1367 only Horde              -- Magram Alliance, Gurda Wildmane
+  accept 94872 only Horde             -- Buying Friendship: Magram, Gurda Wildmane
+  turnin 1385 only Alliance           -- Warug: 250
+  accept 1386 only Alliance           -- Assault on the Kolkar
+  turnin 1367 only Horde              -- Warug: 250
+  accept 1369 only Horde              -- Broken Tears
+  turnin 93226 npc 253139 only Alliance -- Gorhak: 3,000
+  turnin 94872 npc 253139 only Horde  -- Gorhak: 3,000
+
+step Magram: the Kolkar camps
+  only Alliance
+  tip The Kolkar centaurs (level 30-33) hold the camps south of Nijel's Point.
+  kill 4632 x12 quest 1386.1 @68.6,48.0 -- Kolkar Centaur
+  kill 4633 x12 quest 1386.2 @68.5,40.0 -- Kolkar Scout
+  kill 4634 x6 quest 1386.3 @70.8,47.0 -- Kolkar Mauler
+  turnin 1386                         -- Warug: 500
+  accept 1369
+
+step Magram: Broken Tears
+  tip The Tears of Theradras are crystals in the cave behind Gelkis Village, in the south-west. Every Gelkis you kill on the way pays the Magram 20.
+  collect 6083 x3 quest 1369.1 @39.7,93.7 -- Broken Tears: the Tear of Theradras crystals
+  kill 4648 optional                  -- Gelkis Stamper: 20 Magram
+  kill 4649 optional                  -- Gelkis Windchaser: 20 Magram
+  turnin 1369                         -- Warug: 500
+  accept 1371 optional                -- Gizmo for Warug
+
+step Magram: Gizmo for Warug
+  tip Warug wants an Advanced Target Dummy: engineers make it (4 Heavy Leather, a Gyrochronatom, a Bronze Framework and an Iron Strut); others buy one. It pays 1,000 and a choice of two engineering schematics, the Centaur Banner Deployment Device or the Hoof-Shaped Foot Pedal.
+  collect 4392 quest 1371.1 optional @75.0,68.2 -- Advanced Target Dummy: made by engineers, or bought
+  turnin 1371 optional                -- Warug: 1,000
+
+step Magram: totems and kills to Honored
+  tip Friendly to Honored is 6,000; after the clan's quests you are about 3,000 into it (4,000 with Gizmo for Warug), so 2,000 to 3,000 to go. Gorhak's Economic Warfare takes 5 Carved Centaur Totems for 750, again and again; the Maraudine centaurs (level 36-40) of western Desolace drop them, and the totems do not bind, so the auction house is the other source. Gelkis kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village has two craft orders for 1,000 each: Mirda's 3 Greater Shadow Protection Potions and Grolkar's 2 Massive Iron Axes (blacksmithing). Warug's A Conqueror's Crown (1,000) is no craft order: he wants a Conqueror's Helm from a crypt in the Badlands, and Forever's quest pages put it in his chain before the Valley of Bones, so bring it before you reach Honored. Legacy Diplomat adds up to 10%.
+  accept 92743 optional               -- A Conqueror's Crown: Warug
+  turnin 92743 optional               -- Warug: 1,000
+  collect 254432 x5 optional @29.5,58.0 -- Carved Centaur Totem: Maraudine centaurs
+  accept 92811 npc 253139 optional    -- Economic Warfare
+  turnin 92811 npc 253139 optional    -- Gorhak: 750
+  rep 93 Honored
+
+step Magram: the Valley of Bones
+  tip At Honored, and after A Conqueror's Crown, Warug sends you to Orgrul at the northern entrance of the Valley of Bones, in Shen'dralas. Orgrul's quests (500 each: Mountain of Bones, Outcast Necromancers, Corrupting Tears, Proof of Concept, No Mercy for the Weak, Bone Raising) and Hagiak's at the Magram Front (Bristleback Retreat, Long-Term Solutions, Threat of Starvation, Return to Orgrul) end with Khan Jehn: raise the dead khan with Orgrul's staff at the tent by the lake in Magram Village, for 6,000, a title and a rare level 35 weapon. They all ask you to stay Honored or better. Honored to Revered is 12,000: the valley's quests pay about 11,000 of it, two Economic Warfare turn-ins the rest.
+  accept 92841                        -- Warug: Valley of Bones
+  zone Shen'dralas
+  turnin 92841                        -- Orgrul: 125
+  accept 92844 optional
+  accept 92846 optional
+  zone Desolace
+
+step Magram: Khan Jehn
+  when available 93196
+  tip The ritual site is a tent by the lake in the middle of Magram Village. Orgrul pays 6,000, a title, and your pick of three rare level 35 weapons: Scavenged Magram Armament (polearm: Stamina, attack power, Agility), Greatstaff of the Necrokhans (staff: Intellect, Stamina, Spirit) or Soulsplatter Mace (main-hand mace: Intellect, Stamina, Spirit).
+  zone Shen'dralas
+  accept 93196 npc 253136             -- Orgrul
+  turnin 93196 npc 253136             -- Orgrul: 6,000
+  zone Desolace
+
+step Magram: totems to Exalted
+  tip From Revered on only Economic Warfare is left: Revered to Exalted is 21,000, 28 turn-ins, 140 totems.
+  collect 254432 x5 optional @29.5,58.0
+  accept 92811 npc 253139 optional
+  turnin 92811 npc 253139 optional
+  rep 93 Revered
+  rep 93 Exalted optional
+
+step The totem recipes
+  label recipes
+  tip Both quartermasters sell the same 12 recipes for Carved Centaur Totems, no standing needed: Enchant Bracer - Lesser Agility and - Lesser Healing Power; Greater Spellblasting and Greater Frenzy Potion; Hard Gold Gauntlet and Iron Morningstar plans; Mystic Thick Armor Kit, Silk Reagent Bag, Stormcloth Gloves and Centaur Hoofwarmers patterns; the Centaur Banner Deployment Device and Hoof-Shaped Foot Pedal schematics. Keep the totems you need for them before you hand the rest in.
+  talk 253139 optional                -- Gorhak, Magram Village
+  talk 253140 @35.6,92.0 optional     -- Molkar, Gelkis Village

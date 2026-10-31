@@ -100,6 +100,9 @@ pub struct WalkStore {
 	model_ix: FxHashMap<Model, u32>,
 	answers: FxHashMap<(u32, u32, u32), Answer>,
 	cells: FxHashMap<(u32, u32, u32), ZoneCells>,
+	/// Each end's zone (uiMapID) as the backend that answered saw it: Leffe's stores keep it so a build
+	/// without his maps can price the danger bands' models alike (`end.zone`, -1 unknown).
+	zones: FxHashMap<u32, u16>,
 	/// Pairs asked of the router since the store was opened.
 	pub asked: usize,
 }
@@ -143,6 +146,35 @@ impl WalkStore {
 
 	fn end_of(&self, e: &End) -> Option<u32> {
 		self.end_ix.get(&e.bits()).copied()
+	}
+
+	/// Keeps `e`'s zone (the answering backend's zone_at).
+	pub fn set_zone(&mut self, e: &End, zone: u16) {
+		let i = self.end(e);
+		self.zones.insert(i, zone);
+	}
+
+	/// The zone kept for `e`, if any.
+	pub fn zone(&self, e: &End) -> Option<u16> {
+		self.end_of(e).and_then(|i| self.zones.get(&i).copied())
+	}
+
+	/// The Leffe pack (`leffe:<id>` models' id) and lift layer (`lifts=` of their params) holding the most
+	/// answers of the current f4 answer version: what the store's Leffe walks were last built on (a store
+	/// keeps older packs' and versions' answers too).
+	pub fn leffe_pack(&self) -> Option<(String, String)> {
+		let v = format!("|v={}", crate::f4walks::MODEL_VERSION);
+		let mut n: FxHashMap<(&str, &str), usize> = FxHashMap::default();
+		for &(_, _, m) in self.answers.keys() {
+			let model = &self.models[m as usize];
+			let Some(id) = model.grid.strip_prefix("leffe:") else { continue };
+			if !model.params.ends_with(&v) {
+				continue;
+			}
+			let lifts = model.params.split('|').find_map(|p| p.strip_prefix("lifts=")).unwrap_or("none");
+			*n.entry((id, lifts)).or_default() += 1;
+		}
+		n.into_iter().max_by(|a, b| a.1.cmp(&b.1).then(b.0.cmp(&a.0))).map(|((id, l), _)| (id.to_string(), l.to_string()))
 	}
 
 	pub fn model(&mut self, m: &Model) -> u32 {
@@ -320,6 +352,9 @@ impl WalkStore {
 			Section::f64s("cost", &keys.iter().map(|k| self.answers[k].cost).collect::<Vec<_>>()),
 		];
 		let mut sections = sections;
+		if !self.zones.is_empty() {
+			sections.push(Section::i32s("end.zone", &(0..e.len() as u32).map(|i| self.zones.get(&i).map_or(-1, |&z| z as i32)).collect::<Vec<_>>()));
+		}
 		let mut off = vec![0u32];
 		let (mut ck, mut cy) = (Vec::new(), Vec::new());
 		let mut has = Vec::with_capacity(keys.len());
@@ -353,6 +388,13 @@ impl WalkStore {
 		let (c, x, y, z, zf) = (bin.i32s("end.c")?, bin.f64s("end.x")?, bin.f64s("end.y")?, bin.f64s("end.z")?, bin.f64s("end.zf")?);
 		for i in 0..c.len() {
 			s.end(&End { c: c[i], x: x[i], y: y[i], z: z[i], zf: zf[i] });
+		}
+		if bin.has("end.zone") {
+			for (i, &z) in bin.i32s("end.zone")?.iter().enumerate() {
+				if z >= 0 {
+					s.zones.insert(i as u32, z as u16);
+				}
+			}
 		}
 		let (a, b, m, yd, cost) = (bin.u32s("a")?, bin.u32s("b")?, bin.u32s("m")?, bin.f64s("yd")?, bin.f64s("cost")?);
 		s.answers.reserve(a.len());

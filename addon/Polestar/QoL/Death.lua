@@ -204,6 +204,14 @@ local function point(a)
 	mine = ok and Nav.GetTarget and Nav.GetTarget() or nil
 end
 
+local function tint(name)
+	local T = ns.Theme
+	if T and T.Color then
+		local r, g, b = T.Color(name)
+		return { r, g, b, 1 }
+	end
+end
+
 local pinned = {}
 local function pins(a)
 	local P = ns.Pins
@@ -212,11 +220,11 @@ local function pins(a)
 	pinned.choice, pinned.hx, pinned.cx = a.choice, a.healerWX, a.corpseWX
 	local list = {}
 	if a.healerC then
-		list[#list + 1] = { c = a.healerC, wx = a.healerWX, wy = a.healerWY, icon = "qol-spirit", size = 18,
+		list[#list + 1] = { c = a.healerC, wx = a.healerWX, wy = a.healerWY, icon = "map:ankh", size = 18, color = tint("npc"),
 			tooltip = L["Spirit Healer"], priority = a.choice == "healer" and 2 or 1 }
 	end
 	if a.corpseC then
-		list[#list + 1] = { c = a.corpseC, wx = a.corpseWX, wy = a.corpseWY, icon = "qol-corpse", size = 18,
+		list[#list + 1] = { c = a.corpseC, wx = a.corpseWX, wy = a.corpseWY, icon = "map:corpse", size = 18, color = tint("object"),
 			tooltip = L["Your corpse"], priority = a.choice == "corpse" and 2 or 1 }
 	end
 	P.SetLayer(LAYER, list, { world = true, minimap = true, edge = true })

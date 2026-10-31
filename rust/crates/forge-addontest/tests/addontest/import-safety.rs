@@ -446,6 +446,83 @@ fn finding_6_a_candidate_coordinate_outside_0_100_is_refused() {
 	assert!(is_match(text(&out["why"]), r"coordinate outside 0-100"));
 }
 
+#[test]
+fn finding_6_a_spot_or_candidate_with_x_but_no_y_is_refused_not_an_error() {
+	for (key, rec) in [("spots", json!({ "x": 50, "r": 1 })), ("candidates", json!({ "npc": 1, "map": 1, "x": 50 }))] {
+		let mut p = payload();
+		p["guide"]["steps"][0]["goals"][0][key] = json!([rec]);
+		let out = preview_refused(&p);
+		assert_eq!(out["refused"], true, "{key}");
+		assert!(is_match(text(&out["why"]), r"coordinate outside 0-100"), "{key}: {}", out["why"]);
+	}
+}
+
+// ── Security audit 2026-10, F1: every list a string could pad is capped ────
+
+#[test]
+fn a_goal_with_more_spawn_spots_than_the_cap_is_refused_and_one_at_the_cap_is_read() {
+	let spot = json!({ "x": 50, "y": 50, "r": 1 });
+	let mut p = payload();
+	p["guide"]["steps"][0]["goals"][0]["spots"] = Value::Array(vec![spot.clone(); LIMITS.spots + 1]);
+	let out = preview_refused(&p);
+	assert_eq!(out["refused"], true);
+	assert!(is_match(text(&out["why"]), r"1025 entries in guide\.steps\[1\]\.goals\[1\]\.spots; an import string holds 1024"), "{}", out["why"]);
+	p["guide"]["steps"][0]["goals"][0]["spots"] = Value::Array(vec![spot; LIMITS.spots]);
+	let out = preview_ok(&p);
+	assert_eq!(out["ok"], true, "{}", out["why"]);
+}
+
+#[test]
+fn every_other_padded_list_and_map_is_refused_past_its_cap() {
+	let when = json!({ "k": "level", "n": 2 });
+	let quests: Vec<u32> = (1..=LIMITS.pre as u32 + 1).collect();
+	let names: serde_json::Map<String, Value> = (0..=LIMITS.tokens).map(|i| (format!("npc:{i}"), json!("A"))).collect();
+	let next_when: serde_json::Map<String, Value> = (0..=LIMITS.next_when).map(|i| (format!("yendi/g{i}"), json!([when]))).collect();
+	let cases: Vec<(&str, Box<dyn Fn(&mut Value)>)> = vec![
+		("guide.steps[1].when", Box::new(|p: &mut Value| p["guide"]["steps"][0]["when"] = Value::Array(vec![when.clone(); LIMITS.when + 1]))),
+		("guide.steps[1].when[1].pre", Box::new(|p: &mut Value| p["guide"]["steps"][0]["when"] = json!([{ "k": "quest", "pre": quests }]))),
+		("guide.steps[1].skipto", Box::new(|p: &mut Value| p["guide"]["steps"][0]["skipto"] = Value::Array(vec![json!({ "to": "x", "when": when }); LIMITS.skipto + 1]))),
+		("guide.steps[1].skipto[1].when.preAll", Box::new(|p: &mut Value| p["guide"]["steps"][0]["skipto"] = json!([{ "to": "x", "when": { "k": "quest", "preAll": quests } }]))),
+		("guide.steps[1].goals[1].reagents", Box::new(|p: &mut Value| p["guide"]["steps"][0]["goals"][0]["reagents"] = Value::Array(vec![json!({ "item": 1, "count": 1 }); LIMITS.reagents + 1]))),
+		("guide.steps[1].goals[1].fromNpcs", Box::new(|p: &mut Value| p["guide"]["steps"][0]["goals"][0]["fromNpcs"] = Value::Array(vec![json!({ "npc": 1 }); LIMITS.from_npcs + 1]))),
+		("guide.steps[1].goals[1].closedBy", Box::new(|p: &mut Value| p["guide"]["steps"][0]["goals"][0]["closedBy"] = json!(quests))),
+		("guide.names", Box::new(|p: &mut Value| p["guide"]["names"] = Value::Object(names.clone()))),
+		("guide.nextWhen", Box::new(|p: &mut Value| p["guide"]["nextWhen"] = Value::Object(next_when.clone()))),
+	];
+	for (place, pad) in cases {
+		let mut p = payload();
+		pad(&mut p);
+		let out = preview_refused(&p);
+		assert_eq!(out["refused"], true, "{place}");
+		let why = text(&out["why"]);
+		assert!(why.contains(&format!("entries in {place};")), "{place}: {why}");
+	}
+}
+
+#[test]
+fn the_writer_refuses_a_guide_past_a_list_cap_as_the_addon_would() {
+	let spots = |n: usize| vec![json!({ "x": 50, "y": 50, "r": 1 }); n];
+	let guide = |goal: Value, top: Value| {
+		let mut g = json!({ "id": "yendi/padded", "title": "Padded", "steps": [{ "goals": [goal] }] });
+		for (k, v) in top.as_object().unwrap() {
+			g[k] = v.clone();
+		}
+		parse_json(&g.to_string()).unwrap()
+	};
+	let names: serde_json::Map<String, Value> = (0..=LIMITS.tokens).map(|i| (format!("npc:{i}"), json!("A"))).collect();
+	let cases = [
+		("guide.steps[1].goals[1].spots", guide(json!({ "t": "kill", "npc": 1, "map": 1429, "x": 50, "y": 50, "spots": spots(LIMITS.spots + 1) }), json!({}))),
+		("guide.steps[1].goals[1].fromNpcs", guide(json!({ "t": "kill", "npc": 1, "fromNpcs": vec![json!({ "npc": 1 }); LIMITS.from_npcs + 1] }), json!({}))),
+		("guide.names", guide(json!({ "t": "kill", "npc": 1 }), json!({ "names": names }))),
+	];
+	for (place, g) in cases {
+		let err = import_string(&g, &manifest(), None).err().unwrap_or_default();
+		assert!(err.contains(&format!("yendi/padded: {place} has ")), "{place}: {err}");
+	}
+	let fine = guide(json!({ "t": "kill", "npc": 1, "map": 1429, "x": 50, "y": 50, "spots": spots(LIMITS.spots) }), json!({}));
+	assert!(import_string(&fine, &manifest(), None).is_ok());
+}
+
 // ── Finding 7: update warns when author or licence changes ──────────────────
 
 fn update(v1: &str, p2: &Value) -> Value {

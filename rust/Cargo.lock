@@ -578,7 +578,7 @@ checksum = "77ce24cb58228fbb8aa041425bb1050850ac19177686ea6e0f41a70416f56fdb"
 
 [[package]]
 name = "forge"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "blake3",
  "flate2",
@@ -594,6 +594,7 @@ dependencies = [
  "forge-sim",
  "forge-world",
  "forge-writer",
+ "polestar-recording",
  "rayon",
  "regex",
  "rusqlite",
@@ -607,7 +608,7 @@ dependencies = [
 
 [[package]]
 name = "forge-addontest"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "flate2",
  "forge-data",
@@ -623,7 +624,7 @@ dependencies = [
 
 [[package]]
 name = "forge-core"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "rustc-hash",
  "serde",
@@ -633,7 +634,7 @@ dependencies = [
 
 [[package]]
 name = "forge-data"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "flate2",
  "forge-core",
@@ -656,7 +657,7 @@ dependencies = [
 
 [[package]]
 name = "forge-devtools"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "forge-data",
  "forge-nav",
@@ -666,7 +667,7 @@ dependencies = [
 
 [[package]]
 name = "forge-gamedata"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "flate2",
  "md-5",
@@ -676,7 +677,7 @@ dependencies = [
 
 [[package]]
 name = "forge-guide"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "flate2",
  "forge-core",
@@ -689,7 +690,7 @@ dependencies = [
 
 [[package]]
 name = "forge-i18n"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "fancy-regex",
  "forge-addontest",
@@ -701,7 +702,7 @@ dependencies = [
 
 [[package]]
 name = "forge-judge"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "bolero",
  "flate2",
@@ -720,11 +721,12 @@ dependencies = [
 
 [[package]]
 name = "forge-nav"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "cch",
  "flate2",
  "forge-core",
+ "forge-guide",
  "forge-world",
  "memmap2",
  "miniz_oxide 0.8.9",
@@ -738,7 +740,7 @@ dependencies = [
 
 [[package]]
 name = "forge-navbuild"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "flate2",
  "forge-core",
@@ -753,7 +755,7 @@ dependencies = [
 
 [[package]]
 name = "forge-release"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "forge-guide",
  "mlua",
@@ -766,7 +768,7 @@ dependencies = [
 
 [[package]]
 name = "forge-sim"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "criterion",
  "flate2",
@@ -783,7 +785,7 @@ dependencies = [
 
 [[package]]
 name = "forge-wasm"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "flate2",
  "forge-core",
@@ -799,7 +801,7 @@ dependencies = [
 
 [[package]]
 name = "forge-world"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "flate2",
  "forge-core",
@@ -811,7 +813,7 @@ dependencies = [
 
 [[package]]
 name = "forge-writer"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "forge-core",
  "forge-guide",
@@ -1155,6 +1157,15 @@ name = "pkg-config"
 version = "0.3.34"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f6b464fbc74e149a392436b17d523f769e057cb6877f6a5c4618bc6f11800548"
+
+[[package]]
+name = "polestar-recording"
+version = "0.1.1"
+dependencies = [
+ "serde",
+ "serde_json",
+ "sha2",
+]
 
 [[package]]
 name = "ppv-lite86"

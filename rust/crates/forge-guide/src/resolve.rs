@@ -1379,7 +1379,7 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, r: &mut R) ->
 					r.warn(
 						&ln,
 						format!("zone \"{}\" is not in zones.json: the game never reports that zone name, so the predicate never holds there", p.get("name")),
-						Some("write the zone as the game names it (`polestar find --kind zone <text>`)"),
+						Some("write the zone as the game names it: the zone text it shows when you walk in"),
 					);
 				}
 			}
@@ -2157,7 +2157,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					r.warn(
 						&ln,
 						format!("enter \"{loc}\": no zone or area has that name; the game never reports it, so the goal never checks off by itself"),
-						Some("write the place as the game names it (`polestar find --kind zone <text>`)"),
+						Some("write the place as the game names it: the zone or subzone text the minimap shows there"),
 					);
 				}
 			}

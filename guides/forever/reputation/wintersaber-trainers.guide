@@ -1,0 +1,78 @@
+guide forever/reputation/wintersaber-trainers
+title Wintersaber Trainers Reputation
+category Reputation
+folder Reputation · World
+faction Alliance
+levels 58-60
+zone Winterspring
+next forever/collectibles/mounts/alliance/winterspring-frostsaber
+keywords Wintersaber Trainers, Rivern Frostwind, Frostsaber Rock, Frostsaber Provisions, Winterfall Intrusion, Rampaging Giants, Shardtooth Meat, Chillwind Meat, Winterfall Village, Frostmaul giants, Reins of the Winterspring Frostsaber, saber mount, Timbermaw Hold
+reward item 13086
+reward text Timbermaw Hold reputation on the side: 50 and about 4 Winterfall Spirit Beads per Winterfall Intrusion
+why The Winterspring Frostsaber: 840 quest turn-ins in Winterspring, with Timbermaw reputation on the side.
+
+# Built from Forever's quest data (the reputation each quest pays, as Forever's
+# quest pages give it), the world database Forever's data is fitted to (the
+# standing each quest needs, what Rivern Frostwind sells and when),
+# quests.json, npcs.json and items.json (giver, objectives, meat drops) and the
+# Forever client tables (Faction: Alliance races start at Neutral 0/3000, Horde
+# races at Hated; ItemSparse: the Reins cost 200 gold and need level 60).
+# Numbers: Frostsaber Provisions, Winterfall Intrusion and Rampaging Giants
+# each pay 50 and repeat without end. Winterfall Intrusion opens at Neutral
+# 1500/3000, Rampaging Giants (elite giants) at Honored. Neutral to Exalted is
+# 42,000: 840 turn-ins. Every Winterfall kill also gives the Timbermaw 5
+# (up to the end of Honored there) and drops Winterfall Spirit Beads about four
+# times in ten. Numbers are base values; the Legacy perk Diplomat adds up to 10%.
+# The Reins are bought in the mount guide this one hands over to.
+
+step Rivern Frostwind
+  tip Rivern Frostwind stands on top of Frostsaber Rock, in the far north of Winterspring; the path winds up from the east side. Only the Alliance can earn the Wintersaber Trainers' favour, from Neutral, at level 58. All three of her quests pay 50 and repeat as often as you like: 840 turn-ins from Neutral to Exalted. The first one, Frostsaber Provisions, is the only one open at the start.
+  accept 4970
+
+step Shardtooth and Chillwind meat
+  tip The meat only drops while the quest is in your log, and a group shares no loot: farm it alone. The best droppers live right below the rock: Elder Shardtooth bears (about half the time) and Chillwind Ravagers (half the time) roam the snowfields east and south-east of it. Around Everlook the Chillwind Chimaeras drop it as often and the Shardtooth Bears a little less; the Rabid Shardtooth by the giants' gorge in the south drop it most often (six in ten).
+  collect 12622 x5 quest 4970.1       -- Shardtooth Meat: the bears
+  collect 12623 x5 quest 4970.2       -- Chillwind Meat: the chimaeras
+
+step Back to Rivern Frostwind
+  turnin 4970
+
+step Neutral to Friendly: Frostsaber Provisions, then Winterfall Intrusion
+  tip Repeat Frostsaber Provisions: 30 turn-ins reach Neutral 1,500, and then Winterfall Intrusion opens: 5 Winterfall Shamans and 5 Winterfall Ursas in Winterfall Village, just east of Everlook. The village has only a few Shamans, but every furbolg there shares their spawn points: kill all of them, not just the ones you need, and more Shamans and Ursas appear; more Ursas walk the ridge just south-west of the village. Take both quests on every trip: kill the furbolgs, pick up meat on the way back. Neutral to Friendly is 60 turn-ins.
+  accept 4970 optional
+  accept 5201 optional
+  collect 12622 x5 quest 4970.1 optional
+  collect 12623 x5 quest 4970.2 optional
+  kill 7439 quest 5201.1 optional     -- Winterfall Shaman
+  kill 7438 quest 5201.2 optional     -- Winterfall Ursa
+  turnin 4970 optional
+  turnin 5201 optional
+  rep 589 Friendly
+
+step Friendly to Honored
+  tip Friendly to Honored is 6,000: 120 turn-ins. Winterfall Intrusion is the quickest; do Frostsaber Provisions when the village is crowded or you pass the bears and chimaeras anyway. Every Winterfall furbolg you kill counts for Timbermaw Hold too: 50 Timbermaw reputation per Winterfall Intrusion up to the end of Honored with them, and about four Winterfall Spirit Beads. Take Salfa's Winterfall Activity (the Timbermaw guide) the first time you are in the village, and keep the beads until your Timbermaw kills stop counting: then each 5 pay 50. You will reach Exalted with the Timbermaw long before the Wintersaber Trainers.
+  accept 4970 optional
+  accept 5201 optional
+  collect 12622 x5 quest 4970.1 optional
+  collect 12623 x5 quest 4970.2 optional
+  kill 7439 quest 5201.1 optional
+  kill 7438 quest 5201.2 optional
+  turnin 4970 optional
+  turnin 5201 optional
+  rep 589 Honored
+
+step Honored to Exalted: Rampaging Giants too
+  tip At Honored Rivern Frostwind adds Rampaging Giants: 4 Frostmaul Giants and 4 Frostmaul Preservers, elite giants in Frostwhisper Gorge in the south-east of Winterspring; the path down into the gorge starts at its north-west end. Take it on a trip south with a friend or two, or when Winterfall Village is crowded; the Rabid Shardtooth by the gorge drop Shardtooth Meat most often. Honored to Exalted is 33,000: 660 turn-ins.
+  accept 4970 optional
+  accept 5201 optional
+  accept 5981 optional
+  kill 7439 quest 5201.1 optional
+  kill 7438 quest 5201.2 optional
+  kill 7428 quest 5981.1 optional group 3 -- Frostmaul Giant, elite
+  kill 7429 quest 5981.2 optional group 3 -- Frostmaul Preserver, elite
+  collect 12622 x5 quest 4970.1 optional
+  collect 12623 x5 quest 4970.2 optional
+  turnin 4970 optional
+  turnin 5201 optional
+  turnin 5981 optional
+  rep 589 Exalted

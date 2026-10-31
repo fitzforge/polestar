@@ -1,68 +1,150 @@
 guide forever/reputation/warsong-gulch
 title Warsong Gulch Reputation
 category Reputation
+folder Reputation · Battlegrounds
 levels 10-60
 zone Ashenvale
+keywords Silverwing Sentinels, Warsong Outriders, Warsong Gulch, Sentinel Farsong, Captain Shatterskull, Illiyana Moonblaze, Kelm Hargunth, Warsong Gulch Mark of Honor, Vanquish the Invaders, Quell the Silverwing Usurpers, Fight for Warsong Gulch, Battle of Warsong Gulch, Berserker Bracers, Silverwing Battle Tabard, Warsong Battle Tabard, Master of Warsong Gulch, Legacy Point
+reward text Master of Warsong Gulch: a Legacy Point at Exalted
+reward item 19578 19582 19587 19595
+reward item 19506
+reward item 19505
+collects 19506, 19505
+why Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and epic bracers and legs.
+
 # Silverwing Sentinels (890, Alliance) and Warsong Outriders (889, Horde).
-# Exalted with each battleground reputation is one of Forever's Legacy PvP
-# Challenges (one account-wide Legacy Point each; official Legacy System news).
+# Built from Forever's quest data (quest pages: reputation per quest and the
+# objectives), the world database's exclusive groups and prerequisites, the
+# quartermasters' lists in Forever's NPC data and the Forever client's item
+# table (prices are the item table's, before any standing discount).
+# Exalted with either faction is the Legacy Challenge "Master of Warsong
+# Gulch" (one account-wide Legacy Point).
 #
-# From the Era-baseline reference data: the faction NPCs (Sentinel Farsong and
-# Illiyana Moonblaze at Silverwing Grove, Ashenvale; Captain Shatterskull and
-# Kelm Hargunth at Mor'shan Rampart, The Barrens), their mark turn-ins
-# (Vanquish the Invaders! 7788/7871-7873/8291, Quell the Silverwing Usurpers
-# 7789/7874-7876/8294, one per level bracket), the care packages (7863-7865,
-# 7866-7868, one of the three) and the weekend Call to Arms quests at the
-# Alliance Brigadier General / Horde Warbringer. Forever's Field of Honor season
-# reworks PvP and may change marks, so the turn-ins stay notes until a live
-# recording confirms them; the steps track the standing itself (rep 890/889).
-# The battleground itself has no quest-giver steps: enter it from any
-# battlemaster.
+# The one-mark quests (Vanquish the Invaders! 7788/7871/7872/7873/8291,
+# Quell the Silverwing Usurpers 7789/7874/7875/7876/8294) are one exclusive
+# group: one per character, 200 reputation in any bracket. The guide takes the
+# level 55 version (7873, 7876: from level 50, full reputation up to 60) and
+# the Brigadier General's and Warbringer's level 59 pair (Fight for Warsong
+# Gulch 8402 then 8407, Battle of Warsong Gulch 8429 then 8434). Forever's quest
+# data marks the bracket pairs exclusive with each other; the world database
+# does not. Below level 50 the tips name the bracket versions.
+# INGAME: in Classic a quest pays less reputation once you are 6 or more
+# levels above it (a fifth at most); a Forever beta report says low quests
+# paid in full. Which holds for the bracket mark quests at level 60?
+# The 10-19 version of the one-mark quest (8290, 8295) has no giver in
+# Forever's data. Ribbons of Sacrifice (8266, 8268) is left out: the data has
+# no source for the ribbon.
+# Reputation per flag capture is the Classic figure (35, 45 on the holiday
+# weekend); Forever has published no battleground reputation rates.
+# ASSUMED: 3 Marks of Honor for a win and 1 for a loss (Classic flow;
+# Forever's data has no per-match reward). In-game check: marks after a game.
+# INGAME: Forever's item table keeps each reward's standing (Friendly to
+# Exalted) but names no faction for it, and Forever's quartermaster lists
+# show no standing. Does the quartermaster still ask for it?
+
+step Sentinel Farsong
+  only Alliance
+  when level>=50
+  tip Warsong Gulch is a 10 against 10 capture-the-flag battle, from level 10. Queue at any battlemaster in the capitals or from the battleground screen. In Classic every flag your team captures pays everyone 35 reputation (45 on the Warsong Gulch holiday weekend), and a game pays 3 Warsong Gulch Marks of Honor for a win, 1 for a loss. Sentinel Farsong pays 200 reputation for one mark, once per character: the best mark you will ever turn in. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide.
+  level 50
+  accept 7873
+  collect 20558 quest 7873.1 @61.9,83.9  -- one Warsong Gulch Mark of Honor: play a game
+  turnin 7873
+
+step Alliance Brigadier General
+  only Alliance
+  when level>=50
+  tip The Alliance Brigadier General pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more (Fight for Warsong Gulch). One stands right here at Silverwing Grove beside Sentinel Farsong; others in Stormwind, Ironforge and Darnassus, at Refuge Pointe in the Arathi Highlands and at both gates of Alterac Valley. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Warsong Gulch marks: hand in or spend them before you reach that.
+  level 50
+  accept 8402
+  collect 20558 x3 quest 8402.1 @61.9,83.9  -- three Warsong Gulch Marks of Honor
+  turnin 8402
 
 step Silverwing Sentinels to Friendly
   only Alliance
-  tip The Silverwing Sentinels are the Night Elves holding Warsong Gulch. Their reputation comes from the battleground: every enemy flag your team captures pays it to the whole team. Queue at any battlemaster. Forever's Legacy Diplomat perk increases reputation gains.
-  talk 14733 optional -- Sentinel Farsong, Silverwing Grove
-  note Sentinel Farsong takes Warsong Gulch Marks of Honor for Vanquish the Invaders!, once per level bracket (data); check them live.
+  tip Neutral to Friendly is 3000 reputation. In Classic a 3-capture win paid 105, and its 3 marks bring 50 more at the Brigadier General: about 155 a win, so some 20 wins. Losses still pay 35 for each flag your team captured. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50, Sentinel Farsong's one-mark quest and the Brigadier General's Fight for Warsong Gulch come in a version for your bracket (from 20 and from 10): 200 once, then 100 and 50 per 3 marks.
+  talk 15351 optional                  -- Alliance Brigadier General: Fight for Warsong Gulch again, 50 reputation for 3 marks
   rep 890 Friendly
 
 step Silverwing Sentinels to Honored
   only Alliance
-  tip Keep playing Warsong Gulch and capturing flags. On Call to Arms: Warsong Gulch weekends the Alliance Brigadier General in the capitals takes three Warsong Gulch Marks of Honor for extra reputation.
-  talk 14753 optional -- Illiyana Moonblaze hands out one Sentinel care package by level
+  tip Friendly to Honored is 6000 reputation, about 39 wins at the Classic rate. Friendly opens the first rewards at Illiyana Moonblaze beside Sentinel Farsong: the Rune of Duty and Rune of Perfection trinkets (2g at level 20, 4g at level 40) and food, bandages and draughts that work in the battleground (5s to 20s). She also gives one Sentinel care package at Friendly (pick the one for your level): 10 reputation and a bag of battleground food and bandages.
+  talk 14753 optional                  -- Illiyana Moonblaze: Friendly rewards
+  talk 15351 optional                  -- Alliance Brigadier General: 50 reputation for 3 marks
   rep 890 Honored
 
 step Silverwing Sentinels to Revered
   only Alliance
-  tip Keep capturing flags in Warsong Gulch.
+  tip Honored to Revered is 12000 reputation, about 78 wins. Honored opens the Caretaker's Cape (cloak), Sentinel's Medallion (neck), Lorekeeper's Ring and Protector's Band, each sold for levels 18, 28, 38, 48 and 58 (cloak 36s50c to 8g55s, the rest 2g to 7g50s), and the Major Healing and Mana Draughts (10s).
+  talk 14753 optional                  -- Illiyana Moonblaze: Honored rewards
+  talk 15351 optional                  -- Alliance Brigadier General: 50 reputation for 3 marks
   rep 890 Revered
 
 step Silverwing Sentinels to Exalted
   only Alliance
-  tip Exalted with the Silverwing Sentinels earns a Legacy Point.
+  tip Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: Sentinel's Blade (dagger), Protector's Sword, Outrunner's Bow and Lorekeeper's Staff (91s to 35g61s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the Trainee's Sentinel Nightsaber mount (level 25, 10g) with no standing listed.
+  talk 14753 optional                  -- Illiyana Moonblaze: Revered rewards
+  talk 15351 optional                  -- Alliance Brigadier General: 50 reputation for 3 marks
   rep 890 Exalted
+
+step Illiyana Moonblaze
+  only Alliance
+  tip Exalted gives the Legacy Point "Master of Warsong Gulch" and opens the epics: Berserker Bracers (plate), Windtalker's Wristguards (mail), Forest Stalker's Bracers (leather) and Dryad's Wrist Bindings (cloth) for levels 40, 50 and 60 (2g47s to 12g11s), and the level 60 Sentinel's legs in plate, lamellar, chain, leather, lizardhide and silk (16g63s to 24g22s). The Silverwing Battle Tabard is 5g.
+  buy 19506                            -- Silverwing Battle Tabard, 5g
+
+step Captain Shatterskull
+  only Horde
+  zone The Barrens
+  when level>=50
+  tip Warsong Gulch is a 10 against 10 capture-the-flag battle, from level 10. Queue at any battlemaster in the capitals or from the battleground screen; the Horde gate is here at Mor'shan Base Camp. In Classic every flag your team captures pays everyone 35 reputation (45 on the Warsong Gulch holiday weekend), and a game pays 3 Warsong Gulch Marks of Honor for a win, 1 for a loss. Captain Shatterskull pays 200 reputation for one mark, once per character: the best mark you will ever turn in. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide.
+  level 50
+  accept 7876
+  collect 20558 quest 7876.1 @46.6,8.4  -- one Warsong Gulch Mark of Honor: play a game
+  turnin 7876
+
+step Horde Warbringer
+  only Horde
+  zone The Barrens
+  when level>=50
+  tip The Horde Warbringer pays 100 reputation for 3 Warsong Gulch Marks of Honor the first time, then 50 for every 3 more (Battle of Warsong Gulch). One stands right here at Mor'shan; others in Orgrimmar, Thunder Bluff (and on the plain below it) and the Undercity, at Hammerfall in the Arathi Highlands and at the Alterac Valley gate in the Alterac Mountains. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Warsong Gulch marks: hand in or spend them before you reach that.
+  level 50
+  accept 8429
+  collect 20558 x3 quest 8429.1 @46.6,8.4  -- three Warsong Gulch Marks of Honor
+  turnin 8429
 
 step Warsong Outriders to Friendly
   only Horde
   zone The Barrens
-  tip The Warsong Outriders are the Orcs logging Ashenvale. Their reputation comes from the battleground: every enemy flag your team captures pays it to the whole team. Queue at any battlemaster. Forever's Legacy Diplomat perk increases reputation gains.
-  talk 14781 optional -- Captain Shatterskull, Mor'shan Rampart
-  note Captain Shatterskull takes Warsong Gulch Marks of Honor for Quell the Silverwing Usurpers, once per level bracket (data); check them live.
+  tip Neutral to Friendly is 3000 reputation. In Classic a 3-capture win paid 105, and its 3 marks bring 50 more at the Warbringer: about 155 a win, so some 20 wins. Losses still pay 35 for each flag your team captured. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50, Captain Shatterskull's one-mark quest and the Warbringer's Battle of Warsong Gulch come in a version for your bracket (from 20 and from 10): 200 once, then 100 and 50 per 3 marks.
+  talk 15350 optional                  -- Horde Warbringer: Battle of Warsong Gulch again, 50 reputation for 3 marks
   rep 889 Friendly
 
 step Warsong Outriders to Honored
   only Horde
   zone The Barrens
-  tip Keep playing Warsong Gulch and capturing flags. On Call to Arms: Warsong Gulch weekends the Horde Warbringer in the capitals takes three Warsong Gulch Marks of Honor for extra reputation.
-  talk 14754 optional -- Kelm Hargunth hands out one Outrider care package by level
+  tip Friendly to Honored is 6000 reputation, about 39 wins at the Classic rate. Friendly opens the first rewards at Kelm Hargunth beside Captain Shatterskull: the Rune of Duty and Rune of Perfection trinkets (2g at level 20, 4g at level 40) and food, bandages and draughts that work in the battleground (5s to 20s). He also gives one Outrider care package at Friendly (pick the one for your level): 10 reputation and a bag of battleground food and bandages.
+  talk 14754 optional                  -- Kelm Hargunth: Friendly rewards
+  talk 15350 optional                  -- Horde Warbringer: 50 reputation for 3 marks
   rep 889 Honored
 
 step Warsong Outriders to Revered
   only Horde
-  tip Keep capturing flags in Warsong Gulch.
+  zone The Barrens
+  tip Honored to Revered is 12000 reputation, about 78 wins. Honored opens the Battle Healer's Cloak, Scout's Medallion (neck), Advisor's Ring and Legionnaire's Band, each sold for levels 18, 28, 38, 48 and 58 (cloak 36s50c to 9g6s, the rest 2g to 7g50s), and the Major Healing and Mana Draughts (10s).
+  talk 14754 optional                  -- Kelm Hargunth: Honored rewards
+  talk 15350 optional                  -- Horde Warbringer: 50 reputation for 3 marks
   rep 889 Revered
 
 step Warsong Outriders to Exalted
   only Horde
-  tip Exalted with the Warsong Outriders earns a Legacy Point.
+  zone The Barrens
+  tip Revered to Exalted is 21000 reputation, about 136 wins: half of the whole climb. Revered opens the weapons for levels 18 to 58: Scout's Blade (dagger), Legionnaire's Sword, Outrider's Bow and Advisor's Gnarled Staff (91s to 35g9s). Forever's quartermaster also sells level-25 versions of the four weapons, Resilient helms for level 20 (2g50s) and the Trainee's Outrider Wolf mount (level 25, 10g) with no standing listed.
+  talk 14754 optional                  -- Kelm Hargunth: Revered rewards
+  talk 15350 optional                  -- Horde Warbringer: 50 reputation for 3 marks
   rep 889 Exalted
+
+step Kelm Hargunth
+  only Horde
+  zone The Barrens
+  tip Exalted gives the Legacy Point "Master of Warsong Gulch" and opens the epics: Berserker Bracers (plate), Windtalker's Wristguards (mail), Forest Stalker's Bracers (leather) and Dryad's Wrist Bindings (cloth) for levels 40, 50 and 60 (2g47s to 12g11s), and the level 60 Outrider's legs in plate, chain, mail, leather, lizardhide and silk (16g57s to 25g33s). The Warsong Battle Tabard is 5g.
+  buy 19505                            -- Warsong Battle Tabard, 5g

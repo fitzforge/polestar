@@ -10,15 +10,16 @@ page says which part is which.
 
 | Folder | What it holds | Built by | In git | Ships |
 |---|---|---|---|---|
-| `Polestar` | The addon: guide engine, waypoint arrow and travel planner, quest markers, gear advice, world map, quality of life, Lookup, Dungeons, Rares, Talents and every window. | Hand-written, apart from the generated files listed below | yes | yes, in `Polestar-<version>.zip` |
+| `Polestar` | The addon: guide engine, waypoint arrow and travel planner, quest markers, gear advice, world map, quality of life, Lookup, Dungeons, Rares, Talents, Characters and every window. | Hand-written, apart from the generated files listed below | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_Guides` | Polestar's own guide pack (pack id `guides`): every guide under `guides/`, compiled to Lua. Loads with Polestar. | `compile`, from `guides/` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_ItemDB` | Item stats for the gear advice (`Items.lua`) and Forever item stats with quest reward choices (`Forever.lua`). Loaded on demand. | `forge data itemdb`, then `forge data gear` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_<locale>` | One language folder per client language (`deDE` … `zhTW`): our guides' texts in that language (`Texts.lua`, from `guides/locales/<locale>/`) and the quest, NPC, object and item names of Polestar's guides, quest database and Codex in it (`Names.lua`, from the client's tables, DingDB and pfQuest: `LICENSE-DATA.txt`, Ding's `CREDITS.md`). Loaded on demand by `Core/GuideTexts.lua` and `Core/Names.lua`, only the client's own; none on an English client. Before 0.3.0 these were two folders per language, `Polestar_Guides_<locale>` and `Polestar_Names_<locale>`. | `forge guide compile` (`Texts.lua`) and `forge data names` (`Names.lua`); both write the same TOC | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_QuestDB` | The quest database behind the quest markers, available-quest markers, tooltips and nameplate icons. Loaded on demand. | `forge data questdb`, from `data/forever` | no (gitignored, built locally) | yes, in `Polestar-<version>.zip` when built |
 | `Polestar_Codex` | Lookup's Codex: items, mounts, pets, recipes, NPCs, rares, quests, zones, dungeons and treasures with where each comes from; also the Dungeons and Rares data. Loaded on demand. | `forge data codex` | no (gitignored, built locally) | no: `install` copies it when built, `pack` never packages it |
-| `Polestar_Nav` | The arrow's walking routes: Polestar's walking router (`Routing/`, started from [Shortest Path Forever](https://github.com/cjber/shortest-path-forever)'s by Cillian Berragan, GPL-3.0-or-later, used with his permission, and Polestar's since 2026-10-16; `CREDITS.md`), pricing each step by its ground class and the player's faction (`Routing/Costs.lua`), on Polestar's walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle (maps format 2, grown from his format), with the walk's chokepoints. `API.lua` hands the engine to Polestar as `Polestar_NavEngine`; it reads only its own maps (`PolestarPathData`), also with Shortest Path Forever installed. Loaded on demand at login. | the router hand-written; `nav pack` (Polestar's maps and `Chokepoints.lua`, `PACK.json`); the maps never edited by hand | yes (the maps generated) | yes, in `Polestar-<version>.zip` |
+| `Polestar_Nav` | The arrow's walking routes: Polestar's walking router (`Routing/`, started from [Shortest Path Forever](https://github.com/cjber/shortest-path-forever)'s by Cillian Berragan, GPL-3.0-or-later, used with his permission, and Polestar's since 2026-10-16; `CREDITS.md`), pricing each step by its ground class and the player's faction (`Routing/Costs.lua`), on the walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle (maps format 5: Leffe's navigation maps, with the walk's chokepoints and our floors' area names; format 3 from our grid without `--leffe`). `API.lua` hands the engine to Polestar as `Polestar_NavEngine`; it reads only its own maps (`PolestarPathData`), also with Shortest Path Forever installed. Loaded on demand at login. | the router hand-written; `forge nav pack --leffe` (the maps and `Chokepoints.lua`, `PACK.json`); the maps never edited by hand | yes (the maps generated) | yes, in `Polestar-<version>.zip` |
+| `Polestar_Nav_EK`, `Polestar_Nav_Kalimdor` | Each continent's map parts of Leffe's maps; Polestar_Nav's router loads the player's continent's the first time it searches there (never in combat). | `forge nav pack --leffe` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_Travel` | Zone crossings for the travel planner, from the optional local crossings file `data/local/crossings.json`. Loads with Polestar. | `travel build` | no (gitignored, built locally) | no: `install` copies it when built, `pack` never packages it |
-| `Polestar_Recorder` | An optional, standalone recorder (no dependency on Polestar): quests, routes, world data and, while Polestar runs, guide progress, into `PolestarRecorderDB`. Off until turned on (`/psrec on`). `record import` reads what it wrote. | Hand-written | yes | yes, as its own `Polestar_Recorder-<version>.zip`; `install --recorder` |
+| `Polestar_Recorder` | An optional, standalone recorder (no dependency on Polestar): quests, routes, world data and, while Polestar runs, guide progress, as compact records into `PolestarRecorderDB` (schema 2, [docs/RECORDING.md](../docs/RECORDING.md)). Off until turned on (`/psrec on`, or Start sharing in Polestar Client). Polestar Client sends it; `forge record import` reads what it wrote. `Ack.lua` is the client's acknowledgement and share flag, shipped empty. | Hand-written | yes | yes, as its own `Polestar_Recorder-<version>.zip`; `install --recorder` |
 
 The data addons Polestar can do without: with `Polestar_QuestDB`,
 `Polestar_Codex` or `Polestar_ItemDB` missing, the features that read them say
@@ -37,7 +38,7 @@ player's choice, remembered per machine (`g_addonCategoriesCollapsed`).
 
 ## Polestar, module by module
 
-`Polestar.toc` loads eleven XML manifests, one per module, and each manifest
+`Polestar.toc` loads thirteen XML manifests, one per module, and each manifest
 lists that module's files. The order below is the load order. The addon's
 namespace is one table, `ns` inside the addon and the global `Polestar`
 outside it (`Core/Init.lua`: `Polestar = ns`), so `ns.Engine` and
@@ -63,6 +64,7 @@ never in saved variables.
 | 10 | UI | `UI/UI.xml` | `UI` | The guide window, the hub and its Guides, Lookup and Dungeons sections, zone art, route choice, welcome, problem report, options |
 | 11 | Rares | `Rares/Rares.xml` | `Rares` | Rare NPCs and treasures: detection, pins, alerts and the hub's Rares section |
 | 12 | Talents | `Talents/Talents.xml` | `Talents` | Talent plans for every class: the hub's Talents section, marks and tooltip lines on the talent frame, a reminder when a point waits |
+| 13 | Alts | `Alts/Alts.xml` | `Alts` | A snapshot of each character on the account and the hub's Characters section |
 
 `Bindings.xml` at the addon root declares the key bindings; it calls into
 `Core/Commands.lua`. Fonts are in `Media/Fonts`, textures in `Media/Nav` and
@@ -221,6 +223,14 @@ never in saved variables.
 | `Options.lua` | (registers options) | The talent settings |
 | `View.lua` | `UI.TalentsSection` | The hub's Talents section |
 
+### Alts
+
+| File | Public table | What it does |
+|---|---|---|
+| `Snapshot.lua` | `Alts` | The per-character snapshots, the events that write them, rested XP projection, the `alts` command |
+| `Options.lua` | (registers options) | The Characters setting |
+| `View.lua` | `UI.AltsSection` | The hub's Characters section |
+
 ### Where a hub screen lives
 
 The hub is the window `UI/Picker.lua` builds. Guides is its built-in section;
@@ -234,10 +244,11 @@ icon, order, build, render, ... })` from its own file:
 | Dungeons | 30 | `UI/Dungeons.lua` |
 | Talents | 40 | `Talents/View.lua` |
 | Rares | 50 | `Rares/View.lua` |
+| Characters | 60 | `Alts/View.lua` |
 
-Lookup and Dungeons keep their screens in `UI/`; Rares and Talents keep their
-screens in their own modules, which works because `Rares.xml` and
-`Talents.xml` load after `UI.xml`. A new
+Lookup and Dungeons keep their screens in `UI/`; Rares, Talents and Characters keep their
+screens in their own modules, which works because `Rares.xml`,
+`Talents.xml` and `Alts.xml` load after `UI.xml`. A new
 section registers the same way, from a file that loads after `UI/Picker.lua`.
 
 ## Generated files: do not edit

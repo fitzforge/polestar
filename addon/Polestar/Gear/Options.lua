@@ -57,7 +57,7 @@ local function register()
 				help = L["Score items for your class and talents and point out upgrades."] },
 			{ kind = "dropdown", key = "gear.spec." .. class, label = L["Stat weights"], choices = choices, disabled = disabled,
 				help = L["Which levelling weights score your items. Automatic follows the talent tree with the most points."] },
-			{ kind = "button", icon = "bolt", label = L["Manage custom weights"], disabled = disabled,
+			{ kind = "button", icon = "bolt", button = L["Manage"], label = L["Manage custom weights"], disabled = disabled,
 				help = L["Import a Pawn scale string, and use, rename, export or delete the scales you have."],
 				onClick = function() if UI() and UI().ShowScales then UI().ShowScales() end end },
 			{ kind = "toggle", key = "gear.tooltip", label = L["Tooltip comparison"], disabled = disabled,

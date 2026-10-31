@@ -65,6 +65,12 @@ options:
   --class <c>           play only this class (e.g. Warrior), in every guide
   --group do|skip       the answer at every group quest (when group): skip
                         (the default, the solo route) or do (with a group)
+  --learn <list>        play as a player who chose these professions
+                        (\`--learn Herbalism,"First Aid"\`): the guide's optional
+                        \`train\` of each is taken, then the steps behind
+                        \`when skill\` it opens are played; on its own the
+                        simulator takes no optional goal, so it learns none
+                        (a profession taught by an item is not taken)
   <dir>, --pack <dir>   the pack folder (holding pack.json)
   --guides <dir>        our pack's guide sources in another folder (default guides/)
   --data <dir>          reference data (default data/forever/)
@@ -72,12 +78,13 @@ options:
   --context-data <dir>  reference data for the context (default data/forever/)`;
 
 async function run(argv) {
-	const { opts, positional, error } = parseArgs(argv, { flags: ['--honest'], options: ['--filter', '--class', '--group', '--pack', '--guides', '--data', '--context', '--context-data', '--format', '--kb'] });
+	const { opts, positional, error } = parseArgs(argv, { flags: ['--honest'], options: ['--filter', '--class', '--group', '--pack', '--guides', '--data', '--context', '--context-data', '--format', '--kb', '--learn'] });
 	if (opts.help) {
 		console.log(usage);
 		return 0;
 	}
 	const cls = opts.class ? CLASSES.find((c) => c === opts.class.toUpperCase()) : null;
+	const learn = opts.learn ? parseLearn(opts.learn) : null;
 	const arg = error ? {} : packArgument(opts, positional);
 	const problem =
 		error ||
@@ -86,7 +93,9 @@ async function run(argv) {
 		(opts.group && opts.group !== 'do' && opts.group !== 'skip' && '--group must be do or skip') ||
 		(opts.format && opts.format !== 'text' && opts.format !== 'json' && '--format must be text or json') ||
 		(opts.format === 'json' && !opts.honest && '--format json needs --honest') ||
-		(opts.kb && !opts.honest && '--kb needs --honest');
+		(opts.kb && !opts.honest && '--kb needs --honest') ||
+		(learn && learn.error) ||
+		(learn && opts.honest && '--learn plays in the addon: it does not go with --honest');
 	const pack = problem ? null : commandPack({ ...opts, pack: arg.pack });
 	if (!pack || pack.error) {
 		console.error(`${problem || pack.error}\n\n${usage}`);
@@ -115,6 +124,7 @@ async function run(argv) {
 		groups: opts.group || 'skip',
 		dataDir: resolvePath(opts.data, 'data/forever', ROOT),
 		...(pack.official ? {} : { contextDir: pack.contextDir, contextDataDir: pack.contextDataDir }),
+		learn,
 		onResult: (r) => {
 			if (r.stuck) stuck++;
 			else if (!r.ok) failed++;
@@ -138,6 +148,13 @@ async function run(argv) {
 	if (stuck || failed) console.error(`playtest failed: ${summary}`);
 	else console.log(`playtest ok: ${summary}`);
 	return stuck || failed ? 1 : 0;
+}
+
+// --learn 'Herbalism,"First Aid"' -> [name], or { error }.
+function parseLearn(text) {
+	const out = text.split(',').map((s) => s.trim().replace(/^"(.*)"$/, '$1'));
+	if (out.some((s) => !s)) return { error: `--learn takes profession names separated by commas, e.g. --learn Herbalism,Skinning (got "${text}")` };
+	return out;
 }
 
 // playtest --honest: the findings as text (two lines each, then a count per

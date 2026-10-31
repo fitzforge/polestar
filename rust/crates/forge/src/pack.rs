@@ -36,8 +36,6 @@ pub struct PackOpts {
 	pub grid: Option<PathBuf>,
 	/// The walk model fingerprint the stores were built with ($POLESTAR_NAV_FP of that build).
 	pub nav_fp: Option<String>,
-	/// Leffe's navigation pack (the folder with PACK.json and Nav/): its own release asset.
-	pub leffe: Option<PathBuf>,
 	pub out: PathBuf,
 }
 
@@ -406,29 +404,6 @@ pub fn grid_hash(grid: &Path) -> Result<String, String> {
 	Ok(h.finalize().to_hex().to_string())
 }
 
-/// The content hash of Leffe's navigation maps as the walks read them: Nav.xml and the per-map
-/// headers `Nav<map>.lua` (relative path and bytes, sorted). The Leffe walk stores' key.
-pub fn leffe_hash(dir: &Path) -> Result<String, String> {
-	let nav = if dir.join("Nav.xml").is_file() { dir.to_path_buf() } else { dir.join("Nav") };
-	if !nav.join("Nav.xml").is_file() {
-		return Err(format!("{}: no Nav.xml (not Leffe's navigation maps)", dir.display()));
-	}
-	let mut files: Vec<String> = glob(&nav, "Nav*")
-		.into_iter()
-		.filter(|f| f == "Nav.xml" || (f.strip_prefix("Nav").and_then(|x| x.strip_suffix(".lua")).is_some_and(|m| !m.is_empty() && m.bytes().all(|b| b.is_ascii_digit()))))
-		.collect();
-	files.sort();
-	let mut h = blake3::Hasher::new();
-	for f in &files {
-		h.update(f.as_bytes());
-		h.update(b"\0");
-		let (x, n) = hex_file(&nav.join(f))?;
-		h.update(&n.to_le_bytes());
-		h.update(x.as_bytes());
-	}
-	Ok(h.finalize().to_hex().to_string())
-}
-
 /// `forge data pack`.
 pub fn pack(o: &PackOpts, log: &mut dyn FnMut(&str)) -> Result<Packed, String> {
 	let sp = spec();
@@ -462,26 +437,7 @@ pub fn pack(o: &PackOpts, log: &mut dyn FnMut(&str)) -> Result<Packed, String> {
 					rels.push(p.to_string());
 				}
 			}
-			let leffe_h = o.leffe.as_deref().map(leffe_hash).transpose()?;
-			walks_doc = json!({ "grid": gh, "navFp": o.nav_fp, "leffe": leffe_h, "gridBuild": serde_json::from_slice::<Value>(&std::fs::read(grid.join("index.json")).unwrap_or_default()).ok().map(|v| json!({ "build": v["build"], "builtAt": v["builtAt"] })) });
-		} else if s["from"].as_str() == Some("leffe") {
-			let Some(from) = &o.leffe else {
-				log(&format!("  {id}: no --leffe, not in the pack"));
-				continue;
-			};
-			for pat in s["files"].as_array().unwrap().iter().filter_map(Value::as_str) {
-				for rel in glob(from, pat) {
-					let dest = dir.join(id).join(&rel);
-					std::fs::create_dir_all(dest.parent().unwrap()).map_err(|x| x.to_string())?;
-					if std::fs::hard_link(from.join(&rel), &dest).is_err() {
-						std::fs::copy(from.join(&rel), &dest).map_err(|x| format!("{rel}: {x}"))?;
-					}
-					rels.push(format!("{id}/{rel}"));
-				}
-			}
-			if rels.is_empty() {
-				return Err(format!("{id}: no {} in {}", s["files"], from.display()));
-			}
+			walks_doc = json!({ "grid": gh, "navFp": o.nav_fp, "gridBuild": serde_json::from_slice::<Value>(&std::fs::read(grid.join("index.json")).unwrap_or_default()).ok().map(|v| json!({ "build": v["build"], "builtAt": v["builtAt"] })) });
 		} else if let Some(kb) = s.get("kb") {
 			let from = o.root.join(kb["from"].as_str().unwrap());
 			let strs = |k: &str| kb[k].as_array().into_iter().flatten().filter_map(Value::as_str).map(String::from).collect::<Vec<_>>();

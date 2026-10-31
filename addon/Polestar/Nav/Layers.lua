@@ -62,7 +62,7 @@ local function updateTarget(world, minimap)
 	-- The target wears the arrow's colour (Theme "arrow": the accent unless
 	-- the player picked their own), so map and arrow agree.
 	Pins.SetLayer(TARGET, {
-		{ map = target.map, x = target.x, y = target.y, f = target.f, color = color("arrow"), glow = true,
+		{ map = target.map, x = target.x, y = target.y, f = target.f, color = color("arrow"), glow = true, icon = "map:target",
 			area = area, tooltip = targetTooltip, priority = 100 },
 	}, { world = world, minimap = minimap, edge = true, scale = 1.4, minimapAreas = true })
 end
@@ -83,8 +83,8 @@ local function updateSpots(world)
 		if i ~= target.spot then
 			local alt = s.alt
 			pins[#pins + 1] = {
-				map = target.map, x = s.x, y = s.y, f = target.f, color = { r, g, b, alt and 0.5 or 0.75 },
-				size = alt and 7 or 9, priority = alt and 15 or 20,
+				map = target.map, x = s.x, y = s.y, f = target.f, color = { r, g, b, alt and 0.5 or 0.8 },
+				icon = "map:pin-small", medal = false, size = alt and 7 or 9, priority = alt and 15 or 20,
 				tooltip = function(tip)
 					tip:SetText(label or "")
 					tip:AddLine(format(L["Spot %d of %d"], i, n), 0.7, 0.7, 0.7)
@@ -101,10 +101,10 @@ local function updateSpots(world)
 end
 
 -- A leg that ends at a chokepoint (leg.choke = { kind, name }, Travel.lua)
--- marks it with its glyph; other stops are plain discs.
+-- marks it with its passage glyph; other stops with the stop glyph.
 local CHOKE_ICON = {
-	lift = "icon-lift", gate = "icon-gate", building = "icon-gate", bridge = "icon-bridge",
-	cave = "icon-cave", tunnel = "icon-cave", pass = "icon-pass",
+	lift = "map:elevator", gate = "map:portal", building = "map:portal", bridge = "map:bridge",
+	cave = "map:cave", tunnel = "map:cave", pass = "map:pass",
 }
 
 local function updateRoute(world)
@@ -122,7 +122,7 @@ local function updateRoute(world)
 		local step = format(L["Travel route, step %s"], i .. "/" .. #legs)
 		pins[#pins + 1] = {
 			c = to.c, wx = to.wx, wy = to.wy, color = color("arrow"), priority = 50,
-			icon = icon, backdrop = icon and true or nil,
+			icon = icon or "map:stop", size = not icon and 15 or nil,
 			label = nextLeg.label, step = i,
 			tooltip = function(tip)
 				tip:SetText(nextLeg.label or "")
@@ -159,7 +159,7 @@ local function updateGoals(world)
 			and not (target and target.map == goal.map and target.x == goal.x and target.y == goal.y) then
 			local text = goal.text
 			pins[#pins + 1] = {
-				map = goal.map, x = goal.x, y = goal.y, f = goal.f, color = color("place"), priority = 10,
+				map = goal.map, x = goal.x, y = goal.y, f = goal.f, color = color("place"), priority = 10, icon = "map:pin",
 				label = text,
 				tooltip = function(tip)
 					tip:SetText(text or "")
@@ -191,11 +191,17 @@ end
 -- places the arrow does not pick by itself) }, ... }, nil without spots or a map frame.
 -- A region narrower than REGION_SMALL yards is an 8-gon (a handful of pixels
 -- on the world map), the others REGION_SIDES-gons.
+-- REGION_WORK caps the spot pairs one goal's grouping compares (the sweep and
+-- the joins together); the sweep of the busiest built-in goal (438 spots)
+-- compares about 11,000. A goal past it, only a crafted guide (an import
+-- string), draws no regions instead of freezing the game on a quadratic
+-- grouping.
 local REGION_SIDES, REGION_SMALL = 16, 200
 local REGION_LINK = 90
 local REGION_MAX_SPAN = 700
 local REGION_PAD = 10
 local REGION_MIN_RADIUS = 15
+local REGION_WORK = 50000
 local regionCache = setmetatable({}, { __mode = "k" })
 local sides = {}
 for _, k in ipairs({ 8, REGION_SIDES }) do
@@ -244,6 +250,12 @@ end
 local function regionsOf(goal)
 	local cached = regionCache[goal]
 	if cached ~= nil then return cached or nil end
+	local work = 0
+	local function tooMuch()
+		regionCache[goal] = false
+		ns.Debug("spawn regions: a goal's", #goal.spots, "spots are too many to group; no regions drawn")
+		return nil
+	end
 	local C = ns.Compat
 	local spots = goal.spots
 	if not (C and C.MapToWorld and type(spots) == "table" and goal.map) then return nil end
@@ -280,6 +292,8 @@ local function regionsOf(goal)
 		for b = a + 1, n do
 			local j = order[b]
 			if xs[j] - xs[i] > reach then break end
+			work = work + 1
+			if work > REGION_WORK then return tooMuch() end
 			if cs[i] == cs[j] then
 				local gap = across(i, j) - 2 * (rs[i] + rs[j])
 				if gap <= REGION_LINK then
@@ -303,6 +317,8 @@ local function regionsOf(goal)
 			local s = math.max(span[a], span[b])
 			for _, i in ipairs(members[a]) do
 				for _, j in ipairs(members[b]) do
+					work = work + 1
+					if work > REGION_WORK then return tooMuch() end
 					local d = across(i, j)
 					if d > s then s = d end
 				end

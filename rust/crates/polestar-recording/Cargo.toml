@@ -1,0 +1,17 @@
+[package]
+name = "polestar-recording"
+description = "Polestar's recording library: reads the Recorder's SavedVariables, decodes and validates records, finds WoW: Forever installs, scrubs text, writes the ack file, summarises and normalises recordings."
+# No workspace inheritance: services/ingest and apps/client build this crate by path without
+# the rest of rust/.
+version = "0.1.1"
+edition = "2021"
+license = "GPL-3.0-only"
+rust-version = "1.87"
+repository = "https://github.com/fitzforge/polestar"
+homepage = "https://github.com/fitzforge/polestar"
+publish = false
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+sha2 = "0.10"

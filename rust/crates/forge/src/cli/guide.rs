@@ -182,7 +182,7 @@ fn bake(args: &[String]) -> i32 {
 	};
 	let data = opt("--data").map(|d| cwd.join(d)).unwrap_or_else(|| root.join("data/forever"));
 	let grid = forge::grid_dir(opt("--grid").map(|g| cwd.join(g)).as_deref(), &root);
-	let leffe = forge::find_leffe(opt("--leffe").map(|l| cwd.join(l)).as_deref(), forge::fetch::default_pack_dir().as_deref());
+	let leffe = forge::find_leffe(opt("--leffe").map(|l| cwd.join(l)).as_deref());
 	let threads = match opt("--threads").map(|t| t.parse::<usize>()) {
 		Some(Ok(t)) => t,
 		Some(Err(_)) => return usage("--threads needs a number"),

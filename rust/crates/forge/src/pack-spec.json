@@ -102,23 +102,13 @@
 			"files": []
 		},
 		{
-			"id": "leffe-nav",
-			"title": "Leffe's navigation maps (format 4: Nav.xml and the per-map Lua files), read by forge build's hybrid walks backend",
-			"credit": "Leffe's navigation maps, used with Leffe's permission",
-			"licence": "Used and redistributed in Polestar with Leffe's full permission",
-			"url": null,
-			"asset": "polestar-leffe-nav.tar.gz",
-			"from": "leffe",
-			"files": ["PACK.json", "Nav/*"]
-		},
-		{
 			"id": "walks",
-			"title": "Walk stores: walking times and distances between the world's points, per faction (derived numbers, no client geometry)",
-			"credit": "Polestar contributors",
+			"title": "Walk stores answered on Leffe's navigation maps (store-leffe-*): walking times and distances between the world's points, per faction, with each place's zone on his maps (derived numbers, no client or map geometry), so forge build runs the hybrid without his maps. Our grid's stores are not packed: they are keyed by the grid they were built on, and every contributor builds their own",
+			"credit": "Polestar contributors; the store-leffe walks were answered on Leffe's navigation maps (his maps are private and not in the pack; the walks are published with Leffe's permission)",
 			"licence": "GPL-3.0",
 			"url": "https://github.com/fitzforge/polestar",
 			"walks": true,
-			"files": ["walks/store-horde.psbn", "walks/store-alliance.psbn", "walks/store-leffe-horde.psbn", "walks/store-leffe-alliance.psbn"]
+			"files": ["walks/store-leffe-horde.psbn", "walks/store-leffe-alliance.psbn"]
 		}
 	],
 	"external": [],
@@ -126,7 +116,7 @@
 		{
 			"id": "grid",
 			"title": "The navigation grid (data/local/nav4)",
-			"note": "Not in the pack: built from your own client's map tiles. Until forge builds it, pass --grid <dir> (or POLESTAR_GRID). The pack's walk stores are used only when your grid's content hash equals the one they were built on; otherwise the walks are routed again."
+			"note": "Not in the pack: built from your own client's map tiles. Until forge builds it, pass --grid <dir> (or POLESTAR_GRID). The walks on your grid are routed on your machine; the pack's Leffe walks answer every walk they hold."
 		},
 		{
 			"id": "questie",
@@ -135,6 +125,8 @@
 		}
 	],
 	"never": [
+		"leffe-nav",
+		"nav.xml",
 		"wowhead",
 		"foreverdb",
 		"forever-vo",

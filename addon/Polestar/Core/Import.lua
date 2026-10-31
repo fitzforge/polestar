@@ -47,8 +47,17 @@ local PACK = "imported"
 -- English game name, capped at a game-name length), goals per step and
 -- candidates per goal (limits from the largest our own compiler emits; large
 -- enough that our own guides are never refused, tight enough to prevent
--- route-planner blow-up from imported strings).
-local LIMITS = { length = 50000, steps = 60, payload = 262144, text = 4096, names = 128, goals = 100, candidates = 128 }
+-- route-planner blow-up from imported strings). Then the entries of every
+-- other list a string could pad to freeze the game (the most one of our own
+-- guides has, in brackets): spawn spots per goal (438), `when` predicates per
+-- step or next option (1), `skipto` jumps per step, reagents (6) and source
+-- NPCs (5) per goal, quest ids in a `pre`/`preAll`/`closedBy`/`preTitles`
+-- or a predicate's quest list (13), names/written tokens (213), and
+-- `nextWhen` options.
+local LIMITS = {
+	length = 50000, steps = 60, payload = 262144, text = 4096, names = 128, goals = 100, candidates = 128,
+	spots = 1024, when = 16, skipto = 16, reagents = 32, fromNpcs = 32, pre = 64, tokens = 1024, nextWhen = 16,
+}
 Import.LIMITS = LIMITS
 
 ns.RegisterPack({ id = PACK, imported = true, title = L["Imported"] })
@@ -364,6 +373,71 @@ local function adler32(s)
 end
 Import.Adler32 = adler32
 
+-- The first list or map of guide g holding more entries than its LIMITS cap
+-- -> its place (as `guide.steps[2].goals[1].spots`), its count, its cap; or
+-- nil. tools/lib/pack/importstring.js crowded() walks the same places.
+local QUEST_LISTS = { "pre", "preAll", "closedBy", "preTitles" }
+local function crowded(g)
+	local function over(t, cap, where)
+		if type(t) ~= "table" then return nil end
+		local n = 0
+		for _ in pairs(t) do n = n + 1 end
+		if n > cap then return where, n, cap end
+	end
+	local function quests(t, where)
+		for _, k in ipairs(QUEST_LISTS) do
+			local at, n, cap = over(t[k], LIMITS.pre, where .. "." .. k)
+			if at then return at, n, cap end
+		end
+		return over(t.q, LIMITS.pre, where .. ".q")
+	end
+	local function whens(list, where)
+		local at, n, cap = over(list, LIMITS.when, where)
+		if at then return at, n, cap end
+		for i, w in ipairs(list or {}) do
+			at, n, cap = quests(w, where .. "[" .. i .. "]")
+			if at then return at, n, cap end
+		end
+	end
+	local at, n, cap = over(g.names, LIMITS.tokens, "guide.names")
+	if not at then at, n, cap = over(g.written, LIMITS.tokens, "guide.written") end
+	if not at then at, n, cap = over(g.nextChoices, LIMITS.nextWhen, "guide.nextChoices") end
+	if not at then at, n, cap = over(g.nextWhen, LIMITS.nextWhen, "guide.nextWhen") end
+	if at then return at, n, cap end
+	for k, list in pairs(g.nextWhen or {}) do
+		at, n, cap = whens(list, "guide.nextWhen." .. tostring(k))
+		if at then return at, n, cap end
+	end
+	for i, step in ipairs(g.steps or {}) do
+		local s = "guide.steps[" .. i .. "]"
+		at, n, cap = whens(step.when, s .. ".when")
+		if not at then at, n, cap = over(step.skipto, LIMITS.skipto, s .. ".skipto") end
+		if at then return at, n, cap end
+		for j, jump in ipairs(step.skipto or {}) do
+			if type(jump.when) == "table" then
+				at, n, cap = quests(jump.when, s .. ".skipto[" .. j .. "].when")
+				if at then return at, n, cap end
+			end
+		end
+		for j, goal in ipairs(step.goals or {}) do
+			local at2 = s .. ".goals[" .. j .. "]"
+			at, n, cap = over(goal.spots, LIMITS.spots, at2 .. ".spots")
+			if not at then at, n, cap = over(goal.reagents, LIMITS.reagents, at2 .. ".reagents") end
+			if not at then at, n, cap = over(goal.fromNpcs, LIMITS.fromNpcs, at2 .. ".fromNpcs") end
+			if not at then at, n, cap = quests(goal, at2) end
+			if at then return at, n, cap end
+		end
+	end
+	return nil
+end
+
+-- Whether record c (a candidate or a spot) is placed in 0-100: both or
+-- neither of x and y, numbers in range.
+local function placed(c)
+	if c.x == nil and c.y == nil then return true end
+	return type(c.x) == "number" and type(c.y) == "number" and c.x >= 0 and c.x <= 100 and c.y >= 0 and c.y <= 100
+end
+
 -- Can entry be imported? -> nil, or why not. Every reason a pasted string
 -- and a stored guide are refused for, after the shape (build).
 local function check(entry)
@@ -385,6 +459,10 @@ local function check(entry)
 	end
 	if type(g.steps) == "table" and #g.steps > LIMITS.steps then
 		return (L["Its guide has %d steps; an import string holds %d at most. A bigger guide comes as a community addon."]):format(#g.steps, LIMITS.steps)
+	end
+	local where, count, cap = crowded(g)
+	if where then
+		return (L["Its guide has %d entries in %s; an import string holds %d there at most."]):format(count, escape(where), cap)
 	end
 	local ahead = { g.next }
 	for _, t in ipairs(g.nextChoices or {}) do ahead[#ahead + 1] = t end
@@ -414,12 +492,12 @@ local function check(entry)
 			end
 			-- Finding 6: candidate x/y in 0-100.
 			for _, c in ipairs(goal.candidates or {}) do
-				if c.x ~= nil and (c.x < 0 or c.x > 100 or c.y < 0 or c.y > 100) then
+				if not placed(c) then
 					return (L["Its guide has a candidate coordinate outside 0-100."]):format()
 				end
 			end
 			for _, sp in ipairs(goal.spots or {}) do
-				if sp.x ~= nil and (sp.x < 0 or sp.x > 100 or sp.y < 0 or sp.y > 100) then
+				if not placed(sp) then
 					return (L["Its guide has a spot coordinate outside 0-100."]):format()
 				end
 			end

@@ -1,0 +1,148 @@
+guide forever/reputation/ravenholdt
+title Ravenholdt Reputation
+category Reputation
+folder Reputation · World
+levels 24-60
+zone Alterac Mountains
+keywords Ravenholdt, Ravenholdt Manor, Syndicate, Fahrad, Myrokos Silentform, Lord Jorach Ravenholdt, Syndicate Emblem, Heavy Junkbox, Junkboxes Needed, pickpocket, rogue, Lord Tomas, Barton, Anastasia Miller, Stromgarde, Strahnbrad, Durnholde Keep
+why The assassins' guild: Forever's new rogue quests, then Syndicate kills and Heavy Junkboxes to Exalted.
+reward text Ravenholdt reputation (no vendor or reward in Forever's data)
+
+# Built from Forever's data: the quest rows of the Ravenholdt quests with Forever's reputation values (The
+# Manor, Ravenholdt 6681 and the Forever-new rogue quests 96779-96786, 100 to 300 each; Syndicate Emblems
+# 6701, 100 per emblem; A Simple Request to The Azure Key 8233-8236; Junkboxes Needed 8249, 50 per five
+# Heavy Junkboxes where Classic Era paid 75), the standing windows from the world database (Syndicate Emblems
+# only below Friendly), the Syndicate spawns and their pickpocket rates for the Syndicate Emblem (9 to 27%),
+# and Forever's client faction table (everyone starts Neutral 0). Neutral to Exalted is 42,000 reputation.
+# The world database has no kill reputation for the Classic Syndicate mobs, and Forever's data holds no
+# Ravenholdt vendor or reputation-gated item.
+# The places of Barton's report, the Northfold footlocker, Anastasia Miller, her stash, the shipment box and
+# the two Perenolde heirlooms are player reports from the Forever beta (the data has no spawn for them).
+# ASSUMED: Syndicate humans give 5 Ravenholdt reputation per kill up to the end of Honored (11,999/12,000;
+# Classic flow; Forever's data has no kill reputation rows for them). In-game check: does a Syndicate kill in
+# Alterac raise Ravenholdt, and where does it stop?
+# The rogue quests pay 700 in all (The Manor 100, Syndicate Sabotage 100, What's the Big Idea? 100, Covert
+# Extraction 100, The Syndicate Sting 300; A Way In, Master of Disguise and Ain't No Telling pay nothing), so
+# 23 emblems finish Friendly. Heavy Junkboxes bind to no one (client item table): rogues can trade and sell them.
+# INGAME: grey-mob kill rep (Classic: about a fifth). Every Syndicate is level 41 or lower, grey at 60.
+# INGAME: Covert Extraction (96782): Forever's in-game dialog captures have Myrokos offering it, but its page
+# lists it for the Alliance: does Myrokos offer it to Horde rogues after What's the Big Idea?
+
+step The Manor, Ravenholdt
+  only Rogue
+  zone Hillsbrad Foothills
+  tip Rogues from level 24: ask your class trainer in a capital "May I have it, please?" for the Elegant Letter, and read it. The path up to the manor starts in the hills north of Durnholde Keep. In the tunnel on the way lies a chest: do not open it (an elite guard jumps out), just walk past it to earn the Rite of Cunning. Fahrad waits on the manor's balcony.
+  accept 6681 item 17126              -- Elegant Letter, from your class trainer
+  kill 13936 quest 6681.1             -- walk past the trapped chest in the tunnel
+  zone Alterac Mountains
+  turnin 6681                         -- Fahrad: 100 reputation
+
+step Myrokos Silentform
+  only Rogue
+  tip Myrokos Silentform, in the manor, has Forever's new rogue quests: 100 reputation each for Syndicate Sabotage, What's the Big Idea? and Covert Extraction, which follows it, and 300 for The Syndicate Sting at the end of the Stromgarde chain (A Way In and the two quests after it pay nothing). All can be done solo with stealth from level 30; below that, the Master of Deception talent and a Flash Powder for Vanish help.
+  accept 96779
+  accept 96781
+  accept 96783
+
+step Durnholde Keep: Lord Tomas
+  only Rogue
+  zone Hillsbrad Foothills
+  tip Lord Tomas is inside Durnholde Keep, the Syndicate fortress east of Southshore. Stealth past the guards in the courtyard.
+  kill 266216 quest 96779.1           -- Lord Tomas
+
+step Strahnbrad: Barton
+  only Rogue
+  zone Alterac Mountains
+  tip Barton hides in a house in Strahnbrad, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level.
+  collect 275482 quest 96781.1 @62.6,46.9 -- Barton's Scouting Report: pickpocket Barton
+
+step Northfold Manor: a uniform
+  only Rogue
+  zone Arathi Highlands
+  tip The Syndicate Footlocker stands among the Syndicate camps of Northfold Manor, north of Stromgarde. Open it to finish A Way In and take the Syndicate Uniform.
+  turnin 96783 object 656157 @32.3,26.6 -- Syndicate Footlocker
+  accept 96784 object 656157 @32.3,26.6
+
+step Stromgarde: Anastasia Miller
+  only Rogue
+  tip Put on the Syndicate Uniform and go into Stromgarde. Anastasia Miller waits on a ledge just outside the castle; players reach her by jumping from the roof of the house beside the ledge. Her stash is upstairs in a house near the keep.
+  turnin 96784 npc 266847 @26.8,64.4  -- Anastasia Miller
+  accept 96785 npc 266847 @26.8,64.4
+  collect 275709 quest 96785.1 @29.5,65.1 -- Stolen Funds, in Anastasia's Stash upstairs
+  turnin 96785 npc 266847 @26.8,64.4
+  accept 96786 npc 266847 @26.8,64.4
+
+step Thoradin's Wall: the shipment
+  only Rogue
+  tip The hand-off is at the southern end of Thoradin's Wall, in the west of the Arathi Highlands: two Syndicate guard the box. Kill them or lure them off, then take the Intercepted Shipment. Keep the uniform: Myrokos wants it back.
+  collect 275882 quest 96786.1 @15.5,43.0 -- Intercepted Shipment
+
+step Back to Myrokos
+  only Rogue
+  zone Alterac Mountains
+  turnin 96779                        -- 100
+  turnin 96781                        -- 100
+  turnin 96786                        -- 300
+  accept 96782 npc 13085 optional     -- Covert Extraction, after What's the Big Idea?
+
+step Ruins of Alterac: the Perenolde heirlooms
+  only Rogue
+  when onquest 96782
+  tip The two heirlooms lie in two towers of the Ruins of Alterac, the ogre-held ruin in the middle of the Alterac Mountains. The tower with the sword is ringed by elite ogres: stay in stealth. Neither item is guarded once you are inside.
+  collect 275636 quest 96782.2 @41.4,40.2 -- Royal Aegis of Perenolde, the shield
+  collect 275635 quest 96782.1 @38.5,58.0 -- Blade of House Perenolde, the sword
+  turnin 96782                        -- Myrokos Silentform: 100
+
+step Syndicate Emblems to Friendly
+  only Rogue
+  tip Neutral to Friendly is 3,000 reputation; the quests above pay 700 of it. Any Ravenholdt Guard on the path takes Syndicate Emblems, 100 reputation each, until you reach Friendly: 23 emblems after the quests. Pick the pockets of Syndicate humans; they never drop emblems when killed. The Arathi camps pay best: Syndicate Prowlers and Conjurors carry one about a quarter of the time. Kill what you have robbed so the next ones respawn fresh.
+  zone Arathi Highlands
+  collect 17124 x5 optional @30.0,27.0 -- Syndicate Emblem: pickpocket Syndicate
+  zone Alterac Mountains
+  accept 6701 optional
+  turnin 6701 optional                -- a Ravenholdt Guard: 100 per emblem
+  rep 349 Friendly
+
+step Syndicate kills to the end of Honored
+  tip Everyone, not only rogues: in Classic every Syndicate human gave Ravenholdt 5 reputation up to the end of Honored (11,999 of 12,000) and not one point more, so 0 to there is 4,200 kills (3,600 after a rogue's quests and emblems). This step ticks at Honored; keep killing until the bar stops moving, then go on to the junkboxes. The highest Syndicate are in the north-west of the Alterac Mountains, Syndicate Assassins and Enforcers (level 38-40), with Syndicate Sentries (36-37) nearer the middle. At 60 all Syndicate are grey, and in Classic grey kills gave about a fifth: farm them before 48 if you can. Legacy Diplomat adds up to 10%.
+  goto 38.3,15.4 "Syndicate Assassins and Enforcers"
+  goto 47.4,17.5 "Syndicate Sentries"
+  loop
+  kill 2246 optional                  -- Syndicate Assassin, level 38-39
+  kill 2247 optional                  -- Syndicate Enforcer, level 39-40
+  kill 2243 optional                  -- Syndicate Sentry, level 36-37
+  rep 349 Honored
+
+step A Simple Request, rogues 50+
+  only Rogue
+  when level>=50
+  tip At level 50 your class trainer has another letter for you, and Lord Jorach Ravenholdt a short chain: 360 reputation in all. The Sealed Azure Bag drops from Timbermaw Shamans in northern Azshara (about 1 in 27, or pick their pockets); the Encoded Fragments from Forest Oozes in Azshara (4 in 5). The Azure Key comes from Morphaz, an elite drake deep in the Temple of Atal'Hakkar: a five-player dungeon, group up.
+  level 50
+  zone Stormwind City
+  accept 8233 npc 918 only Alliance   -- Osborne the Night Man, Stormwind
+  zone Orgrimmar
+  accept 8233 npc 3328 only Horde     -- Ormok, Orgrimmar
+  zone Alterac Mountains
+  turnin 8233                         -- Lord Jorach Ravenholdt
+  accept 8234
+  zone Azshara
+  collect 19775 quest 8234.1          -- Sealed Azure Bag: Timbermaw Shamans
+  turnin 8234                         -- Archmage Xylem
+  accept 8235
+  collect 20023 x10 quest 8235.1      -- Encoded Fragment: Forest Oozes
+  turnin 8235
+  accept 8236
+  zone Swamp of Sorrows
+  collect 20022 quest 8236.1 optional @70.2,45.2 -- Azure Key: Morphaz, Temple of Atal'Hakkar (group)
+  zone Alterac Mountains
+  turnin 8236 optional                -- Lord Jorach Ravenholdt: 150
+
+step Heavy Junkboxes to Exalted
+  tip From the top of Honored to Exalted is 21,001 reputation, and Junkboxes Needed is the only way: Fahrad pays 50 and a Dusksteel Throwing Knife for every five Heavy Junkboxes (Classic Era paid 75), 421 turn-ins and 2,105 boxes. Boxes count at any standing, so take the cheap kills to their cap first. Any class can hand them in. Rogues get them by picking the pockets of humanoids around level 50 and up: Lower Blackrock Spire and Blackrock Depths are the classic spots, pick every pocket, reset and go again. The boxes do not bind, so everyone else buys them from rogues or at the auction house. Hand them in unopened; an opened box you empty vanishes, so leave one item in it.
+  level 50
+  zone Searing Gorge
+  collect 16885 x5 optional @32.1,94.7 -- Heavy Junkbox: pickpocket level 50+ humanoids, Blackrock Mountain
+  zone Alterac Mountains
+  accept 8249 optional
+  turnin 8249 optional                -- Fahrad: 50 per five boxes
+  rep 349 Exalted

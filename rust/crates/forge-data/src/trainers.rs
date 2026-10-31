@@ -1,13 +1,15 @@
 //! Class trainers (port of tools/lib/dsl/trainers.js buildTrainers and tools/commands/trainers.js):
 //! data/forever/trainers.json from the curated name list (resolved against npcs.json), every
-//! `train <npcId> only <Class>` goal under guides/, and recorded trainer visits; plus
-//! addon/Polestar/Core/ClassTrainers.lua.
+//! `train <npcId> only <Class>` goal under guides/, and recorded trainer visits (trusted as
+//! recordings.rs "Trust" says); plus addon/Polestar/Core/ClassTrainers.lua.
 
 use std::path::Path;
 
 use forge_guide::data::Data;
 use forge_guide::js::{stringify, Obj, V};
 use indexmap::{IndexMap, IndexSet};
+
+use crate::recordings::{self, Recordings};
 
 /// [classFile, name, uiMapID] (tools/lib/dsl/trainers.js CURATED, same order).
 const CURATED: &[(&str, &str, i64)] = &[
@@ -284,34 +286,9 @@ pub struct Report {
 	pub unverified: Vec<(String, String, i64)>,
 }
 
-fn list_files(dir: &Path, ext: &str) -> Vec<std::path::PathBuf> {
-	let mut out = Vec::new();
-	fn walk(d: &Path, ext: &str, out: &mut Vec<std::path::PathBuf>) {
-		let Ok(rd) = std::fs::read_dir(d) else { return };
-		let mut es: Vec<_> = rd.flatten().collect();
-		es.sort_by(|a, b| forge_guide::js::cmp_utf16(&a.file_name().to_string_lossy(), &b.file_name().to_string_lossy()));
-		for e in es {
-			let name = e.file_name().to_string_lossy().to_string();
-			if name.starts_with('.') {
-				continue;
-			}
-			let p = e.path();
-			let ft = e.file_type();
-			if ft.as_ref().is_ok_and(|t| t.is_dir()) {
-				walk(&p, ext, out);
-			} else if ft.as_ref().is_ok_and(|t| t.is_file()) && name.ends_with(ext) {
-				out.push(p);
-			}
-		}
-	}
-	if dir.exists() {
-		walk(dir, ext, &mut out);
-	}
-	out
-}
-
-/// trainers.json's object and the counts.
-pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &Path) -> (Obj, Report) {
+/// trainers.json's object and the counts, from the data, the guide pack and the recordings
+/// (recordings.rs `read_recordings`: trust marked).
+pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &Recordings) -> (Obj, Report) {
 	let mut by_name: IndexMap<String, Vec<V>> = IndexMap::new();
 	for n in data.npcs.values() {
 		if !n.truthy() || !n.get("name").truthy() {
@@ -367,11 +344,17 @@ pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &Path) -> 
 			}
 		}
 	}
+	// Recorded visits (recordings.rs "Trust"): per trainer and class, the counted players (cohorts,
+	// else contributors) who saw a character of that class train there, each once; sessions whose
+	// player doesn't count are left out. The classes judged are the trusted ones (`minVoters`
+	// players, or a vouched one) when there are any, else all recorded, so a new contributor cannot
+	// add a second class to hide a trainer. A trainer another source already lists takes a class
+	// from recordings only on trusted evidence; one no source lists is filled by any counted
+	// player, and an NPC the data lacks only on vouched evidence.
 	let profession = profession_npcs(data);
-	let mut seen: IndexMap<i64, (V, IndexSet<String>)> = IndexMap::new();
-	for file in list_files(recordings, ".json") {
-		let Ok(text) = std::fs::read_to_string(&file) else { continue };
-		let Ok(rec) = forge_guide::js::parse_json(&text) else { continue };
+	let mut seen: IndexMap<i64, (V, IndexMap<String, IndexSet<String>>)> = IndexMap::new();
+	for r in recordings.iter() {
+		let rec = &r.rec;
 		let ch = rec.get("char");
 		let cls = if rec.truthy() && ch.truthy() {
 			let c = ch.get("class");
@@ -379,28 +362,33 @@ pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &Path) -> 
 		} else {
 			String::new()
 		};
-		if !CLASS_FILES.contains(&cls.as_str()) || !rec.get("events").is_arr() {
+		if !r.counts || !CLASS_FILES.contains(&cls.as_str()) || !rec.get("events").is_arr() {
 			continue;
 		}
+		let who = r.voter();
 		for ev in rec.get("events").items() {
 			if !ev.truthy() || ev.get("e").as_str() != Some("trainer") || !(ev.get("npc").num() > 0.0) {
 				continue;
 			}
 			let id = ev.get("npc").num() as i64;
-			seen.entry(id).or_insert_with(|| (ev.get("npcName"), IndexSet::new())).1.insert(cls.clone());
+			seen.entry(id).or_insert_with(|| (ev.get("npcName"), IndexMap::new())).1.entry(cls.clone()).or_default().insert(who.clone());
 		}
 	}
 	let mut record = 0;
 	let mut ids: Vec<i64> = seen.keys().copied().collect();
 	ids.sort();
 	for id in ids {
-		let (name, classes) = &seen[&id];
-		if classes.len() != 1 || profession.contains(&id) {
+		let (name, by_class) = &seen[&id];
+		let pick = |f: &dyn Fn(&IndexSet<String>) -> bool| -> Vec<&String> { by_class.iter().filter(|(_, w)| f(w)).map(|(c, _)| c).collect() };
+		let trusted = pick(&|w| recordings::trusted(w, recordings.min_voters));
+		let (classes, is_trusted) = if !trusted.is_empty() { (trusted, true) } else { (pick(&|_| true), false) };
+		let n = data.npc(&V::Num(id as f64));
+		let known = n.truthy();
+		if classes.len() != 1 || profession.contains(&id) || (entries.contains_key(&id) && !is_trusted) || (!known && !by_class.values().flatten().any(|w| recordings::vouched(w))) {
 			continue;
 		}
-		let n = data.npc(&V::Num(id as f64));
 		let nm = if n.truthy() && n.get("name").truthy() { n.get("name") } else { name.clone() };
-		add(&mut entries, id, nm, &classes[0], "record");
+		add(&mut entries, id, nm, classes[0], "record");
 		record += 1;
 	}
 	let out = Obj::new();
@@ -481,7 +469,8 @@ pub fn class_trainers_lua(data: &Data, trainers: &Obj) -> (String, usize, usize)
 /// (`data`, after `build` wrote npcs.json and the rest), the guide pack and the recordings.
 pub fn run(data_dir: &Path, guides: Option<&Path>, recordings: &Path) -> Result<(String, String, Report), String> {
 	let data = forge_guide::data::load_data(data_dir)?;
-	let (t, report) = build_trainers(&data, guides, recordings);
+	let recs = recordings::read_recordings(recordings)?;
+	let (t, report) = build_trainers(&data, guides, &recs);
 	let (lua, _, _) = class_trainers_lua(&data, &t);
 	Ok((trainers_json(&t), lua, report))
 }

@@ -68,13 +68,17 @@ fn end_of(w: &forge_guide::bake::World) -> Option<End> {
 	Some(End { c: w.c.as_num()? as u32, wx: w.wx, wy: w.wy, z: w.z })
 }
 
-/// The maps' identity a bake's strings are routed on (legs.json `grid`, the guides' `legsGrid`).
-pub fn maps_id(grid: &forge_nav::grid::Grid, leffe: Option<&Path>) -> Result<String, String> {
+/// The maps' identity a bake's strings are routed on (legs.json `grid`, the guides' `legsGrid`): our grid, Leffe's
+/// maps and the lift layer spliced into them (its content hash).
+pub fn maps_id(grid: &forge_nav::grid::Grid, leffe: Option<&Path>, lifts: Option<&str>) -> Result<String, String> {
 	let mut s = format!("grid {}", forge_nav::walker::grid_id(grid));
 	if let Some(p) = leffe {
 		let dir = if p.join("Nav.xml").exists() { p.to_path_buf() } else { p.join("Nav") };
 		let id = forge_nav::f4walks::F4Backend::pack_id(&dir).map_err(|e| format!("{}: {e}", dir.display()))?;
 		s.push_str(&format!(", leffe {}", &id[..id.len().min(12)]));
+		if let Some(l) = lifts {
+			s.push_str(&format!(" lifts {}", &l[..l.len().min(12)]));
+		}
 	}
 	Ok(s)
 }
@@ -111,7 +115,6 @@ pub fn bake_trees(i: &BakeIn) -> Result<BakeOut, String> {
 	}
 	// The maps.
 	let grid = Arc::new(forge_nav::grid::Grid::open(i.grid, 640)?);
-	let maps = maps_id(&grid, i.leffe)?;
 	let f4 = match i.leffe {
 		Some(p) => {
 			let dir = if p.join("Nav.xml").exists() { p.to_path_buf() } else { p.join("Nav") };
@@ -119,6 +122,7 @@ pub fn bake_trees(i: &BakeIn) -> Result<BakeOut, String> {
 		}
 		None => None,
 	};
+	let maps = maps_id(&grid, i.leffe, f4.as_ref().and_then(|f| f.lift_layer()))?;
 	let pricing: FxHashMap<&'static str, Profile> =
 		["Horde", "Alliance"].into_iter().map(|f| forge_nav::stage::pricing(&grid, f, i.area_table, i.zones, Vec::new()).map(|p| (f, p.profile(&[])))).collect::<Result<_, _>>()?;
 	let zones_tag = forge_nav::stage::pricing(&grid, "Horde", i.area_table, i.zones, Vec::new())?.zones.tag.clone();

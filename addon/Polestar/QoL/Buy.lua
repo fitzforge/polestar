@@ -10,7 +10,9 @@
 -- rounded down to whole purchases, at least one while any is left. Goods for
 -- other currencies or items are left alone, and so are optional goals and a
 -- goal that would cost over MAX_SPEND, or take one visit's buying over it
--- (it says so). Prints what was bought
+-- (it says so). Only Polestar's own guides spend your money: a community or
+-- imported guide's buy goals are named with their cost for you to buy (its
+-- author is a stranger). Prints what was bought
 -- once it lands in the bags (a refused purchase never is), and what money
 -- was short for.
 --
@@ -46,6 +48,15 @@ local function onTheWay(id)
 		return 0
 	end
 	return left
+end
+
+-- Whether the current guide is one of Polestar's own (the official pack,
+-- Core/Guides.lua): only those buy by themselves.
+local function ownGuide()
+	local E, G = ns.Engine, ns.Guides
+	local guide = E and E.GetGuide and E.GetGuide()
+	local pack = guide and G and G.Pack and G.Pack(guide.pack)
+	return type(pack) == "table" and pack.official == true
 end
 
 -- itemID -> { count, name }: the most any open buy goal of the step asks for.
@@ -99,6 +110,7 @@ function Buy.Run()
 	if not QoL.On("buyGoals") then return end
 	local want = wanted()
 	if not want then return end
+	local own = ownGuide()
 	local money = Client.Money()
 	local spent = 0
 	for i = 1, GetMerchantNumItems() do
@@ -116,8 +128,9 @@ function Buy.Run()
 				-- a merchant with fewer in stock must not split a dear goal.
 				local goalCost = ceil(need / perStack) * price
 				-- And the whole visit: several dear goals at one merchant
-				-- (a guide pack may list them) stop at the same cap.
-				if goalCost > MAX_SPEND or spent + cost > MAX_SPEND then
+				-- (a guide pack may list them) stop at the same cap. A
+				-- guide not Polestar's own buys nothing: it says what to buy.
+				if not own or goalCost > MAX_SPEND or spent + cost > MAX_SPEND then
 					ns.Print(format(L["Left %d %s (%s) for you to buy."], need, name, QoL.Money(goalCost)))
 					items, shortItems = 0, 0
 				end

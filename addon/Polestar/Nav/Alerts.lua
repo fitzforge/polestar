@@ -67,13 +67,14 @@ function Alerts.Countdown(seconds)
 end
 
 ---------------------------------------------------------------------------
--- The banner: a small window under the band's rules, centred near the top,
--- the transport's glyph in a ring, what is coming in Title and a live
--- countdown in Small, a 2px accent line draining to the arrival. A click
--- dismisses it.
+-- The banner: a small window in the rare alert's chrome, centred near the
+-- top: the gold rim (W.Rim) over a compact night band (the band, and in the
+-- house style a scrim-to-ground gradient and the haze), the transport's glyph
+-- in a ring, what is coming in Title and a live countdown in Small textDim,
+-- a 2px accent line draining to the arrival. A click dismisses it.
 ---------------------------------------------------------------------------
 
-local WIDTH, HEIGHT, PAD = 320, 56, 14
+local WIDTH, HEIGHT, PAD = 320, 56, 16
 local DEFAULT_Y = -72
 local banner
 
@@ -89,10 +90,34 @@ local function build()
 	f.psLight = true
 	Theme.Skin(f, "window")
 
-	f.Ring = W.Tex(f, "ARTWORK", "qol-ring", "place")
+	-- The night band under everything the banner says.
+	local head = CreateFrame("Frame", nil, f)
+	head:SetPoint("TOPLEFT", f, "TOPLEFT", 1, -1)
+	head:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -1, 1)
+	f.Head = head
+	f.Night = head:CreateTexture(nil, "BACKGROUND", nil, -8)
+	f.Night:SetTexture(Theme.Media("white"))
+	f.Night:SetAllPoints(head)
+	W.Painter(f.Night, function(t)
+		t:SetShown(Theme.SkinKey() == "polestar")
+		local tr, tg, tb = Theme.Color("scrim")
+		local br, bg, bb = Theme.Color("bg")
+		if t.SetGradient and CreateColor then
+			t:SetVertexColor(1, 1, 1, 1)
+			t:SetGradient("VERTICAL", CreateColor(br, bg, bb, 1), CreateColor(tr, tg, tb, 1))
+		else
+			t:SetVertexColor(br, bg, bb, 1)
+		end
+	end)
+	if W.Haze then f.Haze = W.Haze(head, { height = HEIGHT, sub = -6 }) end
+	f.Band = Theme.Band(head, "BACKGROUND", -5)
+	f.Band:SetAllPoints(head)
+	f.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, HEIGHT - 2))
+
+	f.Ring = W.Tex(head, "ARTWORK", "qol-ring", "place")
 	f.Ring:SetSize(32, 32)
 	f.Ring:SetPoint("LEFT", f, "LEFT", PAD, 0)
-	f.Glyph = W.Tex(f, "OVERLAY", "icon-boat", "place")
+	f.Glyph = W.Tex(head, "OVERLAY", "icon-boat", "place")
 	f.Glyph:SetSize(16, 16)
 	f.Glyph:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
 
@@ -114,18 +139,30 @@ local function build()
 			W.Color(f.Glyph, "accent")
 		end
 	end)
-	f.Title = W.Text(f, "title", "title")
+	f.Title = W.Text(head, "title", "title")
 	f.Title:SetPoint("BOTTOMLEFT", f.Ring, "RIGHT", 12, 1)
 	f.Title:SetPoint("RIGHT", f, "RIGHT", -PAD, 0)
 	f.Title:SetJustifyH("LEFT")
-	f.When = W.Text(f, "small", "textDim")
+	f.Title:SetWordWrap(false)
+	f.When = W.Text(head, "small", "textDim")
 	f.When:SetPoint("TOPLEFT", f.Ring, "RIGHT", 12, -3)
 	f.When:SetPoint("RIGHT", f, "RIGHT", -PAD, 0)
 	f.When:SetJustifyH("LEFT")
+	f.When:SetWordWrap(false)
+	-- Text on the band: the deeper shade under it, as on the rare alert.
+	for _, fs in ipairs({ f.Title, f.When }) do
+		W.Painter(fs, function(t)
+			local r, g, b = Theme.Color("shade")
+			t:SetShadowOffset(0, -1)
+			t:SetShadowColor(r, g, b, 0.85)
+		end)
+	end
 
-	f.Timer = W.ProgressLine(f, 2)
+	f.Timer = W.ProgressLine(head, 2)
 	f.Timer:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 1, 1)
 	f.Timer:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -1, 1)
+	-- The rim's light kept inside the banner.
+	if W.Rim then W.Rim(f, { height = HEIGHT }) end
 
 	f:SetScript("OnMouseUp", function(self) self:Hide() end)
 	f:SetScript("OnUpdate", function(self)
@@ -257,7 +294,7 @@ if ns.RegisterOptions then
 				help = L["The ship's bell, the zeppelin's horn or the tram, on the Master channel so you hear it with the game in the background."] }),
 			H({ kind = "toggle", key = "nav.alertFlash", label = L["Flash the taskbar icon"], disabled = off,
 				help = L["The game's icon flashes while the game is in the background."] }),
-			{ kind = "button", label = L["Show a sample alert"], disabled = off,
+			{ kind = "button", button = L["Show"], label = L["Show a sample alert"], disabled = off,
 				help = L["See the banner and hear the boat's bell."],
 				onClick = function() Alerts.ShowSample() end },
 		},

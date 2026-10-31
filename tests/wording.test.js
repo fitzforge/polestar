@@ -1,7 +1,7 @@
 'use strict';
-// The wording rule: player-facing text, every doc, the guides, the pack
-// template and the pack authors' skill (skills/) name no other guide product
-// and never invite players to bring or convert other guides. Every path
+// The wording rule: player-facing text, every doc, the guides, the code, the
+// tests, the workflows and the agent skills name no other guide product and
+// never invite players to bring or convert other guides. Every path
 // listed must exist, so a moved folder fails here instead of being scanned as
 // nothing. Names are matched as whole tokens, so the game's own "rested XP"
 // (two tokens) is not a product name.
@@ -14,7 +14,7 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 
 const ROOT = path.join(__dirname, '..');
-const PATHS = ['addon', 'guides', 'docs', 'skills', 'tools/templates', 'README.md', 'CONTRIBUTING.md', 'CHANGELOG.md', 'changes', 'THIRD_PARTY.md', 'LICENSE-EXCEPTION.md'];
+const PATHS = ['addon', 'guides', 'docs', 'skills', 'tools', 'rust', 'tests', 'services', 'apps', 'forever-db', '.github', 'README.md', 'CONTRIBUTING.md', 'CHANGELOG.md', 'changes', 'THIRD_PARTY.md', 'LICENSE-EXCEPTION.md', 'AGENTS.md'];
 // Names of other guide products, kept as hashes so the repository never
 // spells them: SHA-256 of each name's lower-case form.
 const NAME_HASHES = new Set([
@@ -22,6 +22,7 @@ const NAME_HASHES = new Set([
 	'ec9eefd3b3811601e900635d5b02d34c6f13aed885de2fe3a748f6d497354b1a',
 	'3c6efb268bde2923e4f7cbc086995f6158a606e66df45e307829e6b28f7aaf0e',
 	'766f4a2eab6065a164747b05230961a0330679e107cfec7d32398233a16e06c0',
+	'adb440d3141ea93a3050652202bf4b6a9a6f9e7872b082e939046a03fe3f4f86',
 ]);
 // "import your existing guides", "converting paid guides", "bring your paid guides"...
 // (\b: "report other guides" or "support other guides" is not an invitation).
@@ -29,11 +30,22 @@ const INVITE = /\b(import|convert|port|bring)(ing)? (your )?(existing|paid|other
 
 const sha256 = (s) => crypto.createHash('sha256').update(s).digest('hex');
 
+// Tokens repeat endlessly across the tree: hash each distinct one once.
+const tokenHash = new Map();
+const hashOf = (t) => {
+	let h = tokenHash.get(t);
+	if (h === undefined) tokenHash.set(t, (h = sha256(t)));
+	return h;
+};
+
 // Each lower-case alphanumeric token of text whose hash is in hashes, with its index.
+// Tokens longer than any product name (40+ characters: packed data) are not hashed.
 function namedTokens(text, hashes) {
 	const out = [];
-	for (const m of text.toLowerCase().matchAll(/[a-z0-9]+/g)) {
-		if (hashes.has(sha256(m[0]))) out.push({ token: m[0], index: m.index });
+	const lower = text.toLowerCase();
+	for (const m of lower.matchAll(/[a-z0-9]{1,40}(?![a-z0-9])/g)) {
+		if (m.index > 0 && /[a-z0-9]/.test(lower[m.index - 1])) continue;
+		if (hashes.has(hashOf(m[0]))) out.push({ token: m[0], index: m.index });
 	}
 	return out;
 }
@@ -59,9 +71,13 @@ function repoFiles() {
 	return PATHS.flatMap((rel) => walk(path.join(ROOT, rel)));
 }
 
+// This file spells the invitations it looks for; the golden test data under rust/tests is
+// generated game data, not anyone's words.
+const SKIP = [path.join(ROOT, 'tests', 'wording.test.js'), path.join(ROOT, 'rust', 'tests', 'golden') + path.sep];
+
 function scan() {
 	for (const rel of PATHS) assert.ok(fs.existsSync(path.join(ROOT, rel)), `${rel} is listed for the wording rule but does not exist`);
-	return repoFiles().map(textFile).filter(Boolean);
+	return repoFiles().filter((f) => !SKIP.some((s) => f === s || f.startsWith(s))).map(textFile).filter(Boolean);
 }
 
 const where = (file, text, index) => `${path.relative(ROOT, file)}:${text.slice(0, index).split('\n').length}`;
@@ -90,7 +106,7 @@ test('nothing invites bringing or converting other guides', () => {
 });
 
 test('the checks catch what they are for, and the game\'s rested XP passes', () => {
-	assert.equal(NAME_HASHES.size, 4);
+	assert.equal(NAME_HASHES.size, 5);
 	for (const h of NAME_HASHES) assert.match(h, /^[0-9a-f]{64}$/);
 	const sample = new Set([sha256('acmeguides')]);
 	assert.deepEqual(namedTokens('Works like AcmeGuides does', sample), [{ token: 'acmeguides', index: 11 }]);

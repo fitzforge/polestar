@@ -1,82 +1,278 @@
 guide forever/reputation/gnomeregan-exiles
 title Gnomeregan Exiles Reputation
 category Reputation
+folder Reputation · Cities
 faction Alliance
 levels 12-60
 zone Ironforge
-# Built from the Era-baseline reference data: Bubulo Acerbus, the Gnomeregan Exiles
-# cloth quartermaster, and the cloth quests 7807/7808/7809/7811 (one-time) and 7812
-# (Additional Runecloth, repeatable) from quests.json; cloth farm spots are
-# the densest spawn clusters of strong cloth droppers in items.json/npcs.json.
-# Nothing public shows Forever changing the cloth donations; this has NOT been
-# play-tested on Forever yet. Refine it with Polestar_Recorder sessions.
-#
-# The client never flags a repeatable quest as completed, so the Additional
-# Runecloth steps finish on the Gnomeregan Exiles standing (rep 54); each
-# step's optional `turnin 7812 direct` checks off at its first hand-in. Cloth counts (60 per first donation, 20 per repeat) are game
-# knowledge: the data only has the 60 Runecloth of A Donation of Runecloth.
+keywords Gnomeregan Exiles, Bubulo Acerbus, cloth quartermaster, Tinker Town, Additional Runecloth, Wool, Silk, Mageweave, Runecloth, mechanostrider, Swift Green Mechanostrider, grey quests, Coldridge Valley, Kharanos, Dun Morogh, Laris Geardawdle, ooze, Overmaster Pyron
+reward text Exalted with Gnomeregan Exiles: in Classic, other races may buy the mechanostriders
+reward text 400 Gnomeregan reputation from Laris Geardawdle's ooze jars and Overmaster Pyron (level 52-54)
+reward text About 3,000 Gnomeregan reputation from low-level quests in Dun Morogh, paid to Ironforge too (in Classic, a fifth of it at 60)
+why Cloth, Laris's ooze quests and the Dun Morogh hubs, which pay Ironforge too: best done while leveling.
 
-step Bubulo Acerbus: A Donation of Wool
-  tip Bubulo Acerbus takes cloth for Gnomeregan Exiles in Tinker Town, Ironforge. The first donations of Wool, Silk, Mageweave and Runecloth (60 cloth each) are done once and give the most reputation per cloth; after them, Additional Runecloth repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains.
+# Built from Forever's quest data (the reputation each quest pays, as Forever's
+# quest pages give it), quests.json, npcs.json and items.json (givers, drops,
+# farm spots), and the Forever client tables (Faction: Gnomes start at 4000,
+# Humans, Dwarves and Night Elves at 3100, Alliance Skyborne at 2000;
+# ItemSparse: no item needs Gnomeregan standing, and the mechanostriders carry
+# no reputation requirement in the client).
+# Numbers: the first donation of each cloth pays 150 (60 cloth); Additional
+# Runecloth (7812) pays 50 for 20 Runecloth and repeats. Bands: Friendly 6000,
+# Honored 12000, Revered 21000.
+# Low-level quests: in Classic a quest 6+ levels below you pays a fifth less per
+# level, down to a fifth; one Forever beta report saw full pay at level 30.
+# The Alterac Valley turn-ins of Classic's early patches (Gnomeregan Bounty,
+# 7364, Tauren Hoof) are in the game's data without a Forever page value:
+# left out.
+# The quest hubs are optional: each hub's first step carries a label, the
+# steps after it run only when it was done (`when done`), so skipping the
+# first step skips the hub.
+# Level 52-54 quests first (in Classic they pay a little less at 60): Laris
+# Geardawdle's two ooze quests (4512, 4513: 300) and Overmaster Pyron (4262:
+# 100). Left to a tip: Incendius! in Blackrock Depths (4263: 100, a group)
+# and Nefarian's head (200 to every Alliance city).
+# ASSUMED: other races buy the mechanostriders at Exalted with Gnomeregan
+# Exiles (Classic flow; Forever's data has no vendor rule for it). In-game
+# check: Milli Featherwhistle's stock for a non-Gnome at Exalted and below.
+# INGAME: grey-quest rep at 60 (Classic: a fifth from 9 levels below; one Forever beta report: full, quest 456 at level 30 paid 100)
+# INGAME: reputation discount (Classic: 10% at Honored with the vendor's faction; Forever guide sites report 5% at Friendly rising to 20% at Exalted, another says unannounced). Check a city vendor's price at Friendly and at Honored.
+# Legacy Diplomat adds up to 10% to every gain; the numbers here leave it out.
+# No race has a reputation bonus in Forever (Diplomacy is gone).
+
+step Bubulo Acerbus, the cloth quartermaster
+  tip Bubulo Acerbus takes cloth for the Gnomeregan Exiles; he stands in Tinker Town in Ironforge, by the tram. Each first donation of 60 Wool, Silk, Mageweave and Runecloth pays 150 reputation once; after the Runecloth one, Additional Runecloth pays 50 for every 20 Runecloth, as often as you like. The Auction House in the Commons is the quickest source of cloth. In Classic, quests pay full reputation while they are at most 5 levels below you, so do Dun Morogh (levels 1-12) and Gaxim Rustfizzle's quests in Stonetalon (20-25) while you level. After the donations come Laris Geardawdle's ooze quests and Overmaster Pyron (400), then the optional Dun Morogh hubs, best rate first: Coldridge Valley (about 38 a minute at full value), Kharanos (26), the quarry (17). Every Gnomeregan gain also gives a quarter as much to Stormwind, Ironforge and Darnassus, except quests in the level 1-10 start areas. Legacy Diplomat adds up to 10% to every gain.
   level 12
+  collect 2592 x60 nearest            -- Wool Cloth: troggs, gnolls and kobolds in Loch Modan and the Wetlands
   accept 7807
-
-step Wool Cloth
-  zone Westfall
-  tip Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too.
-  collect 2592 x60 quest 7807.1 @59.9,70.7
-
-step Bubulo Acerbus: A Donation of Silk
-  zone Ironforge
   turnin 7807
+
+step A Donation of Silk
+  tip Silk Cloth drops from humanoids level 23 to 40: the Dragonmaw of the Wetlands, the Syndicate of Alterac and Arathi, Stranglethorn's trolls.
   level 26
+  collect 4306 x60 nearest
   accept 7808
-
-step Silk Cloth
-  zone Arathi Highlands
-  tip Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too.
-  collect 4306 x60 quest 7808.1 @32.3,28.3
-
-step Bubulo Acerbus: A Donation of Mageweave
-  zone Ironforge
   turnin 7808
+
+step A Donation of Mageweave
+  tip Mageweave Cloth drops from humanoids level 35 to 50: the Shadowforge and Dark Iron dwarves of the Badlands and Searing Gorge, the Dunemaul ogres of Tanaris, the Hatecrest naga of Feralas.
   level 40
+  collect 4338 x60 nearest
   accept 7809
-
-step Mageweave Cloth
-  zone Tanaris
-  tip Dunemaul ogres (level 45-48) drop it here. The Auction House works too.
-  collect 4338 x60 quest 7809.1 @40.1,54.4
-
-step Bubulo Acerbus: A Donation of Runecloth
-  zone Ironforge
   turnin 7809
+
+step A Donation of Runecloth
+  tip Runecloth drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of Felwood, the Winterfall furbolgs of Winterspring. Keep any Runecloth past the first 60 for Additional Runecloth.
   level 50
+  collect 14047 x60 nearest
   accept 7811
-
-step Runecloth
-  zone Eastern Plaguelands
-  tip Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the Argent Dawn (see that guide). The Auction House works too.
-  collect 14047 x60 quest 7811.1 @40,51.3
-
-step Bubulo Acerbus: Runecloth delivered
-  zone Ironforge
   turnin 7811
 
+step Tinker Town: Laris Geardawdle
+  zone Ironforge
+  tip Laris Geardawdle in Tinker Town wants ooze samples for her research: 150 Gnomeregan reputation for each of her two quests (level 52 and 54: in Classic 60 and 120 of it at 60). She hands you the empty jars.
+  level 55
+  accept 4512                         -- A Little Slime Goes a Long Way, +150
+
+step Felwood: Cursed and Tainted Oozes
+  zone Felwood
+  tip The Cursed and Tainted Oozes slide about the streams and fel pools around Jaedenar and Bloodvenom Falls: kill one and use an empty jar on its remains.
+  collect 11947 x6 quest 4512.1       -- Filled Cursed Ooze Jar
+  collect 11949 x6 quest 4512.2       -- Filled Tainted Ooze Jar
+
+step Tinker Town: the second jars
+  zone Ironforge
+  turnin 4512
+  accept 4513                         -- A Little Slime Goes a Long Way, +150
+
+step Un'Goro Crater: Primal Oozes
+  zone Un'Goro Crater
+  tip The Primal Oozes live in the pools around Fire Plume Ridge in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains.
+  collect 11954 x10 quest 4513.1      -- Filled Pure Sample Jar
+
+step Tinker Town: hand in
+  zone Ironforge
+  turnin 4513
+
+step Morgan's Vigil: Jalinda Sprig
+  zone Burning Steppes
+  tip Jalinda Sprig at Morgan's Vigil, in the south-east of the Burning Steppes, wants Overmaster Pyron dead: 100 Gnomeregan reputation (level 52: in Classic 40 at 60). Her next quest, Incendius!, needs a Blackrock Depths group: 100 more, in full.
+  accept 4262                         -- Overmaster Pyron, +100
+
+step Blackrock Mountain: Overmaster Pyron
+  zone map 1415
+  tip Blackrock Mountain stands in the west of the Burning Steppes. Overmaster Pyron, a fire elemental, walks the lava paths inside it, near the door of Blackrock Depths but outside the dungeon: at 60 you take him alone.
+  kill 9026 quest 4262.1              -- Overmaster Pyron
+
+step Morgan's Vigil: hand in
+  zone Burning Steppes
+  turnin 4262                         -- Jalinda Sprig
+
+step Coldridge Valley
+  label ge-coldridge
+  zone Dun Morogh
+  tip Optional: the Dwarf and Gnome start valley south-west of Kharanos, about 1,150 reputation (230 at a fifth) in 30 minutes at 60. Sten Stoutarm and Balir Frosthammer stand at Anvilmar. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  accept 179
+  accept 3361
+  accept 2160
+
+step Coldridge: wolves, troggs and Felix's things
+  when done ge-coldridge
+  tip The wolves roam the valley floor; the troggs dig in the camps east of Anvilmar; Felix's box, chest and bucket lie in the trogg camps.
+  collect 750 x8 quest 179.1          -- Tough Wolf Meat
+  collect 10438 quest 3361.1          -- Felix's Box
+  collect 16313 quest 3361.2          -- Felix's Chest
+  collect 16314 quest 3361.3          -- Felix's Bucket of Bolts
+
+step Coldridge: Anvilmar and Talin
+  when done ge-coldridge
+  turnin 179
+  accept 170
+  accept 233
+  turnin 3361
+  turnin 233
+  accept 234
+  accept 183
+  kill 707 x6 quest 170.1             -- Rockjaw Trogg
+  kill 724 x6 quest 170.2             -- Burly Rockjaw Trogg
+  kill 708 x12 quest 183.1            -- Small Crag Boar
+  turnin 183
+  turnin 170
+
+step Coldridge: Grelin Whitebeard and the troll cave
+  when done ge-coldridge
+  tip Grelin Whitebeard camps south of Anvilmar, at the mouth of the troll cave; the journal lies at the back of the cave.
+  turnin 234
+  accept 182
+  kill 706 x14 quest 182.1            -- Frostmane Troll Whelp
+  turnin 182
+  accept 218
+  collect 2004 quest 218.1            -- Grelin Whitebeard's Journal
+  turnin 218
+  accept 282
+  accept 3364
+
+step Coldridge: the hot Mornbrew
+  when done ge-coldridge
+  tip The Scalding Mornbrew cools in five minutes: run straight to Durnan Furcutter at Anvilmar.
+  turnin 3364
+  accept 3365
+  turnin 3365
+  turnin 282
+  accept 420
+
+step Coldridge: on to Kharanos
+  when onquest 420,2160
+  turnin 420                          -- Senir Whitebeard, in Kharanos
+  turnin 2160                         -- Tannok Frosthammer, in the inn
+
+step Kharanos
+  label ge-kharanos
+  zone Dun Morogh
+  tip Optional: Kharanos and the Brewnall and Gnomeregan roads around it, about 1,300 reputation (260 at a fifth) in 50 minutes at 60. Most givers stand in and around the Thunderbrew Distillery and at Steelgrill's Depot east of it. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  accept 400
+  turnin 400
+  accept 317
+  accept 313
+  accept 412
+  accept 98321
+  accept 5541
+  accept 98322
+  accept 96408
+
+step Kharanos: the hills and the depot
+  when done ge-kharanos
+  tip The boars and bears roam around Kharanos; the wendigos live in the Grizzled Den south-west of town; the leper gnomes at the Gnomeregan road carry the cogs and gears; Rumbleshot's ammo lies at his camp west of town.
+  collect 769 x4 quest 317.1          -- Chunk of Boar Meat
+  collect 6952 x2 quest 317.2         -- Thick Bear Fur
+  collect 2671 x8 quest 313.1         -- Wendigo Mane
+  collect 3083 x8 quest 412.1         -- Restabilization Cog
+  collect 3084 x8 quest 412.2         -- Gyromechanic Gear
+  collect 280413 quest 98321.1        -- Flintfire's Shipment
+  collect 13850 quest 5541.1          -- Rumbleshot's Ammo
+  turnin 5541
+  turnin 98322
+  accept 98319
+  interact 460004 quest 98319.1       -- Mountaineer Cornelius
+  turnin 98319
+  accept 98323
+
+step Kharanos: back in town
+  when done ge-kharanos
+  turnin 317
+  accept 318
+  turnin 313
+  turnin 412
+  turnin 98321
+  turnin 98323
+  accept 287 optional
+
+step Kharanos: Brewnall and Frostmane Hold
+  when done ge-kharanos
+  tip Rejold Barleybrew stands by Brewnall Village on the lake north-west of Kharanos; Frostmane Hold is the troll cave west of it.
+  turnin 318
+  accept 319
+  accept 315
+  kill 1196 x6 quest 319.1            -- Ice Claw Bear
+  kill 1127 x8 quest 319.2            -- Elder Crag Boar
+  kill 1201 x8 quest 319.3            -- Snow Leopard
+  collect 2676 x6 quest 315.1         -- Shimmerweed
+  kill 1123 x5 quest 287.1            -- Frostmane Headhunter
+  complete 287 @22.4,51.8             -- walk to the back of the cave
+  turnin 319
+  accept 320
+  turnin 315
+
+step Kharanos: last hand-in
+  when done ge-kharanos
+  turnin 320
+  turnin 287
+  accept 291 optional
+
+step The quarry and Amberstill Ranch
+  label ge-east
+  zone Dun Morogh
+  tip Optional: eastern Dun Morogh, from Earthseer Farsen's camp to the Gol'Bolar Quarry and Amberstill Ranch, about 500 reputation (100 at a fifth) in 30 minutes at 60. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  turnin 96408 optional
+  accept 96392
+  turnin 96392
+  accept 96390
+  accept 314
+  accept 432
+  accept 433
+
+step The quarry: troggs, spies and Vagash
+  when done ge-east
+  tip The Dark Iron Spies lurk around Farsen's camp; the troggs dig in the Gol'Bolar Quarry; Vagash, a big snow leopard, prowls the hills above Amberstill Ranch.
+  kill 6123 x10 quest 96390.1         -- Dark Iron Spy
+  kill 1115 x6 quest 432.1            -- Rockjaw Skullthumper
+  kill 1117 x10 quest 433.1           -- Rockjaw Bonesnapper
+  collect 3627 quest 314.1            -- Fang of Vagash
+  turnin 96390
+  turnin 432
+  turnin 433
+  turnin 314
+
+step The Reports
+  when onquest 291
+  zone Ironforge
+  turnin 291                          -- Senator Barin Redstone, in the throne room
+
 step Additional Runecloth to Honored
-  tip Additional Runecloth takes 20 Runecloth per turn-in and repeats as often as you like. Bring Runecloth in multiples of 20 and hand them all in at once, one turn-in after another. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
-  collect 14047 x20 optional @40,51.3 map 1423
+  zone Ironforge
+  tip Additional Runecloth: 50 reputation for 20 Runecloth, as often as you like. After the four first donations a Human, Dwarf or Night Elf stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 Runecloth (Gnomes start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). Laris's and Jalinda's quests above take 8 turn-ins off; each Dun Morogh hub you did takes 10 to 26 more off if it paid in full. Outside Dun Morogh Gnomeregan pays little: Gaxim Rustfizzle's quests in Stonetalon (about 500) and Tinker Town's Gnomeregan dungeon quests. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your Runecloth at once.
+  collect 14047 x20 optional nearest
   turnin 7812 direct optional
   rep 54 Honored
 
 step Additional Runecloth to Revered
-  tip Keep handing in Additional Runecloth, 20 Runecloth at a time. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
-  collect 14047 x20 optional @40,51.3 map 1423
+  tip Honored: in Classic the Gnomeregan Exiles' vendors take 10% off for you, Milli Featherwhistle's mechanostriders (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 Runecloth.
+  collect 14047 x20 optional nearest
   turnin 7812 direct optional
   rep 54 Revered
 
 step Additional Runecloth to Exalted
-  tip Keep handing in Additional Runecloth until Gnomeregan Exiles is Exalted. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
-  collect 14047 x20 optional @40,51.3 map 1423
+  tip Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 Runecloth. At Exalted, Milli Featherwhistle at Steelgrill's Depot in Dun Morogh sells her mechanostriders to other races in Classic; the Mechanostrider and Swift Mechanostrider guides cover them.
+  collect 14047 x20 optional nearest
   turnin 7812 direct optional
   rep 54 Exalted

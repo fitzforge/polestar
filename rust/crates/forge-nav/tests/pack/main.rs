@@ -5,6 +5,7 @@
 
 mod golden;
 mod hubs;
+mod leffe;
 mod units;
 
 use std::path::{Path, PathBuf};

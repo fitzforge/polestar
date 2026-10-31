@@ -7,7 +7,15 @@
 //!
 //! Faithful to the JS port step for step: the same heap (and so the same ties), expansion order, map insertion
 //! orders and float arithmetic, so a route's cost and points are the JS port's bit for bit.
+//!
+//! Leffe's lift layer (lifts.rs) is spliced on top: each landing is a node of the abstract search (LIFT + its
+//! index), joined to its cluster's entrances (and to the ends and other landings of its cluster) by grid searches,
+//! and to the other landing of its car by the ride. A walk across a lift-separated city's floors searches a second
+//! layer of the graph (LAYER + id) that only a ride on one of the city's lifts reaches. Landings and that layer go
+//! on a heap of their own (heap3), popped only when its top is strictly cheaper than the reader's: a walk that no
+//! lift serves pops, relaxes and draws exactly as the reader's does.
 
+use super::lifts::{ride_seconds, Group, MapLifts, RUN};
 use super::pack::{fail, Cluster, Graph, Meta, B64, DX, DY, R, SLOPE_EPS, STRIDE, WALK_TAN};
 use super::store::Store;
 use super::{Event, Faction, Hub, Leg, Many, Move, Opts, Route, Style, Surface, Validate, P};
@@ -26,6 +34,23 @@ const RETRIES: usize = 8;
 const DROP: f64 = 30.0;
 const START: i64 = -1;
 const GOAL: i64 = -2;
+/// A lift landing's id in the abstract search: LIFT + 2 × car + end.
+const LIFT: i64 = 1 << 46;
+/// The second layer of the abstract search (a node after a ride on a lift-separated city's lift): LAYER + id.
+const LAYER: i64 = 1 << 47;
+/// Pts.arc's cluster for a ride's landing (the arc: its car).
+const RIDE: u32 = u32::MAX;
+/// Lb.edge of a ride.
+const RIDE_EDGE: i64 = -2;
+
+/// An abstract id -> (its id on the first layer, its layer offset).
+fn unlayer(id: i64) -> (i64, i64) {
+	if id >= LAYER {
+		(id - LAYER, LAYER)
+	} else {
+		(id, 0)
+	}
+}
 
 /// The gap between float32 x and the next float32 away from zero.
 fn ulp32(x: f64) -> f64 {
@@ -230,6 +255,8 @@ const CALL_CLUSTERS: usize = 24;
 pub(crate) struct Scratch {
 	heap: Heap,
 	heap2: Heap,
+	/// The abstract search's lift landings and second layer (the lift layer's own heap).
+	heap3: Heap,
 	trees: Vec<Tree>,
 	free: Vec<usize>,
 	used: Vec<usize>,
@@ -239,6 +266,8 @@ pub(crate) struct Scratch {
 	ends: FxHashMap<String, Arc<TargetConn>>,
 	ends_order: VecDeque<(String, usize)>,
 	ends_bytes: usize,
+	/// Lift landings' connections (Leffe's lift layer), by connection key.
+	lift_conns: FxHashMap<String, Arc<TargetConn>>,
 }
 
 impl Scratch {
@@ -251,10 +280,13 @@ impl Scratch {
 			self.free.clear();
 			self.free.extend(0..KEEP_TREES);
 		}
-		for h in [&mut self.heap, &mut self.heap2] {
+		for h in [&mut self.heap, &mut self.heap2, &mut self.heap3] {
 			if h.k.len() > 1 << 20 {
 				*h = Heap::default();
 			}
+		}
+		if self.lift_conns.len() > 4096 {
+			self.lift_conns.clear();
 		}
 	}
 }
@@ -515,6 +547,31 @@ pub(crate) struct Run<'a> {
 	graphs: FxHashMap<u32, Arc<Graph>>,
 	sc: &'a mut Scratch,
 	pub expansions: u64,
+	/// The map's lift cars (Leffe's lift layer).
+	lifts: Option<Arc<MapLifts>>,
+}
+
+/// A call's lifts, per landing (2 × car + end): where it stands (cluster, node, height; the node its connection
+/// settled on), the ride from it to the other landing (None: not priced), whether its car is a lift-separated city's
+/// and its connection from its cluster's entrances (None: it does not join the graph).
+struct LiftCx {
+	at: Vec<(u32, u32, f64)>,
+	ride: Vec<Option<Lab>>,
+	city: Vec<bool>,
+	inn: Vec<Option<Arc<TargetConn>>>,
+	group: Option<&'static Group>,
+}
+impl LiftCx {
+	/// Entrance id -> the landings it walks to (landing, label), in landing order.
+	fn links(&self) -> FxHashMap<i64, Vec<(usize, Lab)>> {
+		let mut out: FxHashMap<i64, Vec<(usize, Lab)>> = FxHashMap::default();
+		for (e, c) in self.inn.iter().enumerate() {
+			for (id, lab) in c.iter().flat_map(|c| c.merged.iter()) {
+				out.entry(id).or_default().push((e, *lab));
+			}
+		}
+		out
+	}
 }
 
 fn step_safe(cs: f64, dx: f64, dy: f64, za: f64, zb: f64) -> bool {
@@ -525,7 +582,7 @@ fn step_safe(cs: f64, dx: f64, dy: f64, za: f64, zb: f64) -> bool {
 }
 
 impl<'a> Run<'a> {
-	pub(crate) fn new(store: &'a Store, checks: &'a Checks, meta: Arc<Meta>, mode: Validate, sc: &'a mut Scratch) -> Run<'a> {
+	pub(crate) fn new(store: &'a Store, checks: &'a Checks, meta: Arc<Meta>, mode: Validate, sc: &'a mut Scratch, lifts: Option<Arc<MapLifts>>) -> Run<'a> {
 		Run {
 			store,
 			checks,
@@ -536,6 +593,7 @@ impl<'a> Run<'a> {
 			graphs: FxHashMap::default(),
 			sc,
 			expansions: 0,
+			lifts,
 		}
 	}
 
@@ -1045,9 +1103,30 @@ impl<'a> Run<'a> {
 		let r_tree = self.tree();
 		let src = self.connect_point(swim, &mult, sk, sc, from.z, false)?;
 		let dst = self.connect_point(swim, &mult, gk, gc, to.z, true)?;
+		// Leffe's lift layer: the map's landings, and whether the walk crosses a lift-separated city's floors (then only
+		// a ride on one of its lifts reaches the goal).
+		let lx = self.lift_cx(swim, &mult);
+		let must = match lx.as_ref().and_then(|l| l.group) {
+			Some(g) => match (self.side(g, from), self.side(g, to)) {
+				(Some(a), Some(b)) => a != b,
+				_ => false,
+			},
+			None => false,
+		};
+		let mut src_lifts = Vec::new();
+		if let Some(l) = &lx {
+			for e in 0..l.at.len() {
+				if l.at[e].0 == sk && l.inn[e].is_some() {
+					if let Ok(Some(w)) = self.reach_from_side(swim, &mult, &src, sk, l.at[e].1, r_tree) {
+						src_lifts.push((e, w));
+					}
+				}
+			}
+		}
+		let links = lx.as_ref().map(|l| l.links()).unwrap_or_default();
 		let mut direct: Option<f64> = None;
 		let (mut direct_yards, mut direct_jumps, mut direct_from, mut direct_to) = (0.0, 0.0, 0u32, 0u32);
-		if sk == gk {
+		if sk == gk && !must {
 			for a in 0..src.ends.len() {
 				for b in 0..dst.ends.len() {
 					let (an, bn) = (src.ends[a].node, dst.ends[b].node);
@@ -1077,11 +1156,11 @@ impl<'a> Run<'a> {
 			let g = self.graph((id / STRIDE) as u32)?;
 			shared = shared || comps.contains(&g.row_comp[(id % STRIDE) as usize]);
 		}
-		if direct.is_none() && !shared {
+		if direct.is_none() && !shared && lx.is_none() {
 			return Ok(Route::failed("unreachable".into()));
 		}
 
-		// Abstract Dijkstra from START to GOAL through the entrance graph.
+		// Abstract Dijkstra from START to GOAL through the entrance graph (and the lift layer's landings and layer).
 		#[derive(Clone, Copy)]
 		struct Lb {
 			g: f64,
@@ -1089,10 +1168,13 @@ impl<'a> Run<'a> {
 			par: i64,
 			j: f64,
 			edge: i64,
+			/// From START to a landing: the start's end; from a landing to GOAL: the goal's.
+			end: usize,
 		}
 		let mut lab: FxHashMap<i64, Lb> = FxHashMap::default();
 		let mut aclosed: FxHashSet<i64> = FxHashSet::default();
 		self.sc.heap.clear();
+		self.sc.heap3.clear();
 		fn relax(lab: &mut FxHashMap<i64, Lb>, heap: &mut Heap, v: i64, l: Lb) {
 			let better = match lab.get(&v) {
 				None => true,
@@ -1104,14 +1186,25 @@ impl<'a> Run<'a> {
 			}
 		}
 		for (id, l) in source.iter() {
-			relax(&mut lab, &mut self.sc.heap, id, Lb { g: l[0], y: l[1], par: START, j: l[2], edge: -1 });
+			relax(&mut lab, &mut self.sc.heap, id, Lb { g: l[0], y: l[1], par: START, j: l[2], edge: -1, end: 0 });
 		}
 		if let Some(d) = direct {
-			relax(&mut lab, &mut self.sc.heap, GOAL, Lb { g: d, y: direct_yards, par: START, j: direct_jumps, edge: -1 });
+			relax(&mut lab, &mut self.sc.heap, GOAL, Lb { g: d, y: direct_yards, par: START, j: direct_jumps, edge: -1, end: 0 });
+		}
+		for (e, (a, w)) in src_lifts {
+			relax(&mut lab, &mut self.sc.heap3, LIFT + e as i64, Lb { g: w[0], y: w[1], par: START, j: w[2], edge: -1, end: a });
 		}
 		let mut found = false;
-		while self.sc.heap.n > 0 {
-			let u = self.sc.heap.pop();
+		loop {
+			// The lift layer's heap only when its top is strictly cheaper.
+			let lifted = self.sc.heap3.n > 0 && (self.sc.heap.n == 0 || self.sc.heap3.k[1] < self.sc.heap.k[1]);
+			let u = if lifted {
+				self.sc.heap3.pop()
+			} else if self.sc.heap.n > 0 {
+				self.sc.heap.pop()
+			} else {
+				break;
+			};
 			if !aclosed.insert(u) {
 				continue;
 			}
@@ -1121,23 +1214,69 @@ impl<'a> Run<'a> {
 				break;
 			}
 			let lu = lab[&u];
-			if let Some(t) = target.get(u) {
-				relax(&mut lab, &mut self.sc.heap, GOAL, Lb { g: lu.g + t[0], y: lu.y + t[1], par: u, j: lu.j + t[2], edge: -1 });
+			let (b, layer) = unlayer(u);
+			let at = |g: f64, y: f64, j: f64, edge: i64, end: usize| Lb { g: lu.g + g, y: lu.y + y, par: u, j: lu.j + j, edge, end };
+			if b >= LIFT {
+				let Some(l) = &lx else { continue };
+				let e = (b - LIFT) as usize;
+				if let Some(r) = l.ride[e] {
+					let to_layer = if must && l.city[e] { LAYER } else { layer };
+					relax(&mut lab, &mut self.sc.heap3, LIFT + (e ^ 1) as i64 + to_layer, at(r[0], r[1], r[2], RIDE_EDGE, 0));
+				}
+				if let Ok(out) = self.aside(|r| r.landing_out(swim, &mult, l, e)) {
+					for (id, w) in out.merged.iter() {
+						let heap = if layer == 0 { &mut self.sc.heap } else { &mut self.sc.heap3 };
+						relax(&mut lab, heap, id + layer, at(w[0], w[1], w[2], -1, 0));
+					}
+				}
+				// The goal and the other landings of its cluster, walked to straight from it.
+				let (k, node, _) = l.at[e];
+				let mut goals: Vec<(i64, u32, usize)> = Vec::new();
+				if k == gk && (layer != 0 || !must) {
+					goals.extend(dst.ends.iter().enumerate().map(|(i, d)| (GOAL, d.node, i)));
+				}
+				for (f, &(fk, fnode, _)) in l.at.iter().enumerate() {
+					if f != e && fk == k && l.inn[f].is_some() {
+						goals.push((LIFT + f as i64 + layer, fnode, 0));
+					}
+				}
+				if !goals.is_empty() {
+					let nodes: Vec<u32> = goals.iter().map(|g| g.1).collect();
+					if let Ok(reached) = self.aside(|r| r.reach_nodes(swim, &mult, k, node, &nodes, r_tree)) {
+						for (gi, w) in reached {
+							let (id, _, end) = goals[gi];
+							let heap = if id == GOAL && layer == 0 { &mut self.sc.heap } else { &mut self.sc.heap3 };
+							relax(&mut lab, heap, id, at(w[0], w[1], w[2], -1, end));
+						}
+					}
+				}
+				continue;
 			}
-			let k = (u / STRIDE) as u32;
-			let row = (u % STRIDE) as usize;
+			if let Some(t) = target.get(b) {
+				if layer != 0 {
+					relax(&mut lab, &mut self.sc.heap3, GOAL, at(t[0], t[1], t[2], -1, 0));
+				} else if !must {
+					relax(&mut lab, &mut self.sc.heap, GOAL, at(t[0], t[1], t[2], -1, 0));
+				}
+			}
+			for &(e, w) in links.get(&b).into_iter().flatten() {
+				relax(&mut lab, &mut self.sc.heap3, LIFT + e as i64 + layer, at(w[0], w[1], w[2], -1, 0));
+			}
+			let k = (b / STRIDE) as u32;
+			let row = (b % STRIDE) as usize;
 			let bad = if self.validate { Some(self.validate_joins(k)?) } else { None };
 			let g = self.graph(k)?;
 			for e in g.row_out[row] as usize..g.row_out[row + 1] as usize {
 				let q = self.st.neighbor_cluster(k, g.e_dx[e] as i64, g.e_dy[e] as i64)?;
 				let v = q as i64 * STRIDE + g.e_ent[e] as i64;
-				if !aclosed.contains(&v) && !bad.as_ref().is_some_and(|b| b.contains(&((3 * e + slot) as u32))) {
+				if !aclosed.contains(&(v + layer)) && !bad.as_ref().is_some_and(|b| b.contains(&((3 * e + slot) as u32))) {
 					let cost = g.e_cost[3 * e + slot] as f64;
-					let gv = match self.edged(danger.as_ref(), &mut memo, u, v)? {
+					let gv = match self.edged(danger.as_ref(), &mut memo, b, v)? {
 						Some(m) => lu.g + cost * m,
 						None => lu.g + cost,
 					};
-					relax(&mut lab, &mut self.sc.heap, v, Lb { g: gv, y: lu.y + g.e_yards[3 * e + slot] as f64, par: u, j: lu.j + g.e_jumps[3 * e + slot] as f64, edge: e as i64 });
+					let heap = if layer == 0 { &mut self.sc.heap } else { &mut self.sc.heap3 };
+					relax(&mut lab, heap, v + layer, Lb { g: gv, y: lu.y + g.e_yards[3 * e + slot] as f64, par: u, j: lu.j + g.e_jumps[3 * e + slot] as f64, edge: e as i64, end: 0 });
 				}
 			}
 		}
@@ -1153,9 +1292,38 @@ impl<'a> Run<'a> {
 
 		// Refinement.
 		let mut rf = Refine { p: Pts::default(), events: Vec::new(), seen: FxHashMap::default() };
+		let mut lifted = false;
 		for i in (1..hops.len()).rev() {
-			let (a, b) = (hops[i], hops[i - 1]);
-			if a == START && b == GOAL {
+			let lb = lab[&hops[i - 1]];
+			let (a, b) = (unlayer(hops[i]).0, unlayer(hops[i - 1]).0);
+			if a >= LIFT || b >= LIFT {
+				// A lift's way on, its ride or its way off.
+				lifted = true;
+				let l = lx.as_ref().ok_or("a lift hop without lifts")?;
+				let at = |id: i64| l.at[(id - LIFT) as usize];
+				if a >= LIFT && b >= LIFT && lb.edge == RIDE_EDGE {
+					let (k, node, _) = at(b);
+					self.add_ride(&mut rf, k, node, ((b - LIFT) / 2) as u32)?;
+					continue;
+				}
+				let (k, from_node, to_node) = if a == START {
+					let (k, n, _) = at(b);
+					(k, src.ends[lb.end].node, n)
+				} else if b == GOAL {
+					let (k, n, _) = at(a);
+					(k, n, dst.ends[lb.end].node)
+				} else if a >= LIFT && b >= LIFT {
+					let (k, n, _) = at(a);
+					(k, n, at(b).1)
+				} else if a >= LIFT {
+					let (k, n, _) = at(a);
+					(k, n, self.entrance_node(b)?)
+				} else {
+					let (k, n, _) = at(b);
+					(k, self.entrance_node(a)?, n)
+				};
+				self.walk_trace(&mut rf, swim, &mult, k, from_node, to_node, r_tree)?;
+			} else if a == START && b == GOAL {
 				self.search(sk, swim, &mult, direct_from, s_tree, direct_to as i64, None, 0, false, false)?;
 				let (nodes, arcs) = self.sc.trees[s_tree].trace(direct_to);
 				self.add_all(&mut rf, sk, &nodes, &arcs, nodes.len() as i64 - 1, 0, -1)?;
@@ -1171,14 +1339,16 @@ impl<'a> Run<'a> {
 				self.add_all(&mut rf, gk, &nodes, &arcs, 0, nodes.len() as i64 - 1, 1)?;
 			} else {
 				let (fnode, tnode) = (self.entrance_node(a)?, self.entrance_node(b)?);
-				self.replay_hop(&mut rf, swim, &mult, slot, r_tree, a, b, fnode, tnode, lab[&b].edge)?;
+				self.replay_hop(&mut rf, swim, &mult, slot, r_tree, a, b, fnode, tnode, lb.edge)?;
 			}
 		}
 		let mut count = 0.0;
 		for e in &rf.events {
 			count += e.kind as f64;
 		}
-		if count != jumps {
+		// A lift's ways on and off are searched again forward (their labels came from the landings' connections, which
+		// may break a tie between equal ways differently): there the drawn way's jumps are the label's.
+		if count != jumps && !lifted {
 			return fail("selected event count disagrees with path label");
 		}
 		let mut keep = self.smooth_hard(&rf.p, mult.profile, o.style, danger.as_ref())?;
@@ -1188,7 +1358,7 @@ impl<'a> Run<'a> {
 		let mut route = self.draw(from, to, &rf.p, &keep, mult.profile)?;
 		route.cost = cost;
 		route.label_yards = gl.y;
-		route.jumps = jumps;
+		route.jumps = if lifted { count } else { jumps };
 		route.events = rf.events;
 		Ok(route)
 	}
@@ -1810,6 +1980,32 @@ impl<'a> Run<'a> {
 		let danger = mult.danger.clone();
 		let mut memo = FxHashMap::default();
 		let src = self.connect_point(swim, &mult, sk, sc as u32, from.z, false)?;
+		// Leffe's lift layer: the map's landings, and which targets lie across a lift-separated city's floors from the
+		// start (they are reached only after a ride on one of its lifts).
+		let lx = self.lift_cx(swim, &mult);
+		let mut must = vec![false; n];
+		if let Some(g) = lx.as_ref().and_then(|l| l.group) {
+			if let Some(s) = self.side(g, from) {
+				for (i, t) in targets.iter().enumerate() {
+					must[i] = self.side(g, t).is_some_and(|t| t != s);
+				}
+			}
+		}
+		let layered = must.contains(&true);
+		let mut src_lifts = Vec::new();
+		if let Some(l) = &lx {
+			let tree = self.tree();
+			for e in 0..l.at.len() {
+				if l.at[e].0 == sk && l.inn[e].is_some() {
+					if let Ok(Some((_, w))) = self.reach_from_side(swim, &mult, &src, sk, l.at[e].1, tree) {
+						src_lifts.push((e, w));
+					}
+				}
+			}
+			for (id, ls) in l.links() {
+				ms.links.insert(id, ls.into_iter().map(|(e, w)| (LIFT + e as i64, w[0], w[1], w[2])).collect());
+			}
+		}
 		let limit = o.limit.unwrap_or(f64::INFINITY);
 		let mut clusters: FxHashMap<u32, Vec<usize>> = FxHashMap::default();
 		ms.left = n as i64;
@@ -1825,13 +2021,25 @@ impl<'a> Run<'a> {
 			}
 		}
 		self.sc.heap.clear();
-		let mut cx = ManyCx { swim, sk, src: &src, targets, clusters };
+		self.sc.heap3.clear();
+		let mut cx = ManyCx { swim, sk, src: &src, targets, clusters, must: &must, prepared: FxHashMap::default(), lift_tree: None };
 		self.prepare(&mut cx, &mult, ms, sk)?;
 		for (id, lab) in src.merged.iter() {
 			ms.relax(&mut self.sc.heap, id, lab[0], lab[1], lab[2], START);
 		}
-		while self.sc.heap.n > 0 && ms.left > 0 {
-			let u = self.sc.heap.pop();
+		for (e, w) in src_lifts {
+			ms.relax(&mut self.sc.heap3, LIFT + e as i64, w[0], w[1], w[2], START);
+		}
+		while ms.left > 0 {
+			// The lift layer's heap only when its top is strictly cheaper.
+			let lifted = self.sc.heap3.n > 0 && (self.sc.heap.n == 0 || self.sc.heap3.k[1] < self.sc.heap.k[1]);
+			let u = if lifted {
+				self.sc.heap3.pop()
+			} else if self.sc.heap.n > 0 {
+				self.sc.heap.pop()
+			} else {
+				break;
+			};
 			if ms.closed.contains(&u) {
 				continue;
 			}
@@ -1848,28 +2056,43 @@ impl<'a> Run<'a> {
 				ms.left -= 1;
 				continue;
 			}
-			let k = (u / STRIDE) as u32;
-			let row = (u % STRIDE) as usize;
+			let (b, layer) = unlayer(u);
+			if b >= LIFT {
+				if let Some(l) = &lx {
+					self.many_landing(&mut cx, &mult, ms, l, layered, u, (b - LIFT) as usize, layer, du)?;
+				}
+				self.expansions += 1;
+				continue;
+			}
+			let k = (b / STRIDE) as u32;
+			let row = (b % STRIDE) as usize;
 			self.prepare(&mut cx, &mult, ms, k)?;
 			let (du, yu, ju) = du;
-			if let Some(ends) = ms.links.get(&u).cloned() {
+			if let Some(ends) = ms.links.get(&b).cloned() {
 				for e in ends {
-					ms.relax(&mut self.sc.heap, e.0, du + e.1, yu + e.2, ju + e.3, u);
+					if e.0 >= 0 {
+						ms.relax(&mut self.sc.heap3, e.0 + layer, du + e.1, yu + e.2, ju + e.3, u);
+					} else if layer != 0 {
+						ms.relax(&mut self.sc.heap3, e.0, du + e.1, yu + e.2, ju + e.3, u);
+					} else if !must[(-1 - e.0) as usize] {
+						ms.relax(&mut self.sc.heap, e.0, du + e.1, yu + e.2, ju + e.3, u);
+					}
 				}
 			}
 			let bad = if self.validate { Some(self.validate_joins(k)?) } else { None };
 			let g = self.graph(k)?;
 			for e in g.row_out[row] as usize..g.row_out[row + 1] as usize {
 				let v = self.st.neighbor_cluster(k, g.e_dx[e] as i64, g.e_dy[e] as i64)? as i64 * STRIDE + g.e_ent[e] as i64;
-				if ms.closed.contains(&v) || bad.as_ref().is_some_and(|b| b.contains(&((3 * e + slot) as u32))) {
+				if ms.closed.contains(&(v + layer)) || bad.as_ref().is_some_and(|b| b.contains(&((3 * e + slot) as u32))) {
 					continue;
 				}
 				let ec = g.e_cost[3 * e + slot] as f64;
-				let c = match self.edged(danger.as_ref(), &mut memo, u, v)? {
+				let c = match self.edged(danger.as_ref(), &mut memo, b, v)? {
 					Some(m) => du + ec * m,
 					None => du + ec,
 				};
-				ms.relax(&mut self.sc.heap, v, c, yu + g.e_yards[3 * e + slot] as f64, ju + g.e_jumps[3 * e + slot] as f64, u);
+				let heap = if layer == 0 { &mut self.sc.heap } else { &mut self.sc.heap3 };
+				ms.relax(heap, v + layer, c, yu + g.e_yards[3 * e + slot] as f64, ju + g.e_jumps[3 * e + slot] as f64, u);
 			}
 			self.expansions += 1;
 		}
@@ -1888,12 +2111,17 @@ impl<'a> Run<'a> {
 		std::mem::swap(&mut self.sc.heap, &mut self.sc.heap2);
 		let (direct, ends) = r?;
 		for (i, l) in direct.iter() {
-			ms.relax(&mut self.sc.heap, -1 - i, l[0], l[1], l[2], START);
-		}
-		for (i, edges) in ends {
-			for (id, lab) in edges.merged.iter() {
-				ms.links.entry(id).or_default().push((-1 - i as i64, lab[0], lab[1], lab[2]));
+			if !cx.must[i as usize] {
+				ms.relax(&mut self.sc.heap, -1 - i, l[0], l[1], l[2], START);
 			}
+		}
+		for (i, edges) in &ends {
+			for (id, lab) in edges.merged.iter() {
+				ms.links.entry(id).or_default().push((-1 - *i as i64, lab[0], lab[1], lab[2]));
+			}
+		}
+		if self.lifts.is_some() {
+			cx.prepared.insert(k, ends);
 		}
 		Ok(())
 	}
@@ -1942,9 +2170,9 @@ impl<'a> Run<'a> {
 		}
 		Ok((direct, ends))
 	}
-	/// A target's reverse connection (entrance -> point costs), cached by the point's node (Lua: connect's st.ends).
-	fn target_connection(&mut self, swim: f64, mult: &Mult, k: u32, node: u32, h: Option<f64>) -> R<Arc<TargetConn>> {
-		let key = format!(
+	/// A connection's cache key (a point's node in its cluster, the cost model and the checks' mode).
+	fn conn_key(&self, swim: f64, mult: &Mult, k: u32, node: u32, h: Option<f64>) -> String {
+		format!(
 			"{}:{}:{}:{}:{}:{}:{:?}:{}:{}",
 			self.st.map,
 			k,
@@ -1955,7 +2183,11 @@ impl<'a> Run<'a> {
 			mult.style,
 			mult.danger.as_ref().map_or(String::new(), |d| d.tag()),
 			self.tolerant as u8 + 2 * self.validate as u8
-		);
+		)
+	}
+	/// A target's reverse connection (entrance -> point costs), cached by the point's node (Lua: connect's st.ends).
+	fn target_connection(&mut self, swim: f64, mult: &Mult, k: u32, node: u32, h: Option<f64>) -> R<Arc<TargetConn>> {
+		let key = self.conn_key(swim, mult, k, node, h);
 		if let Some(e) = self.sc.ends.get(&key) {
 			return Ok(e.clone());
 		}
@@ -1976,6 +2208,195 @@ impl<'a> Run<'a> {
 		self.sc.ends_order.push_back((key, bytes));
 		self.sc.ends_bytes += bytes;
 		Ok(e)
+	}
+
+	// ---- Leffe's lift layer (lifts.rs) ----
+
+	/// A lift landing's node: where (x, y) snaps at height z, when its surface is within LAND_Z_YD of z.
+	pub(crate) fn landing(&mut self, x: f64, y: f64, z: f64) -> R<Option<(u32, u32)>> {
+		let (k, node, _) = self.point_node(&P { x, y, z: Some(z) })?;
+		if node < 0 {
+			return Ok(None);
+		}
+		let c = self.grid_req(k)?;
+		Ok(((c.z[node as usize] as f64 - z).abs() <= super::lifts::LAND_Z_YD).then_some((k, node as u32)))
+	}
+	/// A landing's connection (reverse: from its cluster's entrances to it; else from it to them), kept for the
+	/// thread's life (a handful per map and cost model).
+	fn landing_connection(&mut self, swim: f64, mult: &Mult, k: u32, node: u32, h: f64, reverse: bool) -> R<Arc<TargetConn>> {
+		let key = format!("{}{}", if reverse { "in:" } else { "out:" }, self.conn_key(swim, mult, k, node, Some(h)));
+		if let Some(e) = self.sc.lift_conns.get(&key) {
+			return Ok(e.clone());
+		}
+		let mark = self.sc.used.len();
+		let side = self.connect_point(swim, mult, k, node, Some(h), reverse)?;
+		let released: Vec<usize> = self.sc.used.drain(mark..).collect();
+		self.sc.free.extend(released);
+		let e = Arc::new(TargetConn { merged: side.merged, ends: side.ends.iter().map(|x| x.node).collect() });
+		self.sc.lift_conns.insert(key, e.clone());
+		Ok(e)
+	}
+	/// The multiplier of a landing's surface, its class's and its zone's danger (our grid prices a ride by the surface
+	/// it lands on).
+	fn landing_mult(&mut self, mult: &Mult, k: u32, node: u32) -> R<f64> {
+		let c = self.grid_req(k)?;
+		let nu = node as usize;
+		let mut m = mult.m.get(c.cls[nu] as usize).copied().unwrap_or(1.0);
+		if let Some(d) = &mult.danger {
+			let o = if c.owner[nu] >= 0 { c.owner[nu] as i64 } else { node as i64 };
+			let cell = if o < self.st.n { o } else { c.at_cell[o as usize] as i64 };
+			if let Some(z) = self.st.zone_at_cell(k, cell) {
+				m *= d.get(z).unwrap_or(1.0);
+			}
+		}
+		Ok(m)
+	}
+	/// The call's lifts (None: the map has none). A landing whose connection or ride fails stays out of the search.
+	fn lift_cx(&mut self, swim: f64, mult: &Mult) -> Option<LiftCx> {
+		let ml = self.lifts.clone()?;
+		let n = 2 * ml.cars.len();
+		let mut l = LiftCx { at: Vec::with_capacity(n), ride: Vec::with_capacity(n), city: Vec::with_capacity(n), inn: Vec::with_capacity(n), group: ml.group };
+		for e in 0..n {
+			let car = &ml.cars[e / 2];
+			let (a, b) = (car.ends[e % 2], car.ends[1 - e % 2]);
+			let inn = self.landing_connection(swim, mult, a.k, a.node, a.z, true).ok();
+			l.at.push((a.k, inn.as_ref().and_then(|c| c.ends.first().copied()).unwrap_or(a.node), a.z));
+			let h = b.z - a.z;
+			l.ride.push(self.landing_mult(mult, b.k, b.node).ok().map(|m| [ride_seconds(h) * RUN * m, h.abs(), 0.0]));
+			l.city.push(car.shaft.is_some());
+			l.inn.push(inn);
+		}
+		Some(l)
+	}
+	/// The walk off landing e: to its cluster's entrances.
+	fn landing_out(&mut self, swim: f64, mult: &Mult, l: &LiftCx, e: usize) -> R<Arc<TargetConn>> {
+		let (k, node, z) = l.at[e];
+		self.landing_connection(swim, mult, k, node, z, false)
+	}
+	/// Whether p is inside a lift-separated city (lifts::Group::inside; p's uiMap: the pack's zone there); None: either.
+	fn side(&mut self, g: &Group, p: &P) -> Option<bool> {
+		let zone = self.zone_at(p.x, p.y);
+		g.inside(p.x, p.y, p.z, zone)
+	}
+	/// Runs f with the cluster searches' heap set aside (the abstract search's stays as it is).
+	fn aside<T>(&mut self, f: impl FnOnce(&mut Self) -> R<T>) -> R<T> {
+		std::mem::swap(&mut self.sc.heap, &mut self.sc.heap2);
+		let r = f(self);
+		std::mem::swap(&mut self.sc.heap, &mut self.sc.heap2);
+		r
+	}
+	/// A grid search in cluster k from `from` to the nodes `to` -> (index into to, label) of those reached.
+	fn reach_nodes(&mut self, swim: f64, mult: &Mult, k: u32, from: u32, to: &[u32], tree: usize) -> R<Vec<(usize, Lab)>> {
+		let set: FxHashSet<u32> = to.iter().copied().filter(|&n| n != from).collect();
+		if !set.is_empty() {
+			self.search(k, swim, mult, from, tree, -1, Some(&set), set.len(), false, false)?;
+		}
+		let t = &self.sc.trees[tree];
+		Ok(to
+			.iter()
+			.enumerate()
+			.filter_map(|(i, &n)| {
+				if n == from {
+					Some((i, [0.0; 3]))
+				} else if t.reached(n) {
+					Some((i, [t.g[n as usize], t.y[n as usize], t.j[n as usize]]))
+				} else {
+					None
+				}
+			})
+			.collect())
+	}
+	/// The cheapest walk from a start's ends to node `to` of its cluster k -> (the end, label).
+	fn reach_from_side(&mut self, swim: f64, mult: &Mult, side: &Side, k: u32, to: u32, tree: usize) -> R<Option<(usize, Lab)>> {
+		let mut best: Option<(usize, Lab)> = None;
+		for (a, end) in side.ends.iter().enumerate() {
+			let t = &self.sc.trees[end.tree];
+			let w = if end.node == to {
+				Some([0.0; 3])
+			} else if t.reached(to) {
+				Some([t.g[to as usize], t.y[to as usize], t.j[to as usize]])
+			} else if self.search(k, swim, mult, end.node, tree, to as i64, None, 0, false, false)? {
+				let t = &self.sc.trees[tree];
+				Some([t.g[to as usize], t.y[to as usize], t.j[to as usize]])
+			} else {
+				None
+			};
+			if let Some(w) = w {
+				if best.is_none_or(|b| w[0] < b.1[0]) {
+					best = Some((a, w));
+				}
+			}
+		}
+		Ok(best)
+	}
+	/// The drawn walk between two nodes of cluster k (a lift's way on or off).
+	fn walk_trace(&mut self, rf: &mut Refine, swim: f64, mult: &Mult, k: u32, from: u32, to: u32, tree: usize) -> R<()> {
+		if from == to {
+			return self.add(rf, k, from, 0, None);
+		}
+		if !self.search(k, swim, mult, from, tree, to as i64, None, 0, false, false)? {
+			return fail("a lift landing's walk became unjoinable");
+		}
+		let (nodes, arcs) = self.sc.trees[tree].trace(to);
+		self.add_all(rf, k, &nodes, &arcs, nodes.len() as i64 - 1, 0, -1)
+	}
+	/// A ride's landing: a hard point whose segment is the ride (Move::Lift); loops are cut afresh after it.
+	fn add_ride(&mut self, rf: &mut Refine, k: u32, node: u32, car: u32) -> R<()> {
+		rf.seen = FxHashMap::default();
+		self.add(rf, k, node, 0, None)?;
+		let last = rf.p.len() - 1;
+		rf.p.hard[last] = true;
+		rf.p.arc[last] = Some((RIDE, car));
+		Ok(())
+	}
+	/// FindMany at landing e (abstract id u, layer `layer`, label du): the ride to the other landing, the walks off
+	/// it to its cluster's entrances, targets and other landings.
+	#[allow(clippy::too_many_arguments)]
+	fn many_landing(&mut self, cx: &mut ManyCx, mult: &Mult, ms: &mut ManyState, l: &LiftCx, layered: bool, u: i64, e: usize, layer: i64, du: (f64, f64, f64)) -> R<()> {
+		let (d, y, j) = du;
+		if let Some(r) = l.ride[e] {
+			let to = if layered && l.city[e] { LAYER } else { layer };
+			ms.relax(&mut self.sc.heap3, LIFT + (e ^ 1) as i64 + to, d + r[0], y + r[1], j + r[2], u);
+		}
+		let swim = cx.swim;
+		if let Ok(out) = self.aside(|r| r.landing_out(swim, mult, l, e)) {
+			for (id, w) in out.merged.iter() {
+				let heap = if layer == 0 { &mut self.sc.heap } else { &mut self.sc.heap3 };
+				ms.relax(heap, id + layer, d + w[0], y + w[1], j + w[2], u);
+			}
+		}
+		let (k, node, _) = l.at[e];
+		self.prepare(cx, mult, ms, k)?;
+		let mut goals: Vec<(i64, u32)> = Vec::new();
+		for (i, tc) in cx.prepared.get(&k).into_iter().flatten() {
+			if ms.costs[*i].is_nan() && !(layer == 0 && cx.must[*i]) {
+				goals.extend(tc.ends.iter().map(|&n| (-1 - *i as i64, n)));
+			}
+		}
+		for (f, &(fk, fnode, _)) in l.at.iter().enumerate() {
+			if f != e && fk == k && l.inn[f].is_some() {
+				goals.push((LIFT + f as i64 + layer, fnode));
+			}
+		}
+		if goals.is_empty() {
+			return Ok(());
+		}
+		let tree = match cx.lift_tree {
+			Some(t) => t,
+			None => {
+				let t = self.tree();
+				cx.lift_tree = Some(t);
+				t
+			}
+		};
+		let nodes: Vec<u32> = goals.iter().map(|g| g.1).collect();
+		let Ok(reached) = self.aside(|r| r.reach_nodes(swim, mult, k, node, &nodes, tree)) else { return Ok(()) };
+		for (gi, w) in reached {
+			let id = goals[gi].0;
+			let heap = if id < 0 && layer == 0 { &mut self.sc.heap } else { &mut self.sc.heap3 };
+			ms.relax(heap, id, d + w[0], y + w[1], j + w[2], u);
+		}
+		Ok(())
 	}
 
 	// ---- PathGrid.lua sight and smooth ----
@@ -2210,12 +2631,17 @@ impl<'a> Run<'a> {
 				}
 			};
 			let floor = self.floor_of(p.k[pa], p.n[pa])?;
-			legs.push(Leg { from: i - 1, to: i, kind, floor });
+			let ground = (self.class_of(p.k[pa], p.n[pa])? & 7) as u8;
+			legs.push(Leg { from: i - 1, to: i, kind, floor, ground });
 		}
 		Ok(Route { ok: true, reason: None, points: xyz, cost: 0.0, label_yards: 0.0, yards: drawn, wet: wet_yards, jumps: 0.0, hubs, events: Vec::new(), legs })
 	}
-	/// A motion arc's move: a jump (kind 1), a drop or climb (its rise past the walkable slope), else a motion step.
+	/// A motion arc's move: a jump (kind 1), a drop or climb (its rise past the walkable slope), else a motion step; a
+	/// ride's landing (RIDE) is a lift.
 	fn arc_move(&mut self, sk: u32, a: u32) -> R<Move> {
+		if sk == RIDE {
+			return Ok(Move::Lift);
+		}
 		let c = self.grid_req(sk)?;
 		let a = a as usize;
 		if c.a_kind[a] == 1 {
@@ -2281,8 +2707,13 @@ impl<'a> Run<'a> {
 		}
 		Ok(out)
 	}
-	/// An entrance's position (chainCells).
+	/// An entrance's position (chainCells); a lift landing's.
 	pub(crate) fn entrance_xy(&mut self, id: i64) -> R<[f64; 3]> {
+		if id >= LIFT {
+			let e = (unlayer(id).0 - LIFT) as usize;
+			let l = self.lifts.as_ref().and_then(|m| m.cars.get(e / 2)).map(|c| c.ends[e % 2]).ok_or("no such lift landing")?;
+			return Ok([l.x, l.y, l.z]);
+		}
 		let k = (id / STRIDE) as u32;
 		let c = self.grid_req(k)?;
 		let e = self.entrance_node(id)?;
@@ -2340,6 +2771,12 @@ struct ManyCx<'s> {
 	swim: f64,
 	sk: u32,
 	src: &'s Side,
+	/// Per target: whether it lies across a lift-separated city's floors from the start.
+	must: &'s [bool],
+	/// The lift layer's: each prepared cluster's targets and their connections.
+	prepared: FxHashMap<u32, Vec<(usize, Arc<TargetConn>)>>,
+	/// The lift layer's scratch tree.
+	lift_tree: Option<usize>,
 	targets: &'s [P],
 	clusters: FxHashMap<u32, Vec<usize>>,
 }
@@ -2404,7 +2841,7 @@ impl ManyState {
 					let mut chain = Vec::new();
 					let mut id = first;
 					while id != START {
-						chain.push(id);
+						chain.push(unlayer(id).0);
 						id = prev[&id];
 					}
 					chain.reverse();

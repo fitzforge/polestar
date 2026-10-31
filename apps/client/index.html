@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" class="intro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>Polestar Client</title>
+    <!-- The intro's first frame (src/lib/intro.svelte.ts plays the rest): the night ground,
+         everything else unlit. Inline, so the window's first paint is already the intro. -->
+    <style>
+      html, body { margin: 0; height: 100%; background: #05080f; }
+      #intro { position: fixed; inset: 0; z-index: 45; overflow: hidden; cursor: default; user-select: none; -webkit-user-select: none; }
+      #intro .i-ground { position: absolute; inset: 0; background: #05080f; }
+      #intro .i-sky { position: absolute; inset: 0; opacity: 0;
+        background: radial-gradient(ellipse 70% 60% at 50% 44%, rgba(40, 50, 84, 0.9), rgba(24, 29, 45, 0.55) 55%, rgba(5, 8, 15, 0) 100%),
+          linear-gradient(#1c2440, #0c1020 70%, #05080f); }
+      #intro .i-layer { position: absolute; inset: 0; opacity: 0; }
+      #intro .i-layer i { position: absolute; display: block; border-radius: 50%;
+        background: radial-gradient(circle, #fff 0 22%, rgba(219, 230, 255, 0.35) 34%, rgba(219, 230, 255, 0) 70%); }
+      #intro .i-mark { position: absolute; left: 50%; top: 46%; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -50%); }
+      #intro .i-fly { position: relative; width: 96px; height: 96px; transform-origin: 0 0; }
+      #intro .i-bloom { position: absolute; left: 50%; top: 50%; width: 420px; height: 420px; margin: -210px 0 0 -210px; opacity: 0; pointer-events: none;
+        background: radial-gradient(circle, rgba(255, 238, 194, 0.5) 0, rgba(230, 186, 102, 0.24) 14%, rgba(230, 186, 102, 0.09) 34%, rgba(230, 186, 102, 0) 64%); }
+      #intro .i-lines { position: absolute; left: 50%; top: 48px; width: 640px; height: 400px; margin: -200px 0 0 -320px; overflow: visible; pointer-events: none; }
+      #intro .i-emblem { position: absolute; inset: 0; display: block; opacity: 0; }
+      #intro .i-word { width: 182px; height: 26px; margin-top: 26px; overflow: hidden; opacity: 0; }
+      #intro .i-word img { display: block; margin: -3px 0 0 -3px; }
+      #intro .i-tag { margin: 10px 0 0; font: 600 11px/1 'Inter', sans-serif; letter-spacing: 0.32em; text-indent: 0.32em; text-transform: uppercase; color: #c3cadd; opacity: 0; }
+      html.intro [data-intro-target] { opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="intro" aria-hidden="true">
+      <div class="i-ground"><div class="i-sky"></div></div>
+      <div class="i-mark">
+        <div class="i-fly">
+          <div class="i-bloom"></div>
+          <svg class="i-emblem" width="96" height="96" viewBox="0 0 128 128">
+            <path fill="#e6ba66" d="M71 19.24A45.3 45.3 0 0 1 71 108.76L71 106.12A42.7 42.7 0 0 0 71 21.88ZM57 19.24A45.3 45.3 0 0 0 57 108.76L57 106.12A42.7 42.7 0 0 1 57 21.88ZM64 4L71.5 56.5L94 64L71.5 71.5L64 124L56.5 71.5L34 64L56.5 56.5Z" />
+            <path class="i-core" fill="#ffeec2" d="M64 46L66.8 61.2L74 64L66.8 66.8L64 82L61.2 66.8L54 64L61.2 61.2Z" />
+          </svg>
+        </div>
+        <div class="i-word"><img src="/src/assets/ui/wordmark.png" width="256" height="32" alt="" /></div>
+        <p class="i-tag">Client</p>
+      </div>
+    </div>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

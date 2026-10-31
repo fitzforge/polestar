@@ -186,6 +186,36 @@ pub fn build_program(opts: &RunAddon) -> Result<String, String> {
 end"
 		.into(),
 	);
+	// The walking maps' part addons (Polestar_Nav_EK, _Kalimdor: load on demand, Routing/PathGrid.lua asks for
+	// one the first time it searches its continent), loaded as the client loads them, when asked (a test's own
+	// stub.packs entry for one, stub_packs.lua, wins).
+	let mut parts = Vec::new();
+	for (_, part) in forge_nav::pack::PARTS {
+		if opts.addons.iter().any(|a| a.addon_name() == part) {
+			continue;
+		}
+		if let Ok(files) = toc_files(part) {
+			let list: Vec<String> = files.iter().map(|f| path_str(f)).collect();
+			parts.push(format!("[{}] = {{ {} }}", lua_string(part), list.join(", ")));
+		}
+	}
+	if !parts.is_empty() {
+		lines.push(format!(
+			"do
+  local parts, load = {{ {} }}, C_AddOns.LoadAddOn
+  function C_AddOns.LoadAddOn(name)
+    local files = parts[name]
+    if files and not (stub.packs and stub.packs[name]) then
+      parts[name] = nil
+      __load(name, files)
+      return true, nil
+    end
+    return load(name)
+  end
+end",
+			parts.join(", ")
+		));
+	}
 	for entry in &opts.addons {
 		let name = entry.addon_name();
 		let files = match entry {

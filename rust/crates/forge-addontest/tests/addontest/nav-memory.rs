@@ -22,8 +22,12 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// KiB (Lua 5.1, 64-bit), measured on the shipped maps on 2026-10-23 (graph edges read where they lie in the
 /// graph string): load 35,137 / 37,695; live 85,961; allocated 160,949; at rest 40,484. On maps format 3
 /// (2026-10-24, grid 1.60.1.70532, the named area rows packed): load 35,322 / 38,097; live 84,526; allocated
-/// 163,620; at rest 40,702 (with every row packed, as the JS writer did: load 36,005 / 38,936).
-const BUDGET: [(&str, f64); 5] = [("loadResident", 35500.0), ("loadPeak", 38100.0), ("live", 88000.0), ("allocated", 165000.0), ("rest", 41500.0)];
+/// 163,620; at rest 40,702 (with every row packed, as the JS writer did: load 36,005 / 38,936). On Leffe's maps, one
+/// continent's part loaded (2026-10-25, decoded clusters as byte strings, endpoint trees pooled, the decoded graph
+/// read from its strings, Path.cacheKB 8 MB, Path.graphRestKB 1 MB; the parts guarded against a dropped map),
+/// Eastern Kingdoms / Kalimdor: load 18,341 / 22,428 and 20,717 / 25,016; live 39,799 / 29,201; allocated 91,361 /
+/// 7,859; at rest 19,846 / 22,480.
+const BUDGET: [(&str, f64); 5] = [("loadResident", 22500.0), ("loadPeak", 25100.0), ("live", 40000.0), ("allocated", 92000.0), ("rest", 22500.0)];
 
 const WALKS: [(u32, [f64; 3], [f64; 3]); 5] = [
 	(0, [-8911.708, -130.583, 81.024], [-8680.25, -113.229, 91.141]),
@@ -77,11 +81,21 @@ BASE = FULL()
 EXCLUDED = 0
 collectgarbage("stop")"#;
 
-fn script() -> String {
-	let walks: Vec<String> = WALKS.iter().map(|(m, a, b)| format!("{{ {m}, {}, {} }}", point(a), point(b))).collect();
+/// One session on continent `map`: its walks (and, on Eastern Kingdoms, the batch). A continent whose maps are a
+/// part addon (maps format 5: Polestar_Nav_EK, _Kalimdor) has it loaded first, as the router does at its first
+/// search there, so `load` counts Polestar_Nav and that continent's part: what a player on it holds.
+fn script(map: u32) -> String {
+	let walks: Vec<String> = WALKS.iter().filter(|w| w.0 == map).map(|(m, a, b)| format!("{{ {m}, {}, {} }}", point(a), point(b))).collect();
 	let places: Vec<String> = PLACES.iter().map(point).collect();
+	let batch = if map == 0 {
+		format!("Path.FindMany(0, {}, {{ {} }}, function(costs) answered(costs ~= nil) end, {{ profile = \"Horde\" }})\ndrain()", point(&WALKS[1].2), places.join(", "))
+	} else {
+		String::new()
+	};
 	format!(
 		r#"
+local part = PolestarPathData[{map}] and PolestarPathData[{map}].part
+if part then C_AddOns.LoadAddOn(part) end
 local loadPeak = collectgarbage("count") - BASE - EXCLUDED
 collectgarbage("restart")
 local loadResident = FULL() - BASE
@@ -105,14 +119,11 @@ for _, w in ipairs({{ {walks} }}) do
 	Path.Find(w[1], w[2], w[3], function(points) answered(points ~= nil) end, {{ profile = "Horde" }})
 	drain()
 end
-Path.FindMany(0, {from}, {{ {places} }}, function(costs) answered(costs ~= nil) end, {{ profile = "Horde" }})
-drain()
+{batch}
 allocated = allocated + collectgarbage("count") - last - EXCLUDED
 collectgarbage("restart")
 emit({{ loadResident = loadResident, loadPeak = loadPeak, live = live, allocated = allocated, rest = FULL() - BASE, answers = answers }})"#,
 		walks = walks.join(", "),
-		from = point(&WALKS[1].2),
-		places = places.join(", "),
 	)
 }
 
@@ -122,11 +133,20 @@ fn t_693_polestar_nav_stays_within_its_memory_budget_loading_the_maps_searching_
 		eprintln!("skipped: addon/Polestar_Nav has no walking maps");
 		return;
 	}
-	let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], before: BEFORE.into(), addons: vec![Addon::name("Polestar_Nav")], script: script(), ..Default::default() }).remove(0);
-	assert_eq!(got["answers"], (WALKS.len() + 1) as i64, "every walk and the batch answered: {got}");
-	let kib: Vec<(String, f64)> = BUDGET.iter().map(|(k, _)| (k.to_string(), got[*k].as_f64().unwrap().round())).collect();
-	eprintln!("nav memory (KiB): {kib:?}");
-	for ((k, budget), (_, v)) in BUDGET.iter().zip(&kib) {
-		assert!(*v <= *budget, "{k}: {v} KiB, budget {budget} KiB ({kib:?})");
+	// A session stays on one continent: Polestar_Nav loads at login, a continent's part the first time a walk
+	// there is searched, and nothing unloads. The budget holds for each continent's session.
+	let mut over = Vec::new();
+	for map in [0u32, 1] {
+		let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], before: BEFORE.into(), addons: vec![Addon::name("Polestar_Nav")], script: script(map), ..Default::default() }).remove(0);
+		let want = WALKS.iter().filter(|w| w.0 == map).count() + usize::from(map == 0);
+		assert_eq!(got["answers"], want as i64, "map {map}: every walk and the batch answered: {got}");
+		let kib: Vec<(String, f64)> = BUDGET.iter().map(|(k, _)| (k.to_string(), got[*k].as_f64().unwrap().round())).collect();
+		eprintln!("nav memory, map {map} (KiB): {kib:?}");
+		for ((k, budget), (_, v)) in BUDGET.iter().zip(&kib) {
+			if *v > *budget {
+				over.push(format!("map {map}, {k}: {v} KiB, budget {budget} KiB"));
+			}
+		}
 	}
+	assert!(over.is_empty(), "over budget: {over:?}");
 }

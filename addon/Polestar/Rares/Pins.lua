@@ -68,7 +68,7 @@ function Rares.BuildPins(o)
 	local grey = o.hideGrey and kind == "rare" and Rares.GreyLevel(o.level) or nil
 	local r, g, b = rgb(Rares.ColorName(kind))
 	local color = { r, g, b, 1 }
-	local icon = kind == "treasure" and "icon-treasure" or "qol-target"
+	local icon = kind == "treasure" and "map:treasure" or "map:rare"
 	local now = o.now or 0
 	for _, rec in ipairs(o.list) do
 		local key = Rares.Key(kind, rec.id)
@@ -90,9 +90,10 @@ function Rares.BuildPins(o)
 						pins[#pins + 1] = {
 							map = s.map, x = s.x, y = s.y, f = s.f,
 							icon = icon, size = kind == "treasure" and 13 or 15, minimapSize = kind == "treasure" and 11 or 13,
-							color = color, backdrop = true,
+							-- Elite: circled; seen within RECENT: a dashed ring further out.
+							color = color,
 							ring = rec.elite and color or nil,
-							glow = recent or nil,
+							ring2 = recent and color or nil,
 							priority = recent and 4 or (rec.elite and 3 or 2),
 							kind = kind, id = rec.id, key = key,
 							tooltip = tooltip(rec, entry, now),

@@ -1,6 +1,9 @@
 -- Requests from other players: summons, resurrections, party and guild
--- invitations, duels. Each event is registered only while a setting that
--- needs it is on (QoL.WhileOn), so what is off costs nothing.
+-- invitations, duels. Each request event is registered only while a setting
+-- that needs it is on (QoL.WhileOn), so what is off costs nothing. Life
+-- transitions and logout (PLAYER_ALIVE, PLAYER_UNGHOST, PLAYER_DEAD,
+-- PLAYER_LOGOUT) stay registered: they only drop a resurrection still waiting
+-- out its corpse delay.
 --
 --   acceptSummon          take a summon, unless in combat or unable to
 --                         teleport (the dialog's own Accept rules). Shift: ask.
@@ -119,6 +122,11 @@ QoL.WhileOn("acceptSummon", "CONFIRM_SUMMON", Social.OnSummon)
 -- Resurrections
 ---------------------------------------------------------------------------
 
+local resurrectionGeneration = 0
+local function cancelResurrect()
+	resurrectionGeneration = resurrectionGeneration + 1
+end
+
 function Social.TakeResurrect(caster)
 	if not QoL.On("acceptResurrect") or QoL.Shift() then return false end
 	if hardcore() then return false end
@@ -126,27 +134,44 @@ function Social.TakeResurrect(caster)
 	return true
 end
 
-local function acceptResurrect(caster)
-	-- Still offered (it may have been declined or timed out meanwhile).
-	if ResurrectGetOfferer and not ResurrectGetOfferer() then return end
+local function acceptResurrect(caster, gen)
+	if gen ~= resurrectionGeneration then return end
+	-- The old offer may have gone away or been replaced, even when the
+	-- replacement is one we would decline. Never borrow its old eligibility.
+	local offerer = ResurrectGetOfferer and readable(ResurrectGetOfferer())
+	if not caster or offerer ~= caster then return end
+	local delay = GetCorpseRecoveryDelay and readable(GetCorpseRecoveryDelay())
+	if type(delay) ~= "number" or delay > 0 then return end
 	if not Social.TakeResurrect(caster) or not AcceptResurrect then return end
+	cancelResurrect()
 	AcceptResurrect()
-	ns.Print(caster and format(L["Accepted a resurrection from %s."], caster) or L["Accepted a resurrection."])
+	ns.Print(format(L["Accepted a resurrection from %s."], caster))
 end
 
 function Social.OnResurrect(_, caster)
+	cancelResurrect()
 	caster = readable(caster)
 	if not Social.TakeResurrect(caster) then return end
 	-- The dialog's Accept stays disabled for the corpse recovery delay.
-	local delay = GetCorpseRecoveryDelay and GetCorpseRecoveryDelay() or 0
+	local delay = GetCorpseRecoveryDelay and readable(GetCorpseRecoveryDelay())
+	if type(delay) ~= "number" then return end
+	local gen = resurrectionGeneration
 	if delay > 0 and C_Timer and C_Timer.After then
-		C_Timer.After(delay + 0.1, function() acceptResurrect(caster) end)
+		C_Timer.After(delay + 0.1, function() acceptResurrect(caster, gen) end)
 	else
-		acceptResurrect(caster)
+		acceptResurrect(caster, gen)
 	end
 end
 
 QoL.WhileOn("acceptResurrect", "RESURRECT_REQUEST", Social.OnResurrect)
+for _, event in ipairs({ "PLAYER_ALIVE", "PLAYER_UNGHOST", "PLAYER_DEAD", "PLAYER_LOGOUT" }) do
+	ns.RegisterEvent(event, cancelResurrect)
+end
+ns.On("SETTING_CHANGED", function(path)
+	if (path == "qol.acceptResurrect" or path == "qol" or path == "") and not QoL.On("acceptResurrect") then
+		cancelResurrect()
+	end
+end)
 
 ---------------------------------------------------------------------------
 -- Party invitations

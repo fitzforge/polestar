@@ -13,6 +13,7 @@ const { loadData } = require('./data');
 const { tokeniseGuides } = require('./tokens');
 const { emitGuides, emitPack, emitToc, emitTextsToc, emitPartToc, emitLegs, emitRetired, emitTexts, emitMapFrames, emitLicense } = require('./emit');
 const { ownsGuideId, GENERATED_MARKER, isGenerated, formatFor, LEGS_FORMAT } = require('../pack/format');
+const { readPackFile, jsonErrorAt } = require('../pack/manifest');
 const { heightCounts } = require('./heights');
 const { checkImages, imageFiles } = require('./images');
 const { HEIGHTS_SOURCE } = require('../travel/cmangos');
@@ -118,12 +119,17 @@ function compileProject({ packDir, manifest, dataDir, includeDrafts = false, dat
 const LEGS_FILE = 'legs.json';
 function readLegs(packDir, guides, data, diag) {
 	const file = path.join(packDir, LEGS_FILE);
-	if (!fs.existsSync(file)) return;
+	const { text, error } = readPackFile(packDir, LEGS_FILE);
+	if (error) {
+		diag.error(file, 1, error);
+		return;
+	}
+	if (text === undefined) return;
 	let doc;
 	try {
-		doc = JSON.parse(fs.readFileSync(file, 'utf8'));
+		doc = JSON.parse(text);
 	} catch (e) {
-		diag.error(file, 1, `${LEGS_FILE} is not JSON: ${e.message}`);
+		diag.error(file, 1, `${LEGS_FILE} is not JSON${jsonErrorAt(e, text)}`);
 		return;
 	}
 	if (!doc || doc.schema !== 1 || typeof doc.legs !== 'object' || typeof doc.grid !== 'string') {
@@ -169,12 +175,17 @@ function legsRaces(g) {
 const RETIRED_FILE = 'retired.json';
 function readRetired(packDir, guides, diag) {
 	const file = path.join(packDir, RETIRED_FILE);
-	if (!fs.existsSync(file)) return [];
+	const { text, error } = readPackFile(packDir, RETIRED_FILE);
+	if (error) {
+		diag.error(file, 1, error);
+		return [];
+	}
+	if (text === undefined) return [];
 	let list;
 	try {
-		list = JSON.parse(fs.readFileSync(file, 'utf8'));
+		list = JSON.parse(text);
 	} catch (e) {
-		diag.error(file, 1, `${RETIRED_FILE} is not JSON: ${e.message}`);
+		diag.error(file, 1, `${RETIRED_FILE} is not JSON${jsonErrorAt(e, text)}`);
 		return [];
 	}
 	if (!Array.isArray(list) || !list.every((id) => typeof id === 'string' && /^[a-z0-9_-]+(?:\/[a-z0-9_-]+)*$/.test(id))) {
@@ -534,8 +545,10 @@ const RELEASE_DATA_ADDONS = [
 // -> { names, skipped }: the release addons present under addonsDir, in load order.
 function releaseAddons(addonsDir) {
 	const skipped = RELEASE_DATA_ADDONS.filter((n) => !fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
-	// Our pack's faction parts and race parts (forge guide compile, format 8), each once built.
-	const parts = ['Alliance', 'Horde', ...RACE_FILES].map((r) => partAddon(OWN_FOLDER, r)).filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
+	// The walking maps' part addons (forge nav pack --leffe), then our pack's faction parts and race parts (forge
+	// guide compile, format 8), each once built (as forge-release's release_addons).
+	const navParts = ['Polestar_Nav_EK', 'Polestar_Nav_Kalimdor'];
+	const parts = [...navParts, ...['Alliance', 'Horde', ...RACE_FILES].map((r) => partAddon(OWN_FOLDER, r))].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
 	return { names: [...RELEASE_ADDONS, ...parts, ...RELEASE_DATA_ADDONS.filter((n) => !skipped.includes(n))], skipped };
 }
 

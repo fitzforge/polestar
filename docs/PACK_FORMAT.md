@@ -679,9 +679,13 @@ bits of a varint plus a continuation bit (32), signed values zigzagged. In
 order: the version (2); the point count n; per point dx, dy (0.5 yd) and dz
 (0.25 yd) from the one before (the first from 0), in world yards (x north,
 y west) on the step's continent; n - 1 segment moves (0 walk, 1 steep, 2
-swim, 3 jump, 4 drop, 5 indoor, 6 climb, 7 lift); n - 1 segment floors (the
-surface's index in its column on the maps the leg was drawn on, 0 the
-lowest); the tail, the last point's distance to the goal (0.25 yd); the
+swim, 3 jump, 4 drop, 5 indoor, 6 climb, 7 lift; a walk drawn on Leffe's
+maps is classed by our grid's ground where it stands on it, else by his);
+n - 1 segment floors (the surface's index in its column on our walking grid,
+0 the lowest: a leg drawn on Leffe's maps takes our grid's surface nearest
+each segment's start, and its corners stand on our grid's surfaces except at
+a hop's ends, keeping his height and floor only where ours has no surface
+within 8 yd); the tail, the last point's distance to the goal (0.25 yd); the
 strip's count m; then its m ground heights every 2 yd along the line, as
 changes in 0.25 yd from the one before (the first from point 1's height),
 one digit per token: 32 to 63 a run of 1 to 32 unchanged heights; 0 to 24

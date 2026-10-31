@@ -63,3 +63,32 @@ test('pack: an approximate entrance carries its flag', () => {
 	assert.equal(line(true), '1436,300,500,,a');
 	assert.equal(line(false), '1436,300,500,');
 });
+
+// The City of Dalaran has a way in for each faction (#706): the Horde's
+// tunnel on the western wall, the Alliance's pipe in Cantrips & Crows.
+const DALARAN = { key: 'city-of-dalaran', map: 1416, x: 8.5, y: 59.2, source: 'https://example.org', A: { map: 1416, x: 14.68, y: 62.99, source: 'https://example.org' } };
+
+test("chooseEntrance: a table entry's Alliance way in rides along as entrance.A, whichever point wins", () => {
+	const e = chooseEntrance({ name: 'City of Dalaran', table: DALARAN });
+	assert.deepEqual(e, { map: 1416, x: 8.5, y: 59.2, f: null, A: { map: 1416, x: 14.7, y: 63 } });
+	const rec = chooseEntrance({ name: 'City of Dalaran', table: DALARAN, recorded: [{ map: 1416, x: 8.6, y: 59.3, n: 1 }] });
+	assert.deepEqual(rec.A, { map: 1416, x: 14.7, y: 63 }, 'a recording keeps the Alliance way in');
+	assert.equal(chooseEntrance({ ...base, table }).A, undefined, 'one way in: no A');
+});
+
+test('the curated table: the City of Dalaran sends the Alliance in through Cantrips & Crows, inside the city', () => {
+	const d = loadEntranceTable()['city-of-dalaran'];
+	assert.ok(d && d.A, 'an Alliance way in');
+	assert.deepEqual([d.A.map, d.A.x, d.A.y], [1416, 14.7, 63]);
+	assert.match(d.A.source, /^https:\/\//);
+	assert.ok(d.A.note);
+});
+
+// The decoder handing it to an Alliance character only is
+// rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs.
+test('pack: the Alliance way in follows the entrance', () => {
+	const inst = { key: 'city-of-dalaran', name: 'City of Dalaran', kind: 'dungeon', forever: true, areaId: 279, map: 2959, entrance: { map: 1416, x: 8.5, y: 59.2, f: null, A: { map: 1416, x: 14.7, y: 63 } }, levels: null, bosses: [] };
+	const codex = { meta: { schema: 1 }, items: {}, npcs: {}, objects: {}, quests: {}, instances: { 'city-of-dalaran': inst }, zones: {}, factions: {}, spells: {}, frames: {} };
+	const text = Object.values(emitPack(codex, { version: '0', build: 'test' })).join('\n');
+	assert.match(text, /1416,85,592,,,1416,147,630/);
+});

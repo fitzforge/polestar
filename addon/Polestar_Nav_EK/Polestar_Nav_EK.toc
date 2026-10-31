@@ -1,0 +1,72 @@
+## Interface: 16001
+## Title: Polestar Nav (Eastern Kingdoms)
+## Notes: Walking maps of the Eastern Kingdoms for Polestar's arrow, from Leffe's navigation maps. Loaded on demand on that continent.
+## Title-deDE: Polestar Navigation (Östliche Königreiche)
+## Notes-deDE: Laufkarten der Östlichen Königreiche für Polestars Pfeil, aus Leffes Navigationskarten. Wird auf diesem Kontinent bei Bedarf geladen.
+## Title-esES: Polestar: navegación (Reinos del Este)
+## Notes-esES: Mapas a pie de los Reinos del Este para la flecha de Polestar, a partir de los mapas de navegación de Leffe. Se carga bajo demanda en ese continente.
+## Title-esMX: Polestar: navegación (Reinos del Este)
+## Notes-esMX: Mapas a pie de los Reinos del Este para la flecha de Polestar, a partir de los mapas de navegación de Leffe. Se carga bajo demanda en ese continente.
+## Title-frFR: Polestar : navigation (Royaumes de l'Est)
+## Notes-frFR: Cartes de marche des Royaumes de l'Est pour la flèche de Polestar, tirées des cartes de navigation de Leffe. Chargé à la demande sur ce continent.
+## Title-koKR: Polestar 길찾기 (동부 왕국)
+## Notes-koKR: Polestar 화살표용 동부 왕국 도보 지도. Leffe의 길찾기 지도에서 만들었습니다. 그 대륙에서 필요할 때 불러옵니다.
+## Title-ptBR: Polestar: navegação (Reinos do Leste)
+## Notes-ptBR: Mapas a pé dos Reinos do Leste para a seta do Polestar, a partir dos mapas de navegação do Leffe. Carregado sob demanda nesse continente.
+## Title-ruRU: Polestar: навигация (Восточные королевства)
+## Notes-ruRU: Пешие карты Восточных королевств для стрелки Polestar, из навигационных карт Leffe. Загружается по требованию на этом континенте.
+## Title-zhCN: Polestar 导航（东部王国）
+## Notes-zhCN: Polestar 箭头使用的东部王国步行地图，来自 Leffe 的导航地图。在该大陆上按需加载。
+## Title-zhTW: Polestar 導航（東部王國）
+## Notes-zhTW: Polestar 箭頭使用的東部王國步行地圖，來自 Leffe 的導航地圖。在該大陸上按需載入。
+## Author: Polestar; walking maps: Leffe's navigation maps
+## Version: 0.2.6
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar_Nav
+## X-License: GPL-3.0-or-later
+# Written by forge nav pack: the map parts Polestar_Nav's router loads when it first searches the Eastern Kingdoms.
+
+Nav0_1.lua
+Nav0_2.lua
+Nav0_3.lua
+Nav0_4.lua
+Nav0_5.lua
+Nav0_6.lua
+Nav0_7.lua
+Nav0_8.lua
+Nav0_9.lua
+Nav0_10.lua
+Nav0_11.lua
+Nav0_12.lua
+Nav0_13.lua
+Nav0_14.lua
+Nav0_15.lua
+Nav0_16.lua
+Nav0_17.lua
+Nav0_18.lua
+Nav0_19.lua
+Nav0_20.lua
+Nav0_21.lua
+Nav0_22.lua
+Nav0_23.lua
+Nav0_24.lua
+Nav0_25.lua
+Nav0_26.lua
+Nav0_27.lua
+Nav0_28.lua
+Nav0_29.lua
+Nav0_30.lua
+Nav0_31.lua
+Nav0_32.lua
+Nav0_33.lua
+Nav0_34.lua
+Nav0_35.lua
+Nav0_36.lua
+Nav0_37.lua
+Nav0_38.lua
+Nav0_39.lua
+Nav0_40.lua
+Nav0_41.lua
+Nav0_42.lua

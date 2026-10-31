@@ -362,6 +362,10 @@ local function decodeInstance(group, id, s)
 		local e = split(t[5], ",")
 		-- approx: the client's corpse point (where a ghost returns), not the way in.
 		rec.entrance = { map = tonumber(e[1]), x = tonumber(e[2]) / 10, y = tonumber(e[3]) / 10, f = e[4] ~= "" and e[4] or nil, approx = e[5] == "a" or nil }
+		-- The Alliance's own way in (the City of Dalaran): an Alliance character's entrance.
+		if e[8] and ns.Compat.GetPlayerFaction() == "Alliance" then
+			rec.entrance = { map = tonumber(e[6]), x = tonumber(e[7]) / 10, y = tonumber(e[8]) / 10 }
+		end
 	end
 	if t[6] and t[6] ~= "" then rec.levels = numbers(t[6]) end
 	for i = 7, n do

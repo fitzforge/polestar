@@ -74,8 +74,19 @@ function luaNumber(n, decimals = 2) {
 	return s;
 }
 
+const LUA_KEYWORDS = new Set(['and', 'break', 'do', 'else', 'elseif', 'end', 'false', 'for', 'function', 'goto', 'if', 'in', 'local', 'nil', 'not', 'or', 'repeat', 'return', 'then', 'true', 'until', 'while']);
+
+// A table key: a Lua identifier bare, anything else as a quoted string, so
+// no key can break out of the table it sits in.
 function luaKey(k) {
-	return /^[A-Za-z_][A-Za-z0-9_]*$/.test(k) ? k : `[${luaString(k)}]`;
+	const s = String(k);
+	return /^[A-Za-z_][A-Za-z0-9_]*$/.test(s) && !LUA_KEYWORDS.has(s) ? s : `[${luaString(s)}]`;
+}
+
+// A key in canonical integer form ("123", "-4"), emitted as `[123]`.
+function isIntKey(k) {
+	const n = Number(k);
+	return Number.isSafeInteger(n) && String(n) === k;
 }
 
 function scalar(v, decimals) {
@@ -103,11 +114,13 @@ function list(arr, keys, decimals, records) {
 }
 
 // Integer-keyed map (e.g. preTitles: quest id -> title), keys ascending.
+// Any key that is not an integer is emitted as a string, after the integers.
 function idMap(obj) {
-	const keys = Object.keys(obj)
-		.map(Number)
-		.sort((a, b) => a - b);
-	return `{ ${keys.map((k) => `[${k}] = ${scalar(obj[k])}`).join(', ')} }`;
+	const keys = Object.keys(obj);
+	const ints = keys.filter(isIntKey).sort((a, b) => a - b);
+	const rest = keys.filter((k) => !isIntKey(k)).sort();
+	const parts = [...ints.map((k) => `[${k}] = ${scalar(obj[k])}`), ...rest.map((k) => `${luaKey(k)} = ${scalar(obj[k])}`)];
+	return `{ ${parts.join(', ')} }`;
 }
 
 // `shared`: a guide's sharing() (goals only), for its candidate lists.
@@ -119,10 +132,10 @@ function inline(obj, keys, decimals, shared) {
 		if (Array.isArray(v)) {
 			const value = list(v, LIST_KEYS[k] || null, LIST_DECIMALS[k], k === 'candidates' && shared ? shared.records : null);
 			const ref = k === 'candidates' && shared && shared.lists.get(value);
-			parts.push(`${k} = ${ref ? `candidateLists[${ref}]` : value}`);
-		} else if (k === 'preTitles') parts.push(`${k} = ${idMap(v)}`);
-		else if (typeof v === 'object') parts.push(`${k} = ${inline(v, k === 'only' ? ONLY_KEYS : k === 'lvl' ? ['min', 'max'] : Object.keys(v).sort(), decimals)}`);
-		else parts.push(`${k} = ${scalar(v, decimals)}`);
+			parts.push(`${luaKey(k)} = ${ref ? `candidateLists[${ref}]` : value}`);
+		} else if (k === 'preTitles') parts.push(`${luaKey(k)} = ${idMap(v)}`);
+		else if (typeof v === 'object') parts.push(`${luaKey(k)} = ${inline(v, k === 'only' ? ONLY_KEYS : k === 'lvl' ? ['min', 'max'] : Object.keys(v).sort(), decimals)}`);
+		else parts.push(`${luaKey(k)} = ${scalar(v, decimals)}`);
 	}
 	return parts.length ? `{ ${parts.join(', ')} }` : '{}';
 }
@@ -568,4 +581,4 @@ function emitLicense(meta, legs = false) {
 	return `${out.join('\n').trimEnd()}\n`;
 }
 
-module.exports = { emitGuides, emitPack, emitToc, emitTextsToc, emitPartToc, emitLegs, emitRetired, emitTexts, emitMapFrames, emitClassTrainers, emitLicense, luaString, luaNumber, guideData, framesData, GUIDE_KEYS, STEP_KEYS, IMAGE_KEYS, WHEN_KEYS, GOAL_KEYS, ONLY_KEYS, LIST_KEYS, FRAME_KEYS };
+module.exports = { emitGuides, emitPack, emitToc, emitTextsToc, emitPartToc, emitLegs, emitRetired, emitTexts, emitMapFrames, emitClassTrainers, emitLicense, luaString, luaNumber, luaKey, inline, idMap, guideData, framesData, GUIDE_KEYS, STEP_KEYS, IMAGE_KEYS, WHEN_KEYS, GOAL_KEYS, ONLY_KEYS, LIST_KEYS, FRAME_KEYS };

@@ -228,6 +228,28 @@ A patch release (`x.y.Z`) uses the same steps as a feature release, with a
 patch version bump. Every fix goes to `next` first; a patch release is just
 a sooner release from `next`.
 
+## The other releases: Forge, the open database, LibForeverData, the data pack
+
+Four kinds of release are separate from the addon. Each is published on
+its own schedule from `next`, never marked Latest (the addon's `v*` stays the
+Latest release), and tells no Discord thread: the release notifier only acts
+on addon tags (`v<digit>…`), and none of them counts as "the release before"
+an addon release.
+
+| Release | Tag | Who publishes it | What it holds |
+|---|---|---|---|
+| Forge | `forge-v<rust/Cargo.toml version>` | `.github/workflows/forge.yml` on the tag: builds Linux, Windows and macOS, checks the tag against the workspace version | `polestar-forge-<os>.tar.gz/.zip` and `SHA256SUMS` ([FORGE.md](FORGE.md), "Install") |
+| The open Forever database | `data-v<forever-db/index.json version>` | `.github/workflows/data-release.yml`: `forge data publish --check`, then the zip and the SQLite | `forever-db-<version>.zip`, `forever-db-<version>.sqlite.zst`, `SHA256SUMS` ([forge/data.md](forge/data.md)) |
+| LibForeverData | `lib-v<api>.<forever-db version>` | `.github/workflows/lib-release.yml`: the same guard, the library, its Lua test | `LibForeverData-<version>.zip` |
+| The data pack | the fixed `data-pack` release (its assets are replaced) | the maintainer: `forge data pack --out dist --walks-from <a build with Leffe's maps>`, then `gh release upload data-pack dist/polestar-data-pack.* --clobber` | the contributors' data: client tables, the public KB, the walk stores including the walks on Leffe's maps (never his maps) |
+
+Order for a release that changes them all: Forge first (contributors need
+the new Forge to read the new pack), then the data pack from a build of that
+commit, then `data-v` and `lib-v` (same `forever-db` version). Tag with
+`git tag -a <tag> -m <tag> && git push origin <tag>`; the workflows do the
+rest. The data pack's first publish creates the release:
+`gh release create data-pack --title "Polestar data pack" --notes "…" --latest=false`.
+
 ## Branch rules
 
 GitHub's rulesets for the repository, under Settings, Rules:

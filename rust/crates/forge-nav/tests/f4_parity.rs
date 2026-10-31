@@ -8,7 +8,7 @@
 //! Pack: $POLESTAR_LEFFE_NAV (a Nav folder or one holding Nav/, e.g. Leffe's candidate folder); ignored by default.
 //! cargo test --release -p forge-nav --test f4_parity -- --ignored --nocapture
 
-use forge_nav::f4::{Opts, Style, Validate, F4, P};
+use forge_nav::f4::{Move, Opts, Style, Validate, F4, P};
 use rayon::prelude::*;
 use serde_json::Value;
 use std::path::PathBuf;
@@ -259,4 +259,128 @@ fn sample_matches_the_node_reader() {
 		eprintln!("MISMATCH {b}");
 	}
 	assert!(bad.is_empty(), "{} mismatches", bad.len());
+}
+
+/// The acceptance walks (parity/accept-leffe.json) of maps 0 and 1.
+fn acceptance() -> Vec<Value> {
+	let doc: Value = serde_json::from_str(&std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/parity/accept-leffe.json")).unwrap()).unwrap();
+	doc["routes"].as_array().unwrap().iter().filter(|r| matches!(r["map"].as_u64(), Some(0 | 1)) && r["from"].is_array()).cloned().collect()
+}
+
+/// Leffe's lift layer (lift-layer/lifts.json with the pack): Thunder Bluff's bluff, an island on his graph alone,
+/// and the Undercity, left by its west sewer pipe there, are walked over their lifts: one ride, a leg of the Lift
+/// move up or down the shaft, priced as our grid prices a ride; FindMany prices the walk as the route does.
+#[test]
+#[ignore = "needs POLESTAR_LEFFE_NAV (the 70532 candidate, its lift-layer/ beside it)"]
+fn lifts_thunder_bluffs_bluff_and_the_undercity_are_walked_over_their_lifts() {
+	let lifted = open(512);
+	assert!(lifted.lift_layer().is_some(), "Leffe's lift layer is spliced");
+	let mut bare = open(512);
+	bare.set_lifts(None);
+	let o = Opts { profile: Some("Horde"), validate: Validate::Tolerant, ..Default::default() };
+	let walks = [
+		("Red Rocks up to Tal", 1, P { x: -992.7, y: -1109.1, z: Some(44.5) }, P { x: -1196.7, y: 26.1, z: Some(177.0) }),
+		("Cuely down in the Undercity out to the Bulwark", 0, P { x: 1421.0, y: 405.9, z: Some(-85.2) }, P { x: 1760.8, y: -723.2, z: Some(60.0) }),
+	];
+	for (name, map, a, b) in walks {
+		let before = bare.route(map, a, b, &o);
+		let after = lifted.route(map, a, b, &o);
+		let rides: Vec<_> = after.legs.iter().filter(|l| l.kind == Move::Lift).collect();
+		eprintln!(
+			"{name}: his graph alone {} (cost {:.1}, {:.1} yd); with the lifts {} (cost {:.1}, {:.1} yd, {} ride)",
+			before.reason.as_deref().unwrap_or("ok"),
+			before.cost,
+			before.yards,
+			after.reason.as_deref().unwrap_or("ok"),
+			after.cost,
+			after.yards,
+			rides.len()
+		);
+		assert!(before.legs.iter().all(|l| l.kind != Move::Lift), "{name}: no ride without the layer");
+		assert!(after.ok && rides.len() == 1, "{name}: one ride");
+		let dz = (after.points[rides[0].to][2] - after.points[rides[0].from][2]).abs();
+		assert!(dz > 50.0, "{name}: the ride climbs or falls the shaft ({dz:.1} yd)");
+		if map == 0 {
+			let p = after.points[rides[0].from];
+			assert!(((p[0] - 1544.2).powi(2) + (p[1] - 240.8).powi(2)).sqrt() < 20.0, "{name}: the Undercity's south lift, its only way in and out ({p:?})");
+		}
+		let many = lifted.route_many(map, a, &[b], &o);
+		assert!((many.costs[0] - after.cost).abs() <= 1e-9 * after.cost, "{name}: FindMany {} vs the route {}", many.costs[0], after.cost);
+	}
+	assert!(!bare.route(1, walks[0].2, walks[0].3, &o).ok, "the bluff is an island on his graph alone");
+}
+
+/// Walks no lift serves are answered with the lift layer as without it, bit for bit: every acceptance walk of maps 0
+/// and 1 whose route rides no lift (cost, points, legs, events), and FindMany from each acceptance start to every
+/// acceptance end of its map, for each target whose chain passes no landing (costs, yards, jumps, reasons).
+#[test]
+#[ignore = "needs POLESTAR_LEFFE_NAV (the 70532 candidate, its lift-layer/ beside it)"]
+fn lifts_leave_every_walk_no_lift_serves_as_his_reader_answers_it() {
+	let lifted = open(1024);
+	assert!(lifted.lift_layer().is_some(), "Leffe's lift layer is spliced");
+	let mut bare = open(1024);
+	bare.set_lifts(None);
+	let walks = acceptance();
+	let mut bad = Vec::new();
+	let (mut same, mut rides) = (0, 0);
+	for r in &walks {
+		let (map, a, b, o) = (r["map"].as_u64().unwrap() as u32, point(&r["from"]), point(&r["to"]), opts(r, Validate::Tolerant));
+		let (x, y) = (bare.route(map, a, b, &o), lifted.route(map, a, b, &o));
+		let id = r["id"].as_str().unwrap();
+		if y.legs.iter().any(|l| l.kind == Move::Lift) {
+			rides += 1;
+			eprintln!("  {id}: rides a lift: cost {:.1} -> {:.1}, {:.1} -> {:.1} yd ({})", x.cost, y.cost, x.yards, y.yards, x.reason.as_deref().unwrap_or("ok"));
+		} else if format!("{x:?}") == format!("{y:?}") {
+			same += 1;
+		} else {
+			bad.push(format!("{id}: route differs without a ride: {} {:.3} vs {} {:.3}", x.ok, x.cost, y.ok, y.cost));
+		}
+	}
+	let (mut many_same, mut many_lift) = (0, 0);
+	for map in [0u32, 1] {
+		let on: Vec<&Value> = walks.iter().filter(|r| r["map"].as_u64() == Some(map as u64)).collect();
+		let targets: Vec<P> = on.iter().map(|r| point(&r["to"])).collect();
+		for r in &on {
+			let mut o = opts(r, Validate::Tolerant);
+			o.chains = true;
+			let from = point(&r["from"]);
+			let (x, y) = (bare.route_many(map, from, &targets, &o), lifted.route_many(map, from, &targets, &o));
+			for i in 0..targets.len() {
+				let lift = y.chains.as_ref().unwrap()[i].as_ref().is_some_and(|c| c.iter().any(|&id| id >= 1 << 46));
+				if lift {
+					many_lift += 1;
+				} else if [(x.costs[i], y.costs[i]), (x.yards[i], y.yards[i]), (x.jumps[i], y.jumps[i])].iter().all(|(p, q)| p.to_bits() == q.to_bits())
+					&& x.reasons[i] == y.reasons[i]
+					&& x.chains.as_ref().unwrap()[i] == y.chains.as_ref().unwrap()[i]
+				{
+					many_same += 1;
+				} else {
+					bad.push(format!("{} -> target {i}: FindMany differs without a ride: {} vs {}", r["id"], x.costs[i], y.costs[i]));
+				}
+			}
+		}
+	}
+	eprintln!("routes: {same} unchanged, {rides} ride a lift; FindMany targets: {many_same} unchanged, {many_lift} over a lift; {} differ", bad.len());
+	for b in bad.iter().take(30) {
+		eprintln!("MISMATCH {b}");
+	}
+	assert!(bad.is_empty(), "{} walks no lift serves changed", bad.len());
+}
+
+/// A lift layer for another build of the grid is refused: no lifts on the maps.
+#[test]
+#[ignore = "needs POLESTAR_LEFFE_NAV (the 70532 candidate, its lift-layer/ beside it)"]
+fn lifts_a_layer_for_another_grid_build_is_refused() {
+	let d = std::env::var_os("POLESTAR_LEFFE_NAV").map(PathBuf::from).unwrap();
+	let nav = if d.join("Nav.xml").exists() { d.clone() } else { d.join("Nav") };
+	let layer = forge_nav::f4::lifts::find(&nav).expect("a lift layer with the pack");
+	let tmp = std::env::temp_dir().join(format!("f4-lifts-other-build-{}", std::process::id()));
+	std::fs::create_dir_all(tmp.join("lift-layer")).unwrap();
+	std::os::unix::fs::symlink(&nav, tmp.join("Nav")).unwrap();
+	std::fs::copy(&layer, tmp.join("lift-layer/lifts.json")).unwrap();
+	std::fs::write(tmp.join("PACK.json"), r#"{ "grid": { "build": "1.60.1.1", "buildConfig": "0000" } }"#).unwrap();
+	let other = F4::open(&tmp, 64).unwrap();
+	std::fs::remove_dir_all(&tmp).unwrap();
+	assert_eq!(other.lift_layer(), None);
+	assert!(forge_nav::f4::lifts::load(&layer, &nav).is_ok(), "its own pack takes it");
 }

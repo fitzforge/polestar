@@ -43,12 +43,12 @@ pub const GRID_PRODUCT: &str = "wow_classic_beta";
 pub const DATA_VERSION: &str = "data-2";
 pub const GRID_VERSION: &str = "grid-1";
 pub const PREPARE_VERSION: &str = "prepare-2";
-pub const WORLD_VERSION: &str = "world-1";
-pub const WALKS_VERSION: &str = "walks-1";
+pub const WORLD_VERSION: &str = "world-2";
+pub const WALKS_VERSION: &str = "walks-2";
 pub const ROUTES_VERSION: &str = "routes-8";
 pub const GUIDES_VERSION: &str = "guides-2";
 pub const REPORT_VERSION: &str = "report-2";
-pub const LEGS_VERSION: &str = "legs-1";
+pub const LEGS_VERSION: &str = "legs-4";
 /// The decode cache of Leffe's maps (MB): bounded memory per our measurements.
 pub const LEFFE_CACHE_MB: usize = 2048;
 
@@ -124,10 +124,11 @@ pub struct BuildOpts {
 	pub guides: PathBuf,
 	pub out: PathBuf,
 	pub starts: Vec<Start>,
-	/// The walks backend; None: Hybrid when Leffe's navigation maps are found, else Grid.
+	/// The walks backend; None: Hybrid when Leffe's navigation maps or his saved walks (the data
+	/// pack's Leffe walk stores) are found, else Grid.
 	pub nav: Option<Nav>,
-	/// Leffe's navigation maps (the folder with Nav/); default $POLESTAR_LEFFE_NAV, else the data
-	/// pack's leffe-nav.
+	/// Leffe's navigation maps (the folder with Nav/); default $POLESTAR_LEFFE_NAV. Private: never
+	/// in the data pack.
 	pub leffe: Option<PathBuf>,
 	/// The repository checkout: data/sources, data/local (kb, nav4 grid), data/rules.json,
 	/// data/corrections.json, addon (the nav pack's maps), data/sim/params.json.
@@ -274,7 +275,8 @@ fn symlink(target: &Path, link: &Path) -> Result<(), String> {
 		if cur == target {
 			return Ok(());
 		}
-		std::fs::remove_file(link).map_err(|e| format!("{}: {e}", link.display()))?;
+		// A link to a directory is a directory entry on Windows: remove_file refuses it.
+		std::fs::remove_file(link).or_else(|e| if cfg!(windows) { std::fs::remove_dir(link) } else { Err(e) }).map_err(|e| format!("{}: {e}", link.display()))?;
 	}
 	if let Some(p) = link.parent() {
 		std::fs::create_dir_all(p).map_err(|e| e.to_string())?;
@@ -283,9 +285,16 @@ fn symlink(target: &Path, link: &Path) -> Result<(), String> {
 	{
 		std::os::unix::fs::symlink(target, link).map_err(|e| format!("{} -> {}: {e}", link.display(), target.display()))
 	}
-	#[cfg(not(unix))]
+	// Windows: a directory and a file link are two calls; a target not built yet (a world or walks
+	// file before its stage) is linked as a file. Needs Developer Mode or an administrator shell.
+	#[cfg(windows)]
 	{
-		Err("forge build needs symbolic links (unix)".into())
+		let made = if target.is_dir() { std::os::windows::fs::symlink_dir(target, link) } else { std::os::windows::fs::symlink_file(target, link) };
+		made.map_err(|e| format!("{} -> {}: {e} (symbolic links on Windows need Developer Mode, Settings > System > For developers, or an administrator shell)", link.display(), target.display()))
+	}
+	#[cfg(not(any(unix, windows)))]
+	{
+		Err("forge build needs symbolic links (unix or Windows)".into())
 	}
 }
 
@@ -419,14 +428,17 @@ pub fn v1_goals(guides: &Path, data_dir: &Path, faction: Faction, race: &str) ->
 	Ok(json!({ "faction": faction.name(), "race": race, "goals": goals }))
 }
 
-/// Leffe's navigation maps: `explicit` (--leffe), else `$POLESTAR_LEFFE_NAV`, else the data pack's
-/// `leffe-nav`; the first of them that holds his `Nav.xml` (at its top or under `Nav/`).
-pub fn find_leffe(explicit: Option<&Path>, pack_dir: Option<&Path>) -> Option<PathBuf> {
-	explicit
-		.map(Path::to_path_buf)
-		.or_else(|| std::env::var_os("POLESTAR_LEFFE_NAV").map(PathBuf::from))
-		.or_else(|| pack_dir.map(|d| d.join("leffe-nav")))
-		.filter(|p| p.join("Nav/Nav.xml").is_file() || p.join("Nav.xml").is_file())
+/// Leffe's navigation maps: `explicit` (--leffe), else `$POLESTAR_LEFFE_NAV`; the first of them that
+/// holds his `Nav.xml` (at its top or under `Nav/`). His maps are private: the data pack never has them.
+pub fn find_leffe(explicit: Option<&Path>) -> Option<PathBuf> {
+	explicit.map(Path::to_path_buf).or_else(|| std::env::var_os("POLESTAR_LEFFE_NAV").map(PathBuf::from)).filter(|p| p.join("Nav/Nav.xml").is_file() || p.join("Nav.xml").is_file())
+}
+
+/// Leffe's saved walks for a faction without his maps: the data pack's `walks/store-leffe-<faction>.psbn`,
+/// else one an earlier build left in `walks` (built with his maps).
+pub fn saved_leffe_store(pack_dir: Option<&Path>, walks: &Path, faction: &str) -> Option<PathBuf> {
+	let name = format!("store-leffe-{faction}.psbn");
+	pack_dir.map(|d| d.join("walks").join(&name)).filter(|p| p.is_file()).or_else(|| Some(walks.join(&name)).filter(|p| p.is_file()))
 }
 
 /// The continents a grid is built for: `continents`, else every `c` in `<data>/map-frames.json`.
@@ -545,14 +557,39 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 		}
 	};
 	let mut l = Layout::new(o);
-	let leffe = find_leffe(o.leffe.as_deref(), pack_dir.as_deref());
+	let leffe = find_leffe(o.leffe.as_deref());
+	// Without his maps, the hybrid runs on his saved walks when every faction has them.
+	let saved_leffe = leffe.is_none() && factions(o).iter().all(|f| saved_leffe_store(pack_dir.as_deref(), &l.walks, f.lower()).is_some());
 	let nav = match (&o.nav, &leffe) {
-		(Some(Nav::Grid), _) | (None, None) => Nav::Grid,
+		(Some(Nav::Grid), _) => Nav::Grid,
 		(Some(n), Some(_)) => n.clone(),
 		(None, Some(_)) => Nav::Hybrid,
-		(Some(n), None) => return Err(format!("--nav {n:?}: Leffe's navigation maps not found (pass --leffe <dir> or set POLESTAR_LEFFE_NAV)")),
+		(None | Some(Nav::Hybrid), None) if saved_leffe => Nav::Hybrid,
+		(None, None) => Nav::Grid,
+		(Some(n), None) => {
+			return Err(format!(
+				"--nav {n:?}: Leffe's navigation maps not found (pass --leffe <dir> or set POLESTAR_LEFFE_NAV){}",
+				if *n == Nav::Hybrid { ", and no saved Leffe walks (run `forge data fetch`)" } else { "" }
+			))
+		}
 	};
-	log(&format!("walks backend: {nav:?}{}", leffe.as_ref().filter(|_| nav != Nav::Grid).map_or(String::new(), |p| format!(" (Leffe's navigation maps {})", p.display()))));
+	let backend_note = match (&nav, &leffe) {
+		(Nav::Grid, _) => String::new(),
+		(_, Some(p)) => format!(" (Leffe's navigation maps {})", p.display()),
+		(_, None) => " (Leffe's saved walks from the data pack; his maps are private, so the walks they lack are our grid's)".to_string(),
+	};
+	log(&format!("walks backend: {nav:?}{backend_note}"));
+	// A release build prices walks on Leffe's maps or his saved walks, never our grid alone.
+	if o.strict && nav == Nav::Grid && o.walks_from.is_none() {
+		return Err("a release build (--strict) walks on Leffe's navigation maps (--leffe) or his saved walks (forge data fetch), not our grid alone".into());
+	}
+	let maps_line = match (&nav, &leffe) {
+		(_, _) if o.walks_from.is_some() => "Walking maps: imported walks (--walks-from).".to_string(),
+		(Nav::Grid, _) => "Walking maps: **Polestar's grid alone** (no Leffe's maps or saved walks): walks and legs are not the release's.".to_string(),
+		(Nav::Leffe, _) => "Walking maps: Leffe's navigation maps alone.".to_string(),
+		(Nav::Hybrid, Some(_)) => "Walking maps: Leffe's navigation maps first, Polestar's grid where they have no way or a detour.".to_string(),
+		(Nav::Hybrid, None) => "Walking maps: Leffe's saved walks (data pack) first, Polestar's grid for the rest and for the legs.".to_string(),
+	};
 	std::fs::create_dir_all(&l.out).map_err(|e| format!("{}: {e}", l.out.display()))?;
 	let cache = Cache { dir: l.out.join(".forge") };
 	// grid: forge-navbuild from the installed client into <out>/grid, unless a grid was given
@@ -775,11 +812,35 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 		Some(d) => fs.iter().map(|f| d.join(format!("walks-{}.bin", f.lower()))).collect(),
 		None => Vec::new(),
 	};
+	// Leffe's saved walks (no maps): keyed by each store's path, size and time; they are read, never written.
+	let saved_stores: Vec<String> = if nav == Nav::Hybrid && leffe.is_none() {
+		fs.iter()
+			.filter_map(|f| saved_leffe_store(pack_dir.as_deref(), &l.walks, f.lower()))
+			.map(|p| {
+				let m = std::fs::metadata(&p).ok();
+				let t = m.as_ref().and_then(|m| m.modified().ok()).and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok()).map_or(0, |d| d.as_nanos());
+				format!("{} {} {t}", p.display(), m.map_or(0, |m| m.len()))
+			})
+			.collect()
+	} else {
+		Vec::new()
+	};
+	// Leffe's lift layer, which may sit beside his pack folder (outside its manifest).
+	let walks_lifts = leffe.as_deref().filter(|_| nav != Nav::Grid).and_then(|p| forge_nav::f4::lifts::find(&if p.join("Nav.xml").exists() { p.to_path_buf() } else { p.join("Nav") }));
 	let mut parts: Vec<Part> = vec![Part::Text(&k_world)];
 	let nav_text = if o.walks_from.is_some() { "import".to_string() } else { format!("{nav:?}") };
 	parts.push(Part::Text(&nav_text));
 	if let (false, Some(p)) = (nav == Nav::Grid, &leffe) {
 		parts.push(Part::Manifest(p));
+	}
+	if let Some(f) = &walks_lifts {
+		parts.push(Part::File(f));
+	}
+	if !saved_stores.is_empty() {
+		parts.push(Part::Text("leffe-saved"));
+		for s in &saved_stores {
+			parts.push(Part::Text(s));
+		}
 	}
 	for p in &walk_parts_owned {
 		parts.push(Part::File(p));
@@ -804,30 +865,26 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 					let build = forge_world::data::forever_build(&forge_world::data::DirSource::repo(&l.stage_root)).ok_or("no cached Forever AreaTable in data/sources/wago")?;
 					let area_table = l.stage_root.join(format!("data/sources/wago/{build}/AreaTable.csv"));
 					let store = l.walks.join(format!("store-{}.psbn", f.lower()));
-					let fp_file = l.walks.join(format!("store-{}.navfp", f.lower()));
 					let leffe_store = l.walks.join(format!("store-leffe-{}.psbn", f.lower()));
-					if let (Some(dir), Some(m)) = (&pack_dir, &pack_manifest) {
-						if !store.exists() {
-							seed_store(dir, m, &l.grid, &format!("store-{}.psbn", f.lower()), &store, Some(&fp_file), log)?;
-						}
-						if nav != Nav::Grid && !leffe_store.exists() {
-							// Leffe's stores also need his maps to be the ones they were built on.
-							let same_maps = leffe.as_deref().map(pack::leffe_hash).transpose()?.is_some_and(|h| m["walks"]["leffe"].as_str() == Some(h.as_str()));
-							if same_maps {
-								seed_store(dir, m, &l.grid, &format!("store-leffe-{}.psbn", f.lower()), &leffe_store, None, log)?;
-							} else {
-								log("  walks: the data pack's Leffe walk stores were built on other Leffe maps: routing them again");
-							}
+					// The data pack carries Leffe's walks only (our grid's stores are keyed by the grid they
+					// were built on, and every contributor builds their own); his are kept by his maps' content.
+					if let (Some(dir), true) = (&pack_dir, nav != Nav::Grid && leffe.is_some() && !leffe_store.exists()) {
+						let src = dir.join("walks").join(format!("store-leffe-{}.psbn", f.lower()));
+						if src.is_file() {
+							std::fs::copy(&src, &leffe_store).map_err(|e| format!("{} -> {}: {e}", src.display(), leffe_store.display()))?;
+							log(&format!("  walks: store-leffe-{}.psbn seeded from the data pack", f.lower()));
 						}
 					}
 					let backend = match (&nav, &leffe) {
 						(Nav::Leffe, Some(p)) => forge_nav::stage::Nav::Leffe { pack: p.clone(), cache_mb: LEFFE_CACHE_MB },
 						(Nav::Hybrid, Some(p)) => forge_nav::stage::Nav::Hybrid { pack: p.clone(), cache_mb: LEFFE_CACHE_MB, leffe_store: leffe_store.clone() },
+						(Nav::Hybrid, None) => forge_nav::stage::Nav::HybridSaved {
+							leffe_store: saved_leffe_store(pack_dir.as_deref(), &l.walks, f.lower()).ok_or_else(|| format!("walks {}: no saved Leffe walks", f.name()))?,
+						},
 						_ => forge_nav::stage::Nav::Grid,
 					};
 					let store = if nav == Nav::Leffe { leffe_store.clone() } else { store };
-					let nav_fp =
-						std::env::var("POLESTAR_NAV_FP").ok().or_else(|| std::fs::read_to_string(&fp_file).ok().map(|s| s.trim().to_string())).unwrap_or_else(|| format!("forge-{WALKS_VERSION}"));
+					let nav_fp = std::env::var("POLESTAR_NAV_FP").unwrap_or_else(|_| format!("forge-{WALKS_VERSION}"));
 					let say = |m: &str| eprintln!("forge:   walks {}: {m}", f.name());
 					let w = forge_nav::stage::walks(&forge_nav::stage::WalksIn {
 						world_json: &world_json,
@@ -952,8 +1009,13 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 	let chokepoints = o.root.join("addon/Polestar_Nav/Nav/Chokepoints.lua");
 	let mut legs_parts = vec![Part::Text(&k_guides), Part::Text(&k_data), Part::Manifest(&l.grid), Part::File(&chokepoints)];
 	let leffe_for_legs = leffe.as_deref().filter(|_| nav != Nav::Grid);
+	// Leffe's lift layer, when it sits with his maps (forge_nav::f4::lifts::find).
+	let legs_lifts = leffe_for_legs.and_then(|p| forge_nav::f4::lifts::find(&if p.join("Nav.xml").exists() { p.to_path_buf() } else { p.join("Nav") }));
 	if let Some(p) = leffe_for_legs {
 		legs_parts.push(Part::Manifest(p));
+	}
+	if let Some(f) = &legs_lifts {
+		legs_parts.push(Part::File(f));
 	}
 	let k_legs = key("legs", LEGS_VERSION, &legs_parts);
 	runs.push(stage(&cache, "legs", k_legs, log, |log| {
@@ -975,7 +1037,7 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 	})?);
 
 	// report: forge judge report over every start.
-	let k_report = key("report", REPORT_VERSION, &[Part::Text(&k_guides), Part::Text(&k_routes)]);
+	let k_report = key("report", REPORT_VERSION, &[Part::Text(&k_guides), Part::Text(&k_routes), Part::Text(&maps_line)]);
 	runs.push(stage(&cache, "report", k_report, log, |_| {
 		use forge_judge::report;
 		let starts = o
@@ -986,7 +1048,7 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 		let r = report::run(&report::Inputs { starts, v1: o.guides.clone(), root: l.stage_root.clone(), data_dir: l.data.clone(), sim_dir: l.sim.clone(), along_walked: false, checks: true })?;
 		let md = l.out.join("report.md");
 		let js = l.out.join("report.json");
-		std::fs::write(&md, format!("{}\n{}\n", report::markdown(&r).trim_end(), data_sources_note(&l.data))).map_err(|e| e.to_string())?;
+		std::fs::write(&md, format!("{maps_line}\n\n{}\n{}\n", report::markdown(&r).trim_end(), data_sources_note(&l.data))).map_err(|e| e.to_string())?;
 		std::fs::write(&js, serde_json::to_string_pretty(&r).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?;
 		Ok(vec![md, js])
 	})?);
@@ -1020,28 +1082,6 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 	Ok(runs)
 }
 
-/// Seed `<out>/walks/store-<faction>.psbn` from the data pack when the grid in use has the
-/// content hash the pack's stores were built on (else the walks are routed again), with the walk
-/// model fingerprint they were built with.
-fn seed_store(dir: &Path, m: &Value, grid: &Path, name: &str, store: &Path, fp_file: Option<&Path>, log: &mut dyn FnMut(&str)) -> Result<(), String> {
-	let src = dir.join("walks").join(name);
-	let Some(want) = m["walks"]["grid"].as_str() else { return Ok(()) };
-	if !src.is_file() {
-		return Ok(());
-	}
-	let have = pack::grid_hash(grid)?;
-	if have != want {
-		log(&format!("  walks: the data pack's {name} was built on another grid ({} vs yours {}): routing the walks again", &want[..12], &have[..12]));
-		return Ok(());
-	}
-	std::fs::copy(&src, store).map_err(|e| format!("{} -> {}: {e}", src.display(), store.display()))?;
-	if let (Some(fp), Some(file)) = (m["walks"]["navFp"].as_str(), fp_file) {
-		std::fs::write(file, fp).map_err(|e| e.to_string())?;
-	}
-	log(&format!("  walks: {name} seeded from the data pack (grid {})", &want[..12]));
-	Ok(())
-}
-
 /// The report's line on the data the build ran on: data/forever meta.json's sources, and whether
 /// QuestieDB was found (a build without it has fewer quest facts).
 pub fn data_sources_note(data: &Path) -> String {
@@ -1053,4 +1093,33 @@ pub fn data_sources_note(data: &Path) -> String {
 		if names.is_empty() { "not recorded".to_string() } else { names.join(", ") },
 		if questie { "QuestieDB: found in the client and used." } else { "QuestieDB: not found (no installed Forever client with it); the data was built without it, so it has fewer quest facts." }
 	)
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	#[test]
+	fn symlink_links_directories_files_and_targets_not_built_yet_and_replaces_a_link() {
+		let dir = std::env::temp_dir().join(format!("forge-symlink-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&dir);
+		let (a, b, file, later) = (dir.join("a"), dir.join("b"), dir.join("f.json"), dir.join("later.bin"));
+		std::fs::create_dir_all(&a).unwrap();
+		std::fs::create_dir_all(&b).unwrap();
+		std::fs::write(a.join("x.txt"), b"x").unwrap();
+		std::fs::write(&file, b"{}").unwrap();
+		let stage = dir.join("stage");
+		symlink(&a, &stage.join("data/forever")).unwrap();
+		symlink(&file, &stage.join("rules.json")).unwrap();
+		symlink(&later, &stage.join("sim/walks.bin")).unwrap();
+		assert_eq!(std::fs::read_to_string(stage.join("data/forever/x.txt")).unwrap(), "x", "a directory link reads through");
+		assert_eq!(std::fs::read_to_string(stage.join("rules.json")).unwrap(), "{}", "a file link reads through");
+		assert_eq!(std::fs::read_link(stage.join("sim/walks.bin")).unwrap(), later, "a target not built yet is linked all the same");
+		std::fs::write(&later, b"w").unwrap();
+		assert_eq!(std::fs::read_to_string(stage.join("sim/walks.bin")).unwrap(), "w", "and reads once it is built");
+		symlink(&a, &stage.join("data/forever")).unwrap();
+		symlink(&b, &stage.join("data/forever")).unwrap();
+		assert_eq!(std::fs::read_link(stage.join("data/forever")).unwrap(), b, "a link to another target is replaced");
+		std::fs::remove_dir_all(&dir).ok();
+	}
 }

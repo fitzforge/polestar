@@ -198,6 +198,25 @@ fn shown(p: &std::path::Path) -> String {
 	}
 }
 
+/// A file the pack folder itself holds (pack.json, LICENSE, retired.json, legs.json): Ok(Some(text)),
+/// Ok(None) when there is none (or it cannot be read), or Err when it is a link, not a plain file,
+/// or lies outside the folder once links are resolved: a pack handed over as a repository or an
+/// archive must not pull another file of the machine (a token, a key) into the build or its
+/// messages. (pack/manifest.js readPackFile)
+#[cfg(feature = "native")]
+pub fn read_pack_file(dir: &std::path::Path, name: &str) -> Result<Option<String>, String> {
+	let file = dir.join(name);
+	let Ok(meta) = std::fs::symlink_metadata(&file) else { return Ok(None) };
+	if !meta.file_type().is_file() {
+		return Err(format!("{name} is a link or not a plain file; Polestar reads only a plain file in the pack folder"));
+	}
+	let (Ok(root), Ok(real)) = (std::fs::canonicalize(dir), std::fs::canonicalize(&file)) else { return Ok(None) };
+	if real.strip_prefix(&root).ok() != Some(std::path::Path::new(name)) {
+		return Err(format!("{name} lies outside the pack folder; Polestar reads only a plain file in the pack folder"));
+	}
+	Ok(std::fs::read_to_string(&file).ok())
+}
+
 /// -> (manifest, diags); manifest is None when there are errors.
 /// Not exact: a JSON syntax error's `(…)` detail is this crate's parser message, not V8's.
 #[cfg(feature = "native")]
@@ -205,13 +224,14 @@ pub fn read_manifest(dir: &std::path::Path, official: bool) -> (Option<V>, Vec<D
 	let abs = dir.join("pack.json");
 	let file = shown(&abs);
 	let err = |message: String, hint: &str| Diag { severity: "error", file: Some(file.clone()), line: 1.0, message, hint: Some(hint.into()) };
-	let mut text = match std::fs::read_to_string(&abs) {
-		Ok(t) => t,
-		Err(_) => {
+	let mut text = match read_pack_file(dir, "pack.json") {
+		Ok(Some(t)) => t,
+		Ok(None) => {
 			let d = shown(dir);
 			let d = if d.is_empty() { ".".to_string() } else { d };
 			return (None, vec![err(format!("no pack.json in {d}"), "create pack.json with id, title, author, version and license")]);
 		}
+		Err(e) => return (None, vec![err(e, "make pack.json a plain file of the pack folder")]),
 	};
 	// Editors on Windows may save a byte order mark; JSON.parse rejects it.
 	if text.starts_with('\u{feff}') {

@@ -19,6 +19,6 @@ step Durotar Supply and Logistics
   goto 49.5,29.0 "Durotar Supply and Logistics camp"
 
 step Pack Kodo
-  tip The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier.
+  tip The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier. By beta reports Okamache sells them only once you are Exalted with Durotar Supply and Logistics: crates pay only Favor, so follow the Supply Factions Reputation guide (Craftsman's Writs and the Shipping Label pay the reputation).
   vendor 256400 "Okamache" @49.6,28.8
   buy 262766 "Reins of the Pack Kodo" npc 256400 -- 6,000 Merchant's Favor

@@ -1,6 +1,6 @@
 //! Heights from the walking grid for the world builder (port of tools/lib/sim/world.js gridFloor's
 //! `surfaces`): the column path.js snap takes for a point without a height (its floor rule, then the
-//! lowest indoor floor / the terrain's top), and that column's open surfaces in a region of at least
+//! lowest indoor floor / the top surface under the open sky / the terrain's top), and that column's open surfaces in a region of at least
 //! SNAP_REGION, ascending: `[snap's z, ...storeys]`, or none when nothing is within snap's reach.
 //! Implements forge-world's `Floors`, so a world builds with no JS `floors.json`.
 

@@ -170,7 +170,7 @@ return {
 
 	-- Step 36: Rebel Camp
 	-- {npc:217588} Arbor Tarantula
-	["Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale. On the way, an {npc:217588} crawls in the jungle south-east of Nesingwary's camp: catch one with the Entomology Starter Kit, then tick it off."] = "Reite nach Nordosten an Nesingwarys Lager vorbei und folge der Straße nach Norden zum Lager am oberen Ende des Tals. Unterwegs krabbelt eine {npc:217588} im Dschungel südöstlich von Nesingwarys Lager: Fang eine mit dem Entomologie-Startset und hak sie dann ab.",
+	["Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale. On the way, an {npc:217588} crawls in the jungle south-east of Nesingwary's camp: catch one with the Entomology Starter Kit, then tick it off."] = "Reite nach Nordosten an Nesingwarys Lager vorbei und folge der Straße nach Norden zum Lager am oberen Ende des Tals. Unterwegs krabbelt eine {npc:217588} im Dschungel südöstlich von Nesingwarys Lager: Fang eine mit dem Einsteigerpaket für Entomologen und hak sie dann ab.",
 	-- {npc:217588} Arbor Tarantula · {quest:93176} My Little Friends
 	["{npc:217588}: catch it, for {quest:93176}"] = "{npc:217588}: Fang sie, für {quest:93176}",
 

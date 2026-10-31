@@ -10,7 +10,7 @@ use super::geo::{Frame, Frames};
 use super::inns::{build_inns, Inn};
 use super::paths::{build_paths, live_frames_of};
 use super::sources::{load_travel_tables, Loaded, Product};
-use super::taxi::{build_taxi, Leg, Node, TRACK_TOLERANCE};
+use super::taxi::{build_taxi, Leg, LiveFrames, Node, TRACK_TOLERANCE};
 use super::timetable::{build_timetables, Portal, Route, Service, Teleport, Timetables};
 use super::transports::{build_transports, End, Nav, Transport};
 use super::{header, lua_str};
@@ -616,15 +616,20 @@ pub fn build(o: &Options) -> Result<Output, String> {
 	let spawnz_file = o.data_dir.join("spawnz.json");
 	let spawnz = if spawnz_file.exists() { read_json(&spawnz_file)? } else { V::Null };
 	let recordings = crate::recordings::read_recordings(&o.recordings_dir)?;
-	let mut live = live_frames_of(&recordings);
+	// Map bounds: the canonical Forever frames (map-frames.json) first; the maintainer's own
+	// recordings fill only maps they lack (paths.rs `live_frames_of`).
+	let mut live = LiveFrames::default();
 	let forever_frames = map_frames.get("forever");
 	let mut live_obj: Live = Live::new();
 	if let Some(f) = forever_frames.as_obj() {
 		for (id, b) in f.entries() {
 			let fr = Frame::of(&b);
-			live.entry(forge_guide::js::str_to_num(&id) as i64).or_insert(fr);
+			live.insert(forge_guide::js::str_to_num(&id) as i64, fr);
 			live_obj.insert(id.to_string(), fr);
 		}
+	}
+	for (map, fr) in live_frames_of(&recordings) {
+		live.entry(map).or_insert(fr);
 	}
 	let src = load_travel_tables(&o.sources_dir, o.build.as_deref(), Product::Era)?;
 	let (forever, forever_error) = match load_travel_tables(&o.sources_dir, o.forever_build.as_deref(), Product::Forever) {
@@ -683,7 +688,7 @@ pub fn build(o: &Options) -> Result<Output, String> {
 	let (inns, inn_warnings) = build_inns(&frames, &npcs, &live, &areas, &zones);
 	let area_warnings: Vec<String> =
 		if areas.truthy() { Vec::new() } else { vec![format!("no cached WoW Forever AreaTable under {}: the inns get no area (`data build` downloads it)", o.sources_dir.join("wago").display())] };
-	let paths = build_paths(&recordings, &frames);
+	let paths = build_paths(&recordings, &live, &frames);
 	let recorded = recorded_crossings(&paths.zone_steps, &frames);
 	let local = read_crossings_file(&o.crossings_file, &frames)?;
 	let shipped = match &o.shipped_file {

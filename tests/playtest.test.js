@@ -66,6 +66,33 @@ test('--group takes do or skip; anything else is refused', async () => {
 	assert.match(bad.out, /--group must be do or skip/);
 });
 
+test('--learn takes profession names separated by commas, and not with --honest', async () => {
+	for (const bad of ['Herbalism,', ',Skinning']) {
+		const r = await quiet(() => cmd.run(['--learn', bad]));
+		assert.equal(r.result, 2, bad);
+		assert.match(r.out, /--learn takes profession names separated by commas/);
+	}
+	const honest = await quiet(() => cmd.run(['--honest', '--learn', 'Herbalism']));
+	assert.equal(honest.result, 2);
+	assert.match(honest.out, /--learn plays in the addon: it does not go with --honest/);
+});
+
+test('--learn plays a player who chose the profession: the optional train is taken and the step behind `when skill` is played; without it neither is', { skip }, async () => {
+	const pack = path.join(PACKS, 'skill');
+	const without = await quiet(() => cmd.run(['--pack', pack, '--class', 'Warrior']));
+	assert.equal(without.result, 0, without.out);
+	assert.deepEqual(lines(without.out).filter((l) => /^(ok|stuck) /.test(l)), ['ok  skill/northshire (Human Warrior)']);
+	const chose = await quiet(() => cmd.run(['--pack', pack, '--class', 'Warrior', '--learn', 'Herbalism']));
+	assert.equal(chose.result, 1, chose.out);
+	assert.deepEqual(lines(chose.out).filter((l) => /^(ok|stuck) /.test(l)), ['stuck skill/northshire (Human Warrior) at step 3 "Herbs": goal 1 (goto "Go to Nowhere") stays active']);
+	// Another profession's choice leaves Herbalism's train alone.
+	const other = await quiet(() => cmd.run(['--pack', pack, '--class', 'Warrior', '--learn', 'Mining']));
+	assert.equal(other.result, 0, other.out);
+	const unknown = await quiet(() => cmd.run(['--pack', pack, '--class', 'Warrior', '--learn', 'Basketweaving']));
+	assert.equal(unknown.result, 1);
+	assert.match(unknown.out, /profession "Basketweaving" is not in the reference data/);
+});
+
 test('a stuck step is reported with guide, step, title and class; exit 1', { skip }, async () => {
 	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'stuck')]));
 	assert.equal(result, 1);

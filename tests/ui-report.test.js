@@ -13,7 +13,7 @@ const assert = require('node:assert/strict');
 const { runAddon } = require('./helpers/lua');
 
 const FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'UI/UI.xml'];
-const INVITE = 'https://discord.gg/vMbee6F2e9';
+const INVITE = 'https://discord.gg/polestar';
 
 function run(script, before = '') {
 	return runAddon({

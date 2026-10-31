@@ -19,6 +19,7 @@ pub mod encode;
 pub mod fixture;
 pub mod hpa;
 pub mod layers;
+pub mod leffe;
 
 use crate::grid::{flag, Grid, Tile};
 use crate::legs::Nav;
@@ -57,6 +58,15 @@ pub const NONE: usize = 2;
 pub const SWIM: f64 = 3.0;
 /// The maps `forge nav pack` writes: Eastern Kingdoms, Kalimdor, Zephras Isle.
 pub const MAPS: [u32; 3] = [0, 1, 2991];
+/// The load-on-demand addon a continent's map parts ship in when its maps are Leffe's (maps format 5: too big
+/// to load both continents at login). Its metadata file stays in Polestar_Nav and names the part; the router
+/// loads the part the first time it searches that map (Routing/PathGrid.lua, out of combat).
+pub const PARTS: [(u32, &str); 2] = [(0, "Polestar_Nav_EK"), (1, "Polestar_Nav_Kalimdor")];
+
+/// The part addon of map `map`'s parts, if it has one.
+pub fn part_of(map: u32) -> Option<&'static str> {
+	PARTS.iter().find(|p| p.0 == map).map(|p| p.1)
+}
 pub const PACK_JSON: &str = "PACK.json";
 pub const B64: &[u8; 64] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
@@ -151,6 +161,25 @@ pub fn enc(v: f64, width: u32) -> Result<String, String> {
 	Ok((0..width).rev().map(|i| B64[((v >> (6 * i)) & 63) as usize] as char).collect())
 }
 
+/// v as a number of maps format 5's columns: base 32 in base64 digits, five bits a digit, low first; a digit of 32
+/// or more says another follows.
+pub fn b32(mut v: u64, out: &mut String) {
+	while v >= 32 {
+		out.push(B64[32 + (v & 31) as usize] as char);
+		v >>= 5;
+	}
+	out.push(B64[v as usize] as char);
+}
+
+/// A signed difference as a column number: 0, -1, 1, -2, 2, ... -> 0, 1, 2, 3, 4, ...
+pub fn zigzag(v: i64) -> u64 {
+	if v >= 0 {
+		(v as u64) << 1
+	} else {
+		(v.unsigned_abs() << 1) - 1
+	}
+}
+
 /// Standard base64 with padding.
 pub fn base64(b: &[u8]) -> String {
 	let mut out = String::with_capacity(b.len().div_ceil(3) * 4);
@@ -183,13 +212,21 @@ pub struct PackIn<'a> {
 	pub continents: &'a [u32],
 	/// The command named in the headers, PACK.json and Nav.xml ("forge nav pack").
 	pub generator: &'a str,
+	/// Leffe's navigation maps (format 4: his Nav folder or the folder holding it) and the maps to take from them
+	/// (maps format 5, pack/leffe.rs); the others are ours. None: today's maps, byte for byte.
+	pub leffe: Option<(&'a Path, &'a [u32])>,
+	/// Leffe's maps carry their blocks as zlib bytes in the string literals (metadata `blocks = "zlib"`) instead of
+	/// base64: a quarter less on disk and in memory. Only Leffe's maps; ours stay base64.
+	pub zlib_literals: bool,
 	pub log: &'a (dyn Fn(&str) + Sync),
 }
 
-/// A pack: the files (name -> Lua source, in load order) and PACK.json's content without hashes.
+/// A pack: the files (name -> Lua source, in load order), PACK.json's content without hashes, and the files whose
+/// block literals ship as zlib bytes (ship_pack writes them so: Lua source that is not UTF-8).
 pub struct Pack {
 	pub files: Vec<(String, String)>,
 	pub manifest: Map<String, Value>,
+	pub raw: Vec<String>,
 }
 
 /// The first line of a generated Lua file (tools/lib/generated.js header).
@@ -241,8 +278,10 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 	let s = |k: &str| index[k].as_str().map_or("null".to_string(), str::to_string);
 	let grid_info = json!({ "product": index["product"].as_str(), "build": index["build"].as_str(), "builtAt": index["builtAt"].as_str(), "version": index["version"] });
 	let built: String = s("builtAt").chars().take(10).collect();
-	let source = format!("the navigation grid ({} {}, built {built}) on {date}", s("product"), s("build"));
-	let gen = generated_header(&format!("{} --cells {}", i.generator, i.cells), &source);
+	// Leffe's maps for any map of this pack: the headers name them (and the command its --leffe).
+	let leffe_used = i.leffe.is_some_and(|l| list.iter().any(|c| l.1.contains(c)));
+	let source = format!("the navigation grid ({} {}, built {built}){} on {date}", s("product"), s("build"), if leffe_used { " and Leffe's navigation maps" } else { "" });
+	let gen = generated_header(&format!("{} --cells {}{}", i.generator, i.cells, if leffe_used { " --leffe" } else { "" }), &source);
 	let mut manifest = Map::new();
 	manifest.insert("generator".into(), json!(i.generator));
 	manifest.insert("format".into(), json!(2));
@@ -252,6 +291,7 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 	let mut maps_json = Map::new();
 	let mut files: Vec<(String, String)> = Vec::new();
 	let mut by_map: Vec<(u32, Vec<chokepoints::Choke>)> = Vec::new();
+	let mut raw_files: Vec<String> = Vec::new();
 	let nav = Nav::new(grid.clone());
 	for &c in &list {
 		let t0 = std::time::Instant::now();
@@ -321,23 +361,54 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 			st.opened,
 			st.hub_cells
 		));
-		let h = hpa::build_hpa(&cg);
-		log(&format!("grid HPA: nodes {}, edges {} (inter {})", h.node_count(), h.edges.len(), h.inter));
-		let maps = encode::encode_maps(&cg, &h)?;
 		let mut m = Map::new();
+		// Leffe's navigation maps for this map (format 5), else ours (format 3).
+		let leffe = i.leffe.filter(|l| l.1.contains(&c)).map(|l| l.0);
+		let (maps, entrances, edges) = match leffe {
+			Some(dir) => {
+				let (maps, used, s) = leffe::leffe_maps(dir, c, &cg)?;
+				log(&format!(
+					"Leffe's maps {c}: {} clusters, floors {} ({} no walk can use dropped), entrances {}, edges {} ({} past 63 dropped), jumps {}, drops {}, climbs {} -> {} arcs, {} steep steps closed, {} surfaces with an area of ours",
+					s.clusters, s.floors, s.dropped_floors, s.entrances, s.edges, s.dropped, s.jumps, s.drops, s.climbs, s.arcs, s.closed, s.areas
+				));
+				cg.areas = used;
+				m.insert(
+					"leffe".into(),
+					json!({ "floors": s.floors, "droppedFloors": s.dropped_floors, "jumps": s.jumps, "drops": s.drops, "climbs": s.climbs, "arcs": s.arcs, "droppedEdges": s.dropped, "closedSteps": s.closed, "areaSurfaces": s.areas }),
+				);
+				(maps, s.entrances, s.edges - s.dropped)
+			}
+			None => {
+				let h = hpa::build_hpa(&cg);
+				log(&format!("grid HPA: nodes {}, edges {} (inter {})", h.node_count(), h.edges.len(), h.inter));
+				(encode::encode_maps(&cg, &h)?, h.node_count(), h.edges.len())
+			}
+		};
 		let lifts_c: Vec<Value> = lifts[c.to_string()].as_array().cloned().unwrap_or_default();
 		let chokes = chokepoints::chokepoints(&nav, c, &aids, &lifts_c, &frames, &areas);
 		m.insert("chokepoints".into(), json!(chokes.len()));
 		by_map.push((c, chokes));
-		let (out, packed_bytes) = encode::pack_files(c, &cg, &maps, "PolestarPathData", &gen, &hubs, Some(&area_names))?;
-		if maps.area.is_some() {
-			manifest.insert("format".into(), json!(3));
+		let part = leffe.and_then(|_| part_of(c));
+		let (mut out, packed_bytes) = encode::pack_files(c, &cg, &maps, "PolestarPathData", &gen, &hubs, Some(&area_names), part)?;
+		if let Some(p) = part {
+			m.insert("part".into(), json!(p));
+		}
+		if leffe.is_some() && i.zlib_literals {
+			// The metadata says so; its parts' literals are written as zlib bytes (ship_pack).
+			out[0].1 = out[0].1.replacen("\tformat = 5,\n", "\tformat = 5,\n\tblocks = \"zlib\",\n", 1);
+			raw_files.extend(out.iter().skip(1).map(|f| f.0.clone()));
+			m.insert("blocks".into(), json!("zlib"));
+		}
+		if maps.area.is_some() && manifest.get("format") != Some(&json!(5)) {
+			manifest.insert("format".into(), json!(if maps.arc.is_some() { 5 } else { 3 }));
 		}
 		let raw: usize = maps.fields().iter().map(|f| maps.field(f).values().map(String::len).sum::<usize>()).sum();
 		m.insert("clusters".into(), json!(cg.cluster_count()));
-		m.insert("floors".into(), json!(cg.floor_cell.len()));
-		m.insert("nodes".into(), json!(h.node_count()));
-		m.insert("edges".into(), json!(h.edges.len()));
+		if leffe.is_none() {
+			m.insert("floors".into(), json!(cg.floor_cell.len()));
+		}
+		m.insert("nodes".into(), json!(entrances));
+		m.insert("edges".into(), json!(edges));
 		m.insert("components".into(), json!(maps.components));
 		m.insert("clampedCosts".into(), json!(maps.clamped));
 		m.insert("maxDegree".into(), json!(maps.max_degree));
@@ -345,7 +416,9 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 		m.insert("packedBytes".into(), json!(packed_bytes));
 		m.insert("files".into(), json!(out.len()));
 		m.insert("hubs".into(), json!(hubs.len()));
-		m.insert("classes".into(), class_counts(&cg));
+		if leffe.is_none() {
+			m.insert("classes".into(), class_counts(&cg));
+		}
 		m.insert(
 			"roads".into(),
 			json!({ "strong": rs.strong, "weak": rs.weak, "pieces": rs.pieces, "ends": rs.ends, "bridges": rs.bridges, "bridgedColumns": rs.bridged_columns, "refused": rs.refused }),
@@ -359,7 +432,7 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 	}
 	files.push(("Chokepoints.lua".into(), chokepoints::chokepoints_lua(&by_map, &gen)));
 	manifest.insert("maps".into(), Value::Object(maps_json));
-	Ok(Pack { files, manifest })
+	Ok(Pack { files, manifest, raw: raw_files })
 }
 
 /// Surfaces per base class, and in a hub of each side, for PACK.json.
@@ -432,29 +505,112 @@ fn sha256(b: &[u8]) -> String {
 	Sha256::digest(b).iter().map(|x| format!("{x:02x}")).collect()
 }
 
+/// Where a packed file lives and its PACK.json key: `Nav/<name>` in the addon folder, or a part addon's
+/// `<part>/<file>` in the folder beside it (the AddOns folder).
+fn placed(addon_dir: &Path, name: &str) -> (PathBuf, String) {
+	match name.split_once('/') {
+		Some((part, file)) => (addon_dir.parent().unwrap_or(Path::new(".")).join(part).join(file), format!("{part}/{file}")),
+		None => (addon_dir.join("Nav").join(name), format!("Nav/{name}")),
+	}
+}
+
+/// A part addon's map parts: Nav<map>_<n>.lua.
+fn own_part_file(name: &str) -> bool {
+	own_file(name) && name != "Chokepoints.lua" && name.contains('_')
+}
+
+/// The `## Interface` and `## Version` lines of Polestar_Nav's TOC, which a part's TOC repeats.
+fn toc_heads(addon_dir: &Path) -> Vec<String> {
+	let name = addon_dir.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default();
+	let text = std::fs::read_to_string(addon_dir.join(format!("{name}.toc"))).unwrap_or_default();
+	["## Interface:", "## Version:"].iter().filter_map(|h| text.lines().find(|l| l.starts_with(h)).map(str::to_string)).collect()
+}
+
+/// A part addon's TOC: load on demand after Polestar_Nav, its map parts in order.
+pub fn part_toc(part: &str, files: &[String], heads: &[String], generator: &str) -> String {
+	let continent = match PARTS.iter().find(|p| p.1 == part).map(|p| p.0) {
+		Some(0) => "the Eastern Kingdoms",
+		_ => "Kalimdor",
+	};
+	let mut lines: Vec<String> = heads.iter().filter(|h| h.starts_with("## Interface:")).cloned().collect();
+	lines.push(format!("## Title: Polestar Nav ({})", continent.trim_start_matches("the ")));
+	lines.push(format!("## Notes: Walking maps of {continent} for Polestar's arrow, from Leffe's navigation maps. Loaded on demand on that continent."));
+	lines.extend(forge_guide::toc::toc_lines(part));
+	lines.push("## Author: Polestar; walking maps: Leffe's navigation maps".into());
+	lines.extend(heads.iter().filter(|h| h.starts_with("## Version:")).cloned());
+	lines.push("## Category: Polestar".into());
+	lines.push("## Group: Polestar".into());
+	lines.push("## LoadOnDemand: 1".into());
+	lines.push("## Dependencies: Polestar_Nav".into());
+	lines.push("## X-License: GPL-3.0-or-later".into());
+	lines.push(format!("# Written by {generator}: the map parts Polestar_Nav's router loads when it first searches {continent}."));
+	lines.push(String::new());
+	lines.extend(files.iter().cloned());
+	lines.push(String::new());
+	lines.join("\n")
+}
+
+/// The files a part's TOC loads, in order.
+fn toc_files(text: &str) -> Vec<String> {
+	text.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')).map(str::to_string).collect()
+}
+
 /// Writes a pack into an addon folder: Nav/<files>, PACK.json (with the sha256 of every file, in
-/// load order), Nav/Nav.xml. Our files the pack has no more are removed. -> (written, removed)
+/// load order), Nav/Nav.xml, and each part addon's files and TOC beside it. Our files the pack has no more
+/// are removed (a part addon the pack no longer has loses its files and TOC). -> (written, removed)
 pub fn ship_pack(pack: &Pack, addon_dir: &Path) -> Result<(Vec<String>, Vec<String>), String> {
 	let nav_dir = addon_dir.join("Nav");
 	let err = |p: &Path, e: std::io::Error| format!("{}: {e}", p.display());
 	std::fs::create_dir_all(&nav_dir).map_err(|e| err(&nav_dir, e))?;
+	let keys: Vec<String> = pack.files.iter().map(|f| placed(addon_dir, &f.0).1).collect();
 	let mut removed = Vec::new();
 	let mut names: Vec<String> = std::fs::read_dir(&nav_dir).map_err(|e| err(&nav_dir, e))?.filter_map(|e| e.ok()?.file_name().into_string().ok()).collect();
 	names.sort();
 	for name in names {
-		if own_file(&name) && !pack.files.iter().any(|f| f.0 == name) {
+		if own_file(&name) && !keys.contains(&format!("Nav/{name}")) {
 			let p = nav_dir.join(&name);
 			std::fs::remove_file(&p).map_err(|e| err(&p, e))?;
 			removed.push(format!("Nav/{name}"));
 		}
 	}
+	let parent = addon_dir.parent().unwrap_or(Path::new("."));
+	for (_, part) in PARTS {
+		let dir = parent.join(part);
+		let used = keys.iter().any(|k| k.starts_with(&format!("{part}/")));
+		if used {
+			std::fs::create_dir_all(&dir).map_err(|e| err(&dir, e))?;
+		}
+		let mut names: Vec<String> = std::fs::read_dir(&dir).into_iter().flatten().filter_map(|e| e.ok()?.file_name().into_string().ok()).collect();
+		names.sort();
+		for name in names {
+			let key = format!("{part}/{name}");
+			if (own_part_file(&name) && !keys.contains(&key)) || (!used && name == format!("{part}.toc")) {
+				let p = dir.join(&name);
+				std::fs::remove_file(&p).map_err(|e| err(&p, e))?;
+				removed.push(key);
+			}
+		}
+		if !used && dir.is_dir() && std::fs::read_dir(&dir).map(|mut d| d.next().is_none()).unwrap_or(false) {
+			std::fs::remove_dir(&dir).map_err(|e| err(&dir, e))?;
+		}
+	}
 	let mut hashes = Map::new();
 	for (name, text) in &pack.files {
-		let p = nav_dir.join(name);
-		std::fs::write(&p, text).map_err(|e| err(&p, e))?;
-		hashes.insert(format!("Nav/{name}"), json!(sha256(text.as_bytes())));
+		let (p, key) = placed(addon_dir, name);
+		let bytes = if pack.raw.contains(name) { zlib_literals(text)? } else { text.as_bytes().to_vec() };
+		std::fs::write(&p, &bytes).map_err(|e| err(&p, e))?;
+		hashes.insert(key, json!(sha256(&bytes)));
 	}
 	let written = hashes.keys().cloned().collect();
+	let generator = pack.manifest.get("generator").and_then(Value::as_str).unwrap_or("forge nav pack").to_string();
+	let heads = toc_heads(addon_dir);
+	for (_, part) in PARTS {
+		let files: Vec<String> = keys.iter().filter_map(|k| k.strip_prefix(&format!("{part}/")).map(str::to_string)).collect();
+		if !files.is_empty() {
+			let p = parent.join(part).join(format!("{part}.toc"));
+			std::fs::write(&p, part_toc(part, &files, &heads, &generator)).map_err(|e| err(&p, e))?;
+		}
+	}
 	let mut doc = pack.manifest.clone();
 	doc.insert("files".into(), Value::Object(hashes));
 	let pj = addon_dir.join(PACK_JSON);
@@ -464,8 +620,9 @@ pub fn ship_pack(pack: &Pack, addon_dir: &Path) -> Result<(Vec<String>, Vec<Stri
 	Ok((written, removed))
 }
 
-/// What differs between an addon folder and its PACK.json: changed, missing and unlisted files of
-/// ours, and a Nav.xml that is not nav_xml's. Empty when it matches.
+/// What differs between an addon folder (and its part addons beside it) and its PACK.json: changed, missing and
+/// unlisted files of ours, a Nav.xml that is not nav_xml's, a part TOC not loading its listed parts in order.
+/// Empty when it matches.
 pub fn check_pack(addon_dir: &Path) -> Vec<String> {
 	let file: PathBuf = addon_dir.join(PACK_JSON);
 	if !file.is_file() {
@@ -477,16 +634,19 @@ pub fn check_pack(addon_dir: &Path) -> Vec<String> {
 	};
 	let Some(listed) = manifest["files"].as_object() else { return vec![format!("{} lacks files", file.display())] };
 	let mut problems = Vec::new();
+	let parent = addon_dir.parent().unwrap_or(Path::new("."));
 	for (rel, want) in listed {
-		let name = rel.strip_prefix("Nav/").unwrap_or("");
-		if !own_file(name) {
+		let (dir, name) = rel.split_once('/').unwrap_or(("", ""));
+		let ours = if dir == "Nav" { own_file(name) } else { PARTS.iter().any(|p| p.1 == dir) && own_part_file(name) };
+		if !ours {
 			problems.push(format!("{rel} in PACK.json is not a packed file"));
 			continue;
 		}
-		match std::fs::read(addon_dir.join("Nav").join(name)) {
+		let path = if dir == "Nav" { addon_dir.join("Nav").join(name) } else { parent.join(dir).join(name) };
+		match std::fs::read(path) {
 			Err(_) => problems.push(format!("{rel} is missing")),
 			Ok(b) => {
-				if Some(sha256(String::from_utf8_lossy(&b).as_bytes()).as_str()) != want.as_str() {
+				if Some(sha256(&b).as_str()) != want.as_str() {
 					problems.push(format!("{rel} differs from PACK.json"));
 				}
 			}
@@ -500,9 +660,76 @@ pub fn check_pack(addon_dir: &Path) -> Vec<String> {
 			problems.push(format!("Nav/{name} is not listed in PACK.json"));
 		}
 	}
+	for (_, part) in PARTS {
+		let dir = parent.join(part);
+		let want: Vec<String> = listed.keys().filter_map(|k| k.strip_prefix(&format!("{part}/")).map(str::to_string)).collect();
+		let mut names: Vec<String> = std::fs::read_dir(&dir).into_iter().flatten().filter_map(|e| e.ok()?.file_name().into_string().ok()).collect();
+		names.sort();
+		for name in names {
+			if own_part_file(&name) && !want.contains(&name) {
+				problems.push(format!("{part}/{name} is not listed in PACK.json"));
+			}
+		}
+		let toc = std::fs::read_to_string(dir.join(format!("{part}.toc"))).ok();
+		match (want.is_empty(), toc) {
+			(false, None) => problems.push(format!("{part}/{part}.toc is missing")),
+			(false, Some(t)) if toc_files(&t) != want => problems.push(format!("{part}/{part}.toc does not load its packed maps in order (rerun `forge nav pack`)")),
+			(true, Some(_)) => problems.push(format!("{part}/{part}.toc is left over: the pack has no part there")),
+			_ => {}
+		}
+	}
 	let xml = std::fs::read_to_string(nav_dir.join("Nav.xml")).ok();
 	if xml.as_deref() != Some(nav_xml(addon_dir).as_str()) {
 		problems.push("Nav/Nav.xml does not list the packed maps (rerun `forge nav pack`)".into());
 	}
 	problems
+}
+
+/// A part file with its block literals as the zlib bytes themselves (maps metadata `blocks = "zlib"`): every
+/// quoted base64 block of a `data.packed` line decoded, written back with only the bytes a Lua 5.1 string literal
+/// cannot hold, and NUL and Ctrl-Z, as three-digit decimal escapes.
+pub fn zlib_literals(text: &str) -> Result<Vec<u8>, String> {
+	let mut out = Vec::with_capacity(text.len());
+	for line in text.split_inclusive('\n') {
+		if !line.starts_with("data.packed.") {
+			out.extend_from_slice(line.as_bytes());
+			continue;
+		}
+		let mut parts = line.split('"');
+		out.extend_from_slice(parts.next().unwrap_or("").as_bytes());
+		for (i, piece) in parts.enumerate() {
+			out.push(b'"');
+			if i % 2 == 1 {
+				out.extend_from_slice(piece.as_bytes());
+				continue;
+			}
+			for &b in &unbase64(piece)? {
+				match b {
+					0 | 10 | 13 | 26 | b'"' | b'\\' => out.extend_from_slice(format!("\\{b:03}").as_bytes()),
+					_ => out.push(b),
+				}
+			}
+		}
+	}
+	Ok(out)
+}
+
+fn unbase64(s: &str) -> Result<Vec<u8>, String> {
+	let val = |c: u8| B64.iter().position(|&x| x == c).map(|v| v as u32).ok_or_else(|| format!("pack: {} is not base64", c as char));
+	let b = s.trim_end_matches('=').as_bytes();
+	let mut out = Vec::with_capacity(b.len() * 3 / 4);
+	for ch in b.chunks(4) {
+		let mut n = 0u32;
+		for (i, &c) in ch.iter().enumerate() {
+			n |= val(c)? << (18 - 6 * i);
+		}
+		out.push((n >> 16) as u8);
+		if ch.len() > 2 {
+			out.push((n >> 8) as u8);
+		}
+		if ch.len() > 3 {
+			out.push(n as u8);
+		}
+	}
+	Ok(out)
 }

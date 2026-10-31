@@ -338,7 +338,8 @@ fn walk(dir: &Path, root: &Path, bare: &[Regex], comment: &Regex, found: &mut Ve
 		} else {
 			let rel = p.strip_prefix(root).unwrap();
 			if p.extension().is_some_and(|x| x == "lua") && rel != Path::new("Polestar/Core/Compat.lua") {
-				let text = std::fs::read_to_string(&p).unwrap();
+				// The walking maps' parts may hold zlib bytes in their literals (maps format 5): not UTF-8.
+				let text = String::from_utf8_lossy(&std::fs::read(&p).unwrap()).into_owned();
 				for (i, line) in text.split('\n').enumerate() {
 					let code = comment.replace(line, "");
 					if bare.iter().any(|re| re.is_match(&code)) {

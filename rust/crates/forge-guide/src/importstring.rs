@@ -36,7 +36,8 @@ pub const PREFIX: &str = "!PS1!";
 /// The caps the addon applies too (Core/Import.lua, Import.LIMITS; a test
 /// holds the two equal): the whole string, the steps of its guide, the
 /// payload once decompressed (bytes), and any one text or object key in it
-/// (bytes).
+/// (bytes); then the entries of every list a string could pad to freeze the
+/// game (`crowded`).
 pub struct Limits {
 	pub length: usize,
 	pub steps: usize,
@@ -45,9 +46,33 @@ pub struct Limits {
 	pub names: usize,
 	pub goals: usize,
 	pub candidates: usize,
+	pub spots: usize,
+	pub when: usize,
+	pub skipto: usize,
+	pub reagents: usize,
+	pub from_npcs: usize,
+	pub pre: usize,
+	pub tokens: usize,
+	pub next_when: usize,
 }
 
-pub const LIMITS: Limits = Limits { length: 50000, steps: 60, payload: 262144, text: 4096, names: 128, goals: 100, candidates: 128 };
+pub const LIMITS: Limits = Limits {
+	length: 50000,
+	steps: 60,
+	payload: 262144,
+	text: 4096,
+	names: 128,
+	goals: 100,
+	candidates: 128,
+	spots: 1024,
+	when: 16,
+	skipto: 16,
+	reagents: 32,
+	from_npcs: 32,
+	pre: 64,
+	tokens: 1024,
+	next_when: 16,
+};
 
 /// The first text or key in v longer than LIMITS.text, as the addon names it
 /// (`guide.steps[2].note`), or None.
@@ -78,6 +103,53 @@ fn long_text(v: &V, where_: &str) -> Option<String> {
 		}
 		_ => None,
 	}
+}
+
+/// The first list or map of the payload's guide `g` holding more entries than
+/// its cap, as the addon names it (Core/Import.lua crowded, plus its goals
+/// and candidates caps) -> (place, entries, cap), or None.
+fn crowded(g: &V) -> Option<(String, usize, usize)> {
+	fn over(v: &V, cap: usize, at: String) -> Option<(String, usize, usize)> {
+		let n = if v.is_object() { v.len() } else { 0 };
+		(n > cap).then_some((at, n, cap))
+	}
+	fn quests(v: &V, at: &str) -> Option<(String, usize, usize)> {
+		["pre", "preAll", "closedBy", "preTitles", "q"].iter().find_map(|k| over(&v.get(k), LIMITS.pre, format!("{at}.{k}")))
+	}
+	fn whens(list: &V, at: &str) -> Option<(String, usize, usize)> {
+		over(list, LIMITS.when, at.to_string()).or_else(|| list.items().iter().enumerate().find_map(|(i, w)| quests(w, &format!("{at}[{}]", i + 1))))
+	}
+	let next_when = g.get("nextWhen");
+	let found = over(&g.get("names"), LIMITS.tokens, "guide.names".into())
+		.or_else(|| over(&g.get("written"), LIMITS.tokens, "guide.written".into()))
+		.or_else(|| over(&g.get("nextChoices"), LIMITS.next_when, "guide.nextChoices".into()))
+		.or_else(|| over(&next_when, LIMITS.next_when, "guide.nextWhen".into()))
+		.or_else(|| next_when.entries().iter().find_map(|(k, list)| whens(list, &format!("guide.nextWhen.{k}"))));
+	if found.is_some() {
+		return found;
+	}
+	for (i, step) in g.get("steps").items().iter().enumerate() {
+		let s = format!("guide.steps[{}]", i + 1);
+		let found = whens(&step.get("when"), &format!("{s}.when"))
+			.or_else(|| over(&step.get("skipto"), LIMITS.skipto, format!("{s}.skipto")))
+			.or_else(|| step.get("skipto").items().iter().enumerate().find_map(|(j, jump)| quests(&jump.get("when"), &format!("{s}.skipto[{}].when", j + 1))))
+			.or_else(|| over(&step.get("goals"), LIMITS.goals, format!("{s}.goals")));
+		if found.is_some() {
+			return found;
+		}
+		for (j, goal) in step.get("goals").items().iter().enumerate() {
+			let at = format!("{s}.goals[{}]", j + 1);
+			let found = over(&goal.get("spots"), LIMITS.spots, format!("{at}.spots"))
+				.or_else(|| over(&goal.get("candidates"), LIMITS.candidates, format!("{at}.candidates")))
+				.or_else(|| over(&goal.get("reagents"), LIMITS.reagents, format!("{at}.reagents")))
+				.or_else(|| over(&goal.get("fromNpcs"), LIMITS.from_npcs, format!("{at}.fromNpcs")))
+				.or_else(|| quests(goal, &at));
+			if found.is_some() {
+				return found;
+			}
+		}
+	}
+	None
 }
 
 pub fn adler32(buf: &[u8]) -> u32 {
@@ -228,6 +300,9 @@ pub fn import_string(guide: &V, manifest: &V, data: Option<&Data>) -> Result<(St
 	let payload = V::Obj(payload);
 	if let Some(long) = long_text(&payload, "") {
 		return Err(format!("{id}: {long} is longer than {} bytes, the most Polestar reads in one text of an import string", LIMITS.text));
+	}
+	if let Some((at, n, cap)) = crowded(&payload.get("guide")) {
+		return Err(format!("{id}: {at} has {n} entries; an import string holds {cap} there at most (a guide this big goes in a community addon: forge release pack)"));
 	}
 	let bytes = stringify(&payload, None).len();
 	if bytes > LIMITS.payload {

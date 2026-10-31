@@ -274,10 +274,11 @@ function gridFingerprint(dir) {
 // A point's floor on the walking grid (tools/lib/nav/path.js on data/local/nav4): ->
 // (c, wx, wy, hint) => { z, floors } | null (no surface within snap's reach). The column is the
 // one the router snaps a point without a height to (snap's rule: the nearest column holding a
-// surface, its lowest indoor floor, else the terrain's top); its storeys are its surfaces snap
-// would take strictly (open, in a region of at least SNAP_REGION) more than Z_STEP apart. With a
-// hint (the height of a nearby spawn of the point's entity) the storey nearest it is the floor,
-// else snap's surface; floors counts the storeys (several and no hint: a guess, `ambiguous`).
+// surface, its lowest indoor floor, else its top surface under the open sky, else the terrain's
+// top); its storeys are its surfaces snap would take strictly (open, in a region of at least
+// SNAP_REGION) more than Z_STEP apart. With a hint (the height of a nearby spawn of the point's
+// entity) the storey nearest it is the floor, else snap's surface; floors counts the storeys
+// (several and no hint: a guess, `ambiguous`).
 // cache (optional, floorCache's map): (c, wx, wy) -> [snap's z, ...storeys] or 0 (no surface),
 // read before the grid and filled from it (the snap and the storeys don't depend on the hint).
 function gridFloor(nav, cache = null) {

@@ -14,7 +14,7 @@ N.RegisterCrossings({
 	},
 	-- other zones on these continents (no crossing data: walked as before)
 	wild = { 1412, 1413, 1438, 1439, 1440, 1441, 1442, 1443, 1444, 1445, 1446, 1447, 1448, 1449, 1450, 1451, 1452, 1456, 1457, 2482, 2652 },
-	-- id, ends a and b (uiMap, continent, world yards, arrival radius), captions a->b and b->a, oneWay
+	-- id, ends a and b (uiMap, continent, world yards, z: the floor height when given, arrival radius), captions a->b and b->a, oneWay
 	crossings = {
 		{ id = "durotar-orgrimmar", a = { map = 1411, c = 1, wx = 1367.7, wy = -4368.3, r = 25 }, b = { map = 1454, c = 1, wx = 1394.6, wy = -4367.9, r = 20 }, ab = "Enter Orgrimmar", ba = "Leave Orgrimmar" },
 	},
@@ -22,7 +22,7 @@ N.RegisterCrossings({
 	open = {
 		1411, 1454, 0,
 	},
-	-- nodes: uiMap, continent, world yards, radius, caption walking in, caption walking out
+	-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out
 	chains = {
 		{ id = "burning-blade-coven", name = "Burning Blade Coven", open = "mouth", nodes = {
 			{ map = 1411, c = 1, wx = -109.3, wy = -4320.7, r = 15, caption = "Enter the cave" },

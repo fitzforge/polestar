@@ -53,7 +53,7 @@
 //            rep = r<faction>,<standing>: the standing its rewards need (an older
 //                  reader skips it: no objective kind is r)
 //            xp = x<xp>: its full XP reward (an older reader skips it too)
-//   instance kind;forever(1|empty);areaId;map;entrance(map,x,y,f[,a]);levels;<boss>...
+//   instance kind;forever(1|empty);areaId;map;entrance(map,x,y,f[,a][,Amap,Ax,Ay]);levels;<boss>...
 //            a: approximate (the client's corpse point, not the way in)
 //            boss = name,ref,item,item...   ref = <npc> | o<object> (a chest boss), then
 //                   r|e|x when its role is rare|event|optional (none: an encounter);
@@ -277,7 +277,7 @@ function encodeInstance(rec) {
 		rec.forever ? '1' : '',
 		num(rec.areaId),
 		num(rec.map),
-		e ? [num(e.map), coord(e.x), coord(e.y), e.f || '', ...(e.approx ? ['a'] : [])].join(',') : '',
+		e ? [num(e.map), coord(e.x), coord(e.y), e.f || '', ...(e.approx || e.A ? [e.approx ? 'a' : ''] : []), ...(e.A ? [num(e.A.map), coord(e.A.x), coord(e.A.y)] : [])].join(',') : '',
 		list(rec.levels),
 	];
 	const bosses = (rec.bosses || []).map((b) => [esc(b.name), bossRef(b), ...(b.items || []).map(num)].join(','));

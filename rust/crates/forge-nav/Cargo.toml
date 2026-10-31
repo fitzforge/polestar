@@ -12,7 +12,7 @@ publish = false
 [features]
 default = ["native"]
 # The CCH, fine-grid legs and threads: native only. Without it (WASM) the crate reads the walk store.
-native = ["dep:cch", "dep:memmap2", "dep:flate2", "dep:rayon", "dep:parking_lot", "dep:sha2"]
+native = ["dep:cch", "dep:memmap2", "dep:flate2", "dep:rayon", "dep:parking_lot", "dep:sha2", "dep:forge-guide"]
 # Grid floors for forge-world's builder and the world + walks pipeline (`forge walks`).
 world = ["native", "dep:forge-world", "forge-world/native"]
 
@@ -22,6 +22,8 @@ serde_json = { workspace = true, features = ["float_roundtrip", "preserve_order"
 rustc-hash.workspace = true
 forge-core = { path = "../forge-core" }
 forge-world = { path = "../forge-world", optional = true, default-features = false }
+# The AddOns-list translations of the walking maps' part addons (pack: their TOCs).
+forge-guide = { path = "../forge-guide", optional = true, default-features = false }
 cch = { version = "0.3", optional = true }
 memmap2 = { version = "0.9", optional = true }
 flate2 = { version = "1", default-features = false, features = ["zlib-rs"], optional = true }

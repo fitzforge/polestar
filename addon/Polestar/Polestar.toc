@@ -25,6 +25,9 @@
 ## Version: 0.2.6
 ## Category: Polestar
 ## IconTexture: Interface\AddOns\Polestar\Media\UI\logo
+## AddonCompartmentFunc: Polestar_OnAddonCompartmentClick
+## AddonCompartmentFuncOnEnter: Polestar_OnAddonCompartmentEnter
+## AddonCompartmentFuncOnLeave: Polestar_OnAddonCompartmentLeave
 ## OptionalDeps: EllesmereUI, TomTom, OpenMap
 ## SavedVariables: PolestarDB
 ## SavedVariablesPerCharacter: PolestarCharDB
@@ -41,3 +44,4 @@ Dungeons\Dungeons.xml
 UI\UI.xml
 Rares\Rares.xml
 Talents\Talents.xml
+Alts\Alts.xml

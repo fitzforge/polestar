@@ -449,6 +449,9 @@ function Rares.Sighting(s, where)
 	local ctx = context()
 	local action, reason = Rares.Decide(s, ctx)
 	if action == "skip" then return action, reason end
+	-- An NPC id can name several creatures. Without a GUID, a death cannot
+	-- safely be tied to the held sighting; the history's death is not proof.
+	if s.dead and held and s.guid and s.guid == held.s.guid then held = nil end
 	track(s)
 	local now = ctx.now
 	local exact = where ~= nil
@@ -469,9 +472,11 @@ function Rares.Release()
 	local h = held
 	held = nil
 	if not h or serverTime() - h.at > HOLD_FOR then return false end
+	local ctx = context()
+	if Rares.Decide(h.s, ctx) ~= "alert" then return false end
 	local key = Rares.Key(h.s.kind, h.s.id, h.s.name)
-	local entry = key and Rares.History()[key]
-	if entry then entry.alerted = serverTime() end
+	local entry = key and ctx.history[key]
+	if entry then entry.alerted = ctx.now end
 	fire(alertOf(h.s, h.where, h.exact))
 	return true
 end

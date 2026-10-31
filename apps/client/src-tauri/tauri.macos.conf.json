@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schema.tauri.app/config/2",
+	"bundle": {
+		"macOS": {
+			"signingIdentity": "-"
+		}
+	},
+	"app": {
+		"windows": [
+			{
+				"label": "main",
+				"title": "Polestar Client",
+				"width": 880,
+				"height": 600,
+				"resizable": false,
+				"maximizable": false,
+				"center": true,
+				"visible": false,
+				"titleBarStyle": "Overlay",
+				"hiddenTitle": true,
+				"trafficLightPosition": { "x": 18, "y": 20 },
+				"backgroundColor": "#05080f"
+			}
+		]
+	}
+}

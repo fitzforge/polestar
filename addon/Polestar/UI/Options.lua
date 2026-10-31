@@ -1,7 +1,8 @@
 -- The options window, in the Polestar shell (Polestar.Widgets.Shell): pages
--- in the sidebar, tabs under the header band, sections of 40px label/control
--- rows in a two-column grid, action tiles for consequential actions, a
+-- in the sidebar, tabs under the header band, sections of setting rows in
+-- one column (each row with its description, each section in a panel), a
 -- settings search, and a footer with Reset page, Reload UI and Close.
+-- Consequential actions ask in the shared dialog (W.Modal).
 --
 -- Built-in pages come first; other modules add theirs with
 -- Polestar.RegisterOptions (docs/ARCHITECTURE.md, UI -> "Options
@@ -17,8 +18,7 @@ local L = ns.L
 local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipairs, pairs, type
 
 local SH = W.SHELL
-local GAP = 24 -- between the two grid columns
-local TILE_GAP = 12 -- between lines of button tiles
+local GAP = 24 -- between the two columns of the Recorder's and About's tiles
 
 local O = {}
 UI.Options = O
@@ -101,7 +101,11 @@ local function add(spec, builtin)
 	if spec.custom then p.custom = spec.custom end
 	if spec.dot then p.dot = spec.dot end
 	if spec.empty then p.empty = spec.empty end
-	local s = sectionOf(tabOf(p, spec.tab), spec.section)
+	local tab = tabOf(p, spec.tab)
+	-- preview(view) -> frame with :Layout(width) -> height: drawn over the
+	-- tab's sections (Appearance's live preview).
+	if spec.preview then tab.preview = spec.preview end
+	local s = sectionOf(tab, spec.section)
 	for _, c in ipairs(spec.controls or {}) do
 		c.page, c.tab, c.section = p, spec.tab, spec.section
 		s.controls[#s.controls + 1] = c
@@ -124,7 +128,7 @@ end
 -- The pages follow what the player came to do, not which module owns a
 -- setting: follow the guide (Guide), make Polestar look their way
 -- (Appearance), choose what the maps show (Map), quest (Questing), find
--- things (Discovery: Lookup, the dungeon journal, rares), small
+-- things (Discovery: Lookup, the dungeon journal, rares, your characters), small
 -- conveniences (Quality of Life), other addons Polestar works with
 -- (Integrations); the author's Recorder and About close the
 -- list. Modules still register their own controls; the pages they fill are
@@ -179,7 +183,7 @@ local BUILTIN = {
 		{ kind = "toggle", key = "ui.compact", label = L["Compact mode"], help = L["Only the header and the current step's goals."] },
 		{ kind = "toggle", key = "ui.showNotes", label = L["Step tips"], help = L["The author's tip under the goals, one line until clicked."] },
 		{ kind = "toggle", key = "ui.notesOpen", label = L["Expand step tips"], help = L["Start each step with its tip in full instead of one line."],
-			disabled = function() return not ns.Get("ui.showNotes") end },
+			child = true, disabled = function() return not ns.Get("ui.showNotes") end },
 		{ kind = "slider", key = "ui.upcoming", label = L["Upcoming steps"], min = 0, max = 6, step = 1, format = "%d", help = L["How many steps the Up next list holds; 0 turns it off."] },
 		{ kind = "toggle", key = "ui.upcomingOpen", label = L["Expand Up next"], help = L["Start with the upcoming steps listed instead of collapsed."] },
 	} },
@@ -197,8 +201,8 @@ local BUILTIN = {
 			help = L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] },
 		{ kind = "toggle", key = "ui.growUp", label = L["Grow upward"], help = L["Keep the bottom edge in place, so longer steps extend the window up."] },
 		{ kind = "toggle", key = "ui.barsBottom", label = L["Bar at the bottom"], help = L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."],
-			disabled = function() return not ns.Get("ui.growUp") end },
-		{ kind = "button", icon = "reset", label = L["Reset position"], help = L["Put the guide window back in its corner."], onClick = function() ns.Set("ui.pos", nil) end },
+			child = true, disabled = function() return not ns.Get("ui.growUp") end },
+		{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset position"], help = L["Put the guide window back in its corner."], onClick = function() ns.Set("ui.pos", nil) end },
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
 		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], help = L["Points to the current goal. Its look and colours are under Appearance, Arrow."] }),
@@ -206,24 +210,24 @@ local BUILTIN = {
 		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Distances"], help = L["How the arrow, map tooltips, rares and the death helper show distances."],
 			choices = { { value = "yards", label = L["Yards (the game's unit)"] }, { value = "metres", label = L["Metres"] } } },
 		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Arrival sound"], help = L["A soft chime when you reach a waypoint."] }),
-		H({ kind = "button", icon = "reset", label = L["Reset arrow position"], help = L["Back to the top of the screen. Drag the arrow to move it."],
+		H({ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset arrow position"], help = L["Back to the top of the screen. Drag the arrow to move it."],
 			onClick = function() if ns.Nav and ns.Nav.ResetArrowPosition then ns.Nav.ResetArrowPosition() end end,
 			needs = function() return ns.Nav and ns.Nav.ResetArrowPosition end }),
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Routes"], controls = {
 		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."] }),
+		H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."],
+			child = true, disabled = function() return not ns.Get("nav.travel") end }),
 		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."] }),
 		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
 			gear = { tip = L["Line style"], onClick = function() if UI.ShowLineStyle then UI.ShowLineStyle() end end } }),
-		H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."],
-			disabled = function() return not ns.Get("nav.travel") end }),
 		{ kind = "toggle", key = "nav.shareTransit", label = L["Share boat times"], help = L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."] },
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Other waypoints"], controls = {
 		H({ kind = "toggle", key = "nav.blizzardWaypoint", label = L["Blizzard waypoint"], help = L["Also set the game's own map pin and tracking."] }),
 		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."] }),
 		H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's."],
-			disabled = function() return not ns.Get("nav.tomtom") end }),
+			child = true, disabled = function() return not ns.Get("nav.tomtom") end }),
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Quests"], controls = {
 		{ kind = "toggle", key = "behavior.autoAccept", label = L["Accept guide quests"], help = L["Only quests in the next steps of your open guides. Hold Shift to skip."] },
@@ -247,16 +251,24 @@ local BUILTIN = {
 			choices = { { value = "2", label = L["Every 2 levels"] }, { value = "1", label = L["Every level"] }, { value = "off", label = L["Off"] } } },
 		{ kind = "toggle", key = "behavior.offerClassQuests", label = L["Offer class quests"],
 			help = L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] },
-		{ kind = "button", icon = "reset", label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide."], confirm = true,
+		{ kind = "button", icon = "reset", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide."], confirm = true,
+			confirmTitle = L["Reset guide progress?"], confirmAction = L["Reset progress"],
+			confirmText = function()
+				local g = ns.Engine and ns.Engine.GetGuide and ns.Engine.GetGuide()
+				local name = g and (g.title or g.id)
+				if name then return string.format(L["Your manual check-offs and skipped steps in %s are cleared. Quests you have done stay done."], name) end
+				return L["Your manual check-offs and skipped steps in the current guide are cleared. Quests you have done stay done."]
+			end,
 			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
 			needs = function() return ns.Engine and ns.Engine.ResetProgress end },
 	} },
 
 	-- How everything looks: colour and type, the windows' frames and the
-	-- guide window's own look, the arrow. Every change repaints live. The
-	-- accent's sources sit together in their own section, so "Class colour"
-	-- shares a row with the accent swatch it drives.
+	-- guide window's own look, the arrow. Every change repaints live, the
+	-- preview over Colour & type with it. The accent's sources sit together
+	-- in their own section.
 	{ page = LOOK, key = "appearance", icon = "palette", order = 20, tab = L["Colour & type"], section = L["Accent"],
+		preview = function(view) return O.LookPreview(view) end,
 		subtitle = L["Colours, type, window frames and the arrow. Everything repaints as you change it; right-click a setting to reset it."], controls = {
 		{ kind = "color", key = "ui.accent", label = L["Accent colour"], linked = { "ui.matchAccent", "ui.classAccent" },
 			help = L["Click to pick your own, right-click to go back to the scheme's."],
@@ -309,13 +321,13 @@ local BUILTIN = {
 				return list
 			end },
 		{ kind = "toggle", key = "ui.border", label = L["Window border"], help = L["The line around every Polestar window."] },
-		{ kind = "color", key = "ui.borderColor", label = L["Border colour"], linked = { "ui.borderAccent" }, disabled = borderOff,
+		{ kind = "color", key = "ui.borderColor", label = L["Border colour"], linked = { "ui.borderAccent" }, disabled = borderOff, child = true,
 			help = L["Click to pick your own, right-click to go back to the scheme's hairline."],
 			shown = function() return Theme.Color("windowBorder") end,
 			source = function() return ns.Get("ui.borderAccent") and L["Accent"] or L["Hairline"] end },
-		{ kind = "toggle", key = "ui.borderAccent", label = L["Accent border"], disabled = borderOff,
+		{ kind = "toggle", key = "ui.borderAccent", label = L["Accent border"], disabled = borderOff, child = true,
 			help = L["The border takes your accent colour. Picking your own border colour turns this off."] },
-		{ kind = "slider", key = "ui.borderSize", label = L["Border thickness"], min = 1, max = 4, step = 1, format = px, disabled = borderOff,
+		{ kind = "slider", key = "ui.borderSize", label = L["Border thickness"], min = 1, max = 4, step = 1, format = px, disabled = borderOff, child = true,
 			help = L["In screen pixels; a thicker border grows outward. Right-click to reset."] },
 		{ kind = "toggle", key = "ui.band", label = L["Starlit band"], disabled = houseOnly, help = L["The night sky with its stars across the top of every window. Off: the plain background."] },
 		{ kind = "toggle", key = "ui.shadow", label = L["Window shadow"], disabled = houseOnly, help = L["The soft shadow under every window."] },
@@ -348,6 +360,12 @@ local BUILTIN = {
 			shown = function() return Theme.Color("arrowNear") end,
 			source = function() return L["Jade"] end },
 	} },
+	{ page = LOOK, tab = L["Arrow"], section = L["Map icons"], controls = {
+		{ kind = "dropdown", key = "nav.mapIcons", label = L["Icon pack"],
+			help = L["The medallion under every mark on the world map and the minimap. The skin's: Polestar's, Halo's, or Hearth's for Hearth and the game's own looks. Glyphs only: no medallion."],
+			choices = { { value = "skin", label = L["The skin's icons"] }, { value = "polestar", label = L["Polestar"] },
+				{ value = "halo", label = L["Halo"] }, { value = "hearth", label = L["Hearth"] }, { value = "bare", label = L["Glyphs only"] } } },
+	} },
 
 	-- Everything Polestar draws on the world map and the minimap, in one
 	-- place. The sections are declared here, in this order; the Quests,
@@ -370,7 +388,7 @@ local BUILTIN = {
 }
 
 -- Pages filled by modules alone: Quests, QoL, Gear and Talents on Questing; Lookup,
--- Dungeons and Rares on Discovery; QoL and Maps on Quality of Life.
+-- Dungeons, Rares and Characters on Discovery; QoL and Maps on Quality of Life.
 for _, list in ipairs({
 	declare(QUESTING, "questing", "icon-accept", 40, L["Quest information, rewards and gear advice, and the quest buttons."], {
 		{ L["Quests"], { L["Quest database"], L["Tooltips and quest log"], L["Faster questing"] } },
@@ -382,6 +400,7 @@ for _, list in ipairs({
 		{ L["Lookup"], { L["How to get anything"] } },
 		{ L["Dungeons"], { ENCOUNTER_JOURNAL, L["Dungeons in leveling guides"] } },
 		{ L["Rares"], { L["When a rare shows up"], L["How rares are noticed"], L["History"] } },
+		{ L["Characters"], { L["Characters"] } },
 	}),
 	declare(QOL, "qualityoflife", "qol-toggles", 60, L["Small conveniences: travel, invitations, merchants and trackers."], {
 		{ L["Travel"], { L["Flight masters"], L["Hearthstone"], L["Flight timer"], L["Death"] } },
@@ -415,21 +434,22 @@ add({ page = L["Integrations"], section = "EllesmereUI", controls = {
 -- Custom pages: Recorder status and About
 ---------------------------------------------------------------------------
 
+-- The Recorder's state from its SavedVariables (schema 2, docs/RECORDING.md):
+-- the chunks waiting for the uploader, their size, the last one it confirmed.
 local function recorderState()
 	local loaded = C_AddOns and C_AddOns.IsAddOnLoaded and C_AddOns.IsAddOnLoaded("Polestar_Recorder")
 	local db = PolestarRecorderDB
 	if not loaded then return { installed = false } end
-	local out = { installed = true, enabled = false, sessions = 0, events = 0 }
+	local out = { installed = true, enabled = false, chunks = 0, bytes = 0, acked = 0 }
 	if type(db) == "table" then
 		out.enabled = db.enabled == true -- opt-in: off until the player starts it
-		if type(db.sessions) == "table" then
-			for _, s in pairs(db.sessions) do out.sessions = out.sessions + 1 end
-			local cur = db.current and db.sessions[db.current]
-			if type(cur) == "table" and type(cur.events) == "table" then
-				out.events = #cur.events
-				out.char = type(cur.char) == "table" and cur.char.name or nil
+		if type(db.chunks) == "table" then
+			for _, text in pairs(db.chunks) do
+				out.chunks = out.chunks + 1
+				if type(text) == "string" then out.bytes = out.bytes + #text end
 			end
 		end
+		if type(db.acked) == "number" then out.acked = db.acked end
 	end
 	return out
 end
@@ -456,19 +476,19 @@ end
 local function buildRecorder(view)
 	local rows = {
 		status = W.InfoRow(view, L["Status"]),
-		sessions = W.InfoRow(view, L["Sessions stored"], L["Kept in SavedVariables until imported with the toolchain."]),
-		events = W.InfoRow(view, L["Events this session"]),
-		char = W.InfoRow(view, L["Character"]),
+		chunks = W.InfoRow(view, L["Waiting to upload"], L["Chunks the Polestar Uploader has not sent yet."]),
+		size = W.InfoRow(view, L["Stored"]),
+		acked = W.InfoRow(view, L["Last uploaded chunk"]),
 	}
 	local header = W.SectionHeader(view)
-	W.SetSection(header, L["Session"])
+	W.SetSection(header, L["Recordings"])
 	local actions = W.SectionHeader(view)
 	W.SetSection(actions, L["Actions"])
 	local toggle = W.ActionTile(view, "record", L["Start recording"], L["Write quests, routes and world data for guide authors. Off until you start it."], function(self)
 		recorderCommand(self.psOn and "off" or "on")
 		view.Refresh()
 	end)
-	local status = W.ActionTile(view, "info", L["Print status"], L["Counts and the current session in chat."], function() recorderCommand("status") end)
+	local status = W.ActionTile(view, "info", L["Print status"], L["Chunks waiting, the last upload and the install id, in chat."], function() recorderCommand("status") end)
 	local window = W.ActionTile(view, "record", L["Recorder window"], L["Position trails, marks and the list of spots to walk, in a small window."], function() recorderCommand("ui") end)
 	local note = W.Text(view, "note", "textDim")
 	note:SetWordWrap(true)
@@ -495,11 +515,11 @@ local function buildRecorder(view)
 		note:Hide()
 		rows.status.Value:SetText(st.enabled and L["Recording"] or L["Off"])
 		W.Color(rows.status.Value, st.enabled and "success" or "textDim")
-		rows.sessions.Value:SetText(st.sessions)
-		rows.events.Value:SetText(st.events)
-		rows.char.Value:SetText(st.char or "\226\128\147")
-		y = y + placePair(view, { rows.status, rows.sessions }, y, cw, W.LayoutRow)
-		y = y + placePair(view, { rows.events, rows.char }, y, cw, W.LayoutRow)
+		rows.chunks.Value:SetText(st.chunks)
+		rows.size.Value:SetText(("%d KiB"):format(math.floor(st.bytes / 1024 + 0.5)))
+		rows.acked.Value:SetText(st.acked > 0 and st.acked or "\226\128\147")
+		y = y + placePair(view, { rows.status, rows.chunks }, y, cw, W.LayoutRow)
+		y = y + placePair(view, { rows.size, rows.acked }, y, cw, W.LayoutRow)
 		actions:ClearAllPoints()
 		actions:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 		actions:SetWidth(win.BodyWidth)
@@ -605,7 +625,11 @@ local function buildAbout(view)
 	local maintH = W.SectionHeader(view)
 	W.SetSection(maintH, L["Maintenance"])
 	local resetAll = W.ActionTile(view, "reset", L["Reset all settings"], L["Every Polestar setting back to default. Progress is kept."],
-		function() if ns.ResetSettings then ns.ResetSettings() end end, { confirm = true, danger = true })
+		function()
+			W.Modal({ title = L["Reset all settings?"], icon = "reset", danger = true, action = L["Reset all"],
+				text = L["Every Polestar setting goes back to its default. Your guides and progress are kept."],
+				onAccept = function() if ns.ResetSettings then ns.ResetSettings() end end })
+		end, { danger = true })
 	local resetPos = W.ActionTile(view, "window", L["Reset positions"], L["Guide window, arrow and these windows."], resetPositions)
 	view.ResetAll = resetAll
 	view.Refresh = function()
@@ -681,8 +705,134 @@ local ALIASES = {
 	automation = { "guide", L["Automation"] }, behavior = { "guide", L["Automation"] }, behaviour = { "guide", L["Automation"] },
 	quests = { "questing", L["Quests"] }, gear = { "questing", L["Rewards & gear"] }, talents = { "questing", L["Talents"] },
 	lookup = { "discovery", L["Lookup"] }, dungeons = { "discovery", L["Dungeons"] }, rares = { "discovery", L["Rares"] },
+	characters = { "discovery", L["Characters"] }, alts = { "discovery", L["Characters"] },
 	look = { "appearance" }, qol = { "qualityoflife" },
 }
+
+---------------------------------------------------------------------------
+-- Appearance's live preview: a small guide window (its band, a tab, the
+-- step's title, a goal done, the current goal on its accent bar, the
+-- progress line) and the arrow with its distance, over the night sky. All
+-- of it is painted from the theme, so the accent, scheme, skin, ground
+-- opacity, band and font show in it as they change.
+---------------------------------------------------------------------------
+
+local PREVIEW_H, MINI_W, MINI_PAD = 168, 270, 10
+
+function O.LookPreview(view)
+	local f = CreateFrame("Frame", nil, view)
+	f:SetHeight(PREVIEW_H)
+	if f.SetClipsChildren then f:SetClipsChildren(true) end
+	-- The sky: the deepest ground, the starlit band (gone with ui.band off),
+	-- a soft lift of the sky colour behind the window, the inner hairline.
+	W.Fill(f, "scrim", "BACKGROUND", -8)
+	f.Lift = W.Tex(f, "BACKGROUND", "glow", nil, -7)
+	W.Painter(f.Lift, function(t)
+		local r, g, b = Theme.Color("sky")
+		t:SetVertexColor(r, g, b, 0.75)
+	end)
+	f.Band = Theme.Band(f, "BACKGROUND", -6)
+	f.Band:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
+	f.Band:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
+	f.Band:SetHeight(Theme.BAND_H)
+	W.Painter(f, function(self) Theme.Border(self, Theme.Wash("divider")) end)
+
+	local label = W.Text(f, "caption", "textMuted")
+	label:SetText(L["Preview"])
+	label:SetPoint("TOPLEFT", f, "TOPLEFT", 14, -12)
+	local live = W.Text(f, "small", "textMuted")
+	live:SetText(L["Live"])
+	live:SetPoint("TOPRIGHT", f, "TOPRIGHT", -14, -12)
+	local dot = W.Tex(f, "ARTWORK", "circle", "success")
+	dot:SetSize(6, 6)
+	dot:SetPoint("RIGHT", live, "LEFT", -6, 0)
+
+	-- The guide window, in the window paint of the skin in use.
+	local gw = CreateFrame("Frame", nil, f)
+	gw:SetWidth(MINI_W)
+	Theme.Skin(gw, "window")
+	local band = Theme.Band(gw, "BACKGROUND", -5)
+	band:SetPoint("TOPLEFT", gw, "TOPLEFT", 0, 0)
+	band:SetPoint("TOPRIGHT", gw, "TOPRIGHT", 0, 0)
+	band:SetHeight(48)
+	band:SetTexCoord(Theme.BandCoords(MINI_W, 48))
+	local tabGlyph = W.Tex(gw, "ARTWORK", "icon-level", "accent")
+	tabGlyph:SetSize(10, 10)
+	tabGlyph:SetPoint("LEFT", gw, "TOPLEFT", MINI_PAD, -12)
+	local tab = W.Text(gw, "small", "text")
+	tab:SetText(L["Tirisfal Glades"])
+	tab:SetPoint("LEFT", tabGlyph, "RIGHT", 6, 0)
+	local range = W.Text(gw, "small", "textMuted")
+	range:SetText("(1\226\128\14713)")
+	range:SetPoint("LEFT", tab, "RIGHT", 4, 0)
+	local tabRule = W.Divider(gw)
+	tabRule:SetPoint("TOPLEFT", gw, "TOPLEFT", 0, -24)
+	tabRule:SetPoint("TOPRIGHT", gw, "TOPRIGHT", 0, -24)
+	local tabBar = W.Tex(gw, "ARTWORK", nil, "accent")
+	tabBar:SetHeight(2)
+	tabBar:SetPoint("BOTTOMLEFT", gw, "TOPLEFT", MINI_PAD - 2, -24)
+	W.Painter(tabBar, function(t) t:SetWidth(math.ceil(W.TextWidth(tab) + 10 + 6 + 4)) end)
+	local title = W.Text(gw, "heading", "text")
+	title:SetText(L["Garren's Haunt"])
+	title:SetPoint("TOPLEFT", gw, "TOPLEFT", MINI_PAD, -32)
+	local zone = W.Text(gw, "small", "textMuted")
+	zone:SetText(L["Tirisfal Glades"])
+	zone:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -2)
+	local function goal(y, glyph, glyphColor, textColor)
+		local g = W.Tex(gw, "ARTWORK", glyph, glyphColor)
+		g:SetSize(11, 11)
+		g:SetPoint("LEFT", gw, "TOPLEFT", MINI_PAD + 2, -y)
+		local t = W.Text(gw, "note", textColor)
+		t:SetPoint("LEFT", g, "LEFT", 18, 0)
+		t:SetWidth(MINI_W - 2 * MINI_PAD - 20)
+		return g, t
+	end
+	local _, done = goal(76, "check", "success", "textMuted")
+	done:SetText(L["Collect Doom Weed"] .. " 10/10")
+	local curGlyph, cur = goal(96, "icon-kill", "text", "text")
+	W.Painter(cur, function(fs)
+		fs:SetText(string.format(L["Kill %s"], "|c" .. Theme.Hex("npc") .. L["Rot Hide Mongrel"] .. "|r") .. "  2/5")
+	end)
+	local curBar = W.Tex(gw, "ARTWORK", nil, "accent")
+	curBar:SetSize(2, 16)
+	curBar:SetPoint("LEFT", gw, "LEFT", 0, 0)
+	curBar:SetPoint("TOP", curGlyph, "CENTER", 0, 8)
+	local progress = W.ProgressLine(gw, 3)
+	progress:SetPoint("TOPLEFT", gw, "TOPLEFT", MINI_PAD, -112)
+	progress:SetPoint("TOPRIGHT", gw, "TOPRIGHT", -MINI_PAD, -112)
+	W.SetProgress(progress, 0.38, MINI_W - 2 * MINI_PAD)
+	gw:SetHeight(112 + 3 + 9)
+
+	-- The arrow toward the goal, its distance and where it goes.
+	local arrow = W.Tex(f, "ARTWORK", "dart", "arrow")
+	arrow:SetSize(56, 56)
+	if arrow.SetRotation then arrow:SetRotation(-0.35) end
+	local dist = W.Text(f, "display", "text")
+	dist:SetText(L["381 yd"])
+	dist:SetPoint("TOP", arrow, "BOTTOM", 0, -2)
+	local to = W.Text(f, "small", "textDim")
+	to:SetPoint("TOP", dist, "BOTTOM", 0, -2)
+	W.Painter(to, function(fs)
+		fs:SetText(string.format(L["Go to %s"], "|c" .. Theme.Hex("place") .. L["Brill"] .. "|r"))
+	end)
+
+	-- -> the preview's height, its parts placed across `width`.
+	function f:Layout(width)
+		self:SetWidth(width)
+		local x = max(110, floor(width * 0.255))
+		gw:ClearAllPoints()
+		gw:SetPoint("TOPLEFT", self, "TOPLEFT", x, -28)
+		local right = x + MINI_W
+		arrow:ClearAllPoints()
+		arrow:SetPoint("TOP", self, "TOPLEFT", right + floor((width - right) / 2), -28)
+		f.Lift:ClearAllPoints()
+		f.Lift:SetSize(width * 0.7, PREVIEW_H * 1.6)
+		f.Lift:SetPoint("CENTER", self, "TOPLEFT", width * 0.4, -PREVIEW_H * 0.4)
+		f.Band:SetTexCoord(Theme.BandCoords(width, Theme.BAND_H))
+		return PREVIEW_H
+	end
+	return f
+end
 
 ---------------------------------------------------------------------------
 -- Controls and the grid
@@ -724,18 +874,15 @@ local function makeControl(parent, c)
 	elseif c.kind == "color" then
 		w = W.Swatch(parent, c.label, c.key, c.help, { shown = c.shown, source = c.source, linked = c.linked })
 	elseif c.kind == "button" then
-		w = W.ActionTile(parent, c.icon or "bolt", c.label, c.help, c.onClick, { confirm = c.confirm, danger = c.danger })
-		w.psTile = true
-		if c.disabled then
-			w.Refresh = function(self)
-				local ok, off = pcall(c.disabled)
-				off = ok and off
-				self:SetAlpha(off and 0.45 or 1)
-				if off then self:Disable() else self:Enable() end
-			end
-			W.SetDisabledWhen(w, c.disabled)
-		end
-		return w
+		-- A row with its button at the right; a consequential one (confirm)
+		-- asks first, in the shared dialog.
+		w = W.ActionRow(parent, labelOf(c), c.help, c.button or L["Run"], function()
+			if not c.confirm then return c.onClick() end
+			local text = c.confirmText
+			if type(text) == "function" then text = text() end
+			W.Modal({ title = c.confirmTitle or labelOf(c), text = text or c.help, icon = c.icon or "reset",
+				action = c.confirmAction or c.button or labelOf(c), danger = true, onAccept = c.onClick })
+		end, { icon = c.icon, danger = c.danger })
 	elseif c.kind == "binding" then
 		w = ns.Gamepad.BindingRow(parent, c)
 		w.psControl = c
@@ -748,25 +895,36 @@ end
 -- A control from its spec, as the pages make them (UI/LineStyle.lua).
 O.Control = makeControl
 
--- Lay controls out in a two-column grid from y; settings rows are 40px,
--- button tiles 60px, and a line grows to the tallest of its two (a label
--- or description that wraps). `cache` maps control spec -> widget. -> new y
-function O.Grid(view, controls, y, cache)
-	local cw = (win.BodyWidth - GAP) / 2
-	local i, n = 1, #controls
-	while i <= n do
-		local tiles = controls[i].kind == "button"
-		while i <= n and (controls[i].kind == "button") == tiles do
-			local pair = {}
-			while #pair < 2 and i <= n and (controls[i].kind == "button") == tiles do
-				local c = controls[i]
-				if not cache[c] then cache[c] = makeControl(view, c) end
-				pair[#pair + 1] = cache[c]
-				i = i + 1
-			end
-			y = y + placePair(view, pair, y, cw, tiles and W.LayoutTile or W.LayoutRow) + (tiles and TILE_GAP or 0)
+-- A section's controls in one column from y, each row showing its
+-- description under its label and marking a setting off its default. In the
+-- house style they sit in one panel (its ground and inner hairline, a
+-- hairline between rows). A child (c.child: a setting that depends on the
+-- one above it) is indented on a connector, dimmed while that one is off.
+-- `cache` maps control spec -> widget; `panel` is the section's (W.RowPanel)
+-- or nil. -> new y
+local ROW_INSET, CHILD_INSET, SECTION_GAP = 16, 40, 22
+function O.Rows(view, controls, y, cache, panel)
+	local width = win.BodyWidth
+	local top = y
+	for i, c in ipairs(controls) do
+		local w = cache[c]
+		if not w then
+			w = makeControl(view, c)
+			W.RowDetails(w, { inset = c.child and CHILD_INSET or ROW_INSET, child = c.child })
+			cache[c] = w
 		end
-		y = y + (tiles and 4 or 8)
+		w:ClearAllPoints()
+		w:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
+		w:Show()
+		if w.Refresh then w:Refresh() end
+		y = y + W.LayoutRow(w, width)
+		if w.Rule then w.Rule:SetShown(i < #controls) end
+	end
+	if panel then
+		panel:ClearAllPoints()
+		panel:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -top)
+		panel:SetSize(width, max(1, y - top))
+		panel:SetShown(Theme.SkinKey() == "polestar")
 	end
 	return y
 end
@@ -780,42 +938,64 @@ local function visible(section)
 	return out
 end
 
+-- Sections top down from y: each its plain heading over its panel of rows.
+-- groups: { { name, controls }, ... }; the view keeps its headers and
+-- panels (view.headers, view.panels). Controls not placed are hidden.
+-- -> new y
+local function layoutSections(view, groups, y)
+	for _, w in pairs(view.cache) do w:Hide() end
+	local n = 0
+	for gi, g in ipairs(groups) do
+		n = n + 1
+		local h = view.headers[n]
+		if not h then
+			h = W.SectionHeader(view, { plain = true })
+			view.headers[n] = h
+		end
+		local panel = view.panels[n]
+		if not panel then
+			panel = W.RowPanel(view)
+			view.panels[n] = panel
+		end
+		if g.name ~= "" then
+			W.SetSection(h, g.name)
+			h:ClearAllPoints()
+			h:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
+			h:SetWidth(win.BodyWidth)
+			h:Show()
+			y = y + W.PLAIN_SECTION_H
+		else
+			h:Hide()
+		end
+		y = O.Rows(view, g.controls, y, view.cache, panel)
+		if gi < #groups then y = y + SECTION_GAP end
+	end
+	for i = n + 1, #view.headers do view.headers[i]:Hide() end
+	for i = n + 1, #view.panels do view.panels[i]:Hide() end
+	return y
+end
+
 -- A view = one page tab rendered into its own frame (built once).
 local function buildView(p, t)
 	local view = CreateFrame("Frame", nil, win.Body)
 	view:SetPoint("TOPLEFT", win.Body, "TOPLEFT", 0, 0)
 	view:SetPoint("RIGHT", win.Body, "RIGHT", 0, 0)
-	view.cache, view.headers = {}, {}
+	view.cache, view.headers, view.panels = {}, {}, {}
 	if p.custom then
 		p.custom(view)
 	else
 		view.Refresh = function()
-			local y = 8
-			local any = false
-			local hi = 0
+			local y = 16
+			local groups = {}
 			for _, s in ipairs(t.sections) do
 				local list = visible(s)
-				if #list > 0 then
-					any = true
-					if s.name ~= "" then
-						hi = hi + 1
-						local h = view.headers[hi]
-						if not h then
-							h = W.SectionHeader(view)
-							view.headers[hi] = h
-						end
-						W.SetSection(h, s.name)
-						h:ClearAllPoints()
-						h:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
-						h:SetWidth(win.BodyWidth)
-						h:Show()
-						y = y + 44
-					end
-					y = O.Grid(view, list, y, view.cache)
-				end
+				if #list > 0 then groups[#groups + 1] = { name = s.name, controls = list } end
 			end
-			for i = hi + 1, #view.headers do view.headers[i]:Hide() end
-			if not any then
+			if #groups == 0 then
+				for _, w in pairs(view.cache) do w:Hide() end
+				for _, h in ipairs(view.headers) do h:Hide() end
+				for _, pn in ipairs(view.panels) do pn:Hide() end
+				if rawget(view, "Preview") then view.Preview:Hide() end
 				if not rawget(view, "Empty") then
 					view.Empty = W.Text(view, "note", "textMuted")
 					view.Empty:SetWordWrap(true)
@@ -830,7 +1010,16 @@ local function buildView(p, t)
 			end
 			view.empty = false
 			if rawget(view, "Empty") then view.Empty:Hide() end
-			return y + 16
+			-- The tab's preview over its sections.
+			if t.preview then
+				if not rawget(view, "Preview") then view.Preview = t.preview(view) end
+				view.Preview:ClearAllPoints()
+				view.Preview:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
+				view.Preview:Show()
+				y = y + view.Preview:Layout(win.BodyWidth) + SECTION_GAP
+			end
+			y = layoutSections(view, groups, y)
+			return y + 24
 		end
 	end
 	return view
@@ -878,26 +1067,13 @@ local function renderSearch()
 		searchView = CreateFrame("Frame", nil, win.Body)
 		searchView:SetPoint("TOPLEFT", win.Body, "TOPLEFT", 0, 0)
 		searchView:SetPoint("RIGHT", win.Body, "RIGHT", 0, 0)
-		searchView.cache, searchView.headers = {}, {}
+		searchView.cache, searchView.headers, searchView.panels = {}, {}, {}
 		searchView.Empty = W.Text(searchView, "note", "textMuted")
 	end
-	for _, w in pairs(searchView.cache) do w:Hide() end
 	local groups, count = O.Search(query)
-	local y = 8
-	for i, g in ipairs(groups) do
-		local h = searchView.headers[i]
-		if not h then
-			h = W.SectionHeader(searchView)
-			searchView.headers[i] = h
-		end
-		W.SetSection(h, g.title)
-		h:ClearAllPoints()
-		h:SetPoint("TOPLEFT", searchView, "TOPLEFT", SH.pad, -y)
-		h:SetWidth(win.BodyWidth)
-		h:Show()
-		y = O.Grid(searchView, g.controls, y + 44, searchView.cache)
-	end
-	for i = #groups + 1, #searchView.headers do searchView.headers[i]:Hide() end
+	local sections = {}
+	for i, g in ipairs(groups) do sections[i] = { name = g.title, controls = g.controls } end
+	local y = layoutSections(searchView, sections, 16)
 	searchView.Empty:SetShown(count == 0)
 	if count == 0 then
 		searchView.Empty:SetText(string.format(L["No settings match \226\128\156%s\226\128\157."], query))
@@ -947,10 +1123,23 @@ local function pageShown(p)
 	return false
 end
 
+-- The sidebar in three groups, a hairline between them: the pages of
+-- playing (Guide to Quality of Life), those of other addons, guides and
+-- tools (Integrations on), and About.
+local function navGroup(p)
+	if p.key == "about" then return 3 end
+	return p.order >= 65 and 2 or 1
+end
+
 local function navItems()
-	local items = {}
+	local items, group = {}, nil
 	for _, p in ipairs(pageList) do
-		if pageShown(p) or p == current then items[#items + 1] = { key = p.key, label = p.name, icon = p.icon, dot = p.dot and p.dot() or nil } end
+		if pageShown(p) or p == current then
+			local g = navGroup(p)
+			if group and g ~= group then items[#items + 1] = { separator = true } end
+			group = g
+			items[#items + 1] = { key = p.key, label = p.name, icon = p.icon, dot = p.dot and p.dot() or nil }
+		end
 	end
 	return items
 end
@@ -995,9 +1184,13 @@ end
 local function renderFooter(p)
 	local left = {}
 	if p and #pageKeys(p) > 0 then
-		left[#left + 1] = { label = L["Reset page"], onClick = function() O.ResetPage(p) end, opts = { icon = "reset", confirm = true } }
+		left[#left + 1] = { label = L["Reset page"], opts = { icon = "reset", ghost = true }, onClick = function()
+			W.Modal({ title = L["Reset this page?"], icon = "reset", danger = true, action = L["Reset page"],
+				text = string.format(L["Every setting on %s goes back to its default."], p.name),
+				onAccept = function() O.ResetPage(p) end })
+		end }
 	end
-	left[#left + 1] = { label = L["Reload UI"], onClick = function() if ReloadUI then ReloadUI() end end, opts = { icon = "reload" } }
+	left[#left + 1] = { label = L["Reload UI"], onClick = function() if ReloadUI then ReloadUI() end end, opts = { icon = "reload", ghost = true } }
 	W.ShellFooter(win, left, { { label = L["Close"], onClick = function() win:Hide() end } })
 end
 

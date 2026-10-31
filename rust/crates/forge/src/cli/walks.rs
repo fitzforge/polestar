@@ -188,12 +188,12 @@ fn walks(a: &[String]) {
 		nav_fp: &nav_fp,
 		bands: &bands,
 		threads: 8,
-		// Default: the hybrid when Leffe's navigation maps are given (POLESTAR_LEFFE_NAV), else our grid
-		// (stage::Nav::auto); POLESTAR_NAV=grid|leffe|hybrid forces one.
+		// Default: the hybrid when Leffe's navigation maps are given (POLESTAR_LEFFE_NAV), else the hybrid on his
+		// saved walks (<store>-leffe.<ext>) when present, else our grid (stage::Nav::auto); POLESTAR_NAV forces one.
 		nav: match std::env::var("POLESTAR_NAV").as_deref() {
 			Ok("grid") => forge_nav::stage::Nav::Grid,
 			Ok("hybrid") => match forge_nav::stage::Nav::auto(std::env::var("POLESTAR_LEFFE_NAV").ok().as_deref().map(std::path::Path::new), &file) {
-				forge_nav::stage::Nav::Grid => usage("POLESTAR_NAV=hybrid needs POLESTAR_LEFFE_NAV=<Leffe's Nav folder>"),
+				forge_nav::stage::Nav::Grid => usage("POLESTAR_NAV=hybrid needs POLESTAR_LEFFE_NAV=<Leffe's Nav folder> or his saved walks beside the store (<store>-leffe.<ext>)"),
 				n => n,
 			},
 			Ok("leffe") => forge_nav::stage::Nav::Leffe {

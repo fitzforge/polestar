@@ -9,7 +9,7 @@ package them. You can help without touching any code.
 - **Report a wrong step.** A quest that is not where the guide says, a step
   that never checks off, an order that wastes a trip. In the game, click the
   bug in the guide window (or type `/polestar report`), say what is wrong and
-  paste the report on the [Polestar Discord](https://discord.gg/vMbee6F2e9);
+  paste the report on the [Polestar Discord](https://discord.gg/polestar);
   or open an issue with the "Wrong step" form.
 - **Fix a guide.** Guides are plain text files; a fix is often one line. See
   [Fixing a guide](#fixing-a-guide). New here? Start with an issue labelled
@@ -23,9 +23,9 @@ package them. You can help without touching any code.
   share it: after logging out, send the file
   `WTF/Account/<your account>/SavedVariables/Polestar_Recorder.lua` on Discord
   or attach it to an issue. We import it with
-  `node tools/polestar.js record import --sv <file> --anonymize`, which keeps
-  no character name or realm. With the tools set up you can measure a route
-  yourself: `node tools/polestar.js record import`, then
+  `forge record import --wtf <file> --anonymize`, which counts it as its own
+  contributor. With the tools set up you can measure a route
+  yourself: `forge record import`, then
   `node tools/polestar.js record report` gives per step times, XP per hour,
   deaths and detours.
 - **Code.** Bugs in the addon or the tools; see [Code changes](#code-changes).
@@ -197,7 +197,7 @@ checks, and they are run before it is merged.
   `preview`).
 - Without a local client, `forge data fetch` downloads the public data pack
   (the reference data's sources) for `forge data build`.
-- Lua 5.1 or LuaJIT: `play`, `playtest`, `record import`, `travel route` and
+- Lua 5.1 or LuaJIT: `play`, `playtest`, `travel route` and
   the addon tests.
   `$LUA` picks one when you have several.
 - The reference data, `data/forever/`: quest titles, givers and coordinates,
@@ -211,6 +211,16 @@ checks, and they are run before it is merged.
 AddOns folder and `pack.json`; `forge doctor` checks what Forge finds (the
 game, the data, Leffe's maps, the walking grid). `node tools/polestar.js
 help` and `forge --help` list their commands.
+
+**Generating routes and guides with `forge build`.** Leffe's navigation maps
+are private; the data pack carries the walks they answered, so your build runs
+the same hybrid as the maintainers' wherever those walks reach, and our own
+grid for the rest and for the baked legs. Your build is a check, not the
+release: send the change to the sources (guides, corrections,
+`data/route-fixes.json`), not the generated guides, and compare against your
+own build of the same commit without your change. The maintainers rebuild the
+shipped guides with his maps after merging
+([docs/FORGE.md](docs/FORGE.md#building-as-a-contributor)).
 
 ## Checks
 

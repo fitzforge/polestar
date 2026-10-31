@@ -469,14 +469,18 @@ impl Nav {
 				}
 				continue;
 			}
-			// rule: lowest indoor, else highest terrain, else the lowest usable.
+			// rule: lowest indoor, else the highest surface under the open sky, else highest
+			// terrain, else the lowest usable. A column with no indoor floor is outdoors: a place
+			// there stands on its top surface. Under a city's streets, a harbour's decks or a
+			// bridge lies terrain the models were built over (Stormwind's, Booty Bay's,
+			// Darnassus's); the highest terrain is that buried ground, not the street.
 			for cell in &cells {
 				let Some(t) = tile_of(cell) else { continue };
 				let k = kk(cell);
-				let pick = |test: &dyn Fn(u8) -> bool, highest: bool| -> Option<usize> {
+				let pick = |test: &dyn Fn(usize) -> bool, highest: bool| -> Option<usize> {
 					let mut best = None;
 					for e in t.first[k] as usize..t.first[k + 1] as usize {
-						if !self.usable(c, &t, k, cell, e, strict) || !test(t.flags[e]) {
+						if !self.usable(c, &t, k, cell, e, strict) || !test(e) {
 							continue;
 						}
 						if best.is_none() || highest {
@@ -485,7 +489,10 @@ impl Nav {
 					}
 					best
 				};
-				let e = pick(&|f| f & flag::INDOOR != 0, false).or_else(|| pick(&|f| f & flag::TERRAIN != 0, true)).or_else(|| pick(&|_| true, false));
+				let e = pick(&|e| t.flags[e] & flag::INDOOR != 0, false)
+					.or_else(|| pick(&|e| !t.ceil[e].is_finite(), true))
+					.or_else(|| pick(&|e| t.flags[e] & flag::TERRAIN != 0, true))
+					.or_else(|| pick(&|_| true, false));
 				if let Some(e) = e {
 					return Some(self.make(c, &t, k, cell, e));
 				}

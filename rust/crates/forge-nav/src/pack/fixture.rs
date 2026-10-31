@@ -48,7 +48,7 @@ pub fn map_files(f: &FixtureMap) -> Result<Vec<(String, String)>, String> {
 		cg.set_cluster(k as u32, cl);
 	}
 	let maps = encode_maps(&cg, &Hpa::default())?;
-	let (mut files, _) = pack_files(f.map, &cg, &maps, "PolestarPathData", f.gen, &[], None)?;
+	let (mut files, _) = pack_files(f.map, &cg, &maps, "PolestarPathData", f.gen, &[], None, None)?;
 	let meta = files[0].1.clone();
 	let mut edited = meta.clone();
 	let mut lines: Vec<String> = Vec::new();

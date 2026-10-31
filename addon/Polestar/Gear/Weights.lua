@@ -20,7 +20,8 @@
 --     per 1%; mp5/hp5 per point per 5 seconds; weapon DPS per 1 DPS.
 --   * dps = the melee weapon's DPS (main hand; the off hand counts half, its
 --     damage penalty), rdps = the ranged slot's DPS (bows, guns, crossbows,
---     thrown, wands). Feral Druids ignore weapon DPS: forms do not use it.
+--     thrown, wands). Feral has no dps here: Gear.WeightsFor gives it 14x its
+--     attack power weight, since Forever's forms hit with the weapon's DPS.
 --   * sp = spell damage of every school, spFire etc. = one school only, heal =
 --     healing. Classic +spell-power items carry both sp and heal, so damage
 --     specs read the sp half and healers the heal half.

@@ -755,3 +755,20 @@ stub.advance(0.6)
 	let after = run(&pack, &k(r#"emit({ tabs = tabIds(), steps = describe(Polestar.Guides.Get("lookup/handin/{KEY}")) })"#), Opts { at: None, saved: Some(saved), ..opts() }).remove(0);
 	assert_eq!(after, json!({ "tabs": ["lookup/handin/shadowfang-keep"], "steps": [{ "title": "Keeper Bel'dugur", "goals": "turnin:1013" }] }));
 }
+
+// A dungeon with a way in for each faction (the City of Dalaran, #706): the page, the arrow and the pick-up
+// guide's last step (all from Dungeons.Get, over the Codex pack's decoder) use the character's own.
+#[test]
+fn a_dungeon_with_a_way_in_for_each_faction_the_page_and_the_arrow_lead_to_the_character_s_own_the_guide_ends_there() {
+	let (mut codex, inputs) = fixture_parts();
+	codex["instances"][KEY]["entrance"]["A"] = json!({ "map": 1421, "x": 50, "y": 60 });
+	let sides = pack_of(&codex, &inputs);
+	let enter = k(r#"local d, def = D.Get("{KEY}"), D.PickupGuide("{KEY}")
+local at
+for _, g in ipairs(def and def.steps[#def.steps].goals or {}) do if g.t == "goto" then at = { g.map, g.x, g.y } end end
+emit({ page = { d.entrance.map, d.entrance.x, d.entrance.y }, arrow = { D.Entrance("{KEY}") }, guide = at })"#);
+	let horde = run(&sides, &enter, Opts::default()).remove(0);
+	assert_eq!(horde, json!({ "page": [1421, 44.8, 67.8], "arrow": [1421, 44.8, 67.8, "e"], "guide": [1421, 44.8, 67.8] }), "the Horde: the one way in");
+	let alliance = run(&sides, &enter, Opts { race: "Human", faction: "Alliance", cls: "PALADIN", done: vec![], log: vec![], ..Default::default() }).remove(0);
+	assert_eq!(json!([alliance["page"], alliance["arrow"]]), json!([[1421, 50, 60], [1421, 50, 60]]), "the Alliance: its own");
+}

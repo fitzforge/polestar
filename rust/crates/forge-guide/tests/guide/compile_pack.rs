@@ -240,3 +240,40 @@ fn a_pack_compiles_the_guides_under_its_folder_skipping_dist_drafts_node_modules
 	ids.sort();
 	assert_eq!(ids, ["mini/a", "mini/b", "mini/c"]);
 }
+
+#[cfg(unix)]
+#[test]
+fn a_license_retired_json_legs_json_or_pack_json_linked_out_of_the_pack_folder_is_refused_unread() {
+	let secret = scratch("cp-secret").join("hosts.yml");
+	std::fs::write(&secret, "oauth_token: do-not-ship\n").unwrap();
+	let mini = pack_fixture("mini");
+	let dir = scratch("cp-linked");
+	write_tree(&dir, &[("pack.json", &std::fs::read_to_string(mini.join("pack.json")).unwrap())]);
+	for f in find_guide_files(&mini, false) {
+		write_tree(&dir, &[(&f, &std::fs::read_to_string(mini.join(&f)).unwrap())]);
+	}
+	for name in ["LICENSE", "retired.json", "legs.json"] {
+		std::os::unix::fs::symlink(&secret, dir.join(name)).unwrap();
+	}
+	let manifest = manifest_of(&dir);
+	let mut p = forge_guide::project::compile_project(&dir, &manifest, &fixture_data(), forge_guide::diag::Diagnostics::new(), false, None);
+	let license = forge_guide::project::read_license(&dir, &manifest, &mut p.diag);
+	assert_eq!(license, None);
+	let errors: Vec<String> = p.diag.errors().iter().map(|d| d.message.clone()).collect();
+	for name in ["retired.json", "legs.json", "LICENSE"] {
+		assert!(errors.iter().any(|m| m.starts_with(&format!("{name} is a link or not a plain file"))), "{name}: {errors:?}");
+	}
+	assert!(p.diag.sorted().iter().all(|d| !d.message.contains("do-not-ship")), "no message quotes the file");
+	// pack.json itself.
+	let linked = scratch("cp-linked-manifest");
+	std::os::unix::fs::symlink(dir.join("pack.json"), linked.join("pack.json")).unwrap();
+	let (m, diags) = forge_guide::manifest::read_manifest(&linked, false);
+	assert!(m.is_none());
+	assert!(diags[0].message.starts_with("pack.json is a link or not a plain file"), "{diags:?}");
+	// A plain LICENSE is read as before.
+	std::fs::remove_file(dir.join("LICENSE")).unwrap();
+	std::fs::write(dir.join("LICENSE"), "MIT License\n").unwrap();
+	let mut diag = forge_guide::diag::Diagnostics::new();
+	assert_eq!(forge_guide::project::read_license(&dir, &manifest, &mut diag).as_deref(), Some("MIT License\n"));
+	assert!(diag.errors().is_empty());
+}

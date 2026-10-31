@@ -114,6 +114,8 @@ fn pack_into(grid: &Path, out: &Path, cells: usize) -> Result<forge_nav::pack::P
 		date: "2026-10-16",
 		continents: &[0],
 		generator: "forge nav pack",
+		leffe: None,
+		zlib_literals: false,
 		log: &log,
 	})?;
 	ship_pack(&pack, out)?;
@@ -139,6 +141,8 @@ fn ship_writes_files_pack_json_and_nav_xml_and_check_finds_changed_missing_unlis
 		date: "2026-10-16",
 		continents: &[0],
 		generator: "forge nav pack",
+		leffe: None,
+		zlib_literals: false,
 		log: &|_| {},
 	})
 	.unwrap();

@@ -265,9 +265,9 @@ fn registered_controls_read_and_write_settings_disabled_functions_follow_other_s
 		stub.RunScript(size.Slider, "OnValueChanged", 1.52, true)
 		c["fake.mode"].Button:Click()
 		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Manual" then r:Click() end end
-		c["Reset lockouts"]:Click()
+		c["Reset lockouts"].Button:Click()
 		emit({ before = before, after = after, blocked = blocked, size = Polestar.Get("fake.size"), mode = Polestar.Get("fake.mode"),
-			label = c["fake.mode"].Button.Label:GetText(), clicks = uifake.clicks(), rowH = c["fake.markers"]:GetHeight() })"#,
+			label = c["fake.mode"].Button.Label:GetText(), clicks = uifake.clicks(), asked = Polestar.Widgets.ModalShown() })"#,
 		"",
 		"",
 		FAKE_PAGE,
@@ -279,7 +279,7 @@ fn registered_controls_read_and_write_settings_disabled_functions_follow_other_s
 	assert_eq!(out["mode"], "manual");
 	assert_eq!(out["label"], "Manual");
 	assert_eq!(out["clicks"], 1);
-	assert_eq!(out["rowH"], 40);
+	assert_eq!(out["asked"], false, "a button without confirm acts at once");
 }
 
 #[test]
@@ -419,17 +419,23 @@ fn search_finds_settings_by_label_and_help_across_pages_registered_ones_included
 }
 
 #[test]
-fn reset_page_asks_twice_and_resets_only_that_page() {
+fn reset_page_asks_in_the_confirm_dialog_cancel_keeps_the_page_accept_resets_only_that_page() {
 	let out = run(r#"
 		Polestar.Set("ui.compact", true)
 		Polestar.Set("nav.arrowScale", 1.5)
 		UI.ShowOptions("guide")
 		local b = footerButton("Reset page")
 		b:Click()
-		local armed = { b.Label:GetText(), Polestar.Get("ui.compact") }
+		local asked = { Polestar.Widgets.ModalShown(), Polestar.Get("ui.compact") }
+		PolestarModal.Box.Cancel:Click()
+		local cancelled = { Polestar.Widgets.ModalShown(), Polestar.Get("ui.compact") }
 		b:Click()
-		emit({ armed = armed, compact = Polestar.Get("ui.compact"), arrow = Polestar.Get("nav.arrowScale") })"#);
-	assert_eq!(out["armed"], json!(["Click again to confirm", true]));
+		PolestarModal.Box.Action:Click()
+		emit({ asked = asked, cancelled = cancelled, closed = not Polestar.Widgets.ModalShown(), compact = Polestar.Get("ui.compact"),
+			arrow = Polestar.Get("nav.arrowScale") })"#);
+	assert_eq!(out["asked"], json!([true, true]), "the first click only asks");
+	assert_eq!(out["cancelled"], json!([false, true]), "cancel closes the dialog and resets nothing");
+	assert_eq!(out["closed"], true);
 	assert_eq!(out["compact"], false);
 	assert_eq!(out["arrow"], 1.5, "the arrow's look is on Appearance, not reset with Guide");
 }
@@ -462,7 +468,7 @@ fn recorder_page_not_installed_then_live_counts_and_a_stop_control() {
 	assert!(is_match(text(&missing["text"]), r"The Polestar Recorder addon is not loaded"));
 	let out = run(r#"
 		stub.addonsLoaded.Polestar_Recorder = true
-		PolestarRecorderDB = { enabled = true, current = "b", sessions = { a = { events = {} }, b = { char = { name = "Testchar" }, events = { {}, {}, {} } } } }
+		PolestarRecorderDB = { schema = 2, enabled = true, install = "k3j9x0q2m7ab", seq = 9, acked = 7, chunks = { [8] = ("x"):rep(1024), [9] = ("x"):rep(2048) } }
 		local sent = {}
 		PolestarRecorder_Command = function(arg) sent[#sent + 1] = arg; if arg == "off" then PolestarRecorderDB.enabled = false end end
 		UI.ShowOptions("recorder")
@@ -472,25 +478,30 @@ fn recorder_page_not_installed_then_live_counts_and_a_stop_control() {
 		for _, f in ipairs({ O.view:GetChildren() }) do if rawget(f, "Title") and f.Title:GetText() == "Stop recording" then stop = f end end
 		stop:Click()
 		emit({ values = values, sent = sent, after = stop.Title:GetText() })"#);
-	assert_eq!(out["values"], json!({ "Status": "Recording", "Sessions stored": "2", "Events this session": "3", "Character": "Testchar" }));
+	assert_eq!(out["values"], json!({ "Status": "Recording", "Waiting to upload": "2", "Stored": "3 KiB", "Last uploaded chunk": "7" }));
 	assert_eq!(out["sent"], json!(["off"]));
 	assert_eq!(out["after"], "Start recording");
 }
 
 #[test]
-fn about_reset_all_settings_asks_twice_reset_positions_clears_saved_positions() {
+fn about_reset_all_settings_asks_in_the_confirm_dialog_reset_positions_clears_saved_positions() {
 	let out = run(r#"
 		Polestar.Set("ui.scale", 1.4)
 		Polestar.Set("ui.pos", { 10, 20 })
 		UI.ShowOptions("about")
 		local reset = O.view.ResetAll
 		reset:Click()
-		local after1 = { Polestar.Get("ui.scale"), reset.Title:GetText() }
+		local asked = { Polestar.Get("ui.scale"), Polestar.Widgets.ModalShown() }
+		PolestarModal.Box.Cancel:Click()
+		local cancelled = Polestar.Get("ui.scale")
 		reset:Click()
+		PolestarModal.Box.Action:Click()
 		O.ResetPositions()
-		emit({ after1 = after1, after2 = Polestar.Get("ui.scale"), pos = Polestar.Get("ui.pos") or false, arrow = lastCall("ResetArrowPosition") })"#);
-	assert_eq!(out["after1"], json!([1.4, "Click again to confirm"]));
-	assert_eq!(out["after2"], 1);
+		emit({ asked = asked, cancelled = cancelled, accepted = Polestar.Get("ui.scale"), pos = Polestar.Get("ui.pos") or false,
+			arrow = lastCall("ResetArrowPosition") })"#);
+	assert_eq!(out["asked"], json!([1.4, true]), "the first click only asks");
+	assert_eq!(out["cancelled"], 1.4);
+	assert_eq!(out["accepted"], 1);
 	assert_eq!(out["pos"], false);
 	assert_eq!(out["arrow"], json!(["ResetArrowPosition"]));
 }
@@ -557,15 +568,15 @@ fn the_sidebar_page_list_never_reaches_the_version_line_it_scrolls_the_selected_
 			local floor = F.psNavTop + view
 			local statusTop = side - SH.foot - F.Status:GetStringHeight()
 			local chipTop = side - SH.foot - F.Status:GetStringHeight() / 2 - W.CHIP_H / 2
-			local activeTop, clipped = nil, true
+			local activeTop, activeH, clipped = nil, 0, true
 			for _, b in ipairs(F.navButtons) do
 				if b:IsShown() then
 					if b:GetParent() ~= sf.Child then clipped = false end
-					if b.Bar:IsShown() then local _, _, _, _, y = b:GetPoint(1); activeTop = -y end
+					if b.Bar:IsShown() then local _, _, _, _, y = b:GetPoint(1); activeTop, activeH = -y, b:GetHeight() end
 				end
 			end
 			return { floor = floor, foot = math.min(statusTop, chipTop), overflow = content > view, clipped = clipped,
-				activeIn = activeTop ~= nil and activeTop >= scroll and activeTop + 40 <= scroll + view + 0.01, bar = sf.Bar:IsShown() }
+				activeIn = activeTop ~= nil and activeTop >= scroll and activeTop + activeH <= scroll + view + 0.01, bar = sf.Bar:IsShown() }
 		end
 		local out = {}
 		for _, font in ipairs({ "game", "inter" }) do
@@ -678,9 +689,10 @@ fn switching_the_font_lays_the_page_out_again_a_label_that_now_wraps_grows_its_r
 		local row, below = c["ui.shown"], c["ui.locked"]
 		local function top(w) local _, _, _, _, y = w:GetPoint(1) return y end
 		local before = { h = row:GetHeight(), below = top(below), lines = row.Label:GetStringHeight() }
-		-- Inter set four times wider than the game font, as a font change can.
+		-- Inter set eight times wider than the game font, as a font change can (enough to wrap a label that fitted
+		-- on one line in the page's wide label column).
 		local M = stub.Methods
-		local function wide(self) return (self.font and tostring(self.font[1]):find("Inter")) and 4 or 1 end
+		local function wide(self) return (self.font and tostring(self.font[1]):find("Inter")) and 8 or 1 end
 		M.GetUnboundedStringWidth = function(self)
 			return #tostring(self.text or "") * ((self.font and self.font[2]) or 12) * 0.5 * wide(self)
 		end
@@ -696,7 +708,6 @@ fn switching_the_font_lays_the_page_out_again_a_label_that_now_wraps_grows_its_r
 		Polestar.Set("ui.font", "inter")
 		emit({ before = before, after = { h = row:GetHeight(), below = top(below), lines = row.Label:GetStringHeight() } })"#);
 	let (before, after) = (&out["before"], &out["after"]);
-	assert_eq!(before["h"], 40);
 	assert!(n(&after["lines"]) > n(&before["lines"]), "the label wraps: {} -> {}", before["lines"], after["lines"]);
 	assert!(n(&after["h"]) > n(&before["h"]), "its row grows: {} -> {}", before["h"], after["h"]);
 	assert!(n(&after["below"]) < n(&before["below"]), "the rows below move down: {} -> {}", before["below"], after["below"]);
@@ -897,8 +908,8 @@ fn discovery_dungeons_a_toggle_per_classic_dungeon_for_leveling_guides_all_off_c
 		dm:Click("RightButton")
 		local right = { dm = dm.checked, chosen = E.DungeonChosen(36) }
 		local _, found = O.Search("Огненная")
-		local b = footerButton("Reset page")
-		b:Click(); b:Click()
+		footerButton("Reset page"):Click()
+		PolestarModal.Box.Action:Click()
 		emit({ title = PolestarOptions.Title:GetText(), labels = labels, on = on, clicked = clicked, right = right, found = found,
 			reset = { rfc = rfc.checked, chosen = E.DungeonChosen(389), saved = PolestarCharDB.dungeons },
 			account = account })"#,

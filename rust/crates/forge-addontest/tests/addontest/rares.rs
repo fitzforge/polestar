@@ -243,14 +243,14 @@ Polestar.Codex.Load()
 U.unit("nameplate1", { npc = 61, name = "Thuros Lightfingers", level = 11, class = "rare" })
 stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
 local a = got[1]
-local facts = R.Toast.Facts(a)
+local distance = R.Toast.Distance(a)
 PolestarRareToast.Waypoint:Click()
 local t = Polestar.Nav.GetTarget()
-emit({ map = a.map, x = a.x, y = a.y, spawn = a.spawnYards or false, facts = facts, target = { t.map, t.x, t.y } })"#,
+emit({ map = a.map, x = a.x, y = a.y, spawn = a.spawnYards or false, distance = distance, target = { t.map, t.x, t.y } })"#,
 		[1429, 75, 60],
 		None,
 	);
-	assert_eq!(out[0], json!({ "map": 1429, "x": 75, "y": 60, "spawn": false, "facts": "Level 11 Rare  \u{b7}  in sight  \u{b7}  Elwynn Forest", "target": [1429, 75, 60] }));
+	assert_eq!(out[0], json!({ "map": 1429, "x": 75, "y": 60, "spawn": false, "distance": "In sight", "target": [1429, 75, 60] }));
 }
 
 #[test]
@@ -262,13 +262,13 @@ Polestar.Codex.Load()
 U.vignette("V1", { npc = 61, name = "Thuros Lightfingers" })
 stub.fire("VIGNETTE_MINIMAP_UPDATED", "V1", true)
 local a = got[1]
-emit({ map = a.map, x = a.x, f = a.f, spawn = a.spawnYards and math.floor(a.spawnYards + 0.5), inSight = a.inSight or false, facts = R.Toast.Facts(a) })
+emit({ map = a.map, x = a.x, f = a.f, spawn = a.spawnYards and math.floor(a.spawnYards + 0.5), inSight = a.inSight or false, distance = R.Toast.Distance(a) })
 -- By the click it has one: the waypoint goes there, not to the spawn.
 U.vignette("V1", { npc = 61, name = "Thuros Lightfingers", map = 1429, x = 80, y = 70 })
 PolestarRareToast.Waypoint:Click()
 local t = Polestar.Nav.GetTarget()
 emit({ t.map, t.x, t.y, t.f or false })"#);
-	assert_eq!(out[0], json!({ "map": 1429, "x": 89.4, "f": "e", "spawn": 57, "inSight": false, "facts": "Level 11 Rare  \u{b7}  known spawn 55 yd  \u{b7}  Elwynn Forest" }));
+	assert_eq!(out[0], json!({ "map": 1429, "x": 89.4, "f": "e", "spawn": 57, "inSight": false, "distance": "Known spawn 55 yd" }));
 	assert_eq!(out[1], json!([1429, 80, 70, false]));
 }
 
@@ -328,6 +328,243 @@ emit({ after = #got })"#);
 	assert_eq!(out[2], json!({ "after": 1 }));
 }
 
+// Start with a real detection event, not a manually populated hold. The GUID
+// is a synthetic creature instance of the existing Thuros fixture.
+const HELD_RARE: &str = r#"
+local U = stub.rares
+stub.inCombat = true
+U.unit("target", { guid = "Creature-0-1-0-1-61-000000000001", name = "Thuros Lightfingers", level = 11, class = "rare" })
+stub.fire("PLAYER_TARGET_CHANGED")
+assert(R.Held() ~= nil, "the sighting must be held during combat")
+assert(#got == 0 and #stub.sounds == 0 and not R.Toast.Current(), "nothing alerts during the hold")
+local function finishCombat()
+	stub.inCombat = false
+	stub.fire("PLAYER_REGEN_ENABLED")
+	stub.runTimers()
+end
+local function notificationState()
+	local e = R.History()["rare:61"]
+	return { alerts = #got, sounds = #stub.sounds,
+		toast = PolestarRareToast and PolestarRareToast:IsShown() or false,
+		alerted = e ~= nil and e.alerted ~= nil }
+end
+"#;
+
+fn run_held(script: &str) -> Vec<Value> {
+	run(&[HELD_RARE, script].concat())
+}
+
+fn quiet() -> Value {
+	json!({ "alerts": 0, "sounds": 0, "toast": false, "alerted": false })
+}
+
+fn alerted() -> Value {
+	json!({ "alerts": 1, "sounds": 1, "toast": true, "alerted": true })
+}
+
+#[test]
+fn held_rare_alert_observing_the_same_creature_dead_cancels_its_notification_without_starting_a_cooldown() {
+	let out = run_held(
+		r#"
+-- The rare died, but another enemy keeps the player in combat. Moving the
+-- cursor over the corpse delivers a fresh observation of the same GUID.
+stub.advance(4)
+U.units.target.dead = true
+U.unit("mouseover", U.units.target)
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit({ recorded = R.History()["rare:61"].dead ~= nil, sightings = R.History()["rare:61"].n })
+finishCombat()
+emit(notificationState())"#,
+	);
+	assert_eq!(out[0], json!({ "recorded": true, "sightings": 2 }), "the death observation reached the addon");
+	assert_eq!(out[1], quiet());
+}
+
+#[test]
+fn held_rare_alert_a_death_observed_one_second_after_detection_is_recorded_and_cancels_the_pending_notification() {
+	let out = run_held(
+		r#"
+stub.advance(1)
+U.units.target.dead = true
+U.unit("mouseover", U.units.target)
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit({ recorded = R.History()["rare:61"].dead ~= nil, sightings = R.History()["rare:61"].n, held = R.Held() ~= nil })
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit(R.History()["rare:61"].n)
+finishCombat()
+emit(notificationState())"#,
+	);
+	assert_eq!(out[0], json!({ "recorded": true, "sightings": 2, "held": false }), "the alive-to-dead transition must bypass the GUID debounce");
+	assert_eq!(out[1], 2, "an unchanged dead sighting remains throttled");
+	assert_eq!(out[2], quiet());
+}
+
+#[test]
+fn held_rare_alert_unchanged_alive_sightings_stay_throttled_across_unit_sources() {
+	let out = run_held(
+		r#"
+stub.advance(1)
+U.unit("mouseover", U.units.target)
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({ sightings = R.History()["rare:61"].n, held = R.Held() ~= nil, notification = notificationState() })
+finishCombat()
+emit(notificationState())"#,
+	);
+	assert_eq!(out[0], json!({ "sightings": 1, "held": true, "notification": quiet() }));
+	assert_eq!(out[1], alerted());
+}
+
+fn held_then(change: &str) -> Value {
+	run_held(&[change, "\nfinishCombat()\nemit(notificationState())"].concat()).remove(0)
+}
+
+#[test]
+fn held_rare_alert_no_notification_or_cooldown_when_alerts_are_disabled() {
+	assert_eq!(held_then(r#"Polestar.Set("rares.alerts", false)"#), quiet());
+}
+
+#[test]
+fn held_rare_alert_no_notification_or_cooldown_when_the_rare_is_ignored() {
+	assert_eq!(held_then(r#"R.Ignore("rare:61", true)"#), quiet());
+}
+
+#[test]
+fn held_rare_alert_no_notification_or_cooldown_when_its_detection_source_is_disabled() {
+	assert_eq!(held_then(r#"Polestar.Set("rares.target", false)"#), quiet());
+}
+
+#[test]
+fn held_rare_alert_a_different_guid_with_the_same_npc_id_dying_leaves_the_valid_notification_intact() {
+	let out = run_held(
+		r#"
+-- Both GUIDs identify NPC 61, but only the second creature is dead.
+U.unit("mouseover", { guid = "Creature-0-1-0-1-61-000000000002", name = "Thuros Lightfingers", level = 11, class = "rare", dead = true })
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+emit({ recorded = R.History()["rare:61"].dead ~= nil, sightings = R.History()["rare:61"].n,
+	other = UnitGUID("target") ~= UnitGUID("mouseover"), alive = not UnitIsDead("target") })
+finishCombat()
+emit({ notification = notificationState(), name = got[1] and got[1].name })"#,
+	);
+	assert_eq!(out[0], json!({ "recorded": true, "sightings": 2, "other": true, "alive": true }));
+	assert_eq!(out[1], json!({ "notification": alerted(), "name": "Thuros Lightfingers" }));
+}
+
+// Exercise the public sighting API: the unit detector itself rejects missing
+// GUIDs, but callers must not conflate two unknown identities.
+fn uncertain_death(pending_guid: &str, death_guid: &str) {
+	let out = run_held(&format!(
+		r#"
+R.Sighting({{ source = "target", kind = "rare", id = 61, name = "Thuros Lightfingers", classification = "rare", guid = {pending_guid} }})
+R.Sighting({{ source = "mouseover", kind = "rare", id = 61, name = "Thuros Lightfingers", classification = "rare", guid = {death_guid}, dead = true }})
+emit({{ recorded = R.History()["rare:61"].dead ~= nil, held = R.Held() ~= nil }})
+finishCombat()
+emit(notificationState())"#
+	));
+	assert_eq!(out[0], json!({ "recorded": true, "held": true }));
+	assert_eq!(out[1], alerted());
+}
+
+#[test]
+fn held_rare_alert_an_uncertain_death_does_not_cancel_a_sighting_death_guid_unavailable() {
+	uncertain_death(r#""Creature-0-1-0-1-61-000000000001""#, "nil");
+}
+
+#[test]
+fn held_rare_alert_an_uncertain_death_does_not_cancel_a_sighting_pending_guid_unavailable() {
+	uncertain_death("nil", r#""Creature-0-1-0-1-61-000000000001""#);
+}
+
+#[test]
+fn held_rare_alert_an_uncertain_death_does_not_cancel_a_sighting_both_guids_unavailable() {
+	uncertain_death("nil", "nil");
+}
+
+#[test]
+fn held_rare_alert_release_respects_a_newer_alert_cooldown_without_changing_its_timestamp() {
+	let out = run_held(
+		r#"
+Polestar.Set("rares.combatAlerts", true)
+stub.advance(4)
+stub.fire("PLAYER_TARGET_CHANGED")
+local alerted = R.History()["rare:61"].alerted
+emit(notificationState())
+stub.advance(2)
+finishCombat()
+emit({ notification = notificationState(), unchanged = R.History()["rare:61"].alerted == alerted })"#,
+	);
+	assert_eq!(out[0], alerted());
+	assert_eq!(out[1], json!({ "notification": alerted(), "unchanged": true }));
+}
+
+#[test]
+fn held_rare_alert_a_vignette_death_within_one_second_bypasses_debounce_once() {
+	let out = run(r#"
+local U = stub.rares
+stub.inCombat = true
+U.vignette("V1", { npc = 61, name = "Thuros Lightfingers", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V1", true)
+assert(R.Held() ~= nil and #got == 0, "the vignette alert must start held")
+stub.advance(1)
+U.vignettes.V1.dead = true
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V1", true)
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V1", true)
+emit({ recorded = R.History()["rare:61"].dead ~= nil, sightings = R.History()["rare:61"].n, held = R.Held() ~= nil })
+stub.inCombat = false
+stub.fire("PLAYER_REGEN_ENABLED")
+emit({ alerts = #got, sounds = #stub.sounds, toast = PolestarRareToast and PolestarRareToast:IsShown() or false,
+	alerted = R.History()["rare:61"].alerted ~= nil })"#);
+	assert_eq!(out[0], json!({ "recorded": true, "sightings": 2, "held": false }));
+	assert_eq!(out[1], quiet());
+}
+
+#[test]
+fn held_rare_alert_clearing_history_drops_the_pending_notification_and_keeps_history_empty() {
+	let out = run_held(
+		r#"
+R.ClearHistory()
+finishCombat()
+emit({ notification = notificationState(), empty = next(R.History()) == nil })"#,
+	);
+	assert_eq!(out[0], json!({ "notification": quiet(), "empty": true }));
+}
+
+#[test]
+fn held_rare_alert_disabling_the_module_prevents_a_notification_after_combat() {
+	let out = run_held(
+		r#"
+Polestar.Set("rares.enabled", false)
+finishCombat()
+emit({ notification = notificationState(), paths = R.Detect.Paths(), recorded = R.History()["rare:61"] ~= nil })"#,
+	);
+	assert_eq!(out[0], json!({ "notification": quiet(), "paths": {}, "recorded": true }));
+}
+
+#[test]
+fn held_rare_alert_a_later_respawn_can_alert_despite_an_earlier_death_in_history() {
+	let out = run(r#"
+local U = stub.rares
+U.unit("target", { guid = "Creature-0-1-0-1-61-000000000001", name = "Thuros Lightfingers", level = 11, class = "rare", dead = true })
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({ recorded = R.History()["rare:61"].dead ~= nil, alerted = R.History()["rare:61"].alerted ~= nil,
+	alerts = #got, sounds = #stub.sounds })
+-- A later spawn of the same NPC is a new creature instance. Keep the
+-- earlier death in history: it must not suppress this fresh, live sighting.
+stub.advance(11 * 60)
+stub.inCombat = true
+U.unit("target", { guid = "Creature-0-1-0-1-61-000000000002", name = "Thuros Lightfingers", level = 11, class = "rare" })
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({ held = R.Held() ~= nil, alerts = #got, sounds = #stub.sounds })
+stub.advance(4)
+stub.inCombat = false
+stub.fire("PLAYER_REGEN_ENABLED")
+emit({ alerts = #got, sounds = #stub.sounds, toast = PolestarRareToast and PolestarRareToast:IsShown() or false,
+	name = got[1] and got[1].name, alerted = R.History()["rare:61"].alerted ~= nil })"#);
+	assert_eq!(out[0], json!({ "recorded": true, "alerted": false, "alerts": 0, "sounds": 0 }));
+	assert_eq!(out[1], json!({ "held": true, "alerts": 0, "sounds": 0 }));
+	assert_eq!(out[2], json!({ "alerts": 1, "sounds": 1, "toast": true, "name": "Thuros Lightfingers", "alerted": true }));
+}
+
 #[test]
 fn vignettes_a_creature_is_a_rare_at_its_exact_distance_a_game_object_a_treasure_the_scan_waits_out_combat() {
 	let out = run(r#"
@@ -377,7 +614,7 @@ emit({ n = #got, paths = R.Detect.Paths() })"#);
 }
 
 #[test]
-fn the_toast_shows_the_alert_name_facts_line_actions_show_rare_opens_the_section_event() {
+fn the_toast_shows_the_alert_name_facts_line_distance_actions_show_rare_opens_the_section_event() {
 	let out = run(r#"
 local U = stub.rares
 local opened
@@ -387,15 +624,16 @@ U.vignette("V1", { npc = 61, name = "Thuros Lightfingers", map = 1429, x = 90, y
 stub.fire("VIGNETTE_MINIMAP_UPDATED", "V1", true)
 local f = PolestarRareToast
 local shown = f:IsShown()
-local facts = R.Toast.Facts(got[1])
+local facts, distance = f.Facts:GetText(), f.Distance:IsShown() and f.Distance:GetText()
 local name = f.Name:GetText()
 local label = f.Open.Label:GetText()
 f.Open:Click()
-emit({ shown = shown, name = name, facts = facts, label = label, opened = opened, hidden = not f:IsShown() })"#);
+emit({ shown = shown, name = name, facts = facts, distance = distance, label = label, opened = opened, hidden = not f:IsShown() })"#);
 	let out = &out[0];
 	assert_eq!(out["shown"], true);
 	assert_eq!(out["name"], "Thuros Lightfingers");
-	assert_eq!(out["facts"], "Level 11 Rare  \u{b7}  70 yd  \u{b7}  Elwynn Forest");
+	assert_eq!(out["facts"], "Level 11 Rare  \u{b7}  Elwynn Forest");
+	assert_eq!(out["distance"], "70 yd");
 	assert_eq!(out["label"], "Show rare");
 	assert_eq!(out["opened"], json!(["rare", 61]));
 	assert_eq!(out["hidden"], true);
@@ -462,7 +700,7 @@ local list = {
 }
 local function sum(pins)
 	local out = {}
-	for i, p in ipairs(pins) do out[i] = { p.id, p.map, p.x, p.f or false, p.icon, p.ring and true or false, p.glow or false, p.priority } end
+	for i, p in ipairs(pins) do out[i] = { p.id, p.map, p.x, p.f or false, p.icon, p.ring and true or false, p.ring2 and true or false, p.glow or false, p.priority } end
 	return out
 end
 local base = { kind = "rare", list = list, level = 20, now = 100000,
@@ -477,19 +715,19 @@ emit({ all = sum(all), grey = sum(grey), greyLevel = { R.GreyLevel(5), R.GreyLev
 	assert_eq!(
 		out["all"],
 		json!([
-			[1, 1429, 10, false, "qol-target", false, false, 2],
-			[2, 1429, 20, "e", "qol-target", false, false, 2],
-			[2, 1429, 40, false, "qol-target", false, false, 2],
-			[2, 1436, 20, false, "qol-target", false, false, 2],
-			[3, 1429, 50, false, "qol-target", false, false, 2],
-			[4, 1429, 60, false, "qol-target", true, false, 3],
-			[6, 1429, 70, false, "qol-target", false, true, 4],
+			[1, 1429, 10, false, "map:rare", false, false, false, 2],
+			[2, 1429, 20, "e", "map:rare", false, false, false, 2],
+			[2, 1429, 40, false, "map:rare", false, false, false, 2],
+			[2, 1436, 20, false, "map:rare", false, false, false, 2],
+			[3, 1429, 50, false, "map:rare", false, false, false, 2],
+			[4, 1429, 60, false, "map:rare", true, false, false, 3],
+			[6, 1429, 70, false, "map:rare", false, true, false, 4],
 		])
 	);
 	let grey: Vec<Value> = out["grey"].as_array().unwrap().iter().map(|p| p[0].clone()).collect();
 	assert_eq!(json!(grey), json!([2, 2, 2, 3, 4, 6]), "level 3 is grey at 20 (grey up to 13)");
 	assert_eq!(out["greyLevel"], json!([0, 13, 35, 51]));
-	assert_eq!(out["treasure"], json!(["icon-treasure", "treasure", "treasure:2843", 13]));
+	assert_eq!(out["treasure"], json!(["map:treasure", "treasure", "treasure:2843", 13]));
 	assert_eq!(out["tip"], "function");
 }
 

@@ -19,17 +19,25 @@ fn nav() -> PathBuf {
 	addons_dir().join("Polestar_Nav")
 }
 
+// Where a map's part files are: its part addon (maps format 5: Polestar_Nav_EK, _Kalimdor) or Polestar_Nav/Nav.
+fn parts_dir(map: i32) -> (PathBuf, Option<&'static str>) {
+	match forge_nav::pack::part_of(map as u32).filter(|p| addons_dir().join(p).is_dir()) {
+		Some(p) => (addons_dir().join(p), Some(p)),
+		None => (nav().join("Nav"), None),
+	}
+}
+
 // The cluster of a world point on `map` (its metadata file's frame), and the part file holding its graph.
 fn part_of(map: i32, wx: f64, wy: f64) -> Option<String> {
-	let dir = nav().join("Nav");
-	let meta = fs::read_to_string(dir.join(format!("Nav{map}.lua"))).unwrap();
+	let meta = fs::read_to_string(nav().join("Nav").join(format!("Nav{map}.lua"))).unwrap();
 	let num = |k: &str| -> i64 { Regex::new(&format!(r"\t{k} = (-?\d+),")).unwrap().captures(&meta).unwrap_or_else(|| panic!("no {k} in Nav{map}.lua"))[1].parse().unwrap() };
 	let k = ((wx / T).floor() as i64 - num("cx0")) * num("ny") + ((wy / T).floor() as i64 - num("cy0"));
 	let re = Regex::new(&format!(r"^Nav{map}_\d+\.lua$")).unwrap();
 	let needle = format!(".graph[{}] = ", k + 1);
+	let dir = parts_dir(map).0;
 	let mut names: Vec<String> = fs::read_dir(&dir).unwrap().map(|e| e.unwrap().file_name().to_string_lossy().into_owned()).collect();
 	names.sort();
-	names.into_iter().find(|f| re.is_match(f) && fs::read_to_string(dir.join(f)).unwrap().contains(&needle))
+	names.into_iter().find(|f| re.is_match(f) && String::from_utf8_lossy(&fs::read(dir.join(f)).unwrap()).contains(&needle))
 }
 
 // Walks crossing several clusters (and part files): Stranglethorn's jungle to Goldshire, the Crossroads to
@@ -55,15 +63,10 @@ fn middle_part(map: i32) -> Option<String> {
 	None
 }
 
-// Polestar_Nav's files without `drop`, relative to its folder.
-fn without(drop: &str) -> Vec<String> {
-	let nav = nav();
-	toc_files("Polestar_Nav")
-		.unwrap()
-		.iter()
-		.filter(|f| f.file_name().map(|n| n.to_string_lossy() != drop).unwrap_or(true))
-		.map(|f| f.strip_prefix(&nav).unwrap().to_string_lossy().into_owned())
-		.collect()
+// An addon's files without `drop`, relative to its folder.
+fn without(addon: &str, drop: &str) -> Vec<String> {
+	let dir = addons_dir().join(addon);
+	toc_files(addon).unwrap().iter().filter(|f| f.file_name().map(|n| n.to_string_lossy() != drop).unwrap_or(true)).map(|f| f.strip_prefix(&dir).unwrap().to_string_lossy().into_owned()).collect()
 }
 
 const WALK_LUA: &str = r#"
@@ -87,9 +90,15 @@ fn c17(map: i32) {
 	let drop = drop.unwrap();
 	let whole = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], addons: vec![Addon::name("Polestar_Nav")], script: walk(map), ..Default::default() }).remove(0);
 	assert_eq!(whole["found"], true, "with every file the walk routes (map {map})");
-	let files = without(&drop);
+	// The file goes missing from Polestar_Nav, or from the map's part addon (which the router loads on demand).
+	let (_, part) = parts_dir(map);
+	let files = without(part.unwrap_or("Polestar_Nav"), &drop);
 	let files: Vec<&str> = files.iter().map(String::as_str).collect();
-	let out = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], addons: vec![Addon::files("Polestar_Nav", &files)], script: walk(map), ..Default::default() }).remove(0);
+	let addons = match part {
+		Some(p) => vec![Addon::name("Polestar_Nav"), Addon::files(p, &files)],
+		None => vec![Addon::files("Polestar_Nav", &files)],
+	};
+	let out = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], addons, script: walk(map), ..Default::default() }).remove(0);
 	assert_eq!(out["ok"], true, "no Lua error without {drop}: {}", text(&out["why"]));
 	assert_eq!(out["found"], false);
 	assert_eq!(out["why"], "nodata", "the map is dropped whole");

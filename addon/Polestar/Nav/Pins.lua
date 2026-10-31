@@ -17,6 +17,13 @@
 --   area or hull draws, no pin), backdrop (true: icon pins sit on a dark
 --   Theme "scrim" disc), ring ({ r, g, b, a }: a thin circle around the pin), minimapSize
 --   (size on the minimap instead of size).
+--   Map marks (icon "map:<name>", Media/Map/icon-<name>, tools/media/map.js): the glyph
+--   sits in the skin's medallion (medal = false: bare, for the target's other spots and
+--   dots); ring2 ({ r, g, b, a }: a dashed circle further out), badge (a number or text in
+--   an accent capsule at the top right: a cluster's count, "?" for an unknown flight
+--   master), state ("focus": 1.3 times the size in an accent ring; "dim": at 60%),
+--   medalSize (the medallion's own size, a cluster's). A map mark clamped to the minimap's
+--   rim keeps medallion and glyph, the edge pointer on its side toward the target.
 --   Pins.SetTrail(runs, opts)          the travel route's dots; runs = { { live = true, point, ... }, ... },
 --                                      point = { c, wx, wy }; opts = { world = true, minimap = true, color }
 --   Pins.ClearTrail()
@@ -58,13 +65,23 @@ local ADDON, ns = ...
 
 local type, pairs, ipairs, tonumber, pcall = type, pairs, ipairs, tonumber, pcall
 local sqrt, atan2, sin, cos, abs, max, pi, ceil = math.sqrt, math.atan2, math.sin, math.cos, math.abs, math.max, math.pi, math.ceil
-local floor = math.floor
+local floor, min = math.floor, math.min
 
 local Pins = {}
 ns.Pins = Pins
 local L = ns.L
 
 local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Nav\\"
+local MAP_MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Map\\"
+-- Map marks (see the header): the medallion is MEDAL_SCALE times the mark (an
+-- even size), the glyph texture GLYPH_FRAME times it (its 1.5-unit contour
+-- margin on the 24-unit grid), the rings 5 and 11 px wider than the medallion,
+-- the glow GLOW_SCALE times it, the edge pointer EDGE_W by EDGE_H of it.
+local MEDAL_SCALE, GLYPH_FRAME, GLOW_SCALE = 1.4, 27 / 24, 2.3
+local RING_PAD, RING2_PAD = 5, 11
+local EDGE_W, EDGE_H = 0.42, 0.3
+local FOCUS_SCALE, DIM_ALPHA = 1.3, 0.6
+local BADGE_H = 14
 local AREA_ALPHA = 0.32 -- area disc opacity, times the pin colour's alpha
 -- Hulls: fill and rim opacity (times the pin colour's alpha), the rim's width
 -- on screen (UI units), and the solid texture their pieces are cut from.
@@ -230,6 +247,8 @@ end
 
 local function iconPath(icon)
 	if type(icon) ~= "string" or icon == "" then return nil end
+	local mark = icon:match("^map:(.+)$")
+	if mark then return MAP_MEDIA .. "icon-" .. mark, true end
 	if icon:find("[\\/]") then return icon end
 	local T = ns.Theme
 	if type(T) == "table" and type(T.Media) == "function" then
@@ -265,6 +284,42 @@ local function backdropColor()
 	return 0.04, 0.05, 0.08
 end
 
+local BADGE_COORDS = { { 0, 0.25 }, { 0.25, 0.75 }, { 0.75, 1 } }
+local function badgeSlices(f, sublevel)
+	local slices = {}
+	for i, c in ipairs(BADGE_COORDS) do
+		local t = f:CreateTexture(nil, "OVERLAY", nil, sublevel)
+		t:SetTexture(MAP_MEDIA .. "badge")
+		t:SetTexCoord(c[1], c[2], 0, 1)
+		slices[i] = t
+	end
+	return slices
+end
+
+-- Lays three slices out as a capsule w by h whose top-left corner is (x, y)
+-- from the pin's centre.
+local function placeSlices(f, slices, x, y, w, h)
+	local l, m, r = slices[1], slices[2], slices[3]
+	l:ClearAllPoints()
+	l:SetPoint("TOPLEFT", f, "CENTER", x, y)
+	l:SetSize(h / 2, h)
+	m:ClearAllPoints()
+	m:SetPoint("TOPLEFT", l, "TOPRIGHT")
+	m:SetSize(max(w - h, 0.01), h)
+	r:ClearAllPoints()
+	r:SetPoint("TOPLEFT", m, "TOPRIGHT")
+	r:SetSize(h / 2, h)
+end
+
+local function showBadge(f, on)
+	local b = f.badge
+	for i = 1, 3 do
+		b.rim[i]:SetShown(on)
+		b.fill[i]:SetShown(on)
+	end
+	b.text:SetShown(on)
+end
+
 local function buildLook(f)
 	f.glow = f:CreateTexture(nil, "BACKGROUND")
 	f.glow:SetTexture(MEDIA .. "glow")
@@ -288,6 +343,79 @@ local function buildLook(f)
 	f.edge:SetTexture(MEDIA .. "edge")
 	f.edge:SetPoint("CENTER")
 	f.edge:Hide()
+	-- Map marks: the skin's medallion under the glyph, a dashed ring, a badge.
+	f.medal = f:CreateTexture(nil, "BORDER")
+	f.medal:SetPoint("CENTER")
+	f.ring2 = f:CreateTexture(nil, "OVERLAY")
+	f.ring2:SetTexture(MAP_MEDIA .. "ring-dashed")
+	f.ring2:SetPoint("CENTER")
+	-- The badge: a capsule in three slices (8 + 16 + 8 px of a 32 by 16
+	-- texture), so its width follows the text, over a black rim 1.5 px wider;
+	-- regions of the pin itself, as a minimap pin may hold no frame of its own.
+	f.badge = { rim = badgeSlices(f, 2), fill = badgeSlices(f, 3), text = f:CreateFontString(nil, "OVERLAY") }
+	if f.badge.text.SetDrawLayer then f.badge.text:SetDrawLayer("OVERLAY", 4) end
+	showBadge(f, false)
+end
+
+-- The icon pack (nav.mapIcons): the medallion under every map mark
+-- (Media/Map/medallion-<pack>), or "bare" for the glyphs alone. "skin", the
+-- default, takes the skin's: Polestar's, Halo's, or Hearth's for Hearth and
+-- the game's own looks.
+ns.RegisterDefaults("nav", { mapIcons = "skin" })
+local MEDALS = {
+	polestar = MAP_MEDIA .. "medallion-polestar", halo = MAP_MEDIA .. "medallion-halo", hearth = MAP_MEDIA .. "medallion-hearth",
+}
+function Pins.IconPack(v)
+	if v == nil then v = ns.Get and ns.Get("nav.mapIcons") end
+	if MEDALS[v] or v == "bare" then return v end
+	local T = ns.Theme
+	local key = type(T) == "table" and type(T.SkinKey) == "function" and T.SkinKey() or "polestar"
+	return MEDALS[key] and key or "hearth"
+end
+
+local function themeColor(name, r, g, b)
+	local T = ns.Theme
+	if type(T) == "table" and type(T.Color) == "function" then
+		local ok, cr, cg, cb = pcall(T.Color, name)
+		if ok and type(cr) == "number" then return cr, cg, cb end
+	end
+	return r, g, b
+end
+
+local function rgba(c)
+	return c[1] or c.r or 1, c[2] or c.g or 1, c[3] or c.b or 1, c[4] or c.a or 1
+end
+
+-- A map mark's badge: `text` in an accent capsule, 14 px high, its top-right
+-- corner over the medallion's (x = 0.22 of the medallion right of centre,
+-- 2 px above its top).
+local function applyBadge(f, text, medal, a)
+	local b = f.badge
+	if text == nil then
+		showBadge(f, false)
+		return
+	end
+	local r, g, bl = themeColor("accent", 0.902, 0.729, 0.4)
+	for i = 1, 3 do
+		b.fill[i]:SetVertexColor(r, g, bl, a)
+		b.rim[i]:SetVertexColor(0, 0, 0, a)
+	end
+	local T = ns.Theme
+	if type(T) == "table" and type(T.FontSpec) == "function" then
+		local ok, path = pcall(T.FontSpec, "body")
+		if ok and path then b.text:SetFont(path, 9, "") end
+	end
+	if not b.text:GetFont() then b.text:SetFontObject("GameFontNormalSmall") end
+	b.text:SetText(tostring(text))
+	b.text:SetTextColor(themeColor("onAccent", 0.04, 0.05, 0.08))
+	b.text:SetAlpha(a)
+	local w = max(BADGE_H, ceil((b.text:GetStringWidth() or 0) + 7))
+	local x, y = medal * 0.22 - BADGE_H / 2, medal / 2 + 2
+	placeSlices(f, b.fill, x, y, w, BADGE_H)
+	placeSlices(f, b.rim, x - 1.5, y + 1.5, w + 3, BADGE_H + 3)
+	b.text:ClearAllPoints()
+	b.text:SetPoint("CENTER", f, "CENTER", x + w / 2, y - BADGE_H / 2 + 0.5)
+	showBadge(f, true)
 end
 
 -- In every skin but the house style each glyph pin sits on a dark disc
@@ -300,6 +428,20 @@ end
 -- Shows the parts of a pin's look for its current state (clamped minimap
 -- pins show only the edge pointer).
 local function showParts(f, p, clamped)
+	if f.mapMark then
+		-- A map mark keeps medallion and glyph on the minimap's rim, with the pointer.
+		f.fill:Hide()
+		f.ring:Hide()
+		f.back:Hide()
+		f.icon:Show()
+		f.medal:SetShown(not f.bare)
+		f.mark:SetShown(not clamped and f.ringOn and true or false)
+		f.ring2:SetShown(not clamped and type(p.ring2) == "table")
+		f.glow:SetShown(not clamped and p.glow and true or false)
+		showBadge(f, not clamped and p.badge ~= nil)
+		f.edge:SetShown(clamped and true or false)
+		return
+	end
 	local icon = f.hasIcon
 	f.fill:SetShown(not clamped and not icon)
 	f.ring:SetShown(not clamped and not icon)
@@ -310,10 +452,77 @@ local function showParts(f, p, clamped)
 	f.edge:SetShown(clamped and true or false)
 end
 
-local function applyLook(f, p, size)
+-- A map mark (see the header): the glyph, tinted, in the skin's medallion,
+-- with its ring, dashed ring, glow, badge and edge pointer.
+local function applyMark(f, p, size, path)
+	if p.state == "focus" then size = size * FOCUS_SCALE end
 	f:SetSize(size, size)
 	local r, g, b, a = pinColor(p)
-	local path = iconPath(p.icon)
+	if p.state == "dim" then a = a * DIM_ALPHA end
+	f.mapMark, f.hasIcon = true, true
+	f.icon:ClearAllPoints()
+	f.icon:SetPoint("CENTER")
+	f.icon:SetSize(size * GLYPH_FRAME, size * GLYPH_FRAME)
+	f.icon:SetTexture(path)
+	f.icon:SetVertexColor(r, g, b, a)
+	local medal = tonumber(p.medalSize) or (2 * floor(size * MEDAL_SCALE / 2 + 0.5))
+	local pack = Pins.IconPack()
+	f.bare = p.medal == false or pack == "bare"
+	if p.medal == false then medal = size end
+	f.medalPx = medal
+	f.medal:SetTexture(MEDALS[pack] or MEDALS.polestar)
+	f.medal:SetSize(medal, medal)
+	f.medal:SetVertexColor(1, 1, 1, a)
+	local ring = type(p.ring) == "table" and p.ring or nil
+	if p.state == "focus" and not ring then ring = { themeColor("accent", 0.902, 0.729, 0.4) } end
+	f.ringOn = ring ~= nil
+	f.mark:SetTexture(MAP_MEDIA .. "ring")
+	if ring then
+		local rr, rg, rb, ra = rgba(ring)
+		f.mark:SetSize(medal + RING_PAD, medal + RING_PAD)
+		f.mark:SetVertexColor(rr, rg, rb, ra * a)
+	end
+	if type(p.ring2) == "table" then
+		local rr, rg, rb, ra = rgba(p.ring2)
+		f.ring2:SetSize(medal + RING2_PAD, medal + RING2_PAD)
+		f.ring2:SetVertexColor(rr, rg, rb, ra * a)
+	end
+	f.glow:SetTexture(MAP_MEDIA .. "glow")
+	f.glow:SetBlendMode("BLEND")
+	if p.glow then
+		f.glow:SetSize(medal * GLOW_SCALE, medal * GLOW_SCALE)
+		f.glow:SetVertexColor(r, g, b, a)
+	end
+	applyBadge(f, p.badge, medal, a)
+	f.edge:SetTexture(MAP_MEDIA .. "edge")
+	-- The pointer is 32 by 24 in a 32 px square: EDGE_W wide, about EDGE_H high.
+	f.edge:SetSize(medal * EDGE_W, medal * EDGE_W)
+	f.edge:SetVertexColor(r, g, b, a)
+	f.edgeReach = medal / 2 + medal * EDGE_H / 2 - 0.5
+	f.clamped = nil
+	showParts(f, p, false)
+end
+
+local function applyLook(f, p, size)
+	local path, mark = iconPath(p.icon)
+	if mark then return applyMark(f, p, size, path) end
+	if f.mapMark then
+		-- Back to the older looks: their textures and placements.
+		f.mapMark, f.ringOn, f.edgeReach = nil, nil, nil
+		f.icon:ClearAllPoints()
+		f.icon:SetAllPoints()
+		f.medal:Hide()
+		f.ring2:Hide()
+		showBadge(f, false)
+		f.mark:SetTexture(MEDIA .. "ring")
+		f.glow:SetTexture(MEDIA .. "glow")
+		f.glow:SetBlendMode("ADD")
+		f.edge:SetTexture(MEDIA .. "edge")
+		f.edge:ClearAllPoints()
+		f.edge:SetPoint("CENTER")
+	end
+	f:SetSize(size, size)
+	local r, g, b, a = pinColor(p)
 	if path then
 		f.icon:SetTexture(path)
 		f.icon:SetVertexColor(r, g, b, a)
@@ -913,7 +1122,14 @@ do
 		return a < b
 	end
 
-	-- Compact service groups reuse native icons; these extra regions stay pooled.
+	-- Compact service groups: up to three glyphs in one medallion, 0.4 of
+	-- it each, in a triangle (one above, two below; two side by side). These
+	-- extra regions stay pooled.
+	local STACK_AT = {
+		[1] = { { 0, 0 } },
+		[2] = { { -0.21, 0 }, { 0.21, 0 } },
+		[3] = { { 0, 0.2 }, { -0.21, -0.15 }, { 0.21, -0.15 } },
+	}
 	local function stackLook(f, p)
 		if not p.stack then
 			for _, t in ipairs(f.stackIcons or {}) do t:Hide() end
@@ -921,18 +1137,22 @@ do
 		end
 		if not f.stackIcons then f.stackIcons = {} end
 		f.icon:Hide()
+		local n = min(#p.stack, 3)
+		local medal = f.medalPx or 30
+		local r, g, b, a = pinColor(p)
 		for i = 1, 3 do
 			local t = f.stackIcons[i]
-			if p.stack[i] then
+			if i <= n then
 				if not t then t = f:CreateTexture(nil, "ARTWORK", nil, i); f.stackIcons[i] = t end
-				t:SetTexture(iconPath(p.stack[i]))
-				t:SetSize(21, 21)
+				local at = STACK_AT[n][i]
+				t:SetTexture((iconPath(p.stack[i])))
+				t:SetSize(medal * 0.4 * GLYPH_FRAME, medal * 0.4 * GLYPH_FRAME)
+				t:SetVertexColor(r, g, b, a)
 				t:ClearAllPoints()
-				t:SetPoint("CENTER", f, "CENTER", (i - (#p.stack + 1) / 2) * 7, i == 2 and 4 or -1)
+				t:SetPoint("CENTER", f, "CENTER", at[1] * medal, at[2] * medal)
 				t:Show()
 			elseif t then t:Hide() end
 		end
-
 	end
 
 	-- Every layer's pins, areas and hulls, and the trail, for the viewed map.
@@ -1831,15 +2051,24 @@ local function drawMinimap()
 							f:Show()
 						end
 						f.gen = gen
+						-- A map mark stops its medallion at the rim, the pointer over it.
+						local inset = (own and psize or size) * (f.mapMark and MEDAL_SCALE * 0.5 or 0.35)
 						local x, y, clamped = Pins.Project(dn, dw, sFacing, sRadius, half, sRotate, sSquare,
-							edge and (half - (own and psize or size) * 0.35) or nil)
+							edge and (half - inset) or nil)
 						f:ClearAllPoints()
 						f:SetPoint("CENTER", Minimap, "CENTER", x, y)
 						if clamped ~= f.clamped then
 							f.clamped = clamped
 							showParts(f, p, clamped)
 						end
-						if clamped then f.edge:SetRotation(atan2(y, x) - pi / 2) end
+						if clamped then
+							local ang = atan2(y, x)
+							f.edge:SetRotation(ang - pi / 2)
+							if f.edgeReach then
+								f.edge:ClearAllPoints()
+								f.edge:SetPoint("CENTER", f, "CENTER", cos(ang) * f.edgeReach, sin(ang) * f.edgeReach)
+							end
+						end
 					end
 				end
 			end

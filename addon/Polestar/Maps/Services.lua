@@ -11,25 +11,36 @@ local type, ipairs, pairs = type, ipairs, pairs
 local LAYER = "maps.services"
 
 -- `on`: the lean set a player gets when turning the layer on; the rest are opt-in.
+-- `glyph`: the map mark (Media/Map/icon-<glyph>); `icon` is its texture, for menus.
 local CATEGORIES = {
-	{ key = "repair", label = L["Repair"], texture = "Repair" },
-	{ key = "mailbox", label = L["Mailboxes"], texture = "Mailbox", on = true },
-	{ key = "class", label = L["Class trainers"], texture = "Class", on = true },
-	{ key = "weapon", label = L["Weapon masters"], icon = "icon-train" },
-	{ key = "auctioneer", label = L["Auctioneers"], texture = "Auctioneer" },
-	{ key = "banker", label = L["Bankers"], icon = "Interface\\Icons\\INV_Misc_TreasureChest01a" },
-	{ key = "battlemaster", label = L["Battlemasters"], texture = "BattleMaster" },
-	{ key = "spirithealer", label = L["Spirit healers"], icon = "Interface\\Icons\\Spell_Holy_GuardianSpirit" },
-	{ key = "stablemaster", label = L["Stable masters"], texture = "StableMaster" },
-	{ key = "trainer", label = L["Profession trainers"], texture = "Profession" },
-	{ key = "vendor", label = L["Vendors"], texture = "Banker" },
+	{ key = "repair", label = L["Repair"], glyph = "repair" },
+	{ key = "mailbox", label = L["Mailboxes"], glyph = "mailbox", on = true },
+	{ key = "class", label = L["Class trainers"], glyph = "trainer-class", on = true },
+	{ key = "weapon", label = L["Weapon masters"], glyph = "trainer-weapon" },
+	{ key = "auctioneer", label = L["Auctioneers"], glyph = "auction" },
+	{ key = "banker", label = L["Bankers"], glyph = "bank" },
+	{ key = "battlemaster", label = L["Battlemasters"], glyph = "battlemaster" },
+	{ key = "spirithealer", label = L["Spirit healers"], glyph = "ankh" },
+	{ key = "stablemaster", label = L["Stable masters"], glyph = "stable" },
+	{ key = "trainer", label = L["Profession trainers"], glyph = "trainer-profession" },
+	{ key = "vendor", label = L["Vendors"], glyph = "vendor" },
 }
 Maps.ServiceCategories = CATEGORIES
+local MAP_MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Map\\"
 local filters = {}
 for _, category in ipairs(CATEGORIES) do
 	filters[category.key] = category.on == true
-	category.icon = category.icon or ("Interface\\Minimap\\Tracking\\" .. category.texture)
-	if not category.icon:find("[\\/]") then category.icon = ns.Theme.Media(category.icon) end
+	category.mark = "map:" .. category.glyph
+	category.icon = MAP_MEDIA .. "icon-" .. category.glyph
+end
+
+-- A category's glyph in a menu line, in the NPC colour (the map marks are white masks).
+function Maps.ServiceIcon(category, size)
+	local T = ns.Theme
+	local r, g, b = 0.58, 0.79, 1
+	if T and T.Color then r, g, b = T.Color("npc") end
+	return string.format("|T%s:%d:%d:0:0:64:64:0:64:0:64:%d:%d:%d|t", category.icon, size or 16, size or 16,
+		math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5))
 end
 ns.RegisterDefaults("maps", { servicePins = false, serviceMinimap = false, serviceFilters = filters })
 
@@ -61,24 +72,35 @@ local function rgb(key)
 	if ns.Theme and ns.Theme.Color then return ns.Theme.Color(key) end
 	return 1, 1, 1
 end
+Maps.ServiceColor = function()
+	local r, g, b = rgb("npc")
+	return { r, g, b, 1 }
+end
 
--- One icon per NPC and spawn, using the first enabled service it offers.
+-- One icon per NPC and location, using the first enabled service it offers.
 -- Its tooltip keeps the other roles, so a repair vendor needs only one pin.
 function Maps.BuildServicePins(records)
 	local pins, seen = {}, {}
-	local mailboxes = {}
-	local function repeatedMailbox(spawn)
+	local observations = {}
+	local function repeatedSpawn(record, spawn, mailbox)
 		local c, wx, wy = ns.Compat.MapToWorld(spawn.map, spawn.x, spawn.y, spawn.f)
-		if not c then return false end
-		for _, point in ipairs(mailboxes) do
-			if point.c == c and (point.wx - wx) ^ 2 + (point.wy - wy) ^ 2 <= 100 then return true end
+		local key = mailbox and "mailbox" or (record.kind or "npc") .. ":" .. record.id
+		local points = observations[key] or {}
+		local radius2 = mailbox and 100 or 225
+		for _, point in ipairs(points) do
+			-- Codex uses a 3% map radius for places; exact service observations still need that display grouping.
+			if not mailbox and point.spawn.map == spawn.map and (point.spawn.f or "l") == (spawn.f or "l")
+				and (point.spawn.x - spawn.x) ^ 2 + (point.spawn.y - spawn.y) ^ 2 <= 9 then return true end
+			if c and point.c == c and (point.wx - wx) ^ 2 + (point.wy - wy) ^ 2 <= radius2 then return true end
 		end
-		-- Mailbox spawn lists include repeated player observations within interaction range.
-		mailboxes[#mailboxes + 1] = { c = c, wx = wx, wy = wy }
+		-- Retain original locations; world distance also matches overlapping maps (mailboxes keep 10 yards).
+		points[#points + 1] = { spawn = spawn, c = c, wx = wx, wy = wy }
+		observations[key] = points
 		return false
 	end
 	local info = ns.Compat.GetPlayerInfo and ns.Compat.GetPlayerInfo() or {}
 	local faction = info.faction == "Alliance" and "A" or info.faction == "Horde" and "H" or nil
+	local color = Maps.ServiceColor()
 	for _, record in ipairs(records or {}) do
 		if record.faction == nil or record.faction == "AH" or (faction and record.faction == faction) then
 			local roles, selected, labels = rolesOf(record), nil, {}
@@ -96,14 +118,14 @@ function Maps.BuildServicePins(records)
 					local map, x, y = spawn.map, spawn.x, spawn.y
 					if type(map) == "number" and map > 0 and type(x) == "number" and type(y) == "number"
 						and x >= 0 and x <= 100 and y >= 0 and y <= 100 then
-						local key = table.concat({ record.kind or "npc", record.id, map, x, y }, ":")
-						if not seen[key] and (not roles.mailbox or not repeatedMailbox(spawn)) then
+						local key = table.concat({ record.kind or "npc", record.id, map, x, y, spawn.f or "l" }, ":")
+						if not seen[key] and not repeatedSpawn(record, spawn, roles.mailbox) then
 							seen[key] = true
 							local name = record.name or tostring(record.id)
 							local p = { id = record.id, kind = record.kind or "npc", category = selected.key,
 								name = name, subName = record.subName,
-								map = map, x = x, y = y, f = spawn.f, icon = selected.icon,
-								size = 16, color = { 1, 1, 1, 1 }, backdrop = true, priority = 1 }
+								map = map, x = x, y = y, f = spawn.f, icon = selected.mark, menuIcon = selected.icon,
+								size = 16, color = color, priority = 1 }
 							p.tooltip = function(tip)
 								tip:SetText(name, rgb("text"))
 								if record.subName and record.subName ~= "" then tip:AddLine(record.subName, rgb("textDim")) end
@@ -230,12 +252,12 @@ local controls = {
 		help = L["Marks friendly service NPCs and mailboxes on zone and city maps using Polestar's bundled Codex. Click an individual icon to set a waypoint, or a city group to choose an NPC and destination; choose categories here or in the map's tracking menu. Flight masters and inns have their own toggles under Dungeons and travel."] },
 	{ kind = "toggle", key = "maps.serviceMinimap", label = L["Service icons on the minimap"],
 		help = L["Shows the enabled NPC service categories on the minimap as well."],
-		disabled = function() return not ns.Get("maps.servicePins") end },
+		child = true, disabled = function() return not ns.Get("maps.servicePins") end },
 }
 for _, category in ipairs(CATEGORIES) do
 	controls[#controls + 1] = { kind = "toggle", key = "maps.serviceFilters." .. category.key, label = category.label,
 		help = category.key == "class" and L["Shows trainers for your character's class."] or L["Shows this service category on the map."],
-		disabled = function() return not ns.Get("maps.servicePins") end }
+		child = true, disabled = function() return not ns.Get("maps.servicePins") end }
 end
 ns.RegisterOptions({ page = L["Map"], tab = L["Rares & travel"], section = L["NPC services"], controls = controls })
 

@@ -104,6 +104,11 @@ function overlapComment({ others, hadComment }) {
 
 const brief = (p) => ({ number: p.number, user: p.user.login, base: p.base.ref, draft: Boolean(p.draft), title: p.title, body: p.body });
 
+// The workflow's own comment carrying a mark. Anyone can write the mark in a
+// comment, so only one the Actions bot wrote counts.
+const ACTIONS_BOT = 'github-actions[bot]';
+const ownComment = (comments, mark) => comments.filter((c) => c.body && c.body.includes(mark) && c.user && c.user.login === ACTIONS_BOT).pop();
+
 // Brings the comments and labels up to date for the issues `touched` and
 // every open pull request addressing them. pulls: the open pull requests
 // (GitHub's objects); closed: the pull request this event closed, if any;
@@ -131,7 +136,7 @@ async function update({ github, pulls, touched, closed = null, defaultBranch, te
 		const prs = (byIssue.get(n) || []).sort((a, b) => a.number - b.number);
 		for (const p of prs) prsToCheck.add(p.number);
 		if (issue.state !== 'open') continue;
-		const old = (await github.comments(n)).filter((c) => c.body && c.body.includes(ISSUE_MARK)).pop();
+		const old = ownComment(await github.comments(n), ISSUE_MARK);
 		const merged = mergedIn(old && old.body).filter((m) => !prs.some((p) => p.number === m.number));
 		if (closed && closed.merged && !merged.some((m) => m.number === closed.number)) merged.push({ number: closed.number, base: closed.base, user: closed.user });
 		const labels = new Set((issue.labels || []).map((l) => (typeof l === 'string' ? l : l.name)));
@@ -151,7 +156,7 @@ async function update({ github, pulls, touched, closed = null, defaultBranch, te
 		const others = p.issues
 			.map((n) => ({ issue: n, prs: (byIssue.get(n) || []).filter((q) => q.number !== p.number) }))
 			.filter((o) => o.prs.length);
-		const old = (await github.comments(p.number)).filter((c) => c.body && c.body.includes(OVERLAP_MARK)).pop();
+		const old = ownComment(await github.comments(p.number), OVERLAP_MARK);
 		const body = overlapComment({ others, hadComment: Boolean(old) });
 		if (body && (!old || old.body !== body)) {
 			if (old) await github.editComment(old.id, body);

@@ -502,18 +502,16 @@ fn nav_qa_k8_a_chokepoint_stop_wears_its_glyph_a_hand_made_stop_no_choke_keeps_t
 		for i, p in ipairs(Pins.GetLayer("nav.route") or {}) do
 			GameTooltip.lines = {}
 			p.tooltip(GameTooltip)
-			out[i] = { icon = p.icon or false, backdrop = p.backdrop or false, tip = GameTooltip.lines }
+			out[i] = { icon = p.icon or false, tip = GameTooltip.lines }
 		end
 		emit(out)"#,
 	);
 	let out = arr(&out);
 	assert_eq!(out.len(), 3);
-	assert_eq!(out[0]["icon"], "icon-bridge");
-	assert_eq!(out[0]["backdrop"], true);
+	assert_eq!(out[0]["icon"], "map:bridge");
 	assert!(out[0]["tip"].as_array().is_some_and(|a| a.iter().any(|l| l == "Lakeshire bridge")), "the chokepoint is named in the tooltip");
-	assert_eq!(out[1]["icon"], "icon-cave", "a tunnel wears the cave glyph; no name, no extra line");
-	assert_eq!(out[2]["icon"], false, "no choke: the plain disc");
-	assert_eq!(out[2]["backdrop"], false);
+	assert_eq!(out[1]["icon"], "map:cave", "a tunnel wears the cave glyph; no name, no extra line");
+	assert_eq!(out[2]["icon"], "map:stop", "no choke: the stop glyph");
 }
 
 #[test]

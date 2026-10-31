@@ -222,6 +222,14 @@ fn the_caps_the_checksum_and_the_key_lists_are_the_writer_s() {
 			"names": LIMITS.names,
 			"goals": LIMITS.goals,
 			"candidates": LIMITS.candidates,
+			"spots": LIMITS.spots,
+			"when": LIMITS.when,
+			"skipto": LIMITS.skipto,
+			"reagents": LIMITS.reagents,
+			"fromNpcs": LIMITS.from_npcs,
+			"pre": LIMITS.pre,
+			"tokens": LIMITS.tokens,
+			"nextWhen": LIMITS.next_when,
 		})
 	);
 	assert_eq!(out["sum"], format!("{:08x}", adler32(b"Wikipedia")).as_str());

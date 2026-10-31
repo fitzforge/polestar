@@ -161,7 +161,7 @@
 			"faction": "H",
 			"item": 277507,
 			"goal": [96984],
-			"note": "Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance is sent in by the Image of Archmage Modera.",
+			"note": "Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows.",
 			"links": {
 				"92434": { "pre": [545, 93680], "source": { "edition": "forever", "kind": "guide", "ref": "city-of-dalaran-dungeon-overview-location-rewards", "note": "Unlocking the City of Dalaran: Prison Break In and Key to the City, then Dalaran Patrols, then Blood in the Streets" } },
 				"96984": { "pre": [92434], "source": { "edition": "forever", "kind": "quest", "id": 96984, "note": "series: Blood in the Streets, Heart of Disruption, Shrewd Negotiations" } }

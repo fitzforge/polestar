@@ -38,13 +38,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v5
-
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
+          persist-credentials: false
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
           components: rustfmt, clippy
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
         with:
           workspaces: rust
 
@@ -72,7 +75,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
 
       # The rust-version rust/Cargo.toml declares.
       - name: Toolchain
@@ -83,7 +88,7 @@ jobs:
           rustup toolchain install "$rv" --profile minimal
           echo "version=$rv" >> "$GITHUB_OUTPUT"
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
         with:
           workspaces: rust
           key: msrv
@@ -96,13 +101,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v5
-
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
+          persist-credentials: false
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
           targets: wasm32-unknown-unknown
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
         with:
           workspaces: rust
           key: wasm32
@@ -118,7 +126,7 @@ jobs:
       # The browser planner's package (forge-wasm's wasm-bindgen glue, wasm-opt), as www-build/build.sh
       # makes it; the page itself needs local data and is not built here.
       - name: Install wasm-pack
-        run: cargo install --locked wasm-pack
+        run: cargo install --locked wasm-pack --version 0.15.1
 
       - name: wasm-pack
         working-directory: rust/crates/forge-wasm
@@ -137,13 +145,16 @@ jobs:
           - { name: windows-x86_64, os: windows-latest, target: x86_64-pc-windows-msvc, exe: ".exe" }
           - { name: macos-aarch64, os: macos-latest, target: aarch64-apple-darwin, exe: "" }
     steps:
-      - uses: actions/checkout@v5
-
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
+          persist-credentials: false
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
           targets: ${{ matrix.target }}
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
         with:
           workspaces: rust
           key: ${{ matrix.target }}
@@ -163,9 +174,9 @@ jobs:
           cargo build --release --locked --target ${{ matrix.target }}
           --bin forge
 
-      - uses: taiki-e/install-action@v2
+      - uses: taiki-e/install-action@86f7a0ffb25f40114606501a311ebcfaf882ea32 # v2.88.0
         with:
-          tool: cargo-about
+          tool: cargo-about@0.9.3
 
       # The licences of every Rust dependency built into this target's binary.
       - name: Dependency licences
@@ -181,7 +192,7 @@ jobs:
           cp "target/${{ matrix.target }}/release/forge${{ matrix.exe }}" "$dir/"
           cp ../LICENSE ../LICENSE-EXCEPTION.md NOTICE.md ../THIRD_PARTY.md THIRD_PARTY_RUST.md "$dir/"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: polestar-forge-${{ matrix.name }}
           path: rust/polestar-forge-${{ matrix.name }}
@@ -196,7 +207,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           path: dist
 
@@ -210,7 +221,7 @@ jobs:
           done
           sha256sum *.zip *.tar.gz > SHA256SUMS
 
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
           files: |
             dist/*.zip

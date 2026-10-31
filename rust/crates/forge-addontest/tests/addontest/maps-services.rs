@@ -268,6 +268,122 @@ fn nearby_mailbox_observations_merge_across_object_ids_while_separate_physical_m
 }
 
 #[test]
+fn nearby_observations_of_one_service_npc_share_a_pin_without_merging_different_npcs_or_distant_spawns() {
+	let out = run(r#"
+    local records={}
+    for _,role in ipairs({"vendor","repair","banker","auctioneer","trainer","weapon","battlemaster","spirithealer","stablemaster","class:WARRIOR"}) do
+      records[#records+1]={id=#records+1,name=role,roles={role},spawns={
+        {map=9000,x=40,y=50,f="l"},{map=9000,x=40.2,y=50.2,f="l"},
+        {map=9000,x=42.5,y=50,f="l"},{map=9000,x=45,y=50,f="l"},
+      }}
+    end
+    local before=records[1].spawns[1]
+    local pins=M.BuildServicePins(records)
+    local counts={}
+    for _,p in ipairs(pins) do counts[p.category]=(counts[p.category] or 0)+1 end
+    local p=pins[1]
+    p.onClick("LeftButton")
+    local target=Polestar.Nav.GetTarget()
+    emit({count=#pins,categories=counts,first={id=p.id,x=p.x,y=p.y,f=p.f},
+      second={id=pins[2].id,x=pins[2].x},target={map=target.map,x=target.x,y=target.y,f=target.f},
+      unchanged=records[1].spawns[1]==before and #records[1].spawns==4})
+  "#);
+	assert_eq!(
+		out,
+		json!({
+			"count": 20,
+			"categories": {"vendor":2,"repair":2,"banker":2,"auctioneer":2,"trainer":2,"weapon":2,"battlemaster":2,"spirithealer":2,"stablemaster":2,"class":2},
+			"first": {"id":1,"x":40,"y":50,"f":"l"}, "second": {"id":1,"x":45},
+			"target": {"map":9000,"x":40,"y":50,"f":"l"}, "unchanged": true,
+		})
+	);
+}
+
+#[test]
+fn service_observations_compare_world_positions_across_maps_and_keep_map_frame_groups_without_world_conversion() {
+	let out = run(r#"
+    stub.world.addMap(9100,{c=0,left=1000,right=-1000,top=1000,bottom=-1000})
+    stub.world.addMap(9101,{c=1,left=1000,right=-1000,top=1000,bottom=-1000})
+    local saved=Polestar.MapFrames.era[9100]
+    Polestar.MapFrames.era[9100]={c=0,left=2000,right=0,top=1000,bottom=-1000}
+    local pins=M.BuildServicePins({{id=101,name="Service",roles={"repair"},spawns={
+      {map=9000,x=40,y=50,f="l"},{map=9100,x=40.2,y=50,f="l"},
+      {map=9100,x=90,y=50,f="e"},{map=9100,x=40.2,y=50,f="e"},
+      {map=9101,x=40,y=50,f="l"},
+      {map=9199,x=40,y=50,f="l"},{map=9199,x=40,y=50,f="l"},
+      {map=9199,x=40,y=50,f="e"},{map=9199,x=40.2,y=50,f="l"},
+      {map=9199,x=40.3,y=50},{map=9199,x=45,y=50},
+    }}})
+    local rows={}
+    for _,p in ipairs(pins) do rows[#rows+1]={map=p.map,x=p.x,f=p.f} end
+    Polestar.MapFrames.era[9100]=saved
+    emit(rows)
+  "#);
+	assert_eq!(
+		out,
+		json!([
+			{"map":9000,"x":40,"f":"l"}, {"map":9100,"x":40.2,"f":"e"}, {"map":9101,"x":40,"f":"l"},
+			{"map":9199,"x":40,"f":"l"}, {"map":9199,"x":40,"f":"e"}, {"map":9199,"x":45},
+		])
+	);
+}
+
+#[test]
+fn the_reported_gishah_observations_produce_one_original_undercity_waypoint() {
+	let out = run(r#"
+    stub.world.addMap(1458,{c=0,left=873.193,right=-86.182,top=1877.945,bottom=1237.841})
+    local spawns={}
+    for _,xy in ipairs({{64.4,38.4},{64.4,38.6},{64.6,38.6},{64.8,38.2},{65.6,38.4},{65.6,38.6}}) do
+      spawns[#spawns+1]={map=1458,x=xy[1],y=xy[2]}
+    end
+    local pins=M.BuildServicePins({{id=214098,name="Gishah",roles={"vendor"},spawns=spawns}})
+    emit({count=#pins,x=pins[1].x,y=pins[1].y,observations=#spawns})
+  "#);
+	assert_eq!(out, json!({"count":1,"x":64.4,"y":38.4,"observations":6}));
+}
+
+#[test]
+fn zephras_repair_and_vendor_observations_share_original_locations_even_without_world_bounds() {
+	let out = run(r#"
+    local records={
+      {id=251364,name="Destin Thriceforged",roles={"repair","vendor"},points={
+        {42.5,23.4},{42.8,23.5},{43,24.2},{43.1,23.4},{43.1,23.5},{43.2,23.8},
+        {43.2,23.2},{43.2,23.6},{43.3,23.6},{43.4,23.6},{43.4,23.4}}},
+      {id=251365,name="Jolee Brightmeadows",roles={"repair","vendor"},points={
+        {43.2,23.4},{43.2,23.5},{43.2,23.8},{43.3,23.2},{43.3,23.8},{43.5,23.6}}},
+      {id=252449,name="Iallion Featherfall",roles={"vendor"},points={
+        {58.4,74.6},{58.6,76.1},{58.8,75.2},{58.9,75.5}}},
+    }
+    for _,r in ipairs(records) do
+      r.spawns={}
+      for _,p in ipairs(r.points) do r.spawns[#r.spawns+1]={map=2521,x=p[1],y=p[2]} end
+    end
+    local function summary()
+      local out={}
+      for _,p in ipairs(M.BuildServicePins(records)) do out[#out+1]={id=p.id,x=p.x,y=p.y} end
+      return out
+    end
+    local unknown=summary()
+    -- Synthetic large bounds exercise the world-conversion path too; these are not Zephras measurements.
+    stub.world.addMap(2521,{c=0,left=5000,right=-5000,top=5000,bottom=-5000})
+    local known=summary()
+    local pin=M.BuildServicePins(records)[1]
+    local target
+    Polestar.Nav.SetTarget=function(...) target={...} end
+    pin.onClick("LeftButton")
+    emit({unknown=unknown,known=known,target=target,raw=#records[1].spawns+#records[2].spawns+#records[3].spawns})
+  "#);
+	assert_eq!(
+		out,
+		json!({
+			"unknown": [{"id":251364,"x":42.5,"y":23.4},{"id":251365,"x":43.2,"y":23.4},{"id":252449,"x":58.4,"y":74.6}],
+			"known": [{"id":251364,"x":42.5,"y":23.4},{"id":251365,"x":43.2,"y":23.4},{"id":252449,"x":58.4,"y":74.6}],
+			"target": {"1":2521,"2":42.5,"3":23.4,"4":"Destin Thriceforged","6":"npc"}, "raw": 21,
+		})
+	);
+}
+
+#[test]
 fn the_records_kept_for_filter_changes_are_slim_and_friendly_only() {
 	let out = run(r#"
     __npcs[1].loot,__npcs[1].level={5},30
@@ -281,23 +397,23 @@ fn the_records_kept_for_filter_changes_are_slim_and_friendly_only() {
 }
 
 #[test]
-fn services_are_opt_in_with_a_lean_category_set_leave_flight_masters_and_inns_to_the_travel_layers_and_use_the_native_bag_for_vendors_and_a_distinct_chest_for_bankers() {
+fn services_are_opt_in_with_a_lean_category_set_leave_flight_masters_and_inns_to_the_travel_layers_and_give_each_category_its_own_map_glyph() {
 	let res = run_opts(
 		r#"
     local icons,on={},{}
     for _,category in ipairs(M.ServiceCategories) do
-      icons[category.key]=category.icon
+      icons[category.key]=category.mark
       if Polestar.Get("maps.serviceFilters."..category.key) then on[#on+1]=category.key end
     end
     emit({enabled=Polestar.Get("maps.servicePins"),on=on,inn=icons.innkeeper==nil,flight=icons.flightmaster==nil,
       vendor=icons.vendor,banker=icons.banker,reads=__reads})
-    emit(icons.weapon)
+    emit(M.ServiceCategories[4].icon)
   "#,
 		None,
 		"",
 	);
 	let (out, weapon) = (&res[0], text(&res[1]));
-	assert!(weapon.contains("AddOns") && weapon.ends_with("icon-train"));
+	assert!(weapon.contains("AddOns") && weapon.ends_with("icon-trainer-weapon"), "{weapon}");
 	assert_eq!(
 		*out,
 		json!({
@@ -305,8 +421,8 @@ fn services_are_opt_in_with_a_lean_category_set_leave_flight_masters_and_inns_to
 			"on": ["mailbox", "class"],
 			"inn": true,
 			"flight": true,
-			"vendor": r"Interface\Minimap\Tracking\Banker",
-			"banker": r"Interface\Icons\INV_Misc_TreasureChest01a",
+			"vendor": "map:vendor",
+			"banker": "map:bank",
 			"reads": 0,
 		})
 	);
@@ -355,7 +471,7 @@ fn only_city_services_share_a_region_map_stack_nearby_country_services_quests_an
     local lines={}
     f.data.pin.tooltip({SetText=function(_,s) lines[#lines+1]=s end,AddLine=function(_,s) lines[#lines+1]=s end})
     local out={frames=#P.GetWorldFrames(),city=f.data.pin.city,count=f.data.pin.count,
-      icons=#f.data.pin.stack,badge=f.count~=nil,raw=#P.GetLayer("maps.services"),
+      icons=#f.data.pin.stack,badge=f.data.pin.badge,raw=#P.GetLayer("maps.services"),
       minimap=#P.GetMinimapFrames("maps.services"),lines=lines}
     WorldMapFrame.ScrollContainer.currentScale=6
     WorldMapFrame.ScrollContainer.zoomPercent=1
@@ -369,7 +485,7 @@ fn only_city_services_share_a_region_map_stack_nearby_country_services_quests_an
   "#,
 	);
 	let got: Vec<Value> = ["frames", "city", "count", "icons", "badge", "raw", "minimap"].iter().map(|k| out[*k].clone()).collect();
-	assert_eq!(Value::from(got), json!([5, 9002, 3, 3, false, 6, 6]));
+	assert_eq!(Value::from(got), json!([5, 9002, 3, 3, 3, 6, 6]));
 	assert_eq!(out["lines"][0], "Test City");
 	let lines = out["lines"].as_array().unwrap();
 	assert!(lines.contains(&json!("3 service points")));
@@ -624,7 +740,7 @@ fn a_fresh_install_leaves_the_codex_unloaded_until_the_layer_is_on_and_the_world
 	assert_eq!(out["loaded"], true);
 	assert_eq!(out["questie"], false);
 	// The lean default set: class trainers and mailboxes; the repair vendor stays opt-in.
-	assert_eq!(out["npcs"], json!([{ "id": 103, "category": "class", "x": 40, "y": 50 }, { "id": 103, "category": "class", "x": 40.1, "y": 50.1 }]));
+	assert_eq!(out["npcs"], json!([{ "id": 103, "category": "class", "x": 40, "y": 50 }]));
 	assert_eq!(out["boxes"], json!([{ "id": 101, "category": "mailbox", "x": 50, "y": 50 }, { "id": 103, "category": "mailbox", "x": 70, "y": 50 }]));
 	drop(pack);
 }

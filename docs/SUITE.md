@@ -19,6 +19,7 @@ contracts between the modules are in [docs/ARCHITECTURE.md](ARCHITECTURE.md).
 | Rares | Rare NPC and treasure database with locations and loot, map pins (off by default, Map options), alerts (only through APIs the Forever client has) |
 | Maps | World map without fog of war (the zone-art overlay table), coordinates, zone level ranges, dungeon entrance and travel pins (off by default, Map options) |
 | QoL | Quality of life helpers: action buttons, XP and pace, merchant, reward marks, flight masters, death helper, toggles, requests from other players |
+| Characters | An account-wide page of every character you have played: level, class, zone, hearth, gold, professions, the guide it follows and an XP bar with rested XP worked out to now. Each is as of its last logout; sorts by last played, most rested or level |
 | Talents (planned) | Where your next talent points go, level by level, on the talent panel, per class and spec. The trees are read from the client; the builds are written by contributors |
 
 Out of scope: a full UI suite (Polestar integrates with EllesmereUI through its
@@ -117,10 +118,10 @@ Search" and "Lookup"; in short:
 
 ## UI
 
-One hub, grown from the guide menu: Guides, Lookup, Dungeons and Rares as
-top-level sections, Options at the rail's foot, all in Polestar's world
-([`docs/DESIGN.md`](DESIGN.md)). New surfaces extend that world;
-they never introduce another look.
+One hub, grown from the guide menu: Guides, Lookup, Dungeons, Rares, Talents and
+Characters as top-level sections, Options at the rail's foot, all in
+Polestar's world ([`docs/DESIGN.md`](DESIGN.md)). New surfaces extend that
+world; they never introduce another look.
 
 Small windows outside the hub share its look: the guide window, the route
 choice, the welcome for new characters (`UI/Welcome.lua`), the copy window

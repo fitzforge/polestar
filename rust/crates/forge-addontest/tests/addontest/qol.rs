@@ -1281,6 +1281,48 @@ fn merchant_repairs_after_selling_if_affordable_shift_and_settings_off_do_nothin
 	assert_eq!(out[3], 0, "off: nothing");
 }
 
+#[test]
+fn merchant_sales_still_queued_stop_when_junk_sales_are_turned_off_even_back_on_shift_is_held_you_log_out_or_another_merchant_opens_with_shift() {
+	let visit = |between: &str| {
+		run(&[
+			BAGS,
+			r#"
+		q.bags[1].size = 12
+		for i = 9, 12 do q.addItem(1, i, 1, 1) end
+		q.money = 1000
+		q.repair = { can = true, cost = 50 }
+		q.openMerchant()                 -- the first tick sells 6 of the 10 queued slots
+		"#,
+			between,
+			r#"
+		stub.advance(2)
+		emit({ sold = #q.sold, repaired = #calls("RepairAllItems") })
+	"#,
+		]
+		.concat())[0]
+			.clone()
+	};
+	let got = json!({
+		"off": visit(r#"set("sellJunk", false)"#),
+		"offOn": visit(r#"set("sellJunk", false); set("sellJunk", true)"#),
+		"shift": visit("stub.keys.shift = true"),
+		"logout": visit(r#"stub.fire("PLAYER_LOGOUT")"#),
+		"nextVisit": visit("stub.keys.shift = true; q.openMerchant()"),
+		"left": visit(""),
+	});
+	assert_eq!(
+		got,
+		json!({
+			"off": { "sold": 6, "repaired": 1 },
+			"offOn": { "sold": 6, "repaired": 1 },
+			"shift": { "sold": 6, "repaired": 0 },
+			"logout": { "sold": 6, "repaired": 0 },
+			"nextVisit": { "sold": 6, "repaired": 0 },
+			"left": { "sold": 10, "repaired": 1 },
+		})
+	);
+}
+
 // ---------------------------------------------------------------------------
 // Buying for the step's buy goals
 // ---------------------------------------------------------------------------
@@ -1334,6 +1376,33 @@ fn buying_buys_what_the_open_buy_goals_still_need_from_this_merchant_after_the_i
 	assert_eq!(out[2], 920);
 	assert_eq!(out[3], true);
 	assert_eq!(out[4], 1, "nothing more once the goal is met");
+}
+
+#[test]
+fn buying_spends_nothing_for_an_imported_or_community_guide_and_names_what_to_buy_instead() {
+	for pack in ["imported", "yendi"] {
+		let out = run(&[
+			GOODS,
+			format!(
+				r#"
+		set("buyGoals", true)
+		q.money = 1000
+		q.guidePack = "{pack}"
+		q.step({{ {{ t = "buy", item = 20, count = 3, itemName = "Soothing Spices" }} }})
+		q.openMerchant()
+		stub.advance(1)
+		emit(#bought())
+		emit(q.money)
+		emit(printed("Left 3 Soothing Spices %(.+%) for you to buy"))
+	"#
+			)
+			.as_str(),
+		]
+		.concat());
+		assert_eq!(out[0], 0, "{pack}: nothing bought");
+		assert_eq!(out[1], 1000, "{pack}: no money spent");
+		assert_eq!(out[2], true, "{pack}: says what to buy");
+	}
 }
 
 #[test]
@@ -1849,6 +1918,70 @@ fn trainer_riding_weapon_and_pet_trainers_are_left_alone_so_opening_one_to_check
 		end
 	"#);
 	assert_eq!(json!(out), json!([0, 0, 0]));
+}
+
+#[test]
+fn trainer_turning_training_off_even_back_on_holding_shift_or_logging_out_while_a_purchase_is_on_its_way_buys_nothing_more() {
+	let purchases = |between: &str| {
+		run(&[
+			SPELLS,
+			r#"
+		set("trainAll", true)
+		q.money = 1000
+		q.openTrainer()                  -- the first purchase is on its way
+		"#,
+			between,
+			r#"
+		stub.advance(3)
+		emit(#calls("BuyTrainerService"))
+	"#,
+		]
+		.concat())[0]
+			.clone()
+	};
+	let got = json!({
+		"off": purchases(r#"set("trainAll", false)"#),
+		"offOn": purchases(r#"set("trainAll", false); set("trainAll", true)"#),
+		"shift": purchases("stub.keys.shift = true"),
+		"logout": purchases(r#"stub.fire("PLAYER_LOGOUT")"#),
+		"closed": purchases("q.closeTrainer()"),
+		"left": purchases(""),
+	});
+	assert_eq!(got, json!({ "off": 1, "offOn": 1, "shift": 1, "logout": 1, "closed": 1, "left": 2 }));
+}
+
+#[test]
+fn trainer_a_purchase_that_has_landed_when_shift_stops_the_run_is_still_counted_in_the_summary() {
+	let out = run(&[
+		SPELLS,
+		r#"
+		set("trainAll", true)
+		q.money = 1000
+		q.openTrainer()
+		stub.keys.shift = true           -- held as the first purchase lands
+		stub.advance(3)
+		emit({ bought = #calls("BuyTrainerService"), money = q.money, msg = printed("Learned 1 spell for 1s 0c") })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "bought": 1, "money": 900, "msg": true }));
+}
+
+#[test]
+fn trainer_a_purchase_still_on_its_way_when_the_setting_is_turned_off_is_counted_in_the_summary_as_on_close() {
+	let out = run(&[
+		SPELLS,
+		r#"
+		set("trainAll", true)
+		q.money = 1000
+		q.openTrainer()                  -- the first purchase is on its way
+		set("trainAll", false)
+		stub.advance(3)
+		emit({ bought = #calls("BuyTrainerService"), money = q.money, msg = printed("Learned 1 spell for 1s 0c") })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "bought": 1, "money": 900, "msg": true }));
 }
 
 // ---------------------------------------------------------------------------
@@ -3148,17 +3281,74 @@ fn resurrections_accepted_after_the_corpse_delay_while_still_offered_never_from_
 		stub.keys.shift = true; r.shift = offer("Priest"); stub.keys.shift = false
 		s.corpseDelay = 5
 		r.early = offer("Priest")
+		s.corpseDelay = 0        -- the delay runs out
 		stub.advance(6)
 		r.late = #calls("AcceptResurrect")
 		q.calls = {}
+		s.corpseDelay = 5
 		offer("Priest")
 		s.offerer = nil          -- declined or timed out meanwhile
+		s.corpseDelay = 0
 		stub.advance(6)
 		r.withdrawn = #calls("AcceptResurrect")
 		emit(r)
 	"#);
 	assert_eq!(out[0], 0, "off by default");
 	assert_eq!(out[1], json!({ "now": 1, "msg": true, "combat": 0, "hardcore": 0, "shift": 0, "early": 0, "late": 1, "withdrawn": 0 }));
+}
+
+// One offer from the Priest, waiting out a 5 s corpse delay; `between` runs
+// during the wait, then the delay runs out (or `left` seconds remain).
+const WAITED: &str = r#"
+	local s = q.social
+	set("acceptResurrect", true)
+	local function waited(between, left)
+		q.calls = {}
+		s.corpseDelay = 5
+		s.offerer = "Priest"; stub.fire("RESURRECT_REQUEST", "Priest")
+		between()
+		s.corpseDelay = left or 0
+		stub.advance(6)
+		s.offerer, s.combat.Druid = nil, nil
+		return #calls("AcceptResurrect")
+	end
+"#;
+
+#[test]
+fn resurrections_an_old_callback_cannot_accept_another_caster_s_offer_in_combat_changed_without_an_event_or_replacing_it() {
+	let out = run(&[
+		WAITED,
+		r#"
+		emit({
+			same = waited(function() end),
+			combatOffer = waited(function() s.offerer = "Druid"; s.combat.Druid = true; stub.fire("RESURRECT_REQUEST", "Druid") end),
+			changed = waited(function() s.offerer = "Druid" end),
+			replaced = waited(function() s.offerer = "Druid"; stub.fire("RESURRECT_REQUEST", "Druid") end),
+		})
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "same": 1, "combatOffer": 0, "changed": 0, "replaced": 1 }));
+}
+
+#[test]
+fn resurrections_life_transitions_the_setting_off_and_on_or_a_corpse_delay_still_running_drop_the_waiting_offer() {
+	let out = run(&[
+		WAITED,
+		r#"
+		local function fire(e) return function() stub.fire(e) end end
+		emit({
+			alive = waited(fire("PLAYER_ALIVE")),
+			unghost = waited(fire("PLAYER_UNGHOST")),
+			dead = waited(fire("PLAYER_DEAD")),
+			logout = waited(fire("PLAYER_LOGOUT")),
+			offOn = waited(function() set("acceptResurrect", false); set("acceptResurrect", true) end),
+			delayed = waited(function() end, 3),
+		})
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "alive": 0, "unghost": 0, "dead": 0, "logout": 0, "offOn": 0, "delayed": 0 }));
 }
 
 #[test]

@@ -213,6 +213,14 @@ end)
 
 -- The instance's name and its zone's in the client's language (Names: the
 -- names pack's Map.csv name, the client's map name), else the data's English.
+-- The entrance for this character: the Alliance's own way in (`A`, the
+-- City of Dalaran) for an Alliance character, else the one way in.
+local function entranceOf(s)
+	local e = s.entrance
+	if e and e.A and ns.Compat.GetPlayerFaction() == "Alliance" then return e.A end
+	return e
+end
+
 local function summary(key, s)
 	local N = ns.Names
 	local localised = N and N.Localised and N.Localised()
@@ -221,7 +229,7 @@ local function summary(key, s)
 	return {
 		key = key, name = (localised and s.map and N.Instance(s.map)) or s.name or key, kind = s.kind or "dungeon", forever = s.forever and true or false,
 		minLevel = s.minLevel, maxLevel = s.maxLevel, players = s.players, map = s.map, zone = s.zone, zoneName = zoneName,
-		entrance = s.entrance,
+		entrance = entranceOf(s),
 		quests = { A = s.quests and s.quests.A or 0, H = s.quests and s.quests.H or 0 }, bosses = s.bosses or 0,
 		attune = { A = s.attune and s.attune.A or 0, H = s.attune and s.attune.H or 0 },
 	}
@@ -248,7 +256,7 @@ end
 
 function Dungeons.Entrance(key)
 	local s = key ~= nil and ready() and summaries[key]
-	local e = s and s.entrance
+	local e = s and entranceOf(s)
 	if not e then return nil end
 	return e.map, e.x, e.y, e.f
 end

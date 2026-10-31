@@ -1,82 +1,333 @@
 guide forever/reputation/darkspear-trolls
 title Darkspear Trolls Reputation
 category Reputation
+folder Reputation · Cities
 faction Horde
 levels 12-60
 zone Orgrimmar
-# Built from the Era-baseline reference data: Vehena, the Darkspear Trolls
-# cloth quartermaster, and the cloth quests 7833/7834/7835/7836 (one-time) and 7837
-# (Additional Runecloth, repeatable) from quests.json; cloth farm spots are
-# the densest spawn clusters of strong cloth droppers in items.json/npcs.json.
-# Nothing public shows Forever changing the cloth donations; this has NOT been
-# play-tested on Forever yet. Refine it with Polestar_Recorder sessions.
-#
-# The client never flags a repeatable quest as completed, so the Additional
-# Runecloth steps finish on the Darkspear Trolls standing (rep 530); each
-# step's optional `turnin 7837 direct` checks off at its first hand-in. Cloth counts (60 per first donation, 20 per repeat) are game
-# knowledge: the data only has the 60 Runecloth of A Donation of Runecloth.
+keywords Darkspear Trolls, Vehena, cloth quartermaster, cloth donation, Runecloth, Additional Runecloth, Wool, Silk, Mageweave, Valley of Trials, Sen'jin Village, Razor Hill, Echo Isles, raptor mount, Zjolnir
+reward text Exalted with the Darkspear Trolls
+reward item 18788
+why Runecloth to Exalted, with the old Durotar quests as a fast extra that pays Orgrimmar too if they still pay in full.
+
+# Built from Forever's quest data: every quest that pays Darkspear reputation,
+# with the value from Forever's own quest pages, the world database (quest
+# chains, the cloth quests' exclusive group,
+# Additional Runecloth's repeat flag), quests.json, npcs.json, items.json and
+# the quest notes for givers, objectives, drops and places, and the Forever
+# client's Faction and ItemSparse tables.
+# Numbers (Forever's quest pages): A Donation of Wool, Silk, Mageweave and
+# Runecloth 150 each (60 cloth); Additional Runecloth 50 for 20 Runecloth (the
+# same as Classic Era).
+# Starting standing (Faction table): Troll Friendly 1000; Orc and Tauren
+# Friendly 100; Undead and Skyborne Neutral 2000. No race has a reputation
+# bonus. The Legacy perk Diplomat adds 2% a rank, 10% at 5/5: the numbers here
+# leave it out. City reputation also gives a quarter to the other Horde
+# cities (Faction table: parent Horde, 0.25), except starting-zone quests.
+# Darkspear has few quests above level 55: Luck Be With You (Winterspring) and
+# the raid and dungeon heads. The Durotar hubs are the same quests as in the
+# Orgrimmar guide and pay both cities; they are optional steps (the first step
+# of each carries a label; skipping it skips the hub), ranked by reputation
+# per minute at full value with the fifth beside it.
+# INGAME: grey-quest reputation at 60 (Classic: a fifth from 9 levels below; one Forever beta report: full, quest 456 at level 30 paid 100)
+# INGAME: reputation discounts in Forever (Classic: 10% at Honored with the city's merchants; Forever guide sites report 5/10/15/20% from Friendly to Exalted, one says not announced)
+# Left out: class letters and race-only breadcrumbs, Threat from Below (150 for
+# six trips), Need for a Cure (a long chain), the Grom'gol and Zoram Strand
+# quests (levels 19-46, named in the first step for players who level),
+# Commendation Signets (only from the Ahn'Qiraj war effort).
+# Mounts: the client lets every Horde race ride every Horde mount and puts no
+# reputation gate on them.
+# ASSUMED: another race's raptors need Exalted with the Darkspear Trolls (Classic rule; Forever's client puts no reputation gate on the items, so the vendor decides). In-game check: a non-troll below Exalted at Zjolnir.
+
+step Vehena: how it works
+  tip Darkspear reputation comes from quests and cloth. Vehena, the Darkspear cloth quartermaster, stands in Orgrimmar's Valley of Spirits. She takes four one-time donations of 60 cloth (150 each) and then Additional Runecloth, 20 Runecloth for 50, as often as you like. Every point you earn with the Darkspear Trolls also gives a quarter as much to Orgrimmar, Thunder Bluff and the Undercity. While you level, do the Darkspear quests within 5 levels of them: Durotar at 5 to 12, Zoram Strand in Ashenvale at 19 to 27, Grom'gol in Stranglethorn at 34 to 46. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the Darkspear merchants sell to you for 10% less (the Classic rule), the raptor vendor included; at Exalted other races can buy the raptors: 20 gold for a level 40 raptor, 200 gold for a swift raptor at level 60, once you have mount training. The Darkspear Trolls have no tabard or other reward.
+  accept 7833                         -- Vehena: A Donation of Wool, +150
+
+step Everlook: A Little Luck
+  zone Winterspring
+  tip Luck Be With You is level 60, so it pays in full. Harlo Wigglesworth in Everlook sends you to Witch Doctor Mau'ari, who stands in the same town. The Frostmaul Shards lie on the ground in Frostwhisper Gorge, the canyon at the south end of Winterspring, and the Frostmaul Giants there drop them too (about one in five). The giants are elite level 59 and 60 and stand close together: pick the shards at the edges, pull one giant at a time, or bring a friend.
+  level 55
+  accept 6606                         -- Harlo Wigglesworth: A Little Luck
+  turnin 6606                         -- Witch Doctor Mau'ari
+  accept 969                          -- Luck Be With You, +100
+  collect 12334 x4 quest 969.1        -- Frostmaul Shards
+  turnin 969
+
+step Blackrock Mountain, with a group
+  zone Badlands
+  tip For The Horde! (Rend's head, Blackrock Spire) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the Darkspear Trolls included. Kargath in the Badlands starts the Rend chain: Warlord's Command, Eitrigg's Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the Undercity guide (Zul'Farrak and the Hinterlands) pays 225 Darkspear on the way (a fifth at 60 in Classic).
+  accept 4903 optional                -- Warlord Goretooth: Warlord's Command, a group of five
+
+step Valley of Trials (optional hub)
+  label valley
+  zone Durotar
+  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. The Valley of Trials is the best of them: about 1,400 Orgrimmar and 1,400 Darkspear reputation in 25 minutes (about 280 each at a fifth). Gornek waits in the Den, the big hut; Kaltunk stands outside it.
+  accept 787                          -- Eitrigg, in Orgrimmar: The New Horde, +50
+  turnin 787                          -- Gornek
+  accept 4641                         -- Kaltunk: Your Place in the World, +50
+  turnin 4641
+  accept 788                          -- Cutting Teeth, +100
+  accept 97279                        -- Wayward Weapons, +100
+  accept 5441                         -- Foreman Thazz'ril: Lazy Peons, +150
+  accept 792 only !Warlock            -- Zureetha Fargaze: Vile Familiars, +150
+  accept 1485 only Warlock            -- Ruzan: Vile Familiars, warlocks only
+
+step Boars, weapons and peons
+  when done valley
+  tip The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping Lazy Peon and use the Foreman's Blackjack on it.
+  kill 3098 x10 quest 788.1           -- Mottled Boar
+  collect 277653 x6 quest 97279.1     -- Abandoned Training Weapon
+  kill 10556 x5 quest 5441.1          -- Lazy Peon: hit it with the Foreman's Blackjack
+
+step The Den: hand in
+  when done valley
+  turnin 788
+  accept 789                          -- Sting of the Scorpid, +100
+  turnin 97279
+  turnin 5441
+  accept 6394                         -- Thazz'ril's Pick, +150
+  accept 4402                         -- Galgar: Galgar's Cactus Apple Surprise, +200
+
+step North of the Den
+  when done valley
+  tip The cactus apples grow beside the cacti north of the Den. Hana'zua lies wounded by the rocks to the north; Sarkoth, his big scorpid, roams close by. Vile Familiars swarm at the mouth of the Burning Blade Coven; Thazz'ril's Pick lies inside: take the middle tunnel where it splits three ways.
+  collect 4862 x10 quest 789.1        -- Scorpid Worker Tail
+  collect 11583 x10 quest 4402.1      -- Cactus Apple
+  accept 790                          -- Hana'zua: Sarkoth, +100
+  collect 4905 quest 790.1            -- Sarkoth's Mangled Claw
+  turnin 790
+  accept 804                          -- Sarkoth, +25
+  kill 3101 x12 quest 792.1 only !Warlock -- Vile Familiar
+  collect 6487 x6 quest 1485.1 only Warlock -- Vile Familiar Head
+  collect 16332 quest 6394.1          -- Thazz'ril's Pick, in the cave
+
+step The Den: hand in again
+  when done valley
+  turnin 789
+  turnin 4402
+  turnin 804
+  turnin 6394
+  turnin 792 only !Warlock
+  turnin 1485 only Warlock
+  accept 1499 only Warlock            -- Vile Familiars, +10
+  turnin 1499 only Warlock
+  accept 794                          -- Burning Blade Medallion, +200
+
+step Burning Blade Coven
+  when done valley
+  tip Go back into the cave and keep to the right-hand wall all the way, over a small stream, to Yarrog Baneshadow on a ledge above a pool.
+  collect 4859 quest 794.1            -- Burning Blade Medallion, from Yarrog Baneshadow
+  turnin 794                          -- Zureetha Fargaze, in the Den
+
+step Sen'jin Village (optional hub)
+  label senjin
+  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Sen'jin Village and the Echo Isles: about 700 Orgrimmar and 650 Darkspear reputation in 25 minutes (140 and 130 at a fifth). Master Gadrin and Master Vornal stand by the huts, Vel'rin Fang near the water, Xar'Ti south of the village.
+  accept 808                          -- Master Gadrin: Minshina's Skull, +100
+  accept 826                          -- Zalazane, +100
+  accept 818                          -- Master Vornal: A Solvent Spirit, +100
+  accept 97225                        -- Forgotten Loa Idols, +100
+  accept 817                          -- Vel'rin Fang: Practical Prey, +100
+  accept 96821                        -- Legging It, +75
+  accept 97223                        -- Xar'Ti: Bloodtalon Matriarch, +100
+
+step The Echo Isles
+  when done senjin
+  tip Swim to the largest of the Echo Isles, south-east of the village. Zalazane, the idols and the skulls at the circle of power are all there; the Durotar Tigers prowl the smaller islands.
+  kill 3207 x8 quest 826.1            -- Hexed Troll
+  kill 3206 x8 quest 826.2            -- Voodoo Troll
+  collect 4866 quest 826.3            -- Zalazane's Head
+  collect 4864 quest 808.1            -- Minshina's Skull: click an Imprisoned Darkspear skull
+  collect 277135 x8 quest 97225.1     -- Forgotten Loa Idol
+  collect 4892 x4 quest 817.1         -- Durotar Tiger Fur
+
+step The coast and the road
+  when done senjin
+  tip Makrura and surf crawlers walk the beaches east and south of Sen'jin. The Bloodtalon Matriarch is east of the village. The Ridgeshade spiders are along the road south of Razor Hill and north-east of the Den.
+  collect 4887 x4 quest 818.1         -- Intact Makrura Eye
+  collect 4888 x8 quest 818.2         -- Crawler Mucus
+  collect 277128 quest 97223.1        -- Bloodtalon Matriarch Eggs
+  kill 266850 x6 quest 96821.1        -- Ridgeshade Creeper
+  kill 266849 x6 quest 96821.2        -- Ridgeshade Lurker
+
+step Sen'jin Village: hand in
+  when done senjin
+  turnin 808
+  turnin 826
+  turnin 818
+  turnin 97225
+  turnin 817
+  turnin 97223
+  accept 823                          -- Report to Orgnil, +50: Razor Hill
+
+step Razor Hill: Sen'jin hand-ins
+  when onquest 823,96821
+  zone Durotar
+  turnin 823                          -- Orgnil Soulscar
+  turnin 96821                        -- Gar'Thok
+
+step Razor Hill (optional hub)
+  label razorhill
+  zone Durotar
+  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Razor Hill and north Durotar: about 1,800 Orgrimmar and 1,650 Darkspear reputation in 80 minutes (360 and 330 at a fifth). Orgnil Soulscar and Gar'Thok stand in the middle of the town, Cook Torka by the barracks, Furl Scornbrow and Turroc at the edges.
+  accept 784                          -- Vanquish the Betrayers, +100
+  accept 837                          -- Encroachment, +75
+  accept 806 optional                 -- Dark Storms, +100: needs Report to Orgnil from Sen'jin
+  accept 815                          -- Cook Torka: Break a Few Eggs, +100
+  accept 96825                        -- This Fruit Could Bite Back, +75
+  accept 791                          -- Furl Scornbrow: Carry Your Weight, +100
+  accept 96822                        -- Turroc: For Honor, +75
+  accept 840                          -- Takrin Pathseeker: Conscript of the Horde, +50
+
+step Tiragarde Keep
+  when done razorhill
+  tip The keep is south of Razor Hill on the coast. Lieutenant Benedict is in the keep's only building; his key opens Benedict's Chest on the roof, and the Aged Envelope inside starts The Admiral's Orders. The sailors and marines drop the Canvas Scraps; the Raider's Bow, Battleaxe and Shield lie outside the keep.
+  kill 3128 x10 quest 784.1           -- Kul Tiras Sailor
+  kill 3129 x8 quest 784.2            -- Kul Tiras Marine
+  kill 3192 quest 784.3               -- Lieutenant Benedict
+  accept 830 item 4881                -- Aged Envelope: The Admiral's Orders, +100
+  collect 4870 x8 quest 791.1         -- Canvas Scraps
+  collect 275713 quest 96822.1        -- Raider's Bow
+  collect 275716 quest 96822.2        -- Raider's Battleaxe
+  collect 275717 quest 96822.3        -- Raider's Shield
+
+step Razormane Grounds and the Echo Isles
+  when done razorhill
+  tip The Razormane camps are south-west and west of Razor Hill; the Prickly Pear cacti grow among them. Then head to the Echo Isles for the Taillasher Eggs: each nest gives an egg every time.
+  kill 3111 x4 quest 837.1            -- Razormane Quilboar
+  kill 3112 x4 quest 837.2            -- Razormane Scout
+  kill 3113 x4 quest 837.3            -- Razormane Dustrunner
+  kill 3114 x4 quest 837.4            -- Razormane Battleguard
+  collect 275718 x8 quest 96825.1     -- Prickly Pear Fruit
+  collect 4890 x3 quest 815.1         -- Taillasher Egg
+
+step Razor Hill: hand in
+  when done razorhill
+  turnin 784
+  turnin 830
+  accept 831                          -- The Admiral's Orders, +100: to Nazgrel in Orgrimmar
+  accept 825                          -- From The Wreckage...., +100
+  turnin 837
+  turnin 815
+  turnin 96825
+  turnin 791
+  turnin 96822
+
+step The wreck
+  when done razorhill
+  tip The wrecked ship lies in the shallows east of Tiragarde Keep. Open the Gnomish Toolboxes.
+  collect 4863 x3 quest 825.1         -- Gnomish Tools
+  turnin 825                          -- back at Gar'Thok in Razor Hill
+
+step North Durotar
+  when done razorhill
+  tip Rezlak stands on the road north of Razor Hill, Misha Tor'kren at her farm west of it.
+  accept 834                          -- Rezlak: Winds in the Desert, +100
+  accept 97282                        -- Stormy Potential, +100
+  accept 816                          -- Misha Tor'kren: Lost But Not Forgotten, +100
+
+step Thunder Ridge and Razorwind Canyon
+  when done razorhill
+  tip Fizzle Darkstorm keeps a Burning Blade camp in Thunder Ridge, south of Orgrimmar, among the thunder lizards. A Dull Storm Orb may drop from the lizards: use it to start A Simmering Storm. The supply sacks lie in Razorwind Canyon, north of Razor Hill. Kron's Amulet drops from the crocolisks along the river to the west, about one in ten.
+  collect 4869 quest 806.1            -- Fizzle's Claw
+  collect 277665 x5 quest 97282.1     -- Charged Thunder Lizard Organ
+  accept 97281 item 277661 optional   -- Dull Storm Orb: A Simmering Storm, +100
+  collect 4918 x5 quest 834.1         -- Sack of Supplies
+  collect 4891 quest 816.1            -- Kron's Amulet
+
+step Rezlak and Misha
+  when done razorhill
+  turnin 834
+  turnin 97282
+  turnin 97281 optional
+  accept 835                          -- Securing the Lines, +100
+  kill 3117 x12 quest 835.1           -- Dustwind Savage, in Drygulch Ravine
+  kill 3118 x8 quest 835.2            -- Dustwind Storm Witch
+  turnin 835
+  turnin 816
+
+step Razor Hill: Orgnil
+  when done razorhill
+  turnin 806
+  accept 828                          -- Margoz, +10
+
+step Skull Rock
+  when done razorhill
+  tip Margoz camps outside Skull Rock, the cave just east of Orgrimmar.
+  turnin 828                          -- Margoz
+  accept 827                          -- Skull Rock, +100
+  collect 4871 x6 quest 827.1         -- Searing Collar
+  turnin 827
+  accept 829                          -- Neeru Fireblade, +50
+
+step Orgrimmar: Neeru and Nazgrel
+  when done razorhill
+  zone Orgrimmar
+  tip Neeru Fireblade is in the Cleft of Shadow; Nazgrel in Grommash Hold beside Thrall.
+  turnin 829                          -- Neeru Fireblade
+  accept 809                          -- Ak'Zeloth, +50
+  turnin 831                          -- Nazgrel
+
+step Far Watch Post
+  when done razorhill
+  zone The Barrens
+  tip Run out of Orgrimmar's west gate and over the bridge into the Barrens. Kargal Battlescar and Ak'Zeloth stand at Far Watch Post.
+  turnin 840                          -- Kargal Battlescar
+  accept 842                          -- Crossroads Conscription, +100: to Sergra Darkthorn
+  turnin 809                          -- Ak'Zeloth
+
+step The Crossroads: Sergra Darkthorn
+  when onquest 842
+  zone The Barrens
+  turnin 842                          -- Sergra Darkthorn
+
 
 step Vehena: A Donation of Wool
-  tip Vehena takes cloth for Darkspear Trolls in the Valley of Spirits, Orgrimmar. The first donations of Wool, Silk, Mageweave and Runecloth (60 cloth each) are done once and give the most reputation per cloth; after them, Additional Runecloth repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains.
-  level 12
-  accept 7833
-
-step Wool Cloth
-  zone The Barrens
-  tip Venture Co. Enforcers at the Boulder Lode Mine (level 16-17) drop it here. The Auction House works too.
-  collect 2592 x60 quest 7833.1 @61,4.2
-
-step Vehena: A Donation of Silk
   zone Orgrimmar
-  turnin 7833
+  tip From here it is cloth. Wool, Silk and Mageweave must all be handed in before Vehena offers the Runecloth donation, and Additional Runecloth needs the Runecloth donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, Runecloth 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey.
+  zone Ashenvale
+  collect 2592 x60 quest 7833.1 @36,37      -- Wool Cloth: the Thistlefur furbolgs drop it about one kill in four
+  turnin 7833                         -- Vehena, +150
+
+step A Donation of Silk
+  tip Silk: the Syndicate in Hillsbrad and Alterac drop it about one kill in three, or buy it.
   level 26
-  accept 7834
-
-step Silk Cloth
-  zone Desolace
-  tip Kolkar centaur (level 30-33) drop it here. The Auction House works too.
-  collect 4306 x60 quest 7834.1 @72.4,47.1
-
-step Vehena: A Donation of Mageweave
-  zone Orgrimmar
+  accept 7834                         -- +150
+  zone Alterac Mountains
+  collect 4306 x60 quest 7834.1 @57.7,67.6 -- Silk Cloth: the Syndicate
   turnin 7834
+
+step A Donation of Mageweave
+  tip Mageweave: the Jadefire satyrs in southern Felwood and the Dunemaul ogres in Tanaris drop it about one kill in three, or buy it.
   level 40
-  accept 7835
-
-step Mageweave Cloth
-  zone Tanaris
-  tip Dunemaul ogres (level 45-48) drop it here. The Auction House works too.
-  collect 4338 x60 quest 7835.1 @40.1,54.4
-
-step Vehena: A Donation of Runecloth
-  zone Orgrimmar
+  accept 7835                         -- +150
+  zone Felwood
+  collect 4338 x60 quest 7835.1 @41.6,85.7 -- Mageweave Cloth: the Jadefire satyrs
   turnin 7835
+
+step A Donation of Runecloth
+  tip Runecloth: the Scarlet at Tyr's Hand in the Eastern Plaguelands, the Gordok ogres outside Dire Maul in Feralas and the Twilight camps of Silithus drop it about one kill in three. The Auction House is faster if you have gold.
   level 50
-  accept 7836
-
-step Runecloth
+  accept 7836                         -- +150
   zone Eastern Plaguelands
-  tip Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the Argent Dawn (see that guide). The Auction House works too.
-  collect 14047 x60 quest 7836.1 @40,51.3
-
-step Vehena: Runecloth delivered
-  zone Orgrimmar
+  collect 14047 x60 quest 7836.1 live @68,69.5 -- Runecloth: the Scarlet outside Tyr's Hand
   turnin 7836
 
 step Additional Runecloth to Honored
-  tip Additional Runecloth takes 20 Runecloth per turn-in and repeats as often as you like. Bring Runecloth in multiples of 20 and hand them all in at once, one turn-in after another. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
-  collect 14047 x20 optional @40,51.3 map 1423
-  turnin 7837 direct optional
+  zone Eastern Plaguelands
+  tip Additional Runecloth: 20 Runecloth for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 Runecloth, less what the quests gave you (a troll starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne at Neutral 2,000 first needs 20 more to reach Friendly). Hand in every 20 you carry, one after another.
+  collect 14047 x20 optional live @68,69.5 -- Runecloth: the Scarlet outside Tyr's Hand
+  turnin 7837 direct optional         -- Vehena: Additional Runecloth, +50
   rep 530 Honored
 
 step Additional Runecloth to Revered
-  tip Keep handing in Additional Runecloth, 20 Runecloth at a time. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
-  collect 14047 x20 optional @40,51.3 map 1423
-  turnin 7837 direct optional
+  tip Honored to Revered is 12,000: 240 hand-ins, 4,800 Runecloth. The Auction House price of a stack decides whether to farm or buy.
+  collect 14047 x20 optional live @68,69.5 -- Runecloth
+  turnin 7837 direct optional         -- Additional Runecloth, +50
   rep 530 Revered
 
 step Additional Runecloth to Exalted
-  tip Keep handing in Additional Runecloth until Darkspear Trolls is Exalted. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
-  collect 14047 x20 optional @40,51.3 map 1423
-  turnin 7837 direct optional
+  tip Revered to Exalted is 21,000: 420 hand-ins, 8,400 Runecloth. At Exalted, Zjolnir in Sen'jin Village sells the raptors to every Horde race: 20 gold for a level 40 raptor, 200 gold for a swift raptor at level 60 (Forever's prices); in Classic other races needed Exalted to buy them.
+  collect 14047 x20 optional live @68,69.5 -- Runecloth
+  turnin 7837 direct optional         -- Additional Runecloth, +50
   rep 530 Exalted
+  talk 7952 optional                  -- Zjolnir: the raptors

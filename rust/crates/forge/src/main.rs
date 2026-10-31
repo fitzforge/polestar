@@ -30,6 +30,7 @@ Commands:
   guide      compile or lint guides
   judge      judge a guide pack; the route report; the player-report tests
   nav        the walking grid from the installed client (grid, prepare)
+  record     the Recorder's chunks into data/recordings: from this PC's game (import) or the server (pull)
   sim        route cuts, the shared route, why a quest is in or out (why, skips), calibration (calibrate)
   walks      the world and walks stages on their own
   writer     write a route into the guides (apply-route)
@@ -54,8 +55,10 @@ inputs did not change since the last run (a BLAKE3 key in <out>/.forge/<stage>.k
   --wow          the game folder (remembered in Forge's config file for later runs; forge doctor --forget)
   --starts       the starts to build (default: every start)
   --threads      worker threads (default 8)
-  --nav          the walks backend (default: hybrid when Leffe's navigation maps are found, else grid)
-  --leffe        Leffe's navigation maps (default $POLESTAR_LEFFE_NAV, else the data pack's)
+  --nav          the walks backend (default: hybrid when Leffe's navigation maps or the data pack's
+                 saved walks on them are found, else grid)
+  --leffe        Leffe's navigation maps, private (default $POLESTAR_LEFFE_NAV); without them the hybrid
+                 uses the data pack's saved walks on his maps and our grid for the rest
   --checkout     the Polestar checkout whose fixes the build applies: forever-db/corrections
                  and data/route-fixes.json (default: the nearest checkout above --guides, else above here)
   --root         the checkout whose data/sources, data/local, tools and addon are read (default: the
@@ -77,12 +80,13 @@ Every build writes fixes.md and fixes.json (and a Fixes section in report.md): t
 input, and what became of every fix record in the checkout: corrections, mechanics, route fixes and
 the player-report checks.";
 
-const PACK_HELP: &str = "usage: forge data pack --out <dir> [--root <checkout>] [--walks-from <forge output>] [--leffe <dir>]
+const PACK_HELP: &str = "usage: forge data pack --out <dir> [--root <checkout>] [--walks-from <forge output>]
                        [--grid <the grid the walk stores were built on>]
 
 Writes the data pack (sources, licences and credits in its manifest.json) as
-<out>/polestar-data-pack.tar.gz, Leffe's navigation maps as their own asset
-<out>/polestar-leffe-nav.tar.gz (with --leffe), and the index <out>/polestar-data-pack.json.";
+<out>/polestar-data-pack.tar.gz and the index <out>/polestar-data-pack.json. The walk stores
+include the walks answered on Leffe's navigation maps; his maps themselves are private and never
+packed.";
 
 const FETCH_HELP: &str = "usage: forge data fetch [--url <pack index URL or path>] [--dest <dir>]
 
@@ -98,7 +102,7 @@ fn options(cmd: &str) -> (&'static [&'static str], &'static [&'static str]) {
 			&["--guides", "--out", "--checkout", "--wow", "--data", "--data-root", "--starts", "--nav", "--leffe", "--root", "--walks-from", "--grid", "--pack", "--threads", "--until"],
 			&["--allow-incomplete", "--strict"],
 		),
-		"pack" => (&["--out", "--root", "--walks-from", "--leffe", "--grid"], &[]),
+		"pack" => (&["--out", "--root", "--walks-from", "--grid"], &[]),
 		_ => (&["--url", "--dest"], &[]),
 	}
 }
@@ -190,14 +194,7 @@ fn run(cmd: &str, args: &[String]) -> Result<(), Fail> {
 	if cmd == "pack" {
 		let out = abs(need("--out")?);
 		let root = val("--root").map(abs).or_else(found_root).ok_or_else(|| Fail::Usage("no data/sources above here: pass --root <checkout>".into()))?;
-		let o = forge::pack::PackOpts {
-			root,
-			walks_from: val("--walks-from").map(abs).map(|d| d.join("walks")),
-			grid: val("--grid").map(abs),
-			nav_fp: std::env::var("POLESTAR_NAV_FP").ok(),
-			leffe: val("--leffe").map(abs),
-			out,
-		};
+		let o = forge::pack::PackOpts { root, walks_from: val("--walks-from").map(abs).map(|d| d.join("walks")), grid: val("--grid").map(abs), nav_fp: std::env::var("POLESTAR_NAV_FP").ok(), out };
 		let t = std::time::Instant::now();
 		let p = forge::pack::pack(&o, &mut log)?;
 		eprintln!(

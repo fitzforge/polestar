@@ -84,7 +84,7 @@ local function finish()
 	end
 	sold, earned = 0, 0
 	qi, qn = 1, 0
-	if open then
+	if open and not QoL.Shift() then
 		repair()
 		QoL.Buy.Run()
 	end
@@ -93,6 +93,10 @@ end
 local function step()
 	if not open then
 		stop()
+		return
+	end
+	if not QoL.On("sellJunk") or QoL.Shift() then
+		finish()
 		return
 	end
 	local done = 0
@@ -111,9 +115,10 @@ local function step()
 end
 
 function Vendor.OnMerchantShow()
+	stop()
 	open = true
-	if QoL.Shift() then return end
 	sold, earned, qi, qn = 0, 0, 1, 0
+	if QoL.Shift() then return end
 	if QoL.On("sellJunk") then
 		for bag = 0, Client.NumBags() do
 			for slot = 1, Client.NumSlots(bag) do
@@ -145,3 +150,9 @@ end
 
 ns.RegisterEvent("MERCHANT_SHOW", Vendor.OnMerchantShow)
 ns.RegisterEvent("MERCHANT_CLOSED", Vendor.OnMerchantClosed)
+ns.RegisterEvent("PLAYER_LOGOUT", Vendor.OnMerchantClosed)
+ns.On("SETTING_CHANGED", function(path)
+	if (path == "qol.sellJunk" or path == "qol" or path == "") and not QoL.On("sellJunk") and qn > 0 then
+		finish()
+	end
+end)

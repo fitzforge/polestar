@@ -179,7 +179,8 @@ fn every_reach_into_the_game_s_ui_is_guarded_for_the_gamepad_interface_and_liste
 		}
 		for file in lua_files(&addons.join(&name)) {
 			let rel = file.strip_prefix(&addons).unwrap().components().map(|c| c.as_os_str().to_string_lossy().into_owned()).collect::<Vec<_>>().join("/");
-			let src = std::fs::read_to_string(&file).unwrap();
+			// The walking maps' parts may hold zlib bytes in their literals (maps format 5): not UTF-8.
+			let src = String::from_utf8_lossy(&std::fs::read(&file).unwrap()).into_owned();
 			let n = src.split('\n').filter(|line| reaches.is_match(&comment.replacen(line, 1, ""))).count();
 			if n > 0 {
 				found.insert(rel, n);

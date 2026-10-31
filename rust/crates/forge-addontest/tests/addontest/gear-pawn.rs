@@ -630,6 +630,78 @@ fn pawn_build_writes_a_string_parse_and_weights_read_back_to_the_same_weights() 
 }
 
 #[test]
+fn pawn_build_rounds_positive_and_negative_weights_to_the_nearest_thousandth_with_ties_away_from_zero() {
+	let cases: [(f64, f64); 19] = [
+		(0.0, 0.0),
+		(1.0, 1.0),
+		(-1.0, -1.0),
+		(0.1, 0.1),
+		(-0.1, -0.1),
+		(1.234, 1.234),
+		(-1.234, -1.234),
+		(1.2344, 1.234),
+		(-1.2344, -1.234),
+		(1.2345, 1.235),
+		(-1.2345, -1.235),
+		(1.2346, 1.235),
+		(-1.2346, -1.235),
+		(0.0004, 0.0),
+		(-0.0004, 0.0),
+		(0.0005, 0.001),
+		(-0.0005, -0.001),
+		(0.0006, 0.001),
+		(-0.0006, -0.001),
+	];
+	let values = cases.iter().map(|(v, _)| v.to_string()).collect::<Vec<_>>().join(", ");
+	let out = run(&format!(
+		r#"
+		local out = {{}}
+		for _, value in ipairs({{ {values} }}) do
+			local source = G.Pawn.Build("Rounded", "WARRIOR", {{ str = value }})
+			local parsed = assert(G.Pawn.Parse(source))
+			out[#out + 1] = G.Pawn.Weights(parsed).str
+		end
+		emit(out)
+	"#
+	));
+	let weights = out[0].as_array().unwrap();
+	assert_eq!(weights.len(), cases.len());
+	for ((value, want), got) in cases.iter().zip(weights) {
+		assert_eq!(got.as_f64(), Some(*want), "weight {value}");
+	}
+}
+
+#[test]
+fn editing_a_scale_preserves_negative_weights_through_repeated_export_and_import() {
+	let rounds = run(r#"
+		local _, r = G.Scales.Import('( Pawn: v1: "Penalties": Class=Warrior, Strength=-1, Agility=-0.1, Stamina=-1.234, CritRating=0 )')
+		for i = 1, 3 do
+			-- Changing another stat rebuilds the whole export string.
+			assert(G.Scales.SetWeight("WARRIOR", r.scale.id, "dps", i))
+			local source = G.Scales.Export("WARRIOR", r.scale.id)
+			local ok, imported = G.Scales.Import(source)
+			assert(ok)
+			r = imported
+			emit(r.scale.weights)
+		end
+	"#);
+	let want: Vec<Value> = (1..=3).map(|dps| json!({ "str": -1, "agi": -0.1, "sta": -1.234, "crit": 0, "dps": dps })).collect();
+	assert_eq!(rounds, want);
+}
+
+#[test]
+fn removing_a_stat_keeps_the_other_negative_weights_in_the_exported_scale() {
+	let out = run(r#"
+		local _, r = G.Scales.Import('( Pawn: v1: "Penalties": Class=Warrior, Strength=-1, Agility=-0.1, Stamina=2 )')
+		assert(G.Scales.RemoveWeight("WARRIOR", r.scale.id, "sta"))
+		local ok, imported = G.Scales.Import(G.Scales.Export("WARRIOR", r.scale.id))
+		assert(ok)
+		emit(imported.scale.weights)
+	"#);
+	assert_eq!(out[0], json!({ "str": -1, "agi": -0.1 }));
+}
+
+#[test]
 fn copy_a_built_in_spec_a_new_scale_holds_that_spec_s_weights_at_your_level_named_as_a_copy_ready_to_edit() {
 	let out = run_ui(
 		&[

@@ -14,7 +14,7 @@
 use std::collections::{BTreeMap, BTreeSet};
 use std::f64::consts::SQRT_2;
 
-use forge_addontest::navmap::{enc, encode_areas, write_map, FixtureCell, FixtureMap, MapDir};
+use forge_addontest::navmap::{b32, enc, encode_areas, write_map, zigzag, FixtureCell, FixtureMap, MapDir};
 use forge_addontest::run::{addons_dir, root, toc_entries};
 use forge_addontest::tmp::TempDir;
 use forge_addontest::{emitted, Addon, RunAddon};
@@ -1154,4 +1154,38 @@ fn lifts_a_lift_chokepoint_joins_ground_the_grid_leaves_apart_find_rides_it_find
 	assert!(landing(X0 + LIFT_GAP) && landing(X1 - LIFT_GAP), "both landings on the drawn line: {:?}", xs.iter().map(|v| v / CS - 0.5).collect::<Vec<_>>());
 	yards_near(yards(&r["find"]), S as f64 * CS, "the drawn line, the shaft included", 0.5);
 	yards_near(yards(&r["many"]), S as f64 * CS, "FindMany's yards: the walks and the yards between the landings", 0.5);
+}
+
+// Arcs (maps format 5, Leffe's jumps and drops): the two strips of the lift test with no lift, and one arc from the
+// near strip's end to the far strip's start in the cluster's arc field (its columns: n | from gaps | to-nodes against
+// the from node | yards * 4): a one-way move the grid's steps lack.
+const ARC_YD: f64 = 12.0;
+fn arc_files() -> MapDir {
+	let mut map = lift_files(false);
+	let (a, b) = ((X0 + LIFT_GAP) * C + Y0, (X1 - LIFT_GAP) * C + Y0);
+	let mut field = String::new();
+	for v in [1, a as u64, zigzag(b as i64 - a as i64), (ARC_YD * 4.0) as u64] {
+		b32(v, &mut field);
+	}
+	let file = map.dir.path().join("Arcs.lua");
+	std::fs::write(&file, format!("PolestarPathData[{MAP}].arc = {{ [1] = \"{field}\" }}\n")).unwrap();
+	map.files.push(file);
+	map
+}
+
+#[test]
+fn arcs_a_jump_joins_ground_the_grid_leaves_apart_one_way_find_findcost_and_findmany_take_it_forwards_never_back() {
+	let queries = || [q("find", "find", "nil"), q("cost", "cost", "nil"), q("many", "many", "nil")];
+	let fwd = route(&arc_files(), &queries());
+	let want = 2.0 * LIFT_GAP as f64 * CS + ARC_YD;
+	for id in ["find", "cost", "many"] {
+		close(&fwd[id], want, id);
+	}
+	let xs: Vec<f64> = points(&fwd["find"]).iter().map(|p| p.0).collect();
+	let end = |x: usize| xs.iter().any(|v| (v - (x as f64 + 0.5) * CS).abs() < 1e-6);
+	assert!(end(X0 + LIFT_GAP) && end(X1 - LIFT_GAP), "both ends of the jump on the drawn line");
+	let back = route_with(ours(), &arc_files(), &queries()[..2], to(), from(), "");
+	for id in ["find", "cost"] {
+		assert_eq!(back[id]["cost"], "unreachable", "{id}: no way back up the jump");
+	}
 }

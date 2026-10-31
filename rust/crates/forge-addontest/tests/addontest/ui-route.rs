@@ -146,7 +146,7 @@ fn each_card_shows_its_zone_painting_from_the_client_framed_on_the_route_start_u
 		for _, t in ipairs(b.Art.Tiles) do if t:IsShown() then bShown = bShown + 1 end end
 		emit({ tiles = tiles, focusY = a.psFocusY,
 			tileW = a.Tiles[1]:GetWidth(), canvas = { a.Canvas:GetWidth(), a.Canvas:GetHeight() }, offset = { cx, cy },
-			artW = a:GetWidth(), band = a.Band:IsShown(), painted = s.psArt,
+			artW = a:GetWidth(), artH = a:GetHeight(), band = a.Band:IsShown(), painted = s.psArt,
 			other = { painted = b.psArt, band = b.Art.Band:IsShown(), tiles = bShown },
 			name = s.Name:GetText(), nameOnArt = s.Name:GetParent() == a.Over })"#);
 	assert_eq!(out["painted"], true);
@@ -164,12 +164,13 @@ fn each_card_shows_its_zone_painting_from_the_client_framed_on_the_route_start_u
 		assert!((tx - (i % 4) as f64 * 256.0 * s).abs() < 0.01 && (ty + (i / 4) as f64 * 256.0 * s).abs() < 0.01, "tile {file}");
 	}
 	// Zoomed past "fits the card"; the start (45%, 42%) mid-card and in the clear stretch, never past the painting's edges.
-	assert!(cw > 2.0 * 270.0 && (cw / ch - 1002.0 / 668.0).abs() < 0.01, "canvas {cw} x {ch}");
+	let (aw, ah) = (f(&out["artW"]), f(&out["artH"]));
+	assert!(cw > 2.0 * aw && (cw / ch - 1002.0 / 668.0).abs() < 0.01, "canvas {cw} x {ch}");
 	assert!((f(&out["tileW"]) - (256.0 * cw) / 1002.0).abs() < 0.01);
 	let (x, y) = (f(&out["offset"][0]), f(&out["offset"][1]));
-	assert!((270.0 - cw..=0.0).contains(&x), "x {x}");
-	assert!((0.0..=ch - 116.0).contains(&y), "y {y}");
-	assert!((-x + 135.0 - 0.45 * cw).abs() < 0.5, "the start is centred horizontally");
+	assert!((aw - cw..=0.0).contains(&x), "x {x}");
+	assert!((0.0..=ch - ah).contains(&y), "y {y}");
+	assert!((-x + aw / 2.0 - 0.45 * cw).abs() < 0.5, "the start is centred horizontally");
 	assert!((0.42 * ch - y - f(&out["focusY"])).abs() < 0.5, "and sits between the top shade and the fade");
 	// A map the client has no art for: the night band, no tiles.
 	assert_eq!(out["other"], json!({ "painted": false, "band": true, "tiles": 0 }));

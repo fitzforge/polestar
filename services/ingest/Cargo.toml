@@ -1,0 +1,54 @@
+# The ingest server for Polestar's recording program (docs/RECORDING.md).
+# A standalone Cargo project with its own lock file: the forge workspace
+# never builds it, and the server image builds only this and the recording
+# library it shares with the uploader and forge.
+[package]
+name = "polestar-ingest"
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0-only"
+rust-version = "1.87"
+publish = false
+repository = "https://github.com/fitzforge/polestar"
+
+[workspace]
+
+[dependencies]
+polestar-recording = { path = "../../rust/crates/polestar-recording" }
+axum = { version = "0.8", default-features = false, features = ["http1", "tokio", "query", "json"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "signal", "sync", "time"] }
+rusqlite = { version = "0.37", features = ["bundled", "backup"] }
+# 0.14.3+ (zstd-safe 8.2+): earlier versions have memory-safety advisories (RUSTSEC-2026-0391, -0395..0406).
+zstd = { version = "0.14.3", default-features = false }
+flate2 = "1"
+libc = "0.2"
+tower-http = { version = "0.6", features = ["cors", "limit", "trace"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+futures-util = { version = "0.3", default-features = false }
+sha2 = "0.10"
+hmac = "0.12"
+getrandom = "0.3"
+subtle = "2.6"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", default-features = false, features = ["fmt", "env-filter", "ansi"] }
+
+[dev-dependencies]
+# Paused time for the body-timeout test.
+tokio = { version = "1", features = ["test-util"] }
+tower = { version = "0.5", features = ["util"] }
+http-body-util = "0.1"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 4
+strip = true
+
+# Optimised but quick to build: for tests (`cargo test --profile quick`).
+[profile.quick]
+inherits = "release"
+lto = false
+codegen-units = 16
+strip = false
+incremental = true

@@ -218,7 +218,15 @@ function loadEntranceTable(file = path.join(__dirname, '..', '..', '..', 'data',
 // Recorder entrances [ { map, x, y, f?, n } ]; table: its entrances.json entry
 // or null; guides: curatedEntrances(); corpse: the Map row's { c, x, y } |
 // null; prefer: uiMap ids of the zones holding it (for the corpse point).
-function chooseEntrance({ name, recorded = [], table = null, guides = [], corpse = null, zones = {}, frames = {}, prefer = [] }) {
+// A table entry's `A` (the Alliance's own way in) rides along as entrance.A.
+function chooseEntrance(args) {
+	const e = chooseEntrancePoint(args);
+	const a = args.table && args.table.A;
+	if (!e || !(a && a.map)) return e;
+	return { ...e, A: { map: Number(a.map), x: round1(a.x), y: round1(a.y) } };
+}
+
+function chooseEntrancePoint({ name, recorded = [], table = null, guides = [], corpse = null, zones = {}, frames = {}, prefer = [] }) {
 	const rec = recorded.slice().sort((a, b) => num(b.n) - num(a.n))[0];
 	if (rec && rec.map) return { map: Number(rec.map), x: round1(rec.x), y: round1(rec.y), f: rec.f === 'e' ? 'e' : null };
 	if (table && table.map) return { map: Number(table.map), x: round1(table.x), y: round1(table.y), f: null };

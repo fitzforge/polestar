@@ -1,0 +1,70 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Polestar Client",
+  "version": "0.1.0",
+  "identifier": "gg.polestar.client",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:5174",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Polestar Client",
+        "width": 880,
+        "height": 600,
+        "resizable": false,
+        "maximizable": false,
+        "center": true,
+        "visible": false,
+        "backgroundColor": "#05080f"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' data: asset:; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "category": "Utility",
+    "shortDescription": "Shares your Polestar Recorder data with the Polestar project",
+    "longDescription": "Polestar Client finds World of Warcraft: Forever on your PC, installs the Polestar Recorder addon and uploads what it records, with your consent, to improve Polestar's leveling guides. It shows exactly what it sends.",
+    "copyright": "Polestar contributors, GPL-3.0-only",
+    "license": "GPL-3.0-only",
+    "homepage": "https://github.com/fitzforge/polestar",
+    "createUpdaterArtifacts": true,
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "macOS": {
+      "minimumSystemVersion": "11.0"
+    },
+    "linux": {
+      "deb": {
+        "depends": []
+      }
+    }
+  },
+  "plugins": {
+    "deep-link": {
+      "desktop": {
+        "schemes": ["polestar"]
+      }
+    },
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IERBNUZEREU1RUMyQzcxQjgKUldTNGNTenM1ZDFmMnUveGRaT0tFUTg4NVl6YlhpdWR0elZHWUNxczZGeFR2aHU4c1pVY1NYNDQK",
+      "endpoints": [],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  }
+}

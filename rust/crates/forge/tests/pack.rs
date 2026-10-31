@@ -102,12 +102,7 @@ fn packed(name: &str) -> (PathBuf, pack::Packed) {
 	let d = scratch(name);
 	let root = d.join("checkout");
 	checkout(&root);
-	// Leffe's navigation maps: their own asset.
-	let leffe = d.join("leffe");
-	put(&leffe, "PACK.json", "{\"format\":4}\n");
-	put(&leffe, "Nav/Nav.xml", "<Ui/>\n");
-	put(&leffe, "Nav/Nav0.lua", "-- maps\n");
-	let p = pack::pack(&pack::PackOpts { root, walks_from: None, grid: None, nav_fp: None, leffe: Some(leffe), out: d.join("out") }, &mut |_| {}).unwrap();
+	let p = pack::pack(&pack::PackOpts { root, walks_from: None, grid: None, nav_fp: None, out: d.join("out") }, &mut |_| {}).unwrap();
 	(d, p)
 }
 
@@ -177,9 +172,9 @@ fn pack_leaves_private_data_out() {
 		assert!(s["licence"].is_string() && s["credit"].is_string(), "{s}");
 	}
 	assert!(m["files"].as_array().unwrap().iter().all(|f| f["source"].is_string() && f["blake3"].as_str().unwrap().len() == 64));
-	let leffe = m["sources"].as_array().unwrap().iter().find(|s| s["id"] == "leffe-nav").unwrap();
-	assert_eq!(leffe["credit"], "Leffe's navigation maps, used with Leffe's permission");
-	assert_eq!(leffe["asset"], "polestar-leffe-nav.tar.gz");
+	// Leffe's maps are private: no source, no asset.
+	assert!(m["sources"].as_array().unwrap().iter().all(|s| s["id"] != "leffe-nav" && s["asset"].is_null()));
+	assert!(p.assets.is_empty());
 	assert_eq!(m["requires"][0]["id"], "grid");
 	let _ = std::fs::remove_dir_all(d);
 }
@@ -192,6 +187,11 @@ fn guard_finds_a_planted_private_file() {
 	let found = pack::scan_private(&p.dir).unwrap();
 	assert!(found.iter().any(|f| f.contains("notes.txt") && f.contains("foreverdb")), "{found:?}");
 	assert!(found.iter().any(|f| f.contains("evidence/2.json")), "{found:?}");
+	// Leffe's maps are private: his Nav folder makes the pack refuse.
+	put(&p.dir, "leffe-nav/Nav/Nav.xml", "<Ui/>\n");
+	let found = pack::scan_private(&p.dir).unwrap();
+	assert!(found.iter().any(|f| f.contains("leffe-nav/Nav/Nav.xml")), "{found:?}");
+	std::fs::remove_dir_all(p.dir.join("leffe-nav")).unwrap();
 	let c = Connection::open(p.dir.join("data/local/kb/forever-kb.sqlite")).unwrap();
 	c.execute("insert into facts values ('quest', 9, 'xp', '1', 'page', 'high', 1, 1)", []).unwrap();
 	drop(c);
@@ -225,11 +225,9 @@ fn fetch_verifies_and_unpacks() {
 	assert_eq!(f.files, p.files);
 	assert_eq!(fetch::verify(&dest).unwrap().0, p.files);
 	assert!(dest.join("data/local/kb/forever-kb.sqlite").is_file());
-	// Leffe's maps came as their own asset and are in place.
-	assert_eq!(p.assets.len(), 1);
-	assert!(dest.join("leffe-nav/Nav/Nav.xml").is_file());
-	let main_only = std::process::Command::new("tar").arg("tzf").arg(&p.archive).output().unwrap();
-	assert!(!String::from_utf8_lossy(&main_only.stdout).contains("leffe-nav/"));
+	// One archive: Leffe's maps are private and never an asset.
+	assert!(p.assets.is_empty());
+	assert!(!dest.join("leffe-nav").exists());
 	// A file changed after unpacking fails verification.
 	put(&dest, "data/rules.json", "{\"changed\":1}\n");
 	assert!(fetch::verify(&dest).is_err());

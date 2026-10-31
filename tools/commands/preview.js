@@ -318,6 +318,35 @@ function raresScene(script) {
 	return `${clientArtLua()}${RARES_SETUP}\n${script}`;
 }
 const RARES_FILES = [...FILES, 'Rares/Rares.xml'];
+// The Characters scene (panel.alts): three characters of this account, the
+// one playing live and two as of their last logout (names, places and
+// numbers are samples written for the preview).
+const ALTS_SETUP = `uistub.player.level = 18
+UnitLevel = function() return 18 end
+UnitName = function() return "Ana" end
+UnitClass = function() return "Mage", "MAGE", 8 end
+UnitRace = function() return "Night Elf", "NightElf", 4 end
+GetXPExhaustion = function() return 1840 end
+IsResting = function() return false end
+UnitXP = function() return 2480 end
+UnitXPMax = function() return 4000 end
+GetZoneText = function() return "Darkshore" end
+GetBindLocation = function() return "Auberdine" end
+GetMoney = function() return 124000 end
+local now = GetServerTime()
+local chars = PolestarDB.alts or { chars = {} }
+PolestarDB.alts = chars
+chars.chars["Bram-Test Realm"] = { key = "Bram-Test Realm", name = "Bram", realm = "Test Realm", class = "WARRIOR", race = "Dwarf", faction = "Alliance",
+	level = 31, xp = 5200, xpMax = 14600, rested = 6100, resting = true, zone = "Ironforge", bind = "Ironforge", money = 482300, seen = now - 5 * 3600,
+	profs = { [164] = 187, [186] = 201, [185] = 140 }, tabs = { { id = "g", title = "Wetlands (20-25)", step = 9, count = 40 } }, active = 1 }
+chars.chars["Cira-Test Realm"] = { key = "Cira-Test Realm", name = "Cira", realm = "Test Realm", class = "PRIEST", race = "Human", faction = "Alliance",
+	level = 9, xp = 300, xpMax = 1800, rested = 400, zone = "Westfall", bind = "Sentinel Hill", money = 12900, seen = now - 3 * 86400, profs = {} }
+Polestar.Engine.GetTabs = function() return { { guideId = "g", title = "Darkshore (16-21)", stepIndex = 16, stepCount = 43 } }, 1 end
+Polestar.Alts.Write()`;
+function altsScene(script) {
+	return `${clientArtLua()}${ALTS_SETUP}\n${script}`;
+}
+const ALTS_FILES = [...FILES, 'Alts/Alts.xml'];
 const TOAST = ['PolestarRareToast'];
 // The guide menu's sample library: pitches, pros and cons on a few guides,
 // Westfall on its real map (art with POLESTAR_CLIENT_ART), and leveling
@@ -1525,6 +1554,14 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 		panels: [
 			{ rares: true, files: RARES_FILES, roots: PICKER, script: raresScene('Polestar.Rares.Show("rare", 61)') },
 			{ rares: true, files: RARES_FILES, roots: PICKER, script: raresScene('Polestar.Rares.Show(); Polestar.UI.RaresSection.SetTab("seen")') },
+		],
+	},
+	{
+		file: 'characters.svg',
+		title: 'Characters in the hub: three characters on one realm, the one playing first with its guide, each other as of its last logout with rested XP projected to now, one sidebar entry each; the sort tabs on last played, then most rested',
+		panels: [
+			{ files: ALTS_FILES, roots: PICKER, script: altsScene('Polestar.Fire("SHOW_ALTS")') },
+			{ files: ALTS_FILES, roots: PICKER, script: altsScene('Polestar.Set("alts.sort", "rested"); Polestar.Fire("SHOW_ALTS")') },
 		],
 	},
 	{

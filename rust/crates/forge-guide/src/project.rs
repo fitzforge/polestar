@@ -598,10 +598,19 @@ mod native {
 		let opts = CompileOpts { pack: manifest.get("id").as_str().map(str::to_string), author: manifest.get("author").as_str().map(str::to_string), context, pack_dir: Some(pack_dir.to_path_buf()) };
 		let c = compile_sources(&read_sources(pack_dir, &sources), data, &mut diag, &opts);
 		let retired_file = pack_dir.join("retired.json");
-		let retired = read_retired_text(std::fs::read_to_string(&retired_file).ok().as_deref(), &retired_file.to_string_lossy(), &c.guides, &mut diag);
+		let retired = read_retired_text(pack_text(pack_dir, "retired.json", &mut diag).as_deref(), &retired_file.to_string_lossy(), &c.guides, &mut diag);
 		let legs_file = pack_dir.join("legs.json");
-		read_legs_text(std::fs::read_to_string(&legs_file).ok().as_deref(), &legs_file.to_string_lossy(), &c.guides, data, &mut diag);
+		read_legs_text(pack_text(pack_dir, "legs.json", &mut diag).as_deref(), &legs_file.to_string_lossy(), &c.guides, data, &mut diag);
 		Project { guides: c.guides, diag, sources, retired, tokens: c.tokens }
+	}
+
+	/// read_pack_file's text of `name` in the pack folder, None without it; a refused one (a link,
+	/// or outside the folder) is an error in diag and None.
+	fn pack_text(pack_dir: &Path, name: &str, diag: &mut Diagnostics) -> Option<String> {
+		crate::manifest::read_pack_file(pack_dir, name).unwrap_or_else(|e| {
+			diag.error(&pack_dir.join(name).to_string_lossy(), 1.0, e, None);
+			None
+		})
 	}
 
 	/// coreInterface: the `## Interface:` value of addon/Polestar/Polestar.toc under `root`.
@@ -616,10 +625,17 @@ mod native {
 		Err(format!("{} has no ## Interface line", file.display()))
 	}
 
-	/// The pack's LICENSE file (text) with the placeholder warning (pack/build.js readLicense).
+	/// The pack's LICENSE file (text) with the placeholder warning (pack/build.js readLicense); a
+	/// LICENSE that is a link or lies outside the pack folder is an error, never read.
 	pub fn read_license(pack_dir: &Path, manifest: &V, diag: &mut Diagnostics) -> Option<String> {
 		let file = pack_dir.join("LICENSE");
-		let text = std::fs::read_to_string(&file).ok()?;
+		let text = match crate::manifest::read_pack_file(pack_dir, "LICENSE") {
+			Ok(text) => text?,
+			Err(e) => {
+				diag.error(&rel_to_cwd(&file), 1.0, e, Some("make LICENSE a plain file holding the licence text".into()));
+				return None;
+			}
+		};
 		if let Some(at) = text.split('\n').map(|l| l.strip_suffix('\r').unwrap_or(l)).position(|l| l.contains(crate::format::LICENSE_PLACEHOLDER)) {
 			diag.warn(
 				&rel_to_cwd(&file),

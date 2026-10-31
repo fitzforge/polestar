@@ -824,7 +824,7 @@
 			"id": "undercity-south-lift",
 			"name": "Undercity",
 			"open": "both",
-			"note": "Polestar's fixed way in and out of the Undercity, by its south lift: the nodes follow Fitz's own walk (2026-10-23), their heights from Polestar's walking grid",
+			"note": "Polestar's fixed way in and out of the Undercity, by its south lift: the nodes follow Fitz's own walk (2026-10-23), their heights from Polestar's walking grid. The three nodes after the Ruins mouth cover the courtyard and gate the client already calls the Undercity (map 1458), so a player there is on the way out, not routed down and back up (Fitz, 2026-10-25)",
 			"nodes": [
 				{
 					"map": 1420,
@@ -832,6 +832,27 @@
 					"y": 64.95,
 					"z": 60,
 					"radius": 30
+				},
+				{
+					"map": 1458,
+					"x": 66.35,
+					"y": 4.5,
+					"z": 61,
+					"radius": 12
+				},
+				{
+					"map": 1458,
+					"x": 67.03,
+					"y": 11.0,
+					"z": 62,
+					"radius": 20
+				},
+				{
+					"map": 1458,
+					"x": 66.39,
+					"y": 17.5,
+					"z": 63,
+					"radius": 12
 				},
 				{
 					"map": 1458,
@@ -875,6 +896,45 @@
 					"z": -41.4,
 					"radius": 6
 				}
+			]
+		},
+		{
+			"id": "darkcloud-pinnacle-climb",
+			"name": "Darkcloud Pinnacle",
+			"open": "both",
+			"note": "Up from the canyon floor and across Darkcloud Pinnacle's rope bridges to its south-east mesas: Leffe's navigation maps lack the bridges (2026-10-25), so the nodes follow Polestar's walking grid's way over them (grid-70532-ramps), their heights from it",
+			"nodes": [
+				{ "map": 1441, "x": 31.2, "y": 36.72, "z": -46, "radius": 12 },
+				{ "map": 1441, "x": 33.1, "y": 35.58, "z": 4, "radius": 8 },
+				{ "map": 1441, "x": 33.0, "y": 32.46, "z": 30, "radius": 8 },
+				{ "map": 1441, "x": 32.62, "y": 31.75, "z": 36, "radius": 8 },
+				{ "map": 1441, "x": 32.05, "y": 31.46, "z": 56, "radius": 8 },
+				{ "map": 1441, "x": 32.24, "y": 27.91, "z": 78, "radius": 8 },
+				{ "map": 1441, "x": 32.53, "y": 27.2, "z": 90, "radius": 8 },
+				{ "map": 1441, "x": 34.71, "y": 30.89, "z": 92, "radius": 8 },
+				{ "map": 1441, "x": 35.65, "y": 30.89, "z": 92, "radius": 8 },
+				{ "map": 1441, "x": 36.88, "y": 31.75, "z": 84, "radius": 8 },
+				{ "map": 1441, "x": 37.36, "y": 31.75, "z": 84, "radius": 8 },
+				{ "map": 1441, "x": 38.97, "y": 29.47, "z": 82, "radius": 8 },
+				{ "map": 1441, "x": 38.78, "y": 28.91, "z": 80, "radius": 8 },
+				{ "map": 1441, "x": 38.87, "y": 27.77, "z": 82, "radius": 8 },
+				{ "map": 1441, "x": 38.11, "y": 26.87, "z": 83, "radius": 12 }
+			]
+		},
+		{
+			"id": "darkcloud-pinnacle-mesas",
+			"name": "Darkcloud Pinnacle",
+			"open": "both",
+			"note": "Across Darkcloud Pinnacle's rope bridges between its west and south mesas: Leffe's navigation maps lack the bridges (2026-10-25), so the nodes follow Polestar's walking grid's way over them (grid-70532-ramps), their heights from it",
+			"nodes": [
+				{ "map": 1441, "x": 33.87, "y": 38.96, "z": 89, "radius": 12 },
+				{ "map": 1441, "x": 34.23, "y": 38.28, "z": 88, "radius": 8 },
+				{ "map": 1441, "x": 34.14, "y": 35.87, "z": 90, "radius": 8 },
+				{ "map": 1441, "x": 34.9, "y": 32.32, "z": 84, "radius": 8 },
+				{ "map": 1441, "x": 35.56, "y": 30.89, "z": 92, "radius": 8 },
+				{ "map": 1441, "x": 37.07, "y": 32.03, "z": 84, "radius": 8 },
+				{ "map": 1441, "x": 37.17, "y": 33.59, "z": 82, "radius": 8 },
+				{ "map": 1441, "x": 38.04, "y": 35.7, "z": 84, "radius": 12 }
 			]
 		}
 	]

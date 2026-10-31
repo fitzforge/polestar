@@ -1,92 +1,187 @@
 guide forever/reputation/timbermaw-hold
 title Timbermaw Hold Reputation
 category Reputation
+folder Reputation · World
 levels 48-60
 zone Felwood
-# Built from the Era-baseline reference data: Grazle, Nafien and Salfa and
-# their quests (8460 Timbermaw Ally, 8462 Speak to Nafien, 8461 Deadwood of the
-# North, 8465 Speak to Salfa, 8464 Winterfall Activity), the repeatable
-# turn-ins they unlock (8466 Feathers for Grazle, 8467 Feathers for Nafien,
-# 8469 Beads for Salfa) and the Deadwood Headdress Feather / Winterfall Spirit
-# Beads drop tables. Farm spots are the densest spawn clusters of the droppers.
-# Nothing public shows Forever changing Felwood or Winterspring; this has NOT
-# been play-tested on Forever yet.
-#
-# The feather and bead turn-ins are repeatable and the client never flags them
-# completed, so those steps track the Timbermaw Hold standing (rep 576). Five
-# feathers or beads per turn-in is game knowledge, not data. The data lists
-# Grazle at two spots in Felwood; he is pinned to the southern one (by the
-# Emerald Sanctuary, as Timbermaw Ally's text says). The starting standing is
-# the Forever client's (Faction 576 ReputationBase -3500: Hostile, 2500/3000).
-# At Hostile the furbolgs in the tunnels attack; the Felwood quests and kills
-# usually bring a player to Unfriendly, when they let you pass
-# (https://www.icy-veins.com/wow-classic/timbermaw-hold-reputation-farming-guide).
+keywords Timbermaw Hold, furbolg, Grazle, Nafien, Salfa, Meilosh, Gorn One Eye, Kernda, Deadwood Headdress Feather, Winterfall Spirit Beads, Deadwood Ritual Totem, Winterfall Ritual Totem, Defender of the Timbermaw, The Root of All Evil, Enchant Weapon - Agility, Warbear Harness, Mantle of the Timbermaw, Wintersaber Trainers
+reward item 21326
+reward item 19445
+reward text Recipes for Leatherworkers, Tailors, Enchanters and Alchemists from Friendly to Revered
+why Safe passage through the tunnels, agility enchants and furbolg recipes; the trinket at Exalted.
+
+# Built from Forever's quest data (the reputation each quest pays, as Forever's
+# quest pages give it), the world database Forever's data is fitted to
+# (reputation per kill and the standing it stops at, quest requirements and
+# chains, what Meilosh sells), quests.json, npcs.json and items.json (givers,
+# drops, drop chances, farm spots) and the Forever client tables (Faction:
+# every race starts at Hostile 2500/3000; ItemSparse: prices and standings).
+# Numbers: Timbermaw Ally 150, Speak to Nafien 25, Deadwood of the North 150,
+# Speak to Salfa 25, Winterfall Activity 150, each Ritual Totem 150, Runecloth
+# and Sacred Cloth 100, The Root of All Evil 200; Feathers for Grazle, Feathers
+# for Nafien and Beads for Salfa 50 for 5, repeatable, never capped. Kills:
+# Deadwood and Winterfall 5 (Winterfall Pathfinders 6) up to 11,999 of 12,000
+# Honored, never into Revered: the step that ends at Revered needs a turn-in.
+# Overlord Ror and Chieftain Bloodmaw 15, Ragepaw, Grizzle Snowpaw, High Chief
+# Winterfall and Xandivious 25, until Exalted. Killing a Timbermaw costs 25.
+# Grazle, Nafien and Salfa talk to everyone; Kernda (the totems) needs Neutral,
+# Meilosh's recipes Friendly and up.
+# Drop chances (items.json): feathers about half the time from the northern
+# Deadwood, under a third from the southern ones; beads about four in ten;
+# totems 3-4%.
+# The Runecloth and Sacred Cloth quests and The Root of All Evil are taken
+# optionally or by choice: their later steps hold only a player who took them.
+# Grey content: in Classic a quest pays less once it is 6 or more levels below
+# you (a fifth less per level, down to a fifth: Timbermaw Ally, level 48, paid
+# 30 at 60), and grey mobs give about a fifth. A Forever beta report had
+# quests paying in full at any level.
+# INGAME: grey quest and grey-mob reputation in Forever (Classic: reduced).
+# Numbers are base values; the Legacy perk Diplomat adds up to 10%.
+# INGAME: Forever's new Blackmaw Hold furbolgs (Azshara): does killing them
+# count for or against the Timbermaw? Forever's data has no reputation for them.
+# INGAME: Formula: Enchant Shield - Law of Nature and Plans: Stormcarver and
+# Bagh Nakh need Revered with the Timbermaw in the Forever client, but no
+# vendor in Forever's data sells them. In-game check: Meilosh's list at Revered.
 
 step Grazle
-  tip Timbermaw Hold starts out Hostile, and its furbolgs in the tunnels attack until you reach Unfriendly. Every Deadwood and Winterfall furbolg you kill raises it, so the quests below pay twice. Forever's Legacy Diplomat perk increases reputation gains.
-  accept 8460 @50.9,85
+  tip Timbermaw Hold starts at Hostile (2,500 of 3,000), so its furbolgs attack you in their tunnels; Grazle, Nafien and Salfa talk to everyone. Grazle waits by the road in the south of Felwood, near the Emerald Sanctuary. Every Deadwood and Winterfall furbolg you kill gives 5 reputation up to the last point of Honored, so the quests below pay twice. The Legacy perk Diplomat adds up to 10% to every gain.
+  accept 8460
 
 step Deadwood Village
-  tip Deadwood furbolgs (level 48-50) camp at the southern end of Felwood. Keep every Deadwood Headdress Feather they drop: Grazle and Nafien take them later.
-  kill 7153 quest 8460.1 @48.2,91.2
-  kill 7155 quest 8460.2 @48.4,91.4
-  kill 7154 quest 8460.3 @48.1,90.3
+  tip The Deadwood furbolgs (level 48-50) hold the village at the south end of Felwood. Keep every Deadwood Headdress Feather: they are worth 10 reputation each later and never stop counting. Overlord Ror (15 reputation) and the rare Ragepaw (25) live here and count until Exalted. In Classic, quests 6 or more levels below you pay less and grey mobs give about a fifth: at level 60 Timbermaw Ally paid 30 instead of 150 and these furbolgs about 1 a kill. Do it while leveling if you can.
+  kill 7153 quest 8460.1
+  kill 7155 quest 8460.2
+  kill 7154 quest 8460.3
+  kill 9464 optional                  -- Overlord Ror
+  kill 14342 optional                 -- Ragepaw, rare
 
 step Back to Grazle
-  turnin 8460 @50.9,85
-  accept 8462 @50.9,85
+  turnin 8460
+  accept 8462
 
 step Nafien
-  tip Nafien waits in northern Felwood at the tunnel into Timbermaw Hold.
-  turnin 8462 @64.8,8.1
-  accept 8461 @64.8,8.1
+  tip Nafien stands at the Felwood mouth of the Timbermaw tunnel, at the top of the road in the north of Felwood.
+  turnin 8462
+  accept 8461
 
-step Deadwood of the North
-  tip The northern Deadwood (level 53-55) hold the camps just south of the tunnel. Keep their feathers too.
-  kill 7156 quest 8461.1 @62.2,9
-  kill 7157 quest 8461.2 @62.2,9
-  kill 7158 quest 8461.3 @62.2,9
+step Felpaw Village
+  tip The northern Deadwood (level 53-55) camp just south of the tunnel. They drop feathers about half the time: the best feather spot. Chieftain Bloodmaw gives 15 until Exalted.
+  kill 7156 quest 8461.1
+  kill 7157 quest 8461.2
+  kill 7158 quest 8461.3
+  kill 9462 optional                  -- Chieftain Bloodmaw
 
 step Back to Nafien
-  turnin 8461 @64.8,8.1
-  accept 8465 @64.8,8.1
+  tip These quests and their kills bring you just past Unfriendly (500 from the start). If Timbermaw Ally paid you less (at level 60 in Classic: 30), kill about 40 more northern Deadwood. From Unfriendly the Timbermaw in the tunnel leave you alone.
+  turnin 8461
+  accept 8465
+  rep 576 Unfriendly
 
 step Salfa
   zone Winterspring
-  tip Go through Timbermaw Hold to its Winterspring exit; Salfa stands just outside. The quests and kills so far usually reach Unfriendly, and then the Timbermaw let you pass. If they still show red, kill more Deadwood by the tunnel first.
-  turnin 8465 @27.7,34.5
-  accept 8464 @27.7,34.5
+  tip Walk through the tunnel to its Winterspring mouth; Salfa stands just outside. Do not attack any Timbermaw: each one costs 25 reputation.
+  turnin 8465
+  accept 8464
 
 step Winterfall Village
-  tip Winterfall Village sits on the eastern side of Winterspring. Keep every Winterfall Spirit Beads you loot: Salfa takes them.
+  tip Winterfall Village lies in the east of Winterspring, just past Everlook. Keep every Winterfall Spirit Beads you loot (10 reputation each later). The Shamans, Den Watchers and Ursas share their spawn points, so kill every furbolg in the village to make the ones you need appear; more Ursas walk the ridge just south-west of the village. Grizzle Snowpaw (rare) and High Chief Winterfall, in the cave at the back, give 25 until Exalted. Alliance: the Wintersaber Trainers' Winterfall Intrusion asks for the same Shamans and Ursas.
   kill 7439 quest 8464.1
-  kill 7440 quest 8464.2 @67.3,35.3
-  kill 7438 quest 8464.3 @67.9,37.9
+  kill 7440 quest 8464.2
+  kill 7438 quest 8464.3
+  kill 10199 optional                 -- Grizzle Snowpaw, rare
+  kill 10738 optional                 -- High Chief Winterfall, elite
 
 step Back to Salfa
-  turnin 8464 @27.7,34.5
+  tip Feathers for Grazle, Feathers for Nafien and Beads for Salfa are open now: 50 reputation for 5 feathers or 5 beads, as often as you like. Do not hand them in yet.
+  turnin 8464
 
-step Feathers and beads to Friendly
-  tip Feathers for Grazle and Feathers for Nafien (Deadwood Headdress Feathers) and Beads for Salfa (Winterfall Spirit Beads) repeat as often as you like; every Deadwood or Winterfall kill counts as well. Winterfall Village is the densest bead spot.
-  collect 21383 x5 optional @67.1,37.6
-  talk 11556 optional -- Salfa: Beads for Salfa
+step Unfriendly to Neutral
+  tip Unfriendly to Neutral is 3,000: about 540 more kills after these quests. Three camps: the northern Deadwood by the Felwood mouth of the tunnel; the Winterfall camps around Frostfire Hot Springs and Timbermaw Post, just south and south-east of Salfa (Pathfinders give 6 a kill, Den Watchers and Totemics 5, the shortest walk to a turn-in); and Winterfall Village in the east. Pick the least crowded. Keep all feathers and beads.
+  level 52
+  collect 21377 x5 nearest optional   -- Deadwood Headdress Feathers: keep them
+  collect 21383 x5 nearest optional   -- Winterfall Spirit Beads: keep them
+  kill 7442 optional @31.5,36.0       -- Winterfall Pathfinders, Frostfire Hot Springs
+  rep 576 Neutral
+
+step Deadwood Ritual Totem
+  when has 20741
+  zone Felwood
+  tip The northern Deadwood rarely drop a Deadwood Ritual Totem (about 3%). From Neutral, Kernda takes it in the tunnel, on the Felwood side: 150 reputation and two Major Healing and Mana Potions.
+  accept 8470
+  turnin 8470
+
+step Winterfall Ritual Totem
+  when has 20742
+  zone Felwood
+  tip The Winterfall furbolgs rarely drop a Winterfall Ritual Totem (3-4%). Kernda takes it in the tunnel too: 150 reputation and three Major Healing and Mana Potions.
+  accept 8471
+  turnin 8471
+
+step Neutral to Friendly
+  tip Neutral to Friendly is 3,000: 600 kills. Keep all feathers and beads.
+  collect 21377 x5 nearest optional
+  collect 21383 x5 nearest optional
   rep 576 Friendly
 
-step Feathers to Honored
+step Meilosh
   zone Felwood
-  tip The northern Deadwood camps by the tunnel are the densest feather spot (35% drop chance there). Hand feathers to Nafien at the tunnel, or to Grazle in the south.
-  collect 21377 x5 optional @62.2,9
-  talk 15395 optional -- Nafien: Feathers for Nafien
+  tip Meilosh stands in the tunnel, near its Felwood mouth. From Friendly he sells: Recipe: Transmute Earth to Water (1 gold 50 silver), Formula: Enchant 2H Weapon - Agility (2 gold 50 silver), Pattern: Warbear Harness (1 gold 60 silver) and Warbear Woolies (2 gold). He also takes 30 Runecloth once for 100 reputation and a choice of shoulders or gauntlets, and Tailors with skill 290 can bring him 2 Mooncloth for 100 more and the Mooncloth Boots pattern.
+  talk 11557
+  accept 6031 optional                -- Runecloth: 30 Runecloth
+  buy 22392 npc 11557 optional        -- Formula: Enchant 2H Weapon - Agility (Enchanting)
+  buy 20253 npc 11557 optional        -- Pattern: Warbear Harness (Leatherworking)
+  buy 20254 npc 11557 optional        -- Pattern: Warbear Woolies (Leatherworking)
+  buy 13484 npc 11557 optional        -- Recipe: Transmute Earth to Water (Alchemy)
+
+step Runecloth for Meilosh
+  tip Runecloth drops from the humanoids of the level 50-60 zones, the Deadwood and Winterfall furbolgs among them.
+  collect 14047 x30 quest 6031.1
+  turnin 6031
+
+step Sacred Cloth
+  when skill Tailoring 290
+  tip Tailors with skill 290: Meilosh takes 2 Mooncloth once for 100 reputation and teaches the Mooncloth Boots.
+  accept 6032 optional
+  turnin 6032 optional
+
+step Friendly to Honored
+  tip Friendly to Honored is 6,000: 1,200 kills. Keep all feathers and beads. Honored opens at Meilosh: Formula: Enchant Weapon - Agility (3 gold), and for 2 gold 20 silver each Pattern: Heavy Timbermaw Belt and Might of the Timbermaw (Leatherworking) and Wisdom of the Timbermaw (Tailoring).
+  collect 21377 x5 nearest optional
+  collect 21383 x5 nearest optional
   rep 576 Honored
 
-step Timbermaw Hold to Revered
-  tip Alternate Deadwood feathers (Nafien) and Winterfall beads (Salfa), whichever camp is less crowded.
-  collect 21377 x5 optional @62.2,9
-  talk 15395 optional
+step Honored to Revered
+  tip Honored to Revered is 12,000: 2,400 kills, the last ones that count. Kills stop at 11,999 of 12,000 Honored and never tip you into Revered: when they stop, hand in one set of 5 feathers or beads to cross over. Saving every feather and bead pays off now: about 4,800 kills from the start to the end of Honored leave you with about 2,100 feathers and beads, and that is all of Revered to Exalted. Turning them in early would cost you about 2,400 more kills.
+  buy 19445 npc 11557 optional        -- Formula: Enchant Weapon - Agility (Enchanting), 3 gold
+  collect 21377 x5 nearest optional
+  collect 21383 x5 nearest optional
+  turnin 8467 direct optional         -- Feathers for Nafien: once your kills stop, 5 feathers into Revered
+  turnin 8469 direct optional map 1452 -- Beads for Salfa: or 5 beads
   rep 576 Revered
 
-step Timbermaw Hold to Exalted
-  tip Keep turning in feathers and beads until Exalted.
-  collect 21377 x5 optional @62.2,9
-  talk 15395 optional
+step Revered to Exalted
+  tip Kills stopped at the end of Honored. Revered to Exalted is 21,000: 420 turn-ins, 2,100 feathers and beads. Hand in the feathers to Nafien at the tunnel or Grazle in the south, the beads to Salfa, five at a time. The named furbolgs (Ror, Bloodmaw, Ragepaw, Grizzle Snowpaw, High Chief Winterfall) still count. Revered opens at Meilosh, for 4 gold each: Pattern: Heavy Timbermaw Boots and Timbermaw Brawlers (Leatherworking) and Mantle of the Timbermaw (Tailoring).
+  turnin 8467 direct optional         -- Feathers for Nafien: 5 feathers, 50 reputation
+  turnin 8466 direct optional         -- Feathers for Grazle: 5 feathers, 50 reputation
+  turnin 8469 direct optional map 1452 -- Beads for Salfa: 5 beads, 50 reputation
+  collect 21377 x5 nearest optional
+  collect 21383 x5 nearest optional
   rep 576 Exalted
+
+step The Root of All Evil
+  when group 8481
+  zone Felwood
+  tip At Exalted, Gorn One Eye, in the tunnel by Meilosh, gives The Root of All Evil: plant his Demon Summoning Torch in the mouth of High Chief Winterfall's cave and defeat the demon Xandivious (level 62, elite: bring a group). The reward is Defender of the Timbermaw, a trinket that calls a Timbermaw ally, and 200 reputation.
+  accept 8481
+
+step Xandivious
+  when onquest 8481
+  zone Winterspring
+  tip Winterfall Village, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill Xandivious and loot the Essence from his Demon Bag.
+  collect 21145 quest 8481.1 group 5 @69.8,38.2 -- Essence of Xandivious
+  kill 15623 optional group 5 @69.8,38.2 -- Xandivious, 25 reputation
+
+step Gorn One Eye
+  when onquest 8481
+  zone Felwood
+  turnin 8481 reward 21326

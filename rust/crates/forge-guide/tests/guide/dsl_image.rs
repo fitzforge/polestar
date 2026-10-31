@@ -134,6 +134,21 @@ fn lint_warns_about_a_picture_the_pack_folder_lacks_one_of_a_size_that_is_no_pow
 	assert_eq!(steps[1]["image"], json!({ "file": "media\\odd", "w": 600, "h": 400 }));
 }
 
+#[cfg(unix)]
+#[test]
+fn a_media_folder_linked_out_of_the_pack_folder_holds_no_picture() {
+	let outside = scratch("image-outside");
+	std::fs::write(outside.join("cave.tga"), tga(64, 64)).unwrap();
+	let dir = pack_dir("linked", &[]);
+	std::os::unix::fs::symlink(&outside, dir.join("media")).unwrap();
+	let text = guide_text(&["step A", "  image media/cave", "  level 2"]);
+	let r = compile_in(&text, &dir);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert_eq!(r.warnings.len(), 1, "{:?}", r.warnings);
+	assert!(r.warnings[0].contains("the pack folder has no media/cave.tga"), "{:?}", r.warnings);
+	assert_eq!(r.steps()[0]["image"], json!({ "file": "media\\cave" }));
+}
+
 #[test]
 fn lint_refuses_a_picture_outside_the_pack_folder_of_a_kind_the_game_does_not_draw_or_written_wrong() {
 	let bad = [

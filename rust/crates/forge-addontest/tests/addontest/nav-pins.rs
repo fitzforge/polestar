@@ -539,6 +539,64 @@ fn icon_pins_may_sit_on_a_dark_disc_carry_a_ring_and_take_their_own_minimap_size
 }
 
 #[test]
+fn map_marks_sit_in_the_icon_pack_s_medallion_with_their_ring_dashed_ring_badge_and_states() {
+	let out = run(r#"
+		nav.viewRadius = 200
+		local function look(f)
+			local m = f.medal:IsShown() and f.medal.texture:match("medallion%-(%a+)$") or false
+			return { w = f.width, medal = m, medalW = f.medal.width, glyph = f.icon.texture:match("icon%-[%a-]+$"),
+				glyphW = f.icon.width, ring = f.mark:IsShown() and f.mark.width or false,
+				ring2 = f.ring2:IsShown() and f.ring2.width or false, glow = f.glow:IsShown() and f.glow.width or false,
+				badge = f.badge.text:IsShown() and f.badge.text:GetText() or false, a = f.icon.vertexColor[4],
+				back = f.back:IsShown() }
+		end
+		local function draw(pins, opts)
+			Pins.SetLayer("marks", pins, opts)
+			stub.advance(0.3)
+			local r = {}
+			for _, f in ipairs(Pins.GetMinimapFrames("marks")) do r[#r + 1] = look(f) end
+			table.sort(r, function(a, b) return a.w < b.w end)
+			return r
+		end
+		local r = {}
+		r.plain = draw({ at(20, 20, { icon = "map:kill", size = 16, backdrop = true }) })[1]
+		r.kit = draw({ at(20, 20, { icon = "map:rare", size = 15, ring = { 1, 0.5, 0.3, 1 }, ring2 = { 1, 0.5, 0.3, 1 }, glow = true, badge = "?" }) })[1]
+		r.focus = draw({ at(20, 20, { icon = "map:quest-turnin", size = 20, state = "focus" }) })[1]
+		r.dim = draw({ at(20, 20, { icon = "map:quest-available", size = 16, state = "dim" }) })[1]
+		r.spot = draw({ at(20, 20, { icon = "map:pin-small", size = 9, medal = false }) })[1]
+		Polestar.Set("nav.mapIcons", "halo")
+		r.halo = draw({ at(20, 20, { icon = "map:kill", size = 16 }) })[1]
+		Polestar.Set("nav.mapIcons", "bare")
+		r.bare = draw({ at(20, 20, { icon = "map:kill", size = 16 }) })[1]
+		Polestar.Set("nav.mapIcons", "skin")
+		r.edge = draw({ at(0, -900, { icon = "map:kill", size = 16, ring = { 1, 1, 1, 1 }, badge = 3 }) }, { edge = true })[1]
+		local f = Pins.GetMinimapFrames("marks")[1]
+		r.edge.pointer = f.edge:IsShown()
+		emit(r)"#);
+	assert_eq!(
+		out["plain"],
+		json!({ "w": 16, "medal": "polestar", "medalW": 22, "glyph": "icon-kill", "glyphW": 18, "ring": false, "ring2": false, "glow": false, "badge": false, "a": 1, "back": false }),
+		"the glyph (27/24 of the mark, for its contour) in a medallion 1.4 times the mark, rounded to even; no scrim disc"
+	);
+	let kit = &out["kit"];
+	assert_eq!(json!([kit["medalW"], kit["ring"], kit["ring2"], kit["badge"]]), json!([22, 27, 33, "?"]), "ring 5 px and dashed ring 11 px wider than the medallion, the badge");
+	assert!((num(&kit["glow"]) - 50.6).abs() < 1e-9, "glow 2.3 times the medallion");
+	let focus_ring = 2.0 * (26.0_f64 * 1.4 / 2.0).round() + 5.0;
+	assert_eq!(num(&out["focus"]["w"]), 26.0, "focus: 1.3 times the size");
+	assert_eq!(num(&out["focus"]["ring"]), focus_ring, "focus: in an accent ring");
+	assert!((num(&out["dim"]["a"]) - 0.6).abs() < 1e-9, "dim: the whole mark at 60%");
+	assert_eq!(out["spot"]["medal"], false, "medal = false: the glyph alone");
+	assert_eq!(out["halo"]["medal"], "halo", "nav.mapIcons picks the medallion");
+	assert_eq!(out["bare"]["medal"], false, "glyphs only: no medallion");
+	let edge = &out["edge"];
+	assert_eq!(
+		json!([edge["medal"], edge["glyph"], edge["pointer"], edge["ring"], edge["badge"]]),
+		json!(["polestar", "icon-kill", true, false, false]),
+		"clamped to the rim: medallion, glyph and pointer; no ring or badge"
+	);
+}
+
+#[test]
 fn minimap_pins_follow_a_rotating_minimap_priority_stacks_tooltips_and_clicks_work() {
 	let out = run(r#"
 		nav.viewRadius = 200

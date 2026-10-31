@@ -27,10 +27,12 @@ so "walks found" is one of the things we check.
 Forge asks two sets of maps for walks:
 
 - **our walking grid**, built from the game's data on your own machine;
-- **Leffe's navigation maps**. Leffe made them and lets Polestar use them, with his permission.
+- **Leffe's navigation maps**. Leffe made them and lets Polestar use what they give, with his
+  permission. His maps are private: only people he gives access to have them. The walks they
+  answered ship in the data pack's walk stores (numbers, no map geometry).
 
-By default Forge uses both (the **hybrid**, described below) when Leffe's maps are present, and our
-grid alone when they are not.
+By default Forge uses both (the **hybrid**, described below) when Leffe's maps or his saved walks
+are present, and our grid alone when neither is.
 
 ## Where the walks stage sits
 
@@ -42,12 +44,11 @@ reads the world and writes, per faction:
 |---|---|
 | `walks-<faction>.bin` | the walks the routes stage reads |
 | `store-<faction>.psbn` | the walk store: every answer our grid has given, kept for the next build |
-| `store-leffe-<faction>.psbn` | the same for Leffe's maps (hybrid and `--nav leffe` only) |
-| `store-<faction>.navfp` | the walk store's tag, when it was seeded from the data pack |
+| `store-leffe-<faction>.psbn` | the same for Leffe's maps (hybrid and `--nav leffe` only), with each place's zone on his maps; without his maps, the data pack's copy is read and never written |
 
 Like every stage, it is skipped when its inputs have not changed (the stage's key is in
 `<out>/.forge/walks.key`). The key includes the world, the backend, the grid's files and, when
-used, Leffe's maps.
+used, Leffe's maps or the saved Leffe stores (their size and time).
 
 ## Our walking grid
 
@@ -138,7 +139,11 @@ once.
 For each pair the store does not already know, the walker (`walker.rs`) does this:
 
 1. **Snap** both ends to a surface: the column under the place's x, y, then the floor nearest its
-   height. A place with no height takes the column's usual floor.
+   height. A place with no height takes the column's usual floor: inside a building its lowest
+   indoor floor; outdoors the top surface under the open sky, else the highest terrain. Under a
+   city's streets, a harbour's decks or a bridge lies the terrain the models were built over
+   (Stormwind's, Booty Bay's, Darnassus's); a place there stands on the street, not on that buried
+   ground.
 2. **Straight line.** If the straight line between the ends is plain walking all the way, that
    line is the walk. Plain means no road, water, steep face, enemy town or danger. This idea is
    adapted from Factoruide's route search. We only accept the line when its cost is within 0.2 % of
@@ -268,12 +273,15 @@ Warm, a stored walk is answered in about a tenth of a microsecond.
 ## Leffe's navigation maps
 
 Leffe's navigation maps are a separate set of walking maps for the game. Leffe made
-them and gave Polestar full permission to use them. They are credited wherever Forge uses them:
-the build log, the walks stats (`nav: { backend, pack }`) and the report's data sources. Licences
-and every other credit are in [rust/NOTICE.md](../../rust/NOTICE.md) and the data pack's
-`manifest.json`.
+them and lets Polestar use what they give. His maps are **private**: they are never in the
+repository, the data pack or a release. What ships is derived from them: the walks they answered
+(the data pack's Leffe walk stores) and the baked legs drawn on them. Both are credited wherever
+Forge uses them: the build log, the walks stats (`nav: { backend, pack }`) and the report's data
+sources. Licences and every other credit are in [rust/NOTICE.md](../../rust/NOTICE.md) and the
+data pack's `manifest.json`.
 
-Forge reads them at build time only. The in-game arrow is not affected. The reader (`forge_nav::f4`)
+Forge reads them at build time, and `forge nav pack --leffe` condenses them into the in-game walking maps (below,
+"The walking maps"); the files themselves never ship. The reader (`forge_nav::f4`)
 is a bit-for-bit port of his own reader: same search order, same ties, same arithmetic. It walks
 his maps with his costs. Danger uses the same rule as ours, priced inside his search, with the
 ends' zones exempt (`f4walks.rs`).
@@ -283,11 +291,68 @@ ends' zones exempt (`f4walks.rs`).
 In this order:
 
 1. `--leffe <dir>` on `forge build`;
-2. the `POLESTAR_LEFFE_NAV` environment variable;
-3. `leffe-nav` inside the data pack folder. `forge data fetch` downloads it as its own release
-   asset, beside the pack.
+2. the `POLESTAR_LEFFE_NAV` environment variable.
 
 The folder must hold `Nav/Nav.xml` (or `Nav.xml` directly). The maps are about 1 GB.
+
+### Without his maps: his saved walks
+
+Every walk a build asks of his maps is kept in `store-leffe-<faction>.psbn` by its two ends and
+his pack's content key, and the store also keeps each place's zone on his maps (the danger bands'
+tables are priced over it). `forge data pack` ships those stores. A build without his maps
+(`stage::Nav::HybridSaved`, `SavedF4Backend` in `f4walks.rs`):
+
+- finds them in the data pack's `walks/` (else in `<out>/walks/` from an earlier build with his
+  maps), for every faction;
+- runs the hybrid with his saved walks in place of his maps: a walk the store holds is his; a walk
+  it lacks (a place new since the pack was built) has no answer from him, so the hybrid takes our
+  grid's, exactly as when his maps have no way;
+- reads the store and never writes it, so a later build with his maps still asks him those walks;
+- uses the pack and lift layer (below) his store holds the most walks of, at the current answer
+  version (a store keeps older packs' and versions' walks too).
+
+The legs stage needs his maps; without them the legs are drawn on our grid.
+
+### Lifts: Leffe's lift layer
+
+His walking graph has no lift edges on purpose. The lifts are a transport layer on top of it, as in
+Shortest Path Forever: **Leffe's lift layer**, a `lifts.json` (every lift car with both landings,
+found by the grid builder in the client's transport animations) and the reviewed lift rule of his
+travel planner. Forge splices it into his search (`forge_nav::f4::lifts`, credited to Leffe's lift
+layer):
+
+- **Where it is found.** `lift-layer/lifts.json` in the folder that holds `Nav/`, else in a
+  `lift-layer/` folder beside it (as in his handoff: the pack folder and `lift-layer/` side by side).
+  The build log says which file it used, or why it used none.
+- **Only on its own build.** The file names each landing by a cell of the grid that built the pack,
+  so Forge uses a layer only on that build: it knows each layer by its content (SHA-256) and the
+  grid build config it was found on, which must be the pack's `PACK.json` `grid.buildConfig`. Any
+  other layer or pack is refused (one log line, no lifts). A car whose landing does not stand on his
+  walkable surface (within 3 yd of its height) is left out.
+- **A ride is priced as our grid's.** Each car is one ride each way between its two landings:
+  15 s of wait and boarding plus 4 yd/s of shaft, as seconds × the run speed, times the multiplier
+  of the surface it lands on (a hostile hub, a dangerous zone). A landing joins his graph through
+  his own search from the entrances of its map piece, as a walk's ends do.
+- **The floor rule.** Thunder Bluff's bluff (uiMap 1456) and its ground (1412), the Undercity (1458)
+  and the Ruins of Lordaeron (1420) are joined only by their lifts (Leffe's reviewed rule). A walk
+  whose ends lie on opposite sides takes one: a way through an incidental entrance, the Undercity's
+  sewer pipe, never stands in. Thunder Bluff's walks may take either Mesa Elevator (every car of
+  both). The Undercity's take the **south Undervator only**: it is the in-game planner's one way in
+  and out (`undercity-south-lift`, Fitz, 2026-10-25), so walk times match what the player is made
+  to do; the east and west Undervators are left out of the walks.
+- **Sides.** A point of known height is inside when it is within 400 yd of one of the city's
+  shafts (or on its map) and on the city's side of its middle height: above 102 for the bluff,
+  below 7.45 for the Undercity. Walk ends carry no map of their own, and his zone layer gives the
+  Ruins' map over the whole Undercity, so the 400 yd footprint does the work: the Undercity's floors
+  reach 350 yd from its shafts, and no ground outside lies below its middle within 650 yd. A point of
+  unknown height over the footprint is on neither side (no rule); Tal's heightless flight path is on
+  the bluff. A car of the layer that would join a city's sides anywhere but at its shafts is left
+  out.
+- **Legs.** A baked leg over a lift has a segment of the lift move from landing to landing, as our
+  grid's legs do.
+
+Walks that no lift serves are answered exactly as without the layer: the landings sit on a heap of
+their own that the search takes from only when it is strictly cheaper.
 
 ### What they do well and what they lack
 
@@ -296,8 +361,9 @@ On our acceptance walks (cities, caves, buildings with several floors, choke poi
 - Where both find a way, his are usually a little longer: the median is about 1.03 times our
   yards, because he walks the ground's contour.
 - He finds coast and ridge paths our grid misses, and jumps and drops we lack.
-- His maps have **no lifts**. Thunder Bluff, Freewind Post, the Undercity and Gnomeregan are a long
-  detour or unreachable on them.
+- His walking graph has **no lifts** of its own; Forge splices them in from Leffe's lift layer
+  (above). Without the layer, Thunder Bluff's rises and the Undercity below the ruins are islands
+  or a sewer detour on his maps.
 - Some city parts are not joined to the rest: parts of Orgrimmar, Thunder Bluff's rises,
   Darnassus's upper tiers, Ironforge's Military Ward, and some caves.
 
@@ -316,8 +382,8 @@ The hybrid (`hybrid.rs`) works on whole walks:
 1. Both backends build a full walks file for the same world, each from its own store.
 2. The two files are merged walk by walk.
 
-It does not splice our lifts into his graph. A walk his maps cannot do well is taken entirely from
-our grid.
+It does not splice our grid's lifts or links into his graph; his lifts come from Leffe's lift
+layer. A walk his maps cannot do well is taken entirely from our grid.
 
 Both cost models price a yard about the same on the acceptance walks, so the costs can be compared
 directly. Most base walks come from Leffe's maps; the rest come from our grid, either because his
@@ -330,10 +396,11 @@ missing walks.
 How to choose:
 
 - `forge build --nav grid|leffe|hybrid`. Without `--nav`, the build uses `hybrid` when it finds
-  Leffe's maps and `grid` when it does not. Asking for `leffe` or `hybrid` without the maps is an
-  error.
+  Leffe's maps or his saved walks for every faction, and `grid` when it finds neither. Asking for
+  `leffe` without his maps, or `hybrid` with neither, is an error.
 - `forge walks walks` (the stage on its own) reads `POLESTAR_NAV`: `grid`, `leffe` or `hybrid`.
-  Without it, it uses `hybrid` when `POLESTAR_LEFFE_NAV` names Leffe's Nav folder, else `grid`.
+  Without it, it uses `hybrid` when `POLESTAR_LEFFE_NAV` names Leffe's Nav folder or his saved
+  walks lie beside the store (`<store>-leffe.<ext>`), else `grid`.
 
 ## Flights, boats, lifts and hearthstones
 
@@ -442,6 +509,20 @@ node tools/polestar.js nav path 1411 52.0,43.0 1411 45.0,12.0 --dir data/local/n
 It prints yards, seconds by kind of ground, falls and the simplified points. Add `--json` for
 everything.
 
+Four `forge-nav` examples look at the grid itself (`cargo build --profile quick -p forge-nav
+--examples`, then `rust/target/quick/examples/<name>`):
+
+- `gridab <grid> [<Leffe's Nav folder>] < queries.jsonl`: each query (`{id, map, from, to, profile}`,
+  world ends `[x, y, z|null]`) drawn as the guide bake draws a leg, on our grid and on Leffe's maps:
+  yards of the simplified line, cost and points per side.
+- `gridcol <grid> <map> <wx> <wy> [radius] [zlo zhi]`: every surface of the columns around a point:
+  height, room above, flags, slope, region and its size, and each direction's link.
+- `trailfollow <grid> < walks.jsonl`: follows a recorded walk (positions, no heights) through the
+  grid's links. A break is a place the player walked where the grid has no way from one column to
+  the next; it also gives each position the height it was followed at.
+- `snapcheck <grid> walks.jsonl follow.jsonl`: how often a place without a height is put on another
+  floor than the recorded walk was on.
+
 ## Rebuilding the grid
 
 You need the grid once per client build. `forge build` builds it itself from the installed game
@@ -501,16 +582,26 @@ pack's stores no longer match it.
 
 ## The walking maps (forge nav pack, forge nav check)
 
-The arrow's walking routes in game run on Polestar's own walking maps in `addon/Polestar_Nav`
-(maps format 2: per walkable surface a ground class, road, gentle or steep slope, indoor, indoor
+The arrow's walking routes in game run on the walking maps in `addon/Polestar_Nav`. Shipped: maps
+format 5, Leffe's navigation maps condensed for the game. Without `--leffe`: Polestar's own from our
+grid (maps format 2: per walkable surface a ground class, road, gentle or steep slope, indoor, indoor
 city and the Alliance and Horde hubs; every graph edge priced per faction; format 3 adds each
 surface's WMO group area). `forge nav pack` writes them from the grid and the ground layers:
 
 ```sh
-forge nav pack --dir data/local/nav4 --date 2026-10-23
+forge nav pack --dir <grid> --date 2026-10-25 --leffe <Leffe's maps>    # what ships
+forge nav pack --dir <grid> --date 2026-10-23                           # our grid's maps
 forge nav check
 ```
 
+- `--leffe <dir>` (his format-4 Nav folder, or the folder holding it: the same client build and
+  cells as the grid) takes the maps from his: his surfaces, floors, classes, zones and entrance graph,
+  his jumps and drops as each cluster's one-way `arc` field, and each of his surfaces the named area of
+  the grid's surface in the same cell nearest in height (maps format 5, PACK.json format 5; each map's
+  `leffe` entry counts what came over). The chokepoints stay the grid's. `--leffe-maps 0,1,2991` names
+  the maps taken from his (default all three); the others are the grid's, byte for byte, so one
+  continent can go back to our grid if his maps walk it wrong. About 90 s for the three maps.
+  The rules are in [ARCHITECTURE.md](../ARCHITECTURE.md), "Leffe's navigation maps in game".
 - `--dir` is the grid (format 4: it needs each surface's slope), `--layers` the ground layers
   (default `data/local/nav-layers`, below), `--out` the addon folder (default `addon/Polestar_Nav`),
   `--cells` the cells per ADT tile (default 128, 4.17 yd), `--date` the date in the generated headers
@@ -578,16 +669,15 @@ The grid has no `walk/` files for the current `builtAt`. This happens after `nav
 There is no road mask, or there are masks from two road layers. Run `forge nav prepare` after
 `forge nav layers roads`. Delete the stale `walk/roads-0-*.bin`, keeping the newest.
 
-**`--nav Hybrid: Leffe's navigation maps not found (…)`**
-Pass `--leffe <dir>`, set `POLESTAR_LEFFE_NAV`, or run `forge data fetch`. The folder must contain
-`Nav/Nav.xml` or `Nav.xml`.
+**`--nav Hybrid: Leffe's navigation maps not found (…), and no saved Leffe walks`**
+Pass `--leffe <dir>` or set `POLESTAR_LEFFE_NAV` (his maps, if Leffe gave you access), or run
+`forge data fetch` for his saved walks. The maps' folder must contain `Nav/Nav.xml` or `Nav.xml`.
 
 **`POLESTAR_NAV=leffe needs POLESTAR_LEFFE_NAV=<Leffe's Nav folder>`** (or `POLESTAR_NAV=hybrid needs …`)
 Same, for `forge walks walks`.
 
-**`walks: the data pack's store-<faction>.psbn was built on another grid … routing the walks again`**
-This is not an error. Your grid differs from the pack's, so the walks are routed afresh. That is
-slower, but correct.
+**`<store>: no saved walks on Leffe's maps`**
+The saved Leffe store holds no walk of his. Fetch the data pack again, or build with `--nav grid`.
 
 **`hybrid: the two walks documents are of different worlds`**
 `forge walks hybrid` was given walks files built from different worlds. Rebuild both from the same

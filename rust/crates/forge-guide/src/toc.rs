@@ -120,6 +120,36 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 		],
 	),
 	(
+		"Polestar_Nav_EK",
+		["Polestar Navigation (Östliche Königreiche)", "Polestar: navegación (Reinos del Este)", "Polestar: navegación (Reinos del Este)", "Polestar : navigation (Royaumes de l'Est)", "Polestar 길찾기 (동부 왕국)", "Polestar: navegação (Reinos do Leste)", "Polestar: навигация (Восточные королевства)", "Polestar 导航（东部王国）", "Polestar 導航（東部王國）"],
+		[
+			"Laufkarten der Östlichen Königreiche für Polestars Pfeil, aus Leffes Navigationskarten. Wird auf diesem Kontinent bei Bedarf geladen.",
+			"Mapas a pie de los Reinos del Este para la flecha de Polestar, a partir de los mapas de navegación de Leffe. Se carga bajo demanda en ese continente.",
+			"Mapas a pie de los Reinos del Este para la flecha de Polestar, a partir de los mapas de navegación de Leffe. Se carga bajo demanda en ese continente.",
+			"Cartes de marche des Royaumes de l'Est pour la flèche de Polestar, tirées des cartes de navigation de Leffe. Chargé à la demande sur ce continent.",
+			"Polestar 화살표용 동부 왕국 도보 지도. Leffe의 길찾기 지도에서 만들었습니다. 그 대륙에서 필요할 때 불러옵니다.",
+			"Mapas a pé dos Reinos do Leste para a seta do Polestar, a partir dos mapas de navegação do Leffe. Carregado sob demanda nesse continente.",
+			"Пешие карты Восточных королевств для стрелки Polestar, из навигационных карт Leffe. Загружается по требованию на этом континенте.",
+			"Polestar 箭头使用的东部王国步行地图，来自 Leffe 的导航地图。在该大陆上按需加载。",
+			"Polestar 箭頭使用的東部王國步行地圖，來自 Leffe 的導航地圖。在該大陸上按需載入。",
+		],
+	),
+	(
+		"Polestar_Nav_Kalimdor",
+		["Polestar Navigation (Kalimdor)", "Polestar: navegación (Kalimdor)", "Polestar: navegación (Kalimdor)", "Polestar : navigation (Kalimdor)", "Polestar 길찾기 (칼림도어)", "Polestar: navegação (Kalimdor)", "Polestar: навигация (Калимдор)", "Polestar 导航（卡利姆多）", "Polestar 導航（卡林多）"],
+		[
+			"Laufkarten von Kalimdor für Polestars Pfeil, aus Leffes Navigationskarten. Wird auf diesem Kontinent bei Bedarf geladen.",
+			"Mapas a pie de Kalimdor para la flecha de Polestar, a partir de los mapas de navegación de Leffe. Se carga bajo demanda en ese continente.",
+			"Mapas a pie de Kalimdor para la flecha de Polestar, a partir de los mapas de navegación de Leffe. Se carga bajo demanda en ese continente.",
+			"Cartes de marche de Kalimdor pour la flèche de Polestar, tirées des cartes de navigation de Leffe. Chargé à la demande sur ce continent.",
+			"Polestar 화살표용 칼림도어 도보 지도. Leffe의 길찾기 지도에서 만들었습니다. 그 대륙에서 필요할 때 불러옵니다.",
+			"Mapas a pé de Kalimdor para a seta do Polestar, a partir dos mapas de navegação do Leffe. Carregado sob demanda nesse continente.",
+			"Пешие карты Калимдора для стрелки Polestar, из навигационных карт Leffe. Загружается по требованию на этом континенте.",
+			"Polestar 箭头使用的卡利姆多步行地图，来自 Leffe 的导航地图。在该大陆上按需加载。",
+			"Polestar 箭頭使用的卡林多步行地圖，來自 Leffe 的導航地圖。在該大陸上按需載入。",
+		],
+	),
+	(
 		"Polestar_QuestDB",
 		["Polestar Quest-Datenbank", "Polestar: base de datos de misiones", "Polestar: base de datos de misiones", "Polestar : base de données des quêtes", "Polestar 퀘스트 데이터베이스", "Polestar: banco de dados de missões", "Polestar: база заданий", "Polestar 任务数据库", "Polestar 任務資料庫"],
 		[
