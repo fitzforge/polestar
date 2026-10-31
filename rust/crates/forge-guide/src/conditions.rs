@@ -114,6 +114,9 @@ pub fn parse_conditions(list: &str, allow: &str) -> Conditions {
 				}
 			}
 		}
+		if !neg.is_empty() && set.len() == CLASS_FILES.len() {
+			warnings.push(format!("\"{list}\" admits every class: classes OR together, so to leave several out, list the classes it is for"));
+		}
 		classes = arr_of(&CLASS_FILES.iter().filter(|f| set.contains(f)).copied().collect::<Vec<_>>());
 	}
 	let value = obj! {
