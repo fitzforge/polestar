@@ -865,6 +865,24 @@ local INCUBUS = uistub.guides["forever/class/warlock/incubus-horde"]
 INCUBUS.minLevel, INCUBUS.maxLevel, INCUBUS.faction, INCUBUS.zone, INCUBUS.zoneName = 20, 28, "Horde", 1454, "Orgrimmar"
 INCUBUS.reward = { { spell = 713, spellName = "Summon Incubus" }, { item = 22243, itemName = "Small Soul Pouch", quality = 2 } }
 INCUBUS.why = "A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."`;
+// The Talents section: a level 30 Paladin following the Retribution plan,
+// 20 picks learned and one point waiting (tests/lua/stub_talents.lua plays
+// the client's C_Traits tree, a copy of Builds.lua's snapshot).
+const TALENTS_FILES = [...FILES, 'Talents/Talents.xml'];
+const TALENTS_STUBS = ['stub_ui.lua', 'stub_world.lua', 'stub_talents.lua'];
+function talentsScene(extra = '') {
+	return `local T, TS = Polestar.Talents, stub.talents
+local data = T.Data("PALADIN")
+TS.useSnapshot(data)
+TS.learn(T.BuildByKey(data, "retribution"), 20)
+TS.currency = { quantity = 1, spent = 20 }
+-- No spell art without the client: Polestar's own glyphs stand in for the icons.
+local GLYPHS = { "icon-kill", "bolt", "star", "icon-learn", "circle", "icon-use", "icon-skill", "flag", "icon-achieve" }
+C_Spell = { GetSpellTexture = function(id) return Polestar.Theme.Media(GLYPHS[id % #GLYPHS + 1]) end }
+T.Refresh()
+Polestar.UI.TalentsSection.Show()
+${extra}`;
+}
 const SCENES = [
 	{
 		file: 'guide.svg',
@@ -1572,6 +1590,15 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('local a = Polestar.Rares.AlertOf({ source = "vignette", kind = "rare", id = 61, name = "Thuros Lightfingers", level = 11 }, { map = 1429, x = 89.2, y = 79.1 }, true); a.yards = 87; Polestar.Fire("RARE_SPOTTED", a); stub.advance(4)') },
 			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('Polestar.Fire("RARE_SPOTTED", Polestar.Rares.AlertOf({ source = "nameplate", kind = "rare", id = 471, name = "Mother Fang", level = 10, classification = "rareelite" }, nil, false)); stub.advance(12)') },
 			{ rares: true, files: RARES_FILES, roots: TOAST, script: raresScene('local a = Polestar.Rares.AlertOf({ source = "vignette", kind = "treasure", id = 2843, name = "Battered Chest" }, { map = 1429, x = 79.6, y = 55.7 }, true); a.yards = 412; Polestar.Fire("RARE_SPOTTED", a)') },
+		],
+	},
+	{
+		file: 'talents.svg',
+		title: 'Talents in the hub: the followed Retribution plan, 20 picks in, one point waiting; the mini tree stepped back to pick 12; the Holy tab',
+		panels: [
+			{ stubs: TALENTS_STUBS, files: TALENTS_FILES, roots: PICKER, script: talentsScene() },
+			{ stubs: TALENTS_STUBS, files: TALENTS_FILES, roots: PICKER, script: talentsScene('Polestar.UI.TalentsSection.StepTo(12)') },
+			{ stubs: TALENTS_STUBS, files: TALENTS_FILES, roots: PICKER, script: talentsScene('Polestar.UI.TalentsSection.SetTab("1")') },
 		],
 	},
 ];
