@@ -1662,6 +1662,37 @@ fn train_due_shows_a_training_banner_after_the_out_levelled_offer_show_points_th
 	assert_eq!(out["afterLater"], false);
 }
 
+#[test]
+fn the_training_banner_says_how_many_steps_ahead_the_guide_trains_the_class_or_that_it_does_not_668() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		local B = GF.parts.banner
+		local trainer = { npc = 914, npcName = "Ander Germaine", map = 1453, x = 79.6, y = 70.2 }
+		uistub.trainStop = { 5, "Thunderbrew Distillery" }
+		Polestar.Fire("TRAIN_DUE", 12, trainer)
+		local ahead = B.Text:GetText()
+		uistub.trainStop = { 2 }
+		GF.Layout()
+		local untitled = B.Text:GetText()
+		uistub.trainStop = { 1, "Thunderbrew Distillery" }
+		GF.Layout()
+		local here = B.Text:GetText()
+		uistub.trainStop = { false }
+		GF.Layout()
+		emit({ ahead = ahead, untitled = untitled, here = here, none = B.Text:GetText() })"#)
+	.remove(0);
+	let first = "Level 12  \u{b7}  new Warrior skills  \u{b7}  Ander Germaine, Stormwind City";
+	assert_eq!(
+		out,
+		json!({
+			"ahead": format!("{first}\nThe guide trains you in 5 steps (Thunderbrew Distillery)."),
+			"untitled": format!("{first}\nThe guide trains you in 2 steps."),
+			"here": first,
+			"none": format!("{first}\nThe guide has no class training ahead."),
+		})
+	);
+}
+
 // The player's own word (owner feedback): an optional goal says so in the warning colour and skips in one
 // click; Skip in the navigator skips the step with an undo in the banner; a skipped step shown later offers to
 // unskip it; looking at another step than the live one offers the way back.

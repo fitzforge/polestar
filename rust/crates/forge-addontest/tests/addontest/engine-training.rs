@@ -9,6 +9,7 @@ use serde_json::{json, Value};
 const WORLD: &str = r#"
 local w = stub.world
 w.addMap(1413, { name = "The Barrens", c = 1, left = 2622.917, right = -7510.417, top = 1612.5, bottom = -5139.583 })
+w.addMap(1412, { name = "Mulgore", c = 1, left = 2047.917, right = -3089.583, top = -272.917, bottom = -3697.917 })
 w.race, w.raceName, w.faction, w.class = "Scourge", "Undead", "Horde", "WARRIOR"
 w.level = 12
 w.moveTo(1413, 51.9, 30.4)
@@ -26,6 +27,53 @@ Polestar.RegisterGuide({ id = "test/trains", pack = "test", title = "Trains soon
 	{ goals = { { t = "train", class = true, candidates = { { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.8, y = 31.4, f = "e", faction = "H", classes = { "WARRIOR" } } } } } },
 	{ goals = { { t = "level", level = 20 } } },
 } })
+-- Heads south-west to Mulgore: the nearest trainer from the Crossroads lies the other way.
+Polestar.RegisterGuide({ id = "test/route", pack = "test", title = "To Mulgore", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+	{ goals = { { t = "accept", quest = 870, title = "The Forgotten Pools", map = 1413, x = 52, y = 31 } } },
+	{ goals = { { t = "goto", map = 1413, x = 45, y = 58 } } },
+	{ goals = { { t = "goto", map = 1412, x = 47, y = 60 } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
+-- Dun Morogh: from the trogg tunnel on to Kharanos (the report in #664).
+Polestar.RegisterGuide({ id = "test/tunnel", pack = "test", title = "The tunnel", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ goals = { { t = "accept", quest = 2160, title = "Supplies to Tannok", map = 1426, x = 33.9, y = 72.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 47.2, y = 52.4 } } },
+	{ goals = { { t = "goto", map = 1426, x = 47.3, y = 52.9 } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
+-- A Dwarf near the tunnel with Coldridge work still ahead: Anvilmar, then the tunnel, then Kharanos.
+Polestar.RegisterGuide({ id = "test/coldridge", pack = "test", title = "Coldridge", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ goals = { { t = "goto", map = 1426, x = 28.8, y = 66.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 26.9, y = 80.0 } } },
+	{ goals = { { t = "goto", map = 1426, x = 28.8, y = 66.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 33.9, y = 72.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 47.2, y = 52.4 } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
+-- Grik'nir's cave, then (or not) a stop in Anvilmar, the tunnel and Kharanos.
+Polestar.RegisterGuide({ id = "test/cave-anvilmar", pack = "test", title = "Cave, Anvilmar", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ goals = { { t = "goto", map = 1426, x = 26.9, y = 80.0 } } },
+	{ goals = { { t = "goto", map = 1426, x = 28.8, y = 66.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 33.9, y = 72.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 47.2, y = 52.4 } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
+Polestar.RegisterGuide({ id = "test/cave-direct", pack = "test", title = "Cave, tunnel", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ goals = { { t = "goto", map = 1426, x = 26.9, y = 80.0 } } },
+	{ goals = { { t = "goto", map = 1426, x = 33.9, y = 72.2 } } },
+	{ goals = { { t = "goto", map = 1426, x = 47.2, y = 52.4 } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
+-- The trainer is the sixth step: past the reminder's reach from step 1.
+Polestar.RegisterGuide({ id = "test/trains-far", pack = "test", title = "Trains far", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+	{ goals = { { t = "goto", map = 1413, x = 20, y = 20 } } },
+	{ goals = { { t = "goto", map = 1413, x = 21, y = 20 } } },
+	{ goals = { { t = "goto", map = 1413, x = 22, y = 20 } } },
+	{ goals = { { t = "goto", map = 1413, x = 23, y = 20 } } },
+	{ goals = { { t = "goto", map = 1413, x = 24, y = 20 } } },
+	{ goals = { { t = "train", class = true, candidates = { { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.8, y = 31.4, f = "e", faction = "H", classes = { "WARRIOR" } } } } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
 "#;
 
 const EVENTS: &str = r#"
@@ -35,10 +83,14 @@ Polestar.On("CLASS_TRAINED", function(level) DUE[#DUE + 1] = { trained = level }
 "#;
 
 fn run(saved: Option<&str>, pre: &str, script: &str) -> Value {
+	run_files(saved, pre, script, &["Core/Core.xml"])
+}
+
+fn run_files(saved: Option<&str>, pre: &str, script: &str, files: &[&str]) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		addons: vec![Addon::files("Polestar", files)],
 		saved: saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
 		script: [TEST_PACK, TEST_SOURCE, GUIDES, EVENTS, pre, "stub.login()", script].join("\n"),
 		..Default::default()
@@ -103,6 +155,123 @@ fn no_reminder_when_the_guide_trains_the_class_within_its_next_steps_on_odd_leve
 
 	let off = run(TRAINED_AT_10, r#"Polestar.Set("behavior.trainReminder", "off")"#, "stub.advance(0.5); emit({ due = #DUE })");
 	assert_eq!(off["due"], 0);
+}
+
+/// A character with `guide` open, last trained at `trained`.
+fn on_guide(guide: &str, trained: i32) -> String {
+	format!(r#"PolestarCharDB = {{ schema = 1, classTrainLevel = {trained}, tabs = {{ "{guide}" }}, activeTab = 1 }}"#)
+}
+
+// Dun Morogh's Era frame, with a Dwarf Shaman at `level` standing at (x, y).
+fn dwarf_shaman(level: i32, x: f64, y: f64) -> String {
+	format!(
+		r#"local w = stub.world
+			w.addMap(1426, {{ name = "Dun Morogh", c = 0, left = 1802.083, right = -3122.917, top = -3877.083, bottom = -7160.417 }})
+			w.race, w.raceName, w.faction, w.class, w.level = "Dwarf", "Dwarf", "Alliance", "SHAMAN", {level}
+			w.moveTo(1426, {x}, {y})"#
+	)
+}
+
+#[test]
+fn the_reminder_names_the_trainer_on_the_guide_s_route_not_the_nearest_one_behind_it_664() {
+	let near = run(TRAINED_AT_10, "", "stub.advance(0.5); emit({ map = DUE[1].map })");
+	// With no guide open the nearest trainer is east, in Durotar or Orgrimmar.
+	assert!(near["map"] == 1411 || near["map"] == 1454, "trainer on map {}", near["map"]);
+	let route = run(Some(&on_guide("test/route", 10)), "", "stub.advance(0.5); emit({ map = DUE[1].map, npc = DUE[1].npc })");
+	assert!(route["map"] == 1412 || route["map"] == 1456, "trainer on map {}, npc {}", route["map"], route["npc"]);
+}
+
+#[test]
+fn the_route_never_leads_to_a_trainer_in_a_zone_far_above_the_character() {
+	let out = run_files(
+		Some(&on_guide("test/route", 10)),
+		"Polestar.Maps.RegisterZoneLevels({ [1413] = { 10, 25, 50, 50 }, [1411] = { 1, 10, 50, 50 }, [1454] = { 1, 20, 50, 50 }, [1412] = { 55, 60, 50, 50 }, [1456] = { 55, 60, 50, 50 } })",
+		"stub.advance(0.5); emit({ map = DUE[1].map })",
+		&["Core/Core.xml", "Maps/Maps.lua", "Maps/WorldMap.lua"],
+	);
+	assert!(out["map"] == 1411 || out["map"] == 1454, "trainer on map {}", out["map"]);
+}
+
+#[test]
+fn a_trainer_close_by_line_but_far_by_the_route_planner_a_mountain_between_loses_to_one_that_is_reachable() {
+	let pick = |planner: bool| {
+		let pre = if planner {
+			r#"Polestar.Nav = { EstimateTravel = function(a, b)
+			if a.npc == 3063 or b.npc == 3063 then return 2500 end -- Krang Stonehoof: over the ridge
+			return a.map == b.map and 100 or 1000
+		end }"#
+		} else {
+			""
+		};
+		run(Some(&on_guide("test/route", 10)), pre, "stub.advance(0.5); emit({ npc = DUE[1].npc })")["npc"].clone()
+	};
+	assert_eq!(pick(false), 3063);
+	// Harutt Thunderhorn, the next Mulgore trainer.
+	assert_eq!(pick(true), 3059);
+}
+
+#[test]
+fn a_dwarf_shaman_who_dings_6_in_the_trogg_tunnel_is_sent_on_to_kharanos_not_back_to_anvilmar_664() {
+	let out = run(Some(&on_guide("test/tunnel", 4)), &dwarf_shaman(6, 36.5, 71.5), "stub.advance(0.5); emit({ due = #DUE, npc = DUE[1] and DUE[1].npc })");
+	// 257446 Teo Hammerstorm (Anvilmar), 258113 Ingrid Dunwald (Kharanos).
+	assert_eq!(out, json!({ "due": 1, "npc": 258113 }));
+}
+
+#[test]
+fn near_the_tunnel_with_coldridge_work_still_ahead_the_reminder_keeps_to_anvilmar_664() {
+	let out = run(Some(&on_guide("test/coldridge", 2)), &dwarf_shaman(4, 36.5, 71.5), "stub.advance(0.5); emit({ step = Polestar.Engine.GetStepIndex(), npc = DUE[1] and DUE[1].npc })");
+	// 257446 Teo Hammerstorm (Anvilmar).
+	assert_eq!(out, json!({ "step": 1, "npc": 257446 }));
+}
+
+#[test]
+fn a_stop_in_anvilmar_on_the_way_out_of_the_cave_keeps_the_reminder_there_without_it_kharanos_wins_664() {
+	let pick = |guide: &str| run(Some(&on_guide(guide, 4)), &dwarf_shaman(6, 27.5, 79.0), "stub.advance(0.5); emit({ npc = DUE[1] and DUE[1].npc })")["npc"].clone();
+	// 257446 Teo Hammerstorm (Anvilmar), 258113 Ingrid Dunwald (Kharanos).
+	assert_eq!(pick("test/cave-anvilmar"), 257446);
+	assert_eq!(pick("test/cave-direct"), 258113);
+}
+
+#[test]
+fn the_reminder_follows_the_live_step_not_the_step_on_screen_664() {
+	// Trained at 12 and at 12 now: nothing due until the level-up to 14 below.
+	let level_up = |guide: &str, view: i32| {
+		run(
+			Some(&on_guide(guide, 12)),
+			"",
+			&format!(
+				"stub.advance(0.5)
+			Polestar.Engine.Goto({view}); stub.advance(0.5)
+			stub.world.level = 14
+			Polestar.Engine.RequestUpdate(); stub.advance(0.5)
+			emit({{ due = #DUE, step = Polestar.Engine.GetStepIndex() }})"
+			),
+		)
+	};
+	// Live step 1, trainer at 6: out of reach, so it is due, though step 6 is on screen.
+	assert_eq!(level_up("test/trains-far", 6), json!({ "due": 1, "step": 6 }));
+	// Live step 1, trainer at 2: within reach, so held back, though step 3 is on screen.
+	assert_eq!(level_up("test/trains", 3), json!({ "due": 0, "step": 3 }));
+}
+
+#[test]
+fn the_guide_s_next_training_stop_counts_applicable_steps_from_the_live_step_not_the_step_on_screen_668() {
+	let stop = |guide: &str, view: i32| {
+		run(
+			Some(&on_guide(guide, 12)),
+			"",
+			&format!(
+				"stub.advance(0.5)
+			Polestar.Engine.Goto({view}); stub.advance(0.5)
+			emit({{ Polestar.Engine.GuideTrainStop() }})"
+			),
+		)
+	};
+	// The trainer is the sixth step, counting the live one.
+	assert_eq!(stop("test/trains-far", 6), json!([6]));
+	assert_eq!(stop("test/trains", 3), json!([2]));
+	// The Barrens trains only Orcs and Trolls: nothing ahead for an Undead.
+	assert_eq!(stop("test/barrens", 1), json!([false]));
 }
 
 #[test]

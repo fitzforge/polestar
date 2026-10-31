@@ -1108,8 +1108,15 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   as trained at that level. With `behavior.trainReminder` `"2"` (default; even
   levels only), `"1"` or `"off"`, the Engine fires `TRAIN_DUE(level, trainer)`
   once per level when `level - classTrainLevel >= N`, unless the active tab's
-  current step or its next applicable steps (4 in all) hold an applicable class
-  `train` goal (an npc in the registry or `train class`). The UI shows a slim
+  live step (not the one on screen) or its next applicable steps (4 in all) hold an applicable class
+  `train` goal (an npc in the registry or `train class`). The trainer named is
+  the one with the least detour on the guide's route (the first open goal with
+  coordinates of each of the next 8 applicable steps from the live step,
+  `Engine.NearestClassTrainer(true)`);
+  straight lines shortlist 4 trainers of the best continent and zone-level tier
+  and the route planner (`ns.TravelCost`) prices each one's best leg; a trainer
+  within 15 seconds of a nearer one loses to it, and a guide with no route
+  ahead gets the nearest one. The UI shows a slim
   banner with Show (temporary `Nav.SetTarget`) and Later, cleared by
   `CLASS_TRAINED`; Options → Guide → Automation → "Trainer reminders".
   With `behavior.offerClassQuests` (default on; QoL/ClassQuests.lua), a

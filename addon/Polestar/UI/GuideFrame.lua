@@ -1035,7 +1035,19 @@ function GF.LayoutBanner(width)
 			class and string.format(L["new %s skills"], class) or L["new class skills"] }
 		local place = n.trainer and trainerPlace(n.trainer)
 		if place then parts[#parts + 1] = place end
-		banner.Text:SetText(table.concat(parts, "  \194\183  "))
+		local text = table.concat(parts, "  \194\183  ")
+		-- How far the guide's own training stop is, from the live step (#668);
+		-- on that step itself, the step says it.
+		local E = Engine()
+		local steps, title
+		if E and E.GuideTrainStop then steps, title = E.GuideTrainStop() end
+		if steps == false then
+			text = text .. "\n" .. L["The guide has no class training ahead."]
+		elseif steps and steps > 1 then
+			text = text .. "\n" .. string.format(L["The guide trains you in %d steps"], steps)
+				.. (title and title ~= "" and (" (" .. title .. ")") or "") .. "."
+		end
+		banner.Text:SetText(text)
 		local w = placeLink(banner.Jump, L["Show"], 0, -4)
 		placeLink(banner.Later, L["Later"], w + 10, -4)
 		banner.Close:Hide()

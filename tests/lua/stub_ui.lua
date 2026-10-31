@@ -505,6 +505,13 @@ function Engine.Unskip(i)
 end
 -- uistub.live: the live step when a test looks at another one (default: the step shown).
 function Engine.GetLiveStep() return uistub.live or current end
+-- uistub.trainStop: { steps, title } or { false }, the guide's next class
+-- training stop; unset, no guide.
+function Engine.GuideTrainStop()
+	local t = uistub.trainStop
+	if not t then return nil end
+	return t[1], t[2]
+end
 function Engine.Prev() record("Prev"); if guide and current and current > 1 then move(current - 1) end end
 function Engine.Goto(i) record("Goto", i); if guide and guide.steps[i] then move(i) end end
 -- Any goal but a note ticks done and back.
