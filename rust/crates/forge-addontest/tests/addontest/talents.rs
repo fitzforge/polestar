@@ -630,6 +630,67 @@ emit(english())"#,
 }
 
 #[test]
+fn tree_the_mini_tree_opens_on_the_next_pick_steps_one_pick_at_a_time_and_a_list_row_steps_to_it() {
+	let outs = run_in(
+		r#"
+TS.learn(plan("retribution"), 20)
+TS.currency = { quantity = 1, spent = 20 }
+stub.login()
+T.Refresh()
+local TV = Polestar.UI.TalentsSection
+TV.Show()
+local function snap() local s = TV.Shown(); return { cursor = s.tree.cursor, picked = s.tree.picked, row = s.cursorRow, ret = s.tree.points[3] or 0 } end
+emit(snap())
+TV.StepTo(12)
+emit(snap())
+TV.StepTo(0)
+emit(snap())
+TV.StepTo(99)
+emit(snap())
+TV.SetTab("1")
+local s = TV.Shown()
+emit({ cursor = s.tree.cursor, holy = s.tree.points[1] or 0, prot = s.tree.points[2] or 0, ret = s.tree.points[3] or 0 })"#,
+		WITH_UI,
+		&["stub_ui.lua"],
+	);
+	assert_eq!(outs[0], json!({ "cursor": 21, "picked": 21, "row": 21, "ret": 21 }), "a point waits: the next pick");
+	assert_eq!(outs[1], json!({ "cursor": 12, "picked": 12, "row": 12, "ret": 12 }));
+	assert_eq!(outs[2], json!({ "cursor": 0, "picked": 0, "row": 0, "ret": 0 }), "clamped at the start");
+	assert_eq!(outs[3], json!({ "cursor": 51, "picked": 51, "row": 51, "ret": 41 }), "clamped at the end");
+	assert_eq!(outs[4], json!({ "cursor": 51, "holy": 31, "prot": 0, "ret": 20 }), "another plan opens whole, its split per column");
+}
+
+#[test]
+fn tree_ranks_after_n_picks_and_the_flag_on_ranks_spent_outside_the_plan() {
+	let outs = run_in(
+		r#"
+local b = plan("retribution")
+local r = T.Tree.RanksAt(b, 5)
+local n = 0
+for _ in pairs(r) do n = n + 1 end
+emit({ talents = n, count = T.Tree.Count(r), first = r[b.picks[1].node] })
+TS.learn(b, 20)
+local stray
+for id, node in pairs(data.nodes) do if node.spec == 1 and node.row == 1 then stray = id break end end
+TS.ranks[stray] = 1
+stub.login()
+T.Refresh()
+local TV = Polestar.UI.TalentsSection
+TV.Show()
+local t = T.Tree
+local flagged = 0
+for _, c in ipairs(Polestar.UI.TalentsSection.TreeFrame().cells) do if c:IsShown() and c.Flag:IsShown() then flagged = flagged + 1 end end
+emit(flagged)"#,
+		WITH_UI,
+		&["stub_ui.lua"],
+	);
+	assert_eq!(outs[0]["count"], 5);
+	assert!(num(&outs[0]["talents"]) >= 1.0);
+	assert!(num(&outs[0]["first"]) >= 1.0);
+	assert_eq!(outs[1], 1, "one talent flagged off-plan");
+}
+
+#[test]
 fn view_another_class_sees_why_there_is_no_plan() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_talents.lua", "stub_ui.lua"],
