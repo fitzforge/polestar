@@ -1,8 +1,8 @@
 //! Finding World of Warcraft: Forever installs: native installs on Windows and macOS, and Wine,
 //! Proton (Steam), Lutris, Bottles and Faugus prefixes under the home folder on Linux (the same
-//! candidates as tools/lib/addons.js). A client folder (`_forever_`, ...) counts as Forever when
-//! its `.flavor.info` says so (`wowf`, or a `wow_forever*` flavor); the beta's `_classic_beta_`
-//! (`wow_classic_beta`) is accepted too.
+//! candidates as tools/lib/addons.js). Only the `_forever_` client folder counts as Forever, when
+//! its `.flavor.info` says so (`wowf`, or a `wow_forever*` flavor) or it has none. The beta is
+//! over: a `_classic_beta_` folder left on disk is never offered or accepted.
 
 use std::fmt;
 use std::path::{Path, PathBuf};
@@ -18,7 +18,7 @@ pub struct Install {
 	pub root: PathBuf,
 	/// The client folder (`<root>/_forever_`).
 	pub flavor_dir: PathBuf,
-	/// `.flavor.info`'s flavor (`wowf`, `wow_classic_beta`, ...).
+	/// `.flavor.info`'s flavor (`wowf`, `wow_forever`, ...).
 	pub flavor: String,
 	/// The client version from `.build.info`, when present.
 	pub version: Option<String>,
@@ -79,6 +79,7 @@ fn version_name(folder: &str) -> &str {
 		"_ptr_" | "_xptr_" => "the Retail test realm",
 		"_classic_ptr_" | "_classic_era_ptr_" => "a Classic test realm",
 		"_beta_" => "the Retail beta",
+		"_classic_beta_" => "the old WoW: Forever beta, which has ended",
 		"_anniversary_" => "Anniversary",
 		_ => folder,
 	}
@@ -121,9 +122,9 @@ fn is_client_folder_name(name: &str) -> bool {
 	name.len() > 2 && name.starts_with('_') && name.ends_with('_')
 }
 
-/// Whether a client folder named `name` with this flavor is Forever (or its beta).
+/// Whether a client folder named `name` with this flavor is Forever: the `_forever_` folder only.
 fn is_forever(name: &str, flavor: &str) -> bool {
-	flavor == "wowf" || flavor.to_ascii_lowercase().contains("forever") || (name == "_classic_beta_" && flavor == "wow_classic_beta")
+	name == "_forever_" && (flavor == "wowf" || flavor.to_ascii_lowercase().contains("forever"))
 }
 
 /// `.build.info`'s Version for the client (the row whose Product is the flavor, else the first
@@ -458,9 +459,14 @@ mod tests {
 		std::fs::create_dir_all(fresh.join("WTF")).unwrap();
 		assert!(matches!(check_folder(&fresh), Err(FolderProblem::NoAccounts(_))));
 
+		// The beta has ended: its folder is another game version now, picked directly or from the root.
 		let beta = client(&base.join("beta"), "_classic_beta_", "wow_classic_beta");
 		std::fs::create_dir_all(beta.join("WTF/Account/A")).unwrap();
-		assert_eq!(check_folder(&base.join("beta")).unwrap().flavor, "wow_classic_beta");
+		match check_folder(&beta) {
+			Err(e @ FolderProblem::OtherVersion { .. }) => assert!(e.to_string().contains("the old WoW: Forever beta"), "{e}"),
+			other => panic!("{other:?}"),
+		}
+		assert!(matches!(check_folder(&base.join("beta")), Err(FolderProblem::NoForever { .. })));
 		std::fs::remove_dir_all(&base).unwrap();
 	}
 
@@ -476,6 +482,21 @@ mod tests {
 		assert_eq!(found.len(), 1);
 		assert_eq!(found[0].flavor_dir, f);
 		assert_eq!(found[0].addon_dir, None);
+		std::fs::remove_dir_all(&home).unwrap();
+	}
+
+	#[test]
+	fn only_the_forever_folder_is_offered() {
+		// A World of Warcraft folder holding the live client and a leftover beta copy: one install.
+		let home = tmp("both");
+		let wow = home.join(".wine/drive_c/Program Files (x86)/World of Warcraft");
+		let live = client(&wow, "_forever_", "wowf");
+		std::fs::create_dir_all(live.join("WTF/Account/A")).unwrap();
+		let beta = client(&wow, "_classic_beta_", "wow_classic_beta");
+		std::fs::create_dir_all(beta.join("WTF/Account/A")).unwrap();
+		let found = find_installs_in(Some(&home), &[]);
+		assert_eq!(found.iter().map(|i| i.flavor_dir.clone()).collect::<Vec<_>>(), vec![real_path(&live)]);
+		assert_eq!(check_folder(&wow).unwrap().flavor_dir, real_path(&live));
 		std::fs::remove_dir_all(&home).unwrap();
 	}
 

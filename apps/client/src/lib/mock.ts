@@ -213,8 +213,9 @@ function initial(): Snapshot {
 				s.addons.products[1] = { ...s.addons.products[1], installed: null, status: 'install' };
 			}
 			if (scene === 'setup-two' || scene === 'setup-saved') {
-				const root = s.game.candidates[0].root;
-				s.game.candidates.push({ root, dir: `${root}/_classic_beta_`, client: '_classic_beta_', version: '1.15.8.62001', accounts: 0, addonVersion: null });
+				// A second install of the game elsewhere (only `_forever_` folders are offered).
+				const root = '/home/player/.local/share/lutris/prefixes/wow/drive_c/Program Files (x86)/World of Warcraft';
+				s.game.candidates.push({ root, dir: `${root}/_forever_`, client: '_forever_', version: '1.15.7.61582', accounts: 0, addonVersion: null });
 			}
 			if (scene === 'setup-none' || scene === 'setup-problem' || scene === 'setup-saved' || scene === 'setup-scanning') {
 				s.game = { ...s.game, found: false, root: null, dir: null, gameVersion: null, candidates: scene === 'setup-saved' ? s.game.candidates : [], addon: null, accounts: [] };
