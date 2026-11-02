@@ -5,7 +5,10 @@
 use crate::record::Kind;
 
 /// `text` with every whole-word occurrence of a name (case-insensitive) replaced by `$N`. Names
-/// shorter than two characters are ignored.
+/// shorter than two characters are ignored. Chinese, Japanese and Korean write no spaces between
+/// words (Korean puts its particles right after a name: "철수가"), so where the name's first or
+/// last character, or the character beside it, is one of those scripts ([`is_cjk`]), that side
+/// needs no word boundary; Latin, Cyrillic and other alphabets keep it ("Thralldom" is not Thrall).
 pub fn scrub_text(text: &str, names: &[String]) -> String {
 	let mut out: Vec<char> = text.chars().collect();
 	for name in names {
@@ -13,13 +16,14 @@ pub fn scrub_text(text: &str, names: &[String]) -> String {
 		if pat.len() < 2 {
 			continue;
 		}
+		let (first, last) = (pat[0], pat[pat.len() - 1]);
 		let mut res: Vec<char> = Vec::with_capacity(out.len());
 		let mut i = 0;
 		while i < out.len() {
-			let boundary_before = i == 0 || !out[i - 1].is_alphanumeric();
+			let boundary_before = i == 0 || separates(out[i - 1], first);
 			if boundary_before && matches_at(&out, i, &pat) {
 				let end = i + pat.len();
-				if end == out.len() || !out[end].is_alphanumeric() {
+				if end == out.len() || separates(out[end], last) {
 					res.extend(['$', 'N']);
 					i = end;
 					continue;
@@ -31,6 +35,35 @@ pub fn scrub_text(text: &str, names: &[String]) -> String {
 		out = res;
 	}
 	out.into_iter().collect()
+}
+
+/// Whether `neighbour`, right beside a name whose character on that side is `edge`, lets the name
+/// match: it is not a letter or digit, or either of them is CJK or Hangul.
+fn separates(neighbour: char, edge: char) -> bool {
+	!neighbour.is_alphanumeric() || is_cjk(neighbour) || is_cjk(edge)
+}
+
+/// Whether `c` belongs to a script written without spaces between words: Han ideographs, Hangul,
+/// Japanese kana and Bopomofo (their Unicode blocks).
+pub fn is_cjk(c: char) -> bool {
+	matches!(c as u32,
+		0x1100..=0x11FF // Hangul Jamo
+		| 0x2E80..=0x2FDF // CJK and Kangxi radicals
+		| 0x3005..=0x3007 // 々 〆 〇
+		| 0x3040..=0x30FF // Hiragana, Katakana
+		| 0x3100..=0x312F // Bopomofo
+		| 0x3130..=0x318F // Hangul Compatibility Jamo
+		| 0x31A0..=0x31BF // Bopomofo Extended
+		| 0x31F0..=0x31FF // Katakana Phonetic Extensions
+		| 0x3400..=0x4DBF // CJK Extension A
+		| 0x4E00..=0x9FFF // CJK Unified Ideographs
+		| 0xA960..=0xA97F // Hangul Jamo Extended-A
+		| 0xAC00..=0xD7FF // Hangul Syllables, Jamo Extended-B
+		| 0xF900..=0xFAFF // CJK Compatibility Ideographs
+		| 0xFF66..=0xFF9F // Halfwidth Katakana
+		| 0xFFA0..=0xFFDC // Halfwidth Hangul
+		| 0x20000..=0x323AF // CJK Extensions B to H, Compatibility Supplement
+	)
 }
 
 /// Whether the lowercase pattern matches `text` at `i` (character by character; a character whose
@@ -84,6 +117,25 @@ mod tests {
 		assert_eq!(scrub_text("Well met, Thrall. THRALL's axe; Thralldom, x marks.", &names), "Well met, $N. $N's axe; Thralldom, x marks.");
 		assert_eq!(scrub_text("zoë und Zoë!", &names), "$N und $N!");
 		assert_eq!(scrub_text("", &names), "");
+	}
+
+	#[test]
+	fn replaces_names_inside_cjk_and_hangul_text() {
+		let names = vec!["철수".to_string(), "张三".to_string(), "Thrall".to_string(), "さくら".to_string()];
+		// Korean particles follow the name directly.
+		assert_eq!(scrub_text("철수가 왔다. 철수에게 말하세요", &names), "$N가 왔다. $N에게 말하세요");
+		// Chinese has no spaces at all.
+		assert_eq!(scrub_text("和张三勇士谈谈", &names), "和$N勇士谈谈");
+		assert_eq!(scrub_text("さくらさんに話す", &names), "$Nさんに話す");
+		// A Latin name written into CJK text.
+		assert_eq!(scrub_text("Thrall에게 말하세요, 与Thrall交谈", &names), "$N에게 말하세요, 与$N交谈");
+	}
+
+	#[test]
+	fn keeps_word_boundaries_in_latin_and_cyrillic_text() {
+		let names = vec!["Thrall".to_string(), "Иван".to_string()];
+		assert_eq!(scrub_text("Thralldom, Thrall", &names), "Thralldom, $N");
+		assert_eq!(scrub_text("Иванов и Иван, ИВАНу", &names), "Иванов и $N, ИВАНу");
 	}
 
 	#[test]
