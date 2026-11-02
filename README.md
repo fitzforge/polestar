@@ -116,11 +116,11 @@ Good to know:
 
 ## What it is
 
-Polestar is one addon for the whole of WoW: Forever. It carries 232 guides:
-57 leveling guides that take both factions from 1 to 60 from every race's
-starting zone (Zephras Isle for the Skyborne included), 66 class guides for
+Polestar is one addon for the whole of WoW: Forever. It carries 256 guides:
+61 leveling guides that take both factions from 1 to 60 from every race's
+starting zone (Zephras Isle for the Skyborne included), 82 class guides for
 every class's quest chains and class mounts, the twelve professions from 1 to
-300, 27 reputations, 7 exploration guides, the Legacy challenges, 60
+300, 27 reputations, 7 exploration guides, the Legacy challenges, 64
 collectible guides (mounts and pets) and 2 miscellaneous guides. Every one of
 them can be read step by step on [polestar.guide](https://polestar.guide/guides).
 
@@ -134,11 +134,14 @@ session needs. Its interface and its guides read in English, German, French,
 Spanish (Spain and Latin America), Brazilian Portuguese, Russian, Korean and
 Chinese (simplified and traditional).
 
-The leveling routes are not hand-picked. Polestar Forge models every quest
-Forever offers a faction, starts from the order of the guides players know
-and keeps only the changes that reach 60 sooner under its model, without
-undoing a fix from a player's report; the guides are written from that route
-and judged against the last ones
+The leveling routes are not hand-picked. Every race plays its own starting
+zone (to about level 12, the Skyborne to about 15), then all the Horde races
+share one route from the Barrens to 60 and all the Alliance races one from
+Westfall. Polestar Forge builds them from the game's data and Forever's quest
+data, elite and group quests included, writes the guides, and plays them the
+way a player follows them, refusing any step that can't be done as written.
+Every round of routes is read step by step, and a fix from a player's report
+becomes a permanent record the next build keeps
 ([How the routes are made](#how-the-routes-are-made)).
 
 Players publish their own routes for Polestar as community guides on
@@ -159,7 +162,12 @@ is merged since):
 
 - **Better routes.** Every race's route is rebuilt by Polestar Forge, and on
   each side the races share one route after their starting zones, so a fix
-  or an improvement reaches all of them.
+  or an improvement reaches all of them. The route checker finds no hearth
+  asked for while the stone is cooling down, no order a player reported as
+  wrong, and almost no quest that waits on a rare drop; you walk past fewer
+  open quests and grind about 2.5 to 3.5 hours less to 60. Elite and group
+  quests come with the group they want and a solo way past
+  ([what changed](#what-changed-in-030)).
 - **The arrow walks the guide's own paths.** The walk into each step is
   worked out when the guides are built (on Leffe's navigation maps and
   Polestar's own), so the arrow follows it at once instead of searching
@@ -182,9 +190,11 @@ is merged since):
 
 > [!NOTE]
 > **Beta.** Every guide compiles, lints and plays to the end in a simulator
-> for every race and class it serves, but nothing has been play-tested on
-> Forever yet. Forever's new 30-60 content (Riverglades, Shen'dralas, Mount
-> Hyjal) is not in any data yet; the routes take it in at launch.
+> for every race and class it serves, and the route checker plays every
+> leveling guide to 60 the way a player follows it. The 0.3.0 routes have been
+> tested in the developer's own game client, not yet by players on Forever.
+> Forever's new 30-60 content (Riverglades, Shen'dralas, Mount Hyjal) is not
+> in any data yet; the routes take it in at launch.
 
 ## A look inside
 
@@ -420,8 +430,11 @@ its source is in [apps/client](apps/client).
   levels 40 and 60 a **riding reminder** shows the cost of riding and your
   balance, and points the arrow at your riding trainer once you can afford
   it.
-- **Elite quests are optional.** Leveling routes use only quests a player can
-  do alone; a quest that needs an elite appears as an extra marked "optional".
+- **Elite quests with a solo way past.** The leveling routes take elite and
+  group quests where they pay, sized from the game's creature data, with the
+  group each one wants; skip one and the guide has you grind to the route's
+  level there instead, so you are never stranded. Quests that start from a
+  rare drop are optional extras.
 - **Escort notes.** On an escort quest the guide window says so under the
   quest's accept and under the goal to complete it: "Escort: if the NPC is
   not there, wait for it to respawn", so an empty spot means someone else is
@@ -778,172 +791,150 @@ Every command with its help line, every option and every key binding are on
 
 ```mermaid
 flowchart LR
-  game["The game's data<br/>+ the guides"] --> data["Reference<br/>data"]
-  data --> world["World model<br/>solo quests"]
+  game["The game's data<br/>+ corrections"] --> data["Reference<br/>data"]
+  data --> world["World model<br/>solo, elite and group quests"]
   world --> walks["Walks<br/>priced on the maps"]
-  walks --> routes["Routes<br/>v1 improved"]
-  routes --> guides["Guides<br/>route written in"]
-  guides --> judge["Judge<br/>report"]
-  judge --> addon["Polestar_Guides"]
+  walks --> routes["Route search<br/>one route per faction"]
+  fixes["Player reports<br/>kept as fix records"] --> routes
+  routes --> guides["Guides<br/>written from the route"]
+  guides --> check["Route check<br/>played like a player"]
+  check --> legs["Walking legs<br/>for the arrow"]
+  legs --> addon["Polestar_Guides"]
 ```
 
 The routes are made by **Polestar Forge**, one program (`forge build`) that runs every step from
-the installed game to judged guides ([docs/FORGE.md](docs/FORGE.md)):
+the installed game to checked guides ([docs/FORGE.md](docs/FORGE.md)). Each race has its own
+starting zone (levels 1 to about 12, the Skyborne to about 15); from there one Horde route runs
+from the Barrens and one Alliance route from Westfall to 60, written once per faction and played by
+every race of it.
 
 1. **Reference data.** Forge reads the game's own tables from the installed client, Forever's quest
    data and our corrections into the facts every tool uses: quests, givers and enders, objectives,
    spawns, items, travel ([data](docs/forge/data.md)).
-2. **World model.** Every quest the faction can do alone, with its level, prerequisites and the
-   work its objectives take: kills at the mob's camps, item drops at their rates, objects, escorts.
-   Dungeon, raid, PvP and elite quests are left out, so a route is something one player can do.
+2. **World model.** Every quest the faction can take, with its level, prerequisites and the work
+   its objectives take: kills at the mob's camps, item drops at their rates, objects, escorts.
+   Elite and group quests are in, sized from the game's creature data, each with a solo way past:
+   a player who skips one grinds to the route's level there instead, and the guide gives grouping
+   tips. Quests that start from a rare drop are optional extras the route does not count on.
+   Dungeon, raid and PvP quests are left out.
 3. **Walks.** Every walk a route may take is priced on the terrain, with Leffe's navigation maps
    where they cover it and Polestar's own walking grid elsewhere ([nav](docs/forge/nav.md)).
-4. **Routes, v1 improved.** Each start begins from the order of the shipped guides, which players
-   know and like, and changes only by local edits that reach 60 faster in the model: a quest
-   picked up where you pass it, work folded into an earlier visit instead of a trip back, a stop
-   moved within its zone. An edit is kept only when the guides' deliberate orders (the fixes from
-   player reports) still hold and it does not add returns or passed-by quests
+4. **Route search.** Starting from the order players knew, the search reorders, adds and drops
+   quests, from moving one stop to rebuilding a whole stretch, and keeps a change only when every
+   step stays possible: the quest is available, the flight path is learnt, the hearthstone is
+   ready, the quest log has room, and every fix from a player's report holds. On a shared route a
+   change is kept only when no race gets slower
    ([routes](docs/forge/routes.md), [model](docs/forge/model.md)).
-5. **Guides.** The improved route is written into the guides themselves, keeping their text
+5. **Guides.** The writer turns the route into the guides: one shared route per faction, each town
+   done in one sweep through its quest givers, class training and weapon masters on the way,
+   hearths an hour apart and a travel line for every flight, boat and portal
    ([writer](docs/forge/writer.md)).
-6. **Judge.** The written guides are played the way a player follows them and compared with v1:
-   hours, quests passed by, returns, the player-report checks; a change that loses to v1 is not
-   shipped ([judge](docs/forge/judge.md)).
+6. **Route check.** The written guides are played the way a player follows them, for every race
+   and class, and a step that can't be done as written is refused: a quest taken before it is
+   available, a flight to a flight path not learnt, an item used before its quest, a hearth on
+   cooldown, a trip made twice, a town left with work ready there ([judge](docs/forge/judge.md)).
+7. **Walking legs.** The walk into every step is worked out once and shipped with the guides, so
+   the arrow follows it at once.
 
-Every quest a route leaves out is listed with the reason (`forge sim skips`), so a missing quest is
-a question with an answer.
+Each round of routes is then read step by step. What a reader or a player finds becomes a
+permanent fix record (`data/route-fixes.json`, `data/guide-fixes.json` and our corrections), never
+a hand edit of a guide, so the next build keeps it; the leveling guides themselves are generated
+(`guides/GENERATED.json` lists them). Every quest a route leaves out is listed with the reason,
+so a missing quest is a question with an answer.
 
-### The numbers (guides up to 0.2.4)
+### What changed in 0.3.0
 
-The guides shipped so far were written from the earlier JavaScript simulator's searches
-([docs/legacy/SIMULATION-js.md](docs/legacy/SIMULATION-js.md)); these are its numbers.
-Hours to 60, solo, under the model. The routes were searched four times,
-independently: the first search is the one the guides were written from;
-each later one used another random seed, more routes and newer data. Each
-search is scored on its own world. The guides are scored on the world of the
-data this release ships with (`5eef72140b61`), beside those of the first
-release.
+The same route checker played the leveling guides of 0.2.6 and of 0.3.0 to 60. Per character, for
+the five races of each faction (Troll, Gnome and both Skyborne included):
 
-The guides are scored on what they require. Their optional extras (quests
-started by rare drops such as the OOX beacons, the Green Hills of
-Stranglethorn pages, profession and bag quests, rares) are left out, because
-most players will not get them; the last column counts them as done, which is
-how these hours were published before 0.2.4 (issue
-[#30](https://github.com/fitzforge/polestar/issues/30)).
+| Per character, to 60 | Horde 0.2.6 | Horde 0.3.0 | Alliance 0.2.6 | Alliance 0.3.0 |
+|---|---:|---:|---:|---:|
+| Steps the checker refuses | 30-34 | 1-2 | 41-60 | 6 |
+| of them: hearth while it cools down | 3-4 | 0 | 7-8 | 0 |
+| of them: against an order players reported as wrong | 13-16 | 0 | 8-25 | 0 |
+| of them: a quest that waits on a rare drop | 13-16 | 1 | 18-22 | 6 |
+| Open quests walked past | 150-156 | 120-128 | 159-175 | 107-117 |
+| Trips back that did nothing | 19-22 | 13-15 | 30-35 | 29-31 |
+| Hours of grinding | 26.6-27.9 | 24.1-25.5 | 30.9-32.1 | 27.4-28.6 |
+| Zone changes | 73-76 | 90-93 | 78-80 | 96-102 |
+| Hours to 60, solo | 117.9-119.9 | 118.0-120.1 | 122.6-123.7 | 121.7-123.8 |
 
-| Start | Search 1: best / consensus | Search 2 | Search 3 | Search 4 | Guides 0.2.4 (grinding) | Guides 0.1.0 (grinding) | Guides 0.2.4 with every optional extra |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Orc | 119.4 / 120.5 | 120.7 / 117.8 | 117.7 / 116.8 | 119.6 / 117.3 | 131.1 (34.2) | 128.5 (29.7) | 122.8 |
-| Tauren | 120.4 / 120.2 | 119.1 / 117.4 | 118.3 / 116.5 | 117.1 / 116.8 | 130.1 (34.2) | 127.8 (29.1) | 121.9 |
-| Undead | 120.8 / 120.6 | 119.0 / 118.1 | 119.3 / 117.0 | 118.8 / 117.4 | 131.5 (33.8) | 128.9 (29.1) | 123.3 |
-| Skyborne (Horde) | 120.2 / 120.1 | 117.3 / 117.3 | 116.3 / 116.3 | 116.8 / 116.8 | 130.1 (32.8) | 128.3 (28.2) | 122.3 |
-| Human | 119.6 / 119.1 | 120.7 / 118.8 | 119.2 / 116.8 | 119.3 / 118.9 | 132.5 (37.0) | 132.1 (35.5) | 127.5 |
-| Dwarf | 119.5 / 119.5 | 120.8 / 118.8 | 117.4 / 117.3 | 119.8 / 118.8 | 133.1 (36.9) | 132.6 (35.5) | 128.2 |
-| Night Elf | 120.0 / 119.5 | 120.9 / 118.9 | 119.0 / 117.5 | 119.1 / 119.1 | 133.0 (37.1) | 132.6 (35.6) | 128.1 |
-| Skyborne (Alliance) | 121.2 / 119.6 | 118.6 / 118.6 | 118.2 / 117.3 | 119.0 / 118.4 | 133.5 (36.2) | 132.5 (34.5) | 129.0 |
-
-So a Horde character following the guides should expect about 130-132 h,
-an Alliance one about 132-134 h; doing the optional extras as they come can
-save up to about 8 h (Horde) and 5 h (Alliance). With every optional extra
-counted, the guides of 0.2.4 and 0.1.0 are within 0.6 h (Horde) and the
-Alliance guides of 0.2.4 are 0.8-1.6 h faster; counting only what each
-requires, 0.1.0 comes out 1.8-2.6 h faster for the Horde because the later
-guides marked more of their quests optional.
+In words: no more hearths on cooldown, the orders players reported are followed, rare-drop quests
+no longer hold up the route (what is left is the Green Hills of Stranglethorn pages on the
+Alliance side and one Horde quest), steps that couldn't be done as written went from 34 across the
+ten starts to 2, and about 2.5 hours (Horde) to 3.5 hours (Alliance) of grinding became questing.
+The guides change zone more often, partly from the new order and partly because they now write
+out the way between zones. The hours to 60 stay about the same: they are a sanity check, not the
+goal.
 
 <p align="center">
-  <img src="docs/assets/charts/starts.svg" width="880" alt="Chart: hours to 60 and hours of grinding per start, for what the guides require. The guides of 0.2.4 reach 60 in about 130 to 132 hours for the Horde and 132 to 134 for the Alliance; those of 0.1.0 in about 128 to 129 and 132 to 133. The guides of 0.2.4 grind about 33 to 34 hours for the Horde and 36 to 37 for the Alliance.">
+  <img src="docs/assets/charts/starts.svg" width="880" alt="Chart: hours to 60 and hours of grinding per start, Polestar 0.3.0 against 0.2.6, as the route checker plays the guides. Hours to 60 stay within about an hour of 0.2.6: 118 to 120 for the Horde and 122 to 124 for the Alliance. Grinding drops from about 27 to 28 hours to 24 to 25.5 for the Horde, and from about 31 to 32 hours to 27.5 to 28.5 for the Alliance.">
 </p>
 
-<p align="center">
-  <img src="docs/assets/charts/levels.svg" width="880" alt="Chart: level against hours played for each faction, for what the guides require: the guides of 0.2.4 and those of 0.1.0 as curves, with a strip showing the hours the guides of 0.2.4 are ahead of (or behind) those of 0.1.0 at each level.">
-</p>
-
-The charts show only the guides: the searches' best and consensus routes
-were searched on earlier worlds, and a chart draws only numbers from one
-world.
-
-**How close to the best?** Nobody can prove a route is the best one
-possible, so the claim is narrower and checked:
-
-- **The searches land in the same place.** Four independent searches
-  (3.5 to 30 million complete routes per start) find routes within
-  116.3-121.2 h to 60, and their consensus routes within 116.3-120.6 h. The
-  top of the search space is flat: many different routes finish within about
-  2% of each other, and most searches were still finding small improvements
-  when they reached their cap on routes, so later searches keep shaving
-  minutes, not hours.
-- **The winners hold up when the model is wrong.** Re-scored under 2000
-  random draws of the model's parameters, the best route found stays within
-  1% of each draw's best in 76-100% of draws (fourth search), and no route
-  wins every draw: "best found" names one of several near-equal routes.
-- **The guides trade hours for a smooth, safe run.** For what they require
-  they take 13.3-14.1 h (Horde) and 13.6-15.1 h (Alliance) longer than the
-  fourth search's consensus (scored on its own world). Almost all of that is
-  grinding the guides choose: side trips for one or two small quests behind
-  a flight, boat or hearth are left out, and quests that need a group, a
-  rare drop or a level the route has not reached are optional or gone, so
-  the guides grind about 33-34 h (Horde) and 36-37 h (Alliance) where the
-  searched routes grind under 1 h and about 8 h. The Alliance mid-40s have
-  few solo quests left once those trips are gone.
-- **Dungeons do not beat questing solo** under the model: searched with
-  dungeons allowed (Orc, Tauren, Undead), no dungeon route came out ahead.
+A chart of level against hours, as earlier releases drew, is not shown: the route check keeps each
+start's totals, not its hours to every level.
 
 > [!IMPORTANT]
-> The hours are **model estimates in /played hours**, not measurements. No
-> recorded play exists yet, so time parameters such as kill time and travel
-> detours keep their priors, and Forever's 30-60 content is not in the data.
-> Comparisons between routes are what the numbers support; absolute hours
-> are not. Recordings from the Recorder are what will calibrate kill time
-> (`forge sim calibrate`); travel detours keep their priors even then.
+> The hours are **model estimates in /played hours**, not measurements. Time parameters such as
+> kill time and travel detours keep their priors, and Forever's 30-60 content is not in the data.
+> Comparisons between guides are what the numbers support; absolute hours are not. Recordings
+> from the Recorder are what will calibrate kill time (`forge sim calibrate`).
 
-That simulator's method and parameters are in
-[docs/legacy/SIMULATION-js.md](docs/legacy/SIMULATION-js.md); Forge's model is in
-[docs/forge/model.md](docs/forge/model.md).
+Forge's model is in [docs/forge/model.md](docs/forge/model.md) and the route check in
+[docs/forge/judge.md](docs/forge/judge.md). The routes of releases up to 0.2.x came from an
+earlier JavaScript simulator, described in
+[docs/legacy/SIMULATION-js.md](docs/legacy/SIMULATION-js.md).
 
 ## A guide, from source to game
 
 Guides are plain text, compiled to Lua. The compiler fills in names, titles
 and coordinates from the reference data, so a line can be as short as
-`accept 788`. From the Orc and Troll starting guide,
-[`guides/forever/horde/orc-troll/01-durotar.guide`](guides/forever/horde/orc-troll/01-durotar.guide):
+`accept 788`. From the Orc starting guide (written by Forge, like every
+leveling guide),
+[`guides/forever/horde/orc/01-durotar.guide`](guides/forever/horde/orc/01-durotar.guide):
 
 ```
-guide forever/horde/orc-troll/01-durotar
+guide forever/horde/orc/01-durotar
 title Durotar
 faction Horde
-race Orc,Troll
+race Orc
 levels 1-12
 zone Durotar
-next forever/horde/orc-troll/02-the-barrens
+next forever/horde/orc/02-the-barrens
 
-step Gornek
+step Kaltunk
+  accept 4641                         -- Kaltunk, where you start
   tip Gornek waits inside the Den, the building just west of Kaltunk.
-  turnin 4641
+  turnin 4641                         -- Inside
   accept 788
   accept 97279
+  accept 1485 only Warlock            -- Ruzan
 
 step Training weapons and boars
   tip The weapons lie around the Den and the training grounds; the Mottled Boars roam the whole valley floor.
-  collect 277653 quest 97279.1
   kill 3098 quest 788.1
+  collect 277653 quest 97279.1
+  goto 42.4,68.6 "The Den"
 ```
 
-The second step compiles to (goals wrapped here; the compiler writes each
-on one line):
+The second step compiles to (goals wrapped and spawn lists cut short here;
+the compiler writes each goal on one line):
 
 ```lua
 {
   title = "Training weapons and boars",
   note = "The weapons lie around the Den and the training grounds; the Mottled Boars roam the whole valley floor.",
   goals = {
-    { t = "collect", quest = 97279, title = "Wayward Weapons",
-      item = 277653, itemName = "Abandoned Training Weapon", count = 6, oi = 1,
-      map = 1411, x = 44, y = 67.2, f = "e",
-      spots = { { x = 44.4, y = 66.6, r = 45, n = 4 }, --[[ eleven more spawn clusters ]] } },
     { t = "kill", quest = 788, title = "Cutting Teeth",
       target = "Mottled Boar", npc = 3098, count = 10, oi = 1,
-      map = 1411, x = 44.49, y = 65.1, f = "e",
-      spots = { { x = 45, y = 65.7, r = 56, n = 8 }, --[[ ten more spawn clusters ]] } },
+      map = 1411, x = 42.72, y = 71.58, z = 40.3, f = "e",
+      spotsPacked = "42.4,72.1,,56,6;44.3,71.2,,54,6;..." },
+    { t = "collect", quest = 97279, title = "Wayward Weapons",
+      item = 277653, itemName = "Abandoned Training Weapon", count = 6, oi = 1,
+      map = 1411, x = 43.2, y = 71.7, f = "e",
+      spotsPacked = "43.6,72.4,,54,4;44.3,70.8,,21,2;...",
+      from = "Abandoned Training Weapon", fromKind = "object", fromId = 673476 },
+    { t = "goto", text = "{object:3227}", map = 1411, x = 42.4, y = 68.6, f = "e" },
   },
 },
 ```
@@ -1013,9 +1004,10 @@ rust/target/release/forge doctor                     # what it finds: the game, 
 rust/target/release/forge build --guides guides --out forge-out
 ```
 
-Forge reads the installed game, builds the data and the walks, improves every start's route from
-the shipped guides, writes it into the guides and judges them: `forge-out/report.md` compares each
-start with v1. Without a maintainer's `data/sources`, `forge data fetch` downloads the public data
+Forge reads the installed game, builds the data and the walks, searches every start's route, writes
+the leveling guides (one shared route per faction) and plays them through the route check:
+`forge-out/report.md` and `check.md` say what changed and what a player would trip on. Without a
+maintainer's `data/sources`, `forge data fetch` downloads the public data
 pack first. [docs/FORGE.md](docs/FORGE.md) is the guide.
 
 </details>
@@ -1098,8 +1090,8 @@ the slowest steps, steps far over the guide's median and detours. Reloads,
 AFK breaks (idle time counts at most 5 minutes), going back a step and other
 tabs are accounted for.
 
-At Forever's launch, the data is rebuilt and the simulator rerun to take in
-the new zones ([docs/FORGE.md](docs/FORGE.md)).
+At Forever's launch, the data is rebuilt and Forge builds the routes again to
+take in the new zones ([docs/FORGE.md](docs/FORGE.md)).
 
 </details>
 

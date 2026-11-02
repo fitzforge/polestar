@@ -1,24 +1,27 @@
 # Polestar Forge
 
 Forge is the tool that makes Polestar's leveling routes. From the game installed on your computer
-and Polestar's guides it builds the reference data, works out how long every walk takes, improves
-each start's route from level 1 to 60, writes the improved route into the guides and checks the
-result the way a player would follow it. One command does all of it:
+and Polestar's guides it builds the reference data and the world model (elite and group quests
+included, each with a solo way past), works out how long every walk takes, searches each start's
+route from level 1 to 60 (each race's own start zone, then one shared route per faction from the
+Barrens and Westfall), writes the leveling guides from it and checks the result the way a player
+would follow it. One command does all of it:
 
 ```sh
 forge build --guides guides --out forge-out
 ```
 
-and `forge-out/report.md` says what changed and how much faster the new guides are in the model.
+and `forge-out/report.md` says what changed against the guides the routes started from, and
+`check.md` every step a player would trip on.
 
 You need Forge if you want to rebuild the routes, test a change to the guides' order, or find out
 why a quest is or is not in a route. You do not need it to play: the addon ships with its guides
 already written.
 
 Two words come back on every page. A **start** is one leveling start, by race and faction (Orc,
-Human, Skyborne for each side, ...); each start has its own route from level 1 to 60. A **cut** is
-one run of the route search for one start, with the files it writes: the route and its two
-ledgers.
+Human, Skyborne for each side, ...); each start has its own route from level 1 to 60: its own
+start zone, then its faction's shared route. A **cut** is one run of the route search for one
+start, with the files it writes: the route and its two ledgers.
 
 **On this page:** [How it works](#how-it-works) · [Requirements](#requirements) ·
 [Install](#install) · [Updating](#updating) · [First build](#your-first-build) ·
@@ -52,8 +55,11 @@ flowchart LR
 3. **prepare**: the walk graphs the walks are priced on.
 4. **world**: each faction's quests, givers, camps and areas.
 5. **walks**: how long every walk between those places takes.
-6. **routes**: each start's route, improved from the current guides.
-7. **guides**: the improved route written into the guides.
+6. **routes**: each start's own start zone and its faction's shared route, searched from the order
+   of the guides the routes started from (the seed), under the route fixes from player reports;
+   elite and group quests come with a solo fallback ([forge/routes.md](forge/routes.md)).
+7. **guides**: the route written into the leveling guides, the shared route once per faction
+   ([forge/writer.md](forge/writer.md)).
 8. **legs**: the walk into every step of the written guides, drawn on Leffe's maps when you have
    them (our grid where his have no way or a detour, as the walks stage chooses; our grid alone
    without his maps), kept as its corners with each
@@ -62,8 +68,8 @@ flowchart LR
    puts them into the race parts, and the arrow follows them in game instead of searching
    (docs/PACK_FORMAT.md, "Format 7"). `forge guide bake --guides <dir>` does the same for one
    written guides folder.
-9. **report**: the written guides played the way a player follows them, and compared with the
-   current guides.
+9. **report**: the written guides played the way a player follows them, compared with the seed's
+   guides, and the route check (`check.md`): every step a player would trip on, by rule.
 
 ## Requirements
 
@@ -548,9 +554,9 @@ print the forge command to run):
 | [forge/data.md](forge/data.md) | reading the game's data, the reference data, corrections, the knowledge base, the data pack |
 | [forge/nav.md](forge/nav.md) | the walking grid, Leffe's navigation maps, the walk store |
 | [forge/model.md](forge/model.md) | the time model: what a route's hours are made of |
-| [forge/routes.md](forge/routes.md) | how a route is improved from the current guides: edits, guards, the shared route, ledgers, overrides |
+| [forge/routes.md](forge/routes.md) | how a route is searched from the seed: the search, guards, group quests, the shared route, ledgers, overrides |
 | [forge/writer.md](forge/writer.md) | how a route becomes guides |
-| [forge/judge.md](forge/judge.md) | the checks and the report |
+| [forge/judge.md](forge/judge.md) | the route check and the report |
 | [forge/release.md](forge/release.md) | releasing the addon: the version, the release zips, the changelog fragments, the release notes, the credits |
 | [forge/i18n.md](forge/i18n.md) | the translations: interface strings, guide texts, English left on screen |
 | [forge/internals.md](forge/internals.md) | the code: crates, stages and keys, environment variables, CI |
