@@ -494,6 +494,7 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 	diagnostics: () => ({ renderer: 'browser (vite dev, mock backend)', frameMeter: params.has('meter') }),
 	window_ready: () => true,
 	client_log: (a) => void console.debug(a.line),
+	smoke_fault: () => undefined,
 };
 
 export const bridge = {

@@ -329,6 +329,7 @@ pub fn diagnostics() -> Diagnostics {
 /// stays in the tray, so the page skips the intro.
 #[tauri::command]
 pub fn window_ready(app: AppHandle, launch: State<'_, crate::launch::Launch>) -> bool {
+	crate::smoke::page_ready();
 	launch.ready(&app)
 }
 
@@ -336,4 +337,11 @@ pub fn window_ready(app: AppHandle, launch: State<'_, crate::launch::Launch>) ->
 #[tauri::command]
 pub fn client_log(line: String) {
 	eprintln!("Polestar Client: {}", line.chars().take(300).collect::<String>());
+}
+
+/// The window showed its fault page. Ends the launch test (`POLESTAR_SMOKE`) as failed; does
+/// nothing in any other start.
+#[tauri::command]
+pub fn smoke_fault(app: AppHandle, title: String, details: String) {
+	crate::smoke::fault(&app, &title, &details);
 }

@@ -224,6 +224,27 @@ In a plain browser `pnpm dev` answers the backend's commands from
 made-up timing. The mock is imported only behind `import.meta.env.DEV`, so it is
 not in production builds.
 
+### The launch test
+
+`POLESTAR_SMOKE=<seconds>` starts a built client as a launch test
+(`src-tauri/src/smoke.rs`): in a fresh data folder of its own (no consent,
+game folder or token, so nothing is uploaded or installed), without the
+update check, the single-instance hand-over or the desktop entry. It exits 1
+as soon as the window shows its fault page (`src/lib/fault.ts` reports it,
+with the details on stderr), and after the given seconds 0 if the page drew its
+first frame, else 1. `release/smoke.sh` runs it on a throwaway `HOME`, on a
+virtual display (`xvfb-run`) when there is no display:
+
+```sh
+pnpm tauri build --no-bundle && release/smoke.sh src-tauri/target/release/polestar-client
+```
+
+Use `pnpm tauri build`, not a plain `cargo build --release`: the latter has no
+frontend built in (it loads `pnpm dev`'s address) and never passes.
+[.github/workflows/client-check.yml](../../.github/workflows/client-check.yml)
+runs it on every pull request that touches the client, and client.yml on the
+release's Linux AppImages before a draft is made.
+
 The backend (`src-tauri/`) is its own Cargo project with its own
 `Cargo.lock`, and uses the shared library
 [`rust/crates/polestar-recording`](../../rust/crates/polestar-recording) by
@@ -252,14 +273,30 @@ rsvg-convert -w 64 -h 64 ../../docs/assets/emblem.svg -o src-tauri/icons/tray.pn
 Set `version` in `package.json`, `src-tauri/Cargo.toml` and
 `src-tauri/tauri.conf.json`, write the release notes in
 `release/notes/<version>.md` (what's new for players, the download table, first-launch
-tips; 0.1.0's is the model), then push a tag `client-v<version>`.
+tips; 0.1.0's is the model; 0.1.1's for a fix), then set the same `version`
+on `polestar-client` in `src-tauri/Cargo.lock`, and push a tag
+`client-v<version>`.
 [.github/workflows/client.yml](../../.github/workflows/client.yml) builds
-every platform, sends each installer to VirusTotal (`release/virustotal.sh`, with
+every platform, launches the Linux AppImages once (the launch test above;
+the release stops if one fails), sends each installer to VirusTotal (`release/virustotal.sh`, with
 the `release` environment's `VT_API_KEY`; the reports are linked at the end of
 the notes) and attaches the installers, the updater artifacts and
-`latest.json` to a draft release; publishing it (not as the repository's latest)
-makes the update visible to installed copies, which look for the newest
-published `client-v*` release.
+`latest.json` to a draft release; publishing it makes the update visible to
+installed copies, which look for the newest published `client-v*` release.
+
+Before publishing the draft:
+
+- The launch test passed in the release run (and in the pull request's
+  `Client launch test (Linux)` check).
+- Download the draft's Linux AppImage and open it once on a desktop; for
+  Windows and macOS, ask a tester to open the draft's installer once. A
+  build that opens on an error screen cannot reach its own update button,
+  so its players have to download the next one by hand (0.1.1 did, on some
+  Linux desktops).
+- When publishing, leave **Set as the latest release** unticked: ticked (the
+  default), GitHub makes the client the repository's latest release in place
+  of the addon's (after 0.1.1 the addon's v0.2.6 had to be set back as
+  latest).
 
 The Linux and Windows builds hold no secrets. The signing secrets live only
 in the GitHub environment `release`, used by two jobs: the macOS build (the

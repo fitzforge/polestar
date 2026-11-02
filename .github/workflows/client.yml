@@ -80,7 +80,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -q
-          sudo apt-get install -y -q libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libgtk-3-dev patchelf
+          sudo apt-get install -y -q libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libgtk-3-dev patchelf xvfb
 
       - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
         with:
@@ -101,6 +101,12 @@ jobs:
       - name: Build
         working-directory: apps/client
         run: pnpm tauri build ${{ matrix.args }} --config "$UNSIGNED"
+
+      # The AppImage this release ships, launched once on a virtual display
+      # (apps/client/release/smoke.sh): the build fails if its window shows an error or never loads.
+      - name: Launch test
+        if: runner.os == 'Linux'
+        run: apps/client/release/smoke.sh apps/client/src-tauri/target/release/bundle/appimage/*.AppImage 15
 
       # Asset names without spaces (GitHub would turn them into dots anyway).
       - name: Collect

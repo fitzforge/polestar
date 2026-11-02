@@ -2,6 +2,10 @@
 // mounting or rendering, a promise nobody caught, a backend that never answers)
 // replaces it with a plain-DOM page that says so, with the details to report.
 // Plain DOM on purpose: it must work when Svelte itself is what failed.
+// Under the launch test (POLESTAR_SMOKE, src-tauri/src/smoke.rs) the fault also ends the
+// app with a failure, so a build that opens on this page never ships.
+
+import { api } from './backend';
 
 let shown = false;
 
@@ -48,9 +52,21 @@ export function fault(title: string, error: unknown): void {
 	actions.append(reload, copy);
 	page.append(h, p, pre, actions);
 	root.append(page);
+	api.smokeFault(title, text(error)).catch(() => {});
+}
+
+declare global {
+	interface Window {
+		/** What failed before this module listened (index.html collects it). */
+		__faults?: unknown[];
+	}
 }
 
 export function watchFaults(): void {
 	window.addEventListener('error', (e) => fault('Something went wrong', e.error ?? e.message));
 	window.addEventListener('unhandledrejection', (e) => fault('Something went wrong', e.reason));
+	const early = window.__faults ?? [];
+	window.__faults = undefined;
+	// After the start's own synchronous work (the mount), as a fault from then on would be.
+	if (early.length) setTimeout(() => fault('Something went wrong', early[0]));
 }
