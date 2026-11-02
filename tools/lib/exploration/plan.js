@@ -144,11 +144,12 @@ function chunks(list) {
 	return out;
 }
 
-// Flight masters on a zone map: { both: neutral ones, Alliance, Horde }.
+// Flight masters on a zone map: { both: neutral ones, Alliance, Horde }. A
+// class's own flight master (`class`: Moonglade's druid ones) is left out.
 function flightMasters(ctx, map) {
 	const out = { both: [], Alliance: [], Horde: [] };
 	for (const n of ctx.travel.taxi.nodes.slice().sort((a, b) => a.id - b.id)) {
-		if (n.map !== map) continue;
+		if (n.map !== map || n.class) continue;
 		const key = TAXI_SIDE[n.faction];
 		if (key) out[key].push(`${n.short} (${n.npcName})`);
 	}
