@@ -378,12 +378,14 @@ function emitToc(manifest, iface, format = FORMAT) {
 // (Polestar's own) the AddOns list in every client language. `files`:
 // whether it holds guides (Guides.lua) and baked legs (Legs.lua).
 function emitPartToc(manifest, race, iface, { guides = true, legs = false } = {}) {
+	// The displayed race name: the client's race token Scourge reads Undead.
+	const label = race === 'Scourge' ? 'Undead' : race;
 	const lines = [
 		`## Interface: ${iface}`,
-		`## Title: ${manifest.title} (${race})`,
+		`## Title: ${manifest.title} (${label})`,
 		guides
-			? `## Notes: Leveling guides of ${manifest.title} for ${race} characters. Loaded on demand for that race.`
-			: `## Notes: The walks of ${manifest.title}'s leveling guides for ${race} characters. Loaded on demand for that race.`,
+			? `## Notes: Leveling guides of ${manifest.title} for ${label} characters. Loaded on demand for that race.`
+			: `## Notes: The walks of ${manifest.title}'s leveling guides for ${label} characters. Loaded on demand for that race.`,
 		...(manifest.id === 'guides' ? require('../i18n/toc').tocLines(`Polestar_Guides_${race}`) : []),
 		`## Author: ${manifest.author}`,
 		`## Version: ${manifest.version}`,

@@ -840,13 +840,14 @@ pub fn emit_toc(manifest: &V, iface: &str, format: u32) -> String {
 /// whether it holds guides (Guides.lua) and baked legs (Legs.lua).
 pub fn emit_part_toc(manifest: &V, race: &str, iface: &str, guides: bool, legs: bool) -> String {
 	let title = manifest.get("title").to_js_string();
+	let label = crate::races::race_label(race);
 	let mut lines = vec![
 		format!("## Interface: {iface}"),
-		format!("## Title: {title} ({race})"),
+		format!("## Title: {title} ({label})"),
 		if guides {
-			format!("## Notes: Leveling guides of {title} for {race} characters. Loaded on demand for that race.")
+			format!("## Notes: Leveling guides of {title} for {label} characters. Loaded on demand for that race.")
 		} else {
-			format!("## Notes: The walks of {title}'s leveling guides for {race} characters. Loaded on demand for that race.")
+			format!("## Notes: The walks of {title}'s leveling guides for {label} characters. Loaded on demand for that race.")
 		},
 	];
 	if manifest.get("id").as_str() == Some("guides") {
@@ -1248,5 +1249,16 @@ mod tests {
 		assert!(src.starts_with("{ [-4] = \"c\", [3] = \"b\", [12] = \"a\", "), "{src}");
 		let expected = ["number:-4=c", "number:3=b", "number:12=a", "string:NaN=d", "string:1e3=e", "string:012=f", "string:x\"]] = 1 --=g"];
 		assert_eq!(lua_pairs(&src), sorted(expected.map(String::from).to_vec()));
+	}
+
+	#[test]
+	fn part_toc_shows_undead_for_the_scourge_token() {
+		let manifest = V::Obj(crate::obj! { "id" => "guides", "title" => "Polestar Guides", "author" => "Polestar", "version" => "1.0.0" });
+		let toc = emit_part_toc(&manifest, "Scourge", "16001", true, false);
+		assert!(toc.contains("## Title: Polestar Guides (Undead)\n"), "{toc}");
+		assert!(toc.contains("for Undead characters."), "{toc}");
+		assert!(!toc.contains("(Scourge)") && !toc.contains("for Scourge"), "{toc}");
+		let walks = emit_part_toc(&manifest, "Orc", "16001", false, true);
+		assert!(walks.contains("## Title: Polestar Guides (Orc)\n") && walks.contains("for Orc characters."), "{walks}");
 	}
 }
