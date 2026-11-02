@@ -27,9 +27,9 @@ return {
 
 	-- Step 5: Steamwheedle Port
 	["Ride east across the dunes to the goblin harbour on the north-east coast."] = "Езжайте на восток через дюны к гоблинской гавани на северо-восточном побережье.",
+	["The Wanted poster beside him"] = "Плакат «Розыск!» рядом с ним",
 	-- {npc:7847} Caliph Scorpidsting · {area:976} Gadgetzan
 	["The same poster: {npc:7847} comes much later, after {area:976}"] = "То же объявление: {npc:7847} будет гораздо позже, после места {area:976}",
-	["The Wanted poster beside him"] = "Плакат «Розыск!» рядом с ним",
 	-- {npc:7882} Security Chief Bilgewhizzle
 	["{npc:7882}, inside"] = "",
 	-- {npc:7881} Stoley
@@ -42,7 +42,16 @@ return {
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "",
 
-	-- Step 8: Lost Rigger Cove: kill these as you meet them
+	-- Step 8: Wastewander Water Pouch on the way
+	-- {item:8483} Wastewander Water Pouch
+	["{item:8483} on the way"] = "",
+
+	-- Step 9: Waterspring Field
+	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
+	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
+	["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp."] = "",
+
+	-- Step 10: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "",
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
@@ -50,14 +59,16 @@ return {
 	-- {quest:2873} Stoley's Shipment
 	["{quest:2873}; upstairs"] = "",
 
-	-- Step 9: Waterspring Field: kill these as you meet them
-	-- {area:985} Waterspring Field
-	["{area:985}: kill these as you meet them"] = "",
-	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
-	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later.\nCareful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp."] = "",
+	-- Step 11: Steamwheedle Port
+	-- {npc:7881} Stoley
+	["{npc:7881}, inside"] = "",
+	-- {npc:7881} Stoley · {area:35} Booty Bay
+	["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "Следующая доставка ({npc:7881}) ведет обратно в {area:35}: пропустите ее.",
 
-	-- Step 10: The pool by Sandsorrow Watch
+	-- Step 12: Noonshade Ruins
+	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
+
+	-- Step 14: The pool by Sandsorrow Watch
 	-- {area:979} Sandsorrow Watch
 	["The pool by {area:979}"] = "Пруд у места {area:979}",
 	-- {area:979} Sandsorrow Watch · {item:8584} Untapped Dowsing Widget
@@ -67,89 +78,85 @@ return {
 	-- {area:979} Sandsorrow Watch
 	["Pool by {area:979}"] = "Пруд у места {area:979}",
 
-	-- Step 12: The Broken Pillar
+	-- Step 16: The Broken Pillar
 	-- {area:1938} Broken Pillar
 	["The {area:1938}"] = "Место: {area:1938}",
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {quest:3161} Gahz'ridian
 	["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "Езжайте на юг к лагерю раскопок: {area:1938}. {npc:7771} дает вам шлем-детектор: наденьте его, чтобы видеть холмики ({quest:3161}); их много в песке вокруг лагеря и к юго-западу, в сторону огров.",
 
-	-- Step 13: Dunemaul Compound
+	-- Step 18: The Noxious Lair
+	-- {npc:4196} Silithid Swarm
+	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
+	["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "",
+
+	-- Step 19: Dunemaul Compound
 	-- {npc:12046} Gor'marok the Ravager
 	["Ride south-west to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "Езжайте на юго-запад к поселению огров. Там полно громил и головорезов (46-48); {npc:12046} (49) стоит в центре в окружении стражи: сначала разберитесь с ней.",
 	-- {npc:12046} Gor'marok the Ravager
 	["{npc:12046}, below ground"] = "",
+	-- {npc:5474} Dunemaul Brute
+	["grind on {npc:5474}"] = "",
 
-	-- Step 14: Thistleshrub Valley: kill these as you meet them
+	-- Step 20: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
 	["{quest:3362}: kill these as you meet them"] = "",
 	-- {quest:3362} Thistleshrub Valley
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["Ride south into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "",
 
-	-- Step 15: Tooga's escort
+	-- Step 21: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Сопровождение: {npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
 	["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Маленький черепах {npc:5955} прячется в северной части долины. Отведите его домой к жене ({npc:6015}), у воды чуть восточнее места {area:977}: он идет медленно, и звери пустыни нападают на него, так что берегите его.",
 
-	-- Step 16: The Noxious Lair
-	-- {npc:4196} Silithid Swarm
-	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
-	["Ride north-west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "",
-
-	-- Step 18: Steamwheedle Port
-	-- {npc:7881} Stoley · {area:35} Booty Bay
-	["{npc:7881}'s next delivery goes back to {area:35}: skip it."] = "Следующая доставка ({npc:7881}) ведет обратно в {area:35}: пропустите ее.",
-	-- {npc:7881} Stoley
-	["{npc:7881}, inside"] = "",
-
-	-- Step 19: Gadgetzan
+	-- Step 22: Gadgetzan
 	-- {area:976} Gadgetzan
 	["Ride back west to {area:976}."] = "Езжайте обратно на запад в {area:976}.",
-	-- {npc:11758} Andi Lynn
-	["{npc:11758}, on the east side of town"] = "{npc:11758}, восточная часть городка",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 	-- {npc:7583} Sprinkle · {area:47} Hinterlands
 	["{npc:7583}'s next ingredient grows in the {area:47}, and the route never brings it back: skip it."] = "",
+	-- {npc:11758} Andi Lynn
+	["{npc:11758}, on the east side of town"] = "{npc:11758}, восточная часть городка",
 
-	-- Step 20: Caliph Scorpidsting
+	-- Step 23: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
 
-	-- Step 21: The Gaping Chasm
+	-- Step 24: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
 	-- {item:8593} Scrimshank's Surveying Gear
 	["{item:8593}; below ground"] = "",
 
-	-- Step 22: Hearth to Gadgetzan
+	-- Step 25: Hearth to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Hearth to {area:976}"] = "",
 
-	-- Step 23: Gadgetzan
+	-- Step 26: Gadgetzan
 	-- {area:976} Gadgetzan
 	["Hearth to {area:976}."] = "Используйте Камень возвращения: {area:976}.",
 	-- {zone:1457} Darnassus
 	["for {zone:1457}: the route takes you there at 47"] = "Для зоны {zone:1457}: маршрут приведет вас туда на 47-м уровне",
 
-	-- Step 24: Fly to Theramore
+	-- Step 27: Fly to Theramore
 	["Fly to Theramore"] = "",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "",
 
-	-- Step 25: Boat to Menethil Harbor
+	-- Step 28: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "",
 
-	-- Step 26: Fly to Aerie Peak
+	-- Step 29: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 29: Sprinkle's Secret Ingredient
+	-- Step 32: Sprinkle's Secret Ingredient
 	["Underwater"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

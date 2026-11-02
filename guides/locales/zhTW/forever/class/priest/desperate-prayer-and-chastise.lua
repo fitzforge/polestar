@@ -93,8 +93,8 @@ return {
 	["{npc:11401}: take her {quest:5641} letter"] = "",
 
 	-- Step 15: Chastise: High Priest Rohan
-	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries · {quest:5641} Chastise
-	["At 20, {npc:11406} in the {object:32386} teaches {quest:5641} with a quest he gives and takes back at once. Forever renamed it from A Lack of Fear: {quest:5641} damages a humanoid and roots it for 2 seconds (instant, 2-minute cooldown), and every priest now trains Fear Ward."] = "",
+	-- {npc:11406} High Priest Rohan · {object:32386} Hall of Mysteries · {quest:5641} Chastise · {spell:6346} Fear Ward
+	["At 20, {npc:11406} in the {object:32386} teaches {quest:5641} with a quest he gives and takes back at once. Forever renamed it from A Lack of Fear: {quest:5641} damages a humanoid and roots it for 2 seconds (instant, 2-minute cooldown), and every priest now trains {spell:6346}."] = "",
 
 	-- Step 16: Chastise: Laurena's letter
 	-- {quest:5645} Chastise

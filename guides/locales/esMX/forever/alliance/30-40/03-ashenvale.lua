@@ -32,32 +32,33 @@ return {
 	-- {area:2358} Forest Song · {npc:3848} Kayneth Stillwind
 	["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358}, el puesto de los elfos de la noche en el extremo este del camino: allí está {npc:3848}.",
 
-	-- Step 8: Bottle of Disease
-	-- {area:2358} Forest Song
-	["The Forsaken's camp lies in the woods south of {area:2358}.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "",
-
-	-- Step 10: Satyrnaar
-	-- {object:19901} Circle of Imprisonment · {area:430} Satyrnaar · {area:428} Night Run
-	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
-	["The {object:19901} stands in the satyr camp of {area:430}, further east along the road.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "",
-
-	-- Step 11: The Dor'Danil Barrow Den: kill these as you meet them
+	-- Step 8: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}: kill these as you meet them"] = "",
 	-- {area:2358} Forest Song
-	["The three druids stand together at the Forsaken camp south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
-	-- {npc:3941} Uthil Mooncall · {area:432} The Dor'Danil Barrow Den
-	["{npc:3941}, inside {area:432}"] = "",
-	-- {npc:3940} Taneel Darkwood · {area:432} The Dor'Danil Barrow Den
-	["{npc:3940}, inside {area:432}"] = "",
-	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
-	["{npc:3942}, inside {area:432}"] = "",
+	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "",
 
-	-- Step 12: Fallen Sky Lake
+	-- Step 9: Fallen Sky Lake
 	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
 	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} en {area:415}",
+
+	-- Step 11: Insane druids
+	["Insane druids"] = "",
+	-- {area:2358} Forest Song
+	["The three druids stand together at the Forsaken camp south of {area:2358}.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
+	-- {npc:3940} Taneel Darkwood · {area:432} The Dor'Danil Barrow Den
+	["{npc:3940}, inside {area:432}"] = "",
+	-- {npc:3941} Uthil Mooncall · {area:432} The Dor'Danil Barrow Den
+	["{npc:3941}, inside {area:432}"] = "",
+	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
+	["{npc:3942}, inside {area:432}"] = "",
+
+	-- Step 12: Satyrnaar
+	-- {object:19901} Circle of Imprisonment · {area:430} Satyrnaar · {area:428} Night Run
+	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
+	["The {object:19901} stands in the satyr camp of {area:430}, further east along the road.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "",
 
 	-- Step 14: Night Run
 	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
@@ -92,27 +93,20 @@ return {
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "",
 
-	-- Step 30: Glorin Steelbrow
+	-- Step 29: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
-	["{npc:1217} stands on the upper floor of Menethil's keep.\nThe wreck of the Flying Osprey lies in the shallows south of the keep."] = "",
+	["{npc:1217} stands on the upper floor of Menethil's keep."] = "",
 	["Inside"] = "",
 
-	-- Step 31: Lightforge Ingots
+	-- Step 31: Waterlogged Chest
+	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "",
+
+	-- Step 32: Lightforge Ingots
 	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
 	["Lightforge Ingots"] = "Lingotes Forjaluz",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "Los múrlocs Branquiazul de la playa al suroeste de Menethil llevan los lingotes.",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "",
-
-	-- Step 33: Fly to Ironforge
-	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
-	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
-
-	-- Step 34: Deeprun Tram
-	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
-	["{npc:2784}, the {object:171709}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "Vuelve al oeste por el camino hasta los campamentos sátiros de {area:429}.",

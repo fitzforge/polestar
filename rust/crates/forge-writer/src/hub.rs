@@ -329,6 +329,22 @@ pub fn fix_pairs(faction: Option<&str>) -> Vec<(PairEv, PairEv)> {
 	pairs_of(&forge_sim::fixes::get(), faction)
 }
 
+/// The quests the route fixes keep optional (`deliberate.optional`: rare-drop chains such as The
+/// Green Hills of Stranglethorn and Study of the Elements: Rock), when a route fixes file is loaded.
+pub fn fix_optional(faction: Option<&str>) -> rustc_hash::FxHashSet<u32> {
+	if forge_sim::fixes::path().is_none() {
+		return rustc_hash::FxHashSet::default();
+	}
+	let doc = forge_sim::fixes::get();
+	doc["deliberate"]["optional"]
+		.as_array()
+		.into_iter()
+		.flatten()
+		.filter(|p| p["faction"].as_str().is_none_or(|f| faction.is_none_or(|g| f.eq_ignore_ascii_case(g))))
+		.filter_map(|p| u32::try_from(p["q"].as_u64()?).ok())
+		.collect()
+}
+
 /// [`fix_pairs`] of a route fixes document.
 fn pairs_of(doc: &serde_json::Value, faction: Option<&str>) -> Vec<(PairEv, PairEv)> {
 	let ev = |v: &serde_json::Value| -> Option<PairEv> {

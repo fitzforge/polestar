@@ -18,11 +18,10 @@ return {
 	["{npc:7954}, riding trainer"] = "{npc:7954}, Reitlehrer",
 
 	-- Step 2: Mechanostrider Piloting for other races
-	["Mechanostrider Piloting for other races"] = "",
-	-- {skill:762} Riding · {npc:7954} Binjy Featherwhistle · {faction:54} Gnomeregan Exiles
-	["Any Alliance race can buy these mechanostriders, but riding one also takes Mechanostrider Piloting, which only Gnomes get with {skill:762}. {npc:7954} teaches it to other races once they are Exalted with {faction:54} (the Gnomeregan Exiles Reputation guide shows the way). Until then, don't buy a mechanostrider for this character."] = "",
-	-- {npc:7954} Binjy Featherwhistle
-	["{npc:7954}, Mechanostrider Piloting"] = "",
+	-- {spell:10907} Mechanostrider Piloting
+	["{spell:10907} for other races"] = "",
+	-- {spell:10907} Mechanostrider Piloting · {skill:762} Riding · {npc:7954} Binjy Featherwhistle · {faction:54} Gnomeregan Exiles
+	["Any Alliance race can buy these mechanostriders, but riding one also takes {spell:10907}, which only Gnomes get with {skill:762}. {npc:7954} teaches it to other races once they are Exalted with {faction:54} (the Gnomeregan Exiles Reputation guide shows the way). Until then, don't buy a mechanostrider for this character."] = "",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Wähle eine Farbe",

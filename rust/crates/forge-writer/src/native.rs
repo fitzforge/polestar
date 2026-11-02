@@ -325,6 +325,16 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 		}
 	}
 	tm.lap(&scope, "shared adopt");
+	// (The route fixes' optional quests, the rare-drop chains, optional on the guides as written; v1's
+	// own guides the route leaves as they are, the other faction's among them, stay v1's.)
+	let optional = crate::hub::fix_optional(None);
+	let rels: Vec<String> = ro.tree.iter().filter(|(r, t)| guides.get(*r) != Some(*t)).map(|(r, _)| r.clone()).collect();
+	for rel in rels {
+		let mut one = [ro.tree[&rel].clone()];
+		crate::post::optional_by_fixes(&mut one, &optional);
+		let [text] = one;
+		ro.tree.insert(rel, text);
+	}
 	// (Riding at 40 on the guides as written, the shared ones adopted: after the travel repair's ways
 	// to the riding steps, which it writes only for steps that apply.)
 	let written: Vec<String> = ro.tree.iter().filter(|(r, t)| guides.get(*r) != Some(*t)).map(|(r, _)| r.clone()).collect();

@@ -74,6 +74,8 @@ return {
 	-- {area:603} Sargeron
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
 	["North along the eastern hills, the satyrs hold the ruins of {area:603}. The Shadowstalkers walk unseen; the four kinds you need do not.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "",
+	-- {npc:4670} Hatefury Rogue
+	["grind on {npc:4670}"] = "",
 
 	-- Step 17: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {item:20310} Flayed Demon Skin
@@ -81,85 +83,89 @@ return {
 
 	-- Step 18: Ghost Walker Post
 	["Head back south to the post."] = "Geh zurück nach Süden zum Posten.",
-
-	-- Step 19: Ghost Walker Post
 	-- {npc:5641} Takata Steelblade · {quest:1431} Alliance Relations · {zone:1454} Orgrimmar
 	["{npc:5641}'s next {quest:1431} sends you back to {zone:1454} for nothing: leave it."] = "{npc:5641}s nächste Quest {quest:1431} schickt dich umsonst zurück nach {zone:1454}: Lass sie aus.",
 
-	-- Step 20: Kolkar ears
+	-- Step 19: Kolkar ears
 	["Kolkar ears"] = "Kolkarohren",
 	-- {area:609} Kolkar Village
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	["Back at {area:609}, every Kolkar can drop an ear.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
 
-	-- Step 21: Shadowstalker scalp
+	-- Step 20: Shadowstalker scalp
 	["Shadowstalker scalp"] = "Skalp eines Schattenpirschers",
 	-- {area:603} Sargeron
 	-- plural, as words: Hatefury Shadowstalkers = {npc:4674} Hatefury Shadowstalker
 	["The Hatefury Shadowstalkers at {area:603} walk unseen until they strike; about one in three carries a scalp."] = "Die Schattenpirscher der Zornsäer in {area:603} sind unsichtbar, bis sie zuschlagen; etwa jeder dritte trägt einen Skalp.",
+	-- {npc:4674} Hatefury Shadowstalker
+	["grind on {npc:4674}"] = "",
 
-	-- Step 23: Shadowprey Village
+	-- Step 22: Shadowprey Village
 	-- {area:606} Gelkis Village
 	["Head south-west to the troll village on the coast, keeping clear of the {area:606} on the way."] = "Geh nach Südwesten zum Trolldorf an der Küste und halte dich dabei vom {area:606} fern.",
 	-- {npc:11877} Roon Wildmane · {npc:715} Hemet Nesingwary
 	["{npc:11877}: for {npc:715} in Stranglethorn"] = "{npc:11877}: für {npc:715} im Schlingendorntal",
 
-	-- Step 25: On the way
+	-- Step 24: On the way
 	["On the way"] = "",
 
-	-- Step 26: Clam beds
+	-- Step 25: Clam beds
 	["Clam beds"] = "Muschelbänke",
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler
 	["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat."] = "Geh die Küste nach Norden hinauf. Riesen-Weichpanzermuscheln liegen im Flachwasser, und die Wütenden Riffkriecher laufen am Strand; öffne jede Muschel in deinen Taschen für ihr Fleisch.",
 	["Underwater"] = "",
+	-- {npc:12347} Enraged Reef Crawler
+	["grind on {npc:12347}"] = "",
 
-	-- Step 27: Slitherblade Oracles
+	-- Step 26: Slitherblade Oracles
 	-- plural, as words: Slitherblade Oracles = {npc:4718} Slitherblade Oracle
 	["Slitherblade Oracles"] = "Orakel der Zackenkämme",
 	-- {area:598} Sar'theris Strand
 	["Keep north to {area:598}. The Oracles stand among the other naga at its north end; pull one at a time."] = "Weiter nach Norden zum {area:598}. Die Orakel stehen zwischen den anderen Naga an seinem Nordende; pull sie einzeln.",
+	-- {npc:4718} Slitherblade Oracle
+	["grind on {npc:4718}"] = "",
 
-	-- Step 28: Ethel Rethor
+	-- Step 27: Ethel Rethor
 	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor
 	["{npc:11863} waits in the ruined tower of {area:2405}, inland to the south-east."] = "{npc:11863} wartet im verfallenen Turm von {area:2405}, landeinwärts im Südosten.",
 
-	-- Step 29: Ghost Walker Post
+	-- Step 28: Ghost Walker Post
 	["Head south-east to the post."] = "Geh nach Südosten zum Posten.",
 	-- {npc:5641} Takata Steelblade
 	["{npc:5641}'s next errand sends you after a demon lord with an elite guard: skip it."] = "{npc:5641}s nächster Auftrag schickt dich zu einem Dämonenfürsten mit Elitewache: Überspring ihn.",
 
-	-- Step 31: Fly to Orgrimmar
+	-- Step 30: Fly to Orgrimmar
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Flugmeister: {area:2408}",
 
-	-- Step 32: Paladin trainer
+	-- Step 31: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 34: Thunder Bluff
+	-- Step 33: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
 	["Fly to {area:1638} from Shadowprey and train with {npc:3033} on {area:1639}, then fly on to {zone:1454}."] = "Flieg von Shadowprey nach {area:1638}, trainiere bei {npc:3033} auf der Anhöhe ({area:1639}) und flieg dann weiter nach {zone:1454}.",
 
-	-- Step 35: Fly to Orgrimmar
+	-- Step 34: Fly to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454}"] = "",
 
-	-- Step 36: Back to Orgrimmar
+	-- Step 35: Back to Orgrimmar
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 38: Zeppelin to Undercity
+	-- Step 37: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
-	-- Step 39: Fly to Tarren Mill
+	-- Step 38: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "",
 	-- {zone:1458} Undercity
 	["{zone:1458} flight master"] = "",
 
-	-- Step 40: Tarren Mill
+	-- Step 39: Tarren Mill
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",
 	-- {npc:2229} Krusk · {zone:1413} Barrens
@@ -171,105 +177,109 @@ return {
 	-- {npc:2770} Tallow · {area:321} Hammerfall
 	["{npc:2770}: for {area:321} in Arathi, later on the route"] = "{npc:2770}: für {area:321} im Arathihochland, später auf der Route",
 
-	-- Step 41: Fly to Undercity
+	-- Step 40: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "",
 
-	-- Step 42: Garen Largo
+	-- Step 41: Garen Largo
 	-- {npc:260093} Garen Largo · {zone:1458} Undercity
 	["{npc:260093} trains Paladins in the {zone:1458}."] = "",
 
-	-- Step 43: Undercity
+	-- Step 42: Undercity
 	-- {quest:515} Elixir of Agony · {item:3388} Strong Troll's Blood Potion · {skill:171} Alchemy · {area:287} Hillsbrad
 	["{quest:515} needs a {item:3388}, an {skill:171} item: buy one at the auction house here if you can (or ask an alchemist). No potion: skip the Elixir steps in {area:287}."] = "{quest:515} braucht einen {item:3388}, einen Gegenstand aus {skill:171}: Kauf einen hier im Auktionshaus, wenn du kannst (oder frag einen Alchemisten). Kein Trank: Überspring die Elixier-Schritte in {area:287}.",
 	-- {item:3388} Strong Troll's Blood Potion · {quest:515} Elixir of Agony
 	["{item:3388}: auction house or an alchemist, for {quest:515}."] = "{item:3388}: Auktionshaus oder ein Alchemist, für {quest:515}.",
 
-	-- Step 44: Brazier of Everfount
+	-- Step 43: Brazier of Everfount
 	-- {zone:1458} Undercity · {area:228} Sepulcher · {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {area:272} Tarren Mill
 	["Do your shopping in the {zone:1458} first, then fly to the {area:228}. The {object:113791} stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the {npc:5895} and keep the {item:7813} for {npc:5901}. Fly on to {area:272} from the {area:228}."] = "",
 	-- {npc:5901} Islen Waterseer
 	["for {npc:5901}: from Stranglethorn, next guide"] = "für {npc:5901}: aus dem Schlingendorntal, nächster Guide",
 
-	-- Step 45: Back to Tarren Mill
+	-- Step 44: Back to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Back to {area:272}"] = "Zurück nach {area:272}",
 	-- {area:228} Sepulcher
 	["{area:228} flight master"] = "",
 
-	-- Step 47: Tarren Mill
+	-- Step 46: Tarren Mill
 	-- {item:3703} Southshore Stout · {npc:2333} Henchman Valik
 	["{item:3703}, for {npc:2333}"] = "{item:3703}, für {npc:2333}",
 
-	-- Step 48: Henchman Valik
+	-- Step 47: Henchman Valik
 	-- {area:272} Tarren Mill · {quest:535} Valik
 	["Follow the road north out of {area:272} into the Alterac foothills. {quest:535} waits by the Syndicate camp; hand him the stout."] = "Folge der Straße nach Norden aus {area:272} hinaus in die Ausläufer des Alteracgebirges. {quest:535} wartet beim Lager des Syndikats; gib ihm das Starkbier.",
 
-	-- Step 49: Syndicate missives
+	-- Step 48: Syndicate missives
 	["Syndicate missives"] = "Schreiben des Syndikats",
 	-- plural, as words: Syndicate Footpads = {npc:2240} Syndicate Footpad
 	["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "Die Schleicher und Diebe des Syndikats (32-33) um die Lager westlich der Straße tragen die Schreiben; etwa jeder dritte lässt eins fallen.",
 
-	-- Step 51: Daggerspine naga
+	-- Step 50: Daggerspine naga
 	["Daggerspine naga"] = "Naga der Säbelflossen",
 	-- {area:271} Southshore
 	["Head south, east of {area:271}, down to the coast. The Daggerspine naga line the shore south-east of the town."] = "Geh nach Süden, östlich von {area:271}, hinunter zur Küste. Die Dolchrückennaga säumen das Ufer südöstlich der Stadt.",
 	["Daggerspine shore"] = "Ufer der Säbelflossen",
 
-	-- Step 52: Torn Fin murlocs
+	-- Step 51: Torn Fin murlocs
 	["Torn Fin murlocs"] = "Murlocs der Fetzenflossen",
 	-- {area:271} Southshore
 	["Follow the shore west past {area:271}'s bay; the Torn Fin murlocs camp on the beaches beyond it."] = "Folge dem Ufer nach Westen an der Bucht von {area:271} vorbei; die Murlocs der Fetzenflossen lagern an den Stränden dahinter.",
 	["Torn Fin beach"] = "Strand der Fetzenflossen",
 
-	-- Step 53: Apothecary Lydon
+	-- Step 52: Apothecary Lydon
 	-- {area:272} Tarren Mill · {area:271} Southshore
 	["Head back north to {area:272}, keeping west of {area:271}."] = "Geh zurück nach Norden zu {area:272} und halte dich westlich von {area:271}.",
 	-- {npc:2216} Apothecary Lydon
 	["{npc:2216}, inside"] = "",
 
-	-- Step 54: Shindigger keg
+	-- Step 53: Shindigger keg
 	["Shindigger keg"] = "Fässchen Shindigger-Starkbier",
 	-- {area:287} Hillsbrad
 	["The keg stands with a few others at the Syndicate camp on the south-east coast of {area:287}."] = "Das Fässchen steht mit einigen anderen im Lager des Syndikats an der Südostküste von {area:287}.",
 	["Below ground"] = "",
 
-	-- Step 55: Back to Tarren Mill
+	-- Step 54: Back to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Head back north to {area:272}."] = "",
 	-- {object:1729} Tainted Keg · {object:1728} Dusty Rug
 	["Place the {object:1729} on the {object:1728} beside the inn; upstairs"] = "",
 
-	-- Step 56: Helcular's Rod
+	-- Step 55: Helcular's Rod
 	-- {area:272} Tarren Mill
 	-- plural, as words: Ferocious Yetis = {npc:2249} Ferocious Yeti
 	["South-west, the Cave and Ferocious Yetis (30-31) fill the caves in the hills west of {area:272}; about one in sixteen carries the rod."] = "Im Südwesten füllen Höhlenyetis und Wilde Yetis (30-31) die Höhlen in den Hügeln westlich von {area:272}; etwa jeder sechzehnte trägt die Rute.",
 
-	-- Step 58: The Dalaran traitors
+	-- Step 57: The Dalaran traitors
 	-- {area:279} Dalaran
 	["The {area:279} traitors"] = "Die Verräter von {area:279}",
 	-- {area:279} Dalaran · {npc:2411} Ricter · {npc:2412} Alina · {npc:2413} Dermot · {npc:2414} Kegan Darkmar
 	-- plural, as words: Worn Stone Tokens = {item:3714} Worn Stone Token
 	["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-32) around them drop the Worn Stone Tokens.\nCareful: Many guards stand in linked pairs and others patrol alone around the camp."] = "",
 
-	-- Step 59: Hearth to Tarren Mill
+	-- Step 58: Hearth to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Hearth to {area:272}"] = "",
 
-	-- Step 60: Tarren Mill
+	-- Step 59: Tarren Mill
 	-- {area:272} Tarren Mill
 	["Head back east to {area:272}."] = "Geh zurück nach Osten zu {area:272}.",
 	-- {area:271} Southshore
 	["Thaivand's next task ends at {area:271}'s graveyard and the magus offers a dungeon errand: leave both."] = "Thaivands nächste Aufgabe endet auf dem Friedhof von {area:271}, und der Magus bietet einen Dungeonauftrag an: Lass beide aus.",
 
-	-- Step 62: Gol'dir
+	-- Step 61: Gol'dir
 	-- {quest:535} Valik · {area:280} Strahnbrad · {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir
 	["Head north past {quest:535}'s camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "",
 	["Inside"] = "",
 	-- {quest:503} Gol'dir
 	["{quest:503}, on the top floor"] = "",
+
+	-- Step 62: Old Dalaran Ruins: kill these as you meet them
+	-- {area:17707} Old Dalaran Ruins
+	["{area:17707}: kill these as you meet them"] = "",
 
 	-- Step 65: Tarren Mill
 	-- {area:272} Tarren Mill

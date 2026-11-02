@@ -6,39 +6,60 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Fly to Theramore
-	["Fly to Theramore"] = "",
-	-- {area:608} Nijel's Point
-	["{area:608} flight master"] = "",
+	-- Step 1: Theramore
+	["Theramore"] = "Theramore",
+	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden
+	["{quest:1260} stands near the inn; {npc:4897}, a trade supplier a few steps south, sells the spices Jarl wants."] = "",
+	-- {quest:1260} Morgan Stern
+	["{quest:1260}, inside"] = "",
+	-- {item:3713} Soothing Spices
+	["{item:3713}, for \"Swamp Eye\" Jarl"] = "",
 
-	-- Step 3: Swamplight Manor
+	-- Step 2: Sentry Point
+	-- {area:503} Sentry Point
+	-- plural, as words: Mudrock Burrowers = {npc:4398} Mudrock Burrower
+	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it."] = "",
+
+	-- Step 3: Archmage Tervosh
+	-- {area:514} Foothold Citadel
+	["Back in Theramore: Tervosh waits with Lady Jaina in the tower of {area:514}."] = "",
+	["Upstairs"] = "",
+
+	-- Step 6: Theramore
+	-- {npc:4794} Morgan Stern
+	["{npc:4794}, inside"] = "",
+
+	-- Step 7: Swamplight Manor
 	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house."] = "Prenez la route vers le nord jusqu'au manoir en ruine ; Jarl vit dans la cabane voisine et la terre meuble se trouve à l'angle de la maison.",
 	-- {quest:1218} Soothing Spices
 	["{quest:1218}, for \"Swamp Eye\" Jarl"] = "",
 	["with the spices from Theramore"] = "avec les épices de Theramore",
 
-	-- Step 4: "Stinky" Ignatz
+	-- Step 8: "Stinky" Ignatz
 	["\"Stinky\" Ignatz"] = "Ignatz \"Puant\"",
 	-- {area:504} North Point Tower
 	["Stinky waits west of the manor, in the marsh below {area:504}. Lead him to his Bogbean leaves and keep the swamp creatures off him."] = "Puant attend à l'ouest du manoir, dans le marais sous {area:504}. Menez-le à ses feuilles de fève des marais et tenez les créatures du marais à l'écart.",
 
-	-- Step 5: North Point Tower
+	-- Step 9: North Point Tower
 	-- {npc:4966} Private Hendel
 	["{npc:4966} holds the tower with a few deserters. He turns on you: beat him until he yields.\nCareful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders."] = "",
 
-	-- Step 6: Darkmist Cavern
+	-- Step 10: Darkmist Cavern
 	-- plural, as words: Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "",
 
-	-- Step 7: Mudcrush Durtfeet
+	-- Step 11: Mudcrush Durtfeet
 	["Ride south to the giant's hut in the middle of the marsh."] = "Chevauchez vers le sud jusqu'à la hutte du géant au milieu du marais.",
 
-	-- Step 8: The Shady Rest Inn
+	-- Step 12: The Shady Rest Inn
 	-- {area:17} Barrens
 	["The burned inn stands on the road west, toward the {area:17}; the guard's badge lies in the ashes and the hoofprints are in the mud beside the inn."] = "",
 
-	-- Step 10: Theramore
-	["Theramore"] = "Theramore",
+	-- Step 13: Hearth to Theramore Isle
+	-- {area:513} Theramore Isle
+	["Hearth to {area:513}"] = "",
+
+	-- Step 14: Theramore
 	-- {area:514} Foothold Citadel
 	["Follow the road east back to Theramore. Tervosh, Lady Jaina and the officers are in the tower and {area:514}."] = "Suivez la route vers l'est pour revenir à Theramore. Tervosh, Dame Jaina et les officiers sont dans la tour et à {area:514}.",
 	-- {npc:4967} Archmage Tervosh
@@ -48,235 +69,46 @@ return {
 	["On the top floor"] = "",
 	-- {npc:4948} Adjutant Tesoran
 	["{npc:4948}, on the top floor"] = "",
-	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
 
-	-- Step 11: Mirefin murlocs
+	-- Step 15: Mirefin murlocs
 	["Mirefin murlocs"] = "Murlocs Aileron boueux",
 	-- {area:497} Swamplight Manor
 	["The Mirefin murlocs crowd the north coast past {area:497}; finish the tongues on the tortoises beside them."] = "Les murlocs Aileron boueux se pressent sur la côte nord après {area:497} ; finissez les langues sur les tortues voisines.",
 
-	-- Step 12: Swamplight Manor
+	-- Step 16: Swamplight Manor
 	-- {item:3853} Moonsteel Broadsword
 	["only if you carry a {item:3853} (a blacksmith's craft)"] = "seulement si vous avez une {item:3853} (fabriquée par un forgeron)",
 
-	-- Step 14: Balos Jacken
+	-- Step 18: Balos Jacken
 	-- {npc:4503} Mudcrush Durtfeet
 	["The deserters camp south of the road, west of {npc:4503}'s hut."] = "Les déserteurs campent au sud de la route, à l'ouest de la hutte de {npc:4503}.",
 
-	-- Step 15: Theramore
-	-- {npc:4944} Captain Garran Vimes
-	["{npc:4944}, on the top floor"] = "",
-
-	-- Step 17: The Affray
+	-- Step 20: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {area:391} Merchant Coast · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
 	["On the ride north to {area:392}, {area:720} lies off the {area:391} south of the town: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "En remontant vers {area:392}, {area:720} se trouve au large de {area:391}, au sud de la ville : traversez à gué les hauts-fonds du banc de sable. {npc:6236} vous envoie quatre adversaires puis {npc:6238} (niveau 33), un à la fois.",
 	-- {npc:6238} Big Will
 	["Defeat the challengers and {npc:6238}"] = "Vainquez les adversaires et {npc:6238}",
 	-- {npc:6236} Klannoc Macleod
-	["{npc:6236}: Berserker Stance"] = "",
-	-- {npc:6236} Klannoc Macleod
 	["{npc:6236} offers The Windwatcher next (1791): the Whirlwind weapon chain, with an elite at the end, is in the Warrior class guide Whirlwind Weapon."] = "{npc:6236} propose ensuite La Vigie des vents (1791) : la suite de l'arme Tourbillon, avec un élite à la fin, se trouve dans le guide de classe Guerrier Arme Tourbillon.",
 
-	-- Step 19: Ratchet
-	-- {area:17} Barrens · {area:392} Ratchet · {npc:16227} Bragok · {area:35} Booty Bay
-	["Ride from Theramore west along the Dustwallow road into the {area:17} and north to {area:392} on the coast. Learn the flight path from {npc:16227}, then take the boat to {area:35} from the dock."] = "",
+	-- Step 22: Boat to Menethil Harbor
+	-- {area:150} Menethil Harbor
+	["Boat to {area:150}"] = "",
 
-	-- Step 20: Boat to Booty Bay
-	-- {area:35} Booty Bay
-	["Boat to {area:35}"] = "Bateau pour {area:35}",
-
-	-- Step 21: Booty Bay
-	["Upstairs"] = "",
-	-- {zone:1446} Tanaris
-	["for Stoley in {zone:1446}: keep it; on the top floor"] = "",
-	["Seahorn's next errand goes back to Arathi: skip it."] = "La course suivante de Seahorn ramène en Arathi : passez-la.",
-	-- {npc:2542} Catelyn the Blade
-	["{npc:2542}, upstairs"] = "",
-	["Inside"] = "",
-	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor"] = "{npc:2487}, dernier étage",
-	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
-	-- {npc:770} Corporal Kaleb · {area:99} Rebel Camp
-	["for {npc:770} at the {area:99}, on the northern loop"] = "pour {npc:770} à {area:99}, lors de la boucle nord",
-	-- {npc:773} Krazek · {quest:2864} Tran'rek · {zone:1446} Tanaris
-	["{npc:773}: for {quest:2864} in {zone:1446}, keep it"] = "{npc:773} : pour {quest:2864} en {zone:1446}, gardez-la",
-
-	-- Step 22: Bloodsail camp
-	["Bloodsail camp"] = "Camp de la Voile sanglante",
-	["Leave town by the tunnel and follow the coast north; the letter lies in the Bloodsail camp on the beach, where \"Pretty Boy\" Duncan walks."] = "Quittez la ville par le tunnel et suivez la côte vers le nord ; la lettre se trouve dans le camp de la Voile sanglante sur la plage, où se promène Duncan \"le Beau garçon\".",
-
-	-- Step 23: Booty Bay
-	-- {npc:2488} Deeg
-	["{npc:2488}, on the top floor"] = "",
-	-- {npc:2624} Gazban
-	["{npc:2624} swims off the north-west coast, on the northern loop"] = "{npc:2624} nage au large de la côte nord-ouest, lors de la boucle nord",
-
-	-- Step 24: Wild Shore: kill these as you meet them
-	-- {area:43} Wild Shore
-	["{area:43}: kill these as you meet them"] = "",
-	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore · {area:35} Booty Bay
-	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the {area:43}, south of {area:35}."] = "Tous les pirates de la Voile sanglante laissent tomber du Tabac à priser et l'un d'eux porte l'œil de {npc:2493} ; les Bretteurs arpentent le rivage juste au nord de la ville. Les cartes et les ordres se trouvent dans le camp pirate de {area:43}, au sud de {area:35}.",
-
-	-- Step 26: Mistvale Giblets on the way
-	-- {item:3919} Mistvale Giblets
-	["{item:3919} on the way"] = "",
-
-	-- Step 27: The Bloodsail captains
-	["The Bloodsail captains"] = "Les capitaines de la Voile sanglante",
-	-- {area:43} Wild Shore · {npc:2546} Fleet Master Firallon
-	["The captains stand on the ships anchored off the {area:43}, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, {npc:2546} (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore."] = "Les capitaines se tiennent sur les navires ancrés au large de {area:43}, chacun avec un équipage de pirates de niveau 42-45 : Stillwater (45) et Keelhaul (46) sur les ponts les plus proches, {npc:2546} (48) sur le vaisseau amiral. Au niveau 42, c'est un combat pour un groupe ou pour la fin du guide ; si vous y allez, nettoyez d'abord chaque pont. La devinette de Cortello se trouve sur l'épave près du rivage.",
-	-- {area:8} Swamp of Sorrows
-	["for the {area:8} later"] = "",
-
-	-- Step 28: Gorilla hills
-	["Gorilla hills"] = "Collines des gorilles",
-	-- {npc:1449} Witch Doctor Unbagwa
-	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
-	["Ride inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets; {npc:1449} sits among them."] = "Chevauchez vers l'intérieur jusqu'aux collines des gorilles de Valbrume. Les Anciens gorilles de Valbrume laissent tomber les abats ; {npc:1449} est assis parmi eux.",
-	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
-	["{npc:1449}, inside {area:1742}"] = "",
-
-	-- Step 29: Unbagwa's ritual
-	["Unbagwa's ritual"] = "Le rituel d'Unbagwa",
-	-- {npc:1514} Mokk the Savage
-	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last. Fight at full health."] = "Rendez les crocs et restez : trois vagues de gorilles arrivent, {npc:1514} en dernier. Combattez avec toute votre vie.",
-
-	-- Step 31: Naga Explorers
-	-- plural, as words: Naga Explorers = {npc:1907} Naga Explorer
-	["Naga Explorers"] = "Explorateurs nagas",
-	["The naga comb the beaches north of the Bloodsail camp; they drop the reeds."] = "Les nagas fouillent les plages au nord du camp de la Voile sanglante ; ils laissent tomber les roseaux.",
-
-	-- Step 32: Booty Bay
-	["Ride back down to town; Shaky stands at the tunnel mouth."] = "Redescendez en ville ; Phillippe le Chancelant se tient à l'entrée du tunnel.",
-	-- {npc:2616} Privateer Groy
-	["for {npc:2616} in Theramore: keep it"] = "pour {npc:2616} à Theramore : gardez-la",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
-
-	-- Step 33: Zanzil's village
-	["Zanzil's village"] = "Le village de Zanzil",
-	-- {npc:2537} Chucky "Ten Thumbs"
-	["Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "Tout disciple de Zanzil peut laisser tomber le mélange ; {npc:2537} arpente le sud du camp.",
-
-	-- Step 34: Maury "Club Foot" Wilkins and Jon-Jon the Crow
-	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
-	["{npc:2535} and {npc:2536}"] = "{npc:2535} et {npc:2536}",
-	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
-	["Ride north to the hills west of the road. {npc:2535} and {npc:2536} stand together just north of Zanzil's village."] = "Chevauchez vers le nord jusqu'aux collines à l'ouest de la route. {npc:2535} et {npc:2536} se tiennent ensemble juste au nord du village de Zanzil.",
-
-	-- Step 35: Ruins of Zul'Mamwe: kill these as you meet them
-	-- {area:103} Ruins of Zul'Mamwe
-	["{area:103}: kill these as you meet them"] = "",
-	-- {area:310} Crystalvein Mine
-	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "",
-
-	-- Step 36: Jungle Stalker on the way
-	-- {npc:687} Jungle Stalker
-	["{npc:687} on the way"] = "",
-
-	-- Step 37: Cold Eye Basilisks
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["Cold Eye Basilisks"] = "Basilics Oeil-de-glace",
-	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Les Basilics Oeil-de-glace se tiennent sur les rochers à l'ouest de la mine.",
-
-	-- Step 38: The north-west coast
-	["The north-west coast"] = "La côte nord-ouest",
-	-- {npc:2624} Gazban · {item:4034} Stone of the Tides
-	-- plural, as words: Giant Clams = {object:2744} Giant Clam
-	["Ride north-west from the mine to the bay on the north-west coast. The Giant Clams lie on its floor and hold the pearls; {npc:2624} swims among them and drops the {item:4034}."] = "Chevauchez vers le nord-ouest depuis la mine jusqu'à la baie de la côte nord-ouest. Les Palourdes géantes reposent au fond et contiennent les perles ; {npc:2624} nage parmi elles et laisse tomber la {item:4034}.",
-	-- {item:4611} Blue Pearl
-	["{item:4611}; underwater"] = "",
-
-	-- Step 39: Rebel Camp
-	-- {npc:217588} Arbor Tarantula
-	["Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale. On the way, an {npc:217588} crawls in the jungle south-east of Nesingwary's camp: catch one with the Entomology Starter Kit, then tick it off."] = "Chevauchez vers le nord-est après le camp de Nesingwary et suivez la route vers le nord jusqu'au camp en haut de la vallée. En chemin, une {npc:217588} rampe dans la jungle au sud-est du camp de Nesingwary : attrapez-en une avec le Kit d’entomologiste novice, puis cochez-la.",
-	-- {npc:217588} Arbor Tarantula · {quest:93176} My Little Friends
-	["{npc:217588}: catch it, for {quest:93176}"] = "{npc:217588} : attrapez-la, pour {quest:93176}",
-
-	-- Step 41: Panther Mastery
-	-- {npc:728} Bhag'thera
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
-
-	-- Step 42: Hearth to Booty Bay
-	-- {area:35} Booty Bay
-	["Hearth to {area:35}"] = "",
-
-	-- Step 43: Booty Bay
-	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
-	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "La course suivante de {npc:2498} concernant Zanzil commence à {zone:1441} : passez-la.",
-	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
-	["MacKinley's next task sends you after elite ogres: skip it."] = "La tâche suivante de MacKinley vous envoie contre des ogres élites : passez-la.",
-	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
-
-	-- Step 49: Level 42.27
-	["Level 42.27"] = "",
-	-- {quest:193} Panther Mastery
-	["If you skipped {quest:193}, grind here to level 42.27 to stay on the route's plan."] = "",
-	-- {npc:690} Cold Eye Basilisk
-	["grind on {npc:690}"] = "",
-
-	-- Step 50: Raptor Mastery
-	-- {npc:730} Tethis
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
-
-	-- Step 53: Level 42.31
-	["Level 42.31"] = "",
-	-- {quest:196} Raptor Mastery
-	["If you skipped {quest:196}, grind here to level 42.31 to stay on the route's plan."] = "",
-
-	-- Step 54: Big Game Hunter
-	-- {npc:731} King Bangalash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "",
-
-	-- Step 56: Level 42.37
-	["Level 42.37"] = "",
-	-- {quest:208} Big Game Hunter
-	["If you skipped {quest:208}, grind here to level 42.37 to stay on the route's plan."] = "",
-
-	-- Step 57: Fly to Stormwind
+	-- Step 23: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "",
-	-- {area:108} Sentinel Hill
-	["{area:108} flight master"] = "",
+	-- {area:150} Menethil Harbor
+	["{area:150} flight master"] = "",
 
-	-- Step 58: Stormwind
-	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
-	["{npc:1141} cooks in the {object:2169}; {npc:5384} is in the {object:28027}."] = "{npc:1141} cuisine au {object:2169} ; {npc:5384} est dans {object:28027}.",
-	-- {npc:5694} High Sorcerer Andromath · {area:1438} Nethergarde Keep
-	["{npc:5694}: for {area:1438}, keep it"] = "{npc:5694} : pour {area:1438}, gardez-la",
-
-	-- Step 59: Stormwind
-	-- {npc:1440} Milton Sheaf · {object:2117} Stormwind Keep
-	["{npc:1440}, the Royal Library in {object:2117}"] = "{npc:1440}, la bibliothèque royale de {object:2117}",
-
-	-- Step 61: Paladin: The Tome of Nobility
-	-- {quest:1661} The Tome of Nobility
-	["Paladin: {quest:1661}"] = "Paladin : {quest:1661}",
-	-- {npc:6171} Duthorian Rall
-	["{npc:6171}, in the Cathedral of Light"] = "{npc:6171}, dans la cathédrale de la Lumière",
-
-	-- Step 62: Stormwind City
-	["Stormwind City"] = "",
-
-	-- Step 63: Warlock: Summon Felsteed
-	-- {quest:3631} Summon Felsteed
-	["Warlock: {quest:3631}"] = "Démoniste : {quest:3631}",
-	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["{npc:461}, in the {object:2164}: {npc:6251} in {area:392} takes it at the end of the next guide"] = "{npc:461}, à {object:2164} : {npc:6251} à {area:392} la prend à la fin du guide suivant",
-
-	-- Step 65: Riding at 40
+	-- Step 25: Riding at 40
 	["Riding at 40"] = "Monte au niveau 40",
 	-- {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {area:12} Elwynn Forest · {npc:384} Katie Hunter
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4732} teaches Humans at {area:88} in eastern {area:12}, beside {npc:384}'s horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "",
 	-- {npc:384} Katie Hunter
 	["{npc:384}: other colours, 20g"] = "{npc:384} : autres couleurs, 20 po",
 
-	-- Step 66: Riding at 40
+	-- Step 26: Riding at 40
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:279} Dalaran
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Skyborne learn it from {npc:265756}, the stablemaster and riding trainer at the {area:17684} in {area:16638} on Zephras Isle, who also sells the Galestriders: the skyboat to the isle leaves the north side of {area:279} about every five minutes. Collectibles, Mounts · Level 40 lists the Galestriders."] = "",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
@@ -284,127 +116,319 @@ return {
 	-- {area:279} Dalaran
 	["Skyboat to Zephras Isle: the north side of {area:279}, about every five minutes."] = "",
 
-	-- Step 67: Into Deadwind Pass
-	-- {zone:1430} Deadwind Pass
-	["Into {zone:1430}"] = "",
+	-- Step 27: Boat to Booty Bay
+	-- {area:35} Booty Bay
+	["Boat to {area:35}"] = "Bateau pour {area:35}",
 
-	-- Step 68: Into Swamp of Sorrows
+	-- Step 38: Fly to Darkshire
+	-- {area:42} Darkshire
+	["Fly to {area:42}"] = "",
+	-- {area:35} Booty Bay
+	["{area:35} flight master"] = "",
+
+	-- Step 49: Fly to Booty Bay
+	-- {area:35} Booty Bay
+	["Fly to {area:35}"] = "",
+	-- {area:42} Darkshire
+	["{area:42} flight master"] = "",
+
+	-- Step 50: Booty Bay
+	-- {npc:773} Krazek
+	["{npc:773}, upstairs"] = "",
+	-- {npc:770} Corporal Kaleb · {area:99} Rebel Camp
+	["for {npc:770} at the {area:99}, on the northern loop"] = "pour {npc:770} à {area:99}, lors de la boucle nord",
+	-- {npc:773} Krazek · {quest:2864} Tran'rek · {zone:1446} Tanaris
+	["{npc:773}: for {quest:2864} in {zone:1446}, keep it"] = "{npc:773} : pour {quest:2864} en {zone:1446}, gardez-la",
+	-- {npc:2487} Fleet Master Seahorn
+	["{npc:2487}, top floor"] = "{npc:2487}, dernier étage",
+	["Inside"] = "",
+	["Seahorn's next errand goes back to Arathi: skip it."] = "La course suivante de Seahorn ramène en Arathi : passez-la.",
+	-- {npc:2542} Catelyn the Blade
+	["{npc:2542}, upstairs"] = "",
+	-- {zone:1446} Tanaris
+	["for Stoley in {zone:1446}: keep it; on the top floor"] = "",
+
+	-- Step 51: Bloodsail camp
+	["Bloodsail camp"] = "Camp de la Voile sanglante",
+	["Leave town by the tunnel and follow the coast north; the letter lies in the Bloodsail camp on the beach, where \"Pretty Boy\" Duncan walks."] = "Quittez la ville par le tunnel et suivez la côte vers le nord ; la lettre se trouve dans le camp de la Voile sanglante sur la plage, où se promène Duncan \"le Beau garçon\".",
+
+	-- Step 52: Booty Bay
+	-- {npc:2488} Deeg
+	["{npc:2488}, on the top floor"] = "",
+	-- {npc:2624} Gazban
+	["{npc:2624} swims off the north-west coast, on the northern loop"] = "{npc:2624} nage au large de la côte nord-ouest, lors de la boucle nord",
+
+	-- Step 53: Wild Shore: kill these as you meet them
+	-- {area:43} Wild Shore
+	["{area:43}: kill these as you meet them"] = "",
+	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore · {area:35} Booty Bay
+	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the {area:43}, south of {area:35}."] = "Tous les pirates de la Voile sanglante laissent tomber du Tabac à priser et l'un d'eux porte l'œil de {npc:2493} ; les Bretteurs arpentent le rivage juste au nord de la ville. Les cartes et les ordres se trouvent dans le camp pirate de {area:43}, au sud de {area:35}.",
+
+	-- Step 54: Mistvale Giblets on the way
+	-- {item:3919} Mistvale Giblets
+	["{item:3919} on the way"] = "",
+
+	-- Step 56: Gorilla hills
+	["Gorilla hills"] = "Collines des gorilles",
+	-- {npc:1449} Witch Doctor Unbagwa
+	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
+	["Ride inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets; {npc:1449} sits among them."] = "Chevauchez vers l'intérieur jusqu'aux collines des gorilles de Valbrume. Les Anciens gorilles de Valbrume laissent tomber les abats ; {npc:1449} est assis parmi eux.",
+	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
+	["{npc:1449}, inside {area:1742}"] = "",
+
+	-- Step 57: Unbagwa's ritual
+	["Unbagwa's ritual"] = "Le rituel d'Unbagwa",
+	-- {npc:1514} Mokk the Savage
+	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last. Fight at full health."] = "Rendez les crocs et restez : trois vagues de gorilles arrivent, {npc:1514} en dernier. Combattez avec toute votre vie.",
+
+	-- Step 59: Naga Explorers
+	-- plural, as words: Naga Explorers = {npc:1907} Naga Explorer
+	["Naga Explorers"] = "Explorateurs nagas",
+	["The naga comb the beaches north of the Bloodsail camp; they drop the reeds."] = "Les nagas fouillent les plages au nord du camp de la Voile sanglante ; ils laissent tomber les roseaux.",
+
+	-- Step 60: Booty Bay
+	["Ride back down to town; Shaky stands at the tunnel mouth."] = "Redescendez en ville ; Phillippe le Chancelant se tient à l'entrée du tunnel.",
+	-- {npc:2616} Privateer Groy
+	["for {npc:2616} in Theramore: keep it"] = "pour {npc:2616} à Theramore : gardez-la",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+
+	-- Step 61: The Bloodsail captains
+	["The Bloodsail captains"] = "Les capitaines de la Voile sanglante",
+	-- {area:43} Wild Shore · {npc:2546} Fleet Master Firallon
+	["The captains stand on the ships anchored off the {area:43}, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, {npc:2546} (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore."] = "Les capitaines se tiennent sur les navires ancrés au large de {area:43}, chacun avec un équipage de pirates de niveau 42-45 : Stillwater (45) et Keelhaul (46) sur les ponts les plus proches, {npc:2546} (48) sur le vaisseau amiral. Au niveau 42, c'est un combat pour un groupe ou pour la fin du guide ; si vous y allez, nettoyez d'abord chaque pont. La devinette de Cortello se trouve sur l'épave près du rivage.",
 	-- {area:8} Swamp of Sorrows
-	["Into {area:8}"] = "",
+	["for the {area:8} later"] = "",
 
-	-- Step 70: A Soggy Scroll
+	-- Step 62: Zanzil's village
+	["Zanzil's village"] = "Le village de Zanzil",
+	-- {npc:2537} Chucky "Ten Thumbs"
+	["Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "Tout disciple de Zanzil peut laisser tomber le mélange ; {npc:2537} arpente le sud du camp.",
+
+	-- Step 63: Maury "Club Foot" Wilkins and Jon-Jon the Crow
+	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
+	["{npc:2535} and {npc:2536}"] = "{npc:2535} et {npc:2536}",
+	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
+	["Ride north to the hills west of the road. {npc:2535} and {npc:2536} stand together just north of Zanzil's village."] = "Chevauchez vers le nord jusqu'aux collines à l'ouest de la route. {npc:2535} et {npc:2536} se tiennent ensemble juste au nord du village de Zanzil.",
+
+	-- Step 64: Jungle Stalker on the way
+	-- {npc:687} Jungle Stalker
+	["{npc:687} on the way"] = "",
+
+	-- Step 65: Cold Eye Basilisks
+	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
+	["Cold Eye Basilisks"] = "Basilics Oeil-de-glace",
+	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
+	["The Cold Eye Basilisks lie on the rocks west of the mine."] = "Les Basilics Oeil-de-glace se tiennent sur les rochers à l'ouest de la mine.",
+
+	-- Step 66: The north-west coast
+	["The north-west coast"] = "La côte nord-ouest",
+	-- {npc:2624} Gazban · {item:4034} Stone of the Tides
+	-- plural, as words: Giant Clams = {object:2744} Giant Clam
+	["Ride north-west from the mine to the bay on the north-west coast. The Giant Clams lie on its floor and hold the pearls; {npc:2624} swims among them and drops the {item:4034}."] = "Chevauchez vers le nord-ouest depuis la mine jusqu'à la baie de la côte nord-ouest. Les Palourdes géantes reposent au fond et contiennent les perles ; {npc:2624} nage parmi elles et laisse tomber la {item:4034}.",
+	-- {item:4611} Blue Pearl
+	["{item:4611}; underwater"] = "",
+
+	-- Step 67: Rebel Camp
+	-- {npc:217588} Arbor Tarantula
+	["Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale. On the way, an {npc:217588} crawls in the jungle south-east of Nesingwary's camp: catch one with the Entomology Starter Kit, then tick it off."] = "Chevauchez vers le nord-est après le camp de Nesingwary et suivez la route vers le nord jusqu'au camp en haut de la vallée. En chemin, une {npc:217588} rampe dans la jungle au sud-est du camp de Nesingwary : attrapez-en une avec le Kit d’entomologiste novice, puis cochez-la.",
+	-- {npc:217588} Arbor Tarantula · {quest:93176} My Little Friends
+	["{npc:217588}: catch it, for {quest:93176}"] = "{npc:217588} : attrapez-la, pour {quest:93176}",
+
+	-- Step 69: Panther Mastery
+	-- {npc:728} Bhag'thera
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+
+	-- Step 70: Ruins of Zul'Mamwe: kill these as you meet them
+	-- {area:103} Ruins of Zul'Mamwe
+	["{area:103}: kill these as you meet them"] = "",
+	-- {area:310} Crystalvein Mine
+	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
+	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "",
+
+	-- Step 71: Hearth to Booty Bay
+	-- {area:35} Booty Bay
+	["Hearth to {area:35}"] = "",
+
+	-- Step 72: Booty Bay
+	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
+	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "La course suivante de {npc:2498} concernant Zanzil commence à {zone:1441} : passez-la.",
+	-- {npc:737} Kebok
+	["{npc:737}, upstairs"] = "",
+	["MacKinley's next task sends you after elite ogres: skip it."] = "La tâche suivante de MacKinley vous envoie contre des ogres élites : passez-la.",
+
+	-- Step 77: Level 42.23
+	["Level 42.23"] = "",
+	-- {quest:193} Panther Mastery
+	["If you skipped {quest:193}, grind here to level 42.23 to stay on the route's plan."] = "",
+	-- {npc:690} Cold Eye Basilisk
+	["grind on {npc:690}"] = "",
+
+	-- Step 78: Raptor Mastery
+	-- {npc:730} Tethis
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+
+	-- Step 81: Level 42.27
+	["Level 42.27"] = "",
+	-- {quest:196} Raptor Mastery
+	["If you skipped {quest:196}, grind here to level 42.27 to stay on the route's plan."] = "",
+
+	-- Step 82: Big Game Hunter
+	-- {npc:731} King Bangalash
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "",
+
+	-- Step 84: Level 42.33
+	["Level 42.33"] = "",
+	-- {quest:208} Big Game Hunter
+	["If you skipped {quest:208}, grind here to level 42.33 to stay on the route's plan."] = "",
+
+	-- Step 85: Fly to Stormwind
+	-- {area:108} Sentinel Hill
+	["{area:108} flight master"] = "",
+
+	-- Step 86: Stormwind
+	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
+	["{npc:1141} cooks in the {object:2169}; {npc:5384} is in the {object:28027}."] = "{npc:1141} cuisine au {object:2169} ; {npc:5384} est dans {object:28027}.",
+	-- {npc:5694} High Sorcerer Andromath · {area:1438} Nethergarde Keep
+	["{npc:5694}: for {area:1438}, keep it"] = "{npc:5694} : pour {area:1438}, gardez-la",
+
+	-- Step 87: Stormwind
+	-- {npc:1440} Milton Sheaf · {object:2117} Stormwind Keep
+	["{npc:1440}, the Royal Library in {object:2117}"] = "{npc:1440}, la bibliothèque royale de {object:2117}",
+
+	-- Step 89: Paladin: The Tome of Nobility
+	-- {quest:1661} The Tome of Nobility
+	["Paladin: {quest:1661}"] = "Paladin : {quest:1661}",
+	-- {npc:6171} Duthorian Rall
+	["{npc:6171}, in the Cathedral of Light"] = "{npc:6171}, dans la cathédrale de la Lumière",
+
+	-- Step 90: Stormwind City
+	["Stormwind City"] = "",
+
+	-- Step 91: Warlock: Summon Felsteed
+	-- {quest:3631} Summon Felsteed
+	["Warlock: {quest:3631}"] = "Démoniste : {quest:3631}",
+	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {npc:6251} Strahad Farsan · {area:392} Ratchet
+	["{npc:461}, in the {object:2164}: {npc:6251} in {area:392} takes it at the end of the next guide"] = "{npc:461}, à {object:2164} : {npc:6251} à {area:392} la prend à la fin du guide suivant",
+
+	-- Step 92: Fly to Darkshire
+	-- {zone:1453} Stormwind
+	["{zone:1453} flight master"] = "",
+
+	-- Step 94: Misty Valley
 	["The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays."] = "Le parchemin se trouve dans le marais au nord de Biggs. Les Maraistreurs au nord peuvent laisser tomber les essais de Khadgar.",
+	["The riddle's next scroll lies in western Dustwallow: skip it."] = "Le parchemin suivant de l'énigme se trouve dans l'ouest d'Âprefange : passez-le.",
 
-	-- Step 71: A Soggy Scroll
+	-- Step 96: Level 42.46
+	["Level 42.46"] = "",
+	-- {quest:543} The Perenolde Tiara
+	["If you skipped {quest:543}, grind here to level 42.46 to stay on the route's plan."] = "",
+	-- {npc:766} Tangled Horror
+	["grind on {npc:766}"] = "",
+
+	-- Step 97: Cortello's Riddle
 	-- {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
 	["{npc:217412}: {quest:93176}, from 30-40/05-arathi-highlands"] = "{npc:217412} : {quest:93176}, depuis 30-40/05-arathi-highlands",
 
-	-- Step 72: Watcher Biggs
+	-- Step 98: Watcher Biggs
 	-- {npc:5476} Watcher Biggs
 	["{npc:5476} stands by the road junction in the west of the swamp."] = "",
 
-	-- Step 74: Into Duskwood
-	-- {zone:1431} Duskwood
-	["Into {zone:1431}"] = "",
+	-- Step 99: Into Deadwind Pass
+	-- {zone:1430} Deadwind Pass
+	["Into {zone:1430}"] = "",
 
-	-- Step 75: Into Stormwind
+	-- Step 100: Into Duskwood
+	-- {area:10} Duskwood
+	["Into {area:10}"] = "",
+
+	-- Step 101: Into Stormwind
 	-- {zone:1453} Stormwind
 	["Into {zone:1453}"] = "",
 
-	-- Step 78: Fly to Rut'theran Village
+	-- Step 104: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 80: Riding at 40
+	-- Step 106: Riding at 40
 	-- {npc:4753} Jartsam · {zone:1457} Darnassus · {npc:4730} Lelanai · {area:17203} Stormwind Harbor · {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {area:12} Elwynn Forest
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {area:12}. Collectibles, Mounts · Level 40 lists every colour."] = "",
 	-- {npc:4730} Lelanai
 	["{npc:4730}: other colours, 20g"] = "{npc:4730} : autres couleurs, 20 po",
 
-	-- Step 82: Fly to Auberdine
+	-- Step 108: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "",
 
-	-- Step 83: Boat to Stormwind Harbor
+	-- Step 109: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "",
 
-	-- Step 84: Into Elwynn Forest
+	-- Step 110: Into Elwynn Forest
 	-- {area:12} Elwynn Forest
 	["Into {area:12}"] = "",
 
-	-- Step 88: The sunken temple
+	-- Step 112: Into Swamp of Sorrows
+	-- {area:8} Swamp of Sorrows
+	["Into {area:8}"] = "",
+
+	-- Step 114: The sunken temple
 	["The sunken temple"] = "Le temple englouti",
 	-- {area:74} Pool of Tears
 	-- plural, as words: Tangled Horrors = {npc:766} Tangled Horror
 	["Ride east; the Tangled Horrors along the way also drop the essays. Search the edge of the {area:74}, where the temple's ruins break the water."] = "Chevauchez vers l'est ; les Horreurs enchevêtrées en chemin laissent aussi tomber les essais. Fouillez le bord de {area:74}, là où les ruines du temple émergent de l'eau.",
 
-	-- Step 89: Level 42.49
-	["Level 42.49"] = "",
-	-- {quest:543} The Perenolde Tiara
-	["If you skipped {quest:543}, grind here to level 42.49 to stay on the route's plan."] = "",
-	-- {npc:766} Tangled Horror
-	["grind on {npc:766}"] = "",
-
-	-- Step 90: Misty Reed Strand
+	-- Step 115: Misty Reed Strand
 	["The driftwood washes up along the eastern shore."] = "Le bois flotté s'échoue le long de la rive est.",
 
-	-- Step 91: Watcher Biggs
+	-- Step 116: Watcher Biggs
 	-- {area:1438} Nethergarde Keep
 	["for {area:1438}: keep it"] = "pour {area:1438} : gardez-la",
 
-	-- Step 92: Misty Valley
-	["The riddle's next scroll lies in western Dustwallow: skip it."] = "Le parchemin suivant de l'énigme se trouve dans l'ouest d'Âprefange : passez-le.",
-
-	-- Step 93: Hearth to Stormwind
-	-- {area:1519} Stormwind
-	["Hearth to {area:1519}"] = "",
-
-	-- Step 94: Stormwind
+	-- Step 119: Stormwind
 	-- {npc:5635} Falstad Wildhammer · {area:348} Aerie Peak
 	["for {npc:5635} at {area:348}: keep it"] = "pour {npc:5635} à {area:348} : gardez-la",
 
-	-- Step 95: Tram to Ironforge
+	-- Step 120: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "",
 
-	-- Step 99: Ironforge
+	-- Step 123: Ironforge
 	-- {area:2257} Deeprun Tram · {object:28027} Dwarven District · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers · {npc:1356} Prospector Stormpike · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern · {area:144} Thelsamar
 	["Take the {area:2257} from the {object:28027}. {npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:1356} in the hall itself, {npc:2786} in the {object:32383}. The next guide flies on to {area:144}."] = "Prenez le {area:2257} depuis {object:28027}. {npc:5637} se trouve dans la salle des Récupérateurs près de {object:32356}, {npc:1356} dans le hall lui-même, {npc:2786} dans {object:32383}. Le guide suivant continue en vol vers {area:144}.",
 	-- {zone:1453} Stormwind
 	["{zone:1453} has no shaman trainer"] = "{zone:1453} n'a pas de maître des chamans",
 
-	-- Step 100: Fly to Thelsamar
+	-- Step 124: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 103: Hammertoe's Digsite
+	-- Step 127: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {area:3} Badlands · {npc:2860} Sigrun Ironhew
 	["Ride south out of {zone:1432} through the pass into the {area:3}; {npc:2860} camps at the dig."] = "",
 
-	-- Step 104: Garek
+	-- Step 128: Garek
 	-- {npc:2888} Garek · {area:1898} Dustwind Gulch
 	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "",
 
-	-- Step 106: Riding at 40
+	-- Step 130: Riding at 40
 	-- {npc:4772} Ultham Ironhorn · {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:1261} Veron Amberstill
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4772} teaches Dwarves at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}'s rams. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "Au niveau 40, avec 100 po, vous pouvez apprendre à monter, et l'apprendre vous donne une monture. {npc:4772} l'enseigne aux nains à {area:803}, à l'est de {area:131} sur la route du {zone:1432}, à côté des béliers de {npc:1261}. Forever permet peut-être à toutes les races d'apprendre auprès de n'importe quel maître de monte (non confirmé). Collection, Montures · Niveau 40 liste toutes les couleurs.",
 	-- {npc:1261} Veron Amberstill
 	["{npc:1261}: other colours, 20g"] = "{npc:1261} : autres couleurs, 20 po",
 
-	-- Step 107: Fly to Ironforge
+	-- Step 131: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 108: Riding at 40
+	-- Step 132: Riding at 40
 	-- {npc:7954} Binjy Featherwhistle · {area:189} Steelgrill's Depot · {area:131} Kharanos · {npc:7955} Milli Featherwhistle
 	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:7954} teaches Gnomes at {area:189}, just east of {area:131}, beside {npc:7955}'s mechanostriders. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "Au niveau 40, avec 100 po, vous pouvez apprendre à monter, et l'apprendre vous donne une monture. {npc:7954} l'enseigne aux gnomes à {area:189}, juste à l'est de {area:131}, à côté des mécanotrotteurs de {npc:7955}. Forever permet peut-être à toutes les races d'apprendre auprès de n'importe quel maître de monte (non confirmé). Collection, Montures · Niveau 40 liste toutes les couleurs.",
 	-- {npc:7955} Milli Featherwhistle

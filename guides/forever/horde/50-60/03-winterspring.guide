@@ -2,34 +2,32 @@
 guide forever/horde/50-60/03-winterspring
 title Winterspring & Feralas
 faction Horde
-levels 54-56
+levels 55-56
 zone Winterspring
 next forever/horde/50-60/04-azshara
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 # Left out: A Little Luck (6606), A Strange One (6605).
-# 1 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
-
-step Raging Owlbeast on the way
-  along until q4521
-  when onquest 4521
-  kill 7451 quest 4521.1
 
 step Ragged Owlbeast on the way
   along until q4521-2
   when onquest 4521
   kill 7450 quest 4521.2
 
-step Salfa
-  tip Salfa stands by the Winterspring exit of Timbermaw Hold's tunnel, north of the hot springs.
-  turnin 8465
-  accept 8464
+step Into Winterspring
+  zone Winterspring
+  goto 28.0,34.6 "Into Winterspring"
 
-step Winterfall Den Watcher on the way
-  along until q8464
-  kill 7440 quest 8464.2
+step Raging Owlbeast on the way
+  along until q4521
+  when onquest 4521
+  kill 7451 quest 4521.1
+
+step Winterspring
+  zone Winterspring
+  goto 60.7,38.2 "Winterspring"
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 74-79) and machine-checked with lint; not play-tested on Forever yet.
 #
@@ -103,22 +101,25 @@ step Umi Rumplesnicker
   turnin 3783
   accept 977
 
+step Level 55.04
+  when level<55.04
+  tip Top up here to level 55.04 before the hand-ins at Everlook: they take you to level 56.
+  goto 67.0,44.2 map 1452 "Ice Thistle Patriarch"
+  level 55.04                          -- grind on Ice Thistle Patriarch
+
 step Pristine Yeti Horns
   tip Matriarchs and Patriarchs hit hard: pull them one at a time.
   collect 12367 quest 977             -- Below ground
+
+step Chillwind chimaeras
+  tip The chimaeras roam the snowfields south and west of Everlook. Stay clear of Mazthoril's cave: its blue dragonkin are elite.
+  collect 12444 quest 4809
 
 step Umi Rumplesnicker
   turnin 977
   accept 5163
   note Umi's third prank targets goblins in Gadgetzan and Un'Goro: keep it for later.
-
-step Lake Kel'Theril: kill these as you meet them
-  label q4521-2
-  zone Winterspring
-  tip The chimaeras roam the snowfields south and west of Everlook. Stay clear of Mazthoril's cave: its blue dragonkin are elite.
-  tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
-  collect 12444 quest 4809
-  kill 7450 quest 4521.2
+  turnin 4809
 
 step Donova Snowden
   tip Donova camps among the steaming pools of Frostfire Hot Springs, in the west of the valley.
@@ -128,16 +129,28 @@ step Donova Snowden
   accept 5082
   note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide.
 
-step Frostfire Winterfall camps
-  label q8464
+step Salfa
+  tip Salfa stands by the Winterspring exit of Timbermaw Hold's tunnel, north of the hot springs.
+  turnin 8465
+  accept 8464
+
+step Winterfall Den Watcher on the way
+  along until q4521-2
+  kill 7440 quest 8464.2
+
+step Frostfire Hot Springs: kill these as you meet them
+  label q4521-2
+  zone Winterspring
+  tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
+  kill 7442 quest 5082.1
+  kill 7441 quest 5082.3
+  kill 7440 quest 5082.2
+  kill 7440 quest 8464.2
+  kill 7450 quest 4521.2
   collect 12771 optional              -- Empty Firewater Flask, a rare drop from the Winterfall furbolgs
   accept 5083 optional
   collect 20742 optional              -- Winterfall Ritual Totem, a rare drop from the Winterfall furbolgs
   accept 8471 optional
-  kill 7442 quest 5082.1
-  kill 7440 quest 5082.2
-  kill 7440 quest 8464.2
-  kill 7441 quest 5082.3
 
 step Donova Snowden
   turnin 5082

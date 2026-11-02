@@ -6,113 +6,34 @@ levels 28-31
 zone Thousand Needles
 next forever/alliance/30-40/01-hillsbrad-foothills
 
-# v1 improved: order from the simulator's search (Human Alliance, 2000000 tries, seeded with v1's order;
-# 125.7 h -> 117.5 h to 60 in the model), written by polestar apply-route.
-# Added here: Look to the Stars (181), The Weathered Grave (225), The Thandol Span (632), Sully Balloo's Letter (637), MacKreel's Moonshine (647).
-# 5 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
-
-# Duskwood, the Wetlands and the Shimmering Flats, Alliance ~28.2 to ~30.4.
-#
-# Route from the simulator's consensus Alliance route (Human export, visits
-# 11-13: Duskwood 28.2-29.1, Wetlands 29.1-29.6, Thousand Needles
-# 29.6-30.4), written out as a playable guide; not play-tested on Forever
-# yet.
-#
-# Flow: fly Stormwind -> Darkshire (hearth) -> the worgen
-# of Brightwood and the south, Blind Mary and the Insane Ghoul -> Darkshire
-# -> west: Abercrombie, the Plague Spreaders, Sven and the Raven Hill
-# Cemetery, the Defias strongbox, the Vul'Gol crate, Abercrombie -> hearth to
-# Darkshire -> fly to Menethil Harbor (hearth) -> the Third Fleet's wreck,
-# the Bluegill Raiders and the north coast -> Menethil -> the wreck ->
-# Menethil -> east: the dig, Sarltooth, the Dragonmaw ->
-# Menethil -> the Angerfang Encampment's attack plans -> hearth -> Menethil
-# -> boat to Theramore -> the
-# Great Lift -> the Shimmering Flats -> hearth to Menethil, where
-# 30-40/01-hillsbrad-foothills picks up (the Forever Wetlands quests, then
-# the boat to Southshore).
-#
-# Deviations from the export:
-# - Look To The Stars (174-177) is turned in on arrival in Darkshire instead
-#   of at the end of the visit: Viktori stands on the way, and the Insane
-#   Ghoul sits beside the worgen of the south.
-# - Apprentice's Duties (471, accepted in the previous guide) is finished on
-#   the north coast beside the wreck and turned in here.
-# - Henrig Lonebrow's Journal (1100) is picked up at the foot of the Great
-#   Lift on the way in (the export takes it at the end of the visit).
-# - All Mirage Raceway quests are taken on the first visit; one loop of the
-#   flats finishes them all.
-# - The Legend of Stalvan (67) is not taken: the export never turns it in
-#   (the Old Footlocker is in Westfall).
-# - Refresh (2026): Merrick's Bow (96138, Forever, in the new consensus)
-#   is optional at the Vul'Gol mound: it starts from Merrick's Bow, which
-#   the Lost Watchers of Duskwood drop (rate unknown), asks for 8 Splinter
-#   Fist Warriors and 4 Taskmasters and ends at Sirra Von'Indi in Darkshire.
-# - Refresh: the guide ends on the hearth to Menethil Harbor; the Southshore
-#   boat, flight path, bind and The Shamed Lieutenant (98219) moved to
-#   30-40/01-hillsbrad-foothills, which first runs the Forever Wetlands
-#   quests of the new consensus's 30-31 visit. The new consensus visits
-#   Thousand Needles later (32.6, after Hillsbrad); the Shimmering Flats stay
-#   here, between the Wetlands and the hearth, as before.
-# - Mirage Raceway: Zherin and Pozzik, first on the way in from the salt
-#   flats, before Fizzle, Wizzle and Kravel.
-# - Forever puts From the Ashes (98221) between War Banners (464) and
-#   Nek'rosh's Gambit (465): Captain Stoutfist offers 465 only once 98221 is
-#   handed in (issue #225, Lou-Saydus, in game). 98221 is taken when the
-#   banners are handed in and done on the trip east that used to light the
-#   catapult; 465 is taken when it is handed in after the hearth, and the
-#   catapult is lit on the Wetlands loop of 30-40/01-hillsbrad-foothills.
-#   The Attack Plans are not in the data: the step points at the camp's
-#   Tattered Spellbook (671518), the spot the data has inside the camp.
-#
-# Dropped for flow: A Noble Brew (335, 2450 XP): the Musquash Root sits in
-# the far south-east of the Wetlands, a long detour off the route, and the
-# Tear of Tilloa another one north of Darkshire. Not accepted in Stormwind
-# (06-ashenvale) either; no grind needed for under a tenth of a level.
-#
-# Class quests: Warlocks hand Devourer of Souls (1716, from Stormwind in
-# 04-redridge-mountains) to Takar the Seer on the ride through the Barrens and
-# take Heartswood (1738); the Heartswood is in Ashenvale (30-40/02-desolace).
-# Warlocks may also take What Is Love? (65602, the incubus) from Takar;
-# optional, finished in 30-40/02-desolace and 30-40/05-arathi-highlands
-# (forever/class/warlock/incubus-alliance has the whole chain).
-#
-# Left out (not in the export): Bride of the Embalmer (253: elites), The
-# Weathered Grave (225: elite Mor'Ladim), Defeat Nek'rosh (474: elite).
-# Checked and skipped: The Scythe of Elune (1043) needs The Carevin Family
-# (1041, 1042), a chain from Darkshore and Ashenvale the route never starts.
-# Keeping Pace and Rizzle's Schematics (1190, 1194) need News for Fizzle
-# (1137), which comes after Martek in the Badlands at 38.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: Look to the Stars (181), The Weathered Grave (225).
 
 step Duskwood
   zone Duskwood
-  goto 65.3,68.5 "Duskwood"
-
-# ---------------------------------------------------------------- Worgen
-
-step The Rotting Orchard
-  tip The worgen hold the woods of Brightwood, west of Darkshire and north of the road. Pull them one at a time.
-  kill 533 quest 173 @65.5,69.1 map 1431 -- Nightbane Shadow Weaver
-
-step Calor
-  turnin 173
-
-step Darkshire
-  buy 4371 x1 npc 3133 optional           -- Bronze Tube, from Herble Baubbletump, if you have none
-
-step Calor
-  accept 221
+  goto 74.8,44.2 "Duskwood"
 
 step Darkshire
   zone Duskwood
-  accept 66                               -- Madame Eva, inside
-  turnin 66                               -- Clerk Daltry, in the town hall
+  sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
+  turnin 1243                             -- Watcher Backus, at the north entrance of town; walks around Darkshire: look inside the circle on the map
+  buy 4371 x1 npc 3133 optional           -- Bronze Tube, from Herble Baubbletump, if you have none
+  accept 1244
   accept 58                               -- Commander Althea Ebonlocke
   turnin 174                              -- Viktori Prism'Antras, at the east end of town; inside
   accept 175
-  sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
-  turnin 1243                             -- Watcher Backus, at the north entrance of town; walks around Darkshire: look inside the circle on the map
-  accept 1244
+
+# ---------------------------------------------------------------- Worgen
+
+step Nightbane Shadow Weavers
+  tip The worgen hold the woods of Brightwood, west of Darkshire and north of the road. Pull them one at a time.
+  kill 533 quest 173                      -- Nightbane Shadow Weaver
+
+step Calor
+  turnin 173
+  accept 221
 
 step Nightbane Dark Runners
   tip The Dark Runners prowl the woods south of the road, west of Darkshire.
@@ -143,71 +64,61 @@ step Darkshire
   turnin 223                              -- Jonathan Carevin, by Elaine Carevin's house; inside
   vendor nearest
 
-step Fly to Sentinel Hill
+step Vul'Gol Ogre Mound: kill these as you meet them
   zone Duskwood
-  goto 77.6,44.4 "Darkshire flight master"
-  fly "Sentinel Hill"
-  zone Westfall
+  tip Head east to the ogre mound. Abercrombie's Crate sits in the camp at its entrance; Splinter Fist ogres guard it.
+  accept 96138 optional                   -- Only if a Lost Watcher dropped Merrick's Bow: right-click it
+  kill 212 x8 quest 96138.1 optional      -- Splinter Fist Warrior
+  kill 892 x4 quest 96138.2 optional      -- Splinter Fist Taskmaster
+  collect 1968 quest 181.1 @38.0,80.0 map 1431 -- Below ground
+  collect 1349 quest 134 @33.4,76.3       -- Abercrombie's Crate
 
-step Duskwood
-  zone Duskwood
-  goto 24.7,34.8 "Duskwood"
+step Defias Strongbox
+  tip The Defias camp lies in the south-west of Duskwood, south of Raven Hill near the Westfall border. The strongbox stands among the tents.
+  collect 5947 quest 1244 @23.9,72.1      -- Defias Docket; inside
+
+step Abercrombie
+  turnin 134
+  accept 160
 
 step Raven Hill Cemetery: kill these as you meet them
   zone Duskwood
   tip The Plague Spreaders walk the northern half of the Raven Hill Cemetery. Mor'Ladim, an elite, wanders the graves: keep away from him.
   tip Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of Sven's camp.
   tip Careful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs.
-  kill 604 quest 58 @24.4,34.8 map 1431 -- Plague Spreader
+  kill 604 quest 58                       -- Plague Spreader
   kill 785 quest 323                      -- Skeletal Warder
   kill 1110 quest 323                     -- Skeletal Raider
   kill 787 quest 323                      -- Skeletal Healer
 
 step The Weathered Grave
-  accept 225
+  accept 225 only Dwarf,Skyborne
 
 step Sven's Camp
   turnin 323                              -- Sven Yorgen
   accept 269                              -- For Bishop Farthing in Stormwind, in the next guide
 
-step Defias Strongbox
-  tip The Defias camp lies in the south-west of Duskwood, south of Raven Hill near the Westfall border. The strongbox stands among the tents.
-  collect 5947 quest 1244 @23.9,72.1      -- Defias Docket; inside
-
-step Vul'Gol Ogre Mound: kill these as you meet them
-  zone Duskwood
-  tip Head east to the ogre mound. Abercrombie's Crate sits in the camp at its entrance; Splinter Fist ogres guard it.
-  accept 96138 optional                   -- Only if a Lost Watcher dropped Merrick's Bow: right-click it
-  collect 1349 quest 134 @33.4,76.3       -- Abercrombie's Crate
-  kill 212 x8 quest 96138.1 optional      -- Splinter Fist Warrior
-  kill 892 x4 quest 96138.2 optional      -- Splinter Fist Taskmaster
-  collect 1968 quest 181.1 @38.0,80.0 map 1431 -- Below ground
-
-step Abercrombie
-  turnin 134
-  accept 160
-
 step Hearth to Darkshire
   hearth "Darkshire"
+
+step Viktori Prism'Antras
+  turnin 181                          -- Inside
 
 step Back to Darkshire
   turnin 1244                             -- Watcher Backus walks around Darkshire: look inside the circle on the map
   accept 1245                             -- For Elling Trias in Stormwind, in the next guide
+  turnin 58                               -- Commander Althea Ebonlocke
   turnin 160                              -- Lord Ello Ebonlocke, in the town hall
   accept 251
   turnin 251                              -- Sirra Von'Indi, in the house behind the town hall
-  turnin 225
-  accept 227
+  turnin 225 only Dwarf,Skyborne
+  accept 227 only Dwarf,Skyborne
+  turnin 227 only Dwarf,Skyborne
   turnin 96138 optional                   -- Sirra Von'Indi
   accept 401
   turnin 401                              -- Wait a moment, then speak with her again
   accept 252
   turnin 252                              -- Lord Ello Ebonlocke
-  turnin 227
-  turnin 58                               -- Commander Althea Ebonlocke
-
-step Viktori Prism'Antras
-  turnin 181                          -- Inside
 
 step Fly to Stormwind
   zone Duskwood
@@ -221,21 +132,19 @@ step Fly to Menethil Harbor
   fly "Menethil Harbor"
   zone Wetlands
 
+step Menethil Bay
+  tip Follow the coast north-east past the wreck: the Bluegill Raiders hold the marsh beyond the Giant Crocolisks.
+  collect 2702 quest 526 @12.7,65.3 map 1437 -- Lightforge Ingot
+
 step Menethil Harbor
   zone Wetlands
   accept 288                              -- First Mate Fitzsimmons, in the inn
+  sethome "Deepwater Tavern"
+  turnin 526                              -- Glorin Steelbrow, inside
   buy 2594 x1 npc 1464                    -- Flagon of Mead, from Innkeeper Helbrek
   buy 2594 x1 npc 1464                    -- Flagon of Mead, from Innkeeper Helbrek
   turnin 288
   accept 289
-
-step Bluegill Raiders
-  tip Follow the coast north-east past the wreck: the Bluegill Raiders hold the marsh beyond the Giant Crocolisks.
-  collect 2702 quest 526                  -- Lightforge Ingot; underwater
-
-step Menethil Harbor
-  turnin 526                              -- Glorin Steelbrow, inside
-  sethome "Deepwater Tavern" npc 1464     -- Innkeeper Helbrek
 
 step The Lost Fleet: kill these as you meet them
   zone Wetlands
@@ -258,43 +167,27 @@ step Captain Halyndor
   turnin 290                              -- Intrepid's Locked Strongbox
   accept 292
 
-step The Villards
-  tip Comar Villard waits north of Dun Modr by the Thandol Span; Essene a short walk further north-east.
-  accept 87318                        -- Comar Villard
-  turnin 87318                        -- Essene Villard
+step On the way
+  along until q299
+  collect 2658 quest 299 -- Ados Fragment along the way to Ormer and Whelgar
+  collect 2659 quest 299 -- Modr Fragment along the way to Ormer and Whelgar
+  collect 2660 quest 299 -- Golm Fragment along the way to Ormer and Whelgar
+  collect 2661 quest 299 -- Neru Fragment along the way to Ormer and Whelgar
 
-step Ebenezer Rustlocke
-  zone Arathi Highlands
-  tip Walk back onto the span: Ebenezer lies under its Arathi end.
-  turnin 631                          -- Ebenezer Rustlocke's Corpse, inside
-
-step The Thandol Span
+step Whelgar's Excavation Site: kill these as you meet them
   zone Wetlands
-  accept 632                          -- Inside
-
-step Waterlogged Envelope
-  zone Arathi Highlands
-  collect 4433 x1 optional @44.3,92.9 map 1417 -- Underwater
-  accept 637 optional
-
-step Foggy MacKreel
-  accept 647
-
-step Wetlands
-  zone Wetlands
-  goto 45.7,45.1 "Wetlands"
-
-step Angerfang Encampment: kill these as you meet them
-  zone Wetlands
-  tip The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners.
   tip The Goaz Warders stand just west of Whelgar's camp: use the Goaz Stone he gave you beside one.
-  collect 3337 quest 464                  -- Dragonmaw War Banner
+  tip The relics lie in the dig itself. Sarltooth, a big Razormaw, prowls the raptor valley just west of it.
+  tip The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners.
   collect 279993 quest 98216.1        -- Titanic Keystone
+  collect 3337 quest 464                  -- Dragonmaw War Banner
   collect 3638 quest 296                  -- Sarltooth's Talon
 
 step Ormer and Whelgar
+  label q299
   turnin 296                              -- Ormer Ironbraid
   turnin 98216                        -- Below ground
+  turnin 299                              -- Prospector Whelgar
 
 step Glorin Steelbrow
   turnin 292                          -- Inside
@@ -321,38 +214,6 @@ step Into The Barrens
   zone The Barrens
   goto 49.5,78.4 "Into The Barrens"
 
-step Into Thousand Needles
-  zone Thousand Needles
-  goto 31.9,24.2 "Into Thousand Needles"
-
-step Thousand Needles
-  zone Thousand Needles
-  goto 46.9,48.5 "Thousand Needles"
-
-step Thousand Needles
-  zone Thousand Needles
-  goto 78.1,77.1 "Thousand Needles"
-
-step Mirage Raceway
-  tip Follow the canyons east to the salt flats. The goblins and gnomes of the Mirage Raceway are neutral and give quests to both factions.
-  accept 1104                             -- Fizzle Brassbolts
-  accept 5762                             -- For Hemet Nesingwary in Stranglethorn, later
-  accept 1110                             -- Kravel Koalbeard
-  accept 1105
-  turnin 1179                             -- Wizzle Brassbolts
-  accept 1176                             -- Pozzik
-  accept 1175                             -- Trackmaster Zherin
-
-step Into The Barrens
-  only Warlock
-  zone The Barrens
-  goto 44.1,91.2 "Into The Barrens"
-
-step The Barrens
-  only Warlock
-  zone The Barrens
-  goto 49.3,57.1 "The Barrens"
-
 step Takar the Seer
   only Warlock
   zone The Barrens
@@ -361,20 +222,23 @@ step Takar the Seer
   accept 1738                             -- Heartswood: in Ashenvale, on the way to Desolace
   accept 65602 optional                   -- What Is Love?: the incubus, beside the succubus; the Wooden Figurine is near the Heartswood
 
-step Back to Thousand Needles
-  only Warlock
+step Thousand Needles
   zone Thousand Needles
-  goto 83.6,70.7 "Thousand Needles" only Dwarf,NightElf,Skyborne
-
-step Into Thousand Needles
-  only Gnome,Human,Warlock
-  zone Thousand Needles
-  goto 31.9,24.2 "Into Thousand Needles"
+  goto 46.9,48.5 "Thousand Needles"
 
 step Thousand Needles
-  only Gnome,Human,Warlock
   zone Thousand Needles
-  goto 83.8,72.2 "Thousand Needles"
+  goto 77.8,77.3 "Thousand Needles"
+
+step Mirage Raceway
+  tip Follow the canyons east to the salt flats. The goblins and gnomes of the Mirage Raceway are neutral and give quests to both factions.
+  accept 5762                             -- For Hemet Nesingwary in Stranglethorn, later
+  accept 1110                             -- Kravel Koalbeard
+  accept 1104                             -- Fizzle Brassbolts
+  accept 1105
+  turnin 1179                             -- Wizzle Brassbolts
+  accept 1176                             -- Pozzik
+  accept 1175                             -- Trackmaster Zherin
 
 step Mirage Raceway: kill these as you meet them
   zone Thousand Needles
@@ -388,11 +252,11 @@ step Mirage Raceway: kill these as you meet them
   kill 4147 quest 1175                    -- Saltstone Basilisk
 
 step Mirage Raceway
-  turnin 1175                             -- Trackmaster Zherin
-  turnin 1176                             -- Pozzik
+  turnin 1110                             -- Kravel Koalbeard
   turnin 1105                             -- Wizzle Brassbolts
   turnin 1104                             -- Fizzle Brassbolts
   accept 1106                             -- Fizzle Brassbolts: for Martek in the Badlands, later
-  turnin 1110                             -- Kravel Koalbeard
+  turnin 1176                             -- Pozzik
+  turnin 1175                             -- Trackmaster Zherin
 
 # ---------------------------------------------------------------- Back to Menethil

@@ -52,18 +52,18 @@ return {
 	-- {area:1221} Ruins of Eldarath · {item:13815} Some Rune · {npc:8507} Tymor · {item:10445} Drawing Kit
 	["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s four runes stand among the ruins: use his {item:10445} on each."] = "Os nagas Iralisca de {area:1221} carregam {item:13815}. As quatro runas de {npc:8507} ficam entre as ruínas: use o {item:10445} dele em cada uma.",
 
-	-- Step 15: Rubbing: Rune of Sael'hai
+	-- Step 16: Rubbing: Rune of Sael'hai
 	-- {item:7972} Ichor of Undeath · {npc:7864} Lingering Highborne
 	["{item:7972}: the {npc:7864}, about 10%"] = "{item:7972}: {npc:7864}, cerca de 10%",
 
-	-- Step 17: Level 50.89
-	["Level 50.89"] = "",
-	-- {area:1256} The Ruined Reaches
-	["Top up here to level 50.89 before the hand-ins at {area:1256}: they take you to level 51."] = "",
-
-	-- Step 19: Ravencrest Monument
+	-- Step 18: Ravencrest Monument
 	-- {area:16} Azshara · {npc:8392} Pilot Xiggs Fuselighter
 	["Swim to the small island off the southern tip of {area:16}: {npc:8392} waits by the monument."] = "",
+
+	-- Step 19: Level 50.89
+	["Level 50.89"] = "",
+	-- {zone:1426} Dun Morogh
+	["Top up here to level 50.89 before the hand-ins at {zone:1426}: they take you to level 51."] = "",
 
 	-- Step 20: Hearth to Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
@@ -166,9 +166,9 @@ return {
 	["{area:2418} flight master"] = "",
 
 	-- Step 44: Kum'isha the Collector
-	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {object:141891} Razelikh's Tear (no name in this language: may be words)
+	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {spell:2691} Mana Burn · {spell:8255} Strong Cleave · {object:141891} Razelikh's Tear (no name in this language: may be words) · {spell:10854} Flames of Chaos
 	-- plural, as words: Imperfect Draenethyst Fragments = {item:10593} Imperfect Draenethyst Fragment
-	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts Mana Burn, Strong Cleave and Decimate, and as its health drops it adds {object:141891}, Flames of Chaos and then Enrage at 15%."] = "",
+	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%."] = "",
 	-- {npc:7363} Kum'isha the Collector
 	["{npc:7363} walks around here: look inside the circle on the map"] = "",
 

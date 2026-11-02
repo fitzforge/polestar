@@ -7,133 +7,10 @@ levels 1-13
 zone Tirisfal Glades
 next forever/horde/02-the-barrens
 
-# v1 improved: order from the simulator's search (Undead Horde, 2000000 tries, seeded with v1's order;
-# 124.2 h -> 117.4 h to 60 in the model), written by polestar apply-route.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 # Left out: At War With The Scarlet Crusade (372).
-# 7 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
-
-# Route: the simulator's consensus Undead route (data/sim/export/
-# consensus-horde-undead, visit 1, levels 1-11.9). Checked against the
-# 2026-10-14 export: same Tirisfal quests, same order apart from turn-ins
-# and accepts swapped within a Brill visit.
-#
-# Flow: Deathknell -> the road east past Calvin Montague and Gordo -> Brill
-# (bind) -> Doom Weed north of town -> west fields, Gordo, Simmer and Calvin's
-# duel at Solliden -> hearth -> the north: Rot Hide graveyards, Maggot Eye, the
-# Vile Fin coast -> Brill -> Deathguard Linnea's camp -> Brill -> west loop:
-# Agamand Mills, the pumpkin fields, the Crusader's Outpost, the Whispering Forest
-# and Shadowvale -> hearth -> Brill -> the Scarlet camp south of town -> Brill
-# -> east loop: Linnea's camp, the Balnir Farmstead cultists and graves,
-# Captain Vachon, the Vicious Night Web Spiders -> Linnea's camp -> Brill ->
-# Captain Melrache on the north-east coast -> Brill -> Leonid in the Whispering
-# Forest -> hearth -> zeppelin to Durotar -> the Crossroads (flight path, bind).
-#
-# Optional: A Letter Undelivered (361). A Letter to Yvette drops from the
-# Agamand Mills undead about one kill in 25-30, so its accept and turn-in never
-# block.
-#
-# Forever chains the quest data has no prerequisites for (#51, #128): Linnea
-# offers the second Rear Guard Patrol (99156) only once the first (356) is
-# handed in, and Hadric offers Bandarion Keep (96899) only once The Cult of
-# the Damned (96897) and Remnants of War (96898) are (Forever's quest
-# series for 99156; players' reports and #128 for 96899). Bandarion Keep
-# is taken when those two are handed in after the east loop. Rear Guard
-# Patrol (99156) is left out: Riptear, a level 13 elite, wanders by the
-# spiders at the far east end of the loop, and handing 356 in first means a
-# walk back to the camp and out again (sim compare: +0.10 h to 20).
-#
-# Deviations from the export (same quest set apart from "Left out"):
-# - Patience (99141): the export accepts and turns it in on the spot; here the
-#   three reports are asked for where you pass Dillinger, Gordo and Kristof.
-# - Marla's Last Wish (6395, level 3) is taken after Night Web's Hollow and A
-#   New Plague (367, level 6) on the second pass through Brill, where the
-#   route is sure to meet their level requirements.
-# - The Adventurer (96656) is taken from Executor Arren with Vital Intelligence
-#   and handed to Eleanor Shackleton on the first walk out of Brill (export:
-#   picked up at 9.9, turned in at 10.3).
-# - A New Plague, A Putrid Task and Sticks and Bones are done in the fields
-#   west of Brill on the way to Calvin's duel instead of after the hearth back.
-# - Deaths in the Family (354) is taken with The Haunted Mills at 7 and done
-#   at Agamand Mills during the west loop; the export takes it at 12 and walks
-#   back to the mills for it (then hearths from there).
-# - Rear Guard Patrol (356) and Hides for the Forsaken (97558) are taken at
-#   Linnea's camp when Forsaken Duties is turned in at 9.3 (export: 11.9); the
-#   murloc skins come from the west-loop shore, the wings and hides from the
-#   bats and darkhounds you pass anyway. Tomb Weed (99142) is taken from
-#   Holland at the 10.3 turn-in round (export: 12.0).
-# - Fields of Grief (365) is taken from Deathguard Simmer at the Solliden
-#   Farmstead when you walk past him to Calvin's duel, so the west loop goes
-#   from Agamand Mills straight to the pumpkin fields instead of down to the
-#   farm and back up.
-# - The export runs Brill -> spiders -> Brill -> Vachon -> Brill -> Melrache ->
-#   Brill -> cultists -> Agamand Mills -> hearth. Here everything east of Brill
-#   is one loop after the Scarlet camp, Melrache is one trip from Brill and the
-#   third hearth comes after Leonid (export hearths at 6.4, 10.3 and 12.1).
-# - The export's Crossroads flight path and bind at 12.9 close this guide:
-#   zeppelin from the towers by the Ruins of Lordaeron, then the walk through
-#   Durotar to the Crossroads, where the next guide starts.
-#
-# Class quests: Paladins take A Difficult Path (98601) from Sarvis,
-# Rediscovering the Light (90902, Holy Light) and Coming to Terms (91208, the
-# Frightened Paladin west of the church) from Aramis Hammerhand in
-# Deathknell, then Continue Your Training (91209) to Shari Stilwell, their
-# trainer in Brill; Warlocks do Piercing the Veil (1470, Summon Imp) with Venya
-# Marthand on the Rattlecage Skeletons. At about 10 from Brill: Warriors kill
-# Ulag the Cleaver north of town (1819, Defensive Stance); Warlocks take
-# Creature of the Void (1473) from Carendin Halgar in the Undercity on the way
-# to the Scarlet camp, where Egalin's Grimoire lies in Perrine's Chest, and
-# bind the Voidwalker (1471) in the Undercity before the zeppelin; Priests
-# learn Touch of Weakness (5658) from Aelthalyste on the same Undercity stop.
-# In Favor of Darkness / Garments of Darkness (5651, 5650, Priest) reward a
-# robe, not a spell: not taken.
-# Mages: at 10 Cain Firesong in Brill sends them to Anastasia Hartwell in the
-# Undercity (1881) on the way to the Scarlet camp, the Balnir Snapdragons
-# (1882) are picked in the east loop, and the hand-in waits for the last
-# Undercity stop.
-# Class letters: Sarvis's level 1 letter for each class (Simple Scroll 3095
-# Warrior, Encrypted Scroll 3096 Rogue, Hallowed Scroll 3097 Priest, Glyphic
-# Scroll 3098 Mage, Tainted Scroll 3099 Warlock; Paladins: A Difficult Path
-# 98601) is taken after The Mindless Ones and handed to the trainer at the
-# church.
-# Class training at Deathknell (2, 4) and in Brill (6, 8, 10, 12).
-#
-# As Above, So Below (99152, Hilda the Breaker) and The One That Got Away
-# (99153, Ephram Barbaro) at Bandarion Keep, after A Righteous Cause (96896,
-# Leonid). The sources disagree on who gets them: a Scourge Mage (Mike_, 0.2.3)
-# found neither in the givers' quest windows (maybe before 96896), while
-# Forever's server quest answers file both as Tirisfal zone quests with the
-# race mask of Hadric's any-class chain (the keep's paladin quests are in the
-# Paladin category) and every class can take them after 96896.
-# So no class lock in the data: Paladins take them as normal steps; the other
-# classes get them as optional accepts beside Leonid, and the bones, the
-# crystal and the hand-ins hold only those who took them. MadReign_Ltd
-# (Paladin, 0.2.5) found Hilda and Ephram without them at 9 and with them at
-# 12 after 96896. The open question is the INGAME line in
-# forever/class/paladin/tyrs-watch.
-#
-# Paladins take the start of the Bandarion Keep chain with Leonid's visit: A
-# Second Home (91282) from Shari in Brill, Murlocs at the Gates (91285) and
-# Touring the Grounds (91294) at the keep, which sends them to Danitha Morr.
-# Left out for Paladins: the rest of it (91316-91317, 95803) and A Lesson in
-# Divinity (94427-94441, Redemption), from Bandarion Keep to the Undercity and
-# Deathguard Falgan at the far east end of the glades and back: three
-# crossings of the zone for a resurrection spell solo leveling does not need.
-# They are the Class guide forever/class/paladin/tyrs-watch.
-#
-# Left out: The Prodigal Lich (405, Bethor Iceshard in the Undercity): the
-# export accepts it and never turns it in. With it go the Prodigal Lich chain
-# and the Undercity flight path of the older Tirisfal guide. Leonid's Letter
-# (98545, Glix Xizzix in the Undercity, 90 XP) is not on the new export's
-# route at all.
-# Left out: the export's Sepulcher stop at 11.9-12.2 (Delivery to Silverpine
-# Forest 445, Supplying the Sepulcher 6321, Ride to the Undercity 6323,
-# Michael Garrett 6322, Prove Your Worth 421, Arugal's Folly 422). The new
-# export goes on into Silverpine from there, while this route goes to the
-# Barrens first; tried as a detour from Brill to the Sepulcher and a bat to
-# the Undercity before the zeppelin, it cost 0.03 h to level 20 under the
-# simulator. Arugal's Folly (422) could not have been added anyway: nothing in
-# the data places its Remedy of Arugal.
 
 # ---------------------------------------------------------------- Deathknell
 
@@ -261,23 +138,18 @@ step Calvin Montague
   tip Leave Deathknell by the road north-east. Calvin Montague stands by the farmhouse at the Solliden Farmstead.
   accept 8
 
-step Deathskip to Brill
-  zone Tirisfal Glades
-  tip Die to the mobs at 44.8,54.4 (Decrepit Darkhound): a death there sends you to this graveyard. Release your spirit and take the Spirit Healer's resurrection.
-  die "Brill" @56.2,49.4 map 1420
-
 step Brill
-  zone Tirisfal Glades
-  tip Follow the road east to Brill. The Gallows' End Tavern is the big inn in the middle, with Executor Zygand in front of it.
-  train class                         -- The Brill trainers are in and around the inn
+  tip Junior Apothecary Holland stands at the north-west edge of town.
+  accept 99142                        -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
+  accept 358                          -- Magistrate Sevren, in the town hall
+  tip The Gallows' End Tavern is the big inn in the middle, with Executor Zygand in front of it.
   sethome "Gallows' End Tavern" npc 5688 -- Innkeeper Renee
   turnin 8                            -- Innkeeper Renee
-  accept 358                          -- Magistrate Sevren, in the town hall
   accept 398                          -- The Wanted poster by the inn
-  turnin 383                          -- Executor Zygand
-  accept 427
   accept 99134
   accept 99141
+  turnin 383                          -- Executor Zygand
+  accept 427
 
 # ---------------------------------------------------------------- Brill and the north
 
@@ -286,24 +158,15 @@ step Discipline
   complete 99134
 
 step Brill
-  tip Junior Apothecary Holland stands at the north-west edge of town.
   turnin 99134                        -- Executor Zygand
   accept 367                          -- Apothecary Johaan, inside
   accept 86784                        -- Deathguard Bartholomew stands by Dillinger a few minutes, then walks up to the graveyard north of town and back
-  turnin 91209 only Paladin           -- Shari Stilwell, the Paladin trainer
   collect 286200 quest 99141.1 npc 1496 @58.2,51.5 -- Ask Deathguard Dillinger for his report
   accept 404                          -- Deathguard Dillinger
-  accept 99142                        -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
-
-step Putrid Claw on the way
-  along until q404
-  collect 2855 quest 404.1
 
 step Dry Branches
-  label q404
   tip The Dry Branches lie on the ground around the south-west edge of Brill.
   collect 279991 quest 86784.1 @56.5,53.5
-  collect 2855 quest 404.1
 
 step Eleanor Shackleton
   tip Eleanor camps just south-west of town.
@@ -354,6 +217,10 @@ step Brill
   accept 95314                        -- Carolai Anise, beside Johaan; inside
   turnin 367                          -- Apothecary Johaan, inside
   accept 368
+  turnin 91209 only Paladin           -- Shari Stilwell, the Paladin trainer
+  train class                         -- The Brill trainers are in and around the inn
+
+step Brill
   accept 375                          -- Gretchen Dedmar, upstairs
   buy 2320 npc 2118                   -- Coarse Thread from Abigail Shiel, for Gretchen
   accept 362                          -- Coleman Farthing, in the inn
@@ -504,6 +371,10 @@ step Hadric Harlson
   accept 96897
   accept 96898
 
+step Decrepit Darkhound on the way
+  along until q96897
+  kill 1547 quest 96897.3
+
 step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
   tip Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way.
@@ -513,24 +384,32 @@ step Tirisfal Glades: kill these as you meet them
   kill 267006 quest 96897.1 @68.2,64.6
   collect 278242 quest 97558.1
 
+step On the way
+  along until q356
+  kill 1529 quest 356.1 -- Bleeding Horror along the way to Deathguard Linnea's camp
+  kill 1532 quest 356.2 -- Wandering Spirit along the way to Deathguard Linnea's camp
+
 step Balnir Farmstead: kill these as you meet them
   zone Tirisfal Glades
   tip Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the Tomb Weed grows.
   tip The Scarlet Friars camp just north-east of the graves; Captain Vachon stands among them.
   tip The spiders lurk in the woods at the far east end of the glades.
-  kill 1529 quest 356.1
   collect 286204 quest 99142.1
-  kill 1532 quest 356.2
   collect 7227 quest 1882.1 only Mage -- Balnir Snapdragons, in the farmstead's garden
-  collect 278243 quest 97558.2
   kill 1538 quest 371.2
-  collect 2872 quest 369.1
   kill 1664 quest 371.1
+  collect 2872 quest 369.1
+
+step Tirisfal Glades: kill these as you meet them
+  label q96897
+  zone Tirisfal Glades
+  collect 278243 quest 97558.2
   kill 1547 quest 96897.3 @68.4,57.8 map 1420
 
 step Deathguard Linnea's camp
-  turnin 96898
+  label q356
   turnin 96897                        -- Hadric Harlson
+  turnin 96898
   accept 96899
   turnin 356                          -- Deathguard Linnea
   turnin 97558                        -- Shelene Rhobart
@@ -540,6 +419,7 @@ step Brill
   turnin 369                          -- Apothecary Johaan, inside
   accept 492
   turnin 371                          -- Executor Zygand
+  train class
   turnin 492                          -- The Captured Mountaineer, in the town hall basement
   turnin 99142                        -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
 
@@ -640,7 +520,6 @@ step Back to Tirisfal Glades
 step Brill
   zone Tirisfal Glades
   turnin 95314                        -- Carolai Anise, inside
-  train class
 
 step Zeppelin to Orgrimmar
   zone Tirisfal Glades

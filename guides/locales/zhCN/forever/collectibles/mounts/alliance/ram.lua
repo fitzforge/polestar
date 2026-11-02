@@ -17,12 +17,10 @@ return {
 	["{npc:4772}, riding trainer"] = "{npc:4772}，骑术训练师",
 
 	-- Step 2: Ram Riding for other races
-	-- {skill:762} Riding
-	["Ram {skill:762} for other races"] = "",
-	-- {skill:762} Riding · {npc:4772} Ultham Ironhorn · {faction:47} Ironforge
-	["Any Alliance race can buy these rams, but riding one also takes Ram Riding, which only Dwarves get with {skill:762}. {npc:4772} teaches it to other races once they are Exalted with {faction:47} (the Ironforge Reputation guide shows the way). Until then, don't buy a ram for this character."] = "",
-	-- {npc:4772} Ultham Ironhorn
-	["{npc:4772}, Ram Riding"] = "",
+	-- {spell:826} Ram Riding
+	["{spell:826} for other races"] = "",
+	-- {spell:826} Ram Riding · {skill:762} Riding · {npc:4772} Ultham Ironhorn · {faction:47} Ironforge
+	["Any Alliance race can buy these rams, but riding one also takes {spell:826}, which only Dwarves get with {skill:762}. {npc:4772} teaches it to other races once they are Exalted with {faction:47} (the Ironforge Reputation guide shows the way). Until then, don't buy a ram for this character."] = "",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "选择颜色",

@@ -2,14 +2,14 @@
 guide forever/alliance/04-redridge-mountains
 title Redridge Mountains
 faction Alliance
-levels 20-23
+levels 20-24
 zone Redridge Mountains
 next forever/alliance/05-duskwood
 
-# v1 improved: order from the simulator's search (Human Alliance, 2000000 tries, seeded with v1's order;
-# 125.7 h -> 117.5 h to 60 in the model), written by polestar apply-route.
-# Added here: A Watchful Eye (94), A Free Lunch (129), Hilary's Necklace (3741), Looking Further (248).
-# The notes above describe v1's order; the steps below are the improved one.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: A Watchful Eye (94), A Free Lunch (129), Looking Further (248).
 
 step Boat to Stormwind Harbor
   zone Darkshore
@@ -191,13 +191,9 @@ step Lakeridge Highway
   tip Follow the road along the south shore of Lake Everstill to the gryphon master. Deputy Feldon and Guard Howe stand by the road next to her.
   getfp "Lakeshire"
   turnin 244                                  -- Deputy Feldon
-  accept 246
   accept 98407
+  accept 246
   accept 128                                  -- Guard Howe
-
-step Redridge Mongrel on the way
-  along until q127
-  kill 423 quest 246
 
 # ---------------------------------------------------------------- Lakeshire
 
@@ -221,11 +217,6 @@ step Spotted Sunfish on the way
 step Sunken Chest
   tip Swim east from the bridge into Lake Everstill; the chest lies on the lake bed.
   collect 1309 quest 125                      -- Oslow's Toolbox; underwater
-  turnin 125                                  -- Foreman Oslow
-  accept 89
-
-step Shawn
-  accept 3741
 
 # ---------------------------------------------------------------- West of the lake
 
@@ -233,42 +224,42 @@ step Guard Parker
   turnin 129                          -- Guard Parker walks around Three Corners: look inside the circle on the map
   accept 130
 
-step Martie Jainrose
-  turnin 130
-
 step Lakeridge Highway: kill these as you meet them
   label q127
   zone Redridge Mountains
   tip Redridge Mongrels and other gnolls hold the hills east of Three Corners, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Redridge Brutes, for the Iron Pikes and Rivets, hold the hills further north; Dire Condors and Great Goretusks roam the hills east of them.
-  tip Bellygrub (level 24) roots around the pen just west of Lakeshire. Pull him away from the other boars and fight at full health.
   collect 2296 quest 92                       -- Great Goretusk Snout
-  collect 2856 quest 89                       -- Iron Pike
-  collect 1013 quest 89                       -- Iron Rivet
-  collect 10958 quest 3741.1 @19.0,54.6 map 1433 live -- Underwater
+  collect 280911 quest 98407                  -- Spiked Collar: Redridge Thrashers
   kill 423 quest 246                          -- Redridge Mongrel
   collect 1467 quest 127
-  collect 280911 quest 98407                  -- Spiked Collar: Redridge Thrashers
   kill 424 quest 246                          -- Redridge Poacher
+
+step Martie Jainrose
+  turnin 130
+  accept 131
+  turnin 131                          -- Inside
+
+step Sunken Chest
+  turnin 125                                  -- Foreman Oslow
+  accept 89
+
+step Bellygrub
+  tip Bellygrub (level 24) roots around the pen just west of Lakeshire. Pull him away from the other boars and fight at full health.
   collect 3631 quest 34                       -- Bellygrub's Tusk
 
 step Deputy Feldon
   turnin 246
   turnin 98407
-  turnin 3741
+
+step Redridge Canyons
+  collect 2856 quest 89                       -- Iron Pike
+  collect 1013 quest 89                       -- Iron Rivet
 
 step Lakeshire
+  turnin 34                                   -- Martie Jainrose
+  accept 180 lvl 21                           -- The Wanted poster by the inn: Lieutenant Fangore, in Galardell Valley
   turnin 89                                   -- Foreman Oslow
   accept 98386                                -- Foreman Oslow: after The Everstill Bridge
-  turnin 34                                   -- Martie Jainrose
-
-step Level 21
-  when level<21
-  tip Top up here to level 21 before the hand-ins at Galardell Valley: they take you to level 22.
-  goto 22.0,36.6 map 1433 "Redridge Brute"
-  level 21                          -- grind on Redridge Brute
-
-step Lakeshire
-  accept 180 lvl 21                           -- The Wanted poster by the inn: Lieutenant Fangore, in Galardell Valley
 
 # ---------------------------------------------------------------- East of the lake
 
@@ -278,9 +269,9 @@ step Lake Everstill: kill these as you meet them
   tip Greater Tarantulas crawl on the slopes around the mill north-east of the lake.
   collect 1467 quest 127                      -- Spotted Sunfish
   collect 1468 quest 150                      -- Murloc Fin
+  collect 1080 quest 92                       -- Tough Condor Meat
   collect 1081 quest 92                       -- Crisp Spider Meat
   kill 505 quest 98386                        -- Greater Tarantula
-  collect 1080 quest 92                       -- Tough Condor Meat
 
 step A Watchful Eye
   turnin 94

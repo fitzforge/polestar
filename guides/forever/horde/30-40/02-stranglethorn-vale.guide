@@ -2,14 +2,13 @@
 guide forever/horde/30-40/02-stranglethorn-vale
 title Stranglethorn Vale
 faction Horde
-levels 32-38
+levels 34-36
 zone Stranglethorn Vale
 next forever/horde/30-40/03-arathi-highlands
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
-# 3 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 
 step Fly to Undercity
   zone Hillsbrad Foothills
@@ -27,14 +26,13 @@ step Fly to Grom'gol
   accept 638                          -- Nimboya: for Arathi, later on the route
   tip The zeppelin lands at the tower on the west side of the camp.
   accept 581                          -- Nimboya
-  accept 629
-  accept 596                          -- Kin'weelay
-  sethome "Grom'gol Base Camp"
   accept 570                          -- Far Seer Mok'thardin
   accept 568                          -- Commander Aggro'gosh
+  accept 629
+  accept 596                          -- Kin'weelay
 
 step Bloody Bone Necklace on the way
-  along until q596
+  along until q190
   collect 3915 quest 596
 
 # Consensus route (Horde Tauren export), visit 24 (Stranglethorn Vale
@@ -117,20 +115,6 @@ step Bloody Bone Necklace on the way
 
 # ---------------------------------------------------------------- Grom'gol
 
-step Raptors and the Bloodscalp trolls
-  label q596
-  tip Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A Pendant of Myzrael is a very rare drop from them: if one drops, read it.
-  tip Careful: The troll camps have many patrolling mobs, so other trolls often join a fight.
-  collect 3901 quest 581
-  collect 3915 quest 596
-  collect 4614 x1 optional
-  accept 635 optional
-
-step Grom'gol flight master
-  only Shaman
-  zone Stranglethorn Vale
-  goto 32.5,29.3 "Grom'gol flight master"
-
 step Islen Waterseer
   only Shaman
   zone The Barrens
@@ -138,12 +122,18 @@ step Islen Waterseer
   fly "Ratchet"
   turnin 96                           -- Islen Waterseer: Healing Stream Totem and your Water Totem
 
-step Back to Grom'gol
-  only Shaman
-  zone Stranglethorn Vale
-  hearth "Grom'gol Base Camp"
-
 # ---------------------------------------------------------------- Nesingwary's camp
+
+step Fly to Orgrimmar
+  only Orc,Skyborne,Tauren,Troll,Shaman
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Orgrimmar"
+
+step Zeppelin to Grom'gol
+  only Orc,Skyborne,Tauren,Troll,Shaman
+  zone Durotar
+  goto 50.7,12.9 "Zeppelin to Grom'gol"
 
 step Nesingwary's camp
   zone Stranglethorn Vale
@@ -156,25 +146,79 @@ step Nesingwary's camp
   accept 185                          -- Ajeck Rouack
   accept 190                          -- Sir S. J. Erlgadin
 
-step Young tigers and panthers
+step Young Panther on the way
+  along until q190
+  kill 683 quest 190
+
+step Nesingwary's Expedition: kill these as you meet them
+  label q190
+  zone Stranglethorn Vale
   tip Young Stranglethorn Tigers prowl west of the camp, Young Panthers south and east of it.
+  tip Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A Pendant of Myzrael is a very rare drop from them: if one drops, read it.
+  tip Careful: The troll camps have many patrolling mobs, so other trolls often join a fight.
   kill 681 quest 185
+  kill 683 quest 190
+  collect 3901 quest 581
+  collect 3915 quest 596
+  collect 4614 x1 optional
+  accept 635 optional
+
+step Booty Bay
+  tip Follow the road south to Booty Bay at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. Gringer, the Horde flight master, waits on the upper deck.
+  accept 575                          -- Drizzlik, inside
+  vendor nearest
+  accept 605                          -- Crank Fizzlebub, inside
+  accept 213                          -- Kebok, upstairs
+  getfp "Booty Bay" npc 2858          -- Gringer
+  accept 189                          -- Kebok
+  accept 201                          -- Krazek, upstairs
+  sethome "Booty Bay"                 -- Upstairs
+
+step Bloodscalp Ear on the way
+  along until q189
+  collect 1519 quest 189
+
+step Tumbled Crystal on the way
+  along until q213
+  collect 4106 quest 213
+
+# ---------------------------------------------------------------- Booty Bay and the Venture Co.
+
+step Fly to Grom'gol
+  zone Stranglethorn Vale
+  goto 26.8,77.0 "Booty Bay flight master"
+  fly "Grom'gol"
+
+step Grom'gol
+  tip Follow the road south to Grom'gol.
+  turnin 581                          -- Nimboya
+  accept 582
+
+step Young Panther
+  label q189
+  kill 683 quest 190
+  collect 1519 quest 189
+
+# ---------------------------------------------------------------- The north again
+
+step The camp by the river
+  tip Krazek's missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp.
+  collect 4053 quest 575
+  goto 35.7,10.6
+  complete 201 @35.65,10.59
 
 step Nesingwary's camp
   turnin 185                          -- Ajeck Rouack
   accept 186
-
-step Young Panther
-  kill 683 quest 190
-
-step Nesingwary's camp
   turnin 190                          -- Sir S. J. Erlgadin
   accept 191
 
 step Stranglethorn Vale: kill these as you meet them
+  label q213
   zone Stranglethorn Vale
   tip Stranglethorn Tigers and Panthers (32-33) roam the hills east of the camp, along the lake shore.
   kill 682 quest 186
+  collect 4106 quest 213
   kill 736 quest 191
 
 step Nesingwary's camp
@@ -202,86 +246,22 @@ step Nesingwary's camp
   turnin 187                          -- Ajeck Rouack
   accept 188
 
-step Grom'gol
-  tip Follow the road south to Grom'gol.
-  turnin 581                          -- Nimboya
-  accept 582
-
-step Bloodscalp headhunters
-  tip The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads.
-  collect 1532 quest 582
-  level 34.27                          -- grind on Bloodscalp Headhunter
-
-step Raptors and the Bloodscalp trolls
-  tip Careful: The raptor nest has young raptors that join the fight when you attack the adults.
-  kill 685 quest 194
-
-# ---------------------------------------------------------------- Booty Bay
-
-step Grom'gol
-  turnin 582                          -- Nimboya
-
-step Booty Bay
-  tip Follow the road south to Booty Bay at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. Gringer, the Horde flight master, waits on the upper deck.
-  getfp "Booty Bay"
-  accept 575                          -- Drizzlik, inside
-  vendor nearest
-  accept 605                          -- Crank Fizzlebub, inside
-  accept 201                          -- Krazek, upstairs
-  sethome "Booty Bay"                 -- Upstairs
-  accept 213                          -- Kebok, upstairs
-  accept 189                          -- Kebok
-
-step Tumbled Crystal on the way
-  along until q192
-  collect 4106 quest 213
-
-step Large River Crocolisk Skin on the way
-  along until q575
-  collect 4053 quest 575
-
-# ---------------------------------------------------------------- Booty Bay and the Venture Co.
-
-step Fly to Grom'gol
-  zone Stranglethorn Vale
-  goto 26.8,77.0 "Booty Bay flight master"
-  fly "Grom'gol"
-
-step Stranglethorn Vale
-  zone Stranglethorn Vale
-  goto 24.4,17.5 "Stranglethorn Vale"
-
 step The Savage Coast: kill these as you meet them
+  label q192
   zone Stranglethorn Vale
   tip West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.
-  collect 3918 quest 605 @24.2,17.7 map 1434
-  collect 1519 quest 189 @29.8,19.5 map 1434
-
-step Sin'Dall
   tip Sin'Dall, a level 37 tiger, prowls the hilltop south-west of the camp.
+  tip Careful: The raptor nest has young raptors that join the fight when you attack the adults.
+  collect 3918 quest 605
+  kill 684 quest 192
+  collect 1519 quest 189
+  kill 685 quest 194
   collect 3879 quest 188 @31.8,16.4
 
 step Nesingwary's camp
   turnin 194                          -- Hemet Nesingwary
   accept 195
   turnin 188                          -- Ajeck Rouack
-
-# ---------------------------------------------------------------- The north again
-
-step The camp by the river
-  tip Krazek's missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp.
-  goto 35.7,10.6
-  complete 201 @35.65,10.59
-
-step Level 34.78
-  when level<34.78
-  tip Top up here to level 34.78 before the hand-ins at Booty Bay: they take you to level 35.
-  goto 30.0,19.7 map 1434 "Bloodscalp Shaman"
-  level 34.78                          -- grind on Bloodscalp Shaman
-
-step The camp by the river
-  label q575
-  collect 4053 quest 575
 
 step Hearth to Booty Bay
   hearth "Booty Bay"
@@ -302,7 +282,7 @@ step Fly to Grom'gol
 # ---------------------------------------------------------------- Raptors, Mosh'Ogg, Shadowmaw
 step Lashtail Raptor on the way
   along until q568
-  kill 686 quest 568 -- Lashtail Raptor along the way to Grom'gol Base Camp
+  kill 686 quest 568 -- Lashtail Raptor along the way to Grom'gol
 
 step Stranglethorn Vale: kill these as you meet them
   zone Stranglethorn Vale
@@ -315,34 +295,43 @@ step The Vile Reef
   tip North-west of Grom'gol the Vile Reef lies under the water off the coast. The Tablet Shard rests on the sea floor by the sunken ruins; watch your breath and the murlocs.
   collect 4094 quest 629 @24.8,22.9   -- Underwater
 
-step Bloodscalp ruins
+step Ruins of Zul'Kunda: kill these as you meet them
+  zone Stranglethorn Vale
+  tip The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads.
   tip The Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a Bloody Bone Necklace. Keep looting pages of The Green Hills of Stranglethorn.
   collect 3915 quest 596
+  collect 1532 quest 582
 
-# ---------------------------------------------------------------- Grom'gol and the north
+# ---------------------------------------------------------------- Booty Bay
 
-step Grom'gol Base Camp
+step Grom'gol
   label q568
-  tip Head north-west to Grom'gol.
+  turnin 582                          -- Nimboya
   accept 2932                           -- for later: the Hinterlands, around level 48
   turnin 596                          -- Kin'weelay
   turnin 629
   turnin 568
   accept 569
 
-step Mizjah Ruins: kill these as you meet them
-  label q192
+step Mosh'Ogg Brute on the way
+  along until q569
+  kill 1142 quest 569.1
+
+step Mosh'Ogg Witch Doctor on the way
+  along until q569-2
+  kill 1144 quest 569.2
+
+# ---------------------------------------------------------------- Grom'gol and the north
+
+step Stranglethorn Vale: kill these as you meet them
+  label q569-2
   zone Stranglethorn Vale
-  tip The Mosh'Ogg ogres camp in the hills just east of Grom'gol. Kill one Brute and one Witch Doctor (36-37); pull them one at a time.
   tip East of the ogres, Shadowmaw Panthers (37-38) stalk unseen until they strike; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for Drizzlik.
   tip Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them.
-  kill 1142 quest 569.1
-  kill 1144 quest 569.2
   collect 3838 quest 570.1
-  kill 684 quest 192
-  collect 4106 quest 213
   collect 3839 quest 570.2
   collect 4104 quest 577 @39.9,28.4
+  kill 1144 quest 569.2
 
 step Green Hills pages
   tip Pages of The Green Hills of Stranglethorn drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. Barnil takes the chapters later in this guide.
@@ -365,20 +354,35 @@ step Green Hills pages
 # ---------------------------------------------------------------- Panther Mastery
 
 step Shadowmaw panthers
+  label q569
   tip The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way.
   kill 684 quest 192
-  level 35.88                          -- grind on Shadowmaw Panther
+  kill 1142 quest 569.1
+  level 35.86                          -- grind on Shadowmaw Panther
 
 step Venture Co. camp
   tip Head north past Nesingwary's camp to the lake. The Venture Co. Geologists (34-36) work the camps along its western shore; they carry the Tumbled Crystals.
   collect 4106 quest 213
 
+step Mosh'Ogg camp
+  tip The Mosh'Ogg ogres camp in the hills just east of Grom'gol. Kill one Brute and one Witch Doctor (36-37); pull them one at a time.
+  kill 1142 quest 569.1
+  kill 1144 quest 569.2
+
 step Grom'gol
   tip Back to Grom'gol.
+  turnin 569                          -- Commander Aggro'gosh
   turnin 570                          -- Far Seer Mok'thardin
   vendor nearest
-  accept 572                          -- Far Seer Mok'thardin
-  turnin 569                          -- Commander Aggro'gosh
-  accept 584                            -- Nimboya
+
+step Level 36
+  when level<36
+  tip Top up here to level 36 before the hand-ins at Hammerfall: they take you to level 37.
+  goto 37.3,31.0 map 1434 "Mosh'Ogg Brute"
+  level 36                          -- grind on Mosh'Ogg Brute
 
 # ---------------------------------------------------------------- South: stalkers, gorillas
+
+step Grom'gol
+  accept 572                          -- Far Seer Mok'thardin
+  accept 584                            -- Nimboya

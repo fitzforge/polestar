@@ -6,95 +6,101 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 2: Torwa Pathfinder
+	-- Step 1: Fly to Menethil Harbor
+	-- {area:150} Menethil Harbor
+	["Fly to {area:150}"] = "",
+	-- {zone:1455} Ironforge
+	["{zone:1455} flight master"] = "",
+
+	-- Step 3: Fly to Gadgetzan
+	-- {area:976} Gadgetzan
+	["Fly to {area:976}"] = "",
+	["Theramore flight master"] = "",
+
+	-- Step 5: Gadgetzan
+	-- {area:392} Ratchet · {area:976} Gadgetzan
+	["From {area:392}, fly to {area:976}."] = "",
+
+	-- Step 7: Super Sticky Tar on the way
+	-- {item:11834} Super Sticky Tar
+	["{item:11834} on the way"] = "",
+
+	-- Step 9: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
 	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "",
 
-	-- Step 3: Fresh Threshadon Carcass
+	-- Step 10: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
 	["The dead Threshadon lies by the water north of {npc:9619}."] = "죽은 트레샤돈은 {npc:9619} 북쪽 물가에 있습니다.",
 
-	-- Step 5: Lar'korwi Mates and the raft
+	-- Step 12: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "{npc:9683}와(과) 뗏목",
 	-- {npc:9619} Torwa Pathfinder · {npc:8737} Linken · {item:11116} A Mangled Journal
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["The Lar'korwi Mates prowl the jungle west of {npc:9619}. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for {npc:8737}. Any beast in the crater may drop {item:11116}: right-click it."] = "{npc:9683}은(는) {npc:9619} 서쪽 밀림을 어슬렁거립니다. 부서진 뗏목은 그곳 호숫가에 있고, 작은 꾸러미는 그 옆 물속에 있습니다. 나침반, 지도, 열쇠는 {npc:8737}에게 주도록 보관하세요. 분화구의 어떤 야수든 {item:11116}을(를) 떨어뜨릴 수 있습니다. 오른쪽 클릭하세요.",
-	-- {object:161504} A Small Pack
-	["{object:161504}, underwater"] = "",
 
-	-- Step 6: Karna Remtravel
+	-- Step 13: Karna Remtravel
 	-- {npc:9618} Karna Remtravel
 	["{npc:9618} stands just outside the refuge."] = "{npc:9618}은(는) 야영지 바로 바깥에 서 있습니다.",
 
-	-- Step 7: Marshal's Refuge
-	-- {area:541} Marshal's Refuge · {object:157936} Un'Goro Dirt Pile
-	["Ride north along the east side of the crater to {area:541}, the camp in the caves of the northern cliff. Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "분화구 동쪽을 따라 북쪽으로 북쪽 절벽 동굴 속 야영지인 {area:541}까지 가세요. 정예 데빌사우루스와 스테고돈은 멀리 피하세요. 여기서부터 지나가는 마력의 수정과 {object:157936}을(를) 모두 챙기세요.",
-	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
-	["Ends with {npc:9298} in {zone:1452}: keep it"] = "{zone:1452}의 {npc:9298}에게서 끝납니다: 보관하세요",
+	-- Step 14: Marshal's Refuge
+	-- {object:157936} Un'Goro Dirt Pile
+	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "",
+	-- {npc:9998} Shizzle
+	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, 야영지 입구",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "",
 
-	-- Step 8: Un'Goro Crater: kill these as you meet them
-	-- {area:490} Un'Goro Crater
-	["{area:490}: kill these as you meet them"] = "",
+	-- Step 15: Webbed Diemetradon Scale on the way
+	-- {item:11830} Webbed Diemetradon Scale
+	["{item:11830} on the way"] = "",
+
+	-- Step 16: Fire Plume Ridge and the eastern jungle
+	-- {area:537} Fire Plume Ridge
+	["{area:537} and the eastern jungle"] = "",
 	-- {area:537} Fire Plume Ridge · {item:11113} Crate of Foodstuffs
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "남쪽으로 분화구 한가운데의 {area:537}까지 간 뒤 동쪽 밀림으로 가세요. 수정 무더기는 분화구 곳곳에, 특히 {area:537} 주변에 많습니다. 색깔마다 몇 개씩 더 챙기세요. {npc:6509}와(과) 덩이줄기 붉은꽃잎덩굴손이 꽃잎을 떨어뜨립니다. 탐험대의 {item:11113}은(는) 동쪽 밀림의 버려진 야영지에 있습니다.",
 
-	-- Step 9: Marshal's Refuge
-	["Ride west back to the refuge."] = "서쪽으로 야영지에 돌아가세요.",
+	-- Step 17: The Marshlands
+	-- {object:161504} A Small Pack
+	["{object:161504}, underwater"] = "",
+
+	-- Step 19: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "",
+	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
+	["Ends with {npc:9298} in {zone:1452}: keep it"] = "{zone:1452}의 {npc:9298}에게서 끝납니다: 보관하세요",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "{zone:1444}의 {npc:7775}에게 줄 것: 보관하세요",
-	-- {npc:9998} Shizzle
-	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, 야영지 입구",
 
-	-- Step 10: Webbed Diemetradon Scale on the way
-	-- {item:11830} Webbed Diemetradon Scale
-	["{item:11830} on the way"] = "",
-
-	-- Step 11: Level 49.16
-	["Level 49.16"] = "",
-	-- {area:490} Un'Goro Crater
-	["Top up here to level 49.16 before the hand-ins at {area:490}: they take you to level 50."] = "",
-	["Pterrordax"] = "",
-	["grind on Pterrordax"] = "",
-
-	-- Step 12: Northern Pylon
+	-- Step 20: Northern Pylon
 	["Northern Pylon"] = "북쪽 수정탑",
 	-- {npc:9998} Shizzle
 	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "",
 
-	-- Step 13: A-Me 01
+	-- Step 21: A-Me 01
 	-- {area:1943} Ironstone Plateau
 	["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "북쪽으로 {area:1943}까지 가세요. 로봇은 고릴라들 사이에 서 있습니다. 그곳의 깊은 동굴에는 들어가지 마세요.",
 	["Below ground"] = "",
 
-	-- Step 14: Level 49.32
-	["Level 49.32"] = "",
+	-- Step 22: Level 49.51
+	["Level 49.51"] = "",
 	-- {area:541} Marshal's Refuge
-	["Top up here to level 49.32 before the hand-ins at {area:541}: they take you to level 50."] = "",
+	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50."] = "",
+	["Pterrordax"] = "",
+	["grind on Pterrordax"] = "",
 
-	-- Step 16: The Gorishi hive
+	-- Step 23: The Gorishi hive
 	["The Gorishi hive"] = "고리쉬 벌집",
-	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil
+	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast Silithid Pox or Tunneler Acid in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
+	["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
+	-- {npc:9167} Frenzied Pterrordax
+	["grind on {npc:9167}"] = "",
 
-	-- Step 17: Eastern Pylon
-	["Eastern Pylon"] = "동쪽 수정탑",
-	["The pylon stands on the eastern cliffs."] = "수정탑은 동쪽 절벽 위에 서 있습니다.",
-
-	-- Step 18: Level 49.41
-	["Level 49.41"] = "",
-	-- {area:541} Marshal's Refuge
-	["Top up here to level 49.41 before the hand-ins at {area:541}: they take you to level 50."] = "",
-	-- {npc:9683} Lar'korwi Mate
-	["grind on {npc:9683}"] = "",
-
-	-- Step 20: Bones and equipment
+	-- Step 24: Bones and equipment
 	["Bones and equipment"] = "뼈와 장비",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
@@ -102,71 +108,71 @@ return {
 	-- {npc:9164} Elder Diemetradon
 	["grind on {npc:9164}"] = "",
 
-	-- Step 21: Western Pylon
-	["Western Pylon"] = "서쪽 수정탑",
-	-- {npc:9167} Frenzied Pterrordax
-	["The pylon stands on the western cliffs. {npc:9167} fly over the whole west side."] = "수정탑은 서쪽 절벽 위에 서 있습니다. {npc:9167}이(가) 서쪽 전역을 날아다닙니다.",
-
-	-- Step 22: Un'Goro Crater: kill these as you meet them
+	-- Step 25: Un'Goro Crater: kill these as you meet them
+	-- {area:490} Un'Goro Crater
+	["{area:490}: kill these as you meet them"] = "",
 	-- {npc:9165} Fledgling Pterrordax · {npc:9998} Shizzle
 	-- plural, as words: Young Diemetradons = {npc:9162} Young Diemetradon
 	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "동쪽을 따라 남쪽으로 내려가세요. {npc:9162}은(는) 동쪽 밀림에서 풀을 뜯고, {npc:9165}은(는) 동쪽 절벽 근처를 납니다. 둘 다 {npc:9998}에게 줄 비늘을 떨어뜨립니다.",
 
-	-- Step 23: Marshal's Refuge
+	-- Step 26: Western Pylon
+	["Western Pylon"] = "서쪽 수정탑",
+	-- {npc:9167} Frenzied Pterrordax
+	["The pylon stands on the western cliffs. {npc:9167} fly over the whole west side."] = "수정탑은 서쪽 절벽 위에 서 있습니다. {npc:9167}이(가) 서쪽 전역을 날아다닙니다.",
+
+	-- Step 28: Eastern Pylon
+	["Eastern Pylon"] = "동쪽 수정탑",
+	["The pylon stands on the eastern cliffs."] = "수정탑은 동쪽 절벽 위에 서 있습니다.",
+
+	-- Step 30: Marshal's Refuge
 	["Ride north along the western jungle back to the refuge."] = "서쪽 밀림을 따라 북쪽으로 야영지에 돌아가세요.",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, 야영지 입구",
 
-	-- Step 24: Hearth to Stoutlager Inn
+	-- Step 31: Hearth to Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["Hearth to {area:2101}"] = "",
 
-	-- Step 25: To Stoutlager Inn
+	-- Step 32: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["To {area:2101}"] = "",
 
-	-- Step 26: Fly to Ironforge
+	-- Step 33: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 27: Hall of Explorers
+	-- Step 34: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
 	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: 수액괴물은 {zone:1448}에 있습니다. 보관하세요",
 
-	-- Step 28: Royal Historian Archesonus
+	-- Step 35: Royal Historian Archesonus
 	-- {object:171709} High Seat
 	["Archesonus stands beside King Magni in the {object:171709}."] = "아케소누스는 {object:171709}에서 국왕 마그니 브론즈비어드 옆에 서 있습니다.",
 	-- {zone:1428} Burning Steppes
 	["The relics are in the {zone:1428}: keep it"] = "유물은 {zone:1428}에 있습니다: 보관하세요",
 
-	-- Step 29: Mystic Ward
+	-- Step 36: Mystic Ward
 	-- {zone:1447} Azshara
 	["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}의 룬 탁본 네 개: 보관하세요",
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: {zone:1447}의 오그틴크에게 줄 것, 보관하세요",
 
-	-- Step 30: Bind and train
+	-- Step 37: Bind and train
 	["Bind and train"] = "귀환 장소 설정 및 수련",
 
-	-- Step 31: Xiggs Fuselighter
+	-- Step 38: Xiggs Fuselighter
 	-- {object:32359} Military Ward (no name in this language: may be words)
 	["Xiggs waits in the {object:32359}."] = "시그스는 {object:32359}에서 기다립니다.",
 
-	-- Step 32: Fly to Menethil Harbor
-	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
-
-	-- Step 34: Fly to Astranaar
+	-- Step 41: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 35: Level 50.4
+	-- Step 42: Level 50.4
 	["Level 50.4"] = "",
 	-- {area:3137} Talrendis Point
 	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51."] = "",
@@ -184,8 +190,10 @@ return {
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "{npc:9999}을(를) 북쪽 {area:541}까지 데려가세요. 그가 기절하면 {item:11804}을(를) 사용해 깨우세요.",
 	-- ["Ride down the ramp into the crater: {npc:9619} camps at its foot."] = "비탈을 내려가 분화구로 가세요. {npc:9619}은(는) 비탈 아래에 진을 치고 있습니다.",
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "동쪽으로 {area:537}까지 가서 올라간 뒤, 꼭대기 근처 용암 분출구에서 {npc:10541}을(를) 사용하세요.",
+	-- ["Ride north along the east side of the crater to {area:541}, the camp in the caves of the northern cliff. Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "분화구 동쪽을 따라 북쪽으로 북쪽 절벽 동굴 속 야영지인 {area:541}까지 가세요. 정예 데빌사우루스와 스테고돈은 멀리 피하세요. 여기서부터 지나가는 마력의 수정과 {object:157936}을(를) 모두 챙기세요.",
 	-- ["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "동쪽을 따라 북쪽의 고릴라 고원으로 가세요. 55레벨 고릴라 {npc:9622}은(는) 가장 깊은 동굴에 있습니다. 먼저 동굴 입구의 고릴라를 정리하세요.",
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "동쪽 절벽을 따라 남쪽으로, 비탈 아래의 {npc:9619}에게 가세요.",
+	-- ["Ride west back to the refuge."] = "서쪽으로 야영지에 돌아가세요.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "{npc:9619}에게서 서쪽으로 가세요. 실리시드 벌집이 분화구 남쪽을 채우고 있습니다. 유충이 매달린 방인 부화실에 긁개 유리병을 사용하세요. 병정 고리쉬와 일꾼 고리쉬가 {quest:3764}을(를) 떨어뜨립니다. 처치 수가 아직 필요하면 남쪽 절벽에 {npc:9166}이(가) 둥지를 틀고 있습니다.",
 	-- ["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "{area:976}에서 서쪽으로 나가 {zone:1449}(으)로 내려가는 긴 비탈로 가세요. {npc:9619}은(는) 분화구 남동쪽 구석, 비탈 아래에 진을 치고 있습니다.",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "서쪽으로 {area:541}을(를) 지나 서쪽을 따라 남쪽의 {area:543}까지 가세요. 고블린 {npc:10302}이(가) 물가에 앉아 있습니다.",

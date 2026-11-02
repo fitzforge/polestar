@@ -28,8 +28,8 @@ return {
 	["Back to {npc:6446}"] = "Volte a {npc:6446}",
 
 	-- Step 5: Tazan's Key
-	-- {quest:1859} Therzok · {npc:6466} Gamon · {object:172982} Valley of Strength (no name in this language: may be words) · {item:7208} Tazan's Key · {item:7209} Tazan's Satchel
-	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained Pick Lock, you can pick the satchel's lock instead."] = "",
+	-- {quest:1859} Therzok · {npc:6466} Gamon · {object:172982} Valley of Strength (no name in this language: may be words) · {item:7208} Tazan's Key · {item:7209} Tazan's Satchel · {spell:1804} Pick Lock
+	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained {spell:1804}, you can pick the satchel's lock instead."] = "",
 	-- {item:7208} Tazan's Key
 	["{item:7208}: Pick Pocket Gamon"] = "",
 	-- {item:7209} Tazan's Satchel

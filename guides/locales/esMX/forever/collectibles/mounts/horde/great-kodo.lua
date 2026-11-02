@@ -18,12 +18,10 @@ return {
 	["{npc:3690}, riding trainer"] = "{npc:3690}, instructor de equitación",
 
 	-- Step 2: Kodo Riding for other races
-	-- {skill:762} Riding
-	["Kodo {skill:762} for other races"] = "",
-	-- {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
-	["Any Horde race can buy these kodos, but riding one also takes Kodo Riding, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "",
-	-- {npc:3690} Kar Stormsinger
-	["{npc:3690}, Kodo Riding"] = "",
+	-- {spell:18995} Kodo Riding
+	["{spell:18995} for other races"] = "",
+	-- {spell:18995} Kodo Riding · {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
+	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",

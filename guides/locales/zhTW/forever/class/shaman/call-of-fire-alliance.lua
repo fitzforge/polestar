@@ -27,14 +27,14 @@ return {
 	["From {npc:257597}' ledge you can drop carefully down the mountain into {zone:1432}, or walk back through the tunnel. {npc:257808} keeps the shrine on the peak just south of {area:144}: a hidden trail along a cliff ledge, marked by stone totems, climbs to it from the road north of the peak."] = "",
 
 	-- Step 4: Reagent Pouch
-	-- {area:923} Stonesplinter Valley · {area:144} Thelsamar
+	-- {area:923} Stonesplinter Valley · {area:144} Thelsamar · {spell:1245113} Lightning Bolts
 	-- plural, as words: Stonesplinter Seers = {npc:1166} Stonesplinter Seer
-	["The Stonesplinter Seers (level 13-14) stand among the troggs of {area:923} in the south of the loch, and in the trogg camps north-east of {area:144}. They throw Lightning Bolts from 40 yards and run for help when hurt: pull one at a time. Respawn about five minutes."] = "",
+	["The Stonesplinter Seers (level 13-14) stand among the troggs of {area:923} in the south of the loch, and in the trogg camps north-east of {area:144}. They throw {spell:1245113} from 40 yards and run for help when hurt: pull one at a time. Respawn about five minutes."] = "",
 
 	-- Step 5: Fire Tar
-	-- {area:149} Silver Stream Mine · {area:144} Thelsamar
+	-- {area:149} Silver Stream Mine · {area:144} Thelsamar · {spell:2136} Fire Blast · {spell:134} Fire Shield
 	-- plural, as words: Tunnel Rat Geomancers = {npc:1174} Tunnel Rat Geomancer
-	["The Tunnel Rat Geomancers (level 12-13) work only inside the {area:149} at the north end of the loch, past {area:144}. They cast Fire Blast behind a Fire Shield and run for help at low health."] = "",
+	["The Tunnel Rat Geomancers (level 12-13) work only inside the {area:149} at the north end of the loch, past {area:144}. They cast {spell:2136} behind a {spell:134} and run for help at low health."] = "",
 
 	-- Step 6: Braldir Ashmantle
 	-- {npc:257808} Braldir Ashmantle · {item:6636} Fire Sapta
@@ -50,8 +50,8 @@ return {
 
 	-- Step 8: The Shrine of Eternal Flame
 	["The Shrine of Eternal Flame"] = "",
-	-- {npc:257808} Braldir Ashmantle · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
-	["Climb on past {npc:257808} to the peak. Drink the {item:6636} beside the rock statue there to see the {npc:5893} (level 12): it waits until you strike, but grows stronger the longer it is left, and it is immune to fire. Open at once with Rockbiter Weapon and Earth Shock. Its {item:6655} drops every time."] = "",
+	-- {npc:257808} Braldir Ashmantle · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {spell:8017} Rockbiter Weapon · {spell:8042} Earth Shock · {item:6655} Glowing Ember
+	["Climb on past {npc:257808} to the peak. Drink the {item:6636} beside the rock statue there to see the {npc:5893} (level 12): it waits until you strike, but grows stronger the longer it is left, and it is immune to fire. Open at once with {spell:8017} and {spell:8042}. Its {item:6655} drops every time."] = "",
 	-- {item:6636} Fire Sapta
 	["{item:6636}, beside the statue"] = "",
 

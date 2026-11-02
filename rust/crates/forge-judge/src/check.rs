@@ -970,7 +970,7 @@ pub fn stops(goals: &[WalkGoal]) -> Vec<(WPt, Vec<usize>)> {
 	// no point after it is not at that stop: the Undead Paladins' Undercity training after the flight
 	// from Tarren Mill, c15.)
 	// (Where the move led, when it says: a goal with no point there is at that place, the Aerie Peak
-	// message after the goto to its well.)
+	// message after the goto to its well, the training after a flight at the flight's landing.)
 	let mut left = false;
 	let mut moved_to: Option<WPt> = None;
 	for (i, g) in goals.iter().enumerate() {
@@ -978,7 +978,7 @@ pub fn stops(goals: &[WalkGoal]) -> Vec<(WPt, Vec<usize>)> {
 			let away = matches!(g.t.as_str(), "fly" | "hearth") || g.w.is_some_and(|w| last.is_none_or(|l| dist(l, w) > SAME_PLACE_YD));
 			if away {
 				left = true;
-				moved_to = g.w;
+				moved_to = if g.t == "fly" { g.land.or(g.w) } else { g.w };
 			}
 			continue;
 		}
@@ -1011,6 +1011,10 @@ pub fn stops(goals: &[WalkGoal]) -> Vec<(WPt, Vec<usize>)> {
 /// straight back to the first, where nothing it does needed the trip: no quest of the return stop was
 /// taken, worked or handed in at the other place, opened by a hand-in there, out of level at the first
 /// stop, or a training a level later. One stop could do both (train, Regthar, back to train, Regthar).
+/// A trip that flies out and flies back comes back to the town it left, not only to the spot: the
+/// return stop counts within [`TRIP_YD`] of the first (Orgrimmar off the zeppelin, the flight to the
+/// Crossroads for Korran, the flight back to train at Orgrimmar's flight master at the same level,
+/// c19p Horde 30-40/03-arathi-highlands:427).
 pub fn dup_trips(goals: &[WalkGoal], facts: &Facts) -> Vec<Violation> {
 	dup_trips_at(goals, facts).into_iter().map(|f| f.v).collect()
 }
@@ -1020,12 +1024,14 @@ pub fn dup_trips(goals: &[WalkGoal], facts: &Facts) -> Vec<Violation> {
 pub fn dup_trips_at(goals: &[WalkGoal], facts: &Facts) -> Vec<FlowAt> {
 	let st = stops(goals);
 	let mut out = Vec::new();
+	let flies = |r: &[WalkGoal]| r.iter().any(|g| g.t == "fly");
 	for w in st.windows(3) {
 		let ((a, ga), (b, gb), (a2, g2)) = (&w[0], &w[1], &w[2]);
-		if dist(*a, *a2) > SAME_PLACE_YD || dist(*a, *b) <= TRIP_YD {
+		let (a_end, b_first, b_last) = (*ga.last().unwrap(), gb[0], *gb.last().unwrap());
+		let back_at = dist(*a, *a2) <= SAME_PLACE_YD || (dist(*a, *a2) <= TRIP_YD && flies(&goals[a_end + 1..b_first]) && flies(&goals[b_last + 1..g2[0]]));
+		if !back_at || dist(*a, *b) <= TRIP_YD {
 			continue;
 		}
-		let (a_end, b_first, b_last) = (*ga.last().unwrap(), gb[0], *gb.last().unwrap());
 		let lvl_a = goals[a_end].lvl_after;
 		let between = &goals[a_end + 1..g2[0]];
 		let in_b = |q: i64| gb.iter().any(|&i| goals[i].q == Some(q));

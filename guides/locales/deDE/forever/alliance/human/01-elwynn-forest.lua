@@ -66,8 +66,6 @@ return {
 
 	-- Step 9: Deputy Willem
 	["She stands by her cart at the vineyard east of the Abbey."] = "Sie steht bei ihrem Karren am Weinberg östlich der Abtei.",
-	-- {npc:459} Drusilla La Salle
-	["{npc:459}: Summon Imp"] = "",
 
 	-- Step 10: The vineyards and Garrick Padfoot
 	-- {npc:103} Garrick Padfoot
@@ -128,7 +126,8 @@ return {
 	["The lake shore"] = "Das Seeufer",
 	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake
 	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399} lagert nordöstlich des Gasthauses; {npc:6306}, {npc:383} und {npc:1651} stehen am Ufer von {area:18} östlich des Ortes.",
-	["Sit (/sit) by his campfire until you have Boosted Rest"] = "",
+	-- {spell:1229451} Boosted Rest
+	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "",
 
@@ -379,7 +378,6 @@ return {
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Zurück zu {npc:6122}. Benutze {item:6928} am Beschwörungskreis im Keller von {object:2164} und besiege den Leerwandler, den er ruft.",
 	["Subdue the voidwalker"] = "Bezwinge den Leerwandler",
-	["Summon Voidwalker"] = "",
 
 	-- Step 83: Back to Elwynn Forest
 	-- {area:12} Elwynn Forest
@@ -408,9 +406,8 @@ return {
 	["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: Zähme ihn mit {item:15908}",
 	-- {npc:822} Young Forest Bear
 	["Tame {npc:822}"] = "Zähme {npc:822}",
-	["Tame Beast"] = "",
-	-- {npc:258930} Isaac Chan
-	["{npc:258930}, beside her: Beast Training"] = "",
+	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
+	["{npc:258930}, beside her: {spell:5149}"] = "",
 
 	-- Step 88: Maybell Maclure
 	-- {area:64} Maclure Vineyards

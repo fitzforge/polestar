@@ -700,14 +700,15 @@ the checkout's `guides/` (it needs all ten trees and the checkout's seed, `forge
 - **A start folder two races share, once per race.** Orc and Troll get different Durotar routes
   (Dwarf and Gnome different Dun Morogh routes), so `orc-troll/01-durotar` ships as
   `orc/01-durotar` with `race Orc` from the Orc tree and `troll/01-durotar` with `race Troll` from
-  the Troll tree; the ids between those guides (`next`) follow. A goal the shared folder's header
-  left to the other race (`accept 3114 only Mage` in the Dwarf tree: Glyphic Memorandum is the
-  Gnome mages') gets that race named (`only Gnome,Mage`), from the quests' races in `--data`, so the
-  copy compiles under its own race; no line or step moves, so the baked legs still fit. The folder's
-  old ids go into `guides/retired.json`, so a saved tab on one opens the race's leveling guide.
-  Two copies rather than one guide with `only Orc` and `only Troll` steps: each copy is the start's
-  route exactly as written and baked, its legs keep their step numbers, and only that race's part
-  carries its legs.
+  the Troll tree; the ids between those guides (`next`) follow. What never shows to the copy's
+  race goes: a step or goal whose `only` names other races alone (`only Troll,Warrior` in the
+  Orc's Durotar), a goal for a quest the race cannot take, by the quests' races in `--data`
+  (`accept 3114 only Mage` in the Dwarf tree: Glyphic Memorandum is the Gnome mages'), and a step
+  left without goals. The baked legs move with the steps: a copy's leg between the same two places
+  as one of the written guide's takes it, under the copy's hash. The folder's old ids go into
+  `guides/retired.json`, so a saved tab on one opens the race's leveling guide. Two copies rather
+  than one guide with `only Orc` and `only Troll` steps: each copy is the start's route exactly as
+  written and baked, and only that race's part carries its legs.
 - **One `legs.json`**, per published guide id: the shared route's legs once (they must agree
   between the starts), each start guide's from its start. The compiler writes them into the race
   parts (docs/PACK_FORMAT.md, "Format 7"): each race part holds its own start guides' legs and its

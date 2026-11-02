@@ -25,8 +25,8 @@ return {
 	["Listen to {npc:257554}"] = "{npc:257554}의 말을 들으세요",
 
 	-- Step 4: Rorian the Dayseeker
-	-- {npc:251361} Rorian the Dayseeker
-	["Jump off the top of the watchtower and use Walk on Air to float down to {npc:251361}, west of the tower."] = "",
+	-- {spell:1259416} Walk on Air · {npc:251361} Rorian the Dayseeker
+	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "",
 	-- {npc:251361} Rorian the Dayseeker · {item:4100} Crumpled Note
 	["{npc:251361}: the {item:4100}"] = "{npc:251361}: {item:4100}",
 	-- {npc:251964} Blademaster Ren
@@ -56,11 +56,11 @@ return {
 	["{area:16622} turn-ins"] = "{area:16622} 퀘스트 제출",
 
 	-- Step 7: Yala Windwatcher
-	-- {npc:249363} Yala Windwatcher · {npc:251143} Roiling Winds · {object:460002} Ley Line (no name in this language: may be words)
+	-- {npc:249363} Yala Windwatcher · {npc:251143} Roiling Winds · {object:460002} Ley Line (no name in this language: may be words) · {spell:1259705} Read Leyline
 	-- plural, as words: Al'Aketh Converts = {npc:251160} Al'Aketh Convert
-	["{npc:249363} keeps watch east of the grove. The {npc:251143} and Al'Aketh Converts gather just north of her; the {object:460002} rises further north: cast your Read Leyline racial ability at it."] = "",
-	-- {object:460002} Ley Line (no name in this language: may be words)
-	["Cast Read Leyline at the {object:460002}"] = "",
+	["{npc:249363} keeps watch east of the grove. The {npc:251143} and Al'Aketh Converts gather just north of her; the {object:460002} rises further north: cast your {spell:1259705} racial ability at it."] = "",
+	-- {spell:1259705} Read Leyline · {object:460002} Ley Line (no name in this language: may be words)
+	["Cast {spell:1259705} at the {object:460002}"] = "",
 
 	-- Step 9: Thendal Grove turn-ins
 	["Level 4 spells"] = "4레벨 주문",
@@ -89,8 +89,8 @@ return {
 	["{npc:257532} on the way"] = "",
 
 	-- Step 15: Raan Wildwind
-	-- {npc:263664} Raan Wildwind
-	["/sit by {npc:263664}'s campfire until you get Boosted Rest"] = "",
+	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
+	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "",
 	-- {npc:251905} Zerril Softbreeze
 	["{npc:251905}: Camping 101 asks you to learn it"] = "",
 
@@ -146,8 +146,8 @@ return {
 	["{item:2450} in {zone:1455}; {area:16624} has no warlock trainer"] = "",
 
 	-- Step 29: Falaath Village
-	-- {npc:257065} Missionary Jasaan · {quest:92529} Falaath Village
-	["{npc:257065} waits at the entrance to {quest:92529}, south of Shen'dar. The Mark of Akir lets you walk in among the faithful."] = "",
+	-- {npc:257065} Missionary Jasaan · {quest:92529} Falaath Village · {spell:1254832} Mark of Akir
+	["{npc:257065} waits at the entrance to {quest:92529}, south of Shen'dar. The {spell:1254832} lets you walk in among the faithful."] = "",
 	["Search the wardrobe"] = "옷장을 뒤지세요",
 
 	-- Step 30: Vulgara the Insatiable
@@ -208,73 +208,76 @@ return {
 	-- {npc:257006} Nyalah Brightfire
 	["{npc:257006}, inside"] = "",
 
-	-- Step 43: Aamelia Windfield
-	-- {npc:252800} Aamelia Windfield
-	["{npc:252800} runs the farm in the south-west lowlands."] = "{npc:252800}은(는) 남서쪽 저지대의 농장을 운영합니다.",
-	-- {npc:252800} Aamelia Windfield
-	["Talk to {npc:252800}"] = "",
-
-	-- Step 44: Gustberry Lowlands: kill these as you meet them
-	-- {area:16626} Gustberry Lowlands
-	["{area:16626}: kill these as you meet them"] = "",
-	-- {quest:92683} Flutterfly Dust · {npc:250929} Malfunctioning Cyclone Construct
-	-- plural, as words: Ripe Stormapples = {item:253591} Ripe Stormapple · Hungry Bandits = {npc:252802} Hungry Bandit · Ornery Galestriders = {npc:251707} Ornery Galestrider
-	["Ripe Stormapples and Hungry Bandits are in the orchard by the farm, {quest:92683} in the fields north-east of it, Ornery Galestriders all around. The {npc:250929} stands in the field north-east of the farm."] = "잘 익은 폭풍사과와 굶주린 좀도둑은 농장 옆 과수원에, {quest:92683}은(는) 농장 북동쪽 들판에 있고, 심술궂은 돌풍타조는 사방에 있습니다. {npc:250929}은(는) 농장 북동쪽 들판에 서 있습니다.",
-
-	-- Step 45: Aamelia Windfield again
-	-- {npc:252800} Aamelia Windfield
-	["{npc:252800} again"] = "다시 {npc:252800}",
-
-	-- Step 46: Bandit Highwaymen
-	["Bandit Highwaymen"] = "산적 노상강도",
-	["The Bandit Highwaymen hold the hills north of the farm."] = "산적 노상강도는 농장 북쪽 언덕을 점거하고 있습니다.",
-
-	-- Step 47: Standing our ground
-	["Standing our ground"] = "자리를 지키며",
-	-- {npc:252800} Aamelia Windfield
-	["Tell {npc:252800} you're ready"] = "",
-
-	-- Step 48: The missing scholar
+	-- Step 43: The missing scholar
 	["The missing scholar"] = "사라진 학자",
 	-- {object:581822} Bloodstained Satchel · {area:16638} Valanaar
 	["The {object:581822} lies by the path west of {area:16638}."] = "",
 	-- {object:581822} Bloodstained Satchel
 	["The {object:581822}"] = "{object:581822}",
 
-	-- Step 49: Gustberry Lowlands
+	-- Step 44: Gustberry Lowlands
 	-- {npc:254588} Windsong Crawler · {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
 	["{npc:254588}, among the crabs: tame one with {npc:252389}'s first {item:15908} while you are there"] = "",
 	-- {npc:254588} Windsong Crawler
 	["Tame {npc:254588}"] = "",
 	["Underwater"] = "",
 
-	-- Step 50: The missing scholar
+	-- Step 45: The missing scholar
 	-- plural, as words: Shriekling Matriarchs = {npc:253283} Shriekling Matriarch
 	["Fillion's camp is north-west of it, and the Shriekling Matriarchs nest just west of the camp."] = "",
 	-- {item:257107} Shriekling Matriarch's Head
 	["{item:257107}; below ground"] = "",
 
-	-- Step 53: Valanaar turn-ins
+	-- Step 46: Aamelia Windfield
+	-- {npc:252800} Aamelia Windfield
+	["{npc:252800} runs the farm in the south-west lowlands."] = "{npc:252800}은(는) 남서쪽 저지대의 농장을 운영합니다.",
+	-- {npc:252800} Aamelia Windfield
+	["Talk to {npc:252800}"] = "",
+
+	-- Step 47: Gustberry Lowlands: kill these as you meet them
+	-- {area:16626} Gustberry Lowlands
+	["{area:16626}: kill these as you meet them"] = "",
+	-- {quest:92683} Flutterfly Dust · {npc:250929} Malfunctioning Cyclone Construct
+	-- plural, as words: Ripe Stormapples = {item:253591} Ripe Stormapple · Hungry Bandits = {npc:252802} Hungry Bandit · Ornery Galestriders = {npc:251707} Ornery Galestrider
+	["Ripe Stormapples and Hungry Bandits are in the orchard by the farm, {quest:92683} in the fields north-east of it, Ornery Galestriders all around. The {npc:250929} stands in the field north-east of the farm."] = "잘 익은 폭풍사과와 굶주린 좀도둑은 농장 옆 과수원에, {quest:92683}은(는) 농장 북동쪽 들판에 있고, 심술궂은 돌풍타조는 사방에 있습니다. {npc:250929}은(는) 농장 북동쪽 들판에 서 있습니다.",
+
+	-- Step 48: Aamelia Windfield again
+	-- {npc:252800} Aamelia Windfield
+	["{npc:252800} again"] = "다시 {npc:252800}",
+
+	-- Step 49: Bandit Highwaymen
+	["Bandit Highwaymen"] = "산적 노상강도",
+	["The Bandit Highwaymen hold the hills north of the farm."] = "산적 노상강도는 농장 북쪽 언덕을 점거하고 있습니다.",
+
+	-- Step 50: Standing our ground
+	["Standing our ground"] = "자리를 지키며",
+	-- {npc:252800} Aamelia Windfield
+	["Tell {npc:252800} you're ready"] = "",
+
+	-- Step 51: Hearth to Valanaar
+	-- {area:16638} Valanaar
+	["Hearth to {area:16638}"] = "",
+
+	-- Step 52: Valanaar turn-ins
 	-- {area:16638} Valanaar
 	["{area:16638} turn-ins"] = "{area:16638} 퀘스트 제출",
+
+	-- Step 54: Valanaar turn-ins
 	-- {npc:252373} Anathamaas Aetherwind
 	["{npc:252373}, the mage trainer"] = "마법사 상급자 {npc:252373}",
 
-	-- Step 54: Taming the Beast
-	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale
+	-- Step 55: Taming the Beast
+	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches Beast Training."] = "",
+	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "{item:15908}(으)로 길들이세요",
 	-- {npc:251707} Ornery Galestrider
 	["Tame {npc:251707}"] = "",
 	-- {npc:250874} Vuldren Alpha
 	["Tame {npc:250874}"] = "",
-	["Tame Beast"] = "",
-	-- {npc:254411} Quel'dora Quickgale
-	["{npc:254411}: Beast Training"] = "",
 
-	-- Step 55: The Windstone Formations
+	-- Step 56: The Windstone Formations
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
 	["The Windstone Formations"] = "Windstone Formation",
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
@@ -282,22 +285,22 @@ return {
 	-- {item:262668} Wind-Infused Bough
 	["{item:262668}: by the formations"] = "",
 
-	-- Step 57: Lotheluum Starbreeze
+	-- Step 58: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze
 	["{npc:252359}, the druid trainer, stands between the west gate and Valennia's house."] = "",
 	-- {npc:252359} Lotheluum Starbreeze · {quest:94006} The Great Ursera Spirit
 	["{npc:252359}: {quest:94006} (level 10)"] = "",
 
-	-- Step 58: The eastern watchtower
+	-- Step 59: The eastern watchtower
 	["The eastern watchtower"] = "동쪽 감시탑",
 	-- {npc:252378} Yorana Windyreed · {area:16638} Valanaar · {npc:252666} Commander Belguilos
 	["{npc:252378} holds the watchtower north of {area:16638}. The Al'Aketh camp is just west of the tower, its healers around 65,68 and 65,65; {npc:252666} stands at its north end. The Al'Aketh there drop Windstone Charms."] = "{npc:252378}은(는) {area:16638} 북쪽 감시탑을 지킵니다. 알아케스 야영지는 탑 바로 서쪽에 있으며, 치유사들은 65,68과 65,65 근처에 있고 {npc:252666}은(는) 야영지 북쪽 끝에 서 있습니다. 그곳의 알아케스는 알아케스 바람석 부적을 떨어뜨립니다.",
 
-	-- Step 60: Urs'endris
+	-- Step 61: Urs'endris
 	-- {npc:255853} Urs'endris · {area:16638} Valanaar · {npc:258443} Ur'endra · {area:16623} Shen'dar Highlands
 	["{npc:255853} waits by the falls north-east of {area:16638}. {npc:258443} prowls the {area:16623} west of {area:16638}, by the road you take next."] = "{npc:255853}은(는) {area:16638} 북동쪽 폭포 옆에서 기다립니다. {npc:258443}은(는) {area:16638} 서쪽 {area:16623}, 다음에 갈 길가를 배회합니다.",
 
-	-- Step 61: The dead cultist
+	-- Step 62: The dead cultist
 	["The dead cultist"] = "죽은 광신도",
 	-- {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
 	["North-west of Valanaar along the road: {npc:273017} watches the {quest:98512}; the dead cultist lies just north of him."] = "발라나르 북서쪽 길가: {npc:273017}이(가) {quest:98512}을(를) 감시하고 있고, 죽은 광신도는 그 바로 북쪽에 쓰러져 있습니다.",
@@ -306,40 +309,76 @@ return {
 	-- {npc:258443} Ur'endra
 	["{npc:258443}, in the highlands south-west of the cultist"] = "광신도 남서쪽 고원의 {npc:258443}",
 
-	-- Step 62: Desperate times
+	-- Step 63: Desperate times
 	["Desperate times"] = "절박한 시기",
 	["Upstairs"] = "",
 	-- {npc:251968} Ayessa Dawnsinger · {npc:252475} Elaadrin Evengale
 	["Rally Valennia, {npc:251968} (west of town) and {npc:252475}"] = "발레니아, {npc:251968}(마을 서쪽), {npc:252475}을(를) 모으세요",
 
-	-- Step 64: Paladin trainer
+	-- Step 65: Paladin trainer
 	-- {npc:5148} Beldruk Doombrow · {zone:1455} Ironforge · {area:16638} Valanaar
 	["{npc:5148} in {zone:1455}; {area:16638} has no paladin trainer"] = "",
 
-	-- Step 65: Priest trainer
+	-- Step 66: Priest trainer
 	-- {npc:5141} Theodrus Frostbeard · {zone:1455} Ironforge · {area:16638} Valanaar
 	["{npc:5141} in {zone:1455}; {area:16638} has no priest trainer"] = "",
 
-	-- Step 66: Shaman trainer
+	-- Step 67: Shaman trainer
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {area:16638} Valanaar
 	["{npc:258098} in {zone:1455}; {area:16638} has no shaman trainer"] = "",
 
-	-- Step 67: Warlock trainer
+	-- Step 68: Warlock trainer
 	-- {item:2450} Briarthorn · {zone:1455} Ironforge · {area:16638} Valanaar
 	["{item:2450} in {zone:1455}; {area:16638} has no warlock trainer"] = "",
 
-	-- Step 68: Desperate times
+	-- Step 69: Desperate times
 	-- {npc:253844} Valennia Stormfist
 	["Meet {npc:253844} at the gate"] = "",
-	-- {npc:255853} Urs'endris · {area:16638} Valanaar
-	["{npc:255853}, by the falls north-east of {area:16638}, on the way north: Bear Form"] = "",
+	-- {npc:255853} Urs'endris · {area:16638} Valanaar · {spell:5487} Bear Form
+	["{npc:255853}, by the falls north-east of {area:16638}, on the way north: {spell:5487}"] = "",
 
-	-- Step 69: Shadowgale Forest
+	-- Step 70: Elegael Thornpaw
+	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
+	["Head north into {area:16631}. {npc:257944} camps in its east."] = "북쪽 {area:16631}(으)로 가세요. {npc:257944}은(는) 그 동쪽에 야영합니다.",
+
+	-- Step 71: Shadowgale Forest: kill these as you meet them
+	-- {area:16631} Shadowgale Forest
+	["{area:16631}: kill these as you meet them"] = "",
 	-- {npc:257944} Elegael Thornpaw · {item:265105} Lady's Tear Moss
 	-- plural, as words: Al'Aketh Stormchasers = {npc:252664} Al'Aketh Stormchaser
 	["Al'Aketh Stormchasers and Footsoldiers camp just north of {npc:257944} and drop the heirloom; the Shrieklings west of her drop the feathers and talons; the {item:265105} grows along the stream west of her."] = "알아케스 폭풍추격자와 알아케스 보병이 {npc:257944} 바로 북쪽에 야영하며 가보를 떨어뜨립니다. 그녀 서쪽의 괴성조는 깃털과 갈퀴발톱을 떨어뜨리고, {item:265105}은(는) 그녀 서쪽 개울을 따라 자랍니다.",
 
-	-- Step 70: The Shrine of Akir
+	-- Step 72: Elegael Thornpaw again
+	-- {npc:257944} Elegael Thornpaw
+	["{npc:257944} again"] = "다시 {npc:257944}",
+
+	-- Step 73: Vayn Moongaze
+	-- {npc:254151} Vayn Moongaze · {npc:258130} Jorel Windsinger · {npc:258134} Naaleos Leafwhisper · {npc:257944} Elegael Thornpaw · {npc:253622} Commander Haalien · {quest:94490} Ripped Missive · {quest:94489} The Wounds of Betrayal
+	["{npc:254151}, {npc:258130} and {npc:258134} are north-east of {npc:257944}; {npc:253622} stands east of them. Haalien also drops a {quest:94490}. For {quest:94489}, enter the Nightfang Den, heal 7 injured druids and find {npc:258130}."] = "",
+	["Heal the injured druids in the Nightfang Den"] = "",
+	-- {npc:258130} Jorel Windsinger
+	["Find {npc:258130}"] = "",
+
+	-- Step 74: Elegael Thornpaw, the missive
+	-- {npc:257944} Elegael Thornpaw
+	["{npc:257944}, the missive"] = "{npc:257944}: 전갈",
+
+	-- Step 75: The Strange Hermit
+	-- {quest:93159} The Strange Hermit · {npc:257944} Elegael Thornpaw
+	-- plural, as words: Zephyrseed Cones = {object:613238} Zephyrseed Cone
+	["{quest:93159} lives west of {npc:257944}. The Zephyrseed Cones lie in the woods between his hut and {npc:257944}."] = "{quest:93159}은(는) {npc:257944} 서쪽에 삽니다. {object:613238}은(는) 그의 오두막과 {npc:257944} 사이 숲에 있습니다.",
+
+	-- Step 76: Ruins of Ban'aethal: kill these as you meet them
+	-- {area:16833} Ruins of Ban'aethal
+	["{area:16833}: kill these as you meet them"] = "",
+	-- {item:266433} Abandoned Belongings · {npc:259013} Resaan Nimbuswalker
+	-- plural, as words: Wind Hollows = {npc:251676} Wind Hollow
+	["North of the cones: the Wind Hollows drift around the refugees' camp, the {item:266433} lie between the tents, and {npc:259013} lies at its north end."] = "솔방울 북쪽: 바람의 유령이 피난민 야영지 주변을 떠돌고, {item:266433}은(는) 천막 사이에 있으며, {npc:259013}은(는) 야영지 북쪽 끝에 쓰러져 있습니다.",
+
+	-- Step 77: Back to the Hermit
+	["Back to the Hermit"] = "수상한 은둔자에게 돌아가기",
+
+	-- Step 78: The Shrine of Akir
 	-- {area:16629} Shrine of Akir
 	["The {area:16629}"] = "{area:16629}",
 	-- {area:16629} Shrine of Akir · {npc:253576} Hyusaa Quickbreeze · {npc:253590} Valennia Stormfist
@@ -348,44 +387,6 @@ return {
 	["{item:263993}: {npc:257196} holds it, west of the shrine's approach; defeat him for it on the way in"] = "",
 	-- {npc:253590} Valennia Stormfist
 	["{npc:253590}, in the sanctum; upstairs"] = "",
-
-	-- Step 71: Elegael Thornpaw
-	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
-	["Head north into {area:16631}. {npc:257944} camps in its east."] = "북쪽 {area:16631}(으)로 가세요. {npc:257944}은(는) 그 동쪽에 야영합니다.",
-
-	-- Step 72: Shadowgale Forest: kill these as you meet them
-	-- {area:16631} Shadowgale Forest
-	["{area:16631}: kill these as you meet them"] = "",
-
-	-- Step 73: Elegael Thornpaw again
-	-- {npc:257944} Elegael Thornpaw
-	["{npc:257944} again"] = "다시 {npc:257944}",
-
-	-- Step 74: Vayn Moongaze
-	-- {npc:254151} Vayn Moongaze · {npc:258130} Jorel Windsinger · {npc:258134} Naaleos Leafwhisper · {npc:257944} Elegael Thornpaw · {npc:253622} Commander Haalien · {quest:94490} Ripped Missive · {quest:94489} The Wounds of Betrayal
-	["{npc:254151}, {npc:258130} and {npc:258134} are north-east of {npc:257944}; {npc:253622} stands east of them. Haalien also drops a {quest:94490}. For {quest:94489}, enter the Nightfang Den, heal 7 injured druids and find {npc:258130}."] = "",
-	["Heal the injured druids in the Nightfang Den"] = "",
-	-- {npc:258130} Jorel Windsinger
-	["Find {npc:258130}"] = "",
-
-	-- Step 75: Elegael Thornpaw, the missive
-	-- {npc:257944} Elegael Thornpaw
-	["{npc:257944}, the missive"] = "{npc:257944}: 전갈",
-
-	-- Step 76: The Strange Hermit
-	-- {quest:93159} The Strange Hermit · {npc:257944} Elegael Thornpaw
-	-- plural, as words: Zephyrseed Cones = {object:613238} Zephyrseed Cone
-	["{quest:93159} lives west of {npc:257944}. The Zephyrseed Cones lie in the woods between his hut and {npc:257944}."] = "{quest:93159}은(는) {npc:257944} 서쪽에 삽니다. {object:613238}은(는) 그의 오두막과 {npc:257944} 사이 숲에 있습니다.",
-
-	-- Step 77: Ruins of Ban'aethal: kill these as you meet them
-	-- {area:16833} Ruins of Ban'aethal
-	["{area:16833}: kill these as you meet them"] = "",
-	-- {item:266433} Abandoned Belongings · {npc:259013} Resaan Nimbuswalker
-	-- plural, as words: Wind Hollows = {npc:251676} Wind Hollow
-	["North of the cones: the Wind Hollows drift around the refugees' camp, the {item:266433} lie between the tents, and {npc:259013} lies at its north end."] = "솔방울 북쪽: 바람의 유령이 피난민 야영지 주변을 떠돌고, {item:266433}은(는) 천막 사이에 있으며, {npc:259013}은(는) 야영지 북쪽 끝에 쓰러져 있습니다.",
-
-	-- Step 78: Back to the Hermit
-	["Back to the Hermit"] = "수상한 은둔자에게 돌아가기",
 
 	-- Step 79: Portal to Rohashi Spires
 	-- {area:16630} Rohashi Spires
@@ -402,10 +403,6 @@ return {
 	["{npc:252475} sends you on to {area:279}. Once you have trained, take the skycutter from the dock tower just south of {area:16638}: it lands by the Kirin Tor camp west of {area:279}, beside {npc:259084} and the Skyborne Portal."] = "",
 	-- {npc:252475} Elaadrin Evengale · {npc:259084} Denaaris Stargale
 	["{npc:252475}: {npc:259084} waits by the Skyborne portal"] = "{npc:252475}: {npc:259084}이(가) 스카이본 차원문 옆에서 기다립니다",
-
-	-- Step 83: Valanaar, the fate of Zephras
-	-- {npc:252377} Seena Skybreaker
-	["{npc:252377}: Defensive Stance"] = "",
 
 	-- Step 84: Leave Zephras Isle to Alterac Mountains
 	-- {zone:2521} Zephras Isle · {zone:1416} Alterac Mountains
@@ -432,8 +429,8 @@ return {
 	["For {npc:234} at {area:108}"] = "{area:108}의 {npc:234}용",
 
 	-- Step 88: Woo Ping
-	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
 
 	-- Step 89: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
@@ -444,8 +441,8 @@ return {
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
 
 	-- Step 92: Sheldras Moontree
-	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {quest:94914} Moonglade · {npc:11802} Dendrite Starblaze · {zone:1439} Darkshore
-	["{npc:5504}, {zone:1453}'s druid trainer, teaches you Teleport: {quest:94914}. {npc:11802}'s welcome waits for your Cat Form trip at the end of {zone:1439}."] = "",
+	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1439} Darkshore
+	["{npc:5504}, {zone:1453}'s druid trainer, teaches you {spell:18960}. {npc:11802}'s welcome waits for your {spell:499} trip at the end of {zone:1439}."] = "",
 
 	-- Step 94: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake

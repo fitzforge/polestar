@@ -1065,7 +1065,10 @@ impl<'a> Ctx<'a> {
 
 	/// v1 trains in the step of the route's next v1 line, or in a step before it that the
 	/// route writes with it (the Orgrimmar stop after Kargath). Not a training of a higher level's
-	/// ranks (behind a v1 `level` line above the stop's level).
+	/// ranks (behind a v1 `level` line above the stop's level). Not past an added quest's event away
+	/// from the stop: v1's training steps go with that next line, after the route has left (Korran at
+	/// the Crossroads between the Orgrimmar training and Regthar: the guide flew to the Crossroads,
+	/// back to Orgrimmar to train and to the Crossroads again, c19p 30-40/03-arathi-highlands:410).
 	fn v1_trains_next(&self, order: &[Order], i: usize) -> bool {
 		let races_ok = |list: Option<&str>| -> bool {
 			match Self::only_races(list) {
@@ -1073,8 +1076,16 @@ impl<'a> Ctx<'a> {
 				Some(rs) => self.for_all_r(Some(&rs.join(","))),
 			}
 		};
+		let at = self.w(order[i].pt);
 		for o in &order[i + 1..] {
-			let Some(key) = o.key else { continue };
+			let Some(key) = o.key else {
+				let away = matches!(o.t, OrderT::Accept | OrderT::Turnin | OrderT::Task)
+					&& matches!((at, self.w(o.pt)), (Some(a), Some(b)) if a.c != b.c || js_hypot(a.wx - b.wx, a.wy - b.wy) > CITY_TRAINER_YD);
+				if away {
+					return false;
+				}
+				continue;
+			};
 			let mut steps: Vec<usize> = self.orphan.get(&key).cloned().unwrap_or_default();
 			if let Some(&st) = self.step_of.get(&key) {
 				steps.push(st);
@@ -4582,6 +4593,19 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			}
 		}
 	}
+	// The route's level at each piece: the highest of its lines' and the pieces' before it (a line the
+	// route first used earlier, Kerlonian in Darkshore, does not take a later guide's level back).
+	let piece_lvl: Vec<Option<f64>> = pieces
+		.iter()
+		.scan(None, |top: &mut Option<f64>, p| {
+			if let PieceKind::Step { keys, .. } = &p.kind {
+				for &l in keys.iter().flat_map(|k| cx.key_lvl.get(k).into_iter().chain(cx.level_at.get(k))) {
+					*top = Some(top.map_or(l, |t: f64| t.max(l)));
+				}
+			}
+			Some(*top)
+		})
+		.collect();
 	let mut files: Vec<(String, String)> = Vec::new();
 	let mut moved_total = 0usize;
 	for gi in 0..ng {
@@ -4684,7 +4708,12 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				// Kharanos before it, c17.)
 				let handoff = cx.route_travel && !cx.guide_races[gi].is_empty() && pieces.get(j).is_some_and(|q| q.gi >= 0 && cx.guide_races[q.gi as usize].is_empty());
 				let into_next = j >= next_guide && i < next_guide && !handoff;
-				if j < lim && !into_next && pieces.get(j).is_some_and(|q| !is_orphan(q) && q.items.as_ref().is_some_and(|its| its.iter().any(&leg))) {
+				// (v1's training steps a route training stop pulled are at the stop, not at the next piece's
+				// place: the leg on leaves after them, the Druids' and Paladins' Thunder Bluff trip from the
+				// Orgrimmar stop included, not after the flight to the Crossroads for Korran, c19p Horde
+				// 30-40/03-arathi-highlands:410.)
+				let at_stop = (i..j).any(|k| matches!(pieces[k].kind, PieceKind::Orphan(os) if pulled.contains(&os) || (keep.contains(&os) && trains(os))));
+				if j < lim && !into_next && !at_stop && pieces.get(j).is_some_and(|q| !is_orphan(q) && q.items.as_ref().is_some_and(|its| its.iter().any(&leg))) {
 					if cx.route_travel {
 						wr.leg_done = Some(j);
 						wr.gap_decide(gi);
@@ -5203,33 +5232,30 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			})
 			.collect();
 		let title = |q: &u32| format!("{} ({q})", quest(*q).and_then(|r| r.title()).map_or_else(|| q.to_string(), str::to_string));
-		let hours = |h: &Option<crate::input::Hours>| h.as_ref().map_or("?".to_string(), |h| h.hours60.map_or("NaN".into(), |x| js_to_fixed(x, 1)));
-		let mut note = vec![
-			String::new(),
-			format!(
-				"# v1 improved: order from the simulator's search ({} {}, {} tries, seeded with v1's order;",
-				route.start.as_deref().unwrap_or(""),
-				route.faction.as_deref().unwrap_or(""),
-				route.tries.filter(|t| *t != 0.0 && !t.is_nan()).map_or("?".into(), js_to_string)
-			),
-			format!("# {} h -> {} h to 60 in the model), written by polestar apply-route.", hours(&route.v1), hours(&route.improved)),
-		];
+		let mut note = vec![String::new()];
+		note.extend(GENERATED_NOTE.iter().map(|l| l.to_string()));
 		if !add_q.is_empty() {
 			note.push(format!("# Added here: {}.", add_q.iter().map(title).collect::<Vec<_>>().join(", ")));
 		}
 		if !drop_here.is_empty() {
 			note.push(format!("# Left out: {}.", drop_here.iter().map(title).collect::<Vec<_>>().join(", ")));
 		}
-		if moved > 0 {
-			note.push(format!("# {moved} goals moved in from other guides of the chain."));
-		}
-		note.push("# The notes above describe v1's order; the steps below are the improved one.".into());
+		// (A blank line after it: the seed's notes above the first step are not read as its own.)
+		note.push(String::new());
 		let body = std::mem::take(&mut wr.g.body);
 		if cx.route_travel {
 			let ks: Vec<usize> = wr.g.v1_moves.iter().map(|m| m.0).chain(wr.g.waypoints.iter().map(|w| w.k)).collect();
 			wr.carry.extend(ks.into_iter().map(|k| (gi, k)));
 		}
-		wr.done.push((header.iter().cloned().chain(note).collect(), body));
+		// (The guide's levels are the route's where it begins and ends, not the seed's: a start's own
+		// part of a zone the shared route visits later reads its own levels, the Night Elves'
+		// Darkshore 12-14, not 16-21.)
+		// (A guide the cut gave nothing of the route's: the level it is played at.)
+		let range = cut[gi]..cut[gi + 1].max(cut[gi]);
+		let at = |i: usize| piece_lvl.get(i).copied().flatten();
+		let lv = if range.is_empty() { [cut[gi].checked_sub(1).and_then(at), None] } else { [range.clone().find_map(at), at(range.end - 1)] };
+		let lv = lv.into_iter().flatten();
+		wr.done.push((with_levels(header, route_levels(lv)).into_iter().chain(note).collect(), body));
 		moved_total += moved;
 	}
 	// (Each quest task's first work point on the route, and the quest's first, for the area steps.)
@@ -6144,6 +6170,40 @@ impl Writer<'_, '_> {
 					// The sim's own path: written as it is. (A path that starts on foot: the classes that
 					// walked off follow it from where they are.)
 					let walk_first = x.legs.as_ref().and_then(|l| l.first()).is_some_and(|l| !matches!(l.k.as_deref(), Some("fly") | Some("ride")));
+					// (A path that walks to a flight master and flies on, its end by where the flight lands: the
+					// classes flown off on a trip of their own fly on there from their flight master, not back
+					// to where everyone's path leaves first, and everyone's path is the others': the Druids' and
+					// Paladins' Thunder Bluff training from the Orgrimmar stop, then on to the Crossroads, not
+					// back to Orgrimmar for everyone's flight there, c19p Horde 30-40/03-arathi-highlands:424.)
+					let fly_on: Vec<String> = {
+						let ls = x.legs.as_ref().unwrap();
+						let last_fly = ls.iter().rposition(|l| l.k.as_deref() == Some("fly"));
+						let land_fm = last_fly.and_then(|k| ls[k].to).map(|b| b as usize).filter(|&b| b < cx.world.nodes.len());
+						let only_walk_fly = ls.iter().all(|l| l.k.as_deref() != Some("ride"));
+						// (Its end by where the flight lands: that flight master is the known one nearest it,
+						// the Crossroads' for Regthar at the Forgotten Pools.)
+						let ends_there = land_fm.is_some() && cx.fp_near_known(x.to, &self.known) == land_fm;
+						let flown = !self.away.is_empty()
+							&& self.away.iter().all(|a| a.1.as_deref().and_then(|t| cx.fp_by_name(t)).and_then(|f| cx.w(cx.world.nodes[f].pt)).zip(cx.w(x.to)).is_some_and(|(f, t)| f.c == t.c));
+						if walk_first && only_walk_fly && ends_there && flown && self.back_only.is_none() && self.trained_away.is_empty() {
+							self.away.iter().flat_map(|a| a.0.split(',').map(|c| trim(c).to_string())).collect()
+						} else {
+							Vec::new()
+						}
+					};
+					// (Everyone else's path: `only` their classes, as a class's own way is written; in a shared
+					// guide, of the route's races, `only Orc,Warrior,...`.)
+					let saved_only = (!fly_on.is_empty()).then(|| {
+						self.come_back(x.to);
+						let mut list: Vec<String> = self
+							.g
+							.item_only
+							.first()
+							.map(|l| trim(&re!(r"^\s+only\s+").replace(l, "")).split(',').map(|x| trim(x).to_string()).filter(|x| !CLASSES.contains(&x.as_str())).collect())
+							.unwrap_or_default();
+						list.extend(CLASSES.iter().filter(|c| !fly_on.iter().any(|f| f == *c)).map(|c| c.to_string()));
+						std::mem::replace(&mut self.g.item_only, vec![format!("  only {}", list.join(","))])
+					});
 					self.rejoin(x.from, walk_first);
 					// (Unless v1's flight just written lands there: Vesprystus' quest flight, #402. Nor at a
 					// guide's start when the guide before ends where the leg goes: the Skyborne isle's own walk
@@ -6166,6 +6226,9 @@ impl Writer<'_, '_> {
 					let ended_there =
 						!started && self.done.last().and_then(|d| self.last_place(&d.1)).zip(cx.w(x.to)).is_some_and(|(p, b)| p.c == b.c && js_hypot(p.wx - b.wx, p.wy - b.wy) <= ZONE_STEP_YD);
 					if ended_there || cx.w(x.to).is_some_and(|b| self.v1_flew_to(b)) {
+						if let Some(s) = saved_only {
+							self.g.item_only = s;
+						}
 						self.pos = x.to;
 						continue;
 					}
@@ -6438,6 +6501,9 @@ impl Writer<'_, '_> {
 						if at != x.to && a.c == b.c && (a.map != b.map || js_hypot(a.wx - b.wx, a.wy - b.wy) > ZONE_STEP_YD) {
 							self.walk_goto(at, x.to, &cx.zone_name(Some(b.map)).unwrap_or_else(|| "Onward".into()), true);
 						}
+					}
+					if let Some(s) = saved_only {
+						self.g.item_only = s;
 					}
 					self.pos = x.to;
 				}
@@ -7151,7 +7217,7 @@ impl Writer<'_, '_> {
 	/// The `only` line keeping the classes trained away (train_away) off the route's way to its training
 	/// stop: they wait in their city.
 	fn not_trained_away(&self) -> Option<String> {
-		(!self.trained_away.is_empty()).then(|| format!("  only {}", self.trained_away.iter().map(|c| format!("!{c}")).collect::<Vec<_>>().join(",")))
+		(!self.trained_away.is_empty()).then(|| format!("  only {}", other_classes(&self.trained_away)))
 	}
 
 	/// Before the route's training stop in zone `z` (its `lines`): the classes away in another city with
@@ -9489,6 +9555,81 @@ fn early_accepts(cx: &Ctx, texts: &mut [String], order: &[Order]) -> Vec<(usize,
 	moved_all
 }
 
+/// What a written guide says about itself, under its header.
+pub(crate) const GENERATED_NOTE: [&str; 3] = [
+	"# Forge's route search orders the quests of this guide and its guide writer writes the steps.",
+	"# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never",
+	"# into this file.",
+];
+
+/// A written guide without the seed's notes above its first step: they describe how the hand-made
+/// guide was put together, not the written one. The writer's note ([`GENERATED_NOTE`] and the lines
+/// after it) and section rules (`# ---- The Crossroads`) stay. Run on the finished guide: a pass
+/// that empties the first step leaves the notes above the next one.
+pub(crate) fn without_seed_notes(text: &str) -> String {
+	let mut before = true;
+	// (After the writer's note: its `Added here` line, then its `Left out` line, each once.)
+	let mut after_note: Option<u8> = None;
+	let mut out: Vec<&str> = Vec::new();
+	for l in text.split('\n') {
+		before &= !l.starts_with("step");
+		if before && l.starts_with('#') {
+			let ours = if GENERATED_NOTE.contains(&l) {
+				after_note = (l == GENERATED_NOTE[2]).then_some(0);
+				true
+			} else if after_note == Some(0) && l.starts_with("# Added here: ") {
+				after_note = Some(1);
+				true
+			} else if after_note.is_some_and(|a| a <= 1) && l.starts_with("# Left out: ") {
+				after_note = Some(2);
+				true
+			} else {
+				after_note = None;
+				false
+			};
+			if !ours && !l.starts_with("# --") {
+				continue;
+			}
+		} else {
+			after_note = None;
+		}
+		out.push(l);
+	}
+	out.join("\n")
+}
+
+/// An `only` list for every class but `away`: `!Rogue` for one; for several the classes that stay, as
+/// negated classes in a list admit a character that is not one of them, every class (#775).
+fn other_classes(away: &[String]) -> String {
+	if let [one] = away {
+		return format!("!{one}");
+	}
+	CLASSES.iter().filter(|c| !away.iter().any(|a| a == *c)).copied().collect::<Vec<_>>().join(",")
+}
+
+/// A guide's levels from the route's levels where it begins and ends: each rounded, so a guide
+/// begins at the level the one before it ends at (the Barrens from 12.0 to 15.7: 12-16). None
+/// without a level.
+fn route_levels(lv: impl IntoIterator<Item = f64>) -> Option<(u32, u32)> {
+	let (lo, hi) = lv.into_iter().filter(|l| l.is_finite() && *l >= 1.0).fold(None, |m: Option<(f64, f64)>, l| Some(m.map_or((l, l), |(a, b)| (a.min(l), b.max(l)))))?;
+	let lo = lo.round() as u32;
+	Some((lo, (hi.round() as u32).max(lo)))
+}
+
+/// `header` (the seed's keys, with its notes) as written: its keys alone, `levels` saying `levels`
+/// (the seed's without them).
+fn with_levels(header: &[String], levels: Option<(u32, u32)>) -> Vec<String> {
+	header
+		.iter()
+		.filter(|l| !l.starts_with('#'))
+		.skip_while(|l| l.trim().is_empty())
+		.map(|l| match levels {
+			Some((lo, hi)) if l.starts_with("levels ") => format!("levels {lo}-{hi}"),
+			_ => l.clone(),
+		})
+		.collect()
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
@@ -9695,5 +9836,45 @@ mod tests {
 		let tops: FxHashMap<String, TopUp> = [("12".to_string(), TopUp { min: 12.0, gate: false })].into_iter().collect();
 		let out = fold_topups([farm, top].concat(), &tops);
 		assert!(out.iter().any(|l| l.starts_with("  sethome \"Auberdine\"")), "{out:#?}");
+	}
+
+	#[test]
+	fn a_written_guides_header_reads_the_route_not_the_seed() {
+		// (The header's note is the writer's; the seed's notes above the first step go, also when the
+		// writer's note is followed by its own lines.)
+		let note = format!("{}\n{}\n{}\n# Left out: Three (3).", GENERATED_NOTE[0], GENERATED_NOTE[1], GENERATED_NOTE[2]);
+		let text = format!("guide g\nlevels 1-2\n\n{note}\n\n# Route: the consensus route, checked by hand.\n#\n# Left out: the export's Orgrimmar stop.\n# ---- The Crossroads\n\nstep Hub\n  accept 1\n# a note in a step");
+		assert_eq!(without_seed_notes(&text), format!("guide g\nlevels 1-2\n\n{note}\n\n# ---- The Crossroads\n\nstep Hub\n  accept 1\n# a note in a step"));
+		// (c19p Horde 40-50/03-feralas: the seed's notes right under the writer's.)
+		let close = format!("guide g\n\n{note}\n# Route from the consensus (Tauren export).\n# Left out: the export's hearth.\n\nstep Hub");
+		assert_eq!(without_seed_notes(&close), format!("guide g\n\n{note}\n\nstep Hub"));
+		// c19p NightElf: its own Darkshore part (11.6-13.8 on the route) said the shared Darkshore's
+		// `levels 16-21`, and the Orc's own Barrens stop (11.9-12.8) the shared Barrens' 11-17.
+		let head = v(&["guide forever/alliance/nightelf/02-darkshore", "title Darkshore", "levels 16-21", "zone Darkshore"]);
+		assert_eq!(with_levels(&head, route_levels([11.6, 12.4, 13.77]))[2], "levels 12-14");
+		assert_eq!(route_levels([11.92, 12.84]), Some((12, 13)));
+		// (The shared Barrens from 12.0 to 15.7; a grind's target counts; a whole level stays.)
+		assert_eq!(route_levels([12.02, 15.69]), Some((12, 16)));
+		assert_eq!(route_levels([20.0, 19.4, 21.0]), Some((19, 21)));
+		assert_eq!(route_levels([14.6, 14.7]), Some((15, 15)));
+		// (Troll's Durotar ends at 12.04, where the Barrens begin: 1-12, then 12-.)
+		assert_eq!(route_levels([1.0, 12.04]), Some((1, 12)));
+		// (No level on the route: the seed's header stays.)
+		assert_eq!(route_levels([]), None);
+		assert_eq!(with_levels(&head, None), head);
+		// (The seed's notes above its keys go too.)
+		let noted = [v(&["# Desolace: the consensus route's deviations.", "#", ""]), head.clone()].concat();
+		assert_eq!(with_levels(&noted, None), head);
+	}
+
+	#[test]
+	fn two_classes_trained_away_are_both_kept_off_the_way() {
+		// #775: `only !Rogue,!Shaman` admits every class (a Rogue is not a Shaman).
+		let two = other_classes(&v(&["Rogue", "Shaman"]));
+		assert_eq!(two, "Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid");
+		let a = Audience::parse(&two);
+		assert!(!a.class_in("Rogue") && !a.class_in("Shaman") && a.class_in("Warrior"));
+		assert_eq!(other_classes(&v(&["Rogue"])), "!Rogue");
+		assert!(!Audience::parse("!Rogue").class_in("Rogue"));
 	}
 }

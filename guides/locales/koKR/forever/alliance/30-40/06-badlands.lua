@@ -38,36 +38,30 @@ return {
 	["{item:5797} on the way"] = "",
 
 	-- Step 9: Agmond's End
-	-- {quest:739} Murdaloc
-	["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers."] = "",
+	["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "",
 
-	-- Step 10: Stonevault Bonesnapper on the way
-	-- {npc:2893} Stonevault Bonesnapper
-	["{npc:2893} on the way"] = "",
-
-	-- Step 11: Lotwil Veriatus
+	-- Step 10: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
 	["Head west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "",
 
-	-- Step 12: Agmond's End: kill these as you meet them
+	-- Step 11: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
 	["{area:345}: kill these as you meet them"] = "",
-	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
-	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
-	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe Lesser Rock Elementals wander the {area:1878} west of {npc:2921}."] = "",
+	-- {quest:739} Murdaloc · {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
+	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Dustbelcher Lords = {npc:2719} Dustbelcher Lord
+	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nThe Lesser Rock Elementals wander the {area:1878} west of {npc:2921}.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "",
 	-- {quest:739} Murdaloc · {area:3} Badlands
 	["The skeleton's next task, {quest:739}, waits until the later {area:3} guide at 43."] = "",
 
-	-- Step 14: Camp Kosh
-	-- {area:340} Kargath
-	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
-	["Careful: Dustbelcher Lords are level 44-45. They use Battle Shout and Demoralizing Shout, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "",
+	-- Step 12: Stonevault Bonesnapper on the way
+	-- {npc:2893} Stonevault Bonesnapper
+	["{npc:2893} on the way"] = "",
 
-	-- Step 15: Lucien Tosselwrench
+	-- Step 14: Lucien Tosselwrench
 	-- {npc:2921} Lotwil Veriatus
 	["{npc:2921}'s next test needs crafted gear: skip it."] = "{npc:2921}의 다음 실험에는 제작 장비가 필요하니 건너뛰십시오.",
 
-	-- Step 16: The Ancient Chest
+	-- Step 15: The Ancient Chest
 	-- {object:126260} Ancient Chest
 	["The {object:126260}"] = "{object:126260}",
 	-- {area:3} Badlands · {npc:2745} Ambassador Infernus
@@ -75,131 +69,102 @@ return {
 	-- {item:4631} Tablet of Ryun'eh
 	["{item:4631}; below ground"] = "",
 
-	-- Step 17: Theldurin the Lost
+	-- Step 16: Theldurin the Lost
 	-- {area:345} Agmond's End
 	["Head south to {area:345}."] = "",
 	-- {npc:2786} Gerrig Bonegrip · {zone:1455} Ironforge
 	["for {npc:2786} in {zone:1455}: keep it"] = "{zone:1455}의 {npc:2786}에게: 보관하십시오",
 
-	-- Step 18: Rock Elementals
+	-- Step 17: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
 	["Rock Elementals"] = "바위 정령",
 	-- {npc:2921} Lotwil Veriatus
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Giant Buzzards = {npc:2831} Giant Buzzard · Elder Crag Coyotes = {npc:2729} Elder Crag Coyote
 	["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west."] = "{npc:92}은(는) {npc:2921}의 남동쪽을 돌아다니고, {npc:2831}와(과) {npc:2729}은(는) 그 서쪽 평원에 함께 있습니다.",
 
-	-- Step 20: Lucien Tosselwrench
+	-- Step 19: Lucien Tosselwrench
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus
 	["{npc:2920}, beside {npc:2921}"] = "{npc:2920}, {npc:2921} 옆",
 	-- {item:2868} Patterned Bronze Bracers
 	["only if you carry {item:2868} (a blacksmith's craft)"] = "{item:2868}(대장기술 제작품)을 가지고 있을 때만",
 
-	-- Step 21: Hearth to Stoutlager Inn
+	-- Step 20: Hearth to Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["Hearth to {area:2101}"] = "",
 
-	-- Step 22: To Stoutlager Inn
+	-- Step 21: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["To {area:2101}"] = "",
 
-	-- Step 23: Thelsamar
+	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, in the inn; below ground"] = "",
 
-	-- Step 24: Fly to Menethil Harbor
+	-- Step 23: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 26: Theramore
+	-- Step 25: Theramore
 	["Theramore"] = "테라모어 섬",
-	-- {area:514} Foothold Citadel · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul · {quest:1260} Morgan Stern · {npc:4897} Helenia Olden
-	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel.\n{quest:1260} stands near the inn; {npc:4897}, a trade supplier a few steps south, sells the spices Jarl wants."] = "",
+	-- {area:514} Foothold Citadel · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul
+	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "",
 	-- {npc:5083} Clerk Lendry
 	["{npc:5083}, on the top floor"] = "",
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "",
 	["for the Dustwallow loop in the next guide"] = "다음 가이드의 먼지진흙 습지대 경로용",
-	-- {quest:1260} Morgan Stern
-	["{quest:1260}, inside"] = "",
-	-- {item:3713} Soothing Spices
-	["{item:3713}, for \"Swamp Eye\" Jarl"] = "",
 
-	-- Step 27: Sentry Point
-	-- {area:503} Sentry Point
-	-- plural, as words: Mudrock Burrowers = {npc:4398} Mudrock Burrower
-	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it."] = "",
-
-	-- Step 28: Theramore
-	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
-
-	-- Step 29: Archmage Tervosh
-	-- {area:514} Foothold Citadel
-	["Back in Theramore: Tervosh waits with Lady Jaina in the tower of {area:514}."] = "",
-	["Upstairs"] = "",
-
-	-- Step 31: Bibbly F'utzbuckle
+	-- Step 27: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
 	["Follow the road south to {area:2407}."] = "길을 따라 남쪽 {area:2407}(으)로 가십시오.",
 
-	-- Step 32: Kodo Graveyard
+	-- Step 28: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones · {npc:217590} Flesh Picker
 	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons. A {npc:217590} crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off."] = "{npc:6019}은(는) {area:2407} 남서쪽 {area:596} 가장자리에 있습니다. {object:176751}은(는) 해골들 사이에 있습니다. {npc:217590}이(가) 무덤 주변을 기어다니니 Entomology Starter Kit로 잡은 뒤 체크하십시오.",
 	-- {npc:217590} Flesh Picker
 	["{npc:217590}: catch it, for My Little Friends"] = "{npc:217590}: 잡으십시오, My Little Friends용",
 
-	-- Step 33: Maraudine centaurs
+	-- Step 29: Maraudine centaurs
 	["Maraudine centaurs"] = "마라우돈일족 켄타우로스",
 	-- {area:607} Valley of Spears
 	["The Maraudine centaurs hold the {area:607} west of the graveyard; every kind drops the totems."] = "마라우돈일족 켄타우로스가 무덤 서쪽 {area:607}을(를) 차지하고 있으며, 모든 종류가 토템을 떨어뜨립니다.",
 
-	-- Step 34: Melizza Brimbuzzle
+	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
 	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "{npc:12277}을(를) 무덤 쪽으로 호위",
 
-	-- Step 35: Mannoroc Coven
+	-- Step 31: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace
 	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Ley Hunters = {npc:4685} Ley Hunter · Nether Maidens = {npc:4679} Nether Maiden · Doomwarder Captains = {npc:4680} Doomwarder Captain
 	["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "",
 
-	-- Step 36: The Valley of Bones
+	-- Step 32: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
 	-- {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
 	["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven; at the far south-east, use the {item:15848} to draw the Magrami Spectres."] = "언데드 약탈자가 소굴 동쪽, 마그람 마을 남쪽의 뼈 들판을 돌아다닙니다. 남동쪽 끝에서 {item:15848}을(를) 사용해 마그람일족 유령을 불러내십시오.",
 
-	-- Step 39: Azore Aldamort
+	-- Step 35: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
 	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "길을 따라 {zone:1443} 북부를 가로질러 서쪽 {area:2405} 폐허로 가십시오. 난파선으로 가는 길에, 그곳 언덕 위에 {npc:11863}의 탑이 있습니다.",
 
-	-- Step 40: Karnitol's Chest
+	-- Step 36: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
 	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "난파선의 궤짝은 {npc:11863}의 탑 바로 서쪽 해안에 있습니다.",
 
-	-- Step 41: Claim Rackmore's Treasure!
+	-- Step 37: Claim Rackmore's Treasure!
 	["Underwater"] = "",
 
-	-- Step 42: Ranazjar Isle: kill these as you meet them
-	-- {area:2406} Ranazjar Isle
-	["{area:2406}: kill these as you meet them"] = "",
-	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort
-	["{npc:12369}, a centaur chieftain, camps on the north-west coast, north of {npc:11863}'s tower."] = "켄타우로스 족장 {npc:12369}은(는) {npc:11863}의 탑 북쪽, 북서 해안에 야영하고 있습니다.",
-
-	-- Step 45: Fly to Theramore
-	["Fly to Theramore"] = "테라모어 섬으로 비행",
+	-- Step 38: Hearth to Nijel's Point
 	-- {area:608} Nijel's Point
-	["{area:608} flight master"] = "",
+	["Hearth to {area:608}"] = "",
 
-	-- Step 47: Fly to Nijel's Point
-	-- {area:608} Nijel's Point
-	["Fly to {area:608}"] = "",
-
-	-- Step 48: Nijel's Point
+	-- Step 39: Nijel's Point
 	-- {area:608} Nijel's Point
 	["Follow the road north to {area:608}."] = "길을 따라 북쪽 {area:608}(으)로 가십시오.",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
@@ -207,9 +172,15 @@ return {
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
 	["for {npc:3980} in {area:271}: keep it"] = "{area:271}의 {npc:3980}에게: 보관하십시오",
 
-	-- Step 51: Hearth to Nijel's Point
-	-- {area:608} Nijel's Point
-	["Hearth to {area:608}"] = "",
+	-- Step 40: Sar'theris Strand: kill these as you meet them
+	-- {area:598} Sar'theris Strand
+	["{area:598}: kill these as you meet them"] = "",
+	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort
+	["{npc:12369}, a centaur chieftain, camps on the north-west coast, north of {npc:11863}'s tower."] = "켄타우로스 족장 {npc:12369}은(는) {npc:11863}의 탑 북쪽, 북서 해안에 야영하고 있습니다.",
+
+	-- Step 45: Fly to Theramore
+	["Fly to Theramore"] = "테라모어 섬으로 비행",
+	["The next guide starts in Theramore."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "길을 따라 {zone:1443} 북부를 가로질러 서쪽 {area:2405} 폐허로 가십시오. 난파선의 궤짝은 그 바로 서쪽 해안에 있습니다.",

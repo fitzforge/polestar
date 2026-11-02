@@ -2,135 +2,13 @@
 guide forever/alliance/02-westfall
 title Westfall
 faction Alliance
-levels 12-17
+levels 11-15
 zone Westfall
 next forever/alliance/03-darkshore
 
-# v1 improved: order from the simulator's search (Human Alliance, 2000000 tries, seeded with v1's order;
-# 125.7 h -> 117.5 h to 60 in the model), written by polestar apply-route.
-# Added here: A Fishy Peril (40).
-# The notes above describe v1's order; the steps below are the improved one.
-
-# Visit 2 of the simulator's consensus Alliance route (Human export,
-# 12.3 to 16.4; the 2026 refresh's consensus stays to 17.9): every start
-# guide walks in down the road from Elwynn, Westfall runs to about 17, then
-# Stormwind and the boat to Auberdine.
-#
-# Flow: the road in: the Jansen Stead -> Saldean's Farm -> Sentinel Hill
-# (hearth, flight path, every quest giver) -> one loop north: Molsen Farm,
-# the Gold Coast Quarry, Jangolode Mine, the north coast, the gnoll hills ->
-# the Jansen Stead -> Saldean's -> Sentinel Hill -> the western farms ->
-# Sentinel Hill -> Moonbrook and the Defias hills -> hearth -> Stormwind
-# (training, Fishin' Time at the harbor) -> boat.
-#
-# Deviations from the export:
-# - The walk in (#416): every race reaches Westfall on foot down the Elwynn
-#   road, past the Jansen Stead and Saldean's Farm, so their quests (36,
-#   151, 64; 9, 22, 92909, Westfall Stew handed in for 38) and Report to
-#   Gryan Stoutmantle (109: Deputy Rainer at the Westbrook Garrison for
-#   Humans, at the end of Elwynn; Farmer Furlbrow for the others) are taken
-#   on the way south, before Sentinel Hill. None of them needs the hill
-#   first. The Jansen Stead well sample (92742.1, Alba's quest from the
-#   hill) is filled on the return to the Jansen Stead after the north loop.
-# - Poor Old Blanchy's oats (151, #621): gathered on the return to the Jansen
-#   Stead, placed in its fields (56.8,19.1: 19 of the zone's 119 known Sacks
-#   of Oats lie within 150 yd, 32 within 250). On the first step, unplaced, the
-#   arrow searched every sack in the zone, down to Moonbrook, before
-#   Saldean's; players found the far ones empty.
-# - The simulator took Sentinel Hill's quests (102, 12, 153, 92742, 92744,
-#   92745) only on its second pass at 14.8 and then walked the north a
-#   second time; here they are taken on arrival and the north is one loop,
-#   except The State of the Mines (92745, Forever): Alba offers it only once
-#   Testing the Wells (92742) is handed in (#143; the quest data has no
-#   prerequisite for it). It is taken at the Sentinel Hill stop after the
-#   north loop, then Jangolode Mine's kobolds, the Gold Coast Quarry and the
-#   western farms, and handed in at the next stop, where Moonbrook
-#   Espionage (92747) follows. Measured with sim compare (hours to 20, Human
-#   / Dwarf / Night Elf / Skyborne, against the old impossible order): this
-#   way +0.03 / +0.03 / +0.03 / +0.03; handing the vials in from Molsen Farm
-#   in the middle of the loop instead +0.06 / +0.06 / +0.06 / +0.06.
-# - Harvesting the Harvesters (92910) starts from an item the Golems and
-#   Watchers drop: it is picked up on the farms rather than at Alexston.
-#   It is optional (#298): the Precessive Autocognition Assembly drops about
-#   once in 900 kills (Forever's quest data, item 255155: 161 of 187,474 Harvest
-#   Watchers, 54 of 46,307 Rusty Harvest Golems, checked 2026-10-17), so
-#   the farm step does not wait for it. The turn-in at Saldean's is plain:
-#   it holds only a player who took the quest.
-# - Left out: the second Harvesting the Harvesters (92911). Ozwin offers it
-#   only once 92910 is handed in (its text follows the assembly; #51, the
-#   quest data has no prerequisite for it), and the route does not come
-#   back to Saldean's after that; it also asks for Copper Modulators and a
-#   Crude Scope, Engineering parts.
-# - Left out: Continue to Stormwind (6281): the route accepts it but never
-#   turns it in. Of Mice and Milk (93928, re-checked on the 2026 refresh):
-#   the new route still accepts it and never turns it in; it ends at Hemet
-#   Nesingwary in Stranglethorn (30-40), pays 105 XP and the data has no
-#   source for the mouse's cookie.
-# - Refresh (new consensus, Westfall to 17.9), checked and left out after
-#   measuring each on its own (sim compare, Human / Night Elf, hours to 60
-#   with the quest vs without): Keeper of the Flame (103, +0.23 / +0.21: the
-#   flasks drop only once the quest is held, so the farms are walked
-#   again), The Coastal Menace (104, +0.02 / +0.04 for the walk to the
-#   lighthouse), Detonation at a Distance (92750, 92751, +0.04 / +0.02 for
-#   the Old Town walk). The Coast Isn't Clear (152) stays out: it needs the
-#   Coastrunners of the north coast after the lighthouse, a second crossing
-#   of the zone. Destruction in Deadmines (92753, 92819) stays out: the
-#   explosives go to the forge inside the Deadmines, a group dungeon (the
-#   simulator counts it as a walk).
-# - Refresh: Fishin' Time (95065, Forever's Stormwind fishing introduction,
-#   900 XP, for everyone; +0.04 / +0.05 h to 60, kept as a teaching quest)
-#   on the way to the boat: Catherine Leland sells the Shiny Bauble and
-#   Nightcrawlers, Gilbert Gray stands at the harbor. Human characters also
-#   hand in Shipment to Stormwind (61, from Elwynn) there.
-# - The Auberdine flight path and hearth the export lists at the end of this
-#   visit are taken on arrival in Darkshore (next guide).
-# - Sentinel Hill: Humans hand Thor the Quartermaster's letter (6181) after
-#   Gryan and Danuvin, who stand beside Lewis at the top of the tower, so
-#   the hill is walked down once. Every race finishes the tower before
-#   Thor's flight path and the inn at the foot of the hill (#727): taking
-#   the flight path first sent the route down and back up the tower.
-# - Gnoll Paws (102, #385): hand-placed in the north hills (44.7,14.6, the
-#   densest Riverpaw Gnoll and Scout spawns, level 11-13). Unplaced, the
-#   arrow searched every Gnoll Paw dropper's camp in the zone, down to the
-#   level 16-19 Bandits, Taskmasters and Mystics in the south. The north
-#   coast's murloc gills and eyes (92744, 38) are placed the same way, on
-#   the level 11-12 Coastrunners north of the mine (43.5,9.2), not the
-#   15-18 murlocs down the west coast.
-#
-# Optional: Furlbrow's Deed (184), only with the Westfall Deed from Elwynn's
-# Defias.
-#
-# Class quests: Human Warriors take the Defensive Stance quests (1638, 1639,
-# 1640, 1665) and Human Priests hand in Desperate Prayer and Divine Grace
-# (5635, 94774, from Goldshire) at the Stormwind stop; Human Paladins start
-# The Tome of Divinity there from Duthorian Rall (1641; Henze Faulk follows
-# on the road east in 04-redridge-mountains); the other races do
-# theirs in their start guides. Mages of every race hand in Mirror Lake
-# (1861, Ley Staff or Ley Orb) to Jennea Cannon at the Stormwind stop; their
-# start guides take it. Night Elf Druids may buy Earthroot from Maria Lumere
-# there for Cure Poison (6123, next guide). Train in Stormwind before the
-# boat; Stormwind has no shaman trainer, so Shamans take the Deeprun Tram to
-# Ironforge.
-#
-# Not taken: The Defias Brotherhood's later steps (132-155, 166: the
-# Stormwind trip for 135/141, the Deadmines), Captain Sander's treasure
-# (136-140, a rare map drop), Thunderbrew (117, no XP). Its first step (65)
-# is restored: taken at the last Sentinel Hill stop, turned in to Wiley the
-# Black on arrival in Lakeshire. 142 and 155 need 132-141 first (a trip back
-# from Redridge to Westfall and to Stormwind): skipped.
-#
-# Alba Fairmoon's chain runs on into Moonbrook Espionage (92747, crates in
-# Moonbrook, the next stop) and Explosive Consultation (92748, Sprite
-# Jumpsprocket at the Stormwind stop). A Dynamite Plan, which needs crafted
-# dynamite, is not taken; nor is Detonation at a Distance (92750, 92751,
-# see above) and its follow-up Explosive Consultation (92752), which only
-# leads back to Alba and the Deadmines.
-# Skyborne turn in Journey to Sentinel Hill (98021).
-# Alba Fairmoon's whole chain (92742, 92744, 92745, 92747, 92748, 92749,
-# 92750, 92751, 92752, 92753, 92819) is not for Humans on
-# Forever: Forever's quest data lists Dwarf, Night Elf, Gnome and Skyborne (#144).
-# Its goals carry `only Dwarf,Gnome,NightElf,Skyborne`; the two mine steps,
-# which are only for 92745, carry it on the step.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 
 # ---------------------------------------------------------------- The road in: the Jansen Stead and Saldean's
 
@@ -155,8 +33,8 @@ step The Jansen Stead
 step Saldean's Farm
   tip South along the road, past the fork. Farmer Saldean stands outside, Salma in the house, Ozwin Ironsprocket in the barn to the west. Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way.
   turnin 36                                   -- Salma Saldean, inside
-  accept 38
   accept 22
+  accept 38
   accept 9                                    -- Farmer Saldean
   accept 92909                                -- Ozwin Ironsprocket
 
@@ -169,10 +47,10 @@ step Goretusk Snout on the way
 step Sentinel Hill
   tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan on the south side of the hill, next to the inn and Thor the gryphon master.
   getfp "Sentinel Hill"
-  accept 6181 only Human                      -- Quartermaster Lewis, inside
   turnin 109 only Human
   accept 12
   accept 102                                  -- Captain Danuvin
+  accept 6181 only Human                      -- Quartermaster Lewis, inside
   turnin 6181 only Human                      -- Thor; skip the free flight it offers
   accept 153                                  -- Scout Galiaan
   accept 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon, beside Scout Galiaan
@@ -232,8 +110,8 @@ step Handful of Oats
   turnin 151                                  -- Verna Furlbrow
 
 step Saldean's Farm
-  turnin 22                                   -- Salma Saldean, inside
-  turnin 38
+  turnin 38                           -- Inside
+  turnin 22                                   -- Salma Saldean
 
 step Sentinel Hill
   turnin 12                                   -- Gryan Stoutmantle
@@ -290,15 +168,6 @@ step Back to Sentinel Hill
   turnin 92747 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon
   accept 92748 only Dwarf,Gnome,NightElf,Skyborne -- For Sprite Jumpsprocket in Stormwind's Dwarven District
   vendor nearest
-
-step Elwynn Forest
-  only Dwarf
-  zone Elwynn Forest
-  goto 42.1,67.3 "Elwynn Forest"
-
-step Remy "Two Times"
-  accept 40 only Dwarf
-  turnin 40 only Dwarf
 
 # ---------------------------------------------------------------- Stormwind and the boat
 

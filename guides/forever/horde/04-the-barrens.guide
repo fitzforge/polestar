@@ -2,16 +2,50 @@
 guide forever/horde/04-the-barrens
 title The Barrens
 faction Horde
-levels 19-24
+levels 19-23
 zone The Barrens
 next forever/horde/05-stonetalon-mountains
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
-# Added here: Deepmoss Spider Eggs (1069), Letter to Jin'Zil (1060).
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: Letter to Jin'Zil (1060).
 # Left out: The Harvester (897).
-# 3 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
+
+step Fly to Ratchet
+  zone Orgrimmar
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Ratchet"
+  zone The Barrens
+
+step Ratchet
+  when group 92706
+  accept 92706 optional               -- WANTED poster
+
+step Ratchet
+  zone The Barrens
+  accept 891                          -- Captain Thalo'thas Brightsun
+
+step Bruuz
+  when group 92706
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bruuz (level 20 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
+  collect 253710 quest 92706.1 optional @63.7,38.7 group 2
+
+step Intact Raptor Horn on the way
+  along until q865
+  when onquest 865
+  collect 5055 quest 865.1
+
+step Ratchet
+  when group 92706
+  turnin 92706 optional
+
+step Level 19.43
+  when !group 92706
+  when level<19.43
+  tip If you skipped WANTED: Bruuz, grind here to level 19.43 to stay on the route's plan.
+  goto 57.3,53.8 map 1413 "Sunscale Scytheclaw"
+  level 19.43                          -- grind on Sunscale Scytheclaw
 
 # Built from the simulator's consensus Horde route (Tauren export, the Barrens
 # visit at 19.6-23.4); not yet play-tested on Forever.
@@ -118,70 +152,62 @@ next forever/horde/05-stonetalon-mountains
 
 # ---------------------------------------------------------------- Ratchet
 
-step Fly to Ratchet
-  zone Orgrimmar
-  goto 45.3,63.7 "Orgrimmar flight master"
-  fly "Ratchet"
-  zone The Barrens
-
 step Ratchet
   zone The Barrens
   accept 1483                         -- Sputtervalve, beside the wind rider master. Keep it: Ziz Fizziks is in Stonetalon, later
-  accept 895                          -- WANTED poster
-
-step Ratchet
-  when group 92706
-  accept 92706 optional               -- WANTED poster
 
 step Ratchet
   zone The Barrens
-  accept 865                          -- Mebok Mizzyrix
-  accept 891                          -- Captain Thalo'thas Brightsun
-
-step Bruuz
-  when group 92706
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bruuz (level 20 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 253710 quest 92706.1 optional @63.7,38.7 group 2
-
-step Ratchet
-  when group 92706
-  turnin 92706 optional
-
-step Mebok Mizzyrix
-  accept 1069
-
-step Mebok Mizzyrix
   when onquest 819
   turnin 819                          -- Brewmaster Drohn
 
-step Mebok Mizzyrix
+step Ratchet
+  zone The Barrens
   vendor nearest
 
-step Level 19.42
-  when !group 92706
-  when level<19.42
-  tip If you skipped WANTED: Bruuz, grind here to level 19.42 to stay on the route's plan.
-  goto 64.2,47.1 map 1413 "Baron Longshore"
-  level 19.42                          -- grind on Baron Longshore
+step Free From the Hold
+  tip Gilthares Firebough is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to Ratchet.
+  accept 898                          -- Inside
 
-step Baron Longshore
-  tip The pirates camp on the beach south of Ratchet; Baron Longshore stands at its southern end.
-  collect 5084 quest 895.1
+step Northwatch Hold: kill these as you meet them
+  zone The Barrens
+  tip Northwatch Hold, on the coast further south. The Theramore Marines and Preservers (15-16) drop the medals; Captain Fairmount (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now.
+  tip Careful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier.
+  collect 5078 quest 891.4
+  kill 3393 quest 891.1               -- On the top floor
+  kill 3455 quest 891.2               -- On the top floor
+  kill 3454 quest 891.3               -- Upstairs
 
 step Ratchet
-  turnin 895                          -- Gazlowe, upstairs
+  goto 62.3,39.1
+  complete 898
+
+step Ratchet
+  turnin 898                          -- Captain Thalo'thas Brightsun
+  turnin 891
+
+# ---------------------------------------------------------------- East: the silver, Ratchet, Ishamuhale
+step Raptor Grounds: kill these as you meet them
+  label q865
+  zone The Barrens
+  tip Sunscale Scytheclaws hunt the plains south of the Crossroads, around the Raptor Grounds; they drop the horns. Hand them in on your next pass through Ratchet.
+  tip East across the plains toward the coast: the stolen silver lies in a raptor nest north-west of Northwatch Hold.
+  collect 5055 quest 865.1
+  collect 5061 quest 3281.1
+
+step Raptor nests
+  tip The three nests sit together in the Raptor Grounds south-west of the oasis; Sunscale Scytheclaws guard them.
+  interact 6907 quest 905.1
+  interact 6908 quest 905.2
+  interact 6906 quest 905.3
 
 step The Crossroads
+  turnin 905                          -- Sergra Darkthorn
+  accept 3261                         -- Sergra Darkthorn
+  turnin 3281                         -- Gazrog
   turnin 98024 only Skyborne          -- Thork, at the top of the tower
   accept 6541                         -- Thork. Keep it: Kadrak at the Mor'shan Rampart, next guide
   accept 868                          -- Korran: the eggs are in the Field of Giants, later
-
-step Regthar Deathgate
-  turnin 855
-  tip Regthar stands at the Kolkar watch post just west of the Crossroads.
-  accept 850
-
-# ---------------------------------------------------------------- North-west: Barak and the Dry Hills
 
 step Dreadmist Peak
   only Tauren,Druid
@@ -190,6 +216,12 @@ step Dreadmist Peak
   turnin 6127 only Tauren -- Tonga Runetotem
   accept 6128 only Tauren
   buy 2449 x5 npc 3490 optional       -- Earthroot from Hula'mahi; herbalists pick it on the plains
+
+# ---------------------------------------------------------------- North-west: Barak and the Dry Hills
+
+step Regthar Deathgate
+  tip Regthar stands at the Kolkar watch post just west of the Crossroads.
+  accept 850
 
 step Barak Kodobane
   tip Barak stands in the Kolkar camp north-west of Regthar.
@@ -223,8 +255,8 @@ step The Barrens: kill these as you meet them
   tip Careful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols.
   collect 269719 quest 95507.1
   collect 269715 quest 95494.1 @45.0,14.5
+  collect 5055 quest 865.1 @44.7,14.3 -- Raptor Horns, if still open: Sunscale Scytheclaws prowl among the lions
   collect 5067 quest 876.1
-  collect 5055 quest 865.1 @44.7,14.3 optional -- Raptor Horns, if still open: Sunscale Scytheclaws prowl among the lions
 
 step Vrang Wildgore
   turnin 95494                        -- Vrang Wildgore
@@ -246,7 +278,6 @@ step Walton
   turnin 95508
 
 step Ignition
-  zone The Barrens
   collect 5050 quest 858.1 @56.3,8.6 map 1413
   turnin 858
   accept 863
@@ -359,19 +390,20 @@ step Ur'kyo
   turnin 5680 only Troll              -- Ur'kyo: Shadowguard
   accept 5646 only Undead             -- Ur'kyo: Aelthalyste in the Undercity, two guides on
 
-step Back to Orgrimmar
-  only Druid
-  zone Thunder Bluff
-  goto 46.7,49.9 "Thunder Bluff flight master"
-  fly "Orgrimmar"
-
-step Fly to Crossroads
+step Back to Crossroads
+  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Crossroads"
-  zone The Barrens
+
+step Back to Crossroads
+  only Druid
+  zone Thunder Bluff
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Crossroads"
 
 step the Crossroads
+  zone The Barrens
   turnin 876                          -- Darsok Swiftdagger
   turnin 6128 only Tauren,Druid       -- Tonga Runetotem
   accept 6129 only Tauren,Druid       -- He gives you the Curative Animal Salve
@@ -415,6 +447,7 @@ step Verog the Dervish
 
 step Bristleback camps
   tip The Bristleback quilboar camps spread over the plains north of Camp Taurajo, either side of the Gold Road. Every Bristleback drops a tusk; Mankrik's wife lies at the north edge. Keep one Blood Shard. Lakota'mani, a grey kodo, sometimes wanders here: his hoof starts a quest.
+  complete 4921 @49.3,50.3
   collect 5085 quest 899.1
 
 step Camp Taurajo
@@ -451,53 +484,26 @@ step Camp Taurajo
   turnin 878                          -- Mangletooth
   accept 5052
 
-step Bristleback camps
+step Agama'gor
   collect 5075 x1 quest 5052
   collect 5099 optional               -- Hoof of Lakota'mani
   accept 883 optional
 
 step Camp Taurajo
-  turnin 883 optional                 -- Jorn Skyseer
   turnin 5052
   accept 879
+  turnin 883 optional                 -- Jorn Skyseer
 
-step Southern Barrens
-  when onquest 4921
-  goto 49.3,50.3
-  complete 4921 @49.3,50.3
-
-# ---------------------------------------------------------------- East: the silver, Ratchet, Ishamuhale
-step Raptor Grounds: kill these as you meet them
+step Fly to Ratchet
   zone The Barrens
-  tip Sunscale Scytheclaws hunt the plains south of the Crossroads, around the Raptor Grounds; they drop the horns. Hand them in on your next pass through Ratchet.
-  tip East across the plains toward the coast: the stolen silver lies in a raptor nest north-west of Northwatch Hold.
-  collect 5055 quest 865.1
-  collect 5061 quest 3281.1
-
-step Free From the Hold
-  tip Gilthares Firebough is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to Ratchet.
-  accept 898                          -- Inside
-
-step Northwatch Hold: kill these as you meet them
-  zone The Barrens
-  tip Northwatch Hold, on the coast further south. The Theramore Marines and Preservers (15-16) drop the medals; Captain Fairmount (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now.
-  tip Careful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier.
-  collect 5078 quest 891.4
-  kill 3393 quest 891.1               -- On the top floor
-  kill 3455 quest 891.2               -- On the top floor
-  kill 3454 quest 891.3               -- Upstairs
+  goto 44.5,59.1 "Camp Taurajo flight master"
+  fly "Ratchet"
 
 step Ratchet
-  goto 62.3,39.1
-  complete 898
-
-step Ratchet
-  turnin 898                          -- Captain Thalo'thas Brightsun
-  turnin 891
+  turnin 896                          -- Wharfmaster Dizzywig
+  turnin 863                          -- Sputtervalve
   turnin 865                          -- Mebok Mizzyrix
   vendor nearest
-  turnin 863                          -- Sputtervalve
-  turnin 896                          -- Wharfmaster Dizzywig
 
 step Islen Waterseer
   only Shaman
@@ -520,7 +526,6 @@ step The Crossroads
   turnin 899                          -- Mankrik
   turnin 4921
   accept 95774                        -- Mankrik offers Her Name Is Olgra once Lost in Battle is handed in
-  turnin 3281                         -- Gazrog
 
 step Regthar Deathgate
   turnin 851
@@ -581,13 +586,22 @@ step Blackthorn Ridge
   collect 5072 quest 879.3
   collect 5103 optional               -- Washte Pawne's Feather
   accept 885 optional
-  collect 5093 quest 893.1
   goto 42.5,81.0 "Blackthorn Ridge"
+  collect 5093 quest 893.1
   collect 5074 quest 879.1
 
 step Gann Stonespire
   turnin 843                          -- Gann Stonespire walks around Blackthorn Ridge: look inside the circle on the map
   accept 846
+
+# ---------------------------------------------------------------- The south
+
+step Field of Giants
+  tip South of Camp Taurajo the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them. Silithid Harvesters are rare: if you see one, kill it for its head.
+  tip Careful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit.
+  collect 5058 quest 868.1
+
+step Sulhasa
   accept 98093 @47.8,77.6             -- Sulhasa, up in the tree just east of Gann
   turnin 1530 only Shaman             -- Brine, just west of Gann
   accept 1535 only Shaman
@@ -605,13 +619,6 @@ step Southern Barrens
 step Sulhasa
   label q98093
   turnin 98093 @47.8,77.6             -- Sulhasa
-
-# ---------------------------------------------------------------- The south
-
-step Field of Giants
-  tip South of Camp Taurajo the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them. Silithid Harvesters are rare: if you see one, kill it for its head.
-  tip Careful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit.
-  collect 5058 quest 868.1
 
 step Bael'dun fortress
   tip The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them.

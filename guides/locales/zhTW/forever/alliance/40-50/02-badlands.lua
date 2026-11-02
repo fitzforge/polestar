@@ -12,17 +12,17 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 4: Boss Tho'grun
-	-- {area:3} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "",
-
-	-- Step 5: Valley of Fangs
+	-- Step 4: Valley of Fangs
 	-- {npc:4454} Fizzle Brassbolts · {area:439} Shimmering Flats · {zone:1446} Tanaris
 	["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "",
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
 	["Blue Pearls from Stranglethorn"] = "來自荊棘谷的藍珍珠",
 	-- {npc:2817} Rigglefuzz
 	["{npc:2817}'s next quest pays no experience: skip it."] = "{npc:2817}的下一個任務不給經驗值：跳過它。",
+
+	-- Step 5: Boss Tho'grun
+	-- {area:3} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
+	["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "",
 
 	-- Step 6: Garek
 	-- {area:1898} Dustwind Gulch
@@ -56,25 +56,19 @@ return {
 	["{quest:1450}, inside"] = "",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "",
-
-	-- Step 13: Ironforge
-	-- {area:976} Gadgetzan · {area:150} Menethil Harbor · {zone:1455} Ironforge
-	["Fly from {area:976} to Theramore, take the boat to {area:150} and fly to {zone:1455}. Train."] = "",
-
-	-- Step 14: Aerie Peak
 	-- {npc:7744} Innkeeper Thulfram
 	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "",
 
-	-- Step 15: Rhapsody Shindigger
+	-- Step 13: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
 	["{npc:5634} camps on the road east of {area:348}."] = "{npc:5634}在{area:348}東邊的路上紮營。",
 
-	-- Step 16: Witherbark villages
+	-- Step 14: Witherbark villages
 	["Witherbark villages"] = "枯木食人妖村落",
 	-- {npc:5634} Rhapsody Shindigger
 	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "前兩個籠子一起放在{npc:5634}南邊的枯木村落；第三個在東邊的下一個村落。每隻枯木食人妖都可能掉落項鍊。",
 
-	-- Step 17: Aerie Peak
+	-- Step 15: Aerie Peak
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884}會持續收購項鍊：多的都交出去",
 	-- {npc:5636} Gryphon Master Talonaxe
@@ -82,25 +76,29 @@ return {
 	-- {area:47} The Hinterlands
 	["Talonaxe's next task waits for a later {area:47} guide."] = "",
 
-	-- Step 18: Fly to Menethil Harbor
+	-- Step 16: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
-	-- Step 20: Theramore
+	-- Step 18: Theramore
 	["Theramore"] = "塞拉摩島",
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616}站在船靠岸的碼頭上。",
+	-- {npc:4944} Captain Garran Vimes
+	["{npc:4944}, on the top floor"] = "",
+	-- {npc:4968} Lady Jaina Proudmoore
+	["{npc:4968}, on the top floor"] = "",
 
-	-- Step 21: Cortello's Riddle
+	-- Step 19: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "",
 
-	-- Step 22: Theramore flight master
+	-- Step 20: Theramore flight master
 	["Theramore flight master"] = "",
 
-	-- Step 23: Warlock: Summon Felsteed
+	-- Step 22: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "術士：{quest:3631}",
 	-- {area:392} Ratchet · {npc:6251} Strahad Farsan

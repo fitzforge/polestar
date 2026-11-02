@@ -12,17 +12,17 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 4: Boss Tho'grun
-	-- {area:3} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "",
-
-	-- Step 5: Valley of Fangs
+	-- Step 4: Valley of Fangs
 	-- {npc:4454} Fizzle Brassbolts · {area:439} Shimmering Flats · {zone:1446} Tanaris
 	["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "",
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
 	["Blue Pearls from Stranglethorn"] = "Perlas azules de Vega de Tuercespina",
 	-- {npc:2817} Rigglefuzz
 	["{npc:2817}'s next quest pays no experience: skip it."] = "La siguiente misión de {npc:2817} no da experiencia: omítela.",
+
+	-- Step 5: Boss Tho'grun
+	-- {area:3} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
+	["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "",
 
 	-- Step 6: Garek
 	-- {area:1898} Dustwind Gulch
@@ -56,25 +56,19 @@ return {
 	["{quest:1450}, inside"] = "",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "",
-
-	-- Step 13: Ironforge
-	-- {area:976} Gadgetzan · {area:150} Menethil Harbor · {zone:1455} Ironforge
-	["Fly from {area:976} to Theramore, take the boat to {area:150} and fly to {zone:1455}. Train."] = "",
-
-	-- Step 14: Aerie Peak
 	-- {npc:7744} Innkeeper Thulfram
 	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "",
 
-	-- Step 15: Rhapsody Shindigger
+	-- Step 13: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
 	["{npc:5634} camps on the road east of {area:348}."] = "{npc:5634} acampa en el camino al este de {area:348}.",
 
-	-- Step 16: Witherbark villages
+	-- Step 14: Witherbark villages
 	["Witherbark villages"] = "Aldeas Secacorteza",
 	-- {npc:5634} Rhapsody Shindigger
 	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "Las dos primeras jaulas están juntas en la aldea Secacorteza al sur de {npc:5634}; la tercera está en la siguiente aldea al este. Cualquier trol Secacorteza puede soltar un collar.",
 
-	-- Step 17: Aerie Peak
+	-- Step 15: Aerie Peak
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884} sigue pagando por collares: entrega los que te sobren",
 	-- {npc:5636} Gryphon Master Talonaxe
@@ -82,25 +76,29 @@ return {
 	-- {area:47} The Hinterlands
 	["Talonaxe's next task waits for a later {area:47} guide."] = "",
 
-	-- Step 18: Fly to Menethil Harbor
+	-- Step 16: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
-	-- Step 20: Theramore
+	-- Step 18: Theramore
 	["Theramore"] = "Isla Theramore",
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616} está en los muelles donde llega el barco.",
+	-- {npc:4944} Captain Garran Vimes
+	["{npc:4944}, on the top floor"] = "",
+	-- {npc:4968} Lady Jaina Proudmoore
+	["{npc:4968}, on the top floor"] = "",
 
-	-- Step 21: Cortello's Riddle
+	-- Step 19: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "",
 
-	-- Step 22: Theramore flight master
+	-- Step 20: Theramore flight master
 	["Theramore flight master"] = "",
 
-	-- Step 23: Warlock: Summon Felsteed
+	-- Step 22: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Brujo: {quest:3631}",
 	-- {area:392} Ratchet · {npc:6251} Strahad Farsan

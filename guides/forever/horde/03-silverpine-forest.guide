@@ -2,14 +2,14 @@
 guide forever/horde/03-silverpine-forest
 title Silverpine Forest & Orgrimmar
 faction Horde
-levels 16-20
+levels 16-19
 zone Silverpine Forest
 next forever/horde/04-the-barrens
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
-# Added here: Pyrewood Ambush (452), Raleigh and the Undercity (441), The Spirits of Stonetalon (1061).
-# The notes above describe v1's order; the steps below are the improved one.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: Prove Your Worth (421), Raleigh and the Undercity (441), The Spirits of Stonetalon (1061).
 
 step Durotar
   zone Durotar
@@ -173,14 +173,17 @@ step Hanashi
   tip While you're here: learn Staves from Hanashi (Valley of Honor, 10 silver); a staff carries more spell stats than a one-hander while you level.
   train 2704                          -- Hanashi
 
+# ---------------------------------------------------------------- The Sepulcher
+
 step The Sepulcher
   zone Silverpine Forest
-  tip Swim back and follow the road west to the Sepulcher.
+  tip The Sepulcher is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; Karos Razok, the bat handler, is just east of it.
   getfp "The Sepulcher"
+  accept 477                          -- Shadow Priest Allister
+  accept 421
+  tip Swim back and follow the road west to the Sepulcher.
   accept 95981                        -- Shadow Priest Allister
   accept 516                          -- Shadow Priest Allister: Beren's Peril, on the south loop
-  tip The Sepulcher is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; Karos Razok, the bat handler, is just east of it.
-  accept 477                          -- Shadow Priest Allister
   accept 428                          -- High Executor Hadrec, below ground
   accept 437
   sethome "The Sepulcher" npc 6739    -- Innkeeper Bates
@@ -189,14 +192,11 @@ step The Sepulcher
 step The Sepulcher
   zone Silverpine Forest
   when onquest 264
-  turnin 264 only Tauren
+  turnin 264 only Skyborne,Tauren
 
-step On the way
-  along until q516
-  kill 1974 quest 516.1
-  kill 1973 quest 516.2
-
-# ---------------------------------------------------------------- The Sepulcher
+step Moonrage Whitescalp on the way
+  along until q421
+  kill 1769 quest 421.1
 
 step Tirisfal Glades
   only Skyborne,Tauren,Druid
@@ -280,31 +280,12 @@ step Border Crossings
   turnin 477
   accept 478
 
-step Deathstalker Faerleia
-  when group 452
-  accept 452                          -- Inside
+# ---------------------------------------------------------------- North loop
 
-step Pyrewood Ambush
-  when group 452
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Councilman Smithers is a level 15 elite: most classes solo it at level 17, but you may need help. Skip it if you are alone: the route has you grind the XP back.
-  kill 2060 quest 452.1 @46.5,74.1 map 1421
-
-step Deathstalker Faerleia
-  when group 452
-  turnin 452                          -- Inside
-
-step Level 16.22
-  when !group 452
-  when level<16.22
-  tip If you skipped Pyrewood Ambush, grind here to level 16.22 to stay on the route's plan.
-  goto 57.9,70.6 map 1421 "Ravenclaw Drudger"
-  level 16.22                          -- grind on Ravenclaw Drudger
-
-step Level 16.41
-  when level<16.41
-  tip Top up here to level 16.41 before the hand-ins at The Ivar Patch: they take you to level 17.
-  goto 57.9,70.6 map 1421 "Ravenclaw Drudger"
-  level 16.41                          -- grind on Ravenclaw Drudger
+step The Dead Field
+  tip North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field.
+  collect 3622 quest 437.1
+  complete 437 @45.1,21.7
 
 step Strange Lockbox
   only Tauren,Druid
@@ -316,11 +297,11 @@ step Malden's Orchard
   turnin 428                          -- Rane Yorick
   accept 429
 
-step Level 16.61
-  when level<16.61
-  tip Top up here to level 16.61 before the hand-ins at The Ivar Patch: they take you to level 17.
-  goto 57.0,9.6 map 1421 "Mottled Worg"
-  level 16.61                          -- grind on Mottled Worg
+step Level 16.51
+  when level<16.51
+  tip Top up here to level 16.51 before the hand-ins at The Ivar Patch: they take you to level 17.
+  goto 44.7,20.7 map 1421 "Nightlash"
+  level 16.51                          -- grind on Nightlash
 
 step Mottled Worgs
   tip Mottled Worgs prowl the hills around the house.
@@ -335,28 +316,23 @@ step Rane Yorick
   turnin 435
   accept 449
 
-# ---------------------------------------------------------------- North loop
-
-step The Dead Field
-  tip North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field.
-  collect 3622 quest 437.1
-  complete 437 @45.1,21.7
-
-step Hearth to The Sepulcher
-  hearth "The Sepulcher"
+step Prove Your Worth
+  label q421
+  kill 1769 quest 421.1 @53.0,26.7 map 1421
 
 step The Sepulcher
   turnin 478                          -- Shadow Priest Allister
   accept 481
-  turnin 449                          -- Below ground
-  turnin 437                          -- High Executor Hadrec
+  turnin 481                          -- Dalar Dawnweaver
+  turnin 421
+  accept 482
+  turnin 437                          -- High Executor Hadrec, below ground
   accept 438
+  turnin 449
   accept 3221
   turnin 3221                         -- Apothecary Renferrel
   turnin 429
   accept 430
-  turnin 481                          -- Dalar Dawnweaver
-  accept 482
   turnin 482                          -- Shadow Priest Allister
   accept 479                          -- Ambermill comes later, on the southern loop
 
@@ -391,19 +367,24 @@ step Fenris Isle
   turnin 460 optional                 -- Shallow Grave, just east of the keep
   accept 461 optional
   turnin 461 optional                 -- Dusty Shelf, inside the keep; upstairs
-  level 17.68                          -- grind on Rot Hide Plague Weaver
+  level 17.65                          -- grind on Rot Hide Plague Weaver
+
+step Hearth to The Sepulcher
+  hearth "The Sepulcher"
+
+step The Sepulcher
+  turnin 91920
+  turnin 443                          -- Apothecary Renferrel
+  accept 91921                        -- Apothecary Renferrel: for Quinn, on the road north at the end
 
 # ---------------------------------------------------------------- South loop
 
 step Dalaran Pendant on the way
   along until q479
-  collect 3354 quest 479.1 -- Dalaran Pendant along the way to The Sepulcher
+  collect 3354 quest 479.1 -- Dalaran Pendant along the way to the Sepulcher
 
 step Ambermill
-  label q516
   tip South-east down the road to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Wizards and Watchers patrol the roads around it. Stay out of the middle, where Archmage Ataeric stands.
-  kill 1974 quest 516.1
-  kill 1973 quest 516.2
   level 18.1                          -- grind on Dalaran Mage
 
 step Silverpine Forest: kill these as you meet them
@@ -416,14 +397,11 @@ step Silverpine Forest: kill these as you meet them
   kill 1974 quest 516.1
   level 18.56                          -- grind on Dalaran Watcher
 
-step The Sepulcher
+step the Sepulcher
   label q479
-  turnin 91920
-  turnin 443                          -- Apothecary Renferrel
-  accept 91921                        -- Apothecary Renferrel: for Quinn, on the road north at the end
   turnin 479                          -- Shadow Priest Allister
-  turnin 95981
   turnin 516
+  turnin 95981
 
 step Lordamere Lake shore
   tip The Vile Fin Lakestalkers and Oracles sit on the lake shore south of the Decrepit Ferry, east of the Sepulcher.
@@ -460,11 +438,23 @@ step Orgrimmar
 
 step Valley of Strength
   zone Orgrimmar
-  tip Walk in through the main gate. Thatog stands in the Valley of Strength; Borstan's Firepit is a few steps north.
+  tip Walk in through the main gate. Thatog stands in the Valley of Strength.
   accept 97246                        -- Thatog
+
+step Valley of Strength
+  zone Orgrimmar
+  when onquest 6384
+  turnin 6384 only Orc,Troll
+
+step Valley of Strength
+  zone Orgrimmar
+  getfp "Orgrimmar"
+
+step Valley of Strength
+  zone Orgrimmar
+  tip Borstan's Firepit is a few steps north.
   turnin 97246                        -- Borstan
   accept 97249
-  getfp "Orgrimmar"
   tip The Cleft of Shadow is the canyon under the Valley of Strength; Neeru Fireblade stands at its far end.
 
 step Valley of Strength
@@ -510,20 +500,22 @@ step Valley of Wisdom
   turnin 97249                        -- Migi
   collect 277952 quest 97326.1
   turnin 97326
-
-step Zor Lonetree
-  accept 1061
-
-step Valley of Wisdom
-  when onquest 95350
-  turnin 95350 only Skyborne          -- Thrall, inside Grommash Hold
-
-step Valley of Wisdom
   accept 98024 only Skyborne          -- Keep it: Thork at the Crossroads
   accept 93739 only Skyborne optional -- Thrall: Exploring the Horde, a tour of the Horde's leaders
   kill 3230 quest 93739.1 "Talk to Nazgrel" only Skyborne optional -- Speak with Nazgrel, in Grommash Hold
   kill 10540 quest 93739.2 "Talk to Vol'jin" only Skyborne optional -- Speak with Vol'jin, in Grommash Hold
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Valley of Wisdom
+  when onquest 95350
+  turnin 95350 only Skyborne          -- Thrall, inside Grommash Hold
+
+step Nazgrel
+  when onquest 831
+  turnin 831 only Orc,Troll
+
+step Nazgrel
+  accept 1061
 
 step Sayoc
   only Paladin

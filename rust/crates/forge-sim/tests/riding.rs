@@ -50,3 +50,22 @@ fn the_route_rides_only_after_learning_at_the_trainer() {
 	assert!(e.level_now() >= 4.0, "at the mount level");
 	assert!(e.step(placed.steps[at]) && e.s.mounted);
 }
+
+#[test]
+fn every_races_riding_trainer_is_one() {
+	// c19p Gnome: Binjy Featherwhistle's title is "Mechanostrider Pilot", so the route had no riding
+	// step for the Gnomes and rode from the mount level with no trainer.
+	for t in [
+		"Wolf Riding Instructor",
+		"Raptor Riding Trainer",
+		"Kodo Riding Instructor",
+		"Undead Horse Riding Instructor",
+		"Horse Riding Instructor",
+		"Ram Riding Instructor",
+		"Nightsaber Riding Instructor",
+		"Mechanostrider Pilot",
+	] {
+		assert!(forge_sim::route::riding_title(t), "{t}");
+	}
+	assert!(!forge_sim::route::riding_title("Flight Master"));
+}

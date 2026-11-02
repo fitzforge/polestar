@@ -2,89 +2,14 @@
 guide forever/horde/06-hillsbrad-foothills
 title Hillsbrad Foothills, Undercity & The Barrens
 faction Horde
-levels 24-28
+levels 25-27
 zone Hillsbrad Foothills
 next forever/horde/07-ashenvale
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
-# 4 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
-
-# Built from the simulator's consensus Horde route (export
-# consensus-horde-tauren, visits 10-12) and Era-baseline reference data;
-# not yet play-tested on Forever.
-#
-# Flow: Tarren Mill (bind again: the last guide binds here) -> the hills west of town (bears,
-# creepers, lions) -> Hillsbrad Fields (farmers) -> Tarren Mill -> Stanley
-# and the southern fields (peasants, skulls) -> Tarren Mill -> the Syndicate
-# camps, Durnholde Keep, Deathstalker Masoj and the Mudsnout Blossoms ->
-# hearth to Tarren Mill -> the smithy -> Tarren Mill -> the town hall ->
-# hearth -> Azurelode Mine -> Tarren Mill -> fly to the Undercity (Elixir of
-# Agony, training) ->
-# zeppelin to Orgrimmar (Hunters and Shamans train; Druids fly to Thunder
-# Bluff to train), fly to Camp Taurajo (bind) ->
-# Bael Modan (Tear of the Moons) -> Grish Longrunner at the Great Lift ->
-# hearth to Camp Taurajo -> fly to Ratchet: Mahren Skyseer, Isha Awak,
-# Sputtervalve -> forever/horde/07-ashenvale.
-#
-# Deviations from the export:
-# - Elixir of Agony (509) and Dangerous! (567) have no prerequisite and are
-#   taken on arrival: the Mudsnout Blossoms grow beside the Durnholde trip and
-#   the Dangerous! targets stand in Hillsbrad town, the fields and the mine
-#   that the Battle of Hillsbrad chain visits anyway. The export takes them at
-#   26.6 and walks every area a second time.
-# - The Durnholde trip comes after the first western loop, and the hearth is
-#   used from the Mudsnout Blossoms and from the town hall.
-# - Time To Strike (494) is handed in on arrival (picked up at Southpoint
-#   Tower in the previous guide; the export picks it up in Tarren Mill).
-# - Stanley and the peasants (Battle of Hillsbrad part II, 528) come before
-#   the Durnholde trip: Darthalia offers Scout Support (98094) only once 528
-#   is handed in (#148, and players' reports; the quest data has no
-#   prerequisite for it), and Masoj stands on that trip. Sim compare (Orc):
-#   +0.005 h to 26, -0.004 h to 30 against the old order.
-# - Free at Last (4904): the export picks it up from Lakota Windsong near the
-#   Great Lift; she is held captive on Darkcloud Pinnacle in Thousand
-#   Needles, so the next guide picks it up and escorts her in one go.
-# - No Undercity or Ratchet binds: the export replaces both before using them.
-# - Journey to Hillsbrad Foothills (493) is handed in only by characters who
-#   came through Silverpine Forest.
-#
-# Carried on: Elixir of Agony (515: the scales and eyes are on the Hillsbrad
-# coast, at about 32).
-#
-# Left out: A New Ore Sample (1153): the export picks it up at Camp Taurajo
-# and never hands it in. Melor Sends Word (1130): its turn-in in Thunder
-# Bluff at 30 is not on the route any more. Blood of Innocents (1066) needs
-# Journey to Tarren Mill (1065), from Zamah's chain in Thunder Bluff, which
-# this route never runs. Unending Torment (97289-97292): re-checked for the
-# new consensus route, which did all four in the Undercity at about 21
-# because QuestieDB lists no prerequisite for them; but 97289 asks for the
-# Head of the Baron, and the chain starts from the Abominable Head (97288), a
-# drop from The Baron in the Ruins of Lordaeron dungeon, so they stay out
-# (data/corrections.json now links 97288 -> 97289 -> ... -> 97292).
-# Valuable Vantages (98095, Forever, Masoj's follow-up to Scout Support):
-# the new consensus route takes it, but its three vial spots (the hills by
-# Dun Garok, the plateau over Durnholde, the Headland ridge above Hillsbrad,
-# per its quest text) have no coordinates in the data or any source we
-# could read, so it is left out until they are placed.
-#
-# Added: Scout Support (98094, Forever): Darthalia's orders for Deathstalker
-# Masoj, who hides on the way from Durnholde to the Mudsnout Blossoms.
-#
-# Class training: in the Undercity at 26-27 for Warriors, Paladins, Rogues,
-# Priests, Mages and Warlocks (no Hunter, Shaman or Druid trainer there);
-# Hunters and Shamans train in Orgrimmar on the way through, Druids fly from
-# Orgrimmar to Thunder Bluff before Camp Taurajo.
-#
-# Class quests: Shaman Call of Water (1536, from the previous guide): fill
-# the waterskin at the Spring Well in Tarren Mill and hand it to Brine south
-# of Camp Taurajo, who gives the blue waterskin (1534) for the Ruins of
-# Stardust in forever/horde/07-ashenvale. Rogues who finished Mission:
-# Possible But Not Probable hand Hinott's Assistance (2479, 2480, optional:
-# Gallywix is elite) to Serge Hinott in Tarren Mill and learn Poisons. Those
-# who skipped Gallywix are pointed at the Class guide Poisons (Horde)
-# (forever/class/rogue/poisons-horde): 2479 needs 2478 turned in.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: Valuable Vantages (98095).
 
 # ---------------------------------------------------------------- Tarren Mill
 
@@ -176,16 +101,18 @@ step Durnholde Keep: kill these as you meet them
   tip From Tarren Mill go south-east into the hills on the way to Durnholde Keep. Rogues and Watchmen hold the camps along the way.
   kill 2260 quest 549.1
   kill 2261 quest 549.2               -- Syndicate Watchman walks around here: look inside the circle on the map
-  interact 1722 quest 498.2           -- Tog'thar's ball and chain
   interact 1721 quest 498.1           -- Drull's ball and chain
-
-step Deathstalker Masoj
-  tip Masoj hides on the hillside above Dun Garok, south of Durnholde, on the way down to the blossoms.
-  turnin 98094 npc 270438 @64.2,54.0  -- Deathstalker Masoj
+  interact 1722 quest 498.2           -- Tog'thar's ball and chain
 
 step Mudsnout Blossoms
   tip South-west of Durnholde, the Mudsnout Blossoms grow on the hillsides above the river.
   collect 3502 quest 509
+
+step Deathstalker Masoj
+  accept 98095
+  turnin 98095
+  tip Masoj hides on the hillside above Dun Garok, south of Durnholde, on the way down to the blossoms.
+  turnin 98094 npc 270438 @64.2,54.0  -- Deathstalker Masoj
 
 # ---------------------------------------------------------------- Hillsbrad
 
@@ -360,9 +287,8 @@ step Fly to Ratchet
   goto 44.5,59.1 "Camp Taurajo flight master"
   fly "Ratchet"
 
-step Mebok Mizzyrix
-  when onquest 1069,1094
-  turnin 1069
+step Ratchet
+  when onquest 1094
   turnin 1094                         -- Sputtervalve, by the docks in Ratchet
   vendor nearest
 

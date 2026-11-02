@@ -39,84 +39,82 @@ return {
 	-- {area:1637} Orgrimmar
 	["Hearth to {area:1637}"] = "",
 
-	-- Step 7: Fly to Valormok
-	-- {area:1237} Valormok
-	["Fly to {area:1237}"] = "飞往{area:1237}",
-
-	-- Step 9: Fly to Orgrimmar
-	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "飞往{area:1637}",
-	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
-
-	-- Step 10: Vehena
+	-- Step 7: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 11: Rashona Straglash
+	-- Step 8: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "在{object:172958}。",
 	-- {item:14047} Runecloth
 	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
 
-	-- Step 12: Ruins of Eldarath
+	-- Step 9: Fly to Valormok
+	-- {area:1237} Valormok
+	["Fly to {area:1237}"] = "飞往{area:1237}",
+
+	-- Step 11: Ruins of Eldarath
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "向东骑往海岸边的废墟。在沿岸的海潮之池装满科雷的四个瓶子；恶鞭纳迦在海潮之池之间巡逻。",
 
-	-- Step 13: Thalassian Base Camp
+	-- Step 12: Thalassian Base Camp
 	-- {area:1227} Bay of Storms
 	["The blood elves camp on the cliffs in the north-east, by the {area:1227}."] = "血精灵在东北的悬崖上扎营，就在{area:1227}旁边。",
 
-	-- Step 14: Magus Rimtori's camp
+	-- Step 13: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "{npc:8578}的营地",
 	-- {object:151286} Kaldorei Tome of Summoning
 	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "",
 
-	-- Step 15: Ag'tor Bloodfist
+	-- Step 14: Ag'tor Bloodfist
 	-- {area:1237} Valormok
 	["Ride back west to {area:1237}."] = "向西骑回{area:1237}。",
 
-	-- Step 17: Class trainer
-	["Class trainer"] = "",
+	-- Step 15: Fly to Orgrimmar
+	-- {area:1637} Orgrimmar
+	["Fly to {area:1637}"] = "飞往{area:1637}",
+	-- {area:1237} Valormok
+	["{area:1237} flight master"] = "",
 
-	-- Step 18: Paladin trainer
+	-- Step 16: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 19: Druid trainer
-	["Druid trainer"] = "",
-	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
+	-- Step 17: Orgrimmar
+	-- {zone:1454} Orgrimmar
+	["Fly to {zone:1454} and train."] = "",
 
-	-- Step 20: Belgrom Rockmaul
+	-- Step 18: Belgrom Rockmaul
 	-- {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
 	["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "",
 
-	-- Step 21: Into Durotar
+	-- Step 19: Into Durotar
 	-- {zone:1411} Durotar
 	["Into {zone:1411}"] = "",
 
-	-- Step 22: Zeppelin to Undercity
+	-- Step 20: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
-	-- Step 24: Owen Thadd
+	-- Step 21: Prompt Potion Runner
+	-- {npc:11044} Doctor Martin Felben
+	["{npc:11044}, in the Apothecarium"] = "{npc:11044}，在炼金房",
+	-- {npc:8393} Thersa Windsong
+	["{npc:8393}, beside him"] = "{npc:8393}，在他旁边",
+
+	-- Step 22: The Undercity
+	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter
+	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "",
+
+	-- Step 23: Royal Quarter
+	-- {npc:8403} Jeremiah Payson
+	["{npc:8403}, nearby"] = "{npc:8403}，在附近",
+	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
+	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050}要交还给{zone:1422}的{npc:10778}：留着它。",
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "仅在背包中带有从{area:159}炼金店取得的书籍《{quest:79095}》时进行，详见《图书馆藏书》指南",
-	-- {npc:8403} Jeremiah Payson
-	["{npc:8403}, nearby"] = "{npc:8403}，在附近",
-
-	-- Step 25: The Apothecarium
-	-- {npc:8393} Thersa Windsong
-	["{npc:8393}, beside him"] = "{npc:8393}，在他旁边",
-	-- {npc:11044} Doctor Martin Felben
-	["{npc:11044}, in the Apothecarium"] = "{npc:11044}，在炼金房",
-
-	-- Step 26: Royal Quarter
-	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
-	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050}要交还给{zone:1422}的{npc:10778}：留着它。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "两次{item:14047}捐献都在路线后面交还：开始攒{item:14047}。",

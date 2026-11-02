@@ -3,133 +3,15 @@ guide forever/horde/skyborne/01-zephras-isle
 title Zephras Isle
 faction Horde
 race Skyborne
-levels 1-15
+levels 1-14
 zone Zephras Isle
 coords live
 next forever/horde/02-the-barrens
 
-# v1 improved: order from the simulator's search (Skyborne Horde, 2000000 tries, seeded with v1's order;
-# 123.8 h -> 116.6 h to 60 in the model), written by polestar apply-route.
-# 7 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
-
-# Route: the simulator's consensus route for Horde Skyborne
-# (data/sim/export/consensus-horde-skyborne, visit 1, levels 1-14.6).
-# Checked against the 2026-10-14 export: same isle quests. Its order differs
-# mostly at the end (Windsong Lake and Shadowgale Forest before the Valanaar
-# and Shrine of Akir finale), but its isle visit is slower than the one this
-# guide was built from (4.61 h against 4.56 h), so the order below stays.
-#
-# Flow: Thendal Village -> Thendal Grove and the standing stones -> the Ursera
-# den and the Al'Aketh camp -> Shen'dar Village -> the highland bandits ->
-# Falaath Village -> the West Pylon Watchtower and the hippogryph nests ->
-# Valanaar -> Windfield Orchard -> the East Pylon Watchtower -> the turncoat
-# in the Gustberry Lowlands -> the Shrine of Akir -> Shadowgale Forest and
-# Windsong Lake -> Lorthuna in the Rohashi Spires -> the airship to Mulgore
-# -> the Crossroads (flight path and hearth bind, as on the simulator's route).
-# The isle has no flight path. Valanaar's inn (Donaal Downbreeze, by the west
-# gate) is bound on the first walk into town and the hearth used once, from
-# Windfield Orchard (the isle's far south-west) back to Valanaar after
-# Standing Our Ground, the longest walk back on the isle. The Portal to Valanaar
-# brings you down from Lorthuna's heights.
-#
-# Group quest: WANTED: Vulgara the Insatiable (93318). Vulgara is elite,
-# so the simulator leaves it out; the guide asks (`when group 93318`, #639).
-#
-# Deviations from the export:
-# - Thendal Village: the Ursera, Hanaa's camp and the Urs'anah den are done
-#   in one loop west of the village; Valreaa's turn-in waits for that return.
-# - Thendal Village: the watchtower comes before Rorian, a few steps from
-#   Elatrell: The Anchors of Zephras and Falling With Style, then the Walk on
-#   Air glide down to Rorian, who takes Harmony in Balance and Falling With
-#   Style on one visit (#363).
-# - Shen'dar: the hippogryph nests (92516, 93951) and the Small Eggs of
-#   Restocking the Larders (92553) move from before the first Falaath trip to
-#   the second southern loop (Falaath -> West Pylon -> nests -> Shen'dar). The
-#   export walks to the nests and back on its own, then goes south twice;
-#   this saves one round trip. Strider Meat comes from the Galestriders that
-#   share the meadows with the Prideclaws.
-# - The Ripped Missive (94490) is accepted from Commander Haalien's drop in
-#   the Al'Aketh camp; The Fate of the Den (94491) goes to Lotheluum on the
-#   way back through Valanaar.
-# - The Broken Construct (93737): the Enchanted Gyrozephyr (93737.3) lies
-#   only east of Shen'dar Village, south-west of Windsong Lake; it is fetched
-#   after the highwaymen's hills, before Standing Our Ground, so Riaani gets
-#   all three parts.
-# - Unwelcome Spirits (93736): the Wind Hollows live only around Windsong
-#   Lake's refugee camp, so their essences are taken with the Strange
-#   Hermit's Free the Hollows (the same mobs) and handed to Endaria beside
-#   Ayessa at the end (c14 walked from Valanaar to the lake for them at 10
-#   and came back at 14 for Free the Hollows).
-# - Welcome to Shen'dar Village (92514) is taken from Constable Aonda when
-#   The Next Step is handed in, not on the later visit: the talk to Illaya
-#   for The Windshapers then counts for it too, and only Coriella is left.
-# - Class training: added at Shen'dar (about 9), Valanaar (about 12) and
-#   before leaving the isle (about 14); every class has a trainer in each
-#   town, and the next guide would otherwise be the first training since 6.
-#
-# Class quests on the isle:
-# - Shaman: Call of Earth (92466-92468) from Windshaper Boro at the level 4
-#   turn-ins; the Signet of Akir drops from the Al'Aketh in Hanaa's camp (in
-#   Hanaa's step), the Minor Manifestation of Earth is at the Rise of Spirits
-#   east of the village (in the step that leaves the village, beside Boro).
-#   Call of Fire (97243-97257, Searing Totem, the Fire Totem and the Totem of
-#   Charged Flames): Sessaria Skystride stands beside Ayessa, taken at about
-#   10 with Ayessa's hand-ins; Olariaan Swiftburn's Shrine of Flames is just
-#   south-east of Windfield Orchard (on the orchard visit); Skypriest Faladiel
-#   is on the hill just north of the East Pylon Watchtower (on that visit);
-#   then Olariaan, Kuramaa in the Shen'dar Highlands and the Eternal Flame
-#   run back to Valanaar after the turncoat. The Barrens Call of Fire
-#   (1524-1527) is not taken.
-# - Druid: The Great Ursera Spirit / Strength and Mercy (94006, 94638, Bear
-#   Form): Lotheluum in Valanaar, then Urs'endris by the falls north of the
-#   East Pylon Watchtower on that trip (one step: written apart, the hand-in
-#   was pulled to the last Urs'endris visit and the whole chain done at 13.7
-#   from Windsong Lake); Ur'endra in her cave just south of the turncoat's
-#   house, on that visit; Bear Form from Urs'endris on the way north from
-#   Valennia, before Shadowgale (c15 went back from Windsong Lake). On
-#   Kalimdor, Muln
-#   Earthfury at the landing sends you to Turak Runetotem in Thunder Bluff
-#   (Child of Nature 94911), who teaches Teleport: Moonglade (94913, handed
-#   to Dendrite on the Cat Form trip in forever/horde/04-the-barrens). The
-#   data has no Skyborne Aquatic Form quest; the Tauren one (27-31) is not
-#   offered to Skyborne.
-# - Warrior: The Skybreaker Bulwark (94003, Defensive Stance): Seena
-#   Skybreaker stands beside Riaani (taken there, at 10), Zaal Stormshield
-#   at the Shrine of Akir.
-# - Hunter: Taming the Beast (94978, 94979, 94013) and Training the Beast
-#   (94050) with Quel'ana Quickgale in Valanaar: the first rod is taken at
-#   10 on the first Valanaar visit and its Windsong Crawler tamed on the
-#   Crab Season trip to the crawlers; the Ornery Galestrider and Vuldren
-#   Alpha live just north of her, done after the orchard.
-# - Class letters at 2: once Harmony in Balance (92461) is turned in, Rorian
-#   gives each class its trainer quest. Tai'ree Farsight, Windshaper Boro and
-#   Xyton Silverwind stand beside him: The Way of the Hunter (92482),
-#   Embracing the Elements (92484) and A Student of Nature (92485) are handed
-#   in at once, and Shamans and Druids train there (their trainers teach a
-#   first spell at 1). The Warrior's Path (92532, Blademaster Ren) and At Home
-#   in the Shadows (92483, Akeri Duskblade) go to the watchtower at the
-#   level 4 turn-ins.
-#
-# Added: The Earthen Ring (95349). The export accepts it but never turns it
-# in; its ender, Alaana Stormwalker, stands where the airship lands, so it is
-# turned in there at no cost.
-# Welcome to Azeroth (95350) is accepted from Alaana there and carried to
-# Thrall in forever/horde/03-silverpine-forest; its follow-up, Journey to the
-# Crossroads (98024), goes to Thork in forever/horde/04-the-barrens.
-# The Thunder Bluff flight path is learned on the way past the bluff: later
-# guides fly there.
-# Added: Traditions of the Bluff (97485, Forever orientation quest, also in
-# the Tauren export's Thunder Bluff stop): buy four incense parts from the
-# city's vendors near Tal and spread the incense on Hunter Rise, while you
-# are in the city for the flight path. Simulator: +0.04 h to level 20 (the
-# hours to 30 and 60 came out lower, 24.53 h and 122.09 h against 24.70 h and
-# 122.71 h without it).
-# Left out: Exploring the Horde (93739, Forever, Skyborne only): the capital
-# tour (Nazgrel, Vol'jin, Cairne, Sylvanas) starts from Thrall only once
-# Welcome to Azeroth is turned in, which happens in
-# forever/horde/03-silverpine-forest. More Al'Aketh Ears (93459, Forever): a
-# repeatable reputation hand-in for Vayn Moongaze with no XP.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: Until Death Do Us Part (264).
 
 # ---------------------------------------------------------------- Thendal Village
 
@@ -206,15 +88,11 @@ step Thendal Village turn-ins
   accept 92466 only Shaman            -- Windshaper Boro: Call of Earth
   accept 92473                        -- Valreaa Valewind
 
-step Scrawny Ursera
+step Thendal Grove: kill these as you meet them
+  zone Zephras Isle
   tip Scrawny Ursera prowl the slopes south-west of the village, on the way to Hanaa.
-  collect 251918 quest 92473.1 @41.4,26.4
-
-step Leaving Thendal Village
-  turnin 92473                        -- Valreaa Valewind
-
-step Urs'anah
   tip The Ursera den is west of the village. Urs'anah, their matriarch, sits at its far end.
+  collect 251918 quest 92473.1 @41.4,26.4
   kill 250937 quest 92470.1           -- Below ground
   collect 252665 quest 92470.2        -- Below ground
 
@@ -229,6 +107,7 @@ step Hanaa Nightwind
   turnin 92544
 
 step Leaving Thendal Village
+  turnin 92473                        -- Valreaa Valewind
   turnin 92470                        -- Aetheen of the Gales
   accept 92472
   accept 96638
@@ -245,14 +124,6 @@ step Shen'dar Village
   tip Follow the road south to Shen'dar Village, in the middle of the isle.
   turnin 96638                        -- Raan Wildwind
   accept 96101                        -- Raan Wildwind
-
-step Raan's campfire
-  tip Sit by Raan's campfire (type /sit) until you get the Boosted Rest buff, then learn Cooking from Zerril Softbreeze at the cook fire.
-  complete 96101 @41.73,44.78         -- /sit by Raan's campfire until you get Boosted Rest
-  turnin 96101                        -- Raan Wildwind
-  accept 96646
-
-step Shen'dar Village
   turnin 92472                        -- Constable Aonda
   accept 92514                        -- Constable Aonda
   accept 92595                        -- Illaya Amberwind
@@ -269,22 +140,24 @@ step Welcome to Shen'dar Village
   accept 92515                        -- Indari Sunseam
   accept 93319
   accept 92516                        -- Teeri Wellwind
-
-step Raan's campfire
-  train Cooking npc 251905            -- Zerril Softbreeze: Camping 101 asks you to learn it
-  complete 96646 @43.85,43.9
-  turnin 96646                        -- Zerril Softbreeze
-
-step Welcome to Shen'dar Village
   accept 92553                        -- Zerril Softbreeze
 
 step Shen'dar Village: kill these as you meet them
   zone Zephras Isle
   tip Prideclaws and Galestriders share the meadows south of Shen'dar Village. The Galestriders drop both the Small Eggs and the Strider Meat for Zerril.
-  collect 252670 quest 92515.1
-  kill 257521 quest 94411.1
   collect 6889 quest 92553.1
   collect 5469 quest 92553.2
+
+step Shen'dar Village hand-ins
+  tip Zerril, Teeri, Taleen, Danarii and Constable Aonda all stand in Shen'dar Village. If you are still short of Strider Meat, the Galestriders graze just south of the village.
+  turnin 92553                        -- Zerril Softbreeze
+
+step Shen'dar Highlands: kill these as you meet them
+  zone Zephras Isle
+  tip The apprentices practise north-east of the village.
+  tip The bandit camps are north-east of the village; "Badwind" Bennic holds the top camp. Bandits carry the stolen windstones.
+  collect 252670 quest 92515.1
+  kill 257521 quest 94411.1
   collect 257945 quest 93319.1
   kill 251918 quest 92517.1
   kill 255534 quest 92517.2           -- Below ground
@@ -306,8 +179,6 @@ step Shen'dar Village turn-ins
   turnin 93319                        -- Teeri Wellwind
   train class
   turnin 94411                        -- Illaya Amberwind
-  tip Zerril, Teeri, Taleen, Danarii and Constable Aonda all stand in Shen'dar Village. If you are still short of Strider Meat, the Galestriders graze just south of the village.
-  turnin 92553                        -- Zerril Softbreeze
 
 step Vulgara the Insatiable
   when group 93318
@@ -325,9 +196,9 @@ step Falaath Village
 step Constable Aonda
   tip Constable Aonda waits in Shen'dar Village for what you found in the wardrobe.
   turnin 92528
+  accept 92550
   accept 93926
   accept 92551
-  accept 92550
 
 step Shen'dar Highlands: kill these as you meet them
   zone Zephras Isle
@@ -364,6 +235,15 @@ step Shen'dar Highlands: kill these as you meet them
   kill 251284 quest 92516.2
   collect 263493 quest 93951.1
   kill 251261 quest 92516.3
+
+step Raan's campfire
+  tip Sit by Raan's campfire (type /sit) until you get the Boosted Rest buff, then learn Cooking from Zerril Softbreeze at the cook fire.
+  complete 96101 @41.73,44.78         -- /sit by Raan's campfire until you get Boosted Rest
+  turnin 96101                        -- Raan Wildwind
+  accept 96646
+  train Cooking npc 251905            -- Zerril Softbreeze: Camping 101 asks you to learn it
+  complete 96646 @43.85,43.9
+  turnin 96646                        -- Zerril Softbreeze
 
 step Shen'dar Village hand-ins
   label q92516
@@ -454,10 +334,6 @@ step Gustberry Lowlands: kill these as you meet them
   collect 253596 quest 92685.1
   collect 260880 quest 93737.4
 
-step Enchanted Gyrozephyr
-  tip The Enchanted Gyrozephyrs lie under water far to the north, east of Shen'dar Village and south-west of Windsong Lake.
-  collect 260883 quest 93737.3        -- Underwater
-
 step Shen'dar Highlands: kill these as you meet them
   zone Zephras Isle
   tip The Crystallized Lightning lies in a cave in the hills north-west of Riaani.
@@ -465,11 +341,15 @@ step Shen'dar Highlands: kill these as you meet them
   collect 260881 quest 93737.2        -- Below ground
   kill 254588 quest 94978.1 @51.6,71.9 "Tame Windsong Crawler" only Hunter -- tame one with Quel'ana's first Taming Rod while you are among them
 
+step Enchanted Gyrozephyr
+  tip The Enchanted Gyrozephyrs lie under water far to the north, east of Shen'dar Village and south-west of Windsong Lake.
+  collect 260883 quest 93737.3        -- Underwater
+
 step Standing Our Ground
   turnin 92685                        -- Aamelia Windfield
   accept 92693
-  kill 252800 quest 92693.1 "Tell Aamelia Windfield you're ready" @46.7,82.0 map 2521 live
-  kill 252863 quest 92693.2 @47.5,78.4 map 2521 live
+  kill 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
+  kill 252863 quest 92693.2
   turnin 92693
   accept 92703
 
@@ -482,18 +362,6 @@ step Alvarion and Riaani
 step Class trainer
   only Warrior,Hunter,Rogue,Shaman,Druid
   train class only Warrior,Hunter,Rogue,Shaman,Druid
-
-step Paladin trainer
-  only Paladin
-  train class only Paladin -- Shari Stilwell in Tirisfal Glades; Valanaar has no paladin trainer
-
-step Priest trainer
-  only Priest
-  train class only Priest -- Dark Cleric Beryl in Tirisfal Glades; Valanaar has no priest trainer
-
-step Mage trainer
-  only Mage
-  train class only Mage -- Cain Firesong in Tirisfal Glades; Valanaar has no mage trainer
 
 step Warlock trainer
   only Warlock
@@ -770,22 +638,13 @@ step Northern Mulgore
   accept 95350                        -- Alaana Stormwalker: keep it, Thrall in Orgrimmar comes two guides later
   accept 94911 only Druid             -- Muln Earthfury, by the landing: for Turak Runetotem in Thunder Bluff
 
-step Thunder Bluff
-  only Druid
+step Clarice Foster
   zone Thunder Bluff
-  goto 76.5,27.2 "Thunder Bluff"
+  accept 264
 
-step Turak Runetotem
-  only Druid
-  zone Thunder Bluff
-  tip Turak Runetotem trains druids on Elder Rise. He teaches you Teleport: Moonglade; Dendrite Starblaze's welcome waits for your Cat Form trip at about 23 (forever/horde/04-the-barrens).
-  turnin 94911                        -- Turak Runetotem
-  accept 94913
-  train class
-
-step Thunder Bluff
-  zone Thunder Bluff
-  goto 47.0,49.8 "Thunder Bluff"
+step Class trainer
+  only Paladin,Priest,Mage
+  train class only Paladin,Priest,Mage
 
 step Traditions of the Bluff
   zone Thunder Bluff
@@ -796,6 +655,14 @@ step Traditions of the Bluff
   buy 278080 x1 npc 3012              -- Bundle of Dried Cedar Twigs, from Nata Dawnstrider
   buy 278081 x1 npc 3005              -- Sinew Thread, from Mahu
   buy 278083 x1 npc 3027              -- Ceremonial Flint and Tinder, from Naal Mistrunner
+
+step Turak Runetotem
+  only Druid
+  zone Thunder Bluff
+  tip Turak Runetotem trains druids on Elder Rise. He teaches you Teleport: Moonglade; Dendrite Starblaze's welcome waits for your Cat Form trip at about 23 (forever/horde/04-the-barrens).
+  turnin 94911                        -- Turak Runetotem
+  accept 94913
+  train class
 
 step Hunter Rise
   zone Thunder Bluff

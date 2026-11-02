@@ -2,31 +2,37 @@
 guide forever/horde/50-60/05-eastern-plaguelands
 title Eastern Plaguelands, Winterspring & Tanaris
 faction Horde
-levels 56-58
+levels 56-57
 zone Eastern Plaguelands
 next forever/horde/50-60/06-silithus
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 # Added here: Duskwing, Oh How I Hate Thee... (6135).
-# 2 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
+
+step Western Plaguelands
+  zone Western Plaguelands
+  goto 36.9,57.4 "Western Plaguelands"
+
+step Felstone Field
+  zone Western Plaguelands
+  tip Janice Felstone's farm is the first one east of the Bulwark. Jabbering Ghouls on the farm carry the other half of her charm; Cauldron Lord Bilemaw guards the cauldron in the field.
+  tip Careful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron.
+  collect 13194 quest 5229.1 @36.9,57.4 map 1422
+  turnin 5229                         -- Scourge Cauldron
+  accept 5230
+  turnin 5050                         -- Upstairs
+  accept 5051
+  collect 12722 x1 "Good Luck Other-Half-Charm"
+  complete 5051
+  turnin 5051
 
 step Fly to Light's Hope Chapel
-  zone Undercity
-  goto 63.1,48.3 "Undercity flight master"
+  zone Hillsbrad Foothills
+  goto 60.2,18.8 "Tarren Mill flight master"
   fly "Light's Hope Chapel"
   zone Eastern Plaguelands
-
-step Plaguehound on the way
-  along until q5542-2
-  when onquest 5542
-  kill 8597 quest 5542.2
-
-step Slab of Carrion Worm Meat on the way
-  along until q5542
-  when onquest 5544
-  collect 13853 quest 5544.1
 
 step Light's Hope Chapel
   turnin 5210                         -- Carlin Redpath
@@ -81,49 +87,45 @@ step Light's Hope Chapel
 # Purity and Wasteland (5527, 1124: Silithus), Linken's Sword (3914), Are We
 # There, Yeti? (5163) and The Super Egg-O-Matic (2741, back in Tanaris).
 
-# ---------------------------------------------------------------- Light's Hope Chapel
-
-step Plaguehound Runt on the way
-  along until q5542
-  when onquest 5542
-  kill 8596 quest 5542.1
+# ---------------------------------------------------------------- The south
 
 step Plaguebat on the way
-  along until q5542
+  along until q5543
   when onquest 5543
   kill 8600 quest 5543.1
 
-step Sword of Marduk
+step Slab of Carrion Worm Meat on the way
+  along until q5543
+  when onquest 5544
+  collect 13853 quest 5544.1
+
+step Eastern Plaguelands: kill these as you meet them
+  zone Eastern Plaguelands
+  tip Plaguehounds and their runts roam the shores of the lake south-west of the chapel.
   tip The shattered sword lies on the ground north-west of the lake.
+  kill 8597 quest 5542.2
+  kill 8596 quest 5542.1
   collect 12957 quest 5181.2
 
-# ---------------------------------------------------------------- Marris Stead and the west
-
-step Hameya's scroll
-  tip A torn scroll lies at the entrance of the Undercroft, the crypt south of the Marris Stead.
-  accept 6024                         -- Below ground
-
 step Nathanos Blightcaller
-  tip The Banshee Queen's champion holds the Marris Stead farmhouse.
   accept 6022
+  tip The Banshee Queen's champion holds the Marris Stead farmhouse, north of the Undercroft.
+  turnin 5961
   accept 6042
   accept 6133
 
-# ---------------------------------------------------------------- The south
-
 step Eastern Plaguelands: kill these as you meet them
-  label q5542
+  label q5543
   zone Eastern Plaguelands
-  tip Plaguehounds and their runts roam the shores of the lake south-west of the chapel.
   tip Plaguehound Runts and Plaguebats roam the hills north of the Marris Stead, Carrion Grubs crawl among them; work north toward Terrordale.
   kill 8596 quest 5542.1
   collect 13853 quest 5544.1
   kill 8600 quest 5543.1
 
-step Augustus the Touched
-  turnin 6164                         -- Inside
+step Egan
   tip Egan the ghost stands by a hut in Terrordale, in the north-west corner.
   turnin 5281                         -- Inside
+  turnin 6164                         -- Inside
 
 step Plaguewood: kill these as you meet them
   zone Eastern Plaguelands
@@ -135,12 +137,10 @@ step Plaguewood: kill these as you meet them
 # ---------------------------------------------------------------- The north
 
 step Eastern Plaguelands: kill these as you meet them
-  label q5542-2
   zone Eastern Plaguelands
   tip The high elf Rangers, Pathstriders and Woodsmen guard the lodge by Northpass Tower; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way.
   tip The skull sits in the Pestilent Scar, among Blighted Horrors and Plague Monstrosities.
   kill 8601 quest 6042.1
-  kill 8597 quest 5542.2
   collect 12956 quest 5181.1          -- Underwater
 
 step Pathstrider
@@ -258,6 +258,13 @@ step Rabine Saturna
   zone Moonglade
   tip Go through Timbermaw Hold and take the Moonglade branch of the tunnel. Rabine is in Nighthaven.
   accept 5527
+
+step Class trainer
+  only Druid
+  train class only Druid
+
+step Rabine Saturna
+  zone Moonglade
   turnin 1123
   accept 1124
   note Both quests lead to Silithus: keep them.

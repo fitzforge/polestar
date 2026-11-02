@@ -673,7 +673,10 @@ pub fn adopt(
 		let Some(prev) = own.iter().find(|(r, t)| **r != last && !is_shared(t) && next_of(t).as_deref() == Some(last_id.as_str()) && route_files.contains(*r)).map(|(r, _)| r.clone()) else { break };
 		let class_steps = class_steps_only(&own[&last]);
 		if let Some(kept) = class_steps {
-			own.insert(last, kept);
+			// (Played where the guide before it ends: its levels are that level, Troll's class stop at
+			// the Crossroads at 12.)
+			let end = own[&prev].split('\n').take_while(|l| !is_step(l)).find_map(|l| l.strip_prefix("levels ")).and_then(|l| l.split_once('-')).map(|(_, b)| b.trim().to_string());
+			own.insert(last, class_stop_header(&kept, end.as_deref()));
 			break;
 		}
 		own.remove(&last);
@@ -949,6 +952,26 @@ fn class_steps_only(text: &str) -> Option<String> {
 		i = j;
 	}
 	any.then(|| out.join("\n").trim_end().to_string() + "\n")
+}
+
+/// A class stop's header (from [`class_steps_only`]): its keys, `levels <end>-<end>` when the guide
+/// before it ends at `end`, and the writer's note instead of the seed's notes.
+fn class_stop_header(text: &str, end: Option<&str>) -> String {
+	let lines: Vec<&str> = text.split('\n').collect();
+	let first = lines.iter().position(|l| is_step(l)).unwrap_or(lines.len());
+	let mut out: Vec<String> = lines[..first]
+		.iter()
+		.filter(|l| !l.trim().is_empty() && !l.starts_with('#'))
+		.map(|l| match (l.strip_prefix("levels "), end) {
+			(Some(_), Some(e)) => format!("levels {e}-{e}"),
+			_ => l.to_string(),
+		})
+		.collect();
+	out.push(String::new());
+	out.extend(crate::apply::GENERATED_NOTE.iter().map(|l| l.to_string()));
+	out.push(String::new());
+	out.extend(lines[first..].iter().map(|l| l.to_string()));
+	out.join("\n")
 }
 
 /// The lines of a quest some starts carry in from their own guides (accepted there, handed in on the
@@ -1804,5 +1827,16 @@ mod tests {
 		// c15 Horde 50-60/05-eastern-plaguelands:164-292: pairs of the walk to the tower and the zeppelin.
 		let pairs = "step T\n  only Dwarf\n  goto 2,2 \"T\"\n\nstep Z\n  only Dwarf\n  goto 2,2 \"Zeppelin\"\n\nstep T\n  only Human\n  goto 2,2 \"T\"\n\nstep Z\n  only Human\n  goto 2,2 \"Zeppelin\"\n\nstep Fly\n  fly \"X\"\n";
 		assert_eq!(collapse_audience_steps(pairs, &combos(), "Alliance"), "step T\n  goto 2,2 \"T\"\n\nstep Z\n  goto 2,2 \"Zeppelin\"\n\nstep Fly\n  fly \"X\"\n");
+	}
+
+	#[test]
+	fn a_class_stop_reads_the_level_it_is_played_at_not_the_seeds() {
+		// c19p Troll: its own Barrens guide, the Warriors' and Shamans' stop at the Crossroads at 12,
+		// kept the seed's `levels 11-17` and the seed's notes on the hand-made route.
+		let seed = "guide forever/horde/orc-troll/02-the-barrens\ntitle The Barrens\nrace Orc,Troll\nlevels 11-17\nnext forever/horde/02-the-barrens\n\n# Route: the consensus Orc route, checked by hand.\n\nstep Crossroads\n  accept 1\n\nstep Thun'grim\n  only Warrior\n  turnin 1502\n";
+		let kept = class_steps_only(seed).unwrap();
+		let t = class_stop_header(&kept, Some("12"));
+		assert!(t.starts_with("guide forever/horde/orc-troll/02-the-barrens\ntitle The Barrens\nrace Orc,Troll\nlevels 12-12\nnext forever/horde/02-the-barrens\n\n# Forge's route search"), "{t}");
+		assert!(!t.contains("# Route") && !t.contains("accept 1") && t.ends_with("step Thun'grim\n  only Warrior\n  turnin 1502\n"), "{t}");
 	}
 }

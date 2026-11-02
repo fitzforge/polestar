@@ -10,15 +10,15 @@ return {
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {zone:1443} Desolace · {area:608} Nijel's Point
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Suivez la route vers l'ouest après {area:460} (Horde), puis au sud-ouest par {area:465} jusqu'en {zone:1443} ; {area:608} se trouve en haut du col.",
 
-	-- Step 2: Sargeron
-	-- {area:603} Sargeron · {area:608} Nijel's Point
-	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
-	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
-
-	-- Step 3: Malem chest
+	-- Step 2: Malem chest
 	["Malem chest"] = "Coffre de Malem",
 	-- {area:608} Nijel's Point
 	["The chest lies in the ruins south-west of {area:608}."] = "Le coffre se trouve dans les ruines au sud-ouest de {area:608}.",
+
+	-- Step 3: Sargeron
+	-- {area:603} Sargeron · {area:608} Nijel's Point
+	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
+	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
 
 	-- Step 5: Aged Kodo Hide on the way
 	-- {item:6249} Aged Kodo Hide

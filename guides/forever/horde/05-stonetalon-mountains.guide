@@ -6,10 +6,9 @@ levels 23-25
 zone Stonetalon Mountains
 next forever/horde/06-hillsbrad-foothills
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
-# 10 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 
 step Ashenvale
   zone Ashenvale
@@ -94,21 +93,23 @@ step Kadrak
   accept 6543
   collect 16746                       -- Warsong Report, from the Bundle of Reports
 
+step Ashenvale
+  zone Ashenvale
+  goto 71.1,68.1 "Ashenvale"
+
+step Ashenvale Outrunners
+  zone Ashenvale
+  tip Kuray'bin stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them.
+  accept 6503
+
 step Warsong Scout
   zone Ashenvale
   tip Keep north on the road. The Warsong Scout waits at the Warsong lumber camp, south of Splintertree.
   collect 16764 quest 6543.1 @71.05,68.36 -- Warsong Scout
 
 step Ashenvale Outrunners
-  tip Kuray'bin stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them.
-  accept 6503
   kill 12856 quest 6503 @72.5,69.5 map 1440
   turnin 6503
-
-step Splintertree Post
-  tip North up the road to Splintertree Post and Night Run beside it.
-  getfp "Splintertree Post"
-  accept 6441                         -- Pixel
 
 step Splintertree Post
   tip Splintertree Post is just north up the road.
@@ -120,6 +121,8 @@ step Night Run
   accept 6383
   turnin 6383
   note Senani's hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next Ashenvale visit, at 27.
+  getfp "Splintertree Post"
+  tip North up the road to Splintertree Post and Night Run beside it.
   accept 25
 
 step Warsong Outrider
@@ -174,12 +177,6 @@ step Seereth Stonebreak
   turnin 1061
 
 # ---------------------------------------------------------------- Stonetalon Mountains
-
-step Deepmoss Egg on the way
-  along until q1069
-  when onquest 1069
-  zone Stonetalon Mountains
-  collect 5570 quest 1069.1
 
 step Malaka'jin
   zone Stonetalon Mountains
@@ -260,10 +257,6 @@ step Sun Rock Retreat
   turnin 86576 npc 11861              -- Mor'rogal, beside Tsunaman
   turnin 6282                         -- Maggran Earthbinder
   turnin 6381                         -- Tammra Windfield
-
-step Deepmoss Spider Eggs
-  label q1069
-  collect 5570 quest 1069.1 @52.8,72.8 map 1442
 
 step Malaka'jin
   tip Head back down the Webwinder Path to Malaka'jin.

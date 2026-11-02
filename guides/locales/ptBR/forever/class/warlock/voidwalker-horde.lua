@@ -24,8 +24,8 @@ return {
 	["{item:6535}, in the {object:58595}"] = "",
 
 	-- Step 3: The Binding (Orgrimmar)
-	-- {npc:5875} Gan'rul Bloodeye · {item:7464} Glyphs of Summoning · {object:172960} Cleft of Shadow (no name in this language: may be words) · {npc:3216} Neeru Fireblade
-	["Back to {npc:5875}. He hands you the {item:7464}: take them across the {object:172960} to {npc:3216}'s tent, stand on the purple circle on its floor and use them. The voidwalker (level 10, not elite) hits hard at 30% health and leaves after three minutes, so start at once: Curse of Agony, Corruption and Immolate, send your imp in, and Fear it when you need a breather. If it beats you or leaves, the glyphs are not used up: use them again on the circle. Keep the glyphs: {npc:5875} takes them back."] = "",
+	-- {npc:5875} Gan'rul Bloodeye · {item:7464} Glyphs of Summoning · {object:172960} Cleft of Shadow (no name in this language: may be words) · {npc:3216} Neeru Fireblade · {spell:14868} Curse of Agony · {spell:348} Immolate
+	["Back to {npc:5875}. He hands you the {item:7464}: take them across the {object:172960} to {npc:3216}'s tent, stand on the purple circle on its floor and use them. The voidwalker (level 10, not elite) hits hard at 30% health and leaves after three minutes, so start at once: {spell:14868}, Corruption and {spell:348}, send your imp in, and Fear it when you need a breather. If it beats you or leaves, the glyphs are not used up: use them again on the circle. Keep the glyphs: {npc:5875} takes them back."] = "",
 	-- {item:7464} Glyphs of Summoning
 	["{item:7464}, on the circle in Neeru's tent"] = "",
 
@@ -42,8 +42,8 @@ return {
 	["{item:6285}, in {object:37098}"] = "",
 
 	-- Step 6: The Binding (Undercity)
-	-- {npc:5675} Carendin Halgar · {item:6284} Runes of Summoning
-	["Back to {npc:5675}. He hands you the {item:6284}: go down the stairs from him to the summoning circle and use them while standing on it. Fight the voidwalker (level 10, not elite) on the circle: if it wanders off, the city guards may kill it and the kill does not count. Curse of Agony, Corruption and Immolate with your imp tanking bring it down; it hits harder below 30%. If you lose, use the runes again. Keep the runes: {npc:5675} takes them back."] = "",
+	-- {npc:5675} Carendin Halgar · {item:6284} Runes of Summoning · {spell:14868} Curse of Agony · {spell:348} Immolate
+	["Back to {npc:5675}. He hands you the {item:6284}: go down the stairs from him to the summoning circle and use them while standing on it. Fight the voidwalker (level 10, not elite) on the circle: if it wanders off, the city guards may kill it and the kill does not count. {spell:14868}, Corruption and {spell:348} with your imp tanking bring it down; it hits harder below 30%. If you lose, use the runes again. Keep the runes: {npc:5675} takes them back."] = "",
 	-- {item:6284} Runes of Summoning · {npc:5675} Carendin Halgar
 	["{item:6284}, on the circle below {npc:5675}"] = "",
 }

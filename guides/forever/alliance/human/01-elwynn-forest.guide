@@ -3,144 +3,14 @@ guide forever/alliance/human/01-elwynn-forest
 title Elwynn Forest
 faction Alliance
 race Human
-levels 1-13
+levels 1-11
 zone Elwynn Forest
 next forever/alliance/02-westfall
 
-# v1 improved: order from the simulator's search (Human Alliance, 2000000 tries, seeded with v1's order;
-# 125.7 h -> 117.5 h to 60 in the model), written by polestar apply-route.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 # Left out: Cloth and Leather Armor (59).
-# The notes above describe v1's order; the steps below are the improved one.
-
-# Route: the simulator's consensus route for Human (consensus-alliance-human,
-# visits 1 and 3, levels 1 to 12.3). Its visit 2, a Stormwind stop at 6, is
-# left out (see "Left out").
-#
-# Flow: Northshire Valley (Abbey, the kobold camp, Echo Ridge Mine, the
-# Defias and Milly's vineyard) -> Goldshire (bind) and Crystal Lake -> the
-# south: the Maclure Vineyards, the Fargodeep Mine and the Stonefield farm ->
-# Goldshire -> the east: the Tower of Azora, the bridge, Brackwell, Eastvale,
-# Stone Cairn Lake, the gnoll camps and the Jasperlode Mine -> Goldshire ->
-# the farms and Westbrook -> hearth to Goldshire -> the east again -> the
-# road west: Deputy Rainer at the Westbrook Garrison (Report to Gryan
-# Stoutmantle, 109), then into Westfall (02-westfall takes the farms on the
-# way down and the Sentinel Hill flight path, #416).
-#
-# Optional extras: The Big Picture (91752, Shinyfinder Narf is elite) and
-# what follows it: Follow That Kobold! (91758), Shhh! We're Hunting Kobolds
-# (91772) and Book Return (91775, Nimsy is elite). The Northshire book chain
-# runs Nibbled-On Book (91741, a Kobold Vermin drop) -> Book Inventory (92124)
-# -> Rascally Rodents (91743) -> Mining Consultant (91745) -> The Big Picture,
-# each offered once the one before is done. Rough Wolf Pelts (91751) is for
-# skinners: the pelts are skinned. Furlbrow's Deed (184) is optional: the
-# Westfall Deed is a rare drop from the Defias; it is turned in in Westfall.
-# Croaky's Head (91740) is optional: Croaky, an elite, roams the murloc shore
-# south of the bridge, along the river the first east loop searches for the
-# Waterlogged tools; the head goes to Merell Ross at Ridgepoint Tower, a short
-# way east. That step's turn-in is plain: the guide stops there only for
-# players who took the quest, and passes it for everyone else.
-#
-# Changes to the simulator's order:
-# - The Adventurer (96627) is taken from Marshal McBride with Report to
-#   Goldshire and handed to Sam Sarsaparilla before The Great Outdoors: the
-#   simulator walked back to Northshire at 10 for it, and the game does not
-#   offer the breadcrumb once The Great Outdoors is done.
-# - Slimy Menace (99128) is taken from Jason Mathers after A Net Disaster
-#   (99127) is handed in, and A Man About a Murloc (99129) after Slimy
-#   Menace; Bottles and Baubles (99143) is finished in the murloc camp with
-#   Slimy Menace at 6. Baited for Success (99131) is taken from Remy after
-#   An Enticing Offer (99130) is handed in, and goes to Jason on the next
-#   pass by the lake.
-# - The second Delicate Instruments (91724) is taken from Hamish Bergwort
-#   after the first (91723) is handed in; its Defias Rogue Wizards are killed
-#   at Stone Cairn Lake on the last east pass and it is handed in on the way
-#   back to Goldshire.
-# - The level 7 walk east to take Hamish Bergwort's quests and hearth back is
-#   folded into the east loop at 9: his quests, Blixie Fitzwink's and the
-#   Rough Wolf Pelts are done there, and Hamish's and Blixie's are handed in
-#   on the way back instead of after the Westbrook trip.
-# - A Fishy Peril (40) and Further Concerns (35) are taken in Goldshire after
-#   the south loop instead of before it: A Fishy Peril needs level 7, and
-#   Further Concerns only leads to Guard Thomas on the east loop.
-# - Left out: Bounty on Murlocs (46). Guard Thomas offers it only once Deliver
-#   Thomas' Report (39) is handed to Marshal Dughan in Goldshire, after the
-#   east loop, so it was a second walk east to the bridge and back at 10.6
-#   for that quest alone (c17, Rev17 AS).
-# - Left out: The Collector (123) and Manhunt (147). The Gold Pickup Schedule
-#   drops from Gruff Swiftbite, a level 12 rare among the Forest's Edge
-#   gnolls, the last stop before Westfall; its turn-in is Marshal Dughan in
-#   Goldshire and Manhunt's Morgan the Collector walks the Brackwell Pumpkin
-#   Patch in the east, so either is a trip back across Elwynn (c17 wrote the
-#   turn-in into Westfall with no way back, Rev17 AS). Non-Warlocks abandon
-#   it there. Forest's Edge waits only for the
-#   armbands (#553).
-# - Shipment to Stormwind (61) is taken from William Pestle when Kobold
-#   Candles is handed in; Morgan Pestle takes it on the Stormwind stop of
-#   02-westfall (the simulator took it and never handed it in).
-# - An Apple Treat (91738) is done on the Westbrook trip: its Thunder Applejack
-#   comes from the Applejack Still (91736) north of the garrison, for four
-#   Shiny Red Apples (Forever's quest data, quest 91736), bought from Homer
-#   Stonefield at the Stonefield farm. The still is a short walk off the road.
-# - Northshire: Eagan Peltskinner's Wolves Across the Border (33) is taken
-#   after Deputy Willem and Marshal McBride (Willem is at the spawn, Eagan at
-#   the far corner), and Investigate Echo Ridge (15) right after Kobold Camp
-#   Cleanup is handed in to McBride, before the class letters.
-# - Skirmish at Echo Ridge (21) is taken when Investigate Echo Ridge is
-#   handed in to McBride, and Report to Goldshire (54) and The Adventurer
-#   (96627) when Skirmish is: he offers each at once (#310).
-# - Eastvale: Sara Timberlain, on the way in, before Hagar Lowe.
-# - Goldshire, back from the east: The Escape (114) is taken after Marshal
-#   Dughan's turn-ins. Handing in Collecting Kelp (112) starts a short scene
-#   while William Pestle brews the liquor ("just one moment while I concoct
-#   the potion"), and Dughan stands a few yards away (#613).
-# - The Jasperlode Mine: the Mining Tools (91732) lie along the tunnel from
-#   the entrance, so they are picked up on the walk in to the mine's far end
-#   (76), and the Kobold Geomancers (91723) are killed on the way back out,
-#   towards the Tower of Azora (#612).
-#
-# Class quests, as class-only steps (the level 10-12 ones from the last
-# Goldshire stop, about level 12):
-# - Warlock: The Stolen Tome (1598, Summon Imp) in Northshire. Gakin's
-#   Summons (1685, Remen Marcot) to Surena Caledon (1688) and The Binding
-#   (1689, Summon Voidwalker): a trip to Stormwind and the Brackwell Pumpkin
-#   Patch before Westfall.
-# - Hunter: A Scribbled Letter (92479) from Marshal McBride to Tordrin
-#   Sternblade in Northshire; Josephine Carson's three Taming the Beast
-#   quests (94792, 94863, 94864: Tame Beast) and Training the Beast (94793,
-#   Isaac Chan: Beast Training), all around Goldshire.
-# - Paladin: The Tome of Divinity is level 12, and Elwynn ends below 12: it
-#   starts from Duthorian Rall (1641) at the Stormwind stop of 02-westfall,
-#   not from Brother Wilhelm's breadcrumb (2998), which would send Paladins
-#   back to Goldshire from Stormwind. Henze Faulk (1786, 1787) is done on the
-#   road east through Elwynn (04-redridge-mountains) and Redemption (1788)
-#   at the Stormwind stop of 05-duskwood.
-# - Priest: Desperate Prayer (5635) and Divine Grace (94774) from Priestess
-#   Josetta, handed in at the Cathedral of Light (02-westfall).
-#   Forever rewords Desperate Prayer to name High Priest Rohan in Ironforge;
-#   the quest data still has Laurena take it, so the route keeps her.
-# - Priest: In Favor of the Light / Garments of the Light (5623, 5624) reward
-#   a robe, not a spell: not taken.
-# - Warrior: the Defensive Stance quests are taken in Stormwind (02-westfall).
-# - Mage: Glyphic Letter (3104) in the Abbey. Speak with Jennea (1860,
-#   Zaldimar Wefhellt in Goldshire) and Mirror Lake (1861): a Stormwind stop
-#   and the Mirror Lake waterfall on the way to Westfall; handed in at the
-#   Stormwind stop of 02-westfall (Ley Staff or Ley Orb).
-# - Rogue: their level 10 quests reward items, not spells: not taken.
-#   Rogues: see the Class guide Blade of Cunning (Alliance).
-# - Level 1 class letters are taken: every class's letter from Marshal
-#   McBride (3100-3105, 92479) is taken once Kobold Camp Cleanup is handed
-#   in and goes to its trainer in the Abbey after Echo Ridge Mine, with the
-#   next train, so the trainer visit has something to learn.
-# Train at the Abbey and in Goldshire.
-# Left out: An Enchanting Lesson (91753, it needs Enchanting to disenchant
-# the effigies). Rare Books (91777, after Book Return) wants two books from
-# the Jasperlode Mine taken to Brother Paxton in Northshire, off the route.
-# Elmpaw's Head (91746) starts from the head of Elmpaw, a named elite that
-# roams north-east Elwynn, off the route. The simulator's Stormwind stop at
-# 6 is for Jennea Cannon's book quests (84397, 84398, 84399, 84402: each
-# needs a book that has no known source, and Forever's quest data lists them at level 60)
-# and three level 2 deliveries (332, 333, 334): not worth the walk without
-# the books.
 
 # ---------------------------------------------------------------- Northshire Valley
 

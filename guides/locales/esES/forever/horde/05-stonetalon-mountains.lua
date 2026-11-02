@@ -12,64 +12,56 @@ return {
 	-- {item:16746} Warsong Report · {item:16783} Bundle of Reports
 	["{item:16746}, from the {item:16783}"] = "",
 
-	-- Step 3: Warsong Scout
-	-- {npc:12862} Warsong Scout
-	["Keep north on the road. The {npc:12862} waits at the Warsong lumber camp, south of Splintertree."] = "Sigue al norte por el camino. {npc:12862} espera en el campamento maderero Grito de Guerra, al sur del Puesto del Hachazo.",
-
 	-- Step 4: Ashenvale Outrunners
 	-- {npc:12867} Kuray'bin
 	["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "",
 
-	-- Step 5: Splintertree Post
-	-- {area:431} Splintertree Post · {area:428} Night Run
-	["North up the road to {area:431} and {area:428} beside it."] = "",
+	-- Step 5: Warsong Scout
+	-- {npc:12862} Warsong Scout
+	["Keep north on the road. The {npc:12862} waits at the Warsong lumber camp, south of Splintertree."] = "Sigue al norte por el camino. {npc:12862} espera en el campamento maderero Grito de Guerra, al sur del Puesto del Hachazo.",
 
-	-- Step 6: Splintertree Post
+	-- Step 7: Splintertree Post
 	-- {area:431} Splintertree Post
 	["{area:431} is just north up the road."] = "{area:431} está justo al norte, siguiendo el camino.",
 
-	-- Step 7: Night Run
-	-- {npc:12696} Senani Thunderheart · {area:428} Night Run
-	["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696} está en {area:428}, el campamento Grito de Guerra justo al noreste del Puesto del Hachazo, junto al tablón de caza.",
+	-- Step 8: Night Run
+	-- {npc:12696} Senani Thunderheart · {area:428} Night Run · {area:431} Splintertree Post
+	["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board.\nNorth up the road to {area:431} and {area:428} beside it."] = "",
 	-- {npc:12696} Senani Thunderheart · {area:331} Ashenvale
 	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {area:331} visit, at 27."] = "",
 
-	-- Step 8: Warsong Outrider
+	-- Step 9: Warsong Outrider
 	-- {npc:12864} Warsong Outrider · {area:428} Night Run · {area:430} Satyrnaar
 	["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "{npc:12864} patrulla el camino al este de {area:428} hacia {area:430}.",
 
-	-- Step 9: Va'xug Firefure
+	-- Step 10: Va'xug Firefure
 	-- {npc:267214} Va'xug Firefure · {area:415} Astranaar
 	-- plural, as words: Shadowhorn Stags = {npc:3817} Shadowhorn Stag · Ashenvale Bears = {npc:3809} Ashenvale Bear
 	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "",
 
-	-- Step 10: A Void Path
+	-- Step 11: A Void Path
 	-- {npc:267214} Va'xug Firefure · {npc:271181} Eye of Kilrogg
 	["Steer {npc:267214}'s {npc:271181} out of the ravine to the main road within four minutes; if the channel breaks, ask {npc:267214} again."] = "Guía el {npc:271181} de {npc:267214} fuera del barranco hasta el camino principal en menos de cuatro minutos; si se rompe la canalización, vuelve a hablar con {npc:267214}.",
 	-- {npc:271181} Eye of Kilrogg
 	["{npc:271181}, on the road"] = "{npc:271181}, en el camino",
 
-	-- Step 11: Zoram'gar Outpost
+	-- Step 12: Zoram'gar Outpost
 	-- {area:331} Ashenvale · {area:415} Astranaar · {area:2897} Zoram'gar Outpost · {area:414} Zoram Strand
 	["Head west along the main road across {area:331}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west. Its other quests are for the next visit, at 27."] = "",
 
-	-- Step 12: Zoram'gar Outpost
+	-- Step 13: Zoram'gar Outpost
 	-- {area:392} Ratchet · {area:2897} Zoram'gar Outpost · {area:331} Ashenvale
 	["Fly from {area:392} to {area:2897} on the {area:331} coast."] = "",
 
-	-- Step 13: Naga heads
+	-- Step 14: Naga heads
 	["Naga heads"] = "Cabezas de naga",
 	["Every Wrathtail naga along the strand north of the outpost drops heads."] = "Todos los nagas Colafuria de la playa al norte del puesto sueltan cabezas.",
 
-	-- Step 15: Back to Kadrak
+	-- Step 16: Back to Kadrak
 	-- {npc:8582} Kadrak
 	["Back to {npc:8582}"] = "Vuelve con {npc:8582}",
 	-- {area:431} Splintertree Post · {area:1703} Mor'shan Rampart
 	["Fly to {area:431} and head south down the road to the {area:1703}."] = "",
-
-	-- Step 18: Deepmoss Egg on the way
-	-- {item:5570} Deepmoss Egg
-	["{item:5570} on the way"] = "",
 
 	-- Step 19: Malaka'jin
 	-- {area:380} Crossroads · {area:17} The Barrens · {area:2539} Malaka'jin
@@ -147,65 +139,65 @@ return {
 	-- {npc:11861} Mor'rogal · {npc:11862} Tsunaman
 	["{npc:11861}, beside {npc:11862}"] = "{npc:11861}, junto a {npc:11862}",
 
-	-- Step 31: Malaka'jin
+	-- Step 30: Malaka'jin
 	-- {area:1076} Webwinder Path · {area:2539} Malaka'jin
 	["Head back down the {area:1076} to {area:2539}."] = "",
 
-	-- Step 33: Fly to Orgrimmar
+	-- Step 32: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "",
 	-- {area:380} Crossroads
 	["{area:380} flight master"] = "",
 
-	-- Step 34: Paladin trainer
+	-- Step 33: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 35: Druid trainer
+	-- Step 34: Druid trainer
 	["Druid trainer"] = "",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
 
-	-- Step 36: Orgrimmar flight master
+	-- Step 35: Orgrimmar flight master
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 37: Orgrimmar
+	-- Step 36: Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637} to train."] = "",
 
-	-- Step 38: The Binding
+	-- Step 37: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:6626} Dogran's Pendant
 	["{npc:5875} stands in the {object:172960}. Use {item:6626} on the summoning circle there and defeat the succubus to bind her."] = "",
 
-	-- Step 39: Shenthul
+	-- Step 38: Shenthul
 	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
 	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "",
 
-	-- Step 41: Zeppelin to Undercity
+	-- Step 40: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
-	-- Step 43: Beren's Peril
+	-- Step 42: Beren's Peril
 	-- {area:272} Tarren Mill · {zone:1458} Undercity · {area:228} Sepulcher · {area:231} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
 	["If you already know the {area:272} flight path, fly there and skip to {area:272}. Otherwise fly from the {zone:1458} to the {area:228} and head south down the road past Pyrewood. The Ravenclaw undead haunt the ruins of {area:231} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "",
 	["Below ground"] = "",
 
-	-- Step 44: The Offering of Blood
+	-- Step 43: The Offering of Blood
 	-- {npc:212753} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "Usa {npc:212753} en {object:645153} como sacrificio voluntario y mata a {npc:212753} que responde. {quest:95883} es de élite: se recomienda ir en grupo.",
 
-	-- Step 45: Beren's Peril
+	-- Step 44: Beren's Peril
 	-- {item:271350} Tortured Soul
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "",
 
-	-- Step 47: Beren's Peril
+	-- Step 46: Beren's Peril
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
 	["{item:271343}, from a {npc:1973}"] = "{item:271343}, de un {npc:1973}",
 
-	-- Step 49: Southpoint Tower
+	-- Step 48: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "Vuelve al camino hacia el sur. Donde gira al este hacia {area:287}, {npc:2214} espera en {area:285}.",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill
@@ -227,6 +219,7 @@ return {
 	-- ["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock."] = "Las Semillas de Gaia están en la hierba de la orilla sur de {area:464}, al norte del Refugio Roca del Sol.",
 	-- ["To the {area:1497}"] = "A {area:1497}",
 	-- ["{item:271350}, from the Tortured Souls among the ruins"] = "{item:271350}, de las Almas torturadas entre las ruinas",
+	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696} está en {area:428}, el campamento Grito de Guerra justo al noreste del Puesto del Hachazo, junto al tablón de caza.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 27."] = "Las presas de {npc:12696} (Ursangous, Shadumbra, Garrafilada) son para la próxima visita a {zone:1440}, a nivel 27.",
 	-- ["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "La siguiente misión de {npc:4198}, Ordanus, está en el lado de la Alianza de {zone:1440}. Sáltatela.",
 	-- ["{npc:4606} stands in the {object:36070}."] = "{npc:4606} está en {object:36070}.",

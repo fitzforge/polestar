@@ -69,106 +69,106 @@ return {
 	["{npc:3391}, upstairs"] = "",
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
 	["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}：控制台在{area:382}，稍后",
+	-- {object:3972} WANTED
+	["{object:3972} poster"] = "",
 	-- {quest:1492} Wharfmaster Dizzywig
 	["{quest:1492}, on the dock"] = "{quest:1492}，在码头上",
 
-	-- Step 23: The Barrens: kill these as you meet them
-	-- {area:392} Ratchet
-	["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them."] = "海盗在{area:392}南边的海滩上扎营。一堆错综复杂的零件散落在他们之间的沙子里。",
+	-- Step 23: Intact Raptor Horn on the way
+	-- {item:5055} Intact Raptor Horn
+	["{item:5055} on the way"] = "",
 
-	-- Step 25: Stolen Booty
+	-- Step 24: The Barrens: kill these as you meet them
+	-- {area:392} Ratchet · {npc:3467} Baron Longshore
+	["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them.\nThe pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "",
+
+	-- Step 26: Stolen Booty
 	["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "沿海滩往回走，经过海盗营地：一箱靴子和装着镜片的易碎品箱在营地南端。",
 
-	-- Step 27: Fly to The Crossroads
+	-- Step 28: Fly to The Crossroads
 	-- {area:380} The Crossroads
 	["Fly to {area:380}"] = "",
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "",
 
-	-- Step 29: Regthar Deathgate
+	-- Step 30: Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate
 	["South to {npc:3389}'s watch post on the Kolkar border."] = "向南前往{npc:3389}在科卡尔边界的哨站。",
 
-	-- Step 30: The Barrens: kill these as you meet them
+	-- Step 31: The Barrens: kill these as you meet them
 	-- {npc:3389} Regthar Deathgate
 	-- plural, as words: Laden Mushrooms = {object:3640} Laden Mushroom
 	["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers."] = "水池就在{npc:3389}北边。走进水里即可探索；给赫布瑞姆的丰满的蘑菇长在水池周围。杀死途中的每个科卡尔半人马获取护腕。",
 
-	-- Step 31: Dry Hills
+	-- Step 33: Dry Hills
 	-- {area:383} Dry Hills · {quest:819} Chen's Empty Keg
 	-- plural, as words: Witchwing Ambushers = {npc:3279} Witchwing Ambusher
 	["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills.\nCareful: There are 2 Witchwing Ambushers (level 17-18). They stay stealthed with Sneak while out of combat."] = "",
 
-	-- Step 32: Samophlange
+	-- Step 34: Samophlange
 	-- {object:4141} Control Console · {area:382} Sludge Fen · {item:5089} Console Key · {npc:3471} Tinkerer Sniggles
 	["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it.\nCareful: Several guards stand within aggro range of the valves, respawn in under about 3 minutes, and run at low health to bring back help; nearby mobs also join if you use a valve while they are close."] = "",
 	["Inside"] = "",
 	-- {npc:3442} Sputtervalve · {area:392} Ratchet
 	["{npc:3442} in {area:392}: later, on the way"] = "{area:392}的{npc:3442}：稍后，顺路",
 
-	-- Step 33: Echeyakee
+	-- Step 35: Echeyakee
 	-- {quest:881} Echeyakee
 	["{quest:881}, a white lion, prowls the plains north of the Razormane camp.\nCareful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside {quest:881}, so clear them out before you blow the horn."] = "",
 
-	-- Step 34: The Disruption Ends
-	-- {npc:3438} Kreenig Snarlsnout
-	["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "回到钢鬃营地。钢鬃地卜师和钢鬃防御者占据营地东半部；{npc:3438}在他们中间走动。",
-
-	-- Step 36: Telf Joolam
-	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
-	["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "{npc:5900}用焦油和材料袋制作{item:6636}。在他旁边的火盆处使用它，显现出{npc:5893}，杀死它获得{item:6655}，然后把余烬放进火盆。",
-
-	-- Step 38: Kranal Fiss
-	-- {npc:5907} Kranal Fiss · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
-	["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}：{npc:2523}、你的{item:5176}和{item:263412}",
-
-	-- Step 39: Hearth to Ratchet
+	-- Step 36: Hearth to Ratchet
 	-- {area:392} Ratchet
 	["Hearth to {area:392}"] = "",
 
-	-- Step 40: Ratchet
+	-- Step 37: Ratchet
 	-- {area:392} Ratchet
 	["East to {area:392}, on the coast."] = "向东前往海岸上的{area:392}。",
 
-	-- Step 43: The Stagnant Oasis
+	-- Step 38: The Disruption Ends
+	-- {npc:3438} Kreenig Snarlsnout
+	["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "回到钢鬃营地。钢鬃地卜师和钢鬃防御者占据营地东半部；{npc:3438}在他们中间走动。",
+
+	-- Step 40: Telf Joolam
+	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
+	["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "{npc:5900}用焦油和材料袋制作{item:6636}。在他旁边的火盆处使用它，显现出{npc:5893}，杀死它获得{item:6655}，然后把余烬放进火盆。",
+
+	-- Step 42: Kranal Fiss
+	-- {npc:5907} Kranal Fiss · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
+	["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}：{npc:2523}、你的{item:5176}和{item:263412}",
+
+	-- Step 44: The Stagnant Oasis
 	-- {area:380} The Crossroads
 	["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "在{area:380}东南方。在绿洲东岸冒泡的裂缝处测试种子。",
 	["Underwater"] = "",
 
-	-- Step 44: Raptor nests
-	["Raptor nests"] = "迅猛龙巢穴",
-	-- {area:1697} Raptor Grounds
-	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["The three nests sit together in the {area:1697} south-west of the oasis; Sunscale Scytheclaws guard them."] = "三个巢穴一起位于绿洲西南方的{area:1697}；赤鳞镰爪龙守卫着它们。",
-
 	-- Step 45: The Crossroads
 	["Back west along the road."] = "沿道路向西返回。",
 
-	-- Step 46: Lushwater Oasis
-	-- {area:387} Lushwater Oasis · {area:380} The Crossroads · {area:388} Stagnant Oasis
-	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
-	["Oasis Snapjaws crawl around {area:387}, south-west of the {area:380}, and around the {area:388}."] = "{npc:3461}在{area:380}西南方的{area:387}周围和{area:388}周围爬行。",
-
-	-- Step 47: Wenikee Boltbucket
+	-- Step 46: Wenikee Boltbucket
 	-- {area:1703} Mor'shan Rampart · {npc:9316} Wenikee Boltbucket
 	["East to the {area:1703}; {npc:9316} stands at the camp just south of it."] = "向东前往{area:1703}；{npc:9316}站在其南边不远的营地。",
+
+	-- Step 47: Nugget Slugs
+	-- {area:382} Sludge Fen · {npc:9316} Wenikee Boltbucket
+	["The tool buckets with the slugs lie around the Venture Co. drill site in the {area:382}, east of {npc:9316}."] = "装有高强度齿轮的工具桶散落在{npc:9316}东边{area:382}中的风险投资公司钻探点周围。",
 
 	-- Step 48: Ignition
 	-- {area:382} Sludge Fen · {npc:3439} Wizzlecrank's Shredder · {npc:3445} Supervisor Lugwizzle
 	["East to the {area:382}. {npc:3439} stands inside the Venture Co. camp; {npc:3445} carries the key."] = "",
 
-	-- Step 49: Nugget Slugs
-	-- {area:382} Sludge Fen · {npc:9316} Wenikee Boltbucket
-	["The tool buckets with the slugs lie around the Venture Co. drill site in the {area:382}, east of {npc:9316}."] = "装有高强度齿轮的工具桶散落在{npc:9316}东边{area:382}中的风险投资公司钻探点周围。",
-
-	-- Step 50: Wenikee Boltbucket
+	-- Step 49: Wenikee Boltbucket
 	-- {quest:3923} Rilli Greasygob · {zone:1454} Orgrimmar · {object:172958} Valley of Honor
 	["Keep it: {quest:3923} is in {zone:1454}'s {object:172958}, on the next guide's {zone:1454} visit"] = "",
 
-	-- Step 51: Harpy Lieutenants
+	-- Step 50: Harpy Lieutenants
 	-- {area:383} Dry Hills
 	-- plural, as words: Witchwing Slayers = {npc:3278} Witchwing Slayer
 	["The Witchwing Slayers hold the western {area:383}; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "",
+
+	-- Step 52: Lushwater Oasis
+	-- {area:387} Lushwater Oasis · {area:380} The Crossroads · {area:388} Stagnant Oasis
+	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
+	["Oasis Snapjaws crawl around {area:387}, south-west of the {area:380}, and around the {area:388}."] = "{npc:3461}在{area:380}西南方的{area:387}周围和{area:388}周围爬行。",
 
 	-- Step 53: The Crossroads
 	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
@@ -184,9 +184,12 @@ return {
 	-- ["Oasis Snapjaws crawl around {area:387}, south-west of the {area:380}, and around the {area:388}."] = "绿洲钳嘴龟在{area:380}西南方的{area:387}周围和{area:388}周围爬行。",
 	-- ["Plainstriders and Sunscale raptors roam the plains all around the {area:380}, thickest to the north."] = "平原陆行鸟和赤鳞迅猛龙在{area:380}四周的平原上游荡，北边最多。",
 	-- ["Plainstriders and raptors"] = "陆行鸟和迅猛龙",
+	-- ["Raptor nests"] = "迅猛龙巢穴",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "在{area:380}东南方。在绿洲东岸冒泡的裂缝处测试种子。",
 	-- ["Southsea beach"] = "南海海滩",
 	-- ["The Witchwing Slayers hold the western {area:383}; they wear the rings."] = "巫翼杀戮者占据{area:383}西部；戒指在它们身上。",
+	-- ["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them."] = "海盗在{area:392}南边的海滩上扎营。一堆错综复杂的零件散落在他们之间的沙子里。",
+	-- ["The three nests sit together in the {area:1697} south-west of the oasis; Sunscale Scytheclaws guard them."] = "三个巢穴一起位于绿洲西南方的{area:1697}；赤鳞镰爪龙守卫着它们。",
 	-- ["The {area:383}"] = "{area:383}",
 	-- ["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it."] = "{object:4141}位于{area:382}西边的风险投资公司研究站。关闭钻机周围的三个阀门，再次使用控制台，然后从旁边的{npc:3471}身上拿到{item:5089}。",
 	-- ["Thun'grim camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "索恩格瑞姆在从{area:380}到{area:392}的路旁扎营。{object:58369}在他北边不远的钢鬃营地南部。",

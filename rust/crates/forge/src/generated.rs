@@ -290,44 +290,24 @@ fn mask_admits((mask, forever): (f64, bool), race: &str, side: &str) -> bool {
 		.any(|&(s, bit)| s == side && (has_bit(mask, bit) || (bit >= 4294967296.0 && !forever)))
 }
 
-/// A race's copy of a start guide written for `races` (`Dwarf,Gnome`): its header says `race
-/// <race>`, and a goal for a quest the race cannot take, which the shared header left to the
-/// other race (`accept 3114 only Mage`, a Gnome's), names that race (`only Gnome,Mage`), so the
-/// copy compiles under its own race and shows the player the same steps. Lines and steps stay
-/// where they are: the baked legs count steps.
-fn race_copy(text: &str, race: &str, races: &[String], side: &str, quests: &QuestRaces) -> String {
-	use forge_guide::conditions::{same_race, Audience};
+/// A race's copy of a start guide written for several races (`Orc,Troll`): its header says `race
+/// <race>`, and what never shows to that race goes: a goal whose `only` names other races alone
+/// (`accept 1 only Troll,Warrior`) or whose quest the race cannot take (Glyphic Memorandum, a
+/// Gnome's, in the Dwarves' copy), a step whose `only` names other races alone, and a step left
+/// without goals. The steps' places change with them: [`publish`] re-keys the baked legs.
+fn race_copy(text: &str, race: &str, side: &str, quests: &QuestRaces) -> String {
+	use forge_guide::conditions::Audience;
 	use forge_guide::lexer::lex_line;
-	let byte_at = |s: &str, unit: usize| {
-		let mut n = 0;
-		for (b, c) in s.char_indices() {
-			if n >= unit {
-				return b;
-			}
-			n += c.len_utf16();
-		}
-		s.len()
-	};
-	let mut out = String::with_capacity(text.len() + 256);
-	let mut in_steps = false;
-	for raw in text.split_inclusive('\n') {
-		let body = raw.trim_end_matches(['\n', '\r']);
-		let eol = &raw[body.len()..];
-		in_steps |= body.starts_with("step");
-		if !in_steps {
-			if body.starts_with("race ") {
-				out.push_str(&format!("race {race}{eol}"));
-			} else {
-				out.push_str(raw);
-			}
-			continue;
-		}
+	let excludes = |list: &str| !Audience::parse(list).race_in(race);
+	// (A goal line's own `only` list and quests.)
+	let goal_dropped = |body: &str| -> Option<bool> {
 		let lex = lex_line(body);
 		let t = &lex.tokens;
-		let is_goal = body.starts_with([' ', '\t']) && t.first().is_some_and(|v| !v.quoted && forge_guide::parse::VERBS.contains(&v.text.as_str()));
-		if !is_goal {
-			out.push_str(raw);
-			continue;
+		if !(body.starts_with([' ', '\t']) && t.first().is_some_and(|v| !v.quoted && forge_guide::parse::VERBS.contains(&v.text.as_str()))) {
+			return None;
+		}
+		if t.iter().enumerate().skip(1).find(|(_, v)| v.text == "only" && !v.quoted).and_then(|(i, _)| t.get(i + 1)).is_some_and(|l| excludes(&l.text)) {
+			return Some(true);
 		}
 		let mut ids: Vec<u32> = Vec::new();
 		if matches!(t[0].text.as_str(), "accept" | "turnin" | "complete" | "abandon") {
@@ -338,33 +318,77 @@ fn race_copy(text: &str, race: &str, races: &[String], side: &str, quests: &Ques
 				ids.extend(w[1].text.split('.').next().and_then(|q| q.parse::<u32>().ok()));
 			}
 		}
-		let masks: Vec<(f64, bool)> = ids.iter().filter_map(|q| quests.get(q).copied()).collect();
-		let to: Vec<&str> = if masks.iter().any(|&m| !mask_admits(m, race, side)) {
-			races.iter().map(String::as_str).filter(|r| !same_race(r, race) && masks.iter().all(|&m| mask_admits(m, r, side))).collect()
+		Some(ids.iter().filter_map(|q| quests.get(q)).any(|&m| !mask_admits(m, race, side)))
+	};
+	let mut out = String::with_capacity(text.len());
+	let mut in_steps = false;
+	// The step being read: its lines, whether it goes, whether it had goals and kept one.
+	let mut step: Vec<&str> = Vec::new();
+	let (mut drop_step, mut had_goal, mut kept_goal) = (false, false, false);
+	let flush = |out: &mut String, step: &mut Vec<&str>, drop: bool| {
+		if !drop {
+			out.extend(step.iter().copied());
 		} else {
-			Vec::new()
-		};
-		if to.is_empty() {
-			out.push_str(raw);
+			// (Its section comments and blank lines stay; one blank line between steps.)
+			for l in step.iter().filter(|l| !l.starts_with("step") && !l.starts_with([' ', '\t'])) {
+				if !(l.trim().is_empty() && (out.ends_with("\n\n") || out.is_empty())) {
+					out.push_str(l);
+				}
+			}
+		}
+		step.clear();
+	};
+	for raw in text.split_inclusive('\n') {
+		let body = raw.trim_end_matches(['\n', '\r']);
+		if body.starts_with("step") {
+			if in_steps {
+				flush(&mut out, &mut step, drop_step || (had_goal && !kept_goal));
+			}
+			in_steps = true;
+			(drop_step, had_goal, kept_goal) = (false, false, false);
+			step.push(raw);
 			continue;
 		}
-		let only = t.iter().enumerate().skip(1).find(|(_, v)| v.text == "only" && !v.quoted).and_then(|(i, _)| t.get(i + 1));
-		let line = match only {
-			Some(list) if Audience::parse(&list.text).races.is_some() => body.to_string(),
-			Some(list) => {
-				let (a, b) = (byte_at(body, list.start), byte_at(body, list.end));
-				format!("{}{},{}{}", &body[..a], to.join(","), &body[a..b], &body[b..])
+		if !in_steps {
+			if body.starts_with("race ") {
+				out.push_str(&format!("race {race}{}", &raw[body.len()..]));
+			} else {
+				out.push_str(raw);
 			}
-			None => {
-				let end = byte_at(body, lex.end);
-				let code = body[..end].trim_end();
-				format!("{code} only {}{}", to.join(","), &body[code.len()..])
+			continue;
+		}
+		let code = body.split(" -- ").next().unwrap_or(body);
+		if let Some(list) = code.trim_start().strip_prefix("only ").filter(|_| body.starts_with([' ', '\t']) && !had_goal) {
+			drop_step |= excludes(list.trim());
+		}
+		match goal_dropped(body) {
+			Some(true) => had_goal = true,
+			Some(false) => {
+				(had_goal, kept_goal) = (true, true);
+				step.push(raw);
 			}
-		};
-		out.push_str(&line);
-		out.push_str(eol);
+			None => step.push(raw),
+		}
 	}
+	flush(&mut out, &mut step, drop_step || (had_goal && !kept_goal));
 	out
+}
+
+/// A split guide's baked legs (`{hash, steps}`, baked on the guide as written, `old`) for its
+/// race's copy (`new`): each of the copy's legs that runs between the same two places as one of the
+/// written guide's takes that leg; the hash is the copy's.
+fn rekey_legs(legs: &Value, old: &forge_guide::js::V, new: &forge_guide::js::V, frames: &forge_guide::js::V) -> Value {
+	use forge_guide::bake::{guide_hash, step_targets, World};
+	let key = |a: &World, b: &World| (a.c.to_js_string(), a.wx.round() as i64, a.wy.round() as i64, b.wx.round() as i64, b.wy.round() as i64);
+	let mut had: Vec<(_, &Value)> = step_targets(old, frames).iter().filter_map(|(s, a, b)| Some((key(a, b), legs["steps"].get(s.to_string())?))).collect();
+	let mut steps = serde_json::Map::new();
+	for (s, a, b) in step_targets(new, frames) {
+		let k = key(&a, &b);
+		if let Some(i) = had.iter().position(|(x, _)| *x == k) {
+			steps.insert(s.to_string(), had.remove(i).1.clone());
+		}
+	}
+	json!({ "hash": guide_hash(new, frames), "steps": steps })
 }
 
 /// `forge guide publish --from <out>/guides`: the leveling guides of a build's written trees, one
@@ -397,6 +421,8 @@ pub fn publish(checkout: &Path, from: &Path, data: &Path) -> Result<Published, S
 	let mut errors: Vec<String> = Vec::new();
 	let mut published = Published::default();
 	let mut quests: Option<QuestRaces> = None;
+	// (The guide data, for a split copy's legs: loaded when one needs them.)
+	let mut gdata: Option<forge_guide::data::Data> = None;
 	let mut seen_seed: std::collections::BTreeSet<String> = Default::default();
 	for faction in [forge_core::Faction::Horde, forge_core::Faction::Alliance] {
 		let sub = format!("forever/{}", faction.lower());
@@ -489,10 +515,28 @@ pub fn publish(checkout: &Path, from: &Path, data: &Path) -> Result<Published, S
 						let Some(b) = t.files.get(*r) else { continue };
 						let to = split_rel(r, t.race);
 						let text = replace_ids(&String::from_utf8_lossy(b), &renames(i));
-						let text = race_copy(&text, t.race, &header_races(b), faction.name(), quests.as_ref().expect("loaded"));
+						let copy = race_copy(&text, t.race, faction.name(), quests.as_ref().expect("loaded"));
 						if let Some(l) = leg(t, id) {
+							// (Steps or goals gone: the legs move to the copy's steps.)
+							let l = if copy.lines().count() == text.lines().count() {
+								l
+							} else {
+								if gdata.is_none() {
+									gdata = Some(forge_guide::project::load_project_data(data, &mut forge_guide::diag::Diagnostics::new())?);
+								}
+								let d = gdata.as_ref().expect("loaded");
+								let compile = |text: &str| {
+									let src = forge_guide::project::Source { source: r.to_string(), file: r.to_string(), text: text.to_string() };
+									forge_guide::project::resolve_sources(&[src], d, &mut forge_guide::diag::Diagnostics::new(), None, None).into_iter().next()
+								};
+								match (compile(&String::from_utf8_lossy(b)), compile(&copy)) {
+									(Some(old), Some(new)) => rekey_legs(&l, &old, &new, &d.map_frames),
+									_ => return Err(format!("{r}: {}'s copy does not compile", t.race)),
+								}
+							};
 							legs_out.insert(guide_id(&to).to_string(), l);
 						}
+						let text = copy;
 						ids.push(guide_id(&to).to_string());
 						out.insert(to, text.into_bytes());
 					}
@@ -641,6 +685,9 @@ mod tests {
 					text.replace("step seed\n", "step Anvilmar\n  accept 3114 only Mage            -- Glyphic Memorandum\n  accept 3106 only Dwarf,Warrior\n  accept 1861\n")
 				} else if own && race == "Gnome" {
 					text.replace("step seed\n", "step Anvilmar\n  accept 3114 only Mage\n  turnin 3107 only Paladin  -- Consecrated Rune\n")
+				} else if own && race == "Orc" && p.ends_with("02-b.guide") {
+					// The Trolls' class step and lines, which never show to an Orc.
+					text.replace("step seed\n", "step Orc\n\nstep Darkspear\n  only Troll,Warrior\n  accept 5\n\n# ---- town\n\nstep Razor Hill\n  accept 6 only Troll\n  accept 7\n  turnin 8 only Troll,Mage\n\nstep Sen'jin\n  turnin 9 only Troll\n")
 				} else if own {
 					text.replace("step seed\n", &format!("step {start}\n"))
 				} else {
@@ -743,11 +790,14 @@ mod tests {
 		assert!(read_s(&g.join("forever/horde/troll/01-a.guide")).ends_with("race Troll\nnext forever/horde/troll/02-b\n\nstep Troll\n"));
 		assert!(read_s(&g.join("forever/horde/troll/02-b.guide")).contains("guide forever/horde/troll/02-b\nrace Troll\nnext forever/horde/02-shared\n"));
 		assert!(!g.join("forever/horde/orc-troll").exists(), "the shared folder goes");
-		// A goal the shared header left to the other race names it; the race's own goals stay.
+		// What never shows to the race goes: another race's step and lines, a goal for a quest the
+		// race cannot take (Gnome mages', a Human-and-Gnome quest), a step left without goals.
+		let orc = read_s(&g.join("forever/horde/orc/02-b.guide"));
+		assert!(orc.ends_with("race Orc\nnext forever/horde/02-shared\n\nstep Orc\n\n# ---- town\n\nstep Razor Hill\n  accept 7\n\n"), "{orc}");
 		let dwarf = read_s(&g.join("forever/alliance/dwarf/01-a.guide"));
-		assert!(dwarf.ends_with("race Dwarf\nnext forever/alliance/02-shared\n\nstep Anvilmar\n  accept 3114 only Gnome,Mage            -- Glyphic Memorandum\n  accept 3106 only Dwarf,Warrior\n  accept 1861 only Gnome\n"), "{dwarf}");
+		assert!(dwarf.ends_with("race Dwarf\nnext forever/alliance/02-shared\n\nstep Anvilmar\n  accept 3106 only Dwarf,Warrior\n"), "{dwarf}");
 		let gnome = read_s(&g.join("forever/alliance/gnome/01-a.guide"));
-		assert!(gnome.ends_with("race Gnome\nnext forever/alliance/02-shared\n\nstep Anvilmar\n  accept 3114 only Mage\n  turnin 3107 only Dwarf,Paladin  -- Consecrated Rune\n"), "{gnome}");
+		assert!(gnome.ends_with("race Gnome\nnext forever/alliance/02-shared\n\nstep Anvilmar\n  accept 3114 only Mage\n"), "{gnome}");
 		// One legs file: the shared route's once, each race's own under its id.
 		let legs: Value = serde_json::from_slice(&std::fs::read(g.join(crate::bake::LEGS_FILE)).unwrap()).unwrap();
 		assert_eq!(legs["grid"], "g1");

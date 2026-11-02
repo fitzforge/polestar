@@ -3,14 +3,20 @@ guide forever/horde/orc/02-the-barrens
 title The Barrens
 faction Horde
 race Orc
-levels 11-17
+levels 12-12
 zone The Barrens
 next forever/horde/02-the-barrens
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
-# 7 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: Meats to Orgrimmar (6365), Ride to Orgrimmar (6384).
+
+step Zargh
+  accept 6365
+  turnin 6365
+  getfp "Crossroads"
+  tip You arrive from Far Watch Post. Sergra stands by the inn; Tonga at the south gate.
 
 # Route: the simulator's consensus Orc route (data/sim/export/consensus-horde-orc,
 # visit 2, the Barrens 11.9-16.2). Trolls share it. Starts at the Crossroads,
@@ -62,24 +68,20 @@ next forever/horde/02-the-barrens
 
 # ---------------------------------------------------------------- The Crossroads
 
-step The Crossroads
-  tip You arrive from Far Watch Post. Sergra stands by the inn; Tonga at the south gate.
-  turnin 842                          -- Sergra Darkthorn
-  turnin 842
-
 # ---------------------------------------------------------------- The Crossroads
 
 step The Crossroads
   zone The Barrens
-  tip Thork and Darsok on the tower platform. Helbrim and Gazrog by the north gate. The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
+  tip Helbrim and Gazrog by the north gate. The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
   accept 844                          -- Sergra Darkthorn
   accept 869                          -- Gazrog
   accept 1492
   accept 848                          -- Apothecary Helbrim
+  accept 6384
+  tip Thork and Darsok on the tower platform.
   accept 5041
   accept 871                          -- Thork
   accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
-  getfp "Crossroads"
 
 step On the way
   along

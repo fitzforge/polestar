@@ -74,6 +74,8 @@ return {
 	-- {area:603} Sargeron
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
 	["North along the eastern hills, the satyrs hold the ruins of {area:603}. The Shadowstalkers walk unseen; the four kinds you need do not.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "",
+	-- {npc:4670} Hatefury Rogue
+	["grind on {npc:4670}"] = "",
 
 	-- Step 17: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {item:20310} Flayed Demon Skin
@@ -81,85 +83,89 @@ return {
 
 	-- Step 18: Ghost Walker Post
 	["Head back south to the post."] = "",
-
-	-- Step 19: Ghost Walker Post
 	-- {npc:5641} Takata Steelblade · {quest:1431} Alliance Relations · {zone:1454} Orgrimmar
 	["{npc:5641}'s next {quest:1431} sends you back to {zone:1454} for nothing: leave it."] = "{npc:5641}의 다음 퀘스트인 {quest:1431}은(는) 아무 소득 없이 {zone:1454}(으)로 돌려보냅니다. 받지 마세요.",
 
-	-- Step 20: Kolkar ears
+	-- Step 19: Kolkar ears
 	["Kolkar ears"] = "콜카르일족 귀",
 	-- {area:609} Kolkar Village
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	["Back at {area:609}, every Kolkar can drop an ear.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
 
-	-- Step 21: Shadowstalker scalp
+	-- Step 20: Shadowstalker scalp
 	["Shadowstalker scalp"] = "그림자추적자의 머리가죽",
 	-- {area:603} Sargeron
 	-- plural, as words: Hatefury Shadowstalkers = {npc:4674} Hatefury Shadowstalker
 	["The Hatefury Shadowstalkers at {area:603} walk unseen until they strike; about one in three carries a scalp."] = "{area:603}의 서릿발분노의 그림자추적자는 공격할 때까지 보이지 않습니다. 세 마리 중 한 마리 정도가 머리가죽을 지니고 있습니다.",
+	-- {npc:4674} Hatefury Shadowstalker
+	["grind on {npc:4674}"] = "",
 
-	-- Step 23: Shadowprey Village
+	-- Step 22: Shadowprey Village
 	-- {area:606} Gelkis Village
 	["Head south-west to the troll village on the coast, keeping clear of the {area:606} on the way."] = "",
 	-- {npc:11877} Roon Wildmane · {npc:715} Hemet Nesingwary
 	["{npc:11877}: for {npc:715} in Stranglethorn"] = "{npc:11877}: 가시덤불 골짜기의 {npc:715}에게",
 
-	-- Step 25: On the way
+	-- Step 24: On the way
 	["On the way"] = "",
 
-	-- Step 26: Clam beds
+	-- Step 25: Clam beds
 	["Clam beds"] = "조개 서식지",
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler
 	["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat."] = "",
 	["Underwater"] = "",
+	-- {npc:12347} Enraged Reef Crawler
+	["grind on {npc:12347}"] = "",
 
-	-- Step 27: Slitherblade Oracles
+	-- Step 26: Slitherblade Oracles
 	-- plural, as words: Slitherblade Oracles = {npc:4718} Slitherblade Oracle
 	["Slitherblade Oracles"] = "뱀갈퀴일족 예언자",
 	-- {area:598} Sar'theris Strand
 	["Keep north to {area:598}. The Oracles stand among the other naga at its north end; pull one at a time."] = "계속 북쪽의 {area:598}(으)로 가세요. 예언자는 북쪽 끝에 다른 나가들과 함께 있습니다. 한 번에 하나씩 끌어오세요.",
+	-- {npc:4718} Slitherblade Oracle
+	["grind on {npc:4718}"] = "",
 
-	-- Step 28: Ethel Rethor
+	-- Step 27: Ethel Rethor
 	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor
 	["{npc:11863} waits in the ruined tower of {area:2405}, inland to the south-east."] = "{npc:11863}은(는) 내륙 남동쪽 {area:2405}의 무너진 탑에서 기다립니다.",
 
-	-- Step 29: Ghost Walker Post
+	-- Step 28: Ghost Walker Post
 	["Head south-east to the post."] = "",
 	-- {npc:5641} Takata Steelblade
 	["{npc:5641}'s next errand sends you after a demon lord with an elite guard: skip it."] = "{npc:5641}의 다음 심부름은 정예 호위병을 거느린 악마 군주를 쫓게 합니다. 건너뛰세요.",
 
-	-- Step 31: Fly to Orgrimmar
+	-- Step 30: Fly to Orgrimmar
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 
-	-- Step 32: Paladin trainer
+	-- Step 31: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 34: Thunder Bluff
+	-- Step 33: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
 	["Fly to {area:1638} from Shadowprey and train with {npc:3033} on {area:1639}, then fly on to {zone:1454}."] = "그늘수렵 마을에서 {area:1638}(으)로 날아가 {area:1639}의 {npc:3033}에게서 기술을 배운 뒤, {zone:1454}(으)로 날아가세요.",
 
-	-- Step 35: Fly to Orgrimmar
+	-- Step 34: Fly to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454}"] = "",
 
-	-- Step 36: Back to Orgrimmar
+	-- Step 35: Back to Orgrimmar
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 38: Zeppelin to Undercity
+	-- Step 37: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
-	-- Step 39: Fly to Tarren Mill
+	-- Step 38: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "",
 	-- {zone:1458} Undercity
 	["{zone:1458} flight master"] = "",
 
-	-- Step 40: Tarren Mill
+	-- Step 39: Tarren Mill
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",
 	-- {npc:2229} Krusk · {zone:1413} Barrens
@@ -171,105 +177,109 @@ return {
 	-- {npc:2770} Tallow · {area:321} Hammerfall
 	["{npc:2770}: for {area:321} in Arathi, later on the route"] = "{npc:2770}: 나중에 경로상의 아라시 고원 {area:321}에서",
 
-	-- Step 41: Fly to Undercity
+	-- Step 40: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "",
 
-	-- Step 42: Garen Largo
+	-- Step 41: Garen Largo
 	-- {npc:260093} Garen Largo · {zone:1458} Undercity
 	["{npc:260093} trains Paladins in the {zone:1458}."] = "",
 
-	-- Step 43: Undercity
+	-- Step 42: Undercity
 	-- {quest:515} Elixir of Agony · {item:3388} Strong Troll's Blood Potion · {skill:171} Alchemy · {area:287} Hillsbrad
 	["{quest:515} needs a {item:3388}, an {skill:171} item: buy one at the auction house here if you can (or ask an alchemist). No potion: skip the Elixir steps in {area:287}."] = "{quest:515}에는 {skill:171} 아이템인 {item:3388}이(가) 필요합니다. 가능하면 이곳 경매장에서 사세요(또는 연금술사에게 부탁하세요). 물약이 없으면 {area:287}의 비약 단계는 건너뛰세요.",
 	-- {item:3388} Strong Troll's Blood Potion · {quest:515} Elixir of Agony
 	["{item:3388}: auction house or an alchemist, for {quest:515}."] = "{item:3388}: {quest:515}을(를) 위해 경매장이나 연금술사에게서",
 
-	-- Step 44: Brazier of Everfount
+	-- Step 43: Brazier of Everfount
 	-- {zone:1458} Undercity · {area:228} Sepulcher · {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {area:272} Tarren Mill
 	["Do your shopping in the {zone:1458} first, then fly to the {area:228}. The {object:113791} stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the {npc:5895} and keep the {item:7813} for {npc:5901}. Fly on to {area:272} from the {area:228}."] = "",
 	-- {npc:5901} Islen Waterseer
 	["for {npc:5901}: from Stranglethorn, next guide"] = "{npc:5901}에게: 다음 가이드에서 가시덤불 골짜기에서",
 
-	-- Step 45: Back to Tarren Mill
+	-- Step 44: Back to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Back to {area:272}"] = "{area:272}(으)로 돌아가기",
 	-- {area:228} Sepulcher
 	["{area:228} flight master"] = "",
 
-	-- Step 47: Tarren Mill
+	-- Step 46: Tarren Mill
 	-- {item:3703} Southshore Stout · {npc:2333} Henchman Valik
 	["{item:3703}, for {npc:2333}"] = "{npc:2333}에게 줄 {item:3703}",
 
-	-- Step 48: Henchman Valik
+	-- Step 47: Henchman Valik
 	-- {area:272} Tarren Mill · {quest:535} Valik
 	["Follow the road north out of {area:272} into the Alterac foothills. {quest:535} waits by the Syndicate camp; hand him the stout."] = "길을 따라 {area:272}에서 북쪽으로 알터랙 산기슭으로 가세요. {quest:535}은(는) 비밀결사대 야영지 옆에서 기다립니다. 흑맥주를 건네세요.",
 
-	-- Step 49: Syndicate missives
+	-- Step 48: Syndicate missives
 	["Syndicate missives"] = "비밀결사대 서신",
 	-- plural, as words: Syndicate Footpads = {npc:2240} Syndicate Footpad
 	["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "길 서쪽 야영지 주변의 비밀결사대 노상강도와 도둑(32-33)이 서신을 지니고 있습니다. 세 명 중 한 명 정도가 떨어뜨립니다.",
 
-	-- Step 51: Daggerspine naga
+	-- Step 50: Daggerspine naga
 	["Daggerspine naga"] = "비수가시일족 나가",
 	-- {area:271} Southshore
 	["Head south, east of {area:271}, down to the coast. The Daggerspine naga line the shore south-east of the town."] = "",
 	["Daggerspine shore"] = "비수가시일족 해안",
 
-	-- Step 52: Torn Fin murlocs
+	-- Step 51: Torn Fin murlocs
 	["Torn Fin murlocs"] = "너덜지느러미멀록",
 	-- {area:271} Southshore
 	["Follow the shore west past {area:271}'s bay; the Torn Fin murlocs camp on the beaches beyond it."] = "해안을 따라 서쪽으로 {area:271}의 만을 지나가세요. 너덜지느러미멀록은 그 너머 해변에 야영하고 있습니다.",
 	["Torn Fin beach"] = "너덜지느러미멀록 해변",
 
-	-- Step 53: Apothecary Lydon
+	-- Step 52: Apothecary Lydon
 	-- {area:272} Tarren Mill · {area:271} Southshore
 	["Head back north to {area:272}, keeping west of {area:271}."] = "",
 	-- {npc:2216} Apothecary Lydon
 	["{npc:2216}, inside"] = "",
 
-	-- Step 54: Shindigger keg
+	-- Step 53: Shindigger keg
 	["Shindigger keg"] = "신디거 흑맥주 통",
 	-- {area:287} Hillsbrad
 	["The keg stands with a few others at the Syndicate camp on the south-east coast of {area:287}."] = "맥주 통은 {area:287} 남동쪽 해안의 비밀결사대 야영지에 다른 통 몇 개와 함께 있습니다.",
 	["Below ground"] = "",
 
-	-- Step 55: Back to Tarren Mill
+	-- Step 54: Back to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Head back north to {area:272}."] = "",
 	-- {object:1729} Tainted Keg · {object:1728} Dusty Rug
 	["Place the {object:1729} on the {object:1728} beside the inn; upstairs"] = "",
 
-	-- Step 56: Helcular's Rod
+	-- Step 55: Helcular's Rod
 	-- {area:272} Tarren Mill
 	-- plural, as words: Ferocious Yetis = {npc:2249} Ferocious Yeti
 	["South-west, the Cave and Ferocious Yetis (30-31) fill the caves in the hills west of {area:272}; about one in sixteen carries the rod."] = "남서쪽, {area:272} 서쪽 언덕의 동굴에는 동굴 설인과 사나운 설인(30-31)이 가득합니다. 열여섯 마리 중 한 마리 정도가 막대를 지니고 있습니다.",
 
-	-- Step 58: The Dalaran traitors
+	-- Step 57: The Dalaran traitors
 	-- {area:279} Dalaran
 	["The {area:279} traitors"] = "{area:279}의 배신자",
 	-- {area:279} Dalaran · {npc:2411} Ricter · {npc:2412} Alina · {npc:2413} Dermot · {npc:2414} Kegan Darkmar
 	-- plural, as words: Worn Stone Tokens = {item:3714} Worn Stone Token
 	["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-32) around them drop the Worn Stone Tokens.\nCareful: Many guards stand in linked pairs and others patrol alone around the camp."] = "",
 
-	-- Step 59: Hearth to Tarren Mill
+	-- Step 58: Hearth to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Hearth to {area:272}"] = "",
 
-	-- Step 60: Tarren Mill
+	-- Step 59: Tarren Mill
 	-- {area:272} Tarren Mill
 	["Head back east to {area:272}."] = "",
 	-- {area:271} Southshore
 	["Thaivand's next task ends at {area:271}'s graveyard and the magus offers a dungeon errand: leave both."] = "타이반드의 다음 임무는 {area:271} 묘지에서 끝나고, 마법사는 던전 심부름을 줍니다. 둘 다 받지 마세요.",
 
-	-- Step 62: Gol'dir
+	-- Step 61: Gol'dir
 	-- {quest:535} Valik · {area:280} Strahnbrad · {npc:2431} Jailor Borhuin · {item:3704} Rusted Iron Key · {quest:503} Gol'dir
 	["Head north past {quest:535}'s camp to {area:280}, the Syndicate-held village (35-37). {npc:2431} carries the {item:3704}; {quest:503} sits in a cage in the house on the north side.\nCareful: Stealthed Syndicate spies roam {area:280}, and the buildings hold many Syndicate mobs, mages among them."] = "",
 	["Inside"] = "",
 	-- {quest:503} Gol'dir
 	["{quest:503}, on the top floor"] = "",
+
+	-- Step 62: Old Dalaran Ruins: kill these as you meet them
+	-- {area:17707} Old Dalaran Ruins
+	["{area:17707}: kill these as you meet them"] = "",
 
 	-- Step 65: Tarren Mill
 	-- {area:272} Tarren Mill

@@ -6,70 +6,11 @@ levels 57-59
 zone Silithus
 next forever/horde/50-60/07-felwood
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 # Added here: Dearest Natalia (8304), Alas, Andorhal (105), Skeletal Fragments (964), Return to the Bulwark (5232), Of Lost Honor (5845), Counting Out Time (4972).
 # Left out: Little Pamela (5142).
-# 33 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
-# Built from the simulator's consensus route (Horde, visits 94-101) and
-# machine-checked with lint; not play-tested on Forever yet.
-#
-# Flow: Valor's Rest (the Un'Goro pass) -> Southwind Village -> Valor's Rest
-# -> Southwind tower -> Cenarion Hold (flight path, bind) -> Dredge and
-# scorpids north of the hold -> Twilight Base Camp -> Cenarion Hold -> Hermit
-# Ortell -> General Kirika and the Silithyst -> the southern dunes -> Twilight
-# Vanguard -> the western dunes and Twilight Post -> Twilight Outpost ->
-# Cenarion Hold -> Noggle's satchel in the far south -> Ortell ->
-# hearth to Cenarion Hold -> Valor's Rest -> through the pass to Marshal's
-# Refuge (Linken, Quixxil) -> fly to Gadgetzan (Egg-O-Matic) -> fly to
-# Orgrimmar (train) -> zeppelin to the Undercity (Sylvanas) -> the Bulwark ->
-# Felstone Field -> Andorhal -> the Bulwark -> Dalson's Tears -> Northridge ->
-# Davil's Libram -> Tirion Fordring -> Redpath's Shield -> Light's Hope Chapel
-# -> Scourge Champions -> Light's Hope -> Pamela and the Undercroft ->
-# Nathanos -> Tirion -> Chromie -> the Bulwark. Ends at the Bulwark, next to
-# the Undercity, where 07 starts.
-#
-# Deviations from the export, for one clean loop per hub:
-# - Silithus: the Wasteland chain (1124-1126) is done on arrival, since the
-#   Un'Goro pass comes out at Valor's Rest; Layo's last turn-in waits until
-#   you leave through the same pass. One hearth (Ortell -> Cenarion Hold)
-#   instead of two; the Gadgetzan bind is dropped (no hearth uses it).
-# - Un'Goro and Tanaris: only the stops on the flight path home (Marshal's
-#   Refuge, Gadgetzan). Dropped: Pawn Captures Queen and its Calm Before the
-#   Storm follow-ups (4507, 4509, 4511: the Gorishi hive is a long ride south
-#   for one chain) and Volcanic Activity (4502: turned in at Ratchet after
-#   60). Linken's Memory (3942) is kept: 07 hands it in at the Emerald
-#   Sanctuary on its way north through Felwood.
-# - Western Plaguelands: the Bulwark is visited on the way in, again after
-#   Andorhal, and on the way out (A Plague Upon Thee); Dalson's Tears comes
-#   right after the second Bulwark stop instead of at the end.
-# - Eastern Plaguelands: the export's later Plaguelands stop from 07 (visit
-#   112: Duke Zverenhoff 6030, Little Pamela 5142, Nathanos 5961) is folded
-#   into this guide's one trip east; Sylvanas' Champion of the Banshee Queen
-#   (5961) is picked up in the Undercity on the way.
-# - Added: A Matter of Time (4971, 5800 XP). 02 reaches Chromie before
-#   level 53, so she offers it here instead: accepted at her inn when you
-#   ride into Andorhal for the watchtowers, done at the silos in the same
-#   sweep, handed in at the closing Chromie stop. Counting Out Time
-#   (4972/4973) is left out: it sends you searching Andorhal's houses again.
-# - Cenarion Hold, riding in from the west: Bor Wildmane, on the west side,
-#   before Proudhorn and the Ficklesprags.
-#
-# Left out (besides the above): Stormers and Rumblers (6805: turned in to
-# Duke Hydraxis after 60), Skeletal Fragments (964: never turned in),
-# Felstone Field Cauldron (5218: repeatable), the second Return to the
-# Bulwark (5232) and Of Lost Honor (5845: never turned in), Shards of the
-# Felvine (5526: Dire Maul), The Battle of Darrowshire and Hidden Treasures
-# (5721, 5942: Horgus the Ravager and Redpath the Corrupted are elite, and
-# Darrowshire is a detour back east), Dearest Natalia (8304: Mar'alith only
-# offers it from level 58, which the route does not reach in Silithus without
-# a two-hour grind; with it go the questions at Bronzebeard's Encampment and
-# Into the Maw of Madness, 8306, among Hive'Regal elites) and Ortell's Still
-# Believing (8324, reputation).
-# - Secret Communication (8318) needs level 57: Bor Wildmane's quest is taken
-#   at the second Cenarion Hold stop, after the cultist camps, and handed in
-#   on the spot with the texts collected on the way (they drop without it).
 
 # ---------------------------------------------------------------- Valor's Rest and Southwind
 
@@ -97,22 +38,24 @@ step Layo Starstrike
 
 step Cenarion Hold
   tip Ride west to the walled hold in the middle of the desert.
-  getfp "Cenarion Hold"
   sethome "Cenarion Hold"
   accept 8277                         -- Beetix Ficklespragg
   turnin 8276                         -- Windcaller Proudhorn
   accept 8280
   accept 8284                         -- Geologist Larksbane
-  accept 9416                         -- Scout Bloodfist
   accept 8318                         -- Bor Wildmane, on the west side of the Hold
+  accept 9416                         -- Scout Bloodfist
+  getfp "Cenarion Hold"
 
-step Hive'Ashi: kill these as you meet them
+step Silithus: kill these as you meet them
   zone Silithus
   tip Dredge Strikers, Stonelash Scorpids and Sand Skitterers share the sands just north of the hold.
-  tip The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too.
-  collect 20373 quest 8277.1
-  kill 11740 quest 8280.1             -- Dredge Striker walks around here: look inside the circle on the map
+  kill 11740 quest 8280.1
   collect 20376 quest 8277.2
+  collect 20373 quest 8277.1
+
+step Twilight Base Camp
+  tip The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too.
   collect 20378 quest 8284.1
 
 step Cenarion Hold
@@ -232,49 +175,15 @@ step Marshal's Refuge
   tip Through the pass and east along the northern cliffs to Marshal's Refuge. Linken stands by the cave; J.D.
   turnin 3914                         -- Linken
   accept 3941
-  accept 4492                         -- Spraggle Frock
   accept 4501                         -- The wooden sign beside Spraggle
+  accept 4492                         -- Spraggle Frock
 
-step Marshal's Refuge
-  zone Un'Goro Crater
-  kill 10977 quest 5163.3             -- Use Umi's Mechanical Yeti on Quixxil
-
-step The Gorishi hive
-  kill 9166 quest 4501.1
-
-step Torwa Pathfinder
-  accept 4292
-  note Keep the bait: Lar'korwi is level 56, and the second loop passes his lair.
-  accept 4289
-
-step Lar'korwi
-  tip Lar'korwi's lair is just south of the pylon. Use Torwa's bait there; Lar'korwi is level 56 and hits hard, so start at full health.
-  collect 11510 quest 4292
-
-step Gorillas
-  tip The gorillas live on the north-east plateau. Stay out of the deepest cave: U'cha lives there.
-  tip Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds.
-  turnin 4243                         -- A-Me 01, the robot on the plateau; below ground
-  note A-Me 01 then wants a Mithril Casing, an Engineering item. Skip it unless you have one.
-  collect 11478 quest 4289            -- Below ground
-  collect 11479 quest 4289            -- Below ground
-  collect 11480 quest 4289            -- Below ground
-
-step Torwa Pathfinder
-  turnin 4292
-  note Torwa now asks for U'cha's pelt, back in the north-east cave: skip it.
-  turnin 4289
-
-step Pawn Captures Queen
-  use 11833 @43.5,81.0 map 1449
-  collect 11835 quest 4507.1 @43.9,81.4 map 1449
+step Frenzied Pterrordax
+  kill 9167 quest 4501.2              -- Frenzied Pterrordax walks around here: look inside the circle on the map
 
 step Krakle
   tip Krakle the goblin sits at Golakka Hot Springs, just east of the pylon.
   accept 974
-
-step Frenzied Pterrordax
-  kill 9167 quest 4501.2
 
 step Krakle's Thermometer
   tip Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vent near the top, then ride back west to Krakle.
@@ -285,6 +194,36 @@ step Krakle
   turnin 974
   accept 980
   note Krakle sends you to Donova Snowden in Winterspring: keep it.
+
+step Pawn Captures Queen
+  use 11833 @43.5,81.0 map 1449
+  collect 11835 quest 4507.1 @43.9,81.4 map 1449
+
+step Torwa Pathfinder
+  accept 4292
+  note Keep the bait: Lar'korwi is level 56, and the second loop passes his lair.
+  accept 4289
+
+step Lar'korwi
+  tip Lar'korwi's lair is just south of the pylon. Use Torwa's bait there; Lar'korwi is level 56 and hits hard, so start at full health.
+  collect 11510 quest 4292
+
+step Un'Goro Crater: kill these as you meet them
+  zone Un'Goro Crater
+  tip Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds.
+  collect 11478 quest 4289            -- Below ground
+  collect 11479 quest 4289            -- Below ground
+  collect 11480 quest 4289            -- Below ground
+  kill 9166 quest 4501.1
+
+step Marshal's Refuge
+  zone Un'Goro Crater
+  tip Collie is inside it.
+  turnin 3941                         -- J.D. Collie, below ground
+  accept 3942
+  note Keep Linken's Memory: Eridan Bluewind is at the Emerald Sanctuary, on the next guide's way through Felwood.
+  turnin 4501
+  kill 10977 quest 5163.3             -- Use Umi's Mechanical Yeti on Quixxil
 
 step Ringo
   tip Ringo sits on the ridge, lost and exhausted.
@@ -297,17 +236,20 @@ step Escort Ringo
   complete 4491
 
 step Marshal's Refuge
-  tip Collie is inside it.
   turnin 4491                         -- Spraggle Frock
-  turnin 4501
-  turnin 3941                         -- J.D. Collie, below ground
-  accept 3942
-  note Keep Linken's Memory: Eridan Bluewind is at the Emerald Sanctuary, on the next guide's way through Felwood.
+
+step Torwa Pathfinder
+  turnin 4292
+  note Torwa now asks for U'cha's pelt, back in the north-east cave: skip it.
+  turnin 4289
+
+step Tanaris
+  zone Tanaris
+  goto 52.4,27.0 "Tanaris"
 
 step Gadgetzan
   zone Tanaris
   tip Fly to Gadgetzan. The Egg-O-Matic stands in the middle of town.
-  fly "Gadgetzan"
   turnin 2741
   turnin 4507                         -- Inside
   accept 4509
@@ -318,6 +260,14 @@ step Fly to Orgrimmar
   fly "Orgrimmar"
   zone Orgrimmar
 
+step Class trainer
+  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Paladin trainer
+  only Paladin
+  train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
+
 step Zilzibin Drumlore
   turnin 4509
   accept 4511
@@ -325,39 +275,16 @@ step Zilzibin Drumlore
 step Karus
   turnin 4511
 
-step Orgrimmar
-  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  zone Orgrimmar
-  tip Fly to Orgrimmar and train.
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
 step Zeppelin to Undercity
   zone Durotar
   goto 50.8,13.5 "Zeppelin to Undercity"
 
-step The Undercity
-  zone Undercity
-  tip Take the zeppelin from the tower outside Orgrimmar to Tirisfal Glades and ride into the Undercity. Lady Sylvanas holds the Royal Quarter.
-  accept 5961
-
 step Western Plaguelands
   zone Western Plaguelands
-  goto 36.9,57.4 "Western Plaguelands"
-
-step Felstone Field
-  zone Western Plaguelands
-  tip Janice Felstone's farm is the first one east of the Bulwark. Jabbering Ghouls on the farm carry the other half of her charm; Cauldron Lord Bilemaw guards the cauldron in the field.
-  tip Careful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron.
-  collect 13194 quest 5229.1 @36.9,57.4 map 1422
-  turnin 5229                         -- Scourge Cauldron
-  accept 5230
-  turnin 5050                         -- Upstairs
-  accept 5051
-  collect 12722 x1 "Good Luck Other-Half-Charm"
-  complete 5051
-  turnin 5051
+  goto 51.9,28.1 "Western Plaguelands"
 
 step Kirsta Deepshadow
+  turnin 6004
   accept 6023
 
 step Radley and Durgen
@@ -405,9 +332,9 @@ step The Bulwark
   turnin 5230                         -- Shadow Priestess Vandis
   accept 5231
   note Dithers offers Skeletal Fragments (Scholomance). Skip it.
+  turnin 6029                         -- Argent Officer Garush
   turnin 5098                         -- High Executor Derrington
   accept 105
-  turnin 6029                         -- Argent Officer Garush
   accept 838
   turnin 838                          -- Apothecary Dithers
   accept 964
@@ -432,6 +359,11 @@ step Northridge Lumber Camp
   turnin 5902
   accept 6390
 
+step Redpath's Shield
+  zone Western Plaguelands
+  tip The shield lies at Gahrron's Withering, south of Tirion's hut.
+  collect 12955 quest 5168.2
+
 step Tirion Fordring
   zone Eastern Plaguelands
   tip Ride east to Tirion's hut by the Thondroril River and hear him out.
@@ -439,39 +371,13 @@ step Tirion Fordring
   turnin 5544
   turnin 5542
   accept 5742
-
-step Eastern Plaguelands
-  zone Eastern Plaguelands
-  goto 70.7,16.5 "Eastern Plaguelands"
-
-step Infiltrator Hameya
-  tip Hameya hides among the Mossflayer trolls of Zul'Mashar, in the north-east corner.
-  tip Careful: The trolls along the path to Zul'Mashar are level 57-59. They run away at low health and call for help, so they often bring adds with them.
-  collect 15767 quest 6024
-
-step Tirion Fordring
-  zone Eastern Plaguelands
   complete 5742
   turnin 5742
   accept 5781
 
-step Redpath's Shield
-  zone Western Plaguelands
-  tip The shield lies at Gahrron's Withering, south of Tirion's hut.
-  collect 12955 quest 5168.2
-
 step Eastern Plaguelands
   zone Eastern Plaguelands
-  goto 28.0,86.1 "Eastern Plaguelands"
-
-step Hameya's mound
-  tip The Mound of Dirt is just behind the Undercroft.
-  turnin 6024
-
-step Pamela and the Undercroft
-  tip Ride to Darrowshire in the south-west; Pamela plays among the houses. Mercutio Filthgorger lurks in the Undercroft, the crypt just west of the town.
-  tip Careful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot.
-  collect 14613 quest 5781.1
+  goto 81.5,59.8 "Eastern Plaguelands"
 
 step Light's Hope Chapel
   zone Eastern Plaguelands
@@ -486,9 +392,16 @@ step Light's Hope Chapel
   turnin 5206                         -- Carlin Redpath
   accept 5941
 
-step Nathanos Blightcaller
-  tip The Banshee Queen's champion holds the Marris Stead farmhouse, north of the Undercroft.
-  turnin 5961
+# ---------------------------------------------------------------- Marris Stead and the west
+
+step Hameya's scroll
+  tip A torn scroll lies at the entrance of the Undercroft, the crypt south of the Marris Stead.
+  accept 6024                         -- Below ground
+
+step Pamela and the Undercroft
+  tip Ride to Darrowshire in the south-west; Pamela plays among the houses. Mercutio Filthgorger lurks in the Undercroft, the crypt just west of the town.
+  tip Careful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot.
+  collect 14613 quest 5781.1
 
 step Nathanos Blightcaller
   when group 6135
@@ -508,12 +421,12 @@ step Alas, Andorhal
   zone Western Plaguelands
   collect 17114 quest 105.1 @45.3,69.2 map 1422
 
-step Level 59.22
+step Level 59.14
   when !group 6135
-  when level<59.22
-  tip If you skipped Duskwing, Oh How I Hate Thee..., grind here to level 59.22 to stay on the route's plan.
+  when level<59.14
+  tip If you skipped Duskwing, Oh How I Hate Thee..., grind here to level 59.14 to stay on the route's plan.
   goto 48.0,64.8 map 1422 "Temporal Parasite"
-  level 59.22                          -- grind on Temporal Parasite
+  level 59.14                          -- grind on Temporal Parasite
 
 step Chromie
   zone Western Plaguelands
@@ -550,46 +463,35 @@ step Eastern Plaguelands
 step Of Lost Honor
   collect 14625 quest 5845.1 @62.5,26.8 map 1423 live -- Underwater
 
+step Infiltrator Hameya
+  tip Hameya hides among the Mossflayer trolls of Zul'Mashar, in the north-east corner.
+  tip Careful: The trolls along the path to Zul'Mashar are level 57-59. They run away at low health and call for help, so they often bring adds with them.
+  collect 15767 quest 6024
+
 step Tirion Fordring
   zone Eastern Plaguelands
   turnin 5845
   accept 5846
 
+step Eastern Plaguelands
+  zone Eastern Plaguelands
+  goto 28.0,86.1 "Eastern Plaguelands"
+
+step Hameya's mound
+  tip The Mound of Dirt is just behind the Undercroft.
+  turnin 6024
+
+step Into Western Plaguelands
+  zone Western Plaguelands
+  goto 69.7,50.2 "Into Western Plaguelands"
+
 step Western Plaguelands
   zone Western Plaguelands
-  goto 52.9,66.1 "Western Plaguelands"
-
-step Target: Writhing Haunt
-  zone Western Plaguelands
-  collect 13197 quest 5233.1 @52.9,66.1 map 1422
-  turnin 5233
+  goto 65.8,75.4 "Western Plaguelands"
 
 step Artist Renfray
   turnin 5846                         -- Inside
 
-step Hearth to Cenarion Hold
-  hearth "Cenarion Hold"
-
-step Fly to Splintertree Post
-  zone Silithus
-  goto 48.8,36.7 "Cenarion Hold flight master"
-  fly "Splintertree Post"
-  zone Ashenvale
-
-step Felwood
-  zone Felwood
-  goto 50.9,85.0 "Felwood"
-
-step Grazle
-  when onquest 8466
-  turnin 8466 optional
-
-# ---------------------------------------------------------------- Southern Felwood
-
-step The Emerald Sanctuary
-  zone Felwood
-  tip Fly to Splintertree Post and ride north-west along the road out of Ashenvale into Felwood. The Emerald Sanctuary is the druids' camp just past the border.
-  turnin 5159                         -- Greta Mosshoof
-  accept 5165
-  turnin 3942                         -- Eridan Bluewind, inside
-  note Eridan's Silver Heart needs an Irontree Heart from northern Felwood and a ride back here. Skip it.
+step Target: Writhing Haunt
+  collect 13197 quest 5233.1 @52.9,66.1 map 1422
+  turnin 5233

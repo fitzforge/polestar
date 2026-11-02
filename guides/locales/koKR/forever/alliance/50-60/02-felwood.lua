@@ -49,9 +49,9 @@ return {
 	["grind on {npc:7155}"] = "",
 
 	-- Step 9: Jadefire Glen
-	-- {npc:9454} Xavathras
+	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
 	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker
-	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and Slowing Poison and are stealthed, so they often join fights uninvited."] = "",
+	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited."] = "",
 	-- {npc:7109} Jadefire Felsworn
 	["grind on {npc:7109}"] = "",
 

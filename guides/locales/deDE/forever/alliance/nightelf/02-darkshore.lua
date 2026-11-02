@@ -9,23 +9,33 @@ return {
 	-- Step 1: Auberdine
 	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "",
 	["The WANTED poster outside the inn"] = "",
+
+	-- Step 2: The beach
+	["The beach"] = "",
+	-- {quest:983} Buzzbox 827 · {object:175207} Beached Sea Creature
+	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
+	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "",
+
+	-- Step 3: Auberdine
 	-- {npc:3649} Thundris Windweaver
 	["{npc:3649}, north end of the village"] = "",
 
-	-- Step 3: The beach
-	["The beach"] = "",
-	-- {object:17182} Buzzbox 827 · {object:175207} Beached Sea Creature
-	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
-	["Tide Crawlers scuttle along the shore below the village; {object:17182} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "",
-	-- {item:12238} Darkshore Grouper
-	["{item:12238}: fish from the pier"] = "",
+	-- Step 4: Auberdine
+	-- {npc:3666} Wizbang Cranktoggle
+	["{npc:3666}, by the inn"] = "",
 
 	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "",
 	-- {item:12289} Sea Turtle Remains
 	["{item:12289}, on the beach west of the docks; underwater"] = "",
 
-	-- Step 6: Ameth'Aran
+	-- Step 6: Bears and the Blackwood camp
+	["Bears and the Blackwood camp"] = "",
+	-- {area:442} Auberdine
+	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
+	["Kill Rabid Thistle Bears in the hills east of {area:442}, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "",
+
+	-- Step 7: Ameth'Aran
 	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
 	["{npc:3639} stands at the north edge of the ruins. Cursed, Writhing and {npc:2178} haunt them; {npc:3667}'s ghost walks among them, {npc:270196} the owl circles east of them. The two tablets lie in the ruins; a {quest:4722} lies on the shore west of them."] = "",
 	-- plural, as words: Highborne Relics = {item:5360} Highborne Relic
@@ -34,12 +44,6 @@ return {
 	["Read the {object:17188}"] = "",
 	-- {object:17189} Fall of Ameth'Aran
 	["Read the {object:17189}"] = "",
-
-	-- Step 7: Bears and the Blackwood camp
-	["Bears and the Blackwood camp"] = "",
-	-- {area:442} Auberdine
-	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Kill Rabid Thistle Bears in the hills east of {area:442}, then walk up to the furbolg camp south-east of them: nothing to kill yet."] = "",
 
 	-- Step 8: The red crystal
 	["The red crystal"] = "",
@@ -65,9 +69,11 @@ return {
 	-- plural, as words: Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
 	["{item:5338}: Deth'ryll Satyrs"] = "",
 
-	-- Step 12: Hearth to Auberdine
+	-- Step 11: Hearth to Auberdine
 	-- {area:442} Auberdine
 	["Hearth to {area:442}"] = "",
+
+	-- Step 12: Auberdine
 	["Fill the tube at the moonwell in the village"] = "",
 
 	-- Step 13: Blackwood furbolgs
@@ -94,8 +100,8 @@ return {
 	["{zone:1453} flight master"] = "",
 
 	-- Step 19: Woo Ping
-	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
 
 	-- Step 20: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
@@ -118,10 +124,26 @@ return {
 	-- {area:447} Ameth'Aran
 	["The flame burns in the south of {area:447}."] = "",
 
-	-- Step 31: Auberdine
+	-- Step 31: The Grove of the Ancients
+	-- {area:448} Grove of the Ancients
+	["The {area:448}"] = "",
+	-- {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
+	["Follow the road south. Onu is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "",
+
+	-- Step 32: Auberdine
 	["Follow the road north."] = "",
 
-	-- Step 35: Into Elwynn Forest
+	-- Step 33: The naga
+	["The naga"] = "",
+	-- {area:443} Ruins of Mathystra
+	-- plural, as words: Mathystra Relics = {item:5273} Mathystra Relic · Stormscale Myrmidons = {npc:2181} Stormscale Myrmidon
+	["Follow the coast north-east to the {area:443}. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "",
+
+	-- Step 34: Back south
+	["Back south"] = "",
+	["Hearthstone on cooldown? Follow the coast road back south."] = "",
+
+	-- Step 38: Into Elwynn Forest
 	-- {area:12} Elwynn Forest
 	["Into {area:12}"] = "",
 }

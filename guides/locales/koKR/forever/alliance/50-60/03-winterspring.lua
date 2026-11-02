@@ -75,27 +75,34 @@ return {
 	-- {zone:1448} Felwood
 	["The Deadwood cauldron in {zone:1448}: keep it"] = "{zone:1448}의 마른가지일족 가마솥: 보관하세요",
 
-	-- Step 14: Hearth to Everlook
+	-- Step 14: Level 55.05
+	["Level 55.05"] = "",
+	-- {area:2255} Everlook
+	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56."] = "",
+	-- {npc:11552} Timbermaw Mystic
+	["grind on {npc:11552}"] = "",
+
+	-- Step 15: Hearth to Everlook
 	-- {area:2255} Everlook
 	["Hearth to {area:2255}"] = "",
 
-	-- Step 16: Winterfall Village
+	-- Step 17: Winterfall Village
 	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
 	["The Winterfall furbolg village lies east of {area:2255}: Shaman (56-57), Den Watchers (55-56) and Ursa (57-58), all above you. Kill the Shaman first, they heal, and pull from the edge. {npc:10738} in the cave at the back is elite: stay out."] = "눈사태일족 펄볼그 마을은 {area:2255} 동쪽에 있습니다. 주술사(56-57), 보초(55-56), 펄볼그(57-58) 모두 당신보다 높습니다. 치유하는 주술사를 먼저 처치하고, 가장자리부터 끌어오세요. 뒤쪽 동굴의 {npc:10738}은(는) 정예이니 들어가지 마세요.",
 
-	-- Step 17: Optional: Sunken Temple
+	-- Step 18: Optional: Sunken Temple
 	-- {area:1417} Sunken Temple
 	["Optional: {area:1417}"] = "선택: {area:1417}",
 	-- {area:1417} Sunken Temple · {area:2255} Everlook
 	["Short of level 54 after the yetis? Running the {area:1417} (50-54) instead of grinding gets you there faster in a group. Come back to {area:2255} afterwards."] = "설인 사냥 후에도 54레벨이 안 되나요? 사냥 대신 파티로 {area:1417}(50-54)을(를) 돌면 더 빨리 도달합니다. 그 후 {area:2255}(으)로 돌아오세요.",
 
-	-- Step 18: Pristine Yeti Horn on the way
+	-- Step 19: Pristine Yeti Horn on the way
 	-- {item:12367} Pristine Yeti Horn
 	["{item:12367} on the way"] = "",
 	-- {item:12367} Pristine Yeti Horn · {area:2255} Everlook
 	["{item:12367} along the way to {area:2255}"] = "",
 
-	-- Step 19: Everlook
+	-- Step 20: Everlook
 	-- {npc:10978} Legacki
 	["On {npc:10978}, by the inn"] = "{npc:10978}에게, 여관 옆",
 	-- {npc:10978} Legacki · {npc:7583} Sprinkle · {npc:10977} Quixxil
@@ -164,24 +171,22 @@ return {
 	-- {npc:11038} Caretaker Alen
 	["{npc:11038}: Zaeldarr is a level 54 elite"] = "",
 
-	-- Step 37: Corin's Crossing
+	-- Step 37: Light's Hope Chapel
+	-- {npc:11038} Caretaker Alen
+	["{npc:11038}, by the graves south of the chapel"] = "",
+
+	-- Step 38: Corin's Crossing
 	-- {area:2264} Corin's Crossing
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it."] = "예배당 서쪽, {area:2264} 주변의 스컬지는 두 종류의 스컬지석을 모두 떨어뜨립니다. 그들에게서 {npc:11064}이(가) 솟아오르니 하나하나 대화해 풀어 주세요.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "{npc:11064} 해방: 대화하기",
 
-	-- Step 39: The Undercroft
+	-- Step 40: The Undercroft
 	-- {area:2261} The Undercroft
 	["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "",
 	-- {item:15785} Zaeldarr's Head
 	["{item:15785}; below ground"] = "",
-
-	-- Step 40: The Undercroft
-	-- {area:2261} The Undercroft · {object:177667} Torn Scroll · {npc:12248} Infiltrator Hameya
-	["Cross the river east to the {area:2261}, the crypt in the south-west of the zone. The {object:177667} lies inside: its key is on {npc:12248} in the far north-east, done in the next guide."] = "",
-	-- {object:177667} Torn Scroll
-	["{object:177667}, below ground"] = "",
 
 	-- Step 41: Browman Mill: kill these as you meet them
 	-- {area:2269} Browman Mill

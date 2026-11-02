@@ -27,11 +27,11 @@ return {
 	["{npc:737}, upstairs"] = "",
 	-- {area:272} Tarren Mill · {zone:1417} Arathi Highlands
 	["The next guide flies you north to {area:272} and into the {zone:1417}."] = "",
-	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
-	["{npc:773}: for {quest:2864} in {area:976}; upstairs"] = "",
-	["Inside"] = "",
 	-- {zone:1446} Tanaris
 	["for Stoley in {zone:1446}; on the top floor"] = "",
+	["Inside"] = "",
+	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
+	["{npc:773}: for {quest:2864} in {area:976}; upstairs"] = "",
 
 	-- Step 6: Fly to Grom'gol
 	-- {object:3202} Grom'gol
@@ -96,47 +96,48 @@ return {
 
 	-- Step 23: Nesingwary's camp
 	["Nesingwary's camp"] = "",
+	["Ride north up the road; the hunters camp on the hill above the river."] = "",
 
-	-- Step 24: Zul'Kunda
+	-- Step 25: Zul'Kunda
 	["Zul'Kunda"] = "祖昆达废墟",
 	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire
 	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them."] = "在远征队营地西边，血顶酋长{npc:1061}和{npc:1062}一起站在祖昆达废墟里。先清掉他们的守卫，再引他们。",
 
-	-- Step 25: Hearth to Grom'gol Base Camp
+	-- Step 26: Hearth to Grom'gol Base Camp
 	-- {area:117} Grom'gol Base Camp
 	["Hearth to {area:117}"] = "",
 
-	-- Step 26: Grom'gol
+	-- Step 27: Grom'gol
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}, beside Nimboya"] = "",
 
-	-- Step 27: Jungle stalkers
+	-- Step 28: Jungle stalkers
 	["Jungle stalkers"] = "丛林捕猎者",
 	-- {object:3202} Grom'gol
 	["The stalker raptors hunt the jungle south of {object:3202}, out towards the west coast."] = "丛林捕猎者迅猛龙在{object:3202}南边的丛林里捕猎，一直到西海岸。",
 
-	-- Step 28: The Cape of Stranglethorn: kill these as you meet them
+	-- Step 29: The Cape of Stranglethorn: kill these as you meet them
 	-- {area:1577} The Cape of Stranglethorn
 	["{area:1577}: kill these as you meet them"] = "",
 	-- {object:759} Holy Spring
 	["Follow the coast south. The naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them."] = "沿海岸向南。纳迦探险者在岸边涉水而行，携带一捆海蛇草；{object:759}就在他们正东的山丘里冒泡。",
 
-	-- Step 29: Booty Bay
+	-- Step 30: Booty Bay
 	-- {area:35} Booty Bay
 	["Ride south to {area:35}. Shaky Phillipe waits on the docks."] = "向南骑往{area:35}。“病鬼”菲利普在码头上等候。",
 	-- {npc:6807} Innkeeper Skindle
 	["{npc:6807}, upstairs"] = "",
 
-	-- Step 30: Zanzil's camps
+	-- Step 31: Zanzil's camps
 	["Zanzil's camps"] = "赞吉尔的营地",
 	["North-east of Mistvale, Zanzil's followers camp in the jungle; every one of them can carry the mixture."] = "在迷雾谷东北，赞吉尔的追随者在丛林里扎营；他们每个人都可能携带赞吉尔的药剂。",
 
-	-- Step 31: Pirate ghosts
+	-- Step 32: Pirate ghosts
 	["Pirate ghosts"] = "海盗幽灵",
 	-- {area:35} Booty Bay · {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow · {npc:2537} Chucky "Ten Thumbs"
 	["The three ghostly pirates haunt the jungle north of {area:35}, near Zanzil's camps: {npc:2535} and {npc:2536} stand together, {npc:2537} further east."] = "三个海盗幽灵在{area:35}北边、赞吉尔营地附近的丛林里出没：{npc:2535}和{npc:2536}站在一起，{npc:2537}在更东边。",
 
-	-- Step 32: Zul'Mamwe
+	-- Step 33: Zul'Mamwe
 	["Zul'Mamwe"] = "祖玛维废墟",
 	-- {npc:1059} Ana'thek the Cruel
 	["Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "向北骑往风险投资公司矿洞东边的劈颅巨魔废墟；把猎头者和狂战士一个个引出来。{npc:1059}守卫着西南边的废墟，一堆颅骨堆就在废墟北侧。每个劈颅巨魔都可能掉落獠牙或项链：项链是最慢的部分，所以在废墟北边的战士营地里一直杀，直到拿齐为止。",
@@ -145,38 +146,62 @@ return {
 	["{npc:669} walks around here: look inside the circle on the map"] = "",
 	["Below ground"] = "",
 
-	-- Step 33: Balia'mah Ruins: kill these as you meet them
+	-- Step 34: Balia'mah Ruins: kill these as you meet them
 	-- {area:127} Balia'mah Ruins
 	["{area:127}: kill these as you meet them"] = "",
 	-- {object:3202} Grom'gol
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "",
 
-	-- Step 34: Grom'gol Base Camp
+	-- Step 35: Grom'gol Base Camp
 	-- {object:3202} Grom'gol
 	["Ride west to {object:3202}."] = "向西骑往{object:3202}。",
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}"] = "{object:2076}",
 
-	-- Step 36: Booty Bay
+	-- Step 37: Booty Bay
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
 
-	-- Step 39: Nesingwary's Expedition
+	-- Step 40: Nesingwary's Expedition
 	["Ride north up the road to the hunters' camp."] = "沿道路向北骑往猎人营地。",
 
-	-- Step 41: Into the Swamp of Sorrows
+	-- Step 42: Raptor Mastery
+	-- {npc:730} Tethis
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+
+	-- Step 43: Panther Mastery
+	-- {npc:728} Bhag'thera
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+
+	-- Step 47: Level 42.68
+	["Level 42.68"] = "",
+	-- {quest:192} Panther Mastery · {quest:195} Raptor Mastery
+	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan."] = "",
+	-- {npc:667} Skullsplitter Warrior
+	["grind on {npc:667}"] = "",
+
+	-- Step 48: Big Game Hunter
+	-- {npc:731} King Bangalash
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "",
+
+	-- Step 50: Level 42.74
+	["Level 42.74"] = "",
+	-- {quest:208} Big Game Hunter
+	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan."] = "",
+
+	-- Step 54: Into the Swamp of Sorrows
 	-- {area:8} Swamp of Sorrows
 	["Into the {area:8}"] = "",
-	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
-	["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "继续向北骑进{zone:1431}，然后沿道路向东穿过{zone:1430}进入沼泽。{npc:1776}在{area:657}等候，那是靠近{zone:1430}入口的德莱尼营地。",
+	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
+	["Keep riding north into {area:10}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "",
 
-	-- Step 42: Stonard
+	-- Step 55: Stonard
 	-- {area:75} Stonard
 	["Ride east to {area:75}, in the reeds south of the road."] = "向东骑往道路南边芦苇丛中的{area:75}。",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "",
 
-	-- Step 43: Stonard
+	-- Step 56: Stonard
 	-- {area:75} Stonard
 	["You start in {area:75}. Bind here: you hearth back after the coast."] = "",
 	-- {npc:1442} Helgrum the Swift
@@ -186,25 +211,21 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 
-	-- Step 44: Monstrous Crawler Leg on the way
-	-- {item:6184} Monstrous Crawler Leg
-	["{item:6184} on the way"] = "",
-
-	-- Step 45: Sawtooth crocolisks
+	-- Step 57: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "盐齿鳄鱼",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard · {npc:5592} Tok'Kar
 	-- plural, as words: Shadow Panthers = {npc:768} Shadow Panther
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank.\nCareful: {npc:5592}'s camp sits by the coast. Along the way to it you pass level 40 spiders that chase a long distance, plus stealthed Shadow Panthers."] = "",
 
-	-- Step 46: Fly to Booty Bay
+	-- Step 58: Fly to Booty Bay
 	-- {area:75} Stonard
 	["{area:75} flight master"] = "",
 
-	-- Step 47: Boat to Ratchet
+	-- Step 59: Boat to Ratchet
 	-- {area:392} Ratchet
 	["Boat to {area:392}"] = "",
 
-	-- Step 48: Riding at 40
+	-- Step 60: Riding at 40
 	["Riding at 40"] = "",
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village · {zone:1411} Durotar · {zone:1454} Orgrimmar
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367} on the {zone:1411} coast, with Zjolnir's raptors (20 gold each) beside him. Another race's trainer (Kildar in {zone:1454}) teaches you only once you are Exalted with his city."] = "",
@@ -213,42 +234,34 @@ return {
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village
 	["Raptors: Zjolnir, beside {npc:7953} in {area:367}."] = "",
 
-	-- Step 50: Fly to Stonard
+	-- Step 62: Fly to Stonard
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "",
 
-	-- Step 51: Noboru the Cudgel
+	-- Step 63: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "木棒诺博鲁在{area:76}西南的空地上游荡；他的木棒可以开始一个任务。",
 
-	-- Step 52: Draenethyst crystals
+	-- Step 64: Draenethyst crystals
 	["Draenethyst crystals"] = "德莱尼水晶",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Ride north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "向东北骑往{area:76}。水晶分布在通往{npc:5391}笼子的路上。",
 
-	-- Step 53: Galen's Escape
+	-- Step 65: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391}被关在沼泽东北的{area:76}。救出他并跟着他出去，击退追赶他的沼泽生物。",
 
-	-- Step 54: Harborage
+	-- Step 66: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass
 	["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "沿道路向西骑往{area:657}的德莱尼营地，靠近{zone:1430}的入口。",
 
-	-- Step 55: Galen's Strongbox
+	-- Step 67: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}."] = "他的保险箱在{area:75}北边他原来的营地里。",
 
-	-- Step 56: Misty Reed Post
+	-- Step 68: Misty Reed Post
 	-- {area:75} Stonard
 	["Ride back east past {area:75} and follow the road south-east to the small Horde post on the shore."] = "向东骑回{area:75}，沿道路向东南前往岸边的部落小哨站。",
-
-	-- Step 57: Sawtooth snappers
-	["Sawtooth snappers"] = "盐齿钳嘴鳄",
-	["The snappers line the strand south of the post."] = "钳嘴鳄分布在哨站南边的海滩上。",
-
-	-- Step 58: Misty Reed Post
-	-- {zone:1446} Tanaris
-	["The next guide starts here and takes you to {zone:1446}.\nThe small Horde post on the southern shore."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:392}"] = "飞往{area:392}",
@@ -257,15 +270,18 @@ return {
 	-- ["Hearth to {area:35}"] = "用炉石回到{area:35}",
 	-- ["Hearth to {object:3202}"] = "用炉石回到{object:3202}",
 	-- ["Into the {zone:1435}"] = "进入{zone:1435}",
+	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "继续向北骑进{zone:1431}，然后沿道路向东穿过{zone:1430}进入沼泽。{npc:1776}在{area:657}等候，那是靠近{zone:1430}入口的德莱尼营地。",
 	-- ["Naga shore and the {object:759}"] = "纳迦海岸和{object:759}",
 	-- ["Ride north up the road; the hunters camp on the hill above the river."] = "沿道路向北骑行；猎人们在河上方的山丘上扎营。",
 	-- ["Ride north-west to {object:3202}."] = "向西北骑往{object:3202}。",
+	-- ["Sawtooth snappers"] = "盐齿钳嘴鳄",
 	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "在藏宝海湾南边，血帆流氓在{area:43}扎营；血帆海图和血帆计划书就在他们的帐篷里。任何血帆海盗都可能携带鼻烟和{npc:2493}的眼睛，所以一直杀到两样都拿到为止。",
 	-- ["The boat to {area:35} docks at the end of {area:392}'s pier."] = "前往{area:35}的船停靠在{area:392}码头的尽头。",
 	-- ["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "鳄鱼在{npc:5391}营地周围的水塘里打滚，一直到南边的{area:75}；大约四分之一会掉落鳄鱼肉。",
 	-- ["The last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "最后的颅骨堆在西边不远的废墟里，就在回{object:3202}的路上。",
 	-- ["The next guide starts here and takes you to {zone:1446}."] = "下一个指南从这里开始，带你前往{zone:1446}。",
 	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp."] = "下一堆颅骨堆在战士营地正北的小废墟里。",
+	-- ["The snappers line the strand south of the post."] = "钳嘴鳄分布在哨站南边的海滩上。",
 	-- ["The {area:43}"] = "{area:43}",
 	-- ["The {area:657}"] = "{area:657}",
 	-- ["for Stoley in {zone:1446}"] = "交给{zone:1446}的斯杜雷",

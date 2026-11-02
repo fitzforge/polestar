@@ -34,9 +34,9 @@ return {
 	["Tame {npc:254588}"] = "",
 
 	-- Step 4: Ornery Galestrider
-	-- {area:16626} Gustberry Lowlands · {area:16638} Valanaar
+	-- {spell:2641} Dismiss Pet · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider
-	["Dismiss the crawler first (right-click the pet portrait, Dismiss Pet). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "",
+	["Dismiss the crawler first (right-click the pet portrait, {spell:2641}). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living galestrider"] = "",
 	-- {npc:251707} Ornery Galestrider
@@ -62,31 +62,25 @@ return {
 	["{npc:1231}: the first {item:15908}"] = "",
 
 	-- Step 7: Large Crag Boar
-	-- {area:131} Kharanos · {item:15908} Taming Rod · {npc:1231} Grif Wildheart
+	-- {area:131} Kharanos · {item:15908} Taming Rod · {npc:1231} Grif Wildheart · {spell:6268} Rushing Charge · {spell:75} Auto Shot
 	-- plural, as words: Large Crag Boars = {npc:1126} Large Crag Boar
-	["Large Crag Boars (level 6-7) root around the fields west, south and north-west of {area:131} and respawn every 3 minutes. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you. Moving, fighting back, being out of range or anyone else's help breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from {npc:1231}. The boars use Rushing Charge from 25 yards, so start with the rod, not Auto Shot. Keep each rod: it goes back to {npc:1231}."] = "",
+	["Large Crag Boars (level 6-7) root around the fields west, south and north-west of {area:131} and respawn every 3 minutes. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you. Moving, fighting back, being out of range or anyone else's help breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from {npc:1231}. The boars use {spell:6268} from 25 yards, so start with the rod, not {spell:75}. Keep each rod: it goes back to {npc:1231}."] = "",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living boar"] = "",
-	-- {npc:1126} Large Crag Boar
-	["Tame {npc:1126}"] = "",
 
 	-- Step 8: Snow Leopard
-	-- {area:131} Kharanos
+	-- {spell:2641} Dismiss Pet · {area:131} Kharanos
 	-- plural, as words: Snow Leopards = {npc:1201} Snow Leopard · Juvenile Snow Leopards = {npc:1199} Juvenile Snow Leopard
-	["Dismiss the boar first (right-click the pet portrait, Dismiss Pet): a released practice pet can turn on you. Snow Leopards (level 7-8) prowl the slopes south-east of {area:131}, more north-west and west of it; the smaller Juvenile Snow Leopards do not count."] = "",
+	["Dismiss the boar first (right-click the pet portrait, {spell:2641}): a released practice pet can turn on you. Snow Leopards (level 7-8) prowl the slopes south-east of {area:131}, more north-west and west of it; the smaller Juvenile Snow Leopards do not count."] = "",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living leopard"] = "",
-	-- {npc:1201} Snow Leopard
-	["Tame {npc:1201}"] = "",
 
 	-- Step 9: Ice Claw Bear
-	-- {area:131} Kharanos · {area:77} Anvilmar
+	-- {area:131} Kharanos · {area:77} Anvilmar · {spell:3130} Ice Claw
 	-- plural, as words: Ice Claw Bears = {npc:1196} Ice Claw Bear
-	["Dismiss the leopard. Ice Claw Bears (level 7-8) roam the hills around {area:131}, many south-east of it and more north-west toward {area:77}; their Ice Claw hits hard, so start at full health."] = "",
+	["Dismiss the leopard. Ice Claw Bears (level 7-8) roam the hills around {area:131}, many south-east of it and more north-west toward {area:77}; their {spell:3130} hits hard, so start at full health."] = "",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living bear"] = "",
-	-- {npc:1196} Ice Claw Bear
-	["Tame {npc:1196}"] = "",
 
 	-- Step 10: Belia Thundergranite in Ironforge
 	-- {npc:10090} Belia Thundergranite · {zone:1455} Ironforge
@@ -103,22 +97,18 @@ return {
 	["{npc:3601}: the first {item:15908}"] = "",
 
 	-- Step 12: Webwood Lurker
-	-- {area:186} Dolanaar · {item:15908} Taming Rod · {npc:3601} Dazalar
+	-- {area:186} Dolanaar · {item:15908} Taming Rod · {spell:1265843} Web · {npc:3601} Dazalar
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Webwood Lurkers (level 5-6) creep through the woods just north-east, south-west and east of {area:186}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, attacking it or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). Their Web roots you but does not break the channel if you keep still. Keep each rod: it goes back to {npc:3601}."] = "",
+	["Webwood Lurkers (level 5-6) creep through the woods just north-east, south-west and east of {area:186}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, attacking it or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). Their {spell:1265843} roots you but does not break the channel if you keep still. Keep each rod: it goes back to {npc:3601}."] = "",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living spider"] = "",
-	-- {npc:1998} Webwood Lurker
-	["Tame {npc:1998}"] = "",
 
 	-- Step 13: Nightsaber Stalker
-	-- {area:259} Lake Al'Ameth · {area:186} Dolanaar
+	-- {spell:2641} Dismiss Pet · {area:259} Lake Al'Ameth · {area:186} Dolanaar
 	-- plural, as words: Nightsaber Stalkers = {npc:2043} Nightsaber Stalker
-	["Dismiss the spider first (right-click the pet portrait, Dismiss Pet): a released practice pet can turn on you. Nightsaber Stalkers (level 7-8) lie on the hillside south of {area:259}, south of {area:186}; the plain Nightsabers by the village do not count."] = "",
+	["Dismiss the spider first (right-click the pet portrait, {spell:2641}): a released practice pet can turn on you. Nightsaber Stalkers (level 7-8) lie on the hillside south of {area:259}, south of {area:186}; the plain Nightsabers by the village do not count."] = "",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living stalker"] = "",
-	-- {npc:2043} Nightsaber Stalker
-	["Tame {npc:2043}"] = "",
 
 	-- Step 14: Strigid Screecher
 	-- {area:186} Dolanaar
@@ -126,8 +116,6 @@ return {
 	["Dismiss the cat. Strigid Screechers (level 7-8), owls, perch in the woods south, south-west and west of {area:186}."] = "",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living owl"] = "",
-	-- {npc:1996} Strigid Screecher
-	["Tame {npc:1996}"] = "",
 
 	-- Step 15: Jocaste in Darnassus
 	-- {npc:4146} Jocaste · {zone:1457} Darnassus
@@ -144,15 +132,15 @@ return {
 	["{npc:251507}: the first {item:15908}"] = "",
 
 	-- Step 17: Rockhide Boar
-	-- {area:87} Goldshire · {area:64} Maclure Vineyards · {item:15908} Taming Rod
+	-- {area:87} Goldshire · {area:64} Maclure Vineyards · {item:15908} Taming Rod · {spell:6268} Rushing Charge · {spell:75} Auto Shot
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar
-	["Rockhide Boars (level 7-8) graze in three herds south and south-east of {area:87}, toward the {area:64}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again. The boars use Rushing Charge, so start with the rod, not Auto Shot. Killing a boar does not count. Keep each rod: it goes back to Josephine. A Dwarf or Night Elf who took Josephine's rod instead of their home trainer's is led through {area:87} from here."] = "",
+	["Rockhide Boars (level 7-8) graze in three herds south and south-east of {area:87}, toward the {area:64}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again. The boars use {spell:6268}, so start with the rod, not {spell:75}. Killing a boar does not count. Keep each rod: it goes back to Josephine. A Dwarf or Night Elf who took Josephine's rod instead of their home trainer's is led through {area:87} from here."] = "",
 	-- {npc:524} Rockhide Boar
 	["Tame {npc:524}"] = "",
 
 	-- Step 18: Gray Forest Wolf
-	-- {area:87} Goldshire · {area:18} Crystal Lake
-	["Dismiss the boar first (right-click the pet portrait, Dismiss Pet): a released practice pet can turn on you. Gray Forest Wolves (level 7-8) run in the woods east of {area:87}, east of {area:18}."] = "",
+	-- {spell:2641} Dismiss Pet · {area:87} Goldshire · {area:18} Crystal Lake
+	["Dismiss the boar first (right-click the pet portrait, {spell:2641}): a released practice pet can turn on you. Gray Forest Wolves (level 7-8) run in the woods east of {area:87}, east of {area:18}."] = "",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living wolf"] = "",
 	-- {npc:1922} Gray Forest Wolf
@@ -169,8 +157,8 @@ return {
 
 	-- Step 20: Your first pet
 	["Your first pet"] = "",
-	-- {spell:1515} Tame Beast
-	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment."] = "",
+	-- {spell:1515} Tame Beast · {spell:17253} Bite
+	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "",
 	["Tame a beast of your level to keep"] = "",
 	-- {area:87} Goldshire · {zone:1436} Westfall
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
@@ -184,14 +172,15 @@ return {
 	-- {area:16638} Valanaar · {area:16626} Gustberry Lowlands · {zone:2521} Zephras Isle
 	-- plural, as words: Vuldren Alphas = {npc:250874} Vuldren Alpha · Shriekling Matriarchs = {npc:253283} Shriekling Matriarch · Shadowgale Urseras = {npc:250927} Shadowgale Ursera
 	["Near {area:16638}: Vuldren Alphas (level 10), the beast of your last practice tame, hunt the {area:16626}; Shriekling Matriarchs (raptors, level 9) nest just west of {area:16638}; Shadowgale Urseras (bears, 10-11) roam the north of {zone:2521}."] = "",
-	-- {area:87} Goldshire · {zone:1457} Darnassus · {zone:2521} Zephras Isle · {area:131} Kharanos · {area:186} Dolanaar
-	["Feed Pet: open your spellbook, cast Feed Pet and click a food your pet's family eats (the pet's tooltip lists them: cats eat meat and fish, boars almost anything). Raw meat looted from beasts counts. To buy: Toddrick the butcher in {area:87}, Jaeana in {zone:1457} and the innkeepers on {zone:2521} sell meat; the innkeepers of {area:131} and {area:186} sell bread. Food near the pet's level makes it happiest; much lower food gives about half. You cannot feed in combat."] = "",
+	-- {spell:1584} Feed Pet · {area:87} Goldshire · {zone:1457} Darnassus · {zone:2521} Zephras Isle · {area:131} Kharanos · {area:186} Dolanaar
+	["{spell:1584}: open your spellbook, cast {spell:1584} and click a food your pet's family eats (the pet's tooltip lists them: cats eat meat and fish, boars almost anything). Raw meat looted from beasts counts. To buy: Toddrick the butcher in {area:87}, Jaeana in {zone:1457} and the innkeepers on {zone:2521} sell meat; the innkeepers of {area:131} and {area:186} sell bread. Food near the pet's level makes it happiest; much lower food gives about half. You cannot feed in combat."] = "",
 	["Happiness: the face on the pet frame. An unhappy pet does three quarters of its damage, a happy one a quarter more. Happiness drains slowly, faster when the pet dies; a pet left unhappy too long can run away."] = "",
 	-- {spell:5149} Beast Training
 	["Loyalty grows with time and kills. Each loyalty rank raises the training points you spend in {spell:5149} (pet level times loyalty rank minus one)."] = "",
 	-- {spell:5149} Beast Training · {area:87} Goldshire · {npc:9980} Shelby Stoneflint · {area:131} Kharanos · {area:186} Dolanaar · {npc:265756} Genn Fairweather · {zone:2521} Zephras Isle
 	["{spell:5149} (spellbook, General tab) teaches your current pet the abilities you know. To learn a new ability or rank: leave your pet with a stable master (Erma in {area:87}, {npc:9980} in {area:131}, Seriadne in {area:186}, {npc:265756} on {zone:2521}), tame a beast that has it (its pet spellbook tab shows what it knows), use the ability in fights until the game says you learned it, then take your own pet back and teach it with {spell:5149}. A pet holds four active abilities at most."] = "",
-	-- {npc:258930} Isaac Chan · {area:87} Goldshire · {npc:2879} Karrina Mekenda · {zone:1453} Stormwind · {object:28027} Dwarven District · {npc:2878} Peria Lamenur · {area:131} Kharanos · {npc:10090} Belia Thundergranite · {zone:1455} Ironforge · {object:32390} Hall of Arms · {area:186} Dolanaar · {zone:1457} Darnassus · {npc:254411} Quel'dora Quickgale · {area:16638} Valanaar
-	["Pet trainers sell Growl ranks and resistances. Alliance: {npc:258930} in {area:87}, {npc:2879} by the hunter trainers in {zone:1453}'s {object:28027}, {npc:2878} in {area:131}, {npc:10090} in {zone:1455}'s {object:32390}, Keldas in {area:186}, Silvaria in {zone:1457}' Cenarion Enclave, {npc:254411} in {area:16638}."] = "",
-	["Call Pet, Dismiss Pet and Revive Pet are in your spellbook now; Mend Pet comes from your trainer at 12. A dead pet needs Revive Pet; one that is away more than about 100 yards is dismissed and comes back with Call Pet."] = "",
+	-- {spell:1853} Growl · {npc:258930} Isaac Chan · {area:87} Goldshire · {npc:2879} Karrina Mekenda · {zone:1453} Stormwind · {object:28027} Dwarven District · {npc:2878} Peria Lamenur · {area:131} Kharanos · {npc:10090} Belia Thundergranite · {zone:1455} Ironforge · {object:32390} Hall of Arms · {area:186} Dolanaar · {zone:1457} Darnassus · {npc:254411} Quel'dora Quickgale · {area:16638} Valanaar
+	["Pet trainers sell {spell:1853} ranks and resistances. Alliance: {npc:258930} in {area:87}, {npc:2879} by the hunter trainers in {zone:1453}'s {object:28027}, {npc:2878} in {area:131}, {npc:10090} in {zone:1455}'s {object:32390}, Keldas in {area:186}, Silvaria in {zone:1457}' Cenarion Enclave, {npc:254411} in {area:16638}."] = "",
+	-- {spell:883} Call Pet · {spell:2641} Dismiss Pet · {spell:982} Revive Pet · {spell:136} Mend Pet
+	["{spell:883}, {spell:2641} and {spell:982} are in your spellbook now; {spell:136} comes from your trainer at 12. A dead pet needs {spell:982}; one that is away more than about 100 yards is dismissed and comes back with {spell:883}."] = "",
 }

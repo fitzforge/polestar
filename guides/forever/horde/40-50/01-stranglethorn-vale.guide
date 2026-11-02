@@ -2,15 +2,15 @@
 guide forever/horde/40-50/01-stranglethorn-vale
 title Stranglethorn Vale & Swamp of Sorrows
 faction Horde
-levels 40-43
+levels 39-43
 zone Stranglethorn Vale
 next forever/horde/40-50/02-feralas
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372).
 # Left out: The Bloodsail Buccaneers (608).
-# 15 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
 
 step Hearth to Ratchet
   when bound "Ratchet"
@@ -36,14 +36,14 @@ step Booty Bay
   accept 209                            -- Kebok, upstairs
   turnin 213                          -- Kebok
   note The next guide flies you north to Tarren Mill and into the Arathi Highlands.
-  accept 2864                           -- Krazek: for Tran'rek in Gadgetzan; upstairs
-  accept 621                          -- Inside
-  accept 600                            -- Crank Fizzlebub
-  turnin 669
-  accept 617                            -- Privateer Bloads
-  vendor nearest
   accept 348                            -- Fin Fizracket
   accept 2872                           -- for Stoley in Tanaris; on the top floor
+  turnin 669
+  accept 621                          -- Inside
+  accept 600                            -- Crank Fizzlebub
+  accept 2864                           -- Krazek: for Tran'rek in Gadgetzan; upstairs
+  accept 617                            -- Privateer Bloads
+  vendor nearest
   accept 595                            -- First Mate Crazz
 
 # ---------------------------------------------------------------- Booty Bay
@@ -224,14 +224,19 @@ step Fly to Grom'gol
   accept 573                            -- Far Seer Mok'thardin
 
 step Nesingwary's camp
+  turnin 195                          -- Hemet Nesingwary
+  tip Ride north up the road; the hunters camp on the hill above the river.
+  accept 196                            -- Hemet Nesingwary
   turnin 192                          -- Sir S. J. Erlgadin
   turnin 339 optional                 -- Barnil Stonepot
   turnin 340 optional
   turnin 341 optional
   turnin 342 optional
   turnin 338 optional
-  turnin 195                          -- Hemet Nesingwary
-  accept 196                            -- Hemet Nesingwary
+
+step Nesingwary's camp
+  when group 193
+  accept 193
 
 step Zul'Kunda
   tip West of the expedition, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them.
@@ -307,8 +312,8 @@ step Balia'mah Ruins: kill these as you meet them
 step Grom'gol Base Camp
   tip Ride west to Grom'gol.
   turnin 598                            -- Kin'weelay
-  turnin 585
   turnin 586                            -- the Bubbling Cauldron
+  turnin 585
   turnin 573                            -- Far Seer Mok'thardin
 
 step Fly to Booty Bay
@@ -317,9 +322,9 @@ step Fly to Booty Bay
   fly "Booty Bay"
 
 step Booty Bay
-  turnin 209                            -- Kebok, upstairs
-  turnin 621                            -- Crank Fizzlebub, inside
   turnin 609                            -- "Sea Wolf" MacKinley, on the top floor
+  turnin 621                            -- Crank Fizzlebub, inside
+  turnin 209                            -- Kebok, upstairs
 
 step Fly to Grom'gol
   zone Stranglethorn Vale
@@ -333,6 +338,63 @@ step Stranglethorn Vale
 step Nesingwary's Expedition
   tip Ride north up the road to the hunters' camp.
   turnin 196                            -- Hemet Nesingwary
+
+step Nesingwary's Expedition
+  when group 197
+  accept 197
+
+step Raptor Mastery
+  when group 197
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Tethis is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  collect 3877 quest 197.1 @31.5,41.2 map 1434
+
+step Panther Mastery
+  when group 193
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bhag'thera is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  collect 3876 quest 193.1 @49.4,24.0 map 1434
+
+step Sir S. J. Erlgadin
+  when group 193
+  turnin 193
+
+step Sir S. J. Erlgadin
+  when group 197
+  turnin 197
+
+step Sir S. J. Erlgadin
+  when group 208
+  accept 208
+
+step Level 42.68
+  when level<42.68
+  tip If you skipped Panther Mastery or Raptor Mastery, grind here to level 42.68 to stay on the route's plan.
+  goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
+  level 42.68                          -- grind on Skullsplitter Warrior
+
+step Big Game Hunter
+  when group 208
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. King Bangalash is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  tip Careful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, King Bangalash calls for help from creatures within 20 yd.
+  collect 3880 quest 208.1 @38.2,35.6 map 1434
+
+step Hemet Nesingwary
+  when group 208
+  turnin 208
+
+step Level 42.74
+  when !group 208
+  when level<42.74
+  tip If you skipped Big Game Hunter, grind here to level 42.74 to stay on the route's plan.
+  goto 42.5,35.7 map 1434 "Skullsplitter Warrior"
+  level 42.74                          -- grind on Skullsplitter Warrior
+
+step Duskwood
+  zone Duskwood
+  goto 87.8,35.6 "Duskwood"
+
+step Deathstalker Zraedus
+  accept 1372
+  turnin 1372
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
@@ -358,10 +420,6 @@ step Stonard
   turnin 1420                           -- Helgrum the Swift, upstairs
   sethome "Stonard" npc 6930            -- Innkeeper Karakul, upstairs
   accept 1424                           -- Fel'zerul, on the top floor
-
-step Monstrous Crawler Leg on the way
-  along
-  collect 6184 quest 1430.1
 
 step Sawtooth crocolisks
   tip The crocolisks wallow in the pools around Galen's camp and south towards Stonard; about one in four drops a flank.
@@ -431,13 +489,3 @@ step Misty Reed Post
   tip Ride back east past Stonard and follow the road south-east to the small Horde post on the shore.
   turnin 698                            -- Tok'Kar
   accept 699
-
-step Sawtooth snappers
-  tip The snappers line the strand south of the post.
-  collect 6168 quest 699.1
-
-step Misty Reed Post
-  tip The next guide starts here and takes you to Tanaris.
-  turnin 699                            -- Tok'Kar
-  tip The small Horde post on the southern shore.
-  accept 1422                           -- Tok'Kar

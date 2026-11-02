@@ -3,9 +3,17 @@ guide forever/horde/troll/02-the-barrens
 title The Barrens
 faction Horde
 race Troll
-levels 11-17
+levels 12-12
 zone The Barrens
 next forever/horde/02-the-barrens
+
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+
+step The Barrens
+  zone The Barrens
+  goto 52.2,31.0 "The Barrens"
 
 # Route: the simulator's consensus Orc route (data/sim/export/consensus-horde-orc,
 # visit 2, the Barrens 11.9-16.2). Trolls share it. Starts at the Crossroads,
@@ -57,12 +65,35 @@ next forever/horde/02-the-barrens
 
 # ---------------------------------------------------------------- The Crossroads
 
+# ---------------------------------------------------------------- The Crossroads
+
+step The Crossroads
+  zone The Barrens
+  tip Thork and Darsok on the tower platform. Helbrim and Gazrog by the north gate. The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
+  accept 844                          -- Sergra Darkthorn
+  accept 869                          -- Gazrog
+  accept 1492
+  accept 848                          -- Apothecary Helbrim
+  accept 5041
+  accept 871                          -- Thork
+  accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
+
+step On the way
+  along
+  kill 3267 quest 871.1
+  kill 3268 quest 871.2
+  kill 3265 quest 871.3
+
+# ---------------------------------------------------------------- Razormane camp and Ratchet
 
 step Thun'grim Firegaze
   only Warrior
   tip Thun'grim camps beside the road east toward Ratchet.
   turnin 1502
   accept 1503
+
+# Turn in a carried alternative here before starting the shared ritual;
+# do not add a trip to a different trainer for an uncarried breadcrumb.
 
 step
   only Orc,Troll,Shaman
@@ -82,10 +113,33 @@ step
   zone The Barrens
   turnin 2984
 
-step Razormane camp
+step Kranal Fiss
+  only Shaman
   zone The Barrens
+  accept 1524
+
+step Telf Joolam
+  only Shaman
+  zone Durotar
+  turnin 1524
+  accept 1525
+
+step Drygulch Ravine
+  zone Durotar
+  collect 6652 quest 1525.2 only Shaman
+
+step Razormane camp
+  only Warrior,Shaman
+  zone The Barrens
+  tip Water Seekers, Thornweavers and Hunters hold the camp east of the Crossroads. The supply crates sit at its eastern end. Warriors: the Stolen Iron Chest stands in the camp. Shamans: the quilboar drop the Fire Tar. Kill Savannah Prowlers you pass for their claws.
+  tip Careful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight.
   collect 6534 quest 1503.1 only Warrior
   collect 5026 quest 1525.1 only Shaman
+
+step Durotar
+  only Shaman
+  zone Durotar
+  goto 38.5,59.0 "Durotar"
 
 step Telf Joolam
   only Shaman
@@ -106,3 +160,16 @@ step Thun'grim Firegaze
   only Warrior
   zone The Barrens
   turnin 1503
+
+step The Barrens
+  zone The Barrens
+  goto 63.1,37.1 "The Barrens"
+
+step Ratchet
+  zone The Barrens
+  tip Follow the road south-east to Ratchet on the coast.
+  getfp "Ratchet"
+
+step The Barrens
+  zone The Barrens
+  goto 51.6,30.9 "The Barrens"

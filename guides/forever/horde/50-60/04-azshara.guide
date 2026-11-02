@@ -2,48 +2,13 @@
 guide forever/horde/50-60/04-azshara
 title Azshara, The Barrens & Undercity
 faction Horde
-levels 55-57
+levels 56-56
 zone Azshara
 next forever/horde/50-60/05-eastern-plaguelands
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
-# The notes above describe v1's order; the steps below are the improved one.
-
-# Built from the playthrough simulator's consensus route (Horde, visits
-# 80-85) and machine-checked with lint; not play-tested on Forever yet.
-#
-# Flow: Orgrimmar (Jes'rimon, Blackhoof) -> fly to the Crossroads (Dokimi's
-# crates) -> fly to Ratchet (Liv Rizzlefix, Marvon's Chest) -> fly to
-# Orgrimmar (cloth donations) -> fly to Valormok (Jediga's payments, Ag'tor)
-# -> Ruins of Eldarath (Cuely's vials) -> Thalassian Base Camp and Magus
-# Rimtori -> Valormok -> fly to Orgrimmar (Belgrom) -> zeppelin to the
-# Undercity (Cuely, Bauhaus, Jeremiah, Owen Thadd, Alessandro Luca).
-#
-# Wand to Bethor (491), which the export turns in here, is left out: the
-# earlier guide no longer accepts it.
-#
-# Deviations from the export:
-# - Dropped: For Great Honor (8367, 8388: battleground quests), and the
-#   Ashenvale stop (visit 82), whose only "objectives" are the Silk
-#   donations: cloth carried in your bags.
-# - The Crossroads and Undercity binds are dropped (each replaced at once).
-# - The export ends Azshara with a hearth to Ratchet and comes back through
-#   Orgrimmar much later to report Betrayed (3507). Here you fly from
-#   Valormok straight to Orgrimmar, hand Betrayed to Belgrom on the way to
-#   the Undercity zeppelin, and keep the hearth; the Ratchet bind goes with it.
-#
-# Left open for later guides: Taking Back Silithus (8276), The Stone Circle
-# (3444, Marvon in Tanaris), Cleansed Water Returns to Felwood (5159, the
-# Emerald Sanctuary), the Runecloth donations (7824, 7836) and Good Luck
-# Charm (5050, Janice in the Western Plaguelands).
-#
-# Dropped: Volcanic Activity (4502): the later guides no longer hand it in
-# (Un'Goro ash detour).
-#
-# Class quests: Hunters' The Hunter's Charm (8151-8232, Ogtinc) is a Class
-# guide (forever/class/hunter/the-hunters-charm): Morphaz in the Sunken
-# Temple holds its last part.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 
 # ---------------------------------------------------------------- Orgrimmar
 
@@ -85,45 +50,41 @@ step Islen Waterseer
 step Hearth to Orgrimmar
   hearth "Orgrimmar"
 
+step Vehena
+  zone Orgrimmar
+  tip In the Valley of Spirits. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
+  turnin 7833 optional
+  turnin 7834 optional
+  turnin 7835 optional
+  accept 7836 optional
+
+step Rashona Straglash
+  tip In the Valley of Honor.
+  turnin 7826 optional
+  turnin 7827 optional
+  turnin 7831 optional
+  accept 7824 optional
+  note Both Runecloth donations are handed in later in the route: save sixty Runecloth for each if you want them.
+
+# ---------------------------------------------------------------- Orgrimmar
+
 step Fly to Valormok
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Valormok"
   zone Azshara
 
-step Valormok
-  turnin 3504                         -- Ag'tor Bloodfist
-  accept 3505
-  turnin 3564
-  turnin 3563
-  turnin 3562                         -- Jediga
-
 # ---------------------------------------------------------------- Valormok
 
-step Fly to Orgrimmar
-  zone Azshara
-  goto 21.9,49.7 "Valormok flight master"
-  fly "Orgrimmar"
-
-step Vehena
-  when onquest 7833,7834,7835
-  zone Orgrimmar
-  tip In the Valley of Spirits. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
-  turnin 7833 optional
-  turnin 7834 optional
-  turnin 7835 optional
-
-step Rashona Straglash
-  when onquest 7826,7827,7831
-  tip In the Valley of Honor.
-  turnin 7826 optional
-  turnin 7827 optional
-  turnin 7831 optional
-  note Both Runecloth donations are handed in later in the route: save sixty Runecloth for each if you want them.
+step Valormok
+  turnin 3562                         -- Jediga
+  turnin 3563
+  turnin 3564
+  turnin 3504                         -- Ag'tor Bloodfist
+  accept 3505
 
 step Ruins of Eldarath
   when onquest 3568
-  zone Azshara
   tip Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them.
   goto 35.0,55.0 "Ruins of Eldarath"
   complete 3568
@@ -152,17 +113,15 @@ step Fly to Orgrimmar
   fly "Orgrimmar"
   zone Orgrimmar
 
-step Class trainer
-  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
 step Paladin trainer
   only Paladin
   train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
 
-step Druid trainer
-  only Druid
-  train class only Druid -- Sheal Runetotem in Mulgore; Orgrimmar has no druid trainer
+step Orgrimmar
+  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  zone Orgrimmar
+  tip Fly to Orgrimmar and train.
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 # ---------------------------------------------------------------- Orgrimmar and the Undercity
 
@@ -182,23 +141,23 @@ step Zeppelin to Undercity
 step Prompt Potion Runner
   zone Undercity
   accept 97891                        -- Alessandro Luca
-
-step Owen Thadd
-  accept 79095 optional               -- Only with The Apothecary's Metaphysical Primer from Brill's alchemy shop in your bags (the Library Books guide)
-  turnin 79095 optional
-  turnin 5023                         -- Royal Overseer Bauhaus
-  accept 5049
-  turnin 5049                         -- Jeremiah Payson, nearby
-
-step The Apothecarium
-  zone Undercity
+  turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
   turnin 3568                         -- Chemist Cuely
   accept 3569
   turnin 3569                         -- Thersa Windsong, beside him
   accept 3570 npc 8390
   turnin 3570
-  turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
+
+step The Undercity
+  zone Undercity
+  tip Take the zeppelin from the tower outside Orgrimmar to Tirisfal Glades and ride into the Undercity. Lady Sylvanas holds the Royal Quarter.
+  accept 5961
 
 step Royal Quarter
+  turnin 5023                         -- Royal Overseer Bauhaus
+  accept 5049
+  turnin 5049                         -- Jeremiah Payson, nearby
   accept 5050
   note Good Luck Charm goes back to Janice Felstone in the Western Plaguelands: keep it.
+  accept 79095 optional               -- Only with The Apothecary's Metaphysical Primer from Brill's alchemy shop in your bags (the Library Books guide)
+  turnin 79095 optional

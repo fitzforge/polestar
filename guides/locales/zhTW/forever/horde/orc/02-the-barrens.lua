@@ -6,13 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: The Crossroads
+	-- Step 1: Zargh
 	-- {area:379} Far Watch Post · {npc:3338} Sergra Darkthorn
 	["You arrive from {area:379}. {npc:3338} stands by the inn; Tonga at the south gate."] = "",
 
 	-- Step 2: The Crossroads
-	-- {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:3464} Gazrog · {area:380} The Crossroads
-	["{npc:3429} and {npc:3449} on the tower platform. Helbrim and {npc:3464} by the north gate. {area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "",
+	-- {npc:3464} Gazrog · {area:380} The Crossroads · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger
+	["Helbrim and {npc:3464} by the north gate. {area:380} is your base for this guide. Everyone you need stands within a few steps of the inn.\n{npc:3429} and {npc:3449} on the tower platform."] = "",
 	-- {npc:3449} Darsok Swiftdagger · {area:383} Dry Hills
 	["{npc:3449}: the harpies come later, in the {area:383}"] = "",
 

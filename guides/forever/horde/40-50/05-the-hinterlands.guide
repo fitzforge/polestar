@@ -2,68 +2,25 @@
 guide forever/horde/40-50/05-the-hinterlands
 title The Hinterlands & Blasted Lands
 faction Horde
-levels 47-50
+levels 48-50
 zone The Hinterlands
 next forever/horde/40-50/06-azshara
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
-# Added here: Broken Alliances (782), Gammerita, Mon! (7816), Venom Bottles (2933), Fall From Grace (2784).
-# 1 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: Gammerita, Mon! (7816), Return to Fel'Zerul (1444), Venom Bottles (2933).
+# Left out: Assisting Arch Druid Runetotem (3784).
 
-# ---------------------------------------------------------------- Kargath
-
-step Fly to Kargath
-  zone Badlands
-  tip Fly to Orgrimmar, take the zeppelin to Grom'gol and fly from there to Kargath, built into the cliffs on the Badlands' west edge.
-  accept 3821                         -- Thal'trak Proudtusk
-  accept 782                          -- Inside
-
-step Broken Alliances
-  collect 4640 quest 782.1 @12.6,75.5 map 1418
-
-step Gorn
-  turnin 782                          -- Inside
-
-step Gorn
-  when group 793
-  accept 793
-
-step Broken Alliances
-  when group 793
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Blacklash and Hematus (level 50 elites) need a group of 2. Skip it if you are alone: the route has you grind the XP back.
-  collect 4615 quest 793.1 @81.9,49.5 map 1418 group 2
-  collect 4645 quest 793.2 @82.0,49.9 map 1418 group 2
-
-step Gorn
-  when group 793
-  turnin 793                          -- Inside
-
-step Level 48.39
-  when !group 793
-  when level<48.39
-  tip If you skipped Broken Alliances, grind here to level 48.39 to stay on the route's plan.
-  goto 11.1,74.7 map 1418 "Dustbelcher Ogre Mage"
-  level 48.39                          -- grind on Dustbelcher Ogre Mage
-
-step Fly to Undercity
-  zone Badlands
-  goto 4.1,44.9 "Kargath flight master"
-  fly "Undercity"
-  zone Undercity
-
-step Undercity
-  zone Undercity
-  accept 3784                           -- Innkeeper Norman: for Thunder Bluff, around level 50
-  train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
-  accept 2995                           -- Oran Snakewrithe, the Royal Quarter
-
-# ---------------------------------------------------------------- The Undercity
+step Fly to Hammerfall
+  zone Searing Gorge
+  goto 34.8,30.6 "Thorium Point flight master"
+  fly "Hammerfall"
+  zone Arathi Highlands
 
 step Fly to Tarren Mill
-  zone Undercity
-  goto 63.1,48.3 "Undercity flight master"
+  zone Arathi Highlands
+  goto 73.1,32.6 "Hammerfall flight master"
   fly "Tarren Mill"
   zone Hillsbrad Foothills
 
@@ -88,9 +45,9 @@ step Highvale
   accept 2742                           -- Rin'ji
   complete 2742
 
-step Skulk Rock
-  tip The crates of Hinterlands Honey Ripple lie around the abandoned Horde camp at Skulk Rock, among the oozes.
-  collect 8684 quest 77.1
+step Violet Tragan
+  tip East of the village, the violet flower grows in the hills.
+  collect 8526 quest 2641.1 @40.6,59.7 -- Underwater
 
 # ---------------------------------------------------------------- Revantusk Village
 
@@ -112,18 +69,26 @@ step Revantusk Village
 
 step Revantusk Village
   when group 7816
-  accept 7816 only Tauren
+  accept 7816
 
-step Silvermane Stalker on the way
+step On the way
   along until q7828
   kill 2926 quest 7828.1
+  kill 4466 quest 7844.1
+  kill 4467 quest 7844.2
 
 # ---------------------------------------------------------------- The north coast
 
-step Saltwater Snapjaws
+step The Overlook Cliffs: kill these as you meet them
+  zone The Hinterlands
   tip The big turtles crawl along the beaches north of the village. Whiskey Slim's port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.
   kill 2505 quest 7815.1
   collect 8704 optional                 -- OOX-09/HL Distress Beacon, a rare drop
+
+step The Overlook Cliffs: kill these as you meet them
+  when group 7816
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Gammerita is a level 48 elite: most classes solo it at level 50, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  collect 19023 quest 7816.1 @80.4,58.2 map 1425
 
 step Rin'ji's Secret
   tip The secret lies on the Overlook Cliffs, above the beach.
@@ -134,34 +99,42 @@ step Lard's lunch
   tip North along the coast, Lard's picnic basket is on the small island; a Vilebranch Kidnapper guards it.
   collect 19034 quest 7840.1 @84.5,41.2
 
-step Gammerita, Mon!
-  when group 7816
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Skip it if you are alone: the route has you grind the XP back.
-  collect 19023 quest 7816.1 @80.4,58.2 map 1425 only Tauren
-
 step Cortello's Riddle
   when onquest 626
   turnin 626                          -- Underwater
 
-# ---------------------------------------------------------------- Jintha'Alor
+# ---------------------------------------------------------------- The temples and the central hills
+
 step Shaol'watha: kill these as you meet them
   label q7828
   zone The Hinterlands
-  tip The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and Skulk Rock. Use the Wildkin Muisek Vessel on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for Otho's second message.
-  tip On the way back east, the Vilebranch soothsayers hold the Altar of Zul, the troll temple south of the central hills. Qiaga and Morta'gya the Keeper (elite, 50) stand at its top: take the soothsayers on the lower steps.
   tip West of the island, the Vilebranch scalpers hold the temples of Agol'watha and Shaol'watha. Slagtree's tools lie at one of the temples.
+  tip The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and Skulk Rock. Use the Wildkin Muisek Vessel on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for Otho's second message.
   tip Careful: Silvermane Stalkers are level 47-48 and stay stealthed while out of combat. Up close they use Infected Bite. When a Silvermane Howler falls to 50% health or lower, it calls for help from anything within 25 yd.
   kill 2926 quest 7828.1
   collect 19033 quest 7839.1
-  collect 19025 quest 7830.1
-  kill 4467 quest 7844.2
   kill 4466 quest 7844.1
+  kill 4467 quest 7844.2
+  collect 19025 quest 7830.1
   kill 2929 quest 7829.1
 
-# ---------------------------------------------------------------- The west
+step Skulk Rock
+  tip The crates of Hinterlands Honey Ripple lie around the abandoned Horde camp at Skulk Rock, among the oozes.
+  collect 8684 quest 77.1
 
-step Silvermane Howlers
+step Wildkin Muisek
+  tip Careful: Stealthed wolves and griffons roam the Valorwind Lake area.
+  collect 9594 quest 3123.1
+  use 9618 quest 3123.1 @61.0,42.8 map 1425
+  collect 4589 x10 "Long Elegant Feather"
+
+# ---------------------------------------------------------------- The west
+step The Altar of Zul: kill these as you meet them
+  zone The Hinterlands
+  tip On the way back east, the Vilebranch soothsayers hold the Altar of Zul, the troll temple south of the central hills. Qiaga and Morta'gya the Keeper (elite, 50) stand at its top: take the soothsayers on the lower steps.
   tip South-west, the Silvermane Howlers roam the hills east of the Witherbark villages.
+  kill 4466 quest 7844.1
+  kill 4467 quest 7844.2
   kill 2925 quest 7828.2
 
 step OOX-09/HL
@@ -171,28 +144,6 @@ step OOX-09/HL
   turnin 485 optional                   -- Homing Robot OOX-09/HL
   accept 836 optional
   complete 836 optional
-
-step Violet Tragan
-  tip East of the village, the violet flower grows in the hills.
-  collect 8526 quest 2641.1 @40.6,59.7 -- Underwater
-
-step Wildkin Muisek
-  tip Careful: Stealthed wolves and griffons roam the Valorwind Lake area.
-  collect 9594 quest 3123.1
-  use 9618 quest 3123.1 @41.0,61.6 map 1425
-  collect 4589 x10 "Long Elegant Feather"
-
-step Venom Bottles
-  accept 2933
-
-step Grim Message
-  when onquest 2932
-  tip South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use Nimboya's Pike to make the Laden Pike, then plant it inside the village.
-  goto 23.4,58.1
-  collect 9320 x20 "Witherbark Skull"
-  use 15002 "Nimboya's Pike" @29.5,58.5
-  use 9319 "Nimboya's Laden Pike" @29.5,58.5
-  complete 2932
 
 step Gilveradin's camp
   turnin 77                             -- Gilveradin Sunchaser
@@ -215,8 +166,8 @@ step Jintha'Alor
 
 step Revantusk Village
   turnin 7839                           -- Smith Slagtree
-  turnin 7850                           -- Primal Torntusk
   turnin 7840                           -- Lard, inside
+  turnin 7850                           -- Primal Torntusk
   turnin 7815                           -- Katoom the Angler
   turnin 7849
   turnin 7830
@@ -230,11 +181,31 @@ step Revantusk Village
 
 step Revantusk Village
   when group 7816
-  turnin 7816 only Tauren
+  turnin 7816
+
+step Level 49.02
+  when !group 7816
+  when level<49.02
+  tip If you skipped Gammerita, Mon!, grind here to level 49.02 to stay on the route's plan.
+  goto 77.8,68.9 map 1425 "Saltwater Snapjaw"
+  level 49.02                          -- grind on Saltwater Snapjaw
 
 step The Atal'ai Exile
   tip South-west again, the exile hides by the ruins of Shadra'Alor.
   turnin 1429                           -- Atal'ai Exile
+  accept 1444
+
+step Venom Bottles
+  accept 2933
+
+step Grim Message
+  when onquest 2932
+  tip South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use Nimboya's Pike to make the Laden Pike, then plant it inside the village.
+  goto 23.4,58.1
+  collect 9320 x20 "Witherbark Skull"
+  use 15002 "Nimboya's Pike" @29.5,58.5
+  use 9319 "Nimboya's Laden Pike" @29.5,58.5
+  complete 2932
 
 # ---------------------------------------------------------------- Aerie Peak
 
@@ -256,21 +227,17 @@ step Fly to Stonard
   fly "Stonard"
   zone Swamp of Sorrows
 
-step Fallen Hero of the Horde
-  accept 2784
+step Fel'zerul
+  turnin 1444                         -- On the top floor
 
-step Fall From Grace
-  kill 7572 quest 2784.1 @34.3,66.1 map 1435
-
-step Fallen Hero of the Horde
-  turnin 2784
-  accept 2621
-
-step Dispatch Commander Ruag
-  turnin 2621                         -- Upstairs
-  accept 2622
-  turnin 2622                         -- Inside
-
+step The bloodmages
+  zone Blasted Lands
+  tip Ride west out of Stonard and south through the canyon into the Blasted Lands; the two bloodmages stand by the road just inside.
+  accept 2583
+  accept 2585
+  accept 2581                           -- Bloodmage Drazial
+  accept 2601                           -- Bloodmage Lynnore
+  accept 2603
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 49-53, levels 47.6-49.5. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.
@@ -326,23 +293,14 @@ step Dispatch Commander Ruag
 
 # ---------------------------------------------------------------- The Blasted Lands
 
-step The bloodmages
-  zone Blasted Lands
-  tip Ride west out of Stonard and south through the canyon into the Blasted Lands; the two bloodmages stand by the road just inside.
-  accept 2581                           -- Bloodmage Drazial
-  accept 2585
-  accept 2583
-  accept 2601                           -- Bloodmage Lynnore
-  accept 2603
-
 step Serpent's Coil: kill these as you meet them
   zone Blasted Lands
   tip The five quests share the same parts: gather them all in one sweep. West of the road the Black Slayer vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.
   tip East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.
   tip Careful: Scorpok Stingers use Venom Sting; Clack the Reaver adds Knockdown.
   collect 8393 x1 quest 2581.3
-  collect 8393 x3 quest 2585.1
   collect 8393 x2 quest 2583.2
+  collect 8393 x3 quest 2585.1
   collect 8396 x2 quest 2601.2
   collect 8396 x2 quest 2585.2
   collect 8396 x10 quest 2603.1
@@ -350,15 +308,15 @@ step Serpent's Coil: kill these as you meet them
   collect 8391 x2 quest 2603.2
   collect 8394 x10 quest 2601.1
   collect 8394 x1 quest 2583.3
-  collect 8392 x2 quest 2581.2
-  collect 8392 x1 quest 2585.3
   collect 8392 x3 quest 2583.1
+  collect 8392 x1 quest 2585.3
+  collect 8392 x2 quest 2581.2
 
 step The bloodmages
   tip Ride back north to the bloodmages.
   turnin 2601                           -- Bloodmage Lynnore
   turnin 2603
   note Their follow-ups ask for the same parts again for a buff item and pay no experience: leave them.
-  turnin 2581                           -- Bloodmage Drazial
-  turnin 2585
   turnin 2583
+  turnin 2585
+  turnin 2581                           -- Bloodmage Drazial

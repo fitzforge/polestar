@@ -2,134 +2,13 @@
 guide forever/horde/02-the-barrens
 title The Barrens
 faction Horde
-levels 12-17
+levels 12-16
 zone The Barrens
 next forever/horde/03-silverpine-forest
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
-# 8 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
-
-# Built from the simulator's consensus Horde route (Tauren export, the Barrens
-# visit at 12.7-16.6); not yet play-tested on Forever.
-#
-# Arrivals, all at the Crossroads: Tauren at about 12 from Mulgore
-# (Crossroads flight path and bind already done), Undead at about 13 from
-# Tirisfal Glades, Skyborne at about 14.6 from Zephras Isle, Orcs and Trolls at
-# about 16 from their own Barrens guide (most of this guide is already done for
-# them: the engine skips what is).
-#
-# Flow: Crossroads -> plains around town (plainstriders, raptors, zhevra) ->
-# Razormane camp east -> Far Watch Post (Tauren Warriors) -> Ratchet (flight
-# path) -> Southsea beach, twice -> Crossroads -> Razormane camp again,
-# Echeyakee -> the Sludge
-# Fen console -> the Dry Hills (harpies, Chen's keg) -> Regthar, the Forgotten
-# Pools, the Kolkar -> Crossroads -> Stagnant Oasis and the raptor nests ->
-# Ratchet -> Crossroads -> Lushwater Oasis -> Crossroads -> north: harpy
-# lieutenants, Wenikee at the Mor'shan Rampart -> Crossroads. The guide ends at
-# the Crossroads; the next one walks you to Orgrimmar and the zeppelin.
-#
-# Deviations from the export (to keep one loop per hub):
-# - The simulator binds back and forth between Ratchet and the Crossroads and
-#   hearths twice; here you stay bound at the Crossroads and walk: Ratchet is
-#   reached on foot twice, both times on the way between other objectives.
-# - Stolen Booty (888) is done right after the Missing Shipment, while you are
-#   still at the beach, not on a later Ratchet trip.
-# - Fungal Spores (848) is picked at the mushrooms around the Forgotten Pools,
-#   on the same stop as the pools themselves.
-# - The Sepulcher flight path and bind (16.6) move to the start of the next
-#   guide, where you are.
-# - Rilli Greasygob (3923) is taken here from Wenikee, who you stand next to
-#   anyway; the export takes it at 20.4 on a later Barrens visit. Its turn-in
-#   comes in the next guide, in Orgrimmar's Valley of Honor at 19.
-# - In Ratchet, Sputtervalve, Wrenix and Gazlowe up the hill come before
-#   Wharfmaster Dizzywig on the dock: the dock is on the way to the beach.
-#
-# Dropped:
-# - Chen's Empty Keg part 2 (821): a horn from the southern thunder lizards and
-#   a walk back to Ratchet for 1350 XP; with it the third part (822, in
-#   forever/horde/04-the-barrens), which would need a flight to Ratchet for
-#   970 XP. The first part (819) stays: its keg lies on the Dry Hills loop and
-#   Ratchet is on the way.
-# - Apothecary Zamah (853) and Hamuul Runetotem (1489): the route never turns
-#   them in.
-#
-# Class quests: Tauren Warriors carry Veteran Uzzek (1505) and Tauren Shamans
-# Call of Fire (1523) from forever/horde/tauren/01-mulgore: Path of Defense,
-# Thun'grim Firegaze and Forged Steel (1498, 1502, 1503); Call of Fire (1524-
-# 1527) with Telf Joolam on the Durotar bank of the river. Orcs and Trolls do
-# these in their own Barrens guide. Forever's Call of Fire (1527) also gives
-# the Totem of Charged Flames (Forever's Shaman quest list).
-# Path of Defense stays Tauren-only here: Undead and Skyborne Warriors learn
-# Defensive Stance from their own start guides' class quests.
-#
-# Far Watch Post is for Tauren Warriors only (Uzzek): Orcs and Trolls hand in
-# Conscript of the Horde (840) in Durotar and Crossroads Conscription (842)
-# in their own Barrens guide; since the Tauren start dropped its Durotar trip
-# (Razor Hill), Tauren no longer carry 840.
-#
-# No grind stops: the export has none here.
-
-# Built from the simulator's consensus Horde route (Tauren export, the Barrens
-# visit at 12.7-16.6); not yet play-tested on Forever.
-#
-# Arrivals, all at the Crossroads: Tauren at about 12 from Mulgore
-# (Crossroads flight path and bind already done), Undead at about 13 from
-# Tirisfal Glades, Skyborne at about 14.6 from Zephras Isle, Orcs and Trolls at
-# about 16 from their own Barrens guide (most of this guide is already done for
-# them: the engine skips what is).
-#
-# Flow: Crossroads -> plains around town (plainstriders, raptors, zhevra) ->
-# Razormane camp east -> Far Watch Post (Tauren Warriors) -> Ratchet (flight
-# path) -> Southsea beach, twice -> Crossroads -> Razormane camp again,
-# Echeyakee -> the Sludge
-# Fen console -> the Dry Hills (harpies, Chen's keg) -> Regthar, the Forgotten
-# Pools, the Kolkar -> Crossroads -> Stagnant Oasis and the raptor nests ->
-# Ratchet -> Crossroads -> Lushwater Oasis -> Crossroads -> north: harpy
-# lieutenants, Wenikee at the Mor'shan Rampart -> Crossroads. The guide ends at
-# the Crossroads; the next one walks you to Orgrimmar and the zeppelin.
-#
-# Deviations from the export (to keep one loop per hub):
-# - The simulator binds back and forth between Ratchet and the Crossroads and
-#   hearths twice; here you stay bound at the Crossroads and walk: Ratchet is
-#   reached on foot twice, both times on the way between other objectives.
-# - Stolen Booty (888) is done right after the Missing Shipment, while you are
-#   still at the beach, not on a later Ratchet trip.
-# - Fungal Spores (848) is picked at the mushrooms around the Forgotten Pools,
-#   on the same stop as the pools themselves.
-# - The Sepulcher flight path and bind (16.6) move to the start of the next
-#   guide, where you are.
-# - Rilli Greasygob (3923) is taken here from Wenikee, who you stand next to
-#   anyway; the export takes it at 20.4 on a later Barrens visit. Its turn-in
-#   comes in the next guide, in Orgrimmar's Valley of Honor at 19.
-# - In Ratchet, Sputtervalve, Wrenix and Gazlowe up the hill come before
-#   Wharfmaster Dizzywig on the dock: the dock is on the way to the beach.
-#
-# Dropped:
-# - Chen's Empty Keg part 2 (821): a horn from the southern thunder lizards and
-#   a walk back to Ratchet for 1350 XP; with it the third part (822, in
-#   forever/horde/04-the-barrens), which would need a flight to Ratchet for
-#   970 XP. The first part (819) stays: its keg lies on the Dry Hills loop and
-#   Ratchet is on the way.
-# - Apothecary Zamah (853) and Hamuul Runetotem (1489): the route never turns
-#   them in.
-#
-# Class quests: Tauren Warriors carry Veteran Uzzek (1505) and Tauren Shamans
-# Call of Fire (1523) from forever/horde/tauren/01-mulgore: Path of Defense,
-# Thun'grim Firegaze and Forged Steel (1498, 1502, 1503); Call of Fire (1524-
-# 1527) with Telf Joolam on the Durotar bank of the river. Orcs and Trolls do
-# these in their own Barrens guide. Forever's Call of Fire (1527) also gives
-# the Totem of Charged Flames (Forever's Shaman quest list).
-# Path of Defense stays Tauren-only here: Undead and Skyborne Warriors learn
-# Defensive Stance from their own start guides' class quests.
-#
-# Far Watch Post is for Tauren Warriors only (Uzzek): Orcs and Trolls hand in
-# Conscript of the Horde (840) in Durotar and Crossroads Conscription (842)
-# in their own Barrens guide; since the Tauren start dropped its Durotar trip
-# (Razor Hill), Tauren no longer carry 840.
-#
-# No grind stops: the export has none here.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 
 # ---------------------------------------------------------------- The Crossroads
 
@@ -280,19 +159,28 @@ step Ratchet
   accept 887                          -- Gazlowe, upstairs
   accept 97253                        -- Wrenix the Wretched
   accept 894                          -- Sputtervalve: the console is in the Sludge Fen, later
+  accept 895                          -- WANTED poster
   sethome "Ratchet"
+  accept 865                          -- Mebok Mizzyrix
   turnin 1492                         -- Wharfmaster Dizzywig, on the dock
   accept 896                          -- Wharfmaster Dizzywig, on the dock
+
+step Intact Raptor Horn on the way
+  along
+  collect 5055 quest 865.1
 
 step The Barrens: kill these as you meet them
   zone The Barrens
   tip The pirates camp on the beach south of Ratchet. The piles of complicated parts lie in the sand among them.
+  tip The pirates camp on the beach south of Ratchet; Baron Longshore stands at its southern end.
   kill 3381 quest 887.1
   kill 3382 quest 887.2
   collect 277331 quest 97253.1
+  collect 5084 quest 895.1
 
 step Ratchet
   turnin 887                          -- Gazlowe, upstairs
+  turnin 895                          -- Gazlowe
   accept 890
   turnin 97253                        -- Wrenix the Wretched
   turnin 890                          -- Wharfmaster Dizzywig
@@ -316,6 +204,7 @@ step Fly to Crossroads
 
 step The Crossroads
   turnin 903                          -- Sergra Darkthorn
+  turnin 842 only Orc,Troll
   accept 881
   turnin 871                          -- Thork
   turnin 5041
@@ -329,8 +218,11 @@ step The Barrens: kill these as you meet them
   zone The Barrens
   tip The pools lie just north of Regthar. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers.
   collect 5030 quest 855.1
-  collect 5012 quest 848.1
   complete 870 @45.3,22.8
+  collect 5012 quest 848.1
+
+step Regthar Deathgate
+  turnin 855
 
 step The Dry Hills
   tip West to the Dry Hills. The Witchwing harpies nest all over them; any of them can drop a talon. Chen's Empty Keg lies in their hills.
@@ -358,12 +250,20 @@ step Echeyakee
   use 10327 @55.8,17.1 map 1413
   collect 5100 quest 881.1
 
+step Hearth to Ratchet
+  hearth "Ratchet"
+
+step Ratchet
+  tip East to Ratchet, on the coast.
+  turnin 902                          -- Sputtervalve
+  accept 3921
+
 # ---------------------------------------------------------------- North-east loop
 
 step The Disruption Ends
   tip Back to the Razormane camp. Geomancers and Defenders hold its eastern half; Kreenig Snarlsnout walks among them.
-  kill 3269 quest 872.1
   kill 3266 quest 872.2
+  kill 3269 quest 872.1
   collect 5063 quest 872.3 @58.5,27.0
   collect 5026 quest 1525.1 only Tauren,Shaman
 
@@ -392,31 +292,17 @@ step Kranal Fiss
   zone The Barrens
   turnin 1527 reward 5176 263412 only Tauren -- Kranal Fiss: Searing Totem, your Fire Totem and the Totem of Charged Flames
 
-step Hearth to Ratchet
-  zone The Barrens
-  hearth "Ratchet"
-
-step Ratchet
-  zone The Barrens
-  tip East to Ratchet, on the coast.
-  turnin 902                          -- Sputtervalve
-  accept 3921
-
-step Fly to Crossroads
-  zone The Barrens
-  goto 63.1,37.1 "Ratchet flight master"
-  fly "Crossroads"
-
 step The Crossroads
-  turnin 881                          -- Sergra Darkthorn
-  accept 905
-  sethome "The Crossroads"
+  zone The Barrens
   turnin 848                          -- Apothecary Helbrim
   turnin 872                          -- Thork
   turnin 867                          -- Darsok Swiftdagger
   accept 875
-  accept 899                          -- Mankrik
+  turnin 881                          -- Sergra Darkthorn
+  accept 905
   accept 4921
+  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
+  accept 899                          -- Mankrik
   turnin 870                          -- Tonga Runetotem
   accept 877
 
@@ -426,38 +312,25 @@ step The Stagnant Oasis
   tip South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank.
   interact 3737 quest 877.1           -- Underwater
 
-step Raptor nests
-  tip The three nests sit together in the Raptor Grounds south-west of the oasis; Sunscale Scytheclaws guard them.
-  interact 6907 quest 905.1
-  interact 6908 quest 905.2
-  interact 6906 quest 905.3
-
 step The Crossroads
   tip Back west along the road.
-  turnin 905                          -- Sergra Darkthorn
-  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
-  accept 3261                         -- Sergra Darkthorn
   turnin 877                          -- Tonga Runetotem
   accept 880
-
-step Lushwater Oasis
-  tip Oasis Snapjaws crawl around Lushwater Oasis, south-west of the Crossroads, and around the Stagnant Oasis.
-  collect 5098 quest 880.1
 
 step Wenikee Boltbucket
   tip East to the Mor'shan Rampart; Wenikee stands at the camp just south of it.
   turnin 3921
   accept 3922
 
-# ---------------------------------------------------------------- The Sludge Fen
+step Nugget Slugs
+  tip The tool buckets with the slugs lie around the Venture Co. drill site in the Sludge Fen, east of Wenikee.
+  collect 11143 quest 3922.1
 
 step Ignition
   tip East to the Sludge Fen. Wizzlecrank's Shredder stands inside the Venture Co. camp; Supervisor Lugwizzle carries the key.
   accept 858
 
-step Nugget Slugs
-  tip The tool buckets with the slugs lie around the Venture Co. drill site in the Sludge Fen, east of Wenikee.
-  collect 11143 quest 3922.1
+# ---------------------------------------------------------------- The Sludge Fen
 
 step Wenikee Boltbucket
   turnin 3922
@@ -473,6 +346,10 @@ step Harpy Lieutenants
 step The Dry Hills
   collect 4926 @37.9,16.2
   accept 819
+
+step Lushwater Oasis
+  tip Oasis Snapjaws crawl around Lushwater Oasis, south-west of the Crossroads, and around the Stagnant Oasis.
+  collect 5098 quest 880.1
 
 step The Crossroads
   turnin 880                          -- Tonga Runetotem

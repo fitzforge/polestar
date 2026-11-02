@@ -13,8 +13,8 @@ return {
 
 	-- Step 1: Lockpicking practice
 	["Lockpicking practice"] = "",
-	-- {object:129127} Gallywix's Lockbox · {npc:3401} Shenthul · {object:172960} Cleft of Shadow (no name in this language: may be words) · {item:5060} Thieves' Tools · {area:392} Ratchet
-	["{object:129127} at the end of the tower job needs Lockpicking of about 70-75. Train Pick Lock from Gest or {npc:3401} in the {object:172960} if you lack it, carry {item:5060}, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of {area:392}: they come back fast. Your cap rises 5 per level."] = "",
+	-- {object:129127} Gallywix's Lockbox · {spell:1804} Pick Lock · {npc:3401} Shenthul · {object:172960} Cleft of Shadow (no name in this language: may be words) · {item:5060} Thieves' Tools · {area:392} Ratchet
+	["{object:129127} at the end of the tower job needs Lockpicking of about 70-75. Train {spell:1804} from Gest or {npc:3401} in the {object:172960} if you lack it, carry {item:5060}, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of {area:392}: they come back fast. Your cap rises 5 per level."] = "",
 	["Tide Razor"] = "",
 	["Lockpicking about 75: pick the Buccaneer's Strongboxes on the Tide Razor"] = "",
 
@@ -33,16 +33,16 @@ return {
 	["{item:8051}, twice, at Fizzule"] = "",
 
 	-- Step 4: Silixiz's Tower Key
-	-- {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz
-	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and Pick Pocket the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back."] = "",
+	-- {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {spell:921} Pick Pocket
+	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and {spell:921} the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back."] = "",
 	-- {item:8072} Silixiz's Tower Key
 	["{item:8072}: Pick Pocket Foreman Silixiz"] = "",
 
 	-- Step 5: The Venture Co. tower
 	["The Venture Co. tower"] = "",
-	-- {npc:7288} Grand Foreman Puzik Gallywix · {item:7676} Thistle Tea · {object:129127} Gallywix's Lockbox · {npc:2391} Serge Hinott
+	-- {spell:1943} Rupture · {spell:2098} Eviscerate · {npc:7288} Grand Foreman Puzik Gallywix · {spell:1776} Gouge · {spell:5277} Evasion · {item:7676} Thistle Tea · {object:129127} Gallywix's Lockbox · {spell:9810} Touch of Zanzil · {npc:2391} Serge Hinott
 	-- plural, as words: Mutated Venture Co. Drones = {npc:7310} Mutated Venture Co. Drone
-	["Inside, floor by floor (everything comes back after 4 1/2 minutes): the Mutated Venture Co. Drones (level 25) on the ground floor die to one Ambush with a dagger; the Patrollers on the second floor take half their health from a one-point Rupture; the Lookouts on the open third floor from a one-point Eviscerate. {npc:7288} waits on the top floor: a level 23 elite, back 10 minutes after a kill. Open with Ambush (about half his health), then Gouge, Evasion, a healing potion and {item:7676}; a friend makes it easy. One head per kill. Then pick {object:129127} beside him for the cache: it poisons you with the Touch of Zanzil, which weakens your stealth and agility until {npc:2391} cures it."] = "",
+	["Inside, floor by floor (everything comes back after 4 1/2 minutes): the Mutated Venture Co. Drones (level 25) on the ground floor die to one Ambush with a dagger; the Patrollers on the second floor take half their health from a one-point {spell:1943}; the Lookouts on the open third floor from a one-point {spell:2098}. {npc:7288} waits on the top floor: a level 23 elite, back 10 minutes after a kill. Open with Ambush (about half his health), then {spell:1776}, {spell:5277}, a healing potion and {item:7676}; a friend makes it easy. One head per kill. Then pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "",
 	-- {item:8074} Gallywix's Head · {npc:7288} Grand Foreman Puzik Gallywix
 	["{item:8074}: {npc:7288} (elite)"] = "{item:8074}: {npc:7288} (elite)",
 
@@ -59,8 +59,8 @@ return {
 	["Wait for the cure"] = "Espere pela cura",
 	-- {npc:2391} Serge Hinott
 	["{npc:2391}: Poisons"] = "",
-	-- {item:8095} Hinott's Oil
-	["{item:8095}: clears the Touch of Zanzil"] = "",
+	-- {item:8095} Hinott's Oil · {spell:9810} Touch of Zanzil
+	["{item:8095}: clears the {spell:9810}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 20 {npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Target him and type /salute."] = "No nível 20, {npc:3401} fica na {object:172960}, o cânion abaixo do {object:172982}. Selecione-o e digite /saudar.",

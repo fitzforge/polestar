@@ -20,12 +20,18 @@ return {
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "윈드라이더 조련사 옆의 {npc:7876}",
 
-	-- Step 7: Dunemaul Compound
+	-- Step 7: Marvon Rivetseeker
+	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:9978} Gahz'ridian Detector · {area:983} Dunemaul Compound
+	["West along the road south; {npc:7771} camps by the ruins at the {area:1938}. Put on his {item:9978}: it shows the buried ornaments, here and around the {area:983}."] = "길을 따라 서쪽으로, 남쪽 방향으로 가세요. {npc:7771}은(는) {area:1938}의 폐허 옆에 야영하고 있습니다. 그의 {item:9978}을(를) 착용하면 이곳과 {area:983} 주변에 묻힌 장식품이 보입니다.",
+
+	-- Step 8: Broken Pillar: kill these as you meet them
+	-- {area:1938} Broken Pillar
+	["{area:1938}: kill these as you meet them"] = "",
 	-- {area:982} Noxious Lair · {npc:12046} Gor'marok the Ravager · {quest:3161} Gahz'ridian
 	["South of the {area:982} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end. Dig up {quest:3161} ornaments between the fights."] = "{area:982} 남쪽에서 모래망치 오우거가 거주지를 차지하고 있으며, 동쪽 끝에 {npc:12046}이(가) 있습니다. 싸우는 사이사이에 {quest:3161} 장식품을 파내세요.",
 	["Below ground"] = "",
 
-	-- Step 8: Thistleshrub Valley: kill these as you meet them
+	-- Step 9: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
 	["{quest:3362}: kill these as you meet them"] = "",
 	-- {area:440} Tanaris
@@ -33,53 +39,53 @@ return {
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "드물게 떨어지는 {item:8623}",
 
-	-- Step 9: Tooga's escort
+	-- Step 10: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "{npc:5955} 호위",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
 	["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955}은(는) 골짜기에서 기다립니다. 사막을 가로질러 북동쪽 {area:977}에 있는 그의 아내 {npc:6015}에게까지 데려가세요. 가까이 붙어 그의 속도에 맞추고, 그를 공격하는 적을 물리치세요. 그에게서 멀리 떨어진 채 탈것에 오르거나 귀환석을 쓰지 마세요. {npc:8579}도 항구에 있습니다.",
 
-	-- Step 10: Noxious Lair
+	-- Step 11: Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
 	["West, the Centipaar insects swarm around their hives; any of them drops the parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "",
 
-	-- Step 12: Gadgetzan
+	-- Step 13: Slake That Thirst
+	-- {spell:686} Shadow Bolt
+	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "",
+
+	-- Step 15: Gadgetzan
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526}은(는) 48레벨쯤 {zone:1425}에서 자랍니다",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 
-	-- Step 13: Marvon Rivetseeker
-	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:9978} Gahz'ridian Detector · {area:983} Dunemaul Compound
-	["West along the road south; {npc:7771} camps by the ruins at the {area:1938}. Put on his {item:9978}: it shows the buried ornaments, here and around the {area:983}."] = "길을 따라 서쪽으로, 남쪽 방향으로 가세요. {npc:7771}은(는) {area:1938}의 폐허 옆에 야영하고 있습니다. 그의 {item:9978}을(를) 착용하면 이곳과 {area:983} 주변에 묻힌 장식품이 보입니다.",
-
-	-- Step 15: Scrimshank's gear
+	-- Step 16: Scrimshank's gear
 	["Scrimshank's gear"] = "스크림섕크의 장비",
 	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
 
-	-- Step 16: Hearth to Gadgetzan
+	-- Step 17: Hearth to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Hearth to {area:976}"] = "",
 
-	-- Step 17: OOX-17/TN
+	-- Step 18: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "",
 
-	-- Step 18: Gadgetzan
+	-- Step 19: Gadgetzan
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "",
 
-	-- Step 19: Boat to Powderfuse Port
+	-- Step 20: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "",
 
-	-- Step 20: Into Searing Gorge
+	-- Step 21: Into Searing Gorge
 	-- {area:51} Searing Gorge
 	["Into {area:51}"] = "",
 
-	-- Step 22: The Grimesilt Dig Site
+	-- Step 23: The Grimesilt Dig Site
 	-- {area:247} Grimesilt Dig Site
 	["The {area:247}"] = "{area:247}",
 	-- {area:340} Kargath · {area:51} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
@@ -88,7 +94,9 @@ return {
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",
 
-	-- Step 24: WANTED: Overseer Maltorius
+	-- Step 25: Thorium Point
+	-- {area:1446} Thorium Point
+	["Ride north-west across the gorge; {area:1446} is the scaffolded camp in the north-west."] = "",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "{object:179827} 게시판",
 
@@ -102,6 +110,8 @@ return {
 
 	-- Step 30: On the way
 	["On the way"] = "",
+	-- {npc:5854} Heavy War Golem · {area:1446} Thorium Point
+	["{npc:5854} along the way to {area:1446}"] = "",
 	-- {npc:5846} Dark Iron Taskmaster · {area:1446} Thorium Point
 	["{npc:5846} along the way to {area:1446}"] = "",
 	-- {npc:5844} Dark Iron Slaver · {area:1446} Thorium Point
@@ -110,29 +120,34 @@ return {
 	-- Step 31: Searing Gorge: kill these as you meet them
 	-- {area:51} Searing Gorge
 	["{area:51}: kill these as you meet them"] = "",
-	-- {item:11818} Grimesilt Outhouse Key · {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere · {item:18960} Lookout's Spyglass
-	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Dark Iron Lookouts = {npc:8566} Dark Iron Lookout · Greater Lava Spiders = {npc:5858} Greater Lava Spider · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too.\nThe Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	-- {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
+	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Greater Lava Spiders = {npc:5858} Greater Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
+	["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "드물게 떨어지는 {item:11818}",
 
-	-- Step 33: Thorium Point
+	-- Step 32: Thorium Point
 	-- {area:1446} Thorium Point · {area:75} Stonard
 	["Ride back north to {area:1446}. Stay here: the next guide starts with the flight to {area:75}."] = "북쪽의 {area:1446}(으)로 돌아가세요. 여기 머무르세요. 다음 가이드는 {area:75}행 비행으로 시작합니다.",
 
-	-- Step 34: Searing Gorge: kill these as you meet them
-	-- {area:1443} The Slag Pit
-	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
-	["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443}은(는) 용광로 북쪽에 있습니다. 인센도사우루스가 용암 웅덩이에서 헤엄칩니다. 가장자리로 끌어오세요. 비밀 설계도는 구덩이 위쪽 바위 턱에 있습니다.",
+	-- Step 34: The Steamsmiths' furnaces
+	["The Steamsmiths' furnaces"] = "",
+	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere
+	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith
+	["The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "",
 
-	-- Step 35: Searing Gorge: kill these as you meet them
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. Skip it if you are alone: the route has you grind the XP back."] = "",
-
-	-- Step 36: Kalaran Windblade
+	-- Step 35: Kalaran Windblade
 	-- {item:10552} Symbol of Ragnaros
 	["His next request needs the {item:10552} from elite cultists: leave it."] = "그의 다음 요청에는 정예 이교도가 지닌 {item:10552}이(가) 필요합니다. 받지 마세요.",
 
-	-- Step 42: The Key to Freedom
+	-- Step 37: Dark Iron Lookouts
+	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
+	["Dark Iron Lookouts"] = "",
+	-- {item:18960} Lookout's Spyglass
+	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
+	["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "",
+
+	-- Step 40: The Key to Freedom
 	-- {item:11818} Grimesilt Outhouse Key · {object:173265} Wooden Outhouse
 	["Only with the {item:11818}: back east to the {object:173265} at the dig site."] = "{item:11818}이(가) 있을 때만: 동쪽 발굴지의 {object:173265}(으)로 돌아가세요.",
 
@@ -164,5 +179,6 @@ return {
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "서쪽에서는 센티파르 곤충이 벌집 주변에 몰려 있습니다. 누구나 부품을 떨어뜨립니다.",
 	-- ["for {npc:7010} in {area:1637}, around level 50"] = "50레벨쯤 {area:1637}의 {npc:7010}에게",
 	-- ["the {object:150075} in the square"] = "광장의 {object:150075}",
+	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443}은(는) 용광로 북쪽에 있습니다. 인센도사우루스가 용암 웅덩이에서 헤엄칩니다. 가장자리로 끌어오세요. 비밀 설계도는 구덩이 위쪽 바위 턱에 있습니다.",
 	-- ["{area:392} pier"] = "{area:392} 부두",
 }

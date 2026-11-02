@@ -7,118 +7,10 @@ levels 1-12
 zone Durotar
 next forever/horde/orc/02-the-barrens
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
-# Added here: Neeru Fireblade (829).
-# The notes above describe v1's order; the steps below are the improved one.
-
-# Route: the simulator's consensus Orc route (data/sim/export/consensus-horde-orc,
-# visit 1, Durotar 1-11.8). Trolls start in the same valley and share it.
-# Checked against the 2026-10-14 export: same Durotar quests (it drops only
-# the enchanters' A Pain in the Neck, kept here as optional); its order goes
-# from Tiragarde Keep straight to Sen'jin, but its Durotar visit takes 3.26 h
-# against 3.27 h for the one this guide was built from, so the order stays.
-#
-# Flow: Valley of Trials -> Sen'jin Village (report) -> Razor Hill (bind) ->
-# Tiragarde Keep -> Razor Hill -> the wreckage and the coast -> Sen'jin
-# Village -> Echo Isles and the south-east shore -> Kolkar Crag -> Razor Hill
-# -> Razormane Grounds -> Rezlak, Drygulch Ravine, Thunder Ridge and Fizzle
-# Darkstorm -> Razor Hill -> Heglan's shore, the naga coast, Margoz and Skull
-# Rock -> Razor Hill -> west over the Southfury River to Far Watch Post and the
-# Crossroads (flight path, bind). The Barrens guide starts at the Crossroads.
-#
-# Local order fixed by hand (same quest set as the export unless listed below):
-# - Cutting Teeth (788) is turned in as soon as the boars are done, with the
-#   class letters and Wayward Weapons, so Sting of the Scorpid (789) and
-#   Galgar's Cactus Apple Surprise (4402), which need 788, are carried to
-#   Sarkoth: his slope is full of Scorpid Workers and cactuses. All three go
-#   back to the Den with Sarkoth (804); 0.01 h faster to 10 and 20 under the
-#   simulator than taking 789 and 4402 after Sarkoth.
-# - Vile Familiars (792; 1485/1499 for Warlocks) is handed in and Burning
-#   Blade Medallion (794) taken before the Burning Blade Coven, so Thazz'ril's
-#   Pick (6394) and Yarrog are done on one trip into the cave; the export goes
-#   in for the pick, back to the Den and in again for Yarrog. 37-50 s faster
-#   to 10 and 20 under the simulator (Orc; any class, Mage, Warlock, Shaman),
-#   which does not count the second walk through the cave.
-# - Legging It (96821) is taken at Sen'jin on the first visit: its spiders sit
-#   on the road north to Razor Hill, where Gar'Thok takes it.
-# - Encroachment (837) is taken at the Razor Hill stop after Kolkar Crag and
-#   done in the Razormane Grounds just before Thunder Ridge, instead of at
-#   about 7: it is a level 10 quest whose Razormane go up to level 9 (#351).
-#   Tiragarde Keep and the Sen'jin loop come first. 2.4 min faster to 12 and
-#   20 under the simulator (Orc, any class), measured before Thunder Ridge
-#   moved after the south loop (#352).
-# - Rezlak and Thunder Ridge (834, 835, 97281, 97282, 816) come after the
-#   south loop, on the way to Fizzle Darkstorm (806) on the same ridge, at
-#   about 10.3-11.2 instead of 8.4-9.6: Securing the Lines (835) is a level 11
-#   quest against level 9-10 mobs, and it left the south's level 8 quests for
-#   level 11 (#352). 3-7 min faster to 20 under the simulator for every Orc
-#   class, and the hearth after Misha is no longer needed. Rezlak's second pair
-#   (97281, 97282) and Lost But Not Forgotten (816) stay on the same visit: the
-#   orb drops from the Storm Witches you already kill, and the lizards and
-#   Misha are next door.
-# - A Missing Hand (99048) and Conscript of the Horde (840) are taken at the
-#   Razor Hill stop after Kolkar Crag, at about 10.0-10.2, when Orgnil and
-#   Takrin first offer them: Takrin's 840 and the level-10 class quests are
-#   just in reach there, and a character who arrives at 9.x picks them up on
-#   the next Razor Hill visit, after Fizzle. Threat from Below (99049) is
-#   taken from Heglan; the naga coast is done on the way to Margoz.
-# - Threat from Below (99051) is now taken from Orgnil after 99049's turn-in,
-#   with a second short loop to the naga beach before leaving Razor Hill.
-# - Conscript of the Horde (840) is turned in at Far Watch Post on the way to
-#   the Crossroads (the export turns it in on a later pass); Crossroads
-#   Conscription (842) goes to Sergra in the Barrens guide.
-# - A Pain in the Neck (96873) is for enchanters: Pa'zula's Luminous Residue
-#   comes from disenchanting the Hexed Pendants the Echo Isles trolls drop.
-#   Taken at Sen'jin, done on the isles and handed in on the way back.
-# - Threat from Below (99052, Forever, `when group`, #639): Orgnil's last
-#   naga quest, Aggor the Young on the north coast. Aggor is elite, so the
-#   simulator leaves it out; the guide asks at the last Razor Hill stop.
-#
-# Class quests: Warlocks do Ruzan's Vile Familiars (1485, 1499) instead of
-# Zureetha's. Shamans take Call of Earth (1516-1518) from Canaga Earthcaller
-# at 4: the Felstalker hooves come from the slope below the Burning Blade
-# cave, Spirit Rock is just south of the Den. At 10 in Razor Hill: Warriors
-# take Veteran Uzzek (1505) and do Path of Defense (1498) at Far Watch Post on
-# the way out (Thun'grim 1502 and Forged Steel 1503 follow in the Barrens
-# guide); Shamans take Call of Fire (2983) from Swart and go straight on to
-# Kranal Fiss across the river and Telf Joolam on his mountain (1524, 1525),
-# so the Reagent Pouch drops from the Burning Blade Cultists by Drygulch
-# Ravine on the north loop; the Fire Tar, Telf's brazier and Kranal (1526,
-# 1527) follow in the Barrens guide. (c14 and c15 took Kranal and Telf from
-# the Crossroads and walked back to northern Durotar for the pouch; here
-# they are done at 10, on the way.)
-# Hunters take Etched Parchment (3087, Orcs) or Etched Tablet (3082, Trolls)
-# to Jen'shan at 1, tame their three beasts for Thotar (6062, 6083, 6082:
-# Tame Beast) around Razor Hill and hand Training the Beast (6081, Beast
-# Training) to Ormak Grimshot on a short trip into Orgrimmar before leaving
-# Durotar (moved from Silverpine at 16: Forever's 6081 now teaches Beast
-# Training); Warlocks take Gan'rul's Summons (1506) from Ophek and get the
-# Voidwalker (1501, 1504) on two short trips into Orgrimmar, whose gate is a
-# few steps from Skull Rock; Troll Priests take Hex of Weakness (5654) from
-# Tai'jin, handed to Ur'kyo in Orgrimmar at about 16. The Shattered Hand
-# (1963, Rogue) teaches no spell and is left out. In Favor of Spirituality /
-# Garments of Spirituality (5649, 5648, Troll Priest) reward a robe, not a
-# spell: not taken. Mages read their letter from Gornek (98576 Orc, 3086
-# Troll) and hand it to Mai'ah at the Den. Ju-Ju Heaps (1884), their level 10
-# quest, opens after the route's Echo Isles visit at about 8: see
-# forever/class/mage/ju-ju-heaps.
-# Class letters: every class's level 1 letter from Gornek (2383/3065 Warrior,
-# 3087/3082 Hunter, 3088/3083 Rogue, 3085 Troll Priest, 3089/3084 Shaman,
-# 98576/3086 Mage, 3090/98575 Warlock; Orc/Troll) is taken at the Den and
-# handed to the trainer beside it.
-#
-# Left out: the export's Orgrimmar stop at 11.8-12.5: Neeru Fireblade (829),
-# The Admiral's Orders (831, Nazgrel), Burning Shadows (832) and Ak'Zeloth
-# (809, to Far Watch Post, then The Demon Seed 924), plus the city's Forever
-# cooking errands (97326, 97246, 97249, 97242, 97275). The export goes from
-# Orgrimmar to the zeppelin for Silverpine; this route goes west to the
-# Barrens, so the city is a detour. Tried after Skull Rock and again before
-# Far Watch Post: 0.07-0.10 h slower to level 20 under the simulator. The
-# cooking errands are done in Orgrimmar at about 19 in
-# forever/horde/03-silverpine-forest at full XP, and Burning Shadows (832) is
-# carried there too. Need for a Cure (812) and Finding the Antidote (813):
-# the export never finishes them.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: The Admiral's Orders (831), Neeru Fireblade (829).
 
 # ---------------------------------------------------------------- Valley of Trials
 
@@ -149,32 +41,18 @@ step The Den
   train class
   turnin 788                          -- Gornek, inside
   accept 2383 only Orc,Warrior        -- Gornek: Simple Parchment
-  accept 3065 only Troll,Warrior      -- Gornek: Simple Tablet
   accept 3087 only Orc,Hunter         -- Gornek: Etched Parchment
-  accept 3082 only Troll,Hunter       -- Gornek: Etched Tablet
   accept 3088 only Orc,Rogue          -- Gornek: Encrypted Parchment
-  accept 3083 only Troll,Rogue        -- Gornek: Encrypted Tablet
-  accept 3085 only Troll,Priest       -- Gornek: Hallowed Tablet
   accept 3089 only Orc,Shaman         -- Gornek: Rune-Inscribed Parchment
-  accept 3084 only Troll,Shaman       -- Gornek: Rune-Inscribed Tablet
   accept 98576 only Orc,Mage          -- Gornek: Glyphic Parchment
-  accept 3086 only Troll,Mage         -- Gornek: Glyphic Tablet
   accept 3090 only Orc,Warlock        -- Gornek: Tainted Parchment
-  accept 98575 only Troll,Warlock     -- Gornek: Tainted Tablet
   accept 789                          -- Gornek
   turnin 3090 only Orc,Warlock        -- Nartok, the warlock trainer at the back of the cave
-  turnin 98575 only Troll,Warlock     -- Nartok
   turnin 3088 only Orc,Rogue          -- Rwag, the rogue trainer in the Den
-  turnin 3083 only Troll,Rogue        -- Rwag
   turnin 2383 only Orc,Warrior        -- Frang, the warrior trainer beside the Den
-  turnin 3065 only Troll,Warrior      -- Frang
   turnin 3087 only Orc,Hunter         -- Jen'shan, the hunter trainer beside the Den
-  turnin 3082 only Troll,Hunter       -- Jen'shan
-  turnin 3085 only Troll,Priest       -- Ken'jai, the priest trainer at the Den
   turnin 3089 only Orc,Shaman         -- Shikrik, the shaman trainer beside the Den
-  turnin 3084 only Troll,Shaman       -- Shikrik
   turnin 98576 only Orc,Mage          -- Mai'ah, the mage trainer, at the entrance to the Den
-  turnin 3086 only Troll,Mage         -- Mai'ah
   turnin 97279                        -- Kzan Thornslash, at the back of the cave; below ground
   accept 4402                         -- Galgar, by the cooking fire
   accept 5441                         -- Foreman Thazz'ril, at the lumber pile east of the Den
@@ -273,21 +151,20 @@ step Ukor
   tip Ukor stands on the road at the valley's eastern exit.
   accept 2161
 
-# ---------------------------------------------------------------- Sen'jin and Razor Hill
-
 step Sen'jin Village
-  tip Follow the road east out of the valley to Sen'jin Village on the coast.
-  accept 96821                        -- Vel'rin Fang
   accept 96873 optional               -- Pa'zula: enchanters only, the residue is disenchanted from Hexed Pendants
   accept 817                          -- Vel'rin Fang
-  accept 97225
+  accept 96821                        -- Vel'rin Fang
   accept 818                          -- Master Vornal
+  accept 97225
   turnin 805                          -- Master Gadrin
   train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
   accept 808
   accept 826                          -- Master Gadrin
   accept 823
   accept 97223                        -- Xar'Ti
+
+# ---------------------------------------------------------------- Sen'jin and Razor Hill
 
 step On the way
   along until q96821
@@ -306,17 +183,21 @@ step Razor Hill
   label q96821
   accept 96822                        -- Turroc, on the east side of town; inside
   turnin 823                          -- Orgnil Soulscar
-  turnin 96821                        -- Gar'Thok
   accept 784
+  turnin 96821                        -- Gar'Thok
   accept 815
+
+step Taillasher Egg on the way
+  along until q815
+  collect 4890 quest 815.1
 
 # ---------------------------------------------------------------- Razor Hill and the north
 
 step Razor Hill
+  accept 96825
   train Cooking npc 3191              -- Cook Torka: Camping 101 asks you to learn it
   complete 96655 @51.1,42.5
   turnin 96655
-  accept 96825
   turnin 2161                         -- Innkeeper Grosk, inside
   sethome "Razor Hill"
   accept 791                          -- Furl Scornbrow, in the watchtower
@@ -345,6 +226,9 @@ step Razor Hill
   accept 806
   turnin 784                          -- Gar'Thok
   turnin 830 optional
+  accept 831
+
+step Razor Hill
   accept 825
   turnin 791                          -- Furl Scornbrow
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
@@ -354,11 +238,13 @@ step Sen'jin Village
 
 # ---------------------------------------------------------------- The coast and Sen'jin
 step Scuttle Coast: kill these as you meet them
+  label q815
   zone Durotar
   tip Makrura and surf crawlers line the beaches north-east of Sen'jin.
   tip The gnomish toolboxes lie in the wreckage along the shore east and south-east of Razor Hill. Follow the shore south to Sen'jin.
   collect 4888 quest 818.2
   collect 4887 quest 818.1            -- Underwater
+  collect 4890 quest 815.1
   collect 4863 quest 825.1            -- Underwater
 
 step Durotar Tiger Fur on the way
@@ -367,9 +253,8 @@ step Durotar Tiger Fur on the way
 
 step Echo Isles: kill these as you meet them
   zone Durotar
-  tip Wade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach.
   tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
-  collect 4890 quest 815.1
+  tip Wade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach.
   collect 277128 quest 97223.1
 
 step Echo Isles: kill these as you meet them
@@ -412,6 +297,12 @@ step Sen'jin Village
   turnin 786                          -- Lar Prowltusk
   turnin 99123                        -- Master Vornal
 
+step Echo Isles
+  collect 4890 quest 815.1
+
+step Hearth to Razor Hill
+  hearth "Razor Hill"
+
 step Razor Hill
   accept 99048
   turnin 825                          -- Gar'Thok
@@ -435,7 +326,6 @@ step Razor Hill
   accept 1505 only Warrior            -- Tarshaw Jaggedscar, inside
   accept 6062 only Hunter             -- Thotar
   accept 1506 only Warlock            -- Ophek, by the inn
-  accept 5654 only Troll,Priest       -- Tai'jin, for Ur'kyo in Orgrimmar: keep it
   accept 2983 only Shaman -- Swart
 
 step The Barrens
@@ -457,12 +347,6 @@ step Razormane Grounds
   kill 3112 quest 837.2
   kill 3113 quest 837.3
   kill 3114 quest 837.4
-
-step Misha Tor'kren
-  tip Misha's hut stands south of the lizards. The crocolisks along the Southfury River to the west carry Kron's Amulet.
-  accept 816                          -- Inside
-  collect 4891 quest 816.1
-  turnin 816
 
 # ---------------------------------------------------------------- Thunder Ridge
 
@@ -499,6 +383,12 @@ step Thunder Ridge: kill these as you meet them
   collect 277665 quest 97282.1
   kill 3099 quest 6062.1 "Tame Dire Mottled Boar" only Hunter -- Tame it with the Taming Rod
   collect 4869 quest 806.1
+
+step Misha Tor'kren
+  tip Misha's hut stands south of the lizards. The crocolisks along the Southfury River to the west carry Kron's Amulet.
+  accept 816                          -- Inside
+  collect 4891 quest 816.1
+  turnin 816
 
 step Rezlak
   turnin 97282

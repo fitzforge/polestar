@@ -462,13 +462,20 @@ pub const RIDE_PT_YD: f64 = 400.0;
 /// Yards from the trainer a stop is a visit to it (place_ride).
 pub const RIDE_VISIT_YD: f64 = 600.0;
 
+/// A riding trainer's title: "Wolf Riding Instructor", "Raptor Riding Trainer", and the Gnomes'
+/// "Mechanostrider Pilot" (Binjy Featherwhistle in Dun Morogh, whose lesson the c19p Gnome route
+/// never placed: it rode from the mount level with no trainer).
+pub fn riding_title(sub_name: &str) -> bool {
+	sub_name.contains("Riding") || sub_name == "Mechanostrider Pilot"
+}
+
 /// The start's riding trainers (npc id, world point): each `train <npc>` goal of v1's chain whose
-/// npc is a riding trainer (its title says Riding), at the world point nearest the goal's place.
+/// npc is a riding trainer ([`riding_title`]), at the world point nearest the goal's place.
 pub fn riding(world: &World, data: &forge_world::GameData, goals: &[Goal]) -> Vec<(u32, u32)> {
 	let mut out: Vec<(u32, u32)> = Vec::new();
 	for g in goals.iter().filter(|g| g.t == "train") {
 		let (Some(npc), Some(w)) = (g.npc, g.w.as_ref()) else { continue };
-		if out.iter().any(|r| r.0 == npc) || !data.npcs.get(&npc).and_then(|n| n.sub_name.as_deref()).is_some_and(|s| s.contains("Riding")) {
+		if out.iter().any(|r| r.0 == npc) || !data.npcs.get(&npc).and_then(|n| n.sub_name.as_deref()).is_some_and(riding_title) {
 			continue;
 		}
 		let near = world.points.iter().enumerate().filter(|(_, p)| p.c == w.c).map(|(i, p)| (i as u32, (p.wx - w.wx).hypot(p.wy - w.wy))).min_by(|a, b| a.1.total_cmp(&b.1).then(a.0.cmp(&b.0)));

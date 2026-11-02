@@ -2,18 +2,17 @@
 guide forever/alliance/05-duskwood
 title Duskwood
 faction Alliance
-levels 22-26
+levels 24-26
 zone Duskwood
 next forever/alliance/06-ashenvale
 
-# v1 improved: order from the simulator's search (Human Alliance, 2000000 tries, seeded with v1's order;
-# 125.7 h -> 117.5 h to 60 in the model), written by polestar apply-route.
-# 3 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 
 step Duskwood
   zone Duskwood
-  goto 73.5,46.8 "Duskwood"
+  goto 75.8,45.3 "Duskwood"
 
 # Duskwood, Alliance ~22.7 to ~25.4.
 #
@@ -78,20 +77,22 @@ step Duskwood
 
 step Darkshire
   tip Follow the road south from Three Corners into Duskwood; Darkshire lies on the east side of the forest.
-  sethome "Darkshire"
-  accept 56                               -- Commander Althea Ebonlocke, in the town hall
-  accept 96139                            -- Sirra Von'Indi, in the house behind the town hall
-  accept 164                              -- Elaine Carevin, at the south end of town; inside
-  accept 165
+  getfp "Darkshire" npc 2409              -- Felicia Maline, at the north end of town
+  accept 101                              -- Madame Eva, in her house by the tavern; inside
 # ---------------------------------------------------------------- Darkshire
 
 step Darkshire
   zone Duskwood
   tip No Bronze Tube for Look to the Stars? Herble Baubbletump sells it in the house beside Viktori, in limited stock; Neal Allen in Menethil Harbor sells it too.
-  accept 173                              -- Calor, by the town hall
+  accept 66                               -- Madame Eva, inside
   buy 4371 x1 npc 3133 optional           -- Bronze Tube, from Herble Baubbletump, if you have none
-  getfp "Darkshire" npc 2409              -- Felicia Maline, at the north end of town
-  accept 101                              -- Madame Eva, in her house by the tavern; inside
+  turnin 66                               -- Clerk Daltry, in the town hall
+  accept 96139                            -- Sirra Von'Indi, in the house behind the town hall
+  accept 56                               -- Commander Althea Ebonlocke, in the town hall
+  accept 164                              -- Elaine Carevin, at the south end of town; inside
+  accept 165
+  sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
+  accept 173                              -- Calor, by the town hall
   tip Viktori's house stands at the east end of town. Herble Baubbletump sells engineering goods in the house beside it.
   accept 174                              -- Viktori Prism'Antras, inside
   buy 4371 x1 npc 3133                    -- Bronze Tube, from Herble Baubbletump: limited stock. Sold out? Neal Allen in Menethil Harbor sells it too.
@@ -109,14 +110,11 @@ step Tranquil Gardens Cemetery: kill these as you meet them
   collect 2378 quest 101                  -- Skeleton Finger
   kill 203 quest 56                       -- Skeletal Mage
   kill 48 quest 56                        -- Skeletal Warrior
-  collect 2794 optional                   -- An Old History Book: a rare drop from Duskwood's mobs
-  accept 337 optional
 
 step Darkshire
   turnin 56                               -- Commander Althea Ebonlocke
   accept 57
   vendor nearest
-  sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
 
 step Skeletal Fiend on the way
   along until q57
@@ -192,6 +190,10 @@ step Blind Mary
   tip Her house stands on the hill south-east of Darkshire, above the Tranquil Gardens Cemetery.
   turnin 149                          -- Inside
   accept 154
+
+step Tranquil Gardens Cemetery
+  collect 2794 optional                   -- An Old History Book: a rare drop from Duskwood's mobs
+  accept 337 optional
 
 step Madame Eva
   turnin 154                          -- Inside

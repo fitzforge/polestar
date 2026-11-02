@@ -40,53 +40,57 @@ return {
 	-- {npc:271462} Golm · {item:279996} Goaz Stone
 	["{npc:271462} stands in the south-eastern hills: use the {item:279996} beside it."] = "{npc:271462} se dresse dans les collines du sud-est : utilisez la {item:279996} à côté.",
 
-	-- Step 10: Dragonmaw Gates
+	-- Step 10: Dragonmaw Gates: kill these as you meet them
+	-- {area:1038} Dragonmaw Gates
+	["{area:1038}: kill these as you meet them"] = "",
 	-- {area:1038} Dragonmaw Gates · {npc:271338} Ados · {item:279996} Goaz Stone
 	["North-east to the {area:1038}: {npc:271338} stands at the gates (use the {item:279996})."] = "",
-
-	-- Step 11: Raptor Ridge: kill these as you meet them
-	-- {area:1017} Raptor Ridge
-	["{area:1017}: kill these as you meet them"] = "",
 
 	-- Step 12: Dun Modr
 	-- {area:205} Dun Modr · {npc:271460} Modr · {item:279996} Goaz Stone · {npc:271481} Captive Fire Elemental · {npc:1072} Roggo Harlbarrow
 	["North along the road to {area:205}. {npc:271460} stands in the ruins (use the {item:279996}); the {npc:271481} is held on the west side: lead it out to {npc:1072}."] = "Au nord par la route jusqu'à {area:205}. {npc:271460} se dresse dans les ruines (utilisez la {item:279996}) ; {npc:271481} est retenu du côté ouest : ramenez-le à {npc:1072}.",
 
-	-- Step 14: Whelps, raptors and Neru
-	-- {npc:271458} Neru
-	["Whelps, raptors and {npc:271458}"] = "Dragonnets, raptors et {npc:271458}",
+	-- Step 14: Waterlogged Envelope
+	["Underwater"] = "",
 
-	-- Step 16: Prospector Whelgar
+	-- Step 15: The Villards
+	["The Villards"] = "",
+	-- {npc:5683} Comar Villard · {area:205} Dun Modr · {area:880} Thandol Span · {npc:271322} Essene Villard
+	["{npc:5683} waits north of {area:205} by the {area:880}; {npc:271322} a short walk further north-east."] = "",
+
+	-- Step 16: Dun Modr
+	-- {npc:1071} Longbraid the Grim
+	["{npc:1071} stands in the dwarves' camp."] = "",
+
+	-- Step 17: Thandol Span
+	-- {area:205} Dun Modr · {zone:1437} Wetlands · {npc:1075} Rhag Garmason
+	["Follow the road south over the bridge to {area:205} at the {zone:1437} end, where {npc:1075} waits."] = "",
+
+	-- Step 19: Prospector Whelgar
 	["Below ground"] = "",
 
-	-- Step 17: Menethil Harbor
+	-- Step 20: Menethil Harbor
 	["West along the road to Menethil."] = "À l'ouest par la route jusqu'au Port de Menethil.",
 	["On the top floor"] = "",
 
-	-- Step 19: Level 31.33
-	["Level 31.33"] = "",
+	-- Step 22: Level 31.23
+	["Level 31.23"] = "",
 	-- {quest:474} Defeat Nek'rosh
-	["If you skipped {quest:474}, grind here to level 31.33 to stay on the route's plan."] = "",
+	["If you skipped {quest:474}, grind here to level 31.23 to stay on the route's plan."] = "",
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "",
 
-	-- Step 21: Boat to Southshore
+	-- Step 24: Boat to Southshore
 	-- {area:271} Southshore
 	["Boat to {area:271}"] = "Bateau pour {area:271}",
 
-	-- Step 22: Southshore
+	-- Step 25: Southshore
 	-- {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly
 	["Pick up everything in town before heading out. {npc:2381} and {npc:2438} stand between the flight master and the inn, Farren and {npc:2366} at the inn, Maleb in the town hall."] = "",
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}, chez {npc:2381}",
 	-- {npc:2382} Darren Malvew
 	["{npc:2382}: the lions come later"] = "{npc:2382} : les lions viendront plus tard",
-
-	-- Step 23: Mountain Lion on the way
-	-- {npc:2406} Mountain Lion
-	["{npc:2406} on the way"] = "",
-
-	-- Step 25: Southshore
 	-- {npc:2430} Chef Jessen
 	["{npc:2430}, upstairs"] = "",
 	-- {npc:2366} Barkeep Kelly · {area:35} Booty Bay
@@ -144,57 +148,55 @@ return {
 	-- {area:271} Southshore · {area:272} Tarren Mill
 	["The Snapjaw turtles bask along the river east of {area:271}, south of {area:272} (Horde)."] = "Les tortues Gueule d'acier se prélassent le long de la rivière à l'est de {area:271}, au sud de {area:272} (Horde).",
 
-	-- Step 42: Corrahn's Dagger: kill these as you meet them
-	-- {area:1679} Corrahn's Dagger
-	["{area:1679}: kill these as you meet them"] = "",
-	-- {area:271} Southshore · {area:280} Strahnbrad · {npc:2306} Baron Vardus
-	["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings, and {npc:2306} walks the manor grounds on the north side of town."] = "",
-
-	-- Step 45: Fly to Ironforge
+	-- Step 44: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "",
 
-	-- Step 46: Deeprun Tram
+	-- Step 45: Deeprun Tram
 	-- {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge
 	["Take the {area:2257} from the {object:28027} to {zone:1455}."] = "Prenez {area:2257} depuis {object:28027} jusqu'à {zone:1455}.",
 	["Level 30 and 32 spells"] = "Sorts des niveaux 30 et 32",
 
-	-- Step 48: Fly to Stormwind City
+	-- Step 48: Deeprun Tram
+	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
+	["{npc:2784}, the {object:171709}"] = "",
+
+	-- Step 50: Fly to Stormwind City
 	-- {zone:1453} Stormwind City
 	["Fly to {zone:1453}"] = "Volez jusqu'à {zone:1453}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 49: The Islander
+	-- Step 51: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet
 	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} entraîne les guerriers dans {object:2100}, près de la Taverne du Cochon siffleur. {npc:6236} attend sur {area:720}, dans {zone:1413}, sur la route de {area:392} bien plus tard (40-50/01).",
 
-	-- Step 50: Elling Trias
+	-- Step 52: Elling Trias
 	-- {object:2096} Trade District
 	["The cheese shop in the {object:2096}."] = "La fromagerie dans {object:2096}.",
 
-	-- Step 51: Druid training
+	-- Step 53: Druid training
 	["Druid training"] = "Entraînement de druide",
 	-- {zone:1455} Ironforge · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind City
 	["{zone:1455} has no druid trainer: train with {npc:5504} in {zone:1453} before the tram."] = "{zone:1455} n'a pas de maître des druides : entraînez-vous auprès de {npc:5504} à {zone:1453} avant le tram.",
 
-	-- Step 53: Dashel Stonefist
+	-- Step 55: Dashel Stonefist
 	-- {npc:4961} Dashel Stonefist · {object:2100} Old Town
 	["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "{npc:4961} attend à la Taverne du Cochon siffleur, dans {object:2100} ; lui et ses deux voyous vous attaquent, mais s'arrêtent une fois vaincus.",
 
-	-- Step 55: Cathedral of Light
+	-- Step 57: Cathedral of Light
 	["Cathedral of Light"] = "Cathédrale de la Lumière",
 
-	-- Step 56: Mage Quarter
+	-- Step 58: Mage Quarter
 	-- {npc:2708} Archmage Malin · {object:2164} Slaughtered Lamb · {npc:211033} Garion Wendell · {npc:5081} Connor Rivers · {object:2101} Mage Quarter
 	["{npc:2708} is in the {object:2164}; {npc:211033} near the canal; {npc:5081} south of the {object:2101}."] = "{npc:2708} est dans {object:2164} ; {npc:211033} près du canal ; {npc:5081} au sud de {object:2101}.",
 	-- {npc:211033} Garion Wendell
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["{npc:211033}: only offered once you have handed in library books (the Library Books guide)"] = "",
 
-	-- Step 59: Fly to Astranaar
+	-- Step 61: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "",
 	-- {area:442} Auberdine
@@ -221,6 +223,7 @@ return {
 	-- ["The Villards"] = "Les Villard",
 	-- ["The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it."] = "L'étape suivante, Vaincre Nek'rosh, vous oppose à un chef élite : passez-la.",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "À l'ouest vers les fermes de {area:287} : posez la {item:279386} sur la table des registres de l'hôtel de ville, où se tiennent {npc:2335} et les conseillers.",
+	-- ["Whelps, raptors and {npc:271458}"] = "Dragonnets, raptors et {npc:271458}",
 	-- ["{area:287} town hall"] = "Hôtel de ville de {area:287}",
 	-- ["{area:287}'s town hall"] = "L'hôtel de ville de {area:287}",
 	-- ["{npc:1244}: {quest:98283}, an elite raptor"] = "{npc:1244} : {quest:98283}, un raptor élite",

@@ -2,31 +2,43 @@
 guide forever/horde/50-60/02-felwood
 title Felwood & Western Plaguelands
 faction Horde
-levels 52-54
+levels 53-55
 zone Felwood
 next forever/horde/50-60/03-winterspring
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 # Left out: Little Pamela (5142).
-# The notes above describe v1's order; the steps below are the improved one.
+
+step Fly to Tarren Mill
+  zone Eastern Plaguelands
+  goto 80.1,57.0 "Light's Hope Chapel flight master"
+  fly "Tarren Mill"
+  zone Hillsbrad Foothills
 
 step Western Plaguelands
   zone Western Plaguelands
-  goto 53.7,64.7 "Western Plaguelands"
+  goto 43.0,83.5 "Western Plaguelands"
+
+step Sorrow Hill
+  tip Ride south past the Writhing Haunt to Sorrow Hill. Kill the Diseased Wolves you meet in the fields on the way.
+  accept 5402 optional                -- Argent Officer Pureheart, at the graveyard's south end
+  accept 5403 optional
 
 step Mulgris Deepriver
   tip He camps by the Writhing Haunt, south-east of Dalson's Tears.
   accept 4984                         -- Inside
 
 step Sorrow Hill
-  tip Ride south past the Writhing Haunt to Sorrow Hill; Marlene's house stands by the road, and Joseph Redpath's monument is in the graveyard behind it. Kill the Diseased Wolves you meet in the fields on the way.
-  accept 5402 optional                -- Argent Officer Pureheart, at the graveyard's south end
-  accept 5403 optional
+  tip Marlene's house stands by the road, and Joseph Redpath's monument is in the graveyard behind it.
   kill 1817 quest 4984 optional
   turnin 5152                         -- Marlene Redpath, upstairs
   accept 5153
   collect 12894 quest 5153 @49.7,76.8
+  turnin 5403 optional
+  note Keep Little Pamela: Pamela is in Darrowshire, visited again later.
+  turnin 5402 optional
 
 step Chromie
   tip Ride north-west into Andorhal. Chromie waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges.
@@ -50,11 +62,12 @@ step Tirion Fordring
   accept 5544
   note Tirion's hunts are in the Eastern Plaguelands: keep them for later.
 
-step Level 52.58
-  when level<52.58
-  tip Top up here to level 52.58 before the hand-ins at Dalson's Tears: they take you to level 53.
+step Level 52.63
+  zone Western Plaguelands
+  when level<52.63
+  tip Top up here to level 52.63 before the hand-ins at Dalson's Tears: they take you to level 53.
   goto 53.1,37.3 map 1422 "Scarlet Mage"
-  level 52.58                          -- grind on Scarlet Mage
+  level 52.63                          -- grind on Scarlet Mage
 
 step Kirsta Deepshadow
   zone Western Plaguelands
@@ -65,7 +78,6 @@ step On the way
   along until q6004
   kill 10605 quest 6004.1
   kill 1831 quest 6004.2
-  kill 1826 quest 6004.3
   kill 1833 quest 6004.4
 
 step Diseased Wolves
@@ -74,123 +86,18 @@ step Diseased Wolves
   kill 1817 quest 4984
   kill 10605 quest 6004.1
   kill 1831 quest 6004.2
-  kill 1826 quest 6004.3
   kill 1833 quest 6004.4
 
 step Dalson's Tears farmhouse
   tip The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A Wandering Skeleton carries the outhouse key; Farmer Dalson comes out when you open the outhouse and carries the cabinet key.
+  accept 5060                         -- Locked Cabinet, inside
   accept 5059                         -- Outhouse
   accept 5058                         -- Mrs. Dalson's Diary, inside
   turnin 5058
-  accept 5060                         -- Locked Cabinet, inside
   collect 12738 quest 5059 @47.7,49.9 map 1422
   collect 12739 quest 5060 @48.1,49.7 -- Farmer Dalson
   turnin 5059
   turnin 5060
-# Built from the playthrough simulator's consensus route (Horde, visits
-# 70-73) and machine-checked with lint; not play-tested on Forever yet.
-#
-# Flow: Light's Hope Chapel -> fly to the Undercity -> ride east past the
-# Bulwark: Felstone Farm -> Scarlet camp -> Dalson's Tears -> Mulgris
-# Deepriver -> Sorrow Hill -> Andorhal (Chromie) -> Mulgris and his bears ->
-# Tirion Fordring -> Kirsta Deepshadow and Hearthglen -> the Bulwark ->
-# zeppelin to Orgrimmar, fly to Splintertree Post, ride north into Felwood:
-# Emerald Sanctuary -> Jaedenar -> Emerald Sanctuary and Deadwood Village ->
-# Jaedenar -> Bloodvenom Post (flight path) and the Jadefire moonwell ->
-# Shatter Scar Vale -> Irontree Woods -> Felpaw Village -> back south to the
-# Emerald Sanctuary and Overlord Ror -> Bloodvenom Post -> Felpaw Village
-# (grind to 54) -> through Timbermaw Hold to Everlook, where the next guide
-# starts.
-#
-# Deviations from the export:
-# - The two Western Plaguelands visits (70 and 73) are one loop, before
-#   Felwood: Kirsta, Tirion, Marlene and Chromie are all on it. This drops
-#   the export's hearth from Felwood to Light's Hope Chapel and its long trip
-#   from the Plaguelands to Everlook; Felwood's north end leads straight into
-#   Winterspring.
-# - Western Plaguelands order: Sorrow Hill, Chromie and Mulgris' bears come
-#   before Kirsta Deepshadow, so you have the level for her Hearthglen quest
-#   (6025, red below 53) without grinding first. It adds about three minutes
-#   of riding.
-# - Scarlet Diversions, A Plague Upon Thee and the Bulwark's Scourgestones
-#   were picked up in the previous guide; A Call to Arms (5094) was handed in
-#   there.
-# - Felwood: Jaedenar's cultists are cleared first so Greta's moonwell water
-#   (5157) fits in the loop; Overlord Ror (6162) is killed on the ride back
-#   south and Dreka'Sur's turn-in is on the final ride north.
-# - Dropped: A Matter of Time and both Counting Out Time (4971-4973): Chromie
-#   only offers them from level 53, and the loop reaches Andorhal just before
-#   it. The old Timbermaw Ally and Deadwood of the North (6131, 6221) are
-#   pre-1.11 copies of 8460 and 8461, which the game offers instead.
-# - Optional: the Scourgestone turn-ins (5402, 5403, 5407, 5408: repeatable,
-#   20 Minion's or 10 Invader's stones each, worn Argent Dawn Commission),
-#   Feathers for Grazle and Nafien (8466, 8467: repeatable Timbermaw
-#   turn-ins), Deadwood Ritual Totem (8470: a rare drop) and Arko'narin's
-#   chain (5202, 5203, 5204, 5385), which starts from a Blood Red Key that
-#   only drops now and then in Jaedenar.
-# - Grind: level 54 at Felpaw Village before Winterspring, which makes up for
-#   the dropped Chromie quests and raises Timbermaw reputation for the tunnel.
-# - Grind: level 53 at the Northridge Lumber Camp before Kirsta's last task
-#   (6025 needs 53).
-# - Checked and not added: Counting Out Time (4972) needs A Matter of Time
-#   (4971; Chromie, level 53), which the Silithus guide does when it passes
-#   Andorhal at 58. Silver Heart (4084) needs Linken's Memory (3942), which
-#   the route only accepts at 57. Guarding Secrets (4883) needs the
-#   Blue-feathered Necklace quest (4882), which comes after Wild Guardians
-#   (4741) at about 57. Target: Writhing Haunt and its return (5233, 5234)
-#   need the Felstone Field and Dalson's Tears cauldrons first; the route
-#   does those at 58.
-# - Emerald Sanctuary, on the way back south: Taronn, Greta and Jessir, who
-#   stand together, before Maybess Riverbreeze on the west side.
-#
-# Left open for later guides: Better Late Than Never (5023, Royal Overseer
-# Bauhaus), Little Pamela (5142), Glyphed Oaken Branch (4987, Nara Wildmane),
-# All Along the Watchtowers (5098), Target: Felstone Field (5229), A Plague
-# Upon Thee (5902), Tirion's Demon Dogs, Blood Tinged Skies and Carrion
-# Grubbage (5542-5544), Brother Carlin (5210), Seeking Spiritual Aid (5158,
-# Islen Waterseer), Speak to Salfa (8465), Runecloth (6031), Wild Guardians
-# (4521) and The Strength of Corruption (4120, Talo Thornhoof).
-
-# ---------------------------------------------------------------- Western Plaguelands
-
-step Janice Felstone
-  zone Western Plaguelands
-  tip Leave the Undercity and ride east along the road through Tirisfal Glades, past the Bulwark. Felstone Farm is the first farm along the road; Janice waits in the house.
-  accept 5021                         -- Upstairs
-  turnin 5021                         -- Janice's Parcel, beside the house; inside
-  accept 5023
-  note Keep the parcel: Royal Overseer Bauhaus is in the Undercity.
-
-step Level 52.75
-  when level<52.75
-  tip Top up here to level 52.75 before the hand-ins at The Writhing Haunt: they take you to level 53.
-  goto 40.5,51.8 map 1422 "Scarlet Medic"
-  level 52.75                          -- grind on Scarlet Medic
-
-step Scarlet forward camp
-  when onquest 5096
-  tip The Scarlet Crusade's tents stand between Felstone Field and Dalson's Tears. Torch the command tent with the Box of Incendiaries and plant the Scourge banner.
-  goto 40.7,52.0
-  interact 176088
-  complete 5096
-
-step Level 52.81
-  when level<52.81
-  tip Top up here to level 52.81 before the hand-ins at The Writhing Haunt: they take you to level 53.
-  goto 40.5,51.8 map 1422 "Scarlet Medic"
-  level 52.81                          -- grind on Scarlet Medic
-
-step Scarlet Crusade
-  tip Knights and magi work the Northridge Lumber Camp; the medics and hunters camp south of it.
-  kill 10605 quest 6004.1
-  level 52.87                          -- grind on Scarlet Medic
-
-step Scarlet Knight
-  kill 1833 quest 6004.4
-  level 52.94                          -- grind on Scarlet Knight
-
-step Scarlet Hunter
-  kill 1831 quest 6004.2
 
 step Mulgris Deepriver
   turnin 4984                         -- Inside
@@ -199,8 +106,8 @@ step Mulgris Deepriver
 step Level 53.02
   when level<53.02
   tip Top up here to level 53.02 before the hand-ins at The Writhing Haunt: they take you to level 54.
-  goto 51.9,44.3 map 1422 "Scarlet Hunter"
-  level 53.02                          -- grind on Scarlet Hunter
+  goto 45.7,46.0 map 1422 "Diseased Wolf"
+  level 53.02                          -- grind on Diseased Wolf
 
 step Diseased Grizzly on the way
   along until q4985
@@ -212,17 +119,19 @@ step Mulgris Deepriver
   accept 4987
   note Keep the branch: Nara Wildmane is in Thunder Bluff.
 
-step Scarlet Mage
+step Level 53.2
+  when level<53.2
+  tip Top up here to level 53.2 before the hand-ins at The Bulwark: they take you to level 54.
+  goto 54.9,62.4 map 1422 "Diseased Grizzly"
+  level 53.2                          -- grind on Diseased Grizzly
+
+step Scarlet Crusade
+  tip Knights and magi work the Northridge Lumber Camp; the medics and hunters camp south of it.
+  kill 1833 quest 6004.4
+  kill 1831 quest 6004.2
   kill 1826 quest 6004.3
-
-step Kirsta Deepshadow
-  turnin 6004
-
-step Sorrow Hill
-  when onquest 5403,5402
-  turnin 5403 optional
-  note Keep Little Pamela: Pamela is in Darrowshire, visited again later.
-  turnin 5402 optional
+  kill 10605 quest 6004.1
+  level 53.24                          -- grind on Scarlet Medic
 
 step Tirisfal Glades
   zone Tirisfal Glades
@@ -241,6 +150,13 @@ step The Bulwark
   turnin 5901                         -- Mickey Levine
   accept 5902
   note Derrington's watchtowers, Vandis' cauldron and Mickey's barrel are done on a later visit: keep them.
+
+step Level 53.34
+  zone Western Plaguelands
+  when level<53.34
+  tip Top up here to level 53.34 before the hand-ins at Jaedenar: they take you to level 54.
+  goto 40.5,51.8 map 1422 "Scarlet Medic"
+  level 53.34                          -- grind on Scarlet Medic
 
 step Tirisfal Glades
   zone Tirisfal Glades
@@ -291,6 +207,7 @@ step Deadwood Village
   tip The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your Timbermaw Hold reputation; keep the headdress feathers.
   kill 7153 quest 8460.1
   kill 7154 quest 8460.3
+  level 53.92                          -- grind on Deadwood Warrior
   kill 7155 quest 8460.2
 
 step Emerald Sanctuary
@@ -313,13 +230,20 @@ step A Strange Red Key
   complete 5203 optional
 
 step Emerald Sanctuary
-  turnin 5155                         -- Greta Mosshoof
-  accept 5157
   turnin 5203 optional                -- Jessir Moonbow
   accept 5204 optional
+  turnin 5155                         -- Greta Mosshoof
+  accept 5157
   turnin 8460
   accept 8462
   accept 8466 optional                -- Only with 5 Deadwood Headdress Feathers
+  turnin 8466 optional
+
+step Level 54.1
+  when level<54.1
+  tip Top up here to level 54.1 before the hand-ins at Felwood: they take you to level 55.
+  goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
+  level 54.1                          -- grind on Deadwood Pathfinder
 
 # ---------------------------------------------------------------- North through Felwood
 
@@ -349,12 +273,15 @@ step Shatter Scar Vale
   kill 9878 quest 5156.1
   kill 9879 quest 5156.2
 
-step Irontree Woods: kill these as you meet them
-  zone Felwood
+step Irontree Woods
   tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo.
-  kill 8961 quest 4120.2
   kill 8957 quest 4120.1
+  kill 8961 quest 4120.2
+  level 54.21                          -- grind on Angerclaw Grizzly
+
+step Irontree Woods
   collect 11503 quest 4102            -- Below ground
+  level 54.3                          -- grind on Warpwood Shredder
 
 step Felpaw Village
   tip The Deadwood furbolg village just west of the tunnel. Chieftain Bloodmaw (56) stands among them. Meilosh, a friendly furbolg, sits at the north end of the village.
@@ -376,14 +303,26 @@ step Nafien
   accept 8465
   accept 8467 optional                -- Only with 5 Deadwood Headdress Feathers
 
-step Felpaw Village
-  collect 20741 optional              -- Deadwood Ritual Totem, a rare drop
-  accept 8470 optional
+step Level 54.45
+  when level<54.45
+  tip Top up here to level 54.45 before the hand-ins at Timbermaw Hold: they take you to level 55.
+  goto 62.2,10.1 map 1448 "Deadwood Den Watcher"
+  level 54.45                          -- grind on Deadwood Den Watcher
 
 step Nafien
   when onquest 8467
   turnin 8467 optional
   note Keep Speak to Salfa for Winterspring.
+
+step Level 54.54
+  when level<54.54
+  tip Top up here to level 54.54 before the hand-ins at Emerald Sanctuary: they take you to level 55.
+  goto 62.2,10.1 map 1448 "Deadwood Den Watcher"
+  level 54.54                          -- grind on Deadwood Den Watcher
+
+step Felpaw Village
+  collect 20741 optional              -- Deadwood Ritual Totem, a rare drop
+  accept 8470 optional
 
 # ---------------------------------------------------------------- Back south
 
@@ -401,6 +340,12 @@ step Overlord Ror
 step Emerald Sanctuary
   turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
   note Keep Seeking Spiritual Aid: Islen Waterseer is in the Barrens.
+
+step Level 54.7
+  when level<54.7
+  tip Top up here to level 54.7 before the hand-ins at Bloodvenom Post : they take you to level 55.
+  goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
+  level 54.7                          -- grind on Deadwood Pathfinder
 
 step The Jadefire moonwell
   tip Ride back south past Jaedenar to the corrupted moonwell of the Jadefire satyrs and fill Winna's flasket there.
@@ -426,7 +371,8 @@ step Winna's Kitten Carrier
 step Winna Hazzard
   turnin 4506
 
-step Felpaw Village
-  when onquest 8470
-  tip Back at Felpaw Village, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation.
-  turnin 8470 optional                -- Kernda, at the tunnel mouth; walks around here: look inside the circle on the map
+step Level 54.87
+  when level<54.87
+  tip Top up here to level 54.87 before the hand-ins at Everlook: they take you to level 55.
+  goto 38.3,61.7 map 1448 "Jaedenar Hound"
+  level 54.87                          -- grind on Jaedenar Hound

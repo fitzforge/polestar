@@ -103,13 +103,19 @@ v1's leveling guides are laid out like this, and the writer keeps the layout:
   stays the same for the other starts.
 - **`train class`** sends the player to the nearest trainer of their own class,
   picked by the addon at runtime. A route's training stop is written as a step
-  `Class trainer` with `train class`, unless v1's next steps train there anyway.
+  `Class trainer` with `train class`, unless v1's next steps train there anyway
+  (not past an added quest's event away from the stop: Korran at the Crossroads
+  between the Orgrimmar training and Regthar, c19p, trains in Orgrimmar first).
   One trainer visit per route training: v1's own training steps the route did
   not place, in the events after it up to about a level and a half on, come
   with it (Orgrimmar for most classes, Thunder Bluff for Druids and Paladins),
   on the trainer's continent, and a step with other work than training only
   from the trainer's own town (the Druids' Heeding the Call stays at Dolanaar);
-  the route's own line is then only for the classes they leave out. A v1 step
+  the route's own line is then only for the classes they leave out. Those steps
+  are at the stop: the route's way on leaves after them, and classes flown off
+  to their own trainer fly on from there to where the way on's flight lands,
+  the others' way `only` theirs (Orgrimmar -> Thunder Bluff -> Crossroads for
+  Druids and Paladins, not back to Orgrimmar first). A v1 step
   that only travels to a trainer and trains, left over where the route plans
   its training elsewhere, goes. v1's training line the route trains by in
   another city (its Stormwind trainer for v1's Ironforge line) is written at
@@ -126,19 +132,28 @@ v1's leveling guides are laid out like this, and the writer keeps the layout:
   (the route's Shaman stop, then v1's Spirit Rise step).
 - **Riding at 40** (`post::riding_at_level`, on the guides as written, the travel repair's ways
   and the adopted shared guides included): a step that trains at a riding
-  trainer (the data's "... Riding Instructor" or "... Riding Trainer") holds
-  only from level 40 (`when level>=40`): the planner places riding on its
-  model's level, which runs ahead of play (c19's Orgrimmar riding step at about
-  38); so does a "Riding at 40" step with notes alone (the Skyborne's, whose
+  trainer (the data's "... Riding Instructor" or "... Riding Trainer", the
+  Gnomes' "Mechanostrider Pilot") holds only from level 40 (`when level>=40`):
+  the planner plays riding at 40 or later only (c19p: 42.5 to 50 in every
+  start's model, about 43 in the check's walk), but a player can be behind the
+  model; so does a "Riding at 40" step with notes alone (the Skyborne's, whose
   trainer is on Zephras Isle). A riding line in a step with other work goes
   into a "Riding at 40" step of its own right after it, with the step's `only`
-  and zone. The travel-only steps right before and after a riding step for its
-  characters alone (its `only`) are gated with it when there is a way there and
-  a way back of theirs alone (the Trolls' flight to Booty Bay and boat to
-  Ratchet for Xar'Ti, and back). With only one of the two (the Tauren's and
-  Undead's ways back, shared with the Druids' and Paladins'), the riding step
-  stays as it was: gated alone it left them where the way there ends, and the
-  next way failed. Those are the planner's to place at 40.
+  and zone. The way there and back for its characters is gated with it: the
+  travel-only steps right before it with its `only`, and right after it, else
+  further on up to everyone's next step the travel-only steps of theirs or of
+  some of their classes, past steps for other races or for some classes of
+  every race (the Taurens' flight back to Gadgetzan after the Undead's and the
+  Druids' trips; the Undead's ways back from Brill, the Paladins', the
+  Warlocks' and the others'); with no way back before everyone's next step
+  (the Humans' walk to Eastvale), the way there alone: under 40 they stay with
+  everyone. A step between for theirs and another race's, or another step of
+  theirs that is not travel, leaves the riding step as it was: gated alone it
+  left them where the way there ends, and the next way failed.
+- **Route fixes' optional quests** (`post::optional_by_fixes`, the guides as written): each goal
+  line but the hand-in of a quest `deliberate.optional` lists (the rare-drop chains: The Green
+  Hills of Stranglethorn and its chapters, Study of the Elements: Rock) is written `optional`, so
+  no step waits on the drop; the hand-in applies only to a player who has the quest done.
 - **Weapon skills** (forge-writer `weapons.rs`, #655): where a guide already
   stops in Stormwind, Ironforge, Darnassus, Orgrimmar, Thunder Bluff or
   Undercity at level 10 or later, each class with a weapon skill that city's
@@ -346,10 +361,15 @@ be compared byte for byte with the old JavaScript writer.
 - **One leg per route event.** An event whose task is several objective lines
   takes its travel with its first line; the others follow there, not after the
   same leg again (The Hammer May Fall's ogres and Boulder'gor).
-- **A comment block** follows each changed guide's header. It names the route,
-  v1's and the improved hours to 60 in the model, the quests added and left out
-  there, and how many goals moved in from other guides. v1's own comments above
-  it describe v1's order; the block says so.
+- **The header** reads the route, not the seed. `levels` is the route's level where the guide
+  begins to where it ends (the highest level reached by then, a grind's target too), each rounded:
+  a start's own part of a zone the shared route visits later (the Night Elves' Darkshore) reads
+  12-14, not the shared guide's 16-21; a guide with nothing of the route's reads the level it is
+  played at (Troll's class stop at the Crossroads, 12-12). The shared guides read the canonical
+  start's levels. A short comment says Forge's route search and guide writer made the guide and
+  where fixes go (data/route-fixes.json, data/guide-fixes.json, forever-db corrections), with the
+  quests added and left out there. The seed's notes above the first step, which describe how the
+  hand-made guide was put together, are not written; its section rules are.
 
 ### 3. Fix-ups (`src/post.rs`)
 

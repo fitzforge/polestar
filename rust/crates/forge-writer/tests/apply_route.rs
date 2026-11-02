@@ -7692,6 +7692,141 @@ fn a_training_stops_way_goes_before_v1s_training_not_after_it() {
 }
 
 #[test]
+fn a_training_stop_before_an_added_quest_elsewhere_trains_there_not_after_it() {
+	// c19p Horde 30-40/03-arathi-highlands:410: the route trained in Orgrimmar off the zeppelin, then
+	// flew to the Crossroads for Korran (added); v1's Orgrimmar training steps, before its Regthar step,
+	// took the stop, so the guide flew to the Crossroads, back to Orgrimmar to train, and to the
+	// Crossroads again.
+	let c = Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 38-40",
+				"zone Badlands",
+				"",
+				"step Kargath",
+				"  accept 1",
+				"",
+				"step Trainers",
+				"  zone Orgrimmar",
+				"  only Warrior,Rogue",
+				"  train class",
+				"",
+				"step Crossroads",
+				"  zone The Barrens",
+				"  accept 2",
+				"",
+			],
+		)],
+		world: json!({ "points": [[1, 1, 0, 0, 1418], [1, 1, 9000, 9000, 1454], [1, 1, 9500, 8000, 1413]], "zones": { "1418": "Badlands", "1454": "Orgrimmar", "1413": "The Barrens" }, "quests": [{ "id": 1, "giver": 0, "ender": 0 }, { "id": 2, "giver": 2, "ender": 2 }, { "id": 3, "giver": 2, "ender": 2 }] }),
+		quests: json!({ "1": { "title": "One", "minLevel": 1 }, "2": { "title": "Two", "minLevel": 1 }, "3": { "title": "Three", "minLevel": 1 } }),
+		route: json!({ "faction": "Horde", "start": "Orc", "diff": { "added": [3] }, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "lvl": 38.0, "from": f("a", 7) },
+			{ "t": "train", "pt": 1, "lvl": 38.1, "from": "train stop", "items": [{ "t": "network", "from": 0, "to": 1 }] },
+			{ "t": "accept", "q": 3, "pt": 2, "lvl": 38.1, "from": "inserted", "items": [{ "t": "network", "from": 1, "to": 2 }] },
+			{ "t": "accept", "q": 2, "pt": 2, "lvl": 38.2, "from": f("a", 16) }
+		] }),
+		frames: json!({ "era": { "1418": { "top": 20000, "bottom": -20000, "left": -20000, "right": 20000, "c": 1 }, "1454": { "top": 20000, "bottom": -20000, "left": -20000, "right": 20000, "c": 1 }, "1413": { "top": 20000, "bottom": -20000, "left": -20000, "right": 20000, "c": 1 } } }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = pick(&run(&c, None).read("a"), r"^step|^\s+(goto|fly|train|accept)");
+	// (v1's Warrior and Rogue step with the stop, the stop's own line for the rest: all before Korran.)
+	let last_train = g.iter().rposition(|l| l.contains("train class")).map_or(i64::MAX, |i| i as i64);
+	assert!(idx(&g, "  train class") >= 0 && last_train < idx(&g, "  accept 3"), "{g:#?}");
+}
+
+#[test]
+fn the_druids_thunder_bluff_training_flies_from_the_routes_orgrimmar_stop_on_to_where_it_goes() {
+	// c19p Horde 30-40/03-arathi-highlands: off the zeppelin in Orgrimmar the route trains and flies to
+	// the Crossroads (Korran, added), then Regthar. The Druids' and Paladins' Thunder Bluff step flew
+	// them Orgrimmar -> Crossroads -> Thunder Bluff -> Crossroads; theirs is Orgrimmar -> Thunder Bluff
+	// -> Crossroads, one flight to the Crossroads for each class.
+	// (Also with no Korran: the route's way on from the stop is its flight to the Crossroads and the
+	// walk to Regthar, v1's training steps the stop's, a 200k search's c19p order.)
+	let fr = json!({ "top": 20000, "bottom": -20000, "left": -20000, "right": 20000, "c": 1 });
+	let korran = json!([
+		{ "t": "accept", "q": 1, "pt": 0, "lvl": 38.0, "from": f("a", 8), "items": [{ "t": "getfp", "node": 0 }, { "t": "getfp", "node": 1 }, { "t": "getfp", "node": 2 }] },
+		{ "t": "train", "pt": 1, "lvl": 38.1, "from": "train stop", "items": [{ "t": "network", "from": 0, "to": 1 }] },
+		{ "t": "accept", "q": 3, "pt": 5, "lvl": 38.1, "from": "inserted", "items": [{ "t": "network", "from": 1, "to": 5, "legs": [{ "k": "walk", "to": 2, "node": 0 }, { "k": "fly", "from": 0, "to": 2 }, { "k": "walk", "to": 5 }] }] },
+		{ "t": "turnin", "q": 2, "pt": 6, "lvl": 38.2, "from": f("a", 27) }
+	]);
+	let no_korran = json!([
+		{ "t": "accept", "q": 1, "pt": 0, "lvl": 38.0, "from": f("a", 8), "items": [{ "t": "getfp", "node": 0 }, { "t": "getfp", "node": 1 }, { "t": "getfp", "node": 2 }] },
+		{ "t": "train", "pt": 1, "lvl": 38.1, "from": "train stop", "items": [{ "t": "network", "from": 0, "to": 1 }] },
+		{ "t": "turnin", "q": 2, "pt": 6, "lvl": 38.2, "from": f("a", 27), "items": [{ "t": "network", "from": 1, "to": 6, "legs": [{ "k": "walk", "to": 2, "node": 0 }, { "k": "fly", "from": 0, "to": 2 }, { "k": "walk", "to": 6 }] }] }
+	]);
+	for order in [korran, no_korran] {
+		let c = Case {
+			files: vec![(
+				"a",
+				vec![
+					"guide t/a",
+					"title A",
+					"race Orc,Troll,Tauren,Undead,Skyborne",
+					"levels 38-40",
+					"zone Badlands",
+					"",
+					"step Kargath",
+					"  accept 1",
+					"",
+					"step Orgrimmar",
+					"  zone Orgrimmar",
+					"  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock",
+					"  accept 1718 only Warrior",
+					"",
+					"step Thunder Bluff",
+					"  only Druid,Paladin",
+					"  zone Thunder Bluff",
+					"  fly \"Thunder Bluff\"",
+					"  train class",
+					"",
+					"step The Crossroads",
+					"  zone The Barrens",
+					"  fly \"Crossroads\"",
+					"",
+					"step Regthar",
+					"  zone The Barrens",
+					"  turnin 2",
+					"",
+				],
+			)],
+			world: json!({
+				"points": [[1, 1, 0, 0, 1418], [1, 1, 9000, 9000, 1454], [1, 1, 9100, 8900, 1454], [1, 1, 4000, 4000, 1456], [1, 1, 8000, 6000, 1413], [1, 1, 8030, 6000, 1413], [1, 1, 8600, 6200, 1413]],
+				"zones": { "1418": "Badlands", "1454": "Orgrimmar", "1456": "Thunder Bluff", "1413": "The Barrens" },
+				"quests": [{ "id": 1, "giver": 0, "ender": 0 }, { "id": 2, "giver": 6, "ender": 6 }, { "id": 3, "giver": 5, "ender": 5 }, { "id": 1718, "giver": 1, "ender": 1 }],
+				"nodes": [{ "kind": "fp", "name": "Orgrimmar", "pt": 2 }, { "kind": "fp", "name": "Thunder Bluff", "pt": 3 }, { "kind": "fp", "name": "Crossroads", "pt": 4 }]
+			}),
+			frames: json!({ "era": { "1418": fr, "1454": fr, "1456": fr, "1413": fr } }),
+			quests: json!({ "1": { "title": "One" }, "2": { "title": "Two" }, "3": { "title": "Three" }, "1718": { "title": "The Islander", "classes": 1 } }),
+			route: json!({ "faction": "Horde", "start": "Tauren", "diff": { "added": [3] }, "order": order }),
+			route_travel: true,
+			..Case::default()
+		};
+		let g = pick(&run(&c, None).read("a"), r"^step|^\s+(only|goto|fly|train|accept|turnin)");
+		let last_train = g.iter().rposition(|l| l.contains("train class")).map_or(i64::MAX, |i| i as i64);
+		let next = g.iter().position(|l| l == "  accept 3" || l == "  turnin 2").map_or(-1, |i| i as i64);
+		assert!(last_train < next, "{g:#?}");
+		// (Each Druid flight to the Crossroads: in a step for everyone or for the Druids.)
+		let mut only: Option<&str> = None;
+		let mut druid_xr = Vec::new();
+		for (i, l) in g.iter().enumerate() {
+			if l.starts_with("step ") {
+				only = None;
+			} else if let Some(o) = l.strip_prefix("  only ") {
+				only = Some(o);
+			} else if l == "  fly \"Crossroads\"" && only.is_none_or(|o| o.split(',').any(|c| c == "Druid")) {
+				druid_xr.push(i as i64);
+			}
+		}
+		assert_eq!(druid_xr.len(), 1, "{g:#?}");
+		assert!(idx(&g, "  fly \"Thunder Bluff\"") < druid_xr[0], "{g:#?}");
+	}
+}
+
+#[test]
 fn v1s_training_behind_its_level_line_waits_for_the_routes_training_at_that_level() {
 	// c14 Orc (Rev14H1 A2): the seed's level-20 training, after its `level 20`, was written with the
 	// route's 19.1 training at 04-the-barrens' head; the route's own 20.2 stop trained only Rogues and

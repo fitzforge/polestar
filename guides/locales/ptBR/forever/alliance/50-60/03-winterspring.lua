@@ -75,27 +75,34 @@ return {
 	-- {zone:1448} Felwood
 	["The Deadwood cauldron in {zone:1448}: keep it"] = "O caldeirão Lenha Morta em {zone:1448}: guarde-o",
 
-	-- Step 14: Hearth to Everlook
+	-- Step 14: Level 55.05
+	["Level 55.05"] = "",
+	-- {area:2255} Everlook
+	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56."] = "",
+	-- {npc:11552} Timbermaw Mystic
+	["grind on {npc:11552}"] = "",
+
+	-- Step 15: Hearth to Everlook
 	-- {area:2255} Everlook
 	["Hearth to {area:2255}"] = "",
 
-	-- Step 16: Winterfall Village
+	-- Step 17: Winterfall Village
 	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
 	["The Winterfall furbolg village lies east of {area:2255}: Shaman (56-57), Den Watchers (55-56) and Ursa (57-58), all above you. Kill the Shaman first, they heal, and pull from the edge. {npc:10738} in the cave at the back is elite: stay out."] = "A aldeia dos furbolgs Invernosos fica a leste de {area:2255}: Xamãs (56-57), Vigias do Covil (55-56) e Ursinos (57-58), todos acima de você. Mate os Xamãs primeiro, eles curam, e atraia pelas bordas. {npc:10738}, na caverna dos fundos, é elite: fique longe.",
 
-	-- Step 17: Optional: Sunken Temple
+	-- Step 18: Optional: Sunken Temple
 	-- {area:1417} Sunken Temple
 	["Optional: {area:1417}"] = "Opcional: {area:1417}",
 	-- {area:1417} Sunken Temple · {area:2255} Everlook
 	["Short of level 54 after the yetis? Running the {area:1417} (50-54) instead of grinding gets you there faster in a group. Come back to {area:2255} afterwards."] = "Abaixo do nível 54 depois dos yetis? Fazer o {area:1417} (50-54) em grupo em vez de farmar leva você lá mais rápido. Volte a {area:2255} depois.",
 
-	-- Step 18: Pristine Yeti Horn on the way
+	-- Step 19: Pristine Yeti Horn on the way
 	-- {item:12367} Pristine Yeti Horn
 	["{item:12367} on the way"] = "",
 	-- {item:12367} Pristine Yeti Horn · {area:2255} Everlook
 	["{item:12367} along the way to {area:2255}"] = "",
 
-	-- Step 19: Everlook
+	-- Step 20: Everlook
 	-- {npc:10978} Legacki
 	["On {npc:10978}, by the inn"] = "Em {npc:10978}, perto da estalagem",
 	-- {npc:10978} Legacki · {npc:7583} Sprinkle · {npc:10977} Quixxil
@@ -164,24 +171,22 @@ return {
 	-- {npc:11038} Caretaker Alen
 	["{npc:11038}: Zaeldarr is a level 54 elite"] = "",
 
-	-- Step 37: Corin's Crossing
+	-- Step 37: Light's Hope Chapel
+	-- {npc:11038} Caretaker Alen
+	["{npc:11038}, by the graves south of the chapel"] = "",
+
+	-- Step 38: Corin's Crossing
 	-- {area:2264} Corin's Crossing
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it."] = "O Flagelo em volta de {area:2264}, a oeste da capela, deixa cair os dois tipos de Pedra do Flagelo; Espíritos da Vila das Flechas surgem deles: fale com cada um para libertá-lo.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "Liberte os Espíritos da Vila das Flechas: fale com eles",
 
-	-- Step 39: The Undercroft
+	-- Step 40: The Undercroft
 	-- {area:2261} The Undercroft
 	["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "",
 	-- {item:15785} Zaeldarr's Head
 	["{item:15785}; below ground"] = "",
-
-	-- Step 40: The Undercroft
-	-- {area:2261} The Undercroft · {object:177667} Torn Scroll · {npc:12248} Infiltrator Hameya
-	["Cross the river east to the {area:2261}, the crypt in the south-west of the zone. The {object:177667} lies inside: its key is on {npc:12248} in the far north-east, done in the next guide."] = "",
-	-- {object:177667} Torn Scroll
-	["{object:177667}, below ground"] = "",
 
 	-- Step 41: Browman Mill: kill these as you meet them
 	-- {area:2269} Browman Mill

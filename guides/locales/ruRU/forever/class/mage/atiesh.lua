@@ -14,8 +14,8 @@ return {
 	["Splinters of Atiesh"] = "",
 	-- {area:2277} Plaguewood · {zone:1423} Eastern Plaguelands · {npc:15990} Kel'Thuzad
 	["Forty Splinters of Atiesh drop in Naxxramas, the 40-player raid in the necropolis over the {area:2277} in {zone:1423}: each of its twelve bosses before Sapphiron and {npc:15990}, and the Four Horsemen's chest, drops one about a third of the time, and the raid shares them out. It takes many weeks of clears. Keep every splinter in one stack."] = "",
-	-- {quest:9250} Frame of Atiesh
-	["Forming {quest:9250}: forty splinters become the {quest:9250}"] = "",
+	-- {spell:28324} Forming Frame of Atiesh · {quest:9250} Frame of Atiesh
+	["{spell:28324}: forty splinters become the {quest:9250}"] = "",
 
 	-- Step 2: Anachronos
 	-- {quest:9250} Frame of Atiesh · {npc:15192} Anachronos · {area:2300} Caverns of Time · {zone:1446} Tanaris · {area:976} Gadgetzan
@@ -39,8 +39,8 @@ return {
 	-- Step 5: Atiesh, Hand of Sargeras
 	-- {npc:16387} Atiesh
 	["{npc:16387}, Hand of Sargeras"] = "",
-	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {object:175433} Festival Lane (no name in this language: may be words) · {object:181206} Consecrated Earth (no name in this language: may be words) · {npc:16387} Atiesh
-	["Take the befouled staff to {area:2279}, the dungeon at the north end of {zone:1423}, through the main gate. On {object:175433} find the patch of {object:181206} with a small white flame on it, stand on it and use the staff: {npc:16387}, Hand of Sargeras (level 63 boss) steps out. Bring a strong group: his Unholy Aura hurts everyone and cannot be dispelled (shadow resistance helps), his Breath of Sargeras curse must be removed at once, and a warrior's Disarm makes him drop his sword, which a melee player can pick up and use against him. He stays up to two and a half hours, so you can regroup."] = "",
+	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {object:175433} Festival Lane (no name in this language: may be words) · {object:181206} Consecrated Earth (no name in this language: may be words) · {npc:16387} Atiesh · {spell:17466} Unholy Aura · {spell:28342} Breath of Sargeras
+	["Take the befouled staff to {area:2279}, the dungeon at the north end of {zone:1423}, through the main gate. On {object:175433} find the patch of {object:181206} with a small white flame on it, stand on it and use the staff: {npc:16387}, Hand of Sargeras (level 63 boss) steps out. Bring a strong group: his {spell:17466} hurts everyone and cannot be dispelled (shadow resistance helps), his {spell:28342} curse must be removed at once, and a warrior's Disarm makes him drop his sword, which a melee player can pick up and use against him. He stays up to two and a half hours, so you can regroup."] = "",
 	-- {object:181206} Consecrated Earth (no name in this language: may be words) · {area:2279} Stratholme
 	["the befouled staff, on the {object:181206} inside {area:2279}"] = "",
 

@@ -2,63 +2,39 @@
 guide forever/horde/40-50/03-feralas
 title Feralas, Dustwallow Marsh & Swamp of Sorrows
 faction Horde
-levels 44-46
+levels 45-47
 zone Feralas
 next forever/horde/40-50/04-tanaris
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
-# Added here: Cortello's Riddle (626), Dark Heart (3062).
-# Left out: A Threat in Feralas (2981), Continued Threat (1428).
-# 8 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
-# Route from the Polestar route simulator's Horde consensus (Tauren export),
-# visits 39-43, levels 44-45.9. Checked by lint, not play-tested on Forever
-# yet. Era + known Forever quests only.
-#
-# Flow: Stonard (where the previous guide ends; bind) -> A Soggy Scroll ->
-# Pool of Tears -> the east coast crawlers -> Misty Reed Post and its
-# murlocs -> hearth Stonard -> fly Grom'gol -> zeppelin to Orgrimmar
-# (training, turn-ins) -> fly Brackenwall Village -> the Wyrmbog ->
-# Brackenwall -> Onyxia's eggs -> Brackenwall -> fly Camp Mojache (bind) ->
-# sprite darters, forest walkers, Feral Scar Vale and the hippogryphs ->
-# Zorbin Fandazzle and the Forgotten Coast -> the Northspring harpies ->
-# hearth Camp Mojache -> Rage Scar yetis -> Camp Mojache, where the next
-# guide flies on to Gadgetzan.
-#
-# Deviations from the export:
-# - Threat From the Sea (1426): the export kills part of the murlocs here,
-#   the rest on a Blasted Lands pass at 46.7 (visit 45) and hands it in on a
-#   return to Misty Reed Post at 47.7 (visit 51) with its follow-up (1427)
-#   and Continued Threat (1428). All three are done here in one sweep of the
-#   Misty Reed shore and handed in on the spot: both later trips go away.
-# - Thunder Bluff (visit 40) is dropped: a flight there and back for one
-#   accept, Deadmire (1205), whose turn-in is back in Thunder Bluff near
-#   level 50. With it go the Thunder Bluff bind and the hearth back there.
-# - Orgrimmar (visit 42) comes straight off the zeppelin instead of after
-#   Dustwallow Marsh; Brackenwall then flies on to Camp Mojache. The
-#   Orgrimmar bind is left out (the export replaces it at once).
-# - Swamp of Sorrows: one loop out of Stonard (scroll, Pool of Tears, the
-#   crawlers, Misty Reed) and the export's hearth back to Stonard.
-# - Feralas: the four Natural Materials parts are picked up on the way
-#   south-west to Feral Scar Vale and the hippogryphs, before Zorbin's coast.
-#
-# Class training: Orgrimmar. Druids and Paladins: a side flight to Thunder
-# Bluff before Dustwallow Marsh.
-#
-# Optional: Challenge Overlord Mok'Morokk (1173): Mok'Morokk is elite.
-# Perfect Yeti Hide (7738): it starts from a rare drop.
-#
-# Accepted here, finished later on the route: Cortello's Riddle (625, the
-# Musty Scroll in Dustwallow Marsh, here), The Atal'ai Exile (1429,
-# Hinterlands), Testing the Vessel (3123: Hinterlands owlbeasts, turned in
-# at Camp Mojache around 50), Zukk'ash Report (7732, Orgrimmar around 50).
-#
-# Left out: Deadmire (1205), see above.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: Errand for Apothecary Zinge (232), Cortello's Riddle (626).
+# Left out: Continued Threat (1428).
+
+step Zeppelin to Undercity
+  zone Durotar
+  goto 50.8,13.5 "Zeppelin to Undercity"
+
+step Apothecary Zinge
+  zone Undercity
+  accept 232
+  turnin 232
+  accept 238
+  turnin 238
+  accept 243
+  turnin 728
+
+# ---------------------------------------------------------------- The Undercity
+
+step Undercity
+  zone Undercity
+  accept 2995                           -- Oran Snakewrithe, the Royal Quarter
+  train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
 
 step Zeppelin to Grom'gol
-  zone Durotar
-  goto 50.7,12.9 "Zeppelin to Grom'gol"
+  zone Tirisfal Glades
+  goto 61.8,59.2 "Zeppelin to Grom'gol"
 
 step Fly to Stonard
   zone Stranglethorn Vale
@@ -75,21 +51,30 @@ step A Soggy Scroll
   tip Ride west along the road; the scroll lies at the water's edge in the swamp's far west.
   accept 625                            -- for the Musty Scroll in Dustwallow Marsh, later in this guide
 
-step Misty Reed Post
-  turnin 1422                           -- Katar
-  accept 1426
-
-step Marsh Inkspewer on the way
-  along until q1426
-  kill 750 quest 1426.2 -- Marsh Inkspewer along the way to Misty Reed Post
+step Sawtooth Snapper Claw on the way
+  along until q699
+  collect 6168 quest 699.1 -- Sawtooth Snapper Claw along the way to Misty Reed Post
 
 step The Forbidding Sea: kill these as you meet them
   zone Swamp of Sorrows
-  tip The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore.
+  tip The snappers line the strand south of the post.
   tip The Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see on the way south.
+  collect 6184 quest 1430.1           -- Underwater
+
+step Misty Reed Post
+  label q699
+  tip The next guide starts here and takes you to Tanaris.
+  turnin 699                            -- Tok'Kar
+  tip The small Horde post on the southern shore.
+  accept 1422                           -- Tok'Kar
+  turnin 1422                           -- Katar
+  accept 1426
+
+step Murlocs of the Misty Reed
+  tip The Marsh Murlocs live on the strand south of the post; the Inkspewers are along the shore east of it and the Flesheaters further west, around the huts on the western shore.
   kill 747 quest 1426.1
-  collect 6184 quest 1430.1
   kill 751 quest 1426.3               -- Below ground
+  kill 750 quest 1426.2
 
 # ---------------------------------------------------------------- Pool of Tears and the coast
 
@@ -102,7 +87,6 @@ step Swamp of Sorrows
   goto 83.8,80.4 "Swamp of Sorrows"
 
 step Misty Reed Post
-  label q1426
   turnin 1426                           -- Katar
   accept 1427
   turnin 1427                           -- Tok'Kar
@@ -110,8 +94,8 @@ step Misty Reed Post
 step Stonard
   label q1424
   turnin 1424                           -- Fel'zerul, on the top floor
-  accept 1429                           -- for the Atal'ai Exile in the Hinterlands, around level 48
   turnin 1430                           -- Dar, inside
+  accept 1429                           -- for the Atal'ai Exile in the Hinterlands, around level 48
 
 step Hearth to Camp Mojache
   when bound "Camp Mojache"
@@ -127,6 +111,8 @@ step Camp Mojache
   sethome "Camp Mojache" npc 7737       -- Innkeeper Greul
   turnin 3122                           -- Witch Doctor Uzer'i
   accept 3123                           -- for the Hinterlands owlbeasts, around level 48
+  accept 3128
+  accept 3063                           -- Talo Thornhoof
 
 step Fly to Brackenwall Village
   zone Feralas
@@ -162,10 +148,10 @@ step Brackenwall Village
   tip Ride back north to Brackenwall.
   turnin 1169                           -- Draz'Zilb, below ground
   accept 1170
+  turnin 1168                           -- Tharg
   turnin 1170                           -- Overlord Mok'Morokk
   accept 1171
   turnin 1166                           -- Overlord Mok'Morokk
-  turnin 1168                           -- Tharg
   turnin 1171                           -- Draz'Zilb
   accept 1172
 
@@ -186,12 +172,12 @@ step Challenge Overlord Mok'Morokk
   complete 1173 optional
   turnin 1173 optional                  -- Draz'Zilb, below ground
 
-step Level 45.28
+step Level 45.41
   when !group 1173
-  when level<45.28
-  tip If you skipped Challenge Overlord Mok'Morokk, grind here to level 45.28 to stay on the route's plan.
+  when level<45.41
+  tip If you skipped Challenge Overlord Mok'Morokk, grind here to level 45.41 to stay on the route's plan.
   goto 37.5,68.3 map 1445 "Firemane Scout"
-  level 45.28                          -- grind on Firemane Scout
+  level 45.41                          -- grind on Firemane Scout
 
 step Fly to Gadgetzan
   zone Dustwallow Marsh
@@ -201,15 +187,15 @@ step Fly to Gadgetzan
 
 step Tanaris
   zone Tanaris
-  goto 67.1,24.0 "Tanaris"
+  goto 66.6,22.3 "Tanaris"
 
 step Steamwheedle Port
+  turnin 8365                           -- Haughty Modiste
+  accept 3520                           -- Yeh'kinya: the screechers live in Feralas
   turnin 2873                           -- Stoley, inside
   accept 2874                           -- for Booty Bay, around level 50
   turnin 2875                           -- Security Chief Bilgewhizzle, inside
   turnin 8366
-  accept 3520                           -- Yeh'kinya: the screechers live in Feralas
-  turnin 8365                           -- Haughty Modiste
 
 step Tanaris
   zone Tanaris
@@ -221,22 +207,10 @@ step Fly to Camp Mojache
   fly "Camp Mojache"
   zone Feralas
 
-step Camp Mojache
-  zone Feralas
-  accept 3063                           -- Talo Thornhoof
-
-step Camp Mojache
-  when group 3062
-  accept 3062
-
-step Camp Mojache
-  zone Feralas
-  accept 3128
-
 step Sprite darters and forest walkers
   tip The sprite darters flit over the grove just west of the camp and carry the Encrusted Minerals; the Wandering Forest Walkers, a little further west, carry the Splintered Logs.
   goto 60.6,47.4 "Forest walkers"
-  collect 9590 quest 3128.1
+  collect 9590 quest 3128.1 @73.9,38.8 map 1444
 
 step Frayfeather hippogryphs
   tip South of the vale the Frayfeather hippogryphs roost on the slopes; nearly every one drops sinew and metallic fragments.
@@ -272,19 +246,12 @@ step The Forgotten Coast: kill these as you meet them
   collect 18956 quest 7003.1
   use 18904 quest 7003.1 @40.1,38.6 map 1444
 
-step Ruins of Ravenwind: kill these as you meet them
-  zone Feralas
+step Northspring harpies
   tip The Northspring harpies nest on the ridges in the far north-west. They are 48-50, a few levels above you: the Windcallers heal, so kill them first and pull one at a time.
-  tip Careful: Wait until an earlier Edana's corpse has fully despawned before you blow the horn. If you use it too soon, the horn is lost and Edana does not appear.
-  kill 5363 quest 3063.2
   kill 5362 quest 3063.1
+  kill 5363 quest 3063.2
   kill 5364 quest 3063.3
   kill 5366 quest 3063.4
-
-step Ruins of Ravenwind: kill these as you meet them
-  when group 3062
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Edana Hatetalon is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back.
-  collect 9528 quest 3062.1 @40.5,8.6 map 1444
 
 step Hearth to Camp Mojache
   hearth "Camp Mojache"
@@ -294,17 +261,6 @@ step Camp Mojache
   accept 7734
   turnin 3128                           -- Witch Doctor Uzer'i
   turnin 3063                           -- Talo Thornhoof
-
-step Camp Mojache
-  when group 3062
-  turnin 3062
-
-step Level 47.19
-  when !group 3062
-  when level<47.19
-  tip If you skipped Dark Heart, grind here to level 47.19 to stay on the route's plan.
-  goto 73.9,38.8 map 1444 "Wandering Forest Walker"
-  level 47.19                          -- grind on Wandering Forest Walker
 
 # ---------------------------------------------------------------- Camp Mojache
 

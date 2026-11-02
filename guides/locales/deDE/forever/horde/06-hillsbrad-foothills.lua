@@ -80,17 +80,17 @@ return {
 	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "",
+	["Drull's ball and chain"] = "Drulls Kugel und Kette",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Kugel und Kette von {npc:2238}",
-	["Drull's ball and chain"] = "Drulls Kugel und Kette",
 
-	-- Step 14: Deathstalker Masoj
-	-- {area:290} Dun Garok
-	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj versteckt sich am Hang über {area:290}, südlich von Burg Durnholde, auf dem Weg hinunter zu den Blüten.",
-
-	-- Step 15: Mudsnout Blossoms
+	-- Step 14: Mudsnout Blossoms
 	-- {item:3502} Mudsnout Blossoms
 	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "Südwestlich von Burg Durnholde wachsen die {item:3502} an den Hängen über dem Fluss.",
+
+	-- Step 15: Deathstalker Masoj
+	-- {area:290} Dun Garok
+	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj versteckt sich am Hang über {area:290}, südlich von Burg Durnholde, auf dem Weg hinunter zu den Blüten.",
 
 	-- Step 16: The smithy
 	["The smithy"] = "Die Schmiede",
@@ -135,16 +135,16 @@ return {
 	["Keep it: the {area:287} coast, later on the route"] = "Behalte es: die Küste von {area:287}, später auf der Route",
 
 	-- Step 27: Archibald
-	-- {npc:11870} Archibald · {object:36070} War Quarter
-	["While you're here: learn Two-Handed Swords from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
+	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "",
 
 	-- Step 28: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); two-handers level a Warrior fastest."] = "",
 
 	-- Step 29: Archibald
-	-- {npc:11870} Archibald · {object:36070} War Quarter
-	["While you're here: learn Two-Handed Swords from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "",
+	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
+	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "",
 
 	-- Step 30: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
@@ -202,7 +202,7 @@ return {
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "",
 
-	-- Step 43: Mebok Mizzyrix
+	-- Step 43: Ratchet
 	-- {npc:3442} Sputtervalve · {area:392} Ratchet
 	["{npc:3442}, by the docks in {area:392}"] = "{npc:3442}, bei den Docks in {area:392}",
 

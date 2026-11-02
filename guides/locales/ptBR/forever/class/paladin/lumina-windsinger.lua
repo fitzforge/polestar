@@ -78,8 +78,8 @@ return {
 	-- Step 11: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
 	["The {item:6995}"] = "",
-	-- {area:2797} Blackfathom Deeps · {item:6995} Corrupted Kor Gem
-	["The naga stand in the flooded ruins and passages around the {area:2797} entrance, just north of Zoram'gar: you do not need to enter the instance (its first naga drop the gem too). Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24) drop the {item:6995}, one in two. All are elite: grouping up is encouraged. Players solo them one at a time, with difficulty; a group of three makes it easy. They heal themselves, run for help at low health, and the Sea Witches cast Frost Nova up close. Some players report no drop while in a raid group."] = "",
+	-- {area:2797} Blackfathom Deeps · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
+	["The naga stand in the flooded ruins and passages around the {area:2797} entrance, just north of Zoram'gar: you do not need to enter the instance (its first naga drop the gem too). Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24) drop the {item:6995}, one in two. All are elite: grouping up is encouraged. Players solo them one at a time, with difficulty; a group of three makes it easy. They heal themselves, run for help at low health, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "",
 
 	-- Step 12: The Purified Kor Gem
 	-- {item:272448} Purified Kor Gem
@@ -102,11 +102,8 @@ return {
 	["Back to {npc:248840} in the {area:228}'s lower part: he hands you the {item:268484}, a two-handed sword."] = "",
 
 	-- Step 16: Two-Handed Swords
-	["Two-Handed Swords"] = "",
-	-- {npc:11870} Archibald · {zone:1458} Undercity · {object:36070} War Quarter (no name in this language: may be words)
-	["The blade is a two-handed sword, and you need the skill to hit a level 25 elite with it. {npc:11870}, the weapon master in the {zone:1458}'s {object:36070}, teaches Two-Handed Swords for a small fee; then swing it on easy mobs until the skill is near its cap (five points per level)."] = "",
-	-- {npc:11870} Archibald · {object:36070} War Quarter (no name in this language: may be words)
-	["{npc:11870}, {object:36070}: Two-Handed Swords"] = "",
+	-- {npc:11870} Archibald · {zone:1458} Undercity · {object:36070} War Quarter (no name in this language: may be words) · {spell:202} Two-Handed Swords
+	["The blade is a two-handed sword, and you need the skill to hit a level 25 elite with it. {npc:11870}, the weapon master in the {zone:1458}'s {object:36070}, teaches {spell:202} for a small fee; then swing it on easy mobs until the skill is near its cap (five points per level)."] = "",
 
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas

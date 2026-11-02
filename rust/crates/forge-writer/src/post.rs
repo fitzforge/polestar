@@ -1312,18 +1312,48 @@ pub fn no_riding(files: &mut [String], sources: &[&str]) {
 	}
 }
 
-/// Riding is learnt at level 40, and the planner places the lesson on its model's level, which runs
-/// ahead of play (c19 Orc 40-50/02-feralas:99, Orgrimmar's riding step at about 38, Rev19-H A1). A
+/// Every goal line of a quest the route fixes keep optional (`optional`: [`crate::hub::fix_optional`],
+/// the rare-drop chains: The Green Hills of Stranglethorn and its chapters, Study of the Elements:
+/// Rock) but its hand-in is written `optional`: taken only by a player who has the drop, never a
+/// step that waits on it (c19p: v1's `accept 338` and `accept 712` required them, 35 `rare`
+/// blockers). The hand-in stays as written: it applies only to a player who has the quest done (a
+/// Precessive Autocognition Assembly's Harvesting the Harvesters, handed in at Saldean's, #298).
+pub fn optional_by_fixes(files: &mut [String], optional: &FxHashSet<u32>) {
+	if optional.is_empty() {
+		return;
+	}
+	for f in files.iter_mut() {
+		let mut changed = false;
+		let out: Vec<String> = f
+			.split('\n')
+			.map(|l| {
+				let (code, rest) = split_comment(l);
+				if !is_goal(code) || head_ws(code) == Some("turnin") || re!(r"\boptional\b").is_match(code) || !quest_of(code).is_some_and(|q| optional.contains(&q)) {
+					return l.to_string();
+				}
+				changed = true;
+				let line = format!("{} optional", code.trim_end());
+				format!("{line:<w$}{rest}", w = code.len())
+			})
+			.collect();
+		if changed {
+			*f = out.join("\n");
+		}
+	}
+}
+
+/// Riding is learnt at level 40. The planner plays a riding step at 40 or later only (c19p: 42.5 to
+/// 50 in every start's model, about 43 in the check's walk), but a player can be behind the model. A
 /// step that trains at a riding trainer (the data's "Wolf Riding Instructor", "Stablemaster and
-/// Riding Trainer") holds only from level 40 (`when level>=40`): a player still under it passes it
-/// instead of standing at a trainer who cannot teach them. So does a riding step with no trainer on
-/// the route, only its notes (`step Riding at 40`: the Skyborne's, whose trainer is on Zephras Isle).
-/// A riding line in a step with other work goes into a step of its own right after it, with the
-/// step's `only` and zone, so the rest of the step stays for everyone. The way to a riding step and
-/// back, the travel-only steps right before and after it for its characters alone (its `only`), is
-/// gated with it, unless that trip goes on to more of theirs: the Trolls' flight to Booty Bay and boat
-/// to Ratchet for Xar'Ti in Sen'jin Village, and back. Run on the guides as written, after the travel
-/// repair, which writes such ways only for steps that apply.
+/// Riding Trainer", the Gnomes' "Mechanostrider Pilot") holds only from level 40 (`when level>=40`):
+/// a player still under it passes it instead of standing at a trainer who cannot teach them. So does
+/// a riding step with no trainer on the route, only its notes (`step Riding at 40`: the Skyborne's,
+/// whose trainer is on Zephras Isle). A riding line in a step with other work goes into a step of its
+/// own right after it, with the step's `only` and zone, so the rest of the step stays for everyone.
+/// The way to a riding step and back for its characters alone (its `only`) is gated with it
+/// ([`riding_trips`]), unless that trip goes on to more of theirs: the Trolls' flight to Booty Bay and
+/// boat to Ratchet for Xar'Ti in Sen'jin Village, and back. Run on the guides as written, after the
+/// travel repair, which writes such ways only for steps that apply.
 pub fn riding_at_level(files: &mut [String], data: &Data) {
 	let rider = |l: &str| {
 		re!(r"^\s+train\s+(\d+)\b")
@@ -1331,7 +1361,7 @@ pub fn riding_at_level(files: &mut [String], data: &Data) {
 			.and_then(|m| m[1].parse::<u32>().ok())
 			.and_then(|n| data.npcs.get(&n))
 			.and_then(|e| e.sub_name.as_deref())
-			.is_some_and(|s| re!(r"(?i)\briding (?:instructor|trainer)\b").is_match(s))
+			.is_some_and(|s| re!(r"(?i)\briding (?:instructor|trainer)\b|^Mechanostrider Pilot$").is_match(s))
 	};
 	let mount = |l: &str| matches!(head_ws(l), Some("vendor" | "buy" | "note"));
 	let titled = |l: &str| re!(r"^step Riding at \d+\s*$").is_match(l);
@@ -1389,13 +1419,18 @@ pub fn riding_at_level(files: &mut [String], data: &Data) {
 }
 
 /// [`riding_at_level`]'s trips: the travel-only steps right before and after each riding step it
-/// gated (`mine`: its gate lines) with the same `only` get the gate too, when there are both (a way
-/// there and a way back for them alone). With a way there but no way back of theirs alone, or the
-/// other way round, the step stays as it was, for everyone: gated alone, it left the player where
-/// the way there ends, and the next way, made for where the riding step stands, failed (the Tauren
-/// Druids' flight to Thunder Bluff from the Mulgore road, c19 Horde 40-50/02-feralas; the Undead's way
-/// back from Brill is shared with the Druids' and Paladins'). Those are the planner's to place at 40.
-/// A trip that goes on to more of the same characters' own steps is needed anyway: the step alone.
+/// gated (`mine`: its gate lines) with the same `only` get the gate too: a player under 40 neither
+/// goes nor comes back. A way there with no way back of theirs right after it: their way back further
+/// on, the travel-only steps of theirs, or of some of their classes, up to everyone's next step, past
+/// steps for other races or for some classes of every race (the Taurens' flight back to Gadgetzan
+/// after the Undead's and the Druids' trips; the Undead's from Brill, the Paladins' `only
+/// Undead,Paladin,Druid`, the Warlocks' and the others', c19p Horde 40-50/02-feralas), else none
+/// (the Humans' walk to Eastvale before everyone's way into Deadwind Pass): gated with it, they stay
+/// with everyone. A step between for theirs and another race's (`only Troll,Orc`), or another step
+/// of theirs that is not travel, keeps the trip, step and all, ungated: gated alone, it left the
+/// player where the way there ends, and the next way, made for where the riding step stands, failed
+/// (c19 Horde 40-50/02-feralas). A trip that goes on to more of the same characters' own steps is
+/// needed anyway: the step alone.
 fn riding_trips(mut out: Vec<String>, gate: &str, mine: &[usize]) -> Vec<String> {
 	let mut steps: Vec<(usize, usize)> = Vec::new();
 	let mut i = 0;
@@ -1416,6 +1451,7 @@ fn riding_trips(mut out: Vec<String>, gate: &str, mine: &[usize]) -> Vec<String>
 		let g: Vec<usize> = (s.0 + 1..s.1).filter(|&k| is_goal(&out[k])).collect();
 		!g.is_empty() && g.iter().all(|&k| matches!(head_ws(&out[k]), Some("goto" | "fly" | "hearth")))
 	};
+	let names = |l: &str| -> Vec<String> { l.trim().trim_start_matches("only").split(',').map(|x| trim(x).to_string()).filter(|x| !x.is_empty()).collect() };
 	// (Line index and what to do there: true, the gate goes in; false, this pass's gate line goes.)
 	let mut edits: Vec<(usize, bool)> = Vec::new();
 	for n in 0..steps.len() {
@@ -1423,14 +1459,35 @@ fn riding_trips(mut out: Vec<String>, gate: &str, mine: &[usize]) -> Vec<String>
 		let Some(o) = only(steps[n]) else { continue };
 		let same = |m: usize| only(steps[m]).as_deref() == Some(o.as_str());
 		let before: Vec<usize> = (0..n).rev().take_while(|&m| travel(steps[m]) && same(m)).collect();
-		let after: Vec<usize> = (n + 1..steps.len()).take_while(|&m| travel(steps[m]) && same(m)).collect();
+		let mut after: Vec<usize> = (n + 1..steps.len()).take_while(|&m| travel(steps[m]) && same(m)).collect();
 		let next = n + 1 + after.len();
 		if next < steps.len() && same(next) {
 			continue;
 		}
-		if before.is_empty() != after.is_empty() {
-			edits.push((g, false));
-			continue;
+		if !before.is_empty() && after.is_empty() {
+			// (Their way back further on, past steps for others alone; or none before everyone's next
+			// step. A step between for theirs and another race's, or of theirs but not travel: the trip
+			// is not theirs alone.)
+			let races_of = |l: &str| -> Vec<String> { names(l).into_iter().filter(|x| !x.starts_with('!') && !CLASSES.contains(&x.as_str())).collect() };
+			let own = races_of(&o);
+			let mut shared = false;
+			for m in n + 1..steps.len() {
+				let Some(om) = only(steps[m]) else { break };
+				let rs = races_of(&om);
+				if rs.iter().all(|r| !own.contains(r)) {
+					continue;
+				}
+				if rs.iter().all(|r| own.contains(r)) && travel(steps[m]) {
+					after.push(m);
+					continue;
+				}
+				shared = true;
+				break;
+			}
+			if shared {
+				edits.push((g, false));
+				continue;
+			}
 		}
 		for m in before.into_iter().chain(after) {
 			let (s, e) = steps[m];
@@ -2989,12 +3046,51 @@ mod tests {
 		let mut files = vec![trip("  only Troll\n")];
 		riding_at_level(&mut files, &data);
 		assert_eq!(files[0].matches("when level>=40").count(), 1, "{}", files[0]);
-		// (A way back shared with others, the Undead's from Brill with the Druids' and Paladins': the
-		// trip is not theirs alone, and the riding step gated alone left them where the way there ends
-		// for the next way, made for the trainer's spot. Left as it was, the planner's to place at 40.)
+		// (A way back for some of their classes, the Troll Druids' (`only Troll,Druid`, the Undead
+		// Paladins' from Brill): theirs too, gated.)
 		let mut files = vec![trip("").replace("step Fly to Stonard\n  only Troll", "step Fly to Stonard\n  only Troll,Druid")];
+		riding_at_level(&mut files, &data);
+		assert_eq!(files[0].matches("when level>=40").count(), 3, "{}", files[0]);
+		// (A way back shared with another race: the trip is not theirs alone, and the riding step gated
+		// alone left them where the way there ends for the next way, made for the trainer's spot. Left
+		// as it was.)
+		let mut files = vec![trip("").replace("step Fly to Stonard\n  only Troll", "step Fly to Stonard\n  only Troll,Orc")];
 		let was = files[0].clone();
 		riding_at_level(&mut files, &data);
 		assert_eq!(files[0], was);
+	}
+
+	#[test]
+	fn a_riding_trips_way_back_past_others_steps_or_none_is_gated_with_it() {
+		// c19p Horde 40-50/02-feralas: the Taurens' flight to Thunder Bluff and walk to Bloodhoof Village,
+		// their riding step, the Undead's and the Druids' trips, then the Taurens' flight back to
+		// Gadgetzan: the riding step was left ungated with a way back further on.
+		let mut data = Data::default();
+		data.npcs.insert(3690, serde_json::from_value(serde_json::json!({ "name": "Kar Stormsinger", "subName": "Kodo Riding Instructor" })).unwrap());
+		data.npcs.insert(4732, serde_json::from_value(serde_json::json!({ "name": "Randal Hunter", "subName": "Horse Riding Instructor" })).unwrap());
+		data.npcs.insert(7954, serde_json::from_value(serde_json::json!({ "name": "Binjy Featherwhistle", "subName": "Mechanostrider Pilot" })).unwrap());
+		let tauren = "guide a\n\nstep Fly to Thunder Bluff\n  only Tauren\n  zone Tanaris\n  fly \"Thunder Bluff\"\n\nstep Mulgore\n  only Tauren\n  zone Mulgore\n  goto 46.8,62.0 \"Mulgore\"\n\nstep Riding at 40\n  only Tauren\n  zone Mulgore\n  train 3690 optional\n\nstep Thunder Bluff\n  only Druid,Paladin\n  zone Thunder Bluff\n  fly \"Thunder Bluff\"\n  train class\n\nstep Fly to Gadgetzan\n  only Tauren\n  zone Thunder Bluff\n  fly \"Gadgetzan\"\n\nstep Next\n  kill 5477";
+		let mut files = vec![tauren.to_string()];
+		riding_at_level(&mut files, &data);
+		assert_eq!(files[0].matches("when level>=40").count(), 4, "{}", files[0]);
+		assert!(files[0].contains("step Thunder Bluff\n  only Druid,Paladin\n  zone Thunder Bluff\n  fly"), "{}", files[0]);
+		// (No way back: the next step is everyone's, the Humans' walk to Eastvale before everyone's way
+		// into Deadwind Pass; the Gnomes' Binjy too.)
+		for (npc, race) in [(4732, "Human"), (7954, "Gnome")] {
+			let mut files = vec![format!("guide a\n\nstep Elwynn Forest\n  only {race}\n  zone Elwynn Forest\n  goto 84.6,64.5 \"Elwynn Forest\"\n\nstep Riding at 40\n  only {race}\n  zone Elwynn Forest\n  train {npc} optional\n\nstep Into Deadwind Pass\n  zone Deadwind Pass\n  goto 33.1,36.0 \"Into Deadwind Pass\"")];
+			riding_at_level(&mut files, &data);
+			assert_eq!(files[0].matches("when level>=40").count(), 2, "{}", files[0]);
+		}
+	}
+
+	#[test]
+	fn the_route_fixes_optional_quests_are_written_optional() {
+		// c19p: v1's `accept 338` (The Green Hills of Stranglethorn) and `accept 712` (Study of the
+		// Elements: Rock) required rare-drop chains the route fixes keep optional.
+		let mut files = vec!["guide a\n\nstep Nesingwary\n  accept 185\n  accept 338                          -- Barnil Stonepot\n\nstep Pages\n  complete 339                        -- Chapter I\n  collect 4628 quest 712 optional\n  turnin 712 only Orc".to_string()];
+		let optional: FxHashSet<u32> = [338, 339, 712].into_iter().collect();
+		optional_by_fixes(&mut files, &optional);
+		// (The hand-in as written: it applies only with the quest done.)
+		assert_eq!(files[0], "guide a\n\nstep Nesingwary\n  accept 185\n  accept 338 optional                 -- Barnil Stonepot\n\nstep Pages\n  complete 339 optional               -- Chapter I\n  collect 4628 quest 712 optional\n  turnin 712 only Orc");
 	}
 }

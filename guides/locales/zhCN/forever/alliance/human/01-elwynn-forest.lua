@@ -66,8 +66,6 @@ return {
 
 	-- Step 9: Deputy Willem
 	["She stands by her cart at the vineyard east of the Abbey."] = "她站在修道院东边葡萄园的推车旁。",
-	-- {npc:459} Drusilla La Salle
-	["{npc:459}: Summon Imp"] = "",
 
 	-- Step 10: The vineyards and Garrick Padfoot
 	-- {npc:103} Garrick Padfoot
@@ -128,7 +126,8 @@ return {
 	["The lake shore"] = "湖岸",
 	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake
 	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399}在旅店东北方扎营；{npc:6306}、{npc:383}和{npc:1651}站在镇子东边的{area:18}岸边。",
-	["Sit (/sit) by his campfire until you have Boosted Rest"] = "",
+	-- {spell:1229451} Boosted Rest
+	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "",
 
@@ -379,7 +378,6 @@ return {
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "回去找{npc:6122}。在{object:2164}地下室的召唤法阵处使用{item:6928}，击败召唤出的虚空行者。",
 	["Subdue the voidwalker"] = "制服虚空行者",
-	["Summon Voidwalker"] = "",
 
 	-- Step 83: Back to Elwynn Forest
 	-- {area:12} Elwynn Forest
@@ -408,9 +406,8 @@ return {
 	["{npc:822}: tame it with the {item:15908}"] = "{npc:822}：用{item:15908}驯服它",
 	-- {npc:822} Young Forest Bear
 	["Tame {npc:822}"] = "",
-	["Tame Beast"] = "",
-	-- {npc:258930} Isaac Chan
-	["{npc:258930}, beside her: Beast Training"] = "",
+	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
+	["{npc:258930}, beside her: {spell:5149}"] = "",
 
 	-- Step 88: Maybell Maclure
 	-- {area:64} Maclure Vineyards

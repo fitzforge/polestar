@@ -588,6 +588,54 @@ fn a_goal_with_no_place_after_a_flight_is_not_at_the_stop_left() {
 }
 
 #[test]
+fn dup_trip_is_a_flight_round_trip_out_of_a_town_and_back_for_what_the_first_visit_could_do() {
+	// c19p Horde 30-40/03-arathi-highlands:410-430: off the zeppelin in Orgrimmar (Soothing Spices),
+	// the flight to the Crossroads for Korran, the flight back to Orgrimmar to train at the same level,
+	// and the flight to the Crossroads again. The training landed at the flight master, 190 yd from
+	// where the first visit stood: one town, not one spot.
+	let (org, org_fm, sorek, xr_fm, korran, regthar) =
+		(pt(0.0, 0.0, 1454, 1), pt(8.0, 17.0, 1454, 1), pt(49.0, -32.0, 1454, 1), pt(300.0, 300.0, 1413, 1), pt(303.0, 302.0, 1413, 1), pt(300.0, 150.0, 1413, 1));
+	let mut f = Facts::default();
+	for q in [1145, 1718, 1361] {
+		open_quest(&mut f, q, &[]);
+	}
+	let fly = |land: WPt, lvl: f64| {
+		let mut g = goal("fly", None, None);
+		(g.lvl, g.lvl_after, g.land) = (lvl, lvl, Some(land));
+		g
+	};
+	let free = |t: &str, lvl: f64| {
+		let mut g = goal(t, None, None);
+		(g.lvl, g.lvl_after) = (lvl, lvl);
+		g
+	};
+	let round = |train_lvl: f64| {
+		let mut train = free("train", train_lvl);
+		train.class = true;
+		walk(vec![
+			at("goto", None, org, 38.2),
+			free("buy", 38.2),
+			at("goto", None, org_fm, 38.2),
+			fly(xr_fm, 38.2),
+			at("accept", Some(1145), korran, 38.2),
+			at("goto", None, xr_fm, 38.2),
+			fly(org_fm, 38.2),
+			train,
+			at("accept", Some(1718), sorek, train_lvl),
+			at("goto", None, org_fm, train_lvl),
+			fly(xr_fm, train_lvl),
+			at("turnin", Some(1361), regthar, train_lvl),
+		])
+	};
+	assert_eq!(lines(&dup_trips(&round(38.2), &f)), vec![("horde/01-durotar.guide".into(), 107, "dup-trip".into())]);
+	// (A training a level later: the trip waited for it.)
+	assert!(dup_trips(&round(39.1), &f).is_empty());
+	// A walk out of town to a camp and back to another spot in it is not a flight round trip: as before.
+	let w = walk(vec![at("accept", Some(1718), org, 38.2), at("accept", Some(1145), korran, 38.2), at("accept", Some(1361), org_fm, 38.2)]);
+	assert!(dup_trips(&w, &f).is_empty());
+}
+
+#[test]
 fn next_to_is_an_open_quest_whose_giver_the_walk_stood_by_before() {
 	// Ratchet: the walk takes 1 at Gazlowe, leaves for the coast, comes back for 2 (open all along).
 	let (gazlowe, coast) = (pt(60.0, 60.0, 1413, 1), pt(60.0, 260.0, 1413, 1));

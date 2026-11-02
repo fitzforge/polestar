@@ -3,164 +3,14 @@ guide forever/alliance/gnome/01-dun-morogh
 title Dun Morogh
 faction Alliance
 race Gnome
-levels 1-13
+levels 1-12
 zone Dun Morogh
 next forever/alliance/02-westfall
 
-# v1 improved: order from the simulator's search (Gnome Alliance, 2000000 tries, seeded with v1's order;
-# 125.2 h -> 116.9 h to 60 in the model), written by polestar apply-route.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
 # Added here: Protecting the Herd (314).
-# The notes above describe v1's order; the steps below are the improved one.
-
-# Route: the simulator's consensus route for the Dwarf start; Gnomes share it.
-# One visit, levels 1 to about 12.3, no grind stops.
-#
-# Flow: Coldridge Valley -> Kharanos (bind) and Steelgrill's Depot -> the
-# Grizzled Den and Gretchen's camp -> Rumbleshot -> Brewnall Village and
-# Frostmane Hold -> back east to Kharanos -> Shimmer Ridge and Brewnall
-# again -> Old Icebeard's cave -> east through Kharanos and the depot, then
-# the whole east in one sweep: Misty Pine Refuge -> Amberstill Ranch ->
-# Farsen and the Gol'Bolar Quarry -> Helm's Bed Lake -> South Gate Outpost ->
-# North Gate Outpost -> back west past Amberstill Ranch ->
-# Ironforge (training) and the tram to Stormwind.
-#
-# Order changes against the export:
-# - Felix's parts and the Mornbrew errand (3361, 3364, 3365) are finished
-#   before leaving Coldridge Valley instead of walking back for Nori.
-# - Scalding Mornbrew Delivery (3364) is taken from Nori with "The Stolen
-#   Journal" (218) and run straight to Anvilmar: Durnan's Scalding Mornbrew
-#   (10439) vanishes after five minutes (ItemSparse DurationInInventory
-#   300 s), and the walk to Durnan is 1:05 by the addon's travel planner
-#   (travel route), about a minute in a recorded run. Taken on the first
-#   visit, it went cold during the troll cave and Grik'nir. Grik'nir comes
-#   after Anvilmar, so the journal and "Bring Back the Mug" (3365; Nori's Mug
-#   does not expire) are handed in on one visit to Grelin's camp.
-# - "Grund and Gozwin" (97277, from level 4) is done from Anvilmar while still
-#   in the valley and handed in on the way south to the troll cave, and "The
-#   Adventurer" (96628) is taken from Thalos on the way out, so the route no
-#   longer returns to Coldridge after Rumbleshot. The level 4 spells are
-#   trained in Anvilmar first: with them the Snow Leopard Prowler (level 6)
-#   is safe at level 4 for every class (done before leaving Coldridge on
-#   every Dwarf and Gnome class in the beta; recorded on a Gnome Mage and a
-#   Dwarf Rogue, about 3 minutes each).
-# - Supplies to Tannok (2160) is taken from Hands Springsprocket at the
-#   tunnel when you leave Coldridge Valley, beside Thalos, not on the first
-#   trogg hunt: about 250 yards out of the way there, 20 at the tunnel.
-#   0.010 h sooner to 10 and to 20 under the simulator.
-# - The Kharanos and depot pickups are grouped: the simulator shuttled between
-#   them several times. Beldin's "A Visitor to Dun Morogh" (96408) is taken at
-#   the depot on the way east after Brewnall instead of from the quarry.
-# - Brewnall is done twice, the second time (Shimmerweed on Shimmer Ridge,
-#   the Thunder Ale for Marleth, Frosthowl's fish, then Tundra MacGrann's
-#   stash on the way back) before anything east of the depot, so the east of
-#   Dun Morogh is walked once: Misty Pine, the ranch, Farsen, the quarry, the
-#   lake, the South Gate and the North Gate, then back west to Ironforge.
-#   With the east split around a hearth and a second Brewnall visit, the
-#   route walked it two or three times (c14, c15: about 5,000 yards more).
-# - Quest chains now follow their prerequisites (QuestieDB 1.0.6): each
-#   follow-up is taken after the prerequisite's turn-in.
-#   - "Secure the Mountain" 98323 after 98319 (Cornelius), at Gretchen.
-#   - Father Gavin: 99160 and 99162 after "Finding Warmth" (99159), 99161
-#     after 99160.
-#   - "Stolen Blasting Powder" 95214 after the Empty Powder Keg (95213), at
-#     Thesten.
-#   - "Nip 'Em in the Bud" (96390) after "Farsen's Watch" (96392).
-# - "Beer Basted Boar Ribs" (384) is taken from Ragnar on arrival in
-#   Kharanos, before the cooking lesson: on Forever he offers it to
-#   characters without Cooking too (seen in game; QuestieDB's Forever store
-#   lists no skill, only pfQuest's Classic data lists Cooking). Its Rhapsody
-#   Malt is bought from Innkeeper Belm in the same visit.
-# - Camping 101: Cooking (96629) and the Cooking lesson wait for the return
-#   with the ribs: on arrival a new character has spent its copper on class
-#   training (hit twice in play, noted in a recorded Dwarf Hunter run). The
-#   lesson comes before the turn-in, as in a recorded Dwarf Paladin run.
-# - Kharanos is done outside first: Senir, Eric's campfire (The Adventurer and
-#   The Great Outdoors) and Tharek's forge, then one visit inside the
-#   distillery, instead of in, out to the campfire and back in for Gremlock.
-# - Gretchen, at the mouth of the Grizzled Den, is visited first, so the den
-#   is entered once for the shipments, the manes and Cornelius.
-# - Rumbleshot's ammo is taken from the crate by Gretchen's camp (looted at
-#   44.1,57.0 in a recorded run) and handed to Hegnar before the walk back to
-#   Kharanos, instead of a second trip out.
-# - Brewnall's quests are taken before Frostmane Hold, so the bears, boars
-#   and leopards killed on the way to the Hold count toward "A Favor for
-#   Evershine" (319) instead of being wasted.
-# - Farsen's quests and Senator Mehr's "The Public Servant" (433) are taken
-#   on the way into the quarry, so the Bonesnappers and Dark Iron Spies of
-#   Helm's Bed Lake count, and handed in before the walk east to the South
-#   Gate Outpost, instead of reaching the South Gate first and walking back
-#   west for the kills (played at level 11 in a recorded Dwarf Paladin run).
-#
-# Left out: "Stout to Kadrell" (414) is never turned in (the route goes to
-# Westfall, not Loch Modan). "The Reports" (291) is handed to Senator Barin
-# Redstone on the way through Ironforge to the Deeprun Tram.
-# "The Adventurer" (96628) is taken from Thalos once "Senir's Observations"
-# (282) is handed in, and handed to Eric before "The Great Outdoors" (96608),
-# which it leads to: taken after it, Thalos no longer offers it.
-# "The Quarry's Smith" (95217) is optional: Frast Dokner offers it to
-# blacksmiths (QuestieDB lists Blacksmithing), and its Copper Bars come from
-# smelting Copper Ore or the trade vendors. The new export drops it.
-# Your Package Has Arrived (97263, level 2) is an optional errand in
-# Ironforge before the tram: a misplaced package by the Tinker Town mailbox
-# goes to Eldrun Stormbreaker, the shaman trainer, north of the Great Forge.
-# Not taken: Old Ironforge Incursion (96393), Farsen's follow-up to the Dark
-# Iron Map (96391), is a level 16 group quest in the Hall of Thanes dungeon,
-# and so are The Restless Dead (96394) and Important Heirlooms (96403) from
-# Ironforge; come back with a group. Data Hoarders (95041) starts from Jemma
-# Quikswitch in Ironforge and wants punch cards from the snowdrifts by
-# Gnomeregan, at the far west end of the route: the route reaches Ironforge
-# only on the way out.
-# Class quests, as class-only steps:
-# - Warlock (Gnome): Beginnings (1599, Summon Imp) in Coldridge Valley; The
-#   Slaughtered Lamb (1715) from Lago Blackwrench in Ironforge; on arrival in
-#   Stormwind, Gakin, Surena Caledon at the Brackwell Pumpkin Patch in Elwynn
-#   and The Binding (1688, 1689, Summon Voidwalker).
-# - Shaman (Dwarf): Call of Earth (94373-94375) in Coldridge Valley; Call of
-#   Fire (94449, 94465-94468) from Kharanos through Bruegs Kindleborn's cave
-#   by the South Gate and Braldir Ashmantle in Loch Modan, at about 11-12.
-# - Hunter (Dwarf): Etched Rune (3108) to Thorgas Grimson at Anvilmar;
-#   Grif Wildheart's taming quests (6064, 6084, 6085: Tame Beast) at
-#   Kharanos on the way east after the second Brewnall visit; Training the
-#   Beast (6086) in Ironforge. That Kharanos step holds no training: the route
-#   places the level 10 training itself, and a `train class` there carried
-#   the step's class accepts (and so the taming) along to its Ironforge stop.
-# - Paladin (Dwarf): the Tome of Divinity quests (2999 to 1785, Redemption)
-#   at the end: Ironforge, Narm Faulk by Helm's Bed Lake, then Thelsamar in
-#   Loch Modan for Honor Students (6387, 6391, 6388) and its flight back to
-#   Ironforge: about 70 seconds more than walking back up to the gates, for
-#   about 1,000 XP and the Thelsamar flight point (recorded Dwarf Paladin
-#   run). Return to Brock (6392) is left for a later visit to Loch Modan.
-#   The Tome needs level 12: Paladins top up on the road up to Ironforge
-#   when the route arrives below it.
-# - Priest: Desperate Prayer (5637, Dwarf; handed in at the Cathedral of Light
-#   on arrival in Stormwind) and Confounding Flash (94824, Gnome; Ironforge) from
-#   Maxan Anvol in Kharanos.
-#   Forever rewords Desperate Prayer to name High Priest Rohan in Ironforge;
-#   the quest data still has Laurena in Stormwind take it, so the route keeps
-#   her.
-# - Priest: In Favor of the Light / Garments of the Light (5626, 5625) reward
-#   a robe, not a spell: not taken.
-# - Warrior: the Defensive Stance quests (1638, 1639, 1640, 1665) on arrival
-#   in Stormwind by the tram, instead of the Vejrek detour from Ironforge.
-# - Mage (Gnome): Glyphic Memorandum (3114) in Anvilmar; Mirror Lake (1861)
-#   from Jennea Cannon on arrival in Stormwind, its water taken on the ride to
-#   Westfall and handed in at the 02-westfall Stormwind stop. Speak with Bink
-#   and the Mage-tastic Gizmonitor (1879, 1880) are not taken: Bink is in
-#   Ironforge at the end and the toolbox lies back by Gnomeregan.
-# - Rogue: their level 10 quests reward items, not spells: not taken.
-#   Rogues: see the Class guide Blade of Cunning (Alliance).
-# - Shaman (Dwarf): Archaic Rune (98581) from Sten Stoutarm to Teo
-#   Hammerstorm in Anvilmar.
-# - Shaman, not taken: Call of Water (94494-94505) runs from Ironforge to
-#   Loch Modan, the Wetlands, Redridge, Ashenvale and Westfall, places the
-#   route reaches years apart in levels; Call of Air (94789, Arathi) and the
-#   33-40 chain are Class guides too: forever/class/shaman/call-of-water-alliance
-#   and call-of-air-alliance. Earth Sapta (94472), Fire Sapta (94473) and Call
-#   of Earth from Eldrun Stormbreaker (96243, a level 10 pointer to Teo for
-#   Shamans who skipped 94373) are not needed on the route.
-# - Level 1 class letters are taken: every class's letter from Sten Stoutarm
-#   (Dwarf 3106-3110 and 98581, Gnome 3112-3115 and 98574) goes to its
-#   trainer inside Anvilmar once Dwarven Outfitters is handed in.
 
 # ---------------------------------------------------------------- Coldridge Valley
 
@@ -175,27 +25,15 @@ step Young wolves
 step Anvilmar
   turnin 179                                  -- Sten Stoutarm
   accept 233                                  -- Sten Stoutarm
-  accept 3106 only Dwarf,Warrior              -- Sten Stoutarm: Simple Rune
   accept 3112 only Gnome,Warrior              -- Sten Stoutarm: Simple Memorandum
-  accept 3107 only Dwarf,Paladin                    -- Sten Stoutarm: Consecrated Rune
-  accept 3108 only Dwarf,Hunter                     -- Sten Stoutarm: a rune for Thorgas Grimson
-  accept 3109 only Dwarf,Rogue                -- Sten Stoutarm: Encrypted Rune
   accept 3113 only Gnome,Rogue                -- Sten Stoutarm: Encrypted Memorandum
-  accept 3110 only Dwarf,Priest               -- Sten Stoutarm: Hallowed Rune
   accept 98574 only Gnome,Priest              -- Sten Stoutarm: Hallowed Memorandum
-  accept 98581 only Dwarf,Shaman                    -- Sten Stoutarm: read the Archaic Rune
   accept 3114 only Mage                       -- Sten Stoutarm: Glyphic Memorandum
   accept 3115 only Warlock                    -- Sten Stoutarm: Tainted Memorandum
   accept 170                                  -- Balir Frosthammer, next to Sten
-  turnin 3106 only Dwarf,Warrior              -- Thran Khorman, the warrior trainer; inside
   turnin 3112 only Gnome,Warrior              -- Thran Khorman, the warrior trainer
-  turnin 3107 only Dwarf,Paladin                    -- Bromos Grummner, the paladin trainer
-  turnin 3108 only Dwarf,Hunter                     -- Thorgas Grimson, the hunter trainer
-  turnin 3109 only Dwarf,Rogue                -- Solm Hargrin, the rogue trainer
   turnin 3113 only Gnome,Rogue                -- Solm Hargrin, the rogue trainer
-  turnin 3110 only Dwarf,Priest               -- Branstock Khalder, the priest trainer
   turnin 98574 only Gnome,Priest              -- Branstock Khalder, the priest trainer
-  turnin 98581 only Dwarf,Shaman                    -- Teo Hammerstorm, inside Anvilmar
   turnin 3114 only Mage                       -- Marryk Nurribit, the mage trainer, inside Anvilmar
   turnin 3115 only Warlock                    -- Alamar Grimm, inside Anvilmar
   train class                                 -- Inside Anvilmar
@@ -227,7 +65,6 @@ step Grelin Whitebeard
   tip Grelin and Nori Pridedrift camp at the south-west edge of the valley, below the troll cave.
   turnin 234                                  -- Grelin Whitebeard
   accept 182
-  accept 3364                                 -- Nori Pridedrift: timed, five minutes to reach Durnan in Anvilmar
 
 step Frostmane Troll Whelp on the way
   along until q182
@@ -243,6 +80,7 @@ step Coldridge Valley: kill these as you meet them
 
 step Grelin Whitebeard
   label q182
+  accept 3364                                 -- Nori Pridedrift: timed, five minutes to reach Durnan in Anvilmar
   turnin 182
   accept 218
 
@@ -313,6 +151,7 @@ step Kharanos
   accept 384                                  -- Ragnar Thunderbrew
   turnin 2160                                 -- Tannok Frosthammer, inside
   accept 99158                                -- Maxan Anvol, upstairs
+  train class                                 -- Last: some classes' trainers stand outside
 
 step Steelgrill's Depot
   tip Follow the road north-east from Kharanos to the depot below the Ironforge road.
@@ -342,26 +181,23 @@ step Mountaineer Gretchen
   tip Gretchen camps just outside the Grizzled Den, the wendigo cave south-west of Kharanos.
   turnin 98322                                -- Mountaineer Gretchen
   accept 98319
-
-step Rumbleshot's Ammo
-  tip Hegnar Rumbleshot camps south-west of it, by the road to Coldridge.
-  turnin 5541                                 -- Hegnar Rumbleshot
+  goto 42.57,54.68 live "The Grizzled Den"
 
 step The Grizzled Den
   tip Flintfire's shipments lie on the cave floor, and Mountaineer Cornelius is missing somewhere inside.
   tip Careful: Wendigos stand close together inside the cave, so fights easily pull several at once; drawing them out one at a time with ranged attacks from outside avoids this.
-  goto 42.57,54.68 live "The Grizzled Den"
   collect 280413 quest 98321.1                -- Flintfire's Shipment
   collect 2671 quest 313.1                    -- Wendigo Mane
   goto 42.9,49.6 "Mountaineer Cornelius"
   complete 98319
 
-step Kharanos and the depot
-  turnin 98321                                -- Tognus Flintfire, below ground
-
 step Mountaineer Gretchen
   turnin 98319
   accept 98323
+
+step Rumbleshot's Ammo
+  tip Hegnar Rumbleshot camps south-west of it, by the road to Coldridge.
+  turnin 5541                                 -- Hegnar Rumbleshot
 
 step Kharanos and the depot
   turnin 98323                                -- Senir Whitebeard
@@ -371,6 +207,7 @@ step Kharanos
 
 step Kharanos and the depot
   accept 287                                  -- Senir Whitebeard
+  turnin 98321                                -- Tognus Flintfire, below ground
 
 step Thunderbrew Distillery
   buy 2894 x1 npc 1247                        -- Rhapsody Malt, from Innkeeper Belm; upstairs
@@ -382,9 +219,6 @@ step Kharanos
   turnin 96629                                -- Gremlock Pilsnor
   turnin 384                                  -- Ragnar Thunderbrew
   sethome "Thunderbrew Distillery"    -- Upstairs
-
-step Thunderbrew Distillery
-  train class                                 -- Last: some classes' trainers stand outside
 
 step Kharanos and the depot
   turnin 313                                  -- Pilot Stonegear, at the depot
@@ -474,10 +308,8 @@ step Tundra MacGrann
 step Kharanos
   tip Back east through Kharanos: the class quests here wait for level 10.
   level 10 only Hunter
-  accept 6064 only Dwarf,Hunter                     -- Grif Wildheart, at the smithy
   level 10 only Shaman
   accept 94449 only Shaman                    -- Ingrid Dunwald: Bruegs Kindleborn by the South Gate takes it
-  accept 5637 only Priest,Dwarf               -- Maxan Anvol: High Priestess Laurena in Stormwind takes it
   accept 94824 only Priest,Gnome              -- Maxan Anvol: High Priestess Mims in Ironforge takes it
 
 step Steelgrill's Depot
@@ -531,20 +363,6 @@ step Dun Morogh
   only Hunter
   zone Dun Morogh
   goto 45.8,53.0 "Dun Morogh"
-
-step Taming the Beast
-  zone Dun Morogh
-  only Hunter
-  tip Each of Grif Wildheart's quests hands you a Taming Rod: use it on the beast he names, then bring the rod back to him at the Kharanos smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of Kharanos.
-  kill 1126 quest 6064.1 "Tame Large Crag Boar" only Dwarf -- Large Crag Boar: tame it with the Taming Rod
-  turnin 6064 only Dwarf                                 -- Grif Wildheart
-  accept 6084 only Dwarf
-  kill 1201 quest 6084.1 "Tame Snow Leopard" only Dwarf  -- Snow Leopard: tame it with the Taming Rod
-  turnin 6084 only Dwarf
-  accept 6085 only Dwarf
-  kill 1196 quest 6085.1 "Tame Ice Claw Bear" only Dwarf -- Ice Claw Bear: tame it with the Taming Rod
-  turnin 6085 only Dwarf                                 -- Tame Beast
-  accept 6086 only Dwarf                                 -- Belia Thundergranite in Ironforge takes it
 
 step Rudra Amberstill
   zone Dun Morogh
@@ -751,47 +569,21 @@ step The Tome of Divinity
   zone Ironforge
   tip Follow the road up to Ironforge and take the Mystic Ward: Brandur Ironhammer, Tiza Battleforge and Muiredon Battleforge are in the Hall of Mysteries, Tiza and Muiredon on its upper floor: the stairs up start just north-east of Brandur. John Turner, a beggar, wanders the city. He asks for ten Linen Cloth: the troggs and trolls of Dun Morogh drop it, and the Auction House sells it.
   level 12 only Paladin
-  accept 2999 only Dwarf                                 -- Brandur Ironhammer
-  turnin 2999 only Dwarf                                 -- Tiza Battleforge
-  accept 1646 only Dwarf                                 -- From the Tome of Divinity she gives you
-  turnin 1646 only Dwarf
-  accept 1647 only Dwarf
-  turnin 1647 only Dwarf                                 -- John Turner
-  accept 1648 only Dwarf
-  collect 2589 quest 1648.1 only Dwarf                   -- Linen Cloth
-  turnin 1648 only Dwarf
-  accept 1778 only Dwarf
-  turnin 1778 only Dwarf                                 -- Tiza Battleforge
-  accept 1779 only Dwarf
-  turnin 1779 only Dwarf                                 -- Muiredon Battleforge
-  accept 1783 only Dwarf
-  complete 1783 @78.32,58.09 only Dwarf,Paladin -- Use the Symbol of Life on Narm Faulk
-  turnin 1783 only Dwarf,Paladin -- Narm Faulk
 
 step Narm Faulk
   only Paladin
   zone Dun Morogh
   level 12 only Paladin
-  accept 1784 only Dwarf
-  collect 6847 quest 1784.1 only Dwarf                   -- Dark Iron Script: Dark Iron Spies
-
-step Muiredon Battleforge
-  only Paladin
-  zone Ironforge
-  turnin 1784 only Dwarf                                 -- Muiredon Battleforge
 
 step Muiredon Battleforge
   only Paladin
   zone Ironforge
   level 12 only Paladin
-  accept 1785 only Dwarf
-  turnin 1785 only Dwarf                                 -- Tiza Battleforge: Redemption
 
 step Ironforge class quests
   only Hunter,Priest,Warlock
   zone Ironforge
   tip Belia Thundergranite is in the Hall of Arms, High Priestess Mims in the Hall of Mysteries, Lago Blackwrench in the Forlorn Cavern.
-  turnin 6086 only Dwarf,Hunter                     -- Belia Thundergranite: Beast Training
   turnin 94824 only Priest,Gnome              -- High Priestess Mims: Confounding Flash
   accept 1715 only Warlock                    -- Lago Blackwrench: Gakin the Darkbinder in Stormwind takes it
 
@@ -886,20 +678,6 @@ step Woo Ping
   when money>=10s
   when !skill "Two-Handed Swords" 1
   tip While you're here: learn Two-Handed Swords from Woo Ping (Trade District, 10 silver); two-handers level a Warrior fastest.
-  train 11867                         -- Woo Ping
-
-step Desperate Prayer
-  only Dwarf,Priest
-  zone Stormwind City
-  tip High Priestess Laurena is in the Cathedral of Light.
-  turnin 5637 only Dwarf                                 -- High Priestess Laurena: Desperate Prayer
-
-step Woo Ping
-  only Priest,Dwarf
-  zone Stormwind City
-  when money>=10s
-  when !skill "Staves" 1
-  tip While you're here: learn Staves from Woo Ping (Trade District, 10 silver); a staff carries more spell stats than a one-hander while you level.
   train 11867                         -- Woo Ping
 
 step Gakin the Darkbinder

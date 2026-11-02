@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Wintersaber Trainers Reputation"] = "",
-	-- {zone:1452} Winterspring
-	["The Winterspring Frostsaber: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "",
+	-- {spell:17229} Winterspring Frostsaber · {zone:1452} Winterspring
+	["The {spell:17229}: 840 quest turn-ins in {zone:1452}, with Timbermaw reputation on the side."] = "",
 	-- {area:1769} Timbermaw Hold · {item:21383} Winterfall Spirit Beads · {quest:5201} Winterfall Intrusion
 	["{area:1769} reputation on the side: 50 and about 4 {item:21383} per {quest:5201}"] = "",
 

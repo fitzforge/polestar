@@ -33,8 +33,8 @@ return {
 
 	-- Step 4: Gather your writs
 	["Gather your writs"] = "",
-	-- {item:3388} Strong Troll's Blood Potion
-	["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, named in its quest (not always the writ's title: a Lesser Troll's Blood Elixir writ wants a {item:3388}). Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "",
+	-- {spell:3176} Lesser Troll's Blood Elixir · {item:3388} Strong Troll's Blood Potion
+	["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, named in its quest (not always the writ's title: a {spell:3176} writ wants a {item:3388}). Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "",
 	["Take the quests of the writs you can fill"] = "",
 
 	-- Step 5: Duskwood writ customers

@@ -39,8 +39,8 @@ return {
 	["{quest:1679} stands in the {object:32390} in the {object:32359}."] = "",
 
 	-- Step 6: Vejrek
-	-- {quest:1678} Vejrek · {area:135} Frostmane Hold · {spell:71} Defensive Stance
-	["{quest:1678} (level 11, a lone troll) waits at his hut on a hill south of {area:135}, near the mountains at the top of a short ramp, with no other trolls around; the hut at the front of {area:135} is the wrong one. He fights in {spell:71} and sunders your armor; Thunder Clap slows him. His head always drops; he returns about 8 minutes after dying."] = "",
+	-- {quest:1678} Vejrek · {area:135} Frostmane Hold · {spell:71} Defensive Stance · {spell:6343} Thunder Clap
+	["{quest:1678} (level 11, a lone troll) waits at his hut on a hill south of {area:135}, near the mountains at the top of a short ramp, with no other trolls around; the hut at the front of {area:135} is the wrong one. He fights in {spell:71} and sunders your armor; {spell:6343} slows him. His head always drops; he returns about 8 minutes after dying."] = "",
 
 	-- Step 7: Tormus Deepforge
 	-- {npc:6114} Muren Stormpike · {spell:71} Defensive Stance · {quest:1680} Tormus Deepforge · {object:32372} Great Forge (no name in this language: may be words) · {zone:1455} Ironforge

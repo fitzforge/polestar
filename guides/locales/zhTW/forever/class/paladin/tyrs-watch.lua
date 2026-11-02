@@ -13,10 +13,10 @@ return {
 	["{spell:7328} to raise fallen allies, plus a weapon and a shield for a new Forsaken paladin."] = "用{spell:7328}復活倒下的盟友，另外還有給新的被遺忘者聖騎士的一把武器和一面盾牌。",
 
 	-- Step 1: Aramis Hammerhand
-	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell
-	["{npc:1569} gives you a {item:282423} after The Mindless Ones: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. Holy Light hurts a Forsaken paladin a little each time: watch your health."] = "",
-	-- {npc:259377} Injured Deathguard
-	["Heal 5 {npc:259377} with Holy Light"] = "",
+	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
+	["{npc:1569} gives you a {item:282423} after The Mindless Ones: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "",
+	-- {npc:259377} Injured Deathguard · {spell:635} Holy Light
+	["Heal 5 {npc:259377} with {spell:635}"] = "",
 
 	-- Step 2: Coming to Terms
 	-- {npc:244808} Aramis Hammerhand · {npc:246143} Frightened Paladin

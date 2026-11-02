@@ -12,64 +12,56 @@ return {
 	-- {item:16746} Warsong Report · {item:16783} Bundle of Reports
 	["{item:16746}, from the {item:16783}"] = "",
 
-	-- Step 3: Warsong Scout
-	-- {npc:12862} Warsong Scout
-	["Keep north on the road. The {npc:12862} waits at the Warsong lumber camp, south of Splintertree."] = "길을 따라 계속 북쪽으로 가세요. {npc:12862}은(는) 토막나무 주둔지 남쪽의 전쟁노래부족 벌목기지에서 기다립니다.",
-
 	-- Step 4: Ashenvale Outrunners
 	-- {npc:12867} Kuray'bin
 	["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "",
 
-	-- Step 5: Splintertree Post
-	-- {area:431} Splintertree Post · {area:428} Night Run
-	["North up the road to {area:431} and {area:428} beside it."] = "",
+	-- Step 5: Warsong Scout
+	-- {npc:12862} Warsong Scout
+	["Keep north on the road. The {npc:12862} waits at the Warsong lumber camp, south of Splintertree."] = "길을 따라 계속 북쪽으로 가세요. {npc:12862}은(는) 토막나무 주둔지 남쪽의 전쟁노래부족 벌목기지에서 기다립니다.",
 
-	-- Step 6: Splintertree Post
+	-- Step 7: Splintertree Post
 	-- {area:431} Splintertree Post
 	["{area:431} is just north up the road."] = "{area:431}은(는) 길을 따라 바로 북쪽에 있습니다.",
 
-	-- Step 7: Night Run
-	-- {npc:12696} Senani Thunderheart · {area:428} Night Run
-	["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696}은(는) 토막나무 주둔지 바로 북동쪽의 전쟁노래부족 야영지인 {area:428}에서 사냥 게시판 옆에 서 있습니다.",
+	-- Step 8: Night Run
+	-- {npc:12696} Senani Thunderheart · {area:428} Night Run · {area:431} Splintertree Post
+	["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board.\nNorth up the road to {area:431} and {area:428} beside it."] = "",
 	-- {npc:12696} Senani Thunderheart · {area:331} Ashenvale
 	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {area:331} visit, at 27."] = "",
 
-	-- Step 8: Warsong Outrider
+	-- Step 9: Warsong Outrider
 	-- {npc:12864} Warsong Outrider · {area:428} Night Run · {area:430} Satyrnaar
 	["The {npc:12864} patrols the road east of {area:428} toward the {area:430}."] = "{npc:12864}은(는) {area:428} 동쪽에서 {area:430} 쪽으로 길을 순찰합니다.",
 
-	-- Step 9: Va'xug Firefure
+	-- Step 10: Va'xug Firefure
 	-- {npc:267214} Va'xug Firefure · {area:415} Astranaar
 	-- plural, as words: Shadowhorn Stags = {npc:3817} Shadowhorn Stag · Ashenvale Bears = {npc:3809} Ashenvale Bear
 	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "",
 
-	-- Step 10: A Void Path
+	-- Step 11: A Void Path
 	-- {npc:267214} Va'xug Firefure · {npc:271181} Eye of Kilrogg
 	["Steer {npc:267214}'s {npc:271181} out of the ravine to the main road within four minutes; if the channel breaks, ask {npc:267214} again."] = "{npc:267214}의 {npc:271181}을(를) 조종해 4분 안에 협곡에서 큰길까지 데려가세요. 정신 집중이 끊기면 {npc:267214}에게 다시 부탁하세요.",
 	-- {npc:271181} Eye of Kilrogg
 	["{npc:271181}, on the road"] = "길 위의 {npc:271181}",
 
-	-- Step 11: Zoram'gar Outpost
+	-- Step 12: Zoram'gar Outpost
 	-- {area:331} Ashenvale · {area:415} Astranaar · {area:2897} Zoram'gar Outpost · {area:414} Zoram Strand
 	["Head west along the main road across {area:331}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west. Its other quests are for the next visit, at 27."] = "",
 
-	-- Step 12: Zoram'gar Outpost
+	-- Step 13: Zoram'gar Outpost
 	-- {area:392} Ratchet · {area:2897} Zoram'gar Outpost · {area:331} Ashenvale
 	["Fly from {area:392} to {area:2897} on the {area:331} coast."] = "",
 
-	-- Step 13: Naga heads
+	-- Step 14: Naga heads
 	["Naga heads"] = "나가 머리",
 	["Every Wrathtail naga along the strand north of the outpost drops heads."] = "전초기지 북쪽 해안을 따라 있는 성난지느러미일족 나가는 모두 머리를 떨어뜨립니다.",
 
-	-- Step 15: Back to Kadrak
+	-- Step 16: Back to Kadrak
 	-- {npc:8582} Kadrak
 	["Back to {npc:8582}"] = "{npc:8582}에게 돌아가기",
 	-- {area:431} Splintertree Post · {area:1703} Mor'shan Rampart
 	["Fly to {area:431} and head south down the road to the {area:1703}."] = "",
-
-	-- Step 18: Deepmoss Egg on the way
-	-- {item:5570} Deepmoss Egg
-	["{item:5570} on the way"] = "",
 
 	-- Step 19: Malaka'jin
 	-- {area:380} Crossroads · {area:17} The Barrens · {area:2539} Malaka'jin
@@ -147,65 +139,65 @@ return {
 	-- {npc:11861} Mor'rogal · {npc:11862} Tsunaman
 	["{npc:11861}, beside {npc:11862}"] = "{npc:11862} 옆의 {npc:11861}",
 
-	-- Step 31: Malaka'jin
+	-- Step 30: Malaka'jin
 	-- {area:1076} Webwinder Path · {area:2539} Malaka'jin
 	["Head back down the {area:1076} to {area:2539}."] = "",
 
-	-- Step 33: Fly to Orgrimmar
+	-- Step 32: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "",
 	-- {area:380} Crossroads
 	["{area:380} flight master"] = "",
 
-	-- Step 34: Paladin trainer
+	-- Step 33: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 35: Druid trainer
+	-- Step 34: Druid trainer
 	["Druid trainer"] = "",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
 
-	-- Step 36: Orgrimmar flight master
+	-- Step 35: Orgrimmar flight master
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 37: Orgrimmar
+	-- Step 36: Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637} to train."] = "",
 
-	-- Step 38: The Binding
+	-- Step 37: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:6626} Dogran's Pendant
 	["{npc:5875} stands in the {object:172960}. Use {item:6626} on the summoning circle there and defeat the succubus to bind her."] = "",
 
-	-- Step 39: Shenthul
+	-- Step 38: Shenthul
 	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
 	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "",
 
-	-- Step 41: Zeppelin to Undercity
+	-- Step 40: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
-	-- Step 43: Beren's Peril
+	-- Step 42: Beren's Peril
 	-- {area:272} Tarren Mill · {zone:1458} Undercity · {area:228} Sepulcher · {area:231} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
 	["If you already know the {area:272} flight path, fly there and skip to {area:272}. Otherwise fly from the {zone:1458} to the {area:228} and head south down the road past Pyrewood. The Ravenclaw undead haunt the ruins of {area:231} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "",
 	["Below ground"] = "",
 
-	-- Step 44: The Offering of Blood
+	-- Step 43: The Offering of Blood
 	-- {npc:212753} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "{object:645153}에서 {npc:212753}을(를) 사용해 자발적인 제물로 바치고, 응답하는 {npc:212753}을(를) 처치하세요. {quest:95883}은(는) 정예 퀘스트입니다. 파티를 권장합니다.",
 
-	-- Step 45: Beren's Peril
+	-- Step 44: Beren's Peril
 	-- {item:271350} Tortured Soul
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "",
 
-	-- Step 47: Beren's Peril
+	-- Step 46: Beren's Peril
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
 	["{item:271343}, from a {npc:1973}"] = "{npc:1973}에게서 얻는 {item:271343}",
 
-	-- Step 49: Southpoint Tower
+	-- Step 48: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "다시 길을 따라 남쪽으로 가세요. 길이 동쪽 {area:287}(으)로 꺾이는 곳의 {area:285}에서 {npc:2214}이(가) 기다립니다.",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill
@@ -227,6 +219,7 @@ return {
 	-- ["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock."] = "가이아 씨앗은 해바위 야영지 북쪽, {area:464} 남쪽 기슭 주변의 풀밭에 있습니다.",
 	-- ["To the {area:1497}"] = "{area:1497}(으)로",
 	-- ["{item:271350}, from the Tortured Souls among the ruins"] = "폐허의 괴로워하는 영혼에게서 얻는 {item:271350}",
+	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696}은(는) 토막나무 주둔지 바로 북동쪽의 전쟁노래부족 야영지인 {area:428}에서 사냥 게시판 옆에 서 있습니다.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 27."] = "{npc:12696}의 사냥 대상(우르산고우스, 샤둠브라, 뾰족발톱)은 27레벨에 다음으로 {zone:1440}에 올 때 처리합니다.",
 	-- ["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "{npc:4198}의 다음 퀘스트인 오르다누스는 {zone:1440}의 얼라이언스 지역에 있습니다. 건너뛰세요.",
 	-- ["{npc:4606} stands in the {object:36070}."] = "{npc:4606}은(는) {object:36070}에 서 있습니다.",

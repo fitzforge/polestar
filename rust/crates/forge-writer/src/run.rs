@@ -250,6 +250,15 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 			}
 		}
 	}
+	// (The seed's notes above each written guide's first step go, once every pass has run.)
+	for rel in &written {
+		if let Some(t) = tree.get(rel) {
+			let t2 = re!(r"\n{3,}").replace_all(&crate::apply::without_seed_notes(t), "\n\n").into_owned();
+			if t2 != *t {
+				tree.insert(rel.clone(), t2);
+			}
+		}
+	}
 	let changed: Vec<String> = tree.iter().filter(|(k, v)| inp.guides.get(*k) != Some(*v)).map(|(k, _)| k.clone()).collect();
 	let unwritable =
 		if r.unwritable.is_empty() { String::new() } else { format!(" ({} not written: no source for their items)", r.unwritable.iter().map(u32::to_string).collect::<Vec<_>>().join(", ")) };

@@ -2,108 +2,14 @@
 guide forever/horde/07-ashenvale
 title Ashenvale & Thousand Needles
 faction Horde
-levels 27-31
+levels 27-30
 zone Ashenvale
 next forever/horde/30-40/01-desolace
 
-# v1 improved: order from the simulator's search (Orc Horde, 2000000 tries, seeded with v1's order;
-# 124.5 h -> 116.8 h to 60 in the model), written by polestar apply-route.
-# Added here: Hypercapacitor Gizmo (5151).
-# 1 goals moved in from other guides of the chain.
-# The notes above describe v1's order; the steps below are the improved one.
-
-# Built from the simulator's consensus Horde route (export
-# consensus-horde-tauren, visits 13-15) and Era-baseline reference data;
-# not yet play-tested on Forever.
-#
-# Flow: fly from Ratchet to Zoram'gar Outpost -> the Zoram Strand (Vorsha,
-# Sapphires of Aku'Mai) -> Thistlefur Village and Hold (Ruul's escort) ->
-# Zoram'gar -> east: Ursangous, Alonso and Tideress at Mystral Lake -> the
-# Foulweald (King of the Foulweald) -> Torek's assault and the Outrunners ->
-# Splintertree Post (bind) -> Sharptalon -> Felmusk satyrs -> Shadumbra ->
-# Mystral Lake (Stonetalon Standstill) -> hearth to Splintertree -> fly to
-# Zoram'gar -> Thunder Bluff (flight path) -> Gloomrise, north of the bluffs
-# -> fly to Camp Taurajo, down the Great Lift to Freewind Post
-# (flight path, bind) -> Alien Egg -> Galak camps -> Dorn Plainstalker ->
-# Freewind -> Grimtotem camps -> Darkcloud Pinnacle (Lakota) -> Whitereach
-# Post and Highperch -> Roguefeather Den (Grenka, Jandia's harpies) ->
-# Freewind -> Dorn -> the Shimmering Flats -> hearth to Freewind Post, where
-# the next guide flies on to Orgrimmar.
-#
-# Deviations from the export:
-# - Ashenvale: the export flies back and forth between Splintertree and
-#   Zoram'gar (Karang's quests, the Foulweald) and visits Mystral Lake twice.
-#   Here Karang's quests are handed in before heading east, the Foulweald,
-#   Ursangous, Alonso and Tideress are done on the way east, and one hearth
-#   and one flight to Zoram'gar at the end cover King of the Foulweald and
-#   Je'neu of the Earthen Ring. The export binds at Splintertree and hearths
-#   there twice; here one hearth does.
-# - Dustwallow: the export ends this stay with Brackenwall Village and Witch
-#   Hill at about 30, where the quests are level 35, the Theramore
-#   Infiltrators 35-36 and the Theramore docks crowded with Young Murk
-#   Threshers (40-41). Theramore Spies (1201), Soothing Spices (1218) and the
-#   Loose Dirt pair (1238, 1239, with The Troll Witchdoctor 1240) move to
-#   forever/horde/30-40/04-dustwallow-marsh at 39, which already stays in
-#   Brackenwall. The Theramore Docks (1202) is dropped: the footlocker lies
-#   among the threshers and below the Theramore guards.
-# - The Lost Pages (6504) is optional: the export hands it in on the spot,
-#   but its twelve manual pages drop at about 1% from Ashenvale mobs.
-# - Thousand Needles: the export runs to the Shimmering Flats first and comes
-#   back; here the western half is done first and the Flats quests are done
-#   in one trip at the end. Free at Last (4904) is picked up from Lakota on
-#   Darkcloud Pinnacle (the export takes it in the Barrens in the previous
-#   guide). Message to Freewind Post (4542) is picked up from Brave Moonhorn
-#   at the top of the Great Lift on the way down (the export takes it in the
-#   previous guide, below his level-23 requirement).
-# - Test of Endurance (1150) needs Grenka's Claw (Roguefeather Den); the
-#   export hands it in without the trip. Test of Strength (1151) needs
-#   Rok'Alim the Pounder, an elite: optional. Its follow-up, Test of Lore
-#   (1152), is not taken: it ends with Braug Dimspirit in Stonetalon, which
-#   the route does not visit again.
-# - Mirage Raceway: Trackmaster Zherin and Pozzik, the first two you reach
-#   coming off the flats, before the Brassbolts and Kravel.
-#
-# Optional: Test of Strength (1151): Rok'Alim the Pounder is elite: grouping
-# up is advised.
-#
-# Carried on: Hemet Nesingwary (5762) and Martek the Exiled (1106, the
-# Badlands in forever/horde/30-40/03-arathi-highlands) are turned in later
-# on the route.
-#
-# Added from the new consensus route (Forever quests, from data; the beta
-# caps at 30, so the level-30-31 parts are not checked in game):
-# - Gloomrise in Mulgore: Talkin' bout Toxins, Mon (96241, Mazu'kon),
-#   Stronger than Steel (96260, Yorn Grimtotem), Defending the Dead (96259,
-#   Muln Earthfury) and A Darker Truth (96294, from Broodmother Valraxx's
-#   Bloody Parchment). The Earthen Ring camp (Mulgore 32.5,20.6) and the
-#   spiders (27-29, Mulgore 31-36,7-14) are just north of Thunder Bluff, so
-#   the flight from Zoram'gar goes to Thunder Bluff instead of straight to
-#   Camp Taurajo (the export does them at about 28.5 between Stonetalon and
-#   Thousand Needles). Characters without the Thunder Bluff flight path ride
-#   in from Camp Taurajo and take it.
-# - Stop the Screeching (98070, Jandia at Freewind Post): the Screeching
-#   harpies are the Roguefeather Den ones the route fights for Grenka's Claw.
-# - Skyborne: Cairne Bloodhoof is visited on the Thunder Bluff stop for
-#   Exploring the Horde (93739, from forever/horde/03-silverpine-forest);
-#   Thrall takes it back in forever/horde/30-40/01-desolace.
-#
-# Restored: Wanted - Arnak Grimtotem (5147): the poster is at Freewind, Arnak
-# (29, not elite) stands beside Lakota on Darkcloud Pinnacle, and the
-# turn-in is the Freewind stop after it.
-#
-# Left out: Warsong Supplies (6571) and A New Ore Sample (1153): the export
-# picks them up and never hands them in. Sacred Fire (5062): its turn-in at
-# Magatha in Thunder Bluff is not on the route any more. The Blackfathom
-# Deeps follow-ups from Je'neu (dungeon). The Sacred Flame (1197) needs 1195
-# and 1196 (an Etched Phial from Stonetalon, filled at a moonwell, then
-# Thunder Bluff), none of them on this route. Keeping Pace and Rizzle's
-# Schematics (1190, 1194) need News for Fizzle (1137, from the Badlands
-# chain 1108), not on this route.
-#
-# Class quests: Shamans fill Brine's blue waterskin (Call of Water 1534) at
-# the fountain in the Ruins of Stardust while hunting Ursangous and hand it to
-# Brine on the road south from Camp Taurajo; Vial of Purest Water (220) goes on
-# to Islen Waterseer in forever/horde/30-40/01-desolace.
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151).
 
 step Fly to Zoram'gar Outpost
   zone The Barrens
@@ -216,6 +122,9 @@ step Torek's Assault
   complete 6544
 
 step Splintertree Post
+  accept 6441                         -- Pixel
+
+step Splintertree Post
   when onquest 1918
   turnin 1918                         -- Mastok Wrilehiss
 
@@ -293,15 +202,20 @@ step The Earthen Ring
   zone Mulgore
   tip Take a lift down from Thunder Bluff. The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury.
   accept 96260                        -- Yorn Grimtotem
-  accept 96259                        -- Muln Earthfury
   accept 96241 @32.5,20.6 live        -- Mazu'kon
+  accept 96261
+  accept 96259                        -- Muln Earthfury
 
-step Gloomrise
+step Gloomrise: kill these as you meet them
+  zone Mulgore
   tip North of the camp, spiders overrun the burial ground at Gloomrise. Use Mazu'kon's Toxin Extractor on the Gnawed Corpses; the Spinners drop the Crystalline Silk. Broodmother Valraxx sits at the north end: her Bloody Parchment starts A Darker Truth.
+  collect 273181 quest 96260.1        -- Crystalline Silk, from Gloomrise Spinners
   kill 264083 quest 96259.1
   kill 264079 quest 96259.2
   collect 273001 quest 96241.1        -- Gloomrise Toxin Samples, from the Gnawed Corpses
-  collect 273181 quest 96260.1        -- Crystalline Silk, from Gloomrise Spinners
+  kill 264082 quest 96261.1
+
+step Gloomrise
   collect 273658 @33.4,7.6 live optional -- Bloody Parchment, from Broodmother Valraxx
   accept 96294 item 273658 optional
 
@@ -309,6 +223,7 @@ step The Earthen Ring
   tip Back south to the camp, then up into Thunder Bluff for the flight to Camp Taurajo.
   turnin 96260                        -- Yorn Grimtotem
   turnin 96241                        -- Mazu'kon
+  turnin 96261
   turnin 96259                        -- Muln Earthfury
   turnin 96294 optional
 
@@ -408,16 +323,19 @@ step Freewind Post
   turnin 4821                         -- Hagar Lightninghoof
   accept 4865
 
-step Into The Barrens
-  zone The Barrens
-  goto 44.1,91.2 "Into The Barrens"
+step Thousand Needles
+  zone Thousand Needles
+  goto 31.8,32.6 "Thousand Needles"
 
-step The Barrens
-  zone The Barrens
-  goto 46.7,94.2 "The Barrens"
+# ---------------------------------------------------------------- Darkcloud Pinnacle and Whitereach Post
+
+step Darkcloud Pinnacle
+  tip West of Freewind, the Grimtotem camps below Darkcloud Pinnacle. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps.
+  interact 176344 quest 5064.1 @31.8,32.6 map 1441 -- Document Chest, north-west camp
+  interact 190483 quest 5064.2 @33.8,40.0 map 1441 -- Document Chest, south-west camp
+  interact 190484 quest 5064.3        -- Document Chest, south-east camp
 
 step Lakota Windsong
-  zone Thousand Needles
   tip Climb the path to the top of Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.
   collect 12884 quest 5147 @38.1,26.9 -- Arnak Grimtotem
   accept 4904 @37.95,26.45            -- Lakota Windsong
@@ -444,57 +362,56 @@ step Back to Freewind Post
   goto 44.5,59.1 "Camp Taurajo flight master"
   fly "Freewind Post"
   zone Thousand Needles
-  goto 31.8,32.6 "Thousand Needles"
-
-# ---------------------------------------------------------------- Darkcloud Pinnacle and Whitereach Post
-
-step Grimtotem camps
-  zone Thousand Needles
-  tip West of Freewind, the Grimtotem camps below Darkcloud Pinnacle. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps.
-  interact 176344 quest 5064.1        -- Document Chest, north-west camp
-  interact 190483 quest 5064.2        -- Document Chest, south-west camp
-  interact 190484 quest 5064.3        -- Document Chest, south-east camp
-
-step Whitereach Post
-  tip Follow the canyon west to Whitereach Post.
-  turnin 4865                         -- Motega Firemane
-
-step Whitereach Post
-  when group 5151
-  accept 5151 only Tauren,Troll,Undead
-
-step Whitereach Post
-  note Motega's next quest, Sacred Fire, ends in Thunder Bluff, off this route. Skip it.
-  turnin 4881 optional -- Kanati Greycloud
-  accept 4966
-  complete 4966                       -- Kill the Galak Assassin that comes for Kanati
-  turnin 4966
+  goto 11.6,34.3 "Thousand Needles"
 
 step Highperch
+  zone Thousand Needles
   tip West of Whitereach the wyverns nest on the Highperch cliffs; the eggs lie in the nests. Pao'ka Swiftmountain waits on the east side of the nesting grounds: free him and keep him alive on the walk back to Whitereach Post.
   tip Careful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom.
   collect 12356 quest 4767
   accept 4770                         -- Pao'ka Swiftmountain
   complete 4770
 
-step Whitereach Post
+step Wizlo Bearingshiner
   turnin 4770                         -- Motega Firemane
-
-step Hypercapacitor Gizmo
-  when group 5151
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Skip it if you are alone: the route has you grind the XP back.
-  collect 12946 quest 5151.1 @22.8,24.6 map 1441 only Tauren,Troll,Undead
+  turnin 4865                         -- Motega Firemane
+  note Motega's next quest, Sacred Fire, ends in Thunder Bluff, off this route. Skip it.
+  turnin 4881 optional -- Kanati Greycloud
+  accept 4966
 
 step Wizlo Bearingshiner
   when group 5151
-  turnin 5151 only Tauren,Troll,Undead
+  accept 5151
+
+step Hypercapacitor Gizmo
+  when group 5151
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Enraged Panther is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  collect 12946 quest 5151.1 @22.8,24.6 map 1441
+
+step Whitereach Post
+  complete 4966                       -- Kill the Galak Assassin that comes for Kanati
+
+step Whitereach Post
+  when onquest 4966
+  turnin 4966
+
+step Wizlo Bearingshiner
+  when group 5151
+  turnin 5151
+
+step Level 29.49
+  when !group 5151
+  when level<29.49
+  tip If you skipped Hypercapacitor Gizmo, grind here to level 29.49 to stay on the route's plan.
+  goto 27.0,51.9 map 1441 "Screeching Roguefeather"
+  level 29.49                          -- grind on Screeching Roguefeather
 
 step The Screeching Canyon: kill these as you meet them
   zone Thousand Needles
   tip South of Darkcloud, the harpies of Roguefeather Den. Grenka Bloodscreech (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are Jandia's.
   kill 4101 quest 98070.2
-  kill 4100 quest 98070.1
   kill 4104 quest 98070.3
+  kill 4100 quest 98070.1
   collect 5843 quest 1150
 
 step Test of Endurance
@@ -502,8 +419,8 @@ step Test of Endurance
 
 step Freewind Post
   turnin 4767                         -- Elu
-  turnin 5064                         -- Cliffwatcher Longhorn
   turnin 5147
+  turnin 5064                         -- Cliffwatcher Longhorn
   turnin 4904                         -- Thalia Amberhide, inside
   turnin 98070                        -- Jandia, inside
   vendor nearest
@@ -512,8 +429,8 @@ step Freewind Post
 
 step Mirage Raceway
   tip Follow the canyon east out of the mesas onto the salt flats. The goblins and gnomes of the Mirage Raceway are neutral and give quests to both factions.
-  accept 5762                         -- His crate is for Stranglethorn, later on the route
   accept 1110                         -- Kravel Koalbeard
+  accept 5762                         -- His crate is for Stranglethorn, later on the route
   accept 1104                         -- Fizzle Brassbolts
   accept 1105                         -- Wizzle Brassbolts
   accept 1175                         -- Trackmaster Zherin
