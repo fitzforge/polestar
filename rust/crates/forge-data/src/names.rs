@@ -79,7 +79,7 @@ local function walk(t)
   add(from, t.fromId)
   add(from, t.fromAlsoId)
 end
-Polestar = { RegisterGuide = function(g) if type(g) == "table" then walk(g) end return true end }
+Polestar = { RegisterGuide = function(g) if type(g) == "table" then walk(g) end return true end, RetireGuides = function() end }
 "#;
 
 /// The quest database's ids: the "\n<id>\t" lines of each kind's LuaChunks text (Q.AddChunk).
