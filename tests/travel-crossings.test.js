@@ -250,7 +250,9 @@ const realData = fs.existsSync(path.join(DATA, 'map-frames.json')) || 'data/fore
 // flew to Sun Rock Retreat and walked straight over the ridge between
 // Stonetalon and Ashenvale. The way through is the Talondeep Path.
 test('shipped crossings: from the Barrens to Astranaar the walk from Sun Rock Retreat goes through the Talondeep Path, not over the ridge', { skip: realData === true ? false : realData }, () => {
-	const real = new Frames(JSON.parse(fs.readFileSync(path.join(DATA, 'map-frames.json'), 'utf8')).era, JSON.parse(fs.readFileSync(path.join(DATA, 'zones.json'), 'utf8')));
+	const mapFrames = JSON.parse(fs.readFileSync(path.join(DATA, 'map-frames.json'), 'utf8'));
+	// (the Riverglades' crossings are in the Forever client's frame, as travel build reads them)
+	const real = new Frames(mapFrames.era, JSON.parse(fs.readFileSync(path.join(DATA, 'zones.json'), 'utf8'))).withForever(mapFrames.forever);
 	const v = validateCrossings(JSON.parse(fs.readFileSync(SHIPPED, 'utf8')), real);
 	assert.deepEqual(v.errors, []);
 	const talondeep = v.crossings.find((c) => c.a.map === 1440 && c.b.map === 1442);

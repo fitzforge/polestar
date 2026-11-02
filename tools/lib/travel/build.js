@@ -287,8 +287,11 @@ async function buildTravel({
 	const areaWarnings = areas ? [] : [`no cached WoW Forever AreaTable under ${path.join(sourcesDir, 'wago')}: the inns get no area (\`data build\` downloads it)`];
 	const paths = buildPaths({ recordings, frames });
 	const recorded = recordedCrossings(paths.zoneSteps, frames);
-	const local = readCrossingsFile(crossingsFile, frames);
-	const shipped = readCrossingsFile(shippedFile, frames);
+	// (A crossing's end on a map Forever added, with no Era frame, is in the Forever client's frame:
+	// the Riverglades' ways to Redridge, the Badlands and the Swamp of Sorrows.)
+	const crossingFrames = frames.withForever(mapFrames.forever);
+	const local = readCrossingsFile(crossingsFile, crossingFrames);
+	const shipped = readCrossingsFile(shippedFile, crossingFrames);
 	const shippedSource = shipped ? JSON.parse(fs.readFileSync(shippedFile, 'utf8')).source || path.basename(shippedFile) : null;
 	const warnings = [...src.warnings, ...(forever ? forever.warnings : []), ...(transitTables ? transitTables.warnings : []), ...transitWarnings, ...taxi.warnings, ...gridWarnings, ...tr.warnings, ...transit.warnings, ...areaWarnings, ...inns.warnings, ...paths.warnings];
 

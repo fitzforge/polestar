@@ -37,9 +37,10 @@ const LIMITS = {
 
 const KEYS = {
 	top: ['schema', 'frame', 'source', 'build', 'crossings', 'open', 'chains'],
-	crossing: ['id', 'a', 'b', 'ab', 'ba', 'oneWay'],
+	// (`source`: where a crossing the top-level source does not cover comes from.)
+	crossing: ['id', 'a', 'b', 'ab', 'ba', 'oneWay', 'source'],
 	end: ['map', 'x', 'y', 'z', 'radius', 'offMap'],
-	open: ['a', 'b', 'oneWay'],
+	open: ['a', 'b', 'oneWay', 'source'],
 	chain: ['id', 'name', 'open', 'nodes', 'note'],
 	node: ['map', 'x', 'y', 'z', 'radius', 'caption', 'back', 'offMap'],
 };
