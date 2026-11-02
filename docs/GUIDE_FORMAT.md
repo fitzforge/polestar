@@ -805,7 +805,7 @@ Errors:
   the other faction, or whose `race` or `class` leaves none of this guide's
   characters (no race in common, no class in common, or no race of this guide
   that can be one of its classes): `no Human character can follow
-  forever/alliance/dwarf-gnome/01-dun-morogh (it is for Dwarf/Gnome only)`.
+  forever/alliance/dwarf/01-dun-morogh (it is for Dwarf only)`.
   A partial overlap is fine
 - a step with no goals
 - quest, npc, item or object id unknown in data **and** no explicit name/title

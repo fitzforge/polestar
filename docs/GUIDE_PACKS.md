@@ -383,7 +383,7 @@ strings"](PACK_FORMAT.md#import-strings). Strings are covered by the same
 | You want to… | Read |
 |---|---|
 | Write your first pack, step by step | [PACKS.md, "A first pack in 15 minutes"](PACKS.md#a-first-pack-in-15-minutes) |
-| Write guides by playing, from the simulator, by hand or with an AI assistant | [PACKS.md, "Four ways to write guides"](PACKS.md#four-ways-to-write-guides) |
+| Write guides by playing, by hand or with an AI assistant | [PACKS.md, "Three ways to write guides"](PACKS.md#three-ways-to-write-guides) |
 | Look up a guide line quickly | [GUIDE_CHEATSHEET.md](GUIDE_CHEATSHEET.md) |
 | Read the whole guide format | [GUIDE_FORMAT.md](GUIDE_FORMAT.md) |
 | Fix a lint message or an in-game problem | [PACKS.md, "Lint messages"](PACKS.md#lint-messages) and ["In game: statuses and problems"](PACKS.md#in-game-statuses-and-problems) |

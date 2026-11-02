@@ -904,46 +904,50 @@ That simulator's method and parameters are in
 
 Guides are plain text, compiled to Lua. The compiler fills in names, titles
 and coordinates from the reference data, so a line can be as short as
-`accept 788`. From the Orc and Troll starting guide,
-[`guides/forever/horde/orc-troll/01-durotar.guide`](guides/forever/horde/orc-troll/01-durotar.guide):
+`accept 788`. From the Orc starting guide (written by the route generator,
+so it is fixed through its records, never by hand),
+[`guides/forever/horde/orc/01-durotar.guide`](guides/forever/horde/orc/01-durotar.guide):
 
 ```
-guide forever/horde/orc-troll/01-durotar
+guide forever/horde/orc/01-durotar
 title Durotar
 faction Horde
-race Orc,Troll
+race Orc
 levels 1-12
 zone Durotar
-next forever/horde/orc-troll/02-the-barrens
+next forever/horde/orc/02-the-barrens
 
-step Gornek
+step Kaltunk
+  accept 4641                         -- Kaltunk, where you start
   tip Gornek waits inside the Den, the building just west of Kaltunk.
-  turnin 4641
+  turnin 4641                         -- Inside
   accept 788
   accept 97279
 
 step Training weapons and boars
   tip The weapons lie around the Den and the training grounds; the Mottled Boars roam the whole valley floor.
-  collect 277653 quest 97279.1
   kill 3098 quest 788.1
+  collect 277653 quest 97279.1
+  goto 42.4,68.6 "The Den"
 ```
 
-The second step compiles to (goals wrapped here; the compiler writes each
-on one line):
+The second step's first two goals compile to (wrapped here; the compiler
+writes each on one line):
 
 ```lua
 {
   title = "Training weapons and boars",
   note = "The weapons lie around the Den and the training grounds; the Mottled Boars roam the whole valley floor.",
   goals = {
-    { t = "collect", quest = 97279, title = "Wayward Weapons",
-      item = 277653, itemName = "Abandoned Training Weapon", count = 6, oi = 1,
-      map = 1411, x = 44, y = 67.2, f = "e",
-      spots = { { x = 44.4, y = 66.6, r = 45, n = 4 }, --[[ eleven more spawn clusters ]] } },
     { t = "kill", quest = 788, title = "Cutting Teeth",
       target = "Mottled Boar", npc = 3098, count = 10, oi = 1,
       map = 1411, x = 44.49, y = 65.1, f = "e",
       spots = { { x = 45, y = 65.7, r = 56, n = 8 }, --[[ ten more spawn clusters ]] } },
+    { t = "collect", quest = 97279, title = "Wayward Weapons",
+      item = 277653, itemName = "Abandoned Training Weapon", count = 6, oi = 1,
+      map = 1411, x = 44, y = 67.2, f = "e",
+      spots = { { x = 44.4, y = 66.6, r = 45, n = 4 }, --[[ eleven more spawn clusters ]] } },
+    -- the goto follows
   },
 },
 ```
