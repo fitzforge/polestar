@@ -106,6 +106,9 @@ function at(list, what, pred) {
 	return i;
 }
 const is = (t, quest) => (g) => g.t === t && g.quest === quest;
+// The list with the goals of `along` steps blanked, indices kept: such a step only lists what to pick
+// up on the way until its label; the step that does the work is the labelled one.
+const working = (list) => list.map((e) => (e.step.along ? { ...e, goal: {} } : e));
 const located = ({ goal }) => goal.map != null && goal.x != null;
 // Goals every character of the guide does (no `only` on the goal or its step).
 const everyone = ({ step, goal }) => !step.only && !goal.only;
@@ -519,8 +522,10 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Kh
 	assert.ok(eric < tharek && tharek < tannok, 'Eric\'s campfire, then Tharek\'s forge, then inside');
 	const inside = list.filter(({ step }) => step === list[tannok].step);
 	assert.equal(inside[inside.length - 1].goal.t, 'train', 'class training is the last goal of the distillery visit');
-	const bind = inside.find(({ goal }) => goal.t === 'sethome');
-	assert.ok(bind && located(bind), 'the bind leads to the innkeeper');
+	// The bind is made on a Kharanos visit (the first or the return), before the hearth that needs it.
+	const bind = at(list, 'sethome (the Thunderbrew Distillery)', (g) => g.t === 'sethome');
+	assert.ok(located(list[bind]), 'the bind leads to the innkeeper');
+	assert.ok(tannok < bind && bind < at(list, 'hearth', (g) => g.t === 'hearth'), 'bound in Kharanos before the hearth back to it');
 });
 
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Camping 101: Cooking waits for the return to Kharanos, the lesson before the turn-in`, { skip }, () => {
@@ -605,9 +610,12 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: ki
 		const kills = list.filter(({ goal }) => (goal.t === 'kill' || goal.t === 'collect') && goal.quest === quest && goal.npc === npc);
 		const early = kills.find(({ goal }) => goal.optional);
 		assert.ok(early, `${name}: an optional kill goal`);
-		assert.equal(early.step, list[at(list, name, along)].step, `${name}: in that step`);
+		// Counted on the way: in that step, or in an `along` list open through it (from before it to its label after it).
+		const there = at(list, name, along);
+		const until = early.step.along && list.findIndex(({ step }) => step.label === early.step.along);
+		assert.ok(early.step === list[there].step || (early.step.along && list.indexOf(early) < there && until > there), `${name}: in that step, or listed along the way through it`);
 		const later = kills.find(({ goal }) => !goal.optional);
-		assert.ok(later && later.step !== early.step && list.indexOf(later) > list.indexOf(early), `${name}: a required kill goal in a later step finishes it`);
+		assert.ok(later && later.step !== early.step && !later.step.along && list.indexOf(later) > list.indexOf(early), `${name}: a required kill goal in a later step finishes it`);
 	}
 });
 
@@ -1068,7 +1076,9 @@ test(`${TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to
 
 const BADLANDS = 'forever/alliance/30-40/06-badlands.guide';
 test(`${BADLANDS}: the same pattern as #89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it`, { skip }, () => {
-	const list = goals(BADLANDS);
+	// Nijel's Point (1454) is taken from Kreldig Ungor on the first Desolace visit and carried
+	// through the guides between to the chest: the list is the chain from that guide.
+	const list = ['02-desolace', '03-ashenvale', '04-stranglethorn-vale', '05-arathi-highlands', '06-badlands'].flatMap((g) => goals(`forever/alliance/30-40/${g}.guide`));
 	const take = at(list, 'accept 6027 (Book of the Ancients)', is('accept', 6027));
 	assert.ok(at(list, 'accept 1454 (Nijel\'s Point)', is('accept', 1454)) < take, 'after Nijel\'s Point');
 	assert.ok(take < at(list, "turnin 1454 (Karnitol's Chest)", is('turnin', 1454)), 'before the chest');
@@ -1343,7 +1353,7 @@ test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, 
 
 test('forever/alliance/03-darkshore.guide: the Grizzled Scalps are collected in the step at the Grove, where the bears are and Buzzbox 525 takes them', { skip }, () => {
 	const list = goals(DARKSHORE);
-	const i = at(list, 'Grizzled Scalp', (g) => g.t === 'collect' && g.item === 5414);
+	const i = at(working(list), 'Grizzled Scalp', (g) => g.t === 'collect' && g.item === 5414);
 	const turnin = at(list, 'turnin 1003', is('turnin', 1003));
 	assert.equal(list[i].step, list[turnin].step, 'one step: the bears and Buzzbox 525');
 	assert.ok(i < turnin);
@@ -1668,10 +1678,12 @@ test(`${ELWYNN}: Zepheriel's report (#310): Skirmish at Echo Ridge is taken from
 // --- Croaky's Head (Syfin, #221): Croaky, a named elite, roams the murloc
 // shore south of the Eastvale bridge, along the river where the first east
 // loop searches for Ormin Pelford's Waterlogged tools. Its head starts Croaky's
-// Head for Merell Ross at Ridgepoint Tower, a short way east. The loot and the
-// accept are optional goals of that river step; the turn-in is a plain goal of
-// a Ridgepoint Tower step, which holds only a player who took the quest (an
-// optional accept vouches for nobody who did not).
+// Head for Merell Ross at Ridgepoint Tower, a short way east. The loot is an
+// optional goal of that river step; the accept (optional) and the Ridgepoint
+// Tower turn-in are steps of their own for a player who answers the group
+// question with "do" (as one who loots the head does when the route asks),
+// and the turn-in holds only a player who took the quest (an optional accept
+// vouches for nobody who did not).
 
 test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head`, { skip }, () => {
 	const pack = buildSimPack([ELWYNN]);
@@ -1699,6 +1711,11 @@ test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridg
 					for _, v in ipairs(E.GetStepView(E.GetStepIndex()).goals) do
 						if v.quest == 91740 or v.item == 247826 then murlocs[#murlocs + 1] = v.t .. " " .. tostring(v.optional) end
 					end
+					for i, s in ipairs(SIM_GUIDE.steps) do
+						for _, v in ipairs(s.goals) do
+							if v.t == "accept" and v.quest == 91740 then murlocs[#murlocs + 1] = "accept " .. tostring(v.optional) end
+						end
+					end
 				end
 				return progress(q, ...)
 			end
@@ -1714,12 +1731,13 @@ test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridg
 			local view
 			for i, s in ipairs(SIM_GUIDE.steps) do if s.title == "Ridgepoint Tower" then view = E.GetStepView(i).goals[1].status end end
 			emit({ murlocs = murlocs, ridge = ridge, later = view or false, done = C_QuestLog.IsQuestFlaggedCompleted(91740) })`;
-		for (const head of [false, true]) {
-			const [out, got] = playGuide(pack, g, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', script: watch(head) });
-			const who = head ? 'with the head' : 'without the head';
+		// Without the head, whatever the answer at the group quest; with it, as one who does it.
+		for (const [head, groups] of [[false, 'skip'], [false, 'do'], [true, 'do']]) {
+			const [out, got] = playGuide(pack, g, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', groups, script: watch(head) });
+			const who = `${head ? 'with the head' : 'without the head'}, answering ${groups}`;
 			assert.equal(out.stuck, undefined, `${who}: not stuck: ${JSON.stringify(out.stuck)}`);
 			assert.ok(out.done, `${who}: plays to the end`);
-			assert.deepEqual(got.murlocs, ['collect true', 'accept true'], `${who}: the head and its accept are optional goals of the murloc step`);
+			assert.deepEqual(got.murlocs, ['collect true', 'accept true'], `${who}: the head is an optional goal of the murloc step, its accept optional`);
 			assert.equal(got.done, head, `${who}: Croaky's Head ${head ? 'is' : 'is not'} handed in`);
 			if (head) {
 				assert.equal(got.ridge && got.ridge.title, 'Ridgepoint Tower', 'with the head: handed in at the Ridgepoint Tower step');
@@ -1727,8 +1745,8 @@ test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridg
 				assert.ok(got.ridge.wp && yards(got.ridge.wp, { map: 1429, x, y }) <= 5, `the arrow leads to Merell Ross at Ridgepoint Tower: ${JSON.stringify(got.ridge.wp)}`);
 				assert.equal(got.later, 'done');
 			} else {
-				assert.equal(got.ridge, false, 'without the head: Ridgepoint Tower is passed, nothing is handed in there');
-				assert.equal(got.later, 'na', "without the head: the turn-in is not this player's");
+				assert.equal(got.ridge, false, `${who}: Ridgepoint Tower is passed, nothing is handed in there`);
+				assert.ok(['na', 'skipped'].includes(got.later), `${who}: the turn-in is not this player's: ${got.later}`);
 			}
 		}
 	} finally {
@@ -2232,7 +2250,8 @@ test(`${WESTFALL}: Pynte's report (#416): the farm quests and Report to Gryan St
 	const list = goals(WESTFALL);
 	const report = at(list, 'turnin 109', is('turnin', 109));
 	const hill = list[report];
-	assert.equal(hill.step, list[at(list, 'sethome', (g) => g.t === 'sethome')].step, 'Report to Gryan Stoutmantle is handed in on the first Sentinel Hill stop');
+	assert.equal(hill.goal.npc, 234, 'Report to Gryan Stoutmantle is handed to Gryan');
+	assert.equal(hill.step, list[at(list, "Gryan's first goal", (g) => g.npc === 234)].step, 'Report to Gryan Stoutmantle is handed in on the first Sentinel Hill stop');
 	for (const q of [109, 36, 151, 64, 9, 22, 92909]) {
 		const i = at(list, `accept ${q}`, is('accept', q));
 		assert.ok(i < report, `${q} is taken before Sentinel Hill`);
@@ -2243,8 +2262,10 @@ test(`${WESTFALL}: Pynte's report (#416): the farm quests and Report to Gryan St
 	const before = list.slice(0, report).filter(located).filter(everyone);
 	before.forEach((g, i) => i && g.step !== before[i - 1].step && assert.ok(g.goal.y >= before[i - 1].goal.y - 3, `${g.step.title} is not north of ${before[i - 1].step.title}`));
 	const elwynn = goals(ELWYNN).filter(everyone);
-	const last = elwynn[elwynn.length - 1].goal;
-	assert.deepEqual([last.t, last.quest, last.npc], ['accept', 109, 963], 'Elwynn ends at Deputy Rainer on the road west');
+	const rainer = elwynn[at(elwynn, 'accept 109 from Deputy Rainer', (g) => g.t === 'accept' && g.quest === 109 && g.npc === 963)].goal;
+	// Elwynn's last stop is the Westbrook Garrison on the road west (Deputy Rainer, or Sergeant De Vries beside him).
+	const last = elwynn.filter(located).at(-1).goal;
+	assert.ok(yards(last, rainer) < 50, `Elwynn ends by Deputy Rainer on the road west, not at the hill: ${last.t} ${last.quest} at ${last.npcName || last.npc}`);
 	assert.ok(!elwynn.some(({ goal }) => goal.t === 'getfp' && goal.node === hill.step.goals.find((g) => g.t === 'getfp').node), 'Elwynn leaves the Sentinel Hill flight path to Westfall');
 });
 
@@ -2424,12 +2445,15 @@ test(`Nittepitte's report (#453): Making Do is optional in Redridge and Ashenval
 // not held.
 
 test(`${ASHENVALE}: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat`, { skip }, () => {
-	const list = goals(ASHENVALE);
+	// Hollee's note is taken in Auberdine on the Darkshore guide and carried through Redridge and
+	// Duskwood to Menethil: the list is the chain from Darkshore.
+	const list = ['03-darkshore', '04-redridge-mountains', '05-duskwood', '06-ashenvale'].flatMap((g) => goals(`forever/alliance/${g}.guide`));
 	const take = at(list, 'accept 98461', is('accept', 98461));
+	assert.equal(list[take].step, list[at(list, 'turnin 731 (Hollee in Auberdine)', is('turnin', 731))].step, 'taken from Hollee on the Auberdine stop');
 	const give = at(list, 'turnin 98461', is('turnin', 98461));
 	const excavation = at(list, 'accept 305', is('accept', 305));
 	assert.ok(take < give && give < excavation, 'the note is taken, then handed in, then 305 is taken');
-	assert.equal(list[give].s, list[excavation].s, 'the hand-in is in the same Menethil step as 305');
+	assert.equal(list[give].step, list[excavation].step, 'the hand-in is in the same Menethil step as 305');
 	assert.ok(list[take].goal.optional && list[give].goal.optional, 'both goals are optional');
 });
 
@@ -2440,7 +2464,8 @@ test(`${ASHENVALE}: Ioney's report (#524): Unrequited Love is handed to Tarrel R
 
 test(`${ASHENVALE}: Ioney's report (#614): Sida's Bag is searched for at Ironbeard's Tomb, not at the oozes across the Wetlands`, { skip }, () => {
 	const list = goals(ASHENVALE);
-	const { goal } = list[at(list, 'collect 3349', (g) => g.t === 'collect' && g.item === 3349 && g.quest === 470)];
+	// The step that searches for the bag, not the passive `along` list before it.
+	const { goal } = list[at(working(list), 'collect 3349', (g) => g.t === 'collect' && g.item === 3349 && g.quest === 470)];
 	const tomb = ({ x, y }) => x >= 42 && x <= 49 && y >= 23 && y <= 30;
 	assert.ok(goal.map === 1437 && tomb(goal), `the point ${goal.x},${goal.y} is at Ironbeard's Tomb`);
 	const arrow = (goal.spots || []).filter((s) => !s.alt);
